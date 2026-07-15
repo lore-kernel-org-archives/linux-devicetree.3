@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9ED3C1961
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 07:17:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189DF3C09FF;
+	Wed, 15 Jul 2026 07:18:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784099874; cv=none; b=turDme4PE/7b/m2TMDWDlTcxMXqG3b4s606v/Yx5tuJMc84ojsp22aecz68nfOW793+sSGczP27Bgbmd1+PxHyweO3xy47CVIPc02SmrCZs/eLUMcjIhRLlSzxEOvF6Tv17nZwnZTaZjil9L1svFM0EEOPxRuNL9LVo+9a7y+jg=
+	t=1784099912; cv=none; b=fTPwVzNb7RjrRJ4D+KCYB3C7ju1e9lhS6J93mu2lAR42Vk7tR9y8AJxCV3s7kQOHVOYb8bhnVM+OClyN8A7g05JjL5mrJNaGFuRiFv9b9h6ChywYaRZzhklxPOsvaGD5NEV38demf+1WNbcDOqbXoTPNnU0swVyGZ2ThQbdGZaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784099874; c=relaxed/simple;
-	bh=zru9VGkGso8Yd5tNOlGn2LB+qSs1fCvjD2GqsVl4sdI=;
+	s=arc-20240116; t=1784099912; c=relaxed/simple;
+	bh=NZUP0LLs9ErER9blah/mRelTPAcBw+4VWR6Zg/IzRWg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kuhFqrbRngwS5v2/Dv5bu+e3jaKzguUiPkseBwvV14vZkgBKuyL+pijX226+zp351mZlW+T/XWHYqVIqBHWt9kc/r6fso8NQO2CniAlpaDSbvp7pcQgr/C9UoRi4MwbCOEU0j2b/duD+Hwlctv0OFU2UQdSE27wQ0HQn/0aNiBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gjXoaiLa; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=nTOAE26WTqAHhxVkqWlmOwjOy3h1tl3FRgArnZu6qFlIKa9icGEjhcdVFztTqhie8HPS5tadcBqp5N8MA/I7ksKi6z0fuONYT6r92MIdFNDoz/XSw+rfgJ3dtRrX+dRJltEuVvycU99xYQSafiW0ERFe5M8PClU37kAWM+aHZdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=He90+xfG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gjXoaiLa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BFDD1F00A3A;
-	Wed, 15 Jul 2026 07:17:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="He90+xfG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB05D1F000E9;
+	Wed, 15 Jul 2026 07:18:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784099862;
-	bh=hFhJs0y5X0H6FtuJTRBdyVP4BWXv3CWXssiSLcCfi8A=;
+	s=k20260515; t=1784099909;
+	bh=ZKutYLlgtncCXKqO8gzIKyEPaNeILtw+B9PYjAFRAfw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gjXoaiLaekWbr6Xo61Y/NJkra4Za30CL7WTXJ1m0IhxpWkbwI4O50XJn3YQlAkRRP
-	 aZLKK40QDOowiWLo6w13eUuAGuEV5PfSLCrPGZp7puXpiBH/axJdLMut5sB8Z3PqA/
-	 /pXU0/+VQJveLvkpHHtM34xAe/09l5tCnBuLUY8rBGyoSjd00HDNsTp2BFEKRAlEnN
-	 v8dV7mdQHmITW8+C9i+cpWplbh9T5aLYP+HAjYfD4npHL1DD9TkLrRMzO5ZOilmKZe
-	 9KBbyh8Q+Qg1wEgZxptDEgL7XDlse20ibCFEgcnsROnZEAR0yV/qQcIDv5KRhKxxkB
-	 mRUbXhWw/5GYw==
+	b=He90+xfG0PXiaIffokqf3o2tK1k2Xm1e/DNAMziY3jnGoAZjEj5AcAROtsnBc623Q
+	 JF2pS3hcy5neyeVVfBIf+gWzY46lU8ZhdDE00T5/D4DuFELgY8ISO93wbnc5zd4FfZ
+	 Gx8wd3wXUgymvO9Id0BUHZN0WrgE8Or4X6+fY1EaQBlj+hTeMYuCjK5q00S6FztacJ
+	 ehyKcT1CBmJUIVzAn42XAZl7k1uIlIbs68MDsIRB4Yv3UDSVvZbn1ApgCXe8STZsir
+	 XwNGSM6nIKSlY1iLC1OHGe/QzQTXjeNgSP3TCTONHV5WC6gVKngWqlbjK+1BC1YtgS
+	 l0queD8jBsoRA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] phy: qcom: qmp-combo: Add SM8475 support
+Subject: Re: [PATCH 3/4] arm64: dts: imx943-evk: Add CM7 and CM33S nodes
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Esteban Urrutia" <esteuwu@proton.me>
-Cc: neil.armstrong@linaro.org, vkoul@kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com
-In-Reply-To: <20260715-sm8475-bup-usbss-v2-3-2d8def39b190@proton.me>
-References: <20260715-sm8475-bup-usbss-v2-0-2d8def39b190@proton.me>
- <20260715-sm8475-bup-usbss-v2-3-2d8def39b190@proton.me>
+To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
+Cc: imx@lists.linux.dev, Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260715-imx-rproc-dts-v1-3-d02b583c507b@nxp.com>
+References: <20260715-imx-rproc-dts-v1-0-d02b583c507b@nxp.com>
+ <20260715-imx-rproc-dts-v1-3-d02b583c507b@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 07:17:42 +0000
-Message-Id: <20260715071742.6BFDD1F00A3A@smtp.kernel.org>
+Date: Wed, 15 Jul 2026 07:18:28 +0000
+Message-Id: <20260715071828.DB05D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,57 +46,106 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Missing `.calibrate_dp_phy` callback in `sm8475_usb3dpphy_cfg`.
+- [High] Missing reserved memory regions for remoteproc firmware, breaking =
+DDR firmware loading.
 --
 
---- Patch [3]: [PATCH v2 3/3] phy: qcom: qmp-combo: Add SM8475 support ---
-commit a0a582462db23366fd325689e39f4bf172d270ca
-Author: Esteban Urrutia <esteuwu@proton.me>
-phy: qcom: qmp-combo: Add SM8475 support
+--- Patch [3]: [PATCH 3/4] arm64: dts: imx943-evk: Add CM7 and CM33S nodes =
+---
+commit a58e64cf15c23fbbaba6ea1a5241a2bcdda233ef
+Author: Peng Fan <peng.fan@nxp.com>
 
-This commit adds support for the SM8475 SoC to the QMP combo PHY driver,
-including RX and PCS USB tables, and new v1 PLL tables.
+arm64: dts: imx943-evk: Add CM7 and CM33S nodes
 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qual=
-comm/phy-qcom-qmp-combo.c
-> index 699c71876912a..11a67cecf29d5 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+This commit adds remoteproc nodes for Cortex-M7 (CM7-0, CM7-1) and Cortex-M=
+33S
+cores on the imx943-evk. It enables mailbox units and defines reserved memo=
+ry
+regions for vrings, resource tables, and shared DMA pools.
 
-[ ... ]
+> diff --git a/arch/arm64/boot/dts/freescale/imx943-evk.dts b/arch/arm64/bo=
+ot/dts/freescale/imx943-evk.dts
+> index 674410e541cba..da7bfbd52e312 100644
+> --- a/arch/arm64/boot/dts/freescale/imx943-evk.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx943-evk.dts
+> @@ -133,6 +133,36 @@ reg_audio_pwr: regulator-wm8962-pwr {
+>  		enable-active-high;
+>  	};
+> =20
+> +	remoteproc-cm70 {
+> +		compatible =3D "fsl,imx94-cm70";
+> +		mbox-names =3D "tx", "rx", "rxdb";
+> +		mboxes =3D <&mu11 0 1
+> +			  &mu11 1 1
+> +			  &mu11 3 1>;
+> +		memory-region =3D <&cm70_vdevbuffer>, <&cm70_vdev0vring0>, <&cm70_vdev=
+0vring1>,
+> +				<&cm70_vdev1vring0>, <&cm70_vdev1vring1>, <&cm70_rsc_table>;
 
-> +static const struct qmp_phy_cfg sm8475_usb3dpphy_cfg =3D {
-> +	.offsets		=3D &qmp_combo_offsets_v3,
+[Severity: High]
+The commit message mentions adding reserved memory regions for firmware, but
+are those regions missing from this memory-region list?
 
-[ ... ]
+Without the firmware memory region defined, imx_rproc_da_to_va() will fail =
+to
+translate DDR addresses, which aborts firmware loading for segments destined
+for DDR.
 
-> +	.dp_aux_init		=3D qmp_v4_dp_aux_init,
-> +	.configure_dp_tx	=3D qmp_v4_configure_dp_tx,
-> +	.configure_dp_clocks	=3D qmp_v3_configure_dp_clocks,
-> +	.configure_dp_phy	=3D qmp_v4_configure_dp_phy,
+> +	};
 > +
-> +	.regs			=3D qmp_v6_usb3phy_regs_layout,
+> +	remoteproc-cm71 {
+> +		compatible =3D "fsl,imx94-cm71";
+> +		mbox-names =3D "tx", "rx", "rxdb";
+> +		mboxes =3D <&mu13 0 1
+> +			  &mu13 1 1
+> +			  &mu13 3 1>;
+> +		memory-region =3D <&cm71_vdevbuffer>, <&cm71_vdev0vring0>, <&cm71_vdev=
+0vring1>,
+> +				<&cm71_vdev1vring0>, <&cm71_vdev1vring1>, <&cm71_rsc_table>;
 
-[Severity: Medium]
-Does this configuration intentionally omit the .calibrate_dp_phy callback?
+[Severity: High]
+Is the firmware memory region missing here as well?
 
-Other DP configurations in this driver, such as sm8550_usb3dpphy_cfg, assign
-this to qmp_v4_calibrate_dp_phy. Without it, when DP Alt Mode link training
-fails, qmp_combo_dp_calibrate() will see a NULL callback and silently retur=
-n 0.
+> +	};
+> +
+> +	remoteproc-cm33s {
+> +		compatible =3D "fsl,imx94-cm33s";
+> +		mbox-names =3D "tx", "rx", "rxdb";
+> +		mboxes =3D <&mu15 0 1
+> +			  &mu15 1 1
+> +			  &mu15 3 1>;
+> +		memory-region =3D <&cm33s_vdevbuffer>, <&cm33s_vdev0vring0>, <&cm33s_v=
+dev0vring1>,
+> +				<&cm33s_vdev1vring0>, <&cm33s_vdev1vring1>, <&cm33s_rsc_table>;
 
-This skips the DP AUX PHY calibration process which cycles through different
-AUX configuration settings. Could this cause DisplayPort Alt Mode to fail
-negotiating with some monitors or cables?
+[Severity: High]
+And similarly, is the firmware memory region missing for the CM33S core?
 
-> +	.reset_list		=3D msm8996_usb3phy_reset_l,
-> +	.num_resets		=3D ARRAY_SIZE(msm8996_usb3phy_reset_l),
-> +	.vreg_list		=3D qmp_phy_vreg_l,
-> +	.num_vregs		=3D ARRAY_SIZE(qmp_phy_vreg_l),
-> +};
+> +	};
+> +
+>  	reserved-memory {
+>  		ranges;
+>  		#address-cells =3D <2>;
+> @@ -145,6 +175,99 @@ linux,cma {
+>  			size =3D <0 0x10000000>;
+>  			linux,cma-default;
+>  		};
+> +
+> +		cm33s_vdev0vring0: vdev0vring0@20800000 {
 
-[ ... ]
+[Severity: High]
+Does this block omit the actual firmware memory regions?
+
+The reserved memory declarations define vrings, resource tables, and shared=
+ DMA
+pools, but the firmware memory regions themselves seem to be completely mis=
+sing.
+
+There appears to be a 32MB gap in the DDR addresses (e.g., 0x80000000 to
+0x81FFFFFF before cm70_vdev0vring0 at 0x82000000), which suggests the firmw=
+are
+regions might have been unintentionally dropped.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-sm8475-bup=
--usbss-v2-0-2d8def39b190@proton.me?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-imx-rproc-=
+dts-v1-0-d02b583c507b@nxp.com?part=3D3
