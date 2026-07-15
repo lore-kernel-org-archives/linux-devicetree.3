@@ -1,257 +1,170 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1165A323416
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 06:58:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784098734; cv=none; b=Y7d3c+219PZxMrZz29saYIq+XW0Aw80XPi3jQsi8UPHxAy72xj2dOfpSUQ5kzmplOpCMRNrF/3XbBxGhyk61jy3iW8AE3VU4RmGmwkmiNdKo/sek15vYSyEoKLmpFSaRIDglNMV4rHYIF/vU4Pxw0ggzFCKNGkwDeaU52HLLuMk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784098734; c=relaxed/simple;
-	bh=2F33bP0CzluWiHtV3rOJhAl9WdVxVvWgw0557LH7+2A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Vqn3xybaOP9/TqxvQd8A4JbIbesuObrN+IT1Fawro6zMqAAXEhzankvZOxPDtXWUpZkJOPjxinB/tf9wS7jXrOXmquC2hMh5HXIsRZBJnZ98Z95znCoStamRaYxn3p78k/YqMyOXddPn+KWPPVfhIazZcyr5GcK/E5zv1qAcVcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Zh2XcmcS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dabs0OpS; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458ED1C5F27
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 07:04:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784099052; cv=pass; b=B/pOQN8LFsgtUgu5WapVcF4VuCuS83anj0lftB6f2MBc3x8Gr1uywUOv1GCbB3jbecQC8UmH9HMYIpk/6cBtVE9fzYpIJIIf95W0BqKBoNbjWF5Tb1S/d7RZkmKwqOrBPie0yLjrg8rYfUWvt4TxSUR/8+L/E/cxQCvYuOF50zQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784099052; c=relaxed/simple;
+	bh=ifJqXZ4ZAmIfzckP1/3gX562cvXWbJvgz42X1CY3OO4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=owT3L3akjkC4N0kaMa4fpQFtHln0Bd5zlzTNZ6NrlYG93FI8CuQLSn3Grx5tzxUFo54bOcVgDUldTD5hLhGSQyZV1q/W5NAvCMh9NNba6KHSJ+xKEA45pmTQPhgoQw6zeQLF94ezBcMcSf0ISPo6Knw2LgPqpJu42PncYBOlsdU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VyOpdmw7; arc=pass smtp.client-ip=209.85.210.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zh2XcmcS";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dabs0OpS"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66F3mMbE2273597
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 06:58:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	k5rLcyyrbG3p5cljmeoN2CF98kBOhnagbjStEAg0Lso=; b=Zh2XcmcSe/bVKFC4
-	evZ53wuZJ5ujyAm1LDk1V0py4eGQ1QtQ0+WmLgSXEcnVxywgI8isRvpYoVLNCZhu
-	36tgD26HQFRoASvUlmUHivsz8e7tFwi8xCOHbfneAfCVrWI0g1ZhtPh9dYIdd2za
-	4K+FTn3Pd+joJHdTyt48O2AoDt/CzD29NHvGzXQVQL6h68Kq6eIT5YG/chfssL12
-	M8oJUkC5tBhdNYDCJWBSw++1+DuETCuBEvQsXlfkHfsJjFuEE/4MJA4nd4RKnc6q
-	j7NfbZ/HRRJ8KIsdDQycdvj7YubuLHD+SzkHLw1pSb6OtqIeNmg9MQzqIaoOYd/R
-	G08Dyw==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fds9mjcn5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 06:58:52 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c860544c077so4336042a12.3
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 23:58:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VyOpdmw7"
+Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7e9fc323873so767189a34.0
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 00:04:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784099050; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LvvNvKIilkiiYsZTT4C4u6SKvG1w5h/Z8AADxS/zImlIV80Iq0ZvsyFgO5iicqyLy3
+         zU5zP0KT+7D192vGPn85i2qxSxVVf16J/g+fyrwqIxEncE+i5U2wsRQPhX7zP/tdXWta
+         xMjOK3UXw6t6exkqVA9NzBx63euR39lLaUe57njtrY4rRMixWhKPLpbaitQe/g+dx/Ms
+         2UydCK3B1FHSLcD6qZrSpamvbwwyuOrbC+DX82AIfqefPujthlfZBzR1bCTjA3RTua3K
+         Cxa6cJ5iSFoEm/ozgxTumSNMlWFy871544H0tPzMSoBhKV+S9nYmD8WJYBMJkf2g8VGl
+         Dr4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Z6gxrK21sxCB/eCMN/j8yC9AHCK9IHMw89lMoZ6UyRY=;
+        fh=bYm7Xo2OxCqS8Wf7ayxQcfvvq3Ngm/c+s+iIu+Rm7qA=;
+        b=appevhe3DWGbcGnZf1l/Wl0/Tc7hGTXe/cGkVDHpeJxoItNc3Eds9fkpN3rOe9wC6R
+         FDm+e+syA+hJAqDbCMXgixY+NvcdBVIbmvii9FBxJvZbn8/krwT7+OxgPgtbcE0G+SW3
+         2/Yz9XQZ1X4gxphZ3574kMz1NZ/1og7iTqdlmfo4nJOL1304fDnfY1y4O6tEp30CVpok
+         Pi9nBTeKouYYLikakhpz7PQRnm3i7gl/wMfFB5sN7/56aJ66GyUfZZiKwp+2KD1csPFJ
+         hpAbRDfac90ET3Emp5zGWb7wBhC1sLpTD3NsbkzWQpH+CG0ZE3eq0QB5QqCja726AHo2
+         7GJQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784098731; x=1784703531; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k5rLcyyrbG3p5cljmeoN2CF98kBOhnagbjStEAg0Lso=;
-        b=dabs0OpSD9xZe9so97AfbU7G1+nPMOIFSh+4xim2vfhcZauFULq9AHP70RM4MstL1F
-         nuwnwjkVDH9zRFgNwMIwq6I0Tp4v9Q0a2PU1vUSZpwJv3slESbHR4geoA1M2c9kjFBxy
-         2lDIL7l50xWvJXQq3F85OitBL0B4n4Oj5l7vrad82qz3K2IH4q2EC/494B1/dJUZ3ivl
-         3PShb59AMIJ2CvsafZpT8uQXNYjJRYSVtw9FC063sLCnZwMRCH5Ddb0PCjjcBpNbd6Q7
-         NVKd5gAZfc9y7z6T75ARndnsvKgXsN6Qd/Jjzbn7BAkp3lgmXOMhBYDCYRIjnLzh4Prq
-         Z0VA==
+        d=gmail.com; s=20251104; t=1784099050; x=1784703850; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Z6gxrK21sxCB/eCMN/j8yC9AHCK9IHMw89lMoZ6UyRY=;
+        b=VyOpdmw7wb7mM0tYcXSpzSp0fxwQuV0ze58pUxtK1JNS1JZzeFSyHSrNZcap6TKmn7
+         zvi6o7FvkZ65KHHs7Zoh6xENQ/Wm0SHgRfs21W5G38GamS+WEOGkZ5sEkWhhnlEnxHfT
+         Jxa6tX3546S+S5k9pYkuy7N/Tt7SfdqvZxylPDXXJgARD4yw9l8kKHIUM5athhy8B1cJ
+         3S6Kw/m4rRQ/cLeyuKZUjKj30iETDAFs1KGD7QkYap45RDv51k7/2Fpp+g9ApYXVWAVY
+         mXnTbYUi6qVPc6OWmQ83WA83t/v9dQx+fRzOxvclRxEAHR+919aiqJRVhnqBmELM+mpF
+         BfcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784098731; x=1784703531;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k5rLcyyrbG3p5cljmeoN2CF98kBOhnagbjStEAg0Lso=;
-        b=sufNrJALttGHOU4oBpL47crRXfZ1/D/SCDi6tDa6KAxG2jyp0DtgoACAxbiU3dSDSy
-         FzYFJEEb217OPwF9JVzt/Zdy31miSVgCZ0j4cTPOsiFv0zmq7WmLdoWA1gf2J4Eg187B
-         IquaE9C5apxU7efaA/wDg4DgMPO3TftAFMqnPg245Lr8Y6dLWHlS3pydkgiVIC/Vf4mz
-         JjYZLwCUL8jmTkFoglLlqDlwjkJVNd+p16ILW9Z2W/6ChsDB+jEkCh0rQ4cwxRpaOGFP
-         Tl1InI//QfVOUrA4LFJPulGkpdFadi2PEUEdjL0lzkgOOD8VHF8Tt9rFBOewvC/vzZj6
-         LO/A==
-X-Forwarded-Encrypted: i=1; AHgh+Rp0wi/qngJ2VnWTGsBGSKQRLq8PVzO2FXCM11NMdRPfG46YAeZz3BKqk8cU/BbkzJsTtuHtCoXrRy98@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw7mi4uRx7uXlRNvaCx/uJrCdGbHVFpaWdmlnWxHvENiLtZUPG3
-	DrVZI5UOgG6wOT5lGeWMRRtBelQAKQYbai0hVBHTI3wQ111ECGoKD0K5BnwRBmEcgqWSURXP0m+
-	/KpUbfyFgiDpnL8J0TAu1VWPB4HFd30LUWkRBXBLSIWZk76vOb6lJQAMxhSNz2psC
-X-Gm-Gg: AfdE7cnxMtl/o86XjwYkN700sqjTW3vgyvx/HVmjKZD5FxakY3miBLsCBHLlUj42DBG
-	ZTqlZn2MH2NbV+4hHN7NKQMc/0jB6ei4V2MnZnHfUXB2E8Q0+IRIKR/4qNlQ/RTqwiBsM77W2o+
-	PqRyTUs935a75AqyjbVVIqF1Ea2DW68/tdj9coBAR4wUL9sgldJ/9uc3DTUoCaDbOVEKqvi7goo
-	CRCJXLmD/iLT8xfuGOOn+q8Vq3NLSLJnjVM7peSkk1whnBzqFsL9zDW5sJueb8ik/9kk6ibJHUy
-	gc8j6f2/jsmlf/dsay1AcSowvLZLsMFgvi+heqJiCtU/bkST3V5TxZbiCHMUZB8hCS1Da7Vshq9
-	X1hnwvqzY69LHi7CHntzVJMalzXzf/d/pmOwpWq6mtFcFeNgUCA==
-X-Received: by 2002:a05:6a00:23c3:b0:845:d284:9e11 with SMTP id d2e1a72fcca58-84889756a2cmr15113952b3a.56.1784098731351;
-        Tue, 14 Jul 2026 23:58:51 -0700 (PDT)
-X-Received: by 2002:a05:6a00:23c3:b0:845:d284:9e11 with SMTP id d2e1a72fcca58-84889756a2cmr15113930b3a.56.1784098730880;
-        Tue, 14 Jul 2026 23:58:50 -0700 (PDT)
-Received: from [10.218.21.154] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84a4f6c158bsm2585765b3a.38.2026.07.14.23.58.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 14 Jul 2026 23:58:50 -0700 (PDT)
-Message-ID: <5612a63b-4052-41af-8676-9d92811dee9d@oss.qualcomm.com>
-Date: Wed, 15 Jul 2026 12:28:44 +0530
+        d=1e100.net; s=20251104; t=1784099050; x=1784703850;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Z6gxrK21sxCB/eCMN/j8yC9AHCK9IHMw89lMoZ6UyRY=;
+        b=km+N5oNtR8HciB+XlAUh+71/LhK/p+eCYh1ld87slR8hlGAdopLnmX9nVKNVnoa9tU
+         //iZCNU9h+Gtmi5sDSdqyXrdsiOK1bblRqOIF6J5BEnnee3t9wWLk14fZ2h2eH6e4sv4
+         coqkmVv13dgbnfdMJjHxftw1fI+Xr0Sl/FoxGNvd0n5aWLcXid6k9engMsLb+iGsNbwe
+         LpqT9kDmDduYId/II6b+EwqEk7yM3AzExKfg3fEpvAaGg/9bfVkRRALWW3ouR/OL9kl2
+         ROpSK0MiF2uYlqupOwHRkQ44HzSdC3YR1PeCeAqoAeUaOMbfpmrALjlwRBPWOmjQAH19
+         Aw8w==
+X-Forwarded-Encrypted: i=1; AHgh+RpO4+nSL0jbo+cOZKPunY47iXvS/rltJtncl+Ep0H87l2BwFcFOJvpFwQaX1lCck/AyJzY3a3aoTrEU@vger.kernel.org
+X-Gm-Message-State: AOJu0YwD03SrGZi0oJZWANTvMujIb+0w1hDjrlA0ynkRxCrqabjk9e/N
+	PikSt9zIhJXTJdkOMKvzPLDtWss1W0bYxcPtinbaY15740jWAZfmC0+OZNhCAbRrdawlBACmO2d
+	ZWf+B1Yq0Ltx1h1pV/taubsFTfFyVFrTmA7MsclU=
+X-Gm-Gg: AfdE7clZsTpwGZJVZAvCt6c0QdWvw65xAV8Ns1G8MFCxZ18pOvHoX+ITaxsoGw1KUu8
+	cRpS2rdO/mxnirPXaRXPXUgTSmZuXr6PJWA8UnYNQw4tLFNxO+Rxrzc9RE90z0VAHeiQEdeIONu
+	YTC80+k7EWCuh86vSd+Iemf3WBSTnf+3sILHDEPnEgvdxvXtUkNegApTqnD9HK/Jw8WWKvNYf0p
+	12vpUxpQQX4IcrY8Z40+HpJR1S53aGWGFOEubc6AcwSaluDsGQmxGDfZGDpr29So9e6A3cOSke7
+	Rlw+42mp+LV3B0Ws+vzyA9oO/1foRF8=
+X-Received: by 2002:a05:690e:408a:b0:668:f57:890d with SMTP id
+ 956f58d0204a3-6680f579a70mr2127791d50.6.1784098550460; Tue, 14 Jul 2026
+ 23:55:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/3] ASoC: dt-bindings: qcom,q6apm-lpass-dais: Document
- DAI subnode
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org,
-        linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-References: <20260714145250.2473461-1-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260714145250.2473461-2-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260715-crafty-cheerful-goat-baba95@quoll>
-Content-Language: en-US
-From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-In-Reply-To: <20260715-crafty-cheerful-goat-baba95@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE1MDA2NSBTYWx0ZWRfX2kUsdlClVNR4
- 2pi/R7Au2g+bwpHtyZ7nEFF0bWy1emBw0Ai7rg8E572CVqx7auYv7W74ySX/F5Aa2OtaFHky2BU
- lN28FQEdB/pZj3SjHFICuyIm+P1lK2euTBKDYFfgpnRjEk+ppPVPA10K1qjcfoLvZrnoPh8xV9U
- HJD0kDJP6jQ1Q2xY3hS1CmMd3Vp+zjZ81Cf/Wh9vjf3KtsJmMG7FBLn6fuDFfr3GHPaLwJ8O5JQ
- oIUiES+wVBFJT7zXAqtRSTyg7+fMP/AUawJdwlYZ0X/ZzxEKcM+CpBsdn9RPjnPtKzei5tYFOiT
- qxKZvgzZH68LUu2dSDF5Zi/OIjSCgohQJQM319n0U0Brmjv6b8vEHhld8dnrKknbj706M26MB6/
- LGGnMHxOc68yk6POL8DTQUjjn6yXFKuUrx8w9IWOlBYdkPZEw0hnk5xg+eT6pi/csmPupX0/VP3
- HRj2yC/xVPegdf3l+Iw==
-X-Proofpoint-ORIG-GUID: HTqK7I8hLOQBasYQ93X754-6v6hw73zL
-X-Proofpoint-GUID: HTqK7I8hLOQBasYQ93X754-6v6hw73zL
-X-Authority-Analysis: v=2.4 cv=E+79Y6dl c=1 sm=1 tr=0 ts=6a572fac cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=LJDSKmyOq5XDa4FDNxEA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE1MDA2NSBTYWx0ZWRfX/K0GEX6aqQTu
- iBXKDDXsAgvK3TLcQgEQkWLv+bZnvZXn6K+1VfeNELohgubPuWpNfEdwlAJ+Hy1Esk1CbniQTtM
- Qppd6cZqOEYye9F+C1r/jX8ty8yRqx8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-15_02,2026-07-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 clxscore=1015
- lowpriorityscore=0 spamscore=0 impostorscore=0 adultscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607150065
+References: <20260715051939.64652-1-royalnet026@gmail.com> <20260715051939.64652-2-royalnet026@gmail.com>
+ <20260715055448.AEA021F000E9@smtp.kernel.org>
+In-Reply-To: <20260715055448.AEA021F000E9@smtp.kernel.org>
+From: Royal Net <royalnet026@gmail.com>
+Date: Wed, 15 Jul 2026 08:55:37 +0200
+X-Gm-Features: AUfX_myzakcKGN9vlq_qc4LRJvv-oSEDxuwqFd24WcJAwYA-kTmTVF-i9eX42Ks
+Message-ID: <CAEWPSH7OqecBKvxUVtwFe4B9y0-=gsQ7vy6kdBHx-Nsne-Ct1g@mail.gmail.com>
+Subject: Re: [RFC PATCH 1/2] dt-bindings: media: snps,dw-hdmi-rx: add #sound-dai-cells
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, 
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	linux-media@vger.kernel.org, kernel@collabora.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+> Should the constraint be set to 0 to follow standard device tree
+> norms?
 
+Fair point. The current RFC wires up a single I2S DAI, and for a
+single-DAI provider 0 is indeed the norm -- rockchip,dw-hdmi does
+exactly that for its one DAI on the TX side.
 
-On 7/15/2026 11:35 AM, Krzysztof Kozlowski wrote:
-> On Tue, Jul 14, 2026 at 08:22:48PM +0530, Mohammad Rafi Shaik wrote:
->> Extend the qcom,q6apm-lpass-dais device tree binding to explicitly
->> describe Digital Audio Interface (DAI) child nodes.
->>
->> Add #address-cells and #size-cells to allow representation of multiple
->> DAI instances as child nodes, and define a dai@<id> pattern to document
->> per-DAI properties such as the interface ID and associated clocks.
->>
->> On platforms such as Monaco and Lemans, third-party codecs are hardware
->> wired to the SoC and do not always have an in-tree codec driver to manage
->> their clocks. For these designs, clock line enablement must be driven
->> from the platform side, and this series provides the necessary support
->> for that.
->>
->> On QAIF-based platforms such as Shikra and Hawi, responsibility for voting
->> I2S MCLK and BCLK has moved from the DSP to the kernel. This series
->> introduces the required device tree binding support to represent and
->> vote for these clocks from the kernel.
->>
->> Co-developed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
->> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
->> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
->> ---
->>   .../bindings/sound/qcom,q6apm-lpass-dais.yaml | 89 +++++++++++++++++++
->>   1 file changed, 89 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml b/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml
->> index 2fb95544d..b37c62ccd 100644
->> --- a/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml
->> +++ b/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml
->> @@ -21,6 +21,82 @@ properties:
->>     '#sound-dai-cells':
->>       const: 1
->>   
->> +  '#address-cells':
->> +    const: 1
->> +
->> +  '#size-cells':
->> +    const: 0
->> +
->> +# Digital Audio Interfaces
->> +patternProperties:
->> +  '^dai@[0-9a-f]+$':
->> +    type: object
->> +    description:
->> +      Q6DSP Digital Audio Interfaces.
->> +
->> +    properties:
->> +      reg:
->> +        maxItems: 1
->> +        description:
->> +          Digital Audio Interface ID
->> +
->> +      clocks:
->> +        minItems: 1
->> +        maxItems: 2
->> +        description: MI2S clocks (mclk, bclk and/or eclk).
->> +
->> +      clock-names:
->> +        minItems: 1
->> +        maxItems: 2
->> +
->> +    allOf:
->> +      - oneOf:
->> +          - properties:
-> 
-> Please don't do such stuff. Did you find it somewhere? If yes, then
-> where - so we can remove it?
-> 
+The reason I picked 1 is that the controller also has an S/PDIF
+audio output path (the vendor driver exposes both I2S and S/PDIF
+DAIs through hdmi-codec), so a DAI index becomes meaningful if that
+second path is wired up later.
 
-It was not copied from another binding.
+Unless the DT maintainers prefer keeping 1 from the start to avoid
+changing the cell count if/when the S/PDIF DAI is added, I'll switch
+to const: 0 in the next revision -- please let me know which you'd
+prefer.
 
-It was my attempt to model the valid clock combinations.
+Igor
 
-> I gave you the close-to-exact syntax I expect. It was nothing like this.
-
-clocks:
-   minItems: 1
-   maxItems: 3
-
-
-clock-names:
-   minItems: 1
-   maxItems: 3
-   items:
-     enum:
-       - mclk
-       - bclk
-       - eclk
-
-The enum version does not enforce the positional relationship between 
-clocks and clock-names,
-
-which is why I tried the oneOf approach.
-
-My concern with the suggested syntax is that mclk is not mandatory for 
-all platforms.
-
-For example, HAWI only requires bclk and does not use mclk, so requiring 
-mclk as the first clock-name would reject valid DTs.
-
-Is there a preferred binding pattern for expressing optional mclk while 
-still preserving the positional mapping between clocks and clock-names?
-
-can you please suggest better approach to fix this if any.
-
-Thanks & regards,
-Rafi
-
-> 
-> Best regards,
-> Krzysztof
-> 
-
+On Wed, Jul 15, 2026 at 7:54=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] Incorrect cell count constraint for single-DAI provider.
+> --
+>
+> --- Patch [1]: [RFC PATCH 1/2] dt-bindings: media: snps,dw-hdmi-rx: add #=
+sound-dai-cells ---
+> commit e6b0bac0b97f568ce749084e6c1e728bcd258b10
+> Author: Igor Paunovic <royalnet026@gmail.com>
+> dt-bindings: media: snps,dw-hdmi-rx: add #sound-dai-cells
+>
+> This commit adds the #sound-dai-cells property to the HDMI RX controller
+> bindings, enabling a generic audio codec to capture incoming embedded aud=
+io.
+>
+> > diff --git a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.ya=
+ml b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
+> > index b7f6c87d0e06a..83c10d9997c8e 100644
+> > --- a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
+> > +++ b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
+> > @@ -78,6 +78,13 @@ properties:
+> >        The phandle of the syscon node for the Video Output GRF register
+> >        to enable EDID transfer through SDAIN and SCLIN.
+> >
+> > +  "#sound-dai-cells":
+> > +    const: 1
+> > +    description:
+> > +      The HDMI RX controller registers a generic HDMI audio codec so t=
+he
+> > +      audio embedded in the incoming stream can be captured. A value o=
+f 1
+> > +      lets a sound card reference the audio DAI as <&hdmirx 0>.
+>
+> [Severity: Medium]
+> Is this cell count constraint correct for a single-DAI provider?
+>
+> Looking at properties:#sound-dai-cells, the hardware exposes only a singl=
+e
+> generic audio DAI. Requiring a cell count of 1 forces device tree nodes t=
+o
+> use a non-standard syntax like <&hdmirx 0> instead of just <&hdmirx> for =
+a
+> single resource.
+>
+> Should the constraint be set to 0 to follow standard device tree norms?
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715051939.64=
+652-1-royalnet026@gmail.com?part=3D1
