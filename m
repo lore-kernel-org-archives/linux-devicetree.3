@@ -1,90 +1,131 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3476472768
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:48:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF743E7BC8
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:48:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784119685; cv=none; b=ZUgk32ylbaorfaXD8lhNr1g8ttfRQZXf1MMRZJ24oYhK6u1S53IVfTN8duBaw6CSIy08fQC/f89wkT1EWySzqrW6dYoTIBH4s9ATbvcm8cE6wGeKPulbPHKzdHoCL8foN/M31BExNbSMG6tnzSiMXFnIVccnnTWWYYN9EgyUPfA=
+	t=1784119737; cv=none; b=QlI3YhsJBVRemchcB4lyUPGnna1drAaIICM7HuVbgpkRcVDjTDtMdAuJ/6U8OZXta0gWEAGJwcrCiqCzqMffgoXFk6C4eZLPGswQc66uRHspA8trFLIYCtEzzURZ42nqz4k2qBubGZHLlihJlRA86GmK6gpa+PCpBONLMLxG7as=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784119685; c=relaxed/simple;
-	bh=ULNIgkQWYkWrSd5tLTOtNC3fTL33xCOqao0DtR/rkKM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=mv2U9tPBeVl0AWhV8AYiQxBlz0nyBZDSvKfiUZ7PV/0QT26q1lpEDOYqZBowraoEbjworLRewhTZeALgqD3fKAqkDneESct3vrl0lOIt88LgBzOmlASON+BhZ0gC5keuiATlNC4Qhr9maTg6rYLMDixOJ4NS5W8xKT7LQ4i4hSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=L7v/a6f/; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1784119737; c=relaxed/simple;
+	bh=MkVGGPEhVwyGab/IZlWHgT1LEIztbcLIPYJhoX3XaFI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ma+DeWJiGx2RRlhZw2XNH7dSRg4LtBBdLEfnuiw3VahxWE02hl9nDTqjw8QWPzSeTWx/v1v2OoyN4DbCX+Ass3u6nv/IpHk/tiVV/WVfknJMgIVsbgvmmsgCscsd0X4lBqH7CJWVmx3+fUfxcUCOGIDqjnjjR9DMsCma87mzs4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hRvm6Sb1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="L7v/a6f/"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 71F091A0FED;
-	Wed, 15 Jul 2026 12:47:58 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3D1B06035C;
-	Wed, 15 Jul 2026 12:47:58 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3596A11BD15D9;
-	Wed, 15 Jul 2026 14:47:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1784119677; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ULNIgkQWYkWrSd5tLTOtNC3fTL33xCOqao0DtR/rkKM=;
-	b=L7v/a6f/EicKnoQdUCetm7a42/KyIS/LSMccfP/U2ILjcv1J1Kxivabkwjsw5e8zIvyvQ4
-	aKzkkcpDFIt1iW+6Aj5sI9kYMzODkHdun9BbvahYOZgI5e4zwY7HqspYNPyj4F6OPjlWhd
-	0ovk1zGHsV8hbWzTCxZqfnDJooKseW5GX47FKS3m4GpozFOOMw+CgaFpHl0Q5j6FbWibpm
-	how9WwKAy9ytK6FjHc/bHKRkOE8kIF8epfGlxlzs9qrvFd3g6kP+A0qyq4b8vSY1L08U/u
-	AoVpQvwuJpu+e6/4EzQPON/RVDSdVua3mHLgTV2l3c3aZWvWVRZJQ5adA6lNqA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: sashiko-bot@kernel.org
-Cc: sashiko-reviews@lists.linux.dev,  conor+dt@kernel.org,
-  devicetree@vger.kernel.org,  robh@kernel.org
-Subject: Re: [PATCH v2 6/7] clk: Add support for clock nexus dt bindings
-In-Reply-To: <20260710183359.61D3A1F000E9@smtp.kernel.org>
-	(sashiko-bot@kernel.org's message of "Fri, 10 Jul 2026 18:33:58
-	+0000")
-References: <20260710-schneider-v7-2-rc1-eip201-upstream-v2-0-b4680787377e@bootlin.com>
-	<20260710-schneider-v7-2-rc1-eip201-upstream-v2-6-b4680787377e@bootlin.com>
-	<20260710183359.61D3A1F000E9@smtp.kernel.org>
-User-Agent: mu4e 1.12.7; emacs 30.2
-Date: Wed, 15 Jul 2026 14:47:56 +0200
-Message-ID: <87o6g8e7wj.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hRvm6Sb1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A8841F000E9;
+	Wed, 15 Jul 2026 12:48:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784119735;
+	bh=2MmBc2j/R7RJqEhUB66LPHlDdD1y3qEudIsqhS329DM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hRvm6Sb10an+ipm5+nIXseSFSrgogEd7ofjMkfQb/gYlAezm4KWvkB2L0+idJijsg
+	 y2qKefJM7Nuo/5CRzkRi004zXReLhrkZMyaSLQCO/Xr2jmSa+SeiZtTMBKRXwk5KAS
+	 5nkr+hlZs2BdcnGv5n1RcNReN1ZM5JgGrERSrnlYV1IT6KJqyjQcJLsCXkQsGLzKAe
+	 BjozycGUJNoegnj4zLHdz6DNbuBX1c7IoXDNTLAynKKacxpCTC95zr4p/Y6XiSAL3K
+	 Fmdela3guV0WWkMovgDYxyYYs0Z6dqQIoLaGNDKhkjECxez8D/3Iryt8lBvnjLGwLQ
+	 khcr2bceGRlhQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/4] iio: light: ltr501: Add ltr329 driver support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Esben Haabendal" <esben@geanix.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260715-liteon-ltr329-v2-3-d18af55edab5@geanix.com>
+References: <20260715-liteon-ltr329-v2-0-d18af55edab5@geanix.com>
+ <20260715-liteon-ltr329-v2-3-d18af55edab5@geanix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 12:48:55 +0000
+Message-Id: <20260715124855.9A8841F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-On 10/07/2026 at 18:33:58 GMT, sashiko-bot@kernel.org wrote:
+Pre-existing issues:
+- [High] Use-After-Free of IIO event interface due to mixing devm_request_t=
+hreaded_irq with manual iio_device_unregister
+- [High] Kernel stack memory leak and logic failure on big-endian systems d=
+ue to reading 2 bytes into an uninitialized 4-byte integer
+--
 
-> Thank you for your contribution! Sashiko AI review found 3 potential issu=
-e(s) to consider:
->
-> Pre-existing issues:
-> - [Critical] Stack buffer overflow in `of_parse_phandle_with_args_map`
-> when `#<list>-cells` exceeds `MAX_PHANDLE_ARGS`.
+--- Patch [3]: [PATCH v2 3/4] iio: light: ltr501: Add ltr329 driver support=
+ ---
+commit 8ae95bcf91bc6043da3fe9505d6fab5f356128f7
+Author: Esben Haabendal <esben@geanix.com>
 
-Device trees are reputed correct.
+iio: light: ltr501: Add ltr329 driver support
+   =20
+This adds support for the LTR-329ALS-01 chip, which is similar to
+LTR-303ALS-01, except for interrupt, which LTR-329ALS-01 chip does not
+have.
 
-> - [High] Infinite loop in `of_parse_phandle_with_args_map` due to lack
-> of cycle detection.
+> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+> index 7d045be78c6df..379e57ac5f5b2 100644
+> --- a/drivers/iio/light/ltr501.c
+> +++ b/drivers/iio/light/ltr501.c
 
-Ditto.
+[ ... ]
 
-> - [High] Unconditional dereference of optional `out_args` pointer in
-> `of_parse_phandle_with_args_map`.
+> @@ -1531,6 +1556,12 @@ static int ltr501_probe(struct i2c_client *client)
+>  		return ret;
+> =20
+>  	if (client->irq > 0) {
+> +		if (!ltr501_has_irq_support(data->chip_info)) {
+> +			dev_err(&client->dev, "chip does not support irq\n");
+> +			ret =3D -EINVAL;
+> +			goto powerdown_on_error;
+> +		}
+> +
+>  		ret =3D devm_request_threaded_irq(&client->dev, client->irq,
 
-Does not happen in real life.
+[Severity: High]
+This is a pre-existing issue, but does using devres for the IRQ while
+manually unregistering the IIO device cause a use-after-free?
+
+In ltr501_remove(), iio_device_unregister() is called manually, which
+frees the event interface. However, because the IRQ is allocated with
+devm_request_threaded_irq(), it remains active until after
+ltr501_remove() returns.
+
+If an interrupt fires during this window, ltr501_interrupt_handler()
+could call iio_push_event(), which accesses the freed event interface.
 
 
-Since these are pre-existing issues and seem relatively impossible to
-hit (except during development, but that's mean the DT is incorrect and
-*must* be fixed), I do not plan to complicate further this series which
-is already 7 patches long for (initially) a single line change.
+[Severity: High]
+This is also a pre-existing issue, but is there a risk of leaking kernel
+stack memory on big-endian systems in ltr501_trigger_handler()?
 
-Thanks,
-Miqu=C3=A8l
+In ltr501_trigger_handler(), regmap_bulk_read() reads 2 bytes into an
+uninitialized 4-byte integer:
+
+ltr501_trigger_handler() {
+    ...
+    int psdata;
+    ...
+    ret =3D regmap_bulk_read(data->regmap, LTR501_PS_DATA, &psdata, 2);
+    ...
+}
+
+On big-endian architectures, these 2 bytes overwrite the most
+significant bytes of psdata, leaving the least significant bytes
+uninitialized.
+
+The driver then applies a mask:
+
+    scan.channels[j++] =3D psdata & LTR501_PS_DATA_MASK;
+
+Could this extract uninitialized kernel stack data and push it to the
+IIO ring buffer, exposing it to userspace?
+
+>  						NULL, ltr501_interrupt_handler,
+>  						IRQF_TRIGGER_FALLING |
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-liteon-ltr=
+329-v2-0-d18af55edab5@geanix.com?part=3D3
