@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC8F0188596;
-	Wed, 15 Jul 2026 04:57:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13ED93A875D;
+	Wed, 15 Jul 2026 05:14:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784091433; cv=none; b=aIRiObfvTuTXgHt7qsDulmGIop6q0qDT8OtmO/UVXHYtADy1uZv4dt3vjax7DAIZ9NxGaRJSMIFaWmtdvrjloRQBwKiopxYhcRGEeKpAzKzhMYhpDGZG1eGT60Y+B5tp6HegmCHyXuyNyjQkrjfTcRmUmfc35H3zNsSfkxfNvDI=
+	t=1784092494; cv=none; b=aeWBU2xbHEhVocBrtOSMcAbEQDzD8kYWLQV/7ZATy6sPWEBgj1l4Rsg4M6YL7p/rToqPcOGS64xDvZaDyD7CGJSYgesPgan0nhQUL7wSoPja38IPPApb8SdIjSoWIXte/Bxs4TuHcNuX9H5xVTXLXAJjQZ9srbjmCuwdeuu1i7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784091433; c=relaxed/simple;
-	bh=2cqqiyN5ZwlbI+Cb+M819BPJ4H7h8gwM6T2MLzhsLew=;
+	s=arc-20240116; t=1784092494; c=relaxed/simple;
+	bh=HV9nMVtQTSlphkR99cMEWafkg9CTuz6qGvDvsNN5CwY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cSNXmWAKWdMgRXl+UjAOPS2volwb5l/KhPrGAHc6zgKNHPSLjkR29sRMLHnTtcuTkrIkMzjGgnb9wdT/MJ62hPPTQQzfPDDknL9zgVC59LxEFG4ZqGmqzzeoDhUYBNrS2nR9zObAqqM12/ARtAj/oVN/3yYDLgrFi8j7PYMvZKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GHg8sDFl; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=hI1E93XQgD+SmGbeVZl4VjbxNQ4WAmP08xrF2NRtFfva9Tr70X3N3fxsiVgT+MbRUUeZuceoJPox6vEoVuAYV0IB8TtdDaCU+j65MWdYvL61ZgYmxn4WVeswaD0Nrd8+eIhiqYvVePlavd3nB8QRthchFGihCEUhxhE6YiRB71c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XzWONfwE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GHg8sDFl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17BD31F000E9;
-	Wed, 15 Jul 2026 04:57:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XzWONfwE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 716521F000E9;
+	Wed, 15 Jul 2026 05:14:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784091432;
-	bh=ZMCSF+tDs7aEe5I8XrCTwnbeBbAXQ8kr+88Pi5y5xNY=;
+	s=k20260515; t=1784092492;
+	bh=jmWXgJ7YEgUvHj92YNbsfml9sc+M9dzaxT2+t7KDPeA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=GHg8sDFlC8BFehVDC1woqNv93zmO1dbP5EEn3ZY6mU8do1hqAvYQABZE6gxtNxoAG
-	 0VGv4MToGi0ZamFCVq+uB5c5kU9u7dl11nKeXp0ywEiGr2hMPDzBTZ9IbnqdBMMxgq
-	 hU/lS3DLjxlR5M+yVzVjc5rIfRUVBowCDe+1Rmo8JHuyHDIS2bDrd81t84DBP9B+4g
-	 knZ6bBIPUGDdNtDyHO4xc+81veTsVZYMV5Um/IiOVyfmPgV6bMgoBrO6+0hscK1iwb
-	 CgpEJy4yrKi9K1bjpBeqK9j3VCjizKjI9qubruUyKbj0SBjpYkxja+KmVyfjtKQ9oa
-	 16vc07QuoSCQg==
-Message-ID: <f45a8496-b003-4cc0-bb4d-a94c9ac6b911@kernel.org>
-Date: Wed, 15 Jul 2026 06:57:06 +0200
+	b=XzWONfwEho8hhz0FamliJHjFHAJvPBjDNUTfaADAZbui/3LH3PnIflKkR+L4L1f92
+	 PvByQW7dH1IGujN1q2jXC3hJoNJ2XJ6Av8VHVZnzMuoh2nvl1yO0CqXo6mX9DEQiro
+	 jMdYfSYVYaL4KL2q2FRn1oHa+YjPd7MUHZZP1Z7Fu0oe2EqEputjtd4/URsV/7VBlF
+	 V47U6W5L12vNf065EJyOvcafW+HOn4ugFYMf/VVBuUmofh9lvxiQlYbJOkaWfbUGZl
+	 Z8pGj2VaAwCAJcHeHb8p5ANU3N9sWt56fLfMT82UnDPUHp6vCIlH8a2WvvHKv/DMJR
+	 v7ut9zfLRuHIg==
+Message-ID: <223ab7f7-f176-4d96-9397-c8c54259f50e@kernel.org>
+Date: Wed, 15 Jul 2026 07:14:45 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,14 +35,25 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 03/22] dt-bindings: memory: ti,j721s2-msmc: Add TI K3
- MSMC binding
-To: MANNURU VENKATESWARLU <v-mannuru@ti.com>, robh@kernel.org,
- conor+dt@kernel.org
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, n-francis@ti.com, s-k6@ti.com, bb@ti.com
-References: <20260714125537.3304217-1-v-mannuru@ti.com>
- <20260714125537.3304217-3-v-mannuru@ti.com>
+Subject: =?UTF-8?B?UmU6IOWbnuimhjog5Zue6KaGOiBbUEFUQ0ggMy80XSBkdC1iaW5kaW5n?=
+ =?UTF-8?Q?s=3A_ipmi=3A_Add_optional_LPC_properties_to_ASPEED_BT_devices?=
+To: YC Hsieh <yc_hsieh@aspeedtech.com>, Corey Minyard <corey@minyard.net>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: "openipmi-developer@lists.sourceforge.net"
+ <openipmi-developer@lists.sourceforge.net>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>
+References: <20260629-aspeed-bt-bmc-multichannel-v1-0-fc23ee337f7a@aspeedtech.com>
+ <20260629-aspeed-bt-bmc-multichannel-v1-3-fc23ee337f7a@aspeedtech.com>
+ <35a8e3b3-7725-4d1b-8667-84e6fa24b2ca@kernel.org>
+ <TY0PR06MB6855F4F499246CD5C44DB23893FA2@TY0PR06MB6855.apcprd06.prod.outlook.com>
+ <31df2c13-9c31-4a78-975f-b0152ad3356d@kernel.org>
+ <TY0PR06MB68558AD7FBBCEBB09DFAFCF593FA2@TY0PR06MB6855.apcprd06.prod.outlook.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -88,42 +99,38 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260714125537.3304217-3-v-mannuru@ti.com>
+In-Reply-To: <TY0PR06MB68558AD7FBBCEBB09DFAFCF593FA2@TY0PR06MB6855.apcprd06.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14/07/2026 14:55, MANNURU VENKATESWARLU wrote:
-> +required:
-> +  - compatible
-> +  - '#address-cells'
-> +  - '#size-cells'
-> +  - ranges
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/soc/ti,sci_pm_domain.h>
-> +
-> +    msmc0: msmc {
-> +        compatible = "ti,j721s2-msmc", "simple-bus";
+On 13/07/2026 09:09, YC Hsieh wrote:
+>>> +
+>>> +  aspeed,lpc-interrupts:
+>>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+>>> +    minItems: 2
+>>> +    maxItems: 2
+>>> +    description: |
+>>> +      A 2-cell property expressing the LPC SerIRQ number and the interrupt
+>>> +      level/sense encoding (specified in the standard fashion).
+>>> +
+>>> +      Note that the generated interrupt is issued from the BMC to the host, and
+>>> +      thus the target interrupt controller is not captured by the BMC's
+>> +     devicetree.
+> 
+>> No, you do not get second interrupts property.
+> 
+> Understood.
+> 
+> These values are not addressable resources of the BMC node itself;
+> rather, they describe how the BMC's LPC engine is exposed on the host
+> LPC bus. I am not sure how they should be represented in DT, since
+> they do not seem to fit the usual semantics of either "reg" or "interrupts".
+> 
+> Do you have a preferred way to represent this kind of host-facing LPC
+> configuration in the binding?
 
-NAK
-
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +        ranges;
-> +        intrlv-gran = <0>;
-> +        intrlv-size = <0>;
-> +        ecc-enable  = <0>;
-> +        emif-config = <0>;
-> +        emif-active = <0>;
-
-I do not accept downstream code sent to review.
-
-Start doing proper internal reviews. This binding and DTS is absolutely
-unacceptable, you just repeat all known mistakes ignoring any guidelines.
+How this device is expressed somewhere else (on some other system -
+"host") feels like outside of this device concern.
 
 Best regards,
 Krzysztof
