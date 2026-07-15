@@ -1,132 +1,190 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABA873537FB
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 14:23:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0D4E36404B
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 14:25:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784125405; cv=none; b=Pv6xcMSpFUYK0ypYeEoSyq//FT7RHYvf4VntpD7lSsYuRs2iIw8imq92dBIAc45x3vj1PWKb0S4JI5/hxcBL1SRvftfqeE3rXiaTSi4wqECATOSIGcA+hm9s/EW9IZpC+ci6rG56WjloGr3JK4ssHmeb/F5VhO2wYiST9diMu1U=
+	t=1784125517; cv=none; b=XcJz4euIOOj957skpng6eanRQ9S0heCyUkMFkpKNZyqgv1ZDc4+1GjflCTmOhEKzECW7tSnJofDLYNEsdzxGGHXgyraSjroqpAiF4M0LvMSx7aAqihhg4DVtDv6QxooJSLQA9zENYy1B+h24hR9qC2hiQzVm43dx89k87ln08Bk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784125405; c=relaxed/simple;
-	bh=uszvtJa82XWrOSqORf7TC6HdPugIpNuUd1QDQWTXWgE=;
+	s=arc-20240116; t=1784125517; c=relaxed/simple;
+	bh=0wECjlTKYdTG/nGW53Gfh7zMzkV8H7LTD/yRHgz4A4w=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hRRYC26xvOdBpE1r9Et7owlfT3IRy9uvVPGy/2jNQKDPaginMrpMNLMkxgdUnHL2qLUx+klv3g0aXQWG9UqFBZqH7HKfjHFdVAZWlz8PEDiqRv3dLfyenE3JKd90ZD8VAcJCZ6AdN9xc1GPyf9GMKLtQidkn/C+KkqyrvAKdi/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gPFU+cbS; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=fGx6n0cNp9TS7PQH2/LI+TqhLcqqE9ji3Atv+OL2Ti4zE5wpQjfWjboxBx5ECQ+w5nutYzeFEu+mGDI1y9e5VjeYk2VndaGEDhD5YmLo+7v5+9FHdlYJ1wFLZIYjutohGBvyLTrUccWSEohtjMbtt/PZZH6JX739tPFGsv1k1wY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cPlEjEXv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gPFU+cbS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0126B1F000E9;
-	Wed, 15 Jul 2026 14:23:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cPlEjEXv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A15CD1F000E9;
+	Wed, 15 Jul 2026 14:25:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784125403;
-	bh=l18ar/JzO9L9YOk/+MhT+yToGFd9rUeD7YempeESnAE=;
+	s=k20260515; t=1784125514;
+	bh=Q6rpGCj2mXJOH0DUXBRPr+rXAxWYkPLRpQv5jQmdMP0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gPFU+cbS0sIh6I90qGHv7avSJYEr/bxivdU2wzvlO3jVQ4pnslLb5AFxBU1PV0Jou
-	 6hL2OhN4mltY0XzOJTjqfeFRVB9eSb9Ncnfmt8LHjMgdevN/v0O/q81K8IR8HetuOm
-	 okE+uAzJEl9huFy/QIMCDlIJGR2g/2xB1A0KMMxoT5770G78Z8PSsBdIos1j6nQnoi
-	 7pvVYVExgJQYtfi8sVGXk7B3zb0kd2m3fCZ5o6x6Ns81I4ZW0bVLRrlNzkQTF3ZmfM
-	 RlRrOllX0gB6oEQgRAwAmw9CU53d5ilxjwWiBrC4285cqFDGLi4Za0RJQFIvepM+9W
-	 9Wc77sremcbqg==
+	b=cPlEjEXveHt12oduvC0sQ5sSK0JoBlTeylHUh3enIpywLdm6n9aKhMJOew3+gz6fP
+	 xNF911oyQn6b8S9h7FLhmuhb+4VqUJ8UJI8Q7AFbyQNeF8JxuB89W90dToCOkBhUNk
+	 nfwzLSX6RbOFN6KSSup0LENtmgF6m30/ZqyOtZQnYfnDrPghsiVqLBpE2QXtqpNase
+	 xkM7sU/pyoZL1UklV3BC0Xpbh+I3kWJk3PBmcNSdU0EHf4TRPK+rtECPRDe9WFOzaz
+	 tlII3wAy0LC/zGu+bbS75WThyiUR8rYD0jNjWodU9UmuqSTvSJIDpntMW6aUJXFip0
+	 XHtm3niu1A55g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 02/14] media: iris: Add hooks to initialize and tear
- down context banks
+Subject: Re: [PATCH v6 04/11] drm/mediatek: mtk_dsi: Cleanup encoder if
+ reset fails during bind
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vishnu Reddy" <busanna.reddy@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260715-glymur-v9-2-8cf2cbe12a07@oss.qualcomm.com>
-References: <20260715-glymur-v9-0-8cf2cbe12a07@oss.qualcomm.com>
- <20260715-glymur-v9-2-8cf2cbe12a07@oss.qualcomm.com>
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+In-Reply-To: <20260715135703.46540-5-angelogioacchino.delregno@collabora.com>
+References: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
+ <20260715135703.46540-5-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 14:23:22 +0000
-Message-Id: <20260715142323.0126B1F000E9@smtp.kernel.org>
+Date: Wed, 15 Jul 2026 14:25:13 +0000
+Message-Id: <20260715142513.A15CD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Missing cancellation of the delayed work `sys_error_handler` durin=
-g driver removal, leading to a Use-After-Free if the timer fires after `iri=
-s_remove` completes.
-- [High] Devres lifetime mismatch with video_device causing Use-After-Free =
-on file operations if V4L2 file descriptors are kept open after driver unbi=
-nd.
+- [High] Unprotected read-modify-write of shared state `dsi->irq_data` acro=
+ss process and hardirq contexts.
+- [High] Incorrect handling of `wait_event_interruptible_timeout()` return =
+value treats interrupted system calls as successful operations.
+- [High] Infinite busy-wait loop in the hardware interrupt handler.
+- [High] DSI Host is registered before the interrupt handler is requested, =
+causing timeouts during panel probe.
 --
 
---- Patch [2]: [PATCH v9 02/14] media: iris: Add hooks to initialize and te=
-ar down context banks ---
-commit 5c638b17a5df1cce5bd95764cd52706cb2e251b6
-Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+--- Patch [4]: [PATCH v6 04/11] drm/mediatek: mtk_dsi: Cleanup encoder if r=
+eset fails during bind ---
+commit 4140e363279861f85198ff2dac937aba26d9610b
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+drm/mediatek: mtk_dsi: Cleanup encoder if reset fails during bind
 
-media: iris: Add hooks to initialize and tear down context banks
+This commit adds an error handling path during DSI component binding. It
+ensures the encoder is properly cleaned up if the optional device reset
+fails, avoiding a potential use-after-free on module removal.
 
-Add platform hooks to set up and tear down context bank devices.
-Different iris platforms may require different context bank setup, so
-let platform data provide the required operations via vpu_ops.
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/medi=
-a/platform/qcom/iris/iris_probe.c
-> index c2dcb50a27824..2594f5a67378a 100644
-> --- a/drivers/media/platform/qcom/iris/iris_probe.c
-> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
-[ ... ]
-> @@ -207,6 +222,8 @@ static void iris_remove(struct platform_device *pdev)
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
+k/mtk_dsi.c
+> index 3237dc765701d..e4a156a474e08 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+> @@ -1090,7 +1090,13 @@ static int mtk_dsi_bind(struct device *dev, struct=
+ device *master, void *data)
+>  	if (ret)
+>  		return ret;
 > =20
->  	v4l2_device_unregister(&core->v4l2_dev);
-> =20
-> +	iris_deinit_cb_devs(core);
+> -	return device_reset_optional(dev);
+> +	ret =3D device_reset_optional(dev);
+> +	if (ret) {
+> +		drm_encoder_cleanup(&dsi->encoder);
+> +		return ret;
+> +	}
 > +
->  	mutex_destroy(&core->lock);
+> +	return 0;
 >  }
+> =20
+>  static void mtk_dsi_unbind(struct device *dev, struct device *master,
+
+While reviewing this file, I noticed a few pre-existing regressions in other
+parts of the code.
 
 [Severity: High]
-This is a pre-existing issue, but does this function need to cancel the
-delayed work core->sys_error_handler before returning?
+This isn't a bug introduced by this patch, but does this code risk losing
+interrupts?
 
-If the device triggers a hardware error, core->sys_error_handler is schedul=
-ed
-with a delay. If the device is concurrently unbound (e.g., via sysfs) before
-the timer expires, iris_remove() and iris_core_deinit() execute but fail to
-cancel the delayed work.
+In drivers/gpu/drm/mediatek/mtk_dsi.c, mtk_dsi_irq_data_clear() modifies
+shared state from process context:
 
-Since the core structure is allocated using devm_kzalloc(), it is freed
-automatically after iris_remove() returns. When the delayed work timer
-eventually fires, iris_sys_error_handler() will dereference the freed core
-pointer.
-
-[Severity: High]
-This is also a pre-existing issue, but is there a devres lifetime mismatch
-with the video_device?
-
-The core structure is allocated using devm_kzalloc() during probe, binding
-its lifetime to the platform device bind/unbind lifecycle. However, userspa=
-ce
-can open the V4L2 character device and hold the file descriptor open
-indefinitely.
-
-If the driver is unbound while the file descriptor is open, iris_remove()
-executes and returns, causing devres to free core.
-
-When userspace later closes the file descriptor, the V4L2 core invokes
-iris_close(), which attempts to dereference inst->core:
-
-drivers/media/platform/qcom/iris/iris_vidc.c:iris_close() {
-    ...
-	struct iris_inst *inst =3D iris_get_inst(filp);
-	iris_remove_session(inst);
-    ...
+static void mtk_dsi_irq_data_clear(struct mtk_dsi *dsi, u32 irq_bit)
+{
+        dsi->irq_data &=3D ~irq_bit;
 }
 
-Inside iris_remove_session(), this leads to a use-after-free when it locks
-inst->core->lock.
+Meanwhile, the hardirq handler calls mtk_dsi_irq_data_set():
 
-Could the allocation of core be managed without devres, or its lifetime tied
-to the V4L2 device's release callback?
+static void mtk_dsi_irq_data_set(struct mtk_dsi *dsi, u32 irq_bit)
+{
+        dsi->irq_data |=3D irq_bit;
+}
+
+Because the process context modification is a non-atomic read-modify-write
+without disabling interrupts, could an interrupt firing between the read
+and write cause the bit set by the interrupt handler to be overwritten and
+lost, leading to spurious timeouts?
+
+
+[Severity: High]
+This is a pre-existing issue, but does this negation correctly handle
+signal interruptions?
+
+In mtk_dsi_host_send_cmd(), the code checks the return value of
+mtk_dsi_wait_for_irq_done():
+
+        if (!mtk_dsi_wait_for_irq_done(dsi, flag, 2000))
+                return -ETIME;
+        else
+                return 0;
+
+A similar check exists in mtk_dsi_switch_to_cmd_mode():
+
+        if (!mtk_dsi_wait_for_irq_done(dsi, irq_flag, t)) {
+                drm_err(drm, "failed to switch cmd mode\n");
+                return -ETIME;
+        } else {
+                return 0;
+        }
+
+Since mtk_dsi_wait_for_irq_done() returns the result of
+wait_event_interruptible_timeout(), it can return -ERESTARTSYS if
+interrupted by a signal. Because -ERESTARTSYS is non-zero, this evaluates to
+false, taking the else branch and returning 0 (success). Could this cause
+the driver to falsely assume the hardware operation completed successfully
+and read uninitialized or stale data?
+
+
+[Severity: High]
+This is a pre-existing issue, but is it safe to poll this register
+indefinitely inside the hardirq handler?
+
+In mtk_dsi_irq(), the driver enters a loop waiting for DSI_BUSY to clear:
+
+                do {
+                        mtk_dsi_mask(dsi, DSI_RACK, RACK, RACK);
+                        tmp =3D readl(dsi->regs + DSI_INTSTA);
+                } while (tmp & DSI_BUSY);
+
+Since this runs in hardirq context without a timeout or counter, if a
+hardware malfunction keeps the DSI_BUSY bit asserted, could this cause the
+CPU to spin indefinitely with interrupts disabled, causing a hard lockup?
+
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is the DSI host registered
+too early?
+
+In mtk_dsi_probe(), mipi_dsi_host_register() is called before the interrupt
+handler is requested:
+
+        ret =3D mipi_dsi_host_register(&dsi->host);
+        if (ret < 0)
+                return dev_err_probe(dev, ret, "Failed to register DSI host=
+\n");
+
+        ret =3D devm_request_irq(&pdev->dev, irq_num, mtk_dsi_irq,
+                               IRQF_TRIGGER_NONE, dev_name(&pdev->dev), dsi=
+);
+
+Registering the host immediately triggers enumeration and probing of child
+panel drivers. If a panel driver sends a DCS command during its probe()
+routine before devm_request_irq() completes, the hardware interrupt will be
+missed. Could this cause the wait queue to time out and the panel probe to
+spuriously fail?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-glymur-v9-=
-0-8cf2cbe12a07@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715135703.4654=
+0-1-angelogioacchino.delregno@collabora.com?part=3D4
