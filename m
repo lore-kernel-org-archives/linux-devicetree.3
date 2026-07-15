@@ -1,153 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A3D390CB8
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 14:29:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BBD847ECEC;
+	Wed, 15 Jul 2026 14:30:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784125781; cv=none; b=HI+PUIW3ZcnuSEAoye+k4aWwFitpWZ8+d5+r0ompbQhspPH42NDhb+OouJe9YSRgehm4g2Ic7IKimbi2ei7KcOIVb8Pee9PFP3e7XUShEl/iiATDKreUcyV8EuciPl1+ESIHMoNKUuvlaC1Ucv2X+BJzbzSHJvysEHRkpCrnT9o=
+	t=1784125847; cv=none; b=Fx48Op9wv7h+iDoygBNgCMKBYxTvtsNqAE4GZEe44fpBWtEBWmlnSYaluKg9oyYFL98zCWIr9s7LrPujwVl5e2it0kkYaOaVZbo5trumhBh6bLp/opeIc687NtDKGsKceO1y9F6/yb7zLP/awOx13Iva0M805iHHuvZbtmci6ow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784125781; c=relaxed/simple;
-	bh=D9ckNu9SvaeYTC9gvFquLy4a6lU9h26W2+CrcrrHhtw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=urKPvKNYVUWYD3v90KCyh4fsNKn5UHcRS9IvaMhKWCnvVGBLRgThPTqwE2HGxHHgSSemAX3PlXSOIUTRgUXXwOFTcOx21YAzXVG6+uwX96i0os/Hh/CTD8LbCW51yaM9DvmBeaIVLIREmrPwsedqHqP+phetEQLtzybq9G3lng4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mGv4iySm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784125847; c=relaxed/simple;
+	bh=bxddUKlpQ/zaqaV7lCBZr3OZ5pRRSWUAginc50C9BCA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=BFyW67bsZ9N1rpfHITh6YiqfVnxop1enjtIpshahjc1Pf0qVC8K9b3zdfJq0L5FctFXSvpp465Cjjra+FTDjgqB2YJqOq9o9ExM36BBaPtQsTUgbkA4tqQ6ggaUblcRntRgpO94bbz2cXN4xK9LCvPlxJ1h7SnWZlPOs7JqwHNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dzri78mg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mGv4iySm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCC281F000E9;
-	Wed, 15 Jul 2026 14:29:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784125780;
-	bh=im1k+IfTUTLk3amJC9dHFxUNEwpUogrUfZBR4wgapVo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mGv4iySmB8Qgcxphg9g6l8W8V7oZugFuufB/viYqV9llWLLCAEXopxzn/xjvaD5O8
-	 SYhbfy+K9gVsTc66/ANI+1TtpPxi0LA+WHQjqBiTVhmdp6Lt93PNdeUoDskZCwD+aA
-	 9h3XiP7liSV3CG88kRgdJtKoDzUUsrjA70Hdjp0Gv1+MAVHoOb9qeHRctvhIqcoL8U
-	 Uwi8TWxawTcqe/Gy6ue/6gXvg1x0tm4HGy2XovOgX4R18z4P+iPhqyAkwnu52jViai
-	 ZhodIvrtn+xI5AFVGc1KBHa3FIQWl+41qdche/Vk0RJwf0j9tney5FCFlYVsg+KJI7
-	 N/Irh9w1AP0Qw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 05/11] drm/mediatek: mtk_dsi: Enable interrupt at
- component bind time
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-In-Reply-To: <20260715135703.46540-6-angelogioacchino.delregno@collabora.com>
-References: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
- <20260715135703.46540-6-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 14:29:39 +0000
-Message-Id: <20260715142939.DCC281F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dzri78mg"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B7B50C2BCF5;
+	Wed, 15 Jul 2026 14:30:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784125846;
+	bh=bxddUKlpQ/zaqaV7lCBZr3OZ5pRRSWUAginc50C9BCA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Dzri78mgMSZBmHzQ+S7tmPsBIUdYNCz8FgeGhmJ/4BSxxnqZ9UhouMpYb4pGsrCUH
+	 65Geo5DYXPL9TA/pUDsvslbDK8/GoIcCFP+cN0LDnhDIUbHpafmCgwgygWE5oz89P7
+	 0SG8j4jDbog1szeSXPNTSkqtUms7FI4CrpPHIviKujSHfBXdRymSUEJxL8F16bD1VU
+	 b2VEVkn1J530ytmU6LJ11UlOeGZZ3ztwQ6UQMrVgs4ROecC4xfHOCFsyKladKGxVve
+	 LVauxnMabUllfewYuum3eyo0hR/vGh/H0yMB8Wzd9/QwHXksTiW75eb6rSFPW3FOie
+	 nAMXhDFURrs1A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 95187C4450F;
+	Wed, 15 Jul 2026 14:30:46 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Date: Wed, 15 Jul 2026 17:27:47 +0300
+Subject: [PATCH 2/3] nvmem: mtk-efuse: add support for 32-bit aligned reads
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260715-6572-nvmem-v1-2-9c13be99d077@protonmail.com>
+References: <20260715-6572-nvmem-v1-0-9c13be99d077@protonmail.com>
+In-Reply-To: <20260715-6572-nvmem-v1-0-9c13be99d077@protonmail.com>
+To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>, 
+ Lala Lin <lala.lin@mediatek.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Roman Vivchar <rva333@protonmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784125843; l=3135;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=gOEk3xV/ih0Hcv+/D9l/u/kTXVslxW9X99D1kWTUUDw=;
+ b=q7erFPeQUkoybLyUukh26Ulgz+g/gbaNCEYnLZ0l2O9BHFQ2r6pMpOfwAeh02qLqtGkF7s0QU
+ V4bXXhD1MkXAi4268YXyYMS/PwzfqYCaVW+w+m+jt4am6mOtThmMMc0
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+From: Roman Vivchar <rva333@protonmail.com>
 
-Pre-existing issues:
-- [High] Data race on `dsi->irq_data` between process context and hardirq c=
-ontext can cause false positive interrupt completions.
-- [High] Unbounded hardware polling loop in hardirq handler can lock up the=
- CPU.
---
+Some MediaTek SoCs, such as mt6572, don't support 8-bit reads, leading
+to zeroes or garbage data. 32-bit aligned reads must be used instead.
 
---- Patch [5]: [PATCH v6 05/11] drm/mediatek: mtk_dsi: Enable interrupt at =
-component bind time ---
-commit 869a346c570d4022e4d54a10b57fcff068a735b6
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Introduce an 'needs_aligned_read' field to the platform data to enforce
+32-bit aligned register access. All reads will be performed by reading
+4-byte words and masking them.
 
-drm/mediatek: mtk_dsi: Enable interrupt at component bind time
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+---
+ drivers/nvmem/mtk-efuse.c | 31 ++++++++++++++++++++++++++++---
+ 1 file changed, 28 insertions(+), 3 deletions(-)
 
-Having the DSI interrupt enabled before actually binding the DSI
-component to the display controller driver is both useless and dangerous.
-This commit fixes this by requesting the interrupt with IRQF_NO_AUTOEN,
-and enabling it only when binding DSI to its display controller component.
+diff --git a/drivers/nvmem/mtk-efuse.c b/drivers/nvmem/mtk-efuse.c
+index af953e1d9230..1462f2760818 100644
+--- a/drivers/nvmem/mtk-efuse.c
++++ b/drivers/nvmem/mtk-efuse.c
+@@ -4,6 +4,7 @@
+  * Author: Andrew-CT Chen <andrew-ct.chen@mediatek.com>
+  */
+ 
++#include <linux/align.h>
+ #include <linux/device.h>
+ #include <linux/module.h>
+ #include <linux/mod_devicetable.h>
+@@ -14,10 +15,12 @@
+ 
+ struct mtk_efuse_pdata {
+ 	bool uses_post_processing;
++	bool needs_aligned_read;
+ };
+ 
+ struct mtk_efuse_priv {
+ 	void __iomem *base;
++	const struct mtk_efuse_pdata *data;
+ };
+ 
+ static int mtk_reg_read(void *context,
+@@ -28,6 +31,26 @@ static int mtk_reg_read(void *context,
+ 	u8 *val = _val;
+ 	int i;
+ 
++	if (priv->data->needs_aligned_read) {
++		u32 pos, shift, val32;
++
++		for (i = 0; i < bytes; i++, val++) {
++			pos = reg + i;
++
++			/*
++			 * Read on 32-bit word boundary or if it's the first
++			 * iteration
++			 */
++			if (i == 0 || IS_ALIGNED(pos, 4))
++				val32 = readl(priv->base + (pos & ~3));
++
++			shift = (pos & 3) * 8;
++			*val = (val32 >> shift) & 0xff;
++		}
++
++		return 0;
++	}
++
+ 	for (i = 0; i < bytes; i++, val++)
+ 		*val = readb(addr + i);
+ 
+@@ -67,7 +90,6 @@ static int mtk_efuse_probe(struct platform_device *pdev)
+ 	struct nvmem_device *nvmem;
+ 	struct nvmem_config econfig = {};
+ 	struct mtk_efuse_priv *priv;
+-	const struct mtk_efuse_pdata *pdata;
+ 	struct platform_device *socinfo;
+ 
+ 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+@@ -78,7 +100,8 @@ static int mtk_efuse_probe(struct platform_device *pdev)
+ 	if (IS_ERR(priv->base))
+ 		return PTR_ERR(priv->base);
+ 
+-	pdata = device_get_match_data(dev);
++	priv->data = device_get_match_data(dev);
++
+ 	econfig.add_legacy_fixed_of_cells = true;
+ 	econfig.stride = 1;
+ 	econfig.word_size = 1;
+@@ -86,7 +109,7 @@ static int mtk_efuse_probe(struct platform_device *pdev)
+ 	econfig.size = resource_size(res);
+ 	econfig.priv = priv;
+ 	econfig.dev = dev;
+-	if (pdata->uses_post_processing)
++	if (priv->data->uses_post_processing)
+ 		econfig.fixup_dt_cell_info = &mtk_efuse_fixup_dt_cell_info;
+ 	nvmem = devm_nvmem_register(dev, &econfig);
+ 	if (IS_ERR(nvmem))
+@@ -103,10 +126,12 @@ static int mtk_efuse_probe(struct platform_device *pdev)
+ 
+ static const struct mtk_efuse_pdata mtk_mt8186_efuse_pdata = {
+ 	.uses_post_processing = true,
++	.needs_aligned_read = false,
+ };
+ 
+ static const struct mtk_efuse_pdata mtk_efuse_pdata = {
+ 	.uses_post_processing = false,
++	.needs_aligned_read = false,
+ };
+ 
+ static const struct of_device_id mtk_efuse_of_match[] = {
 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
-k/mtk_dsi.c
-> index e4a156a474e08..070d7d555bdbe 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> @@ -225,6 +225,7 @@ struct mtk_dsi {
->  	int refcount;
->  	bool enabled;
->  	bool lanes_ready;
-> +	int irq;
->  	u32 irq_data;
+-- 
+2.54.0
 
-[Severity: High]
-This isn't a bug introduced by this patch, but can the data race on
-dsi->irq_data between process context and hardirq context cause false posit=
-ive
-interrupt completions?
 
-The dsi->irq_data variable is modified locklessly using read-modify-write
-operations:
-
-drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_irq_data_clear() {
-    ...
-    dsi->irq_data &=3D ~irq_bit;
-    ...
-}
-
-drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_irq_data_set() {
-    ...
-    dsi->irq_data |=3D irq_bit;
-    ...
-}
-
-If a delayed interrupt sets a flag while a process on another CPU is cleari=
-ng
-a different flag for a new command, the process's clear operation can be lo=
-st
-if the interrupt handler overwrites it.
-
-The previously cleared flag remains set, causing mtk_dsi_wait_for_irq_done()
-to falsely return success.
-
->  	wait_queue_head_t irq_wait_queue;
->  	const struct mtk_dsi_driver_data *driver_data;
->  };
-
-[ ... ]
-
-> @@ -1381,17 +1385,15 @@ static int mtk_dsi_probe(struct platform_device *=
-pdev)
-> =20
->  	platform_set_drvdata(pdev, dsi);
-> =20
-> +	ret =3D devm_request_irq(&pdev->dev, dsi->irq, mtk_dsi_irq,
-> +			       IRQF_NO_AUTOEN, dev_name(&pdev->dev), dsi);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but could the unbounded hardware
-polling loop in the mtk_dsi_irq() hardirq handler lock up the CPU?
-
-The mtk_dsi_irq() function runs in hardirq context and uses an unbounded lo=
-op
-to wait for the hardware:
-
-drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_irq() {
-    ...
-    do {
-        mtk_dsi_mask(dsi, DSI_RACK, RACK, RACK);
-        tmp =3D readl(dsi->regs + DSI_INTSTA);
-    } while (tmp & DSI_BUSY);
-    ...
-}
-
-If the DSI hardware hangs, loses its clock, or DSI_BUSY never clears for any
-other reason, the loop never terminates, which will permanently hang the CP=
-U.
-
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715135703.4654=
-0-1-angelogioacchino.delregno@collabora.com?part=3D5
