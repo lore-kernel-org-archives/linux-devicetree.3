@@ -1,136 +1,77 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43E1C42255D;
-	Wed, 15 Jul 2026 09:20:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 702BE423E85;
+	Wed, 15 Jul 2026 09:20:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784107247; cv=none; b=YYzlX5q5ywq7GVU+tlzRgA0DaB7kDodOQGHlGohnUBXJxC5pUqSdaD/5Sbgvr2z4DB9Flps0LsCV51Eyeop5+vbyEVpOvnTlKsG2Ug8hx4pP66RM/yOWjbJkjchL4pcHBwv2RVNjE8sZRZ2/pwyYGYcsa9NPvT9UjLeixy/SGLE=
+	t=1784107249; cv=none; b=t/ur1+0J6qwIx7JO0phKkz8NJSMKgaeNiW/P6ZP11Uh+KyxCGIsiYxq7gYPDuizT0RWAJJLqr1veRSRWhqQeCX5918h0dS9T8xAvyln8RPxT9a/WwsK2/kz+U0QslD7L8KrDLWhm6kCo6YSdaPY1M1/oQTat9taExpWmSKDz2r0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784107247; c=relaxed/simple;
-	bh=GNwWwlwKmSHKcifYCWTeyGH5lZcsn6dd0tzvoKNoxb4=;
+	s=arc-20240116; t=1784107249; c=relaxed/simple;
+	bh=8icWg+MuYK6o8+nvyjTEbBOrLRu94DyCkjeA10u9Cqw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OGpBewjPGSesUsPk7uOek1UvLW+6c5/qnSA4FIB6akRxKHfsDkWoehqfmzp7bxIMYIcU/x2yrQ7el89I5Gll1FEivoddQMuMbRCJxlWLhqBZRjdYM40keD6pZBr4FYSnASDa7aljuxRBoihAGhUqay239EfGvmg3aBT8sSSS2RA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=E8TyQTIY; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=lJn2nbRfuZExsZ7SovFPAr5tzqb0hTYaayhCP4e5nRx8ouwHq8vPSW1m+fiOP3kutfyxLkGZ0DywtQ6eOhPOYVz7Oxjz+avkoRD7HuoLlVxkwQCBeEiVlHiDHrne3Mv4/lzU/jHZG8W+OvIuKgkYgW+HeZ9+D2i/xOwgixY0XCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X8f8/guC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="E8TyQTIY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784107246; x=1815643246;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=GNwWwlwKmSHKcifYCWTeyGH5lZcsn6dd0tzvoKNoxb4=;
-  b=E8TyQTIYYYg4cyJUmvc3yuZvV/tST6cuhnR969CBzTbePw/gk78+ioHU
-   6t2S45LucpjHSUf5n508TxKDlQ4wvx6G4DKQE/9/ACdDptJ8/9WGw7xL3
-   ZOcuA/n8nAppf/wdSYfgEvVI5R449xb20KWwfi+VSM1iXf84SVQBe2c0V
-   SyWdVjtDnTGmxSA+GP0rOl08+Pr2BwsG6IFqtBejyF5ApmX/iXqs3BjDq
-   CspMyxonqJS02cfPtHxBNh/XHXDMjGpyhyBdUy/SFu2KiEWCcoTAKhh6T
-   VGyRR3ofry3nb1kDp907joAnTB8UcyXI+hlalu9GdnlCpdi5uB3hjOMiX
-   w==;
-X-CSE-ConnectionGUID: 1hVDg6AXT+yg/NPNUnWI2Q==
-X-CSE-MsgGUID: mJ/qyjLoQpSzkOvScnorfQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84781011"
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="84781011"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 02:20:45 -0700
-X-CSE-ConnectionGUID: rohPZ6YPTZinj6UTJQYdjw==
-X-CSE-MsgGUID: Nj0Y0ejIQuSWjXGPb/1fOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="254379157"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.129])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 02:20:40 -0700
-Date: Wed, 15 Jul 2026 12:20:38 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Wei Deng <wei.deng@oss.qualcomm.com>, linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-pm@vger.kernel.org,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v5 06/16] usb: hub: Associate port@ fwnode with USB port
- device
-Message-ID: <aldQ5odptfmK5aCw@ashevche-desk.local>
-References: <20260715085348.3457359-1-wenst@chromium.org>
- <20260715085348.3457359-7-wenst@chromium.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X8f8/guC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA3BC1F00A3A;
+	Wed, 15 Jul 2026 09:20:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784107248;
+	bh=LgtzXpBKpqrsbizlT4+gM3HB6/jCX4YYOzDpd315EWs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=X8f8/guCsQzLR6QXo73QciVGDuKazQdQ0i2ryhxGPfDSYFnWbOyfjSRiMuvtXqoBH
+	 Lzx5ra8rUtHWleE3q5yUND8d6M7V6DU8488aHf3br8UM4kUlh5qgvalKoHRuVUTS0M
+	 Xv+A2MW1H72Je5KeC8Auw2iJssxR+F5wHsHwdANIK5Y8xQvvngRLlk0Gdf8rrwlN/A
+	 sMR7wIfVMlEMcicI+e+2RdGt5RWRMgpIKmF4v3sS76NJlqB4aGhXp+fiTkjutJPoQ8
+	 AIzFyU16rPmB5ByoLnMB2yjQz7nJBeOYCaW6iV2RieVp/E2/kQ1b7XjDbL6qnmHReJ
+	 xphQ2Es0B/7uQ==
+Date: Wed, 15 Jul 2026 11:20:43 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Harshal Dev <harshal.dev@oss.qualcomm.com>, 
+	Vinod Koul <vkoul@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@kernel.org>, Andy Gross <agross@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org
+Subject: Re: [PATCH v4 1/6] dt-bindings: crypto: qcom,inline-crypto-engine:
+ Fix legacy/new SoC strictness split
+Message-ID: <20260715-icy-berserk-pigeon-909f8b@quoll>
+References: <20260714-b4-shikra_crypto_changse-v4-0-06a4ea97c209@oss.qualcomm.com>
+ <20260714-b4-shikra_crypto_changse-v4-1-06a4ea97c209@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260715085348.3457359-7-wenst@chromium.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260714-b4-shikra_crypto_changse-v4-1-06a4ea97c209@oss.qualcomm.com>
 
-On Wed, Jul 15, 2026 at 04:53:36PM +0800, Chen-Yu Tsai wrote:
-> When a USB hub port is connected to a connector in a firmware node
-> graph, the port itself has a node in the graph.
+On Tue, Jul 14, 2026 at 03:35:12PM +0530, Kuldeep Singh wrote:
+> Couple of already merged SoCs(like sc7280, sm8750, kaanapali etc.)
+> describe ICE as single clock historically which are recently updated
+> with mandatory 2 clocks.
 > 
-> Associate the port's firmware node with the USB port's device,
-> usb_port::dev. This is used in later changes for the M.2 slot power
-> sequencing provider to match against the requesting port.
+> Keep only the known legacy compatibles flexible, and make strict
+> validation default(of power-domains and 2 clocks) for all other Soc
+> compatibles.
 > 
-> To avoid potential conflicts with ACPI firmware nodes and then causing
-> power management issues, only assign the firmware node if the hub's
-> firmware node is not an ACPI firmware node.
+> This ensures old DTs are valid while ensuring any new SoC (like hawi,
+> milos, eliza, nord, maili or any upcoming ones) must follow latest
+> requirements by default.
+> 
+> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+> ---
+>  .../bindings/crypto/qcom,inline-crypto-engine.yaml | 26 ++++++++++++++--------
+>  1 file changed, 17 insertions(+), 9 deletions(-)
 
-...
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> int usb_hub_create_port_device(struct usb_hub *hub, int port1)
-
-What about adding
-
-	struct fwnode_handle *fwnode = dev_fwnode(&hdev->dev);
-
-to the top of the function, and...
-
->  	port_dev->dev.driver = &usb_port_driver;
->  	dev_set_name(&port_dev->dev, "%s-port%d", dev_name(&hub->hdev->dev),
->  			port1);
-> +	/*
-> +	 * ACPI FW nodes are associated later when device_register() happens.
-> +	 * Skip assigning one here to avoid potential conflicts.
-> +	 */
-> +	if (!is_acpi_node(dev_fwnode(&hdev->dev)))
-> +		device_set_node(&port_dev->dev,
-> +				fwnode_graph_get_port_by_id(dev_fwnode(&hdev->dev), port1,
-> +							    FWNODE_GRAPH_DEVICE_DISABLED));
-
-...shorten this a bit to
-
-	if (!is_acpi_node(fwnode)) {
-		struct fwnode_handle *ep;
-
-		ep = fwnode_graph_get_port_by_id(fwnode, port1, FWNODE_GRAPH_DEVICE_DISABLED);
-
-// Is NULL or error pointer is fine here to be set as fwnode in port device?
-// Perhaps add a comment?
-
-		device_set_node(&port_dev->dev, ep);
-	}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+Krzysztof
 
