@@ -1,284 +1,351 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C1726ED37;
-	Wed, 15 Jul 2026 00:23:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451C115E5DC
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 00:32:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784075032; cv=none; b=nuI2ebw6rfgMEgNrB0Pk746OpFjlU1RELjfHAAKYgpPVT5L/lxYY/dOoyLCdA8usc1QskrBa4dk7zvWO0Nrjk4NASrqq6ZuB4KnFdWcyJxazbjjzIAjvCDTqhJKyLP+WjDxBaHVT4rbAzcpPtwz9WbYHIMliPdU8T/3nxLItkFo=
+	t=1784075563; cv=none; b=OK6l/KsRh//JsvmSZ/Nbepcm1IcwH6GidDkFkAt5Ty8ALr2M34EkOngA03AtxROMdtQ4tdd2K5aEEOnA0FEZh5WP587VQW8R9Hv8jSF857IEdXcLY7AF++Xw0RNK8M5y/YmEJhAn8I4Cz3tTCSBgfSalnXJjYqtRCnALllUrxug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784075032; c=relaxed/simple;
-	bh=IuLC0iI1JE4boCR8E2WNJfraxVFnrLG9v2VBehzb7NI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bPMJTGTXPkqysCEADuKd079F07KTZIqyfJYcUM7lI5pgEkdxakW5CmaSXgE15kVXQkP42z+vQIM0GQsaatHt/rx1w29+1y/J+/6YYgpI9vyLLCYDXf0Bc+Ws4ji58RgBgBAL3LjvYuKBRSCQfDvAOBTUfm6Imte7PHvGrq+NyEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fsB9GCI9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784075563; c=relaxed/simple;
+	bh=AMcJL/mRPIW1zvhlGxD9ehRkfC4ziM8fajxX6PHuQjQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Dor/0m0SrByi04H0KeCSEXNasT9SuGDtVFHcdvkONueasIj5KIiZ7Sx2lMH4HkkN5QcXolr/seEO8B0Dsgt3IQ65L7PW63Q+kej0P3m84JBKmbIfPFdkTAWdUYG9tihBB06EqEcJl4D57r9+F4MmrOfVCF8LjIC9T6OvaZLjAEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=d60iblaT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fpdQxl1v; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fsB9GCI9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BCD41F01558;
-	Wed, 15 Jul 2026 00:23:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784075030;
-	bh=kdqzplXXwiJ0AjiFP9YJIbhw5Yk94RZ3AUHOtZZT3vA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=fsB9GCI9ZuOECCUPlSZwVlnWI/uhE8XqPi07aKuN/lOWiYGCos4TS7phqHY7z1kkR
-	 ZitXLBgDKOtYbO6VUu4kttiZyOD4NeC3F4QQttQuwcCYywq5oXbu+4e8sfisCMc4lQ
-	 QBkCjB4T45bh4M7eqHapBkvKfeYceJ3vmMaLz/2lP6CCxAh+NsvY6bRq8k0baGdX2O
-	 KIMq8lYjaNAVdZUXHm4yhpLAH6ppnapNrYy5XJvStIVmd7Bxg/oI0tbOTdXqnt5HNv
-	 ZbkU0iIViam0qpZ7GjeM6M4mIHbaWl9fInCybP687lS78OZmj/Pz88XXUY2WjVUYRq
-	 hdto+bqadiAow==
-From: Drew Fustini <fustini@kernel.org>
-Date: Tue, 14 Jul 2026 17:23:30 -0700
-Subject: [PATCH v5 8/8] riscv_cbqri: Add CBQRI capacity allocation platform
- driver
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="d60iblaT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fpdQxl1v"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66F0IO9B2143738
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 00:32:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	VhRmVe2L95WfB3tIH5U/OZaaS9Pdz/HPXPNfie3HA24=; b=d60iblaTngRBE3Ph
+	UwX6/IxRG/tsA06eeE9tDdXmZ4eq30zgXZq1j9Mnuwic2xMKQ9LKfq2Atx4f8+aq
+	lYd1nbOj69HDmdKsjL7QTSbuB3KFf7pO61XZ7WVNsFSWu9LWwuAgr2+KmmGT+uCT
+	G+oEjlOJmSyR3vCQRZf7B3hwgCpM+c8PaBoLYYshaPtX3viAQLJT0gkf++cmOg1F
+	bseu6njYHKdCu49YYU85aRFF/Xu1qfty3GbjDC7KYErzw0+ZWmk9FPkZgsI7MIpI
+	7f+E/p+CfOzs11TMxLcqUkvOPzqjLGQXBGpDmWiTq4DtEaJ4T2j/XsNvSDpE2HB5
+	oDjwSw==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fdmjq2m33-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 00:32:37 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c916d17dd43so8171528a12.3
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 17:32:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784075557; x=1784680357; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VhRmVe2L95WfB3tIH5U/OZaaS9Pdz/HPXPNfie3HA24=;
+        b=fpdQxl1vDD0/DYUEAjiSrG9qGv48L7sqe3B1InWRXSB0eGJ9AYOOcmPldIunqhm55u
+         KDcDhY5P8MrKXyg1X+eC0fVGTfhznHWaKmDi+4Jw5xWnvksO/c8PPNMdSKSGyzsikKAw
+         Nfk1H1ZO5y7rDzm7cRQIG8ynzKVmA48b8RZci0PiZ03H6cEuzLgLP+9jprOCExs7RqQS
+         mqHdiZrcfhr4esnHrdPkHgSv73mdLvI8bmPAp1EMA4Mvtvq8ZSqAAxtAU+rxFTsDOYvQ
+         SoMjBH8wlR2o+c3tozhlJ6XLtvw0FSd2SaKT99V5yTcIrlCYrEepskQeHPmnJVs8k1tF
+         Z3hA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784075557; x=1784680357;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VhRmVe2L95WfB3tIH5U/OZaaS9Pdz/HPXPNfie3HA24=;
+        b=D3hXGdM+a8WoBwHOpzXEev87xM0z0D0HTIdtGEbgUaJjyTD3+94T5EzYklhbs2kgVV
+         GVXdRmH/Pm68257n838dPnLAktC8RC/rMZx4yFmcQ8i0xLI0XSDMufu1dmcYDhc/c1cF
+         LEYyOeUwjb4FriS3qWYiUIXYUwGyygJ2RUsfBwJtUw9LK35Z4VJCnF6/NdcMn+H4yuJK
+         tlda7vRzI+WVvPfXqgm7IRhBZxI5fKKpNPtsjuA4kktZUSjg0ODaYXIQJOwsiakDox5G
+         sBVR80k6ZHpnTU+4B7KHbM1fqm6HcuUUcro+NPbckoG6m/NXN2Q87xCJF7znLgY6m6wu
+         AQWA==
+X-Forwarded-Encrypted: i=1; AHgh+RrgcooBpMa0J5yerBcEm2AAHuJBxTISlXVuarT3oANphyIwuFaKXZIWwFjMZHdSPL9DZaAzOymxJBZg@vger.kernel.org
+X-Gm-Message-State: AOJu0YwOFbH9FJcFzY4kPxE4DpYGe+/qovdb8+voIyCenht7Kp/XPoU2
+	Z33m+0Gi5i4E/f/7DbFWDkP6YOfPveXcGWReY/ignTKeSR4cNSFvYd34fYVuB7TbbutvQHsAk4g
+	dPgZFLM0kO1r/L0raYZKtMzQptmwBtIFpeC+MNFk9WejA6GF6ZYRlP0ZTRT77t5m9Us+T7mRr
+X-Gm-Gg: AfdE7ckn0+CSWfUU0YB9xD8W2aXsicxO+DSpR8G/QoGT7BnQeCulWGa9ymp/UtDZ7aI
+	cHa1KDY6WvHmHApAipSFEw8eeQ2Cv4yXZfjz9bruBT0T4tWpd9XGZyb2eALV2K86bvF/Mkjt+Fw
+	OOr+alGx0VmmtJagbbHUeC2AEjNShro4gmJuvOK1YoGJD7lyplzXgegGIyVSRCBPuZ1k5WuIom6
+	/Ay3xgxmbWYolewxpE2SD5oQ72qxuPSCFMWXADAaV954xh1LMQypzct0g4h6VEKMMr7nv/uEVn5
+	73lR4wYCNgt8Al1P8HDoBMwwO9+s9TFnm70jC/MI+lKp8IOxa/5gToqFrNrQ2LV1hDLW+MhyPgW
+	N+CPFedJ29V4NeHdKX2oqLodH7HBRSV6C4ybtLjfW
+X-Received: by 2002:a05:6a21:2291:b0:3bf:b40b:def2 with SMTP id adf61e73a8af0-3c36c0f6cf0mr837618637.9.1784075556779;
+        Tue, 14 Jul 2026 17:32:36 -0700 (PDT)
+X-Received: by 2002:a05:6a21:2291:b0:3bf:b40b:def2 with SMTP id adf61e73a8af0-3c36c0f6cf0mr837593637.9.1784075556344;
+        Tue, 14 Jul 2026 17:32:36 -0700 (PDT)
+Received: from [192.168.1.132] ([70.95.199.79])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b9081d5c3sm32453703c88.9.2026.07.14.17.32.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 14 Jul 2026 17:32:35 -0700 (PDT)
+Message-ID: <4ffd0645-dc50-4157-b63b-5e93fd7520a7@oss.qualcomm.com>
+Date: Tue, 14 Jul 2026 17:32:34 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/9] usb: misc: qcom_eud: add per-path High-Speed PHY
+ control
+To: Peter Chen <peter.chen@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+        Souradeep Chowdhury <quic_schowdhu@quicinc.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260501170635.2641748-1-elson.serrao@oss.qualcomm.com>
+ <20260501170635.2641748-4-elson.serrao@oss.qualcomm.com>
+ <aktKpIXVnJeydgCE@hu-petche-lv.qualcomm.com>
+Content-Language: en-US
+From: Elson Serrao <elson.serrao@oss.qualcomm.com>
+In-Reply-To: <aktKpIXVnJeydgCE@hu-petche-lv.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260714-dfustini-atl-sc-cbqri-dt-v5-8-b0ae7e9c932e@kernel.org>
-References: <20260714-dfustini-atl-sc-cbqri-dt-v5-0-b0ae7e9c932e@kernel.org>
-In-Reply-To: <20260714-dfustini-atl-sc-cbqri-dt-v5-0-b0ae7e9c932e@kernel.org>
-To: Adrien Ricciardi <aricciardi@baylibre.com>, 
- Alexandre Ghiti <alex@ghiti.fr>, Atish Kumar Patra <atishp@rivosinc.com>, 
- Atish Patra <atish.patra@linux.dev>, Babu Moger <babu.moger@amd.com>, 
- Ben Horgan <ben.horgan@arm.com>, Borislav Petkov <bp@alien8.de>, 
- Chen Pei <cp0613@linux.alibaba.com>, 
- Conor Dooley <conor.dooley@microchip.com>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Dave Hansen <dave.hansen@linux.intel.com>, 
- Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>, 
- Gong Shuai <gong.shuai@sanechips.com.cn>, Gong Shuai <gsh517@gmail.com>, 
- guo.wenjia23@zte.com.cn, James Morse <james.morse@arm.com>, 
- =?utf-8?q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn, 
- Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>, 
- Peter Newman <peternewman@google.com>, 
- =?utf-8?q?Radim_Kr=C4=8Dm=C3=A1=C5=99?= <rkrcmar@ventanamicro.com>, 
- Reinette Chatre <reinette.chatre@intel.com>, Rob Herring <robh@kernel.org>, 
- Samuel Holland <samuel.holland@sifive.com>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Tony Luck <tony.luck@intel.com>, Vasudevan Srinivasan <vasu@rivosinc.com>, 
- Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>, 
- yunhui cui <cuiyunhui@bytedance.com>, 
- Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>, 
- Drew Fustini <fustini@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- x86@kernel.org, devicetree@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
- linux-doc@vger.kernel.org
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6796; i=fustini@kernel.org;
- h=from:subject:message-id; bh=IuLC0iI1JE4boCR8E2WNJfraxVFnrLG9v2VBehzb7NI=;
- b=owGbwMvMwCV2+43O4ZsaG3kYT6slMWSFXRb8UTzv/aPOA1mN1hM8Nmz/oFQYfHfjZQvb8893v
- hb6LXvRuaOUhUGMi0FWTJFl04e8C0u8Qr8umP9iG8wcViaQIQxcnAIwkfeKjAzzsx+uTIt7VtWy
- wUp+iXdTbqvATU3JzJJABz0btg1bWSwZGW6eWX3AYZGbnBZbw8dD9WfyFKc0SrZzPwmYrrM26fT
- BRFYA
-X-Developer-Key: i=fustini@kernel.org; a=openpgp;
- fpr=1B6F948213EA489734F3997035D5CD577C1E6010
+X-Authority-Analysis: v=2.4 cv=LqmiDHdc c=1 sm=1 tr=0 ts=6a56d525 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=uHxescsG3rBdxcXwcPaeSg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=6PPZE6R56-VPGRRjajsA:9 a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-GUID: UH45cUz-tZyJMO36eAs9jL1vRpruLsUs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE1MDAwMiBTYWx0ZWRfXybAH2pMhurOW
+ /+erUSILsAYL2lJZ6oQY02rGz4vhHxWnH5UUT/ch5XGZemuBSzxLzhRjqnym/fhY6FizdpfeY3T
+ zyfAysTeJqatoHWWcCS8deLfBsKVKlcCQJAsKWzYOPMBQLZKpd6k3ZT+JOLe3SWr4RA6kf0bMA6
+ Z278Zx0+AeMmmWCFEYWWHFllYI1O0BUtucHVTefYZSEX9eoFgCkjvpPsoyp3dQ4nne0lIxpdueD
+ kI47ibo8DzCIlaNwDV7hWgmLiaXXdrsW2uX9Toy+BgxUv/qYHHhMF+MmsKz+A/5z8Xb0dCA9cms
+ 1Xenx0oHgaQcYm/1pSr5WCjJ+D15T4cC5Ame4vwnh1Y2zEGPxuGwAxpNp2cvrSN6bFNN2JjtMZF
+ ZyP2vRVSIYzdqMUOmN0P6qwpyrBtJ0sSTmjqMGjurmyyKM1aK+Cj2PhEosczmfZRDRHnxE0dUDn
+ x7I8XzB8AnghxnXMSUg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE1MDAwMiBTYWx0ZWRfX/SGosDXJ3rXe
+ UpBJflwAC9FlDY9vZ6tsGikJNDk9aRhUkayvB0BQG5p8J8tMqYrFpgUWUuoLK5K4VtYp5Dj4BBE
+ efjgFdGzEgCJjlEDUWmm78+HUISar6o=
+X-Proofpoint-ORIG-GUID: UH45cUz-tZyJMO36eAs9jL1vRpruLsUs
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-15_01,2026-07-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0 spamscore=0
+ bulkscore=0 clxscore=1015 adultscore=0 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607150002
 
-Add a device-tree platform driver, bound to the generic
-riscv,cbqri-capacity-controller compatible, that registers a CBQRI
-capacity controller as the resctrl cache-allocation resource for the
-cache it governs.
 
-The driver follows the node's riscv,cbqri-cache phandle to that cache,
-reads its level, and matches it against cacheinfo to get the resctrl
-domain id. It then hands the controller to riscv_cbqri_register_cc_dt()
-with the riscv,cbqri-rcid count from the node.
 
-Nothing is vendor-specific, and the DT "reg" is the CBQRI register block
-itself, so any SoC that describes a CBQRI capacity controller in device
-tree can reuse the driver unchanged.
+On 7/5/2026 11:26 PM, Peter Chen wrote:
+> On 26-05-01 10:06:29, Elson Serrao wrote:
+>> EUD hardware can support multiple High-Speed USB paths, each routed
+>> through its own PHY. The active path is selected in hardware via the
+>> EUD_PORT_SEL register. As a High-Speed hub, EUD requires access to
+>> the High-Speed PHY associated with the active path. To support this
+>> multi-path capability, the driver must manage PHY resources on a
+>> per-path basis, ensuring that the PHY for the currently selected
+>> path is properly initialized and powered.
+>>
+>> This patch restructures the driver to implement per-path PHY management.
+>> The driver now powers the appropriate PHY based on the selected and
+>> enabled UTMI path, ensuring correct operation when EUD is enabled.
+>>
+>> Historically, EUD appeared to work on single-path systems because the
+>> USB controller kept the PHY initialized. However, EUD is designed to
+>> operate independently of the USB controller and therefore requires
+>> explicit PHY control for proper operation.
 
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Drew Fustini <fustini@kernel.org>
----
- MAINTAINERS                      |   1 +
- drivers/resctrl/Kconfig          |  11 ++++
- drivers/resctrl/Makefile         |   1 +
- drivers/resctrl/cbqri_capacity.c | 127 +++++++++++++++++++++++++++++++++++++++
- 4 files changed, 140 insertions(+)
+[...]
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 7acdab42e9c5..5c4be59b2670 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23367,6 +23367,7 @@ F:	Documentation/devicetree/bindings/riscv/riscv,cbqri.yaml
- F:	arch/riscv/include/asm/qos.h
- F:	arch/riscv/include/asm/resctrl.h
- F:	arch/riscv/kernel/qos.c
-+F:	drivers/resctrl/cbqri_capacity.c
- F:	drivers/resctrl/cbqri_devices.c
- F:	drivers/resctrl/cbqri_internal.h
- F:	drivers/resctrl/cbqri_resctrl.c
-diff --git a/drivers/resctrl/Kconfig b/drivers/resctrl/Kconfig
-index 68b4124df396..689a91873d7b 100644
---- a/drivers/resctrl/Kconfig
-+++ b/drivers/resctrl/Kconfig
-@@ -43,6 +43,17 @@ menuconfig RISCV_CBQRI
- 
- if RISCV_CBQRI
- 
-+config RISCV_CBQRI_CAPACITY
-+	bool "RISC-V CBQRI cache capacity-allocation controller"
-+	depends on OF
-+	help
-+	  Enable driver for a RISC-V CBQRI capacity controller that
-+	  governs a CPU cache, matching the "riscv,cbqri-capacity-controller"
-+	  compatible. The controller's cache phandle gives the cache level and
-+	  id, which the driver registers as a resctrl cache-allocation resource.
-+
-+	  Say N unless your device tree describes a CBQRI capacity controller.
-+
- endif
- 
- config RISCV_CBQRI_RESCTRL_FS
-diff --git a/drivers/resctrl/Makefile b/drivers/resctrl/Makefile
-index a7631712dba9..c8339113ef1f 100644
---- a/drivers/resctrl/Makefile
-+++ b/drivers/resctrl/Makefile
-@@ -7,3 +7,4 @@ ccflags-$(CONFIG_ARM64_MPAM_DRIVER_DEBUG)	+= -DDEBUG
- obj-$(CONFIG_RISCV_CBQRI)			+= cbqri.o
- cbqri-y						+= cbqri_devices.o
- cbqri-$(CONFIG_RISCV_CBQRI_RESCTRL_FS)		+= cbqri_resctrl.o
-+cbqri-$(CONFIG_RISCV_CBQRI_CAPACITY)		+= cbqri_capacity.o
-diff --git a/drivers/resctrl/cbqri_capacity.c b/drivers/resctrl/cbqri_capacity.c
-new file mode 100644
-index 000000000000..0670a676bdb1
---- /dev/null
-+++ b/drivers/resctrl/cbqri_capacity.c
-@@ -0,0 +1,127 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Platform driver for a RISC-V CBQRI capacity controller that backs a CPU
-+ * cache. The controller is described in device tree by the generic
-+ * "riscv,cbqri-capacity-controller" compatible together with a phandle to the
-+ * cache node it governs. The driver hands it to the CBQRI core, which probes
-+ * the capabilities register and exposes a controller that supports allocation
-+ * as the resctrl cache allocation resource for that cache.
-+ */
-+
-+#define pr_fmt(fmt) "cbqri-capacity: " fmt
-+
-+#include <linux/cacheinfo.h>
-+#include <linux/cpu.h>
-+#include <linux/device-id/of.h>
-+#include <linux/ioport.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/printk.h>
-+#include <linux/riscv_cbqri.h>
-+#include <linux/types.h>
-+
-+static int cbqri_capacity_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct cbqri_controller_info info = {};
-+	struct device_node *cache_np;
-+	struct resource *res;
-+	u32 rcid_count, cache_level;
-+	int cache_id, cpu, ret;
-+
-+	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	if (!res)
-+		return -EINVAL;
-+
-+	ret = of_property_read_u32(dev->of_node, "riscv,cbqri-rcid", &rcid_count);
-+	if (ret) {
-+		dev_err(dev, "missing riscv,cbqri-rcid\n");
-+		return ret;
-+	}
-+
-+	cache_np = of_parse_phandle(dev->of_node, "riscv,cbqri-cache", 0);
-+	if (!cache_np) {
-+		dev_err(dev, "missing riscv,cbqri-cache phandle\n");
-+		return -EINVAL;
-+	}
-+
-+	ret = of_property_read_u32(cache_np, "cache-level", &cache_level);
-+	if (ret) {
-+		dev_err(dev, "%pOF: missing cache-level\n", cache_np);
-+		goto out_put;
-+	}
-+
-+	/*
-+	 * Associate the controller with its cache instance via cacheinfo.
-+	 * The matching cache provides the cache id used as the resctrl
-+	 * domain id.
-+	 *
-+	 * Taking the first leaf at the level is sufficient, because fw_token
-+	 * is keyed on the DT cache node, so sibling leaves of a split cache
-+	 * share it, and riscv,cbqri-cache must reference a unified shared
-+	 * cache (cache-unified), not a split private L1.
-+	 */
-+	cache_id = -1;
-+	cpus_read_lock();
-+	for_each_online_cpu(cpu) {
-+		struct cacheinfo *ci = get_cpu_cacheinfo_level(cpu, cache_level);
-+
-+		if (ci && ci->fw_token == cache_np) {
-+			cache_id = ci->id;
-+			break;
-+		}
-+	}
-+	cpus_read_unlock();
-+
-+	if (cache_id < 0) {
-+		dev_err(dev, "%pOF: no online hart reports an L%u cache for this node\n",
-+			cache_np, cache_level);
-+		ret = -ENODEV;
-+		goto out_put;
-+	}
-+
-+	info.type = CBQRI_CONTROLLER_TYPE_CAPACITY;
-+	info.addr = res->start;
-+	info.size = resource_size(res);
-+	info.rcid_count = rcid_count;
-+	info.cache_id = cache_id;
-+
-+	ret = riscv_cbqri_register_cc_dt(&info, cache_level);
-+	if (ret) {
-+		dev_err(dev, "failed to register capacity controller: %d\n", ret);
-+		goto out_put;
-+	}
-+
-+	dev_info(dev, "registered L%u capacity controller at %pa (cache_id=%d, rcid=%u)\n",
-+		 cache_level, &info.addr, cache_id, rcid_count);
-+
-+out_put:
-+	of_node_put(cache_np);
-+	return ret;
-+}
-+
-+static const struct of_device_id cbqri_capacity_of_match[] = {
-+	{ .compatible = "riscv,cbqri-capacity-controller" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, cbqri_capacity_of_match);
-+
-+static struct platform_driver cbqri_capacity_driver = {
-+	.probe	= cbqri_capacity_probe,
-+	.driver = {
-+		.name		= "cbqri-capacity",
-+		.of_match_table	= cbqri_capacity_of_match,
-+		/*
-+		 * The controller is registered permanently into the
-+		 * CBQRI core for the life of the system. Block unbind
-+		 * so userspace cannot leave a dangling controller.
-+		 */
-+		.suppress_bind_attrs = true,
-+	},
-+};
-+
-+/*
-+ * Register at device_initcall so probe runs before the CBQRI core's
-+ * late_initcall which walks the cbqri_controllers list.
-+ */
-+builtin_platform_driver(cbqri_capacity_driver);
+>> +};
+>> +
+>>  struct eud_chip {
+>>  	struct device			*dev;
+>>  	struct usb_role_switch		*role_sw;
+>>  	void __iomem			*base;
+>> +	struct eud_path			*paths[EUD_MAX_PORTS];
+>>  	phys_addr_t			mode_mgr;
+>>  	unsigned int			int_status;
+>>  	int				irq;
+>>  	bool				enabled;
+>>  	bool				usb_attached;
+>> +	bool				phy_enabled;
+> 
+> There is already a 'enabled' flag, could be leveraged or still need
+> a new 'phy_enabled' flag?
+> 
+enabled reflects the user's sysfs intent, while phy_enabled tracks the
+actual PHY power state. These need to stay independent because a later
+patch in this series ("add host mode coordination") disables/re-enables
+the PHY on host-mode role transitions without touching chip->enabled, so
+as to preserve the user's original sysfs setting across the transition.
 
--- 
-2.43.0
+Thanks,
+Elson
 
+u8				port_idx;
+>>  };
+>>  
+>> +static int eud_phy_enable(struct eud_chip *chip)
+>> +{
+>> +	struct phy *phy;
+>> +	int ret;
+>> +
+>> +	if (chip->phy_enabled)
+>> +		return 0;
+>> +
+>> +	phy = chip->paths[chip->port_idx]->phy;
+>> +
+>> +	ret = phy_init(phy);
+>> +	if (ret) {
+>> +		dev_err(chip->dev, "Failed to initialize USB2 PHY for port %u: %d\n",
+>> +			chip->port_idx, ret);
+>> +		return ret;
+>> +	}
+>> +
+>> +	ret = phy_power_on(phy);
+>> +	if (ret) {
+>> +		dev_err(chip->dev, "Failed to power on USB2 PHY for port %u: %d\n",
+>> +			chip->port_idx, ret);
+>> +		phy_exit(phy);
+>> +		return ret;
+>> +	}
+>> +
+>> +	chip->phy_enabled = true;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static void eud_phy_disable(struct eud_chip *chip)
+>> +{
+>> +	struct phy *phy;
+>> +
+>> +	if (!chip->phy_enabled)
+>> +		return;
+>> +
+>> +	phy = chip->paths[chip->port_idx]->phy;
+>> +
+>> +	phy_power_off(phy);
+>> +	phy_exit(phy);
+>> +	chip->phy_enabled = false;
+>> +}
+>> +
+>>  static int enable_eud(struct eud_chip *priv)
+>>  {
+>>  	int ret;
+>>  
+>> -	ret = qcom_scm_io_writel(priv->mode_mgr + EUD_REG_EUD_EN2, 1);
+>> +	ret = eud_phy_enable(priv);
+>>  	if (ret)
+>>  		return ret;
+>>  
+>> +	ret = qcom_scm_io_writel(priv->mode_mgr + EUD_REG_EUD_EN2, 1);
+>> +	if (ret) {
+>> +		eud_phy_disable(priv);
+>> +		return ret;
+>> +	}
+>> +
+>>  	writel(EUD_ENABLE, priv->base + EUD_REG_CSR_EUD_EN);
+>>  	writel(EUD_INT_VBUS | EUD_INT_SAFE_MODE,
+>>  			priv->base + EUD_REG_INT1_EN_MASK);
+>> @@ -75,6 +135,8 @@ static int disable_eud(struct eud_chip *priv)
+>>  		return ret;
+>>  
+>>  	writel(0, priv->base + EUD_REG_CSR_EUD_EN);
+>> +	eud_phy_disable(priv);
+>> +
+>>  	return 0;
+>>  }
+>>  
+>> @@ -130,6 +192,12 @@ static ssize_t port_store(struct device *dev, struct device_attribute *attr,
+>>  	if (port < 0)
+>>  		return port;
+>>  
+>> +	/* Check if the corresponding path is available */
+>> +	if (!chip->paths[port]) {
+>> +		dev_err(chip->dev, "EUD not supported on selected port\n");
+>> +		return -EOPNOTSUPP;
+>> +	}
+>> +
+>>  	/* Port selection must be done before enabling EUD */
+>>  	if (chip->enabled) {
+>>  		dev_err(chip->dev, "Cannot change port while EUD is enabled\n");
+>> @@ -229,8 +297,54 @@ static void eud_role_switch_release(void *data)
+>>  	usb_role_switch_put(chip->role_sw);
+>>  }
+>>  
+>> +static int eud_init_path(struct eud_chip *chip, struct device_node *np)
+>> +{
+>> +	struct device_node *controller_node;
+>> +	struct eud_path *path;
+>> +	u32 path_num;
+>> +	int ret;
+>> +
+>> +	ret = of_property_read_u32(np, "reg", &path_num);
+>> +	if (ret) {
+>> +		/* Legacy DT uses 'ports' node without 'reg' property; treat as path 0 */
+>> +		if (of_node_name_eq(np, "ports"))
+>> +			path_num = 0;
+>> +		else
+>> +			return dev_err_probe(chip->dev, ret, "unexpected child node '%s'\n",
+>> +					     np->name);
+>> +	}
+>> +
+>> +	if (path_num >= EUD_MAX_PORTS)
+>> +		return dev_err_probe(chip->dev, -EINVAL, "invalid path number: %u (max %d)\n",
+>> +				     path_num, EUD_MAX_PORTS - 1);
+>> +
+>> +	path = devm_kzalloc(chip->dev, sizeof(*path), GFP_KERNEL);
+>> +	if (!path)
+>> +		return -ENOMEM;
+>> +
+>> +	path->chip = chip;
+>> +	path->num = path_num;
+>> +
+>> +	controller_node = of_graph_get_remote_node(np, 0, -1);
+>> +	if (!controller_node)
+>> +		return dev_err_probe(chip->dev, -ENODEV,
+>> +				     "failed to get controller node for path %u\n", path_num);
+>> +
+>> +	path->phy = devm_of_phy_get_by_index(chip->dev, controller_node, 0);
+>> +	of_node_put(controller_node);
+>> +
+>> +	if (IS_ERR(path->phy))
+>> +		return dev_err_probe(chip->dev, PTR_ERR(path->phy),
+>> +				     "failed to get PHY for path %d\n", path_num);
+>> +
+>> +	chip->paths[path_num] = path;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>>  static int eud_probe(struct platform_device *pdev)
+>>  {
+>> +	struct device_node *np = pdev->dev.of_node;
+>>  	struct eud_chip *chip;
+>>  	struct resource *res;
+>>  	int ret;
+>> @@ -241,6 +355,16 @@ static int eud_probe(struct platform_device *pdev)
+>>  
+>>  	chip->dev = &pdev->dev;
+>>  
+>> +	for_each_child_of_node_scoped(np, child) {
+>> +		ret = eud_init_path(chip, child);
+>> +		if (ret)
+>> +			return ret;
+>> +	}
+>> +
+>> +	/* Primary path is mandatory. Secondary is optional */
+>> +	if (!chip->paths[0])
+>> +		return dev_err_probe(chip->dev, -ENODEV, "primary path not found\n");
+>> +
+>>  	chip->role_sw = usb_role_switch_get(&pdev->dev);
+>>  	if (IS_ERR(chip->role_sw))
+>>  		return dev_err_probe(chip->dev, PTR_ERR(chip->role_sw),
+>> -- 
+>> 2.34.1
+>>
+>>
+> 
