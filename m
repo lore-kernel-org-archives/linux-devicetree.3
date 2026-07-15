@@ -1,147 +1,279 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843C0443E58;
-	Wed, 15 Jul 2026 18:29:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784140201; cv=none; b=sf0Rd1dcXNvIMOeYNkSYfGtXsXTanies31Na95rkAqHsQc2Xmk5+rIdEtqWlqAs/XXYk29tU077u0uz3OgxYOrmF6dBSaW9oeMLJdtrDmQkPlaBPgYda815IZB+UpcQQYazudhcMflk/0jfcK2w0f8G1tBT7j9iEVDJz1+eDAHk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784140201; c=relaxed/simple;
-	bh=5Hhx9hTXzBl+KHHAd5y7bDT1L9mwziJVwN8QQ/88Kh0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q/7n39ozpbXU6FbPx1lJbABXZ/lyDQBVZKSGf5kf3OdI5hBebLE0E9ZXR7cLZB4IkFfwBmkQBh5kpx8SdCD7rbxmDXDIYUUVTnmSXKiUdwv1+imuxBWn/ZJKtICCpe/o+3IZ1XK7v2JjiKVu03xWhQUVtWIxwykR9niZtJMkfHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R64NRlwi; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D4454E3784;
+	Wed, 15 Jul 2026 18:32:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784140331; cv=pass; b=MncE42D3rcP13mEDPbMasekQjmG3WlM2rytrjJrcqMcRdo2AfHRu5JKT6RuO1XVfQbKvP3O3okKJRLsRr5V/jUqagqk0HnZe2Kg38mWkg0Kc52qq5w+qXNgigC502t56QlgYz/QY3vcnouATwUgNzKp+jDva3pnZ5KF+tJY/WG0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784140331; c=relaxed/simple;
+	bh=2McG+xs8oe74W9mpUnhdI/IOWLwGwzzFdWffzAbkeAo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uhD2CNiZOHNDzjVCaZW4/tmfwW9BilHg6ALgbXPo6vsl38c1Ud9/VvgIuxOLm3aN27WOY6+XLeYFpvZQxh4lHz+bArKpVnyoMn4d/dYs7e39o3duqsyGdtYT3fxDjvamm9mg9QgBvcv45C4zPYR/WAZn3iX+yLobi3IG6GFrC7I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=i/YH6zzu; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R64NRlwi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79C5C1F000E9;
-	Wed, 15 Jul 2026 18:29:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784140192;
-	bh=m9EZ6WFfHR8NNH32nm0Pzpwwjx7Gv9Yhtrd4QxA+b3s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=R64NRlwikpnHsASIVAmwGzClZigFwJigpZK3WDg3jA9VCD89dFQs/biSoRUQw/lCf
-	 qrz++5bVgjdyakvtZhY7SwPezMaAKyZObFUetBmYG68xyPuBXL1CdY//pzDzul44Wk
-	 TPA73kN2mus50saPFngLCaU6yykWTgPk3njybphvmFdKoVr5XCNYqpH5dO7CYk/Tls
-	 BYVO9AZKdDkFYHDSj6Vjw3Me0d7GIVe7fibPCuWyOJV5FkjUbp6vb/WaCBks/0VZgS
-	 eHzgsHRIi1X71Qh7rK1rljUuly8pt/2l5audMOZE70S7qUiIPusd/N36NeJjstvYI1
-	 I6yYIp/bfkKXw==
-Message-ID: <82e3c736-f06f-484a-887c-9e156cb7cb44@kernel.org>
-Date: Wed, 15 Jul 2026 20:29:44 +0200
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="i/YH6zzu"
+ARC-Seal: i=1; a=rsa-sha256; t=1784140269; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=mF+82Ak2xmHGgbVpn39yFo1ujKBHtUruIeLUq0wT0hxE/5VO0yqPQx/X2vQZsW2pXD5c+hXeTXHqnqG49GgFapriRA//Ut8ZOikB+NbBQ6WKuXTatdXVJ0Zv8tsFSfuekO7RFRhpR+6uiCi+nCXHhfkM+LLRtVuGnyq4++lnCn0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784140269; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=N/wiBLYHdGXZJkCg3oiCX/MSyspe/eiXGex9ftDaZcE=; 
+	b=Wq86dZDfxwLzEPjzbpEFWxu+0Bn/IBHdVt7Gplx3r/tgpwmMlScib11AeXnv4lbmBAqoprAeOviGj964g1je+zrhI3eRtNf7MS0wNXDcRtUMtLkCrmNsEvueR9Ld9Udx4yHoSX3UpeGlk8KfxYNE/GLS8rqlBb0jl5lsOfMTGbQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784140269;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=N/wiBLYHdGXZJkCg3oiCX/MSyspe/eiXGex9ftDaZcE=;
+	b=i/YH6zzu7szwG3X/T7xICxR7uKdgqUMZmCHJ1dMCpLh9NfGt+npTLJuO8Z0qTLeZ
+	d0X+UpC7bvzAlaaAEyagubKAqouLSvOlYtfzI3FamtSP7oc8x7SH6Mb6FM1gg0K40Dr
+	UpT6qfSnFS2y4v5ji2KXDYD1NCIpVdcdEXZjtX18=
+Received: by mx.zohomail.com with SMTPS id 1784140267504649.5715776031727;
+	Wed, 15 Jul 2026 11:31:07 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 1F034180820; Wed, 15 Jul 2026 20:31:00 +0200 (CEST)
+Date: Wed, 15 Jul 2026 20:31:00 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Andy Yan <andyshrk@gmail.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, 
+	Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, Damon Ding <damon.ding@rock-chips.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Alexey Charkov <alchark@gmail.com>, 
+	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, kernel@collabora.com, linux-arm-kernel@lists.infradead.org, 
+	yubing.zhang@rock-chips.com
+Subject: Re: [PATCH v3 07/10] drm/bridge: synopsys: dw-dp: Add Runtime PM
+ support
+Message-ID: <alfQl182eZjaDwgZ@venus>
+References: <20260612-synopsys-dw-dp-improvements-v3-0-dc61e6352508@collabora.com>
+ <20260612-synopsys-dw-dp-improvements-v3-7-dc61e6352508@collabora.com>
+ <CANbgqAQLROuf9wvZZWRufZg6iqubKnC4fW5Bh+DkQ7RP1x5KKQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 02/10] dt-bindings: iio: imu: icm42600: Remove
- interrupts from required
-To: Chris Morgan <macromorgan@hotmail.com>
-Cc: Chris Morgan <macroalpha82@gmail.com>, linux-iio@vger.kernel.org,
- andy@kernel.org, nuno.sa@analog.com, dlechner@baylibre.com,
- jic23@kernel.org, jean-baptiste.maneyrol@tdk.com,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
- andriy.shevchenko@intel.com
-References: <20260713215842.69097-1-macroalpha82@gmail.com>
- <20260713215842.69097-3-macroalpha82@gmail.com>
- <20260715-mottled-uncovered-mastodon-6c08be@quoll>
- <PH0PR19MB997338D80EB8ABB7C623850A23A5F82@PH0PR19MB997338.namprd19.prod.outlook.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <PH0PR19MB997338D80EB8ABB7C623850A23A5F82@PH0PR19MB997338.namprd19.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="k4oubbgopkkrgoq4"
+Content-Disposition: inline
+In-Reply-To: <CANbgqAQLROuf9wvZZWRufZg6iqubKnC4fW5Bh+DkQ7RP1x5KKQ@mail.gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/284.121.97
+X-ZohoMailClient: External
 
-On 15/07/2026 16:52, Chris Morgan wrote:
-> On Wed, Jul 15, 2026 at 07:52:52AM +0200, Krzysztof Kozlowski wrote:
->> On Mon, Jul 13, 2026 at 04:58:32PM -0500, Chris Morgan wrote:
->>> From: Chris Morgan <macromorgan@hotmail.com>
->>>
->>> Interrupts are almost never required for IIO devices per upstream
->>> maintainers. Remove interrupt as a required parameter for the
->>> devicetree binding.
->>
->> That's an odd statement. We do require interrupts when the hardware
->> requires them. We do not require interrupts, not because we have such
->> policy, but because hardware does not require them.
->>
->> Plus, we do require interrupts when software implementing ABI requires
->> them.
->>
->> Above commit msg is simply inaccurate and misleading. Instead, please
->> use actual hardware arguments or how ABI is actually used. You must not
->> introduce changes to ABI just "because" while for example making that
->> ABI conflicting with existing implementation.
-> 
-> I will defer then to Jonathan on the specifics of this, but from what I
-> can tell:
-> 
-> 1) The icm42600 devices don't need an interrupt for operation other
-> than for buffered mode or wake on movement. One-shot should work
-> without it.
-> 
-> 2) The existing icm42600 driver does require an interrupt however, and
-> refuses to bind without it. The driver could in theory be modified to
-> not require an interrupt though and skip using buffered mode and WoM
-> when no interrupt is present; however I don't plan on making these
-> changes at this time.
-> 
-> 3) The new icm42607 driver I'm trying to upstream does not use an
-> interrupt, because on my current test device it's not even wired up.
-> On future devices that I have with this chip I may pursue using an
-> interrupt, but it will never be required.
-> 
-> So should I go back to requiring the interrupt for all devices except
-> for the new driver then?
 
-You mentioned two drivers, I don't know how does this relate to them. In
-any case your commit msg is inaccurate and not a correct reason to make
-a change.
+--k4oubbgopkkrgoq4
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 07/10] drm/bridge: synopsys: dw-dp: Add Runtime PM
+ support
+MIME-Version: 1.0
 
-Best regards,
-Krzysztof
+Hello Andy,
+
+On Tue, Jul 14, 2026 at 05:01:14PM +0800, Andy Yan wrote:
+> Hello Sebastian,
+>=20
+> Sebastian Reichel <sebastian.reichel@collabora.com> =E4=BA=8E2026=E5=B9=
+=B46=E6=9C=8813=E6=97=A5=E5=91=A8=E5=85=AD 02:01=E5=86=99=E9=81=93=EF=BC=9A
+>=20
+> > Add runtime PM stubs to the Synopsys DesignWare DisplayPort bridge
+> > driver. Support is not enabled automatically and must be hooked up
+> > in the vendor specific glue code.
+> >
+> > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> > ---
+> >  drivers/gpu/drm/bridge/synopsys/dw-dp.c | 27 +++++++++++++++++++++++++=
+++
+> >  include/drm/bridge/dw_dp.h              |  3 +++
+> >  2 files changed, 30 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> > b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> > index 7fa38145e35c..7f4f36c61484 100644
+> > --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> > +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> > @@ -1465,6 +1465,8 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_a=
+ux
+> > *aux,
+> >         if (WARN_ON(msg->size > 16))
+> >                 return -E2BIG;
+> >
+> > +       ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
+> > +
+> >         switch (msg->request & ~DP_AUX_I2C_MOT) {
+> >         case DP_AUX_NATIVE_WRITE:
+> >         case DP_AUX_I2C_WRITE:
+> > @@ -1655,6 +1657,8 @@ static void dw_dp_bridge_atomic_enable(struct
+> > drm_bridge *bridge,
+> >         struct drm_connector_state *conn_state;
+> >         int ret;
+> >
+> > +       pm_runtime_get_sync(dp->dev);
+> > +
+> >         connector =3D drm_atomic_get_new_connector_for_encoder(state,
+> > bridge->encoder);
+> >         if (!connector) {
+> >                 dev_err(dp->dev, "failed to get connector\n");
+> > @@ -1709,6 +1713,7 @@ static void dw_dp_bridge_atomic_disable(struct
+> > drm_bridge *bridge,
+> >         dw_dp_link_disable(dp);
+> >         bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
+> >         dw_dp_reset(dp);
+> > +       pm_runtime_put_autosuspend(dp->dev);
+> >  }
+> >
+> >  static bool dw_dp_hpd_detect_link(struct dw_dp *dp, struct drm_connect=
+or
+> > *connector)
+> > @@ -1729,6 +1734,8 @@ static enum drm_connector_status
+> > dw_dp_bridge_detect(struct drm_bridge *bridge,
+> >  {
+> >         struct dw_dp *dp =3D bridge_to_dp(bridge);
+> >
+> > +       ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
+> >
+>=20
+> This may not work correctly. Per the DW-DP TRM, the " HPD_HOT_PLUG
+> bit is asserted only after the sink is attached and holds HPD high
+> for at least 100ms". Consequently, reading this bit within 100ms
+> after resuming runtime_pm may fail to detect the status. I've
+> verified this behavior on a Rock 5B board=E2=80=94the HPD bit remains
+> unreadable at this point.
+>=20
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> @@ -1761,12 +1761,17 @@ static enum drm_connector_status
+> dw_dp_bridge_detect(struct drm_bridge *bridge,
+>=20
+>         ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
+>=20
+> -       if (!dw_dp_hpd_detect(dp))
+> +       if (!dw_dp_hpd_detect(dp)) {
+> +               printk(KERN_DEBUG "%s no hpd\n", __func__);
+>                 return connector_status_disconnected;
+> +       }
+>=20
+> -       if (!dw_dp_hpd_detect_link(dp, connector))
+> +       if (!dw_dp_hpd_detect_link(dp, connector)) {
+> +               printk(KERN_DEBUG "%s no link\n", __func__);
+>                 return connector_status_disconnected;
+> +       }
+>=20
+> +       printk(KERN_DEBUG "%s connected\n", __func__);
+>         return connector_status_connected;
+>  }
+>=20
+> @@ -2149,6 +2154,7 @@ static irqreturn_t dw_dp_irq(int irq, void *data)
+>         u32 value;
+>=20
+>         regmap_read(dp->regmap, DW_DP_GENERAL_INTERRUPT, &value);
+> +       printk(KERN_DEBUG "%s value: %d\n", __func__, value);
+>         if (!value)
+>                 return IRQ_NONE;
+>=20
+> bootup
+> [    5.218035] panthor fb000000.gpu: [drm] Using Transparent Hugepage
+> [    5.219073] [drm] Initialized panthor 1.9.0 for fb000000.gpu on minor 1
+> [    7.953973] r8169 0004:41:00.0 enP4p65s0: Link is Up - 1Gbps/Full - fl=
+ow
+> control off
+> [    8.601273] dw_dp_rockchip_runtime_resume ret: 0
+> [    8.702748] dw_dp_irq value: 1        // (HPD irq 100 100ms  after
+> runtime_resume)
+> [    8.714236] dw_dp_irq value: 2
+> [    8.714775] dw_dp_irq value: 2
+> [    8.715201] dw_dp_irq value: 2
+> [    8.715710] dw_dp_irq value: 2
+> [    8.715744] dw_dp_bridge_detect connected
+> [    9.226752] dw_dp_rockchip_runtime_suspend
+>=20
+>=20
+> Then run modetest:
+>=20
+> # modetest
+> trying to open device '/dev/dri/card1'... is not a KMS device
+> trying to open device '/dev/dri/card0'... done
+> opened device `RockChip Soc DRM` on driver `rockchip` (version 1.0.0 at 0)
+> Encoders:
+> id      crtc    type    possible crtcs  possible clones
+> 86      0       TMDS    0x00000004      0x00000001
+> 88      0       TMDS    0x00000001      0x00000002
+> 92      0       TMDS    0x00000002      0x00000004
+>=20
+> Connectors:
+> id      encoder status          name            size (mm)       modes
+> encoders
+> 87      0       disconnected    DP-1            0x0             0       86
+>   props:
+>         1 EDID:
+>=20
+> [   13.809398] rockchip-pm-domain
+> fd8d8000.power-management:power-controller: sync_state() pending due to
+> fdee0000.hdmi_receiver
+> [   29.225506] dw_dp_rockchip_runtime_resume ret: 0
+> [   29.225940] dw_dp_bridge_detect no hpd         // no HPD read here
+> [   29.326986] dw_dp_irq value: 1                         // HPD irq ater
+> 100ms
+> [   29.346609] dw_dp_irq value: 2
+> [   29.347150] dw_dp_irq value: 2
+> [   29.347578] dw_dp_irq value: 2
+> [   29.348092] dw_dp_irq value: 2
+>=20
+>=20
+> if I add a mdelay(110) after  ACQUIRE pm_runtime,  the hdp can be read.
+> index 02ca7fe725876..5959e79eb3e2b 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> @@ -1760,7 +1760,7 @@ static enum drm_connector_status
+> dw_dp_bridge_detect(struct drm_bridge *bridge,
+>         struct dw_dp *dp =3D bridge_to_dp(bridge);
+>=20
+>         ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
+> -
+> +       mdelay(110);
+
+Interesting, I did not notice this issue with the Sige 5 (RK3576).
+Thanks for not just reporting it to not work, but also figuring out
+what is going on :) I will add an msleep(110); in the next version.
+
+Greetings,
+
+-- Sebastian
+
+--k4oubbgopkkrgoq4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpX0eMACgkQ2O7X88g7
++proiw//TpC4KRIooalLSV6qAZujhx/NZeM1RZgdMyLHA8A5+uvrO4uhjIrPPivv
+zUqwAU90nbdoVNt8zyKhjwpabHHXtrh2wxwMjesYOYO1SLNDgLvF7IrUYdOfXzJA
+00hzJglxvIB5aJllxCzSkrP2WpNEqjrBpL3QfuzObOc/qd9yq/Z/OmNh6HTWsmFi
+6lASNypyehhXPwwgyP8brI7Nb+w7IaemGTEAbOMkbxDZ1VnBOLde0BKCsLyKwZV0
+jtSEozTs8Hzh6Wfpu66oklAsxZhp64lbYDNpOtYb5YsBeyoy56D4mR1++hYXcIxf
+tr0TaiVMSEwa32cX1YEg2ZaDGz+odB+nGdiPffg3+2UhNQoae/qxrpmRpgvTWijW
+Wz5YqfGmFs/s/iR10Osxwy3YBY/mKScp81F6S4Lv191vDCfs+9j5wYArv/52m7zf
+hPUbiy0k2SRTgt0VSmHly81fQRTzM1VUamYBTzdy0Gik5EsYwRZSggLip8aWHlct
+tQHNgpu8iOhaDP9aEu19HMQtKF1ppHBPJPIREBT19JOyr4Shv18IzGbBNjrZuQU5
+nO94Xviw9otQpWfWGdvHgXSgsWIkgNLGuHrgOQK3YZF0V9N9/C4cCqSf3N6vFqUu
+rqHu9882Hg7u63fDL0KVTrVGzfg+FH6MNF1N5mHwKthNiCkbPHM=
+=fomM
+-----END PGP SIGNATURE-----
+
+--k4oubbgopkkrgoq4--
