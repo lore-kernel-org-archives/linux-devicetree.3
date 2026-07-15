@@ -1,184 +1,164 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F333438BD
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 13:16:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E976741D644
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 13:16:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784121372; cv=none; b=KEK4KFg1R+qe2bBl8QSymouBlXtnyR9xAiYfRMnFZYYNnJ27GUpNSjNmXG40a0TT6g9CCG6B0m/wEArgH18nIRWVmffEpw52IDgscqNz9s/3s7Zm89o2BnMMCQJUqkSOfHptl6kK4Ira+yqTTRH54beG9BSwFR8kyHBL7nSE4dc=
+	t=1784121411; cv=none; b=tetfW0hBaqBtjaJciTRz/fDIzkl6DUVF5cFImJjHRIkZLSPdYPDhJBP9EngTmb1JwSXJBU1HOWEnwGyl3MoNS93imE/h6tPd0ODqNkV+zxNVXKSrEdNpfDoTkRKUXyvOiZEnDugvn4MyMIvm84jDpM7ISMf2tacaFirsMnjooCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784121372; c=relaxed/simple;
-	bh=3uYaubufppDh2zlD8522905eVV3UE1D7xsA+IRRaUBg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RtzTfx8phVdTBHiDta0cxgU/WPgS8zbtbPAgAsgJXAaj35w51i0lFVj4MdzbawQJPYrWDa6CsqB+PDw6DbdYRgsr0ymo4DYKq/3G8iaZeDnnX2gweC9qCS298mqP+HfXqArdCdwDAGtLe+dcbOMBb7khkymhcDpWqwEl5EbdckE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JObYnCmB; arc=none smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784121411; c=relaxed/simple;
+	bh=X3xNao4caxeAM9O+jt5vjM85vF4EW32IxnjHAcoEYws=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Muq0aHz5VUbWRtqL1p/bZBA4eeNpXNg1sM3bLJLyrOrR3ccAqltvcq95MVvlgfEHImBgM8FHMYcQfI38ALFVkqqQzhbT/NeHAZceltzPtJwYl5uOozFoiJN89tsAF240TaqhwegLGN1ROWG3tNxPhx2E3KnZ/xwZ9OnKhgHYbl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=X/9QKtCO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HnuZeQ2i; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JObYnCmB"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c15cd3fd760so624035766b.2
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 06:16:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="X/9QKtCO";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HnuZeQ2i"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66FBchpe3707608
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 13:16:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ytjfpUgKwmAHtvwTSBO/wGWBo2t9DYinF65FSUgXphg=; b=X/9QKtCO4nwO+hOV
+	P/SR9f45cuzUsOFZ92G0+Nji5nWjbh3pFACmSa/TFw85Xq5gsU4tBzUCyD1lxMV+
+	E1JQIV/aWaBQKNFAif5FPR7cCYILFyviKlK3U3v5ManyFEm6P5gw9hGgzbzyLwA/
+	hRKFlboB0H2S15Ozuxrl3zfw8F6VeTuYiu5gL5KAlGBc1O5Ewwl6db8/hpeBrulB
+	oCgq7AyJv579eOdUmyMnVWjl28XDbY+fBIJeqYSaW3rSzqLU8totnPUOvmHvsKqG
+	vPVGNXwxeqU86BJrfbkIOUril8j8X5M0TEWmFumw+a1USbwXDfLnifr4casxFLU0
+	jMRZZg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fe7nmgu8x-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 13:16:48 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92ea24a2db9so855281385a.0
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 06:16:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784121369; x=1784726169; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=39O4p8PywjbL/Wcsm75xgo1hgKTORVrDEpy1E89wE+0=;
-        b=JObYnCmB0zHxwpslpczj+Pjkh/tGASETakkL5UTB+RwtU3OyFZjGIfLh1rmzo/coof
-         Id6oa29jYXcchkftpBYmR233HnS2/sGRft0tJHfOspgBjzUplHSQfg5tuKakiA0CoqZ/
-         nW8ayhNGFSuzi7+xY21v7SOIONo3AOE/MlUpHSqTGNhN1oq6BdjiBVFSe3pCM54D/Bfo
-         NgXQ8HLLdUIx4H465mPwqqQN7Vj0H0GkUzEIecnxCbJCCASe3s3S56ILoTENW7G5aqdV
-         1qCbfannCoPNVSih3EwuM+JU3aNzFqOOqYOwKTOZWs2TZ8bAGifiU4QQFwmeu3V4XRmO
-         Yc+g==
+        d=oss.qualcomm.com; s=google; t=1784121408; x=1784726208; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ytjfpUgKwmAHtvwTSBO/wGWBo2t9DYinF65FSUgXphg=;
+        b=HnuZeQ2i5cSfr+4x3qNAZeipnea+M+dN5EJdDvEIcq947ja4BLURRhfTJpEJsA0pMl
+         2GfVxTU9/huB/EmBDp5IwNBdwFjm0oI3M7LNpho4PckzIO1qEDL4Iomd+9PlCOD9KzZx
+         gQVg+K4w4d5jAZgRk/t4VC+C/QSYJ0QDOYQWY783p+5eLlopM4fK0dyf17LPSDPLgGz/
+         QYYvT+TfAQ2yxvwk4QKw0AaIMs2xZZVBN2wqKGQ32u3c9kmH/f4oR845HFnQGp3Tge0G
+         t9oBOBNmYs6eliFiMbTkmV3zSNq7YUtKCs8QpCRZL2R29v+MGAiZj+yn26AecHOd29JH
+         zQ6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784121369; x=1784726169;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=39O4p8PywjbL/Wcsm75xgo1hgKTORVrDEpy1E89wE+0=;
-        b=kYSYawII6gWxc84wSVpbcIxBfqjNEU8TlISIeKBWl4lPZT6S8edC2/6ClQTsABKUeH
-         sjWrV8GsncNkPp6w6Mi/ncNoRYUNSAf3wCv/CupOOH/HeGFKCaW1R2TNH2PtDEiAvYC8
-         TVuF7G/8UZDUqUV7fMVpvgvlhDeE0jkYDVew9azMwORd3qNPFcQFqYuWG9SSKgs37YJw
-         7lMIXCOO+NFV1ihsvjqLVQqK0I4mUkOBrQ7lt4k0LmkjKUBFpr/MEpBmpbIj5YxRaO/4
-         cq4pNMlzZ2uc7tJ11qnZM7mQIxvadZ4vyfI3yJHS/Wvt3eVHeZ2EcSubVDu9tvbZ7kQl
-         2sKw==
-X-Forwarded-Encrypted: i=1; AHgh+RqUiqP37EexJ0NPjWtP2MtLYgASYbyWlT55qRBqOQl3wJTBIdBoSNtcvq68wGLyi8CL2i+RVqRhkljP@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw7f4deYqg5aAlqxUI3orPD3oev+fw5Cl00CIDnoTMQ4TWG0hCe
-	6VM9nYScRUIjYQcnHENgFiLOEwS2dYXfdD+mmopChhvtJmuzhgcZin4q
-X-Gm-Gg: AfdE7cmKKvY8Bv/FmH3YrMR5IITwXLIsiCjyeiuH8xUnd4jioaz51eKPSabfOVyzjFC
-	J4N7B9O9A/BHoKJOdjcOAXwhUZwNcnjVnX4auTPSanG61MaG+1+K6oobrqWgMQWGFnq/hpRWdk9
-	YI0ky5nEX4qabcoVKF+r4nlcqgZ1HUHTbCbqUPjqsUF5mHBd5k24bNkfGO5VmSk+BuukQ9YD//7
-	kZu7xZHNfowp/LhlHflMpXIjkfzQnx20X3UDP6DtELn5h5X7QF6gbTdoTXwA8Sn/SAO7z/0+pzJ
-	Oq/k5R8olrNMDPElcixF/jGbZ9DYSCQ6v397cecsVbmEBaVcmyuETLv922KK19XqDig2BDJ+2MY
-	wVRv90uRfcPVH0WlZAsmIpvZu7TFZsw8SFoGBXuUeLFq0O+X2DqWrwOszpWWbRaxbw22KFJTDL/
-	KaN66OdCcDctP+RymLDPPZ1czpvuM=
-X-Received: by 2002:a17:907:25cc:b0:c12:528a:94f4 with SMTP id a640c23a62f3a-c16794bd3a0mr178412966b.60.1784121368956;
-        Wed, 15 Jul 2026 06:16:08 -0700 (PDT)
-Received: from NSA-L02.ad.analog.com ([137.71.226.102])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c16871a3dc2sm24129566b.26.2026.07.15.06.16.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 06:16:08 -0700 (PDT)
-Date: Wed, 15 Jul 2026 15:16:05 +0200
-From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Nikita Travkin <nikita@trvn.ru>, Maslov Dmitry <maslovdmitry@seeed.cc>, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] iio: light: ltr501: Add ltr329 driver support
-Message-ID: <6vro5bil5b5j72rigujnm5zj4ot56rtwgs4fvn6xydybxpi4rz@vrc6p6bbkl3m>
-References: <20260715-liteon-ltr329-v2-0-d18af55edab5@geanix.com>
- <20260715-liteon-ltr329-v2-3-d18af55edab5@geanix.com>
+        d=1e100.net; s=20251104; t=1784121408; x=1784726208;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ytjfpUgKwmAHtvwTSBO/wGWBo2t9DYinF65FSUgXphg=;
+        b=Fj6TMiI8kjEGMEH6DdPTVudSOm5MUFBmtsBMj6Yrs6K4nRbxJF5MSgTUg3tJkpCk+X
+         rjekc9d42evsZsDBH7eDDFk8dR2bK9bE0d3feuuIz3+8PNW707ocOKBYCSkaHkZ1gVWF
+         y3ZLjgCtoq/cSptjqrjIUhTH4ZUDDO6mMv/yL/LFwFvIkL8QcCdHWxK7d816iDTJfnEm
+         sYFOkFOm8zbEqDRWgb6mqetqriM5Iswi4c92EvjofSogII2+4weq45DgiAtML8FcgSOM
+         E0LTh6Yn0CJvSSilzmYYnAj7AE8MaiA1wvHpJ4xK3brnMJWvzSzmXv5H1zaBa3xcgROk
+         /l8g==
+X-Forwarded-Encrypted: i=1; AHgh+Rr2hSmSNoFGEIRJqHsrJkrqrREFg/OeeGPC/PBf9y4OBfrCPCGOIrELRKXcC2wKo2LaNk1Tph3lG6XB@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPLZrA0Wo7m1TwDSyYknV0yxfwMghVnBVB2BHJ2nhjE/xcHmNB
+	lpoUn1HOUMmE29zV2mzRdMimQ70B+LlBq8jdNf5iI04FVHxBBs5e4Sys+4HC1p13AC6PAcl7c5P
+	3KgyfQNxRj0WpCoSbvh0wXdQlrYckqsXQiHn5ec+lqr7cI+s3nAXznivr3yVyeIrA
+X-Gm-Gg: AfdE7cn28KPY65B1k1V7BxCiLz1pj1pLhVhCmgAhFcQNeCmI0VDneLGQUw4sfVxkPiq
+	UF6xGBziDEO7ji1hF7r6Znx96FBWd7Fimd5dygc1N/nzRaa81LTCNSwRxgovYqyadB677dsQqOL
+	qRwB9RfBLLdXR83dUoG2jxZDH5uUT3YzajBT7kaiamAveNOCyMfFWFPviGmI6kPr/1eM2zf5HyU
+	pdjtyh4ZiGRBYgwHXtA7KLGbnWW855b/KyEnFetmYTbiEv/ObNlVaFKdffadWJjx8YQ+VvHCnF4
+	t7/fixpCXLHiKWpazoz+lAyHQlkmc3SeSkT/WJf49bOYRk3NS44O9IuIoz1SzKOsFPfJcmYU0xb
+	sDSmzOQT49k2Sz4K08fi7ueWocKX+tlb8+IKSEcz0
+X-Received: by 2002:a05:620a:3711:b0:92e:bd6f:b166 with SMTP id af79cd13be357-93086c1d9cbmr623774985a.63.1784121407819;
+        Wed, 15 Jul 2026 06:16:47 -0700 (PDT)
+X-Received: by 2002:a05:620a:3711:b0:92e:bd6f:b166 with SMTP id af79cd13be357-93086c1d9cbmr623770085a.63.1784121407284;
+        Wed, 15 Jul 2026 06:16:47 -0700 (PDT)
+Received: from [10.217.198.242] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-92ee5d61facsm1734570885a.42.2026.07.15.06.16.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 15 Jul 2026 06:16:46 -0700 (PDT)
+Message-ID: <c6163d49-4922-4926-af75-7bd8861ede6a@oss.qualcomm.com>
+Date: Wed, 15 Jul 2026 18:46:41 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260715-liteon-ltr329-v2-3-d18af55edab5@geanix.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] irqchip/qcom-pdc: Add puwra compatible for PDC
+ secondary mode
+To: Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260616-purwa-pdc-v2-0-8dda7ef25ce5@oss.qualcomm.com>
+ <20260616-purwa-pdc-v2-3-8dda7ef25ce5@oss.qualcomm.com> <87mrwtcekz.ffs@fw13>
+Content-Language: en-US
+From: "Maulik Shah (mkshah)" <maulik.shah@oss.qualcomm.com>
+In-Reply-To: <87mrwtcekz.ffs@fw13>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE1MDEzMSBTYWx0ZWRfX6Lqt4Hlr1gV7
+ fzCKZW6lPikkXTsKTlyvxKroddLVM5cehimYNO829VlVZrMoX8bcNRANLYS5HRjbDctto2SHQ41
+ CClwmJZBtpQs/fCdT24sqlbfEzMIH+4=
+X-Authority-Analysis: v=2.4 cv=cuGrVV4i c=1 sm=1 tr=0 ts=6a578840 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=KdhUs1RlD303uQQr2RgA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: ZtSDVbYoBF0Zd3-kn3dBnAbpchFFjfmd
+X-Proofpoint-GUID: ZtSDVbYoBF0Zd3-kn3dBnAbpchFFjfmd
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE1MDEzMSBTYWx0ZWRfX/YL+7m9HnuwA
+ dS1hd9BNTOI8b4XLUKrFrM+hgntndABLqcsBV6AmhjYoeGtcmBMLEKiyeDHL9SYyRL8zdGTTLfL
+ ZrQIO9lXIpYqu+IYjzSstIsKdV1KAFgplwKwfnlZb82jIY+PmVjizBjQdm8I7d3me/6tDGikCmd
+ mGsezJEVAd3plGNF/sEa5Zfhd47Zv3A1wZ4/Tejs906vWqlrknoqXkwpc75Mxy6gKiIkiogXiw9
+ IxeRc7ROya+pIHJQiFYBx9EBoE4xIgmlKGFWtqEekq//GJ4RtNRc4yC3JxvAXDs7CPnGiDR9KIS
+ P+nmCxzfYrF0KriPjFNP+hu4VUsw+WibW4zgKrAiEZ0BIeAj6GDrPM4weUR9ETRVfVVSxaqNofL
+ StXirN/bc3In4iHaT5vV/ca/kPIhg12hsn1EUZSXSj0dZVvQm1CquX2eGrZsrUws1W+jlz0gOmR
+ NSUxz4KUksE5dWqjWnQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-15_02,2026-07-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0
+ phishscore=0 priorityscore=1501 spamscore=0 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607150131
 
-On Wed, Jul 15, 2026 at 02:27:25PM +0200, Esben Haabendal wrote:
-> This adds support for the LTR-329ALS-01 chip, which is similar to
-> LTR-303ALS-01, except for interrupt, which LTR-329ALS-01 chip does not
-> have.
+
+
+On 6/17/2026 10:02 PM, Thomas Gleixner wrote:
+> On Tue, Jun 16 2026 at 15:57, Maulik Shah wrote:
+>> --- a/drivers/irqchip/qcom-pdc.c
+>> +++ b/drivers/irqchip/qcom-pdc.c
+>> @@ -704,7 +704,10 @@ static int qcom_pdc_probe(struct platform_device *pdev, struct device_node *pare
+>>  		}
+>>  
+>>  		pdc->x1e_quirk = true;
+>> +	}
+>>  
+>> +	if (of_device_is_compatible(node, "qcom,x1e80100-pdc") ||
+>> +	    of_device_is_compatible(node, "qcom,x1p42100-pdc")) {
+>>  		if (!qcom_scm_is_available())
+>>  			return -EPROBE_DEFER;
 > 
-> Signed-off-by: Esben Haabendal <esben@geanix.com>
-> ---
-
-Hi, I have a small not below. Kind of personal preference though. But
-what Joshua mentioned should be addressed. With that:
-
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
-
->  drivers/iio/light/ltr501.c | 33 +++++++++++++++++++++++++++++++++
->  1 file changed, 33 insertions(+)
+> Bah. Can you please prominently tell in the cover letter that the series
+> has dependencies on some other series instead of hiding that information
+> in a lump of sha1 references which do not exist for me?
 > 
-> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
-> index 7d045be78c6d..379e57ac5f5b 100644
-> --- a/drivers/iio/light/ltr501.c
-> +++ b/drivers/iio/light/ltr501.c
-> @@ -15,6 +15,7 @@
->  #include <linux/delay.h>
->  #include <linux/regmap.h>
->  #include <linux/regulator/consumer.h>
-> +#include <linux/array_size.h> // for ARRAY_SIZE
->  
 
-...
+Sure, next time will be careful to add dependencies in cover letter as well
+as b4 prerequisites. I have sent v3 after rebase as dependencies are already
+pulled in.
 
->  
-> +	if (!ltr501_has_irq_support(data->chip_info))
-> +		return 0;
-> +
->  	if (val < 0 || val2 < 0)
->  		return -EINVAL;
->  
-> @@ -1257,6 +1270,18 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
->  		.channels = ltr301_channels,
->  		.no_channels = ARRAY_SIZE(ltr301_channels),
->  	},
-> +	[ltr329] = {
-> +		.partid = 0x0A,
-> +		.als_gain = ltr559_als_gain_tbl,
-> +		.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
-> +		.als_mode_active = BIT(0),
-> +		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
-> +		.als_gain_shift = 2,
-> +		.info = &ltr301_info_no_irq,
-> +		.info_no_irq = &ltr301_info_no_irq,
-> +		.channels = ltr301_channels,
-> +		.no_channels = ARRAY_SIZE(ltr301_channels),
-
-Instead of playing the above game with info vs info_no_irq, an explicit
-has_no_irq would probably be better. I mean conceptually if the pointers
-are the same, it could also mean that both are with IRQ support. With
-it, I think it would be safe to leave the .info pointer as NULL as it
-would be always overwritten.
-
-Having said the above, so strong feelings about it so up to you :)
-
-- Nuno Sá
-
-> +	},
->  };
->  
->  static int ltr501_write_contr(struct ltr501_data *data, u8 als_val, u8 ps_val)
-> @@ -1531,6 +1556,12 @@ static int ltr501_probe(struct i2c_client *client)
->  		return ret;
->  
->  	if (client->irq > 0) {
-> +		if (!ltr501_has_irq_support(data->chip_info)) {
-> +			dev_err(&client->dev, "chip does not support irq\n");
-> +			ret = -EINVAL;
-> +			goto powerdown_on_error;
-> +		}
-> +
->  		ret = devm_request_threaded_irq(&client->dev, client->irq,
->  						NULL, ltr501_interrupt_handler,
->  						IRQF_TRIGGER_FALLING |
-> @@ -1604,6 +1635,7 @@ static const struct i2c_device_id ltr501_id[] = {
->  	{ .name = "ltr559", .driver_data = ltr559 },
->  	{ .name = "ltr301", .driver_data = ltr301 },
->  	{ .name = "ltr303", .driver_data = ltr303 },
-> +	{ .name = "ltr329", .driver_data = ltr329 },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(i2c, ltr501_id);
-> @@ -1613,6 +1645,7 @@ static const struct of_device_id ltr501_of_match[] = {
->  	{ .compatible = "liteon,ltr559", },
->  	{ .compatible = "liteon,ltr301", },
->  	{ .compatible = "liteon,ltr303", },
-> +	{ .compatible = "liteon,ltr329", },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(of, ltr501_of_match);
-> 
-> -- 
-> 2.55.0
-> 
+Thanks,
+Maulik
