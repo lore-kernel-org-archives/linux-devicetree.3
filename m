@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BBD847ECEC;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BCE347ECED;
 	Wed, 15 Jul 2026 14:30:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784125847; cv=none; b=Fx48Op9wv7h+iDoygBNgCMKBYxTvtsNqAE4GZEe44fpBWtEBWmlnSYaluKg9oyYFL98zCWIr9s7LrPujwVl5e2it0kkYaOaVZbo5trumhBh6bLp/opeIc687NtDKGsKceO1y9F6/yb7zLP/awOx13Iva0M805iHHuvZbtmci6ow=
+	t=1784125847; cv=none; b=SGPzA8BeOX3S8XRu9uxoPr9qzA3JxzjJn3/fcnfymQIdbXKRQX1UsM/bbj9y76otbemyVlpZBwbAMbb3veb0okaAKx5SAGfniF0Se34JpY2mM0ZOT+vyiuLwvUxT7rWSDcd9qJRPDl6VVxZCJyVuv1A51YgfRuV6kt2OxTrasEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784125847; c=relaxed/simple;
-	bh=bxddUKlpQ/zaqaV7lCBZr3OZ5pRRSWUAginc50C9BCA=;
+	bh=IGpNS9aue5JzXuYKLafA/B2nUokxJGp04bNGnTYUqSc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BFyW67bsZ9N1rpfHITh6YiqfVnxop1enjtIpshahjc1Pf0qVC8K9b3zdfJq0L5FctFXSvpp465Cjjra+FTDjgqB2YJqOq9o9ExM36BBaPtQsTUgbkA4tqQ6ggaUblcRntRgpO94bbz2cXN4xK9LCvPlxJ1h7SnWZlPOs7JqwHNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dzri78mg; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=VZo44Nz0sIhPSQArfG9I8a9aPWAr4P9Li2Xlks339D2SJGAUdyZeGVNHiDByxzlXyOVut3LaYdhvhNdyplKZf5Dc/3LC1sCBQopmK8hkYlZWm3LiVuBIHlk+cz/qzVmBoRuGEBpBLix/X7UWpEvpNRmRCpdOMSgbNqFG0dknP+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OmwXA2pZ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dzri78mg"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B7B50C2BCF5;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OmwXA2pZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A3D83C2BCB7;
 	Wed, 15 Jul 2026 14:30:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1784125846;
-	bh=bxddUKlpQ/zaqaV7lCBZr3OZ5pRRSWUAginc50C9BCA=;
+	bh=IGpNS9aue5JzXuYKLafA/B2nUokxJGp04bNGnTYUqSc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Dzri78mgMSZBmHzQ+S7tmPsBIUdYNCz8FgeGhmJ/4BSxxnqZ9UhouMpYb4pGsrCUH
-	 65Geo5DYXPL9TA/pUDsvslbDK8/GoIcCFP+cN0LDnhDIUbHpafmCgwgygWE5oz89P7
-	 0SG8j4jDbog1szeSXPNTSkqtUms7FI4CrpPHIviKujSHfBXdRymSUEJxL8F16bD1VU
-	 b2VEVkn1J530ytmU6LJ11UlOeGZZ3ztwQ6UQMrVgs4ROecC4xfHOCFsyKladKGxVve
-	 LVauxnMabUllfewYuum3eyo0hR/vGh/H0yMB8Wzd9/QwHXksTiW75eb6rSFPW3FOie
-	 nAMXhDFURrs1A==
+	b=OmwXA2pZGkk4P/JYrIGe95nEsxY2/flkbIbuy+ZgPtAeWtgjG5KE2vHFqbC2mlWR0
+	 8vRKoUF1CdlAdk8aLWrVeGFpMmkMLtYSVkRJUajXEJF+l0oRAIPO1heD2XQugoJf8v
+	 2elx0+F17+4CRam+30bg8cMGSGf7Dm8XQXjOgmhpnwAZkM6/p8HZt8xdtTU0Lb4wJ3
+	 /MZh9eNCJ0R6PozHsKnn3dXctNCtg0M01T6E5yrdl4FPomYO2niMCgxO32pcivn/bu
+	 39z1FeSzaNTxU99Sq/m/TuPLL0g1GqDb8QuYJWsxGg6sJrwMP6YsFHe1QNDrRaeWRC
+	 VKeQOOThRIa2Q==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 95187C4450F;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7DF4BC44501;
 	Wed, 15 Jul 2026 14:30:46 +0000 (UTC)
 From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Wed, 15 Jul 2026 17:27:47 +0300
-Subject: [PATCH 2/3] nvmem: mtk-efuse: add support for 32-bit aligned reads
+Date: Wed, 15 Jul 2026 17:27:46 +0300
+Subject: [PATCH 1/3] dt-bindings: nvmem: mediatek: efuse: add mt6572
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260715-6572-nvmem-v1-2-9c13be99d077@protonmail.com>
+Message-Id: <20260715-6572-nvmem-v1-1-9c13be99d077@protonmail.com>
 References: <20260715-6572-nvmem-v1-0-9c13be99d077@protonmail.com>
 In-Reply-To: <20260715-6572-nvmem-v1-0-9c13be99d077@protonmail.com>
 To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -54,11 +54,11 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
  Roman Vivchar <rva333@protonmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784125843; l=3135;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784125843; l=783;
  i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=gOEk3xV/ih0Hcv+/D9l/u/kTXVslxW9X99D1kWTUUDw=;
- b=q7erFPeQUkoybLyUukh26Ulgz+g/gbaNCEYnLZ0l2O9BHFQ2r6pMpOfwAeh02qLqtGkF7s0QU
- V4bXXhD1MkXAi4268YXyYMS/PwzfqYCaVW+w+m+jt4am6mOtThmMMc0
+ bh=6rsiJE+m+kSdFo7mQes/iDioeo1J+zD87d8WvcT3BfE=;
+ b=hqCbIqp5vmmknQd+J44Xt579ZcLZFLWvnYZXMSPmyC/4j3yjrZvGG6bPQ4xyeCQvU1k6tu6QX
+ GLTBeHaLUalDEXXbWJ2TrYgMGQQ/4Qua0vYtwJVDwZ/QMf350B3aj7Z
 X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
  pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
 X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
@@ -68,110 +68,25 @@ Reply-To: rva333@protonmail.com
 
 From: Roman Vivchar <rva333@protonmail.com>
 
-Some MediaTek SoCs, such as mt6572, don't support 8-bit reads, leading
-to zeroes or garbage data. 32-bit aligned reads must be used instead.
-
-Introduce an 'needs_aligned_read' field to the platform data to enforce
-32-bit aligned register access. All reads will be performed by reading
-4-byte words and masking them.
+Add a compatible string for the mt6572 SoC efuse controller.
 
 Signed-off-by: Roman Vivchar <rva333@protonmail.com>
 ---
- drivers/nvmem/mtk-efuse.c | 31 ++++++++++++++++++++++++++++---
- 1 file changed, 28 insertions(+), 3 deletions(-)
+ Documentation/devicetree/bindings/nvmem/mediatek,efuse.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/nvmem/mtk-efuse.c b/drivers/nvmem/mtk-efuse.c
-index af953e1d9230..1462f2760818 100644
---- a/drivers/nvmem/mtk-efuse.c
-+++ b/drivers/nvmem/mtk-efuse.c
-@@ -4,6 +4,7 @@
-  * Author: Andrew-CT Chen <andrew-ct.chen@mediatek.com>
-  */
+diff --git a/Documentation/devicetree/bindings/nvmem/mediatek,efuse.yaml b/Documentation/devicetree/bindings/nvmem/mediatek,efuse.yaml
+index f9323b3ecfc8..269e2b09f5c8 100644
+--- a/Documentation/devicetree/bindings/nvmem/mediatek,efuse.yaml
++++ b/Documentation/devicetree/bindings/nvmem/mediatek,efuse.yaml
+@@ -44,6 +44,7 @@ properties:
  
-+#include <linux/align.h>
- #include <linux/device.h>
- #include <linux/module.h>
- #include <linux/mod_devicetable.h>
-@@ -14,10 +15,12 @@
- 
- struct mtk_efuse_pdata {
- 	bool uses_post_processing;
-+	bool needs_aligned_read;
- };
- 
- struct mtk_efuse_priv {
- 	void __iomem *base;
-+	const struct mtk_efuse_pdata *data;
- };
- 
- static int mtk_reg_read(void *context,
-@@ -28,6 +31,26 @@ static int mtk_reg_read(void *context,
- 	u8 *val = _val;
- 	int i;
- 
-+	if (priv->data->needs_aligned_read) {
-+		u32 pos, shift, val32;
-+
-+		for (i = 0; i < bytes; i++, val++) {
-+			pos = reg + i;
-+
-+			/*
-+			 * Read on 32-bit word boundary or if it's the first
-+			 * iteration
-+			 */
-+			if (i == 0 || IS_ALIGNED(pos, 4))
-+				val32 = readl(priv->base + (pos & ~3));
-+
-+			shift = (pos & 3) * 8;
-+			*val = (val32 >> shift) & 0xff;
-+		}
-+
-+		return 0;
-+	}
-+
- 	for (i = 0; i < bytes; i++, val++)
- 		*val = readb(addr + i);
- 
-@@ -67,7 +90,6 @@ static int mtk_efuse_probe(struct platform_device *pdev)
- 	struct nvmem_device *nvmem;
- 	struct nvmem_config econfig = {};
- 	struct mtk_efuse_priv *priv;
--	const struct mtk_efuse_pdata *pdata;
- 	struct platform_device *socinfo;
- 
- 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-@@ -78,7 +100,8 @@ static int mtk_efuse_probe(struct platform_device *pdev)
- 	if (IS_ERR(priv->base))
- 		return PTR_ERR(priv->base);
- 
--	pdata = device_get_match_data(dev);
-+	priv->data = device_get_match_data(dev);
-+
- 	econfig.add_legacy_fixed_of_cells = true;
- 	econfig.stride = 1;
- 	econfig.word_size = 1;
-@@ -86,7 +109,7 @@ static int mtk_efuse_probe(struct platform_device *pdev)
- 	econfig.size = resource_size(res);
- 	econfig.priv = priv;
- 	econfig.dev = dev;
--	if (pdata->uses_post_processing)
-+	if (priv->data->uses_post_processing)
- 		econfig.fixup_dt_cell_info = &mtk_efuse_fixup_dt_cell_info;
- 	nvmem = devm_nvmem_register(dev, &econfig);
- 	if (IS_ERR(nvmem))
-@@ -103,10 +126,12 @@ static int mtk_efuse_probe(struct platform_device *pdev)
- 
- static const struct mtk_efuse_pdata mtk_mt8186_efuse_pdata = {
- 	.uses_post_processing = true,
-+	.needs_aligned_read = false,
- };
- 
- static const struct mtk_efuse_pdata mtk_efuse_pdata = {
- 	.uses_post_processing = false,
-+	.needs_aligned_read = false,
- };
- 
- static const struct of_device_id mtk_efuse_of_match[] = {
+       - items:
+           - enum:
++              - mediatek,mt6572-efuse
+               - mediatek,mt7622-efuse
+               - mediatek,mt7623-efuse
+               - mediatek,mt7981-efuse
 
 -- 
 2.54.0
