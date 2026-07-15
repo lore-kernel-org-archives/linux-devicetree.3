@@ -1,230 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4263909A3
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 02:06:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B6A32B13A
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 02:13:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784081178; cv=none; b=DkSP3AGAcnbMtYpSlFz1CubaaH12tR/o6VwiOcUkJ4qCE2UZH40t6ezA6VPpHIC/cslGu6BSgGRWZvMEN52L5MyQ9NtyHXAwU3A7fUpsQdQYbVdaskGIvRYR1b6kLik5JksJKdUYAEmC0pIiiuKD0xf9V1NgeLkijkYC5ke3NjM=
+	t=1784081608; cv=none; b=hSwjWn/O7yWmsvhEYTy0FG3VK4xWsPG4PE6TQUux09V7Ca3BqkZWrb9WXmmTLQIJ+cUgPzn6BjNTw8vX1LtNlJ3FkfiUcQUXPuEFErgWqCrQ2JkYw6WNTm7GXDWJnXTe97Ys/HNXM1AdQpwFl3/h3QLA8JEvzsY8LHd5k0sw1ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784081178; c=relaxed/simple;
-	bh=82P8CQDLsQ2MAj+wi51Tlv7dlpIi0xs7K08nAqD+gFE=;
+	s=arc-20240116; t=1784081608; c=relaxed/simple;
+	bh=w3B+OWe0+mvMNsZ+R4qLCmtuwRau+cgShPJGUNdL5xo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dUT3DI0sQxtYAmOaZ1H5WSVIO+4e7oPFVhGk9u6LjKBJhigI8GusSWppO+YAdtWnmE+YaOYay/qakHoDK/KJC2YnBf/PRggFyTfwgK9pvbkux7eEwzXW5boPVfy0uBMbwbn3hWf+MBrED0fQpeGgHGMpj985leDgaf7IKouaetA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bI2Hpp+X; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=twuJwivPZZ0r0LvDYDmUX7KzM9XNFdfYCMOW1tTBkq6fActon6DJr0qABLQX3zuluD41karzEp1vjc7hK9OZcNfCe3vkP8nT8yrRavNaHxzH9pqadn2C/+6d2FXlpEsA/vFV8pRo95SXFw6M3VnLfIE1/m1+lq4crJBFbwuFllg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k2K79cc7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bI2Hpp+X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B73771F000E9;
-	Wed, 15 Jul 2026 02:06:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k2K79cc7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 262A51F000E9;
+	Wed, 15 Jul 2026 02:13:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784081177;
-	bh=jjc6v2Q+/8RgtuO09Lly8InjigX8L2V4kQGIE75cYxo=;
+	s=k20260515; t=1784081607;
+	bh=vxoEh3ZG21aSUibRQTcT6w3uoTYkuKnOt1p6Q8c5mFg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bI2Hpp+XflD95TMZnDsgLgjLZHrzPDP1x0zXtnu1kj546Sss4jI9+pECzd8OlJU4e
-	 +mJRjnFMo10WAGjh8svzy/6Bm/Z3r4EUZ5oOrk6bt5/Z1rtvA2M1B3KwejtVC5i4kZ
-	 I5EEyqsBEtwrzb34KdNmdnXEPzukeo0WNKxl7CbsiIyjKz1NGZ8I0Ol9h/caa7Tss4
-	 XhS59ou73WsluFtxzbe6FJbgtsx7Bz6vX+XEnpRRUWonCkK77xcUe1Dy3fSu/ksYYH
-	 srSwXlb6PR0vKBBn0z8PSn534Pm1BOFhCUQNyVQRFgXeq+Fmtp1g0VVpPtaO/9fyqC
-	 OV57C+27XQRug==
+	b=k2K79cc7M6yo4HRaHyabw2GOt3A3ebUImA8Wv3w5hKzJekwIbjUGL5YRZyHrnOSnv
+	 1owNwvj54QSrJexjpeih1pVhrCUALmrDDqcRoSOP3urruxyOX0Oiipq8/YbpO4rBEQ
+	 tlVQ1fLBahkUbNJKQa+dudzNiejIx2I4t/Pxv9HsX7p+XHbvMLVzqLakoE6KtTB23e
+	 ksUpMdzhs+8bF34fSo8GxMn4KDz6EL0UKZPHDKiABN/+vBWV4R778AZqtU4zRil/3H
+	 EQ3ea4l1pZqpnndpfgJXwJmFWC9hwvWtHfemlyIGJp8Bljw77nRzjVZIvvAC2aDYHC
+	 Oa8ifwMcvQzNQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v17 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI
- DSI bridge
+Subject: Re: [PATCH v3 2/4] arm64: dts: socfpga: agilex5: Add SoCDK TSN
+ Config2 board
 Reply-To: sashiko-reviews@lists.linux.dev
-To: syyang@lontium.com
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-In-Reply-To: <20260715015438.2770155-3-syyang@lontium.com>
-References: <20260715015438.2770155-1-syyang@lontium.com>
- <20260715015438.2770155-3-syyang@lontium.com>
+To: muhammad.nazim.amirul.nazle.asmade@altera.com
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260714021303.30042-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
+References: <20260714021303.30042-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+ <20260714021303.30042-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 02:06:16 +0000
-Message-Id: <20260715020616.B73771F000E9@smtp.kernel.org>
+Date: Wed, 15 Jul 2026 02:13:26 +0000
+Message-Id: <20260715021327.262A51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Missing cleanup of `output_bridge` in `mipi_dsi_host_detach` preve=
-nts DSI device rebinds and causes use-after-free.
-- [High] Sysfs attribute `lt7911exc_firmware` is accessible before the driv=
-er has finished initialization in `probe`, leading to a kernel panic.
-- [High] Asynchronous firmware upgrade worker accesses `bridge.dev` without=
- holding a reference, causing a Use-After-Free if the DRM display controlle=
-r unbinds.
-- [Medium] Driver illegitimately mutates the state of a downstream bridge o=
-bject by explicitly modifying `pre_enable_prev_first`.
-- [Low] The `lt7911exc->removed` flag is read without a lock or memory barr=
-ier in the firmware upgrade work, leading to a data race.
+- [High] Double RGMII delay insertion on gmac2 due to incorrect phy-mode.
+- [High] Conceptual misuse of 'rgmii-id' for MAC-side delays on gmac1 and m=
+issing driver implementation causing double-delays.
 --
 
---- Patch [2]: [PATCH v17 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIP=
-I DSI bridge ---
-commit f9cec7dee2928b841f4104ddf68c1ebfeffba41a
-Author: Sunyun Yang <syyang@lontium.com>
+--- Patch [2]: [PATCH v3 2/4] arm64: dts: socfpga: agilex5: Add SoCDK TSN C=
+onfig2 board ---
+commit 1726dd01c79b5342df101114181fa6297c1dabde
+Author: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 
-drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+arm64: dts: socfpga: agilex5: Add SoCDK TSN Config2 board
 
-Add support for the Lontium LT7911EXC bridge chip, which converts
-eDP input to MIPI DSI output using an internal firmware-controlled
-pipeline.
+This commit adds the device tree for the Intel SoCFPGA Agilex5 SoCDK TSN
+Config2 board variant. This configuration enables gmac1 as a TSN port
+alongside the standard gmac2 Ethernet port.
 
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/drm=
-/bridge/lontium-lt7911exc.c
+> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_tsn_cfg2.dts=
+ b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_tsn_cfg2.dts
 > new file mode 100644
-> index 0000000000000..5b7a184e96194
 > --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
+> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_tsn_cfg2.dts
 
 [ ... ]
 
-> @@ -458,6 +458,25 @@ static void lt7911exc_firmware_upgrade_work(struct w=
-ork_struct *work)
->  out_mcu_run:
->  	scoped_guard(mutex, &lt7911exc->ocm_lock)
->  		lt7911exc_inside_mcu_run(lt7911exc);
-> =20
->  out_release_fw:
->  	release_firmware(fw);
-> =20
->  out_unlock_upgrade:
->  	scoped_guard(mutex, &lt7911exc->ocm_lock) {
->  		if (!lt7911exc->removed)
->  			lt7911exc->upgrade =3D false;
->  	}
-> =20
->  	/* Notify DRM to re-trigger modeset after firmware upgrade */
->  	if (!lt7911exc->removed && lt7911exc->bridge.dev)
-
-[Severity: Low]
-Is there a data race on the removed flag here?
-
-The lt7911exc->removed flag is set under ocm_lock in lt7911exc_remove(), but
-it is read here outside of any lock or memory barrier.
-
-While cancel_work_sync() in the remove path prevents a logical use-after-fr=
-ee,
-could this still trigger unmarked data race warnings from KCSAN?
+> +&gmac1 {
+> +	status =3D "okay";
+> +	compatible =3D "altr,socfpga-stmmac-agilex5-tsn",
+> +		     "altr,socfpga-stmmac-agilex5",
+> +		     "snps,dwxgmac-2.10";
+> +	phy-mode =3D "rgmii-id";
 
 [Severity: High]
-Can this code trigger a use-after-free if the DRM display controller unbind=
-s?
+The commit message states that phy-mode is set to "rgmii-id" to reflect
+MAC-side delays, relying on the "altr,socfpga-stmmac-agilex5-tsn" compatible
+string for the driver to detect the converter and strip the delay bits.
 
-The firmware upgrade work accesses bridge.dev asynchronously. The bridge.dev
-pointer is assigned when the DRM master attaches, but the I2C bridge driver
-holds no reference to it.
+Since the driver implementation for this board-specific compatible string d=
+oes
+not appear to be included in this patch series, won't the driver fall back =
+to
+"altr,socfpga-stmmac-agilex5" and fail to strip the delay bits?
 
-If a user starts a firmware upgrade via sysfs and then unbinds the DRM
-master driver before the async work completes, the drm_device is freed.
+Additionally, if the MAC side (FPGA soft IP) already provides the delays,
+should the phy-mode simply be set to "rgmii" to intrinsically prevent the P=
+HY
+from adding its own delays, instead of relying on a driver workaround?
 
-Does this leave a dangling pointer that the worker will then dereference in
-drm_kms_helper_hotplug_event()?
-
->  		drm_kms_helper_hotplug_event(lt7911exc->bridge.dev);
-> =20
->  	mutex_unlock(&lt7911exc->upgrade_lock);
->  }
+> +	phy-handle =3D <&emac1_phy0>;
+> +	max-frame-size =3D <9000>;
 
 [ ... ]
 
-> @@ -515,10 +515,31 @@ static int lt7911exc_dsi_host_attach(struct mipi_ds=
-i_host *host, struct mipi_dsi_device *dev)
->  	lt7911exc->output_bridge =3D bridge;
-> =20
->  	/*
->  	 * Force panel-first enable order: the DSI output stream (0xe0b0)
->  	 * must not be enabled before the panel is powered on.
->  	 * This override is safe because LT7911EXC's transfer() is a stub =E2=
-=80=94
->  	 * panel DCS commands are silently discarded and panel init is done
->  	 * by the chip's internal firmware. The panel driver's
->  	 * prepare_prev_first preference is therefore irrelevant here.
->  	 */
->  	lt7911exc->output_bridge->pre_enable_prev_first =3D false;
-
-[Severity: Medium]
-Is it safe to explicitly mutate the state of a downstream bridge object?
-
-The downstream bridge object belongs to the panel driver. Overriding its
-pre_enable_prev_first flag violates object ownership and could disrupt the
-panel's expected power-on sequence.
-
-Could this cause the panel to fail to power on correctly?
-
-> =20
->  	drm_bridge_add(&lt7911exc->bridge);
-> =20
->  	return 0;
->  }
-> =20
->  static int lt7911exc_dsi_host_detach(struct mipi_dsi_host *host, struct =
-mipi_dsi_device *dev)
->  {
->  	struct lt7911exc *lt7911exc =3D dsi_host_to_lt7911exc(host);
-> =20
->  	drm_bridge_remove(&lt7911exc->bridge);
-> =20
->  	return 0;
->  }
+> +&gmac2 {
+> +	status =3D "okay";
+> +	phy-mode =3D "rgmii-id";
 
 [Severity: High]
-Does this missing cleanup prevent DSI device rebinds and cause a
-use-after-free?
+The commit message notes this board retains the standard gmac2 Ethernet por=
+t.
+In the baseline Agilex5 SoCDK, the HPS MAC intrinsically provides TX/RX clo=
+ck
+delays for gmac2, so phy-mode is typically set to "rgmii".
 
-In lt7911exc_dsi_host_attach(), output_bridge is initialized, but it is nev=
-er
-cleared back to NULL in this detach function.
-
-If the downstream DSI panel is unbound via sysfs, the old wrapper remains,
-pointing to a freed panel.
-
-If the panel is subsequently rebound, the check for output_bridge in
-lt7911exc_dsi_host_attach() will falsely trigger and return -EBUSY,
-permanently breaking the display pipeline. Should output_bridge be set to
-NULL here?
-
-[ ... ]
-
-> @@ -662,11 +662,20 @@ static int lt7911exc_probe(struct i2c_client *clien=
-t)
->  	lt7911exc =3D devm_drm_bridge_alloc(dev, struct lt7911exc, bridge, &lt7=
-911exc_bridge_funcs);
->  	if (IS_ERR(lt7911exc))
->  		return dev_err_probe(dev, PTR_ERR(lt7911exc), "drm bridge alloc failed=
-.\n");
-> =20
->  	dev_set_drvdata(dev, lt7911exc);
-> =20
->  	lt7911exc->dev =3D dev;
->  	lt7911exc->upgrade =3D false;
->  	lt7911exc->removed =3D false;
-> =20
->  	ret =3D devm_mutex_init(dev, &lt7911exc->ocm_lock);
-
-[Severity: High]
-Could a concurrent sysfs write during probe trigger a kernel panic?
-
-Because lt7911exc_attr_groups is attached via driver.dev_groups, the driver
-core creates the sysfs files before probe() runs.
-
-Here, dev_set_drvdata() exposes the struct before ocm_lock, upgrade_lock,
-and the work struct are initialized.
-
-If a user writes to the sysfs file during this window,
-lt7911exc_firmware_store() will retrieve the partially initialized struct a=
-nd
-attempt to lock the uninitialized mutex. Should the drvdata be set after
-initialization is complete?
-
->  	if (ret)
->  		return dev_err_probe(dev, ret, "failed to init mutex\n");
-> =20
->  	ret =3D devm_mutex_init(dev, &lt7911exc->upgrade_lock);
-
-[ ... ]
+Does setting phy-mode to "rgmii-id" here cause the PHY to inject a second,
+erroneous set of delays on top of the native MAC hardware delays, potential=
+ly
+breaking RGMII link timing for the standard Ethernet port?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715015438.2770=
-155-1-syyang@lontium.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714021303.3004=
+2-1-muhammad.nazim.amirul.nazle.asmade@altera.com?part=3D2
