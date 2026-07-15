@@ -1,132 +1,240 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4036738D417
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 14:36:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9943480320
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 14:37:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784126218; cv=none; b=m+Y//PNDNj5mIjtvXeunqHDfHO6kuObkbD3wcYw2LQLl/BN6wjguuOnztYBW7oKUSs71sllaR14gvoehROd0+tXRZ22RQvQTRNW2pPUTXWZ9nit4q0bjkTWElwyg57Xy6jv/f7Ch56xgIu8x2YKutB4Jl4tN42MPIrbhMa3ZeWw=
+	t=1784126224; cv=none; b=N9TXiPWWG4eOUKH+OilJJCGAMB1U6Yrie44fhr9zPQ6nMKbn1nSPYL73fmydBhPd0JAfl7bAwOpVTzwFTq9l+DJqasJza6D4MSx0eMfEfx6531pU3Tpj/P0HFMIsTJQxEoyR5uWfoLUNyVfn82VETE5L+FTrDUZH296g/idEus8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784126218; c=relaxed/simple;
-	bh=XwMHUbCRkp1Lv/VksMXKJQRuUD2lrFpEJv9Zrl8kXQo=;
+	s=arc-20240116; t=1784126224; c=relaxed/simple;
+	bh=U3MbEIdAzljtBFUuTBd/WX/QVwM2W3Q7I1mh/yB8+Oc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=swRElt+vU0CPudVgHuZznQYqcgtqSzcMTuCLDDhxJevE6cNC2rxwMjQDIjCpF4eF7G/nfnSvzlbr7qpYuXRzzsskVa0VhHgTuzqwP/HQRqTjIoiDQMh6cdAUX18IcE0eNP3fL85Rzq+Eopua5B7YsgA3OYDhLIKaKFguIyHsSuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VBtVitlj; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=mf+RKixaGiCsIhzkYf2nnMWm1PWnhiC+lkmYCzELXbvS+MNCyrKebsWFNfHUHXx6ROXL61uCffAMEV9BFak1IG/xLBHIb/MHYsIX1TvY+AHp+goW7quld1X49+UnNPYSFLKlaOeZBi+p1tBnibWt/JCPovGw5QXYfr/ZU5iCOYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U5aptBxq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VBtVitlj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A5C71F00A3F;
-	Wed, 15 Jul 2026 14:36:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U5aptBxq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B4871F000E9;
+	Wed, 15 Jul 2026 14:37:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784126216;
-	bh=GgpbuK+9j0Z2fPhlpTQ4L7aLWLdBJIxaV6XFh4gT6Dc=;
+	s=k20260515; t=1784126222;
+	bh=BDj1M2Olpz8/lLFcqZACRgyhWu6KpFb8xXQ+wJM7g/8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VBtVitlj1DUJWg1vEkJFrQFOYXhpIcvZLtBEwsTSOCr4X3uXL8Ko/UE/f9nSS6vY6
-	 +huTdKeK7yw0HoAc2MITox9ixiWPVbpQcaEyP5tPhjubk9sqygXPpluCaMEchXkdAU
-	 rBRYUL2nZm9icgoYwWjJepe6QARBflk3p2CPqAdRsL592iKlXqI50mSulWpdBYqc8z
-	 XtZphXxi71ukB3wrUTRFJey+uP8EQf55uRq8D6q9l3QKjPVSmaUoJQEofPmV+g6e0S
-	 Bcz67XL3EXcxgpi4YAecwsQuuHiyfGusnCGw/lFrnFG/0pW69b4JxzSfpxSCrlDVRK
-	 QrBh2c8q8YroA==
+	b=U5aptBxqu5mm0aTLV5FEQzyAR3VvSqIPeZKW4OIDll99hV/oFWGg6iwkDR5p1tYGP
+	 qZ7hKq0szv94RTdh1GNIi1k2j3oYfyaRv3xoXMy11QhZpAOlLzIZ1rYSQ4Iz5mizHH
+	 qYICnogm8ecy8wQLsRtEacVtzdP82s1pg+YsiXugd5d+Rhu+9qi7I8pFtmQNBXVg/c
+	 HbglD6+Qhw5WTZNnrhxcQfjag6QWJD51orrnLChkVLbaCnXI1cxDHpUwM0nS7qeLYe
+	 FlAcsZQZk8Z4SsAKjmxeOgp1NTlxH3UXK9BVD4mfQUJjigc9B/2TnbK6B4OjYPc2dt
+	 246JrYM/oBUtw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 08/14] media: iris: Add power sequence for glymur
+Subject: Re: [PATCH v9 06/14] media: iris: Enable Secure PAS support with
+ IOMMU managed by Linux
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vishnu Reddy" <busanna.reddy@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260715-glymur-v9-8-8cf2cbe12a07@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260715-glymur-v9-6-8cf2cbe12a07@oss.qualcomm.com>
 References: <20260715-glymur-v9-0-8cf2cbe12a07@oss.qualcomm.com>
- <20260715-glymur-v9-8-8cf2cbe12a07@oss.qualcomm.com>
+ <20260715-glymur-v9-6-8cf2cbe12a07@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 14:36:55 +0000
-Message-Id: <20260715143656.7A5C71F00A3F@smtp.kernel.org>
+Date: Wed, 15 Jul 2026 14:37:01 +0000
+Message-Id: <20260715143702.5B4871F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] If the NOC LPI handshake times out during readl_poll_timeout, the =
-PREP bit is left asserted in the AON register, permanently hanging the NOC =
-on the next boot.
+
+New issues:
+- [High] Missing cleanup of PAS metadata DMA allocation introduces a memory=
+ leak on every firmware load/unload and load error.
+- [High] The `core->fw_dev` pointer is added to support Linux-managed IOMMU=
+ mapping for the firmware context device, but it is never initialized anywh=
+ere in the driver.
+
+Pre-existing issues:
+- [High] Missing cancel_delayed_work_sync() for sys_error_handler in driver=
+ remove path leads to Use-After-Free.
 --
 
---- Patch [8]: [PATCH v9 08/14] media: iris: Add power sequence for glymur =
----
-commit d6ece601b7cdb53f3a84fa94a79400eb75a5853d
-Author: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+--- Patch [6]: [PATCH v9 06/14] media: iris: Enable Secure PAS support with=
+ IOMMU managed by Linux ---
+commit d784ba63809fa89007c5ca51f86bf7421bf5d466
+Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-media: iris: Add power sequence for glymur
+    media: iris: Enable Secure PAS support with IOMMU managed by Linux
+   =20
+    On platforms where a hypervisor is present, all Secure Monitor Calls
+    (SMC) are intercepted. For qcom_scm_pas_auth_and_reset(), the hypervisor
+    registers a Shared Memory (SHM) bridge over the Peripheral Image Loader
+    (PIL) memory region so that TrustZone (TZ) can access it, forwards the
+    authentication SMC to TZ, and upon return maps the PIL region and
+    triggers the co-processor bring-up sequence.
 
-This commit introduces power sequencing for the Glymur platform, which has
-two video codec cores. It ensures that clock and power rail voting is
-coordinated since both cores share the same power rails and clock source.
+    Link: https://lore.kernel.org/lkml/20260105-kvmrprocv10-v10-0-022e96815=
+380@oss.qualcomm.com/
 
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu3x.c b/drivers/medi=
-a/platform/qcom/iris/iris_vpu3x.c
-> --- a/drivers/media/platform/qcom/iris/iris_vpu3x.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu3x.c
-
+> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/m=
+edia/platform/qcom/iris/iris_firmware.c
+> index 1a476146d7580..56c477b36b619 100644
+> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
+> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
 [ ... ]
-
-> +static void iris_vpu36_power_off_vcodec(struct iris_core *core, u32 core=
-_id)
-> +{
-
-[ ... ]
-
-> +	do {
-> +		writel(power_down_prep[core_id], core->reg_base + AON_WRAPPER_MVP_NOC_=
-LPI_CONTROL);
-> +		usleep_range(15, 20);
-> +		value =3D readl(core->reg_base + AON_WRAPPER_MVP_NOC_LPI_STATUS);
-> +
-> +		handshake_done =3D value & lpi_status_done[core_id];
-> +		handshake_busy =3D value & (lpi_status_deny[core_id] | lpi_status_acti=
-ve[core_id]);
-> +
-> +		if (handshake_done || !handshake_busy)
-> +			break;
-> +
-> +		writel(0, core->reg_base + AON_WRAPPER_MVP_NOC_LPI_CONTROL);
-> +		usleep_range(15, 20);
-> +	} while (++count < 1000);
-> +
-> +	if (!handshake_done && handshake_busy)
-> +		goto disable_power;
-> +
-> +	ret =3D readl_poll_timeout(core->reg_base + AON_WRAPPER_MVP_NOC_LPI_STA=
-TUS, value,
-> +				 value & lpi_status_done[core_id], 200, 2000);
-> +	if (ret)
-> +		goto disable_power;
+> @@ -15,11 +17,14 @@
+>  #define IRIS_PAS_ID				9
+> =20
+>  #define MAX_FIRMWARE_NAME_SIZE	128
+> +#define IRIS_FW_START_ADDR	0
+> =20
+>  static int iris_load_fw_to_memory(struct iris_core *core, const char *fw=
+_name)
+>  {
+> +	struct device *fw_dev =3D core->fw_dev ? core->fw_dev : core->dev;
 
 [Severity: High]
-If this readl_poll_timeout() fails and returns an error, the code jumps
-directly to disable_power, skipping the zeroing of the control register bel=
-ow.
-Since the AON_WRAPPER_MVP_NOC_LPI_CONTROL register is in the Always-On (AON)
-domain, won't this leave the power_down_prep bit asserted across power cycl=
-es
-and permanently hang the NOC on the next boot?
+Is core->fw_dev initialized anywhere before this point? It appears to be
+allocated as part of struct iris_core using devm_kzalloc(), but never
+assigned a value in the driver, meaning it will always be NULL and this will
+always fall back to core->dev.
 
-Should writel(0, core->reg_base + AON_WRAPPER_MVP_NOC_LPI_CONTROL) be called
-before jumping to disable_power on timeout?
+>  	const struct firmware *firmware =3D NULL;
+> -	struct device *dev =3D core->dev;
+> +	struct qcom_pas_context	*ctx;
+> +	struct iommu_domain *domain;
+>  	struct resource res;
+[ ... ]
+> @@ -53,9 +65,23 @@ static int iris_load_fw_to_memory(struct iris_core *co=
+re, const char *fw_name)
+>  		goto err_release_fw;
+>  	}
+> =20
+> -	ret =3D qcom_mdt_load(dev, firmware, fw_name,
+> -			    IRIS_PAS_ID, mem_virt, mem_phys, res_size, NULL);
+> +	core->pas_ctx->use_tzmem =3D !!core->fw_dev;
 
+[Severity: High]
+Since core->fw_dev is never initialized, will use_tzmem always be false,
+causing the entire iommu_map() block below to become dead code?
+
+> +	ret =3D qcom_mdt_pas_load(core->pas_ctx, firmware, fw_name, mem_virt, N=
+ULL);
+> +	if (ret)
+> +		goto err_mem_unmap;
 > +
-> +	writel(0, core->reg_base + AON_WRAPPER_MVP_NOC_LPI_CONTROL);
+> +	if (core->pas_ctx->use_tzmem) {
+> +		domain =3D iommu_get_domain_for_dev(fw_dev);
+> +		if (!domain) {
+> +			ret =3D -ENODEV;
+> +			goto err_mem_unmap;
+
+[Severity: High]
+If this error path is taken, will it leak the PAS metadata DMA allocation?
+It seems the caller is required to free the metadata allocated by
+qcom_mdt_pas_load() using qcom_pas_metadata_release(), but this call
+is omitted during cleanup and error handling.
+
+> +		}
 > +
-> +	writel(bridge_sw_reset[core_id] | bridge_hw_reset[core_id],
-> +	       core->reg_base + CPU_CS_AHB_BRIDGE_SYNC_RESET);
-> +	writel(bridge_hw_reset[core_id], core->reg_base + CPU_CS_AHB_BRIDGE_SYN=
-C_RESET);
-> +	writel(0x0, core->reg_base + CPU_CS_AHB_BRIDGE_SYNC_RESET);
+> +		ret =3D iommu_map(domain, IRIS_FW_START_ADDR, mem_phys, res_size,
+> +				IOMMU_READ | IOMMU_WRITE | IOMMU_PRIV, GFP_KERNEL);
+> +	}
+> =20
+> +err_mem_unmap:
+>  	memunmap(mem_virt);
+>  err_release_fw:
+>  	release_firmware(firmware);
+> @@ -77,13 +115,13 @@ int iris_fw_load(struct iris_core *core)
+>  	ret =3D iris_load_fw_to_memory(core, fwpath);
+>  	if (ret) {
+>  		dev_err(core->dev, "firmware download failed\n");
+> -		return -ENOMEM;
+> +		return ret;
+>  	}
+> =20
+> -	ret =3D qcom_scm_pas_auth_and_reset(IRIS_PAS_ID);
+> +	ret =3D qcom_pas_prepare_and_auth_reset(core->pas_ctx);
+>  	if (ret)  {
+>  		dev_err(core->dev, "auth and reset failed: %d\n", ret);
+> -		return ret;
+> +		goto err_unmap;
+
+[Severity: High]
+Does this error path also need to call qcom_pas_metadata_release()? The
+metadata does not appear to be released here or in the normal success path.
+
+>  	}
+> =20
+>  	for (i =3D 0; i < core->iris_platform_data->tz_cp_config_data_size; i++=
+) {
+> @@ -94,20 +132,31 @@ int iris_fw_load(struct iris_core *core)
+>  						     cp_config->cp_nonpixel_size);
+>  		if (ret) {
+>  			dev_err(core->dev, "qcom_scm_mem_protect_video_var failed: %d\n", ret=
+);
+> -			qcom_scm_pas_shutdown(IRIS_PAS_ID);
+> -			return ret;
+> +			goto err_pas_shutdown;
+>  		}
+>  	}
+> =20
+> +	return 0;
 > +
-> +disable_power:
-> +	iris_genpd_set_hwmode(&core->vcodec[core_id], false);
-> +	iris_disable_power_domain_and_clocks(core, &core->vcodec[core_id]);
-> +}
+> +err_pas_shutdown:
+> +	qcom_pas_shutdown(IRIS_PAS_ID);
+> +err_unmap:
+> +	iris_fw_iommu_unmap(core);
+> +
+>  	return ret;
+>  }
+> =20
+>  int iris_fw_unload(struct iris_core *core)
+>  {
+> -	return qcom_scm_pas_shutdown(IRIS_PAS_ID);
+> +	int ret;
+> +
+> +	ret =3D qcom_pas_shutdown(IRIS_PAS_ID);
+> +	iris_fw_iommu_unmap(core);
+> +
+> +	return ret;
+>  }
+
+[Severity: High]
+Does iris_fw_unload() also need to call qcom_pas_metadata_release()?
+If the PAS metadata context is not released, won't it cause a memory leak
+on every firmware load/unload cycle?
+
+
+[Severity: High]
+This is a pre-existing issue, but does iris_remove() need to cancel the
+sys_error_handler delayed work before destroying resources?
+
+If a hardware fatal error interrupt schedules the work, and the driver is
+unbound before the delay expires, it looks like iris_remove() will destroy
+the mutex and free the core struct without calling cancel_delayed_work_sync=
+().
+Could this lead to a use-after-free when the delayed work eventually execut=
+es?
+
+drivers/media/platform/qcom/iris/iris_probe.c:iris_remove() {
+...
+	iris_core_deinit(core);
+	...
+	iris_deinit_cb_devs(core);
+
+	mutex_destroy(&core->lock);
+}
+
+drivers/media/platform/qcom/iris/iris_probe.c:iris_sys_error_handler() {
+	struct iris_core *core =3D
+			container_of(work, struct iris_core, sys_error_handler.work);
+
+	iris_core_deinit(core);
+	iris_core_init(core);
+}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-glymur-v9-=
-0-8cf2cbe12a07@oss.qualcomm.com?part=3D8
+0-8cf2cbe12a07@oss.qualcomm.com?part=3D6
