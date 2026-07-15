@@ -1,169 +1,292 @@
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022110.outbound.protection.outlook.com [40.107.75.110])
+Received: from out28-101.mail.aliyun.com (out28-101.mail.aliyun.com [115.124.28.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA94A3C5550;
-	Wed, 15 Jul 2026 07:43:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.110
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784101389; cv=fail; b=Qm9QN4typy3QIiTPgiWvnf1qwy1zGXjGN5Fd1b10d9gXTAe6/av+jOfUG8haYfeVPXVTV3BQ8YgSoV1hEfOrddTFpxj2TxfrZ02EBs6uqE8MVlUtJVv0qoHTmrO5nZC5oZy6et2ityN6pQ/5FR9cYmDdCMTgePGI/9ff4IX9h/s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784101389; c=relaxed/simple;
-	bh=q3DtGQYqkiey59cQIxu42dejQfZvh322+5KSj1+cmVA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W3BCvmEw9zY4aQcM6zlMjTVu3lZZbocr47Ni8CkL3zyLv03t3PWHzsRgOXH3A07hOKxeXE5lRR7+SZXCJzutry6Wau6RRHMCl5JwjGljczhPNu4zES9BE9o4w1c2r7zM2s1J3qXorVw1cp8NVW34x5tTPixyrbzc+eUFPX+gWHQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.75.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FCm7c4bhCTPWHZ/C4mKDUzU7Pu6i/EQaQsuWgZtglljmSG3q322A8V9Hf9y/XY2fnVUZVy9Y4PHUm7Plc8PlVobCHOQLFOU2E4NmIu8bSeNYeGs1YWY99dFpny3xG+/MOHv7o51lQIBwjhPFtQMrJEEbuoqOfCVohGomRYBlRLFCwKj1oaPV/rRKRdzMBmpQkeHVE3S2dwn8WYERME81XNNQsNi98WmHp6rTd7dBoV8a9WUKmYun94YQTnSL4OTw9zqHEOzFvbrxkhk8Mbcs7a/kmm2GA0rXYgyU8orWNUlebWQgIg+AfCM9MIBg5jhAQqHwkIyjlWmL6xtui72GJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d8zshZZgMrng5PlukhIlocEzscHjzcZmsn8ImjX9AqE=;
- b=XYfaenZ4wzHERQChouqQ1aLlA1NSOGcbet8pCtfiOLzjtUQ4eHJU+iNUVG7WCfb1rqwLjT2qXNH6Rkcs9slN4Qn5ttUvY7JvYVfb9tB2T9QSbDrX36HHnoeTwNGwItzQ9Fu3LoiDE0b+VOU4R7Xp+Vp+Y7xbShAsj6r0NRkaf/C9l9YzrSLSK4olQu5wo3k/GlMmJsYdb3VjfXiyMGVWqlzDLDu+VV6YfPngMPUxC+7UHNoqe+X0Shw0K5G3K6BeZdznTJwxeDmm2N2mqnPLRiLzSonQ4WgPv6bOnk7YLXbPbi++gsbddt41DALOLetEtLxyY3BCDNB0g/xqDrbZUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI2PR02CA0044.apcprd02.prod.outlook.com (2603:1096:4:196::17)
- by KL1PR06MB6395.apcprd06.prod.outlook.com (2603:1096:820:e7::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Wed, 15 Jul
- 2026 07:43:01 +0000
-Received: from SG2PEPF000B66CB.apcprd03.prod.outlook.com
- (2603:1096:4:196:cafe::33) by SI2PR02CA0044.outlook.office365.com
- (2603:1096:4:196::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.11 via Frontend Transport; Wed,
- 15 Jul 2026 07:43:01 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG2PEPF000B66CB.mail.protection.outlook.com (10.167.240.24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 07:43:01 +0000
-Received: from [172.20.96.76] (unknown [172.20.96.76])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id B0E9E427CEE6;
-	Wed, 15 Jul 2026 15:42:58 +0800 (CST)
-Message-ID: <d7f0fa37-50f2-4c71-8004-2b85e45171f4@cixtech.com>
-Date: Wed, 15 Jul 2026 15:42:58 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4253C2BB4
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 07:43:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.101
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784101401; cv=none; b=caWtDR4b4JYmTuwxMHbpjMaj74jLZH8zOMfjnQnzKzJ0zZ1GckrSHeqRIB/StFk8COFdaWRoJti9Z1iyDIFiZ3FxTeIS5AOJXmDEwV0dHiRBylwlS2J17XeqVilvqNJkrv7dfaSmexYl1GeavvePlDgGZmlRG3Wuri+wkxrk0xc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784101401; c=relaxed/simple;
+	bh=eYwuW4vmV1NRfCF9e/kPy7g+6JHXYDajt+Al5Gz8oqw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EXQT7hN83dix9aiFWXUoFtjMnKwPbbmPvo7aMlm+/o8KX3KevDVv/3olYeeFqys2jzBemWgfGCxBVg8t7OxDMBSVM1sQou07JdYeAH6IzDMCbFH2X2cJAuy7aeWpLQzLs/3Pb9Cl1cei7Lu1NX/bUpZHl/2ZIdseilmv9C1dIu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=PcFVwjnO; arc=none smtp.client-ip=115.124.28.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="PcFVwjnO"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=lontium.com; s=default;
+	t=1784101390; h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type;
+	bh=fYczancSDpXTTTTzNgOct5Z1D1AO/aaqYRYfDjK901E=;
+	b=PcFVwjnOX47F4YoOqPD7iXagUXRsuQyI2jhPwz05Pht1tDsqJcEU3Zg4llRry5HWiXWvOk+NGNU755ICxpLzm332qIUewucT6zJtJn8eReerTFsHaX430A86nwcvhp2hEbUi1OIbtkGc6CCVJIou8NXM8CQEEDUgNUZiI85IqcAsr3wNuyCqRiNYqcOrdFKc55xiSQriSMJZU4uIOCH09CjxjIhbo04A8sqCxoM+QFEZtaw8QJaWr6s77FepaSjEpa3ujzmMHITRiWPCKLyz2FJNaBdsn5A3BPULhGjLOMhPd8yx4SAngUaA2c9zW6jaHVYC2n/8Gn5hz/lmG35c2g==
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436262|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0027374-0.000409488-0.996853;FP=3276738345256568050|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045018182;MF=syyang@lontium.com;NM=1;PH=DS;RN=1;RT=1;SR=0;TI=SMTPD_---.iLoJYfg_1784101388;
+Received: from mail-oi1-f174.google.com(mailfrom:syyang@lontium.com fp:SMTPD_---.iLoJYfg_1784101388 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 15 Jul 2026 15:43:09 +0800
+Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4877a7b451dso3051989b6e.0
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 00:43:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpG6A90o7GIeUiZXxVPvkW/mksmTLBBkDMMwWmlyvGs8iH4PXQfdBy0wywmOmblkZO4XyGUHKqm3nvG@vger.kernel.org
+X-Gm-Message-State: AOJu0YzbGNMC4Ur/1iVAy0Hb+SoSdfCAFeapQOCUJP/ZRxeZ/oh81tb2
+	yZj8eBjvqEgzPb0SJuL0GXOOZCB2tT1X40JJRsSzEV5TvMeAUux3jJcomFYZ+/bvEnAWEWwAlG3
+	Boc+QCq++d14pSQw2FYhfg0KKj88/S28=
+X-Received: by 2002:a05:6808:1986:b0:4a4:68a9:5f04 with SMTP id
+ 5614622812f47-4a495ff24eemr1298337b6e.27.1784101387714; Wed, 15 Jul 2026
+ 00:43:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 0/2] dmaengine: arm-dma350: handle shared channel IRQ
- wiring on sky1
-To: fugang.duan@cixtech.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, vkoul@kernel.org, ychuang3@nuvoton.com,
- schung@nuvoton.com, robin.murphy@arm.com, Frank.Li@kernel.org
-Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com,
- linux-arm-kernel@lists.infradead.org
-References: <20260521072924.3000282-1-jun.guo@cixtech.com>
-Content-Language: en-US
-From: Jun Guo <jun.guo@cixtech.com>
-In-Reply-To: <20260521072924.3000282-1-jun.guo@cixtech.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CB:EE_|KL1PR06MB6395:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8df89c79-7b6b-40bf-6d86-08dee244b26f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|376014|7416014|1800799024|82310400026|3023799007|5023799004|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ARf45caTIGuydVjMiT7LtH377DkhPF+DmfHJZsxT9f7s5xOT5X2pag5th1v2MbA61K+DZJuM7lqqhtBkPKy2oO41qWJ96skoxYdu1hnqphKSnxy+p7vntL38js5ptYM3C/CBpXEbFSyovfb2a6l1+LtBWTFRN5KwvuGs72kdH/+7rqzTpDipDOXXa+zzjR4Jv8yvHjKuCxSsqjlLgAxRgCGiSoshh/US1tjIL5HpcqQo6YI3HoRROl5nqX5i609nBHuCkeMZ/3b4KcBoyUZBZWE0inSbPsD6J+GrBnszh8ebqnDV+DzF2xcxvyiuiDcuLU/SwIho0IQqA61cb9E0/cAbbztMzfdAE+KuPjSntjxLnr3UtzwOFCzVqAWXIDkf8xp56e3MKUzZXOJLRs+Y4u1UTW4sTMN+fY5iLqkYbTbGJzx4boQQUoKYMV96jmEGj9GGW7ztAB0KPkO/mI6VQBGv1Umq5r/MXK0Ec43EQcBQgcioJH06ARqExERM3nEM/d2BW99m2A+GN17EyH3KWLxV9enpp657y50nnwU4Y5a94Bww0gO0VEsr463ivZtnHlyWO8p2E5XaQijzPCXGrMfS7ePeUJNzCwoXthFBX0RJKo7lSpkYiegv5L+0XhGfxDE/liFz06vDQgsccpZE47n92serSiCgmA94Nape7D6MK3TmNjG5KKw82/YHIK2yBNfk2xOnjl4suaW6WeBT5A==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(7416014)(1800799024)(82310400026)(3023799007)(5023799004)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	TkpIvUY6LcaYe3q5X28T3b2QdX7zdtt9CCbOs1bPp18vYvuwKJVMtwpZMjccFaHpbsWc+F3Ce0wvbY3+vrGzlAQMrFfjyA9lbYx82bq4UY7ya5zFpJeePpBHMAF+PzMV3/iHzSJ9c/ECYSua19zVa4gJzx5f1QBnXxRqZL6u+RbJz2LqPDp/gNNGMSjJUE47WUBNru4cSF7yYAjHvgprmH/pMxYS1WESpPmq5LyazWYRU7hZQTLek3Pdq9mw/UIodhAor/zNgcZfLsF2YgSQga+TxyHinOSqTkFvHLYJgtYB8fekFu7G720uTNS7yl/1/ePhiBPII9bKQCrx5cdyKbk/Ko4kaXGkeLB/wn9OR6+fgA4daRUWM7mWCeoWNPTIErud/CaDxG/sGj8s5Up6DJgNMXPOJAKMP4HEqy9eK/vldm9wWQoDLM15upHcUFqI
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 07:43:01.0744
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8df89c79-7b6b-40bf-6d86-08dee244b26f
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG2PEPF000B66CB.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR06MB6395
+References: <20260715015438.2770155-1-syyang@lontium.com> <20260715015438.2770155-3-syyang@lontium.com>
+ <20260715020616.B73771F000E9@smtp.kernel.org>
+In-Reply-To: <20260715020616.B73771F000E9@smtp.kernel.org>
+From: Sunyun Yang <syyang@lontium.com>
+Date: Wed, 15 Jul 2026 15:42:55 +0800
+X-Gmail-Original-Message-ID: <CAFQXuNZdwNxbAsnK7P4zs0eZnm4pN+6kKkO-aP6Q_higPEW-yg@mail.gmail.com>
+X-Gm-Features: AUfX_mxYgF1LKb3HBSUHlun9wnYnCA6QN_5HsLuDULVayA3SKvsDowqxL49a2q4
+Message-ID: <CAFQXuNZdwNxbAsnK7P4zs0eZnm4pN+6kKkO-aP6Q_higPEW-yg@mail.gmail.com>
+Subject: Re: [PATCH v17 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+<sashiko-bot@kernel.org> =E4=BA=8E2026=E5=B9=B47=E6=9C=8815=E6=97=A5=E5=91=
+=A8=E4=B8=89 10:06=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Thank you for your contribution! Sashiko AI review found 5 potential issu=
+e(s) to consider:
+> - [High] Missing cleanup of `output_bridge` in `mipi_dsi_host_detach` pre=
+vents DSI device rebinds and causes use-after-free.
 
-Gentle ping on this patch series.
+Intentional design, consistent with cdns-dsi-core.c cdns_dsi_detach()
+(lines 1082-1091) which does not clear output->dev. Clearing
+output_bridge would allow re-attach, causing devm_drm_of_get_bridge()
+to allocate new devres without freeing the previous one, resulting in
+a real memory leak. The DRM bridge framework does not support dynamic
+bridge chain reconfiguration. No use-after-free: the -EBUSY guard
+returns before dereferencing output_bridge, and bridge_attach is not
+called by the SoC encoder after drm_bridge_remove().
 
-I understand everyone is busy, but would appreciate any feedback or
-review comments when you have a moment.
+> - [High] Sysfs attribute `lt7911exc_firmware` is accessible before the dr=
+iver has finished initialization in `probe`, leading to a kernel panic.
 
-On 5/21/2026 3:29 PM, Jun Guo wrote:
-> This series updates DMA-350 support for the SKY1 integration where all
-> DMA
-> channel interrupt outputs are wired to the same GIC SPI.
-> 
-> Patch 1 enables DMANSECCTRL.INTREN_ANYCHINTR in the driver so
-> per-channel
-> interrupt status is propagated even when channels share one parent IRQ
-> line.
-> 
-> Patch 2 adds the SKY1 DMA-350 DT node and describes the channel
-> interrupt
-> sources using 8 channel entries, while all entries map to the same SPI.
-> 
-> Tested on CIX SKY1 with dmatest:
->    % echo 2000 > /sys/module/dmatest/parameters/timeout
->    % echo 1 > /sys/module/dmatest/parameters/iterations
->    % echo "" > /sys/module/dmatest/parameters/channel
->    % echo 1 > /sys/module/dmatest/parameters/run
-> 
-> Changes in v7:
-> - Modify the commit log format for the driver patch.
-> 
-> Changes in v6:
-> - Drop the dt-binding update and keep the existing 8-channel interrupt
->   schema.
-> - Simplify driver change to a minimal fix:
->   enable DMANSECCTRL.INTREN_ANYCHINTR.
-> - Update SKY1 DT node to describe 8 channel interrupt entries mapped
->   to one SPI.
-> 
-> Changes in v5:
-> - Fix the formatting issue in the AI tag.
-> - Remove the unnecessary "cix,sky1-dma-350".
-> 
-> Changes in v4:
-> - Reword binding text to align with kernel style.
-> - Revise the AI attribution to the standard format.
-> - Remove redundant links from the commit log.
-> 
-> Changes in v3:
-> - Rework binding compatible description to match generic-first model.
-> - Keep interrupts schema support for both 1-IRQ and 8-IRQ topologies.
-> - Drop SoC match-data dependency for IRQ mode selection.
-> - Detect IRQ topology via platform_irq_count() in probe path.
-> - Refactor IRQ handling into a shared channel handler.
-> - Enable DMANSECCTRL.INTREN_ANYCHINTR only in combined IRQ mode.
-> 
-> Changes in v2:
-> - Update to kernel standards, enhance patch description, and refactor
->   driver to use match data for hardware differentiation instead of
->   compatible strings.
-> 
-> Jun Guo (2):
->    dmaengine: arm-dma350: enable ANYCH interrupt for shared IRQ wiring
->    arm64: dts: cix: add sky1 DMA-350 node with channel IRQ entries
-> 
->   arch/arm64/boot/dts/cix/sky1.dtsi | 14 ++++++++++++++
->   drivers/dma/arm-dma350.c          |  9 +++++++++
->   2 files changed, 23 insertions(+)
-> 
+False positive. The driver core creates dev_groups sysfs attributes
+AFTER probe() returns successfully. In drivers/base/dd.c
+really_probe(), call_driver_probe() (line 706) executes before
+device_add_groups(dev, drv->dev_groups) (line 725). By the time the
+sysfs file is visible to userspace, all mutexes, workqueue, and regmap
+are fully initialized. There is no window where userspace can access
+the sysfs attribute before initialization completes.
 
+> - [High] Asynchronous firmware upgrade worker accesses `bridge.dev` witho=
+ut holding a reference, causing a Use-After-Free if the DRM display control=
+ler unbinds.
+
+This is a known DRM bridge framework limitation, not specific to this
+driver. drm_bridge_remove() does not clear bridge.dev, so all bridge
+drivers calling drm_kms_helper_hotplug_event() share this risk. A
+proper fix requires framework-level bridge-to-drm_device lifetime
+tracking. Triggering requires root sysfs access to start firmware
+upgrade while simultaneously unbinding the DRM master driver =E2=80=94 an
+administrator operation outside normal usage.
+
+> - [Medium] Driver illegitimately mutates the state of a downstream bridge=
+ object by explicitly modifying `pre_enable_prev_first`.
+
+Hardware constraint. The DSI output stream (register 0xe0b0) must be
+enabled after the panel is powered on. The override is safe because
+transfer() is a stub =E2=80=94 panel DCS commands are silently discarded an=
+d
+panel initialization is handled entirely by the chip's internal
+firmware. The panel driver's prepare_prev_first preference is
+therefore irrelevant for this chip. The comment above the assignment
+documents this rationale.
+
+> - [Low] The `lt7911exc->removed` flag is read without a lock or memory ba=
+rrier in the firmware upgrade work, leading to a data race.
+
+Valid.
+
+> --
+>
+> --- Patch [2]: [PATCH v17 2/2] drm/bridge: Add Lontium LT7911EXC eDP to M=
+IPI DSI bridge ---
+> commit f9cec7dee2928b841f4104ddf68c1ebfeffba41a
+> Author: Sunyun Yang <syyang@lontium.com>
+>
+> drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+>
+> Add support for the Lontium LT7911EXC bridge chip, which converts
+> eDP input to MIPI DSI output using an internal firmware-controlled
+> pipeline.
+>
+> > diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/d=
+rm/bridge/lontium-lt7911exc.c
+> > new file mode 100644
+> > index 0000000000000..5b7a184e96194
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
+>
+> [ ... ]
+>
+> > @@ -458,6 +458,25 @@ static void lt7911exc_firmware_upgrade_work(struct=
+ work_struct *work)
+> >  out_mcu_run:
+> >       scoped_guard(mutex, &lt7911exc->ocm_lock)
+> >               lt7911exc_inside_mcu_run(lt7911exc);
+> >
+> >  out_release_fw:
+> >       release_firmware(fw);
+> >
+> >  out_unlock_upgrade:
+> >       scoped_guard(mutex, &lt7911exc->ocm_lock) {
+> >               if (!lt7911exc->removed)
+> >                       lt7911exc->upgrade =3D false;
+> >       }
+> >
+> >       /* Notify DRM to re-trigger modeset after firmware upgrade */
+> >       if (!lt7911exc->removed && lt7911exc->bridge.dev)
+>
+> [Severity: Low]
+> Is there a data race on the removed flag here?
+>
+> The lt7911exc->removed flag is set under ocm_lock in lt7911exc_remove(), =
+but
+> it is read here outside of any lock or memory barrier.
+>
+> While cancel_work_sync() in the remove path prevents a logical use-after-=
+free,
+> could this still trigger unmarked data race warnings from KCSAN?
+>
+> [Severity: High]
+> Can this code trigger a use-after-free if the DRM display controller unbi=
+nds?
+>
+> The firmware upgrade work accesses bridge.dev asynchronously. The bridge.=
+dev
+> pointer is assigned when the DRM master attaches, but the I2C bridge driv=
+er
+> holds no reference to it.
+>
+> If a user starts a firmware upgrade via sysfs and then unbinds the DRM
+> master driver before the async work completes, the drm_device is freed.
+>
+> Does this leave a dangling pointer that the worker will then dereference =
+in
+> drm_kms_helper_hotplug_event()?
+>
+> >               drm_kms_helper_hotplug_event(lt7911exc->bridge.dev);
+> >
+> >       mutex_unlock(&lt7911exc->upgrade_lock);
+> >  }
+>
+> [ ... ]
+>
+> > @@ -515,10 +515,31 @@ static int lt7911exc_dsi_host_attach(struct mipi_=
+dsi_host *host, struct mipi_dsi_device *dev)
+> >       lt7911exc->output_bridge =3D bridge;
+> >
+> >       /*
+> >        * Force panel-first enable order: the DSI output stream (0xe0b0)
+> >        * must not be enabled before the panel is powered on.
+> >        * This override is safe because LT7911EXC's transfer() is a stub=
+ =E2=80=94
+> >        * panel DCS commands are silently discarded and panel init is do=
+ne
+> >        * by the chip's internal firmware. The panel driver's
+> >        * prepare_prev_first preference is therefore irrelevant here.
+> >        */
+> >       lt7911exc->output_bridge->pre_enable_prev_first =3D false;
+>
+> [Severity: Medium]
+> Is it safe to explicitly mutate the state of a downstream bridge object?
+>
+> The downstream bridge object belongs to the panel driver. Overriding its
+> pre_enable_prev_first flag violates object ownership and could disrupt th=
+e
+> panel's expected power-on sequence.
+>
+> Could this cause the panel to fail to power on correctly?
+>
+> >
+> >       drm_bridge_add(&lt7911exc->bridge);
+> >
+> >       return 0;
+> >  }
+> >
+> >  static int lt7911exc_dsi_host_detach(struct mipi_dsi_host *host, struc=
+t mipi_dsi_device *dev)
+> >  {
+> >       struct lt7911exc *lt7911exc =3D dsi_host_to_lt7911exc(host);
+> >
+> >       drm_bridge_remove(&lt7911exc->bridge);
+> >
+> >       return 0;
+> >  }
+>
+> [Severity: High]
+> Does this missing cleanup prevent DSI device rebinds and cause a
+> use-after-free?
+>
+> In lt7911exc_dsi_host_attach(), output_bridge is initialized, but it is n=
+ever
+> cleared back to NULL in this detach function.
+>
+> If the downstream DSI panel is unbound via sysfs, the old wrapper remains=
+,
+> pointing to a freed panel.
+>
+> If the panel is subsequently rebound, the check for output_bridge in
+> lt7911exc_dsi_host_attach() will falsely trigger and return -EBUSY,
+> permanently breaking the display pipeline. Should output_bridge be set to
+> NULL here?
+>
+> [ ... ]
+>
+> > @@ -662,11 +662,20 @@ static int lt7911exc_probe(struct i2c_client *cli=
+ent)
+> >       lt7911exc =3D devm_drm_bridge_alloc(dev, struct lt7911exc, bridge=
+, &lt7911exc_bridge_funcs);
+> >       if (IS_ERR(lt7911exc))
+> >               return dev_err_probe(dev, PTR_ERR(lt7911exc), "drm bridge=
+ alloc failed.\n");
+> >
+> >       dev_set_drvdata(dev, lt7911exc);
+> >
+> >       lt7911exc->dev =3D dev;
+> >       lt7911exc->upgrade =3D false;
+> >       lt7911exc->removed =3D false;
+> >
+> >       ret =3D devm_mutex_init(dev, &lt7911exc->ocm_lock);
+>
+> [Severity: High]
+> Could a concurrent sysfs write during probe trigger a kernel panic?
+>
+> Because lt7911exc_attr_groups is attached via driver.dev_groups, the driv=
+er
+> core creates the sysfs files before probe() runs.
+>
+> Here, dev_set_drvdata() exposes the struct before ocm_lock, upgrade_lock,
+> and the work struct are initialized.
+>
+> If a user writes to the sysfs file during this window,
+> lt7911exc_firmware_store() will retrieve the partially initialized struct=
+ and
+> attempt to lock the uninitialized mutex. Should the drvdata be set after
+> initialization is complete?
+>
+> >       if (ret)
+> >               return dev_err_probe(dev, ret, "failed to init mutex\n");
+> >
+> >       ret =3D devm_mutex_init(dev, &lt7911exc->upgrade_lock);
+>
+> [ ... ]
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715015438.27=
+70155-1-syyang@lontium.com?part=3D2
