@@ -1,71 +1,178 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EEE9379EDA;
-	Wed, 15 Jul 2026 01:23:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3754C3845A2
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 01:51:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784078586; cv=none; b=NCZp8XHqVjyx7vszcs6cerAO4akzZDNHPLa5wQUqOc9J2epRbU9LxXJDhR0c/FV0+E7W+qy6ww5BB3vKfAYn9lZJtKRqdof4lxKT5w5gsgPhLzsu/jPY47jk2E5XIgiLqmpMu/nOQiDass+9UKyTpwIhofdva1kXO2l9B8BaJmQ=
+	t=1784080300; cv=none; b=HsvqwnrSqYwFCUIZL9kPXPeCyM3w7O8oEAN1GWH7qjNfY//6Zc7/mHqaKWtpUM1/RELuhWMMcg5eFrfhqaW2HgF8G7k99vV4c+KGrxPEJ/px3alDbTlAck9h8c05Ib1QdIgAmA3NV19dUlBELb7rv1uyPuer/F+/jHxwJjPzuh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784078586; c=relaxed/simple;
-	bh=ALNjLK7mfttHKLhhylYdx/L25TSASK/bzxXH7dwg8VI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H16pkl/ZF1MaPnR8vHAB2gOJYDlYRPeNpJ4/XKa7eRhu3rIpo5oLsfiqdhhpjTZnRsSD1HQ3Tc3TtF8Rvql0d/Cr03qEyyrWhRqI/QZHOLzqM7jjyTEIgiVAW0SUSl1gry4CG4oEo2RWzEwqbPRUpNwjeLXbu/XYEQvzSRm/32Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=yVJcr72W; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1784080300; c=relaxed/simple;
+	bh=OkrrAHAlrssxjFhiWldKYAqb62cke08knMoI21r7UO8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qwBrUPktx6WFT/Nxk8rpul+DBj9qWtGuLnWRWyPJvW6M7P6HAsG9c0HjKyS1xj/ss1AD+ap+cBqliFWEfh9kUaVm60BMWdPRosN2TYINSk/CoHs4EZL7f1YS5zAZwHb0JsMkoMNnF7Lg8dCuKZkQYPEVs/xsnimUYaRCs4gTyzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DUuHnrUK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JSJyoxI/; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="yVJcr72W"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=46KRPMy9u5mU2TKTccVzrsXsAqZY9tVODkcEVrUETYY=; b=yVJcr72W8TTwXeNlB+kFnhdYDO
-	fyUw7Fto58/Ps3cswXSx/M3Dh7S7VF32FAx23uQEnNWL9YrY9hfz2hne+dR/st6O0IfrD77k5DEPT
-	V+kD7wV0i6eWdwbbiHl0uBcEgtMhxBiukbNoK3YH0VLvC6yThZxshugf2l571JTurhCo=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wjoKs-00CHOV-4g; Wed, 15 Jul 2026 03:22:54 +0200
-Date: Wed, 15 Jul 2026 03:22:54 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: muhammad.nazim.amirul.nazle.asmade@altera.com
-Cc: dinguyen@kernel.org, maxime.chevallier@bootlin.com,
-	rmk+kernel@armlinux.org.uk, krzk+dt@kernel.org, conor+dt@kernel.org,
-	robh@kernel.org, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, andrew+netdev@lunn.ch,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v3 4/4] net: stmmac: dwmac-socfpga: Add support
- for Agilex5 TSN GMAC with FPGA converter
-Message-ID: <2f3763bc-678e-4346-b060-d3bc8afb67b3@lunn.ch>
-References: <20260714021303.30042-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
- <20260714021303.30042-5-muhammad.nazim.amirul.nazle.asmade@altera.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DUuHnrUK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JSJyoxI/"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66F0IDYx2098753
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 01:51:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	8P7yp7jCDHdFfFLTkLuS4zg1CQWFZg8vZdY/h1ViCM8=; b=DUuHnrUKvlqMlzcb
+	i3U0PaJsW1jb3ndhXDjo7Jh2VHINsbNgJuUnMwjUJHtR9DiT+tS0L0m/Oyc2Gu+Z
+	GYgWdOwNMCcvszHICKyOQ7yqaqylyI8sdVGe6XdjR4di0XJ4AiMcTilKrpoi0TWP
+	mEWO4rThpCIgnu4RkIwuuMgc4HlVn21zfUgvEaSheUAjHJmu015LrpzF6W8fxhTK
+	XK+QoEs5R9kYjQe4OEhBZBI1FvwcbgsfRTc0mSeJhiVGo+sUsgPJAvJBHU+rWUFo
+	Q24Izrwa7TTH1TNxxBKsUNztOaPM06Rw+AwVwsfuZHcFA/Qa/MOQbwY2hFkV15Fl
+	4BPYNQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fds9ksg8f-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 01:51:30 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-381250979d5so2122788a91.0
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 18:51:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784080287; x=1784685087; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8P7yp7jCDHdFfFLTkLuS4zg1CQWFZg8vZdY/h1ViCM8=;
+        b=JSJyoxI/FsjFBmoIyZtscFQFfFNCHkwwSJ2o64o9j+4RXcLDe5ccrsYMjoD/XzYjvf
+         T73TxxVUKORzEfh1cKmorFflC3x5iStxowguA4insgbOnYQmB66dgG68LtgakCwvCQu+
+         nFQzztoxlqpAvPTIKWWqakokVO5nizg4j29gC959Z+Wl0XKlxvD2MfFq4QP0qc4Bxy4A
+         +X9iYvezEpGJR1nhAdHPDuZvOVlTMVm/V6ma2VwT5WI8ODIN+Ymmhc91romfI1CrSR9p
+         KF80Xg7ONK776ztdT/pS/jqan+PfPnlIOz65/RuqEM8BCgNop3yWUrLSfdx0Si4WLnnj
+         KpTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784080287; x=1784685087;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8P7yp7jCDHdFfFLTkLuS4zg1CQWFZg8vZdY/h1ViCM8=;
+        b=mN0ggcfQicc1arQmSZGDdJkpmgAB8/8sHH4OIWWlQm7zzd6csqMwrzO3wCPdwrVCvG
+         xij8PNAvF40xNLFcHQHLUOt5WtYQbu/MU+W9/h+oF+rgCp6OZckCvSmOhkpNljEvPw50
+         wIOFMiHgEoBWXBKXmQxfmMZ7bLZAmRXhQo0VQ8frwtcZRvaWBBm+yT3te4wdFW9g4ay1
+         YHKecqprxcdXEjL8YPLe8tdDAyrVH/4azOFk+xjeat9xGws980ymmWgUcZnx8Kyw3g0n
+         l812HwtfjdEl7lkIrFMGJ61gd1mSN9EL1t9ZIu7jUp+hxL2tzp4F0+lC13PntxGOGZ/G
+         an5g==
+X-Forwarded-Encrypted: i=1; AHgh+RravtcHdDCjAHqVj45oI5BfntZOeXIxvySEWwMN+hOJHk5tm53s8wZxzvB4rJ7fUeykxL9baLGjPEuL@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw/XNY+3K8LQCb2FWKEtDFVQyRyhG2DXrTh1oCFh+XqGZqRszUW
+	Db2reU2lz5W9CaUGODSY1GSeLiTB+6OzH97YUBEK1V7YwwOiyjphE36KPE2rmLLxyG8396kZXRd
+	p9giNMEY+OcdjkA9/czYP0eier9N+qlp7puPQ/HE/G3cebnL/WbqsVDR47f2RRMWK
+X-Gm-Gg: AfdE7ckBoH2znkvcmpr8UUHQ4RggePNH8nTrdHi/k18A3U2668mIZov2rkZ9sH6a+0f
+	1sRSCBi3axImx8VDCS2RecPm2MiXe13JP95nzD3d9sbgKpeXSxXwkzY0KRouVTIz8jRmCYhZtUD
+	7oqOe0UkiYOBtJSpITTzKSyxKA/K/Qnc1xJGRDIW005/LCBlI8+Lltapyb5QUd0lDsGbFOAiW3L
+	xuV9qVnMDrbHKaVM5kx6g0m+DS0WQixo9CqKMpnKLxH9fUwpGU/AQQD8sl2kyiWJCF4xYxRrCk/
+	g1XyOLBI+BgZj6pUBL0zBgrV+Rin+sracy7vLWTL26RHrTE/qRqRd9cUKbfdZTyglo8iwvIQCXJ
+	VnlgttVj4dJ+jDNsu1pgBCOMzrB/4yWZn6pWVU6fe5LYEp7/qsSWyDox4HFSsgnrPIrZBqirdCe
+	FV5TXu
+X-Received: by 2002:a17:90b:3e87:b0:37e:10d1:c05b with SMTP id 98e67ed59e1d1-38dc7b3f855mr14847665a91.22.1784080287403;
+        Tue, 14 Jul 2026 18:51:27 -0700 (PDT)
+X-Received: by 2002:a17:90b:3e87:b0:37e:10d1:c05b with SMTP id 98e67ed59e1d1-38dc7b3f855mr14847651a91.22.1784080286863;
+        Tue, 14 Jul 2026 18:51:26 -0700 (PDT)
+Received: from [10.133.33.197] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e174442f6sm2278319a91.10.2026.07.14.18.51.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 14 Jul 2026 18:51:26 -0700 (PDT)
+Message-ID: <74e3d32a-0b5f-47a5-97ac-388404602869@oss.qualcomm.com>
+Date: Wed, 15 Jul 2026 09:51:21 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260714021303.30042-5-muhammad.nazim.amirul.nazle.asmade@altera.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: interconnect: qcom-bwmon: Add Maili
+ cpu-bwmon compatible
+To: Krzysztof Kozlowski <krzk@kernel.org>, Georgi Djakov <djakov@kernel.org>,
+        Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260602-bwmon-v2-1-d4a851c45f37@oss.qualcomm.com>
+Content-Language: en-US
+From: Yijie Yang <yijie.yang@oss.qualcomm.com>
+In-Reply-To: <20260602-bwmon-v2-1-d4a851c45f37@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=Q63iJY2a c=1 sm=1 tr=0 ts=6a56e7a2 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=x1iS9OEPbFcJzOgkp3wA:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: H9T_MOdgqc5QzRG5W-6QYZG5K1htHjjb
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE1MDAxNSBTYWx0ZWRfX5ZldCEUTHjMw
+ DcGG3t1OcFtPZWaksMba/wP4zz39kFQ88EgINMSIYLaP+nQHyqK8Ii2G1s+pvBfJOGJehRaogch
+ talg+qmJZ7U3sEOn6HbBQlqiUvGDotM=
+X-Proofpoint-GUID: H9T_MOdgqc5QzRG5W-6QYZG5K1htHjjb
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE1MDAxNSBTYWx0ZWRfX1xkWFoL+KnD9
+ Ayqp/6yGvOZ+F7jvVioiDBVGjTXZlc0zNGZ7/kxM6Q8KeiKzusjwFWlAdVWP3igMoeudDYguhKd
+ ETHRulqYqvxGAQp0OTfGAdz8kAMqtH3x0nvGqO7LKHzYsO8/C7LqLsJUZ3VtOPl//B7fZLfH4mP
+ mvIauVh4bX6SDet4FaJWBDxdOxCx78eONP5/KZz2b9fgzfQkrBiYuVE+7t0GqdkPGzWalrZVnRv
+ qlMSVnceSBtqnlNxI2r7kCMWvDcTSfGCDbMyW/oPO1TQTO192veBRpwOpnxT+z7Q1Wss0yDIZJI
+ 0I/h0hiRUT0k/OJ/d3APCWGKWXxB0K5JvYHzp+pvCLv4do/oQHLIo34Fcum3vJARidbMIypevat
+ iQp0/fKyi13gYJLLx7NhvzGoBAfeqmqQ1XE17cdKHlqIihXWrgGYy1ivc/wRgcJd29vZHyn3IiQ
+ p9+AsfwwrFyXeKQGm6g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-15_01,2026-07-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ phishscore=0 impostorscore=0 malwarescore=0 priorityscore=1501 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607150015
 
-On Mon, Jul 13, 2026 at 07:13:03PM -0700, muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
-> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
-> 
-> The Agilex5 SoCDK TSN Config2 board uses a GMII-to-RGMII converter
-> implemented as FPGA soft IP between gmac1 and its PHY. This converter
-> provides the RGMII TX/RX clock delays, so the MAC interface selector
-> must be configured for GMII while the PHY is configured without delays.
-> 
-> Add the "altr,socfpga-stmmac-agilex5-tsn" compatible to the match table
-> and detect it in probe to force GMII for the MAC interface selector and
-> strip the delay bits from phy_interface so the PHY is not configured to
-> add delays already provided by the FPGA converter.
-> 
-> Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-    Andrew
+On 6/2/2026 2:54 PM, Yijie Yang wrote:
+> Add the Qualcomm Maili SoC compatible string for the CPU bandwidth
+> monitor (BWMONv4). This falls back to the sdm845-bwmon compatible,
+> consistent with the existing pattern used by other recent SoCs such as
+> sm8750 and kaanapali.
+> 
+> Signed-off-by: Yijie Yang <yijie.yang@oss.qualcomm.com>
+> ---
+> Changes in v2:
+> - Drop Assisted-by tag; no functional change.
+> - Link to v1: https://patch.msgid.link/20260525-bwmon-v1-1-b8f6e189c3e3@oss.qualcomm.com
+> ---
+>   Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml b/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml
+> index 82b1d94d3010..7989db1aa774 100644
+> --- a/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml
+> +++ b/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml
+> @@ -28,6 +28,7 @@ properties:
+>                 - qcom,glymur-cpu-bwmon
+>                 - qcom,hawi-cpu-bwmon
+>                 - qcom,kaanapali-cpu-bwmon
+> +              - qcom,maili-cpu-bwmon
+>                 - qcom,qcm2290-cpu-bwmon
+>                 - qcom,qcs615-cpu-bwmon
+>                 - qcom,qcs8300-cpu-bwmon
+> 
+> ---
+> base-commit: 550604d6c9b9efc8d068aff94dc301694a7afdee
+> change-id: 20260512-bwmon-ecb43fda63c9
+> 
+> Best regards,
+> --
+> Yijie Yang <yijie.yang@oss.qualcomm.com>
+
+Gentle ping: could you please applying this patch?
+
+> 
+
+-- 
+Best Regards,
+Yijie
+
