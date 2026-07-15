@@ -1,133 +1,182 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A97CA3B42FD
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 06:15:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78DFC2FD69A
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 06:22:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784096102; cv=none; b=Pu5ieuX9UwwoqTQ/xOiUnheIKAvnXycEjKkNDSE1AgsObxDE012UnNrYBvL6qYrVmoXRbq0w70mvsy8zrmDDzaKQ7pyBWmkM7HnSlDKb0ImGx25vANhxSWhfHNiEsYD0HQxsL1pEGnzKLnTFGRIVvnHGqaH/SJq8fAbwWDUKnng=
+	t=1784096535; cv=none; b=bPWgoh//+vzqqHe4nxrgPZGDYFmiMwQ9tKZtNxc6dLuDBa/cURwTX3/NPnAmNaXj54GhdOgW4kRbY4wy2g7PaqZcuedHCyWNHzYKR3J/dpypqtvANhV9+K7tKb5juFFBRlu7KeAVJyJtRl7xR+aEuyE8oL+OQZ1JIr1Onkek4JY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784096102; c=relaxed/simple;
-	bh=qhTyoMVjedUBGZceAqeuDQwxprvZNjet/N6M8tyyrGo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=ds9ITaTIW8cdAxo0ghFaGjwTa2TSjmI0tzI9qgH1my8xuPqU79MAPfJ8hnU8DFwX7fb3iFQiQY5PA0BN6SVYut6xwpXp48qaDOnazICOvZssb0nYYh2PnUGgL55OUZaThkikBmAF53g/kbJhrnlLiTYSYMYBD+EuHJIT4Ko1yi4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=fHniI8Zs; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1784096535; c=relaxed/simple;
+	bh=UF+HdxboCW3rt9Jc7z+f7jXISebzm9WLyd+8gJ3Wa44=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ufqaiBeAUUBIuMe2YfYhWJ598J/rtJ5VsE1m5bNBTZ5ncZMNqK7icH94bqEt0+8ZubMy/7J1TQ2snXB/gkATP6qATY+RF7T9+Z+DhkePGPXxSCNrZgWNfR9/sEFcrVIO/GIQc6Vn0DdJT/H9v/DXSdEGLB76wov0NZHIKjxHs6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=HQf6WjZB; arc=none smtp.client-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="fHniI8Zs"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260715061458euoutp02dea24c88be16c279d8e95ce25148a7c0~CYfMIHyci1549915499euoutp02E
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 06:14:58 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260715061458euoutp02dea24c88be16c279d8e95ce25148a7c0~CYfMIHyci1549915499euoutp02E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1784096098;
-	bh=7304j2XvTwBXN54PMh9V1wm+HcrsKtzERr5yCS06/CI=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=fHniI8Zs83X2XNLivGU3X1EzbyfNeAOoMyBYw+E3YoT75L0H+X3ScmgNM1aSY1nrr
-	 xbsYncJbswB+GIsHGN+5uDOxKYAY+lzRgusj1ZlNOjO0Uhz6SCrTCq0sYwFPuTgGg3
-	 zrGyMnIpBH9Ue1nYC/HpNuu4tdlTRi3fa22aUmHs=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260715061458eucas1p2443aeb1b50cdd717dba5ad8446bee092~CYfL4mRv_1213012130eucas1p2d;
-	Wed, 15 Jul 2026 06:14:58 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260715061457eusmtip2e052870f01911c48786ede8aa20dda2f~CYfK4nRe52433324333eusmtip2F;
-	Wed, 15 Jul 2026 06:14:57 +0000 (GMT)
-Message-ID: <b434e198-2778-4dd6-8896-f7f54bc9b8e2@samsung.com>
-Date: Wed, 15 Jul 2026 08:14:56 +0200
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="HQf6WjZB"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6976b0c5adbso10608769a12.2
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 23:22:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1784096531; x=1784701331; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=s7/O6qGB81uqhgF81zXc/vEeCCHddKD/wXemIEHEACg=;
+        b=HQf6WjZBugkm/E96bh0Y1LKJWYBUw3Wnh2XUMl9IAtaKs+o0p7uIf2Fy4of3nhugCR
+         EsJ54DqaXlC0NQIz7aMWP8KwhA4TpFBQPR5qElCucQuNgj1fEyKBBOjtdg15yHYZ1vzD
+         G7dRj9xEIvmnrY4Lir1yLl1cxe1bxcrviKxis=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784096531; x=1784701331;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=s7/O6qGB81uqhgF81zXc/vEeCCHddKD/wXemIEHEACg=;
+        b=jtqCGtdhMksP/ROJQYB0vjRuaehPBBJWvcp7N+FlwoFl+n6bKed6wpmh4PiaVxsU+u
+         m5o7My7743SAwHE/uVOYcqEeJDkcsggIX7yJkIo5FcAojjGU10Bg6pJ1uxk01SgE2gYj
+         lN+hLJ+oD4mJgAvI3eEwb7espJOvC3V9oMdnIM7ym7zSCMpIepmm0B8niUxmXtmvG5ey
+         PmWJTz+83I/bZwsfQbk8tXy8C/bbJVOXo28zm2+NvLHafDKRaruda3L5AD69GOjTQ6c+
+         fUTHJAVJ3dP4rPHuf698ydQNsSVnE3USDugF7V8Xcp099+Sg5JE4mj4TZSePVyO7052N
+         l7pg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp2fExazHf1EMbnxV6QaNGRnr5z3gQ7Ohlm8cdze9M0vfAgHh56CD+BnYx3JKw9/Mh4/l3PUXOReQOp@vger.kernel.org
+X-Gm-Message-State: AOJu0YxHj/dqj03/tsi6yP16x1x9W//6yGuNmXR+FE60Le5P5NQUDw3h
+	mBZlIBKv9pJvFsdA2mkFNJo2bFfxZ8BLJgj4tYwXmvUdmHA9PxD6LtDrs1Qs+OGOtp96TX9TY30
+	H62JnrAg=
+X-Gm-Gg: AfdE7cn/UPZhy1RHfHN5MUihEtaw2HEuZRu8+1gtft529b5LkgV3nygLSbV+t1LIMRG
+	SsAosAyoTjgH5bxS/AIWbs7S2k5+llQ3wNxbugZ1tUZh05kE9Nvi8+uHSGo9IDuXox0CEQDTaBE
+	bBPfEgCAUYYpxRbfKdDo+9WlcLnwEUw4p5x+Oj0WOGHQCNprJXgR2Z79ztGftc+FcrLmPZP1zm5
+	uSM6xP3LQuiy5xjPM/XeZyJfovyYPlCWbTuEvN/T+miZJP+5e1jA4vQvhTmrzTmbRhAVFX8K5r4
+	AlAHAY1xR4spJMuhLKKZxgCMkD9eHM4QNPWxgr6X9zI7pB1kOBLZyLdk1H/Lyjibycg6IwfsZtj
+	fN+aTshf8ZlyVJCjgCuLbSv3DlisH1UHL47dwUCRZvxU5m2l94LjYtF1AFJfFrbgqiFRXERG/Y3
+	6bGMtUCSye1s5egboy/zMAEFpIQRTjDnlQLp4SJB3tOgqXPI3CZlm2fEXpohxk8LMjzU7N/Ld78
+	22XWaG8G4FT
+X-Received: by 2002:a17:907:608f:b0:c12:d42:96b0 with SMTP id a640c23a62f3a-c1667aa9699mr327593566b.47.1784096531463;
+        Tue, 14 Jul 2026 23:22:11 -0700 (PDT)
+Received: from dario-ThinkPad-P14s-Gen-5.. ([2.196.41.101])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15d0c3cf1esm1028820366b.44.2026.07.14.23.22.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Jul 2026 23:22:10 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Cc: michael@amarulasolutions.com,
+	francesco.utel@engicam.com,
+	domenico.acri@engicam.com,
+	linux-amarula@amarulasolutions.com,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Christophe Parant <c.parant@phytec.fr>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Michal Simek <michal.simek@amd.com>,
+	Rob Herring <robh@kernel.org>,
+	Sven Peter <sven@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [RESEND PATCH v7 00/16] arm64: support Engicam MicroGEA-STM32MP257-RMM board
+Date: Wed, 15 Jul 2026 08:20:17 +0200
+Message-ID: <20260715062201.3599458-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: qcm2290: Hook up MPM
-To: "Maulik Shah (mkshah)" <maulik.shah@oss.qualcomm.com>, Ulf Hansson
-	<ulf.hansson@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Andy Gross <agross@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Konrad Dybcio <konrad.dybcio@somainline.org>,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Ulf Hansson <ulf.hansson@linaro.org>,
-	"linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <e83dffd9-e54f-45a8-b997-e84b5beead71@oss.qualcomm.com>
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260715061458eucas1p2443aeb1b50cdd717dba5ad8446bee092
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260709114143eucas1p18463122323bdeae8e63b1d13cd626b55
-X-EPHeader: CA
-X-CMS-RootMailID: 20260709114143eucas1p18463122323bdeae8e63b1d13cd626b55
-References: <20231215-topic-mpm_dt-v1-0-c6636fc75ce3@linaro.org>
-	<CGME20260709114143eucas1p18463122323bdeae8e63b1d13cd626b55@eucas1p1.samsung.com>
-	<20231215-topic-mpm_dt-v1-3-c6636fc75ce3@linaro.org>
-	<dadff7a9-bf04-49fb-8c55-5605e99be7fc@samsung.com>
-	<CAPx+jO9d1qH12mxg-n1rkbp6Xd__sdrSMeoc7CPELE+jgxRYHA@mail.gmail.com>
-	<e83dffd9-e54f-45a8-b997-e84b5beead71@oss.qualcomm.com>
 
-On 14.07.2026 15:29, Maulik Shah (mkshah) wrote:
-> On 7/14/2026 6:34 PM, Ulf Hansson wrote:
->> On Thu, Jul 9, 2026 at 1:41 PM Marek Szyprowski
->> <m.szyprowski@samsung.com> wrote:
-> [...]
->
->> Without detailed HW expertise (still learning about the UnoQ), it
->> looks to me that the HW may have been modelled upside down.
->>
->> The power-domain-cpu-cluster should probably *not* be the consumer of
->> the mpm, but rather the opposite. This is how qcom,rpmh-rsc works, for
->> example.
-> Agree, There is a series [1] sent out to fix modeling similar to how rpmh-rsc works.
->
-> [1] https://lore.kernel.org/lkml/20260713-b4-shikra_lpm_addition-v1-0-3d858df2cbbf@oss.qualcomm.com/
-Indeed that series fixes the modelling issue, but it doesn't change much
-from the spinlock vs. raw_spinlock perspective. There is still the
-'invalid wait context' issue there, because mbox API cannot be properly
-called from cpu_pm_notifier (which use raw_notifier internally):
+This series adds initial support for the Engicam MicroGEA-STM32MP257-RMM
+board based on the MicroGEA-STM32MP257 SoM.
 
-=============================
-[ BUG: Invalid wait context ]
-7.2.0-rc3-next-20260714+ #16842 Not tainted
------------------------------
-swapper/3/0 is trying to lock:
-ffff0000008ac408 (&chan->lock){....}-{3:3}, at: mbox_send_message+0x3c/0x15c
-other info that might help us debug this:
-context-{5:5}
-locks held by swapper/3/0: 1, last CPU#3:
- #0: ffffd99263a61228 (cpu_pm_notifier.lock){....}-{2:2}, at: cpu_pm_enter+0x28/0x78
-stack backtrace:
-CPU: 3 UID: 0 PID: 0 Comm: swapper/3 Not tainted 7.2.0-rc3-next-20260714+ #16842 PREEMPT
-Hardware name: Arduino UnoQ (DT)
-Call trace:
- show_stack+0x18/0x24 (C)
- dump_stack_lvl+0x8c/0xcc
- dump_stack+0x18/0x24
- __lock_acquire+0x928/0x1f90
- lock_acquire+0x2b8/0x3ec
- _raw_spin_lock_irqsave+0x60/0x88
- mbox_send_message+0x3c/0x15c
- handle_rpm_notification+0x58/0x114
- mpm_cpu_pm_callback+0x9c/0xdc
- notifier_call_chain+0xa0/0x234
- raw_notifier_call_chain_robust+0x48/0xa8
- cpu_pm_enter+0x40/0x78
- __psci_enter_domain_idle_state.isra.0+0x48/0x470
- psci_enter_domain_idle_state+0x18/0x24
- cpuidle_enter_state+0xbc/0x428
- cpuidle_enter+0x38/0x50
- do_idle+0x158/0x324
- cpu_startup_entry+0x38/0x3c
- secondary_start_kernel+0x138/0x158
- __secondary_switched+0xc0/0xc4
+The support includes device tree descriptions for both the SoM and the
+carrier board, together with the required pinctrl definitions for the
+peripherals used.
 
-Best regards
+The series also updates the arm64 defconfig accordingly.
+
+Changes in v7:
+- Add Reviewed-by tag of Olivier Moysan to patch 10/16 "arm64: dts: st: add
+  sai1 pins for stm32mp25"
+- Switch CONFIG_I2C_STM32F7 and CONFIG_SPI_STM32 to modules in
+  arch/arm64/configs/defconfig.
+
+Changes in v6:
+- Update arch/arm64/configs/defconfig to match the current upstream defconfig
+  after merge window changes (no functional changes).
+
+Changes in v5:
+- Add patch 2/16 arm64: dts: st: add power-domains to sdmmc1 on stm32mp231
+- Add patch 3/16 arm64: dts: st: add power-domains to sdmmc1 on stm32mp251
+- Increase slew-rate to <1> of ltdc pins to support the 27 MHz pixel clock
+  and prevent timing violations.
+- Change SDMMC2_CK pin bias from pull-up to bias-disable to avoid signal
+  integrity issues on the clock line
+- Fix touchscreen resolution to 480x854
+- Fix SPI1 CS0 polarity to GPIO_ACTIVE_LOW
+
+Changes in v4:
+- Drop inclusion of stm32mp25xf.dtsi from stm32mp257-engicam-microgea.dtsi
+
+Changes in v3:
+- Add power-domains property in the SDMMC2 node.
+- Drop patch "arm64: defconfig: cleanup the defconfig"
+
+Changes in v2:
+- Add Acked-by of Conor Dooley for patch 0/1 "dt-bindings: arm: stm32:
+  support Engicam MicroGEA-STM32MP257-RMM board"
+- Add resets property to dts CAN node. Suggested by Sashiko.
+- Drop the clocks property from the sai1 node in stm32mp257-engicam-microgea-rmm.dts
+  to avoid overriding the peripheral bus clock reference defined in the base
+  SoC device tree. Suggested by Sashiko.
+- Reference the existing labeled nodes directly at the root level using
+  &sai1a and &sai1b in stm32mp257-engicam-microgea-rmm.dts instead of
+  redefining the entire node structure and redeclaring the labels. Suggested by Sashiko.
+- Drop the #clock-cells property from sai1a and remove the reference to sai1a from
+  the clocks array in sai1b, relying strictly on the st,sync property to handle
+  internal synchronization.
+
+Dario Binacchi (16):
+  dt-bindings: arm: stm32: support Engicam MicroGEA-STM32MP257-RMM board
+  arm64: dts: st: add power-domains to sdmmc1 on stm32mp231
+  arm64: dts: st: add power-domains to sdmmc1 on stm32mp251
+  arm64: dts: st: add SDMMC2 support on stm32mp25
+  arm64: dts: st: add CAN1 support on stm32mp25
+  arm64: dts: st: add i2c1 pins for stm32mp25
+  arm64: dts: st: add ltdc pins for stm32mp25
+  arm64: dts: st: add can1 pins for stm32mp25
+  arm64: dts: st: add pwm2/pwm4 pins for stm32mp25
+  arm64: dts: st: add sai1 pins for stm32mp25
+  arm64: dts: st: add sdmmc2 pins for stm32mp25
+  arm64: dts: st: add spi1 pins for stm32mp25
+  arm64: dts: st: add usart1 pins for stm32mp25
+  arm64: dts: st: support Engicam MicroGEA-STM32MP257 SoM
+  arm64: dts: st: support Engicam MicroGEA-STM32MP257-RMM board
+  arm64: defconfig: enable configs for Engicam  MicroGEA-STM32MP257-RMM
+
+ .../devicetree/bindings/arm/stm32/stm32.yaml  |   7 +
+ arch/arm64/boot/dts/st/Makefile               |   1 +
+ arch/arm64/boot/dts/st/stm32mp231.dtsi        |   1 +
+ arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 328 ++++++++++++++++++
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        |  17 +
+ arch/arm64/boot/dts/st/stm32mp253.dtsi        |  16 +
+ .../st/stm32mp257-engicam-microgea-rmm.dts    | 319 +++++++++++++++++
+ .../dts/st/stm32mp257-engicam-microgea.dtsi   |  63 ++++
+ arch/arm64/configs/defconfig                  |   4 +
+ 9 files changed, 756 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
+ create mode 100644 arch/arm64/boot/dts/st/stm32mp257-engicam-microgea.dtsi
+
+---
+base-commit: 58717b2a1365d06c8c64b72aa948541b53fe31eb
+branch: stm32mp257d-microgea
+
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+2.43.0
 
