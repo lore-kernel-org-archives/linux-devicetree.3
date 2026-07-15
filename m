@@ -1,127 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f1.google.com (mail-ej2-f1.google.com [74.125.228.129])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9EED40EB97;
-	Wed, 15 Jul 2026 19:57:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784145484; cv=none; b=Oz3cajz+szozFJMEzvMeI5t7YD0x72bo+vF9nORdCB0Ft9BVchYr378/b+g9yJTw9qV2bDLmd2IJVDyZAeKlqStYIWCfueY6OpYJ7AkpcKmXM2Dnq677FrQ2ouTUZJ00eMWX26OnkkX01hb3ghUtV6mMBvVTpXIfkeGeZVARYCc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784145484; c=relaxed/simple;
-	bh=Zgr6Fb8efdFUdXPOYHyK3GJGYtpcMuysNV71imeV6xM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XUM8OCeGNVrN4OT2qR3wBYeGyq+ASF9LnXsmyLDujsnRR9NSqj9J1+kLtXgcgx5bWVgniVZz9W8E8fdxyKaEO8MsFYNRRlsON3r/SEbnl/QhbkzOMlKceM3ptDeygD6J2bkHPJZDVvdr+//F5aRHMWVi2kc+3q9vqvymavtEqxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hyOGU4Gi; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 275B34963CA
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 20:01:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.129
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784145701; cv=pass; b=WbO7saWioQfFXzMjFAw/W4ub7K7xYidWVSdhyucWvRlFhgmUHsxACaWn8+2aCMAHmx8iaR6t/VVEGetsMw/CNK28Sg4ijzeYktekrolmOU1OgG12jWpMm/iLRQMvr4Y18lj/E9cqBbXUw2xy+sSIBrI9g2NnarXcflPrOEJu7tU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784145701; c=relaxed/simple;
+	bh=/nQ1DilIpOwATZ5PqozohClCfLj8D74is69+ZzRK1wk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=A6Ke/g0CoY1IMPaY82U3aXwiNXZT16ll+00Z+iLcHCbAbZJngTDYSxvOCFgZcvX2nI/JELqmV/lXgcwle5A9gYdoOVBmvuzQdNYQb7d2ljS3+E2u4zvy4s4aGiz6TGQJgFsIo3KUgBZHo68Ox4QuC9uPEEOT25BDirXPDUh2ZS0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iXNXQN/A; arc=pass smtp.client-ip=74.125.228.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hyOGU4Gi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F00051F000E9;
-	Wed, 15 Jul 2026 19:57:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784145469;
-	bh=Mk3cxnB2y2LcxuUv2TsunSMjtkb2sObb3HOwhcpKCbw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hyOGU4Gia69fRu9MNERxbL/5cO02+YKKaJJ0PyTcPOcrfVRe25I+YHzRf//e0P8Ww
-	 3SO7nLMYTvca38SG0XFCRQht6J62E1drznQWT/qcw2zxkT3BNmK+2JjcmFjt+uqOw1
-	 v3Rfa/c53/HqcNOlRRtFnJbaswTKSm18MYYMznmPK8gFL5eiFIbpyhcwXe1bLBBopo
-	 rXCH4jMjtg7dnNaWlxiKDnoDf/g4x5owtdN4Y30RhkejGS0sV67rJ/gMJaXq+yXVyW
-	 A64oJ85+Cust9YyN66EyMqSnhL/2fn+boMviA1hb+c1oeMgAYEyU+5CHXxDJl8eVr0
-	 gMPiRc/KMncuw==
-Date: Wed, 15 Jul 2026 14:57:46 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Mahadevan P <mahadevan.p@oss.qualcomm.com>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Mahadevan P <mahap@qti.qualcomm.com>
-Subject: Re: [PATCH v2 2/3] arm64: dts: qcom: kodiak: move dp data-lanes to
- SoC dtsi
-Message-ID: <alfj97IYZOYjfsZ0@baldur>
-References: <20260429-kodiak_v2-v2-0-c3a703cc30eb@oss.qualcomm.com>
- <20260429-kodiak_v2-v2-2-c3a703cc30eb@oss.qualcomm.com>
- <hej6absxu6nsuktv7tsegduyrduv7diq5zx7dt2a4xp3pe6gxl@b2xscorilbvn>
- <akCFlxiGT-vHNM-x@baldur>
- <CAO9ioeVd=fcd5SF-J8Vo9DNEz_QzyRvo25-7i-FxGUv3j4qbAA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iXNXQN/A"
+Received: by mail-ej2-f1.google.com with SMTP id a640c23a62f3a-c15e0279316so110881866b.0
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 13:01:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784145694; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Pez5sult4S8B8BYEUGYIe4+gjwV0iPXB33kaQUgs2jSJqII0guUzAfgZVsxbDyctty
+         bTq5syEmzAQ94UwnNymdr3jjVbZsbs2A5ySbr7j1TM3h/NFYCO0I33wVHBhO2fOawlUV
+         2bqsaLAFtd6/X5I7q2ZGaWS1whmCi6SgV2uzBjS6MB6QW4JjehsRznMi302McNCk6df3
+         24FyI0sPS6NHD5KQZ+LOG1pPavjWgKScCw8KyMvM1urQ4P83T7H2g3GfKnwPHxzZmYxs
+         CptRNUFjTb67wg6LwARdEll/iw3dHcb18jR4PHUcFmzlIUIZVGjZLYyQR/JNsAio1N8L
+         GWjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=a2jfr+/m0lPzYMZ26qr8HScAjmTZxYpDuo9oJofBLFY=;
+        fh=KYRW+BlZJEqhQi+t74kMsaAuyPCkdfLOI4IUxPLABts=;
+        b=V0E0UaYicRPdXdSzsiv9wz+7OHzWdhadg0Cz+QcWn+dWAoiatW8mahafcUiyIwF1OZ
+         gZzKf9P8jMWhLJzxrxX745gqKd7hD9LKbdsOhTgbQ/4/yPgsFJtH9ef2PM4111jG9/H8
+         FjyZ77AlJnwGw/3hgeWbjJmzfq6mxRagC2+6civVeiMuoWxOyUVCqjruAVDpcnWH8ySq
+         9n0ry9DAOTm2J9H9CdelnJeByMvVGbaV+Pq26ntLv4ACn2NEPsHpuJBAjgvFDr3oF7Uh
+         YOA3NiYXPbChm4t97/LMuhDVgSJqyRtNHffq/Vn4gXrGVCJUFxFa8cW2dNDWh3MkTV3G
+         vWnw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784145694; x=1784750494; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=a2jfr+/m0lPzYMZ26qr8HScAjmTZxYpDuo9oJofBLFY=;
+        b=iXNXQN/Awrx+ClkWv6wtvhWVXyLccuhTwEqWhIhQW2WM6h4Tvaxnx8o+Q53kfbLxQ7
+         ES75M0wohUihnXP0kuw8j1/d0qEEnORPnqTylGcJ5TEMWQYePlbIQW+5jkHT+7XdBqXt
+         M/fRohPglG16U/94KqvNuBD/8ffM//TcCLxXiN2umz6F0UgcgHeiEzOlcgIgIN9M9Tte
+         ZOvVPrbcvpza7PusUZrMEE7DpQI1H2nMfEE5ntTgd2RgJV6M0C69izxDuxNqiLU4A+E5
+         HHJjvBXR/g1oLjkgytHhlWO+81hO4//mRoOY2PzbVDgJdlqdQ9SQDfwrOWRd2KOcF320
+         BisQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784145694; x=1784750494;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=a2jfr+/m0lPzYMZ26qr8HScAjmTZxYpDuo9oJofBLFY=;
+        b=cwYM8OaMJmkaee943ksiY3/aWXzgzYtJmBsVytas2UZNmS9Ugdxj0TjKE4DMpxgCBR
+         XWS2ahem9gBnuc29xe/meJtSZmWrrQh5ii0tnHruPUgD+V5FDsGWlTLpEL/XMwokJ/Bz
+         b4S0FLRPPUHfW7wuljnPzrGiABnCbHXxuJ9uN75k7PlliyfNpT3v6wbfY6Ce9Tk6+lrp
+         ywlQCw3dJH2QBAa8bgegMnWmD6XQ/w4kYGrexYzd+H3hmrgAcNekjRNPFDUxST9S4/4K
+         gYy63WXA1UdSvyPKgQXpGJiCoZS1OSVvzVOWg3ftCt8hq/0Pex/RglLO19qtYqTyhXo1
+         hGRw==
+X-Forwarded-Encrypted: i=1; AHgh+RqAgq0l+qn0mntOK68wDsfOtQI1jaY7rr5oZKOmg9OfeSY41CqQ5hW2uhWwT3eCQ9v+A3nhc7iTJRuI@vger.kernel.org
+X-Gm-Message-State: AOJu0YyQk4Ei56gbbmtw27BmsbJI0nlqrnYbQASFWPbqL68W9xiQLSeL
+	eGB+biF3cRlhRo1FGs2Hff0axKZNtOHycpPzSkURsAJ6W9NI7BI8H5wULyuWo99sD2r2c3RRj3V
+	IZP4+l3swTeMgOwf8wQU4+vP0YH22PEc=
+X-Gm-Gg: AfdE7cm+NaWixNSZ50bKb/DB9K8gQrPNhXwsz/WcdS/NQRYJ+3LEA0xp+FyuCu1prhy
+	hRozNmMjeENujCSEaqC9WirGN44BpRui2zP8x2azRR8AqsE9Kz/NtIRyjX7dDxjdOGnFzZWQOXS
+	zZb/0B2lrPZgmDeoADuiitvvRw3wrhIEAjNXwDwpW5LzhqAWAA2fNh6gLZLCWtxs8Hgztjj7A3M
+	w1JsNCAPQwpI6QddvUwB2IS0Z+GJCd28LzXFX7MMG8/bt7LoaN3w5aeWSPK56Te6EoRj1RswqQ=
+X-Received: by 2002:a17:906:514d:20b0:c15:a1e8:c141 with SMTP id
+ a640c23a62f3a-c161f39d844mr780858166b.30.1784145694108; Wed, 15 Jul 2026
+ 13:01:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAO9ioeVd=fcd5SF-J8Vo9DNEz_QzyRvo25-7i-FxGUv3j4qbAA@mail.gmail.com>
+References: <20260714191341.690906-1-coiaprant@gmail.com> <20260714191341.690906-5-coiaprant@gmail.com>
+ <20260715191451.515E01F00A3E@smtp.kernel.org>
+In-Reply-To: <20260715191451.515E01F00A3E@smtp.kernel.org>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Thu, 16 Jul 2026 04:01:22 +0800
+X-Gm-Features: AUfX_mz1azszxJwrCVQmAtzoyTuEVivMl9NuC_fGRw6nOWKIq7dE8EPDVXJyALg
+Message-ID: <CALj3r0hFMRb4iX+=JUjAzBskgXJPU3xdwz_pmg6G+v3f3+_XAw@mail.gmail.com>
+Subject: Re: [RFC PATCH 04/10] dt-bindings: net: pcs: add rockchip,rk3568-xpcs binding
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, 
+	neil.armstrong@linaro.org, olteanv@gmail.com, robh@kernel.org, 
+	linux-phy@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Jun 28, 2026 at 02:17:33PM +0300, Dmitry Baryshkov wrote:
-> On Sun, 28 Jun 2026 at 05:26, Bjorn Andersson <andersson@kernel.org> wrote:
-> >
-> > On Fri, Jun 26, 2026 at 11:50:40PM +0300, Dmitry Baryshkov wrote:
-> > > On Wed, Apr 29, 2026 at 12:10:41PM +0530, Mahadevan P wrote:
-> > > > From: Mahadevan P <mahap@qti.qualcomm.com>
-> > > >
-> > > > The connection between the QMP Combo PHY and the DisplayPort controller
-> > > > is fixed in SoC, so move the data-lanes property to kodiak.dtsi and
-> > > > drop the per-board overrides.
-> > > >
-> > > > Also remove the redundant remote-endpoint cross-links and
-> > > > orientation-switch property from qcs6490-rb3gen2 and
-> > > > qcs6490-thundercomm-rubikpi3, which are already defined in kodiak.dtsi.
-> > >
-> > > Separate commit.
-> > >
-> > > >
-> > > > Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> > > > ---
-> > > >  arch/arm64/boot/dts/qcom/kodiak.dtsi                          |  1 +
-> > > >  arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts            |  4 ----
-> > > >  arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts         |  4 ----
-> > > >  arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts                  | 11 -----------
-> > > >  arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts |  1 -
-> > > >  arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts     |  3 ---
-> > > >  arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi                |  1 -
-> > > >  7 files changed, 1 insertion(+), 24 deletions(-)
-> > > >
-> > > > diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/qcom/kodiak.dtsi
-> > > > index 96ac3656ab5a..0acc6917d7aa 100644
-> > > > --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
-> > > > +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
-> > > > @@ -5704,6 +5704,7 @@ dp_in: endpoint {
-> > > >                                     port@1 {
-> > > >                                             reg = <1>;
-> > > >                                             mdss_dp_out: endpoint {
-> > > > +                                                   data-lanes = <0 1>;
-> > >
-> > > This is not true. The SoC has 4 lanes going from the DP controller to
-> > > the QMP PHY.
-> > >
-> >
-> > Does this property really denote the number of lanes and mapping the
-> > internal pipe between DP TX and PHY? Doesn't it tell how the external
-> > mapping looks like?
-> 
-> The external mappings are described as a part of the QMP PHY (see
-> sc7180-ecs-liva-qc710.dts as one of the recent examples). On the other
-> hand, this property should describe the internal mappings (i.e.
-> platforms should have 4 lanes here, in some cases in a weird order,
-> like talos.dtsi).
-> 
+> [ ... ]
+>
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/clock/rk3568-cru.h>
+> > +    #include <dt-bindings/power/rk3568-power.h>
+> > +
+> > +    pcs@fda00000 {
+> > +      compatible = "rockchip,rk3568-xpcs";
+> > +      #address-cells = <1>;
+> > +      #size-cells = <0>;
+> > +      reg = <0x0 0xfda00000 0x0 0x200000>;
+>
+> [Severity: Low]
+> Does this 64-bit register format fail dt_binding_check validation?
+>
+> The example is extracted into a dummy root node with default
+> #address-cells = <1> and #size-cells = <1>. This means the 4 cells here will
+> be parsed as two items, which violates the maxItems: 1 constraint defined
+> in the schema for the reg property.
 
-But this then denotes the internal mapping, within the SoC. In what
-cases is that not a constant for the given SoC?
+I will update the example to use
+the correct format that passes `dt_binding_check`. The proper way to
+represent this is:
 
-> Ideally SC7280 Herobrine should be updated to follow the current
-> style, but it is complicated as almost nobody has the actual hardware.
-> 
+    reg = <0xfda00000 0x200000>;
 
-The "problem" Herobrine is that the DP vs USB pins are hard-wired on the
-PCB, so you will always only have the fixed 2+2 configuration. The
-"internal" mapping should be the same as on all other targets, but I
-presume we claim that there's only 2 lanes internally to inform the OS
-that it doesn't have the capability of driving 4 lanes of DP?
+or with explicit address/size cells:
 
-Regards,
-Bjorn
+    reg = <0x0 0xfda00000 0x0 0x200000>;
 
-> -- 
-> With best wishes
-> Dmitry
+I will adjust the example to match what `dt_binding_check` expects.
+
+
+> [Severity: Low]
+> Will this fail to compile during dt_binding_check?
+>
+> The example uses the PHY_TYPE_SGMII macro, but the required
+> <dt-bindings/phy/phy.h> header isn't included in the example.
+
+Yes, you are correct. I will add the missing include:
+
+    #include <dt-bindings/phy/phy.h>
+
+to the example section.
+
+Thanks for the review. I'll address both issues in v2.
