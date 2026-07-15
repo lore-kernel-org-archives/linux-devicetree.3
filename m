@@ -1,151 +1,110 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3AC7313283;
-	Wed, 15 Jul 2026 06:32:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2346218592
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 06:33:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784097146; cv=none; b=hmMuCUkR420EtdjvR0wCGThlG+haGCQVaF+QBHS8IKoXqjc7nJAAa2dt7FJ9oxFaFvqRyAqJScjqyZiE1sUFeOvlbfGFa2fnAgvGTNmenPHUt4wwiD+jH9ruL9nD5VkLnQHRQkTsEyVoYotmA2uA3B4FWvrd9XZkOnpziJAIS0I=
+	t=1784097240; cv=none; b=B6beYI18ppXUqKMDs9uviXv0Tp8s+/P0SmXucR2pdyKeWrOgHtgy71E51i1nKNpiOKO3Bq2vh90BzhYXAWnRyrG4A2YNS+YqqwKAQsi9hI3I3NML22lTVEXSDYrx404UwAa//pT4CC0neGlQMf9kgl6qXedMlryc+9rNcuzySKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784097146; c=relaxed/simple;
-	bh=RgFSZ4GcQNxSGk/4lQiMQnPxmHi1gAvKmjEWlI5TUMQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lynxQIEOGTtCroC/NLEeIJfX9UkGQ57sfPKj+4wUlMgyjCbPNkaXFwQMFpRlyp1Jrcki+U8pPKJoBnLAH9nQIY6oJj1Lz5TVZJ2jxMzrSFXyd6XIsUCCxRgax+gq4b2TuF+0CbyTlm/zwlzqOiXXNKeEAe2++hnkzky4Gaf+jWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Q2TbwCJN; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1784097240; c=relaxed/simple;
+	bh=2FiWOVJivsHiiW/u4X7D2IoYhEJo7SGwzthBd0qOrWI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lSIOLloG3z1OMjn+cDJAmvu0V2Wk8Xemp6jzszqCwOzyOJyxPfjCrWmTB8i24RHwTx/2hVIwiHhk7sRh0zfA0IwQQGYzKYPcEjDG5PTWrlB/I8InXkmIhs8dPo0rjKj6y8NpOxUfYPqBzW8IG8MqJi8aJ+rlUV4qJ0OQy4OZrE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D9cGix3v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Q2TbwCJN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784097145; x=1815633145;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=RgFSZ4GcQNxSGk/4lQiMQnPxmHi1gAvKmjEWlI5TUMQ=;
-  b=Q2TbwCJNmrZaYb5Qd80ZDc5UTaurU4mwkq6Hr4uRF5QPJjMH3HPmqKD6
-   PkA6QyAg+tfpSNxNU/YH8Y7qRUKG8+I8vSRlzHnLpbAXuSxbicotmPbFF
-   GhdDu0MtcTlWMH9wB4aevZf7F0AGV42vKz36ZxbibDz1mVnnAWHq0FRWV
-   If7ua3SEV21gdOqIKOqBdA53Q8GZ0HaejxsJqSFaiQXjJon3ne554HiDp
-   adiX5LK5SzXSXgNsd2/LS34f2pmVL9mksMsaqtmMjorF2RJDiUatAZqDA
-   gZDPtaTHePRD+YmxK1AycJ0aW4jcZqqkhgqNhW5adMNHLLr9CBa3vTQxy
-   w==;
-X-CSE-ConnectionGUID: +LQO0EBGTcyfoHYW7ufkIw==
-X-CSE-MsgGUID: 09u5F7t1QVynrWvNSIzYhQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84842206"
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="84842206"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jul 2026 23:32:22 -0700
-X-CSE-ConnectionGUID: 0DPTEpseSdSJFiU6iNrQpg==
-X-CSE-MsgGUID: fImbR2beQzyJHFlgMfVyjQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="254332119"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.44])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jul 2026 23:32:18 -0700
-Date: Wed, 15 Jul 2026 09:32:15 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v7 07/17] iio: test: add kunit tests for channel prefix
- naming generation
-Message-ID: <alcpb-7GVSfk6jFB@ashevche-desk.local>
-References: <20260707-ad9910-iio-driver-v7-0-a4ec30f63700@analog.com>
- <20260707-ad9910-iio-driver-v7-7-a4ec30f63700@analog.com>
- <20260712020928.2c8d1667@jic23-huawei>
- <egyms7ulkxsgu4pvfkoruelec3sf6ca4bndcuqkvxljrdluqwu@edlqne7oy3xs>
- <20260714180812.000070c4@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D9cGix3v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23C391F000E9;
+	Wed, 15 Jul 2026 06:33:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784097239;
+	bh=FgDQn6aVq2+5AN8pm3ZEajlkPKgQSbGFoBUlzedcg7Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=D9cGix3vQ+IhU39aMTkLzECTh3T+HkEXpvJUMndxDO/cyn0shSfxPfBg9niZ9iW1S
+	 QnWiOfCvgKJ8rRSYefwF9UwQjGzv4SOplTW2/t60ZREj9a9XLeshXXogqTHXQJwa6S
+	 hxZ3SrPkG1oARySHjya6h6Wif3Ykr9kHx4RaLH+0jFKxpbsKfWaVg7eubQ+QRySKjY
+	 YGo8CAGXE66krrVqe88I1gofuWHYGlbEQ5eluUPR8eK75qPrH8xVyTVVerX+w/om91
+	 vJnk0eirSn3Y+msDItHJbFrUu0CfpwetOR6ia8XzeVnKIILIj8HVgyZGxoH2/6INtP
+	 rueJpTIkGscZQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [RESEND PATCH v7 02/16] arm64: dts: st: add power-domains to
+ sdmmc1 on stm32mp231
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dario Binacchi" <dario.binacchi@amarulasolutions.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260715062201.3599458-3-dario.binacchi@amarulasolutions.com>
+References: <20260715062201.3599458-1-dario.binacchi@amarulasolutions.com>
+ <20260715062201.3599458-3-dario.binacchi@amarulasolutions.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 06:33:58 +0000
+Message-Id: <20260715063359.23C391F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260714180812.000070c4@oss.qualcomm.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Jul 14, 2026 at 06:08:12PM -0700, Jonathan Cameron wrote:
-> On Mon, 13 Jul 2026 10:52:56 +0100
-> Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
-> > On 12/07/26 02:09, Jonathan Cameron wrote:
-> > > On Tue, 07 Jul 2026 15:04:28 +0100
-> > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-...
+Pre-existing issues:
+- [High] Incomplete fix: missing `power-domains` property in `sdmmc1` for `=
+stm32mp251.dtsi`
+--
 
-> > > > Because __iio_chan_prefix_emit() is static, the test translation unit
-> > > > is pulled into industrialio-core.c.  
+--- Patch [2]: [RESEND PATCH v7 02/16] arm64: dts: st: add power-domains to=
+ sdmmc1 on stm32mp231 ---
+commit 769d56084241db8b67f4b5d03d7c0c7f1c901c53
+Author: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 
-KUnit also has static/non-static automation via a macro (defined in the
-kunit/visibility.h) and I see that's used in the below example.
+arm64: dts: st: add power-domains to sdmmc1 on stm32mp231
 
-> > > Isn't there some magic route cases like this that makes it non static
-> > > only when self tests are enabled? 
-> > > Claude tells me to look at include/kunit/visibility.h  
-> > 
-> > There is, Although I think that using
-> > 
-> > 	#if IS_ENABLED(CONFIG_IIO_CHANNEL_PREFIX_KUNIT_TEST)
-> > 		#include "test/iio-test-channel-prefix.c"
-> > 	#endif
-> > 
-> > was more straight forward, less invasive and easier to change than..
+This commit adds the missing power-domains property to the sdmmc1 node in
+stm32mp231.dtsi to map the power domain that was missed during early bring-=
+up.
 
-Maybe, but thanks to this thread, I fixed other modules that use their own
-approach to use the standard KUnit infra for this (as below).
+> diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts=
+/st/stm32mp231.dtsi
+> index 9e1d240888ff2..0feb8943efae6 100644
+> --- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
+> +++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+> @@ -727,6 +727,7 @@ sdmmc1: mmc@48220000 {
+>  				cap-mmc-highspeed;
+>  				max-frequency =3D <120000000>;
+>  				access-controllers =3D <&rifsc 76>;
+> +				power-domains =3D <&cluster_pd>;
 
-> > 	/* In "drivers/iio/industrialio-core.c" */
-> > 
-> > 	#include <kunit/visibility.h>
-> > 	...
-> > 	VISIBLE_IF_KUNIT ssize_t __iio_chan_prefix_emit(...)
-> > 	{
-> > 	...
-> > 	}
-> > 	EXPORT_SYMBOL_IF_KUNIT(__iio_chan_prefix_emit);
-> > 
-> > 	/* In "iio_core.h" */
-> > 
-> > 	#if IS_ENABLED(CONFIG_KUNIT)
-> > 		ssize_t __iio_chan_prefix_emit(...);
-> > 	#endif
-> > 
-> > 	/* In "drivers/iio/test/iio-test-channel-prefix.c" */
-> > 
-> > 	#include <kunit/visibility.h>
-> > 	#include <iio_core.h>
-> > 	...
-> > 	MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
-> > 	...
-> > 	// Use __iio_chan_prefix_emit() in tests
-> 
-> I'd rather this wasn't built into the core module.  So prefer you jump
-> though those hoops.
+[Severity: High]
+This isn't a bug introduced by this patch, but should the same power-domains
+property be added to sdmmc1 in arch/arm64/boot/dts/st/stm32mp251.dtsi?
 
-Hmm... The above (while being verbose) is the standard way of how we export
-symbols for KUnit tests. Do you have a better alternative that everyone can
-use? (Not only IIO subsystem.)
+Looking at sdmmc1 in stm32mp251.dtsi:
 
--- 
-With Best Regards,
-Andy Shevchenko
+			sdmmc1: mmc@48220000 {
+				compatible =3D "st,stm32mp25-sdmmc2", "arm,pl18x", "arm,primecell";
+				arm,primecell-periphid =3D <0x00353180>;
+				reg =3D <0x48220000 0x400>, <0x44230400 0x8>;
+				interrupts =3D <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>;
+				clocks =3D <&rcc CK_KER_SDMMC1 >;
+				clock-names =3D "apb_pclk";
+				resets =3D <&rcc SDMMC1_R>;
+				cap-sd-highspeed;
+				cap-mmc-highspeed;
+				max-frequency =3D <120000000>;
+				access-controllers =3D <&rifsc 76>;
+				status =3D "disabled";
+			};
 
+It appears to suffer from the same omission described in the commit message.
 
+If a board includes stm32mp251.dtsi, enables sdmmc1, and the kernel attempts
+to probe the controller while its power domain is off, could this cause a
+synchronous external abort or kernel panic?
+
+>  				status =3D "disabled";
+>  			};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715062201.3599=
+458-1-dario.binacchi@amarulasolutions.com?part=3D2
