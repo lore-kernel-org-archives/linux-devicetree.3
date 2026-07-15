@@ -1,144 +1,161 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD2E31F995;
-	Wed, 15 Jul 2026 06:45:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0D8322C67
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 06:46:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784097937; cv=none; b=gkkgIBLQYScCj3lyhusFH07g0vSbP0qA9D698nBbRTaSLqMsMVl4guNEmfiRDv07KBlAnR7QJbMQw++oR3jx0BpfRF6cYF7a6N02t0xvl7/pa5mwnnzlrGTgTLMYf10I8lRw7E0qdNgFduEyx3MtmH3ILZkYT7D+1uohxHzjpHw=
+	t=1784098007; cv=none; b=j+gvgOQRjggwXwartZ49mlBGIy2tmX08E6qIgzvoctvO1m8Et32vf31qq91vaAj9VXydAejq+47s33EAGi19kQdXodgEn94AbQcyHrSwXDouECxX1lYNiCpoXUacBBKj7tQBMi5p4eQ8fXeb9uxrme8eaxpdNDpnyU1Qzc6T2lQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784097937; c=relaxed/simple;
-	bh=NCYbY8ASteWFE28nnDC4+QOGRmwy/KpIhVSQPXAZwJw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ExpjJMs2ccMqc0adXse5lGhlz4rUl4FZhfl/3EOzuUmDdfL3Mv7l5wWXsQNWkD8aaUBJotG/kiIWx4k1JfA7fQ22AeT65VopnB2Fky5ZfqXaaWaKnHCf/8mhA+JvCRxc1Ydxf2ny4x3baFV3n019XONXoM8ulMIPTLjxUbDC+gI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=G7zdkKUC; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1784098007; c=relaxed/simple;
+	bh=r70gIHOCa96xm3osPf5o2O+aRbf4jADYvT4CupW/ceo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fiVB234w8us8yFEOebLSXbVuELu1m9uCi6Uoa4sYx5oqIGvom9TlVt8LzTDaK0QyFChlAWbtfHX9LwVYaf88n4ZomE0D2gTdnnDhMvVTAi9h3XATz0PzIVpKYSDJx9FZqRinbBkrjuIgnsGhWnSmSWSgYZLcjAWoCJF2DGleYb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cCrbJzJ4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="G7zdkKUC"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=vM1HZpnp+xMsMpc2d7PzrpEfeSafS28iCXXhm4fqmZs=; b=G7zdkKUCdw+mCBSiqSjIFj+c6/
-	BG65JmaLZHj6u1BTNFQYNUMd8OEBFbxJIuLSEf0M9HPcVD6NgsWZGcUcHf206rfwU1iqnDia0xx3D
-	ikyadVNDYWUp5XRUzDVKaCDwqhLO6y9hMd1869VlofVxcmnhUloAuZSDVY4DPOVIDzNTiIm271XKL
-	bwWkndtimdcNwN68ScTSPPMO2WlCDkgZBSKgeBQPXi6wBxFiaSxMr78swc1bIZWikkGS2Cu7/yWu9
-	KMfvmbpHMYROy+2Lv75Dg30tjvfscIpB0i8Y3yvvq1oGhsACn/vmVzsCHoI5b6bLYw1vr3bQeY4/8
-	SwyFmzxA==;
-Received: from sslproxy02.your-server.de ([78.47.166.47])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wjtN5-000BJu-1x;
-	Wed, 15 Jul 2026 08:45:31 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy02.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wjtN5-000Enz-0l;
-	Wed, 15 Jul 2026 08:45:31 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: sashiko-reviews@lists.linux.dev, Frank Li <Frank.li@oss.nxp.com>
-Cc: imx@lists.linux.dev, conor+dt@kernel.org, Frank.Li@kernel.org,
- devicetree@vger.kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com
-Subject: Re: [PATCH v8 1/1] arm64: dts: add tqma9596la-mba95xxca
-Date: Wed, 15 Jul 2026 08:45:30 +0200
-Message-ID: <8709657.T7Z3S40VBb@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <alZW0l9rJpn8L0Mh@SMW015318>
-References:
- <20260714143154.787825-1-alexander.stein@ew.tq-group.com>
- <20260714150126.09D971F000E9@smtp.kernel.org> <alZW0l9rJpn8L0Mh@SMW015318>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cCrbJzJ4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F02291F000E9;
+	Wed, 15 Jul 2026 06:46:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784098005;
+	bh=CpKTe8r58YwfttiBhK9s4R4YHWTzZie/YmvY10WlbnE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cCrbJzJ4XuBkAaBNjiUwMBircLcWQNcPPL0S7YM/2k8A6TZH0Y7VqOlWYnioWokMt
+	 Bg2mWDNJZ4GwkABxA+X2D7mV/pxOkdZkVjQaWRUqRTNDvkqfUtF4JHKU5SHSgJTCHw
+	 po4A8bXBNpIayAl1NRCjet0N/CQuvfbkZ8kckeOL248MxMb9yUqo5syOrOf0TXXa+9
+	 s8CFdeiD8aLePJ9JYDNb8L1GKm09JWuf6QdbKrZeIS1pPTlk2pHEPfG334Oj43YX6o
+	 p8OtjngKr5/MocMu1ECTn+ohJH/cFkn6sZUUsx23m+kT3/42joqYm8I+RuBHa0/VeT
+	 YzFkYWE0TINRQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] iio: adc: add MAX40080 current-sense amplifier
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Stefan Popa" <stefan.popa@analog.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260715063652.368501-3-stefan.popa@analog.com>
+References: <20260715063652.368501-1-stefan.popa@analog.com>
+ <20260715063652.368501-3-stefan.popa@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 06:46:44 +0000
+Message-Id: <20260715064644.F02291F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28060/Tue Jul 14 08:25:07 2026)
 
-Am Dienstag, 14. Juli 2026, 17:33:38 CEST schrieb Frank Li:
-> On Tue, Jul 14, 2026 at 03:01:25PM +0000, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential is=
-sue(s) to consider:
-> > - [Medium] Unreferenced 10G SFP regulator will be unconditionally disab=
-led by the regulator core.
-> > --
-> >
-> > --- Patch [1]: [PATCH v8 1/1] arm64: dts: add tqma9596la-mba95xxca ---
-> > commit b7aa596cf679be039938abc33965834ed28f5c60
-> > Author: Markus Niebel <Markus.Niebel@ew.tq-group.com>
-> >
-> > arm64: dts: add tqma9596la-mba95xxca
-> >
-> > This adds support for TQMa95xxLA modules, designed to be soldered
-> > on a carrier board. MBa95xxCA is a carrier reference board / starter kit
-> > design.
-> >
-> > > diff --git a/arch/arm64/boot/dts/freescale/imx95-tqma9596la-mba95xxca=
-=2Edts b/arch/arm64/boot/dts/freescale/imx95-tqma9596la-mba95xxca.dts
-> > > new file mode 100644
-> > > index 0000000000000..1d745d66997cb
-> > > --- /dev/null
-> > > +++ b/arch/arm64/boot/dts/freescale/imx95-tqma9596la-mba95xxca.dts
-> >
-> > [ ... ]
-> >
-> > > +	reg_3v3a_10g: regulator-3v3a-10g {
-> > > +		compatible =3D "regulator-fixed";
-> > > +		regulator-name =3D "3V3A_10G";
-> > > +		regulator-min-microvolt =3D <3300000>;
-> > > +		regulator-max-microvolt =3D <3300000>;
-> > > +		gpio =3D <&expander2 15 GPIO_ACTIVE_HIGH>;
-> > > +		startup-delay-us =3D <2000>;
-> > > +		enable-active-high;
-> > > +	};
-> >
-> > [ ... ]
-> >
-> > > +	sfp_xfi: sfp-xfi {
-> > > +		compatible =3D "sff,sfp";
-> > > +		pinctrl-names =3D "default";
-> > > +		pinctrl-0 =3D <&pinctrl_sfp>;
-> > > +		i2c-bus =3D <&lpi2c7>;
-> > > +		maximum-power-milliwatt =3D <2000>;
-> > > +		mod-def0-gpios =3D <&expander1 3 GPIO_ACTIVE_LOW>;
-> > > +		tx-fault-gpios =3D <&gpio2 30 GPIO_ACTIVE_HIGH>;
-> > > +		los-gpios =3D <&gpio2 31 GPIO_ACTIVE_HIGH>;
-> > > +		tx-disable-gpios =3D <&expander2 2 GPIO_ACTIVE_HIGH>;
-> > > +	};
-> >
-> > [Severity: Medium]
-> > Will the 10G SFP regulator be turned off by the regulator core?
-> >
-> > The reg_3v3a_10g regulator is defined without regulator-always-on, and =
-the
-> > sfp_xfi node seems to be missing the vcc-supply =3D <&reg_3v3a_10g>; pr=
-operty
-> > to link the SFP to its power source.
-> >
-> > Since it lacks consumers, won't the regulator core automatically disabl=
-e this
-> > unused regulator at the end of boot and unconditionally turn off power =
-to the
-> > 10G interface?
->=20
-> Is it true?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Missing lock protection around `st->range` and `st->oversampling=
+_ratio` updates causes hardware state desynchronization and torn reads.
+--
 
-That's true, the regulator will be disabled. But currently there is no
-XFI/10G support anyway, so nothing will be disabled. This regulator is
-taken from downstream where XFI already is supported.
+--- Patch [2]: [PATCH v3 2/2] iio: adc: add MAX40080 current-sense amplifie=
+r driver ---
+commit 6f9d9d6fa7d25018a7143edc9a8c9183463f1900
+Author: Stefan Popa <stefan.popa@analog.com>
 
-Best regards,
-Alexander
-=2D-=20
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
+iio: adc: add MAX40080 current-sense amplifier driver
 
+The MAX40080 is a bidirectional current-sense amplifier with an
+integrated 12-bit ADC and an I2C/SMBus interface. It measures the
+voltage across an external shunt resistor and the input bus voltage,
+storing the results in an internal FIFO.
 
+Link: https://www.analog.com/media/en/technical-documentation/data-sheets/M=
+AX40080.pdf
+
+> diff --git a/drivers/iio/adc/max40080.c b/drivers/iio/adc/max40080.c
+> new file mode 100644
+> index 0000000000000..a0c1144cfda7c
+> --- /dev/null
+> +++ b/drivers/iio/adc/max40080.c
+[ ... ]
+> +static int max40080_set_range(struct max40080_state *st, unsigned int ra=
+nge)
+> +{
+> +	int ret;
+> +
+> +	ret =3D max40080_update_bits(st, MAX40080_REG_CFG, MAX40080_CFG_RANGE_M=
+SK,
+> +				   FIELD_PREP(MAX40080_CFG_RANGE_MSK, range));
+> +	if (ret)
+> +		return ret;
+> +
+> +	st->range =3D range;
+
+[Severity: Medium]
+Could a race condition here cause the software cache to become desynchroniz=
+ed
+with the hardware state?
+
+Since max40080_update_bits() releases st->lock before returning, concurrent
+writes to the scale attribute could interleave their hardware updates and
+software cache updates, leaving the hardware set to one range and the cache
+set to another.
+
+> +
+> +	return 0;
+> +}
+[ ... ]
+> +static int max40080_set_oversampling_ratio(struct max40080_state *st, in=
+t val)
+> +{
+> +	int filter;
+> +	int ret;
+> +
+> +	filter =3D max40080_oversampling_to_filter(val);
+> +	if (filter < 0)
+> +		return filter;
+> +
+> +	ret =3D max40080_update_bits(st, MAX40080_REG_CFG, MAX40080_CFG_FILTER_=
+MSK,
+> +				   FIELD_PREP(MAX40080_CFG_FILTER_MSK, filter));
+> +	if (ret)
+> +		return ret;
+> +
+> +	st->oversampling_ratio =3D val;
+
+[Severity: Medium]
+Similar to st->range above, could st->oversampling_ratio become desynchroni=
+zed
+with the hardware state due to being updated outside the lock?
+
+> +
+> +	return 0;
+> +}
+> +
+> +static int max40080_read_raw(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan,
+> +			     int *val, int *val2, long mask)
+> +{
+> +	struct max40080_state *st =3D iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	switch (mask) {
+[ ... ]
+> +	case IIO_CHAN_INFO_SCALE:
+> +		/*
+> +		 * The selectable current-sense range is exposed through
+> +		 * scale: each RANGE setting has its own precomputed
+> +		 * mA-per-code value. Userspace picks the range by writing
+> +		 * the matching scale.
+> +		 */
+> +		switch (chan->type) {
+> +		case IIO_CURRENT:
+> +			*val =3D st->current_scale[st->range][0];
+> +			*val2 =3D st->current_scale[st->range][1];
+
+[Severity: Medium]
+Can this cause a torn read if st->range is updated concurrently?
+
+Since st->range is used twice as an array index without taking st->lock,
+concurrent writes could cause val and val2 to be mixed from different range=
+s.
+
+> +			return IIO_VAL_INT_PLUS_NANO;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715063652.3685=
+01-1-stefan.popa@analog.com?part=3D2
