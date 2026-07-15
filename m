@@ -1,61 +1,61 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0B431E83C
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 06:22:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9EA3264F5
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 06:22:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784096539; cv=none; b=NXbiRN1VyXPFppBdvRkLZwSgwc5ab75gsrebipikUlqQj8f4o+TGDUcf6/RIrYzozJK6kaPwku2h4Gy6jA8trGjjtvy+5lllGYNcNLtwso8KKZKWxWYH4xJcVU5CwWsi2/MTqAM/EdC/FbYQpFIQ32oNSzj/11DMKybkZSmZ79c=
+	t=1784096541; cv=none; b=WaEnHzI3JEfBEUbguEyt9vqo6luMKIhKvN35BFtpYS0pqWGTZ7D56TQUfo20o1/AHIiXYs+QIp95b7Bify1eFKlvm0yzXFsIBHWqGIxxVnszVbS2HK7FFJmCJnrEZdK+32IbBygM2fihnqfwdZGt9d5FMedi7SKS1Z50priMSLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784096539; c=relaxed/simple;
-	bh=r4oEtWAGk+0lG2cjCCS/On9c5o0ItK6TwayM08X4LmQ=;
+	s=arc-20240116; t=1784096541; c=relaxed/simple;
+	bh=SRq4aV3Vv1KtanwaZu/HUbm5QTW8rISjxiq71Wm2JKY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qF6wTS7DD9hLKvsIkoE+Hg925hLwKgpAVWZF40jgKuGKmm5cziWQC7urWmSmHFnkBEec5j+WcDuSOTPl6ICvvy1BmAbE1YE7N8ovy0nRw3zK5HWg6We0dmBC8oq9EFKG1pI3RG/SCizMGTxkBvHKiE3JOZwpJxR2d7XN5ChTcDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=fQ4T0ZMb; arc=none smtp.client-ip=209.85.208.50
+	 MIME-Version; b=fEgWv2amMJ0YfhAo0EW9laMpE09TW4J9hyJTbP6gXQ7JiZodk9qO+JlPGVm80QzKoUb5bcKxAxZq3qRv9uyQE+998DsZB+69yBXS+kpcB552Eh80/mwZUg3XMDJzCRaPzD7US5LMsn0fRLEJedpkDys3MViNG5guAmEEeesJy78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=QCub6Qf+; arc=none smtp.client-ip=209.85.218.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="fQ4T0ZMb"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-697bd21fdc2so134543a12.1
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 23:22:17 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="QCub6Qf+"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c16794450aeso50453566b.2
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 23:22:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1784096536; x=1784701336; darn=vger.kernel.org;
+        d=amarulasolutions.com; s=google; t=1784096538; x=1784701338; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=G5wRK8UQUntkfKxBkcuhYJT69Pdd0Q05Ua1EKGESaNA=;
-        b=fQ4T0ZMbscHo9jcNZ+EGT5/VN+tVa4+Y5DPCwgNG9A5e2eQFjon/8m2O+MCvqIXzKH
-         5Ta3Uwj6jePejvfGf4LPpgOjo396x44xG06XQVdJVS7pVum3hPkZe+kJnteFGjvAPcYV
-         Bk379G/JJlsGOqy4YHsOl/mkNByR9PLk5MRHQ=
+        bh=kjf+9zwLvFnbMj2uY67jnA57NYs5qvgfofKcphxJQbw=;
+        b=QCub6Qf+MgAgUN8YEkiJsAGCdSbQOERO9GT8YsSf1WFstWVlPeDSr1d85CeKaFAvlY
+         KzFIE9BU4ap43PjAPXPjobmNzFj4ENp2gvdCjdR1uP3FtEmdpfnWwptoEed7By23Epl2
+         HSWVrlqnWDHC0j947kJ4O4S5CiCsS/E/X/3CI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784096536; x=1784701336;
+        d=1e100.net; s=20251104; t=1784096538; x=1784701338;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G5wRK8UQUntkfKxBkcuhYJT69Pdd0Q05Ua1EKGESaNA=;
-        b=qnk4bsiOZ/wUOvXSPpugOZ2fUBh3Qt0/3ApBokUrEDW/Mz38QJi3PwIb4aqSxzTkcd
-         Df6Xffnp1A+dpT5sRroqUw+MW78TTU6OFwOJwYRBanMaTP9dUIa932caVXC2qdQxfdAF
-         Jt5DL0jomUm/V6zpdjsIYfynrI4CQVqgpgLrGSQXh2arXnjbsKfLVPOa0IEjo7qM5+SP
-         XWiUuwKoMZ7fLXvt8aUiNnWUeTEqUyZ5UxEaHTcrrOuNqtb1yF3wq9A3gz4rgPGhsi9M
-         aSUnGfrtx4+OVREt2FTlcV2k13/kX5kJsqmOfzZOXSOSwQB+OKCfUNShChO3Z2DO7oqb
-         znUA==
-X-Forwarded-Encrypted: i=1; AHgh+Rr9eGF6CJnA7DKReEJQGyerWG2Jfuaim6Ov4EWhDk9gX1arjNRN051DfPRYSF3zz6P8TKu7l9z9ExBC@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywn764MNnsHt8LOAXH4rcrTweGNTLDm9krDxAoJ9WswZhVEZ3s0
-	orbdX3GFdNbwCd7lLaNqskm27SElGa99dfstnRimgNji2u/6aMqJFGTg4pMh6AFBKTc=
-X-Gm-Gg: AfdE7ck0TvoLydSy1qvsQRfKtsomsy8E5lRX9GFSIwLdmMfpD+tymzTdd2ZEwhKPBRL
-	z+NT+EJu5eURZw5J7oaTMe3EfxUsyIG5R3l05NHRsb1Lk5iWIyabTXLZfPynFLEXbPXwah0YFsp
-	XtzwTv+HYMSsp+lMBmKqT4irXNMqYDTCQLFwgAxBaVISRKOab4GgefPRo+p/JUod645X/iHLtCT
-	fFVE1jewh8Ua1O5iVHr27v7PxiiIAY2HArSDUbYrgRmwRxXyn53Y/DMt2006vJSYneEC/ISLC52
-	uumX8kBeouCXED9fRUQhG6vXWNxMwdMNLhhiqstaM09zeVGlmiQhnBTHloeUOl1LOkVRozpY4ZB
-	2mieoJKZXn+Y1i/NTC8uPNnL+RDa3upAhGR668PIChYec/DVCAHf60qycM1pM8xKo6ROTEX6NAi
-	IRrRPZw8/d+mF/7UrVfPzo7fUylRqdvJXtGJZuv/r62SEy2yTkKva7FF+RHNzuE/JIR5VVQ3CUV
-	6pJqFKnZrYB
-X-Received: by 2002:a17:907:8b99:b0:c16:3187:997c with SMTP id a640c23a62f3a-c163187a0e0mr757455766b.1.1784096536252;
-        Tue, 14 Jul 2026 23:22:16 -0700 (PDT)
+        bh=kjf+9zwLvFnbMj2uY67jnA57NYs5qvgfofKcphxJQbw=;
+        b=m257ZvHPeCwBD+gvaUl8mjrzc0b1i5wFcNXygdCnenJfWMgZSCaj8JFuBzHJHMY5PQ
+         blMQI6digIfPRX47efWEIRhHRLz5X7Ids8rQcl5zgXPmhoHHCTmTPDJdbEuSgZR2xspI
+         DOCDYXWPhyJ82O3tr9kWxENheG/9x7IHTug0DswPL9TlpFNGU6r2WhKa00Xepx7pvGpl
+         sgNitElRHwFyS5+/lZLkqBW1e6pt1W5ZRvxPS/lj24yS14lAwP1vWZwSWUhsFyuk+wcb
+         SPvSjTbB3T2kSFgCpZ1cjFUMKTJz5m/GfSqi5h7u+jcyPUvCH+2Li8JQr99JMDCodwaD
+         sUaQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp0UZgipApiYsC57ngQ45JbeZkcOR1BZRJD99i4DSqohVWLaBGQcItxPrLLXdBXoS8yjh7TxaAEhasG@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyf9obkLfVCSW2ABw/o7kFm4XOmcQZH3IOWoQBNJZDFyfYJSa+q
+	JoN7AqAmOy6VtFczmHwFsuNbbhR9GumH+qPKao7gmLFm7eLlaUvWtCOrSvfwxCpGpl0=
+X-Gm-Gg: AfdE7ckjbhImT/vH8OrkrpuUIkJdLdtv8iFa8C2kHwDlhMh9wtmg3uAevHSUKq7OqBw
+	eCvLTfFjtLSO8Q97cKGE6hDpKSw2qpnoV3TTiSJCwe9+zLvL6X2Yr1lKRN+8mWgTfYbaBkyC59R
+	3W9YL4gNCUj+HGzwexpnOWI6Z/KVxdKOyIYQ4LJpkEM8fw0u3eRjXx3JcZOQe+i94zRvynYuCXu
+	bcsbtGyQn+pOywBAU+rP4Q+kmv4xBo/sm25HBOdXlMYR8ISQR18SRGD5jyYM7zFouNPy0dqaXb4
+	T7oHOx7gEixtvHZ282BPsjNqzHOOW9QqJWR3BKJfczEVyhwssT7imtaNUvBWoA2TBED3vrnsUTC
+	J43mR5nc+Dq0E+NNYwjdQHUjVHSKvlX9P7YNJluZ5hBsTXaKpxEWUj06t/OvjS1Ze/vNsho3OaS
+	OjvYi6A9kuV7xjnRSJbyKJgJs0cNx3x6Q+PBtCFeb4pPABVPvq3mmoj051PXqovo1j/1B7WOc5e
+	YBKNe4Qil/nXisFeMV/rvI=
+X-Received: by 2002:a17:907:7292:b0:c15:ee0d:9a32 with SMTP id a640c23a62f3a-c1661680353mr381793666b.21.1784096538053;
+        Tue, 14 Jul 2026 23:22:18 -0700 (PDT)
 Received: from dario-ThinkPad-P14s-Gen-5.. ([2.196.41.101])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15d0c3cf1esm1028820366b.44.2026.07.14.23.22.14
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15d0c3cf1esm1028820366b.44.2026.07.14.23.22.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 23:22:15 -0700 (PDT)
+        Tue, 14 Jul 2026 23:22:17 -0700 (PDT)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
 Cc: michael@amarulasolutions.com,
@@ -71,9 +71,9 @@ Cc: michael@amarulasolutions.com,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-stm32@st-md-mailman.stormreply.com
-Subject: [RESEND PATCH v7 02/16] arm64: dts: st: add power-domains to sdmmc1 on stm32mp231
-Date: Wed, 15 Jul 2026 08:20:19 +0200
-Message-ID: <20260715062201.3599458-3-dario.binacchi@amarulasolutions.com>
+Subject: [RESEND PATCH v7 03/16] arm64: dts: st: add power-domains to sdmmc1 on stm32mp251
+Date: Wed, 15 Jul 2026 08:20:20 +0200
+Message-ID: <20260715062201.3599458-4-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260715062201.3599458-1-dario.binacchi@amarulasolutions.com>
 References: <20260715062201.3599458-1-dario.binacchi@amarulasolutions.com>
@@ -98,18 +98,18 @@ Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 Changes in v5:
 - Added in version 5. Suggested by Sashiko.
 
- arch/arm64/boot/dts/st/stm32mp231.dtsi | 1 +
+ arch/arm64/boot/dts/st/stm32mp251.dtsi | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-index 9e1d240888ff..0feb8943efae 100644
---- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-@@ -727,6 +727,7 @@ sdmmc1: mmc@48220000 {
+diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+index 9c63fdb5a885..ae36d703532c 100644
+--- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+@@ -1664,6 +1664,7 @@ sdmmc1: mmc@48220000 {
  				cap-mmc-highspeed;
  				max-frequency = <120000000>;
  				access-controllers = <&rifsc 76>;
-+				power-domains = <&cluster_pd>;
++				power-domains = <&CLUSTER_PD>;
  				status = "disabled";
  			};
  
