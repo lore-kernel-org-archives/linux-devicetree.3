@@ -1,160 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60FA2472768
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:27:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80809472784
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:27:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784118476; cv=none; b=PCO/aRVMSKVHrXQI12ZEDPjyKpdJ+ghj5eGGBY5s5OmfiQxld6uRyUK5lEzhYKuSOZ+vT2775IaKxRFYfl7f3BUEoIhYq34MPdNjNOqszAcZZ87QSuTvsgUqWVnU1XrLUT8mT02U+pR3M+mQHrGgvufJA5TE/L/5uFHl80SgTpI=
+	t=1784118474; cv=none; b=YVF14xmwIU+iEW3lgsrdO6ea5PNLVswtXLdPFZjUAZLyQkapdNh1REVlnhmtcKEY3pKcQ4tb39U8d69fRYQpblLvD7PfklcFHXEngYpwf9YfEZFIwRKpp14oqVhoRBBINootXM3hGemeM9qfs9iPFV1AbEHuFUFnBuDiYnubtqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784118476; c=relaxed/simple;
-	bh=FyvVJli3cTKUMPT5HpsOpQIxQvLLkFu+nSooG+r5XBo=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XQkEdH4y1URrfOPwa84zRo0U/qIS2vMvGkQG5ypcXNU25EVySzdIvlwb46zgjiBFfzyY5LgJNUG/UfLFGHwqO2Cdg4s1zhKNP91XVQIVYcNwn/CHhcaauNbitIA2LEzKE7EJSIJ8vS4k2n/plQqN7XTe5Z1OkJlpTB72s6b3aM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QloyeeZA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784118474; c=relaxed/simple;
+	bh=I2dTWPh9xBkWUYpYwY6PQ5wKCWiaOxS0O3qMw30nS0E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=mTP3Pn0RJj7z6Ltw6NI5iifm2jfwYUI8dYtpgWab7xGV1fNOQyFvAtbOx+W5f/K/+NReZsjySWLHlqx6AMRirWgOMEw6obBQ8OwJjEyVzpHC+HAHstFeD8hr1luBiVj5WY6BVIAOv7NUeN/BIajzvpE7aFfpcWL65bDd6CQmZps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=VvBPt6QS; arc=none smtp.client-ip=79.135.106.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QloyeeZA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F8C41F00ADE
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:27:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784118475;
-	bh=j28hcJjQkZPaS3yZ4782JQxyz8Zd4wPyi3h2uE2kkXA=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=QloyeeZA+L0U0Nakkwr/lWVJ2epmV8vXIHzwlA6j94fp0HUd+UPMioZEIUHbjDN8W
-	 iKIdi3aCx+rXYWbmwTIh1ICFS6PFQssNjQAquhZJqFjg0wA+njAN4N57PbyX7F9jNB
-	 WUXt06OccYpYq0vonrNCnwKy5yOELeoBdgAtUg/Q36E0h9C2Ls8aJLO14r7o82lxGp
-	 /FiDjbu1eD3n4ltGunskB6hppF21R6j9g5Zujnk0NI6TvUJOrZ4jy2IsFX0nUWRTwf
-	 qsO7X2nTHn4u7dgR8dLHesPpOA7XOin9U5dPJEmjhmViRqSGvWZNPtZNbaLKb5KvK4
-	 fP5r1UYPLKo9w==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5aea0fff535so2238189e87.3
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 05:27:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqiBSXlbJqsqVsdpsjNGUaoBjT1Xz7CGYnfLvPUw+11EawPf5Pzy7ExDa1IVaz4g7HuIPqTUMjU5IMV@vger.kernel.org
-X-Gm-Message-State: AOJu0YxwbQtZ+FVSytvhSAoaioldhrHA4DJoF0JrSBkmFD5DNoYVuu92
-	5jmSQogiZ/s0Eetb3HzeiEb6Hv0dX8PSrz7ufJV/rC5XfJlFeO0BTyx7gn6NUFoabqNOWgAihm3
-	AWY30F9LLaQdBgdAPZN/wzTOBau84evnYYKn5fzAsgA==
-X-Received: by 2002:a05:6512:250f:b0:5b1:544e:7185 with SMTP id
- 2adb3069b0e04-5b1544e721amr2489500e87.40.1784118473678; Wed, 15 Jul 2026
- 05:27:53 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 15 Jul 2026 05:27:51 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 15 Jul 2026 05:27:51 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260714-arm-psci-system_reset2-vendor-reboots-v23-0-e7453c548c21@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="VvBPt6QS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail3; t=1784118468; x=1784377668;
+	bh=sXxGmRC61CGzQK8oDsrX4kPLE28/Z0F2WvjySiARWJQ=;
+	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=VvBPt6QS5m/DYfX+yhUXdOH3Zn+cG2zQl0alwDGO5S2lEN1n/xdTo7VickL136RgG
+	 aqYhLt4KXbQG330lg3cX50+lDDLWA0ODRnUBZct+wqI7wIiwnwGqHuF47l/AXgAl4K
+	 Qxzpxe64akm7Ol/XfztSQNeXZsYjMsNQr0uIsprkMKFBBnum9d3JhCb4yD+/dPgD6j
+	 BbdMjBN8NPTPijg+NEjZCQRCZpkoNcxX3Jo/thdSwnUvihPHl4K4Vrzmm/RpeupCAr
+	 l5D0hJ05eSeqwpaKPSPK+q4ErW47oM44kDWibvpE7qixayJ7Ld9/3sWUqIWSeq+VlM
+	 FYn8v5gR11SiA==
+X-Pm-Submission-Id: 4h0b6V3NCLz2ScN7
+From: Esben Haabendal <esben@geanix.com>
+Date: Wed, 15 Jul 2026 14:27:25 +0200
+Subject: [PATCH v2 3/4] iio: light: ltr501: Add ltr329 driver support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260714-arm-psci-system_reset2-vendor-reboots-v23-0-e7453c548c21@oss.qualcomm.com>
-Date: Wed, 15 Jul 2026 05:27:51 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Mc4e1Rso5Vr1ZoRTkAp4WYUz8H-dQWUjkyBg5sgXiDLOw@mail.gmail.com>
-X-Gm-Features: AUfX_mxYq9w3t7suoGM2tbsXEv1g058iRFyDqupc6ScLWcGXZxK2WeoKHlbXNCk
-Message-ID: <CAMRc=Mc4e1Rso5Vr1ZoRTkAp4WYUz8H-dQWUjkyBg5sgXiDLOw@mail.gmail.com>
-Subject: Re: [PATCH v23 00/13] Implement PSCI reboot mode driver for PSCI resets
-To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Andre Draszik <andre.draszik@linaro.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, mfd@lists.linux.dev, 
-	Srinivas Kandagatla <srini@kernel.org>, Sebastian Reichel <sebastian.reichel@collabora.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Song Xue <quic_songxue@quicinc.com>, 
-	Sebastian Reichel <sre@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Christian Loehle <christian.loehle@arm.com>, 
-	Ulf Hansson <ulfh@kernel.org>, Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Arnd Bergmann <arnd@arndb.de>, Souvik Chakravarty <Souvik.Chakravarty@arm.com>, 
-	Andy Yan <andy.yan@rock-chips.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	John Stultz <john.stultz@linaro.org>, Moritz Fischer <moritz.fischer@ettus.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260715-liteon-ltr329-v2-3-d18af55edab5@geanix.com>
+References: <20260715-liteon-ltr329-v2-0-d18af55edab5@geanix.com>
+In-Reply-To: <20260715-liteon-ltr329-v2-0-d18af55edab5@geanix.com>
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikita@trvn.ru>, 
+ Maslov Dmitry <maslovdmitry@seeed.cc>
+Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jonathan Cameron <jic23@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784118460; l=3444;
+ i=esben@geanix.com; s=20240523; h=from:subject:message-id;
+ bh=I2dTWPh9xBkWUYpYwY6PQ5wKCWiaOxS0O3qMw30nS0E=;
+ b=BCCJqpXvaamY19jLEczP5QzkIkrFCDB/vobC7M7Tl2QBkoZsXmnRK+i3nD+m9xYsm6BLegKAY
+ SggG+sss7UlD4S8LSbAnx/O1xFD/DJkXDP7VdqoYSTS6noHD0FQpIup
+X-Developer-Key: i=esben@geanix.com; a=ed25519;
+ pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-On Tue, 14 Jul 2026 19:16:28 +0200, Shivendra Pratap
-<shivendra.pratap@oss.qualcomm.com> said:
-> Userspace should be able to initiate device reboots using the various
-> PSCI SYSTEM_RESET and SYSTEM_RESET2 types defined by PSCI spec. This
-> patch series introduces psci-reboot-mode driver that will induce
-> command-based resets to psci driver for executing the device reset.
->
-> The PSCI system reset calls takes two arguments: reset_type and cookie.
-> It defines predefined reset types, such as warm and cold reset, and
-> vendor-specific reset types which are SoC vendor specific. To support
-> these requirements, the reboot-mode framework is enhanced in two key
-> ways:
-> 1. 64-bit magic support: Extend reboot-mode to handle two 32-bit
-> arguments (reset_type and cookie) by encoding them into a single 64-bit
-> magic value.
-> 2. Predefined modes: Add support for predefined reboot modes in the
-> framework.
->
-> With these enhancements, the patch series enables:
->  - Arch Warm reset and system reset cold as predefined reboot modes.
->  - Vendor-specific resets, configurable via the SoC-specific device tree.
->
-> Together, these changes allow userspace to trigger all above PSCI resets
-> from userspace.
->
-> Note on introducing PSCI-MFD:
-> In v19/20, psci-reboot-mode was implemented as a faux-device. Review
-> discussion suggested this may not be the best model for firmware-backed
-> consumers, and that representing PSCI users as regular platform devices
-> would be better. One suggestion was to add a PSCI-MFD driver, allowing
-> multiple consumers tied to a single PSCI node "arm,psci-1.0" be probed
-> as MFD cells.
->
-> Following this, the series adds a PSCI-MFD driver and introduces
-> cpuidle-psci-domain and psci-reboot-mode as child cells. To meet the
-> psci-reboot-mode requirement, the MFD core is extended to support
-> fwnode.
-> Reference discussions on this:
-> https://lore.kernel.org/all/20260306-faux-dev-with-fwnode-v1-1-792a86a62530@oss.qualcomm.com/
->
-> ---
-> The patch is tested on rb3Gen2, lemans-ride, lemans-evk, monaco-ride,
-> qcs615-ride.
->
-> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
->
-> Changes in v23:
-> mfd: core: Add firmware-node support to MFD cells
->  - Add named_fwnode-based firmware node support in MFD cells.(by Bart)
->  - Update the release path. (by Bart)
->  - Add checks for duplicate fwnodes.
->  - Update documentation for usage and limitations.
-> mfd: psci-mfd: Add psci-reboot-mode child cell
->  - Update for a named_fwnode-based reboot-mode child cell. (By Bart)
->  - Split psci-reboot-mode and psci-cpuidle-domain into separate child
->    cells.
-> power: reset: Add psci-reboot-mode driver
->  - Add COMPILE_TEST in Kconfig. (by Bart)
->  - Update to support up to three u32 arguments to accommodate a
->    32-bit reset_type and a 64-bit cookie. (By Sashiko, Lorenzo)
-> dt-bindings: arm: Document reboot mode magic
->  - Update to support up to three u32 arguments to accommodate a
->    32-bit reset_type and a 64-bit cookie.
->  - Dropped reviewed by from Bart and Rob due to considerable changes.
-> firmware: psci: Introduce command-based resets
->  - Update to support a 64-bit cookie. (By Sashiko, Lorenzo)
->  - Update the flow so unsupported reset commands and any failures during
->    reset command execution fall back to the
->    Linux reboot_mode path. (By Sashiko)
-> power: reset: reboot-mode: Add support for predefined reboot modes
->  - Handle errors and free lists in devm_reboot_mode_register(). (by Sashiko)
->  - Update to support up to three u32 arguments.
-> power: reset: reboot-mode: Support up to 3 magic values per mode
->  - Patch for 64 bit magic renamed.
->  - Update to support up to three u32 arguments to accommodate a 32-bit
->    reset_type and a 64-bit cookie.
->  - Dropped reviewed by from Bart and Sebastian due to considerable changes.
-> - Link to v22: https://lore.kernel.org/r/20260514-arm-psci-system_reset2-vendor-reboots-v22-0-28a5bde07483@oss.qualcomm.com
->
+This adds support for the LTR-329ALS-01 chip, which is similar to
+LTR-303ALS-01, except for interrupt, which LTR-329ALS-01 chip does not
+have.
 
-Just wanted to say: thanks for being persistent, we'll get there eventually. :)
+Signed-off-by: Esben Haabendal <esben@geanix.com>
+---
+ drivers/iio/light/ltr501.c | 33 +++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-Bart
+diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+index 7d045be78c6d..379e57ac5f5b 100644
+--- a/drivers/iio/light/ltr501.c
++++ b/drivers/iio/light/ltr501.c
+@@ -15,6 +15,7 @@
+ #include <linux/delay.h>
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
++#include <linux/array_size.h> // for ARRAY_SIZE
+ 
+ #include <linux/iio/iio.h>
+ #include <linux/iio/events.h>
+@@ -94,6 +95,7 @@ enum {
+ 	ltr559,
+ 	ltr301,
+ 	ltr303,
++	ltr329,
+ };
+ 
+ struct ltr501_gain {
+@@ -178,6 +180,11 @@ static const struct ltr501_samp_table ltr501_ps_samp_table[] = {
+ 			{500000, 2000000}
+ };
+ 
++static bool ltr501_has_irq_support(const struct ltr501_chip_info *chip_info)
++{
++	return chip_info->info != chip_info->info_no_irq;
++}
++
+ static int ltr501_match_samp_freq(const struct ltr501_samp_table *tab,
+ 					   int len, int val, int val2)
+ {
+@@ -428,6 +435,9 @@ static int ltr501_read_intr_prst(const struct ltr501_data *data,
+ {
+ 	int ret, samp_period, prst;
+ 
++	if (!ltr501_has_irq_support(data->chip_info))
++		return 0;
++
+ 	switch (type) {
+ 	case IIO_INTENSITY:
+ 		ret = regmap_field_read(data->reg_als_prst, &prst);
+@@ -466,6 +476,9 @@ static int ltr501_write_intr_prst(struct ltr501_data *data,
+ 	int ret, samp_period, new_val;
+ 	unsigned long period;
+ 
++	if (!ltr501_has_irq_support(data->chip_info))
++		return 0;
++
+ 	if (val < 0 || val2 < 0)
+ 		return -EINVAL;
+ 
+@@ -1257,6 +1270,18 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+ 		.channels = ltr301_channels,
+ 		.no_channels = ARRAY_SIZE(ltr301_channels),
+ 	},
++	[ltr329] = {
++		.partid = 0x0A,
++		.als_gain = ltr559_als_gain_tbl,
++		.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
++		.als_mode_active = BIT(0),
++		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
++		.als_gain_shift = 2,
++		.info = &ltr301_info_no_irq,
++		.info_no_irq = &ltr301_info_no_irq,
++		.channels = ltr301_channels,
++		.no_channels = ARRAY_SIZE(ltr301_channels),
++	},
+ };
+ 
+ static int ltr501_write_contr(struct ltr501_data *data, u8 als_val, u8 ps_val)
+@@ -1531,6 +1556,12 @@ static int ltr501_probe(struct i2c_client *client)
+ 		return ret;
+ 
+ 	if (client->irq > 0) {
++		if (!ltr501_has_irq_support(data->chip_info)) {
++			dev_err(&client->dev, "chip does not support irq\n");
++			ret = -EINVAL;
++			goto powerdown_on_error;
++		}
++
+ 		ret = devm_request_threaded_irq(&client->dev, client->irq,
+ 						NULL, ltr501_interrupt_handler,
+ 						IRQF_TRIGGER_FALLING |
+@@ -1604,6 +1635,7 @@ static const struct i2c_device_id ltr501_id[] = {
+ 	{ .name = "ltr559", .driver_data = ltr559 },
+ 	{ .name = "ltr301", .driver_data = ltr301 },
+ 	{ .name = "ltr303", .driver_data = ltr303 },
++	{ .name = "ltr329", .driver_data = ltr329 },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, ltr501_id);
+@@ -1613,6 +1645,7 @@ static const struct of_device_id ltr501_of_match[] = {
+ 	{ .compatible = "liteon,ltr559", },
+ 	{ .compatible = "liteon,ltr301", },
+ 	{ .compatible = "liteon,ltr303", },
++	{ .compatible = "liteon,ltr329", },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, ltr501_of_match);
+
+-- 
+2.55.0
+
