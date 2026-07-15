@@ -1,113 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C6132E128;
-	Wed, 15 Jul 2026 20:52:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2198A3CA4B6;
+	Wed, 15 Jul 2026 20:56:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784148772; cv=none; b=FAilA5uIi/wR5/d+3hNYkn2Mac7Pj5VRQyBz2saFp2cgONH2/if9Y/DFCDK8b0WELquXZt/r2s/M9Ob+KEAJ0FjpZbdKXx6KnusMZ9U0FsGezgu/Iq+umi0loiINKuxsoIW3Ca+Cnr58PBawtaHH5xg0+BoKEwPyj5FFXgz3Qlw=
+	t=1784148966; cv=none; b=qbmlS+6YKgaLixnKjkqbYEkoklUvkjmrdjx8LcDFbJAFoeDAsjq7iSvjkCsxWRqBdHd10wLnzyIrXZ+052qf5/F/AFrrz79WsGiSSLrk1H/g/xd4sWg478b6IPveBWiogToGp9VQWJWQCKHkeUg4zECbXSNxuNUX2WY9+fDPALI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784148772; c=relaxed/simple;
-	bh=JhTbcAdFH2RuzXtTaX/qIdEXRlyOoZ6Vy0uPI2RXaBc=;
+	s=arc-20240116; t=1784148966; c=relaxed/simple;
+	bh=dAO6/cvZqR0OfTXjJxL1HuYsYePdbt3DAN8lT/4kZg0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gLJ/wMBpoVKn4T1JL+rS0ONYgjr4n2V/DbMkXPFdaIy7lJ1ZXgM/tARxpNqFyj5/rpS9W121e0SBZo9TlmJk5aCgSoq/03BzhgJBctrhr9EHXf11oWxhcoxfgGKkZvgJMFKlm3q/3J0iAyb6KGI+NJrK5ikMUH8C7Me+H+YCFTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TeaoVgY2; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=NM9ARI7B1SX+ijgItMKiJtAlqmUNwMz3rvpP6b4Fmi3an0t2Hsr4KSO+zuwqh/qJiqcaTWEhSMd0YiMP83fhsR/u5tk3cju97bRPLu+WP+T38t41ZxRyxD31z7vUHG7Q4XBKkWd5VkWMqXP11dVCvTg+XfsSGiNvvAiEAqVt+AE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FkCbj5iV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TeaoVgY2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11E911F000E9;
-	Wed, 15 Jul 2026 20:52:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FkCbj5iV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7873C1F000E9;
+	Wed, 15 Jul 2026 20:56:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784148771;
-	bh=yvvXfF4MMxkbg52aHtkqzkq213LU6ORGps4DBJfxOig=;
+	s=k20260515; t=1784148962;
+	bh=m4XmsXdgfJ/7kH3sualvLazcBXFKF6f6kDqvJIEEgsE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TeaoVgY2Sht4HEQLgArlPXfqRXN8XuESdahE4fJNbL/cYbUAAaTo2pMmYGvxIxMXJ
-	 nxObzDWUVRX8e+EoLsMU7JnxhgSRqYdsu4jKHeytV+DuzZj5HmLPVeTTljjkegUkcb
-	 jJRhrtJIXyMxvgNpvUv4ieSW6pwFfAg6I/2TEgvyfL6dDQMssphK7T9OX2b05bAnSp
-	 cy7X+qifJdnANsl8hAzNn4N+gkosOZ/7wlZX3blZ8170PxYdTMP1RCyjm5czq7ok/0
-	 bsajA2Pl4GVKbMc6b8sOmfeXiuXW5dLAKw6j9Znupbfo0oUp/TOX64GB95Uj+5TOoH
-	 OXCuRwaC4Kbzw==
-Date: Wed, 15 Jul 2026 15:52:47 -0500
+	b=FkCbj5iVJfU+LrvOIrZnVTa0oy+9XoN3XHaZ+IEPklQhed6GuGmXtzJn0uIyBXBI2
+	 BsjjJvWy+hFAdkOBfpF/e5+OuPUdxwlMobkbhF/ORwIEn+sRHv49X8p9xREUDBXSYh
+	 jIDLAv8MoVaceI1UPG680F7xGFgvUEgutmCC7HQBllcYGmYwKtMtmyCZB6hEG67BP9
+	 SyUchYqwkcjrGVrpCwpjHfGLApAZLNSMkQXgS7pCi1onnnPwCYWHkj6wgjiaxTJRaX
+	 gf1Up7DGqmfDV/YbDstC0rUP6Tm8+p+vBUEP8s31pEbk6idGQ+tpNidcO0qnBABHlf
+	 3BA0yzRsgCSZA==
+Date: Wed, 15 Jul 2026 15:55:57 -0500
 From: Bjorn Andersson <andersson@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
-Subject: Re: [PATCH v3 00/11] arm64: dts: qcom: Add x1e/Hamoa camera DTSI
-Message-ID: <alfzEnd10K2kPjwp@baldur>
-References: <20260326-x1e-camss-csi2-phy-dtsi-v3-0-1d5a9306116a@linaro.org>
- <178352261564.2235436.11540452339147753406.b4-ty@kernel.org>
- <5aa5487b-67ef-448f-8975-0c46ca1d3451@linaro.org>
- <e1b25b3c-ff3a-48f6-92f6-a81f7df24e54@linaro.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v2 0/8] qcom: display / dts: Few corrections of
+ address spaces.
+Message-ID: <alfzlxrqu23e9AgO@baldur>
+References: <20260405-dts-qcom-display-regs-v2-0-34f4024c65dc@oss.qualcomm.com>
+ <178339449937.1938770.7041355905157380217.b4-ty@kernel.org>
+ <b50912e0-b7cb-4986-9e62-63a15792a167@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e1b25b3c-ff3a-48f6-92f6-a81f7df24e54@linaro.org>
+In-Reply-To: <b50912e0-b7cb-4986-9e62-63a15792a167@kernel.org>
 
-On Wed, Jul 08, 2026 at 10:33:12PM +0100, Bryan O'Donoghue wrote:
-> On 08/07/2026 22:11, Bryan O'Donoghue wrote:
-> > On 08/07/2026 15:56, Bjorn Andersson wrote:
-> > > Applied, thanks!
-> > > 
-> > > [01/11] arm64: dts: qcom: x1e80100: Add CAMCC block definition
-> > >          commit: 6a3568f938c9ff2cb493f82dc595b4dc2760f517
-> > > [02/11] arm64: dts: qcom: x1e80100: Add CCI definitions
-> > >          (no commit info)
-> > > [03/11] arm64: dts: qcom: x1e80100: Add CAMSS block definition
-> > >          (no commit info)
-> > > [04/11] arm64: dts: qcom: x1e80100-crd: Add pm8010 CRD pmic,id=m
-> > > regulators
-> > >          (no commit info)
-> > > [05/11] arm64: dts: qcom: x1e80100-crd: Add ov08x40 RGB sensor on CSIPHY4
-> > >          (no commit info)
-> > > [06/11] arm64: dts: qcom: x1e80100-t14s: Add pm8010 camera PMIC with
-> > > voltage levels for IR and RGB camera
-> > >          (no commit info)
-> > > [07/11] arm64: dts: qcom: x1e80100-t14s: Add on ov02c10 RGB sensor
-> > > on CSIPHY4
-> > >          (no commit info)
-> > > [08/11] arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: Add pm8010
-> > > camera PMIC with voltage levels for IR and RGB camera
-> > >          (no commit info)
-> > > [09/11] arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: Add l7b_2p8
-> > > voltage regulator for RGB camera
-> > >          (no commit info)
-> > > [10/11] arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: Add ov02c10
-> > > RGB sensor on CSIPHY4
-> > >          (no commit info)
-> > > [11/11] arm64: dts: qcom: x1e80100-dell-inspiron14-7441: Switch on
-> > > CAMSS RGB sensor
-> > >          (no commit info)
-> > > 
-> > > Best regards,
-> > > -- Bjorn Andersson <andersson@kernel.org>
+On Tue, Jul 07, 2026 at 07:57:22AM +0200, Krzysztof Kozlowski wrote:
+> On 07/07/2026 05:21, Bjorn Andersson wrote:
 > > 
-> > Bjorn.
+> > On Sun, 05 Apr 2026 16:33:56 +0200, Krzysztof Kozlowski wrote:
+> >> Changes in v2:
+> >> - Patch #2: Add dai-common.yaml reference (Dmitry)
+> >> - Correct subject
+> >> - Rb tags
+> >> - Re-order Eliza bindings patch
+> >> - Link to v1: https://patch.msgid.link/20260402-dts-qcom-display-regs-v1-0-daa54ab448a3@oss.qualcomm.com
+> >>
+> >> [...]
 > > 
-> > This is v3 from March. We are on v12. I don't think you meant to apply
-> > this.
+> > Applied, thanks!
 > > 
-> > ---
-> > bod
+> > [8/8] arm64: dts: qcom: sm8750: Correct DPU VBIF address space size
+> >       commit: 4fd832d6aed496c7111746d2c1e36b006659f89d
+> > 
 > 
-> For example: compatible = "qcom,x1e80100-csi2-phy"; is not a valid binding
 > 
-> Please revert.
+> Only this one? I guess I will rebase and resend.
 > 
 
-Done
+I don't know why one this one. As far as I can tell they are all in my
+tree, so it's strange that b4 only noticed the last one.
+
+Hopefully that rebase came out empty? Or am I reading things
+incorrectly?
 
 Regards,
 Bjorn
 
-
-> ---
-> bod
-> 
+> Best regards,
+> Krzysztof
