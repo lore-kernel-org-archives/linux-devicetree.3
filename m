@@ -1,33 +1,35 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DAE935F5E3;
-	Thu, 16 Jul 2026 05:38:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDCB335F5E3
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 05:39:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784180294; cv=none; b=umRZDqd8vMvlBW10o5umgJHbOcsZc20DxL+xSCGw/TNezZSYzmuEDqdEVjLJ7xvC5SuFa+XeFQdM4wjnOU54ANQGgnLSk3Ef+a8XoX8Pl1ZW/fXFCyhwl25ZJwFIGsDRoMM9urMHn31J9eIFbwHwrhQGiWvEWWA0to1MG3airyw=
+	t=1784180373; cv=none; b=E1WJIBqB9aHQt7i8yvPNMMuP1rsAtDfCpr43lJFpJOAq78bcDCZ6olKymIh3BR00hhivbOOpEiz/+UtWmXq2zAdg6W25jm2TzLRdXu0O/uLPfwb+VpWJuDD9ce2oHaiuEzVdSAG3FCbDk8BI/oqE6MkLj9YB0RjojeyNPJU/hs8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784180294; c=relaxed/simple;
-	bh=o0KsdkkbOw3P2kPkB7LVFUbu5ai0YfGBzkddDsT40a4=;
+	s=arc-20240116; t=1784180373; c=relaxed/simple;
+	bh=OzV8K/HP/1iZwZHlRvlRr551cc6p86QiqmtxfigEHxU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bjEjeGfdrPieQ2v6fPLWBcQSurcV0urd5PshKA9T7RBDmG8BsG7HW1IpjOJavSeVE53riBcelbKQaY5RP5Ni2rBjvEaV0emGgik008T8++yDnO3+LtEPLe4zz0ZFJW4zb45/sLcKHK5Zp1L865lHG3I3oYbcLxQR3yg9P49P6yE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R47e/Ggs; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=K84JGoup9OZenXj6xl6xJIy46/JX1ZeAVvv/1XfjMhAxC0zN0RVAp0l1f4SPtA5BQfxk5H3MXhbPaCkugcWCCkKw8ivEJoXVTbfbGXZmfR+W1kK2EnxC6C8bHibeI44uiR9n2YowrkPAZLywn6f3qkE+mqVYa8D4iyVC9O2Fw+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=CT5qQ7Fm; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R47e/Ggs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0663A1F000E9;
-	Thu, 16 Jul 2026 05:38:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784180293;
-	bh=aPBjwrQ7HJlZT9mSnb+9SEx3z02TDM0bIn6AWKLLazs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=R47e/Ggsr1SDOTTdZXJ8p/yDGeWVP3kkJ5JyIoaeT4CKXDm6O1QifAw+L+1M8MIoY
-	 SDruldJzD8FbI8fccuzkSeMHaVdEW4TK7lLVRfatnvpWIxgRZCCQfWSlVvZV0SfhTQ
-	 n1xn5mIsbbHmaINp3WEUZiTBcf5tvwXATq4dCkRuGzZqW68GknJQgAk4HmgOVXUuMz
-	 yLCToa2VWGIASIfxL2RDxGACRKk9qHXxWigPzwtUnogV3/jidnHOsV/Wmwi+w7VFuB
-	 La6fcdtt36QElrHz9dSJ64tuhwEKNw5alCk62HvGkp5ry7JV8Ef2wJWBcGqVIeklZL
-	 ahjDWIAxvYNkg==
-Message-ID: <25f5de6e-05f8-4cd0-a091-1b16de0a6503@kernel.org>
-Date: Thu, 16 Jul 2026 07:38:02 +0200
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="CT5qQ7Fm"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0D623119B41;
+	Thu, 16 Jul 2026 07:39:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1784180363;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=PpI4q3/2Dkx3mceJVBfFoGBFN2uhwy2+sNYNJl9A4qk=;
+	b=CT5qQ7Fm3RrmYQ6t4IfCGZOkLydtHieEXKtkDtihEPfVoV01gCIuEJG8wVb0hDZYq1Pqgk
+	Z4cnS04qkn3pFirZaBf2EHJYs8RUDMzpoWWOOQuqf9vQif1wv/eUSpGQI4LoWw7FraRYHB
+	tL/CRORnPXgEE8WlD9ch7pglt0LmE55MtuzCRoKJLqYOJu+oXO679a6kVow19sgE3nTj6V
+	JV96k1s0OMYf3lxfpP8xyNS3ZfT6pFzo9gcH8Td1iB7c4asxzvLda5GNcKsqdrRIFyuSxQ
+	a3KjjxW7dVobbA5SVVaBpKlTJd6p12XgBngHRH1+Y/akGsE+KPdib7C04q9Jqg==
+Message-ID: <56953f06-2e3d-4137-a51a-ed91e9b0d577@nabladev.com>
+Date: Thu, 16 Jul 2026 01:30:17 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,108 +37,116 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: (subset) [PATCH v2 0/8] qcom: display / dts: Few corrections of
- address spaces.
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260405-dts-qcom-display-regs-v2-0-34f4024c65dc@oss.qualcomm.com>
- <178339449937.1938770.7041355905157380217.b4-ty@kernel.org>
- <b50912e0-b7cb-4986-9e62-63a15792a167@kernel.org> <alfzlxrqu23e9AgO@baldur>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v4 4/6] arm64: dts: imx8mm: imx8mp: Add CM DTOs for Data
+ Modul i.MX8M Mini and Plus eDM SBC
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org,
+ imx@lists.linux.dev
+References: <20260705200534.151803-1-marex@nabladev.com>
+ <20260705200534.151803-4-marex@nabladev.com>
+ <20260705202439.3F5771F000E9@smtp.kernel.org> <alUICTI-24tREZO8@SMW015318>
+ <f1e52327-42da-48e1-8e4a-dabf148ce216@nabladev.com>
+ <alWR66rjt-9jGEOV@SMW015318>
+ <a3602ef8-2b77-4cc3-adef-2c4cba08a5d9@nabladev.com>
+ <alezsOsf61Zv6F4F@lizhi-Precision-Tower-5810>
+ <c9a67cbd-fda8-4016-9cff-9125f3191b74@nabladev.com>
+ <alf9pp3c_zI4rwC0@SMW015318>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <alfzlxrqu23e9AgO@baldur>
-Content-Type: text/plain; charset=UTF-8
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <alf9pp3c_zI4rwC0@SMW015318>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 15/07/2026 22:55, Bjorn Andersson wrote:
-> On Tue, Jul 07, 2026 at 07:57:22AM +0200, Krzysztof Kozlowski wrote:
->> On 07/07/2026 05:21, Bjorn Andersson wrote:
->>>
->>> On Sun, 05 Apr 2026 16:33:56 +0200, Krzysztof Kozlowski wrote:
->>>> Changes in v2:
->>>> - Patch #2: Add dai-common.yaml reference (Dmitry)
->>>> - Correct subject
->>>> - Rb tags
->>>> - Re-order Eliza bindings patch
->>>> - Link to v1: https://patch.msgid.link/20260402-dts-qcom-display-regs-v1-0-daa54ab448a3@oss.qualcomm.com
+On 7/15/26 11:37 PM, Frank Li wrote:
+
+Hello Frank,
+
+>>>>>>>> [Severity: Medium]
+>>>>>>>> Will this node name bypass the driver's carveout exclusion logic?
+>>>>>>>>
+>>>>>>>> Looking at imx_rproc_prepare(), it iterates over memory-regions and checks
+>>>>>>>> specifically for the name "vdev0buffer" to skip processing the vdev buffer:
+>>>>>>>>
+> ...
 >>>>
->>>> [...]
+>>>> never existed in imx_rproc.c:
 >>>
->>> Applied, thanks!
+>>> AI refer old version code, but problem is the same
+>>
+>> No, sorry, the aforementioned piece of code never existed in imx_rproc.c
+>> according to git log. There is no old version of the code that looked
+>> anything like what the AI produced above.
+>>
+>>> if (strstarts(res.name, "vdev0buffer"))
 >>>
->>> [8/8] arm64: dts: qcom: sm8750: Correct DPU VBIF address space size
->>>       commit: 4fd832d6aed496c7111746d2c1e36b006659f89d
+>>>>
+>>>> "
+>>>> $ git log --follow -p next/master -- drivers/remoteproc/imx_rproc.c | grep
+>>>> vdev0vring1
+>>>     ^^^^^^^^^^
 >>>
+>>> vdev0buffer
 >>
->>
->> Only this one? I guess I will rebase and resend.
->>
+>> The AI generated review content above does refer to vdev0vring1 , which is a
 > 
-> I don't know why one this one. As far as I can tell they are all in my
-> tree, so it's strange that b4 only noticed the last one.
+> No, AI talk about "vdev0buffer" at beginning, never said vdev0vring1 at all.
+
+This is the code the AI quoted in the review feedback:
+
+"
+	if (!strcmp(it.node->name, "rsc-table") ||
+	    !strcmp(it.node->name, "vdev0vring0") ||
+	    !strcmp(it.node->name, "vdev0vring1") || <-------- HERE
+	    strstarts(res.name, "vdev0buffer"))
+		continue;
+"
+
+It does not matter which identifier we use to look up the AI quoted code 
+snippet in git log, the important point is, that the aforementioned code 
+snippet never existed in the Linux kernel as far as I can tell.
+
+But as far as I understand this, I should adjust the DT to cover the 
+test in the aforementioned non-existent code snippet ?
+
+> "   Looking at imx_rproc_prepare(), it iterates over memory-regions and checks
+>     specifically for the name "vdev0buffer" to skip processing the vdev buffer:
+> "
 > 
-> Hopefully that rebase came out empty? Or am I reading things
-> incorrectly?
-
-Yes, rebase was empty so that was just b4 glitch.
-
-Best regards,
-Krzysztof
+>> unique identifier, but that unique identifier exists only once is the entire
+>> history of drivers/remoteproc/imx_rproc.c and that is as a code comment .
+>> That proves my point that the aforementioned AI generated review feedback is
+>> not based on code that ever existed in the kernel.
+>>
+>>>>       vdev regions are vdev0vring0, vdev0vring1, vdevbuffer and similar.
+>>>> "
+>>>>
+>>>> It seems the AI hallucinated something which is not based in reality ?
+>>>
+>>> git log --follow -p linux-next/master -- drivers/remoteproc/imx_rproc.c | grep vdev0buffer
+>>> -		if (!strcmp(it.node->name, "vdev0buffer"))
+>>> +		if (strstarts(res.name, "vdev0buffer"))
+>>
+>> "
+>> if (strstarts(res.name, "vdev0buffer"))
+>> "
+>>
+>> and
+>>
+>> "
+>> 	    strstarts(res.name, "vdev0buffer"))
+>> "
+>>
+>> looks like different code , and the AI reported "strstarts(res.name,
+>> "vdev0buffer"))" which never existed in drivers/remoteproc/imx_rproc.c as is
+>> clearly visible from the command output you shared above.
+>>
+>> So, what exactly is the problem here , can you please clarify it without
+>> referencing the AI generated content above ?
+> 
+> The problem is simple, node name should use
+> 
+> 	vdevbuffer: vdev0buffer@b8400000
+>                          ^
+I see.
