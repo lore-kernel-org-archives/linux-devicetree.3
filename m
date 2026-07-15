@@ -1,184 +1,197 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011046.outbound.protection.outlook.com [52.101.70.46])
+Received: from mail-m1973179.qiye.163.com (mail-m1973179.qiye.163.com [220.197.31.79])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3959E480DCC;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6EA43B6D8;
 	Wed, 15 Jul 2026 15:19:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784128755; cv=fail; b=GcpVFdGy5AwOmTCnBie0haSifBlgNWRel+qF0N5kO5nUSOhoWkMRkCBl3WYr7xdbMRtvf+tcXIqt4TAPOYv0FOr3UMQXynVCGBVJyuKXXaTP/O/qQ9X9T7G31ybPW63bQrML0qQ3saB6dm7FJYgQ7s34qGIWQrWbeI4wgS+lap8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784128755; c=relaxed/simple;
-	bh=70azV+2U/tSnT9PXZKKxF9fpT/Rgg5NRbJehjR64LAA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=DkLGlLoVEiPb3b67TY2r8Xh0wU81UcC5wX+BMZuFMPQib1SUDmL+E0xfgkuYvBLvM0P73MAkBEFjSNoUWOQvVKWH50KRg8c/fcZkF9yl/8Jmx08wNyPJzaoaLwLF+DjVvXWeKSiCR1KyKlrbb1lvFj4qPHrLHFWMEiQ+2fXb57E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=P+Y7k+mM; arc=fail smtp.client-ip=52.101.70.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.79
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784128759; cv=none; b=EpvIF8L3sex4WHVeg/OWlXn0ehCdYu3kS2tNOTrwOZu7DrxpRUOfFd9k3wWanueY+nPmzKD73bMyr63piaRphrdwreu9Hl92ohSaKjYFVQ/5twniTYUY0i7r2pNKbBiKrRzjeuWG2lEUWKyOSzmwhazv9S6Nab3rc0RwI5zQf/M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784128759; c=relaxed/simple;
+	bh=id7q/6siL0HW+2DiqBDKxbuVGwyOogsVIO1tAN/r3jo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=jFd9iPJC/225OwmLLhcofQnlbfbReFNeP+OtCcKyOkpaVYWu4K+lic4QpbD9JrQOxRh6Qb6Kuj/NnzZR52J8KQMIARsKBD+SPnZ3lYN28MWvJ/qVP8SxPPPEr2na4dlefoos7D3vQ/HD8QoH8yaCIyvagZXtaWaCNClMkFwOpjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=UncHRb1Q; arc=none smtp.client-ip=220.197.31.79
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="P+Y7k+mM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qtTWiP2ftLWHwQOg68d1QsBgbsBslOd+zbifrYTwPNtd/eb2ecHPSJ448y46pOEfazG2fWBJNzkz+odf991dQCmp6SJAUVQaozmsM72SjJ4iMEIvPxKM30aa7o1wg1ppnoIlGe9C4jZTKDNuK0fazY9tQH8NOkLmsA5vlCpxQ6wjLCyTxFLREfPqvFBI4TF4jYIfrRg3udVfrVn7FvvJl0C4qQNwmHk2H+bG1icblpLTz5jsCtDomn8asCus/6PRjqOV6x8IETMGnwMp5oFq6yOYZCsdHZaViQE6+eT57et89eyaE11OghkaqT362Fp6mXHoLPinyd/kqt1g60QSYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tt67xBHD1qf9Tb3wlx6rbSuh1dHlyDIwD4+9s1Vcu20=;
- b=HbBA4LMmnMre8MbSK42hNc9MfGst9WrzEbRvhgQ+HR8jFiNxsVuenRLC+u23boW09PcQunXIVY4nfwFeg3PMzJRmh00lsP4q00gETRaXeOdCi+sDHHNJiUe6MtZ0VRjSm3HNdBUEYHGMdyAGAGj9yF9bdAqJSrYDaxvNN6n8W/MwXL9Tu3XIu6Upl3gkKrot6/DB4N4WYy4TeCdMfwhLn3Ic1J9siAdcAoIQ5ntIJ6ukwzC9WafqdQjphj5LZeViEScirOpk+d/k/ANjnAVpgwExI4Uvn9RQtzpeIYFVLxagJz3E11KicxsMvBqdNsEvMEuSDc+pxgVD3j2PJtW3+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tt67xBHD1qf9Tb3wlx6rbSuh1dHlyDIwD4+9s1Vcu20=;
- b=P+Y7k+mMy/Jv3uNkMhT/P3eYCdXUVQP3Oi+f7yQh4ccRjUpKBgim4zzvYwMu7RMTpTsXIEcmOauKaIvrYTZgMoVOARiY+30iLOhDdMHzEpPqxq7ZzuspOwwrmxyefBcPq/WqiK3HbxUij1Vo+F/HOkYWjqUs1reD5JaTPPWo+WhWpEBKZrjPr3RmM2uZfDRCfxIqd1EQ7rNg0/1YYkYQd+zD6D0n2vdZmZVREEbS2eYgN1cMuwaOlnJ6mxXgQ0Wb0P0om2Zpvt97bhGcAbrn/yz3cDX1k46B4402j8DXLKKjgTJGLcjpXT8yT/dEwzeWto8CRvmWpMLDXsD4JKK1UA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PA1PR04MB10746.eurprd04.prod.outlook.com (2603:10a6:102:484::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.20; Wed, 15 Jul
- 2026 15:19:08 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0202.018; Wed, 15 Jul 2026
- 15:19:08 +0000
-Date: Wed, 15 Jul 2026 10:18:58 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
-	Sherry Sun <sherry.sun@nxp.com>
-Subject: Re: [PATCH 7/9] arm64: dts: imx8ulp-evk: Enable LPUART7
-Message-ID: <alek4tElFofLUaO-@SMW015318>
-References: <20260715-imx8ulp-dts-v1-0-19651358b599@nxp.com>
- <20260715-imx8ulp-dts-v1-7-19651358b599@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260715-imx8ulp-dts-v1-7-19651358b599@nxp.com>
-X-ClientProxiedBy: PH0PR07CA0104.namprd07.prod.outlook.com
- (2603:10b6:510:4::19) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="UncHRb1Q"
+Received: from [127.0.1.1] (unknown [36.129.139.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 464e8f2f0;
+	Wed, 15 Jul 2026 22:03:25 +0800 (GMT+08:00)
+From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+Date: Wed, 15 Jul 2026 22:02:52 +0800
+Subject: [PATCH v2 3/6] ASoC: qcom: common: Add generic headset jack
+ helpers
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA1PR04MB10746:EE_
-X-MS-Office365-Filtering-Correlation-Id: 83572b8e-b229-4d5d-274d-08dee2846a59
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|19092799006|22082099003|18002099003|10067099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	m2mtzYm7qod118+MNls4vcJbTrRHHTWJvJ4excyv/dydU/hyD5HjrfkSFvCTTpcDmCZDCMz7ThmthXWtPs7YGdIt7YByOB1hjwz308K+wtKWYwPaaht67LYgPbgrHE23gKlkMx3B6eclN3bz9SfvPujGd9Q6VDXp206qSMCuhSwFt9q0mvvDuNeHtuMX+iuyCWxDJuTfpw9uFHTl5nZh3fdGZZZs/MijqWQS0NGsD2C0xm4goTIzDU+VCWkPgKGSOsLuaLTrYpkjAyF5B95r+n7ZjnMcgoFMj7wkeOoyKyd8O9CstN6TMbJYANY53NEgDqIFSV+rwkdRmK/nSlyKdQsg7UYIAMzSXe+Ih6q9LGnWm0vCEmlzpKJyM+dgOezrMlk/pC0Jh/ETl0QMhBFckhGGHVHmXVIMjSUl+qe+Qq0bwgCwr55vBud2QqTDlsFM+zfbHulbjLdxgApflu+EI/aI9DXSGwFEG0pikh71RwoFHLq5J+3MAIamdfa2XkXjcV3uREpLUPG7TUCF4DfJ5hzh2OrPG/jVVln8ltBp4g47stVBkaEMg+QlQ3eUs1sl+oOITNsih5BmE083Y7CTCTwpjQjxeDVsKhQx084ohsR8jab93RQxkEwUra8xG3UiU7Zvnyd4dSTBvvBXRYwFjGXSFAX8eWWHwF1PismxgiQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(19092799006)(22082099003)(18002099003)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?bFiarnQGWocIdvwgDSYNbnerKGVgLc4Z8C+mldK0a3QbDPMkAqSH0EyI1i5w?=
- =?us-ascii?Q?NK5S3/sRyfEYkCckmpijHhqczzM4qWlRc9VRPKBQApr7DeDD3OGUjOl+Wl80?=
- =?us-ascii?Q?tyKBkRO1i+D6/iBnUCSE6HrmpgX8Eygb0CuJOQxX1yOQpiCSmo2AeuETyhpo?=
- =?us-ascii?Q?z6tY726wun98qCk7WTG0rUOaOdv0m6I58zXyM28BFc3ThKyLkoA7pYZ8oPYg?=
- =?us-ascii?Q?kIkn94OCT1c4G3Esq5nJnFB0MMQNbWDvygv1vEsCtLr/OPthOO6XvN+jQ7oT?=
- =?us-ascii?Q?C3/GEFOZJ11XNMNmyyqQtcbOmnxEN8TzsbHwxRg8gyJRs3hiZsblstao/+T0?=
- =?us-ascii?Q?xjuwRQLnw9h7g0A3F2znujvcMECXFj/SUCJ0kc1BhI+jmUzoZkuJSJ+Kb0xM?=
- =?us-ascii?Q?Dz4b3isN+FPZKaqcIU3GRWonyhKjUbrCibyJJU4QuTW3VMCHOHZ6cKDDspTn?=
- =?us-ascii?Q?0UwsgNFTUyrzfGv5CXWixGsMpgxFAdS7mK1ucgJNb8hPykqJ7ZPJpBmD4oNd?=
- =?us-ascii?Q?LJ+FdCol4nKT7o3ekIgBTEKZBaMuFSci+uADIUsVESjWO5qQObK2yuSrkA1F?=
- =?us-ascii?Q?ST0IxSZRev4WVgIn12GQBY80btrSZ21StVAvh9VYRpMY69nJG3Di74k9whq6?=
- =?us-ascii?Q?D9ca8EDqe0TdcfKqtNKq50v6qfY33n4oodWi5IY7Dy3ObsR07v4usrYCuTSw?=
- =?us-ascii?Q?LnVHzliJFHmnMk2Bvoi4N8OxzPRWA1hqPdFulD66OAAxUYZl+qXLQe+FAme/?=
- =?us-ascii?Q?1fnBW2FdUBj0AfTK8EusIQ/1QxRQIZUNCrTaYzmuCAekmIEECjdYR1oSP0WF?=
- =?us-ascii?Q?pHMctcb/naMQ5xAepTnDD/g7MJcgc4+zZjN9Gp85XOC5iE4oUsGarbaQAAJN?=
- =?us-ascii?Q?gyVW0aU/v/qRdzCxc5Qp9AWuGr1N3OPg9yAx2CIt7TzF/iSHqexeAhVhb3p1?=
- =?us-ascii?Q?KoQkuS9EVYIj5yJH8s3v24ia0ypQrduv6mlyZP16L3v2KBPrNPbJ4fpgYRDv?=
- =?us-ascii?Q?uAsOBM/Vz7zSnnDgFwZJH6Nv9VqBm2pTnud2DWe3jI8sABH3Vi8afrwOPohQ?=
- =?us-ascii?Q?YTAZHLUSTr8G4upV+IPs3KKtObn2p7dgQsLAkdNIGo29KX2GXVf2SARABe7+?=
- =?us-ascii?Q?f6JCo4N1hjhE4Pk7xErnupVM6SYwUVPtVBuALv/V4SerqbXjistJFCLwAVJC?=
- =?us-ascii?Q?BpIhotGQh330TwmM/YUvHLut5iDD48A8Hxb1CsooHD0yNZIet7icpmPKmq/K?=
- =?us-ascii?Q?iHo5fVKd98dvEmqmXL93jGh9pCYBa7IWr8NmI+97pftuA91IxcmvDJ0g0B6b?=
- =?us-ascii?Q?J9kTAqALONf5CKRf/Qfj64gO3X8LEzT/10Af7g25T6qcs2k03+uTSvwlD5DO?=
- =?us-ascii?Q?Ux9HtqE2heYjiswOH0OQKIZzLdZP3XMR8xligiL+yrDfpocZEGaouce/PXRH?=
- =?us-ascii?Q?B6CyK0anmICa/TaQ9lVeLypqGxoLFPfqsbxjl+9ev6+BPEFVQviCq5I+kIOY?=
- =?us-ascii?Q?wXrrzpAlxcP2VvTztSixt5pkS7ZoJx457de9+ASx6nk58Jucf1v2SW3lYCIP?=
- =?us-ascii?Q?N6uM3YIx94dA86Ysx8BLTjN0//cmkgNTL/etX1tOlLQ8dUitCURMbHR2WaqZ?=
- =?us-ascii?Q?26O1sTFtbl8dJgQkr3fqR+LTWcKIYqecGmwfYitt6mXh7G1FTZBTEa6lAvzU?=
- =?us-ascii?Q?McYcUPQJslgr++2T1ulwdW79FKal7IzOk8paiaA11KY/TTCSP8dMQVXnldNi?=
- =?us-ascii?Q?3Qpu51p74eQiHoUcePIvl3Y4red5Y78HnQ9GOAWHxElkVtKk2icz?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 83572b8e-b229-4d5d-274d-08dee2846a59
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 15:19:08.4132
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bvPzfg5Yej2QeyaeysC/uq+ZYSbYTndtCL0WmMuxXjEOdvAsU28V9+k/wLIHK0cg5I7nHhhMW5uX3fEHGPXBUwWVjw/f43Y/WsHgAbeZymSL7pkOcrizHk50qs6UumwU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10746
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260715-rubikpi-next-20260605-v2-3-67601d7a8581@thundersoft.com>
+References: <20260715-rubikpi-next-20260605-v2-0-67601d7a8581@thundersoft.com>
+In-Reply-To: <20260715-rubikpi-next-20260605-v2-0-67601d7a8581@thundersoft.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>, 
+ Katsuhiro Suzuki <katsuhiro@katsuster.net>, 
+ Matteo Martelli <matteomartelli3@gmail.com>, 
+ Binbin Zhou <zhoubinbin@loongson.cn>, 
+ Srinivas Kandagatla <srini@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Roger Shimizu <rosh@debian.org>, linux-sound@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, 
+ Hongyang Zhao <hongyang.zhao@thundersoft.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784124199; l=4189;
+ i=hongyang.zhao@thundersoft.com; s=20260127; h=from:subject:message-id;
+ bh=id7q/6siL0HW+2DiqBDKxbuVGwyOogsVIO1tAN/r3jo=;
+ b=J2zrDj9Lazll+x6uW8OhX/5UH7KwLJb5Pe7N88LDHlSK6iJDLBGa20pWDXgft0WmEVWim3LKr
+ KOQwzlIpbraBfhLsgtMiSF7BPNWqjqlZSELj4j8W2W+zFEVylYChTDv
+X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
+ pk=D9yL5W9Zj0lPBDAq9gzY++1849VlXuTWAkROzZ88J/4=
+X-HM-Tid: 0a9f6616ea5209d5kunm638899c2110c5
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGkxJVk4fTENJH05OShpLGFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
+	lPT09IVUpLS1VKQktLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=UncHRb1Q9/wlqdnY+9YS3/kK+CyRh9DlX9CLXzYQU/7t0cdVCzjl+yYfINHvzlyWgtVEogGJOZ4rkKDAJF1qOWNZ3kJRpO7U3+Lb7h2t5MPhcbSiBT8oK4zK0PeCbiGT+TC7MZjCKhVogrJqyrgJcw3+eJn1FpweA2W1IiwBdtg=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
+	bh=RLuAC66DUpAVIdiO/b90btB9K++9bJ1owk3sFGrqr1U=;
+	h=date:mime-version:subject:message-id:from;
 
-On Wed, Jul 15, 2026 at 08:33:08PM +0800, Peng Fan (OSS) wrote:
-> From: Sherry Sun <sherry.sun@nxp.com>
->
-> The i.MX 8ULP EVK proto1B revision routes LPUART7 TX/RX to the FT4232
-> PortD connector (J25/J26 pins 2-3). Enable the port by default so the
-> additional serial console is available out of the box.
->
-> Signed-off-by: Sherry Sun <sherry.sun@nxp.com>
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
->  arch/arm64/boot/dts/freescale/imx8ulp-evk.dts | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts b/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-> index 66e99cd24040f..938ead54ff50c 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-> @@ -179,6 +179,14 @@ bluetooth {
->  	};
->  };
->
-> +&lpuart7 {
-> +	/* FT4232 PortD: need to connect J25/J26 2-3 */
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&pinctrl_lpuart7>;
-> +	pinctrl-1 = <&pinctrl_lpuart7>;
+qcom_snd_wcd_jack_setup() combines creation of the card-level headset
+jack with the WCD-specific operation of attaching jack detection to
+codecs on the TX codec DMA links. External codecs connected over MI2S
+also provide component jack detection, but cannot use the WCD-specific
+DAI filtering.
 
-The same question here?
+Factor the common jack allocation, DAPM pin registration and headset
+button mappings into a private initializer. Reuse it from the existing
+WCD path and add a generic setup helper which attaches the jack to every
+codec component in a runtime.
 
-why need sleep state
+Add a matching cleanup helper so machine drivers can detach component
+jack detection when the DAI link exits. The WCD setup behavior remains
+unchanged.
 
-Frank
+Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+---
+ sound/soc/qcom/common.c | 61 ++++++++++++++++++++++++++++++++++++++++++-------
+ sound/soc/qcom/common.h |  3 +++
+ 2 files changed, 56 insertions(+), 8 deletions(-)
 
-> +	status = "okay";
-> +};
-> +
->  &lpi2c7 {
->  	#address-cells = <1>;
->  	#size-cells = <0>;
-> @@ -370,6 +378,13 @@ MX8ULP_PAD_PTE8__LPUART6_CTS_B	0x3
->  		>;
->  	};
->
-> +	pinctrl_lpuart7: lpuart7grp {
-> +		fsl,pins = <
-> +			MX8ULP_PAD_PTF22__LPUART7_TX	0x3
-> +			MX8ULP_PAD_PTF23__LPUART7_RX	0x3
-> +		>;
-> +	};
-> +
->  	pinctrl_lpi2c7: lpi2c7grp {
->  		fsl,pins = <
->  			MX8ULP_PAD_PTE12__LPI2C7_SCL	0x20
->
-> --
-> 2.34.1
->
->
+diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
+index edc4611691f7..c48819a0ed78 100644
+--- a/sound/soc/qcom/common.c
++++ b/sound/soc/qcom/common.c
+@@ -184,13 +184,11 @@ static struct snd_soc_jack_pin qcom_headset_jack_pins[] = {
+ 	},
+ };
+ 
+-int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
+-			    struct snd_soc_jack *jack, bool *jack_setup)
++static int qcom_snd_headset_jack_init(struct snd_soc_card *card,
++				      struct snd_soc_jack *jack,
++				      bool *jack_setup)
+ {
+-	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
+-	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
+-	struct snd_soc_card *card = rtd->card;
+-	int rval, i;
++	int rval;
+ 
+ 	if (!*jack_setup) {
+ 		rval = snd_soc_card_jack_new_pins(card, "Headset Jack",
+@@ -214,6 +212,55 @@ int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
+ 		*jack_setup = true;
+ 	}
+ 
++	return 0;
++}
++
++int qcom_snd_headset_jack_setup(struct snd_soc_pcm_runtime *rtd,
++				struct snd_soc_jack *jack, bool *jack_setup)
++{
++	struct snd_soc_dai *codec_dai;
++	struct snd_soc_card *card = rtd->card;
++	int rval, i;
++
++	rval = qcom_snd_headset_jack_init(card, jack, jack_setup);
++	if (rval)
++		return rval;
++
++	for_each_rtd_codec_dais(rtd, i, codec_dai) {
++		rval = snd_soc_component_set_jack(codec_dai->component, jack, NULL);
++		if (rval != 0 && rval != -ENOTSUPP) {
++			dev_warn(card->dev, "Failed to set jack: %d\n", rval);
++			qcom_snd_headset_jack_cleanup(rtd);
++			return rval;
++		}
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(qcom_snd_headset_jack_setup);
++
++void qcom_snd_headset_jack_cleanup(struct snd_soc_pcm_runtime *rtd)
++{
++	struct snd_soc_dai *codec_dai;
++	int i;
++
++	for_each_rtd_codec_dais(rtd, i, codec_dai)
++		snd_soc_component_set_jack(codec_dai->component, NULL, NULL);
++}
++EXPORT_SYMBOL_GPL(qcom_snd_headset_jack_cleanup);
++
++int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
++			    struct snd_soc_jack *jack, bool *jack_setup)
++{
++	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
++	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
++	struct snd_soc_card *card = rtd->card;
++	int rval, i;
++
++	rval = qcom_snd_headset_jack_init(card, jack, jack_setup);
++	if (rval)
++		return rval;
++
+ 	switch (cpu_dai->id) {
+ 	case TX_CODEC_DMA_TX_0:
+ 	case TX_CODEC_DMA_TX_1:
+@@ -232,8 +279,6 @@ int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
+ 	default:
+ 		break;
+ 	}
+-
+-
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(qcom_snd_wcd_jack_setup);
+diff --git a/sound/soc/qcom/common.h b/sound/soc/qcom/common.h
+index ee6662885593..0a255b08e873 100644
+--- a/sound/soc/qcom/common.h
++++ b/sound/soc/qcom/common.h
+@@ -10,6 +10,9 @@
+ #define LPASS_MAX_PORT			(SENARY_MI2S_TX + 1)
+ 
+ int qcom_snd_parse_of(struct snd_soc_card *card);
++int qcom_snd_headset_jack_setup(struct snd_soc_pcm_runtime *rtd,
++				struct snd_soc_jack *jack, bool *jack_setup);
++void qcom_snd_headset_jack_cleanup(struct snd_soc_pcm_runtime *rtd);
+ int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
+ 			    struct snd_soc_jack *jack, bool *jack_setup);
+ int qcom_snd_dp_jack_setup(struct snd_soc_pcm_runtime *rtd,
+
+-- 
+2.43.0
+
