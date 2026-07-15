@@ -1,68 +1,69 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C813A448CF5
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 11:44:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D813344A718
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 11:44:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784115853; cv=none; b=rfzkvlzrcbudNa6LnKtJS+FyzkuR41Kotr01PN3mV1ksgsqpMJ5YPb+A3cOCu8B96mcYjbkV3BI8tyLRvrHPUSRFLZZ9tuQ/5kHcWOikoqxh8/88UlqhWdT8NET0vpspf33pkjXomnVVhGyoaGTRmpCLkvH66NwoRbVxcFBC8aQ=
+	t=1784115854; cv=none; b=kUTWvMz+QHVugxcKz3t33go6j2PKsJVZPFS2K77WI07j/8/Wfcb/To3/3n/OqFaBXDZ/rh63ZT8j/HQ+SiHhnSF1KcGaVlP5cQwmgl3LO4EXMoNPH6lDFVCoT82cnhDp3F/eSte67Rd/sbKtBkIgj3CSFo7336DAIPsU7Dmc7/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784115853; c=relaxed/simple;
-	bh=TiWHPeDGaPVeBlBGHKihLG/CZfpC4vuLM0PYqJWSqJ0=;
+	s=arc-20240116; t=1784115854; c=relaxed/simple;
+	bh=RDZWQZuinWfD+cU4EhZ+Qa3Kim+iJSBL7wAOTiV77wI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RqjBLCcpqzWDAsNtc61MhtYkk6aNnP6GEvHjtqUCzAi7XCM5s4X2u5q+Atx46qqYQi5rBS8IpKQN2PFYs0qvuiXAMJ5/SX8UKZCz+w7zSe67L7ov9c+Tt1ExOwywpTIGQeYAldZiiOwYeMPNCZOEf8veiY+3jbuZy0+LVWujr/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=Vi1o2TyR; arc=none smtp.client-ip=209.85.221.53
+	 In-Reply-To:To:Cc; b=VQawfVSYT8nG0Q2/aWo0sliwaSRD58qI4IqCeheXvZj5LbC6R+9CWleExO8QvgAO5mJpW3LBXzofubWhvR7UtIuRAw58T7TfxJ07YpixDl2X7F46lWDSfrvenNJPkDYelGyUDSqwVYAdGGU/EVNVmSAl2nYsNNh+Dz6mqeA0PMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=f1AGOqOy; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="Vi1o2TyR"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47df440fcd5so3016904f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 04:44:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="f1AGOqOy"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4629051c9d1so1276748f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 04:44:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1784115849; x=1784720649; darn=vger.kernel.org;
+        d=raspberrypi.com; s=google; t=1784115851; x=1784720651; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RvLfYd+pvOrvfxKIqJXK3E0FFOSlNO+LlwCAOW1ExY0=;
-        b=Vi1o2TyRXB3P/F/zsiNIhDq9FHeLY6vHkvmCZTUINf1iBBFth3nDL8WGpQW4fcodyo
-         2+miF+04CTFz6PbVzMoPYyzVLsma2Tw+e88tsve1w/2aI3b0eM4tfqj1qdAuNl2SoBNv
-         g+FcJ3HClQuL5TBPlhmH16DUgMMzMTgXW1GjThnDpd5r7gkF2/tgJF+mxubGZ8MbcZ9a
-         3TS4q66JAR0IGnnt9kZg8qNNR3hWlL3BvwbB0Or113/4Jo6H/CJnYr8z1D8JauFzJoVb
-         blhXa0Xx4Au/m0sVFsnos+oVJt0VB5rb0ppvBa7Q60ZPgFsOKyMaeb8Vy7V5mwlKssbl
-         Ofxg==
+        bh=L5o9RlxsE2MKhjLVDUh9pAaiwDabzRmi61sj7zjZ8Dg=;
+        b=f1AGOqOyd2OsH+O5Y4ykn+BtrqZJIxCxH1/Qk+3NxoWcGmTL6fLBSb8QCBAl/aeu02
+         oyM4K2g5hUFOCfiyAXlnLzKQJgm0FyvArvTArdePPpqJsvcxsBjXil6aX9oTPdx2d8Qa
+         9+MkuDRYyvj5UXL94xkfgAE6JFeEtxJ2R5flO4+NtgUhgY2jRkUZcWs2tjLKgtnStvTo
+         bsbL4sOOEPrByBQyImHHoBMA8Xu7aVW1Pfa9QH4vPe8DrMNLz7imb/XDvaJ4l/VPGGjE
+         51XIujYD03r6RBfR2YRg+V9ip1Jl0I+RP/uwdTiADl+FPo5JYaW/j9qh7q41JYR+d4rt
+         zUdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784115849; x=1784720649;
+        d=1e100.net; s=20251104; t=1784115851; x=1784720651;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RvLfYd+pvOrvfxKIqJXK3E0FFOSlNO+LlwCAOW1ExY0=;
-        b=IX2i2OxkiGKa/JpOUmtSrM2ONPA0wYYKZxGJ608c7QSkRC5//865ZCeF/CkuaJ1lvs
-         eMNGawsXB4KkbE1ZmsaaSsOUz29007dXT41FK7VyI8cXD+gyEbm27V9RysyqXoQPWtUg
-         DZJZ4TGsmYqfefOUHPQBtukY+OKu7r+EAEw9+039rQEe8S4Wys7BVRviXh5t2BhHNv9h
-         BUIdgBnqYvMbMoVEsHyz//3Vs/JkjgepNgGwJsk7FqKJ99Mmv5MdNZfgzh5K2Eeb4mF2
-         LEjxPc4psZWo2QLrqbR6PE+22i0JtBOAjY7MWysLVh1ajJafSRg5Oxn91jlgCeoGZxAC
-         Dy2g==
-X-Forwarded-Encrypted: i=1; AHgh+Rr1B0p2pqmloQUvFOxRDU4oWbYY40iQ1QI3YTAWznwkqNPz91b/jZ8ub2sIUwctDIRcURFzVAmGU+x1@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw4eQ6rhpCAs6Q5ZVZb2fZGNOdOfPlWsSvNzSgPRotvDIfyaVPd
-	QxE7G7NYYiP2PupxkZgI16mvmY/yVZtHwyGC1dOWX9EMQgh55vxchOOTr7M+0kDfWDY=
-X-Gm-Gg: AfdE7clNNQc+3VplVGi92hwSh/PfguoovpCtxrwhwRKP6ekBLQAJK9mVA1eQcjWFQV7
-	iByDC43ZhcPsZuaoWBJROMgqwlKPeCJE50N+kJrNbUPbZpXvVab+j8nghKFhD4pYGGZEO/u16W8
-	eLFTpdUrvf5lrpzkic2VbfC7vcVLLmZRe1DipYJOl5Oi5Bq5w5bzNsXQ+qfKKKgPvDNQT0OpVFV
-	C8QLBGGFNI/DheLoUCTXtahCTJ5358y9LBYqEMUm9qduiTlTpJAu/mZmBd0mNUSvNGZHe2y4vrO
-	wY8JTpV8lkSvjYyGvR3CY3EQ8cTuJ+pNBKs/TaqfauNCgVL+Rx/8WW2dN31jZJaIYovlKpYFL7F
-	EVeECOEUJGiqXBA9eB9DBdpMwf//u9RCdRX+znvBf1LFaR7OoPWIgDEkIRFoRba1jwmAa3FWkdR
-	YzFJ8JSeHRXhLfu55l1CJ0chgRLpYEsVgRlCs6WuyQNNK7u6tdbBTgsX1TR7HBNaxV
-X-Received: by 2002:a05:6000:612:b0:478:9d9a:d4e1 with SMTP id ffacd0b85a97d-47f4fce484emr2623565f8f.30.1784115849048;
-        Wed, 15 Jul 2026 04:44:09 -0700 (PDT)
+        bh=L5o9RlxsE2MKhjLVDUh9pAaiwDabzRmi61sj7zjZ8Dg=;
+        b=o5WMLJHJ+ARva99QiYX8ZpZAWMdoyREzD1ErJcF+GPrpD75UYlZqOoJvYjm00Vz5Bs
+         rMgZl5vKmOx2QunRPjBXqBW1MEiEncgJZBxApL2zYX1NkFfzGDqXYa3MbuEQwwAKZO2/
+         GSgkaNzNkqjIw45UKqdTozhEFisNbsTpOWEPhQvy8heWS8XgHJ64koNz4WAWZQhCp1x9
+         TqSx2CA9k3F+xpY4J1VjuHbBx030h1ZRUgIvh3Gu+EocrXfzZXFULasTuq7hupNqHJf1
+         bE/ufzIer4oicihnh3Ntc9jnWBwBeTZTeWZlVbcKZ2pZJzYduJX5GnYfojCtwLCN3T3h
+         pLzw==
+X-Forwarded-Encrypted: i=1; AHgh+RoHeaSZdg+oKqKnr2OnicOEgWpNS7UwvGg0hXTpYZmlIq31cvwgiCxrX//XfP4XygIUD+oDlQcbgYzD@vger.kernel.org
+X-Gm-Message-State: AOJu0YzpKVkyI9mTVj2MQF0rmdYMGv5vKlouiuoYoPD5kI8eJ7Ph5Hwg
+	VoC+N8NXtS9D7945zQ+QeqBHruqChtxbiQWlqM9ggh7JZQuQHbXYFvY/QnksZwbVEK0=
+X-Gm-Gg: AfdE7clHV7QU8L5rNjem1P1niIkzWeHocq3pFv3UozHUDSfAYjaaroj1AI+4bqKoOeF
+	138iRxmt0ogQd+X/ufa0AhLNxb2iNKUtgTWznuxnshzbHWirAdhgCWTILEWkZ8mENIQKbUI0cU+
+	b8mR0uLZZz7wLPgXMK6KxUsUnypLkue2bgXC1MSQ96S/VaK7MY2uPUgFIJuHLVSPHsy6y+EDF/g
+	qX80Xdrt9rmaSPFVhrs934f0OxyYcxFIscCuQjXvCpYNKDctwhavIUg7U9LjbRuI3tWZF8wrbbs
+	hMqGdMMmruWpctTQpMPBj1Fo3fwxQyDSbIjFRyGGTqbHJWS6RqpkQ5XH3g/AGBPY6JIvpDa55E2
+	XeAlMH/B2y94nCOZSaiU8sERvUeJyel4U1K7ZZwRwtQlEIM4l30RAyUFia39RLfKXK2fVEtNMsP
+	QGIotDtEYVuPsd53pYd2nuVgot5Szo2APIcJg7/oq2qVwdQhIKlEpjh5wu6UdT4utg4BCPv5xvw
+	Wk=
+X-Received: by 2002:a05:6000:2004:b0:47a:c103:8a2e with SMTP id ffacd0b85a97d-47f2dce3062mr19855884f8f.45.1784115851121;
+        Wed, 15 Jul 2026 04:44:11 -0700 (PDT)
 Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47f4829896asm14005425f8f.23.2026.07.15.04.44.08
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47f4829896asm14005425f8f.23.2026.07.15.04.44.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 04:44:08 -0700 (PDT)
+        Wed, 15 Jul 2026 04:44:10 -0700 (PDT)
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 15 Jul 2026 12:43:14 +0100
-Subject: [PATCH v4 01/21] media: imx355: Avoid calling imx355_power_off
- twice in error path
+Date: Wed, 15 Jul 2026 12:43:16 +0100
+Subject: [PATCH v4 03/21] dt-bindings: media: imx355: Allow 2 CSI2 data
+ lane output
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260715-media-imx355-v4-1-f7f966fb9ffd@raspberrypi.com>
+Message-Id: <20260715-media-imx355-v4-3-f7f966fb9ffd@raspberrypi.com>
 References: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
 In-Reply-To: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -82,43 +83,43 @@ To: Sakari Ailus <sakari.ailus@linux.intel.com>,
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  David Heidelberg <david@ixit.cz>, 
  Jacopo Mondi <jacopo.mondi@ideasonboard.com>, devicetree@vger.kernel.org, 
- stable@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.1
 
-If v4l2_async_register_subdev_sensor failed, then the sensor had
-already been powered down by pm_runtime_idle, but the error path
-then also explicitly called imx355_power_off as well. That left
-an imbalance in the regulator and clock calls.
+The sensor supports output over either 2 or 4 CSI2 data
+lanes. The binding only permitted the 4 lane configuration.
 
-Call pm_runtime_idle only after v4l2_async_register_subdev_sensor
-succeeds to avoid this.
+Add the 2 lane configuration as an option.
 
-Fixes: efa5fe19c0a9 ("media: imx355: Enable runtime PM before registering async sub-device")
-Cc: stable@vger.kernel.org
 Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- drivers/media/i2c/imx355.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-index 27a5c212a527..ac59908f57aa 100644
---- a/drivers/media/i2c/imx355.c
-+++ b/drivers/media/i2c/imx355.c
-@@ -1822,12 +1822,13 @@ static int imx355_probe(struct i2c_client *client)
- 	 */
- 	pm_runtime_set_active(imx355->dev);
- 	pm_runtime_enable(imx355->dev);
--	pm_runtime_idle(imx355->dev);
+diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml
+index 6050d7e7dcfe..d9cdfda699bf 100644
+--- a/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml
+@@ -50,8 +50,15 @@ properties:
  
- 	ret = v4l2_async_register_subdev_sensor(&imx355->sd);
- 	if (ret < 0)
- 		goto error_media_entity_runtime_pm;
+         properties:
+           data-lanes:
+-            minItems: 4
+-            maxItems: 4
++            oneOf:
++              - items:
++                  - const: 1
++                  - const: 2
++                  - const: 3
++                  - const: 4
++              - items:
++                  - const: 1
++                  - const: 2
  
-+	pm_runtime_idle(imx355->dev);
-+
- 	return 0;
- 
- error_media_entity_runtime_pm:
+         required:
+           - link-frequencies
 
 -- 
 2.34.1
