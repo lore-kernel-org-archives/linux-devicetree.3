@@ -1,167 +1,96 @@
-Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CF863CDBD7
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 08:24:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0883264E9
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 08:27:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784103846; cv=none; b=XT0wWlaKn9WvplxStww6HbZApWej3ONT7Tt68zEN0jseT+WDEPfT3jWvVy6z3lS2CQENIKecRW8z75d923rwK939iMjf+rFHEPxqkASwwLc4+7QtABHHbkqZ+YP4NGvm5gFrL2Cq8Ej1wwQVUYiv3esWBpz1PLa0K0K8rKE0mOI=
+	t=1784104074; cv=none; b=Y6wmiA6iOkkeVkL60vvtsz6cwrrQTmv8g+8qRzCy1ZWHRHNpy5F/r0nbuVJwBy5LBmmCljEwZWa9Q+Qelbs0O56tDi9qwBvX/JjImGMCW6S/sP8WOUWk+deL6wkU8PZ+Ma5pv1LPJKytstteecCskrhF2x3u9dsRQ6XQTLafaMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784103846; c=relaxed/simple;
-	bh=VZ/rT6r/lbKkXhS2ooZqBH0gKlX7C3aAwmM1S4fC78s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pgJT5r9ts3Wp9Mn9xqE013NZHp8WLjx17vQEUnecAuqpZp2QF7gAS8JRWdSEvyi1N4BFE4mLE9uxomsTpZRPMGJWmMZh9upTD7BcIpcSaz3LBmA9b3TEH9h4zUEUmnfekEJ8e9sfp4QfXtZ9z8DU0LD1dDthPraUzMeY6iJxaBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=WZmI6P0v; arc=none smtp.client-ip=79.135.106.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1784104074; c=relaxed/simple;
+	bh=1ql5WVO0hOe77m7nvWRwipRN0JhTaLy9HGtuJuBMWwY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZzXCayOex2Nv59/tcQTkSqqGbZyJCWFewKRsVs7xqzUyDTEqsXmoe3UkzZM6jVRPSA/TRAs5HC0W1KmbvEVZtcaMYIwyPSkFUXMKTyPf0I4A/ZDfHHlxl/AXTYXkv3DX9+8ZVbgWnRYPSkyIsC9HazdqVTiO48ezBbVn91jTe0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OBfkz+ky; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="WZmI6P0v"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail3; t=1784103836; x=1784363036;
-	bh=Tfqh/xGkyiil1OQKiZ8iknxMpLG97l2M1+3idrkjWAo=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=WZmI6P0vTbFD+85YSBygIQUCeuE8VxP4nKao5AXvUNWRvUuVgxLvm25YETT4PldvL
-	 WZ33SGJMuJTONmNv4KNP/idkJCpJVp8pWPG/6fECEc6RqWXkf6vUbK/qhcrrt0Gp74
-	 l4b5KJpJ1lwm2nzMMTqseCp9mBrn1j5mcWMBB9EXhLhhk2CkImd2dhCxN2VGlCadp8
-	 SGfb4Wo5rBuiYs2Hie6/mxapnwc00a5pIsqLj/4Gd3X3SleyIZHMxGX6ypD0BhB2mz
-	 yJvJMxeB0x0cqcTqoeXo/u09Q5MCU+UkaiVBb7Rw1Hrt1qlBNaZOBoea4Gt0lVJChl
-	 wyL2aXOWILI0w==
-X-Pm-Submission-Id: 4h0Tj62y2Hz2Sd33
-From: Esben Haabendal <esben@geanix.com>
-Date: Wed, 15 Jul 2026 10:23:50 +0200
-Subject: [PATCH 3/3] iio: light: ltr501: Add ltr329 driver support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OBfkz+ky"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09E7A1F000E9;
+	Wed, 15 Jul 2026 08:27:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784104073;
+	bh=AWLTCauGSnY7kUpFKLLC6YF2i1NZUDF7adWm9bc6oa0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OBfkz+kyYyaT3e2Yk9Mda4khW2Ebp20GL9d6rXqyc5P78CsDheXMjj+upqltHqKAf
+	 fB9RjU6ZraHLfywHmc2Uv6ihyekYMr35vo2hyuLd7DmJ8juOwbqkcARewo8YSgPURN
+	 I7fX2T4CdlUl3ZBALMxqM4KVBfkOq0odOg0PvRUTP7EKr/XXMztkUt0QhV/pzwX/lp
+	 y6hDvuPDUVM8mlg0KWQ/9eJjT9ZtOn61Xi6RvrQURh4VTweD/kGgZt+c1fe9yK9Ied
+	 XmBtG0vo+4+S7szENYU2bGaPcxIhiv0WUeRDS9Mojel3n5LtF0LdI1ethcqFS56zNU
+	 q8pbyswICJpNw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] dt-bindings: iio: light: ltr501: Add ltr329
+ compatible
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Esben Haabendal" <esben@geanix.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260715-liteon-ltr329-v1-2-31f027051594@geanix.com>
+References: <20260715-liteon-ltr329-v1-0-31f027051594@geanix.com>
+ <20260715-liteon-ltr329-v1-2-31f027051594@geanix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 08:27:52 +0000
+Message-Id: <20260715082753.09E7A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260715-liteon-ltr329-v1-3-31f027051594@geanix.com>
-References: <20260715-liteon-ltr329-v1-0-31f027051594@geanix.com>
-In-Reply-To: <20260715-liteon-ltr329-v1-0-31f027051594@geanix.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikita@trvn.ru>, 
- Maslov Dmitry <maslovdmitry@seeed.cc>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Esben Haabendal <esben@geanix.com>, 
- Jonathan Cameron <jic23@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784103828; l=3185;
- i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=VZ/rT6r/lbKkXhS2ooZqBH0gKlX7C3aAwmM1S4fC78s=;
- b=rHXq3SFZW0uf49XCE2q9x19rpExrMzDpKiNJQPzk1g8q2GRBD+EPU2Vq0eIkC/OyBOF5E4pMv
- ggQjTpbWAAPCSyvlsgxf9PrbAejrcf4NoCefJQkzZvthJ2lXG8/6eaN
-X-Developer-Key: i=esben@geanix.com; a=ed25519;
- pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-This adds support for the LTR-329ALS-01 chip, which is similar to
-LTR-303ALS-01, except for interrupt, which LTR-329ALS-01 chip does not
-have.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The schema fails to disallow the `interrupts` property for the `=
+liteon,ltr329` compatible string, despite the device explicitly lacking int=
+errupt support.
+--
 
-Signed-off-by: Esben Haabendal <esben@geanix.com>
----
- drivers/iio/light/ltr501.c | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+--- Patch [2]: [PATCH 2/3] dt-bindings: iio: light: ltr501: Add ltr329 comp=
+atible ---
+commit 5d6bf65302b94ef38e976c911c22a66db543f0fe
+Author: Esben Haabendal <esben@geanix.com>
 
-diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
-index 7d045be78c6d..815b67a10837 100644
---- a/drivers/iio/light/ltr501.c
-+++ b/drivers/iio/light/ltr501.c
-@@ -94,6 +94,7 @@ enum {
- 	ltr559,
- 	ltr301,
- 	ltr303,
-+	ltr329,
- };
- 
- struct ltr501_gain {
-@@ -178,6 +179,11 @@ static const struct ltr501_samp_table ltr501_ps_samp_table[] = {
- 			{500000, 2000000}
- };
- 
-+static bool ltr501_has_irq_support(const struct ltr501_chip_info *chip_info)
-+{
-+	return chip_info->info != chip_info->info_no_irq;
-+}
-+
- static int ltr501_match_samp_freq(const struct ltr501_samp_table *tab,
- 					   int len, int val, int val2)
- {
-@@ -428,6 +434,9 @@ static int ltr501_read_intr_prst(const struct ltr501_data *data,
- {
- 	int ret, samp_period, prst;
- 
-+	if (!ltr501_has_irq_support(data->chip_info))
-+		return 0;
-+
- 	switch (type) {
- 	case IIO_INTENSITY:
- 		ret = regmap_field_read(data->reg_als_prst, &prst);
-@@ -466,6 +475,9 @@ static int ltr501_write_intr_prst(struct ltr501_data *data,
- 	int ret, samp_period, new_val;
- 	unsigned long period;
- 
-+	if (!ltr501_has_irq_support(data->chip_info))
-+		return 0;
-+
- 	if (val < 0 || val2 < 0)
- 		return -EINVAL;
- 
-@@ -1257,6 +1269,18 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
- 		.channels = ltr301_channels,
- 		.no_channels = ARRAY_SIZE(ltr301_channels),
- 	},
-+	[ltr329] = {
-+		.partid = 0x0A,
-+		.als_gain = ltr559_als_gain_tbl,
-+		.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
-+		.als_mode_active = BIT(0),
-+		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
-+		.als_gain_shift = 2,
-+		.info = &ltr301_info_no_irq,
-+		.info_no_irq = &ltr301_info_no_irq,
-+		.channels = ltr301_channels,
-+		.no_channels = ARRAY_SIZE(ltr301_channels),
-+	},
- };
- 
- static int ltr501_write_contr(struct ltr501_data *data, u8 als_val, u8 ps_val)
-@@ -1531,6 +1555,11 @@ static int ltr501_probe(struct i2c_client *client)
- 		return ret;
- 
- 	if (client->irq > 0) {
-+		if (!ltr501_has_irq_support(data->chip_info)) {
-+			dev_err(&client->dev, "chip does not support irq\n");
-+			return -EINVAL;
-+		}
-+
- 		ret = devm_request_threaded_irq(&client->dev, client->irq,
- 						NULL, ltr501_interrupt_handler,
- 						IRQF_TRIGGER_FALLING |
-@@ -1604,6 +1633,7 @@ static const struct i2c_device_id ltr501_id[] = {
- 	{ .name = "ltr559", .driver_data = ltr559 },
- 	{ .name = "ltr301", .driver_data = ltr301 },
- 	{ .name = "ltr303", .driver_data = ltr303 },
-+	{ .name = "ltr329", .driver_data = ltr329 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, ltr501_id);
-@@ -1613,6 +1643,7 @@ static const struct of_device_id ltr501_of_match[] = {
- 	{ .compatible = "liteon,ltr559", },
- 	{ .compatible = "liteon,ltr301", },
- 	{ .compatible = "liteon,ltr303", },
-+	{ .compatible = "liteon,ltr329", },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, ltr501_of_match);
+dt-bindings: iio: light: ltr501: Add ltr329 compatible
 
--- 
-2.55.0
+LTR-329ALS-01 is an ambient light sensor similar to LTR-303ALS-01, but
+without interrupt support.
 
+> diff --git a/Documentation/devicetree/bindings/iio/light/liteon,ltr501.ya=
+ml b/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
+> index ab9bb68dd7363..76e81eba7ea4a 100644
+> --- a/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
+> +++ b/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
+> @@ -19,6 +19,7 @@ properties:
+>        - liteon,ltr559
+>        - liteon,ltr301
+>        - liteon,ltr303
+> +      - liteon,ltr329
+> =20
+>    reg:
+>      maxItems: 1
+
+[Severity: Medium]
+Since the commit message states this sensor operates without interrupt supp=
+ort,
+should the schema disallow the interrupts property for this compatible stri=
+ng?
+
+Adding the compatible string directly to the main enum allows a device tree=
+ to
+specify an interrupt for liteon,ltr329 without being caught during schema
+validation.
+
+Would it make sense to add an if/then conditional block to restrict the
+interrupts property when the compatible string is liteon,ltr329 to prevent
+this regression?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-liteon-ltr=
+329-v1-0-31f027051594@geanix.com?part=3D2
