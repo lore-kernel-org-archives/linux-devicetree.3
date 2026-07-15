@@ -1,196 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9920947CC96;
-	Wed, 15 Jul 2026 14:36:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4036738D417
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 14:36:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784126177; cv=none; b=KEigJF0d/0oyD20g8M1Dtb4UMPyMla+88AA79J6mwHUvhdOVQz0kPoiOn4n/CZ/Kp1Q3lf7/ZoOFJc26D9YhSS+bmy17iIfYs6ExW744a95dZOfiZZM2W2mPOKJHlxlntmb/XJzIHF98Yz0EHCzasKS7Em+kqVAB1+hkOkjE9A4=
+	t=1784126218; cv=none; b=m+Y//PNDNj5mIjtvXeunqHDfHO6kuObkbD3wcYw2LQLl/BN6wjguuOnztYBW7oKUSs71sllaR14gvoehROd0+tXRZ22RQvQTRNW2pPUTXWZ9nit4q0bjkTWElwyg57Xy6jv/f7Ch56xgIu8x2YKutB4Jl4tN42MPIrbhMa3ZeWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784126177; c=relaxed/simple;
-	bh=77XOxyDYDjEyLwe07YaqSDYbq4HFjvL3XqxATZqnX/0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XnUmI4fVjZ9EcvUIIGnOh1FBRnQHHNZQp9+OfPTrETXf4oJpAHH3cnENDBOE9wN/+3157kyFbHRuRDs2ZCNhmmBr4f2UlrcqFbCk1u/flAiO6bdqLl5Z0nLvz99WVw4PDK4Y3Gu4fHemPSHFzkeL8JC+GDTwOCmv+Lb4H8+ydw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iqe6SMdp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784126218; c=relaxed/simple;
+	bh=XwMHUbCRkp1Lv/VksMXKJQRuUD2lrFpEJv9Zrl8kXQo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=swRElt+vU0CPudVgHuZznQYqcgtqSzcMTuCLDDhxJevE6cNC2rxwMjQDIjCpF4eF7G/nfnSvzlbr7qpYuXRzzsskVa0VhHgTuzqwP/HQRqTjIoiDQMh6cdAUX18IcE0eNP3fL85Rzq+Eopua5B7YsgA3OYDhLIKaKFguIyHsSuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VBtVitlj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iqe6SMdp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48CF21F000E9;
-	Wed, 15 Jul 2026 14:36:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VBtVitlj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A5C71F00A3F;
+	Wed, 15 Jul 2026 14:36:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784126175;
-	bh=3JnfyHzBdaTsit2m6V8M0Hw8/jfJz/4wuqPOncLtSVQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iqe6SMdpmxlxxdjxuCrUI2lTZgZmf4/X9u75gQcO4a1cxmIy0QLFVIdh6u4uV0zpe
-	 Hx4ZyHX8CgA3zFH/cLGlouKG8oVuQzENhgfDGyYAD1hKltrxdY7Ho44YSV401Jai7y
-	 B5pQjhugTnpXwpTz3dPr9RR/2eLt5qIakYEhJqXbrM/6wGFRIOiKMd/MoLM+8pSuJv
-	 wluZyaa5wzztTmS8oPZbOX0Zsj65BluBVvSXDBNA2P8Ft2ujrCfuBDsxXbYrxw5ntr
-	 3youB74XMGuZe159cbIXB8BkxRcPCPv+Jahj4DwYdIUXad/ZLpkjrukzSMfGeJ40Es
-	 70srItUZKxtpw==
-Date: Wed, 15 Jul 2026 16:36:07 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-pci@vger.kernel.org, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 4/5] PCI: dwc: rcar-gen4: Handle PERST via reset subsystem
-Message-ID: <ceimnmpsyfmrkuvrrsgkjg3fk2yf7fj7z5ie3cj6vfyighatag@hyb3vr2nclpm>
-References: <20260704202748.355708-1-marek.vasut+renesas@mailbox.org>
- <20260704202748.355708-5-marek.vasut+renesas@mailbox.org>
+	s=k20260515; t=1784126216;
+	bh=GgpbuK+9j0Z2fPhlpTQ4L7aLWLdBJIxaV6XFh4gT6Dc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VBtVitlj1DUJWg1vEkJFrQFOYXhpIcvZLtBEwsTSOCr4X3uXL8Ko/UE/f9nSS6vY6
+	 +huTdKeK7yw0HoAc2MITox9ixiWPVbpQcaEyP5tPhjubk9sqygXPpluCaMEchXkdAU
+	 rBRYUL2nZm9icgoYwWjJepe6QARBflk3p2CPqAdRsL592iKlXqI50mSulWpdBYqc8z
+	 XtZphXxi71ukB3wrUTRFJey+uP8EQf55uRq8D6q9l3QKjPVSmaUoJQEofPmV+g6e0S
+	 Bcz67XL3EXcxgpi4YAecwsQuuHiyfGusnCGw/lFrnFG/0pW69b4JxzSfpxSCrlDVRK
+	 QrBh2c8q8YroA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 08/14] media: iris: Add power sequence for glymur
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vishnu Reddy" <busanna.reddy@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260715-glymur-v9-8-8cf2cbe12a07@oss.qualcomm.com>
+References: <20260715-glymur-v9-0-8cf2cbe12a07@oss.qualcomm.com>
+ <20260715-glymur-v9-8-8cf2cbe12a07@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 14:36:55 +0000
+Message-Id: <20260715143656.7A5C71F00A3F@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260704202748.355708-5-marek.vasut+renesas@mailbox.org>
 
-On Sat, Jul 04, 2026 at 10:25:03PM +0200, Marek Vasut wrote:
-> Handle PERST via both GPIO and reset subsystem. On R-Car Gen4, the
-> PERST signal is operated as a GPIO, on R-Car Gen5 it might only be
-> accessible via SCMI reset via reset subsystem. Support both options.
-> This is a preparatory patch for R-Car Gen5 support.
-> 
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> ---
-> Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-> Cc: Manivannan Sadhasivam <mani@kernel.org>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-pci@vger.kernel.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
->  drivers/pci/controller/dwc/pcie-rcar-gen4.c | 42 +++++++++++++++++++--
->  1 file changed, 39 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> index 05c22cc648135..186eedb33c27d 100644
-> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> @@ -98,6 +98,7 @@ struct rcar_gen4_pcie {
->  	void __iomem *base;
->  	void __iomem *phy_base;
->  	struct platform_device *pdev;
-> +	struct reset_control *perst;
->  	const struct rcar_gen4_pcie_drvdata *drvdata;
->  };
->  #define to_rcar_gen4_pcie(_dw)	container_of(_dw, struct rcar_gen4_pcie, dw)
-> @@ -299,10 +300,27 @@ static void rcar_gen4_pcie_unprepare(struct rcar_gen4_pcie *rcar)
->  
->  static int rcar_gen4_pcie_get_resources(struct rcar_gen4_pcie *rcar)
->  {
-> +	struct device *dev = rcar->dw.dev;
-> +	struct reset_control *perst;
-> +
->  	rcar->phy_base = devm_platform_ioremap_resource_byname(rcar->pdev, "phy");
->  	if (IS_ERR(rcar->phy_base))
->  		return PTR_ERR(rcar->phy_base);
->  
-> +	rcar->perst = NULL;
-> +	for_each_available_child_of_node_scoped(dev->of_node, of_port) {
-> +		perst = of_reset_control_get(of_port, "perst");
-> +		if (IS_ERR(perst)) {
-> +			if (PTR_ERR(perst) != -EPROBE_DEFER)
-> +				dev_err(dev, "Failed to get PERST#\n");
-> +			return PTR_ERR(perst);
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] If the NOC LPI handshake times out during readl_poll_timeout, the =
+PREP bit is left asserted in the AON register, permanently hanging the NOC =
+on the next boot.
+--
 
-return dev_err_probe(dev, PTR_ERR(perst), "Failed to get PERST#\n")?
+--- Patch [8]: [PATCH v9 08/14] media: iris: Add power sequence for glymur =
+---
+commit d6ece601b7cdb53f3a84fa94a79400eb75a5853d
+Author: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 
-> +		}
-> +
-> +		/* There is only one root port. */
-> +		rcar->perst = perst;
-> +		break;
+media: iris: Add power sequence for glymur
 
-It feels weird to see for_each_available_child_of_node_scoped() and then
-breaking with first node. Maybe you can just use of_get_next_available_child().
+This commit introduces power sequencing for the Glymur platform, which has
+two video codec cores. It ensures that clock and power rail voting is
+coordinated since both cores share the same power rails and clock source.
 
-> +	}
-> +
->  	/* Renesas-specific registers */
->  	rcar->base = devm_platform_ioremap_resource_byname(rcar->pdev, "app");
->  
-> @@ -425,6 +443,22 @@ static int rcar_gen4_pcie_host_msi_init(struct dw_pcie_rp *pp)
->  	return ret;
->  }
->  
-> +static void rcar_gen4_pcie_host_perst(struct dw_pcie_rp *pp, int enable)
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu3x.c b/drivers/medi=
+a/platform/qcom/iris/iris_vpu3x.c
+> --- a/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu3x.c
+
+[ ... ]
+
+> +static void iris_vpu36_power_off_vcodec(struct iris_core *core, u32 core=
+_id)
 > +{
 
-rcar_gen4_pcie_host_perst_assert(struct dw_pcie_rp *pp, bool assert)
+[ ... ]
 
-> +	struct dw_pcie *dw = to_dw_pcie_from_pp(pp);
-> +	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
+> +	do {
+> +		writel(power_down_prep[core_id], core->reg_base + AON_WRAPPER_MVP_NOC_=
+LPI_CONTROL);
+> +		usleep_range(15, 20);
+> +		value =3D readl(core->reg_base + AON_WRAPPER_MVP_NOC_LPI_STATUS);
 > +
-> +	gpiod_set_value_cansleep(dw->pe_rst, enable);
+> +		handshake_done =3D value & lpi_status_done[core_id];
+> +		handshake_busy =3D value & (lpi_status_deny[core_id] | lpi_status_acti=
+ve[core_id]);
 > +
-> +	if (!rcar->perst)
-> +		return;
+> +		if (handshake_done || !handshake_busy)
+> +			break;
 > +
-> +	if (enable)
-> +		reset_control_assert(rcar->perst);
-> +	else
-> +		reset_control_deassert(rcar->perst);
+> +		writel(0, core->reg_base + AON_WRAPPER_MVP_NOC_LPI_CONTROL);
+> +		usleep_range(15, 20);
+> +	} while (++count < 1000);
+> +
+> +	if (!handshake_done && handshake_busy)
+> +		goto disable_power;
+> +
+> +	ret =3D readl_poll_timeout(core->reg_base + AON_WRAPPER_MVP_NOC_LPI_STA=
+TUS, value,
+> +				 value & lpi_status_done[core_id], 200, 2000);
+> +	if (ret)
+> +		goto disable_power;
+
+[Severity: High]
+If this readl_poll_timeout() fails and returns an error, the code jumps
+directly to disable_power, skipping the zeroing of the control register bel=
+ow.
+Since the AON_WRAPPER_MVP_NOC_LPI_CONTROL register is in the Always-On (AON)
+domain, won't this leave the power_down_prep bit asserted across power cycl=
+es
+and permanently hang the NOC on the next boot?
+
+Should writel(0, core->reg_base + AON_WRAPPER_MVP_NOC_LPI_CONTROL) be called
+before jumping to disable_power on timeout?
+
+> +
+> +	writel(0, core->reg_base + AON_WRAPPER_MVP_NOC_LPI_CONTROL);
+> +
+> +	writel(bridge_sw_reset[core_id] | bridge_hw_reset[core_id],
+> +	       core->reg_base + CPU_CS_AHB_BRIDGE_SYNC_RESET);
+> +	writel(bridge_hw_reset[core_id], core->reg_base + CPU_CS_AHB_BRIDGE_SYN=
+C_RESET);
+> +	writel(0x0, core->reg_base + CPU_CS_AHB_BRIDGE_SYNC_RESET);
+> +
+> +disable_power:
+> +	iris_genpd_set_hwmode(&core->vcodec[core_id], false);
+> +	iris_disable_power_domain_and_clocks(core, &core->vcodec[core_id]);
 > +}
-> +
->  /* Host mode */
->  static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
->  {
-> @@ -432,7 +466,7 @@ static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
->  	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
->  	int ret;
->  
-> -	gpiod_set_value_cansleep(dw->pe_rst, 1);
-> +	rcar_gen4_pcie_host_perst(pp, 1);
->  
->  	ret = rcar_gen4_pcie_common_init(rcar);
->  	if (ret)
-> @@ -453,7 +487,7 @@ static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
->  
->  	msleep(PCIE_T_PVPERL_MS);	/* pe_rst requires 100msec delay */
->  
-> -	gpiod_set_value_cansleep(dw->pe_rst, 0);
-> +	rcar_gen4_pcie_host_perst(pp, 0);
 
-rcar_gen4_pcie_host_perst_assert(pp, false)
-
->  
->  	return 0;
->  
-> @@ -467,7 +501,7 @@ static void rcar_gen4_pcie_host_deinit(struct dw_pcie_rp *pp)
->  	struct dw_pcie *dw = to_dw_pcie_from_pp(pp);
->  	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
->  
-> -	gpiod_set_value_cansleep(dw->pe_rst, 1);
-> +	rcar_gen4_pcie_host_perst(pp, 1);
-
-rcar_gen4_pcie_host_perst_assert(pp, true)
-
->  	rcar_gen4_pcie_common_deinit(rcar);
->  }
->  
-> @@ -671,6 +705,8 @@ static void rcar_gen4_pcie_remove(struct platform_device *pdev)
->  
->  	rcar_gen4_remove_dw_pcie(rcar);
->  	rcar_gen4_pcie_unprepare(rcar);
-> +	if (rcar->perst)
-> +		reset_control_put(rcar->perst);
-
-I don't see reset_control_put() in any error paths of probe().
-
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-glymur-v9-=
+0-8cf2cbe12a07@oss.qualcomm.com?part=3D8
