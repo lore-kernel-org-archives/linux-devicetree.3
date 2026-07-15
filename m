@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911983C1998;
-	Wed, 15 Jul 2026 07:17:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9ED3C1961
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 07:17:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784099872; cv=none; b=RejSPEI4KpzIfVfCRjZ2pVb/ZA/cs/F5d9hYTbD6DqWs4Nf8jtGIoG3AhLKLwOnjkCaeAf6FQ5CP9TPmJa+Qwb4Lq1eE8Z+lr0Oryuk3ALtf6yKyAerpivEKBKsWirBign4L0j1vhfKpi+W1ph9wR6WyNfmnw3iIav2tpQaRbMk=
+	t=1784099874; cv=none; b=turDme4PE/7b/m2TMDWDlTcxMXqG3b4s606v/Yx5tuJMc84ojsp22aecz68nfOW793+sSGczP27Bgbmd1+PxHyweO3xy47CVIPc02SmrCZs/eLUMcjIhRLlSzxEOvF6Tv17nZwnZTaZjil9L1svFM0EEOPxRuNL9LVo+9a7y+jg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784099872; c=relaxed/simple;
-	bh=DHJFX8FvvItY+uhmwPk7Nu6PwNJmlmRDXuSzY28+WGs=;
+	s=arc-20240116; t=1784099874; c=relaxed/simple;
+	bh=zru9VGkGso8Yd5tNOlGn2LB+qSs1fCvjD2GqsVl4sdI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YCqgJT1OThZTNyDAoQ1zPhrXoUdnUhnabwRN1e+KjalJvkz+lwUxmns8nPrns4N4Qyo7brCFhZjq6F//WFtH3PHx/IpVXF6wmk8ToIx3hK/l7K/yzlbFBw2KgcRQGgL2IIULV9nAQisNfm+UywxVExrzTWP9Tmmv11+dTcuxMgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JRUmNfbE; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=kuhFqrbRngwS5v2/Dv5bu+e3jaKzguUiPkseBwvV14vZkgBKuyL+pijX226+zp351mZlW+T/XWHYqVIqBHWt9kc/r6fso8NQO2CniAlpaDSbvp7pcQgr/C9UoRi4MwbCOEU0j2b/duD+Hwlctv0OFU2UQdSE27wQ0HQn/0aNiBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gjXoaiLa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JRUmNfbE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79CA81F000E9;
-	Wed, 15 Jul 2026 07:17:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gjXoaiLa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BFDD1F00A3A;
+	Wed, 15 Jul 2026 07:17:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784099861;
-	bh=nNZdYLdej0/ViV35Su44zBC1PyOwycP4CDVJGr9awQA=;
+	s=k20260515; t=1784099862;
+	bh=hFhJs0y5X0H6FtuJTRBdyVP4BWXv3CWXssiSLcCfi8A=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JRUmNfbEVrqNqB94QcDU09yFGahYJAShmagNZyfIf8aPNEChAj40TYL/snTHpeR9/
-	 2HzPcry4NKY9YDwX0s8jV24BBroHrtKyobLT+VO19qHYN+/Kq8UU7W7urLi0u35kws
-	 VsbmcOWC5x4DFZjC6DjmwqIrSZht5T+7yFYzoGvfGWYvkkYcKIDzQTYpAxWGPbD9Sm
-	 FwnCevoihjtIzusz/mNiWQX17G5lbbM+lsnYsmSt/plLsdgaGUTYrs4x8Sdph/iq0M
-	 SSI7w+yc+82TBLNXD5agjZDRHG7NssQtoVpm0VGWuAQjmT2pgj/aLjGSVpLfGgRYsy
-	 uEd3W0dGUviXw==
+	b=gjXoaiLaekWbr6Xo61Y/NJkra4Za30CL7WTXJ1m0IhxpWkbwI4O50XJn3YQlAkRRP
+	 aZLKK40QDOowiWLo6w13eUuAGuEV5PfSLCrPGZp7puXpiBH/axJdLMut5sB8Z3PqA/
+	 /pXU0/+VQJveLvkpHHtM34xAe/09l5tCnBuLUY8rBGyoSjd00HDNsTp2BFEKRAlEnN
+	 v8dV7mdQHmITW8+C9i+cpWplbh9T5aLYP+HAjYfD4npHL1DD9TkLrRMzO5ZOilmKZe
+	 9KBbyh8Q+Qg1wEgZxptDEgL7XDlse20ibCFEgcnsROnZEAR0yV/qQcIDv5KRhKxxkB
+	 mRUbXhWw/5GYw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/4] arm64: dts: imx95-19x19-evk: Add CM7 node and
- related memory nodes
+Subject: Re: [PATCH v2 3/3] phy: qcom: qmp-combo: Add SM8475 support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
-Cc: Frank.Li@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260715-imx-rproc-dts-v1-1-d02b583c507b@nxp.com>
-References: <20260715-imx-rproc-dts-v1-0-d02b583c507b@nxp.com>
- <20260715-imx-rproc-dts-v1-1-d02b583c507b@nxp.com>
+To: "Esteban Urrutia" <esteuwu@proton.me>
+Cc: neil.armstrong@linaro.org, vkoul@kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com
+In-Reply-To: <20260715-sm8475-bup-usbss-v2-3-2d8def39b190@proton.me>
+References: <20260715-sm8475-bup-usbss-v2-0-2d8def39b190@proton.me>
+ <20260715-sm8475-bup-usbss-v2-3-2d8def39b190@proton.me>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 07:17:41 +0000
-Message-Id: <20260715071741.79CA81F000E9@smtp.kernel.org>
+Date: Wed, 15 Jul 2026 07:17:42 +0000
+Message-Id: <20260715071742.6BFDD1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,59 +46,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The virtio device buffer memory region is named `vdevbuffer` whi=
-ch fails the driver's hardcoded check for `vdev0buffer`, leading to it bein=
-g erroneously registered as a carveout and double-mapped.
+- [Medium] Missing `.calibrate_dp_phy` callback in `sm8475_usb3dpphy_cfg`.
 --
 
---- Patch [1]: [PATCH 1/4] arm64: dts: imx95-19x19-evk: Add CM7 node and re=
-lated memory nodes ---
-commit b818b56116c9f6f62676b904ae89c90565f8f036
-Author: Peng Fan <peng.fan@nxp.com>
+--- Patch [3]: [PATCH v2 3/3] phy: qcom: qmp-combo: Add SM8475 support ---
+commit a0a582462db23366fd325689e39f4bf172d270ca
+Author: Esteban Urrutia <esteuwu@proton.me>
+phy: qcom: qmp-combo: Add SM8475 support
 
-arm64: dts: imx95-19x19-evk: Add CM7 node and related memory nodes
+This commit adds support for the SM8475 SoC to the QMP combo PHY driver,
+including RX and PCS USB tables, and new v1 PLL tables.
 
-This commit adds a remoteproc CM7 node and reserved memory regions to enable
-the Cortex-M7 remote processor. The reserved memory includes firmware memor=
-y,
-vring buffers, a resource table, and a shared DMA pool for inter-processor
-communication.
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qual=
+comm/phy-qcom-qmp-combo.c
+> index 699c71876912a..11a67cecf29d5 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx95-19x19-evk.dts b/arch/arm=
-64/boot/dts/freescale/imx95-19x19-evk.dts
-> --- a/arch/arm64/boot/dts/freescale/imx95-19x19-evk.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx95-19x19-evk.dts
 [ ... ]
-> +		rsc_table: rsc-table@88220000 {
-> +			reg =3D <0 0x88220000 0 0x1000>;
-> +			no-map;
-> +		};
+
+> +static const struct qmp_phy_cfg sm8475_usb3dpphy_cfg =3D {
+> +	.offsets		=3D &qmp_combo_offsets_v3,
+
+[ ... ]
+
+> +	.dp_aux_init		=3D qmp_v4_dp_aux_init,
+> +	.configure_dp_tx	=3D qmp_v4_configure_dp_tx,
+> +	.configure_dp_clocks	=3D qmp_v3_configure_dp_clocks,
+> +	.configure_dp_phy	=3D qmp_v4_configure_dp_phy,
 > +
-> +		vdevbuffer: vdevbuffer@88020000 {
-> +			compatible =3D "shared-dma-pool";
-> +			reg =3D <0 0x88020000 0 0x100000>;
-> +			no-map;
-> +		};
+> +	.regs			=3D qmp_v6_usb3phy_regs_layout,
 
 [Severity: Medium]
-Will this node name cause the region to be mapped twice?
+Does this configuration intentionally omit the .calibrate_dp_phy callback?
 
-During device probe, the driver iterates over the memory-region nodes in
-imx_rproc_prepare() and attempts to skip the virtio buffer by checking:
+Other DP configurations in this driver, such as sm8550_usb3dpphy_cfg, assign
+this to qmp_v4_calibrate_dp_phy. Without it, when DP Alt Mode link training
+fails, qmp_combo_dp_calibrate() will see a NULL callback and silently retur=
+n 0.
 
-    strstarts(res.name, "vdev0buffer")
+This skips the DP AUX PHY calibration process which cycles through different
+AUX configuration settings. Could this cause DisplayPort Alt Mode to fail
+negotiating with some monitors or cables?
 
-Because this node is named vdevbuffer instead of vdev0buffer, it appears the
-strstarts() check will fail. Does this cause the 1MB region to be erroneous=
-ly
-registered as a carveout and unnecessarily double-mapped via ioremap_wc() i=
-nto
-the vmalloc space?
+> +	.reset_list		=3D msm8996_usb3phy_reset_l,
+> +	.num_resets		=3D ARRAY_SIZE(msm8996_usb3phy_reset_l),
+> +	.vreg_list		=3D qmp_phy_vreg_l,
+> +	.num_vregs		=3D ARRAY_SIZE(qmp_phy_vreg_l),
+> +};
 
->  	};
-> =20
->  	flexcan1_phy: can-phy0 {
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-imx-rproc-=
-dts-v1-0-d02b583c507b@nxp.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-sm8475-bup=
+-usbss-v2-0-2d8def39b190@proton.me?part=3D3
