@@ -1,142 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45955334C3D;
-	Wed, 15 Jul 2026 14:22:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB6B3341660
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 14:22:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784125345; cv=none; b=lbZlMHqZq2UMWo6h7GkjWGf3quwMsvUmTwXct7VYZbD1PuhssPu8AK+J+Mmk5yHVEDkskoHZ6eCBe+nO/M0RBoHN1Fgs1c43yEfX8bw+jyGS83tiPi25MD0JuvU6n39qKHBBi2NhgbhprGrLN/qQ1nN2T3MCHCBE8YsgaGfJIeU=
+	t=1784125345; cv=none; b=Od8QeARrF5v4986Jwy1RmG61jnlEGF11NtZCTGC6E/aHv/6stY+XlZFt0za2BEF8DwPyGsSvnJWqzH9zYk3f1umLzzoCtq5/FHUqWhOV0J8EXmAA4Up76B2DIJVJAi6qL+hN5jMoHWqrAEOhZP7f2y1Xagdh9pfnQv1YTHyj1G4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784125345; c=relaxed/simple;
-	bh=BsUkFG4DRwXh63NZqlAgy1vqlB7HvzsnELEF79rUils=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=STu0cMQvQiQ3rrs2QtdcwX/fhMPq0xoeAGrhdmxYk0Lk412+p1CDop9Tr9PHwDFtYGZZPExAQHPL8BgR++ocCPVeABo36K2G17DngSuj7g7iu1R8yeCEMagb0xX2ZPfNty9tCanx5XCMP1lEoja0U6V7tWwLzgyeYoIZEMNf7oU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QaCdr/Gv; arc=none smtp.client-ip=100.103.45.18
+	bh=P37kUQ4vs1u7Grxe+A4HPyCFhRSUVIeLGmF2JEnTgc0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=uy2/Tcf3urcZAsG6/CpUDK868R5jvAy6x658aQiPLGoQheHSw2/070t4J25mS43F4d/Ynew0YqrjLyKLLEKL2HEAS8Lyk8wFmeziSRgD4y6ftoLATKUj1SHzvOuvDYWb+6dM1xQtiNc71l99ezJnGYm95YKkmB92jJjGKNvzp7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mn0ssgMg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QaCdr/Gv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF20F1F000E9;
-	Wed, 15 Jul 2026 14:22:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mn0ssgMg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FA721F00A3A;
+	Wed, 15 Jul 2026 14:22:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784125343;
-	bh=OWZwtTkmInlbNXZy7+CXrsb4ym/YoUrA6kxaCBeRrZw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QaCdr/GvwO3p7wtLb4HNaxaw925qdpNgBQ1ovZVYaOQMKqRskrBgYAHA3Xo/l/Oqb
-	 CQ7cGrr5jrDod+bm+RyPSKzwI9CpL2JMuvKAVknKaNGgkK3Qsbo4RI81j9M4d25ceS
-	 iJY2XnNTfRn3roF4kpFMl9ArxinZMqevGf4NNxo/WcPIUZalHpAhIFkvAEcLLRpUeP
-	 Z22fMC8/ppLJnF7psWndNBhYvRVEqK8ojqZ9wR61xK/dlbXm/1/L7+nScqtQ7fNh11
-	 84cKf2cSZpd6mqcUk+/+H4v8WGMk9DRUfuxVphx3tOv9QKJyUUtOqsrzxB8pTb+sFN
-	 gmxdZRUXgI3AA==
-Date: Wed, 15 Jul 2026 16:22:16 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-pci@vger.kernel.org, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 2/5] PCI: dwc: rcar-gen4: Return error code from
- .additional_common_init
-Message-ID: <k4huw3bsimjq5kyjweuwzksu5lc34rk5acbvxwhrt67tdwbom6@gx3lho54h6i6>
-References: <20260704202748.355708-1-marek.vasut+renesas@mailbox.org>
- <20260704202748.355708-3-marek.vasut+renesas@mailbox.org>
+	s=k20260515; t=1784125344;
+	bh=C74ppi/aF2wD3K36a/1eTvUuHBCv2GTf1Iuw5l272oc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Mn0ssgMgz07zKJj/mk99fez7rR+Uka+C8MAPTiAf4dBQpi7pWenO5a9cZMRcMTIRR
+	 hfzq+V6dVgyxvrYzZ+heMOzICZcflDw0bH7hyDHSNzq0GixSKpiNXlzpC4UPL0qdzc
+	 T6+iypHMgWXEv7OSvkpeZL2ejg3+yzf6q0Ozi47kD1BOA7n+yiDN27pkOqgJpoZKRm
+	 Wyxl4sdzCGWEKNrPPaToIECUMg7UDAQnqpTvFTD4neHxr/VRP0bz/0A97p9R4nXxEr
+	 9P5Ev3um+4aEzAEToqSnU560dNSLe4ygc9haThR+ZheBQ6WzEtUzheBQ3ikY5Cmzd2
+	 gGSJ9zq0wIUBA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 01/14] dt-bindings: media: qcom,glymur-iris: Add
+ glymur video codec
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vishnu Reddy" <busanna.reddy@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260715-glymur-v9-1-8cf2cbe12a07@oss.qualcomm.com>
+References: <20260715-glymur-v9-0-8cf2cbe12a07@oss.qualcomm.com>
+ <20260715-glymur-v9-1-8cf2cbe12a07@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 14:22:23 +0000
+Message-Id: <20260715142224.5FA721F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260704202748.355708-3-marek.vasut+renesas@mailbox.org>
 
-On Sat, Jul 04, 2026 at 10:25:01PM +0200, Marek Vasut wrote:
-> Return error code from .additional_common_init callback and check
-> the error code. This is a preparatory patch for R-Car Gen5 support,
-> which may return non-zero error code from .additional_common_init.
-> 
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> ---
-> Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-> Cc: Manivannan Sadhasivam <mani@kernel.org>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-pci@vger.kernel.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
->  drivers/pci/controller/dwc/pcie-rcar-gen4.c | 15 +++++++++++----
->  1 file changed, 11 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> index 5f7211b91ee5b..7625cd338262d 100644
-> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> @@ -87,7 +87,7 @@ MODULE_FIRMWARE(RCAR_GEN4_PCIE_FIRMWARE_NAME);
->  
->  struct rcar_gen4_pcie;
->  struct rcar_gen4_pcie_drvdata {
-> -	void (*additional_common_init)(struct rcar_gen4_pcie *rcar);
-> +	int (*additional_common_init)(struct rcar_gen4_pcie *rcar);
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Unnecessary `#address-cells` and `#size-cells` properties on a node=
+ without addressable children.
+--
 
-Can you also rename this callback as init() and implementations as
-rcar_gen4_pcie_{ep}_init()?
+--- Patch [1]: [PATCH v9 01/14] dt-bindings: media: qcom,glymur-iris: Add g=
+lymur video codec ---
+commit 8ca344fa9395fcf1d13bd1ea93de8bee21a5c176
+Author: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 
-Though this callback is a grab-bag of various register settings, naming it as
-just '.init()' will make it more readable and less redundant.
+dt-bindings: media: qcom,glymur-iris: Add glymur video codec
 
-- Mani
+This commit adds the device tree binding for the Qualcomm Glymur Iris video
+codec. It introduces a new dual-core architecture requiring additional
+power domains and clocks, and updates the maxItems limits in the common
+venus schema to accommodate these changes.
 
->  	int (*ltssm_control)(struct rcar_gen4_pcie *rcar, bool enable);
->  	enum dw_pcie_device_mode mode;
->  };
-> @@ -241,11 +241,16 @@ static int rcar_gen4_pcie_common_init(struct rcar_gen4_pcie *rcar)
->  	reset_control_status(dw->core_rsts[DW_PCIE_PWR_RST].rstc);
->  	fsleep(1000);
->  
-> -	if (rcar->drvdata->additional_common_init)
-> -		rcar->drvdata->additional_common_init(rcar);
-> +	if (rcar->drvdata->additional_common_init) {
-> +		ret = rcar->drvdata->additional_common_init(rcar);
-> +		if (ret)
-> +			goto err_deassert;
-> +	}
->  
->  	return 0;
->  
-> +err_deassert:
-> +	reset_control_assert(dw->core_rsts[DW_PCIE_PWR_RST].rstc);
->  err_unprepare:
->  	clk_bulk_disable_unprepare(DW_PCIE_NUM_CORE_CLKS, dw->core_clks);
->  
-> @@ -681,7 +686,7 @@ static int r8a779f0_pcie_ltssm_control(struct rcar_gen4_pcie *rcar, bool enable)
->  	return 0;
->  }
->  
-> -static void rcar_gen4_pcie_additional_common_init(struct rcar_gen4_pcie *rcar)
-> +static int rcar_gen4_pcie_additional_common_init(struct rcar_gen4_pcie *rcar)
->  {
->  	struct dw_pcie *dw = &rcar->dw;
->  	u32 val;
-> @@ -695,6 +700,8 @@ static void rcar_gen4_pcie_additional_common_init(struct rcar_gen4_pcie *rcar)
->  	val = readl(rcar->base + PCIEPWRMNGCTRL);
->  	val |= APP_CLK_REQ_N | APP_CLK_PM_EN;
->  	writel(val, rcar->base + PCIEPWRMNGCTRL);
+> diff --git a/Documentation/devicetree/bindings/media/qcom,glymur-iris.yam=
+l b/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml
+> @@ -0,0 +1,255 @@
+[ ... ]
+> +  interconnect-names:
+> +    items:
+> +      - const: cpu-cfg
+> +      - const: video-mem
 > +
-> +	return 0;
->  }
->  
->  static void rcar_gen4_pcie_phy_reg_update_bits(struct rcar_gen4_pcie *rcar,
-> -- 
-> 2.53.0
-> 
+> +  '#address-cells':
+> +    const: 2
+> +
+> +  '#size-cells':
+> +    const: 2
 
--- 
-மணிவண்ணன் சதாசிவம்
+[Severity: Low]
+Are these properties necessary here? The schema strictly enforces const: 2
+for #address-cells and #size-cells at the root node, but none of the child
+nodes (non-pixel, pixel, firmware) define a reg property, and the parent
+does not define a ranges property.=20
+
+Will this cause the DeviceTree compiler (dtc) to emit an=20
+avoid_unnecessary_addr_size warning when compiling device trees using this
+node?
+
+> +
+> +  non-pixel:
+> +    type: object
+[ ... ]
+> +        resets =3D <&gcc_video_axi0c_clk_ares>,
+> +                 <&gcc_video_axi0_clk_ares>,
+> +                 <&videocc_mvs0c_freerun_clk_ares>,
+> +                 <&videocc_mvs0_freerun_clk_ares>,
+> +                 <&gcc_video_axi1_clk_ares>,
+> +                 <&videocc_mvs1_freerun_clk_ares>;
+> +        reset-names =3D "core_bus",
+> +                      "vcodec0_bus",
+> +                      "core",
+> +                      "vcodec0_core",
+> +                      "vcodec1_bus",
+> +                      "vcodec1_core";
+> +
+> +        #address-cells =3D <2>;
+> +        #size-cells =3D <2>;
+
+[Severity: Low]
+Does the example need #address-cells and #size-cells? It demonstrates their
+use without any child nodes containing reg properties, which directly cause=
+s a
+dtc warning during dt_binding_check validation.
+
+> +
+> +        non-pixel {
+> +            iommus =3D <&apps_smmu 0x1940 0x0000>,
+> +                     <&apps_smmu 0x1944 0x0000>,
+> +                     <&apps_smmu 0x19e0 0x0000>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-glymur-v9-=
+0-8cf2cbe12a07@oss.qualcomm.com?part=3D1
