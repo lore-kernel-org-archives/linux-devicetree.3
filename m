@@ -1,498 +1,200 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B60284C900F
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 20:08:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D44395AF5;
+	Wed, 15 Jul 2026 20:09:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784146129; cv=none; b=dCr35IbsVrKp2MBh4cHva5LfnDhJLhKvoHAVUDPt7rVL7GQe/IcFRyb+bDZdWuljlT5aStLCKvmoSuMk+cgwatU+P5Xcre45LWKIRzwpohiCsqDQoYU4H0yi4gIZeRN9C/UORmOFTnFSG/NBy32LyRxTIJYdtGzAZcaEw6vIfC0=
+	t=1784146143; cv=none; b=VeJOtMREBFkt7F+sT4z8m8rbBnVtHLsQD+jf26p6nJP+DvaeT1HcnZcU+m9w+D1NF4gwWfxEtJCklegthC4geBzJoL3z2o2i8ptfCuFBDdYnoQZLhjjvbn3Pqg/wxKcLqHfCj++WZeU4eAsXA3totb+OtvP9RZHn1TXELJ/NBnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784146129; c=relaxed/simple;
-	bh=vyA3bTE8hYTRUjn4cYj2tqaE3/svb8aVhCV8XG+F3hk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fOleQEpUjR89uIG5Vsf2p7/Uamu6F45TyaKfLY5poYAz7OjMjnfdNeBzMh6Q/7fT2Mj8ECgZ/Ux92QuvZWbZfch/ONhmG4/i3aIRgWuYtaeF1KTYKHYNQc+BJ1eE0epsjCr2lKu9wFjN/+45SHntWoTBr9sU4WrAxZcFiJ7aHAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zw1OAxhv; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784146143; c=relaxed/simple;
+	bh=KtvDwVZZOYLgcjER8SCI/pgXca4Ek++IvocS0sdjWr8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UcRZxOnjZHX+guCDEkD3TI04br1Cd+s0DvhgBiD384KYDsCAtB1nIqZjI1486SPAuywhm3b6HwkVo7QyyTB9w++CmZj9xpAdZX+Re5ntBlVlgiLvUuTQ4nULXV3P1fSDohJJutZBfsNY+BptKSULbUmmtfAF1laVzufyvj+v5oU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NDaZQVqD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zw1OAxhv"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-46f88060e8dso885909f8f.2
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 13:08:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784146126; x=1784750926; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LzqAhB7vIndJGgM5aU5dHVnwVJaq7IGNzlHaS9Ejqb8=;
-        b=Zw1OAxhvqaUNMqlBUud4J1gBjrji0WaKsIug5DJzTIKWES0sZEsGw6dUCdTsHS8Qzi
-         BJJrWF2TvAsFxyv0G+pXn63WhdgxO6veT41RAMH6HeBW5KRgVOPInDznpjh7XUjWSWCv
-         0qsXVj8Go2+J96aEMCeucnf3uF2+dz3AvIeyYJAssh0VnrKvDeKFVAi8+btP+z6pqsSQ
-         fV2OFTEyJt3yHY7uSbiwfHf6qPCIXU/nT5OZ2cnBgjcMPCVqz1xggd6KOUrqobBkIWau
-         +JXjtvoo7k0GjVjR2xRSSjE+NttzFM84bwNtDXhihFd3a74XN1QTRFiDOjvO6LfugZ2S
-         3oQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784146126; x=1784750926;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LzqAhB7vIndJGgM5aU5dHVnwVJaq7IGNzlHaS9Ejqb8=;
-        b=KjwpMNww+9IdRUxlTNG36SQUcbe/+NAY1uT++Uwevf/qmx2zPTikrRQWYym1ce9GWb
-         K19c0JWLLtQTd6g2Z9EFYXoAoG5cZnWZyAgh/OqWZKbDXK7e32kyNdDQjwn/oqco3dRW
-         e4Wwg9pvV0ffcQvOVKxSzs6BPb+m5z+e917hjcaIw1lUPUqxjaYqtORCB/PhwwkgTpE7
-         nPqs70oL4zAueZ4Wgt17ONOWRAPsYBaU5bx7yHmKskLzRHRoEJ5Dq76b0q5XvbZqpxXS
-         nMMI4lSEJsklBiCnG32kpIm0qKh6lLeXgH8v75ml1CnNsePglj8XzWySLI4eF1DT6EeI
-         iffw==
-X-Forwarded-Encrypted: i=1; AHgh+RqTwKxw1Hda1MeCvvx6HlKvzx+nzWTP32wmLtw+NnK9iNAPTxy78PwT07A+nsuenLtAeuc3wWY8UiZP@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw4I4/Aqgqc0YYR4eIOM0MfDC7BJut297PSWnRxOT/Q0gMgtRDu
-	4267K0gWRDIimVboTPIWN/bc1SfK1EoQKo4u/8ZeXC5PZlLGPsIn2mfy
-X-Gm-Gg: AfdE7cmm8BzCglU+dkKnKeFBdih/vwqhqbkkvaNCd5gMxTAjEZdyFSUskii5CO6FH4S
-	+Rog3GWwEIJQxR7J8J1V0mLDJkWsnQ4euMzW25gAvPYDOe0Y9RcVMYGmNS1vidNJwI994CVc2tY
-	1T1/rG2YzcCW0sLwmXpFi8CGaMiOJEY3KufKpYzEcAGJX8fnr5WCMFtC7hN9Rz/MGJvZrRu90Ff
-	/ED7/Rona3i5HHU+h0bcl1sxUJJyi2x4MyW3eKogwylhoywrwCoEOTC1gd4WJL9vZUloJlxyNH3
-	AS4uYjoVorJYdMQIksFMMvNZGbdmvxRzqa2S2+kp+XqHG6KTEKe+1Wskf8Na3uATSMC2SWct9d0
-	XKjVkIcHznm5dYLwibQ63cSIoAZ8KECFQeV07rCPehFA8mi+95v1Z0EH3csXQSRyLdIn9+28UjU
-	bJZao/6KxSLQwFlRoopbKOi2asYKwJq7+pP0f4AbWMeyRSVlFk+01d+10aQ8ekBfLrmFMWXHTQC
-	PUf2O+fjGChnKHMOdnLdg==
-X-Received: by 2002:a05:600c:4444:b0:493:f965:2b85 with SMTP id 5b1f17b1804b1-493f9652c65mr117588105e9.4.1784146125983;
-        Wed, 15 Jul 2026 13:08:45 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B883700BD3E109F7898AD30.dsl.pool.telekom.hu. [2001:4c4e:1b88:3700:bd3e:109f:7898:ad30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49541e7d21fsm7300625e9.2.2026.07.15.13.08.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 13:08:45 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-media@vger.kernel.org,
-	kernel@collabora.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH v2 2/2] media: synopsys: hdmirx: add HDMI audio capture support
-Date: Wed, 15 Jul 2026 22:08:34 +0200
-Message-ID: <20260715200834.8486-3-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260715200834.8486-1-royalnet026@gmail.com>
-References: <20260715200834.8486-1-royalnet026@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NDaZQVqD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 234C11F000E9;
+	Wed, 15 Jul 2026 20:09:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784146141;
+	bh=4G3HDMxqjzRxoO5aAWMt/Yk6P9jkpOshboSqefNWXrU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NDaZQVqDfOGGF1Roz+SD7ewcYzXVjrXsBy7LO4lYjMB5TxXXaldha7HMjcCRHqO24
+	 TgDQjnr6pfTc3yyBwp8DeoEW7+RF/Ewm8coAATz09hFy+8ZGDYEWCVCu/ER2bWoN/2
+	 Bbnx0xjeeFSwSA3WqZ3oCDg9x8++qwPfr/3CRA4YMVACC3mz5gGx1oVeH4uOqxza85
+	 LXpf93GdAOzuNIW+mb1Ia1HXW7IdBot7FIMPs7bBnBb7964wjOsskspYClNbV9b9Mv
+	 CDq4F8DWqHDAhXuGY2uS/iUPUz2wZEkLKM8M8cGtcnJ6EPhenc/wHn4elF0iX1AAq4
+	 1wfbAnApapu4w==
+Date: Wed, 15 Jul 2026 15:08:58 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ayyagari Ushasreevalli <aushasre@qti.qualcomm.com>, Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, 
+	Sachin Gupta <sachin.gupta@oss.qualcomm.com>
+Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: hamoa-pmics: Add ADC support
+Message-ID: <alfn2U2IR2BLCwGh@baldur>
+References: <20260614-adc5_gen3_dt-v2-0-32ec576c5865@oss.qualcomm.com>
+ <20260614-adc5_gen3_dt-v2-4-32ec576c5865@oss.qualcomm.com>
+ <alKYqD6yp97DV6R-@baldur>
+ <27141365-9fbb-4377-9db4-dae281741d0e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <27141365-9fbb-4377-9db4-dae281741d0e@oss.qualcomm.com>
 
-The Synopsys DesignWare HDMI RX controller extracts the audio stream
-embedded in the incoming HDMI signal and feeds it to an on-SoC I2S
-controller. Expose it as an ALSA capture device by registering the
-generic hdmi-codec as a child of the controller, so that a
-simple-audio-card in the device tree can bind the HDMI RX audio DAI.
+On Tue, Jul 14, 2026 at 05:34:31PM +0530, Jishnu Prakash wrote:
+> Hi Bjorn,
+> 
+> On 7/12/2026 1:11 AM, Bjorn Andersson wrote:
+> > On Sun, Jun 14, 2026 at 01:35:11PM +0530, Jishnu Prakash wrote:
+> >> From: Ayyagari Ushasreevalli <aushasre@qti.qualcomm.com>
+> >>
+> >> Add ADC node and define channels for:
+> >> - Die temperature for PMK8550, PM8550VE* and PMC8380* PMICs.
+> >> - PM8550: Die temperature, VPH power, and system thermistors.
+> >>
+> >> Define thermal zones 'sys-0-thermal' through 'sys-6-thermal' which
+> >> correspond to the off-PMIC system thermistors connected via
+> >> PM8550 AMUX/GPIO lines.
+> > 
+> > These are connected to thermistors on the PCB, which would make them
+> > board-specific. In fact, you specify all 7 thermal-zones, but at least 2
+> > of those are not connected on my board according to the schematics.
+> > 
+> > So, I think the thermal-zones definitions should be deferred to
+> > board-specific dts.
+> 
+> Yes, I see your point, since thermistors can vary between boards,
+> it may be better to keep thermal-zones definitions in board-specific
+> dts files.
+> 
+> > 
+> >>
+> >> Also,add io-channels and io-channel-names properties to the
+> >> temp_alarm nodes so that they can get temperature reading
+> >> from the ADC die_temp channels.
+> >>
+> >> Signed-off-by: Ayyagari Ushasreevalli <aushasre@qti.qualcomm.com>
+> >> Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+> >> ---
+> >>  arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi | 250 ++++++++++++++++++++++++++++++
+> >>  1 file changed, 250 insertions(+)
+> >>
+> >> diff --git a/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi b/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi
+> >> index 6a31a0adf8be..2e746ede850f 100644
+> >> --- a/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi
+> >> +++ b/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi
+> >> @@ -6,7 +6,9 @@
+> >>  #include <dt-bindings/input/input.h>
+> >>  #include <dt-bindings/input/linux-event-codes.h>
+> >>  #include <dt-bindings/interrupt-controller/irq.h>
+> >> +#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+> >>  #include <dt-bindings/spmi/spmi.h>
+> >> +#include "qcom-adc5-gen3.h"
+> >>  
+> >>  / {
+> >>  	thermal-zones {
+> >> @@ -189,6 +191,90 @@ trip1 {
+> >>  				};
+> >>  			};
+> >>  		};
+> >> +
+> >> +		sys-0-thermal {
+> >> +			polling-delay-passive = <0>;
+> >> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
+> > 
+> > As I said above, this doesn't match my board.
+> > 
+> >> +			trips {
+> >> +				active-config0 {
+> >> +					temperature = <125000>;
+> >> +					hysteresis = <1000>;
+> >> +					type = "passive";
+> >> +				};
+> >> +			};
+> >> +		};
+> >> +
+> >> +		sys-1-thermal {
+> >> +			polling-delay-passive = <0>;
+> >> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>;
+> >> +			trips {
+> >> +				active-config0 {
+> >> +					temperature = <125000>;
+> >> +					hysteresis = <1000>;
+> >> +					type = "passive";
+> >> +				};
+> >> +			};
+> >> +		};
+> >> +
+> >> +		sys-2-thermal {
+> > 
+> > This provides the temperature of my keyboard, so I'd certainly want to
+> > override the properties within - and perhaps use this for throttling
+> > things.
+> > 
+> >> +			polling-delay-passive = <0>;
+> >> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
+> >> +			trips {
+> >> +				active-config0 {
+> >> +					temperature = <125000>;
+> >> +					hysteresis = <1000>;
+> >> +					type = "passive";
+> >> +				};
+> >> +			};
+> >> +		};
+> >> +
+> > [..]
+> >> @@ -277,6 +363,142 @@ pmk8550_pwm: pwm {
+> >>  
+> >>  			status = "disabled";
+> >>  		};
+> >> +
+> >> +		pmk8550_vadc: adc@9000 {
+> > [..]
+> >> +			channel@14a {
+> >> +				reg = <ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
+> > 
+> > I guess per my own argument, you don't know that this channel has a 100K
+> > resistor...
+> > 
+> > But that said, people have waited forever for this to be ready to allow
+> > thermal throttling of overheating laptops. So please just drop the
+> > thermal-zones, address Konrad's other comment and resubmit this.
+> > 
+> 
+> OK, please let me know in case you see any issues with the following
+> changes:
+> 
+> I'll drop the thermal-zones nodes for now. To avoid any error messages,
+> like from attempts at thermal device registration, I'll drop the "qcom,adc-tm"
+> property from channels having it and also the "#thermal-sensor-cells"
+> property from the main ADC node.
+> 
+> I'll keep the ADC channel nodes under the main ADC node in place and
+> delete the ones absent on Purwa boards in Purwa board files, to address
+> Konrad's comment.
+> 
+> Later, I can push a separate patch to add proper thermal configurations
+> for thermistors per board, and only for the boards we use internally.
+> 
 
-The sample rate is recovered from the ACR N/CTS values together with the
-measured TMDS character rate. A periodic worker keeps the local audio
-reference clock locked to the source by nudging it in small ppm steps to
-hold the audio FIFO fill level near its target, which avoids FIFO
-under/overflow and the resulting dropped samples.
+That sounds like a good plan. That will allow us to move ahead and add
+the board-specific thermal zones and cooling maps.
 
-The controller's S/PDIF interface is registered as a second DAI so the
-DAI indexes match the binding (0 = I2S, 1 = S/PDIF), and is rejected
-with -EOPNOTSUPP in hw_params() until that path is wired up.
+Regards,
+Bjorn
 
-Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
----
-Changes in v2:
-- register the S/PDIF DAI so the indexes match the binding and reject
-  it with -EOPNOTSUPP until wired up (Sebastian Reichel)
-- use platform_device_register_data() and drop the fixed 32-bit DMA
-  mask (Dmitry Osipenko)
-- don't leave an ERR_PTR in audio_pdev on registration failure
-- fix teardown ordering in remove(): clear the streaming flag first,
-  unregister the codec, cancel the worker last
-- stop the worker before reprogramming shared state in hw_params()
-- look up the "audio" clock by name instead of indexing clks[1]
-- keep the worker on system_unbound_wq when re-arming
-- fix sparse warnings in the ACR register reads (Media CI)
-
- .../platform/synopsys/hdmirx/snps_hdmirx.c    | 280 ++++++++++++++++++
- .../platform/synopsys/hdmirx/snps_hdmirx.h    |   8 +
- 2 files changed, 288 insertions(+)
-
-diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-index 9cceffa..78f88af 100644
---- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-+++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-@@ -41,6 +41,8 @@
- #include <media/videobuf2-dma-contig.h>
- #include <media/videobuf2-v4l2.h>
- 
-+#include <sound/hdmi-codec.h>
-+
- #include "snps_hdmirx.h"
- #include "snps_hdmirx_cec.h"
- 
-@@ -132,6 +134,13 @@ struct snps_hdmirx_dev {
- 	struct delayed_work delayed_work_hotplug;
- 	struct delayed_work delayed_work_res_change;
- 	struct hdmirx_cec *cec;
-+	struct platform_device *audio_pdev;
-+	struct clk *audio_clk;
-+	struct delayed_work audio_work;
-+	u32 audio_clkrate;
-+	u32 audio_fs;
-+	int audio_pre_state;
-+	bool audio_streaming;
- 	struct mutex phy_rw_lock; /* to protect phy r/w configuration */
- 	struct mutex stream_lock; /* to lock video stream capture */
- 	struct mutex work_lock; /* to lock the critical section of hotplug event */
-@@ -2283,6 +2292,13 @@ static int hdmirx_parse_dt(struct snps_hdmirx_dev *hdmirx_dev)
- 	if (hdmirx_dev->num_clks < 1)
- 		return -ENODEV;
- 
-+	for (int i = 0; i < hdmirx_dev->num_clks; i++) {
-+		if (!strcmp(hdmirx_dev->clks[i].id, "audio")) {
-+			hdmirx_dev->audio_clk = hdmirx_dev->clks[i].clk;
-+			break;
-+		}
-+	}
-+
- 	hdmirx_dev->resets[HDMIRX_RST_A].id = "axi";
- 	hdmirx_dev->resets[HDMIRX_RST_P].id = "apb";
- 	hdmirx_dev->resets[HDMIRX_RST_REF].id = "ref";
-@@ -2650,6 +2666,255 @@ static int hdmirx_register_cec(struct snps_hdmirx_dev *hdmirx_dev,
- 	return 0;
- }
- 
-+#define HDMIRX_AUDIO_INIT_FIFO_STATE	128
-+#define HDMIRX_AUDIO_INIT_STATE		(HDMIRX_AUDIO_INIT_FIFO_STATE * 4)
-+
-+static const int hdmirx_supported_fs[] = {
-+	32000, 44100, 48000, 88200, 96000, 176400, 192000, 768000, -1
-+};
-+
-+static int hdmirx_audio_closest_fs(int fs)
-+{
-+	int i = 0, fs_t = hdmirx_supported_fs[0];
-+
-+	while (fs_t > 0) {
-+		if (abs(fs - fs_t) <= 2000)
-+			return fs_t;
-+		fs_t = hdmirx_supported_fs[++i];
-+	}
-+	return 0;
-+}
-+
-+/* Recover the incoming audio sample rate from the ACR N/CTS + TMDS clock. */
-+static u32 hdmirx_audio_fs(struct snps_hdmirx_dev *hdmirx_dev)
-+{
-+	u64 tmds_clk, fs_audio = 0;
-+	u32 acr_cts, acr_n, tmdsqpclk_freq;
-+	u32 acr_pb7_4, acr_pb3_0;
-+
-+	tmdsqpclk_freq = hdmirx_readl(hdmirx_dev, CMU_TMDSQPCLK_FREQ);
-+	hdmirx_readl(hdmirx_dev, PKTDEC_ACR_PH2_1);
-+	acr_pb7_4 = hdmirx_readl(hdmirx_dev, PKTDEC_ACR_PB3_0);
-+	acr_pb3_0 = hdmirx_readl(hdmirx_dev, PKTDEC_ACR_PB7_4);
-+	acr_cts = be32_to_cpu((__force __be32)acr_pb7_4) & 0xfffff;
-+	acr_n = (be32_to_cpu((__force __be32)acr_pb3_0) & 0x0fffff00) >> 8;
-+	tmds_clk = tmdsqpclk_freq * 4 * 1000U;
-+	if (acr_cts != 0) {
-+		fs_audio = div_u64((tmds_clk * acr_n), acr_cts);
-+		fs_audio /= 128;
-+		fs_audio = hdmirx_audio_closest_fs(fs_audio);
-+	}
-+	return (u32)fs_audio;
-+}
-+
-+/* Nudge the audio reference clock by +/- ppm to keep the FIFO balanced. */
-+static void hdmirx_audio_clk_ppm_inc(struct snps_hdmirx_dev *hdmirx_dev, int ppm)
-+{
-+	int delta, inc;
-+	long rate = hdmirx_dev->audio_clkrate;
-+
-+	if (ppm < 0) {
-+		ppm = -ppm;
-+		inc = -1;
-+	} else {
-+		inc = 1;
-+	}
-+	delta = (int)div64_u64((u64)rate * ppm + 500000, 1000000);
-+	delta *= inc;
-+	rate = hdmirx_dev->audio_clkrate + delta;
-+	clk_set_rate(hdmirx_dev->audio_clk, rate);
-+	hdmirx_dev->audio_clkrate = rate;
-+}
-+
-+static int hdmirx_audio_clk_adjust(struct snps_hdmirx_dev *hdmirx_dev,
-+				   int total_offset, int single_offset)
-+{
-+	int schedule_time = 500;
-+	int ppm = 10;
-+	u32 offset_abs = abs(total_offset);
-+
-+	if (offset_abs > 200) {
-+		ppm += 200;
-+		schedule_time -= 100;
-+	}
-+	if (offset_abs > 100) {
-+		ppm += 200;
-+		schedule_time -= 100;
-+	}
-+	if (offset_abs > 32) {
-+		ppm += 20;
-+		schedule_time -= 100;
-+	}
-+	if (offset_abs > 16)
-+		ppm += 20;
-+	if (total_offset > 16 && single_offset > 0)
-+		hdmirx_audio_clk_ppm_inc(hdmirx_dev, ppm);
-+	else if (total_offset < -16 && single_offset < 0)
-+		hdmirx_audio_clk_ppm_inc(hdmirx_dev, -ppm);
-+	return schedule_time;
-+}
-+
-+static void hdmirx_audio_fifo_reinit(struct snps_hdmirx_dev *hdmirx_dev)
-+{
-+	hdmirx_writel(hdmirx_dev, AUDIO_FIFO_CONTROL, 1);
-+	usleep_range(200, 210);
-+	hdmirx_writel(hdmirx_dev, AUDIO_FIFO_CONTROL, 0);
-+}
-+
-+/*
-+ * Periodic worker that locks the local audio clock to the source by keeping
-+ * the audio FIFO fill level close to its target, avoiding under/overflow.
-+ */
-+static void hdmirx_audio_work(struct work_struct *work)
-+{
-+	struct snps_hdmirx_dev *hdmirx_dev =
-+		container_of(to_delayed_work(work), struct snps_hdmirx_dev, audio_work);
-+	unsigned long delay = 200;
-+	int cur, total, single;
-+	u32 fifo, fs;
-+
-+	fs = hdmirx_audio_fs(hdmirx_dev);
-+	fifo = hdmirx_readl(hdmirx_dev, AUDIO_FIFO_STATUS2);
-+
-+	if (fifo & (AFIFO_UNDERFLOW_ST | AFIFO_OVERFLOW_ST)) {
-+		if (fs) {
-+			clk_set_rate(hdmirx_dev->audio_clk, fs * 128);
-+			hdmirx_dev->audio_clkrate = fs * 128;
-+			hdmirx_dev->audio_fs = fs;
-+		}
-+		hdmirx_audio_fifo_reinit(hdmirx_dev);
-+		hdmirx_dev->audio_pre_state = 0;
-+		goto out;
-+	}
-+
-+	cur = fifo & 0xffff;
-+	total = cur - HDMIRX_AUDIO_INIT_STATE;
-+	single = cur - hdmirx_dev->audio_pre_state;
-+
-+	if (fs && abs((int)fs - (int)hdmirx_dev->audio_fs) > 1000) {
-+		clk_set_rate(hdmirx_dev->audio_clk, fs * 128);
-+		hdmirx_dev->audio_clkrate = fs * 128;
-+		hdmirx_dev->audio_fs = fs;
-+		hdmirx_audio_fifo_reinit(hdmirx_dev);
-+		hdmirx_dev->audio_pre_state = 0;
-+		goto out;
-+	}
-+
-+	if (cur != 0)
-+		delay = hdmirx_audio_clk_adjust(hdmirx_dev, total, single);
-+	hdmirx_dev->audio_pre_state = cur;
-+out:
-+	/* Only re-arm while streaming; avoids a self-reschedule race with
-+	 * the cancel_delayed_work_sync() callers (hw_params, audio_shutdown
-+	 * and remove).
-+	 */
-+	if (READ_ONCE(hdmirx_dev->audio_streaming))
-+		queue_delayed_work(system_unbound_wq, &hdmirx_dev->audio_work,
-+				   msecs_to_jiffies(delay));
-+}
-+
-+static int hdmirx_audio_hw_params(struct device *dev, void *data,
-+				  struct hdmi_codec_daifmt *fmt,
-+				  struct hdmi_codec_params *hparms)
-+{
-+	struct snps_hdmirx_dev *hdmirx_dev = dev_get_drvdata(dev);
-+	u32 fs;
-+
-+	/* Only the I2S interface (DAI 0) is wired up so far. */
-+	if (fmt->fmt == HDMI_SPDIF)
-+		return -EOPNOTSUPP;
-+
-+	/*
-+	 * Stop the worker before touching the shared audio state; it is
-+	 * re-armed below once the new parameters are in place.
-+	 */
-+	WRITE_ONCE(hdmirx_dev->audio_streaming, false);
-+	cancel_delayed_work_sync(&hdmirx_dev->audio_work);
-+
-+	fs = hdmirx_audio_fs(hdmirx_dev);
-+	if (!fs)
-+		fs = hparms ? hparms->sample_rate : 48000;
-+	if (!fs)
-+		fs = 48000;
-+
-+	hdmirx_dev->audio_fs = fs;
-+	hdmirx_dev->audio_clkrate = fs * 128;
-+	clk_set_rate(hdmirx_dev->audio_clk, fs * 128);
-+
-+	hdmirx_audio_fifo_reinit(hdmirx_dev);
-+	hdmirx_writel(hdmirx_dev, AUDIO_FIFO_THR_PASS, HDMIRX_AUDIO_INIT_FIFO_STATE);
-+	hdmirx_writel(hdmirx_dev, AUDIO_FIFO_THR,
-+		      AFIFO_THR_LOW_QST(0x20) | AFIFO_THR_HIGH_QST(0x160));
-+	hdmirx_writel(hdmirx_dev, AUDIO_FIFO_MUTE_THR,
-+		      AFIFO_THR_MUTE_LOW_QST(0x8) | AFIFO_THR_MUTE_HIGH_QST(0x178));
-+
-+	hdmirx_update_bits(hdmirx_dev, AUDIO_PROC_CONFIG0, I2S_EN, I2S_EN);
-+	hdmirx_update_bits(hdmirx_dev, GLOBAL_SWENABLE, AUDIO_ENABLE, AUDIO_ENABLE);
-+
-+	hdmirx_dev->audio_pre_state = 0;
-+	WRITE_ONCE(hdmirx_dev->audio_streaming, true);
-+	mod_delayed_work(system_unbound_wq, &hdmirx_dev->audio_work,
-+			 msecs_to_jiffies(200));
-+
-+	dev_dbg(dev, "audio hw_params: fs=%u\n", fs);
-+	return 0;
-+}
-+
-+static void hdmirx_audio_shutdown(struct device *dev, void *data)
-+{
-+	struct snps_hdmirx_dev *hdmirx_dev = dev_get_drvdata(dev);
-+
-+	WRITE_ONCE(hdmirx_dev->audio_streaming, false);
-+	cancel_delayed_work_sync(&hdmirx_dev->audio_work);
-+	hdmirx_update_bits(hdmirx_dev, GLOBAL_SWENABLE, AUDIO_ENABLE, 0);
-+}
-+
-+static int hdmirx_audio_get_dai_id(struct snd_soc_component *component,
-+				   struct device_node *endpoint,
-+				   void *data)
-+{
-+	return 0;
-+}
-+
-+static const struct hdmi_codec_ops hdmirx_audio_codec_ops = {
-+	.hw_params = hdmirx_audio_hw_params,
-+	.audio_shutdown = hdmirx_audio_shutdown,
-+	.get_dai_id = hdmirx_audio_get_dai_id,
-+};
-+
-+static int hdmirx_register_audio_device(struct snps_hdmirx_dev *hdmirx_dev)
-+{
-+	struct hdmi_codec_pdata codec_data = {
-+		.ops = &hdmirx_audio_codec_ops,
-+		.i2s = 1,
-+		.no_i2s_playback = 1,
-+		.max_i2s_channels = 8,
-+		/*
-+		 * The controller also has an S/PDIF audio interface (DAI 1 in
-+		 * the binding). Register it so DAI indexes match the binding,
-+		 * but reject its use in hw_params() until it is wired up.
-+		 */
-+		.spdif = 1,
-+		.no_spdif_playback = 1,
-+		.data = hdmirx_dev,
-+	};
-+	struct platform_device *audio_pdev;
-+
-+	if (!hdmirx_dev->audio_clk)
-+		return -ENODEV;
-+
-+	audio_pdev = platform_device_register_data(hdmirx_dev->dev,
-+						   HDMI_CODEC_DRV_NAME,
-+						   PLATFORM_DEVID_AUTO,
-+						   &codec_data, sizeof(codec_data));
-+	if (IS_ERR(audio_pdev))
-+		return PTR_ERR(audio_pdev);
-+
-+	hdmirx_dev->audio_pdev = audio_pdev;
-+
-+	return 0;
-+}
-+
- static int hdmirx_probe(struct platform_device *pdev)
- {
- 	struct snps_hdmirx_dev *hdmirx_dev;
-@@ -2701,6 +2966,7 @@ static int hdmirx_probe(struct platform_device *pdev)
- 			  hdmirx_delayed_work_hotplug);
- 	INIT_DELAYED_WORK(&hdmirx_dev->delayed_work_res_change,
- 			  hdmirx_delayed_work_res_change);
-+	INIT_DELAYED_WORK(&hdmirx_dev->audio_work, hdmirx_audio_work);
- 
- 	hdmirx_dev->cur_fmt_fourcc = V4L2_PIX_FMT_BGR24;
- 	hdmirx_dev->timings = cea640x480;
-@@ -2769,6 +3035,10 @@ static int hdmirx_probe(struct platform_device *pdev)
- 						       V4L2_DEBUGFS_IF_AVI, hdmirx_dev,
- 						       hdmirx_debugfs_if_read);
- 
-+	ret = hdmirx_register_audio_device(hdmirx_dev);
-+	if (ret)
-+		dev_warn(dev, "failed to register HDMI audio codec: %d\n", ret);
-+
- 	return 0;
- 
- err_unreg_video_dev:
-@@ -2788,6 +3058,16 @@ static void hdmirx_remove(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct snps_hdmirx_dev *hdmirx_dev = dev_get_drvdata(dev);
- 
-+	/*
-+	 * Clear the streaming flag first so a running worker cannot re-arm
-+	 * itself, then tear down the codec (which stops any active stream)
-+	 * before the final cancel.
-+	 */
-+	WRITE_ONCE(hdmirx_dev->audio_streaming, false);
-+	if (hdmirx_dev->audio_pdev)
-+		platform_device_unregister(hdmirx_dev->audio_pdev);
-+	cancel_delayed_work_sync(&hdmirx_dev->audio_work);
-+
- 	v4l2_debugfs_if_free(hdmirx_dev->infoframes);
- 	debugfs_remove_recursive(hdmirx_dev->debugfs_dir);
- 
-diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.h b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.h
-index 31b887e..a99f54f 100644
---- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.h
-+++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.h
-@@ -81,6 +81,7 @@
- #define DATAPATH_ENABLE				BIT(12)
- #define PKTFIFO_ENABLE				BIT(11)
- #define AVPUNIT_ENABLE				BIT(8)
-+#define AUDIO_ENABLE				BIT(9)
- #define MAIN_ENABLE				BIT(0)
- #define GLOBAL_TIMER_REF_BASE			0x0028
- #define CORE_CONFIG				0x0050
-@@ -177,20 +178,27 @@
- #define VPROC_FMT_OVR_VALUE(x)			UPDATE(x, 6, 4)
- #define VPROC_FMT_OVR_EN			BIT(0)
- 
-+#define AUDIO_FIFO_CONFIG			0x0460
- #define AFIFO_FILL_RESTART			BIT(0)
-+#define AUDIO_FIFO_CONTROL			0x0464
- #define AFIFO_INIT_P				BIT(0)
-+#define AUDIO_FIFO_THR_PASS			0x0468
-+#define AUDIO_FIFO_THR				0x046c
- #define AFIFO_THR_LOW_QST_MASK			GENMASK(25, 16)
- #define AFIFO_THR_LOW_QST(x)			UPDATE(x, 25, 16)
- #define AFIFO_THR_HIGH_QST_MASK			GENMASK(9, 0)
- #define AFIFO_THR_HIGH_QST(x)			UPDATE(x, 9, 0)
-+#define AUDIO_FIFO_MUTE_THR			0x0470
- #define AFIFO_THR_MUTE_LOW_QST_MASK		GENMASK(25, 16)
- #define AFIFO_THR_MUTE_LOW_QST(x)		UPDATE(x, 25, 16)
- #define AFIFO_THR_MUTE_HIGH_QST_MASK		GENMASK(9, 0)
- #define AFIFO_THR_MUTE_HIGH_QST(x)		UPDATE(x, 9, 0)
- 
-+#define AUDIO_FIFO_STATUS2			0x0478
- #define AFIFO_UNDERFLOW_ST			BIT(25)
- #define AFIFO_OVERFLOW_ST			BIT(24)
- 
-+#define AUDIO_PROC_CONFIG0			0x0480
- #define SPEAKER_ALLOC_OVR_EN			BIT(16)
- #define I2S_BPCUV_EN				BIT(4)
- #define SPDIF_EN				BIT(2)
--- 
-2.53.0
-
+> Thanks,
+> Jishnu
+> 
+> > Regards,
+> > Bjorn
+> 
