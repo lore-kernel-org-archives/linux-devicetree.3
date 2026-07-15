@@ -1,108 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4739370D6E
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 11:48:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5DD2448CED;
+	Wed, 15 Jul 2026 11:49:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784116104; cv=none; b=SOuMcUNi0ZJ0p2eYTMHPzGnSMy/SkmBRrmW/1QpmmUh9hPbJdR1v72668HWgAJn/BmNXn6ARv1cPFqaOsOa9rG8jdWcl7bw26JqeAq8zKMoU5/ubBFS+Nz2GewkysZvJS+qej/ESDKDed0a1GVg2va51idf2R7yN0zbZUEZotsI=
+	t=1784116170; cv=none; b=tqxuZSBqdSxAa7mDJ81OJ4S+ryEehr/TJkvOc8UkU8/Hg7aGSFHWoQ9zLoXwCcblDGAhuA9pikds79AbugWy8t8jZfWd3EwFI90s+4l0udbOfzZtsqcKWRIhK9+9cmijULesTe63EKeJV/gsjKVO01mzolLUwCkrKzFzFqxdBIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784116104; c=relaxed/simple;
-	bh=ZVuLnLhZc0rNxL5r7SVr4trvrCJNAsWCrRjfwQZjBAE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IxMUOkJ5reRQAzbNaxxIIDCUET+8GpRIxuoYY+KamwQA6ayTRwJISSmkG4KynCfYI+wkPM4DD3WOR6TE+eAun4BvvMAxfbFVUxB2ag1QAd1nKhB47mH3j8LVaSl0O/Y9DtOkqxUgVuEewRQ4Ss5zdM7xqf8j+9Q8yPLe3cC5NPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eI1Hz/Ch; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784116170; c=relaxed/simple;
+	bh=htXBBYCCGNWLqgJjvvXUTq2WTxMjS9aKGJ0yCk36khU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bsdLLkv3uC0Mh4g+xHcpjIogYOkrbIhhvrG0yLQSlsd0Um/oz4KtLcuBs8AtPizNVARq33byevq2TFiaIG2/NeJZ//X2yxSH1s67WaXbaXNa5ReGBChLPsIhhmen+YhGeYjHAYHkFlyJr7tZdGcANeyas2stJZQKIRCmzoxlB5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=dypUvvxj; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eI1Hz/Ch"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6019C1F000E9;
-	Wed, 15 Jul 2026 11:48:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784116102;
-	bh=T8sCsMXfa9157Qkdw5sWCiNhTIoNf9bti3kRSbSgEmU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eI1Hz/ChQRKxNaamJsmjHS9eu0DN3tfQ1jcy9dhHAcmyQyl9SgE1Amad5uH3pJngy
-	 AOj/0WhaLan2u4inWPKo2e12ZElmdDReJGG2zvWIEY7sr4Gkm9N1iEc7UvrWXR9utt
-	 E+DPy5B+0paoH/3RA+AujKlWSPIVjpueW1XcN3IV4TVGKdAFioB6+8qKIMZJ/LYV0p
-	 M+XNTPSwOO4Ytqc2wbopDQ0Qe3bqnoe3GdpK5BEC7RK/GiAfRP2acKSzqVvNO40gC4
-	 QCXCNOwO6oMRLHnQtog7C6x4MStavBq21qV6wxybQt/MwpuXdoKeNyCmtReFaNt0/F
-	 AiWwdQUHwv7CA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/5] spi: dt-bindings: Add spi-device-addr peripheral
- property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Janani Sunil" <janani.sunil@analog.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260715-ad5529r-driver-v6-1-cfdf8b9f5ee3@analog.com>
-References: <20260715-ad5529r-driver-v6-0-cfdf8b9f5ee3@analog.com>
- <20260715-ad5529r-driver-v6-1-cfdf8b9f5ee3@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 11:48:21 +0000
-Message-Id: <20260715114822.6019C1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="dypUvvxj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1784116166;
+	bh=htXBBYCCGNWLqgJjvvXUTq2WTxMjS9aKGJ0yCk36khU=;
+	h=From:To:Cc:Subject:Date:From;
+	b=dypUvvxj+mWvebpf3uOAl9NHcaAf9zVbsY+DdcqpbyNO0xX5Ey9rvP74bfWcvT++u
+	 if0qSIWdWNbQ5oTPBgAzooSD/VSNuYvgLzr7RVqJmZVw2Bu7yF6IxMgmQj6/94dwlL
+	 NCkxkmu6CDZn6hmI0dGy1nLtA8/EYYM52ojklXfwMyQNFBFO4ZWodbFi91oMCUSP4J
+	 qeiYDXeJVf8Jx1gpy1fIL4P/K24qhJJuFYRL6BhEjdVLWeDXuujHSsyJx7IZK6Tdtq
+	 Z6+WysfgKca+F3i4rr41PkwGwMQSrsQ7lhtc5Mifnq/uwph+RZzcHlr9fqjFq8ZX0t
+	 ViXTzAZ/vgcjA==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id C146717E00F6;
+	Wed, 15 Jul 2026 13:49:25 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: chunkuang.hu@kernel.org
+Cc: p.zabel@pengutronix.de,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	jitao.shi@mediatek.com,
+	dri-devel@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	kernel@collabora.com,
+	justin.yeh@mediatek.com,
+	jason-jh.lin@mediatek.com
+Subject: [PATCH v5 00/11] drm/mediatek: Add DSC, WDMA, MT8189/96 DSI support
+Date: Wed, 15 Jul 2026 13:49:05 +0200
+Message-ID: <20260715114916.19690-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `spi-device-addr` array property groups multiple physical ch=
-ips under a single Device Tree node, which violates core DT architecture an=
-d precludes describing per-chip resources.
---
+Changes in v5:
+ - Clarified commit description for WDMA binding compatibles addition
+   explaining why Dimensity 1200 is not compatible with MT8173
+ - Added missing mediatek,mt8189-dsi compatible in mtk_drm_drv.c
+ - Added fix in mtk_dsi for failing device_reset_optional() producing
+   a possible use-after-free issue
 
---- Patch [1]: [PATCH v6 1/5] spi: dt-bindings: Add spi-device-addr periphe=
-ral property ---
-commit 039a81f5133684e72f9b6f61fd5df1550f9b8b54
-Author: Janani Sunil <janani.sunil@analog.com>
+Changes in v4:
+ - WDMA: Delete the .remove() callback from WDMA as not needed anymore
+ - WDMA: Add comments explaining no bus errors will happen if writing
+   to INT_ENABLE, INT_STATUS registers while unpowered or unclocked
+ - Return error in mtk_wdma_wb_atomic_check() error conditions, oops!
+ - DSC: Fix dsc_pad_num calculation (missing parenthesis...)
+ - DSI: Change dsc slice check error to dev_dbg instead to avoid spam
+ - DSI: Correctly cleanup dsi->dsc upon component_add failure
+ - DSI: Make sure the CKTX_CKL_WC register is correctly programmed in
+   DSI w/DSC case
 
-spi: dt-bindings: Add spi-device-addr peripheral property
+Changes in v3:
+ - Changed mtk_dsi DSC implementation to use a different DSI_PS
+   setting function for compressed or uncompressed, as the dsc one
+   is way simpler than the regular one and becomes way shorter
+ - DSC: Fixed missing PPS 19 register write
+ - DSI: Anticipated call to devm_pm_runtime_enable() to before
+   registering the DSI Host interface
+ - DSI: Anticipated installing IRQ handler before registering the
+   dsi host interface, which wasn't a problem before, but now it
+   would be one because the interrupt is being enabled when binding!
+ - DSI: Fixed some possible calculation overflows that may happen in
+   MT8189 and MT8196 because of the higher supported resolutions
+ - WDMA: Use devm variant of pm_runtime_enable()
+ - Change WDMA interrupt handler to allow signaling WB complete even
+   if there is no specific vblank callback installed to avoid very
+   long timeouts (in any case, WB is complete for real even if there
+   is no vblank_cb, just a bit useless without, but still complete)
+ - Fixed WDMA register writes as register id was in function signature
+   for mtk_wdma_ddp_write_dst_addr() but the function itself never
+   used it in DISP_REG_WDMA_DST_ADDRX() macro
 
-This commit adds a generic spi-device-addr property to describe multiple
-hardware addresses for SPI devices that share a single chip select. The
-property is defined as a uint32-array to be placed on the SPI peripheral
-node.
+Changes in v2:
+ - Rebased on next-20260706
 
-> diff --git a/Documentation/devicetree/bindings/spi/spi-peripheral-props.y=
-aml b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> --- a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> +++ b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+This series adds support for:
+ - Display Stream Compression (DSC) for DSI and DisplayPort for both
+   legacy (8188/92/95 and others) and for Kompanio Ultra MT8196 SoCs
+ - Write DMA (WDMA) Engine (for legacy only at this time) as a step
+   to enable Writeback support (coming later with a restructuring of
+   the entire mediatek-drm driver)
+ - Newer MIPI DSI IP revisions, found in MT8189 and MT8196 SoCs
 
-[ ... ]
 
-> @@ -142,6 +142,11 @@ properties:
->      minItems: 2
->      maxItems: 4
-> =20
-> +  spi-device-addr:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    description:
-> +      Device address used when multiple peripherals share a single chip =
-select.
+AngeloGioacchino Del Regno (11):
+  dt-bindings: display: mediatek: dsc: Add MT8196 compatible
+  drm/mediatek: Implement Display Stream Compression support
+  dt-bindings: display: mediatek: dsi: Document MT8189 and MT8196
+  drm/mediatek: mtk_dsi: Cleanup encoder if reset fails during bind
+  drm/mediatek: mtk_dsi: Enable interrupt at component bind time
+  drm/mediatek: mtk_dsi: Transfer register offsets to per-SoC const
+  drm/mediatek: mtk_dsi: Add support for MT8189
+  drm/mediatek: mtk_dsi: Add support for MT8196
+  drm/mediatek: mtk_dsi: Enable PM Runtime on probe
+  dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs
+  drm/mediatek: Add Write DMA (WDMA) Engine for Writeback support
 
-[Severity: Medium]
-Does grouping multiple physical chips under a single Device Tree node using=
- an
-array property conflict with core DT architecture?
+ .../display/mediatek/mediatek,dsc.yaml        |   4 +-
+ .../display/mediatek/mediatek,dsi.yaml        |   2 +
+ .../display/mediatek/mediatek,wdma.yaml       |   5 +
+ drivers/gpu/drm/mediatek/Makefile             |   2 +
+ drivers/gpu/drm/mediatek/mtk_crtc.c           |  21 +
+ drivers/gpu/drm/mediatek/mtk_ddp_comp.c       |  64 +-
+ drivers/gpu/drm/mediatek/mtk_ddp_comp.h       |   9 +
+ drivers/gpu/drm/mediatek/mtk_disp_drv.h       |  29 +
+ drivers/gpu/drm/mediatek/mtk_disp_dsc.c       | 455 ++++++++++
+ drivers/gpu/drm/mediatek/mtk_disp_wdma.c      | 628 ++++++++++++++
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  10 +
+ drivers/gpu/drm/mediatek/mtk_drm_drv.h        |   2 +
+ drivers/gpu/drm/mediatek/mtk_dsi.c            | 801 ++++++++++++++----
+ 13 files changed, 1842 insertions(+), 190 deletions(-)
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_dsc.c
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_wdma.c
 
-If multiple addresses are listed here, it becomes impossible to describe
-distinct per-chip hardware resources, such as individual interrupts, clocks,
-or power supplies for those physical chips.
+-- 
+2.54.0
 
-Would it be more appropriate to model the shared CS as a bridge or bus node
-with #address-cells =3D <1>, and represent each physical chip as a distinct
-child node with its own reg and discrete properties?=20
-
-Since Device Tree bindings form a permanent ABI, establishing this array
-pattern might permanently constrain drivers needing to represent per-chip
-resources on shared chip selects.
-
-> +
->    st,spi-midi-ns:
->      deprecated: true
->      description: |
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-ad5529r-dr=
-iver-v6-0-cfdf8b9f5ee3@analog.com?part=3D1
