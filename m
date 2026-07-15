@@ -1,140 +1,333 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B69432EEE9E
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 15:24:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88FEA480DE5
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 15:25:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784129099; cv=none; b=CccDME2kgv8l3VhMwHFhws/ysLbC7AUaSN6hLNyzwTeurVWRHseRMPIlkcYbHR8KqLPiHd9Mx8XycpuYrc2VnrSgb//0u1hBy5B1FbN8AAqG561fXjgAhbHWbIFaRJsheAnje9Tod+b1BuWdoIRPcXFGWJANOjVJZWiNojQJ+ns=
+	t=1784129160; cv=none; b=m/JQR/83oSVlNV4W5TL5jmim6huilzAJ8CwSMdAEAwn8aQiuSWhn6Cfq4wDUqDS746338w6it146Ga3rC9jX9eCVQR8effBMUu2NUfKMlRqN4QR0X0jeDRXepgOxxHIdHOwgJZs2YsSM1M2xJVm7SP/KjGeaHFK045obAJCg7Tw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784129099; c=relaxed/simple;
-	bh=/y7WcDu9L2JlkVTeAC5aQykYA4fENdiTgxp6Wdt5OC0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VF/oTA70gasX3+wERz6dYDP+M2PL5JYbQJEAZqcVhL+sE4FEEvJwCptdLkqIxSRFpraTCfFwBSV5NU38RjkjUkCNQU0+0jQNRfVvkAkjbS7z/4wqQCvpVzsbPn44w13+d/ppc2KYWKqexxLGXfqKX9gB1yKeNr3PBQgQ46aOkg4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PygKZFFq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784129160; c=relaxed/simple;
+	bh=8IfDTW8a3b3sS/iPv7vB1ZiuTNxkT5DDhwcjj8R2JRs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=olstnocsvTpsLdCGiiuSeMQ7F+0SMcx6Yo4o9lC/90Y150M+XfrGtjCc4vMaDL+DVMISBHYd5RsRRVxMCXlZXgcWRz7KFTA8Dz0EccFwxL/gGh3N/8tImFelf86QSi2GAA6kHc7D27fNgOWZNOxRjx5SXIISMtN+megUpWY99Hg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vr4JN4/a; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PygKZFFq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A5B11F000E9;
-	Wed, 15 Jul 2026 15:24:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784129098;
-	bh=L423TE7X/BCpDwHbLIA9sLbZDz4yVEqD45bUw5QhOEk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PygKZFFq4a3EIUTu9GuE1QQnGHMng+VO762pYhfJAkT0d10vlprKTxoFjvo5Dixsj
-	 Ikg0lidWLzpTUbM7LBxv0mzWIjpfhQ6RGCNqpHoZcatMD/bQlelXkjGwPGn1qRA4Oa
-	 CTmb15AC+eds+Lqau0OWqijEAvGr9WNyaamkaYd6w3fq2xj8T5dqtRqSIH5ruP5G4u
-	 WzSeYVbebJk+FmGPWhx4MVmw2+3iHZCaFpzCH21H4bxlyZum9j49/JVZPx2lYbrYQz
-	 AgZVPkvjCuMdLK/Cls0U65QfrYCZvYHjQsjmjRBvQj7r653AB+aVsZ4MZXSRaEfkQK
-	 fgVVhtxfSsT8Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 09/11] drm/mediatek: mtk_dsi: Enable PM Runtime on
- probe
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org
-In-Reply-To: <20260715135703.46540-10-angelogioacchino.delregno@collabora.com>
-References: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
- <20260715135703.46540-10-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 15:24:57 +0000
-Message-Id: <20260715152458.1A5B11F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vr4JN4/a"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cc6dd436c6so27426715ad.2
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 08:25:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1784129158; x=1784733958; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2kgwyk0OObBT++oiW1zqAAqUnSr/tbzGEYYjYm7Tx6U=;
+        b=vr4JN4/aw/QYNhmQOV0ZnlVY5dKDn3e7X95fQ89WDWofYJKR+v3BI/DUWFO+eh+1Rd
+         OVyR/TN17p0tIeF9lIbaNl2D5Cr2QR5roDiU5O6vzPX75TUZTmnWU5quxf3N/vKDmhqc
+         kZVYd5U9gEZ15MY+jj8kf641j8V+U21+hegrWPeAKaefNxFhd28GyJvsCqMR3VgaEvHv
+         7Fz6QpKquKfnsli/YMICBB2ZfAVERQG6sq2uDTyYXM8uwr9LniIZdlnJDvju34YhrF2C
+         ZswQfpDaQj3msWkGru5R6JNulpUGf83CcCptWwVEZeC+aTgigESMzibOd3efi2rz0m16
+         QSZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784129158; x=1784733958;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2kgwyk0OObBT++oiW1zqAAqUnSr/tbzGEYYjYm7Tx6U=;
+        b=c6agvDFUby1zuTe+O9t026crkxRyIU7Y4P0wYBU83+XQqKLjhjRIV3OixH7N2AxHGw
+         9ZVOSC0ZmQcldhMBx+Vp8gcGeShGIwzZ87QQD6GgfDCbhYqGITKk6nQ9te7pZilHrqFS
+         XAv7FoWt8QgMDEIjnrWCqiU6TWMuarZvEVyXKFjZiFiICsBHaESGAhNhpqE1zyd+Aljn
+         Xfq6wL+bsEE5hp4HO/SsMhYkvccrvO3YggwecTJW5BiQkV4WDsOKbWpu6x3RUKKsrVO0
+         skWVrKjUeoAbDSA1gw+aWffiFP2OZLMRX2mdE+oTgUfUIH+5bF8x7sVSxEKUn6giKnBj
+         BLUg==
+X-Forwarded-Encrypted: i=1; AHgh+RoNUYo5lTo+Zc4bXMkrO5pIo0ZI/Rg77D4qS12SMRPzFZsqlNjEJ/QGj9GBi956G/lgzbcqYWMzukrI@vger.kernel.org
+X-Gm-Message-State: AOJu0YxkEpLoiqo9WeHoQSLYXiS4Lr8+2OPs8WC23k7xfVZeHF3U3cw5
+	d1IgKyIfYvb0/TrSWteI3r89pOydzEnnjPddS/MVdWPpbUXq9quW17ty7vjMsWG0oJA=
+X-Gm-Gg: AfdE7cnVD/W83JzmUH4WmslqIEGt5REPDliSMtiMXxlzU/JuSlo6o9Si0JPSKw1Vdfj
+	qn2qnGW+t0bWwINvAan8/Hw1CEpawWVilAzgfD4m3gXS4ZeBW2P0ojQC87lXEB6d7vZOZaB8Uun
+	/l+Tg5fN1DgB8JbG0A2c7ijEjQaRF/Eox/F24Bbis3DL3x71cDMA0UN5b5YjG34Bkkw9r1Pf/Jr
+	rA6yjgXCLKh8vdZUWI6br9yZFKTJJM0uuvLRq3U7ZewdQBqzv/MP7bJR5Ejrk6EHaemP7fPhA80
+	b2CbLbEfLKt4WgBMWZWQr6+eG2KUwpwM2Q+2rj4VJ4MvaXVPsCN3V1ULsa7mRqwkiKPJPkiXV7a
+	H52witPSevGX6EOg7KwMJVZet3M5IiG9lPXbuJuOoAySP/XyKGYXYPz+VJ5OT0SIxmV1yzoMniT
+	ssFl3iSYREnF9iAV13
+X-Received: by 2002:a17:902:f787:b0:2ce:d957:59c4 with SMTP id d9443c01a7336-2ced9575addmr115795235ad.6.1784129157763;
+        Wed, 15 Jul 2026 08:25:57 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:4f38:9a5e:fd18:7a9b])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf10156d29sm4394455ad.30.2026.07.15.08.25.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Jul 2026 08:25:57 -0700 (PDT)
+Date: Wed, 15 Jul 2026 09:25:53 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: "Shenwei Wang (OSS)" <shenwei.wang@oss.nxp.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>, Frank Li <frank.li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shenwei Wang <shenwei.wang@nxp.com>, Peng Fan <peng.fan@nxp.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	dl-linux-imx <linux-imx@nxp.com>,
+	Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>,
+	"b-padhi@ti.com" <b-padhi@ti.com>, Andrew Lunn <andrew@lunn.ch>
+Subject: Re: [PATCH v14 1/5] docs: driver-api: gpio: rpmsg gpio driver over
+ rpmsg bus
+Message-ID: <alemgbM2ktRLE9wT@p14s>
+References: <20260625155432.815185-1-shenwei.wang@oss.nxp.com>
+ <20260625155432.815185-2-shenwei.wang@oss.nxp.com>
+ <alUdg9iTysXCFUa5@p14s>
+ <PAXPR04MB91852808D2C7491AEF98CF1589F92@PAXPR04MB9185.eurprd04.prod.outlook.com>
+ <alZlZvQQwq-g6VL3@p14s>
+ <PAXPR04MB9185B1A3F16D82E8C0C76EE689F92@PAXPR04MB9185.eurprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <PAXPR04MB9185B1A3F16D82E8C0C76EE689F92@PAXPR04MB9185.eurprd04.prod.outlook.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] Enabling PM runtime for the DSI device causes its power domain=
- to be turned off, but it is never properly resumed, and multiple hardware =
-access paths lack PM runtime checks. This leads to bus faults, system crash=
-es, or hard lockups on register access.
---
+On Tue, Jul 14, 2026 at 06:43:30PM +0000, Shenwei Wang (OSS) wrote:
+> 
+> 
+> > -----Original Message-----
+> > From: Mathieu Poirier <mathieu.poirier@linaro.org>
+> > Sent: Tuesday, July 14, 2026 11:36 AM
+> > To: Shenwei Wang (OSS) <shenwei.wang@oss.nxp.com>
+> > Cc: Linus Walleij <linusw@kernel.org>; Bartosz Golaszewski <brgl@kernel.org>;
+> > Jonathan Corbet <corbet@lwn.net>; Rob Herring <robh@kernel.org>; Krzysztof
+> > Kozlowski <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>; Bjorn
+> > Andersson <andersson@kernel.org>; Frank Li <frank.li@nxp.com>; Sascha Hauer
+> > <s.hauer@pengutronix.de>; Shuah Khan <skhan@linuxfoundation.org>; linux-
+> > gpio@vger.kernel.org; linux-doc@vger.kernel.org; linux-kernel@vger.kernel.org;
+> > Pengutronix Kernel Team <kernel@pengutronix.de>; Fabio Estevam
+> > <festevam@gmail.com>; Shenwei Wang <shenwei.wang@nxp.com>; Peng Fan
+> > <peng.fan@nxp.com>; devicetree@vger.kernel.org; linux-
+> > remoteproc@vger.kernel.org; imx@lists.linux.dev; linux-arm-
+> > kernel@lists.infradead.org; dl-linux-imx <linux-imx@nxp.com>; Arnaud
+> > POULIQUEN <arnaud.pouliquen@foss.st.com>; b-padhi@ti.com; Andrew Lunn
+> > <andrew@lunn.ch>
+> > Subject: Re: [PATCH v14 1/5] docs: driver-api: gpio: rpmsg gpio driver over rpmsg
+> > bus
+> > 
+> > On Tue, Jul 14, 2026 at 02:29:12PM +0000, Shenwei Wang (OSS) wrote:
+> d
+> > > > > +  - 3: Both edge trigger
+> > > > > +  - 4: High level trigger
+> > > > > +  - 8: Low level trigger
+> > > >
+> > > > I'm in agreement with cmd 3, 4, 5 and 6.
+> > > >
+> > >
+> > > How about cmd 2?
+> > 
+> > Yes, I forgot cmd 2.
+> > 
+> > >
+> > > > > +
+> > > > > +**Reply:**
+> > > > > +
+> > > > > +.. code-block:: none
+> > > > > +
+> > > > > +   +------+--------+--------+
+> > > > > +   | 0x00 |  0x01  |  0x02  |
+> > > > > +   |   1  | status |    0   |
+> > > > > +   +------+--------+--------+
+> > > > > +
+> > > > > +- **status**:
+> > > > > +
+> > > > > +  - 0: Ok
+> > > > > +  - 1: Error
+> > > > > +
+> > > > > +SET_WAKEUP (Cmd=16)
+> > > > > +~~~~~~~~~~~~~~~~~~~
+> > > >
+> > > > I already commented on messages that are not part of the virtio-gpio
+> > > > specification.
+> > > >
+> > >
+> > > I don't believe virtio-gpio needs a SET_WAKEUP command.
+> > >
+> > > In the RPMSG case, SET_WAKEUP is required because it performs an
+> > > operation on the remote processor, so the remote side must be explicitly
+> > notified.
+> > 
+> > What operations would that be?
+> > 
+> 
+> The operation is enabling the line as a wakeup source. In practice, this involves configuring 
+> hardware-specific wakeup settings (e.g., register bits) on the remote processor, so the remote 
+> side must be explicitly notified through SET_WAKEUP.
+>
 
---- Patch [9]: [PATCH v6 09/11] drm/mediatek: mtk_dsi: Enable PM Runtime on=
- probe ---
-commit 7ae5fcbe79f5f5488a2a9688fd56572adf6bd2e9
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+As I said before, we are not enhancing the virtio-gpio specification.  If the
+functionality is not part of the specification, it is not part of this protocol.
+ 
+> 
+> > >
+> > > For virtio-gpio, however, everything is handled locally. The other
+> > > side does not need to perform any action, so sending a SET_WAKEUP command
+> > appears unnecessary.
+> > 
+> > What is "everything"?
+> > 
+> 
+> I mean masking, unmasking, and marking the interrupt as a wakeup source. All of 
+> these operations are handled on local processor.
 
-drm/mediatek: mtk_dsi: Enable PM Runtime on probe
+There may be enough capability in your remote processor to do all that, but we
+can't assume the same applies to all implementations.  rpmsg-gpio is not about
+inventing a new protocol or delegating actions to the remote processor.  It is
+about carrying virtio-gpio packets on top of RPMSG.  It needs to operate
+_exactly_ the same way as virtio-gpio.
 
-This commit enables PM Runtime at the end of mtk_dsi_probe() to allow the D=
-SI
-device's power domain to be managed dynamically.
-
->     Enable PM Runtime at the end of mtk_dsi_probe() so that the
->     mediatek-drm mtk_ddp_comp_power_on() function is able to do
->     pm_runtime_resume_and_get() and, analogously, the function
->     mtk_ddp_comp_power_off() to pm_runtime_put() for the DSI
->     device.
-
-[Severity: High]
-Does mtk_ddp_comp_power_on() actually get called for the DSI device?
-
-Looking at mtk_crtc_atomic_enable(), it appears to only call
-mtk_ddp_comp_power_on() for the first component in the display pipeline:
-
-drivers/gpu/drm/mediatek/mtk_crtc.c:mtk_crtc_atomic_enable() {
-    ...
-    struct mtk_ddp_comp *comp =3D mtk_crtc->ddp_comp[0];
-    ...
-    ret =3D mtk_ddp_comp_power_on(comp);
-    ...
-}
-
-If the DSI device is at the end of the pipeline and bypassed here, wouldn't=
- it
-remain powered off?
-
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
-k/mtk_dsi.c
-> index d2fdeaeb97bea..9f69b237c9116 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> @@ -1733,6 +1733,10 @@ static int mtk_dsi_probe(struct platform_device *p=
-dev)
->  	if (ret)
->  		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
-> =20
-> +	ret =3D devm_pm_runtime_enable(dev);
-> +	if (ret)
-> +		return ret;
-> +
-
-[Severity: Critical]
-Once PM runtime is enabled and the device can be powered off, does this
-introduce bus faults in paths that access hardware without PM runtime check=
-s?
-
-For example, mtk_dsi_host_transfer() accesses registers directly without a
-preceding pm_runtime_resume_and_get():
-
-drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_host_transfer() {
-    ...
-    dsi_mode =3D readl(dsi->regs + dsi->driver_data->reg_main[DSI_MODE_CTRL=
-]);
-    ...
-}
-
-If downstream panel drivers invoke this asynchronously during probe, could
-this access unpowered registers and trigger a bus fault?
-
-Similarly, if the interrupt handler triggers while the device is powered of=
-f,
-could it read ~0u from DSI_INTSTA and enter an infinite loop?
-
-drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_irq() {
-    ...
-    status =3D readl(dsi->regs + dsi->driver_data->reg_main[DSI_INTSTA]) & =
-flag;
-    ...
-}
-
-Would it be necessary to use pm_runtime_get_if_active() in the interrupt
-handler and ensure other hardware access paths resume the device first?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715135703.4654=
-0-1-angelogioacchino.delregno@collabora.com?part=3D9
+> 
+> Shenwei
+> 
+> > >
+> > >
+> > > > > +
+> > > > > +**Request:**
+> > > > > +
+> > > > > +.. code-block:: none
+> > > > > +
+> > > > > +   +------+------+------+------+------+------+------+------+
+> > > > > +   | 0x00 | 0x01 | 0x02 | 0x03 | 0x04 | 0x05 | 0x06 | 0x07 |
+> > > > > +   |      1      |    line     |           value           |
+> > > > > +   +------+------+------+------+------+------+------+------+
+> > > > > +
+> > > > > +- **value**: Wakeup enable.
+> > > > > +
+> > > > > +  The remote system should always aim to stay in a
+> > > > > + power-efficient state by  shutting down or clock-gating the GPIO
+> > > > > + blocks that aren't in use. Since  the remoteproc driver is
+> > > > > + responsible for managing the power states of the  remote
+> > > > > + firmware, the GPIO driver does not require to know the firmware's
+> > running states.
+> > > > > +
+> > > > > +  When the wakeup bit is set, the remote firmware should
+> > > > > + configure the line  as a wakeup source. The firmware should send
+> > > > > + the notification message to  Linux after it is woken from the GPIO line.
+> > > > > +
+> > > > > +  - 0: Disable wakeup from GPIO
+> > > > > +  - 1: Enable wakeup from GPIO
+> > > > > +
+> > > > > +**Reply:**
+> > > > > +
+> > > > > +.. code-block:: none
+> > > > > +
+> > > > > +   +------+--------+--------+
+> > > > > +   | 0x00 |  0x01  |  0x02  |
+> > > > > +   |   1  | status |    0   |
+> > > > > +   +------+--------+--------+
+> > > > > +
+> > > > > +- **status**:
+> > > > > +
+> > > > > +  - 0: Ok
+> > > > > +  - 1: Error
+> > > > > +
+> > > > > +Notification Message
+> > > > > +--------------------
+> > > >
+> > > > "Interrupt Messages"
+> > > >
+> > > > > +
+> > > > > +Notifications are sent by the remote core and they have
+> > > > > +**Type=2 (GPIO_RPMSG_NOTIFY)**:
+> > > > > +
+> > > > > +When a GPIO line asserts an interrupt on the remote processor,
+> > > > > +the firmware should immediately mask the corresponding interrupt
+> > > > > +source and send a notification message to the Linux. Upon
+> > > > > +completion of the interrupt handling on the Linux side, the
+> > > > > +driver should issue a command **SET_IRQ_TYPE** to the firmware to
+> > unmask the interrupt.
+> > > > > +
+> > > > > +A Notification message can arrive between a SEND and its REPLY
+> > > > > +message, and the driver is expected to handle this scenario.
+> > > > > +
+> > > > > +.. code-block:: none
+> > > > > +
+> > > > > +   +------+------+--------+
+> > > > > +   | 0x00 | 0x01 |  0x02  |
+> > > > > +   |   2  | line | trigger|
+> > > > > +   +------+------+--------+
+> > > >
+> > > > 2 things here:
+> > > >
+> > > > 1) You did not include messages that mask and unmask interrupts at
+> > > > the driver side.
+> > >
+> > > Interrupt masking and unmasking are handled entirely on the local processor.
+> > >
+> > > When an interrupt occurs, the remote system masks the interrupt and
+> > > then sends a notification to Linux. After Linux processes the
+> > > notification, it sends a SET_IRQ_TYPE message back to the remote system,
+> > which then unmasks the interrupt.
+> > 
+> > This is the kind of information that should be part of this documentation.
+> > 
+> > >
+> > > Thanks,
+> > > Shenwei
+> > >
+> > > >
+> > > > 2) We are carrying virtio-gpio messages on top of RPMSG and as such,
+> > > > this whole protocol should be about thar:
+> > > >
+> > > > +------+------+--------+--------
+> > > > | 0x00 |       payload         |
+> > > > |  Q   |                       |
+> > > > +------+------+--------+--------
+> > > >
+> > > > Q = 0 requestq
+> > > > Q = 1 eventq
+> > > >
+> > > > The "payload" part is simply the format of the messages as found in
+> > > > the virtio- gpio specification.  From there, the only thing left to
+> > > > mention is which messages are not supported, i.e get line names.
+> > > >
+> > > > > +
+> > > > > +- **line**: The GPIO line (pin) index of the port.
+> > > > > +
+> > > > > +- **trigger**: Optional parameter to indicate the trigger event type.
+> > > >
+> > > > Not part of the spec - remove.
+> > > >
+> > > > Given the refactoring work that is still needed, I will not look at
+> > > > the implementation.
+> > > >
+> > > > Thanks,
+> > > > Mathieu
+> > > >
+> > > > > +
+> > > > > diff --git a/Documentation/driver-api/gpio/index.rst
+> > > > > b/Documentation/driver-api/gpio/index.rst
+> > > > > index bee58f709b9a..e5eb1f82f01f 100644
+> > > > > --- a/Documentation/driver-api/gpio/index.rst
+> > > > > +++ b/Documentation/driver-api/gpio/index.rst
+> > > > > @@ -16,6 +16,7 @@ Contents:
+> > > > >     drivers-on-gpio
+> > > > >     bt8xxgpio
+> > > > >     pca953x
+> > > > > +   gpio-rpmsg
+> > > > >
+> > > > >  Core
+> > > > >  ====
+> > > > > --
+> > > > > 2.43.0
+> > > > >
