@@ -1,103 +1,125 @@
-Received: from mail-m49239.qiye.163.com (mail-m49239.qiye.163.com [45.254.49.239])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F26385D96;
-	Wed, 15 Jul 2026 16:26:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 615943B71BF
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 16:35:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784132771; cv=none; b=pNqI7BuW2n19Bq6W4Rx+T36zSBcXcJzRdHdVXf3pzlIk7EhzTDpwR79ZVOklfX6nXOkchL7xK9Kmq4qHO8FtMUoA29qVi1we+3zSecJlhzrYQ5nEEFMgqn9K1bbLt3wwZu7MvDCe55btjrHdvfD+vZYKj7E6M0M33sc7ERj08NM=
+	t=1784133350; cv=none; b=O3VJOZ7fVVuvq1exzPXo9GDlyBY38f04Q/E+XVLGcn2UZ/bL3kHfoz9oHUoEX58r5WxoYh6YFe3ZBh4ijt5N1Km8H2hsjXFBBoACAWRjjxA3KBYS3TIR0KhCpiYkoGZZN6rcMrf0Gq2HJugKDGR+NUhdkzVRHYoc5dVZaFZs9kQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784132771; c=relaxed/simple;
-	bh=j59gmiyM0m9SloepWN1XApdWzUBj6iZbH6AyN59eoyY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=d03AR5m4rD/slfSXuY2BTdfxZNetrcuigFjk/jP/V8t7oo5Fu2bAijNqJ6DqIhjhXloTFTtiT2r9P1a/BriMSQEjajxfvXNQSK3Hg2Vqg9h5YSLTcvNLrOM6wSv1VB1GScBxoQCEdnNmAdjlojLD6EhPkEs1o7cOao93r8M3njA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=PcKvA9oJ; arc=none smtp.client-ip=45.254.49.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	s=arc-20240116; t=1784133350; c=relaxed/simple;
+	bh=7IrB0okd03Aqpih7Ns5d5dds/+Un1am8C/UF9ELzHjk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R/Pkfv7Z/nQg0VeGyDd+nyc9s07yhoDbk0Wc5fyChKMtbDVyKqQZDoAkenThXi6fygr5vqbsDq3TBmPzgYOWTIWNqgHAhGZBpfdSvDhGFssc2Vq/avyhnn0mW5y4H+QY7Tk9oJtqCP4FufeSc7+MdYYzFgua99pypylWT1+79O4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JCY8RiUX; arc=none smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="PcKvA9oJ"
-Received: from [127.0.1.1] (unknown [36.129.139.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 464e8f2ec;
-	Wed, 15 Jul 2026 22:03:23 +0800 (GMT+08:00)
-From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-Date: Wed, 15 Jul 2026 22:02:51 +0800
-Subject: [PATCH v2 2/6] ASoC: dt-bindings: qcom,sm8250: Add RubikPi 3 sound
- card
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JCY8RiUX"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-848593533cbso3103619b3a.3
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 09:35:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784133346; x=1784738146; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xKMpslmS1nZLwbcYPHb8iOZLrmPISU+0dOPEfAdriDw=;
+        b=JCY8RiUXpBXqEOBcCz4WafKkyHB8ySjhgeWB8GNXpoxdYAFfl2tk8WWSznNL5s2BNA
+         1JdEj5JeRiy7hx6ccsoHwDQRLe4VNpdsjJ0Oqibb/lGu5lxhSCYTvfMZHkzDPGRsgeS7
+         Dpfkd8XKHPAGyGd32nvlZ2hOu7P7oJt62VrioZfemi5jqEDQc1OgMwslRo4Es8b8YJ/M
+         KyRDmEetrbnIp4UAoQmeR2+zRuPwe8j1gAYhD1PB7XyXJ/SiPIOBJpqo22WcHxe1Wh70
+         7Ua9XjwM5KVybYBV3j6irPrF+ud6FUG/PNLXbq5PKdagSe8/hZzAkB8B6ak8w/9RCltM
+         Rt6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784133346; x=1784738146;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xKMpslmS1nZLwbcYPHb8iOZLrmPISU+0dOPEfAdriDw=;
+        b=pOdO8UHEbZadt9S8e4ZBkHos4sqSKSvi7FyAF9LflKoH7e/Vpj8+SKBu/rVcBQmbZ5
+         N1HYr5PwaxqHRveKPWatyDFum05UYocDm6lB8i15NlH2EqPPS1FK1RU7/ervvYDA2A4v
+         Z6onWjsefHVEeTVS9EmPkQXk1z6lnJnCvw0S8JP/L3VQD5c+AtWXJf2aaAYL69cv5hVY
+         SWwlaGToo7v/WTA/+klnqEPMS1ZTawpWLSt3EgrEY3ZfaVZFHCmgXwxQpoozYWQX4Mjq
+         tq278WAbZH4JKqYYoTLvwixDBtFpkBluAyNlXGdglqF1iddrGZjWKizzehqiSh51HHT5
+         f1Tg==
+X-Forwarded-Encrypted: i=1; AHgh+RorgxS90nm7Im1bUHZzvFhyote+4e5Ww8pLfCWor05kH8mliPAD2PZFLzUDwtcGx6l33rHnhbl6cqaB@vger.kernel.org
+X-Gm-Message-State: AOJu0YxxuvV6JYbY0Jdk7UPbDi2p/FRKQGEziYYCE6ahXV1J2lWz+8Yq
+	eXaC12S2FbSsEpzneUaicRUDnZrSucYbF2843nC754YGJni36jPbtxHA
+X-Gm-Gg: AfdE7cm2VvHWUNtax6kNxuHVJa86Oc8tNbyJlWhpBvyBBAJHGuB6XqxwnSSqvCWjm2/
+	WsDY+Mgm6yW76vGDHnT54NuTSZpHQcsrSrskZCEoURcnAS0kZUH4yOTPhneqEGYmMDUEdmF1MZA
+	YNrDlCSrFBY6AsAbuYlHz6yoYGNfO4QUTRvQ1eCeQ4kltuNlwH41/i/5UmrOsAMVEpnpGN+xY44
+	HfnaFaEzjEbPxDGOEUKFe/KP9DuyMU7vkHXYQ5X/QqVHQY/Ww1l2KQHy1OPokeBE93NirQCF0n0
+	r1dMQ4AYVEAbhkn8ZTl7f/48STmulCF88yyV/313xAQIP7vGEmCw+/cyzxm5UuBuQ9b6Zg5eO33
+	qbTIxsL+S2oARa02h6JeYH1e6tK/H7byaWSqSbhE6Z2gonRCyMmgt1bZhFS7qmrc81BHQfrVyPm
+	xdn5ttr7X6cmrPLyS9AKwu6QxLOQ==
+X-Received: by 2002:a05:6a00:2d8b:b0:847:770f:da4c with SMTP id d2e1a72fcca58-84a672425fdmr2861024b3a.16.1784133346501;
+        Wed, 15 Jul 2026 09:35:46 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84a4f238b21sm3470359b3a.7.2026.07.15.09.35.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Jul 2026 09:35:45 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 15 Jul 2026 09:35:44 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Janne Grunau <j@jannau.net>
+Cc: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Sasha Finkelstein <k@chaosmail.tech>, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-watchdog@vger.kernel.org,
+	linux-i2c@vger.kernel.org, linux-pwm@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v2 06/10] dt-bindings: watchdog: apple,wdt: Add t6030 and
+ t6031 compatibles
+Message-ID: <990ec316-5050-4e7b-93f4-b5a2a85ef447@roeck-us.net>
+References: <20260715-apple-t603x-initial-devices-v2-0-df65b2485710@jannau.net>
+ <20260715-apple-t603x-initial-devices-v2-6-df65b2485710@jannau.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260715-rubikpi-next-20260605-v2-2-67601d7a8581@thundersoft.com>
-References: <20260715-rubikpi-next-20260605-v2-0-67601d7a8581@thundersoft.com>
-In-Reply-To: <20260715-rubikpi-next-20260605-v2-0-67601d7a8581@thundersoft.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>, 
- Katsuhiro Suzuki <katsuhiro@katsuster.net>, 
- Matteo Martelli <matteomartelli3@gmail.com>, 
- Binbin Zhou <zhoubinbin@loongson.cn>, 
- Srinivas Kandagatla <srini@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Roger Shimizu <rosh@debian.org>, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, 
- Hongyang Zhao <hongyang.zhao@thundersoft.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784124199; l=1261;
- i=hongyang.zhao@thundersoft.com; s=20260127; h=from:subject:message-id;
- bh=j59gmiyM0m9SloepWN1XApdWzUBj6iZbH6AyN59eoyY=;
- b=QocW0g5f9HfLcc8tfi48aEEUjDWYX/W2rNI6/7s1lwRXVcPeUtHtuQt/Xz301Y5x9d3gZD9JU
- HjlYty4scbuC+S5T0J5I6OMHqUlsotPfq6ewEhre4RjYEVVdcPMV9ul
-X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
- pk=D9yL5W9Zj0lPBDAq9gzY++1849VlXuTWAkROzZ88J/4=
-X-HM-Tid: 0a9f6616e34f09d5kunm638899c2110b6
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTUhJVkhDShlOTkhCTUpCGlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lCQ0NMVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=PcKvA9oJUpnrUuo4ohXEs4RhSl5tGSTQ2duvffT69uscyb5BjUvbLU9GA4Fa3NJqLpyZCxxZZKapFkSRDeYYsuerd2KBOV1a9EvK8w8fPVXgjusfWkycpwlbTPQKcECHbak4o5EjI+97tlnq4TfxCn/M0BS0+slp7sBr+R5PSD4=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
-	bh=qY4Sy0cy+f1gtRrFtI0Z4FNU/zFBUpZVEYqjSdcrBds=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260715-apple-t603x-initial-devices-v2-6-df65b2485710@jannau.net>
 
-The QCS6490-based Thundercomm RubikPi 3 routes primary MI2S to an
-external ES8316 headset codec and quaternary MI2S to the LT9611 HDMI
-bridge. This requires board-specific DAI clocking and jack setup in the
-sc8280xp machine driver.
+Hi,
 
-The existing QCM6490 and QCS6490 compatibles select machine data for
-boards using different codec and audio routing arrangements, so they
-cannot be used as compatible fallbacks for RubikPi 3.
+On Wed, Jul 15, 2026 at 11:11:53AM +0200, Janne Grunau wrote:
+> The watchdog on Apple silicon M3 Pro, Max and Ultra SoCs is compatible
+> with the t8103 (M1) one. Add "apple,t6030-wdt" for M3 Pro and
+> "apple,t6031-wdt" for M3 Max and Ultra as per-SoC compatibles.
+> 
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Janne Grunau <j@jannau.net>
 
-Add a dedicated compatible to select the RubikPi 3 machine data.
+This patch didn't trigger any conflicts against watchdog-next,
+so I applied it directly.
 
-Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
----
- Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Guenter
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-index dae440ecab59..01bc494286fb 100644
---- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-@@ -49,6 +49,7 @@ properties:
-           - qcom,sm8250-sndcard
-           - qcom,sm8450-sndcard
-           - qcom,x1e80100-sndcard
-+          - thundercomm,qcs6490-rubikpi3-sndcard
- 
-   audio-routing:
-     $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-
--- 
-2.43.0
-
+> ---
+>  Documentation/devicetree/bindings/watchdog/apple,wdt.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml b/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
+> index 845b5e8b5abc..bef8255022fa 100644
+> --- a/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
+> +++ b/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
+> @@ -18,6 +18,8 @@ properties:
+>        - items:
+>            - enum:
+>                - apple,t6020-wdt
+> +              - apple,t6030-wdt
+> +              - apple,t6031-wdt
+>                - apple,t8122-wdt
+>            - const: apple,t8103-wdt
+>        - items:
