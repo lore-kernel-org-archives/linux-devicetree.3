@@ -1,68 +1,68 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C37C7481650
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67EBD332EA0
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:59:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784120154; cv=none; b=rnUgIJFX5deNgpFJY/UCHuRXyY2w3r+SsfVys78u+23coHfP6eRSv8Bp94kH/a2aNocrILJQ9x27OLW2lojxSlyj1oP7Zh8QxVvGZxv7z9oeiKG5akYYyGF5ku/g0EshLtx3bhSebhFuX0PNPP2HwaLMup4OYmA/ICTemAXvDlA=
+	t=1784120395; cv=none; b=mY3UobyTXrBohTUrARpymBf2yNwegn63KogHV35IqMJDJeDcJZ0dXz7txhZhfO6VgbCcPxCgsBS/zlO28Xi2cvMQ+cp0sQhAE2tAsDtlK9szYEjIPFyoS7omwFn6wdMFuhuqvU9uXfcVOadjO8LBE3rauL8TzZFZhnj026U7Y9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784120154; c=relaxed/simple;
-	bh=+ef9aDLlQHobsPKwugMtNj/4msi/nZfgAIa1/gNlCko=;
+	s=arc-20240116; t=1784120395; c=relaxed/simple;
+	bh=nVcKHyPKz/W/FvJITsfshyPhXDm4WJXd509Pb5vj2ug=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qqzELhUyBIhHQSvS75hWrlVXv/bDYhgkAoxlVdZUWqPZJ9Dueaj2gK+1XNrdUAlblvcv38/7LVzZxQQPKL0ApaylR92xrCkstKGU55QAY6jtC4Zx/CaNelz3KOHrMxF/I5uTeVoB1aiZcF1KRKYHZ/VEBaq2Hw1hC/CrQtLdW/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Er6LGKNL; arc=none smtp.client-ip=209.85.221.52
+	 MIME-Version:Content-Type; b=CgnnN/eLEk7Sw9ctKwyT/vIxt4cq9yCNebEa2HwxEcYTNRweTTsW6oWXe0zGLDvH1wL0sJnWPaCRQXmin7gZTVf194iRHmhQbgT24wnhv6dYS3LFFE8xYBUv+OWjaW+K9TQJuarzVwcH6FgVIe5sMsy3npB7xD/vlMptbuh61BE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UHzw17oB; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Er6LGKNL"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-474560436c3so1567323f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 05:55:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UHzw17oB"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-493ece78b0cso38343085e9.0
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 05:59:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784120148; x=1784724948; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784120387; x=1784725187; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=+hWIxKyRHkQzvuNSfAhpF4QRz/MvqM4Y3NLoKIJevpA=;
-        b=Er6LGKNLp+UIGNqV5ziTH/JxevpcIAEGvmCm7da1DvZQnAKibL+oz6YBD74o2DKDep
-         KEUSS1ugn1vOKmfxRarQ/yeo108qMHVnUoI7B0PUiT13dAg+Vf4MAMgcdQ2r9D90TiQJ
-         ugEyX/VFywo9GSStgdNwITRRlJdZ5dWhm8pyRXPvTfs3be4KVMq7BF1XaHmeyGJ0FWHB
-         J2p8QTq958kctk0uvKQA6ZSWlVQyMs02i1dswuiWLnvGBeYpx4AIg8XRT5ko0zvCwECh
-         E1+kCmxD7+B0eV9USrxCVUiijv9b5pN6pRh8zIndVjoX2CNxgHwgycg0yl+D7+g4cy+M
-         AhsQ==
+        bh=wXmSB/fZgpo1wJ9NHr1MARO2u1xBe0vIjZpMWVhRSx8=;
+        b=UHzw17oBf+ApTp76TDefHfJ7TITrucW7MPXpUKVWDiXxtDURbhx0nj+umZKd+fZJE+
+         AdKHr8ZaVkvwkfmr8IuKHtFDaNYP0gS5G9U/pEFwOKspMWavpnhvP9BDhL+lz0fw2KMP
+         z9qxY89xyZAh4QY56A1Um/brXtBM6K7LA8R+BdAINXQzlrR3y3XORRou6BapS0F1HRjO
+         5p3kSA59uBylieexkJGbIMs6ldC6Z7TcWzzxTZrrCzYK+W+Xia/R0HO4CM9yx4Bd+hy2
+         1DbAbkM9rDBOk4KjNQt3f1dpszBfZVptDwg9Zxw5nj3DqYdwKxVZcWmjFDHd7GKJKMUs
+         /M1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784120148; x=1784724948;
+        d=1e100.net; s=20251104; t=1784120387; x=1784725187;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+hWIxKyRHkQzvuNSfAhpF4QRz/MvqM4Y3NLoKIJevpA=;
-        b=qmJs8ouFE1vwvUsSa4MTH2MJ101BKAy1j0sTVKV98AFfdwtt6ptrtMHUXEg7RrVlX4
-         XMYZZP5vg+qQwGQxTEE/kLbJrY2tf/i9+/LCefKeVq/AVs4eiNK0/FX/ia2ouDEcQS97
-         ivOFeAjxAHVBc7R846HtZogZUEDXAzMn/iMcVI9fqCzDUzPOjyUewaQuB8v1jZ8+5eTJ
-         V1a10aaY+7WVGzmkUIOV0F2m8vvjX7NpuAQLbYri2pBFQMkvJEr6AotDznKQTIbncTh8
-         lBS9ArBRprG9lLTy2mwXEaaWcedUCZWRSDzHbfHrLIeuEqk09ltznAAkSxZSqOplduBt
-         METw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr2st/CVmDUTwXciTGNPjOPwaqUpiR3l1P+8RZLYYrW2Oy3Wk/dj6OgILLdAshX5H+g5kHiWYpdhZ4A@vger.kernel.org
-X-Gm-Message-State: AOJu0YyttmrjlnxHKDg9wiUiKyhTr3jMV5bLvfqZRA9+zvmwL9jbt4UK
-	F2sR8kuymwPRaBUTBI1GP6xOWQoEWawBDMDDC2BVxmAyPeujrzReTBew
-X-Gm-Gg: AfdE7cmSb0OKumiujnORUbp9bm8ptqfvXl0k1/rmYdSReObh7FPrYkXOSwKvZpVmyF0
-	h3q4cHOSexyYiscXDIGygCQNfVRfO4tMmY1OD0IlOs8VL2Wb8fxej/qOQl+L5n+U3f7jIqNL31N
-	dLr29uKi5ucRHl7bHNVXbxx0bLZXaOtVqwvt1CBSGsqWYGtFAusMZuE/dr2lgSFIjsn52oHo4/6
-	1ZSrGsLOkY0X6xXVIXW5GJ4g+CipMbBajfe1cgSaV7EfPRWGR6xxs2ZqxRXuKkmEKmVzThGOL5/
-	n7krsJbcpQ+CzJ01vghXpQmsp6+P5irdfkjUIdK4YtC/HgXrq3GbYr52lEPV+eicG78EDK8EDhX
-	aAdyre+bodi9vJ2s+Gf4ZYij7zfnd4a/PJmTamE6SCWdvusXhMKxSrePn16Euk3Ffz31iUo5n+y
-	oBrkmz7oi1NLcy2APWRs6S/IgWH9hwJhdy5rKKla2djzrKRhvXK4XH0F9y5Pc9NG5vuDJLEYJk0
-	x51mh5+Gu2Ajk6ky9wS1DxBU47pajsnQ0nyD0MqAFlwoOhw7IrrFwFsIgeCeddydjfbNwTyw7g7
-	IvbfU9plmyLhJARSnsNAMRF/k9p9+jV5cuxH1aFmDVNLM8hkR8pYOyJpsIoTuiFMaGHqiRIwV/2
-	qGPBjhZwqXPLsPnY1TWtbbDo=
-X-Received: by 2002:a05:600c:1f8f:b0:493:e79e:da6b with SMTP id 5b1f17b1804b1-493f8815d42mr231250705e9.21.1784120148039;
-        Wed, 15 Jul 2026 05:55:48 -0700 (PDT)
+        bh=wXmSB/fZgpo1wJ9NHr1MARO2u1xBe0vIjZpMWVhRSx8=;
+        b=DgNMGPb2emVJwX91p888VS4RJr6VfiEoISXfBRADIPzMLak5TSHvSA5GHCC4EFOeIu
+         wrlnxYthvTpZpUxgEx2Vlv+7M8AtqvHpLgub10SwWwGC+86DQ1HpMh2Bwa+YSHOFy2OS
+         Cj2W6j5m3CnBoyw8g1jjAXbYjkpj43oZsjPfTX8ym15KGKfl+eR5XHjiBsSAstA1eBZ6
+         Ga6Kg80lIEhmp8yLNeVFRjDr93VreGLuWlY7ePXCCDI7cqZxpDoTSVZLGngnzrQLCp7C
+         oQVISKuft2IXO20wv8RDK7qqRm0CAN9WCL534Ub8MpeD0EsjkkSD1aATPHo7yhxRTudn
+         wXvA==
+X-Forwarded-Encrypted: i=1; AHgh+RqwIw3iOaLRi3l9eAtiZEzb6ZInnoQlFNhCvLzQTnclkmD4IEVoA04PT31JQPlp5b0AY1vYfTkBHMOn@vger.kernel.org
+X-Gm-Message-State: AOJu0YzR6xIp1b95zhe0JJBNZX2wa8FaYM5x1/QutA0KoxIkivezWzsC
+	O8EWDZewMLriKBZcvPQ+lp5Zjuw7GooLw5L+RHpGpLfXo2TxXwAJk0z0
+X-Gm-Gg: AfdE7cnNmnW/WovHB3va1VaI9lGIt+B5kWM9QcSJf/8QueUDkbjV73SRXu7APltaiVr
+	6USTF6b7eutuebXJn8UjMddhBfyNv9kGYsquh7XjREtlnoM1OrlaAihDJwSMQn4nzXRX8veBVvF
+	/xD0D4jszjls7E/XXvm2wDyDG13A12IFAubWR7fSG434OWuCS6zuC06aYhtM2sRecp+znI4HCcj
+	g7h2IpEDzAlGaXNal3azz0XJeBP9glX+ORxg5fSwCkSeXgqYOeeQBX9N6Vmxl2Jd9LtWXCBiCIo
+	XG+afBr9KWpFPlI3z6mxxZw1gFC6YcStcPU++0JOhg+jvv2X+RqbNP4l+PBIS/O5vVGXjPVN4qU
+	R1grVEWUUDGhIBUAfw2ZC+ImP3lxnuhxaJyvnCu5mMa9VSl1ydq8oQsHr93sHuvT8pOtXZcw84B
+	yD6eU/ibgFqb6BMAZ8mGxfTVCGn0eisVYXP+bb/4v93jiA6i6FLwbNSaVDjH6SoCD/Ja2BwyaKo
+	rx96d4eLttYygQJWS+QkAJ5Gn66Deu4fsRYE0zNSJB9FHlOfjizg+ecy/aB9/9GK8XrQi0SK9xC
+	Jfklvk4L++XSW4RzfenZwp3qGc6u9kiAWRF02XlhfGn/oqWPolxmK4hATQ2IB0IRRSs159nSa3w
+	wcVRlmOVXMkQDqu2CYd+PJWU=
+X-Received: by 2002:a05:600c:34c9:b0:492:3e44:214b with SMTP id 5b1f17b1804b1-4953905c59emr70009845e9.13.1784120386545;
+        Wed, 15 Jul 2026 05:59:46 -0700 (PDT)
 Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49508732395sm149662985e9.5.2026.07.15.05.55.47
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4950a2f951asm157537975e9.14.2026.07.15.05.59.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 05:55:47 -0700 (PDT)
-Date: Wed, 15 Jul 2026 14:55:46 +0200
+        Wed, 15 Jul 2026 05:59:46 -0700 (PDT)
+Date: Wed, 15 Jul 2026 14:59:44 +0200
 From: Joshua Crofts <joshua.crofts1@gmail.com>
 To: Esben Haabendal <esben@geanix.com>
 Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
@@ -71,10 +71,12 @@ Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
  Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Nikita
  Travkin <nikita@trvn.ru>, linux-iio@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/4] iio: light: ltr501: Add ltr329 support
-Message-ID: <20260715145546.00005bc8@gmail.com>
-In-Reply-To: <20260715-liteon-ltr329-v2-0-d18af55edab5@geanix.com>
+Subject: Re: [PATCH v2 4/4] iio: light: ltr501: Power down chip if request
+ irq fails
+Message-ID: <20260715145944.00001de5@gmail.com>
+In-Reply-To: <20260715-liteon-ltr329-v2-4-d18af55edab5@geanix.com>
 References: <20260715-liteon-ltr329-v2-0-d18af55edab5@geanix.com>
+	<20260715-liteon-ltr329-v2-4-d18af55edab5@geanix.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -85,26 +87,41 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Wed, 15 Jul 2026 14:27:22 +0200
+On Wed, 15 Jul 2026 14:27:26 +0200
 Esben Haabendal <esben@geanix.com> wrote:
 
-> The LiteON LTR-329ALS-01 chip is similar to the LTR-303ALS-01, except for
-> interrupt support and related registers, which LTR-329ALS-01 does not have.
-> 
+> In case request irq failed, we were leaving the chip powered instead of
+
+devm_request_threaded_irq(), please mention functions and structs by their
+full name to prevent ambiguity.
+
+> powering it down again.
+
++ a very short explanation of what you did, 1 sentence
+
 > Signed-off-by: Esben Haabendal <esben@geanix.com>
 > ---
-> Changes in v2:
-> - Fixed error handling when irq is defined for a chip that does not support
->   irq, powering the chip down again.
-> - Added simlar fix to error handling of devm_request_threaded_irq() error
->   handling, powering the chip down again on failure.
-> - Added explicit #include <linux/array_size.h>.
-> - Link to v1: https://patch.msgid.link/20260715-liteon-ltr329-v1-0-31f027051594@geanix.com
+>  drivers/iio/light/ltr501.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
+> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+> index 379e57ac5f5b..9d4de798e5ab 100644
+> --- a/drivers/iio/light/ltr501.c
+> +++ b/drivers/iio/light/ltr501.c
+> @@ -1571,7 +1571,7 @@ static int ltr501_probe(struct i2c_client *client)
+>  		if (ret) {
+>  			dev_err(&client->dev, "request irq (%d) failed\n",
+>  				client->irq);
 
-Quick process thing, please wait at least 24 hours before sending
-a new version - let it sit on the mailing list so other reviewers
-can send feedback! Larger series should wait a couple of days.
+While you're at it, you can remove the dev_err() call as devm_request_threaded_irq
+already calls dev_err_probe on failure, creating duplicate messages.
+
+> -			return ret;
+> +			goto powerdown_on_error;
+>  		}
+>  	} else {
+>  		indio_dev->info = data->chip_info->info_no_irq;
+> 
 
 -- 
 Kind regards
