@@ -1,101 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED5F1434E55
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:13:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0C03C9885
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:13:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784117601; cv=none; b=TfZbJ4xsndSl8bEz1mCa/LrhKXduWINXR/BqM9sSLTsQbyaLLEP8AbVds90UmwLz//23ztjqgaUzBYw1DipL8UZtAtNbEXNwUTIM4x8grMozGfu5PeJQJnlq8ZySqxjrrgDwPvEl1tS8arafJlPw1Hn+KIKXb17YV5tKgwM5Do4=
+	t=1784117631; cv=none; b=N0gr3S8gim4pycG84Obs//0NOWmtSp5VsfvYkEJ30EqgtBESx36tbIQ5OsCriGPHzDNYK7MrI3QCI2k9AoqQaUOS0LPOsZLXmOCU0oaoT/apfy9+Vlm5NQot56kJ43WKrnYzlUHX4utDmJcTsGAnq1sB7pxvXAIUfnE/lp0elNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784117601; c=relaxed/simple;
-	bh=gNl5/ZnFxiNLQCcvtvH8upGV8QmIKJ7OniNlJJrNsto=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hoqYGcx888psStR1CNLNAT+vK8+G2Kos3NGX6PjzRFvOrGAV/qVkSOzkXsjEsDyn7PakzaGGzCOUeWKvy4rYC7gt6yYxBcLV+F26R/xlfAp2DH9CWDXuqNRLPztoKOMn9uWUolM2qhS63REtZosc3xSClBFaq9QfL+J4kAHrrWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OdVwuaRI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784117631; c=relaxed/simple;
+	bh=5mXKte3WQEpI3K93UHa8xeLYYbJnGNAqQJ1aRO6j05Y=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=k6CtIPjMxQZDyV6kWYlazVclNCOCVnqp7Zoq5L3xN9ADKxrdat0SytuQcubfC4c0L0ZpS4FEnNXpHdHxAilhxXxM8ZTSEe6sGsx/c+3Gup4FlYFKK6lhBDag1hbyhspZXh/BsfLtYFii35NMi08nQ3Nel+5+TNmqiVtoCpNRe3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iLx9fC8J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OdVwuaRI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A82B41F00A3F
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:13:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iLx9fC8J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFE301F00A3A;
+	Wed, 15 Jul 2026 12:13:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784117599;
-	bh=IvqJ6hW+hUO9tvsLL6o5nEWp718Mhw+RBi7JmsGm4BE=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=OdVwuaRI70Nq2v/5ItDFn/LeHAMt2u46DJKRsbAvJHjoXiIwpQ5AqlIVlDYvxKvqB
-	 ICTuouuOqFtR3W/JMCcAEDFn8EgaxTMnrc9mFU9JCmzFbU9cUeojpN819MHLxmQuyC
-	 KWXKF6lp2/q6Xfd8iWulAcWLmYxTwVsyFe9DFDPV+tvMGZbcC/ezAqJb/X3FGZ7Lwn
-	 9fkjgjagycosHNIPv+Dcp+7D0f3mmOBJdxWYcQmZ+3CJohmMg0qPhcPo0UN88lHdOR
-	 ZQU0/agCgQLTG0ob4Iwxh3TDjYu86ryG4EhpHkPiNZ99XY1LBNeNSev76DNLVuEgnU
-	 jyBnBK6YCGKbw==
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-39ca300db70so33329621fa.2
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 05:13:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoqUC/GMm9L8sQQL4nBCXTnPOlPvkxR44CzRBdm1Q5Iy12O50uHC7P2ZDvcuIweZvhUHEHlGE06VCb5@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxa4/VpUfaVAsI72bs1cQd5zBkH1ivsMSTJYFTLvGr7ZyqjPAXH
-	VSIjLDQ+kuKIf1YOsZY6A95hFKJjMYm7R3uA9JliXZjSWCDVGwutXTCWI7dwzyYgONOC9uJe8LT
-	31Prn9tM1BRxDfsIKyMAyBR8XGFkzXF+6/3s4fPl0mg==
-X-Received: by 2002:a2e:a913:0:b0:39b:f25:6050 with SMTP id
- 38308e7fff4ca-39db6d4d3a6mr6178751fa.20.1784117598343; Wed, 15 Jul 2026
- 05:13:18 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 15 Jul 2026 05:13:16 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 15 Jul 2026 05:13:16 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260714-b4-shikra_crypto_changse-v4-5-06a4ea97c209@oss.qualcomm.com>
+	s=k20260515; t=1784117630;
+	bh=aRces2UNjQDuttRDFCWOUxnQdIBSc/tgGfqmyII9hHk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iLx9fC8JpImVsnWz04mkp2tsXhL9sZluEPAqcwIFqhrKEb+9lW1MDBvQBcqVE39/D
+	 efV6qFeBQiVo+m5mDQLRysUa56cUDlAinmoXg4vrV6TxpF65yFr2xSDVNqXGh0ZQ7L
+	 QNQYdOPgFX6KVQj+xlhsBXeMjbsYHuyYjw+0tfAHW+k9DcpOOB+arXz+Av/l06vrZl
+	 VWbvND4TyWWMPy/OG58eNY0s2Vzf8MDngoM3Vjui2FXggMnkuqrSTDtDyTphk+ROZf
+	 MO8KEv33BSzxkGXfFLXQxpZfbAoIjruedvdbKWsk8STmFRiB6BdP7ec/LnVd3z1dWK
+	 7jF+f/3+FFStg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 20/21] media: imx355: Switch to using the subdev
+ state
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dave Stevenson" <dave.stevenson@raspberrypi.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260715-media-imx355-v4-20-f7f966fb9ffd@raspberrypi.com>
+References: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
+ <20260715-media-imx355-v4-20-f7f966fb9ffd@raspberrypi.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 12:13:49 +0000
+Message-Id: <20260715121349.BFE301F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260714-b4-shikra_crypto_changse-v4-0-06a4ea97c209@oss.qualcomm.com>
- <20260714-b4-shikra_crypto_changse-v4-5-06a4ea97c209@oss.qualcomm.com>
-Date: Wed, 15 Jul 2026 05:13:16 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MeWeMfry1UThKdw5U7mLcGc2LFOCiDikPEps5K+0nQg6A@mail.gmail.com>
-X-Gm-Features: AUfX_mzuoja5mZwmlfZnsqzI2FkD2yFcwkvWpiPulhTnwjEhajmQYmGlODoqU04
-Message-ID: <CAMRc=MeWeMfry1UThKdw5U7mLcGc2LFOCiDikPEps5K+0nQg6A@mail.gmail.com>
-Subject: Re: [PATCH v4 5/6] dt-bindings: dma: qcom,bam-dma: Increase iommus
- maxItems to 7
-To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
-	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Harshal Dev <harshal.dev@oss.qualcomm.com>, 
-	Vinod Koul <vkoul@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
-	Andy Gross <agross@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 14 Jul 2026 12:05:16 +0200, Kuldeep Singh
-<kuldeep.singh@oss.qualcomm.com> said:
-> Qualcomm Shikra platform describes the BAM DMA node with 7 iommus
-> entries. The current schema limit to 6, so update the binding to allow
-> up to 7 entries.
->
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml b/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml
-> index 0923fb189ada..e72adc172af1 100644
-> --- a/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml
-> +++ b/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml
-> @@ -48,7 +48,7 @@ properties:
->
->    iommus:
->      minItems: 1
-> -    maxItems: 6
-> +    maxItems: 7
->
->    num-channels:
->      $ref: /schemas/types.yaml#/definitions/uint32
->
-> --
-> 2.34.1
->
->
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] v4l2_subdev_get_fmt returns a stale format code after HFLIP/VFLIP =
+changes, breaking frame size enumeration.
+--
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+--- Patch [20]: [PATCH v4 20/21] media: imx355: Switch to using the subdev =
+state ---
+commit 742fe3da9be2474160e24d38a786d4c4d792ff1f
+Author: Dave Stevenson <dave.stevenson@raspberrypi.com>
+
+media: imx355: Switch to using the subdev state
+
+This commit switches the imx355 driver to use the V4L2 subdev state
+for managing crop and format rather than handling them within the
+driver state.
+
+> diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+> index 0462e0feee362..97f4594f7ed9a 100644
+> --- a/drivers/media/i2c/imx355.c
+> +++ b/drivers/media/i2c/imx355.c
+
+[ ... ]
+
+> @@ -1034,7 +960,7 @@ static const struct v4l2_subdev_video_ops imx355_vid=
+eo_ops =3D {
+> =20
+>  static const struct v4l2_subdev_pad_ops imx355_pad_ops =3D {
+>  	.enum_mbus_code =3D imx355_enum_mbus_code,
+> -	.get_fmt =3D imx355_get_pad_format,
+> +	.get_fmt =3D v4l2_subdev_get_fmt,
+
+[Severity: High]
+Does switching to v4l2_subdev_get_fmt return a stale format code after
+HFLIP/VFLIP changes?
+
+In imx355_set_ctrl(), the hardware orientation and logically the Bayer
+format change when HFLIP or VFLIP are updated:
+
+imx355_set_ctrl()
+    ...
+    case V4L2_CID_HFLIP:
+    case V4L2_CID_VFLIP:
+        ret =3D cci_write(imx355->regmap, IMX355_REG_ORIENTATION,
+                        imx355->hflip->val | imx355->vflip->val << 1,
+                        NULL);
+        break;
+
+However, the active state's format code is not updated here. Because
+get_fmt now relies on v4l2_subdev_get_fmt instead of the dynamically
+evaluated imx355_get_pad_format(), VIDIOC_SUBDEV_G_FMT returns the
+stale format.
+
+This appears to break frame size enumeration, as
+VIDIOC_SUBDEV_ENUM_FRAME_SIZE will evaluate the correct format code and
+reject the stale code with -EINVAL:
+
+imx355_enum_frame_size()
+    if (fse->code !=3D imx355_get_format_code(imx355)) {
+        return -EINVAL;
+    }
+
+Should the active subdev state format be updated when the orientation
+controls change?
+
+>  	.set_fmt =3D imx355_set_pad_format,
+>  	.enum_frame_size =3D imx355_enum_frame_size,
+>  	.get_selection =3D imx355_get_selection,
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-media-imx3=
+55-v4-0-f7f966fb9ffd@raspberrypi.com?part=3D20
