@@ -1,124 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADA6242048C
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:52:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A110647B423
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:53:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784119941; cv=none; b=f72TuLig+hz8juDcpcIi94yT3eFEx61JfKnrHx4OqKz6oQP/gWrAFMxk1MBw2FeKcu3QS826daACsqge4AOvLINQD+HQcCR/Au0Dja77ME5GQ7ivXIEeQBCwbEsQAz7kWtushuawkekhzhcsZGs4HjeyMxMdNbVm+avLXXcfIQI=
+	t=1784120010; cv=none; b=T6Dkx8giU7UKwvrsf0thxOGiLfQt+/ot3ordZ3iXEk2rUrFRAYOIWGtwXkPVFknqMZObX/jWZLtWlvpTDwP2gw1ERG0Z0AQmWX4lreDls+9OIULxxzlsl0TtrLtDMshD9ZjQAUTuKm1+eP+P/MoFVKI/RpRPGZYamOfQqGHD9iQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784119941; c=relaxed/simple;
-	bh=rNIsxKd0GKP6SJ2ugHLKW7Wtn6LL+5Hm/UsZ9ohPYRg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fpC2phGMLOz+GIWXFWWUuDr3+/MQbBGhl9ji+y89O6kIgXt6K+i/p/HvCnqiqhHf9JE4jxbPhfqkjELVDVACOkjFa4r89TUXn6zXH/zYvMAoXJdALEbjt/UYXmh9Me6XWRf99fTukSpNmD7UW+Y4momXZoTdqSGV9t+Nb/S6aFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e5U4AWaC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784120010; c=relaxed/simple;
+	bh=hWz5XuNNH6IsELRjB/pr17epEqauWvX8kaZ2l3hPuZ8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Z6oaHFrMSkC3e1CsL+xdgTRPK5WFp6kcvQTqvVZBm/LzMzZD81OAGIJp/PLqd7/NjuPYQKftNg4latnMXuTEcR1KPpiXstAIrQoBY/WBNIUGvKRJxFnl1zR8bmzbVLgt4yn/hDAMwGAc1NAOxBJGrWN9cXYl0QhqgI6um4r13qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g+5IplrS; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e5U4AWaC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E96D1F000E9;
-	Wed, 15 Jul 2026 12:52:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784119940;
-	bh=1eywHst6CxVhIRGxK0t+B0z4bxgOvQhn8bXlHlZB3Ek=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=e5U4AWaCQFaq0B/FdvcEbbxoFZjHWBaOKAPMROQMYzXtGu+wT+XDHLSJgqeKzxdIk
-	 tLuXCcEcHZT30LXIuIenDyNoABYK8r/1Z8m6xvdHb126Yub6YXdUd8SHqdwcGFbV7Y
-	 FjnCd2Fi8Qt4YbuJW1Z1qdhFnQUPTbewOhp/noOeIGvSRkcBQT3Stpo3H4mEUuu24y
-	 zpQQqatEKJu7Cnaz+9yGM6B4Hp+IwbM0T8Jr83Q9mzvsLpES9nkrvj+o4nmylaTF3t
-	 UragCQ5k0/AXkaMCaC5xn2amU7BSPZZ/7IEBY6KYcO9clSDcGJU3hlfc1N9VfasXn2
-	 dER0uZlI8JhdQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] ARM: dts: aspeed-g6: add pcie-lpc and pcie-kcs4
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?R3LDqWdvaXJlIExheWV0?= <gregoire.layet@9elements.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <de49f2032f5b1f170161dcd6191c0daa48f0b0c2.1784117715.git.gregoire.layet@9elements.com>
-References: <de49f2032f5b1f170161dcd6191c0daa48f0b0c2.1784117715.git.gregoire.layet@9elements.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 12:52:19 +0000
-Message-Id: <20260715125220.0E96D1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g+5IplrS"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493e8d4f4dcso40926365e9.0
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 05:53:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784120007; x=1784724807; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hP7wIP17IllMUj2NiPW3mgVs5U+s5JJ48RRRp+m/d5g=;
+        b=g+5IplrSq+d8mCe7g/wdx9efOv03kjXKMZe2lacoSEExozbWiZUzw7JI6yfytFDaK5
+         NtPLjisa8F2UPv3tkmfzqbBxuJv2sVrjNgcSkEH7bE0ujoj2M3/O+ozAp9HQDpXhBoDY
+         ek093hwF6fCXcCfozmx3+p6++b1qUgyqZz8tQoKjohdjgvk+4vPJsgzIcJw5hF5Stgcd
+         Qn2VO5x9jXv49IRr/8KuRRhRmjLkpDlSXdeckWL+Om5w5HXP/Ano5CRTzdtDP9XbtJz8
+         HCu4U3bjgnLpOAcNsR7VpbPbRhao6jAnZnv/4qdWaK5ATfoNrjAhRyt1aJxZxWqasaZK
+         NFyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784120007; x=1784724807;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hP7wIP17IllMUj2NiPW3mgVs5U+s5JJ48RRRp+m/d5g=;
+        b=IdQcRRwBktvDWmARCtDscAK47Ao2vbgEmkMtw6T6zPE5emrxRO5B3B1ErD5VHgEKMw
+         ws7RVcjsiLk3DW4Fl8HHy2TfGuhDpsOZM+Kc8x/4yBTzQAqHz4MshC3uP4NMdssd5Scz
+         5CqzKLAtxRXyp5XrH0S3xLlKtdC59LXJ5j5ZMumllxvFPvIEs+2GTbygoVOIanQ8JDNJ
+         L9n47AuQYlia3KmDdYlSvs8/Z00tGq6Has8nCW4rddDVjNodlkyPAaAfVNXS0490r73k
+         iRF4f6VaZi2491NYTrJjGcin2cXfoqCwZ4QwyKRhkgwMQWb+A4dNSaZWgXuTlz0I6/1M
+         KJcA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr/DVGUKauT/TzGjHckMt/IBqnKFTxdN16or+epLPaMPR9ss7gygOCUpOXmjqb553j2HaIzjsPIidH1@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy7ZVYUdxKvNPR8/r4VUP8rsi+aF6zpefMiOMAMyzBbpLo6fimw
+	6072CtbmKhw6QzsoxaNSPbXUQ4ngD1CWYSTljoKOz+yjuIM/hopEixvo
+X-Gm-Gg: AfdE7cmuFDtTeTISd/opeqGCwMKicesUuszCx2Nc6ZlwOve+0gXjJR5gsjbQiMKW7Fn
+	X8jsRhAnWgjOoZ7nTS9Ong0J2E7WzYvcmKckoVAyg4m6Ih7kMtoYky36GTlOcZyLfxCgkTwZVus
+	lO3EuP6U9lndvYoS3gGA7Xknz8jTumzv6MZtb4LRYbBBvDsdx6HfP+PWWdiSACRClfsQ2lkhBo+
+	CWOe4SMoF19RxShTA4iABpo0LwTZq+C3+E0aPu2sCmruzl4JqngvSDYFevdHJ7F1FzIzobYib1V
+	E5wItWato+VgJu2QA6SAWOkDUriacG9qYU184vwVWqurPiwNFLpJMUE3N3F2lI7xuCU15BqWH1N
+	DIkdQWlBfQcF5BT019MpfYdSWarQr7pwYmHZg15mCNUYsua61PQUdo1p1VJWrNY9MwhNCB8Y+OY
+	ypfBM2JlrzszO3sJ7MsrWODh9nDvOHy2o43BnUDTotdMouo8Da10/QUp9EoMdNxn0K9knISIycK
+	e/AJYD43L8cCf5LfUuXEZ9uqdZoN7BYo4IhYuyE11caOPdLnGm7KmHVI796oOg2Sfd8j3i2+5bU
+	fTIe+l/faUu/7dqjXbZCzvJI17pfzMc03tAt6fu1XzZWKNBdSjkcgNHeXuyJj8z7ebW2p+P38Em
+	3xQy9/cwyS8v5xzs/HQ/qm9U=
+X-Received: by 2002:a05:600c:37c9:b0:493:bc4a:fb55 with SMTP id 5b1f17b1804b1-4953c28951fmr30630675e9.38.1784120006763;
+        Wed, 15 Jul 2026 05:53:26 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4953c6ff429sm38564585e9.1.2026.07.15.05.53.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Jul 2026 05:53:26 -0700 (PDT)
+Date: Wed, 15 Jul 2026 14:53:24 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Esben Haabendal <esben@geanix.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Nikita
+ Travkin <nikita@trvn.ru>, Maslov Dmitry <maslovdmitry@seeed.cc>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/4] iio: light: ltr501: Add ltr329 driver support
+Message-ID: <20260715145324.000005c6@gmail.com>
+In-Reply-To: <20260715-liteon-ltr329-v2-3-d18af55edab5@geanix.com>
+References: <20260715-liteon-ltr329-v2-0-d18af55edab5@geanix.com>
+	<20260715-liteon-ltr329-v2-3-d18af55edab5@geanix.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The newly added `pcie_lpc` node's memory region overlaps complet=
-ely with the upper half of the existing `lpc` node's memory region.
-- [Low] The nodes `pcie_lpc` and `pcie_kcs4` use specific, non-generic node=
- names (`pcie-lpc` and `pcie-kcs`), violating Devicetree specification rule=
-s.
---
+On Wed, 15 Jul 2026 14:27:25 +0200
+Esben Haabendal <esben@geanix.com> wrote:
 
---- Patch [1]: [PATCH] ARM: dts: aspeed-g6: add pcie-lpc and pcie-kcs4 ---
-commit 2d0eb7dfc73068ee32b00e22cfaac3679c6e6dbd
-Author: Gr=C3=A9goire Layet <gregoire.layet@9elements.com>
+> This adds support for the LTR-329ALS-01 chip, which is similar to
+> LTR-303ALS-01, except for interrupt, which LTR-329ALS-01 chip does not
+> have.
+> 
+> Signed-off-by: Esben Haabendal <esben@geanix.com>
+> ---
+>  drivers/iio/light/ltr501.c | 33 +++++++++++++++++++++++++++++++++
+>  1 file changed, 33 insertions(+)
+> 
+> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+> index 7d045be78c6d..379e57ac5f5b 100644
+> --- a/drivers/iio/light/ltr501.c
+> +++ b/drivers/iio/light/ltr501.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/delay.h>
+>  #include <linux/regmap.h>
+>  #include <linux/regulator/consumer.h>
+> +#include <linux/array_size.h> // for ARRAY_SIZE
 
-ARM: dts: aspeed-g6: add pcie-lpc and pcie-kcs4
+Just a small nit, even though the list isn't exactly ordered, please
+try to add the new include approximately where it would be if ordered,
+i.e. array_size.h goes to the top. Additionally, you don't need to add
+a comment.
 
-This commit adds a pcie_lpc node and a pcie_kcs4 child node to the ast2600
-common dtsi. It allows exposing a fully KCS-compatible interface over PCIe,
-which can be used by the host for IPMI.
+Everything else seems fine otherwise.
 
-> diff --git a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi b/arch/arm/boot/dts/=
-aspeed/aspeed-g6.dtsi
-> index 56bb3b0444f7e..ac351f01048fe 100644
-> --- a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-> +++ b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
+-- 
+Kind regards
 
-[ ... ]
-
-> @@ -658,6 +658,21 @@ ibt: ibt@140 {
->  				};
->  			};
-> =20
-> +			pcie_lpc: pcie-lpc@1e789800 {
-
-[Severity: Low]
-Is this node name aligned with Devicetree naming specifications?
-
-Using "pcie-lpc" describes the specific bus connection rather than a generic
-functional name like "lpc".
-
-> +				compatible =3D "aspeed,ast2600-lpc-v2", "simple-mfd", "syscon";
-> +				reg =3D <0x1e789800 0x800>;
-
-[Severity: Medium]
-Will this reg value cause a resource reservation conflict?
-
-The existing lpc@1e789000 node is defined earlier in this file with a size =
-of
-0x1000:
-
-			lpc: lpc@1e789000 {
-				compatible =3D "aspeed,ast2600-lpc-v2", "simple-mfd", "syscon";
-				reg =3D <0x1e789000 0x1000>;
-
-This means the existing lpc node spans up to 0x1e78a000, which completely
-overlaps the 0x1e789800 through 0x1e789fff memory range claimed by this
-newly added node.
-
-Could the original node's size be reduced to 0x800 to prevent the overlap?
-
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <1>;
-> +				ranges =3D <0x0 0x1e789800 0x800>;
-> +
-> +				pcie_kcs4: pcie-kcs@114 {
-
-[Severity: Low]
-Does this child node also need a more generic node name like "kcs@114"
-instead of "pcie-kcs@114"?
-
-> +					compatible =3D "aspeed,ast2600-kcs-bmc";
-> +					reg =3D <0x114 0x1>, <0x118 0x1>, <0x11c 0x1>;
-> +					interrupts =3D <GIC_SPI 177 IRQ_TYPE_LEVEL_HIGH>;
-> +					status =3D "disabled";
-> +				};
-> +			};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/de49f2032f5b1f17016=
-1dcd6191c0daa48f0b0c2.1784117715.git.gregoire.layet@9elements.com?part=3D1
+CJD
