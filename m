@@ -1,108 +1,94 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B17C9225413
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 06:39:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C85225413;
+	Wed, 15 Jul 2026 06:39:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784097547; cv=none; b=m8DRio6+BpIINPUc5lnOSAY0uvQA8RobBNUcF0X6j4e+CMZn66Ju88s1fdRI3jOwAs8HyTs8G9ewodkAnqnt6k13eI2FcNDVL8Qyq4MLEfihN+TAQjTlb4VXOPdHZB7onWFMIOLIjDwf0dp3pBR3SeJdpTNMy4DwhWzrY7Ekpds=
+	t=1784097547; cv=none; b=JQX5QWdWCMVo4KUNjhdzFXF6MkIUt3F1HqPYePN0XbF/c6chgplXj8eO9TtzgC2kVLazwizUEEUuG3QS1FKMCB5bFkN8MKc37kVycZGBFjYq88dc1f6MLZz+t+R7kbgFeFwjwnzYuM1ndhn/7vxQkcQQBPdL3Ifxk9wBlOWTNfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784097547; c=relaxed/simple;
-	bh=xMr/202VPSLUku89NjyrrMJcJ4+vAjRw0LAGM1EznR4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=CMY/CkISVa/wluocZh1YF78t//GuxCm8cDnBTGm6cjuvoE2MOxxd7U+nfI41mikApg5oonlGgSue1J4oYNLJCFpyR+ZtLogM8BmxVC6eJs7W/p/B7SFjfewWbRh0Py4eDIFASXVUbm3OHYrHDOq9HLknCo2Zl606Wz6dD8tNnfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=rZm0u0TU; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	bh=ZliAQFFvr5pZ/nRwHOArDixoFaosYB2/I8lhndxTcO4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=eM2wHBKQLxIVAqDX+i4KHDGIMoTnAmFPolpUdIvoLLIS2fa3/1/59Sf6LQandvl0Dnz6P945AmvLiatFb9S26fDqNxQglPxe6wHPUj3iFcicGOB6IUkkmW+D8AH20pe1Ng84Z6rVtplP3RETgSWqHvaCAK7sx8XjyNuxECumxNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XuBLs7o4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="rZm0u0TU"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260715063901euoutp01cd86d1100d605512225615551ec8dced~CY0MAuLgF0727407274euoutp01h
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 06:39:01 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260715063901euoutp01cd86d1100d605512225615551ec8dced~CY0MAuLgF0727407274euoutp01h
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1784097541;
-	bh=QkIx5HxAGLBRNJ/u+bxOfaKWM8km5UQDkUuQ/qbWx8w=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=rZm0u0TUVeuWMDh1jB5qpJPX96mVS+ZsTLoHkct8uwfZ7LQWoc4uMZVSGJR9syKSs
-	 QTIUF+5B0nBTc8i7gGrvruhyYotlVx7TnvEqky6QLm8fTTCbKTrvwiQf9uNG97wRk+
-	 57pCrAi5r+O9rLWFnyj1CWSOkITJgz5NkjIrLpVk=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260715063901eucas1p2a4c2d72e4d9dbd9fd2f1e686d1a6c89c~CY0LqDzKi0392503925eucas1p20;
-	Wed, 15 Jul 2026 06:39:01 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260715063900eusmtip24c15585bd6a665ad2131db656f6322a2~CY0KnnnAY0426404264eusmtip2S;
-	Wed, 15 Jul 2026 06:39:00 +0000 (GMT)
-Message-ID: <3dac25b9-a464-4350-aff5-0ada4dc1d65e@samsung.com>
-Date: Wed, 15 Jul 2026 08:38:59 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XuBLs7o4"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3D8E9C2BCF7;
+	Wed, 15 Jul 2026 06:39:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784097547;
+	bh=ZliAQFFvr5pZ/nRwHOArDixoFaosYB2/I8lhndxTcO4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=XuBLs7o4CL23nn1O1knTTwUrQNedp41ImJhFYeBSKYo/MEj6MsKAWpTvTU12dQeGg
+	 ES1hcJ/9f6DYy7AAaIhoFqXzbVbz3Of885UsjDgHDAYN/JOE7bQ7kzvj8oT4s0uLBY
+	 masHnbdCe4kdb6MLWq5gRrTuVG0ySp7iCeVFZ0qoh9RVZqn4rTakqNA7+LrS1yuEWL
+	 jtZO7o8N+yyUu9XeaeB09pma+fc7z/62Fzxd+epeFup9+PdjaXCfKZJe4kBjjlxv/E
+	 g5YOLLszlKs9I0v6GPgfmvxTBvGeq8tDG5jtKtJ1897Qyt3QPQ0hsRV+T6vP4F4j2Q
+	 zFJ655PtTpgvA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 17ABEC4450C;
+	Wed, 15 Jul 2026 06:39:07 +0000 (UTC)
+From: Esteban Urrutia via B4 Relay <devnull+esteuwu.proton.me@kernel.org>
+Date: Wed, 15 Jul 2026 02:37:47 -0400
+Subject: [PATCH v2 2/3] phy: qcom: qmp-pcie: Add pcs_lane1 offset to V5
+ offsets
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 1/7] dt-bindings: interrupt-controller: mpm: Document
- power-domains property
-To: Marc Zyngier <maz@kernel.org>, Sneh Mankad
-	<sneh.mankad@oss.qualcomm.com>, Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
-	<konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner
-	<tglx@kernel.org>, Shawn Guo <shawn.guo@linaro.org>,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <87ik6i6i22.wl-maz@kernel.org>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260715063901eucas1p2a4c2d72e4d9dbd9fd2f1e686d1a6c89c
-X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260715063901eucas1p2a4c2d72e4d9dbd9fd2f1e686d1a6c89c
-X-EPHeader: CA
-X-CMS-RootMailID: 20260715063901eucas1p2a4c2d72e4d9dbd9fd2f1e686d1a6c89c
-References: <20260713-b4-shikra_lpm_addition-v1-0-3d858df2cbbf@oss.qualcomm.com>
-	<20260713-b4-shikra_lpm_addition-v1-1-3d858df2cbbf@oss.qualcomm.com>
-	<87ik6i6i22.wl-maz@kernel.org>
-	<CGME20260715063901eucas1p2a4c2d72e4d9dbd9fd2f1e686d1a6c89c@eucas1p2.samsung.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260715-sm8475-bup-pcie-v2-2-48bd91a19abf@proton.me>
+References: <20260715-sm8475-bup-pcie-v2-0-48bd91a19abf@proton.me>
+In-Reply-To: <20260715-sm8475-bup-pcie-v2-0-48bd91a19abf@proton.me>
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Esteban Urrutia <esteuwu@proton.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784097545; l=762;
+ i=esteuwu@proton.me; s=20260622; h=from:subject:message-id;
+ bh=XC8XSPTDRd/J/fHeOOhg0qB32EBC0liAXwtSxQB2wb4=;
+ b=IE/Rciw/Vjeo3WceGDwW4nbymkrPBOEhmNgrYZr9XbTFxU6yq6Y9SNl3eBTGc0eDDuJvU0qWQ
+ KS3JCMULfmeDow5fGhP4pF8stWe0EwJowvrk8CjQRXAJXVyeQx61EVz
+X-Developer-Key: i=esteuwu@proton.me; a=ed25519;
+ pk=wToFt4mOAWkzbqb15Ye1hrhevI13vK9BcMUFiQ/me1M=
+X-Endpoint-Received: by B4 Relay for esteuwu@proton.me/20260622 with
+ auth_id=835
+X-Original-From: Esteban Urrutia <esteuwu@proton.me>
+Reply-To: esteuwu@proton.me
 
-On 13.07.2026 17:11, Marc Zyngier wrote:
-> On Mon, 13 Jul 2026 11:25:41 +0100,
-> Sneh Mankad <sneh.mankad@oss.qualcomm.com> wrote:
->> Remove #power-domain-cells property and add power-domains property for
->> MPM device.
->>
->> Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
->> ---
->>  .../devicetree/bindings/interrupt-controller/qcom,mpm.yaml          | 6 +++---
->>  1 file changed, 3 insertions(+), 3 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/interrupt-controller/qcom,mpm.yaml b/Documentation/devicetree/bindings/interrupt-controller/qcom,mpm.yaml
->> index ebb40c48950ab3a8fc86f5708acfc33c33d68993..3f9645fbc3c20633077aaa589e5d5a43928dab51 100644
->> --- a/Documentation/devicetree/bindings/interrupt-controller/qcom,mpm.yaml
->> +++ b/Documentation/devicetree/bindings/interrupt-controller/qcom,mpm.yaml
->> @@ -68,8 +68,8 @@ properties:
->>          - description: MPM pin number
->>          - description: GIC SPI number for the MPM pin
->>  
->> -  '#power-domain-cells':
->> -    const: 0
->> +  power-domains:
->> +    maxItems: 1
-> What makes you think it is OK to change an existing binding in an
-> incompatible way?
+From: Esteban Urrutia <esteuwu@proton.me>
 
+Some SoCs such as SM8475 write data to registers using this offset,
+specifically SW_CTRL2 and MX_CTRL2.
+Add pcs_lane1 offset to V5 offsets to support this.
 
-Ulf suggests that this has been modeled upside down in the initial
-submission:
+Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
+---
+ drivers/phy/qualcomm/phy-qcom-qmp-pcie.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-https://lore.kernel.org/all/CAPx+jO9d1qH12mxg-n1rkbp6Xd__sdrSMeoc7CPELE+jgxRYHA@mail.gmail.com/
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
+index d3effad7a074..3618812e84d5 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
+@@ -3554,6 +3554,7 @@ static const struct qmp_pcie_offsets qmp_pcie_offsets_v5 = {
+ 	.pcs_misc	= 0x0600,
+ 	.tx		= 0x0e00,
+ 	.rx		= 0x1000,
++	.pcs_lane1	= 0x1400,
+ 	.tx2		= 0x1600,
+ 	.rx2		= 0x1800,
+ };
 
-Best regards
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+2.55.0
+
 
