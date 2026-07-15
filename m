@@ -1,137 +1,162 @@
-Received: from mail-m127170.xmail.ntesmail.com (mail-m127170.xmail.ntesmail.com [115.236.127.170])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3705D3D3D11
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 08:47:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 701673D890E;
+	Wed, 15 Jul 2026 08:49:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784105254; cv=none; b=t0WateJI4tOeZbRuNdUsBCwndvMRRhfXakiXQhpkZB6/nPPiSAw8Bi6YQDBC1Jezdv7StiezOhkhnzhQGlOtzDsTt/Dl8J0hDFrWqRKyOdwgeV16hyOE58LH7Lch7V9N2PU1WdX64IClnZjmrVUR/2ycI24I1aB4HJ20yZG8CXE=
+	t=1784105395; cv=none; b=DPM6JCC7VSPWaXdKvqf7KDUBF1CcuhGZe4/DbnHHc7SrkaDtVkRH0eQ07kUNaxXzPs6a4uqJEOQ8KEuAMb90BscD+o5Lc+sp9+Y7iag57tmR61bjIJ54tKUIfClTZ9Y2G7gkihUdOf88hsrBiTf89+Q1Rs1OU6NriwZR4k3ydkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784105254; c=relaxed/simple;
-	bh=H2qnXEImwoz2zrzCd/qOrzTqaRIv16NPS/LflTFmdns=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ii+GG2H9VsaK/WFqocI3+yMdD1YjYBiU0jMzcAm58CDgoKkeOnPUs/JX8/sgAxolDJainzRAzwazzcMlS4sO/TfkcOiun6PzYlWpTiyO/S3SUXt4P0W+ChXBS4yGrF71NfuN0tXwZLpykFywySoeda1hnEN23hCf2WyIxqALz8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=D5eEkzfW; arc=none smtp.client-ip=115.236.127.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1784105395; c=relaxed/simple;
+	bh=MmarBasXfQmC5MEBsnaG4oLh0ejHeaQIQu1QoJ4BW7g=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=pMSrYCSwnnud+ox9BGBvFEigdhzOlGi+W7B1BAfRSyvIC108BC8yta2i1mHuR8sOj3lvg5iCmZqSoSNxUa11wYsbQu5lHgXu3h9M319TR2ziv+ZhzZBBXdgUK5kxxKQ/o1SyhrEOj+uNA28RBd1bE9IEBq2RvSlIPUVSeDDPRyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=v0kbq9Wp; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="D5eEkzfW"
-Received: from [172.16.12.74] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4644b288e;
-	Wed, 15 Jul 2026 16:32:08 +0800 (GMT+08:00)
-Message-ID: <00d3f58e-73bb-41da-a2df-dfeeca644b6f@rock-chips.com>
-Date: Wed, 15 Jul 2026 16:32:07 +0800
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="v0kbq9Wp"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 2ADF64E40DC9;
+	Wed, 15 Jul 2026 08:49:43 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id F0D8D6035C;
+	Wed, 15 Jul 2026 08:49:42 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 51F9311BD3C24;
+	Wed, 15 Jul 2026 10:49:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1784105381; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=rFNGUCLtwL0J9UMzLUhMW3/R8y1OqX7JmKnCzawnBV4=;
+	b=v0kbq9Wp0Snw1mUEYQk9jToT+RDLdlswU2d0gC17xE5U6j9w26ZQcy27tuDIGkUnAsWC1r
+	mfHKBcv8AJCFniJb3MRRErQT9zgqyu8yiiG8WlCormo77+OHu3roSFs/eepL/Uc4wb9WV1
+	FbHWqZcpMDLxwYSTsZt8U3SBiWe14c6eWGWevDaw7Dgp2wSempFJvZIklMt7ywWFux98Zm
+	MFBSwcNJRqJbqxBhDAMGbIV6SF3THRFUdD+AyVAuTBGTmxgDX9iIQaY/gXXJ2nLOVIu9xj
+	6NP6WpfY8ydvPcYOcFNuJvo9SL3ml07T795y/M9jWuPy4Zf6L+qUYNadwe6HRA==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/5] drm/bridge: analogix_dp: Restore mandatory samsung
- DP DT properties
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, robh@kernel.org,
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-References: <20260707040613.1992841-1-damon.ding@rock-chips.com>
- <20260707040613.1992841-4-damon.ding@rock-chips.com>
- <20260707041711.4F7351F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20260707041711.4F7351F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9f64e79dc103a8kunmb5bc9ffe10ec8e
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCShhLVkpIGE5KGkkYQktLSFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=D5eEkzfWlQsu8P+ISq0oa6wJ8Fp89x3afKPHLzKZvgX2lw9+6aZwVlxKVWZEnPs8FJw9gB1HyUInUGo5sG6lF8usQP/Cti1YYzJXaqiAg3P+iHzT5vpLiFPZi78Tbf+TYkyKnMW/6neIZfvs9qsVEtaBK6JQyK+xJMcYCB+BA98=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=5k3VLyTE2W0brh6QXzfvnZyb5UNm/t6xk2HiFeq09E0=;
-	h=date:mime-version:subject:message-id:from;
+Subject: Re: [PATCH v4 2/2] drm/bridge: ti-sn65dsi83: Add reversed lvds
+ lanes support
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Wojciech Dubowik <wojciech.dubowik@mt.com>
+Cc: linux-kernel@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Marek Vasut <marex@denx.de>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20260713082622.52985-3-wojciech.dubowik@mt.com>
+References: <20260713082622.52985-1-wojciech.dubowik@mt.com>
+ <20260713082622.52985-3-wojciech.dubowik@mt.com>
+Date: Wed, 15 Jul 2026 10:49:31 +0200
+Message-Id: <178410537112.253594.1490996314225033236.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 7/7/2026 12:17 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Critical] Failing probe when deprecated DT properties are missing breaks DT ABI and prevents their deprecation.
-> --
-> 
-> --- Patch [3]: [PATCH v6 3/5] drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties ---
-> commit b573dba50acc6087122ffa4a65680322f4d004f8
-> Author: Damon Ding <damon.ding@rock-chips.com>
-> 
-> drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties
-> 
-> This commit reverts a change that made the samsung,link-rate and
-> samsung,lane-count properties optional for Exynos DP. It adds error checking
-> to fail the probe early if these properties are missing, aiming to prevent
-> link training failures caused by zero values.
-> 
->> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> index 8cf6b73bceac0..293d8adfe9856 100644
->> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> [ ... ]
->> @@ -1258,10 +1259,14 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
->>   		 * NOTE: those property parseing code is used for
->>   		 * providing backward compatibility for samsung platform.
->>   		 */
->> -		of_property_read_u32(dp_node, "samsung,link-rate",
->> -				     &video_info->max_link_rate);
->> -		of_property_read_u32(dp_node, "samsung,lane-count",
->> -				     &video_info->max_lane_count);
->> +		if (of_property_read_u32(dp_node, "samsung,link-rate", &val))
->> +			return dev_err_probe(dp->dev, -EINVAL,
->> +					     "Failed to get samsung,link-rate\n");
-> 
-> [Severity: Critical]
-> Does failing the probe when this property is missing break the DT ABI?
-> 
-> Since samsung,link-rate is a deprecated property, a modern schema-compliant
-> Device Tree might intentionally omit it. If a system boots with such a DT,
-> this check will fail the probe with -EINVAL and disable the display.
-> 
-> Could the driver instead fall back to hardware maximums or sensible defaults
-> when the deprecated property is absent, rather than returning an error?
-> 
+On Mon, 13 Jul 2026 10:26:20 +0200, Wojciech Dubowik <wojciech.dubowik@mt.com> wrote:
 
-I'm afraid it's difficult to provide a universal sensible default value 
-here.
+Hello Wojciech,
 
-The samsung,lane-count and samsung,link-rate values vary significantly 
-across Exynos DP device trees, so a generic fallback to hardware 
-maximums cannot guarantee stable link training.
+>
+> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> index e6dbe51d0dba..d676ea3b40e8 100644
+> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> @@ -148,6 +148,18 @@ enum sn65dsi83_lvds_term {
+>  	OHM_200
+>  };
+>  
+> +enum {
+> +	NORMAL_LANE_MAPPING,
+> +	REVERSE_LANE_MAPPING,
 
-Even though these two properties are marked deprecated, all existing DTS 
-files in our projects have already populated them completely. Moreover, 
-the current link training logic relies on these two parameters; omitting 
-either will directly cause link training failures at runtime.
+Please use a fixed prefix and use the suffix to differentiate:
 
-Therefore, retaining the mandatory property check in probe is a 
-reasonable approach for now.
+  LANE_MAPPING_NORMAL,
+  LANE_MAPPING_REVERSE,
 
->> +		video_info->max_link_rate = val;
->> +		if (of_property_read_u32(dp_node, "samsung,lane-count", &val))
->> +			return dev_err_probe(dp->dev, -EINVAL,
->> +					     "Failed to get samsung,lane-count\n");
-> 
-> [Severity: Critical]
-> Does making samsung,lane-count mandatory similarly break backward compatibility
-> for valid Device Trees that have intentionally omitted this deprecated property?
-> 
+> @@ -854,6 +873,37 @@ static int sn65dsi83_parse_lvds_endpoint(struct sn65dsi83 *ctx, int channel)
+>  		goto exit;
+>  	}
+>  
+> +	ret_data = of_property_read_u32_array(endpoint, "data-lanes", data_lanes,
+> +			ARRAY_SIZE(data_lanes));
+> +	if (ret_data != 0 && ret_data != -EINVAL) {
+> +		ret = ret_data;
+> +		goto exit;
 
-I don't think so. Missing either property will inevitably cause link 
-training failure, and all functional DTs have these deprecated 
-properties filled in already.
+The goto-based error handling is getting trickier and trickier with more
+error conditions. Can you please add a preliminary commit in this series
+that replaces:
 
->> +		video_info->max_lane_count = val;
->>   		break;
->>   	}
->>
-> 
+ -struct device_node *endpoint;
+ -endpoint = of_graph_get_endpoint_by_regs(dev->of_node, endpoint_reg, -1);
+ +struct device_node *endpoint __free(device_node) =
+ +         of_graph_get_endpoint_by_regs(dev->of_node, endpoint_reg, -1);
 
-Best regards,
-Damon
+and removes the entire "ret = foo; goto exit;" logic with simple returns?
+
+> +	}
+> +
+> +	if (!ret_data) {
+> +		for (i = 0; i < ARRAY_SIZE(supported_data_lane_mapping); i++) {
+> +			for (j = 0; j < DATA_LANES_COUNT; j++) {
+> +				if (data_lanes[j] != supported_data_lane_mapping[i][j])
+> +					break;
+> +			}
+> +
+> +			if (j == DATA_LANES_COUNT)
+> +				break;
+> +		}
+
+I think a memcmp() can simplify the implementation if you use the same data
+type (u32) for data_lanes and supported_data_lane_mapping[].
+
+> +
+> +		switch (i) {
+> +		case NORMAL_LANE_MAPPING:
+> +			break;
+> +		case REVERSE_LANE_MAPPING:
+> +			ctx->lvds_reverse_lanes_conf[channel] = true;
+> +			break;
+> +		default:
+> +			dev_err(dev, "invalid data lanes mapping\n");
+> +			ret = -EINVAL;
+> +			goto exit;
+> +		}
+> +	}
+
+And perhaps the whole if (!ret_data) here can be simplified a lot as this
+(pseudocode, not tested):
+
+  if (!ret_data) {
+      if (memcmp(data_lanes[j], supported_data_lane_mapping[NORMAL_LANE_MAPPING], size) == 0)
+          break;
+      else if (memcmp(data_lanes[j], supported_data_lane_mapping[REVERSE_LANE_MAPPING], size) == 0)
+          ctx->lvds_reverse_lanes_conf[channel] = true;
+      else
+          return dev_err_probe(...);
+  }
+
+Luca
+
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
