@@ -1,82 +1,101 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F6DA438030
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:12:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED5F1434E55
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:13:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784117542; cv=none; b=pjIewnhSnfz7aktVDGGkSKBPfBGS1rnOF1OK6QokAmQQtHVhHXq7bZcQvfLKl1hK+4b2/ob62zFAKOwlMXt4gHpzBDbesbcfwnnokmt/IdL+WVjMWiIQ/u3o6JC6OjSp7/A3vgO13qbsZCfohDpEDB7Ka7dyGaUDO5jeGj6S3I8=
+	t=1784117601; cv=none; b=TfZbJ4xsndSl8bEz1mCa/LrhKXduWINXR/BqM9sSLTsQbyaLLEP8AbVds90UmwLz//23ztjqgaUzBYw1DipL8UZtAtNbEXNwUTIM4x8grMozGfu5PeJQJnlq8ZySqxjrrgDwPvEl1tS8arafJlPw1Hn+KIKXb17YV5tKgwM5Do4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784117542; c=relaxed/simple;
-	bh=/Utrn0FuhDu7FxctadkjGTJJOKFpnXSBb/4fpl/qJGM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Xo1yVa0aeL4NAdG0VGaAy8gnqHHmpmB9ywz9endZziG1PNF0Nq/7nJpHbIdrQBlPK8AOFYfBZ/PvAE5TCgsuTUDbaH/Uqc2T3kAe/yOpoV0LtuCQ6Tu7sk1mh6nfujQPagk4R7yZZY41pwmqyEUqKLulY6tZ8gc5/G96Rv3YidY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Icg54jm7; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1784117601; c=relaxed/simple;
+	bh=gNl5/ZnFxiNLQCcvtvH8upGV8QmIKJ7OniNlJJrNsto=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hoqYGcx888psStR1CNLNAT+vK8+G2Kos3NGX6PjzRFvOrGAV/qVkSOzkXsjEsDyn7PakzaGGzCOUeWKvy4rYC7gt6yYxBcLV+F26R/xlfAp2DH9CWDXuqNRLPztoKOMn9uWUolM2qhS63REtZosc3xSClBFaq9QfL+J4kAHrrWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OdVwuaRI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Icg54jm7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1784117538;
-	bh=/Utrn0FuhDu7FxctadkjGTJJOKFpnXSBb/4fpl/qJGM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Icg54jm7Zc0WfgDc7fKmejc8NuNqnYfhKrimnkYXGgtr9ffyQo1it6U5olV0HqMXV
-	 Vnaz5gI2j9QpoDUXv+69Pb+SNq38IqtETysII4yJEQDqnNLjzPbY3hsgkjdwX2xjnm
-	 dPRYYo5qaTizsQpiLbx3LB1LYVFkZ1HWpjw5mKVPhNA5XZR8Fhks6ZcLTr3GlbemTK
-	 m7DEL+fAkBmZrnD7aOsj79K3WgFUWhE8j6nETPmyMG51ECuKB2JK6QkTcCSMyodHYz
-	 lBgzT4+kMKr+LAqJLc1CSZfLnvbfkprPmA9C5y1nsX//UVwEekmr4zbVT73dmPFkus
-	 2p8m6MixpSWGw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8451317E07AA;
-	Wed, 15 Jul 2026 14:12:18 +0200 (CEST)
-Message-ID: <baec7dc4-cc0b-4655-9d17-190c0a4d9a8c@collabora.com>
-Date: Wed, 15 Jul 2026 14:12:18 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OdVwuaRI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A82B41F00A3F
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:13:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784117599;
+	bh=IvqJ6hW+hUO9tvsLL6o5nEWp718Mhw+RBi7JmsGm4BE=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=OdVwuaRI70Nq2v/5ItDFn/LeHAMt2u46DJKRsbAvJHjoXiIwpQ5AqlIVlDYvxKvqB
+	 ICTuouuOqFtR3W/JMCcAEDFn8EgaxTMnrc9mFU9JCmzFbU9cUeojpN819MHLxmQuyC
+	 KWXKF6lp2/q6Xfd8iWulAcWLmYxTwVsyFe9DFDPV+tvMGZbcC/ezAqJb/X3FGZ7Lwn
+	 9fkjgjagycosHNIPv+Dcp+7D0f3mmOBJdxWYcQmZ+3CJohmMg0qPhcPo0UN88lHdOR
+	 ZQU0/agCgQLTG0ob4Iwxh3TDjYu86ryG4EhpHkPiNZ99XY1LBNeNSev76DNLVuEgnU
+	 jyBnBK6YCGKbw==
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-39ca300db70so33329621fa.2
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 05:13:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoqUC/GMm9L8sQQL4nBCXTnPOlPvkxR44CzRBdm1Q5Iy12O50uHC7P2ZDvcuIweZvhUHEHlGE06VCb5@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxa4/VpUfaVAsI72bs1cQd5zBkH1ivsMSTJYFTLvGr7ZyqjPAXH
+	VSIjLDQ+kuKIf1YOsZY6A95hFKJjMYm7R3uA9JliXZjSWCDVGwutXTCWI7dwzyYgONOC9uJe8LT
+	31Prn9tM1BRxDfsIKyMAyBR8XGFkzXF+6/3s4fPl0mg==
+X-Received: by 2002:a2e:a913:0:b0:39b:f25:6050 with SMTP id
+ 38308e7fff4ca-39db6d4d3a6mr6178751fa.20.1784117598343; Wed, 15 Jul 2026
+ 05:13:18 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 15 Jul 2026 05:13:16 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 15 Jul 2026 05:13:16 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260714-b4-shikra_crypto_changse-v4-5-06a4ea97c209@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 07/11] drm/mediatek: mtk_dsi: Add support for MT8189
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-References: <20260715114916.19690-1-angelogioacchino.delregno@collabora.com>
- <20260715114916.19690-8-angelogioacchino.delregno@collabora.com>
- <20260715120718.807D91F000E9@smtp.kernel.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260715120718.807D91F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260714-b4-shikra_crypto_changse-v4-0-06a4ea97c209@oss.qualcomm.com>
+ <20260714-b4-shikra_crypto_changse-v4-5-06a4ea97c209@oss.qualcomm.com>
+Date: Wed, 15 Jul 2026 05:13:16 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MeWeMfry1UThKdw5U7mLcGc2LFOCiDikPEps5K+0nQg6A@mail.gmail.com>
+X-Gm-Features: AUfX_mzuoja5mZwmlfZnsqzI2FkD2yFcwkvWpiPulhTnwjEhajmQYmGlODoqU04
+Message-ID: <CAMRc=MeWeMfry1UThKdw5U7mLcGc2LFOCiDikPEps5K+0nQg6A@mail.gmail.com>
+Subject: Re: [PATCH v4 5/6] dt-bindings: dma: qcom,bam-dma: Increase iommus
+ maxItems to 7
+To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org, 
+	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Harshal Dev <harshal.dev@oss.qualcomm.com>, 
+	Vinod Koul <vkoul@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+	Andy Gross <agross@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 7/15/26 14:07, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> 
-> New issues:
-> - [High] Bandwidth check and PHY clock calculations do not account for DSC compression, incorrectly rejecting high-resolution modes and over-clocking the PHY.
-> 
+On Tue, 14 Jul 2026 12:05:16 +0200, Kuldeep Singh
+<kuldeep.singh@oss.qualcomm.com> said:
+> Qualcomm Shikra platform describes the BAM DMA node with 7 iommus
+> entries. The current schema limit to 6, so update the binding to allow
+> up to 7 entries.
+>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml b/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml
+> index 0923fb189ada..e72adc172af1 100644
+> --- a/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml
+> +++ b/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml
+> @@ -48,7 +48,7 @@ properties:
+>
+>    iommus:
+>      minItems: 1
+> -    maxItems: 6
+> +    maxItems: 7
+>
+>    num-channels:
+>      $ref: /schemas/types.yaml#/definitions/uint32
+>
+> --
+> 2.34.1
+>
+>
 
-No, because the width or height will be half for each slice.
-
-
-> Pre-existing issues:
-> - [High] Error path in `mtk_dsi_poweron` fails to decrement `refcount`, permanently leaving the DSI driver in a corrupted state.
-
-This is real, never happened and will not happen for now, but has to be fixed.
-
-Will do that after this series, because I really-really-really ran out of time now.
-
-> - [High] Signal interruptions during IRQ waits are incorrectly treated as successful operations.
-
-This has to be carefully checked, because this may be a situation in which two
-wrongs are making one right.
-
-As said, I am out of time and will look at this in the future, definitely not in
-this merge cycle.
-
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
