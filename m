@@ -1,163 +1,93 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from MTA-11-3.privateemail.com (mta-11-3.privateemail.com [198.54.122.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308981AA797
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 20:46:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAD8E1AA797;
+	Wed, 15 Jul 2026 20:46:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.122.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784148400; cv=none; b=ELK1unaQXQ6YtMcNnVz+6Mbc4G6Ah0AWbceJVrRV+PMDcexc1WJIVV+1kHC2j+jWL0aRChhgpUznb9z/PxOFYay4Es4cW6wkY55HlYgj2AyyG6CADxCWXafYEdpuXYfaU1J+vxvKcazDVxa2Gbbg4fRBRnSg2dP7jxlNMpgMAhA=
+	t=1784148406; cv=none; b=MbLNIQh9jD1CiVD//TCiJcIRfGVQ2ffQYfaPGkPCvrsBhu70WeT0WcIHEKEmfUEWRqFvCXDQsEA+Jdp6+khgol6v4pr2OXADFUkir2ltnneAgdMXew98RjCD5XdPhiyry420O6os4B6kDU0DWUSjSkCUyV2ATuhDwrYozmJ3jns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784148400; c=relaxed/simple;
-	bh=+Jwszswhw1ZXgx9jt6vgiNqsibTmv9QYm3AISbx34ms=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=SYiXeXl9IKYz1+My8Ek26RqUKllJlmzy++alL7I21XXBa8c4UytpNWkldivzwI5eA3ne/wpdYXQXmao7IOUAyhrrK2VuqAZv7R+SY7HGtbOm918XOqIOxCDufMWSeyPMojKMFkaNMD2M/FxjaprT13nkkQu26R3ghMvvAfQZf/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=H37+1jXu; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="H37+1jXu"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B8963100162;
-	Wed, 15 Jul 2026 22:46:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1784148395;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=IxTC0PcmTi5Z0sUROFUes4Uwvb15X6CctNLo1ceG9Vs=;
-	b=H37+1jXunekFsGDKykbUuwVhXzzPmHb+jpJgTli/Qk6AxJhfLnMUbovORA1zmRncdANPQQ
-	y5WyeqlLmQF5KjFj05h36fOCJiKU8Brybv+OmiFL6iIeEuHiLKgHdulGuQK8IO9UsfvpUh
-	1EOqWDpZ2qelHCZ16tWLxD1YgJQ0Sy6xabv1oMWLiF/AZrXSctRofuGCK1ZiKG9dUmpJXD
-	0CFCD77B0zT2th9d+9xu7UwygobpoTHaxcs6GzGt6QbrsKFJNXKIcUkQQ+Y6UGpFLy4Czp
-	HxO6cgmpmnTO5jJsQ45W8nIKRg5SyZDlUVDJWksbPBPcCyP9pqqP+II2oDkXSw==
-Message-ID: <c9a67cbd-fda8-4016-9cff-9125f3191b74@nabladev.com>
-Date: Wed, 15 Jul 2026 18:38:32 +0200
+	s=arc-20240116; t=1784148406; c=relaxed/simple;
+	bh=fs00jeQA7PKqP5FDn93vdJhuU2LPWJKZJgUIfJEbYWs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=k+O41PX396kZ5BhMWVVIHFWwjV1wc4FQLLrbyrsxbUS4g5EFhu9xo9nzcNfA1Ae7H1KvyqsQkKtItPRcDHNSVTB9sA2ib3ol4StZdcJ6p+QeINnUrmA1eAhOxbfGhMhFhVft2XuriI9jY2TSI616PVG89qhVWdcOrA/5xpSFLdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.122.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
+Received: from mail.privateemail.com (K8S-PROD-WORKER-08 [87.215.145.39])
+	by mta-11.privateemail.com (Postfix) with ESMTPA id 4h0p9q0tX7z3hhTD;
+	Wed, 15 Jul 2026 16:46:22 -0400 (EDT)
+From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+To: Siratul Islam <siratul.islam@linux.dev>,
+	Jonathan Cameron <jic23@kernel.org>
+Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: magnetometer: add QST QMC6308
+Date: Wed, 15 Jul 2026 22:46:16 +0200
+Message-ID: <20260715204616.46517-1-jorijnvdgraaf@catcrafts.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <03e59d2907ffccc2cecd94ab44d19359f2474733.camel@linux.dev>
+References: <20260714202842.340293-1-jorijnvdgraaf@catcrafts.net> <20260714202842.340293-2-jorijnvdgraaf@catcrafts.net> <03e59d2907ffccc2cecd94ab44d19359f2474733.camel@linux.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Marek Vasut <marex@nabladev.com>
-Subject: Re: [PATCH v4 4/6] arm64: dts: imx8mm: imx8mp: Add CM DTOs for Data
- Modul i.MX8M Mini and Plus eDM SBC
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org,
- imx@lists.linux.dev
-References: <20260705200534.151803-1-marex@nabladev.com>
- <20260705200534.151803-4-marex@nabladev.com>
- <20260705202439.3F5771F000E9@smtp.kernel.org> <alUICTI-24tREZO8@SMW015318>
- <f1e52327-42da-48e1-8e4a-dabf148ce216@nabladev.com>
- <alWR66rjt-9jGEOV@SMW015318>
- <a3602ef8-2b77-4cc3-adef-2c4cba08a5d9@nabladev.com>
- <alezsOsf61Zv6F4F@lizhi-Precision-Tower-5810>
-Content-Language: en-US
-In-Reply-To: <alezsOsf61Zv6F4F@lizhi-Precision-Tower-5810>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 7/15/26 6:22 PM, Frank Li wrote:
+Hi Siratul,
 
-Hello Frank,
+On Thu, 2026-07-16 at 00:32 +0600, Siratul Islam wrote:
+> > +  mount-matrix: true
+> You could add this prop to the existing QMC5883l binding. See the
+> comment below.
 
->>>>>> [Severity: Medium]
->>>>>> Will this node name bypass the driver's carveout exclusion logic?
->>>>>>
->>>>>> Looking at imx_rproc_prepare(), it iterates over memory-regions and checks
->>>>>> specifically for the name "vdev0buffer" to skip processing the vdev buffer:
->>>>>>
->>>>>> 	if (!strcmp(it.node->name, "rsc-table") ||
->>>>>> 	    !strcmp(it.node->name, "vdev0vring0") ||
->>>>>> 	    !strcmp(it.node->name, "vdev0vring1") ||
->>>>>> 	    strstarts(res.name, "vdev0buffer"))
->>>>>> 		continue;
->>>>>>
->>>>>> Because this node is named "vdevbuffer" instead of "vdev0buffer", it appears
->>>>>> it will be mapped as a generic carveout via ioremap_wc() and unintentionally
->>>>>> included in the remoteproc coredump.
->>>>>>
->>>>>> Could this node be renamed to "vdev0buffer" to avoid wasting vmalloc space
->>>>>> and bloating the coredump?
->>>>>
->>>>> Look like make sense, please check it.
->>>>>
->>>>> It is not good to use node-name as ABI. Laurentiu is working on use
->>>>> memory-region-namses.
->>>> The memory regionss are referenced from imx8mm-cm4 { } node via the
->>>> memory-region property:
->>>>
->>>> memory-region = <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>, <&rsc_table>;
->>>
->>> I known, but now code parser node-name, At your case, it.node->name is
->>> vdevbuffer, but driver expected vdev0buffer.  so above check will be failure.
->>>
->>> suppose it should be
->>>
->>>    vdevbuffer: vdev0buffer@b8400000
->>>                ^^^^^^^^^^^
->>>
->>> I know it is bad, but waiting for Laurentiu to fix it.
->> Actually, if I look at "git log -p drivers/remoteproc/imx_rproc.c" in
->> current linux-next 20260714 , which has the entire history of imx_rproc.c
->> and the latest content, the code cited by the AI:
->>
->> "
->> 	if (!strcmp(it.node->name, "rsc-table") ||
->> 	    !strcmp(it.node->name, "vdev0vring0") ||
->> 	    !strcmp(it.node->name, "vdev0vring1") ||
->> 	    strstarts(res.name, "vdev0buffer"))
->> 		continue;
->> "
->>
->> never existed in imx_rproc.c:
-> 
-> AI refer old version code, but problem is the same
+Agreed, mount-matrix is a common property and would fit the QMC5883L
+binding too, whichever way the file question below goes.
 
-No, sorry, the aforementioned piece of code never existed in imx_rproc.c 
-according to git log. There is no old version of the code that looked 
-anything like what the AI produced above.
+> I usually don't bother with bindings. But here I have some thoughts.
+> You could reuse the QMC5883L binding. As for the device lacking both
+> interrupt and vddio pins, you could exclude them like
+>
+> allOf:
+>   - if:
+>       properties:
+>         compatible:
+>           contains:
+>             const: qstcorp,qmc6308
+>     then:
+>       properties:
+>         interrupts: false
+>         vddio-supply: false
+>
+> But you would also need to remove the global required vddio-supply and
+> make it required for qmc5883l.
+> Or flip the logic of allOf. Considering a lot of the magnetometer
+> bindings look very similar anyway, I'm not sure if it's worth
+> combining them. Maybe Jonathan or DT maintainers would have a better
+> opinion.
 
-> if (strstarts(res.name, "vdev0buffer"))
-> 
->>
->> "
->> $ git log --follow -p next/master -- drivers/remoteproc/imx_rproc.c | grep
->> vdev0vring1
->    ^^^^^^^^^^
-> 
-> vdev0buffer
+I'd lean towards keeping the separate file.
+The two schemas share only compatible/reg/vdd-supply: the QMC5883L has
+an interrupt pin and requires vddio-supply, while the QMC6308 (a 4-pin
+WLCSP) has neither. So a combined document would be mostly conditional
+machinery - the block you sketch plus a second one (or the flipped
+allOf you mention) for the required list. And as the two chips are not
+register-compatible, there is no fallback-compatible relationship to
+express either.
 
-The AI generated review content above does refer to vdev0vring1 , which 
-is a unique identifier, but that unique identifier exists only once is 
-the entire history of drivers/remoteproc/imx_rproc.c and that is as a 
-code comment . That proves my point that the aforementioned AI generated 
-review feedback is not based on code that ever existed in the kernel.
+Happy to fold it into qstcorp,qmc5883l.yaml in v2 if Jonathan or the
+DT maintainers prefer that shape.
 
->>      vdev regions are vdev0vring0, vdev0vring1, vdevbuffer and similar.
->> "
->>
->> It seems the AI hallucinated something which is not based in reality ?
-> 
-> git log --follow -p linux-next/master -- drivers/remoteproc/imx_rproc.c | grep vdev0buffer
-> -		if (!strcmp(it.node->name, "vdev0buffer"))
-> +		if (strstarts(res.name, "vdev0buffer"))
-
-"
-if (strstarts(res.name, "vdev0buffer"))
-"
-
-and
-
-"
-	    strstarts(res.name, "vdev0buffer"))
-"
-
-looks like different code , and the AI reported "strstarts(res.name, 
-"vdev0buffer"))" which never existed in drivers/remoteproc/imx_rproc.c 
-as is clearly visible from the command output you shared above.
-
-So, what exactly is the problem here , can you please clarify it without 
-referencing the AI generated content above ?
-
-Thank you for your help !
+Thanks,
+Jorijn
