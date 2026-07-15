@@ -1,94 +1,83 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5893B47A0B0;
-	Wed, 15 Jul 2026 12:31:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 710574611C4
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:32:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784118678; cv=none; b=AaZM0WbsiIoJSO1/0hy6sIZ67e6zOmdkV9df2xLIpTPkOWwD3qeql9bxeBAxCgxwI4RoYbp5tOmT5fnbeiyiHgQkwWkzUNDJ98Ivwe3S1uG6ROA3qhLLXC85NDYKvNAOG3Vb/DaQUEXffPFRUwj33cMZB7eyQs9z9tP+H4mca2Q=
+	t=1784118747; cv=none; b=XoeVwLVJl/afDgpzUSY4849X/pD/Xea2jB0lNEgHFwvdjTQMMAvC30jLdXpDg4oClkzXMG34OvQpYFgWPJAG/hkxFBf4pZexhJ08huvclkYJgcm04uTwN7Y3FQhUW3AEhdHcs83KM9lQTIf8nU69LbYMalDAvgiSa9F/N0jstoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784118678; c=relaxed/simple;
-	bh=egBPbzIXms4fL1Qs09T5XJ/wfT9wY+BYWZ3eoAlNZds=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h/JCj6KccHMoI1npMgvWWIO7uLjwIdG4UWZbBpZSgS56YyxZlHapiEc1qN0Tfbg4Idy0t15uL+bAWHwNjL9/jGBKfwLgKhz8j0LCGDCOfxMB96+iklNFbfk/jtCs5dgxXCLfY13qRNbJrWnQoHdI8l525J9W6ShMUH1+6fbAXHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=VltoKQHc; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1784118747; c=relaxed/simple;
+	bh=nLrrO9a5FDvLXPDTDgTNXqlNTIzB9MFwtWCZwYqMU/A=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=q9NtWU5lxYBsbL6mYZpnnc0CbVFSBXqBl/YFLjCxGtRAUpj0uoZcoXIJS/EF4+4Pr6f7kqwS5Z+8c32c28tQv/6K6ZZKiIIOvCG5XmsVFxoRWYbByrLQlGkg4hyTw6UQ18tD4fbP51lHxZglZytMsFZa1qFBLipEdkc4YSm5824=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bMgsSQli; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="VltoKQHc"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5EFDA1477;
-	Wed, 15 Jul 2026 05:31:12 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D78FC3F7B4;
-	Wed, 15 Jul 2026 05:31:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1784118676; bh=egBPbzIXms4fL1Qs09T5XJ/wfT9wY+BYWZ3eoAlNZds=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=VltoKQHcQlJoexJ6Jjp1KA4NelG2bX/uvsh5bL9ZClb4EclHnT1d40E/afJa1IGeg
-	 JJMEyTjyWcvN23arFO6KJvqIM6oy/YRGbo9LoeE4/opElDdFRETlU9ka3gvC/hgKIU
-	 fc6ytDHpi7PFogTDUVijGk8Ii2vAIQyrtPjlwQ5Y=
-Message-ID: <f9d66162-a30f-4184-aa0e-61719afbd1e1@arm.com>
-Date: Wed, 15 Jul 2026 13:31:09 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bMgsSQli"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 272591F00A3E
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:32:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784118745;
+	bh=nLrrO9a5FDvLXPDTDgTNXqlNTIzB9MFwtWCZwYqMU/A=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=bMgsSQlitoFBpZNJWPAXzIyeTB5HhzKbby+OJHVjV9DcKqZsQMjhtasSQDgUAHr4C
+	 MMnYccrEBMCBlST9nOGNHq37P4is4RvhJrJ2gIDPzHrb4rG2UeRGEC22dhZRTsyUIb
+	 bXVsGy2TBuIhjcb5a/iRA0Mp1oGKFMiaZUA03YLLBtvbLuJ/VVVvP8yDzNIgVroElA
+	 71m5AHgyFH5S/vRdvla+UeqcAHkoiYM5aFkkI1aGPKbv6PGl5xwF41j0xA8ZSV4jFa
+	 lIbRg+ii2C5XGQwgywP4f1bOLC8dnEwZSJ3K/U/sTfxzLcNVDfOIBiL6LC6Os2t9O2
+	 Qi5buYB8sJWkQ==
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-39b3931e259so48931891fa.2
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 05:32:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoKRNO34vA+4A4TNY/ZrygtKLcAR3JCK9CC2A8dAgRL/lxwLr21Y/h5i7WiVwiKOU6A8Z+GsoVlPiDL@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywoed7i1pZwRfLOJGMb4avFCmzE8/fMfWGU4wcUyK1yLImPBWtA
+	B6fMeAnmSx7axRPcaaSJIadp5TkkSFhm5WtMhix83VOaZUaicp3pUgu/ZW8qiLFSbE0B6fEzahf
+	wiCVa7P56RODP7eRTEgdlBdG20FwuN3rZzniMIIWywg==
+X-Received: by 2002:a05:651c:2222:b0:39d:b6f7:1155 with SMTP id
+ 38308e7fff4ca-39db6f712d1mr6252931fa.4.1784118743871; Wed, 15 Jul 2026
+ 05:32:23 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 15 Jul 2026 05:32:22 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 15 Jul 2026 05:32:22 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260713184549.929569-2-prasad.kumpatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/2] dmaengine: arm-dma350: enable ANYCH interrupt for
- shared IRQ wiring
-To: Jun Guo <jun.guo@cixtech.com>, peter.chen@cixtech.com,
- fugang.duan@cixtech.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, vkoul@kernel.org, ychuang3@nuvoton.com,
- schung@nuvoton.com, Frank.Li@kernel.org
-Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com,
- linux-arm-kernel@lists.infradead.org
-References: <20260521072924.3000282-1-jun.guo@cixtech.com>
- <20260521072924.3000282-2-jun.guo@cixtech.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260521072924.3000282-2-jun.guo@cixtech.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260713184549.929569-1-prasad.kumpatla@oss.qualcomm.com> <20260713184549.929569-2-prasad.kumpatla@oss.qualcomm.com>
+Date: Wed, 15 Jul 2026 05:32:22 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Me5xOtzN7THcxTJBz1WHk8t8nfE_zFwQEG+27y7f+PZcg@mail.gmail.com>
+X-Gm-Features: AUfX_mwONE3HUiepgt5qG9O1QTuquRHj-FAXux5aqRiuCzG5jMVsGH0QzcddGDs
+Message-ID: <CAMRc=Me5xOtzN7THcxTJBz1WHk8t8nfE_zFwQEG+27y7f+PZcg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/5] pinctrl: qcom: lpass-lpi: make mutex cleanup devm-managed
+To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Srinivas Kandagatla <srini@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, 
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 21/05/2026 8:29 am, Jun Guo wrote:
-> Enable DMANSECCTRL.INTREN_ANYCHINTR during probe so channel
-> interrupts are propagated when integrators wire DMA-350 channels
-> onto a shared IRQ line.
+On Mon, 13 Jul 2026 20:45:45 +0200, Prasad Kumpatla
+<prasad.kumpatla@oss.qualcomm.com> said:
+> The driver registers its pin controller using devm_pinctrl_register(),
+> which keeps the pinctrl device alive until devres teardown, after
+> .remove() returns. Explicitly destroying pctrl->lock in .remove() and
+> the probe error path leaves the mutex destroyed while the pinctrl
+> device is still accessible, risking a panic on concurrent debugfs
+> access during unbind.
+>
 
-Reviewed-by: Robin Murphy <robin.murphy@arm.com>
+That's not really correct - the mutex is not destroyed as mutex_destroy() only
+marks the mutex as invalid for lockdep accounting.
 
-> Signed-off-by: Jun Guo <jun.guo@cixtech.com>
-> ---
->   drivers/dma/arm-dma350.c | 9 +++++++++
->   1 file changed, 9 insertions(+)
-> 
-> diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
-> index 84220fa83029..09403aca8bb0 100644
-> --- a/drivers/dma/arm-dma350.c
-> +++ b/drivers/dma/arm-dma350.c
-> @@ -13,6 +13,11 @@
->   #include "dmaengine.h"
->   #include "virt-dma.h"
->   
-> +#define DMANSECCTRL		0x200
-> +
-> +#define NSEC_CTRL		0x0c
-> +#define INTREN_ANYCHINTR_EN	BIT(0)
-> +
->   #define DMAINFO			0x0f00
->   
->   #define DMA_BUILDCFG0		0xb0
-> @@ -582,6 +587,10 @@ static int d350_probe(struct platform_device *pdev)
->   	dmac->dma.device_issue_pending = d350_issue_pending;
->   	INIT_LIST_HEAD(&dmac->dma.channels);
->   
-> +	reg = readl_relaxed(base + DMANSECCTRL + NSEC_CTRL);
-> +	writel_relaxed(reg | INTREN_ANYCHINTR_EN,
-> +		       base + DMANSECCTRL + NSEC_CTRL);
-> +
->   	/* Would be nice to have per-channel caps for this... */
->   	memset = true;
->   	for (int i = 0; i < nchan; i++) {
+With this addressed the patch looks good.
 
+Bart
