@@ -1,140 +1,206 @@
-Received: from mail-ed2-f2.google.com (mail-ed2-f2.google.com [74.125.228.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazolkn19013085.outbound.protection.outlook.com [52.103.7.85])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3F937A82E
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 20:33:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F8A037A82E;
+	Wed, 15 Jul 2026 20:35:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.7.85
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784147598; cv=pass; b=mA6CWg9IDjzm5dKbf7Brbgx1u54pJQNG3Ib5txWdcxATqwzz5jOz8sXgOwKHhAPCQKn64SKN1zRB872BbOnv6Ngr2sJTnIhWA0NoKHPQs7H91tQtll/hOJ4XedcvrNiE3XSCXN5x+rf0DRPrVDXJ6BS2caLlvkIVNaLt99D91Ec=
+	t=1784147701; cv=fail; b=WW90nnQ4WUdRikCzKAxTnDKjYkaFOZsP8UWKvBPrgGSxGdO16Dx2D7wPl0797Qh7k6eNlweDD3F+fzz3rrddlA9QwJqyR2re5jHboZ+RS7R3LHbzv5EDGSsvm8Sbi2i92aCMfO7OFgSHnE+FN5jU1hQZePvMYnwnMGcMnZzlKjM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784147598; c=relaxed/simple;
-	bh=HSzxeZhp2T25IO3LQKbxthYfzo4pgx22m+KFKX8aCQs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=O+oZxykkicmOZZY6bE9kISHwBOSPydOqzK2lkCU7wdpZtnZR+P5htXK+V+rbWDE7zaJyC8FD6TJ1aJ9yLVQczajQ8er5zet3NSRgWBJQspxMz7vRKbeyMnEOYH1cWhpGj6o2k60rUD9+zyKEnmtP7Pq3tWABjYCd8vJkhcUbKEU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EQQA+AFs; arc=pass smtp.client-ip=74.125.228.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784147701; c=relaxed/simple;
+	bh=0wu7DzIIYjBrtzSA0oe8hF7tvm9/nyqby/0rsu+DUGo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=PJaCW3XmDZqhzDxevx1I3x+aUQu65oISqsTghV5+WjUeYIfgnxEirR3sSCYqw0g9nKc/SXdLF7zJQr36g9CvZKqQY/KrECOhZWGrsusCmWw7bSi2jKCVh+uoSOJn3CCSSVuxHe2HDHfA253J58NcZ5v5Dr6Xzy3kpBo77m1kfeY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=SWD/Hgt5; arc=fail smtp.client-ip=52.103.7.85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EQQA+AFs"
-Received: by mail-ed2-f2.google.com with SMTP id 4fb4d7f45d1cf-69abf68dc62so1434622a12.1
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 13:33:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784147596; cv=none;
-        d=google.com; s=arc-20260327;
-        b=n73Om9uhrjuV6HHyWjvDwJZQ95tsI35CbQ0hgpE0qbH14odj6+Byu8VF8e24sR8kro
-         qEMPOBq8QwumhZ8FqdzaBxd9E506VUIfxpa5rn6W1vAouBvAJSOn7VXK88oMqPQdEZBC
-         NIqaDnMQ+GdMO4yGgoIUnj4KRNKatvpr+9C4c1jMQ8vsLF/hAkjd3RYS1RU/bAIc6P51
-         izx7oTVoQXVn6ERTmFuZBLwhsxyHjjAX4WH9JGkfGY1b4WT1b9uzPxMyKO+jdhvmWCld
-         8LblZZVCFA5hLxKQh6uCBAC41J9H2Lk5othFm7I+KL7nSRB/GfBem3HdFtZCPFbkHauz
-         gwHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ChZRrIPY+q69QoNpgGM5mCWAZDJasoa0uEar2XXIlDE=;
-        fh=zSX9ZiFdFOVVypvITGSicIVgM8uWp3W1/V70rkpnCuU=;
-        b=oVc+Pni3JtY7/zeRIr7T4zr86Pc/CApLKX82tkroogITTHVFsG7NvpHETv4T7A57iu
-         BaXhCuMCxAs7KzB1aBEehISdertLuh1eUWFI51bYUPN8Ul4cMloOpHR0gHptruS35J3k
-         H4e/V1miNUNDCljiM0/fn8NV8Yx9ep4R40h+ZA9eRdl58+XePRdHve17cIov5ZDIQXgf
-         BviRw+y8beRMPIJDPiREGoMJRgx1XcGCRL1HBHM1jJ1JDNRSMyAVUQjqvW9Y1KaGQNvf
-         Vs7QSs/gaW5KFvxj77lpksgy3HWzlIw7yGtl9O56B9ubx3vVGjr8EX6fb+W+5q8RPJ02
-         87fg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784147596; x=1784752396; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ChZRrIPY+q69QoNpgGM5mCWAZDJasoa0uEar2XXIlDE=;
-        b=EQQA+AFs8uOTeaOycdQgCbJ9Gy3963RWugVTQKS01v2weV61To0+QExD6hjEyUyE4n
-         92m8aM3zSe0/GPLIhvsxvLXxPc1Eg2PW4JI+xSYj+nqHYCPFwaememe8fnabpyAHTSZA
-         gtfImuVPgjckbJ4z5Nr7Y+zyAhKBeR379RZnX5q1s+a3K2TXJbW2cYspJGAXjkABirrU
-         E5xysOi1cSgyeypMjjrAmtHShBXXhHoE2UTjvAH/FqAOtdlXQdZNjo9D6toRFMc/LvxR
-         fmEt+kiOmSlgL4qTNwZxN+BNpcNmhprR+Nc9zfbN0a0PBqpMpl7dgR4PhiFYTDZ5LzV/
-         Gqsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784147596; x=1784752396;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ChZRrIPY+q69QoNpgGM5mCWAZDJasoa0uEar2XXIlDE=;
-        b=ohMllWc2RLX9sVcXqZoVlG21MdHFzv3ydThfRku3uXlyNJpFSiawx2e/Jh+6Vvz8+v
-         n7ajZv0fjRx3nEdJKoLeqij1W52ccieMb2lGOf+KCjwQFegr+zSmhx2BEXEb8DIghhvz
-         CwrtSLIchjPWkAQxf8cylTT99cImsyi9muRVj1IqRR/+GymesBjor4U+n86RSfDGh53L
-         MgloKTbSIhNCp5mW5XEE1u3fEkNQJwOHsP627GVsDLtThTEkvc5SWe332uYnpnLefcbT
-         ST9u6LqJn6PPBGqEU+igj/XZVX0pvYeDWY9qSohB036CdaBkvxDJyHYtBjFdqKyRvDFV
-         mFRw==
-X-Forwarded-Encrypted: i=1; AHgh+RoGdsyrByVTj9yB0o2Nj7kzX3YFHq5+QvepQhTnLrrSFkORmV77/ZAEtZvhj9UgTvXxRz4Rh3Fgddqk@vger.kernel.org
-X-Gm-Message-State: AOJu0YyeAqVCiLBVHZ4p0te9w604uL3TJ2kpIOMhZfMGW2NDVgSkA7gj
-	nnNsyYjiNuH74KVZHOf8eXr9vUYsWdJenNRhY9bpBEP9rF+eWcTW9M2MwQan+dlHQK9aleKm5BX
-	eIkVedhhSrMTWIikbyRL024SYLqamkiqb0aRj4Xyed4ullCg=
-X-Gm-Gg: AfdE7ckuswcxIBzEq/FzHPJyeOKJCLNivQD32CjjMcBOFxA+YnpJrYSSWzTfX3Uvdha
-	r+MazNyUZ/Shyj3cO+fyAoMwaVMDgHZa7fJMsI+ZX9iWhfKR9oaefQxH6n3Yj6DG+oeE1UMxsax
-	bcoQLrVsZr0/BbzO+N93/xCREaMPXoMGkraqwkiagRYUT8fWSw4WSM7Q7SIhuq3vqgifCfLxtKF
-	wfbpmdOqJxU0MRS2a8tajC+VsN1AsTDmJ+TYNK6zErhtoLhuoi570du6XmwV6VQkHn58rYVxzE=
-X-Received: by 2002:a17:907:d649:b0:c16:5cdb:9f89 with SMTP id
- a640c23a62f3a-c165cdba195mr563594166b.64.1784147595530; Wed, 15 Jul 2026
- 13:33:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="SWD/Hgt5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ernl11R6RhTteHj6ajp/g5lyzIPDzXuUZb+K/fujomhl0CB70AvVPJaQMS+eeZ5H0oBeU9QxJal16pRrotQCnLW8oGM99yL1tnInkwdijH6B2Lk2KRKtkNSKTot2/l/VPQMD5Q5U404i4qN0giVHaktIXFFA3RXMktEZVv/bLaDmmUeQUNgvEMw0SXYr+62NTuZhe70pJUtZRvOdn7nIyMcKN+7DmJf+kVyPCDqfiHCbK0lglG7JqjDkZ9VgFvv7h+hJNuHfnqok87KrpwVo/xyNdstWBMYDNRxzqTC2gW03THAseXEW3RwjU6EvjeSSt6jjN10oh6PL+9w3psK6tA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LELGZiffd1bsIkWvKD47DxzWLNGc1h36azUQR2TMhUQ=;
+ b=W0/Cp0gV0EIjeF/jf9ieeAJA+ig7ob9JfFgiGlCA2Fg9sUpAzptcMG2+QgKkf9xrz6xcnh0pD6E1ZfIzMqvipN530a6rW01pfeU8bTzj/q/QPfA6hatAd+V4VtYVlFVsPUd6TCJyTmIPwsBImlwf7lBOq7RqNFdjHI1fCRHfOTfVjZgxAe2KPhUIhldPKHP66EXcm8FFOmUROv/xwcWg9+1Vzq4MsJ5YteqXT50UV6VcXNB1ve6o8yHIQKLqw3W59dCgrt+FOBlQcz6ST5XYyU4L31+WpBeqQG30o+FHB+oCyEGsaEJHdjXjgxIRGy/aKw5ptxVMPCG7MzeMBVYpjw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LELGZiffd1bsIkWvKD47DxzWLNGc1h36azUQR2TMhUQ=;
+ b=SWD/Hgt5Lwfd/ickXUy8A34u7E/yhptvnoHIwrs56n3YhpY94evGePWNt1pZkQcoGWavCjie54nXLkD7gRiA35JrSf53+1ZIChZ+ApNp2kt/kEh59Lpi+O8vAKwEBDb19SrRV+40j0oNixo1HNMj7y/PrkohabALQRA7jHbZUQvCeaMTckidSo+PTY7ToesWYuUuFkB/oDxHwShAeU71o6REZhvfT2/XqdacmJMNlYxzHsXW3+Arv4phO8vKoHHAAJRKk+poR2bzOC8dEROyL+DeMFjE2ZDB6Qte5TMqezRaE5bwskV1MHLOn9zWgBUiszVNXj/T34WPIB2zZbCkoQ==
+Received: from PH0PR19MB997338.namprd19.prod.outlook.com
+ (2603:10b6:510:3b1::18) by LV8PR19MB8250.namprd19.prod.outlook.com
+ (2603:10b6:408:186::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.9; Wed, 15 Jul
+ 2026 20:34:57 +0000
+Received: from PH0PR19MB997338.namprd19.prod.outlook.com
+ ([fe80::fd22:ee23:3e25:3172]) by PH0PR19MB997338.namprd19.prod.outlook.com
+ ([fe80::fd22:ee23:3e25:3172%6]) with mapi id 15.21.0223.008; Wed, 15 Jul 2026
+ 20:34:57 +0000
+Date: Wed, 15 Jul 2026 15:34:53 -0500
+From: Chris Morgan <macromorgan@hotmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Chris Morgan <macroalpha82@gmail.com>, linux-iio@vger.kernel.org,
+	andy@kernel.org, nuno.sa@analog.com, dlechner@baylibre.com,
+	jic23@kernel.org, jean-baptiste.maneyrol@tdk.com,
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+	heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org,
+	robh@kernel.org, andriy.shevchenko@intel.com
+Subject: Re: [PATCH v16 02/10] dt-bindings: iio: imu: icm42600: Remove
+ interrupts from required
+Message-ID:
+ <PH0PR19MB99733836951FBC9755A5361641A5F82@PH0PR19MB997338.namprd19.prod.outlook.com>
+References: <20260713215842.69097-1-macroalpha82@gmail.com>
+ <20260713215842.69097-3-macroalpha82@gmail.com>
+ <20260715-mottled-uncovered-mastodon-6c08be@quoll>
+ <PH0PR19MB997338D80EB8ABB7C623850A23A5F82@PH0PR19MB997338.namprd19.prod.outlook.com>
+ <82e3c736-f06f-484a-887c-9e156cb7cb44@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <82e3c736-f06f-484a-887c-9e156cb7cb44@kernel.org>
+X-ClientProxiedBy: SA0PR11CA0202.namprd11.prod.outlook.com
+ (2603:10b6:806:1bc::27) To PH0PR19MB997338.namprd19.prod.outlook.com
+ (2603:10b6:510:3b1::18)
+X-Microsoft-Original-Message-ID: <alfu7dyBPvQQqO7d@wintermute.localhost.fail>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260714191341.690906-1-coiaprant@gmail.com> <20260714191341.690906-9-coiaprant@gmail.com>
- <20260715191455.D033A1F00ACA@smtp.kernel.org>
-In-Reply-To: <20260715191455.D033A1F00ACA@smtp.kernel.org>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Thu, 16 Jul 2026 04:33:04 +0800
-X-Gm-Features: AUfX_mywQaSTkJvyJzv8XehCE-odr5e5YLAuGpoxeXM7OtZo7VSAqzu94NbaTns
-Message-ID: <CALj3r0hjOBgRL21R9tRPDP+yrN0QbAXw=NcOvp4jiu_0PxFeWw@mail.gmail.com>
-Subject: Re: [RFC PATCH 08/10] net: stmmac: dwmac-rk: add SGMII support for RK3568
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, 
-	olteanv@gmail.com, linux-phy@lists.infradead.org, vkoul@kernel.org, 
-	conor+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR19MB997338:EE_|LV8PR19MB8250:EE_
+X-MS-Office365-Filtering-Correlation-Id: 88357cf2-b3cf-45bf-dfd0-08dee2b088cf
+X-MS-Exchange-SLBlob-MailProps:
+	znQPCv1HvwUXBahuwteIkQeW30lJPuxOS9ufk7I+HQdx+SF8Knn9K6pwTl/LW2uli/NmRhY1g/L0Wp25hmwV+J1JuhH4uklkT7O7p/0DQNKgtjlPqGNEty+ur5BOuaSMVopm+/ayMElDvAvVEgakxcWQ6yTBC3tvLXQrRwKC+dbUNNrvBQXFX0g5lRvCWF4vh9TGEGMBzVByLiqpyW6dqRSF7PK+K8bqTVY6INVfUKrq1NxXGzsVJixQVnXGyNQbMeU7cJeFrEXlE8LXBOqQqKsdZ0gP/FOuB4lh5RBG3/CroQm3dLK38e3C5uj25MUS0YyX7hAUixzvJTEJELS/hgieK/x8IRxpGbEFsPHCgT2/nNPPnRclnLiGyiEgNOp1/B9VqwJKA4b5pE7YZqcz0MQ9y++B1Yd2HTqqmw6SD6O3vcnRgMC6wUKUYqRa5C1uzcFbULq4cqQ+jkjHAkh0wlUpwz2V1PnReaMEBHbdDCgMO2/ouO6G6cw4ueljIEAFXII4cpyQU1Z0svT3ti7gY95HgaUXD5AddCSh9qnKrLYaDuYdZtz9y4G7Al5CKqAVQKqJIYeE4rsWgVWr51KmWduIChQa77yvHekgud8JumO4Y3BN/m7qFp7OkMPA17gi1Ku40Yb34SiiYorBi/rxU+xMiY0AKDdgG+H5BwxK2NH8sP6eYYcp4/wx5dztnI//KpcgZCDV1nr+dEYYUmukA0R8GkERnBBEwZSNO+UoKHnD5h/XQvqZPZKfca/jcwP7lW4Jo9EP6gE=
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|23021999003|8060799015|19110799012|55001999006|37011999003|6090799003|51005399006|24021099003|15080799012|25031999004|4140399003|25010399006|5072599009|12121999013|40105399003|440099028|3412199025;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?XAt4dRJCKnVeFJ+12rN8GNvXojOqRf0AgiCe5UEt/kLFNVm/ApGkIjQyHyAq?=
+ =?us-ascii?Q?HGLpd1vWkpjQzOeyLH0wN2zPB8+Hx4aE4sP7vSUFdSL4eSm1OahHfbly29xm?=
+ =?us-ascii?Q?obDZ/X6qFy9ST5H0SJB/QNhwzSpA7IJ4P5GqNByepaa6NIm25cH3tWVHALLV?=
+ =?us-ascii?Q?gL+UQnNcYbzKACQj8K6AS1QBZNGRF/HJWzfxQq8ulgYSyj8i8yP5gRcspVPk?=
+ =?us-ascii?Q?9sNniGUjauwGiIwvA51/qHZS7Ayl3QHYFHqdxplbTKUdcF0tPKq/GADDN5Zs?=
+ =?us-ascii?Q?Vl9BNG33tk2I2rK+uMp21XkvnDHefXDkpzB1CM4NPBdCQUWbmXhoFUPGsz4p?=
+ =?us-ascii?Q?SmCTw8JPAISbzUIsrKVTTIUfnXaAIkdVBdx/JTrXZoDD4BiSzz+Yz5K7je8Y?=
+ =?us-ascii?Q?GAB3oOm99MC+7gPdJSo6c6RRlg/xMc/uGovutdYGkCDDy0uNivUMupplzg0n?=
+ =?us-ascii?Q?LGIdD17NzRYZ+zASGb1QDe1U5OwozFOsw2AtouhK24IKle2AB+4wIzVyVD9f?=
+ =?us-ascii?Q?+eFkPT1A/LC9Sct5D0g6bTo5HuVAu4KkJGcy8hCR5Hf3kT/U+HeXYNB5Z5hr?=
+ =?us-ascii?Q?59iP+3sDMZQFcpMPiUho6BefFY3Yr1otako6+tSwTGtx5raABuWEjxlRjJkY?=
+ =?us-ascii?Q?Vx3H17HRkXP7T9zwXiOgZ6IwFQgfqQG9Xo27kCSePhHWJfAP/eHsy5XJvh1f?=
+ =?us-ascii?Q?6Rvy6ghtX4yjL6XrwUCXRX888htMjtqpIGZRZuAfmJsc7mHwcs75zfTuMSl7?=
+ =?us-ascii?Q?OWk9wI6wrN0ifztKNhkTF43UKiWPjAaC6PwOk7eeLfu6OUASymYJHnrq2asq?=
+ =?us-ascii?Q?C4Kgl9asRBhQ7SrdqAffEp2RXmC3H3GhzqB/PyFmnmX0b9AoUo6JmtEQVkTO?=
+ =?us-ascii?Q?hg4VZc6ZF9ySv4fnAf9tkpKuG1xNT5xwprfR8cCSETdyy7G3j88Xrktv8SnQ?=
+ =?us-ascii?Q?qNRw7d9hKza4K5wDCnam2UXbxtb3i7zO3g9FhhvkqmMiB6rMKaNxjkdqs7sC?=
+ =?us-ascii?Q?EwQo8E3SzsmwR/Rd6+cx2uwpalt2f7Ybres4bLzzPTvuB5G6PlRwTGnqBaFC?=
+ =?us-ascii?Q?dz9RP9c0kyvtvoYPCDT09GrY4XWgkE+YNlNjyV91a4UqESBCBNs=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?K2dMeNZWIdoMRG0XJ9y68gPyPDAnKQCPuhKfvftJ0skX3/T6H8T2I4RSMKAx?=
+ =?us-ascii?Q?aNlhkHoYy3Cjv+TnmPDgl4vic1RcXC0i16YhjtHyLSzzWD10h5qp50XprtRc?=
+ =?us-ascii?Q?ZlZL3Tl3NJTOhsB/VwD1CVzg448JtEct/DJrLNSbQ4YSIP317f0e9fhcwlhy?=
+ =?us-ascii?Q?9crv/i7KPqb4ejq6KaA1Rw5b/i4oJglSJx6ZcG41l71nSvqEC28gJNVPuQFJ?=
+ =?us-ascii?Q?N5bv6ltXGwN1QY1UomasLEMOI0nQOcaIOn1e/wA0UiiIBZbNTM4WGu1my3tc?=
+ =?us-ascii?Q?5BEXCpIkJnRnowaAjGLTaGn2gOmD8URwKuIeKtsSUrRzPynkwtFONBUIoV1o?=
+ =?us-ascii?Q?iZ35do4v7Yxd6tnDcOB5OwJVGPJTayP6CLCuWQlSK2t1q45jQ/LlOWUj9EXq?=
+ =?us-ascii?Q?tbc/repMeT4p6QZciTMla/AVSBnjJ9JHtfmm+RowjiibIiGFnG5DoAPWFdJ1?=
+ =?us-ascii?Q?snnLRHOZjA4NBb0wZGTk1T7YXmMPmNZ67WcdmB3q5hEVT/0mxVUATtChW9zQ?=
+ =?us-ascii?Q?5tl6KTm2B4ahq/aWQ/lhZMWOv1+/1VGwSi4dfCVWbzrd14xnj4AUB+8+uRnA?=
+ =?us-ascii?Q?/kLhw2NOywFKF0IuRThwySBVNK4uOlbKzCdjiehJ/m5RDLWwZMhjhTJj1O9s?=
+ =?us-ascii?Q?WMqtfgeI1Y6vao0phYi/rLnrccuVFl8ZF694oSkFhwUkp9PheBg7Yd4pJcoX?=
+ =?us-ascii?Q?OqrMgl35S30Nq46aKnq5AU+L6LGzbs3HYcRppwJrDgclKOaVgPOQ97xBvUj5?=
+ =?us-ascii?Q?NApraPjxARXXpVTn+It7TzPIVCUI8ZalllmIOA1pnImaMou7ugXpRBFJMbax?=
+ =?us-ascii?Q?FEiCxwGTUFtuG88x59yKM660wUUF2cKvD9ElemkNZTkqwP+XY/n8bvbES51H?=
+ =?us-ascii?Q?ZmVjD7WD0wTHBeAUDWZiGtZ0SqdNoqs0Pp+ahrQ6QGFXLHcwXEp29EFNi+zs?=
+ =?us-ascii?Q?fNQgaqgeg3kZ2UaBHoPkIZCskx3ZZC4PtO0o1iFbC7C6SbVGgLQXpRSyTaLA?=
+ =?us-ascii?Q?WEVWmYoEudPDQOceR/wOpSurnoIeoIG6ijfYS0l1mjzj4rZpTM40g2L1Mfua?=
+ =?us-ascii?Q?3ESZ9ZeeMGiIjpnUl+MZ6SMwX/erWloTBojCwnNVaKO3F4MB7vRfQfXqOUGf?=
+ =?us-ascii?Q?T3FKKZSVGBRPmDM8WE6wIYdX3Io6EWUYcQXuSyoPeI+Y5kWSVLoeOedpLHnG?=
+ =?us-ascii?Q?bk0q2nWV2MhQmj+CHpUiDb5oBpV0c6tR0p+nmyt8+01YLZK85qgNNYIbJePU?=
+ =?us-ascii?Q?3ZIaM0S0v+n0prx9obUW+koDsVMKrdtNIlFgpVGJ9goKMV6IsOQgoHFraHFh?=
+ =?us-ascii?Q?E+95ddPix9FWq8W+IZoq2IzXWaof90Dzgfw0vBbBSdAWmBC0dqxOyQPpaTM3?=
+ =?us-ascii?Q?2kovogc5hy87IKyAbeuBms7TGiXKUvx5U5J+RZ0OOS7u3ZO8tHa1YHV7KYgP?=
+ =?us-ascii?Q?7ZDX2Bt5BUwFvsN86wwocgRwWV0RH3Kd?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88357cf2-b3cf-45bf-dfd0-08dee2b088cf
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR19MB997338.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 20:34:57.5213
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR19MB8250
 
-> [ ... ]
-> > @@ -1379,6 +1441,9 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
-> >       if (ret)
-> >               return ret;
-> >
-> > +     if (bsp_priv->phy_iface == PHY_INTERFACE_MODE_SGMII)
-> > +             goto set_mode;
-> > +
->
-> [Severity: High]
-> Does this goto skip enabling the MAC clocks? By jumping directly to set_mode,
-> we bypass the call to gmac_clk_enable() further down in this function.
->
-> Can this cause a synchronous external abort when the MAC registers are accessed
-> subsequently while their clock domain remains disabled?
+On Wed, Jul 15, 2026 at 08:29:44PM +0200, Krzysztof Kozlowski wrote:
+> On 15/07/2026 16:52, Chris Morgan wrote:
+> > On Wed, Jul 15, 2026 at 07:52:52AM +0200, Krzysztof Kozlowski wrote:
+> >> On Mon, Jul 13, 2026 at 04:58:32PM -0500, Chris Morgan wrote:
+> >>> From: Chris Morgan <macromorgan@hotmail.com>
+> >>>
+> >>> Interrupts are almost never required for IIO devices per upstream
+> >>> maintainers. Remove interrupt as a required parameter for the
+> >>> devicetree binding.
+> >>
+> >> That's an odd statement. We do require interrupts when the hardware
+> >> requires them. We do not require interrupts, not because we have such
+> >> policy, but because hardware does not require them.
+> >>
+> >> Plus, we do require interrupts when software implementing ABI requires
+> >> them.
+> >>
+> >> Above commit msg is simply inaccurate and misleading. Instead, please
+> >> use actual hardware arguments or how ABI is actually used. You must not
+> >> introduce changes to ABI just "because" while for example making that
+> >> ABI conflicting with existing implementation.
+> > 
+> > I will defer then to Jonathan on the specifics of this, but from what I
+> > can tell:
+> > 
+> > 1) The icm42600 devices don't need an interrupt for operation other
+> > than for buffered mode or wake on movement. One-shot should work
+> > without it.
+> > 
+> > 2) The existing icm42600 driver does require an interrupt however, and
+> > refuses to bind without it. The driver could in theory be modified to
+> > not require an interrupt though and skip using buffered mode and WoM
+> > when no interrupt is present; however I don't plan on making these
+> > changes at this time.
+> > 
+> > 3) The new icm42607 driver I'm trying to upstream does not use an
+> > interrupt, because on my current test device it's not even wired up.
+> > On future devices that I have with this chip I may pursue using an
+> > interrupt, but it will never be required.
+> > 
+> > So should I go back to requiring the interrupt for all devices except
+> > for the new driver then?
+> 
+> You mentioned two drivers, I don't know how does this relate to them. In
+> any case your commit msg is inaccurate and not a correct reason to make
+> a change.
+> 
+> Best regards,
+> Krzysztof
 
-You are correct. The original RFC patch had this issue: the SGMII path
-bypassed `gmac_clk_enable()` via the `goto set_mode`, which could lead
-to hardware faults when accessing MAC registers with the clock disabled.
+I'm confused, so again should I just go back to the way things were?
 
-This has been fixed in the updated version of the patch. The clock enable
-is now moved before the SGMII check:
+This binding is to describe the hardware for devices using two distinct
+drivers, the inv_icm42600 and the new (that I am trying to finish)
+inv_icm42607 driver. The hardware requires an interrupt if you want to
+use features such as wake-on-motion or hardware buffers. The existing
+driver inv_icm42600 always assumes an interrupt is present and thus
+fails to probe if one is not (making it a "requirement"). The new
+driver I'm writing does not use the interrupt, because I don't have
+one.
 
-    ret = gmac_clk_enable(bsp_priv, true);
-    if (ret)
-        return ret;
+I'm thinking I'll just go back to the way it was previously, unless
+Jonathan disagrees. The interrupt will be listed as required for all
+devices using the inv_icm42600 driver, and not required for devices
+using the inv_icm42607 driver.
 
-    if (bsp_priv->phy_iface == PHY_INTERFACE_MODE_SGMII)
-        goto set_mode;
-
-So the clocks are always enabled before any register access, regardless of
-the interface mode.
-
-The error handling has also been cleaned up with a unified `clk_disable`
-label, and the default (unhandled interface) case now properly returns an
-error and disables the clocks.
-
-Regarding stable backport: this issue does not exist in the 6.18
-kernel that I am using for backport testing, as the code structure in
-`rk_gmac_powerup()` is significantly different there. The fix only
-affects the mainline version of the patch.
-
-Thanks,
-Coia
+Thank you.
