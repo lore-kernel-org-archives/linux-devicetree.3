@@ -1,144 +1,132 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6703D8918
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 08:54:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 923BB3D9552;
+	Wed, 15 Jul 2026 08:54:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784105678; cv=none; b=mUN3cK8BBr9RR522l2qsPJ+bskTZxkZ4PEhIHqdA3RCkm2IVDcWiYOL/DjOi+EXZT9PXZInfFYzwcb75xXZp9wRpJf5xQdJ6Js+9M+ees74fgKH6HeD5tdLUyKqny+6MIQ+CNl4jcjKRrucn/L51SLxYHdWDHa9TMgWhG8urnjI=
+	t=1784105679; cv=none; b=sx5bxY8vfYqKiCYko5/iF7T8LZyj+XNmt+hQqd6iJKRpMs0YSucsAjttUxReDf8EWfC7AXYOxk8UT1kLR864BJprX+kg2YdBf0qvw6WGlgom5cm8ghgcR2b+eKdR9Lz+G0jB+9ITXRx5Q1bnbczYmM1iMn1z+XvdKE9x4A4rx5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784105678; c=relaxed/simple;
-	bh=OlqZwr18Cpifvs6/MASST22KmUKK2zb2fxpZOLeBWT0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KZKxnVk2DssIBr4OlUA9dW8NqiO7zVGz8OvIPEUvsP7LHV0TCjB/OrXGvBxZPP2Pot1lyXVIqbcbVNKa0LyRXoJIIFaV3poM1QSnLdcZUKNSr+rEOH0XrvxNy38NLofGqVIX6dwq0b6HAkMauUggDUAbed+OindkNjTKxVV1sOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=VZgYdqBM; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1784105679; c=relaxed/simple;
+	bh=kKa5i3O+lTaNX3MBMykdBIvndb2viq76Ss6Dd3Jb5Oo=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cyxUFDv0CE0JFOnQEHJ27pL5iuXhOhXrui+89uPHFTr6fmPi83mRz/BttF2Pg8YtkZGfFC9IW7fPS+Aek6NOhT+aLFMkWNZjpZeHdwwZJz99SaJZ06qA2uleIPxmEFeZVkM1tpwACt38Pu48jQoHLosiqrD2mEROUDm+DyrD0zA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pf7KbW7D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="VZgYdqBM"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-84a4d8fd6ecso1822889b3a.1
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 01:54:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1784105676; x=1784710476; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dYICwpllA6REcHU83KV0EGKSQt2kKv+TAZuxEKEYalU=;
-        b=VZgYdqBM9Bta0pcAAOAqBbcozTRYHYk57aR3CCuV4FYSSO4JxeTaLeOzu0Mpkt7PCU
-         c4vU4T8TZ6DPuoPQ7wX5fWouPMzzxJ7aTFnDf+Ucl//tVoUCevXtg/Zi3zPLXN4SfZO6
-         KOJcR9CfC2XR4tZCmOUeRaGrFgodnGv1Yt2LE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784105676; x=1784710476;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dYICwpllA6REcHU83KV0EGKSQt2kKv+TAZuxEKEYalU=;
-        b=CJUcygxpnu+A6K+dQ9X1kfuwHcxcyiMN1hJSf3JQkiypNdbJr4bhZtPvapBWoVigq0
-         SrsxCbj4p/x9opL9Cg1Gb/xcGZtv9SRVQvi7HymHLaraeRTZ+X365ISGIQaFoVvgokkP
-         W2a/cP2mOY6vVorv5x1zBDbm/UOoUcm/XRbT2AbH74chaUAN+aWsRz/QlcOzYK49Gved
-         X6Lkyb2UGxqPdJPpXX8zBg+KdWoYA8jkmZPTNePQhT5KGk91xCiaxV8dr6/FSz/w7Umz
-         ZwKk4ij7s8SRxIwpxuMg2XuXLAzCfxQHTnqZYt8zf8/QNRnYU6Yo25o49OuFMNOBGSvf
-         U4Gw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp/+3ubJXgdedh+nZicop/S8wLCiw9NoVNCgT30Rg5M+gVqgNUrxDfW5TW5B8wGTqLPPnT6NKqpgZ4A@vger.kernel.org
-X-Gm-Message-State: AOJu0YwrwYdhfqTvg2TI6HB9ZPKF0fP3C1zyKufLQTE+gBTV3x8ptuWK
-	cHqys4L5YE302aGshMEUZX5fgz4aSkIFySsn54mGHRnmQlCZ6ShCeKlx+CU3wBmCCg==
-X-Gm-Gg: AfdE7cn48ezalFeKBJQuHwqrQOsGe4ZkcXnvZ4JCip8SUv5oRaBSOqhJ7SLu44hq73y
-	jL5vhu9IayvTKIQry4yGbMmuGLJkF1c48EbC83r8ln+uw1vlHwA8jDkiZOuhsNoGKwYfoFFFL0w
-	jgt6IcEZ9NLpLWAB7YYYsJVKEF6Nu/gvyRWYXF4Q5DtHtb99pCAtzHWxFuwJLJKo/FWY4/cAkPC
-	NUko50p89D+GJ2s8+Zn3g7iIS8/s5E70Ez0ForZuQ1UE9uU91SbigzVsdIwIXp4ueBxG7+rlSwJ
-	WpmgSDg5wGEgu+/n/1ZSva6yTCbJp2gN489kmPBL1KIjGbN4pyJpqbLrprRud2HUeLMRkczVn0g
-	iiRL/RvdbZ6IXKWHPVJB/fdUVoPPWwbiHvtyuIbYqFnijDCyyOYlB/1glTRm3Dt5iAxq2LQYRQk
-	wn0GsGM3XIDOuvS7NYQGG+EnvTsjsYVvTWf1i5HrZA7Kc3wmKlPNQoLgSLsGpea8bmMs3y78lfa
-	+Ioev54
-X-Received: by 2002:a05:6a00:17a4:b0:848:88e6:95d3 with SMTP id d2e1a72fcca58-84a673928d8mr1756444b3a.72.1784105676023;
-        Wed, 15 Jul 2026 01:54:36 -0700 (PDT)
-Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:47d7:4aa5:a6f8:2279])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84a4f819117sm2757491b3a.59.2026.07.15.01.54.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 01:54:35 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pf7KbW7D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 186081F00ADF;
+	Wed, 15 Jul 2026 08:54:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784105677;
+	bh=p4bbLxO6+Mcw6D/fGu0RpC/0XogS4o0qXioEZd6VANI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Pf7KbW7DHueek+8LJwHPtlRFoPHHsFa5/IENerYDmRvzWGV9IJzGXS/b5kNHTHylY
+	 4RytBAE0iCbWf8p+bFuYDs9E9rUxGB+jJrLMiUCEzfarYkg5pDmnSkRw8l6wOonAye
+	 tA6Xunp67X8YVH1cSadYKnQpICyYp11EFn0kUkXvqOR9+uZtbmQeEa3XChgMuqboUk
+	 CFTKCYjXPbebDVhI9ejCSQ5JXULV+SQky1H2SYvgSRq1fPhZyx8HPMjAvB1cDyAEhL
+	 Z9FOXFYd0aCfO+kUT2q723wJ4//qLNEYdNs6ts5jKvwCGf7e8Ss4bmf2Ok9ZoG9mLa
+	 ZCx2LBqO45zGQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wjvNz-00000005DLs-0IQS;
+	Wed, 15 Jul 2026 08:54:35 +0000
+Date: Wed, 15 Jul 2026 09:54:34 +0100
+Message-ID: <86cxwoocol.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Sneh Mankad
+	<sneh.mankad@oss.qualcomm.com>,
+	Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio
+	<konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Krzysztof Kozlowski
+	<krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Wei Deng <wei.deng@oss.qualcomm.com>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	linux-usb@vger.kernel.org,
+	Thomas Gleixner
+	<tglx@kernel.org>,
+	Shawn Guo <shawn.guo@linaro.org>,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>
-Subject: [PATCH v5 04/16] usb: hub: Use assign_bit() in usb_hub_set_port_power()
-Date: Wed, 15 Jul 2026 16:53:34 +0800
-Message-ID: <20260715085348.3457359-5-wenst@chromium.org>
-X-Mailer: git-send-email 2.55.0.141.g00534a21ce-goog
-In-Reply-To: <20260715085348.3457359-1-wenst@chromium.org>
-References: <20260715085348.3457359-1-wenst@chromium.org>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/7] dt-bindings: interrupt-controller: mpm: Document power-domains property
+In-Reply-To: <3dac25b9-a464-4350-aff5-0ada4dc1d65e@samsung.com>
+References: <20260713-b4-shikra_lpm_addition-v1-0-3d858df2cbbf@oss.qualcomm.com>
+	<20260713-b4-shikra_lpm_addition-v1-1-3d858df2cbbf@oss.qualcomm.com>
+	<87ik6i6i22.wl-maz@kernel.org>
+	<CGME20260715063901eucas1p2a4c2d72e4d9dbd9fd2f1e686d1a6c89c@eucas1p2.samsung.com>
+	<3dac25b9-a464-4350-aff5-0ada4dc1d65e@samsung.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: m.szyprowski@samsung.com, sneh.mankad@oss.qualcomm.com, ulf.hansson@oss.qualcomm.com, andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, tglx@kernel.org, shawn.guo@linaro.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-usb_hub_set_port_power() open-codes assign_bit(). Just use the
-assign_bit() macro instead. This makes subsequent additions to
-usb_hub_set_port_power() easier to read.
+On Wed, 15 Jul 2026 07:38:59 +0100,
+Marek Szyprowski <m.szyprowski@samsung.com> wrote:
+> 
+> On 13.07.2026 17:11, Marc Zyngier wrote:
+> > On Mon, 13 Jul 2026 11:25:41 +0100,
+> > Sneh Mankad <sneh.mankad@oss.qualcomm.com> wrote:
+> >> Remove #power-domain-cells property and add power-domains property for
+> >> MPM device.
+> >>
+> >> Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+> >> ---
+> >>  .../devicetree/bindings/interrupt-controller/qcom,mpm.yaml          | 6 +++---
+> >>  1 file changed, 3 insertions(+), 3 deletions(-)
+> >>
+> >> diff --git a/Documentation/devicetree/bindings/interrupt-controller/qcom,mpm.yaml b/Documentation/devicetree/bindings/interrupt-controller/qcom,mpm.yaml
+> >> index ebb40c48950ab3a8fc86f5708acfc33c33d68993..3f9645fbc3c20633077aaa589e5d5a43928dab51 100644
+> >> --- a/Documentation/devicetree/bindings/interrupt-controller/qcom,mpm.yaml
+> >> +++ b/Documentation/devicetree/bindings/interrupt-controller/qcom,mpm.yaml
+> >> @@ -68,8 +68,8 @@ properties:
+> >>          - description: MPM pin number
+> >>          - description: GIC SPI number for the MPM pin
+> >>  
+> >> -  '#power-domain-cells':
+> >> -    const: 0
+> >> +  power-domains:
+> >> +    maxItems: 1
+> > What makes you think it is OK to change an existing binding in an
+> > incompatible way?
+> 
+> 
+> Ulf suggests that this has been modeled upside down in the initial
+> submission:
+> 
+> https://lore.kernel.org/all/CAPx+jO9d1qH12mxg-n1rkbp6Xd__sdrSMeoc7CPELE+jgxRYHA@mail.gmail.com/
 
-This change does not introduce any functional changes.
+Sure. We have collectively fucked up a lot of bindings over the years,
+mostly because of the lack of accurate documentation and people not
+giving a damn about the correctness of these descriptions. I'm glad
+that Ulf is now able to make it right.
 
-Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
-Attributing suggestion to Andy, since the change was originally
-requested as part of a review.
+But that is not a license to invalidate DTs retrospectively. We don't
+update DTs in lockstep with the kernel (I *never* do), and something
+that existed must be supported in the long run.
 
-Changes since v4:
-- New patch (split out from "usb: hub: Power on connected M.2 E-key
-  connectors with power sequencing API") (Andy)
----
- drivers/usb/core/hub.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+Properties can be deprecated, but:
 
-diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-index 9b2bf608f9cc..36342c5718bb 100644
---- a/drivers/usb/core/hub.c
-+++ b/drivers/usb/core/hub.c
-@@ -10,6 +10,7 @@
-  * Released under the GPLv2 only.
-  */
- 
-+#include <linux/bitops.h>
- #include <linux/kernel.h>
- #include <linux/errno.h>
- #include <linux/module.h>
-@@ -896,10 +897,7 @@ int usb_hub_set_port_power(struct usb_device *hdev, struct usb_hub *hub,
- 	if (ret)
- 		return ret;
- 
--	if (set)
--		set_bit(port1, hub->power_bits);
--	else
--		clear_bit(port1, hub->power_bits);
-+	assign_bit(port1, hub->power_bits, set);
- 	return 0;
- }
- 
+- they must be kept in the binding
+
+- drivers must still honor them if they are present in the DT
+
+Thanks,
+
+	M.
+
 -- 
-2.55.0.795.g602f6c329a-goog
-
+Without deviation from the norm, progress is not possible.
