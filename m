@@ -1,74 +1,52 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3227D39DBDB;
-	Wed, 15 Jul 2026 14:56:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC0044839E;
+	Wed, 15 Jul 2026 15:01:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784127376; cv=none; b=rWmsyDmvp8xCd+QrjbLdq5n1cF6z9qSU5WWWMrHtp/7mTgCJlhqT/XNqIb2zSOizC6agyw1os7i18HNn3pgxva2d66CmuPwQgb5akPHKELuTi9OSTzH5hQDDIOpIFTSiUNjh3Pd9G/HLDjG6koezSQbIA4SnCauJAdtdkEXhAgU=
+	t=1784127688; cv=none; b=oEiDLVpMmk1v1XSah1dKlD2l/DbDYTn+se5aovFZUP4aLWpGsFxUmwXpUizYpPY04lBEvlORfLi8YdtTSzGMssfRj5qaV0w0NoUZWFzxKxPTuS7bczJqAXr5a78Frhluer/6NtmjaY7cWk93ymn3/xusiVKQLlqkhXv1vbvT8X0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784127376; c=relaxed/simple;
-	bh=wtM9hjBXVrn0lHA/lpjsrjJuPI6qMGbLQOqkVjedowg=;
+	s=arc-20240116; t=1784127688; c=relaxed/simple;
+	bh=9B8mJW78aKeY26YNWzJNj0aTbMWSb6IGklsxm96nXnk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PGtD4wdRrEERS8hagb2T6lKTn03nQLAQwck5qGMV1l9mDWCs4oJihl4Dcs8yRmph3rrwJkHTLN3lgsuwhO/C44AIhklCZOSJ9bAOylclSJu86bH83swJoGuPvv6jpfUb6+HozQ5ehx/pkwMvo9Wcy9G30WLoIJcI+aj5p78JSHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lh96E/S1; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lh96E/S1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784127375; x=1815663375;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=wtM9hjBXVrn0lHA/lpjsrjJuPI6qMGbLQOqkVjedowg=;
-  b=lh96E/S1334rSfrEzEWmo+6ug5n4qIrOa7SwOaySmZZDhBhXetCLRLMz
-   O/83ArJmbo8U9HJLmoo6J2DB0D5CfhasTamb413rV8DhIHlPqR5KBhbId
-   HpUfRR6YdYIVHdJ/ngttp+X+R7ZnzzDxL3OZyOvESqNktk09LNfZABlk9
-   X3Z10i4BXhyqL2SCEcVlx2ydKFyorPE4sGo7pCcw7pWy4fxrbyGt94Brf
-   wz2Y1vnRVP5unGOtgrnPGSQkyy72+haQxSyrf09ItfMmJS6fG86OUgwOz
-   FErj7TFq9Qubs7RVq/Ib4q75+Rxzw/7y5TR8yBhqr5W0gvZwTf3a8eX5h
-   w==;
-X-CSE-ConnectionGUID: OVURhvSQRBWdoH+Qs3Wi2w==
-X-CSE-MsgGUID: KTv+B7hCQ4+bOEsAxKqjqw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="88444045"
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="88444045"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 07:56:13 -0700
-X-CSE-ConnectionGUID: 1plS/O4nRx+CWswgXzo9hg==
-X-CSE-MsgGUID: lyR1ovJQRX+vD3oJ+B1ytQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="260510610"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.129])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 07:56:10 -0700
-Date: Wed, 15 Jul 2026 17:56:07 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Martin Kepplinger <martink@posteo.de>,
-	Sean Nyekjaer <sean@geanix.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Martin Kepplinger <martin.kepplinger@theobroma-systems.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] iio: accel: mma8452: Allow open drain interrupt pin
- configuration
-Message-ID: <alefh86sqW-XvLHl@ashevche-desk.local>
-References: <20260715-mma8452-open-drain-v1-0-b1dd2a440c60@geanix.com>
- <20260715-mma8452-open-drain-v1-2-b1dd2a440c60@geanix.com>
- <cA7m1VgJxkr39GAxpnMPw9PVIKX2TR8Ju4Q0m6L2SxS_jJNITfZ6AA5LOeMIK0jGFXaUptY1_vPhDd_imWw5FQ==@protonmail.internalid>
- <aldH3vtk_eKh6oCC@ashevche-desk.local>
- <87ldbco582.fsf@geanix.com>
- <Tu8Mavh-mfl8Vv75Oab3vrghtEbTXiYPZ4qhj6RZv8xe5nWKP4lG1KSuJXEQfyKeio7zv9myLbmifMjFTl8juA==@protonmail.internalid>
- <aleQVYrK9YBoLqGl@ashevche-desk.local>
- <874ii0misv.fsf@geanix.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=c86u7b4CehoRLZjLbizVbkLu5qfNIwHIV9CLFoD6wo4AToXPRzcidVaWqu8d+kkY6mo7sC2Jut9PMiHrVA/P5UfsWRU8ee08wG27ZSD8cBu4Ud8/1GZXuq8csnSBd0/hrfNi7IhgdsZ6SMRzJUBea/sSbxgZ4bxJtiQcLHF3L2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 9A94B201CD0;
+	Wed, 15 Jul 2026 17:01:11 +0200 (CEST)
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mfe@pengutronix.de>)
+	id 1wk16l-001xBS-1i;
+	Wed, 15 Jul 2026 17:01:11 +0200
+Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <mfe@pengutronix.de>)
+	id 1wk16l-0000000BlOO-1dv7;
+	Wed, 15 Jul 2026 17:01:11 +0200
+Date: Wed, 15 Jul 2026 17:01:11 +0200
+From: Marco Felsch <m.felsch@pengutronix.de>
+To: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Wei Xu <xuwei5@hisilicon.com>, 
+	Andrew Jeffery <andrew@codeconstruct.com.au>, Avi Fishman <avifishman70@gmail.com>, 
+	Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>, 
+	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>, 
+	Benjamin Fair <benjaminfair@google.com>, devicetree@vger.kernel.org, Tom Rini <trini@konsulko.com>, 
+	imx@lists.linux.dev, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>, Peter Robinson <pbrobinson@gmail.com>, 
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 0/7] Import optee node from u-boot device trees
+Message-ID: <f225zh7v6z2a2lwbtk3lhw3mcsttneba364de5vjl4pcj5gr65@ckuo6hyj46vx>
+References: <20260715-mathieu-uboot-dts-import-v2-0-bc931417bd0e@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -77,126 +55,114 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <874ii0misv.fsf@geanix.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260715-mathieu-uboot-dts-import-v2-0-bc931417bd0e@bootlin.com>
 
-On Wed, Jul 15, 2026 at 04:25:20PM +0200, Esben Haabendal wrote:
-> "Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
-> > On Wed, Jul 15, 2026 at 01:35:41PM +0200, Esben Haabendal wrote:
-> >> "Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
-> >> > On Wed, Jul 15, 2026 at 10:07:39AM +0200, Esben Haabendal wrote:
+Hi Mathieu,
 
-...
+On 26-07-15, Mathieu Dubois-Briand wrote:
+> In a recent discussion on the U-Boot mailing list [1], it was found out
+> that several platforms were adding the OP-TEE device tree-node thanks to
+> some U-Boot specific dtsi. This was deemed as a bad solution, as this
+> should instead be added in the DTS files hosted in Linux sources,
+> particularly for platforms already using the "upstream" (Linux) device
+> tree.
+> 
+> Most i.MX8 and i.MX9 platforms are already using OF_UPSTREAM
+> configuration in U-Boot. Some are not, but are fairly new, so we can
+> expect them to use the Linux device tree once their support is a bit
+> more stable. So they will benefit from these changes once upstream
+> device trees are refreshed in U-Boot.
+> 
+> STM32MP157 platforms are using OF_UPSTREAM, with similar consequences.
+> 
+> The two other platforms are using an U-Boot specific device tree, yet
+> adding these nodes on the kernel side will help to reduce the
+> differences.
+> 
+> The zynqmp platform was ignored, as a similar change was previously
+> reverted [2]. I also ignored a few platforms without direct match
+> between U-Boot and Linux dts files.
 
-> >> >>  	if (client->irq) {
-> >> >>  		ret = request_threaded_irq(client->irq, NULL, mma8452_interrupt,
-> >> >> -					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
-> >> >> +					   IRQF_TRIGGER_LOW | IRQF_ONESHOT |
-> >> >> +					   data->open_drain ? IRQF_SHARED : 0,
-> >> >>  					   client->name, indio_dev);
-> >> >
-> >> > Why do we care?
-> >>
-> >> Care about what exactly?
-> >
-> > About exclusivity of the interrupt.
-> 
-> Ok.
-> 
-> >> We need to add IRQF_SHARED flag in order to allow shared interrupt, and
-> >> we should not add it when using (the default) push-pull mode.
-> >
-> > Why not? How would it make any difference from SW perspective?
-> 
-> Not adding the IRQF_SHARED flag prevents use with shared interrupts. I
-> think we are on the same page on that.
-> 
-> Unconditional adding IRQF_SHARED flag would allow configurations where
-> other devices share interrupt line with mma8452 compatible chip
-> configured with push-pull, resulting in broken or unpredictable results.
-> I don't see why we should not care about that.
+We do the same in barebox bootloader for all OP-TEE supported i.MX
+platforms. Therefore this change would cause a regression for barebox as
+well.
 
-But it's not their problem! If it's this device that prevents this
-configuration, it should have a check. With this code it just hides
-and changing a DT property will lead to kernel warning.
+Furthermore, this change would cause an anyoing dmesg warning on
+platforms which don't use OP-TEE at all, because it's not ensured that
+the OP-TEE firmware was actually loaded.
 
-> > Yes, I understand the HW case.
-> >
-> >> > The (hidden) problem this will have in the future is that the IRQ core
-> >> > will splat a warning in case that other shared IRQs might be
-> >> > configured with different flags. Putting that flag conditionally makes
-> >> > it a mine field for the users. Instead just unconditionally add that
-> >> > flag and we will get reports as soon as there will be a user that
-> >> > shares the same interrupt pin with some other devices which drivers do
-> >> > not use the same settings.
-> >>
-> >> If we add the IRQF_SHARED flag unconditionally, it will be set also when
-> >> push-pull mode is enabled. I don't see how the kernel will be able to
-> >> notice that that is not going to work. If you have another device that
-> >> uses IRQF_TRIGGER_LOW|IRF_ONESHOT|IRQF_SHARED, it will not work with the
-> >> MMA8452 device when configured as push-pull.
-> >
-> > Right, and why do we care (again)?
-> 
-> Why we care that the system as a whole (SW on top of HW) will not work?
-> 
-> If we don't care about that, why do we even have this IRQF_SHARED flag?
-> The only purpose of that is to tell the kernel that this particular
-> device / interrupt will work with shared interrupt or not.
-> 
-> Isn't that exactly what I do with this change? Nothing more, nothing less.
-> 
-> > It's pure DT/FW/HW issue, not an SW issue.
-> > Otherwise it will become a carefully placed mine for the poor user who will
-> > use these flags and try to share an interrupt with the mma8452 device which
-> > has no set property and uses push-pull mode.
-> 
-> I don't get how you see it like that. Adding IRQF_SHARED unconditionally
-> would create exactly the mine field you are talking about. Poor users
-> can specify a system configuration (DT) that tries to use a shared
-> interrupt line, but configures the mma8452 compatible chip in push-pull.
-> The poor user will not only be poor, but also unhappy.
+Therefore the bootloader adds the OP-TEE nodes only if the OP-TEE binary
+was actually loaded.
 
-> By applying the IRQF_SHARED dynamically, the kernel will be able to fail
-> in a controlled manner instead, making it much less painful to create a
-> working system configuration (DT)
+Therefore I vote for dynamic adding the nodes and not this static
+approach.
 
-And my point that we need to make less painful runtime experience.
+Furthermore OP-TEE can provide a DTB overlay fragment with all the
+required nodes, which you only need to apply within the bootloader. This
+is cleanest way. You only need to provide OP-TEE the DTB location during
+runtime.
 
-> Going back to your poor user story above, if the poor user tries to
-> share the interrupt pin with the mma8452 device, it will get an error
-> (just as it is with the kernel today). The device does not support
-> shared interrupts. Reading the DT bindings documentation, the user
-> should be able to find the drive-open-drain property, and add that to
-> the device-tree to make things work. Maybe even consider if that is
-> compatible with the hardware being used.
+Regards,
+  Marco
+
+> Also add the OP-TEE node on the imx93 FRDM platform device tree: while
+> this is not part of U-Boot code today, it is the change that triggered
+> the U-Boot discussion.
 > 
-> If IRQF_SHARED was set unconditionally, the user would not get an error,
-> but most likely would get a system where no irq's were raised for the
-> other chips. I sincerely believe that debugging this is much more
-> painful than reading device-tree bindings.
+> [1]: https://lore.kernel.org/all/20260706145906.GW749385@bill-the-cat/
+> [2]: https://lore.kernel.org/all/20251125-revert-zynqmp-optee-v1-1-d2ce4c0fcaf6@vaisala.com/
 > 
-> > Did I miss anything?
+> Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+> ---
+> Changes in v2:
+> - Splitting i.MX8 SoC changes in a separate commit.
+> - Adding bootph-pre-ram on stm32mp157c-ed1 reserved memory.
+> - Rebased on v7.2-rc3.
+> - Link to v1: https://lore.kernel.org/r/20260710-mathieu-uboot-dts-import-v1-0-ffe0210e50c9@bootlin.com
 > 
-> I don't know. Maybe I am missing the obvious here.
-
-I consider the case when shared interrupt is enabled on both devices, but
-second one (driver) missed the same IRQ flags. This becomes a warning in
-IRQ core.
-
-Shared interrupts it's also a contract with all stakeholders on keeping
-the same flags for all devices.
-
-...
-
-After looking into genirq code I don't see other way how to handle this.
-It looks like we need to address the TRIGGER_LOW first, in other words
-we need drop that flag when IRQF_SHARED is set, and leave it to users
-to setup IRQ trigger properly on all sides.
+> ---
+> Mathieu Dubois-Briand (7):
+>       arm64: dts: freescale: Import optee node from u-boot i.MX91 and i.MX93 device trees
+>       arm64: dts: freescale: Import optee node from u-boot i.MX8 device trees
+>       arm: dts: st: Import optee node from u-boot device trees
+>       arm: dts: st: stm32mp157c-ed1: Add bootph-pre-ram tag on optee reserved memory
+>       arm64: dts: hisilicon: hi3798cv200-poplar: Import optee node from u-boot device tree
+>       arm64: dts: nuvoton: npcm845-evb: Import optee node from u-boot device tree
+>       arm64: dts: freescale: imx93-frdm: Add OP-TEE device tree node
+> 
+>  arch/arm/boot/dts/st/stm32mp157a-dk1.dts                | 17 +++++++++++++++++
+>  arch/arm/boot/dts/st/stm32mp157c-ed1.dts                | 14 ++++++++++++++
+>  arch/arm64/boot/dts/freescale/imx8mm.dtsi               |  7 +++++++
+>  arch/arm64/boot/dts/freescale/imx8mn.dtsi               |  7 +++++++
+>  arch/arm64/boot/dts/freescale/imx8mp.dtsi               |  7 +++++++
+>  arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts       |  7 +++++++
+>  arch/arm64/boot/dts/freescale/imx91-11x11-frdm.dts      |  7 +++++++
+>  arch/arm64/boot/dts/freescale/imx91-phyboard-segin.dts  |  7 +++++++
+>  arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts       |  7 +++++++
+>  arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts      |  7 +++++++
+>  arch/arm64/boot/dts/freescale/imx93-9x9-qsb.dts         |  7 +++++++
+>  .../arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts |  7 +++++++
+>  arch/arm64/boot/dts/freescale/imx93-phyboard-segin.dts  |  7 +++++++
+>  .../arm64/boot/dts/freescale/imx93-var-som-symphony.dts |  7 +++++++
+>  arch/arm64/boot/dts/hisilicon/hi3798cv200-poplar.dts    |  7 +++++++
+>  arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts     |  7 +++++++
+>  16 files changed, 129 insertions(+)
+> ---
+> base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
+> change-id: 20260710-mathieu-uboot-dts-import-69f51bc097d7
+> 
+> Best regards,
+> -- 
+> Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+> 
+> 
+> 
 
 -- 
-With Best Regards,
-Andy Shevchenko
+#gernperDu 
+#CallMeByMyFirstName
 
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
