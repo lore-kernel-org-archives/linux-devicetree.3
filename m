@@ -1,94 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CBCD2ED16D;
-	Wed, 15 Jul 2026 19:10:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6816343F09E
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 19:14:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784142642; cv=none; b=JJJvt2PaLcNbRkuHBcpUgJavMKm1seq2sGgDGEZDdxVXmbwdAaH5OS8LyHkT8Kr8PZ5CKOQd/HbYxyR8RFB6ZCC46szG29CYZoFs3Cbcv5VWeMujtr8l6Ggeo4+OF1zg8opUP22SEKsF59WaBScWZf7uWUQOehMi1fnwsHdm9HA=
+	t=1784142898; cv=none; b=WNRZNV6+2cxLJtpDLdvmXftxOgt0N0PFk98AFS1TWriXWbOfUcoyNaaK+72Ms6V055d5M0xAtXR/YpEFTjGJYy9RZLI15x3tNuH8LrbMHPLcv6Rcxsp1DirGx6TfbD9rVpM9zOKpwaJEFmxda4seXI7r9i0VxKdWJaQa5cW5O78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784142642; c=relaxed/simple;
-	bh=6am+2U8ArlFrnLtxDEsJTaJh6CagCAzM9L6SMYGVYB0=;
+	s=arc-20240116; t=1784142898; c=relaxed/simple;
+	bh=puOmzRHIlRascXpQTVsh0yIFod+pxoO++c3THyIxTMY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jgsdg+3FJqVqyoSWmJvPcy9R2HVhxYzJTVrdyakgheLjW1Q7qJ0OZnT9RKh2q6RIVWxbmfJqu9LfcyT+EZrHN652xEmt2zsIVqwe5bkIbXkZeFVSDgfs1LqkbD9O6z/crmlawvJWmI9EUetOOvdKKpkJEuwVUKRHZAbKqLsH6AA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HxXAnNwf; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=o4TSsIqujuipRJWHOH/2tfb28pDrEnDVahTRR3jcie2/0/SsC7AML7mWHswe67rY7NZAuHVk5V7Y6Dww/ZBI2HID3IV6Q5jDLakQd7uN1N6hV5suTauP7fxZrRr07Jo+brZ1FUkjAIXkEHa9+BUru4C98jtYHf9VUfzdnQ7lziQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EhBlaQcp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HxXAnNwf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA6511F000E9;
-	Wed, 15 Jul 2026 19:10:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EhBlaQcp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5784D1F00A3D;
+	Wed, 15 Jul 2026 19:14:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784142631;
-	bh=6am+2U8ArlFrnLtxDEsJTaJh6CagCAzM9L6SMYGVYB0=;
+	s=k20260515; t=1784142890;
+	bh=LaUTGNXIKTQxykhOsEkVPArO+SO+J/GC0U043647SAI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HxXAnNwfK6A0qK1Cb3Rk/naiJHPuKtLa0+EmZD/8xRp+BklKJtliHzdlCB2CSgEKJ
-	 D93itkxX3MhIS0Vjna9nhAcx51CzqSU8TI6qmNwuiefYTGZXWxj8BI9/5YiVaEMhqs
-	 ziFl97QjGDUFIhRUfgLabfywzT+V4/6OhCGW24tF+GqrtnH7zB5bUt10tvgXTVTKm9
-	 yDUabnAmaaU/eEheQ9/7MAmfZbP69T1rkpOwmNtI57M+nC2pUSVbfW6KhnUPPVK4DX
-	 Eqc8ebZx3GnLXwMF9tauHVTbt2yL+fkOwhPGHywo1ELYGObc2xfuL/e2mI8nBXZipU
-	 JpEkuaz+vjrzg==
+	b=EhBlaQcpkcZzFzgLQezNiz/JQm+/OHBpiTW7XUoUu4l9OfRwa+QPHywn1QwQ7vrO2
+	 6CgM1yXDsVo6iJbPmxkoRwv3YBefHnBB+EmdKoqt1oKTKnROFu/eLrBGpSa0x88iZB
+	 cQuyG+0TzqyU3Mr9xgBSRZg8lHm2ebzRZ3TblcgkHU22STNeL7pgLpUYwomjbka0Fo
+	 YcwUnVGHCHKwD28eT4Se5D1rQz7IEXcJKZo/aagkkUFd7Prr7JuE4QVypCdkxp3Szy
+	 WCIQdFzwDCVSfgYlt8x1bWHPmpg3U7a8g4rhrdHb5Se3nlHeHXENo0JdXDSBbJ4eLs
+	 cmzAaTPe5ChLg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 7/7] arm64: dts: imx8dxl-evk: add lcdif overlay
+Subject: Re: [RFC PATCH 03/10] phy: rockchip: naneng-combphy: add SGMII MAC
+ selection for RK3568
 Reply-To: sashiko-reviews@lists.linux.dev
-To: Frank.Li@oss.nxp.com
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260715-dxl_lcdif-v2-7-da797562636e@nxp.com>
-References: <20260715-dxl_lcdif-v2-0-da797562636e@nxp.com>
- <20260715-dxl_lcdif-v2-7-da797562636e@nxp.com>
+To: "Coia Prant" <coiaprant@gmail.com>
+Cc: linux-phy@lists.infradead.org, neil.armstrong@linaro.org, olteanv@gmail.com, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org
+In-Reply-To: <20260714191341.690906-4-coiaprant@gmail.com>
+References: <20260714191341.690906-1-coiaprant@gmail.com>
+ <20260714191341.690906-4-coiaprant@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 19:10:30 +0000
-Message-Id: <20260715191030.CA6511F000E9@smtp.kernel.org>
+Date: Wed, 15 Jul 2026 19:14:49 +0000
+Message-Id: <20260715191450.5784D1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The overlay configures the ADC input pads for LCD digital signal=
-s but fails to disable the `adc0` controller.
-- [Low] The panel device node is named `lcd-panel`, which violates the stan=
-dard Device Tree bindings for display panels.
-- [Low] The overlay disables audio codecs and DAIs but leaves the top-level=
- sound card nodes enabled, causing endless probe deferrals.
+- [High] The patch breaks device tree backward compatibility by forcing the=
+ SGMII MAC selection to GMAC0 when the optional `rockchip,sgmii-mac-sel` pr=
+operty is absent, overriding the hardware default.
 --
 
---- Patch [7]: [PATCH v2 7/7] arm64: dts: imx8dxl-evk: add lcdif overlay ---
-(Note: The format of this report is altered to a free-form summary due to
-recitation restrictions. No code from the original patch is directly quoted=
-.)
+--- Patch [3]: [RFC PATCH 03/10] phy: rockchip: naneng-combphy: add SGMII M=
+AC selection for RK3568 ---
+commit 605f86936fd231092ab8489f15df507702255912
+Author: Coia Prant <coiaprant@gmail.com>
 
-commit d5a124bf1de36e3cda648d2a3efe1d55a60da419
-Author: Frank Li <Frank.Li@nxp.com>
+phy: rockchip: naneng-combphy: add SGMII MAC selection for RK3568
 
-arm64: dts: imx8dxl-evk: add lcdif overlay
+This commit adds support for routing the SGMII interface to either GMAC0
+or GMAC1 on RK3568 by introducing the rockchip,sgmii-mac-sel DT property.
 
-This commit adds support for the waiken,101wx001 lcd panel by introducing
-a new device tree overlay for the imx8dxl-evk.
+Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%=
+20Part1%20V1.1-20210301.pdf (Page 229)
 
-[Severity: Low]
-The device node for the display panel in the new overlay is named lcd-panel.
-Does this violate the standard Device Tree bindings for display panels?
-According to panel-common.yaml, the generic node name for a display panel
-should typically just be panel. Using a non-generic name could result in
-dtbs_check warnings when building the device tree.
+> diff --git a/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c b/drivers=
+/phy/rockchip/phy-rockchip-naneng-combphy.c
+> --- a/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
 
-[Severity: Medium]
-The pinctrl_lcdif node configures several ADC input pads to act as digital
-LCD signals. However, the overlay does not appear to disable the correspond=
-ing
-adc0 controller. Will this cause the adc0 controller to probe and expose
-non-functional IIO channels to userspace, potentially resulting in
-applications reading meaningless garbage instead of valid analog voltages?
+[ ... ]
 
-[Severity: Low]
-The overlay disables several audio codecs and DAIs, such as sai0, sai1, and
-the various wm8960 components, but it leaves the top-level sound card nodes
-from the base device tree enabled. Could this result in the sound card
-drivers attempting to probe and failing indefinitely with probe deferrals,
-leaving dangling devices in the deferred list during system initialization?
+> @@ -375,6 +377,9 @@ static int rockchip_combphy_parse_dt(struct device *d=
+ev, struct rockchip_combphy
+> =20
+>  	priv->ext_refclk =3D device_property_present(dev, "rockchip,ext-refclk"=
+);
+> =20
+> +	priv->sgmii_mac_sel =3D 0;
+> +	device_property_read_u32(dev, "rockchip,sgmii-mac-sel", &priv->sgmii_ma=
+c_sel);
+> +
+>  	priv->phy_rst =3D devm_reset_control_get_exclusive(dev, "phy");
+
+[ ... ]
+
+> @@ -873,6 +878,8 @@ static int rk3568_combphy_cfg(struct rockchip_combphy=
+_priv *priv)
+>  		break;
+> =20
+>  	case PHY_TYPE_SGMII:
+> +		rockchip_combphy_param_write(priv->pipe_grf, &cfg->pipe_sgmii_mac_sel,
+> +					priv->sgmii_mac_sel > 0);
+
+[Severity: High]
+Does this break device tree backward compatibility?
+
+When the rockchip,sgmii-mac-sel property is missing from an older device
+tree, priv->sgmii_mac_sel defaults to 0 in rockchip_combphy_parse_dt().
+
+By unconditionally calling rockchip_combphy_param_write() here, the driver
+now actively clears the MAC selection bit to 0 (GMAC0).
+
+Because the hardware reset value is GMAC1, this actively overrides the defa=
+ult
+hardware and bootloader state that older device trees were relying on.
+
+Could the code check if the property was actually present before writing
+to the register, to ensure the hardware default is preserved for existing
+setups?
+
+>  		rockchip_combphy_param_write(priv->pipe_grf, &cfg->pipe_xpcs_phy_ready=
+, true);
+>  		rockchip_combphy_param_write(priv->phy_grf, &cfg->pipe_phymode_sel, tr=
+ue);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-dxl_lcdif-=
-v2-0-da797562636e@nxp.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714191341.6909=
+06-1-coiaprant@gmail.com?part=3D3
