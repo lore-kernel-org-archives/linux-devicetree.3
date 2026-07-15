@@ -1,85 +1,108 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9245B3815DF;
-	Wed, 15 Jul 2026 14:43:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12821385D83
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 14:45:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784126616; cv=none; b=SJjS2M4eagjewBDUOES8qRJyJ2mZ6+JyXJFoz+5SFU6e/eh1/wcQg6Z0ShWJzh4CnsfudNPJ1Rinpvz3834KEIaqCwabdgFD1DKd5Pvlet5UB75/Faiz327PyfQKdofIP5bmHdNmo/UiYpQeIUGT0eqwLTiG72PnIn0hynDpMeY=
+	t=1784126761; cv=none; b=tjAZnm2FWSt2CPGLA0l1rMZ1VTsYv530y0L6Pxi2Qm8jQ6ZnHFkl9nBsd5m3xE1BwEbkT+rxLcF1TUT3oU07p5IgP9mirBpMjl5yDT9yP+xzFT7K/L9YDk+UwZsl0AsSrW6rHz9S0LrhSoAH3RVgSyiB048On8OKTSRwz4NxbTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784126616; c=relaxed/simple;
-	bh=cEKDHo/OZrzKx03VxEdPl4q31s7Fn2qq0x/9Vq/CJts=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=F68aKDequPDFm76NTS2nywx7F4WQR2GXCT+SWaQq8KWQ75L7bh/j7AFb5wDwVujotRkT0VOM9E6u7v2NV0Bh3tAeVnqs4ftvNmoT2/ddlAcdce5WU0EFp1h7q1sAQf3DmZDftfggFo1gSdc7/Qsnlsm7zqbU6bmkIB79DQYyuLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=jybkMy+B; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1784126761; c=relaxed/simple;
+	bh=mUD3u8i6smcWBVkviQnocRqbgcVANEswDQMAu4e9B0g=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fvraF5Hme15z1X9HP/k0VWLy4xFOpOQ8SiEfXLa84qfjXSp1zaq3CjVYr0WjcSF080QRGi7vvEde4lmW/jt7KA829K+2xNJ6f/OJzf0iRoiY0YAEh/Xndtq+O+Yw3xMmwp+gGqhtRikqi2eeSoP6K5t+fCkfXk1pZ5ozuf/6WqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nSRjfHqW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="jybkMy+B"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 65C0AC2B9D6;
-	Wed, 15 Jul 2026 14:43:49 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 652516035C;
-	Wed, 15 Jul 2026 14:43:32 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EE8DB11BD15D9;
-	Wed, 15 Jul 2026 16:43:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1784126611; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=cEKDHo/OZrzKx03VxEdPl4q31s7Fn2qq0x/9Vq/CJts=;
-	b=jybkMy+ByVzzRCqbmx6z187kH33b00yiUqlfsKCt3c+WhaQpT4w48dlO7UlmdnESY8OsEh
-	1ZBICUJXfaZMnoMrKERp3tYzDuvhYs5vB3db+pAu5IsY9OjVKStKyrKhGc8CClxSGjsubm
-	7rg5oe8uOsXEm8hHeY3PHsDu19Ae1rs6uot2/Be9xkt+YQp8bDOZNNVfAJNv+Xu/xxgdRX
-	/rSWWT2GkWGNQtb9VziO7y38UW6+dQtwQzob25xHXj4nYrmqEJsRGkhOw4LMhMCR4o1TSJ
-	0ShD22aVrRAXJ1gyfzXexAQc+GPLvMwFb5hP9AFX4yVJB0hZRZxr968LT0Vo8Q==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,  Stephen Boyd
- <sboyd@kernel.org>,  Brian Masney <bmasney@redhat.com>,  Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor
- Dooley <conor+dt@kernel.org>,  Brendan Higgins
- <brendan.higgins@linux.dev>,  David Gow <david@davidgow.net>,  Rae Moar
- <raemoar63@gmail.com>,  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-  Pascal EBERHARD <pascal.eberhard@se.com>,  linux-clk@vger.kernel.org,
-  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  linux-kselftest@vger.kernel.org,  kunit-dev@googlegroups.com,  Herve
- Codina <herve.codina@bootlin.com>
-Subject: Re: [PATCH v2 0/7] clk: Add support for clock nexus
-In-Reply-To: <aleSJafTTPe9Keas@shikoro> (Wolfram Sang's message of "Wed, 15
-	Jul 2026 15:59:01 +0200")
-References: <20260710-schneider-v7-2-rc1-eip201-upstream-v2-0-b4680787377e@bootlin.com>
-	<alNN5qxBJ4EsB3Li@shikoro> <87ik6ge7kd.fsf@bootlin.com>
-	<aleSJafTTPe9Keas@shikoro>
-User-Agent: mu4e 1.12.7; emacs 30.2
-Date: Wed, 15 Jul 2026 16:43:27 +0200
-Message-ID: <87a4rse2k0.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nSRjfHqW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8351F1F000E9;
+	Wed, 15 Jul 2026 14:45:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784126759;
+	bh=PRrwPzwNMVzfFatirbKKEknv8qYs9emneI+4+7Gsr6I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nSRjfHqWbF1XZ/pQ6jpvBOObZaWPJi82CgUXh1QyUcwT9IHfFMSnDmuU9m2tE7Iyd
+	 88tc1E7Gm3ifC4yeMpxd+6lUQzj+WFt4/KOvZC6ZRDV0x8cfZQT5GgTMko+Lflwa1Q
+	 k3afmb54xyOLdDYbSWJmjSKagmiSaJhOdlMf+SdakhXdWlsIW1BEYqSaadtQDvUHhW
+	 B3ezVz+mTYHjm+/aomzMjZNj2Sx6m5kzBSrSSV8Y3Gdx1/K7XOQSkkLRqqsjpBlFTB
+	 URk9EJFnxV1BARJjdvZEmaNLXwqAfGRxO7sKhn2cHXwU0pPp9bLTwlrAlm1CSbufuK
+	 78GEJIPBupMcA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] nvmem: mtk-efuse: add mt6572 support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Roman Vivchar" <rva333@protonmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260715-6572-nvmem-v1-3-9c13be99d077@protonmail.com>
+References: <20260715-6572-nvmem-v1-0-9c13be99d077@protonmail.com>
+ <20260715-6572-nvmem-v1-3-9c13be99d077@protonmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 14:45:59 +0000
+Message-Id: <20260715144559.8351F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 15/07/2026 at 15:59:01 +02, Wolfram Sang <wsa+renesas@sang-engineering.c=
-om> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-> Hi Miquel,
->
->> that all the drivers work on RZN1 hardware. When we send this out we
->> will include a link in the cover letter with a branch to test,
->> connecting the clock, irqchip an crypto changes together. Don't hesitate
->> to remind us for that testing branch if we forget to include it!
->
-> Will surely do. Sounds awesome, thank you! Bonus points if you could
-> also shorty summarize how you tested all the stuff then.
+Pre-existing issues:
+- [High] Incorrect string comparison logic erroneously matches any nvmem ce=
+ll name that is a prefix of 'gpu-speedbin'.
+--
 
-So far I just enabled all the crypto selftests (CONFIG_CRYPTO_SELFTESTS,
-CONFIG_CRYPTO_SELFTESTS_FULL). Given the amount of errors I got during
-my first iterations, it seemed pretty complete :-)
+--- Patch [3]: [PATCH 3/3] nvmem: mtk-efuse: add mt6572 support ---
+commit 2c71c19eb8895343bae32ea1c4c07b25c01cd56c
+Author: Roman Vivchar <rva333@protonmail.com>
 
-Thanks,
-Miqu=C3=A8l
+    nvmem: mtk-efuse: add mt6572 support
+   =20
+    Add a platform data struct for the efuse controller.
+
+> diff --git a/drivers/nvmem/mtk-efuse.c b/drivers/nvmem/mtk-efuse.c
+> index 1462f27608184..a794346084658 100644
+> --- a/drivers/nvmem/mtk-efuse.c
+> +++ b/drivers/nvmem/mtk-efuse.c
+> @@ -124,6 +124,11 @@ static int mtk_efuse_probe(struct platform_device *p=
+dev)
+>  	return 0;
+>  }
+> =20
+> +static const struct mtk_efuse_pdata mtk_mt6572_efuse_pdata =3D {
+> +	.uses_post_processing =3D false,
+
+[Severity: High]
+This isn't a bug introduced by this patch, but there is a pre-existing issue
+with the post-processing logic in this driver.
+
+Looking at mtk_efuse_fixup_dt_cell_info(), the string comparison logic
+erroneously matches any nvmem cell name that is a prefix of "gpu-speedbin":
+
+drivers/nvmem/mtk-efuse.c:mtk_efuse_fixup_dt_cell_info() {
+    ...
+	if (cell->nbits <=3D 3 &&
+	    strncmp(cell->name, "gpu-speedbin", min(sz, strlen("gpu-speedbin"))) =
+=3D=3D 0)
+		cell->read_post_process =3D mtk_efuse_gpu_speedbin_pp;
+    ...
+}
+
+Because strncmp() uses min(strlen(cell->name), strlen("gpu-speedbin")) for
+the comparison length, it restricts the comparison to the shorter length.
+
+If a device tree defines a cell with a name that is a substring of
+"gpu-speedbin" (e.g., "gpu" or "gpu-speed") and has 3 or fewer bits, this
+will evaluate to 0.
+
+This incorrectly applies the post-processing fixup to completely unrelated
+cells, which could cause silent data corruption.
+
+Would it be possible to change this comparison to prevent short-prefix
+matches?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-6572-nvmem=
+-v1-0-9c13be99d077@protonmail.com?part=3D3
