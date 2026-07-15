@@ -1,312 +1,110 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023072.outbound.protection.outlook.com [40.107.44.72])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C06A248881;
-	Wed, 15 Jul 2026 02:25:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.72
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784082324; cv=fail; b=Lg3xmOrnkFokeTLlsTQLPPyOmfjlmVwogtO0sJP96TX7FyWxN+d6rcebCB4DLHOhwbKdzV98IH6FB/bYnrZUBEW9visoCMM3h5deO8dcoyfyR2qp8NjTGTpd7MrLFRt13WJ+KpbkkEffHtpVl49k18MUW0p8/TTPUmnJ3c289D0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784082324; c=relaxed/simple;
-	bh=ncpmVElnm4Jgn5GzCxvXcwEEip1IBRGRLubnF04JT/w=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=jkmViTVKmgGpAK2Z3Qri44Ojmyp03dW7QY9mHA6FPb5m0W2IT6ITjcSJ29ZItK/BSHmmcQwPcAmCxyoh/c9J9e7tFnGGBrsiF598p3CbjuQhXquYi5uxWwp72NnsDiZdTzDySnuHTmfmHzyDcvZ8iBb3HC9btFaxEg/2ZS/Ug4U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=mjuzeW5D; arc=fail smtp.client-ip=40.107.44.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBDB392831
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 02:29:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784082541; cv=none; b=TmlMOd4P/a4q8qK0Fgil9pexVUJlbDq+gEAf0gNgzJjdrAPuGh3ze08nh3l0gav63nLDYVcqRQzvSdtcVOMz3axa+kPYZvxLEIklGRcUk8ORH/BTcOvhiPb2UdLucqNlpBWEFXb948bGEdzESj7q6yf/xM7tbPOq7N+otL6MzrU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784082541; c=relaxed/simple;
+	bh=6L/E+zHPBkzyXInpwFnUmel39o3tWspQop5yMbWE4rU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CEm7ApSNrDas3cRqcwYwWsGXdgO1rwVds5Wmjyx/cMHJjJCPwrhuC/GNhX7Dve97JXMQkoG4SRsbZKkYvabGehTkeAKH3gNFYLbJT6onAD6W1gBKjUULRL/Z0jUMqShtkksI0QS05v5dlrrax90+mJ9Axsge/6fuBKH4KkacNkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=egWuM8ma; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="mjuzeW5D"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xHlt4WxVgvkEAnW/kn0Fh7VcR56ePCYWkr3G3Fc1LUVRcmwvEMfQbTqkNKxEhNan7OIvlS/ZoNw9x3zi4Z6j7lPUWO2SNQFEBl1aAXaDGlrzJp2p1nnCU9ih7QHPXud3LPZ/IQkP0OLVAWOdVvIha/tOi5aFJFRx7sYmshYje6AohPzGSYIKs79Ao0CKOqDDm2vqmJqF3eyfBsEZ1S3T8YsHZW4zapfn/sVgYs9UG7WSnlQ3CeZ1CDzORyQa1v/5iS1DX+3TaOTLcmkw7dyucnRDpaiKgYS2tQcX+OFXcYH8k/ahVeqmUoJKa8c7af5cr/3wc1dXwgI+gmzlxbZ0Ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OzIFBJm883BOhVEE2h49Dkf94Lv7uQtxDNSuXy1d+54=;
- b=TLTIIEGWbQCCt08QcZWKfNkDwoEF7GBpsvI+Tf4NFhw5ShzyfyQd2OgAmdHq/8ctR1gXdSBzt9FSJIK+Rl1f6/Wx21Z1qhXXzSmFGTfNXBLRwcLDkxbD45wiy0SPqaoLGs5jl8Fk1KwxpKYM7kcl6Zsa2ar94coSe/WomxM5DjHnTvqkQBti4mBv7pUK2Rjrx382uk1hfi0HZVyc1z+bPJy/659XAfV8660CKIitKj2igw/gUd0Xqqvvu/aODLYEDymZZq6k0WpkBEPsQdtAz6W79zWfkN+JijjTIeULFFt6SpuMYzzVxVLZzfA4ue4dzDMkWS7Iufrp19gsIqvtaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OzIFBJm883BOhVEE2h49Dkf94Lv7uQtxDNSuXy1d+54=;
- b=mjuzeW5DCa+ebFo9qDDrxcrcALOuBUKL0JKcSqSrqmWy/bpkunmMad/j5t9pjPprVVUqKeWHqGP9u8okNtg9pU6b5Ejcfk/4HVSwtLYx0+zk9KTgZ9Dz2fdKA+k/vrUZIvy51k9BN0ewqMA8PZnpHYcOJTszGdQMb7j8Xrdm4QiV38wL6v4YAzVP/sxTnIEQDwxTMpaqLwfWtnbizSwzl3H7WSlDxZFIbj5mPf6tGRAzcslyIUTdUjE0avY6pmgXzCiXQ/nFVjxfqXw5L/p27GXRGt1FLU7iWGsjJgc3i37kiHVendM6wyyVF2BMVsE4goO9resIhvBSQjhpNJ8+mA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from SEYPR03MB6877.apcprd03.prod.outlook.com (2603:1096:101:b8::14)
- by SE3PR03MB9920.apcprd03.prod.outlook.com (2603:1096:101:336::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Wed, 15 Jul
- 2026 02:25:18 +0000
-Received: from SEYPR03MB6877.apcprd03.prod.outlook.com
- ([fe80::295d:a415:ad29:f34c]) by SEYPR03MB6877.apcprd03.prod.outlook.com
- ([fe80::295d:a415:ad29:f34c%6]) with mapi id 15.21.0223.008; Wed, 15 Jul 2026
- 02:25:18 +0000
-Message-ID: <5d59a919-b150-440e-a77c-16ceffdf88f2@amlogic.com>
-Date: Wed, 15 Jul 2026 10:25:13 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 2/3] dmaengine: amlogic: Add general DMA driver for A9
-Content-Language: en-US
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, Frank Li
- <Frank.Li@kernel.org>, linux-amlogic@lists.infradead.org,
- dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- Frank Li <Frank.Li@nxp.com>
-References: <20260714-amlogic-dma-v11-0-de79c2394282@amlogic.com>
- <20260714-amlogic-dma-v11-2-de79c2394282@amlogic.com>
- <alYlhm9vav59wKq9@vaman>
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-In-Reply-To: <alYlhm9vav59wKq9@vaman>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI1PR02CA0012.apcprd02.prod.outlook.com
- (2603:1096:4:1f7::8) To SEYPR03MB6877.apcprd03.prod.outlook.com
- (2603:1096:101:b8::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="egWuM8ma"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA3A51F01558
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 02:28:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784082539;
+	bh=1kXcTL8/0Zn1GMktmg0UnKx75NkFUMHQp0ZSVhtetpc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=egWuM8max8h35yBWwETK4lVYSrr9hacKPVe35TOiw/mkJU9+2cO8o+0OG29AvHcPu
+	 hy+ELlIX3HaBshGFA5P1lYHpcogrP9DqWYRXWlTrT+UcWCGyg3EawM2ZirtrAAB5Zo
+	 6xEoPGIf/m/hG+gor1w8VBC4M83XBlSPuVlmrTqz09oVTR3OINqI7Wo1KdBo1d0auI
+	 AwBa0Nvn22Pj75BYf8SclgsV/E/yL8PYLbp5/Bvb721bM4xMza0OzVGvwjfR+yedtI
+	 CdGXt2f+7AZuYOnCpRGQd6jSUBpLXFxGQ9MBQXOEogEQPfcU7stOwM+1aEhqTa4rjO
+	 2DM828rLtEJcQ==
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6983f20a8bfso7460354a12.1
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 19:28:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rp9BUZr5S1pao7ELOf/aw+GbjCSjQCFIYW6oDPIt04hxtFee3hxtQfSR5/Yp8e+IAOUWnkVNdX5+vuS@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxl2zsYbP+fXmJKn9OotUSUkPcB1fquu2W4IyTqNYuznWyDubXs
+	xVoWcNXJqd91xfc1xNqhnyYeXUbqz0ljktbWQm/w40c2i4I4w8CIRmlPx89dO2Tcy+er+2NrcBu
+	wIGsUruRJ4Lb6e6y2XIoow0v3V6VpZQ==
+X-Received: by 2002:a17:906:9c96:b0:c16:2750:fc56 with SMTP id
+ a640c23a62f3a-c1667a76e98mr289795166b.41.1784082538444; Tue, 14 Jul 2026
+ 19:28:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SEYPR03MB6877:EE_|SE3PR03MB9920:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ce10b18-bb63-4de5-96c7-08dee2184fba
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|18002099003|22082099003|6133799003|3023799007|56012099006|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	qqgXuZRMD5ZNLLH31XQ2UbNI/Hsye8fjaCSycp9i7REjLk4wwTZej6kDk0EDLNbS8X9U7KFJEWufNIwibZC7PPPVdTcAwveGoMF34vUom/IcxE0u6t5YxdLlcY4Rm14OZNRzoe2CVohNrHENLQ7VsZgGytk+rqXzY2dQbxE5O+CX/r4DoXc1t+1A9AN8JNUHxyK9UnHRmo47hnQ1WIT3p/VsYTXtHndDF1FoFB9ocHGfd6QQdP2zU+/sIl7rxGxpfvxB3dIZplJHuGpYR+vSSpawn5jlTJ1h9eHH6lIW+rRHmgHINKMLGdCsm+TYIXpvDNGRvOik5rpafYKnrCMoE397HKdX6kaa50tkfodlWeCVpPNupo9NgU2Dm+gjWMwQ3JyyUna9a76W0VeM8+9w3mlSwBMS26nn2TYnBCcFwAuG3zMitIIhrxogUujRBCa4V3sW+1ade4TozJ5lTt9vn0CRjBxvmh0z2vRg3++FzWkMuyiBfcuwW64kDTXPqgBxNArCjphlX/dthB9E8Zkx0z9/I0Weg39QGYcsh1SurFgav3LnJkucx87yFeEB9eT9oRstIVAgCOw97gcs4wWMNT8G180vWeYxiU/caRjGTG9wT521jSTM/nwOBxu/N7x/2CxdBL4Da7nBwte0hNF8C4sDQiVhkNDFfPLWOQRZb0M=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SEYPR03MB6877.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(18002099003)(22082099003)(6133799003)(3023799007)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c0gxdkQ1dkZtQWRhYkZLdTIreVVONUp0WUNKcFA5aE5JY3R2Z0t6R2VwZ2p0?=
- =?utf-8?B?TkZiVFFPRUhIei9DR1Juc0M2YkdEcGtsOWZxZ1RVdE5xNFN1QWQwZzJzaFo2?=
- =?utf-8?B?YjFaNGI0cHJWZ2hRWHFSeUlFZkxFSmROUGZXOU1XM3NPVFhGc0s2THRYcnF5?=
- =?utf-8?B?WmdUL2FRTDNMNHhZb0ZJT2dTL01WdWpaaGxGbHJWUUo2LytXR0MzSGk3LzM2?=
- =?utf-8?B?UG9sV3NIck5iUnN4TWdva1JGUUltTC84WEo2YUVQZ1o2VHlLbjZOZ2FKbysr?=
- =?utf-8?B?UVAyT0NnOFlDRUxuTWswYXVlNnhFTWhHam1CRWkrTzN2LzBSWUtTZUlCTVdN?=
- =?utf-8?B?WEtSem1ERElJcHA1eUpyMk9VZ2NoWmFkQ0JhQXVZR1NDbEhRZ0plTmh1SFRu?=
- =?utf-8?B?TEJleGgvSERHOTI3UmJwMktRbkpyYTdZcFNCLzFFYTVKVnZ0Wko5RUpSaEtt?=
- =?utf-8?B?eXRyZkVUaTRjU252UHFlZVF6U1J1aHhBL1ZXcndYUWljdC9zblYvQk1PNnZs?=
- =?utf-8?B?N3gyYVhRWFdYUHVmazVMSkdHeWFHVjhuQk5KWDJzNDYzeFBSSE5CalZXNVRN?=
- =?utf-8?B?dkZEblRGNi8vRysyeTJxOVRlTkN4MWRROFpySjZRajZPbEtmdUMxL3k0WGZw?=
- =?utf-8?B?bjBQa29QcFZYTEE0aWNtc3NIQW02SWFGVUxCZnUyRDNTdjk1KytQOGNmM3ZI?=
- =?utf-8?B?T2tRdjJCK1FPcnhieG0xSDBlekh2T1ZwWC9VVng2WmkxUzlGdllPU243a2VB?=
- =?utf-8?B?M0Qyd0s1SWFkUFc5cnJpSzZoZ0xrUE1vWTMrN3dJQ3lsMnhPamRJaE82WE1w?=
- =?utf-8?B?M2h3VnRaUWpmSVNOcnN4bnFYUW93cEQzTkpWTU9qdVp3UkpIZGNXbHVCZ3J2?=
- =?utf-8?B?ZGppY3JPdXU5bFpjdjFjUWpRYk8zVTdlM3Q1UGg1ZHJaTm1BdCswZURnRzBQ?=
- =?utf-8?B?dDRaQ0p0a3gxM0ZZc1g2YlRKeURnbkJxN2JiR1F2ZnlOajNlOEFsS1VUbTEx?=
- =?utf-8?B?R1NNZmNnZDUyQWdZamZ5RTJsRmFaZzFIYTUzS1ArSFdBNUJiNmllSHJ3cjVy?=
- =?utf-8?B?VnBRdVkwNkhXaXprS0gzdkxZMlRKcnp6c2E0SklpcHp5ckJHTnYyRzc2a2NT?=
- =?utf-8?B?Ymt0RGdGTTFNWWdpL09EVVZwOU1Db2RkL1RRL1NZdjVGb1FoWlZLNkhqS0Vv?=
- =?utf-8?B?dkpIeXhPZVJ4b3JRYVpqSmVrZ1hpVVMxZHJVQ0tkdU4wTXQ5WXhRMlpmd2dX?=
- =?utf-8?B?Y1JRM2NDOVl2R0RxM2xBRDRmUmdUUGI4TDVmQTFCNDRXOWxVTU5Fb29keG1z?=
- =?utf-8?B?L21uN3RxUTVGZHdmd0NhSDR1eWQ5WDV3d3RmZ1B0dW9tRzVmREJ4Q0dDRmV0?=
- =?utf-8?B?UmRlK0w1bG5XcTdTS0J6bDNWUzZiOHdIQ1pkRUoyc3Z4eEkvN1NCZ1IvQWVR?=
- =?utf-8?B?VXRYL0krdGhRVlV5Y2M3ZGdWYkhQS1N2a2dhNE03M2d2YWVMdHJad3pBL081?=
- =?utf-8?B?TnlzTHFvSG5lM3MzaEtpakJCUmVmR1JkTVZLbWpwS3Vid3F5Uno1NTNXNU1t?=
- =?utf-8?B?aDQ5c2Ywekx2L0VHOUkra3ByTXB2b1IxWGdhTkpLQTh5VXVBL3B1cUlNaG5K?=
- =?utf-8?B?aU5KUC9uUzBhMFBVSXllc2hwdi9vUzJaQTdNNlJkN29iaHpTdGJvOXAzd0VV?=
- =?utf-8?B?RVBhbTlNc3NxMk53T3dIRDFIUW9wNDVhbDBaZ1hvZ3Zjc1JmZlk5bTRzSmhC?=
- =?utf-8?B?Mm1LNHdOWXpEM2lXd3F6d3E1QjBHVFpucGtwYTEyRzFVTldRcWkyWnk0QUg4?=
- =?utf-8?B?UkNJb3RsU0gyVGx2djFocHZKV2R2TUR5blBmakx0eHJXU25nQThtbi9meUxZ?=
- =?utf-8?B?bm53N3BGNGVLdm5UbkZyMk9VVzV6dllXM05rY01OLzdtRi9LK3NIU21oUWZo?=
- =?utf-8?B?cllRWmdXOEtOc3JqL0s4akNQamJRajJZa1ZCQlhodzVCRy9DbXhFalEyRm94?=
- =?utf-8?B?VGNuTGJEM2xvVkRueHRsWm1MbEMvZEtDNVVBV2RWRm5TSi9SWmN1UDNVQUt6?=
- =?utf-8?B?MEQyT0Y1eGtDUmlEY21kL3ZDM0pTVHVZNDV3cmNnK3FiUTMvYndraENhRUoy?=
- =?utf-8?B?SE5MNmMwSi8rTmtBKzliVzZmcmtsNHM3WlJhOVhSRXRjcUM5MHlsSjNJdUxk?=
- =?utf-8?B?dXNwblhHdzQ4VFdSUVU5Z0FWckoxdkhNS0RkMDRrZS9FY1QzUnBEQU9oZVNT?=
- =?utf-8?B?RVhJYXovaWNrYnRaS25rYjVnRGpiRG8zTzNNMGxKOUlOL25nOTBMeUk0VW9y?=
- =?utf-8?B?d3Rva2ZHTnN0d3lKQndZVEFWQm5yODNYOHBVbTJYcC9oWVV3c0xIdz09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ce10b18-bb63-4de5-96c7-08dee2184fba
-X-MS-Exchange-CrossTenant-AuthSource: SEYPR03MB6877.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 02:25:18.1188
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aGK1xt7gsyk88anOH+t3tR4ksHC8sHuwcOAgR/ICRIrTJ5cclgJqRIJaIyaA4XKAZ63cf/TrTTv6eXQiYAytRhdLNeUBeYVKUjT5I57oGbw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE3PR03MB9920
+References: <20260109043352.3072933-1-mr.nuke.me@gmail.com>
+ <178370682987.2572738.13491033810212556744.b4-ty@kernel.org>
+ <20260714214519.GA2851152-robh@kernel.org> <CADi83T6kdqo-x0bcCGspni_e6ysEY6sud1AmZ4-utveA0rpLQA@mail.gmail.com>
+In-Reply-To: <CADi83T6kdqo-x0bcCGspni_e6ysEY6sud1AmZ4-utveA0rpLQA@mail.gmail.com>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 14 Jul 2026 21:28:47 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqKN0J_03_o8Na8-y=x7ny9g7vhSqa73XSu_d_D8P45dVw@mail.gmail.com>
+X-Gm-Features: AUfX_mzXuqLXie6CLWuLJ3TNxvl1OVaHyYiBnb4zldxw9L1dxTkVeP02-_OzU2s
+Message-ID: <CAL_JsqKN0J_03_o8Na8-y=x7ny9g7vhSqa73XSu_d_D8P45dVw@mail.gmail.com>
+Subject: Re: (subset) [PATCH v2 0/9] remoteproc: qcom_q6v5_wcss: add native
+ ipq9574 support
+To: Alexandru Gagniuc <mr.nuke.me@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, linux-remoteproc@vger.kernel.org, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
+	linux-clk@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Vinod Koul,
-    Thanks for your review.
-
-On 2026/7/14 20:03, Vinod Koul wrote:
-> On 14-07-26, 08:08, Xianwei Zhao via B4 Relay wrote:
->> From: Xianwei Zhao<xianwei.zhao@amlogic.com>
+On Tue, Jul 14, 2026 at 5:50=E2=80=AFPM Alexandru Gagniuc <mr.nuke.me@gmail=
+.com> wrote:
+>
+> Hi Rob
+>
+>
+> On Tue, Jul 14, 2026, 17:45 Rob Herring <robh@kernel.org> wrote:
 >>
->> Amlogic A9 SoCs include a general-purpose DMA controller that can be used
->> by multiple peripherals, such as I2C PIO and I3C. Each peripheral group
->> is associated with a dedicated DMA channel in hardware.
+>> On Fri, Jul 10, 2026 at 01:07:04PM -0500, Bjorn Andersson wrote:
+>> >
+>> > On Thu, 08 Jan 2026 22:33:35 -0600, Alexandru Gagniuc wrote:
+>> > > Support loading remoteproc firmware on IPQ9574 with the qcom_q6v5_wc=
+ss
+>> > > driver. This firmware is usually used to run ath11k firmware and ena=
+ble
+>> > > wifi with chips such as QCN5024.
+>> > >
+>> > > When submitting v1, I learned that the firmware can also be loaded b=
+y
+>> > > the trustzone firmware. Since TZ is not shipped with the kernel, it
+>> > > makes sense to have the option of a native init sequence, as not all
+>> > > devices come with the latest TZ firmware.
+>> > >
+>> > > [...]
+>> >
+>> > Applied, thanks!
+>> >
+>> > [1/9] remoteproc: qcom_q6v5_wcss: drop unused clocks from q6v5 struct
+>> >       commit: 22afc6163c0c7a144d24a09352b87719d64d5f65
+>> > [2/9] dt-bindings: remoteproc: qcom,ipq8074-wcss-pil: convert to DT sc=
+hema
+>> >       commit: 2a756ac4d98efc97503629fcaddb2e7c46255824
+>> > [4/9] dt-bindings: remoteproc: qcom: add IPQ9574 image loader
+>> >       commit: bc33b5b5e23a389e660c3d696cd2e043fdf33ef7
 >>
->> Reviewed-by: Frank Li<Frank.Li@nxp.com>
->> Signed-off-by: Xianwei Zhao<xianwei.zhao@amlogic.com>
->> ---
->>   drivers/dma/Kconfig       |  10 +
->>   drivers/dma/Makefile      |   1 +
->>   drivers/dma/amlogic-dma.c | 726 ++++++++++++++++++++++++++++++++++++++++++++++
->>   3 files changed, 737 insertions(+)
->>
->> diff --git a/drivers/dma/Kconfig b/drivers/dma/Kconfig
->> index ae6a682c9f76..01f96a8257e5 100644
->> --- a/drivers/dma/Kconfig
->> +++ b/drivers/dma/Kconfig
->> @@ -85,6 +85,16 @@ config AMCC_PPC440SPE_ADMA
->>        help
->>          Enable support for the AMCC PPC440SPe RAID engines.
->>
->> +config AMLOGIC_DMA
->> +     tristate "Amlogic general DMA support"
->> +     depends on ARCH_MESON || COMPILE_TEST
->> +     select DMA_ENGINE
->> +     select DMA_VIRTUAL_CHANNELS
->> +     select REGMAP_MMIO
->> +     help
->> +       Enable support for the Amlogic general DMA engines. THis DMA
->> +       controller is used some Amlogic SoCs, such as A9.
->> +
->>   config APPLE_ADMAC
->>        tristate "Apple ADMAC support"
->>        depends on ARCH_APPLE || COMPILE_TEST
->> diff --git a/drivers/dma/Makefile b/drivers/dma/Makefile
->> index 14aa086629d5..f62d12b08e15 100644
->> --- a/drivers/dma/Makefile
->> +++ b/drivers/dma/Makefile
->> @@ -16,6 +16,7 @@ obj-$(CONFIG_DMATEST) += dmatest.o
->>   obj-$(CONFIG_ALTERA_MSGDMA) += altera-msgdma.o
->>   obj-$(CONFIG_AMBA_PL08X) += amba-pl08x.o
->>   obj-$(CONFIG_AMCC_PPC440SPE_ADMA) += ppc4xx/
->> +obj-$(CONFIG_AMLOGIC_DMA) += amlogic-dma.o
->>   obj-$(CONFIG_APPLE_ADMAC) += apple-admac.o
->>   obj-$(CONFIG_ARM_DMA350) += arm-dma350.o
->>   obj-$(CONFIG_AT_HDMAC) += at_hdmac.o
->> diff --git a/drivers/dma/amlogic-dma.c b/drivers/dma/amlogic-dma.c
->> new file mode 100644
->> index 000000000000..9de650a79aba
->> --- /dev/null
->> +++ b/drivers/dma/amlogic-dma.c
->> @@ -0,0 +1,726 @@
->> +// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
->> +/*
->> + * Copyright (C) 2025 Amlogic, Inc. All rights reserved
-> 2026 please
-> 
->> +/* DMA controller reg */
->> +#define RCH_INT_MASK         0x1000
->> +#define WCH_INT_MASK         0x1004
->> +#define CLEAR_W_BATCH                0x1014
->> +#define CLEAR_RCH            0x1024
->> +#define CLEAR_WCH            0x1028
->> +#define RCH_ACTIVE           0x1038
->> +#define WCH_ACTIVE           0x103c
->> +#define RCH_DONE             0x104c
->> +#define WCH_DONE             0x1050
->> +#define RCH_ERR                      0x1060
->> +#define RCH_LEN_ERR          0x1064
->> +#define WCH_ERR                      0x1068
->> +#define DMA_BATCH_END                0x1078
->> +#define WCH_EOC_DONE         0x1088
->> +#define WDMA_RESP_ERR                0x1098
->> +#define UPT_PKT_SYNC         0x10a8
->> +#define RCHN_CFG             0x10ac
->> +#define WCHN_CFG             0x10b0
->> +#define MEM_PD_CFG           0x10b4
->> +#define MEM_BUS_CFG          0x10b8
->> +#define DMA_GMV_CFG          0x10bc
->> +#define DMA_GMR_CFG          0x10c0
->> +
->> +#define MAX_CHAN_ID          32
->> +#define SG_MAX_LEN           (GENMASK(26, 0) & ~0x3)
-> So you define a mask for 0-26 and then clear everything expect last two
-> bits, why not define last two bits..? Something does not look right here
-> 
+>> Why is a 6 month old patchset with reported errors being applied?
+>> Anyways, linux-next is now broken. Please fix.
+>
+>
+> I must have missed the error reports. Can you please point me in the righ=
+t direction? I'll get on this ASAP.
 
-Will do, define  GENMASK(26, 2)
+"make dt_binding_check" on linux-next.
 
->> +static int aml_dma_probe(struct platform_device *pdev)
->> +{
->> +     struct device_node *np = pdev->dev.of_node;
->> +     struct dma_device *dma_dev;
->> +     struct aml_dma_dev *aml_dma;
->> +     int ret, i, len;
->> +     u32 chan_nr;
->> +
->> +     const struct regmap_config aml_regmap_config = {
->> +             .reg_bits = 32,
->> +             .val_bits = 32,
->> +             .reg_stride = 4,
->> +             .max_register = 0x3000,
->> +     };
->> +
->> +     ret = of_property_read_u32(np, "dma-channels", &chan_nr);
->> +     if (ret)
->> +             return dev_err_probe(&pdev->dev, ret, "failed to read dma-channels\n");
->> +     if (chan_nr > (MAX_CHAN_ID * 2))
->> +             return dev_err_probe(&pdev->dev, -EINVAL, "dma-channels unusual\n");
->> +
->> +     len = sizeof(struct aml_dma_dev) + sizeof(struct aml_dma_chan) * chan_nr;
->> +     aml_dma = devm_kzalloc(&pdev->dev, len, GFP_KERNEL);
->> +     if (!aml_dma)
->> +             return -ENOMEM;
->> +
->> +     aml_dma->chan_nr = chan_nr;
->> +
->> +     aml_dma->base = devm_platform_ioremap_resource(pdev, 0);
->> +     if (IS_ERR(aml_dma->base))
->> +             return PTR_ERR(aml_dma->base);
->> +
->> +     aml_dma->regmap = devm_regmap_init_mmio(&pdev->dev, aml_dma->base,
->> +                                             &aml_regmap_config);
->> +     if (IS_ERR_OR_NULL(aml_dma->regmap))
->> +             return PTR_ERR(aml_dma->regmap);
->> +
->> +     aml_dma->clk = devm_clk_get_enabled(&pdev->dev, NULL);
->> +     if (IS_ERR(aml_dma->clk))
->> +             return PTR_ERR(aml_dma->clk);
->> +
->> +     aml_dma->irq = platform_get_irq(pdev, 0);
->> +
->> +     aml_dma->pdev = pdev;
->> +     aml_dma->dma_device.dev = &pdev->dev;
->> +
->> +     dma_dev = &aml_dma->dma_device;
->> +     INIT_LIST_HEAD(&dma_dev->channels);
->> +
->> +     /* Initialize channel parameters */
->> +     for (i = 0; i < chan_nr; i++) {
->> +             struct aml_dma_chan *aml_chan = &aml_dma->aml_chans[i];
->> +
->> +             aml_chan->aml_dma = aml_dma;
->> +             aml_chan->vchan.desc_free = aml_dma_free_desc;
->> +             vchan_init(&aml_chan->vchan, &aml_dma->dma_device);
->> +     }
->> +     aml_dma->chan_used = 0;
->> +
->> +     dma_set_max_seg_size(dma_dev->dev, SG_MAX_LEN);
->> +     dma_cap_set(DMA_SLAVE, dma_dev->cap_mask);
->> +     dma_dev->device_alloc_chan_resources = aml_dma_alloc_chan_resources;
->> +     dma_dev->device_free_chan_resources = aml_dma_free_chan_resources;
->> +     dma_dev->device_tx_status = aml_dma_tx_status;
->> +     dma_dev->device_prep_slave_sg = aml_dma_prep_slave_sg;
->> +     dma_dev->device_pause = aml_dma_chan_pause;
->> +     dma_dev->device_resume = aml_dma_chan_resume;
->> +     dma_dev->device_terminate_all = aml_dma_terminate_all;
->> +     dma_dev->device_issue_pending = aml_dma_issue_pending;
->> +     /* PIO 4 bytes and I2C 1 byte */
->> +     dma_dev->dst_addr_widths = BIT(DMA_SLAVE_BUSWIDTH_4_BYTES) | BIT(DMA_SLAVE_BUSWIDTH_1_BYTE);
->> +     dma_dev->directions = BIT(DMA_DEV_TO_MEM) | BIT(DMA_MEM_TO_DEV);
->> +     dma_dev->residue_granularity = DMA_RESIDUE_GRANULARITY_BURST;
->> +
->> +     regmap_write(aml_dma->regmap, RCH_INT_MASK, 0xffffffff);
->> +     regmap_write(aml_dma->regmap, WCH_INT_MASK, 0xffffffff);
-> I think we have macros for 32bit masks, please use that here and other
-> places
-
-Will do.
+Rob
