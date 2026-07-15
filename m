@@ -1,157 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4A739448F
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 14:51:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 951D0396B9A
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 14:52:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784127085; cv=none; b=R8nxZ1IMgR/A81E0Cu49dvyww6WxelhaM9nhxAzSZjAaLtTzKoxGhS3k+EahXnhahM+7gHCgvCDWOFUoCFU2RZYVuTso/bcK8nPlhFxsID/uL2i9r+ofl5GPyczHB4JU1ErkW+Hy1SpJ/AlTrCyrkzZePWVNhpjvbibLZCc+UGQ=
+	t=1784127143; cv=none; b=PtfJoTsvzc6dBRcDxXtBs454yzFq4y8SQHlCgrbi7I5THiJ3gDgBg3Zq5DskdZIn5Ywm+0E/SBfG6mchuWB8A3gCj1UYyZuD+oY2723n1DjRn2NWxNitEEf3TRPtFkSvbKRKtDz5m2tiFDkheWgBbqGw1TVuSh8Z/ZbLqr+GRow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784127085; c=relaxed/simple;
-	bh=X9kNKkE0w4UCUrpj/0qd1qboJV5zBLMnhTO1ZTPUVg4=;
+	s=arc-20240116; t=1784127143; c=relaxed/simple;
+	bh=XGl2ZzyoSwjeNrGnz5UPU3FYZ+sxbg+VGcORvCZujjM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SwFdoqWaLP/XRejEkXJ6OFCyPE0Kux6gbRbi+5OAW/D++MRMFqqbm7fAzOHk/ACV0hYFuC0YioEQ+6VG/OWEneWwcP5VKm+PSqmmbfDtgH2aKmXwCYujJd8ELt49LoSwDZ54BCGawAtkplKExa5QV+AcmHG+LG2ppUWRuOK2KiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZbklglZH; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=krSmQMn7UBFchMOf3EYBP7tAg7Q8PdnhPYJLcqNU0muiEpOdCXuarPL35+iFKXhbSwq/oOFlD6A3TbH0AagxtPu/UihujXWp4AoK/9loKLP1dctaL7Wx8h7qIhFjz27eZoZbe+amyWhkoIi5tvjTB/rCX1kYMH5E6sLi9KZIZrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CFPvjhZ1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZbklglZH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 959071F00A3A;
-	Wed, 15 Jul 2026 14:51:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CFPvjhZ1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F052F1F00A3A;
+	Wed, 15 Jul 2026 14:52:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784127083;
-	bh=7czwNP/DC26y02anai799/yhnVFywZAVI7k7Oh6SLZg=;
+	s=k20260515; t=1784127142;
+	bh=qmzxY0k0tmuVebPSdSxDkJf5y0+0kkCq/bcyizmpa1o=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZbklglZHPBeEbgAStDBei6Z45ldnrN/MkHCYtIbX8HVJbjWOX1DDpFkv7m1kMf1Rw
-	 zpipAtgIl+95aMNjxmwtDNGySWg/+hojKVc/S8fH+o8fYdbgGH6PKVws64BRsMREQN
-	 T26LCC9z2OMB5VMTk072106atvC+zsQrwg1Q7MLR7E+pO/cm6OYghMUQRSsd2OQ+D4
-	 91PuSEbhzeIYueoZdHUvR+QzSGKg8Hr8MLRCSP6GuS2Vmg6GDXBb9UvzyZfFZgxrHe
-	 +yQgw6kIQU9BIdDZM5PK25rv86kdMWohpm2YT1ChFoDmvrj0eteYvwuyqBBISzLKNe
-	 DIMz9gqBxU06g==
+	b=CFPvjhZ1uPuqMV6x0VmqvbS80eFn08kycUrVrEIiG2yEmkpNduxUH7LlwA5ZJY5SE
+	 xlmniAfi0mWsnsFX5QsA+kAafA15YRYAKUN5P0qexZBq1NFt4w+HO+fMaHIUpd/3Dy
+	 fO3NZeaEsY9JiLzegv3USTVd50yEK69q8N8z14P89GfqJL6914EOubDAWQXN0bhOUE
+	 881MVtng22+HNkQaHr9gCZy6r2e+5aNCaIiUn3Z4sQo9+9zbAASgCZLLDZSX3GPdZ6
+	 mPJcPEY7lV0p+HRYw5w3LJE4ZzTt9Q1fE4UFVYJGkdWbp/Ho3sML9HaEIyj+DmM2aQ
+	 +VLqBNeCxb93g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 08/11] drm/mediatek: mtk_dsi: Add support for MT8196
+Subject: Re: [PATCH v9 11/14] media: iris: Add hooks for pixel and non-pixel
+ context banks
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260715135703.46540-9-angelogioacchino.delregno@collabora.com>
-References: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
- <20260715135703.46540-9-angelogioacchino.delregno@collabora.com>
+To: "Vishnu Reddy" <busanna.reddy@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260715-glymur-v9-11-8cf2cbe12a07@oss.qualcomm.com>
+References: <20260715-glymur-v9-0-8cf2cbe12a07@oss.qualcomm.com>
+ <20260715-glymur-v9-11-8cf2cbe12a07@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 14:51:23 +0000
-Message-Id: <20260715145123.959071F00A3A@smtp.kernel.org>
+Date: Wed, 15 Jul 2026 14:52:21 +0000
+Message-Id: <20260715145221.F052F1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Calculation of QoS `rw_times` uses vertical active lines (`vactive=
-`) instead of horizontal active pixels (`hactive`).
-
 Pre-existing issues:
-- [High] Data race between hardirq and process contexts on the `dsi->irq_da=
-ta` state variable can result in lost interrupts.
-- [High] Lack of serialization in MIPI DSI host transfer operations (`mtk_d=
-si_host_transfer`), allowing concurrent transfers to corrupt the command qu=
-eue and state.
+- [High] V4L2 file release callback `iris_close()` accesses the `core` stru=
+cture after it has been freed by `devres` during driver unbind.
 --
 
---- Patch [8]: [PATCH v6 08/11] drm/mediatek: mtk_dsi: Add support for MT81=
-96 ---
-commit a997b4c68ea4198553bbed678f80fe423d11793b
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+--- Patch [11]: [PATCH v9 11/14] media: iris: Add hooks for pixel and non-p=
+ixel context banks ---
+commit 8d8f4d5f3484b996ec8fcb46a6a17cb0805e77fa
+Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 
-drm/mediatek: mtk_dsi: Add support for MT8196
+media: iris: Add hooks for pixel and non-pixel context banks
 
-Add support for the new DSI IP found in the Kompanio Ultra MT8196
-SoC and its Dimensity and Genio variants.
+Iris platforms use separate context-bank devices for the pixel, non-pixel
+firmware domains. Add platform hooks to create and destroy those
+subdevices, and wire them up for the affected platforms.
 
-Differently from the older DSI IPs, the one from MT8196 requires
-the initialization of all of the QoS parameters and can make use
-of a DSI SRAM reserved buffer (present also on older SoCs but not
-mandatory on those).
-
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
-k/mtk_dsi.c
-> index 95f7d94bdad3b..d2fdeaeb97bea 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-
-[ ... ]
-
-> @@ -776,6 +873,102 @@ static int mtk_dsi_set_dsc_params(struct mtk_dsi *d=
-si)
->  	return drm_dsc_compute_rc_parameters(dsc);
->  }
-> =20
-> +static void mtk_dsi_config_hw_buffers(struct mtk_dsi *dsi)
-> +{
-
-[ ... ]
-
-> +	/* Calculate QoS Anti-Latency parameters */
-> +	sodi_hi =3D MTK_DSI_MAX_FIFO_BYTES * num_hw_buffers;
-> +	sodi_hi -=3D (fill_rate - data_rate_per_buf) * 12 / 10;
-> +	sodi_lo =3D MTK_DSI_DEFAULT_QOS_SODI_LO_OVERHEAD * data_rate_per_buf;
-> +	preultra_hi =3D MTK_DSI_DEFAULT_QOS_PREULTRA_HI_US * data_rate_per_buf;
-> +	preultra_lo =3D MTK_DSI_DEFAULT_QOS_PREULTRA_LO_US * data_rate_per_buf;
-> +	ultra_hi =3D MTK_DSI_DEFAULT_QOS_ULTRA_HI_US * data_rate_per_buf;
-> +	ultra_lo =3D MTK_DSI_DEFAULT_QOS_ULTRA_LO_US * data_rate_per_buf;
-> +	urgent_hi =3D MTK_DSI_DEFAULT_QOS_URGENT_HI_US * data_rate_per_buf;
-> +	urgent_lo =3D MTK_DSI_DEFAULT_QOS_URGENT_LO_US * data_rate_per_buf;
-> +	rw_times =3D dsi->vm.vactive * dsi_buf_bpp;
-> +	rw_times /=3D data->num_burst_lines * data->pixels_per_iter;
-
-[Severity: High]
-Does this calculation incorrectly use the vertical active lines (vactive)
-instead of horizontal active pixels (hactive)?
-
-Since DSI line buffers operate on horizontal lines, their size and bandwidth
-depend on the line width. Using vactive here seems dimensionally incorrect =
-and
-might be a typo. Could this result in incorrect QoS parameters for
-anti-latency buffers and cause display corruption or underflow?
-
-> +
-> +	/* Write all QoS parameters: Screen On Deep Idle, (pre)Ultra, Urgent, R=
-W times */
-> +	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_SODI_HIGH], BUF_THRESHOLD_PARAM, sodi=
-_hi);
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu3x.c b/drivers/medi=
+a/platform/qcom/iris/iris_vpu3x.c
+> index 97563bf899392..7d9d67baf22a8 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu3x.c
 
 [ ... ]
 
 [Severity: High]
-This is a pre-existing issue, but can mtk_dsi_irq_data_clear() and
-mtk_dsi_irq_data_set() drop interrupts due to a data race?
+This is a pre-existing issue, but while reviewing the driver's lifecycle
+management I noticed a potential use-after-free in the V4L2 file release
+flow.
 
-In mtk_dsi_irq_data_clear() (process context):
+If a userspace process opens the V4L2 device and the driver is subsequently
+unbound (e.g., via sysfs), the driver core automatically frees all devres
+allocations, including the iris_core structure.
 
-    dsi->irq_data &=3D ~irq_bit;
+When the userspace process later closes the file descriptor, iris_close()
+is called. Can this trigger a use-after-free when it accesses the freed
+core structure?
 
-And mtk_dsi_irq_data_set() (hardirq context):
+drivers/media/platform/qcom/iris/iris_vidc.c:iris_close() {
+        ...
+        iris_check_num_queued_internal_buffers(inst, V4L2_BUF_TYPE_VIDEO_CA=
+PTURE_MPLANE);
+        iris_remove_session(inst);
+        ...
+}
 
-    dsi->irq_data |=3D irq_bit;
+Which then takes a mutex on the already freed core structure:
 
-If the hardirq fires while process context is executing the non-atomic bit
-clear, could an interrupt completion flag (like VM_DONE_INT_FLAG) be silent=
-ly
-erased? This could cause wait_event_interruptible_timeout() to fail and log=
- a
-timeout, potentially hanging the display pipeline.
+drivers/media/platform/qcom/iris/iris_vidc.c:iris_remove_session() {
+        struct iris_core *core =3D inst->core;
 
-
-[Severity: High]
-This is a pre-existing issue, but does mtk_dsi_host_transfer() lack required
-serialization?
-
-Unlike many DSI host drivers, mtk_dsi_host_transfer() does not take a mutex.
-Can concurrent transfers from userspace via sysfs, modeset threads, or
-backlights corrupt the command queue or DSI state by concurrently calling
-mtk_dsi_host_send_cmd()?
+        mutex_lock(&core->lock);
+        ...
+}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715135703.4654=
-0-1-angelogioacchino.delregno@collabora.com?part=3D8
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-glymur-v9-=
+0-8cf2cbe12a07@oss.qualcomm.com?part=3D11
