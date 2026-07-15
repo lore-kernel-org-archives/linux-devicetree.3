@@ -1,61 +1,61 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2591B48B367
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 15:52:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D43DB48B379
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 15:52:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784130746; cv=none; b=IA3uIfO0uycJrg1yF8bIVqDfpZWCdzGcJvy/2bHqayXExyW/4lbqNShfqeGTVUUIfvaFSBWoWYDHLVBB6ylkyFr6oPJ/J4a/y1PPBg8pRFFAHlZHnwX/AsPpYEQu7MDYzshj9p+z9AlD9YuncsOd/5uZaGw8CckCCPWId6GcUeU=
+	t=1784130747; cv=none; b=AanEUgHFVOvGwdB7aGgfVFozulpJ4aoiELt7KYlg1xSJpGLa436RY/x0mVdqJaYMMj3UEkkGLsAIn8X2e6yIXcONMBc44w6W/AV9VXvgCYyyEZdfnxMAXmjV5Idx13nddO+B55hLdvvGIfPbkblqRZjPSHcZuSb4nvy3MbZ2xNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784130746; c=relaxed/simple;
-	bh=lIVOwdGAhhPirlQQK6szS6c1vrP2rs9gWB6YDMsEKPU=;
+	s=arc-20240116; t=1784130747; c=relaxed/simple;
+	bh=48Dr6toFQewmMurjdimp0gH85wq3gmjl3g1VH01g5Bk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nUjnGLcn5HOVSJI/U0ATNHqDJk8DJojK/uDERmOA5M6vQszYT7zkcNzs5FCur22mGkvtLVNdayTtiipktgibg7lZDChqJ0fOgUWxW1lQiWGXHaMvGaYgxnhwppU0jAx7lg1DpY9/AnUaJdD3MG2b84nTUEUUXFuoxIk/Hu1BF3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arturia.com; spf=pass smtp.mailfrom=arturia.com; dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b=LKGux8Lh; arc=none smtp.client-ip=209.85.128.43
+	 MIME-Version; b=GJ6oQ1KO3FfjhB5zq0MToRaQg9dg6cFICT/CKxXEMnpr5YeVaI1eTw5uZ/XqM/CI9UOm/2RKPng5gTeQhDhXwAYOXmyMhw3nFG+pjXJa0vJPciRQ2zyYipw7ION2rQBL5SJAj85YWKhTTIlsi1nLJYbxEwwSHU8IMJQIE8SBUiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arturia.com; spf=pass smtp.mailfrom=arturia.com; dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b=YzJVVpG+; arc=none smtp.client-ip=209.85.221.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arturia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arturia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b="LKGux8Lh"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4938d5f86f3so13695165e9.1
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 08:52:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b="YzJVVpG+"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47f3b39f2a1so1627181f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 08:52:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arturia.com; s=arturia; t=1784130742; x=1784735542; darn=vger.kernel.org;
+        d=arturia.com; s=arturia; t=1784130743; x=1784735543; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VgXC/MHby/wv6qNRBIevUa/OsJjo1nf53CtqCzi2LoA=;
-        b=LKGux8Lh6n9clVWQwuTNo2VtSEgZKAgSWgrOF1asqJ20zBcEjsCY4u2H/an6r2eYQl
-         VEmWBjgXlJkDwvij3iUg3ysCA27eF/dnqt3pO4jylmBP8Nz8w5QrdPDNzQc1ORClFDl5
-         jc6hSKmHOYwS3ECWo3tHGzpTdl0VRGCxEwx6A5vIBVOmthB7iWB7aOvvykRAMiROPXme
-         PwaTKEGw2SEvMi5uMhAmib3WM0n++bxptjj+ZsBSJFQqzQ5IbEvEi6iNyGY43ZwCjpUc
-         0MxHVyuwijQuJMXSgWVnZ66UO5H33Q250PAmryFiPfrrOnuh7PesS2ogEn9DyTUwn8bg
-         dhlg==
+        bh=xraGPgOgTRCSl61+fc0AYOBRqBBUeEnaLroeU6Dcj3Y=;
+        b=YzJVVpG+vZEG6mtopuEWeNzTI611Tmvh3feupn0LxtOzdcGPir62hSV1szDQQOHcc2
+         H4OdfppGlhXzZApqQoG4rHJuzgS/ObPBbMER/2CkT5t6SNpMpk+i7AB2EF/xg0Rm8f32
+         yXs6HqqXUbSuJHg7D7qdX0A+76tg2DgPTotNYUKqky5knIiSbtRj1jBbTZXMgF3nStTA
+         i7ULhanTYEN47auqWZV7qfSRbyvwOkBRVWvXlJWWOSabqw3+6TY/QWckuYwJYLL7+EQV
+         KKqVaKc5lf/1mi0ps5rs9kTaavodJB2J1Z9D0D4gfGs2IfO+2pZjUej+i3RenV8PvR3G
+         fsfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784130742; x=1784735542;
+        d=1e100.net; s=20251104; t=1784130743; x=1784735543;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VgXC/MHby/wv6qNRBIevUa/OsJjo1nf53CtqCzi2LoA=;
-        b=Fm5ryVx6BAx0pi/EeRspeVJcic7rKp1ATu8yB4X9fqhVIIEDZlILsuxU/xP9Q8rwKF
-         0Ej4OH6DKnvDevKXe0N3pXJmas9cqE0mE0cpc/WNbwpTNscuI6XBGVNWNp+TeRa3H0je
-         3H2HazM0MaQ5vV7mBVLiGMh35r+Ma9lFBEvqByIlfbs7nYbb62C9on3YGvEclGch7zEN
-         qHWcRg5z18n3hpPd/Xk7Q2SWHxC0ggdSkzMSanddLHGHwWCZCm/sMzG7bes1PzZ2kLjs
-         iiNC0AXmYdE3lDXvw2E+KeYfPdulDdlCTvt4NXk6QVM+x5TL/TfT01FpeHZpMMex6nKw
-         aXJw==
-X-Forwarded-Encrypted: i=1; AHgh+RodWXnqJFiSBnmvPxHf5V0/ybNxFRdqpTPmeB/QkbjKGVgitJJeLXWzokHDdSxgdahjgRYcVjA7LZhA@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywc56rnotbCAAydiWb0fm8m7p5yoj1Q82ZJC3BFM3jqMm9OAkFH
-	3u84hAyILFtVb9xDl7sdES4m9gXcFpxgVRd/BrlOSEsyJkpgbbmStsjOCFGgHTIj9Yo=
-X-Gm-Gg: AfdE7ckRgBEU7rqqu8jy4yTnHUmQBfcwEzJGfAz91leaaDeCj8sByjr6Rf4LexpAPCV
-	Btuww3+0sFDtXlpAXztZ2UNLlqiphNAb+sC5Nni7hoj+sNyOMqfkRL59hDJyU/dxoPtJxQ7IBq/
-	teJZOrCn2WFZM/N3Bkt3oy0t7xo2aEZjz2aBC7CAOasnaSOpKOwOrz3vu0yB0KmBRF51pUWxQP7
-	gniWQohC82buZ/7HS3vrMqtbeQTNg41lOquEGfHWvkKnuqPxuB9zBmJjtX86EigzmzF7+sJoXDW
-	Jx26JGIIVWC/0EkoysVKvQppTGLvAePClMY/Mj+WuHFpXh1jNzDmi0hemfNdXMa58VmlMJQENA2
-	KYV8yrmPtG4TxOsyeKNc1KC6RFBwbgLnx0PQUziMdppnhq6RANGGItJrOyB+hUhlggsPX89kW91
-	JNzwaaO4tK0+qf71Aet9NbTpu0qQ==
-X-Received: by 2002:a05:600c:26d3:b0:47d:52ef:c572 with SMTP id 5b1f17b1804b1-493f2a85ac7mr153944205e9.1.1784130742202;
+        bh=xraGPgOgTRCSl61+fc0AYOBRqBBUeEnaLroeU6Dcj3Y=;
+        b=k8y6/g8hRrTKhWjZrpifVXLcNnkETTzfJFYvKDK4oF+JXP/Ib52HCBQZWzOuEAc32i
+         B1BXJDa6qJEnOy4fcPUo79Rlk/8WFVHPh7cbIwUej5F865hFFx0y3Jxhx11pRznol5tL
+         UGc59YX3tk2MAfnRQBj3CPKwRd1NdhigVKFf1rK4voM74HFOzoimyBtE47hVA4OhcZmT
+         2hUdVo15TygmYZ81NTkhMBcgz4OQ71fSsjiLnZrYUp4xiWHeEZOwiu7otAavKSVk4JnO
+         /blpAJA6ouMJ4sa1iJyn+icTGcy3dJBtL6euqvPI6i5xz7vOlkh19btLDyOx4y+AOCip
+         CNGA==
+X-Forwarded-Encrypted: i=1; AHgh+RomFszymTyhZciU8wKlBnX1E8yAzaceBr/XkPGuoOh1a3Ibp122c9H3c4xYUFx+CFXtlx+4Fbox2NeR@vger.kernel.org
+X-Gm-Message-State: AOJu0YxshvIsPi/P3Gb3w94/ygCfsUC62le1BRymg8oy0Fi8cz4OqVdt
+	xdzxw/I/IdUycjKnBstcprhDBhoPTCyg+VwzBN4ME7tijT8+pBgxGu0xxY1AFB4Aqv0=
+X-Gm-Gg: AfdE7clJhAGmnv8JrA126cwEsPlaS1CH4prc+mM2uo8CmMrrwuTSxdXUu1JMhKlbLnR
+	BGxv2QBMn2hRvxMyAZj2HKlmrcLgZ+w0dIn1zfSPhGbJNMB68EbsgMLfnnXeUX5CITjQd3kUZ+R
+	xhWzzfIGlTA0r3Y33ho3FWA4BMU4wSC2nRSWrncRq0mm2wqOtvfNpHbtLwjjdcWezw1OtvMects
+	qUfDDyWGVEk/Jl0EFjpcS6KLaSRgduu4dr4/XqrIcaMBLfPSGgDVFrEOTP+QTFufsW9SdhFKx3M
+	Yyk+qXGB5K5UMuR7Bg31pTEZoXp2nhtYbgl3k9we9Ck/CSIOPv9GlnXsE5xaeJV50AGzuw7YvU3
+	0iRVWldecs/ybB1lXRTwZmsNB1KU0eltIgDRCe4V8SgQPXVjbf0FNZ4IJ5aJiSeQTTxNs8DHc1b
+	z6605DwxmV74n5ifH/xTqYP58/PueKr+mJj4Tc
+X-Received: by 2002:a5d:64ef:0:b0:475:f0d1:eb5a with SMTP id ffacd0b85a97d-47f2dd132e0mr22351872f8f.53.1784130742740;
         Wed, 15 Jul 2026 08:52:22 -0700 (PDT)
 Received: from vkrawiec.lan ([2001:861:2128:c8c0:8e98:aced:6862:3133])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f4634e5c3sm16621663f8f.1.2026.07.15.08.52.21
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f4634e5c3sm16621663f8f.1.2026.07.15.08.52.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 15 Jul 2026 08:52:22 -0700 (PDT)
 From: Victor Krawiec <victor.krawiec@arturia.com>
@@ -67,9 +67,9 @@ To: lgirdwood@gmail.com,
 Cc: linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	Victor Krawiec <victor.krawiec@arturia.com>
-Subject: [PATCH 2/4] arm64: dts: rk3399-rock-4c-plus: Use device tree bindings constants for SYR828 regulator initial mode
-Date: Wed, 15 Jul 2026 17:51:39 +0200
-Message-ID: <20260715155141.128601-3-victor.krawiec@arturia.com>
+Subject: [PATCH 3/4] arm64: dts: rockchip: rk3399-hugsun-x99: Update SYR828 regulator initial mode to use device tree bindings constants
+Date: Wed, 15 Jul 2026 17:51:40 +0200
+Message-ID: <20260715155141.128601-4-victor.krawiec@arturia.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260715155141.128601-1-victor.krawiec@arturia.com>
 References: <20260715155141.128601-1-victor.krawiec@arturia.com>
@@ -85,26 +85,26 @@ Prefer using a device tree bindings constant over a hardcoded value
 
 Signed-off-by: Victor Krawiec <victor.krawiec@arturia.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3399-rock-4c-plus.dts | 3 ++-
+ arch/arm64/boot/dts/rockchip/rk3399-hugsun-x99.dts | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-rock-4c-plus.dts b/arch/arm64/boot/dts/rockchip/rk3399-rock-4c-plus.dts
-index d9ff777b4913..813c3cb1b71e 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-rock-4c-plus.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-rock-4c-plus.dts
-@@ -7,6 +7,7 @@
- 
- /dts-v1/;
- #include <dt-bindings/leds/common.h>
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-hugsun-x99.dts b/arch/arm64/boot/dts/rockchip/rk3399-hugsun-x99.dts
+index 352c8efb37e0..6d9ca6e7325b 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-hugsun-x99.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-hugsun-x99.dts
+@@ -3,6 +3,7 @@
+ #include <dt-bindings/pwm/pwm.h>
+ #include <dt-bindings/input/input.h>
+ #include <dt-bindings/interrupt-controller/irq.h>
 +#include <dt-bindings/regulator/silergy,syr82x.h>
- #include "rk3399-t.dtsi"
+ #include "rk3399.dtsi"
  
  / {
-@@ -448,7 +449,7 @@ vdd_gpu: regulator@41 {
+@@ -237,7 +238,7 @@ vdd_gpu: syr828@41 {
  		regulator-always-on;
  		regulator-boot-on;
- 		vin-supply = <&vcc5v0_sys>;
--		regulator-initial-mode = <1>; /* 1:force PWM 2:auto */
+ 		vin-supply = <&vcc_sys>;
+-		regulator-initial-mode = <1>;
 +		regulator-initial-mode = <SYR82X_REGULATOR_MODE_FORCE_PWM>;
  		regulator-state-mem {
  			regulator-off-in-suspend;
