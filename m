@@ -1,50 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 654DC39CCF3;
-	Wed, 15 Jul 2026 05:59:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6905299A87;
+	Wed, 15 Jul 2026 06:05:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784095152; cv=none; b=VIXBxEJ/wXlXU3lqVWhhgo56Gj0Iy4r2xUGWI3T7p7gOrmn0Fweg+HqZkkW19V7nPkd2nFf5rwUIMsum+JKQsIRo+XWaYyRZUwhBvBLz6FMUaf8cjlZsC+c/ASB6g9VFtmk8kq3uVqvb6s/UvMg9Xroy8bjzmyIOE/MQWIcqgIo=
+	t=1784095535; cv=none; b=tOAuMt6UCEX0y7adm+F9eTW+ZDj5Jh6KBJzMQRabzeoOqvLgfzp2XA/it1CiGH6fKmDiehfbVOQCoW+xFw4/rehZkXDOMGYBHbQ1j7eU5RH0pOEPwZr7VpJwGz1B4NarB4Q9bgm0U4haVau2WznlKFIOHvzu05AYc2/PNd19fDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784095152; c=relaxed/simple;
-	bh=7eXGKfHfoTLoeGWiYr+TKPawhgWlHSMCu/cAMNcCtww=;
+	s=arc-20240116; t=1784095535; c=relaxed/simple;
+	bh=mFmzIqI0E2AOl7iWfNAYg/+hrnFobdS4+ONb+V6PEKE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EIDktBRgbRZULtqq2L8Lg2jhVlGHd5fZPbedkeyVoUrFXt6UDO3WOYmv5uZfmB69wjf9mg3qC3Y9gK1ppbhMOyJZFNLO9fTNaAskpjRWmthMF4iPpDZDW5lgO+zFgyQHRnbRVnIRzn9D2IAtaV4G1jte0d0vofWpNMEsH6uSj+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oq+KYvmE; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=k++KD768Wy1n3DpE6WYxsg0n6URSOL6VSO9vhA3Qper+RvbrKD1CJYtBewB7SCT5iFgk+KcZvsHvxGYYkINKzv5hVCOzv4lgrotnoBCqId4EQ5+bDelZ4JzzyyYIZt1Ljh9ATey6+hZlf5ojFFDizaNj1HsgidujomImEZ/1m74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fl868jUQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oq+KYvmE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 127FB1F000E9;
-	Wed, 15 Jul 2026 05:59:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fl868jUQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D31A21F000E9;
+	Wed, 15 Jul 2026 06:05:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784095150;
-	bh=n0SGocToquLN1fFBmS7KLjAIRrJxEJXwbv4xjRLyoF8=;
+	s=k20260515; t=1784095534;
+	bh=Q5d7uPn8O1XAg/4cjyjc6wAHhDa2fLUpBh2d/4RKbRQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Oq+KYvmE5SBNjAa0lG4FN4Rwv3CPNZ93T9avUd4rPiEGNeRK+sP2xbsfk2B3HggqJ
-	 4VO/FSnRP1QoCAj1hsBSg+usGL2ZsYEukkJRGAWdz27uIuNicpvaqD9dqNSWsHoxIi
-	 fV3K7DOFC3qhZ3xfQbbK0aO9qxieXJJfbz9Kri0wFZ1lDILlM2+3/dvZgZ8cjc/fjq
-	 ImAOHHXPR8voq0ds6AYOnivUdCdiaR0Tm6dJ64F8SvycaP8IBSbsivvo3TuFJgK/hj
-	 7FPr2vkluNlKB6yQs6p3S4HwpplReqR0YnJOj/RMAys64Fs8fVkWmE63KHebWzeVUO
-	 Lz+yPhahON7dg==
-Date: Wed, 15 Jul 2026 07:59:07 +0200
+	b=fl868jUQ+yGdGjOaIPY4CI6mzrAOkJJKny6v47fBwE+BIHwfX4/W5KNsZZTuD1gc9
+	 5v11y14BoC4mwmAAceXvnZ6j5x6Vb7OmIlijLP7BnR3JkoO+iYRCJzPTXt3k0R7LXR
+	 JZewqjonyxorDSJHP58rxrHmVOnLAmai1unGIPlFTVDqTmVs0WbqlpKBPtmGrFUnEW
+	 y2raQZt4zJ2Dy2hMMlCJ1vVUzApyj7mkV3DqQHCzemX80dqUWFiDzapeO488uvj5gi
+	 ILZYW/siTIXd2z9n/QxqGrba0F3cruQX5xlHLqa14MrZyxjAOSMk77TAt2ka+HdVQm
+	 LPXigMo7GLPaw==
+Date: Wed, 15 Jul 2026 08:05:29 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Luca Weiss <luca.weiss@fairphone.com>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Ajit Pandey <ajit.pandey@oss.qualcomm.com>, 
-	Imran Shaik <imran.shaik@oss.qualcomm.com>, Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v7 02/10] dt-bindings: clock: qcom,milos-videocc: Add
- missing power-domains support
-Message-ID: <20260715-luminous-bittern-of-coffee-2ecfd1@quoll>
-References: <20260713-b4-eliza_mm_cc_v6-v7-0-4d91bcef50eb@oss.qualcomm.com>
- <20260713-b4-eliza_mm_cc_v6-v7-2-4d91bcef50eb@oss.qualcomm.com>
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org, 
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Subject: Re: [PATCH v5 1/3] ASoC: dt-bindings: qcom,q6apm-lpass-dais:
+ Document DAI subnode
+Message-ID: <20260715-crafty-cheerful-goat-baba95@quoll>
+References: <20260714145250.2473461-1-mohammad.rafi.shaik@oss.qualcomm.com>
+ <20260714145250.2473461-2-mohammad.rafi.shaik@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,26 +48,78 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260713-b4-eliza_mm_cc_v6-v7-2-4d91bcef50eb@oss.qualcomm.com>
+In-Reply-To: <20260714145250.2473461-2-mohammad.rafi.shaik@oss.qualcomm.com>
 
-On Mon, Jul 13, 2026 at 08:23:40PM +0530, Taniya Das wrote:
-> The Milos video clock controller requires the CX and MX power
-> domains, along with their performance state votes, to be enabled
-> before the clock controller can be accessed.
+On Tue, Jul 14, 2026 at 08:22:48PM +0530, Mohammad Rafi Shaik wrote:
+> Extend the qcom,q6apm-lpass-dais device tree binding to explicitly
+> describe Digital Audio Interface (DAI) child nodes.
 > 
-> Document the 'power-domains' and 'required-opps' properties and add
-> them to the required properties list and example. Since these
-> properties become required for the already-documented
-> qcom,milos-videocc compatible, this is an ABI break for any devicetree
-> using this binding without specifying them.
+> Add #address-cells and #size-cells to allow representation of multiple
+> DAI instances as child nodes, and define a dai@<id> pattern to document
+> per-DAI properties such as the interface ID and associated clocks.
 > 
-> Fixes: a4937e974186 ("dt-bindings: clock: qcom: document the Milos Video Clock Controller")
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> On platforms such as Monaco and Lemans, third-party codecs are hardware
+> wired to the SoC and do not always have an in-tree codec driver to manage
+> their clocks. For these designs, clock line enablement must be driven
+> from the platform side, and this series provides the necessary support
+> for that.
+> 
+> On QAIF-based platforms such as Shikra and Hawi, responsibility for voting
+> I2S MCLK and BCLK has moved from the DSP to the kernel. This series
+> introduces the required device tree binding support to represent and
+> vote for these clocks from the kernel.
+> 
+> Co-developed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 > ---
->  .../devicetree/bindings/clock/qcom,milos-videocc.yaml | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
+>  .../bindings/sound/qcom,q6apm-lpass-dais.yaml | 89 +++++++++++++++++++
+>  1 file changed, 89 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml b/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml
+> index 2fb95544d..b37c62ccd 100644
+> --- a/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml
+> +++ b/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml
+> @@ -21,6 +21,82 @@ properties:
+>    '#sound-dai-cells':
+>      const: 1
+>  
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
+> +
+> +# Digital Audio Interfaces
+> +patternProperties:
+> +  '^dai@[0-9a-f]+$':
+> +    type: object
+> +    description:
+> +      Q6DSP Digital Audio Interfaces.
+> +
+> +    properties:
+> +      reg:
+> +        maxItems: 1
+> +        description:
+> +          Digital Audio Interface ID
+> +
+> +      clocks:
+> +        minItems: 1
+> +        maxItems: 2
+> +        description: MI2S clocks (mclk, bclk and/or eclk).
+> +
+> +      clock-names:
+> +        minItems: 1
+> +        maxItems: 2
+> +
+> +    allOf:
+> +      - oneOf:
+> +          - properties:
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Please don't do such stuff. Did you find it somewhere? If yes, then
+where - so we can remove it?
+
+I gave you the close-to-exact syntax I expect. It was nothing like this.
 
 Best regards,
 Krzysztof
