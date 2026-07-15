@@ -1,463 +1,151 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B67345CAE
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 06:22:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3AC7313283;
+	Wed, 15 Jul 2026 06:32:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784096567; cv=none; b=RmowDq1osa3/OgkpcVnjE1KBbaQ1zJrLtipL3u6M7UiIYC3NjwzKlTE7XMQCKRaFDllMCCQcEaHBvYpWQsf5UehJddXn2xV5tDOn/2ici1Em6ODUgWgiUiLlmvlMqGvZYVoUQHyaRQn02cm4Gx3axQv3Vy92LIuMj8H//8q/LUo=
+	t=1784097146; cv=none; b=hmMuCUkR420EtdjvR0wCGThlG+haGCQVaF+QBHS8IKoXqjc7nJAAa2dt7FJ9oxFaFvqRyAqJScjqyZiE1sUFeOvlbfGFa2fnAgvGTNmenPHUt4wwiD+jH9ruL9nD5VkLnQHRQkTsEyVoYotmA2uA3B4FWvrd9XZkOnpziJAIS0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784096567; c=relaxed/simple;
-	bh=dDbeHPkgMGADsZxjoGo8SFhLwSy61BJRDfQk0p49bqI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fPns7dtilRCmsWi4ckbWKF5hGv2EdiIS7O9J1LpaWxCO//fr/MXh0iafjnh2Pc8SOAO/uR+6+HrOKTZ4hhCZP5CQtYjBEsoV7EIcCVK2UBqIW1tVNj/F/Pnhe8P14Lu0JhPgXo+tNSGjtBrcAgi5IaQksqWDoTrhRv6cNYLpeWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=EYY75UJd; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	s=arc-20240116; t=1784097146; c=relaxed/simple;
+	bh=RgFSZ4GcQNxSGk/4lQiMQnPxmHi1gAvKmjEWlI5TUMQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lynxQIEOGTtCroC/NLEeIJfX9UkGQ57sfPKj+4wUlMgyjCbPNkaXFwQMFpRlyp1Jrcki+U8pPKJoBnLAH9nQIY6oJj1Lz5TVZJ2jxMzrSFXyd6XIsUCCxRgax+gq4b2TuF+0CbyTlm/zwlzqOiXXNKeEAe2++hnkzky4Gaf+jWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Q2TbwCJN; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="EYY75UJd"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c15d111ca99so499339466b.0
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 23:22:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1784096564; x=1784701364; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oV3f+50ed4LkIgc2qygb/N6CZZlLTsBadYHjngUXyJU=;
-        b=EYY75UJdWHz7E5TLjOrtYZ8Vq/yDw7MS3Yasm1JkymlJIkIeniQV/eJLSdRysUCChD
-         nOPaRBURSYv4rs9W+vNwarhN8oNnEafiXJ6D9WE1KRGGrGrCdgUHZ2k110LyvNKYK2z8
-         HtlY4yEUaCl9aujcBbSPGwfwwfKhabdWQ8cwM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784096564; x=1784701364;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oV3f+50ed4LkIgc2qygb/N6CZZlLTsBadYHjngUXyJU=;
-        b=MzIMRYVM1BQGsY+fXS3gX7G2tBUyzo99Nt75+iJd3xTYJwtDUfTEFeRmpEXRBwOPTb
-         gKBPDGRD6x4yZPKcajdW8dPROStKVTa3otZkCGqcPz25yaaLAIcF277arzOLDsw/UNzD
-         /5LsyFsB7oXuL2uAJSboijJZjGgLHJUIOSMVN+backrcCNl2XUs+moxoYeeTZvGbprex
-         rqiER6qjQpmVWxUOnYXqr2MHch518mNmZ9Q61GDV1iRUokxd8edJxIwd5E3gR7cxP68p
-         NWLQebxxYP9YgIbLmjwWr1iDMyPfoFvejkw2EQfr8VxbyLcDKqOtjYmwkxOAA9noTKfo
-         Grog==
-X-Forwarded-Encrypted: i=1; AHgh+Ro3ppKpEY+f/Xw7SGxAtsgv+DnGcRAZXxZQJhRS8LjPQpnrjV2ecqQ/QMFE/0ZI34eF2I39LcV4sph7@vger.kernel.org
-X-Gm-Message-State: AOJu0YzqxESXtZsqQ+WFd320wEq8072Iw0ikkvlcSMAaGZbnQbpQQ0nu
-	j1RmDg1TRoWf+DfVF4v/Hlzx7e9BhZv0DI4591BzZfZJw1yfzhKMYf1CPhbqRablHA4=
-X-Gm-Gg: AfdE7ckrh4yIpkTFwfwZybFu3CRgRBOVPQHrim+HeWvbK7T/xf/iytg7YV56iDhffgb
-	eL4SZN4Zi0h9Whob5i2ttfZ2KeOuKtvOdo6qbTqVgdLWTNQ+5QUvhTS0JgSGxPb6kmNwixCRxJS
-	TWJ0zdompXsnJxAU+znp/hC/0salklWZxNL9KcG4aV2XR2feomTdCWDapXqA2ZikBTZ3SbXEJlY
-	KKdoh2dHXDsz+hgc8DKoHLr0GFPCYOBebC+1aGBbq54Gcgf77IOnCaM0/tiweLJmigGu9YR4pSn
-	YvqsLxHZX9WA0L2A2V70fPwl46RFEOA/iURDXyY5gykHI3v0Ruz74/+MayGmBQ+jY9on0q9b5Se
-	NJfhhKXuIH9tr9sbZtSsEEN64Vu8vKOnjcgIZ/xSG1ywDZBHfC+c+OeByJttYwRMC80QD6IoprG
-	9fFOdaRfq55sxT3woFnehyT/gHdbVVuHUB74IrpBI/0UOZpktEHcX5P3ySpfrlHRV0GRDcew8v4
-	J7sB/Pg7xpt
-X-Received: by 2002:a17:907:c1e:b0:c12:9e83:643 with SMTP id a640c23a62f3a-c167921a862mr106457666b.10.1784096563757;
-        Tue, 14 Jul 2026 23:22:43 -0700 (PDT)
-Received: from dario-ThinkPad-P14s-Gen-5.. ([2.196.41.101])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15d0c3cf1esm1028820366b.44.2026.07.14.23.22.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 23:22:43 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Cc: michael@amarulasolutions.com,
-	francesco.utel@engicam.com,
-	domenico.acri@engicam.com,
-	linux-amarula@amarulasolutions.com,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Q2TbwCJN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784097145; x=1815633145;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=RgFSZ4GcQNxSGk/4lQiMQnPxmHi1gAvKmjEWlI5TUMQ=;
+  b=Q2TbwCJNmrZaYb5Qd80ZDc5UTaurU4mwkq6Hr4uRF5QPJjMH3HPmqKD6
+   PkA6QyAg+tfpSNxNU/YH8Y7qRUKG8+I8vSRlzHnLpbAXuSxbicotmPbFF
+   GhdDu0MtcTlWMH9wB4aevZf7F0AGV42vKz36ZxbibDz1mVnnAWHq0FRWV
+   If7ua3SEV21gdOqIKOqBdA53Q8GZ0HaejxsJqSFaiQXjJon3ne554HiDp
+   adiX5LK5SzXSXgNsd2/LS34f2pmVL9mksMsaqtmMjorF2RJDiUatAZqDA
+   gZDPtaTHePRD+YmxK1AycJ0aW4jcZqqkhgqNhW5adMNHLLr9CBa3vTQxy
+   w==;
+X-CSE-ConnectionGUID: +LQO0EBGTcyfoHYW7ufkIw==
+X-CSE-MsgGUID: 09u5F7t1QVynrWvNSIzYhQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84842206"
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="84842206"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jul 2026 23:32:22 -0700
+X-CSE-ConnectionGUID: 0DPTEpseSdSJFiU6iNrQpg==
+X-CSE-MsgGUID: fImbR2beQzyJHFlgMfVyjQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="254332119"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.44])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jul 2026 23:32:18 -0700
+Date: Wed, 15 Jul 2026 09:32:15 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [RESEND PATCH v7 15/16] arm64: dts: st: support Engicam MicroGEA-STM32MP257-RMM board
-Date: Wed, 15 Jul 2026 08:20:32 +0200
-Message-ID: <20260715062201.3599458-16-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260715062201.3599458-1-dario.binacchi@amarulasolutions.com>
-References: <20260715062201.3599458-1-dario.binacchi@amarulasolutions.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v7 07/17] iio: test: add kunit tests for channel prefix
+ naming generation
+Message-ID: <alcpb-7GVSfk6jFB@ashevche-desk.local>
+References: <20260707-ad9910-iio-driver-v7-0-a4ec30f63700@analog.com>
+ <20260707-ad9910-iio-driver-v7-7-a4ec30f63700@analog.com>
+ <20260712020928.2c8d1667@jic23-huawei>
+ <egyms7ulkxsgu4pvfkoruelec3sf6ca4bndcuqkvxljrdluqwu@edlqne7oy3xs>
+ <20260714180812.000070c4@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260714180812.000070c4@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Support for Engicam MicroGEA-STM32MP257-RMM board with:
+On Tue, Jul 14, 2026 at 06:08:12PM -0700, Jonathan Cameron wrote:
+> On Mon, 13 Jul 2026 10:52:56 +0100
+> Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
+> > On 12/07/26 02:09, Jonathan Cameron wrote:
+> > > On Tue, 07 Jul 2026 15:04:28 +0100
+> > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
 
- - 8 GB eMMC Flash
- - 2 GB LPDDR4 DRAM
- - CAN
- - LEDs
- - LCD panel with touchscreen
- - Micro SD card connector
- - Audio codec
- - Buzzer
+...
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+> > > > Because __iio_chan_prefix_emit() is static, the test translation unit
+> > > > is pulled into industrialio-core.c.  
 
----
+KUnit also has static/non-static automation via a macro (defined in the
+kunit/visibility.h) and I see that's used in the below example.
 
-(no changes since v5)
+> > > Isn't there some magic route cases like this that makes it non static
+> > > only when self tests are enabled? 
+> > > Claude tells me to look at include/kunit/visibility.h  
+> > 
+> > There is, Although I think that using
+> > 
+> > 	#if IS_ENABLED(CONFIG_IIO_CHANNEL_PREFIX_KUNIT_TEST)
+> > 		#include "test/iio-test-channel-prefix.c"
+> > 	#endif
+> > 
+> > was more straight forward, less invasive and easier to change than..
 
-Changes in v5:
-- Fix touchscreen resolution to 480x854
-- Fix SPI1 CS0 polarity to GPIO_ACTIVE_LOW
+Maybe, but thanks to this thread, I fixed other modules that use their own
+approach to use the standard KUnit infra for this (as below).
 
-Changes in v2:
-- Drop the clocks property from the sai1 node in stm32mp257-engicam-microgea-rmm.dts
-  to avoid overriding the peripheral bus clock reference defined in the base
-  SoC device tree. Suggested by Sashiko.
-- Reference the existing labeled nodes directly at the root level using
-  &sai1a and &sai1b in stm32mp257-engicam-microgea-rmm.dts instead of
-  redefining the entire node structure and redeclaring the labels. Suggested by Sashiko.
-- Drop the #clock-cells property from sai1a and remove the reference to sai1a from
-  the clocks array in sai1b, relying strictly on the st,sync property to handle
-  internal synchronization.
+> > 	/* In "drivers/iio/industrialio-core.c" */
+> > 
+> > 	#include <kunit/visibility.h>
+> > 	...
+> > 	VISIBLE_IF_KUNIT ssize_t __iio_chan_prefix_emit(...)
+> > 	{
+> > 	...
+> > 	}
+> > 	EXPORT_SYMBOL_IF_KUNIT(__iio_chan_prefix_emit);
+> > 
+> > 	/* In "iio_core.h" */
+> > 
+> > 	#if IS_ENABLED(CONFIG_KUNIT)
+> > 		ssize_t __iio_chan_prefix_emit(...);
+> > 	#endif
+> > 
+> > 	/* In "drivers/iio/test/iio-test-channel-prefix.c" */
+> > 
+> > 	#include <kunit/visibility.h>
+> > 	#include <iio_core.h>
+> > 	...
+> > 	MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
+> > 	...
+> > 	// Use __iio_chan_prefix_emit() in tests
+> 
+> I'd rather this wasn't built into the core module.  So prefer you jump
+> though those hoops.
 
- arch/arm64/boot/dts/st/Makefile               |   1 +
- .../st/stm32mp257-engicam-microgea-rmm.dts    | 319 ++++++++++++++++++
- 2 files changed, 320 insertions(+)
- create mode 100644 arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
+Hmm... The above (while being verbose) is the standard way of how we export
+symbols for KUnit tests. Do you have a better alternative that everyone can
+use? (Not only IIO subsystem.)
 
-diff --git a/arch/arm64/boot/dts/st/Makefile b/arch/arm64/boot/dts/st/Makefile
-index 63908113ae36..386eca593c54 100644
---- a/arch/arm64/boot/dts/st/Makefile
-+++ b/arch/arm64/boot/dts/st/Makefile
-@@ -2,5 +2,6 @@
- dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32mp215f-dk.dtb \
- 	stm32mp235f-dk.dtb \
-+	stm32mp257-engicam-microgea-rmm.dtb \
- 	stm32mp257f-dk.dtb \
- 	stm32mp257f-ev1.dtb
-diff --git a/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts b/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
-new file mode 100644
-index 000000000000..3aea0c2f6651
---- /dev/null
-+++ b/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
-@@ -0,0 +1,319 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2026 Amarula Solutions, Dario Binacchi <dario.binacchi@amarulasolutions.com>
-+ * Copyright (C) 2026 Engicam srl
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
-+
-+#include "stm32mp257-engicam-microgea.dtsi"
-+
-+/ {
-+	model = "Engicam MicroGEA STM32MP257D RMM Board";
-+	compatible = "engicam,microgea-stm32mp257-rmm",
-+		     "engicam,microgea-stm32mp257", "st,stm32mp257";
-+
-+	aliases {
-+		mmc0 = &sdmmc1;
-+		mmc1 = &sdmmc2;
-+		serial0 = &usart2;
-+		serial1 = &usart1;
-+	};
-+
-+	backlight: backlight {
-+		compatible = "pwm-backlight";
-+		brightness-levels = <0 100>;
-+		num-interpolated-steps = <100>;
-+		default-brightness-level = <85>;
-+		pwms = <&pwm2 0 100000 0>;
-+	};
-+
-+	buzzer {
-+		compatible = "pwm-beeper";
-+		pwms = <&pwm4 0 1000000 0>;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		framebuffer {
-+			compatible = "simple-framebuffer";
-+			clocks = <&rcc CK_BUS_LTDC>, <&rcc CK_KER_LTDC>;
-+			lcd-supply = <&reg_3v3>;
-+			status = "disabled";
-+		};
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		led-0 {
-+			gpios = <&gpioh 2 GPIO_ACTIVE_HIGH>;
-+			default-state = "off";
-+			status = "okay";
-+		};
-+
-+		led-1 {
-+			gpios = <&gpioh 6 GPIO_ACTIVE_HIGH>;
-+			default-state = "off";
-+			status = "okay";
-+		};
-+	};
-+
-+	mclk: clock-mclk {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <24000000>;
-+	};
-+
-+	reg_1v8: regulator-1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "1v8";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+	};
-+
-+	reg_3v3: regulator-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "3v3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+	};
-+
-+	reg_ext_pwr: regulator-ext-pwr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "ext-pwr";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpio = <&gpiog 0 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		regulator-always-on;
-+	};
-+
-+	sound {
-+		compatible = "audio-graph-card";
-+		label = "STM32MP25-RMM";
-+		widgets = "Headphone", "Headphone Jack",
-+			  "Microphone", "Microphone Jack";
-+		routing = "Headphone Jack", "HP_OUT",
-+			  "MIC_IN", "Microphone Jack",
-+			  "Microphone Jack", "Mic Bias";
-+		dais = <&sai1a_port &sai1b_port>;
-+		status = "okay";
-+	};
-+};
-+
-+&arm_wdt {
-+	timeout-sec = <32>;
-+	status = "okay";
-+};
-+
-+&i2c1 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&i2c1_pins_a>;
-+	pinctrl-1 = <&i2c1_sleep_pins_a>;
-+	i2c-scl-rising-time-ns = <185>;
-+	i2c-scl-falling-time-ns = <20>;
-+	status = "okay";
-+	/* spare dmas for other usage */
-+	/delete-property/dmas;
-+	/delete-property/dma-names;
-+
-+	touchscreen@38 {
-+		compatible = "edt,edt-ft5306";
-+		reg = <0x38>;
-+		interrupt-parent = <&gpiob>;
-+		interrupts = <0 IRQ_TYPE_EDGE_FALLING>;
-+		reset-gpios = <&gpiod 1 GPIO_ACTIVE_LOW>;
-+		touchscreen-size-x = <480>;
-+		touchscreen-size-y = <854>;
-+	};
-+};
-+
-+&i2c2 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&i2c2_pins_a>;
-+	pinctrl-1 = <&i2c2_sleep_pins_a>;
-+	i2c-scl-rising-time-ns = <185>;
-+	i2c-scl-falling-time-ns = <20>;
-+	status = "okay";
-+	/* spare dmas for other usage */
-+	/delete-property/dmas;
-+	/delete-property/dma-names;
-+
-+	sgtl5000: codec@a {
-+		compatible = "fsl,sgtl5000";
-+		reg = <0x0a>;
-+		#sound-dai-cells = <0>;
-+		clocks = <&mclk>;
-+
-+		VDDA-supply = <&reg_3v3>;
-+		VDDIO-supply = <&reg_3v3>;
-+		VDDD-supply = <&reg_1v8>;
-+
-+		sgtl5000_port: port {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			sgtl5000_tx_endpoint: endpoint@0 {
-+				reg = <0>;
-+				remote-endpoint = <&sai1a_endpoint>;
-+				frame-master = <&sgtl5000_tx_endpoint>;
-+				bitclock-master = <&sgtl5000_tx_endpoint>;
-+			};
-+
-+			sgtl5000_rx_endpoint: endpoint@1 {
-+				reg = <1>;
-+				remote-endpoint = <&sai1b_endpoint>;
-+				frame-master = <&sgtl5000_rx_endpoint>;
-+				bitclock-master = <&sgtl5000_rx_endpoint>;
-+			};
-+		};
-+	};
-+};
-+
-+&ltdc {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&ltdc_pins_a>;
-+	pinctrl-1 = <&ltdc_sleep_pins_a>;
-+	status = "okay";
-+
-+	port {
-+		ltdc_out: endpoint {
-+			remote-endpoint = <&panel_in>;
-+		};
-+	};
-+};
-+
-+&m_can1 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&m_can1_pins_a>;
-+	pinctrl-1 = <&m_can1_sleep_pins_a>;
-+	status = "okay";
-+};
-+
-+&sai1 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&sai1a_pins_a>, <&sai1b_pins_a>;
-+	pinctrl-1 = <&sai1a_sleep_pins_a>, <&sai1b_sleep_pins_a>;
-+	status = "okay";
-+};
-+
-+&sai1a {
-+	dma-names = "tx";
-+	status = "okay";
-+
-+	sai1a_port: port {
-+		sai1a_endpoint: endpoint {
-+			remote-endpoint = <&sgtl5000_tx_endpoint>;
-+			dai-format = "i2s";
-+			mclk-fs = <512>;
-+		};
-+	};
-+};
-+
-+&sai1b {
-+	dma-names = "rx";
-+	st,sync = <&sai1a 2>;
-+	clocks = <&rcc CK_KER_SAI1>;
-+	clock-names = "sai_ck";
-+	status = "okay";
-+
-+	sai1b_port: port {
-+		sai1b_endpoint: endpoint {
-+			remote-endpoint = <&sgtl5000_rx_endpoint>;
-+			dai-format = "i2s";
-+			mclk-fs = <512>;
-+		};
-+	};
-+};
-+
-+/* MicroSD */
-+&sdmmc1 {
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-+	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
-+	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-+	broken-cd;
-+	disable-wp;
-+	st,neg-edge;
-+	bus-width = <4>;
-+	vmmc-supply = <&scmi_v3v3>;
-+	vqmmc-supply = <&scmi_vddio1>;
-+	no-1-8-v;
-+	status = "okay";
-+};
-+
-+&spi1 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&spi1_pins_a>;
-+	pinctrl-1 = <&spi1_sleep_pins_a>;
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	cs-gpios = <&gpioh 8 GPIO_ACTIVE_LOW>, <&gpioh 3 GPIO_ACTIVE_HIGH>;
-+	status = "okay";
-+
-+	display: display@0 {
-+		compatible = "rocktech,rk050hr345-ct106a", "ilitek,ili9806e";
-+		reg = <0>;
-+		vdd-supply = <&reg_3v3>;
-+		spi-max-frequency = <10000000>;
-+		reset-gpios = <&gpiob 6 GPIO_ACTIVE_LOW>;
-+		backlight = <&backlight>;
-+
-+		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&ltdc_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&timers2 {
-+	status = "okay";
-+
-+	pwm2: pwm {
-+		pinctrl-0 = <&pwm2_pins_a>;
-+		pinctrl-1 = <&pwm2_sleep_pins_a>;
-+		pinctrl-names = "default", "sleep";
-+		status = "okay";
-+	};
-+};
-+
-+&timers4 {
-+	status = "okay";
-+
-+	pwm4: pwm {
-+		pinctrl-names = "default", "sleep";
-+		pinctrl-0 = <&pwm4_pins_a>;
-+		pinctrl-1 = <&pwm4_sleep_pins_a>;
-+		status = "okay";
-+	};
-+};
-+
-+&usart1 {
-+	pinctrl-names = "default", "idle", "sleep";
-+	pinctrl-0 = <&usart1_pins_b>;
-+	pinctrl-1 = <&usart1_idle_pins_b>;
-+	pinctrl-2 = <&usart1_sleep_pins_b>;
-+	/delete-property/ dmas;
-+	/delete-property/ dma-names;
-+	status = "okay";
-+};
-+
-+&usart2 {
-+	pinctrl-names = "default", "idle", "sleep";
-+	pinctrl-0 = <&usart2_pins_a>;
-+	pinctrl-1 = <&usart2_idle_pins_a>;
-+	pinctrl-2 = <&usart2_sleep_pins_a>;
-+	/delete-property/ dmas;
-+	/delete-property/ dma-names;
-+	status = "okay";
-+};
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
