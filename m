@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF743E7BC8
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:48:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADA6242048C
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:52:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784119737; cv=none; b=QlI3YhsJBVRemchcB4lyUPGnna1drAaIICM7HuVbgpkRcVDjTDtMdAuJ/6U8OZXta0gWEAGJwcrCiqCzqMffgoXFk6C4eZLPGswQc66uRHspA8trFLIYCtEzzURZ42nqz4k2qBubGZHLlihJlRA86GmK6gpa+PCpBONLMLxG7as=
+	t=1784119941; cv=none; b=f72TuLig+hz8juDcpcIi94yT3eFEx61JfKnrHx4OqKz6oQP/gWrAFMxk1MBw2FeKcu3QS826daACsqge4AOvLINQD+HQcCR/Au0Dja77ME5GQ7ivXIEeQBCwbEsQAz7kWtushuawkekhzhcsZGs4HjeyMxMdNbVm+avLXXcfIQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784119737; c=relaxed/simple;
-	bh=MkVGGPEhVwyGab/IZlWHgT1LEIztbcLIPYJhoX3XaFI=;
+	s=arc-20240116; t=1784119941; c=relaxed/simple;
+	bh=rNIsxKd0GKP6SJ2ugHLKW7Wtn6LL+5Hm/UsZ9ohPYRg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ma+DeWJiGx2RRlhZw2XNH7dSRg4LtBBdLEfnuiw3VahxWE02hl9nDTqjw8QWPzSeTWx/v1v2OoyN4DbCX+Ass3u6nv/IpHk/tiVV/WVfknJMgIVsbgvmmsgCscsd0X4lBqH7CJWVmx3+fUfxcUCOGIDqjnjjR9DMsCma87mzs4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hRvm6Sb1; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=fpC2phGMLOz+GIWXFWWUuDr3+/MQbBGhl9ji+y89O6kIgXt6K+i/p/HvCnqiqhHf9JE4jxbPhfqkjELVDVACOkjFa4r89TUXn6zXH/zYvMAoXJdALEbjt/UYXmh9Me6XWRf99fTukSpNmD7UW+Y4momXZoTdqSGV9t+Nb/S6aFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e5U4AWaC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hRvm6Sb1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A8841F000E9;
-	Wed, 15 Jul 2026 12:48:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e5U4AWaC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E96D1F000E9;
+	Wed, 15 Jul 2026 12:52:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784119735;
-	bh=2MmBc2j/R7RJqEhUB66LPHlDdD1y3qEudIsqhS329DM=;
+	s=k20260515; t=1784119940;
+	bh=1eywHst6CxVhIRGxK0t+B0z4bxgOvQhn8bXlHlZB3Ek=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hRvm6Sb10an+ipm5+nIXseSFSrgogEd7ofjMkfQb/gYlAezm4KWvkB2L0+idJijsg
-	 y2qKefJM7Nuo/5CRzkRi004zXReLhrkZMyaSLQCO/Xr2jmSa+SeiZtTMBKRXwk5KAS
-	 5nkr+hlZs2BdcnGv5n1RcNReN1ZM5JgGrERSrnlYV1IT6KJqyjQcJLsCXkQsGLzKAe
-	 BjozycGUJNoegnj4zLHdz6DNbuBX1c7IoXDNTLAynKKacxpCTC95zr4p/Y6XiSAL3K
-	 Fmdela3guV0WWkMovgDYxyYYs0Z6dqQIoLaGNDKhkjECxez8D/3Iryt8lBvnjLGwLQ
-	 khcr2bceGRlhQ==
+	b=e5U4AWaCQFaq0B/FdvcEbbxoFZjHWBaOKAPMROQMYzXtGu+wT+XDHLSJgqeKzxdIk
+	 tLuXCcEcHZT30LXIuIenDyNoABYK8r/1Z8m6xvdHb126Yub6YXdUd8SHqdwcGFbV7Y
+	 FjnCd2Fi8Qt4YbuJW1Z1qdhFnQUPTbewOhp/noOeIGvSRkcBQT3Stpo3H4mEUuu24y
+	 zpQQqatEKJu7Cnaz+9yGM6B4Hp+IwbM0T8Jr83Q9mzvsLpES9nkrvj+o4nmylaTF3t
+	 UragCQ5k0/AXkaMCaC5xn2amU7BSPZZ/7IEBY6KYcO9clSDcGJU3hlfc1N9VfasXn2
+	 dER0uZlI8JhdQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/4] iio: light: ltr501: Add ltr329 driver support
+Subject: Re: [PATCH] ARM: dts: aspeed-g6: add pcie-lpc and pcie-kcs4
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Esben Haabendal" <esben@geanix.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260715-liteon-ltr329-v2-3-d18af55edab5@geanix.com>
-References: <20260715-liteon-ltr329-v2-0-d18af55edab5@geanix.com>
- <20260715-liteon-ltr329-v2-3-d18af55edab5@geanix.com>
+To: =?utf-8?b?R3LDqWdvaXJlIExheWV0?= <gregoire.layet@9elements.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <de49f2032f5b1f170161dcd6191c0daa48f0b0c2.1784117715.git.gregoire.layet@9elements.com>
+References: <de49f2032f5b1f170161dcd6191c0daa48f0b0c2.1784117715.git.gregoire.layet@9elements.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 12:48:55 +0000
-Message-Id: <20260715124855.9A8841F000E9@smtp.kernel.org>
+Date: Wed, 15 Jul 2026 12:52:19 +0000
+Message-Id: <20260715125220.0E96D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,86 +45,80 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Use-After-Free of IIO event interface due to mixing devm_request_t=
-hreaded_irq with manual iio_device_unregister
-- [High] Kernel stack memory leak and logic failure on big-endian systems d=
-ue to reading 2 bytes into an uninitialized 4-byte integer
+- [Medium] The newly added `pcie_lpc` node's memory region overlaps complet=
+ely with the upper half of the existing `lpc` node's memory region.
+- [Low] The nodes `pcie_lpc` and `pcie_kcs4` use specific, non-generic node=
+ names (`pcie-lpc` and `pcie-kcs`), violating Devicetree specification rule=
+s.
 --
 
---- Patch [3]: [PATCH v2 3/4] iio: light: ltr501: Add ltr329 driver support=
- ---
-commit 8ae95bcf91bc6043da3fe9505d6fab5f356128f7
-Author: Esben Haabendal <esben@geanix.com>
+--- Patch [1]: [PATCH] ARM: dts: aspeed-g6: add pcie-lpc and pcie-kcs4 ---
+commit 2d0eb7dfc73068ee32b00e22cfaac3679c6e6dbd
+Author: Gr=C3=A9goire Layet <gregoire.layet@9elements.com>
 
-iio: light: ltr501: Add ltr329 driver support
-   =20
-This adds support for the LTR-329ALS-01 chip, which is similar to
-LTR-303ALS-01, except for interrupt, which LTR-329ALS-01 chip does not
-have.
+ARM: dts: aspeed-g6: add pcie-lpc and pcie-kcs4
 
-> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
-> index 7d045be78c6df..379e57ac5f5b2 100644
-> --- a/drivers/iio/light/ltr501.c
-> +++ b/drivers/iio/light/ltr501.c
+This commit adds a pcie_lpc node and a pcie_kcs4 child node to the ast2600
+common dtsi. It allows exposing a fully KCS-compatible interface over PCIe,
+which can be used by the host for IPMI.
+
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi b/arch/arm/boot/dts/=
+aspeed/aspeed-g6.dtsi
+> index 56bb3b0444f7e..ac351f01048fe 100644
+> --- a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
 
 [ ... ]
 
-> @@ -1531,6 +1556,12 @@ static int ltr501_probe(struct i2c_client *client)
->  		return ret;
+> @@ -658,6 +658,21 @@ ibt: ibt@140 {
+>  				};
+>  			};
 > =20
->  	if (client->irq > 0) {
-> +		if (!ltr501_has_irq_support(data->chip_info)) {
-> +			dev_err(&client->dev, "chip does not support irq\n");
-> +			ret =3D -EINVAL;
-> +			goto powerdown_on_error;
-> +		}
+> +			pcie_lpc: pcie-lpc@1e789800 {
+
+[Severity: Low]
+Is this node name aligned with Devicetree naming specifications?
+
+Using "pcie-lpc" describes the specific bus connection rather than a generic
+functional name like "lpc".
+
+> +				compatible =3D "aspeed,ast2600-lpc-v2", "simple-mfd", "syscon";
+> +				reg =3D <0x1e789800 0x800>;
+
+[Severity: Medium]
+Will this reg value cause a resource reservation conflict?
+
+The existing lpc@1e789000 node is defined earlier in this file with a size =
+of
+0x1000:
+
+			lpc: lpc@1e789000 {
+				compatible =3D "aspeed,ast2600-lpc-v2", "simple-mfd", "syscon";
+				reg =3D <0x1e789000 0x1000>;
+
+This means the existing lpc node spans up to 0x1e78a000, which completely
+overlaps the 0x1e789800 through 0x1e789fff memory range claimed by this
+newly added node.
+
+Could the original node's size be reduced to 0x800 to prevent the overlap?
+
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <1>;
+> +				ranges =3D <0x0 0x1e789800 0x800>;
 > +
->  		ret =3D devm_request_threaded_irq(&client->dev, client->irq,
+> +				pcie_kcs4: pcie-kcs@114 {
 
-[Severity: High]
-This is a pre-existing issue, but does using devres for the IRQ while
-manually unregistering the IIO device cause a use-after-free?
+[Severity: Low]
+Does this child node also need a more generic node name like "kcs@114"
+instead of "pcie-kcs@114"?
 
-In ltr501_remove(), iio_device_unregister() is called manually, which
-frees the event interface. However, because the IRQ is allocated with
-devm_request_threaded_irq(), it remains active until after
-ltr501_remove() returns.
-
-If an interrupt fires during this window, ltr501_interrupt_handler()
-could call iio_push_event(), which accesses the freed event interface.
-
-
-[Severity: High]
-This is also a pre-existing issue, but is there a risk of leaking kernel
-stack memory on big-endian systems in ltr501_trigger_handler()?
-
-In ltr501_trigger_handler(), regmap_bulk_read() reads 2 bytes into an
-uninitialized 4-byte integer:
-
-ltr501_trigger_handler() {
-    ...
-    int psdata;
-    ...
-    ret =3D regmap_bulk_read(data->regmap, LTR501_PS_DATA, &psdata, 2);
-    ...
-}
-
-On big-endian architectures, these 2 bytes overwrite the most
-significant bytes of psdata, leaving the least significant bytes
-uninitialized.
-
-The driver then applies a mask:
-
-    scan.channels[j++] =3D psdata & LTR501_PS_DATA_MASK;
-
-Could this extract uninitialized kernel stack data and push it to the
-IIO ring buffer, exposing it to userspace?
-
->  						NULL, ltr501_interrupt_handler,
->  						IRQF_TRIGGER_FALLING |
+> +					compatible =3D "aspeed,ast2600-kcs-bmc";
+> +					reg =3D <0x114 0x1>, <0x118 0x1>, <0x11c 0x1>;
+> +					interrupts =3D <GIC_SPI 177 IRQ_TYPE_LEVEL_HIGH>;
+> +					status =3D "disabled";
+> +				};
+> +			};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-liteon-ltr=
-329-v2-0-d18af55edab5@geanix.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/de49f2032f5b1f17016=
+1dcd6191c0daa48f0b0c2.1784117715.git.gregoire.layet@9elements.com?part=3D1
