@@ -1,492 +1,108 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E0747AF43
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 11:44:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4739370D6E
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 11:48:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784115874; cv=none; b=KCwZpdDAthoa0DmncZSMA7WwyoTHcSLZiG338RV98vd7ImZaG1svvArfpOPHpXyeoEN6Et1x1sVJ6gSZ7mOJFXUsFNVIJzyXe8na9/4/Y9ac3KdeR9dTK/IF0ylOsuAIatznVLdqOKk5/vHXpXEgMdilKf6s89f65aqHquxmyDM=
+	t=1784116104; cv=none; b=SOuMcUNi0ZJ0p2eYTMHPzGnSMy/SkmBRrmW/1QpmmUh9hPbJdR1v72668HWgAJn/BmNXn6ARv1cPFqaOsOa9rG8jdWcl7bw26JqeAq8zKMoU5/ubBFS+Nz2GewkysZvJS+qej/ESDKDed0a1GVg2va51idf2R7yN0zbZUEZotsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784115874; c=relaxed/simple;
-	bh=RJLHcjeyXOdM+p7phfbtKuYXQOj/5YoCC9QQP9TuAQw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=npqtIwjoPai0tFmAJJsWN2rPqO3HHx29uHHjKC+V9p9bzHG14OSJ1DbRhoA6QCnRDwgcE3NK4loSmUwBh9GQxcbzcHylMWaq4qeBqROu7FYZJqBhBWggkxq2AzFVeAXWJ/HEzowz0F1FLUUoEd2KXAOXPDJBFuL6kkfHMvRKYiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=UM2t7D22; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	s=arc-20240116; t=1784116104; c=relaxed/simple;
+	bh=ZVuLnLhZc0rNxL5r7SVr4trvrCJNAsWCrRjfwQZjBAE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=IxMUOkJ5reRQAzbNaxxIIDCUET+8GpRIxuoYY+KamwQA6ayTRwJISSmkG4KynCfYI+wkPM4DD3WOR6TE+eAun4BvvMAxfbFVUxB2ag1QAd1nKhB47mH3j8LVaSl0O/Y9DtOkqxUgVuEewRQ4Ss5zdM7xqf8j+9Q8yPLe3cC5NPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eI1Hz/Ch; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="UM2t7D22"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47ddf7b09aaso3675812f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 04:44:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1784115868; x=1784720668; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uLcaTX0gw19qqcTHrDGxxCdqe+mBz3YklcK14/J/bAU=;
-        b=UM2t7D22VajEj9kW6A7wTFfzxJ65fZRiUrjKD24UnVC0Pn4thwLJxKrAjeU1R6WcQS
-         zRua2BvH1EAAL2kk4iMtdeq84AMYyLovu3bl0k2igVHMeIOc+fpMeCOg3oSNkY3gAKZG
-         TfHvW9R59tUs+7X/kAdyxFrDjX1WjFonJX9OPTfk8SCmRFRyK7vNKnF18l3rMNqJ/Cc/
-         ySdr3thweSaqnGqwgyuh3LiGj5+RtkAbO+PsREYbxkX2BoWFCfPqCKSoQ4D37Tqco6Ef
-         I0mIVBTU81gdd58Ve3DnWtu0TIMh7H3yWs0uWDWoQRkq15g5GS4KHFyGwiESK6b0hIUq
-         q74Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784115868; x=1784720668;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uLcaTX0gw19qqcTHrDGxxCdqe+mBz3YklcK14/J/bAU=;
-        b=Z5AEkayPUqODAADhlHDvhMBQIxYpSKGa4AQq2gUqGN2OW1ez+RzAZiRFi1qcSnvy6d
-         ObYFQ/fKHg8iYfFcLjjWznpWBtIRHUyVJwGTUUkQTZpi1GJxIxpyg7hdJwPKU2YKFTbw
-         F5GRTHg6QyYdmlCU7+RLvCVWlf8sPqxIzV8b4wjkaVEGrKTCHqxYZsFimu7Hz1LltKWa
-         YrbrqowSYdenqJ1dIndlGb38rzQXbWjK9jjTyJTiK5457SOUUvYdGS6ZKwUfrLP2rsR7
-         nGSqRwflzj1Wi40jkx2kluCEvqTt3TSQdK9J2hmi2YpY0FwEvZViNo+rJwGwrDqMbyLg
-         p16Q==
-X-Forwarded-Encrypted: i=1; AHgh+Ro0MzrzH59AaMd5o/vtjgEyB/tdssmfJCJHVLSVLEF8Rl3NZqtHChy/+/NJKDm9YBsYCnyO/SfHJgNy@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw442fNzGMG1u+TnB4LfdlGdKWWOVVMOiSYOlnJQ+6xc0GzZit0
-	uBcHj8/GAm2P8jVg7kOB7iy+wb/dsXfujetwnIg7jqdsndJtnRYeNYzJWieVqUuuu8k=
-X-Gm-Gg: AfdE7ckqsJElZSWKWCrN8dt8dwiVpyxavwm/Rs/0Hs9x8yoVIkJiRgABjTUwgf7ptSb
-	fjH5y/M9QZtGOF/T91hu5J6MhUxYXnkZ1L1h8l5Ki4zBxEz3lg/u6kokya8xFrZ46LTtUnzYf7F
-	3Z7jOTBR7EM5cEUJgPkh82Op4z4T9lf9MqYofSMgvoc+yLY9tEE6fGBAF6S5TcT/lv6oIlvPqGl
-	O8cxM1uTWZsmrwwwhJLDXE1qc2wPQGZ1b1JGqdig+SyW0v/JSgWsnZFm0Nbx352Yvhq9XHOrZx/
-	5qSJUliPaVKY9+3H8PlHo4UKe/eH6BqRqi3IeK77C7ODKhu2mcTzpHw64clJDlkT1FmWL5KCMx4
-	yCCMZ+V98EHP6MXbb5muxCYF6Rqb+Jk/SQXkJTzyjvF3G/oWEn/tsdzcs6sHQnaJnbKZtmpStlw
-	3UeJe8LydgeuXfZKwSRd3EPFPCSGNtm9Xjy3gQKuAdb4HzBOljkiKyOR25OsXMPPda
-X-Received: by 2002:a05:6000:2dc6:b0:47f:4c49:430e with SMTP id ffacd0b85a97d-47f4c494388mr6124368f8f.13.1784115867887;
-        Wed, 15 Jul 2026 04:44:27 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47f4829896asm14005425f8f.23.2026.07.15.04.44.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 04:44:27 -0700 (PDT)
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 15 Jul 2026 12:43:33 +0100
-Subject: [PATCH v4 20/21] media: imx355: Switch to using the subdev state
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eI1Hz/Ch"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6019C1F000E9;
+	Wed, 15 Jul 2026 11:48:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784116102;
+	bh=T8sCsMXfa9157Qkdw5sWCiNhTIoNf9bti3kRSbSgEmU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eI1Hz/ChQRKxNaamJsmjHS9eu0DN3tfQ1jcy9dhHAcmyQyl9SgE1Amad5uH3pJngy
+	 AOj/0WhaLan2u4inWPKo2e12ZElmdDReJGG2zvWIEY7sr4Gkm9N1iEc7UvrWXR9utt
+	 E+DPy5B+0paoH/3RA+AujKlWSPIVjpueW1XcN3IV4TVGKdAFioB6+8qKIMZJ/LYV0p
+	 M+XNTPSwOO4Ytqc2wbopDQ0Qe3bqnoe3GdpK5BEC7RK/GiAfRP2acKSzqVvNO40gC4
+	 QCXCNOwO6oMRLHnQtog7C6x4MStavBq21qV6wxybQt/MwpuXdoKeNyCmtReFaNt0/F
+	 AiWwdQUHwv7CA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 1/5] spi: dt-bindings: Add spi-device-addr peripheral
+ property
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Janani Sunil" <janani.sunil@analog.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260715-ad5529r-driver-v6-1-cfdf8b9f5ee3@analog.com>
+References: <20260715-ad5529r-driver-v6-0-cfdf8b9f5ee3@analog.com>
+ <20260715-ad5529r-driver-v6-1-cfdf8b9f5ee3@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 11:48:21 +0000
+Message-Id: <20260715114822.6019C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260715-media-imx355-v4-20-f7f966fb9ffd@raspberrypi.com>
-References: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
-In-Reply-To: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Richard Acayan <mailingradian@gmail.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, devicetree@vger.kernel.org, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-X-Mailer: b4 0.14.1
 
-The subdev state is now preferred rather than handling crop
-and format within the driver state, so switch the driver to
-using it.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `spi-device-addr` array property groups multiple physical ch=
+ips under a single Device Tree node, which violates core DT architecture an=
+d precludes describing per-chip resources.
+--
 
-Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
----
- drivers/media/i2c/imx355.c | 183 ++++++++++++++-------------------------------
- 1 file changed, 55 insertions(+), 128 deletions(-)
+--- Patch [1]: [PATCH v6 1/5] spi: dt-bindings: Add spi-device-addr periphe=
+ral property ---
+commit 039a81f5133684e72f9b6f61fd5df1550f9b8b54
+Author: Janani Sunil <janani.sunil@analog.com>
 
-diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-index 0462e0feee36..97f4594f7ed9 100644
---- a/drivers/media/i2c/imx355.c
-+++ b/drivers/media/i2c/imx355.c
-@@ -179,13 +179,6 @@ struct imx355 {
- 	struct imx355_hwcfg *hwcfg;
- 	const struct imx355_clk_params *clk_params;
- 
--	/*
--	 * Mutex for serialized access:
--	 * Protect sensor set pad format and start/stop streaming safely.
--	 * Protect access to sensor v4l2 controls.
--	 */
--	struct mutex mutex;
--
- 	struct gpio_desc *reset_gpio;
- 	struct regulator_bulk_data *supplies;
- };
-@@ -593,46 +586,23 @@ static u32 imx355_get_format_code(struct imx355 *imx355)
- 		{ MEDIA_BUS_FMT_SGBRG10_1X10, MEDIA_BUS_FMT_SBGGR10_1X10, },
- 	};
- 
--	lockdep_assert_held(&imx355->mutex);
- 	code = codes[imx355->vflip->val][imx355->hflip->val];
- 
- 	return code;
- }
- 
--/* Open sub-device */
--static int imx355_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
--{
--	struct imx355 *imx355 = to_imx355(sd);
--	struct v4l2_mbus_framefmt *try_fmt =
--		v4l2_subdev_state_get_format(fh->state, 0);
--	struct v4l2_rect *crop = v4l2_subdev_state_get_crop(fh->state, 0);
--
--	mutex_lock(&imx355->mutex);
--
--	/* Initialize try_fmt */
--	try_fmt->width = imx355->cur_mode->width;
--	try_fmt->height = imx355->cur_mode->height;
--	try_fmt->code = imx355_get_format_code(imx355);
--	try_fmt->field = V4L2_FIELD_NONE;
--	try_fmt->colorspace = V4L2_COLORSPACE_RAW;
--	try_fmt->ycbcr_enc = V4L2_YCBCR_ENC_601;
--	try_fmt->quantization = V4L2_QUANTIZATION_FULL_RANGE;
--	try_fmt->xfer_func = V4L2_XFER_FUNC_NONE;
--
--	*crop = imx355->cur_mode->crop;
--
--	mutex_unlock(&imx355->mutex);
--
--	return 0;
--}
--
- static int imx355_set_ctrl(struct v4l2_ctrl *ctrl)
- {
- 	struct imx355 *imx355 = container_of(ctrl->handler,
- 					     struct imx355, ctrl_handler);
-+	const struct v4l2_mbus_framefmt *format = NULL;
-+	struct v4l2_subdev_state *state;
- 	s64 max;
- 	int ret;
- 
-+	state = v4l2_subdev_get_locked_active_state(&imx355->sd);
-+	format = v4l2_subdev_state_get_format(state, 0);
-+
- 	/* Propagate change of current control to all related controls */
- 	switch (ctrl->id) {
- 	case V4L2_CID_VBLANK:
-@@ -705,9 +675,7 @@ static int imx355_enum_mbus_code(struct v4l2_subdev *sd,
- 	if (code->index > 0)
- 		return -EINVAL;
- 
--	mutex_lock(&imx355->mutex);
- 	code->code = imx355_get_format_code(imx355);
--	mutex_unlock(&imx355->mutex);
- 
- 	return 0;
- }
-@@ -721,12 +689,9 @@ static int imx355_enum_frame_size(struct v4l2_subdev *sd,
- 	if (fse->index >= ARRAY_SIZE(supported_modes))
- 		return -EINVAL;
- 
--	mutex_lock(&imx355->mutex);
- 	if (fse->code != imx355_get_format_code(imx355)) {
--		mutex_unlock(&imx355->mutex);
- 		return -EINVAL;
- 	}
--	mutex_unlock(&imx355->mutex);
- 
- 	fse->min_width = supported_modes[fse->index].width;
- 	fse->max_width = fse->min_width;
-@@ -750,36 +715,6 @@ static void imx355_update_pad_format(struct imx355 *imx355,
- 	fmt->format.xfer_func = V4L2_XFER_FUNC_NONE;
- }
- 
--static int imx355_do_get_pad_format(struct imx355 *imx355,
--				    struct v4l2_subdev_state *sd_state,
--				    struct v4l2_subdev_format *fmt)
--{
--	struct v4l2_mbus_framefmt *framefmt;
--
--	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
--		framefmt = v4l2_subdev_state_get_format(sd_state, fmt->pad);
--		fmt->format = *framefmt;
--	} else {
--		imx355_update_pad_format(imx355, imx355->cur_mode, fmt);
--	}
--
--	return 0;
--}
--
--static int imx355_get_pad_format(struct v4l2_subdev *sd,
--				 struct v4l2_subdev_state *sd_state,
--				 struct v4l2_subdev_format *fmt)
--{
--	struct imx355 *imx355 = to_imx355(sd);
--	int ret;
--
--	mutex_lock(&imx355->mutex);
--	ret = imx355_do_get_pad_format(imx355, sd_state, fmt);
--	mutex_unlock(&imx355->mutex);
--
--	return ret;
--}
--
- static int
- imx355_set_pad_format(struct v4l2_subdev *sd,
- 		      struct v4l2_subdev_state *sd_state,
-@@ -793,8 +728,6 @@ imx355_set_pad_format(struct v4l2_subdev *sd,
- 	s64 h_blank;
- 	u32 height;
- 
--	mutex_lock(&imx355->mutex);
--
- 	/*
- 	 * Only one bayer order is supported.
- 	 * It depends on the flip settings.
-@@ -806,16 +739,17 @@ imx355_set_pad_format(struct v4l2_subdev *sd,
- 				      width, height,
- 				      fmt->format.width, fmt->format.height);
- 	imx355_update_pad_format(imx355, mode, fmt);
--	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
--		framefmt = v4l2_subdev_state_get_format(sd_state, fmt->pad);
--		*framefmt = fmt->format;
--
--		crop = v4l2_subdev_state_get_crop(sd_state, 0);
--		crop->width = mode->crop.width;
--		crop->height = mode->crop.height;
--		crop->left = mode->crop.left;
--		crop->top = mode->crop.top;
--	} else {
-+	framefmt = v4l2_subdev_state_get_format(sd_state, 0);
-+
-+	*framefmt = fmt->format;
-+
-+	crop = v4l2_subdev_state_get_crop(sd_state, 0);
-+	crop->width = mode->crop.width;
-+	crop->height = mode->crop.height;
-+	crop->left = mode->crop.left;
-+	crop->top = mode->crop.top;
-+
-+	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
- 		imx355->cur_mode = mode;
- 		/* Update limits and set FPS to default */
- 		height = imx355->cur_mode->height;
-@@ -834,41 +768,17 @@ imx355_set_pad_format(struct v4l2_subdev *sd,
- 					 h_blank, 1, h_blank);
- 	}
- 
--	mutex_unlock(&imx355->mutex);
--
- 	return 0;
- }
- 
--static void
--__imx355_get_pad_crop(struct imx355 *imx355,
--		      struct v4l2_subdev_state *sd_state, unsigned int pad,
--		      enum v4l2_subdev_format_whence which, struct v4l2_rect *r)
--{
--	switch (which) {
--	case V4L2_SUBDEV_FORMAT_TRY:
--		*r = *v4l2_subdev_state_get_crop(sd_state, pad);
--		break;
--	case V4L2_SUBDEV_FORMAT_ACTIVE:
--		*r = imx355->cur_mode->crop;
--		break;
--	}
--}
--
- static int imx355_get_selection(struct v4l2_subdev *sd,
- 				struct v4l2_subdev_state *sd_state,
- 				struct v4l2_subdev_selection *sel)
- {
- 	switch (sel->target) {
--	case V4L2_SEL_TGT_CROP: {
--		struct imx355 *imx355 = to_imx355(sd);
--
--		mutex_lock(&imx355->mutex);
--		__imx355_get_pad_crop(imx355, sd_state, sel->pad, sel->which,
--				      &sel->r);
--		mutex_unlock(&imx355->mutex);
--
-+	case V4L2_SEL_TGT_CROP:
-+		sel->r = *v4l2_subdev_state_get_crop(sd_state, 0);
- 		return 0;
--	}
- 	case V4L2_SEL_TGT_CROP_DEFAULT:
- 	case V4L2_SEL_TGT_CROP_BOUNDS:
- 	case V4L2_SEL_TGT_NATIVE_SIZE:
-@@ -883,6 +793,21 @@ static int imx355_get_selection(struct v4l2_subdev *sd,
- 	return -EINVAL;
- }
- 
-+static int imx355_entity_init_state(struct v4l2_subdev *subdev,
-+				    struct v4l2_subdev_state *sd_state)
-+{
-+	struct v4l2_subdev_format fmt = { };
-+
-+	fmt.which = sd_state ? V4L2_SUBDEV_FORMAT_TRY : V4L2_SUBDEV_FORMAT_ACTIVE;
-+	fmt.format.code = MEDIA_BUS_FMT_SRGGB10_1X10;
-+	fmt.format.width = supported_modes[0].width;
-+	fmt.format.height = supported_modes[0].height;
-+
-+	imx355_set_pad_format(subdev, sd_state, &fmt);
-+
-+	return 0;
-+}
-+
- /* Start streaming */
- static int imx355_start_streaming(struct imx355 *imx355)
- {
-@@ -968,9 +893,10 @@ static int imx355_stop_streaming(struct imx355 *imx355)
- static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
- {
- 	struct imx355 *imx355 = to_imx355(sd);
-+	struct v4l2_subdev_state *state;
- 	int ret = 0;
- 
--	mutex_lock(&imx355->mutex);
-+	state = v4l2_subdev_lock_and_get_active_state(sd);
- 
- 	if (enable) {
- 		ret = pm_runtime_resume_and_get(imx355->dev);
-@@ -993,14 +919,14 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
- 	__v4l2_ctrl_grab(imx355->vflip, enable);
- 	__v4l2_ctrl_grab(imx355->hflip, enable);
- 
--	mutex_unlock(&imx355->mutex);
-+	v4l2_subdev_unlock_state(state);
- 
- 	return ret;
- 
- err_rpm_put:
- 	pm_runtime_put_autosuspend(imx355->dev);
- err_unlock:
--	mutex_unlock(&imx355->mutex);
-+	v4l2_subdev_unlock_state(state);
- 
- 	return ret;
- }
-@@ -1034,7 +960,7 @@ static const struct v4l2_subdev_video_ops imx355_video_ops = {
- 
- static const struct v4l2_subdev_pad_ops imx355_pad_ops = {
- 	.enum_mbus_code = imx355_enum_mbus_code,
--	.get_fmt = imx355_get_pad_format,
-+	.get_fmt = v4l2_subdev_get_fmt,
- 	.set_fmt = imx355_set_pad_format,
- 	.enum_frame_size = imx355_enum_frame_size,
- 	.get_selection = imx355_get_selection,
-@@ -1051,7 +977,7 @@ static const struct media_entity_operations imx355_subdev_entity_ops = {
- };
- 
- static const struct v4l2_subdev_internal_ops imx355_internal_ops = {
--	.open = imx355_open,
-+	.init_state = imx355_entity_init_state,
- };
- 
- static int imx355_power_off(struct device *dev)
-@@ -1117,7 +1043,6 @@ static int imx355_init_controls(struct imx355 *imx355)
- 	if (ret)
- 		return ret;
- 
--	ctrl_hdlr->lock = &imx355->mutex;
- 	imx355->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, &imx355_ctrl_ops,
- 						   V4L2_CID_LINK_FREQ, 0, 0,
- 						   &imx355->hwcfg->link_freq_menu);
-@@ -1266,8 +1191,6 @@ static int imx355_probe(struct i2c_client *client)
- 
- 	imx355->dev = &client->dev;
- 
--	mutex_init(&imx355->mutex);
--
- 	imx355->regmap = devm_cci_regmap_init_i2c(client, 16);
- 	if (IS_ERR(imx355->regmap))
- 		return dev_err_probe(imx355->dev, PTR_ERR(imx355->regmap),
-@@ -1296,7 +1219,7 @@ static int imx355_probe(struct i2c_client *client)
- 					    &imx355->supplies);
- 	if (ret) {
- 		dev_err_probe(imx355->dev, ret, "could not get regulators");
--		goto error_probe;
-+		return ret;
- 	}
- 
- 	imx355->reset_gpio = devm_gpiod_get_optional(imx355->dev, "reset",
-@@ -1304,7 +1227,7 @@ static int imx355_probe(struct i2c_client *client)
- 	if (IS_ERR(imx355->reset_gpio)) {
- 		ret = dev_err_probe(imx355->dev, PTR_ERR(imx355->reset_gpio),
- 				    "failed to get gpios");
--		goto error_probe;
-+		return ret;
- 	}
- 
- 	/* Initialize subdev */
-@@ -1313,13 +1236,12 @@ static int imx355_probe(struct i2c_client *client)
- 	imx355->hwcfg = imx355_get_hwcfg(imx355);
- 	if (!imx355->hwcfg) {
- 		dev_err(imx355->dev, "failed to get hwcfg");
--		ret = -ENODEV;
--		goto error_probe;
-+		return -ENODEV;
- 	}
- 
- 	ret = imx355_power_on(imx355->dev);
- 	if (ret)
--		goto error_probe;
-+		return ret;
- 
- 	/* Check module identity */
- 	ret = imx355_identify_module(imx355);
-@@ -1352,6 +1274,13 @@ static int imx355_probe(struct i2c_client *client)
- 		goto error_handler_free;
- 	}
- 
-+	imx355->sd.state_lock = imx355->ctrl_handler.lock;
-+	ret = v4l2_subdev_init_finalize(&imx355->sd);
-+	if (ret < 0) {
-+		dev_err_probe(imx355->dev, ret, "subdev init error\n");
-+		goto error_media_entity_free;
-+	}
-+
- 	/*
- 	 * Device is already turned on by i2c-core with ACPI domain PM.
- 	 * Enable runtime PM and turn off the device.
-@@ -1363,16 +1292,18 @@ static int imx355_probe(struct i2c_client *client)
- 
- 	ret = v4l2_async_register_subdev_sensor(&imx355->sd);
- 	if (ret < 0)
--		goto error_media_entity_runtime_pm;
-+		goto error_subdev_cleanup_runtime_pm;
- 
- 	pm_runtime_idle(imx355->dev);
- 
- 	return 0;
- 
--error_media_entity_runtime_pm:
-+error_subdev_cleanup_runtime_pm:
- 	pm_runtime_disable(imx355->dev);
- 	pm_runtime_set_suspended(imx355->dev);
- 	pm_runtime_dont_use_autosuspend(imx355->dev);
-+	v4l2_subdev_cleanup(&imx355->sd);
-+error_media_entity_free:
- 	media_entity_cleanup(&imx355->sd.entity);
- 
- error_handler_free:
-@@ -1381,9 +1312,6 @@ static int imx355_probe(struct i2c_client *client)
- error_power_off:
- 	imx355_power_off(imx355->dev);
- 
--error_probe:
--	mutex_destroy(&imx355->mutex);
--
- 	return ret;
- }
- 
-@@ -1393,6 +1321,7 @@ static void imx355_remove(struct i2c_client *client)
- 	struct imx355 *imx355 = to_imx355(sd);
- 
- 	v4l2_async_unregister_subdev(sd);
-+	v4l2_subdev_cleanup(sd);
- 	media_entity_cleanup(&sd->entity);
- 	v4l2_ctrl_handler_free(sd->ctrl_handler);
- 
-@@ -1404,8 +1333,6 @@ static void imx355_remove(struct i2c_client *client)
- 	}
- 
- 	pm_runtime_dont_use_autosuspend(imx355->dev);
--
--	mutex_destroy(&imx355->mutex);
- }
- 
- static const struct acpi_device_id imx355_acpi_ids[] __maybe_unused = {
+spi: dt-bindings: Add spi-device-addr peripheral property
 
--- 
-2.34.1
+This commit adds a generic spi-device-addr property to describe multiple
+hardware addresses for SPI devices that share a single chip select. The
+property is defined as a uint32-array to be placed on the SPI peripheral
+node.
 
+> diff --git a/Documentation/devicetree/bindings/spi/spi-peripheral-props.y=
+aml b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+> --- a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+> +++ b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+
+[ ... ]
+
+> @@ -142,6 +142,11 @@ properties:
+>      minItems: 2
+>      maxItems: 4
+> =20
+> +  spi-device-addr:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    description:
+> +      Device address used when multiple peripherals share a single chip =
+select.
+
+[Severity: Medium]
+Does grouping multiple physical chips under a single Device Tree node using=
+ an
+array property conflict with core DT architecture?
+
+If multiple addresses are listed here, it becomes impossible to describe
+distinct per-chip hardware resources, such as individual interrupts, clocks,
+or power supplies for those physical chips.
+
+Would it be more appropriate to model the shared CS as a bridge or bus node
+with #address-cells =3D <1>, and represent each physical chip as a distinct
+child node with its own reg and discrete properties?=20
+
+Since Device Tree bindings form a permanent ABI, establishing this array
+pattern might permanently constrain drivers needing to represent per-chip
+resources on shared chip selects.
+
+> +
+>    st,spi-midi-ns:
+>      deprecated: true
+>      description: |
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-ad5529r-dr=
+iver-v6-0-cfdf8b9f5ee3@analog.com?part=3D1
