@@ -1,94 +1,155 @@
-Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6058A2EEE9C
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 13:55:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.107
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AB7C31716D;
+	Wed, 15 Jul 2026 13:57:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784123756; cv=none; b=bf81UyL56g+E4LRMv+az5/UJZbiGhjFJqCkaJXoCFKeg0vGZOQdxlkvF3WrKUddBUElb5PFRb12NK5VQM/VyyAoVHpD4C2t4MInKxjjzdWJ6fXx2y3nRfkn8FH/ksxSjVY1c5uAl2pFjNW/A9Dcbx6HCraebyFjb1LYtRgFfN4Q=
+	t=1784123830; cv=none; b=LXEfX95ZVVsyuTcykk17OfaO/0Gg/87uHNHGG40tarly7/5zsK/JghiDcS0wZa40VqfPlzhwEomV67FzlWNMcpkccsNSbJIDRqV/xOblvKWWec1OUCeI9pyNYbNVZSnsQFb458EOO1VKksxpXFFsFvAe6HClCjrefmQnE9oN3Cg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784123756; c=relaxed/simple;
-	bh=x1kF+h+M2Ehkve0RXxk9kbNstC2ODtPVH7Imo6k4qaU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=V7TboY2xt2/W+XWC+fyQI5vwxQ51QerY5S9xds05xt2j47mVAuLYapR2vdvultnMCMF55+RmHq0V8YI+VGOJZTte2733rA68Fryg3xiygR6WoFut15W+9OQqlZ6mEIfFUlrVTXVf5+v+BP0II1pWBQtxzenz7sNTIQdmjMyJ/Qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=isRmLWZa; arc=none smtp.client-ip=109.224.244.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1784123830; c=relaxed/simple;
+	bh=mLEpbIZzyf5QF4ZJIobPOSNnmQwDc249pvOWkW0Ykmk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UXB+0SQpl72fvFRFMno6sTkm+7lirkfbKcdVAvFfk0eGihN3nqeBY8vry2d4db7FJF9ByQzrEuCzL4L7/YDPt43O/qewL3n0cVcvRt6rO4Ql8qvQMwjNXVw2yEJMvARtt8UGXajVO3aDnbI3YdAqAr4mnqGxE0Wr+qpozPalW1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ToviEbuX; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="isRmLWZa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail3; t=1784123751; x=1784382951;
-	bh=kqaSUgrmxHJLervNjojPX8XF1IMPj0/QDVmJ+8NJrco=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=isRmLWZaB8DXFHnmWTvQEN4YRkYCFFm90Cb7XxDf1mKyaiqr9cJ+Ebm8DiGYBdda+
-	 Ae+xCRzOJ6biGwLJe2DrNNZqgVwalbs3yzVRfJYVvTuZDj/i1/re+rbNdID8kgQvOi
-	 IpmfgOO81CUFwqo6ivil7dsnBv8XQFEuPodDzFYnFTThp6BB9ly6EJ8od0fJ9xTVxs
-	 9pz7f5YKoAUJ6VQren8VBZHickB6lb2aCwM2mss6MGebhgbkOWfc59gRBymwjobN9f
-	 tGqGIJo1ih8nuHNiEpVjxSIQ56/YmFIUSF+5RvhaMGCqIoPV3cjfiVwsVIkSwTEtva
-	 6oe5HiaJiviyg==
-X-Pm-Submission-Id: 4h0d4473fFz2ScX7
-From: Esben Haabendal <esben@geanix.com>
-To: "Joshua Crofts" <joshua.crofts1@gmail.com>
-Cc: "Jonathan Cameron" <jic23@kernel.org>,  "David Lechner"
- <dlechner@baylibre.com>,  Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,
-  "Andy Shevchenko"
- <andy@kernel.org>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
-  "Nikita Travkin" <nikita@trvn.ru>,  "Maslov Dmitry"
- <maslovdmitry@seeed.cc>,  <linux-iio@vger.kernel.org>,
-  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 3/4] iio: light: ltr501: Add ltr329 driver support
-In-Reply-To: <20260715145324.000005c6@gmail.com> (Joshua Crofts's message of
-	"Wed, 15 Jul 2026 14:53:24 +0200")
-References: <20260715-liteon-ltr329-v2-0-d18af55edab5@geanix.com>
-	<20260715-liteon-ltr329-v2-3-d18af55edab5@geanix.com>
-	<tsVvSFcobT5NwJPHCbN4M8cwEznnquSJ6o4W-MpVcf7z5q_RwC6XI-NNBTwrQnEBed-Stn56TW1e4iSdtzN54Q==@protonmail.internalid>
-	<20260715145324.000005c6@gmail.com>
-Date: Wed, 15 Jul 2026 15:55:48 +0200
-Message-ID: <878q7cmk63.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ToviEbuX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1784123826;
+	bh=mLEpbIZzyf5QF4ZJIobPOSNnmQwDc249pvOWkW0Ykmk=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ToviEbuX2mrmrvo321X2X54+5Yi281p15CXMi4CdL2ReZhDOFa/Hl1E5v6X1IRosD
+	 4bYGuj7awPg0DzmY2c1AhnUxTKRQTti8w0tWpIQnuhsB/CSU5ZlW4ZVgFgSTUcU1+M
+	 IyA/CLuAcR84mEvfjkd7reW1lHjVkSoiyXwa6ZoyYkKNkCnr4rG++xhOh1hjQOcpY5
+	 JZKT8YUYZZeq0BpeZDZpcar+tP5WRFK/MDFyZHsmaSZc6RXjtnBon5TZAsbdBguhMf
+	 x9BuH9WnLoz5hzBDDh6TTinlwVd7AYKjDTDxBiFU7mydNY80WQaLYtuyRfHT8sbC+G
+	 Yu0af3elKyfmA==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id E890A17E0928;
+	Wed, 15 Jul 2026 15:57:05 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: chunkuang.hu@kernel.org
+Cc: p.zabel@pengutronix.de,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	jitao.shi@mediatek.com,
+	dri-devel@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	kernel@collabora.com,
+	justin.yeh@mediatek.com,
+	jason-jh.lin@mediatek.com
+Subject: [PATCH v6 00/11] drm/mediatek: Add DSC, WDMA, MT8189/96 DSI support
+Date: Wed, 15 Jul 2026 15:56:52 +0200
+Message-ID: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-"Joshua Crofts" <joshua.crofts1@gmail.com> writes:
+Changes in v6:
+ - Fixed .remove function name in wdma (ugh...)
 
-> On Wed, 15 Jul 2026 14:27:25 +0200
-> Esben Haabendal <esben@geanix.com> wrote:
->
->> This adds support for the LTR-329ALS-01 chip, which is similar to
->> LTR-303ALS-01, except for interrupt, which LTR-329ALS-01 chip does not
->> have.
->>
->> Signed-off-by: Esben Haabendal <esben@geanix.com>
->> ---
->>  drivers/iio/light/ltr501.c | 33 +++++++++++++++++++++++++++++++++
->>  1 file changed, 33 insertions(+)
->>
->> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
->> index 7d045be78c6d..379e57ac5f5b 100644
->> --- a/drivers/iio/light/ltr501.c
->> +++ b/drivers/iio/light/ltr501.c
->> @@ -15,6 +15,7 @@
->>  #include <linux/delay.h>
->>  #include <linux/regmap.h>
->>  #include <linux/regulator/consumer.h>
->> +#include <linux/array_size.h> // for ARRAY_SIZE
->
-> Just a small nit, even though the list isn't exactly ordered, please
-> try to add the new include approximately where it would be if ordered,
-> i.e. array_size.h goes to the top. Additionally, you don't need to add
-> a comment.
+Changes in v5:
+ - Clarified commit description for WDMA binding compatibles addition
+   explaining why Dimensity 1200 is not compatible with MT8173
+ - Added missing mediatek,mt8189-dsi compatible in mtk_drm_drv.c
+ - Added fix in mtk_dsi for failing device_reset_optional() producing
+   a possible use-after-free issue
 
-So alphabetically sorted? And even before linux/module.h?
+Changes in v4:
+ - WDMA: Delete the .remove() callback from WDMA as not needed anymore
+ - WDMA: Add comments explaining no bus errors will happen if writing
+   to INT_ENABLE, INT_STATUS registers while unpowered or unclocked
+ - Return error in mtk_wdma_wb_atomic_check() error conditions, oops!
+ - DSC: Fix dsc_pad_num calculation (missing parenthesis...)
+ - DSI: Change dsc slice check error to dev_dbg instead to avoid spam
+ - DSI: Correctly cleanup dsi->dsc upon component_add failure
+ - DSI: Make sure the CKTX_CKL_WC register is correctly programmed in
+   DSI w/DSC case
 
-Comment is going away...
+Changes in v3:
+ - Changed mtk_dsi DSC implementation to use a different DSI_PS
+   setting function for compressed or uncompressed, as the dsc one
+   is way simpler than the regular one and becomes way shorter
+ - DSC: Fixed missing PPS 19 register write
+ - DSI: Anticipated call to devm_pm_runtime_enable() to before
+   registering the DSI Host interface
+ - DSI: Anticipated installing IRQ handler before registering the
+   dsi host interface, which wasn't a problem before, but now it
+   would be one because the interrupt is being enabled when binding!
+ - DSI: Fixed some possible calculation overflows that may happen in
+   MT8189 and MT8196 because of the higher supported resolutions
+ - WDMA: Use devm variant of pm_runtime_enable()
+ - Change WDMA interrupt handler to allow signaling WB complete even
+   if there is no specific vblank callback installed to avoid very
+   long timeouts (in any case, WB is complete for real even if there
+   is no vblank_cb, just a bit useless without, but still complete)
+ - Fixed WDMA register writes as register id was in function signature
+   for mtk_wdma_ddp_write_dst_addr() but the function itself never
+   used it in DISP_REG_WDMA_DST_ADDRX() macro
 
-> Everything else seems fine otherwise.
+Changes in v2:
+ - Rebased on next-20260706
 
-/Esben
+This series adds support for:
+ - Display Stream Compression (DSC) for DSI and DisplayPort for both
+   legacy (8188/92/95 and others) and for Kompanio Ultra MT8196 SoCs
+ - Write DMA (WDMA) Engine (for legacy only at this time) as a step
+   to enable Writeback support (coming later with a restructuring of
+   the entire mediatek-drm driver)
+ - Newer MIPI DSI IP revisions, found in MT8189 and MT8196 SoCs
+
+
+AngeloGioacchino Del Regno (11):
+  dt-bindings: display: mediatek: dsc: Add MT8196 compatible
+  drm/mediatek: Implement Display Stream Compression support
+  dt-bindings: display: mediatek: dsi: Document MT8189 and MT8196
+  drm/mediatek: mtk_dsi: Cleanup encoder if reset fails during bind
+  drm/mediatek: mtk_dsi: Enable interrupt at component bind time
+  drm/mediatek: mtk_dsi: Transfer register offsets to per-SoC const
+  drm/mediatek: mtk_dsi: Add support for MT8189
+  drm/mediatek: mtk_dsi: Add support for MT8196
+  drm/mediatek: mtk_dsi: Enable PM Runtime on probe
+  dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs
+  drm/mediatek: Add Write DMA (WDMA) Engine for Writeback support
+
+ .../display/mediatek/mediatek,dsc.yaml        |   4 +-
+ .../display/mediatek/mediatek,dsi.yaml        |   2 +
+ .../display/mediatek/mediatek,wdma.yaml       |   5 +
+ drivers/gpu/drm/mediatek/Makefile             |   2 +
+ drivers/gpu/drm/mediatek/mtk_crtc.c           |  21 +
+ drivers/gpu/drm/mediatek/mtk_ddp_comp.c       |  64 +-
+ drivers/gpu/drm/mediatek/mtk_ddp_comp.h       |   9 +
+ drivers/gpu/drm/mediatek/mtk_disp_drv.h       |  29 +
+ drivers/gpu/drm/mediatek/mtk_disp_dsc.c       | 455 ++++++++++
+ drivers/gpu/drm/mediatek/mtk_disp_wdma.c      | 628 ++++++++++++++
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  10 +
+ drivers/gpu/drm/mediatek/mtk_drm_drv.h        |   2 +
+ drivers/gpu/drm/mediatek/mtk_dsi.c            | 801 ++++++++++++++----
+ 13 files changed, 1842 insertions(+), 190 deletions(-)
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_dsc.c
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_wdma.c
+
+-- 
+2.54.0
+
