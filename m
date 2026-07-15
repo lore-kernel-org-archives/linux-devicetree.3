@@ -1,127 +1,108 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E078F384CFE
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 09:00:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E773D75DC
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 09:01:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784106054; cv=none; b=Tx8mEiAGyD9eEK3CCaixDkpFwxV1Z2HQNZAM6TmV1KrpkI81eBFVDaiHPAf9lsk9jFcG69a/TTgZEtBxdojHnCGk+KR/m9VLXN/3VlaFkf7+visFaEhWqzBInHbXL/tzCXYAa294J4pgJvzAPHg9Wk/g2EeAhWya+DPQ8ww5Dr4=
+	t=1784106092; cv=none; b=XCWB1I4CkFliwbJL++YUFXS/t7hQYzv37anQ+rDU+keBVzL/tkOq/CVR9nsXd8Puh3EBnPpzX5sz+Pk1P4B0yyj6ob3IcM6Sjz0bKfSjTitP2C0aeBz+YDqvScGZL854Ul28psHXcMvQyScAjLXMtMYYDrdTz/lW83ZiKDn8SAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784106054; c=relaxed/simple;
-	bh=oeOPqOOHX4vx7wNAoVD/Owj8kJ4/yJGKi9yRp2ITc1w=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZUTjWtMIXbbseTbu6yReSeGoQTxFBWp9pi1M868Lmck1xL3IX108oEuwCReQc7Gej4fdkC5xZBIDUS/RNNHsSaN8iosQ2zRT1J7CDoOJW5eTMvYa6hVAW9B+RJXKh2ihYaXT4/wSuticJsdDF575Z8Tf0DoNbAddGRrncEKV3MI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RRnIy1Os; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1784106092; c=relaxed/simple;
+	bh=4D+d1b3Trs/CMs5Bj38QykZaXyZasuM9OpqfOKndXxo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JPNxA0VcjKhEVnFTdyVwf//Dvmi0wMLYqcUbt4iiG6RoF275yiS0tTHxQBTOIGlvM7eZhxT3n/oOTLjxDXQ8ChxfxDYRZqUoCdggENEBTsRRk0JiCWLOfre9KJiyvy1TcOqt2mVB0Tpu5vdkGT5EgMDlqnEyIbnVksFjsZzP9CE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RRnIy1Os"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47c6e9a694bso2825407f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 02:00:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784106048; x=1784710848; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VVH1oge+oUXjz7fA2PBFdWN8ikRwkxQ+DXDLXhR5jCc=;
-        b=RRnIy1OsV3arEGLXhqfR4/ih6kB3MSCZBooSSe1uM8iOMSW5dmSLF/8lZzMTbG5ZJW
-         XN96D3NhQGXOGY6Yr3rYaiSugE6r2KXlLjspuwYtVuTXlZMHw7CSkPw1eYl31+hogFgq
-         K64ZgRz/5GgkS9/KKZrOlglPh5MaZJS4nw3xSy0b50bu8sfQ0DG704vaFN9+sYhyW0qF
-         5FngJc1ldmX3vhjFf2OGsE2W8mWi01Qy9RrlIQTUtM2+8KulOL/Wx4vv8noNQL5f1dIJ
-         a34PP6zSu/GBn1tedi4O4abvQStmPjHM6PsB7S8GkmSPnRIgWddDRpuZ45jcordgFap8
-         DVvQ==
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-73a442f7cd3so1214665137.3
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 02:01:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784106048; x=1784710848;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VVH1oge+oUXjz7fA2PBFdWN8ikRwkxQ+DXDLXhR5jCc=;
-        b=q2hNFjCdxtCKmw9WpYTJdiAhdbh1OrA1rAGwe8Npa/FZxqeLOcbGf+BOCz8Nv60lBq
-         DXSPWq9aXzbjCljf0cC0btBddnR+KRm6LC1lc+j9Ra5QH1qHfX2wuM6NY9tKTZBg22Fa
-         TQVFR3oCoQ5oDuUZ1m8Lbk1pW5TKcWpOl+vL1HarLHqJjYkLTRr0BSjN05NC5P/tmbXR
-         yD3k1yyw1897ERu6NCtR18oA3Svq/6/WYWmiLX+3nN2V2naRcfLrIlDyzQDTHaG62IgH
-         CkSlp12tvffTahmlDRocWZdc6P6cxB9yF5Hq3CpkRVTcb1OATDDoUmvFQ99uV9Vhb0Zd
-         Gf+A==
-X-Forwarded-Encrypted: i=1; AHgh+RrTH+4OqIlSklnijRN4IGaE9tyrHNv1v9qd4Ac0mmgP7knY9gnaFH41w58Pq4M9o0TVkWvi9EgLbuaC@vger.kernel.org
-X-Gm-Message-State: AOJu0YwMTEDQhdNGPnZUnyH1e0WTRziKtK9m8yf4tQpiK1Fe2sW6DTiZ
-	GwKebrnCnG18U/eLKTqeorKwTWA3WoviZ9aA2mBtGHDadut83VJJeCd/
-X-Gm-Gg: AfdE7cmD/L75YgkDao6z8R+hFv9VOXKCMBp2tJVbKfjeF/O9e1b+4fLF0Ee4K2wGnZE
-	9qBBA/nK+LKPzBhP+ai6497FqCXsUJee1gu/b2ZChQDH+QdAJ9C7855SXu+UJt7CT4NU6bgQ14d
-	STaC14RVpQheboR0JzoCSwNkD+dFGwESl8EhgFFhSLGtBtl1C1gLtW54Ahs9MkdHqz5ibCtbF90
-	3xZrmUFwMGa92iMmXPSicMkC/vtFexPr6zwuFwIEoQX5NlwIacxPMzAY499VjMGatWI4aR6creu
-	KhJN8zoEzPtzgTRYvYJzdhRdd2uo5H+0ARL2Qg3+gYhl7w84fhjqX3HhQhQ5G52Ez7XVlmC8wop
-	cMBhN13kWL2VLK/Gx+6pjFRUvOCM3+byWR1hRXBYLKR2EYnfB4vo6bVYGQlhYTxj/WOxVb5P2jw
-	q3H1p6Gi/AGeXi1UhsNI6R/DJ9aLzmP7pY5gS+4gIcyz9cu0VicIo0HMEe04mI7MDBLP2haB6Sc
-	OPrS9EG6zNd/2MeHLd6fvHwYwjwrQ4nm0zKlvHQ2bid/TAsFGK6GnoTp+TTwsDJBqTR1IZicK0t
-	n3B4g+8MD/uUR3L79Yo44YGj4WZAZH4KKw7VLYMtOUbZcmV2j5GOnmswHdGxpm6bkJqFlCzatZC
-	4Yh493qJkyh2hfo0FCorfZ+k=
-X-Received: by 2002:a05:6000:2086:b0:46f:7d90:8114 with SMTP id ffacd0b85a97d-47f4fcb5992mr1968563f8f.14.1784106048085;
-        Wed, 15 Jul 2026 02:00:48 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f4635c86csm14503414f8f.16.2026.07.15.02.00.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 02:00:47 -0700 (PDT)
-Date: Wed, 15 Jul 2026 11:00:46 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Nikita
- Travkin <nikita@trvn.ru>, Maslov Dmitry <maslovdmitry@seeed.cc>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] iio: light: ltr501: Add ltr329 driver support
-Message-ID: <20260715110046.00001aa8@gmail.com>
-In-Reply-To: <20260715-liteon-ltr329-v1-3-31f027051594@geanix.com>
-References: <20260715-liteon-ltr329-v1-0-31f027051594@geanix.com>
-	<20260715-liteon-ltr329-v1-3-31f027051594@geanix.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        d=1e100.net; s=20251104; t=1784106086; x=1784710886;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7NaVzb/e9FWmfB5ARe3x7cY0vDrs37XFuu/XUXFp10g=;
+        b=THOHfEn5R9pznyNFYO5I1s2phBYVAI1gSZARLG0Fu486d9xJddG/4deXWvHsy5MK9s
+         eVdFxUysZqiRLDJ37zSwXqmcnKDX/o4BQNdNr/1An2HrPRfOVI846k/Axs95tYtRqscH
+         CskbbsiZfmVVd8QOc2utXcMs7cIc7dMxS2nzEsXJEehr2f9IuONrgOQd/TMi7X4kzZhQ
+         YLoJov/UJtXwl4afsjEFyuiJzg0aDi7dAhsIdjHyRMQQTqmA5tmTvOmTKiEs0dH9D1+N
+         l1LGP9l+bnue4OXWqJrC4sSJtZ8aGXvD//WMC11SIwd+vBsjjQ4VhBi1WklkOAxsCe63
+         8vNg==
+X-Forwarded-Encrypted: i=1; AHgh+RpVPdni4GhRX9SqzUnCmEyMk8z5ywJTLYs9wMYu4G53jRMaO8RcQBaTbc+DpYWCNWx73/75ynZ/c6+u@vger.kernel.org
+X-Gm-Message-State: AOJu0YywUxwMQEs1aCmlaPswPSEhhb4W41xVj1KhxH/qnAHH1rbh7uZa
+	x/HRLs7iBpVI3qO9QlW0Tq1ylLllNIKC3w0eBJObSM1d5NUiMM8sjHJWi+pafmnHnuA=
+X-Gm-Gg: AfdE7cn9W3/w9BLP0uVmz8jiUGzERk1M1f8LzxUcNTNUFuO6MJcN6/UNS/m7ILcbUd6
+	Sea096+wP9z+h0kK/re1AnG4cXRFPzVc6SDa0AT1umx0hjte1cRG1G9wduyJQhy/R5a7OaktHZj
+	0eZyYKxesrYVuSTOAWMLPiS+6+8VSrTxr6FzF4u42Fqq/wpcWSJTBDEA8lYGDeOrbHTSpPOu/rs
+	NMau3FJyPdyazbKXkphg+nldVIItHKcHKRVGIRlKeb5+J3u9rpP+rGgaSBMcTrIm3QVJpXiWau7
+	BBHC9Gxn7UN0l3wPSSkPpqToTG/BtUu7SMZdsTWEXYqjDRobHnULnEqn27+ZBk90PjZQjMxwBSD
+	U2jPCvNnl7fkOh846kQXmpDQLvcJzzxs7vmqMMtcEZIpLyc3JODT2ALlVSrstdUBIfcjinaJSnS
+	7Wv8xejamFJvUUBIw6tX/2qmHGCDsJnldSn1V+JuTqrBcLFGa/Csqs+g==
+X-Received: by 2002:a05:6102:441d:b0:737:783d:1912 with SMTP id ada2fe7eead31-74533c40608mr10805714137.12.1784106085761;
+        Wed, 15 Jul 2026 02:01:25 -0700 (PDT)
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com. [209.85.221.176])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-744d6e38b3bsm11612411137.10.2026.07.15.02.01.23
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 15 Jul 2026 02:01:24 -0700 (PDT)
+Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5bf9466412fso1141849e0c.1
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 02:01:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpQ7Kd+MKLTSboX3EN79XxvYyhcfG7EsV2tc3TXNNmR/t1LI7ELqo8UahlgfIeKGDjBnm3oEMSYjZGz@vger.kernel.org
+X-Received: by 2002:a05:6122:787:b0:5a5:3eea:4513 with SMTP id
+ 71dfb90a1353d-5bfbf34947bmr9390069e0c.12.1784106083256; Wed, 15 Jul 2026
+ 02:01:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260714173315.1981708-1-claudiu.beznea+renesas@tuxon.dev>
+In-Reply-To: <20260714173315.1981708-1-claudiu.beznea+renesas@tuxon.dev>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 15 Jul 2026 11:01:10 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdULuz6E+zHt5W9Z9ik05ALSyMz4tkV-mGRTg3Nh=Wx_Hw@mail.gmail.com>
+X-Gm-Features: AUfX_mwvtCJ6mQlGxoH1JvfSPfIrIHfInpMsp-NWrZ7U05hkN4A9x-SDsqPOads
+Message-ID: <CAMuHMdULuz6E+zHt5W9Z9ik05ALSyMz4tkV-mGRTg3Nh=Wx_Hw@mail.gmail.com>
+Subject: Re: [PATCH v3 0/8] can: rcar_canfd: Add support for Renesas RZ/G3S
+To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
+Cc: mkl@pengutronix.de, mailhol@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, geert+renesas@glider.be, 
+	magnus.damm@gmail.com, mturquette@baylibre.com, sboyd@kernel.org, 
+	bmasney@redhat.com, biju.das.jz@bp.renesas.com, 
+	fabrizio.castro.jz@renesas.com, claudiu.beznea@tuxon.dev, 
+	linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org, Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 15 Jul 2026 10:23:50 +0200
-Esben Haabendal <esben@geanix.com> wrote:
-> @@ -1257,6 +1269,18 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
->  		.channels = ltr301_channels,
->  		.no_channels = ARRAY_SIZE(ltr301_channels),
->  	},
-> +	[ltr329] = {
-> +		.partid = 0x0A,
-> +		.als_gain = ltr559_als_gain_tbl,
-> +		.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
+Hi Claudiu,
 
-While you're at it, add `#include <linux/array_size.h>`
+On Tue, 14 Jul 2026 at 19:33, Claudiu Beznea
+<claudiu.beznea+renesas@tuxon.dev> wrote:
+> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>
+> Hi,
+>
+> Series adds CAN support for the Renesas RZ/G3S SoC. Along with it a typo
+> fix patch was added on the CAN driver.
+>
+> Thank you,
+> Claudiu
+>
+> Changes in v3:
+> - addressed sashiko review comments
 
-> +		.als_mode_active = BIT(0),
-> +		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
-> +		.als_gain_shift = 2,
-> +		.info = &ltr301_info_no_irq,
-> +		.info_no_irq = &ltr301_info_no_irq,
-> +		.channels = ltr301_channels,
-> +		.no_channels = ARRAY_SIZE(ltr301_channels),
-> +	},
->  };
->  
->  static int ltr501_write_contr(struct ltr501_data *data, u8 als_val, u8 ps_val)
-> @@ -1531,6 +1555,11 @@ static int ltr501_probe(struct i2c_client *client)
->  		return ret;
->  
->  	if (client->irq > 0) {
-> +		if (!ltr501_has_irq_support(data->chip_info)) {
-> +			dev_err(&client->dev, "chip does not support irq\n");
-> +			return -EINVAL;
+FTR, this doesn't provide any real information.
+Fortunately you do list the actual changes in the individual patches ;-)
 
-Shouldn't this jump to the powerdown_on_error label instead of returning?
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-Kind regards
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-CJD
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
