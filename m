@@ -1,292 +1,143 @@
-Received: from out28-101.mail.aliyun.com (out28-101.mail.aliyun.com [115.124.28.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4253C2BB4
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 07:43:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33A8197A7D
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 07:44:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784101401; cv=none; b=caWtDR4b4JYmTuwxMHbpjMaj74jLZH8zOMfjnQnzKzJ0zZ1GckrSHeqRIB/StFk8COFdaWRoJti9Z1iyDIFiZ3FxTeIS5AOJXmDEwV0dHiRBylwlS2J17XeqVilvqNJkrv7dfaSmexYl1GeavvePlDgGZmlRG3Wuri+wkxrk0xc=
+	t=1784101477; cv=none; b=JLlZaJY5c+HKKxs8w6/E356m+darR8r3WxmUDsHaZxe4PEQHJkTdPI8ibCpkN20sl91bQY2GO/yUUOz0PUB8GTlCN3BuVB4GAA84PDROuXtm/yZsKDSHeAzKVVyJSLT1h0dNwAXk3xh0z4BIQQIlO7sUPnkI6bztxu5WhAkMq9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784101401; c=relaxed/simple;
-	bh=eYwuW4vmV1NRfCF9e/kPy7g+6JHXYDajt+Al5Gz8oqw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EXQT7hN83dix9aiFWXUoFtjMnKwPbbmPvo7aMlm+/o8KX3KevDVv/3olYeeFqys2jzBemWgfGCxBVg8t7OxDMBSVM1sQou07JdYeAH6IzDMCbFH2X2cJAuy7aeWpLQzLs/3Pb9Cl1cei7Lu1NX/bUpZHl/2ZIdseilmv9C1dIu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=PcFVwjnO; arc=none smtp.client-ip=115.124.28.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
+	s=arc-20240116; t=1784101477; c=relaxed/simple;
+	bh=/WrIRYO6EF4WO4E3FH68txxCJ1lx+6iCSI+izpgVFBg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=XyoXXAFm9yXi4Uslz8kzXqOunhRtpnxob3JtLfK42I6HMcBYoM+FI9nqcfsdGmZgS7/pJH0QsrG2y6JsFNjPY3Pl1z017ZZ6IxYcmDmxntSQoBlLZySc12NAw95BEWwh4ebb5dtMSDPh0I1ihBs+l0uDoL95GqmXfbpbThzbUkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QMZ2qY5G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="PcFVwjnO"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=lontium.com; s=default;
-	t=1784101390; h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type;
-	bh=fYczancSDpXTTTTzNgOct5Z1D1AO/aaqYRYfDjK901E=;
-	b=PcFVwjnOX47F4YoOqPD7iXagUXRsuQyI2jhPwz05Pht1tDsqJcEU3Zg4llRry5HWiXWvOk+NGNU755ICxpLzm332qIUewucT6zJtJn8eReerTFsHaX430A86nwcvhp2hEbUi1OIbtkGc6CCVJIou8NXM8CQEEDUgNUZiI85IqcAsr3wNuyCqRiNYqcOrdFKc55xiSQriSMJZU4uIOCH09CjxjIhbo04A8sqCxoM+QFEZtaw8QJaWr6s77FepaSjEpa3ujzmMHITRiWPCKLyz2FJNaBdsn5A3BPULhGjLOMhPd8yx4SAngUaA2c9zW6jaHVYC2n/8Gn5hz/lmG35c2g==
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436262|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0027374-0.000409488-0.996853;FP=3276738345256568050|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045018182;MF=syyang@lontium.com;NM=1;PH=DS;RN=1;RT=1;SR=0;TI=SMTPD_---.iLoJYfg_1784101388;
-Received: from mail-oi1-f174.google.com(mailfrom:syyang@lontium.com fp:SMTPD_---.iLoJYfg_1784101388 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 15 Jul 2026 15:43:09 +0800
-Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4877a7b451dso3051989b6e.0
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 00:43:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpG6A90o7GIeUiZXxVPvkW/mksmTLBBkDMMwWmlyvGs8iH4PXQfdBy0wywmOmblkZO4XyGUHKqm3nvG@vger.kernel.org
-X-Gm-Message-State: AOJu0YzbGNMC4Ur/1iVAy0Hb+SoSdfCAFeapQOCUJP/ZRxeZ/oh81tb2
-	yZj8eBjvqEgzPb0SJuL0GXOOZCB2tT1X40JJRsSzEV5TvMeAUux3jJcomFYZ+/bvEnAWEWwAlG3
-	Boc+QCq++d14pSQw2FYhfg0KKj88/S28=
-X-Received: by 2002:a05:6808:1986:b0:4a4:68a9:5f04 with SMTP id
- 5614622812f47-4a495ff24eemr1298337b6e.27.1784101387714; Wed, 15 Jul 2026
- 00:43:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QMZ2qY5G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 364EF1F00A3A;
+	Wed, 15 Jul 2026 07:44:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784101475;
+	bh=cvsEFXBxRoThrcZXs/0tRd8ps1UbRBafPFAfxsafpsY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QMZ2qY5GqnuSKwfCuECH4LmzdKqAPHuIGURJ/UCJeIBplI0RePWWAnN/aaBICO9R/
+	 yQGFIBKa+Yfrpiwht1jvKhTbeXerwN+37hy+sm4OAmZHjIXltbcGgqn1LD9hExvS7b
+	 CdOyOCMPAE/Sp1lYuuAmCdwiQjsLToBuQMi0dOOEL9x16L6V1UoalOKA9mp/Hh2Inj
+	 rOLJevhf2QN7vfocoL4mHEYJ5ft5RrXhzea2wa3l9kTN5xcy9EkPbi/T8cVRgQCCID
+	 6rvcHAL7fH0p00vRrcgBm/+zQ3Sz0ppeMqAQQftDOhklCbUkwESaDq9wKf17pTf8R7
+	 kozXfrsktt/kQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/3] dt-bindings: i2c: Add Novatek NT726xx SoC I2C
+ controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Nina_Kuo@novatek.com.tw
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260715073521.147610-1-Nina_Kuo@novatek.com.tw>
+References: <20260715073503.147552-1-Nina_Kuo@novatek.com.tw>
+ <20260715073521.147610-1-Nina_Kuo@novatek.com.tw>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 07:44:34 +0000
+Message-Id: <20260715074435.364EF1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260715015438.2770155-1-syyang@lontium.com> <20260715015438.2770155-3-syyang@lontium.com>
- <20260715020616.B73771F000E9@smtp.kernel.org>
-In-Reply-To: <20260715020616.B73771F000E9@smtp.kernel.org>
-From: Sunyun Yang <syyang@lontium.com>
-Date: Wed, 15 Jul 2026 15:42:55 +0800
-X-Gmail-Original-Message-ID: <CAFQXuNZdwNxbAsnK7P4zs0eZnm4pN+6kKkO-aP6Q_higPEW-yg@mail.gmail.com>
-X-Gm-Features: AUfX_mxYgF1LKb3HBSUHlun9wnYnCA6QN_5HsLuDULVayA3SKvsDowqxL49a2q4
-Message-ID: <CAFQXuNZdwNxbAsnK7P4zs0eZnm4pN+6kKkO-aP6Q_higPEW-yg@mail.gmail.com>
-Subject: Re: [PATCH v17 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-<sashiko-bot@kernel.org> =E4=BA=8E2026=E5=B9=B47=E6=9C=8815=E6=97=A5=E5=91=
-=A8=E4=B8=89 10:06=E5=86=99=E9=81=93=EF=BC=9A
->
-> Thank you for your contribution! Sashiko AI review found 5 potential issu=
-e(s) to consider:
-> - [High] Missing cleanup of `output_bridge` in `mipi_dsi_host_detach` pre=
-vents DSI device rebinds and causes use-after-free.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Low] DT Binding Anti-Pattern: Usage of custom `novatek,hwmods` string pr=
+operty to assign unique instance names.
+- [Low] Schema Type Violation: The boolean property `novatek,stbc-controlla=
+ble` incorrectly specifies an integer default value of `0`.
+- [Low] DT Schema Validation Failure: I2C controller examples use invalid `=
+#address-cells` and `#size-cells` values.
+--
 
-Intentional design, consistent with cdns-dsi-core.c cdns_dsi_detach()
-(lines 1082-1091) which does not clear output->dev. Clearing
-output_bridge would allow re-attach, causing devm_drm_of_get_bridge()
-to allocate new devres without freeing the previous one, resulting in
-a real memory leak. The DRM bridge framework does not support dynamic
-bridge chain reconfiguration. No use-after-free: the -EBUSY guard
-returns before dereferencing output_bridge, and bridge_attach is not
-called by the SoC encoder after drm_bridge_remove().
+--- Patch [2]: [PATCH v3 2/3] dt-bindings: i2c: Add Novatek NT726xx SoC I2C=
+ controller ---
+commit fc4c1ba789209e1e7e8f1fe88e1d6a2a1a7eec66
+Author: Ben Huang <Ben_Huang@novatek.com.tw>
 
-> - [High] Sysfs attribute `lt7911exc_firmware` is accessible before the dr=
-iver has finished initialization in `probe`, leading to a kernel panic.
+dt-bindings: i2c: Add Novatek NT726xx SoC I2C controller
+   =20
+Add device tree documentation for Novatek NT726xx SoC I2C controller.
 
-False positive. The driver core creates dev_groups sysfs attributes
-AFTER probe() returns successfully. In drivers/base/dd.c
-really_probe(), call_driver_probe() (line 706) executes before
-device_add_groups(dev, drv->dev_groups) (line 725). By the time the
-sysfs file is visible to userspace, all mutexes, workqueue, and regmap
-are fully initialized. There is no window where userspace can access
-the sysfs attribute before initialization completes.
+> diff --git a/Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.ya=
+ml b/Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.yaml
+> new file mode 100644
+> index 0000000000000..866589c5ae51a
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.yaml
+[ ... ]
+> +  novatek,hwmods:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description: Name of each i2c pin, must be named with "i2cX". (X is
+> +                 an integer starting from 0, must be unique)
 
-> - [High] Asynchronous firmware upgrade worker accesses `bridge.dev` witho=
-ut holding a reference, causing a Use-After-Free if the DRM display control=
-ler unbinds.
+[Severity: Low]
+Does this violate standard Device Tree schema practices?=20
 
-This is a known DRM bridge framework limitation, not specific to this
-driver. drm_bridge_remove() does not clear bridge.dev, so all bridge
-drivers calling drm_kms_helper_hotplug_event() share this risk. A
-proper fix requires framework-level bridge-to-drm_device lifetime
-tracking. Triggering requires root sysfs access to start firmware
-upgrade while simultaneously unbinding the DRM master driver =E2=80=94 an
-administrator operation outside normal usage.
+Hardware nodes should typically not encode software logical indices. Instan=
+ces
+are usually mapped dynamically via the /aliases node (e.g., i2c0 =3D &i2c0;=
+) or
+derived from the reg base address rather than using a custom string property
+like novatek,hwmods.
 
-> - [Medium] Driver illegitimately mutates the state of a downstream bridge=
- object by explicitly modifying `pre_enable_prev_first`.
+> +
+> +  novatek,stbc-controllable:
+> +    type: boolean
+> +    description: Set if this i2c master, named as `stbc-i2c`, is
+> +      controllable by stbc (Standby controller, actually is an 8051
+> +      micro-processor) on Novatek NT726xx SoCs.
+> +      For these `stbc-i2c`s, the driven clock is only 12 MHz and the
+> +      authentication to stbc must be executed before controlling the
+> +      registers.
+> +
+> +    default: 0
 
-Hardware constraint. The DSI output stream (register 0xe0b0) must be
-enabled after the panel is powered on. The override is safe because
-transfer() is a stub =E2=80=94 panel DCS commands are silently discarded an=
-d
-panel initialization is handled entirely by the chip's internal
-firmware. The panel driver's prepare_prev_first preference is
-therefore irrelevant for this chip. The comment above the assignment
-documents this rationale.
+[Severity: Low]
+Is this default value valid for a boolean property?=20
 
-> - [Low] The `lt7911exc->removed` flag is read without a lock or memory ba=
-rrier in the firmware upgrade work, leading to a data race.
+Boolean properties in DT schema are evaluated by their presence or absence
+and shouldn't accept an integer value. This will likely fail schema validat=
+ion
+during dt_binding_check. If a default is needed, it should be false.
 
-Valid.
+[ ... ]
+> +examples:
+> +  - |
+> +    i2c0: i2c@10000000 {
+> +      compatible =3D "novatek,nt72600-i2c";
+> +      reg =3D <0x0 0x10000000 0x0 0x100>;
+> +      interrupts =3D <0 67 4>;
+> +      clock-frequency =3D <400000>;
+> +      novatek,hwmods =3D "i2c0";
+> +      #address-cells =3D <2>;
+> +      #size-cells =3D <2>;
+> +    };
+> +
+> +    stbc-i2c1: i2c@20000000 {
+> +      compatible =3D "novatek,nt72600-i2c";
+> +      reg =3D <0x0 0x20000000 0x0 0x100>;
+> +      interrupts =3D <0 77 4>;
+> +      novatek,hwmods =3D "i2c1";
+> +      novatek,stbc-controllable;
+> +      #address-cells =3D <2>;
+> +      #size-cells =3D <2>;
+> +    };
 
-> --
->
-> --- Patch [2]: [PATCH v17 2/2] drm/bridge: Add Lontium LT7911EXC eDP to M=
-IPI DSI bridge ---
-> commit f9cec7dee2928b841f4104ddf68c1ebfeffba41a
-> Author: Sunyun Yang <syyang@lontium.com>
->
-> drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
->
-> Add support for the Lontium LT7911EXC bridge chip, which converts
-> eDP input to MIPI DSI output using an internal firmware-controlled
-> pipeline.
->
-> > diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/d=
-rm/bridge/lontium-lt7911exc.c
-> > new file mode 100644
-> > index 0000000000000..5b7a184e96194
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
->
-> [ ... ]
->
-> > @@ -458,6 +458,25 @@ static void lt7911exc_firmware_upgrade_work(struct=
- work_struct *work)
-> >  out_mcu_run:
-> >       scoped_guard(mutex, &lt7911exc->ocm_lock)
-> >               lt7911exc_inside_mcu_run(lt7911exc);
-> >
-> >  out_release_fw:
-> >       release_firmware(fw);
-> >
-> >  out_unlock_upgrade:
-> >       scoped_guard(mutex, &lt7911exc->ocm_lock) {
-> >               if (!lt7911exc->removed)
-> >                       lt7911exc->upgrade =3D false;
-> >       }
-> >
-> >       /* Notify DRM to re-trigger modeset after firmware upgrade */
-> >       if (!lt7911exc->removed && lt7911exc->bridge.dev)
->
-> [Severity: Low]
-> Is there a data race on the removed flag here?
->
-> The lt7911exc->removed flag is set under ocm_lock in lt7911exc_remove(), =
-but
-> it is read here outside of any lock or memory barrier.
->
-> While cancel_work_sync() in the remove path prevents a logical use-after-=
-free,
-> could this still trigger unmarked data race warnings from KCSAN?
->
-> [Severity: High]
-> Can this code trigger a use-after-free if the DRM display controller unbi=
-nds?
->
-> The firmware upgrade work accesses bridge.dev asynchronously. The bridge.=
-dev
-> pointer is assigned when the DRM master attaches, but the I2C bridge driv=
-er
-> holds no reference to it.
->
-> If a user starts a firmware upgrade via sysfs and then unbinds the DRM
-> master driver before the async work completes, the drm_device is freed.
->
-> Does this leave a dangling pointer that the worker will then dereference =
-in
-> drm_kms_helper_hotplug_event()?
->
-> >               drm_kms_helper_hotplug_event(lt7911exc->bridge.dev);
-> >
-> >       mutex_unlock(&lt7911exc->upgrade_lock);
-> >  }
->
-> [ ... ]
->
-> > @@ -515,10 +515,31 @@ static int lt7911exc_dsi_host_attach(struct mipi_=
-dsi_host *host, struct mipi_dsi_device *dev)
-> >       lt7911exc->output_bridge =3D bridge;
-> >
-> >       /*
-> >        * Force panel-first enable order: the DSI output stream (0xe0b0)
-> >        * must not be enabled before the panel is powered on.
-> >        * This override is safe because LT7911EXC's transfer() is a stub=
- =E2=80=94
-> >        * panel DCS commands are silently discarded and panel init is do=
-ne
-> >        * by the chip's internal firmware. The panel driver's
-> >        * prepare_prev_first preference is therefore irrelevant here.
-> >        */
-> >       lt7911exc->output_bridge->pre_enable_prev_first =3D false;
->
-> [Severity: Medium]
-> Is it safe to explicitly mutate the state of a downstream bridge object?
->
-> The downstream bridge object belongs to the panel driver. Overriding its
-> pre_enable_prev_first flag violates object ownership and could disrupt th=
-e
-> panel's expected power-on sequence.
->
-> Could this cause the panel to fail to power on correctly?
->
-> >
-> >       drm_bridge_add(&lt7911exc->bridge);
-> >
-> >       return 0;
-> >  }
-> >
-> >  static int lt7911exc_dsi_host_detach(struct mipi_dsi_host *host, struc=
-t mipi_dsi_device *dev)
-> >  {
-> >       struct lt7911exc *lt7911exc =3D dsi_host_to_lt7911exc(host);
-> >
-> >       drm_bridge_remove(&lt7911exc->bridge);
-> >
-> >       return 0;
-> >  }
->
-> [Severity: High]
-> Does this missing cleanup prevent DSI device rebinds and cause a
-> use-after-free?
->
-> In lt7911exc_dsi_host_attach(), output_bridge is initialized, but it is n=
-ever
-> cleared back to NULL in this detach function.
->
-> If the downstream DSI panel is unbound via sysfs, the old wrapper remains=
-,
-> pointing to a freed panel.
->
-> If the panel is subsequently rebound, the check for output_bridge in
-> lt7911exc_dsi_host_attach() will falsely trigger and return -EBUSY,
-> permanently breaking the display pipeline. Should output_bridge be set to
-> NULL here?
->
-> [ ... ]
->
-> > @@ -662,11 +662,20 @@ static int lt7911exc_probe(struct i2c_client *cli=
-ent)
-> >       lt7911exc =3D devm_drm_bridge_alloc(dev, struct lt7911exc, bridge=
-, &lt7911exc_bridge_funcs);
-> >       if (IS_ERR(lt7911exc))
-> >               return dev_err_probe(dev, PTR_ERR(lt7911exc), "drm bridge=
- alloc failed.\n");
-> >
-> >       dev_set_drvdata(dev, lt7911exc);
-> >
-> >       lt7911exc->dev =3D dev;
-> >       lt7911exc->upgrade =3D false;
-> >       lt7911exc->removed =3D false;
-> >
-> >       ret =3D devm_mutex_init(dev, &lt7911exc->ocm_lock);
->
-> [Severity: High]
-> Could a concurrent sysfs write during probe trigger a kernel panic?
->
-> Because lt7911exc_attr_groups is attached via driver.dev_groups, the driv=
-er
-> core creates the sysfs files before probe() runs.
->
-> Here, dev_set_drvdata() exposes the struct before ocm_lock, upgrade_lock,
-> and the work struct are initialized.
->
-> If a user writes to the sysfs file during this window,
-> lt7911exc_firmware_store() will retrieve the partially initialized struct=
- and
-> attempt to lock the uninitialized mutex. Should the drvdata be set after
-> initialization is complete?
->
-> >       if (ret)
-> >               return dev_err_probe(dev, ret, "failed to init mutex\n");
-> >
-> >       ret =3D devm_mutex_init(dev, &lt7911exc->upgrade_lock);
->
-> [ ... ]
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715015438.27=
-70155-1-syyang@lontium.com?part=3D2
+[Severity: Low]
+Do these cell counts pass core device tree schema validation for I2C contro=
+llers?
+
+I2C controllers dictate the cell sizes for their child devices and normally
+enforce #address-cells =3D <1> (for the I2C address) and #size-cells =3D <0=
+> (since
+child devices are not memory mapped). Both examples seem to be using <2>.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715073521.1476=
+10-1-Nina_Kuo@novatek.com.tw?part=3D2
