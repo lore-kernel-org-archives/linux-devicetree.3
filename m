@@ -1,92 +1,87 @@
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
+Received: from mail.nic.cz (mail.nic.cz [217.31.204.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222333C9EF0;
-	Wed, 15 Jul 2026 08:07:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D9C53B840E;
+	Wed, 15 Jul 2026 08:08:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.31.204.67
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784102880; cv=none; b=teQxpBb5slgsHlztaecye35H6vz0UflwukjnGsrcohPOB86VyoKVW9Zy4VgpcVK0qajwCA5E8htKRiGmwu8nxzOvL1yQheYzrvSg8dRP6c8gyJZ4JTqyBs2Yevno5JQ4ig+UNvv80zLNlixJBKX90RZZ6KrvFeUiySEVf1IFxbU=
+	t=1784102897; cv=none; b=ab0Cc/Zbotwg/bBW1U22yaQbdXsuqzynsGlos1S0krou42EIQbPRKMqiRDLaqAIRqnBIivQNlf7sokA1jhnsn0Gsv421CgxupGWjth82eBTAe7k2G0rOoKMiFMbWBYp7TXu81E9u5cQe1G3K/+frLfwJmJnWt5Cuxf/Jsxu1yoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784102880; c=relaxed/simple;
-	bh=3wQ39MVMhwv+sIan9nmt82Njg/lpuBoBHDNh3zcHydQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LoGrhKfWLHVFRNfO6aW0ZKzv+BLhCRVgZmmN2/fie1IgAYI7ZM1okiE5GXgsJL3SeCljHryTg+8IaU3IMXeEX7GCE5iNJzXkVeFPG8IBYT0FzqHwtFtCeEo2AoIWjKeCat2vmlKwc2T2EZpchlK8ipsrlofoxU9MY6NuCCtJJXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=WQa5rs3z; arc=none smtp.client-ip=79.135.106.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1784102897; c=relaxed/simple;
+	bh=GFAYUtukJF+MHFTRC5bun5hBzgtIdadBRBey+EsqaAI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gnx9XEZfZFXGqrqsouRLzcrqGsCS7LD5aoMDrII2pEQYeVGEIRdU2bRIE38KqLhKfM7/gDh69dJBZcH4mnHUy9kFhIMHkku47N56vUR0RIvASCP2A7IBelGGBF/6smD7Nb0jC6X+kMbVkEGkNZtLQFCSDzr6ihQ4locjaUJ++MY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nic.cz; spf=pass smtp.mailfrom=nic.cz; dkim=pass (1024-bit key) header.d=nic.cz header.i=@nic.cz header.b=AUUNKwQ/; arc=none smtp.client-ip=217.31.204.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nic.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nic.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="WQa5rs3z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail3; t=1784102868; x=1784362068;
-	bh=BS1MUbZtDgZZJKhSMPDLCd+i5OY758wRtoFm/U7AmUg=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=WQa5rs3zrulBuoUhIN2c5XHPQpNYRDLmyAyRMteHX8Pa0MRObLUz8QNS7PMxCQtT7
-	 abzXD02v7I74IBz/KxxVrZwVIgDKBQd7LxpiCiYeVcmZ/kxwEQygLsIhVkOHAsQlDL
-	 nEkBcyqU1V5hPVQF/Ln4HnJy0eyunmF2/9x8iaV1j7dU+NmlSZAi6XzmpUll2LXGMQ
-	 XR+lujozuK95rbr4/FQKOKHyTEnScvvHjIYReY3R4EBr4zERt0DXUFmsSOXveEJ/W0
-	 PQTb3YMqddKqpHAb3Ha4TvM7DHhYdq3K7YJH4v/pr4wk31DqqAfHPOBEn6PqZZWisG
-	 qGwHmAQDNPGDA==
-X-Pm-Submission-Id: 4h0TLT68BMz2Sd2n
-From: Esben Haabendal <esben@geanix.com>
-Date: Wed, 15 Jul 2026 10:07:38 +0200
-Subject: [PATCH 1/2] dt-bindings: iio: accel: mma8452: Add drive-open-drain
+	dkim=pass (1024-bit key) header.d=nic.cz header.i=@nic.cz header.b="AUUNKwQ/"
+Received: from solitude (unknown [172.20.8.54])
+	by mail.nic.cz (Postfix) with ESMTPS id EAB931C1245;
+	Wed, 15 Jul 2026 09:58:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nic.cz; s=default;
+	t=1784102293;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=i3zoHmlfQB2+efQVK7taddCp6UGty1k40LZdxplgHdU=;
+	b=AUUNKwQ/rjfhS/ST/CMSQWG8U4ytjFPDFkPEtL5q4Ipya+EFBk9kVhjPNl+dwaAfa9zCSg
+	vHpnRcQfely6XOtn1859PTzrmX+WSRVCCzQlzmMj6Ymk9FeqiHEbtpndlCUSr2B5VAsxJK
+	6ho7LTJwgdPeE1Ia5OxUXy3Q/FiDQaQ=
+Authentication-Results: mail.nic.cz;
+	none
+Date: Wed, 15 Jul 2026 09:58:09 +0200
+From: Marek =?utf-8?B?QmVow7pu?= <marek.behun@nic.cz>
+To: Bjorn Andersson <andersson@kernel.org>, 
+	 Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, Alexandru Gagniuc <mr.nuke.me@gmail.com>
+Cc: krzk+dt@kernel.org, mturquette@baylibre.com, 
+	linux-remoteproc@vger.kernel.org, mathieu.poirier@linaro.org, robh@kernel.org, conor+dt@kernel.org, 
+	konradybcio@kernel.org, sboyd@kernel.org, p.zabel@pengutronix.de, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org
+Subject: Re: (subset) [PATCH v2 0/9] remoteproc: qcom_q6v5_wcss: add native
+ ipq9574 support
+Message-ID: <jhl7fic36ec36pyaduw6xtmgvr75sxurngdykljbovdbt2j23g@ezon25dsv3hg>
+References: <20260109043352.3072933-1-mr.nuke.me@gmail.com>
+ <178370682987.2572738.13491033810212556744.b4-ty@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260715-mma8452-open-drain-v1-1-b1dd2a440c60@geanix.com>
-References: <20260715-mma8452-open-drain-v1-0-b1dd2a440c60@geanix.com>
-In-Reply-To: <20260715-mma8452-open-drain-v1-0-b1dd2a440c60@geanix.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, 
- Sean Nyekjaer <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- Martin Kepplinger <martin.kepplinger@theobroma-systems.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Esben Haabendal <esben@geanix.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784102863; l=990;
- i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=3wQ39MVMhwv+sIan9nmt82Njg/lpuBoBHDNh3zcHydQ=;
- b=GcqG96YuFrM+bINLYZZI2AXddzNmKEtsfLBfOrhbY+n4EDbY9dyC/ElRN0nGX72fnHY0TjmB5
- LcAIzBvq1mFCqWn90R7XjQZxwGe1gbZEVdSt3vxY7cYhsFPU5GdWF75
-X-Developer-Key: i=esben@geanix.com; a=ed25519;
- pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178370682987.2572738.13491033810212556744.b4-ty@kernel.org>
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-0.10 / 16.00];
+	MIME_GOOD(-0.10)[text/plain];
+	TAGGED_RCPT(0.00)[dt];
+	FREEMAIL_TO(0.00)[kernel.org,oss.qualcomm.com,gmail.com];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	ARC_NA(0.00)[];
+	WHITELISTED_IP(0.00)[172.20.8.54];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[nic.cz:s=default];
+	FROM_HAS_DN(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	LOCAL_OUTBOUND(0.00)[];
+	MIME_TRACE(0.00)[0:+]
+X-Rspamd-Server: mail
+X-Rspamd-Queue-Id: EAB931C1245
+X-Spamd-Bar: /
+X-Rspamd-Pre-Result: action=no action;
+	module=multimap;
+	Matched map: WHITELISTED_IP
 
-Add new boolean to configure selected interrupt pin to open drain instead
-of the default push-pull mode.
+Bjorn, Alexandru,
 
-Signed-off-by: Esben Haabendal <esben@geanix.com>
----
- Documentation/devicetree/bindings/iio/accel/fsl,mma8452.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+there is another, much newer series by Varadarajan adding ipq9574 to
+wcss PIL driver,
 
-diff --git a/Documentation/devicetree/bindings/iio/accel/fsl,mma8452.yaml b/Documentation/devicetree/bindings/iio/accel/fsl,mma8452.yaml
-index b0dd2b4e116a..20701aa725d0 100644
---- a/Documentation/devicetree/bindings/iio/accel/fsl,mma8452.yaml
-+++ b/Documentation/devicetree/bindings/iio/accel/fsl,mma8452.yaml
-@@ -39,6 +39,12 @@ properties:
-     minItems: 1
-     maxItems: 2
- 
-+  drive-open-drain:
-+    $ref: /schemas/types.yaml#/definitions/flag
-+    description: the interrupt line will be configured as open drain, which is
-+      useful if several sensors share the same interrupt line. (This binding is
-+      taken from pinctrl.)
-+
-   vdd-supply: true
-   vddio-supply: true
- 
+  https://lore.kernel.org/linux-remoteproc/20260713-rproc-v13-0-41011cbcda3e@oss.qualcomm.com/
 
--- 
-2.55.0
+I suspect these two series are incompatible.
 
+Marek
