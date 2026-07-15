@@ -1,153 +1,273 @@
-Received: from mail-m32107.qiye.163.com (mail-m32107.qiye.163.com [220.197.32.107])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D87F0480950;
-	Wed, 15 Jul 2026 15:19:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.107
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CF8239891D
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 15:24:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784128759; cv=none; b=EFXLJUgPL6qi8hsGVgyOGfpiAPzyHffrBltcicuZirAsY7iIg8SzIr5yWgj4zTuXeA2Fvvm+aY8e0uc0Z02ZMZaVjpPKAaGid57/UcOoRRT+7XNPaGDRAIyTAytMhrC4OBFhXXvPMOTLTj79uHXdJ9Ycav2OPqcRJm8/JbHq5qA=
+	t=1784129052; cv=none; b=TJRk8vvRlERyemM8tq5YF1Pm6GDK2Jxg+VDJStQFTKvKa68OP3yd4EQK8lHb7dsesZKj1jctOKgLdrVqOfz4D+9NQMtMkKXOZgVjhcXI5UDOOCa0WQy4gCx+vLWAgNED8fz4tkyPT9OoI/Yfk07pj6kLo5Sad5w1AGJCa00LZCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784128759; c=relaxed/simple;
-	bh=bq8g9xkHiuWTkk3XAF0GfB67818hIQ3ys42KjTG2uy4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Ty9FBUXaFiO1OxLPgXMi49lSDa54tH/uGvkoe0PylbYJLPEO0xMDKAuV2LJ7bjOnX64YP1OMy2RDUt33SpBSHsr4AQaaDEuVLzsMXhTex66fSSD274+V4bl24eEZNbAly4lTCGEhy1EIhGh69s7p9gZGmxpJVxRC1uqWOEPvGWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=k+egMmu7; arc=none smtp.client-ip=220.197.32.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	s=arc-20240116; t=1784129052; c=relaxed/simple;
+	bh=KTQMnFfWTbri/onhyUnjIRORHOr+7cW8aUwp/qtFPd4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=NCT6qwQAJWpD5fxpNVlagcgADBgZcgLWNSkts8iXPtI9hZtpzPv+lKpNj2XvUjUR1j4jX1QAathabAowhXrKDd1khCR6/KEDQWQzW3js0AVS+5cSXhWOYjAbRSt13C3/GbykcJ4WhgYJmhJ98TH09RqliEkEtaA1gb9G0yIWGlc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l8FJ896j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="k+egMmu7"
-Received: from [127.0.1.1] (unknown [36.129.139.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 464e8f2f7;
-	Wed, 15 Jul 2026 22:03:29 +0800 (GMT+08:00)
-From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-Date: Wed, 15 Jul 2026 22:02:54 +0800
-Subject: [PATCH v2 5/6] ASoC: qcom: sc8280xp: Add RubikPi 3 sound card
- support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l8FJ896j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 124171F000E9;
+	Wed, 15 Jul 2026 15:24:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784129050;
+	bh=gYgSyR8nTRyM99KrY7R+rwPBlkpAWvF/svtLFCwcz8I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=l8FJ896jGFGq0Esb5e90nkPrBQsEnfVufzO9PwKt6zfQcXQOM/jc16AKER4l5LYUS
+	 9DOrcE3cPnKeISYlSsdUxtbwa68LCTPcwDkMVPwv9Wbx7/SwQL+rUufFfGilHRG+6L
+	 97JvWYor5VtqwsJ0UeMtAQll0PCuYakhH9tcHgmBWGr/5VxygI3fi1dggwjXnB7kAK
+	 YAQ3klB1V/6hQaxDHDV0s13H2eBjLoGErbYJ/WNp/BmTPGtp+P++bcNll7Af2kXTBe
+	 Z/7W+/nljV7AeXd/IoLhH8BuqfCjdS6KVxkwR/bn7inIzYY/U14NGjbtH89427bJYh
+	 O1pzUesgD5ZcQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 11/11] drm/mediatek: Add Write DMA (WDMA) Engine for
+ Writeback support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260715135703.46540-12-angelogioacchino.delregno@collabora.com>
+References: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
+ <20260715135703.46540-12-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 15:24:09 +0000
+Message-Id: <20260715152410.124171F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260715-rubikpi-next-20260605-v2-5-67601d7a8581@thundersoft.com>
-References: <20260715-rubikpi-next-20260605-v2-0-67601d7a8581@thundersoft.com>
-In-Reply-To: <20260715-rubikpi-next-20260605-v2-0-67601d7a8581@thundersoft.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>, 
- Katsuhiro Suzuki <katsuhiro@katsuster.net>, 
- Matteo Martelli <matteomartelli3@gmail.com>, 
- Binbin Zhou <zhoubinbin@loongson.cn>, 
- Srinivas Kandagatla <srini@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Roger Shimizu <rosh@debian.org>, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, 
- Hongyang Zhao <hongyang.zhao@thundersoft.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784124199; l=2744;
- i=hongyang.zhao@thundersoft.com; s=20260127; h=from:subject:message-id;
- bh=bq8g9xkHiuWTkk3XAF0GfB67818hIQ3ys42KjTG2uy4=;
- b=TU7Y/vfqmmE3PBsbqNs4aV/CQQffqcLkoSLbTM0lIPPmV0JfO1gyXi39GOLkApezBiAvz6Tp6
- WZu4NSZ8D/4AkOgJKsOXi6Qz2qjcZAYPqFQJK6BbFtQd+TjpRj+xR/O
-X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
- pk=D9yL5W9Zj0lPBDAq9gzY++1849VlXuTWAkROzZ88J/4=
-X-HM-Tid: 0a9f6616f8a409d5kunm638899c2110dd
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGhlKVkwfHUsYHklKQh1JSVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lPT09IVUpLS1VKQktLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=k+egMmu7mBB0s1EmV64EDydgX7fiejPU7BYLztvt0twcKzu5Ah7CkB0NnFPkxIX06ZmnuDDEQnuCLtzT2Lq0IkiqTb725a0E+TbH9/gzBpr8fn5/NrULl4+A0LMEc2xHhxgIYZ/zObH5e/Gss1zuonGYPxYteAXVITeJni14AfQ=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
-	bh=sF1yQe3cHSrdtvnwidVs42rm5Q0btdZJti8KGLZLjp4=;
-	h=date:mime-version:subject:message-id:from;
 
-RubikPi 3 connects an ES8316 codec to the primary MI2S interface for
-headset playback and capture, and an LT9611 bridge to the quaternary
-MI2S interface for HDMI audio.
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+s) to consider:
+- [Critical] WDMA corrupts input framebuffers by treating plane state as ou=
+tput destination.
+- [High] WDMA configuration code is unreachable, leaving hardware unprogram=
+med.
+- [High] Kernel Panic from unconditional `drm_writeback_queue_job()` in pla=
+ne config.
+- [High] Direct MMIO writes bypass CMDQ synchronization, causing hardware s=
+tate corruption.
+- [High] Race condition between atomic_commit and IRQ handler stalls writeb=
+ack jobs.
+- [High] Unclocked MMIO access during bind causes system hang.
+- [Medium] pm_runtime_get_sync() misuse leaks PM usage counter and causes s=
+purious warnings.
+- [Medium] WDMA writeback connector artificially restricted to single outpu=
+t format.
+--
 
-Add board-specific DAI data for these links. Configure both directions
-of the primary interface for I2S with normal clock polarity and the
-codec as bit and frame clock consumer. Program the LPASS MCLK and BCLK,
-drive the ES8316 with its required 19.2 MHz MCLK, and enable the generic
-codec jack-detection setup on the playback link.
+--- Patch [11]: [PATCH v6 11/11] drm/mediatek: Add Write DMA (WDMA) Engine =
+for Writeback support ---
+commit 785dafc39cd5707f8b31637d57cc1e1d14518c1b
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: drm/mediatek: Add Write DMA (WDMA) Engine for Writeback support
 
-Configure the quaternary playback link with the same I2S clock format.
-Do not request a codec sysclk for this link because the LT9611 HDMI
-codec DAI does not implement set_sysclk().
+This commit adds a basic driver for the Write DMA Engine (WDMA) on MediaTek
+MT8173 and Dimensity 1200 MT6893. It hooks the engine into the display
+pipeline to enable writeback support for display image capturing.
 
-Select this configuration through the RubikPi 3 sound-card compatible.
+> diff --git a/drivers/gpu/drm/mediatek/mtk_disp_wdma.c b/drivers/gpu/drm/m=
+ediatek/mtk_disp_wdma.c
+> new file mode 100644
+> index 0000000000000..0575fade92c6b
+> --- /dev/null
+> +++ b/drivers/gpu/drm/mediatek/mtk_disp_wdma.c
 
-Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
----
- sound/soc/qcom/sc8280xp.c | 39 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
+[ ... ]
 
-diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-index 885ec1e3e575..1354eecb56c9 100644
---- a/sound/soc/qcom/sc8280xp.c
-+++ b/sound/soc/qcom/sc8280xp.c
-@@ -410,6 +410,41 @@ static const struct snd_soc_common qcs6490_priv_data = {
- 	}),
- };
- 
-+static const struct snd_soc_common qcs6490_rubikpi3_priv_data = {
-+	.driver_name = "qcs6490",
-+	.dapm_widgets = sc8280xp_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
-+	SC8280XP_DAI_DATA(
-+		{
-+			.id = PRIMARY_MI2S_RX,
-+			.codec_dai_fmt = SND_SOC_DAIFMT_I2S |
-+					 SND_SOC_DAIFMT_NB_NF |
-+					 SND_SOC_DAIFMT_BC_FC,
-+			.mclk_rate = 19200000,
-+			.codec_sysclk_set = true,
-+			.mi2s_mclk_enable = true,
-+			.mi2s_bclk_enable = true,
-+			.jack_setup = SC8280XP_JACK_SETUP_CODEC,
-+		},
-+		{
-+			.id = PRIMARY_MI2S_TX,
-+			.codec_dai_fmt = SND_SOC_DAIFMT_I2S |
-+					 SND_SOC_DAIFMT_NB_NF |
-+					 SND_SOC_DAIFMT_BC_FC,
-+			.mclk_rate = 19200000,
-+			.codec_sysclk_set = true,
-+			.mi2s_mclk_enable = true,
-+			.mi2s_bclk_enable = true,
-+		},
-+		{
-+			.id = QUATERNARY_MI2S_RX,
-+			.codec_dai_fmt = SND_SOC_DAIFMT_I2S |
-+					 SND_SOC_DAIFMT_NB_NF |
-+					 SND_SOC_DAIFMT_BC_FC,
-+		}
-+	),
-+};
-+
- static const struct snd_soc_common qcs8275_priv_data = {
- 	.driver_name = "qcs8300",
- 	.dapm_widgets = sc8280xp_dapm_widgets,
-@@ -480,6 +515,10 @@ static const struct of_device_id snd_sc8280xp_dt_match[] = {
- 	{ .compatible = "qcom,sm8550-sndcard", .data = &sm8550_priv_data },
- 	{ .compatible = "qcom,sm8650-sndcard", .data = &sm8650_priv_data },
- 	{ .compatible = "qcom,sm8750-sndcard", .data = &sm8750_priv_data },
-+	{
-+		.compatible = "thundercomm,qcs6490-rubikpi3-sndcard",
-+		.data = &qcs6490_rubikpi3_priv_data,
-+	},
- 	{}
- };
- 
+> +void mtk_wdma_config(struct device *dev, unsigned int width,
+> +		     unsigned int height, unsigned int vrefresh,
+> +		     unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
+> +{
+> +	struct mtk_disp_wdma *wdma =3D dev_get_drvdata(dev);
+> +
+> +	writel(WDMA_FORCE_COMMIT | WDMA_BYPASS_SHADOW,
+> +	       wdma->regs + DISP_REG_WDMA_SHADOW_CTRL);
+> +}
 
--- 
-2.43.0
+[Severity: High]
+Does setting WDMA_BYPASS_SHADOW break the hardware's ability to atomically
+apply updates at the VBLANK boundary?
 
+[ ... ]
+
+> +static void mtk_wdma_format_config(struct mtk_disp_wdma *wdma,
+> +				   struct mtk_plane_pending_state *pending,
+> +				   const struct drm_format_info *fmt_info,
+> +				   struct cmdq_pkt *cmdq_pkt)
+> +{
+> +	unsigned int u_off, u_stride, u_size, v_off;
+> +	u32 val;
+> +
+> +	/*
+> +	 * For RGB formats, this sets the image destination address;
+> +	 * For YUV formats, this sets the Y component destination address.
+> +	 */
+> +	mtk_wdma_ddp_write_dst_addr(cmdq_pkt, pending->addr, 0, wdma);
+
+[Severity: Critical]
+Could this corrupt the input framebuffer memory?
+
+By passing pending->addr (the source framebuffer) to
+mtk_wdma_ddp_write_dst_addr(), it looks like the writeback hardware is
+programmed to write the captured display data directly over the active input
+framebuffer, rather than the writeback job's destination address.
+
+[ ... ]
+
+> +void mtk_wdma_layer_config(struct device *dev, unsigned int idx,
+> +			   struct mtk_plane_state *state,
+> +			   struct cmdq_pkt *cmdq_pkt)
+> +{
+
+[Severity: High]
+Is this configuration code reachable during normal operation?
+
+WDMA is a writeback engine located at the end of the display pipeline (index
+greater than 1). Since mtk_crtc_num_comp_planes() returns 0 for any compone=
+nt
+index greater than 1, it appears WDMA never receives plane allocations.
+
+This would prevent mtk_ddp_comp_for_plane() from matching it, leaving the
+hardware unprogrammed.
+
+[ ... ]
+
+> +	mtk_wdma_format_config(wdma, pending, fmt_info, cmdq_pkt);
+> +
+> +	drm_writeback_queue_job(&wdma->wb_connector, wdma->wb_connector.base.st=
+ate);
+> +}
+
+[Severity: High]
+Can this cause a NULL pointer dereference?
+
+If mtk_wdma_layer_config() is executed, it unconditionally calls
+drm_writeback_queue_job() with the generic conn_state.
+
+However, mtk_wdma_wb_connector_atomic_commit() already consumes the job and
+sets conn_state->writeback_job to NULL earlier in the commit sequence.
+
+[ ... ]
+
+> +static void mtk_wdma_wb_connector_atomic_commit(struct drm_connector *co=
+nnector,
+> +						struct drm_atomic_commit *state)
+> +{
+
+[ ... ]
+
+> +	/* Store writeback pending state before queuing the job */
+> +	wdma->wb_pending =3D true;
+
+[Severity: High]
+Does setting the wb_pending flag before the lock-protected
+drm_writeback_queue_job() call introduce a race condition?
+
+If a previous frame's completion interrupt fires in this window,
+mtk_disp_wdma_irq_handler() could observe the flag, fail to find the job in
+the queue, and clear wb_pending.
+
+The new job would then be queued but never signaled because wb_pending is
+now false.
+
+> +
+> +	mtk_wdma_ddp_write_dst_addr(NULL, addr, 0, wdma);
+
+[Severity: High]
+Could passing NULL for cmdq_pkt cause hardware state corruption?
+
+This forces an immediate, unsynchronized CPU writel() to the hardware
+destination registers, bypassing the GCE CMDQ.
+
+Modifying the destination address mid-frame while an active DMA transfer is
+occurring might redirect the transfer prematurely.
+
+> +	drm_writeback_queue_job(&wdma->wb_connector, conn_state);
+> +}
+
+[ ... ]
+
+> +static int mtk_disp_wdma_bind(struct device *dev, struct device *master,
+> +			      void *data)
+> +{
+
+[ ... ]
+
+> +	ret =3D drm_writeback_connector_init(drm_dev, &wdma->wb_connector,
+> +					   &mtk_wdma_wb_connector_funcs,
+> +					   &mtk_wdma_wb_encoder_helper_funcs,
+> +					   mtk_wdma_wb_output_formats,
+> +					   ARRAY_SIZE(mtk_wdma_wb_output_formats),
+> +					   crtcs);
+
+[Severity: Medium]
+Is it intentional to hardcode mtk_wdma_wb_output_formats here (which only
+contains DRM_FORMAT_RGB888)?
+
+This ignores the wdma->data->formats array that supports 13 formats, making
+the format conversion logic in wdma_fmt_convert() unused and restricting
+userspace capabilities.
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D pm_runtime_get_sync(dev);
+> +	if (ret)
+> +		dev_warn(dev, "Could not get PM Runtime!\n");
+
+[Severity: Medium]
+Could this lead to spurious warnings?
+
+pm_runtime_get_sync() returns 1 when the device is already active. Checking
+if (ret) evaluates to true on success, which would incorrectly print this
+warning.
+
+> +
+> +	/*
+> +	 * Disable and clear pending interrupts - write unconditionally as no
+> +	 * crash (SError, etc) will happen as if unpowered/unclocked this is
+> +	 * simply going to be ignored (and the registers will be 0 at reset).
+> +	 */
+> +	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_ENABLE);
+> +	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_STATUS);
+
+[Severity: High]
+Are we sure this will not crash on an unclocked device?
+
+On MediaTek SoCs, writing to unclocked MMSYS registers can result in an
+immediate bus hang.
+
+Since the driver lacks dev_pm_ops to link runtime PM to clock management,
+pm_runtime_get_sync() does not implicitly enable the clock. Should
+clk_prepare_enable() be called explicitly before these writes?
+
+> +
+> +	/* Put RPM only if refcount was incremented before to avoid unbalancing=
+ */
+> +	if (ret >=3D 0)
+> +		pm_runtime_put(dev);
+
+[Severity: Medium]
+Does this logic leak the PM usage counter on actual errors?
+
+By calling pm_runtime_put(dev) only when ret >=3D 0, the usage counter
+reference acquired by pm_runtime_get_sync() is never dropped if an error
+(ret < 0) occurs.
+
+> +
+> +	enable_irq(wdma->irq);
+> +	return 0;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715135703.4654=
+0-1-angelogioacchino.delregno@collabora.com?part=3D11
