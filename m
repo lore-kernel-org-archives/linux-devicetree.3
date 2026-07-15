@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B76C431499
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 09:34:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291CD433058
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 09:34:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784108048; cv=none; b=gFFil9Wi7cwlcY8uKM1BWdQpsgTN6PfVytGviOd1ca/sO4x8Jk4XHSfMcTtZ0+UbfWO+2L0IG23BFzcwMOcWtowNoDczRfVanbPymox+jPHwV4RJz9LPF5+ZAfgdnz/qfS1zOZDOYewAEjbdRIFkNWbuD91En4mryQ6PCaEO6oM=
+	t=1784108080; cv=none; b=PjZLm9W1Spk4MOuU/NkAbp6lQw2o+gdI9AZiMn2F336w2zQN5T3qNoQuzT4yXETspzxMSt7lIg8GaRSMBOBFLmDESl3GBXrTDj3IxCPw9IrNLLs6l4crHxbzplQfr8BMzBd4pqJJvSosKzt7BuEx5KDHSBPOGqL2m6pO3Ovt7Fo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784108048; c=relaxed/simple;
-	bh=jpQmVdSYnmVxKZY27i0/sMmzXcu+53a3et8skWxbM1I=;
+	s=arc-20240116; t=1784108080; c=relaxed/simple;
+	bh=WpZfNFKGjumO8+Z/Bho1volJmGE/eUifvTrmGF9sf/k=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KBrhptAwDPn4BOOoH+9tlNQwNyi/My4hm8hz1C9Arpw3u+gn5gP9xp0Y/yjy9tEuRAkUKDevcxDt2h2WzsdoCFXJxmQ64uVfCc5fkTuTQsQVW2us+eiVlx312pQKnfDoOXlgccJbrsR73jnT7PSzzWm4G17168Un379tlls3d7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lr/NB7jX; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=REBI1Kf56mCwPPjHSi5TBGIwvylZ7gJ8jAsDgsUXvBMGzEejDUm3mSC01LEDOok6CbzqSBOyuFcOAiq6JpYeDkkQc6utnpapwWcbMVlsxWFaDF81Gyj8mTg0tG1ks2Fd2wb6XF0hbax7qGQDePyzNjY9c1fiGDu2QV/MU+7Scho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A+cO8QWN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lr/NB7jX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFF131F000E9;
-	Wed, 15 Jul 2026 09:34:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A+cO8QWN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32EAC1F000E9;
+	Wed, 15 Jul 2026 09:34:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784108041;
-	bh=rEkVsrAGUzUyCrDxDqCXVloTGlUHO9PhXXw6QPRGdeQ=;
+	s=k20260515; t=1784108073;
+	bh=7WDn2+djxYXvbq4lHIUhtDS8np7JlOdc7QDeFYFki4g=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lr/NB7jXkPYeQyRFuT/E/dG/Vv4mRQSKxoNHAtIh3ra3/6qN8oGk4e3rxASJaixDf
-	 9F2phxhIFc3fMxR4v1wcxHj0vHnwnYNw87OlWQ2f6SN36lC1a0Our0K9rqmhJxseJE
-	 b3HNnptuYnJ8vaoJcj7hj+eQq37GCwEugvTWxnJ700wf4M7yf9+QQyfy/UZ9zDFsxA
-	 6nsjwXIyw8jjwMJHqwUuG6F7Pg22FMG9zoyciEz7Id7OrIG3YdCcwWLFXvOy0VkwpE
-	 ZMMlDieS0uiiXKekwRkSDaHMPEPcGstu0tdmn6j8QvWMYbo5zUXqHt1Du1A2R/3dVC
-	 eX1L10l5fXvaw==
+	b=A+cO8QWNdyuXacHjTJABv7Q4bCZEoS02DZPGBq+Ryst6HIxO2pYPX/4ivLiFVcIDZ
+	 B8fBa9+0YS5RrGdkYZ4ce6npOa5ZlksYVitRzV3aEOf/J2+UXEku+40rD4w4ckNLo8
+	 ccf7dZVMmFRobxWvsyD1WuVgjvuDz4R3sqQALnKhnNPPYh9YrEzpmQwtIAsYE0ol7m
+	 waIGDW2ocdf/FQsnLzXRtaaFeDtA8qLBh6qQ9Rn9xpOAovSkr3H0MtGWm3HcYA2wWI
+	 LAOv6YL3yE7+n0sEmu3x2qg4ZvNaCgI7zfXif++iDH6DN7LJ0gjPm+ouM/hg2FZnNI
+	 VAygDWAbuH3uQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 13/16] power: sequencing: pcie-m2: Add usb and sdio
- targets for E-key connector
+Subject: Re: [PATCH v5 14/16] power: sequencing: pcie-m2: Split Bluetooth
+ unit based on interface
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Chen-Yu Tsai" <wenst@chromium.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260715085348.3457359-14-wenst@chromium.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260715085348.3457359-15-wenst@chromium.org>
 References: <20260715085348.3457359-1-wenst@chromium.org>
- <20260715085348.3457359-14-wenst@chromium.org>
+ <20260715085348.3457359-15-wenst@chromium.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 09:34:00 +0000
-Message-Id: <20260715093400.AFF131F000E9@smtp.kernel.org>
+Date: Wed, 15 Jul 2026 09:34:32 +0000
+Message-Id: <20260715093433.32EAC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,82 +47,93 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Missing initialization of `list_head` causes a NULL pointer derefe=
-rence on the `pwrseq_unit_setup()` error path.
+- [High] Splitting a single shared physical reset GPIO into two logical pow=
+er sequencing units bypasses the core's refcounting, causing the USB subsys=
+tem's runtime PM to inadvertently power off the Bluetooth controller while =
+it is actively in use by the UART driver.
 --
 
---- Patch [13]: [PATCH v5 13/16] power: sequencing: pcie-m2: Add usb and sd=
-io targets for E-key connector ---
-commit a4efebd06d30c32580111345a5d6a16748b52be2
+--- Patch [14]: [PATCH v5 14/16] power: sequencing: pcie-m2: Split Bluetoot=
+h unit based on interface ---
+commit 87ef77e2c86fea3f38f875c67c427d48fa406c76
 Author: Chen-Yu Tsai <wenst@chromium.org>
 
-power: sequencing: pcie-m2: Add usb and sdio targets for E-key connector
+power: sequencing: pcie-m2: Split Bluetooth unit based on interface
 
-The M.2 E-key connector allows either PCIe or SDIO for WiFi and USB or
-UART for BT. This commit adds power sequencing targets for SDIO and USB
-by renaming existing units to wifi and bt.
+This commit splits the Bluetooth power sequencing unit into two distinct
+units (UART and USB) to allow independent control. It aims to fix
+initialization and recovery for serdev drivers by letting either interface
+toggle the power.
 
 > diff --git a/drivers/power/sequencing/pwrseq-pcie-m2.c b/drivers/power/se=
 quencing/pwrseq-pcie-m2.c
-> index 01f9f6a717464..8ae55e87db74c 100644
 > --- a/drivers/power/sequencing/pwrseq-pcie-m2.c
 > +++ b/drivers/power/sequencing/pwrseq-pcie-m2.c
-> @@ -69,46 +69,46 @@ static const struct pwrseq_unit_data *pwrseq_pcie_m2_=
-unit_deps[] =3D {
+> @@ -83,8 +83,22 @@ static int pwrseq_pci_m2_e_bt_disable(struct pwrseq_de=
+vice *pwrseq)
+
 [ ... ]
-> -static const struct pwrseq_unit_data pwrseq_pcie_m2_e_uart_unit_data =3D=
- {
-> -	.name =3D "uart-enable",
-> +static const struct pwrseq_unit_data pwrseq_pcie_m2_e_bt_unit_data =3D {
-> +	.name =3D "bt-enable",
->  	.deps =3D pwrseq_pcie_m2_unit_deps,
-> -	.enable =3D pwrseq_pci_m2_e_uart_enable,
-> -	.disable =3D pwrseq_pci_m2_e_uart_disable,
+
+> -static const struct pwrseq_unit_data pwrseq_pcie_m2_e_bt_unit_data =3D {
+> -	.name =3D "bt-enable",
+> +/*
+> + * XXX There are two Bluetooth units to allow either one to be able to p=
+ower
+> + * off and thus reset the controller. In practice only one of the interf=
+aces
+> + * is used, so there is no conflict. However userspace could power off t=
+he
+> + * USB unit by disabling the associated USB port, without the UART unit =
+or
+> + * its consumer ever knowing.
+> + */
+> +static const struct pwrseq_unit_data pwrseq_pcie_m2_e_bt_uart_unit_data =
+=3D {
+> +	.name =3D "bt-uart-enable",
+> +	.deps =3D pwrseq_pcie_m2_unit_deps,
 > +	.enable =3D pwrseq_pci_m2_e_bt_enable,
 > +	.disable =3D pwrseq_pci_m2_e_bt_disable,
->  };
+> +};
+> +
+> +static const struct pwrseq_unit_data pwrseq_pcie_m2_e_bt_usb_unit_data =
+=3D {
+> +	.name =3D "bt-usb-enable",
 
 [Severity: High]
-This is a pre-existing issue, but while reviewing the new power sequencing
-units being added here, I noticed a potential NULL pointer dereference in
-the core power sequencing error path.
+Does splitting a single physical reset GPIO into two logical units bypass t=
+he
+power sequencing core's refcounting?
 
-Does the error path in pwrseq_unit_setup() crash when freeing an uninitiali=
-zed
-list?
+The commit message notes there is no conflict in practice, but won't the USB
+subsystem's runtime PM automatically turn off the Bluetooth controller while
+the UART driver is actively using it?
 
-When a unit is allocated in drivers/power/sequencing/core.c:pwrseq_unit_new=
-(),
-the unit->list field is not initialized:
+Because a power sequencing target exists, the USB core removes the PM QoS
+constraint for the port:
 
-drivers/power/sequencing/core.c:pwrseq_unit_new() {
-	...
-	kref_init(&unit->ref);
-	INIT_LIST_HEAD(&unit->deps);
-	unit->enable =3D data->enable;
-	...
+drivers/usb/core/port.c:usb_hub_create_port_device() {
+    ...
+    /* Userspace owns the policy, drop the kernel 'no_poweroff' request. */
+    retval =3D dev_pm_qos_remove_request(port_dev->req);
+    ...
 }
 
-If pwrseq_unit_setup() fails before adding the unit to the list (for exampl=
-e,
-due to an out-of-memory error), the cleanup path calls pwrseq_unit_put(unit=
-).
-This triggers pwrseq_unit_release():
+If the USB port on the M.2 connector is physically empty (since Bluetooth is
+using UART), runtime PM automatically suspends the empty port and powers it
+off:
 
-drivers/power/sequencing/core.c:pwrseq_unit_release() {
-	...
-	pwrseq_unit_free_deps(&unit->deps);
-	list_del(&unit->list);
-	kfree_const(unit->name);
-	...
+drivers/usb/core/port.c:usb_port_runtime_suspend() {
+    ...
+    retval =3D usb_hub_set_port_power(hdev, hub, port1, false);
+    ...
 }
 
-Since INIT_LIST_HEAD(&unit->list) was never called, the list pointers are
-still NULL. Calling list_del(&unit->list) will attempt to modify next->prev,
-resulting in an immediate kernel panic.
+This calls into the power sequence disable callback for the USB target. Sin=
+ce
+both logical units control the exact same physical w_disable2_gpio, won't
+this disable action blindly assert the reset GPIO and yank the power state
+from underneath the active UART driver without any user interaction?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715085348.3457=
-359-1-wenst@chromium.org?part=3D13
+359-1-wenst@chromium.org?part=3D14
