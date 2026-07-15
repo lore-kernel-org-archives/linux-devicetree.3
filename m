@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33A13AE183
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 19:14:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A8D41A56D
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 19:14:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784142898; cv=none; b=JAl41Nked7lEaHNQ3SjUf94CPRGjOjw3iEZF+g9cKeXTPLpGP+bEkRRmI9U//CcLnXK8si6VPOkmM0gPLjNiOOvEqwAZUEIR9n6lNP4DyBVe9s6mTdh37POhATaqUO8L0JwaWH5a8ZEDHRYViIQ6B9TKdktan3gDcNdsGoSVtB4=
+	t=1784142899; cv=none; b=RUWacp3zl8xHJt5imsCoEjYYZKQnAlLhdt8VnGSt8cq6hRalvNMhKfopQwl+gs2mIAshmxJPeWZND7delNmLh4g5SNE2R9+ip2aRSQ33JR7vGuNCTAD+v5mhieUDf5HoZEvoOFdzSjnSY/MlkSZZzPEWDShSdHfA5tzcmNaROsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784142898; c=relaxed/simple;
-	bh=laJCjMxVZ1mFt2XxuKKkmQyp2LbrleFETiSvryhev58=;
+	s=arc-20240116; t=1784142899; c=relaxed/simple;
+	bh=oyszTGkmqP0pSnxSF+Y70XsfZRG3OfqC2UZlMd0PPdg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cAib1SVYT/voeM4UlIDe6m2Q0VqCypQ5r39yk7KIhZynRevIRVyKzIi2QLfrn/jCdcMaZfLLYFbxEWtWwdyoF1EsSjfdUSVGhOVSQZwfhfcRhXLuM7xG6Gn4Ka+8Q61mmKSs/hqm4Fh1CPUAubjDl8oiyKKUJ0MC8EZpLclt4a8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fQbZpVGF; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Rtw7spCn96De2nqsdu10cVLvEFfK/v4G2wUue6wz9Jh9o5R087BgI2kGyzWdNOIgyXvK0cNO3dfnD0BigCnWv7ArGVJcWtWIvEj0PewIu7QWiByJ/Lt90a1VSqx6syRmMidOxykCQZLDGwxRZXfV23RPkSQ28NFpOp5bXueTwYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cT/ZWzWZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fQbZpVGF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 437E11F00A3A;
-	Wed, 15 Jul 2026 19:14:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cT/ZWzWZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A4821F00A3F;
+	Wed, 15 Jul 2026 19:14:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784142889;
-	bh=QaPvJvsUGfaYOnyKvojyIFNtpOj23a4t4/Ky9KmWBbs=;
+	s=k20260515; t=1784142892;
+	bh=amNxNsxiYD+UwtXtFy7mITJnpHsCeZnOsPz7hH07J1c=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fQbZpVGFZCA5viPknyLXtBRQdB6/PhAC1hsdaD+m4jf74vrvtIpcQZl5Cp31rGH2Q
-	 NieTGaLas+UREXQTkii6ZcmG4k8OibaeVH4HARPyuwtoque/R39J9PidaB0fo+Gvz7
-	 1oy/jUiy3KpaIhFV0qHM0x9By3dQpbsgIInwiY02g0VmXCi6cW96jBZfU4QNaoG5TC
-	 oIWnG2Wd/pueZAScIDfGtaZgvcyNRQ1Lx3UIM9E984E6nOxvTeBhjN37dfdd8Oln2V
-	 VlGPl49I9Rs5DlLFhMDDGrmhJ6Zky7nlW+MZErkArZpEzJllCbx6/8UbmvO4L3ztc1
-	 KyqmhhZQv8CMg==
+	b=cT/ZWzWZll5TSuMVtPS0/WWMwmU6AZeAWjX8sYp3qGg1by485NnMCYPhhT9yHO44N
+	 9sJbfXWiRBvGWw1ZsP2vKmj1wKsa9Sxuo2NgHsxzYnQA22tF0KXVLXJ3n1I5UJCub7
+	 z9GU7UzdqiURi3/Wla6R/uJqz/gnoXviib1qMh2fL3rKOtC3FXv1z4uSggVO9ydzXO
+	 M/F8JHD8Lo/+PYwBucuqlVhdRsWzw+udWg8msgNL0EbHq8GJoaSY3f4jhrEECf/fh9
+	 mEfg2f1htC/7c/PZ3Cngmw3s3Y/CqKFjQgf9beaEZMY03n0QHp41evXKJwqJQBDyFV
+	 bbKay+RVlGQwA==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 02/10] dt-bindings: phy: rockchip: naneng-combphy:
- add rockchip,sgmii-mac-sel property
+Subject: Re: [RFC PATCH 05/10] arm64: dts: rockchip: rk3568: add XPCS and
+ fixed-clock nodes
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Coia Prant" <coiaprant@gmail.com>
-Cc: olteanv@gmail.com, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, vkoul@kernel.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260714191341.690906-3-coiaprant@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, vkoul@kernel.org, olteanv@gmail.com, conor+dt@kernel.org
+In-Reply-To: <20260714191341.690906-6-coiaprant@gmail.com>
 References: <20260714191341.690906-1-coiaprant@gmail.com>
- <20260714191341.690906-3-coiaprant@gmail.com>
+ <20260714191341.690906-6-coiaprant@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 19:14:48 +0000
-Message-Id: <20260715191449.437E11F00A3A@smtp.kernel.org>
+Date: Wed, 15 Jul 2026 19:14:51 +0000
+Message-Id: <20260715191452.4A4821F00A3F@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,74 +47,72 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Logical contradiction between the property's documented default =
-value and the commit message's explicit configuration requirement.
-- [Low] The `rockchip,sgmii-mac-sel` property is defined globally and not c=
-onditionally constrained to the RK3568 SoC.
+- [Low] Devicetree anti-pattern: dummy fixed-clock nodes used for internal =
+SoC clocks and left unassigned.
+- [Low] State mismatch: fixed-clock nodes are enabled by default despite co=
+mmit message claims.
 --
 
---- Patch [2]: [RFC PATCH 02/10] dt-bindings: phy: rockchip: naneng-combphy=
-: add rockchip,sgmii-mac-sel property ---
-commit 0d950b4055dd144fecf5059f16535f2c8d94b5d3
+--- Patch [5]: [RFC PATCH 05/10] arm64: dts: rockchip: rk3568: add XPCS and=
+ fixed-clock nodes ---
+commit b47e1fcebd43374d6431fc20ffa64a0397513d68
 Author: Coia Prant <coiaprant@gmail.com>
 
-dt-bindings: phy: rockchip: naneng-combphy: add rockchip,sgmii-mac-sel prop=
-erty
+arm64: dts: rockchip: rk3568: add XPCS and fixed-clock nodes
 
-This commit adds the "rockchip,sgmii-mac-sel" property to the Rockchip
-Naneng combphy device tree binding. It allows selecting between GMAC0
-and GMAC1 for the SGMII interface on the RK3568 SoC.
+The RK3568 SoC integrates a Synopsys DesignWare XPCS that provides
+the Physical Coding Sublayer for 1000BASE-X, SGMII, and QSGMII
+interfaces via its four MII ports. Add the XPCS device node and
+its pcs-mii sub-nodes to the SoC device tree.
 
-> This is necessary for boards such as the Ariaboard Photonicat, where
-> the SGMII interface is connected to GMAC0 and needs to be explicitly
-> configured.
-
-[Severity: Medium]
-Is it actually necessary to explicitly configure the property to 0 for
-GMAC0?=20
-
-The schema defines the default as 0, which implies that omitting the proper=
-ty
-would naturally default the hardware to GMAC0. If explicit configuration is
-required, does this mean the hardware or bootloader leaves the register at =
-1,
-making the `default: 0` documented in the schema incorrect?
-
-> diff --git a/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-co=
-mbphy.yaml b/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-comb=
-phy.yaml
-> index 379b08bd9e97a..6173192e31ab2 100644
-> --- a/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-combphy.y=
-aml
-> +++ b/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-combphy.y=
-aml
-[ ... ]
-> @@ -80,6 +80,13 @@ properties:
->      description:
->        Some additional pipe settings are accessed through GRF regs.
-> =20
-> +  rockchip,sgmii-mac-sel:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [0, 1]
+> Also add two fixed-clock nodes (xpcs_gmac0_clk and xpcs_gmac1_clk)
+> providing the 125 MHz reference clock for the GMACs when operating
+> with XPCS.  These clocks are used as the assigned-clock-parents
+> for the respective GMAC nodes.
 
 [Severity: Low]
-Should this property be conditionally restricted to the RK3568 compatible
-string?=20
+The commit message states these clocks are used as assigned-clock-parents
+for the respective GMAC nodes, but the patch doesn't appear to add the
+assigned-clock-parents properties to the gmac0 or gmac1 nodes. Are these
+assignments missing?
 
-Because it is defined in the top-level properties block, it will pass
-validation for all other hardware variants (like RK3528 or RK3588) that do
-not actually support SGMII. Could an `if-then` block in the `allOf` section
-be used to set this property to false for compatibles other than
-`rockchip,rk3568-naneng-combphy`?
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3568.dtsi b/arch/arm64/boot/d=
+ts/rockchip/rk3568.dtsi
+> index 3bc653f027f1f..989e164c0eb39 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3568.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3568.dtsi
 
-> +    default: 0
-> +    description:
-> +      Select gmac0 or gmac1 to be used as SGMII controller.
+[ ... ]
+
+> +	xpcs_gmac0_clk: xpcs-gmac0-clock {
+> +		compatible =3D "fixed-clock";
+> +		clock-frequency =3D <125000000>;
+> +		clock-output-names =3D "clk_gmac0_xpcs_mii";
+> +		#clock-cells =3D <0>;
+> +	};
+
+[Severity: Low]
+Should this internal SoC clock be modeled as a clock provider from the
+generating XPCS IP node using #clock-cells, rather than using a dummy
+fixed-clock?
+
+Additionally, the commit message states "All nodes are left disabled by
+default", but this node is missing the status =3D "disabled" property. Will
+this leave the clock unconditionally enabled?
+
 > +
->    "#phy-cells":
->      const: 1
->
+> +	xpcs_gmac1_clk: xpcs-gmac1-clock {
+> +		compatible =3D "fixed-clock";
+> +		clock-frequency =3D <125000000>;
+> +		clock-output-names =3D "clk_gmac1_xpcs_mii";
+> +		#clock-cells =3D <0>;
+> +	};
+
+[Severity: Low]
+Similarly, does this node also need a status =3D "disabled" property to ali=
+gn
+with the behavior described in the commit message?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714191341.6909=
-06-1-coiaprant@gmail.com?part=3D2
+06-1-coiaprant@gmail.com?part=3D5
