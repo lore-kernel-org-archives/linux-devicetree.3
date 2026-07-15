@@ -1,135 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D6D23E7BC8
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 13:30:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4551D28D8D0;
+	Wed, 15 Jul 2026 13:31:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.107
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784122234; cv=none; b=EwqiIYj4jwGHBaLkfohDnJXJlRG2ZCKE22E1zYicYcykJpefCCUqR7D1/X1+FphV3F7UeYvg64HGMAWhOP79q468pqWIcSk9JF/MirNu4bGUWapEf2Au5Jmm2FD1XjSQSe1gEQHpyIrt8tbE24nnLxpIBh1jxHNn0dqZrf4j1nY=
+	t=1784122317; cv=none; b=i89r1zsQCkwpSfRVozP1Iq3mLSOMot8sgl+wI/O0pykMTVsEki9rr63z35P/tn+T4Ta9Y0I/C5d4/0mRJcl+kEbPmopKEyFQxts4gkq6OPRygC0sg5uAyCCLZDb1a9Hs3x+CAfI8Q+K8RZwQMoxCs3kVBdEgshGkBrgVZz/kfTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784122234; c=relaxed/simple;
-	bh=VQX6iVoGPedWjQsPEhPMqaSbB6KtlrpfiNK2IvqawUA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KJSnGAQ91Zz5D8hXzOVtwUu/hRyfR9TBaxNBXB0C3Lhzhas+XhGM4CSC3+P7/NVSHpifJwYryURVMX6jmeiQGY4yRJeShtqgv8hAJCn0EbQbWzQp1MBQuQbwjFuGO2xs80e2oLdl1zxYSaXdM/7Cq29xc4vnLXGwJL/ZsmUQi1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gZvoj4+g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784122317; c=relaxed/simple;
+	bh=k7RxD1XoKKrcGiLwIJKxp8oxoxgaidTPAPEq4JledNA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=DNNfC8BsDt8AmjcUlMWpxye26sPyzDY8U/WNlMFFYonryWJdV0JcwqM39ydlUF37jLuJ0Uy0zbafRp94w9kVevZGBnROJo3zbmBKPf3NT0oVdSYYFXxTyf5RKpLevgvrc3UI/5LySeb/BTIxYeu49MpCYCuUzZtCFDAfSey5BW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=D3KKTgnL; arc=none smtp.client-ip=109.224.244.107
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gZvoj4+g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB9AE1F000E9;
-	Wed, 15 Jul 2026 13:30:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784122227;
-	bh=UwIuksF6qbhVrfuTjIm4qawDV5MAxw3TOrGadPp4BhI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gZvoj4+g88F3/TAnDXXvtv6l15L1r3sWBw+tYJeDXVmG85ZiETnqHVmVApAbLihx4
-	 YQL+vaQdlZee0G+wKEkLgtNjEC/clC62qESm+geA1zBg8OBvPIM9788Nk/HnMyY/dN
-	 wv3FPNaiKs3ChC6YnjzZHyHRm78XOUqlBTHGij47Cn9+4WcnEVwcNcUE/7pLgF3JMt
-	 8D4gbzmqksHIo123BDMofdXUBoG/GN/A2AAY1cEz5+DpminB5bGqcdsA1KP40wWzMs
-	 mDBWQ4S2Nsv+EUzl1pPCZiLkO+a+WN12d6OtI2zE417ydgkK0U0Sn/J3UKt7eOphUA
-	 Eixm8xFc6bR4A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] pinctrl: qcom: milos-lpass-lpi: Add Eliza LPASS
- LPI TLMM
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ravi Hothi" <ravi.hothi@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260715132150.1322663-3-ravi.hothi@oss.qualcomm.com>
-References: <20260715132150.1322663-1-ravi.hothi@oss.qualcomm.com>
- <20260715132150.1322663-3-ravi.hothi@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 13:30:26 +0000
-Message-Id: <20260715133026.CB9AE1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="D3KKTgnL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail3; t=1784122301; x=1784381501;
+	bh=wBDrmfjI/WVFFvGBidBnCgOcmiAxpk8y3+epcKcAyj8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=D3KKTgnLO219nT5sBY44ffIlFP4kMDOwor+Ug3iH/oUw1WSNMXkS/jpI5bfQM9uB4
+	 bsNleeRCTvLxx7xFM3ftqIaYyBUtXimF7KXYiZNuqYQhgKZwUyZ9nDMifhK4RitRx5
+	 fxCy21B7kW1oqGicZAPCg4pb+qy4/RLbuQGkwqTXIttKTVMNlu35N3mcIUPvW634NT
+	 o0oLuh53W5tJEH0kJbnvWNyJNW4W7UQx8XguoLL5mpYN83U9I1NHA1WpEnPMH1Kiyr
+	 L3k6M5dV/7aO9RmX+OhtLvgkT/Z8cUT6rc5jgqo/Dm693OMZHaYH/BKyHfsrNe3wal
+	 EXkIqSr1b9uqA==
+X-Pm-Submission-Id: 4h0cXB2spxz1DDLJ
+From: Esben Haabendal <esben@geanix.com>
+To: Nuno =?utf-8?Q?S=C3=A1?= <noname.nuno@gmail.com>
+Cc: "Jonathan Cameron" <jic23@kernel.org>,  "David Lechner"
+ <dlechner@baylibre.com>,  Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,
+  "Andy Shevchenko"
+ <andy@kernel.org>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
+  "Nikita Travkin" <nikita@trvn.ru>,  "Maslov Dmitry"
+ <maslovdmitry@seeed.cc>,  <linux-iio@vger.kernel.org>,
+  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 4/4] iio: light: ltr501: Power down chip if request
+ irq fails
+In-Reply-To: <7yhbsguvuodmgpmhb6dgnuxfede4x6x3ducrifymcmqlb5vl4u@rgrjqovq2ife>
+	("Nuno =?utf-8?Q?S=C3=A1=22's?= message of "Wed, 15 Jul 2026 15:01:32
+ +0200")
+References: <20260715-liteon-ltr329-v2-0-d18af55edab5@geanix.com>
+	<20260715-liteon-ltr329-v2-4-d18af55edab5@geanix.com>
+	<YNVq2JyJ5AetAiMbwvpiwKO3WN2vtf-sdCy966IwnP92DxD3jwbHgUB_oTX0cWTJIEcSaY9IVHKeTgfbV3upFQ==@protonmail.internalid>
+	<7yhbsguvuodmgpmhb6dgnuxfede4x6x3ducrifymcmqlb5vl4u@rgrjqovq2ife>
+Date: Wed, 15 Jul 2026 15:31:37 +0200
+Message-ID: <87y0fcmlae.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Nuno S=C3=A1 <noname.nuno@gmail.com> writes:
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but lpi_config_set()=
- unconditionally overwrites unspecified pin configuration parameters (such =
-as pull bias, drive strength, and output enable) with default values, rathe=
-r than preserving the existing register state. This breaks the pinconf API =
-contract, especially when changing a single parameter dynamically.
---
+> On Wed, Jul 15, 2026 at 02:27:26PM +0200, Esben Haabendal wrote:
+>> In case request irq failed, we were leaving the chip powered instead of
+>> powering it down again.
+>>
+>> Signed-off-by: Esben Haabendal <esben@geanix.com>
+>> ---
+>>  drivers/iio/light/ltr501.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+>> index 379e57ac5f5b..9d4de798e5ab 100644
+>> --- a/drivers/iio/light/ltr501.c
+>> +++ b/drivers/iio/light/ltr501.c
+>> @@ -1571,7 +1571,7 @@ static int ltr501_probe(struct i2c_client *client)
+>>  		if (ret) {
+>>  			dev_err(&client->dev, "request irq (%d) failed\n",
+>>  				client->irq);
+>> -			return ret;
+>> +			goto powerdown_on_error;
+>
+> This looks like a fix so we should have a Fixes: tag. And being it a fix
+> it should be the first patch in the series (can come after bindings
+> though). Reason is for backports.
 
---- Patch [2]: [PATCH v3 2/2] pinctrl: qcom: milos-lpass-lpi: Add Eliza LPA=
-SS LPI TLMM ---
-commit 0b7a3c2b301461d37d7084e97a33317743f82c3e
-Author: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
+Sure.
 
-pinctrl: qcom: milos-lpass-lpi: Add Eliza LPASS LPI TLMM
-
-Eliza SoC has the same LPASS LPI pin mux functions as Milos but the
-slew rate control is in the same GPIO config register rather than a
-separate register. Add a new variant data struct with updated slew
-offsets and LPI_FLAG_SLEW_RATE_SAME_REG flag, reusing the existing
-pin descriptors and function table from Milos.
-
-> diff --git a/drivers/pinctrl/qcom/pinctrl-milos-lpass-lpi.c b/drivers/pin=
-ctrl/qcom/pinctrl-milos-lpass-lpi.c
-> index 72b8ffd97860b..cb4934cd6f757 100644
-> --- a/drivers/pinctrl/qcom/pinctrl-milos-lpass-lpi.c
-> +++ b/drivers/pinctrl/qcom/pinctrl-milos-lpass-lpi.c
-
-[ ... ]
-
-> @@ -196,8 +223,21 @@ static const struct lpi_pinctrl_variant_data milos_l=
-pi_data =3D {
->  	.nfunctions =3D ARRAY_SIZE(milos_functions),
->  };
-> =20
-> +static const struct lpi_pinctrl_variant_data eliza_lpi_data =3D {
-> +	.pins =3D milos_lpi_pins,
-> +	.npins =3D ARRAY_SIZE(milos_lpi_pins),
-> +	.groups =3D eliza_groups,
-> +	.ngroups =3D ARRAY_SIZE(eliza_groups),
-> +	.functions =3D milos_functions,
-> +	.nfunctions =3D ARRAY_SIZE(milos_functions),
-> +	.flags =3D LPI_FLAG_SLEW_RATE_SAME_REG,
-> +};
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since Eliza will use the sha=
-red
-LPASS LPI infrastructure, does the core lpi_config_set() function overwrite
-unspecified pin configuration parameters?
-
-Looking at drivers/pinctrl/qcom/pinctrl-lpass-lpi.c:lpi_config_set(), varia=
-bles
-are initialized to defaults instead of the current hardware state:
-
-	unsigned int param, arg, pullup =3D LPI_GPIO_BIAS_DISABLE, strength =3D 2;
-	bool value, output_enabled =3D false;
-
-After parsing explicitly provided configs, these defaults are unconditional=
-ly
-written back to the register:
-
-	lpi_gpio_read_reg(pctrl, group, LPI_GPIO_CFG_REG, &val);
-
-	u32p_replace_bits(&val, pullup, LPI_GPIO_PULL_MASK);
-	u32p_replace_bits(&val, LPI_GPIO_DS_TO_VAL(strength),
-			  LPI_GPIO_OUT_STRENGTH_MASK);
-	u32p_replace_bits(&val, output_enabled, LPI_GPIO_OE_MASK);
-
-	lpi_gpio_write_reg(pctrl, group, LPI_GPIO_CFG_REG, val);
-
-Will this cause a partial pinconf update (or a dynamic change to a single G=
-PIO
-property) to wipe out the pin's existing drive strength and pull-up/down bi=
-as,
-potentially breaking audio interface signaling constraints?
-
->  static const struct of_device_id lpi_pinctrl_of_match[] =3D {
->  	{
-> +		.compatible =3D "qcom,eliza-lpass-lpi-pinctrl",
-> +		.data =3D &eliza_lpi_data,
-> +	}, {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715132150.1322=
-663-1-ravi.hothi@oss.qualcomm.com?part=3D2
+/Esben
