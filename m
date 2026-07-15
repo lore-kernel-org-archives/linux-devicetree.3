@@ -1,344 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013009.outbound.protection.outlook.com [40.107.159.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE16A477999
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:28:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784118483; cv=none; b=J7TTVAtNRVeyX3GX14U9i1ENaLxecByclxWUACb/Wrw7iyXd6q6Z6RaWIcqBe4aLNKpODEp0wrm01xzTRneMRYnc/4qVfbJ/L3SpgDT8Er2ocls5+diJRjU0wJBA1YlxO4IPbk9MUiyHMgow9pZLp3fl2jCT+PggdZ4tdkxqUy8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784118483; c=relaxed/simple;
-	bh=n+MCVXtWdzpGGg9wChWMout0tVe/0ZKgDQu4yvvWdVs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uN9fGFNJ7DW/dsEk2H9rQEBX8oe1f0/RiOKnGJZVV0kjuvicW4aKyUM/riMLHSwaEqvFV8fJ+I5Pe1R3CczQKR7myudt/g8RFu1XKh1pwyMj49bBrvPk6iC00F26396airaTPBu/tjPibUKbCfcTHSH5tH24KAoYYblNViaEnS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J13QdJl6; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D42472796;
+	Wed, 15 Jul 2026 12:29:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784118596; cv=fail; b=pQ1kDTWZEPb8wlNHd7xPfe0EPeNy980lzYldLWS8DC19+CWKgH0uPMNt2xyltg+EMP7v5PwstVBB8UQL8eQxi7Qfi0qZaQ/e2pIYdaMUJn62x7ss2/smRGijsiCOTArmQQDhPsdbWV8pEnP5pz1VA3JrBiaSscQjLJsUYCzFw4w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784118596; c=relaxed/simple;
+	bh=0T+R+SDohZ0EmDtc0HBoFGZD7Xt4UAvUBXzqDMYgpnk=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=rEKkekgyBjAzLSVlnh4f/+ldR4ZBUMyelisjYHpBtZ/SHtQRHb3FERYmGiB+5+/CnLWwONwCCXYoIOfVZYKeIFz6rlRnnMgwn4zCyHVBPivIDrR2ddOn2nhXQdmjKjhqIYFD0mW97r9VPbX/kWbDTcp66v8G0Gg0ngDUrlEw7OA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=vX71NPHz; arc=fail smtp.client-ip=40.107.159.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J13QdJl6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EDAA1F000E9;
-	Wed, 15 Jul 2026 12:28:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784118481;
-	bh=xk1Vzn9Nu9U658eiuzTLonKB5ePvajqexK0HaMj8gIM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J13QdJl6se3vdhjMUYogCZ/9ANnEUkDdiEsMNj0OVbnKl4E977V01iaIInDdiOdoI
-	 LwcJc/LR6PnRGeRfFzhtPtVCD/JnA5LeJLn1EjPMxAHXifq6n+Dj8wv4l6qLC3LY14
-	 QMY/PNaEXwWnMAcFugiAS0fbWDm1Vxbvov2/W5FIF7q9cpC3Ov7Fm6oZYuFrNJxF0R
-	 ODWradkvg9N+Yaoz9BMqpOqEP+b+/YbmyxPsV7vm1bsfgXj1nrb0lpKj7d+LELB+8Q
-	 zPNLLWuE7E5e5XqO6y9N7LHTlf1c53dPgjd5gKDOGUGwYg/MmgGlaatmTn0SzmaTod
-	 HnVFiCex8J5gg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 11/11] drm/mediatek: Add Write DMA (WDMA) Engine for
- Writeback support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-In-Reply-To: <20260715114916.19690-12-angelogioacchino.delregno@collabora.com>
-References: <20260715114916.19690-1-angelogioacchino.delregno@collabora.com>
- <20260715114916.19690-12-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 12:28:01 +0000
-Message-Id: <20260715122801.7EDAA1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="vX71NPHz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QolGSICJi8c9wJW9fvyejUH/Z3zDZI1UFDrJGwsrRj1QiknhwvXcZWWucTDqQyY3J0Nv11Q8i1bvnh3+FwUnJvTBE3oG/qLxmSUBASg9sq13zIz95fpvIr8ujGpX6kZg8Xb3q64fD3hYUA2ejHm7djnV1mqg4KL0r79T7wUoiIX49j+e7wvKaR11BApx3vvmOT46la1VBwOFMVgHFswwKzN7KXI9YvbXfenKISij9x5xF3at1c00b4ApFalkNbAuBUPXnmzA7o1xCmkebK6R4apmiCn6Z5dKXHi1nZ/TlM4c8TTwwe4+pPyqSyaZaT7K+8cmqQ1/aaT7vOG7r2xSIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=96Xpo8+rrDwia4SzfY+jswgNFo4lyD6nhltdWVrex9Y=;
+ b=o6rbk2zPLkS02jS2vNBiCIHxtz1EtVf3T85ZUSyqhQrq1G6eFRfK0eY3++tnzv15wbpppNFfSShIV+i+BiwZB3ZVEEJmnR7rx3CeHYbaQxT3EgcphQtVjyjnnJ/bUQRLCunEG/jUh0YiZufssTYjWZKMpNhVRWup7HzFUjIUMj5ElSlXMkvZjzc0J0sOu5jIXUNrpCQhJHBWtzr9ZIXiqmdEXhvobknn86UIpDdZCGBncgZoug6vCI6clPoylBkP0nQHbEWN+jLkxC1YHaQ1d4fMr2NV4eFhNuIyc8vsE9OrYNWMv0+qlhg6hfsuV7QZ6lHlHy+MC96NFDzpLMNT0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=96Xpo8+rrDwia4SzfY+jswgNFo4lyD6nhltdWVrex9Y=;
+ b=vX71NPHz1VZwNAtafMH2BViFRxUjCZG5/Noy8sbbMaun9Fph8xu0sYF9PZu6tz9IQqzjeOZIz24J7EDy2AqO+vv159HqCx047wz5vXA2QNCKupbG5vGhZBO9jGElS81X6s6BPEm4qPre3fVd/0dScfvjwR6uTJq1bvOS37/Lmsh8CW5tmYazyOfu26ImtfZJA3HOzSpi+PXHmuzQ4rjVP5Chmv9fSLjQ66VEXFAsiU1FnAlpYy1JYYe82QwagirqUvnuug7uiF7hbasGU1IwpZkKFLviLfnwNSm4vMP8Bclw2B6foF5IGIQ5b/1fiwdHv2rKejyeHIiGuI0YZi4wZQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by AS1PR04MB9684.eurprd04.prod.outlook.com (2603:10a6:20b:474::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.11; Wed, 15 Jul
+ 2026 12:29:51 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%3]) with mapi id 15.21.0202.018; Wed, 15 Jul 2026
+ 12:29:51 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Subject: [PATCH 0/9] arm64: dts: imx8ulp: Device tree updates for i.MX 8ULP
+ EVK boards
+Date: Wed, 15 Jul 2026 20:33:01 +0800
+Message-Id: <20260715-imx8ulp-dts-v1-0-19651358b599@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAP19V2oC/yXMTQ5AMBBA4avIrDWhiVJXEQt0yoi/dBCJ9O6K5
+ bd47wZGR8hQRjc4PIlpXQLSOIJuaJYeBZlgkIlUSZ5mguarOKZNmJ2F0la3VsvCSAuh2Bxaur5
+ bVf/mox2x298FeP8AF1KJtG8AAAA=
+X-Change-ID: 20260715-imx8ulp-dts-69f9bf928d2f
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Peng Fan <peng.fan@nxp.com>, Sherry Sun <sherry.sun@nxp.com>, 
+ Wei Fang <wei.fang@nxp.com>
+X-Mailer: b4 0.16-dev-7bc12
+X-ClientProxiedBy: SI1PR02CA0003.apcprd02.prod.outlook.com
+ (2603:1096:4:1f7::20) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AS1PR04MB9684:EE_
+X-MS-Office365-Filtering-Correlation-Id: fe5ead42-fb9f-40fa-0056-08dee26cc490
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|19092799006|366016|11063799006|56012099006|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	2x5COk02ws+gncXWD6VbSgQHNvEP/pVm04PXCB4ZPKmpdcC5PHabU6rcSlDs8tlArRnJoR4DS14NUI+dvx1FaKT6UKilzwVVhjqg+8W3lTh9WtBHCp0M9jbS4ExHVkpuEaAgsQHEKMbLObcqA4KVfEwgBc0pppVfcHtKjWB8k9UJVJ7rAvsi+rA+tTnYsQpk94BYvFSXK87yHDIMqnurhBd5fujZJb27KRRfO2hexhGjmsWRmhogDpjDl9VrmbX2Dugo042eY+JnJ/Dq/+LYPGAWK+Sz2hTCNlbAuBHFQWyhvPLZ39lf1+hn2AVNtndIN6iNdb7yG4bFV5KsEZGVdP6VBqjnsl5QegLfT2OEjyuBcmn6J/WS6LvE6gNKlnILobbrsFwXW+2SsnJv48FzcA7Kw5X9jSSOUAnPhwUl2nadc+2zZHQrZ1/EKVcjEvNvz8QTCFBBYcevTPkMwFXU4sB7p35PzfCjFUqwYUh6MUwicq6DRmKYPo3RPnpZKzRcHb8DAHeXubxw9u3oZpzxY4Lu0Ew1x9zDKbXxBnHZDFBuKtdj0Yhsn1WytvcmVgEXkUkYSKxSvtPlWjXiY4SgE9ssB7/aMNbnuTc6a4lTaTajqzDPbfjucF5J8ecPt49wDyoNKyFMprJiQ9CL7OU/ir69n04onst0ukYFdcZEq8Y=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(19092799006)(366016)(11063799006)(56012099006)(18002099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VGxnMlg5Y0ZBWlpGWmExVzlXUDgvOWk0TnpaOVV5dlhoMWRRbXVjSkxtL3hO?=
+ =?utf-8?B?VVVmN2h6aUF6QlFKT1h2M09ZajFpUk1iS1h4bGpVN3ZVeGgrWFg5T1BYcklJ?=
+ =?utf-8?B?V2NiMmN6a2d4bkZ5VWFoWUM0cTU3aEV3Si84UERmNGRGMi90cSt5eENNQnNh?=
+ =?utf-8?B?UDcreDhBZE5qQkMrMjRPVnI2M3A5Q2ZBTGpKSW5wRUlWOFVHUmdUY1dDRXdu?=
+ =?utf-8?B?Y0hXK0R0SytaVEp0aGk3TlJHcVdGdjgxclVzMVNvYWYzT0RETHNnSGxhVkVs?=
+ =?utf-8?B?MGZHQ0wyMUhvQnBxZFQ4MzI4d1NHM2JXUythQklnbS9KbVpsWVpldmNYc09L?=
+ =?utf-8?B?RFJWUkdSYkQ4OURKUUVUR0ZjbHZsaU9xSUpzYVljdkxjT09qMFZkc2x5ajJH?=
+ =?utf-8?B?ejB5Zi9VdHRNVnlheUQrZUxGZlJSelAvdUpiT1VpVmVTZFFuYWZCMnlNTE1T?=
+ =?utf-8?B?MWk1bVNlaUFzeDRVcy9oS2JDY3ZMM3RVbVhrY3A2d1N1a0xBV29oSkpNaFVQ?=
+ =?utf-8?B?Mjl6RWhvaHRsZ0wzQ2FYemFkNUE4QkJyQ2VQbjFDUkdKSTF1Z3FsVVJHVVZG?=
+ =?utf-8?B?YjZnVnBVWkthVDNkSWplR1RWVWdnNVBEZUFOcE1UTytSckJJcXkrckEzNWx3?=
+ =?utf-8?B?aWp6Mlp1aytlMWtGY093ek9iRUdURjVRWG5VUXdWUjRXa1Q1NFJnU2FwWk40?=
+ =?utf-8?B?RkVRWXB4Z0MwWTlsYzFCWVlaYXA5Y3FJTVpVQmphVGVrTVFhVGszb3E0Uzg5?=
+ =?utf-8?B?Y0g1RFBzZWNvL3hjREd1Ry9ieWVxYnArOHUrdVZMTGRMUytvWmphbGRDaTdF?=
+ =?utf-8?B?Z2t1bGlheHRPRDk3L2dEQlZiVFRvYnhONmVOY3F1dlRzcVQ0MUwwYlEzSU5l?=
+ =?utf-8?B?aVFMd0xoSVdET1luV1lKRTlacDZvUXJVMWRuV0NmYmYxeVowSXZsbk4yc09h?=
+ =?utf-8?B?bXhIVWttODNnMlN0cjR3T0ZxTnArSzlHL3JGOFczYjJyc05HckQydUo4aEJu?=
+ =?utf-8?B?ZGh4YmpsbENLb3AwbDQ0VTRCWGk0Q3M0bWFhSFpYMUkvKytFcUV4akNiaXVq?=
+ =?utf-8?B?NlFCOHVEekRLblp1MlBDWFpwY2RkTzFrRFBqTzZwcGs4eWRZMzJod1h6dHFu?=
+ =?utf-8?B?elF1RkJXQkpEcGhxUWVTUXVicEtXaGJqbWp4TTdJT0V2MDFIaTRvTG1HcDVP?=
+ =?utf-8?B?cWhKeHZGdmFwSUdDbkpmaWtWUXpyRmFUSU5OZHltZTZtellnYmlqQ0VVM0VX?=
+ =?utf-8?B?WG1wMkFqVGNzRFFjVTR2MkdUQ0RXVThjVjg3Q1k5dmxnaERBNVJMZlNld3ZZ?=
+ =?utf-8?B?c21pK000SjlaTFkrWURiWGtUTmRpV3RUbTcrbldsaExVc0lLOE1rcnJKaUZD?=
+ =?utf-8?B?VzZEMkwySkdjS2ZtUlZZVHpQdzVpUzJsT1B3MVhzaGhhc0ZjUU43a3drWVJm?=
+ =?utf-8?B?dFE0NForZ2laQ01hcFVFbThoSDhjTjl1QmNNb3ZJOG5IVzIzNUZ0QjNyOTFz?=
+ =?utf-8?B?emFibWlqL3NtT2JxbGpleGRGay85TEJHdnZiTWxoT2JRaFBPVmJTbUF3a2l6?=
+ =?utf-8?B?em5vUGNNSXU3b2JCV0FzdWJScDcyU1dHeFR5YzZ0MXJCOU50WW9GT1drSUtp?=
+ =?utf-8?B?NFdEZnZ4OStzZzJxZW9CZWVsaW9yOEo4MDUxSDhxdDRJNzNrU2JyYnB2cm9a?=
+ =?utf-8?B?SVh6OXpsRlJiQVU3TjdzaHUxbzZhRHRRK3NUQjFoMGtHZTRxVm8xNEp2dlVk?=
+ =?utf-8?B?RndOMmZOanJHck5PRkVOMnZLN2s5MFY5MC8wYmVvTTlqYllrMkJwdkVRemZI?=
+ =?utf-8?B?Z1ZCVkEyYzlHcXltUEVPY0xhRGFnNW5xWCtETUtSUWhnRDQyQUdsa2o5Rkhl?=
+ =?utf-8?B?TlpZdVhxcFUxMkxiWm8rbUJGcGVNRURBK3hPY3RCVnpMVHFkOWpJZjc5VU5V?=
+ =?utf-8?B?T1FrZkV2N05ZWG00SjY1eHRQNERhNWJ5YXd6c05xNzRma2J5TzVvVjMydGdW?=
+ =?utf-8?B?alFZYlVOdEh3YzkzNnlpK3h0MW8xSVh6U3RPZmF1QU1paE1FbjJJKzk3RXJm?=
+ =?utf-8?B?MUdjSHdUNndxYTR2a25uRFprdnJyYmFzaHFoUUxRdE0rMHNDSllQQWxMV29u?=
+ =?utf-8?B?YXVUN1RmVDBUSWRHclRjaGRoVjR0U1FRa01YU3lmQWxSY2htRzkvbHhqMUl0?=
+ =?utf-8?B?OG5EaTFxbzJDNWNZcThTb2hQN1FyY2tJT3FvNEtjZFJJdkJDdnV1SWhYanZU?=
+ =?utf-8?B?SXd0eWErZmlKc09FT1FJZlQwNkd0bjh0VVlBTm1jd0VNVURwNlQvaGhCYUpj?=
+ =?utf-8?B?eXkrVjlDN1FQRExsUHR0UEhtaWc2SHhFY29DdWVuUzVmVzlYYUpCUHRlNU02?=
+ =?utf-8?Q?t5L3ZvjhlTNI+2zJdoOSXacV1jREbFAKJg8cc?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe5ead42-fb9f-40fa-0056-08dee26cc490
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 12:29:51.8389
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mWV86WWAQvPnLwE1L3htHBqWreOTHyzeTW/3pRe2X8iR4dtzAYa3kSUIr8JllJkZ66/WEBWzMC73yqBFhtLAVKG1dxJM36uKBlgaSgEw7f8mr7o9LWCOSjZSBPiXeJsg
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9684
 
-Thank you for your contribution! Sashiko AI review found 11 potential issue=
-(s) to consider:
-- [High] Incorrect handling of pm_runtime_get_sync() return value leads to =
-leaked usage counters and false positive warnings.
-- [High] TOCTOU race condition in atomic commit leads to permanent writebac=
-k job hangs.
-- [High] Direct CPU writes to WDMA destination address bypass CMDQ and shad=
-ow registers, causing memory corruption.
-- [High] Use-After-Free of drm_writeback_connector upon component unbind.
-- [High] Writeback job completions hang if CRTC vblanks are disabled.
-- [High] Architectural flaw: WDMA hardware operates on uninitialized regist=
-ers because its configuration logic is placed in an unreachable callback.
-- [High] Unconditional drm_writeback_queue_job() in dead layer_config callb=
-ack causes NULL pointer dereference.
-- [High] Using input plane buffer as writeback destination in layer_config.
-- [High] Incorrect V-component offset calculation for NV12/NV21 formats cor=
-rupts Y-plane memory.
-- [Medium] Userspace restricted to only DRM_FORMAT_RGB888 despite extensive=
- hardware support.
-- [Low] Undeclared identifier `mtk_disp_wdma_remove` causes a build failure.
---
+A collection of device tree fixes and additions for the i.MX 8ULP SoC
+and its EVK boards:
 
---- Patch [11]: [PATCH v5 11/11] drm/mediatek: Add Write DMA (WDMA) Engine =
-for Writeback support ---
-commit 44482b38c93bd94760e17536a8322d71d1649d0f
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+SoC-level (imx8ulp.dtsi):
+- Add DMA channel properties to LPI2C, LPUART and LPSPI nodes and
+  replace hardcoded eDMA direction flags with FSL_EDMA_RX /
+  FSL_EDMA_MULTI_FIFO macros for SAI and SPDIF nodes.
+- Add the I3C2 controller node (Silvaco IP).
+- Correct the SRAM node base address and size to cover the full 64 KB
+  SSRAM P2 partition instead of only the last 4 KB.
+- Add assigned-clock properties to LPUART4-7 so the clock framework
+  configures the input clock automatically during probe.
 
-drm/mediatek: Add Write DMA (WDMA) Engine for Writeback support
+Board-level (imx8ulp-evk.dts):
+- Add a gpio-keys node for the power-on button (PTF31).
+- Enable LPUART6 with flow control for NXP 88W8987 Bluetooth.
+- Enable LPUART7 for the FT4232 PortD serial on proto1B boards.
+- Reduce ENET pad drive strength and slew rate on PTE14-17/22/23 to
+  fix signal overshoot.
 
-This commit adds a basic driver for the Write DMA Engine and initial
-compatible strings for the MediaTek MT8173 and Dimensity 1200 MT6893.
-It hooks the engine up to the display controller to enable writeback for
-faster display image capturing in userspace.
+Board-level (imx8ulp-9x9-evk.dts):
+- Rename the model string from "EVK9" to "9x9 EVK" to follow the
+  i.MX die-size naming convention.
 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_disp_wdma.c b/drivers/gpu/drm/m=
-ediatek/mtk_disp_wdma.c
-> new file mode 100644
-> index 0000000000000..650ab902f7956
-> --- /dev/null
-> +++ b/drivers/gpu/drm/mediatek/mtk_disp_wdma.c
-[ ... ]
-> +static const u32 mtk_wdma_wb_output_formats[] =3D {
-> +	DRM_FORMAT_RGB888
-> +};
-> +
-> +static const u32 mt6893_formats[] =3D {
-> +	DRM_FORMAT_XRGB8888,
-> +	DRM_FORMAT_ARGB8888,
-> +	DRM_FORMAT_BGRX8888,
-> +	DRM_FORMAT_BGRA8888,
-> +	DRM_FORMAT_ABGR8888,
-> +	DRM_FORMAT_XBGR8888,
-> +	DRM_FORMAT_RGB888,
-> +	DRM_FORMAT_BGR888,
-> +	DRM_FORMAT_RGB565,
-> +	DRM_FORMAT_YUV420,
-> +	DRM_FORMAT_YVU420,
-> +	DRM_FORMAT_UYVY,
-> +	DRM_FORMAT_YUYV,
-> +};
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
+Peng Fan (6):
+      arm64: dts: imx8ulp: Add DMA channel properties and use eDMA flag macros
+      arm64: dts: imx8ulp: Add I3C2 controller node
+      arm64: dts: imx8ulp: Correct SRAM node address and size to cover full SSRAM P2
+      arm64: dts: imx8ulp: Add assigned clock properties for LPUART nodes
+      arm64: dts: imx8ulp-evk: Add gpio-keys node for power button
+      arm64: dts: imx8ulp-9x9-evk: Rename model string to reflect die size
 
-[Severity: Medium]
-Are we intentionally limiting userspace to only DRM_FORMAT_RGB888?
+Sherry Sun (2):
+      arm64: dts: imx8ulp-evk: Enable LPUART6 for Bluetooth
+      arm64: dts: imx8ulp-evk: Enable LPUART7
 
-The mt6893_formats array lists 13 supported formats, but the driver passes
-the single-entry mtk_wdma_wb_output_formats array down to
-drm_writeback_connector_init(). This means the DRM core will reject commits
-for any of the other hardware-supported formats.
+Wei Fang (1):
+      arm64: dts: imx8ulp-evk: Change the values of some PCRs of ENET
 
-[ ... ]
-> +void mtk_wdma_disable_vblank(struct device *dev)
-> +{
-> +	wdma_update_bits(dev, DISP_REG_WDMA_INT_ENABLE, WDMA_FRAME_COMPLETE_INT=
-, 0);
-> +}
+ arch/arm64/boot/dts/freescale/imx8ulp-9x9-evk.dts | 37 ++++++++++++-
+ arch/arm64/boot/dts/freescale/imx8ulp-evk.dts     | 67 +++++++++++++++++++++--
+ arch/arm64/boot/dts/freescale/imx8ulp.dtsi        | 64 +++++++++++++++++++---
+ 3 files changed, 154 insertions(+), 14 deletions(-)
+---
+base-commit: cc2b5f627e8ccbae1188ef2d8be3e451d7f933a5
+change-id: 20260715-imx8ulp-dts-69f9bf928d2f
 
-[Severity: High]
-Does this cause writeback jobs to time out if the CRTC vblank is disabled?
+Best regards,
+--  
+Peng Fan <peng.fan@nxp.com>
 
-The WDMA frame completion interrupt is toggled exclusively via this callbac=
-k.
-If userspace queues a writeback job without requesting a vblank event, the =
-DRM
-core might disable vblanks on the CRTC.=20
-
-If the interrupt is disabled while the hardware captures the frame, is there
-any other way the driver can receive the completion and call
-drm_writeback_signal_completion()?
-
-[ ... ]
-> +void mtk_wdma_config(struct device *dev, unsigned int width,
-> +		     unsigned int height, unsigned int vrefresh,
-> +		     unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
-> +{
-> +	struct mtk_disp_wdma *wdma =3D dev_get_drvdata(dev);
-> +
-> +	writel(WDMA_FORCE_COMMIT | WDMA_BYPASS_SHADOW,
-> +	       wdma->regs + DISP_REG_WDMA_SHADOW_CTRL);
-> +}
-
-[Severity: High]
-Does enabling WDMA_BYPASS_SHADOW here risk memory corruption when combined
-with immediate destination address updates?
-
-Later in mtk_wdma_wb_connector_atomic_commit(), the destination address is
-updated by passing NULL for the cmdq_pkt, which bypasses the command queue
-and performs an immediate CPU writel(). Without shadow registers to synchro=
-nize
-the update to the VBLANK boundary, altering the destination address while t=
-he
-hardware is actively transferring a frame could scatter image data across m=
-emory.
-
-[ ... ]
-> +static void mtk_wdma_format_config(struct mtk_disp_wdma *wdma,
-> +				   struct mtk_plane_pending_state *pending,
-> +				   const struct drm_format_info *fmt_info,
-> +				   struct cmdq_pkt *cmdq_pkt)
-> +{
-> +	unsigned int u_off, u_stride, u_size, v_off;
-> +	u32 val;
-> +
-> +	/*
-> +	 * For RGB formats, this sets the image destination address;
-> +	 * For YUV formats, this sets the Y component destination address.
-> +	 */
-> +	mtk_wdma_ddp_write_dst_addr(cmdq_pkt, pending->addr, 0, wdma);
-
-[Severity: High]
-Does this overwrite the source image buffer?
-
-By extracting pending->addr from the input plane state and using it as the
-DMA destination address, the writeback engine appears to be configured to
-dump the captured frame directly over the memory buffer of the image being
-displayed, rather than into the userspace-provided writeback job framebuffe=
-r.
-
-[ ... ]
-> +	if (drm_format_info_is_yuv_planar(fmt_info)) {
-> +		/* YUV420 or YVU420 */
-> +		u_stride =3D ALIGN(u_stride, 16);
-> +		u_size =3D u_stride * pending->height / 2;
-> +		v_off =3D u_off + u_size;
-> +	} else {
-> +		/* NV12 or NV21 */
-> +		u_size =3D u_stride * pending->height / 2;
-> +		v_off =3D 0;
-> +	}
-> +
-> +	/* Set U and V components destination addresses */
-> +	mtk_wdma_ddp_write_dst_addr(cmdq_pkt, pending->addr + u_off, 1, wdma);
-> +	mtk_wdma_ddp_write_dst_addr(cmdq_pkt, pending->addr + v_off, 2, wdma);
-
-[Severity: High]
-Will this corrupt the Y-plane memory for semi-planar formats?
-
-By hardcoding v_off to 0 for NV12 and NV21, the third hardware address
-register is mapped exactly over the start of the buffer. This would cause t=
-he
-hardware to overwrite the Luma (Y) data with Chroma data.
-
-[ ... ]
-> +void mtk_wdma_layer_config(struct device *dev, unsigned int idx,
-> +			   struct mtk_plane_state *state,
-> +			   struct cmdq_pkt *cmdq_pkt)
-> +{
-[ ... ]
-> +	mtk_wdma_format_config(wdma, pending, fmt_info, cmdq_pkt);
-> +
-> +	drm_writeback_queue_job(&wdma->wb_connector, wdma->wb_connector.base.st=
-ate);
-> +}
-
-[Severity: High]
-Is this function ever actually executed?
-
-The MediaTek CRTC driver only invokes the .layer_config callback on objects
-registered as input planes. Since WDMA is a writeback output connector, this
-looks like unreachable dead code. If it is never called, the WDMA hardware
-is never fully configured (format, size, pitch) during a commit.
-
-[Severity: High]
-Additionally, if this callback is somehow reached, could
-drm_writeback_queue_job() cause a NULL pointer dereference?
-
-If no writeback job was requested for the commit, or if it was already queu=
-ed
-in atomic_commit, wdma->wb_connector.base.state->writeback_job might be NUL=
-L.
-The drm_writeback_queue_job() function dereferences this pointer internally
-when attempting to add the job to the list.
-
-[ ... ]
-> +static void mtk_wdma_wb_connector_atomic_commit(struct drm_connector *co=
-nnector,
-> +						struct drm_atomic_commit *state)
-> +{
-[ ... ]
-> +	/* Store writeback pending state before queuing the job */
-> +	wdma->wb_pending =3D true;
-> +
-> +	mtk_wdma_ddp_write_dst_addr(NULL, addr, 0, wdma);
-> +	drm_writeback_queue_job(&wdma->wb_connector, conn_state);
-> +}
-
-[Severity: High]
-Could setting wdma->wb_pending to true before queuing the job create a TOCT=
-OU
-race condition?
-
-If the frame completion interrupt fires in this narrow window, the IRQ hand=
-ler
-would see the flag, try to signal an empty queue, and then clear the flag.
-When the job is queued immediately after, subsequent interrupts will ignore
-the pending job because the flag is now false, permanently hanging the
-writeback commit.
-
-[ ... ]
-> +static int mtk_disp_wdma_bind(struct device *dev, struct device *master,
-> +			      void *data)
-> +{
-[ ... ]
-> +	ret =3D drm_writeback_connector_init(drm_dev, &wdma->wb_connector,
-> +					   &mtk_wdma_wb_connector_funcs,
-> +					   &mtk_wdma_wb_encoder_helper_funcs,
-> +					   mtk_wdma_wb_output_formats,
-> +					   ARRAY_SIZE(mtk_wdma_wb_output_formats),
-> +					   crtcs);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D pm_runtime_get_sync(dev);
-> +	if (ret)
-> +		dev_warn(dev, "Could not get PM Runtime!\n");
-> +
-> +	/*
-> +	 * Disable and clear pending interrupts - write unconditionally as no
-> +	 * crash (SError, etc) will happen as if unpowered/unclocked this is
-> +	 * simply going to be ignored (and the registers will be 0 at reset).
-> +	 */
-> +	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_ENABLE);
-> +	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_STATUS);
-> +
-> +	/* Put RPM only if refcount was incremented before to avoid unbalancing=
- */
-> +	if (ret >=3D 0)
-> +		pm_runtime_put(dev);
-
-[Severity: High]
-Does this error handling logic for pm_runtime_get_sync() leak the usage
-counter and cause false positive warnings?
-
-If the device is already active, pm_runtime_get_sync() returns 1, which
-incorrectly triggers the dev_warn() since "if (ret)" evaluates to true.
-
-Conversely, if it returns a negative error code, the "if (ret >=3D 0)" check
-evaluates to false. This skips pm_runtime_put(dev) and permanently leaks the
-usage counter that was unconditionally incremented inside pm_runtime_get_sy=
-nc().
-
-[Severity: High]
-Can this implementation lead to a Use-After-Free of the
-drm_writeback_connector upon component unbind?
-
-The wb_connector is embedded in struct mtk_disp_wdma, which is managed by
-devres via devm_kzalloc. However, drm_writeback_connector_init() registers
-it with the DRM core, whose lifecycle can outlive the physical device (e.g.=
- if
-userspace holds a file descriptor open). When the component unbinds, devres
-frees the memory, but the DRM core will still attempt to access the connect=
-or
-during its own eventual teardown.
-
-[ ... ]
-> +static void mtk_disp_rdma_remove(struct platform_device *pdev)
-> +{
-> +	component_del(&pdev->dev, &mtk_disp_wdma_component_ops);
-> +}
-[ ... ]
-> +struct platform_driver mtk_disp_wdma_driver =3D {
-> +	.probe		=3D mtk_disp_wdma_probe,
-> +	.remove		=3D mtk_disp_wdma_remove,
-> +	.driver		=3D {
-> +		.name	=3D "mediatek-disp-wdma",
-> +		.of_match_table =3D mtk_disp_wdma_driver_dt_match,
-> +	},
-> +};
-
-[Severity: Low]
-Does this cause a build failure?
-
-The platform driver references mtk_disp_wdma_remove, but the actual function
-definition just above is named mtk_disp_rdma_remove.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715114916.1969=
-0-1-angelogioacchino.delregno@collabora.com?part=3D11
