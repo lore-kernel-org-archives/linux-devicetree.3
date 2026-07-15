@@ -1,71 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch [185.70.43.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47E81429CF7;
-	Wed, 15 Jul 2026 11:33:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5485A439009;
+	Wed, 15 Jul 2026 11:35:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784115229; cv=none; b=OeUPAGd1l6vkwYlmzXbkiplj0IqMgxuqG3cb8G2xY6pLLropJ4U71KXZlqIKZKevMEj58sSe5lETU23wdoAneXLhYNKzQYrq30rHvDWl32VWqV70nkfCHlve3fNi9RLjIDgmKIk5H6UktfJgxV6sGsM//kj0XS9mI89oyB0v09g=
+	t=1784115353; cv=none; b=ayuCeH6snwqBlw+2vdnjpPOLsMaeu2kSiwknFuTQC7E4ZcSqfbfRxvW+jyBlgQ1fDPPKo/7ZA6UwIjQmqNBoC2vVd0hkDqvgDM/BbXKBAXIIgfnsFx3+Qp5MMw8QywYuJLCuX5axp63non9PXHMaRUvn9AXLTdFXpbPJrirLlE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784115229; c=relaxed/simple;
-	bh=wNLl4EHt7/5TJ9Dlwu3SQI9iEXnNtSAyPCu9DVn4+V0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LpfKJwHT6xrrgyC7UWC4+UbR6fE8q8WXPWyAnReiUUg6uRNQIIT/aKHqCR1NFK/Gq1S2qgdlNUq0kXCsVUsLccJLurBJzER9yhLIPujhQzhAndlPgsSsXTBHX2NH+7uA7dyeu6B1LZUBP0YG9qFbJKHuGBEJmWFAzr2E5gzXTlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H+iHmiGT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784115353; c=relaxed/simple;
+	bh=yT4MVaeHQyVB9n7HPL6AfqF1C+RpXIhVO9zZ6Cm40H8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=CAbKtWTxhgbLFZsJFJthaMuXV0YGeg4vDi4ZM8k16x6vSqdZB6pMY9YvnzCONo1GcILyfhP0WCPxcpwz3e/jM9dUdPRxLYPFVrYkamavecHtUnU5xAui2AUopTd6XgsNvzDXufX7L4IeIyDjTmkNJCOpuGN23tqjJt2NDaC5gcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=WivdqmVR; arc=none smtp.client-ip=185.70.43.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H+iHmiGT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A5C01F00A3A;
-	Wed, 15 Jul 2026 11:33:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784115224;
-	bh=9JLVvqvoCSlLsZHpJXT/d1xXXcQ5YiMbXN8YNpGZ/UU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=H+iHmiGT8XGHqSd16XF4uqUaycjdWK0m5JTD3wWPP8tfXekN+QBHnP6V+2mhMdS5a
-	 iHN1HmAg4/FKtaGsZvj4GHatutAM52YvKQzHYM8+dOCmaAHEBNtkLYdam6HPppVhVj
-	 AF5avHzh5rWN9sHOOr9CcXDuc1lSOhRYO2vactvqVu0jMB9Scg37E/08Rd4k2OXcUo
-	 onHDWDKdm75KsE+QkGiAxy2S8ohPWnHGFfN1sskbnJVxdnBiEGaQ4pERkVnss6RLjI
-	 6yYhty2bNz0j5x8P7peWNDrIG3SC3DJVNZ+nth0blndhwWneFq/qCZavl4gYVo3lXR
-	 X/VG6kbJgrHHg==
-Date: Wed, 15 Jul 2026 13:33:40 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>, Ajit Pandey <ajit.pandey@oss.qualcomm.com>, 
-	Imran Shaik <imran.shaik@oss.qualcomm.com>, Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/5] dt-bindings: clock: qcom: Add Maili global clock
- controller
-Message-ID: <20260715-steadfast-silver-hog-a81e03@quoll>
-References: <20260713-maili_initial_clock-v2-0-79548f0bb58f@oss.qualcomm.com>
- <20260713-maili_initial_clock-v2-3-79548f0bb58f@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="WivdqmVR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail3; t=1784115345; x=1784374545;
+	bh=vw3eiTKMHGN7k4PMh36M/r9ybREuXYjf2b40KXBhK/Q=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=WivdqmVRvHFbAn38DXpzLC7sX7CWeBTekytpnuzBvc00Q+iguxkcgzbnlWgef+vu+
+	 bglbMc7zXb0CplLO1OHgPO+WCD8G56S/pQYnT6kxIIfetJ6lvxXp0lMIdZdmX9wg91
+	 QgbVkacaMfxnjTa2HO5U7eL1TVAXU1uuMn9sPArmOn8W8eNoi5PECZydtaQuYDvBgG
+	 yqN7JcUMtLpeCx6Zjla7CLOM59JKB9Qvxn67LmNdQbp59X4iDz/MGTjZy6IB2eA4v6
+	 IxWDiwfXX2Kl8WhHSjugZFwkuEJmYvW+viWkEBWyNZE+nxnmzklp7vJeRBU4C/Ejso
+	 npXDT1LBpg3QQ==
+X-Pm-Submission-Id: 4h0YyQ5SdGz1DDL5
+From: Esben Haabendal <esben@geanix.com>
+To: "Andy Shevchenko" <andriy.shevchenko@intel.com>
+Cc: "Jonathan Cameron" <jic23@kernel.org>,  "Lars-Peter Clausen"
+ <lars@metafoo.de>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
+  "Martin Kepplinger" <martink@posteo.de>,  "Sean Nyekjaer"
+ <sean@geanix.com>,  "David Lechner" <dlechner@baylibre.com>,  Nuno
+ =?utf-8?Q?S=C3=A1?=
+ <nuno.sa@analog.com>,  "Andy Shevchenko" <andy@kernel.org>,  "Martin
+ Kepplinger" <martin.kepplinger@theobroma-systems.com>,
+  <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,
+  <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] iio: accel: mma8452: Allow open drain interrupt pin
+ configuration
+In-Reply-To: <aldH3vtk_eKh6oCC@ashevche-desk.local> (Andy Shevchenko's message
+	of "Wed, 15 Jul 2026 11:42:06 +0300")
+References: <20260715-mma8452-open-drain-v1-0-b1dd2a440c60@geanix.com>
+	<20260715-mma8452-open-drain-v1-2-b1dd2a440c60@geanix.com>
+	<cA7m1VgJxkr39GAxpnMPw9PVIKX2TR8Ju4Q0m6L2SxS_jJNITfZ6AA5LOeMIK0jGFXaUptY1_vPhDd_imWw5FQ==@protonmail.internalid>
+	<aldH3vtk_eKh6oCC@ashevche-desk.local>
+Date: Wed, 15 Jul 2026 13:35:41 +0200
+Message-ID: <87ldbco582.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260713-maili_initial_clock-v2-3-79548f0bb58f@oss.qualcomm.com>
+Content-Type: text/plain
 
-On Mon, Jul 13, 2026 at 02:34:09PM +0530, Taniya Das wrote:
-> Add device tree bindings for the global clock controller (GCC) on
-> the Qualcomm Maili SoC by extending the existing Qualcomm Hawi GCC
-> bindings, since the Maili GCC is identical to the Hawi GCC apart
-> from a few additional clocks.
-> 
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/clock/qcom,hawi-gcc.yaml    | 11 ++++++++---
->  include/dt-bindings/clock/qcom,maili-gcc.h          | 21 +++++++++++++++++++++
->  2 files changed, 29 insertions(+), 3 deletions(-)
+"Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> On Wed, Jul 15, 2026 at 10:07:39AM +0200, Esben Haabendal wrote:
+>> When sharing interrupt line with other chips, the interrupt pin most
+>> likely needs to be configured in open-drain mode instead of push-pull.
+>> If this is needed, you must add drive-open-drain property to the
+>> device-tree.
+>
+> ...
+>
+>>  	if (client->irq) {
+>>  		ret = request_threaded_irq(client->irq, NULL, mma8452_interrupt,
+>> -					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
+>> +					   IRQF_TRIGGER_LOW | IRQF_ONESHOT |
+>> +					   data->open_drain ? IRQF_SHARED : 0,
+>>  					   client->name, indio_dev);
+>
+> Why do we care?
 
-Best regards,
-Krzysztof
+Care about what exactly?
 
+We need to add IRQF_SHARED flag in order to allow shared interrupt, and
+we should not add it when using (the default) push-pull mode.
+
+> The (hidden) problem this will have in the future is that the IRQ core
+> will splat a warning in case that other shared IRQs might be
+> configured with different flags. Putting that flag conditionally makes
+> it a mine field for the users. Instead just unconditionally add that
+> flag and we will get reports as soon as there will be a user that
+> shares the same interrupt pin with some other devices which drivers do
+> not use the same settings.
+
+If we add the IRQF_SHARED flag unconditionally, it will be set also when
+push-pull mode is enabled. I don't see how the kernel will be able to
+notice that that is not going to work. If you have another device that
+uses IRQF_TRIGGER_LOW|IRF_ONESHOT|IRQF_SHARED, it will not work with the
+MMA8452 device when configured as push-pull.
+
+> Also setting to _LOW in the flags unconditionally is a (historic) bug.
+> The problem is that we might not fix it without breaking the existing
+> users which omit that flag in DT.
+
+Ok. So let's leave that as is for now.
+
+/Esben
