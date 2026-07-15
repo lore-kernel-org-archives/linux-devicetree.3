@@ -1,290 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBEEC18AE3
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 00:05:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2EC2F84F
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 00:16:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784073933; cv=none; b=Jcg4/qXxP80mXAId/PqGIK9DzonAZBFnjYIxDUNySaUkF2uEJr58y+xNc+Dx3xVcbjXyQFnKzqckC7gyqVuK/vdnnxhuDP1uTrxH/HcKppLJENaac0bgTWojFXQJVKm7K9DsP/BR9ksuOWCJbMx8DON0PcM8sTvlG0vCr64bizY=
+	t=1784074567; cv=none; b=HUeFSgGieobYDpLnJRLnX3Yow2TsG1X1rV+YsgWN9Cn5uUnhajbtmityTUw/TeSTMsw1Doqmev3/nG7zIM236ul+mINiLii4XAwMGnMiQFs9GH/KL8Onep9/Of2NVbCIK2iMYigDY4N6JzIOcHMxDEMmUC2QCwNPeJDqcm+PWEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784073933; c=relaxed/simple;
-	bh=0LPvdgFsCk1QwQTxoztYVMokCQFkj5HFn0fYbtb609U=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kH8KTcy5TnUlQ0UK5Y/q3YSOip7ia7xz+TkSGyXoAwTcMtRA42fyE6c2RDSlXuHn9rgSdFz3vpEWPgGLGVc4+WZz/mVJtAer4A3Om2PuWb25EJzlbGx0V9vwGorH22zKrnlTuylBU617/thr3qj1o3tePnKovY6bBJ8zLndvdRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ErLZ7dtk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784074567; c=relaxed/simple;
+	bh=N5TlvO5iZe9P2vr4aiEd6RD7NLTdSfHOkOJZXZGkKtg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=K77y7ptA9NzEH8ARYs44H69I8JzmxYy/vwSlMfvugGbPeou77vpFGx+1ZENviLkqFtNjSQXB2VDYifPe2jJMpbXxEuhFY98RY0BrgjIgpGNtAF8aceht7lkJ8XZ9Jsf23BwgYLTmJZPJYHztHdGWLvNLgxyDtHN7vIO/YMjTCsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=MihXKCjC; arc=none smtp.client-ip=209.85.210.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ErLZ7dtk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D6111F000E9;
-	Wed, 15 Jul 2026 00:05:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784073931;
-	bh=m2DmVhskzwTgMWy9NdOE3rsvRzJ7TDucKgOPQgi/3m4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ErLZ7dtkNk5pdvlgCUKUx2aoDD2mv4fCtitR9ivMWyOSsvAbHks2RuxOFEMsynzWY
-	 ENm0oxF2ma2d8UWVaRyOpQHvzuRJ5dvP3ON2hcJeRdl4KKEVmwqGJ4liOxYakB8sYg
-	 jap/T/APPZeuFGHpBcH4v8bx65Mj7s+Y3ysAqHa7t39tI0N6qTURtMDEvi/XQb9Vz1
-	 kBxscJlEZlooq35IC1QB5vYe2y9LvL5Ym5AEQrtUZzsuGBIfrYrbyzkJTwS5GD9Zw/
-	 d+/u1RNvP2Z8gi7haX2p3GozBnwKhnkbhUrDR0iaKQX1PLf/eTEw7N/bOAxRTB56La
-	 C0SUoQj5lRsYQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 8/8] iio: adc: ti-ads112c14: add measurement channel
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?RGF2aWQgTGVjaG5lciAoVEkp?= <dlechner@baylibre.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260714-iio-adc-ti-ads122c14-v4-8-25f8e3084485@baylibre.com>
-References: <20260714-iio-adc-ti-ads122c14-v4-0-25f8e3084485@baylibre.com>
- <20260714-iio-adc-ti-ads122c14-v4-8-25f8e3084485@baylibre.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 00:05:30 +0000
-Message-Id: <20260715000531.4D6111F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="MihXKCjC"
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7ea9c6ea7deso3386852a34.3
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 17:16:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1784074563; x=1784679363; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=v20txCudxnU90G5a1KJ/IuEQut4SBvkqPVwM403HGOg=;
+        b=MihXKCjCc5SM/Ok9Wa9khUv58N/Mo8kEs9gkbbhUlNrMj7YbMSaDWjVKukvIemJ0E5
+         Z3XpF2+BmkNAQ6eEZnJPO6c+TCt1ska6+572USfhLZc0LwMdE8Lhxd+bHGZt7+lUxcq9
+         G31JHdQRkf4FOPcVwVXlBixs1QH4XDpHrSiRNw9OWQQnWVOWmlW85FzW0BUVwShNM9WF
+         EVGe6TW7h0JzgF0heuEkUfAQQWa3k8QxCUwp5NHRIV5CZUdgCPpN1WaMu8uCblOWEqQv
+         lEB66bDThSuxj2GwiLW7z3Ui3NtfN3dzQqV1HaJmCdPjvOHL43zDxhujVLan8pZ93WKl
+         ikgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784074563; x=1784679363;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v20txCudxnU90G5a1KJ/IuEQut4SBvkqPVwM403HGOg=;
+        b=lQ5A0Ywt4rurFFNwS9PJSlfXKMiADxHW8dG+UbTETloLQkPknu3y/Vu8fuTG0wxs/y
+         UeG6VeYznDG87VAEg4yv0cgfZjuWbX6/0OYZvcefmntxzOkgCmdhrUnJ6R/fysLE6GhQ
+         85T+Yp4typ8DIMBYn3tC54qogjXIhWwZtr+iYvkH7FMgiTDaMil87pNL+NPgtyftUAEN
+         XaHd6wtyBcm0cvKuU9vSCXusWV5Z63oPD2F+JnDwzcqEt3yFuFNAxVOdD0xuvRjSTLVV
+         kzOIgv5SmG/25CrqG7imGIv4MBaMt8op+ZzK0MAZEpvOoYbRC2EZNSXPtViDAEPeviH+
+         uzxA==
+X-Forwarded-Encrypted: i=1; AHgh+RocHHiUOKny7kGHCej4CpfqoIYZ1Pak8HE4aQ93ssAncfvECdDKgNXDxlRsLZKZexYkXdPxkGClAJqR@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx25U5hgFgw4/UsAOE8ydj2LhVf8OlmEjz3JiSXnsiu549r6Boa
+	kZFbWAZODjC2+MrggzkJP9n2KitGhVUzTl1XR5D7hHLf2+33zEiqcZnNv8WdvQkzRKc=
+X-Gm-Gg: AfdE7cn6i+n8UsyGEgN/6VVAZ1sXdIJlqbok6ZNII0o5E2nkBt9/1Z3RQH9vzmBy7Zq
+	JIJauOBf3iEhtNNu8xz9f2+ORMeZaA99xoXSxfA+/SFwRtcF5mXAWjt+CsWI+Jpg9r/ygmecmJ7
+	peukmOyU2eHXQVXhsPMd0mLi/nElkkSddgc2pwaK4ofnmzMBdvDe5je234mUOVW8/n0mccd66Ef
+	jsEqumzhkCAGhxPjpGoLq/OdPfpv/LZV1QKnM5adxCATur8bOsiaKgnJ1NGRbz5gpXv5Q2m+RD2
+	mJ/XqnWffSaBnUPZxXXyUpfXpYjQ942mgVZiaKiZRMqszVc4UY3Uv2NjeBCiZ3F/YYWQje6XvWd
+	JXO/mC4rvyXizW96BwjqIgaWztimqKfxP0nlk1I0I4Ixf7QE+w2It7OrGPPesOLKBXaxLA2K5tH
+	Mu95+N+PTdEIIdBr1Te5z3ZQ60fA23JOeYs01YywbcivGHzvhFYNWwhnMw0KAgWj8=
+X-Received: by 2002:a05:6820:188f:b0:6a3:78bb:c885 with SMTP id 006d021491bc7-6a3c62ada81mr3315258eaf.72.1784074562921;
+        Tue, 14 Jul 2026 17:16:02 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:280e:69fd:7612:d5a9? ([2600:8803:e7e4:500:280e:69fd:7612:d5a9])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ebcb2bc241sm16460743a34.20.2026.07.14.17.16.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 14 Jul 2026 17:16:02 -0700 (PDT)
+Message-ID: <f56fab43-c038-467c-bb5f-d96ca548f652@baylibre.com>
+Date: Tue, 14 Jul 2026 19:16:01 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 5/8] dt-bindings: iio: adc: add ti,ads122c14
+To: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>,
+ Kurt Borja <kuurtb@gmail.com>, Nguyen Minh Tien <zizuzacker@gmail.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+References: <20260714-iio-adc-ti-ads122c14-v4-0-25f8e3084485@baylibre.com>
+ <20260714-iio-adc-ti-ads122c14-v4-5-25f8e3084485@baylibre.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260714-iio-adc-ti-ads122c14-v4-5-25f8e3084485@baylibre.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Probe will erroneously fail if `refp-supply` is present but `avdd-=
-supply` is missing in the device tree.
-- [High] An I2C short read leaves stack memory uninitialized, exposing it t=
-o user space.
-- [Medium] The scale calculation in `ads112c14_populate_scale_available()` =
-can overflow `u64` when a large external reference resistor is configured.
-- [Medium] Calculation of excitation currents above 60 =C2=B5A overflows th=
-e 3-bit IMAG bitfields, resulting in silently incorrect hardware configurat=
-ion.
-- [Medium] Incompatible format specifiers break `IIO_CHAN_INFO_SCALE` writi=
-ng due to integer composition mismatch.
---
+On 7/14/26 6:21 PM, David Lechner (TI) wrote:
+> Add new bindings for ti,ads122c14 and similar devices.
+> 
+> This is an ADC that is primarily intended for use with resistive sensors
+> (RTD, thermocouple, Wheatstone bridge, etc.). There are a few unusual
+> properties because of this. In particular, the reference voltage source
+> and current output requirements can be different for each measurement,
+> so these are included in the channel bindings.
+> 
+> The REFP/REFN reference voltage is usually just connected to a resistor
+> that is being driven by the ADC's current outputs, so there is special
+> property for this case rather than requiring a regulator to be defined
+> to represent that.
+> 
+> Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
+> ---
+> v4 changes:
+> * Generalize temperature sensors to resistive sensors in commit message
+>   and bindings description.
+> * Remove leftover paragraph from v1 in commit message.
+> * Added if to make clocks and drdy interrupts mutually exclusive.
+> 
 
---- Patch [8]: [PATCH v4 8/8] iio: adc: ti-ads112c14: add measurement chann=
-el support ---
-commit 0662f6e0d1a8a66e59b6cab55397eee9f82357fd
-Author: David Lechner (TI) <dlechner@baylibre.com>
+...
 
-iio: adc: ti-ads112c14: add measurement channel support
+> +# /DRDY out and CLK in use the same AIN7/GPIO3 pin.
+> +if:
+> +  properties:
+> +    interrupt-names:
+> +      contains:
+> +        const: drdy
+> +then:
+> +  properties:
+> +    clocks: false
 
-Add support for parsing devicetree properties for measurement channels
-and doing direct reads on these. There are quite a lot of conditions
-that have to be met for each measurement to be made, so quite a bit of
-state and algorithms are required to handle it. Channels are created
-dynamically since the number of possibilities is unreasonably large.
+Doh, I thought I tested all combinations, but must have missed one.
 
-> diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c1=
-4.c
-> index 17bb6472a39b5..fef3a9c37cedc 100644
-> --- a/drivers/iio/adc/ti-ads112c14.c
-> +++ b/drivers/iio/adc/ti-ads112c14.c
+Sashiko correctly caught that this is wrong when interrupt-names
+is omitted and clocks is present.
 
-[ ... ]
+Tested correct is:
 
-> @@ -263,12 +302,112 @@ static const struct regmap_config ads112c14_regmap=
-_config =3D {
->  	.cache_type =3D REGCACHE_MAPLE,
->  };
-> =20
-> +static int ads112c14_prepare_measurement_channel(struct ads112c14_data *=
-data,
-> +						 const struct iio_chan_spec *chan)
-> +{
-> +	struct ads112c14_measurement *measurement =3D &data->measurements[chan-=
->scan_index];
-> +	u32 refp_buf_en, refn_buf_en, ref_val, ref_sel;
-> +	int ret;
-> +
-> +	ret =3D regmap_update_bits(data->regmap, ADS112C14_REG_MUX_CFG,
+# /DRDY out and CLK in use the same AIN7/GPIO3 pin.
+if:
+  required:
+    - interrupt-names
+  properties:
+    interrupt-names:
+      contains:
+        const: drdy
+then:
+  properties:
+    clocks: false
 
-[ ... ]
 
-> +	ret =3D regmap_update_bits(data->regmap, ADS112C14_REG_IDAC_MAG_CFG,
-> +				 ADS112C14_IDAC_MAG_CFG_I2MAG |
-> +				 ADS112C14_IDAC_MAG_CFG_I1MAG,
-> +				 FIELD_PREP(ADS112C14_IDAC_MAG_CFG_I2MAG,
-> +					    measurement->idac2_mag) |
-> +				 FIELD_PREP(ADS112C14_IDAC_MAG_CFG_I1MAG,
-> +					    measurement->idac1_mag));
-                                            ^^^^
+And my responses to other Sashiko mentions on this patch are the same
+as last time [1].
 
-[Severity: Medium]
-If measurement->idac1_mag or idac2_mag exceeds the 3-bit capacity of the
-I1MAG and I2MAG register fields, will FIELD_PREP silently truncate the valu=
-e?
-
-Because FIELD_PREP is being called with a non-constant variable, its
-compile-time bounds checks are bypassed. The ads112c14_populate_idac_mag()
-function can calculate values up to 11, which would truncate to 3 here and
-silently misconfigure the hardware excitation current.
-
-> +	if (ret)
-> +		return ret;
-
-[ ... ]
-
-> @@ -356,6 +496,7 @@ static int ads112c14_read_raw(struct iio_dev *indio_d=
-ev,
->  			      int *val, int *val2, long mask)
->  {
->  	struct ads112c14_data *data =3D iio_priv(indio_dev);
-> +	struct ads112c14_measurement *measurement =3D NULL;
->  	const int *scale_avail;
->  	u32 vref_uV, fsr_bits;
-> =20
-> @@ -363,8 +504,8 @@ static int ads112c14_read_raw(struct iio_dev *indio_d=
-ev,
->  	vref_uV =3D ADS112C14_INT_REF1_mV * (MICRO / MILLI);
-> =20
->  	if (chan->channel < ADS112C14_SYS_MON_CHANNEL_BASE) {
-> -		/* Not implemented yet. */
-> -		return -EINVAL;
-> +		measurement =3D &data->measurements[chan->scan_index];
-> +		fsr_bits =3D data->chip_info->resolution_bits - measurement->bipolar;
->  	} else {
->  		/* All SYS_MON channels are using signed coding. */
->  		fsr_bits =3D data->chip_info->resolution_bits - 1;
-> @@ -394,7 +535,8 @@ static int ads112c14_read_raw(struct iio_dev *indio_d=
-ev,
->  			return -EINVAL;
->  		}
-> =20
-> -		*val =3D sign_extend32(*val, fsr_bits);
-> +		if (!measurement || measurement->bipolar)
-> +			*val =3D sign_extend32(*val, fsr_bits);
-                            ^^^^
-
-[Severity: High]
-Does an I2C short read in ads112c14_single_conversion() leave the buffer
-uninitialized?
-
-When ads112c14_single_conversion() calls i2c_smbus_read_i2c_block_data(), it
-returns the number of bytes read upon success. A short read (e.g. 1 or 2 by=
-tes)
-would return a positive value, bypassing the (ret < 0) error check in
-ads112c14_read_raw().
-
-If that happens, could the remaining uninitialized bytes on the kernel stac=
-k be
-sign-extended and exposed to user space?
-
-> =20
->  		return IIO_VAL_INT;
->  	}
-
-[ ... ]
-
-> @@ -486,7 +650,13 @@ static int ads112c14_write_raw(struct iio_dev *indio=
-_dev,
->  	case IIO_CHAN_INFO_SCALE: {
->  		guard(mutex)(&data->lock);
-> =20
-> -		if (chan->channel =3D=3D ADS112C14_SYS_MON_CHANNEL_SHORT) {
-> +		if (chan->channel < ADS112C14_SYS_MON_CHANNEL_BASE) {
-> +			struct ads112c14_measurement *measurement;
-> +
-> +			measurement =3D &data->measurements[chan->scan_index];
-> +			scale_avail =3D measurement->scale_available;
-> +			gain_val =3D &measurement->gain_val;
-> +		} else if (chan->channel =3D=3D ADS112C14_SYS_MON_CHANNEL_SHORT) {
->  			scale_avail =3D data->sys_mon_chan_short_scale_available;
->  			gain_val =3D &data->sys_mon_chan_short_gain_val;
->  		} else {
-
-[Severity: Medium]
-Will this break IIO_CHAN_INFO_SCALE writing due to mismatched units?
-
-The driver's ads112c14_write_raw_get_fmt() specifies IIO_VAL_INT_PLUS_NANO,
-which tells the IIO core to parse user strings into nanounits. However, the
-scale_avail arrays generated by ads112c14_populate_scale_available() store
-values in picounits.
-
-When the user value (in nanounits) is checked via iio_val_s64_compose() aga=
-inst
-the scale_avail array (in picounits) further down in ads112c14_write_raw(),
-will it always fail to match and return -EINVAL?
-
-[ ... ]
-
-> +static void ads112c14_populate_scale_available(int (*scale_avail)[2],
-> +					       u32 full_scale, u32 fsr_bits)
-> +{
-> +	for (u32 i =3D 0; i < ARRAY_SIZE(ads112c14_pga_gains_x10); i++) {
-> +		u64 gain_x10 =3D ads112c14_pga_gains_x10[i];
-> +		s64 scale;
-> +
-> +		scale =3D div64_u64((u64)PICO * 10U * full_scale,
-> +				  gain_x10 * BIT(fsr_bits));
-                ^^^^
-
-[Severity: Medium]
-Could this calculation overflow a 64-bit unsigned integer?
-
-If a large external reference resistor is configured (e.g., 10 Megaohms) via
-the ti,refp-refn-resistor-ohms property, full_scale will be 10,000,000.
-The arithmetic (u64)PICO * 10U * 10,000,000 evaluates to 10^20, which excee=
-ds
-the maximum capacity of a u64 (~1.84 * 10^19).
-
-> +
-> +		iio_val_s64_decompose(scale, &scale_avail[i][0],
-> +				      &scale_avail[i][1]);
-> +	}
-> +}
-
-[ ... ]
-
-> @@ -608,13 +1029,76 @@ static int ads112c14_probe(struct i2c_client *clie=
-nt)
->  	if (ret)
->  		return ret;
-> =20
-> +	if (device_property_present(dev, "ti,refp-refn-resistor-ohms")) {
-
-[ ... ]
-
-> +	if (device_property_present(dev, "refp-supply")) {
-> +		ret =3D devm_regulator_get_enable_read_voltage(dev, "refp");
-> +		if (ret < 0)
-> +			return dev_err_probe(dev, ret, "failed to get refp voltage\n");
-> +
-> +		refp_uV =3D ret;
-> +
-> +		struct fwnode_handle *refp_fwnode __free(fwnode_handle) =3D
-> +			fwnode_find_reference(dev->fwnode, "refp-supply", 0);
-> +		if (IS_ERR(refp_fwnode))
-> +			return dev_err_probe(dev, PTR_ERR(refp_fwnode),
-> +					     "failed to get refp fwnode\n");
-> +
-> +		struct fwnode_handle *avdd_fwnode __free(fwnode_handle) =3D
-> +			fwnode_find_reference(dev->fwnode, "avdd-supply", 0);
-> +		if (IS_ERR(avdd_fwnode))
-> +			return dev_err_probe(dev, PTR_ERR(avdd_fwnode),
-> +					     "failed to get avdd fwnode\n");
-                        ^^^^
-
-[Severity: High]
-Does this cause the probe to erroneously abort if "avdd-supply" is omitted =
-in
-the device tree?
-
-If "refp-supply" is defined but "avdd-supply" is not, fwnode_find_reference=
-()
-will return -ENOENT for avdd_fwnode. The probe function will unconditionally
-fail here, even though the regulator framework can safely provide a dummy
-regulator for an optional avdd-supply.
-
-> +
-> +		/* REFP buffer should not be enabled when connected to AVDD */
-> +		data->refp_is_avdd =3D refp_fwnode =3D=3D avdd_fwnode;
-> +	}
-> +
-> +	if (device_property_present(dev, "refn-supply")) {
-> +		ret =3D devm_regulator_get_enable_read_voltage(dev, "refn");
-> +		if (ret < 0)
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-iio-adc-ti=
--ads122c14-v4-0-25f8e3084485@baylibre.com?part=3D8
+[1]: https://lore.kernel.org/all/f1c5be4b-6bbd-41d9-a152-ee480988f44d@baylibre.com/
