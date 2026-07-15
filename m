@@ -1,110 +1,124 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99A93B531A;
-	Wed, 15 Jul 2026 19:30:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1AB42FCDF;
+	Wed, 15 Jul 2026 19:31:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784143857; cv=none; b=i3YZF2AmYcEBKC2Zm0BFxeyZCC8kMY9kAkoyFFyRjZ5h3NUycvL36GCzZXtpE132VtL09zfJ9MN9kgkw2FwldF2dGv5VtWrbs4+fTWiUqvNwuvTwEpm99BxXgdDS/9hnumcixddvbZPHXu+SysVnyBRi4DH4lW0O5ezUhJIBumE=
+	t=1784143864; cv=none; b=WBNWBLfRreGSOLmXwXUfv6QrQsX5GjU1FAWiqom74zXIwkWZ3FFLZvMPwoaFR2F1qh8M9KZtn7Hv+iuY5h6UF/0dhB1YcFvYI8v751LPcENEI2r2P/Sx1RCX8ywZIUtPHlnv2Ru86d9AvAhT+zfJJ9SaEYeYyLuMycquuqwWq80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784143857; c=relaxed/simple;
-	bh=WWAWz9LEHQ5tZQC70HsiX9DmEjMfxFe9JEVjodePIdc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RB0+vY5oKIdEoMiEJkxZm16myDY8+oOdyPi2ouL2XtvBHWaMOVDQcEjigH/GQ/17d0fqQkRKvLxPVriPTk1Q2DrobvF7WS6GQ3abeC2PDv0IvjxX5yFykclNIVbhE0wcT0I0lPdctESSUPel9rJfRiscZbk/PMoXoC1FpBdp+rk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=zb9QXW1X; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1784143864; c=relaxed/simple;
+	bh=S74BMXboSmhL990KaoXfjtsSEdbuGY/AK1Q4jDeBHVQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WzD1mszhXFgN28sCeJ/C9D5i2c3ZYMibWt19lesE2i1C5vvtGvLN71SU8rKDBWQupdZkFERtdlgefpycVI+px8SjQ0EjeSNDEMiwgkXcGFeiBBQyj1QU1x0Ix2bLGPhll1Vb8mNadaJ51eM+O9i6V2FvKTccaJVUUh9QAaCj98M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dcfg56xK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="zb9QXW1X"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=hL1GS79qzyM0ipi8jemKvD9nfesfcOl399h19NOhaM8=; b=zb9QXW1XMG4YfPtNV3RG+62Zmd
-	v8UvwL/ktHs4FtJ/TP0zlhZleTu7M3ckwlhFjD4fw+uytYiKG7LFVdi6L8rfGJpoUn9NXkCz66pN8
-	/qJeCo+4hjVSn+09UJwGZkBRxCikUAhVFdv/Y9jHZhsRA7jr9+/oTwWrn4fM7+AzWXr5cTmo4EQlr
-	fPpdq9Hyo1NSmaiNWEznadQPhH77OjmmymXNzamcUS3zD+zTNqb3owWxhn+mkg5Tv/Pndg4MN0jc+
-	XA/8uJNplYQGHCcxu061mq29I4T0soEHVGDgIqoMeWlNxc6tMpWJkAUf+VeOvTW/IHgHRScOlzpOk
-	uLO0XDIg==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Andy Yan <andyshrk@gmail.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Alexey Charkov <alchark@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@collabora.com,
- linux-arm-kernel@lists.infradead.org, yubing.zhang@rock-chips.com
-Subject: Re: [PATCH v3 08/10] drm/rockchip: dw_dp: Add runtime PM support
-Date: Wed, 15 Jul 2026 21:30:27 +0200
-Message-ID: <2301403.NgBsaNRSFp@phil>
-In-Reply-To: <alfV1691ZgZ6KylX@venus>
-References:
- <20260612-synopsys-dw-dp-improvements-v3-0-dc61e6352508@collabora.com>
- <CANbgqATR-V0rRGfzj0hdJ2hsJex-iWzHMwD1L4vavTi2Jd79Kw@mail.gmail.com>
- <alfV1691ZgZ6KylX@venus>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dcfg56xK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8357D1F000E9;
+	Wed, 15 Jul 2026 19:31:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784143861;
+	bh=U+QSIKVOSwes8HHbAYFznucJMugZslchoiirUZ3Dev8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Dcfg56xKGVgx/ajJb3bVseaVrMhGqkwb2x7w5gJqwI5MmeMIdio7V28k/1hvWx5Xl
+	 oxs09yExsezW6Pq49vm0clEzHBWd28ufgrl1RtbbfxOp8Gas/lX60y9Z0IXQTmniq9
+	 DGcXdzFxS0H2Pj/ldtQWjBMjEORly5x5DVDUOctNImp3Jae9dE0eqCwxlvI5ZWOuz6
+	 zt7Zdw7un4AI9A/C/W65Z2C/IjM5W84yB/KiAf2KaVlxsw3LUAmQruGd1vjZgPKmh5
+	 gITpPjeAe8f//4aMVEuhx080t4KHWShH/ZWkHZ3oCk+NM7/3heOQdmHjk3+puZnYOG
+	 h/NRFxtqbA2rw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/3] arm64: dts: imx8qm-var-som: Add support for
+ Variscite Symphony board
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
+Cc: robh@kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
+In-Reply-To: <354dc61e75c935f6a7adea7b8c64fc324651d63b.1784142385.git.stefano.r@variscite.com>
+References: <cover.1784142385.git.stefano.r@variscite.com>
+ <354dc61e75c935f6a7adea7b8c64fc324651d63b.1784142385.git.stefano.r@variscite.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 19:31:01 +0000
+Message-Id: <20260715193101.8357D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 
-Am Mittwoch, 15. Juli 2026, 21:00:12 Mitteleurop=C3=A4ische Sommerzeit schr=
-ieb Sebastian Reichel:
-> Hello Andy,
->=20
-> On Tue, Jul 14, 2026 at 06:08:06PM +0800, Andy Yan wrote:
-> > > @@ -58,6 +59,8 @@ static void dw_dp_rockchip_hpd_sw_sel(void *data, b=
-ool
-> > > force_hpd_from_sw)
-> > >
-> > >         dp->hpd_sel =3D force_hpd_from_sw;
-> > >
-> > > +       ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
-> >=20
-> > This can triger  HPD irq for USB-C DP AltMode, but for a standard
-> > DP port, this is no way to acquire runtime, so there will no irq
-> > when plug in.
->=20
-> Right. I don't have any RK3588 or RK3576 system exposing a DP
-> connector directly. This this is non-trivial to test for me :/
->=20
-> I see the following options:
->=20
-> 1. Only enable runtime PM when running in USB-C mode
-> 2. Mux the HPD pin as GPIO to support waking up with the controller
->    being suspended; either remux when the controller is awake or use
->    the same mechanism as USB-C to do software based HPD on top of the
->    GPIO (which would allow using any GPIO as HPD).
-> 3. Have a poll function, which wakes up the controller regularly to
->    check the status
->=20
-> I consider going for option 1 for now, which allows option 2 to be
-> implemented as a follow up. Mostly to avoid that the series becomes
-> as big and messy as the USBDP PHY series became.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Ethernet PHY ethphy1 is reset while its power supply is off, leavi=
+ng it un-reset after power-up.
+--
 
-I'd agree with that solution.
-I think we can all agree that option 3 is baaaad :-) .
+--- Patch [3]: [PATCH v5 3/3] arm64: dts: imx8qm-var-som: Add support for V=
+ariscite Symphony board ---
+commit ed29f608ccf1d279621863c6ecef72b6e1b3be60
+Author: Stefano Radaelli <stefano.r@variscite.com>
 
-So with 1, functionality keeps working, and then someone can put the
-special HPD handling on top later - the Rock-5-ITX does expose the DP1
-(on a hdmi port)
+arm64: dts: imx8qm-var-som: Add support for Variscite Symphony board
 
+This commit adds device tree support for the Variscite Symphony carrier boa=
+rd
+equipped with the VAR-SOM-MX8 QuadMax system on module. It defines nodes and
+pinmuxing for various peripherals including USB, Ethernet, SD card, I2C, and
+PCIe.
 
-Heiko
+Link: https://variscite.com/carrier-boards/symphony-board/
 
+> diff --git a/arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts b/=
+arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts
+> new file mode 100644
+> index 0000000000000..7c7fc8958efc0
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts
 
+[ ... ]
+
+> +&fec1 {
+> +	mdio {
+> +		ethphy1: ethernet-phy@5 {
+> +			compatible =3D "ethernet-phy-ieee802.3-c22";
+> +			reg =3D <5>;
+> +			vddio-supply =3D <&reg_phy_vddio>;
+> +			reset-gpios =3D <&pca9534 5 GPIO_ACTIVE_LOW>;
+> +			reset-assert-us =3D <10000>;
+> +			reset-deassert-us =3D <100000>;
+
+[Severity: High]
+Does this sequence cause the PHY to be reset while its power is still off?
+
+When fec1 probes and registers the MDIO bus, the MDIO core toggles the
+reset-gpios for this PHY. However, the main power supply (reg_fec_phy) might
+not be turned on yet because it's assigned to fec2 below.
+
+[ ... ]
+
+> +&fec2 {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&pinctrl_fec2>;
+> +	/*
+> +	 * The required RGMII TX and RX 2ns delays are implemented directly
+> +	 * in hardware via passive delay elements on the SOM PCB.
+> +	 * No delay configuration is needed in software via PHY driver.
+> +	 */
+> +	phy-mode =3D "rgmii";
+> +	phy-handle =3D <&ethphy1>;
+> +	phy-supply =3D <&reg_fec_phy>;
+
+[Severity: High]
+Should phy-supply be placed in the ethphy1 node rather than the fec2 node?
+
+If phy-supply is here in the MAC node, power is only turned on when fec2
+probes. This leaves the PHY un-reset after power-up, because the MDIO reset
+already happened earlier during the fec1 probe.
+
+This usually prevents the PHY from communicating over MDIO or establishing a
+link.
+
+> +	status =3D "okay";
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784142385.gi=
+t.stefano.r@variscite.com?part=3D3
