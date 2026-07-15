@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 074C6434E5F
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:04:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF0043304C
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:07:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784117081; cv=none; b=TSEM5Bu3y0r+fzzZUY7DwEujYl8ziTXbKujxSr7tfYgDEu7ncVEAr6e5sCqhW1qdvT/VI4fkxvsTTjFHRCD3PQ9F1pGbgEn73nGImAerYRCkksTEnLtT7+KukTe6/PLzj5NbNfyy6xvQjUZ8wNephbUuY17PY0VT0InRpu5n5qE=
+	t=1784117248; cv=none; b=EvtiRb77vYUkFrjSo9AuXqOZfb/Yqlzaf+7ruvFEbQAh1+YESXCt9VRweq5etUFkQyGxwvpRcNlC65skMBNMz42mXGut3oPIRgUNZgRKmyZxZcDsX1xbJh05ZLQQ1UpxcsiFoCXk2UEKYK8SEusMSgoABQ6ajzrxl8zV875k18Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784117081; c=relaxed/simple;
-	bh=bZ2jTlFKCDaq57LFLcD0v4K5dDmCD3+zrQMacvjNiyI=;
+	s=arc-20240116; t=1784117248; c=relaxed/simple;
+	bh=c50mBumgZqOwGBFER8joGbdAiAGCkMQcgU2Eo8/5s9I=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=m4C0cvRNAKwTh+n2lqygtsuu6uMEETBzkgc53j3Tx0FuKwrFPAAPJUTEj7XOXPCm1MxdV5RS9lsEsD2Rq3t0CPZ8nt1+CySAo8jCtcobyTyhZr+jSISizlJSw69ZzHjSzwYItWNlYVzbwQgYdXFbFe8xvDek5ZxMvR4gMcKHI30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OB924rr0; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=I3LXtljzsSrF4EDKWTPt5M1EPV0SgwCc8Cc9htNp9/U9AWwzvvIK+T91Ug6Tz+R+YCG7NZH0+VmgIF0np2TZUQgg5n6chWTrdEz/NhyZ8gIfmeih7jwNO68icpcVkzJ7Zzw1IZdyMOX3FTGgU+2o1XiqCfU9rkXMZ7CoZBlo0mA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aB4wbB2T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OB924rr0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9AEC1F000E9;
-	Wed, 15 Jul 2026 12:04:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aB4wbB2T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 807D91F000E9;
+	Wed, 15 Jul 2026 12:07:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784117076;
-	bh=39LpnGfPl1PsxPWe/OMibZQgc6ev37/IXN6dWhZZh5w=;
+	s=k20260515; t=1784117239;
+	bh=/vwPcJgkd3EGzY7keaiQPMxacmd0OZ5f0z/laVrqwoo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OB924rr0oiWQLISPjO07OElv347yfs2zJEdPEk/apCc4lnhDEfId09Gy2sSyd4cZC
-	 oSWOrZEhre9KgFcMZ2iXX2OCP2A/42SSOtWBRnEd97+mBN4qT8jZBe0OuES0stUtW3
-	 lOGj+LFBwr7jK0IZUog4mqc4Nqkjx/7gvA7UrGwK6otC95qKnSWDKK4E0v5Iv0d28G
-	 AVkD5TO41EzyC+WbtdOyZqqNtEUbL0MgjaUZjYI8f8hSpqfcot2XA20CCowuUTO06U
-	 HxRcpi4FLbVQaOM+nWIgNTrXXK5P7Z9CjJ7vlCBT3yz6RYi7XEGTZMvs9HJA2ZNGRl
-	 vtaNlTHYTYPwQ==
+	b=aB4wbB2T80derXj6mviNAAQY2/Vl32CUCEBn4FPXck/0i5Y1Ufa3QS2tL/jBVBavG
+	 k6xwCFfQgiqxUhHIdR70zGL1jkeJ72Z82NPqIJi5NMqXQHosxdwUbXAkvxkHp4R6AW
+	 ryy6Hi+5vf7UzRqhNF2rSoxc+x7U8i4yYbAUJzoYHJX3o/Ktw8GEbQJZ6kfIbogopw
+	 xrfXjFKe0Z4uMKWkRMo4ef5I2kZt/kz7v0Evm+075sIoQrDgOoNR3JgpKahmj41AgC
+	 Dzf2To6tnEDf2BMO5aBQbGifR3pZqjNK2qDj6GtwY9GBv0IOeE/NGrrVdTB4Z2ch2b
+	 PRDneZru0wSzA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 05/11] drm/mediatek: mtk_dsi: Enable interrupt at
- component bind time
+Subject: Re: [PATCH v5 07/11] drm/mediatek: mtk_dsi: Add support for MT8189
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260715114916.19690-6-angelogioacchino.delregno@collabora.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260715114916.19690-8-angelogioacchino.delregno@collabora.com>
 References: <20260715114916.19690-1-angelogioacchino.delregno@collabora.com>
- <20260715114916.19690-6-angelogioacchino.delregno@collabora.com>
+ <20260715114916.19690-8-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 12:04:36 +0000
-Message-Id: <20260715120436.A9AEC1F000E9@smtp.kernel.org>
+Date: Wed, 15 Jul 2026 12:07:18 +0000
+Message-Id: <20260715120718.807D91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,116 +47,137 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
+New issues:
+- [High] Bandwidth check and PHY clock calculations do not account for DSC =
+compression, incorrectly rejecting high-resolution modes and over-clocking =
+the PHY.
+
 Pre-existing issues:
-- [High] Unsafe IRQ enablement before clocks are enabled leads to hard lock=
-up or interrupt storm.
-- [High] Data race on `dsi->irq_data` can lead to lost wakeups and hardware=
- reset.
-- [Medium] Unconditional return of IRQ_HANDLED defeats spurious interrupt d=
-etection.
+- [High] Error path in `mtk_dsi_poweron` fails to decrement `refcount`, per=
+manently leaving the DSI driver in a corrupted state.
+- [High] Signal interruptions during IRQ waits are incorrectly treated as s=
+uccessful operations.
 --
 
---- Patch [5]: [PATCH v5 05/11] drm/mediatek: mtk_dsi: Enable interrupt at =
-component bind time ---
-commit dc54549e6b7ff6ba83355eb88d72dfbf4c41558d
+--- Patch [7]: [PATCH v5 07/11] drm/mediatek: mtk_dsi: Add support for MT81=
+89 ---
+commit b1ac2564850b4d8fbc42fa9bf9284c320bec103e
 Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+drm/mediatek: mtk_dsi: Add support for MT8189
 
-drm/mediatek: mtk_dsi: Enable interrupt at component bind time
-
-This patch moves the DSI interrupt enablement to the component bind time and
-disables it on unbind, rather than doing so during probe/remove. It uses
-IRQF_NO_AUTOEN to prevent the interrupt from firing before the component
-is ready.
+This commit adds support for the DSI IP in the MT8189 SoC, which supports a
+higher link rate of 2.5Gbps. It introduces a max_link_rate_mbps member to
+handle SoC-specific link rates dynamically instead of using a hardcoded
+value, and casts calculations to u64 to prevent overflows.
 
 > diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
 k/mtk_dsi.c
-> index e3d7338c35e39..d1aa258e3799c 100644
+> index c5db63b93ff91..3f58683be70fa 100644
 > --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
 > +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> @@ -225,6 +225,7 @@ struct mtk_dsi {
->  	int refcount;
->  	bool enabled;
->  	bool lanes_ready;
-> +	int irq;
->  	u32 irq_data;
->  	wait_queue_head_t irq_wait_queue;
->  	const struct mtk_dsi_driver_data *driver_data;
+[ ... ]
+> @@ -926,7 +928,7 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
+>  	}
+>  	bit_per_pixel =3D ret;
+> =20
+
+[Severity: High]
+This is a pre-existing issue, but does this error path permanently leak the
+reference count?
+
+In mtk_dsi_poweron(), dsi->refcount is incremented at the start of the
+function. If mipi_dsi_pixel_format_to_bpp() fails, the function returns
+directly instead of jumping to the err_refcount label:
+
+static int mtk_dsi_poweron(struct mtk_dsi *dsi)
+{
+        ...
+        if (++dsi->refcount !=3D 1)
+                return 0;
+
+        ret =3D mipi_dsi_pixel_format_to_bpp(dsi->format);
+        if (ret < 0) {
+                dev_err(dev, "Unknown MIPI DSI format %d\n", dsi->format);
+                return ret;
+        }
+
+Would this leave the DSI driver in a state where subsequent calls incorrect=
+ly
+assume the hardware is already powered on?
+
+> -	dsi->data_rate =3D DIV_ROUND_UP_ULL(dsi->vm.pixelclock * bit_per_pixel,
+> +	dsi->data_rate =3D DIV_ROUND_UP_ULL((u64)dsi->vm.pixelclock * bit_per_p=
+ixel,
+>  					  dsi->lanes);
+
+[Severity: High]
+Does this PHY clock calculation need to account for DSC compression?
+
+By using the uncompressed bit_per_pixel here, could this clock the PHY at
+the uncompressed data rate instead of the compressed DSC rate, potentially
+over-clocking the PHY and breaking the DSC feature?
+
+> =20
+>  	ret =3D clk_set_rate(dsi->hs_clk, dsi->data_rate);
+[ ... ]
+> @@ -1101,13 +1103,21 @@ mtk_dsi_bridge_mode_valid(struct drm_bridge *brid=
+ge,
+>  			  const struct drm_display_mode *mode)
+>  {
+>  	struct mtk_dsi *dsi =3D bridge_to_dsi(bridge);
+> +	const struct mtk_dsi_driver_data *data =3D dsi->driver_data;
+> +	u64 wanted_link_rate, max_link_rate;
+>  	int bpp;
+> =20
+>  	bpp =3D mipi_dsi_pixel_format_to_bpp(dsi->format);
+>  	if (bpp < 0)
+>  		return MODE_ERROR;
+> =20
+> -	if (mode->clock * bpp / dsi->lanes > 1500000)
+> +	wanted_link_rate =3D mode->clock;
+> +	wanted_link_rate *=3D bpp;
+
+[Severity: High]
+Similarly, does the wanted_link_rate calculation fail to account for the
+DSC bit rate?
+
+If bpp remains the uncompressed value (e.g., 24 for RGB888) instead of
+the compressed rate from dsi->dsc->bits_per_pixel, will this incorrectly
+reject valid high-resolution DSC modes by returning MODE_CLOCK_HIGH?
+
+> +	max_link_rate =3D data->max_link_rate_mbps;
+> +	max_link_rate *=3D dsi->lanes;
+> +	max_link_rate *=3D KILO;
+> +
+> +	if (wanted_link_rate > max_link_rate)
+>  		return MODE_CLOCK_HIGH;
 
 [ ... ]
 
-> @@ -1096,6 +1097,8 @@ static int mtk_dsi_bind(struct device *dev, struct =
-device *master, void *data)
->  		return ret;
->  	}
-> =20
-> +	enable_irq(dsi->irq);
-
 [Severity: High]
-This isn't a bug introduced by this patch, but can enabling the interrupt
-here cause a hard lockup or interrupt storm?
+This isn't a bug introduced by this patch, but are signal interruptions
+incorrectly treated as successes during IRQ waits?
 
-The DSI engine_clk and digital_clk are not enabled until mtk_dsi_poweron() =
-is
-called later. If an interrupt fires while clocks are disabled, the handler
-mtk_dsi_irq() will read unclocked registers.
+In mtk_dsi_wait_for_irq_done(), wait_event_interruptible_timeout() can
+return -ERESTARTSYS if interrupted by a signal.
 
-If unclocked reads return 0xffffffff, status is non-zero and the loop:
+However, both mtk_dsi_host_send_cmd() and mtk_dsi_switch_to_cmd_mode()
+evaluate this negative error code with a logical NOT:
 
-mtk_dsi_irq() {
-    ...
-    do {
-        mtk_dsi_mask(dsi, DSI_RACK, RACK, RACK);
-        tmp =3D readl(dsi->regs + DSI_INTSTA);
-    } while (tmp & DSI_BUSY);
-    ...
+drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_host_send_cmd()
+{
+        ...
+        if (!mtk_dsi_wait_for_irq_done(dsi, flag, 2000))
+                return -ETIME;
+        else
+                return 0;
 }
 
-executes infinitely (since DSI_BUSY is BIT(31)), causing a hard lockup in
-hardirq context.
-
-> +
->  	return 0;
->  }
-
-[ ... ]
-
-> @@ -1381,17 +1385,15 @@ static int mtk_dsi_probe(struct platform_device *=
-pdev)
-> =20
->  	platform_set_drvdata(pdev, dsi);
-> =20
-> +	ret =3D devm_request_irq(&pdev->dev, dsi->irq, mtk_dsi_irq,
-> +			       IRQF_NO_AUTOEN, dev_name(&pdev->dev), dsi);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a data race on
-dsi->irq_data?
-
-mtk_dsi_irq_data_set() runs in hardirq context and sets bits in dsi->irq_da=
-ta:
-    dsi->irq_data |=3D irq_bit;
-
-Concurrently, mtk_dsi_irq_data_clear() runs in process context and performs:
-    dsi->irq_data &=3D ~irq_bit;
-
-If an interrupt fires exactly after the load but before the store in
-mtk_dsi_irq_data_clear(), could new flags set by the interrupt handler be
-overwritten and permanently lost when the process context writes back its
-stale value?
-
-
-[Severity: Medium]
-This is a pre-existing issue, but does mtk_dsi_irq() unconditionally return
-IRQ_HANDLED even when no interrupt flags are detected?
-
-If status is 0, the handler does nothing to clear the hardware state but
-still returns IRQ_HANDLED. Will this defeat the kernel's spurious interrupt
-detector and cause an interrupt storm if a spurious interrupt triggers or if
-the hardware asserts an unmasked interrupt flag not handled by the driver?
-
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
+Since -ERESTARTSYS is non-zero, the condition evaluates to false, taking
+the else branch and returning 0 (success). Will this cause the driver
+to silently ignore interrupted hardware operations and incorrectly assume
+state changes have completed?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715114916.1969=
-0-1-angelogioacchino.delregno@collabora.com?part=3D5
+0-1-angelogioacchino.delregno@collabora.com?part=3D7
