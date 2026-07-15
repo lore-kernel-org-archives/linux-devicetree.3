@@ -1,327 +1,289 @@
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29CAA27A91D
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 08:31:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784104296; cv=pass; b=oo34c9ToiY0L791iehQEI57NQ4PJFww3/qhqOnNnBC9yWwtKoZ6319Fks8vjlfcPZuJr2gBqTSJ17vn3LaXvDXfMcOGW3VDJU3NqOt2aPnTLGBdAer1WE1A9mWmtCTo5EZ2HXbwsoec+c00CLEwqNC3tevC9RSbTvoKv0/HzM4A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784104296; c=relaxed/simple;
-	bh=tbJh1cvggz9fj6wWtOnktnlMx38fPOjiOCsgOQsZ8fA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oekZVK1tEFBdl6J4/he0HdTNAP1T79mIZ8h0jbvI4Ncc5cze4cGjGwwdYSteLBVesb/vQrPu0q7RdHbHIT06uujXZazNu2QyFhjhbbcLP151eUgiI7NlxCLxCkxgox1IUgP2MZrW/HoNu4Hi1iZnlp/qEvrXriKXFL/yqgfPfuk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pI+hNLYz; arc=pass smtp.client-ip=209.85.218.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3629F3CC9E8;
+	Wed, 15 Jul 2026 08:34:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784104457; cv=none; b=BWZalTQvJAxoUvalgOvojxWslrZAeq94pJC+iZq5Z90xGtqpua/XTDHpOJv2n3K4VyynKkXEdnZYqjzsho5MHiKEFOyToqkMBFbi7+loPEJEboejhYbxUfT7v/JoG94LexNiERx7upXPUKhJKMl5dUokhqgL874+eL1E6SZ1lGU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784104457; c=relaxed/simple;
+	bh=QxbWXCGF2qtfNtp8TqTb8Ox3MeR21bSDmZFYt0qyQAU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Yn9qmVvsqVWFMSWBR9ZrkMYEBp43iFZuHx3POC2lfqwqpMsGZBo4MgDO939FJkQJvAaZs6LUoPpGGzU7RC6Wo2GSE4Zt3Lln4Uj2BRXvjfT2C050KyI3SA9epN5PwxTGSIiohUC81ue5ioJAGu6IaTHgOi14fYIAG+EQnsjCo6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ThvwBeL3; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pI+hNLYz"
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c15b33f7b23so750666566b.3
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 01:31:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784104293; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KpOXkrfsDZ/olLD462lX5h4bNVfLMMEszlwageC2sAIBHQoyWxuUAyrtlzc9t+v+pX
-         XjMW06eRsBzf1936Zl746n1VaMvoGASkeQ09Vwi7MnIcUW8g9jhqK9v5DcaJKkYi18vG
-         QNjVdFSnoSAuQQFwy5F4kdGrkPcTuoyCmwvo0QKYpKfyvMiupRrdRLWyUXSnzH+gc1im
-         hR2U2iXRJ2v3ZX4BhgQAzR6swr/A84CRHWHi/VZ+SZUkQibEO2Z0FJasPMm6OCPc30hu
-         B+MQ4Ott9nXPte3yeMMTK7uOtGOu6AwXDOpPYhXEpO3r8Kkb6E+NF37A/ZqxAE+l444Y
-         19jw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=SIO4iai7ZG36bPwEvbqCHAeg6bos5dE8xe5cg3XB4/c=;
-        fh=mw7opPIBsq9A5BVsQGgNHFQ6U4UiG4GF99M74PLZgos=;
-        b=eXOUpPKn6XBX2x0FqQwzIe9ifqdOmJRy2lmUy70j1rmy57XZqm+gqADThdK5fTHJ33
-         Wo6X7VV4GGdzpCudIg7LN2b9tNalFrd6uoV6N0aivSQ76KJTIcIBx3UWWy2stzeezz/+
-         VVZDfG5rIDQpuicqBDbS5lGz/ECx04Swg2UCGytR+NFNzsmIRUsJHA178E7xlJ2GfooK
-         56qMyGLX00IL2ji/SqW24mEzX5bwwm+gQQsb83X6GMdL7hTHu9tEmkTuK2B+ErPlnVXW
-         OFy+J/C66HLikBnBKQmeUd4YSTiVcj5GaHSrVi7HZukKjWEVQB2sOPSyZHBKGGLnxKVi
-         8m4A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784104293; x=1784709093; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SIO4iai7ZG36bPwEvbqCHAeg6bos5dE8xe5cg3XB4/c=;
-        b=pI+hNLYz2l3NFvmV0ENGLWnH6o5LZ/YD9yBqZdOqMoQGGreZRy76vRFZSavqZKRvSi
-         urLDW0FF8oe9T0RycziasqVYuV6tKUjaZmzyA6uP/GQHp1BnEGA7oIM3KNk3A59a7OcD
-         /Ly60pxBe54P6swF6qoutmqSP9iCS60GupVjyyH95jwW1pnuOqWMODOdEmYMtE5nWhg0
-         OwfhH3oKKyzjSYq+aMaEg7AEG+JT5AXP4JuX8b6pp8ljxPpu1d3VfiSsw2mmXBmi1W9b
-         QhCWjBaRWRloC+9GBtQeqwHvFpBHtyIujifGCvTyIaHLcWFbssCuHM3iBA8VKq3CKAz+
-         R1og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784104293; x=1784709093;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SIO4iai7ZG36bPwEvbqCHAeg6bos5dE8xe5cg3XB4/c=;
-        b=ge7mp+BbFmUuX0YymWnq3G2/nYjZOBG/tPipbfvhASM5EKG5dwtKlp9fgLU9eKlIJ0
-         D17qETX5wr60a/fcppTCPmKYdkRi1FjofInrlqj9M3lnTIcNhiUx76Ekvci3rNDFUtX2
-         6uMM8TViJFimG8qVy+RT5bAgOxbDtuKW355k6BpUihSRU2xT6IF57Z3w6tQD8n7wO5bz
-         swOoHXFh5VCR/NdTtv3j7h2vELiSOMJ/VzSUHQXriPQ5sIcHZSzGT9uYxrUiID9ZHhvi
-         racgbHJdC5/Scp9m73C14g39ChiozmjDyBnmyKi1BiLjrC10slue7Du1utX0C4Cbpfv0
-         99Bg==
-X-Forwarded-Encrypted: i=1; AHgh+Ro1Xt7A4E0O8icsJpPm+tTPwL+EN+t7BML57Be7GNUp0FqtWnu/gyypZXY+wNC89PLx2lfaKCX9zjRF@vger.kernel.org
-X-Gm-Message-State: AOJu0YyIXt/yS2QiNwgZ1fAxl88DKjpRjFhOl40iLU7X3bimx3RgN2lH
-	9pNRtMTMXFuIN15VIaOVUqDmoI2kypgeYPwsaGtU47y58ie/f/f2vshKxOX4xQR5SQZJCj9HH+a
-	DQ1nmZzRs4V78wWc9bM+8L+A9pz6qvKc=
-X-Gm-Gg: AfdE7ckKJAUlYh96oIv+g+XRvInEDu5cRH/0u84Ai60V5A7FHdM56riU/lF/ZdPnQbY
-	jWyHNpXOmZvBnM9mmMu8f/zyK/b4uF4codYdxXdk6bnYOqSWHZD2uqNcfRvmj2Q+tRHGB0IzoOt
-	7dml+hEyBFI24tOqd+IN07Fev7ExftTJnYSUiFBkF81CaodI+G7PGATTXgfJLs0WzjNJks7Hn3q
-	xMKwJvoBf2LMYASumiVMIjF+9a0w+0aYjGzyeGuojcUpbWqX8WXPMGyj+YqAvad0qsJByQ=
-X-Received: by 2002:a17:906:478f:b0:c12:979c:5a5e with SMTP id
- a640c23a62f3a-c1678ff1a33mr107871966b.0.1784104293130; Wed, 15 Jul 2026
- 01:31:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ThvwBeL3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784104455; x=1815640455;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=QxbWXCGF2qtfNtp8TqTb8Ox3MeR21bSDmZFYt0qyQAU=;
+  b=ThvwBeL34BMVCqWROom/sFM7m3n3J+rjJNxWALeEEQ7fyh0dGtskT3qa
+   +I+MlU6pZlbBCfDE4E2jIVbkkM2hbU9kBdZcqnICySDyAp4Rfa7FQbnLU
+   qZKAPVLfWxEsLLtOazET1lf4PlE2EvcOfluMNGrFojI5VArPc24RWDXKK
+   1kMDESorN8gfNSmdqELf0uK6e/g/W5eMMLYKr2w92ts3UVbbnbPJZMcfp
+   7k19H5IT8mZk0x6WByWjruiOcTSvsDGsgESM3bgaTksrSvNGZYr5H+fxx
+   w+5Oy8ns3BargSW6U+iu3GunhU1RoBuErabl6aWOT0RtAnhYRsgi+aiz/
+   A==;
+X-CSE-ConnectionGUID: VH2axz+bRVuYt0XJjLkd7w==
+X-CSE-MsgGUID: Qh8UQ5zVTfipYMUjKkZGwg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84696172"
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="84696172"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 01:34:14 -0700
+X-CSE-ConnectionGUID: QnJ4aoMRRKazd5igLsyGkA==
+X-CSE-MsgGUID: gEGD/20nTCCDraT5BTpoqQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="261020213"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.129])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 01:34:11 -0700
+Date: Wed, 15 Jul 2026 11:34:09 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Stefan Popa <stefan.popa@analog.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
+	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Siratul Islam <siratul.islam@linux.dev>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+	Ciprian Hegbeli <ciprian.hegbeli@analog.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] iio: adc: add MAX40080 current-sense amplifier
+ driver
+Message-ID: <aldGAbF4AN8X5CRY@ashevche-desk.local>
+References: <20260715063652.368501-1-stefan.popa@analog.com>
+ <20260715063652.368501-3-stefan.popa@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1783670011.git.zhoubinbin@loongson.cn> <7df0780e1b3d4c499a48cd862a12bda895e7818f.1783670011.git.zhoubinbin@loongson.cn>
- <20260710-game-late-9347baafa7ab@spud> <CAMpQs4+zXcNnZQnxWM7WUAM-heBYrTejm_dy3yVA4EFUrjA4CQ@mail.gmail.com>
- <20260714-irritate-varying-9055895097b0@spud>
-In-Reply-To: <20260714-irritate-varying-9055895097b0@spud>
-From: Binbin Zhou <zhoubb.aaron@gmail.com>
-Date: Wed, 15 Jul 2026 16:31:21 +0800
-X-Gm-Features: AUfX_mybVa7Y7V3mpGKZQK3bq9KTd6uD6axAeXZjqDD49GTseSW4kybm7O4RuKY
-Message-ID: <CAMpQs4Kd=qc6HNaup6GyWufPwhgd+cafLzRXhga1Z=Ez7LPXHA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: thermal: loongson,ls2k-thermal: Add
- compatible for Loongson-2K0300
-To: Conor Dooley <conor@kernel.org>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Huacai Chen <chenhuacai@loongson.cn>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
-	Huacai Chen <chenhuacai@kernel.org>, Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev, 
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260715063652.368501-3-stefan.popa@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Conor:
+On Wed, Jul 15, 2026 at 09:36:17AM +0300, Stefan Popa wrote:
+> The MAX40080 is a bidirectional current-sense amplifier with an
+> integrated 12-bit ADC and an I2C/SMBus interface. It measures the
+> voltage across an external shunt resistor and the input bus voltage,
+> storing the results in an internal FIFO.
+> 
+> No existing IIO driver covers this device or a register-compatible part.
+> The closest relatives target different silicon with incompatible register
+> maps and feature sets: max9611 is a unidirectional high-side sensor with a
+> die-temperature channel and MUX-selected gain and no FIFO/PEC, while
+> max34408 is an 8-bit multi-channel current monitor. The MAX40080 has a
+> device-specific register map with bidirectional 13-bit current, a 64-entry
+> FIFO, PEC, a single-measurement mode triggered by an SMBus Quick Command,
+> and two selectable input ranges, so it warrants its own driver.
+> 
+> Add a direct-mode IIO driver exposing the current and voltage channels
+> with raw and scale attributes, a configurable oversampling (digital
+> averaging) ratio, and PEC-protected register access. The two selectable
+> current-sense ranges are exposed through scale/scale_available; the
+> current scale is derived from the shunt-resistor-micro-ohms device-tree
+> property.
 
-On Wed, Jul 15, 2026 at 12:54=E2=80=AFAM Conor Dooley <conor@kernel.org> wr=
-ote:
->
-> On Tue, Jul 14, 2026 at 02:53:40PM +0800, Binbin Zhou wrote:
-> > Hi Conor:
-> >
-> > Thanks for your reply.
-> >
-> > On Sat, Jul 11, 2026 at 12:21=E2=80=AFAM Conor Dooley <conor@kernel.org=
-> wrote:
-> > >
-> > > On Fri, Jul 10, 2026 at 04:24:59PM +0800, Binbin Zhou wrote:
-> > > > Add a new compatible string `loongson,ls2k0300-thermal` for the the=
-rmal
-> > > > sensor found on the Loongson-2K0300 SoC.
-> > > >
-> > > > The hardware differs from the existing SoCs in its register layout:=
- it
-> > > > requires two register regions (one for the thermal sensor control a=
-nd
-> > > > another for the CPU ID).
-> > > >
-> > > > Update the binding to describe this new requirement.
-> > > >
-> > > > Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
-> > > > ---
-> > > >  .../thermal/loongson,ls2k-thermal.yaml        | 68 ++++++++++++++-=
-----
-> > > >  1 file changed, 50 insertions(+), 18 deletions(-)
-> > > >
-> > > > diff --git a/Documentation/devicetree/bindings/thermal/loongson,ls2=
-k-thermal.yaml b/Documentation/devicetree/bindings/thermal/loongson,ls2k-th=
-ermal.yaml
-> > > > index 79e691b08341..b5cbfd201105 100644
-> > > > --- a/Documentation/devicetree/bindings/thermal/loongson,ls2k-therm=
-al.yaml
-> > > > +++ b/Documentation/devicetree/bindings/thermal/loongson,ls2k-therm=
-al.yaml
-> > > > @@ -10,13 +10,11 @@ maintainers:
-> > > >    - zhanghongchen <zhanghongchen@loongson.cn>
-> > > >    - Yinbo Zhu <zhuyinbo@loongson.cn>
-> > > >
-> > > > -allOf:
-> > > > -  - $ref: /schemas/thermal/thermal-sensor.yaml#
-> > > > -
-> > > >  properties:
-> > > >    compatible:
-> > > >      oneOf:
-> > > >        - enum:
-> > > > +          - loongson,ls2k0300-thermal
-> > > >            - loongson,ls2k1000-thermal
-> > > >            - loongson,ls2k2000-thermal
-> > > >        - items:
-> > > > @@ -39,23 +37,46 @@ required:
-> > > >    - reg
-> > > >    - interrupts
-> > > >
-> > > > -if:
-> > > > -  properties:
-> > > > -    compatible:
-> > > > -      contains:
-> > > > -        enum:
-> > > > -          - loongson,ls2k2000-thermal
-> > > > +allOf:
-> > > > +  - $ref: /schemas/thermal/thermal-sensor.yaml#
-> > > >
-> > > > -then:
-> > > > -  properties:
-> > > > -    reg:
-> > > > -      minItems: 2
-> > > > -      maxItems: 2
-> > > > +  - if:
-> > > > +      properties:
-> > > > +        compatible:
-> > > > +          contains:
-> > > > +            enum:
-> > > > +              - loongson,ls2k0300-thermal
-> > > > +    then:
-> > > > +      properties:
-> > > > +        reg:
-> > > > +          items:
-> > > > +            - description: Thermal base register region
-> > > > +            - description: CPU ID register region
-> > > >
-> > > > -else:
-> > > > -  properties:
-> > > > -    reg:
-> > > > -      maxItems: 1
-> > > > +  - if:
-> > > > +      properties:
-> > > > +        compatible:
-> > > > +          contains:
-> > > > +            enum:
-> > > > +              - loongson,ls2k1000-thermal
-> > > > +    then:
-> > > > +      properties:
-> > > > +        reg:
-> > > > +          items:
-> > > > +            - description: Thermal base register region
-> > > > +
-> > > > +  - if:
-> > > > +      properties:
-> > > > +        compatible:
-> > > > +          contains:
-> > > > +            enum:
-> > > > +              - loongson,ls2k2000-thermal
-> > > > +    then:
-> > > > +      properties:
-> > > > +        reg:
-> > > > +          items:
-> > > > +            - description: Thermal base register region
-> > > > +            - description: Thermal data output register region
-> > > >
-> > > >  unevaluatedProperties: false
-> > > >
-> > > > @@ -69,3 +90,14 @@ examples:
-> > > >          interrupts =3D <7 IRQ_TYPE_LEVEL_LOW>;
-> > > >          #thermal-sensor-cells =3D <1>;
-> > > >      };
-> > > > +
-> > > > +  - |
-> > > > +    #include <dt-bindings/interrupt-controller/irq.h>
-> > > > +    thermal-sensor@16001500 {
-> > > > +       compatible =3D "loongson,ls2k0300-thermal";
-> > > > +       reg =3D <0x16001500 0x30>,
-> > > > +             <0x16003ff0 0x8>;
-> > >
-> > > Quite frankly, the address and size of this look like the second
-> > > register region here is actually a few bytes in a syscon that is bein=
-g
-> > > misrepresented.
-> > > What lies at the addresses immediately before and after 0x16003ff0?
-> >
-> > Yes, it can be viewed as part of the system configuration registers,
-> > which appear somewhat disorganized. Within this section,
-> > 0x16003fe0=E2=80=930x16003ffc represents eight chip ID registers.
-> >
-> > 0x16003fe0 --> the 4th chip id
-> > 0x16003fe4 --> the 5th chip id
-> > 0x16003fe8 --> the 6th chip id
-> > 0x16003fec --> the 7th chip id
-> > 0x16003ff0 --> the 0th chip id
-> > 0x16003ff4 --> the 1st chip id
-> > 0x16003ff8 --> the 2nd chip id
-> > 0x16003ffc --> the 3rd chip id
-> >
-> > Perhaps I shouldn=E2=80=99t have referenced `0x16003ff0` separately her=
-e. It
-> > would be more reasonable to declare the entire chip ID address space
-> > as a separate syscon and have it referenced by thermal driver.
->
-> Probably, but even being of size 0x20 feels suspiciously small and that
-> it is likely that this is part of an even larger grouping of misc.
-> registers.
+...
 
-According to the manual, the chip configuration registers are not
-contiguous but are scattered throughout the memory. They are generally
-as follows:
+> Link: https://www.analog.com/media/en/technical-documentation/data-sheets/MAX40080.pdf
+> 
 
-0x16000100 - 0x16000154:  General Chip Configuration / Chip Sampling
-Parameters / Chip Counter Registers
-0x16000400 - 0x16000424:  PLL Clock Configuration Registers -> This is
-already used in clk driver;
-0x16000490 - 0x160004a8:  GPIO Remapping Configuration Register ->
-This is already used in pinctrl driver;
-0x16000500 - 0x1600050c:  USB PHY Configuration Register
-0x16001040 - 0x160014c0:  Interrupt routing Registers -> This is
-already used in irqchip driver;
-0x16001500 - 0x16001524:  Thermal Registers -> This is already used in
-thermal driver;
-0x16001600 - 0x1600180c:  External Interrupt Registers -> EIO irqchip drive=
-r;
-0x16003fe0  - 0x16003ffc:  CHIP ID Registers
+No blank line here, in a tag block. Also you can use Datasheet: tag
+(but it's up to you).
 
-Expanding the range to `0x16000100 - 0x16003ffc` might not be the best appr=
-oach.
-In contrast, the chip ID register is independent. Additionally, apart
-from the first section of general-purpose chip configuration
-registers, the other registers are referenced by their respective
-modules.
+> Co-developed-by: Ciprian Hegbeli <ciprian.hegbeli@analog.com>
+> Signed-off-by: Ciprian Hegbeli <ciprian.hegbeli@analog.com>
+> Signed-off-by: Stefan Popa <stefan.popa@analog.com>
+> ---
 
-So, is `reg =3D <0x0 0x16003fe0 0x0 0x20>;` a good choice?
->
-> >
-> > For example:
-> >
-> > In DTS{i}:
-> > chipid_syscon: syscon@16003fe0 {
-> >        compatible =3D =E2=80=9Cloongson,ls2k0300-cphipid-syscon=E2=80=
-=9D, =E2=80=9Csyscon=E2=80=9D;
-> >        reg =3D <0x0 0x16003fe0 0x0 0x20>;
-> > };
-> >
-> > In thermal driver:
-> > Use
-> > `syscon_regmap_lookup_by_phandle(np, "loongson,chipid"); `
-> > Or:
-> > `syscon_regmap_lookup_by_compatible("loongson,ls2k0300-cphipid-syscon")=
-;`
-> >
-> > get the chip id address space.
-> >
-> > >
-> > >
-> > > Thanks,
-> > > Conor.
-> > >
-> > > > +       interrupt-parent =3D <&liointc1>;
-> > > > +       interrupts =3D <20 IRQ_TYPE_LEVEL_HIGH>;
-> > > > +       #thermal-sensor-cells =3D <1>;
-> > > > +    };
-> > > > --
-> > > > 2.52.0
-> > > >
-> >
-> > --
-> > Thanks.
-> > Binbin
+...
 
---=20
-Thanks.
-Binbin
+> +MAXIM MAX40080 CURRENT SENSE AMPLIFIER DRIVER
+> +M:	Ciprian Hegbeli <ciprian.hegbeli@analog.com>
+> +M:	Stefan Popa <stefan.popa@analog.com>
+> +L:	linux-iio@vger.kernel.org
+> +S:	Supported
+> +W:	https://ez.analog.com/linux-software-drivers
+> +F:	Documentation/devicetree/bindings/iio/adc/maxim,max40080.yaml
+> +F:	drivers/iio/adc/max40080.c
+
+David usually asks this to be split between patches to avoid "orphaned" files
+from the MAINTAINERS perspective.
+
+...
+
+> +/* Current is a 13-bit two's-complement value (magnitude + sign bit). */
+
+Please, choose a single style for _one-line_ comments, id est
+period in all or no period, capital first letter in all or small letter.
+
+> +#define MAX40080_CFG_MODE_SINGLE	0x02	/* one conversion per Quick Command */
+> +
+> +/* CFG.range field values */
+
+(Three comments on one page of code and three different styles.)
+
+...
+
+> +	u32 shunt_resistor_uohm;
+
+I think this also would be good as uOhm.
+
+https://web.archive.org/web/20250629194735/http://poynton.ca/notes/units/
+mentions this:
+
+"... except that its initial letter is capitalized if the unit is named after a person."
+
+...
+
+> +static int max40080_trigger_measurement(struct max40080_state *st)
+> +{
+> +	struct i2c_client *client = st->client;
+
+> +	return i2c_smbus_xfer(client->adapter, client->addr,
+> +			      client->flags, I2C_SMBUS_WRITE, 0,
+> +			      I2C_SMBUS_QUICK, NULL);
+
+Perhaps even
+
+	return i2c_smbus_xfer(client->adapter, client->addr, client->flags,
+			      I2C_SMBUS_WRITE, 0, I2C_SMBUS_QUICK, NULL);
+
+> +}
+
+...
+
+> +static int max40080_read_iv(struct max40080_state *st, u32 *iv)
+> +{
+> +	int ret, io_ret;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	ret = max40080_trigger_measurement(st);
+> +	if (ret < 0)
+> +		return ret;
+
+What I meant is this
+
+	u32 tmp = *iv;
+
+
+> +	/*
+> +	 * Wait for the conversion to complete by polling the FIFO valid bit
+> +	 * (or bail out on an I2C error). Polling the device's own status makes
+> +	 * this independent of the actual conversion time, which varies with the
+> +	 * oversampling ratio and the bus speed. The timeout is only a safety
+> +	 * ceiling: the worst case is the maximum 128x averaging on both the
+> +	 * current and voltage channels at the slowest 15 ksps base rate plus the
+> +	 * inter-channel switching time, i.e. roughly 20 ms; 50 ms leaves ample
+> +	 * margin.
+> +	 */
+> +	ret = read_poll_timeout(max40080_read_iv_once, io_ret,
+> +				io_ret || (*iv & MAX40080_IV_VALID_MSK),
+> +				1 * USEC_PER_MSEC, 50 * USEC_PER_MSEC,
+> +				false, st, iv);
+
+	ret = read_poll_timeout(max40080_read_iv_once, io_ret,
+				io_ret || (tmp & MAX40080_IV_VALID_MSK),
+				1 * USEC_PER_MSEC, 50 * USEC_PER_MSEC,
+				false, st, &tmp);
+
+	/* ...the comment why we need to update iv even in error case... */
+	*iv = tmp;
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	return io_ret;
+> +}
+
+...
+
+> +static void max40080_calc_current_scale(struct max40080_state *st)
+> +{
+> +	unsigned int i;
+> +	u32 rem;
+> +	u64 tmp;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(max40080_csa_gain); i++) {
+
+	for (unsigned int i = 0; i < ARRAY_SIZE(max40080_csa_gain); i++) {
+
+> +		tmp = (u64)MAX40080_INTER_VREF_mV * NANO * MICRO;
+
+I would even make another temporary for the numerator and denominator.
+
+		u64 numerator, denominator;
+
+		numerator = (u64)MAX40080_INTER_VREF_mV * NANO * MICRO;
+		denominator = (u64)MAX40080_ADC_RES * max40080_csa_gain[i];
+
+// Also possible to use a trick "1ULL * " instead of castings.
+
+		numerator = 1ULL * MAX40080_INTER_VREF_mV * NANO * MICRO;
+		denominator = 1ULL * MAX40080_ADC_RES * max40080_csa_gain[i];
+
+> +		tmp = div64_u64(tmp, (u64)MAX40080_ADC_RES * max40080_csa_gain[i] *
+> +				st->shunt_resistor_uohm);
+
+		tmp = div64_u64(numerator, denominator * st->shunt_resistor_uOhm);
+
+> +		st->current_scale[i][0] = div_u64_rem(tmp, NANO, &rem);
+> +		st->current_scale[i][1] = rem;
+> +	}
+> +}
+
+...
+
+> +static int max40080_oversampling_to_filter(int val)
+> +{
+> +	for (int i = 0; i < ARRAY_SIZE(max40080_oversampling_avail); i++) {
+
+unsigned int ?
+
+> +		if (max40080_oversampling_avail[i] == val)
+> +			return i;
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+
+...
+
+> +	if (device_property_present(dev, "shunt-resistor-micro-ohms")) {
+> +		ret = device_property_read_u32(dev, "shunt-resistor-micro-ohms",
+> +					       &st->shunt_resistor_uohm);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "can't read shunt-resistor-micro-ohms\n");
+> +		if (!st->shunt_resistor_uohm)
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "shunt-resistor-micro-ohms must be non-zero\n");
+
+You can reduce data footprint by string literal deduplication. That's why in my example I used
+
+	const char *propname;
+
+and respective assignment. Currently you have three copies of the property
+name: two in different error messages and one as a parameter to property APIs.
+
+> +	} else {
+> +		st->shunt_resistor_uohm = 1 * MICRO;
+> +	}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
