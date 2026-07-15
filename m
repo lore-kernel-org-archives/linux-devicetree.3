@@ -1,153 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 482633B8939;
-	Wed, 15 Jul 2026 19:19:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784143194; cv=none; b=onS5zSi1oZrJyePoGKc5lyG1BTUx0wTiVBXrDyBNhchx5saXbXgxHE8Fr7LV5N7P19DUydJZ1t61AmVPDJ+V4n3r80asSPXqmdoeAOtk0qzPxfYH7bJ3rxD4KRF6YrK5fNMLS8u/v4VOrAgtxr5BBfiF+aMGANjL6XLBcUXTBzM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784143194; c=relaxed/simple;
-	bh=11rAngJJuF5zb0hMQIxjA6jLR+Jg2CSuzRhnrpzl47M=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NDW89M3fJ5/iKTZtx9Tum4frj13FU0zxuYcYDhCrwTNNT4IZqahWAJ1lrJyuEju1QyZh8TwgKnJwJZBGFDzj8nHEtFPIl11SB9zP/F1okcoplnLEARDN2Yr5rmRJFhWQACBL/rQnXBnA3WAhhXS3xedAWnWQsTGBEi8S9YE5F3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JBsWnSwh; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 979773B840B;
+	Wed, 15 Jul 2026 19:20:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784143254; cv=pass; b=h0a3rhNKdLAnFp4aDZtzU/8oo8dFRMst5AxS4kq989MGhAb0XtZySif0hVZ6e9knBLDlghxIZmVmmmJUtJMq67TfOx9Z+pL9prl1/Ew7jKb+qj1Dyo7LIibF96qyJsIkh54jdz7MYRm6Ys7NHIoUQwqVo6ypotg2ADeLsfo+LhY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784143254; c=relaxed/simple;
+	bh=z4+tLqOerfQ9USKtD/ecO7iXIoy+d2Wj8l4h5iDOk3Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xoh1bumGA+HfsDkxa2PtGYqSCj7RRMkKzxa5XiiqwccUXQ06wOWuJrpIvWhcHG0kjJ+mSR/2jZeD3XrTnd7W5SUvOPrm0fyUal2BKKwa0mkH7wpxeTdeMP+xCisPi0NkGpGZ3O6aGUdo3/qivdbPCHJowr3ZSdsfoD4vGHUpKs4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=Cv//09bd; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JBsWnSwh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB1281F000E9;
-	Wed, 15 Jul 2026 19:19:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784143188;
-	bh=LV4KiCr98vyYbmX2BOTe+goz8+ntsRbpB7ogofgrxjk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JBsWnSwhf84B1euVOkLJVtliuwD8z3CTeXCsY8byjZP1DfT4PwYBYtFfsUwP6u4Ry
-	 wt7Yl4VPRDNOljtWQqm/kzyzFawNVYVOG2Hx3+PJbKFXviS5lFp9sHjeinXq8BXClc
-	 SyuO+bcoKmwSdf6LzUFzCHwHgQSXxsuDzmFJL8o7n7L2vdRSeWBWgoEbrbVkqmqU1C
-	 1g7pFmU5N37uOHGgldn9wp6yw8wYdV7TxcHQbc+IlG1KGRrLNqf6iLkfj/k+i7wCe7
-	 5iLk5zA9zgnXYnQYUtmwhYzG+MkNnlcm1criBqM4AOWsDKXwRk0wEO2MuU2EZmVrO6
-	 +Sdl7k96KMm+Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/3] arm64: dts: freescale: Add support for Variscite
- VAR-SOM-MX8 QuadMax
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
-Cc: Frank.Li@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, robh@kernel.org
-In-Reply-To: <0dab340bd29e1f4b1fab05a29532cad3177abc7f.1784142385.git.stefano.r@variscite.com>
-References: <cover.1784142385.git.stefano.r@variscite.com>
- <0dab340bd29e1f4b1fab05a29532cad3177abc7f.1784142385.git.stefano.r@variscite.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 19:19:47 +0000
-Message-Id: <20260715191947.DB1281F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="Cv//09bd"
+ARC-Seal: i=1; a=rsa-sha256; t=1784143217; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=a1MKzUZJlGHaLY4VDJ83Rxs7T07th72BmzmxgQaXO8JGgQqoAo2KLnQRmLJahPmYDN3cygMuwQbi1vBEbCFnE1w4Sgxun17NU/31PeTucqxxcUI/kjrcXoqL+8GetRX3oJpJtm215yENFaRVlaSBcYMZuM18bZM4s/ZPojJincI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784143217; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=z4+tLqOerfQ9USKtD/ecO7iXIoy+d2Wj8l4h5iDOk3Q=; 
+	b=CxNMwXe1PQUtB440m0mm7pKOh+7c/p3+M/fHByUl9AhWl3/dEw4pOL9f+3YEs0BzeN6VdzSMr6/AfWSo03kgFwKTlPA9y+WjHQjRW52WrXCVJa+NinTbdWysVcxb5HFlGZgyOPnqXoIcoWz3urt5ki06wcZoAvNN0I+ldkNy04A=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784143217;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=z4+tLqOerfQ9USKtD/ecO7iXIoy+d2Wj8l4h5iDOk3Q=;
+	b=Cv//09bdWp79RVzRtwlDtFY49fyEBWmbOevhC0LGVxPbxC8bKerHT6FvwTztsTG4
+	ahMG2lRzK6LyO+KS4RnSatrUqDpZ7JWI2cJpa5aVrXvMUO516akh2MzqnwxgwxkKmXE
+	p/1fvFHlQ89dXnJY+Uo5t62wZwMUKi8tmYQYPwCg=
+Received: by mx.zohomail.com with SMTPS id 1784143215185954.3482006909511;
+	Wed, 15 Jul 2026 12:20:15 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id DAA25180820; Wed, 15 Jul 2026 21:20:11 +0200 (CEST)
+Date: Wed, 15 Jul 2026 21:20:11 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Igor Paunovic <royalnet026@gmail.com>
+Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, 
+	devicetree@vger.kernel.org, robh@kernel.org, Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, kernel@collabora.com, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 1/2] dt-bindings: media: snps,dw-hdmi-rx: add
+ #sound-dai-cells
+Message-ID: <alfcy_rcmjrKJb0H@venus>
+References: <20260715051939.64652-1-royalnet026@gmail.com>
+ <20260715051939.64652-2-royalnet026@gmail.com>
+ <20260715055448.AEA021F000E9@smtp.kernel.org>
+ <CAEWPSH7OqecBKvxUVtwFe4B9y0-=gsQ7vy6kdBHx-Nsne-Ct1g@mail.gmail.com>
+ <aleBPE5YHlC7pLpi@venus>
+ <CAEWPSH4AYfSR_DBcLFr6a=SJxnAAcjoK612v+g-TpP046qTBmg@mail.gmail.com>
+ <alfCQd689ATJOdwM@venus>
+ <CAEWPSH6L79Kb9wQna9Cg8yGMJAN88__PwsuXvA+oo+fPStLoYg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dxswjltreapgibcc"
+Content-Disposition: inline
+In-Reply-To: <CAEWPSH6L79Kb9wQna9Cg8yGMJAN88__PwsuXvA+oo+fPStLoYg@mail.gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/284.121.97
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] The `usdhc3` WiFi SDIO host is marked `non-removable` but assigns =
-user-space WiFi initialization GPIOs to its pinctrl state, breaking initial=
-ization.
-- [Medium] The statically defined `memory` node declares 1GB of RAM, but th=
-e `linux,cma` region is placed strictly outside this memory range.
-- [Low] The audio regulator node is named `regulator-3p3v` but configured f=
-or 1.8V.
---
 
---- Patch [2]: [PATCH v5 2/3] arm64: dts: freescale: Add support for Varisc=
-ite VAR-SOM-MX8 QuadMax ---
-commit e6616ac5ca38d036f01cf07cc3cd9713d0d5a5cc
-Author: Stefano Radaelli <stefano.r@variscite.com>
+--dxswjltreapgibcc
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RFC PATCH 1/2] dt-bindings: media: snps,dw-hdmi-rx: add
+ #sound-dai-cells
+MIME-Version: 1.0
 
-arm64: dts: freescale: Add support for Variscite VAR-SOM-MX8 QuadMax
+Hi Igor,
 
-Add device tree support for the Variscite VAR-SOM-MX8 QuadMax system
-on module. The module includes an i.MX8 QuadMax processor, LPDDR4 memory,
-eMMC, Ethernet, audio codec, and WiFi/Bluetooth connectivity.
+On Wed, Jul 15, 2026 at 07:41:22PM +0200, Igor Paunovic wrote:
+> Hello Sebastian,
+>=20
+> > Not implementing all features in the driver is perfectly fine.
+> > Ideally you return -ENOTSUP if somebody tries to use the S/PDIF
+> > DAI interface instead of I2S.
+>=20
+> Done for v2: the codec registration now exposes the S/PDIF DAI as
+> well, so the DAI indexes match the binding (0 =3D I2S, 1 =3D S/PDIF),
+> and hw_params() rejects the S/PDIF interface with -EOPNOTSUPP until
+> that path is actually wired up.
 
-Link: https://variscite.com/system-on-module-som/i-mx-8/i-mx-8-quadmax-quad=
-plus/var-som-mx8/
+Sounds good to me.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8qm-var-som.dtsi b/arch/arm=
-64/boot/dts/freescale/imx8qm-var-som.dtsi
-> new file mode 100644
-> index 0000000000000..28964de3b080a
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8qm-var-som.dtsi
-> @@ -0,0 +1,531 @@
-[ ... ]
-> +	memory@80000000 {
-> +		device_type =3D "memory";
-> +		reg =3D <0x00000000 0x80000000 0 0x40000000>;
-> +	};
-> +
-> +	reg_audio_supply: regulator-3p3v {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "wm8904-supply";
-> +		regulator-min-microvolt =3D <1800000>;
-> +		regulator-max-microvolt =3D <1800000>;
+Greetings,
 
-[Severity: Low]
-This isn't a bug, but the node name specifies 3.3V while the configured
-voltage is explicitly 1.8V. Should this node be named regulator-1p8v
-instead?
+-- Sebastian
 
-> +		regulator-always-on;
-> +	};
-[ ... ]
-> +		/* global autoconfigured region for contiguous allocations */
-> +		linux,cma {
-> +			compatible =3D "shared-dma-pool";
-> +			/* VAR-SOM-MX8QM doesn't have 1GB variant */
-> +			alloc-ranges =3D <0 0xc0000000 0 0x3c000000>;
+--dxswjltreapgibcc
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[Severity: Medium]
-Does this CMA allocation succeed if the bootloader doesn't dynamically patch
-the memory size?
+-----BEGIN PGP SIGNATURE-----
 
-The memory@80000000 node declares 1GB of RAM (ending at 0xBFFFFFFF), but
-this CMA region is hardcoded to start at 0xC0000000, which falls outside
-that default 1GB range.
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpX3WsACgkQ2O7X88g7
++poCkw/+JPyyaiO3x/Jodfj5BW9q2m4XxQh8EWQroBhi8WUgGUPzGl6Z+JL6no3E
+gVYlbNBbc59Tjd6bXpiyuvTizQH3MyuXkuKEF86KZWFr4dfVJZ9V0wSiljNc9ZD3
+XBHRLZ9gpOzP4ApWeaYdAi7kij80XKa7DEoQvUpNMSSZzAUDnZ8ha+pdX5cwQ+HP
+YqTgGpQtRYD1xrnHC/NjKXxGzWo9BuDzeTIhTn6yMV96gyaRnPEhZ6LEPkSGWkXf
+ImP31JzYd7iRieyzgJX9Zfk/+g8781+Y4iZoaQuhVvN0LUJE5G+6R0HDxC1eWm+E
+lmdqJTwbDsAPYYe2I6TDZWTZO/dQsL6jxz8qrvFVppFXhCYkjWU0/NtMtcFbAaeH
+BVlbJn7qLUhNVeRqGFSb+jQdh1ZZAHIIEt+PKzlpaFcTZ0HYOPBeVY7rkNjKphg0
+oQTWMjR8To2qnJxq+XVKJZBfvH1ktGEvBg83Dt7pGdxka/tMUeZ3P+7YUWTFUJSO
+05lTujsuG5ocilVJGuouDWyPbDk0axtDYAO/ojbEpSWCzH3mit1Aci0e83zyGl7u
+Ve3aAA2AYOyvHpLeB5fsUpVbuS0V8Rdo/Zq41R50RI6Zwf6en6A4EB0wZEN92NQi
+hBCUwNt9vlLPJNi8QFzumPYcptaWIhFzVaUphXNfBEi40YejFDM=
+=Q2Qd
+-----END PGP SIGNATURE-----
 
-> +			size =3D <0 0x3c000000>;
-> +			linux,cma-default;
-> +			reusable;
-> +		};
-> +	};
-[ ... ]
-> +/* WIFI */
-> +&usdhc3 {
-> +	#address-cells =3D <1>;
-> +	#size-cells =3D <0>;
-> +	pinctrl-names =3D "default", "state_100mhz", "state_200mhz";
-> +	pinctrl-0 =3D <&pinctrl_usdhc3>, <&pinctrl_wifi>;
-> +	pinctrl-1 =3D <&pinctrl_usdhc3_100mhz>, <&pinctrl_wifi>;
-> +	pinctrl-2 =3D <&pinctrl_usdhc3_200mhz>, <&pinctrl_wifi>;
-> +	bus-width =3D <4>;
-> +	non-removable;
-
-[Severity: High]
-Will this configuration prevent the WiFi module from initializing?
-
-Since usdhc3 is marked non-removable, the MMC driver will attempt to probe
-the SDIO bus immediately during boot. Because the pinctrl_wifi group
-(containing the initialization GPIOs) is bound to the MMC driver here, user
-space cannot claim or toggle these pins to power up the WiFi chip.
-
-The probe may fail permanently since the chip is unpowered during the kernel
-probe. Could this be modeled using mmc-pwrseq-simple so the kernel handles
-the power sequence automatically before probing?
-
-> +	status =3D "okay";
-> +
-> +	brcmf: wifi@1 {
-> +		compatible =3D "brcm,bcm4329-fmac";
-> +		reg =3D <1>;
-> +	};
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784142385.gi=
-t.stefano.r@variscite.com?part=3D2
+--dxswjltreapgibcc--
