@@ -1,128 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D7F332615
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 14:02:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C3A30D40A;
+	Wed, 15 Jul 2026 14:03:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784124127; cv=none; b=WoinkZ5pV4eKyJ8ojkQggd4OPqZRlz2BoubHbmuXrlOWFnxfSVBq0MzYPVUHmdokodNV+WoXvcYink40FEPWW20a4TktuwkFoXOj+oa2ZdTBHHHFM86h39rYyAlAiZFNiCmoGRwYi+lbDpaRiznasiePveM8uuw4RKWJN4OE9MQ=
+	t=1784124234; cv=none; b=r3xePyqwCOqL3kp22R3vFoBeJFn3Us1XYB2GwXb+IDq8lP5oVIObr+lGc/P9kHlhv8BupLixVm1zoviacl++lZLjdCPel/U1HHkJeFiqzCXvqfu/GGB04qvm8al7UrVqkUVfozN2sz/0/VGB51iIIE3O9C43ZfHub/VQTKWl88I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784124127; c=relaxed/simple;
-	bh=zQCMSibRQ6SeYjM4f64vvgafoAD4SXnUIv+gUlTNtfE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KZ8ZRyF4Mw7WLCbqi1GT3JQ9jzTZSzvPrwBPqu8KcAOolLxYQsxYSXR0WWg28TiBisMJgIvAkAcw0DcifOlckyp/aC0vF34JTdgwLkMFMZnYk6clXXKy52/T2yhDA3pwKPc3aK6lENwxXVZFPdkc9F4jhW9cXMSVcu1xN8K/GBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Caj7Z9HX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784124234; c=relaxed/simple;
+	bh=7kPozF3hpCE2xRs4SFXmnG3+PTJyYbqH0uMFLQv7SOg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S/f14KmFxM7LErmsDaT+llrzriY573VHGCzju22CfAKbhA7AwPK1IzPKm+yYlBJQiWq13dE+CUpGoRZr5A0K/oXFXgLpA5FXhGTEQAeCUhUgOC2SvXZ38jpWI2ZD9a1IRwLFrTjV22GGAa23MKzTYTNv6qGgL7IcaJ/GqvuQQTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iPr9uWFZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Caj7Z9HX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA0281F000E9;
-	Wed, 15 Jul 2026 14:02:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iPr9uWFZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C31BE1F00A3A;
+	Wed, 15 Jul 2026 14:03:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784124126;
-	bh=I314GUo6iztUvnJ+OirCSE/HO9oSbn8paseyG4ncbLA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Caj7Z9HX64F3YY7Ae8Tn3NwPIKCgAYsWHDJDzbAcUJhSHrIC+XBimDvlMFPX7SGPf
-	 m40njOZFrN/pWj5I9kxJm9G9ra8laF1P6QXgy396skzzttyJ/Wx6pIy6nwafVIT3cR
-	 NuWOyfSP6IqG1IVF4dWK9A9nYX8NPlkCTtpabSTZlVooVeysY+Rf2qj5jHKwxxsGxU
-	 VJ82uxUnGFuhe7XK+FKt4+17lTo/+HEbFXbEX6bIW8LlCWkaJtOUjRNDNNj0rNnO2a
-	 oUXmy+Q71MGWiqM9Jk4Z+M4p28DvkXI0TiEkY3vP3L9kfkCZkV+5a/Dw7LFhOG2xd5
-	 15yLE552b5cEg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: power: Add MediaTek MT6858 power
- domain controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nikolai Burov" <nikolai.burov@jolla.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260715-mt6858-pmdomain-v2-1-6293e87fc093@jolla.com>
-References: <20260715-mt6858-pmdomain-v2-0-6293e87fc093@jolla.com>
- <20260715-mt6858-pmdomain-v2-1-6293e87fc093@jolla.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 14:02:05 +0000
-Message-Id: <20260715140205.AA0281F000E9@smtp.kernel.org>
+	s=k20260515; t=1784124232;
+	bh=uRGb/8XPZ50+gmV2e/JydZ7jSZMs7iOCF4kGCOiqSAA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iPr9uWFZNFD4QvWn1joHhHGF1s9vVOlBUqfVWY6Bo1/6hs/tB+1/XLKSW7ySWR6Ab
+	 eF0tvN+fwFL4YJ6SgRVWHRclkQhCYS4+5J0eMZZSeO98Pz2CpZzpJfDYL3OsgMGrcf
+	 z3t2+nXTKes+CZ01MoHmPLv7qNTVLlpXYl2AaTa+mXAUqsYt3lWpU/vEQgQ3qNxhxa
+	 Ky3Y1m/FNxJg3jUxT66XUl0NeMzuiqngS4rE0IA2GqFlYS3csYXgwd8N11Lz3mNadA
+	 xtew0N+LkZc8qA62Jnc1Uij4ovbRsk929FlMHtmAeIjz9ul6IOUkIugCxgP0tanwjh
+	 kz23zWhwhChnA==
+Date: Wed, 15 Jul 2026 16:03:44 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	linux-pci@vger.kernel.org, kernel test robot <lkp@intel.com>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Marc Zyngier <maz@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v2] PCI: rcar-gen4: Isolate driver to ARM64
+Message-ID: <jipy4hvsmksv6fy352y23sjdnutpkqoi2577qp5vymqqggiscz@cnx2vijnhvh4>
+References: <20260714131957.38067-1-marek.vasut+renesas@mailbox.org>
+ <20260714211030.GA1412991@bhelgaas>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260714211030.GA1412991@bhelgaas>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The conditional block for `mediatek,mt6858-power-controller` doe=
-s not enforce the required number of `access-controllers` phandles with exp=
-licit `minItems` and `maxItems`.
-- [Medium] Increasing the global `maxItems` for `access-controllers` from 3=
- to 6 relaxes validation rules for older hardware generations that do not h=
-ave their own conditional overrides.
---
+On Tue, Jul 14, 2026 at 04:10:30PM -0500, Bjorn Helgaas wrote:
+> On Tue, Jul 14, 2026 at 03:19:27PM +0200, Marek Vasut wrote:
+> > The driver includes linux/irqchip/arm-gic-v3.h which pulls in headers
+> > which are available only on ARM and ARM64, on other architectures the
+> > headers are not present and the driver fails to build. This driver is
+> > used only on ARM64 hardware, isolate its build only to ARM64 to avoid
+> > build failures on other architectures.
+> > 
+> > Reported-by: kernel test robot <lkp@intel.com>
+> > Closes: https://lore.kernel.org/oe-kbuild-all/202607100310.iQw5m9Uo-lkp@intel.com/
+> > Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> 
+> Mani, I assume you'll squash this into 89bded511a66 ("PCI: rcar-gen4:
+> Configure AXIINTC if iMSI-RX is not used") so it's connected to the
+> addition of the linux/irqchip/arm-gic-v3.h include and there's no
+> bisection hole?
+> 
 
---- Patch [1]: [PATCH v2 1/3] dt-bindings: power: Add MediaTek MT6858 power=
- domain controller ---
-commit eeb672419310866e8b79518dc171a08dbb0367dd
-Author: Nikolai Burov <nikolai.burov@jolla.com>
+Yes, squashed now!
 
-dt-bindings: power: Add MediaTek MT6858 power domain controller
+- Mani
 
-This patch introduces the compatible string and documents the bindings for
-the power domain controller on the MediaTek MT6858 SoC.
+> > ---
+> > Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+> > Cc: Bjorn Helgaas <bhelgaas@google.com>
+> > Cc: Catalin Marinas <catalin.marinas@arm.com>
+> > Cc: Conor Dooley <conor+dt@kernel.org>
+> > Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> > Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> > Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+> > Cc: Manivannan Sadhasivam <mani@kernel.org>
+> > Cc: Marc Zyngier <maz@kernel.org>
+> > Cc: Rob Herring <robh@kernel.org>
+> > Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> > Cc: devicetree@vger.kernel.org
+> > Cc: linux-arm-kernel@lists.infradead.org
+> > Cc: linux-doc@vger.kernel.org
+> > Cc: linux-kernel@vger.kernel.org
+> > Cc: linux-pci@vger.kernel.org
+> > Cc: linux-renesas-soc@vger.kernel.org
+> > ---
+> > V2: This is a rework of PCI: rcar-gen4: Inline GIC_TRANSLATER offset macro
+> >     which isolates the driver build to ARM64 via Kconfig instead:
+> >     https://lore.kernel.org/linux-pci/CAMuHMdVvWE7YZgKvreSn_vJLOVD4eMmn3TCGOyqSXksqjBCwvg@mail.gmail.com/
+> >     https://lore.kernel.org/linux-pci/20260714110041.GA1349622@bhelgaas/
+> > ---
+> >  drivers/pci/controller/dwc/Kconfig | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
+> > index 49a7a2c50ca15..3260d916110b2 100644
+> > --- a/drivers/pci/controller/dwc/Kconfig
+> > +++ b/drivers/pci/controller/dwc/Kconfig
+> > @@ -346,7 +346,7 @@ config PCIE_RCAR_GEN4
+> >  
+> >  config PCIE_RCAR_GEN4_HOST
+> >  	tristate "Renesas R-Car Gen4 PCIe controller (host mode)"
+> > -	depends on ARCH_RENESAS || COMPILE_TEST
+> > +	depends on ARM64 && (ARCH_RENESAS || COMPILE_TEST)
+> >  	depends on PCI_MSI
+> >  	select PCIE_DW_HOST
+> >  	select PCIE_RCAR_GEN4
+> > @@ -357,7 +357,7 @@ config PCIE_RCAR_GEN4_HOST
+> >  
+> >  config PCIE_RCAR_GEN4_EP
+> >  	tristate "Renesas R-Car Gen4 PCIe controller (endpoint mode)"
+> > -	depends on ARCH_RENESAS || COMPILE_TEST
+> > +	depends on ARM64 && (ARCH_RENESAS || COMPILE_TEST)
+> >  	depends on PCI_ENDPOINT
+> >  	select PCIE_DW_EP
+> >  	select PCIE_RCAR_GEN4
+> > -- 
+> > 2.53.0
+> > 
 
-> diff --git a/Documentation/devicetree/bindings/power/mediatek,power-contr=
-oller.yaml b/Documentation/devicetree/bindings/power/mediatek,power-control=
-ler.yaml
-> index 070c6e5666dc0..d03e4a9251635 100644
-> --- a/Documentation/devicetree/bindings/power/mediatek,power-controller.y=
-aml
-> +++ b/Documentation/devicetree/bindings/power/mediatek,power-controller.y=
-aml
-
-[ ... ]
-
-> @@ -56,7 +57,7 @@ properties:
->        faults while enabling or disabling a power domain.
->        For example, this may hold phandles to INFRACFG and SMI.
->      minItems: 1
-> -    maxItems: 3
-> +    maxItems: 6
-
-[Severity: Medium]
-Does increasing this global limit unintentionally relax validation for
-older hardware generations?
-
-Because older platforms like mt6735 or mt6795 lack an explicit conditional
-override, wouldn't they now erroneously pass validation even if they define
-up to 6 access controllers? Is there a way to introduce a restrictive
-conditional block for those older generations to retain their 3-item limit?
-
-[ ... ]
-
->  allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - mediatek,mt6858-power-controller
-> +    then:
-> +      properties:
-> +        access-controllers:
-
-[Severity: Medium]
-Does this conditional block also need explicit minItems and maxItems
-constraints set to 6?
-
-In JSON Schema, providing a list of schemas under the items property only
-validates the elements that are actually present. Because the global
-minItems is 1, wouldn't an incomplete device tree node providing only 1 to 5
-phandles silently pass validation here?
-
-> +          items:
-> +            - description: handle to INFRACFG register block
-> +            - description: handle to IMG_SUB0 register block
-> +            - description: handle to CAM_SUB1 register block
-> +            - description: handle to CAM_SUB0 register block
-> +            - description: handle to IPE_SUB0 register block
-> +            - description: handle to VLPCFG register block
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-mt6858-pmd=
-omain-v2-0-6293e87fc093@jolla.com?part=3D1
+-- 
+மணிவண்ணன் சதாசிவம்
