@@ -1,103 +1,128 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6960132E13B
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 13:59:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D7F332615
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 14:02:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784123951; cv=none; b=PmXPfjcZ8vYBsamVymOoS729mmecWgBhEYipOBOftFS729YbZJuavIIwNZq26z4G04k4+e2IpPRmALstHTKV9CZtNtB74mqmYDpCfSbgtuRmSUgjYGqVKzkcJpg3sybmFRH+ThDxGwsZg//D6MjuNtJB6BCaMTuY+D0G2w/vHRQ=
+	t=1784124127; cv=none; b=WoinkZ5pV4eKyJ8ojkQggd4OPqZRlz2BoubHbmuXrlOWFnxfSVBq0MzYPVUHmdokodNV+WoXvcYink40FEPWW20a4TktuwkFoXOj+oa2ZdTBHHHFM86h39rYyAlAiZFNiCmoGRwYi+lbDpaRiznasiePveM8uuw4RKWJN4OE9MQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784123951; c=relaxed/simple;
-	bh=QYrx3la5ntAKtVZEZfw1wXSd0ShgpB97LVU+Yz+xAdE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=llg/YxpJArNu87z24yZgsKtJTd6MzDZ67SDsXtAjdPu0eD+bYN9xlsHflV/6I8eBT/p9yFfMybh4XRGQW9y0aBoYXEmH5/zS99vt3ZHlknriiZGSPfKJMlM/3M3wNTrqvzIbJP8QQ5CdgM3DVf2Hmp59tVFlN23/slVwJjgB/1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=Gk2uER6O; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1784124127; c=relaxed/simple;
+	bh=zQCMSibRQ6SeYjM4f64vvgafoAD4SXnUIv+gUlTNtfE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KZ8ZRyF4Mw7WLCbqi1GT3JQ9jzTZSzvPrwBPqu8KcAOolLxYQsxYSXR0WWg28TiBisMJgIvAkAcw0DcifOlckyp/aC0vF34JTdgwLkMFMZnYk6clXXKy52/T2yhDA3pwKPc3aK6lENwxXVZFPdkc9F4jhW9cXMSVcu1xN8K/GBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Caj7Z9HX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="Gk2uER6O"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=Ves8
-	I4HQSDwuYcpoElbBGp3o0zSoq6p668rnJaElwDY=; b=Gk2uER6O3dnGG4Tzay8x
-	hnUHTqgkyHVmeGTwh1Ho+Tz2jv88pfPQ+HS/Hd8CRRh6ZGxFwZ3/wkDObbkh06A/
-	1G2c2ACo5KhAJ0PxvGFC8SQINdL1VmNDfx/CzKHypgzPgbht7jWrUe5Zx3/fu89C
-	HudCFiACI2US140f4pGY7WnS7yjIlWQZkOT93UE+3nrMSV9NtuSy9edXpBM5JSuV
-	as/Ouz3anP8MHll4bHlkPqBKSScOPcQoDrzc5vQP4gFJBuNAx92+csFNbxrhQ4ei
-	plqjTU/OxG5vIijdTXUv62btHFrDBnGFfYThQlP6O80oHzlPH+UEX4U8Kr13FAth
-	Kg==
-Received: (qmail 715327 invoked from network); 15 Jul 2026 15:59:04 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 15 Jul 2026 15:59:04 +0200
-X-UD-Smtp-Session: l3s3148p1@bPXjuaZWOA9tKXCU
-Date: Wed, 15 Jul 2026 15:59:01 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Pascal EBERHARD <pascal.eberhard@se.com>, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
-	Herve Codina <herve.codina@bootlin.com>
-Subject: Re: [PATCH v2 0/7] clk: Add support for clock nexus
-Message-ID: <aleSJafTTPe9Keas@shikoro>
-References: <20260710-schneider-v7-2-rc1-eip201-upstream-v2-0-b4680787377e@bootlin.com>
- <alNN5qxBJ4EsB3Li@shikoro>
- <87ik6ge7kd.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Caj7Z9HX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA0281F000E9;
+	Wed, 15 Jul 2026 14:02:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784124126;
+	bh=I314GUo6iztUvnJ+OirCSE/HO9oSbn8paseyG4ncbLA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Caj7Z9HX64F3YY7Ae8Tn3NwPIKCgAYsWHDJDzbAcUJhSHrIC+XBimDvlMFPX7SGPf
+	 m40njOZFrN/pWj5I9kxJm9G9ra8laF1P6QXgy396skzzttyJ/Wx6pIy6nwafVIT3cR
+	 NuWOyfSP6IqG1IVF4dWK9A9nYX8NPlkCTtpabSTZlVooVeysY+Rf2qj5jHKwxxsGxU
+	 VJ82uxUnGFuhe7XK+FKt4+17lTo/+HEbFXbEX6bIW8LlCWkaJtOUjRNDNNj0rNnO2a
+	 oUXmy+Q71MGWiqM9Jk4Z+M4p28DvkXI0TiEkY3vP3L9kfkCZkV+5a/Dw7LFhOG2xd5
+	 15yLE552b5cEg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: power: Add MediaTek MT6858 power
+ domain controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Nikolai Burov" <nikolai.burov@jolla.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260715-mt6858-pmdomain-v2-1-6293e87fc093@jolla.com>
+References: <20260715-mt6858-pmdomain-v2-0-6293e87fc093@jolla.com>
+ <20260715-mt6858-pmdomain-v2-1-6293e87fc093@jolla.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 14:02:05 +0000
+Message-Id: <20260715140205.AA0281F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3CdlzGtZ2+z9JVFH"
-Content-Disposition: inline
-In-Reply-To: <87ik6ge7kd.fsf@bootlin.com>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The conditional block for `mediatek,mt6858-power-controller` doe=
+s not enforce the required number of `access-controllers` phandles with exp=
+licit `minItems` and `maxItems`.
+- [Medium] Increasing the global `maxItems` for `access-controllers` from 3=
+ to 6 relaxes validation rules for older hardware generations that do not h=
+ave their own conditional overrides.
+--
 
---3CdlzGtZ2+z9JVFH
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--- Patch [1]: [PATCH v2 1/3] dt-bindings: power: Add MediaTek MT6858 power=
+ domain controller ---
+commit eeb672419310866e8b79518dc171a08dbb0367dd
+Author: Nikolai Burov <nikolai.burov@jolla.com>
 
-Hi Miquel,
+dt-bindings: power: Add MediaTek MT6858 power domain controller
 
-> that all the drivers work on RZN1 hardware. When we send this out we
-> will include a link in the cover letter with a branch to test,
-> connecting the clock, irqchip an crypto changes together. Don't hesitate
-> to remind us for that testing branch if we forget to include it!
+This patch introduces the compatible string and documents the bindings for
+the power domain controller on the MediaTek MT6858 SoC.
 
-Will surely do. Sounds awesome, thank you! Bonus points if you could
-also shorty summarize how you tested all the stuff then.
+> diff --git a/Documentation/devicetree/bindings/power/mediatek,power-contr=
+oller.yaml b/Documentation/devicetree/bindings/power/mediatek,power-control=
+ler.yaml
+> index 070c6e5666dc0..d03e4a9251635 100644
+> --- a/Documentation/devicetree/bindings/power/mediatek,power-controller.y=
+aml
+> +++ b/Documentation/devicetree/bindings/power/mediatek,power-controller.y=
+aml
 
-Looking forward to it,
+[ ... ]
 
-   Wolfram
+> @@ -56,7 +57,7 @@ properties:
+>        faults while enabling or disabling a power domain.
+>        For example, this may hold phandles to INFRACFG and SMI.
+>      minItems: 1
+> -    maxItems: 3
+> +    maxItems: 6
 
+[Severity: Medium]
+Does increasing this global limit unintentionally relax validation for
+older hardware generations?
 
---3CdlzGtZ2+z9JVFH
-Content-Type: application/pgp-signature; name="signature.asc"
+Because older platforms like mt6735 or mt6795 lack an explicit conditional
+override, wouldn't they now erroneously pass validation even if they define
+up to 6 access controllers? Is there a way to introduce a restrictive
+conditional block for those older generations to retain their 3-item limit?
 
------BEGIN PGP SIGNATURE-----
+[ ... ]
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmpXkiEACgkQFA3kzBSg
-KbZcHA//dAis+ekgGQ0PPkVMFajQvqo7G8CsFDkqEZNV8a0wtK+CAnJ3sF9ZnA/9
-5THQaosfNakifzGHMcKlvn+U11IJhQHbg0Bcswu8hbjWN2zorDFqQ0JcvyqCHC1Y
-PFoirBvIDARIeWWZrJUon+uR4JRb9TR1ERnYKJ5or/4e5eqVOZJQQkf/a40tTIq6
-qxvd3rK8cn3dkBur8DNCTCDraen7a8iw61DFJeUL4kZ3a6ILzDp68rN1uY3LmOhH
-ZMHfzqiLBkT2wyJEpQhEKrBy4/tarHyKBYcHJDsObDnByz3TqP0pXAloEdRkZAF8
-4LnNHbR0TeQjvO99WXDfphyNtfoiJKRSLYIFebuiKSO+sw50yFnTqiUU7xOAZOyx
-D+ztbEAyanEivlkDwGk5EcSPHQFY6s30wmzmk9b6r3Lr7QKHsiNs/yLX5p9BKvCV
-hvPTvwSfKPWpNVUZZajD8GCLXlhyRdzQMLEY5RS5ne/zXYyW1uwHAs1oIuC3OMMx
-EpIdMFTkylPcykTOZrLo7DnjJFsv3dZFKg1B2qmlVlac3k19CY+vOCslBvVOMAQf
-TedFryjC44eu1JK0/L3iCF8+Cky/lNn0HuYTTUA874qpNMfrBLCKPQagqGac+Qad
-JEyucuyYS5pbYLW/LEtbvPmn8ZPi8NDmr+w//4mQ89wvIn4KdN0=
-=cvdn
------END PGP SIGNATURE-----
+>  allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - mediatek,mt6858-power-controller
+> +    then:
+> +      properties:
+> +        access-controllers:
 
---3CdlzGtZ2+z9JVFH--
+[Severity: Medium]
+Does this conditional block also need explicit minItems and maxItems
+constraints set to 6?
+
+In JSON Schema, providing a list of schemas under the items property only
+validates the elements that are actually present. Because the global
+minItems is 1, wouldn't an incomplete device tree node providing only 1 to 5
+phandles silently pass validation here?
+
+> +          items:
+> +            - description: handle to INFRACFG register block
+> +            - description: handle to IMG_SUB0 register block
+> +            - description: handle to CAM_SUB1 register block
+> +            - description: handle to CAM_SUB0 register block
+> +            - description: handle to IPE_SUB0 register block
+> +            - description: handle to VLPCFG register block
+> +
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-mt6858-pmd=
+omain-v2-0-6293e87fc093@jolla.com?part=3D1
