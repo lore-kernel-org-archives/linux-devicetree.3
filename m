@@ -1,110 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2346218592
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 06:33:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD95326CE2C;
+	Wed, 15 Jul 2026 06:37:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784097240; cv=none; b=B6beYI18ppXUqKMDs9uviXv0Tp8s+/P0SmXucR2pdyKeWrOgHtgy71E51i1nKNpiOKO3Bq2vh90BzhYXAWnRyrG4A2YNS+YqqwKAQsi9hI3I3NML22lTVEXSDYrx404UwAa//pT4CC0neGlQMf9kgl6qXedMlryc+9rNcuzySKc=
+	t=1784097467; cv=none; b=XwtJdEIWzva/Jo0F9KSYJ9Whgf/L0kxOAtEGc6ROF3I75HdQ4T/WplWxUhczV6FK4zTzDx3sVy3yjPUqjfBQ8Aii5R9jwHOGYZiXDqck1Jrfkg8eMty0YrDgvSJgToilNIbeMCNAcWGmrvTcSpst9WxZx/awjgaWl35VsEB/pm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784097240; c=relaxed/simple;
-	bh=2FiWOVJivsHiiW/u4X7D2IoYhEJo7SGwzthBd0qOrWI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lSIOLloG3z1OMjn+cDJAmvu0V2Wk8Xemp6jzszqCwOzyOJyxPfjCrWmTB8i24RHwTx/2hVIwiHhk7sRh0zfA0IwQQGYzKYPcEjDG5PTWrlB/I8InXkmIhs8dPo0rjKj6y8NpOxUfYPqBzW8IG8MqJi8aJ+rlUV4qJ0OQy4OZrE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D9cGix3v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784097467; c=relaxed/simple;
+	bh=b9Vda+Z7LQQ362AAMSMY+Qu/HWQ+WpugFJm1Q7IkhQo=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=pb9WNpkNP6bBG+n4dRUYviKDsmgK5pfyV6wrYQt4KaMA+VWXrfNTZz9wFT/+68CzCgIg3NEHM1qQWPXBC1nQRpNfQo9kfM+E7yOATNs1Qau0G1H4o65oL18dK2UwMXn9ZguHhkHBKvYTr0Xl7GbTjnMfDPg6IS5KWzmep6F7Tq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=RMfrVuge; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D9cGix3v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23C391F000E9;
-	Wed, 15 Jul 2026 06:33:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784097239;
-	bh=FgDQn6aVq2+5AN8pm3ZEajlkPKgQSbGFoBUlzedcg7Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=D9cGix3vQ+IhU39aMTkLzECTh3T+HkEXpvJUMndxDO/cyn0shSfxPfBg9niZ9iW1S
-	 QnWiOfCvgKJ8rRSYefwF9UwQjGzv4SOplTW2/t60ZREj9a9XLeshXXogqTHXQJwa6S
-	 hxZ3SrPkG1oARySHjya6h6Wif3Ykr9kHx4RaLH+0jFKxpbsKfWaVg7eubQ+QRySKjY
-	 YGo8CAGXE66krrVqe88I1gofuWHYGlbEQ5eluUPR8eK75qPrH8xVyTVVerX+w/om91
-	 vJnk0eirSn3Y+msDItHJbFrUu0CfpwetOR6ia8XzeVnKIILIj8HVgyZGxoH2/6INtP
-	 rueJpTIkGscZQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [RESEND PATCH v7 02/16] arm64: dts: st: add power-domains to
- sdmmc1 on stm32mp231
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dario Binacchi" <dario.binacchi@amarulasolutions.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260715062201.3599458-3-dario.binacchi@amarulasolutions.com>
-References: <20260715062201.3599458-1-dario.binacchi@amarulasolutions.com>
- <20260715062201.3599458-3-dario.binacchi@amarulasolutions.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 06:33:58 +0000
-Message-Id: <20260715063359.23C391F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="RMfrVuge"
+Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
+	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66F3kmQE3801729;
+	Wed, 15 Jul 2026 02:37:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=rDpAjD1cnY2Sm8mOSaoI/EwlKKd
+	KDM5M8s6mPnmxOkU=; b=RMfrVugeCw9YvJrqgbo/7mnybtEE1iW35BkS+F4JHvu
+	dkRzgV9W8i8oFRfGUsWxiWQq6XhD9mqR+gODAQqHnLKvaJjPp72qdg0aFw/9Tmn4
+	DGyXxVkIQS/GrswuSr8cYtIr7UfNeGFWcnZiJrXzqky5DQicVDDU4aCcg9pDNYBa
+	sjnKAM9YDiSBBYxWQQnobH221crjeZDSe2YYANsFDSAVg6maDP6SqhrzV9MrVEnV
+	tc/uEgS90KZMJ6D76MD0WJrOZZx4yeNw9X8LbqcQuTZgMlqOfUGbEJB1TVK90L7o
+	oPysAlNpYRhP88G0bkfOBbbwAKZkCE+jvai1/s52VXg==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4fe0bx10n8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 15 Jul 2026 02:37:27 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 66F6bQlA032705
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 15 Jul 2026 02:37:26 -0400
+Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
+ ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Wed, 15 Jul 2026 02:37:26 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
+ ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Wed, 15 Jul 2026 02:37:26 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Wed, 15 Jul 2026 02:37:26 -0400
+Received: from HYB-JRXo5UEs61B.ad.analog.com ([10.66.6.193])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 66F6b9Aa001579;
+	Wed, 15 Jul 2026 02:37:12 -0400
+From: Stefan Popa <stefan.popa@analog.com>
+To: Jonathan Cameron <jic23@kernel.org>
+CC: <linux-iio@vger.kernel.org>,
+        Andy Shevchenko
+	<andriy.shevchenko@linux.intel.com>,
+        David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
+        Rob Herring <robh@kernel.org>,
+        "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Siratul
+ Islam" <siratul.islam@linux.dev>,
+        =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?=
+	<u.kleine-koenig@baylibre.com>,
+        Ciprian Hegbeli <ciprian.hegbeli@analog.com>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        Stefan Popa
+	<stefan.popa@analog.com>
+Subject: [PATCH v3 0/2] iio: adc: add MAX40080 current-sense amplifier driver
+Date: Wed, 15 Jul 2026 09:36:15 +0300
+Message-ID: <20260715063652.368501-1-stefan.popa@analog.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Authority-Analysis: v=2.4 cv=JqbBas4C c=1 sm=1 tr=0 ts=6a572aa7 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22 a=LTKegqPRdhSjGXiXv1MA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: EMPn7fAb7tVG9iGq3ooRIb9H6gKtkvt_
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE1MDA2MSBTYWx0ZWRfX3lFUZbJ9qIbQ
+ XZzdr88eHj7oFEjrVJv9kH+2On2efD1NhvkBDcP5l+ATCosleum6FAoUoFU4lYt1E8vpor4LyYb
+ tzDP2opXQeLFcyl19yxUMqTR7/LLBp4DDwEgAY79jpli+0OrbFDR
+X-Proofpoint-ORIG-GUID: EMPn7fAb7tVG9iGq3ooRIb9H6gKtkvt_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE1MDA2MSBTYWx0ZWRfXyKwUD2XJ7h7r
+ SqO8V7OBhcWs7whRB8yzWlIy1glgpSyubKtA13pv16qELKV3yj5QPupHC6Pv4EzIAjbp0l97Vjw
+ /Uiy62k9ZZxspy413faNJWpgXatRS9GO9xqHU1Si97xCK4Al7L5m7De4H0FXcy3l8htiz3mMtJx
+ RIQAt1tu/K6Z2za3XgQOvO00iaLzW+3cs0Y5y4+FAAD9ZbdcXlTogwIIHmbd/b2CIl3OZpY8gCt
+ TjFBVRnp+f5PszlCWQaxVN1qgFjC475NxC81TSFE1Z59uY8PvYaB7+vBbwq7xaKSwIjntD/nRCc
+ km6ZaAlecwU4m1oeijRHNf8CMvhZ3Y/p1Xqmbvy6+nKVz1cRGAN/G96KiinlFrZfSD53NJPViu9
+ wPq+PLhc2e8lFXXcKVmzUESgIX/FJfpxq98MdzFSIiZe9SbHwZhUElzQlvCsA+IrgPHsVh6v8bR
+ fxSMroNLvFvjpN6XoXg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-15_02,2026-07-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 suspectscore=0 impostorscore=0 spamscore=0
+ adultscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607150061
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+This series adds support for the Maxim MAX40080, a bidirectional
+current-sense amplifier with an integrated 12-bit ADC and an I2C/SMBus
+interface. It measures the voltage across an external shunt resistor and
+the input bus voltage.
 
-Pre-existing issues:
-- [High] Incomplete fix: missing `power-domains` property in `sdmmc1` for `=
-stm32mp251.dtsi`
+The driver operates in direct (INDIO_DIRECT_MODE) mode. Each raw read
+triggers a single on-demand conversion (SMBus Quick Command) and reads
+back the matched current/voltage pair, so results are always fresh. It
+exposes the current and voltage channels with raw and scale attributes,
+a configurable oversampling (digital averaging) ratio, and PEC-protected
+register access. The two selectable current-sense ranges are exposed
+through scale/scale_available; the current scale is derived from the
+shunt-resistor-micro-ohms device-tree property.
+
+Tested on hardware with four MAX40080 devices on an I2C bus.
+
+Regarding Andy's question about *iv being updated even on error in
+read_poll_timeout: yes, this is intentional. The poll loop must update
+*iv on each iteration to check the valid bit. On timeout (conversion
+never completes), *iv contains the last-read value with the valid bit
+still clear, but the caller always checks the return value first —
+"if (ret) return ret;" prevents any use of the stale data.
+
+Changes in v3:
+  - Remove mod_devicetable.h include (Andy, Uwe's rework)
+  - Use lowercase _mV suffix for unit defines: MAX40080_INTER_VREF_mV,
+    MAX40080_CSA_50mV_GAIN, MAX40080_CSA_10mV_GAIN (Andy)
+  - Remove MAX40080_NUM_RANGES macro, use ARRAY_SIZE() directly (Andy)
+  - Fix reversed xmas tree ordering in get_oversampling_ratio() (Andy)
+  - Split semantically different variable declarations in
+    set_oversampling_ratio() and max40080_init() (Andy)
+  - Join *val, *val2, long mask on same line in read_raw signature (Andy)
+  - Use const int * cast in read_avail (Andy)
+  - Join FIFO_CFG write onto single line in max40080_init() (Andy)
+  - Return i2c_smbus_write_word_data() directly at end of
+    max40080_init() (Andy)
+  - Use device_property_present() pattern for optional shunt-resistor
+    property (Andy)
+  - Make vdd-supply required in DT bindings (Conor)
+  - Restore i2c_set_clientdata() needed for PM resume (Sashiko)
+  - Add bounds check in get_oversampling_ratio() for hardware register
+    values outside expected range (Sashiko)
+
+Changes in v2:
+  - Add vdd-supply and interrupts properties to the binding (David)
+  - Add types.h and time.h includes (Andy)
+  - Use USEC_PER_MSEC for poll timeout readability (Andy)
+  - Use 1 * MICRO for default shunt resistor (Andy)
+  - Rename field macros to include register name, e.g. MAX40080_CFG_MODE_MSK
+    (Jonathan, David)
+  - Add indexed defines for RANGE field values and use in gain array
+    (Jonathan)
+  - Use array lookup in get_oversampling_ratio instead of formula (Andy)
+  - Use switch statement for chan->type in read_raw (David)
+  - Simplify update_bits: one-liner RMW, return write directly (Andy)
+  - Add local client variable in trigger_measurement (Andy)
+  - Add braces to for loops and use C99 loop variables (Siratul, Andy)
+  - Flip if/else in reg_access, separate declaration from assignment (Andy)
+  - Add .name= in i2c_device_id (David, Siratul)
+  - Reorder declarations to reverse christmas tree (Siratul)
+  - Return directly from oversampling case in write_raw (Andy)
+  - Add blank lines before return in read_avail (Siratul)
+  - Add Co-developed-by tag for Ciprian (Andy)
+  - Use Link: tag for datasheet URL in commit message
+
+Stefan Popa (2):
+  dt-bindings: iio: adc: add maxim,max40080
+  iio: adc: add MAX40080 current-sense amplifier driver
+
+ .../bindings/iio/adc/maxim,max40080.yaml      |  64 ++
+ MAINTAINERS                                   |   9 +
+ drivers/iio/adc/Kconfig                       |  11 +
+ drivers/iio/adc/Makefile                      |   1 +
+ drivers/iio/adc/max40080.c                    | 630 ++++++++++++++++++
+ 5 files changed, 715 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/maxim,max40080.yaml
+ create mode 100644 drivers/iio/adc/max40080.c
+
 --
+2.53.0
 
---- Patch [2]: [RESEND PATCH v7 02/16] arm64: dts: st: add power-domains to=
- sdmmc1 on stm32mp231 ---
-commit 769d56084241db8b67f4b5d03d7c0c7f1c901c53
-Author: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-
-arm64: dts: st: add power-domains to sdmmc1 on stm32mp231
-
-This commit adds the missing power-domains property to the sdmmc1 node in
-stm32mp231.dtsi to map the power domain that was missed during early bring-=
-up.
-
-> diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts=
-/st/stm32mp231.dtsi
-> index 9e1d240888ff2..0feb8943efae6 100644
-> --- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
-> +++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-> @@ -727,6 +727,7 @@ sdmmc1: mmc@48220000 {
->  				cap-mmc-highspeed;
->  				max-frequency =3D <120000000>;
->  				access-controllers =3D <&rifsc 76>;
-> +				power-domains =3D <&cluster_pd>;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but should the same power-domains
-property be added to sdmmc1 in arch/arm64/boot/dts/st/stm32mp251.dtsi?
-
-Looking at sdmmc1 in stm32mp251.dtsi:
-
-			sdmmc1: mmc@48220000 {
-				compatible =3D "st,stm32mp25-sdmmc2", "arm,pl18x", "arm,primecell";
-				arm,primecell-periphid =3D <0x00353180>;
-				reg =3D <0x48220000 0x400>, <0x44230400 0x8>;
-				interrupts =3D <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>;
-				clocks =3D <&rcc CK_KER_SDMMC1 >;
-				clock-names =3D "apb_pclk";
-				resets =3D <&rcc SDMMC1_R>;
-				cap-sd-highspeed;
-				cap-mmc-highspeed;
-				max-frequency =3D <120000000>;
-				access-controllers =3D <&rifsc 76>;
-				status =3D "disabled";
-			};
-
-It appears to suffer from the same omission described in the commit message.
-
-If a board includes stm32mp251.dtsi, enables sdmmc1, and the kernel attempts
-to probe the controller while its power domain is off, could this cause a
-synchronous external abort or kernel panic?
-
->  				status =3D "disabled";
->  			};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715062201.3599=
-458-1-dario.binacchi@amarulasolutions.com?part=3D2
