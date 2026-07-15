@@ -1,289 +1,215 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3629F3CC9E8;
-	Wed, 15 Jul 2026 08:34:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784104457; cv=none; b=BWZalTQvJAxoUvalgOvojxWslrZAeq94pJC+iZq5Z90xGtqpua/XTDHpOJv2n3K4VyynKkXEdnZYqjzsho5MHiKEFOyToqkMBFbi7+loPEJEboejhYbxUfT7v/JoG94LexNiERx7upXPUKhJKMl5dUokhqgL874+eL1E6SZ1lGU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784104457; c=relaxed/simple;
-	bh=QxbWXCGF2qtfNtp8TqTb8Ox3MeR21bSDmZFYt0qyQAU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Yn9qmVvsqVWFMSWBR9ZrkMYEBp43iFZuHx3POC2lfqwqpMsGZBo4MgDO939FJkQJvAaZs6LUoPpGGzU7RC6Wo2GSE4Zt3Lln4Uj2BRXvjfT2C050KyI3SA9epN5PwxTGSIiohUC81ue5ioJAGu6IaTHgOi14fYIAG+EQnsjCo6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ThvwBeL3; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDCBF239E60;
+	Wed, 15 Jul 2026 08:35:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784104512; cv=fail; b=qeArh+MYIpxTpbSywl8cRV7VxwTiaxx40TYSfb+rTi06KHwT74bdQI2Npsm0XqYASzhPHxQhLzGZRrYmiuxWljFIGURptcv7xwq+eMpM4BErhs1R/jZ4F/TGtAWnzZKa273NGMdztF0GG0GRZM3nJ/8FXVyoTdMsjXCm+4FIzA0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784104512; c=relaxed/simple;
+	bh=Foqgq4A5xyHCkKaWkh/D+fV3PoIvGguIY4DEalaeWbQ=;
+	h=Message-ID:Date:MIME-Version:To:CC:References:From:In-Reply-To:
+	 Content-Type:Subject; b=ks1o/VYkFPmjqKPFsPASXqGPcmqCJwylyx8X6Bygs4k46f9In7PiUI6D5fr5XNWiBzpHEhHMfyeDVyImAZOiLkXBMnUd9l0AUXgz3AdRpPgISgd78zckroMz+jN3plJUPKhCKBaVs3mAT9h7N94quN1+JwMxEA+KK55zTjTBwbY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=FeoGck4h; dkim=fail (1024-bit key) header.d=ti.com header.i=@ti.com header.b=ltO+7br5 reason="signature verification failed"; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ThvwBeL3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784104455; x=1815640455;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=QxbWXCGF2qtfNtp8TqTb8Ox3MeR21bSDmZFYt0qyQAU=;
-  b=ThvwBeL34BMVCqWROom/sFM7m3n3J+rjJNxWALeEEQ7fyh0dGtskT3qa
-   +I+MlU6pZlbBCfDE4E2jIVbkkM2hbU9kBdZcqnICySDyAp4Rfa7FQbnLU
-   qZKAPVLfWxEsLLtOazET1lf4PlE2EvcOfluMNGrFojI5VArPc24RWDXKK
-   1kMDESorN8gfNSmdqELf0uK6e/g/W5eMMLYKr2w92ts3UVbbnbPJZMcfp
-   7k19H5IT8mZk0x6WByWjruiOcTSvsDGsgESM3bgaTksrSvNGZYr5H+fxx
-   w+5Oy8ns3BargSW6U+iu3GunhU1RoBuErabl6aWOT0RtAnhYRsgi+aiz/
-   A==;
-X-CSE-ConnectionGUID: VH2axz+bRVuYt0XJjLkd7w==
-X-CSE-MsgGUID: Qh8UQ5zVTfipYMUjKkZGwg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84696172"
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="84696172"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 01:34:14 -0700
-X-CSE-ConnectionGUID: QnJ4aoMRRKazd5igLsyGkA==
-X-CSE-MsgGUID: gEGD/20nTCCDraT5BTpoqQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
-   d="scan'208";a="261020213"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.129])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 01:34:11 -0700
-Date: Wed, 15 Jul 2026 11:34:09 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Stefan Popa <stefan.popa@analog.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Siratul Islam <siratul.islam@linux.dev>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	Ciprian Hegbeli <ciprian.hegbeli@analog.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] iio: adc: add MAX40080 current-sense amplifier
- driver
-Message-ID: <aldGAbF4AN8X5CRY@ashevche-desk.local>
-References: <20260715063652.368501-1-stefan.popa@analog.com>
- <20260715063652.368501-3-stefan.popa@analog.com>
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="FeoGck4h";
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ti.com header.i=@ti.com header.b="ltO+7br5"
+Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66F7Mif4279009;
+	Wed, 15 Jul 2026 03:34:53 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=8xRF09fuW7Dfme80VJvwkeXXyqGvdeYWBizCXKcvT
+	IA=; b=FeoGck4hQk3t7jBBiwxR+Gm1nC81JE1o2YAHG/iXVpm7imBSbi8pBUNNT
+	O8fXYRwyq6LONgd5cHlQ9q5+42nkePlznsEdivQjZSKQRmu0qcXqgemN5LEPQ8nH
+	6I+WrhEO5yERkI+JvItihSJeUtyKGI/ghNLUlCw4QFDLmZtjb16PeL/DKmeEXV1i
+	70ksHlScpNj9GP86aL/QU70OZdEGWu+KJ5PAUMN7U1sjXgPl+2FBBOir5sRj1itG
+	pxpe8Fy4fFJasUuONmM8MAh55Pb/LEeSKKA5gRfA2PuorqQJpguDnKKy5MNCsWCi
+	YGyOMyS/XCX5meompU6matE/RXXWw==
+Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11012042.outbound.protection.outlook.com [40.107.209.42])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4fe5s0ga8n-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 15 Jul 2026 03:34:53 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MaUFte/O60LWHo/VH1eLQyDo9tcGbaQnigWQmm84hS1SQy71mrNPhUuDH2YSOn+H5j+2gi7MdUE+Jikxty569h5MvSBnlM+4Nnb4D2rzlISNxG3pLaQRnGSSOTdbLFc+NvggMmonnewEAz5MNHOVo86ByL6BgDq417UOjmX0ruuAMcqcx0lmLfGlTscVwV+sylyAbV4jwnIvWJ2YZvc7FFi29g6pEUafz5gWGv5n118SQ3QJ7ftF3WcZf5IBvbuk3EIjEBhE8Bx/sBVWvKv5tcj/Ihry4r53sTeeMvOE6qVWx1++JiBfkhcXgJ8OGFhvLZ1/vPIL9MkhPKmaeVDrsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kylU4U+PQSWAUvVWm3YWcuogUiOATMGWJ3pbogV5LMs=;
+ b=RVCVBITzy8JLwt39xHJQmS/D/fwD31Roy0OqE65eqDi4jGxFHgtqdu/ZgjASLIEkazky/EyRPR6yJLdCDhiWRRo9YACb5mxK2cKQIGp/F6NVQATzPJnzcHUfseT6pzbzvhgdhzKgrmY1JOcmvED3D2xxGlGzKz6UQ4f+ajTsT9dOjDzc5Bpxbb+UJ61MErU9jc4BNxudyOS4C160OuEpbawYBTMwL33TZFAboDVwZgDApf8FLsu6RPMDSXslzp0ngXeoVDjJ5M0xqiZQm8dBpx2BxDRPkWKa5hJp8AlrGxLF9J9sSpHuX4JZw1EytdvjmLVssd6rYigGVjbBYI2+yA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kylU4U+PQSWAUvVWm3YWcuogUiOATMGWJ3pbogV5LMs=;
+ b=ltO+7br5R6LDjGyiN876wp6y48Aisnv8FwLQ4DFd9expMD1RrFXl0zV2bIcaZS1LeQzLglw4bjLRNNsnpQkl4KJc0PEFXJp+lw7a2O1p+p6t9OtsGhrP3J/q9iKvjBxrK/UeseVRykuNlC91Lf0IU9e0Bh7D/ozzw5T9cQdXd6c=
+Received: from MN2PR20CA0045.namprd20.prod.outlook.com (2603:10b6:208:235::14)
+ by DS0PR10MB6798.namprd10.prod.outlook.com (2603:10b6:8:13c::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.22; Wed, 15 Jul
+ 2026 08:34:49 +0000
+Received: from MN1PEPF0000F0E3.namprd04.prod.outlook.com
+ (2603:10b6:208:235:cafe::6a) by MN2PR20CA0045.outlook.office365.com
+ (2603:10b6:208:235::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.12 via Frontend Transport; Wed,
+ 15 Jul 2026 08:34:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ MN1PEPF0000F0E3.mail.protection.outlook.com (10.167.242.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 08:34:47 +0000
+Received: from DFLE215.ent.ti.com (10.64.6.73) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 15 Jul
+ 2026 03:34:36 -0500
+Received: from DFLE207.ent.ti.com (10.64.6.65) by DFLE215.ent.ti.com
+ (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 15 Jul
+ 2026 03:34:36 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE207.ent.ti.com
+ (10.64.6.65) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Wed, 15 Jul 2026 03:34:36 -0500
+Received: from [10.24.53.161] (venkey.dhcp.ti.com [10.24.53.161])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66F8YWNa2048429;
+	Wed, 15 Jul 2026 03:34:33 -0500
+Message-ID: <e871de9d-b578-459d-99e9-0c556f1de904@ti.com>
+Date: Wed, 15 Jul 2026 14:04:32 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260715063652.368501-3-stefan.popa@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-
-On Wed, Jul 15, 2026 at 09:36:17AM +0300, Stefan Popa wrote:
-> The MAX40080 is a bidirectional current-sense amplifier with an
-> integrated 12-bit ADC and an I2C/SMBus interface. It measures the
-> voltage across an external shunt resistor and the input bus voltage,
-> storing the results in an internal FIFO.
-> 
-> No existing IIO driver covers this device or a register-compatible part.
-> The closest relatives target different silicon with incompatible register
-> maps and feature sets: max9611 is a unidirectional high-side sensor with a
-> die-temperature channel and MUX-selected gain and no FIFO/PEC, while
-> max34408 is an 8-bit multi-channel current monitor. The MAX40080 has a
-> device-specific register map with bidirectional 13-bit current, a 64-entry
-> FIFO, PEC, a single-measurement mode triggered by an SMBus Quick Command,
-> and two selectable input ranges, so it warrants its own driver.
-> 
-> Add a direct-mode IIO driver exposing the current and voltage channels
-> with raw and scale attributes, a configurable oversampling (digital
-> averaging) ratio, and PEC-protected register access. The two selectable
-> current-sense ranges are exposed through scale/scale_available; the
-> current scale is derived from the shunt-resistor-micro-ohms device-tree
-> property.
-
-...
-
-> Link: https://www.analog.com/media/en/technical-documentation/data-sheets/MAX40080.pdf
-> 
-
-No blank line here, in a tag block. Also you can use Datasheet: tag
-(but it's up to you).
-
-> Co-developed-by: Ciprian Hegbeli <ciprian.hegbeli@analog.com>
-> Signed-off-by: Ciprian Hegbeli <ciprian.hegbeli@analog.com>
-> Signed-off-by: Stefan Popa <stefan.popa@analog.com>
-> ---
-
-...
-
-> +MAXIM MAX40080 CURRENT SENSE AMPLIFIER DRIVER
-> +M:	Ciprian Hegbeli <ciprian.hegbeli@analog.com>
-> +M:	Stefan Popa <stefan.popa@analog.com>
-> +L:	linux-iio@vger.kernel.org
-> +S:	Supported
-> +W:	https://ez.analog.com/linux-software-drivers
-> +F:	Documentation/devicetree/bindings/iio/adc/maxim,max40080.yaml
-> +F:	drivers/iio/adc/max40080.c
-
-David usually asks this to be split between patches to avoid "orphaned" files
-from the MAINTAINERS perspective.
-
-...
-
-> +/* Current is a 13-bit two's-complement value (magnitude + sign bit). */
-
-Please, choose a single style for _one-line_ comments, id est
-period in all or no period, capital first letter in all or small letter.
-
-> +#define MAX40080_CFG_MODE_SINGLE	0x02	/* one conversion per Quick Command */
-> +
-> +/* CFG.range field values */
-
-(Three comments on one page of code and three different styles.)
-
-...
-
-> +	u32 shunt_resistor_uohm;
-
-I think this also would be good as uOhm.
-
-https://web.archive.org/web/20250629194735/http://poynton.ca/notes/units/
-mentions this:
-
-"... except that its initial letter is capitalized if the unit is named after a person."
-
-...
-
-> +static int max40080_trigger_measurement(struct max40080_state *st)
-> +{
-> +	struct i2c_client *client = st->client;
-
-> +	return i2c_smbus_xfer(client->adapter, client->addr,
-> +			      client->flags, I2C_SMBUS_WRITE, 0,
-> +			      I2C_SMBUS_QUICK, NULL);
-
-Perhaps even
-
-	return i2c_smbus_xfer(client->adapter, client->addr, client->flags,
-			      I2C_SMBUS_WRITE, 0, I2C_SMBUS_QUICK, NULL);
-
-> +}
-
-...
-
-> +static int max40080_read_iv(struct max40080_state *st, u32 *iv)
-> +{
-> +	int ret, io_ret;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	ret = max40080_trigger_measurement(st);
-> +	if (ret < 0)
-> +		return ret;
-
-What I meant is this
-
-	u32 tmp = *iv;
+User-Agent: Mozilla Thunderbird
+To: Krzysztof Kozlowski <krzk@kernel.org>, <robh@kernel.org>,
+        <conor+dt@kernel.org>
+CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+        <devicetree@vger.kernel.org>, <n-francis@ti.com>, <s-k6@ti.com>,
+        <bb@ti.com>, MANNURU VENKATESWARLU <v-mannuru@ti.com>
+References: <20260714125537.3304217-1-v-mannuru@ti.com>
+ <20260714125537.3304217-3-v-mannuru@ti.com>
+ <f45a8496-b003-4cc0-bb4d-a94c9ac6b911@kernel.org>
+Content-Language: en-US
+From: MANNURU VENKATESWARLU <v-mannuru@ti.com>
+In-Reply-To: <f45a8496-b003-4cc0-bb4d-a94c9ac6b911@kernel.org>
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E3:EE_|DS0PR10MB6798:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa97d532-6896-4a85-168d-08dee24bedf3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|82310400026|36860700016|376014|6133799003|56012099006|4143699003|5023799004|4133799003|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	myi/kvIzKF/RgP8hlFVvRi7zvV2neGASqPOiuMFo3dUwqBysbmdpNyvKhEfC+HcoUNmQk5vks2tSEB2kYhR+tfjp07M1C+Fmt4tiUfd6a0TgZW7srF6JQJeUzHvmUot65x7ROAH+JcqKgCe7fq1KEoBNg2qL5NwcWdX4g/9Trm9b4/C1jzvinoiwpA/GIEg6feqGpNuzcYBpJcaTIypjkwF7wJ6vYM8RAcUck/NNxOcvIAiHMfHIsVABPmSD42t4G8i6iCAWhBGH6ZDWKw6ef19zp0/hTFm3SFQYSk3n0pZHE2rPd6ls7nmWa9enqTswJQWjm2/v74ZkkSL+bgf8PkNE26AnGYroS7019lcFqA1JrdARYe2Z4pONFjN2HOAMiNf6D553DeMwwDbw6ure2VkkKqriXpBY/FV6VCa2+bexTkN5DuZIzpUOtSNm16OMMAIM1uw3bOTUavZ0ogICLzp8M6anD7fb/6WYzn/1p4Or3AeHeCG7tQm6SsiNGYgBOEbZsS5QUDo1jnHMbRdmy++4AlALECM0NWIOluTmMLZHipGlCfQqNrRM7jbrOjYJT9qDKAbGDXAejSF0mkW2AYq0ooeBQO2RHxs4k8To5gwewaN0hYyjAeg6zyt9rILmg9A2F7cTa6oP9Kuf/AUcZicsmKI4jaUsgTFZNo7gu+thsC9GtX5SO2VK8GVQW8h3KpMldufttFOl314TODh2QA==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(82310400026)(36860700016)(376014)(6133799003)(56012099006)(4143699003)(5023799004)(4133799003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	HpV7YiorQhhv7ssXvjWistikjJCrYqBpdKDUMR1Oz5JEsNCQv1DJW+5DuhQFEenQpHGs9Y5/qM2IWOdLqRBSe5YwWdNg6lithcBIa3bB6dh01CAV1fcpINi9vST8DuPRLI6iEC4qXlTNKbyStqnw7fA1l2SkynsJdLp/00VEpic6lFumT24YXw7vQlTe8+9rnpxJ9w1vDvUHMZhDy3IxoYUgLIMlmapOUyNkDBAajG5NCmi6HJGax44Uble1LiIZ4hACKJvnArECt+ToFecQ/qpdDqAfzC7OY46heIJAlcjNTdh0ndJoNvwoChij42sLOpVM9LN6knnocsAGkj3KI0Lafdb3u+tj3lmHPlRI1IBNSG6bHJKM4fbgGtUsuxWAgbFP9q5kNtbcdeG96L7m7IOAC7qDHsZTGtSxXaSXbfUAbPopc3sMb67EiY+zBXxq
+X-Exchange-RoutingPolicyChecked:
+	G9GdCJIhA+Z9EUJ5um8uLqOq12viZiXoYMM5I0umk2vxJNxsgGO6m9Iz00DlhWS8p9clJzO/QAiHDI2cKIUBacPH58UIhR8ylom9UUsDDMk1stxLfpbLOzxBc+76v+XMOnbcaRfic/Gg6ZMACJ84rddvxqDbJSASvGfRJSd36NSmMWLG69FogjEpmCs4BgEQWEvmyWvYnEawPaAI95SOoHfq29wOj9vj7FAyL1F7VbaSNCi7/PoSfh2i1Eg0WVAZxzbfHc+VK2sebTKs7ARXRMQnn7zeQzKj0kPQ4FPuWqDVsMNTMFsKX2DY3aM6l1mIi/nhm+mcvuksG5OZWJ/HQQ==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 08:34:47.4507
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa97d532-6896-4a85-168d-08dee24bedf3
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF0000F0E3.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR10MB6798
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE1MDA4MiBTYWx0ZWRfX+8LmFCnHkkPh
+ UQHBMUzEzmcESr7PapAc24UlQPVwgnChTzWYaU78E+TbdFao2wDXgYbFw256Mey2QXBd4d9rtE0
+ TXqYTIsAT8u2pZMJghQqqK1J7M5ir0c=
+X-Proofpoint-ORIG-GUID: TLNcjbhYzTAcWLcJqaTPRNCEGQfgLzOI
+X-Authority-Analysis: v=2.4 cv=G9Is1dk5 c=1 sm=1 tr=0 ts=6a57462d cx=c_pps
+ a=+JqGDqswvm8kVNJxtWojiw==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=fPAWb5peG099m5CrUpKH:22 a=RpNjiQI2AAAA:8 a=u8IjVz-LIQahPIIY_DIA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: TLNcjbhYzTAcWLcJqaTPRNCEGQfgLzOI
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE1MDA4MiBTYWx0ZWRfXxAJ++EC7t6Pn
+ NybHNIk4cb3a4LRcJWYT1HcHLb2jKo9VrhVuDWvtqGfcP6MNg/Wtz1HVJ6NcKr4KCmfhFKTZxUd
+ QyLrSOC04mbFNBqnLpyOdjpV4S2yMBI5uyrQV3B4GoOMnvJFaEOrYCmPfx5KgYDQLbghRZI2pPg
+ ZkrfvzKpYiETanD4miJ7b4RZAMoMP0WYzDLOQQLDm6+/h3r1/OXBYXwhBNwNviA6oNjURa57Mp9
+ 8G221mDGxACfTuqhPH+OveLJ2c/oPSKVoC7OCSenOdsmMo/XZI8JZfNJ2yO6+CBzz27YzqVgEM+
+ 2yVH/gixFZ4+yLwO19SCZcd7G6O78sJfds+wMCSakMy4SsTIVbqifDeO3SDaaFoLZxNSurkjbxV
+ gYrCN2pX3m/lPPkhCzp+jCuzjLYBi6sxBJ56XweDoDvFUexAjTfVF4DHcaTbzSNRtCENb2BScKf
+ 08JIof2nxOzpmDB2EFw==
+Subject: Re:  Re: [RFC PATCH 03/22] dt-bindings: memory: ti,j721s2-msmc: Add
+ TI K3 MSMC binding
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-15_02,2026-07-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 phishscore=0 spamscore=0 priorityscore=1501
+ bulkscore=0 impostorscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607150082
 
 
-> +	/*
-> +	 * Wait for the conversion to complete by polling the FIFO valid bit
-> +	 * (or bail out on an I2C error). Polling the device's own status makes
-> +	 * this independent of the actual conversion time, which varies with the
-> +	 * oversampling ratio and the bus speed. The timeout is only a safety
-> +	 * ceiling: the worst case is the maximum 128x averaging on both the
-> +	 * current and voltage channels at the slowest 15 ksps base rate plus the
-> +	 * inter-channel switching time, i.e. roughly 20 ms; 50 ms leaves ample
-> +	 * margin.
-> +	 */
-> +	ret = read_poll_timeout(max40080_read_iv_once, io_ret,
-> +				io_ret || (*iv & MAX40080_IV_VALID_MSK),
-> +				1 * USEC_PER_MSEC, 50 * USEC_PER_MSEC,
-> +				false, st, iv);
-
-	ret = read_poll_timeout(max40080_read_iv_once, io_ret,
-				io_ret || (tmp & MAX40080_IV_VALID_MSK),
-				1 * USEC_PER_MSEC, 50 * USEC_PER_MSEC,
-				false, st, &tmp);
-
-	/* ...the comment why we need to update iv even in error case... */
-	*iv = tmp;
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	return io_ret;
-> +}
-
-...
-
-> +static void max40080_calc_current_scale(struct max40080_state *st)
-> +{
-> +	unsigned int i;
-> +	u32 rem;
-> +	u64 tmp;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(max40080_csa_gain); i++) {
-
-	for (unsigned int i = 0; i < ARRAY_SIZE(max40080_csa_gain); i++) {
-
-> +		tmp = (u64)MAX40080_INTER_VREF_mV * NANO * MICRO;
-
-I would even make another temporary for the numerator and denominator.
-
-		u64 numerator, denominator;
-
-		numerator = (u64)MAX40080_INTER_VREF_mV * NANO * MICRO;
-		denominator = (u64)MAX40080_ADC_RES * max40080_csa_gain[i];
-
-// Also possible to use a trick "1ULL * " instead of castings.
-
-		numerator = 1ULL * MAX40080_INTER_VREF_mV * NANO * MICRO;
-		denominator = 1ULL * MAX40080_ADC_RES * max40080_csa_gain[i];
-
-> +		tmp = div64_u64(tmp, (u64)MAX40080_ADC_RES * max40080_csa_gain[i] *
-> +				st->shunt_resistor_uohm);
-
-		tmp = div64_u64(numerator, denominator * st->shunt_resistor_uOhm);
-
-> +		st->current_scale[i][0] = div_u64_rem(tmp, NANO, &rem);
-> +		st->current_scale[i][1] = rem;
-> +	}
-> +}
-
-...
-
-> +static int max40080_oversampling_to_filter(int val)
-> +{
-> +	for (int i = 0; i < ARRAY_SIZE(max40080_oversampling_avail); i++) {
-
-unsigned int ?
-
-> +		if (max40080_oversampling_avail[i] == val)
-> +			return i;
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-
-...
-
-> +	if (device_property_present(dev, "shunt-resistor-micro-ohms")) {
-> +		ret = device_property_read_u32(dev, "shunt-resistor-micro-ohms",
-> +					       &st->shunt_resistor_uohm);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "can't read shunt-resistor-micro-ohms\n");
-> +		if (!st->shunt_resistor_uohm)
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "shunt-resistor-micro-ohms must be non-zero\n");
-
-You can reduce data footprint by string literal deduplication. That's why in my example I used
-
-	const char *propname;
-
-and respective assignment. Currently you have three copies of the property
-name: two in different error messages and one as a parameter to property APIs.
-
-> +	} else {
-> +		st->shunt_resistor_uohm = 1 * MICRO;
-> +	}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+On 15/07/26 10:27, Krzysztof Kozlowski wrote:
+> On 14/07/2026 14:=E2=80=8A55, MANNURU VENKATESWARLU wrote: > +required: >=
+ + -=20
+> compatible > + - '#address-cells' > + - '#size-cells' > + - ranges > +=20
+> > +additionalProperties: false > + > +examples: > + - | > + #include
+>=20
+> On 14/07/2026 14:55, MANNURU VENKATESWARLU wrote:
+> > +required:
+> > +  - compatible
+> > +  - '#address-cells'
+> > +  - '#size-cells'
+> > +  - ranges
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> > +    #include <dt-bindings/soc/ti,sci_pm_domain.h>
+> > +
+> > +    msmc0: msmc {
+> > +        compatible =3D "ti,j721s2-msmc", "simple-bus";
+>
+> NAK
+Understood. The MSMC module has internal interleaving and ECC logic,
+so it does not behave as simple-bus. I will drop the "simple-bus"=20
+fallback property
+and create a new platform driver to wake up the inside child nodes.
+>
+> > +        #address-cells =3D <2>;
+> > +        #size-cells =3D <2>;
+> > +        ranges;
+> > +        intrlv-gran =3D <0>;
+> > +        intrlv-size =3D <0>;
+> > +        ecc-enable  =3D <0>;
+> > +        emif-config =3D <0>;
+> > +        emif-active =3D <0>;
+>
+> I do not accept downstream code sent to review.
+>
+> Start doing proper internal reviews. This binding and DTS is absolutely
+> unacceptable, you just repeat all known mistakes ignoring any guidelines.
+>
+> Best regards,
+> Krzysztof
+Thank you,
+VENKEY
