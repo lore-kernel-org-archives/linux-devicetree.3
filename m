@@ -1,250 +1,152 @@
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A7A04A2E0E
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 17:41:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784137297; cv=pass; b=mqA24Vnw+2AwrTn7723ds8TDuuiR/tTM5WPUdwnhVZS/HY9pSdW7T2z1hJZmNmY/8gQODckYPgsuis1lLBLzZuEDViDZ7hO5Lm8Eh3O+LIomqU2MAP1sE62r6dq2sq6cch9tzZ1ULkUeY4eI3h+ISdHArCi0kE3ycySBTn9NeZ4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784137297; c=relaxed/simple;
-	bh=dQW6TQ1rFh953Dt2vhupwt1QO2viiCbkjMu0LKVypn0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h0S16wt7xHN+CWkyPSKbmY0QDXif7HNibcTbokEaGxxHC6esv+H5Zv5gozbzqp82HkgzHpOWMuXN1BfnwZcszmawwu7c/sC7VniKGPI+3BayYDajT+h02Ct479u0ookQSZI3TpGscnSXmxGUfkvswipYo79Lb8ncot1Dik9K9/Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=keE8Cafx; arc=pass smtp.client-ip=209.85.128.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACCF63AFD0C
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 17:43:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784137407; cv=none; b=a80wxrvX61TVKOXThdjZulPsNvrayUAdAWIpAepa+Jn7IsL+pxISj/z1jOKkch/37N5AfNGdJSD0zR6KxivcY1dCDexM1laL4rEap2sNCbmqxJXiE3UR6E3bgh714Jr0FeOOo9YnlHQUmU7Wpqa7hm9KiP0gPKlbqmz/wAasdNs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784137407; c=relaxed/simple;
+	bh=ACW/IE8C+MIlNsc2wMXanMdb247wn4JCiP2wzErKob4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=K7v5Bwfd0MOYz/ShjRrs/vxQtfjpihgVDk+77UqqPbKg81FkWmBoSVOUbltGQRS7MNyD3JagfdaEY2y5UHoXW/Pg5duHcLavLmost0DmL5FBj11LJyryXV+XnG4I7VKFcLWKt+z25wTcbBOt6YFp6jO4uRbvTZp+MEnKTd8aqIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ESN9kGVF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="keE8Cafx"
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8080651d2cfso10983757b3.1
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 10:41:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784137294; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WUwzFriI0d/sX3yLOzy73PmEhEhwYS4s1vc0Fg6iVxH/SfkuEoLR7xeNXXjNdFhlrb
-         cOoByz/laU9gq8MhLatHFOxbRcqpfVLa+0wb6wQUjJr3d5lG38nxfaCEjdUeYNl3X/qo
-         87MbEbmwxnnG2eDewOI0Mvw4LMsvmHHTbzoDCQshIaS8mdcgTQn2xWwislShqHSU+lwg
-         J6BsDilKVSyJzO3LDbvSVuEhtSK+5VjN0XHxya30V85UqAQU/H95PlKci278fENIBHy6
-         ZAHBxTNPr6Zvt+B/Q4TBhkQzde7YAHahRwJGzFrDbXPLXFBJAuoGom4YwlPrc0B/A3yk
-         uH6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zg7A5Jpo8DbdBBYZQVt5X+er30m85xx835hMZvBqipc=;
-        fh=eMEAyXaBrRCQ2yIO3J4jteNRsC63LFObw+2w67APfGc=;
-        b=BAVSJO07DXPVpnUMEqsqAu2gq37fAwgQ1LjtIYZX/E3M4NcxX4wPbn37pbVaXGLb48
-         cMHnnxZeyHtCFdl9m5S6lynHzCF3XlefvDGTLU8G8tu30qYWaSBYny5s99WDfTJ844d4
-         dftQ7jvoQM9gEP14zXrr13aZ5ugq7n+KdzPzePXTn+AcGgIIMFtp23dlCFmWTvHg/tmM
-         cyuP8pqgxuXX49AagWL/MLWJyQyhz87DWR4DdZNX3OKbDmNnxAOAtAdoyIEjaRpTa5J3
-         o7hHbkZObD89q/fC3V3BP0t+t5OtSNYDc9Yha9GwdEgVT2hkN8Oztd0MWKZHCR356cP7
-         GtNA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784137294; x=1784742094; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zg7A5Jpo8DbdBBYZQVt5X+er30m85xx835hMZvBqipc=;
-        b=keE8CafxvhAfvlAbTCC8APgWNgLG9v0NUd9rQN8AAqXDNAVznN/p3F0feedR4L45MK
-         IbX3Il31eDMIzgcD7W7AvsnIhL+JYr3WH7dsxBL3o7qT1CeiQybcIxIJv+ZuayO9Ik5m
-         Fg4KGhht50htQvNKqXPYElFQfv7DtZjWoLXDiJzhnsrCQIJ9CyVeOjnybfuXT1jtfpyk
-         rOZRkzuy3W8PmMzQ6UTSeDy0lOewXILUxFLHzCALag0jVqa7TbP6MtNALm0walEXda+A
-         polnloDiHeZZ+2AmI+F1M65Mxcs0DjZc1BSKa4FGgz84MnIxuMh8fcmOfuhkgvzFGvQT
-         0mbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784137294; x=1784742094;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zg7A5Jpo8DbdBBYZQVt5X+er30m85xx835hMZvBqipc=;
-        b=LtsFkUuISicktGyBbeATvkGDUViqGCY95QklHe9HuQHsjXzp7Vd1YXiuaPs2T2XcvS
-         hS1g9bMcxVb1ofbo9YGjnJaqsI3VgF5rhdQvNpjaj53gJTsEG9scYNR5MEHX50Su0sri
-         jhF3oF9Z0JFuSiwBwL9bPne24hFsTMdW50e2ZbpE8fAoji5Dj2vBQsEuqFch4Hh/bLM8
-         Od7I18np+G21BNUjHAI0NNgSNxhQ08czKcUuUYsyqwudMnmfeRvcooSZqb56cGAB2S+f
-         MmqBcMwttwJ6HHdzIme5vgYK1ZyhDG0KFmMe3Jm5CiTwi52mNq9iPGQcbo+vQZt/sIwP
-         GOaw==
-X-Forwarded-Encrypted: i=1; AHgh+RqD1I6Ot1Xs/CAUHnAcOjJflcj5rnHDI9uXnytL/LMQu0TejksM00AfG2QDiTl8tdGIHjmQcfZU8zXt@vger.kernel.org
-X-Gm-Message-State: AOJu0YxKGt+BMcNXDMnX2w0naGSPkstgqiNIm6Bt/y7HFvgewu6xxTNT
-	uzsjeIIzORDD1RzNAtlls4BhKoUqFaeJLJA5XyKrgnJVCqeZE5lzi7vO7NsFppatCU0b8EgrPDv
-	OvTXNNK25SW5X0RbiSHNThEwoEyT+kUQ=
-X-Gm-Gg: AfdE7ckLzR7msIGZuJHy9akKltanAAp47w5DQ3HRmTygaEvxunEEiBJjDZr5zWz/6l/
-	IKz1xuokTrtTgwRg0UQsf24rzYhsVedjmtJyntQv4MNyyjSuXnSFKs3yIx9Hld/87JkKySXibVO
-	ZNsvXUdd8NfWhGrN1BWLjvqHThmQ0gyUI01qE/+pU5mzHAmS+7aHvz9pFC9/kN16QVa0IFJp2fx
-	NREH2DF/zJzwwK6xVzIhAJQ3HJckxi3loNT6BNU8tAXOQItgff1cmJmbMaSBZZai/r5qlbNA4G5
-	osGv+5r870ljVhIWpB9TwJn80ecwHjQ=
-X-Received: by 2002:a05:690e:1447:b0:664:d93f:b5f2 with SMTP id
- 956f58d0204a3-667d7a98cdcmr11438958d50.1.1784137294186; Wed, 15 Jul 2026
- 10:41:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ESN9kGVF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E5B51F00A3A;
+	Wed, 15 Jul 2026 17:43:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784137406;
+	bh=EydvY8D1MgaxhpwrkCymf8XUokkANfYWB/r+D4qqosc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ESN9kGVFhhQjcOZ/eSUDfqB6q8p+TIM/uoRhXPD1CDiK0BptaABUJC49bdHXkqHeP
+	 0vFcp+Zi13Z3da6mshA+lxgJGIIWNGS6qnue9BSTSOGfZiaEWKXDvnVzu3+CKNHxe/
+	 85NVo07MBT/Zw/hUDvVJercsU4QH9Pls7KH6pnACGPizMrpRQDYvvd7CXy4Q7i4lfz
+	 IyXXEmBooir4f7wScNFmK0JSSy8MUzf0gUmlGQ+XFsePic0A6ltsTJhdMZTKSiJLKb
+	 10Qh47L06nujjuU8bbz9ZFPCbxaaM3oVPV7gcx3AzLQ8fjj6rVHvQUHz/zRN+LsWGl
+	 M4NViY8ez/dXg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] media: i2c: Add a driver for Sony IMX708
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jai Luthra" <jai.luthra@ideasonboard.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260715-imx708-v1-2-1f36f54e14d4@ideasonboard.com>
+References: <20260715-imx708-v1-0-1f36f54e14d4@ideasonboard.com>
+ <20260715-imx708-v1-2-1f36f54e14d4@ideasonboard.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 17:43:25 +0000
+Message-Id: <20260715174326.0E5B51F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260715051939.64652-1-royalnet026@gmail.com> <20260715051939.64652-2-royalnet026@gmail.com>
- <20260715055448.AEA021F000E9@smtp.kernel.org> <CAEWPSH7OqecBKvxUVtwFe4B9y0-=gsQ7vy6kdBHx-Nsne-Ct1g@mail.gmail.com>
- <aleBPE5YHlC7pLpi@venus> <CAEWPSH4AYfSR_DBcLFr6a=SJxnAAcjoK612v+g-TpP046qTBmg@mail.gmail.com>
- <alfCQd689ATJOdwM@venus>
-In-Reply-To: <alfCQd689ATJOdwM@venus>
-From: Igor Paunovic <royalnet026@gmail.com>
-Date: Wed, 15 Jul 2026 19:41:22 +0200
-X-Gm-Features: AUfX_mxAn0tlPy3Nu6Juugzw1ag0FrnBRekTl-ObKL4Q73o9n5lkkPOvfoeeM0s
-Message-ID: <CAEWPSH6L79Kb9wQna9Cg8yGMJAN88__PwsuXvA+oo+fPStLoYg@mail.gmail.com>
-Subject: Re: [RFC PATCH 1/2] dt-bindings: media: snps,dw-hdmi-rx: add #sound-dai-cells
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, robh@kernel.org, 
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	linux-media@vger.kernel.org, kernel@collabora.com, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hello Sebastian,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Incorrect check of `pm_runtime_get_if_in_use()` return value in `i=
+mx708_set_ctrl()` leads to unbalanced runtime PM puts and hardware access w=
+hile powered off.
+- [Medium] Incorrect power-off sequence in `imx708_power_off()`: regulators=
+ are disabled before the input clock.
+- [Medium] Software state (`imx708->long_exp_shift`) is updated before hard=
+ware confirms the write, leading to state mismatch on I2C failure.
+--
 
-> Not implementing all features in the driver is perfectly fine.
-> Ideally you return -ENOTSUP if somebody tries to use the S/PDIF
-> DAI interface instead of I2S.
+--- Patch [2]: [PATCH 2/2] media: i2c: Add a driver for Sony IMX708 ---
+commit 34adccd1a70befee0909b84ab4c6054b6de7c8c3
+Author: Jai Luthra <jai.luthra@ideasonboard.com>
 
-Done for v2: the codec registration now exposes the S/PDIF DAI as
-well, so the DAI indexes match the binding (0 =3D I2S, 1 =3D S/PDIF),
-and hw_params() rejects the S/PDIF interface with -EOPNOTSUPP until
-that path is actually wired up.
+media: i2c: Add a driver for Sony IMX708
 
-Thanks!
+This commit introduces a new V4L2 I2C driver for the Sony IMX708 11.9
+Megapixel CMOS sensor. It adds basic support for capturing the full active
+area and includes controls for exposure, analogue gain, test patterns, and
+variable frame rates using VBLANK.
 
-Igor
+> diff --git a/drivers/media/i2c/imx708.c b/drivers/media/i2c/imx708.c
+> new file mode 100644
+> index 0000000000000..052474befc5e4
+> --- /dev/null
+> +++ b/drivers/media/i2c/imx708.c
+[ ... ]
+> +static int imx708_set_frame_length(struct imx708 *imx708, unsigned int v=
+al)
+> +{
+> +	int ret =3D 0;
+> +
+> +	imx708->long_exp_shift =3D 0;
+> +
+> +	while (val > IMX708_FRAME_LENGTH_MAX) {
+> +		imx708->long_exp_shift++;
+> +		val >>=3D 1;
+> +	}
+> +
+> +	cci_write(imx708->cci, IMX708_REG_FRAME_LENGTH, val, &ret);
 
-On Wed, Jul 15, 2026 at 7:28=E2=80=AFPM Sebastian Reichel
-<sebastian.reichel@collabora.com> wrote:
->
-> Hi,
->
-> On Wed, Jul 15, 2026 at 03:19:54PM +0200, Igor Paunovic wrote:
-> > For completeness: the driver part of the series currently wires
-> > up only the I2S interface (DAI 0); the binding now describes both
-> > interfaces as per the hardware.
->
-> Not implementing all features in the driver is perfectly fine.
-> Ideally you return -ENOTSUP if somebody tries to use the S/PDIF
-> DAI interface instead of I2S.
->
-> Greetings,
->
-> -- Sebastian
->
-> >
-> > Thanks for the review!
-> >
-> > Igor
-> >
-> > On Wed, Jul 15, 2026 at 3:00=E2=80=AFPM Sebastian Reichel
-> > <sebastian.reichel@collabora.com> wrote:
-> > >
-> > > Hello Igor,
-> > >
-> > > On Wed, Jul 15, 2026 at 08:55:37AM +0200, Royal Net wrote:
-> > > > > Should the constraint be set to 0 to follow standard device tree
-> > > > > norms?
-> > > >
-> > > > Fair point. The current RFC wires up a single I2S DAI, and for a
-> > > > single-DAI provider 0 is indeed the norm -- rockchip,dw-hdmi does
-> > > > exactly that for its one DAI on the TX side.
-> > > >
-> > > > The reason I picked 1 is that the controller also has an S/PDIF
-> > > > audio output path (the vendor driver exposes both I2S and S/PDIF
-> > > > DAIs through hdmi-codec), so a DAI index becomes meaningful if that
-> > > > second path is wired up later.
-> > > >
-> > > > Unless the DT maintainers prefer keeping 1 from the start to avoid
-> > > > changing the cell count if/when the S/PDIF DAI is added, I'll switc=
-h
-> > > > to const: 0 in the next revision -- please let me know which you'd
-> > > > prefer.
-> > >
-> > > It should be 1 from the start as the DT binding is supposed to
-> > > describe the hardware and be stable. But in the next version you
-> > > should look into updating the commit descriptions to be less about
-> > > the kernel driver and more about the hardware. Maybe something like
-> > >
-> > > > The HDMI RX controller has two digital audio interfaces, one for
-> > > > I2S and one for S/PDIF. Allow referencing connections from audio
-> > > > codecs to these interfaces by documenting the missing #sound-dai-ce=
-lls
-> > > > property.
-> > >
-> > > Apart from that it makes sense to document that argument 0 means
-> > > I2S and argument 1 means S/PDIF interface in the property description=
-.
-> > >
-> > > Last but not least drop "A value of 1 lets a sound card reference
-> > > the audio DAI as <&hdmirx 0>.". Instead you can add this to the
-> > > example section at the end of the file.
-> > >
-> > > Greetings,
-> > >
-> > > -- Sebastian
-> > >
-> > > >
-> > > > Igor
-> > > >
-> > > > On Wed, Jul 15, 2026 at 7:54=E2=80=AFAM <sashiko-bot@kernel.org> wr=
-ote:
-> > > > >
-> > > > > Thank you for your contribution! Sashiko AI review found 1 potent=
-ial issue(s) to consider:
-> > > > > - [Medium] Incorrect cell count constraint for single-DAI provide=
-r.
-> > > > > --
-> > > > >
-> > > > > --- Patch [1]: [RFC PATCH 1/2] dt-bindings: media: snps,dw-hdmi-r=
-x: add #sound-dai-cells ---
-> > > > > commit e6b0bac0b97f568ce749084e6c1e728bcd258b10
-> > > > > Author: Igor Paunovic <royalnet026@gmail.com>
-> > > > > dt-bindings: media: snps,dw-hdmi-rx: add #sound-dai-cells
-> > > > >
-> > > > > This commit adds the #sound-dai-cells property to the HDMI RX con=
-troller
-> > > > > bindings, enabling a generic audio codec to capture incoming embe=
-dded audio.
-> > > > >
-> > > > > > diff --git a/Documentation/devicetree/bindings/media/snps,dw-hd=
-mi-rx.yaml b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
-> > > > > > index b7f6c87d0e06a..83c10d9997c8e 100644
-> > > > > > --- a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.y=
-aml
-> > > > > > +++ b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.y=
-aml
-> > > > > > @@ -78,6 +78,13 @@ properties:
-> > > > > >        The phandle of the syscon node for the Video Output GRF =
-register
-> > > > > >        to enable EDID transfer through SDAIN and SCLIN.
-> > > > > >
-> > > > > > +  "#sound-dai-cells":
-> > > > > > +    const: 1
-> > > > > > +    description:
-> > > > > > +      The HDMI RX controller registers a generic HDMI audio co=
-dec so the
-> > > > > > +      audio embedded in the incoming stream can be captured. A=
- value of 1
-> > > > > > +      lets a sound card reference the audio DAI as <&hdmirx 0>=
-.
-> > > > >
-> > > > > [Severity: Medium]
-> > > > > Is this cell count constraint correct for a single-DAI provider?
-> > > > >
-> > > > > Looking at properties:#sound-dai-cells, the hardware exposes only=
- a single
-> > > > > generic audio DAI. Requiring a cell count of 1 forces device tree=
- nodes to
-> > > > > use a non-standard syntax like <&hdmirx 0> instead of just <&hdmi=
-rx> for a
-> > > > > single resource.
-> > > > >
-> > > > > Should the constraint be set to 0 to follow standard device tree =
-norms?
-> > > > >
-> > > > > --
-> > > > > Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/202607150=
-51939.64652-1-royalnet026@gmail.com?part=3D1
+[Severity: Medium]
+Does this leave the software state out of sync if the I2C transaction fails?
+
+The driver mutates imx708->long_exp_shift before issuing the cci_write()
+commands. If cci_write() returns an error, the V4L2 framework rolls back
+the VBLANK control to its previous value, but the driver retains the
+mutated long_exp_shift. Subsequent exposure calculations would then use
+this corrupted shift value.
+
+> +	cci_write(imx708->cci, IMX708_LONG_EXP_SHIFT_REG,
+> +		  imx708->long_exp_shift, &ret);
+> +
+> +	return ret;
+> +}
+> +
+> +static int imx708_set_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+[ ... ]
+> +	/*
+> +	 * Only apply control values when device is powered on (RPM ACTIVE)
+> +	 * and streaming (usage count !=3D 0)
+> +	 */
+> +	if (!pm_runtime_get_if_in_use(&client->dev))
+> +		return 0;
+
+[Severity: High]
+Can this cause unbalanced runtime PM puts and hardware access while powered
+off?
+
+The pm_runtime_get_if_in_use() function returns -EINVAL if runtime PM is
+disabled. In C, !(-EINVAL) evaluates to false, which causes the function to
+bypass the early return. It then proceeds to access hardware registers and
+calls pm_runtime_put_autosuspend(), decrementing a usage count that was
+never incremented.
+
+> +
+> +	switch (ctrl->id) {
+> +	case V4L2_CID_ANALOGUE_GAIN:
+> +		cci_write(imx708->cci, IMX708_REG_ANALOG_GAIN, ctrl->val, &ret);
+[ ... ]
+> +static int imx708_power_off(struct device *dev)
+> +{
+> +	struct i2c_client *client =3D to_i2c_client(dev);
+> +	struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
+> +	struct imx708 *imx708 =3D to_imx708(sd);
+> +
+> +	gpiod_set_value_cansleep(imx708->reset_gpio, 1);
+> +	regulator_bulk_disable(ARRAY_SIZE(imx708_supply_name),
+> +			       imx708->supplies);
+> +	clk_disable_unprepare(imx708->inclk);
+
+[Severity: Medium]
+Should the clock be disabled before the regulators are turned off?
+
+During device power down, regulators vana and vdig are turned off while the
+input clock inclk is still running.
+
+> +
+> +	return 0;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-imx708-v1-=
+0-1f36f54e14d4@ideasonboard.com?part=3D2
