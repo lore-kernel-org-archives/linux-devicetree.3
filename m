@@ -1,68 +1,68 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD20544BC93
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 11:44:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36E244C678
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 11:44:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784115856; cv=none; b=T6B5OvNTyUIfPwBqRv2jF/Do9PIjdJTJHohmRiMjibNGX6Rla8p233Cod1xjiH/yEwOWvgaxluI8KkKH7D/df14omf6qICt+zaIs5FKiXiw7/RZ6JSJX5uq/4/5lP5426z6b8h5aufFAz4Amupp2Epj1czPTIN6cy1MFTfSHh0c=
+	t=1784115857; cv=none; b=dB+7gaUXlURQMcXXz6rOSoz8o2nVQHdnBxz1oektx0UfC9VG+LIVtkCFkXYv2F5QUm1YQZKZ8oiWBQzjKQ9g0lTKD1Ef7fGlbmYDV1p/c/GRRHOp6iZ+Ow1X/O8Y2D3wgrr9G9xD/xYS1uHXt/dPtGvJ3sLtj4NfbDwFUH899XU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784115856; c=relaxed/simple;
-	bh=VXJyCifFcDOGXUzWvgbcA2jr2HPZZF9pnUtbRXaMQXM=;
+	s=arc-20240116; t=1784115857; c=relaxed/simple;
+	bh=B3V+HwP2YfOyiyHB6H9H9T7aO3Q5SXhcKZNK2vZkcIY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rOvcGPOHwfI8tAh0E68jJwPod7/PkhfVOcQmsoe/cyTqAWejkc5PKpY7LXnw+w7hHm/eUSQQ/L+SRF63nmP1H4mvsqUfOvcDOH3h/AxhCtLvXnYRNterRM7xIhonwFkQWdls+zISlBY6HR3edS4uMcuSFe3UdVKbgZP+nGDE2Ws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=sn/HHTNj; arc=none smtp.client-ip=209.85.128.44
+	 In-Reply-To:To:Cc; b=pOW8scabgAwCQtKZaonSyS00+/JmWUfia6F8Z0wLlMtJtRk91O3LV60MuQmE20e26StTj7XgxNLmHY8fspIipU7fK7s1tqsvkmKtNeE+q3yByOMwbibxWLPO/KRhvrHNE7N4kTCSN9rPbe1w9QD/79zIyBk3GxmZchJNKclduRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=t/fK+58R; arc=none smtp.client-ip=209.85.221.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="sn/HHTNj"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-493c19bad03so47606255e9.2
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 04:44:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="t/fK+58R"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-4798bea72f9so2901867f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 04:44:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1784115852; x=1784720652; darn=vger.kernel.org;
+        d=raspberrypi.com; s=google; t=1784115854; x=1784720654; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9m/Lvt/FJvscI1oD1bvc2p62YRgrUa8VBdz5pLrBPz4=;
-        b=sn/HHTNjX4ABfbErsldtxBpfdBXZzUaC8CJFIVv/8UWvi55mJBEteRNrAfadQLRvWH
-         LYCDVHk1tRFRvSdWjnh4XjP3W+9ue4AqvaeMfAWmbvneqp3GxSYPtz/qMJ8f8GHGjdak
-         KTmQ6SgZjgewF7Jtw5cf61hpw/ZGuRB2+hS8HqzpH/Owv4X+zxKPTrY/rTDO0mt/Ojmm
-         jahIT8HgfLBelrtUupy/aDy2VXRoujMvQ3V23tNrigbxddkEdkUwtVtx7dD3YD8H33QM
-         yE/vkpnMY1QyNkCp9DjlPs0X5v5ntuwi3nt40A1UkjTtEyYrpciO6l3uq/bvF2mvprHk
-         /9JA==
+        bh=3JXztZss7n+GcgZQ7d9yNTwhZSqmPdrdCaY06YjdH6M=;
+        b=t/fK+58RClzIrkTFd0XZq+89d5D7omk3q4SUnpsdUuhlh2FOxwNfB4r4vsKOs2BHjN
+         bS52dQpfXqDC5nuUwdnwUFqwxYHMwFtn7nszK8MT/gVCfvdNMlfVMn8ikhHYPVsowap7
+         bKtEihydcVNDhH4UyCzbxyInnH8mgpfWmjyclVkoDFcvHzjMGdnOe9qt3WKGrXhbRNhu
+         JpEcLtw53vP7me7nTNN0N6GlMFL8JCg2drH/fMGhDTOEbK4TseTnO2ZycBlx98MNPlPu
+         gVBFO5G9Wi7FW/ju5X5bT0mOJdTMFLQOue8S+YEqMOdVKnuLf5KmtgsCdoFvK8Osd6vW
+         R6cA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784115852; x=1784720652;
+        d=1e100.net; s=20251104; t=1784115854; x=1784720654;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9m/Lvt/FJvscI1oD1bvc2p62YRgrUa8VBdz5pLrBPz4=;
-        b=kXzpr8QJWOwDaNDS24XPI67iGRw/7qRDIgzP2X1epJi6fKrYlONMzsXibFE1NcjqpS
-         jUGhfE7evlSybS3qaBFDnwqGqgD7oBxAJirzDYv3Ri0zHbfsnxyyMiutlpnPLqap9iKD
-         se+2BzjQx57T34amK7lUGKqOuxYJ6bXCSKMOEAHqOmHbMO85AM7WUKye5cR7sWFkUUMH
-         fjAVN6SWt1EiAhM5xlTswGS9efgBIWqTGCKkuyeQPyTkUlmvoXdbVaG/001WDnwHf7XK
-         FeXERURpcWaTxtyVZhEvUOC8Tu4ZTt5Hl+12rGzw/eRjgxlV4+yj6OxjKv4mR75/YTNu
-         CoVg==
-X-Forwarded-Encrypted: i=1; AHgh+Rqv/eKrX4/HnlTu3s6kgumAGHAq9qi+6MROd++i1VHmVV/e7JVfD43Lvy66FpbgYYPuxLAcLjtGECVx@vger.kernel.org
-X-Gm-Message-State: AOJu0YyL60jkgIIHbIAWbfdRtuNQcIPeocZik42mhBm4yctPw+F0W0FC
-	/hCCZijnRflKi+Hv6v4MR6E94Ao863v4tb0gC4yNuKSolL6YARfEey0e/s7EJC0hXkE=
-X-Gm-Gg: AfdE7clCNNvd3rR5xsxdTAlpXiZvVZCyYH2LJogA+5L3c6F1YN1bdit5/hHnjg/m/RO
-	N0LLZe0HXM2yEPql2OnjmDIvGrkwrgYtKdKwt9FDQhZjxdWDR42frlyidANRMLSCVVxSsUNksah
-	qQnU7qBBr+KYi6oOE7x4l8oz5+zt3B9z2CIrjEu1qOe1ZpeI9DMfPCiPtKcjAVdIlhpZnEaFt6v
-	5HcmU/rluOm6dxoRwn6OVLFY8PMYhezgTji7i5463Y4xY0BfU0qm06QrWiNeiXlG/yd9TJkLNlU
-	aC/ZAjjuFuMz5ivaXg2G2cYzLSsXz9tc/DloHT3Fj5k6cgq+EpMXMm2fQWYa01I+T7dEcAyIxMp
-	SMs2dElBusLqNcTdapIFcZ95lQxrVzXVObq7C5EVcg0JzWDIpcLuRbICJjMWrKNMet/VtG9GIio
-	v20mLsrB52MM7jv/8VHr7QqT0w8//DE0xx/TWxGIT+Kxe9LvKQIxGoubUqVCzhiJVS
-X-Received: by 2002:a05:600c:8b8c:b0:495:3f68:699b with SMTP id 5b1f17b1804b1-4953f6869f7mr10543965e9.9.1784115852075;
-        Wed, 15 Jul 2026 04:44:12 -0700 (PDT)
+        bh=3JXztZss7n+GcgZQ7d9yNTwhZSqmPdrdCaY06YjdH6M=;
+        b=K+oXkP3hgMOgNlhfoIK1kFgPuLwR1kqE/VbFCZKyE18QPJBoOeHLOePQCof5iUdbHU
+         Pb2pwWZATBSL2vwG3entA5aC1uqSD+DrPELzfKtRpmICOL1eZi+4O1N21/lfk+ExMwpk
+         h5MXiARaeIVKV1ve/pdO2QMf4ifGENQaDQWqUZdWpzONFcgXMWBz6JHZ8/ftnN6Pqcbb
+         S21WQAWSuf/RBaKecNCdiPZeNX2SbcXXoTFixVVED7T82yq6LkHEgMnLZlXQcmaVLaMF
+         Z4vh8baroYAl486WLxP+qak+HwvaraakmM2m6/ReFKSNg1OBFZbGZA5TURYoPpV7mWAf
+         DQww==
+X-Forwarded-Encrypted: i=1; AHgh+RoXn+qnebbUzzP+VdgnokjCFqHsojMPGghMuJvS6WlDoYbSgjQMrWkfFso2ZshMTiLom40sHqSZIbid@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy8o4k4FPsGCdq0zIp8c/NaZTMP4P28DaEfOyqswXnnYXCe43Ub
+	zCY31igzjOqu8S2VOIWxnn7xHm8LDi02/sEo0mpDxJ1GPfksMQ8cwCvcgYUGeIBF/Ns=
+X-Gm-Gg: AfdE7ckJqM6ymogbDkBSIZq27JXq8uQS93KwsvrBDiRb1mvy6y3l1WCggcYDN6sPC0Z
+	0tFI/4dXDA+nVEC3pEwpNAb0xuX4Hiv3ndjq9iBXjOgZx1xpNQ4hiKRxwoac9e7oo2efDBx0W4n
+	MoSxSGSeB3vcwBO/7xIihSHyzpvk412gRwI7uz7NXc0RA8tIu2HUuF4JnJkHOCL4/gB4XcFr7jR
+	l7V5pAR8SwvyBpiSRgATKedW9gDNwk2RiOdBDEo7K9lcFvpKKDK9qPRXl+MArT8v26b8M7du9DE
+	zcTxNG0SUXZ0f9S/3Icb6lHLuuNHH2vjKsGid+UMeKOh4OB9PD5NIzv1YB5MCnFla7JZP2fwuvJ
+	Par9qHBuBKIOOBuLABfC8wRlzG83ScbkbYkIC9LSJNiKIiX8+hSV/rvq2Vg6FpWTTZnYtNd2DpJ
+	HLK28AMyQOTpNO5CWOlVci/13pjZ6BfRKmXYcpoZEnXpJxL6oTpZ8Nr9xYi92RPhGK
+X-Received: by 2002:a05:600c:e547:10b0:493:f7d9:8183 with SMTP id 5b1f17b1804b1-495389e40admr47630215e9.39.1784115853895;
+        Wed, 15 Jul 2026 04:44:13 -0700 (PDT)
 Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47f4829896asm14005425f8f.23.2026.07.15.04.44.11
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47f4829896asm14005425f8f.23.2026.07.15.04.44.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 04:44:11 -0700 (PDT)
+        Wed, 15 Jul 2026 04:44:13 -0700 (PDT)
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 15 Jul 2026 12:43:17 +0100
-Subject: [PATCH v4 04/21] media: imx355: Remove duplicated registers from
- the mode tables
+Date: Wed, 15 Jul 2026 12:43:18 +0100
+Subject: [PATCH v4 05/21] media: imx355: Remove setting FRM_LENGTH_LINES in
+ the mode regs
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260715-media-imx355-v4-4-f7f966fb9ffd@raspberrypi.com>
+Message-Id: <20260715-media-imx355-v4-5-f7f966fb9ffd@raspberrypi.com>
 References: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
 In-Reply-To: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -85,641 +85,146 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>
 X-Mailer: b4 0.14.1
 
-A large number of registers are identical within all the modes.
-Move those to imx355_global_regs.
+Registers 0x0340 and 0x0341 (FRM_LENGTH_LINES) are already written
+from the set_ctrl(V4L2_CID_VBLANK) handler, so don't write them
+from the mode register list.
 
 Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- drivers/media/i2c/imx355.c | 345 +++------------------------------------------
- 1 file changed, 23 insertions(+), 322 deletions(-)
+ drivers/media/i2c/imx355.c | 28 ----------------------------
+ 1 file changed, 28 deletions(-)
 
 diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-index a6ee7532018f..01d6c28a2656 100644
+index 01d6c28a2656..b40d89d86156 100644
 --- a/drivers/media/i2c/imx355.c
 +++ b/drivers/media/i2c/imx355.c
-@@ -221,6 +221,29 @@ static const struct imx355_reg imx355_global_regs[] = {
- 	{ 0x68b0, 0x00 },
- 	{ 0x3058, 0x00 },
- 	{ 0x305a, 0x00 },
-+	{ 0x0112, 0x0a },
-+	{ 0x0113, 0x0a },
-+	{ 0x0114, 0x03 },
-+	{ 0x0301, 0x05 },
-+	{ 0x0303, 0x01 },
-+	{ 0x0305, 0x02 },
-+	{ 0x0306, 0x00 },
-+	{ 0x0307, 0x78 },
-+	{ 0x030b, 0x01 },
-+	{ 0x030d, 0x02 },
-+	{ 0x0310, 0x00 },
-+	{ 0x0220, 0x00 },
-+	{ 0x0222, 0x01 },
-+	{ 0x0820, 0x0b },
-+	{ 0x0821, 0x40 },
-+	{ 0x3088, 0x04 },
-+	{ 0x6813, 0x02 },
-+	{ 0x6835, 0x07 },
-+	{ 0x6836, 0x01 },
-+	{ 0x6837, 0x04 },
-+	{ 0x684d, 0x07 },
-+	{ 0x684e, 0x01 },
-+	{ 0x684f, 0x04 },
- };
- 
- static const struct imx355_reg_list imx355_global_setting = {
-@@ -229,9 +252,6 @@ static const struct imx355_reg_list imx355_global_setting = {
- };
- 
+@@ -254,8 +254,6 @@ static const struct imx355_reg_list imx355_global_setting = {
  static const struct imx355_reg mode_3268x2448_regs[] = {
--	{ 0x0112, 0x0a },
--	{ 0x0113, 0x0a },
--	{ 0x0114, 0x03 },
  	{ 0x0342, 0x0e },
  	{ 0x0343, 0x58 },
- 	{ 0x0340, 0x0a },
-@@ -244,8 +264,6 @@ static const struct imx355_reg mode_3268x2448_regs[] = {
- 	{ 0x0349, 0xcb },
- 	{ 0x034a, 0x09 },
- 	{ 0x034b, 0x97 },
--	{ 0x0220, 0x00 },
--	{ 0x0222, 0x01 },
- 	{ 0x0900, 0x00 },
- 	{ 0x0901, 0x11 },
- 	{ 0x0902, 0x00 },
-@@ -253,32 +271,11 @@ static const struct imx355_reg mode_3268x2448_regs[] = {
- 	{ 0x034d, 0xc4 },
- 	{ 0x034e, 0x09 },
- 	{ 0x034f, 0x90 },
--	{ 0x0301, 0x05 },
--	{ 0x0303, 0x01 },
--	{ 0x0305, 0x02 },
--	{ 0x0306, 0x00 },
--	{ 0x0307, 0x78 },
--	{ 0x030b, 0x01 },
--	{ 0x030d, 0x02 },
--	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
--	{ 0x0820, 0x0b },
--	{ 0x0821, 0x40 },
--	{ 0x3088, 0x04 },
--	{ 0x6813, 0x02 },
--	{ 0x6835, 0x07 },
--	{ 0x6836, 0x01 },
--	{ 0x6837, 0x04 },
--	{ 0x684d, 0x07 },
--	{ 0x684e, 0x01 },
--	{ 0x684f, 0x04 },
- };
- 
+-	{ 0x0340, 0x0a },
+-	{ 0x0341, 0x37 },
+ 	{ 0x0344, 0x00 },
+ 	{ 0x0345, 0x08 },
+ 	{ 0x0346, 0x00 },
+@@ -278,8 +276,6 @@ static const struct imx355_reg mode_3268x2448_regs[] = {
  static const struct imx355_reg mode_3264x2448_regs[] = {
--	{ 0x0112, 0x0a },
--	{ 0x0113, 0x0a },
--	{ 0x0114, 0x03 },
  	{ 0x0342, 0x0e },
  	{ 0x0343, 0x58 },
- 	{ 0x0340, 0x0a },
-@@ -291,8 +288,6 @@ static const struct imx355_reg mode_3264x2448_regs[] = {
- 	{ 0x0349, 0xc7 },
- 	{ 0x034a, 0x09 },
- 	{ 0x034b, 0x97 },
--	{ 0x0220, 0x00 },
--	{ 0x0222, 0x01 },
- 	{ 0x0900, 0x00 },
- 	{ 0x0901, 0x11 },
- 	{ 0x0902, 0x00 },
-@@ -300,32 +295,11 @@ static const struct imx355_reg mode_3264x2448_regs[] = {
- 	{ 0x034d, 0xc0 },
- 	{ 0x034e, 0x09 },
- 	{ 0x034f, 0x90 },
--	{ 0x0301, 0x05 },
--	{ 0x0303, 0x01 },
--	{ 0x0305, 0x02 },
--	{ 0x0306, 0x00 },
--	{ 0x0307, 0x78 },
--	{ 0x030b, 0x01 },
--	{ 0x030d, 0x02 },
--	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
--	{ 0x0820, 0x0b },
--	{ 0x0821, 0x40 },
--	{ 0x3088, 0x04 },
--	{ 0x6813, 0x02 },
--	{ 0x6835, 0x07 },
--	{ 0x6836, 0x01 },
--	{ 0x6837, 0x04 },
--	{ 0x684d, 0x07 },
--	{ 0x684e, 0x01 },
--	{ 0x684f, 0x04 },
- };
- 
+-	{ 0x0340, 0x0a },
+-	{ 0x0341, 0x37 },
+ 	{ 0x0344, 0x00 },
+ 	{ 0x0345, 0x08 },
+ 	{ 0x0346, 0x00 },
+@@ -302,8 +298,6 @@ static const struct imx355_reg mode_3264x2448_regs[] = {
  static const struct imx355_reg mode_3280x2464_regs[] = {
--	{ 0x0112, 0x0a },
--	{ 0x0113, 0x0a },
--	{ 0x0114, 0x03 },
  	{ 0x0342, 0x0e },
  	{ 0x0343, 0x58 },
- 	{ 0x0340, 0x0a },
-@@ -338,8 +312,6 @@ static const struct imx355_reg mode_3280x2464_regs[] = {
- 	{ 0x0349, 0xcf },
- 	{ 0x034a, 0x09 },
- 	{ 0x034b, 0x9f },
--	{ 0x0220, 0x00 },
--	{ 0x0222, 0x01 },
- 	{ 0x0900, 0x00 },
- 	{ 0x0901, 0x11 },
- 	{ 0x0902, 0x00 },
-@@ -347,32 +319,11 @@ static const struct imx355_reg mode_3280x2464_regs[] = {
- 	{ 0x034d, 0xd0 },
- 	{ 0x034e, 0x09 },
- 	{ 0x034f, 0xa0 },
--	{ 0x0301, 0x05 },
--	{ 0x0303, 0x01 },
--	{ 0x0305, 0x02 },
--	{ 0x0306, 0x00 },
--	{ 0x0307, 0x78 },
--	{ 0x030b, 0x01 },
--	{ 0x030d, 0x02 },
--	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
--	{ 0x0820, 0x0b },
--	{ 0x0821, 0x40 },
--	{ 0x3088, 0x04 },
--	{ 0x6813, 0x02 },
--	{ 0x6835, 0x07 },
--	{ 0x6836, 0x01 },
--	{ 0x6837, 0x04 },
--	{ 0x684d, 0x07 },
--	{ 0x684e, 0x01 },
--	{ 0x684f, 0x04 },
- };
- 
+-	{ 0x0340, 0x0a },
+-	{ 0x0341, 0x37 },
+ 	{ 0x0344, 0x00 },
+ 	{ 0x0345, 0x00 },
+ 	{ 0x0346, 0x00 },
+@@ -326,8 +320,6 @@ static const struct imx355_reg mode_3280x2464_regs[] = {
  static const struct imx355_reg mode_1940x1096_regs[] = {
--	{ 0x0112, 0x0a },
--	{ 0x0113, 0x0a },
--	{ 0x0114, 0x03 },
  	{ 0x0342, 0x0e },
  	{ 0x0343, 0x58 },
- 	{ 0x0340, 0x05 },
-@@ -385,8 +336,6 @@ static const struct imx355_reg mode_1940x1096_regs[] = {
- 	{ 0x0349, 0x33 },
- 	{ 0x034a, 0x06 },
- 	{ 0x034b, 0xf3 },
--	{ 0x0220, 0x00 },
--	{ 0x0222, 0x01 },
- 	{ 0x0900, 0x00 },
- 	{ 0x0901, 0x11 },
- 	{ 0x0902, 0x00 },
-@@ -394,32 +343,11 @@ static const struct imx355_reg mode_1940x1096_regs[] = {
- 	{ 0x034d, 0x94 },
- 	{ 0x034e, 0x04 },
- 	{ 0x034f, 0x48 },
--	{ 0x0301, 0x05 },
--	{ 0x0303, 0x01 },
--	{ 0x0305, 0x02 },
--	{ 0x0306, 0x00 },
--	{ 0x0307, 0x78 },
--	{ 0x030b, 0x01 },
--	{ 0x030d, 0x02 },
--	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
--	{ 0x0820, 0x0b },
--	{ 0x0821, 0x40 },
--	{ 0x3088, 0x04 },
--	{ 0x6813, 0x02 },
--	{ 0x6835, 0x07 },
--	{ 0x6836, 0x01 },
--	{ 0x6837, 0x04 },
--	{ 0x684d, 0x07 },
--	{ 0x684e, 0x01 },
--	{ 0x684f, 0x04 },
- };
- 
+-	{ 0x0340, 0x05 },
+-	{ 0x0341, 0x1a },
+ 	{ 0x0344, 0x02 },
+ 	{ 0x0345, 0xa0 },
+ 	{ 0x0346, 0x02 },
+@@ -350,8 +342,6 @@ static const struct imx355_reg mode_1940x1096_regs[] = {
  static const struct imx355_reg mode_1936x1096_regs[] = {
--	{ 0x0112, 0x0a },
--	{ 0x0113, 0x0a },
--	{ 0x0114, 0x03 },
  	{ 0x0342, 0x0e },
  	{ 0x0343, 0x58 },
- 	{ 0x0340, 0x05 },
-@@ -432,8 +360,6 @@ static const struct imx355_reg mode_1936x1096_regs[] = {
- 	{ 0x0349, 0x2f },
- 	{ 0x034a, 0x06 },
- 	{ 0x034b, 0xf3 },
--	{ 0x0220, 0x00 },
--	{ 0x0222, 0x01 },
- 	{ 0x0900, 0x00 },
- 	{ 0x0901, 0x11 },
- 	{ 0x0902, 0x00 },
-@@ -441,32 +367,11 @@ static const struct imx355_reg mode_1936x1096_regs[] = {
- 	{ 0x034d, 0x90 },
- 	{ 0x034e, 0x04 },
- 	{ 0x034f, 0x48 },
--	{ 0x0301, 0x05 },
--	{ 0x0303, 0x01 },
--	{ 0x0305, 0x02 },
--	{ 0x0306, 0x00 },
--	{ 0x0307, 0x78 },
--	{ 0x030b, 0x01 },
--	{ 0x030d, 0x02 },
--	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
--	{ 0x0820, 0x0b },
--	{ 0x0821, 0x40 },
--	{ 0x3088, 0x04 },
--	{ 0x6813, 0x02 },
--	{ 0x6835, 0x07 },
--	{ 0x6836, 0x01 },
--	{ 0x6837, 0x04 },
--	{ 0x684d, 0x07 },
--	{ 0x684e, 0x01 },
--	{ 0x684f, 0x04 },
- };
- 
+-	{ 0x0340, 0x05 },
+-	{ 0x0341, 0x1a },
+ 	{ 0x0344, 0x02 },
+ 	{ 0x0345, 0xa0 },
+ 	{ 0x0346, 0x02 },
+@@ -374,8 +364,6 @@ static const struct imx355_reg mode_1936x1096_regs[] = {
  static const struct imx355_reg mode_1924x1080_regs[] = {
--	{ 0x0112, 0x0a },
--	{ 0x0113, 0x0a },
--	{ 0x0114, 0x03 },
  	{ 0x0342, 0x0e },
  	{ 0x0343, 0x58 },
- 	{ 0x0340, 0x05 },
-@@ -479,8 +384,6 @@ static const struct imx355_reg mode_1924x1080_regs[] = {
- 	{ 0x0349, 0x2b },
- 	{ 0x034a, 0x06 },
- 	{ 0x034b, 0xeb },
--	{ 0x0220, 0x00 },
--	{ 0x0222, 0x01 },
- 	{ 0x0900, 0x00 },
- 	{ 0x0901, 0x11 },
- 	{ 0x0902, 0x00 },
-@@ -488,32 +391,11 @@ static const struct imx355_reg mode_1924x1080_regs[] = {
- 	{ 0x034d, 0x84 },
- 	{ 0x034e, 0x04 },
- 	{ 0x034f, 0x38 },
--	{ 0x0301, 0x05 },
--	{ 0x0303, 0x01 },
--	{ 0x0305, 0x02 },
--	{ 0x0306, 0x00 },
--	{ 0x0307, 0x78 },
--	{ 0x030b, 0x01 },
--	{ 0x030d, 0x02 },
--	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
--	{ 0x0820, 0x0b },
--	{ 0x0821, 0x40 },
--	{ 0x3088, 0x04 },
--	{ 0x6813, 0x02 },
--	{ 0x6835, 0x07 },
--	{ 0x6836, 0x01 },
--	{ 0x6837, 0x04 },
--	{ 0x684d, 0x07 },
--	{ 0x684e, 0x01 },
--	{ 0x684f, 0x04 },
- };
- 
+-	{ 0x0340, 0x05 },
+-	{ 0x0341, 0x1a },
+ 	{ 0x0344, 0x02 },
+ 	{ 0x0345, 0xa8 },
+ 	{ 0x0346, 0x02 },
+@@ -398,8 +386,6 @@ static const struct imx355_reg mode_1924x1080_regs[] = {
  static const struct imx355_reg mode_1920x1080_regs[] = {
--	{ 0x0112, 0x0a },
--	{ 0x0113, 0x0a },
--	{ 0x0114, 0x03 },
  	{ 0x0342, 0x0e },
  	{ 0x0343, 0x58 },
- 	{ 0x0340, 0x05 },
-@@ -526,8 +408,6 @@ static const struct imx355_reg mode_1920x1080_regs[] = {
- 	{ 0x0349, 0x27 },
- 	{ 0x034a, 0x06 },
- 	{ 0x034b, 0xeb },
--	{ 0x0220, 0x00 },
--	{ 0x0222, 0x01 },
- 	{ 0x0900, 0x00 },
- 	{ 0x0901, 0x11 },
- 	{ 0x0902, 0x00 },
-@@ -535,32 +415,11 @@ static const struct imx355_reg mode_1920x1080_regs[] = {
- 	{ 0x034d, 0x80 },
- 	{ 0x034e, 0x04 },
- 	{ 0x034f, 0x38 },
--	{ 0x0301, 0x05 },
--	{ 0x0303, 0x01 },
--	{ 0x0305, 0x02 },
--	{ 0x0306, 0x00 },
--	{ 0x0307, 0x78 },
--	{ 0x030b, 0x01 },
--	{ 0x030d, 0x02 },
--	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
--	{ 0x0820, 0x0b },
--	{ 0x0821, 0x40 },
--	{ 0x3088, 0x04 },
--	{ 0x6813, 0x02 },
--	{ 0x6835, 0x07 },
--	{ 0x6836, 0x01 },
--	{ 0x6837, 0x04 },
--	{ 0x684d, 0x07 },
--	{ 0x684e, 0x01 },
--	{ 0x684f, 0x04 },
- };
- 
+-	{ 0x0340, 0x05 },
+-	{ 0x0341, 0x1a },
+ 	{ 0x0344, 0x02 },
+ 	{ 0x0345, 0xa8 },
+ 	{ 0x0346, 0x02 },
+@@ -422,8 +408,6 @@ static const struct imx355_reg mode_1920x1080_regs[] = {
  static const struct imx355_reg mode_1640x1232_regs[] = {
--	{ 0x0112, 0x0a },
--	{ 0x0113, 0x0a },
--	{ 0x0114, 0x03 },
  	{ 0x0342, 0x07 },
  	{ 0x0343, 0x2c },
- 	{ 0x0340, 0x05 },
-@@ -573,8 +432,6 @@ static const struct imx355_reg mode_1640x1232_regs[] = {
- 	{ 0x0349, 0xcf },
- 	{ 0x034a, 0x09 },
- 	{ 0x034b, 0x9f },
--	{ 0x0220, 0x00 },
--	{ 0x0222, 0x01 },
- 	{ 0x0900, 0x01 },
- 	{ 0x0901, 0x22 },
- 	{ 0x0902, 0x00 },
-@@ -582,32 +439,11 @@ static const struct imx355_reg mode_1640x1232_regs[] = {
- 	{ 0x034d, 0x68 },
- 	{ 0x034e, 0x04 },
- 	{ 0x034f, 0xd0 },
--	{ 0x0301, 0x05 },
--	{ 0x0303, 0x01 },
--	{ 0x0305, 0x02 },
--	{ 0x0306, 0x00 },
--	{ 0x0307, 0x78 },
--	{ 0x030b, 0x01 },
--	{ 0x030d, 0x02 },
--	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
--	{ 0x0820, 0x0b },
--	{ 0x0821, 0x40 },
--	{ 0x3088, 0x04 },
--	{ 0x6813, 0x02 },
--	{ 0x6835, 0x07 },
--	{ 0x6836, 0x01 },
--	{ 0x6837, 0x04 },
--	{ 0x684d, 0x07 },
--	{ 0x684e, 0x01 },
--	{ 0x684f, 0x04 },
- };
- 
+-	{ 0x0340, 0x05 },
+-	{ 0x0341, 0x1a },
+ 	{ 0x0344, 0x00 },
+ 	{ 0x0345, 0x00 },
+ 	{ 0x0346, 0x00 },
+@@ -446,8 +430,6 @@ static const struct imx355_reg mode_1640x1232_regs[] = {
  static const struct imx355_reg mode_1640x922_regs[] = {
--	{ 0x0112, 0x0a },
--	{ 0x0113, 0x0a },
--	{ 0x0114, 0x03 },
  	{ 0x0342, 0x07 },
  	{ 0x0343, 0x2c },
- 	{ 0x0340, 0x05 },
-@@ -620,8 +456,6 @@ static const struct imx355_reg mode_1640x922_regs[] = {
- 	{ 0x0349, 0xcf },
- 	{ 0x034a, 0x08 },
- 	{ 0x034b, 0x63 },
--	{ 0x0220, 0x00 },
--	{ 0x0222, 0x01 },
- 	{ 0x0900, 0x01 },
- 	{ 0x0901, 0x22 },
- 	{ 0x0902, 0x00 },
-@@ -629,32 +463,11 @@ static const struct imx355_reg mode_1640x922_regs[] = {
- 	{ 0x034d, 0x68 },
- 	{ 0x034e, 0x03 },
- 	{ 0x034f, 0x9a },
--	{ 0x0301, 0x05 },
--	{ 0x0303, 0x01 },
--	{ 0x0305, 0x02 },
--	{ 0x0306, 0x00 },
--	{ 0x0307, 0x78 },
--	{ 0x030b, 0x01 },
--	{ 0x030d, 0x02 },
--	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
--	{ 0x0820, 0x0b },
--	{ 0x0821, 0x40 },
--	{ 0x3088, 0x04 },
--	{ 0x6813, 0x02 },
--	{ 0x6835, 0x07 },
--	{ 0x6836, 0x01 },
--	{ 0x6837, 0x04 },
--	{ 0x684d, 0x07 },
--	{ 0x684e, 0x01 },
--	{ 0x684f, 0x04 },
- };
- 
+-	{ 0x0340, 0x05 },
+-	{ 0x0341, 0x1a },
+ 	{ 0x0344, 0x00 },
+ 	{ 0x0345, 0x00 },
+ 	{ 0x0346, 0x01 },
+@@ -470,8 +452,6 @@ static const struct imx355_reg mode_1640x922_regs[] = {
  static const struct imx355_reg mode_1300x736_regs[] = {
--	{ 0x0112, 0x0a },
--	{ 0x0113, 0x0a },
--	{ 0x0114, 0x03 },
  	{ 0x0342, 0x07 },
  	{ 0x0343, 0x2c },
- 	{ 0x0340, 0x05 },
-@@ -667,8 +480,6 @@ static const struct imx355_reg mode_1300x736_regs[] = {
- 	{ 0x0349, 0x7f },
- 	{ 0x034a, 0x07 },
- 	{ 0x034b, 0xaf },
--	{ 0x0220, 0x00 },
--	{ 0x0222, 0x01 },
- 	{ 0x0900, 0x01 },
- 	{ 0x0901, 0x22 },
- 	{ 0x0902, 0x00 },
-@@ -676,32 +487,11 @@ static const struct imx355_reg mode_1300x736_regs[] = {
- 	{ 0x034d, 0x14 },
- 	{ 0x034e, 0x02 },
- 	{ 0x034f, 0xe0 },
--	{ 0x0301, 0x05 },
--	{ 0x0303, 0x01 },
--	{ 0x0305, 0x02 },
--	{ 0x0306, 0x00 },
--	{ 0x0307, 0x78 },
--	{ 0x030b, 0x01 },
--	{ 0x030d, 0x02 },
--	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
--	{ 0x0820, 0x0b },
--	{ 0x0821, 0x40 },
--	{ 0x3088, 0x04 },
--	{ 0x6813, 0x02 },
--	{ 0x6835, 0x07 },
--	{ 0x6836, 0x01 },
--	{ 0x6837, 0x04 },
--	{ 0x684d, 0x07 },
--	{ 0x684e, 0x01 },
--	{ 0x684f, 0x04 },
- };
- 
+-	{ 0x0340, 0x05 },
+-	{ 0x0341, 0x1a },
+ 	{ 0x0344, 0x01 },
+ 	{ 0x0345, 0x58 },
+ 	{ 0x0346, 0x01 },
+@@ -494,8 +474,6 @@ static const struct imx355_reg mode_1300x736_regs[] = {
  static const struct imx355_reg mode_1296x736_regs[] = {
--	{ 0x0112, 0x0a },
--	{ 0x0113, 0x0a },
--	{ 0x0114, 0x03 },
  	{ 0x0342, 0x07 },
  	{ 0x0343, 0x2c },
- 	{ 0x0340, 0x05 },
-@@ -714,8 +504,6 @@ static const struct imx355_reg mode_1296x736_regs[] = {
- 	{ 0x0349, 0x77 },
- 	{ 0x034a, 0x07 },
- 	{ 0x034b, 0xaf },
--	{ 0x0220, 0x00 },
--	{ 0x0222, 0x01 },
- 	{ 0x0900, 0x01 },
- 	{ 0x0901, 0x22 },
- 	{ 0x0902, 0x00 },
-@@ -723,32 +511,11 @@ static const struct imx355_reg mode_1296x736_regs[] = {
- 	{ 0x034d, 0x10 },
- 	{ 0x034e, 0x02 },
- 	{ 0x034f, 0xe0 },
--	{ 0x0301, 0x05 },
--	{ 0x0303, 0x01 },
--	{ 0x0305, 0x02 },
--	{ 0x0306, 0x00 },
--	{ 0x0307, 0x78 },
--	{ 0x030b, 0x01 },
--	{ 0x030d, 0x02 },
--	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
--	{ 0x0820, 0x0b },
--	{ 0x0821, 0x40 },
--	{ 0x3088, 0x04 },
--	{ 0x6813, 0x02 },
--	{ 0x6835, 0x07 },
--	{ 0x6836, 0x01 },
--	{ 0x6837, 0x04 },
--	{ 0x684d, 0x07 },
--	{ 0x684e, 0x01 },
--	{ 0x684f, 0x04 },
- };
- 
+-	{ 0x0340, 0x05 },
+-	{ 0x0341, 0x1a },
+ 	{ 0x0344, 0x01 },
+ 	{ 0x0345, 0x58 },
+ 	{ 0x0346, 0x01 },
+@@ -518,8 +496,6 @@ static const struct imx355_reg mode_1296x736_regs[] = {
  static const struct imx355_reg mode_1284x720_regs[] = {
--	{ 0x0112, 0x0a },
--	{ 0x0113, 0x0a },
--	{ 0x0114, 0x03 },
  	{ 0x0342, 0x07 },
  	{ 0x0343, 0x2c },
- 	{ 0x0340, 0x05 },
-@@ -761,8 +528,6 @@ static const struct imx355_reg mode_1284x720_regs[] = {
- 	{ 0x0349, 0x6f },
- 	{ 0x034a, 0x07 },
- 	{ 0x034b, 0x9f },
--	{ 0x0220, 0x00 },
--	{ 0x0222, 0x01 },
- 	{ 0x0900, 0x01 },
- 	{ 0x0901, 0x22 },
- 	{ 0x0902, 0x00 },
-@@ -770,32 +535,11 @@ static const struct imx355_reg mode_1284x720_regs[] = {
- 	{ 0x034d, 0x04 },
- 	{ 0x034e, 0x02 },
- 	{ 0x034f, 0xd0 },
--	{ 0x0301, 0x05 },
--	{ 0x0303, 0x01 },
--	{ 0x0305, 0x02 },
--	{ 0x0306, 0x00 },
--	{ 0x0307, 0x78 },
--	{ 0x030b, 0x01 },
--	{ 0x030d, 0x02 },
--	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
--	{ 0x0820, 0x0b },
--	{ 0x0821, 0x40 },
--	{ 0x3088, 0x04 },
--	{ 0x6813, 0x02 },
--	{ 0x6835, 0x07 },
--	{ 0x6836, 0x01 },
--	{ 0x6837, 0x04 },
--	{ 0x684d, 0x07 },
--	{ 0x684e, 0x01 },
--	{ 0x684f, 0x04 },
- };
- 
+-	{ 0x0340, 0x05 },
+-	{ 0x0341, 0x1a },
+ 	{ 0x0344, 0x01 },
+ 	{ 0x0345, 0x68 },
+ 	{ 0x0346, 0x02 },
+@@ -542,8 +518,6 @@ static const struct imx355_reg mode_1284x720_regs[] = {
  static const struct imx355_reg mode_1280x720_regs[] = {
--	{ 0x0112, 0x0a },
--	{ 0x0113, 0x0a },
--	{ 0x0114, 0x03 },
  	{ 0x0342, 0x07 },
  	{ 0x0343, 0x2c },
- 	{ 0x0340, 0x05 },
-@@ -808,8 +552,6 @@ static const struct imx355_reg mode_1280x720_regs[] = {
- 	{ 0x0349, 0x67 },
- 	{ 0x034a, 0x07 },
- 	{ 0x034b, 0x9f },
--	{ 0x0220, 0x00 },
--	{ 0x0222, 0x01 },
- 	{ 0x0900, 0x01 },
- 	{ 0x0901, 0x22 },
- 	{ 0x0902, 0x00 },
-@@ -817,32 +559,11 @@ static const struct imx355_reg mode_1280x720_regs[] = {
- 	{ 0x034d, 0x00 },
- 	{ 0x034e, 0x02 },
- 	{ 0x034f, 0xd0 },
--	{ 0x0301, 0x05 },
--	{ 0x0303, 0x01 },
--	{ 0x0305, 0x02 },
--	{ 0x0306, 0x00 },
--	{ 0x0307, 0x78 },
--	{ 0x030b, 0x01 },
--	{ 0x030d, 0x02 },
--	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
--	{ 0x0820, 0x0b },
--	{ 0x0821, 0x40 },
--	{ 0x3088, 0x04 },
--	{ 0x6813, 0x02 },
--	{ 0x6835, 0x07 },
--	{ 0x6836, 0x01 },
--	{ 0x6837, 0x04 },
--	{ 0x684d, 0x07 },
--	{ 0x684e, 0x01 },
--	{ 0x684f, 0x04 },
- };
- 
+-	{ 0x0340, 0x05 },
+-	{ 0x0341, 0x1a },
+ 	{ 0x0344, 0x01 },
+ 	{ 0x0345, 0x68 },
+ 	{ 0x0346, 0x02 },
+@@ -566,8 +540,6 @@ static const struct imx355_reg mode_1280x720_regs[] = {
  static const struct imx355_reg mode_820x616_regs[] = {
--	{ 0x0112, 0x0a },
--	{ 0x0113, 0x0a },
--	{ 0x0114, 0x03 },
  	{ 0x0342, 0x0e },
  	{ 0x0343, 0x58 },
- 	{ 0x0340, 0x02 },
-@@ -855,8 +576,6 @@ static const struct imx355_reg mode_820x616_regs[] = {
- 	{ 0x0349, 0xcf },
- 	{ 0x034a, 0x09 },
- 	{ 0x034b, 0x9f },
--	{ 0x0220, 0x00 },
--	{ 0x0222, 0x01 },
- 	{ 0x0900, 0x01 },
- 	{ 0x0901, 0x44 },
- 	{ 0x0902, 0x00 },
-@@ -864,26 +583,8 @@ static const struct imx355_reg mode_820x616_regs[] = {
- 	{ 0x034d, 0x34 },
- 	{ 0x034e, 0x02 },
- 	{ 0x034f, 0x68 },
--	{ 0x0301, 0x05 },
--	{ 0x0303, 0x01 },
--	{ 0x0305, 0x02 },
--	{ 0x0306, 0x00 },
--	{ 0x0307, 0x78 },
--	{ 0x030b, 0x01 },
--	{ 0x030d, 0x02 },
--	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x02 },
- 	{ 0x0701, 0x78 },
--	{ 0x0820, 0x0b },
--	{ 0x0821, 0x40 },
--	{ 0x3088, 0x04 },
--	{ 0x6813, 0x02 },
--	{ 0x6835, 0x07 },
--	{ 0x6836, 0x01 },
--	{ 0x6837, 0x04 },
--	{ 0x684d, 0x07 },
--	{ 0x684e, 0x01 },
--	{ 0x684f, 0x04 },
- };
- 
- static const char * const imx355_test_pattern_menu[] = {
+-	{ 0x0340, 0x02 },
+-	{ 0x0341, 0x8c },
+ 	{ 0x0344, 0x00 },
+ 	{ 0x0345, 0x00 },
+ 	{ 0x0346, 0x00 },
 
 -- 
 2.34.1
