@@ -1,119 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0C03C9885
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:13:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A17443AB5
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:14:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784117631; cv=none; b=N0gr3S8gim4pycG84Obs//0NOWmtSp5VsfvYkEJ30EqgtBESx36tbIQ5OsCriGPHzDNYK7MrI3QCI2k9AoqQaUOS0LPOsZLXmOCU0oaoT/apfy9+Vlm5NQot56kJ43WKrnYzlUHX4utDmJcTsGAnq1sB7pxvXAIUfnE/lp0elNE=
+	t=1784117649; cv=none; b=ukagDg/GP7L+dHuj2N4iAn0sBpzqTDSdX45spv+muQNrLu1fqL1HMdM9v//Zpbtb3VWZ3uxcUzcodJVaqUrJP+39EvoxK7cDPRafuDsHonYLb8F0R4KGwnUatKK6UWI5o4JUwXeYX1zoe5cjMviY67FdVTwuHLL8Of7G0vMi2Z8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784117631; c=relaxed/simple;
-	bh=5mXKte3WQEpI3K93UHa8xeLYYbJnGNAqQJ1aRO6j05Y=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=k6CtIPjMxQZDyV6kWYlazVclNCOCVnqp7Zoq5L3xN9ADKxrdat0SytuQcubfC4c0L0ZpS4FEnNXpHdHxAilhxXxM8ZTSEe6sGsx/c+3Gup4FlYFKK6lhBDag1hbyhspZXh/BsfLtYFii35NMi08nQ3Nel+5+TNmqiVtoCpNRe3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iLx9fC8J; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784117649; c=relaxed/simple;
+	bh=YvgJwlRpkS4j5aFo+iirEvbab1JzInwGnelmvUdllFs=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Lnz4wQiVGgd1kWI7X7Os70meeNJdJUNk/pGNP+9NMYSv92DqGpYOm/ALwWA2WiWRAxfl2lU9eOZsf8Td5Qgdfst/fbpZQ9lY9zNM6yCMcpTkyEGgWVPwcd7Qxpq8R25paqSiUhf8E81RCl+nM7Ehuo1Fm4Zj+SOIi2RyV4PxEcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZS8Zez77; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iLx9fC8J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFE301F00A3A;
-	Wed, 15 Jul 2026 12:13:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZS8Zez77"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D6621F0155D
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:14:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784117630;
-	bh=aRces2UNjQDuttRDFCWOUxnQdIBSc/tgGfqmyII9hHk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iLx9fC8JpImVsnWz04mkp2tsXhL9sZluEPAqcwIFqhrKEb+9lW1MDBvQBcqVE39/D
-	 efV6qFeBQiVo+m5mDQLRysUa56cUDlAinmoXg4vrV6TxpF65yFr2xSDVNqXGh0ZQ7L
-	 QNQYdOPgFX6KVQj+xlhsBXeMjbsYHuyYjw+0tfAHW+k9DcpOOB+arXz+Av/l06vrZl
-	 VWbvND4TyWWMPy/OG58eNY0s2Vzf8MDngoM3Vjui2FXggMnkuqrSTDtDyTphk+ROZf
-	 MO8KEv33BSzxkGXfFLXQxpZfbAoIjruedvdbKWsk8STmFRiB6BdP7ec/LnVd3z1dWK
-	 7jF+f/3+FFStg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 20/21] media: imx355: Switch to using the subdev
- state
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dave Stevenson" <dave.stevenson@raspberrypi.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260715-media-imx355-v4-20-f7f966fb9ffd@raspberrypi.com>
-References: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
- <20260715-media-imx355-v4-20-f7f966fb9ffd@raspberrypi.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 12:13:49 +0000
-Message-Id: <20260715121349.BFE301F00A3A@smtp.kernel.org>
+	s=k20260515; t=1784117647;
+	bh=1Qoi+UWj99+JFyBfVjJ3X8HhkjskHToO4hndHwTkgUI=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=ZS8Zez77lkvzR2E3edpyn+xXc7laO5LJOum++DQRWFZ/8lgkjcm0JZTQ2YXjtQMdZ
+	 hXr+/wEqd7SxfxBQPaCKQ+uuCYKHpuPv99syvBoJbjk03+kBBOi5oTaHFn6yVbE/HM
+	 ntzJ3uzpdWzeoFv5EERUIfWFxmev8t3LaMyYU4KxLrk1uYjikIs5dYhC28IeVG+Cu8
+	 r+24VE4I17f++cD6WyDkSdmJCDWNRhBJBIOwJ3wS6cZTnEljkhQAIia3YPRkWXhuv9
+	 1Zvv2B2pBvlGWm0wH8ktyDCTvkY1iEdS26FEo2FlLleFNu0/1i94f4RzKj4uLr8quw
+	 PhxrxIkMGtw8A==
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-39c74c469e8so41748101fa.0
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 05:14:07 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqzozSim21yPNNllbKWEuzuKd7YWgpo7i1wf4150oG1nKFVkDUQXFt5tAvRyUH9p28WswkYwsG9ZCcw@vger.kernel.org
+X-Gm-Message-State: AOJu0YzjzAYNcW7pIowl22oRz9nuGMPPyXxwF6vgYEsIXpBHq3iX3ezs
+	6+CgG1QdQ5ZxPNlovAPQ+Vd6VhbyNMbUpdi8J1GdPlQ9YwtK1U7/c4552jeu7NIgBEReaqgKyqF
+	kz/uHqk9kcLwD6vCR1Wh3NYhvKZmFyhaaVLbLgnccng==
+X-Received: by 2002:a05:6512:2508:b0:5b0:e15:772e with SMTP id
+ 2adb3069b0e04-5b15d7a87e3mr637916e87.51.1784117645993; Wed, 15 Jul 2026
+ 05:14:05 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 15 Jul 2026 05:14:04 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 15 Jul 2026 05:14:04 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260714-b4-shikra_crypto_changse-v4-1-06a4ea97c209@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260714-b4-shikra_crypto_changse-v4-0-06a4ea97c209@oss.qualcomm.com>
+ <20260714-b4-shikra_crypto_changse-v4-1-06a4ea97c209@oss.qualcomm.com>
+Date: Wed, 15 Jul 2026 05:14:04 -0700
+X-Gmail-Original-Message-ID: <CAMRc=McQbz3NgrKu-6OLp80VerWWRM1dCYkinznvrU4KYXxQow@mail.gmail.com>
+X-Gm-Features: AUfX_myx3qsvrOOlj_433vZ0yt5OaPHQ_RTUX3Ukm6BF9xfctDg7hyDHWNlbUm0
+Message-ID: <CAMRc=McQbz3NgrKu-6OLp80VerWWRM1dCYkinznvrU4KYXxQow@mail.gmail.com>
+Subject: Re: [PATCH v4 1/6] dt-bindings: crypto: qcom,inline-crypto-engine:
+ Fix legacy/new SoC strictness split
+To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Harshal Dev <harshal.dev@oss.qualcomm.com>, 
+	Vinod Koul <vkoul@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+	Andy Gross <agross@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] v4l2_subdev_get_fmt returns a stale format code after HFLIP/VFLIP =
-changes, breaking frame size enumeration.
---
+On Tue, 14 Jul 2026 12:05:12 +0200, Kuldeep Singh
+<kuldeep.singh@oss.qualcomm.com> said:
+> Couple of already merged SoCs(like sc7280, sm8750, kaanapali etc.)
+> describe ICE as single clock historically which are recently updated
+> with mandatory 2 clocks.
+>
+> Keep only the known legacy compatibles flexible, and make strict
+> validation default(of power-domains and 2 clocks) for all other Soc
+> compatibles.
+>
+> This ensures old DTs are valid while ensuring any new SoC (like hawi,
+> milos, eliza, nord, maili or any upcoming ones) must follow latest
+> requirements by default.
+>
+> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+> ---
+>  .../bindings/crypto/qcom,inline-crypto-engine.yaml | 26 ++++++++++++++--------
+>  1 file changed, 17 insertions(+), 9 deletions(-)
+>
+> diff --git a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
+> index 7be14e99be28..cce21aae6499 100644
+> --- a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
+> +++ b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
+> @@ -57,17 +57,25 @@ required:
+>
+>  additionalProperties: false
+>
+> +# Do not extend the list.
+> +# Legacy SoCs are allowed for single clock.
+> +# New SoCs must provide both clocks and power domains.
+>  allOf:
+>    - if:
+> -      properties:
+> -        compatible:
+> -          contains:
+> -            enum:
+> -              - qcom,eliza-inline-crypto-engine
+> -              - qcom,hawi-inline-crypto-engine
+> -              - qcom,maili-inline-crypto-engine
+> -              - qcom,milos-inline-crypto-engine
+> -              - qcom,nord-inline-crypto-engine
 
---- Patch [20]: [PATCH v4 20/21] media: imx355: Switch to using the subdev =
-state ---
-commit 742fe3da9be2474160e24d38a786d4c4d792ff1f
-Author: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Huh, so it did get in first after all, I wasn't aware.
 
-media: imx355: Switch to using the subdev state
+> +      not:
+> +        properties:
+> +          compatible:
+> +            contains:
+> +              enum:
+> +                - qcom,kaanapali-inline-crypto-engine
+> +                - qcom,qcs8300-inline-crypto-engine
+> +                - qcom,sa8775p-inline-crypto-engine
+> +                - qcom,sc7180-inline-crypto-engine
+> +                - qcom,sc7280-inline-crypto-engine
+> +                - qcom,sm8450-inline-crypto-engine
+> +                - qcom,sm8550-inline-crypto-engine
+> +                - qcom,sm8650-inline-crypto-engine
+> +                - qcom,sm8750-inline-crypto-engine
+>
+>      then:
+>        required:
+>
+> --
+> 2.34.1
+>
+>
 
-This commit switches the imx355 driver to use the V4L2 subdev state
-for managing crop and format rather than handling them within the
-driver state.
-
-> diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-> index 0462e0feee362..97f4594f7ed9a 100644
-> --- a/drivers/media/i2c/imx355.c
-> +++ b/drivers/media/i2c/imx355.c
-
-[ ... ]
-
-> @@ -1034,7 +960,7 @@ static const struct v4l2_subdev_video_ops imx355_vid=
-eo_ops =3D {
-> =20
->  static const struct v4l2_subdev_pad_ops imx355_pad_ops =3D {
->  	.enum_mbus_code =3D imx355_enum_mbus_code,
-> -	.get_fmt =3D imx355_get_pad_format,
-> +	.get_fmt =3D v4l2_subdev_get_fmt,
-
-[Severity: High]
-Does switching to v4l2_subdev_get_fmt return a stale format code after
-HFLIP/VFLIP changes?
-
-In imx355_set_ctrl(), the hardware orientation and logically the Bayer
-format change when HFLIP or VFLIP are updated:
-
-imx355_set_ctrl()
-    ...
-    case V4L2_CID_HFLIP:
-    case V4L2_CID_VFLIP:
-        ret =3D cci_write(imx355->regmap, IMX355_REG_ORIENTATION,
-                        imx355->hflip->val | imx355->vflip->val << 1,
-                        NULL);
-        break;
-
-However, the active state's format code is not updated here. Because
-get_fmt now relies on v4l2_subdev_get_fmt instead of the dynamically
-evaluated imx355_get_pad_format(), VIDIOC_SUBDEV_G_FMT returns the
-stale format.
-
-This appears to break frame size enumeration, as
-VIDIOC_SUBDEV_ENUM_FRAME_SIZE will evaluate the correct format code and
-reject the stale code with -EINVAL:
-
-imx355_enum_frame_size()
-    if (fse->code !=3D imx355_get_format_code(imx355)) {
-        return -EINVAL;
-    }
-
-Should the active subdev state format be updated when the orientation
-controls change?
-
->  	.set_fmt =3D imx355_set_pad_format,
->  	.enum_frame_size =3D imx355_enum_frame_size,
->  	.get_selection =3D imx355_get_selection,
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-media-imx3=
-55-v4-0-f7f966fb9ffd@raspberrypi.com?part=3D20
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
