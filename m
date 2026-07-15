@@ -1,67 +1,68 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2E844BC9F
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 11:44:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B203E477E46
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 11:44:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784115867; cv=none; b=Pd2qJDnAWSC1QbcgD6kuDNMDlagn+Rn61XR3Z4JtIViZXrJcIeTsPRfMZ37Q6hi3phLRIAB5gbXW/1zMZY6lt87y4yhW7wVQApiMA+uh5l8YfklqjUpFpcZtZ7sP9vRVM4Hj/GOU/CLddCLf1AnFMWYSj1WS+ddQq3XuD7nGfUY=
+	t=1784115868; cv=none; b=WoQntyjlAQ9O/ZNDeGf7HdVoIkuAMbMqs7No9EOHjt2YJJS+wx80emBRBXC3ECGjU7RYiYR0XPpuSwFEnFKHN2LahG3YaAwFx7C2u2gTvAmYD8gEzwaoODnka092JBd32STDP/uA0qFcT4bweJJsU0EISEqpFfJBkNeRYi3+SGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784115867; c=relaxed/simple;
-	bh=M5cgImqp1X6ATs2zX8UAJD/o0x6k2f4ZZAV3K3styBY=;
+	s=arc-20240116; t=1784115868; c=relaxed/simple;
+	bh=HdbiuQ9hrzt3ENIhE8rmztLy1tdY2xtHe47PqycJqCY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uTkBb/HcQm0o2J3bRL4Ms7Sdxkg1TV4jHQ3bFoy1RyxLXACtkCafNhGl/UjDoY/sEAmUW0N5jCQi0hs2ubZladMcBzM+mWYiTTcN2Q4Fnf8Qgw+pZKo0Hm62N+PT+ldJw4DH6dTXt5ZqBCwNk/ybCL2BqQCz1GbElpuY0oe1zeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=l/guKJlf; arc=none smtp.client-ip=209.85.221.49
+	 In-Reply-To:To:Cc; b=EG31Fb/E4+/b91Sv8q9pqOZqRMUkUwZ0IPDZsL3yfgO2XGN9vTeA8O5mKdr6b8uG5YOxhSKkhFWdT5fUv4JTsT464FqBHbXB9PyN+0TfP96EGtuE5FhMAHAeLxc6TWWYlHfKowBLacpbbNiWcOgP2t0wePVfmaJu0d3jn3aPuDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=KLWtTVSS; arc=none smtp.client-ip=209.85.221.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="l/guKJlf"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47d6c634f45so3033920f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 04:44:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="KLWtTVSS"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47de0093c42so1695241f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 04:44:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1784115864; x=1784720664; darn=vger.kernel.org;
+        d=raspberrypi.com; s=google; t=1784115863; x=1784720663; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=m8WwpwzBvrJSugqb6BxcRR4O4z6rF0/Sty/g6S/wo/w=;
-        b=l/guKJlfeRznmhQGz4zK2j3sXKEOnwGSxZN0nQF6PF7po62nMnErc+r5mEbQoVEHPc
-         K/n5LEUbMGzBCj855WnnqDzMMs1Imt5OXzkJoxZsOpT6BqUUFSdvLuv0JOzXL1SFO4l1
-         yKKRbOVqgxWMaAmRlZb2zoONRuNh/4Cl6Nhrn/FIRqwjFjniE6gcLxJliFs7eW8uEZFq
-         1rxgcgXAvezCUNjj+QypV4e61AWhytgFakzagQEpyS/n4s6ysKc63nUCDVOaBhS2YnHB
-         HD0RKPgpFDiqVB2GS/3haqRyfM5Zbs9/hjKoTNhPZt8AQFyHZae8KBzItDDYFZlxY/dO
-         Gphg==
+        bh=F9+BuODn1jDo43G5zG0OPU3+fs9eA8M+XWxL5q1Yvm8=;
+        b=KLWtTVSSkrf90TZpMmQU7x89N24WP/iXTOwTRAsQeJ0rIA/a/J3eUB0eDzn5BMy4+K
+         0ppUOlsCQFBr1TVOAMdLT0oGXOVTs7yOXNfsdKxTudVuQic0mVuAPgizBmnFA/wJeXfS
+         +YBQOV8lAhGjGS55fMiL0h2xMiAHEPJ1FMRvXQCmr3t6GrwOg4+Lg+POPoPXquVuSDXP
+         OrnZhZ6gK8SSu/tkQqiCRXDFGWlUn7BdBltyPpAMg4jAUqxMngIqir9/Jlu7kdd0HE/I
+         Xb7x9JKY+nuXlc0bf8WbCHH4d/z+qnDcuffjncMrdVk/U54MfZB4cmJV0UaSaJ4M0lNS
+         J0vQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784115864; x=1784720664;
+        d=1e100.net; s=20251104; t=1784115863; x=1784720663;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=m8WwpwzBvrJSugqb6BxcRR4O4z6rF0/Sty/g6S/wo/w=;
-        b=CPMaarG/2utFG3XV7AWnDoSn9sQRmVw9oiz1416TdeuSr7nzOJiKY0TilLUpe3mAcv
-         E6CoYOciBIIjVO+FahJX21ZhRL2F+pAxEWnlnoYMwsWbN0yWVooMzeTCN51zDWnxxgbM
-         677U/S0mMY0ym7L5rqvHVY8rYf6mOVW9Ryi6fma5lPT7kDwq2LN/y3hxqekzfiWDlrw/
-         iELyqcZ2L2Qcfg2athqRvx6fh+lTwlS/gDZxiI6n073dhBVlpJD9FFv0UhmS1b8bWn1X
-         XRojHCbjkXhcn1dUUR+J9r3EILKWlsN8f34vOxKoAXXGrjMcV/ltfHD6phPe/J/eQu2+
-         lqOA==
-X-Forwarded-Encrypted: i=1; AHgh+RpdEFJgk1y6XWWjvXucpvgZYSoqRXLdVwmlFGz6GnjgvNcLg5RQ4UCdgGhujkFsLgX3CoMT6AdT5AfS@vger.kernel.org
-X-Gm-Message-State: AOJu0YxK3T0vMnDvotUrmjKWMIsEcARgm+/qQwjDQPvxfEMkMwj9iH0u
-	lsFVu2t+48GJHmhDAyM+jD2KzwsIeE3wEMUT9Hfzl4nYSJNEMAQ+vZ9HDG0QafkR9V8=
-X-Gm-Gg: AfdE7cmEca04cN3C8jlZj5y0VOQih3iq5sUQtIGSs9igm5i2WweEaxY5vF3MtNy3d6c
-	T/7iH/GskhPvwHh/rfJTZ56VGTILAgLlm6ac0S1+M1wPD5Ju5918UhWirtMhRgVkU6tMBHL2k3/
-	uwOxmA1pk3nlPkIpaav2B3U4lVolYTOgUcF8vxZR3PXccI5OF2leMBu+r4uh+49DPqlEsSLjeDK
-	3CYtx35nQfE0YJl3lEKk2X/93X+sLAx/EXTbrsnIz2DGe8G7YVpYaVxXz6aDFlVCJJB61mEvNlO
-	zZEAYdoAd0Ijc5mKBK/kpwOzeqXX5rXPXmpoojIxlzs7UfK7ONeJnKU+SjHKWB+QsGBIYB/wtu/
-	5ZDC3B17vIM41TTULk8/hFVcW6wssKbr4B98HlVQ7ZM6esrbwPtXlMXvYJL8kCrxeXltOHZ/yyD
-	XD6GP6GL3xdjL4+BNDSKNdTWlqZ7wt3VAcOokkjGY4ww9YCFhFPTB5n6WpoUrlrlm6
-X-Received: by 2002:adf:e186:0:b0:475:6c34:2120 with SMTP id ffacd0b85a97d-47f4887dd78mr7554369f8f.18.1784115863656;
-        Wed, 15 Jul 2026 04:44:23 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47f4829896asm14005425f8f.23.2026.07.15.04.44.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        bh=F9+BuODn1jDo43G5zG0OPU3+fs9eA8M+XWxL5q1Yvm8=;
+        b=LOnq1qPpGjqOsLAWjgoBy3NaAaGKuyah998BLvg7xcDplE2W7yyLC66wJCXYrB3Erm
+         y5IrZ2/QP2Cao7jBZYTVDpdJnIc2MZoiJDeA5+r+LYq/Qf+q/Xu/rt74W4hfkOwAcjVX
+         pmx+x6QOgCpiAu/8kwaY8AftpAoBMnGNyyBkMyTxfEQ58Kc3CIpnRZwKW0uJcv6z14AT
+         CsX2U/6pjkqFqRZNrGS9k5dPAIIjf+9PNUcsjqRoZ1vV16hh8TZuQhfLBCNCaLyqNWwf
+         xX2ZhYdOaIJR4CYjdSB/ECNBrjDDGKDRiNfTXphKuC8dwpvyuvEvlvlO6JUuzc20nei6
+         +01Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqvZU49gi4sveHfFa2jqA9j4URryW9LElwXkf7pvlXXD6ZZmVROmlWaa6QVjAHfcnXFqflyczOJzUgA@vger.kernel.org
+X-Gm-Message-State: AOJu0YxSrCSiwLVxN+IJtTqP/GQ7G0u+z2ZphSFsOrnfgrXv8lT64aL9
+	Lyn4qn62x+NsYvesM5s4ETsYzWxnwyW6Z3cPIu/tAw/YTR6XfBxwyi0y3THMzfHriu8=
+X-Gm-Gg: AfdE7clQtknCcmPQaTr+CGVoi/H1n3q9JVoF9s0mdoHtibgDOePUA4MBbq1GHRfsoEF
+	Yzz1Y3PZeoIJIN+3VBB7VeMPN8a2IUHplvSu9GJQ/argQxiaeaAy2eoKNPiDv3QKA1JTT7vPrjy
+	jj8pDzcECdrcgnNABGvGVA/tX1X1xatireg7tTe2nclJGef150FxLMcOrjUlSdXhd9AI8ILGJYQ
+	xlI9VaZ4WBII6SwlNyYaiJpyMbP1wf5dxVfbz3lvA5pNPsqKngdnfAXKfB8Ifadj5jXWTid1Zax
+	CFB1syyYMQzKCpwffa4IoUmht08f1f49Rfwb4/YbZEC2HUQDVHrHNteyfi/A6/A36Bwh1++LYlM
+	amwyJ7F1puloLHvk0eOQGjrIpWDdgzX1llnoYYI+B3m7aU/Lt6ypSovy5z0RXIDbpepKEwQso/+
+	xA+QoDw3PvhVMXhnerHNjUXeciOaNkJAyLn8nuinh90R1n7Cze9hVXysoWlskr8g6y
+X-Received: by 2002:a5d:5f49:0:b0:475:f0d1:eb5d with SMTP id ffacd0b85a97d-47f2dd15badmr19722835f8f.56.1784115862458;
         Wed, 15 Jul 2026 04:44:22 -0700 (PDT)
+Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47f4829896asm14005425f8f.23.2026.07.15.04.44.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Jul 2026 04:44:21 -0700 (PDT)
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 15 Jul 2026 12:43:28 +0100
-Subject: [PATCH v4 15/21] media: imx355: Set the colorspace in the format
+Date: Wed, 15 Jul 2026 12:43:27 +0100
+Subject: [PATCH v4 14/21] media: imx355: Convert to new CCI register access
+ helpers
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260715-media-imx355-v4-15-f7f966fb9ffd@raspberrypi.com>
+Message-Id: <20260715-media-imx355-v4-14-f7f966fb9ffd@raspberrypi.com>
 References: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
 In-Reply-To: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -84,40 +85,715 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>
 X-Mailer: b4 0.14.1
 
-The colorspace fields were left set to 0 when they should be
-set appropriately for a raw image sensor. Add those values.
+Use the new comon CCI register access helpers to replace the private
+register access helpers in the imx355 driver.
 
 Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 ---
- drivers/media/i2c/imx355.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/media/i2c/Kconfig  |   1 +
+ drivers/media/i2c/imx355.c | 500 ++++++++++++++++++---------------------------
+ 2 files changed, 196 insertions(+), 305 deletions(-)
 
+diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+index 5d173e0ecf42..06461a70a2cd 100644
+--- a/drivers/media/i2c/Kconfig
++++ b/drivers/media/i2c/Kconfig
+@@ -259,6 +259,7 @@ config VIDEO_IMX335
+ 
+ config VIDEO_IMX355
+ 	tristate "Sony IMX355 sensor support"
++	select V4L2_CCI_I2C
+ 	help
+ 	  This is a Video4Linux2 sensor driver for the Sony
+ 	  IMX355 camera.
 diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-index 52bdfe636231..fa8a6851b44e 100644
+index 17a2acc1152d..52bdfe636231 100644
 --- a/drivers/media/i2c/imx355.c
 +++ b/drivers/media/i2c/imx355.c
-@@ -612,6 +612,10 @@ static int imx355_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
- 	try_fmt->height = imx355->cur_mode->height;
- 	try_fmt->code = imx355_get_format_code(imx355);
- 	try_fmt->field = V4L2_FIELD_NONE;
-+	try_fmt->colorspace = V4L2_COLORSPACE_RAW;
-+	try_fmt->ycbcr_enc = V4L2_YCBCR_ENC_601;
-+	try_fmt->quantization = V4L2_QUANTIZATION_FULL_RANGE;
-+	try_fmt->xfer_func = V4L2_XFER_FUNC_NONE;
+@@ -9,76 +9,78 @@
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/pm_runtime.h>
++#include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/unaligned.h>
  
- 	*crop = imx355->cur_mode->crop;
++#include <media/v4l2-cci.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-event.h>
+ #include <media/v4l2-fwnode.h>
  
-@@ -738,6 +742,10 @@ static void imx355_update_pad_format(struct imx355 *imx355,
- 	fmt->format.height = mode->height;
- 	fmt->format.code = imx355_get_format_code(imx355);
- 	fmt->format.field = V4L2_FIELD_NONE;
-+	fmt->format.colorspace = V4L2_COLORSPACE_RAW;
-+	fmt->format.ycbcr_enc = V4L2_YCBCR_ENC_601;
-+	fmt->format.quantization = V4L2_QUANTIZATION_FULL_RANGE;
-+	fmt->format.xfer_func = V4L2_XFER_FUNC_NONE;
+-#define IMX355_REG_MODE_SELECT		0x0100
++#define IMX355_REG_MODE_SELECT		CCI_REG8(0x0100)
+ #define IMX355_MODE_STANDBY		0x00
+ #define IMX355_MODE_STREAMING		0x01
+ 
+ /* Chip ID */
+-#define IMX355_REG_CHIP_ID		0x0016
++#define IMX355_REG_CHIP_ID		CCI_REG16(0x0016)
+ #define IMX355_CHIP_ID			0x0355
+ 
+ /* PLL registers that depend on the external clock frequency */
+-#define IMX355_REG_EXTCLK_FREQ		0x0136
+-#define IMX355_REG_PLL_OP_MUL		0x030e
++#define IMX355_REG_EXTCLK_FREQ		CCI_REG16(0x0136)
++#define IMX355_REG_PLL_OP_MUL		CCI_REG16(0x030e)
+ 
+ /* V_TIMING internal */
+-#define IMX355_REG_FLL			0x0340
++#define IMX355_REG_FLL			CCI_REG16(0x0340)
+ #define IMX355_FLL_MAX			0xffff
+ #define IMX355_VBLANK_MIN		20
+ 
+-#define IMX355_REG_LLP			0x0342
++#define IMX355_REG_LLP			CCI_REG16(0x0342)
+ #define IMX355_LLP_MAX			0xffff
+ 
+-#define IMX355_REG_X_ADD_START		0x0344
+-#define IMX355_REG_Y_ADD_START		0x0346
+-#define IMX355_REG_X_ADD_END		0x0348
+-#define IMX355_REG_Y_ADD_END		0x034a
+-#define IMX355_REG_X_OUT_SIZE		0x034c
+-#define IMX355_REG_Y_OUT_SIZE		0x034e
++#define IMX355_REG_X_ADD_START		CCI_REG16(0x0344)
++#define IMX355_REG_Y_ADD_START		CCI_REG16(0x0346)
++#define IMX355_REG_X_ADD_END		CCI_REG16(0x0348)
++#define IMX355_REG_Y_ADD_END		CCI_REG16(0x034a)
++#define IMX355_REG_X_OUT_SIZE		CCI_REG16(0x034c)
++#define IMX355_REG_Y_OUT_SIZE		CCI_REG16(0x034e)
+ 
+ /* Exposure control */
+-#define IMX355_REG_EXPOSURE		0x0202
++#define IMX355_REG_EXPOSURE		CCI_REG16(0x0202)
+ #define IMX355_EXPOSURE_MIN		1
+ #define IMX355_EXPOSURE_STEP		1
+ #define IMX355_EXPOSURE_DEFAULT		0x0282
+ 
+ /* Analog gain control */
+-#define IMX355_REG_ANALOG_GAIN		0x0204
++#define IMX355_REG_ANALOG_GAIN		CCI_REG16(0x0204)
+ #define IMX355_ANA_GAIN_MIN		0
+ #define IMX355_ANA_GAIN_MAX		960
+ #define IMX355_ANA_GAIN_STEP		1
+ #define IMX355_ANA_GAIN_DEFAULT		0
+ 
+ /* Digital gain control */
+-#define IMX355_REG_DPGA_USE_GLOBAL_GAIN	0x3070
+-#define IMX355_REG_DIG_GAIN_GLOBAL	0x020e
++#define IMX355_REG_DPGA_USE_GLOBAL_GAIN	CCI_REG8(0x3070)
++#define IMX355_REG_DIG_GAIN_GLOBAL	CCI_REG16(0x020e)
+ #define IMX355_DGTL_GAIN_MIN		256
+ #define IMX355_DGTL_GAIN_MAX		4095
+ #define IMX355_DGTL_GAIN_STEP		1
+ #define IMX355_DGTL_GAIN_DEFAULT	256
+ 
+ /* Test Pattern Control */
+-#define IMX355_REG_TEST_PATTERN		0x0600
++#define IMX355_REG_TEST_PATTERN		CCI_REG16(0x0600)
+ #define IMX355_TEST_PATTERN_DISABLED		0
+ #define IMX355_TEST_PATTERN_SOLID_COLOR		1
+ #define IMX355_TEST_PATTERN_COLOR_BARS		2
+ #define IMX355_TEST_PATTERN_GRAY_COLOR_BARS	3
+ #define IMX355_TEST_PATTERN_PN9			4
+ 
+-#define IMX355_REG_BINNING_MODE		0x0900
+-#define IMX355_REG_BINNING_TYPE		0x0901
+-#define IMX355_REG_BINNING_WEIGHTING	0x0902
++#define IMX355_REG_BINNING_MODE		CCI_REG8(0x0900)
++#define IMX355_REG_BINNING_TYPE		CCI_REG8(0x0901)
++#define IMX355_REG_BINNING_WEIGHTING	CCI_REG8(0x0902)
+ 
+ /* Flip Control */
+-#define IMX355_REG_ORIENTATION		0x0101
++#define IMX355_REG_ORIENTATION		CCI_REG8(0x0101)
+ 
+ /* default link frequency and external clock */
+ #define IMX355_LINK_FREQ_DEFAULT	360000000LL
+@@ -91,14 +93,9 @@
+ #define IMX355_PIXEL_ARRAY_WIDTH	3280
+ #define IMX355_PIXEL_ARRAY_HEIGHT	2464
+ 
+-struct imx355_reg {
+-	u16 address;
+-	u8 val;
+-};
+-
+ struct imx355_reg_list {
+ 	u32 num_of_regs;
+-	const struct imx355_reg *regs;
++	const struct cci_reg_sequence *regs;
+ };
+ 
+ /* Mode : resolution and related config&values */
+@@ -149,6 +146,7 @@ struct imx355_hwcfg {
+ struct imx355 {
+ 	struct device *dev;
+ 	struct clk *clk;
++	struct regmap *regmap;
+ 
+ 	struct v4l2_subdev sd;
+ 	struct media_pad pad;
+@@ -185,155 +183,150 @@ static const struct regulator_bulk_data imx355_supplies[] = {
+ 	{ .supply = "dovdd" },
+ };
+ 
+-static const struct imx355_reg imx355_global_regs[] = {
+-	{ 0x304e, 0x03 },
+-	{ 0x4348, 0x16 },
+-	{ 0x4350, 0x19 },
+-	{ 0x4408, 0x0a },
+-	{ 0x440c, 0x0b },
+-	{ 0x4411, 0x5f },
+-	{ 0x4412, 0x2c },
+-	{ 0x4623, 0x00 },
+-	{ 0x462c, 0x0f },
+-	{ 0x462d, 0x00 },
+-	{ 0x462e, 0x00 },
+-	{ 0x4684, 0x54 },
+-	{ 0x480a, 0x07 },
+-	{ 0x4908, 0x07 },
+-	{ 0x4909, 0x07 },
+-	{ 0x490d, 0x0a },
+-	{ 0x491e, 0x0f },
+-	{ 0x4921, 0x06 },
+-	{ 0x4923, 0x28 },
+-	{ 0x4924, 0x28 },
+-	{ 0x4925, 0x29 },
+-	{ 0x4926, 0x29 },
+-	{ 0x4927, 0x1f },
+-	{ 0x4928, 0x20 },
+-	{ 0x4929, 0x20 },
+-	{ 0x492a, 0x20 },
+-	{ 0x492c, 0x05 },
+-	{ 0x492d, 0x06 },
+-	{ 0x492e, 0x06 },
+-	{ 0x492f, 0x06 },
+-	{ 0x4930, 0x03 },
+-	{ 0x4931, 0x04 },
+-	{ 0x4932, 0x04 },
+-	{ 0x4933, 0x05 },
+-	{ 0x595e, 0x01 },
+-	{ 0x5963, 0x01 },
+-	{ 0x3030, 0x01 },
+-	{ 0x3031, 0x01 },
+-	{ 0x3045, 0x01 },
+-	{ 0x4010, 0x00 },
+-	{ 0x4011, 0x00 },
+-	{ 0x4012, 0x00 },
+-	{ 0x4013, 0x01 },
+-	{ 0x68a8, 0xfe },
+-	{ 0x68a9, 0xff },
+-	{ 0x6888, 0x00 },
+-	{ 0x6889, 0x00 },
+-	{ 0x68b0, 0x00 },
+-	{ 0x3058, 0x00 },
+-	{ 0x305a, 0x00 },
+-	{ 0x0112, 0x0a },
+-	{ 0x0113, 0x0a },
+-	{ 0x0114, 0x03 },
+-	{ 0x0301, 0x05 },
+-	{ 0x0303, 0x01 },
+-	{ 0x0305, 0x02 },
+-	{ 0x0306, 0x00 },
+-	{ 0x0307, 0x78 },
+-	{ 0x030b, 0x01 },
+-	{ 0x030d, 0x02 },
+-	{ 0x0310, 0x00 },
+-	{ 0x0220, 0x00 },
+-	{ 0x0222, 0x01 },
+-	{ 0x0820, 0x0b },
+-	{ 0x0821, 0x40 },
+-	{ 0x3088, 0x04 },
+-	{ 0x6813, 0x02 },
+-	{ 0x6835, 0x07 },
+-	{ 0x6836, 0x01 },
+-	{ 0x6837, 0x04 },
+-	{ 0x684d, 0x07 },
+-	{ 0x684e, 0x01 },
+-	{ 0x684f, 0x04 },
++static const struct cci_reg_sequence imx355_global_regs[] = {
++	{ CCI_REG8(0x304e), 0x03 },
++	{ CCI_REG8(0x4348), 0x16 },
++	{ CCI_REG8(0x4350), 0x19 },
++	{ CCI_REG8(0x4408), 0x0a },
++	{ CCI_REG8(0x440c), 0x0b },
++	{ CCI_REG8(0x4411), 0x5f },
++	{ CCI_REG8(0x4412), 0x2c },
++	{ CCI_REG8(0x4623), 0x00 },
++	{ CCI_REG8(0x462c), 0x0f },
++	{ CCI_REG8(0x462d), 0x00 },
++	{ CCI_REG8(0x462e), 0x00 },
++	{ CCI_REG8(0x4684), 0x54 },
++	{ CCI_REG8(0x480a), 0x07 },
++	{ CCI_REG8(0x4908), 0x07 },
++	{ CCI_REG8(0x4909), 0x07 },
++	{ CCI_REG8(0x490d), 0x0a },
++	{ CCI_REG8(0x491e), 0x0f },
++	{ CCI_REG8(0x4921), 0x06 },
++	{ CCI_REG8(0x4923), 0x28 },
++	{ CCI_REG8(0x4924), 0x28 },
++	{ CCI_REG8(0x4925), 0x29 },
++	{ CCI_REG8(0x4926), 0x29 },
++	{ CCI_REG8(0x4927), 0x1f },
++	{ CCI_REG8(0x4928), 0x20 },
++	{ CCI_REG8(0x4929), 0x20 },
++	{ CCI_REG8(0x492a), 0x20 },
++	{ CCI_REG8(0x492c), 0x05 },
++	{ CCI_REG8(0x492d), 0x06 },
++	{ CCI_REG8(0x492e), 0x06 },
++	{ CCI_REG8(0x492f), 0x06 },
++	{ CCI_REG8(0x4930), 0x03 },
++	{ CCI_REG8(0x4931), 0x04 },
++	{ CCI_REG8(0x4932), 0x04 },
++	{ CCI_REG8(0x4933), 0x05 },
++	{ CCI_REG8(0x595e), 0x01 },
++	{ CCI_REG8(0x5963), 0x01 },
++	{ CCI_REG8(0x3030), 0x01 },
++	{ CCI_REG8(0x3031), 0x01 },
++	{ CCI_REG8(0x3045), 0x01 },
++	{ CCI_REG8(0x4010), 0x00 },
++	{ CCI_REG8(0x4011), 0x00 },
++	{ CCI_REG8(0x4012), 0x00 },
++	{ CCI_REG8(0x4013), 0x01 },
++	{ CCI_REG8(0x68a8), 0xfe },
++	{ CCI_REG8(0x68a9), 0xff },
++	{ CCI_REG8(0x6888), 0x00 },
++	{ CCI_REG8(0x6889), 0x00 },
++	{ CCI_REG8(0x68b0), 0x00 },
++	{ CCI_REG8(0x3058), 0x00 },
++	{ CCI_REG8(0x305a), 0x00 },
++	{ CCI_REG8(0x0112), 0x0a },
++	{ CCI_REG8(0x0113), 0x0a },
++	{ CCI_REG8(0x0114), 0x03 },
++	{ CCI_REG8(0x0301), 0x05 },
++	{ CCI_REG8(0x0303), 0x01 },
++	{ CCI_REG8(0x0305), 0x02 },
++	{ CCI_REG8(0x0306), 0x00 },
++	{ CCI_REG8(0x0307), 0x78 },
++	{ CCI_REG8(0x030b), 0x01 },
++	{ CCI_REG8(0x030d), 0x02 },
++	{ CCI_REG8(0x0310), 0x00 },
++	{ CCI_REG8(0x0220), 0x00 },
++	{ CCI_REG8(0x0222), 0x01 },
++	{ CCI_REG8(0x0820), 0x0b },
++	{ CCI_REG8(0x0821), 0x40 },
++	{ CCI_REG8(0x3088), 0x04 },
++	{ CCI_REG8(0x6813), 0x02 },
++	{ CCI_REG8(0x6835), 0x07 },
++	{ CCI_REG8(0x6836), 0x01 },
++	{ CCI_REG8(0x6837), 0x04 },
++	{ CCI_REG8(0x684d), 0x07 },
++	{ CCI_REG8(0x684e), 0x01 },
++	{ CCI_REG8(0x684f), 0x04 },
+ };
+ 
+-static const struct imx355_reg_list imx355_global_setting = {
+-	.num_of_regs = ARRAY_SIZE(imx355_global_regs),
+-	.regs = imx355_global_regs,
++static const struct cci_reg_sequence mode_3268x2448_regs[] = {
++	{ CCI_REG8(0x0700), 0x00 },
++	{ CCI_REG8(0x0701), 0x10 },
+ };
+ 
+-static const struct imx355_reg mode_3268x2448_regs[] = {
+-	{ 0x0700, 0x00 },
+-	{ 0x0701, 0x10 },
++static const struct cci_reg_sequence mode_3264x2448_regs[] = {
++	{ CCI_REG8(0x0700), 0x00 },
++	{ CCI_REG8(0x0701), 0x10 },
+ };
+ 
+-static const struct imx355_reg mode_3264x2448_regs[] = {
+-	{ 0x0700, 0x00 },
+-	{ 0x0701, 0x10 },
++static const struct cci_reg_sequence mode_3280x2464_regs[] = {
++	{ CCI_REG8(0x0700), 0x00 },
++	{ CCI_REG8(0x0701), 0x10 },
+ };
+ 
+-static const struct imx355_reg mode_3280x2464_regs[] = {
+-	{ 0x0700, 0x00 },
+-	{ 0x0701, 0x10 },
++static const struct cci_reg_sequence mode_1940x1096_regs[] = {
++	{ CCI_REG8(0x0700), 0x00 },
++	{ CCI_REG8(0x0701), 0x10 },
+ };
+ 
+-static const struct imx355_reg mode_1940x1096_regs[] = {
+-	{ 0x0700, 0x00 },
+-	{ 0x0701, 0x10 },
++static const struct cci_reg_sequence mode_1936x1096_regs[] = {
++	{ CCI_REG8(0x0700), 0x00 },
++	{ CCI_REG8(0x0701), 0x10 },
+ };
+ 
+-static const struct imx355_reg mode_1936x1096_regs[] = {
+-	{ 0x0700, 0x00 },
+-	{ 0x0701, 0x10 },
++static const struct cci_reg_sequence mode_1924x1080_regs[] = {
++	{ CCI_REG8(0x0700), 0x00 },
++	{ CCI_REG8(0x0701), 0x10 },
+ };
+ 
+-static const struct imx355_reg mode_1924x1080_regs[] = {
+-	{ 0x0700, 0x00 },
+-	{ 0x0701, 0x10 },
++static const struct cci_reg_sequence mode_1920x1080_regs[] = {
++	{ CCI_REG8(0x0700), 0x00 },
++	{ CCI_REG8(0x0701), 0x10 },
+ };
+ 
+-static const struct imx355_reg mode_1920x1080_regs[] = {
+-	{ 0x0700, 0x00 },
+-	{ 0x0701, 0x10 },
++static const struct cci_reg_sequence mode_1640x1232_regs[] = {
++	{ CCI_REG8(0x0700), 0x00 },
++	{ CCI_REG8(0x0701), 0x10 },
+ };
+ 
+-static const struct imx355_reg mode_1640x1232_regs[] = {
+-	{ 0x0700, 0x00 },
+-	{ 0x0701, 0x10 },
++static const struct cci_reg_sequence mode_1640x922_regs[] = {
++	{ CCI_REG8(0x0700), 0x00 },
++	{ CCI_REG8(0x0701), 0x10 },
+ };
+ 
+-static const struct imx355_reg mode_1640x922_regs[] = {
+-	{ 0x0700, 0x00 },
+-	{ 0x0701, 0x10 },
++static const struct cci_reg_sequence mode_1300x736_regs[] = {
++	{ CCI_REG8(0x0700), 0x00 },
++	{ CCI_REG8(0x0701), 0x10 },
+ };
+ 
+-static const struct imx355_reg mode_1300x736_regs[] = {
+-	{ 0x0700, 0x00 },
+-	{ 0x0701, 0x10 },
++static const struct cci_reg_sequence mode_1296x736_regs[] = {
++	{ CCI_REG8(0x0700), 0x00 },
++	{ CCI_REG8(0x0701), 0x10 },
+ };
+ 
+-static const struct imx355_reg mode_1296x736_regs[] = {
+-	{ 0x0700, 0x00 },
+-	{ 0x0701, 0x10 },
++static const struct cci_reg_sequence mode_1284x720_regs[] = {
++	{ CCI_REG8(0x0700), 0x00 },
++	{ CCI_REG8(0x0701), 0x10 },
+ };
+ 
+-static const struct imx355_reg mode_1284x720_regs[] = {
+-	{ 0x0700, 0x00 },
+-	{ 0x0701, 0x10 },
++static const struct cci_reg_sequence mode_1280x720_regs[] = {
++	{ CCI_REG8(0x0700), 0x00 },
++	{ CCI_REG8(0x0701), 0x10 },
+ };
+ 
+-static const struct imx355_reg mode_1280x720_regs[] = {
+-	{ 0x0700, 0x00 },
+-	{ 0x0701, 0x10 },
+-};
+-
+-static const struct imx355_reg mode_820x616_regs[] = {
+-	{ 0x0700, 0x02 },
+-	{ 0x0701, 0x78 },
++static const struct cci_reg_sequence mode_820x616_regs[] = {
++	{ CCI_REG8(0x0700), 0x02 },
++	{ CCI_REG8(0x0701), 0x78 },
+ };
+ 
+ static const char * const imx355_test_pattern_menu[] = {
+@@ -604,78 +597,6 @@ static u32 imx355_get_format_code(struct imx355 *imx355)
+ 	return code;
  }
  
- static int imx355_do_get_pad_format(struct imx355 *imx355,
+-/* Read registers up to 4 at a time */
+-static int imx355_read_reg(struct imx355 *imx355, u16 reg, u32 len, u32 *val)
+-{
+-	struct i2c_client *client = v4l2_get_subdevdata(&imx355->sd);
+-	struct i2c_msg msgs[2];
+-	u8 addr_buf[2];
+-	u8 data_buf[4] = { 0 };
+-	int ret;
+-
+-	if (len > 4)
+-		return -EINVAL;
+-
+-	put_unaligned_be16(reg, addr_buf);
+-	/* Write register address */
+-	msgs[0].addr = client->addr;
+-	msgs[0].flags = 0;
+-	msgs[0].len = ARRAY_SIZE(addr_buf);
+-	msgs[0].buf = addr_buf;
+-
+-	/* Read data from register */
+-	msgs[1].addr = client->addr;
+-	msgs[1].flags = I2C_M_RD;
+-	msgs[1].len = len;
+-	msgs[1].buf = &data_buf[4 - len];
+-
+-	ret = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
+-	if (ret != ARRAY_SIZE(msgs))
+-		return -EIO;
+-
+-	*val = get_unaligned_be32(data_buf);
+-
+-	return 0;
+-}
+-
+-/* Write registers up to 4 at a time */
+-static int imx355_write_reg(struct imx355 *imx355, u16 reg, u32 len, u32 val)
+-{
+-	struct i2c_client *client = v4l2_get_subdevdata(&imx355->sd);
+-	u8 buf[6];
+-
+-	if (len > 4)
+-		return -EINVAL;
+-
+-	put_unaligned_be16(reg, buf);
+-	put_unaligned_be32(val << (8 * (4 - len)), buf + 2);
+-	if (i2c_master_send(client, buf, len + 2) != len + 2)
+-		return -EIO;
+-
+-	return 0;
+-}
+-
+-/* Write a list of registers */
+-static int imx355_write_regs(struct imx355 *imx355,
+-			     const struct imx355_reg *regs, u32 len)
+-{
+-	int ret;
+-	u32 i;
+-
+-	for (i = 0; i < len; i++) {
+-		ret = imx355_write_reg(imx355, regs[i].address, 1, regs[i].val);
+-		if (ret) {
+-			dev_err_ratelimited(imx355->dev,
+-					    "write reg 0x%4.4x return err %d",
+-					    regs[i].address, ret);
+-
+-			return ret;
+-		}
+-	}
+-
+-	return 0;
+-}
+-
+ /* Open sub-device */
+ static int imx355_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
+ {
+@@ -727,31 +648,31 @@ static int imx355_set_ctrl(struct v4l2_ctrl *ctrl)
+ 	switch (ctrl->id) {
+ 	case V4L2_CID_ANALOGUE_GAIN:
+ 		/* Analog gain = 1024/(1024 - ctrl->val) times */
+-		ret = imx355_write_reg(imx355, IMX355_REG_ANALOG_GAIN, 2,
+-				       ctrl->val);
++		ret = cci_write(imx355->regmap, IMX355_REG_ANALOG_GAIN,
++				ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_DIGITAL_GAIN:
+-		ret = imx355_write_reg(imx355, IMX355_REG_DIG_GAIN_GLOBAL, 2,
+-				       ctrl->val);
++		ret = cci_write(imx355->regmap, IMX355_REG_DIG_GAIN_GLOBAL,
++				ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_EXPOSURE:
+-		ret = imx355_write_reg(imx355, IMX355_REG_EXPOSURE, 2,
+-				       ctrl->val);
++		ret = cci_write(imx355->regmap, IMX355_REG_EXPOSURE,
++				ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_VBLANK:
+ 		/* Update FLL that meets expected vertical blanking */
+-		ret = imx355_write_reg(imx355, IMX355_REG_FLL, 2,
+-				       imx355->cur_mode->height + ctrl->val);
++		ret = cci_write(imx355->regmap, IMX355_REG_FLL,
++				imx355->cur_mode->height + ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_TEST_PATTERN:
+-		ret = imx355_write_reg(imx355, IMX355_REG_TEST_PATTERN,
+-				       2, ctrl->val);
++		ret = cci_write(imx355->regmap, IMX355_REG_TEST_PATTERN,
++				ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_HFLIP:
+ 	case V4L2_CID_VFLIP:
+-		ret = imx355_write_reg(imx355, IMX355_REG_ORIENTATION, 1,
+-				       imx355->hflip->val |
+-				       imx355->vflip->val << 1);
++		ret = cci_write(imx355->regmap, IMX355_REG_ORIENTATION,
++				imx355->hflip->val | imx355->vflip->val << 1,
++				NULL);
+ 		break;
+ 	default:
+ 		ret = -EINVAL;
+@@ -957,100 +878,64 @@ static int imx355_start_streaming(struct imx355 *imx355)
+ 	const struct imx355_reg_list *reg_list;
+ 	const struct imx355_mode *mode;
+ 	u8 binning_mode;
+-	int ret;
++	int ret = 0;
+ 
+ 	/* Global Setting */
+-	reg_list = &imx355_global_setting;
+-	ret = imx355_write_regs(imx355, reg_list->regs, reg_list->num_of_regs);
+-	if (ret) {
+-		dev_err(imx355->dev, "failed to set global settings");
+-		return ret;
+-	}
++	cci_multi_reg_write(imx355->regmap, imx355_global_regs,
++			    ARRAY_SIZE(imx355_global_regs), &ret);
+ 
+ 	/* Apply default values of current mode */
+ 	mode = imx355->cur_mode;
+ 	reg_list = &mode->reg_list;
+-	ret = imx355_write_regs(imx355, reg_list->regs, reg_list->num_of_regs);
+-	if (ret) {
+-		dev_err(imx355->dev, "failed to set mode");
+-		return ret;
+-	}
++	cci_multi_reg_write(imx355->regmap, reg_list->regs,
++			    reg_list->num_of_regs, &ret);
+ 
+ 	/* Set readout crop and size registers  */
+-	ret = imx355_write_reg(imx355, IMX355_REG_X_ADD_START, 2,
+-			       mode->crop.left);
+-	if (ret)
+-		return ret;
+-	ret = imx355_write_reg(imx355, IMX355_REG_Y_ADD_START, 2,
+-			       mode->crop.top);
+-	if (ret)
+-		return ret;
+-	ret = imx355_write_reg(imx355, IMX355_REG_X_ADD_END, 2,
+-			       mode->crop.width + mode->crop.left - 1);
+-	if (ret)
+-		return ret;
+-	ret = imx355_write_reg(imx355, IMX355_REG_Y_ADD_END, 2,
+-			       mode->crop.height + mode->crop.top - 1);
+-	if (ret)
+-		return ret;
+-	ret = imx355_write_reg(imx355, IMX355_REG_X_OUT_SIZE, 2,
+-			       mode->width);
+-	if (ret)
+-		return ret;
+-	ret = imx355_write_reg(imx355, IMX355_REG_Y_OUT_SIZE, 2,
+-			       mode->height);
+-	if (ret)
+-		return ret;
++	cci_write(imx355->regmap, IMX355_REG_X_ADD_START, mode->crop.left,
++		  &ret);
++	cci_write(imx355->regmap, IMX355_REG_Y_ADD_START, mode->crop.top, &ret);
++	cci_write(imx355->regmap, IMX355_REG_X_ADD_END,
++		  mode->crop.width + mode->crop.left - 1, &ret);
++	cci_write(imx355->regmap, IMX355_REG_Y_ADD_END,
++		  mode->crop.height + mode->crop.top - 1, &ret);
++	cci_write(imx355->regmap, IMX355_REG_X_OUT_SIZE, mode->width, &ret);
++	cci_write(imx355->regmap, IMX355_REG_Y_OUT_SIZE, mode->height, &ret);
+ 
+ 	binning_mode = ((mode->crop.width / mode->width) << 4) |
+ 			(mode->crop.height / mode->height);
+-	ret = imx355_write_reg(imx355, IMX355_REG_BINNING_MODE, 1,
+-			       binning_mode == 0x11 ? 0x00 : 0x01);
+-	if (ret)
+-		return ret;
+-	ret = imx355_write_reg(imx355, IMX355_REG_BINNING_TYPE, 1,
+-			       binning_mode);
+-	if (ret)
+-		return ret;
+-	ret = imx355_write_reg(imx355, IMX355_REG_BINNING_WEIGHTING, 1, 0x00);
+-	if (ret)
+-		return ret;
++	cci_write(imx355->regmap, IMX355_REG_BINNING_MODE,
++		  binning_mode == 0x11 ? 0x00 : 0x01, &ret);
++	cci_write(imx355->regmap, IMX355_REG_BINNING_TYPE, binning_mode, &ret);
++	cci_write(imx355->regmap, IMX355_REG_BINNING_WEIGHTING, 0x00, &ret);
+ 
+ 	/* Set PLL registers for the external clock frequency */
+-	ret = imx355_write_reg(imx355, IMX355_REG_EXTCLK_FREQ, 2,
+-			       imx355->clk_params->extclk_freq);
+-	if (ret)
+-		return ret;
+-	ret = imx355_write_reg(imx355, IMX355_REG_PLL_OP_MUL, 2,
+-			       imx355->clk_params->pll_op_mpy);
+-	if (ret)
+-		return ret;
++	cci_write(imx355->regmap, IMX355_REG_EXTCLK_FREQ,
++		  imx355->clk_params->extclk_freq, &ret);
++	cci_write(imx355->regmap, IMX355_REG_PLL_OP_MUL,
++		  imx355->clk_params->pll_op_mpy, &ret);
+ 
+ 	/* set digital gain control to all color mode */
+-	ret = imx355_write_reg(imx355, IMX355_REG_DPGA_USE_GLOBAL_GAIN, 1, 1);
+-	if (ret)
+-		return ret;
++	cci_write(imx355->regmap, IMX355_REG_DPGA_USE_GLOBAL_GAIN, 1, &ret);
+ 
+ 	/* set line length */
+-	ret = imx355_write_reg(imx355, IMX355_REG_LLP, 2,
+-			       imx355->hblank->val + imx355->cur_mode->width);
+-	if (ret)
+-		return ret;
++	cci_write(imx355->regmap, IMX355_REG_LLP,
++		  imx355->hblank->val + imx355->cur_mode->width, &ret);
+ 
+ 	/* Apply customized values from user */
+-	ret =  __v4l2_ctrl_handler_setup(imx355->sd.ctrl_handler);
+-	if (ret)
+-		return ret;
++	if (!ret)
++		ret = __v4l2_ctrl_handler_setup(imx355->sd.ctrl_handler);
++
++	cci_write(imx355->regmap, IMX355_REG_MODE_SELECT, IMX355_MODE_STREAMING,
++		  &ret);
+ 
+-	return imx355_write_reg(imx355, IMX355_REG_MODE_SELECT,
+-				1, IMX355_MODE_STREAMING);
++	return ret;
+ }
+ 
+ /* Stop streaming */
+ static int imx355_stop_streaming(struct imx355 *imx355)
+ {
+-	return imx355_write_reg(imx355, IMX355_REG_MODE_SELECT,
+-				1, IMX355_MODE_STANDBY);
++	return cci_write(imx355->regmap, IMX355_REG_MODE_SELECT,
++			 IMX355_MODE_STANDBY, NULL);
+ }
+ 
+ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
+@@ -1097,14 +982,14 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
+ static int imx355_identify_module(struct imx355 *imx355)
+ {
+ 	int ret;
+-	u32 val;
++	u64 val;
+ 
+-	ret = imx355_read_reg(imx355, IMX355_REG_CHIP_ID, 2, &val);
++	ret = cci_read(imx355->regmap, IMX355_REG_CHIP_ID, &val, NULL);
+ 	if (ret)
+ 		return ret;
+ 
+ 	if (val != IMX355_CHIP_ID) {
+-		dev_err(imx355->dev, "chip id mismatch: %x!=%x",
++		dev_err(imx355->dev, "chip id mismatch: %x!=%llx",
+ 			IMX355_CHIP_ID, val);
+ 		return -EIO;
+ 	}
+@@ -1351,6 +1236,11 @@ static int imx355_probe(struct i2c_client *client)
+ 
+ 	mutex_init(&imx355->mutex);
+ 
++	imx355->regmap = devm_cci_regmap_init_i2c(client, 16);
++	if (IS_ERR(imx355->regmap))
++		return dev_err_probe(imx355->dev, PTR_ERR(imx355->regmap),
++				     "Unable to initialize I2C\n");
++
+ 	imx355->clk = devm_v4l2_sensor_clk_get(imx355->dev, NULL);
+ 	if (IS_ERR(imx355->clk))
+ 		return dev_err_probe(imx355->dev, PTR_ERR(imx355->clk),
 
 -- 
 2.34.1
