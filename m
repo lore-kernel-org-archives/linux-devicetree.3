@@ -1,80 +1,88 @@
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D96436BD2
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 11:01:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B21438030
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 11:08:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784113292; cv=none; b=LTI/YN5mFGYOkkzIcnFAGbA9A0mPeeqbVtTH1cZQ+EcYhf10UeJoiCr2daXNtryPDJR3MQ8LjaenkZgF/hytVDvW8IwBBs+78DcFdqqX8uPf5P5jLRnsMMdb2q+VzGJBJrCELiCCyWStLj+hxb2pYXaHOj08Tvc+SGCy4H4bAC4=
+	t=1784113699; cv=none; b=RRNieXjiyarbtuL4NGLe6v/AlzDynozr9U8NEmSxGqirxi1vm/eAZ4ebTiFX4bKA5mJ25F0zy008Opx2C7gKuLw2g4m7pzolv4IG/cUau7Lz3g7+8wx+zIJo9m8m8IwE56C7ZFaFrRQa37C9c6R+cllS8uBZsm7cl+aNbYhkplk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784113292; c=relaxed/simple;
-	bh=lPtctcSC8Ig3099sW+2rH3FHtRLk8ejfqSVuxDcHY+0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DoZrvz2aZgN1X/rg0It4VtcZZL/k6u7mNzJbTWA/yiTb1fp6mDSU9+/eCYSWa3tFHYkV+DZ3Z+8OEV3ER2jLqTwyo99Lw4VTEJSnkPocs0fVq4Tg6IRalk7p7jFGR27WUCK9vxoazWRfkYvem8P5lHVx6+R/Mpwg4EN/kUFXqow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kwGm+kk+; arc=none smtp.client-ip=209.85.128.182
+	s=arc-20240116; t=1784113699; c=relaxed/simple;
+	bh=mIRxksyS93er8MS1YlMb9+It8o4xTAy8Dz/Y5i+XNBI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jVSEnT8AQORUarcRajpuGG/NZiOkHYJ+XcTTkO+1t2Z8cGf+EYNaRUAZ6qjYlVu2Gm2/xOlC58uB/DpBZxJT9Eme/71bJRadEbSEBjoTAtUJHMGwYUimgcfL6iIg1ZsM1TPfavfJMi/jsdJ8b6x/LUZVR3JoJyG5wlq72AyZz3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oxCesEQ/; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kwGm+kk+"
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-7ff05e5d009so70530487b3.1
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 04:01:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oxCesEQ/"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-493e4cccd8dso9625285e9.2
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 04:08:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784113290; x=1784718090; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ppclwzo4aR4SJ35tDOFzdwKD6tEwsXd178wGH4GBW3o=;
-        b=kwGm+kk+qyZ5ME777C1mhHo0vJ5V6b0Y9GpL8JLe89gRULYWQ+/ZzF1C9gAp67UNDm
-         Ew0K8scGNsPQxgdQeTdrolzJYyCigF9Qz7HUA2yV9mzt7NgeUcd80YVX9k6/5o0U4OSA
-         pfgId+FfoLsv4eP36iHmd3KKTAAbkARF3JsN8KNQbnKr7Ulr7Z20bLF9gYilZ82lowwC
-         /88d7g30S4QnyhHWWAs2ktY3/FppbfpCFloGXQ/i2+tevz99a+JgTGUIyCYPiHw/T9nn
-         1Z1pOJlYLdX9R6HFIWdyRs/TXCz1kw0CxovoVzO2UDe6eXx2/drii5UT4veJAHiAsX8Q
-         tWfg==
+        d=gmail.com; s=20251104; t=1784113696; x=1784718496; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U6Z8UNdPRwdYEDpBm/8Wj8CPVrJHM5gjfHQvZCFzLD8=;
+        b=oxCesEQ/bEQycBep4Lg0hJ9mwonQvWFSNypLEmTXyf0mvAS5HP6BkfMcdTFAQDgp9B
+         AbXaAjMCHwu1u8O+hx1GPpDmJZyUNepQGOQ6OUk+l8MIP3eCjUtdEWnKvfdkVFHUtJ1V
+         aH/qFIFeXZx+Bc3HE/tLfP2Pb1akaS22JddiXTKKj0ZNMMza9Q3pldtm1RM/sHlWL6FI
+         ZfkV9r1w4ceMJkuPSgX7RmzBfcO4JAlllStXdIEZqlunDnBAEJCLgkDuQKmNZqEi+igL
+         XqRP4r02hGH1adaztVIuSNoSxpdTux5IXrx6sTGi2ksJFtL6ELhXdtLBNNCuz5vpDqS7
+         T1IA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784113290; x=1784718090;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ppclwzo4aR4SJ35tDOFzdwKD6tEwsXd178wGH4GBW3o=;
-        b=RMdrJakkzWYIOMLTRtNs4hLBG8gqgvlMSwFSIK4Y2aKpYWeHhHVhXiTbD+v8snIr+X
-         7fCuQuyxILoZYsJkzVRxXEwRQTwMrtVd0bDdAjXh2hBHeQF4BHcYb5msQQZCeB4oIGN7
-         eEJ8oVMUY8L0hI4hjcbwPiG73DYOnIB3blu6vj5/oOOi70cU8HgAY0dHf45OVEB207bl
-         6HnlWYiFo5gD3zojTPk7TS9Qwfw71QGoH0FmPw94Wk2gfdNlIrZKYPo+fLRsH1fQdHVk
-         cO++W2UDY8dWqZlaPNqKtXunY3DmYX8zNCTfPQy3F8s3/2kYYSaLsYwmgIn/Qqsu7+IO
-         MItw==
-X-Forwarded-Encrypted: i=1; AHgh+RrtjWTijHp5wU789pMMz/hkus/bjNmhHTUeRrR+fJfd6/RFA/DddNe/oPbBabjvlgsFfXjsC78jYcQo@vger.kernel.org
-X-Gm-Message-State: AOJu0YwsvzQJZDtYtNq6WHd0Y/kr15O1RVrybx/w+W76NKx5Duezwg2h
-	hze3ECk3dr5yYDjBYJ7WJ2RAAOnzXmYRDqWon+MGsfzFo1I48TMJfVJg
-X-Gm-Gg: AfdE7cmGMvRoIxlP6/YZmd5GuDdlMkw9aiy4dePSfuQrI+0PtiZzdiRd4RaebUExc4x
-	WBiwgq4b/fsqqItvfOnN+NKnrJ8e0RDcpcrRrIuUpXBakz5S/oCIidQEw6Y7dx0XugUcudCElHa
-	0JBvCgkLb0aN9mTC8u9oNBBK2SrMc/5+476Sx1rO1O8jjJrf0o3jgDET9G+ugDmkIoVDu0QqHHN
-	HISaDGAZ5Nc/ED+efqGV19Zd2kYodviJ37yNwaFMU4CobZYahHRzRf3Nv5+MvHdPtKXpHjUfOnR
-	c09m5bKffiIhJ1Jqs/uY95HkbZmYT3ESIOUdf9V8bZWkn/BLrXDXsvXfDBZXezPGJIBJyuAsQ7s
-	L1/W0nXcKQ73n765Z8Uk+8EaC9RFmRcaqmcZpuC42Pg1sSErxb6gAQ0H9KOp689CTd37XU1ezSz
-	crEXcRTvmF7QrD90OBCTEO
-X-Received: by 2002:a05:690e:2002:b0:667:8b90:2ee5 with SMTP id 956f58d0204a3-668078a5e8fmr3034463d50.96.1784113289880;
-        Wed, 15 Jul 2026 04:01:29 -0700 (PDT)
-Received: from i386.168.1.127 ([2402:a00:163:2ce9:6882:91b7:8e79:7958])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6681fbd8c5esm59066d50.3.2026.07.15.04.01.25
+        d=1e100.net; s=20251104; t=1784113696; x=1784718496;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=U6Z8UNdPRwdYEDpBm/8Wj8CPVrJHM5gjfHQvZCFzLD8=;
+        b=Yua8+g9kF+dHBy5syVIH67G8IzcSZEYYUEbYUumMcBtEeGgn4Xs/Cs0I+dTyKwLLPV
+         Y4hbeMiflJ0cg8J46josnAvHE1YRVmhuYnnbNT++/8smcRRaTuT/moNUX4vA/vHa4I69
+         ygzgxfmCDlLHLypbBWu9aPLCeMjf9OV0rg/gQm0vBirOG6Azy+QxCNO9Bv/9KdHSZjqh
+         MBjZDmqVoCq9yh0+krVd69wooBtX18cX7tWaVmbhDa9KTGMF/qz/RoVascB6Vi7Pr1ED
+         boH7qcDvUexcjBz3JRs1++tWWa1mLS7AhmYCBFXFPZZCm6h0hLwJpE3q3afgiWWp1CHM
+         69wg==
+X-Forwarded-Encrypted: i=1; AHgh+RpgEd3WxCNFZmNIzTkWurU99IfvBiTzmFCxFzD3epna6XZYBA41yvMwTZv/MYxvwDWLs7bgfU870F5f@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx/R7Qr62iVt0xfmNfi8CdpXZA7qH2A7IOyeETNRiS/5CUvGyzr
+	k6oqjDEV/khqkj+racv3S8AVa0sOCOJCrAIuMiplY3UwT6QOvgNcECj2
+X-Gm-Gg: AfdE7cld6zxcMPoeKTaxCXFYd0yJMgLTTdF5G+r4ZADS+KoCk+U8yWi98NGB433T95q
+	YfuKDQWmUtBCWI8QQ1p0liowunWwVpDrMTW+Uf9Jc7LCejy45NWaIlEQ+JL2GiP41XTH7Wsbn8k
+	2WrSdXX0vdkuzaXE6KY5hMXXWFcc6Kn7g9Ow2IEimiD7t/ie9iINbhypwL+Z4S06J+w02uqXAT/
+	fiACuNrelXxEiw4dpzQlx3DcGywVFXlrrielC7qT6mRd0a7rUPnPc80czvItzWzC5PTgPnYkIDL
+	7kgQQkSErzdHgPiVPHBgGQyUn8tUCJ/8qH4au1BTAAqp0hm+djkYmaDPAed9baqIp58ojlYl0+y
+	hHJtPGS+EP7La6Sc97aqGTwbpFZXyV8gOujJTAYTHDw8wA5R5a+4rJs3T0MdE9aUKXm1OWNow85
+	3P7NadarnM3SsYs3O4tHlALVi/bmv4d8COvZWEJa2UVZMU/yNoAQFOfLpaJw==
+X-Received: by 2002:a05:600c:6989:b0:493:bfbf:1da4 with SMTP id 5b1f17b1804b1-493f881de65mr167311485e9.22.1784113696023;
+        Wed, 15 Jul 2026 04:08:16 -0700 (PDT)
+Received: from Lord-Beerus.station ([93.144.65.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4950a2f951asm151389875e9.14.2026.07.15.04.08.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 04:01:29 -0700 (PDT)
-From: Hrushiraj Gandhi <hrushirajg23@gmail.com>
-To: srini@kernel.org
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	heiko@sntech.de,
+        Wed, 15 Jul 2026 04:08:15 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Hrushiraj Gandhi <hrushirajg23@gmail.com>
-Subject: [PATCH 2/2] nvmem: rockchip-efuse: add write support for RK3399
-Date: Wed, 15 Jul 2026 16:31:07 +0530
-Message-ID: <20260715110107.409204-3-hrushirajg23@gmail.com>
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Josua Mayer <josua@solid-run.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Maud Spierings <maudspierings@gocontroll.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Subject: [PATCH v3 0/3] Add support for Variscite VAR-SOM-MX8QM and Symphony board
+Date: Wed, 15 Jul 2026 13:08:09 +0200
+Message-ID: <cover.1784113547.git.stefano.r@variscite.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260715110107.409204-1-hrushirajg23@gmail.com>
-References: <20260715110107.409204-1-hrushirajg23@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,264 +91,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Implement rockchip_rk3399_efuse_write() using the Array Program Mode
-(A_PGM) as described in the RK3399 TRM. Each bit is programmed
-individually by asserting STROBE for 15us with the target bit address
-set in the EFUSE_CTRL register.
+This patch series adds support for the Variscite VAR-SOM-MX8 QuadMax
+system on module and the Symphony carrier board.
 
-Introduce struct rockchip_efuse_soc_data to hold both reg_read and
-reg_write callbacks per SoC, replacing the bare function pointer
-previously stored in of_device_id.data. Move nvmem_config to the
-probe stack so read_only can be set per-device based on whether a
-write callback is provided.
+The series includes:
+- SOM device tree with on-module peripherals
+- Symphony carrier board device tree with board-specific features
 
-Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
----
- drivers/nvmem/rockchip-efuse.c | 152 +++++++++++++++++++++++++++------
- 1 file changed, 127 insertions(+), 25 deletions(-)
+The implementation follows the standard SOM + carrier board pattern
+where the SOM dtsi contains only peripherals mounted on the module,
+while carrier-specific interfaces are enabled in the board dts.
 
-diff --git a/drivers/nvmem/rockchip-efuse.c b/drivers/nvmem/rockchip-efuse.c
-index 013e67136f3b..19eb61380ea4 100644
---- a/drivers/nvmem/rockchip-efuse.c
-+++ b/drivers/nvmem/rockchip-efuse.c
-@@ -37,12 +37,16 @@
- #define RK3399_NBYTES		4
- #define RK3399_STROBSFTSEL	BIT(9)
- #define RK3399_RSB		BIT(7)
-+#define RK3399_PS		BIT(4)
- #define RK3399_PD		BIT(5)
- #define RK3399_PGENB		BIT(3)
- #define RK3399_LOAD		BIT(2)
- #define RK3399_STROBE		BIT(1)
- #define RK3399_CSB		BIT(0)
+v2->v3:
+ - Fix led typo
+ - Moved reset-gpios in pciea_port0
+ - Removed wrong captouch pinctrl gpio
 
-+#define RK3399_PGM_TIME_US	15
-+
- #define REG_EFUSE_CTRL		0x0000
- #define REG_EFUSE_DOUT		0x0004
- 
-@@ -52,6 +56,16 @@ struct rockchip_efuse_chip {
- 	struct clk *clk;
- };
- 
-+/**
-+ * struct rockchip_efuse_soc_data - per-SoC efuse callbacks
-+ * @reg_read:  mandatory read callback
-+ * @reg_write: optional write callback; NULL means read-only
-+ */
-+struct rockchip_efuse_soc_data {
-+	int (*reg_read)(void *ctx, unsigned int offset, void *val, size_t bytes);
-+	int (*reg_write)(void *ctx, unsigned int offset, void *val, size_t bytes);
-+};
-+
- static int rockchip_rk3288_efuse_read(void *context, unsigned int offset,
- 				      void *val, size_t bytes)
- {
-@@ -177,6 +191,7 @@ static int rockchip_rk3399_efuse_read(void *context, unsigned int offset,
- 	writel(RK3399_LOAD | RK3399_PGENB | RK3399_STROBSFTSEL | RK3399_RSB,
- 	       efuse->base + REG_EFUSE_CTRL);
- 	udelay(1);
-+
- 	while (addr_len--) {
- 		writel(readl(efuse->base + REG_EFUSE_CTRL) | RK3399_STROBE |
- 		       ((addr_start++ & RK3399_A_MASK) << RK3399_A_SHIFT),
-@@ -203,48 +218,120 @@ static int rockchip_rk3399_efuse_read(void *context, unsigned int offset,
- 	return 0;
- }
- 
--static struct nvmem_config econfig = {
--	.name = "rockchip-efuse",
--	.add_legacy_fixed_of_cells = true,
--	.type = NVMEM_TYPE_OTP,
--	.stride = 1,
--	.word_size = 1,
--	.read_only = true,
-+/**
-+ * rockchip_rk3399_efuse_write - program fuse bits on RK3399 (A_PGM mode)
-+ * @context: pointer to rockchip_efuse_chip
-+ * @offset:  byte offset in the efuse space
-+ * @val:     data to write (only set bits are programmed; OTP cannot clear)
-+ * @bytes:   number of bytes
-+ *
-+ * Each bit is programmed individually using a hardware-timed STROBE pulse.
-+ * The caller must ensure VQPS (1.8V~1.98V) is present during the write.
-+ * Per TRM Section 21.6, only one bit is programmed per STROBE cycle.
-+ */
-+static int rockchip_rk3399_efuse_write(void *context, unsigned int offset,
-+				       void *val, size_t bytes)
-+{
-+	struct rockchip_efuse_chip *efuse = context;
-+	u8 *buf = val;
-+	int ret;
-+
-+	ret = clk_prepare_enable(efuse->clk);
-+	if (ret < 0) {
-+		dev_err(efuse->dev, "failed to prepare/enable efuse clk\n");
-+		return ret;
-+	}
-+
-+	while (bytes--) {
-+		u8 byte = *buf++;
-+		int bit;
-+
-+		for (bit = 0; bit < 8; bit++) {
-+			u32 addr, ctrl;
-+
-+			if (!(byte & BIT(bit)))
-+				continue;
-+
-+			addr = offset * 8 + bit;
-+
-+			/*
-+			 * A_PGM mode (TRM table 23-3):
-+			 * CSB=L, PGENB=L, PS=H, PD=L, LOAD=L, RSB=L,
-+			 * STROBSFTSEL=H (software controls STROBE)
-+			 * STROBE is asserted separately below.
-+			 */
-+			ctrl = RK3399_STROBSFTSEL | RK3399_PS |
-+			       ((addr & RK3399_A_MASK) << RK3399_A_SHIFT);
-+
-+			writel(ctrl, efuse->base + REG_EFUSE_CTRL);
-+			udelay(1);
-+
-+			writel(ctrl | RK3399_STROBE, efuse->base + REG_EFUSE_CTRL);
-+			udelay(RK3399_PGM_TIME_US);
-+
-+			writel(ctrl, efuse->base + REG_EFUSE_CTRL);
-+			udelay(1);
-+		}
-+
-+		offset++;
-+	}
-+
-+	/* Return to standby mode: PD=H, CSB=H */
-+	writel(RK3399_PD | RK3399_CSB, efuse->base + REG_EFUSE_CTRL);
-+
-+	clk_disable_unprepare(efuse->clk);
-+
-+	return 0;
-+}
-+
-+static const struct rockchip_efuse_soc_data rk3288_efuse_data = {
-+	.reg_read = rockchip_rk3288_efuse_read,
-+};
-+
-+static const struct rockchip_efuse_soc_data rk3328_efuse_data = {
-+	.reg_read = rockchip_rk3328_efuse_read,
-+};
-+
-+static const struct rockchip_efuse_soc_data rk3399_efuse_data = {
-+	.reg_read  = rockchip_rk3399_efuse_read,
-+	.reg_write = rockchip_rk3399_efuse_write,
- };
- 
- static const struct of_device_id rockchip_efuse_match[] = {
- 	/* deprecated but kept around for dts binding compatibility */
- 	{
- 		.compatible = "rockchip,rockchip-efuse",
--		.data = (void *)&rockchip_rk3288_efuse_read,
-+		.data = &rk3288_efuse_data,
- 	},
- 	{
- 		.compatible = "rockchip,rk3066a-efuse",
--		.data = (void *)&rockchip_rk3288_efuse_read,
-+		.data = &rk3288_efuse_data,
- 	},
- 	{
- 		.compatible = "rockchip,rk3188-efuse",
--		.data = (void *)&rockchip_rk3288_efuse_read,
-+		.data = &rk3288_efuse_data,
- 	},
- 	{
- 		.compatible = "rockchip,rk3228-efuse",
--		.data = (void *)&rockchip_rk3288_efuse_read,
-+		.data = &rk3288_efuse_data,
- 	},
- 	{
- 		.compatible = "rockchip,rk3288-efuse",
--		.data = (void *)&rockchip_rk3288_efuse_read,
-+		.data = &rk3288_efuse_data,
- 	},
- 	{
- 		.compatible = "rockchip,rk3368-efuse",
--		.data = (void *)&rockchip_rk3288_efuse_read,
-+		.data = &rk3288_efuse_data,
- 	},
- 	{
- 		.compatible = "rockchip,rk3328-efuse",
--		.data = (void *)&rockchip_rk3328_efuse_read,
-+		.data = &rk3328_efuse_data,
- 	},
- 	{
- 		.compatible = "rockchip,rk3399-efuse",
--		.data = (void *)&rockchip_rk3399_efuse_read,
-+		.data = &rk3399_efuse_data,
- 	},
- 	{ /* sentinel */},
- };
-@@ -252,20 +339,26 @@ MODULE_DEVICE_TABLE(of, rockchip_efuse_match);
- 
- static int rockchip_efuse_probe(struct platform_device *pdev)
- {
--	struct resource *res;
--	struct nvmem_device *nvmem;
-+	const struct rockchip_efuse_soc_data *soc_data;
- 	struct rockchip_efuse_chip *efuse;
--	const void *data;
-+	struct nvmem_device *nvmem;
-+	struct nvmem_config econfig = {
-+		.name              = "rockchip-efuse",
-+		.add_legacy_fixed_of_cells = true,
-+		.type              = NVMEM_TYPE_OTP,
-+		.stride            = 1,
-+		.word_size         = 1,
-+	};
-+	struct resource *res;
- 	struct device *dev = &pdev->dev;
- 
--	data = of_device_get_match_data(dev);
--	if (!data) {
-+	soc_data = of_device_get_match_data(dev);
-+	if (!soc_data) {
- 		dev_err(dev, "failed to get match data\n");
- 		return -EINVAL;
- 	}
- 
--	efuse = devm_kzalloc(dev, sizeof(struct rockchip_efuse_chip),
--			     GFP_KERNEL);
-+	efuse = devm_kzalloc(dev, sizeof(*efuse), GFP_KERNEL);
- 	if (!efuse)
- 		return -ENOMEM;
- 
-@@ -278,12 +371,20 @@ static int rockchip_efuse_probe(struct platform_device *pdev)
- 		return PTR_ERR(efuse->clk);
- 
- 	efuse->dev = dev;
-+
- 	if (of_property_read_u32(dev->of_node, "rockchip,efuse-size",
- 				 &econfig.size))
- 		econfig.size = resource_size(res);
--	econfig.reg_read = data;
--	econfig.priv = efuse;
--	econfig.dev = efuse->dev;
-+
-+	econfig.reg_read  = soc_data->reg_read;
-+	if (soc_data->reg_write &&
-+	    of_property_read_bool(dev->of_node, "rockchip,efuse-write-enable"))
-+		econfig.reg_write = soc_data->reg_write;
-+
-+	econfig.read_only = !econfig.reg_write;
-+	econfig.priv      = efuse;
-+	econfig.dev       = dev;
-+
- 	nvmem = devm_nvmem_register(dev, &econfig);
- 
- 	return PTR_ERR_OR_ZERO(nvmem);
-@@ -300,3 +401,4 @@ static struct platform_driver rockchip_efuse_driver = {
- module_platform_driver(rockchip_efuse_driver);
- MODULE_DESCRIPTION("rockchip_efuse driver");
- MODULE_LICENSE("GPL v2");
-+
+v1->v2:
+ - Added non-removable property to usdhc3
+ - Removed unused fec gpio pinctrl
+ - Fix ptn5150 interrupt
+ - Fix ecspi1 cs gpio
+
+Stefano Radaelli (3):
+  dt-bindings: arm: fsl: add Variscite VAR-SOM-MX8 QuadMax Boards
+  arm64: dts: freescale: Add support for Variscite VAR-SOM-MX8 QuadMax
+  arm64: dts: imx8qm-var-som: Add support for Variscite Symphony board
+
+ .../devicetree/bindings/arm/fsl.yaml          |   6 +
+ arch/arm64/boot/dts/freescale/Makefile        |   1 +
+ .../dts/freescale/imx8qm-var-som-symphony.dts | 490 ++++++++++++++++
+ .../boot/dts/freescale/imx8qm-var-som.dtsi    | 530 ++++++++++++++++++
+ 4 files changed, 1027 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8qm-var-som.dtsi
+
+
+base-commit: d0c222c2e2ce577d801bdf129dc6c078f29e22df
+prerequisite-patch-id: 0996915f031a1d899202c5fba75a969d6ce2a53d
+prerequisite-patch-id: dbed47ecb907f6b7f7e284c5c1a3c325566eafd7
+prerequisite-patch-id: c758aa296e6effc94c30449cc7e4773f0ae02914
+prerequisite-patch-id: 31784fa7a3ee5c178b2f1ffa97c1dd7c1d3d898a
+prerequisite-patch-id: 5810f43cde9c24ee318d680c1852b3ded18f3aa0
+prerequisite-patch-id: 012c9c8ba4e290532a1b7f8642274b7c5f252e03
+prerequisite-patch-id: a57d576be42d5061bba453f0d5960132be55a1ff
+prerequisite-patch-id: e34a75fb6f7e01455dd5ca734dacad66b12de06c
+prerequisite-patch-id: cc7abadd0354d14bad0cac1fbacda14ab9d4e02b
+prerequisite-patch-id: c0276686c0247cb2385c56b96cbfd6de5128415c
+prerequisite-patch-id: 100c47538870af63194b407fae06183fee85fc09
+prerequisite-patch-id: 3a3b3e40f5fba785857091dda909d22bfc5e2d0e
 -- 
 2.47.3
 
