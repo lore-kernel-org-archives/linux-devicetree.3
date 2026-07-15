@@ -1,105 +1,192 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A892429CF7;
-	Wed, 15 Jul 2026 11:43:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F503B27F4
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 11:44:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784115800; cv=none; b=ZnmrnbLfh8NVmivJM8pgj8PpycVLhzOQo0miB8IFjfIYloQLnElhUtL7VD6OS4SyFOdZ6yyNbFA8vTupgPxddLAel25HmSYijrzsc8VumtgAMJDoSx5rfm30ORGYWokHcdq0MOF//0Q/tytBPcpiYBqT8evGaGRGRU4zZsSmjJ0=
+	t=1784115852; cv=none; b=AtDYXmfO44UWeMUZNIO3c8T0DdRpQYr5fuLDDcsIkuNuBmF11Lct9K8fR9P2z9sgQ7Z0aTTKpTsLBHMQCqPedyEg0BJY+qFp9fesYVED4uBNLxNQ9Fo2Nnd4sKiTtloWuZ8vwf6ueUHyexMFA00MdaipgpCIPaYn+jlu2xL2+s4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784115800; c=relaxed/simple;
-	bh=3fKkJ+8VSp3RuD1LCoKdNbYWp8LCSrBoSq7Q3RPsn/w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DT7mHW9ZbLg2sM5f0K81E4HOfwKk8Hio9Wei69D5Ckhaa8XNacGFG/PDCtCLwfC47TNJv6iUaDBatYVa9dN76a2EOKsLLs7jCBqrO1CxurHSOYXG09t6XKrN+zpBIgRf33kflYhMdKfHHXjoFhJwobKpL+olprqvAExxND1GD1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=sWAGpdJC; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1784115852; c=relaxed/simple;
+	bh=fMzfDJMKQUZ03KS16inXaqdjVjmByxXsgM2IAEum4ps=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ffwW6926s9JR+HvpEIXvejo0FEzs+/15xjXwSzlNMANwvmwo5tYAqSkbery/rEPreN0TVLlKpZGRS5zfk4cVMwJkFpudIxcUTALDQcod07sL4sc6wLh3d3ihC1RFuyoGLHO78A5R9SOZ73ksLQAQP2ZwWhTd5XNPNg5cNPeZgiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=Oc/Q8lS2; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="sWAGpdJC"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=4iI7cm50TUfbt29M1XzW54/S6U86vKbruO9GvSiUuH0=; b=sWAGpdJCjLiATuC2iZfg0E1iT8
-	5rxsKju5Y4nlh3QLn3hMx6qr69JvQ1H46Qx/HsW0jfcCJ9E1uEAmYxCjAQk2N1mtHLO9iWgx3hQs8
-	hURR00Tun5XOsU60sNFUfEPbTRh8BX9ZGBbA93gw79jfPTfSrl2OZEsjqWvI64QdLJvaUQ5Wx/+G5
-	KKAilP1EEdH8GzlFbgiWs3V+WrQiRkVrbjAZc+M5qkCbE2v7zdTBdvkCY5p0xCv7498A0R+kbF7Uu
-	OXI6aZs476f1wARdihN6FYfJJSsSUK9FYe2uyZvk04uj3HRJz4PWbcZoATcASfIVPLNZLOCeHh7bx
-	6hx4xtyw==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: srini@kernel.org, Hrushiraj Gandhi <hrushirajg23@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- Hrushiraj Gandhi <hrushirajg23@gmail.com>
-Subject:
- Re: [PATCH 1/2] dt-bindings: nvmem: rockchip-efuse: add
- rockchip,efuse-write-enable property
-Date: Wed, 15 Jul 2026 13:42:56 +0200
-Message-ID: <2363663.KTMopqUuYO@diego>
-In-Reply-To: <20260715110107.409204-2-hrushirajg23@gmail.com>
-References:
- <20260715110107.409204-1-hrushirajg23@gmail.com>
- <20260715110107.409204-2-hrushirajg23@gmail.com>
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="Oc/Q8lS2"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493f6de72faso11026565e9.0
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 04:44:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1784115848; x=1784720648; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=t9uTLI4PNn7Iu3pBhUskUo84883YLgKy0z27USpVPmo=;
+        b=Oc/Q8lS2xXFaLx2JwKJAc9ZNK4NgrN2JjJUzcuHCgBoisZpbQsZdV+LcqJy+qz/5EF
+         afxFKKWaQNjALmRPu1e4pCWdB0nvlibbSYs58zXdLPFAPCGVF9nFbz4yI6vlHN7OdOR4
+         rciv0PUx585ibd1YW3dnxqn9QMesNdpQ7xYey0TsGwpIm71Ozfc6s5IXGT/Q6nBLKd1+
+         ZGMS+cA76lXIrEqUDLl2m+fEQRud0p0by8nyv/z8ZWI4hcauJCJJ2t8w6Cy5oyrcXFrr
+         aDHeVrcwwU6BC8nbWREVQpNBED2+G1M/S3W7u/NKDOe1Es5VWwHwKINVKqYJU/zpfxB2
+         mP1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784115848; x=1784720648;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=t9uTLI4PNn7Iu3pBhUskUo84883YLgKy0z27USpVPmo=;
+        b=YA2RApMBJQtv3LDMsXZ+5LHJDbhEHJALWPH8dUK5qtg+azFSDxIMCjJMQ4ZiDU4uw3
+         I/8N9Bh0T3EP+92NYVo9XQHWa05Xko1Y6drLAW4Jdm9Xd/0E8VNTUSGzFgnpxHNZO2SG
+         p33GIOFg+2KcnwPJu7ohpv4J2PfPwdvNeqNxbOqV+P/VO58lDajEa6qQU5KnukU0k9IG
+         T6SMjjpFwt2w8wH0W4GA3s9jX6gAuiZij70vxbUGSamC/DlKNegno8pzO0cdnktN9ZhY
+         XZmymajNjy8nOYCWjiL32eUukXnzBOYHBApMxTS3NBEJuMA41zRidq8PFZncZ0b5gH5V
+         B1Tw==
+X-Forwarded-Encrypted: i=1; AHgh+Rors+xtmkwYWvH+nSJcAsBjhcbEgMUU9F4DJL+gKxW4vwrvkXafqnb5YHHcsbKkDvIJe0Gnd7Bwhp5z@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPLBLsRXoyLr4r36W/G37GgA0KL6s0RNjw2guOLYH4n8X17tvD
+	7Yii6LpPP2LAh/cHNWSWreNVO6YVRA0JZtGBtiH1RpKdIAptwHclC0brtO3f02PKK0w=
+X-Gm-Gg: AfdE7cnycIxXUzubPXRbhLfJd+CUOzb7tOkaqSqOuexAjXa3OWpv9MyC5WKnr2v/BIF
+	+WI0EBXZ2vqyK7xwHl6RmF/MyAxMxHEYMC3J5eRKA0GuXcfQGFrzF6EZn570JcYbtXD5pbpcXcK
+	xrc6xe7jrAZR9EX4b7DYMCV0LLTDdO1T57NYBmqhf6ypQpqNyoyt3UQhaaGP2FGsF+uyfeawK50
+	Hx5uvr/Qv8kPXDFthdRyTaaWDJs6iKmFyaUIMSaHynvTDdGzPzaH5x3r+MLlqRNGOYq+obVuXU3
+	GEfD3hp+lMN2QFrQ8wng8rxdBAP2GKirxZ4FuWBnN7BxzKSDCAA08TiupKe59xVhlxuo8pq6OSJ
+	wir3gEHKACARP8J4l2LJSh5Sdvh9P0+Clg/NZN6tgkxqKjNHMJ8ce7Txhx2qzoZ7CYWmA7Tt8N+
+	27oewPqO/fule07qQxbicqKOFpK43tauJttdZrLYERmgqAMlbyxGa8WfoB1I8oIfd4
+X-Received: by 2002:a05:600c:2244:b0:493:e543:1dd9 with SMTP id 5b1f17b1804b1-493f2ab7772mr176681565e9.9.1784115848112;
+        Wed, 15 Jul 2026 04:44:08 -0700 (PDT)
+Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47f4829896asm14005425f8f.23.2026.07.15.04.44.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Jul 2026 04:44:07 -0700 (PDT)
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Subject: [PATCH v4 00/21] media/imx355: General code cleanups, and adding
+ support for 2 lane operation
+Date: Wed, 15 Jul 2026 12:43:13 +0100
+Message-Id: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFJyV2oC/23OQW7DIBAF0KtYrEs1MAzYWfUeVRdgxg0Lxy64V
+ qLIdy91Fq0iL/+X5s2/i8I5cRGn5i4yr6mk6VKDeWlEf/aXT5Yp1iw0aAsEVo4ck5dpvCKR9Ag
+ DBcbI0Yt6Mmce0nXn3j8eOfPXd1WXRymCLyz7aRzTcmo0mcF0Fg2zst6hUs5E7RlN6AlCpMEQ1
+ 1r8WudUlinf9qWr2rHjUauSIK0F2xIgGKK37MscOOfbnF7r751b9R/hwD0RuhLKtsg9uNB27pj
+ A/0T7RGAlujhga73VGA+Ibdt+AMPZ1YuAAQAA
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Richard Acayan <mailingradian@gmail.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, devicetree@vger.kernel.org, 
+ stable@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.1
 
-Am Mittwoch, 15. Juli 2026, 13:01:06 Mitteleurop=C3=A4ische Sommerzeit schr=
-ieb Hrushiraj Gandhi:
-> Add an optional boolean property to explicitly opt in to write (OTP
-> programming) support. eFuse bits are one-time-programmable and
-> permanently set once written; write support must therefore not be
-> enabled by default on arbitrary boards.
->=20
-> Boards that intend to use software-initiated eFuse programming (e.g.
-> factory key provisioning) must declare this property and must ensure
-> the required VQPS programming supply (1.8V to 1.98V per RK3399 TRM)
-> is present and correctly sequenced during writes.
->=20
-> Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
-> ---
->  .../devicetree/bindings/nvmem/rockchip-efuse.yaml     | 11 +++++++++++
->  1 file changed, 11 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/nvmem/rockchip-efuse.yaml =
-b/Documentation/devicetree/bindings/nvmem/rockchip-efuse.yaml
-> index b80fd8d1ae5b..8a7195245c84 100644
-> --- a/Documentation/devicetree/bindings/nvmem/rockchip-efuse.yaml
-> +++ b/Documentation/devicetree/bindings/nvmem/rockchip-efuse.yaml
-> @@ -46,6 +46,17 @@ properties:
->        this property is defined.
->      $ref: /schemas/types.yaml#/definitions/uint32
-> =20
-> +  rockchip,efuse-write-enable:
-> +    type: boolean
-> +    description:
-> +      Enable write (programming) support for this eFuse block. eFuse bits
-> +      are one-time-programmable; setting a bit is permanent and cannot be
-> +      undone. This property must only be set on boards where irreversible
-> +      OTP programming from software is an intended use case (e.g. factory
-> +      provisioning), and where the required VQPS programming voltage
-> +      (1.8V to 1.98V per RK3399 TRM) is guaranteed to be present and
-> +      correctly sequenced by the board's power design during writes.
+This series came about as we had a customer ask about using imx355,
+so I had a look at what was going on.
 
-Devicetree is not a configuration space, and I think this really does count
-as configuration - as the efuse will be writeable on every board.
+There was significant duplication between the various mode register lists,
+unused parameters around, and no support for advertising the crop
+rectangles through get_selection. It also wasn't using V4L2_CCI so
+had all the boilerplate for writing registers.
+The customer also wanted to run the sensor over only 2 CSI2 data lanes
+which required some rework of the clock setup so that the MIPI link
+frequency could be run at 445MHz instead of the 360MHz used for 4 lane
+mode.
 
-You mention the VQPS voltage. If I'm reading schematics and application
-notes correctly, this is a separate input used solely for writing efuses
-and _needs_ to be 0V (off?) during reads.
+V2 has some fairly substantial differences to V1 as I obtained a datasheet.
+Whilst some things worked perfectly, the datasheet declared them as
+prohibited. This was largely using dual PLL mode in 2 lane mode, and
+LLP is restricted to specific values. Link frequencies are therefore now
+derived from the PLL configuration, and pixel rate is computed from that.
 
-You mention "needs to be present and correctly sequenced", who is supposed
-to turn on/off that regulator?
+Being able to refer against the datasheet, I've pulled an updated version
+of David Heidelberg's patch for 24MHz clock support into this series.
 
-So you very likely need to define that regulator and can even use its
-absence as an indicator to disable writes.
+I've tried to keep it that the earlier patches are largely cleanups or
+minor improvements, and then we get adding 2 lane support, and converting
+to using subdev state as they are larger patches.
 
+---
+Changes in v4:
+- Added patch to avoid regulator/clock imbalance. Also means autosuspend is enabled
+  before first _idle call in _probe. (Sakari and Sashiko)
+- Lock state through the whole of imx355_set_stream so mutex is held in calling
+  __v4l2_ctrl_grab (Sashiko)
+- Fixed leak of media entity pads if v4l2_subdev_init_finalize failed (Sashiko)
+- Sashiko flagged a pre-existing issue that pm_runtime_get_if_in_use returns
+  -EINVAL if disabled, but imx355_set_ctrl (in common with ALL other sensor
+  drivers) checks !pm_runtime_get_if_in_use. Not addressed here as it appears to
+  be a widespread issue, and has more significant implications (have to assume
+  the sensor IS powered, but then not call pm_runtime_put), and this isn't going
+  to be the only place that needs consideration.
+- Fixed build break in the middle of the set.
+- Link to v3: https://lore.kernel.org/r/20260708-media-imx355-v3-0-9df386a623d7@raspberrypi.com
 
-Heiko
+Changes in v3:
+- Fixed a number of issues picked up by sashiko-bot
+  - Unintentionally dropped writing reg 0x030b, which is at the default value anyway.
+  - Swapped len and val in intermediate patches adding imx355_write_reg before converting
+    to cci_write
+  - Initialise colorspace in _open for try_fmt.
+  - IMX355_REG_TEST_PATTERN is a 16 bit register, but was defined as 8 bit.
+  - Call pm_runtime_dont_use_autosuspend on remove / probe error
+  - Missed subdev_lock in set_stream.
+  - Not addressed the pre-existing issues of double power_off in _probe error path, nor
+    potential for VBLANK update on mode change not calling s_ctrl if the new value happens
+    to be the same and therefore exposure range being incorrect. I'll look at them as
+    separate fixes.
+- Variable definition for format and state in imx355_set_ctrl got pushed into the wrong patch 
+- Collected Krzysztof's R-b tag for the binding patch.
+- Link to v2: https://lore.kernel.org/r/20260707-media-imx355-v2-0-1683ec07b897@raspberrypi.com
 
+Changes in v2:
+- Collected Jacopo's R-b tags and implement his review comments.
+- Add patches to switch to using the subdev state, clean up colorspace
+  (sets RAW), use a define for the exposure offset.
+- Added DT binding update to permit 2 CSI2 data lanes.
+- Link to v1: https://lore.kernel.org/r/20260506-media-imx355-v1-0-660685030455@raspberrypi.com
+
+---
+Dave Stevenson (20):
+      media: imx355: Avoid calling imx355_power_off twice in error path
+      dt-bindings: media: imx355: Allow 2 CSI2 data lane output
+      media: imx355: Remove duplicated registers from the mode tables
+      media: imx355: Remove setting FRM_LENGTH_LINES in the mode regs
+      media: imx355: Programmatically set the crop parameters for each mode
+      media: imx355: Set register LINE_LENGTH_PCK programmatically
+      media: imx355: Set binning mode registers programmatically
+      media: imx355: Remove link_freq_index from each mode as ununsed
+      media: imx355: pixel_rate never changes, so don't recompute
+      media: imx355: Remove redundant fll_min, and implement fixed offset
+      media: imx355: Add support for get_selection
+      media: imx355: Use pm_runtime autosuspend_delay
+      media: imx355: Convert to new CCI register access helpers
+      media: imx355: Set the colorspace in the format
+      media: imx355: Define the exposure offset, and use that define
+      media: imx355: Use NULL ctrl_ops for HBLANK as it is a read-only control
+      media: imx355: Compute link frequency from PLL setup
+      media: imx355: Support 2 lane readout
+      media: imx355: Switch to using the subdev state
+      media: imx355: Remove storing cur_mode in the state
+
+David Heidelberg (1):
+      media: i2c: imx355: Add support for 24 MHz external clock
+
+ .../devicetree/bindings/media/i2c/sony,imx355.yaml |   11 +-
+ drivers/media/i2c/Kconfig                          |    1 +
+ drivers/media/i2c/imx355.c                         | 1522 +++++++-------------
+ 3 files changed, 503 insertions(+), 1031 deletions(-)
+---
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+change-id: 20260506-media-imx355-a30f5be3deda
+
+Best regards,
+-- 
+Dave Stevenson <dave.stevenson@raspberrypi.com>
 
