@@ -1,110 +1,103 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C0F2F7F1E
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 13:58:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6960132E13B
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 13:59:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784123931; cv=none; b=F8kZ14fw2LLHnwLKscIrUlmZD4aic4kTsk6utG9HVRpGZY6M3D3sZnbtflG3+iZ0bvUKcgJ59tDLX5gVLgJfwNWz8Lkco+psRI+0Vy0IW+E/Hc/eR/vPgH92ICZdJhVj2DDV/XfbYYKqo2FLs3RJeuzIhV0T42D/2436CA5gjKE=
+	t=1784123951; cv=none; b=PmXPfjcZ8vYBsamVymOoS729mmecWgBhEYipOBOftFS729YbZJuavIIwNZq26z4G04k4+e2IpPRmALstHTKV9CZtNtB74mqmYDpCfSbgtuRmSUgjYGqVKzkcJpg3sybmFRH+ThDxGwsZg//D6MjuNtJB6BCaMTuY+D0G2w/vHRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784123931; c=relaxed/simple;
-	bh=lQHqeGCwF74T84TftX7GCSfuMO+83Vv2WQ/yAHb41qg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=C5O0jdu/sfLfFr5PoaZJbYAjXV9o/ghMwDnpgP7bsPcdADSyrg0WqkAfwOZhy0Zrmfz8cRvsWIynheIIJbtKofGKZjHHkcKB8q6MKgSDEyL4Hel5T/yRBOlaNwOJAAtYnP0kJ7ZMh7HAmkqP3KvacWJ3DTgKagBmZuQjkeJ5VXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kYo9+TSG; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784123951; c=relaxed/simple;
+	bh=QYrx3la5ntAKtVZEZfw1wXSd0ShgpB97LVU+Yz+xAdE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=llg/YxpJArNu87z24yZgsKtJTd6MzDZ67SDsXtAjdPu0eD+bYN9xlsHflV/6I8eBT/p9yFfMybh4XRGQW9y0aBoYXEmH5/zS99vt3ZHlknriiZGSPfKJMlM/3M3wNTrqvzIbJP8QQ5CdgM3DVf2Hmp59tVFlN23/slVwJjgB/1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=Gk2uER6O; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kYo9+TSG"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-493f431e317so16492675e9.0
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 06:58:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784123928; x=1784728728; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vktCBlgvyKkIFm950l6EwI7HLRpSzcsJ6rxKehyjGvg=;
-        b=kYo9+TSG1YyLN2IDkVZdNEAmKHgu0d0UUiz/k1ucdwWMV1nrFlnOzjjjMBQ2EhYReF
-         hk/00bDrnXBtf3NWtpVofTbFd5DGDeZXVLvRhE0J8aMzQbABNwdW2jThGufpq1PNUTkd
-         m+8SRyuBBjqaJk87343kp5J/sdCtKQjl6N6MBnROWCDWfcIVMRS+i53xl9FU6HTtuFHa
-         LkURKfeBpzHu6LL4pA953iB9/jMOoS0w8q9FnuHhzy08D8xb7fr5nVTZkk39AEHrimJq
-         COK4+pwhF/Z2LRsI44cG8O5WMpcEUp8rvREqfk46pHYe3/3jg+/LLk+4g6YU4MeTcBgX
-         Du0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784123928; x=1784728728;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vktCBlgvyKkIFm950l6EwI7HLRpSzcsJ6rxKehyjGvg=;
-        b=rLbvfzGg7VfR2/t5ywzwJi3Ac4UrBtnvQANUBpc7qHTdU3aFVzVclnMkuxd7zeEg+j
-         67G+EvMUYVSO0/QxpOevchc/y1WfDKB8KzUKxfQdrOVEhxqR8OTuq9Bhj1vAaLixGKg5
-         7F6xmKi9BNlPQEFiM0ugGDR3MNr641MhUkUEGqoH/zjQ+4piJdnSDYLTiLkpn4o8hkcY
-         /aMra4mcRMCPC25xZZio57fU/5Ksxs1jmt17GQWb6nbPIi7U4ylPF36kDPSmAi8Diic8
-         Gw7B/kaPUcRjLvG0oIYbLajlZ0AGXY8TqMD/yYJZftCvOnjQqrw/D3wCT6lIqO91U/rd
-         640Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqGucnhYFnqgJ/j/PaypE8PIrIOj06EaV1WMqwXgk4SVVukNC13YZPFhH9hSqkF7HdbUnJzEW8bswO+@vger.kernel.org
-X-Gm-Message-State: AOJu0YzZXU7xsvYTDDrp77ICymU003zoiEO3m1Jeu1FHJ6IMATPMFNfB
-	Qk3O8Ye3/g4p1fRss6amIH7xlsZpZRSPIhqdaBd0UuRg27u8DY0LU+UJ
-X-Gm-Gg: AfdE7clOWdpXN0lx9krRWnQqMTD7jjXDvNPwYP30CmjT5KFZQ8m3S7p39MVDBWwwzYp
-	ZExLGjZwSzIQHxTm8xfcy53orgPke/QwsWljzeE9AK5nrdXsg17QwE9WlTr+qsCvDXZrg+ZAizX
-	O1xyjf+CrfpsF5V8HTHorfF/wPuylUCr2qZeT2saohLZ01YbHej3DBAbHYZK+k+tpiJ9er2gLZd
-	orvfyrPbimTp9PfuiT1LKjspjQRcie3bfmlUnl83icL2XI8yxz+wLvTf5gjw+ZnOUi9hcOOyFoG
-	UR9Tr0fqiZHaj9YFlpNhztiav8iJobUslv6CTGhbMPUsSadDh6NGaYgrn2mUnB14bod7dOI5xSb
-	IGrTfAA5FXbbLuZy76pz5v/jc+naT9Cxi9wl8vF4biQerBiWPfKDPfW1dBRfyqEMnEvJ+IyGnBV
-	eZu8QVsM28Hxoddt3WqIA8peu2cQsHjQz9efN5i3/qZiTiWyVY8edRHc4FvULIRxmGNjtPYOMUw
-	Wk5QNKHWLQM8nNXKKnSSdfSyYYLk2yrskSciANM2Rrii0nNT+jLsHy6IZiWvtaeJr51coApy/Oe
-	yDRW9MY+HoiYk7ICByuVjZu7fI6EDRSCBLZOOkyqCJp8l4wDclymYpVi1HVXY3zITOjbi2095CC
-	B16hqvPHFeRittWwSIan5eXA=
-X-Received: by 2002:a05:600c:e557:20b0:493:f822:ac5e with SMTP id 5b1f17b1804b1-493f8818052mr137138925e9.23.1784123927767;
-        Wed, 15 Jul 2026 06:58:47 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4953df0fc6esm45735865e9.9.2026.07.15.06.58.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 06:58:47 -0700 (PDT)
-Date: Wed, 15 Jul 2026 15:58:45 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Esben Haabendal <esben@geanix.com>
-Cc: "Jonathan Cameron" <jic23@kernel.org>, "David Lechner"
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- "Andy Shevchenko" <andy@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Nikita Travkin" <nikita@trvn.ru>, "Maslov Dmitry"
- <maslovdmitry@seeed.cc>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 3/4] iio: light: ltr501: Add ltr329 driver support
-Message-ID: <20260715155845.00003526@gmail.com>
-In-Reply-To: <878q7cmk63.fsf@geanix.com>
-References: <20260715-liteon-ltr329-v2-0-d18af55edab5@geanix.com>
-	<20260715-liteon-ltr329-v2-3-d18af55edab5@geanix.com>
-	<tsVvSFcobT5NwJPHCbN4M8cwEznnquSJ6o4W-MpVcf7z5q_RwC6XI-NNBTwrQnEBed-Stn56TW1e4iSdtzN54Q==@protonmail.internalid>
-	<20260715145324.000005c6@gmail.com>
-	<878q7cmk63.fsf@geanix.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="Gk2uER6O"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=Ves8
+	I4HQSDwuYcpoElbBGp3o0zSoq6p668rnJaElwDY=; b=Gk2uER6O3dnGG4Tzay8x
+	hnUHTqgkyHVmeGTwh1Ho+Tz2jv88pfPQ+HS/Hd8CRRh6ZGxFwZ3/wkDObbkh06A/
+	1G2c2ACo5KhAJ0PxvGFC8SQINdL1VmNDfx/CzKHypgzPgbht7jWrUe5Zx3/fu89C
+	HudCFiACI2US140f4pGY7WnS7yjIlWQZkOT93UE+3nrMSV9NtuSy9edXpBM5JSuV
+	as/Ouz3anP8MHll4bHlkPqBKSScOPcQoDrzc5vQP4gFJBuNAx92+csFNbxrhQ4ei
+	plqjTU/OxG5vIijdTXUv62btHFrDBnGFfYThQlP6O80oHzlPH+UEX4U8Kr13FAth
+	Kg==
+Received: (qmail 715327 invoked from network); 15 Jul 2026 15:59:04 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 15 Jul 2026 15:59:04 +0200
+X-UD-Smtp-Session: l3s3148p1@bPXjuaZWOA9tKXCU
+Date: Wed, 15 Jul 2026 15:59:01 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Pascal EBERHARD <pascal.eberhard@se.com>, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
+	Herve Codina <herve.codina@bootlin.com>
+Subject: Re: [PATCH v2 0/7] clk: Add support for clock nexus
+Message-ID: <aleSJafTTPe9Keas@shikoro>
+References: <20260710-schneider-v7-2-rc1-eip201-upstream-v2-0-b4680787377e@bootlin.com>
+ <alNN5qxBJ4EsB3Li@shikoro>
+ <87ik6ge7kd.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3CdlzGtZ2+z9JVFH"
+Content-Disposition: inline
+In-Reply-To: <87ik6ge7kd.fsf@bootlin.com>
 
-On Wed, 15 Jul 2026 15:55:48 +0200
-Esben Haabendal <esben@geanix.com> wrote:
 
-> "Joshua Crofts" <joshua.crofts1@gmail.com> writes:
-> > Just a small nit, even though the list isn't exactly ordered, please
-> > try to add the new include approximately where it would be if ordered,
-> > i.e. array_size.h goes to the top. Additionally, you don't need to add
-> > a comment.  
-> 
-> So alphabetically sorted? And even before linux/module.h?
+--3CdlzGtZ2+z9JVFH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Yes, includes should be sorted alphabetically (or at least as much
-as possible), not randomly or by importance.
+Hi Miquel,
 
--- 
-Kind regards
+> that all the drivers work on RZN1 hardware. When we send this out we
+> will include a link in the cover letter with a branch to test,
+> connecting the clock, irqchip an crypto changes together. Don't hesitate
+> to remind us for that testing branch if we forget to include it!
 
-CJD
+Will surely do. Sounds awesome, thank you! Bonus points if you could
+also shorty summarize how you tested all the stuff then.
+
+Looking forward to it,
+
+   Wolfram
+
+
+--3CdlzGtZ2+z9JVFH
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmpXkiEACgkQFA3kzBSg
+KbZcHA//dAis+ekgGQ0PPkVMFajQvqo7G8CsFDkqEZNV8a0wtK+CAnJ3sF9ZnA/9
+5THQaosfNakifzGHMcKlvn+U11IJhQHbg0Bcswu8hbjWN2zorDFqQ0JcvyqCHC1Y
+PFoirBvIDARIeWWZrJUon+uR4JRb9TR1ERnYKJ5or/4e5eqVOZJQQkf/a40tTIq6
+qxvd3rK8cn3dkBur8DNCTCDraen7a8iw61DFJeUL4kZ3a6ILzDp68rN1uY3LmOhH
+ZMHfzqiLBkT2wyJEpQhEKrBy4/tarHyKBYcHJDsObDnByz3TqP0pXAloEdRkZAF8
+4LnNHbR0TeQjvO99WXDfphyNtfoiJKRSLYIFebuiKSO+sw50yFnTqiUU7xOAZOyx
+D+ztbEAyanEivlkDwGk5EcSPHQFY6s30wmzmk9b6r3Lr7QKHsiNs/yLX5p9BKvCV
+hvPTvwSfKPWpNVUZZajD8GCLXlhyRdzQMLEY5RS5ne/zXYyW1uwHAs1oIuC3OMMx
+EpIdMFTkylPcykTOZrLo7DnjJFsv3dZFKg1B2qmlVlac3k19CY+vOCslBvVOMAQf
+TedFryjC44eu1JK0/L3iCF8+Cky/lNn0HuYTTUA874qpNMfrBLCKPQagqGac+Qad
+JEyucuyYS5pbYLW/LEtbvPmn8ZPi8NDmr+w//4mQ89wvIn4KdN0=
+=cvdn
+-----END PGP SIGNATURE-----
+
+--3CdlzGtZ2+z9JVFH--
