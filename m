@@ -1,132 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 923BB3D9552;
-	Wed, 15 Jul 2026 08:54:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E39903DBD6F
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 08:54:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784105679; cv=none; b=sx5bxY8vfYqKiCYko5/iF7T8LZyj+XNmt+hQqd6iJKRpMs0YSucsAjttUxReDf8EWfC7AXYOxk8UT1kLR864BJprX+kg2YdBf0qvw6WGlgom5cm8ghgcR2b+eKdR9Lz+G0jB+9ITXRx5Q1bnbczYmM1iMn1z+XvdKE9x4A4rx5M=
+	t=1784105685; cv=none; b=OxS9i+Q1HKIMncOG/HrP9BbR8dxrsX5YroME5upR9vfNxWTL41s6OM4gFmfqbZqU26HO8B65/PcpPeR3XKhKioV0dql3J1sXNzBq7kgUU/646mPXWgngAFIr3YpL/8q2dG8lzwHEeg4gwdsJ85wVBsZDUyl19GVcNJJxsnf7oJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784105679; c=relaxed/simple;
-	bh=kKa5i3O+lTaNX3MBMykdBIvndb2viq76Ss6Dd3Jb5Oo=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cyxUFDv0CE0JFOnQEHJ27pL5iuXhOhXrui+89uPHFTr6fmPi83mRz/BttF2Pg8YtkZGfFC9IW7fPS+Aek6NOhT+aLFMkWNZjpZeHdwwZJz99SaJZ06qA2uleIPxmEFeZVkM1tpwACt38Pu48jQoHLosiqrD2mEROUDm+DyrD0zA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pf7KbW7D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784105685; c=relaxed/simple;
+	bh=zZejQ+aVWVSSNX1WygLHkrfwpLKJjoR2C2VYQ+E3BZQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CSm+lJyCH0MlnI8zCBTIWCq99Gf/KBflLMeJ7DCGMQabRPJT45hWZPs5HDvlTMYSLKq89ROX/+5e5uyfkFTZ4faRTYOn4FRGuSppkuq2PlWjFYwXPAjL0l44AlbS3BqjOWn7YKRB/e80hNmMXIDzzFm+53XJgyhjlbxRPw0Llvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ZXCHVCMn; arc=none smtp.client-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pf7KbW7D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 186081F00ADF;
-	Wed, 15 Jul 2026 08:54:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784105677;
-	bh=p4bbLxO6+Mcw6D/fGu0RpC/0XogS4o0qXioEZd6VANI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Pf7KbW7DHueek+8LJwHPtlRFoPHHsFa5/IENerYDmRvzWGV9IJzGXS/b5kNHTHylY
-	 4RytBAE0iCbWf8p+bFuYDs9E9rUxGB+jJrLMiUCEzfarYkg5pDmnSkRw8l6wOonAye
-	 tA6Xunp67X8YVH1cSadYKnQpICyYp11EFn0kUkXvqOR9+uZtbmQeEa3XChgMuqboUk
-	 CFTKCYjXPbebDVhI9ejCSQ5JXULV+SQky1H2SYvgSRq1fPhZyx8HPMjAvB1cDyAEhL
-	 Z9FOXFYd0aCfO+kUT2q723wJ4//qLNEYdNs6ts5jKvwCGf7e8Ss4bmf2Ok9ZoG9mLa
-	 ZCx2LBqO45zGQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wjvNz-00000005DLs-0IQS;
-	Wed, 15 Jul 2026 08:54:35 +0000
-Date: Wed, 15 Jul 2026 09:54:34 +0100
-Message-ID: <86cxwoocol.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Sneh Mankad
-	<sneh.mankad@oss.qualcomm.com>,
-	Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio
-	<konradybcio@kernel.org>,
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ZXCHVCMn"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-845b6d9bf39so1846554b3a.1
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 01:54:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1784105681; x=1784710481; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PR/rf/FwXUFRek4b9eCK6DZXZyozjvhZuepJNtfrJR4=;
+        b=ZXCHVCMnM2Rmhrt+5rSTUruCNAGpx/zKEnsicqNkAeUwqpNzRNwz9l6SegOgcv1EEK
+         LG5RB1pJU6rd27Tob1oTWJkLtRdZwciIn0OEh1BKXaMpLv/sD7pbP5KSh8N1+GFmFR0W
+         fjMObK0JH9k2Rs0+NDbRHKIG1YAgvOiaxNbRs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784105681; x=1784710481;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PR/rf/FwXUFRek4b9eCK6DZXZyozjvhZuepJNtfrJR4=;
+        b=BMYi9RtA8U8h4gnEpP54ExQPAkkmidMlBTmDCcAHJvS8Elo6O6PI3+kc5XGBqzylAu
+         sgcdqM1ovWTfhU4CqH81BplnH5IjQBUXMcugVuqrJcdYBob1DEBZof4yrmbIqBUqnhTt
+         pYYsYBiGnVMn20GD23bVcXCyg6CPBALbqyy9XIYcwmqH/Vnm1xoaJ8rNwJ/62uCg65V7
+         dUIPv8mITPu+bJooIo4USaksuWHEbuWWnlbilsXhNDFDOxd9XcU03z6VLlF7izvmnDT3
+         kHcVbgZwNI8rpi4EMH+F4yclRUfJGu0GWz1z6nWeIb92XIutQAZdvSEK5CHogT6ihP2Y
+         on6w==
+X-Forwarded-Encrypted: i=1; AHgh+RpBzkLJts3rfocSRW+N/MPVlfbGheYl7owiWsnYb4tbx9Py7CugXStndR2HrM6EdkLUmg5AtzssyErx@vger.kernel.org
+X-Gm-Message-State: AOJu0YxFFZJHgAMKvSn7/gCvplreRT2Jmz5PiJOsTje2Spt24AFMkSaO
+	zQLGMIs3fK+sT4nt8ImAs3k1wREyOr+ZKg5RRoECOX3zPKKzITs3HR2evz1QWatd5A==
+X-Gm-Gg: AfdE7cmY9m70LtMDA1ucDnCbH7TU1GYDVP6qxsADvnJYbeNWVik6O1Z2pnZBmxq5ftu
+	cRTPi/HrndIis4bOPhjZAQGcawhuYPo/Nh7uKPIU9XaGBqdd779XxieupSIqsBaRUqFXgp47Zhm
+	yl5sin5n8ZrnC20phQq8j19io5rsyCVasZtU6RWCzkyXbHLKSh7kCPfn8y7Iv1sxOg7U7LpL24H
+	Dwc7tA3QC84rMdVJgHuPeQMwJQwXqgE9m8B0MCi5auNPQdGSkQ9Up/fg3/ryxjDMrJ5Cynl7Yds
+	e0WBDW0asQ6fax1bNuwumgIx349P1zJ+L+aXE3vELL1wVtktqAOWz84OTbi1pARs5gG60i6mtUV
+	Y50PU3QsC+qG7m5LRhJEjsTB7cICq4r6toUU7WHqSkuNsycwuu3v0ltkx+twrWcV9QPwdvaitul
+	MejFwj1ZpjohNr5xHZf8t6islUgNlv5accMRJBHsVXQvoyEmjPyjdGanjtZb5W07w9HVvdCA==
+X-Received: by 2002:a05:6a00:2384:b0:845:3033:6cbb with SMTP id d2e1a72fcca58-8487036fc99mr19629780b3a.11.1784105680847;
+        Wed, 15 Jul 2026 01:54:40 -0700 (PDT)
+Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:47d7:4aa5:a6f8:2279])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84a4f819117sm2757491b3a.59.2026.07.15.01.54.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Jul 2026 01:54:40 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
 	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski
-	<krzk+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Gleixner
-	<tglx@kernel.org>,
-	Shawn Guo <shawn.guo@linaro.org>,
-	linux-arm-msm@vger.kernel.org,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Wei Deng <wei.deng@oss.qualcomm.com>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	linux-usb@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/7] dt-bindings: interrupt-controller: mpm: Document power-domains property
-In-Reply-To: <3dac25b9-a464-4350-aff5-0ada4dc1d65e@samsung.com>
-References: <20260713-b4-shikra_lpm_addition-v1-0-3d858df2cbbf@oss.qualcomm.com>
-	<20260713-b4-shikra_lpm_addition-v1-1-3d858df2cbbf@oss.qualcomm.com>
-	<87ik6i6i22.wl-maz@kernel.org>
-	<CGME20260715063901eucas1p2a4c2d72e4d9dbd9fd2f1e686d1a6c89c@eucas1p2.samsung.com>
-	<3dac25b9-a464-4350-aff5-0ada4dc1d65e@samsung.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH v5 05/16] usb: hub: Return actual error from hub_configure() in hub_probe()
+Date: Wed, 15 Jul 2026 16:53:35 +0800
+Message-ID: <20260715085348.3457359-6-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.141.g00534a21ce-goog
+In-Reply-To: <20260715085348.3457359-1-wenst@chromium.org>
+References: <20260715085348.3457359-1-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: m.szyprowski@samsung.com, sneh.mankad@oss.qualcomm.com, ulf.hansson@oss.qualcomm.com, andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, tglx@kernel.org, shawn.guo@linaro.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 15 Jul 2026 07:38:59 +0100,
-Marek Szyprowski <m.szyprowski@samsung.com> wrote:
-> 
-> On 13.07.2026 17:11, Marc Zyngier wrote:
-> > On Mon, 13 Jul 2026 11:25:41 +0100,
-> > Sneh Mankad <sneh.mankad@oss.qualcomm.com> wrote:
-> >> Remove #power-domain-cells property and add power-domains property for
-> >> MPM device.
-> >>
-> >> Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-> >> ---
-> >>  .../devicetree/bindings/interrupt-controller/qcom,mpm.yaml          | 6 +++---
-> >>  1 file changed, 3 insertions(+), 3 deletions(-)
-> >>
-> >> diff --git a/Documentation/devicetree/bindings/interrupt-controller/qcom,mpm.yaml b/Documentation/devicetree/bindings/interrupt-controller/qcom,mpm.yaml
-> >> index ebb40c48950ab3a8fc86f5708acfc33c33d68993..3f9645fbc3c20633077aaa589e5d5a43928dab51 100644
-> >> --- a/Documentation/devicetree/bindings/interrupt-controller/qcom,mpm.yaml
-> >> +++ b/Documentation/devicetree/bindings/interrupt-controller/qcom,mpm.yaml
-> >> @@ -68,8 +68,8 @@ properties:
-> >>          - description: MPM pin number
-> >>          - description: GIC SPI number for the MPM pin
-> >>  
-> >> -  '#power-domain-cells':
-> >> -    const: 0
-> >> +  power-domains:
-> >> +    maxItems: 1
-> > What makes you think it is OK to change an existing binding in an
-> > incompatible way?
-> 
-> 
-> Ulf suggests that this has been modeled upside down in the initial
-> submission:
-> 
-> https://lore.kernel.org/all/CAPx+jO9d1qH12mxg-n1rkbp6Xd__sdrSMeoc7CPELE+jgxRYHA@mail.gmail.com/
+The addition of power sequencing descriptor handling in the USB hub code
+requires dealing with deferred probing from pwrseq_get(). The power
+sequencing provider may not yet be available when the USB hub probes.
 
-Sure. We have collectively fucked up a lot of bindings over the years,
-mostly because of the lack of accurate documentation and people not
-giving a damn about the correctness of these descriptions. I'm glad
-that Ulf is now able to make it right.
+Return the actual error code from hub_configure() when it fails, so that
+the driver core can notice the deferred probe request.
 
-But that is not a license to invalidate DTs retrospectively. We don't
-update DTs in lockstep with the kernel (I *never* do), and something
-that existed must be supported in the long run.
+Also rewrite this section into the standard error handling pattern:
 
-Properties can be deprecated, but:
+    if (error) {
+        # handle error
+        return error;
+    }
 
-- they must be kept in the binding
+    # do more work
+    return 0;
 
-- drivers must still honor them if they are present in the DT
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+Changes since v2:
+- Rewrite into standard error handling pattern
 
-Thanks,
+Changes since v1:
+- Moved "int ret" declaration in hub_configure() over here from the next
+  patch
+---
+ drivers/usb/core/hub.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-	M.
-
+diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+index 36342c5718bb..a260148091c5 100644
+--- a/drivers/usb/core/hub.c
++++ b/drivers/usb/core/hub.c
+@@ -1872,6 +1872,7 @@ static int hub_probe(struct usb_interface *intf, const struct usb_device_id *id)
+ 	struct usb_host_interface *desc;
+ 	struct usb_device *hdev;
+ 	struct usb_hub *hub;
++	int ret;
+ 
+ 	desc = intf->cur_altsetting;
+ 	hdev = interface_to_usbdev(intf);
+@@ -2003,14 +2004,15 @@ static int hub_probe(struct usb_interface *intf, const struct usb_device_id *id)
+ 		usb_set_interface(hdev, 0, 0);
+ 	}
+ 
+-	if (hub_configure(hub, &desc->endpoint[0].desc) >= 0) {
+-		onboard_dev_create_pdevs(hdev, &hub->onboard_devs);
+-
+-		return 0;
++	ret = hub_configure(hub, &desc->endpoint[0].desc);
++	if (ret < 0) {
++		hub_disconnect(intf);
++		return ret;
+ 	}
+ 
+-	hub_disconnect(intf);
+-	return -ENODEV;
++	onboard_dev_create_pdevs(hdev, &hub->onboard_devs);
++
++	return 0;
+ }
+ 
+ static int
 -- 
-Without deviation from the norm, progress is not possible.
+2.55.0.795.g602f6c329a-goog
+
