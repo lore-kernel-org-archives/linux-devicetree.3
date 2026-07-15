@@ -1,211 +1,153 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75979320CCC
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 19:16:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784143014; cv=pass; b=amlKiug1DfgnofLLk+GwkqVq6SUx1JCzPDNAe7DQWau2XuJTKhIyOSeLEIU4g1SAuhELRiiumS0hD6oFSu41u5UVuVcagUOk2ELS+dm4nFXk+KEOjl4EOmjnguvugYXbOkWVomltSyfPtrYZwwiWggNffxjIv8tRsiHnpcc1YrQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784143014; c=relaxed/simple;
-	bh=aIrgBTDaGKbHi60MuWiqEbjkCwmSMECQr/l0VD3Vtyc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b2JjqVcsWKphOIG2X2c+9Bc9lrO3NOGLb1jWy5uifyP4VECPVpDsIX7jND+TS6P2Jsc3jwjI7CvgMHcFDivjAMVYo1CqgoTsxsf+pavlno9R4gLT3dyqzxna+u2i7Wbh+XXArW+aRj/olSg8SJ5QcQKNgJS2h2HZgaGCqYwKpeA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=kYjS8uHy; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 482633B8939;
+	Wed, 15 Jul 2026 19:19:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784143194; cv=none; b=onS5zSi1oZrJyePoGKc5lyG1BTUx0wTiVBXrDyBNhchx5saXbXgxHE8Fr7LV5N7P19DUydJZ1t61AmVPDJ+V4n3r80asSPXqmdoeAOtk0qzPxfYH7bJ3rxD4KRF6YrK5fNMLS8u/v4VOrAgtxr5BBfiF+aMGANjL6XLBcUXTBzM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784143194; c=relaxed/simple;
+	bh=11rAngJJuF5zb0hMQIxjA6jLR+Jg2CSuzRhnrpzl47M=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=NDW89M3fJ5/iKTZtx9Tum4frj13FU0zxuYcYDhCrwTNNT4IZqahWAJ1lrJyuEju1QyZh8TwgKnJwJZBGFDzj8nHEtFPIl11SB9zP/F1okcoplnLEARDN2Yr5rmRJFhWQACBL/rQnXBnA3WAhhXS3xedAWnWQsTGBEi8S9YE5F3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JBsWnSwh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="kYjS8uHy"
-ARC-Seal: i=1; a=rsa-sha256; t=1784142993; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=LYcr0N8qbpdREd0byDKZ3MBm+lLW9I0Y9sk4UJyNU6hrgKqxD6dc96GZBh/zmhyMrhLhYs0lds4fo/RVR4DESodjeia2fOivhsi74WoKjl25INVLtk7Jcc915N9b+rDLG1T9pZJQJjInr5Zk0juvIDn/ZUcVpW1Tf1JdDfa86yE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1784142993; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=09JIm2bYrw4hSvnoipMr6olQgKBUeyKwwBq6wlZYhsg=; 
-	b=LCy4+XqYQbv511aYJOdVy6qU9FEkHnpwBJD60ExMUy94CrLPTW7jQdtGVhFwHnPEURtXajTxVpQGEBlLhY4zU0nzbB9JZggwhfCgsVsfsNM4KnLUDiCxIbIfx8AHAtGbUMi4gSU8obDlfHXLHRmAL69XjtWJuoDHQEcSXJGUZBU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784142993;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=09JIm2bYrw4hSvnoipMr6olQgKBUeyKwwBq6wlZYhsg=;
-	b=kYjS8uHyB9w2WWbGcHw0EBAtbE+h+cUbFLCS9pyg/ddfz987xPANA7b2J2EGXeMG
-	XMi4oAKUWHtyoRXNW0h8ckyHkaw+al4s0TcarRkjfeIieHp+dbqeKwTKx5/HMmhW4Ld
-	l9DazjDh3mOWR8GbYA72dB9jbV1STjTOiO7drwKM=
-Received: by mx.zohomail.com with SMTPS id 1784142990210370.495977626671;
-	Wed, 15 Jul 2026 12:16:30 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 0C8A6180820; Wed, 15 Jul 2026 21:16:27 +0200 (CEST)
-Date: Wed, 15 Jul 2026 21:16:27 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	kernel@collabora.com
-Subject: Re: [PATCH RFC v3 09/10] dt-bindings: display: rockchip: dw-dp: fix
- sound DAI cells
-Message-ID: <alfYxIkbJMA36qdt@venus>
-References: <20260612-synopsys-dw-dp-improvements-v3-0-dc61e6352508@collabora.com>
- <20260612-synopsys-dw-dp-improvements-v3-9-dc61e6352508@collabora.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JBsWnSwh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB1281F000E9;
+	Wed, 15 Jul 2026 19:19:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784143188;
+	bh=LV4KiCr98vyYbmX2BOTe+goz8+ntsRbpB7ogofgrxjk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JBsWnSwhf84B1euVOkLJVtliuwD8z3CTeXCsY8byjZP1DfT4PwYBYtFfsUwP6u4Ry
+	 wt7Yl4VPRDNOljtWQqm/kzyzFawNVYVOG2Hx3+PJbKFXviS5lFp9sHjeinXq8BXClc
+	 SyuO+bcoKmwSdf6LzUFzCHwHgQSXxsuDzmFJL8o7n7L2vdRSeWBWgoEbrbVkqmqU1C
+	 1g7pFmU5N37uOHGgldn9wp6yw8wYdV7TxcHQbc+IlG1KGRrLNqf6iLkfj/k+i7wCe7
+	 5iLk5zA9zgnXYnQYUtmwhYzG+MkNnlcm1criBqM4AOWsDKXwRk0wEO2MuU2EZmVrO6
+	 +Sdl7k96KMm+Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/3] arm64: dts: freescale: Add support for Variscite
+ VAR-SOM-MX8 QuadMax
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
+Cc: Frank.Li@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, robh@kernel.org
+In-Reply-To: <0dab340bd29e1f4b1fab05a29532cad3177abc7f.1784142385.git.stefano.r@variscite.com>
+References: <cover.1784142385.git.stefano.r@variscite.com>
+ <0dab340bd29e1f4b1fab05a29532cad3177abc7f.1784142385.git.stefano.r@variscite.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 19:19:47 +0000
+Message-Id: <20260715191947.DB1281F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wmlwreimakep7qlw"
-Content-Disposition: inline
-In-Reply-To: <20260612-synopsys-dw-dp-improvements-v3-9-dc61e6352508@collabora.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/284.121.97
-X-ZohoMailClient: External
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The `usdhc3` WiFi SDIO host is marked `non-removable` but assigns =
+user-space WiFi initialization GPIOs to its pinctrl state, breaking initial=
+ization.
+- [Medium] The statically defined `memory` node declares 1GB of RAM, but th=
+e `linux,cma` region is placed strictly outside this memory range.
+- [Low] The audio regulator node is named `regulator-3p3v` but configured f=
+or 1.8V.
+--
 
---wmlwreimakep7qlw
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH RFC v3 09/10] dt-bindings: display: rockchip: dw-dp: fix
- sound DAI cells
-MIME-Version: 1.0
+--- Patch [2]: [PATCH v5 2/3] arm64: dts: freescale: Add support for Varisc=
+ite VAR-SOM-MX8 QuadMax ---
+commit e6616ac5ca38d036f01cf07cc3cd9713d0d5a5cc
+Author: Stefano Radaelli <stefano.r@variscite.com>
 
-Hi DT binding maintainers (& Dmitry for his DP background),
+arm64: dts: freescale: Add support for Variscite VAR-SOM-MX8 QuadMax
 
-Can you have a look at this please? It has been a month, since I
-send this and multiple months since I send RFCv1. Would be good
-to have your preference here, so that I can implement it accordingly
-in the next version.
+Add device tree support for the Variscite VAR-SOM-MX8 QuadMax system
+on module. The module includes an i.MX8 QuadMax processor, LPDDR4 memory,
+eMMC, Ethernet, audio codec, and WiFi/Bluetooth connectivity.
 
-On Fri, Jun 12, 2026 at 08:00:55PM +0200, Sebastian Reichel wrote:
-> The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
-> possible DAI interfaces: I2S and S/PDIF. Thus it is needed to have an
-> argument to select the right interface.
->=20
-> In case of RK3576 this is not enough though. The RK3576 has the same IP
-> as RK3588, but configured with Multi Stream Transport (MST) enabled for
-> up to 3 displays and thus has a total of 6 DAI interfaces (I2S and
-> S/PDIF for each possible stream. Meanwhile the RK3588 does not support
-> MST and thus has only 2 DAI interfaces.
->=20
-> The binding update right now only supports the simple single stream
-> transport (SST) setup. To avoid further DT ABI breakage (or complicated
-> bindings supporting different number of arguments), it's probably a good
-> idea to take MST into account now even though the upstream Linux driver
-> does not yet support it.
->=20
-> I see two options:
->=20
-> 1. Adding yet another cell, so that we have the following:
->    <&dp_ctrl [display_stream] [i2s_or_spdif]>; potentially append
->    extra input ports for MST video data to existing ports node
->    (e.g. port@2). I would only handle the sound DAI part in my
->    patch and basically use '0' for the display stream and just
->    leave the option of using '1' or '2' once MST support is added.
+Link: https://variscite.com/system-on-module-som/i-mx-8/i-mx-8-quadmax-quad=
+plus/var-som-mx8/
 
-My guess is, that this is preferred.
+> diff --git a/arch/arm64/boot/dts/freescale/imx8qm-var-som.dtsi b/arch/arm=
+64/boot/dts/freescale/imx8qm-var-som.dtsi
+> new file mode 100644
+> index 0000000000000..28964de3b080a
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8qm-var-som.dtsi
+> @@ -0,0 +1,531 @@
+[ ... ]
+> +	memory@80000000 {
+> +		device_type =3D "memory";
+> +		reg =3D <0x00000000 0x80000000 0 0x40000000>;
+> +	};
+> +
+> +	reg_audio_supply: regulator-3p3v {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "wm8904-supply";
+> +		regulator-min-microvolt =3D <1800000>;
+> +		regulator-max-microvolt =3D <1800000>;
 
-> 2. The vendor kernel creates a sub-node for each supported display
->    stream and puts the ports mapping as well as the DAI reference
->    into that. This bundles all information for one display stream
->    together, which creates a clean look but the subnode does not
->    really describe any real thing in the hardware.
+[Severity: Low]
+This isn't a bug, but the node name specifies 3.3V while the configured
+voltage is explicitly 1.8V. Should this node be named regulator-1p8v
+instead?
 
-FWIW that looks like this:
+> +		regulator-always-on;
+> +	};
+[ ... ]
+> +		/* global autoconfigured region for contiguous allocations */
+> +		linux,cma {
+> +			compatible =3D "shared-dma-pool";
+> +			/* VAR-SOM-MX8QM doesn't have 1GB variant */
+> +			alloc-ranges =3D <0 0xc0000000 0 0x3c000000>;
 
-dp@<address> {
-    props-from-this-binding;
+[Severity: Medium]
+Does this CMA allocation succeed if the bootloader doesn't dynamically patch
+the memory size?
 
-    /* SST or MST stream 0 */
-    dp0 {
-        #sound-dai-cells =3D <1>;
-        ports { ... };
-    };
+The memory@80000000 node declares 1GB of RAM (ending at 0xBFFFFFFF), but
+this CMA region is hardcoded to start at 0xC0000000, which falls outside
+that default 1GB range.
 
-    /* MST stream 1 */
-    dp1 {
-        #sound-dai-cells =3D <1>;
-        ports { ... };
-    };
+> +			size =3D <0 0x3c000000>;
+> +			linux,cma-default;
+> +			reusable;
+> +		};
+> +	};
+[ ... ]
+> +/* WIFI */
+> +&usdhc3 {
+> +	#address-cells =3D <1>;
+> +	#size-cells =3D <0>;
+> +	pinctrl-names =3D "default", "state_100mhz", "state_200mhz";
+> +	pinctrl-0 =3D <&pinctrl_usdhc3>, <&pinctrl_wifi>;
+> +	pinctrl-1 =3D <&pinctrl_usdhc3_100mhz>, <&pinctrl_wifi>;
+> +	pinctrl-2 =3D <&pinctrl_usdhc3_200mhz>, <&pinctrl_wifi>;
+> +	bus-width =3D <4>;
+> +	non-removable;
 
-    /* MST stream 2 */
-    dp2 {
-        #sound-dai-cells =3D <1>;
-        ports { ... };
-    };
-};
+[Severity: High]
+Will this configuration prevent the WiFi module from initializing?
 
-While the grouping looks nice to me from the audio/video controller
-to DP controller point of view, it's less sensible for the
-connection from the DP controller to the DP/USB-C connector as all
-streams are bundled at that point.
+Since usdhc3 is marked non-removable, the MMC driver will attempt to probe
+the SDIO bus immediately during boot. Because the pinctrl_wifi group
+(containing the initialization GPIOs) is bound to the MMC driver here, user
+space cannot claim or toggle these pins to power up the WiFi chip.
 
-Thanks and greetings,
+The probe may fail permanently since the chip is unpowered during the kernel
+probe. Could this be modeled using mmc-pwrseq-simple so the kernel handles
+the power sequence automatically before probing?
 
--- Sebastian
+> +	status =3D "okay";
+> +
+> +	brcmf: wifi@1 {
+> +		compatible =3D "brcm,bcm4329-fmac";
+> +		reg =3D <1>;
+> +	};
+> +};
 
-> As upstream MST support seems to be quite limited, I wish for some
-> feedback about the preferred way to handle this.
->=20
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> ---
->  .../devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml         | 5=
- +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,=
-dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw=
--dp.yaml
-> index 2b0d9e23e943..1303d0e2145a 100644
-> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.y=
-aml
-> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.y=
-aml
-> @@ -83,7 +83,8 @@ properties:
->      maxItems: 1
-> =20
->    "#sound-dai-cells":
-> -    const: 0
-> +    const: 1
-> +    description: 0 for I2S, 1 for SPDIF
-> =20
->  required:
->    - compatible
-> @@ -144,7 +145,7 @@ examples:
->          resets =3D <&cru SRST_DP0>;
->          phys =3D <&usbdp_phy0 PHY_TYPE_DP>;
->          power-domains =3D <&power RK3588_PD_VO0>;
-> -        #sound-dai-cells =3D <0>;
-> +        #sound-dai-cells =3D <1>;
-> =20
->          ports {
->            #address-cells =3D <1>;
->=20
-> --=20
-> 2.53.0
->=20
-
---wmlwreimakep7qlw
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpX3H8ACgkQ2O7X88g7
-+prDaA/+J+o4Ka0pqiKFsl6B5vJAD6vsP+iiE/zqMIa1Q6zE29IVyt3DySRofwBL
-99yNQ+3ufn9nTFDyBr1qMAv4LegIqgrM+EucnxPvOD159SS9d+7bFngcVeUh7P47
-fUfbjxLqw9QkzK0nQotCc9EyYjQV2a/5JUSqThcIGPPAx3uYdQqlS0hfCdR1GVCe
-Loa64cD3EOyZ79O1lsDYJ4xEsAtUm+ztHd0t1RMSLUmaq68aNSus/Muh5eHuvzUH
-AAAQELgud9U/TbtGEBR6AjM2KdthxBJZcnH6bkx8vs4KKAar8KGz9DuEF8na4Nmi
-IM+k0YIyo2ESWsZGnjK7DmgmtnVk4j8J8LDmHUaTpA+Eg0/fUpW331+I+hLNXjF2
-FzObpZ9JkumAZuPnczA2lfBctftuQ9voDHg5PbBfemgK7bdOy+PvgEle4H512bxm
-nbg3H6BexThWQW7A3WnxvxifoATFhidzN/Awj3oXTjY4Yfemwb3X5jRPZ713TgkG
-U9kky7/B3NPi19uunkJoDtM2HhA7PqjGUnKw4j06AhzPs433bdD4DVBL6FJRIrO+
-UQ4JBJQW8t8JtDYRkvp3mFyBbQTqw8EjeIKxMAPdv2JHEEEOQz1/lyaHNSEdwIoy
-AdualjvMfi6DKwBpBTfUUDHjMsiDtsiUxeVelpU8KbZeTRafk68=
-=dfEW
------END PGP SIGNATURE-----
-
---wmlwreimakep7qlw--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784142385.gi=
+t.stefano.r@variscite.com?part=3D2
