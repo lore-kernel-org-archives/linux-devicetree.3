@@ -1,136 +1,148 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8AE6448CE1
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:07:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D9873C8728
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:08:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784117251; cv=none; b=dPJcLdeou0utX/7H0vQPcGQf/2xOteYxeqaZ8tFnFKcBYymbdG6ws6pVREHyU/d+GdI3G4LGOlUZuJ2aEAWjglMA8wgmA2acCKjR6JjBO0cfcJZ/mo3W386o0GVuDx+bEE2a7d8z+I6go4/vLV7U65mPD5mboEwwZTjFZq3jmr4=
+	t=1784117290; cv=none; b=tQY2WG3MkOBMtW0b8Pg8EDNw1kVVt/2XnmWTghlz8cTxHyjcKz3m9MIvpuYjU+tlo8oxMm/H2SNt/xygMF2tqH7kXC0SSzuwHvP2v27J/XvrGDuYKwy1ZTNxxR6qVDIVrbazd1TRrzcptp6+VXSBdA2TGBTx8zARfvZieL2CS+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784117251; c=relaxed/simple;
-	bh=f2Zj74TZ4DoqiACSYtc5w8cY4fNh79DTd3mLuz53jr8=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CXk66a0hUSoq9pq0osro0o3RB7h5N9jmdapiF/9hSfws+8iLd78DceCEtzyXyPRIb8FRFCvbgSqPPMiwPcs5I5Beo++kmXK5gzwfEgVXobmaGYEN757zLMUPl154Y6A9dLzg/nnndB/bEsPr/Tc+LVIRlwoIvuUsv6mI1BhuSMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jUPtO4Tm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784117290; c=relaxed/simple;
+	bh=MiC0IzO5g84BliTKZFpiSSxYNfz6a/ZoFzHzbA5BxgM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZIHzszV7zF1ryTODc+/Dk/Ra2gTh5WknZr3CTRi3y8+8WxXEAe9aTvBQRpWv9jtSxpzDEP6NeeLY+5J+6/7LknxTyn9Hu1KXOa/NJV323PvtSzhlGbcynZ1CUaoLq7kOs1fcSPX2sOgOSHuHLF0+EBxDfbUironSOdxVa3moo0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zq001a4q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jUPtO4Tm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD951F00AC4
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:07:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zq001a4q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C6F91F000E9;
+	Wed, 15 Jul 2026 12:08:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784117247;
-	bh=WKCD7udqW/dT/0NFTWMaszCBVogtz2n64C25G28PPzI=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=jUPtO4TmXWvKD6eVqarB6nND7C9CbCfqI4DZilWUuQsXs58IY2LKHAYW/9/UftPlG
-	 5NnY474P1UpxEq8iAuriDwq823SdNxpFYSDmYFwRa0+eJUditjoelUarTs/syRL1tW
-	 mDnk1MW5/W5GThHqnEiQMY5kG2nUKu+T/tFeK+0/ou6SZ0u+41PnpucAD8tvGaa3G4
-	 PUNVF2lQa2PNcMMjH9fYApkcUb1jSjkwpOs6TforYx5dKcyWPD35GnGgH9kV7tXRPO
-	 8cbXrrlltHhmsAFIiWULbWzrOucd6kDYcPfq+8KuqLE5qzNJVAy5+AOebFE0CltSmQ
-	 UBTeKSn9OFmmg==
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-39c7ce122c7so48979051fa.2
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 05:07:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrojpgsD9TqitJVrHUG3Jrq3SKhm5OxNy3v+DUj/nU8AtM32wwUVdT+WmDirtZczZ1NURIkBpLOvElZ@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyn+iYwaS3lqprtqN5/Rk9L9IeFPXFTx98w8QpHc+dUkYbGJM0+
-	lTjGTKMYay+tv94uAQaDV+sKcHgpoBIjrIZfrC8dPlAFfS83yWkQvRm0vx51OIaf8fEMXwLgPQB
-	EqKVF/KlDun51x/5AuwhhtBse2eDC7p8gr4yORakmdQ==
-X-Received: by 2002:a05:6512:3ca1:b0:5ae:bb4b:9357 with SMTP id
- 2adb3069b0e04-5b159b76543mr1504606e87.27.1784117246567; Wed, 15 Jul 2026
- 05:07:26 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 15 Jul 2026 05:07:24 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 15 Jul 2026 05:07:24 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260703-block-as-nvmem-v8-4-98ae32bfc49a@oss.qualcomm.com>
+	s=k20260515; t=1784117285;
+	bh=im0CYS+xm4VMApFgpj4vISI9oS35l1ku55WZHFfzNL8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Zq001a4qPvf5ntgrGVKIwn5Ae+rkG4RT7jVPS3I57Z3kbwL4uCXl/R8CutWzDJbBk
+	 A5I5mYQFnvvWRI9c3intF9Ru/Sca4JksRiM7/XwHRYNcIGoVLBXJlXI8838VMI1IOs
+	 6R5q3EWUlrx+w5/TUZqCGekAfPYzGGTexs90BiYJtNocD+bXAJ3DgIgcmueNmgDeuy
+	 RupRif/4qV3WInbpc81dMJC+uj6VsrecIM40ovrIqsU7zzuIGjgFK7DsQtmvwbrTxD
+	 rZJMrYIwQi212iDbkuTg4pPagCoEB31xy56kAtWg76ixv1vO8g6oArO2S9Er1B1n+0
+	 AMqjlH9AZatJg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 08/11] drm/mediatek: mtk_dsi: Add support for MT8196
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260715114916.19690-9-angelogioacchino.delregno@collabora.com>
+References: <20260715114916.19690-1-angelogioacchino.delregno@collabora.com>
+ <20260715114916.19690-9-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 12:08:05 +0000
+Message-Id: <20260715120805.7C6F91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260703-block-as-nvmem-v8-0-98ae32bfc49a@oss.qualcomm.com> <20260703-block-as-nvmem-v8-4-98ae32bfc49a@oss.qualcomm.com>
-Date: Wed, 15 Jul 2026 05:07:24 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MdNehSRQT3MUs+QtbZsHcUCS8YjyZchTgHCVv-HaLQkeA@mail.gmail.com>
-X-Gm-Features: AUfX_mzq1KbXpXfl_bzC2i2_CZOvOZaRAVu5gjRfir9Gou3fViKyrxWRMFDDFs8
-Message-ID: <CAMRc=MdNehSRQT3MUs+QtbZsHcUCS8YjyZchTgHCVv-HaLQkeA@mail.gmail.com>
-Subject: Re: [PATCH v8 4/9] nvmem: layouts: Support fixed-layout as the nvmem
- device node itself
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-block@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org, 
-	netdev@vger.kernel.org, daniel@makrotopia.org, Ulf Hansson <ulfh@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Jens Axboe <axboe@kernel.dk>, Johannes Berg <johannes@sipsolutions.net>, 
-	Jeff Johnson <jjohnson@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
-	Balakrishna Godavarthi <quic_bgodavar@quicinc.com>, Rocky Liao <quic_rjliao@quicinc.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	Saravana Kannan <saravanak@kernel.org>, Christian Marangi <ansuelsmth@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 3 Jul 2026 15:45:17 +0200, Loic Poulain
-<loic.poulain@oss.qualcomm.com> said:
-> of_nvmem_layout_get_container() only looks for a child node named
-> "nvmem-layout" to locate the cell definitions. This does not cover
-> providers whose device tree node is itself the fixed-layout container,
-> such as an eMMC boot partition block device whose fwnode points directly
-> at a "fixed-layout" compatible partitions node.
->
-> When no "nvmem-layout" child is present, fall back to returning the nvmem
-> device node itself if it is compatible with "fixed-layout", so that its
-> cells are parsed by nvmem_add_cells_from_fixed_layout().
->
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> ---
->  drivers/nvmem/layouts.c | 13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/nvmem/layouts.c b/drivers/nvmem/layouts.c
-> index b90584e1b99eab4217cbe7ec48373e18a7caf0dc..efa631ce7283bdd6c8ecda75915911b5e3a33c99 100644
-> --- a/drivers/nvmem/layouts.c
-> +++ b/drivers/nvmem/layouts.c
-> @@ -167,7 +167,18 @@ static int nvmem_layout_bus_populate(struct nvmem_device *nvmem,
->
->  struct device_node *of_nvmem_layout_get_container(struct nvmem_device *nvmem)
->  {
-> -	return of_get_child_by_name(nvmem->dev.of_node, "nvmem-layout");
-> +	struct device_node *np;
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Dimensional mismatch in QoS Anti-Latency FIFO threshold calculatio=
+ns results in grossly inflated thresholds.
+- [Medium] Unconditional mask of `DSI_VDE` can silently corrupt the `DSI_ST=
+ART` register on generic SoCs.
+--
+
+--- Patch [8]: [PATCH v5 08/11] drm/mediatek: mtk_dsi: Add support for MT81=
+96 ---
+commit 1786ad54a3e9896a0d86f110a26f6c5cb91b0619
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+
+drm/mediatek: mtk_dsi: Add support for MT8196
+
+Add support for the new DSI IP found in the Kompanio Ultra MT8196 SoC.
+It requires initialization of QoS parameters and can use a DSI SRAM
+reserved buffer.
+
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
+k/mtk_dsi.c
+> index 3f58683be70fa..4d8a02cbee385 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+
+[ ... ]
+
+> @@ -776,6 +873,102 @@ static int mtk_dsi_set_dsc_params(struct mtk_dsi *d=
+si)
+
+[ ... ]
+
+> +	/* Read as: [Data rate (MHz)] * [Number of DSI lanes] / [8 buffer block=
+s] */
+> +	tmp =3D (u64)dsi->data_rate * dsi->lanes;
+> +	data_rate_per_buf =3D div_u64(tmp, 8 * buffer_unit * HZ_PER_MHZ);
 > +
-> +	/* Search for nvmem-layout child */
-> +	np = of_get_child_by_name(nvmem->dev.of_node, "nvmem-layout");
-> +	if (np)
-> +		return np;
+> +	/*
+> +	 * Anti-latency buffer output threshold for absolute timer mode: this
+> +	 * parameter controls the maximum amount of output data that the FIFO
+> +	 * can hold before running out of buffer space.
+> +	 *
+> +	 * The data will therefore be sent either when the DSI IP0s internal
+> +	 * vblank vs bus QoS timer expires or when it reaches the amount of
+> +	 * buffers set in BUF_OUT_VALID_THRESHOLD (regardless of QoS) to avoid
+> +	 * partially, or entirely, losing frame(s).
+> +	 */
+> +	out_valid_thresh =3D MTK_DSI_DEFAULT_QOS_VALID_FIFO_US * data_rate_per_=
+buf;
+> +	out_valid_thresh =3D min(out_valid_thresh, MTK_DSI_MAX_FIFO_BYTES - 1);
+
+[Severity: High]
+Does this mix dimensional units? out_valid_thresh is calculated using
+data_rate_per_buf (which appears to be in blocks), but it is capped
+against MTK_DSI_MAX_FIFO_BYTES, which is in bytes. Will this prevent the cap
+from functioning correctly?
+
+> +	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_BUF_CON1], BUF_OUT_VALID_THRESH, out_=
+valid_thresh);
 > +
-> +	/* The nvmem of_node is itself a fixed-layout node */
-> +	if (of_device_is_compatible(nvmem->dev.of_node, "fixed-layout"))
-> +		return of_node_get(nvmem->dev.of_node);
+> +	/* Enable ULTRA signal trigger between SOF and VACT */
+> +	mtk_dsi_mask(dsi, data->reg_adv[DSI_VDE], VDE_BLOCK_ULTRA, 0);
+
+[Severity: Medium]
+If a future patch enables HW buffers for an older SoC (as the commit message
+suggests is possible) but doesn't define DSI_VDE in reg_adv, will
+reg_adv[DSI_VDE] evaluate to 0?
+
+If so, this offset might map to DSI_START in the main register space. Could
+this silently clear BIT(29) of the DSI_START register? Would it be safer
+to check if DSI_VDE is defined before applying this mask?
+
 > +
-> +	return NULL;
->  }
->  EXPORT_SYMBOL_GPL(of_nvmem_layout_get_container);
->
->
-> --
-> 2.34.1
->
->
+> +	/* Calculate fill rate with line counter mode for DSI Video Mode */
+> +	if (dsi->format =3D=3D MIPI_DSI_FMT_RGB565)
+> +		dsi_buf_bpp =3D 2;
+> +	else
+> +		dsi_buf_bpp =3D 3;
+> +
+> +	pclk_mhz =3D dsi->vm.pixelclock / HZ_PER_MHZ;
+> +	fill_rate =3D div_u64((u64)pclk_mhz * data->pixels_per_iter * dsi_buf_b=
+pp,
+> +			    buffer_unit);
+> +
+> +	/* Calculate QoS Anti-Latency parameters */
+> +	sodi_hi =3D MTK_DSI_MAX_FIFO_BYTES * num_hw_buffers;
+> +	sodi_hi -=3D (fill_rate - data_rate_per_buf) * 12 / 10;
 
-I have it on my TODO list to convert nvmem layouts to be fwnode-agnostic. While
-I'm not sure when I'll have the time to look into it, I think it makes sense
-to not introduce any new OF-specific interfaces. Can you make it into:
+[Severity: High]
+Is it possible we are also mixing bytes and blocks here? MTK_DSI_MAX_FIFO_B=
+YTES
+is used without dividing by buffer_unit, which could result in a threshold
+of 1554 blocks instead of 1554 bytes.
 
-  struct fwnode_handle *nvmem_layout_get_container_node(struct
-nvmem_device *nvmem);
+Could this grossly inflated threshold prevent the hardware from asserting
+the anti-latency trigger and cause FIFO over/underflows?
 
-by replacing of_get_child_by_name() with fwnode_get_name_child_node() and
-of_device_is_compatible() with device_is_compatible()? That would mean less
-churn in the future.
+> +	sodi_lo =3D MTK_DSI_DEFAULT_QOS_SODI_LO_OVERHEAD * data_rate_per_buf;
 
-Other than that, it looks good.
-
-Bart
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715114916.1969=
+0-1-angelogioacchino.delregno@collabora.com?part=3D8
