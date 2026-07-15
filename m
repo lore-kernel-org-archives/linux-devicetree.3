@@ -1,170 +1,172 @@
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011030.outbound.protection.outlook.com [52.101.70.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458ED1C5F27
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 07:04:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D901DD0EF;
+	Wed, 15 Jul 2026 07:07:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.30
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784099052; cv=pass; b=B/pOQN8LFsgtUgu5WapVcF4VuCuS83anj0lftB6f2MBc3x8Gr1uywUOv1GCbB3jbecQC8UmH9HMYIpk/6cBtVE9fzYpIJIIf95W0BqKBoNbjWF5Tb1S/d7RZkmKwqOrBPie0yLjrg8rYfUWvt4TxSUR/8+L/E/cxQCvYuOF50zQ=
+	t=1784099230; cv=fail; b=HmBlHptlw7LeauAr7xGSbFpgsiIzEi84+p6kc5sp18/UBabK/hqyIjOAckHJ/GxT8abtA/SHBexXImHfdeKB1qHHFhb1Ie2rrfe1h9+5XuG89e/6LNtkKT8iwRR89uqxg9FhMoTRtACRuIgafHW52zKSVUfotW/aMt0gqeLmKHs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784099052; c=relaxed/simple;
-	bh=ifJqXZ4ZAmIfzckP1/3gX562cvXWbJvgz42X1CY3OO4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=owT3L3akjkC4N0kaMa4fpQFtHln0Bd5zlzTNZ6NrlYG93FI8CuQLSn3Grx5tzxUFo54bOcVgDUldTD5hLhGSQyZV1q/W5NAvCMh9NNba6KHSJ+xKEA45pmTQPhgoQw6zeQLF94ezBcMcSf0ISPo6Knw2LgPqpJu42PncYBOlsdU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VyOpdmw7; arc=pass smtp.client-ip=209.85.210.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784099230; c=relaxed/simple;
+	bh=CP1jebttCZbcv25iwOkQnSS3s9enCjA8qwJE6pIRhhc=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=KXGQ0Jj3NVaQUYOacRgg/d8ps3qCCBADt5EemIDMT9KaBHLcVXn4mk6HTN3bOlvJ2SHwQt4hoFLMXrAuE8CsrWE6gsw0VEgNLpTDejbgjiUiipDeaIiVW3wadpMafRejxyjoYIbZZuQ1IPoPCGq7q72DO/7iP/ARWRMUsMYd1lQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=u8ZKU7X9; arc=fail smtp.client-ip=52.101.70.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VyOpdmw7"
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7e9fc323873so767189a34.0
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 00:04:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784099050; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LvvNvKIilkiiYsZTT4C4u6SKvG1w5h/Z8AADxS/zImlIV80Iq0ZvsyFgO5iicqyLy3
-         zU5zP0KT+7D192vGPn85i2qxSxVVf16J/g+fyrwqIxEncE+i5U2wsRQPhX7zP/tdXWta
-         xMjOK3UXw6t6exkqVA9NzBx63euR39lLaUe57njtrY4rRMixWhKPLpbaitQe/g+dx/Ms
-         2UydCK3B1FHSLcD6qZrSpamvbwwyuOrbC+DX82AIfqefPujthlfZBzR1bCTjA3RTua3K
-         Cxa6cJ5iSFoEm/ozgxTumSNMlWFy871544H0tPzMSoBhKV+S9nYmD8WJYBMJkf2g8VGl
-         Dr4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Z6gxrK21sxCB/eCMN/j8yC9AHCK9IHMw89lMoZ6UyRY=;
-        fh=bYm7Xo2OxCqS8Wf7ayxQcfvvq3Ngm/c+s+iIu+Rm7qA=;
-        b=appevhe3DWGbcGnZf1l/Wl0/Tc7hGTXe/cGkVDHpeJxoItNc3Eds9fkpN3rOe9wC6R
-         FDm+e+syA+hJAqDbCMXgixY+NvcdBVIbmvii9FBxJvZbn8/krwT7+OxgPgtbcE0G+SW3
-         2/Yz9XQZ1X4gxphZ3574kMz1NZ/1og7iTqdlmfo4nJOL1304fDnfY1y4O6tEp30CVpok
-         Pi9nBTeKouYYLikakhpz7PQRnm3i7gl/wMfFB5sN7/56aJ66GyUfZZiKwp+2KD1csPFJ
-         hpAbRDfac90ET3Emp5zGWb7wBhC1sLpTD3NsbkzWQpH+CG0ZE3eq0QB5QqCja726AHo2
-         7GJQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784099050; x=1784703850; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Z6gxrK21sxCB/eCMN/j8yC9AHCK9IHMw89lMoZ6UyRY=;
-        b=VyOpdmw7wb7mM0tYcXSpzSp0fxwQuV0ze58pUxtK1JNS1JZzeFSyHSrNZcap6TKmn7
-         zvi6o7FvkZ65KHHs7Zoh6xENQ/Wm0SHgRfs21W5G38GamS+WEOGkZ5sEkWhhnlEnxHfT
-         Jxa6tX3546S+S5k9pYkuy7N/Tt7SfdqvZxylPDXXJgARD4yw9l8kKHIUM5athhy8B1cJ
-         3S6Kw/m4rRQ/cLeyuKZUjKj30iETDAFs1KGD7QkYap45RDv51k7/2Fpp+g9ApYXVWAVY
-         mXnTbYUi6qVPc6OWmQ83WA83t/v9dQx+fRzOxvclRxEAHR+919aiqJRVhnqBmELM+mpF
-         BfcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784099050; x=1784703850;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z6gxrK21sxCB/eCMN/j8yC9AHCK9IHMw89lMoZ6UyRY=;
-        b=km+N5oNtR8HciB+XlAUh+71/LhK/p+eCYh1ld87slR8hlGAdopLnmX9nVKNVnoa9tU
-         //iZCNU9h+Gtmi5sDSdqyXrdsiOK1bblRqOIF6J5BEnnee3t9wWLk14fZ2h2eH6e4sv4
-         coqkmVv13dgbnfdMJjHxftw1fI+Xr0Sl/FoxGNvd0n5aWLcXid6k9engMsLb+iGsNbwe
-         LpqT9kDmDduYId/II6b+EwqEk7yM3AzExKfg3fEpvAaGg/9bfVkRRALWW3ouR/OL9kl2
-         ROpSK0MiF2uYlqupOwHRkQ44HzSdC3YR1PeCeAqoAeUaOMbfpmrALjlwRBPWOmjQAH19
-         Aw8w==
-X-Forwarded-Encrypted: i=1; AHgh+RpO4+nSL0jbo+cOZKPunY47iXvS/rltJtncl+Ep0H87l2BwFcFOJvpFwQaX1lCck/AyJzY3a3aoTrEU@vger.kernel.org
-X-Gm-Message-State: AOJu0YwD03SrGZi0oJZWANTvMujIb+0w1hDjrlA0ynkRxCrqabjk9e/N
-	PikSt9zIhJXTJdkOMKvzPLDtWss1W0bYxcPtinbaY15740jWAZfmC0+OZNhCAbRrdawlBACmO2d
-	ZWf+B1Yq0Ltx1h1pV/taubsFTfFyVFrTmA7MsclU=
-X-Gm-Gg: AfdE7clZsTpwGZJVZAvCt6c0QdWvw65xAV8Ns1G8MFCxZ18pOvHoX+ITaxsoGw1KUu8
-	cRpS2rdO/mxnirPXaRXPXUgTSmZuXr6PJWA8UnYNQw4tLFNxO+Rxrzc9RE90z0VAHeiQEdeIONu
-	YTC80+k7EWCuh86vSd+Iemf3WBSTnf+3sILHDEPnEgvdxvXtUkNegApTqnD9HK/Jw8WWKvNYf0p
-	12vpUxpQQX4IcrY8Z40+HpJR1S53aGWGFOEubc6AcwSaluDsGQmxGDfZGDpr29So9e6A3cOSke7
-	Rlw+42mp+LV3B0Ws+vzyA9oO/1foRF8=
-X-Received: by 2002:a05:690e:408a:b0:668:f57:890d with SMTP id
- 956f58d0204a3-6680f579a70mr2127791d50.6.1784098550460; Tue, 14 Jul 2026
- 23:55:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="u8ZKU7X9"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SZKmM3JjW0YyP5ZIMT0HRS2h5SBJ6pCTBkrSMEFH8fQu4FUjJ6dORDgbKNLQeALfeUQF4LNNkkDRedX6TGZX/1nILQKvudylnRiQ4VsgnL0fv+WXJhBONY02kNidatWUnVZdyd6TsD0LF45xnRb0ms1Y2vGQi8yiLcQyMzaUzFKz0EmlT5O6v6zAZq/TYyAlOn5o1WtOIMcwat4uKfPDrQJbXuTd8eLi+sT1mKzS3ntUHEsudhhUWZyXqNedGGudDRQS+4+7DWY1bUeBkVynL+ABoE1j7Gs1c1OMN8zpJAra62qh3C3ACSs2phJdy019jKIvwFveMcBT10DsMLgUxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GSXRXXjerYQypy39ddJL2lldZmR4+yFXgdSnZ4r8uq0=;
+ b=vVhZOPF/RjC1Nq9GegywhfV894pyhh3sNJgvbhdAnm+RFIHHR/PeuYLH6GpgMYd43vqTKeLZP52sQbcoCoKDTfc5UReYevhypmEoYreiitQH0D3O5euO6U/zMVMawZ+Oqt+aDAWG+KK3fV7OMRr35syFOfczN8/gpgs4oZdD6MojRsXZk4yQIJ3VRdGP6Uh648Z2W4rh2vbxbLOz+iPa2PUMtJSv3L+n+4dw9KG6fpR6i/3aaFIvik76d+/ffWT5VNQdBPo90iDjC9oU8H95h/+IP81oYh2rMcIQAiv3vNaKhxu4p3DlZ4Z8QKLfmmb2uE0qVXt3xQ1nxrDur98bdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GSXRXXjerYQypy39ddJL2lldZmR4+yFXgdSnZ4r8uq0=;
+ b=u8ZKU7X9WOPrICoYAhA1HcTQzKfJW4w2eEX/XtR37RaCio4SsaxZLXjLiq8iUNoWsYTqPkA0w2PdN6XPH0au4sBBTEjjI8TU++iTT3aauV0yOTRjMS7Jkv2ZNDuoitn9lB+ScKSwUfuCMK6o1A6SamOgxgLE7B8Vi8UKAFXBe2v1PJcz6alcR62/Hfkw2N/RZp6xfzIZ9VZIUHi7bv7znxH+vesKXC0ENOiNC3ExS2r+3zHQskahyIBtegHFWCZhwThaD7NLw/Kf6ycJjLH0rAfIoI3LSn1IigHros0N3upIwBkkkqvyKvb6mYYYa0qgVdzIixd9oJzH0uJqkt3BDQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by PA4PR04MB8064.eurprd04.prod.outlook.com (2603:10a6:102:cf::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Wed, 15 Jul
+ 2026 07:07:06 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%3]) with mapi id 15.21.0202.018; Wed, 15 Jul 2026
+ 07:07:06 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Subject: [PATCH 0/4] arm64: dts: freescale: Add remoteproc support for i.MX
+ EVKs
+Date: Wed, 15 Jul 2026 15:10:36 +0800
+Message-Id: <20260715-imx-rproc-dts-v1-0-d02b583c507b@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGwyV2oC/yXMywqEMAxA0V+RrCegBevjV2QWWlON4INERSj+u
+ 3VmeRb3BlASJoU6CSB0svK6RGSfBNzYLgMh99FgUmPTIsuR5wtlk9VhvytaV5S+NDY3voLYbEK
+ er9+v+f6tRzeR298J3PcDXxqrpnEAAAA=
+X-Change-ID: 20260715-imx-rproc-dts-6c78f82652f9
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Peng Fan <peng.fan@nxp.com>, Biwen Li <biwen.li@nxp.com>
+X-Mailer: b4 0.16-dev-7bc12
+X-ClientProxiedBy: MA5PR01CA0206.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b0::10) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260715051939.64652-1-royalnet026@gmail.com> <20260715051939.64652-2-royalnet026@gmail.com>
- <20260715055448.AEA021F000E9@smtp.kernel.org>
-In-Reply-To: <20260715055448.AEA021F000E9@smtp.kernel.org>
-From: Royal Net <royalnet026@gmail.com>
-Date: Wed, 15 Jul 2026 08:55:37 +0200
-X-Gm-Features: AUfX_myzakcKGN9vlq_qc4LRJvv-oSEDxuwqFd24WcJAwYA-kTmTVF-i9eX42Ks
-Message-ID: <CAEWPSH7OqecBKvxUVtwFe4B9y0-=gsQ7vy6kdBHx-Nsne-Ct1g@mail.gmail.com>
-Subject: Re: [RFC PATCH 1/2] dt-bindings: media: snps,dw-hdmi-rx: add #sound-dai-cells
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, 
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	linux-media@vger.kernel.org, kernel@collabora.com, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|PA4PR04MB8064:EE_
+X-MS-Office365-Filtering-Correlation-Id: 04fbca1b-563e-40b7-8af4-08dee23fad6e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|376014|1800799024|366016|19092799006|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	SMzkvubIsjeD03X07KzDegxj5MRjAbDxChYbkI0y5CkqIcYh09c+XKm/s5WX7G/Yj/DWh/WNb8sjo2DcT3Dxi48R+lhQkM8VCwVn3zfNcUJQS/dvZ2Yh3yzxJGQ0RIc6ccIIw/a8XahrAsmdby20DyzLZLbetU9CtZHHTGfZI+Trkmp5xjOqzZNhd1GcX14VppW35aDPEFFi+ZV0K92aXRxMARfoAJKkDQJ35ABYRw//GeJBzY3iiQ/Zb04T2Az4cGkkxNaFYY6QqLrH/RaxfL8CuDVUcZwt2p6fuamVOAX5ndofMiHuj6nkdwFuMs/hVqoKfjy22Ob5TjpWlaGH3zWrVbhWr/rfKQx6V4FcPTNE2K3fXrlmoN+S6/EDdw2q6srlWlKW7Yi1kQGvEgjhj6WXIgGNdfXz9DbH2ESbf8mw/FbsI9fYexExf+nefO7qbnWJ0TVy9URQVsNeaIEK/DGJHYBxuSTMXKwTxcDnrs50qf6g15NIkd+w3ofINhwm6fvxwLhemOCAdWulYoD6hfwkDDute1qBFpapVMN9pTGYedbahIqLDch4WvgQyraF0JVKQivEryAEJzVRHkar/YmUFuB1hU4QJgjHYJ+OnovFGAiZwAfEUylCsQX03RK5f6IzNRh9O5+eaVfwGgp5ITu4YkVWTKBGb7A27koApO0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(1800799024)(366016)(19092799006)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?N1Q4K3l6aU1yMEtycnlZdXFOVlJwWVdOYzBmVTFHbGtHRzRHK1g4TGZKMDRO?=
+ =?utf-8?B?d25zYVNWNlc0WEZpWUtyVVRYYUMwRTBkKy9iSm1DSDlieVJQYVlwK3dWOE84?=
+ =?utf-8?B?eWphVm10aE5yTUlCUkR5QXJNcTczUmpDR0RFS2w2L0J4NDlVK2luZmZPSTBE?=
+ =?utf-8?B?cnpFYk43RTVteXFCcXJLUmZDdkhRaWhVMGttTHRjWUlrc3FvN3ZvdUdhOWZD?=
+ =?utf-8?B?ME8yREhGa0xzTjN3aDVLOFY2aUwvQUk0LzJuaEM3NFhYNVFWbVd0R3BtcE1W?=
+ =?utf-8?B?QnFKU2djMUNJdFNhVVoxZHAzTE00U1RGY2xvdGxUUmh6VEVtekFONWRtNlg0?=
+ =?utf-8?B?d0RzSVpReHVaQlFrdXBXODQrSEcvS1ZGR3gyM2wzc0ltejRES2MwdWZyM01m?=
+ =?utf-8?B?SWdmMHZFSUt1bFpuNXNDdDNpMVRadmV5Q01XTEptTVZWRDVXYmxaN1M3YTFk?=
+ =?utf-8?B?OEZiWWlLMlJPS2pMbVZHRys0eXpDZC8ycjBpZlRnWVU2S1lpUkdsL2RiMzJt?=
+ =?utf-8?B?Z0Y2cVAvRFg3c2JLWHRNamoxY3pvRURoMFBEdHZCSXpEVFh0VTF6d1F5bXkz?=
+ =?utf-8?B?bHI4ajA1Z04vSWE4Z3pZdlAraEw0dkEyNStRbjJNcmFybnRqRWg4WVMydzY1?=
+ =?utf-8?B?MVVIYWljTWhSVjdoSzRrUzZFZGlPcFk2RzkyU1NjSC9jZHA4dklIMy84ZkJN?=
+ =?utf-8?B?ZHNhdUlnV0RYNVZYZVdWL3IxbFc4dGJSK3RIa0M2aFJOMDNwV2N1cWYyOHFD?=
+ =?utf-8?B?VERIVE4vUDFLQjNwTnYxTThBSkxlSTB6NXpBZXUvc0hqK1VNb3p3NFpORUpw?=
+ =?utf-8?B?ZTRRYjJVV0JuYUVXUXNHeDFJVUtkMk9EMkNxaVRuM01OMUwyVmluRkRSb0dj?=
+ =?utf-8?B?dTlNLzBSSEI2WXRMbUxwOER3WXhSK1B2eDNmMHVleUovSlBuTDJlN25GVXJx?=
+ =?utf-8?B?QVc5bzBoNHpSY1NkZktXdkkvWXg0VlBPSTNHeXU4UmNUc2E4S1o1L1R6dVQy?=
+ =?utf-8?B?bmZWV1NlRTdnWi9BUE9jQTNwWW9GK1FlUlUva0Q5QVhxbzlLcUJJOVBEREZ1?=
+ =?utf-8?B?YW9PQVYzcVBrQXVFSzlmcTJIWTV0bkUzRjhYU0l0S3A3cUdqbUE1MmpFMzEy?=
+ =?utf-8?B?TEhyREJ2V2JIcHpYelFvUThnb3VPSlVQMytvUjByTFpwZXVtMWpFK3FoYXpK?=
+ =?utf-8?B?MllyUDlVenBlRGdNdXl0ZDFkSFNmNDJIaXNlRTJRMHBwM1c2YWpvdHNNaGQx?=
+ =?utf-8?B?UDhSNzE4SkF6Sko5VnVGSDlWYUpYUzhrUmJURlNVdGNMMnRXOWpieG9LT29L?=
+ =?utf-8?B?RHZ1U3hHcXVxUnB5RmoxZm9iMGdseVh3TmJTaVFOb3VKUnFHSUE0Wnl4TWlC?=
+ =?utf-8?B?K2lENHNjQXRrVUlrNks0OWRMUUoveHNrcFMyNEdIWVYwVmExMzhSOURLdkY3?=
+ =?utf-8?B?V2VlV3NHM3NKNkplcVV3cWdQUnVXK3FMSCtkMDRvSkcyZVFma1FIdUZFYUZr?=
+ =?utf-8?B?aXB0SkJIMEpJYlBKZklwV2ZLMHBJYzdmNG16YVV5WkJSbkh6NE1saEdMWTdP?=
+ =?utf-8?B?bk1LSG1ZRFl6d0dGdllhVCtDeS9BN29jQU1OTFJVQldaZU40SC9pOFJKcDRY?=
+ =?utf-8?B?SVZ1T0w3ZndKRVFPWElIb1cxSlhHd1VBbnBzRVZJQTQvNW96MTB2bnZhSU1a?=
+ =?utf-8?B?cVl4N3VGaGFHZ2Q1eTQyL1QzNjFvbTFuWlMwdkZDZHpNZGpWTE1lQ0pnUGdR?=
+ =?utf-8?B?SlhDU3pHemUxTmNWV1RNWk5XcjBMNjZaVEc3Q056WTNHUUpBSnhuSnNDdmYv?=
+ =?utf-8?B?UndMWHZZU01rV0taSEhLZit3U3BwYzhRRlBCS0F3UUdhK0RmaTRTbkRRUmtZ?=
+ =?utf-8?B?S2Q4cXdsTmI2UWdjYXZiMWFBZ1dWWDIrYWV2d1FmTzltR0RhckI5dFZIU0ZW?=
+ =?utf-8?B?bWk5K3JQTENjdjVGYTdjOWl2RkJxUHBaUkp2bWRwZ0Q5MFdBcm1ZZ2ExdTVu?=
+ =?utf-8?B?TXJFN3BVUkd6U3RYeWhiSVBjODMxZUxuQXZmdlVmMjRhb0lkbTMvZnRNOHlz?=
+ =?utf-8?B?SlU1NVR4ckJ3YWR1VkpmUndUWC9lR0tsdHV4NDluemM1ZjVyVUNKUzJSSHBx?=
+ =?utf-8?B?Vzlnb2lFTGtpK0F5VjE5SEJXTjM2dGlsRWl6NkxCZ21KV3pCdWk0a3lsL1Zw?=
+ =?utf-8?B?U3R1OEdvci9kblVoVmJrNE56TG5yNnBnQnllUDRIVFN3bHZWVzc0QVU4dXNu?=
+ =?utf-8?B?MzkxazZ6aEpOMngxUW04K3crT3p3NU5ucGI0WWV2dmFqOXZ4YXlqeFhWcm9S?=
+ =?utf-8?B?SHJMUmxGTnF6azg0YU9ab1NwOWlEQWt4UWEra0pQem1UVExtKzVOT2dPd0tV?=
+ =?utf-8?Q?F0X5n7nDZDhsCLa0JvufeG0DaGDgZVW5YjM5C?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04fbca1b-563e-40b7-8af4-08dee23fad6e
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 07:07:06.0641
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +YDjYuxioyRj+UPyK+cn1AIkXOpDOLC9ufPcm5dAtND+tgVN/jJJ/NcprhEmfmpNdx3DJc2zkMjj3CYXXTIFvnBKBIZ7Yv6Sbs0rVaP9Aoex8JWd7nt1pNYAQlHnKgp+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB8064
 
-> Should the constraint be set to 0 to follow standard device tree
-> norms?
+This series adds remoteproc node and reserved memory regions for the
+i.MX95, i.MX952 and i.MX943 EVK boards.
 
-Fair point. The current RFC wires up a single I2S DAI, and for a
-single-DAI provider 0 is indeed the norm -- rockchip,dw-hdmi does
-exactly that for its one DAI on the TX side.
+- Patch 1 adds CM7 support for imx95-19x19-evk
+- Patch 2 adds CM7 support for imx952-evk
+- Patch 3 adds CM7-0, CM7-1 and CM33S support for imx943-evk
+- Patch 4, update resource table address for i.MX8ULP-EVK
 
-The reason I picked 1 is that the controller also has an S/PDIF
-audio output path (the vendor driver exposes both I2S and S/PDIF
-DAIs through hdmi-codec), so a DAI index becomes meaningful if that
-second path is wired up later.
+Each patch defines the remoteproc device node with mailbox channels
+and the associated reserved memory regions (firmware memory, virtio
+vring buffers, resource tables and shared DMA pools).
 
-Unless the DT maintainers prefer keeping 1 from the start to avoid
-changing the cell count if/when the S/PDIF DAI is added, I'll switch
-to const: 0 in the next revision -- please let me know which you'd
-prefer.
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
+Biwen Li (1):
+      arm64: dts: imx8ulp-evk: Update rpmsg resource table address
 
-Igor
+Peng Fan (3):
+      arm64: dts: imx95-19x19-evk: Add CM7 node and related memory nodes
+      arm64: dts: imx952-evk: Add CM7 node and related memory nodes
+      arm64: dts: imx943-evk: Add CM7 and CM33S nodes
 
-On Wed, Jul 15, 2026 at 7:54=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Medium] Incorrect cell count constraint for single-DAI provider.
-> --
->
-> --- Patch [1]: [RFC PATCH 1/2] dt-bindings: media: snps,dw-hdmi-rx: add #=
-sound-dai-cells ---
-> commit e6b0bac0b97f568ce749084e6c1e728bcd258b10
-> Author: Igor Paunovic <royalnet026@gmail.com>
-> dt-bindings: media: snps,dw-hdmi-rx: add #sound-dai-cells
->
-> This commit adds the #sound-dai-cells property to the HDMI RX controller
-> bindings, enabling a generic audio codec to capture incoming embedded aud=
-io.
->
-> > diff --git a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.ya=
-ml b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
-> > index b7f6c87d0e06a..83c10d9997c8e 100644
-> > --- a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
-> > +++ b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
-> > @@ -78,6 +78,13 @@ properties:
-> >        The phandle of the syscon node for the Video Output GRF register
-> >        to enable EDID transfer through SDAIN and SCLIN.
-> >
-> > +  "#sound-dai-cells":
-> > +    const: 1
-> > +    description:
-> > +      The HDMI RX controller registers a generic HDMI audio codec so t=
-he
-> > +      audio embedded in the incoming stream can be captured. A value o=
-f 1
-> > +      lets a sound card reference the audio DAI as <&hdmirx 0>.
->
-> [Severity: Medium]
-> Is this cell count constraint correct for a single-DAI provider?
->
-> Looking at properties:#sound-dai-cells, the hardware exposes only a singl=
-e
-> generic audio DAI. Requiring a cell count of 1 forces device tree nodes t=
-o
-> use a non-standard syntax like <&hdmirx 0> instead of just <&hdmirx> for =
-a
-> single resource.
->
-> Should the constraint be set to 0 to follow standard device tree norms?
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715051939.64=
-652-1-royalnet026@gmail.com?part=3D1
+ arch/arm64/boot/dts/freescale/imx8ulp-evk.dts     |   4 +-
+ arch/arm64/boot/dts/freescale/imx943-evk.dts      | 135 ++++++++++++++++++++++
+ arch/arm64/boot/dts/freescale/imx95-19x19-evk.dts |  46 ++++++++
+ arch/arm64/boot/dts/freescale/imx952-evk.dts      |  50 ++++++++
+ 4 files changed, 233 insertions(+), 2 deletions(-)
+---
+base-commit: cc2b5f627e8ccbae1188ef2d8be3e451d7f933a5
+change-id: 20260715-imx-rproc-dts-6c78f82652f9
+
+Best regards,
+--  
+Peng Fan <peng.fan@nxp.com>
+
