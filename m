@@ -1,64 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19DF231A07B;
-	Wed, 15 Jul 2026 13:52:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2E2F335067;
+	Wed, 15 Jul 2026 13:53:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784123559; cv=none; b=TfEEsIFd8GjQAQo31TYw4HbGjbAYMlUFV7zhv8x/UDpzot8gshONou+iHCYmBhU73JGj16+RK4vSwGOsF4XEEnWntWTmcOtKcF8OTILtuGjs9ZNqqHoc3B7iXctbv0sjjeRwOtwDC1Rx+Vvuwq2KH6kA2hipU9tPFkptMifNYk4=
+	t=1784123614; cv=none; b=BTjiQniVNPiEtlD+SiFOC7t9vuA4Ki3yR0XzSigTpN2qPHU2wIHYCrDq0kIIyHYSIRjIufgoYGWTpFYh+uMCx3W3Xxq4WDSxEZUr5kBc0juJv0S7JHe0KdHf/QGrZ+3CqoNWG9MEFD+fXwSh6D7fSwRbPrBfPaiZJWaRLSr3TYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784123559; c=relaxed/simple;
-	bh=JVkNXhvHeLHz37xYn56ZT8A7XUQqNvPgb9zbNuRVGuo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rLAUeE/1OBt0S3GR1Kmrc9Rb0EYX5xMwBHq/HpDjAOdW04pLKReR7C8Du9YYVka4EURE3H5uDZLit6GRaJD7Ay2FF3h2SHlPHNFdt43wZvmtMx6JF8pGFLg1UTn2ikPIXChMJJDPdOsi5J5MRqQrYv7sWlQls794GmlJhckSJqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jhKc6a1/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784123614; c=relaxed/simple;
+	bh=Qq/dzFMFE2FEfrNHkPUWZfteiUt8pZSXepAUZe21VFo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Yimi6oxEjE6yKSOdaBemz7Tl5d7x4gq1NaLgdmGPZZbJ7WoJKWwb8cLCLiAvFrJClkVoj0B8nCjf2qLVSqSjBMcynhxEiaKESbEUEIWfx046gH8xGJRG9Pd6B/a45YRVrMH67SZqCsJiCIo/rvUZuej1O1B2BeOQGhuYHVSDwTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=dLesiPSm; arc=none smtp.client-ip=79.135.106.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jhKc6a1/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79CF21F000E9;
-	Wed, 15 Jul 2026 13:52:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784123557;
-	bh=JVkNXhvHeLHz37xYn56ZT8A7XUQqNvPgb9zbNuRVGuo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jhKc6a1/1zLEldwQD63EKbVrxTQMz99T9pjlLsHiHCaMMeGMkPlJE2FU7hWtEqlH8
-	 FVpBbgoSifSu5MBEjlPMLE4uXk5QhNViRwHC7QUvBcn8RWL4qWjqgjRPwBYX7pY7O3
-	 3exlyKdTT1dGAMh6bnfuhh0uMvVLPLs2984sO+BbartiPKXyhrXzyQd9HpvM+bpGSM
-	 mFYM7ondeEGI2GpjqE2LpvpSm/PJMYUxzuiFmCS1VS8iENw0pBrP+t1Q1Of/Dt8NPB
-	 8kO7B25RTPRCJqUOBEGJrHs1uLS1iXIicto1hnYAR/9EGS0fovPjs2u3PqGbHzvs5L
-	 oI8laMQ6NTCdQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/4] dt-bindings: leds: nxp,pca963x: add multicolor
- LED support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, linux-leds@vger.kernel.org, lee@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260715-monza-leds-v6-2-d1724bb7fe3d@oss.qualcomm.com>
-References: <20260715-monza-leds-v6-0-d1724bb7fe3d@oss.qualcomm.com>
- <20260715-monza-leds-v6-2-d1724bb7fe3d@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 13:52:37 +0000
-Message-Id: <20260715135237.79CF21F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="dLesiPSm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail3; t=1784123608; x=1784382808;
+	bh=ItzpmHqYLBu/dDqjAXr+pTfP3C0U/ZyTE8V/7zIjs1A=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=dLesiPSmlO5PhlvZ5d8MxX9CR6AGIXJHEXbv6zTnnSsmAfqL+0zMsa4H3VALrYG5+
+	 mM07gY6tkQY47zJAo4aAhARDxjBcMvF1gzeG3P9IkZurPkoKXvU3EjGkDXWqR2KOCC
+	 vT8f0sd4iRgpJoqxeJo4fiKqzCfOK3LkcmjHUWxwL297DDTvU41IaTkTnkx6r/jvPm
+	 90SKkj8LBFo+uZq+QrlidyJmbIGPo+RbfLWFoRWiQNbqMr+OjQ4nEJDZUxTkVTvTIC
+	 sczmBuhmg/iXwB3DE7RrzDyzYGRV6+Y/ZxU0j8323cs2euz9IRJjre3ELR3RBmELQz
+	 YFbEOvFMARewA==
+X-Pm-Submission-Id: 4h0d1L4L1Gz2Sd4K
+From: Esben Haabendal <esben@geanix.com>
+To: Nuno =?utf-8?Q?S=C3=A1?= <noname.nuno@gmail.com>
+Cc: "Jonathan Cameron" <jic23@kernel.org>,  "David Lechner"
+ <dlechner@baylibre.com>,  Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,
+  "Andy Shevchenko"
+ <andy@kernel.org>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
+  "Nikita Travkin" <nikita@trvn.ru>,  "Maslov Dmitry"
+ <maslovdmitry@seeed.cc>,  <linux-iio@vger.kernel.org>,
+  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 4/4] iio: light: ltr501: Power down chip if request
+ irq fails
+In-Reply-To: <7yhbsguvuodmgpmhb6dgnuxfede4x6x3ducrifymcmqlb5vl4u@rgrjqovq2ife>
+	("Nuno =?utf-8?Q?S=C3=A1=22's?= message of "Wed, 15 Jul 2026 15:01:32
+ +0200")
+References: <20260715-liteon-ltr329-v2-0-d18af55edab5@geanix.com>
+	<20260715-liteon-ltr329-v2-4-d18af55edab5@geanix.com>
+	<YNVq2JyJ5AetAiMbwvpiwKO3WN2vtf-sdCy966IwnP92DxD3jwbHgUB_oTX0cWTJIEcSaY9IVHKeTgfbV3upFQ==@protonmail.internalid>
+	<7yhbsguvuodmgpmhb6dgnuxfede4x6x3ducrifymcmqlb5vl4u@rgrjqovq2ife>
+Date: Wed, 15 Jul 2026 15:53:26 +0200
+Message-ID: <87cxwomka1.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-> Add support for grouping individual PCA963x channels into a multicolor
-> LED by introducing a multi-led@N node pattern. This follows the
-> convention established by other multicolor LED drivers such as
-> kinetic,ktd202x.
->=20
-> This is necessary to support and model hardware setups where multiple
-> PWM channels drive a single physical RGB LED.
->=20
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Nuno S=C3=A1 <noname.nuno@gmail.com> writes:
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+> On Wed, Jul 15, 2026 at 02:27:26PM +0200, Esben Haabendal wrote:
+>> In case request irq failed, we were leaving the chip powered instead of
+>> powering it down again.
+>>
+>> Signed-off-by: Esben Haabendal <esben@geanix.com>
+>> ---
+>>  drivers/iio/light/ltr501.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+>> index 379e57ac5f5b..9d4de798e5ab 100644
+>> --- a/drivers/iio/light/ltr501.c
+>> +++ b/drivers/iio/light/ltr501.c
+>> @@ -1571,7 +1571,7 @@ static int ltr501_probe(struct i2c_client *client)
+>>  		if (ret) {
+>>  			dev_err(&client->dev, "request irq (%d) failed\n",
+>>  				client->irq);
+>> -			return ret;
+>> +			goto powerdown_on_error;
+>
+> This looks like a fix so we should have a Fixes: tag. And being it a fix
+> it should be the first patch in the series (can come after bindings
+> though). Reason is for backports.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-monza-leds=
--v6-0-d1724bb7fe3d@oss.qualcomm.com?part=3D2
+Added for next version.
 
+/Esben
