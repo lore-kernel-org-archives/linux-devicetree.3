@@ -1,176 +1,109 @@
-Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E05F44B663
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 11:53:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F405449EC3;
+	Wed, 15 Jul 2026 11:56:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784116393; cv=none; b=A3rTj6KXthVNL4HVUaxInglWvHkJClPSQrHVtxJ+1iQvFf5POiiGNEs3MezwoNmAEqUjpQNI5b4wepZKtitA4X7wqSiV2DdooOpQk3K1/+Yh7v5mhoD1h8swdGi4Tu1h5h0BGLHgMUj2KL8FozDfbDvKQ2kEs99x6UcJDLrqoA8=
+	t=1784116573; cv=none; b=hizQ7MtU9teWeW5E3Q7xJrGiQj90XrICLqgQlEWFHmv7kBevypi+z2fJNw1Pg9/Krs3LLpETcS++6edixaq1eYBrOiESq2pXRmtpeysgas7HTKMk+PXhEKEf/W6VyL4nOxHXp3dJrr9YSy69tZzRwFzuUGLrMKMbg4z9IQsZMQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784116393; c=relaxed/simple;
-	bh=yD9P3Kwmn70r8BWUec1eKMUuFutUvxRbSCKthV2WBWQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=eL2Mc26PUzDN9cQm82fnrm1Am8aJl24XT5uWMHeJMhkVCR2yl00/72JftNYDbp7YbuKdj4ELyGhQsqv2hYfd/++R4TjaExy+d8qm64AJheWH2zjSyI27kPDln4JqxKPk4eYYguGnOq3nHCzlG2e3b5YHFmG5tYg5uOoanDkv3Zc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=EE0gs6DZ; arc=none smtp.client-ip=109.224.244.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1784116573; c=relaxed/simple;
+	bh=g8b7FdYYkqd6DZcTGSeNpeTqR6UjNz8xauquTtINp+0=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dyW+UmZMuj97h7Ir2hTcycs0g0hSfPP5jiIqp7LUc3ajQmR5YHaxLioIldLWBCmrdehxrbnhJG/2L0v8IRVQ09AJoqCguOcWEvjAztOvBNoPSIuFUzT56sCPR2ZMZCOKyqQz0/I+FwQd8auVnIyCJHOmJy1Vq1xbw3JVdan9xi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hWcnDRif; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="EE0gs6DZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail3; t=1784116387; x=1784375587;
-	bh=bgZaypZ7nYl/aFWuSHD0NZkdmRefMsYIAWDGgIuflOI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=EE0gs6DZEkQfforFZ84PzAt/MRK/zRMtB01g8JglasGg4m1PZwfzyQ/HaDYw35qoS
-	 /onqibG5DSgQqPwoHIGGpe7M6j5FbaAqtEZfTyTZqdsOm0IK+FzJwV3CcJ9gZ2wsc5
-	 9WFS+nirIu75uNUDaQLMqORyJhJjOyCfrYSuFeGHhaQ+N/zh/junS4dyvWhn0tGeOx
-	 onLAb5Y4Ie1S3ldXIAgi9dMo0AAoJudfpFRc3qZxqH5AYoqytWdq568JtAiJsFPueu
-	 sXNKvKQ6Xjt6HU9q9mIjAjfM2XM/jn0OTo8KxI1O165kLUSg1ASLMlgaSdjH2Rmjz5
-	 yeUmtX8a0qBpw==
-X-Pm-Submission-Id: 4h0ZLT6Pysz2ScPw
-From: Esben Haabendal <esben@geanix.com>
-To: <sashiko-bot@kernel.org>
-Cc: <sashiko-reviews@lists.linux.dev>,  <robh@kernel.org>,
-  <devicetree@vger.kernel.org>,  <conor+dt@kernel.org>
-Subject: Re: [PATCH 3/3] iio: light: ltr501: Add ltr329 driver support
-In-Reply-To: <20260715083837.9F7F91F000E9@smtp.kernel.org>
-	(sashiko-bot@kernel.org's message of "Wed, 15 Jul 2026 08:38:37
-	+0000")
-References: <20260715-liteon-ltr329-v1-0-31f027051594@geanix.com>
-	<20260715-liteon-ltr329-v1-3-31f027051594@geanix.com>
-	<oeNhZJuStBFVqtDDgXFydTr01V2RtgHLgAov5Z5ASVZXg1DJ941mRCvvh5flaxGqIvJp5p50ZbApPh_Kj1Le6g==@protonmail.internalid>
-	<20260715083837.9F7F91F000E9@smtp.kernel.org>
-Date: Wed, 15 Jul 2026 13:53:05 +0200
-Message-ID: <87fr1ko4f2.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hWcnDRif"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 715131F000E9;
+	Wed, 15 Jul 2026 11:56:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784116570;
+	bh=u9wJHKiV23P2GLbMmzVOeIGyReKDaO4AJFuZast6R08=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hWcnDRifBQOBuXKk7Y87WvSAYB0GUR0mBPWzDtZQ8cwFCRiSAFRIGymSi3j7BdxaX
+	 YF8ONpbBKamJiY7YUrkPSfoxN3wxywi1v6xeb+O5TBzRUZ3PTfWUgx4IE4bZ1PTjq0
+	 L+hw3UdfX3PZc3q7shYUzh9hEV+mXKLiYKjjDg8f7b7NndG6K/IESn64N1XNmNNFvD
+	 cSb5FEAFpitcYYFqTpuPoywBnJM9uuxEKSMses2GU6y5JG77b7+B/yCcpAp4plhXv5
+	 hH6RuiJsk8RoQqWR01c26lGBDuJFyz088Q8tmYiw7QUiEIZFnsMntWimisVumy6R/V
+	 Uy8ipp1x1fdqg==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wjyDg-00000005H0X-19Tp;
+	Wed, 15 Jul 2026 11:56:08 +0000
+Date: Wed, 15 Jul 2026 12:56:07 +0100
+Message-ID: <86bjc8o4a0.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Yureka Lilian <yureka@cyberchaos.dev>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,	Lorenzo Pieralisi
+ <lpieralisi@kernel.org>,	Krzysztof =?UTF-8?B?V2lsY3p5xYRza2k=?=
+ <kwilczynski@kernel.org>,	Rob Herring <robh@kernel.org>,	Bjorn Helgaas
+ <bhelgaas@google.com>,	Sven Peter <sven@kernel.org>,	Janne Grunau
+ <j@jannau.net>,	Neal Gompa <neal@gompa.dev>,	Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,	Conor Dooley <conor+dt@kernel.org>,
+	linux-pci@vger.kernel.org,	linux-kernel@vger.kernel.org,
+	asahi@lists.linux.dev,	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/2] PCI: apple: Integrate pwrctrl API
+In-Reply-To: <76243051-e391-45d2-b47a-d4a904f0a36f@cyberchaos.dev>
+References: <20260707-apple-pcie-pwren-v1-0-5a281b182fe2@cyberchaos.dev>
+	<20260707-apple-pcie-pwren-v1-1-5a281b182fe2@cyberchaos.dev>
+	<86a4s3p2vy.wl-maz@kernel.org>
+	<8a80a170-a508-4a9e-8090-27cfcedb1cd4@cyberchaos.dev>
+	<865x2qq4ts.wl-maz@kernel.org>
+	<jqaxvdaxfpm5g3tdwdqpuk2ubkwim6ckmlblocvakloqishvmm@c5ofbdbdj7lf>
+	<76243051-e391-45d2-b47a-d4a904f0a36f@cyberchaos.dev>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: yureka@cyberchaos.dev, mani@kernel.org, lpieralisi@kernel.org, kwilczynski@kernel.org, robh@kernel.org, bhelgaas@google.com, sven@kernel.org, j@jannau.net, neal@gompa.dev, krzk+dt@kernel.org, conor+dt@kernel.org, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-<sashiko-bot@kernel.org> writes:
+On Tue, 14 Jul 2026 17:57:11 +0100,
+Yureka Lilian <yureka@cyberchaos.dev> wrote:
+> 
+> 
+> On 7/9/26 14:29, Manivannan Sadhasivam wrote:
+> > On Tue, Jul 07, 2026 at 02:58:39PM +0100, Marc Zyngier wrote:
+> >> Works fine is one thing. Being consistent with the way the rest of the
+> >> driver works is another. pci_pwrctrl_create_device() and
+> >> pci_pwrctrl_power_on_device() appear to do exactly what would be
+> >> required for a single port. They just needs to be exported made
+> >> global/exported.
+> >> 
+> > I'm fine with exporting pci_pwrctrl_create_device() and
+> > pci_pwrctrl_power_on_device() and calling them with per-port np.
+> > 
+> > - Mani
+> 
+> In theory I do agree this would work to power on the slots, and I can
+> send a v2 of the patch doing it that way, but I don't quite understand
+> yet how this fits better with the existing driver code: If this is the
+> case, what is the difference between pcie-apple and pcie-qcom and why
+> should pcie-qcom use the recursive function but pcie-apple not?
 
-> Thank you for your contribution! Sashiko AI review found 3 potential issu=
-e(s) to consider:
->
-> New issues:
-> - [Medium] Probe error paths skip device power-down, leaving the sensor a=
-ctive and leaking power.
->
-> Pre-existing issues:
-> - [High] Asymmetric teardown of the devm-managed IRQ and manual IIO devic=
-e unregistration leads to a Use-After-Free on the IIO event interface.
-> - [High] Enabling the software timestamp channel on sensors without proxi=
-mity support causes the trigger handler to hang and drop all captured data.
-> --
->
-> --- Patch [3]: [PATCH 3/3] iio: light: ltr501: Add ltr329 driver support =
----
-> commit 6c505591ba68d4c8fcdd0eb98eb4532e6610696f
-> Author: Esben Haabendal <esben@geanix.com>
->
-> iio: light: ltr501: Add ltr329 driver support
->
-> This adds support for the LTR-329ALS-01 chip, which is similar to
-> LTR-303ALS-01, except for interrupt, which LTR-329ALS-01 chip does not
-> have.
->
->> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
->> index 7d045be78c6df..815b67a10837d 100644
->> --- a/drivers/iio/light/ltr501.c
->> +++ b/drivers/iio/light/ltr501.c
->
-> [ ... ]
->
->> @@ -1257,6 +1269,18 @@ static const struct ltr501_chip_info ltr501_chip_=
-info_tbl[] =3D {
->>  		.channels =3D ltr301_channels,
->>  		.no_channels =3D ARRAY_SIZE(ltr301_channels),
->>  	},
->> +	[ltr329] =3D {
->> +		.partid =3D 0x0A,
->> +		.als_gain =3D ltr559_als_gain_tbl,
->> +		.als_gain_tbl_size =3D ARRAY_SIZE(ltr559_als_gain_tbl),
->> +		.als_mode_active =3D BIT(0),
->> +		.als_gain_mask =3D BIT(2) | BIT(3) | BIT(4),
->> +		.als_gain_shift =3D 2,
->> +		.info =3D &ltr301_info_no_irq,
->> +		.info_no_irq =3D &ltr301_info_no_irq,
->> +		.channels =3D ltr301_channels,
->
-> [Severity: High]
-> This is a pre-existing issue, but does using ltr301_channels cause the
-> trigger handler to hang if the timestamp channel is enabled?
->
-> Looking at ltr301_channels, the timestamp channel occupies scan_index 2. =
-If a
-> user enables the timestamp channel, bit 2 is set in active_scan_mask.
->
-> However, ltr501_trigger_handler() assumes bit 2 is always the proximity
-> sensor:
->
-> ltr501_trigger_handler() {
->         ...
->         if (test_bit(2, indio_dev->active_scan_mask))
->                 mask |=3D LTR501_STATUS_PS_RDY;
->
->         ret =3D ltr501_drdy(data, mask);
->         ...
-> }
->
-> Since sensors using ltr301_channels lack a proximity sensor, the hardware
-> ready bit is never set. Could this cause ltr501_drdy() to loop and drop
-> data?
->
->> +		.no_channels =3D ARRAY_SIZE(ltr301_channels),
->> +	},
->>  };
->
-> [ ... ]
->
->> @@ -1531,6 +1555,11 @@ static int ltr501_probe(struct i2c_client *client)
->>  		return ret;
->>
->>  	if (client->irq > 0) {
->> +		if (!ltr501_has_irq_support(data->chip_info)) {
->> +			dev_err(&client->dev, "chip does not support irq\n");
->> +			return -EINVAL;
->> +		}
->
-> [Severity: Medium]
-> Does this early return bypass device power-down on probe failure?
->
-> If the device tree specifies an IRQ for a chip that does not support it,
-> this will return -EINVAL directly instead of jumping to the
-> powerdown_on_error label, which could leave the device powered on.
+Consistency is important to maintaining any piece of code, and I do
+not want to deal with two management models simultaneously.
 
-Ok. I guess I should fix the same issue for error handling of the
-devm_request_threaded_irq() call.
+Furthermore, the qcom stuff is bolted on the side the DWC train wreck,
+has to deal with the existing way the DWC driver works, and I see no
+reason to be dragged down to that level of horror.
 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but is there a use-after-free
-> risk when the threaded IRQ is requested here?
->
-> The driver uses devm_request_threaded_irq() during probe but manually cal=
-ls
-> iio_device_unregister() in ltr501_remove().
->
-> Because devm-managed resources are freed after ltr501_remove() completes,
-> the interrupt remains active while iio_device_unregister() destroys the
-> event interface.
->
-> If an interrupt fires during this window, ltr501_interrupt_handler() calls
-> iio_push_event(), which accesses the freed event interface structure.
->
->> +
->>  		ret =3D devm_request_threaded_irq(&client->dev, client->irq,
->>  						NULL, ltr501_interrupt_handler,
->>  						IRQF_TRIGGER_FALLING |
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-liteon-l=
-tr329-v1-0-31f027051594@geanix.com?part=3D3
+Yes, this is an arbitrary decision.
+
+Thanks,
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
