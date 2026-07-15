@@ -1,164 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1D1F3EDE59;
-	Wed, 15 Jul 2026 09:09:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCCDB3ECBCD
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 09:09:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784106561; cv=none; b=kUMgxNH1PAd8VVCAWcpu+BptagrNcUBKgBTicHlVp4sjNWX0xNfVzLhySupQPJ/N6P/irQRZV2QkG8/lbm3RnsfhoKX0iWHyMISUgkQisMUAaXjp+6zju1BKKl7fdBkTyOsE16TvTIxeU/G/1hyyAx5TBI+ZSSVJ6z2gEmgPTdE=
+	t=1784106586; cv=none; b=HEW+SOwVc/yJu+wZkXdK7ODMGOvKNIjoYpdkd45q5/Uub0F6gaPiayhFrPEOuoHSE75T/CcnZPoPpp0KbfnVQitGpn/RAZBaQEcYRpV4ANIpSxLuoQmU3hn+07MCbrdVUjEUlZqZPTK91fh5Jx1lryMgNRciFYzpEZ3GPoM7tK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784106561; c=relaxed/simple;
-	bh=12v4kLfM0t53W8e1jIm92V7bHObkh5Z/3ph0XkzStPQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RropRS0sAKfd7IPbMaSCoudKM3bjwpbeTpiORdfUjHiXosUmxaqCpWZUAgqXEbNx6LqUNy9MKU7lqBotCNajCAklvNVWQ528su+QGxg42495Bp7uTIQROBQE8tDKR475OEbk+dN8eaPH0TZxF3pODvJwfynOw49d5bIMr/w5wUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nK6Frkh3; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1784106586; c=relaxed/simple;
+	bh=1QcU48bIpCfSkvx5akklVj8+Ls69ZBvswDKJZVFWKcw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=V2CGxga2IYQkTi3iSCwLNUtbScbrqT7prIwtoD2kFO3nfvYMQgdR3NYVWyEqtOThh3RS85GXG0PB+8KdkOI+gS+8EoX7FvGxtA/5XbEK2JO4UdA8uF4jpfBqlz5vbxEChNtJuZ4Ao0ypguhrBhT3OKKX2BEBav21iWkK6k7ip4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RB93WFTw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nK6Frkh3"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8B3D9C2BD01;
-	Wed, 15 Jul 2026 09:09:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784106561;
-	bh=12v4kLfM0t53W8e1jIm92V7bHObkh5Z/3ph0XkzStPQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=nK6Frkh3OBSy57BXYR8scrdihVLTCkjjZy8diwqh5FZw7Zw1QPavvK8KAs7zqoWEg
-	 T/qibLbQgujb4MOJVufcsJ3BqvfDPquLdAsRXrzdqDSmnQUJoXWWnlAqLJyxvRLyA9
-	 9dJGV9hKNcGtfqrc/yKOrSQ/d8SiCa9dfUPQYws2UPJVaPQ0uaHBwxJy0tO3FYa9wK
-	 tVoFbnHPZIMgmlDmOJ6ImSLkMkT/STqRTmi0qiiwVl+GUESXWUj6ro3UPyC9WCOwgj
-	 Hb9SvqRLzWC2YWQiiRs7tU38L0CkFYDOM+RlxwT8SyXT1wy1Hc6KCY3ilM6f+N5/Ev
-	 /etkZjEjY14ig==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7143AC4450F;
-	Wed, 15 Jul 2026 09:09:21 +0000 (UTC)
-From: Andy Chung via B4 Relay <devnull+Andy.Chung.amd.com@kernel.org>
-Date: Wed, 15 Jul 2026 17:08:38 +0800
-Subject: [PATCH v2 4/4] hwmon: (kb9002) Add documentation
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RB93WFTw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B4441F000E9;
+	Wed, 15 Jul 2026 09:09:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784106584;
+	bh=GESY8UzzCNAxbKi1s7waLWnrQBjElWqOj/3JzDYGHWA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RB93WFTw0n1DJfgUjqw9fcb8stZYhXbM86LlCH/OidrMc3if2Hcz4BRMET3RVH3pd
+	 CoKPX+HkaRZa3D1zEBYsR3w8JHjJotUQX6E219/drzs/mrYL37exkW28WjrUqxt7CI
+	 yezctWwhyhfjU5HgPv6/6oMDqluEdu9MtRmC/YMBjAQmsoe28cl0FDpj7epzA04X18
+	 04f0WIDqKgO8ptzhwMgpdr2Bx1KsM+TX8a2gBVCCoF/o+BurjJX6ZC1s75Ko607oOO
+	 +5iOJ53O0/VEpYLrUZIiRg5WFJNyTfbpoPV1xu2GSfhWIzvA1NYxAray5ReUDoVUHP
+	 QjTWYO2jBJzpg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 02/16] device property: Add
+ fwnode_graph_get_next_port_endpoint()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chen-Yu Tsai" <wenst@chromium.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260715085348.3457359-3-wenst@chromium.org>
+References: <20260715085348.3457359-1-wenst@chromium.org>
+ <20260715085348.3457359-3-wenst@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 09:09:43 +0000
+Message-Id: <20260715090944.2B4441F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260715-kb9002-upstream-v2-4-2fd390383da5@amd.com>
-References: <20260715-kb9002-upstream-v2-0-2fd390383da5@amd.com>
-In-Reply-To: <20260715-kb9002-upstream-v2-0-2fd390383da5@amd.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andy Chung <andy.chung@amd.com>, 
- Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, 
- Andy Chung <Andy.Chung@amd.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784106525; l=3142;
- i=Andy.Chung@amd.com; s=20260327; h=from:subject:message-id;
- bh=N49+QrvixV76oNVim+qejmy5UhGOUcqywymzDOcJACo=;
- b=zZ6aRKFfqNlk6jBV8GQA33hkWntZJMk1yvIiBUghf/dKfD0R2qzpU517LRtgWUYGYU4uiMaKa
- mJVDwnAKyCdDGvhSJpeXSicA/CnSrvFlm/hq+LZy1bALHjqnj9KFSwU
-X-Developer-Key: i=Andy.Chung@amd.com; a=ed25519;
- pk=X2gaHRnhU2q5hvMjkC6xmIcC03vKNvHY9CQRdsj9ecM=
-X-Endpoint-Received: by B4 Relay for Andy.Chung@amd.com/20260327 with
- auth_id=696
-X-Original-From: Andy Chung <Andy.Chung@amd.com>
-Reply-To: Andy.Chung@amd.com
 
-From: Andy Chung <Andy.Chung@amd.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Document the sysfs and debugfs interfaces of the Kandou KB9002 hwmon
-driver.
+New issues:
+- [High] The new `fwnode_graph_get_next_port_endpoint()` helper breaks the =
+`fwnode` graph abstraction by hardcoding OF-specific naming conventions, wh=
+ich will silently ignore valid ACPI and software node endpoints.
+- [Medium] `fwnode_graph_get_next_port_endpoint()` fails to unconditionally=
+ put the `prev` fwnode reference if an invalid `port` is provided, violatin=
+g its documented API contract.
 
-Signed-off-by: Andy Chung <Andy.Chung@amd.com>
----
- Documentation/hwmon/index.rst  |  1 +
- Documentation/hwmon/kb9002.rst | 65 ++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 66 insertions(+)
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but iterating over e=
+ndpoints using `fwnode_get_next_child_node()` causes an infinite loop and U=
+se-After-Free when a device has secondary fwnodes attached.
+--
 
-diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-index 226789376217..9dc796d087dc 100644
---- a/Documentation/hwmon/index.rst
-+++ b/Documentation/hwmon/index.rst
-@@ -112,6 +112,7 @@ Hardware Monitoring Kernel Drivers
-    jc42
-    k10temp
-    k8temp
-+   kb9002
-    kbatt
-    kfan
-    lan966x
-diff --git a/Documentation/hwmon/kb9002.rst b/Documentation/hwmon/kb9002.rst
-new file mode 100644
-index 000000000000..e6d8d9c78923
---- /dev/null
-+++ b/Documentation/hwmon/kb9002.rst
-@@ -0,0 +1,65 @@
-+.. SPDX-License-Identifier: GPL-2.0-or-later
-+
-+Kernel driver kb9002
-+====================
-+
-+Supported chips:
-+
-+  * Kandou KB9002
-+
-+    Prefix: 'kb9002'
-+
-+    Addresses scanned: -
-+
-+    Datasheet: KA-015171-PD (available from Kandou under NDA)
-+
-+Author: Andy Chung <andy.chung@amd.com>
-+
-+Description
-+-----------
-+
-+The Kandou KB9002 is an 8-lane PCIe 5.0 retimer with an integrated
-+microcontroller. It exposes an SMBus 3.0 target (with mandatory PEC)
-+on its sideband interface. The internal firmware aggregates per-lane
-+die temperatures and publishes the maximum value through a 16-bit
-+addressed register window.
-+
-+This driver reports that aggregated maximum as the only hwmon
-+temperature channel. The running firmware version and the firmware
-+boot status are exposed under debugfs.
-+
-+sysfs interface
-+---------------
-+
-+==================  ===============================================
-+temp1_input         Aggregated maximum die temperature across all
-+                    active lanes (millidegrees Celsius).
-+temp1_label         Always "kb9002".
-+==================  ===============================================
-+
-+debugfs interface
-+-----------------
-+
-+Files live in the per-client debugfs directory created by the I2C
-+core: ``/sys/kernel/debug/i2c/i2c-<bus>/<bus>-<addr>/``.
-+
-+==================  ===============================================
-+fw_ver              Running firmware version in
-+                    "major.minor.patch.suffix" format. Read-only.
-+fw_load_status      Firmware boot status: "normal" once firmware has
-+                    finished initialising, "abnormal" otherwise.
-+                    Read-only.
-+==================  ===============================================
-+
-+Notes
-+-----
-+
-+The driver requires ``I2C_FUNC_SMBUS_BLOCK_DATA``,
-+``I2C_FUNC_SMBUS_PEC`` and ``I2C_FUNC_I2C`` from the host adapter. The
-+last is needed only during probe for the host-interface mode switch;
-+runtime accesses use SMBus block transactions exclusively.
-+
-+The retimer's SMBus address is configurable on three strap pins and
-+ranges from 0x20 to 0x27. The address is selected through device tree
-+(or i2c board info) the same way as any other I2C device; the driver
-+does not auto-detect.
+--- Patch [2]: [PATCH v5 02/16] device property: Add fwnode_graph_get_next_=
+port_endpoint() ---
+commit 8a16a51eeb8e99439d5b85ce61789ff1153e9060
+Author: Chen-Yu Tsai <wenst@chromium.org>
 
--- 
-2.34.1
+device property: Add fwnode_graph_get_next_port_endpoint()
 
+Adds a helper function to iterate through the endpoint firmware nodes
+under a given port. This is intended to be used in USB power sequencing
+integration to verify graph connections and supported connector types.
 
+> diff --git a/drivers/base/property.c b/drivers/base/property.c
+> index 0bd45f8b01c14..62c6221d65d05 100644
+> --- a/drivers/base/property.c
+> +++ b/drivers/base/property.c
+
+[ ... ]
+
+> @@ -1099,6 +1099,31 @@ int fwnode_irq_get_byname(const struct fwnode_hand=
+le *fwnode, const char *name)
+>  }
+>  EXPORT_SYMBOL(fwnode_irq_get_byname);
+> =20
+> +/**
+> + * fwnode_graph_get_next_port_endpoint - Get next endpoint firmware node=
+ in port
+> + * @port: Pointer to the target port firmware node
+> + * @prev: Previous endpoint node or %NULL to get the first
+> + *
+> + * The caller is responsible for calling fwnode_handle_put() on the retu=
+rned
+> + * fwnode pointer. Note that this function also puts a reference to @prev
+> + * unconditionally.
+> + *
+> + * Return: an endpoint firmware node pointer or %NULL if no more endpoin=
+ts
+> + * are available.
+> + */
+> +struct fwnode_handle *fwnode_graph_get_next_port_endpoint(const struct f=
+wnode_handle *port,
+> +							  struct fwnode_handle *prev)
+> +{
+> +	do {
+> +		prev =3D fwnode_get_next_child_node(port, prev);
+
+[Severity: High]
+This is a pre-existing issue, but iterating over endpoints using
+fwnode_get_next_child_node() can cause an infinite loop and a use-after-free
+if a device has secondary fwnodes attached.
+
+If a device port has both primary children and a secondary fwnode, the prim=
+ary
+ops finish and drop the reference to the last primary child, returning NULL.
+Then, fwnode_get_next_child_node() incorrectly passes this same dropped chi=
+ld
+pointer to the secondary ops:
+
+drivers/base/property.c:fwnode_get_next_child_node() {
+	/* Try to find a child in primary fwnode */
+	next =3D fwnode_call_ptr_op(fwnode, get_next_child_node, child);
+	if (next)
+		return next;
+
+	/* When no more children in primary, continue with secondary */
+	return fwnode_call_ptr_op(fwnode->secondary, get_next_child_node, child);
+}
+
+This can result in a double-put. Furthermore, when traversing secondary
+children, the primary ops don't recognize the software node, treat it as NU=
+LL,
+and return the first primary child again, creating an infinite loop.
+
+[Severity: Medium]
+Does this fail to unconditionally put the prev reference if the provided po=
+rt
+is invalid?
+
+If a caller passes a valid prev node but port is NULL or an error pointer,
+fwnode_get_next_child_node() returns early without dropping prev:
+
+drivers/base/property.c:fwnode_get_next_child_node() {
+	struct fwnode_handle *next;
+
+	if (IS_ERR_OR_NULL(fwnode))
+		return NULL;
+    ...
+}
+
+Could this lead to a reference count leak, violating the documented API
+contract that prev is unconditionally put?
+
+> +		if (fwnode_name_eq(prev, "endpoint"))
+
+[Severity: High]
+Does hardcoding this string match break the fwnode graph abstraction for
+non-DeviceTree platforms?
+
+By strictly matching the "endpoint" prefix, this bypasses the provider-spec=
+ific
+fwnode_operations, which could silently ignore valid ACPI and software node
+endpoints that don't follow this exact naming scheme. Shouldn't this rely on
+the backend-specific graph_get_next_endpoint operations instead?
+
+> +			break;
+> +	} while (prev);
+> +
+> +	return prev;
+> +}
+> +EXPORT_SYMBOL_GPL(fwnode_graph_get_next_port_endpoint);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715085348.3457=
+359-1-wenst@chromium.org?part=3D2
