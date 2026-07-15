@@ -1,139 +1,98 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C7A420482
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 13:08:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8746A420488;
+	Wed, 15 Jul 2026 13:09:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784120901; cv=none; b=itXhVHncCOSfU6T9eK/ZXdHxpqerzv1MNSWMFPCkXmDEexiGT5zmFPIPk+aL31YcARDsjKKn3g1iEmGwZ6yLm5hzYZPpdSg/yV1egMjDosdSpyY/VjmPxRy+E7+0D54TPB+2dAONdBQ4Gx0tYZ3Fzqo20ogxz69lPOQYl0XfylM=
+	t=1784120967; cv=none; b=L5c3Fyk9USNDqxzqdUCI4wsohIugdHU+hDQfpzCFXiP2lvPa4L6aXEAvsLY9LQBagrKtZ4Sg0E3xSReyMkxAda7XbphUNxekT6OEeg0F9hmJxWqlN2e1i+YUi7rhBKLlxGqsdoMrgphDpvScYx9E9yNttu03aH7Rt40v8KZqxps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784120901; c=relaxed/simple;
-	bh=q7OLCL7VgoNJ870EwkW5fFPMIBWQZC0+C92RMBAqFds=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=liXTyGUdwF4gukFn5FCqXt+th53IrdAOe1JVoNzF4HSj/Wsj2dDPy7AYSpzCKEWjQu+lzWSjaLz/gcGoXMTIvfyO12c7bMejoxkigqcchqodhWjNMLwsdUTjxx90CLjEnKUwyb7i19kZJvsKJ0QI9+mgQA5glLqv9efgkq1QiPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JXzGsfw0; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784120967; c=relaxed/simple;
+	bh=SUMb3zBausmevnB9x4UBudVXKBEKviMAQn5Mu6iQJHI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IVudPTGIz9dALiKIumvlQnXezQ+Jagaa9Jv85DKEwWRPoFVZWVuRcMrvzXEaFHrRVQYRL7LEMZYlAEUlc54bby+9oCKD9NU53jZIVw1mL3Rf4lgYDlWGc4jTf6YfTPMGQB4Z46DYsQn9fH06M+0m+ECJ+VxrvetwQpCk3lVroJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JtslR5ur; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JXzGsfw0"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47df6a5202bso3487449f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 06:08:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784120898; x=1784725698; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UfonUu9ln9gTilLrABAupaUf7sQqFWMryYTmRFohNbc=;
-        b=JXzGsfw0hYKTM3PjU+vY/5iJNETA1kJwQEClzuquNmBNkoqGZVldJNSBwgTIlpfw6Q
-         M0EuO2POJrj6taJ47TEoKuSk49xc5L++UcEfX/2htq3Oe7vI5RghSMYoaNjj5Gil3Dc3
-         X0HC73R9/foXxZ2L/UkuYYmAl9uihPH/jEOkH46Qlv8kECyCKvtH95ghjI/LfmlkdbSe
-         Ijsz942c605Lv7UAOIfv5SMrZbaQen7FRLZ/gZcEmB5zEo5pRCIeGQ1WzAkA1PMceGw1
-         5Kd/qkLYxM08Wr5ixCPfXtfhiJsvN2TnHtH2zPY6NymnTwLXPv5UvJgiHxbdEUWEWTvz
-         tVJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784120898; x=1784725698;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UfonUu9ln9gTilLrABAupaUf7sQqFWMryYTmRFohNbc=;
-        b=RfrOqBqyIpIl9u0NWCQPx+YxOGj3rYUZQvNwumeH0PVHFgxTntWgPYLk5xHI0NYh4u
-         LG+jr1zEugvI3f6oOLHtJd3B6ijAILatPLAfz3xU2qiHynu7Y8lPs8FhZ7GvEIn0rOjK
-         g0hbBDkCnmupbs2mJrWEOwxbcbxnQSspWEKqXZXhMiwn8QJ6EbHj9IZEI/4MWyycPJdL
-         au/k4B83q2gUU9lLs5JoMWDAKxKQFPZZpPOYhCe1S9kvHZY3ah4MqNOhi960GICwAxH1
-         lPKPMNYjb3XHGv636JfgrIkhLxnJFtHuy6kyxCUwluE4fpJz0BwX7AN1D5+jCnuDlOUa
-         2t4Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrDj0so1qqDSjrsf+8j5vN5eQpcTWRZzbltX0N4i0eSHzVy4HmzsniXPtDFiCxD2pbZ6oQQHAdx6Hce@vger.kernel.org
-X-Gm-Message-State: AOJu0YxvdAlwuPO/GS6Mjz8k7yjNly/TRHZMdn0DKTchJ0YCpb16s543
-	Y7RA87jdXXsHPtNAi253/XtxWw4ZeQIct904m10lgICiAnWCLHnsJib0
-X-Gm-Gg: AfdE7clVDbYpHB07RkL+RD5PQ20vow5e174fl7h8GrdXmEF196mZQ401PMcOyTPjE54
-	er2uAoXUnXym562XbE4BnflgKDBKSwy6nhnSltmZrYKOI9zDv6Atsqor2nmLhrSYjWXNqjipB12
-	+La9/S8iOkZ7UVLoEvNkyhSL/DyQpCA+gq0MR2/HveOo739Lj/IFGPNv9T8lhlciJz0jUNKPoOy
-	5imovA3Bct4t+AXzdP+3Q1jY4WKIfzqLOHjB1smwwE3HcEu54B1x5Nm82lS6/nnarliJ0zTMuCS
-	/jdUWRozBOocCxi/BeYYcDzDaFE4hRLRLdGZFZScivRX8tpX2uEwUltUdgJ/Q06J6UonMQsTE5m
-	cx8yIvf/gVGEyjFgII6M7hkasBgfUL7RFSb64qeTRm0/QJcpmrFhgIXTY9RCtMdyj6ZNwAmYoNv
-	uH9icPXS1cilwqELy26dKsFzz4qv7SN7EJIA8hrViLGhyjCeeeA9QL6CxUPoWgMqAldg4F8NR6B
-	BunDL7yEc4e/8MHL9+flQR+QifHHzsVcMWfPNfjbp77gPBB02R81QrlcBQUxaiY21RWzudpInXe
-	mKSEdbYE8GpOMF3UUyz0ZszEP1KbmCP4mYoRhUwruwlY/YgRucIB+It6AheJnIlQHHPBXuatIkg
-	ezKA4ptB3VZRyQHZgch6rDp0xL94ihQ+OxQ==
-X-Received: by 2002:a05:6000:1841:b0:47f:4e42:6f1 with SMTP id ffacd0b85a97d-47f4fceef3amr3279570f8f.41.1784120898478;
-        Wed, 15 Jul 2026 06:08:18 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f4634e0e4sm17579561f8f.4.2026.07.15.06.08.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 06:08:18 -0700 (PDT)
-Date: Wed, 15 Jul 2026 15:08:16 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen
- <lars@metafoo.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger
- <martink@posteo.de>, Sean Nyekjaer <sean@geanix.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Martin Kepplinger
- <martin.kepplinger@theobroma-systems.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] iio: accel: mma8452: Optimize struct mm8452_data
- member orders
-Message-ID: <20260715150816.00007d7f@gmail.com>
-In-Reply-To: <20260715-mma8452-open-drain-v2-3-95be9f5f4795@geanix.com>
-References: <20260715-mma8452-open-drain-v2-0-95be9f5f4795@geanix.com>
-	<20260715-mma8452-open-drain-v2-3-95be9f5f4795@geanix.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JtslR5ur"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA4571F000E9;
+	Wed, 15 Jul 2026 13:09:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784120966;
+	bh=wsxT5Nei/pXNtplqSgGgPoBP3RgXHfqBbo9yCD3QM0Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JtslR5urgE8vRtnO1BH1g02FkzXrLeKcugJNT7sTtuf8PzfknP/FcA4mHau0guwP+
+	 3nsEo8dd/9WCqSrq+f+jU5AyYtqh5jqm9ox0u2tnswWTN8xg9yO+x6Iv/VPTbG3fyX
+	 +qk53BgvB1EKmygznECPhz+JOK21NoWJH4blxU/y89Qwe5CSiWE11uBmM0ro/kSjSS
+	 X5ldXZrHuMfAXVpIXCF99+Tl3hoPqvSOeBQxowYbQqkmgPl7o1LkgxXcFuu7CUiArA
+	 7JD6W3GP2fxspXU1M7F9w6kbhd8m9/LoebxtxZzLnP3X9P1GY+tENpqLmcX9e09gYv
+	 W4g1x9Dvwqa4Q==
+Date: Wed, 15 Jul 2026 14:09:19 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Marius Cristea <marius.cristea@microchip.com>,
+	Marcus Folkesson <marcus.folkesson@gmail.com>,
+	Kent Gustavsson <kent@minoris.se>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, Janani Sunil <jan.sun97@gmail.com>,
+	linux-spi@vger.kernel.org, Kent Gustavsson <nedo80@gmail.com>
+Subject: Re: [PATCH v6 1/5] spi: dt-bindings: Add spi-device-addr peripheral
+ property
+Message-ID: <1c4af9b1-9937-4cbb-b57f-52ac575b8b89@sirena.org.uk>
+References: <20260715-ad5529r-driver-v6-0-cfdf8b9f5ee3@analog.com>
+ <20260715-ad5529r-driver-v6-1-cfdf8b9f5ee3@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="IzXuoKuv/ubtdJzE"
+Content-Disposition: inline
+In-Reply-To: <20260715-ad5529r-driver-v6-1-cfdf8b9f5ee3@analog.com>
+X-Cookie: "Speed is subsittute fo accurancy."
 
-On Wed, 15 Jul 2026 14:33:29 +0200
-Esben Haabendal <esben@geanix.com> wrote:
 
-> Reorder struct mma8452_data members to avoid holes.
-> 
-> Signed-off-by: Esben Haabendal <esben@geanix.com>
-> ---
->  drivers/iio/accel/mma8452.c | 9 +++++----
->  1 file changed, 5 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-> index fdf7364d7fed..537263085215 100644
-> --- a/drivers/iio/accel/mma8452.c
-> +++ b/drivers/iio/accel/mma8452.c
-> @@ -108,11 +108,7 @@ struct mma8452_data {
->  	struct i2c_client *client;
->  	struct mutex lock;
->  	struct iio_mount_matrix orientation;
-> -	u8 ctrl_reg1;
-> -	u8 data_cfg;
-> -	bool open_drain;
->  	const struct mma_chip_info *chip_info;
-> -	int sleep_val;
->  	struct regulator *vdd_reg;
->  	struct regulator *vddio_reg;
->  
-> @@ -121,6 +117,11 @@ struct mma8452_data {
->  		__be16 channels[3];
->  		aligned_s64 ts;
->  	} buffer;
-> +
-> +	int sleep_val;
-> +	u8 ctrl_reg1;
-> +	u8 data_cfg;
-> +	bool open_drain;
->  };
+--IzXuoKuv/ubtdJzE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Also quick thing, in order to prevent too much cruft, could you
-please move this patch before patch 2? You introduce the bool in
-2 and then move it to the end in 3, better for you to reorder it
-first and add the bool after, otherwise you get these "ping-pong"
-style changes (Andy's words). My reviewed-by still stands either way,
-so feel free to add it once reordered.
+On Wed, Jul 15, 2026 at 01:41:04PM +0200, Janani Sunil wrote:
+> Some SPI devices support sharing a single chip select across multiple
+> physical chips by encoding a device address in the SPI frame itself.
+> Add the generic spi-device-addr property for describing these hardware
+> addresses. The property is placed on the SPI peripheral node and may
+> contain multiple addresses.
 
--- 
-Kind regards
+This really isn't a generic SPI thing, if nothing else you need *far*
+more information in there about how exactly this would be put onto the
+bus.  If it belongs anywhere outside of the specific device's binding it
+feels like it might be regmap.
 
-CJD
+--IzXuoKuv/ubtdJzE
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpXhn4ACgkQJNaLcl1U
+h9BFywf9GLhvPMx/zAqARTHV92Ikz3iIvmqmLKbDbwynI8niYLhI1ulnhUTHaxfw
+Jvy+H+ofBMkjIBeveoiRHtBiDTEnAh9cHA9NNVnBi43qj+cbPRXc03veBrBftD9X
+vH/cSYWZ98Mj5dhlroXb6gXBYBrTifANkv9ivpOwE2j/EvL+bC51rGzhqc+T+8tt
+gesKevaEmBXvRr7OSivPlAbgQfbm3kcBZJo5CYu9cD/aUkoSlISgTXt5nQN2/RZB
+RftQ3HVKiji4b6iC7RSH1PhJh94fTMK7j+zlyNEBHhdjUlI+dRqZR2t1Zt5MbpLA
+qiYYA6j6lEuJK09nt1WazNul6jP95Q==
+=zhQI
+-----END PGP SIGNATURE-----
+
+--IzXuoKuv/ubtdJzE--
