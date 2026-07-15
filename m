@@ -1,86 +1,157 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B425D37C907;
-	Wed, 15 Jul 2026 14:47:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4A739448F
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 14:51:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784126847; cv=none; b=CSE4HDAMbUo5jeJmICYHSl5AJmTr4KST2tryR4vA5EPauJYfgScE0HOzESqnaS6mrF8353AFQKQM3dt295/rToiUQklhbkE9po3lAEKrprxzFlg1f+xfCaEaKPUkJbeIICspUsv+IphNvgnqaf6xxeNJbTbCOCHv8QMJtUwNtFg=
+	t=1784127085; cv=none; b=R8nxZ1IMgR/A81E0Cu49dvyww6WxelhaM9nhxAzSZjAaLtTzKoxGhS3k+EahXnhahM+7gHCgvCDWOFUoCFU2RZYVuTso/bcK8nPlhFxsID/uL2i9r+ofl5GPyczHB4JU1ErkW+Hy1SpJ/AlTrCyrkzZePWVNhpjvbibLZCc+UGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784126847; c=relaxed/simple;
-	bh=YscZYkhCUK9lKbh0UR9LVRVPfXsPMoB13J4yA8oeHXw=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=XARLI1vhTeigPJic8q2ljVTDtuyNqSn/YL4PqF4KgdrTQ/BcLFQrPvfDS13lSomxOPM7VmqgvFXR5VTOTq/6TnubNj2lhBxlemTHPR0ydKo+KwCJYv/ltznxc2jSlcitVqGR6ndgFGj0ZSqzWAtD9OdmkxkDcrGlVFpNsKtUcKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kqiNt32g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784127085; c=relaxed/simple;
+	bh=X9kNKkE0w4UCUrpj/0qd1qboJV5zBLMnhTO1ZTPUVg4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SwFdoqWaLP/XRejEkXJ6OFCyPE0Kux6gbRbi+5OAW/D++MRMFqqbm7fAzOHk/ACV0hYFuC0YioEQ+6VG/OWEneWwcP5VKm+PSqmmbfDtgH2aKmXwCYujJd8ELt49LoSwDZ54BCGawAtkplKExa5QV+AcmHG+LG2ppUWRuOK2KiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZbklglZH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kqiNt32g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95C551F00A3A;
-	Wed, 15 Jul 2026 14:47:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZbklglZH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 959071F00A3A;
+	Wed, 15 Jul 2026 14:51:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784126846;
-	bh=WKCdQZKsrJq19Puk4Z79f2jp8rTVwuThYbvhiTw5hmQ=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=kqiNt32gPa/PoX9GShy8W1YmV8pF6kKz4wOcu60yBMF2ICDl4WDu79HTqpL44hXQF
-	 ElhZEbqL3uHr1q8cOKH+395w6JtOjHeEp0RUVtgEcCxJSdpiq1Y6TZvhzNaZ9EA1wp
-	 O/GFojY9OyFWe5uoupmlJ//lS1bbRf0oSYNFwwoMcZgZgTmSjQNHA9xoDsOGiwx2/z
-	 iPqpvBOAiWgQmxJeHIPZ5QB0LO49Gu1t7BJj4N5bhc/65AqiUgphIBRSf5b+hxkwzW
-	 yoeW93jnlDzYoNh5rfJ2QYlBVq5umuXK3hHEp/0X1m/E3ihrUvfwNZpBOz7CUOd/y6
-	 idv6N/Br6jepg==
+	s=k20260515; t=1784127083;
+	bh=7czwNP/DC26y02anai799/yhnVFywZAVI7k7Oh6SLZg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZbklglZHPBeEbgAStDBei6Z45ldnrN/MkHCYtIbX8HVJbjWOX1DDpFkv7m1kMf1Rw
+	 zpipAtgIl+95aMNjxmwtDNGySWg/+hojKVc/S8fH+o8fYdbgGH6PKVws64BRsMREQN
+	 T26LCC9z2OMB5VMTk072106atvC+zsQrwg1Q7MLR7E+pO/cm6OYghMUQRSsd2OQ+D4
+	 91PuSEbhzeIYueoZdHUvR+QzSGKg8Hr8MLRCSP6GuS2Vmg6GDXBb9UvzyZfFZgxrHe
+	 +yQgw6kIQU9BIdDZM5PK25rv86kdMWohpm2YT1ChFoDmvrj0eteYvwuyqBBISzLKNe
+	 DIMz9gqBxU06g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 08/11] drm/mediatek: mtk_dsi: Add support for MT8196
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260715135703.46540-9-angelogioacchino.delregno@collabora.com>
+References: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
+ <20260715135703.46540-9-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 14:51:23 +0000
+Message-Id: <20260715145123.959071F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 10/10] arm64: dts: apple: Initial T6030 (M3 Pro)
- device trees
-From: Sven Peter <sven@kernel.org>
-To: Janne Grunau <j@jannau.net>
-Cc: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>, Andi Shyti <andi.shyti@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Sasha Finkelstein <k@chaosmail.tech>, asahi@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-watchdog@vger.kernel.org, 
- linux-i2c@vger.kernel.org, linux-pwm@vger.kernel.org
-In-Reply-To: <20260715-apple-t603x-initial-devices-v2-10-df65b2485710@jannau.net>
-References: <20260715-apple-t603x-initial-devices-v2-0-df65b2485710@jannau.net>
- <20260715-apple-t603x-initial-devices-v2-10-df65b2485710@jannau.net>
-Date: Wed, 15 Jul 2026 16:46:42 +0200
-Message-Id: <178412680286.41818.12702064623332890739.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=645; i=sven@kernel.org;
- h=from:subject:message-id; bh=YscZYkhCUK9lKbh0UR9LVRVPfXsPMoB13J4yA8oeHXw=;
- b=owGbwMvMwCXmIlirolUq95LxtFoSQ1b43JLvfZ/MlabzyE9x+BxTfYF3bUkLg3aEYWhi4IyNv
- GrrX37pKGVhEONikBVTZNm+3970ycM3gks3XXoPM4eVCWQIAxenAEzk/U6Gf+qvXnrsVpy/5O3u
- 42kMC6wrrttN3l8vn7RuVcSbDcKH10ox/BWw4OGXkPp82lBt+caXm6LF5nw/Ee2l/aWIP2O7bsx
- /f1YA
-X-Developer-Key: i=sven@kernel.org; a=openpgp;
- fpr=A1E3E34A2B3C820DBC4955E5993B08092F131F93
 
-On Wed, 15 Jul 2026 11:11:57 +0200, Janne Grunau <j@jannau.net> wrote:
-> diff --git a/arch/arm64/boot/dts/apple/t6030.dtsi b/arch/arm64/boot/dts/apple/t6030.dtsi
-> new file mode 100644
-> index 000000000000..2a0e830e0cc1
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/apple/t6030.dtsi
-> @@ -0,0 +1,524 @@
-> [ ... skip 356 lines ... ]
-> +			 */
-> +			clocks = <&clkref>, <&clkref>;
-> +			clock-names = "uart", "clk_uart_baud0";
-> +			power-domains = <&ps_uart0>;
-> +			status = "disabled";
-> +		};
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-serial needs to be moved one node up above pmgr_gfx.
+New issues:
+- [High] Calculation of QoS `rw_times` uses vertical active lines (`vactive=
+`) instead of horizontal active pixels (`hactive`).
 
-Reviewed-by: Sven Peter <sven@kernel.org>
+Pre-existing issues:
+- [High] Data race between hardirq and process contexts on the `dsi->irq_da=
+ta` state variable can result in lost interrupts.
+- [High] Lack of serialization in MIPI DSI host transfer operations (`mtk_d=
+si_host_transfer`), allowing concurrent transfers to corrupt the command qu=
+eue and state.
+--
 
--- 
-Sven Peter <sven@kernel.org>
+--- Patch [8]: [PATCH v6 08/11] drm/mediatek: mtk_dsi: Add support for MT81=
+96 ---
+commit a997b4c68ea4198553bbed678f80fe423d11793b
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+
+drm/mediatek: mtk_dsi: Add support for MT8196
+
+Add support for the new DSI IP found in the Kompanio Ultra MT8196
+SoC and its Dimensity and Genio variants.
+
+Differently from the older DSI IPs, the one from MT8196 requires
+the initialization of all of the QoS parameters and can make use
+of a DSI SRAM reserved buffer (present also on older SoCs but not
+mandatory on those).
+
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
+k/mtk_dsi.c
+> index 95f7d94bdad3b..d2fdeaeb97bea 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+
+[ ... ]
+
+> @@ -776,6 +873,102 @@ static int mtk_dsi_set_dsc_params(struct mtk_dsi *d=
+si)
+>  	return drm_dsc_compute_rc_parameters(dsc);
+>  }
+> =20
+> +static void mtk_dsi_config_hw_buffers(struct mtk_dsi *dsi)
+> +{
+
+[ ... ]
+
+> +	/* Calculate QoS Anti-Latency parameters */
+> +	sodi_hi =3D MTK_DSI_MAX_FIFO_BYTES * num_hw_buffers;
+> +	sodi_hi -=3D (fill_rate - data_rate_per_buf) * 12 / 10;
+> +	sodi_lo =3D MTK_DSI_DEFAULT_QOS_SODI_LO_OVERHEAD * data_rate_per_buf;
+> +	preultra_hi =3D MTK_DSI_DEFAULT_QOS_PREULTRA_HI_US * data_rate_per_buf;
+> +	preultra_lo =3D MTK_DSI_DEFAULT_QOS_PREULTRA_LO_US * data_rate_per_buf;
+> +	ultra_hi =3D MTK_DSI_DEFAULT_QOS_ULTRA_HI_US * data_rate_per_buf;
+> +	ultra_lo =3D MTK_DSI_DEFAULT_QOS_ULTRA_LO_US * data_rate_per_buf;
+> +	urgent_hi =3D MTK_DSI_DEFAULT_QOS_URGENT_HI_US * data_rate_per_buf;
+> +	urgent_lo =3D MTK_DSI_DEFAULT_QOS_URGENT_LO_US * data_rate_per_buf;
+> +	rw_times =3D dsi->vm.vactive * dsi_buf_bpp;
+> +	rw_times /=3D data->num_burst_lines * data->pixels_per_iter;
+
+[Severity: High]
+Does this calculation incorrectly use the vertical active lines (vactive)
+instead of horizontal active pixels (hactive)?
+
+Since DSI line buffers operate on horizontal lines, their size and bandwidth
+depend on the line width. Using vactive here seems dimensionally incorrect =
+and
+might be a typo. Could this result in incorrect QoS parameters for
+anti-latency buffers and cause display corruption or underflow?
+
+> +
+> +	/* Write all QoS parameters: Screen On Deep Idle, (pre)Ultra, Urgent, R=
+W times */
+> +	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_SODI_HIGH], BUF_THRESHOLD_PARAM, sodi=
+_hi);
+
+[ ... ]
+
+[Severity: High]
+This is a pre-existing issue, but can mtk_dsi_irq_data_clear() and
+mtk_dsi_irq_data_set() drop interrupts due to a data race?
+
+In mtk_dsi_irq_data_clear() (process context):
+
+    dsi->irq_data &=3D ~irq_bit;
+
+And mtk_dsi_irq_data_set() (hardirq context):
+
+    dsi->irq_data |=3D irq_bit;
+
+If the hardirq fires while process context is executing the non-atomic bit
+clear, could an interrupt completion flag (like VM_DONE_INT_FLAG) be silent=
+ly
+erased? This could cause wait_event_interruptible_timeout() to fail and log=
+ a
+timeout, potentially hanging the display pipeline.
+
+
+[Severity: High]
+This is a pre-existing issue, but does mtk_dsi_host_transfer() lack required
+serialization?
+
+Unlike many DSI host drivers, mtk_dsi_host_transfer() does not take a mutex.
+Can concurrent transfers from userspace via sysfs, modeset threads, or
+backlights corrupt the command queue or DSI state by concurrently calling
+mtk_dsi_host_send_cmd()?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715135703.4654=
+0-1-angelogioacchino.delregno@collabora.com?part=3D8
