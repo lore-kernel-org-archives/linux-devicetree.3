@@ -1,106 +1,89 @@
-Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch [185.70.43.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5485A439009;
-	Wed, 15 Jul 2026 11:35:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3835D448CF3;
+	Wed, 15 Jul 2026 11:36:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784115353; cv=none; b=ayuCeH6snwqBlw+2vdnjpPOLsMaeu2kSiwknFuTQC7E4ZcSqfbfRxvW+jyBlgQ1fDPPKo/7ZA6UwIjQmqNBoC2vVd0hkDqvgDM/BbXKBAXIIgfnsFx3+Qp5MMw8QywYuJLCuX5axp63non9PXHMaRUvn9AXLTdFXpbPJrirLlE4=
+	t=1784115372; cv=none; b=nwxPag+j9L+GYIm/GVXcJ6cRA6GD7JqBJ8sEQfC5BesG6tt6XfO2g3zOeBwCzg2fzJtUG8IOVkTsimQdkxOigKMmLrbhRAABEN8NKYv7XJzPr3dooZy9jZSlurkrporUvY6zv4TqzXizeWmD5i0N+lBtt/FPYa12LQxcIb93HVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784115353; c=relaxed/simple;
-	bh=yT4MVaeHQyVB9n7HPL6AfqF1C+RpXIhVO9zZ6Cm40H8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=CAbKtWTxhgbLFZsJFJthaMuXV0YGeg4vDi4ZM8k16x6vSqdZB6pMY9YvnzCONo1GcILyfhP0WCPxcpwz3e/jM9dUdPRxLYPFVrYkamavecHtUnU5xAui2AUopTd6XgsNvzDXufX7L4IeIyDjTmkNJCOpuGN23tqjJt2NDaC5gcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=WivdqmVR; arc=none smtp.client-ip=185.70.43.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1784115372; c=relaxed/simple;
+	bh=vR/hWLz7KlqMR3k0+e0hevTgG/iew7QOE9ntVM+LJXs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nBqDK9EuwY41wMvGqIp5ntiMP1pCxj9gEU/lDEQCOC50DL8hHA/6WFxzHFGCuskOxPeTxz61OI66gEmzI3cRdtF6ZXT24XsocennLCON6PXY6yicnCAn/GHxUpcNukKwPm8yx0nLOl4zw1Wikw7PkZNCtZw3C/x17EqszFn7Fh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jj/YkM/q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="WivdqmVR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail3; t=1784115345; x=1784374545;
-	bh=vw3eiTKMHGN7k4PMh36M/r9ybREuXYjf2b40KXBhK/Q=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=WivdqmVRvHFbAn38DXpzLC7sX7CWeBTekytpnuzBvc00Q+iguxkcgzbnlWgef+vu+
-	 bglbMc7zXb0CplLO1OHgPO+WCD8G56S/pQYnT6kxIIfetJ6lvxXp0lMIdZdmX9wg91
-	 QgbVkacaMfxnjTa2HO5U7eL1TVAXU1uuMn9sPArmOn8W8eNoi5PECZydtaQuYDvBgG
-	 yqN7JcUMtLpeCx6Zjla7CLOM59JKB9Qvxn67LmNdQbp59X4iDz/MGTjZy6IB2eA4v6
-	 IxWDiwfXX2Kl8WhHSjugZFwkuEJmYvW+viWkEBWyNZE+nxnmzklp7vJeRBU4C/Ejso
-	 npXDT1LBpg3QQ==
-X-Pm-Submission-Id: 4h0YyQ5SdGz1DDL5
-From: Esben Haabendal <esben@geanix.com>
-To: "Andy Shevchenko" <andriy.shevchenko@intel.com>
-Cc: "Jonathan Cameron" <jic23@kernel.org>,  "Lars-Peter Clausen"
- <lars@metafoo.de>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
-  "Martin Kepplinger" <martink@posteo.de>,  "Sean Nyekjaer"
- <sean@geanix.com>,  "David Lechner" <dlechner@baylibre.com>,  Nuno
- =?utf-8?Q?S=C3=A1?=
- <nuno.sa@analog.com>,  "Andy Shevchenko" <andy@kernel.org>,  "Martin
- Kepplinger" <martin.kepplinger@theobroma-systems.com>,
-  <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,
-  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] iio: accel: mma8452: Allow open drain interrupt pin
- configuration
-In-Reply-To: <aldH3vtk_eKh6oCC@ashevche-desk.local> (Andy Shevchenko's message
-	of "Wed, 15 Jul 2026 11:42:06 +0300")
-References: <20260715-mma8452-open-drain-v1-0-b1dd2a440c60@geanix.com>
-	<20260715-mma8452-open-drain-v1-2-b1dd2a440c60@geanix.com>
-	<cA7m1VgJxkr39GAxpnMPw9PVIKX2TR8Ju4Q0m6L2SxS_jJNITfZ6AA5LOeMIK0jGFXaUptY1_vPhDd_imWw5FQ==@protonmail.internalid>
-	<aldH3vtk_eKh6oCC@ashevche-desk.local>
-Date: Wed, 15 Jul 2026 13:35:41 +0200
-Message-ID: <87ldbco582.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jj/YkM/q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 483BE1F000E9;
+	Wed, 15 Jul 2026 11:36:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784115369;
+	bh=s+cCPUzfDWNBEmGXrtgzlca2oCCH/fQk5Q8BM6egFX0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Jj/YkM/qLp+Lk6Zvg3BomiGmm8LZA99hQo6UP+rLVSeQYgQPZEG7yK3TCWRjfgvEY
+	 iNNRn4aGUhhur5rCfGmfyc4wDueGwR5MA9HHVJnYIADM+MNuytRFPKJXE6DZMyJO9j
+	 o3gI6ydM1yfpzkC/zWZ1YbCpXhj8GNrcVyw0Xe5n9BLppdjKZ00b9qmZsoRTc9WXd5
+	 frcHWRvnLE+7cpWKLLMxPiVVBd/SgfbHUZ19CdYTNfSvOnRAlwu11xq2td96hUfCyV
+	 On33kR75UWc+A7XvQHTf4jkDMGWu9Wuhh6Tf6YdYYsomC0tzl3CanNLdeUWpw+e+C5
+	 Rl7YuwIAmZETw==
+Date: Wed, 15 Jul 2026 13:36:05 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	mohammad.rafi.shaik@oss.qualcomm.com, ajay.nandam@oss.qualcomm.com, kernel test robot <lkp@intel.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: pinctrl:
+ qcom,milos-lpass-lpi-pinctrl: Add Eliza pinctrl
+Message-ID: <20260715-unbreakable-utopian-wallaby-fc1bec@quoll>
+References: <20260713121518.2724474-1-ravi.hothi@oss.qualcomm.com>
+ <20260713121518.2724474-2-ravi.hothi@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260713121518.2724474-2-ravi.hothi@oss.qualcomm.com>
 
-"Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
+On Mon, Jul 13, 2026 at 05:45:17PM +0530, Ravi Hothi wrote:
+> Document compatible for Qualcomm Eliza SoC LPASS LPI pin controller.
+> Eliza has the same pin mux functions as Milos but uses a different
+> slew rate register layout where the slew rate field is in the same
+> GPIO config register rather than a separate dedicated register. As a
+> result, Eliza only has a single reg entry instead of two.
+> 
+> Signed-off-by: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/r/202607032107.RMly13RH-lkp@intel.com/
+> ---
+>  .../pinctrl/qcom,milos-lpass-lpi-pinctrl.yaml  | 18 +++++++++++++++++-
+>  1 file changed, 17 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,milos-lpass-lpi-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,milos-lpass-lpi-pinctrl.yaml
+> index 73e84f188591..c81cac1a9740 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/qcom,milos-lpass-lpi-pinctrl.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/qcom,milos-lpass-lpi-pinctrl.yaml
+> @@ -15,9 +15,12 @@ description:
+>  
+>  properties:
+>    compatible:
+> -    const: qcom,milos-lpass-lpi-pinctrl
+> +    enum:
+> +      - qcom,milos-lpass-lpi-pinctrl
+> +      - qcom,eliza-lpass-lpi-pinctrl
 
-> On Wed, Jul 15, 2026 at 10:07:39AM +0200, Esben Haabendal wrote:
->> When sharing interrupt line with other chips, the interrupt pin most
->> likely needs to be configured in open-drain mode instead of push-pull.
->> If this is needed, you must add drive-open-drain property to the
->> device-tree.
->
-> ...
->
->>  	if (client->irq) {
->>  		ret = request_threaded_irq(client->irq, NULL, mma8452_interrupt,
->> -					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
->> +					   IRQF_TRIGGER_LOW | IRQF_ONESHOT |
->> +					   data->open_drain ? IRQF_SHARED : 0,
->>  					   client->name, indio_dev);
->
-> Why do we care?
+Please keep alphabetical order.
 
-Care about what exactly?
+With this fixed and dropped incorrect tags (please read response from
+LKP - it tells you when to add the tags):
 
-We need to add IRQF_SHARED flag in order to allow shared interrupt, and
-we should not add it when using (the default) push-pull mode.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> The (hidden) problem this will have in the future is that the IRQ core
-> will splat a warning in case that other shared IRQs might be
-> configured with different flags. Putting that flag conditionally makes
-> it a mine field for the users. Instead just unconditionally add that
-> flag and we will get reports as soon as there will be a user that
-> shares the same interrupt pin with some other devices which drivers do
-> not use the same settings.
+Best regards,
+Krzysztof
 
-If we add the IRQF_SHARED flag unconditionally, it will be set also when
-push-pull mode is enabled. I don't see how the kernel will be able to
-notice that that is not going to work. If you have another device that
-uses IRQF_TRIGGER_LOW|IRF_ONESHOT|IRQF_SHARED, it will not work with the
-MMA8452 device when configured as push-pull.
-
-> Also setting to _LOW in the flags unconditionally is a (historic) bug.
-> The problem is that we might not fix it without breaking the existing
-> users which omit that flag in DT.
-
-Ok. So let's leave that as is for now.
-
-/Esben
