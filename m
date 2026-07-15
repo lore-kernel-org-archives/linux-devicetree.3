@@ -1,163 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49209.qiye.163.com (mail-m49209.qiye.163.com [45.254.49.209])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AC9048165E;
-	Wed, 15 Jul 2026 14:38:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25482481FCE;
+	Wed, 15 Jul 2026 14:38:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.209
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784126311; cv=none; b=i0lX2MNYHxuSR7XuZfcnFSDpODZB/q6wyQS5bLS36gFDwxqkytxd1xUb7BF61OfWA3a8SZ+Kbc+QSdJs+AxQ3hTWmhM8zUy6QPVejU79l4577B9bIIfxHRir3r/b1DOQpB9syryz7bsKaxckWXVEu4KW3SvBNxcz/NDQ6I0R6cg=
+	t=1784126346; cv=none; b=UnrY/03T3bk/HtJ6rJFvui7ZLly+dNJnOAk4j/HTOzZlfG0YxnHoSTmCjJPkEjIG6RfJ1f+alRfu/CCuTE06zZaKvnaMCmSOxUpnqyVDOwksNAu8LAwlx/myIJEVyIiz//55Rc6gNji4ozCLmCNN5bmWFo7PXtV8VnUNPKjW1Mc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784126311; c=relaxed/simple;
-	bh=Jb7kFcmNYVymDCC+BdCblS2A453NigHo4lz0bhHonOY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=m0p/G4o4QMUCXlLDprurxhGBR1yANMoJYk0GhlV8YcptL9Mk4k/OzAo5QWmq1s9SScTyXvtqXEL5omVe/wmpHrsPFE5LZG/yhVK5QKaKpFBx84Y2Emh/ojgay5Y8KOmSe3D08gUcMFrH/lyZwsURuBnittJPvIgMtJ4+wMVe0fU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TM5Rzz1u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784126346; c=relaxed/simple;
+	bh=5nb+2AzNbcMGDM8bfcBZvxtWt9xC71dpNJnpxq8QroI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=c/zOe4FSQ8b82F9PwqmTlKa12mUKYNvZqmxpUd78YHtDhsNSbvxiXgojhJoouj2vIdAuv8JkuFeiqG39Q/3/+BN2dtlnYcs6Ue0N/OjYlqTLJ3t44KyHBPu4UskQItH3j1gRJwt628Goh+j7l2rvB9AKEfD6i0lwkD8cvVY+E3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=Gq+WrDzi; arc=none smtp.client-ip=45.254.49.209
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TM5Rzz1u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D5A91F000E9;
-	Wed, 15 Jul 2026 14:38:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784126302;
-	bh=p3bXxUe1YA2cg2wUt1Er8zoc65NLXK8fX+dBGveP4o0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TM5Rzz1uzDQHrG61nEX0C/1QEb5N2lVThMVbMvD5hy/H8w939yHvvJFLHysHJ8Q/1
-	 pAndvfq9jzVwui9He9mXITp6qkGFYwmGviqyAWD81alGzYa2JtdlVgzBwf/kmVwOjK
-	 t9/RCu+AFXSVP7kr4M5VUWLPZOQAsC+c5bYXXiiqaHofAG/TNXFD1c1fvw+bNEcXtA
-	 absqFxIqBOg7jkz0WK7+OBKhe7OLDKyXYT4MlnCHGXqKlYBVCgUEzLcLONOMZZ+gQa
-	 uMfIrfXuYYg8LHUChoGhDeMRR1yqECaECLY6Biid/HxyikJHZK8YvoRG15NFTed112
-	 0Pa8zrMims5Rg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/7] arm: dts: st: Import optee node from u-boot
- device trees
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Dubois-Briand" <mathieu.dubois-briand@bootlin.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, robh@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260715-mathieu-uboot-dts-import-v2-3-bc931417bd0e@bootlin.com>
-References: <20260715-mathieu-uboot-dts-import-v2-0-bc931417bd0e@bootlin.com>
- <20260715-mathieu-uboot-dts-import-v2-3-bc931417bd0e@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 14:38:22 +0000
-Message-Id: <20260715143822.7D5A91F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="Gq+WrDzi"
+Received: from [127.0.1.1] (unknown [36.129.139.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 464e8f2e5;
+	Wed, 15 Jul 2026 22:03:19 +0800 (GMT+08:00)
+From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+Subject: [PATCH v2 0/6] Add audio support for QCS6490 RubikPi3
+Date: Wed, 15 Jul 2026 22:02:49 +0800
+Message-Id: <20260715-rubikpi-next-20260605-v2-0-67601d7a8581@thundersoft.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAuTV2oC/z2Ny2rDMBBFf8VoXRm9LZtS+h8li5E0qtVUdiLZJ
+ RDy77Wd0s3AGe49904qloSVDM2dFPxJNc3TBuKlIX6E6RNpChsTwYRhhmlaVpfOl0QnvC30/xt
+ DAM6VFSp0ZOteCsZ0O7wfpyfX1X2hX3bZX6Lgdd0Gl2eMZKwVjsGheT3MHVdcaaFZK1QnleGU0
+ zyPkDOEtkBMbR0hnd/nWtvrCt9+zrndztsxAIsfD5mI3AWJEbwUlkkWgsWIwkbX62iVYdIay5T
+ cWw4q0t2TlqFxiJ2RQUepuOt7H1UnIKLTzAbVWxuNAOOBk9Pj8QtJpo8FSgEAAA==
+X-Change-ID: 20260605-rubikpi-next-20260605-fdda114824d7
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>, 
+ Katsuhiro Suzuki <katsuhiro@katsuster.net>, 
+ Matteo Martelli <matteomartelli3@gmail.com>, 
+ Binbin Zhou <zhoubinbin@loongson.cn>, 
+ Srinivas Kandagatla <srini@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Roger Shimizu <rosh@debian.org>, linux-sound@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, 
+ Hongyang Zhao <hongyang.zhao@thundersoft.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784124199; l=3956;
+ i=hongyang.zhao@thundersoft.com; s=20260127; h=from:subject:message-id;
+ bh=5nb+2AzNbcMGDM8bfcBZvxtWt9xC71dpNJnpxq8QroI=;
+ b=1Lshf+r2AMRAxLnDb9tuCVZNHlXds8x4TGYnQKh1rcH+cjE3BrMTYo5b1tQggFJqZMKZFsN1z
+ rXHutEOMTpxAjQKwGc7IRVeFIcBKZ6ktrg0ADZoO3IfyNNMg71UguvF
+X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
+ pk=D9yL5W9Zj0lPBDAq9gzY++1849VlXuTWAkROzZ88J/4=
+X-HM-Tid: 0a9f6616d39d09d5kunm638899c211096
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQ0lPVk8ZGUJCT09LHklJSVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
+	lCQ0JKVUpLS1VLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=Gq+WrDziJ/HPpaSvoNbVfxr+HAxi3i6MkPM+NFeNBMC5B380Bd3eOKcxDGH+LUKBeGl2QlXJewcDyCXyoRSQT5IwF3EniTPvUllzVsVURg/cvibuHohwOjHPtHNSIN6suXgKzf3mmZk4IE8zG0rEvLLI57ImDkEbsSinAl8XkEY=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
+	bh=OwRjAZBd7v7Q701JBzvsj3dd+LTCNH3tJ5RvPt1Vzgw=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Critical] The `bootph-pre-ram` property is missing from the `optee@fe000=
-000` node and its parent `reserved-memory` node in `stm32mp157c-ed1.dts`, w=
-hich will crash U-Boot on this board.
-- [High] The patch unconditionally reserves 32MB of RAM for OP-TEE in the b=
-ase board device trees, permanently removing this memory for users booting =
-without OP-TEE.
-- [High] The OP-TEE nodes were added to the DK1 base DT but omitted from th=
-e DK2 base DT, which will silently break OP-TEE support for DK2 when U-Boot=
- drops its local overrides.
-- [Low] The newly added `optee@de000000` and `optee@fe000000` nodes duplica=
-te definitions that already exist in the corresponding `-scmi.dts` variants.
---
+Add audio support for the Thundercomm RubikPi3 board based on QCS6490.
 
---- Patch [3]: [PATCH v2 3/7] arm: dts: st: Import optee node from u-boot d=
-evice trees ---
-commit 455c0e25ccd33494a8e1d7d65c591a7e9158f5c7
-Author: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+RubikPi3 uses AudioReach/GPR on the ADSP. An ES8316 codec connected to
+primary MI2S provides headset playback, headset capture and jack
+detection. The LT9611 bridge connected to quaternary MI2S provides HDMI
+audio playback.
 
-arm: dts: st: Import optee node from u-boot device trees
+The series first documents the existing ES8316 jack-detect inversion
+property and adds a board-specific Qualcomm sound-card compatible. A
+generic Qualcomm headset helper is then added for codecs which implement
+component jack detection but are not connected through a WCD codec DMA
+link.
 
-This commit imports OP-TEE firmware nodes and reserved-memory regions from
-U-Boot device trees into the upstream kernel device trees. The goal is to
-allow U-Boot to drop its local additions and use the kernel device trees
-directly for these platforms.
+The sc8280xp machine driver board data is converted to a per-DAI
+representation. This allows each backend to select its own DAI format,
+clock programming and jack setup. RubikPi3 uses this to drive the ES8316
+with a 19.2 MHz MCLK and to avoid unsupported sysclk programming on the
+LT9611 HDMI link.
 
-> diff --git a/arch/arm/boot/dts/st/stm32mp157a-dk1.dts b/arch/arm/boot/dts=
-/st/stm32mp157a-dk1.dts
-> index 0da3667ab1e0e..236da589eb909 100644
-> --- a/arch/arm/boot/dts/st/stm32mp157a-dk1.dts
-> +++ b/arch/arm/boot/dts/st/stm32mp157a-dk1.dts
+The final patch describes the two audio paths, clocks, pin control,
+codec power and jack-detect wiring in the RubikPi3 device tree.
 
-[ ... ]
+This series is based on next-20260710 and depends on Rafi's
+q6apm-lpass-dais MI2S clock control series and Neil's q6prm MCLK clock
+ID patch:
 
-> @@ -22,4 +22,21 @@ aliases {
->  	chosen {
->  		stdout-path =3D "serial0:115200n8";
->  	};
-> +
-> +	reserved-memory {
-> +		bootph-pre-ram;
-> +
-> +		optee@de000000 {
+Depends-on: https://lore.kernel.org/all/20260714145250.2473461-1-mohammad.rafi.shaik@oss.qualcomm.com/
+Depends-on: https://lore.kernel.org/all/20251008-topic-sm8x50-next-hdk-i2s-v2-1-6b7d38d4ad5e@linaro.org/
 
-[Severity: High]
-Since stm32mp157c-dk2.dts does not include stm32mp157a-dk1.dts, won't adding
-this only to the dk1-specific file silently break OP-TEE on the DK2 board o=
-nce
-U-Boot drops its local overrides? Should these nodes be placed in the shared
-stm32mp15xx-dkx.dtsi instead?
+Tested on Thundercomm RubikPi3:
 
-[Severity: High]
-Does this unconditionally consume 32MB of RAM for users booting the standard
-stm32mp157a-dk1.dtb without OP-TEE?=20
+- HDMI playback
+- Headset playback and capture
+- Headset jack detection
 
-ST provides dedicated *-scmi.dts variants for OP-TEE environments that alre=
-ady
-contain these exact memory reservations. By placing this in the base device
-tree, it looks like standard non-secure users permanently lose this memory =
-to
-the memblock allocator.
+Changes in v2:
 
-[Severity: Low]
-Since stm32mp157a-dk1-scmi.dts includes this base file, does adding
-optee@de000000 here duplicate the node already existing in the -scmi.dts
-variant?
+- Rebased onto next-20260710 and Rafi's latest q6apm-lpass-dais MI2S
+  clock control series (v5).
+- Dropped the bundled q6prm MCLK ID patch and added a dependency on
+  Neil's existing patch.
+- Split the generic headset helper, per-DAI driver refactoring and
+  RubikPi3 machine data into separate patches.
+- Reworked the sc8280xp board data from global flags to per-DAI
+  configuration and migrated existing users.
+- Explained why the existing QCM6490 and QCS6490 sound-card compatibles
+  cannot be reused for RubikPi3.
+- Moved MI2S pin control to the sound card and fixed audio-routing
+  formatting as requested during v1 review.
+- Added primary MI2S backend clock subnodes for MCLK and BCLK control.
+- Dropped the untested SPDIF links from the device tree.
+- Verified HDMI and headset playback, headset capture and jack detection
+  on hardware.
 
-> +			reg =3D <0xde000000 0x02000000>;
-> +			no-map;
-> +			bootph-pre-ram;
-> +		};
-> +	};
+Link: https://lore.kernel.org/all/20260607-rubikpi-next-20260605-v1-0-7f334e16fea6@thundersoft.com/
 
-[ ... ]
+Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+---
+Hongyang Zhao (6):
+      ASoC: dt-bindings: es8316: Document jack detect inversion
+      ASoC: dt-bindings: qcom,sm8250: Add RubikPi 3 sound card
+      ASoC: qcom: common: Add generic headset jack helpers
+      ASoC: qcom: sc8280xp: Add per-DAI board configuration
+      ASoC: qcom: sc8280xp: Add RubikPi 3 sound card support
+      arm64: dts: qcom: qcs6490-rubikpi3: Add audio support
 
-> diff --git a/arch/arm/boot/dts/st/stm32mp157c-ed1.dts b/arch/arm/boot/dts=
-/st/stm32mp157c-ed1.dts
-> index 49dd555cc228c..7da7260350869 100644
-> --- a/arch/arm/boot/dts/st/stm32mp157c-ed1.dts
-> +++ b/arch/arm/boot/dts/st/stm32mp157c-ed1.dts
+ .../devicetree/bindings/sound/everest,es8316.yaml  |   5 +
+ .../devicetree/bindings/sound/qcom,sm8250.yaml     |   1 +
+ .../boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts | 159 ++++++++++++++++++
+ sound/soc/qcom/common.c                            |  61 ++++++-
+ sound/soc/qcom/common.h                            |   3 +
+ sound/soc/qcom/sc8280xp.c                          | 177 ++++++++++++++++++---
+ 6 files changed, 375 insertions(+), 31 deletions(-)
+---
+base-commit: bee763d5f341b99cf472afeb508d4988f62a6ca1
+change-id: 20260605-rubikpi-next-20260605-fdda114824d7
+prerequisite-message-id: <20260714145250.2473461-1-mohammad.rafi.shaik@oss.qualcomm.com>
+prerequisite-patch-id: 2e26f868c659376d3a1dd4c3e3d34ddb24aa226d
+prerequisite-patch-id: aa51a266a595ff79730f56920b7c552e53285869
+prerequisite-patch-id: b469932718c83bffa60b62c84dfc4cc8abc199e3
+prerequisite-patch-id: 2f1bd3efac328030dd8efe28fb95f84603868043
 
-[ ... ]
+Best regards,
+-- 
+Hongyang Zhao <hongyang.zhao@thundersoft.com>
 
-> @@ -70,6 +70,18 @@ retram: retram@38000000 {
->  			reg =3D <0x38000000 0x10000>;
->  			no-map;
->  		};
-> +
-> +		optee@fe000000 {
-
-[Severity: Critical]
-Is the bootph-pre-ram property missing here and in the parent reserved-memo=
-ry
-node?=20
-
-During pre-relocation, U-Boot allocates memory downwards from the top of RAM
-where OP-TEE also resides. Without bootph-pre-ram, U-Boot's DT parser will
-ignore the reservation. Won't this cause U-Boot to relocate its code and st=
-ack
-directly into OP-TEE's secure memory space and trigger a synchronous abort?
-
-[Severity: Low]
-Similar to the DK1 file, does adding optee@fe000000 to the base ED1 device
-tree duplicate the reservation that already exists in the
-stm32mp157c-ed1-scmi.dts variant?
-
-> +			reg =3D <0xfe000000 0x02000000>;
-> +			no-map;
-> +		};
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-mathieu-ub=
-oot-dts-import-v2-0-bc931417bd0e@bootlin.com?part=3D3
