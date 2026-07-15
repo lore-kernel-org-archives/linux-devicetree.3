@@ -1,96 +1,127 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC5143C9EF3;
-	Wed, 15 Jul 2026 19:39:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FEA63370E4
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 19:47:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784144390; cv=none; b=YQ16DgNsA1I5enZPyaGyfDJj7c3vGHUSXx/4yCunpQT3uGDvl571fsa2bQnG+T9hvKhC+CAmfj9MHGjlZP3rtjHPRu8mVxK+StEhh09PHK1PC5Dq+3MW/bwaJt/AQHHhZU3SYlUOHazHVnj2nQby3d8yREgD/NX/5CHk4t7DN/I=
+	t=1784144877; cv=none; b=PJSivpF40dTIqk0gO2Y+ay8LArslm+AEEYFuE/JbyarYyWKWSImavd2Dd33g250WV7hnM/SJSdf3r6QY0cxqtmO1ezzxeAXqG/kFCQeR7nOo39FcRn8pzHW9XaPB1B2VCZWxQKlvNq0Gws67NGId/nZqwPPfHNb6LMz1faqb9+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784144390; c=relaxed/simple;
-	bh=pSagzAX8TaM8JIR0ogC7aJiQTGit49snLSxZlQJswK4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oEEaCd+FsV0g93tPUpn2O11hlB6dlXKrSir+Sb5UEQxfYNxHlPQfOZNbK5NeqT5Nv63mZN5RGRc4bENJuamTyR7M4SXkUcRUjPjYH0USMCHyw9cXaRu0uZmnahmqAyXR76FAt8S1bQpX1MzdtLTTg9KCTcwjuGSkbYIxXywt8aE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=CGcQHJzn; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1784144877; c=relaxed/simple;
+	bh=AQ2mAEPbzm04qOGxYXD+C5edEWnqOz9w1cgF2xpS6xI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n3Tsj8BCA7P3FxaphJB/VVx44WULqKGkOkOG6mkNPGKofDf/mcfRFzGofjY0mVOaN9Y5VVsCtJ4xFt5MYZvrNUZZ2UZqN7tOgJ/JipnXk/Puu/Hn5oHHFHJVPxdkSIYaPbxD/NldmR6eGedkv798epd+JO6JrxykFwvPOQjFg+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rJoxSCXH; arc=none smtp.client-ip=209.85.219.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="CGcQHJzn"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=j+6+H0npw2UjZHclxHO/x3Tf61uejqeU1dWQ47818Ho=; b=CGcQHJzn/z84paToQNvEkEm1xB
-	UYrz08wsSopEY5sWUeO/VYpZRuVHC/WUY9pRsu3gWbhwW1dmwdgH1HWw+AkwKWzbpKzKgaZZ4Iwmv
-	dTgY+mSo9HHUtMsV6itBqfCiBb76a+82fNCA4qWJNwCDEeXx7zHkB/TEXCceh9svmaeQGueJY8CsH
-	FzGzCDpnBrSUouY3mLQ/u1dSyjlZrpt6wOvb7q32L+UWlP2/9We0NS5z0nf9f60GS42Przdv9sim7
-	RketPXqv+Df4gaJJtP29tX1RfPEfU4apka4d+f9RlOMicQAGahOxayBgOnSlN4jLCd6PV6WWNK/pZ
-	IaC8N1Bw==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- Samuel Holland <samuel@sholland.org>, Lee Jones <lee@kernel.org>,
- Pavel Machek <pavel@kernel.org>
-Cc: linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Samuel Holland <samuel@sholland.org>
-Subject: Re: [PATCH 1/4] dt-bindings: leds: Document "gpio" trigger
-Date: Wed, 15 Jul 2026 21:39:43 +0200
-Message-ID: <5188715.0VBMTVartN@phil>
-In-Reply-To: <20260711192842.845048-2-samuel@sholland.org>
-References:
- <20260711192842.845048-1-samuel@sholland.org>
- <20260711192842.845048-2-samuel@sholland.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rJoxSCXH"
+Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-8f23e851626so59724226d6.3
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:47:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784144873; x=1784749673; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KEXXjTtbWbMQrJ2ZliFeifCGsiHTYZZHXWoNLTa8NpU=;
+        b=rJoxSCXHFcdsLztytxa/oK5XHs3LLUp69efB9zMFiCVcowdfhSRUcNdq4uYmiuP86W
+         KE4BuEv4KadIeoYvjGxf9Oxkkg20PrtZhz/1JI/zC+RftS9op9ksoh3xTJo3XTf1F9AT
+         1A4L1f2sclIB1B4RrzXyrbk2K0jTJW7kgwEfU/7XbHCmlbSnhY4YLDirDgCx8QuqRqx4
+         d2nilcAn0IqeYf1wv9ouTmiX6xpYD2PdHLRHnxpthYukAs1aC6jC03iFSbeitmXLbHbv
+         0TiBP2JEwASNli4nhAEi50NrybswUlv/IVv/EiejUbs9mdZbzn0Cj1UT3Gf0eAeTelm8
+         krew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784144873; x=1784749673;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KEXXjTtbWbMQrJ2ZliFeifCGsiHTYZZHXWoNLTa8NpU=;
+        b=XVkyHvV6WtUYAq/2QH540GmHUFtnKAKN/7IuT7VppzCDdqeiiCF8e8Y3hXgVP3yccp
+         JGHhrvJGv/vW7DQzcBdD/XBClaSHRSgd+Xn3xR7z+BQAevSSnmEoDEedl6T6UbRnznd6
+         sgk7s1bH5EmKVrD18SBT7JMyV0Uet7b9kcLsfl5ZANZzTwSfgO+htWHb2jVD77xDFJ85
+         pzttAUx/W3SQFJqEHHhAfv/MnxWEVFeM+Pccit1l6FUvQ1gEXuDguL5ywJdVeRfe8kln
+         8AGpARPYYya8ONYhp4zv9xQ3NXzDTqC1zbhwgwhfIPatpKxDgRJSfWxm9CZtvzottjY2
+         m7Ag==
+X-Forwarded-Encrypted: i=1; AHgh+RoWJWE3I6XdyKLDbfmRawxBi88cyuaEAzrrc9jtmIwVbO2oHhNsbE6DVHOd8dYQlHUTA/7fBqDSA2cg@vger.kernel.org
+X-Gm-Message-State: AOJu0YzQRJxu7cDkSO7aMNfWMQaPucBNjJGSlRvHfrNn1OFQSMftY0JE
+	nhzQlA1i8MDiVRW8QINi3GnrOnb7rZ1LQRJVRh25GwwbuA1jxfuOjzeU
+X-Gm-Gg: AfdE7ckdeODzkFLMacZaQOhZBI2Kbs5AMq2S+OK0QWvrph+8NvEVTyfzvOA3MwMxUbd
+	sfGYiOWjx4Ul7VArdjm9t8O1/GRlr41uNzge7W/KivemPDK6pt7XlezFSsxspG4jrmWx98MnDLh
+	5cf2WR3Xg8d0pDJAirnc9ECDW7RGAH7uYmfbVfvL/0KVh7R3mqTUYRTHk2tHOvhx+rcKtPagkvb
+	4V6nKR71az/jmpP6HBlRieZ0qqLGC3BDzkaYBp+FkJR70ifrGuwzp74AX6cLJR/KOKMVmFaYRhN
+	FZJsukWPlKRp+F6/nqMvAvsqR6E74bf43nEUIo6jOhrUkgQKw2Mp44Yul7Z8GT3/SRocek/3mFj
+	lPD2/mdhq8SkYeO9GfH5mLhy1MB+bebLQHKCY9LKOUI0cFodNwi+IDAYNn400/iv8676eZOMEgD
+	8j+333DqD38oJsn6+odE4wrFyf
+X-Received: by 2002:a05:6214:c4c:b0:8ff:496e:1071 with SMTP id 6a1803df08f44-90747c2eeb4mr111182776d6.1.1784144873147;
+        Wed, 15 Jul 2026 12:47:53 -0700 (PDT)
+Received: from localhost ([174.89.92.200])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ffd87c8d4csm218276946d6.44.2026.07.15.12.47.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Jul 2026 12:47:52 -0700 (PDT)
+Date: Wed, 15 Jul 2026 15:47:41 -0400
+From: Richard Acayan <mailingradian@gmail.com>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 02/21] media: i2c: imx355: Add support for 24 MHz
+ external clock
+Message-ID: <alfj3XIkX-2O5BGp@rdacayan>
+References: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
+ <20260715-media-imx355-v4-2-f7f966fb9ffd@raspberrypi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260715-media-imx355-v4-2-f7f966fb9ffd@raspberrypi.com>
 
-Hi Samuel,
-
-Am Samstag, 11. Juli 2026, 21:28:25 Mitteleurop=C3=A4ische Sommerzeit schri=
-eb Samuel Holland:
-> The "gpio" trigger is used to control LEDs by the level of a GPIO input
-> referenced by the trigger-sources property. This is already documented
-> in the trigger-sources property description and is used in at least one
-> devicetree (am335x-regor.dtsi). Document it so validation of those and
-> future DTs will pass.
->=20
-> Signed-off-by: Samuel Holland <samuel@sholland.org>
-
-having Lee only in Cc in a longer patch series might make it difficult
-to notice this change.
-
-I guess this patch needs to be applied or at least "Acked-by" by them.
-
-
-Heiko
-
+On Wed, Jul 15, 2026 at 12:43:15PM +0100, Dave Stevenson wrote:
+> From: David Heidelberg <david@ixit.cz>
+> 
+> The IMX355 sensor supports multiple external clock frequencies,
+> including 19.2 MHz and 24 MHz. The driver currently supports only
+> fixed 19.2 MHz input clock.
+> 
+> Refactor the clock handling to make the PLL configuration dependent
+> on the external clock frequency and add support for 24 MHz. Introduce
+> a table of clock parameter sets and program the corresponding EXTCLK
+> frequency and PLL multipliers to maintain consistent internal VCO
+> frequencies across supported inputs.
+> 
+> The PLL settings are adjusted so that OP VCO remains at 720 MHz
+> 
+> This preserves existing timing characteristics while allowing systems
+> using a 24 MHz clock to operate correctly.
+> 
+> No functional change for existing 19.2 MHz users.
+> 
+> Assisted-by: Claude:claude-opus-4-6
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 > ---
->=20
->  Documentation/devicetree/bindings/leds/common.yaml | 2 ++
->  1 file changed, 2 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/leds/common.yaml b/Documen=
-tation/devicetree/bindings/leds/common.yaml
-> index f4e44b33f56d..e148b4277a6f 100644
-> --- a/Documentation/devicetree/bindings/leds/common.yaml
-> +++ b/Documentation/devicetree/bindings/leds/common.yaml
-> @@ -106,6 +106,8 @@ properties:
->            - bluetooth-power
->              # LED indicates camera flash state
->            - flash
-> +            # LED indicates level of GPIO input referenced by trigger-so=
-urces
-> +          - gpio
->              # LED indicated keyboard capslock
->            - kbd-capslock
->              # LED indicates MTD memory activity
->=20
+>  drivers/media/i2c/imx355.c | 77 +++++++++++++++++++++++++++-------------------
+>  1 file changed, 45 insertions(+), 32 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+> index ac59908f57aa..a6ee7532018f 100644
+> --- a/drivers/media/i2c/imx355.c
+> +++ b/drivers/media/i2c/imx355.c
+(snip)
+> @@ -1749,7 +1756,13 @@ static int imx355_probe(struct i2c_client *client)
+>  				     "failed to get clock\n");
+>  
+>  	freq = clk_get_rate(imx355->clk);
+> -	if (freq != IMX355_EXT_CLK)
+> +	for (unsigned int i = 0; i < ARRAY_SIZE(imx355_clk_params); i++) {
 
-
-
-
+Did we start allowing variable declarations mixed with code?
