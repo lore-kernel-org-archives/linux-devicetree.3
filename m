@@ -1,394 +1,306 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1A73C4169;
-	Wed, 15 Jul 2026 07:36:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784100989; cv=fail; b=tGtIlHYyL3GcwL3Ih0JdEnx1qUKizI3F1QP0ZqLcS6DOPkh5il4n4cPU6jWlb7b9rol3wFcipt6muBNfEKAb7IWOYKkGeO78GevkLXxwcPAlnl5qIC/++VH1zMEeN4TozLMsZKyXMZ11BU5zlS1ziPNJEeaIvx+XGsvbhzGfG9U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784100989; c=relaxed/simple;
-	bh=YOnFVL3vubu9csEwhut+mvTDzogNFqsBaUIr5eBPBMU=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=UNPs32SxYlhn0P5NNzc5+FRol4j8cFI7pEWqXkyKJrLji8EHxYJUo0UG+UzdcH+YYGqkq52YBfLgo7dMDFs43NMHd90Q9gPcZ5ZqJ3inniQBxYa6gU+z+L/PZWey/uC2TzORQvI6wp/mOC9CLFSC+xpg94Xfv/Yyrnx9FHq9cCw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=Y73b+bGQ; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=BggjHKuJ; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6343C3C0F
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 07:39:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784101195; cv=none; b=tMQCvtPoQxIvmj9TlaRcs5PtjrzAtoC4H1aZjsTlvR52WAsXWMjA8uuefs6Al4Mwp6I3peP0vfnPTDAQBWAN47xsfLj+PlQF0jU4QstQA7WI8OfsHtgXL2D9/L475p7FKYAWkzhFZH8zQH8WiFfsRuDpnWMlyAE6B8lt/ycnJD8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784101195; c=relaxed/simple;
+	bh=ebWtyOH9kSpxJq6vDBko/JT3b6HXaI0oy8ZLOlgDCic=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=U46u2/PI2zeR8bW5AP2Rx69y6590GK2ddXmYOmh79FJLBsncQ5Zozh+brLfVqm9sTnrOqK27nF2XSVPjwBg5OUJ76OFiJOJcFpMXwmh4l3RBeLDsnLaK2kuoZawHylsDBQDeXO10WtJwosUU9wdtwPhkL5z+IvO1/rgopM/3Kmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Uf1+EfZy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IzMGrD+H; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="Y73b+bGQ";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="BggjHKuJ"
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66F4MFQS4102163;
-	Wed, 15 Jul 2026 02:36:16 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=proofpoint-05-2026; bh=wLgxA5/2tJuXB
-	PbexFme3147r6JPX31T1YsRIZ3TZXA=; b=Y73b+bGQHubcG9L4WTlsREeLNHzqf
-	UfYnw4NWzCivWhnmsauQhcjD2wB3HoUoPLW8Z1z7H97qvofYo6d+xZDjEQRe9Rye
-	aOyutiynU4FCpnCPK75amPXtB4PUF1Fxvw08Z2GAXTCh+99BQcb5+5LA/aTXjbcz
-	F9fKhKkdJeEfmgX2uuGS3DjsNbKzBxtpNqiUAy4Y3Rd/HqfIrtbZeMi8TgK8/lDm
-	IR4d70j8GqPY0XamoLFsAOJ+EFqTKKLCJCOm5m/y1hyafx59Cmn2JKOZpaPsQCYv
-	Bc2R4uHG9F0BdoExyySzHU0CPZYSsJ18sEMRVghyXzlXNzcVo1Z0VVkmg==
-Received: from co1pr03cu002.outbound.protection.outlook.com (mail-westus2azon11010003.outbound.protection.outlook.com [52.101.46.3])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4fe34d0t14-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 15 Jul 2026 02:36:16 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Mn6gETecmvP/Wqm5Tq5JPf1lVdtUVOlxkRUKNdb69C1IwmATU5rSVKsj0stm7gPina4WTR/mhz5Z7LrlB4AEb5E3ep0EeM5cKVtzlXHtxurWschhdotZrR6634tTb4V14GwH51EMAk70xh0AtO1hwH4taygzrGP1luHb1+hDqgHpoMnBo4vdHFtOC0ArmFKXiHvFdONImoadq4QbNQ1VU1hdVNJYTQJPwBBwWQ5P28qhiI3COpAfIFf1+bFyA8IJ4ru2ucrW2H3Do0m26z61X6SyWYkG1D0n0gY6niQib0hck+eBjfEJMVXG/6gvjg1sV+7CvHfXuwMWSr+v7e2PjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wLgxA5/2tJuXBPbexFme3147r6JPX31T1YsRIZ3TZXA=;
- b=OlBd6KQfNteLPw4GwUt6M7S0pH3k3sAC8Xlkh2+QP3U8whzdtIyBka9ogpf9oQSwi2p4uBM4thjrMMsHd6Klv9t3Hqi5gwvDQEF0zMJX47cIPOA0H4JAj5h0QLjzs0xeSfYRFzImiEWCcKHu9usVZoH4nXVCb5XgvjhGw/OLM8wcjHGpxianOmZv80Y8q9nnomH5CnSCKZUwHuT3kk3Z9gYsMRrhPijztZxDIkcMJFNKW6sf9U04nBvnoM10nlhcV0jyPBECxBRi6dd1JI2/gxfgIM+jGafZBQAV+nRMw54YHKlicyuQTJeFcRyotJRIRayaj4fzbymdpc49DP0P6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wLgxA5/2tJuXBPbexFme3147r6JPX31T1YsRIZ3TZXA=;
- b=BggjHKuJVPq6U76adfPQoBKPxHWmUqXeLiXYEsK46uxoYoEy8SXKS8EzC2QS4s66NskXel/zDZevttuxcDjxnKIsnFnaWql3nnoANsTg0rv17Vjhh+WJeC5zm9gi8szVtkFX58Z3aJfk61sw5VQTs/QDbkHSQl5T9OJnVv4XYtw=
-Received: from SJ0PR05CA0077.namprd05.prod.outlook.com (2603:10b6:a03:332::22)
- by PH3PPF57C8E5D36.namprd10.prod.outlook.com (2603:10b6:518:1::7a4) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.14; Wed, 15 Jul
- 2026 07:36:11 +0000
-Received: from SJ1PEPF000026C5.namprd04.prod.outlook.com
- (2603:10b6:a03:332:cafe::2d) by SJ0PR05CA0077.outlook.office365.com
- (2603:10b6:a03:332::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.10 via Frontend Transport; Wed,
- 15 Jul 2026 07:36:08 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- SJ1PEPF000026C5.mail.protection.outlook.com (10.167.244.102) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 07:36:07 +0000
-Received: from DFLE205.ent.ti.com (10.64.6.63) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 15 Jul
- 2026 02:35:36 -0500
-Received: from DFLE200.ent.ti.com (10.64.6.58) by DFLE205.ent.ti.com
- (10.64.6.63) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 15 Jul
- 2026 02:35:36 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE200.ent.ti.com
- (10.64.6.58) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Wed, 15 Jul 2026 02:35:36 -0500
-Received: from a0512632.dhcp.ti.com (a0512632.dhcp.ti.com [10.24.52.205])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66F7ZW1E2524418;
-	Wed, 15 Jul 2026 02:35:32 -0500
-From: Swamil Jain <s-jain1@ti.com>
-To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-        <tomi.valkeinen@ideasonboard.com>
-CC: <devarsht@ti.com>, <praneeth@ti.com>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <s-jain1@ti.com>
-Subject: [PATCH v4] arm64: dts: ti: Add LincolnTech OLDI LCD-185 Overlay for AM625-BeaglePlay
-Date: Wed, 15 Jul 2026 13:05:31 +0530
-Message-ID: <20260715073531.2346803-1-s-jain1@ti.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Uf1+EfZy";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IzMGrD+H"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66F3lBQM2405993
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 07:39:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	pmzy3y4hnVRggDf3ypxamZzXNnu9V8aagRm5VsFGWUY=; b=Uf1+EfZydOomm85r
+	qm8k3d/yXZDZwvRB4Ese8LoKt7xxGqfYM6dv6B4XGvRAYBHOyCX6tPK9to6jUBhM
+	BDAEExtfUN7x3Xl0Qt27QLmLSOsl+ERZ4LNpVc43dvyloxdnIUs5vSLGsaZ5XT1k
+	UmqAKxNpDn+lyIygvjIcduU7aIxV3Gnp2dGKTC33n5VJTG8jTWL2+pGQAN+YKtA+
+	JlFw9C+k5zq+AiYuIb1qr0t0V1nTSrI173E1sHIla/4ahAfe9A9j+eusDEdeCsVT
+	kEZxS8idLeGvLGVkYTApAOuTE68AFnHrSmj1s1OrZY+4w8s/whKzySxP2xOINzfr
+	pnXmow==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fds9g2j44-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 07:39:52 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c01ff996dso19712521cf.2
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 00:39:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784101192; x=1784705992; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pmzy3y4hnVRggDf3ypxamZzXNnu9V8aagRm5VsFGWUY=;
+        b=IzMGrD+HdXuO8cXwIp0ul/2RbJp1by9wv3Jx/aSLc+GsRpLk6T6GRJbNq4CRHYIBG9
+         w4jW1eD3jbgJIIZbqp+FALJQQaDFTxw1zi5ko2FnBwhxgv9vvWmXK3+JWb+uZIh2asJg
+         LW7Lqf7z1P2s4VXebxWwWG+RxmkiIoRSeYN8eL2LwTwAqyHyn2lgN4jaB2d4GfF02DbB
+         FbYUMkUKizt+a09cr2uUsky/7Capb7mA/wr7jq28c42lzi6UXUbURoZW1Iapoog8EJ7Z
+         VvsVxnxaVzNklVBT79c0w72kbCH5MZ4zqfuRtPbBnkSAZo5XnwptRZLh/HkGnL76cQ2K
+         KPtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784101192; x=1784705992;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pmzy3y4hnVRggDf3ypxamZzXNnu9V8aagRm5VsFGWUY=;
+        b=qIRgZ86z++LU2zBchxsAb+7pVfnY/sE7cYWUjPvXIH1tfRf6ftslznwT9Y75xCpPXz
+         Hv1a9gEbDE2V4EfUl8Ich3kF/dfj4llHnHGD2Izaqw952dqVA8tLeUu+UT3mieylaivi
+         hTZo59FLMjrI4okwA5Sr+Jn8sRtP0wUmvCeQtoqqN0//h6Yfyyi1vn6mIUrBQaczhSYw
+         F2JIhhdhOrTGYULcbTOHCDcZUIcvSdUWKXJtPYMqO+Dbx5xMP7JAbU76iFSSboiJbm0s
+         nB0ogFEjjPHp9Nc6Gg1yfKKImWiDlYTOrS/scbhDRFFbu2LZDPO0e1axJUcBsLYso4pF
+         2eDA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro9ustYCJoeD19yRCGCQ5ZN+TySek0+LWXLK1ZbA2BxnrkYNFbk6LZzmoVW5aS+PnyUyKwdQ1ksD43L@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw/f2b5W1CdT+saBDm7TpfcYx1v2Aco0WiV/5SXSmjUKS/QAtW9
+	peRCo9PDWmcpkj4/yh7p0osODHADg6I/KuFcfaOBQNZ3uAvpvfp/2e/RN5bx3gNG36G71Xvdsc4
+	bGq9ZeaScxyGPoY1RrsKSnC+RABCNyWuKrcN/aNKsUCaCCbv0QttXElw1M8+LpD8p
+X-Gm-Gg: AfdE7cki2AHCrVrz+a+S0gNV970NJEcN9Mg0XoYfqgbOibOGbqadY4Pw6h4TXjvAo5r
+	zxg0IhpVjy8eW/jcYK4deotxsxjyhdhyhhP/PkRvhG5ztfYRct2x0qKdKqdN+ROcYHPQjOiRkO3
+	CRRl0CGC8LMfX7xrgSK5p1Q++cuqqUmJZ0zAX9h11a17aDlCb7F8biJKvKbSEeggxUqRuEgY94/
+	oXVJTGIql43Q6G/YW2/H0/0kCXIP5r/x4YlaUJzRFzRN3gQA4WUQNtfVUG7tm+Os0oid+1tlUD3
+	RSzXmrSOohsYlpb2DpmVRKKAE4UFplQiy0M7IjeoOKrhkw0yqGy0svxuH5nqCCmOre1iZ228Xh8
+	0vXb/h0uxAPqdUGaEFfUwZwk/iCTEbypbGUP4Hg==
+X-Received: by 2002:a05:622a:1909:b0:51c:b98a:244d with SMTP id d75a77b69052e-51cbf27e71fmr150224401cf.63.1784101191850;
+        Wed, 15 Jul 2026 00:39:51 -0700 (PDT)
+X-Received: by 2002:a05:622a:1909:b0:51c:b98a:244d with SMTP id d75a77b69052e-51cbf27e71fmr150224211cf.63.1784101191222;
+        Wed, 15 Jul 2026 00:39:51 -0700 (PDT)
+Received: from [192.168.68.103] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47f47688f29sm12046110f8f.21.2026.07.15.00.39.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 15 Jul 2026 00:39:50 -0700 (PDT)
+Message-ID: <75d64369-6e1a-4d6c-bbff-36c395b384e8@oss.qualcomm.com>
+Date: Wed, 15 Jul 2026 08:39:49 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/5] ASoC: qcom: q6prm: add support for LPASS LPR
+ resource voting
+To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Bartosz Golaszewski
+ <brgl@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org
+References: <20260713184549.929569-1-prasad.kumpatla@oss.qualcomm.com>
+ <20260713184549.929569-4-prasad.kumpatla@oss.qualcomm.com>
+ <046bb977-dad6-4bd0-b1c2-4321c58d3f27@oss.qualcomm.com>
+ <dae40416-f7b5-4f36-960d-808c1fdeef42@oss.qualcomm.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <dae40416-f7b5-4f36-960d-808c1fdeef42@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C5:EE_|PH3PPF57C8E5D36:EE_
-X-MS-Office365-Filtering-Correlation-Id: bed30147-328f-4026-097f-08dee243bbf0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|1800799024|376014|3023799007|56012099006|6133799003|13003099007|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	flmemnVjrqAD8ZCw2qIw4o2PiLByl8c4BjM571BZJH0wleBmEzAHalyoh+iv91G+YN65m7d7J3L4/78ttThVfjWIJsUhc/bjl8D3VOgWK3mNSF8moyHdn2RtiwkOvR52hHF1QwXXy0bATRiSKnBFAy9T6kW2r+2ywXxPhYS0y6Yhng8NItoXCm/pkHsUpmilco4vKs2BWjb2IxZ+nh9bSGGaT/QmpluHqoOYQLUi4xHc8dlZGMyXnRJZkuxb3PyBDR/Ps8Yc39jeWr/hwoXah4lYPh4xpK7MPHM9ZK68UyGdtfl6fvoqJJwQBwGSS9rEOm2DfnpC9PRWS1/60WTIrY+irXyCK8XhwZVHNXT1knlu0dsO2W0eWUQiyUm6+ZBav9eIR2w9XnPTUy0fkm1LjWVJe+Tk1s87bb4yu609g6HTSlOLmsCU3QnFPH7ZpGUMsrGtbMLMn/QY+eY8hjBlvhhr2wUaUzbstY1tj6klgBjM3uJtX8aCA2cSxp421GaJLsmBAK7OchrsH+c16p7WvDaCworkGjvNZeuqhx+jzSwzOGYT1RxMC6PHwaeg1TIR73ua2VHgGp/eOkxKslyxiTVkw3Txs9Hh/PaYSmyEG8SUDoFecq1+5OKsj22zhv8VxIwqF2fmlRrRJAeR1JXxNg==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(1800799024)(376014)(3023799007)(56012099006)(6133799003)(13003099007)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	9BtW0f68cupLDdRWxUmkFPeeshNvvmmsAnkqJ6LVKoX2UNcaivV+sjKlntRKGtakfikY1YFmhtyL4HlM0Ua+wfS+Sc2D75u9WzscQDc1aCdTTfrHwxmTfTkfryHVFLI1ROJfV3Z6V8PzxYqVEoP1DLUZw0WXImE/zkMxNIeTzrzw/CS8GzOQOk0JkHJEpsLPkRZ6LpVFfjBYLhX5QizFZO0LWZV7BvOTiJXSeJOJuh8tLnRv88P2hcQTyZoKhB0APq/WOMOkIzkJD0lzBwoKtpvdVDlmvwu8MW+ZqIo4mS21+EE5Pq3LuDxtgTffxPvbg0vhjqtBhkliU5g+YE867ZFF1K3ZAdNIQeOX4oaMQyVJaezj0yVsTV9I6Baqr77gmFehmThfDuO7f4kTW2nuU6eyx4RKOoQgw4fY1hoN/QjWHYiS/fGhMaMDpz8nh8hA
-X-Exchange-RoutingPolicyChecked:
-	T99x/Lm1f2qw/LnVG1fShhOk0KdbXY3o4U7RcoY4h+6dtskYIZdwWFxUTSmKMujYALmq2/qS1cZJjyJSKqxdD7LJEXLsPTuaiI7+qdBPdTCyNrzgXl93Pg7sok2FQONMu5KLSGHnVE8rEPddGi49pQ0P0M3LYtXZgUj+ZZZV7myxA4wr1ubHcb3nrUJOH+fxdnN3vnVowt3sWSMh6jEaRo/RB7cQejVs3fd7dkl2p0ipgd54b8mxq62Rg5Mf9wAomml5I8KyX08SXzkQqgv1VfX8RLeMyiMTNdpQV7qzajgMtsWkzbEJ8oTMT9T0xMITiedFIxueFvrjH6r8dguoZQ==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 07:36:07.5592
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bed30147-328f-4026-097f-08dee243bbf0
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000026C5.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPF57C8E5D36
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE1MDA3MiBTYWx0ZWRfXzx7jTMm0ItP9
- s8shJ/gyJPD5S978T2DhMXxRok5TxGDhSDAvqLZ/nNb3BHF32hCuq+/sMRD60X1jgaGzRsh0EY7
- /uVmFwan3yUqIinwzFkEXnmmkCbISd4=
-X-Proofpoint-GUID: Ugi8nE7enpy3-Ma_LOYiQBa8Nfl7JAtg
-X-Authority-Analysis: v=2.4 cv=NbXWEWD4 c=1 sm=1 tr=0 ts=6a573870 cx=c_pps
- a=AKd2An130fSphkJyqL6rzg==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=RAioF0-LDSMA:10 a=V5UXEbMT0ywA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22
- a=KOmJlRZdAAAA:8 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8 a=ClvzzUG-uOCFfQbTchsA:9
- a=lqcHg5cX4UMA:10 a=z2U-W3hJrleVIN9YIjzO:22 a=Y9KJ9d7ijktqh0zzt3yb:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE1MDA3MiBTYWx0ZWRfX8OSKVazT2ljH
- 0in6avDXsda9BUSmyhhp8PxBSAgibh+dzFJgbUfgzTtO2NjnqYUO1R9nKuwuXXIs9kDoJsDYiUs
- 9I7Wejm/JXBJ8ORkLvDI906iBZjJWx1sVdPOdKxsZBrS4pXUtmV8uf9eQs/HwDcSO/49N8DzG1X
- z5LTn75NyWqa1IfHRk7eI4b6pMbNXaJYTHiF/aos45PUfRoMvdovgkZU06wjjFGRhpMWfUewvMv
- VLvIiHn9SUBPHM4ENvch8ALHRlavOuSNcDSKc3EBN4cfUTdpHE5b1Ron0fMt2I+Un+zvmPzTMOp
- xbXQbyp/LNvODR6Wy6x2to0hYD1TVXW+W/BleRYm/iKVBW4s3j6KF+zl57G6NQgx5i5BwoS9eDj
- JprNXAqS4L54LJu1dv/VoL6KiV+GcGiEU95w/dRMC1y5mKXSESoRGItgLqyNTqPrUxQerWZPO8V
- 1xgAaYptVwBjrBpnUDg==
-X-Proofpoint-ORIG-GUID: Ugi8nE7enpy3-Ma_LOYiQBa8Nfl7JAtg
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE1MDA3MiBTYWx0ZWRfXz8rQi3KhdN7E
+ GnTwEaqyPu3lV2XxI0ZArCLd6TFa5cKOpwRvJOTh7FgheJEcj0QnQtdL18MrA9t6ZzKnlEx8VA7
+ +eWjUDCVaoxPMle0+Df8vDIt2RfTSTk=
+X-Proofpoint-ORIG-GUID: HvAMUEmoTTiNTFrdZTj1j8vGQWC3FzmZ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE1MDA3MiBTYWx0ZWRfXyZp4gpVuRbTX
+ BaYQeAnjaocBEqQmxId/l6+4iKZAYHa9Gmpa2f9uE3TrQej9sNY584bJrcvo+XNsGT9qAW2teno
+ 3i2EbYVTgYARTi8J3KGjUWgsHC6vOzGfGe9MAIgmSsZUFlU7gJhiur5aKEechbQZSN4/EflL8/B
+ fsdokNP5V9+S9baSPUDAte04AZC31rjpCuBaC5HKtivewUfx6aQPY2S2vDP5E0GLwACJiJKhHTX
+ ZzPqa2A+78acvGQDSZgjpzvEgIchi3B8+6g1wUDNoc5aGUkOXnQ1d7MvFMMNZ+Bi8gDR/f052Ke
+ S8M0PfxxbQK176P4UAqxnSz2F6ZsXLzCgdbVgSF27YpmCa7XQz15qDZiKgvtRNkmBJbcv4eDgky
+ yPDHc1mTnnqHSFk/79Tf330bEits2hPOj4thAXejKuxgznEKhe70Uekh+qsI08ugi1zIYK2lVaU
+ BwanTB+oEw8e2iu6LGA==
+X-Proofpoint-GUID: HvAMUEmoTTiNTFrdZTj1j8vGQWC3FzmZ
+X-Authority-Analysis: v=2.4 cv=VoATxe2n c=1 sm=1 tr=0 ts=6a573948 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=qc-g8TG8afFpgMJUDRYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-15_02,2026-07-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501
- lowpriorityscore=0 bulkscore=0 adultscore=0 malwarescore=0 suspectscore=0
+ malwarescore=0 spamscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
+ priorityscore=1501 impostorscore=0 suspectscore=0 adultscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607150072
 
-From: Aradhya Bhatia <a-bhatia1@ti.com>
+On 7/14/26 9:43 AM, Prasad Kumpatla wrote:
+> 
+> On 7/14/2026 1:13 PM, Srinivas Kandagatla wrote:
+>> On 7/13/26 7:45 PM, Prasad Kumpatla wrote:
+>>> Add support for issuing LPASS low-power resource (LPR) votes through
+>>> the PRM interface.
+>>>
+>>> Some platforms (e.g. Hawi) require the LPASS to be kept active via LPR
+>>> resource voting instead of the existing hardware core vote mechanism.
+>>> Handle this by introducing support for PARAM_ID_RSC_CPU_LPR when the
+>>> LPR vote clock ID is requested.
+>>>
+>>> For LPR requests, use the appropriate parameter ID and payload format
+>>> to disable CPU subsystem sleep, ensuring that the LPASS register space
+>>> remains accessible.
+>>>
+>>> Also add the corresponding clock mapping for LPASS_HW_LPR_VOTE and make
+>>> the q6dsp clock ID range consistent with the dt-bindings by deriving
+>>> it from Q6AFE_MAX_CLK_ID.
+>>>
+>>> Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+>>> ---
+>>>   sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c |  2 +-
+>>>   sound/soc/qcom/qdsp6/q6prm-clocks.c       |  2 ++
+>>>   sound/soc/qcom/qdsp6/q6prm.c              | 17 +++++++++++++----
+>>>   sound/soc/qcom/qdsp6/q6prm.h              |  1 +
+>>>   4 files changed, 17 insertions(+), 5 deletions(-)
+>>>
+>>> diff --git a/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c b/sound/soc/
+>>> qcom/qdsp6/q6dsp-lpass-clocks.c
+>>> index 03838582a..79527a367 100644
+>>> --- a/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
+>>> +++ b/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
+>>> @@ -12,7 +12,7 @@
+>>>   #include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
+>>>   #include "q6dsp-lpass-clocks.h"
+>>>   -#define Q6DSP_MAX_CLK_ID            104
+>>> +#define Q6DSP_MAX_CLK_ID            Q6AFE_MAX_CLK_ID
+>>>   #define Q6DSP_LPASS_CLK_ROOT_DEFAULT        0
+>>>     diff --git a/sound/soc/qcom/qdsp6/q6prm-clocks.c b/sound/soc/
+>>> qcom/qdsp6/q6prm-clocks.c
+>>> index 4c574b48a..2b2b3872e 100644
+>>> --- a/sound/soc/qcom/qdsp6/q6prm-clocks.c
+>>> +++ b/sound/soc/qcom/qdsp6/q6prm-clocks.c
+>>> @@ -63,6 +63,8 @@ static const struct q6dsp_clk_init q6prm_clks[] = {
+>>>                  "LPASS_HW_MACRO"),
+>>>       Q6DSP_VOTE_CLK(LPASS_HW_DCODEC_VOTE, Q6PRM_HW_CORE_ID_DCODEC,
+>>>                  "LPASS_HW_DCODEC"),
+>>> +    Q6DSP_VOTE_CLK(LPASS_HW_LPR_VOTE, Q6PRM_HW_LPR_VOTE,
+>>> +               "LPASS_HW_LPR_VOTE"),
+>>>   };
+>>>     static const struct q6dsp_clk_desc q6dsp_clk_q6prm __maybe_unused
+>>> = {
+>>> diff --git a/sound/soc/qcom/qdsp6/q6prm.c b/sound/soc/qcom/qdsp6/q6prm.c
+>>> index 04892fb44..7a7a1d3d5 100644
+>>> --- a/sound/soc/qcom/qdsp6/q6prm.c
+>>> +++ b/sound/soc/qcom/qdsp6/q6prm.c
+>>> @@ -31,10 +31,16 @@ struct q6prm {
+>>>   #define PARAM_ID_RSC_HW_CORE        0x08001032
+>>>   #define PARAM_ID_RSC_LPASS_CORE        0x0800102B
+>>>   #define PARAM_ID_RSC_AUDIO_HW_CLK    0x0800102C
+>>> +#define PARAM_ID_RSC_CPU_LPR        0x08001A6E
+>>> +
+>>> +#define LPR_CPU_SS_SLEEP_DISABLED    0x1
+>>>     struct prm_cmd_request_hw_core {
+>>>       struct apm_module_param_data param_data;
+>>> -    uint32_t hw_clk_id;
+>>> +    union {
+>>> +        u32 hw_clk_id;
+>>> +        u32 lpr_state;
+>>> +    };
+>>>   } __packed;
+>>>     struct prm_cmd_request_rsc {
+>>> @@ -62,6 +68,7 @@ static int q6prm_set_hw_core_req(struct device
+>>> *dev, uint32_t hw_block_id, bool
+>>>       struct prm_cmd_request_hw_core *req;
+>>>       gpr_device_t *gdev = prm->gdev;
+>>>       uint32_t opcode, rsp_opcode;
+>>> +    bool lpr_req = (hw_block_id == Q6PRM_HW_LPR_VOTE);
+>>>         if (enable) {
+>>>           opcode = PRM_CMD_REQUEST_HW_RSC;
+>>> @@ -82,10 +89,13 @@ static int q6prm_set_hw_core_req(struct device
+>>> *dev, uint32_t hw_block_id, bool
+>>>         param_data->module_instance_id = GPR_PRM_MODULE_IID;
+>>>       param_data->error_code = 0;
+>>> -    param_data->param_id = PARAM_ID_RSC_HW_CORE;
+>>> +    param_data->param_id = lpr_req ? PARAM_ID_RSC_CPU_LPR :
+>>> PARAM_ID_RSC_HW_CORE;
+>>>       param_data->param_size = sizeof(*req) -
+>>> APM_MODULE_PARAM_DATA_SIZE;
+>>>   -    req->hw_clk_id = hw_block_id;
+>>> +    if (lpr_req)
+>>> +        req->lpr_state = LPR_CPU_SS_SLEEP_DISABLED;
+>> this does not make sense, this should be set based on enable flag, here
+>> you are disabling the LPR for both enable and disable request.
+> Hi Srini,
+> 
+> The intent here is slightly different from a typical enable/disable
+> state variable.
+> For PARAM_ID_RSC_CPU_LPR, the payload field (lpr_state) identifies the
+> low-power
+> resource being controlled, and the DSP API defines a single valid value:
+> LPR_CPU_SS_SLEEP_DISABLED(0x1).
+> 
+> The actual operation is encoded by the PRM command:
+> PRM_CMD_REQUEST_HW_RSC + LPR_CPU_SS_SLEEP_DISABLED  -  Requests the
+> resource and prevents the subsystem from entering the corresponding low-
+> power state.
+> PRM_CMD_RELEASE_HW_RSC + LPR_CPU_SS_SLEEP_DISABLED    - Releases the
+> resource, allowing the subsystem to enter that low-power state again.
+> 
+> In other words, the payload does not represent the desired runtime state
+> and is therefore not toggled based on the enable flag.
+> Instead, the request/release opcode determines whether the low-power
+> state is being blocked or re-enabled, while lpr_state remains
+> LPR_CPU_SS_SLEEP_DISABLED for both operations.
+> 
+> Hope this clarifies why the payload remains unchanged across request and
+> release paths.
 
-The panel is Lincoln Technology Solutions LCD185-101CT[0]. It is a
-Dual-Link LVDS panel and supports WUXGA resolution (1920x1200).
-Furthermore, it has an i2c based touch controller: Goodix-GT928.
+Yes, makes sense,
 
-Add DT overlay for the OLDI panel to connect with BeaglePlay platform.
+I would suggest to rename the flag from LPR_CPU_SS_SLEEP_DISABLED to
+LPR_CPU_SS_SLEEP_DISABLE
 
-[0]: https://lincolntechsolutions.com/wp-content/uploads/2024/09/LCD185-101CTL1ARNTT_DS_R1.3.pdf
+--srini
+> 
+>>
+>>
+>>> +    else
+>>> +        req->hw_clk_id = hw_block_id;
+>>>         return q6prm_send_cmd_sync(prm, pkt, rsp_opcode);
+>>>   }
+>>> @@ -94,7 +104,6 @@ int q6prm_vote_lpass_core_hw(struct device *dev,
+>>> uint32_t hw_block_id,
+>>>                    const char *client_name, uint32_t *client_handle)
+>>>   {
+>>>       return q6prm_set_hw_core_req(dev, hw_block_id, true);
+>>> -
+>> unnecessary change.
+> Agreed, the whitespace change is unrelated and will be dropped in the
+> next revision.
+> 
+> Thanks,
+> Prasad
+> 
+>>
+>>>   }
+>>>   EXPORT_SYMBOL_GPL(q6prm_vote_lpass_core_hw);
+>>>   diff --git a/sound/soc/qcom/qdsp6/q6prm.h b/sound/soc/qcom/qdsp6/
+>>> q6prm.h
+>>> index a988a3208..bd5ee0c40 100644
+>>> --- a/sound/soc/qcom/qdsp6/q6prm.h
+>>> +++ b/sound/soc/qcom/qdsp6/q6prm.h
+>>> @@ -87,6 +87,7 @@
+>>>   #define Q6PRM_LPASS_CLK_ROOT_DEFAULT    0
+>>>   #define Q6PRM_HW_CORE_ID_LPASS        1
+>>>   #define Q6PRM_HW_CORE_ID_DCODEC        2
+>>> +#define Q6PRM_HW_LPR_VOTE        3
+>>>     int q6prm_set_lpass_clock(struct device *dev, int clk_id, int
+>>> clk_attr,
+>>>                 int clk_root, unsigned int freq);
 
-Signed-off-by: Aradhya Bhatia <a-bhatia1@ti.com>
-Signed-off-by: Swamil Jain <s-jain1@ti.com>
----
-Changelog:
-v3->v4:
-- Use https:// instead of http:// for URL
-- Dropped redundant details from the header as suggested by the
-  maintainers
-
-link to v3: https://lore.kernel.org/all/20260528111319.3262698-1-s-jain1@ti.com/
-
-v2->v3:
-Use tab inplace of spaces for indentation.
-
-link to v2: https://lore.kernel.org/all/20260521020630.816220-1-s-jain1@ti.com/
-
-v1->v2:
-Move overlay-specific pinmux configurations from base device tree to
-k3-am625-beagleplay-lincolntech-lcd185-panel.dtso file.
-
-link to v1: https://lore.kernel.org/all/20260514225502.2327771-1-s-jain1@ti.com/
----
- arch/arm64/boot/dts/ti/Makefile               |   4 +
- ...5-beagleplay-lincolntech-lcd185-panel.dtso | 162 ++++++++++++++++++
- 2 files changed, 166 insertions(+)
- create mode 100644 arch/arm64/boot/dts/ti/k3-am625-beagleplay-lincolntech-lcd185-panel.dtso
-
-diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index 371f9a043fe5..f46e64a7164f 100644
---- a/arch/arm64/boot/dts/ti/Makefile
-+++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -26,6 +26,7 @@ k3-am625-verdin-wifi-dev-dsi-to-hdmi-dtbs := k3-am625-verdin-wifi-dev.dtb \
- dtb-$(CONFIG_ARCH_K3) += k3-am625-beagleplay.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-beagleplay-csi2-ov5640.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-beagleplay-csi2-tevi-ov5640.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am625-beagleplay-lincolntech-lcd185-panel.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-phyboard-lyra-rdk.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-sk.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-tqma62xx-mba62xx.dtb
-@@ -208,6 +209,8 @@ k3-am625-beagleplay-csi2-ov5640-dtbs := k3-am625-beagleplay.dtb \
- 	k3-am625-beagleplay-csi2-ov5640.dtbo
- k3-am625-beagleplay-csi2-tevi-ov5640-dtbs := k3-am625-beagleplay.dtb \
- 	k3-am625-beagleplay-csi2-tevi-ov5640.dtbo
-+k3-am625-beagleplay-lincolntech-lcd185-panel-dtbs := k3-am625-beagleplay.dtb \
-+	k3-am625-beagleplay-lincolntech-lcd185-panel.dtbo
- k3-am625-phyboard-lyra-disable-eth-phy-dtbs := k3-am625-phyboard-lyra-rdk.dtb \
- 	k3-am6xx-phycore-disable-eth-phy.dtbo
- k3-am625-phyboard-lyra-disable-rtc-dtbs := k3-am625-phyboard-lyra-rdk.dtb \
-@@ -340,6 +343,7 @@ k3-j784s4-evm-usxgmii-exp1-exp2-dtbs := k3-j784s4-evm.dtb \
- 	k3-j784s4-evm-usxgmii-exp1-exp2.dtbo
- dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
- 	k3-am625-beagleplay-csi2-tevi-ov5640.dtb \
-+	k3-am625-beagleplay-lincolntech-lcd185-panel.dtb \
- 	k3-am625-phyboard-lyra-disable-eth-phy.dtb \
- 	k3-am625-phyboard-lyra-disable-rtc.dtb \
- 	k3-am625-phyboard-lyra-disable-spi-nor.dtb \
-diff --git a/arch/arm64/boot/dts/ti/k3-am625-beagleplay-lincolntech-lcd185-panel.dtso b/arch/arm64/boot/dts/ti/k3-am625-beagleplay-lincolntech-lcd185-panel.dtso
-new file mode 100644
-index 000000000000..ac621c32de9b
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am625-beagleplay-lincolntech-lcd185-panel.dtso
-@@ -0,0 +1,162 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/**
-+ * Lincoln tech Solutions OLDI panel (LCD185-101CT) and touch DT overlay for AM625-BeaglePlay
-+ *
-+ * Copyright (C) 2026 Texas Instruments Incorporated - https://www.ti.com/
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include "k3-pinctrl.h"
-+
-+&{/} {
-+	backlight: backlight {
-+		compatible = "pwm-backlight";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&backlight_pins_default>;
-+		brightness-levels = <0 4 8 16 32 64 128 255>;
-+		default-brightness-level = <6>;
-+		enable-gpios = <&main_gpio0 0 GPIO_ACTIVE_HIGH>;
-+		pwms = <&epwm0 1 20000 0>;
-+	};
-+
-+	lcd {
-+		compatible = "lincolntech,lcd185-101ct";
-+		backlight = <&backlight>;
-+		/*
-+		* Note that the OLDI TX 0 transmits the odd set of pixels
-+		* while the OLDI TX 1 transmits the even set. This is a
-+		* fixed configuration in the IP integration and is not
-+		* changeable. The properties, "dual-lvds-odd-pixels" and
-+		* "dual-lvds-even-pixels" have been used to merely
-+		* identify if a Dual Link configuration is required.
-+		* Swapping them will cause an error in the dss oldi driver.
-+		*/
-+		power-supply = <&vsys_5v0>;
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				dual-lvds-odd-pixels;
-+				lcd_in0: endpoint {
-+					remote-endpoint = <&oldi_0_out>;
-+				};
-+			};
-+			port@1 {
-+				reg = <1>;
-+				dual-lvds-even-pixels;
-+				lcd_in1: endpoint {
-+					remote-endpoint = <&oldi_1_out>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&main_pmx0 {
-+	touchscreen_pins_default: touchscreen-default-pins {
-+		pinctrl-single,pins = <
-+			AM62X_IOPAD(0x01b4, PIN_OUTPUT, 7) /* (A13) SPI0_CS0.GPIO1_15 */
-+			AM62X_IOPAD(0x00a0, PIN_INPUT, 7) /* (K25) GPMC0_WPn.GPIO0_39 */
-+		>;
-+	};
-+
-+	backlight_pins_default: bl-default-pins {
-+		pinctrl-single,pins = <
-+			AM62X_IOPAD(0x0000, PIN_OUTPUT, 7) /* (H24) OSPI0_CLK.GPIO0_0 */
-+			AM62X_IOPAD(0x01b8, PIN_OUTPUT, 2) /* (C13) SPI0_CS1.EHRPWM0_B */
-+		>;
-+	};
-+};
-+
-+&dss {
-+	status = "okay";
-+};
-+
-+&oldi0 {
-+	status = "okay";
-+	ti,companion-oldi = <&oldi1>;
-+};
-+
-+&oldi1 {
-+	status = "okay";
-+	ti,secondary-oldi;
-+	ti,companion-oldi = <&oldi0>;
-+};
-+
-+&oldi0_port0 {
-+	oldi_0_in: endpoint {
-+		remote-endpoint = <&dpi0_out0>;
-+	};
-+};
-+
-+&oldi0_port1 {
-+	oldi_0_out: endpoint {
-+		remote-endpoint = <&lcd_in0>;
-+	};
-+};
-+
-+&oldi1_port0 {
-+	oldi_1_in: endpoint {
-+		remote-endpoint = <&dpi0_out1>;
-+	};
-+};
-+
-+&oldi1_port1 {
-+	oldi_1_out: endpoint {
-+		remote-endpoint = <&lcd_in1>;
-+	};
-+};
-+
-+&dss_ports {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	/* VP1: Output to OLDI */
-+	port@0 {
-+		reg = <0>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		dpi0_out0: endpoint@0 {
-+			reg = <0>;
-+			remote-endpoint = <&oldi_0_in>;
-+		};
-+		dpi0_out1: endpoint@1 {
-+			reg = <1>;
-+			remote-endpoint = <&oldi_1_in>;
-+		};
-+	};
-+};
-+
-+&main_i2c2 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	eeprom@57 {
-+		compatible = "atmel,24c256";
-+		reg = <0x57>;
-+	};
-+
-+	touchscreen@5d {
-+		compatible = "goodix,gt928";
-+		reg = <0x5d>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&touchscreen_pins_default>;
-+		interrupt-parent = <&main_gpio0>;
-+		interrupts = <39 IRQ_TYPE_EDGE_FALLING>;
-+		irq-gpios = <&main_gpio0 39 GPIO_ACTIVE_HIGH>;
-+		reset-gpios = <&main_gpio1 15 GPIO_ACTIVE_HIGH>;
-+		touchscreen-size-x = <1920>;
-+		touchscreen-size-y = <1200>;
-+	};
-+};
-+
-+&epwm0 {
-+	status = "okay";
-+};
