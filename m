@@ -1,94 +1,107 @@
-Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE48329AAFA;
-	Wed, 15 Jul 2026 13:34:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4453A2BEFEB
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 13:35:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784122469; cv=none; b=UuMBwdlKzGDAslffsejTuWPq2l+Ztym4dzAgZ1LELIvV7Nfxeu889JPLhgGZQzTe5qjXyjjHT5NuM7rwwWYwT1VQDzHPmVZcg6KeAJROmXEwIg2CXaAa3+QI70pQaWRH7SKMaBCM35rNOUz3GD9vgqec4lyxjRzy1YPL5+aQU08=
+	t=1784122552; cv=none; b=Cgn2hoIubSgGb/OMHho3IwLN0MsFCIteBxe/ghp0kjV0bjyTJyRwQIYMeIz0SkVryW1oex02cAtibhHfp/2u1XpxJYruT15T0DuIqcyDhAdO02pI+ZQndghFQdl1J9QwwcuaMv/1ZieVz+OfSEGBSbgVg1Trxe1PHdiTWkCPMfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784122469; c=relaxed/simple;
-	bh=EH95bEevB45vxfH2KqHvjnVJ226QdA1HvBdpeO/qbwo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=NcQG5xtAsKzBftFoKjy0Pg8d/TZEzTP/sg9eGQGRyBB3LYG0jUQdIrHVN8z8mO5EWy7BeuUgTBs7yPdKej7RLUBeUZarm5r2IOcgas82/Cl+vGG95gHYo895pAjRas6+F77TlgNQWLHzNa0nAMzV27YMWz6LConVl/vcG0+88XE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=kr+XCncP; arc=none smtp.client-ip=79.135.106.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1784122552; c=relaxed/simple;
+	bh=0MngHMadLnBhsaxyfscdVsSyyc+f3pE7XDXnfKxKl3M=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=cEruLVDKVAaWN+2jvHLOE35gxq5q0m1TnICVg2UrqZlCJQh3ANpGj+TC1j4mvHHmu++F7Ama7EF4vmgTwItxc8I9J1lQUN3Tl8XAcA9yW3+2mKd0+VWZGtkKEpzDBbtkZiXtcxRzXBnDO0BGbnkycsmBrgkDxi9KnjkEtomz4og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F00U7Z0s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="kr+XCncP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail3; t=1784122465; x=1784381665;
-	bh=echToQREUj3vG9DGTBHTEImDNDMRsG75DxT+FmAyuVE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=kr+XCncPbRXLzNteWA0HsFtZg+sLXFrZHVJ0eKi/guUuYzvp621RDZAgPjSz9Fdrx
-	 4SEQ3gxt4CrBlzihTyfs4uZSAOjBKtYeoou/RyH6/gtnrE4bDHg4oUH8NzHwB95XD0
-	 UY+ZQPY67n1HbS8pTjA0INAwVyhV+nECf9oj/uLpI6H7TiDQeJ5N06TZqiPwoJdE5A
-	 SF0lBtG/GFDhJ+eNyMZ3KZ2rtvaSV17Dp+cuNiiR/bynzyi6pJcMPniR6Ab4uUTe8x
-	 DrroX1CzyDtiypONcXMF1IIw9WbZU+WgiTn+YPt1VipxojbIDOdqTyAHhJHKe12Lcg
-	 Y6SHqKyIbiLJw==
-X-Pm-Submission-Id: 4h0cbK44JCz1DDp8
-From: Esben Haabendal <esben@geanix.com>
-To: Nuno =?utf-8?Q?S=C3=A1?= <noname.nuno@gmail.com>
-Cc: "Joshua Crofts" <joshua.crofts1@gmail.com>,  "Jonathan Cameron"
- <jic23@kernel.org>,  "David Lechner" <dlechner@baylibre.com>,  Nuno
- =?utf-8?Q?S=C3=A1?=
- <nuno.sa@analog.com>,  "Andy Shevchenko" <andy@kernel.org>,  "Rob Herring"
- <robh@kernel.org>,  "Krzysztof Kozlowski" <krzk+dt@kernel.org>,  "Conor
- Dooley" <conor+dt@kernel.org>,  "Nikita Travkin" <nikita@trvn.ru>,
-  <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,
-  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 0/4] iio: light: ltr501: Add ltr329 support
-In-Reply-To: <4bn5dd27ie653f5324pluaoamua4bxdbmxm47rif4yumxxl5un@anbjqozl6ovj>
-	("Nuno =?utf-8?Q?S=C3=A1=22's?= message of "Wed, 15 Jul 2026 15:17:33
- +0200")
-References: <20260715-liteon-ltr329-v2-0-d18af55edab5@geanix.com>
-	<20260715145546.00005bc8@gmail.com>
-	<ogdkxj4ZPDLgQIc_jewPR02n-ZectyMClJB4lA4rGII_4X8v_0xYewFp4giLg9iKesMQBgcKIUVYCLjFnzY9yA==@protonmail.internalid>
-	<4bn5dd27ie653f5324pluaoamua4bxdbmxm47rif4yumxxl5un@anbjqozl6ovj>
-Date: Wed, 15 Jul 2026 15:34:20 +0200
-Message-ID: <87pl0oml5v.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F00U7Z0s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE7AF1F000E9;
+	Wed, 15 Jul 2026 13:35:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784122550;
+	bh=sijvTncilwrcraimBsnS09tT7sZ3tiESdDbOH+qGC0U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=F00U7Z0s2wTUqE2auhMnwTOvoBrLmukalg+ddQpB5yqbDSJ8YQC91fjd9s/nHfEDM
+	 uddVl30Zx5xdbiKahkT29hpAAM1b/iJrboPX4mvpL1C2/TfEDWAaFSfi7mJsJ4WLAV
+	 kHEl/vpwpsySy+1DJtW8zyj6/kFe0MRFVz8iN+UChSYbXhYA0LVDRfaUKzbTG75PO8
+	 D6CC6+B9H/YUMZfpoabVPeimFRmQX7bTWkfAsJnp5VTBjcJtUXKjue+yBgHtS1cXRJ
+	 vqUuGmDx8IWVHcEJOzqWGYyOAF/Pe3E1yVTdBIbCYr0W8sMQWIuDbQSkjTzSqFe4zz
+	 izEe1Uma2RRFg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: pinctrl:
+ qcom,milos-lpass-lpi-pinctrl: Add Eliza pinctrl
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ravi Hothi" <ravi.hothi@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260715132150.1322663-2-ravi.hothi@oss.qualcomm.com>
+References: <20260715132150.1322663-1-ravi.hothi@oss.qualcomm.com>
+ <20260715132150.1322663-2-ravi.hothi@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 13:35:50 +0000
+Message-Id: <20260715133550.AE7AF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Nuno S=C3=A1 <noname.nuno@gmail.com> writes:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Schema validation failure for Eliza compatible string due to sca=
+lar `const` comparison against an array.
+--
 
-> On Wed, Jul 15, 2026 at 02:55:46PM +0200, Joshua Crofts wrote:
->> On Wed, 15 Jul 2026 14:27:22 +0200
->> Esben Haabendal <esben@geanix.com> wrote:
->>
->> > The LiteON LTR-329ALS-01 chip is similar to the LTR-303ALS-01, except =
-for
->> > interrupt support and related registers, which LTR-329ALS-01 does not =
-have.
->> >
->> > Signed-off-by: Esben Haabendal <esben@geanix.com>
->> > ---
->> > Changes in v2:
->> > - Fixed error handling when irq is defined for a chip that does not su=
-pport
->> >   irq, powering the chip down again.
->> > - Added simlar fix to error handling of devm_request_threaded_irq() er=
-ror
->> >   handling, powering the chip down again on failure.
->> > - Added explicit #include <linux/array_size.h>.
->> > - Link to v1: https://patch.msgid.link/20260715-liteon-ltr329-v1-0-31f=
-027051594@geanix.com
->> >
->>
->> Quick process thing, please wait at least 24 hours before sending
->> a new version - let it sit on the mailing list so other reviewers
->> can send feedback! Larger series should wait a couple of days.
->
-> Yeah, as a nice rule of thumb at least a couple of days.
+--- Patch [1]: [PATCH v3 1/2] dt-bindings: pinctrl: qcom,milos-lpass-lpi-pi=
+nctrl: Add Eliza pinctrl ---
+commit 8578b655d5c47b4337e1837fe83f459a7fed7346
+Author: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
 
-Fair enough.
+dt-bindings: pinctrl: qcom,milos-lpass-lpi-pinctrl: Add Eliza pinctrl
 
-/Esben
+This commit documents the compatible string for the Qualcomm Eliza SoC LPASS
+LPI pin controller. It also updates the schema to reflect that Eliza only
+has a single reg entry because it uses a different slew rate register layou=
+t.
+
+> diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,milos-lpass-l=
+pi-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,milos-lpas=
+s-lpi-pinctrl.yaml
+> index 73e84f1885911..86c1da0f577c9 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/qcom,milos-lpass-lpi-pinc=
+trl.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/qcom,milos-lpass-lpi-pinc=
+trl.yaml
+
+[ ... ]
+
+> @@ -74,6 +77,19 @@ $defs:
+>  allOf:
+>    - $ref: qcom,lpass-lpi-common.yaml#
+> =20
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: qcom,eliza-lpass-lpi-pinctrl
+
+[Severity: Medium]
+Since the compatible property is evaluated as an array in device tree
+schemas, will this scalar const comparison always evaluate to false?
+
+It appears this would cause the validation tool to incorrectly take the else
+branch, enforcing minItems: 2 on the reg property even for valid Eliza
+device trees.
+
+Should this be using contains: const: instead to correctly match the array?
+
+> +    then:
+> +      properties:
+> +        reg:
+> +          maxItems: 1
+> +    else:
+> +      properties:
+> +        reg:
+> +          minItems: 2
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715132150.1322=
+663-1-ravi.hothi@oss.qualcomm.com?part=3D1
