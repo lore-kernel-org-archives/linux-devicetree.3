@@ -1,69 +1,68 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45511478E47
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 11:44:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16CB447CC6D
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 11:44:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784115869; cv=none; b=a05s0TKbsgIDzAskfIFcCTjr7+jYSqe0GotGl8i0R9nXfAoWI7IrnUMkVDuO06y1ucyfX/V/Byh+qeOwnIE4AR4EYf6rnY3IcvDbOF+uscIHtQLG1yNZCgpjLn8WLqgynIv3+7J/FzXiaOqjPxHsLm4VHprBCNsyOk5fn+g5fvs=
+	t=1784115870; cv=none; b=H4wwhgF5CkjgmywzL9Tl/qIIm2Mnb7NpYuqLHtEycQoSoJhWPF6zm0VGtXqLgskyLHabbMRinqi6sDvwgfMcXpzB1EbspDif+2o8H+SiYNYldE93vdOFuXP6QcH77GOOdkDqJmk+89x4n+osVUeE0oNDWFGfqcHHrk3hY5mZjZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784115869; c=relaxed/simple;
-	bh=G7QPlTkMee79QYHS9v7Qtnk2HOJP0RmJkXzxeJoizP4=;
+	s=arc-20240116; t=1784115870; c=relaxed/simple;
+	bh=Wl8RfzI9IrUnC7tk+Es7yprPsqx3LPpSpAVr4tycswo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=sr4mtUlqvdp0GmijmesTOWJm+RKW3je5FwhjIwMKYWgBv24VArazZpTmc4iOA2sbuFf6tnEXkgOW0AKh4iv8OO4vMFlkcI7hvnleTytb7I3CQ+ZLVJuy4UCwwJimynFKCupfLAx9mPKZO2tplt281f8x8/h92NJfzoKmjSNvYbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=Qf8qKwD7; arc=none smtp.client-ip=209.85.221.48
+	 In-Reply-To:To:Cc; b=nCK4cr/opX+qVq+4BzzMj2nSYbwzAuOphkdZsnVpWhzSmC2C+9O/a+YPmLHrFroXp+RDdQd0BKCrhrYykEKbhKNqDYaFY6GnX8Am8amLXfHS/eaDqGGFBYNqOHIoApi3hnrHSFYSb5yyoD9+3fLYrBcQpTCFgOEKiq3ze45DCNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=FgVMfjCH; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="Qf8qKwD7"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4703bc0a99aso3258465f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 04:44:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="FgVMfjCH"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-47df6a5202bso3403756f8f.0
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 04:44:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1784115864; x=1784720664; darn=vger.kernel.org;
+        d=raspberrypi.com; s=google; t=1784115866; x=1784720666; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wJiOXsXcQGmdy/lo82tEoHsjlQ3Yl1x4+oS64EHfJ50=;
-        b=Qf8qKwD7Zqtw5ErpzI0iBDi+GnOXyT/EiKiMIMAK3XMElfuMTLfum+trDdvSOqlQt2
-         JheweUQsMZWsVp/coM5P3PW1CeTl6SOeZY/gsaK3We33MKJWhpYZX+WJMZslvVhZ46wb
-         M1bxuvl+tXh+mFEMZ+j7o2Tk1J1BYOTd1xm2LAKW6yQT1Ylwv4sYa2vswKGe576ms5cN
-         /6i1JNFRoJBVvqrnqlR5o9Pov0ApSUFh3dOqf+TpxTn/dh/bFqP1EBjj2vlGQ8hjkpza
-         Jvgm8vvc4Z1dcfOAWIJ/GjKFt0GGd4WFh4hkShAIdPhyhvS0b0f9/gwpP4YMVujxkHPK
-         OwXw==
+        bh=pl7PA8UFD8aYyE0Hyiby4HzRH7HToq0zqg27/Ivv8vM=;
+        b=FgVMfjCHbJUxN04u+ei6w7280x1K27WbYHcNJjvFeZ05KEttB/dT6qdCxQ2QjCyJlQ
+         m2KHFQinBn4OjRxAnQPHhPT59AZ7xAWNIm+b2wMJU/+9sAceczSRV+VKqw8Si8MezOxa
+         9w8ovqXCQYLmbrbnlIRS/BhTKos1I/55UqmBHYXF3BASDtWHciwPQPAgVd1ECmeOQK39
+         kuwf6k5Lq3/wV0QUNzZVfFQlujVPVZ15rMM1PRHyuIbNele3mjQU/4jf8cwIhoWX4jwY
+         JYW5xhaBPjOyAz9x4DYUtpHogSTdOkkehIzaU2iwphFg2Iee21hsUUYw1UV7oeDb+80I
+         xPLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784115864; x=1784720664;
+        d=1e100.net; s=20251104; t=1784115866; x=1784720666;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wJiOXsXcQGmdy/lo82tEoHsjlQ3Yl1x4+oS64EHfJ50=;
-        b=JmjwhIQYwyUh4ZrkTIZqTldurtUiQoU3m4bxlkPB+4tI0CJkh9C88Gr/z/sq4r8Nil
-         yH5EcPN/Jr1dTyJizdSG3BLKbMIxkZLVPYAPGWM/2WnTYTuMgCvzXCvV2T8uWk5bPijr
-         9Gp/xowi342+jFvNWDNIDDp/RrnIO4hZ5N/Gn0I7JlStDi3gVowWGSU4T/IKsWCiJVAw
-         1Elpg6ZG5PrrVwV78dunvrdJlVIKaxjECkOJh3ftvMTmyGovWitGfj3K4+L7+7tU91Oo
-         IdUM9kfDhvPsFh28LZw8rUSVd+4cPogn3VC0UZPywB225UbmIZ4PBHSrZ9PQV5puDAej
-         NoTA==
-X-Forwarded-Encrypted: i=1; AHgh+RoeBw5QX3pdM4zC5mJteIlaoKJcRwWTIwPjiIKntA9DpIXo1eQxJ0Pil959gqL325LDXFbykEYjHhfl@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxs9UJdIymGsAABpfk+OKqRNu/toO5+OEcosnig3rSAwXExu8es
-	v/FGEkLnw7aRuiu9Cugypl6KiAee3MW4Wepbh0xrT9YSqkgnFbHd5VSjVPpANIZIbI4=
-X-Gm-Gg: AfdE7cl8JrnKRw0w4j86gu8zJMLJtiw1tAzUi+R+cak5kmgGyRKyhNz0wpOi1lEluHi
-	6r1twz5m+4T93uwmfhTNSJOnhAWGOeg7ZTVWj8+IizBEouJKNr9p4cPmG+EiJAb7VSeiM/HhGsh
-	t2RJEE+YNONTlmErSy6uJMY8F+fSrC1O8XTMmqGBz4UFIxGkrDXQye0EiJ+ah5uzr1M0visBThV
-	NA5E/LD1rIqxV1uDjALyrlkzOuK3b2Bvo2439QUO0AP0z/g5YFlN+co89hLHIY+kqo4T6KAvyIu
-	wXlHvRwajWMEZfhQ9zisP/9PTl/67zMHxc07JG10LV8oG9V3tqVuBfKHn6WsmCB6VVL56NFF0Gh
-	iaeyDBCGaTyywxLXkSQFh8gY00DrpbQRhn5rqZE31ju960bK8So3Yp1cXSS6mMNEIVX69dZtD26
-	bPWrfKOkJtUsU9Pl+8kwAPG7onwWSTwvWs607p0u3Etz67WAVNzVgKpzbaScXHSl1k/feOp5LhR
-	kk=
-X-Received: by 2002:a05:6000:186c:b0:475:3a97:8e3c with SMTP id ffacd0b85a97d-47f4fca833fmr2713850f8f.18.1784115864467;
-        Wed, 15 Jul 2026 04:44:24 -0700 (PDT)
+        bh=pl7PA8UFD8aYyE0Hyiby4HzRH7HToq0zqg27/Ivv8vM=;
+        b=Clpsi3O4YOW9YeYzWT5/8CVUynCctySuf4mka1JiYLXycA+PfDcBVJMv1FbkV5Uqc0
+         Ulaf4lPbnpeL1v6IA8632Z8DU7i114GWkYTKKKpH+m0JOIi3N+h/zqidXEYR4ueB0Sbc
+         4xL2j8hGNl+Mz9yVLsPTun+McSIK6B6PjHO2yG5tIV3VGy1yeEugKR9xAN+FUP+tn+sv
+         diCXkaTGewvwktAyqon1tA77L6TvSGD6RuQ3TxYLyBzh3z5KQy1Hbs/A09V62Nl8VUiD
+         8D/ZuvCUAVu8n134UhXDBjn40s9dvrZT34PKrbm/YYdPblGKOHnx5R6MlCpqVNAWgM/P
+         DprQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrZcRLcFBPcgR6KL92Oz83mMfg6OpK4uu/gvAPtVVHh/oLzg/jVvx7UW0jFAtnzrskzF/qARk+pLKkA@vger.kernel.org
+X-Gm-Message-State: AOJu0YypdxiTSNO250c0pec4/1/VZteO1M/yTDG2RIe+fHmxf1iDllcU
+	sUBPvEWIsbJr3vaX1G+af48wFiMqQ820Ugtf0hBfMH0hcOPQVw4rXzjZ1dUDxuDm6wc=
+X-Gm-Gg: AfdE7clR/JB6psh8oXdac3ydRAvrE58dWJLnaHClE2I7bNbZK4cZre4WJhfRslDaXtK
+	HQLBJBeY0qzbWMgWiqjlZqIPLpwpMl5b0dJgGdTO/vAyjoybtiQK6cHMJih8/GkP+YLiFjDG96E
+	y4gKJrIku4QLGI1s3mbLnQ5i70kffuIEDxg2YJ0pYVKAJrdpmCqbhHSr14Jv2j750kWfh3+3ocb
+	woA0rkt6+QDQskcoWsCzKmOigBPjhoG+do74W9x+L7OuGfFw+pePRhFPhxMiEDz90n+UG7n3aai
+	rTWWzQMIjV/OuDZmKAgLSmtBv4PEqOWPADYYUY7mL2vnNv491QNzPDUQ7aStznynRHu4k0ANsLe
+	vaGkBm3sf23wrr7MF0A+xm4O79omgnph0BmOSChe9mZcDHJ0Cmb5ycPw/rf4mcQjMJ3vOq1HhHl
+	2X73kttY2EKKPmWmTod6zzhdNPJCAl5YHGra6Bf6bmjw6dNV5ZAkh/j4guIVOaLuel
+X-Received: by 2002:a05:6000:4a0a:b0:47d:f43b:fd63 with SMTP id ffacd0b85a97d-47f4fcc1527mr2804147f8f.26.1784115866245;
+        Wed, 15 Jul 2026 04:44:26 -0700 (PDT)
 Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47f4829896asm14005425f8f.23.2026.07.15.04.44.23
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47f4829896asm14005425f8f.23.2026.07.15.04.44.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 04:44:24 -0700 (PDT)
+        Wed, 15 Jul 2026 04:44:25 -0700 (PDT)
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 15 Jul 2026 12:43:29 +0100
-Subject: [PATCH v4 16/21] media: imx355: Define the exposure offset, and
- use that define
+Date: Wed, 15 Jul 2026 12:43:31 +0100
+Subject: [PATCH v4 18/21] media: imx355: Compute link frequency from PLL
+ setup
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260715-media-imx355-v4-16-f7f966fb9ffd@raspberrypi.com>
+Message-Id: <20260715-media-imx355-v4-18-f7f966fb9ffd@raspberrypi.com>
 References: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
 In-Reply-To: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -86,46 +85,145 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>
 X-Mailer: b4 0.14.1
 
-The difference between frame length and max exposure time in
-lines is 10. That had been used as a bare value in calculations.
-
-Move it to a define, and use that define.
+In preparation for additional options in the PLL setup, compute
+the link frequency rather than using a hardcoded value.
 
 Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 ---
- drivers/media/i2c/imx355.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/media/i2c/imx355.c | 39 +++++++++++++++++----------------------
+ 1 file changed, 17 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-index fa8a6851b44e..cc27a193cd81 100644
+index 3b3bf41485c2..d8f8efc0c927 100644
 --- a/drivers/media/i2c/imx355.c
 +++ b/drivers/media/i2c/imx355.c
-@@ -51,6 +51,7 @@
- #define IMX355_EXPOSURE_MIN		1
- #define IMX355_EXPOSURE_STEP		1
- #define IMX355_EXPOSURE_DEFAULT		0x0282
-+#define IMX355_EXPOSURE_OFFSET		10
+@@ -29,7 +29,11 @@
  
- /* Analog gain control */
- #define IMX355_REG_ANALOG_GAIN		CCI_REG16(0x0204)
-@@ -635,7 +636,7 @@ static int imx355_set_ctrl(struct v4l2_ctrl *ctrl)
- 	switch (ctrl->id) {
- 	case V4L2_CID_VBLANK:
- 		/* Update max exposure while meeting expected vblanking */
--		max = imx355->cur_mode->height + ctrl->val - 10;
-+		max = imx355->cur_mode->height + ctrl->val - IMX355_EXPOSURE_OFFSET;
- 		__v4l2_ctrl_modify_range(imx355->exposure,
- 					 imx355->exposure->minimum,
- 					 max, imx355->exposure->step, max);
-@@ -1130,7 +1131,7 @@ static int imx355_init_controls(struct imx355 *imx355)
- 		imx355->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+ /* PLL registers that depend on the external clock frequency */
+ #define IMX355_REG_EXTCLK_FREQ		CCI_REG16(0x0136)
++#define IMX355_REG_PLL_OP_PREDIV	CCI_REG8(0x030d)
+ #define IMX355_REG_PLL_OP_MUL		CCI_REG16(0x030e)
++#define IMX355_REG_PLL_IVT_PCK_DIV	CCI_REG8(0x0301)
++#define IMX355_PLL_OP_PREDIV		2
++#define IMX355_PLL_IVT_PCK_DIV		5
  
- 	/* fll >= exposure time + adjust parameter (default value is 10) */
--	exposure_max = mode->fll_def - 10;
-+	exposure_max = mode->fll_def - IMX355_EXPOSURE_OFFSET;
- 	imx355->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &imx355_ctrl_ops,
- 					     V4L2_CID_EXPOSURE,
- 					     IMX355_EXPOSURE_MIN, exposure_max,
+ /* V_TIMING internal */
+ #define IMX355_REG_FLL			CCI_REG16(0x0340)
+@@ -83,9 +87,6 @@
+ /* Flip Control */
+ #define IMX355_REG_ORIENTATION		CCI_REG8(0x0101)
+ 
+-/* default link frequency and external clock */
+-#define IMX355_LINK_FREQ_DEFAULT	360000000LL
+-
+ /* number of data lanes */
+ #define IMX355_DATA_LANES		4
+ 
+@@ -141,6 +142,7 @@ static const struct imx355_clk_params imx355_clk_params[] = {
+ };
+ 
+ struct imx355_hwcfg {
++	s64 link_freq_menu;
+ 	unsigned long link_freq_bitmap;
+ };
+ 
+@@ -238,13 +240,13 @@ static const struct cci_reg_sequence imx355_global_regs[] = {
+ 	{ CCI_REG8(0x0112), 0x0a },
+ 	{ CCI_REG8(0x0113), 0x0a },
+ 	{ CCI_REG8(0x0114), 0x03 },
+-	{ CCI_REG8(0x0301), 0x05 },
++	{ IMX355_REG_PLL_IVT_PCK_DIV, IMX355_PLL_IVT_PCK_DIV },
+ 	{ CCI_REG8(0x0303), 0x01 },
+ 	{ CCI_REG8(0x0305), 0x02 },
+ 	{ CCI_REG8(0x0306), 0x00 },
+ 	{ CCI_REG8(0x0307), 0x78 },
+ 	{ CCI_REG8(0x030b), 0x01 },
+-	{ CCI_REG8(0x030d), 0x02 },
++	{ IMX355_REG_PLL_OP_PREDIV, IMX355_PLL_OP_PREDIV },
+ 	{ CCI_REG8(0x0310), 0x00 },
+ 	{ CCI_REG8(0x0220), 0x00 },
+ 	{ CCI_REG8(0x0222), 0x01 },
+@@ -338,14 +340,6 @@ static const char * const imx355_test_pattern_menu[] = {
+ 	"Pseudorandom Sequence (PN9)",
+ };
+ 
+-/*
+- * When adding more than the one below, make sure the disallowed ones will
+- * actually be disabled in the LINK_FREQ control.
+- */
+-static const s64 link_freq_menu_items[] = {
+-	IMX355_LINK_FREQ_DEFAULT,
+-};
+-
+ /* Mode configs */
+ static const struct imx355_mode supported_modes[] = {
+ 	{
+@@ -1092,7 +1086,6 @@ static int imx355_init_controls(struct imx355 *imx355)
+ 	s64 hblank;
+ 	u64 pixel_rate;
+ 	const struct imx355_mode *mode;
+-	u32 max;
+ 	int ret;
+ 
+ 	ctrl_hdlr = &imx355->ctrl_handler;
+@@ -1101,15 +1094,14 @@ static int imx355_init_controls(struct imx355 *imx355)
+ 		return ret;
+ 
+ 	ctrl_hdlr->lock = &imx355->mutex;
+-	max = ARRAY_SIZE(link_freq_menu_items) - 1;
+ 	imx355->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, &imx355_ctrl_ops,
+-						   V4L2_CID_LINK_FREQ, max, 0,
+-						   link_freq_menu_items);
++						   V4L2_CID_LINK_FREQ, 0, 0,
++						   &imx355->hwcfg->link_freq_menu);
+ 	if (imx355->link_freq)
+ 		imx355->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+ 
+ 	/* pixel_rate = link_freq * 2 * nr_of_lanes / bits_per_sample */
+-	pixel_rate = IMX355_LINK_FREQ_DEFAULT * 2 * 4;
++	pixel_rate = imx355->hwcfg->link_freq_menu * 2 * 4;
+ 	do_div(pixel_rate, 10);
+ 	/* By default, PIXEL_RATE is read only */
+ 	v4l2_ctrl_new_std(ctrl_hdlr, &imx355_ctrl_ops, V4L2_CID_PIXEL_RATE,
+@@ -1184,12 +1176,14 @@ static int imx355_init_controls(struct imx355 *imx355)
+ 	return ret;
+ }
+ 
+-static struct imx355_hwcfg *imx355_get_hwcfg(struct device *dev)
++static struct imx355_hwcfg *imx355_get_hwcfg(struct imx355 *imx355)
+ {
++	struct device *dev = imx355->dev;
+ 	struct imx355_hwcfg *cfg;
+ 	struct v4l2_fwnode_endpoint bus_cfg = {
+ 		.bus_type = V4L2_MBUS_CSI2_DPHY
+ 	};
++	const struct imx355_clk_params *clk = imx355->clk_params;
+ 	struct fwnode_handle *ep;
+ 	struct fwnode_handle *fwnode = dev_fwnode(dev);
+ 	int ret;
+@@ -1212,10 +1206,11 @@ static struct imx355_hwcfg *imx355_get_hwcfg(struct device *dev)
+ 	if (bus_cfg.bus.mipi_csi2.num_data_lanes != IMX355_DATA_LANES)
+ 		goto out_err;
+ 
++	cfg->link_freq_menu = (clk->ext_clk * clk->pll_op_mpy) /
++			      (IMX355_PLL_OP_PREDIV * 2);
+ 	ret = v4l2_link_freq_to_bitmap(dev, bus_cfg.link_frequencies,
+ 				       bus_cfg.nr_of_link_frequencies,
+-				       link_freq_menu_items,
+-				       ARRAY_SIZE(link_freq_menu_items),
++				       &cfg->link_freq_menu, 1,
+ 				       &cfg->link_freq_bitmap);
+ 	if (ret)
+ 		goto out_err;
+@@ -1286,7 +1281,7 @@ static int imx355_probe(struct i2c_client *client)
+ 	/* Initialize subdev */
+ 	v4l2_i2c_subdev_init(&imx355->sd, client, &imx355_subdev_ops);
+ 
+-	imx355->hwcfg = imx355_get_hwcfg(imx355->dev);
++	imx355->hwcfg = imx355_get_hwcfg(imx355);
+ 	if (!imx355->hwcfg) {
+ 		dev_err(imx355->dev, "failed to get hwcfg");
+ 		ret = -ENODEV;
 
 -- 
 2.34.1
