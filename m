@@ -1,36 +1,37 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A03A42D757;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1816C42901C;
 	Thu, 16 Jul 2026 15:13:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784214822; cv=none; b=S245qTsmwSmtS+x3GJIY4RBHQ/oTWm6r46AaioQlSP+tAK0zcJBvK+iG0z3T5NZro880P3ybWhwNF/PvgQA4R1qzCYwlk7MWsj7nsfcLz0J2UY9mG50Usf1otyukyTB/su2auSgh6rZcbN6yF1tqSTwQzlBOoQYQ5EH9gilMdm0=
+	t=1784214823; cv=none; b=LGiTYZY3Q7k3jVErc24/wAzOow1zZrPZjc4Yciqk0SiqXUXOyiI2/lUvwddJs+xUQdITVHHPK2Qvg7V2ShpmrhfmYi14fhaeobQjvJ45XbP8VVGPe5L4WzMtiFqzr26ZYFeT3M7Go22viS2mDxwZ6MtGKWWFifyTMpMu3mZ9mWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784214822; c=relaxed/simple;
-	bh=WCsEdz3e/tDXo5idZqflDrn9zYtlEy5a7rslTNiT7aQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B5N9wGEkhyNLA3zs7GxbbWi58d0BtFwM9IrZQAsaPmQG75O9Noeijt0wA38EHWfHXZ2nuvpAZ+RuUyVJZVuH7zTfW3SEhLI2HquJ6ElS75Q0fIdC3QDNsP5Yj7hkqAiMhIK810Dyp+L4flD/2l9dG89JtO1Olnb+i3K8IR+3W7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=QR/UOqfE; arc=none smtp.client-ip=148.251.105.195
+	s=arc-20240116; t=1784214823; c=relaxed/simple;
+	bh=1TfHjfCjyABk53A8MaRhQkosWW62gMUxDynVzVFzhyE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Nq1vaYTGf712HzbQvLMWxRhVTRH7fticvpSxsspwKC1fYVPVhricFsz+yMIVB8SR4opi5seDCSZk9LhoWohPBsTPTXgxZ1MWQXN0RE9nsSudynmIff3RBs5mYEittki7FhWhfJkMZZRLIzDgw7l6N3k6kMtxhX1V/Kaqgoh2+Fc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=llxscuaw; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="QR/UOqfE"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="llxscuaw"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1784214816;
-	bh=WCsEdz3e/tDXo5idZqflDrn9zYtlEy5a7rslTNiT7aQ=;
-	h=From:To:Cc:Subject:Date:From;
-	b=QR/UOqfEaPJqDP1UJPvVWwBnnFFGKG+kkqtMpnj2El9OXIdqrdcT/wVAKtTaVL2pb
-	 0ygekyKOqalX8HszyBp9AXNI+gI1M0xOaRK0bMUKK3TW7V1x43FZwcWLfRxHvXjMas
-	 b7+UVWK3D8JV/RhNY5pzkceN3tS8mX8e7jEl9U6YBvMuNUedznJwMBHqDpnqUuEh1p
-	 PtwK0bDf8O0BDT3tvFS9FalwsyYu5nzde6tBy2+9izb1FDIz1eQF7Uw0/sXNi5cEvo
-	 OF3eS2pU4Xd4CCym8YSIgRoVF9cNVY3Ac9dUuBvuu2ZvkXp4soU+XxV6WQoshDGDzL
-	 +N+Cb+0tpHN0Q==
+	s=mail; t=1784214817;
+	bh=1TfHjfCjyABk53A8MaRhQkosWW62gMUxDynVzVFzhyE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=llxscuaw1rmARpqLMcpCOo4I/OPeGwUx1/z0v9vAj6q8gd/8c8AXeP/PoFV3mh5QB
+	 31+s7AImDTpu5gXKvRTzdv9fxWGDC09hNB7pl6NoaHJNNoLrz1ieAorOCPClbSdgEr
+	 AM9dbMoyEGV2LRcwnpUY72uzZsOVkBecffiWcp/kUZKDuxOhqTFqAHWNNkUf38p238
+	 22Kv8tz1TGSUv5quA1rpNnxqMRxLmBHVejHTgBuHcBPu3inYa2s8kjt+4zkkhkkDCP
+	 A7rfFq6EA+ZITpvDjHdT4IGN3dmt/QV6ScssCE/wEtcNDIKfkdpxK55o/DetvlkRCA
+	 93fUejgYRvu5w==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1259B17E0E08;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id BB46017E0018;
 	Thu, 16 Jul 2026 17:13:36 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunfeng.yun@mediatek.com
@@ -47,10 +48,12 @@ Cc: vkoul@kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	kernel@collabora.com
-Subject: [PATCH 0/2] PHY: Add MediaTek PCI-Express Gen4 S-PHY Driver
-Date: Thu, 16 Jul 2026 17:13:31 +0200
-Message-ID: <20260716151333.77254-1-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH 1/2] dt-bindings: phy: Document MT8196 MediaTek PCI-Express Gen4 S-PHY
+Date: Thu, 16 Jul 2026 17:13:32 +0200
+Message-ID: <20260716151333.77254-2-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260716151333.77254-1-angelogioacchino.delregno@collabora.com>
+References: <20260716151333.77254-1-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -59,24 +62,118 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This adds a driver for the PCI-Express Gen4 "S-PHY" found in the
-Genio MT8894, Kompanio MT8196, Dimensity MT6991 SoCs (which are
-all variants of the same chip).
+This adds bindings for the PCI-Express Gen4 S-PHY found in newer
+MediaTek SoCs, such as MT8196 and its variants.
 
-This was successfully tested on MT8894 and MT8196.
+In the current "revision 3", depending on the specific port, this
+S-PHY supports up to two lanes of PCI-Express Gen 4 and both EP
+and RC modes.
+It is not clear whether revisions/versions earlier than 3 have
+ever been shipped in any other MediaTek SoC.
 
-AngeloGioacchino Del Regno (2):
-  dt-bindings: phy: Document MT8196 MediaTek PCI-Express Gen4 S-PHY
-  phy: mediatek: Add support for PCI-Express Gen4 S-PHY
-
- .../phy/mediatek,mt8196-pcie-sphy.yaml        |  91 +++
- drivers/phy/mediatek/Kconfig                  |   9 +
- drivers/phy/mediatek/Makefile                 |   1 +
- drivers/phy/mediatek/phy-mtk-pcie-sphy.c      | 560 ++++++++++++++++++
- 4 files changed, 661 insertions(+)
+Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ .../phy/mediatek,mt8196-pcie-sphy.yaml        | 91 +++++++++++++++++++
+ 1 file changed, 91 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/phy/mediatek,mt8196-pcie-sphy.yaml
- create mode 100644 drivers/phy/mediatek/phy-mtk-pcie-sphy.c
 
+diff --git a/Documentation/devicetree/bindings/phy/mediatek,mt8196-pcie-sphy.yaml b/Documentation/devicetree/bindings/phy/mediatek,mt8196-pcie-sphy.yaml
+new file mode 100644
+index 000000000000..2b61882c402c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/phy/mediatek,mt8196-pcie-sphy.yaml
+@@ -0,0 +1,91 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/phy/mediatek,mt8196-pcie-sphy.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: MediaTek PCI-Express Gen4 S-PHY
++
++maintainers:
++  - AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
++
++description:
++  The MediaTek PCI-Express Gen4 S-PHY is capable of data serialization
++  and de-serialization with 8, 10, 128 or 130 bits (16GT/s) encoding
++  and decoding, has analog buffers, elastic buffers and mechanisms for
++  receiver detection.
++  This PHY supports link rates of 2.5, 5.0, 6.0 and 16.0 GT/s per-lane
++  in both Root Complex (RC) and End Point (EP) modes, depending on the
++  chosen port.
++  The Digital PHY (PHYD) part adheres to the Intel PIPE (PHY Interface
++  for the PCIe) specification.
++
++properties:
++  compatible:
++    const: mediatek,mt8196-pcie-sphy
++
++  reg:
++    minItems: 2
++
++  reg-names:
++    items:
++      - const: sif
++      - const: ckm
++
++  "#phy-cells":
++    const: 0
++
++  nvmem-cells:
++    items:
++      - description: Internal resistor selection of TX Bias Current
++      - description: XTP Bias V2V voltage calibration
++      - description: S-PLL CKTX Impedance Selection (P-MOSFET side)
++      - description: S-PLL CKTX Impedance Selection (N-MOSFET side)
++      - description: S-PLL CKTX Intermediate Transition Impedance
++      - description: RX Front-End Return Loss Continuous Time Linear EQ
++      - description: RX Front-End Return Loss Variable Gain Amplifier
++      - description: RX Front-End Return Loss Decision Feedback EQ
++      - description: RX Impedance Selection
++      - description: TX Impedance Selection (P-MOSFET side)
++      - description: TX Impedance Selection (N-MOSFET side)
++      - description: TX Lane 0 Switch Resistance (RSWn)
++      - description: TX Lane 1 Switch Resistance (RSWn)
++      - description: eFuse calibration table version
++
++  nvmem-cell-names:
++    items:
++      - const: int-r
++      - const: xtp-vtrim
++      - const: cktx-pmos
++      - const: cktx-nmos
++      - const: cktx-r-mid
++      - const: rxfe-lanes-rl-ctle
++      - const: rxfe-lanes-rl-vga
++      - const: rxfe-lanes-rl-dfe
++      - const: rx-lanes-imp
++      - const: tx-lanes-pmos
++      - const: tx-lanes-nmos
++      - const: tx-ln0-rswn
++      - const: tx-ln1-rswn
++      - const: cal-version
++
++  power-domains:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - "#phy-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    phy@16900000 {
++        compatible = "mediatek,mt8196-pcie-sphy";
++        reg = <0x16900000 0x10000>, <0x16920000 0x10000>;
++        reg-names = "sif", "ckm";
++        power-domains = <&spm 10>;
++        #phy-cells = <0>;
++    };
 -- 
 2.54.0
 
