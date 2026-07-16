@@ -1,1082 +1,338 @@
-Received: from gy.d.sender-sib.com (gy.d.sender-sib.com [77.32.148.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61736349CF0
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 06:56:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.32.148.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D09B30274D;
+	Thu, 16 Jul 2026 07:03:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784184963; cv=none; b=d6RY9zTuGum3CHKzrwTiQIkI2uW2ZN7KEyn60VZEh3K5Z1k8pClhR8Gnf0AY2baLNHjCsAwt+K5wlY2BMIx4QW2G92h/BgcYY8F9y6FY/l4raJoSaNqAD6Df3x1nkOf/QvKyjuJJCksPIpvtZxM2qgGozUo3wy/IZu3E/RPMQPU=
+	t=1784185383; cv=none; b=asnt/sCyn+XfZYa+7VPCtm2ZdBgX05hGXDP9WsfOCTTYumG19FUhVCipWauJ+C/wIAgomXB5G1zE3ndbK+KiuPSjTYobA+/4Fmqw8lYYzIQmRguA/DuItg4lqhLBwKFGGLv0KWTk8fKAXhlu6vnxT6zJbjcnF89iJtE5AjUFwhk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784184963; c=relaxed/simple;
-	bh=VWST1JgxJbtq5PsCde1G678Z4NMAtvr395nYIEMcqaM=;
-	h=Date:Message-Id:To:Subject:Cc:From:In-Reply-To:Mime-Version:
-	 References; b=OqZiIkyO6H2LlGqTiNn6GZuE5ilIyprVvINPfpEoxlph9oMd6KWahJWovFNJYEquCqYOQomyX44ugwPz9xSG9ajVMwBOL5Ypu5D70V/1lLUUChvX0WAq5QP5DZrfvzhsWyTxZGuAnwCMKT8Xzev3grDsrwgj/Dq3PZQb97x5s60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gy.d.sender-sib.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=pcC4AP7K; arc=none smtp.client-ip=77.32.148.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gy.d.sender-sib.com
+	s=arc-20240116; t=1784185383; c=relaxed/simple;
+	bh=UJuRDBMkimoGr8tdAvZJiI+C7gbzOM2S6oiD9Cv/mZY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZrRK59rR1lRJzNio0BeJ11WefriOjRWcwKqdhsRNUNXMhsnNDNyB7LWtQWNB7ZbHxGJaPUO+YNpQ2AjA8eDJybgsWRHylHrD6xsfA4v5G3+x48kOS1p4Nn/ArulC+sTbKRVSuVWvsr9S1W8C8hmLM7dl42bv+m9Eg5qjFPY0O3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MNtlpbDG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="pcC4AP7K"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- q=dns/txt; s=brevo2; bh=CvWqR6dd71zAw+FOFVw8a/mY/YSCIUJHe3fH8/EgSb4=;
- h=from:subject:date:to:cc:mime-version:content-transfer-encoding:in-reply-to:references:list-unsubscribe:x-csa-complaints:list-unsubscribe-post:message-id:x-sib-id:feedback-id;
-        b=pcC4AP7KlvLbE/HeBeOGbjD9miZ1ohvHDLBLVHRnacR8o4TmUf9p6XtdiHvpnkd7UilSJk3xbPuP
-        WkeX1opubYh0n81yQOBBZzamhVDjk1ZHoYgAK5SZVEpLm4YiwaeVX2KVWR4861Lb2XcjB+9m1pQs
-        RQk88ww4BQfDECmmveHQSMC9FxRK7sxsuFFGH1w7QXL4hd1rm4pvjZyWOzqRwUyNvquBznidhe+s
-        fDkmT/jqvAShZwbUn+MkSbQlaYkkqng6ayBHhS/5GyKWwsZwTl3F1eilYUpplu7e0clAPmHvWpmA
-        PGSrB+aR2emTd3bw01JD0gWrM135FJE9sVADcA==
-X-Mailin-EID: NDg1NjE3NDAyfmRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnfjwyMDI2MDcxNjA2NTU0OC4yNDY2MTk4LTMtZ2FoaW5nQGdhaGluZ3dvby5jb20%2Bfmd5LmQuc2VuZGVyLXNpYi5jb20%3D
-Date: Thu, 16 Jul 2026 18:55:48 +1200
-X-sib-id: 0fcRIlXyYh4rhFK1L03PLUX7dbnBY_mMqaYtsA-ahAX6BWFyj6pAOmI0as9O597AFU77pP0CqPQ8UE_tFDa7WM-KYw0MVZu9JCiR8Pyumrs7ocAU72BXMilBqLSB-OvuuRxmJKRJRIvrXKtuekmg4CtAmWvNC7uyErRG3PZe0pefLYmdnW5TLJA
-Message-Id: <b86032a8-42a9-4deb-a9ec-b1ff6c1935d6@smtp-relay.sendinblue.com>
-Origin-messageId: <20260716065548.2466198-3-gahing@gahingwoo.com>
-Feedback-ID: 77.32.148.25:11677070_-1:11677070:Sendinblue
-To: <heiko@sntech.de>,<robh@kernel.org>,<krzk+dt@kernel.org>,<conor+dt@kernel.org>
-Subject: [PATCH v2 2/2] arm64: dts: rockchip: Add ArmSoM CM5 and CM5-IO
-Cc: <devicetree@vger.kernel.org>,  <linux-rockchip@lists.infradead.org>,  <linux-arm-kernel@lists.infradead.org>,  <linux-kernel@vger.kernel.org>
-List-Unsubscribe-Post: List-Unsubscribe=One-Click
-From: "Jiaxing Hu" <gahing@gahingwoo.com>
-X-CSA-Complaints: csa-complaints@eco.de
-In-Reply-To: <20260716065548.2466198-1-gahing@gahingwoo.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MNtlpbDG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DC6E1F000E9;
+	Thu, 16 Jul 2026 07:02:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784185382;
+	bh=FFNUu0XXRGHNtH40B1tomItE0NdjZli+GhoQ7HxIkQY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MNtlpbDGcyUioUCN12h0sq/BaPNYcp3CTPfrl3k4yclHMwUiT0FKbToKL0v1p9GF1
+	 A4Qe73qDyOWUrWqlxv7XeaAa/kMufIqD9W/sXZ1Dya/gML2/ABdtcyc+5qyVQlTY+u
+	 KWt3XeJQ9HdwS2PpOiQefYOHtLvffdn6FUKXu3Yz32FhClnnzX8EIXgVkvHC6vKXJn
+	 hO/AnRBwTqRxsg//fzq68A0dksQpiNHhMxys6I7ANN2swVPTyc52dmGqUe0h6VMgMu
+	 1ms+hEojgD+9pEYegFTWYOyWVxG2xI9egyHr+D5WPU66s1QzzHVzejah5of6iifxWz
+	 4KgTCPF6Rhbbw==
+Date: Thu, 16 Jul 2026 09:02:39 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Alex Elder <elder@riscstar.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com, 
+	rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org, 
+	arnd@arndb.de, gregkh@linuxfoundation.org, daniel@riscstar.com, 
+	mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com, alexandre.torgue@foss.st.com, 
+	ast@kernel.org, boon.khai.ng@altera.com, chenchuangyu@xiaomi.com, 
+	chenhuacai@kernel.org, daniel@iogearbox.net, hawk@kernel.org, hkallweit1@gmail.com, 
+	inochiama@gmail.com, john.fastabend@gmail.com, julianbraha@gmail.com, 
+	livelycarpet87@gmail.com, mcoquelin.stm32@gmail.com, me@ziyao.cc, 
+	prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com, rohan.g.thomas@altera.com, 
+	sdf@fomichev.me, siyanteng@cqsoftware.com.cn, weishangjuan@eswincomputing.com, 
+	wens@kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2 12/14] gpio: tc956x: add TC956x/QPS615 support
+Message-ID: <dhnylud7o5dhaaq6kvbes4vkml3ppa5ev542j2lyxdijibknzg@pfcy22wz6jav>
+References: <20260605010022.968612-1-elder@riscstar.com>
+ <20260605010022.968612-13-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-References: <20260716065548.2466198-1-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260605010022.968612-13-elder@riscstar.com>
 
+On Thu, Jun 04, 2026 at 08:00:19PM -0500, Alex Elder wrote:
+> Toshiba TC956x is an Ethernet-AVB/TSN bridge and is essentially
+> a small and highly-specialized SoC.  TC956x includes a GPIO block that
+> can be accessed, alongside several other peripherals, via two PCIe
+> endpoint functions.  The PCIe function driver creates an auxiliary
+> device for the GPIO block, and that device gets bound to this auxiliary
+> device driver.
+> 
+> This driver is implemented using the generic regmap-based GPIO driver.
+> 
 
-Add the ArmSoM CM5, an RK3576 compute module (rk3576-armsom-cm5.dtsi),
-and its CM5-IO carrier (rk3576-armsom-cm5-io.dts). The module has the
-RK806 PMIC, HYM8563 RTC, eMMC, GMAC0 with an on-module MotorComm YT8531
-PHY, and the SDIO bus for the on-module WiFi. The carrier adds HDMI, a
-GbE RJ45, two USB-A ports behind a USB3 hub, USB-C with FUSB302 and DP
-alt-mode, a PCIe 2.0 x1 M.2 slot, microSD, status LEDs and a 40-pin
-header.
+While the regmap over the switch BAR works for GPIO access post-enumeration,
+there is a blocker in using these GPIOs to control the power to endpoints.
 
-The YT8531 has no crystal, so it uses the SoC 25 MHz reference output,
-described on the gmac node as clk_mac_refout. Its reset is described at
-the MDIO bus level: mdiobus releases a bus level reset before it scans
-for PHY IDs, whereas a per-PHY reset-gpios is only applied once the PHY
-has been found, which never happens while the PHY is still in reset.
+We have a design [1] where the GPIOs from the switch are used to control power
+and PERST# signals to the EP. With this current design, during the initial PCI
+bus scan, the switch will get enumerated, but the EP will not. Because, power to
+the EP depends on the GPIO Aux driver that will get probed only after the switch
+enumeration.
 
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
----
- arch/arm64/boot/dts/rockchip/Makefile         |   1 +
- .../dts/rockchip/rk3576-armsom-cm5-io.dts     | 401 +++++++++++++
- .../boot/dts/rockchip/rk3576-armsom-cm5.dtsi  | 564 ++++++++++++++++++
- 3 files changed, 966 insertions(+)
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5.dtsi
+But this creates a chicken-and-egg problem with the PCI Pwrctrl design.
+pcie-qcom driver uses the Pwrctrl framework to power on the PCI endpoints before
+the initial PCI bus scan. It calls pci_pwrctrl_create_devices() and
+pci_pwrctrl_power_on_devices() APIs to create the platform device for all PCI
+devices defined in DT (that require pwrctrl support), waits for their respective
+pwrctrl drivers to get probed and then power ON all of them. This step is
+required because in DT platforms, many Root Ports are not hotplug capable and
+also BIOS doesn't assign bridge windows during boot. So all the devices has to
+appear during the initial PCI bus scan so that the PCI core can allocate the
+resources properly.
 
-diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/ro=
-ckchip/Makefile
-index cb55c6b70..3ec0b6e20 100644
---- a/arch/arm64/boot/dts/rockchip/Makefile
-+++ b/arch/arm64/boot/dts/rockchip/Makefile
-@@ -165,6 +165,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3568-wolfvision-pf5.=
-dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3568-wolfvision-pf5-display-vz.dtbo
- dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3568-wolfvision-pf5-io-expander.dtbo
- dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3576-100ask-dshanpi-a1.dtb
-+dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3576-armsom-cm5-io.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3576-armsom-sige5.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3576-armsom-sige5-v1.2-wifibt.dtbo
- dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3576-evb1-v10.dtb
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts b/arch/a=
-rm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts
-new file mode 100644
-index 000000000..79a903585
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts
-@@ -0,0 +1,401 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * ArmSoM CM5-IO - official carrier board for the ArmSoM CM5 (RK3576) modu=
-le.
-+ *
-+ * Carrier provides:
-+ *   - Full-size HDMI 2.1 (HDMI TX via HDPTX PHY)
-+ *   - Gigabit Ethernet RJ45 (GMAC0 + on-module YT8531)
-+ *   - 2x USB-A behind a USB3 hub (combphy1 + u2phy1)
-+ *   - USB-C with PD/altmode (FUSB302 on i2c0, combphy0 + USBDP PHY)
-+ *   - M.2 PCIe 2.0 x1 slot (combphy0 as PCIe lane)
-+ *   - microSD card slot
-+ *   - ES8388 audio codec on i2c0
-+ *   - Green/red status LEDs, 40-pin RPi-compatible header
-+ *   - 12 V DC barrel jack
-+ *
-+ * Copyright (c) 2024 ArmSoM
-+ * Copyright (c) 2026 Jiaxing Hu <huhuvmb88@gmail.com>
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/leds/common.h>
-+#include <dt-bindings/pinctrl/rockchip.h>
-+#include <dt-bindings/soc/rockchip,vop2.h>
-+#include <dt-bindings/usb/pd.h>
-+#include "rk3576-armsom-cm5.dtsi"
-+
-+/ {
-+	model =3D "ArmSoM CM5-IO";
-+	compatible =3D "armsom,cm5-io", "armsom,cm5", "rockchip,rk3576";
-+
-+	aliases {
-+		ethernet0 =3D &gmac0;
-+		mmc0 =3D &sdhci;
-+		mmc1 =3D &sdmmc;
-+	};
-+
-+	chosen {
-+		stdout-path =3D "serial0:1500000n8";
-+	};
-+
-+	/* Full-size HDMI Type-A connector, driven by the SoC HDMI TX. */
-+	hdmi-con {
-+		compatible =3D "hdmi-connector";
-+		type =3D "a";
-+
-+		port {
-+			hdmi_con_in: endpoint {
-+				remote-endpoint =3D <&hdmi_out_con>;
-+			};
-+		};
-+	};
-+
-+	/*
-+	 * Carrier status LEDs (schematic ARMSOM-CM5-IO-1V1_20240829):
-+	 *   green - GPIO2 PD0 (net LED_GREEN_EN)
-+	 *   red   - GPIO2 PD1 (net LED_RED_EN)
-+	 */
-+	leds: leds {
-+		compatible =3D "gpio-leds";
-+
-+		led_green: led-green {
-+			color =3D <LED_COLOR_ID_GREEN>;
-+			function =3D LED_FUNCTION_STATUS;
-+			gpios =3D <&gpio2 RK_PD0 GPIO_ACTIVE_HIGH>;
-+			pinctrl-names =3D "default";
-+			pinctrl-0 =3D <&led_green_en>;
-+			default-state =3D "on";
-+		};
-+
-+		led_red: led-red {
-+			color =3D <LED_COLOR_ID_RED>;
-+			function =3D LED_FUNCTION_FAULT;
-+			gpios =3D <&gpio2 RK_PD1 GPIO_ACTIVE_HIGH>;
-+			pinctrl-names =3D "default";
-+			pinctrl-0 =3D <&led_red_en>;
-+			default-state =3D "off";
-+		};
-+	};
-+
-+	/* Carrier power tree: 12 V barrel jack -> 5 V -> peripheral rails. */
-+	vcc_12v0_dcin: regulator-vcc-12v0-dcin {
-+		compatible =3D "regulator-fixed";
-+		regulator-name =3D "vcc_12v0_dcin";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt =3D <12000000>;
-+		regulator-max-microvolt =3D <12000000>;
-+	};
-+
-+	vcc_5v0_sys: regulator-vcc-5v0-sys {
-+		compatible =3D "regulator-fixed";
-+		regulator-name =3D "vcc_5v0_sys";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt =3D <5000000>;
-+		regulator-max-microvolt =3D <5000000>;
-+		vin-supply =3D <&vcc_12v0_dcin>;
-+	};
-+
-+	vcc_5v0_device: regulator-vcc-5v0-device {
-+		compatible =3D "regulator-fixed";
-+		regulator-name =3D "vcc_5v0_device";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt =3D <5000000>;
-+		regulator-max-microvolt =3D <5000000>;
-+		vin-supply =3D <&vcc_12v0_dcin>;
-+	};
-+
-+	/* PCIe 3.3 V for the M.2 slot, gated by GPIO0 PC3. */
-+	vcc_3v3_pcie: regulator-vcc-3v3-pcie {
-+		compatible =3D "regulator-fixed";
-+		pinctrl-names =3D "default";
-+		pinctrl-0 =3D <&pcie_pwr_en>;
-+		regulator-name =3D "vcc_3v3_pcie";
-+		regulator-min-microvolt =3D <3300000>;
-+		regulator-max-microvolt =3D <3300000>;
-+		enable-active-high;
-+		gpio =3D <&gpio0 RK_PC3 GPIO_ACTIVE_HIGH>;
-+		startup-delay-us =3D <5000>;
-+		vin-supply =3D <&vcc_5v0_sys>;
-+	};
-+
-+	/* USB-C / OTG 5 V, gated by GPIO2 PB6. */
-+	vcc_5v0_typec0: regulator-vcc-5v0-typec0 {
-+		compatible =3D "regulator-fixed";
-+		enable-active-high;
-+		gpios =3D <&gpio2 RK_PB6 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names =3D "default";
-+		pinctrl-0 =3D <&usb_otg0_pwren>;
-+		regulator-name =3D "vcc_5v0_typec0";
-+		regulator-min-microvolt =3D <5000000>;
-+		regulator-max-microvolt =3D <5000000>;
-+		vin-supply =3D <&vcc_5v0_device>;
-+	};
-+
-+	/* USB-A host 5 V (through the hub), gated by GPIO4 PB0. */
-+	vcc_5v0_usbhost: regulator-vcc-5v0-usbhost {
-+		compatible =3D "regulator-fixed";
-+		enable-active-high;
-+		gpios =3D <&gpio4 RK_PB0 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names =3D "default";
-+		pinctrl-0 =3D <&usb_host_pwren>;
-+		regulator-name =3D "vcc_5v0_usbhost";
-+		regulator-min-microvolt =3D <5000000>;
-+		regulator-max-microvolt =3D <5000000>;
-+		vin-supply =3D <&vcc_5v0_device>;
-+	};
-+};
-+
-+/*
-+ * ComboPHY0 -> PCIe lane (M.2 slot); ComboPHY1 -> USB3 lane (USB-A hub).
-+ */
-+&combphy0_ps {
-+	status =3D "okay";
-+};
-+
-+&combphy1_psu {
-+	status =3D "okay";
-+};
-+
-+&hdmi {
-+	status =3D "okay";
-+};
-+
-+&hdmi_in {
-+	hdmi_in_vp0: endpoint {
-+		remote-endpoint =3D <&vp0_out_hdmi>;
-+	};
-+};
-+
-+&hdmi_out {
-+	hdmi_out_con: endpoint {
-+		remote-endpoint =3D <&hdmi_con_in>;
-+	};
-+};
-+
-+&hdmi_sound {
-+	status =3D "okay";
-+};
-+
-+&hdptxphy {
-+	status =3D "okay";
-+};
-+
-+/*
-+ * I2C0: ES8388 audio codec @ 0x10, FUSB302 USB-C PD controller @ 0x22.
-+ * Pinctrl i2c0m1 (GPIO0 PC4 SCL / GPIO0 PC5 SDA).
-+ */
-+&i2c0 {
-+	status =3D "okay";
-+	pinctrl-names =3D "default";
-+	pinctrl-0 =3D <&i2c0m1_xfer>;
-+
-+	usbc0: usb-typec@22 {
-+		compatible =3D "fcs,fusb302";
-+		reg =3D <0x22>;
-+		interrupt-parent =3D <&gpio0>;
-+		interrupts =3D <RK_PB4 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names =3D "default";
-+		pinctrl-0 =3D <&usbc0_int>;
-+		vbus-supply =3D <&vcc_5v0_typec0>;
-+
-+		usb_con: connector {
-+			compatible =3D "usb-c-connector";
-+			label =3D "USB-C";
-+			data-role =3D "dual";
-+			power-role =3D "dual";
-+			try-power-role =3D "sink";
-+			op-sink-microwatt =3D <1000000>;
-+			sink-pdos =3D
-+				<PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)
-+				 PDO_FIXED(9000, 3000, PDO_FIXED_USB_COMM)
-+				 PDO_FIXED(12000, 3000, PDO_FIXED_USB_COMM)>;
-+			source-pdos =3D
-+				<PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
-+
-+			altmodes {
-+				displayport {
-+					svid =3D /bits/ 16 <0xff01>;
-+					vdo =3D <0xffffffff>;
-+				};
-+			};
-+
-+			ports {
-+				#address-cells =3D <1>;
-+				#size-cells =3D <0>;
-+
-+				port@0 {
-+					reg =3D <0>;
-+					usbc0_orien_sw: endpoint {
-+						remote-endpoint =3D <&usbdp_phy_orientation_switch>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg =3D <1>;
-+					usbc0_role_sw: endpoint {
-+						remote-endpoint =3D <&usb_drd0_role_switch>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg =3D <2>;
-+					dp_altmode_mux: endpoint {
-+						remote-endpoint =3D <&usbdp_phy_dp_altmode_mux>;
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+/*
-+ * PCIe 2.0 x1 M.2 slot. Reset GPIO2 PB1, power vcc_3v3_pcie (GPIO0 PC3).
-+ */
-+&pcie0 {
-+	pinctrl-names =3D "default";
-+	pinctrl-0 =3D <&pcie_reset>;
-+	reset-gpios =3D <&gpio2 RK_PB1 GPIO_ACTIVE_HIGH>;
-+	vpcie3v3-supply =3D <&vcc_3v3_pcie>;
-+	status =3D "okay";
-+};
-+
-+/* microSD card slot. */
-+&sdmmc {
-+	bus-width =3D <4>;
-+	cap-mmc-highspeed;
-+	cap-sd-highspeed;
-+	disable-wp;
-+	max-frequency =3D <200000000>;
-+	no-sdio;
-+	no-mmc;
-+	sd-uhs-sdr104;
-+	vmmc-supply =3D <&vcc_3v3_s3>;
-+	vqmmc-supply =3D <&vccio_sd_s0>;
-+	status =3D "okay";
-+};
-+
-+&u2phy0 {
-+	status =3D "okay";
-+};
-+
-+&u2phy0_otg {
-+	phy-supply =3D <&vcc_5v0_typec0>;
-+	status =3D "okay";
-+};
-+
-+&u2phy1 {
-+	status =3D "okay";
-+};
-+
-+&u2phy1_otg {
-+	phy-supply =3D <&vcc_5v0_usbhost>;
-+	status =3D "okay";
-+};
-+
-+/* Debug UART0 on the 40-pin header. */
-+&uart0 {
-+	pinctrl-0 =3D <&uart0m0_xfer>;
-+	status =3D "okay";
-+};
-+
-+/* USB DRD0: USB-C (USBDP SuperSpeed + USB2 HS), OTG with FUSB302 role-swi=
-tch. */
-+&usb_drd0_dwc3 {
-+	dr_mode =3D "otg";
-+	usb-role-switch;
-+	status =3D "okay";
-+
-+	port {
-+		usb_drd0_role_switch: endpoint {
-+			remote-endpoint =3D <&usbc0_role_sw>;
-+		};
-+	};
-+};
-+
-+/* USB DRD1: USB-A ports behind the hub (combphy1 SuperSpeed + USB2 HS). *=
-/
-+&usb_drd1_dwc3 {
-+	dr_mode =3D "host";
-+	status =3D "okay";
-+};
-+
-+&usbdp_phy {
-+	status =3D "okay";
-+	mode-switch;
-+	orientation-switch;
-+	sbu1-dc-gpios =3D <&gpio4 RK_PC4 GPIO_ACTIVE_HIGH>;
-+	sbu2-dc-gpios =3D <&gpio4 RK_PC5 GPIO_ACTIVE_HIGH>;
-+
-+	port {
-+		#address-cells =3D <1>;
-+		#size-cells =3D <0>;
-+
-+		usbdp_phy_orientation_switch: endpoint@0 {
-+			reg =3D <0>;
-+			remote-endpoint =3D <&usbc0_orien_sw>;
-+		};
-+
-+		usbdp_phy_dp_altmode_mux: endpoint@1 {
-+			reg =3D <1>;
-+			remote-endpoint =3D <&dp_altmode_mux>;
-+		};
-+	};
-+};
-+
-+&vop {
-+	status =3D "okay";
-+};
-+
-+&vop_mmu {
-+	status =3D "okay";
-+};
-+
-+&vp0 {
-+	vp0_out_hdmi: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
-+		reg =3D <ROCKCHIP_VOP2_EP_HDMI0>;
-+		remote-endpoint =3D <&hdmi_in_vp0>;
-+	};
-+};
-+
-+&pinctrl {
-+	leds {
-+		/* GPIO2 PD0 - green carrier LED */
-+		led_green_en: led-green-en {
-+			rockchip,pins =3D <2 RK_PD0 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		/* GPIO2 PD1 - red carrier LED */
-+		led_red_en: led-red-en {
-+			rockchip,pins =3D <2 RK_PD1 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	pcie {
-+		/* GPIO0 PC3 - PCIe power enable */
-+		pcie_pwr_en: pcie-pwr-en {
-+			rockchip,pins =3D <0 RK_PC3 RK_FUNC_GPIO &pcfg_pull_down>;
-+		};
-+		/* GPIO2 PB1 - PCIe PERST# */
-+		pcie_reset: pcie-reset {
-+			rockchip,pins =3D <2 RK_PB1 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+
-+	usb {
-+		/* GPIO4 PB0 - USB host 5V enable */
-+		usb_host_pwren: usb-host-pwren {
-+			rockchip,pins =3D <4 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+		/* GPIO2 PB6 - USB OTG / Type-C 5V enable */
-+		usb_otg0_pwren: usb-otg0-pwren {
-+			rockchip,pins =3D <2 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+		/* GPIO0 PB4 - FUSB302 INT# (active-low) */
-+		usbc0_int: usbc0-int {
-+			rockchip,pins =3D <0 RK_PB4 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5.dtsi b/arch/arm=
-64/boot/dts/rockchip/rk3576-armsom-cm5.dtsi
-new file mode 100644
-index 000000000..4612b7e1d
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5.dtsi
-@@ -0,0 +1,564 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * ArmSoM CM5 - Rockchip RK3576 compute module (Raspberry Pi CM4 form fact=
-or).
-+ *
-+ * Common to all CM5 carriers. The carrier .dts includes this file, sets t=
-he
-+ * board model/compatible, and adds carrier-specific peripherals.
-+ *
-+ * On-module devices:
-+ *   - RK806 PMIC on I2C1
-+ *   - HYM8563 RTC on I2C2
-+ *   - eMMC (SDHCI)
-+ *   - GMAC0 + MotorComm YT8531 Gigabit Ethernet PHY (RGMII)
-+ *   - SYN43752 WiFi 6 + BT 5.x (SDIO + UART4)
-+ *
-+ * Copyright (c) 2024 ArmSoM
-+ * Copyright (c) 2026 Jiaxing Hu <huhuvmb88@gmail.com>
-+ */
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/pinctrl/rockchip.h>
-+#include "rk3576.dtsi"
-+
-+/ {
-+	compatible =3D "armsom,cm5", "rockchip,rk3576";
-+
-+	vcc_1v1_nldo_s3: regulator-vcc-1v1-nldo-s3 {
-+		compatible =3D "regulator-fixed";
-+		regulator-name =3D "vcc_1v1_nldo_s3";
-+		regulator-boot-on;
-+		regulator-always-on;
-+		regulator-min-microvolt =3D <1100000>;
-+		regulator-max-microvolt =3D <1100000>;
-+		vin-supply =3D <&vcc_5v0_sys>;
-+	};
-+
-+	vcc_1v2_ufs_vccq_s0: regulator-vcc-1v2-ufs-vccq-s0 {
-+		compatible =3D "regulator-fixed";
-+		regulator-name =3D "vcc_1v2_ufs_vccq_s0";
-+		regulator-boot-on;
-+		regulator-always-on;
-+		regulator-min-microvolt =3D <1200000>;
-+		regulator-max-microvolt =3D <1200000>;
-+		vin-supply =3D <&vcc_5v0_sys>;
-+	};
-+
-+	vcc_1v8_s0: regulator-vcc-1v8-s0 {
-+		compatible =3D "regulator-fixed";
-+		regulator-name =3D "vcc_1v8_s0";
-+		regulator-boot-on;
-+		regulator-always-on;
-+		regulator-min-microvolt =3D <1800000>;
-+		regulator-max-microvolt =3D <1800000>;
-+		vin-supply =3D <&vcc_1v8_s3>;
-+	};
-+
-+	vcc_1v8_ufs_vccq2_s0: regulator-vcc-1v8-ufs-vccq2-s0 {
-+		compatible =3D "regulator-fixed";
-+		regulator-name =3D "vcc_1v8_ufs_vccq2_s0";
-+		regulator-boot-on;
-+		regulator-always-on;
-+		regulator-min-microvolt =3D <1800000>;
-+		regulator-max-microvolt =3D <1800000>;
-+		vin-supply =3D <&vcc_1v8_s3>;
-+	};
-+
-+	vcc_2v0_pldo_s3: regulator-vcc-2v0-pldo-s3 {
-+		compatible =3D "regulator-fixed";
-+		regulator-name =3D "vcc_2v0_pldo_s3";
-+		regulator-boot-on;
-+		regulator-always-on;
-+		regulator-min-microvolt =3D <2000000>;
-+		regulator-max-microvolt =3D <2000000>;
-+		vin-supply =3D <&vcc_5v0_sys>;
-+	};
-+
-+	vcc_3v3_s0: regulator-vcc-3v3-s0 {
-+		compatible =3D "regulator-fixed";
-+		regulator-name =3D "vcc_3v3_s0";
-+		regulator-boot-on;
-+		regulator-always-on;
-+		regulator-min-microvolt =3D <3300000>;
-+		regulator-max-microvolt =3D <3300000>;
-+		vin-supply =3D <&vcc_3v3_s3>;
-+	};
-+
-+	vcc_3v3_ufs_s0: regulator-vcc-ufs-s0 {
-+		compatible =3D "regulator-fixed";
-+		regulator-name =3D "vcc_3v3_ufs_s0";
-+		regulator-boot-on;
-+		regulator-always-on;
-+		regulator-min-microvolt =3D <3300000>;
-+		regulator-max-microvolt =3D <3300000>;
-+		vin-supply =3D <&vcc_5v0_sys>;
-+	};
-+
-+	/*
-+	 * WiFi power sequencer for SYN43752. Reset GPIO1 PC6 active-low,
-+	 * clock from the HYM8563 RTC oscillator.
-+	 */
-+	sdio_pwrseq: sdio-pwrseq {
-+		compatible =3D "mmc-pwrseq-simple";
-+		clocks =3D <&hym8563>;
-+		clock-names =3D "ext_clock";
-+		pinctrl-names =3D "default";
-+		pinctrl-0 =3D <&wifi_reg_on>;
-+		reset-gpios =3D <&gpio1 RK_PC6 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&cpu_b0 {
-+	cpu-supply =3D <&vdd_cpu_big_s0>;
-+};
-+
-+&cpu_b1 {
-+	cpu-supply =3D <&vdd_cpu_big_s0>;
-+};
-+
-+&cpu_b2 {
-+	cpu-supply =3D <&vdd_cpu_big_s0>;
-+};
-+
-+&cpu_b3 {
-+	cpu-supply =3D <&vdd_cpu_big_s0>;
-+};
-+
-+&cpu_l0 {
-+	cpu-supply =3D <&vdd_cpu_lit_s0>;
-+};
-+
-+&cpu_l1 {
-+	cpu-supply =3D <&vdd_cpu_lit_s0>;
-+};
-+
-+&cpu_l2 {
-+	cpu-supply =3D <&vdd_cpu_lit_s0>;
-+};
-+
-+&cpu_l3 {
-+	cpu-supply =3D <&vdd_cpu_lit_s0>;
-+};
-+
-+/*
-+ * GMAC0 drives an on-module MotorComm YT8531. The PHY has no local crysta=
-l, so
-+ * it relies on the SoC 25 MHz reference: clk_mac_refout (REFCLKO25M_GMAC0=
-_OUT)
-+ * has to be named on the gmac node for dwmac-rk to enable it, and
-+ * ethm0_clk0_25m_out routes it to the pad.
-+ */
-+&gmac0 {
-+	/* The RX delay is added by the PHY, the TX delay by the MAC below. */
-+	phy-mode =3D "rgmii-rxid";
-+	clock_in_out =3D "output";
-+	clocks =3D <&cru CLK_GMAC0_125M_SRC>, <&cru CLK_GMAC0_RMII_CRU>,
-+		 <&cru PCLK_GMAC0>, <&cru ACLK_GMAC0>,
-+		 <&cru CLK_GMAC0_PTP_REF>, <&cru REFCLKO25M_GMAC0_OUT>;
-+	clock-names =3D "stmmaceth", "clk_mac_ref", "pclk_mac", "aclk_mac",
-+		      "ptp_ref", "clk_mac_refout";
-+	tx_delay =3D <0x21>;
-+	rx_delay =3D <0x00>;
-+	phy-handle =3D <&rgmii_phy0>;
-+	phy-supply =3D <&vcc_3v3_s3>;
-+	pinctrl-names =3D "default";
-+	pinctrl-0 =3D <&eth0m0_miim
-+		     &eth0m0_tx_bus2
-+		     &eth0m0_rx_bus2
-+		     &eth0m0_rgmii_clk
-+		     &eth0m0_rgmii_bus
-+		     &ethm0_clk0_25m_out>;
-+	status =3D "okay";
-+};
-+
-+&gpu {
-+	mali-supply =3D <&vdd_gpu_s0>;
-+	status =3D "okay";
-+};
-+
-+/* I2C1: RK806 PMIC @ 0x23 (interrupt on GPIO0 PA6). */
-+&i2c1 {
-+	status =3D "okay";
-+
-+	pmic@23 {
-+		compatible =3D "rockchip,rk806";
-+		reg =3D <0x23>;
-+
-+		interrupt-parent =3D <&gpio0>;
-+		interrupts =3D <RK_PA6 IRQ_TYPE_LEVEL_LOW>;
-+
-+		pinctrl-names =3D "default";
-+		pinctrl-0 =3D <&pmic_pins>, <&rk806_dvs1_null>,
-+			    <&rk806_dvs2_null>, <&rk806_dvs3_null>;
-+
-+		system-power-controller;
-+
-+		vcc1-supply =3D <&vcc_5v0_sys>;
-+		vcc2-supply =3D <&vcc_5v0_sys>;
-+		vcc3-supply =3D <&vcc_5v0_sys>;
-+		vcc4-supply =3D <&vcc_5v0_sys>;
-+		vcc5-supply =3D <&vcc_5v0_sys>;
-+		vcc6-supply =3D <&vcc_5v0_sys>;
-+		vcc7-supply =3D <&vcc_5v0_sys>;
-+		vcc8-supply =3D <&vcc_5v0_sys>;
-+		vcc9-supply =3D <&vcc_5v0_sys>;
-+		vcc10-supply =3D <&vcc_5v0_sys>;
-+		vcc11-supply =3D <&vcc_2v0_pldo_s3>;
-+		vcc12-supply =3D <&vcc_5v0_sys>;
-+		vcc13-supply =3D <&vcc_1v1_nldo_s3>;
-+		vcc14-supply =3D <&vcc_1v1_nldo_s3>;
-+		vcca-supply =3D <&vcc_5v0_sys>;
-+
-+		gpio-controller;
-+		#gpio-cells =3D <2>;
-+
-+		rk806_dvs1_null: dvs1-null-pins {
-+			pins =3D "gpio_pwrctrl1";
-+			function =3D "pin_fun0";
-+		};
-+
-+		rk806_dvs2_null: dvs2-null-pins {
-+			pins =3D "gpio_pwrctrl2";
-+			function =3D "pin_fun0";
-+		};
-+
-+		rk806_dvs3_null: dvs3-null-pins {
-+			pins =3D "gpio_pwrctrl3";
-+			function =3D "pin_fun0";
-+		};
-+
-+		regulators {
-+			vdd_cpu_big_s0: dcdc-reg1 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt =3D <550000>;
-+				regulator-max-microvolt =3D <950000>;
-+				regulator-ramp-delay =3D <12500>;
-+				regulator-name =3D "vdd_cpu_big_s0";
-+				regulator-enable-ramp-delay =3D <400>;
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_npu_s0: dcdc-reg2 {
-+				regulator-boot-on;
-+				regulator-min-microvolt =3D <550000>;
-+				regulator-max-microvolt =3D <950000>;
-+				regulator-ramp-delay =3D <12500>;
-+				regulator-name =3D "vdd_npu_s0";
-+				regulator-enable-ramp-delay =3D <400>;
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_cpu_lit_s0: dcdc-reg3 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt =3D <550000>;
-+				regulator-max-microvolt =3D <950000>;
-+				regulator-ramp-delay =3D <12500>;
-+				regulator-name =3D "vdd_cpu_lit_s0";
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+					regulator-suspend-microvolt =3D <750000>;
-+				};
-+			};
-+
-+			vcc_3v3_s3: dcdc-reg4 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt =3D <3300000>;
-+				regulator-max-microvolt =3D <3300000>;
-+				regulator-name =3D "vcc_3v3_s3";
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+					regulator-suspend-microvolt =3D <3300000>;
-+				};
-+			};
-+
-+			vdd_gpu_s0: dcdc-reg5 {
-+				regulator-boot-on;
-+				regulator-min-microvolt =3D <550000>;
-+				regulator-max-microvolt =3D <900000>;
-+				regulator-ramp-delay =3D <12500>;
-+				regulator-name =3D "vdd_gpu_s0";
-+				regulator-enable-ramp-delay =3D <400>;
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+					regulator-suspend-microvolt =3D <850000>;
-+				};
-+			};
-+
-+			vddq_ddr_s0: dcdc-reg6 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-name =3D "vddq_ddr_s0";
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_logic_s0: dcdc-reg7 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt =3D <550000>;
-+				regulator-max-microvolt =3D <800000>;
-+				regulator-name =3D "vdd_logic_s0";
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vcc_1v8_s3: dcdc-reg8 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt =3D <1800000>;
-+				regulator-max-microvolt =3D <1800000>;
-+				regulator-name =3D "vcc_1v8_s3";
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+					regulator-suspend-microvolt =3D <1800000>;
-+				};
-+			};
-+
-+			vdd2_ddr_s3: dcdc-reg9 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-name =3D "vdd2_ddr_s3";
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+				};
-+			};
-+
-+			vdd_ddr_s0: dcdc-reg10 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt =3D <550000>;
-+				regulator-max-microvolt =3D <1200000>;
-+				regulator-name =3D "vdd_ddr_s0";
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vcca_1v8_s0: pldo-reg1 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt =3D <1800000>;
-+				regulator-max-microvolt =3D <1800000>;
-+				regulator-name =3D "vcca_1v8_s0";
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vcca1v8_pldo2_s0: pldo-reg2 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt =3D <1800000>;
-+				regulator-max-microvolt =3D <1800000>;
-+				regulator-name =3D "vcca1v8_pldo2_s0";
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdda_1v2_s0: pldo-reg3 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt =3D <1200000>;
-+				regulator-max-microvolt =3D <1200000>;
-+				regulator-name =3D "vdda_1v2_s0";
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vcca_3v3_s0: pldo-reg4 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt =3D <3300000>;
-+				regulator-max-microvolt =3D <3300000>;
-+				regulator-name =3D "vcca_3v3_s0";
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vccio_sd_s0: pldo-reg5 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt =3D <1800000>;
-+				regulator-max-microvolt =3D <3300000>;
-+				regulator-name =3D "vccio_sd_s0";
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vcca1v8_pldo6_s3: pldo-reg6 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt =3D <1800000>;
-+				regulator-max-microvolt =3D <1800000>;
-+				regulator-name =3D "vcca1v8_pldo6_s3";
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+					regulator-suspend-microvolt =3D <1800000>;
-+				};
-+			};
-+
-+			vdd_0v75_s3: nldo-reg1 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt =3D <750000>;
-+				regulator-max-microvolt =3D <750000>;
-+				regulator-name =3D "vdd_0v75_s3";
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+					regulator-suspend-microvolt =3D <750000>;
-+				};
-+			};
-+
-+			vdda_ddr_pll_s0: nldo-reg2 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt =3D <850000>;
-+				regulator-max-microvolt =3D <850000>;
-+				regulator-name =3D "vdda_ddr_pll_s0";
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdda0v75_hdmi_s0: nldo-reg3 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt =3D <837500>;
-+				regulator-max-microvolt =3D <837500>;
-+				regulator-name =3D "vdda0v75_hdmi_s0";
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdda_0v85_s0: nldo-reg4 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt =3D <850000>;
-+				regulator-max-microvolt =3D <850000>;
-+				regulator-name =3D "vdda_0v85_s0";
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdda_0v75_s0: nldo-reg5 {
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt =3D <750000>;
-+				regulator-max-microvolt =3D <750000>;
-+				regulator-name =3D "vdda_0v75_s0";
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+/* I2C2: HYM8563 RTC @ 0x51 (interrupt on GPIO0 PA0). */
-+&i2c2 {
-+	status =3D "okay";
-+
-+	hym8563: rtc@51 {
-+		compatible =3D "haoyu,hym8563";
-+		reg =3D <0x51>;
-+		clock-output-names =3D "hym8563";
-+		interrupt-parent =3D <&gpio0>;
-+		interrupts =3D <RK_PA0 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names =3D "default";
-+		pinctrl-0 =3D <&hym8563_int>;
-+		wakeup-source;
-+		#clock-cells =3D <0>;
-+	};
-+};
-+
-+/*
-+ * The PHY reset has to be described at the MDIO bus level: mdiobus releas=
-es a
-+ * bus level reset before it scans for PHY IDs, whereas the per-PHY reset-=
-gpios
-+ * is only applied by phylib once the PHY has already been found, which ne=
-ver
-+ * happens while the YT8531 is still held in reset.
-+ */
-+&mdio0 {
-+	reset-gpios =3D <&gpio2 RK_PB3 GPIO_ACTIVE_LOW>;
-+	reset-delay-us =3D <20000>;
-+	reset-post-delay-us =3D <100000>;
-+
-+	rgmii_phy0: phy@1 {
-+		compatible =3D "ethernet-phy-ieee802.3-c22";
-+		reg =3D <0x1>;
-+		clocks =3D <&cru REFCLKO25M_GMAC0_OUT>;
-+		assigned-clocks =3D <&cru REFCLKO25M_GMAC0_OUT>;
-+		assigned-clock-rates =3D <25000000>;
-+	};
-+};
-+
-+&saradc {
-+	vref-supply =3D <&vcca_1v8_s0>;
-+	status =3D "okay";
-+};
-+
-+/* eMMC: on-module, HS400 200 MHz with enhanced strobe. */
-+&sdhci {
-+	bus-width =3D <8>;
-+	full-pwr-cycle-in-suspend;
-+	max-frequency =3D <200000000>;
-+	mmc-hs400-1_8v;
-+	mmc-hs400-enhanced-strobe;
-+	no-sdio;
-+	no-sd;
-+	non-removable;
-+	/delete-property/ supports-cqe;
-+	status =3D "okay";
-+};
-+
-+/* SDIO: SYN43752 WiFi, power-sequenced by sdio_pwrseq, clock from HYM8563=
-. */
-+&sdio {
-+	bus-width =3D <4>;
-+	cap-sdio-irq;
-+	disable-wp;
-+	keep-power-in-suspend;
-+	mmc-pwrseq =3D <&sdio_pwrseq>;
-+	no-sd;
-+	no-mmc;
-+	non-removable;
-+	sd-uhs-sdr50;
-+	sd-uhs-sdr104;
-+	vmmc-supply =3D <&vcc_3v3_s3>;
-+	vqmmc-supply =3D <&vcc_1v8_s3>;
-+	wakeup-source;
-+	status =3D "okay";
-+};
-+
-+/* UART4: Bluetooth (SYN43752). */
-+&uart4 {
-+	pinctrl-0 =3D <&uart4m1_xfer &uart4m1_ctsn &uart4m1_rtsn>;
-+	pinctrl-names =3D "default";
-+	uart-has-rtscts;
-+	status =3D "okay";
-+};
-+
-+&pinctrl {
-+	hym8563 {
-+		hym8563_int: hym8563-int {
-+			rockchip,pins =3D <0 RK_PA0 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+
-+	wireless-wlan {
-+		/* GPIO1 PC6 - WiFi power enable / reset (sdio_pwrseq) */
-+		wifi_reg_on: wifi-reg-on {
-+			rockchip,pins =3D <1 RK_PC6 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+};
---=20
-2.43.0
+Now the issue with this Aux driver design is that, if an EP makes use of the
+switch GPIO for PERST# or power, like:
 
+	tc9563: pcie@0,0 {
+		compatible = "pci1179,0623";
+		reg = <0x10000 0x0 0x0 0x0 0x0>;
+		...
 
+		pcie@1,0 {
+			compatible = "pciclass,0604";
+			reg = <0x20800 0x0 0x0 0x0 0x0>;
+			#address-cells = <3>;
+			#size-cells = <2>;
 
+			device_type = "pci";
+			ranges;
+			bus-range = <0x3 0xff>;
+
+			reset-gpios = <&tc9563 5 GPIO_ACTIVE_LOW>;
+		};
+	...
+
+	};
+
+Then the pwrctrl driver (pci/pwrctrl/generic.c) will try to acquire the GPIO
+controller during its probe, but will fail with -EPROBE_DEFER as the GPIO
+controller won't be available at that time. So the whole PCIe instance will
+probe defer as the driver requires all pwrctrl drivers to be probed before
+starting the initial bus scan.
+
+So we need to make sure that the GPIO controller driver is available before
+enumerating the switch device. One way to achieve is by creating the GPIO Aux
+device in the pci/pwrctrl/pci-pwrctrl-tc9563.c driver and let the GPIO
+controller driver use I2C communication for setting up the GPIOs. Thankfully,
+the switch allows both I2C and BAR MMIO configurations for internal GPIOs.
+
+With this change, the GPIO driver will get probed by the time the pwrctrl
+generic driver acquires the 'reset-gpios' and will turn ON the EP.
+
+Let me know your thoughts!
+
+- Mani
+
+[1] https://lore.kernel.org/linux-pci/e2inl7k5gsjj6oomv2k5ximuzpb3gfiz66ufet3b4hvov7zqt4@qz4pifbos7yf/
+
+> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+> Signed-off-by: Alex Elder <elder@riscstar.com>
+> ---
+>  MAINTAINERS                |   1 +
+>  drivers/gpio/Kconfig       |  12 ++++
+>  drivers/gpio/Makefile      |   1 +
+>  drivers/gpio/gpio-tc956x.c | 130 +++++++++++++++++++++++++++++++++++++
+>  4 files changed, 144 insertions(+)
+>  create mode 100644 drivers/gpio/gpio-tc956x.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 0924f7ec43cb0..0439607d1155f 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -27057,6 +27057,7 @@ M:	Alex Elder <elder@kernel.org>
+>  M:	Daniel Thompson <danielt@kernel.org>
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
+> +F:	drivers/gpio/gpio-tc956x.c
+>  F:	drivers/misc/tc956x_pci.c
+>  
+>  TOSHIBA WMI HOTKEYS DRIVER
+> diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+> index 020e51e30317a..36631ca722fa3 100644
+> --- a/drivers/gpio/Kconfig
+> +++ b/drivers/gpio/Kconfig
+> @@ -743,6 +743,18 @@ config GPIO_TB10X
+>  	select GPIO_GENERIC
+>  	select GENERIC_IRQ_CHIP
+>  
+> +config GPIO_TC956X
+> +	tristate "Toshiba TC956X GPIO support"
+> +	depends on TOSHIBA_TC956X_PCI
+> +	select GPIO_REGMAP
+> +	default m
+> +	help
+> +	  This enables support for the GPIO controller embedded in the Toshiba
+> +	  TC956X (and Qualcomm QPS615).  This device connects to the host
+> +	  via PCIe port, which is the upstream port on an internal PCIe
+> +	  switch.  On some platforms, a few of the GPIO lines are used to
+> +	  manage external resets.
+> +
+>  config GPIO_TEGRA
+>  	tristate "NVIDIA Tegra GPIO support"
+>  	default ARCH_TEGRA
+> diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
+> index b267598b517de..c3584e7cba9b4 100644
+> --- a/drivers/gpio/Makefile
+> +++ b/drivers/gpio/Makefile
+> @@ -178,6 +178,7 @@ obj-$(CONFIG_GPIO_SYSCON)		+= gpio-syscon.o
+>  obj-$(CONFIG_GPIO_TANGIER)		+= gpio-tangier.o
+>  obj-$(CONFIG_GPIO_TB10X)		+= gpio-tb10x.o
+>  obj-$(CONFIG_GPIO_TC3589X)		+= gpio-tc3589x.o
+> +obj-$(CONFIG_GPIO_TC956X)		+= gpio-tc956x.o
+>  obj-$(CONFIG_GPIO_TEGRA186)		+= gpio-tegra186.o
+>  obj-$(CONFIG_GPIO_TEGRA)		+= gpio-tegra.o
+>  obj-$(CONFIG_GPIO_THUNDERX)		+= gpio-thunderx.o
+> diff --git a/drivers/gpio/gpio-tc956x.c b/drivers/gpio/gpio-tc956x.c
+> new file mode 100644
+> index 0000000000000..0dc6b1028d970
+> --- /dev/null
+> +++ b/drivers/gpio/gpio-tc956x.c
+> @@ -0,0 +1,130 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +/*
+> + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights reserved.
+> + */
+> +
+> +/*
+> + * The Toshiba TC956X implements a PCIe Gen 3 switch that connects an
+> + * upstream x4 port to two downstream PCIe x2 ports.  It incorporates
+> + * an internal endpoint on a internal PCIe port that implements two
+> + * Synopsys XGMAC Ethernet interfaces.
+> + *
+> + * 35 GPIOs are also implemented by an embedded GPIO controller.  Three
+> + * registers control the first 32 GPIOs (other than 20 and 21, which are
+> + * reserved).  Three other registers control GPIOs 32 through 36. GPIOs
+> + * 22-24, 27-28, 31, and 34 are treated as "input only".
+> + *
+> + * There is a TC956X PCI power controller driver that accesses the
+> + * direction and output value registers for GPIOs 2 and 3.  These
+> + * GPIOs control the reset signal for the two downstream PCIe ports.
+> + * Their values will never change during operation of this driver, and
+> + * this driver reserves these two GPIOS.
+> + */
+> +
+> +#include <linux/auxiliary_bus.h>
+> +#include <linux/gpio/driver.h>
+> +#include <linux/module.h>
+> +#include <linux/regmap.h>
+> +#include <linux/gpio/regmap.h>
+> +
+> +#define DRIVER_NAME		"tc956x-gpio"
+> +
+> +#define TC956X_GPIO_COUNT	37	/* Number of GPIOs (20-21 reserved) */
+> +
+> +/* The GPIO offsets are relative to 0x1200 in TC956X SFR space. */
+> +#define GPIO_IN0_OFFSET		0x00		/* Input value (0-31) */
+> +#define GPIO_EN0_OFFSET		0x08		/* 0: out; 1: in (0-31) */
+> +#define GPIO_OUT0_OFFSET	0x10		/* Output value (0-31) */
+> +
+> +/*
+> + * There are two sets of registers, each representing (up to) 32 GPIOs with a
+> + * stride of 4 bytes (IN1 is 4 bytes past IN0, EN1 is 4 bytes past EN0, etc.).
+> + */
+> +#define GPIO_PER_REG		32
+> +#define GPIO_REG_STRIDE		4
+> +
+> +static int tc956x_gpio_init_valid_mask(struct gpio_chip *gc,
+> +				       unsigned long *valid_mask,
+> +				       unsigned int ngpios)
+> +{
+> +	/*
+> +	 * GPIOs 2 and 3 are used by the PCI power control driver, and
+> +	 * we don't allow them to be used.  GPIOs 20 and 21 are reserved
+> +	 * (and not usable).
+> +	 */
+> +	bitmap_fill(valid_mask, ngpios);
+> +	bitmap_clear(valid_mask, 2, 2);
+> +	bitmap_clear(valid_mask, 20, 2);
+> +
+> +	return 0;
+> +}
+> +
+> +static int tc956x_gpio_probe(struct auxiliary_device *adev,
+> +			     const struct auxiliary_device_id *id)
+> +{
+> +	DECLARE_BITMAP(zeroes, TC956X_GPIO_COUNT);
+> +	DECLARE_BITMAP(fixed, TC956X_GPIO_COUNT);
+> +	struct gpio_regmap_config config = { };
+> +	struct gpio_regmap *gpio_regmap;
+> +	struct device *dev = &adev->dev;
+> +
+> +	/* We need the regmap pointer, stored in our platform data */
+> +	if (!dev->platform_data)
+> +		return -EINVAL;
+> +
+> +	/*
+> +	 * Only some of our GPIOs are fixed direction:
+> +	 *	22, 23, 24, 27, 28, 31, and 34	(all input-only)
+> +	 * Set up the fixed bitmap to indicate which are fixed.
+> +	 */
+> +	bitmap_zero(fixed, TC956X_GPIO_COUNT);
+> +	bitmap_set(fixed, 22, 3);
+> +	bitmap_set(fixed, 27, 2);
+> +	set_bit(31, fixed);
+> +	set_bit(34, fixed);
+> +
+> +	/* All fixed GPIOs are input; the zeroes bitmap indicates that. */
+> +	bitmap_zero(zeroes, TC956X_GPIO_COUNT);
+> +
+> +	config.parent = dev;
+> +	config.regmap = dev->platform_data;
+> +	config.label = DRIVER_NAME;
+> +	config.ngpio = TC956X_GPIO_COUNT;
+> +	config.reg_dat_base = GPIO_REGMAP_ADDR(GPIO_IN0_OFFSET);
+> +	config.reg_set_base = GPIO_REGMAP_ADDR(GPIO_OUT0_OFFSET);
+> +	config.reg_dir_in_base = GPIO_REGMAP_ADDR(GPIO_EN0_OFFSET);
+> +	config.reg_stride = GPIO_REG_STRIDE;
+> +	config.ngpio_per_reg = GPIO_PER_REG;
+> +	config.init_valid_mask = tc956x_gpio_init_valid_mask;
+> +	config.fixed_direction_mask = fixed;
+> +	config.fixed_direction_output = zeroes;
+> +
+> +	gpio_regmap = devm_gpio_regmap_register(dev, &config);
+> +	if (IS_ERR(gpio_regmap))
+> +		return PTR_ERR(gpio_regmap);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct auxiliary_device_id tc956x_gpio_ids[] = {
+> +	{ .name = "tc956x_pci.tc9564-gpio", },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(auxiliary, tc956x_gpio_ids);
+> +
+> +static struct auxiliary_driver tc956x_gpio_driver = {
+> +	.name		= DRIVER_NAME,
+> +	.probe          = tc956x_gpio_probe,
+> +	.id_table       = tc956x_gpio_ids,
+> +	.driver = {
+> +		.name		= DRIVER_NAME,
+> +		.owner		= THIS_MODULE,
+> +		.probe_type	= PROBE_PREFER_ASYNCHRONOUS,
+> +	},
+> +};
+> +module_auxiliary_driver(tc956x_gpio_driver);
+> +
+> +MODULE_DESCRIPTION("Toshiba TC956X PCIe GPIO Driver");
+> +MODULE_LICENSE("GPL");
+> +MODULE_ALIAS("auxiliary:" DRIVER_NAME);
+> -- 
+> 2.51.0
+> 
+
+-- 
+மணிவண்ணன் சதாசிவம்
