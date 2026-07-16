@@ -1,165 +1,179 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A174636A01D
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 08:13:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1F773CF69F
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 08:14:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784189607; cv=none; b=mjJ3gZPTOPdGONZa68Uy3jDrUQgQMKB7W5mh6AXpzrUTOwwSd7SdBMtNm7AehlNvcnqbckXGmRrTnbFcFnriY4euWBJFfRBqkvIfUpc7O54LdVhR8fz6NJtyVw7xPdPfqqicfc/SQ4YLnJlq24dwKUsHsiLZNaTEQvnaFOwjhuU=
+	t=1784189683; cv=none; b=m16btdjsoZW1KCQvJXZRRprgawf4LFuUVjFhQdP6UB4OftYdYEWuji45c+NQehAH6XYdEmtJzejcYQ1ctUh55duiNlDmrMb3sbADdSH+8unVaz5ykfLJbv0SbGtfuNNL5c1VeT/cKzEn/8dYYXNws1A4IvjUHiL/qZhmd9AKzK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784189607; c=relaxed/simple;
-	bh=BHGXzZt1d8W8ecIZ1QwyHNFQkiYMz+073p25eXAQcz8=;
-	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:Mime-Version:
-	 References:In-Reply-To; b=DL/xzusdKsmf2zUwHWNnVgy/MOsg4Zdnykm5zN4fH2CEdahWfVykBUiClIWXvrergNQlsARLPxHBGjPlpmnkatdQi+n3QHHdS9Kks9eAr3j6dYOuSsz7IqB2vAj6YKB07jpdpl1cVWTGctZgM0UDjlTo6/G+LKAGLTpAHSQ3vLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=GiCIbKKf; arc=none smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1784189683; c=relaxed/simple;
+	bh=NXTOoEEEs1TNjwS3eVeqIN1iuZ+ICzInI+C7HcEYipc=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=diOr7fLD5y5mI6D59ty+WuijTsFM3jIHr3d85wCQ9b5/7YOv8jY4p2xyrfJlyj+u00dmTBS3tPAbHTMGx8X/zd2GJ0T/3CkCZhE3NQRNwLzYBoDk1Ghl6e6B3MvsCJWuI6hDpu/1uaVW2D12xRLMCqY61G+OZo2ql+eROYXqvGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ILXJIECA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="GiCIbKKf"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c1677c91969so205828866b.1
-        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 01:13:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1784189602; x=1784794402; darn=vger.kernel.org;
-        h=in-reply-to:references:content-transfer-encoding:mime-version:from
-         :subject:cc:to:message-id:date:content-type:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AeCiWXObqZMn+CXaMwaIUj0LKi01F1mPNxBE7Xp9sFM=;
-        b=GiCIbKKfH1g/0PW3SwLqwBJftZrRKlH/J+yXbaV5gbzNkIHdJK+Fpx/Ty0keVU5IJy
-         W4lgrg6qw9wv08GZoCakp/pRhvfKVdyWjyrYClrx6UAo9QhPwdAlgSN95sPWv1bhF1Qb
-         lmKalNUi4vJY20bGREFx44Wgkj3UDu4fW562LvAzS15TDSBH0Bw4Uq+Gme0iBnyi6lVo
-         yaMe8bexFwHJD3xR5bnnQ4uX3IICh/TeVDDo5IM7tx6GTnA8CrwPRSUldeJlxMHMwd3X
-         tcJZg93Ueq5JQ3UFms48G3sKp7m1QX66ZwE6ATo8UbBcHiKYGhp2AzLILeDSaYDQFHbl
-         dsIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784189602; x=1784794402;
-        h=in-reply-to:references:content-transfer-encoding:mime-version:from
-         :subject:cc:to:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AeCiWXObqZMn+CXaMwaIUj0LKi01F1mPNxBE7Xp9sFM=;
-        b=hxDHvLpQprytOinz+4hCUktTIR3i8ysEir6xwN6puowKV8k0QKpiorc0dVJtvSu9gs
-         FlYDbP1JXalrF6GvjncRxTn8xq5PrMvMPW66U9cuPWtix41NIP/oMN9Pbq7DlhxpNkSM
-         FFjJMyc1THwwejntGs1RcGw3JFyv+isiTdN8xHv1BD+hLIhpRjhF340a26eO/4/3Uhl3
-         95w2bJr+3nu62FUXhNkP69vQ39XnGBbhixJqWdpJ9Sm1hWM2Ff2ukz7HN4xPD6nJyBVb
-         RQI16sixH32wV7+G/GDNGW7ijhh50c4NwwHMs9S0CJTbXnJ6HvNxd4Jsm6oPUaLAccPS
-         9++g==
-X-Forwarded-Encrypted: i=1; AHgh+RorCL+K/o23S0oI98Sn5M1oJmRmEpO5A4VcbAz1DUlWy2gogxLRnnmotVczBdiHRg7LKBYFubhJbtdv@vger.kernel.org
-X-Gm-Message-State: AOJu0YxDVJyQaTdbakUeCHN1LnsroGNc9kNu6qBF+b/nGL3X100HQlAa
-	8raGYTJScG81PKuKvfyj5MGj/ZL4vijU4zjy+XBhzRHyLiHsvVo3EQu1sFeb4u/87+A=
-X-Gm-Gg: AfdE7cnCelBvvJ2CpOm+8juF+3RswrpdCkOxKlKIfbpn8rpOa96nFOldWtBAp1nJksA
-	MIxhrvi1nEvIErRv6pTuU9rdPtPaaO53YCXcvAu3zlPXTZc45wvMg7Q69B33B8yPviN0Dh/5R6/
-	thpN3z+JrElBqy6e89IskM4MATMp849HU8YQ3UOjIuE9hPbSZJD/Q0alCWGDJn/X/KKI318dbzU
-	Sx8Ea79sixr/UdXpeGmXw89j2bf6EsUBuYWGL4R+oME0bPbH8n/ujY/of7oI0HmyqfrWSd6La5X
-	InRQRJ8jGvkIQS2mwEQYNI73MY8kG9vM4lC3JG8MoAruO0axFBS2/EJZ307RK0TeOcTWzaz155t
-	dke6eRbQ9orXO8eP0iYlh0bxWei6ihFl2NtUGKFn/wpmwgq6N0artytt9DIoDd9jCRdrKX2o8CW
-	E8UBwUoX90R3c39iElX0IZASdWG7csi3nn+K2vqIA7WZ3rIP4=
-X-Received: by 2002:a17:906:ef0c:b0:c12:9b93:61fd with SMTP id a640c23a62f3a-c167921baa3mr388583566b.6.1784189601892;
-        Thu, 16 Jul 2026 01:13:21 -0700 (PDT)
-Received: from localhost (144-178-202-142.static.ef-service.nl. [144.178.202.142])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1687166b94sm156110066b.17.2026.07.16.01.13.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 16 Jul 2026 01:13:21 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 16 Jul 2026 10:13:21 +0200
-Message-Id: <DJZUFFHFXZBK.3S5A9OPE7XYEZ@fairphone.com>
-To: "Jorijn van der Graaf" <jorijnvdgraaf@catcrafts.net>, "Mark Brown"
- <broonie@kernel.org>
-Cc: "Srinivas Kandagatla" <srini@kernel.org>, "Liam Girdwood"
- <lgirdwood@gmail.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Luca Weiss" <luca.weiss@fairphone.com>,
- "Conor Dooley" <conor+dt@kernel.org>, "Jaroslav Kysela" <perex@perex.cz>,
- "Takashi Iwai" <tiwai@suse.com>, "Mohammad Rafi Shaik"
- <mohammad.rafi.shaik@oss.qualcomm.com>, <linux-sound@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 0/3] ASoC: codecs: add the Qualcomm WCD9378 audio codec
-From: "Luca Weiss" <luca.weiss@fairphone.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ILXJIECA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E2221F00ACA
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 08:14:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784189681;
+	bh=S6dzhBrZchW3iZvyn1hIvbsasMrCxNEsko6TeLvbddM=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=ILXJIECAsF50gCjzfPbo9WZ++uCuclPTHWsj/RRBjDVaQXiS3A7eKkrJVaM45nwRq
+	 vsR1AL39qNsL/TTa/+zhzhQr29o2VwZneXGkKEgx5yicEAaup/pXqZ68oTzSJneAyH
+	 a+FRUiiHHdUA7WHqKNVU/W60AN0scXOCedQyLqpc/HK4PgLeXxvTPVL1F0+L2EKQNX
+	 f4hTAs5bekpCWzp1JXckxrMcTSkYloomfCYNDgvEkzvxRIIhdGW7a4oZccDNG4fm3a
+	 JQ+dsMXn47utt2p1g69B6V/aJc5bjHuE9GewcW9IgwAZw4lT2SjDrlVI/EzTMYOlNM
+	 37zTJ6KOsRoOg==
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-39ca0a30148so51660721fa.3
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 01:14:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrSkS+4R3SD9pIAT+/ko8owRMIKWVKV5PoNxty3Mc+8k+jKHsrbBJh4iGMcBwYILe3yG1VyuyHVFVWj@vger.kernel.org
+X-Gm-Message-State: AOJu0YxiIzNcum9fFTSSfNXssHDsViL3U79R4O+dJw+frOkaGebTLl5W
+	ygrH4nD02Y6jLzCSg9zK53oop+2zBeahHLYyIngFwzdz9VB7mw9eoZuOL3Vi0H1Ff7RVZhx5KOG
+	vEcNo5mQQ8Lcs1NGJgqEghKEOF+zgn3Bd32ztMhZGeA==
+X-Received: by 2002:a2e:bc82:0:b0:393:6934:6104 with SMTP id
+ 38308e7fff4ca-39db6c2a16fmr12970681fa.19.1784189680282; Thu, 16 Jul 2026
+ 01:14:40 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 16 Jul 2026 01:14:39 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 16 Jul 2026 01:14:39 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <CAGXv+5HGjGTrqqzJrpiQhLrCn3C6H20LXq3niPnoujQLOwgqPw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260715085348.3457359-1-wenst@chromium.org> <20260715085348.3457359-4-wenst@chromium.org>
+ <aldS3qTympJuVXYj@ashevche-desk.local> <CAMRc=MfHmejks83bPfe3fKzAzFySGXk2GHMA9oZdMQj0f44eTA@mail.gmail.com>
+ <CAGXv+5HGjGTrqqzJrpiQhLrCn3C6H20LXq3niPnoujQLOwgqPw@mail.gmail.com>
+Date: Thu, 16 Jul 2026 01:14:39 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mefxn81d0VUwmQgwFtffkL1=Er_1VQZCbC1Sa-Qph4t1w@mail.gmail.com>
+X-Gm-Features: AUfX_mxn6Bl7rEMqDoJ22rvXDaXvLC48Woi6Y6ypETbOrTpITKxwxCyFT1q8e60
+Message-ID: <CAMRc=Mefxn81d0VUwmQgwFtffkL1=Er_1VQZCbC1Sa-Qph4t1w@mail.gmail.com>
+Subject: Re: [PATCH v5 03/16] power: sequencing: Add pwrseq_power_is_on()
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Daniel Scally <djrscally@gmail.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Wei Deng <wei.deng@oss.qualcomm.com>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-pm@vger.kernel.org, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>, 
+	Alan Stern <stern@rowland.harvard.edu>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260706192229.144137-1-jorijnvdgraaf@catcrafts.net>
-In-Reply-To: <20260706192229.144137-1-jorijnvdgraaf@catcrafts.net>
 
-Hi Jorijn,
-
-On Mon Jul 6, 2026 at 9:22 PM CEST, Jorijn van der Graaf wrote:
-> This series adds bindings and a codec driver for the Qualcomm WCD9378,
-> found on SM7635 boards such as the Fairphone 6. The chip pairs a
-> WCD937x-compatible analog core with SDCA-style function blocks whose
-> built-in sequencers handle the analog power-up/down; all control
-> registers, analog core included, sit in a 32-bit paged SDCA control
-> address space behind the TX SoundWire slave.
+On Thu, 16 Jul 2026 06:59:01 +0200, Chen-Yu Tsai <wenst@chromium.org> said:
+> On Wed, Jul 15, 2026 at 8:10=E2=80=AFPM Bartosz Golaszewski <brgl@kernel.=
+org> wrote:
+>>
+>> On Wed, 15 Jul 2026 11:29:02 +0200, Andy Shevchenko
+>> <andriy.shevchenko@linux.intel.com> said:
+>> > On Wed, Jul 15, 2026 at 04:53:33PM +0800, Chen-Yu Tsai wrote:
+>> >> The power sequencing consumer API already does power on state trackin=
+g
+>> >> internally. Expose the state to consumers through pwrseq_power_is_on(=
+)
+>> >> so that they don't have to reimplement it locally.
+>> >
+>> > Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+>> >
+>> > ...
+>> >
+>> >> +/**
+>> >> + * pwrseq_power_is_on() - Queries the last requested state of the po=
+wer sequencer.
+>> >> + * @desc: Descriptor referencing the power sequencer.
+>> >> + *
+>> >> + * This returns the last requested state of the power sequencer.
+>> >> + *
+>> >> + * Returns:
+>> >> + * On success, 1 for on or desc is NULL (optional) and 0 for off;
+>> >> + * negative error number on failure.
+>> >
+>> > I would rephrase it a bit.
+>> >
+>> >  * On success, 1 for on and 0 for off; negative error number on failur=
+e.
+>> >  * If desc is NULL (means optional) return 1.
+>> >
+>> > And this rises a question: why 1? Shouldn't it be some "unknown" state=
+?
+>> > (But since Bart Acked this, this doesn't prevent the patch to go, you
+>> >  got my tag above.)
+>> >
+>>
+>> No, this is good feedback. Maybe we should prefer an enum like so:
+>>
+>> enum pwrseq_state {
+>>         PWRSEQ_POWER_UNKNOWN,
+>>         PWRSEQ_POWER_ON,
+>>         PWRSEQ_POWER_OFF
+>> };
 >
-> The driver implements the TX/capture paths (three ADCs fed from four
-> analog microphone inputs, three mic bias supplies) and is modeled on
-> wcd937x, reusing the wcd-common helpers. RX/playback, MBHC and the
-> SmartAMP function are follow-up work. Register sequences come from the
-> GPL downstream wcd9378 driver in Qualcomm's audio-kernel-ar tree; the
-> chip has no public datasheet.
+> Well I think the crux of it is whether the API considers the descriptor
+> optional. The power on/off functions suggest that is the case.
 >
-> One dependency outside this series: the paged register map needs the
-> Qualcomm SoundWire controller to implement SCP address paging, posted
-> separately to the soundwire tree as
-> "soundwire: qcom: add SCP address paging support". Without it the
-> codec enumerates but every paged register access silently reads zero.
-> There is no compile-time dependency, so the two can go through their
-> respective trees in any order; capture just needs both to land.
+
+True. That may be an inconsistency of the API contract on my part. There's =
+no
+such thing as an optional variant of pwrseq_get() so perhaps pwrseq_power_o=
+n()
+and pwrseq_power_off() should be converted to returning -EINVAL on NULL
+descriptor.
+
+> I modeled this on reset_control_status(). I believe the rationale is that
+> if the reset control or pwrseq is optional, then either there is some
+> other mechanism to deal with the reset (GPIO) or pwrseq (GPIO + regulator=
+),
+> or it's always on and operational.
 >
-> Patch 1 moves the qcom,micbias4-microvolt requirement out of
-> qcom,wcd93xx-common.yaml into the codecs that have four mic bias
-> supplies, so the three-bias WCD9378 binding in patch 2 can reference
-> the common schema. Patch 3 is the driver itself.
+> In such cases and the rare case where one has to query the state, the
+> queries are possibly chained together and I think it makes sense to
+> assume the "operational" state as the fallback.
 >
-> Tested on the Fairphone 6 (SM7635): handset mic capture through the
-> LPASS TX macro at 48 kHz across reboots, including UCM-driven use by
-> PipeWire in a Plasma Mobile session. The board DTS follows once these
-> bindings are accepted.
-
-Many thanks for all your work on the Fairphone (Gen. 6)!
-
-If possible, can you share also dts patches with me, so I can try out
-your patches, and provide at least Tested-by?
-
-Also for audio, UCM and AudioReach topology if it differs from
-https://github.com/z3ntu/audioreach-topology/commits/fp6/ or what you've
-used to test the changes.
-
-So for NFC, speaker, microphone and magnetometer would be great.
-
-A git branch with your changes also works of course if you have that
-pushed somewhere.
-
-Regards
-Luca
-
+> If this returns an enum, then I think the previous approach of returning
+> an error value for an invalid descriptor is better. One doesn't need to
+> learn a new set of return values.
 >
-> Jorijn van der Graaf (3):
->   ASoC: dt-bindings: qcom,wcd93xx-common: don't require micbias4
->   ASoC: dt-bindings: add the Qualcomm WCD9378 audio codec
->   ASoC: codecs: wcd9378: add TX/capture codec driver
+> I'm fine either way. I would just move the checks over to the consumer
+> side. But I think the principles guiding the overall API design is
+> something you need to provide:
 >
->  .../bindings/sound/qcom,wcd9378-codec.yaml    |   76 +
->  .../bindings/sound/qcom,wcd9378-sdw.yaml      |  122 ++
->  .../bindings/sound/qcom,wcd937x.yaml          |    1 +
->  .../bindings/sound/qcom,wcd938x.yaml          |    1 +
->  .../bindings/sound/qcom,wcd939x.yaml          |    1 +
->  .../bindings/sound/qcom,wcd93xx-common.yaml   |    1 -
->  sound/soc/codecs/Kconfig                      |   19 +
->  sound/soc/codecs/Makefile                     |    7 +
->  sound/soc/codecs/wcd9378-sdw.c                |  495 ++++++
->  sound/soc/codecs/wcd9378.c                    | 1382 +++++++++++++++++
->  sound/soc/codecs/wcd9378.h                    |  246 +++
->  11 files changed, 2350 insertions(+), 1 deletion(-)
->  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9378-=
-codec.yaml
->  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9378-=
-sdw.yaml
->  create mode 100644 sound/soc/codecs/wcd9378-sdw.c
->  create mode 100644 sound/soc/codecs/wcd9378.c
->  create mode 100644 sound/soc/codecs/wcd9378.h
+>   - Is the descriptor optional? What should the action functions
+>     (power on / off , or query status) return when NULL is given?
+>   - Is the subsystem optional? Should the stub functions besides
+>     pwrseq_get() return 0 instead of -ENOSYS?
+>
+> Right now the API feels like the descriptor is optional but the
+> subsystem is not. One has to add IS_ENABLED(CONFIG_POWER_SEQUENCING)
+> around the consumer API to make it an optional feature.
+>
 
+There's one more use-case where the power state trully can be *unknown*.
+Please look at the proposed new function from Loic[1]. Here we deal with
+targets over which linux has no direct power control even though it may sti=
+ll
+control some of its dependencies. This is where an UNKNOWN state may make
+sense.
+
+This is where I also floated an idea of renaming pwrseq_power_on/off() to
+pwrseq_vote_on/off() for better clarity of their purpose.
+
+Thanks,
+Bartosz
+
+[1] https://lore.kernel.org/all/20260710-monza-wireless-v3-3-46253587af64@o=
+ss.qualcomm.com/
