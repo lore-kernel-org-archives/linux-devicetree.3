@@ -1,158 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41134443AAE;
-	Thu, 16 Jul 2026 17:33:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77871443AAB;
+	Thu, 16 Jul 2026 17:34:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784223240; cv=none; b=P/2wspPytj0z8DfqgJmPa23BlwMzL7NWLSuyFtARxbdxH0zBGnC9pIwmeJvkyDwh/meJGAYqLREduRtCherlesUe6ULxemFV3tJArzADNMn6V91p4pimQe6SkzY7rCZpm2wrxVw+NuelBAeNiRo5UM/UtWQ/28XPcQGQKQp1ABM=
+	t=1784223241; cv=none; b=Fsqi9pDx+MjfdgLEDXgSjOoh1xxkWrYv1ThPY5/0vuqV638a0quOKhoRId/nF8suiK3Pfm1uCc8loTFNQaXM74tpUyDKANLoycqU5SYs2GIm/6MoldYWYFew4BkwXtaKjd2WJaLcQM4RIbscskvIfEDmN69uaZ2W4exIJI4t+KA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784223240; c=relaxed/simple;
-	bh=U3f2i+S1l7IicozaxVBk8mvLIf8XqNOAaChMA7rsGaU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cRXO2HYZb6aFCYH65XUV/9p5/dW50yBnDFv7kHXyrQnlNYDHMVRrI2DTYLUVhsuVkA9nAmkinY4WzZYxmXXRkb2YeladQ7uvo9VYLekIW8ZqhU3v1+IM5th2Jkn+AtdrJfqpgumbPRGtNm/6erjsMRsRxGAoXZe8BMexq8UXry4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=asBZlIq3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784223241; c=relaxed/simple;
+	bh=X3GV4AiZV+W+pFo2WiI0Op1tOYU9RX+hA0pNH+I/Ud4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MLMwaAFvA8i2opIhy/R1lQG3y7HquX70DTwh2irHtdsA0Ta1vaFF7PaMubHsEt11TaXnLFuzINSO8E8fAWqrNrxIolB9I7ffxRL8B9zHhclnFqgP7JM9iVpLweCVdZoL+TnVm3vgQaGaBDfPXV//+JdXvt5ZovCz/ZS3pRnJ/ZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KCMJ+gJ0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="asBZlIq3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 293A21F000E9;
-	Thu, 16 Jul 2026 17:33:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KCMJ+gJ0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D43221F00A3A;
+	Thu, 16 Jul 2026 17:33:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784223238;
-	bh=2h/eflKxXmNY1+ClhaFTWs5e/Z5XUAroC1vzlwrkPFA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=asBZlIq3OWSgQd6kmk3CY3rXlN93kHAQ4Te2bhWwSfG0Np267Tsvnrua4qswWbMK1
-	 9XMJB054fUmeYy/Cfc4reTYMnSoY/4m84iElvN6bCn3bHEwY72FI5LUtlqrt4Q3qDf
-	 8C2O0PwFX0mtEObGcn6C/BFIocg/AyxzX1RP9HPvdBboncQb+jci0XkZ79O7OT8vxg
-	 UOAXI5Kcv4T81GFpSjaZLjs6tz0RCxYy436ZFDKOmoq6ZuCWSrT98+k6Ov0dIwmzpn
-	 RQPszEzS9rxGA9LaORKadBX2c0OE+eNk2O2S80uyEqjkRHaqQ8vm6uNVBwnQpQq6bd
-	 u2bJ4htbSQyoQ==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Thu, 16 Jul 2026 19:33:43 +0200
-Subject: [PATCH 2/2] arm64: dts: qcom: glymur: Add PCIe port compatibles
- and ports
+	s=k20260515; t=1784223240;
+	bh=HcrrA1szM2krCv1NQmmOx1FQnJPguN48pUQs778ezNM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KCMJ+gJ0a9Q2eNSS5J3mo3DdYZkLBwbP7EvmGh32/zJDlKU8yE0ZW3aSybpFbWe0E
+	 QIRIni+AN7PjdJ9+WzN1AfapZNDocScTX6GIVpa1YS7u0J8QjQJoh6rpGU0LIv1KXS
+	 Wr7J6HLq5BOc+oK1d+W4A7jP4Q/sJcTOisc56VMplblkOxnn0aCpV6JL9VlOpzMZkT
+	 pm3aortUH2GWgOd9ED/wF3qHyybCjAF7oc6rDsjWejDZD6NRBVWoxI7XbhUzzyOk/O
+	 gBa5ETpRbdrI1wSO0vFJowUERsGwh7YIt00hVlEyU8zVogkyCIasHGZIowzPS4AII/
+	 24s28w5dPjSkw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 3/6] PCI: Use standard wait times for PCIe link
+ monitoring
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Thierry Reding" <thierry.reding@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-pci@vger.kernel.org
+In-Reply-To: <20260716-tegra264-pcie-v8-3-23e51589229b@nvidia.com>
+References: <20260716-tegra264-pcie-v8-0-23e51589229b@nvidia.com>
+ <20260716-tegra264-pcie-v8-3-23e51589229b@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 16 Jul 2026 17:33:59 +0000
+Message-Id: <20260716173359.D43221F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260716-topic-smb2370_port2-v1-2-83d02b2ba4b0@oss.qualcomm.com>
-References: <20260716-topic-smb2370_port2-v1-0-83d02b2ba4b0@oss.qualcomm.com>
-In-Reply-To: <20260716-topic-smb2370_port2-v1-0-83d02b2ba4b0@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784223229; l=2171;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=305DCkMnj6IJ3KfBtHD3BIkdK3eM0+n7UFRwuDNYKoA=;
- b=VSKiFCvboUEYbWXuSLqNUTSxHzvCFRMCOv8oJSSAEmCDxyGg7MxIUq6j6Ge0yZML/18FVI0nn
- 4RDHZrPG/1PDp5ShVkKTm75ebrIV2AzA6Cj9o2SbwEbaaahZtt3eDxV
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Centrally define the endpoints to let device DTs that describe PCIe
-devices and/or M.2 connectors refer to them without error-prone
-duplication.
+Pre-existing issues:
+- [High] readl_relaxed_poll_timeout() has an extremely short 100ms timeout =
+due to incorrectly mapped arguments, breaking standard PCIe link up expecta=
+tions.
+- [High] PCIe Configuration Request 100ms timing constraint is violated if =
+the link trains quickly after a fundamental reset.
+--
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/glymur.dtsi | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+--- Patch [3]: [PATCH v8 3/6] PCI: Use standard wait times for PCIe link mo=
+nitoring ---
+commit dd424bc144818153a04d4fe26f753cd9432c9695
+Author: Thierry Reding <treding@nvidia.com>
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-index 55d91c696a3a..8d7354affd48 100644
---- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-@@ -2946,6 +2946,7 @@ opp-32000000-4 {
- 
- 			pcie4_port0: pcie@0 {
- 				device_type = "pci";
-+				compatible = "pciclass,0604";
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
- 
-@@ -2954,6 +2955,11 @@ pcie4_port0: pcie@0 {
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
-+
-+				port {
-+					pcie4_port0_ep: endpoint {
-+					};
-+				};
- 			};
- 		};
- 
-@@ -3212,6 +3218,7 @@ opp-128000000-5 {
- 
- 			pcie5_port0: pcie@0 {
- 				device_type = "pci";
-+				compatible = "pciclass,0604";
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
- 
-@@ -3220,6 +3227,11 @@ pcie5_port0: pcie@0 {
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
-+
-+				port {
-+					pcie5_port0_ep: endpoint {
-+					};
-+				};
- 			};
- 		};
- 
-@@ -3422,6 +3434,7 @@ opp-32000000-4 {
- 
- 			pcie6_port0: pcie@0 {
- 				device_type = "pci";
-+				compatible = "pciclass,0604";
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
- 
-@@ -3430,6 +3443,11 @@ pcie6_port0: pcie@0 {
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
-+
-+				port {
-+					pcie6_port0_ep: endpoint {
-+					};
-+				};
- 			};
- 		};
- 
-@@ -3688,6 +3706,7 @@ opp-128000000-5 {
- 
- 			pcie3b_port0: pcie@0 {
- 				device_type = "pci";
-+				compatible = "pciclass,0604";
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
- 
-@@ -3696,6 +3715,11 @@ pcie3b_port0: pcie@0 {
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
-+
-+				port {
-+					pcie3b_port0_ep: endpoint {
-+					};
-+				};
- 			};
- 		};
- 
+PCI: Use standard wait times for PCIe link monitoring
 
--- 
-2.55.0
+Instead of defining the wait values for each driver, use common values
+defined in the core pci.h header file. Note that while most drivers use
+the usleep_range(), it looks like these were mostly cargo culted and
+msleep() is a better choice given the fixed delay that the specification
+calls for. Convert all drivers to msleep() and use the existing
+definition.
 
+> diff --git a/drivers/pci/controller/pci-aardvark.c b/drivers/pci/controll=
+er/pci-aardvark.c
+> index fd9c7d53e8a78..272c5c8fc1e5c 100644
+> --- a/drivers/pci/controller/pci-aardvark.c
+> +++ b/drivers/pci/controller/pci-aardvark.c
+[ ... ]
+> @@ -350,13 +347,13 @@ static int advk_pcie_wait_for_link(struct advk_pcie=
+ *pcie)
+>  	int retries;
+> =20
+>  	/* check if the link is up or not */
+> -	for (retries =3D 0; retries < LINK_WAIT_MAX_RETRIES; retries++) {
+> +	for (retries =3D 0; retries < PCIE_LINK_WAIT_MAX_RETRIES; retries++) {
+>  		if (advk_pcie_link_up(pcie)) {
+>  			pci_host_common_link_train_delay(pcie->link_gen);
+>  			return 0;
+>  		}
+> =20
+> -		usleep_range(LINK_WAIT_USLEEP_MIN, LINK_WAIT_USLEEP_MAX);
+> +		msleep(PCIE_LINK_WAIT_SLEEP_MS);
+>  	}
+> =20
+>  	return -ETIMEDOUT;
+
+[Severity: High]
+This is a pre-existing issue, but does this violate the 100ms PCIe
+configuration request delay specification?
+
+In advk_pcie_setup_hw(), advk_pcie_issue_perst() is called to deassert
+PERST#, followed immediately by advk_pcie_wait_for_link():
+
+advk_pcie_setup_hw() {
+    advk_pcie_issue_perst(pcie);
+    ...
+    ret =3D advk_pcie_wait_for_link(pcie);
+}
+
+If the link trains instantly, advk_pcie_link_up() will return true before
+any sleep occurs.
+
+For PCIe Gen 1 or 2, pci_host_common_link_train_delay() adds no delay,
+causing the function to return immediately. Doesn't this cause Configuration
+Requests to be sent before the mandatory 100ms window has elapsed after
+a fundamental reset?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but since this series cleans up
+cargo-culted delay values across drivers, should visconti_pcie_start_link()
+in drivers/pci/controller/dwc/pcie-visconti.c also be addressed?
+
+It currently uses readl_relaxed_poll_timeout() with the same 90000 and 1000=
+00
+values:
+
+visconti_pcie_start_link() {
+    ...
+    ret =3D readl_relaxed_poll_timeout(addr + PCIE_UL_REG_V_PHY_ST_02,
+                                     val, (val & PCIE_UL_S_L0),
+                                     90000, 100000);
+}
+
+Because the delay interval is 90ms and the total timeout is 100ms, doesn't
+this allow at most two polling attempts before timing out? Could this break
+enumeration for devices that take longer than 100ms to train their link?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-tegra264-p=
+cie-v8-0-23e51589229b@nvidia.com?part=3D3
