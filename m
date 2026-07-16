@@ -1,111 +1,177 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A06163BD643
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 22:26:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF64C33A032
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 22:34:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784240778; cv=none; b=heKECl+zZAzkT3O7Co/v4L0g4saf/5cKex5Mhgt135lSQ4qSdl3OD562THCMZ4lN/+LnvSXsWpZFPoB4ROwn4dwx+7lHnuRyVXNzeRbdn6iqc4Tq+ccaoq4/3Gq6dhczjppBF5dWhiV4j5MfU14o/e02/onlEeeFALChYrGmRoI=
+	t=1784241264; cv=none; b=heRmhHxogjEusho6+J0VRB1iI4ivCgDvv2o2K9Di4w7W5hHD5A0aFs8K5hmPNlTPL1a0Ncu2/8v6OiGOiPnAUjEN/zvUMDsNt14ujPTq5vlym2p56+hgdJH5b136QgNdBy8tJMnYXIqmH0UAoo+JWorHXblzIfDP9XY2YxXQXXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784240778; c=relaxed/simple;
-	bh=iPbVI9GPwrzRFsiKQe9ExVHN8M5GCBGQD8DzBEEiELA=;
+	s=arc-20240116; t=1784241264; c=relaxed/simple;
+	bh=Qeeaeo0f1pKJadjqphLQalVt4hZik7GVNJsFHA6L6Bg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=d3mzuagmhD8PgbkYh3edJFxWAqr3U2yOMzAU1a/+AMMX1DQV8s+7UOa42OhJdSSaH2MpUoi7TQizlkdaWB51Dw+GWWzdZrkpDC1SbmQ6UVUCsTdoN6hmNncuimuxiu8ZlcP39gcQKRtwHvdTZqPzAaClaBhlPX31c3N995wD7XY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ELwnmHVc; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=uYJlHnwLFViDVp5HVdxvR8q8RuIeinjanChvC7amqVWZbeJut27jhURCLyEo0J/Fpr57DI+/6EDGWkM2BZC6bJbovoH+Q8osF3cHZYMHyTKPbQqMnynZdP6K1t0WzUeyJzXeaT1YqsuN3aQzVarWDLRCCRDRc3Fv1jBhYTY8ZR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K+mfsKPW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ELwnmHVc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8612B1F000E9;
-	Thu, 16 Jul 2026 22:26:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K+mfsKPW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECEE11F000E9;
+	Thu, 16 Jul 2026 22:34:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784240777;
-	bh=3+LM7zpoT/B9K90aIiX++aRa/GvaKYwxj0Y2NjRnwGw=;
+	s=k20260515; t=1784241263;
+	bh=wfndBa/KV9A1jJsBUoFL0jdF1YkJjzVO1J5+9ALRkus=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ELwnmHVcKdjWEteeVd5ofcF02t6OGAAprHZ1+uxZvEcFaOsQMkK722RNCWQbpIgei
-	 gzo3eoeDwoGV4wNta4/pa4qdj/IWUA5G2aw+9xEq5aUeJeddsxM19xEjnbq5MlR2LD
-	 lqWfXG0KAuHuJD4lOfuo2QkWUOv02YxL1plDEEvWFeRLcAqvDGxyACvuHE30puyMJs
-	 bVTIQ0nkRxLmjO6RIhqAeBsKLxCB5q5I75ZWUdbJkhXmu8AcqnNRRLcGp6A+CWTEuR
-	 2PCvLIa79Qhd4azP1elztNCJ4zpOmMeO8/wNKHH9x5gQHd6DEP3e/ZXJC1TOkc/9RS
-	 1twMD58qmQNtw==
+	b=K+mfsKPWifwEM7v6tvmdwOb1tQmxWTWA3mfqWdcu2Lu1BTO4mTxraM7slbWR05JZG
+	 9BTGB//g1iwSYhgL0ten3wTzZtnJ4wy8uJKOXWAdUs5V/jA8d6XF8fmh1sIBEiDvEK
+	 ohj8n9gq30Ve/T/M5yG3VNPC00VECJ0wdtzmew2yacYpVUqsptvz++4gJTYcEfiYrh
+	 WKt64Qv+shnOAeXg2Kh9yCdJrqI3jD+ytCsL8PFaL2fwIYHAMvoh4jOwbPUK8KvluL
+	 fDcrqCbNXaHVoJskPUOUiwbUnGedGNtQI8s5sNWTCb6VNFGyErDCfnumlvbvWK0yih
+	 MrR0RpVaxFGuA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 06/13] clk: zte: Add Clock registration
- infrastructure
+Subject: Re: [PATCH v7 08/13] clk: zte: Add zx PLL support infrastructure
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
-Cc: vkoul@kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com, neil.armstrong@linaro.org
-In-Reply-To: <20260717-zx29clk-v7-6-408411cfcf36@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, olteanv@gmail.com, vkoul@kernel.org, robh@kernel.org
+In-Reply-To: <20260717-zx29clk-v7-8-408411cfcf36@gmail.com>
 References: <20260717-zx29clk-v7-0-408411cfcf36@gmail.com>
- <20260717-zx29clk-v7-6-408411cfcf36@gmail.com>
+ <20260717-zx29clk-v7-8-408411cfcf36@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 22:26:16 +0000
-Message-Id: <20260716222616.8612B1F000E9@smtp.kernel.org>
+Date: Thu, 16 Jul 2026 22:34:22 +0000
+Message-Id: <20260716223422.ECEE11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] In `zx_clk_common_probe()`, the error path for `data->init(map)` i=
-ncorrectly returns `PTR_ERR(clk)` instead of propagating the actual error c=
-ode `res`.
+- [High] zx29_pll_calc_values fails to clamp out-of-bounds frequencies, cau=
+sing rate determination to abort instead of returning the closest achievabl=
+e rate.
+- [High] .determine_rate does not enforce req->min_rate and req->max_rate b=
+oundaries.
+- [Medium] Using `dev_info` inside `zx29_pll_set_rate` will spam the kernel=
+ log.
 --
 
---- Patch [6]: [PATCH v7 06/13] clk: zte: Add Clock registration infrastruc=
-ture ---
-commit 377a6af7769b840d87a85b32af3001fd5f4431dd
+--- Patch [8]: [PATCH v7 08/13] clk: zte: Add zx PLL support infrastructure=
+ ---
+commit c3e5de791970b113941346866ebf54af4b186d7d
 Author: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
 
-clk: zte: Add Clock registration infrastructure
+clk: zte: Add zx PLL support infrastructure
 
-This commit adds the common clock registration infrastructure for ZTE SoCs.
-It includes support for registering PLLs, muxes, dividers, and gates using
-regmap, and introduces a common probe function to initialize them.
+This commit adds PLL support infrastructure for ZTE zx chips, specifically=
+=20
+tested with the zx297520v3. It provides the standard clock operations=20
+including rate calculation, parent selection, and enabling/disabling=20
+of the PLLs.
 
-> diff --git a/drivers/clk/zte/clk-zx.c b/drivers/clk/zte/clk-zx.c
-> new file mode 100644
-> index 0000000000000..db4fad2b4b056
-> --- /dev/null
-> +++ b/drivers/clk/zte/clk-zx.c
+> diff --git a/drivers/clk/zte/pll-zx.c b/drivers/clk/zte/pll-zx.c
+> index f8ddb4c7dff66..701e580609f2b 100644
+> --- a/drivers/clk/zte/pll-zx.c
+> +++ b/drivers/clk/zte/pll-zx.c
+
 [ ... ]
-> @@ -0,0 +1,155 @@
-[ ... ]
-> +int zx_clk_common_probe(struct device *dev, struct device_node *of_node,
-> +			const struct zx_clk_data *data)
+
+> +static u32 zx29_pll_calc_values(const struct zx29_clk_pll *pll, unsigned=
+ long parent_rate,
+> +				unsigned long rate)
 > +{
+
 [ ... ]
-> +	if (data->init) {
-> +		res =3D data->init(map);
-> +		if (res)
-> +			return dev_err_probe(dev, PTR_ERR(clk), "Controller init failure\n");
+
+> +	for (j =3D 1; j <=3D postdiv2_max; j++) {
+> +		for (i =3D 1; i <=3D postdiv1_max; i++) {
+> +			u64 vco =3D (u64)rate * i * j;
+> +			unsigned long out;
+> +
+> +			if (vco > ZX29_PLL_VCO_MAX_FREQ || vco < ZX29_PLL_VCO_MIN_FREQ)
+> +				continue;
 
 [Severity: High]
-Does this code pass the wrong error code to dev_err_probe() in the
-zx_clk_common_probe() error path?
+Does this logic fail to clamp out-of-bounds frequencies?
 
-When data->init(map) fails, it returns a non-zero error code into res.
-However, the error handling block incorrectly evaluates and returns
-PTR_ERR(clk).
+If a consumer requests a clock rate where the maximum evaluated VCO=20
+(e.g., 10 MHz * 7 * 7 =3D 490 MHz) is less than ZX29_PLL_VCO_MIN_FREQ,=20
+this loop will just continue and return 0.
 
-Since clk is merely an iteration variable from the preceding loops, it could
-be completely uninitialized if num_inputs_enable and num_inputs are 0, which
-might trick the driver core into assuming the probe succeeded despite
-initialization failing.
+Should the requested rate be clamped to the physical minimum and maximum=20
+achievable bounds before computing the VCO to ensure it returns the closest=
+=20
+supported rate?
 
-If the loops did execute successfully, clk holds a valid pointer, and
-PTR_ERR(clk) will return a random large number depending on the pointer's
-memory address, resulting in a meaningless error code.
+[ ... ]
 
-Should this return res instead of PTR_ERR(clk)?
+> +static int zx29_pll_determine_rate(struct clk_hw *hw, struct clk_rate_re=
+quest *req)
+> +{
+> +	struct zx29_clk_pll *pll =3D to_zx29_clk_pll(hw);
+> +	unsigned long new_rate;
+> +	u32 setting;
+
+[ ... ]
+
+> +	setting =3D zx29_pll_calc_values(pll, req->best_parent_rate, req->rate);
+> +	if (!setting)
+> +		return -EINVAL;
+> +
+> +	new_rate =3D zx29_pll_get_rate(pll, req->best_parent_rate, setting);
+> +	if (new_rate !=3D req->rate) {
+> +		dev_warn(pll->dev, "Did not find an exact match. Want %lu, got %lu\n",
+> +			 req->rate, new_rate);
+> +		req->rate =3D new_rate;
+
+[Severity: High]
+Does this assignment violate the caller's min/max rate constraints?
+
+If the closest hardware rate falls outside the req->min_rate and req->max_r=
+ate=20
+boundaries, assigning it back to req->rate could cause the clock framework =
+to=20
+reject the rate change entirely, even if another slightly less optimal but=
+=20
+in-bounds rate was available.
 
 > +	}
 > +
-> +	res =3D zx_clk_register_plls(dev, map, data->plls, data->num_plls);
-> +	if (res)
-> +		return res;
-[ ... ]
+> +	return 0;
+> +}
+> +
+> +static int zx29_pll_set_rate(struct clk_hw *hw, unsigned long rate,
+> +		      unsigned long parent_rate)
+> +{
+> +	struct zx29_clk_pll *pll =3D to_zx29_clk_pll(hw);
+> +	int res =3D -EINVAL;
+> +	u32 setting;
+> +
+> +	/* PLLs can be changed while they are running and in testing the downst=
+ream hardware
+> +	 * handles it gracefully - as long as the new rate is a rate the hardwa=
+re can operate at.
+> +	 */
+> +	setting =3D zx29_pll_calc_values(pll, parent_rate, rate);
+> +	if (!setting)
+> +		return -EINVAL;
+> +
+> +	if (zx29_pll_get_rate(pll, parent_rate, setting) =3D=3D rate) {
+> +		res =3D regmap_update_bits(pll->map, pll->reg, 0x00ffffff, setting);
+> +		dev_info(pll->dev, "%s: Setting rate: 0x%08x\n", clk_hw_get_name(hw), =
+setting);
+
+[Severity: Medium]
+Could this dev_info call cause log spam during dynamic frequency scaling?
+
+If this PLL is used for scaling operations where .set_rate is called=20
+hundreds of times per second, this will rapidly flood the kernel log.
+Would dev_dbg be more appropriate for this hot path?
+
+> +	}
+> +
+> +	return res;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717-zx29clk-v7=
--0-408411cfcf36@gmail.com?part=3D6
+-0-408411cfcf36@gmail.com?part=3D8
