@@ -1,43 +1,56 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B0D0B42378E;
-	Thu, 16 Jul 2026 15:12:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A03A42D757;
+	Thu, 16 Jul 2026 15:13:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784214775; cv=none; b=KdxLxw5y9Z9NacxboSFEENHdNfP6DOsh2irh+MLlm/e237bi1ePgJiKEuhgLlxHPcl62btb/AXKOyvMT2er2SM/hdXj0nWKGH4UKmU2stiIbtxYk/k1SqLAtvH3j47LokDnhS8KabKdp7ar2s7KWMIK6ADP8n84Rwg7vTiFbLlE=
+	t=1784214822; cv=none; b=S245qTsmwSmtS+x3GJIY4RBHQ/oTWm6r46AaioQlSP+tAK0zcJBvK+iG0z3T5NZro880P3ybWhwNF/PvgQA4R1qzCYwlk7MWsj7nsfcLz0J2UY9mG50Usf1otyukyTB/su2auSgh6rZcbN6yF1tqSTwQzlBOoQYQ5EH9gilMdm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784214775; c=relaxed/simple;
-	bh=75IJt8xi0ft2PtVtFIiaRDwCiHpcnI2pdT3cfH0WwMc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Tm0x+nwCYD48RCg4QRm1wD14bJJCHh8HR/78diImJasinREBmjTsknInkxFoVqm6ZxtWQBrA4NvJHnKLvMgUjohLbzKUAdaILwXZh6/+bpF1gNQqG0Rx1o+ol8zh5pGe9pPQ3dC5PuabSc8XlMbFmu9Wbeb7mf/d0qrklxUSc30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=mY1E+ecL; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1784214822; c=relaxed/simple;
+	bh=WCsEdz3e/tDXo5idZqflDrn9zYtlEy5a7rslTNiT7aQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B5N9wGEkhyNLA3zs7GxbbWi58d0BtFwM9IrZQAsaPmQG75O9Noeijt0wA38EHWfHXZ2nuvpAZ+RuUyVJZVuH7zTfW3SEhLI2HquJ6ElS75Q0fIdC3QDNsP5Yj7hkqAiMhIK810Dyp+L4flD/2l9dG89JtO1Olnb+i3K8IR+3W7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=QR/UOqfE; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="mY1E+ecL"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BD3C71691;
-	Thu, 16 Jul 2026 08:12:46 -0700 (PDT)
-Received: from e121345-lin.cambridge.arm.com (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 204883F66F;
-	Thu, 16 Jul 2026 08:12:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1784214771; bh=75IJt8xi0ft2PtVtFIiaRDwCiHpcnI2pdT3cfH0WwMc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=mY1E+ecLK+EhIqTiLGD1Yt/XzW1X3G4V7nNVonQ1XBZEJawUbjHxTKsKWRcf7osgF
-	 /YVlolAqR8+aXKQF/gXXs5wwwTwv4Y6PYrJd7nSKGEOxwX0xfBmG2mErFZblh4VqUm
-	 37IDdrOIVcFesI00n4m35wg92ERD47IXl1+3CDX0=
-From: Robin Murphy <robin.murphy@arm.com>
-To: will@kernel.org,
-	mark.rutland@arm.com
-Cc: devicetree@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v2 3/3] perf/arm-bmu: Add Devicetree support
-Date: Thu, 16 Jul 2026 16:12:41 +0100
-Message-ID: <c797080aaa2f51273267a24e256cab083e64b156.1784214112.git.robin.murphy@arm.com>
-X-Mailer: git-send-email 2.54.0.dirty
-In-Reply-To: <cover.1784214112.git.robin.murphy@arm.com>
-References: <cover.1784214112.git.robin.murphy@arm.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="QR/UOqfE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1784214816;
+	bh=WCsEdz3e/tDXo5idZqflDrn9zYtlEy5a7rslTNiT7aQ=;
+	h=From:To:Cc:Subject:Date:From;
+	b=QR/UOqfEaPJqDP1UJPvVWwBnnFFGKG+kkqtMpnj2El9OXIdqrdcT/wVAKtTaVL2pb
+	 0ygekyKOqalX8HszyBp9AXNI+gI1M0xOaRK0bMUKK3TW7V1x43FZwcWLfRxHvXjMas
+	 b7+UVWK3D8JV/RhNY5pzkceN3tS8mX8e7jEl9U6YBvMuNUedznJwMBHqDpnqUuEh1p
+	 PtwK0bDf8O0BDT3tvFS9FalwsyYu5nzde6tBy2+9izb1FDIz1eQF7Uw0/sXNi5cEvo
+	 OF3eS2pU4Xd4CCym8YSIgRoVF9cNVY3Ac9dUuBvuu2ZvkXp4soU+XxV6WQoshDGDzL
+	 +N+Cb+0tpHN0Q==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1259B17E0E08;
+	Thu, 16 Jul 2026 17:13:36 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: chunfeng.yun@mediatek.com
+Cc: vkoul@kernel.org,
+	neil.armstrong@linaro.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel@collabora.com
+Subject: [PATCH 0/2] PHY: Add MediaTek PCI-Express Gen4 S-PHY Driver
+Date: Thu, 16 Jul 2026 17:13:31 +0200
+Message-ID: <20260716151333.77254-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,77 +59,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Initial production BMU users will be ACPI-based, but DT consumers
-will almost certainly come along sooner or later.
+This adds a driver for the PCI-Express Gen4 "S-PHY" found in the
+Genio MT8894, Kompanio MT8196, Dimensity MT6991 SoCs (which are
+all variants of the same chip).
 
-Signed-off-by: Robin Murphy <robin.murphy@arm.com>
+This was successfully tested on MT8894 and MT8196.
 
----
-v2: Separate patch as it's not a critical dependency right now
----
- drivers/perf/arm_cspmu/Kconfig   |  2 +-
- drivers/perf/arm_cspmu/arm-bmu.c | 15 ++++++++++++++-
- 2 files changed, 15 insertions(+), 2 deletions(-)
+AngeloGioacchino Del Regno (2):
+  dt-bindings: phy: Document MT8196 MediaTek PCI-Express Gen4 S-PHY
+  phy: mediatek: Add support for PCI-Express Gen4 S-PHY
 
-diff --git a/drivers/perf/arm_cspmu/Kconfig b/drivers/perf/arm_cspmu/Kconfig
-index 0cb369f91023..8a7e2082b850 100644
---- a/drivers/perf/arm_cspmu/Kconfig
-+++ b/drivers/perf/arm_cspmu/Kconfig
-@@ -30,6 +30,6 @@ config AMPERE_CORESIGHT_PMU_ARCH_SYSTEM_PMU
- 
- config ARM_BMU
- 	tristate "ARM Bus Monitor Unit"
--	depends on (ARM64 && ACPI) || COMPILE_TEST
-+	depends on ARM64 || COMPILE_TEST
- 	help
- 	  Support perf event counting on Arm Bus Monitor Unit devices.
-diff --git a/drivers/perf/arm_cspmu/arm-bmu.c b/drivers/perf/arm_cspmu/arm-bmu.c
-index c829a0728e9b..0c2442392f7b 100644
---- a/drivers/perf/arm_cspmu/arm-bmu.c
-+++ b/drivers/perf/arm_cspmu/arm-bmu.c
-@@ -6,6 +6,7 @@
- #include <linux/interrupt.h>
- #include <linux/io-64-nonatomic-lo-hi.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/perf_event.h>
- #include <linux/platform_device.h>
- #include <linux/property.h>
-@@ -406,7 +407,10 @@ static int arm_bmu_probe(struct platform_device *pdev)
- 		.read = arm_bmu_event_read,
- 	};
- 
--	name = acpi_device_uid(ACPI_COMPANION(dev));
-+	if (has_acpi_companion(dev))
-+		name = acpi_device_uid(ACPI_COMPANION(dev));
-+	else
-+		device_property_read_string(dev, "label", &name);
- 
- 	if (name)
- 		name = devm_kasprintf(dev, GFP_KERNEL, "arm_bmu_%s", name);
-@@ -437,6 +441,14 @@ static void arm_bmu_remove(struct platform_device *pdev)
- 	cpuhp_state_remove_instance_nocalls(arm_bmu_cpuhp_state, &bmu->cpuhp_node);
- }
- 
-+#ifdef CONFIG_OF
-+static const struct of_device_id arm_bmu_of_match[] = {
-+	{ .compatible = "arm,bus-monitor-unit" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, arm_bmu_of_match);
-+#endif
-+
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id arm_bmu_acpi_match[] = {
- 	{ "ARMHB001" },
-@@ -448,6 +460,7 @@ MODULE_DEVICE_TABLE(acpi, arm_bmu_acpi_match);
- static struct platform_driver arm_bmu_driver = {
- 	.driver = {
- 		.name = "arm-bmu",
-+		.of_match_table = of_match_ptr(arm_bmu_of_match),
- 		.acpi_match_table = ACPI_PTR(arm_bmu_acpi_match),
- 		.suppress_bind_attrs = true,
- 	},
+ .../phy/mediatek,mt8196-pcie-sphy.yaml        |  91 +++
+ drivers/phy/mediatek/Kconfig                  |   9 +
+ drivers/phy/mediatek/Makefile                 |   1 +
+ drivers/phy/mediatek/phy-mtk-pcie-sphy.c      | 560 ++++++++++++++++++
+ 4 files changed, 661 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/mediatek,mt8196-pcie-sphy.yaml
+ create mode 100644 drivers/phy/mediatek/phy-mtk-pcie-sphy.c
+
 -- 
-2.54.0.dirty
+2.54.0
 
