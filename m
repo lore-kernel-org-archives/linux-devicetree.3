@@ -1,65 +1,64 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31DB443991D
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 17:36:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5518643F4C5
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 17:36:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784223376; cv=none; b=cSIuhSGkhJTLXPCO9hxNdTVv9Ld8aTYnmeaCBxLGEIa5AdE+EzEj2L6S9kouD/TWv3pnwWxDUuTyZBJ4fRwfTHs31w59ZyRxRsNUBlsMXThM+4g4CEdDpq8rQWk7MBdvO94pJATKw3KxvqzFqZz9UFJGzdIiIfgB2d0puQAD4pY=
+	t=1784223378; cv=none; b=ojreimVD7qiaDEtKBjO8zkcv06v+TGdzwHojPAerEXOU35v7l+A9T5pHB8rm6LvQXYkReGkQW5r4IUeChFBvEa4YM6t8p/kzdBFaSeyR/t8wip8R5gbswlCHPbxp8px9mAcqEqk1xv5qNalZgWY7pSzsdKFfKC/J+QBavG+KpJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784223376; c=relaxed/simple;
-	bh=fJltLhLA2QC5IBK4IlrMdfGFMwZnwxS8+Su9z2qyXbA=;
+	s=arc-20240116; t=1784223378; c=relaxed/simple;
+	bh=Bdre9fdJwVMzBFV9LYo7Or82eJ6WPi/GEPDr8PMl6aQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EJilRc+rVJYRo54+nSg1OC6XQXvJTC0VurFD+k5PXZlwml7+CWlRBsqz2QjMC7vzLl9mZPOWJ7J+E1F1LfvzBY6GppW7p45F9LUu+QxfbCl82rzM6c9RDZF76TfNpHgRo+H+HgIiexlzvO+jP4/DAmX36Jv58+2w5Gbijc7d71Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fpvWabJr; arc=none smtp.client-ip=209.85.128.44
+	 MIME-Version:Content-Type; b=Gi06YStKLr+YBvZ5fjdxSxEqc+xljwhCpL92OycEnYTktraw6GJf+wb6bhadF+kLc0kGII3ex2nYdQbtOPZdrgK346hBahCc3fp+eIcdI6b+fH8zRpipgVGtA9uRXhoAwwR2Ap6MZFL+eTSx2ebzfrN/G91TYAYsNDFFxIdqgbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S10hIIL/; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fpvWabJr"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49546c690ffso3355405e9.2
-        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 10:36:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S10hIIL/"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-493b966dd74so28316555e9.3
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 10:36:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784223372; x=1784828172; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784223373; x=1784828173; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=tH3vOBg6Uhm3v0R0bwuHJN3nbISSCYwbAVygdnWGM/8=;
-        b=fpvWabJrFHTVvCFIzKUqu66GKsyxEniPU6ix/cU9s2O2d1wByBQ+YWbm9ASt+M50U5
-         2/qD8gkNVE/HfX9WzrGjCokdQtK/U4JMt+0uUiun/UxFsTiD2WZu07Vd5nANWTX7t5HT
-         4g2zzCROTZVJK2+YDd8f/+yJeNXymt/vknGuMJYdRxN2ySR0hjWI9gaZHTopqvabODYF
-         8CFpx2KmkftKgY6sbY3KxXZzmV9jrxERxc2G/zVS7S2Sv+W1xDoO7Wwgj2WvXQCHw5UY
-         fn3QmkrQ2Af4SRS8/142X6UMUC2IaKcB+2DySxXYHGzeS4rOS8SPJMtPb6bUsMg1tPXh
-         wYgw==
+        bh=jyKLv13yjCnmWhHAYzJFN1nNRxdkFskQEtHHi51g50w=;
+        b=S10hIIL/vkDLS7qPZ9sK3C/HDQg5DR4hhA7k3PYV5A19sSgqdFCX5rAnC8TqKoE43G
+         ZuPijzVIaPQf1zKU4+Jn6kdc/71KvmLTjTf4DwrVRB13S53wFGuk09AXPrfV8d44rNHC
+         OpsqG9PmaWPs2cUJhMtvWPy5tVz34vPunxO4jAHM3fxQTtX6b2hjzRcHvIqboCERCQqx
+         PN1ev/NVP9amSGbLJ/z8TPyRxEemRNQHQsUteZN4be4iIw2y0pCNbMhlM/fQilrpknGE
+         6wYJEW1oLjsX0iJk6Agmgkx/rEXdnHXDnDEW/D/BdcoD6NV1jACV1b/FhSu0xqD2aCMG
+         LE8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784223372; x=1784828172;
+        d=1e100.net; s=20251104; t=1784223373; x=1784828173;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tH3vOBg6Uhm3v0R0bwuHJN3nbISSCYwbAVygdnWGM/8=;
-        b=OOW3q/Bs/R9+PQrSZOFZFH27nwO3eEgIXJ271NZuwKB9wlUwHxowa4B1Bnupxd6O+F
-         C6aDRJwevk0002HU6w6VxSz+XtkHkkxQjIwAkZcgnwVZgbAZ6L6ZdgJpypRpOtKI+V7s
-         6AADOdHSdVqO3AxVII40wwvuPIA1m1JDlHl8oeNpku5ATpy5h+FxuGTVlhM6S8pGI74O
-         mgbtoTn6yXtQx7Kzy76lbIzDzU2RLDXy46keaBcllCgas3f81nTgkWq7GNB5SVrN+hQe
-         osfET3W9/wZvJtHCp/HLu5t5NKnoEgi4AUTyKkdOR14yEX2MLWHPvANzTUxIp70Rr4Po
-         qUPw==
-X-Forwarded-Encrypted: i=1; AHgh+RringOgKU0rWyjKsvz2vnZ0Om6+qDFB5SVwuQVokKSUF//sgNW67uuYEFCkIxcka4gWR5/noeVHAnfw@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywfrd3gM8GBUilKHmwCwIV6vHr2rrlq45CHYeM6mJE9ps9klOfv
-	76JcayRurSUrrWQdP/Fm1KPkwTbrU6sRSxDT0qA6yh/7Pn+XYKXwz/Z2
-X-Gm-Gg: AfdE7cm1u1bq2WevAVDOQxeSZvc+9qY20ZeI02Enu9uyDEdE1GlU65IHLDYGu5/ISKs
-	qUyODMAhsqtc5G2nHwkst+EXJQoqzwC+GPeBO37bK7tuiJlGWPmGb68eS045b31VsSWDW2q/nYY
-	3ppdFYWyfSN5Fo4ZFuHOYNmvDACSzwq6RmkD+3GHjXtcEgeZKynY5+TYwVzPNQfmzbsmYUXvYjv
-	52AXw6wTmtf3/CoTOUfb3zLYIeSjSzEuT2LWD8axmnP2tG/qAWpIFvMgvnXe98qM04D0kjpMxwp
-	mxKz2pv/SlLdRESprv+TK4RyhLXtFYRBThSWrEkdE5fLKGdUGDken3T/6coS5/IkDmHnGfGixo+
-	ZRTmpXejb6gOGd6yEQh/3RQrwoZxyJyCcL+Ldi9jrSA4VV0OM5AiifXJXnW8ygHk4YeTEEwA8Kh
-	HiU7Gg5ueV3ZGQiO+7A/b4A3D4tHjEo3WE+y5kCee1Or7URQpP83RX7iQfyfgMAWbg/LLZ9pAwY
-	zKKUg==
-X-Received: by 2002:a05:600c:4593:b0:493:cc25:85cb with SMTP id 5b1f17b1804b1-4953c14752amr98306525e9.8.1784223372404;
-        Thu, 16 Jul 2026 10:36:12 -0700 (PDT)
+        bh=jyKLv13yjCnmWhHAYzJFN1nNRxdkFskQEtHHi51g50w=;
+        b=oBE7W9+Oe/M9SccJXU4mb1j6425AIxjfDBCPfR0TQhhTRc9lk7au/ywzGjRmjlGihv
+         6HXDN32t4hyIgqIBYakVprqMtGRx3t/Zn7R4fTkzzGTO5x1arxtMz8+mbL0OmTHoiYey
+         Sh9JD4vybBR8PbfMoahUMrLLcM0FNJBKqjt7qfky8kK6A2f8J9pdfB+1fkmx3pb0Frym
+         M0hpNmMhPwQtKAn3gQVTn2nqHe3GD9oJIacNTi95VqdiGeVuCUwU555b6T5Nt/tSPKIR
+         hOFjkV9w4O9qYjnLKxnSG7OO6fhikojPWJm33ZlTioXyCEdPe4fiw07lZ+07vNo+axzX
+         CV8g==
+X-Forwarded-Encrypted: i=1; AHgh+RpMKnn6lJgsDcAOsXo6ScPS018/p7zvkBip3X1YbR7JunHOZBDhWqcpgwyyB9OpRU65uO0nG0HhsFRN@vger.kernel.org
+X-Gm-Message-State: AOJu0YxODEz9DtfgvGBhw/CWQhlw2GY6X/jdVOKzlu4bk1oR8dMK1yo7
+	D9RCGVo2Xhoa/BNvyQFxQ5FOOgm1b+pVNmmi9+m0ocmuAiTqu/sUBvFs
+X-Gm-Gg: AfdE7clPz4DFyIRIJ7HqopouAbh41CaiVhHjf8Jyvnxyn2hVuvzD2peyvOGif1/lAWu
+	nvynHRBnGqj6ZUPTRmDPFkQWGLhpayNu8VCZCyd7W7O6tIO8aZzzcq3nA8kzWR71IBfg8qPOm/X
+	Pl9WlPEx97PPiiptg9UsXjELM8dSGaJx0LRNW5IPnakNSE3X+Aefz27eA5g8kr6rdR20zbWJFnK
+	VjEUB2tELfi53XrdUHkTM8DLuIaw1nBx5t/RpNw5Oh8UqPJDdZbS0mS04+olCEGYxo7W11Tr6uB
+	ogdhmWxF9cYluu3OWCkUnxPpFAK08guR8ycpz6dgbIvJs7KTk8sa0Cj3JBdZ/R2xXKMxNefviK+
+	sQGoaKXI7RKHpme2+vzOe/6pEp/bN50gQEbh/auB2a8zjqTvZygRezZ02eo17Hdk+6GxYW/8nHP
+	LagGNimJv3fcM823fGZH22hq9zuhRpmfBM7LrxF9kptrvj4qEkQnc7uyX4ywnVVnkEcLY=
+X-Received: by 2002:a05:600c:4fd3:b0:495:4593:bcb5 with SMTP id 5b1f17b1804b1-4954593bd26mr23894345e9.34.1784223373498;
+        Thu, 16 Jul 2026 10:36:13 -0700 (PDT)
 Received: from izzolab.play.pl (77-236-3-190.static.play.pl. [77.236.3.190])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4954812f0d0sm7983005e9.12.2026.07.16.10.36.11
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4954812f0d0sm7983005e9.12.2026.07.16.10.36.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 10:36:12 -0700 (PDT)
+        Thu, 16 Jul 2026 10:36:13 -0700 (PDT)
 From: =?UTF-8?q?Pawe=C5=82=20Wi=C5=9Bniewski?= <pawel.wis.me@gmail.com>
 To: jic23@kernel.org
 Cc: dlechner@baylibre.com,
@@ -72,9 +71,9 @@ Cc: dlechner@baylibre.com,
 	linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 2/3] dt-bindings: iio: proximity: Add Cytron HC-SR04
-Date: Thu, 16 Jul 2026 19:35:55 +0200
-Message-ID: <bb79ea1b842e062dd47bd1fb31fdd15a9ef76c29.1784221074.git.pawel.wis.me@gmail.com>
+Subject: [RFC PATCH 3/3] iio: proximity: srf04: Add Cytron HC-SR04 support
+Date: Thu, 16 Jul 2026 19:35:56 +0200
+Message-ID: <3fedc827a2581d61bef9ea639ed77cf90e80047a.1784221074.git.pawel.wis.me@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1784221074.git.pawel.wis.me@gmail.com>
 References: <cover.1784221074.git.pawel.wis.me@gmail.com>
@@ -87,49 +86,44 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The Cytron HC-SR04 starts a ranging cycle with an active-high trigger
-pulse of at least 10 us and reports the acoustic round-trip time as
-the width of an active-high echo pulse.
-
-Add the cytron,hc-sr04 compatible and a reference to the product
-manual. Update the trigger GPIO description to account for the pulse
-durations used by the supported devices.
-
-The interface matches the two-GPIO protocol implemented by the
-existing SRF04 driver.
+Tested on a Raspberry Pi 3 Model B+ running
+6.18.34+rpt-rpi-v8. The sensor was instantiated using only the
+cytron,hc-sr04 compatible, with trigger connected to GPIO17 and echo
+connected to GPIO27 through a 5 V to 3.3 V resistor divider. The
+driver bound to the device, registered an IIO device, and returned
+changing distance readings through in_distance_raw.
 
 Assisted-by: ChatGPT:GPT-5.6 Thinking
 Signed-off-by: Paweł Wiśniewski <pawel.wis.me@gmail.com>
 ---
- .../devicetree/bindings/iio/proximity/devantech-srf04.yaml   | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/iio/proximity/Kconfig | 1 +
+ drivers/iio/proximity/srf04.c | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/iio/proximity/devantech-srf04.yaml b/Documentation/devicetree/bindings/iio/proximity/devantech-srf04.yaml
-index ce795279839e..f4237ae612ab 100644
---- a/Documentation/devicetree/bindings/iio/proximity/devantech-srf04.yaml
-+++ b/Documentation/devicetree/bindings/iio/proximity/devantech-srf04.yaml
-@@ -4,7 +4,7 @@
- $id: http://devicetree.org/schemas/iio/proximity/devantech-srf04.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/iio/proximity/Kconfig b/drivers/iio/proximity/Kconfig
+index bb77fad2a1b3..89e9d57ceba6 100644
+--- a/drivers/iio/proximity/Kconfig
++++ b/drivers/iio/proximity/Kconfig
+@@ -139,6 +139,7 @@ config SRF04
+ 	  ranger sensor. This driver can be used to measure the distance
+ 	  of objects. It is using two GPIOs.
+ 	  Actually Supported types are:
++	  - Cytron HC-SR04
+ 	  - Devantech SRF04
+ 	  - Maxbotix mb1000
+ 	  - Maxbotix mb1010
+diff --git a/drivers/iio/proximity/srf04.c b/drivers/iio/proximity/srf04.c
+index 7be50bdebfcb..f5ee7d6572b5 100644
+--- a/drivers/iio/proximity/srf04.c
++++ b/drivers/iio/proximity/srf04.c
+@@ -231,6 +231,7 @@ static const struct iio_chan_spec srf04_chan_spec[] = {
+ };
  
--title: Devantech SRF04 and Maxbotix mb1000 ultrasonic range finder
-+title: Devantech SRF04 and Maxbotix mb1000 and Cytron HC-SR04 ultrasonic range finder
- 
- maintainers:
-   - Andreas Klinger <ak@it-klinger.de>
-@@ -21,9 +21,12 @@ description: |
- 
-   https://www.maxbotix.com/documents/LV-MaxSonar-EZ_Datasheet.pdf
- 
-+  https://botland.com.pl/index.php?controller=attachment&id_attachment=476
-+
- properties:
-   compatible:
-     enum:
-+      - cytron,hc-sr04
-       - devantech,srf04
-       - maxbotix,mb1000
-       - maxbotix,mb1010
+ static const struct of_device_id of_srf04_match[] = {
++	{ .compatible = "cytron,hc-sr04", .data = &srf04_cfg },
+ 	{ .compatible = "devantech,srf04", .data = &srf04_cfg },
+ 	{ .compatible = "maxbotix,mb1000", .data = &mb_lv_cfg },
+ 	{ .compatible = "maxbotix,mb1010", .data = &mb_lv_cfg },
 -- 
 2.47.3
 
