@@ -1,122 +1,426 @@
-Received: from mail.3ffe.de (0001.3ffe.de [159.69.201.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 959B840863E;
-	Thu, 16 Jul 2026 11:42:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.201.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83AF640A93B
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 11:43:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784202169; cv=none; b=A4l4oFJSTQN0O8fL8CvbjSNHbjdmB+MTR+v7P8zzLvr5Ns1KWRR6BtY82ySpDJx+4yCp51jTVuu3W7t6auqUMxMOW2AX8+rxr+PQxBTot8eivQkIxTOKmErXlP/xWaoMDXFeyUw/gs9z66XoHkofZ3ylWW3MmGBAgDevQdS06ZQ=
+	t=1784202195; cv=none; b=ojH2/g/HV3ccwMTlRp+kMxtQl6Zs9xA1eUpQFheYiwR5MziB4Y3szrW1ccz/p6IGScQU711Am/vPUHg3HskC/vltCANYxmRjlknP//5TsNyG60Jp3sOB2i2wNbZC7oBs6eq+bMVvxioM3ACIZKYX+nAfmMssBASJNNc5Q4tcKuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784202169; c=relaxed/simple;
-	bh=PBQlWJCk9cMAyUsTnpRIFnjmO6kFLFwLiyaWYbKlKug=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:From:To:Subject:
-	 References:In-Reply-To; b=N2JVTFPFxLGFOgHi0X6sOmiGZk88bCfjHb1eE3IyuVILsKZz3fZqdL6ncof3ZrXbIZxbhYJQ9+aZOgMHruvrK2FLYbokXlVvbH1O4wDWKB0FXq5XNz6Gx15TmruXjCodgu8R50sDnFGC7YD3e7ISdBuDG2YnAnzcsdzLlU/DnZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org; spf=pass smtp.mailfrom=walle.cc; arc=none smtp.client-ip=159.69.201.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=walle.cc
-Received: from localhost (unknown [IPv6:2a02:810b:4320:1000:4685:ff:fe12:5967])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.3ffe.de (Postfix) with ESMTPSA id 77979167;
-	Thu, 16 Jul 2026 13:42:44 +0200 (CEST)
+	s=arc-20240116; t=1784202195; c=relaxed/simple;
+	bh=Ixdhr9DQPPeCF0R02PTq251qConIhXrLKCsu0Z+037c=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=AutmB/GF2JqaqSzTDPbblJp87zwFnpjKJgPkA03tPZgM02cFJrLXjt/310p++MXRVqrRpwTlxdSoOL81srRhk5bxBucZ9AjGqfxa5jigWwHMBUTAWwL0AWMFtD4JZxn18OrkDpwLu61cSesAk55TEs1ZhVURl0je/6PndClE7Z4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BIKg0OPe; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BIKg0OPe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCF901F00A3E;
+	Thu, 16 Jul 2026 11:43:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784202193;
+	bh=ZeTjdwzbut0/wxl8O0oT1KYtFQgAbA19n1Cg7HFYukQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BIKg0OPeKWYf8KXwariUb4/wT4pnwNMycysqoeDmZdTXdcetUkFb7UolUsJkJO0Z/
+	 A/o/iqYrFCEZMhQMScF6/BaEKvmiFzFc1m3OVVzgSpMYv7W70hOta+j8yJXGkfHD1I
+	 BJswaVLXOP7SZrrEZJWU00nU9/Eq+PQJ7jJx4mcLu9rhJ89R13jGLpi31B+CdQy4pv
+	 H+PNSOUDjV8s4PT8B8Jmub+GKXoEhzBUWgvDoNWWojqQz9muci4WcHhcxRF4Q31790
+	 k+VC4SJpqUhL9cwccvY7gDENFmV8nwhZIvmgtyk5mRDUy2ZVpHbrf0lbzIz6lvIXDv
+	 fUbWfu+EGKM3w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/2] drm/bridge: Add Lontium LT9609C(EX/UXD) MIPI DSI
+ to HDMI driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: mohit.dsor@oss.qualcomm.com
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260716-lt9611c-v7-v7-2-7553a14735fc@oss.qualcomm.com>
+References: <20260716-lt9611c-v7-v7-0-7553a14735fc@oss.qualcomm.com>
+ <20260716-lt9611c-v7-v7-2-7553a14735fc@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 16 Jul 2026 11:43:12 +0000
+Message-Id: <20260716114312.DCF901F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 16 Jul 2026 13:42:44 +0200
-Message-Id: <DJZYVQSJL0MO.143E5QFQRAXVV@kernel.org>
-Cc: "Michael.Hennerich@analog.com" <Michael.Hennerich@analog.com>,
- "afaerber@suse.com" <afaerber@suse.com>, "andy@kernel.org"
- <andy@kernel.org>, "brgl@kernel.org" <brgl@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- =?utf-8?b?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "dlechner@baylibre.com" <dlechner@baylibre.com>,
- =?utf-8?b?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
- "jic23@kernel.org" <jic23@kernel.org>, "krzk+dt@kernel.org"
- <krzk+dt@kernel.org>, "lars@metafoo.de" <lars@metafoo.de>,
- "linus.walleij@linaro.org" <linus.walleij@linaro.org>, "linusw@kernel.org"
- <linusw@kernel.org>, "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-gpio@vger.kernel.org"
- <linux-gpio@vger.kernel.org>, "linux-iio@vger.kernel.org"
- <linux-iio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux-realtek-soc@lists.infradead.org"
- <linux-realtek-soc@lists.infradead.org>,
- "mathieu.dubois-briand@bootlin.com" <mathieu.dubois-briand@bootlin.com>,
- "nuno.sa@analog.com" <nuno.sa@analog.com>, "robh@kernel.org"
- <robh@kernel.org>, =?utf-8?b?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?=
- <stanley_chang@realtek.com>, =?utf-8?b?VFlfQ2hhbmdb5by15a2Q6YC4XQ==?=
- <tychang@realtek.com>, "wbg@kernel.org" <wbg@kernel.org>
-From: "Michael Walle" <mwalle@kernel.org>
-To: =?utf-8?b?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>,
- "Andy Shevchenko" <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v3 3/7] gpio: regmap: Add gpio_regmap_operation and
- write-enable support
-X-Mailer: aerc 0.20.0
-References: <d301ba0cd45d49d59e6a014188306ec9@realtek.com>
- <20260716062614.1507243-1-eleanor.lin@realtek.com>
- <aliV4u6_xzx9D9Aq@ashevche-desk.local>
- <DJZVLZ4LLD9E.3MPLYYXT1VQ9R@kernel.org>
- <alim_HGTD5RCupav@ashevche-desk.local>
- <9ee344c1d9c642bdb7d3b85bc922fe66@realtek.com>
- <DJZY1YPMDLIN.3W0QOPEI9L8JA@kernel.org>
- <068b13e117464cf38b7b215eee72fe7a@realtek.com>
-In-Reply-To: <068b13e117464cf38b7b215eee72fe7a@realtek.com>
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 10 potential issue=
+(s) to consider:
+- [High] Missing `disable_irq()` in `lt9611c_remove()` creates a race condi=
+tion leading to Use-After-Free and unpowered hardware access.
+- [High] Stack buffer overflow in `lt9611c_hdmi_write_hdmi_infoframe` due t=
+o unchecked `len` parameter.
+- [High] Permanent module reference leak due to unbalanced `drm_bridge_get(=
+)` in `lt9611c_parse_dt()`.
+- [High] Self-deadlock in `lt9611c_hdmi_audio_prepare` due to double lockin=
+g of `ocm_lock` via nested DRM helper callbacks.
+- [High] Erratic interrupt clearing sequence can permanently lock up the ed=
+ge-triggered interrupt line and lose events.
+- [High] Ignored return value of `devm_drm_bridge_add()` can lead to succes=
+sful probe with an unregistered bridge.
+- [High] Missing `cancel_work_sync()` in `lt9611c_bridge_suspend()` allows =
+the HPD work to execute while the hardware is powered off.
+- [High] Race condition between sysfs file creation and initialization of `=
+clientdata` causes a NULL pointer dereference.
+- [Medium] Synchronous firmware loading while holding a hardware mutex (`oc=
+m_lock`).
+- [Medium] Ignored flash erase timeout allows firmware upgrade to silently =
+corrupt device flash.
+--
 
->> int (*value_xlate)(struct gpio_chip *chip, enum gpio_regmap_op op, unsig=
-ned
->> int offset, unsigned int reg, unsigned int mask, unsigned int *value)
->>=20
->> mask shouldn't need to be a pointer as you don't have to modify it, do y=
-ou?
->> reg_mask_xlate, already does that.
->>=20
->
-> Actually, I do need to modify the 'mask', so it still needs to be passed
-> as a pointer to this callback.
->
-> Since the WREN enable bit and the data bit are located at different bit
-> positions, the final 'mask' used in write API must be expanded to include
-> both the WREN mask and the data mask.
+--- Patch [2]: [PATCH v7 2/2] drm/bridge: Add Lontium LT9609C(EX/UXD) MIPI =
+DSI to HDMI driver ---
+commit b64f10044aaf95610928583023bd2bc668abab4e
+Author: Sunyun Yang <syyang@lontium.com>
+Subject: drm/bridge: Add Lontium LT9609C(EX/UXD) MIPI DSI to HDMI driver
 
-You could still return both bits in the first xlate, no?
+This commit introduces the driver for the Lontium LT9611C DSI to HDMI bridg=
+e.=20
+It adds support for configuring video timing, reading EDID, handling HPD=20
+interrupts, and managing firmware upgrades.
 
-But yeah, that might be a bit asymmetrical and not intuitive. So
-changing the mask (again) with the value sounds ok to me.
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/b=
+ridge/lontium-lt9611c.c
+> new file mode 100644
+> index 0000000000000..e8bb385d15206
+> --- /dev/null
+> +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
+> @@ -0,0 +1,1293 @@
 
--michael
+[ ... ]
 
-> Aside from needing 'mask' as a pointer, I completely agree with the rest =
-of
-> your suggested signature.
->
-> Best Regards,
-> Yu-Chun
->
->> -michael
->>=20
->> >               if (ret)
->> >                       return ret;
->> >       }
->> >
->> >       /* ignore input values which shadow the old output value */
->> >       if (gpio->reg_dat_base =3D=3D gpio->reg_set_base)
->> >               ret =3D regmap_write_bits(gpio->regmap, reg, mask,
->> mask_val);
->> >       else
->> >               ret =3D regmap_update_bits(gpio->regmap, reg, mask,
->> > mask_val);
->> >
->> >       return ret;
->> > }
->> >
->> > Best Regards,
->> > Yu-Chun
+> +static void lt9611c_block_erase(struct lt9611c *lt9611c)
+> +{
+> +	struct device *dev =3D lt9611c->dev;
+> +	int i;
+> +	unsigned int block_num;
+> +	unsigned int flash_status =3D 0;
+> +	u32 flash_addr =3D 0;
+> +
+> +	for (block_num =3D 0; block_num < 2; block_num++) {
+> +		flash_addr =3D (block_num * 0x008000);
+> +		lt9611c_erase_op(lt9611c, flash_addr);
+> +		msleep(100);
+> +		i =3D 0;
+> +		while (1) {
+> +			read_flash_reg_status(lt9611c, &flash_status);
+> +			if ((flash_status & 0x01) =3D=3D 0)
+> +				break;
+> +
+> +			if (i > 50)
+> +				break;
 
+[Severity: Medium]
+Does this ignore the flash erase timeout? If the polling loop in=20
+lt9611c_block_erase() times out, it breaks out silently. Since this functio=
+n=20
+has no return value, lt9611c_firmware_upgrade() will proceed to write the n=
+ew=20
+firmware over an unerased block, which could corrupt the device firmware.
+
+> +
+> +			i++;
+> +			msleep(50);
+> +		}
+> +	}
+> +
+> +	dev_dbg(dev, "erase flash done.\n");
+> +}
+
+[ ... ]
+
+> +static irqreturn_t lt9611c_irq_thread_handler(int irq, void *dev_id)
+> +{
+> +	struct lt9611c *lt9611c =3D dev_id;
+> +	struct device *dev =3D lt9611c->dev;
+> +	int ret;
+> +	unsigned int irq_status;
+> +	u8 cmd[5] =3D {0x52, 0x48, 0x31, 0x3a, 0x00};
+> +	u8 data[5];
+> +
+> +	guard(mutex)(&lt9611c->ocm_lock);
+> +
+> +	ret =3D regmap_read(lt9611c->regmap, 0xe084, &irq_status);
+> +	if (ret) {
+> +		dev_err(dev, "failed to read irq status: %d\n", ret);
+> +		return IRQ_HANDLED;
+> +	}
+> +
+> +	if (!(irq_status & BIT(0)))
+> +		return IRQ_HANDLED;
+
+[Severity: High]
+Could this early return permanently lock up the edge-triggered interrupt li=
+ne?
+If another status bit triggered the interrupt, this bails out without writi=
+ng=20
+to the clear register (0xe0df). Because the interrupt line is configured as=
+=20
+IRQF_TRIGGER_FALLING, leaving it asserted prevents any future falling edges=
+=20
+and permanently locks up all future hardware interrupts.
+
+> +
+> +	msleep(100);
+> +
+> +	ret =3D lt9611c_read_write_flow(lt9611c, cmd, ARRAY_SIZE(cmd), data, AR=
+RAY_SIZE(data));
+
+[ ... ]
+
+> +static int lt9611c_hdmi_write_hdmi_infoframe(struct drm_bridge *bridge,
+> +					     const u8 *buffer, size_t len)
+> +{
+> +	struct lt9611c *lt9611c =3D bridge_to_lt9611c(bridge);
+> +	u8 cmd[5 + LT9611C_INFOFRAME_MAX_SIZE];
+> +	u8 data[5];
+> +	int ret;
+> +
+> +	cmd[0] =3D 0x57;
+> +	cmd[1] =3D 0x48;
+> +	cmd[2] =3D 0x35;
+> +	cmd[3] =3D 0x3a;
+> +	cmd[4] =3D 0x04;/*write vsif*/
+> +	memcpy(cmd + 5, buffer, len);
+
+[Severity: High]
+Is it possible to overflow the cmd stack buffer here? The cmd array is=20
+allocated with a fixed size of 37 bytes (5 + LT9611C_INFOFRAME_MAX_SIZE).=20
+Because the len parameter is passed directly to memcpy without validation,=
+=20
+passing an infoframe larger than 32 bytes would corrupt the stack.
+
+> +
+> +	guard(mutex)(&lt9611c->ocm_lock);
+> +
+> +	ret =3D lt9611c_read_write_flow(lt9611c, cmd, 5 + len,
+> +				      data, ARRAY_SIZE(data));
+
+[ ... ]
+
+> +static int lt9611c_hdmi_write_audio_infoframe(struct drm_bridge *bridge,
+> +					      const u8 *buffer, size_t len)
+> +{
+> +	struct lt9611c *lt9611c =3D bridge_to_lt9611c(bridge);
+> +	u8 *cmd;
+> +	u8 data[5];
+> +	int ret;
+> +
+> +	guard(mutex)(&lt9611c->ocm_lock);
+
+[ ... ]
+
+> +static int lt9611c_hdmi_audio_prepare(struct drm_bridge *bridge,
+> +				      struct drm_connector *connector,
+> +				      struct hdmi_codec_daifmt *fmt,
+> +				      struct hdmi_codec_params *hparms)
+> +{
+> +	struct lt9611c *lt9611c =3D bridge_to_lt9611c(bridge);
+> +	u8 audio_cmd[6] =3D {0x57, 0x48, 0x36, 0x3a};
+> +	u8 data[5];
+> +	int ret;
+> +
+> +	if (hparms->sample_width =3D=3D 32)
+> +		return -EINVAL;
+> +
+> +	switch (fmt->fmt) {
+> +	case HDMI_I2S:
+> +		audio_cmd[4] =3D 0x01;
+> +		break;
+> +	case HDMI_SPDIF:
+> +		audio_cmd[4] =3D 0x02;
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	audio_cmd[5] =3D hparms->channels;
+> +	guard(mutex)(&lt9611c->ocm_lock);
+> +
+> +	ret =3D lt9611c_read_write_flow(lt9611c, audio_cmd, sizeof(audio_cmd),
+> +				      data, sizeof(data));
+> +	if (ret < 0) {
+> +		dev_err(lt9611c->dev, "set audio info failed!\n");
+> +		return ret;
+> +	}
+> +
+> +	return drm_atomic_helper_connector_hdmi_update_audio_infoframe(connecto=
+r,
+> +									&hparms->cea);
+
+[Severity: High]
+Will this cause a self-deadlock? The ocm_lock is acquired here in=20
+lt9611c_hdmi_audio_prepare(). We then call=20
+drm_atomic_helper_connector_hdmi_update_audio_infoframe(), which internally=
+=20
+invokes the connector's write_infoframe hook mapped to=20
+lt9611c_hdmi_write_audio_infoframe(). That inner function attempts to acqui=
+re=20
+ocm_lock again. Since Linux mutexes are not recursive, this guarantees a=20
+deadlock.
+
+> +}
+
+[ ... ]
+
+> +static int lt9611c_parse_dt(struct device *dev,
+> +			    struct lt9611c *lt9611c)
+> +{
+> +	int ret;
+> +
+> +	lt9611c->dsi0_node =3D of_graph_get_remote_node(dev->of_node, 0, -1);
+> +	if (!lt9611c->dsi0_node)
+> +		return dev_err_probe(dev, -ENODEV, "failed to get remote node for prim=
+ary dsi\n");
+> +
+> +	lt9611c->dsi1_node =3D of_graph_get_remote_node(dev->of_node, 1, -1);
+> +
+> +	ret =3D drm_of_find_panel_or_bridge(dev->of_node, 2, -1, NULL, &lt9611c=
+->bridge.next_bridge);
+> +	if (ret) {
+> +		of_node_put(lt9611c->dsi1_node);
+> +		of_node_put(lt9611c->dsi0_node);
+> +		return ret;
+> +	}
+> +	drm_bridge_get(lt9611c->bridge.next_bridge);
+
+[Severity: High]
+Does this code leak a module reference to the next bridge? The reference=20
+acquired by drm_bridge_get() here is never released. The driver's=20
+lt9611c_remove() function does not call drm_bridge_put() to balance this,=20
+meaning every unbind/rebind cycle leaks a reference.
+
+> +	return 0;
+> +}
+
+[ ... ]
+
+> +static ssize_t lt9611c_firmware_store(struct device *dev, struct device_=
+attribute *attr,
+> +				      const char *buf, size_t len)
+> +{
+> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	lt9611c_lock(lt9611c);
+> +
+> +	ret =3D lt9611c_firmware_upgrade(lt9611c);
+
+[Severity: Medium]
+Is it safe to hold ocm_lock during a synchronous firmware load?=20
+lt9611c_firmware_upgrade() calls request_firmware(), which can block for up=
+ to=20
+60 seconds on VFS and user-mode helpers. While blocked, the IRQ threaded=20
+handler and atomic commit callbacks will be starved as they contend for the=
+=20
+same mutex.
+
+> +	if (ret < 0)
+> +		dev_err(dev, "upgrade failure\n");
+> +
+> +	lt9611c_unlock(lt9611c);
+> +
+> +	return ret < 0 ? ret : len;
+> +}
+> +
+> +static ssize_t lt9611c_firmware_show(struct device *dev, struct device_a=
+ttribute *attr, char *buf)
+> +{
+> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
+> +
+> +	return sysfs_emit(buf, "0x%04x\n", lt9611c->fw_version);
+
+[Severity: High]
+Can dev_get_drvdata(dev) return NULL here? Sysfs attributes are added via t=
+he=20
+dev_groups member of the i2c_driver struct, meaning the driver core creates=
+=20
+them before the probe function finishes. In lt9611c_probe(),=20
+i2c_set_clientdata() is called very late. If userspace reads this attribute=
+=20
+concurrently before probe completes, this will dereference a NULL pointer.
+
+> +}
+
+[ ... ]
+
+> +static int lt9611c_probe(struct i2c_client *client)
+> +{
+
+[ ... ]
+
+> +	lt9611c->bridge.hdmi_audio_max_i2s_playback_channels =3D 8;
+> +	lt9611c->bridge.hdmi_audio_dai_port =3D 2;
+> +
+> +	devm_drm_bridge_add(dev, &lt9611c->bridge);
+
+[Severity: High]
+Shouldn't we check the return value of devm_drm_bridge_add()? If devres=20
+allocation fails, the bridge won't be added to the DRM bridge chain, but pr=
+obe=20
+will continue and return success. This leaves the subsystem in an inconsist=
+ent=20
+state.
+
+> +
+> +	/* Attach primary DSI */
+> +	lt9611c->dsi0 =3D lt9611c_attach_dsi(lt9611c, lt9611c->dsi0_node);
+> +	if (IS_ERR(lt9611c->dsi0)) {
+
+[ ... ]
+
+> +static void lt9611c_remove(struct i2c_client *client)
+> +{
+> +	struct lt9611c *lt9611c =3D i2c_get_clientdata(client);
+> +
+> +	cancel_work_sync(&lt9611c->work);
+> +	regulator_bulk_disable(ARRAY_SIZE(lt9611c->supplies), lt9611c->supplies=
+);
+> +	of_node_put(lt9611c->dsi1_node);
+> +	of_node_put(lt9611c->dsi0_node);
+> +}
+
+[Severity: High]
+Does this leave a race condition leading to a use-after-free? The IRQ was=20
+registered via devm_request_threaded_irq(). Because there is no explicit=20
+disable_irq() call here, the interrupt line remains active until devres=20
+cleanup runs after remove() returns. If an interrupt fires after=20
+cancel_work_sync(), the threaded handler will run, re-queue the work item, =
+and=20
+attempt I2C access while the device is unpowered.
+
+> +
+> +static int lt9611c_bridge_suspend(struct device *dev)
+> +{
+> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	dev_dbg(lt9611c->dev, "suspend\n");
+> +	disable_irq(lt9611c->client->irq);
+> +
+> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> +
+> +	ret =3D regulator_bulk_disable(ARRAY_SIZE(lt9611c->supplies), lt9611c->=
+supplies);
+
+[Severity: High]
+Should this flush the workqueue before disabling regulators? If an interrup=
+t=20
+fired and scheduled lt9611c->work right before disable_irq() was called, th=
+e=20
+work item stays in the queue. When it executes, it will trigger an I2C read=
+ in=20
+lt9611c_bridge_detect() while the device regulators are disabled, leading t=
+o=20
+timeouts or a kernel panic.
+
+> +	if (ret)
+> +		dev_err(lt9611c->dev, "regulator bulk disable failed.\n");
+> +
+> +	return ret;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-lt9611c-v7=
+-v7-0-7553a14735fc@oss.qualcomm.com?part=3D2
