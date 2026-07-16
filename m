@@ -1,362 +1,112 @@
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC6A43E079
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 18:10:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F7D7082D
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 18:11:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784225466; cv=none; b=bU2l2tgkHfMqVVyhjSNA61KjL3UEEBVF2Yk9zDLoFsciXSkzBgeKB8Rw/KQu/Izbx3TC7FG05MKe0W/BDZweGAR5578cZSOuxHj2KdblqZmZ8fqLxY9HaMPYOrtSytNYrnwQHBIaziRd1pOyeNAOssur+Tkzad5hBfUZMhhE/bY=
+	t=1784225499; cv=none; b=B5n27KVvP3js9GpYJTi5XjOzNED9CjEuxVSanCQSf+Yrfc9HBz+qTa056gB3HB/SGoCAmpIExDq/i/atzIwAF2k6Zm8TU18Qu8/OMQgSctk3fSxnvK+97utpWUj2gKL6kxF/BeSFGdq/T7qXU71t1hkswpW9M4OMUqmDHWerTeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784225466; c=relaxed/simple;
-	bh=1dfy9RE5U2IVlA8P28xUhfZh2yZquVsLMiHJH1bz/D0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MA+ui0fNfDmTVYqhHkQ8sC7oo8mfe7qTsKHnejMrH/dmn4rSb09zahjUldi/8081akG4/tyODgTq5O1WoDAVk+pisYpv9eDjN6bBJOjS53ki28rrOQSDDGK8pV5RjNIPvQByysYYXyPhCfNLF7NCSOxgz8Yzlmg0/uQSZSXqlNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chimac.ro; spf=pass smtp.mailfrom=chimac.ro; dkim=pass (2048-bit key) header.d=chimac.ro header.i=@chimac.ro header.b=copzqbm9; arc=none smtp.client-ip=185.70.43.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chimac.ro
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chimac.ro
+	s=arc-20240116; t=1784225499; c=relaxed/simple;
+	bh=EcOMe9+x7BDLWCEpjDqWHDpdK0XxSFwXz7BgmG7GDXc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=H+TtZIsmJx8nB3ArTtjBLNo4Db3XZEsRoYCURRR4xjQb632vaxc3sxTHfuSL1090gmuHiOYjhTX/0h8YHSfoaArYlRKFDVHWA4dxR/S/P70dQKzxMY5zNWw+P+N4g5MTd7zgG1r2gyIysYLZbRFDzuaoQt18jCjFBR93qQ5nH48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FLD3gkOE; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=chimac.ro header.i=@chimac.ro header.b="copzqbm9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chimac.ro;
-	s=protonmail3; t=1784223900; x=1784483100;
-	bh=uV+h8kswGmI1NApft8QVwhf9JSqdwsitsi4i9XWwa+g=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=copzqbm9HhgCn9qJmTLwYmEO4fAFxer3aZkF1hO/U4vBynEWMG6ZXF9k1d7dByqv9
-	 tgFX+FVLQvoYng3jotRKVzlLR1iXvhOarmeC4oRf8GC73hzEiH13hTtLaRMIGEzqqI
-	 94ZSc46rqM+s3ewt4bt7U1FJ67eBWBo/vqiDy2YM7vQNkdEXVqccA8lOOKMGyB6RyR
-	 4BYWYWT1Khtxi6Uhq0MPlmrOFz+5277t6PU5xTgsxFigL0OwYzV0LQ1Q8t4c+zhz3z
-	 gF5jjN/riYQrJ/pK5PRTHeLEYDGh20MqoM0PsDoEAtngCpQVqAq056ctyuPKMx9APw
-	 oGOODHxvExxiA==
-Date: Thu, 16 Jul 2026 17:44:55 +0000
-To: sashiko-reviews@lists.linux.dev
-From: Alexandru Chimac <alex@chimac.ro>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] clk: samsung: Introduce Exynos9610 clock controller driver
-Message-ID: <al6J-v3k-MVc0gtv_aKi7PpUIyg46m1Klg8-izKAn116l5fMLI3IKLwcRP3j0xsrEzDOtbtrJf4Mfgzs2Whw44pbLICNsoAMIKYH9gg2oZs=@chimac.ro>
-In-Reply-To: <20260716172637.445E41F000E9@smtp.kernel.org>
-References: <20260716-exynos9610-clocks-v2-0-c13ce8ef1861@chimac.ro> <20260716-exynos9610-clocks-v2-4-c13ce8ef1861@chimac.ro> <20260716172637.445E41F000E9@smtp.kernel.org>
-Feedback-ID: 139133584:user:proton
-X-Pm-Message-ID: 7062e42b9ab2804d81f786388b9ed7ac279446a3
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FLD3gkOE"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id EB98A1A102F;
+	Thu, 16 Jul 2026 18:11:34 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id ACEE16035F;
+	Thu, 16 Jul 2026 18:11:34 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 667CC11BD3D29;
+	Thu, 16 Jul 2026 20:11:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1784225493; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=3BxAjPrDAaY7o3N4I183aNhJmaPF5p2TWfasYaaLgeA=;
+	b=FLD3gkOEvmtlP+U7U2uxLBHNBwf1A/TJYLEuFDLY9fbAwQMWVFDEitDOr4iJ9ripLtENa2
+	KtF4gUz1izKxZp1Rtinf3cCd9jVSaFpzVjZy3RHzxnk8/c8z25png4eH5PmnctQANxHNVW
+	V5HlkV3KYHR8hB9UZQZcuuOTajPrGsz9zVUPmEoewr/W6oAcs2deEOjNnZe74+e8k5xSuT
+	M7z0Ui0L32pJ5FxebENUX3yBfRN+rWxfT4/RN1XGwDkAYC8An26b+DcWNWw5lNQQ2L6Coc
+	CO4gAcDl9XDhxgpLfXSu4fmx+NCcc6px+zWjNZ/0msGTEeVupYy2XTB2hSyvhg==
+Message-ID: <77f1cc14-cc5f-4f32-a972-f0350a60931b@bootlin.com>
+Date: Thu, 16 Jul 2026 20:11:26 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v3 0/2] Add DAPU Telecom DAP8211R(I) Gigabit
+ Ethernet PHY driver
+To: Artem Shimko <a.shimko.dev@gmail.com>, netdev@vger.kernel.org,
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Zhi Li <lizhi2@eswincomputing.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260716173325.653164-1-a.shimko.dev@gmail.com>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20260716173325.653164-1-a.shimko.dev@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hello!
+Hi Artem,
 
-On Thursday, 16 July 2026 at 8:26 PM, sashiko-bot@kernel.org <sashiko-bot@k=
-ernel.org> wrote:
+Please slow down a bit, you need to wait at least 24h between patch
+submissions :
 
-> Thank you for your contribution! Sashiko AI review found 10 potential iss=
-ue(s) to consider:
-> - [High] Clock ID collision for `dout_cmu_usb_usb30drd` due to reused `CL=
-K_DOUT_CMU_USB_BUS` ID.
-> - [High] The `dout_cmu_core_cci` divider incorrectly targets the `CORE_BU=
-S` hardware register.
-> - [High] All PCLK clock gates for CMGP I2C and USI mistakenly map to IPCL=
-K register offsets.
-> - [High] OCC clocks in the core domain suffer from register, naming, and =
-parent copy-paste errors.
-> - [High] Several configured clock registers are omitted from the `clk_reg=
-s` save/restore arrays.
-> - [High] The `dispaud_cmu_info` structure is bound to the wrong sysreg sa=
-ve/restore array.
-> - [High] Six clock gates will be orphaned due to nonexistent parent clock=
- references (typographical errors).
-> - [High] The `CLK_DOUT_CLK_CPUCL0_CPU` divider is instantiated with a bit=
- width of 0.
-> - [High] Mux width is too narrow for `mout_cmu_cpucl0_switch`.
-> - [High] The probe function is marked `__init` but registered as a persis=
-tent platform driver, creating an execute-after-free risk.
-> --
->=20
-> --- Patch [4]: [PATCH v2 4/5] clk: samsung: Introduce Exynos9610 clock co=
-ntroller driver ---
-> commit 5ae09894e4056fd99b1810f99f65fba5b78df46a
-> Author: Alexandru Chimac <alex@chimac.ro>
->=20
-> clk: samsung: Introduce Exynos9610 clock controller driver
->=20
-> This commit introduces the Common Clock Framework driver for the Exynos 9=
-610
-> SoC. It provides support for numerous clock domains, including TOP, APM,
-> CAM, CMGP, CORE, CPUCL0, DISPAUD, FSYS, G2D, G3D, PERI, and USB.
->=20
-> > diff --git a/drivers/clk/samsung/clk-exynos9610.c b/drivers/clk/samsung=
-/clk-exynos9610.c
-> > index 0000000000000..39c1650247e8d
-> > --- /dev/null
-> > +++ b/drivers/clk/samsung/clk-exynos9610.c
-> [ ... ]
-> > static const unsigned long top_clk_regs[] __initconst =3D {
-> > =09PLL_LOCKTIME_PLL_MMC,
-> > =09PLL_LOCKTIME_PLL_SHARED0,
-> [ ... ]
-> > =09CLK_CON_DIV_CLKCMU_CAM_BUS,
-> > =09CLK_CON_DIV_CLKCMU_CORE_BUS,
-> [ ... ]
->=20
-> [Severity: High]
-> Are some registers missing from the save and restore array?
->=20
-> The CLK_CON_DIV_PLL_MMC_DIV2 and the four CIS dividers
-> (CLK_CON_DIV_CLKCMU_CIS_CLK0 through CLK3) appear to be omitted from
-> top_clk_regs. Could this cause these dividers to revert to power-on defau=
-lts
-> after a suspend and resume cycle?
->=20
+https://docs.kernel.org/process/maintainer-netdev.html
 
-Good catch, will fix in v3.
-> [ ... ]
-> > static const struct samsung_mux_clock top_mux_clks[] __initconst =3D {
-> [ ... ]
-> > =09MUX(CLK_MOUT_CMU_CPUCL0_DBG, "mout_cmu_cpucl0_dbg", mout_cmu_cpucl0_=
-dbg_p,
-> > =09    CLK_CON_MUX_MUX_CLKCMU_CPUCL0_DBG, 0, 1),
-> > =09MUX(CLK_MOUT_CMU_CPUCL0_SWITCH, "mout_cmu_cpucl0_switch", mout_cmu_c=
-pucl0_switch_p,
-> > =09    CLK_CON_MUX_MUX_CLKCMU_CPUCL0_SWITCH, 0, 1),
->=20
-> [Severity: High]
-> Does this mux have a bit width that is too narrow?
->=20
-> The mout_cmu_cpucl0_switch_p parent array has 4 elements, but the width
-> parameter is set to 1 bit. A 1-bit width can only represent indices 0 and=
- 1,
-> preventing the selection of parents at indices 2 and 3 when the CPU frequ=
-ency
-> scaling attempts to reparent the clock.
->=20
+On 7/16/26 19:33, Artem Shimko wrote:
+> Hello,
+> 
+> This series adds support for the DAPU Telecom DAP8211R(I) Gigabit
+> Ethernet PHY, commonly used in enterprise and industrial networking
+> applications. The PHY supports 10/100/1000 Mbps operation with RGMII
+> interface and includes features such as IEEE 802.3az Energy Efficient
+> Ethernet, IEEE 1588 SyncE, and an internal packet generator for
+> diagnostics.
+> 
+> The driver implements extended register access via indirect addressing
+> (registers 0x1E/0x1F) and provides comprehensive device tree support
+> for RGMII delay configuration. The rx-internal-delay-ps and
+> tx-internal-delay-ps properties allow precise tuning of clock delays
+> in 150 ps steps from 0 to 2250 ps. The optional dapu,tx-inverted-clk
+> flag enables 180-degree TX clock phase shift for boards where signal
+> integrity or MAC requirements necessitate clock inversion.
 
-Ditto
++Zhi Li
 
-> [ ... ]
-> > static const struct samsung_div_clock top_div_clks[] __initconst =3D {
-> [ ... ]
-> > =09DIV(CLK_DOUT_CMU_CORE_BUS, "dout_cmu_core_bus", "gout_cmu_core_bus",
-> > =09    CLK_CON_DIV_CLKCMU_CORE_BUS, 0, 4),
-> > =09DIV(CLK_DOUT_CMU_CORE_CCI, "dout_cmu_core_cci", "gout_cmu_core_cci",
-> > =09    CLK_CON_DIV_CLKCMU_CORE_BUS, 0, 4),
->=20
-> [Severity: High]
-> Is the wrong hardware register targeted by this divider?
->=20
-> The dout_cmu_core_cci divider targets CLK_CON_DIV_CLKCMU_CORE_BUS instead=
- of
-> CLK_CON_DIV_CLKCMU_CORE_CCI. Could this cause writes to the CCI divider t=
-o
-> inadvertently modify the CORE_BUS divider, potentially hanging the core b=
-us?
->=20
+This isn't the first time we see clock inversion being used to overcome
+RGMII timing issues, for setups that have too big of an internal delay,
+see [1].
 
-Ditto
+I'm wondering if we should either reject this on the account that this
+is bad HW design, or embrace that in which case it would probably be
+a good idea to come-up with more generic ways to handle that.
 
-> [ ... ]
-> > =09DIV(CLK_DOUT_CMU_USB_BUS, "dout_cmu_usb_bus", "gout_cmu_usb_bus",
-> > =09    CLK_CON_DIV_CLKCMU_USB_BUS, 0, 4),
-> > =09DIV(CLK_DOUT_CMU_USB_DPGTC, "dout_cmu_usb_dpgtc", "gout_cmu_usb_dpgt=
-c",
-> > =09    CLK_CON_DIV_CLKCMU_USB_DPGTC, 0, 4),
-> > =09DIV(CLK_DOUT_CMU_USB_BUS, "dout_cmu_usb_usb30drd", "gout_cmu_usb_usb=
-30drd",
-> > =09    CLK_CON_DIV_CLKCMU_USB_USB30DRD, 0, 4),
->=20
-> [Severity: High]
-> Is there an ID collision in this divider array?
->=20
-> The CLK_DOUT_CMU_USB_BUS identifier is reused for dout_cmu_usb_usb30drd.
-> This duplicate definition overrides the earlier USB bus divider registrat=
-ion.
->=20
+This patch proposes the "dapu,tx-inverted-clk" property, while Zhi Li's
+patch has a dedicated compatible for that (and inversion is on RX, on the
+MAC side)
 
-Ditto
+If clock inversion is a common thing for MAC and PHYs to be able to do,
+should we add some way of representing the RGMII delays that are
+introduced by the HW itself in DT, and let drivers figure-out from that
+if they need to resort to clock inversion to align clk and data correctly ?
 
-> [ ... ]
-> > static const struct samsung_gate_clock top_gate_clks[] __initconst =3D =
-{
-> > =09GATE(CLK_GOUT_CMU_MIF_SWITCH, "gout_cmu_mif_switch",
-> > =09     "mux_cmu_mif_switch", CLK_CON_GAT_CLKCMU_MIF_SWITCH,
-> > =09     21, 0, 0),
->=20
-> [Severity: High]
-> Is there a typographical error in the parent clock name?
->=20
-> This gate requests mux_cmu_mif_switch as its parent instead of the
-> registered mout_cmu_mif_switch. Could this orphan the clock gate and
-> prevent proper clock management for the MIF switch?
->=20
+Phylib could maybe even provide helpers for that ?
 
-Ditto
+[1] : https://lore.kernel.org/netdev/20260707064159.1299-1-lizhi2@eswincomputing.com/
 
-> [ ... ]
-> > static const struct samsung_div_clock cpucl0_div_clks[] __initconst =3D=
- {
-> [ ... ]
-> > =09DIV(CLK_DOUT_CLK_CPUCL0_CPU, "dout_clk_cpucl0_cpu", "mout_clk_cpucl0=
-_pll",
-> > =09    CLK_CON_DIV_DIV_CLK_CPUCL0_CPU, 0, 0),
->=20
-> [Severity: High]
-> Could the bit width of 0 for this divider break CPU frequency scaling?
->=20
-> A 0-bit width results in a zero bitmask for the clock divider, causing
-> configuration operations to become no-ops. Will this prevent dynamic
-> frequency scaling for the CPU cluster?
->=20
+Maxime
 
-Need to take a look into this, if this is an issue I will fix it in v3.
-
-> [ ... ]
-> > static const struct samsung_gate_clock cmgp_gate_clks[] __initconst =3D=
- {
-> [ ... ]
-> > =09GATE(CLK_GOUT_CMGP_I2C_CMGP00_IPCLK, "gout_clk_cmgp_i2c_cmgp00_ipclk=
-",
-> > =09     "mout_clk_cmgp_i2c", CLK_CON_GAT_GOUT_CMGP_I2C_CMGP00_IPCLK,
-> > =09     21, 0, 0),
-> > =09GATE(CLK_GOUT_CMGP_I2C_CMGP00_PCLK, "gout_clk_cmgp_i2c_cmgp00_pclk",
-> > =09     "gout_cmu_cmgp_bus", CLK_CON_GAT_GOUT_CMGP_I2C_CMGP00_IPCLK,
-> > =09     21, 0, 0),
->=20
-> [Severity: High]
-> Do these PCLK gates accidentally map to the IPCLK register offsets?
->=20
-> This pattern repeats across the CMGP I2C and USI PCLK definitions, where =
-the
-> IPCLK register offsets are used for the PCLK gate clocks. Could toggling
-> the PCLK gates overwrite the IPCLK state while leaving the actual PCLK
-> unconfigured, leading to unclocked peripheral access hangs?
->=20
-
-Will fix in v3.
-
-> [ ... ]
-> > static const struct samsung_gate_clock core_gate_clks[] __initconst =3D=
- {
-> [ ... ]
-> > =09GATE(CLK_GOUT_CORE_CCI_CLK, "gout_core_cci_clk", "mout_pll_core_cci_=
-user",
-> > =09     CLK_CON_GAT_GOUT_CORE_CCI_CLK, 21, 0, 0),
-> > =09GATE(CLK_GOUT_CORE_CCI_OCC_CLK, "gout_core_cci_occ_clk",
-> > =09     "mout_pll_core_cci_user", CLK_CON_GAT_GOUT_CORE_CCI_CLK,
-> > =09     21, 0, 0),
-> > =09GATE(CLK_GOUT_CORE_G3D_CLK, "gout_core_g3d_clk", "mout_pll_core_g3d_=
-user",
-> > =09     CLK_CON_GAT_GOUT_CORE_G3D_CLK, 21, 0, 0),
-> > =09GATE(CLK_GOUT_CORE_G3D_OCC_CLK, "gout_core_cci_g3d_occ_clk",
-> > =09     "mout_pll_core_cci_user", CLK_CON_GAT_GOUT_CORE_G3D_OCC_CLK,
->=20
-> [Severity: High]
-> Are there copy-paste errors in the CCI and G3D OCC clock definitions?
->=20
-
-> CLK_GOUT_CORE_CCI_OCC_CLK targets the CLK_CON_GAT_GOUT_CORE_CCI_CLK regis=
-ter,
-> meaning both clocks will manipulate the exact same hardware bit. Also,
-> CLK_GOUT_CORE_G3D_OCC_CLK uses the mout_pll_core_cci_user parent instead =
-of
-> the intended G3D parent. Could this break on-chip controller operations a=
-nd
-> clock gating for the Core and GPU domains?
->=20
-Will fix in v3.
-
-> [ ... ]
-> > static const struct samsung_gate_clock dispaud_gate_clks[] __initconst =
-=3D {
-> [ ... ]
-> > =09GATE(CLK_GOUT_DISPAUD_BTM_DPU_ACLK, "gout_dispaud_btm_dpu_aclk",
-> > =09     "mout_cmu_dispaud_disp_user", CLK_CON_GAT_GOUT_DISPAUD_BTM_DPU_=
-ACLK,
-> > =09     21, 0, 0),
->=20
-> [Severity: High]
-> Does this clock gate request an incorrect parent?
->=20
-> It requests mout_cmu_dispaud_disp_user instead of the registered
-> mout_pll_dispaud_disp_user. This error appears on multiple gates in this
-> block. Will this prevent proper clock tree registration for the DPU?
->=20
-
-Ditto
-
-> [ ... ]
-> > static const struct samsung_cmu_info dispaud_cmu_info __initconst =3D {
-> [ ... ]
-> > =09.sysreg_clk_regs=09=3D drcg_cam_memclk_sysreg,
-> > =09.nr_sysreg_clk_regs=09=3D ARRAY_SIZE(drcg_cam_memclk_sysreg),
->=20
-> [Severity: High]
-> Is the wrong sysreg save and restore array bound here?
->=20
-> The sysreg_clk_regs field points to drcg_cam_memclk_sysreg (which uses
-> offset 0x1000) instead of drcg_memclk_sysreg. During suspend and resume, =
-could
-> the DISPAUD domain perform reads and writes to address offset 0x1000 inst=
-ead of
-> its proper DRCG offset (0x104) and fail to restore the correct setting?
->=20
-
-This is intended behaviour, CAM and DISPAUD share the same DRCG_EN offset, =
-different than on the other CMUs.
-
-> [ ... ]
-> > static const unsigned long fsys_clk_regs[] __initconst =3D {
-> > =09PLL_CON0_MUX_CLKCMU_FSYS_BUS_USER,
-> [ ... ]
-> > =09CLK_CON_GAT_GOUT_FSYS_UFS_EMBD_ACLK,
-> > =09CLK_CON_GAT_GOUT_FSYS_UFS_EMBD_FMP_CLK,
-> > =09CLK_CON_GAT_GOUT_FSYS_XIU_D_ACLK,
-> > };
->=20
-> [Severity: High]
-> Is a UFS register missing from this array?
->=20
-> The CLK_CON_GAT_GOUT_FSYS_UFS_EMBD_CLK_UNIPRO register appears to be omit=
-ted
-> from fsys_clk_regs. Could this cause the register to revert to power-on
-> defaults after a suspend and resume cycle?
->=20
-
-Will fix in v3.
-
-> [ ... ]
-> > static int __init exynos9610_cmu_probe(struct platform_device *pdev)
-> > {
-> [ ... ]
-> > static struct platform_driver exynos9610_cmu_driver __refdata =3D {
-> > =09.driver =3D {
-> > =09=09.name =3D "exynos9610-cmu",
-> > =09=09.of_match_table =3D exynos9610_cmu_of_match,
-> > =09=09.suppress_bind_attrs =3D true,
-> > =09},
-> > =09.probe =3D exynos9610_cmu_probe,
-> > };
->=20
-> [Severity: High]
-> Could marking the probe function as __init create an execute-after-free r=
-isk?
->=20
-> The exynos9610_cmu_probe function is mapped into a persistent platform dr=
-iver
-> but marked __init, meaning it resides in memory that is freed after boot.
-> If a compatible device is bound dynamically post-boot, will the driver co=
-re
-> jump into freed memory? Additionally, the use of __refdata suppresses the
-> section mismatch warning that would normally catch this.
->=20
-
-Not an issue
-
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-exynos96=
-10-clocks-v2-0-c13ce8ef1861@chimac.ro?part=3D4
->=20
-
-Regards,
-Alexandru Chimac <alex@chimac.ro>
