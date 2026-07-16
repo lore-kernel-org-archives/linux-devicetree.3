@@ -1,123 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BECF41A781
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 11:36:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF0F941A91A
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 11:37:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784201772; cv=none; b=gL03U5er6fwhMnypQ3C2JQO1gUTIgN4XvQMDxvfDyNjD8lTObrOMXt8jRW8BgA0GsQUoR0pAc/fQpPgxeWX+jhq2pCPcss2S7H4rCsLGrl5p84xdv2QIWZpp/yEfMmwC3cQUseQQXlYTp896n/CwfA5m9OU29uDPmu0rlV+db6c=
+	t=1784201832; cv=none; b=SIMSpSVigLa6RcVngYdlhmq7/8xKkQulkLPYY9VMDD6/IN1Hb7qY5SvytmoFQPnu89GrKa4wbD6TjGeZefi8By22aX+PCZwnFMV/B4t1aou0yiloWjQDUWqJZISjnBJOUzTfxp69SDrHpeUpfXtBfBsMKFPbW8hMPaULdHYFJO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784201772; c=relaxed/simple;
-	bh=DK+AW6Ql7FNEt7mSzoO6JROwyay8ASzJXHvCzpePs4M=;
+	s=arc-20240116; t=1784201832; c=relaxed/simple;
+	bh=netrrtVNI8+Fzq8wi+PksoIeQ6lhDZLiezAncpbNB6E=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ByJmG7HLja+P7aFkzMyyHHlBPS7zo6fCo93myWefQBSehxS6sdeU80taKtliXa0h3NlEz1J8puE7lDXxyHhnggU7JgzHOhFGqqHxy3dhA7INxA3MIFYGWY62tLgxGMh/e3xOmRWmbWxXRIDfoyXF6jTLN/awZ0iy/WYh2GK891M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eBpMgeCd; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=QGgN+YfoLD3rHHLLDBrGI8ZuOYLg4OClZHTQoJwrNuBiHMblJlAi0NQ0OcE4f/WqUm7+NVnZQLEr7BwJFBQXjsMaT84PQ/YFtz5G7ag4tAM88Te4aTrET78bxv9PbYQfTPlGw5E4k2gidsNHCgPGk0m72Npc7YyoRtiBQPA4JMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fQRjlcm0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eBpMgeCd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 850871F00A3A;
-	Thu, 16 Jul 2026 11:36:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fQRjlcm0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CED11F000E9;
+	Thu, 16 Jul 2026 11:37:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784201769;
-	bh=E3Ww+J9dhlePbQo3yPsSYBG0Sik+uy39A44ROGTjViM=;
+	s=k20260515; t=1784201828;
+	bh=nbJg7qRl+5cEMGLrpv86pWrSU7lKBXvZGShoT5t/Oho=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eBpMgeCdNSzPR6dG65UC8aYHKUNG8Mk6gK7L5rkfBEgSGUBtG8fi9pUGxtFGm/WEr
-	 yqLGPU7nl7MXs8L3iY/RChjxLKTUC0w341whOULlQ6ofvXL6mOJ8o7KfOAaRjo6OE2
-	 kt45Uvv72/Gy1ygnxzFuODktK4mxi1vSZPx8njgbOhNhqG5pytEYmvvTFKfjZ2yAUx
-	 Z3IqQX6Apw9hmIUQF08rju3sQy9yTqoCnKPkOTSEsDRdzK46gRk3xkFqiRQxrp1kbD
-	 i5MxVHCrVQcXdRRF4lkqVIrbCvr+4ZUARFfj6WLE6Dc0mUMnoJp0D26ZERGhFkwHWl
-	 YkJBj09B4/gqw==
+	b=fQRjlcm0DQ+qqow4mJATjEhodm5kJVaFk8X2qV+8ph122Gs14ALjGkeBh9lsfikmv
+	 s48l/kUDqy30ggE5RRADH+uVe2pwU2S2Dydfa5UspMjClvnd7wm4IL1UQZlIE85pUC
+	 dce5XVUqJRdDVWi24tkl98t/O+khNVvlrLUAvFk4fbMvRTTiW4QWkSPXQbMib7yd1T
+	 d2G6n9UYHcldQxFAunWCGrimC+pfpCN45yVcQBZxz6+FE4Fi/qSzCQJWHZxx7fhsgL
+	 rvbNF1JaeZ1PbWdOGoZtyBWjiRDCKE8VqyEl5JFuoD962xO9Qdsd8is3GFah648tFV
+	 eCS1Xlc7iJeDg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
- MIPI DSI to HDMI driver
+Subject: Re: [PATCH v3 6/7] clk: Add support for clock nexus dt bindings
 Reply-To: sashiko-reviews@lists.linux.dev
-To: mohit.dsor@oss.qualcomm.com
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260716-lt9611c-v7-v7-1-7553a14735fc@oss.qualcomm.com>
-References: <20260716-lt9611c-v7-v7-0-7553a14735fc@oss.qualcomm.com>
- <20260716-lt9611c-v7-v7-1-7553a14735fc@oss.qualcomm.com>
+To: =?utf-8?b?TWlxdWVsIFJheW5hbCAoU2NobmVpZGVyIEVsZWN0cmljKQ==?= <miquel.raynal@bootlin.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260716-schneider-v7-2-rc1-eip201-upstream-v3-6-98454e83845c@bootlin.com>
+References: <20260716-schneider-v7-2-rc1-eip201-upstream-v3-0-98454e83845c@bootlin.com>
+ <20260716-schneider-v7-2-rc1-eip201-upstream-v3-6-98454e83845c@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 11:36:09 +0000
-Message-Id: <20260716113609.850871F00A3A@smtp.kernel.org>
+Date: Thu, 16 Jul 2026 11:37:08 +0000
+Message-Id: <20260716113708.9CED11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The schema fails to restrict the number of MIPI DSI ports for th=
-e 1-port LT9611C variant, and the updated title inaccurately describes all =
-variants as '2 Port'.
-- [Low] The YAML description uses non-standard fullwidth CJK ideographic co=
-mmas instead of standard ASCII commas.
+
+Pre-existing issues:
+- [High] Unconditional dereference of optional `out_args` pointer in `of_pa=
+rse_phandle_with_args_map()`.
 --
 
---- Patch [1]: [PATCH v7 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/U=
-XD) MIPI DSI to HDMI driver ---
-commit f290f005feeeb3c95f9e36c02a61ab4f708f4e53
-Author: Sunyun Yang <syyang@lontium.com>
+--- Patch [6]: [PATCH v3 6/7] clk: Add support for clock nexus dt bindings =
+---
+commit 6c00bcac0a2f79ec97235472147341c2654575cc
+Author: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
 
-dt-bindings: bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
+clk: Add support for clock nexus dt bindings
 
-This commit adds compatible strings and updates the description for the
-LT9611C, LT9611EX, and LT9611UXD bridge devices.
+This commit introduces support for clock nexus device tree bindings, allowi=
+ng
+inner clocks to be mapped to inlet clocks via the clock-map property. It
+accomplishes this by transitioning the clock subsystem to use
+of_parse_phandle_with_args_map() instead of of_parse_phandle_with_args().
 
-> diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9=
-611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.=
-yaml
-> index 429a06057ae85..e0821a63d9d74 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-> +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-> @@ -4,19 +4,23 @@
->  $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> diff --git a/drivers/clk/clk-conf.c b/drivers/clk/clk-conf.c
+> --- a/drivers/clk/clk-conf.c
+> +++ b/drivers/clk/clk-conf.c
+> @@ -25,8 +25,8 @@ static int __set_clk_parents(struct device_node *node, =
+bool clk_supplier)
+>  		       node);
 > =20
-> -title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
-> +title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
+>  	for (index =3D 0; index < num_parents; index++) {
+> -		rc =3D of_parse_phandle_with_args(node, "assigned-clock-parents",
+> -					"#clock-cells",	index, &clkspec);
+> +		rc =3D of_parse_phandle_with_args_map(node, "assigned-clock-parents",
+> +						    "clock", index, &clkspec);
 
-[Severity: Medium]
-Since the commit message indicates the LT9611C only supports 1 port, should
-the title be updated to reflect that not all of these devices are 2 port
-bridges?
+[Severity: High]
+This is a pre-existing issue, but since this patch transitions the subsystem
+to use of_parse_phandle_with_args_map(), it seems worth noting a flaw in the
+underlying API.
 
-> =20
->  maintainers:
->    - Vinod Koul <vkoul@kernel.org>
-> =20
->  description: |
-> -  The LT9611 and LT9611UXC are bridge devices which convert DSI to HDMI
-> +  The LT9611=E3=80=81LT9611UXC=E3=80=81LT9611C=E3=80=81LT9611EX and LT96=
-11UXD
+Looking at of_parse_phandle_with_args_map() in drivers/of/base.c, there is =
+an
+unconditional dereference of the out_args pointer:
 
-[Severity: Low]
-This isn't a bug, but it looks like fullwidth CJK ideographic commas (U+300=
-1)
-were used here instead of standard ASCII commas.
+drivers/of/base.c:of_parse_phandle_with_args_map() {
+	...
+	ret =3D __of_parse_phandle_with_args(np, list_name, cells_name, -1, index,
+					   out_args);
+	if (ret)
+		return ret;
 
-> +  are bridge devices which convert DSI to HDMI
-> =20
->  properties:
->    compatible:
->      enum:
->        - lontium,lt9611
-> +      - lontium,lt9611c
-> +      - lontium,lt9611ex
+	/* Get the #<list>-cells property */
+	cur =3D out_args->np;
+	...
+}
 
-[Severity: Medium]
-Because the LT9611C is a 1-port device, should there be an allOf/if block
-added to restrict the number of ports for this specific compatible string?
+Since out_args is documented as an optional pointer for this exported symbo=
+l,
+would a caller passing null immediately trigger a kernel panic here due to a
+null pointer dereference?
 
-Without it, wouldn't a device tree using lontium,lt9611c silently pass
-dt_binding_check validation even if it defines both port@0 and port@1?
-
->        - lontium,lt9611uxc
-> +      - lontium,lt9611uxd
-> =20
->    reg:
->      maxItems: 1
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-lt9611c-v7=
--v7-0-7553a14735fc@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-schneider-=
+v7-2-rc1-eip201-upstream-v3-0-98454e83845c@bootlin.com?part=3D6
