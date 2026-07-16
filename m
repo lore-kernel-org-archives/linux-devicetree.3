@@ -1,212 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE836430CDC
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 14:40:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784212812; cv=none; b=mCDrUzcrTPHlJ2fxTwvKVlLal7R0mRM14vWQw90dcNjxrI9K/F0e/offSFlc/XlPwMpdl3g9b+CFkKUs6FS0OVtSA5HIciKF9y82y3UQcelrLypsADtZ+ltr8YfMBYvkWWw/sdZ2S14JHqNOliQn5RoLmwBz7xQmEIX75F/+ip0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784212812; c=relaxed/simple;
-	bh=JUEpNH+5Uu7eSAPH+KVXVvB2Xbxhu8HMCHV9R2Ll30I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cl+NXwaKMO7E/vZP2/7XzlR9J32yz3a9YNw8e04R76vNvz1eLGiCu3lWpAOoDuFVs/1q3mGr5eMAFJCY36zAR4RlgFdbm55EJF1rB7w9QQ5iCvAFQBh2OEetPzgi1q/UKU1ATMSW/BmTiOSPt74ZL3I+uWvXfy9y/UWShL2O+5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AzE7SPNJ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9130243F09C
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 14:41:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784212896; cv=pass; b=m28b41CeyoAeNzoUerchH4Muo0c5lb/yQkdNpduQRfuCoei2//ODjwddShNaKadFxW1wcLALhsWiqu+hzRs5GBO/vdb9QPbdsa+krNah2Dbtbz3RBxs/3eH26o9NakIleU0XvroUOtdHHWk2t5hAyd/kpKhD0OsqAbxS8ZS7G5Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784212896; c=relaxed/simple;
+	bh=hyj3UnvN1eL7blZIruI+pgZz/uFUOhtMU/v3/gNCvNo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=c5y85SayMIubCO/cgMypsGxSeGwPTAyzLwGlpy0CF3U0me6coSiesYQmRrc94Bj+uB7wX8VscWdgGrS0YbqPinyAQBj4amQOwiJpMuE8BC67A/kKY8i9HCgAoSwwRQLhXxMlXkLlJrvT7p2+ZHcj22BBXbd29OQjTVsTdX3HQlU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fq32eMEn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jWHlB759; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AzE7SPNJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DC4F1F000E9;
-	Thu, 16 Jul 2026 14:40:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784212810;
-	bh=5Jkqjn3+GRqyMVfokjze3soSiWWNoHE3c+lZ/okXyDw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AzE7SPNJWqAyYhA53AkQQThDNd1QdvXe3Vk++/CzfIH9tfciQli1jpI1TMj4lHSWg
-	 sgG4ahse3lzTG31HToWG11IXE9/VQYQZgi4h+v/XcBQgEoPu0VTacnZvTvdUKiDLmU
-	 4o3JFmwAORSwiF5T6FIzYbX5JlPv5Q0RWLSqr0LE6gDwZtRpHEm3Hi6RD8Jw94hcVI
-	 I74o1pUDyZLk5ERcuX7urezN9DRuDIQL++ogRSVxD5bS7dY63HMX6D8omlQW6DkzRu
-	 EiVWoTaGAF7aLfOvsiyFwsKirKkKKPg/x7+MxAN59bILkzFql71PjKcyCDkl2m1ZoS
-	 bRad7FIk70hWQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V4 2/3] arm64: dts: qcom: monaco-evk: Enable SDHCI for
- SD Card via overlay
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Monish Chunara" <monish.chunara@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260716142445.2767955-3-monish.chunara@oss.qualcomm.com>
-References: <20260716142445.2767955-1-monish.chunara@oss.qualcomm.com>
- <20260716142445.2767955-3-monish.chunara@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 14:40:09 +0000
-Message-Id: <20260716144010.1DC4F1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fq32eMEn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jWHlB759"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66GDJtCB3988626
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 14:41:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	uUqxKURSoOVb/5L3BwAiJscutjj+pBqwPiIBk2WAZMY=; b=fq32eMEnkSDXCyNI
+	O+OEn+jRvMsMTtmNa8m8gqiLuPqA2oGtOQ7mvg4N+hT3NzUjClAuV6CScNuA0TdU
+	9GlVijnYeCmS/lYORwfduWOa0mCSQ+XTxd/KZlJ8EhYxOkHk6phRqtYkMugLqSw9
+	LPoSTjBDF7DYXdaOBt0fVBPki4cWKimQd3lNASYCEUJMmPcX1dmXxHTBL3kvRqRz
+	DNlTd2tZzOkZbFCDvgIIP/2gbXc0oRYzq50cXSc1YrpWpOcmTFyfH1eZGNskfRxV
+	8i8Jt7O1K68TUzD3qb/YC2zQSc+00matnHCWmrWfkio3K8+oRzkTlrx3cBJalygz
+	NfxUlg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feq3pjs09-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 14:41:34 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92d1cae5740so444073185a.0
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 07:41:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784212894; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dM/BHeV204EwnLQXqFt2LVQG1uWouly3wq+q++7qyrji8AWvWd3N1e8FvcJR27WO+p
+         GiMWGRTSyAoTwuNuKjBvnALaxhli7nNot1GhoUf6xi8gSPLdRNoLZ4RQlrVjh+iMwFtA
+         mt9F5eLvHs8S7j43wqCR3z8mpiYgjH1k0PbwhsJPym6+PqQyzWBBp0HJRq8fRCvhFCW5
+         N1xzIkU3nPCnwAnmcL2pHvqNmgYlZ2mrrQpGh3+cSPvu9TsbI9faOHqkIVLEMjDDhIlc
+         tsfXs/QRQXWImyh89DVWM9Sg8Q+atfhrfjygeQA0PqBiqLZCAi0hj5h1R+kJVVXVAaYZ
+         dOnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uUqxKURSoOVb/5L3BwAiJscutjj+pBqwPiIBk2WAZMY=;
+        fh=+i39ZUua7/KkmkihVOzvtV3Xz8QhnVWNq4eFOusf7ks=;
+        b=Y8kuMtOQQ39wa63LAGjucCOl8Of7lYLN+DUdRsiJfZaE4PNxHxVtcVRuUM0/5AlC9K
+         ZVl0Axpg2Bi2lbTEtTP9eJSrieN0doVNrtqgS8xLvqBPvU1ngHOkjpyAGSExW+80QIsY
+         M6MwjdOgfGdI0L5lIoDLU77trED/gJgWLl4faUSKemK50g06v8Y6GZRnVd3a+52WPpRK
+         VZMXUs9MWljQF5D4vmRM43JUtTtmrxWSf25Xw4EMmZqxGKT2p7LgdAbNJtj3Puak8/n3
+         3bwmijjwkLHvDtlO0At0lDhjXVVyFYnT7KG6bePH+T/h1db48ZbZa0ItO/HEHPuZGrgb
+         Y5Fw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784212894; x=1784817694; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uUqxKURSoOVb/5L3BwAiJscutjj+pBqwPiIBk2WAZMY=;
+        b=jWHlB759jXQNd0zZbYjd4MpwV+XU4gdVgfvMfhI5T8dEmIZIy+ouJ6l8cbAEz/7gBv
+         Y1xPHb0zAmuaEL/wUTvS3/lIF+A8w9kWStPdze7sNanjbfyORJIhcZBYIZwIe9tlOX9D
+         icOEx9nXOF8o5igYIKB/8Uv0rnp5y1iE8+Pgg/yBjingtNgHhSXxNjoXuBtFfXqirm/z
+         pe7d1kUnrc3yDi3KuN2PbRmT8VntKgx/GAP7XFa0k3LuLynogFWBIrVbwe4xTmu3wFe7
+         hwpfpsTM3lh5UDc7BitoWSpethvV2apipvubvQpOVF7i4oFTtO28OVQx8DgwYVp4fcMB
+         ZhyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784212894; x=1784817694;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uUqxKURSoOVb/5L3BwAiJscutjj+pBqwPiIBk2WAZMY=;
+        b=KiLpyP4/qAOUAfBqcjicOWvdPJLwU7gy28TWrElOqKcXBbgdhoK2BrxFgMshqkPiwX
+         OWv59tF5tkFBIJbYx8oubB+jpsmT552DeS/1wcy+Btli3J1zbFZCy2u65gR68xWWqMYW
+         6o0+KK2WfAuRIZxIh+RklxVzny2U0LR5UOkijsHBAKizv3PQg9Qv6xArrEY3FJNZENeG
+         fzAJ+i5HBStgbjskmiRm+O7159ZpE19rKHcMp72cW4+u7yP/gRGLtdYnTeHFDXOV8iMO
+         7GtNn/qTF/6DaQGRkUKMK4+ZXp1B5IYDrKYpu3HS+hWBQgp6umVkAwX0RU9kjpmXpbHL
+         OEIQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrG1eogL8P281+Rf0wAwU677xNdK1Xhq9AuzcudHInPbnNVGDhUY35jAbIjuUHIQYlfbFPp67d25F7T@vger.kernel.org
+X-Gm-Message-State: AOJu0YwDLVP0tuP+/4lc8svN7b4ulkXEMwNpBLXRevaKN4X+qvPy5Dgy
+	eeYK8wURdtE71X5+FyCu+ai55hCzJqhCdQzDyRbtGtL0ZhUN4F5Kuo3EjgFfwAWnXk74Pe5yI29
+	6L9Ak8mt0Nkd5QfoxrU1B7U0tZLcVUqUvilI48nc9WROpFhGhzPOZ9NMwr17o7SpMpqPV+GWjoP
+	BQfSSJAp9FCR9AsO1RLyzbDPtBLW1fgrfjDQaxLo8=
+X-Gm-Gg: AfdE7cktxF9mlxKduaSu71ETUnlX1bQvZgpe0RFG90nAGwzfUs+jLJTxJ/JLdrjwMID
+	j1SnmIrcOmKFtvI5NPKeblnGAmWx3MzbFqg6X1mtv946NUtb4uW9RvCydSqJ6OMyEWSGNnA4+Iw
+	rxvnkfS7cdl4E1bDVC0oofuHY8isMZueU8dBG3Xlirlt3Mc6/8ioeiWV2v/LXcgctaDGkKDdaD6
+	+ZXJx6Li5G8DKaBYT67kLCokICUg7rDyvi+AnLxTkx3rp8OjVqehXIDgWRqylQJwk+YJUr8y/n4
+X-Received: by 2002:a05:620a:254f:b0:92e:7733:e398 with SMTP id af79cd13be357-92ef2c61899mr2368569485a.41.1784212892750;
+        Thu, 16 Jul 2026 07:41:32 -0700 (PDT)
+X-Received: by 2002:a05:620a:254f:b0:92e:7733:e398 with SMTP id
+ af79cd13be357-92ef2c61899mr2368564085a.41.1784212892247; Thu, 16 Jul 2026
+ 07:41:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260710-monza-wireless-v3-0-46253587af64@oss.qualcomm.com>
+ <20260710-monza-wireless-v3-9-46253587af64@oss.qualcomm.com> <6txwszoqlx5msqhspafk2t66hpdf67tfvc6qejeave3gg4fuby@rosphqguupiz>
+In-Reply-To: <6txwszoqlx5msqhspafk2t66hpdf67tfvc6qejeave3gg4fuby@rosphqguupiz>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Thu, 16 Jul 2026 16:41:20 +0200
+X-Gm-Features: AUfX_myENjJrfTQJZMSC_KpPtznIhruyFgPIX7MpMY0JW25MDOTnZMlXQyQrAw4
+Message-ID: <CAFEp6-07-6wzV7c-8mLDCkfVhgwVQ59BdTGvaXovu5PUGBCDZg@mail.gmail.com>
+Subject: Re: [PATCH v3 09/11] dt-bindings: connector: pcie-m2-e: Add vendor
+ LGA connector compatible
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+        devicetree@vger.kernel.org,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: TFXH08_Sh7Q784tSWLt5w9N8bpnxHyf5
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDE1MCBTYWx0ZWRfX9sJ8/5g3eUfU
+ SKsCg9dgIM9SyPDrpkrjXD24JHNUYoDNZYS3DOH0e1fp11+8oXq+n6BHMmzzsELr5+qjjaKtmhC
+ F+SjxM9VIxmHjo5qU7Tklo82Mw031PY=
+X-Proofpoint-GUID: TFXH08_Sh7Q784tSWLt5w9N8bpnxHyf5
+X-Authority-Analysis: v=2.4 cv=PN8/P/qC c=1 sm=1 tr=0 ts=6a58ed9e cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=Kcl6yQRxnNA2GZFW2kQA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDE1MCBTYWx0ZWRfX78cbqhMBPBIM
+ nje2FH7+flO1M62frsMn8ZiCA3aqJKLI/XoJ82EF3fu4gV8eQBowYXoRChiqRjVsvsxslhjAArh
+ luTdsTB1TXKQlYpiWhLqAoSIoJMKIYLipO7v1lVb62+IUv42CJZozY60PprdxPQuA55JnpFOf5j
+ 3o9ZwIGZF/yTXHOyfQTgJacibEvIcHFNjgSeQXxqq7+FdZCrdvW/fQgdhwKrLIBp6DqwAu/5jmr
+ +YiXvWcH4sWVEpVpgbt8IuWa1wbcYCOxnOZr1ek/VryFVEhSlz5EqKLwA2ff08qAFTzQNExK9C3
+ Ae2N/Fkgq4e+Yd5JHWjlF+FB0G7m+2VSSZI/BS3R6NhUMXz5RZqdyeavhgHOfhRI655KcCkciiZ
+ ekNCCH7PGkVgjRQSnKVyAyjVhrR13uyQ44kCAqckO9X9GXVqj1VpC2WQh7VNdUkYyLtLxmeZImX
+ KyGqYbDPKALoBl6IvAQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-16_05,2026-07-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0 adultscore=0
+ priorityscore=1501 impostorscore=0 clxscore=1015 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607160150
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Removal of eMMC configuration from base DT without a replacement o=
-verlay breaks eMMC users.
-- [High] Dummy `vmmc_sdc` regulator fails to control physical hardware powe=
-r.
-- [Medium] The `no-1-8-v` property contradicts the 1.8V hardware regulator =
-and renders added high-speed OPPs unreachable.
-- [Low] Board-level overlay improperly overrides SoC-level OPP voltage corn=
-ers.
-- [Low] Adding a new 202MHz OPP without deleting the existing 200MHz OPP cr=
-eates redundant entries.
---
+On Thu, Jul 16, 2026 at 4:30=E2=80=AFPM Manivannan Sadhasivam <mani@kernel.=
+org> wrote:
+>
+> On Fri, Jul 10, 2026 at 11:57:35AM +0200, Loic Poulain wrote:
+> > Some modules (e.g. the Qualcomm QCA2066/QCNFA765) expose the same M.2
+> > Key E interface signals but are physically soldered as an LGA package
+> > rather than plugged into a real M.2 Key E connector socket. Such design=
+s
+> > are not actual M.2 Key E connectors, so describe them with a dedicated
+> > vendor-specific compatible while keeping "pcie-m2-e-connector" as a
+> > fallback for the shared signal semantics.
+> >
+> > Add "qcom,pcie-m2-1418-lga-connector" for the M.2 LGA 1418 module.
+> >
+>
+> Could you please also add "qcom,pcie-m2-1620-lga-connector"? It is
+> functionally compatible with the Key E connector. Otherwise, I have to wa=
+it for
+> this series to get merged and send one more patch to add this compatible =
+:)
 
---- Patch [2]: [PATCH V4 2/3] arm64: dts: qcom: monaco-evk: Enable SDHCI fo=
-r SD Card via overlay ---
-commit 999af06615677bf3f3fbc5349952dd6ad0631932
-Author: Monish Chunara <monish.chunara@oss.qualcomm.com>
+Sure.
 
-arm64: dts: qcom: monaco-evk: Enable SDHCI for SD Card via overlay
-
-The monaco EVK board supports either eMMC or SD-card, but only one can
-be active at a time. Make the base monaco-evk.dtsi storage-agnostic by
-removing eMMC-specific configuration from it. Introduce an SD card overlay
-that enables the SD Host Controller Interface (SDHCI) for SD-based storage.
-
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom=
-/Makefile
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-[ ... ]
-> +monaco-evk-sd-card-dtbs :=3D monaco-evk.dtb monaco-evk-sd-card.dtbo
-> +dtb-$(CONFIG_ARCH_QCOM) +=3D monaco-evk-sd-card.dtb
-> +
->  dtb-$(CONFIG_ARCH_QCOM)	+=3D msm8216-samsung-fortuna3g.dtb
-
-[ ... ]
-
-> diff --git a/arch/arm64/boot/dts/qcom/monaco-evk.dts b/arch/arm64/boot/dt=
-s/qcom/monaco-evk.dts
-> --- a/arch/arm64/boot/dts/qcom/monaco-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/monaco-evk.dts
-[ ... ]
-> -&sdhc_1 {
-> -	vmmc-supply =3D <&vreg_l8a>;
-> -	vqmmc-supply =3D <&vreg_s2s>;
-> -
-> -	no-sd;
-> -	no-sdio;
-> -	non-removable;
-> -
-> -	status =3D "okay";
-> -};
-
-[Severity: High]
-The commit message mentions moving media selection to overlays, but only the
-SD card overlay is provided. Does this break default eMMC functionality for
-users of the base board?
-
-Removing the eMMC configuration from the base device tree without providing=
- a
-replacement eMMC overlay leaves eMMC users with no alternative, preventing
-the board from booting or functioning correctly if it depends on eMMC.
-
-> diff --git a/arch/arm64/boot/dts/qcom/monaco-evk-sd-card.dtso b/arch/arm6=
-4/boot/dts/qcom/monaco-evk-sd-card.dtso
-> new file mode 100644
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/monaco-evk-sd-card.dtso
-> @@ -0,0 +1,72 @@
-[ ... ]
-> +/ {
-> +        vmmc_sdc: regulator-mmc-sdc {
-> +                compatible =3D "regulator-fixed";
-> +
-> +                regulator-name =3D "vmmc_sdc";
-> +                regulator-min-microvolt =3D <2950000>;
-> +                regulator-max-microvolt =3D <2950000>;
-> +        };
-
-[Severity: High]
-Will this dummy vmmc_sdc regulator fail to control the physical hardware po=
-wer
-since it lacks a gpio or vin-supply property?
-
-Without physical power control, the SD card might fail to power up or
-experience intermittent power loss if the physical shared rail drops during
-runtime PM.
-
-> +
-> +        vreg_sdc: regulator-sdc {
-> +		compatible =3D "regulator-gpio";
-> +
-> +		regulator-name =3D "vreg_sdc";
-> +		regulator-type =3D "voltage";
-> +		regulator-min-microvolt =3D <1800000>;
-> +		regulator-max-microvolt =3D <2950000>;
-> +
-> +		gpios =3D <&expander1 7 GPIO_ACTIVE_HIGH>;
-> +		states =3D <1800000 1>, <2950000 0>;
-> +
-> +		startup-delay-us =3D <100>;
-> +        };
-> +};
-> +
-> +&sdhc_1 {
-> +	vmmc-supply =3D <&vmmc_sdc>;
-> +	vqmmc-supply =3D <&vreg_sdc>;
-> +
-> +	pinctrl-0 =3D <&sdc1_state_on>, <&sd_cd>;
-> +	pinctrl-1 =3D <&sdc1_state_off>, <&sd_cd>;
-> +	pinctrl-names =3D "default", "sleep";
-> +
-> +	cap-sd-highspeed;
-> +	no-1-8-v;
-
-[Severity: Medium]
-Could the no-1-8-v property be incorrect here?
-
-It contradicts the 1.8V hardware regulator (vreg_sdc) configured above and
-prevents the MMC core from ever utilizing the high-speed UHS-I OPPs defined
-in this overlay.
-
-> +
-> +	bus-width =3D <4>;
-> +	cd-gpios =3D <&tlmm 11 GPIO_ACTIVE_LOW>;
-> +	no-mmc;
-> +	no-sdio;
-> +
-> +	status =3D "okay";
-> +};
-> +
-> +&sdhc1_opp_table {
-> +	opp-100000000 {
-> +		opp-hz =3D /bits/ 64 <100000000>;
-> +		required-opps =3D <&rpmhpd_opp_low_svs>;
-> +	};
-
-[Severity: Low]
-Does this improperly override the SoC-level OPP voltage corners from a
-board-level overlay?
-
-Operating Performance Points and their required voltage corners are typical=
-ly
-fundamental properties of the SoC silicon, so modifying them here might be
-semantically incorrect and cause instability.
-
-> +
-> +	opp-202000000 {
-> +		opp-hz =3D /bits/ 64 <202000000>;
-> +		required-opps =3D <&rpmhpd_opp_svs_l1>;
-> +	};
-> +};
-
-[Severity: Low]
-When adding the 202MHz OPP, does the existing 200MHz OPP need to be explici=
-tly
-removed with a /delete-node/ directive?
-
-Leaving it intact could create redundant, overlapping entries for the same
-voltage corner when the overlay is parsed.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716142445.2767=
-955-1-monish.chunara@oss.qualcomm.com?part=3D2
+>
+> - Mani
+>
+> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+> > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> > ---
+> >  .../devicetree/bindings/connector/pcie-m2-e-connector.yaml         | 7=
+ ++++++-
+> >  1 file changed, 6 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/Documentation/devicetree/bindings/connector/pcie-m2-e-conn=
+ector.yaml b/Documentation/devicetree/bindings/connector/pcie-m2-e-connecto=
+r.yaml
+> > index f7859aa9b63469cb43919c0b5719c18694c5364d..0282c6ee9272446064a99ec=
+6314a5ceb1721e0c4 100644
+> > --- a/Documentation/devicetree/bindings/connector/pcie-m2-e-connector.y=
+aml
+> > +++ b/Documentation/devicetree/bindings/connector/pcie-m2-e-connector.y=
+aml
+> > @@ -17,7 +17,12 @@ description:
+> >
+> >  properties:
+> >    compatible:
+> > -    const: pcie-m2-e-connector
+> > +    oneOf:
+> > +      - const: pcie-m2-e-connector
+> > +      - items:
+> > +          - enum:
+> > +              - qcom,pcie-m2-1418-lga-connector
+> > +          - const: pcie-m2-e-connector
+> >
+> >    vpcie3v3-supply:
+> >      description: A phandle to the regulator for 3.3v supply.
+> >
+> > --
+> > 2.34.1
+> >
+>
+> --
+> =E0=AE=AE=E0=AE=A3=E0=AE=BF=E0=AE=B5=E0=AE=A3=E0=AF=8D=E0=AE=A3=E0=AE=A9=
+=E0=AF=8D =E0=AE=9A=E0=AE=A4=E0=AE=BE=E0=AE=9A=E0=AE=BF=E0=AE=B5=E0=AE=AE=
+=E0=AF=8D
