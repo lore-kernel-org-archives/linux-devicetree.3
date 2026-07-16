@@ -1,314 +1,351 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC9630C158
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 03:25:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B04D3093CB
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 03:37:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784172329; cv=none; b=eFh6CjdehYUrfZ+y+81ZaCy/R1tUgCXpAPwshUr/9QzOnbOrFdsVb7sePAnD4+ugGzpv7jKV0VTA2leOCyzcBW6ErtyXZRtANQYylwaG6nxE/1csbndAOGXlcgYG3lYZd45tRFy9kVNsa1jOefWkbMUsPdyWHNHMcN51ZNE59R0=
+	t=1784173078; cv=none; b=GF3rIp1Diq36uMTv8HIVXO/4G0W0m5o3id8wQFVhFE406T+Aqs0fAqV80tstjmfgGy9MAvhOfuxVikD1n5qFAzXjPChhX2xUeg3zSweyWXhKhOpDNeWFbxpXhbd9oO2QlM3kk3L8NsIRWz6+hhMpAyXa0X6R3WAM9aJNeP3ex1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784172329; c=relaxed/simple;
-	bh=JJJqpdOoOWRkbbqhEFoEULmuzOBL9e8cVVq+8PgWqQg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k0MT6FMf08F5NFPcfM4P3nQwb+8QzgHrFdhcQWsoeQlmzMKRRxq6pZV6sYlBiEwMEyG5MMveiR2uwr5xFkelFTKkdaKs44S/ij9La3XcSCt/FRfn+ujgvLPMGEqszCoosD6lRtOekHe0KvnFF49UdR4lvtreNef9RVH62byggP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LnyxeJJ1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b3s1H+lp; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784173078; c=relaxed/simple;
+	bh=eAzrQS5jJm58a105vslbbAI90is7oRcbhnpc5Cx9Tj0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=D22Fw3UI0oiOnDgUFTDBaPN1zrjkGAC0PLVy2Ad1405IPfaigPCNs9xmGXmbAgJVx4Kz2RhvZUoqz/wWZym6FUsdTo5XEjNj8DiUPG+4kFYRes0mj2/68dXgo9CXeNIj60MmUj1g8kmCj2wn3jLrzeCEDAznrbkgUv5gVDFP9mw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aPlyYPiV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LnyxeJJ1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b3s1H+lp"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66G0XfQm967153
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 03:25:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	X1ybYc426zROeJ2cJ654qj0Tvm1CL4rw4t5xtxWhRtk=; b=LnyxeJJ1am22rRlJ
-	kj9iIzzTcvPkHUqsBgKwKNqgwOycQ+uu+WxltiVERTdCS5LwSsWXRQEulZ+Q2QNb
-	kFlz0TkG0Woa6XSakMVRhKdVmHM0ArN3Fr+jZX6nK1bhXRb9IuTMQX/ao2Kglyql
-	XszFK+H9KPqtO1rME5J/8c80McDzhLRjh1yBRJPEwTBZJdtaSiCqAroyJBC/QVs2
-	+AlISUZOkbBr6UzNVPRIofzvJUcB2h9tRQOxIukPZ5OUrhy8FAivK0in0hmpb/kT
-	cP9uZPc00+qMAAoy3G3Yivld0twMjZNRcV3CVFVBKXtZSb63ns8n1vPJ+O7A6n+n
-	3z9UBQ==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fe7kabvjw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 03:25:27 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38dde0df80bso7431745a91.3
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 20:25:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784172327; x=1784777127; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=X1ybYc426zROeJ2cJ654qj0Tvm1CL4rw4t5xtxWhRtk=;
-        b=b3s1H+lpky9LSS/s0/eS7ZGZ4rcJdLHzF3J0PeVEp5PZUQbFAIgkUsxOLg0gAh6R1q
-         PRA7HW4yBdsh2eCu7xOtPVWo8RjRbZoxx/rrIgecQsb0jpVbKVANbEHwV6YLpeamiLyI
-         xrCuaFNow4AQe955Ha87cMLsv3lxVbzChdWz2xro1HSOe1pkWcK7Z7aKC+i5YikgEswq
-         jFd7TsxDBz3FES301RyD6p5YFuBUhzcLrbbsD6KmmRUIpjSwRqvtm8iIJDZnvGw18aAt
-         zYb1Wtc4bpH3Iph7u8nLBF5CNFkfhTQ659yRdbqhnbK4N+60OEBHTw1n0zZuhmBdNIao
-         e0hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784172327; x=1784777127;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=X1ybYc426zROeJ2cJ654qj0Tvm1CL4rw4t5xtxWhRtk=;
-        b=c1+7TlMR4/R5uKiwy0yJ1KZVw4cMSfUAD0l6Z4cWSwMq7PTX6ds7ynxf3lf7GMS6y4
-         hy5m68lbZrYO+MS9S3Vgvx5WIOgv+RAUTFvPdeyr1IQoNjSwIGLyGV5hA7YvuWFks4Wr
-         zjvNR+1+FNR0S8foYOS3YNeduPGB6yO6q5wAH4KMVyIKnRBdHlEsypb9qNNLvGdzRxyx
-         F4AuOhhdw3VHO2BVXVIsGuD6TF9Yu5YwLiC0JtQfT/bcFVrz4A84DW01J4xsBImRii4M
-         AdS6ZDjehXD3/M7Vsg/GiBDASQMiYZfwzV/DcFLU9IctfsuQ69yyIVmdSWLdrV61cGUt
-         QEZw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr4UYjMb6oc4dc4OkgENtQbut0F6eGdswG/T9JMdU13bBvtkEHC8UDL6mx94mDcXS6iUl7q/z97LGzS@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw/hNzx939NlwXoq0MQ3rYOcDtUcrMwZC+84Cno+vFBB/rM0qAN
-	yh7txuDG4KjsGLYGOxjTRBmqLWb2Wr9E3jTi5znZSQxxIXlvZHL6CiMXBeFvVWO74f8ItXM8h9n
-	fUj2mJtUKdgaw2qtFczJ5cx1gLafgxjGWRaFU3xeXArNrrHyLV/1uLpumjOd6w3vC
-X-Gm-Gg: AfdE7cmUXh3aPGTah25WdeDqSSPt9p1rkMHmnvOOptqQnkVnZ9jTdrJYTwz4W8joNaq
-	EsKCpH8o6WcQOdMUEXarlHSUpVGhj9XTCZdhklPh0HWQXwXYws/1zSjYa9+BIT8aG69bnbf9s3t
-	NB8oA9egb+TKm6GFtxbaZ+yikJ28PO7tHzHZmjwnuVdlenEjuKmCKTvKSubfMoYp3eJVaYpp3wj
-	Ts8GRifWOXYxm2UOM+eNQvE6CstK3s7049NSCj83EJLLw/AG8cDLk00VypFzWnxbTrQV9VyEYan
-	rMuaOfBQhVM/RK2S15BsuG9g4I3j4ksWllqrvm5a4zQUpkTCNNkCYD/lsNrV7zArdtH/Gu7lZQH
-	ki9cJ13F4u2FWofMMmDzJiKwDTkLRNWUr
-X-Received: by 2002:a17:90b:58cd:b0:37f:9cdf:f0af with SMTP id 98e67ed59e1d1-38e17e675fcmr8351615a91.30.1784172326842;
-        Wed, 15 Jul 2026 20:25:26 -0700 (PDT)
-X-Received: by 2002:a17:90b:58cd:b0:37f:9cdf:f0af with SMTP id 98e67ed59e1d1-38e17e675fcmr8351590a91.30.1784172326302;
-        Wed, 15 Jul 2026 20:25:26 -0700 (PDT)
-Received: from [10.206.105.200] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3140e6c0702sm6022581eec.22.2026.07.15.20.25.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 15 Jul 2026 20:25:25 -0700 (PDT)
-Message-ID: <33d2e2dc-949a-c570-77ad-cb7aa31de110@oss.qualcomm.com>
-Date: Thu, 16 Jul 2026 08:55:21 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aPlyYPiV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2C7D1F00ACA
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 03:37:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784173075;
+	bh=XgZ2nri1dVQUv+OC6nEcIyOg0ikyLWX/SAenZAmZR1Q=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=aPlyYPiVOlXE5nAqF123bTHudfMYRJ4I+23bnExGtIBwVXHcwZVqnPSvkZCnCAvsv
+	 /XS3H62ZsMSXSBIewwaUSquQIc0F7hSYaNobyxjeaXJy0kzFzoTP2o25PTL7Z157MJ
+	 2tINctdb6xb0VvCAIEK9fsIBB2rYus1737u+zHqaEZ30zvz2kyMhtgoh/kXHT6vMqb
+	 YrQskwsfbyh3Y6TOpQCwUL+rLW1bmiAWk7INLCgTHrzLUz9n7M5kjejVEkUq1OD/is
+	 mgabKi7003WaHPDF1XoVlXWZ1Wtr1kdtPPId4CE7perQdOTBAS49P7VL+5x6AfGKWJ
+	 7CRx+kIZasRbw==
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c1601d552a8so639185666b.2
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 20:37:55 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rr3NEw3Hwmm/xQpHBnqZi/RdAPwK1foNGPynO4A7ZroKT3O26HiqtYxgQyi/m+M+D9eXFIWJ1nW2jtM@vger.kernel.org
+X-Gm-Message-State: AOJu0YwtG6AQBg92G8KvcIxQfIYcnqoOWACOkIzV/diHqZgKEe+1QXnE
+	JuSNEB5m2H0Un/Rgk5R4hvvvhiWo4wSCDZJTiMkTSMnbWK8TMq9gDz67xzKNa194h1LdW2u58ab
+	qeNiv0Y8K5kwXM7xnsEqlnb9oQRJ3tgw=
+X-Received: by 2002:a17:907:720d:b0:c16:29eb:e834 with SMTP id
+ a640c23a62f3a-c16679e62a5mr543463866b.21.1784173074241; Wed, 15 Jul 2026
+ 20:37:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v9 06/14] media: iris: Enable Secure PAS support with
- IOMMU managed by Linux
-Content-Language: en-US
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-References: <20260715-glymur-v9-0-8cf2cbe12a07@oss.qualcomm.com>
- <20260715-glymur-v9-6-8cf2cbe12a07@oss.qualcomm.com>
- <20260715143702.5B4871F000E9@smtp.kernel.org>
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <20260715143702.5B4871F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=TMF1jVla c=1 sm=1 tr=0 ts=6a584f27 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=lvrHWu7ls6kq8uvtA70A:9
- a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-GUID: Fq9FLgsw-7xWfjAWyWD_pEOyIhACxogt
-X-Proofpoint-ORIG-GUID: Fq9FLgsw-7xWfjAWyWD_pEOyIhACxogt
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDAzMSBTYWx0ZWRfX3/MZf1vdw2+D
- 6pOsZgLfj9bzJL6+yDgOLUWKJovc4Jquj8qrI1QUzG3xzmwx3XH3jrgH30uUCJl28ZllSt13ytN
- hhTC9OIjyzPHdMSY7cjzjaebSJ4VQK0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDAzMSBTYWx0ZWRfX/OUsmp/nGnpo
- QBVT2fKw7I25duLeRgRUOA3vTqL7ST88pvDItfMGZkmJmEHfkwLtXjCIRK3nVAWDF440BVbX2mR
- xMAN5HO+OhIab8BSlVEXHO/12XoqNuOsE6IHVdcRa8BbxYj7JTDXtOUeF/2XZtTM7iaErkZ293a
- SM7p9YRGrFJ38MkammWxLcoreVdV/P54fxfI0CKQAah44tdFHsexAnHcUYJzsyjjeUU579x0eRS
- 1fsXaTwv21nAuChtnhYz1/t1E/Oyy2tbmj5/9RORIesGnXH8IWFxzAfex7EEtGXqw0US4Y0gufF
- B3CnEN2yRpGfE2V3kCZ4s8EUWmXPUQxxSjDzeZg1D7pwBHtCCwK0Bbxj0s0fxQQTraxL6ZpWN8b
- L/8gQ2fSpbPpjNx0NS7imZ/Q9WLdCNHSo4fvL1oE3huA7inRJ+E+T1LmLiuCyEx8DL2itcFxtlR
- kGBFwxnu6Rbrg5wXYwg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-16_01,2026-07-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 phishscore=0 suspectscore=0 impostorscore=0
- priorityscore=1501 bulkscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607160031
+References: <cover.1783670011.git.zhoubinbin@loongson.cn> <e5a574b2ae0e5e0ec32fe81c0ccd03eb3ad5a164.1783670011.git.zhoubinbin@loongson.cn>
+ <CAAhV-H6Ae=J9a6y6C9WE-sfUJnrypWpc8e01VHJ3ndVt-F+RXA@mail.gmail.com> <CAMpQs4JQTnP96akj9V8iHjnPSj10_zmv=0+0j-6RbUB304BF0w@mail.gmail.com>
+In-Reply-To: <CAMpQs4JQTnP96akj9V8iHjnPSj10_zmv=0+0j-6RbUB304BF0w@mail.gmail.com>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Thu, 16 Jul 2026 11:37:41 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H5J1mv6gEC9=GJqVV4fRovtO-=ZpzG54Yx=qLM7yX=2ew@mail.gmail.com>
+X-Gm-Features: AUfX_mzp8tz56yfA5TSBliVNRJBy9RYVvG5ZL73akYAlKRxbzGBIg68oJHb9ePo
+Message-ID: <CAAhV-H5J1mv6gEC9=GJqVV4fRovtO-=ZpzG54Yx=qLM7yX=2ew@mail.gmail.com>
+Subject: Re: [PATCH 2/2] thermal/drivers/loongson2: Add thermal driver support
+ for Loongson-2K0300
+To: Binbin Zhou <zhoubb.aaron@gmail.com>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Huacai Chen <chenhuacai@loongson.cn>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
+	Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, Jul 16, 2026 at 10:31=E2=80=AFAM Binbin Zhou <zhoubb.aaron@gmail.co=
+m> wrote:
+>
+> Hi:
+>
+> On Fri, Jul 10, 2026 at 10:32=E2=80=AFPM Huacai Chen <chenhuacai@kernel.o=
+rg> wrote:
+> >
+> > Hi, Binbin,
+> >
+> > On Fri, Jul 10, 2026 at 4:25=E2=80=AFPM Binbin Zhou <zhoubinbin@loongso=
+n.cn> wrote:
+> > >
+> > > The Loongson-2K0300 SoC uses a new thermal sensor that requires readi=
+ng
+> > > a separate CPU ID register to obtain hardware version information. Th=
+is
+> > > version info is used as a correction factor (fix_data) in the
+> > > temperature calculation formula.
+> > >
+> > > Its thermal sensor requires the following hardware-specific handling:
+> > >  - Read chip ID register (offset 0x0 and 0x4) to get the compensation
+> > >    value (comp_val). The value is stored in either bits [31:20] of th=
+e
+> > >    ID0 register or bits [15:0] of the ID1 register, depending on the
+> > >    EXTERN_ID bit.
+> > >
+> > >  - The compensation value is a signed 15-bit field; extract the value
+> > >    and apply sign accordingly.
+> > >
+> > > Additionally, some early Loongson-2K0300 chips may have an old fuse t=
+hat
+> > > yields invalid temperature readings outside the -55 to 125 range. In
+> > > such cases, the driver falls back to a simplified formula (raw * 569 =
+-
+> > > 394700) and logs a warning, ensuring the system can still function
+> > > without crashing.
+> > >
+> > > Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+> > > ---
+> > >  drivers/thermal/loongson2_thermal.c | 83 ++++++++++++++++++++++++++-=
+--
+> > >  1 file changed, 77 insertions(+), 6 deletions(-)
+> > >
+> > > diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/lo=
+ongson2_thermal.c
+> > > index ea4dd2fb1f47..a7eb87070aa9 100644
+> > > --- a/drivers/thermal/loongson2_thermal.c
+> > > +++ b/drivers/thermal/loongson2_thermal.c
+> > > @@ -2,9 +2,11 @@
+> > >  /*
+> > >   * Author: zhanghongchen <zhanghongchen@loongson.cn>
+> > >   *         Yinbo Zhu <zhuyinbo@loongson.cn>
+> > > - * Copyright (C) 2022-2023 Loongson Technology Corporation Limited
+> > > + *         Binbin Zhou <zhoubinbin@loongson.cn>
+> > > + * Copyright (C) 2022-2026 Loongson Technology Corporation Limited
+> > >   */
+> > >
+> > > +#include <linux/bitfield.h>
+> > >  #include <linux/interrupt.h>
+> > >  #include <linux/io.h>
+> > >  #include <linux/minmax.h>
+> > > @@ -23,27 +25,44 @@
+> > >  #define LOONGSON2_THSENS_CTRL_LOW_REG  0x8
+> > >  #define LOONGSON2_THSENS_STATUS_REG    0x10
+> > >  #define LOONGSON2_THSENS_OUT_REG       0x14
+> > > +#define LOONGSON2_THSENS_CFG_REG       0x18
+> > >
+> > >  #define LOONGSON2_THSENS_INT_LO                BIT(0)
+> > >  #define LOONGSON2_THSENS_INT_HIGH      BIT(1)
+> > >  #define LOONGSON2_THSENS_INT_EN                (LOONGSON2_THSENS_INT=
+_LO | \
+> > >                                          LOONGSON2_THSENS_INT_HIGH)
+> > >  #define LOONGSON2_THSENS_OUT_MASK      0xFF
+> > > +#define LS2K0300_THSENS_OUT_MASK       GENMASK(10, 0)
+> > The naming is a little strange, maybe use LOONGSON2_THSENS_OUT_8B_MASK
+> > and LOONGSON2_THSENS_OUT_10B_MASK?
+> >
+> > > +
+> > > +#define LS2K0300_CHIP_ID1              0x4
+> > Also define LS2K0300_CHIP_ID0 here?
+> >
+> > > +#define LS2K0300_EXTERN_ID             BIT(4)
+> > > +#define LS2K0300_ID0_VAL_MASK          GENMASK(31, 20)
+> > > +#define LS2K0300_ID1_VAL_MASK          GENMASK(15, 0)
+> > > +
+> > > +#define LS2K0300_COMP_VAL_MASK         GENMASK(14, 0)
+> > > +#define LS2K0300_COMP_SIGN_BIT         BIT(15)
+> > > +
+> > > +#define LS2K0300_LOWEST_VALID_TEMP     (-55000)
+> > > +#define LS2K0300_HIGHEST_VALID_TEMP    (125000)
+> > >
+> > >  /*
+> > >   * This flag is used to indicate the temperature reading
+> > >   * method of the Loongson-2K2000
+> > >   */
+> > >  #define LS2K2000_THSENS_OUT_FLAG       BIT(0)
+> > > +#define LS2K0300_CHIP_ID_FLAG          BIT(1)
+> > >
+> > >  struct loongson2_thermal_chip_data {
+> > >         unsigned int thermal_sensor_sel;
+> > >         unsigned int flags;
+> > > +       const struct thermal_zone_device_ops *thermal_ops;
+> > >  };
+> > >
+> > >  struct loongson2_thermal_data {
+> > > +       struct device *dev;
+> > >         void __iomem *ctrl_reg;
+> > >         void __iomem *temp_reg;
+> > > +       void __iomem *id_reg;
+> > >         const struct loongson2_thermal_chip_data *chip_data;
+> > >  };
+> > >
+> > > @@ -71,6 +90,38 @@ static int loongson2_thermal_set(struct loongson2_=
+thermal_data *data,
+> > >         return 0;
+> > >  }
+> > >
+> > > +static int loongson2_2k0300_get_temp(struct thermal_zone_device *tz,=
+ int *temp)
+> > > +{
+> > > +       struct loongson2_thermal_data *tdata =3D thermal_zone_device_=
+priv(tz);
+> > > +       int calib_data, calib_offset, temp_mc, raw_adc;
+> > > +       u32 chip_id0, chip_id1;
+> > > +
+> > > +       raw_adc =3D FIELD_GET(LS2K0300_THSENS_OUT_MASK,
+> > > +                           readl(tdata->ctrl_reg + LOONGSON2_THSENS_=
+OUT_REG));
+> > > +       chip_id0 =3D readl(tdata->id_reg);
+> > > +       chip_id1 =3D readl(tdata->id_reg + LS2K0300_CHIP_ID1);
+> > > +
+> > > +       if (chip_id0 & LS2K0300_EXTERN_ID)
+> > > +               calib_data =3D FIELD_GET(LS2K0300_ID1_VAL_MASK, chip_=
+id1);
+> > > +       else
+> > > +               calib_data =3D FIELD_GET(LS2K0300_ID0_VAL_MASK, chip_=
+id0);
+> > > +
+> > > +       calib_offset =3D FIELD_GET(LS2K0300_COMP_VAL_MASK, calib_data=
+);
+> > > +       if (calib_data & LS2K0300_COMP_SIGN_BIT)
+> > > +               calib_offset =3D -calib_offset;
+> > > +
+> > > +       temp_mc =3D (raw_adc + calib_offset) * 570 - 394700;
+> > > +
+> > > +       /* For old fuse which can not read right thermal data */
+> > > +       if (temp_mc < LS2K0300_LOWEST_VALID_TEMP || temp_mc > LS2K030=
+0_HIGHEST_VALID_TEMP) {
+> > Is there a better way to detect the old fuse? Because I think temp_mc
+> > between LS2K0300_LOWEST_VALID_TEMP and  LS2K0300_HIGHEST_VALID_TEMP is
+> > also not valid for the old fuse.
+>
+> Try communicating in person; there=E2=80=99s no better way. The current
+> judgment criteria can only accommodate the standard temperature range.
+I suggest
+#define LS2K0300_OLD_FUSE_FLAG BIT(2)
 
-On 7/15/2026 8:07 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+Then when you get a temp out of normal range, set this flag. And use
+"raw_adc * 569 - 394700" directly for the future if this flag is set.
+
+Huacai
 >
-> New issues:
-> - [High] Missing cleanup of PAS metadata DMA allocation introduces a memory leak on every firmware load/unload and load error.
-> - [High] The `core->fw_dev` pointer is added to support Linux-managed IOMMU mapping for the firmware context device, but it is never initialized anywhere in the driver.
+> Also, the `old fuse` refers to the very first batch of chips, so I
+> don=E2=80=99t think the scope of the issue will be very broad.
+> >
+> > Huacai
+> >
+> > > +               dev_warn_once(tdata->dev, "It's an old fuse, thermal =
+%d is not right\n", temp_mc);
+> > > +               temp_mc =3D raw_adc * 569 - 394700;
+> > > +       }
+> > > +       *temp =3D temp_mc;
+> > > +
+> > > +       return 0;
+> > > +}
+> > > +
+> > >  static int loongson2_2k1000_get_temp(struct thermal_zone_device *tz,=
+ int *temp)
+> > >  {
+> > >         int val;
+> > > @@ -112,6 +163,11 @@ static int loongson2_thermal_set_trips(struct th=
+ermal_zone_device *tz, int low,
+> > >         return loongson2_thermal_set(data, low/MILLI, high/MILLI, tru=
+e);
+> > >  }
+> > >
+> > > +static const struct thermal_zone_device_ops loongson2_2k0300_of_ther=
+mal_ops =3D {
+> > > +       .get_temp =3D loongson2_2k0300_get_temp,
+> > > +       .set_trips =3D loongson2_thermal_set_trips,
+> > > +};
+> > > +
+> > >  static const struct thermal_zone_device_ops loongson2_2k1000_of_ther=
+mal_ops =3D {
+> > >         .get_temp =3D loongson2_2k1000_get_temp,
+> > >         .set_trips =3D loongson2_thermal_set_trips,
+> > > @@ -124,7 +180,6 @@ static const struct thermal_zone_device_ops loong=
+son2_2k2000_of_thermal_ops =3D {
+> > >
+> > >  static int loongson2_thermal_probe(struct platform_device *pdev)
+> > >  {
+> > > -       const struct thermal_zone_device_ops *thermal_ops;
+> > >         struct device *dev =3D &pdev->dev;
+> > >         struct loongson2_thermal_data *data;
+> > >         struct thermal_zone_device *tzd;
+> > > @@ -134,6 +189,7 @@ static int loongson2_thermal_probe(struct platfor=
+m_device *pdev)
+> > >         if (!data)
+> > >                 return -ENOMEM;
+> > >
+> > > +       data->dev =3D dev;
+> > >         data->chip_data =3D device_get_match_data(dev);
+> > >
+> > >         data->ctrl_reg =3D devm_platform_ioremap_resource(pdev, 0);
+> > > @@ -145,10 +201,13 @@ static int loongson2_thermal_probe(struct platf=
+orm_device *pdev)
+> > >                 data->temp_reg =3D devm_platform_ioremap_resource(pde=
+v, 1);
+> > >                 if (IS_ERR(data->temp_reg))
+> > >                         return PTR_ERR(data->temp_reg);
+> > > +       }
+> > >
+> > > -               thermal_ops =3D &loongson2_2k2000_of_thermal_ops;
+> > > -       } else {
+> > > -               thermal_ops =3D &loongson2_2k1000_of_thermal_ops;
+> > > +       /* The chip id register is needed for Loongson-2K0300 */
+> > > +       if (data->chip_data->flags & LS2K0300_CHIP_ID_FLAG) {
+> > > +               data->id_reg =3D devm_platform_ioremap_resource(pdev,=
+ 1);
+> > > +               if (IS_ERR(data->id_reg))
+> > > +                       return PTR_ERR(data->id_reg);
+> > >         }
+> > >
+> > >         irq =3D platform_get_irq(pdev, 0);
+> > > @@ -160,7 +219,7 @@ static int loongson2_thermal_probe(struct platfor=
+m_device *pdev)
+> > >         loongson2_thermal_set(data, 0, 0, false);
+> > >
+> > >         for (i =3D 0; i <=3D LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
+> > > -               tzd =3D devm_thermal_of_zone_register(dev, i, data, t=
+hermal_ops);
+> > > +               tzd =3D devm_thermal_of_zone_register(dev, i, data, d=
+ata->chip_data->thermal_ops);
+> > >
+> > >                 if (!IS_ERR(tzd))
+> > >                         break;
+> > > @@ -181,17 +240,29 @@ static int loongson2_thermal_probe(struct platf=
+orm_device *pdev)
+> > >         return 0;
+> > >  }
+> > >
+> > > +static const struct loongson2_thermal_chip_data loongson2_thermal_ls=
+2k0300_data =3D {
+> > > +       .thermal_sensor_sel =3D 0,
+> > > +       .flags =3D LS2K0300_CHIP_ID_FLAG,
+> > > +       .thermal_ops =3D &loongson2_2k0300_of_thermal_ops,
+> > > +};
+> > > +
+> > >  static const struct loongson2_thermal_chip_data loongson2_thermal_ls=
+2k1000_data =3D {
+> > >         .thermal_sensor_sel =3D 0,
+> > >         .flags =3D 0,
+> > > +       .thermal_ops =3D &loongson2_2k1000_of_thermal_ops,
+> > >  };
+> > >
+> > >  static const struct loongson2_thermal_chip_data loongson2_thermal_ls=
+2k2000_data =3D {
+> > >         .thermal_sensor_sel =3D 0,
+> > >         .flags =3D LS2K2000_THSENS_OUT_FLAG,
+> > > +       .thermal_ops =3D &loongson2_2k2000_of_thermal_ops,
+> > >  };
+> > >
+> > >  static const struct of_device_id of_loongson2_thermal_match[] =3D {
+> > > +       {
+> > > +               .compatible =3D "loongson,ls2k0300-thermal",
+> > > +               .data =3D &loongson2_thermal_ls2k0300_data,
+> > > +       },
+> > >         {
+> > >                 .compatible =3D "loongson,ls2k1000-thermal",
+> > >                 .data =3D &loongson2_thermal_ls2k1000_data,
+> > > --
+> > > 2.52.0
+> > >
 >
-> Pre-existing issues:
-> - [High] Missing cancel_delayed_work_sync() for sys_error_handler in driver remove path leads to Use-After-Free.
 > --
->
-> --- Patch [6]: [PATCH v9 06/14] media: iris: Enable Secure PAS support with IOMMU managed by Linux ---
-> commit d784ba63809fa89007c5ca51f86bf7421bf5d466
-> Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
->
->     media: iris: Enable Secure PAS support with IOMMU managed by Linux
->     
->     On platforms where a hypervisor is present, all Secure Monitor Calls
->     (SMC) are intercepted. For qcom_scm_pas_auth_and_reset(), the hypervisor
->     registers a Shared Memory (SHM) bridge over the Peripheral Image Loader
->     (PIL) memory region so that TrustZone (TZ) can access it, forwards the
->     authentication SMC to TZ, and upon return maps the PIL region and
->     triggers the co-processor bring-up sequence.
->
->     Link: https://lore.kernel.org/lkml/20260105-kvmrprocv10-v10-0-022e96815380@oss.qualcomm.com/
->
->> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
->> index 1a476146d7580..56c477b36b619 100644
->> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
->> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
-> [ ... ]
->> @@ -15,11 +17,14 @@
->>  #define IRIS_PAS_ID				9
->>  
->>  #define MAX_FIRMWARE_NAME_SIZE	128
->> +#define IRIS_FW_START_ADDR	0
->>  
->>  static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
->>  {
->> +	struct device *fw_dev = core->fw_dev ? core->fw_dev : core->dev;
-> [Severity: High]
-> Is core->fw_dev initialized anywhere before this point? It appears to be
-> allocated as part of struct iris_core using devm_kzalloc(), but never
-> assigned a value in the driver, meaning it will always be NULL and this will
-> always fall back to core->dev.
->
->>  	const struct firmware *firmware = NULL;
->> -	struct device *dev = core->dev;
->> +	struct qcom_pas_context	*ctx;
->> +	struct iommu_domain *domain;
->>  	struct resource res;
-> [ ... ]
->> @@ -53,9 +65,23 @@ static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
->>  		goto err_release_fw;
->>  	}
->>  
->> -	ret = qcom_mdt_load(dev, firmware, fw_name,
->> -			    IRIS_PAS_ID, mem_virt, mem_phys, res_size, NULL);
->> +	core->pas_ctx->use_tzmem = !!core->fw_dev;
-> [Severity: High]
-> Since core->fw_dev is never initialized, will use_tzmem always be false,
-> causing the entire iommu_map() block below to become dead code?
-
-core->fw_dev will initialized in iris_vpu3x_init_cb_devs function before
-reaching here. It's there in patch-11.
-
->> +	ret = qcom_mdt_pas_load(core->pas_ctx, firmware, fw_name, mem_virt, NULL);
->> +	if (ret)
->> +		goto err_mem_unmap;
->> +
->> +	if (core->pas_ctx->use_tzmem) {
->> +		domain = iommu_get_domain_for_dev(fw_dev);
->> +		if (!domain) {
->> +			ret = -ENODEV;
->> +			goto err_mem_unmap;
-> [Severity: High]
-> If this error path is taken, will it leak the PAS metadata DMA allocation?
-> It seems the caller is required to free the metadata allocated by
-> qcom_mdt_pas_load() using qcom_pas_metadata_release(), but this call
-> is omitted during cleanup and error handling.
-
-It was discussed here, not to add metadata release call in video driver.
-https://lore.kernel.org/all/20260415074140.46bg27tzbuyzjq3d@hu-mojha-hyd.qualcomm.com/
-
->> +		}
->> +
->> +		ret = iommu_map(domain, IRIS_FW_START_ADDR, mem_phys, res_size,
->> +				IOMMU_READ | IOMMU_WRITE | IOMMU_PRIV, GFP_KERNEL);
->> +	}
->>  
->> +err_mem_unmap:
->>  	memunmap(mem_virt);
->>  err_release_fw:
->>  	release_firmware(firmware);
->> @@ -77,13 +115,13 @@ int iris_fw_load(struct iris_core *core)
->>  	ret = iris_load_fw_to_memory(core, fwpath);
->>  	if (ret) {
->>  		dev_err(core->dev, "firmware download failed\n");
->> -		return -ENOMEM;
->> +		return ret;
->>  	}
->>  
->> -	ret = qcom_scm_pas_auth_and_reset(IRIS_PAS_ID);
->> +	ret = qcom_pas_prepare_and_auth_reset(core->pas_ctx);
->>  	if (ret)  {
->>  		dev_err(core->dev, "auth and reset failed: %d\n", ret);
->> -		return ret;
->> +		goto err_unmap;
-> [Severity: High]
-> Does this error path also need to call qcom_pas_metadata_release()? The
-> metadata does not appear to be released here or in the normal success path.
-
-Above reply applicable here also.
-
->>  	}
->>  
->>  	for (i = 0; i < core->iris_platform_data->tz_cp_config_data_size; i++) {
->> @@ -94,20 +132,31 @@ int iris_fw_load(struct iris_core *core)
->>  						     cp_config->cp_nonpixel_size);
->>  		if (ret) {
->>  			dev_err(core->dev, "qcom_scm_mem_protect_video_var failed: %d\n", ret);
->> -			qcom_scm_pas_shutdown(IRIS_PAS_ID);
->> -			return ret;
->> +			goto err_pas_shutdown;
->>  		}
->>  	}
->>  
->> +	return 0;
->> +
->> +err_pas_shutdown:
->> +	qcom_pas_shutdown(IRIS_PAS_ID);
->> +err_unmap:
->> +	iris_fw_iommu_unmap(core);
->> +
->>  	return ret;
->>  }
->>  
->>  int iris_fw_unload(struct iris_core *core)
->>  {
->> -	return qcom_scm_pas_shutdown(IRIS_PAS_ID);
->> +	int ret;
->> +
->> +	ret = qcom_pas_shutdown(IRIS_PAS_ID);
->> +	iris_fw_iommu_unmap(core);
->> +
->> +	return ret;
->>  }
-> [Severity: High]
-> Does iris_fw_unload() also need to call qcom_pas_metadata_release()?
-> If the PAS metadata context is not released, won't it cause a memory leak
-> on every firmware load/unload cycle?
->
->
-> [Severity: High]
-> This is a pre-existing issue, but does iris_remove() need to cancel the
-> sys_error_handler delayed work before destroying resources?
-
-Yes, this is addressed with
-https://lore.kernel.org/all/20260604054708.42426-1-dennylin0707@gmail.com/
-
-> If a hardware fatal error interrupt schedules the work, and the driver is
-> unbound before the delay expires, it looks like iris_remove() will destroy
-> the mutex and free the core struct without calling cancel_delayed_work_sync().
-> Could this lead to a use-after-free when the delayed work eventually executes?
->
-> drivers/media/platform/qcom/iris/iris_probe.c:iris_remove() {
-> ...
-> 	iris_core_deinit(core);
-> 	...
-> 	iris_deinit_cb_devs(core);
->
-> 	mutex_destroy(&core->lock);
-> }
->
-> drivers/media/platform/qcom/iris/iris_probe.c:iris_sys_error_handler() {
-> 	struct iris_core *core =
-> 			container_of(work, struct iris_core, sys_error_handler.work);
->
-> 	iris_core_deinit(core);
-> 	iris_core_init(core);
-> }
->
+> Thanks.
+> Binbin
