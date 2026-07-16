@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FBD841F7D4;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50FE243C7C8;
 	Thu, 16 Jul 2026 17:15:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784222105; cv=none; b=u64RJoJncssSkSNO+9upjgJlvZ5S8dqlQ7P98Q3uDcItGZy8qt7gOEiHKtCRD/8BkbXX43TKMRm2IYvGSanviJ4A1s+gTISoA00OqbADPFs85aJAV298/lZODwCqg27o5X7Ua2Qc6HASBMaVy2Js1n6bCwzSE1OmKxBjCWvO9Ss=
+	t=1784222105; cv=none; b=eESAlyGv89VCDi2qRF3ITdRlmY19+S1JxUOKTGMFzU4DZDopnxEsc1eSDNWHkSGmvp6k4bXHI2iRX3hrKv7Db7FkBEbmZhbyc8xwM1xRBeB12vhv4w6oD8fu8bLEWsxNc8Oo/gGeHpktAjHyjU8xfbkUAhivbxKLYACGW5XKElg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784222105; c=relaxed/simple;
-	bh=xgTRU9NV8KIK7EesLO8Tv+TyYxZkVzU2UTJ6xlZVF6s=;
+	bh=hBEunpQWvteHiQBkH6asR7vbgoJFracR/Af+GMB/nmw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RSxsjNDujgTxhoLkKeMz9ZlhZWm9OjkmLuruGvROavLJ+sCzd/6WgFvA4ZuHy2fmbONi5KhAw8L0fCsG/m8Si1ZSTpCyZfCtIkn9e6nXt1uTLjPEt67/7VNXIsmP8dJxFJgz3UtT4u8T2oMVLBBYecVhDPcT2J+Fc2z8jf/+8LU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eLHDdwfg; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=rMz/jznSkLiDQlcnyPaNRK998kbrBzo/Lty7yLaFAlhsIKO+/sXwCJuTKxjj1s9NSiFYQNLL/636FmE6erJk1vvix2TKH+pn9PWW3AkexlnikOP6HvSHGDV6EV/IiBDb9CpL6V9W7L2KHjBpBYOYtZCk9/SfUBIblMTged5KlcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M/b6fDHr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eLHDdwfg"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C2E81C2BCB9;
-	Thu, 16 Jul 2026 17:15:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M/b6fDHr"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0BAF0C2BCF5;
+	Thu, 16 Jul 2026 17:15:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784222104;
-	bh=xgTRU9NV8KIK7EesLO8Tv+TyYxZkVzU2UTJ6xlZVF6s=;
+	s=k20201202; t=1784222105;
+	bh=hBEunpQWvteHiQBkH6asR7vbgoJFracR/Af+GMB/nmw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=eLHDdwfgr5dknIUm1yMt+S08IKZ0HA5mxHIR6WakAvgCHB5Z+hqVMHmxx4n7um/4B
-	 w327w3AQonOg2oXjYowClacTtE5DGvQp+3JfnBJjDJWpCHEI7q/KimEDyZ8+8GbOMv
-	 9iDFynGsSC2UfCGOGl7pK9zxqveZNJILrjAuDzSoQ2UeAQSB9Prf7Uu3iNK8+oOkas
-	 mtwniDw1eTFz9eqPL1qPAH9yfRsLrlSjiqrtsUORBnWZ2+xTl/W8JOrT33zQzLHlDF
-	 50Y0jQFkubpLedkEv/oclvrzYB6zeryj3/+RWOVbsphcD2GqLn/EtUH7dxnUr9GYZ0
-	 mAevjdJJ8FEGg==
+	b=M/b6fDHrwKdK46qiPKEL7v2r5Uf+EkYj4Xl1q2FVzoSMoZ/VvmWuMZ3EIzztEHFsL
+	 gxG6iEE2+p5hiov/tdD2dNRWQWLrdOvNnFxcgzP7gPQtM4gv+9gpyYEz0vd+3inL1E
+	 V9i1RjOXP6Rq3nxq2lkZ4OfJZLWMnkOHkNro5ckjkLG55oqWsalHGuNZuJAgOstvX+
+	 oBab+/MJJXuuRIOp0ta1Dg388N9vkm3W3jPWVsC2CXc0Xt4pEnxrpvFEw9fjc04dip
+	 S2FKUDZ/CmBzgshjFtvQRXpfBtqcupYvJAZyObWTercaiEMJE58h41TGVOpiXLVqdV
+	 Uw48/+VHiiNKg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A5373C44511;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EF2E5C44518;
 	Thu, 16 Jul 2026 17:15:04 +0000 (UTC)
 From: Alexandru Chimac via B4 Relay <devnull+alex.chimac.ro@kernel.org>
-Date: Thu, 16 Jul 2026 20:14:56 +0300
-Subject: [PATCH v2 2/5] dt-bindings: soc: exynos-sysreg: Add Exynos9610
- SYSREG bindings
+Date: Thu, 16 Jul 2026 20:14:59 +0300
+Subject: [PATCH v2 5/5] MAINTAINERS: Add entry for Exynos9610
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260716-exynos9610-clocks-v2-2-c13ce8ef1861@chimac.ro>
+Message-Id: <20260716-exynos9610-clocks-v2-5-c13ce8ef1861@chimac.ro>
 References: <20260716-exynos9610-clocks-v2-0-c13ce8ef1861@chimac.ro>
 In-Reply-To: <20260716-exynos9610-clocks-v2-0-c13ce8ef1861@chimac.ro>
 To: Krzysztof Kozlowski <krzk@kernel.org>, 
@@ -57,11 +56,11 @@ Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784222102; l=2259;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784222102; l=938;
  i=alex@chimac.ro; s=20250914; h=from:subject:message-id;
- bh=nBnT0ILRGS71445iQQ/k8sTjno21gC0qcL7Lqu3ZheI=;
- b=eyJL+lvCIrT580llncY2lwuOiTuof9OLLqoKgpcwuIhWUyYPMVEpNiQeXWhVgcCQ5ZEtKHO3Y
- bCDkkfALh/vDE1+A8ws2ga5PCimKgrlxi8lO0hU6xOz9WMyTVG7W4Pn
+ bh=E1bSKMgEPtMif3Sdy3gDrAXfrBKn4CyIguCFFF+2z0k=;
+ b=n/yIIHt/0i3lrYnCiW57+C73q+GrdrF3E7W62qTJpaUVRoTX6GF8REncb6qpBXC4Vi3Pmmib5
+ ftMoztZEG5iCYzMucGoacXv/Vte2XaNiRBji4c8FcG2Ye0qwqxLIeis
 X-Developer-Key: i=alex@chimac.ro; a=ed25519;
  pk=OKD+X09b7uEsyw05zyuqq14SLGg8B/X4xey5tJeYCig=
 X-Endpoint-Received: by B4 Relay for alex@chimac.ro/20250914 with
@@ -71,52 +70,33 @@ Reply-To: alex@chimac.ro
 
 From: Alexandru Chimac <alex@chimac.ro>
 
-Add bindings for SYSREG nodes (required for ACG), compatible with the
-standard syscon driver.
+Add maintainers entry for Samsung Exynos9610-based platforms.
 
 Signed-off-by: Alexandru Chimac <alex@chimac.ro>
 ---
- .../bindings/soc/samsung/samsung,exynos-sysreg.yaml  | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ MAINTAINERS | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
-index fcdb9ffd2644..eb4194cadcd7 100644
---- a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
-+++ b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
-@@ -35,6 +35,16 @@ properties:
-               - samsung,exynos8895-fsys1-sysreg
-               - samsung,exynos8895-peric0-sysreg
-               - samsung,exynos8895-peric1-sysreg
-+              - samsung,exynos9610-apm-sysreg
-+              - samsung,exynos9610-cam-sysreg
-+              - samsung,exynos9610-core-sysreg
-+              - samsung,exynos9610-cpucl0-sysreg
-+              - samsung,exynos9610-dispaud-sysreg
-+              - samsung,exynos9610-fsys-sysreg
-+              - samsung,exynos9610-g2d-sysreg
-+              - samsung,exynos9610-g3d-sysreg
-+              - samsung,exynos9610-peri-sysreg
-+              - samsung,exynos9610-usb-sysreg
-               - samsung,exynos990-peric0-sysreg
-               - samsung,exynos990-peric1-sysreg
-               - samsung,exynosautov920-hsi0-sysreg
-@@ -107,6 +117,16 @@ allOf:
-               - samsung,exynos8895-fsys1-sysreg
-               - samsung,exynos8895-peric0-sysreg
-               - samsung,exynos8895-peric1-sysreg
-+              - samsung,exynos9610-apm-sysreg
-+              - samsung,exynos9610-cam-sysreg
-+              - samsung,exynos9610-core-sysreg
-+              - samsung,exynos9610-cpucl0-sysreg
-+              - samsung,exynos9610-dispaud-sysreg
-+              - samsung,exynos9610-fsys-sysreg
-+              - samsung,exynos9610-g2d-sysreg
-+              - samsung,exynos9610-g3d-sysreg
-+              - samsung,exynos9610-peri-sysreg
-+              - samsung,exynos9610-usb-sysreg
-               - samsung,exynos990-peric0-sysreg
-               - samsung,exynos990-peric1-sysreg
-     then:
+diff --git a/MAINTAINERS b/MAINTAINERS
+index cd2c02840336..7c26c3ce1696 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24073,6 +24073,15 @@ L:	linux-samsung-soc@vger.kernel.org
+ S:	Maintained
+ F:	arch/arm64/boot/dts/exynos/exynos8855*
+ 
++SAMSUNG EXYNOS9610 SoC SUPPORT
++M:	Alexandru Chimac <alex@chimac.ro>
++L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
++L:	linux-samsung-soc@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/clock/samsung,exynos9610-cmu.yaml
++F:	drivers/clk/samsung/clk-exynos9610.c
++F:	include/dt-bindings/clock/samsung,exynos9610-cmu.h
++
+ SAMSUNG EXYNOS ACPM MAILBOX PROTOCOL
+ M:	Tudor Ambarus <tudor.ambarus@linaro.org>
+ L:	linux-kernel@vger.kernel.org
 
 -- 
 2.54.0
