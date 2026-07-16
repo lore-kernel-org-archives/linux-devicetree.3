@@ -1,151 +1,145 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A006344471B
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 17:52:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A4953AA1A9;
+	Thu, 16 Jul 2026 17:56:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784224382; cv=none; b=VZzJHX/WnEfbxzNXzBFyv4iYfKCNfXOhfJNI9MPuBFtAXkQWb90VZUUg10vaHvIQp7WM9cZ6hJh7Tmqnw+9mmg2GOi3cON2SxzWEWGtLR1rPoI9WY1bp8DxSfaO3vVyO/SRU0sZlAXvgGO1ZIA+VFjq62IeAbjUqLHsAZigM7lg=
+	t=1784224608; cv=none; b=WRARRWsr+fRbbpdBzge23OUQ2eB61tc4FcBCO65vMd3DmFiUk4SrsV4+PBYzYHYwgGBI1z3+6wHIDvPWtjqemJdKn+YAYGWU8J6d0mnYfLxB1+gaqo+56h/Scrzp02lNYrjuyzU18kZiKJbAiro98vTGNwIfWM5YlK6w9G3V1zY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784224382; c=relaxed/simple;
-	bh=BYR/ghk56lSok2v2umJY3ZICREtw/tFBhnOm6ucsTPY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mGkEQV5lN/Ei+znpjWbdWNBdbZtn8MLe1eG1LEk7TCwd58AauvwxrRmGCNmcqNsHaQiSbguaGMJQbwi9WpiJ4DpW7cg+o8efQm7r6o6C/irLAd64Z14oV6bQPNbdJ0+rWJJceOd863YK5mFwcfynqb0AWxKidmFqjdLHhrK7Hdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OvrH280K; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LA2HI90M; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784224608; c=relaxed/simple;
+	bh=JOhrs1OFvboDcLOeh8gPY/kmKk14v0E8LAeuat6Eybc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pUa2sztQqEIGVDOHaDqWiUha+3Df1Xs7RgjUL6F9gS2jtWdi4ibeF24pyr01McT4Q1Q8zRjbKfBnZWCpjTzNRXiMCspoqnysf8aAn+GAc9ff/4X6Pn8t/EqVYSnkDNzDfM53e5BVtlNXhaUH2EIZRcbB2xOa5RRqyC41FMMeC2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N3QQioGr; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OvrH280K";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LA2HI90M"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66GHZYOg3280893
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 17:52:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	NiIS1s04VJ59oGpYSdrTGLppja0vUQVhsdgSXvnaagg=; b=OvrH280KO6UViHfF
-	yYoQ1GCcEip5dloFRUldSKqSgFeIUkx6Z4W9q6jq6wkJf51A2mZEMQTI8oSOVMll
-	Tg0EbzrZNGeUJGrcvrcxxsAWrS1rmcvnJJDZkMteq1RJCQwO5lLwtPOwhQO29bPQ
-	WD90AhjPkniOu3HnVvN2ha25TfwnLEqqmb9u9P3tCDE2d+GVvJe1/16kvysEHq5m
-	pVXXxZKzZp/Mjkfdz43H2mD6oCNKY+McBxZ8L4nhm5vZoU9qYGFwm1O1l/tjhFVj
-	CoP57SxpYx+iX/y1g/hZAQbEv13g4kkv4HwtSqborf2LiWqn+pN+Enbw5Ar+ax7t
-	lpmcAg==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ff3u8g1ub-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 17:52:58 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51bfa45b280so15667741cf.3
-        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 10:52:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784224378; x=1784829178; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NiIS1s04VJ59oGpYSdrTGLppja0vUQVhsdgSXvnaagg=;
-        b=LA2HI90MQc9BRX9pm+EqhN1qVN/7akikgLjyVLfvervQyv2LAAY7KZj1fDInNTuxx2
-         DW/QsEi+A4NhtuxE6wFshk1Vdy7WG4XNNP5GkZzIJ8U+//o9sQ+AP1aphYCcdf3PBojR
-         sYEm7xGLoV6FqWNYkKJ6oavgWELlPwOn4PpWdhMdB6gvSOl7+afSkPsGGxEDe6lGtODi
-         diPL1q1B3zxa/NGEl46slxk8TqfuImnQ+mHN7Ru9JY75EvryUE66wtEB0Fpc6IhC7jY0
-         MTesNst5jNfmehiKZGfsBeC8oiHuvbq9c8YSBxQbV6PaGkGH2aA/p87SQceH1goEmxNB
-         sM6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784224378; x=1784829178;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NiIS1s04VJ59oGpYSdrTGLppja0vUQVhsdgSXvnaagg=;
-        b=Ft7o7h8KfcHCE1+LBK+TWMLC9kb/QSF5bF5GT8G6VIwVlx7nzd7bWglWqCn8xGv+FI
-         WCoV/yg3qfWtgNX5psDRDO9XOkE8ajLPePlsM7N6waoKms1jn3l/LSJMejJXyxdIe8wm
-         u84KR81VatAXDo4eHEASc3RdVVmjhG7vXcPZbXMG+essMl8MJSuC/ZsK4gMdurwmBu6h
-         UdM2SYQ03i7VtNX3tZZo03zcEuI6Uz2sO+trkb/CVbqgqFqZvskK1zKmBb1vrKsXzCJF
-         befy3x2JXLukv1JIF63YmpXBhXEm7QMlLgkeOXkMpqlVB/7T1YtE5bV4uJrrxGjQazpP
-         7noA==
-X-Forwarded-Encrypted: i=1; AHgh+RqxqeX+Ady7DtDW9U/anB+8FVbFTC8lQY2CccB0RqG7opCn1ZohySi6A3L6eRC2b+JpS4WZEoeX+lE/@vger.kernel.org
-X-Gm-Message-State: AOJu0YxwkmFloeApaYZos1oY1eNWFQDYxQdGlmB2r47XV8nqIKhH34LQ
-	cpKY5hiw7LkXrPe0lm/+ThYe8GedEoL0uK8Z0AjI8Zqp/4oC/yc2iGukV82wKX4rjKdRsFgI24C
-	cP5qdWocB4hcYUkzg7ifn2+DgQ0/Qp2srmf2nbP8gp9ys/vknTV2tmeDX76IYeXaj
-X-Gm-Gg: AfdE7cmcI3KvouIVr2qTLBfBbhnWgQNLmiENhGECbTvcPo60mFDNLQdvM+0N9c1+xLx
-	cGscn5djWZ0gekFwcg89B7MhoP8rA3lO0lWsisttKwp313nI6cuoJUj4ZtQo3F+OzaJ6eOBLmuZ
-	EvXmY9vLAXUyxq2A79oei3tRBtRkZWIg8dFVZF/IzJEf4o13uEG3VxbsmOZd8lepW1F/HG6Wk5/
-	/ZcB3yGdMAKnV3ZTonE+l32/cqfu8CJ31MlahsgDl24MUTp0QGisg2WgTTQAZyPVXhmsGR77DSs
-	Hg+1N7/eff1+RV2rkQN879Phubcme77W2zrZexgocaYfQnFmxVb4gV4D5fHEphgpRb1vcaMNip8
-	ZhvN7ld2w61xhKff3PB8Sswjy
-X-Received: by 2002:a05:622a:34c:b0:517:5d21:9899 with SMTP id d75a77b69052e-51cbf1f3f75mr186838501cf.5.1784224377632;
-        Thu, 16 Jul 2026 10:52:57 -0700 (PDT)
-X-Received: by 2002:a05:622a:34c:b0:517:5d21:9899 with SMTP id d75a77b69052e-51cbf1f3f75mr186838251cf.5.1784224377194;
-        Thu, 16 Jul 2026 10:52:57 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c168749d7e8sm245027066b.54.2026.07.16.10.52.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 16 Jul 2026 10:52:56 -0700 (PDT)
-Message-ID: <6dc98a7b-ece6-4611-8b8b-d485c6848a77@oss.qualcomm.com>
-Date: Thu, 16 Jul 2026 19:52:53 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N3QQioGr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784224607; x=1815760607;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=JOhrs1OFvboDcLOeh8gPY/kmKk14v0E8LAeuat6Eybc=;
+  b=N3QQioGrTSDloysBhVhyIN3cOQkH7KtemlGcFh8tqhlgKiIgjEX6VUUb
+   F04crWcoFVlhiilPb3zUQEGUDt7PNDZkriFXTWfN2rAVXvJKKIfGqUg4S
+   oHObyIN8KG0I7qUbNIsAkSy53Hv2w09Wu0Y/FHhlFC8K2R9ObDTBvDWU1
+   w9jxwjhjJinghVpv94sdNSzAOp9MGxvC2cnnNjPvhL8p5bx2Q48bqBl9k
+   sd1hPBLK83YyIgpXY5vLOKg9V5GlrFasNOYvpS85PS/tPVxLHMJWe8r75
+   dPLyAwDlBstRKEbxAvILdcQk85FyYAJqVmJyNy79/zi3vq4NpIRrO+avL
+   A==;
+X-CSE-ConnectionGUID: uLGBj/ynQeKZkv/QU2Cfwg==
+X-CSE-MsgGUID: yUu7GqxkSRmTmlp69bhLZw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="96029970"
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
+   d="scan'208";a="96029970"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 10:56:47 -0700
+X-CSE-ConnectionGUID: o44G+L4dSBaDIU9Jshoh0g==
+X-CSE-MsgGUID: dUnJTDUlRJ2uULcA2u/yFw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
+   d="scan'208";a="260160330"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.26])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 10:56:40 -0700
+Date: Thu, 16 Jul 2026 20:56:38 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Michael Walle <mwalle@kernel.org>
+Cc: Yu-Chun Lin <eleanor.lin@realtek.com>, Michael.Hennerich@analog.com,
+	afaerber@suse.com, andy@kernel.org, brgl@kernel.org,
+	conor+dt@kernel.org, cy.huang@realtek.com,
+	devicetree@vger.kernel.org, dlechner@baylibre.com,
+	james.tai@realtek.com, jic23@kernel.org, krzk+dt@kernel.org,
+	lars@metafoo.de, linus.walleij@linaro.org, linusw@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-realtek-soc@lists.infradead.org,
+	mathieu.dubois-briand@bootlin.com, nuno.sa@analog.com,
+	robh@kernel.org, stanley_chang@realtek.com, tychang@realtek.com,
+	wbg@kernel.org
+Subject: Re: [PATCH v3 3/7] gpio: regmap: Add gpio_regmap_operation and
+ write-enable support
+Message-ID: <alkbVkB5KNNR7ffN@ashevche-desk.local>
+References: <d301ba0cd45d49d59e6a014188306ec9@realtek.com>
+ <20260716062614.1507243-1-eleanor.lin@realtek.com>
+ <aliV4u6_xzx9D9Aq@ashevche-desk.local>
+ <DJZVLZ4LLD9E.3MPLYYXT1VQ9R@kernel.org>
+ <alim_HGTD5RCupav@ashevche-desk.local>
+ <DJZXVOGZ3ZTH.20P8NY7DON0X7@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: ipq5332-rdp-common: Enable quad SPI
- mode for SPI-NAND
-To: Md Sadre Alam <md.alam@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260716-quad_dts-v1-0-74d86792944a@oss.qualcomm.com>
- <20260716-quad_dts-v1-3-74d86792944a@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260716-quad_dts-v1-3-74d86792944a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: Z-pB15j9GMPPB-2bcryyVp7nokah1qHh
-X-Proofpoint-ORIG-GUID: Z-pB15j9GMPPB-2bcryyVp7nokah1qHh
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDE4MyBTYWx0ZWRfX5te5NUZrm3mb
- uvV0ojG+qfDh36rMZpVf3FaV8AF2jvafeXiilf22dKTgmqIwvC+XZKDTPvcHwclo7kH6+i0BJW9
- npcNNTHqEm+BVRP3AHG8hzS7A7S9UTM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDE4MyBTYWx0ZWRfX7bw9ymwtxFK2
- WH06l4Lok1beN7XqCkQl83VkwmwNLqrJ+HC8riO+3g9JTRY8RZU3Gj5KDqcmHV/yOal1pkLoET2
- h8XoHMzcsHGS59CmH/KcImIEDD7Jd+428z9Vdh7ldGRqSmN4rG1vvc9apoLDcC8IJioyvZYqTov
- VyYp2wmilfTeufESrGopBab9y/Yf7VAWs4bNI8iQxL5Waqtkzi/VoPvd5XcQXIMTzCkICsNrS8o
- VlXrejEw2j8WUPctzG2S/5A9j7QRZfNM2BRxpJNS5WNWV/7QVJx8AtAVSDREvUHNtp6U05WrI2J
- QY8+3gKjh6FZaIbcqzSyytlZsVEHhHtJ3HT+fRxC5BkzkuFX6+f7gWilqYvSHoY7GFYFK01O8Do
- pBaIZPGkLvqepDp/xA7J9RDTa1EKw55ahCKZH83vW+akS8rZlaEWvnrZRbqo9Z7kTygeOkR/A/8
- ukNWi/z5ME7GZozVPpg==
-X-Authority-Analysis: v=2.4 cv=TL11jVla c=1 sm=1 tr=0 ts=6a591a7a cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=bDFlRis0_Pq_FpikMJAA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-16_06,2026-07-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 clxscore=1015 lowpriorityscore=0
- spamscore=0 bulkscore=0 malwarescore=0 suspectscore=0 adultscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607160183
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DJZXVOGZ3ZTH.20P8NY7DON0X7@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 7/16/26 7:55 AM, Md Sadre Alam wrote:
-> The SPI-NAND device on the IPQ5332 RDP supports 4-bit data transfers, but
-> the device tree does not describe the bus width, so transfers use the
-> default single-bit mode.
+On Thu, Jul 16, 2026 at 12:55:37PM +0200, Michael Walle wrote:
+> On Thu Jul 16, 2026 at 11:40 AM CEST, Andy Shevchenko wrote:
+> > On Thu, Jul 16, 2026 at 11:08:55AM +0200, Michael Walle wrote:
+> >> On Thu Jul 16, 2026 at 10:27 AM CEST, Andy Shevchenko wrote:
+> >> > On Thu, Jul 16, 2026 at 02:26:14PM +0800, Yu-Chun Lin wrote:
+
+...
+
+> >> > From the above list I tend to the approach 2, but this might require to have
+> >> > GPIO regmap level of locking. I'm a bit lost in the context, though. I assume
+> >> > we need a fresh start, id est issue a v6 with approach 2 or 3 in place and
+> >> > summarize the choices in the cover letter, so we can understand what has been
+> >> > considered.
+> >> 
+> >> I don't really like approach 3. You'd need to check if the regs of
+> >> both xlate calls are the same. With the sample code above, you
+> >> silently drop the first xlate'd reg.
+> >
+> > If I rank the proposals, the worst is #1, the best is #2.
+> >
+> >> And honestly, it really seems like a one-off. What controllers, are
+> >> there that need a write enable bit. The real problem seems to be
+> >> the assumption that we operate on just one bit. IOW we either set
+> >> mask or don't set mask in gpio_regmap_set().
+> >
+> > Yes, we should KISS.
 > 
-> Set spi-rx-bus-width and spi-tx-bus-width to 4 to enable quad read and
-> write transfers and improve SPI-NAND throughput.
+> But IMHO #2 and #3 are not KISS. Approach 2 is just a way of adding
+> some kind of pre op to a gpio set. Just tying it to a write enable
+> feature. That kinda bothers me. It might also be useful for other
+> things, too. So don't tie it to just write enable. And who is doing
+> a write disable if it's not self clearing for example. Probably Some
+> kind of post op :)
 > 
-> Signed-off-by: Md Sadre Alam <md.alam@oss.qualcomm.com>
-> ---
+> Approach 3 is a way to change the value of the written value - in
+> a restricted way, as is is just doing a OR with both values.
+> 
+> Also approach 2 might not even work if the hardware requires the
+> write enable bit set in the *same* write as the gpio set bit. Thus,
+> we might need both anyway in the future.
+> 
+> >> For a more generic solution, we should be able to control the
+> >> written value. We could add another .value_xlate().
+> >
+> > Maybe not now?
+> 
+> But if not now, then when? I wouldn't add the write enable feature
+> and later a more generic solution which also covers the write enable
+> feature.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Taking into account how it's done in HW, I think the whole approach can
+be folded to just a boolean flag  (or a simply bit shift) in the config.
+Wouldn't it work?
 
-Konrad
+> > As per IPs, Synopsys IPs (not exactly GPIO) likes to
+> > have that kind of "protection". So, from HW perspective it's kinda
+> > pattern, and it might be possible to see more IPs (including GPIO)
+> > that follow it in some cases.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
