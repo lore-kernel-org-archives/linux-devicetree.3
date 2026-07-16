@@ -1,68 +1,68 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C76B3C6A38
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 21:35:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A0D38F63D
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 21:36:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784237759; cv=none; b=Pv8lBdWTt3jnmRYsRnADnbQXhuDt+sM5VqUYouIJxgP9ShvFgSZsGGDzNYVVSawctm+FGBhPhNiQY7Bp8HE1CnpQqsZvDIYOe6XIsLea5oSBwHJE8UkTfzBFxz51FVZRZUJyuraBOc8xjJbq6ZkbXP2Kt6ndmTTO2joX5DTJaNE=
+	t=1784237762; cv=none; b=t6XGkkq3lvcUG79P4FlSv9ROrxO2BtaElqwf9iy/j3dkwZ7+9k0I+JpqGitGCllRbEteZJYsIKZfFLXUWAYrfhQFapK93Yh82Yd7OIofs06cDsucJFFrS4ThwlMbauULqfK+kFMsf3KUuU/EGB5BCqlKIUEePHgy8FUH7xmz9kA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784237759; c=relaxed/simple;
-	bh=MWgeMQguSvX0yNa9AkilnGzLi/Gpu4RxxeyumH/X22g=;
+	s=arc-20240116; t=1784237762; c=relaxed/simple;
+	bh=MQOZUN5sOfzC0LslhdTuSv6dboTN5sRWAZchx7fQT2w=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bPHP0k1Px9tEZHggJDaMcEyPhD/3Ae872UR29HfE8NOHzHR2Y2JhErWK07O9Pr5yyTi4ShEkzYrPnCUbLXdyDq6jcoE2P07xQsnULxigDv/sHV8lcy5sPJuADLxRwhkPjNwelAjTCYWdxIS1mB+OT28BAuyzBL843FgIbSJ+8Xc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EAyD52IZ; arc=none smtp.client-ip=209.85.128.51
+	 In-Reply-To:To:Cc; b=UgSo3WMGRVJY7vzdu08XB+QSUVba7Htgk4ORpTcO8c97wD2McpewPR+TsQhAOW/cazcLbUKkh835Wyg1pM4bExDLvHe7zpdAeK5xcCO+/wsi0Tf9cSdShIXiegaLMQuc19yuuivN0ca4/g4ILViskGP0+1kn9/gEteVXNuTMRB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WKgF2MaG; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EAyD52IZ"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so57008755e9.0
-        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 14:35:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WKgF2MaG"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-493f75f7172so52629735e9.1
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 14:36:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784237754; x=1784842554; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784237759; x=1784842559; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1Cbd7RpSigAze/UtmT1+z+tOpgI5gcPixymoRHCvScg=;
-        b=EAyD52IZ7vwRc00V4kJ+cnovL26UBPelQ8JjcJVkaPGoko5wInT2RV+vw7m9u1FmuQ
-         DNg7Rjgu6xIDpysPY++A7o4iwl5DmLHGJryyy5X81duvrHfd5Ft6LxOLcicjW6lA5RDW
-         gUKCH5U5hVn+JJkqizOkmfmlS5CFxYZYyrAR4H50Ic5R/BjRz3sXlunzeJCO78xRLI5L
-         Vznn/2QNYCNANEd6mRfopSdHryF9Ia7f4hfo40sFT5z32zMYTHfwbWaOvpYBx451PdOS
-         kZ5KtOjbiCXxL8WkQH3kqwqdgPKp+wr08yLsSBBTZgUe/NMV9QNxa+M6V8QnuQ2DDxh/
-         R1lA==
+        bh=2ba7h/YS4G0id6u8P/3TJ7kh/2tCKNINWqwY3DjpUpw=;
+        b=WKgF2MaGFz2SX/VNRnijfIA7TfNEBZaaQnjFYW0bHS/MCWl1ukx6PRRYSlMI1zcgT5
+         XJ9PKuKKDj7TVSbOZJec7J0LZQ5IejgEJP8k9Np6sxBRamTmHS5eBf2sxKmFJZ1LraKQ
+         ojX7ckboGsJDAYJMKJNH6Ib78UEJx4aYo/HF1D5/8MTFr7QiNLhG+XJuf+m0/aQI9AKi
+         IzM8k48GwTmY9v4+qUsk7g8B8m/Xt3mMPw8lJmqyMQZg0fgHP+tELksnn0Qt910wT60l
+         lMzAfn+30/FCsIin+jI75GYv8yVJZVSjhSPDko2fShSdeYqKzEIulNskUAxR1o2wlIGE
+         ddMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784237754; x=1784842554;
+        d=1e100.net; s=20251104; t=1784237759; x=1784842559;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1Cbd7RpSigAze/UtmT1+z+tOpgI5gcPixymoRHCvScg=;
-        b=qnKZGjQtvtRViQ1PjSpr5J87JWvGEpdwXdytCvpN8XIAZrUgSAXtQOw06NqmzGoFr+
-         D4Lawja8l3R23RKQ+cegxkXwkdA+MrLXx/U4Sy7weGlaRanB0+zDGCQa8+oMBVdpIo1Z
-         9DHiHAZPeAjW4VUS31qdgWKMqW1rzt0F0qor9s1UKytAPD3yLea3joayumUINiINUg0F
-         i6itFP2Nl+WSThHc2ox/MT+3kMjqAuYBJE+tnvw6jjTYj3Xomej9c+Y9ARX4yz9zFzIp
-         afy4/Ra2AgC02PcBzo3ILH8VTbZatn8iG8PyjhYOt7U1U9uwBXy8eUkzC2T3zBKjxmKv
-         R97Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rp12+XSwXtPdavK0TiqafF9VjuT3LWyjPrhBL2jz4P/JVdeRCbz7LrFtuMbQCeewj3/samGf1zD0jm+@vger.kernel.org
-X-Gm-Message-State: AOJu0YwAoUwGWsNdalKGkAWCKD8+C0Mf8lVLKH0EwGg2WyuKYzoFbUhk
-	hAGeoEf2ANtvIvICAasY5i+No/v1EwH5yb7LtLf6XrbXGiEdq4X3umX7g4UOADI9mQRuYQ==
-X-Gm-Gg: AfdE7cm+OAGCC9STAQPNPOCmyRLIP81b9QxaBuvH7KndT5KaZxi1E9t+e+b6a4mU6rl
-	gLiONcvIy47biPtDsDEADqDUV8VAu/XuGtfuoeXjYt3zqqb9mt/KENHStfhhZYd/4STf2ZHP9Od
-	rIeeXhwiqBp3bMa0UlKpDo2NzC8ZlnRibXCVNHcNjT3U8O7aRS+XF4BsVpELgRowE6cl9nvX2hX
-	hdd+m5+J4ffEKDs1zgjgL1J4twHVPln2EkwyoOrFYqosUcOQie33NE3EBfS3ahur+4EEI43ipPc
-	7XsO8WL6TZsBnlbGj7FeyHB+onxXdmDLyh4k+Dn5ZlIdHa+0afZZMFmuNUfodPo4alAC1eNuGQr
-	F0TimTaGI/XdBwYEO7IuVHMd0lMVL0d86Jk3dodF377VA3Bm8TfuUoqd92shVApxEvh/MRGeFWE
-	4LACyiGhujYmjT
-X-Received: by 2002:a05:600c:6217:b0:492:4363:e7d6 with SMTP id 5b1f17b1804b1-49538cc1510mr144373665e9.37.1784237754220;
-        Thu, 16 Jul 2026 14:35:54 -0700 (PDT)
+        bh=2ba7h/YS4G0id6u8P/3TJ7kh/2tCKNINWqwY3DjpUpw=;
+        b=RXx0ja7EMm7uouUicheYSL2Ol/1rhlmIYQWZGcV2JFMO5A1CDFBQdOAotCeoJ1pEmx
+         zyIChHsK1d1Bf6D3GBs/Z7I1BcHXbZNpLnfuaz+Ag9urTgjUNEc18JMTt6y4rW5uat1v
+         GjUUqhE8W7zEsHITHzT7+J8Y4oEENnIO5mfU1834e5wBMCCJo+uHr2+5+ldfhswctOdD
+         r0i1nDdbCE5tsdSFROmuXWvJnEmE3jGVvzZ2rgLVwRjbV5kCWVU152CtYtOp7aVVvhKC
+         M7OUt1LAp3nsR580a/BYvGIRxnFLHrMaiY/i3v4gwBYdIb9LmDKZIgYuaeA2w8HQvf7k
+         koaw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro5vUCgKt7tKDqHqjVukEWOylOnbCUsq29yIu7s8DMJZcaTzZpeG5cT2DGg/8Ty+BxpwAyHF+ERC51r@vger.kernel.org
+X-Gm-Message-State: AOJu0YwwzixhultgGEzxofGIPCOl4jN+pAjaFH7LXZuy5lMNiAl1Keqa
+	8CjbF2r1ENnmvsr+tDVeOxw1ilUe8iPdMhEsa1EcdUdKmSpNQ0pFWwd+6rnwF0VIKCQB4Q==
+X-Gm-Gg: AfdE7cnSsexCsf+UUtC0bUlUaztbwV9LQ4iRoIP7IM1jGgNvO1KJsOYnf3uXwo9fgBL
+	at7oD11HOSk9vBbuzvPbxJMDV0ZTmLHaNFGQMy/iHP6ucWESNnyWakI9iCEhHOmL4TwqBpoVOrA
+	zv5J9OCGcQh5pZVrTIPKoGPUb7Vznu7PS3fOEHvmdnt9AXYS8SLi8jrjamD59omGmCeDX07nvqg
+	Rrwo7iI1Z3ZeAjarqO9NvBPZdP49riSDKTXhjMJxjLPLFB2T50osIv3oD/oxRApaIlCTrpkL1wb
+	stelgIcn2J8DwKisO7F+X5qfp8yQDksRxoVF8xB0iW8mqcosu3Yz7gayRx8igwdcFFmtWUCFRzx
+	LHnIbUXmwXq92/HYc902dH82GuBxewHtRbEXLuT7YG2p2Bo1aSLPQD938pL6Wb02EhsWbvDgl+3
+	4uVdKgHa0ObB4t
+X-Received: by 2002:a05:600c:a08e:b0:493:f639:9b2f with SMTP id 5b1f17b1804b1-4953c390347mr101375915e9.39.1784237758557;
+        Thu, 16 Jul 2026 14:35:58 -0700 (PDT)
 Received: from [192.168.0.2] ([197.250.51.119])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f464b7f09sm27517548f8f.26.2026.07.16.14.35.50
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f464b7f09sm27517548f8f.26.2026.07.16.14.35.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 14:35:53 -0700 (PDT)
+        Thu, 16 Jul 2026 14:35:57 -0700 (PDT)
 From: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-Date: Fri, 17 Jul 2026 00:35:37 +0300
-Subject: [PATCH v7 01/13] dt-bindings: phy: Add zx297520v3 USB phy
- documentation
+Date: Fri, 17 Jul 2026 00:35:38 +0300
+Subject: [PATCH v7 02/13] dt-bindings: clk: zte: Add zx297520v3 top clock
+ and reset controller
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260717-zx29clk-v7-1-408411cfcf36@gmail.com>
+Message-Id: <20260717-zx29clk-v7-2-408411cfcf36@gmail.com>
 References: <20260717-zx29clk-v7-0-408411cfcf36@gmail.com>
 In-Reply-To: <20260717-zx29clk-v7-0-408411cfcf36@gmail.com>
 To: Michael Turquette <mturquette@baylibre.com>, 
@@ -86,133 +86,216 @@ Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
  linux-phy@lists.infradead.org, 
  =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5153;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=12301;
  i=stefandoesinger@gmail.com; h=from:subject:message-id;
- bh=MWgeMQguSvX0yNa9AkilnGzLi/Gpu4RxxeyumH/X22g=;
- b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBqWU6xcWZOmOXtOLohhzgy+hM6oOkxf17Sa7bRM
- oer1RlHKaCJAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCallOsRsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiKD6w/+MJmxYIyepRX+FyR6Y2BS1xstCgAxbVa
- V2LfZHa60uXTnOQjweIZny/aZvtk9oG1fmQcB29kMUwDm50sZITCqWBMWRL2E+xjVH9r55CG47a
- csbwc6VvJWAohr4URm4L+nTQarehBpqczIbo+wh0HVKczceIp7areXGL/5/eYHfNCCExjcxzvyr
- 84/h3Bq82p+gHYpmtOTWvezhrV5LXVS6nG0+y0wJBOs1xLcUJj5YiQjr6PnzVDswSIYVz4gP3N3
- bOwg8Nk2+pd+Uxjdw7+AbIiR8BaaFwwRcvQx1zr/3TdU2aCn5cNzoAFd64ZjJrIW3jHrlJBRfpA
- Om0s+tWSwC2XMqxF5epTfzM5P7uo2yC2QxbCG2GmDa5kek03rFQVL36ALPJX500QQthmvGttASu
- GqOG7LEUA52ljXfs8kLRU3QL1pde2ZN4QP6kyFl4yT9+8KlF22hGWc4BV0Byk82CY9nnteMzj5Y
- NehEK9+olrStownN5eU1Y/XRUOBdsr5yjaiUlnGfB2w93dUe7GNJdPDm427SQ62gAQ2p0P2Wv3t
- dUOpqRXXJTdKaL//MCZ3rw+QPL5AegBy9YyKISXQGBoUjg50L2aH7pdLNS15x1c43zbNmwDKhYh
- oOTzG68KamAIZoheKX+RVCRcs+Xm8gO3gwdge8ZC5xHGJOIc27to=
+ bh=MQOZUN5sOfzC0LslhdTuSv6dboTN5sRWAZchx7fQT2w=;
+ b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBqWU6xtGznIdCfPJUfhgpJxhbIOzG4d7e6HVqQl
+ mjsxRVgYGOJAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCallOsRsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiLL9hAAnsDmDKYLfHgDXsIYjqgRZOLaah6TPK6
+ nF9CDj0IxuXvayU0vUpYD1Z9g6hs4QIZJfj/PdQUWqlob7lECKBfK6EluEeE6iYrvv8SRsGMYsH
+ TeMQX1xie2y9Zv+hieDpJwv8gjwer20SlGOLmyTaUJW7d2oJc1W3dU7MQqnDeDbjPFmbCVdJuQ6
+ lree89rZTBwR2oZH1zw/iPuqREGEKo9eIxR/cOsWLolUgbV+8PArylZ1bovU2wFuTHJlcYIQILr
+ rk3i0Tk7MMlv0ibU2ADMxTVMtaoTh7+Zged9qZ9wBdWlQYC363wCkCnw8HLXTpB7t4ouMbjqHWL
+ VbdhJc4NxhCdF4CgwkHkDfDRaeegBmtJ4AO1du+7Ae4wCpl+vZtUwJmLJVuWtnnJo7LN1JcOHd6
+ W0t9jDshQo+iw5KXLES3C5UazEyymANB4DZBDQuzebu08EjwsmzZoPAU271oXizisM6/mojp3QX
+ yoJRmD5rsyBbNXD50t6OiWlA5GWalKN0Ut+vJ25EIX/uk21yub0z+Y5RJ7Ld/kePpLs7M+Sm/yw
+ Upcv5gyDfxD10ZWJ+FGDxwq7kpbaS57IrBRkOioKqDcMbDL1IsrY5f+v8TOWB86EbsDZMDJTDmp
+ H2NI5kV7jB0uBGgQwcsMbviPMvhZ0dE1mR4LWtWSKRGXSAJe7cTc=
 X-Developer-Key: i=stefandoesinger@gmail.com; a=openpgp;
  fpr=4F9C2C8728019633893EBBB98CB81F9A72BBA155
 
-This binding will be used as a subnode of topcrm, which will be added in
-the next patch.
+These SoCs have 3 clock and reset controllers: Top, Matrix and LSP.
+Clocks go from oscillator -> top -> matrix -> LSP, with a register in
+top controlling most clocks that get passed to matrix and a register in
+matrix controlling all the clocks that get passed to LSP.
 
-Why is this a child node and not #phy-cells added to topcrm itself,
-like clocks and resets as writing-bindings.rst suggests? Because
-of_phy_provider_register checks if the of_node the PHY provider is added
-to belongs to the device or is a child of the device, so I can't put the
-PHY driver into an MFD (or AUX) child without its own node.
+Generally every device has two clocks (one work clock, and one that
+connects it to the bus, I call it PCLK), two reset bits (I don't know
+what the difference is - sometimes asserting one is enough to reset the
+device, sometimes both need to be asserted). PCLK and WCLK are
+controlled by individual gates. Some devices have a mux and/or a
+divider for their work clock. Some devices, like the GPIO controller,
+only have reset bits and no clocks.
+
+The top clock controller is fed by a 26mhz external oscillator and has 4
+PLLs to generate other clock rates. ZTE's kernel mostly relies on the
+boot ROM to set up PLLs, but one LTE-Related PLL is not configured
+on some boards. Therefore my driver contains code to program PLLs. It
+produces identical settings as the boot ROM for the pre-programmed
+frequencies.
+
+Not all clocks will have an explicit user in the end. I am defining a
+lot of them simply to shut them off. The boot loader sets up a few of
+the proprietary timers, which will send regular IRQs (although the
+kernel of course doesn't need to listen to them). I don't plan to add a
+driver for the proprietary timer as I see no use for them - the ARM arch
+timer works just fine. I will add a driver for the very similar
+proprietary watchdog though.
+
+The clock list in this patch is pretty complete but not exhaustive.
+There are other bits that are enabled, but I couldn't deduce what they
+are controlling by trial and error. Some of them seem to do nothing.
+Others cause an instant hang of the board when disabled. It is quite
+likely that a handful more clocks will be added in the future, but not a
+large number.
 
 Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
 
 ---
 
-How do I handle examples? It would be identical to the example in
-topcrm. The example needs the reset defines from the next patch in
-either case.
----
- .../bindings/phy/zte,zx297520v3-usb-phy.yaml       | 96 ++++++++++++++++++++++
- MAINTAINERS                                        |  2 +
- include/dt-bindings/phy/phy-zte-zx297520v3-usb.h   | 12 +++
- 3 files changed, 110 insertions(+)
+Changes v6->v7:
+*) Moved the bingings back into clock/ (Krzysztof). use clock-controller@
+in example and in the later DTSI patch.
 
-diff --git a/Documentation/devicetree/bindings/phy/zte,zx297520v3-usb-phy.yaml b/Documentation/devicetree/bindings/phy/zte,zx297520v3-usb-phy.yaml
+*) With as lucky find in strings in LTE's cpko.ko blob I could make sense
+of the register that controls which clocks get passed from PLLs into
+the clock distribution inside topcrm. Importantly that also narrows
+which clocks can possibly be passed to Matrix, so I could slim down the
+bindings considerably.
+
+*) Add a usb phy child node with the phy schema added in the previous
+patch. I don't expect the USB status register to ever be in another
+place, so the binding expresses the @84 expectation.
+
+Changes v5->v6:
+Set value for syscon-reboot example (Sashiko). It was my intention to
+set only the lowest bit, and I think Sashiko is right that without
+'value' being set, all other bits are actively set to 0. It shouldn't
+matter given my understanding of the hardware (afaics all other bits are
+ignored), but actively clearing bits was not my intention.
+
+I haven't changed the name match for "syscon-reboot". I see plenty of
+examples of hardcoding this string as opposed to having a regex for
+syscon-reboot@12345678 in other bindings.
+
+Changes v4->v5:
+
+Rename from zte,zx297520v3-topclk to zte,zx297520v3-topcrm and move to
+soc/zte
+Fix path in MAINTAINERS
+Add syscon-reboot node to the binding
+Give the USB and HSIC PHY resets their own reset control
+---
+ .../bindings/clock/zte,zx297520v3-topcrm.yaml      | 123 +++++++++++++++++++++
+ MAINTAINERS                                        |   3 +
+ include/dt-bindings/clock/zte,zx297520v3-clk.h     |  66 +++++++++++
+ include/dt-bindings/reset/zte,zx297520v3-reset.h   |  32 ++++++
+ 4 files changed, 224 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/clock/zte,zx297520v3-topcrm.yaml b/Documentation/devicetree/bindings/clock/zte,zx297520v3-topcrm.yaml
 new file mode 100644
-index 000000000000..8bad9365d5cc
+index 000000000000..454997063573
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/phy/zte,zx297520v3-usb-phy.yaml
-@@ -0,0 +1,96 @@
++++ b/Documentation/devicetree/bindings/clock/zte,zx297520v3-topcrm.yaml
+@@ -0,0 +1,123 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/phy/zte,zx297520v3-usb-phy.yaml#
++$id: http://devicetree.org/schemas/clock/zte,zx297520v3-topcrm.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: ZTE zx297520v3 USB and HSIC PHY
++title: ZTE zx297520v3 SoC top clock and reset controller
 +
 +maintainers:
 +  - Stefan Dösinger <stefandoesinger@gmail.com>
 +
 +description: |
-+  This PHY is found on zx297520v3 boards. It has no configurability on its own,
-+  but it does require a correct reset and wait sequence to initialize. It can
-+  provide interrupt notification when USB is connected and disconnected.
++  The zx297520v3 top clock and reset controller generates clocks for core
++  devices on the board like the main bus, USB and timers. In addition to clocks
++  it has reset controls for peripherals, a global board reset, watchdog reset
++  controls and a USB status register.
 +
-+  The phy is a component of the board's topcrm controller. The hardware needs to
-+  be declared as a child node of the zte,zx297520v3-topcrm node.
++  The controller has two clock inputs: a 26 MHz and a 32 KHz external
++  oscillator. They need to be provided as input clocks. The controller provides
++  PLL output frequencies to downstream clock controllers.
 +
-+  The register space and IRQs always account for two PHYs: One USB 2.0 OTG phy
-+  and a HSIC PHY. Not all boards have both. If one is missing, the corresponding
-+  ready flag will never be set.
++  The USB PHY functionality is exposed as a child node documented in
++  zte,zx297520v3-usb-phy.yaml.
 +
-+  The "include/dt-bindings/phy/phy-zte-zx297520v3-usb.h" header contains the
-+  definition for the PHY indices.
++  All available clocks are defined as preprocessor macros in the
++  "include/dt-bindings/clock/zte,zx297520v3-clk.h" header. The resets are
++  defined in the "include/dt-bindings/reset/zte,zx297520v3-reset.h" header.
 +
 +properties:
 +  compatible:
-+    const: zte,zx297520v3-usb-phy
++    items:
++      - const: zte,zx297520v3-topcrm
++      - const: syscon
 +
 +  reg:
 +    maxItems: 1
 +
-+  interrupts:
++  clocks:
 +    items:
-+      - description: IRQ reporting USB connection
-+      - description: IRQ reporting USB disconnection
-+      - description: IRQ reporting HSIC connection
-+      - description: IRQ reporting HSIC disconnection
++      - description: 26 MHz external oscillator
++      - description: 32 KHz external oscillator
 +
-+  interrupt-names:
++  clock-names:
 +    items:
-+      - const: usb-up
-+      - const: usb-down
-+      - const: hsic-up
-+      - const: hsic-down
++      - const: osc26m
++      - const: osc32k
 +
-+  resets:
-+    items:
-+      - description: USB phy reset
-+      - description: HSIC phy reset
-+
-+  reset-names:
-+    items:
-+      - const: usb
-+      - const: hsic
-+
-+  "#phy-cells":
++  "#address-cells":
 +    const: 1
++
++  "#size-cells":
++    const: 0
++
++  "#clock-cells":
++    const: 1
++
++  "#reset-cells":
++    const: 1
++
++  syscon-reboot:
++    type: object
++    $ref: /schemas/power/reset/syscon-reboot.yaml#
++    description:
++      Reboot method for the SoC.
++
++  usb-phy@84:
++    type: object
++    $ref: /schemas/phy/zte,zx297520v3-usb-phy.yaml#
++    description:
++      USB and HSIC PHY controller.
 +
 +required:
 +  - compatible
 +  - reg
-+  - interrupts
-+  - interrupt-names
-+  - resets
-+  - reset-names
-+  - "#phy-cells"
++  - clocks
++  - clock-names
++  - syscon-reboot
++  - usb-phy@84
++  - "#address-cells"
++  - "#size-cells"
++  - "#clock-cells"
++  - "#reset-cells"
 +
-+additionalProperties: false
++unevaluatedProperties: false
 +
 +examples:
 +  - |
 +    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/reset/zte,zx297520v3-reset.h>
 +    #include <dt-bindings/phy/phy-zte-zx297520v3-usb.h>
++    #include <dt-bindings/clock/zte,zx297520v3-clk.h>
 +
-+    topcrm: clock-controller {
++    topcrm: clock-controller@13b000 {
 +        compatible = "zte,zx297520v3-topcrm", "syscon";
++        reg = <0x0013b000 0x400>;
++        clocks = <&osc26m>, <&osc32k>;
++        clock-names = "osc26m", "osc32k";
 +        #address-cells = <1>;
 +        #size-cells = <0>;
++        #clock-cells = <1>;
 +        #reset-cells = <1>;
++
++        syscon-reboot {
++          compatible = "syscon-reboot";
++          offset = <0x0>;
++          mask = <0x1>;
++          value = <0x1>;
++        };
 +
 +        usb-phy@84 {
 +          compatible = "zte,zx297520v3-usb-phy";
@@ -222,45 +305,140 @@ index 000000000000..8bad9365d5cc
 +            <GIC_SPI 45 IRQ_TYPE_EDGE_RISING>,
 +            <GIC_SPI 46 IRQ_TYPE_EDGE_RISING>;
 +          interrupt-names = "usb-up", "usb-down", "hsic-up", "hsic-down";
-+          resets = <&topcrm 18>,
-+            <&topcrm 20>;
++          resets = <&topcrm ZX297520V3_USB_PHY_RESET>,
++            <&topcrm ZX297520V3_HSIC_PHY_RESET>;
 +          reset-names = "usb", "hsic";
 +          #phy-cells = <1>;
 +        };
 +    };
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 8729cea57c3d..cb50c2e3b4ea 100644
+index cb50c2e3b4ea..5f962b9947ab 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -3878,8 +3878,10 @@ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+@@ -3878,10 +3878,13 @@ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
  S:	Odd fixes
  F:	Documentation/arch/arm/zte/
  F:	Documentation/devicetree/bindings/arm/zte.yaml
-+F:	Documentation/devicetree/bindings/phy/zte,zx297520v3-usb-phy.yaml
++F:	Documentation/devicetree/bindings/clock/zte,zx297520v3-topcrm.yaml
+ F:	Documentation/devicetree/bindings/phy/zte,zx297520v3-usb-phy.yaml
  F:	arch/arm/boot/dts/zte/
  F:	arch/arm/mach-zte/
-+F:	include/dt-bindings/phy/phy-zte-zx297520v3-usb.h
++F:	include/dt-bindings/clock/zte,zx297520v3-clk.h
+ F:	include/dt-bindings/phy/phy-zte-zx297520v3-usb.h
++F:	include/dt-bindings/reset/zte,zx297520v3-reset.h
  
  ARM/ZYNQ ARCHITECTURE
  M:	Michal Simek <michal.simek@amd.com>
-diff --git a/include/dt-bindings/phy/phy-zte-zx297520v3-usb.h b/include/dt-bindings/phy/phy-zte-zx297520v3-usb.h
+diff --git a/include/dt-bindings/clock/zte,zx297520v3-clk.h b/include/dt-bindings/clock/zte,zx297520v3-clk.h
 new file mode 100644
-index 000000000000..8a0a3ccbdd63
+index 000000000000..1f010ff4e6ca
 --- /dev/null
-+++ b/include/dt-bindings/phy/phy-zte-zx297520v3-usb.h
-@@ -0,0 +1,12 @@
++++ b/include/dt-bindings/clock/zte,zx297520v3-clk.h
+@@ -0,0 +1,66 @@
 +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
 +/*
 + * Copyright (C) Stefan Dösinger.
 + */
 +
-+#ifndef __DT_BINDINGS_PHY_USB_ZX297520V3_H
-+#define __DT_BINDINGS_PHY_USB_ZX297520V3_H
++#ifndef __DT_BINDINGS_CLOCK_ZX297520V3_H
++#define __DT_BINDINGS_CLOCK_ZX297520V3_H
 +
-+#define ZX297520V3_USB_PHY	0
-+#define ZX297520V3_HSIC_PHY	1
++#define ZX297520V3_M0_WCLK			1
++#define ZX297520V3_SRAM1_PCLK			2
++#define ZX297520V3_SRAM2_PCLK			3
++#define ZX297520V3_UART0_WCLK			4
++#define ZX297520V3_UART0_PCLK			5
++#define ZX297520V3_I2C0_WCLK			6
++#define ZX297520V3_I2C0_PCLK			7
++#define ZX297520V3_RTC_WCLK			8
++#define ZX297520V3_RTC_PCLK			9
++#define ZX297520V3_LPM_GSM_WCLK			10
++#define ZX297520V3_LPM_GSM_PCLK			11
++#define ZX297520V3_LPM_LTE_WCLK			12
++#define ZX297520V3_LPM_LTE_PCLK			13
++#define ZX297520V3_LPM_TD_WCLK			14
++#define ZX297520V3_LPM_TD_PCLK			15
++#define ZX297520V3_LPM_W_WCLK			16
++#define ZX297520V3_LPM_W_PCLK			17
++#define ZX297520V3_TIMER_T08_WCLK		18
++#define ZX297520V3_TIMER_T08_PCLK		19
++#define ZX297520V3_TIMER_T09_WCLK		20
++#define ZX297520V3_TIMER_T09_PCLK		21
++#define ZX297520V3_MPLL				22
++#define ZX297520V3_MPLL_D5			23
++#define ZX297520V3_DPLL				24
++#define ZX297520V3_GPLL				25
++#define ZX297520V3_GPLL_D2			26
++#define ZX297520V3_GATED_OSC26M			27
++#define ZX297520V3_PMM_WCLK			28
++#define ZX297520V3_PMM_PCLK			29
++#define ZX297520V3_OUT0_WCLK			30
++#define ZX297520V3_OUT1_WCLK			31
++#define ZX297520V3_OUT2_WCLK			32
++#define ZX297520V3_OUT32K_WCLK			33
++#define ZX297520V3_RMIIPHY_WCLK			34
++#define ZX297520V3_TIMER_T12_WCLK		35
++#define ZX297520V3_TIMER_T12_PCLK		36
++#define ZX297520V3_TIMER_T13_WCLK		37
++#define ZX297520V3_TIMER_T13_PCLK		38
++#define ZX297520V3_TIMER_T14_WCLK		39
++#define ZX297520V3_TIMER_T14_PCLK		40
++#define ZX297520V3_TIMER_T15_WCLK		41
++#define ZX297520V3_TIMER_T15_PCLK		42
++#define ZX297520V3_TIMER_T16_WCLK		43
++#define ZX297520V3_TIMER_T16_PCLK		44
++#define ZX297520V3_TIMER_T17_WCLK		45
++#define ZX297520V3_TIMER_T17_PCLK		46
++#define ZX297520V3_WDT_T18_WCLK			47
++#define ZX297520V3_WDT_T18_PCLK			48
++#define ZX297520V3_USIM1_WCLK			49
++#define ZX297520V3_USIM1_PCLK			50
++#define ZX297520V3_AHB_WCLK			51
++#define ZX297520V3_AHB_PCLK			52
++#define ZX297520V3_USB_WCLK			53
++#define ZX297520V3_USB_PCLK			54
++#define ZX297520V3_HSIC_WCLK			55
++#define ZX297520V3_HSIC_PCLK			56
 +
-+#endif /* __DT_BINDINGS_PHY_USB_ZX297520V3_H */
++#endif /* __DT_BINDINGS_CLOCK_ZX297520V3_H */
+diff --git a/include/dt-bindings/reset/zte,zx297520v3-reset.h b/include/dt-bindings/reset/zte,zx297520v3-reset.h
+new file mode 100644
+index 000000000000..43db72bb59de
+--- /dev/null
++++ b/include/dt-bindings/reset/zte,zx297520v3-reset.h
+@@ -0,0 +1,32 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (C) Stefan Dösinger.
++ */
++
++#ifndef __DT_BINDINGS_RESET_ZX297520V3_H
++#define __DT_BINDINGS_RESET_ZX297520V3_H
++
++#define ZX297520V3_ZSP_RESET			0
++#define ZX297520V3_UART0_RESET			1
++#define ZX297520V3_I2C0_RESET			2
++#define ZX297520V3_RTC_RESET			3
++#define ZX297520V3_TIMER_T08_RESET		4
++#define ZX297520V3_TIMER_T09_RESET		5
++#define ZX297520V3_PMM_RESET			6
++#define ZX297520V3_GPIO_RESET			7
++#define ZX297520V3_GPIO8_RESET			8
++#define ZX297520V3_TIMER_T12_RESET		9
++#define ZX297520V3_TIMER_T13_RESET		10
++#define ZX297520V3_TIMER_T14_RESET		11
++#define ZX297520V3_TIMER_T15_RESET		12
++#define ZX297520V3_TIMER_T16_RESET		13
++#define ZX297520V3_TIMER_T17_RESET		14
++#define ZX297520V3_WDT_T18_RESET		15
++#define ZX297520V3_USIM1_RESET			16
++#define ZX297520V3_AHB_RESET			17
++#define ZX297520V3_USB_PHY_RESET		18
++#define ZX297520V3_USB_RESET			19
++#define ZX297520V3_HSIC_PHY_RESET		20
++#define ZX297520V3_HSIC_RESET			21
++
++#endif /* __DT_BINDINGS_RESET_ZX297520V3_H */
 
 -- 
 2.54.0
