@@ -1,68 +1,123 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98653330D35;
-	Thu, 16 Jul 2026 13:55:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8BF83D522F
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 13:56:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784210129; cv=none; b=PPzE3ajRreWkNhm605VBlLFICsAtCe5moVWJEYJ3adOu+ScXeegiGU8+/mTbY38fpeheFOwpGJ7x92NZNTHW59yM8NEs1M5p4n17qyFIqjQZOCKw31OCBRPW4ei1fj3mq1P5EoDK8CE3Gtx/Hg1eYRgitl9aDYL14rBGtJt0FcQ=
+	t=1784210200; cv=none; b=lXG/iGOP3+QvhgZHTYD780TlbYG0zPfZmPZNhHL3o5mfvwwuaUJGxlHA3PvXA9r0p01mNai+XaR2vkwvp25Hx7+7mPh4wrxQK6pOMIwie3MnQixR+FNE2R4lFNF+Qd83g8p4Ij2u4tbpQayoZ5a0gne3p1WQ9cbNKhg65QA+5dQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784210129; c=relaxed/simple;
-	bh=gvXFjOPykqDql/p9B8mhilpMKqLdkfhPnV65gpA7FTo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pmshLuPRJaMgD3q6P+dvpkMhfXyVs0H5x1MGlHhgCmMBxrnjg6L1gS8mTNbRWwp9+v+WdGBHPVZiV5mwdpzF2zkKJPosRD4bLKcHp2kkJrSFWaeIIkB+U/uTrxgW7hOKH/EF3Zuf6AUuiPr6IVJctaWVSqUR9tXhmeNHq5GlC9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=fseFKIbq; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1784210200; c=relaxed/simple;
+	bh=0DmqgbykD9XUoj6tr6kuvFA55tWPg05MCrVhBbT8GsE=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Hjbg3X9o3MvoROaEsGacI+5Gc1dVu6+EMWxeXhxBScgPkwQmUzbjfk0AFMS3FZy64gruzZdwArdxSWijfEaNup8a4tkd9BF810ZQYyWZ6tYZriEyKiXpC+VaGrj4PXWVuEz0AWvoCEFszLwA2ztVfPaHKtZJWtzyn0C3r0SrZi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=POV7mxJa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="fseFKIbq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=GDFKz5jKJQX9s45qo0f8KCysTxh9DEvXf8Hx/7+Fx5M=; b=fseFKIbqtaVNU1TL0i4IUrc9Hv
-	+5g3yamrwwEmokIBCQ8DYWafFeARzVXWGe/zvbQS6NJkP+YP5CEv+M8UV887we9/Zs0bm6PQ+9/Zk
-	AgUGxYaFdMYsWIJC2qfd+u5REOURB750Y9MQABsCaGCPvPgD0al0Ah2ID0tWKNUnsB1w=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wkMYZ-00CXgk-VS; Thu, 16 Jul 2026 15:55:19 +0200
-Date: Thu, 16 Jul 2026 15:55:19 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Artem Shimko <a.shimko.dev@gmail.com>
-Cc: netdev@vger.kernel.org, Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v2 2/2] net: phy: add DAPU Telecom DAP8210R(I)
- Gigabit Ethernet PHY driver
-Message-ID: <f3be1229-1d46-4cb3-a83f-0715d6789651@lunn.ch>
-References: <20260716113805.593215-1-a.shimko.dev@gmail.com>
- <20260716113805.593215-3-a.shimko.dev@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="POV7mxJa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 499831F01558
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 13:56:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784210199;
+	bh=mwOeiH6TQ8hwAzWbwmnJz/CIz4T49YDiQFjUY/QfsyQ=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=POV7mxJaOIibLP31szhb/xovSeQID8SQf5snSkkCOXVX3axwodvxoYOtwNoKUAhMg
+	 vki32sAf9pnnnH59Y7Kg+T+eaPSfi7BYj6Gp+gY261B+eHPTIWc75mCVn1fNlVwm6d
+	 u4KyNCjKVFNotIrP+gcxSd4MDc1riEEKEYXOexKTu0O/bh+Eb227QwKziHH7FOqxXE
+	 LKpCJfD1ldDGWJQerYBZwLIKOZVcY1mNATcFgTVjECxhaf+2lCShwcpRq0hh6kXIRj
+	 C6QsC/p3b8jgElwuGW7pL31W0tdUrlSFtIIPENdJy1fXyKece86c8ghkWf9gJCkwrP
+	 8uIJBKVl4T1lw==
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-39ca0a30148so54438831fa.3
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 06:56:39 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rqp46Nhqg9dTOkKf7Rd/gByAaMGNTmkrBXwQyu5rrZwaeBy3fVCG/Q1en8PfotQTkHp/BQ3SRv2NbXD@vger.kernel.org
+X-Gm-Message-State: AOJu0YxOjz0heh367UBa0uKKeADBXNFQcF7jfbFNKDW/gxvHGGEqrlBU
+	GSEPm3hK19MuaFufsamQAym546/HKEs5897ijuBQYyxkw6cCPsPBB6apscnm5az9Rcbdy5rdHdb
+	Jn074SO/fIYrCwGNTwcVeyZewLxP5rc2srokvt9lH0Q==
+X-Received: by 2002:a2e:a541:0:b0:39c:6e84:99b6 with SMTP id
+ 38308e7fff4ca-39db6c29ecemr15216291fa.23.1784210197958; Thu, 16 Jul 2026
+ 06:56:37 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 16 Jul 2026 06:56:36 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 16 Jul 2026 06:56:36 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260709-fix-hamoa-m2-w-disable2-v1-2-5e725091266a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260716113805.593215-3-a.shimko.dev@gmail.com>
+References: <20260709-fix-hamoa-m2-w-disable2-v1-0-5e725091266a@oss.qualcomm.com>
+ <20260709-fix-hamoa-m2-w-disable2-v1-2-5e725091266a@oss.qualcomm.com>
+Date: Thu, 16 Jul 2026 06:56:36 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MeowD++93_eaYSBp0mKoY0nRROLFncLP6Ec_TdJn3jJEg@mail.gmail.com>
+X-Gm-Features: AUfX_mzmx9GeLm3op_lLrefZoDCe5e4VmjadrLm9lyfOJ48w2ivaJ_TPEAAX-dk
+Message-ID: <CAMRc=MeowD++93_eaYSBp0mKoY0nRROLFncLP6Ec_TdJn3jJEg@mail.gmail.com>
+Subject: Re: [PATCH 2/3] power: sequencing: pcie-m2: Match WCN6855 and WCN7851
+ UART BT variants by subdevice ID
+To: Wei Deng <wei.deng@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
+	linux-pm@vger.kernel.org, mengshi.wu@oss.qualcomm.com, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> +	/* Wait for reset self-clear */
-> +	do {
-> +		fsleep(20);
-> +		ret = dap8211r_read_ext(phydev, DAP8211R_PHY_CON);
-> +		if (ret < 0)
-> +			return ret;
-> +	} while (!(ret & DAP8211R_PHY_SW_RST) && --retries);
+On Thu, 9 Jul 2026 09:29:41 +0200, Wei Deng <wei.deng@oss.qualcomm.com> sai=
+d:
+> The WCN6855 and WCN7851 combo chips are available in M.2 card variants
+> that differ by their BT interface: some expose BT over UART while others
+> expose BT over USB. Both variants use the same PCIe device ID for the
+> WiFi interface, distinguished only by their sub-system device ID.
+>
+> The bare PCI_DEVICE() entries match all sub-system IDs, so both UART and
+> USB variants hit the same table entry and trigger UART serdev creation.
+> For USB variants this is wrong =E2=80=94 there is no UART BT interface on=
+ such
+> a card, and the serdev probe will fail.
+>
+> Narrow the matches to UART variants only by using PCI_DEVICE_SUB with
+> their respective sub-system IDs. USB variants no longer match the table
+> and will be handled separately to deassert W_DISABLE2# for USB BT
+> enumeration.
+>
+> Signed-off-by: Wei Deng <wei.deng@oss.qualcomm.com>
+> ---
+>  drivers/power/sequencing/pwrseq-pcie-m2.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/power/sequencing/pwrseq-pcie-m2.c b/drivers/power/se=
+quencing/pwrseq-pcie-m2.c
+> index 83fe6a1396bc..cf51122d54fd 100644
+> --- a/drivers/power/sequencing/pwrseq-pcie-m2.c
+> +++ b/drivers/power/sequencing/pwrseq-pcie-m2.c
+> @@ -191,9 +191,11 @@ static const struct pci_device_id pwrseq_m2_pci_ids[=
+] =3D {
+>  	  .driver_data =3D (kernel_ulong_t)"nxp,88w8987-bt" },
+>  	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_QCOM, 0x1103, PCI_VENDOR_ID_QCOM, 0x0108=
+),
+>  	  .driver_data =3D (kernel_ulong_t)"qcom,qca2066-bt" },
+> -	{ PCI_DEVICE(PCI_VENDOR_ID_QCOM, 0x1103),
+> +	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_QCOM, 0x1103, PCI_VENDOR_ID_FOXCONN, 0xe=
+105),
+>  	  .driver_data =3D (kernel_ulong_t)"qcom,wcn6855-bt" },
+> -	{ PCI_DEVICE(PCI_VENDOR_ID_QCOM, 0x1107),
+> +	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_QCOM, 0x1103, PCI_VENDOR_ID_QCOM, 0x337e=
+),
+> +	  .driver_data =3D (kernel_ulong_t)"qcom,wcn6855-bt" },
+> +	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_QCOM, 0x1107, PCI_VENDOR_ID_QCOM, 0x337c=
+),
+>  	  .driver_data =3D (kernel_ulong_t)"qcom,wcn7850-bt" },
+>  	{ PCI_DEVICE(PCI_VENDOR_ID_QCOM, 0x1112),
+>  	  .driver_data =3D (kernel_ulong_t)"qcom,qcc2072-bt" },
+>
+> --
+> 2.34.1
+>
+>
 
-This does not have the usual problem, but it is still better to use
-something from iopoll.h.
+Do you want me to queue this independently from patch 3/3?
 
-	Andrew
+Bart
