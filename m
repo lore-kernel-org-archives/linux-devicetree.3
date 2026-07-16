@@ -1,40 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2C0367B86;
-	Thu, 16 Jul 2026 20:49:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C51A347BC4;
+	Thu, 16 Jul 2026 20:51:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784234956; cv=none; b=X3Er+uju0XjDmlKCWcQLCB9JoPNTYlGDIbWXfL4sPYVHqvFJRnJwNsxF+l4ted4cS0YMTu39cnFizjt3jJjbpnlParAd+2xV5WRO19gLtOy3YLrgphi16b27mQ0WEXNVsKIQ+oVUZylDmrGk8BSt6xToIG6A9wqVHb6CfXn/ZVs=
+	t=1784235104; cv=none; b=KjryDVmPflJj5g4RtvuQqmvZhNLhsEkZrSXuriZ1FLmR61Tenauc48dWZEl8egD647ApAEeJgPRBtR+B8ctxc1wID6TmWNOQVWcxvT+F2xxlXexLmYxJO1vCysXT0rsxFTD4Xbgea91H84lwc6G+XMXCMrmmzzBqR0BVU+PPKac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784234956; c=relaxed/simple;
-	bh=SrjnLYLum9Z46rma6nqV2wDFJDz5Q6fyW7Z2D3kDqJA=;
+	s=arc-20240116; t=1784235104; c=relaxed/simple;
+	bh=QAZvdH1An+dJCz1lf+6FQVjDZd8u0vpeEfqC+NA3s+I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S5T/BFPoqmzEUN6YIep4nlhtWBz8Hp8i8Oqe2e6d8YbEafUQIN4KjEXE/a3gMa99XsMDxYIe4kyqlrfLTI7PsP4yj+rzHiebZ5FcvijrZgo2+jftY908P7fPZxFqAIIkBBEdHCzr/pe6vg672C+13o2UaFao7bGjqqvS8V080M0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WuGvw+A0; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=myPac3n/VKnaoFcZRRBazhqV4T4Hqp5Q2FnQTRy1nE0R2lxIwrKlW+EzczJTRx+OTVDOdE9oV1szubdynhU+oe/1sSlxOiWulcSQljwVdFsfsbcDL3ZWrWWTXpM+uBBH++Q6gLRshMfhzpuzLbgoZaHYIPqwXkfX1AdqU3kYYn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oqs9Gz67; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WuGvw+A0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B54E41F000E9;
-	Thu, 16 Jul 2026 20:49:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oqs9Gz67"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CEBA1F000E9;
+	Thu, 16 Jul 2026 20:51:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784234954;
-	bh=/auF3QwCn6DkvYe4mWReEKGzDw3FjlfykMkHq6oG8O8=;
+	s=k20260515; t=1784235102;
+	bh=tKTmjq3H4VMXyq2Ze+g4Juc18m6aYpGE5eXI0bSO8i8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WuGvw+A09QbHon0C2djMML9mRJR6ScHWGLqGNZ2+u9LO1LCoEz+Y0Qwn9vwK3+dst
-	 iEs945e3WU++xoimCWIpmsIisL2Z8Och/YiaBJOyjdT42ivKWsurQuyA6gv1Mtk3Z8
-	 gJeitL5/8EcgudG0kA48HM+JNch8eewsA9+jmpn6Tzlnizr+YPgmphao0zeVEdxTLZ
-	 dARqg17l3yc7unnd086hSSpZcPtzCnw/U8eM8CpjUziFkLPC6Ye7fmISiFiVjxeqIA
-	 ilVU5t8gRbGgXrbZtC9h4QZTywvR43gNawR58Zlbj4bB2fIRZiAP27EuqLIC/BgtrK
-	 7nPMMLS85ultQ==
-Date: Thu, 16 Jul 2026 15:49:14 -0500
-From: Rob Herring <robh@kernel.org>
-To: Carlo Caione <ccaione@baylibre.com>
-Cc: saravanak@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] of/address: Fix NULL bus dereference in
- of_pci_range_parser_one()
-Message-ID: <20260716204914.GA1262499-robh@kernel.org>
-References: <20260706114731.57353-1-ccaione@baylibre.com>
+	b=oqs9Gz67/s7htGodt5u8Z9lEFvvMAi5ZX7VgIyoO1Vu3OJ+v6yqTrAfxWc+k4jC9m
+	 r9IX/drzboIlWrWcUplukDRwshRYwUfRoUEfHWdDtVTQEASdTiooZ3Gs4q3RIkdXs5
+	 eK1F81/EPQSHxWZbf5enSPflg5QBFJDco74AKDobNAqR11B1tU8l+xYTGN8jpJiTGM
+	 x+lZAWmzn5r3tp45WXQF2o66SOUICJ5duvDEn8dlXSvy+VYpPAVvAIowE67w0a+3Mq
+	 RSYSOjeZYckWNKRPA1EU3g3Ok8Z0XMdOphnDfnZYIJ7RXTodH/8Rm++ay88aE2LnWU
+	 Sld+GzpswbuHw==
+Date: Thu, 16 Jul 2026 15:51:42 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	Varun Wadekar <vwadekar@nvidia.com>,
+	Nirmoy Das <nirmoyd@nvidia.com>, devicetree@vger.kernel.org,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
+	Salman Nabi <salman.nabi@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>, vsethi@nvidia.com,
+	Vedashree Vidwans <vvidwans@nvidia.com>
+Subject: Re: [PATCH v3 1/8] dt-bindings: arm: Add Live Firmware Activation
+Message-ID: <178423510160.1271124.8998579223606247136.robh@kernel.org>
+References: <20260706134455.132091-1-andre.przywara@arm.com>
+ <20260706134455.132091-2-andre.przywara@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,99 +52,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260706114731.57353-1-ccaione@baylibre.com>
+In-Reply-To: <20260706134455.132091-2-andre.przywara@arm.com>
 
-On Mon, Jul 06, 2026 at 01:47:17PM +0200, Carlo Caione wrote:
-> The bus matching rework made of_match_bus() return NULL for nodes
-> with ranges/dma-ranges but no local #address-cells. parser_init()
-> stored that NULL bus, and the range iterator later dereferenced it.
+
+On Mon, 06 Jul 2026 15:44:41 +0200, Andre Przywara wrote:
+> The Arm Live Firmware Activation spec [1] describes updating firmware
+> images during runtime, without requiring a reboot. Update images might
+> be deployed out-of-band, for instance via a BMC, in this case the OS
+> needs to be notified about the availability of a new image.
 > 
-> Reject such nodes in parser_init(), leaving an explicit empty iterator
-> for callers that ignore the init return. Keep the DMA limit walk guarded
-> by a non-empty dma-ranges property, and only clamp the limit when at
-> least one complete range was parsed.
+> Describe an interrupt that could be triggered by the platform, to notify
+> about any changes.
 > 
-> Fixes: 64ee3cf096ac ("of/address: Rework bus matching to avoid warnings")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Carlo Caione <ccaione@baylibre.com>
+> [1] https://developer.arm.com/documentation/den0147/latest/
 > 
+> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
 > ---
-> Changes in v2:
-> - Validate na/pna/ns in parser_init() with OF_CHECK_COUNTS() /
->   OF_CHECK_ADDR_COUNT()
-> - Link to v1: https://lore.kernel.org/r/20260706095651.48839-1-ccaione@baylibre.com
-> ---
->  drivers/of/address.c | 23 +++++++++++++++++------
->  1 file changed, 17 insertions(+), 6 deletions(-)
+>  .../devicetree/bindings/arm/arm,lfa.yaml      | 45 +++++++++++++++++++
+>  1 file changed, 45 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/arm/arm,lfa.yaml
 > 
-> diff --git a/drivers/of/address.c b/drivers/of/address.c
-> index cf4aab11e9b1..fd2468b89579 100644
-> --- a/drivers/of/address.c
-> +++ b/drivers/of/address.c
-> @@ -753,6 +753,7 @@ EXPORT_SYMBOL(of_property_read_reg);
->  static int parser_init(struct of_pci_range_parser *parser,
->  			struct device_node *node, const char *name)
->  {
-> +	const __be32 *range;
->  	int rlen;
->  
->  	parser->node = node;
-> @@ -761,12 +762,20 @@ static int parser_init(struct of_pci_range_parser *parser,
->  	parser->ns = of_bus_n_size_cells(node);
->  	parser->dma = !strcmp(name, "dma-ranges");
->  	parser->bus = of_match_bus(node);
-> +	parser->range = NULL;
-> +	parser->end = NULL;
->  
-> -	parser->range = of_get_property(node, name, &rlen);
-> -	if (parser->range == NULL)
-> +	range = of_get_property(node, name, &rlen);
-> +	if (!range)
->  		return -ENOENT;
->  
-> -	parser->end = parser->range + rlen / sizeof(__be32);
-> +	if (!parser->bus ||
-> +	    !OF_CHECK_COUNTS(parser->na, parser->ns) ||
-> +	    !OF_CHECK_ADDR_COUNT(parser->pna))
-> +		return -EINVAL;
-> +
-> +	parser->range = range;
-> +	parser->end = range + rlen / sizeof(__be32);
->  
->  	return 0;
->  }
-> @@ -792,7 +801,7 @@ struct of_pci_range *of_pci_range_parser_one(struct of_pci_range_parser *parser,
->  	int na = parser->na;
->  	int ns = parser->ns;
->  	int np = parser->pna + na + ns;
-> -	int busflag_na = parser->bus->flag_cells;
-> +	int busflag_na;
->  
->  	if (!range)
->  		return NULL;
-> @@ -800,6 +809,8 @@ struct of_pci_range *of_pci_range_parser_one(struct of_pci_range_parser *parser,
->  	if (!parser->range || parser->range + np > parser->end)
->  		return NULL;
->  
-> +	busflag_na = parser->bus->flag_cells;
-> +
->  	range->flags = parser->bus->get_flags(parser->range);
->  
->  	range->bus_addr = of_read_number(parser->range + busflag_na, na - busflag_na);
-> @@ -976,8 +987,8 @@ phys_addr_t __init of_dma_get_max_cpu_address(struct device_node *np)
->  		np = of_root;
->  
->  	ranges = of_get_property(np, "dma-ranges", &len);
-> -	if (ranges && len) {
-> -		of_dma_range_parser_init(&parser, np);
-> +	if (ranges && len && !of_dma_range_parser_init(&parser, np) &&
-> +	    of_range_count(&parser)) {
 
-Why do we need of_range_count() here?
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
->  		for_each_of_range(&parser, &range)
->  			if (range.cpu_addr + range.size > cpu_end)
->  				cpu_end = range.cpu_addr + range.size - 1;
-> -- 
-> 2.55.0
-> 
