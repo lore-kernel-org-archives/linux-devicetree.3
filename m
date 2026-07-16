@@ -1,98 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F9F53314B7;
-	Thu, 16 Jul 2026 19:48:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E442F546D;
+	Thu, 16 Jul 2026 19:51:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784231288; cv=none; b=XsWjLzT9/NjU60Zp+0DoVQeVTnZQbq4SwP/ScyR0/YFl6wGtn4nOV0HxEyX9xz6H+LdHb2qiafaX4oR/rO8L9T6fIexaXkAP3uhr+6qGJqozH11G5BTcgHnMM+dWYKElQn83V9CSdh4nWEeiFp0G3CZzy26L5GI9kW6G3QlIAlo=
+	t=1784231496; cv=none; b=Ed+733WmuKo51lkAzu1QXbAI2+Ikzpg07OxhQfzwioAgEc1lownkVkhXHDgnzuIr0UTqiQv0540MBX2d5CUoRTaoQ2s1/B+JNnD0irxTJudLY7Zt3Va9LBeH02+Palh5fvjXggatl4BAruLByy0MhI9NqIqs8Y+1S8CYwuzYRcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784231288; c=relaxed/simple;
-	bh=SJcCYxPKmMNIEclPnWtQMb8Hvsy4B94ToARxmk9KVsA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pyZ2rni304ylTFs0zVDc7Zc10Fs5MHbPcph+43XTrKyFUEYNDUVhMUxQ7PZONOnTQuT0+9DT5GmacrLXXMVFDTVXZsBjMRZYJQ4xhbfiIG3OHP/eZ2Vn/Gtq6Z178ZgyQa6SKQDDxDgY5w6O6pubTLve0JBbt3qcXM0vmPol5gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OWvezLmh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784231496; c=relaxed/simple;
+	bh=G4bnGmOO5plEsBfAujTOmpUkEStvPYgl6gKTH4QdAro=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ISvCIl8u6shSEobH+9CaFEzsgR6DJNRlxLSpExJQgk9bf7PSppT5zh0S+DbEgNk6VqW8erNuRINGYAC8qWjF2rS/0bp4r63MW+qQBIMynh4K1KH0TnOxnRZQFJeNR9j7OjTEaJTZtI+L35S6XfGpCIrgBjeyCcQEUTxtW+AsaAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OrMbzcrm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OWvezLmh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BD891F000E9;
-	Thu, 16 Jul 2026 19:48:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784231287;
-	bh=3hhyWssp07/ZGm2jj07OWH53BPbjC4C4wZgRggSv8zQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OWvezLmh8IpOIQJUxbAuOnrKQsiVynhZzqrFMr83q4sRZ8wHNC0UZA/jpqcVEVMTT
-	 GydXWvDua5aNX+XLkSCgK2xOcsCBZLccMaURql4LbAreu7MEnYy099QbeZ0qzNlRW0
-	 yQ3u0whE/1vo3rND97O8vjNOnj7EAaJGpKiv85DqDoh1cZlgN9kq9J6pEB/FWG2Rzw
-	 q/4zgvsbrTQwyvCeZFa3au66pcVI3CGGxL49r73+tB68YE4HRbTOhit/8IcOWK0cJm
-	 0uvXZy266TgLv18ytV332cq0+bu5cuQ4nuspFgzubXr+oBFPVAKWkIGvVVoZXstIN+
-	 868u333PzLL2Q==
-Date: Thu, 16 Jul 2026 14:48:06 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: "Richard Genoud (TI)" <richard.genoud@bootlin.com>
-Cc: Tero Kristo <kristo@kernel.org>, Beleswar Padhi <b-padhi@ti.com>,
-	Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>,
-	Abhash Kumar <a-kumar2@ti.com>, Udit Kumar <u-kumar1@ti.com>,
-	Thomas Richard <thomas.richard@bootlin.com>,
-	Gregory CLEMENT <gregory.clement@bootlin.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 1/6] dt-bindings: remoteproc: k3-r5f: Add Jacinto LPM
- memory region
-Message-ID: <178423118332.1182230.16969278384286286126.robh@kernel.org>
-References: <20260703143717.177362-1-richard.genoud@bootlin.com>
- <20260703143717.177362-2-richard.genoud@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OrMbzcrm"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A4D34C2BCC7;
+	Thu, 16 Jul 2026 19:51:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784231495;
+	bh=G4bnGmOO5plEsBfAujTOmpUkEStvPYgl6gKTH4QdAro=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=OrMbzcrm03GAuul9UD6cBF28DHbmPnBkxWaJioLgXIRjUy9fLYUUwdJ17X21CXIFS
+	 C/BzKTVj3Jn1+8dW88rTjis9pOfe6mYv3O9zjncQ1RmNRb1Ox1RPF3jxEGD8Bur/PG
+	 k3I2oSLqeRvjVAijiG5KIKJD8/kgA6zE6jy06Df46IT0TCzj5XXKaD7ccoDquTNqgK
+	 rOl3Y97G8bxxyTpFYV+3gp/rivhNi4XM1xAlWDvLDY+Fdx30jHhMwUNHU0duB9D43t
+	 G755pRZxG/gAznH/I8rrt2UxNlD4olBUnJUGVA+HRU7PfVBhO8l2lg+4yMAmXdQS8a
+	 3vy17ZqVmX3fA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89A06C44514;
+	Thu, 16 Jul 2026 19:51:35 +0000 (UTC)
+From: Sarath Ganapathiraju via B4 Relay <devnull+sarath.ganapathiraju.oss.qualcomm.com@kernel.org>
+Date: Fri, 17 Jul 2026 01:21:16 +0530
+Subject: [PATCH v2 2/3] ASoC: dt-bindings: qcom,lpass-va-macro: Add hawi
+ heartbeatpulse clock
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260703143717.177362-2-richard.genoud@bootlin.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260717-master-v2-2-ae200627ad62@oss.qualcomm.com>
+References: <20260717-master-v2-0-ae200627ad62@oss.qualcomm.com>
+In-Reply-To: <20260717-master-v2-0-ae200627ad62@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
+ linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ prasad.kumpatla@oss.qualcomm.com, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784231493; l=1568;
+ i=sarath.ganapathiraju@oss.qualcomm.com; s=default;
+ h=from:subject:message-id;
+ bh=wmQ8OjdIV+ggh2217ROVouCyWwoJQ4NDy6vn2YVHcG0=;
+ b=yySkd+ybybOOPR+Mp3EHCeg9BsMlxA9Lg/+eMnDvleD0k2A+Ak8sH8VWTcrKuk48lLIU1enCw
+ lEJ1RMVlw7eAKE6m79Q6W0dH7yhvTqQLyugQGM6q05LDZg8MSL0gjZJ
+X-Developer-Key: i=sarath.ganapathiraju@oss.qualcomm.com; a=ed25519;
+ pk=4p2FWGXM+F2sir13Lu5stw5aKX5trUymK/ttESvgxQg=
+X-Endpoint-Received: by B4 Relay for
+ sarath.ganapathiraju@oss.qualcomm.com/default with auth_id=870
+X-Original-From: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+Reply-To: sarath.ganapathiraju@oss.qualcomm.com
+
+From: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+
+Extend the qcom,lpass-va-macro to add the qcom,hawi-lpass-va-macro
+compatible, which consumes an additional heartbeatpulse clock
+alongside its existing mclk, macro, and dcodec clocks, for a total
+four-clock constraint.
+
+Signed-off-by: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+---
+ .../devicetree/bindings/sound/qcom,lpass-va-macro.yaml | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+index aea31fbdad..ae4df89678 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+@@ -19,6 +19,7 @@ properties:
+           - qcom,sm8450-lpass-va-macro
+           - qcom,sm8550-lpass-va-macro
+           - qcom,sc8280xp-lpass-va-macro
++          - qcom,hawi-lpass-va-macro
+       - items:
+           - enum:
+               - qcom,eliza-lpass-va-macro
+@@ -168,6 +169,23 @@ allOf:
+             - const: macro
+             - const: dcodec
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: qcom,hawi-lpass-va-macro
++    then:
++      properties:
++        clocks:
++          minItems: 4
++          maxItems: 4
++        clock-names:
++          items:
++            - const: mclk
++            - const: macro
++            - const: dcodec
++            - const: heartbeatpulse
++
+ unevaluatedProperties: false
+ 
+ examples:
+
+-- 
+2.34.1
 
 
-On Fri, 03 Jul 2026 16:37:12 +0200, Richard Genoud (TI) wrote:
-> Declare a carveout memory region to store LPM metadata on Jacinto
-> devices.
-> 
-> For Jacinto devices, this memory region is needed for saving ATF context
-> and the certificate information of ATF and OPTEE and DM image. This LPM
-> metadata area is firewalled to be accessed only by TIFS.
-> 
-> U-Boot R5 SPL/TIFS will use this area to save and restore:
-> - ATF context
-> - ATF certificate information
-> - OPTEE certificate information
-> - DM image (which has been copied in memory at boot time by U-Boot
-> R5-SPL)
-> 
-> At resume, U-Boot R5 SPL is executed and detects that the board is
-> resuming (with a flag set in the PMIC), then it:
-> - brings out of retention the DDR
-> - retrieves the LPM memory region from DTS
-> - authenticates certificates from LPM memory region and applies firewalls
-> - asks TIFS to restore TFA and its own minimal context
-> - starts TFA on remote proc
-> - loads back DM image from memory and jumps to DM
-> 
-> https://software-dl.ti.com/tisci/esd/latest/2_tisci_msgs/pm/lpm.html#lpm-msg-lpm-save-addr
-> 
-> NB: This memory region is not part of DM memory (which is not retained
-> at suspend)
-> 
-> Signed-off-by: Richard Genoud (TI) <richard.genoud@bootlin.com>
-> ---
->  .../bindings/remoteproc/ti,k3-r5f-rproc.yaml   | 18 +++++++++++++++---
->  1 file changed, 15 insertions(+), 3 deletions(-)
-> 
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-
-Seems like sashiko raises a legit issue, but that's a kernel issue and 
-not my problem if your board crashes.
-
-Rob
