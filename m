@@ -1,67 +1,82 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE6313E2ADD;
-	Thu, 16 Jul 2026 08:27:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B583EEAC4
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 08:31:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784190445; cv=none; b=fF+5cbsg/lpqkPmRQwXEDmRZ/2UX2HU/BueVaL5mL6vSrPJVLW9wDwlJ+RkRptQkVHPi4fFxd/mJNmdGp2CehikMKTGdrlVhLlfbGPCoauI2SVVtG4Js51AQgqQKdCkAHsMd31CWfRLn+4XTXizOitlH8Xw/U3hVFqrtMBpasF8=
+	t=1784190709; cv=none; b=HOHB/R1zyZAadB82DG1lSm8lJtmj5U86DK5CY+V0iqHDchnNmb4n006odM9mjc+0bcsVLb9T80DNKnBzMsMmtwxPmdy4PBTPg61x1fWW5nhiVJsURFMNfrulalpZv+opGYYLIymaSXyZH7m3AG5jKb3cIM9DocyTFUhWA2jRGqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784190445; c=relaxed/simple;
-	bh=5oa/5XioJ8flc5AgybunsF5G261OjV++bUe/mqwllp4=;
+	s=arc-20240116; t=1784190709; c=relaxed/simple;
+	bh=6DHfUJVqQheLEpAIKU2YHLWqGBbQ8kKr9sjbdC1PERk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EbY4RWsPb932JUBX8/E43gJQ04OTyVv2z88ETWIWbAkySufPPWbIet4US1gsVQqtyvdL5rx9zmrt4rZ+hCMJlAFvpphxjGVZk+0bN1eNaLuJ0UkS35TzFUqTNxi/Wvov0tuH3v66H62TlbLWbpfkqzeKP6yI2/q9FIg+UCkey/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LbLBWoW9; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=M0FRemImFcxxsNU/yOhCJwTwakYa3pjxjxHU4Nq3XFtDPY+58/CWdAiMWoo1WVy9A7mDfgTgAZOLfyDLK0wPVCqHOW0cgeMv2FqIsur6w65ZvSJdVasvWqrfAqbMuq5uhpwJN9jIq/6rQIxm8ooThrD7uuX75yiJduGxZDg/eu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=cKJ0mHMg; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LbLBWoW9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784190443; x=1815726443;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=5oa/5XioJ8flc5AgybunsF5G261OjV++bUe/mqwllp4=;
-  b=LbLBWoW9hYteGJO1g6kb+rNXvnzHotpWxJAQyKv6r+PzITlLRzpRnO3V
-   aLnaMeMLwq6OYQSaBgsvCSqCXhbrEq9S66yV6Ma/G8eKjoNnlOxj0QA4p
-   BR04vcTY3pLurBhUSIQjd4/lBUMT6WTYqSYc/s8s5nQg+fs9IAVNzPESI
-   2u5eeRw/UMzi86WXgQmpnOaaFteyt1GqugfOUaKwhgm4KNQ8BlS3gS7+2
-   5TwKEbowRF6e9mq5CiUH87GergTBEx0oL1q1/idk2oNmIpu6jZ8MrTokt
-   sYHducRI9kbHfIT7NyAxqAbYF219fN12yg3UsOrxHRDjxFfNjNk910Ol/
-   g==;
-X-CSE-ConnectionGUID: h2w9YV7GQRKEI+wCoWcAtw==
-X-CSE-MsgGUID: ogzYXKXyQoumUmo0B/p3CQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="83826036"
-X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
-   d="scan'208";a="83826036"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 01:27:22 -0700
-X-CSE-ConnectionGUID: 43hHWRy4SXmvtkTrwMjpSw==
-X-CSE-MsgGUID: stKbAuGLSyOVXOgq7dl9xA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
-   d="scan'208";a="279701626"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.26])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 01:27:16 -0700
-Date: Thu, 16 Jul 2026 11:27:14 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Yu-Chun Lin <eleanor.lin@realtek.com>
-Cc: Michael.Hennerich@analog.com, afaerber@suse.com, andy@kernel.org,
-	brgl@kernel.org, conor+dt@kernel.org, cy.huang@realtek.com,
-	devicetree@vger.kernel.org, dlechner@baylibre.com,
-	james.tai@realtek.com, jic23@kernel.org, krzk+dt@kernel.org,
-	lars@metafoo.de, linus.walleij@linaro.org, linusw@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-realtek-soc@lists.infradead.org,
-	mathieu.dubois-briand@bootlin.com, mwalle@kernel.org,
-	nuno.sa@analog.com, robh@kernel.org, stanley_chang@realtek.com,
-	tychang@realtek.com, wbg@kernel.org
-Subject: Re: [PATCH v3 3/7] gpio: regmap: Add gpio_regmap_operation and
- write-enable support
-Message-ID: <aliV4u6_xzx9D9Aq@ashevche-desk.local>
-References: <d301ba0cd45d49d59e6a014188306ec9@realtek.com>
- <20260716062614.1507243-1-eleanor.lin@realtek.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="cKJ0mHMg"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38759bcd877so5545742a91.2
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 01:31:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1784190707; x=1784795507; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Bc4d8vqk+lliMKPmpqbLIgPhIFDsMX/hIWVD5yj9aEU=;
+        b=cKJ0mHMg6aEmy0v65cg1aQr6syhYObFrAAz3Ipw+5pyERDObvZIzibmBLAiGagP3hC
+         aRtfqHQLa8QGwLsgtmh7oillq20h7IeK0W9uE3ybzhwz9W1Uji6/vw7l/CSFdGv6znBv
+         i7dFNY2eg56Mjp71OZbFuVxetr78jDR48UPQM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784190707; x=1784795507;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Bc4d8vqk+lliMKPmpqbLIgPhIFDsMX/hIWVD5yj9aEU=;
+        b=Kw9kxRP1svWS5gjVSrVNrBL9P6ePV7Qlwp13HonuJZe9F5aUz8v+HF7tSNFkxAyZ+B
+         H4v6JmBrjTLpb73/BAsaZiq6JR3V3NUSdCSYOMibwczDWu0JcMX+N3hmObHhj+8LPvRH
+         fjscr3jLi3Ow5Dinko3nf313swljM1VwGgdpxZu5edVfT+0kRmv7oLjitHPYfqhP9Gex
+         XWSOENw8xRHcJfhXwjMXeYUl3oHQp68h1+g8b7a1uvhRpLTGkC4A+04pe7kqFGqNSy8r
+         LQdCkH6awP1s5F28OaBsN4ZI+4BeL8lOUxRxgvDpZmlrHeTpk9wPCTFVmpUTIi8TTXsK
+         ryKA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq3oeoyg103lt6O4sX1iotebVEHh7XQhecIormQrtAQm51Fa9tqZRLVYyd61tmwTzuTm5vsb/u6QAQm@vger.kernel.org
+X-Gm-Message-State: AOJu0YzxBrGix2pRZ86NQhAYLjQvBt7IDiIwFnhfMa07lI3CcAxLRA0q
+	bFe3MiMv5gHg/jfevdOFIWt6PjHps3zTZa/T2QgtAmeiytrsQFEMT5+Xp01kOU6Wvg==
+X-Gm-Gg: AfdE7cmiOo0o88N+b1YhNLGOgtmRsCA/CsirqrTivAfzVKfvn0q39OKWv5l9UHxjSdK
+	DN/y3C1a1uxhgaZvDYfI2YzGhZUmnVLIsTbU+0WXDy31F1jdLxARtMHZlBZ5l7xbGzDn83eSl/L
+	kG/bP1tz29ydAqTBAJ+36WEV2a2WAwSyCCD2a7bpJ7ERX5A/rE8Q3UNs1Inse6D9Pg5NLzcvxLm
+	+PeJ/qovIsOT0fp3EWUHlRImIMoAj6YFKCvvHf9q5YGPD+DdCtuR5sRrOvnUeH0AzEJlcPPRdzS
+	F6fuP5BMDR8f2Tyn9rSkmXotZYSGrMvqaxHRecjmf8ezxTg100yHWzU9AwokWvbweiP3K+87dMd
+	Q40FnKb0/OZ/S2VSIYJwW+zC9R9MMrAbF+MvWltVG31vBarQI0MBRTQRhB2eutJq3D4n3rOshFw
+	R+bpy+YT28lMz+wt4koQhyBcJS0GI/5Cqmvw==
+X-Received: by 2002:a17:90b:4a04:b0:387:e0bb:5802 with SMTP id 98e67ed59e1d1-38e2a12332amr5930901a91.41.1784190706821;
+        Thu, 16 Jul 2026 01:31:46 -0700 (PDT)
+Received: from google.com ([2a00:79e0:201d:8:8cee:ac9c:232c:cca3])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e39e5f713sm923742a91.14.2026.07.16.01.31.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Jul 2026 01:31:46 -0700 (PDT)
+Date: Thu, 16 Jul 2026 16:31:41 +0800
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Subject: Re: [PATCH v3 08/11] Bluetooth: hci_qca: Support QCA2066 on M.2
+ connector via pwrseq
+Message-ID: <20260716083141.GA4101439@google.com>
+References: <20260710-monza-wireless-v3-0-46253587af64@oss.qualcomm.com>
+ <20260710-monza-wireless-v3-8-46253587af64@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,142 +85,115 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260716062614.1507243-1-eleanor.lin@realtek.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260710-monza-wireless-v3-8-46253587af64@oss.qualcomm.com>
 
-On Thu, Jul 16, 2026 at 02:26:14PM +0800, Yu-Chun Lin wrote:
-
-...
-
-> >> > -     ret = gpio->reg_mask_xlate(gpio, base, offset, &reg, &mask);
-> >> > +     ret = gpio->reg_mask_xlate(gpio, GPIO_REGMAP_SET_DIR_OP, base,
-> >> offset, &reg, &mask);
-> >> > +     if (ret)
-> >> > +             return ret;
-> >> > +
-> >> > +     ret = gpio->reg_mask_xlate(gpio, GPIO_REGMAP_SET_DIR_WREN_OP,
-> >> base, offset, &reg,
-> >> > +                                &wren_mask);
-> >> 
-> >> What constrains these two to provide the same value back for reg?
-> >> To me it seems like the write enable might well be in a different register.
-> >> 
-> >> >       if (ret)
-> >> >               return ret;
-
-...
-
-> >> > -     return regmap_update_bits(gpio->regmap, reg, mask, val);
-> >> > +     return regmap_update_bits(gpio->regmap, reg, mask | wren_mask,
-> >> > + val | wren_mask);
-> >> >  }
-> >> >
-> >> >  static int gpio_regmap_direction_input(struct gpio_chip *chip,
-> >
-> > My initial design indeed assumed that the WREN mask and Data mask reside in
-> > the same register.
-> >  
-> > Regarding WREN support, especially if WREN and Data use separate registers, I
-> > came up with three ideas. Which direction do you prefer?
-> >  
-> > Approach 1: Provide Custom Callbacks in config (Let consumer driver handle it)
-> > We can add '.set' and '.set_direction' function pointers in
-> > 'struct gpio_regmap_config'. If a driver requires WREN, it can implement these
-> > callbacks itself.
-> > 
-> > static void gpio_regmap_set(struct gpio_chip *chip, unsigned int offset, int val)
-> > {
-> >         struct gpio_regmap *gpio = gpiochip_get_data(chip);
-> >  
-> >         /* If the driver provides a custom set (to handle WREN), delegate to it */
-> >         if (gpio->set) {
-> >                 gpio->set(chip, offset, val);
-> >                 return;
-> >         }
-> >         /* ... existing generic regmap logic ... */
-> > }
-> >
-> > Pros: Clean core, no need to touch existing drivers' xlate signature. The consumer
-> > driver handles its own locking for different registers.
-> > Cons: It feels a bit strange and inconsistent to expose only '.set' and
-> > '.set_direction' overrides while keeping other operations entirely abstracted.
-> >  
-> > Approach 2: Handle separate WREN register in the core (with locking concerns)
-> > We keep the 'XX_WREN_OP' in 'xlate'. If someone needs WREN and 'wren_reg != reg',
-> > we write to both.
-> >  
-> > static int gpio_regmap_set(struct gpio_chip *chip, unsigned int offset,
-> >                            int val)
-> > {
-> >         /* skip */
-> >         ret = gpio->reg_mask_xlate(gpio, GPIO_REGMAP_SET_WREN_OP, base, offset, &wren_reg,
-> >                                    &wren_mask);
-> >         if (ret == -ENOTSUPP)
-> >                 has_wren = false;
-> >         else if (ret)
-> >                 return ret;
-> > 
-> >        ret = gpio->reg_mask_xlate(gpio, GPIO_REGMAP_SET_OP, base, offset, &reg, &mask);
-> > 
-> >        if (has_wren && reg == wren_reg) {
-> >                mask |= wren_mask;
-> >                mask_val |= wren_mask;
-> >                has_wren = false;
-> >        }
-> > 
-> >        if (has_wren)
-> >                ret = regmap_set_bits(gpio->regmap, wren_reg, wren_mask); 
-> > 
-> >         /* ignore input values which shadow the old output value */
-> >         if (gpio->reg_dat_base == gpio->reg_set_base)
-> >                 ret = regmap_write_bits(gpio->regmap, reg, mask, mask_val);
-> >         else
-> >                 ret = regmap_update_bits(gpio->regmap, reg, mask, mask_val);
-> >  
-> >         return ret;
-> > }
-> >  
-> > Pros: Keeps all WREN logic unified inside the core framework.
-> > Cons: Introduces a locking issue. writing to 'wren_reg' and then 'reg' requires an
-> > external lock to be atomic, which seems to defeat the purpose of relying on regmap's
-> > internal lock. 
-> > 
-> > Approach 3: Assume WREN and Data always share the same register
-> > 
-> > static int gpio_regmap_set(struct gpio_chip *chip, unsigned int offset, int val)
-> > {
-> >         /* ... */
-> >         ret = gpio->reg_mask_xlate(gpio, GPIO_REGMAP_SET_WREN_OP, base, offset, &reg, &wren_mask);
-> >         if (ret == -ENOTSUPP)
-> >                 wren_mask = 0;
-> >         else if (ret)
-> >                 return ret;
-> >  
-> >         ret = gpio->reg_mask_xlate(gpio, GPIO_REGMAP_SET_OP, base, offset, &reg, &mask);
-> >  
-> >         ret = regmap_update_bits(gpio->regmap, reg, mask | wren_mask, mask_val | wren_mask);
-> >         return ret;
-> > }
-> >  
-> > Regarding this approach, I would like to ask from your experience: Is it
-> > actually common for hardware designs to place WREN and Data bits in completely
-> > different registers for GPIO operations?
-> > 
-> > If they practically always share the same register, this simpler approach might
-> > suffice.
+On Fri, Jul 10, 2026 at 11:57:34AM +0200, Loic Poulain wrote:
+> For QCA2066 (and other QCA chips) on M.2 connectors, the UART enable is
+> controlled by the W_DISABLE2# signal managed by the pcie-m2 power sequencer
+> rather than a dedicated BT enable GPIO.
 > 
-> If there are no further concerns, I will proceed with the third approach and
-> send out v6.
+> When the serdev controller has an OF graph (indicating it is connected to
+> an M.2 connector), acquire the 'uart' pwrseq target from the connector's
+> power sequencer and use it to control BT power instead of the bt-enable
+> GPIO. This is factored out into qca_serdev_get_m2_pwrseq().
+> 
+> Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
+>  drivers/bluetooth/hci_qca.c | 35 ++++++++++++++++++++++++-----------
+>  1 file changed, 24 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
+> index 24dc5bf6d192be7e1d500df6bdf36e6184f9eaf7..f6529d359ffbd97f8a3c4c0593680ab200215b36 100644
+> --- a/drivers/bluetooth/hci_qca.c
+> +++ b/drivers/bluetooth/hci_qca.c
+> @@ -1872,6 +1872,9 @@ static int qca_power_on(struct hci_dev *hdev)
+>  			/* Controller needs time to bootup. */
+>  			msleep(150);
+>  		}
+> +
+> +		if (qcadev->bt_power.pwrseq)
+> +			pwrseq_power_on(qcadev->bt_power.pwrseq);
+>  	}
+>  
+>  	clear_bit(QCA_BT_OFF, &qca->flags);
+> @@ -2387,6 +2390,20 @@ static int qca_init_regulators(struct qca_power *qca,
+>  	return 0;
+>  }
+>  
+> +static int qca_serdev_get_m2_pwrseq(struct qca_serdev *qcadev)
+> +{
+> +	struct serdev_device *serdev = qcadev->serdev_hu.serdev;
+> +
+> +	if (!of_graph_is_present(dev_of_node(&serdev->ctrl->dev)))
+> +		return 0;
+> +
+> +	qcadev->bt_power.pwrseq = devm_pwrseq_get(&serdev->ctrl->dev, "uart");
 
-From the above list I tend to the approach 2, but this might require to have
-GPIO regmap level of locking. I'm a bit lost in the context, though. I assume
-we need a fresh start, id est issue a v6 with approach 2 or 3 in place and
-summarize the choices in the cover letter, so we can understand what has been
-considered.
+Note that this ultimately ties the lifecycle of the returned pwrseq
+descriptor to the uart, which is probably not what you want.
 
--- 
-With Best Regards,
-Andy Shevchenko
+I ended up manually doing pwrseq_get() with devm_add_action_or_reset()
+so that the descriptor is released when the serdev driver is unbound.
+This was for the Realtek driver. I haven't sent patches yet.
+
+> +	if (IS_ERR(qcadev->bt_power.pwrseq))
+> +		return PTR_ERR(qcadev->bt_power.pwrseq);
+> +
+> +	return 0;
+> +}
+> +
+>  static int qca_serdev_probe(struct serdev_device *serdev)
+>  {
+>  	struct qca_serdev *qcadev;
+> @@ -2417,6 +2434,10 @@ static int qca_serdev_probe(struct serdev_device *serdev)
+>  	else
+>  		qcadev->btsoc_type = QCA_ROME;
+>  
+> +	err = qca_serdev_get_m2_pwrseq(qcadev);
+> +	if (err)
+> +		return err;
+> +
+>  	switch (qcadev->btsoc_type) {
+>  	case QCA_WCN3950:
+>  	case QCA_WCN3988:
+> @@ -2426,17 +2447,9 @@ static int qca_serdev_probe(struct serdev_device *serdev)
+>  	case QCA_WCN6750:
+>  	case QCA_WCN6855:
+>  	case QCA_WCN7850:
+> -		/*
+> -		 * OF graph link is only present for BT devices attached through
+> -		 * the M.2 Key E connector.
+> -		 */
+> -		if (of_graph_is_present(dev_of_node(&serdev->ctrl->dev))) {
+> -			qcadev->bt_power.pwrseq = devm_pwrseq_get(&serdev->ctrl->dev,
+> -								  "uart");
+
+It's already incorrect here. But I think the original patch that
+introduces this hasn't landed?
 
 
+ChenYu
+
+> -			if (IS_ERR(qcadev->bt_power.pwrseq))
+> -				return PTR_ERR(qcadev->bt_power.pwrseq);
+> +		/* M.2 connector modules are powered by the pwrseq acquired above. */
+> +		if (qcadev->bt_power.pwrseq)
+>  			break;
+> -		}
+>  
+>  		if (!device_property_present(&serdev->dev, "enable-gpios")) {
+>  			/*
+> @@ -2528,7 +2541,7 @@ static int qca_serdev_probe(struct serdev_device *serdev)
+>  			return PTR_ERR(qcadev->susclk);
+>  		}
+>  	}
+> -	
+> +
+>  	if (qcadev->bt_power.pwrseq) {
+>  		bt_en_available = pwrseq_power_is_controllable(qcadev->bt_power.pwrseq);
+>  		if (!bt_en_available) {
+> 
+> -- 
+> 2.34.1
+> 
