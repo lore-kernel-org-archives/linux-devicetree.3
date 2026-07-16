@@ -1,96 +1,96 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB430443E3E;
-	Thu, 16 Jul 2026 18:21:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68362374726;
+	Thu, 16 Jul 2026 18:22:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784226096; cv=none; b=Nm/WkwspgxBZqbh8fm1nNxQno+SHg00EoeY6RHf3ofnKjbPGJdYVQE6jYPL19IAJtn1FC/0XDpmfQC56vpuFhkvBXCXvKeW1Dt3Q6Rpv1WWa6EuEmLy0MrjSit64o/gOZblN0WSBWgxiG8gVb1aySeifMksgWH0WSE+IU+Nw2fE=
+	t=1784226156; cv=none; b=mJUzr7mXEhmEmQVcELvoAxLz2xD3DDdixQnCH2z/ZEb+0OaOPQSBsLaYZniaTTHjXpfqu6lTUZg83ZkMA/pkJf0+uX4jhtQIzaa2sTdqQwbAwvtiuXRRIw7PabYWHGdEjTwoy0inzWOwUe47lu2j9wUK4PxXWnaR6ddY6n9Y33o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784226096; c=relaxed/simple;
-	bh=yng+j8nRhJ3VdWTrV4gSk3ARd4UbfREA3jdQyGaWx1A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CY16WverQgkx59pJCEiY8KzL2wyxA31ASuFV4sGSNcC9x3j2fdS6oUdm5fwi2praCEaKkaRXT9qTh+RlNAvkfQQIg2JKc0vyaK0XQjG4nII/eSpTwL3t9GdzIK/jOEh+HQ0ttFUNAXvzYu0mMYcefnAKCBKNHrttomspF+ttXgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=E5KGQvMI; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1784226156; c=relaxed/simple;
+	bh=m4mRTF7pMM0o5LiCQnpe7UfdWa/CQrJbMjKY0C7+kJs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=avC/PHppKprcASQbWYDcmBN6XML5+zOG2+AOotSgNvXQtkGpOCZbNCepVILf9GVq89WSFcObwS+SxODCHuMdUSXZmK2heep3LSQ4jKRPyD0VW5cZLZ4um70jfY9d5g1Z242AN85fiBTk+wo4KuI03ouV1FODax2r9slLgWbwcU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m+SgVx/w; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="E5KGQvMI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=sTarYRorlM/Rn7cCaR7+b+Qezl3OqBStgUiS/lo6A0M=; b=E5KGQvMIP4P9mjc4QniEKE/KJE
-	L4EZstBq76YnlxNHjH0Nzcd/Bvfv7K4sgAcnnxQyZ7zVvDkPNdYU+t1FhJ5eUW1w18iKN5JGgQ3TK
-	NJsRrtlsb14w0O+f9kb9L2wUbSbuVh1vb13Y95nWCIOrnSFlDh8mrRMU10VUlTjQL6C3RozK4q8cz
-	Q8whSV2xEAu0SWxOA6gnYaND+efwyuLPsfgSME7owvyoIrsL3/YQaiPxLYs38FhPOcHxHeobkm660
-	XlXVely8/20/eOtM3ipCEjT0r4xC8LKwsu/yDXGbSeSXps0Jx7SH1zcxaQQX0l6zdN8jPqH5up7YD
-	yT4iKGnA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: linux-rockchip@lists.infradead.org,
- Hrushiraj Gandhi <hrushirajg23@gmail.com>
-Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Hrushiraj Gandhi <hrushirajg23@gmail.com>
-Subject: Re: [PATCH v4 1/2] dt-bindings: arm: rockchip: Add Vicharak Vaaman2
-Date: Thu, 16 Jul 2026 20:21:15 +0200
-Message-ID: <25132193.ouqheUzb2q@phil>
-In-Reply-To: <20260714054653.266842-2-hrushirajg23@gmail.com>
-References:
- <20260714054653.266842-1-hrushirajg23@gmail.com>
- <20260714054653.266842-2-hrushirajg23@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m+SgVx/w"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784226151; x=1815762151;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=m4mRTF7pMM0o5LiCQnpe7UfdWa/CQrJbMjKY0C7+kJs=;
+  b=m+SgVx/wDMzRAjXjJ48tLj1TsvlMNpsAQB6LGU6HEV2C7TwfncisMHrY
+   mUNZ+I+ZBbpWKLDdpzE9dNef8Ew0F1/bJHvI37TdxF2xkHa+FnbNjDG0f
+   n2W/w6NdAAnZX6yXatWmySV1fc/ssMdBhG5836g3U7G2GQ4PQOxYesJyq
+   YgnmuOId4Ch6Ow2hN39a/xvnhF1T053DuYlqH3ZEkhc2pCxLzABevoGlJ
+   KoK53SbB+I9ThLIot8hRGHTM9hriI09EU6mY1cqMI9hZtK61HI31EAlU8
+   0q8CRGGkwESadVz4LV3z3/iBDMNhDykOWz9khSpe54nECFuWP1fH4TlZM
+   g==;
+X-CSE-ConnectionGUID: bDMtCVqlT1CNhyDU/ib+TQ==
+X-CSE-MsgGUID: iQT7imrES4aeRfU57/zYlg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="84776599"
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
+   d="scan'208";a="84776599"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 11:22:28 -0700
+X-CSE-ConnectionGUID: tz2933+LSQyeHKzsaBOXCA==
+X-CSE-MsgGUID: oK+X3Ti0Te6od5jL9GHpbA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
+   d="scan'208";a="252170389"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.26])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 11:22:25 -0700
+Date: Thu, 16 Jul 2026 21:22:23 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: =?utf-8?B?UGF3ZcWCIFdpxZtuaWV3c2tp?= <pawel.wis.me@gmail.com>
+Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+	andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, ak@it-klinger.de, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/3] iio: proximity: Add Cytron HC-SR04 support
+Message-ID: <alkhXy8BIr0HH27S@ashevche-desk.local>
+References: <cover.1784221074.git.pawel.wis.me@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <cover.1784221074.git.pawel.wis.me@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Am Dienstag, 14. Juli 2026, 07:46:52 Mitteleurop=C3=A4ische Sommerzeit schr=
-ieb Hrushiraj Gandhi:
-> Add device tree binding documentation for the Vicharak Vaaman2,
-> a single-board computer based on the Rockchip RK3588 SoC.
->=20
-> Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+On Thu, Jul 16, 2026 at 07:35:53PM +0200, Paweł Wiśniewski wrote:
+> Add Device Tree binding and driver match support for the Cytron
+> HC-SR04 ultrasonic distance sensor.
+> 
+> The HC-SR04 uses separate trigger and echo GPIOs. A trigger pulse of
+> at least 10 us starts a measurement, and the echo pulse width reports
+> the ultrasonic round-trip time. This matches the protocol already
+> implemented by the SRF04 IIO driver.
+> 
+> The series adds the Cytron vendor prefix, documents the
+> cytron,hc-sr04 compatible, and uses the existing SRF04 configuration
+> in the driver.
+> 
+> The Cytron vendor attribution is based on the HC-SR04 Product User's
+> Manual V1.0 supplied by the retailer. The manual was prepared by
+> Cytron Technologies Sdn. Bhd. and contains Cytron warranty and
+> support information.
 
-In v2 [0] this got an
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> This is sent as an RFC because the vendor attribution and compatible
+> name should be reviewed.
 
-Please make sure to cary over such tags into later revisions.
-B4 caught this, so all good for this, but please keep this
-in mind for the future.
+But it's normal process, no? In any case the code in the driver is fine.
 
-
-Heiko
-
-[0] https://lore.kernel.org/all/20260628-retinal-ungreased-4c6d45e3596a@spu=
-d/
-
-
-> ---
->  Documentation/devicetree/bindings/arm/rockchip.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Docume=
-ntation/devicetree/bindings/arm/rockchip.yaml
-> index b023d4cc9842..b5a43fd5e546 100644
-> --- a/Documentation/devicetree/bindings/arm/rockchip.yaml
-> +++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
-> @@ -1311,6 +1311,11 @@ properties:
->            - const: vicharak,axon
->            - const: rockchip,rk3588
-> =20
-> +      - description: Vicharak Vaaman2
-> +        items:
-> +          - const: vicharak,vaaman2
-> +          - const: rockchip,rk3588
-> +
->        - description: WolfVision PF5 mainboard
->          items:
->            - const: wolfvision,rk3568-pf5
->=20
-
-
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
