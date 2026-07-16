@@ -1,325 +1,224 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD25374A08;
-	Thu, 16 Jul 2026 21:14:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784236482; cv=none; b=moqtzNLwy/n45Ry//GF6gYdUIpFngg6LV+3WTFQeLUYHE2W3ufFKcsZvhNcjbCX90YePiHktgtCwWRzEu+zIUhSjwj66Nt+E/htfxQba+jgFSChawJVkONksfMqdoBMD2U48Ojl0x1DOKUMRKe7KBkQdupuP71xE96f/veZdIoI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784236482; c=relaxed/simple;
-	bh=2FdN5YRcskCueuGwMCYKJ2VbkmXaKTztOg9m4Dojmdk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ePHnZOZOYH/9O6s2wnf4upa1JJHaWV/NpFs1jMfouJX+FpwC4M3/SpAlnMMD/t8nRVnl5jiRNTyQ2Sx4YxR23rvzuRZmad1Nh1oiij3MkaD6ot80rJ46bjry0LuPETdhdqZA5t1UQMpBstAsG+8sm6ZOiXMQ9MyR0OzsOk0F5x0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eHbnqieb; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E0C3AE706
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 21:19:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784236782; cv=pass; b=fANfmGDANTlbcD84ldf0CT/3q3xYYYXczxs8TiW2fu/B3z/pLU8UIOTXExxULyTrIU5vJnDjt25pLtdjHHJHLKAga6xvfNTd4E8kd8L0cTxPigu9LP02uyoY2FLwEBg2AAJadjMDAnN2Nr+zLk+S8KReVY+j+6LDXcuDFEdDzls=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784236782; c=relaxed/simple;
+	bh=sFhCVkngWCGw3B3gBsl4+13q2+ArEajPoD0Hm7zsDQk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iV4Bb/Vd1HLhT0MhmiswSD9eWGqxLTWLtrECi4QigqmjZ/AAo3iAd7AXypHrv+gZgPMkXzl3M5X+IjbBnq0l1xL9YcNa3/3vLGognDp16lQ/Gi1boYrLlZPamm0WnnonR+kKK3AYeY++RAqZLGU2lKE9m9h/8yIW4HZu++E02Z0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PLdtsoon; arc=pass smtp.client-ip=209.85.167.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eHbnqieb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39E111F000E9;
-	Thu, 16 Jul 2026 21:14:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784236480;
-	bh=Wau55OCzpUM6sOwD9Op0bjxV2VyxXuwHcpEOYS3bsZ4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eHbnqiebdiUMRlaosJFb1lFntpi5gEWlmOKPFVElCPrHUxDIDxkaYSMGeSP0Nhtlf
-	 HLW5eHp7Z3m5Rwh5MDsEZJELthGAhz9b9ZrSHjOKvlpnItIH4h1lq5zWbITHIwCnvZ
-	 wBv8A7jE9ONARnCLkPgEv42FnbibwhHOJNy8g75hyT3hAv3H65If/C0BQT1ESR24eY
-	 sCZ9EZWejkxp+ZA3OsYPqjYvTR3vUR10xiBpJb5d/a/AeYgDseylt8jLLlETQWJGF5
-	 NvvbTq9JmDdI5enOo/5BuvCtESzCWoSr+ubW4gdgTmPUEc56yV1LJBlBlHpI8cm5Xh
-	 N5XDFcr9ATL+g==
-Date: Thu, 16 Jul 2026 16:14:39 -0500
-From: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] dt-bindings: arm: qcom-soc: Validate nodes with
- fallbacks
-Message-ID: <20260716211439.GA1290290-robh@kernel.org>
-References: <20260707-dt-bindings-qcom-soc-naming-v2-0-1b7d695be2e1@oss.qualcomm.com>
- <20260707-dt-bindings-qcom-soc-naming-v2-3-1b7d695be2e1@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PLdtsoon"
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b0148201fbso3175586e87.3
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 14:19:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784236779; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WDs+akjTDoR+m5ndCzvSdH2OtIZ0dy1dcDNWiBnav4qXFPRZ10SwP3ul0xnGfQPkO6
+         ZggI/pAqEed9kUzZdEypSyKxFWsRfFWwVPd2Gf6mdOQYOCBcPW6Tjx2pwV4odIMKupmU
+         d9XOFAMFvsmyquec4rBUvjvEaW61RaJFXb2qJaE9jYz1p1PQDVq35eHw4yk7fhA2avE+
+         102xk4mXy6Nid5A0KbQGX1LNA537aNtmFAttGAqo4yqMoeQbIudpq1NwM/FqD5uzs4Rm
+         8p+dR8GVZZrPJIjTbJNSsf/ipMOFocg2UJHDC9iFK2GuXJCyEKPfz4Mkqy0/8aU9tX6v
+         eymQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=zYJZVa6pJsj5mxAW+2FCJM9HLntDNEgnj0RiqQalRx8=;
+        fh=a+3It8PIErcLHa+JIEH2XUxfrGUgvo4Zzv/fW+LFPus=;
+        b=E5ajo2RsC1qmfrJdXkfRimFZeUwVQDnSWrgwWs8bRqGkVA7Uou1UcvshmleUk65Bz/
+         EAgBuWNzywm66+jSXV6eL4/BdrY6jYbvpb6DLcFw5bk1RP4i84kAp9T48Rw1ZGg4w8cd
+         O3nmBLjAG3BFUqfTkSK4Q7IWiU+0fHlwj73vb/nFeDjqbPmgl8bYR04Cms8PfUXA6NAr
+         IGib3ZX2o8oVC46ygO28W5UODgSzm9RdlYUSnRP0S4uBP/mQXBWPLMwN4Yk12lIERPMw
+         OZG7ZpcetFKCI4YCGP5cvzIAaRkLIaKqctjOu1+FB1We+dxF9Aht/Hxijeu3cYPJ1MeD
+         B4tg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784236779; x=1784841579; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zYJZVa6pJsj5mxAW+2FCJM9HLntDNEgnj0RiqQalRx8=;
+        b=PLdtsoonVpKa+w0suY0ZV0Ex5/HpYEvHolbiZkTlPH1uy4+ZbWvRboqS0Rxr++Zeur
+         psxDRFRDZxjgeR9wMpMw63zmYQ0+6Wsn4dlme43WQSb1nDB/1HkryB8Id9tB8r46nS05
+         vK7W1A/iGD9pK5LqChK6ZlYVhS49p15y0UR8YPCqzr6psanc6N/zNd3f4E2F7f5Irr8F
+         OQ7DcfwMnvrYJhW7iBgNTss3sH6hPAYMr0BvdeD8crc66JP9/c2xDtbEn9XnypZUbKxU
+         lRP9vWLgkDcTM7BGCBSbIP+XN80IbTG7erXlBiWpxrp57XsmB51sCLr/tiEa/6HHyubu
+         lxyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784236779; x=1784841579;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zYJZVa6pJsj5mxAW+2FCJM9HLntDNEgnj0RiqQalRx8=;
+        b=pXwsbbv4IE50r/VRUBlLah8Yqj0N6RgZQ7TS6SnzX2XTiCJeCnTEjeVCmSpDC/gaz1
+         7xqa0bAtZ/01H2ihUT8Veq7SaMa9DWQpElaunuNUKDO+9HUGQxfcaJvBkMe4MLuOHWUu
+         Id70iA9hvbLra8DFwDgrHa6RlIu38eJNsdvn1ZnLhjtE3RsJSL3N/PC4htRmrGbNOdbf
+         XBluHgHIbKWKKxQkV4ZLhYUrkVCIrBw7QQehD0VRY28Pr61zdyUzd0WaHd596dUuJZ5G
+         /ERWy+RykhQ0x7eidX4wVr7DopSEoz8cFMkK9OEO4Q9X1AqVyHtuybytkoC7qWM155vL
+         hpcA==
+X-Forwarded-Encrypted: i=1; AHgh+RoHeICLj/VM8mRaNEU7Q2OgZx0bk/7ZRNzYNcgHWuGB1IXatEAoyJVtrtlMX0mdV4bex47EgbOsadK1@vger.kernel.org
+X-Gm-Message-State: AOJu0YzUbpzA0oxm7reE+Elbn9OnQyqD4HBVfPQcd/f4kX187EfEudLe
+	6EG70LcfYcaKM5qPs5hDPx2ICiScpT2pwzdlEiPmjkv7P+oZ5QJoDthwjZdUla1hAEHP0cVKJkE
+	Gw951Vq+iALAajNagcHBOItMn69hzElc=
+X-Gm-Gg: AfdE7cnvWtK8gDYczIcjV1wMJbGAxVdIgHdcgEmWO6CXfBeBVQKi+6yaQwpsowR++/v
+	GrF4QC/QTsePhzE5GID9gT7LJW0L5QaHnXMYoPyxjQ2fTiMMmwsmNv5yX6THrldeMO82eR9lL7P
+	Hh8ObeTdc0XkKdK/PGxNhClZiZ/wf/PTGYCKgkV+56bCctxHANWKj/zMPNWAH6+PlKvUt2MWxiR
+	UXBvzkbdcU15+NQB3eyRN6XixGB6QHxFpC+eF8gvPypdXVeb0CuL/S/kI2PHsl+aebZwILyotug
+	DMSq7AFkN7NA2ht4I31GHYDdHP0cRBc56a43tTjWl9qb4A2IYqru14W0u0jUy328IT9X2GvxLsA
+	rv5Af
+X-Received: by 2002:a05:6512:3ca0:b0:5ae:bbe5:2076 with SMTP id
+ 2adb3069b0e04-5b28dd6f98bmr123691e87.52.1784236778311; Thu, 16 Jul 2026
+ 14:19:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260707-dt-bindings-qcom-soc-naming-v2-3-1b7d695be2e1@oss.qualcomm.com>
+References: <20260714101146.200416-1-kieweg.leander@gmail.com> <69a8c2a6-d0f3-4362-bfa1-04923db6f3cc@suse.de>
+In-Reply-To: <69a8c2a6-d0f3-4362-bfa1-04923db6f3cc@suse.de>
+From: Leander Kieweg <kieweg.leander@gmail.com>
+Date: Thu, 16 Jul 2026 23:19:26 +0200
+X-Gm-Features: AUfX_mzGxb4_nZhrElpdqX1OGlkRyvGXZ3ROjXjZTkwCFoQscuHHMNBlRZzaLmk
+Message-ID: <CAMwcS0g6S5f4vnyS6KEmsLFmTW=YmnSAY06OTovPWqza4iFwTg@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/3] drm: Add DRM driver for GlandaGPU (VHDL soft-IP GPU)
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Jul 07, 2026 at 03:36:01PM +0200, Krzysztof Kozlowski wrote:
-> The schema checking for expected naming patterns for SoC IP block nodes
-> was really incomplete and was checking only nodes with single
-> compatible.  Fixing this and applying schema for nodes with fallbacks is
-> not trivial, because obvious solution like:
-> 
->   minItems: 1
->   items:
->     - oneOf:
->         - pattern: ...
->         - pattern: ...
->     - {}
->     - {}
-> 
-> is not allowed by dtschema.  The binding should also skip root nodes,
-> which have SoC-based fallback, but completely random front compatibles.
-> 
-> Solve this all by:
-> 1. Extending the select pattern to match all nodes except root node.
-> 2. Apply schema to all items of "compatible" property, which means it
->    will be evaluating also all sorts of generic compatibles like
->    "syscon".  List them all and let's hope that fallback list will not
->    grow too much, because generic compatible fallbacks are discouraged.
-> 
-> The benefit is that this schema is finally very specific and evaluates
-> all nodes for desired naming.
-> 
-> Diff is a bit obfuscated, due to indentation change so briefly
-> explaining:
-> 1. None of the patterns are changed (neither in "Preferred naming style"
->    group nor in "Legacy namings").
-> 2. None of the enums with "Legacy namings" and "Legacy compatibles with
->    wild-cards" are changed.
-> 3. Add pattern for sound cards.
-> 4. Add enum with qcom,hamoa-crd-ec, because it is used as fallback to
->    SoC-codename (Glymur).
-> 5. Add list with all used generic fallbacks.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/arm/qcom-soc.yaml          | 190 ++++++++++++++++-----
->  1 file changed, 143 insertions(+), 47 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom-soc.yaml b/Documentation/devicetree/bindings/arm/qcom-soc.yaml
-> index d934afd59df1..ffdaff073c92 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom-soc.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom-soc.yaml
-> @@ -22,60 +22,156 @@ description: |
->  
->  select:
->    properties:
-> +    # Select all nodes which have SoC-based compatibles, but not the root
-> +    # "/" node, because its front compatibles do not follow any SoC patterns
-> +    $nodename:
-> +      pattern: "[^/]"
->      compatible:
-> -      oneOf:
-> -        - pattern: "^qcom,.*(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sar|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
-> -        - pattern: "^qcom,.*(eliza|kaanapali|glymur|hawi|mahua|maili|milos|nord|shikra).*$"
-> +      contains:
-> +        oneOf:
-> +          - pattern: "^qcom,.*(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sar|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
-> +          - pattern: "^qcom,.*(eliza|kaanapali|glymur|hawi|mahua|maili|milos|nord|shikra).*$"
->    required:
->      - compatible
->  
->  properties:
->    compatible:
-> -    oneOf:
-> -      # Preferred naming style for compatibles of SoC components:
-> -      - pattern: "^qcom,(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+(pro)?-.*$"
-> -      - pattern: "^qcom,sar[0-9]+[a-z]?-.*$"
-> -      - pattern: "^qcom,(sa|sc)8[0-9]+[a-z][a-z]?-.*$"
-> -      - pattern: "^qcom,(eliza|kaanapali|glymur|hawi|mahua|maili|milos|nord|shikra)-.*$"
-> +    # SoC specific compatibles can appear alone or be followed by another SoC
-> +    # specific compatible or generic fallbacks, therefore check for compatible
-> +    # should use ideally:
-> +    #
-> +    #   minItems: 1
-> +    #   items:
-> +    #     - oneOf:
-> +    #         - pattern: ...
-> +    #         - pattern: ...
-> +    #     - {}
-> +    #     - {}
-> +    #
-> +    # but that is not allowed by dtschema ("oneOf" cannot be used as an item
-> +    # for a compatible).  Work around this by defining schema for all items,
-> +    # but drawback is that we need also to list all known generic fallbacks
-> +    # like "syscon" etc.
-> +    minItems: 1
-> +    maxItems: 4
-> +    items:
-> +      # Use anyOf, because soundcards will match few patterns
-> +      anyOf:
-> +        # Preferred naming style for compatibles of SoC components:
-> +        - pattern: "^qcom,(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+(pro)?-.*$"
-> +        - pattern: "^qcom,sar[0-9]+[a-z]?-.*$"
-> +        - pattern: "^qcom,(sa|sc)8[0-9]+[a-z][a-z]?-.*$"
-> +        - pattern: "^qcom,(eliza|kaanapali|glymur|hawi|mahua|maili|milos|nord|shikra)-.*$"
-> +        # SoC codenames used for non-SoC components:
-> +        - enum:
-> +            - qcom,hamoa-crd-ec
->  
-> -      # Legacy namings - variations of existing patterns/compatibles are OK,
-> -      # but do not add completely new entries to these:
-> -      - pattern: "^qcom,[ak]pss-wdt-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
-> -        # qcom,apss-wdt with codenames
-> -      - pattern: "^qcom,apss-wdt-[a-z]+$"
-> -      - pattern: "^qcom,kpss-gcc-(apq|ipq|mdm|msm)[0-9]+.*$"
-> -      - pattern: "^qcom,gcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$"
-> -      - pattern: "^qcom,mmcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$"
-> -      - pattern: "^qcom,pcie-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
-> -      - pattern: "^qcom,rpm-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$"
-> -      - pattern: "^qcom,rpmcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$"
-> -      - pattern: "^qcom,scm-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sar?|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
-> -        # qcom,scm with codenames
-> -      - pattern: "^qcom,scm-[a-z]+$"
-> -      - pattern: "^qcom,tcsr-(apq|ipq|mdm|msm)[0-9]+.*$"
-> -      - pattern: "^qcom,usb-hs-phy-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
-> -      - enum:
-> -          - qcom,dsi-ctrl-6g-qcm2290
-> -          - qcom,gpucc-sdm630
-> -          - qcom,gpucc-sdm660
-> -          - qcom,lcc-apq8064
-> -          - qcom,lcc-ipq8064
-> -          - qcom,lcc-mdm9615
-> -          - qcom,lcc-msm8960
-> -          - qcom,lpass-cpu-apq8016
-> -          - qcom,usb-hs-ipq4019-phy
-> -          - qcom,usb-hsic-phy-mdm9615
-> -          - qcom,usb-hsic-phy-msm8974
-> -          - qcom,usb-ss-ipq4019-phy
-> -          - qcom,vqmmc-ipq4019-regulator
-> +        # Legacy namings - variations of existing patterns/compatibles are OK,
-> +        # but do not add completely new entries to these:
-> +        - pattern: "^qcom,[ak]pss-wdt-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
-> +          # qcom,apss-wdt with codenames
-> +        - pattern: "^qcom,apss-wdt-[a-z]+$"
-> +        - pattern: "^qcom,kpss-gcc-(apq|ipq|mdm|msm)[0-9]+.*$"
-> +        - pattern: "^qcom,gcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$"
-> +        - pattern: "^qcom,mmcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$"
-> +        - pattern: "^qcom,pcie-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
-> +        - pattern: "^qcom,rpm-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$"
-> +        - pattern: "^qcom,rpmcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$"
-> +        - pattern: "^qcom,scm-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sar?|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
-> +          # qcom,scm with codenames
-> +        - pattern: "^qcom,scm-[a-z]+$"
-> +        - pattern: "^qcom,tcsr-(apq|ipq|mdm|msm)[0-9]+.*$"
-> +        - pattern: "^qcom,usb-hs-phy-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
->  
-> -      # Legacy compatibles with wild-cards - list cannot grow with new bindings:
-> -      - enum:
-> -          - qcom,ipq806x-ahci
-> -          - qcom,ipq806x-gmac
-> -          - qcom,ipq806x-nand
-> -          - qcom,ipq806x-sata-phy
-> -          - qcom,ipq806x-usb-phy-ss
-> -          - qcom,ipq806x-usb-phy-hs
-> +        - enum:
-> +            - qcom,dsi-ctrl-6g-qcm2290
-> +            - qcom,gpucc-sdm630
-> +            - qcom,gpucc-sdm660
-> +            - qcom,lcc-apq8064
-> +            - qcom,lcc-ipq8064
-> +            - qcom,lcc-mdm9615
-> +            - qcom,lcc-msm8960
-> +            - qcom,lpass-cpu-apq8016
-> +            - qcom,usb-hs-ipq4019-phy
-> +            - qcom,usb-hsic-phy-mdm9615
-> +            - qcom,usb-hsic-phy-msm8974
-> +            - qcom,usb-ss-ipq4019-phy
-> +            - qcom,vqmmc-ipq4019-regulator
-> +
-> +        # Legacy compatibles with wild-cards - list cannot grow with new bindings:
-> +        - enum:
-> +            - qcom,ipq806x-ahci
-> +            - qcom,ipq806x-gmac
-> +            - qcom,ipq806x-nand
-> +            - qcom,ipq806x-sata-phy
-> +            - qcom,ipq806x-usb-phy-ss
-> +            - qcom,ipq806x-usb-phy-hs
-> +
-> +        # Schema matches also sound card nodes and its front compatibles can be anything
-> +        - pattern: "^.*,.*sndcard$"
-> +
-> +        # List all used generic fallbacks. The list can grow, but in practice
-> +        # it is not expected, because specific compatibles are preferred for
-> +        # fallbacks as well.
-> +        - enum:
-> +            - arm,gic-v3
-> +            - arm,mmu-500
-> +            - generic-ahci
-> +            - jedec,ufs-2.0
-> +            - mmio-sram
-> +            - qcom,adreno-smmu
-> +            - qcom,aoss-qmp
-> +            - qcom,cpr
-> +            - qcom,cpufreq-epss
-> +            - qcom,cpufreq-hw
-> +            - qcom,dcc
-> +            - qcom,dwc3
-> +            - qcom,epss-l3
-> +            - qcom,eud
-> +            - qcom,glink-smd-rpm
-> +            - qcom,inline-crypto-engine
-> +            - qcom,ipcc
-> +            - qcom,kpss-gcc
-> +            - qcom,kpss-timer
-> +            - qcom,kpss-wdt
-> +            - qcom,mdp5
-> +            - qcom,mdss-dsi-ctrl
-> +            - qcom,msm-iommu-v1
-> +            - qcom,msm-iommu-v2
-> +            - qcom,msm-timer
-> +            - qcom,osm-l3
-> +            - qcom,pcie2-phy
-> +            - qcom,pdc
-> +            - qcom,pmic-glink
-> +            - qcom,qce
-> +            - qcom,qfprom
-> +            - qcom,qspi-v1
-> +            - qcom,qusb2-v2-phy
-> +            - qcom,rpm-proc
-> +            - qcom,rpmh-rsc
-> +            - qcom,rpmcc
-> +            - qcom,saw2
-> +            - qcom,scm
-> +            - qcom,sdhci-msm-v4
-> +            - qcom,sdhci-msm-v5
-> +            - qcom,sec-qfprom
-> +            - qcom,smd-rpm
-> +            - qcom,smmu-500
-> +            - qcom,smmu-v2
-> +            - qcom,snps-dwc3
-> +            - qcom,ssc-block-bus
-> +            - qcom,tcsr-mutex
-> +            - qcom,trng
-> +            - qcom,tsens-v0_1
-> +            - qcom,tsens-v1
-> +            - qcom,tsens-v2
-> +            - qcom,ufshc
-> +            - qcom,usb-hs-phy
-> +            - qcom,usb-hsic-phy
-> +            - qcom,usb-snps-hs-5nm-phy
-> +            - qcom,usb-snps-hs-7nm-phy
-> +            - simple-mfd
-> +            - snps,dwmac
-> +            - syscon
+Hi Thomas,
 
-You lost me here... 
+Thanks a lot for the detailed feedback, this is exactly the kind of
+guidance I was hoping for.
 
-This all looks pretty unmaintainable. Perhaps you should give up on old 
-SoCs and only do something on new(er) ones:
+> We already have a driver for a RasPi-based USB display that someone made
+> in their spare time. So being a hobbyist project is not a problem per se.
 
-select:
-  properties:
-    compatible:
-      contains:
-        pattern: '^qcom,'
+Good to know, thanks for clarifying that.
 
-allOf:
-  - if:
-      properties:
-        compatible:
-          contains:
-            pattern: '^qcom,.+foosoc'
-    then:
-      properties:
-        compatible:
-          contains:
-            pattern: '^qcom,foosoc'
+> 2d primitives are likely not very useful for DRM. The canonical
+> reference of why is at [1]. The tl;dr is that there's no standard API,
+> and GPU-CPU transfers and setup costs are too high to make it
+> significantly faster than software rendering.
+>
+> Various people have proposed to add some form of 2d pipeline to DRM, but
+> nothing concrete has ever emerged.
+>
+> Conceptually, DRM doesn't really render anything. It composes the screen
+> from already-rendered buffers. Rendering to these buffers is mostly done
+> by Mesa drivers with some help from DRM's kernel drivers. If you want
+> hardware rendering, you'd need memory management for off-screen
+> rendering that Mesa can use independently from display output. Therefore
+> these simple draw and clear primitives aren't that useful. You need to
+> design a full rendering pipeline instead.
+>
+> [1] https://blog.ffwll.ch/2018/08/no-2d-in-drm.html
 
-Rob
+Sima's blog post that you linked makes the reasoning much clearer than what
+I'd pieced together on my own. I understand this means the current
+fixed-function
+ioctls are really only a placeholder, not something to build on further as is.
+
+> Using a single ioctl per command will kill performance. So, if anything,
+> you'd want the command-buffer model.  To make it fast for 2d primitives,
+> you'd likely have to model it like a 3d pipeline: have all 2d graphics
+> buffers in the display memory already and submit a large batch of
+> rendering commands that generate the entire screen at once.
+
+That's a helpful concrete direction, thank you. I'll look into what a
+command-buffer submission model would need to look like for this.
+
+> Rule of thumb is that you need a working user-space side for ioctls.
+> Mesa would be the premier target for 3d.
+>
+> I'm not much involved in Mesa, but I think Mesa is quickly moving
+> towards programmable pipelines. Getting drivers for fixed-function
+> hardware merged might be hard.
+>
+> How complicated is it to model a stream processor (i.e. GPU core) in VHDL?
+
+I think it's doable at a small scope. Some memory to hold uploaded
+bytecode, a minimal CPU core (I'd probably base the ISA on a reduced
+RISC-V subset, mainly to get an existing compiler toolchain for free)
+that processes it and writes the result into the framebuffer. That
+part sounds genuinely fun to build, and I'm actually looking forward
+to it, though it's a fair amount of work and I'll need to find the
+time for it.
+
+For throughput I'd design the core with multiple instances in mind
+from the start, e.g. 4 cores each responsible for a quarter of the
+screen, and scale that further once the basic version works. I'd
+still get a single instance working first before parallelizing it.
+
+> Can you use a PCI device for that and let the kernel do all the work?
+> See [2] for how to get a PCI device id.
+>
+> [2] https://www.qemu.org/docs/master/specs/pci-ids.html
+
+I want to make sure I understand this correctly before I start on
+it. My real hardware (DE10-Standard) stays exactly as it is, still
+using platform_driver via devicetree, completely unchanged. Only the
+QEMU device would change, from the current fixed-address platform
+device to a proper virtual PCI device (with a reserved vendor/device
+ID and BARs for VRAM/MMIO). On the driver side, that would mean
+adding pci_driver support alongside the existing platform_driver, so
+the exact same driver would run on both, just with two different
+probe functions depending on whether it's found via devicetree (real
+hardware) or via PCI enumeration (QEMU). Is that right?
+
+> That's indeed a good thing to have in hardware.
+>
+> I mentioned that the 2d/3d rendering is probably complicated to get
+> done. If I may suggest an alternative, you could implement additional
+> features of the mode-setting pipeline. Besides the primary plane that
+> your hardware already supports, you could add a cursor plane. Or you
+> could add overlay planes for displaying YUV formats (i.e., video
+> frames). Or you could implement existing DRM properties, such as
+> scaling, background colors, or HDR.  These features are already
+> supported by user space. Your device would be usable immediately.
+
+This is a great suggestion, thank you. A hardware cursor plane
+actually fits something I'd already been considering for the hardware
+side, so that'll be my next bigger hardware update.
+
+Scaling looks approachable too, and I like that it wouldn't need
+extra memory on the hardware side, so I'm adding that to the list as
+well. Background color I think I can already cover with the existing
+CLEAR command.
+
+YUV overlay support is more future work for me, my current memory
+layout would need a bigger restructuring first to fit that in given
+how limited memory is on this hardware, but the idea itself sounds
+appealing since the VHDL side looks fairly contained. HDR isn't
+realistic here either way, my test display can't do it and I'd
+expect to hit memory limits before anything else.
+
+> Glad to hear it didn't work. drm_simple_display_pipe is obsolete and on
+> its way out. Please don't use it.
+
+Good to know, I'll drop that idea entirely then.
+
+Given all this, my plan for v2 is to drop the ioctl-based UAPI
+entirely (removing the custom ioctls means there's no UAPI to keep
+stable, which takes the pressure off getting the command-buffer
+design right immediately), address the style/review comments from
+Uwe and from your code review on patch 2, switch the QEMU test path
+from the fixed-address platform device to a proper PCI device as
+discussed above, and possibly add background color support since
+that doesn't require any hardware changes. The cursor plane, scaling,
+and the stream processor work will be separate follow-ups once the
+hardware side catches up.
+
+Thanks again for taking the time, this gives me a lot to work with.
+
+Best regards,
+Leander
