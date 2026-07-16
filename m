@@ -1,180 +1,66 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A601A0B15;
-	Thu, 16 Jul 2026 21:37:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30119222590;
+	Thu, 16 Jul 2026 21:38:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784237831; cv=none; b=XtpfMOZvu210MwnCU4BagXWjsLTMraj8owKV+74lD6AHVTbu4AhuZ9lnWlHjAvqYOnatKw+j1/0tN3006wkcKafr0fo9dLqJhu82OxyA+8iCwOBxcaWFdlkXam4aYocRZwK7pags47nxDQ7ylL7nXPWotuyOEnbT7Aujgh54OpQ=
+	t=1784237882; cv=none; b=mnDxhNhrrn7bIxyRwtJr2FV8LH9jSYU7JL78Fv6gvS5Z0tsKikXQvglphKqw+h6sbNG5Uv1QgHqbA7pD7IDpH942NvoCLiB1ZX5TnE/NjFNIyZo0g9Zxna0R3o1TECBhBpEPPMhmESRgWvK10sC7x3KHZCqBx/WlH10eoMinOzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784237831; c=relaxed/simple;
-	bh=kJIyqYpfQow1TS/3SmBswAfbEcuHT3cvZ8unMSy2O4s=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FMyXO5ROLyXGJqpkBPvSgpsj2z87QQnmD2yyCS+ofn9oDVYwraQaYfiyM1EOjPcfiBB/LwSXkwlQoHp1hy71pg7eDbrAXAd36VbevDRVPEps499T7jHnolVd3rgNoiAePG8Psayi3R56SLSJF568Ypwpwp6orpPC0j+f/FPcZ18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fVTuG4zn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784237882; c=relaxed/simple;
+	bh=IAeKlN/Imrk+rFbCRknx36m3JcXZLzrx4MCYGF078FU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VbyZ0Deh1JUhja1BUU1LDv0VZp5j+Sj1vEDIGQyJhjcbNLw3p+gcTCYmo2PDuBsLlmmkzbs1i7FxzBFNRlui+0/mETMgAc9hIoADLd1XmFON5Jq4whu+3+issvaDvn+nqxFr5cc2qLOA5bEBXWEXsx4wOPwIY+PL663Lkmp15KM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nCRJStND; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fVTuG4zn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6D651F000E9;
-	Thu, 16 Jul 2026 21:37:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nCRJStND"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3A0D1F000E9;
+	Thu, 16 Jul 2026 21:38:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784237830;
-	bh=pxZEod5uNe4GZICUj9v9Smnan7/Y3Wax+NjppLkSAeM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fVTuG4znLdYnHm3IEUJmt1CuKWshYbgvEJkNwAMoBniqN1t6iRbWgRQec/zJIvzMi
-	 dAzDwRHNhlRCqYdDYFRqbYQegkxHqDGPjGQs4udGVPTAriVJgojKar4oMgiL2n3zDu
-	 F/dUJx6KEbMyLBhqEHhfChyMHwhXFHR0pLSkfF7Pb09y0JhAP278U1K4FvlB6WFujq
-	 OjT6aslMlRp4guIKqleBxDcLr/WlMZXNGe1uN03NiupTHr1DgzRmFZCZX4F+6aiZkc
-	 SrMY19SnOpI9jMvMG18+4SlIxWGGQzPGgJixdzJdPLNXLQ/9AxdcP6FccDVt8YAKZ7
-	 I/TnGbQUV1SGg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] hwmon: (adt7470) Add thermal cooling device support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luiz Angelo Daros de Luca" <luizluca@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260716-adt7470_thermalzone-v1-3-cc55ef35edde@gmail.com>
-References: <20260716-adt7470_thermalzone-v1-0-cc55ef35edde@gmail.com>
- <20260716-adt7470_thermalzone-v1-3-cc55ef35edde@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 21:37:09 +0000
-Message-Id: <20260716213709.B6D651F000E9@smtp.kernel.org>
+	s=k20260515; t=1784237880;
+	bh=EJr436MNWU4FHf0Qya4qCGFup/W4Zr7kdLcK7Wvawhs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nCRJStNDbJR4neX+mwEQgrUPfcgx8XRMSPTjJCOD09jm2uX+VTtGrJoSZFA1Gw+7l
+	 ZC+AKoab13Hglb+GWzkJt3wQbWTqx+qeXy/FuklJHxOqskivfQbEL5BPhwIMlxbUIM
+	 EkKVHcENsqzR827c9WnHB8mbjhjer7kwwQn2tCvpZBioS6MGA0cUFrcBDu3+Ln0D1D
+	 EtE/tNqLqWr+zwbvaWLbMUeiGckbnNWQGg/ikw7j1ffr+GCgTxkPfoaTMuY7ZCpGKg
+	 pWa5fYKVDQPsbHIfZqb46Um4w4NJR5Ls5tJxSk6VCEAdK/wmdTdxTvg5zC9c1HdRQ9
+	 3kT1EvldR+xPQ==
+Date: Thu, 16 Jul 2026 16:38:00 -0500
+From: Rob Herring <robh@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Ryder Lee <ryder.lee@mediatek.com>, Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-pci@vger.kernel.org, linux-mediatek@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 1/2] dt-bindings: PCI: mediatek: Add support for optional
+ perstout reset
+Message-ID: <20260716213800.GA1472290-robh@kernel.org>
+References: <20260708090533.19734-1-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260708090533.19734-1-ansuelsmth@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] All 4 PWM cooling devices are registered with identical device tre=
-e nodes and cdev_id, preventing independent thermal zone binding.
-- [High] `adt7470_update_sensors()` is called locklessly in `adt7470_probe(=
-)` after the hwmon device is registered, leading to a severe data race.
-- [Medium] The driver unconditionally registers all 4 cooling devices, fail=
-ing to make them optional based on `#cooling-cells`, contrary to the commit=
- message.
---
+On Wed, Jul 08, 2026 at 11:05:28AM +0200, Christian Marangi wrote:
+> Airoha AN7583 have a dedicated reset for PCIe PERSTOUT. Add optional
+> support for it in schema.
 
---- Patch [3]: [PATCH 3/4] hwmon: (adt7470) Add thermal cooling device supp=
-ort ---
-commit f3b7f3fcc935f749dd7f53e14d3533656b277e5b
-Author: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+This is just the standard PCIe PERST# signal? Then it should be in the 
+device that gets it or at least the RP node if the downstream device is 
+not described. That is how we're handling perst-gpios in anything new.
 
-hwmon: (adt7470) Add thermal cooling device support
-
-The ADT7470 has four PWM outputs that can be used to control fans.
-Register each PWM output as an optional thermal cooling device via
-Device Tree so it can be referenced by thermal zones.
-
-When the thermal subsystem sets a cooling state, the driver switches
-the corresponding PWM channel to manual mode so that the requested duty
-cycle takes effect.
-
-> Registration is optional: when the "#cooling-cells" property is absent,
-> devm_thermal_of_child_cooling_device_register() returns -ENODEV and the
-> driver silently skips that PWM channel.
-
-[Severity: Medium]
-Is this description accurate? Looking at thermal_of_cooling_device_register=
-(),
-it does not appear to parse the device tree for #cooling-cells during
-registration. Since it doesn't return -ENODEV for a missing property,
-doesn't this result in unconditionally registering all 4 cooling devices
-even if the device tree does not specify them?
-
-[ ... ]
-
-> diff --git a/drivers/hwmon/adt7470.c b/drivers/hwmon/adt7470.c
-> index 4ac292cd7f47e..b865f4bd50f87 100644
-> --- a/drivers/hwmon/adt7470.c
-> +++ b/drivers/hwmon/adt7470.c
-
-[ ... ]
-
-> @@ -846,6 +856,107 @@ static int adt7470_pwm_write(struct device *dev, u3=
-2 attr, int channel, long val
-[ ... ]
-> +static int adt7470_register_cooling_devices(struct device *dev,
-> +					    struct adt7470_data *data)
-> +{
-> +	int i;
-> +
-> +	for (i =3D 0; i < ADT7470_PWM_COUNT; i++) {
-> +		struct thermal_cooling_device *cdev;
-> +		char cdev_name[THERMAL_NAME_LENGTH];
-> +
-> +		data->cooling_devices[i].data =3D data;
-> +		data->cooling_devices[i].pwm_index =3D i;
-> +
-> +		snprintf(cdev_name, sizeof(cdev_name), "adt7470-pwm%d", i);
-> +		cdev =3D devm_thermal_of_child_cooling_device_register(dev,
-> +								     dev->of_node, cdev_name,
-> +								     &data->cooling_devices[i],
-> +								     &adt7470_cooling_ops);
-
-[Severity: High]
-When registering the cooling devices in a loop, does passing the same parent
-dev->of_node for every PWM channel prevent independent thermal zone binding?
-
-Since __devm_thermal_of_cooling_device_register() binds them all with the
-same node, they will all get assigned cdev_id =3D 0. When the thermal core
-parses a DT cooling map requiring a specific cdev_id, will it fail to match
-the individual channels since they are indistinguishable?
-
-> +
-> +		if (IS_ERR(cdev)) {
-> +			if (PTR_ERR(cdev) =3D=3D -ENODEV)
-> +				continue;
-
-[Severity: Medium]
-Will this check ever be hit? As noted in the commit message review above,
-the thermal registration API does not return -ENODEV for missing device
-tree properties, which causes all PWM channels to be registered
-unconditionally.
-
-> +			return dev_warn_probe(dev, PTR_ERR(cdev),
-> +					      "failed to register cooling device %s\n",
-> +					      cdev_name);
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> @@ -1281,6 +1392,17 @@ static int adt7470_probe(struct i2c_client *client)
->  	if (IS_ERR(hwmon_dev))
->  		return PTR_ERR(hwmon_dev);
-> =20
-> +	if (IS_ENABLED(CONFIG_THERMAL)) {
-> +		/* fill the cache before registering the cooling devices */
-> +		err =3D adt7470_update_sensors(data);
-
-[Severity: High]
-Can this call to adt7470_update_sensors() cause hardware configuration
-corruption due to a missing lock?
-
-This is executed in adt7470_probe() immediately after the hwmon device is
-registered, meaning sysfs attributes are already exposed to userspace.
-
-Since adt7470_update_sensors() calls adt7470_read_temperatures(), which
-explicitly assumes data->lock is held while performing multi-step register
-manipulations and a 2-second sleep, what prevents a concurrent userspace sy=
-sfs
-access from racing during this window and corrupting the PWM configuration?
-
-> +		if (err)
-> +			return err;
-> +
-> +		err =3D adt7470_register_cooling_devices(dev, data);
-> +		if (err)
-> +			return err;
-> +	}
-> +
->  	data->auto_update =3D kthread_run(adt7470_update_thread, client, "%s",
->  					dev_name(hwmon_dev));
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-adt7470_th=
-ermalzone-v1-0-cc55ef35edde@gmail.com?part=3D3
+Rob
