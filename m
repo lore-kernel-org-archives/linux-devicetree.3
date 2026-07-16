@@ -1,112 +1,107 @@
 Received: from gy.d.sender-sib.com (gy.d.sender-sib.com [77.32.148.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 678751DED42
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 06:55:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96BD834B66F
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 06:55:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.32.148.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784184953; cv=none; b=HV4zYPXg9w4/iFgfIrNjlbrzRWFjtsWFN9WSVZuHj2xJDjPM0KqkaaQzqAgX3Y2XDxI50/Yp2XjKCL6o9BeRmFnVPCIE6pUDK3eS679NuXH2xYbP0GT2TI9y7oIVnMzuVZCYjP/x6kgk85hLyKd8jwRbDEOrJYYa/sD8q4ER2gg=
+	t=1784184956; cv=none; b=EgaatY2rxZOVLdp0tZrZZaJoApK/2jtYMA1bN/PTkXgrDqkKn287+s+ZnbUAkgmfQBHx8nJ7AeOruQt7vDgDnNOxyMwn6HV1A5G8up8g56xcETH8J7z/BI4vc3IqzbxOkgOsGH/pqUEdjAzaddmLUYeQiAm0Ovw9BpZV2YRjtlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784184953; c=relaxed/simple;
-	bh=1LMjw8mVlXizKoZi4xTAuqivkgnzv+CExwq9dc0kMwI=;
-	h=To:Date:Message-Id:From:Subject:Cc:References:In-Reply-To:
-	 Mime-Version; b=bM1znZWdRvX0bWuljwMhO3KugNpYu5MxpdKmpbySff1KQfCtfCFI7U+TihPDFrXs5e/oeWVnSVE7hlRXI9XV4bHg89mRONpPitEVkbx9slYtDb7TA7ifB0caccLhXCBG5vg5wekc9oGfz/0rtNzKoCM4wAC2r1X4o/3Pcaez8Vo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gy.d.sender-sib.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=JR2KNA6j; arc=none smtp.client-ip=77.32.148.25
+	s=arc-20240116; t=1784184956; c=relaxed/simple;
+	bh=WZfgvL9FXZU8XkrwLufPry/D5a9H/3rGRZ/ONJCjcuM=;
+	h=To:Date:Subject:Message-Id:Cc:From:Mime-Version; b=kUA0evrqKYKoYZ+Kephvk53nNWgyheh7uzqqiljxg8lY4alD8oBJs/4eQ4SmTn8Nt6dsTyp6p7WYAgxRjlpk0ESPAs83yUtsUxslgBKRtt5m+x1uK8ndp79HB1AcQJ3HxQ9PFbGaZg2SE376EgzjCB977Dfp0YNg9GzHNAtKa9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gy.d.sender-sib.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=I/3a0Sqk; arc=none smtp.client-ip=77.32.148.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gy.d.sender-sib.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="JR2KNA6j"
+	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="I/3a0Sqk"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- q=dns/txt; s=brevo2; bh=7x6aERVipVHaG0xRD6KC0RgCFBCYOOqTbyO/Xpmab5Y=;
- h=from:subject:date:to:cc:mime-version:content-transfer-encoding:in-reply-to:references:list-unsubscribe:x-csa-complaints:list-unsubscribe-post:message-id:x-sib-id:feedback-id;
-        b=JR2KNA6jCWenKpm/5XOXS5LCXtM5X4YZ9jOI425Yf2q6B3i5Ytlkx9nZGT1VQDrbTMRkYX2yY9QX
-        TglOsjGKHED6jdzTt1BG5e2Wmb3w2WmrNv+49TSZKDXqHufugE7vPVLpnkMxZ4X4BZpd8zrZvkDt
-        hOQhIxjwf8vS9PeLh0+WCE11ud81FqPtDRF+qR+/1rwDTE/H5IspA7sHr6H6gmzcMSPXdLdQIKy6
-        vPruukr3P8M3IQaHEMnZbTrZC6gaTd35kKEhAub9z1WbGrArPCpKQNNLmnndsx7YQgoALQd1YRq5
-        krwb1MIJ2FjchISos22n391q4D4e0zvX3Zksmg==
-X-Mailin-EID: NDg1NjE3NDAyfmRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnfjwyMDI2MDcxNjA2NTUzNy4yNDY2MTUxLTEtZ2FoaW5nQGdhaGluZ3dvby5jb20%2Bfmd5LmQuc2VuZGVyLXNpYi5jb20%3D
-To: <sashiko-bot@kernel.org>
-Date: Thu, 16 Jul 2026 18:55:37 +1200
-Message-Id: <7453d80a-f448-4638-9a72-bb72e0aadbc9@smtp-relay.sendinblue.com>
-List-Unsubscribe-Post: List-Unsubscribe=One-Click
-From: "Jiaxing Hu" <gahing@gahingwoo.com>
+ q=dns/txt; s=brevo2; bh=ZQtPPVGvllEpvHbONqrSqV63ntNhTs4cpIf2KvSgDt4=;
+ h=from:subject:date:to:cc:mime-version:content-transfer-encoding:list-unsubscribe:x-csa-complaints:list-unsubscribe-post:message-id:x-sib-id:feedback-id;
+        b=I/3a0Sqkx3NjC5CL89D0NUxAr129CJ7FkrLsDYw1a+axhaItCgh9gdkH9DHK7SAyIW92rBpOlOcJ
+        oux1T9xg5srp4yRLD5eebgi1kUHME4g/59/T+f1t6q5qY7a0+vrrzaE6qwi781EjevjIgKAI61Xf
+        dxxF2dtnJjgYvuY82WT4EXsgLX8TaQuR8H0GN0Zr/qUuCncAmXlkISvj/agAh+/C4VCLFXrHdvIp
+        dulLlPDy+iuo44WWoMkFhHP6o9d0ljq8hh4qffSblIUcnCy8PnAt2pthTl/0avAR19WOX5C9ORhH
+        xAuiLGVVCl9r70LHU4eIWWuEWi4QaldefaX3Dg==
 X-CSA-Complaints: csa-complaints@eco.de
-Subject: Re: [PATCH 2/2] arm64: dts: rockchip: Add ArmSoM CM5 and CM5-IO
-X-sib-id: QoVJYuehfml-_dPYkq4jeyX8YrUyRj4yhwPc1LRDOF4frofEkLexzmtKZFIVCepNcCvw0BBxkhW_5F2wTbWZQRRE7HYFZn3vdrbye6F5zpmzPlE49iHCgILFFztCdvuga9llF9BofOH76q6ZJNfyAUKVfrEMB0VI5dmOFrI0DNw7g1dtD5ozUXw
-Cc: <heiko@sntech.de>,  <robh@kernel.org>,  <krzk+dt@kernel.org>,  <conor+dt@kernel.org>,  <devicetree@vger.kernel.org>,  <linux-rockchip@lists.infradead.org>,  <linux-arm-kernel@lists.infradead.org>,  <linux-kernel@vger.kernel.org>
-Origin-messageId: <20260716065537.2466151-1-gahing@gahingwoo.com>
+X-Mailin-EID: NDg1NjE3NDAyfmRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnfjwyMDI2MDcxNjA2NTU0OC4yNDY2MTk4LTEtZ2FoaW5nQGdhaGluZ3dvby5jb20%2Bfmd5LmQuc2VuZGVyLXNpYi5jb20%3D
+To: <heiko@sntech.de>,<robh@kernel.org>,<krzk+dt@kernel.org>,<conor+dt@kernel.org>
+Date: Thu, 16 Jul 2026 18:55:46 +1200
+Subject: [PATCH v2 0/2] arm64: dts: rockchip: Add ArmSoM CM5 and CM5-IO
+X-sib-id: CBJ7TGX6LDyBE0gLICcwGl7iMKKCQHNs9hxhDHx3djOHOgYkG4kg6tsXmdjX6AVG8L8QVbqYD_bngpfMkh1oLCoPQ8QNVMRcO0ATCGtDvWn9awydwxzkZ89YkYHt9MW5jcHuMkva2rsh2HpstEmS4odlSEvEnLWDgi5QtkiY5GS0rKKfV9sjjWo
+Message-Id: <90941902-4747-45cc-9c81-a2515b2faf18@smtp-relay.sendinblue.com>
+Origin-messageId: <20260716065548.2466198-1-gahing@gahingwoo.com>
+Cc: <devicetree@vger.kernel.org>,  <linux-rockchip@lists.infradead.org>,  <linux-arm-kernel@lists.infradead.org>,  <linux-kernel@vger.kernel.org>
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
 Feedback-ID: 77.32.148.25:11677070_-1:11677070:Sendinblue
+From: "Jiaxing Hu" <gahing@gahingwoo.com>
 X-Mailer: git-send-email 2.43.0
-References: <20260716012838.2353939-1-huhuvmb88@gmail.com> <20260716012838.2353939-3-huhuvmb88@gmail.com> <20260716014059.1966E1F000E9@smtp.kernel.org>
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260716014059.1966E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
 
-(Replying from my own domain; v1 went out as huhuvmb88@gmail.com. Same
-person, I will use this address from v2 on.)
+Add mainline support for the ArmSoM CM5, an RK3576 compute module, and
+its CM5-IO carrier board.
 
-Thanks. Most of this is valid, v2 coming. I ran dtbs_check too; it agrees
-and finds more.
+Patch 1 adds the binding, patch 2 the module dtsi and the carrier dts.
 
-> [High] Type-C DP Altmode configuration errors (SVID format, missing
-> mode-switch, and misplaced SVID)
+The on-module YT8531 PHY has no crystal and needs the SoC 25 MHz
+reference clock (clk_mac_refout). Ungating it for RGMII needs a small
+dwmac-rk change sent separately to netdev [1]; the clock is optional so
+this DTS applies without it.
 
-Correct, and worse. dtbs_check rejects the node: the altmodes child must be
-named "displayport", not altmode@0 with a reg, and svid must be /bits/ 16.
-The svid I put on &usbdp_phy is not in that binding at all (it has
-additionalProperties: false), and mode-switch is missing.
+Tested on a CM5-IO: the YT8531 is probed by the motorcomm driver and the
+link comes up at 1000 Mbit/s; RK806, HYM8563, eMMC, microSD, the USB3
+hub and the PCIe root complex all probe. dtbs_check is clean.
 
-> [High] Wireless (SYN43752 WiFi/BT) missing child nodes and unreferenced
-> pinctrls
-> [Low] The gmac0_rst pinctrl is defined but omitted from &gmac0
+I have moved to gahing@gahingwoo.com; v1 was sent from
+huhuvmb88@gmail.com. Same person.
 
-Correct. bt_reg_on, wifi_host_wake_irq and gmac0_rst are all unreferenced.
-I will drop them rather than guess at wifi/bt child nodes, and drop the
-WiFi/BT claim from the commit message.
+Changes in v2 (reported by sashiko-bot on v1, thanks, plus what
+dtbs_check found while fixing them):
+- Type-C DP alt-mode: name the altmodes child "displayport" and make
+  svid a /bits/ 16 value; drop the undocumented svid from &usbdp_phy and
+  add the missing mode-switch.
+- Move the FUSB302 role-switch endpoint into the connector's ports; the
+  fusb302 binding does not allow a port on the device node. Rename the
+  node to usb-typec@22.
+- Drop the ES8388 node. It was disabled and its compatible was wrong
+  (the binding wants everest,es8328). The audio claim is gone from the
+  commit message too.
+- Drop the unreferenced gmac0_rst, bt_reg_on and wifi_host_wake_irq
+  pinctrls, and the WiFi/BT claim that went with them.
+- Rename the wifi-poweren-gpio pinctrl node, it collided with
+  gpio-consumer.yaml.
+- Describe the PHY reset at the MDIO bus level rather than with
+  snps,reset-gpios. The snps properties are deprecated, and a per-PHY
+  reset-gpios is applied only after the ID scan, which is too late for a
+  PHY that boots held in reset. Confirmed on hardware: per-PHY reset
+  leaves the PHY dark, the bus level reset brings it up.
+- I did not add vmmc-supply/vqmmc-supply to the eMMC as suggested: every
+  rk3576 board upstream uses full-pwr-cycle-in-suspend without them, and
+  dtbs_check does not ask for them.
 
-> [Medium] ES8388 audio is advertised in the commit message but
-> functionally missing
+[1] net: stmmac: dwmac-rk: enable the reference clock for output mode
 
-Correct. The node is disabled and its compatible is wrong too (the binding
-wants everest,es8328). Dropping the node and the claim.
+Jiaxing Hu (2):
+  dt-bindings: arm: rockchip: Add ArmSoM CM5 and CM5-IO
+  arm64: dts: rockchip: Add ArmSoM CM5 and CM5-IO
 
-> [Medium] Missing vmmc-supply and vqmmc-supply for the eMMC
+ .../devicetree/bindings/arm/rockchip.yaml     |   7 +
+ arch/arm64/boot/dts/rockchip/Makefile         |   1 +
+ .../dts/rockchip/rk3576-armsom-cm5-io.dts     | 401 +++++++++++++
+ .../boot/dts/rockchip/rk3576-armsom-cm5.dtsi  | 564 ++++++++++++++++++
+ 4 files changed, 973 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5.dtsi
 
-This one I do not think holds. Every rk3576 board upstream (sige5,
-evb1/evb2, roc-pc, nanopi-r76s, dshanpi-a1) uses full-pwr-cycle-in-suspend
-without supplies, and dtbs_check does not flag it.
+--=20
+2.43.0
 
-Not in the report, but also fixed in v2: the fusb302 port node is not
-allowed by its binding (the role-switch endpoint belongs in the
-connector's ports), and the wifi-poweren-gpio pinctrl node name collides
-with gpio-consumer.
-
-Also the PHY reset. I had it as snps,reset-gpios, which is both misspelled
-(the schema property is singular) and deprecated. v2 describes it on the
-MDIO bus instead:
-
-	&mdio0 {
-		reset-gpios =3D <&gpio2 RK_PB3 GPIO_ACTIVE_LOW>;
-		reset-delay-us =3D <20000>;
-		reset-post-delay-us =3D <100000>;
-		rgmii_phy0: phy@1 { ... };
-	};
-
-That is the only spelling that works here. __mdiobus_register() releases a
-bus level reset before mdiobus_scan_bus_c22(), whereas a per-PHY
-reset-gpios is applied by phylib only after the PHY has been found, which
-never happens for a PHY that boots held in reset. Checked all three on
-hardware: per-PHY reset leaves the PHY dark, the bus level reset brings it
-up and the link comes up at 1000 Mbit/s.
-
-dtbs_check is clean on v2, with no deprecated properties left.
-
-Jiaxing
 
 
