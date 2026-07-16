@@ -1,54 +1,80 @@
-Received: from mail-m49205.qiye.163.com (mail-m49205.qiye.163.com [45.254.49.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A85E141BA99;
-	Thu, 16 Jul 2026 11:38:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9921541B8D7
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 11:40:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784201917; cv=none; b=cqtkR+358Dpjqi2rivsMBqOexE5Vb2sukka9JbhS+bfpftfLG/LSuSfKtEex0IAPyNSo/TKrSiL/G99T04gbeufU1SBjh++SBdzEbTMOiqhjYdJZyi6tRkfKjJsPSYxTp8pZLRuQbPYc6RG+WnQ05bLN29CVumeK9S5zfNNZj+E=
+	t=1784202018; cv=none; b=U+kcKYWv0V4vuKSOnC4hgRuMGR3Sx8IedStTI26+AL9Iy9TzhInQFPTuvACkX6YrUGEkJCD/cqHZjYGXX3N77AsEzDhQjHDQ2TcXljAl5MPyyilujUEI9CCPek+rCTVy7BvAw1i+EmjpIwcjy1B8nyIRexq8Fz3f63VQYuIE5bs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784201917; c=relaxed/simple;
-	bh=NSSbjOJArliCkaBo8gNxUgoRpFPjYh8M/g5jlxQNKwI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VQnQZSY4CRXlnpVU90+GNRHTjaURjFk9hbSAJR9Kb2VRdX2o5h6px+6wEfODeGtV4n88ewM6tbTO6y10YPYTCBy5d6qfW9bGG6TIOQSCqnixnCRJR4jAdt8U/z88N/crIVSNqoD09nuGfN6pvNQwmDobHjNW8/oFgiKiigAR5Do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=XyDsH925; arc=none smtp.client-ip=45.254.49.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	s=arc-20240116; t=1784202018; c=relaxed/simple;
+	bh=Im70qmgrbAmqVUaeBnO30L5OqJc05vwCNKCuum/grFA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a2wWLS7BM2o5erudxWEFppz/vC3c/0cSDBfHYUOzOY5OszB/F97tdNXHEJJR4aIGzEAZBymWcOMVY6RjyRMqPS0bHA0vzRoPYiUV3Qa93hs3NqbDJSVGFVwgb9mKswXNmQqg/rqLhwagJGrnog2vFZKJ4QZWL+InvioiQPeuJ+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sigma-star.at; spf=pass smtp.mailfrom=sigma-star.at; dkim=pass (2048-bit key) header.d=sigma-star.at header.i=@sigma-star.at header.b=Z3Iz1z00; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sigma-star.at
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sigma-star.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="XyDsH925"
-Received: from tsdl-HP-EliteDesk-880-G6-Tower-PC.. (unknown [36.129.139.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 466dc86e3;
-	Thu, 16 Jul 2026 17:15:53 +0800 (GMT+08:00)
-From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-To: mohammad.rafi.shaik@oss.qualcomm.com
-Cc: andersson@kernel.org,
-	broonie@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	dmitry.baryshkov@oss.qualcomm.com,
-	drake@endlessm.com,
-	hongyang.zhao@thundersoft.com,
-	katsuhiro@katsuster.net,
-	konradybcio@kernel.org,
-	krzk+dt@kernel.org,
-	lgirdwood@gmail.com,
-	linux-arm-msm@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=sigma-star.at header.i=@sigma-star.at header.b="Z3Iz1z00"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-493e8d4f4dcso46929545e9.0
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 04:40:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sigma-star.at; s=google; t=1784202011; x=1784806811; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c35SvQX07tBLJsWKz/d1e1Tptdw74CrKsOw1LXa+vBI=;
+        b=Z3Iz1z00DTFaHzFDBIW4pBNgfQ9NoB8nk9B7xzpBOQ68YQZ1bfDa3M/oh0cR8MFEPX
+         LmVfFKwfsMRIUoFfAOc3FNxZrEL2SGIrZErV70/wx3tfbNJ9tf+8oOJ/AI59l1XFu0hw
+         a+0ffcptQXRtdE7W/3MaLudM7cdBrqaqj+b/fJeCb5eAjDq6aO4MVBMFd7P8EWy8rumF
+         fqo//l0q1q9xjurvdAITbBNrPPDrS8AlqL7zeoXq3tOqGCXj+cmKb0JKQev1IdG4hIJ9
+         Ue+FS3TF7JZ659nVHwZkheKCDJPQDbU97dDMhFd8W0BeP/Y9w670+Xk+QQ/P4POEP6Ib
+         ROng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784202011; x=1784806811;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c35SvQX07tBLJsWKz/d1e1Tptdw74CrKsOw1LXa+vBI=;
+        b=o3PjPfoTVpeT8CANIrtcSxNZuDrs74QXaF3tqmdpAld3DR9TFIq7wUS8UsXINIa/Nr
+         u7laZV13LtSsVmFrEcU9+sWjB961JIAefwjZh2g71CtEWbkrqtwHgi22zdb6g0UpuQNK
+         mjL5Khqxm4PYsOqigjSkbGMhFdmsXHtWppKKoluRiGrmRTbvC8mC1cPBbAuHMWBax7Lc
+         YNO1QxfTSrJyFh6Is0tuycuiNQdEon3uEy6/dJY/Hl4l5+fTnyokTssnXvfz9Ht6NCrA
+         FhpJNpGhlTbvMOfVwdRbfnYO2aTm2aLQB3MyIjiJ0ovfppxIwAj7VGuL3lDzTbTyxk5a
+         pmkw==
+X-Gm-Message-State: AOJu0YyzeoDz6arvaGeIBIuSD0s9WYD3WT7XC7yxLl2Q/d+JWV77JiS0
+	vca8vT0QeOcxNN1wIh94BX6urUUxOeFCk39Nfz+1ZAXbbdXKSeFWC6AS/PtIvoREQOpSR/63a7l
+	xwav99fM=
+X-Gm-Gg: AfdE7cnQaB/1EpDlZdUdVJTXDL7S0AyWvPwaLFv5yWQd7awAJTw70TlqvGBnMuTLhq8
+	YOhVQhKnFHzU1gUd/G3YMeiG7xLZpzn9ABNkp53qEdqY/V3b9ev3LRWIUOyErGCQ97Zc8jE+GYi
+	wH5t4zphhO12Lm5ThLg7LIhvPn5uRyd2eN9v5MRcRNa5TphwpE92HRnegSLA84x11TLvhS5tN8D
+	UlPyLrvrZQmAYrUBknChrYGkttvLDkf4oCzNYZOHZ8lQ81LkZMjzjFg3ed7CL3qFR3K4Zc48j5L
+	lsiUwzlBqtXRjCeSuAJRvooljI8ZxSzE/qK0VSItOdkmGeIWwe9GksQw/kgwQd4EdRqmpakkmXi
+	5/P8Ck6USGAH3b6a/ilNBjKSf3v/PPuM8NXj8RyzkC7OVSxPuGS3T7j743IXbMAehNEqGSdvdTs
+	7zs8r9IQZzLJzcpGqEO1IfxRByycmq4+1ulm5v0zW1P60vDbO6gryr
+X-Received: by 2002:a05:600c:6285:b0:493:c42c:7e87 with SMTP id 5b1f17b1804b1-4953c2800b3mr70107945e9.33.1784202010654;
+        Thu, 16 Jul 2026 04:40:10 -0700 (PDT)
+Received: from localtoast.corp.sigma-star.at ([82.150.214.1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f4635082csm23611001f8f.7.2026.07.16.04.40.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Jul 2026 04:40:10 -0700 (PDT)
+From: David Oberhollenzer <david.oberhollenzer@sigma-star.at>
+To: devicetree@vger.kernel.org,
+	linux-omap@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	matteomartelli3@gmail.com,
-	neil.armstrong@linaro.org,
-	perex@perex.cz,
+	conor+dt@kernel.org,
+	krzk+dt@kernel.org,
 	robh@kernel.org,
-	rosh@debian.org,
-	srini@kernel.org,
-	tiwai@suse.com,
-	zhoubinbin@loongson.cn
-Subject: Re: [PATCH v2 5/6] ASoC: qcom: sc8280xp: Add RubikPi 3 sound card support
-Date: Thu, 16 Jul 2026 17:15:48 +0800
-Message-ID: <20260716091548.2844369-1-hongyang.zhao@thundersoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <847396bb-2cc1-4f45-bd81-33ab55d3af6f@oss.qualcomm.com>
-References: <847396bb-2cc1-4f45-bd81-33ab55d3af6f@oss.qualcomm.com>
+	tony@atomide.com,
+	rogerq@kernel.org,
+	khilman@baylibre.com,
+	andreas@kemnade.info,
+	aaro.koskinen@iki.fi
+Cc: Julian.FRIEDRICH@frequentis.com,
+	upstream+omap@sigma-star.at,
+	David Oberhollenzer <david.oberhollenzer@sigma-star.at>
+Subject: [PATCH] ARM: dts: ti/omap: dra7: fix PCIe PHY clock divider definition
+Date: Thu, 16 Jul 2026 13:39:47 +0200
+Message-ID: <20260716113947.92513-1-david.oberhollenzer@sigma-star.at>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -56,166 +82,46 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9f6a36054f09d5kunm310692a7996b5
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHRpCVktCGkkaGE4aQ04eGVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVCQk
-	lOS1VKS0tVSkJLQlkG
-DKIM-Signature: a=rsa-sha256;
-	b=XyDsH925Au7I7JxnQvdmNAv/rf+TB8LDsDhcBn5hy6tsal9wJ5gsiUnW8yyaF7BcGHCbXAVe/jmM8TSIsuOuF1lParHqoVsnwWBTuo2XYn6xoFCevGdA6dxT9GAQ6xBxJK0+gCh1HlqaRvOBFScoKf7O85H9N4LpYwq6JxrXHLQ=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
-	bh=Eb18BN/yHG243dJ2m5Qb3w7CIglh4wqlllocwyASBAI=;
-	h=date:mime-version:subject:message-id:from;
 
-Hi Rafi,
+Commit d0bdd8bb7f35 ("ARM: dts: ti/omap: dra7: fix redundant
+clock divider definition") removes the clock divider definition
+from optfclk_pciephy_div, reasoning that the table is redundant,
+as it contains the values 1 and 2, while also setting ti,max-div
+to 2 while ti,min-div is implicitly initialized to 1.
 
-Thank you for the review.
+What that commit missed was the fact that the values in the table
+are in reverse order, i.e. first 2, then 1.
 
-> On 7/15/2026 7:32 PM, Hongyang Zhao wrote:
-> > RubikPi 3 connects an ES8316 codec to the primary MI2S interface for
-> > headset playback and capture, and an LT9611 bridge to the quaternary
-> > MI2S interface for HDMI audio.
-> >
-> > Add board-specific DAI data for these links. Configure both directions
-> > of the primary interface for I2S with normal clock polarity and the
-> > codec as bit and frame clock consumer. Program the LPASS MCLK and BCLK,
-> > drive the ES8316 with its required 19.2 MHz MCLK, and enable the generic
-> > codec jack-detection setup on the playback link.
-> >
-> > Configure the quaternary playback link with the same I2S clock format.
-> > Do not request a codec sysclk for this link because the LT9611 HDMI
-> > codec DAI does not implement set_sysclk().
-> >
-> > Select this configuration through the RubikPi 3 sound-card compatible.
-> >
-> > Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-> > ---
-> >   sound/soc/qcom/sc8280xp.c | 39 +++++++++++++++++++++++++++++++++++++++
-> >   1 file changed, 39 insertions(+)
-> >
-> > diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-> > index 885ec1e3e575..1354eecb56c9 100644
-> > --- a/sound/soc/qcom/sc8280xp.c
-> > +++ b/sound/soc/qcom/sc8280xp.c
-> > @@ -410,6 +410,41 @@ static const struct snd_soc_common qcs6490_priv_data = {
-> >   	}),
-> >   };
-> >
-> > +static const struct snd_soc_common qcs6490_rubikpi3_priv_data = {
-> > +	.driver_name = "qcs6490",
-> > +	.dapm_widgets = sc8280xp_dapm_widgets,
-> > +	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
-> > +	SC8280XP_DAI_DATA(
->
-> Where is SC8280XP_DAI_DATA() defined?
+As is clearly described in the documentation, the ordering is
+signifficant, the actual values for the register setting are
+derived from the index. If no table is specified, the driver
+assumes that the register value is divider - 1 (see also `_get_val`
+in `drivers/clk/ti/divider.c`).
 
-It is introduced by the preceding patch 4/6.
+What is in fact redundant is the value of ti,max-div that is
+derived from the table if none is specified. To satisfy device
+tree semantic linters, it is removed instead.
 
-https://lore.kernel.org/linux-arm-msm/20260715-rubikpi-next-20260605-v2-4-67601d7a8581@thundersoft.com/
+Fixes: d0bdd8bb7f35 ("fix redundant clock divider definition")
+Signed-off-by: David Oberhollenzer <david.oberhollenzer@sigma-star.at>
+---
+ arch/arm/boot/dts/ti/omap/dra7xx-clocks.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-It initializes snd_soc_common::dai_data with an array of
-struct sc8280xp_dai_data and sets num_dai_data.
+diff --git a/arch/arm/boot/dts/ti/omap/dra7xx-clocks.dtsi b/arch/arm/boot/dts/ti/omap/dra7xx-clocks.dtsi
+index 0de16ee262cf..615a8fb47776 100644
+--- a/arch/arm/boot/dts/ti/omap/dra7xx-clocks.dtsi
++++ b/arch/arm/boot/dts/ti/omap/dra7xx-clocks.dtsi
+@@ -1376,8 +1376,8 @@ optfclk_pciephy_div: clock-optfclk-pciephy-div-8@4a00821c {
+ 		clocks = <&apll_pcie_ck>;
+ 		#clock-cells = <0>;
+ 		reg = <0x021c>;
++		ti,dividers = <2>, <1>;
+ 		ti,bit-shift = <8>;
+-		ti,max-div = <2>;
+ 	};
+ 
+ 	apll_pcie_clkvcoldo: clock-apll-pcie-clkvcoldo {
+-- 
+2.55.0
 
-Patch 4/6 reached the mailing list after your reply, so the definition
-was not visible when you reviewed this patch.
-
->
-> > +		{
-> > +			.id = PRIMARY_MI2S_RX,
-> > +			.codec_dai_fmt = SND_SOC_DAIFMT_I2S |
-> > +					 SND_SOC_DAIFMT_NB_NF |
-> > +					 SND_SOC_DAIFMT_BC_FC,
->
-> codec_dai_fmt appears to be identical for all MI2S DAIs. Can this be
-> moved into the common initialization path instead of being specified per
-> DAI.
->
-> > +			.mclk_rate = 19200000,
->
-> Is this mclk frequency fixed ?
->
-> Typically, audio MCLK is expected to be 12.288 MHz or 24.576 MHz.
-
-Yes. The RubikPi 3 machine configuration intentionally sets the ES8316
-sysclk to 19.2 MHz. At the fixed 48 kHz backend rate this gives an
-MCLK/LRCK ratio of 400, which is explicitly supported and documented by
-the ES8316 driver.
-
->
-> > +			.codec_sysclk_set = true,
-> > +			.mi2s_mclk_enable = true,
->
-> Drop this mclk_enable flag; your already enabled from the codec node.
->
-> is not ?
-
-Agreed. The ES8316 codec node is now the only MCLK consumer. The Primary
-MI2S RX and TX CPU backends only configure BCLK. The machine driver
-still calls the ES8316 set_sysclk() operation with 19.2 MHz to set the
-clock rate and sample-rate constraints, but it no longer enables MCLK
-through the CPU DAI.
-
->
-> +&i2c0 {
-> +	status = "okay";
-> +
-> +	es8316: audio-codec@11 {
-> +		compatible = "everest,es8316";
-> +		reg = <0x11>;
-> +		#sound-dai-cells = <0>;
-> +
-> +		clocks = <&q6prmcc LPASS_CLK_ID_MCLK_1 LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
-> +		clock-names = "mclk";
-> +
->
-> > +			.mi2s_bclk_enable = true,
-> > +			.jack_setup = SC8280XP_JACK_SETUP_CODEC,
->
-> .jack_setup is not part of snd_soc_common
-
-jack_setup is a member of struct sc8280xp_dai_data, introduced in 4/6.
-SC8280XP_DAI_DATA() places these entries in snd_soc_common::dai_data.
-This was also obscured by patch 4/6 arriving after your review.
-
->
-> Best regards,
-> Rafi
->
-> > +		},
-> > +		{
-> > +			.id = PRIMARY_MI2S_TX,
-> > +			.codec_dai_fmt = SND_SOC_DAIFMT_I2S |
-> > +					 SND_SOC_DAIFMT_NB_NF |
-> > +					 SND_SOC_DAIFMT_BC_FC,
-> > +			.mclk_rate = 19200000,
-> > +			.codec_sysclk_set = true,
-> > +			.mi2s_mclk_enable = true,
-> > +			.mi2s_bclk_enable = true,
-> > +		},
-> > +		{
-> > +			.id = QUATERNARY_MI2S_RX,
-> > +			.codec_dai_fmt = SND_SOC_DAIFMT_I2S |
-> > +					 SND_SOC_DAIFMT_NB_NF |
-> > +					 SND_SOC_DAIFMT_BC_FC,
-> > +		}
-> > +	),
-> > +};
-> > +
-> >   static const struct snd_soc_common qcs8275_priv_data = {
-> >   	.driver_name = "qcs8300",
-> >   	.dapm_widgets = sc8280xp_dapm_widgets,
-> > @@ -480,6 +515,10 @@ static const struct of_device_id snd_sc8280xp_dt_match[] = {
-> >   	{ .compatible = "qcom,sm8550-sndcard", .data = &sm8550_priv_data },
-> >   	{ .compatible = "qcom,sm8650-sndcard", .data = &sm8650_priv_data },
-> >   	{ .compatible = "qcom,sm8750-sndcard", .data = &sm8750_priv_data },
-> > +	{
-> > +		.compatible = "thundercomm,qcs6490-rubikpi3-sndcard",
-> > +		.data = &qcs6490_rubikpi3_priv_data,
-> > +	},
-> >   	{}
-> >   };
-> >
-> >
-
-Best regards,
-Hongyang
