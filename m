@@ -1,123 +1,170 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6DB83955EA;
-	Thu, 16 Jul 2026 09:35:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F243BB126;
+	Thu, 16 Jul 2026 09:36:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784194528; cv=none; b=eQpymE2WBnlYd3E32XyDf9PdefQm/v7+YTtvXIy9PJ0d8SKLyTMsHp/zz6XyQquva+bIIjkpRtNny/EBnaIF6RCFeC/fgB6xfo8UDNPrPHpojg3CBgZC7ijkjWQp2Zwgq4GVPcY0brq1yYEEKBu1M5fkjfApvT0x0SD7WnY5tKQ=
+	t=1784194608; cv=none; b=iu/1inX08YtqcSOh51oKqqNxV44idYvbD5oNZ/5bX17x6aVPFJ1/3TQ4apo1OW41O/HJp9Jv+GwXIEPc9LRm+e7K4B1fgZHzSlZSZdGHcoUBiKY/t2zmeUZi0LE1EKSFJYIVucQwa8+P/Uh9+l6ftctr5YYsKwPhKPneARHol50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784194528; c=relaxed/simple;
-	bh=bW+dO2vACxqjT9Xu12ac7glvE0qp6EifSTjfcjVEcgk=;
+	s=arc-20240116; t=1784194608; c=relaxed/simple;
+	bh=Igdt2Jxy4NLY08/a/9QDgah/C4JtmJyrHGrbliKpUGc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dFZ8VuBdgLdLQ5d7l2UKPICrkI5wGrN0kVdWa/y0iNqBotIuWU7qFyPFeRcTEB90KmE6NLb1IYxVaIJktC6RZhrZmE5lYqawg1zEaZdp1AHhjbjTybxVu7SIF9rY7H2Z/zMTGs/Y3CZ7sqoDkIw1y/AHZw8NH8qCcwcH+3jUV7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NrmGXHPO; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=E4daDX64lBTKUIk5xPu4dbv5ehBaB4sKBvgf8S7zwYrx/TNdqIYIBGj2i1jfZivnPbxKPf5xbu0xk3zAEweYlgos52fO05G+1xw4cZu9XLF14ExZAy7HR63YUe9hSMgYX6cV4le192dq2VzDLkgfetBVk1wwteuvvAPllcLwKig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=B9HgSbW6; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NrmGXHPO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784194526; x=1815730526;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=bW+dO2vACxqjT9Xu12ac7glvE0qp6EifSTjfcjVEcgk=;
-  b=NrmGXHPOHu4sZxEVzuDic9lDQh9knPdHqwbav4T8sdpJCWypDWp57gGS
-   MzCAICGllMKTyf888wTVzWFcGtC9s2oQdeoNG4izBWUMiRHN8eZxq9XxN
-   ek8RmpsbEOfpJ5ua4/KYHq8iFmmJf3pZ18oP9CEXR8G0ef/IAOh7j4tPE
-   xkAc+1PULYV6C/XkYLhFDKWP1MlWFCON6DBHhLrygUBr9F9iw5L/yC1my
-   xhbdpVjRRYHOV5wuDgblkgt5bPO4nEgSVks4NWncfk67z3TPlj1z3fzAa
-   15A/hqZaQ47wCqlwvCagDUBjvhV6yoAVzIxaN41R1s0JXEzrEUvOczXkK
-   w==;
-X-CSE-ConnectionGUID: mwhKOGSgQ6CgmcZ+9+CLYQ==
-X-CSE-MsgGUID: QwJv1yS+Q7uZMyE+HsEkmg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84939752"
-X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
-   d="scan'208";a="84939752"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 02:35:25 -0700
-X-CSE-ConnectionGUID: FrRiLHdJQ06V0tMLhsDOuw==
-X-CSE-MsgGUID: OHs5MyRMR/2sr+xoNGgEsA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
-   d="scan'208";a="294680264"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.26])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 02:35:22 -0700
-Date: Thu, 16 Jul 2026 12:35:14 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Amit Barzilai <amit.barzilai22@gmail.com>
-Cc: Javier Martinez Canillas <javierm@redhat.com>,
-	dri-devel@lists.freedesktop.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] drm/ssd130x: Add SSD135X_FAMILY and SSD1351
- support
-Message-ID: <alil0p_s9-dM9j_t@ashevche-desk.local>
-References: <20260704080925.75113-1-amit.barzilai22@gmail.com>
- <20260704080925.75113-4-amit.barzilai22@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="B9HgSbW6"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66G7DU8G1994824;
+	Thu, 16 Jul 2026 09:36:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	SFUiJlIJSjO4iBGJ7Ma5WSZocrKRwGJx01ubuU6TOPI=; b=B9HgSbW6Fo5qhqs9
+	wyhgb1qVyMTTa/0+ZLA6GG+cn1LHIUAsdvM8yKIPjtCga9pgODLRzil7zqsk7zeL
+	+fI0kVwY0ED77Tlkh64+6wM+CTkDxO0lkkh272MJyuTBOS3C7EfqbuJv3MeyaOAR
+	NbhF7SgjHZ91L1BqAfuNnylNMYGuu1yU/KgaWvBMkDc2A4murOtxvEl35m9KYOxF
+	2riAi7kXDQoanUt75toUuGA30kyn7WN3iML6W5KYGSPwWRaaznRr0lKp3dJhflgu
+	Jktt5fW7SeAURBUXNTGeA5h3MIJlahR8DerZYKNtXWwRJqkxXPh8NlKYHmpEKBa+
+	w76POg==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feefqk213-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 16 Jul 2026 09:36:44 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 66G9afbi014753;
+	Thu, 16 Jul 2026 09:36:41 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4fbewkfpsw-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 16 Jul 2026 09:36:41 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 66G9afi8014748;
+	Thu, 16 Jul 2026 09:36:41 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 66G9aed2014746
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 16 Jul 2026 09:36:41 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
+	id 107E7B36; Thu, 16 Jul 2026 15:06:40 +0530 (+0530)
+Date: Thu, 16 Jul 2026 15:06:40 +0530
+From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
+        jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
+Subject: Re: [PATCH v5 1/2] dt-bindings: power: reset: qcom-pon: Add new
+ compatible PMM8654AU
+Message-ID: <20260716093640.6girzdseyuwj62bj@hu-kotarake-hyd.qualcomm.com>
+References: <20260713-b4-add_pwrkey_and_resin-v5-0-3bea476e1453@oss.qualcomm.com>
+ <20260713-b4-add_pwrkey_and_resin-v5-1-3bea476e1453@oss.qualcomm.com>
+ <20260713121328.339151F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260704080925.75113-4-amit.barzilai22@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260713121328.339151F000E9@smtp.kernel.org>
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=APNfGQ4N c=1 sm=1 tr=0 ts=6a58a62c cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=IkX1Yui6ihke5z-Rmc4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDA5OCBTYWx0ZWRfX1RXmtQqbJ2I2
+ ooQxj3B9psfldRegGLn6CrpN86+Xapr349kwrmj2Cs9RCAdsDvXBS8F8nGASrVth1bkdo4Lo2jr
+ wVSNRe36QWQpSfPQEQbQcm/VBxehAGs=
+X-Proofpoint-ORIG-GUID: PSWI8A1W_iUFPjrKNZgpE78uKmVOwZqk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDA5OCBTYWx0ZWRfX4Oh3BQ9/HH1H
+ 3uJbXkn+B6HraIBHxlvC3tlAgBixAbPF6X1iO89UmSvuT9C2k/sdbfzM7b9F6i4hc19MKQ8NUwO
+ x7xky5uhLqn115wo/4Jr7uSPcTVs1NDcaNvEEh+2Q0aknq+diufVG26BnCyd8Xkm04SHe/X2KV6
+ AmOkyYL7tz3kZhsCfaXcUpLHCiSw/mfKoVgi9UiOkGtDuA4+63nkq+aY00xwcHO0M4PMs15A1mf
+ zJ7OYWEAp3RholI9bf24inYMvo2mtTU8A7GCB9FJXd1gmi5EA1CK5cpDg6zLbHGt8POIM2AcwVV
+ Wv3+2g6mptHt80qSSyxAkLcPDYi3wIVvGeJU9wGmajE2aH/DF+az3FsQXi9prXxeALM4E0WjCHX
+ Z4A6ViL5lYIAaga+nLBtBFRsO2YUZE572q+AO3FOrss75rNQB/LYYpRBvkMaMzPy43v8ov6s41O
+ YUKeYbkj36Bnko74q3Q==
+X-Proofpoint-GUID: PSWI8A1W_iUFPjrKNZgpE78uKmVOwZqk
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-16_03,2026-07-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0
+ malwarescore=0 bulkscore=0 spamscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607160098
 
-On Sat, Jul 04, 2026 at 11:09:25AM +0300, Amit Barzilai wrote:
-> The Solomon SSD1351 is a 128x128 RGB color OLED controller. It shares
-> the SSD133X data path: a column/row addressing window followed by a bulk
-> RGB565 pixel write. Add it as a new SSD135X_FAMILY rather than a separate
-> driver, reusing the SSD133X plane, CRTC and blit/clear helpers.
+On Mon, Jul 13, 2026 at 12:13:27PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
 > 
-> The only data-path difference is that the SSD1351 requires an explicit
-> Write RAM command (0x5c) after the address window is programmed, before
-> pixel data is accepted, whereas the SSD133X enters data mode implicitly.
-> This is emitted from a shared ssd133x_write_pixels() helper so both the
-> damage-update and clear-screen paths cover it.
+> Pre-existing issues:
+> - [High] The schema incorrectly forbids `mode-*` properties for `pmk8350-pon` and its fallbacks, breaking reboot mode configuration.
+> --
 > 
-> The SSD1351 also needs its own init sequence (ssd135x_init), dispatched
-> via ssd135x_encoder_atomic_enable. The re-map byte is fixed at 0 degrees,
-> 65k color, COM split, BGR sub-pixel order; rotation is not supported.
+> --- Patch [1]: [PATCH v5 1/2] dt-bindings: power: reset: qcom-pon: Add new compatible PMM8654AU ---
+> commit c59d0da4493e27ba6b287b072dffcd65652a9310
+> Author: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
 > 
-> The SSD1351 doesn't implement the SSD13XX_CONTRAST command (0x81) and
-> expects different opcodes for contrast and brightness management. The
-> current ssd130x_update_bl() function wouldn't work and the brightness
-> byte would be executed as a command opcode if run on the SSD1351 panel.
-> Until the backlight path is family-aware, skip backlight device
-> registration for the SSD135X family.
+> dt-bindings: power: reset: qcom-pon: Add new compatible PMM8654AU
 > 
-> The SSD1351 is SPI-only, so only the SPI transport match tables gain an
-> entry; no new config symbol is needed.
+> This commit introduces the PMM8654AU compatible string as a fallback to the
+> baseline PMK8350 PON implementation. It also updates the schema to enforce
+> that both the hlos and pbs register address spaces are always present for
+> the Gen3 PON peripherals.
 > 
-> While adding the SSD135X command path, ssd130x_write_cmds() forwards its
-> 'const u8 *cmd' buffer to ssd130x_write_data(), which previously took a
-> non-const 'u8 *'. Constify the ssd130x_write_data() 'values' parameter
-> so the const-qualified buffer passes through without casting away const.
+> > diff --git a/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml b/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml
+> > index 979a377cb4ffd..09eea48c709e5 100644
+> > --- a/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml
+> > +++ b/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml
+> > @@ -17,12 +17,16 @@ description: |
+> >  
+> >  properties:
+> >    compatible:
+> > -    enum:
+> > -      - qcom,pm8916-pon
+> > -      - qcom,pm8941-pon
+> > -      - qcom,pms405-pon
+> > -      - qcom,pm8998-pon
+> > -      - qcom,pmk8350-pon
+> > +    oneOf:
+> > +      - enum:
+> > +          - qcom,pm8916-pon
+> > +          - qcom,pm8941-pon
+> > +          - qcom,pms405-pon
+> > +          - qcom,pm8998-pon
+> > +          - qcom,pmk8350-pon
+> > +      - items:
+> > +          - const: qcom,pmm8654au-pon
+> > +          - const: qcom,pmk8350-pon
+> 
+> [Severity: High]
+> This is a pre-existing issue, but does the current schema incorrectly forbid
+> mode-* properties for pmk8350-pon and its fallbacks, breaking reboot mode
+> configuration?
+> 
+> Because the Gen3 compatibles are missing from the earlier allOf if condition
+> that matches pm8916-pon, pms405-pon, and pm8998-pon, they fall into the else
+> branch:
+> 
+>     else:
+>       patternProperties:
+>         "^mode-.*$": false
+> 
+> Will this cause dtbs_check to spuriously reject valid mode-* properties for
+> the newly added pmm8654au-pon PMIC?
 
-...
+This is a pre-existing issue and not introduced by this patch. The else
+branch forbidding mode-* for Gen3 compatibles is intentional — Gen3
+hardware uses SDAM for reboot reasons, not PON_SOFT_RB_SPARE, so mode-*
+properties have no meaning there. qcom,pmm8654au-pon is also a Gen3
+device and falls into the same else branch, so mode-* : false is correct
+for it as well. dtbs_check rejecting them is expected behaviour. No
+change needed here.
 
->  	{ "ssd1327", SSD1327_ID },
->  	/* ssd133x family */
->  	{ "ssd1331", SSD1331_ID },
-> +	/* ssd135x family */
-> +	{ "ssd1351", SSD1351_ID },
->  	{ /* sentinel */ }
-
-To avoid conflicts it's better to convert this ID table to use C99 initialisers
-(so Uwe will be happy).
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+regards
+Rakesh kota
