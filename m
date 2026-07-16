@@ -1,101 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 700E62D47E9;
-	Thu, 16 Jul 2026 23:05:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784243104; cv=none; b=dK3DWoyR3oF+g3sgv+hO9n/L5R5TSutNrNBY6VU64xR7R5LHBfMtrNMIg/CCEhPdlmtCBUoZmZ5JD4hhDlJrCpW1Dc58psCTze/SU53vQGxxjD35+yNGV0/AogHmIxHCTo5SwOWxIX8PpOE7m1lFdh8SjWGArpx+QvZMLvCPdDY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784243104; c=relaxed/simple;
-	bh=22eFyfsKVuOczMh4rQhMNTBlNi1mtJQWAxDiECNCHhM=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=Hz7Iw0draLZFZvtH3sf3cyfDjIz/AWcz/IXPhI21q34iWe7h7W0g+7Pee4OKgCEj59LUnevRNrrR4lDJFrtTA3UWIWCgpfy3oJJA0ClkGYLT7VVV2L7/AkjxtNVtoOfvuz2F3ldY2qDEmE6LAMwRb7e8L1Ybr6rj//T14gPkSCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TxOtBgg6; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB72D2DF717;
+	Thu, 16 Jul 2026 23:08:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784243331; cv=pass; b=QLyKtg1tN8xl+yUsQb/3ubz9vN7tFrOgwwTHRM1olPc4TK+KNHzSmftDnpmC19SSuE+WbQSEFsqNLH6OMzsI+Hx3m6SIW2OEDFj+6Dxpw/dJhTmNk2H1JZxdHe6zH6v3x1bdOt+3Ivlu7NGO3U9nqHxYh/fxg2JUOlp1s0r8/a0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784243331; c=relaxed/simple;
+	bh=JI6Z785l1jaXzWoH6ZjDJqo30C4TDnlDdSSexW+kpgE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=J1SK78aLqpxIqB0PvLoP7rWM/u6Q6odc3/lx78QvMpR7G0zRHg3nSs3ROl1uftll1rbthzi8pQYUqtySDeueKlNQHN/YPjBnJJV24h5fDRRdyM48XLv7Yd8SVv7xGv3xexeu7yvaAnovKKSmph2AgR4mMFBuKyQNWHTxlbDmSYM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=X6yGHRwP; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TxOtBgg6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA7CE1F000E9;
-	Thu, 16 Jul 2026 23:05:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784243103;
-	bh=jjxdvZnxNRIZuY90hq5rNb3kTKwomR3NkMkEzKrnfpc=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=TxOtBgg6SogqqB4FKif+ueqafbkxhYTm1TniBIh4Omns8xdvluABqnCfZqyg35gPS
-	 0o5DW6r/SA9d5uXbCJ6nLID/lCViEtjrdhG82hUTISInex+bYEOnVowTHmtkcxN7ET
-	 X3ijkp6Vhk6aA+yMbg6ilnD8UTevZpMIO38HO1oFa/Q15b8RvbOTNV5EbVZfMZP8+a
-	 hJzbe7GLZyswWHu7foaPDqw2x3+h2S3YycezVkxg3DWnbEADYVmQsMFwwLKos5u/rb
-	 vIuInHDL+bv3M18ebfuZaAV47RpYF0LRLnmbWtXZQHOSoCwZGyCKrA34zjERQ2fGRw
-	 02+1ZoWc7GrqQ==
-Date: Thu, 16 Jul 2026 18:05:02 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="X6yGHRwP"
+ARC-Seal: i=1; a=rsa-sha256; t=1784243318; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=BlIvqUaOxtteu/dhydeaWYPLXm31QHXcxGEIK8iw7SuHvYJ6OnHsHWz8MNllgoczgOSOIgiXwC8OQR0okkqu3aJbFQOU3Qrl0gKDLwi3mB3g2qARQ6y7+hN8paeyL0nRpI2bXul4Cc3qnnGPvb8Nk7ae7PQOFhqs+Dvkhux123A=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784243318; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=UDJ7qwaoIKUl67uVdh5vCd23Dcn5LTlGir30uhmz0mg=; 
+	b=T1/QWSFVXOhWmtQAks+oCDwYYVOhCiwbOKw0Ql/liPf1NAsRAAUmrA4jqfyTuGZ8QMHdOrYGEL0GowOvVdtVD4e+1+IG3x/EOBXoqezrND0dyJkwowdxYs2V8Kzx4DCwk0gBa55595f8UG1LZ/OXjYajsv4e1Mytk/fwpe8s2WM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784243318;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=UDJ7qwaoIKUl67uVdh5vCd23Dcn5LTlGir30uhmz0mg=;
+	b=X6yGHRwPOmkRNUmD/+/RmZ8CG0jdcPP/56jYhWTGoDhsN5Ot/FYLxuVg9nnfdQOH
+	j0Zm4lHM/lxeyWpB9hhh6u4kfL4eqB8CukEOtyesgIjWiJ7/8Q0gfRLHtHB2BQIxHth
+	iQWmBousOwFhcX3JigxVyhbKzmlrkjFB1TDB0IZA=
+Received: by mx.zohomail.com with SMTPS id 1784243315163381.4056402935056;
+	Thu, 16 Jul 2026 16:08:35 -0700 (PDT)
+Message-ID: <3b5092d0-f132-4335-a3a2-b7f9de55d8e9@collabora.com>
+Date: Fri, 17 Jul 2026 02:08:30 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Eric Dumazet <edumazet@google.com>, devicetree@vger.kernel.org, 
- linux-tegra@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
- Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- "David S. Miller" <davem@davemloft.net>, Conor Dooley <conor+dt@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org
-To: Thierry Reding <thierry.reding@kernel.org>
-In-Reply-To: <20260716212001.989872-1-thierry.reding@kernel.org>
-References: <20260716212001.989872-1-thierry.reding@kernel.org>
-Message-Id: <178424310216.1896287.13018768594912086878.robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: net: nvidia,tegra234-mgbe: Add missing
- properties
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] media: synopsys: hdmirx: add HDMI audio capture
+ support
+To: Igor Paunovic <royalnet026@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org,
+ kernel@collabora.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260715200834.8486-1-royalnet026@gmail.com>
+ <20260715200834.8486-3-royalnet026@gmail.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260715200834.8486-3-royalnet026@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
+15.07.2026 23:08, Igor Paunovic пишет:
+> @@ -2788,6 +3058,16 @@ static void hdmirx_remove(struct platform_device *pdev)
+>  	struct device *dev = &pdev->dev;
+>  	struct snps_hdmirx_dev *hdmirx_dev = dev_get_drvdata(dev);
+>  
+> +	/*
+> +	 * Clear the streaming flag first so a running worker cannot re-arm
+> +	 * itself, then tear down the codec (which stops any active stream)
+> +	 * before the final cancel.
+> +	 */
+> +	WRITE_ONCE(hdmirx_dev->audio_streaming, false);
+> +	if (hdmirx_dev->audio_pdev)
+> +		platform_device_unregister(hdmirx_dev->audio_pdev);
+> +	cancel_delayed_work_sync(&hdmirx_dev->audio_work);
+> +
 
-On Thu, 16 Jul 2026 23:20:01 +0200, Thierry Reding wrote:
-> From: Thierry Reding <treding@nvidia.com>
-> 
-> Being a DWMAC derivative, the Tegra234 MGBE supports AXI configuration
-> nodes named stmmac-axi-config and phandle references to them using the
-> snps,axi-config property.
-> 
-> While at it, add the 10gbase-r PHY mode.
-> 
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
-> ---
-> This gets rid of the remaining warnings on half of the Tegra234 boards.
-> 
->  .../devicetree/bindings/net/nvidia,tegra234-mgbe.yaml    | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
-> 
+Audio capture should be stopped when the codec removed and
+hdmirx_audio_shutdown() stops the audio_work. The v1 was good here,
+Sashiko bot should be wrong.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+I'd like to see rest of the patches (I2S and etc) to test this patch
+before giving ack.
 
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nvidia,tegra234-mgbe.yaml: properties:snps,axi-config: 'anyOf' conditional failed, one must be fixed:
-	'description' is a dependency of '$ref'
-	'snps,dwmac.yaml#/properties/snps,axi-config' does not match 'types.yaml#\\/definitions\\/'
-		hint: A vendor property needs a $ref to types.yaml
-	'snps,dwmac.yaml#/properties/snps,axi-config' does not match '^#\\/(definitions|\\$defs)\\/'
-		hint: A vendor property can have a $ref to a a $defs schema
-	hint: Vendor specific properties must have a type and description unless they have a defined, common suffix.
-	from schema $id: http://devicetree.org/meta-schemas/vendor-props.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260716212001.989872-1-thierry.reding@kernel.org
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+-- 
+Best regards,
+Dmitry
