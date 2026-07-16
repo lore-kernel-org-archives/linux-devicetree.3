@@ -1,160 +1,152 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E56442255C
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 14:00:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D7DA3148C2;
+	Thu, 16 Jul 2026 14:03:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784210435; cv=none; b=lluntlFOZZSAmPb4G5Y6UFcsjMA6G2U3YsQN0u303OO8O0nK3L7sVnl23W1HgZQuKEI+goDhDuu2pAcI5QzlpNwXN3ezsbfkv+xtjBwpThIJWMdh+0m7Gb+kbi3feCyoKe6X/QghnNMssye6nIYkEtMQpG4W1J4vaoXLFgTdY2w=
+	t=1784210625; cv=none; b=A9XRMsB1UNUXtr2vHBi4cnc5LA7VPGeTKFazt+koEaJttZa895Hf7aiSo7cHqwAr7WDUzKar2J8Om4orAdlozEd+9Pk/UbtvOiJgizCmJN6RM9sK3Ryji8P282K4osg1xWb4CYUKIMuhdvBq02Ypee1opi9G1m3avx/2u7A45FQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784210435; c=relaxed/simple;
-	bh=56hH9Mr+UgEdqN2uGZiH9TzE98xa1M1lsd2ycCH8jyA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tIe3fn+IFlWqHLOdtDz/8mvvUvpZ7HK4XlI085qWaMrwYNrdOMeBtQ51uwRMLmjFEbz72jVbluidwRkmU9KMIng75aGf6neY91E6EaL4gcKM2MXCQ3S8DEjJqYmmPENCAC4FX8vBsi401BzS1io2eB4lkP5zk8LwZ9xRdkggHxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=b/ii1LdU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d1cgNYBi; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784210625; c=relaxed/simple;
+	bh=k8lqZyi67/cE00tplYqwtKXLvQlw0UH/9cYPqGsrFLQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Yi/o9cPuDYb8s3LyyGjjUB5LnbSvAmJVqowTi8zulWJW1ljSDn7DMOYi36Chxx+2Vl3nWE15zJFXCr0UHWkNYo3IFhXt3x/ksS0M/zhq4Urr1FhuIJqWLPrLuqNBb0/FrCCnqJkzmdm4Jsg7Mb9ZqcZLrJcSyGcZmlhDUCBHpX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Jn7DH2jc; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="b/ii1LdU";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d1cgNYBi"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66GDJknn3988184
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 14:00:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kHN1NUrzH93BzEWa68cZOrZBhMZR7sIPS3jRxXBQE/A=; b=b/ii1LdU8In87Yl0
-	OomwRG2cqCZMELNwHKFP42mW035yPfWoNXftEvucTiqhDa+v0Vec99Sf5jT4l6kE
-	Nhaew5xry/W6FcnC13oLOua3UwZaM07fxpVHhm0Lzuuqk4ZOQYgM9o/gQNjcBjQv
-	ZfuXcw8l6mQZNMNcJvGPZ27qHyTB/GJ55EQWFUWvHNUDskWUBuHoBysphrayNLy2
-	ZKV1SD0EgqI95o9aC16bNtUg/ymAexYz1HBX/M8NMB+493iILJ2TjHiIxTGdKNbI
-	bjnJISdG8p7NZj4QZ/2kzWJ64maqozQyNIXwN8AzHvIiNDX8nTKFoMb/KY2tNG4E
-	W3KTNQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feq3pjj6u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 14:00:33 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51e4ba1cfabso43721151cf.1
-        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 07:00:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784210433; x=1784815233; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kHN1NUrzH93BzEWa68cZOrZBhMZR7sIPS3jRxXBQE/A=;
-        b=d1cgNYBimtNFnELYJnk5lLnVzeNVO6yQYGa0NASG6FvqsQTP0DYc/5G6x4A9cr2Eq7
-         LWxUSD7hIj+MSCciwM8FOCyvnLV8m6huzz6j25KNhbbIY6QHF6nkHk+ETMkrcVHrhy7l
-         ticV+JoMo2cQCHcmLnmeRaJIad95ofXWhqWut2mbIMykZnIAcBkvMWUb6QetgGDS95t0
-         QVYm3UCDATHP/lrYGfehTxoExrTZBdS78+CR/8Qm2K9jfpcgg1rvAGJLtZqYKcJPdHXb
-         sdyx0fQAA74gyoaizV+3lSIV0yIplPZD9quCogrASr8gf4QSxWnXLA7TBu6Cs1YAwykE
-         frBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784210433; x=1784815233;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kHN1NUrzH93BzEWa68cZOrZBhMZR7sIPS3jRxXBQE/A=;
-        b=Itp7ucMzL3/QzkUiekXH1qObeAjFZttnV3wS0MPpDoNtGClr1eFzOiLS2UlVFuQzr/
-         5o0s2cfOSdIl2Egrm+5kGbkRiuBnDVDIfB/is9TaZyYzT3Sg8/wtZEWYrVq/r8HddyeQ
-         a6f4ABp0n5VxIdNxVJQyk5TNSQXX2t6GIXlKRojUf1KFY1jqPGjDu5YcVEU14QBcG6ev
-         /7lp8x0scQXRpqeT+PU2yXZw4Et0SmemquUvlmi0mo0ERC/JjkdfJTeBUwft7vJQyEUD
-         JvllBPGSTqE5QQ5ZpRw2H3lTobMvmKzFNo1i79MDTaoYmWwyzBJUc6cbDd5aSOdQMx/G
-         anAw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp129KXexnD3rEMnbtHjGP2esIP6KDnsty7/2E0uIxZToyKV/YxTIqyB21n1DfK9Ww6cBNs499B5jD3@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6lHLZLG5jJVr3kYKNCrmAwOEyj9pUGvWUdQU7lCCT8EPc7L7n
-	2f/+RTHfcdtd4rK1sgebJbd3g8cHzbDOQVokuze836haP/5GTKoeorxiseKAQa1gvEuZbe0s8/r
-	/dY3X3lclVBJBgeGMTljBjmZwRQIdMoCChHzIWkfD3+P3oy1bd5K1JtgoHxJg5h7+
-X-Gm-Gg: AfdE7cn9iZ+4tutuLPJtot9edVXXVo8Eizn2LndOww2hZCOICPKNjixdVs38QfWpj1T
-	F8sYSKR4haaIVXQmxMQDzyX8RgP7mScRQpwirGGqxJCXbIegEuXMBpmq+UiwuSbFcSQ4EtdLhJM
-	zYADp9Q9iUvJM82Pn4Ig0MOdWZiGjRWCsFc+UIdfQl71mfd2nDg5ubiqFnyMM8RHGVduoW4wMfa
-	pLSx28jaxOG/KB7mqBAq+uqCZv0UUNaG74GrfBdn+v9fSwZQPa/PfYOVSqGjBscHbP9uPc3VrqG
-	SGIHu+eTlArIWNMybnfnkS/XIvxWUoHLTXPHuZdE+/cMGXmRM63IY80kQd+R1AuU1v1q3h/jjVN
-	O97uSeJzVW5e/W8rkmXmJC9yxUg==
-X-Received: by 2002:a05:622a:248b:b0:51b:ee04:5a4e with SMTP id d75a77b69052e-51e4f001fb9mr78303351cf.31.1784210432527;
-        Thu, 16 Jul 2026 07:00:32 -0700 (PDT)
-X-Received: by 2002:a05:622a:248b:b0:51b:ee04:5a4e with SMTP id d75a77b69052e-51e4f001fb9mr78296231cf.31.1784210427591;
-        Thu, 16 Jul 2026 07:00:27 -0700 (PDT)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:76f:d108:485:5b34])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f4634debesm24715020f8f.8.2026.07.16.07.00.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 07:00:26 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Luca Weiss <luca.weiss@fairphone.com>,
-        Ravi Hothi <ravi.hothi@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        mohammad.rafi.shaik@oss.qualcomm.com, ajay.nandam@oss.qualcomm.com
-Subject: Re: [PATCH v3 0/2] pinctrl: qcom: Add Eliza LPASS LPI support
-Date: Thu, 16 Jul 2026 16:00:23 +0200
-Message-ID: <178421041977.22068.381645557591400339.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260715132150.1322663-1-ravi.hothi@oss.qualcomm.com>
-References: <20260715132150.1322663-1-ravi.hothi@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Jn7DH2jc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784210625; x=1815746625;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=k8lqZyi67/cE00tplYqwtKXLvQlw0UH/9cYPqGsrFLQ=;
+  b=Jn7DH2jc2FrjcqpaQv8+tUlHdCfjXNTNgrZnDCbneOHzDRNLalUVV0h3
+   VDlyWgmJ92wS6L5tQMUH6Y9zOjAl8tBus623cm+sFahlhvzfpLRz00LrE
+   3bePmjQCKU4Vy5gQC2L2ZmKCGXC7vEo3ahNua9OvID3hYe4aXljxzjSRm
+   b1NpvP62UChs/eammwB5Ff0hRiP694GdqmWmyQAjv/UioKNjMWz/cu8Hh
+   drhBUE7+vRH5TQVy6I/Cf8ma+YGQWLl44bdtG7nfuSM2K287VB2t0spE1
+   MEv8Rwdz1VWWCifqucydmTTkuytDLVUROLPKmIzD/Z86P6DpvzQYwrsrJ
+   g==;
+X-CSE-ConnectionGUID: PnlXtTByREmrPuF6Bc6g+A==
+X-CSE-MsgGUID: r1SkbvnTQpWrF3/+HrqN4A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="102297055"
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
+   d="scan'208";a="102297055"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 07:03:44 -0700
+X-CSE-ConnectionGUID: bUH4yj73Sq6t7Ni1bmKhLA==
+X-CSE-MsgGUID: Fdvr64eARQe4+34jGuuvyg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
+   d="scan'208";a="260807402"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.85])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 07:03:42 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 2934811F7EE;
+	Thu, 16 Jul 2026 17:03:40 +0300 (EEST)
+Date: Thu, 16 Jul 2026 17:03:40 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Richard Acayan <mailingradian@gmail.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 02/21] media: i2c: imx355: Add support for 24 MHz
+ external clock
+Message-ID: <aljkvL3UBlF-twnT@kekkonen.localdomain>
+References: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
+ <20260715-media-imx355-v4-2-f7f966fb9ffd@raspberrypi.com>
+ <alfj3XIkX-2O5BGp@rdacayan>
+ <alfrPmqdQxw18bk0@kekkonen.localdomain>
+ <aljZf9q6GpdmGFjh@zed>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: ji5qxgcfXW9rWiVM06FNpgNT8r5nm9x1
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDE0NCBTYWx0ZWRfX4DtsyP8+rLhW
- dRRfjtV8gPHYBOHUrAKBiX6TtG6L+7BTIhC34aippoCx8938xlqmmATIQmZaTB4xbx6s34hEOdX
- OayNGZa4NfjuPr2pPzS84Z56doN0Xpc=
-X-Proofpoint-GUID: ji5qxgcfXW9rWiVM06FNpgNT8r5nm9x1
-X-Authority-Analysis: v=2.4 cv=PN8/P/qC c=1 sm=1 tr=0 ts=6a58e401 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=eKRsk0K3N-AHOxSAbpIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDE0NCBTYWx0ZWRfX39g7k6C6d9of
- kRR/MJFoqF+aXQPYAUdYO8HAo6Fzd4o5FKhU/CvzOUM5CyYKnXjfACrh7v7G9mXjhNb38JMoAZ3
- sy0kZ3btCYx7Zg21apaYUvhGGiQEVvjFv0ODk4mrpbFB8IQjMgbAsYQ5ecmlyUd9379aTKMNDcd
- aa7qHr3NrgK9a7CKVgE4OVLIc+QvMII6iiNPe9vz4I/BLJYY4OxI/Zl6QtkLdqBWZSwcLB6W2mI
- 6Uwd/tHtxnjpBq19fmBRrzpovNA9QY/n6BLO44a7GiLTyJdY6Oar5H/NVf/rAV4oNEo2a2R+Oa2
- kcNoLBRnI3C2iI33vhTOFMWbQH0YbkeTTD8lNBn6Hec2wrCts+REwyO6ihvcMcnw6AKutb5fU93
- HtLRW9Rn4cthNi7p5zViRLCnmfjd4f6Cb/WN7f2pQoKNlYcVAneTqNdKV9XLjbF/bWovrWFEQGv
- K8tdVmkKhIWrPDqZSHQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-16_05,2026-07-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0 adultscore=0
- priorityscore=1501 impostorscore=0 clxscore=1015 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607160144
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aljZf9q6GpdmGFjh@zed>
 
+Hi Jacopo,
 
-On Wed, 15 Jul 2026 18:51:48 +0530, Ravi Hothi wrote:
-> Eliza is a Qualcomm SoC that uses the same LPASS LPI pin mux
-> functions as Milos. The key difference is the slew rate register
-> layout — on Eliza the slew rate field lives in the same GPIO config
-> register rather than a separate dedicated register.
+On Thu, Jul 16, 2026 at 03:25:25PM +0200, Jacopo Mondi wrote:
+> Hi Sakari
 > 
-> This series adds support for the Eliza LPASS LPI pin controller by
-> extending the existing Milos driver with a new variant data struct
-> that uses the correct slew offsets and sets LPI_FLAG_SLEW_RATE_SAME_REG.
-> The pin descriptors and function table are shared with Milos since
-> they are identical.
+> On Wed, Jul 15, 2026 at 11:19:10PM +0300, Sakari Ailus wrote:
+> > Hi Richard,
+> >
+> > On Wed, Jul 15, 2026 at 03:47:41PM -0400, Richard Acayan wrote:
+> > > On Wed, Jul 15, 2026 at 12:43:15PM +0100, Dave Stevenson wrote:
+> > > > From: David Heidelberg <david@ixit.cz>
+> > > >
+> > > > The IMX355 sensor supports multiple external clock frequencies,
+> > > > including 19.2 MHz and 24 MHz. The driver currently supports only
+> > > > fixed 19.2 MHz input clock.
+> > > >
+> > > > Refactor the clock handling to make the PLL configuration dependent
+> > > > on the external clock frequency and add support for 24 MHz. Introduce
+> > > > a table of clock parameter sets and program the corresponding EXTCLK
+> > > > frequency and PLL multipliers to maintain consistent internal VCO
+> > > > frequencies across supported inputs.
+> > > >
+> > > > The PLL settings are adjusted so that OP VCO remains at 720 MHz
+> > > >
+> > > > This preserves existing timing characteristics while allowing systems
+> > > > using a 24 MHz clock to operate correctly.
+> > > >
+> > > > No functional change for existing 19.2 MHz users.
+> > > >
+> > > > Assisted-by: Claude:claude-opus-4-6
+> > > > Signed-off-by: David Heidelberg <david@ixit.cz>
+> > > > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> > > > ---
+> > > >  drivers/media/i2c/imx355.c | 77 +++++++++++++++++++++++++++-------------------
+> > > >  1 file changed, 45 insertions(+), 32 deletions(-)
+> > > >
+> > > > diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+> > > > index ac59908f57aa..a6ee7532018f 100644
+> > > > --- a/drivers/media/i2c/imx355.c
+> > > > +++ b/drivers/media/i2c/imx355.c
+> > > (snip)
+> > > > @@ -1749,7 +1756,13 @@ static int imx355_probe(struct i2c_client *client)
+> > > >  				     "failed to get clock\n");
+> > > >
+> > > >  	freq = clk_get_rate(imx355->clk);
+> > > > -	if (freq != IMX355_EXT_CLK)
+> > > > +	for (unsigned int i = 0; i < ARRAY_SIZE(imx355_clk_params); i++) {
+> > >
+> > > Did we start allowing variable declarations mixed with code?
+> >
+> > C didn't allow that until somewhat recently, hence it hasn't been used in
+> > the kernel either.
 > 
-> [...]
+> Recently as in C99 ? :)
+> https://en.cppreference.com/c/language/scope "Block scope"
 
-Applied, thanks!
+Well, it's still "recent" for C, isn't it? ;-)
 
-[1/2] dt-bindings: pinctrl: qcom,milos-lpass-lpi-pinctrl: Add Eliza pinctrl
-      https://git.kernel.org/brgl/c/f81bcaae1edde95c684436310edad8cf849f1f1f
-[2/2] pinctrl: qcom: milos-lpass-lpi: Add Eliza LPASS LPI TLMM
-      https://git.kernel.org/brgl/c/82c3edf8701154e2768973ebd4c0d2f3bd29621e
+> 
+> See: e8c07082a810 ("Kbuild: move to -std=gnu11")
+> 
+> >
+> > In cases like the above it improves readability. E.g. with __free() that is
+> > also the recommended pattern.
+> >
+> > --
+> > Regards,
+> >
+> > Sakari Ailus
 
-Best regards,
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Regards,
+
+Sakari Ailus
