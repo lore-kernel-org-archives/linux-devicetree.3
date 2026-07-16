@@ -1,145 +1,133 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4629F342CB2
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 10:51:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 395FA38D402
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 10:51:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784199085; cv=none; b=f0AbeRqn3D+iDGqBq8jZAAKIbVRvXfNERBjJABKZhGALyw0UJhhPqyKZjCKHxd/zrmLEHKQShjkzHj58kY1HmRwyS+IOsLcYlc6YAzv/+52yfRWA1XF+GwTPRwGqA4PsZpkMUVybb7HIjxW2v/ocgmj4MuF8PmLCoNaiqvjMVX8=
+	t=1784199120; cv=none; b=Pq2vpaHTcj6e46XJ1gmxlziE54pGueJecJ/Dh1SQzv9B5nZxvIAEJ+nfXQaTRXG7x4pujlWuki9P0Ksvby7ry0vMXy3uK/Y9R7d9Q10dgdSIz10li1HcU5U3+skRHNY7oC0ZX0vRXyMs9sNrw8+IzKTNypNnFpuhgUi8fARo+zk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784199085; c=relaxed/simple;
-	bh=bUWlqlMCZXT45IAU/mYu7VFFMr5BGg3RfRinD8H70/s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sgfcGhBn0/xv5xKzzs9ombOj7moj81/l5xg9deXNPB/npjfpuzIgeRoqg2NgBWxeyvCJ1DpCkFYiR9NQMmwsNJn1LdMY3sYtI5V20jXGlv7LQyQSYjfqkgrA9DBUTXNcSO0OGLPB+HKILGpCD4GH2Zk8DtfeKLOr7RmntK70m8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=gprXMWsY; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1784199120; c=relaxed/simple;
+	bh=hIaS7pkJwgIMhdxfGOaErvbYHEp04s84J5KapDNoZ7c=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=X/PCY2TbhzzBM2DZ559T5/VT2roh44ildA1lCG8NK4cv/PGXxm7ckc5jlySNgwb1T0GVU05DBlkMyCm4w/ZOH93QWDcYRxeCiF9ubgLuID5Jmkn7attYhaL7iIUc9cTxOjNcveYq7UtVew1H9sR8H/0fHZDFqGZR1J/frvAw63k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QMQlNFDA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="gprXMWsY"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id E75FCC2B9DF;
-	Thu, 16 Jul 2026 10:51:38 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 73B44602B8;
-	Thu, 16 Jul 2026 10:51:21 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5909411BD3CF2;
-	Thu, 16 Jul 2026 12:51:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1784199080; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=Kmc0Wn0PZdNJ5mqOjQq4LelZGqsHkBXQBx4bQapvhq0=;
-	b=gprXMWsYq+l+Vb2pzSW8TFVp7F7BS+dAly7Ywj3+q1r3Gm63YHNhlZVFRjVNHGLPHDfvsz
-	y3wug352zrc2aEjKsKo3MIJ3iBgZiMtDDV0BsNYtRLE0INL8CytGpzhb7w1gJsZh3hvtrL
-	lUyEDUX0igPhj7JV90mn6AflteEoi853jRgKFQOXq54lb/zkEZikCc6LFFhBrVdndoA9BQ
-	qdWWGcg1sl+N7SJNGV0udJOHrOwX8AZ7oMdY8agP0dQ34znn0ETFX5Z+aFzC9Y9rHdUJYw
-	mj7OWfy8/AYTgwbnftYAM0wU7NqO35SGI2qx/fX65FNo1CBHLEXG2Or6/twkhA==
-From: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>
-Date: Thu, 16 Jul 2026 12:51:12 +0200
-Subject: [PATCH] of: base: Handle optional argument in
- of_parse_phandle_with_args_map()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QMQlNFDA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FDFA1F000E9;
+	Thu, 16 Jul 2026 10:51:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784199118;
+	bh=ZJV8atGpKN2eVA9N2Zas0tL7PfG1xzVV/qD60zFNGuM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QMQlNFDAL9KZiwGdxQFKs0JUL3QcV8G+Y5N6g/NCA2GVMWkuBpQlpl7xgpFxjT2Ds
+	 j3nbzVDKIh5aNmlrFt59Iw0rHfWJ1Pderp5w5vsqgG0c8M/dL+My4BFgGqf6KZo0X6
+	 d23xHki1s++KdooXs/ekmvT43p4mV0hwQQPU2kVMOGq2gmYqvjDZ+YzjQGsRsh1IdG
+	 VT2M/jG6/3f4ZtkKT6tLCRkJZG43Vr6IgrVm4HGBoNTQFP3xV9vrJs/Pjfg3AS+I9E
+	 MglqtWl/ZdJHSCtT+mfgzVhRPVUUxf8iOX11CmIG6uR9S1vXs4yUiC7dwPyH92tO7F
+	 emOzYe3gV0SAg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/7] dt-bindings: clock: Introduce nexus nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?TWlxdWVsIFJheW5hbCAoU2NobmVpZGVyIEVsZWN0cmljKQ==?= <miquel.raynal@bootlin.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260716-schneider-v7-2-rc1-eip201-upstream-v3-1-98454e83845c@bootlin.com>
+References: <20260716-schneider-v7-2-rc1-eip201-upstream-v3-0-98454e83845c@bootlin.com>
+ <20260716-schneider-v7-2-rc1-eip201-upstream-v3-1-98454e83845c@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 16 Jul 2026 10:51:57 +0000
+Message-Id: <20260716105158.6FDFA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260716-schneider-v7-2-rc1-eip-of-fix-v1-1-9b9383f936c6@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MOwqAMBBF0a3I1D5IAn63IhaajDpNlAmIINm7w
- fLc4r6UWIUTjdVLyrckOWOBrSvyxxJ3hoRicsa1prMtkj8iS2DF3cFBvQXLhXPDJg98b10zDGE
- 1TU/lcSmX/P+nOecPiEwfM28AAAA=
-X-Change-ID: 20260716-schneider-v7-2-rc1-eip-of-fix-c812599db058
-To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Pascal EBERHARD <pascal.eberhard@se.com>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
- "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
 
-The kernel doc claims out_args is optional. In practice, the function
-unconditionally dereferences it. It feels like calling this function
-with a NULL out_args argument may be a valid use case (in order to know
-if the lookup would work, even though we might not care about the
-result), even though in practice there seem to be no actual user of that
-possibility. All callers give an on-stack object to fill.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The clock nexus node schema omits definitions and constraints fo=
+r `clock-map-mask`, `clock-map-pass-thru`, and `#clock-cells`.
+- [Medium] The Linux core clock framework does not support nexus node trans=
+lation, making the `clock-map` property silently ignored at runtime.
+--
 
-There are two ways out: either we drop the "optional" wording from the
-kernel doc, or we handle the NULL case properly. Since handling this
-case goes in favor of more harmonization of the semantics and since
-of_parse_phandle_with_args() actually do handle that situation
-correctly, let's handle it in the _map() case as well.
+--- Patch [1]: [PATCH v3 1/7] dt-bindings: clock: Introduce nexus nodes ---
+commit 30cf1cc96ffba77a6f8ef9429e05ed6f37f38c53
+Author: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
 
-Use a local on-stack object in case no argument is passed. This way, we
-actually go through the same logic as if there was an argument. We may
-however return rather early, since the second part of the function is
-dedicated at filling that argument.
+dt-bindings: clock: Introduce nexus nodes
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260710183359.61D3A1F000E9@smtp.kernel.org/
-Signed-off-by: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
----
-The number of passing unit tests is identical before/after the commit:
-[   10.774120] ### dt-test ### end of unittest - 426 passed, 1 failed
----
- drivers/of/base.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+This commit introduces a new device tree binding for clock nexus nodes,
+allowing the remapping of clock specifier lists through a container or
+connector node in a generic way.
 
-diff --git a/drivers/of/base.c b/drivers/of/base.c
-index 6e7a42dedad3..dd7dda0e0a57 100644
---- a/drivers/of/base.c
-+++ b/drivers/of/base.c
-@@ -1505,15 +1505,15 @@ EXPORT_SYMBOL(__of_parse_phandle_with_args);
-  * @list_name:	property name that contains a list
-  * @stem_name:	stem of property names that specify phandles' arguments count
-  * @index:	index of a phandle to parse out
-- * @out_args:	optional pointer to output arguments structure (will be filled)
-+ * @_out_args:	optional pointer to output arguments structure (will be filled)
-  *
-  * This function is useful to parse lists of phandles and their arguments.
-- * Returns 0 on success and fills out_args, on error returns appropriate errno
-+ * Returns 0 on success and fills @_out_args, on error returns appropriate errno
-  * value. The difference between this function and of_parse_phandle_with_args()
-  * is that this API remaps a phandle if the node the phandle points to has
-  * a <@stem_name>-map property.
-  *
-- * Caller is responsible to call of_node_put() on the returned out_args->np
-+ * Caller is responsible to call of_node_put() on the returned @_out_args->np
-  * pointer.
-  *
-  * Example::
-@@ -1544,7 +1544,7 @@ EXPORT_SYMBOL(__of_parse_phandle_with_args);
- int of_parse_phandle_with_args_map(const struct device_node *np,
- 				   const char *list_name,
- 				   const char *stem_name,
--				   int index, struct of_phandle_args *out_args)
-+				   int index, struct of_phandle_args *_out_args)
- {
- 	char *cells_name __free(kfree) = kasprintf(GFP_KERNEL, "#%s-cells", stem_name);
- 	char *map_name __free(kfree) = kasprintf(GFP_KERNEL, "%s-map", stem_name);
-@@ -1554,6 +1554,8 @@ int of_parse_phandle_with_args_map(const struct device_node *np,
- 	const __be32 *map, *mask, *pass;
- 	static const __be32 dummy_mask[] = { [0 ... (MAX_PHANDLE_ARGS - 1)] = cpu_to_be32(~0) };
- 	static const __be32 dummy_pass[] = { [0 ... (MAX_PHANDLE_ARGS - 1)] = cpu_to_be32(0) };
-+	struct of_phandle_args _oa = {};
-+	struct of_phandle_args *out_args = _out_args ? _out_args : &_oa;
- 	__be32 initial_match_array[MAX_PHANDLE_ARGS];
- 	const __be32 *match_array = initial_match_array;
- 	int i, ret, map_len, match;
-@@ -1585,6 +1587,8 @@ int of_parse_phandle_with_args_map(const struct device_node *np,
- 		/* Get the <list>-map property */
- 		map = of_get_property(cur, map_name, &map_len);
- 		if (!map) {
-+			if (!_out_args)
-+				of_node_put(out_args->np);
- 			return 0;
- 		}
- 		map_len /= sizeof(u32);
+> diff --git a/Documentation/devicetree/bindings/clock/clock-nexus-node.yam=
+l b/Documentation/devicetree/bindings/clock/clock-nexus-node.yaml
+> new file mode 100644
+> index 0000000000000..ff3283bd5fb11
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/clock-nexus-node.yaml
+> @@ -0,0 +1,30 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/clock-nexus-node.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Clock Nexus
+> +
+> +description: >
+> +  A nexus node allows to remap a clock specifier list in a consumer node
+> +  through a container or a connector node in a generic way. With this
+> +  remapping, the consumer node needs to know only about the nexus
+> +  node. Resources behind the nexus node are decoupled by the nexus node
+> +  itself.
 
----
-base-commit: 7f26e010764df304602f33912a0550dcf46e72c2
-change-id: 20260716-schneider-v7-2-rc1-eip-of-fix-c812599db058
+[Severity: Medium]
+Does the Linux clock framework currently support traversing nexus nodes?
 
-Best regards,
--- 
-Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
+Looking at of_parse_clkspec() in drivers/clk/clk.c, it hardcodes a call to
+of_parse_phandle_with_args():
 
+drivers/clk/clk.c:of_parse_clkspec() {
+    ...
+    ret =3D of_parse_phandle_with_args(np, "clocks", "#clock-cells",
+                                     index, out_args);
+    ...
+}
+
+Because there isn't a call to of_parse_phandle_with_args_map() here, will
+device tree consumers attempting to acquire a clock routed through a nexus
+node fail to resolve it during driver probe?
+
+Is there a companion patch for the clock framework to add this mapping
+support?
+
+[ ... ]
+
+> +properties:
+> +  clock-map:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
+> +
+> +dependentRequired:
+> +  clock-map: ['#clock-cells']
+> +
+> +additionalProperties: true
+
+[Severity: Medium]
+Since this schema sets additionalProperties to true, are we missing the
+definitions and constraints for #clock-cells, clock-map-mask, and
+clock-map-pass-thru in the properties block?
+
+Without defining them here, it appears device trees can use incorrectly
+formatted properties for the mask and pass-through fields, and validation
+will silently accept them since they are not constrained to standard
+types.
+
+Could we add these properties to ensure the schema enforces the correct
+formats and dependencies?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-schneider-=
+v7-2-rc1-eip201-upstream-v3-0-98454e83845c@bootlin.com?part=3D1
