@@ -1,170 +1,229 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F243BB126;
-	Thu, 16 Jul 2026 09:36:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784194608; cv=none; b=iu/1inX08YtqcSOh51oKqqNxV44idYvbD5oNZ/5bX17x6aVPFJ1/3TQ4apo1OW41O/HJp9Jv+GwXIEPc9LRm+e7K4B1fgZHzSlZSZdGHcoUBiKY/t2zmeUZi0LE1EKSFJYIVucQwa8+P/Uh9+l6ftctr5YYsKwPhKPneARHol50=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784194608; c=relaxed/simple;
-	bh=Igdt2Jxy4NLY08/a/9QDgah/C4JtmJyrHGrbliKpUGc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E4daDX64lBTKUIk5xPu4dbv5ehBaB4sKBvgf8S7zwYrx/TNdqIYIBGj2i1jfZivnPbxKPf5xbu0xk3zAEweYlgos52fO05G+1xw4cZu9XLF14ExZAy7HR63YUe9hSMgYX6cV4le192dq2VzDLkgfetBVk1wwteuvvAPllcLwKig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=B9HgSbW6; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 892953A2E36
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 09:39:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784194773; cv=pass; b=LK30+b6AVr4WVt+S9b5UIZ5+sqy0EQAPcjefeRhNjnzRKCDu6vxxcb2rcdXUWUNJYcDhVb7uMRWA57LS3gLNwbKL+fnqWAj3zgm7hjFFmZ2uFsbIa5Do93jl6kETJZo87S/v10yvjaZjRIqJO3Rmx2xVHMSpJWGjO9M9IU58fg8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784194773; c=relaxed/simple;
+	bh=r+ToMI4+W+lt99JNWQfbUojCN1C49muMQY3/rKthzsg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=txwcd0oj+KwK/IqVrrAHLvwhWEJ8M0931G7vaUYef7BYiQ4HErgYyDimGn/1FY1zTeenNKIejOCKwjlOMcsG2VCYtH7UP7DHBATeLPV9PMmUP2HrD+AAbAbjacalHy9UsDZXA3pH+C91o/SLYDD3wc63SgOCYDjxaQTXF1TYglg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=lLFwUY7j; arc=pass smtp.client-ip=74.125.224.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="B9HgSbW6"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66G7DU8G1994824;
-	Thu, 16 Jul 2026 09:36:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	SFUiJlIJSjO4iBGJ7Ma5WSZocrKRwGJx01ubuU6TOPI=; b=B9HgSbW6Fo5qhqs9
-	wyhgb1qVyMTTa/0+ZLA6GG+cn1LHIUAsdvM8yKIPjtCga9pgODLRzil7zqsk7zeL
-	+fI0kVwY0ED77Tlkh64+6wM+CTkDxO0lkkh272MJyuTBOS3C7EfqbuJv3MeyaOAR
-	NbhF7SgjHZ91L1BqAfuNnylNMYGuu1yU/KgaWvBMkDc2A4murOtxvEl35m9KYOxF
-	2riAi7kXDQoanUt75toUuGA30kyn7WN3iML6W5KYGSPwWRaaznRr0lKp3dJhflgu
-	Jktt5fW7SeAURBUXNTGeA5h3MIJlahR8DerZYKNtXWwRJqkxXPh8NlKYHmpEKBa+
-	w76POg==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feefqk213-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 16 Jul 2026 09:36:44 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 66G9afbi014753;
-	Thu, 16 Jul 2026 09:36:41 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4fbewkfpsw-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 16 Jul 2026 09:36:41 +0000 (GMT)
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 66G9afi8014748;
-	Thu, 16 Jul 2026 09:36:41 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 66G9aed2014746
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 16 Jul 2026 09:36:41 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
-	id 107E7B36; Thu, 16 Jul 2026 15:06:40 +0530 (+0530)
-Date: Thu, 16 Jul 2026 15:06:40 +0530
-From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
-        jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
-Subject: Re: [PATCH v5 1/2] dt-bindings: power: reset: qcom-pon: Add new
- compatible PMM8654AU
-Message-ID: <20260716093640.6girzdseyuwj62bj@hu-kotarake-hyd.qualcomm.com>
-References: <20260713-b4-add_pwrkey_and_resin-v5-0-3bea476e1453@oss.qualcomm.com>
- <20260713-b4-add_pwrkey_and_resin-v5-1-3bea476e1453@oss.qualcomm.com>
- <20260713121328.339151F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="lLFwUY7j"
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-664c6304683so2851586d50.2
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 02:39:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784194770; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XSDFs+kwffLKfBRxBVTRIZPzX+PCLfC3ged0EV/bjOT3vSVi2wAG5KntpelIq7/pnB
+         Q8NJXVu5sYNBpYCJpMbqw15wsgw3yzf2U4uoXMQQ61iwD9yvlJhTUOrP61+rsCloWTc2
+         Ux8JC57pHOpXj0NDzzqrrWZs6MJhjnsnFu2dJjE6Zsqxfk/lt4I7FpIhUQ3x1Hf81aQ5
+         VgbpLGUm7v2/LtrFqBOfz2rAo4LQnF0q4SW0E6ZQ9R5wA2yE/o02fQXWDwI1Ri4lnZ2U
+         +mJgoclBLHaps8B6Hr3Ty4AjRpFDP26S7ZyJlwNNMQsdO1xjXTXIlNLdAeIdLogTrDk0
+         js7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0CHRQwxG2g8NAYPuVqgPl5XkBCDxSDwrk5H6G4V1gVk=;
+        fh=A9Sr3Ov5qd/a0Nus1aFOR1s2iSYDzr6uMUzSeoKFskw=;
+        b=PgfUptHebz4UFLnuLvM3FAGyORMIk+eh/Hy4lk2F0+jLvdqL5D27+tki5vUWlaHFDj
+         JkVmrbBu3voHwSNj8PRCJ2nWmwS73EK65jRJ2VRDlsUeKNZ4v4rT1rBvLr5v3Fc4q19m
+         pYq07Md0XJ01kWp79GZqAyoYQ38zPYjtAbePtIMcAjXzmCeTOMn0+TdhfyLOsBBGieN4
+         9Q48/xyqiOpn1cVZmGOUKKwjDCq/AFLVnqCIGSZYlLrTt3MEaF4On5Q87RflZ0CO2D+y
+         Rb5yl6OSJaZjIDXkXX9+SyuUmnpAOV9E1YU7S5qq0eq1mAkNcGfrnc8j6Cy7xQ77+npx
+         w2Aw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1784194770; x=1784799570; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0CHRQwxG2g8NAYPuVqgPl5XkBCDxSDwrk5H6G4V1gVk=;
+        b=lLFwUY7jZl2FL45dDxrvV5aO08cC7FDULMDS/c29i2SPhEtMixURAkz+FMyJsK6m+u
+         KQQHMp6R/FPVBTm3LBVoP7iTukPr4FkKJrm1ssy/+7F9E9C8ScpfbaTIXNP414YLiDFC
+         EUEx5ovG3IaPQ3BeSCr+kKTeIyiyVTR7Lz0M4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784194770; x=1784799570;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0CHRQwxG2g8NAYPuVqgPl5XkBCDxSDwrk5H6G4V1gVk=;
+        b=DP+8AlXDL7MVUyuZl+Q1GV6ixfoj0pyfXwXaCZRysFKDVODPO/GxSlpjTTj+YcidjC
+         spR2AtcM3ITW4jcgI8Dd7+9O6D4cw5n51pXKnBgEXgTttL+VtREtd4TZFuch7w7I1UF0
+         j5I9IlwnBc7ChyPwPfLAp3HU3G5KlPyezv/oXHdQrj2jmxWYeXzNdy0ZEb0DLBrAAhes
+         10Zk9YnbYTgww1fLsjxJF9CB2bicf4NjpvIxmfSuF+dR56Ntn+yOssLtWCSAa3j80YKG
+         6c7YVbU8095UAkhB91hWVTL89LJckZ9QAPtTbaOLmBPyy1JpSQfyi1XcfKmrb7QqTbDn
+         6DYA==
+X-Forwarded-Encrypted: i=1; AHgh+RrvdkCPQ8bPni6GUzFCf3tVuLUaOzVHT0hqhSTAY6p09x6blp66flvyCU1jcezh/e7L+ZTrkVQcxU97@vger.kernel.org
+X-Gm-Message-State: AOJu0YxvTVU/wfhnN3xhK8JzMusbqwgCcq1V4Vqifwuh2ntxZ/FJzzM2
+	Pi9AcBHvCbXBv2hWsO3JzgX+8llQbJu79BYpj/FmzvVywcctUmOaY8JAcjYOjlk+nyNX8juEOGI
+	z/JPKC88kmzrLIM74PP4IxruT2344FesWI0Vp3Xmm
+X-Gm-Gg: AfdE7cnPVROufI8PhfO1I4tfQKnS939BPxolgW758X6PaGRg9qYfNQxLSvioQFBUIRJ
+	YKlzuwyFIna8wO5UDA+0IfHJ6FZmgjFur+2bTaIriEQkF491SIrDW9l31dUxq8eow0Kt6iFpr08
+	H+2bAxJMDJJvWOPVcXMRbW9iWlXykRy7nMnyJOfZVRErVFuXCqH0aFckz2uq/FqJKY97IG1JEU5
+	Ue5eKq0g7j3LuZzjOUx57pr2TlNLTY4Po20V8CxB6AgMgSW/6qAJ80FLbbpKanUfRlNXkwiUziY
+	bhFkBksrmB6mrFdP
+X-Received: by 2002:a53:c80e:0:b0:667:bb38:d969 with SMTP id
+ 956f58d0204a3-667d7b0060amr9599454d50.16.1784194770410; Thu, 16 Jul 2026
+ 02:39:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260713121328.339151F000E9@smtp.kernel.org>
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=APNfGQ4N c=1 sm=1 tr=0 ts=6a58a62c cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=IkX1Yui6ihke5z-Rmc4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDA5OCBTYWx0ZWRfX1RXmtQqbJ2I2
- ooQxj3B9psfldRegGLn6CrpN86+Xapr349kwrmj2Cs9RCAdsDvXBS8F8nGASrVth1bkdo4Lo2jr
- wVSNRe36QWQpSfPQEQbQcm/VBxehAGs=
-X-Proofpoint-ORIG-GUID: PSWI8A1W_iUFPjrKNZgpE78uKmVOwZqk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDA5OCBTYWx0ZWRfX4Oh3BQ9/HH1H
- 3uJbXkn+B6HraIBHxlvC3tlAgBixAbPF6X1iO89UmSvuT9C2k/sdbfzM7b9F6i4hc19MKQ8NUwO
- x7xky5uhLqn115wo/4Jr7uSPcTVs1NDcaNvEEh+2Q0aknq+diufVG26BnCyd8Xkm04SHe/X2KV6
- AmOkyYL7tz3kZhsCfaXcUpLHCiSw/mfKoVgi9UiOkGtDuA4+63nkq+aY00xwcHO0M4PMs15A1mf
- zJ7OYWEAp3RholI9bf24inYMvo2mtTU8A7GCB9FJXd1gmi5EA1CK5cpDg6zLbHGt8POIM2AcwVV
- Wv3+2g6mptHt80qSSyxAkLcPDYi3wIVvGeJU9wGmajE2aH/DF+az3FsQXi9prXxeALM4E0WjCHX
- Z4A6ViL5lYIAaga+nLBtBFRsO2YUZE572q+AO3FOrss75rNQB/LYYpRBvkMaMzPy43v8ov6s41O
- YUKeYbkj36Bnko74q3Q==
-X-Proofpoint-GUID: PSWI8A1W_iUFPjrKNZgpE78uKmVOwZqk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-16_03,2026-07-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0
- malwarescore=0 bulkscore=0 spamscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607160098
+References: <20260715085348.3457359-1-wenst@chromium.org> <20260715085348.3457359-4-wenst@chromium.org>
+ <aldS3qTympJuVXYj@ashevche-desk.local> <CAMRc=MfHmejks83bPfe3fKzAzFySGXk2GHMA9oZdMQj0f44eTA@mail.gmail.com>
+ <CAGXv+5HGjGTrqqzJrpiQhLrCn3C6H20LXq3niPnoujQLOwgqPw@mail.gmail.com> <CAMRc=Mefxn81d0VUwmQgwFtffkL1=Er_1VQZCbC1Sa-Qph4t1w@mail.gmail.com>
+In-Reply-To: <CAMRc=Mefxn81d0VUwmQgwFtffkL1=Er_1VQZCbC1Sa-Qph4t1w@mail.gmail.com>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Thu, 16 Jul 2026 17:39:19 +0800
+X-Gm-Features: AUfX_mzbe7WMgo0cPdR-Yi-m3qfqJETc7DH9Y1NWKQqSMqgCgHS_ReKsQ1v2DI0
+Message-ID: <CAGXv+5G0Ffrh-8UohJuGPQ0e7KGpy11=X7t1JtDYLTJ_tZgMCA@mail.gmail.com>
+Subject: Re: [PATCH v5 03/16] power: sequencing: Add pwrseq_power_is_on()
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Daniel Scally <djrscally@gmail.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Wei Deng <wei.deng@oss.qualcomm.com>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-pm@vger.kernel.org, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>, 
+	Alan Stern <stern@rowland.harvard.edu>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jul 13, 2026 at 12:13:27PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> 
-> Pre-existing issues:
-> - [High] The schema incorrectly forbids `mode-*` properties for `pmk8350-pon` and its fallbacks, breaking reboot mode configuration.
-> --
-> 
-> --- Patch [1]: [PATCH v5 1/2] dt-bindings: power: reset: qcom-pon: Add new compatible PMM8654AU ---
-> commit c59d0da4493e27ba6b287b072dffcd65652a9310
-> Author: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> 
-> dt-bindings: power: reset: qcom-pon: Add new compatible PMM8654AU
-> 
-> This commit introduces the PMM8654AU compatible string as a fallback to the
-> baseline PMK8350 PON implementation. It also updates the schema to enforce
-> that both the hlos and pbs register address spaces are always present for
-> the Gen3 PON peripherals.
-> 
-> > diff --git a/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml b/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml
-> > index 979a377cb4ffd..09eea48c709e5 100644
-> > --- a/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml
-> > +++ b/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml
-> > @@ -17,12 +17,16 @@ description: |
-> >  
-> >  properties:
-> >    compatible:
-> > -    enum:
-> > -      - qcom,pm8916-pon
-> > -      - qcom,pm8941-pon
-> > -      - qcom,pms405-pon
-> > -      - qcom,pm8998-pon
-> > -      - qcom,pmk8350-pon
-> > +    oneOf:
-> > +      - enum:
-> > +          - qcom,pm8916-pon
-> > +          - qcom,pm8941-pon
-> > +          - qcom,pms405-pon
-> > +          - qcom,pm8998-pon
-> > +          - qcom,pmk8350-pon
-> > +      - items:
-> > +          - const: qcom,pmm8654au-pon
-> > +          - const: qcom,pmk8350-pon
-> 
-> [Severity: High]
-> This is a pre-existing issue, but does the current schema incorrectly forbid
-> mode-* properties for pmk8350-pon and its fallbacks, breaking reboot mode
-> configuration?
-> 
-> Because the Gen3 compatibles are missing from the earlier allOf if condition
-> that matches pm8916-pon, pms405-pon, and pm8998-pon, they fall into the else
-> branch:
-> 
->     else:
->       patternProperties:
->         "^mode-.*$": false
-> 
-> Will this cause dtbs_check to spuriously reject valid mode-* properties for
-> the newly added pmm8654au-pon PMIC?
+On Thu, Jul 16, 2026 at 4:14=E2=80=AFPM Bartosz Golaszewski <brgl@kernel.or=
+g> wrote:
+>
+> On Thu, 16 Jul 2026 06:59:01 +0200, Chen-Yu Tsai <wenst@chromium.org> sai=
+d:
+> > On Wed, Jul 15, 2026 at 8:10=E2=80=AFPM Bartosz Golaszewski <brgl@kerne=
+l.org> wrote:
+> >>
+> >> On Wed, 15 Jul 2026 11:29:02 +0200, Andy Shevchenko
+> >> <andriy.shevchenko@linux.intel.com> said:
+> >> > On Wed, Jul 15, 2026 at 04:53:33PM +0800, Chen-Yu Tsai wrote:
+> >> >> The power sequencing consumer API already does power on state track=
+ing
+> >> >> internally. Expose the state to consumers through pwrseq_power_is_o=
+n()
+> >> >> so that they don't have to reimplement it locally.
+> >> >
+> >> > Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> >> >
+> >> > ...
+> >> >
+> >> >> +/**
+> >> >> + * pwrseq_power_is_on() - Queries the last requested state of the =
+power sequencer.
+> >> >> + * @desc: Descriptor referencing the power sequencer.
+> >> >> + *
+> >> >> + * This returns the last requested state of the power sequencer.
+> >> >> + *
+> >> >> + * Returns:
+> >> >> + * On success, 1 for on or desc is NULL (optional) and 0 for off;
+> >> >> + * negative error number on failure.
+> >> >
+> >> > I would rephrase it a bit.
+> >> >
+> >> >  * On success, 1 for on and 0 for off; negative error number on fail=
+ure.
+> >> >  * If desc is NULL (means optional) return 1.
+> >> >
+> >> > And this rises a question: why 1? Shouldn't it be some "unknown" sta=
+te?
+> >> > (But since Bart Acked this, this doesn't prevent the patch to go, yo=
+u
+> >> >  got my tag above.)
+> >> >
+> >>
+> >> No, this is good feedback. Maybe we should prefer an enum like so:
+> >>
+> >> enum pwrseq_state {
+> >>         PWRSEQ_POWER_UNKNOWN,
+> >>         PWRSEQ_POWER_ON,
+> >>         PWRSEQ_POWER_OFF
+> >> };
+> >
+> > Well I think the crux of it is whether the API considers the descriptor
+> > optional. The power on/off functions suggest that is the case.
+> >
+>
+> True. That may be an inconsistency of the API contract on my part. There'=
+s no
+> such thing as an optional variant of pwrseq_get() so perhaps pwrseq_power=
+_on()
+> and pwrseq_power_off() should be converted to returning -EINVAL on NULL
+> descriptor.
 
-This is a pre-existing issue and not introduced by this patch. The else
-branch forbidding mode-* for Gen3 compatibles is intentional — Gen3
-hardware uses SDAM for reboot reasons, not PON_SOFT_RB_SPARE, so mode-*
-properties have no meaning there. qcom,pmm8654au-pon is also a Gen3
-device and falls into the same else branch, so mode-* : false is correct
-for it as well. dtbs_check rejecting them is expected behaviour. No
-change needed here.
+OK. I guess the other resource subsystems allowed it more as a convenience
+to consumers.
 
-regards
-Rakesh kota
+> > I modeled this on reset_control_status(). I believe the rationale is th=
+at
+> > if the reset control or pwrseq is optional, then either there is some
+> > other mechanism to deal with the reset (GPIO) or pwrseq (GPIO + regulat=
+or),
+> > or it's always on and operational.
+> >
+> > In such cases and the rare case where one has to query the state, the
+> > queries are possibly chained together and I think it makes sense to
+> > assume the "operational" state as the fallback.
+> >
+> > If this returns an enum, then I think the previous approach of returnin=
+g
+> > an error value for an invalid descriptor is better. One doesn't need to
+> > learn a new set of return values.
+> >
+> > I'm fine either way. I would just move the checks over to the consumer
+> > side. But I think the principles guiding the overall API design is
+> > something you need to provide:
+> >
+> >   - Is the descriptor optional? What should the action functions
+> >     (power on / off , or query status) return when NULL is given?
+> >   - Is the subsystem optional? Should the stub functions besides
+> >     pwrseq_get() return 0 instead of -ENOSYS?
+> >
+> > Right now the API feels like the descriptor is optional but the
+> > subsystem is not. One has to add IS_ENABLED(CONFIG_POWER_SEQUENCING)
+> > around the consumer API to make it an optional feature.
+> >
+>
+> There's one more use-case where the power state trully can be *unknown*.
+> Please look at the proposed new function from Loic[1]. Here we deal with
+> targets over which linux has no direct power control even though it may s=
+till
+> control some of its dependencies. This is where an UNKNOWN state may make
+> sense.
+>
+> This is where I also floated an idea of renaming pwrseq_power_on/off() to
+> pwrseq_vote_on/off() for better clarity of their purpose.
+
+OK. Would it make sense to revert to returning -EINVAL if the descriptor
+is NULL now, and then add a different error return value if !controllable
+in the future?
+
+
+Thanks
+ChenYu
+
+> Thanks,
+> Bartosz
+>
+> [1] https://lore.kernel.org/all/20260710-monza-wireless-v3-3-46253587af64=
+@oss.qualcomm.com/
