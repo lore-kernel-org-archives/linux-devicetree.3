@@ -1,177 +1,161 @@
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E0B2BE053
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 04:31:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784176309; cv=pass; b=Mj+J6fQhTI2ERUX/Ar7Nxd9r1tn+5hJcBbQsKXJ25ZcOIjniKgYI2kzB+d7uwHt2nRdMh9JgyWVYEtmwUqxiEcAYIv/pdAt93P7+s+F7sTa8vg2RpVufOxNz8Ad0Il4Fo/EAYdDj+A711ugo0BwIt4BF8TT8kgmpMZKYlKZVQCQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784176309; c=relaxed/simple;
-	bh=nhYyNn6r73D9XtB76IT5BMo5NhG30UFFcOOZMpuXDho=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=M6pyQr0cyLioqIJixavDVqIcKD+pm9LtdiqrTrwuC3Xnkgf8JbKf1/ETweNcPT3dkn80koXUrQy/5VNBkzsy/fyUJEp3ICkZ6g4m9CUFf6zsNArLoTfAHVuERM7M3OL4FMRN+e6Nnv809MrfiZB0EwtFfFfLPzyuhvBNG2qm7B0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=BbIlmPiT; arc=pass smtp.client-ip=74.125.224.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F731352031
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 04:32:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784176327; cv=none; b=sz4IyEpV4JGiIdW5gQ4+T408wrzSuj35lffReKHXcyZ4D34dMpFO8XbZR6n/Rv3IvT3VkHo1ItWQXt5KCr0n7uF3kQXCM6Rxm7cz0riAWot7tWvuK4+MFufG74zm1F6pE92xripw75KjLChTAziGSkdva/7IlHamGZTxMSy7UCU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784176327; c=relaxed/simple;
+	bh=oR5AomPs+1hHhjJbWY1HBJmL69/8/Er1z3HuYIwn8vY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Scu9+CC7pSRXcvJ5g1oeqnDO1j68Shqicu22AFT429Del8e+nMUawhZVJSy9NXxT5P0z3dHO6jZtcOQlQbh8NCPQvDbWd97yGb1WBnnzyW8sp7mSa2VhzyuNIxufrWEiqpMmRhHOC/V9C56hG5q6CwPdvsFiYshx4QIFclAUyng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dmUxvRKh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=h0MIrhMB; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="BbIlmPiT"
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-667ef69424bso4816959d50.2
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 21:31:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784176307; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KRnuQ/lYmdqZJ0bm95Pa9g4mUFK015KpecR/94be3qCeeR9FZO2LDrFWaD155QqTUk
-         IMortnNCpcHZ9ppMBJe0dBESwP3RHrrJpnINjepX8Qwzqk9gS4kNJc2RB8pSc9dL/6qL
-         ATc2mtME2g+/jqh+8/UPac81cjUeVhU1G+LQYIZ2GOqPkeUvfNN8fi21VAemt5hEtODQ
-         Z/gbM0UXQuobQ+4yXLWOv2Cs1pD3sJ9Xo1GF90cT+y51ER/kUd5V9XykmsS3zXA6mg7r
-         ljEtMGlX+Sf2HzSsf2mLr1Riec2nc4NFaRdgobj6oN6yTB6CAuHdiPsVjh72+yGwWdUh
-         Vmxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cWTekTqlq1/95QNv5fW/dcyHl3msvMXWSc0NTUyJpNA=;
-        fh=v8t7a7rFcBcd+/cwg0Z9XKXq7rm2RK0p0MRUDzh/mHE=;
-        b=BGPCLwBER6SIR6flPGKpAGh5g8Z2yHaBq0aOG4q/ysWOp3YqXrKb1JoJ5j0iXtXCdb
-         +8Qx5WWW+T8mmaHk1BP9YLFfbDO51+OEddYEyZXwJ5lMkoXsbfSLuIWPfNxtY2qeCI1u
-         YAqrhOG9/lztzXpov/GW4w4Ub2V7DLdGwVZFSCtYmyXmCQt9jCf/9GS3yuYzsLKyRy2D
-         uw25ZvttqqgevCDsG0zvbAJLGOKWlze3/uCVxbNxGCxg13anc+9RjFqlLQY+SGvH238S
-         DdisKT52HEWGdS2bEQ39hstfJfcxB/sRN6LP7q66iwVxfkU/4TxHF9xLkwoGnsT93sGy
-         8TVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dmUxvRKh";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h0MIrhMB"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66G3wRRC1573488
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 04:32:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	MAxQphIx1Qk/v7bg8ehdwSN+QejMZHgGX7T9KKnsWiA=; b=dmUxvRKh9Me95ZP8
+	213CJvRae4lfEWZjOX0gVlv4QTAnH3LQJnL0ilmXzyD/br+5AErysxr5PqlsQcuk
+	oBx65G611LB0JWv9PJSgy5P1ddaupEopBHLkRY1+jSUNYUOT6ElLc3gQu2hb7ToZ
+	zlfl0iKccsyMFlRzCQSxaJeZCEBLlw28iTpocxPSiCVnvBSEyDCWD3MuZRe9RgBd
+	/oFihaVjsmghK38qr7nOSufPNEf75WPDGIzyBdBt+O9a2IA8nkPBSkYD6WpNL7hw
+	Yoe2G3rKx8u5LGtFAGG1fcFVTXTjERiLQ2xB+xoaS2n9tv1/vb7wiYCPAlUn0WJ0
+	zvd8mg==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fe7q63wq9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 04:32:04 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-388b404eaa4so8306486a91.0
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 21:32:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1784176307; x=1784781107; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cWTekTqlq1/95QNv5fW/dcyHl3msvMXWSc0NTUyJpNA=;
-        b=BbIlmPiThl4qtC2ZN7JQZl+L2ZooPvu5YEwEDvQfZB+ebI+hS/c29Vq0ahKfNxgu3H
-         Y2dKQR08UIvbW04KcyCZxX8NOGetwY5g3XdreHta5FewJNT1+6IGkqv4QqXcQKnXrya3
-         CREYMhgoOS0wLEmkqgUzYoB3Kjlg3MA3uZjMk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784176307; x=1784781107;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1784176324; x=1784781124; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cWTekTqlq1/95QNv5fW/dcyHl3msvMXWSc0NTUyJpNA=;
-        b=at0Uez+2UMNRDspLfl1xaIiHSUqHIaTgpLYMrE/sY7DJ7pbMsvKJUITES0QgffjVfZ
-         NWUhh8VeF1b/cubO7PUHPMGxl6zSA6rSek9+CgrvSeqfw+jfR3sdDBWWcDFaJ+Y3h/5N
-         AGdn+wxWe+8X20YQu7siDQuGSrw7WU9J5fnIKn7okBms8sbKQyGGBUdEW9AT2neYTIRM
-         OvylY4ekazIZi862XgwFWpvvfxkTdyJvIdmKrpYSOosI5sAWdgZre+HfeTVDniMYgBco
-         6ZbljwHWAO91uqTT+EhrXtGu61t73urfinJQxMPCEuwbKTsYR9PZxDYrvgfgZr0HPqKG
-         5rAw==
-X-Forwarded-Encrypted: i=1; AHgh+Rog/SqsTYpuoBMxTrDrTNQiKD5cqsi6Km90JlBrrJLiAvvDYnAakaIb1FE6IJGh1zEg9Dkf4X/JQeff@vger.kernel.org
-X-Gm-Message-State: AOJu0YxeQQtOuKSs4hKA4KEQz6XQmD0ihaR2kKPMW05T35vKRIk7bSqg
-	Mj0XLFneioHV1rZ5JkBISHBuLUATJ9ttNmeSjmTjBsB5PjsEPtYMmw2+DlwitFrf22OcJdtjwda
-	7j+wPJEKzswr/if0wj46A4BxBDj5ppbu483BRGIP5
-X-Gm-Gg: AfdE7cle1ncuQO02vyajmbzTeZdx3hMYacsA+LzFFFne1mfXnssYvfcxfkcnce+NMca
-	qzH+bbb5U6v03oDkHJNifJTnC9R38lpBtq0NlTf9XTE1s04cmmZvm0ERxJfxF7x9b8Or1E6Jmpk
-	srXjQXq8V/0h2GdRHra8BpVjAKRCxq561RsWMav4v5gk8zrnaV+SX95TohkBmG+Vdqk7T+ASINj
-	k30qOAcHcsDFZbACywOqQWwPmmOU9fTg2JmhS+oEfu+OiqIzlod0z2EvL4BpyZ5r3WLBghUN58Y
-	IyL49QxZktxVTYaO
-X-Received: by 2002:a05:690e:1c0d:b0:668:19ff:7eff with SMTP id
- 956f58d0204a3-66819ff937dmr2943635d50.38.1784176307120; Wed, 15 Jul 2026
- 21:31:47 -0700 (PDT)
+        bh=MAxQphIx1Qk/v7bg8ehdwSN+QejMZHgGX7T9KKnsWiA=;
+        b=h0MIrhMBje6w++AbbC/4aSW3c78grfpZtXnZvdZlQJB9chkbJ6iJGjTKQWKyrsoRbf
+         KZ2SC+s0AlL/i/7CJemlNW4qw0xZlXK8GMKCEsQodQxJ0lamI1Xptvm/+BpCAyfTuHNf
+         g4Q3Bou94PODbf9PBwhFaJwBQVLtn4VbLgAovcSUDCCYZ3ey0TTsXMrLfY+Tfw15YE3B
+         N6S9407Hw+6pmO9IAoQ+jCEN6Gye4Knr923HICASmwnwPhwx7+Wj8uMJ5fYgnPI/JDuT
+         /5rHEqEqeIyjaBqEfh0TtlSACaWPtbn4HknDrSb5b1FOYH0m1FJG3JaEnWzlKe/IlOub
+         DRXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784176324; x=1784781124;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MAxQphIx1Qk/v7bg8ehdwSN+QejMZHgGX7T9KKnsWiA=;
+        b=IvKqp0qsYHwq6zRio25YtIZWErTafkwbaajDKXn2BfwBVoDuByEi9bAQFRuQkmd/eB
+         ANRXmciG6emtmnHAoi8ZAa1NSSimZwzVv8oS/zSc7IGUWPyp3Hd4NndRHOPQvgovc9rN
+         Kg+YT7V+3dXjqGe6NYk5+XoTxKObvTLb6n2xpoAVIHvxMgt672fB+0N+rH2usPrCUAV+
+         CmwIisJFMoaibk5RJex2gC+6P0ka/onkdb4wzoVKVJ3EyWm2s7B8daoYim+oWTe1s7L0
+         ObdkBYFjV5rMAl3gz1CR/2YVJiYZkZaL25HTICrd5TMyyRcjMXJ0IJzKXATK1JfI74aK
+         9XCw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq8lwk/q2mWk9DGN72IFaGBJ8AhKbuzQgsu5CTtpz2HRp+sI+rxQ6plVHQJjSc60DapxQ9sLaa2jlh7@vger.kernel.org
+X-Gm-Message-State: AOJu0YzVAf9Hjyf/E98bJYWvUduwJGQ36K7d0xfiIuU/fZZyH36jia8w
+	xuvA+2uGGUlorVxOJXSsA9G5Z4/drZt5vMA2aM4YLXniJMa+xPUIKxQEj0Wu+DF4MKXzwzmVAvR
+	AwoS35WLQiepD2ZKyCJpr0L5a5zCMzg0m5ubfO6yjgXvIFoja4BPbdRWRAHklHCbD
+X-Gm-Gg: AfdE7cmiAdZhL6ujYudfsOHw+e9sGKFL4JefaBQOBHfV/SIB3eCl+6Dcgd5C78e7JGj
+	iFvoRraKD9j/YsCm80uRBl/wPghbbzRS6DwlPoDljBD8hx64aLTWqRux/rCt7sqgVBm2op/nhgj
+	0xEMB1SatDdzmX7IXBtwhtYOftLfSnDxQC+eDysaPYpOxlrJbBXves9q5RAjrY+i+/w/IWqNH2g
+	I+eg56KnYevjN17457sstI/m55TVDeQIURdWrgQBHKZzzPGxdnNF2kvd1gB/oJX23s7TEW7sr2F
+	e/23eZNcGo6Oj0c0SMOmi/p95dsDPY6xFVL81Z+QkT90tgso3X2OEo58NCaGICjzoLt0drNz00G
+	SjawGnZA/qKX6r/EmhsCHy6ZRcN8=
+X-Received: by 2002:a17:90b:586d:b0:37f:c69d:ce69 with SMTP id 98e67ed59e1d1-38e29f85696mr5662960a91.10.1784176323841;
+        Wed, 15 Jul 2026 21:32:03 -0700 (PDT)
+X-Received: by 2002:a17:90b:586d:b0:37f:c69d:ce69 with SMTP id 98e67ed59e1d1-38e29f85696mr5662932a91.10.1784176323411;
+        Wed, 15 Jul 2026 21:32:03 -0700 (PDT)
+Received: from [10.217.216.90] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3140e5326c0sm7308040eec.11.2026.07.15.21.31.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 15 Jul 2026 21:32:03 -0700 (PDT)
+Message-ID: <98eb2294-51ff-4e0f-9e8a-c2d0d03da77c@oss.qualcomm.com>
+Date: Thu, 16 Jul 2026 10:01:55 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260715085348.3457359-1-wenst@chromium.org> <20260715085348.3457359-7-wenst@chromium.org>
- <aldQ5odptfmK5aCw@ashevche-desk.local>
-In-Reply-To: <aldQ5odptfmK5aCw@ashevche-desk.local>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Thu, 16 Jul 2026 12:31:36 +0800
-X-Gm-Features: AUfX_mzQbv55XMQ4uR8jO2hQgRvrbYnVnLlttvP6FASpWrSMQxMLCCNzy4VYT9I
-Message-ID: <CAGXv+5FAHZP-u1ZyWSUkUrOx7R5-YgBs5y9V4mGTycyrJG3UKA@mail.gmail.com>
-Subject: Re: [PATCH v5 06/16] usb: hub: Associate port@ fwnode with USB port device
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Wei Deng <wei.deng@oss.qualcomm.com>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-pm@vger.kernel.org, 
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>, 
-	Alan Stern <stern@rowland.harvard.edu>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] clk: qcom: Add support for videocc driver on
+ Qualcomm Maili SoC
+To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Jagadeesh Kona <quic_jkona@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260716-maili_videocc-v2-0-7ed5ab140770@oss.qualcomm.com>
+ <20260716-maili_videocc-v2-2-7ed5ab140770@oss.qualcomm.com>
+Content-Language: en-US
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+In-Reply-To: <20260716-maili_videocc-v2-2-7ed5ab140770@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDA0MiBTYWx0ZWRfX3N4tgb9GYtPT
+ afupj9wfi0KfIOJZ3Q7L9upOoRZpEl0K9sI64PheKuz6y0GOwpRPdfUNoN49pNM7cD3s8PMOXEd
+ tLEEE3ezPdVArqkrb8tlKtT+nEbpe+k=
+X-Proofpoint-ORIG-GUID: sc3S3OhaUHfl7vyogUCKy89z4i91Uo9g
+X-Proofpoint-GUID: sc3S3OhaUHfl7vyogUCKy89z4i91Uo9g
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDA0MiBTYWx0ZWRfX6W4D9vI+Uq7O
+ qHCWJzdMHWnHD5yzhHGBlNdaAIIUzbZWveT2N+dbj/bVAsDnQ7VSPIP3reip25AhQTBWarBuvvd
+ HElfmreBlD4jDxf+DcXzCuxiqsMGp2B7DQnpnrAFG5keJiehucw9zg78JX/KoFeWSW2yvspMWX7
+ mgYJchXZc5Batkf2lLTldDjWXDUARLd1W+GXb6d6RyvL28+/2THhISoeV1qruZaimT260pjBJok
+ TNXQPBQrr1KE/JaIElPtmz/fdUsqpOZjisHxI7HyoVcg9SpD/L1F1+K08dh9E6TX5TB1uSHx/ry
+ BZRJXQXj5gSD2kHeJ+2ns8wpFQaB487bYlXMAMQAXHSC1HutvcO/tezacF15m1UAXhGixWP0BRo
+ DvWiJ8nBh+zd1shbJ3N+aL4cnbQWzuHAePoXhWP9uSjM7mJWaK//RwG9RtQZd03Ub6AavmJvM6Q
+ v50x6SVSev4XnUyETfw==
+X-Authority-Analysis: v=2.4 cv=BajoFLt2 c=1 sm=1 tr=0 ts=6a585ec4 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=KabViBKo7pAC4wHH2OwA:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-16_02,2026-07-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 malwarescore=0 clxscore=1015 bulkscore=0
+ impostorscore=0 adultscore=0 spamscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607160042
 
-On Wed, Jul 15, 2026 at 5:20=E2=80=AFPM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> On Wed, Jul 15, 2026 at 04:53:36PM +0800, Chen-Yu Tsai wrote:
-> > When a USB hub port is connected to a connector in a firmware node
-> > graph, the port itself has a node in the graph.
-> >
-> > Associate the port's firmware node with the USB port's device,
-> > usb_port::dev. This is used in later changes for the M.2 slot power
-> > sequencing provider to match against the requesting port.
-> >
-> > To avoid potential conflicts with ACPI firmware nodes and then causing
-> > power management issues, only assign the firmware node if the hub's
-> > firmware node is not an ACPI firmware node.
->
-> ...
->
-> > int usb_hub_create_port_device(struct usb_hub *hub, int port1)
->
-> What about adding
->
->         struct fwnode_handle *fwnode =3D dev_fwnode(&hdev->dev);
->
-> to the top of the function, and...
->
-> >       port_dev->dev.driver =3D &usb_port_driver;
-> >       dev_set_name(&port_dev->dev, "%s-port%d", dev_name(&hub->hdev->de=
-v),
-> >                       port1);
-> > +     /*
-> > +      * ACPI FW nodes are associated later when device_register() happ=
-ens.
-> > +      * Skip assigning one here to avoid potential conflicts.
-> > +      */
-> > +     if (!is_acpi_node(dev_fwnode(&hdev->dev)))
-> > +             device_set_node(&port_dev->dev,
-> > +                             fwnode_graph_get_port_by_id(dev_fwnode(&h=
-dev->dev), port1,
-> > +                                                         FWNODE_GRAPH_=
-DEVICE_DISABLED));
->
-> ...shorten this a bit to
 
-Makes sense.
 
->         if (!is_acpi_node(fwnode)) {
->                 struct fwnode_handle *ep;
->
->                 ep =3D fwnode_graph_get_port_by_id(fwnode, port1, FWNODE_=
-GRAPH_DEVICE_DISABLED);
->
-> // Is NULL or error pointer is fine here to be set as fwnode in port devi=
-ce?
-> // Perhaps add a comment?
+On 7/16/2026 9:38 AM, Jagadeesh Kona wrote:
+> Add support for Qualcomm Maili video clock controller driver for
+> video clients to be able to request for videocc clocks.
+> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+> ---
+>  drivers/clk/qcom/Kconfig         |  10 +
+>  drivers/clk/qcom/Makefile        |   1 +
+>  drivers/clk/qcom/videocc-maili.c | 660 +++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 671 insertions(+)
 
-fwnode_graph_get_port_by_id returns NULL, but not error pointers.
-And passing NULL to device_set_node() basically erases the current
-associated node (which is NULL anyway, since we just created the
-device) so it's a no-op. I'll add a comment.
+Reviewed-by: Taniya Das <taniya.das@oss.qualcomm.com>
 
-ChenYu
+-- 
+Thanks,
+Taniya Das
 
->                 device_set_node(&port_dev->dev, ep);
->         }
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
