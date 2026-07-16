@@ -1,197 +1,172 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80A82DC78C
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 02:36:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2B92E62A9;
+	Thu, 16 Jul 2026 02:38:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784169364; cv=none; b=SjPFpeOWEO44S7CY0uXfx+pNiVGAJXrhWnPT0tRz98ocPjCqqPNm38uoZ4GJrjU0CZH0EJsgFXlTU7KtG5P02EE2EdZ6YxMmzsPZPp7YQ0FI4c+HLpmVABSZcBv3rcdZ8KtqXSyjWAKku14txviUJYNhIDRbaaLWlS27vl5DCBM=
+	t=1784169497; cv=none; b=BRiabWgOfO9wOWSWC9c5hFOIa1zIhsp5wDvXaUzG3gyOCE8+aT/Ld0cMSIPwgie1Zz4nIbmE+NiBgpstmKtBo/8vvCl1XmJ7uuj48PNt+jW35448gG2eS7d+bI8y2U9SX4j/ELstLIXi0AAIHChNb9SPBh5pZUmiTrYQs6iuWmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784169364; c=relaxed/simple;
-	bh=h1UZyikz0JDoM1JObJv4IyOGznkDwWbgrD2GEUT7r14=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kzpN/3UzeSuZ2ITifmWkm5tLaJdLEBPSEDKAag27dNGsdMAXbQLDc3vLwbabdTH+5hM/lg7gumAHF9p4D7Kymxa6bPrKuAoSOrRoREfcw7UxfztWIo7kN6Ub4hfimGLp+if3ih9KbqjDJJORBKrRnJB6ekauxMVnZzaPkoe8qAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eIyNH0o/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=E/+j91MH; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784169497; c=relaxed/simple;
+	bh=TR7P+7s1hWF+zweXy9ygfEIc7YmzDEyZeOv5BFftv+8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jLDWYN6efP8syB7T9R3ekWs8JhmqBsDp6BJtslR8X0DihBLMS6hBNgSVDjMpadUvGDNJabswfCfyL1HdYlqPgBpWEX3iBBRhd9iRytHlEw9QKCsn+PmnzdmubQTVPSfU3bVIe4Y5bpTwpHeox1AMzfakWV4Xhm0dfjljk16hMM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=f/iKjuPF; arc=none smtp.client-ip=18.132.163.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eIyNH0o/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="E/+j91MH"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66G0Xa2K1005044
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 02:36:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=g05Nqs0a+DO3y0LDbu2S/rRe
-	I308lTNH3/Hk03QO/Pg=; b=eIyNH0o/a4myHg3bP/nbm19i2mgZUwFhTPhCQT1m
-	8kuhmlCX763vDqt1xE2rLsIvrSOPE6fRWv4JlFn8xVzfLWhqmxgSKqkgqEgPm9FC
-	zMdaKjVkn2g+H0JLV5XKj5PjybgqcqMlt2FuTCD2Lv+eBE9CWtHFkAuD2KEMmNHg
-	eFWFfynIZ5UKG8+XZvfima8ViXnnPdmlw4X7rnoWMxl7zFEkO3+BQx6lZLeIMaMQ
-	Z935+HUeTVTNPxg9ZIM0CkBxZQz0lIgyOAPtmmZO6Q5Iehj5TQnS7JYhqqn5yOY9
-	nx6MQ7XhXBFjzlcEZZB8RXSlaOGWYo/4bSw/mzu+ZQ/UOg==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fecnya7k3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 02:36:01 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c88e0d11a3fso2469848a12.0
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 19:36:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784169360; x=1784774160; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=g05Nqs0a+DO3y0LDbu2S/rReI308lTNH3/Hk03QO/Pg=;
-        b=E/+j91MHD5jp6lDdmbMlXaryyDFubCYuCRArzTvPzqVbjz46s++JDPfTyMO9QemfTi
-         jmz8txmTKC4+oGvzFw1KvkauZrsDihDiAmZzyNDtqJzy9RURS+4KZmZCTZixdT/ce05D
-         tjWfc64+4vCGRJ69/48onC6HG6qt+DkDN26XjEqrDsivZeHaCTi36pEUhrsice9a8ZmU
-         3qMo0yneREfA0GVkaXryXLE5kLdYZgOAYwliZZfiAkmokvQfiicIvZTVAGX4kKelXpW6
-         2K/vdVOi6V0WcaS6+NvzkbNvJQUMBq8/3AMYDSVzmPghj3o12WEgEXrFvKLEAzt8GdJ/
-         G9xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784169360; x=1784774160;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g05Nqs0a+DO3y0LDbu2S/rReI308lTNH3/Hk03QO/Pg=;
-        b=qAbawP+sEhO/DrCa8+89Lvhh7q7N0+lL3KhHB1rxx2aDqxvxANjM2AQHnzYhgpzZWp
-         Y9DeNqeIzMbLwDG1BUB6e+flxrchOx/gEb2QAftWD84uHRVlUcB90Qp9zqmo6ljJu4EX
-         eslBbBM67guMGk3gx3Wsrm8B8fV1FmTFtrFv5qL2dxVMA+XMg7aBS6sNFKR+WDDsUCEA
-         gNIvSUZXCwmF/I83MeUy90RsVRXqf7E3jGBs7rHOteo4nYwoBUjdhfENXTfVIudF/i8G
-         CIAXBDzODYZtfm3wfo3ouu+67CKN9tFIO/3iPM5d0jsfuYr6iSwX7F1DyM4AFzcM64uR
-         vDig==
-X-Forwarded-Encrypted: i=1; AHgh+Rr40In+R+DXr7srsXhnd2Uy+r4nEhbLj4M5bChKVAmMN+WvcF1aFnhByuyxEnpM93eTh28pqWKeegPp@vger.kernel.org
-X-Gm-Message-State: AOJu0YxnisM75jnZh7/xCoUL7oljCCbQMyt0qLhNZd4wgZdp6IywedbE
-	RHcYFCkQ3CgSm3a0MH0FruzwQHoV2WhSyQKrtuMSDwzOVH/RoOfdAa3dyQCYhJFkfliozd8b0hh
-	l70v5wD78S1OK/qutSgZAYNILeTHEQMvPSy0+dAfBlqsgJ6CJKBX69sLlb0gBOv6V
-X-Gm-Gg: AfdE7cn0ac1lmoqck3I66vUbFu+Xc9CVOTJ8ypiF2dpMBPnD9E5g3PXOHmB0d632W+e
-	TotDNa1GTIe/g1+kbmoPLgh6jbJgvGqcP2N5ldhOw72XRQY8hZcWjkgGMtnlXaiwPgCiJ72Inax
-	K77eYTqqzddx/TZuN/4ynBxrFtSwIP2iI52qVj3zeL99oEtcsxpo2/SvmYrlCqKS3f4c5ydCefe
-	ZPzMjJKbSN3uOBCHzkOwf10qyanZeVj6HsUcDWSLEEcPs/GthT4NZUnwSbjPRrxx6TP3axg4rpb
-	Cr/obe3ztuEZqpeavqRtz4yaQtwRagcp8E02o7t/Bw59smNp53UXUeLVXv5qsH8704ZGqDV9Zps
-	vZlzlH/k5eVUv968ofhwHLcFfluEFVOw+KsWuKBsSR5C05KFu4A==
-X-Received: by 2002:a05:6a21:4cca:b0:3b4:8a40:85ed with SMTP id adf61e73a8af0-3c11077686bmr20992760637.7.1784169360278;
-        Wed, 15 Jul 2026 19:36:00 -0700 (PDT)
-X-Received: by 2002:a05:6a21:4cca:b0:3b4:8a40:85ed with SMTP id adf61e73a8af0-3c11077686bmr20992729637.7.1784169359836;
-        Wed, 15 Jul 2026 19:35:59 -0700 (PDT)
-Received: from hu-petche-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13cd42a155bsm5829661c88.7.2026.07.15.19.35.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 19:35:59 -0700 (PDT)
-Date: Wed, 15 Jul 2026 19:35:57 -0700
-From: Peter Chen <peter.chen@oss.qualcomm.com>
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>,
-        "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
-        "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 1/2] dt-bindings: qcom,snps-dwc3: Add property
- indicating presence of eUSB2 phy
-Message-ID: <alhDjZ0gJZq_7G6z@hu-petche-lv.qualcomm.com>
-References: <20260710-warping-resolute-wasp-e4b8ce@quoll>
- <7a099224-ea95-40ec-b279-f8834f261e23@kernel.org>
- <alFTxg0HLyke0gCK@vbox>
- <b60b4d96-ea67-44d0-a627-c50ef0ed8615@kernel.org>
- <alSRvWY2LWp8OeOr@hu-petche-lv.qualcomm.com>
- <alV0_DHvBFpzDumP@vbox>
- <alWq4jAGPTINnpxD@hu-petche-lv.qualcomm.com>
- <albAccNnsI12AIUo@vbox>
- <alcAjvLJCz9D9X3p@hu-petche-lv.qualcomm.com>
- <algVe_XD5xpB_w2c@vbox>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="f/iKjuPF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1784169455;
+	bh=h6HJYox9pjsu7D+WxxtCFI7bQevscRFctE0K2RAPCoM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=f/iKjuPFEOg6ZjLtF50U4Rr4j2o4MK6eEKtwdc1W2/j51l/MlM1K+Gf0L8XFZ4tuA
+	 fakIDBvTRjfAZcNMA91w1gcaWU+pZHSTrlMoLftTxnulcsxuAqi+VHpaQydqfa4oWJ
+	 Az94cVVD4pMT2rzsN8RQThE5MMx+1LhKAB5UaX3w=
+X-QQ-mid: esmtpsz21t1784169453t2bc251fa
+X-QQ-Originating-IP: e5uKEcDJEh2J+NJ7ntGAroYkYCGrFbbh2XFgADslxmk=
+Received: from [127.0.0.1] ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 16 Jul 2026 10:37:28 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 4361493915900171409
+Message-ID: <1264B2EBE5B03819+5664aea1-9f12-4eee-8f8e-807f785435a1@linux.spacemit.com>
+Date: Thu, 16 Jul 2026 10:37:27 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <algVe_XD5xpB_w2c@vbox>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDAyMyBTYWx0ZWRfX1ukKw180P11u
- r5FqifARkMQ0i35IkqtRaOIo0lNTqdd/UGihvIQnWCXxeOplP+tfMpixaB4o1gkh6Ciswz5h7+L
- BsjTOQkXsar/NQUmWdTdctBxJ6Uix/E=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDAyMyBTYWx0ZWRfX6NAbLo8fZj6q
- FSpxTBtdjzvTVvyZpFBX/Cvo6hU1ceiqECvOE7beUMgfrSVqd9y3oLq8+t/xaWP4oDPyhLQ5mZb
- EeBlmpXzZu0gxMZChhetsZ8VxFUjmudlUhgx0PICzPi2K2DN1pAUPFZ96IdQeI/aU+c6TxMQGwd
- eG/w/HZm6q4BVouMM8Ysm9EWh1ZNWKnq/iYwKrxwAI6asHg+mpJoN9OMrX37sNpzAsiV4hsy37R
- Ts3lbMiWJKw6d+wNoLF/U+Gyh4s0xOwjslIdQ3r08y6G9OM1lJz6onoaGTYxnRyKhpUi+s9NHUU
- R+ETjZ2aDSYDl6jEogS1NU/PuttRSA/RV8liQGt5HX/OYJfchgb0wLYS4KNYMCjnU3otvcLlIME
- pgBfKapVIP3fftICf454psx5ax4NwCGZzlo0nJGAWTM/chjcA7Y23OJlopxWHfJJls7CP6KVDU0
- VrX8iqR8M64FR+zNVlA==
-X-Proofpoint-ORIG-GUID: 3Ucj3DDB0oS3beJvT6X71CEzcEXtrfpe
-X-Authority-Analysis: v=2.4 cv=Lt2iDHdc c=1 sm=1 tr=0 ts=6a584391 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=ozYoIpVpmoLeJXfkQ_kA:9 a=CjuIK1q_8ugA:10 a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-GUID: 3Ucj3DDB0oS3beJvT6X71CEzcEXtrfpe
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-16_01,2026-07-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 lowpriorityscore=0 priorityscore=1501
- malwarescore=0 adultscore=0 spamscore=0 suspectscore=0 clxscore=1015
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607160023
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 02/12] rvtrace: Initial implementation of driver
+ framework
+To: Anup Patel <anup@brainfault.org>
+Cc: Greg KH <gregkh@linuxfoundation.org>, anup.patel@oss.qualcomm.com,
+ adrian.hunter@intel.com, alex@ghiti.fr, alexander.shishkin@linux.intel.com,
+ andrew.jones@oss.qualcomm.com, atish.patra@linux.dev, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, irogers@google.com, jolsa@kernel.org,
+ krzk+dt@kernel.org, linux-kernel@vger.kernel.org,
+ linux-riscv@lists.infradead.org, mark.rutland@arm.com,
+ mayuresh.chitale@oss.qualcomm.com, mchitale@gmail.com, mingo@redhat.com,
+ namhyung@kernel.org, palmer@dabbelt.com, peterz@infradead.org,
+ pjw@kernel.org, robh@kernel.org, sunilvl@oss.qualcomm.com
+References: <20260429125135.1983498-3-anup.patel@oss.qualcomm.com>
+ <BDD9553502347B02+ee3069d3-eb04-4a37-b364-107cf8d0653c@linux.spacemit.com>
+ <2026070316-surgery-unneeded-bceb@gregkh>
+ <138BCDE3F4A1D624+2488a822-cf77-4155-8492-b8a1c47d5589@linux.spacemit.com>
+ <2026070300-submitter-humbly-833a@gregkh>
+ <4A32964890BBF288+37eaa5a2-eaff-49c4-8501-2b02736f3584@linux.spacemit.com>
+ <CAAhSdy2sfwaBQVif_N_Gk3yMs+0kqO-_PsDTicSNZW_Pez6Lbg@mail.gmail.com>
+From: Zane Leung <liangzhen@linux.spacemit.com>
+In-Reply-To: <CAAhSdy2sfwaBQVif_N_Gk3yMs+0kqO-_PsDTicSNZW_Pez6Lbg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: ObHOzcPUfVZajYK49a4vgxNB8nqHLaVqcukrjrD/9NcXly7k9CaTL5o0
+	754Mry0A/CQSK3eqBXRsvFLoqkRw8JE5Gd70EfCzpWfkwueiOZroP8aqvUTVVhl4cUSS2Wj
+	hILCmHXdpMQK5lxoxVS6OTm7du9yqM9APrWecjEvX05sT9xg8LSJQC2mCCMFkvp5hxx/qf2
+	sH6oC7xUtR7Xz/n0/LLbKsBrLJTvAKgypkWUJ8l/tzhCb9bW/hlrlPw7pPDEzGBO065ViOA
+	5eAsMVWcd8GapnoTjWy4OfYS6LZUEsnr+52BRs/+X9w2QMJ+jbghQXfQyM/ejEunIPSc/05
+	5YRnjfAEYjiMkSGARHA+an+QKhdZDaRF0InSBM/AIzdcKWr4ZIuxhbqWoovnv0HleRrsNzC
+	7zG6ILLfXv5Pz/TUdUgpSVkTJmin1msIUCMorf5vKdmB7gmOl4FIkMuUUid3oCZlPwSKTu0
+	BNMQQEpOuRjGHDTB7ee5YVnTBgXSrmCTohT5ArSH7Zv24ND39u837me6UMUE4ct5ZmZ/Obj
+	eVXNbJ26xhz3CdbucDmIMBCJvxNr7uYYqXD6nqeEZZC25O0S+6o4R2wNbxaEItbczFgJkSN
+	Qdww+rpGIJ92xOZaovbfZYEDj4DmZqigJsWIVJmyF1DBZRMFW8SRa7RTLrk44KKk6scfWMr
+	ZNe9eshCV+qd49yl7oztQzNVA9JyhOFERhV4QRdp2kujcwLhb+J5Wd3inZO7VlEh0ECG/Nj
+	yzoBMk+DT682UQblDegE52NZkdA8t43FCMh5G8WRwiysXLlQxndRv1skqyjCBFZmrWCzIUG
+	AVsd4Xbc2Pqlxc8VGZzCczzY/gYJNTIJj5l8WwUuBtVznsM2KpWGqFRyEsKwpDprzn8wdA5
+	+sy0ThiAJ851BtpFukzkhx79PFufWV9bThHpKs2NYxhLwewOEWgpLdkLbRTTDfePqELNF0M
+	lLwuWRlnLYQeZWdWMK+IJpYeqLGKtiFYDOFKGlaf6FnCF8Qt5EHCZFitgwTmI6rGf/YoKe3
+	BsH3XGkzwaS+/HbzBjuIjCemaBviOR7+Pfq3+Ghw==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-On 26-07-16 00:09:47, Thinh Nguyen wrote:
-> > 
-> > Only the new user for adding phy_type="eusb2" at dts needs to check the
-> > controller logic, and this is what the user needs to do that check the
-> > new added device tree property logic at the driver.
-> 
-> To clarify, are you suggesting to introduce a new phy_type property to
-> indicate phy type? If so, that sounds similar to qcom,has-eusb2-phy but
-> more generic. Also, where do you plan to define it (dwc3 or phy node)?
-> 
 
-No, I meant just adding new entry at below usbphy_modes array, that's the
-easier way. At the current code at of.c, it indeed mixes description of
-the phy interface (between controller and phy) and phy type, the array
-names phy interface, and dt property names "phy_type".
+On 7/3/2026 8:01 PM, Anup Patel wrote:
+> On Fri, Jul 3, 2026 at 2:31 PM Zane Leung <liangzhen@linux.spacemit.com> wrote:
+>>
+>> On 7/3/2026 3:41 PM, Greg KH wrote:
+>>> On Fri, Jul 03, 2026 at 03:32:50PM +0800, Zane Leung wrote:
+>>>> On 7/3/2026 1:41 PM, Greg KH wrote:
+>>>>> On Thu, Jul 02, 2026 at 04:19:53PM +0800, Zane Leung wrote:
+>>>>>> Hi,
+>>>>>>
+>>>>>> Based on the current framework, I am concerned about how to support RISC-V ATB and reuse the Coresight component (ETB/tmc/TPIU) in the future.
+>>>>> That is very vague.  Please provide specific examples.
+>>>> According to the /trace control interface/ [1] spec: "The ATB Bridge allows sending RISC-V trace to Arm CoreSight
+>>>>
+>>>> infrastructure (instead of RISC-V compliant sink defined in this document) as an ATB initiator. ATB Bridge is not
+>>>>
+>>>> needed for RISC-V only systems."
+>>>>
+>>>> For ATB Bridge, read trace using Coresight components (ETB/TMC/TPIU),  so we need also ARM coresight driver in
+>>>> RISC-V trace systems. Current framework seems to only be applicable to RISC-V only systems, and does not support
+>>>> ATB and  ARM coresight use case like the K3 (K3 SoC contains RISC-V Encoder, Funnel, ATB, CoreSight Funnel, and
+>>>>
+>>>> CoreSight TMC components). For more discussion, please refer to [2].
+>>>>
+>>>>
+>>>> [1]: https://docs.riscv.org/reference/trace-control-interface/v1.0/tci_system_overview.html#atb-bridge
+>>>> [2]: https://lore.kernel.org/all/20260414034153.3272485-1-liangzhen@linux.spacemit.com/
+>>> So, what specifically does this mean?  Please provide review comments
+>>> for the code itself.
+>> The issue I pointed out is not about specific lines of code, but about the entire Riscv trace driver registration and building a path from source ->
+>> sink did not take into account the application of arm_comesight. the current patch set assumes a rigid, homogeneous RISC-V-only topology.
+>>
+>> Specifically, if we have ARM coresight components, how can we reuse them like, funnel (drivers/hwtracing/coresight/coresight-funnel.c) ,
+>>
+>> TMC (drivers/hwtracing/coresight/coresight-funnel.c) , TPIU (drivers/hwtracing/coresight/coresight-tpiu.c) and so on based on the current
+>>
+>> framework.
+>>
+>>
+>>> We write code for stuff we have now, today.  If future needs change, we
+>>> change the code to handle that then.
+>> I believe that if the basic framework for RISC-V does not consider compatibility with ARM Coresight, once the framework is fixed, there will be greater resistance to future modifications.
+>>
+>>> The only problem is with user/kernel apis, those need to be nailed down
+>>> so that they don't change.  I can't tell here if you are only referring
+>>> to the in-kernel stuff, or user/kernel apis, sorry.
+>>>
+>>> thanks,
+>>>
+>>> greg k-h
+>>
+>> I believe that RISC-V tracing is coresight-alike, where have encoders/funnel/sink/bridge+coresight_comp.
+> I think you are over simplifying the comparison. At high-level only
+> the topology of components is similar between RISC-V and ARM but the
+> individual components have greater architecture influnce. In fact, we
+> upcoming RISC-V self-hosted trace under development where both encoder
+> and ramsink are programmed via CPU CSRs.
+>
+> The only thing which can be shared is a common trace framework (which
+> is very small part of this series) but the component drivers, driver
+> probing, perf driver etc will be highly architecture specific.
+>
+>> I think we should abstract some of CoreSight's core logic so that it can Both coresight and rvtrace can be reused.
+>> General logic for building paths from source -> Sink and perf_pmu should be universal in coresight/rvtrace and
+> My suggestion is to take current rvtrace framework (which is minimal
+> enough) and create a simple "gtrace" framework (aka generic trace
+> driver framework) which can be enabled by multiple architectures. The
+> RISC-V trace drivers can be the first ones to adopt this "gtrace"
+> framework. As separate series, the ARM coresight component drivers
+> gradually updated to support "gtrace" framework. This way only
+> required stuff will be shared will be brought under the common
+> "gtrace" framework.
+>
+> I will update this series as-per above suggestion if there is no objection.
+>
+> Regards,
+> Anup
 
-diff --git a/drivers/usb/phy/of.c b/drivers/usb/phy/of.c
-index 1ab134f45d67..5cbf17d493ad 100644
---- a/drivers/usb/phy/of.c
-+++ b/drivers/usb/phy/of.c
-@@ -16,6 +16,7 @@ static const char *const usbphy_modes[] = {
- 	[USBPHY_INTERFACE_MODE_ULPI]	= "ulpi",
- 	[USBPHY_INTERFACE_MODE_SERIAL]	= "serial",
- 	[USBPHY_INTERFACE_MODE_HSIC]	= "hsic",
-+	[USBPHY_INTERFACE_MODE_EUSB2]	= "eusb2",
- };
+I generally agree with this approach. Once this series is updated, I will try to update
+the ARM CoreSight component drivers to support the "gtrace" framework, based on 
+the K3 platform.
 
-line34: err = of_property_read_string(np, "phy_type", &phy_type);
+Best regards,
+Zane
 
-In fact, HSIC is not the interface between controller and PHY, it is
-after UTMI(+) or ULPI, and similar with eUSB2.
 
-The API of_usb_get_phy_mode is mainly used by controller driver
-to know what kinds of PHY it is connected, and do corresponding
-configuration, the configuration may not limit to interface between
-controller and PHY. Do you agree we just take "phy mode" and
-"phy type" are same thing, and delete "INTERFACE" in this file
-and add "eusb2" as a new "phy_type"?
-	
-> 
-> If you mean defining a new PHY_TYPE_EUSB2 constant in
-> include/dt-bindings/phy/phy.h, the glue driver needs to parse the
-> phandle args, and the eusb2 bindings would also need to change the
-> number of #phy-cells. That's a bigger change.
-> 
-
-No. Like you said, it is a bigger change.
-
--- 
-
-Thanks,
-Peter Chen
