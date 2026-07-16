@@ -1,426 +1,362 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83AF640A93B
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 11:43:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784202195; cv=none; b=ojH2/g/HV3ccwMTlRp+kMxtQl6Zs9xA1eUpQFheYiwR5MziB4Y3szrW1ccz/p6IGScQU711Am/vPUHg3HskC/vltCANYxmRjlknP//5TsNyG60Jp3sOB2i2wNbZC7oBs6eq+bMVvxioM3ACIZKYX+nAfmMssBASJNNc5Q4tcKuc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784202195; c=relaxed/simple;
-	bh=Ixdhr9DQPPeCF0R02PTq251qConIhXrLKCsu0Z+037c=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AutmB/GF2JqaqSzTDPbblJp87zwFnpjKJgPkA03tPZgM02cFJrLXjt/310p++MXRVqrRpwTlxdSoOL81srRhk5bxBucZ9AjGqfxa5jigWwHMBUTAWwL0AWMFtD4JZxn18OrkDpwLu61cSesAk55TEs1ZhVURl0je/6PndClE7Z4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BIKg0OPe; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504FC2749ED
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 11:55:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784202933; cv=pass; b=DKDq4V686tKdtTSagG9m5Wb24BdZvz7p9qOf4KziR3hi5XcWGQL5kuFTJXmkYaev6jGpq30e7YJOx3FXlDmC1JAkeanM1p2KDHTLGyZfzvJPMr4cjB/jTGO3ApKIuHxR2XPRn06nhs6j484ByaI3CJrCkDHbVsDlPRh/n2bCyY4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784202933; c=relaxed/simple;
+	bh=C96NzncbsQ/25PKJxsR427vDtbfGh0/AwS/xdfMx8Xg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HjyR5wOs5l/vcV0EETdqOsHiMTgioZEcv+Yv8FInywOT60wrnTP9Zf0McaMtkJUT3myfRTBMocj5DKuWIqEvftAlqOnNAXXvLBSIczb9Ca+mD0hC6mvK1sz/dMiEEHgIocgtDyLo1PXePMOqKRXDWIUGCpT6xPT0NcyXcHC+ppM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YiudG+I2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RYfDUPas; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BIKg0OPe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCF901F00A3E;
-	Thu, 16 Jul 2026 11:43:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784202193;
-	bh=ZeTjdwzbut0/wxl8O0oT1KYtFQgAbA19n1Cg7HFYukQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BIKg0OPeKWYf8KXwariUb4/wT4pnwNMycysqoeDmZdTXdcetUkFb7UolUsJkJO0Z/
-	 A/o/iqYrFCEZMhQMScF6/BaEKvmiFzFc1m3OVVzgSpMYv7W70hOta+j8yJXGkfHD1I
-	 BJswaVLXOP7SZrrEZJWU00nU9/Eq+PQJ7jJx4mcLu9rhJ89R13jGLpi31B+CdQy4pv
-	 H+PNSOUDjV8s4PT8B8Jmub+GKXoEhzBUWgvDoNWWojqQz9muci4WcHhcxRF4Q31790
-	 k+VC4SJpqUhL9cwccvY7gDENFmV8nwhZIvmgtyk5mRDUy2ZVpHbrf0lbzIz6lvIXDv
-	 fUbWfu+EGKM3w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/2] drm/bridge: Add Lontium LT9609C(EX/UXD) MIPI DSI
- to HDMI driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: mohit.dsor@oss.qualcomm.com
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260716-lt9611c-v7-v7-2-7553a14735fc@oss.qualcomm.com>
-References: <20260716-lt9611c-v7-v7-0-7553a14735fc@oss.qualcomm.com>
- <20260716-lt9611c-v7-v7-2-7553a14735fc@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 11:43:12 +0000
-Message-Id: <20260716114312.DCF901F00A3E@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YiudG+I2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RYfDUPas"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66GBiR8L2754564
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 11:55:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	HkI07VOyyD1qjY3yy4oGy1PR0IC6S/eabYgXTFOgS+g=; b=YiudG+I2F1ZQxgZx
+	4N6qfruU4OF2hA2wyVxhqfkKGvoLahO1KV2unqq18ca4FbN3VGsj3H26W7oPmV/r
+	ntAgChfzQk8iH5qx5Il3dsmmMpD7n8bfyUw+XS/wCDAG7+xex4m6iVcoswaK3G1w
+	gfaxppW5UM9uxEM0IMir5GZjLaH6hyYlrbspV/+fBLCzZtGqhlXJY1eG54nDCY7m
+	AXCPgby3moriOiMOcF7ijZIKXpMMhEmPnSKlBNIfku2dWVJJKnvjTJPp4ijQ7f+n
+	r/RnCcHfZY/MWXhgHHO8pkBzZ2qYiliIZFbaMBgfbIjmVkP9uBas28d//K25ES5l
+	PFavxw==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feu10922k-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 11:55:31 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c26012cd0so104747591cf.0
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 04:55:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784202930; cv=none;
+        d=google.com; s=arc-20260327;
+        b=naF9Gz0qsHo9A/STt1ELEktT4a9JhVMU5XloJbhp+r4fMf988JERJe2oFgfRCf2vSo
+         fKUayLV71nfkjQry/d+5Z/QRQaDgWJiE6UtzlW839vHUDWni2+0+VucsXDDWUQKa7D5n
+         DcV0/eGjDfva9i9B5y60L5cG+uxhdo1ZorTMnLpDFzRK2cUtd1x7/6KgEeTEnGhzzAZe
+         rufH+H9FOBcqbz4IbrZ2zCwG8C6kGZh9pxq7TtZ0rxOSiZxN11WVbGRNfiQaV2kQxYyK
+         U23GNAhQVQwNj6lJ0ykiNsk5F5I+7w430D4Oz/1zFMieDvyNGF+Gank/7QOUy0M5FoFb
+         9BNw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HkI07VOyyD1qjY3yy4oGy1PR0IC6S/eabYgXTFOgS+g=;
+        fh=2sEuNKLukFvfL03CHbAnmwAQORhX/iTVmsoPfAckWEY=;
+        b=MVqiIo4j2YvzJfCRv9CnN/sIwZE6p3E1l6vYsBqTRcac8Wk5rqAVm5RWMUjKNuBPeG
+         IWYa0LfeJWZS6ZEW7cACLyOESp0300PF1TT8VicMLwZ5b+7zcdZISeB039rohmElN0Lf
+         67cohqzlbs9/jtjsv5hwLqJsyi6CEjBFukASWrSj5GzRbKIfs1th/TNsOaun+uPfCJGs
+         kRPGdXPjh04MK7O+99qrfvby1WY146SYKXK6xC1Ropj/9R9ZClHeWZgMlwDZziZtIf1P
+         GM0RPwP/H4djWX+U1Csgz2F2zn37m63kV1P1l4sKCBM2eRHwrir5/rM5an/VivhajJCx
+         tmDg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784202930; x=1784807730; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HkI07VOyyD1qjY3yy4oGy1PR0IC6S/eabYgXTFOgS+g=;
+        b=RYfDUPas7UKfaqmw9BD9msspk3+8AXF04+yX+Qx7wvYvkIY5zIDaICZHnvr0uvtbZ2
+         uH7XeuVZba10mY/49ZZKm676H3203Amiz5YN1Nn7Z8A2a4YSduOUHWq+4nN8y0M55dEO
+         CEG+RtQbOwb4S7y3NUE8WPvFKF61Hx/kGa+Gy+8Ez3VjkXmYBnamz0TMH4OdI5pAFlqt
+         ENluPwCBuvbLrr5tDNA7aEaZBVjbzNLniiWZ+QVbsk5YLfX8stN7pAf/ttmUlVZlarhh
+         qnItn6oS80LLRgvjlaTPhStjaRo1yZ8SgT6csZE2kvAEWsopLsDujyUi7Ou6g9d/0g9j
+         XKkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784202930; x=1784807730;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HkI07VOyyD1qjY3yy4oGy1PR0IC6S/eabYgXTFOgS+g=;
+        b=Fjqwn8OqOTapjDKuy/ZhT4Cv+HgQnMIozehoMVeII1e4XK1mSwKxdFSMvj3fsd6Qnk
+         UT3UrgF5SCw2hXK6sJJYo4xcvfybnYLgBlU+Be41RRHmULSODCkYF+sXZA7SUU2g85IQ
+         OqBo+HF6DR95F1hqhy+d5DT8M3u/YSwUi0RshkQaLxisf9Ubvv+iOJXoZ4EGVTe+b854
+         Bw5GYVV1/+tPoASqgCTol0TnygfN6JYuUo9boxH+tzqfhpsCza84BchyZ47F1HLTAnGS
+         rsL7WaNOsH4cNj1BHk9SWG9EGM+vfzh8orVSq8tEEY5iVYNjPWvnmM1WKxAexBqb0B/j
+         +WEw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp4GoPR6q3kr7mOUzZutNNtJ/s4wAtHfSObw/n5rb2eFldAxo7DfDu20URDmEERRpgzQnhbT++3ePyV@vger.kernel.org
+X-Gm-Message-State: AOJu0YyKyBivuW1olKUuW02JCIqPfDoQ3kbipxsu5g9gPrmYdUO8tl9D
+	KSgKXmckihQyXBgJ8FcsJ0UZTrVVx64QMJScxetKkPsmqDXx7iHhiLicbUOhrmNAe0kWREvQY9l
+	fkewg74EZ909kIy7C8WxINoTQMa1QPypPNGW25VFZ2zL2PYZQMeNtdWXXIEzAo9nBsUO4mIKiSy
+	tiwxYfMO2QtMaV6b9Lh6Ki3lbyf0yFZ0bkn2HGaA0=
+X-Gm-Gg: AfdE7ck7DlU8UPalgJrsP9PfvupKFOtrGo/qPYv7pM0Q1CdT+Deb0ol1PFq2zS3eDPh
+	LMlBsBZD1CSW0yG2hWfHzk0hT6MtcZn0fxP9Nhr+erF4u+3WYKr1g++frGMM6VxOCu+sE2C4PpO
+	sPKzmFVzEJWORu+d+rZjiEcWQj1eNKVZDWJYku0caAbp4BKDR0apBeauvT8g==
+X-Received: by 2002:ac8:7d0b:0:b0:51c:b900:5136 with SMTP id d75a77b69052e-51e4ecca047mr71644401cf.0.1784202930457;
+        Thu, 16 Jul 2026 04:55:30 -0700 (PDT)
+X-Received: by 2002:ac8:7d0b:0:b0:51c:b900:5136 with SMTP id
+ d75a77b69052e-51e4ecca047mr71644011cf.0.1784202929904; Thu, 16 Jul 2026
+ 04:55:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <cover.1783505142.git.geert+renesas@glider.be> <23f979b0903ca11513ac339ab8b6dd40435603c5.1783505142.git.geert+renesas@glider.be>
+ <CAPx+jO-=LF9CvYDrC3O_GBtfHU6GYvq524OLmTG8R1-u27oyKw@mail.gmail.com> <CAMuHMdUAwxs50S7hwWRsSmtRagD7Gu4rodGund4k3r1x1+A5ug@mail.gmail.com>
+In-Reply-To: <CAMuHMdUAwxs50S7hwWRsSmtRagD7Gu4rodGund4k3r1x1+A5ug@mail.gmail.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Thu, 16 Jul 2026 13:55:18 +0200
+X-Gm-Features: AUfX_mwNMY8bmSOOoE3tn-LA0Fojd6Jz_KE9ZsYKsw02nHYdKrjLLMH4z5Iwnas
+Message-ID: <CAPx+jO9aajD9eFTEUdAFOO-wC5NduaYhbDmYw5DHeFj92Fmd9A@mail.gmail.com>
+Subject: Re: [PATCH v2 4/6] pmdomain: renesas: Add R-Car X5H MDLC driver
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+        Wolfram Sang <wsa+renesas@sang-engineering.com>,
+        Marek Vasut <marek.vasut+renesas@mailbox.org>,
+        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+        devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: FNlA7dQuHC8TJfU9iA208FB5544BREwM
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDEyMyBTYWx0ZWRfX/htn74cFa03w
+ GUylN+c3AMRH3ADM6Lhf0NkFgBF1bzhSuBT9jB4oMtZEzcrj6BeR2IIL8jyG9vrj4O611vt4u5b
+ A7ChDEx4ifYOO1kqCYt75BpsA07hb+hntFYkZ09LBe2ieRyIfOSQBYK7ZLaEeT++QdJ0A1JwAbL
+ sqPf8tA2AF26oxD8ACQDioRhnq+tOwcOLAnhZ2fzrb27lbfymbZCya0NgkX1Ck1o8I8swYbo3Ez
+ HGW4tx40TBpAdh5AGya+Bm82bhUv1Rcw5FrTFrwejBkOnLRahfEb/vu2DyffT0Ud3Ezhq7wM8DK
+ v4mWWNR1Kng8H3IuoPPYn0IqXHhqbQF6gKhqr34Sb7WbWW9qTtp6vjFsMGr0HKt3e2ZFD/KjAI1
+ RdtZj8xUj1eH0fGZGmEdMMHgG1igIq8oy6jyz3M1dUGW5bTDxJmatCCfruI4PlLNOe+bAmKL3Un
+ SLoXVdeoVI2uVngAqzg==
+X-Proofpoint-GUID: FNlA7dQuHC8TJfU9iA208FB5544BREwM
+X-Authority-Analysis: v=2.4 cv=BPODalQG c=1 sm=1 tr=0 ts=6a58c6b3 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_glEPmIy2e8OvE2BGh3C:22 a=tBb2bbeoAAAA:8 a=EUspDBNiAAAA:8
+ a=AEl4uQJCqG-skdcfchQA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+ a=Oj-tNtZlA1e06AYgeCfH:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDEyMyBTYWx0ZWRfX/5g6qOGGOCkB
+ ReLHVSbS9Mqub3OvkahbIItrR7IqbjC7kQJD3Kf7TAPR6QXzgoQRyc6uik+F68W16v+6kk6yCy8
+ ZmZwZoPpGeRfK4wK6CIJyWsLrs8KFRQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-16_04,2026-07-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0
+ priorityscore=1501 phishscore=0 bulkscore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607160123
 
-Thank you for your contribution! Sashiko AI review found 10 potential issue=
-(s) to consider:
-- [High] Missing `disable_irq()` in `lt9611c_remove()` creates a race condi=
-tion leading to Use-After-Free and unpowered hardware access.
-- [High] Stack buffer overflow in `lt9611c_hdmi_write_hdmi_infoframe` due t=
-o unchecked `len` parameter.
-- [High] Permanent module reference leak due to unbalanced `drm_bridge_get(=
-)` in `lt9611c_parse_dt()`.
-- [High] Self-deadlock in `lt9611c_hdmi_audio_prepare` due to double lockin=
-g of `ocm_lock` via nested DRM helper callbacks.
-- [High] Erratic interrupt clearing sequence can permanently lock up the ed=
-ge-triggered interrupt line and lose events.
-- [High] Ignored return value of `devm_drm_bridge_add()` can lead to succes=
-sful probe with an unregistered bridge.
-- [High] Missing `cancel_work_sync()` in `lt9611c_bridge_suspend()` allows =
-the HPD work to execute while the hardware is powered off.
-- [High] Race condition between sysfs file creation and initialization of `=
-clientdata` causes a NULL pointer dereference.
-- [Medium] Synchronous firmware loading while holding a hardware mutex (`oc=
-m_lock`).
-- [Medium] Ignored flash erase timeout allows firmware upgrade to silently =
-corrupt device flash.
---
+On Wed, Jul 15, 2026 at 11:11=E2=80=AFAM Geert Uytterhoeven
+<geert@linux-m68k.org> wrote:
+>
+> Hi Ulf,
+>
+> On Tue, 14 Jul 2026 at 14:04, Ulf Hansson <ulf.hansson@oss.qualcomm.com> =
+wrote:
+> > On Wed, Jul 8, 2026 at 12:15=E2=80=AFPM Geert Uytterhoeven
+> > <geert+renesas@glider.be> wrote:
+> > >
+> > > Add a minimal Module Controller driver for the R-Car X5H (R8A78000) S=
+oC.
+> > > For now this just supports the always-on power domains, and dummy clo=
+cks
+> > > and resets for the serial console (which is enabled by the boot loade=
+r).
+> > >
+> > > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+>
+> > > --- /dev/null
+> > > +++ b/drivers/pmdomain/renesas/r8a78000-mdlc.c
+>
+> > > +static struct generic_pm_domain *r8a78000_genpd_xlate(
+> > > +                       const struct of_phandle_args *spec, void *dat=
+a)
+> > > +{
+> > > +       struct r8a78000_mdlc_priv *priv =3D container_of(data,
+> > > +                                       struct r8a78000_mdlc_priv, ge=
+npd_data);
+> > > +       struct device *dev =3D priv->dev;
+> > > +       u32 id;
+> > > +
+> > > +       if (spec->args_count !=3D 2)
+> > > +               return ERR_PTR(-EINVAL);
+> > > +
+> > > +       id =3D spec->args[0];
+> > > +
+> > > +       if (id >=3D R8A78000_MDLC_PD_AON) {
+> > > +               dev_dbg(dev,
+> > > +                       "Mapping HW power domain 0x%x to always-on do=
+main\n",
+> > > +                       id);
+> > > +               return r8a78000_genpd_always_on;
+> >
+> > This looks odd, but perhaps it's just a temporary mapping that you
+> > intend to change later, no?
+>
+> The hardware has multiple always-on domains, but on the software side,
+> using only one is sufficient.  When needed, it can be changed later.
+> Other domains will be added later, in the else branch.
 
---- Patch [2]: [PATCH v7 2/2] drm/bridge: Add Lontium LT9609C(EX/UXD) MIPI =
-DSI to HDMI driver ---
-commit b64f10044aaf95610928583023bd2bc668abab4e
-Author: Sunyun Yang <syyang@lontium.com>
-Subject: drm/bridge: Add Lontium LT9609C(EX/UXD) MIPI DSI to HDMI driver
+I see, perhaps add a comment about this in the code, to make this more clea=
+r?
 
-This commit introduces the driver for the Lontium LT9611C DSI to HDMI bridg=
-e.=20
-It adds support for configuring video timing, reading EDID, handling HPD=20
-interrupts, and managing firmware upgrades.
+>
+> > > +       }
+> > > +
+> > > +       dev_err(dev, "Unknown power domain 0x%x\n", id);
+> > > +       return ERR_PTR(-ENOENT);
+> > > +}
+>
+> > > +static int r8a78000_genpd_always_on_singleton(struct device *dev)
+> > > +{
+> > > +       struct generic_pm_domain *genpd;
+> > > +       int ret;
+> > > +
+> > > +       guard(mutex)(&r8a78000_mdlc_lock);
+> > > +
+> > > +       if (r8a78000_genpd_always_on)
+> > > +               return 0;
+> > > +
+> >
+> > I guess the mutex is used to protect the global
+> > r8a78000_genpd_always_on, but it looks like that isn't really needed
+> > based upon how things are being called during the probe.
+>
+> Why would it not be needed? There are multiple instances of the MDLC
+> device, but only one instance of the always-on domain.
 
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/b=
-ridge/lontium-lt9611c.c
-> new file mode 100644
-> index 0000000000000..e8bb385d15206
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-> @@ -0,0 +1,1293 @@
+Aha, I see. Thanks for clarifying!
 
-[ ... ]
+>
+> > > +       genpd =3D kzalloc_obj(*genpd);
+> > > +       if (!genpd)
+> > > +               return -ENOMEM;
+> > > +
+> > > +       genpd->name =3D "always-on";
+> > > +       genpd->attach_dev =3D r8a78000_mdlc_attach_dev;
+> > > +
+> > > +       ret =3D pm_genpd_init(genpd, &pm_domain_always_on_gov, false)=
+;
+> > > +       if (ret) {
+> > > +               kfree(genpd);
+> > > +               return dev_err_probe(dev, ret,
+> > > +                                    "Failed to create always-on doma=
+in\n");
+> > > +       }
+> > > +
+> > > +       r8a78000_genpd_always_on =3D genpd;
+> > > +       return 0;
+> > > +}
+> > > +
+> > > +static int r8a78000_mdlc_probe(struct platform_device *pdev)
+> > > +{
+> > > +       struct device *dev =3D &pdev->dev;
+> > > +       struct device_node *np =3D dev->of_node;
+> > > +       struct r8a78000_mdlc_priv *priv;
+> > > +       const struct mdlc_info *info;
+> > > +       struct resource *res;
+> > > +       int ret;
+> > > +
+> > > +       ret =3D r8a78000_genpd_always_on_singleton(dev);
+> > > +       if (ret)
+> > > +               return ret;
+> > > +
+> > > +       info =3D of_device_get_match_data(dev);
+> > > +       if (!info)
+> > > +               return -ENODEV;
+> > > +
+> > > +       priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> > > +       if (!priv)
+> > > +               return -ENOMEM;
+> > > +
+> > > +       priv->dev =3D dev;
+> > > +       priv->np =3D np;
+> > > +
+> > > +       res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> > > +       if (!res)
+> > > +               return -ENODEV;
+> > > +
+> > > +       for (; info->base; info++) {
+> > > +               if (info->base =3D=3D res->start)
+> > > +                       break;
+> > > +       }
+> > > +
+> > > +       if (!info->base) {
+> > > +               dev_dbg(dev, "Unsupported MDLC instance 0x%pa\n", &re=
+s->start);
+> > > +               return -ENODEV;
+> > > +       }
+> > > +
+> > > +       priv->mod_map =3D info->mod_map;
+> > > +
+> > > +       scoped_guard(mutex, &r8a78000_mdlc_lock) {
+> > > +               hlist_add_head(&priv->link, &r8a78000_mdlc_list);
+> > > +       }
+> > > +
+> > > +       ret =3D devm_add_action_or_reset(dev, r8a78000_mdlc_unlink, p=
+riv);
+> > > +       if (ret)
+> > > +               return dev_err_probe(dev, ret, "failed to add action\=
+n");
+> > > +
+> > > +       /* Note that no actual domains are registered, just need tran=
+slation */
+> > > +       priv->genpd_data.xlate =3D r8a78000_genpd_xlate;
+> > > +       ret =3D of_genpd_add_provider_onecell(np, &priv->genpd_data);
+> > > +       if (ret)
+> > > +               return dev_err_probe(dev, ret,
+> > > +                                    "Failed to register genpd provid=
+er\n");
+> > > +
+> > > +       ret =3D devm_add_action_or_reset(dev, r8a78000_genpd_del_prov=
+ider, np);
+> > > +       if (ret)
+> > > +               return dev_err_probe(dev, ret,
+> > > +                                    "failed to add unregister action=
+\n");
+> > > +
+> > > +       priv->rcdev.ops =3D &r8a78000_mdlc_reset_ops;
+> > > +       priv->rcdev.of_node =3D np;
+> > > +       priv->rcdev.of_reset_n_cells =3D 1;
+> > > +       priv->rcdev.of_xlate =3D r8a78000_mdlc_reset_xlate;
+> > > +
+> > > +       ret =3D devm_reset_controller_register(dev, &priv->rcdev);
+> > > +       if (ret)
+> > > +               return dev_err_probe(dev, ret,
+> > > +                                    "Failed to register reset contro=
+ller\n");
+> > > +
+> >
+> > In some of the error paths above it looks like we end up leaking the
+> > data allocated for r8a78000_genpd_always_on. Perhaps clean up that
+> > somewhere here.
+>
+> That is intentional: the always-on domain is shared by all MDLC
+> instances.  If one MDLC fails to probe, the MDLC instances that did
+> succeed still need the always-on domain.
 
-> +static void lt9611c_block_erase(struct lt9611c *lt9611c)
-> +{
-> +	struct device *dev =3D lt9611c->dev;
-> +	int i;
-> +	unsigned int block_num;
-> +	unsigned int flash_status =3D 0;
-> +	u32 flash_addr =3D 0;
-> +
-> +	for (block_num =3D 0; block_num < 2; block_num++) {
-> +		flash_addr =3D (block_num * 0x008000);
-> +		lt9611c_erase_op(lt9611c, flash_addr);
-> +		msleep(100);
-> +		i =3D 0;
-> +		while (1) {
-> +			read_flash_reg_status(lt9611c, &flash_status);
-> +			if ((flash_status & 0x01) =3D=3D 0)
-> +				break;
-> +
-> +			if (i > 50)
-> +				break;
+Okay, so perhaps we should add a reference counting of it, to make
+sure we don't leak the data?
 
-[Severity: Medium]
-Does this ignore the flash erase timeout? If the polling loop in=20
-lt9611c_block_erase() times out, it breaks out silently. Since this functio=
-n=20
-has no return value, lt9611c_firmware_upgrade() will proceed to write the n=
-ew=20
-firmware over an unerased block, which could corrupt the device firmware.
+>
+> >
+> > > +       return 0;
+> > > +}
+> >
+> > [...]
+> >
+> > In regards to the merge strategy, I intend to pick patch 2 (shared via
+> > the immutable dt branch) and $subject patch. Please let me know if
+> > there are any issues with that.
+>
+> That is fine, thanks!
 
-> +
-> +			i++;
-> +			msleep(50);
-> +		}
-> +	}
-> +
-> +	dev_dbg(dev, "erase flash done.\n");
-> +}
+Great, thanks!
 
-[ ... ]
-
-> +static irqreturn_t lt9611c_irq_thread_handler(int irq, void *dev_id)
-> +{
-> +	struct lt9611c *lt9611c =3D dev_id;
-> +	struct device *dev =3D lt9611c->dev;
-> +	int ret;
-> +	unsigned int irq_status;
-> +	u8 cmd[5] =3D {0x52, 0x48, 0x31, 0x3a, 0x00};
-> +	u8 data[5];
-> +
-> +	guard(mutex)(&lt9611c->ocm_lock);
-> +
-> +	ret =3D regmap_read(lt9611c->regmap, 0xe084, &irq_status);
-> +	if (ret) {
-> +		dev_err(dev, "failed to read irq status: %d\n", ret);
-> +		return IRQ_HANDLED;
-> +	}
-> +
-> +	if (!(irq_status & BIT(0)))
-> +		return IRQ_HANDLED;
-
-[Severity: High]
-Could this early return permanently lock up the edge-triggered interrupt li=
-ne?
-If another status bit triggered the interrupt, this bails out without writi=
-ng=20
-to the clear register (0xe0df). Because the interrupt line is configured as=
-=20
-IRQF_TRIGGER_FALLING, leaving it asserted prevents any future falling edges=
-=20
-and permanently locks up all future hardware interrupts.
-
-> +
-> +	msleep(100);
-> +
-> +	ret =3D lt9611c_read_write_flow(lt9611c, cmd, ARRAY_SIZE(cmd), data, AR=
-RAY_SIZE(data));
-
-[ ... ]
-
-> +static int lt9611c_hdmi_write_hdmi_infoframe(struct drm_bridge *bridge,
-> +					     const u8 *buffer, size_t len)
-> +{
-> +	struct lt9611c *lt9611c =3D bridge_to_lt9611c(bridge);
-> +	u8 cmd[5 + LT9611C_INFOFRAME_MAX_SIZE];
-> +	u8 data[5];
-> +	int ret;
-> +
-> +	cmd[0] =3D 0x57;
-> +	cmd[1] =3D 0x48;
-> +	cmd[2] =3D 0x35;
-> +	cmd[3] =3D 0x3a;
-> +	cmd[4] =3D 0x04;/*write vsif*/
-> +	memcpy(cmd + 5, buffer, len);
-
-[Severity: High]
-Is it possible to overflow the cmd stack buffer here? The cmd array is=20
-allocated with a fixed size of 37 bytes (5 + LT9611C_INFOFRAME_MAX_SIZE).=20
-Because the len parameter is passed directly to memcpy without validation,=
-=20
-passing an infoframe larger than 32 bytes would corrupt the stack.
-
-> +
-> +	guard(mutex)(&lt9611c->ocm_lock);
-> +
-> +	ret =3D lt9611c_read_write_flow(lt9611c, cmd, 5 + len,
-> +				      data, ARRAY_SIZE(data));
-
-[ ... ]
-
-> +static int lt9611c_hdmi_write_audio_infoframe(struct drm_bridge *bridge,
-> +					      const u8 *buffer, size_t len)
-> +{
-> +	struct lt9611c *lt9611c =3D bridge_to_lt9611c(bridge);
-> +	u8 *cmd;
-> +	u8 data[5];
-> +	int ret;
-> +
-> +	guard(mutex)(&lt9611c->ocm_lock);
-
-[ ... ]
-
-> +static int lt9611c_hdmi_audio_prepare(struct drm_bridge *bridge,
-> +				      struct drm_connector *connector,
-> +				      struct hdmi_codec_daifmt *fmt,
-> +				      struct hdmi_codec_params *hparms)
-> +{
-> +	struct lt9611c *lt9611c =3D bridge_to_lt9611c(bridge);
-> +	u8 audio_cmd[6] =3D {0x57, 0x48, 0x36, 0x3a};
-> +	u8 data[5];
-> +	int ret;
-> +
-> +	if (hparms->sample_width =3D=3D 32)
-> +		return -EINVAL;
-> +
-> +	switch (fmt->fmt) {
-> +	case HDMI_I2S:
-> +		audio_cmd[4] =3D 0x01;
-> +		break;
-> +	case HDMI_SPDIF:
-> +		audio_cmd[4] =3D 0x02;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	audio_cmd[5] =3D hparms->channels;
-> +	guard(mutex)(&lt9611c->ocm_lock);
-> +
-> +	ret =3D lt9611c_read_write_flow(lt9611c, audio_cmd, sizeof(audio_cmd),
-> +				      data, sizeof(data));
-> +	if (ret < 0) {
-> +		dev_err(lt9611c->dev, "set audio info failed!\n");
-> +		return ret;
-> +	}
-> +
-> +	return drm_atomic_helper_connector_hdmi_update_audio_infoframe(connecto=
-r,
-> +									&hparms->cea);
-
-[Severity: High]
-Will this cause a self-deadlock? The ocm_lock is acquired here in=20
-lt9611c_hdmi_audio_prepare(). We then call=20
-drm_atomic_helper_connector_hdmi_update_audio_infoframe(), which internally=
-=20
-invokes the connector's write_infoframe hook mapped to=20
-lt9611c_hdmi_write_audio_infoframe(). That inner function attempts to acqui=
-re=20
-ocm_lock again. Since Linux mutexes are not recursive, this guarantees a=20
-deadlock.
-
-> +}
-
-[ ... ]
-
-> +static int lt9611c_parse_dt(struct device *dev,
-> +			    struct lt9611c *lt9611c)
-> +{
-> +	int ret;
-> +
-> +	lt9611c->dsi0_node =3D of_graph_get_remote_node(dev->of_node, 0, -1);
-> +	if (!lt9611c->dsi0_node)
-> +		return dev_err_probe(dev, -ENODEV, "failed to get remote node for prim=
-ary dsi\n");
-> +
-> +	lt9611c->dsi1_node =3D of_graph_get_remote_node(dev->of_node, 1, -1);
-> +
-> +	ret =3D drm_of_find_panel_or_bridge(dev->of_node, 2, -1, NULL, &lt9611c=
-->bridge.next_bridge);
-> +	if (ret) {
-> +		of_node_put(lt9611c->dsi1_node);
-> +		of_node_put(lt9611c->dsi0_node);
-> +		return ret;
-> +	}
-> +	drm_bridge_get(lt9611c->bridge.next_bridge);
-
-[Severity: High]
-Does this code leak a module reference to the next bridge? The reference=20
-acquired by drm_bridge_get() here is never released. The driver's=20
-lt9611c_remove() function does not call drm_bridge_put() to balance this,=20
-meaning every unbind/rebind cycle leaks a reference.
-
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static ssize_t lt9611c_firmware_store(struct device *dev, struct device_=
-attribute *attr,
-> +				      const char *buf, size_t len)
-> +{
-> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	lt9611c_lock(lt9611c);
-> +
-> +	ret =3D lt9611c_firmware_upgrade(lt9611c);
-
-[Severity: Medium]
-Is it safe to hold ocm_lock during a synchronous firmware load?=20
-lt9611c_firmware_upgrade() calls request_firmware(), which can block for up=
- to=20
-60 seconds on VFS and user-mode helpers. While blocked, the IRQ threaded=20
-handler and atomic commit callbacks will be starved as they contend for the=
-=20
-same mutex.
-
-> +	if (ret < 0)
-> +		dev_err(dev, "upgrade failure\n");
-> +
-> +	lt9611c_unlock(lt9611c);
-> +
-> +	return ret < 0 ? ret : len;
-> +}
-> +
-> +static ssize_t lt9611c_firmware_show(struct device *dev, struct device_a=
-ttribute *attr, char *buf)
-> +{
-> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
-> +
-> +	return sysfs_emit(buf, "0x%04x\n", lt9611c->fw_version);
-
-[Severity: High]
-Can dev_get_drvdata(dev) return NULL here? Sysfs attributes are added via t=
-he=20
-dev_groups member of the i2c_driver struct, meaning the driver core creates=
-=20
-them before the probe function finishes. In lt9611c_probe(),=20
-i2c_set_clientdata() is called very late. If userspace reads this attribute=
-=20
-concurrently before probe completes, this will dereference a NULL pointer.
-
-> +}
-
-[ ... ]
-
-> +static int lt9611c_probe(struct i2c_client *client)
-> +{
-
-[ ... ]
-
-> +	lt9611c->bridge.hdmi_audio_max_i2s_playback_channels =3D 8;
-> +	lt9611c->bridge.hdmi_audio_dai_port =3D 2;
-> +
-> +	devm_drm_bridge_add(dev, &lt9611c->bridge);
-
-[Severity: High]
-Shouldn't we check the return value of devm_drm_bridge_add()? If devres=20
-allocation fails, the bridge won't be added to the DRM bridge chain, but pr=
-obe=20
-will continue and return success. This leaves the subsystem in an inconsist=
-ent=20
-state.
-
-> +
-> +	/* Attach primary DSI */
-> +	lt9611c->dsi0 =3D lt9611c_attach_dsi(lt9611c, lt9611c->dsi0_node);
-> +	if (IS_ERR(lt9611c->dsi0)) {
-
-[ ... ]
-
-> +static void lt9611c_remove(struct i2c_client *client)
-> +{
-> +	struct lt9611c *lt9611c =3D i2c_get_clientdata(client);
-> +
-> +	cancel_work_sync(&lt9611c->work);
-> +	regulator_bulk_disable(ARRAY_SIZE(lt9611c->supplies), lt9611c->supplies=
-);
-> +	of_node_put(lt9611c->dsi1_node);
-> +	of_node_put(lt9611c->dsi0_node);
-> +}
-
-[Severity: High]
-Does this leave a race condition leading to a use-after-free? The IRQ was=20
-registered via devm_request_threaded_irq(). Because there is no explicit=20
-disable_irq() call here, the interrupt line remains active until devres=20
-cleanup runs after remove() returns. If an interrupt fires after=20
-cancel_work_sync(), the threaded handler will run, re-queue the work item, =
-and=20
-attempt I2C access while the device is unpowered.
-
-> +
-> +static int lt9611c_bridge_suspend(struct device *dev)
-> +{
-> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	dev_dbg(lt9611c->dev, "suspend\n");
-> +	disable_irq(lt9611c->client->irq);
-> +
-> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> +
-> +	ret =3D regulator_bulk_disable(ARRAY_SIZE(lt9611c->supplies), lt9611c->=
-supplies);
-
-[Severity: High]
-Should this flush the workqueue before disabling regulators? If an interrup=
-t=20
-fired and scheduled lt9611c->work right before disable_irq() was called, th=
-e=20
-work item stays in the queue. When it executes, it will trigger an I2C read=
- in=20
-lt9611c_bridge_detect() while the device regulators are disabled, leading t=
-o=20
-timeouts or a kernel panic.
-
-> +	if (ret)
-> +		dev_err(lt9611c->dev, "regulator bulk disable failed.\n");
-> +
-> +	return ret;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-lt9611c-v7=
--v7-0-7553a14735fc@oss.qualcomm.com?part=3D2
+Kind regards
+Uffe
