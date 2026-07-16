@@ -1,140 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77871443AAB;
-	Thu, 16 Jul 2026 17:34:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719D0376BD1;
+	Thu, 16 Jul 2026 17:34:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784223241; cv=none; b=Fsqi9pDx+MjfdgLEDXgSjOoh1xxkWrYv1ThPY5/0vuqV638a0quOKhoRId/nF8suiK3Pfm1uCc8loTFNQaXM74tpUyDKANLoycqU5SYs2GIm/6MoldYWYFew4BkwXtaKjd2WJaLcQM4RIbscskvIfEDmN69uaZ2W4exIJI4t+KA=
+	t=1784223262; cv=none; b=JQrxQxg8YaKSy1skrSViAx/H5imArOjz9+P6+b7MFYbkSDyl6Cwxlg6gz4cRsQ+kP2OpBduUtLZelwfuxW4Qi+YK+p1xa2vLM7KWQSgZssyzGQWeuZJgXSHG5uk81kLXUkZzXJurvn5SRjZbFbO8RD6UINaH3GYDhx/TQBGaFHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784223241; c=relaxed/simple;
-	bh=X3GV4AiZV+W+pFo2WiI0Op1tOYU9RX+hA0pNH+I/Ud4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MLMwaAFvA8i2opIhy/R1lQG3y7HquX70DTwh2irHtdsA0Ta1vaFF7PaMubHsEt11TaXnLFuzINSO8E8fAWqrNrxIolB9I7ffxRL8B9zHhclnFqgP7JM9iVpLweCVdZoL+TnVm3vgQaGaBDfPXV//+JdXvt5ZovCz/ZS3pRnJ/ZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KCMJ+gJ0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784223262; c=relaxed/simple;
+	bh=LdUVk/NYwiBLxejC3EguQWO9elJf87/PL/iYCAtTcfo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jjhTAbm9TWjHy+LZaaT5LLS6mbmpqZ0pKVPkZC5tZvA2iTPW+/fSKvQdmnv5nu5UnsaogLvjsaFBhi3ml403bS9XHdbeM6O5YR1zdjEpVp1D9cLSC2hJzhGjbYRFrR9sDhScJ2a/XswVU23cCJ0G5AV4fZlRy+alXmTQvNpzn0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mKgCzg6D; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KCMJ+gJ0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D43221F00A3A;
-	Thu, 16 Jul 2026 17:33:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784223240;
-	bh=HcrrA1szM2krCv1NQmmOx1FQnJPguN48pUQs778ezNM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KCMJ+gJ0a9Q2eNSS5J3mo3DdYZkLBwbP7EvmGh32/zJDlKU8yE0ZW3aSybpFbWe0E
-	 QIRIni+AN7PjdJ9+WzN1AfapZNDocScTX6GIVpa1YS7u0J8QjQJoh6rpGU0LIv1KXS
-	 Wr7J6HLq5BOc+oK1d+W4A7jP4Q/sJcTOisc56VMplblkOxnn0aCpV6JL9VlOpzMZkT
-	 pm3aortUH2GWgOd9ED/wF3qHyybCjAF7oc6rDsjWejDZD6NRBVWoxI7XbhUzzyOk/O
-	 gBa5ETpRbdrI1wSO0vFJowUERsGwh7YIt00hVlEyU8zVogkyCIasHGZIowzPS4AII/
-	 24s28w5dPjSkw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 3/6] PCI: Use standard wait times for PCIe link
- monitoring
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Thierry Reding" <thierry.reding@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-pci@vger.kernel.org
-In-Reply-To: <20260716-tegra264-pcie-v8-3-23e51589229b@nvidia.com>
-References: <20260716-tegra264-pcie-v8-0-23e51589229b@nvidia.com>
- <20260716-tegra264-pcie-v8-3-23e51589229b@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 17:33:59 +0000
-Message-Id: <20260716173359.D43221F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mKgCzg6D"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784223260; x=1815759260;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=LdUVk/NYwiBLxejC3EguQWO9elJf87/PL/iYCAtTcfo=;
+  b=mKgCzg6DcKtyYDsHoeqsXbHDrViEp97nshLRTEah6+ewLEyMLNM711NM
+   vxNmN3yNxHsYsatOLZb3KF4ZKWpd+urNWxCzNbEE6WJfHNle3bdSGWyyz
+   jmicErUrYh2TDFisdE001Q6pKH7DNGKxrtnnFvmVZwCOrm/jKOwYZlE/M
+   2/UFGnh83NoX38556M7jC3rLuUGfog+xELfHvCwVtcOs7GziXPQK+pCkc
+   k70kHQdYxrPzNFlP1N7dbXVLho3Odlxak0OtH4hVhIdlPpTdnwCayLEIG
+   w/FVpeOJdA0Hs0h7uyUWkIFaMICrmU512F1FGAgbnYHA4+uNJXjd51Mh6
+   g==;
+X-CSE-ConnectionGUID: 1tWHmOtvT6qN278eTUd8tQ==
+X-CSE-MsgGUID: NMDcAI4qR82H+tq4V8y9Vg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="85009567"
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
+   d="scan'208";a="85009567"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 10:34:19 -0700
+X-CSE-ConnectionGUID: G088pS9JRWCNCTzsqTnKsA==
+X-CSE-MsgGUID: jHS8gdqYTkewW49IH6KeVQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
+   d="scan'208";a="260157517"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.26])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 10:34:14 -0700
+Date: Thu, 16 Jul 2026 20:34:11 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Wei Deng <wei.deng@oss.qualcomm.com>, linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-pm@vger.kernel.org,
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v5 10/16] usb: hub: Power on connected M.2 E-key
+ connectors with power sequencing API
+Message-ID: <alkWE-bQ9gGIXIJj@ashevche-desk.local>
+References: <20260715085348.3457359-1-wenst@chromium.org>
+ <20260715085348.3457359-11-wenst@chromium.org>
+ <aleKQKH2V-ck-SX6@ashevche-desk.local>
+ <CAGXv+5Ed9Cn-NeHiXJ58er7NJs1P2ZUMrjqYac-gSky-TNV8Lw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAGXv+5Ed9Cn-NeHiXJ58er7NJs1P2ZUMrjqYac-gSky-TNV8Lw@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Thu, Jul 16, 2026 at 06:02:38PM +0800, Chen-Yu Tsai wrote:
+> On Wed, Jul 15, 2026 at 9:25 PM Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> wrote:
+> > On Wed, Jul 15, 2026 at 04:53:40PM +0800, Chen-Yu Tsai wrote:
 
-Pre-existing issues:
-- [High] readl_relaxed_poll_timeout() has an extremely short 100ms timeout =
-due to incorrectly mapped arguments, breaking standard PCIe link up expecta=
-tions.
-- [High] PCIe Configuration Request 100ms timing constraint is violated if =
-the link trains quickly after a fundamental reset.
---
+...
 
---- Patch [3]: [PATCH v8 3/6] PCI: Use standard wait times for PCIe link mo=
-nitoring ---
-commit dd424bc144818153a04d4fe26f753cd9432c9695
-Author: Thierry Reding <treding@nvidia.com>
 
-PCI: Use standard wait times for PCIe link monitoring
+> > >       fwnode_handle_put(dev_fwnode(dev));
+> > > +     /* usb_hub_create_port_device() could leave an error value */
+> > > +     if (!IS_ERR(port_dev->pwrseq))
+> > > +             pwrseq_put(port_dev->pwrseq);
+> >
+> > Hmm... I would rather make pwrseq_put() NULL and error pointer-aware, so
+> > it will be no-op in such cases. But I think Bart has his own opinion about
+> > this.
+> >
+> > >       kfree(port_dev->req);
+> > >       kfree(port_dev);
+> > >  }
+> >
+> > >               put_device(&port_dev->dev);
+> > > +             hub->ports[port1 - 1] = NULL;
+> > >               return retval;
+> > >       }
 
-Instead of defining the wait values for each driver, use common values
-defined in the core pci.h header file. Note that while most drivers use
-the usleep_range(), it looks like these were mostly cargo culted and
-msleep() is a better choice given the fixed delay that the specification
-calls for. Convert all drivers to msleep() and use the existing
-definition.
+...
 
-> diff --git a/drivers/pci/controller/pci-aardvark.c b/drivers/pci/controll=
-er/pci-aardvark.c
-> index fd9c7d53e8a78..272c5c8fc1e5c 100644
-> --- a/drivers/pci/controller/pci-aardvark.c
-> +++ b/drivers/pci/controller/pci-aardvark.c
-[ ... ]
-> @@ -350,13 +347,13 @@ static int advk_pcie_wait_for_link(struct advk_pcie=
- *pcie)
->  	int retries;
-> =20
->  	/* check if the link is up or not */
-> -	for (retries =3D 0; retries < LINK_WAIT_MAX_RETRIES; retries++) {
-> +	for (retries =3D 0; retries < PCIE_LINK_WAIT_MAX_RETRIES; retries++) {
->  		if (advk_pcie_link_up(pcie)) {
->  			pci_host_common_link_train_delay(pcie->link_gen);
->  			return 0;
->  		}
-> =20
-> -		usleep_range(LINK_WAIT_USLEEP_MIN, LINK_WAIT_USLEEP_MAX);
-> +		msleep(PCIE_LINK_WAIT_SLEEP_MS);
->  	}
-> =20
->  	return -ETIMEDOUT;
+> > > int usb_hub_create_port_device(struct usb_hub *hub, int port1)
+> >
+> > > +     port_dev->pwrseq = usb_hub_port_pwrseq_get(port_dev);
+> > > +     if (IS_ERR(port_dev->pwrseq)) {
+> > > +             retval = dev_err_probe(&port_dev->dev, PTR_ERR(port_dev->pwrseq),
+> > > +                                    "failed to get power sequencing descriptor\n");
+> > > +             goto err_put_kn;
+> >
+> > OTOH, how pwrseq can be non-NULL and at the same time port be created?
+> 
+> I assume by non-NULL you mean returning an error?
+> 
+> device_register(&port_dev->dev) is called some lines above this.
+> 
+> usb_port is weird in that usb_hub_create_port_device() does a bunch
+> of stuff that is normally done in a driver's probe function. However
+> usb_port's driver is just a stub driver add for userspace compatibility
+> reasons. See commit d99f6b4130877 ("usb: rename usb_port device objects").
+> 
+> So at this point the usb_port device has been added to the driver model.
+> Or we can just zero out port_dev->pwrseq instead? I guess that is cleaner
+> than having some weird check in the release function.
 
-[Severity: High]
-This is a pre-existing issue, but does this violate the 100ms PCIe
-configuration request delay specification?
+So, why do we need to assign the error pointer to the field directly then?
+Make a local variable and assign it if and only if there is no error pointer
+in it. Would it work?
 
-In advk_pcie_setup_hw(), advk_pcie_issue_perst() is called to deassert
-PERST#, followed immediately by advk_pcie_wait_for_link():
+-- 
+With Best Regards,
+Andy Shevchenko
 
-advk_pcie_setup_hw() {
-    advk_pcie_issue_perst(pcie);
-    ...
-    ret =3D advk_pcie_wait_for_link(pcie);
-}
 
-If the link trains instantly, advk_pcie_link_up() will return true before
-any sleep occurs.
-
-For PCIe Gen 1 or 2, pci_host_common_link_train_delay() adds no delay,
-causing the function to return immediately. Doesn't this cause Configuration
-Requests to be sent before the mandatory 100ms window has elapsed after
-a fundamental reset?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since this series cleans up
-cargo-culted delay values across drivers, should visconti_pcie_start_link()
-in drivers/pci/controller/dwc/pcie-visconti.c also be addressed?
-
-It currently uses readl_relaxed_poll_timeout() with the same 90000 and 1000=
-00
-values:
-
-visconti_pcie_start_link() {
-    ...
-    ret =3D readl_relaxed_poll_timeout(addr + PCIE_UL_REG_V_PHY_ST_02,
-                                     val, (val & PCIE_UL_S_L0),
-                                     90000, 100000);
-}
-
-Because the delay interval is 90ms and the total timeout is 100ms, doesn't
-this allow at most two polling attempts before timing out? Could this break
-enumeration for devices that take longer than 100ms to train their link?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-tegra264-p=
-cie-v8-0-23e51589229b@nvidia.com?part=3D3
