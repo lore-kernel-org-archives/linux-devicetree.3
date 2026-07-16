@@ -1,47 +1,51 @@
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6EF3363C61;
-	Thu, 16 Jul 2026 19:24:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2259350A10;
+	Thu, 16 Jul 2026 19:24:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784229888; cv=none; b=QW+sCEK6lJBCs1mkqrBCX17yycNBYtcisOq/nnHusRe2Yf3QEMrr8l0ZqAzLAtoEP5Y1lyM+/DK8cJDSlaqVoQRK3XhguKC6V/91q9PSg2Sr3vGhVDQY18arNgWcoM6AIfRtkm9egmEZXRG8kdqaWVgcIcK9i28PK/ZwG9fKR50=
+	t=1784229889; cv=none; b=ez9nyQcwO7mLlZlCRc5HYVYZv1jtJDZsXDpjM8ZSe9rcPRla3R8ElwbD/Nc4Y3Yja7ruCTBeuDPnk0aHiiWNCvbtI2abbOTvX3VeE0CONJuSrNSmuea3gGTgE4gAQh1b8rVRyKhB13LtZ0JMXBMV07ZM8kUIA+DFRIauduFtVyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784229888; c=relaxed/simple;
-	bh=8gglT/d34VWMhgKIy/jZZTN716nfO5QiILpLFmblXZA=;
+	s=arc-20240116; t=1784229889; c=relaxed/simple;
+	bh=H0vujam9KZK1Tb02uDfWG2Rxr/H9M5whUU8qwep0xY4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ggx2cH+KzcnqsfpC1GvltSyUMIeaJApsRS/Hu6mrdskfEVz2Br36c2yUShc+ZtGtZB4jnBnCLjxwohQUGqQHzQOYtLfkAmZFf8SwayF5ywmYjIbM0fdl3wp8fDLV0KnUJA90MtXRwWAua02SsjrlTqEsiQitiHk99AgWvNOe0Yg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=VMpI8zO5; arc=none smtp.client-ip=185.11.138.130
+	 MIME-Version:Content-Type; b=bPc/OX4oLRP1BqTK+r3oZTdKU9XXhgsT1KvBauf7e6lYS/WpcjNprcJkA45mcSiacDWMqcpwaitR8GCe2CEIRMfpiDaQ31b9d6Oe0nPzvDeeYEpTwnBDau3/PPIJ+U0mD6pibdBGo8CTN0wcrzq9Qw46GqJflWVIiXqKaH3OmzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=L278ZaGZ; arc=none smtp.client-ip=185.11.138.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="VMpI8zO5"
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="L278ZaGZ"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=syf/c4xtfCw6J0qQudHZ7XrmyO59GTZhy9GPg7y846w=; b=VMpI8zO5PejSNJcUCtSLfLMhEX
-	fe0fBLLbq+OfIZTzY/pM5QLK4FL0MNVf5ef11MpBxFadwotDtU18xR+4PQ4f/bmEB70NdAXiny76C
-	uwhheG0+R4P09lAQTWDM8O9QzLrnXE4WHrVdmqU0iQPBiB5EP2ix1Yh+Wmu7wxmDBAw5UwMkopKgV
-	MhrqVxLt/sVDN8ERKtkuEl9WJnTXHGVSCKAvRdueitSbCEJBXf4NH1pdJa/6lP4u001aRL0Ykw9Ug
-	p/rsdb2LXuGvF0ClaFNjjDJL7LyLopwAVOE9cppQW/CNCd1izPfDZRpppvjXXZy/AMDoG0cjMYr3p
-	vOnEvjlg==;
+	bh=87h17Vm3Kg4e1AvNbenx3pMVHZ02lJjFNP0N/SI3OkE=; b=L278ZaGZ+l/HlGPc9/ZvDmVq12
+	9AsMVRfzZd1OFMD5Nsh6x/6Oo9XkBcGUxDXg+3/TA3CrC14fA2GOW+tQiq126G+3KCsx8EAY6ziA5
+	g+OA3jm+2H7jQPBokaJVz+RsvrEyQUZktrlMDEZZqKbGC5XeBb1D9ypwej7n6VaMF1cmqXBs+pdnp
+	17o4qLE7Jy5zVC5YM1aiydoJrBPlwnt/CJj/1WocYeYyYqcrgTs5wbcIY1hkJOuekd8f9JGeKtDoc
+	uZCM/SAXbuwYhWP3KuQp9zigUYue0YbDemdoc5oOrbus58IcTteBY39n/Ub66SmAGuw6UMLowHPpC
+	F1DxYiaQ==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: Rob Herring <robh@kernel.org>,
+To: Dennis Gilmore <dennis@ausil.us>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	linux-rockchip@lists.infradead.org,
-	Liu Changjie <liucj1228@outlook.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
+	Jonas Karlman <jonas@kwiboo.se>,
 	Alexey Charkov <alchark@gmail.com>,
+	Quentin Schulz <quentin.schulz@cherry.de>,
+	FUKAUMI Naoki <naoki@radxa.com>,
+	Peter Robinson <pbrobinson@gmail.com>,
 	devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] arm64: dts: rockchip: Add LCKFB Taishan Pi 3M
-Date: Thu, 16 Jul 2026 21:24:32 +0200
-Message-ID: <178422977234.2335819.5634374946197621892.b4-ty@sntech.de>
+Subject: Re: [PATCH v10 0/4] Add support for Orange Pi 5 Pro
+Date: Thu, 16 Jul 2026 21:24:31 +0200
+Message-ID: <178422977233.2335819.13925907620580546087.b4-ty@sntech.de>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <MN0PR19MB60918292CC2D566716815F26ACF92@MN0PR19MB6091.namprd19.prod.outlook.com>
-References: <MN0PR19MB60918292CC2D566716815F26ACF92@MN0PR19MB6091.namprd19.prod.outlook.com>
+In-Reply-To: <20260511025352.106126-1-dennis@ausil.us>
+References: <20260511025352.106126-1-dennis@ausil.us>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,27 +56,29 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 14 Jul 2026 14:53:20 +0800, Liu Changjie wrote:
-> Add the compatible and device tree for the LCKFB Taishan Pi 3M, an
-> RK3576 board. The device tree is based on the published board
-> schematics and only enables interfaces exercised on the hardware.
+On Sun, 10 May 2026 21:53:46 -0500, Dennis Gilmore wrote:
+> This series adds initial support for the Xunlong Orange Pi 5 Pro, based on
+> the Rockchip RK3588S SoC. The board features eMMC, SD card, NVMe (PCIe),
+> a Motorcomm YT6801 NIC (PCIe), WiFi/BT (BCM43456), HDMI connected to SoC
+> (Second port is disabled in this patch), and a 40-pin expansion header.
 > 
-> This series depends on the separate net-next series:
->   [PATCH net-next 0/2] net: phy: Add Maxio MAE0621A support
+> The series was tested against Linux 7.0
 > 
 > [...]
 
 Applied, thanks!
 
-[1/2] dt-bindings: arm: rockchip: Add LCKFB Taishan Pi 3M
-      commit: 2df7f27058018463e1f38a6e4c53cf551130bc4a
-[2/2] arm64: dts: rockchip: Add LCKFB Taishan Pi 3M
-      commit: f35d9eebeee5268289f0b9e424a651907a27b575
+[1/4] dt-bindings: arm: rockchip: Add Orange Pi 5 Pro
+      commit: beca9854e249515fb1ff4c575c875a85df9961dc
+[2/4] arm64: dts: rockchip: rk3588s-orangepi-5: rename PLDO regulator labels to match schematic
+      commit: f724b899d0f30d78a7b2c3f025aa826cd3f5eccd
+[3/4] arm64: dts: rockchip: refactor items from Orange Pi 5/b to prep for Pro
+      commit: d20f5368a4db0a70a5a7d3deb06553aae61f4ac8
+[4/4] arm64: dts: rockchip: Add Orange Pi 5 Pro board support
+      commit: 4d6c68f39300bc52dacd204d08a4470ab2524726
 
-I resorted some nodes, to match the alphabetical sorting
-and dropped the maxio,clk-out-frequency-hz property for now.
+Sorry for the wait.
 
-Please send a follow-up patch, once your phy driver series lands.
 
 Best regards,
 -- 
