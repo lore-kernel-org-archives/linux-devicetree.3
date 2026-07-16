@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE1B433BCB;
-	Thu, 16 Jul 2026 16:49:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38239433023
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 16:49:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784220566; cv=none; b=n66n3L4k/zEokmZt/sN/4kPv4O/LE5xoJmT5qJ/0ryq540hBwlmedpF2ZfBNUnl/TSowPCl3+8x3uM2gELb1Kia2Df4l818BPe/f7ArtnwUhs74eMaaDTkUNbJNgk8M5b3tmG4aOUoMxyLOZUs6XqX3fPu1bHox4f8hxqGiG7AU=
+	t=1784220588; cv=none; b=NSjgQG+Yj7TV/FPvcw6EYR7iDIttagUTX7As2UaX2K0QNRu5PU4NgiSnamhMV+CG6SkoezhnmJ0Nuw5YFH6wfN+oUa0WbyNN2l2MKU9N0tUVgLkiV37Sl09uGa3zy3re94CvuGcHbkGQfgEEeNYx8dLxt85DVKlCjKxF5rR7bKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784220566; c=relaxed/simple;
-	bh=lRrwvZp09I4N2JdAcsrG0rbgsxZ/VlDINPJPkxxPSL8=;
+	s=arc-20240116; t=1784220588; c=relaxed/simple;
+	bh=vcuWSrgAk4xVd5ZKmezxW+ff0+3crAxOUWNt9354EEM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WCnsKsSHphtb87sw6JnfRbidUk0EEm9qaNmVC8r2XMdGCVS1byT4tYAK7tX01rqeqSCbMOJKIxxpSzw1oJMlLWdb6oz5cDibYPocoMuhTRFS9d9rM9jtknYUahJJZjJv2ZTGrLPcAomn8U0BaBilV75oPMjPWaXn/4lEvbuXw4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CWe7jNp7; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=uof0g6NYmoua0xga+onwSguzgb9EsF6RnuS4kpQsiWTigB2R1fDZLvj2hJq9+2X7wxPwl+PrtMr2T/x5YKKl22fmQsEKU6Rc21iq1+rEPuGDDomdZYywa/0G9qKKaddyVSEAHTte4M3IvshppGC3prKLDEBjneGXV0xXF+2IktQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ngVlraR5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CWe7jNp7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFB991F000E9;
-	Thu, 16 Jul 2026 16:49:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ngVlraR5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65B6E1F00A3A;
+	Thu, 16 Jul 2026 16:49:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784220557;
-	bh=718xPuGkWNlVfDlj4YGOOqYAOLW0WJDpHZTYeJoVSJI=;
+	s=k20260515; t=1784220573;
+	bh=P+h2ZUmgdO6PTMULZbmbJBd6jtlaO2eHfoHPAoP5cr8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CWe7jNp77lByXOL/kYCSaCFNmCruXrQu4QGbLI0csFDYo9xp+cjG12y/ZT/8Cshvp
-	 jiw9xi9yhnb0Vtha9Lz6Q9N617+8kDgsy2YHISM/5xZj03NelrtTbBL03lVDYcHzz0
-	 sskoRhSCujZwuA9TJOXipVeY3TFICZ09iyeI8Hz2lKX1/72n9wvEYjsU9Jm1ofwH44
-	 oIIpquWHGhPZuZKbqgUJwTRmxw9XoAcj6E/8OdIs23F1k42jMft6MsBsGSb6evAkNN
-	 vwE1xMe1uRWLxa9F+Y+Ae/LjxczSgTfDzUxt7KTutUFYd7MZzKPS7N371055DjaFNb
-	 0ubuODX+xuN5Q==
+	b=ngVlraR5FPd1bBzNzWc8yIIvR4dPDvRZfvfRYQFz1bFmKNQMl/htvMnnX0JtG4VEW
+	 EnF66JNPnYdlyeSM5zq4JVSy4J2GVJZZVZxE0EqiVnfqwluiZmPs3etgokNAzpLKht
+	 JQ6VdUWLwaKHwXM6BOjSdvWPvQtE/voIpWTPie3rlsAESXrU2hg8qdxhjJaFWEwEaW
+	 PC4ewdsSQRaFOOErLj1wcb9NlZAcSDnZawEsF87NkiRUMeEuKTZUSyhpGtKM1JrpB3
+	 oD6Vzq+/qY+z6z3D/FjGVGb/IiR5hYOuMItU+FMi/CzAegOI+DpGv7MxQyCcs4Dj7X
+	 f3ik9Npa1HDdA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/7] dt-bindings: watchdog: mediatek,mtk-wdt: remove
- mt6589 fallback items
+Subject: Re: [PATCH v2 2/2] arm64: dts: rockchip: Add EmbedFire LubanCat 4
+ board
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Akari Tsuyukusa" <akkun11.open@gmail.com>
-Cc: linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260716161923.266315-5-akkun11.open@gmail.com>
-References: <20260716161923.266315-1-akkun11.open@gmail.com>
- <20260716161923.266315-5-akkun11.open@gmail.com>
+To: "Pufan Jin" <2254650260@qq.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <tencent_D22A164B3AEEA50562C1EC988862BA827A09@qq.com>
+References: <20260705135014.1004166-1-2254650260@qq.com>
+ <tencent_D22A164B3AEEA50562C1EC988862BA827A09@qq.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 16:49:16 +0000
-Message-Id: <20260716164916.CFB991F000E9@smtp.kernel.org>
+Date: Thu, 16 Jul 2026 16:49:33 +0000
+Message-Id: <20260716164933.65B6E1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,74 +47,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [Medium] Removing the fallback `items` block breaks schema validation for=
- existing older Device Trees.
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the schema fails=
- to conditionally enforce `#reset-cells` as a required property for watchdo=
-g variants that act as reset providers.
+- [Medium] The PWM fan period is configured to 5000 ns (200 kHz), which is =
+likely a typo for 50000 ns (20 kHz).
+- [Medium] The PWM fan is not bound to any SoC thermal zones, rendering aut=
+omatic thermal management non-functional.
 --
 
---- Patch [4]: [PATCH 4/7] dt-bindings: watchdog: mediatek,mtk-wdt: remove =
-mt6589 fallback items ---
-commit 51d21b22f4b3e7a458ffe7ba34258074ee5dc9ac
-Author: Akari Tsuyukusa <akkun11.open@gmail.com>
+--- Patch [2]: [PATCH v2 2/2] arm64: dts: rockchip: Add EmbedFire LubanCat =
+4 board ---
+commit 1f3302a5304b9bff69dfd891bf8f0a9d2c32995c
+Author: Pufan Jin <2254650260@qq.com>
 
-dt-bindings: watchdog: mediatek,mtk-wdt: remove mt6589 fallback items
+arm64: dts: rockchip: Add EmbedFire LubanCat 4 board
 
-This commit removes the fallback items block for the mediatek,mt6589-wdt
-compatible string from the MediaTek watchdog binding. It retains only the
-flat enum, under the premise that all DTS files have been converted to
-standalone compatibles.
+Add device tree for the EmbedFire LubanCat 4 single board computer,
+featuring the Rockchip RK3588S SoC.
 
-> diff --git a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.=
-yaml b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-> index f4eaa5f7c5bc3..2411c02f1cb0f 100644
-> --- a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-> @@ -42,21 +42,6 @@ properties:
->            - mediatek,mt8195-wdt
->            - mediatek,mt8365-wdt
->            - mediatek,mt8516-wdt
-> -      - items:
-> -          - enum:
-> -              - mediatek,mt2701-wdt
-> -              - mediatek,mt6572-wdt
-> -              - mediatek,mt6582-wdt
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts b/arch/a=
+rm64/boot/dts/rockchip/rk3588s-lubancat-4.dts
+> new file mode 100644
+> index 0000000000000..0eae4b7d85e54
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts
+[ ... ]
+> +	fan: pwm-fan {
+> +		compatible =3D "pwm-fan";
+> +		cooling-levels =3D <0 100 150 200 255>;
+> +		pwms =3D <&pwm0 0 5000 0>;
 
 [Severity: Medium]
-Will removing this fallback block cause validation regressions for existing
-older device trees?
+Is the PWM period here intended to be 5000 ns (200 kHz)?
 
-If users run dtbs_check against older device trees containing compatible
-arrays like "mediatek,mt8516-wdt", "mediatek,mt6589-wdt", they will now
-fail validation.
+This is far above the standard 21-28 kHz range specified for 4-wire cooling
+fans, which can cause the fan's internal controller to misinterpret the sig=
+nal.
+This can result in the fan either running at 100% speed continuously or
+failing to spin at all.
 
-[ ... ]
+Could this be a typo for 50000 ns (20 kHz)?
 
-Looking at the required properties list further down in
-Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml:
+[Severity: Medium]
+Does this node also need to be bound to the SoC's thermal zones via a
+&package_thermal override?
 
->   '#reset-cells':
->     const: 1
->=20
-> required:
->   - compatible
->   - reg
+The fan defines cooling-levels and #cooling-cells, but without being bound =
+to
+any SoC thermal zones, the kernel's thermal subsystem will not automatically
+adjust the fan speed when the SoC temperature rises.
 
-[Severity: High]
-This is a pre-existing issue, but does the schema fail to conditionally
-enforce #reset-cells as a required property for watchdog variants that act
-as reset providers?
-
-If device trees omit this property for reset provider variants like
-"mediatek,mt8188-wdt", they silently pass validation. Dependent subsystems
-relying on the reset line will then fail at runtime when attempting to use
-the undocumented functionality.
+> +		#cooling-cells =3D <2>;
+> +	};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716161923.2663=
-15-1-akkun11.open@gmail.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705135014.1004=
+166-1-2254650260@qq.com?part=3D2
