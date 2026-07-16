@@ -1,213 +1,139 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013015.outbound.protection.outlook.com [40.107.159.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16B1E42A783;
-	Thu, 16 Jul 2026 14:27:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784212059; cv=fail; b=gQpwSTi3gyVFHbR+QaVmppCpahYNV5gO/unMhX2P6uwsCBjbb/Gohynr/r/aFrEFH1dPcoYag/8wnZjTKx0eaB+Y/0rl5ap5LRiG58Cmva+YU5IGm8ynT1HfaSoHJFJwH4Zf4SEHbBtGSHZ03EfSadhRyH6wm5V/cE+/5oQoMfE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B2EE42A7AF;
+	Thu, 16 Jul 2026 14:27:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784212059; cv=none; b=ENJhVh0Y8mQdymOFz3d1oI/Vva+my0PO+lQZB07bqED3ZEEJbcLDa0EEVv8MOUMUm35P1eMHawkWvPUPR4s22vF8o6TFHVeHe0w1kAjWn0+LyjJshqnEN/AnYhjahB7eMKSgTQ9bLvj5WkocECbcrz81eOh5EpE4pMzbDpy3MGo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784212059; c=relaxed/simple;
-	bh=05vpYCMF5xMzWY7QjuSCFgrIcTh7+lxR9sEvZxvhk3k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=UIjOxkSEFKruOXUAfX5V3b/4ALrjpllqRAJaZdWozf7uESs1mnzGjJiHt7O2Igyy/bLiQwRdZt3jy0srop4U/IMaxmZONxGcoXCoue1Hvxm3eshmfX3s7BYmm0KZZghKElSSdQTAyx7E85eOOv6xZ6FAGcvHZMe3bI9w6oX3qkA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=iAQa0TbB; arc=fail smtp.client-ip=40.107.159.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	bh=1kJPsUhjqQy7HL6f355QrtUA/EB1oBtabhfwUM3eI2M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=X/OS9a1mBRRwh8sOE/C86YfU+nSMtQnn9lqJBvJoyzfn05qeM+kRfZ1mj8EkdI8FGRi86FTqMGkG42kF4vQ/Xwxt9gx3uIwdM+LADkrwRkL7S98yXVxwZP89Hfne9z6ydGEGUNU1HB4OLE10iG68n5BooSNWDUd0/TQFuUeqcjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XFAa2WZJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="iAQa0TbB"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JPEDlxDDR/LRt0snYO544C9wnMXUiY2fivW+hsWGbXO3cZpMLu9nw2pXgTz66D2WOKsApzodwQbbkeql+AL51rKsXMMpIimqnpIQtC9AC1dVdd29ERDaBNQUqUtMukCug0rKtrC4GnADfs7U3STbBe0bPaFGQLHLYL/3QhxmOqf3gDF8IbCTFk166h0m762SvsdXg1quIPCrDON1NzjrOXt1twQ3fESiLgMJpFFruwqhPsWMyz58Owve8RrJpNXwjjOxy0iSDASi2kQmfBD5GRUDHUMSLNBgbsMSfYo+sqFMSOsxTwkFofTRomhXB1Y2YTtdIx9UTYZuBE44beCZrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NmPXYIgXudJdk7ilCxuMA28BkeiLmN6JDPGWMpU9QJ8=;
- b=YWJoA5SHlcsN1tLuH1uqnIxZdFbCkAsqoa3EQoxQUtnmR/7TT0b/8gEFrDYUe4W5KPKWB82SWoZHoTPL2KuudqX270rtjlPqJJhD7xofvgGjJ6Tnn1RPSKb+E22HOuhL33VrOSUaTKUDXKa7fP61EJShABa3FRiquJcfaTcUysp6VRj+fdtNXk0TICqhmWQyO+YYnhbaqnOOVpZraq4E8zQ+Vu4H0OvFJXf5WP1TXcKuvM7MSHBaHFYX5LLzxo9dqs+dLPDfEFKNrd2ule2ifoiZbo1h9xv8SDZsdpA6fsw+xne+AC+IjcmIIxVLt5Vtv6eoFgRuR3dL2lXT2HxiVA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NmPXYIgXudJdk7ilCxuMA28BkeiLmN6JDPGWMpU9QJ8=;
- b=iAQa0TbBsKhSopoZm5kxwGFkECvQgmzBcAfS0YEL5rHnw0FzmPMkkBHuvYzlE9gqYOof31oujJx/QUgQHlEhmtk4SPK0YwEW3wJEDLyt3Akui+8iiKHTzIGTEIbGobzt94In32Qtgp4jjU4KX79/51uGFlFm3dN2konW8F3yPQsDh6l7WdY10JyhBPfl4fvsnDjjs1PSHZSwEcA6R3+lZKyhP2GsY4SqlyzM1mbFuevmWuLLe4nIf3X289wsmJWcjh2Rl7qM/2OviXFdkkI6P1mX1HzespOgF8ExLrESohHxIPFD5wPE+tEGoefgBNIrleQ+6j+aGHH/LiARMmaXlg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DU2PR04MB9148.eurprd04.prod.outlook.com (2603:10a6:10:2f7::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Thu, 16 Jul
- 2026 14:27:34 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0223.011; Thu, 16 Jul 2026
- 14:27:33 +0000
-Date: Thu, 16 Jul 2026 09:27:25 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Joy Zou <joy.zou@oss.nxp.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Ye Li <ye.li@nxp.com>,
-	Jacky Bai <ping.bai@nxp.com>, Peng Fan <peng.fan@nxp.com>,
-	Dong Aisheng <aisheng.dong@nxp.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 1/3] regulator: core: use system_freezable_wq for init
- complete work
-Message-ID: <aljqTb1SGP487wJz@SMW015318>
-References: <20260716-b4-regulator-pf01-v1-0-8c1519d54bd4@oss.nxp.com>
- <20260716-b4-regulator-pf01-v1-1-8c1519d54bd4@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260716-b4-regulator-pf01-v1-1-8c1519d54bd4@oss.nxp.com>
-X-ClientProxiedBy: SA0PR11CA0051.namprd11.prod.outlook.com
- (2603:10b6:806:d0::26) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XFAa2WZJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59F511F00A3A;
+	Thu, 16 Jul 2026 14:27:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784212058;
+	bh=wDjHvX2K3HpCs9NBajlM2JHwmELJGRbPoXUJ7ZuL9TY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XFAa2WZJSAYIoiLx2V6HfT894RE7MeN/DxcfjTJ7kUaL1TdDsPqdU7HPdWpQF8TgB
+	 xIiS0TIpgD2n0y+AgkYhDwW2gdYaCFEf5Te7UolGHT3CwBr2K6HwAYx4i5tO6h7o47
+	 kyRvcYVxu3cqj8kU16aLYjmJY3muB6vi+MQ+HXU10zKiMsCJxs/HTJj6OM5E3QTi2R
+	 hVNCy1zt9j/ZFKVhFfkTf0bP3DAJsmBTJHtJ/Ha9hmmb+3H0Ranqscz3Uc9tXKfBRC
+	 PoC/d8ojQO/0qv5+hGvj7s9NrqXQj400RSiggupkZ7dUpN/+bXjb7HBH20v5I7Zy7J
+	 l9o+BqcqzOgzg==
+Date: Thu, 16 Jul 2026 16:27:19 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, 
+	Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+	devicetree@vger.kernel.org, Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Subject: Re: [PATCH v3 04/11] power: sequencing: pcie-m2: Report power
+ controllability
+Message-ID: <txl2wo47ftsaqwh32x63kmhqwqjx5xpszoazccyeqdqmjzh2rv@ocev6u7vzdiq>
+References: <20260710-monza-wireless-v3-0-46253587af64@oss.qualcomm.com>
+ <20260710-monza-wireless-v3-4-46253587af64@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU2PR04MB9148:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0fc0a1ce-a08d-4b5e-3046-08dee346602d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|19092799006|366016|1800799024|6133799003|56012099006|11063799006|10067099003|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	mWnTIangnnGCa0NryFPD0uaP//BMo0jfG7by9ZlbK4YWBDmlGSWTANPErmZoqrEEn+bvoAi5cnWdikUo8msduJpl+lDh1FMknNJ/p6SKMTPN3Q69I1VQitjsRLoceo/r88CVW0J62tpj5dyJqU2kIUWrXACKic/Ya1xt7aLWOUeFD9vjaUXGxoMTrovbq9IzUdAbBC+MB+5z80ErI0FxuL7h6qVJY9qTJiKfcv465cPQ7eCasPkMPx6eT8CvwDKLzYh6urwwhzpAWhoy9bozIfZgvB+glZugqL4SzZL+cZVyef5Wt3PZ5gXRBBEY8wPDZWRL37MN9oURgo5O6YCHiWLJOuLmyazayIzL9xjrRBCWej4ACGBXwsleQPdEu8wI4e+hoohizcLVdJgY1X87UIx/sPFAgiajyoXsoy8QHCt330rt+dly4C9ADj8TyaqfwFBleyqT1nDZ5/Y7rOdHeO7HfoH7znQdWmtSFh507WhcJMoFwRCS+ByjX8BzoO9mN6bPWC+RSumBNvcFjUxd3qNYYRZBW/F9rJpiYdc9R8Uo9s8P7vnQj0PmvSSwf1H07i+sSsb2QsSB7lfnwBwVY5O4Eye3GuU6cBwJVM3CLwvuz7eCWVtd4a8ARR50EZ/rtyAclTdjQvV34E2K1WuI6GQQSBMsw4g/PYd3E4yQtkM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(19092799006)(366016)(1800799024)(6133799003)(56012099006)(11063799006)(10067099003)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?c0ucm4i0vpumJ7WFRHJcSYU4uQtiKFN4zTZ688vLR6AnG5Q4E3shqDvEsJsR?=
- =?us-ascii?Q?xKb3tpxZ7WKiMR2h5+CfpPfjwI69lI+DZCHtrywsq7wEPM0hKCs+Q40EPr7f?=
- =?us-ascii?Q?RFa2/QOmZEqFOJ9BwL/1bllClDqLjvecAFCi25LfXHk19NojuYPabIPXTidj?=
- =?us-ascii?Q?IYqfRH3lDw0E9DVIypLGGITQHV8MHso58kRgqPsXaQC7yqLWz5yXVa7Xahob?=
- =?us-ascii?Q?gioOpPTVbx0e4zoxzTKvCaOFakBOwuAS/8TdtxEDssUQCzkRstwbqt/JeKpf?=
- =?us-ascii?Q?gQEzdy2lczg+4L6lVYD34t+a0eN4+8xhiogwS1pB5r/fmYOg5aYNwpgn3iwF?=
- =?us-ascii?Q?rY7oMVU259S/Hoc7oNhJPuC1jRjTICg0tDjZn+rxqVpJIKM20zvNJfnrRMLc?=
- =?us-ascii?Q?QPBMaC8kloV3sVtBu/zlC94RCNC1aeevq3BbmL8TqNFQU4YNQzKxkWfjWfFN?=
- =?us-ascii?Q?1MA2THRWj9lyE1vUa2LhU6PKQv9+ktL7IiQ+0KrQ7prBXytJGcUf5ukHlyUG?=
- =?us-ascii?Q?CNi9Z0OK6otlnWxzuWZ0juetPVj3m/Q9/bgCFhQtpIZC36QwXRE3SCMrCwjV?=
- =?us-ascii?Q?EDNRoCGN/t0vy4QnFTBdyTzgP0hQlSHKqFmsO4XI/vp7Ojb53YQkuVd3QvwS?=
- =?us-ascii?Q?LWgliBCMgLmvY/T32bLgmSSb5D/LgpGLhmfVxQO/tpfTS5QUEfblpBtv/CoA?=
- =?us-ascii?Q?X2Q74niqQ/9RlS+t4yXI9tohw/3dFyn1WDGS1C51ksZF2OohjKOQQfKUKPV8?=
- =?us-ascii?Q?OqYJa+v2qvAkP6ksh2F+I0lmT1OhxdwaCWgkVJkFN1MIF2UhgcT9d2MjH1jz?=
- =?us-ascii?Q?o9gLjEV2zZ6HbM/dx8mGZIfKeuHbjOT87zjBlJOFCWp2kQDmGeVP7iyEN9FL?=
- =?us-ascii?Q?gGYl4PLBG1304IAvAx/bCa12xnBbLNbFOzqXu3AToffdOcPFgh4qKqOFd+5E?=
- =?us-ascii?Q?H8v7h1knPIsUUmwBy639eORqF+HQl74A+r+AtNTTNUBC6TBuFtYEkTWfYyb3?=
- =?us-ascii?Q?Lls9ftDo9I7Bee3tNXblzLYHMJBUvbovcJd5Axm+uauksGteRN7rTZ8NmWGq?=
- =?us-ascii?Q?0k2Uma/XNUjVUQJMPrCKU0H7vdN9uIaPk7J7grow9s/+4aNOqMlS4UxM7JPu?=
- =?us-ascii?Q?7qPuz+A+oaVku1Bqf5csHNlLTtwTI6SvZadkXhbQLnCg1FViL8+w7QcNjJHn?=
- =?us-ascii?Q?dP+5fwXPs2hU79lwbm6wonEDDSYz4VoT7puj4b4Op5UVMnDGaXLSf1BLnDJk?=
- =?us-ascii?Q?5LCwmlEPpaipz0fpyp8Nj6elreGW/IVWnnqXVDOQ6sM6Y14GgTgtmtGY6+wx?=
- =?us-ascii?Q?TJAlgnAokbWPs90Qou52mxYU8Xm4gcDV7IcpvtrCli9nuwSiJ4Id6LJwL0aq?=
- =?us-ascii?Q?hAjNq7wzGSJexMw/NmhejlIOvWaxUH5ID1/6NL8yJgObJ/galXqvhooyhbKE?=
- =?us-ascii?Q?dJ0zdCnRIENSCLJPBAcOHzq+j9Ys9IAlmxqKuQU4QY0qyDbb0FJ97mpN2dJK?=
- =?us-ascii?Q?q26+rRwYTcw2O4jtzshEDVr/9biGJtskpJCtcon/u4MZ18tXn5l1fkWOiNhX?=
- =?us-ascii?Q?zhJi9WGkX/czrioVGVAhc6bkI+3OkUFY3vQY/FnS7lDxyzbRfWoEjAfUVB3j?=
- =?us-ascii?Q?NAqbPL0yKWAETVoye1OmZ7dEGJ8BaY2oNxywv3xKgOo3x7XxBembFhz2JMBH?=
- =?us-ascii?Q?QN/AtOK9qTsjM6WAERQsvuXjmgf+MeqSqVpdXGr3v/oyGjpfpuqKfypeEaHQ?=
- =?us-ascii?Q?YSqRLMJNesR9QKuYCH5GuI0PcKQ961mLfep39SVeBGTMMSwfEFdl?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0fc0a1ce-a08d-4b5e-3046-08dee346602d
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 14:27:33.8287
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NfZFXNnwBwqUM3q2BToP5UJTlYbYqXusbcre1+rwyD1XsE5w46TiAEnv957rqaxXNt+2Q2Q783+DXJ9smTITismesIAwbEQd+BCopJDICGLw/TidTuCX1a2duQxGXGAA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB9148
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260710-monza-wireless-v3-4-46253587af64@oss.qualcomm.com>
 
-On Thu, Jul 16, 2026 at 11:50:53AM +0800, Joy Zou wrote:
-> schedule_delayed_work() uses system_wq, which is non-freezable, allowing
-> regulator_init_complete_work to run concurrently with system suspend. This
-> work fires ~30s after boot to disable unused regulators via I2C. When it
-> races with PM suspend, the I2C adapter may already be suspended, triggering
-> a -ESHUTDOWN warning dump.
->
-> [   33.707233] pc : __i2c_transfer+0x36c/0x3c8
-> [   33.707240] lr : __i2c_transfer+0x36c/0x3c8
-> [   33.707246] sp : ffff80008239ba50
-> [   33.707249] x29: ffff80008239ba50 x28: 0000000000000001 x27: 0000000000000000
-> [   33.707259] x26: 0000000000000000 x25: 0000000000000001 x24: ffff0000c025c0e0
-> [   33.707268] x23: 0000000000000000 x22: ffff0000c025c0e1 x21: 0000000000000001
-> [   33.707277] x20: ffff80008239bae8 x19: ffff0000c0f54880 x18: fffffffffffeb320
-> [   33.707287] x17: 000000040044ffff x16: 0000000000000000 x15: ffff800082086fd8
-> [   33.707296] x14: 0000000000000000 x13: 0a6465646e657073 x12: 757320656c696877
-> [   33.707305] x11: 0000000000000058 x10: 0000000000000018 x9 : ffff800082087060
-> [   33.707314] x8 : 0000000000057fa8 x7 : 000000000000027d x6 : 0000000000000000
-> [   33.707323] x5 : 0000000000000000 x4 : 0000000000000000 x3 : 00000000ffffffff
-> [   33.707333] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff0000c0123480
-> [   33.707343] Call trace:
-> [   33.707346]  __i2c_transfer+0x36c/0x3c8 (P)
-> [   33.707356]  i2c_transfer+0x6c/0xf8
-> [   33.707364]  i2c_transfer_buffer_flags+0x5c/0xa0
-> [   33.707372]  regmap_i2c_write+0x20/0x60
-> [   33.707382]  _regmap_raw_write_impl+0x5cc/0x660
-> [   33.707389]  _regmap_bus_raw_write+0x60/0x80
-> [   33.707396]  _regmap_write+0x58/0xc0
-> [   33.707403]  _regmap_update_bits+0x11c/0x140
-> [   33.707409]  regmap_update_bits_base+0x54/0x80
-> [   33.707416]  regulator_disable_regmap+0x40/0x5c
-> [   33.707424]  _regulator_do_disable+0x94/0xbc
-> [   33.707435] CPU2 is up
-> [   33.707433]  regulator_late_cleanup+0xe0/0x1e8
-> [   33.707442]  class_for_each_device+0x104/0x13c
-> [   33.707450]  regulator_init_complete_work_function+0x54/0x80
-> [   33.707458]  process_one_work+0x150/0x290
-> [   33.707467]  worker_thread+0x180/0x2f4
-> [   33.707473]  kthread+0x12c/0x204
-> [   33.707484]  ret_from_fork+0x10/0x20
-> [   33.707493] ---[ end trace 0000000000000000 ]---
->
-> Switch to system_freezable_wq so the work is frozen before any device
-> is suspended, eliminating the race.
->
-> Fixes: 55576cf18537 ("regulator: Defer init completion for a while after late_initcall")
-> Signed-off-by: Joy Zou <joy.zou@oss.nxp.com>
+On Fri, Jul 10, 2026 at 11:57:30AM +0200, Loic Poulain wrote:
+> The M.2 Key E connector gates its functions through the W_DISABLE1#
+> (PCIe/WiFi) and W_DISABLE2# (Bluetooth) signals. When a signal is not
+> routed to a host GPIO, the corresponding enable/disable callbacks are
+> no-ops, so the host cannot gate that function's power on its own.
+> 
+
+I think it is misleading to say that if W_DISABLE{1/2}# signals are not
+available then we cannot control the function's power. Power to the function
+only comes from the core 3.3v regulator, and these signals only enable/disable
+the radio (WLAN/BT) as per the spec.
+
+- Mani
+
+> Implement the per-unit .is_controllable() callback on the "uart-enable"
+> and "pcie-enable" units so that consumers can query this per instance
+> (based on the runtime presence of the W_DISABLE2#/W_DISABLE1# GPIOs) via
+> pwrseq_power_is_controllable().
+> 
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 > ---
-
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-
->  drivers/regulator/core.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-> index 1797929dfe56..d5d24a940f31 100644
-> --- a/drivers/regulator/core.c
-> +++ b/drivers/regulator/core.c
-> @@ -27,6 +27,7 @@
->  #include <linux/regulator/driver.h>
->  #include <linux/regulator/machine.h>
->  #include <linux/module.h>
-> +#include <linux/workqueue.h>
->
->  #define CREATE_TRACE_POINTS
->  #include <trace/events/regulator.h>
-> @@ -6882,8 +6883,9 @@ static int __init regulator_init_complete(void)
->  	 * we'd only do this on systems that need it, and a kernel
->  	 * command line option might be useful.
->  	 */
-> -	schedule_delayed_work(&regulator_init_complete_work,
-> -			      msecs_to_jiffies(30000));
-> +	queue_delayed_work(system_freezable_wq,
-> +			   &regulator_init_complete_work,
-> +			   msecs_to_jiffies(30000));
->
->  	return 0;
+>  drivers/power/sequencing/pwrseq-pcie-m2.c | 26 ++++++++++++++++++++++++++
+>  1 file changed, 26 insertions(+)
+> 
+> diff --git a/drivers/power/sequencing/pwrseq-pcie-m2.c b/drivers/power/sequencing/pwrseq-pcie-m2.c
+> index e3ba9169144dabbf0c553c0a4302c3b511fcaaa1..4bcd5078609da1be966ab30c73cffae5e578934f 100644
+> --- a/drivers/power/sequencing/pwrseq-pcie-m2.c
+> +++ b/drivers/power/sequencing/pwrseq-pcie-m2.c
+> @@ -84,11 +84,24 @@ static int pwrseq_pci_m2_e_uart_disable(struct pwrseq_device *pwrseq)
+>  	return gpiod_set_value_cansleep(ctx->w_disable2_gpio, 1);
 >  }
->
-> --
+>  
+> +static bool pwrseq_pci_m2_e_uart_is_controllable(struct pwrseq_device *pwrseq)
+> +{
+> +	struct pwrseq_pcie_m2_ctx *ctx = pwrseq_device_get_drvdata(pwrseq);
+> +
+> +	/*
+> +	 * The UART enable is driven through the W_DISABLE2# line. When it is not
+> +	 * wired up on this connector the enable/disable callbacks are no-ops, so
+> +	 * the host cannot gate the Bluetooth function on its own.
+> +	 */
+> +	return !!ctx->w_disable2_gpio;
+> +}
+> +
+>  static const struct pwrseq_unit_data pwrseq_pcie_m2_e_uart_unit_data = {
+>  	.name = "uart-enable",
+>  	.deps = pwrseq_pcie_m2_unit_deps,
+>  	.enable = pwrseq_pci_m2_e_uart_enable,
+>  	.disable = pwrseq_pci_m2_e_uart_disable,
+> +	.is_controllable = pwrseq_pci_m2_e_uart_is_controllable,
+>  };
+>  
+>  static int pwrseq_pci_m2_e_pcie_enable(struct pwrseq_device *pwrseq)
+> @@ -105,11 +118,24 @@ static int pwrseq_pci_m2_e_pcie_disable(struct pwrseq_device *pwrseq)
+>  	return gpiod_set_value_cansleep(ctx->w_disable1_gpio, 1);
+>  }
+>  
+> +static bool pwrseq_pci_m2_e_pcie_is_controllable(struct pwrseq_device *pwrseq)
+> +{
+> +	struct pwrseq_pcie_m2_ctx *ctx = pwrseq_device_get_drvdata(pwrseq);
+> +
+> +	/*
+> +	 * The PCIe/WiFi enable is driven through the W_DISABLE1# line. When it
+> +	 * is not wired up on this connector the enable/disable callbacks are
+> +	 * no-ops, so the host cannot gate the PCIe/WiFi function on its own.
+> +	 */
+> +	return !!ctx->w_disable1_gpio;
+> +}
+> +
+>  static const struct pwrseq_unit_data pwrseq_pcie_m2_e_pcie_unit_data = {
+>  	.name = "pcie-enable",
+>  	.deps = pwrseq_pcie_m2_unit_deps,
+>  	.enable = pwrseq_pci_m2_e_pcie_enable,
+>  	.disable = pwrseq_pci_m2_e_pcie_disable,
+> +	.is_controllable = pwrseq_pci_m2_e_pcie_is_controllable,
+>  };
+>  
+>  static const struct pwrseq_unit_data pwrseq_pcie_m2_m_pcie_unit_data = {
+> 
+> -- 
 > 2.34.1
->
->
+> 
+
+-- 
+மணிவண்ணன் சதாசிவம்
