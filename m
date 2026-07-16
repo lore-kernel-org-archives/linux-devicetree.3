@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7469940D58B
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 11:04:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BBA2EA154
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 11:05:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784199876; cv=none; b=g57bPWM80SwVc0l6f+YTZ96G7hUI9YD8ZuPZ0nt8EEJ0osf6Uuj4NFl90Hu7kK1Mk8+HReRbAtTTp8bkesfFxWxBayyiJojS7qg+Rk16l1VJ3KfDytKHUnELWrQ87HeOg0sGiE54iGaEVZ23RsQygJGOP5Kq0IHJ9WMRnsufX0k=
+	t=1784199940; cv=none; b=iSgnNWENeVq9IQtlpnFYo/Az/hWDz1mF5iBz8/Qoqv4sOLM8+2WQjz9XyJCVhLB1OGePrXdKKhAvwO3NSm/H1Q03eWs0XgZUvD4adVnbK/5ZHrndMhxKWxI72Y9WkTqrN9pDK3R6W/5696ngJYS42QmMxIdm6jLfOl1CCDApxiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784199876; c=relaxed/simple;
-	bh=AP65k+yxpUU43u6TgtcCaLzLnJDCGr6oB9dEvsXCq0Q=;
+	s=arc-20240116; t=1784199940; c=relaxed/simple;
+	bh=ynIhMjGDixdnR3Owb00aFGOJlCj1PlTo8D961yjvORo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=APdqpYNwaavbycUBQvUYcLZ3bJgPXU+3y4YVNcgSHbKjdsOKwOGewFkdvTuOln7lsUDRXq3wYV44JIAsYlRSOHw83Uslr0pmQWCr2PlvuzVq6aykf2I/MIKeg8euxJ974gp6swVuYrflv6XCnua1KtXopNaNPCOESvcleS236XY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZkbeNWH1; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ojoEHHhKeDHAQM0jSj4gTbFYocXFm3hW3xd0o6mAn64c4ncq/1t8xQViCY2SfdCqyr6CqRpt44bxLEIVW0xwxRHpXuTaNZJ3OP5068Jq6iiOD0TKO5Xb/z9TFh6jbkhCtUP9W4NTI9/r7sGki/btcVtycKvECIygTAcKXrWTzGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cOQyVICZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZkbeNWH1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03D171F000E9;
-	Thu, 16 Jul 2026 11:04:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cOQyVICZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21AFC1F000E9;
+	Thu, 16 Jul 2026 11:05:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784199872;
-	bh=+q0keCaZUuTf0uaadvGzDaUHYOA9oZ3Z5lQLNJf85Xc=;
+	s=k20260515; t=1784199939;
+	bh=tvj0xAlNasnALYasJl64Cqf2swfTh/MvUmAZSpXEov4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZkbeNWH1J/IdpqHns1SzyYrsc4D6hDES6tUT0xc3EKqtW8r6sPN1QHLOjm6Gb5SBJ
-	 fHMVgJcDm4InhC8KjcHn0/fB91JrKwpmILXRHoYWW8bMNk0klYmA7yht3vGF56/JMo
-	 BraV0m2SivSDeSbilyEcNB/NFDZjxibgEDwROj6c+V+KqErtmNwmy6s1pAxMo8C9/F
-	 IOkX30J5g7EDTgxBLmfN7OT5ljbGE25KebEBDFvbuZeSziBvfG+JFNqcBgfCQyTfTR
-	 AFyD4dK2QzVrb0HEKJJxNOos6J6aKtf9BfIIuY25zzAm+aVMDP22rOFELfaTlJrwJo
-	 wJRIAd1vLgavA==
+	b=cOQyVICZqwjV6dvWNRwRPRlBXH/+PJ9CxjKJiQl9463SLwuzOprKQ3PImtB0n+ytO
+	 iZZaIRK2ZWO6N1erL7UbxGeMu4zKrxJLe3xRGxDT9wbdQmDTJs3Z9AxxQcp6k/K3+y
+	 o2ZAj92XVQpaR++TF2v02/Fo62hdPfKgaXDR0wlSE6EH5/bAQxZRMvmN0b5nGlTgWw
+	 obET29XSYgO8cYbYjE4xiq8FCKed44nLK9wv/qqCGMfluccJkGGV5rX/i8uSmz18G3
+	 6i38aWFr8hRUvKq5m/Wv2q+qIAyx4t4/A4QEfSTRnQo5HpMcGwG2D1PzF15JTyVGKY
+	 rmtU38ZY7VQXg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/7] clk: tests: Add clk_parse_clkspec() Kunit
- testing
+Subject: Re: [PATCH] of: base: Handle optional argument in
+ of_parse_phandle_with_args_map()
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?TWlxdWVsIFJheW5hbCAoU2NobmVpZGVyIEVsZWN0cmljKQ==?= <miquel.raynal@bootlin.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260716-schneider-v7-2-rc1-eip201-upstream-v3-2-98454e83845c@bootlin.com>
-References: <20260716-schneider-v7-2-rc1-eip201-upstream-v3-0-98454e83845c@bootlin.com>
- <20260716-schneider-v7-2-rc1-eip201-upstream-v3-2-98454e83845c@bootlin.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260716-schneider-v7-2-rc1-eip-of-fix-v1-1-9b9383f936c6@bootlin.com>
+References: <20260716-schneider-v7-2-rc1-eip-of-fix-v1-1-9b9383f936c6@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 11:04:31 +0000
-Message-Id: <20260716110432.03D171F000E9@smtp.kernel.org>
+Date: Thu, 16 Jul 2026 11:05:38 +0000
+Message-Id: <20260716110539.21AFC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,65 +48,66 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Pre-existing race condition in `__of_clk_get()` exposing a time-of=
--check to time-of-use (TOCTOU) use-after-free vulnerability during concurre=
-nt clock provider unregistration.
+- [High] Missing bounds check on `list_size` causes an out-of-bounds stack =
+write and read when `#<list>-cells` exceeds `MAX_PHANDLE_ARGS`.
 --
 
---- Patch [2]: [PATCH v3 2/7] clk: tests: Add clk_parse_clkspec() Kunit tes=
-ting ---
-commit b17a28133ab40253da7bfbaf67521eac37a7e21a
+--- Patch [1]: [PATCH] of: base: Handle optional argument in of_parse_phand=
+le_with_args_map() ---
+commit 22223dd6c28b67c741e12313ce0dc7dc5d351701
 Author: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
 
-clk: tests: Add clk_parse_clkspec() Kunit testing
+of: base: Handle optional argument in of_parse_phandle_with_args_map()
 
-Create a new set of kunit tests to make sure clk_parse_clkspec() is
-working as expected. We currently verify if we get a proper device when
-using indexes and names.
+This commit handles the optional NULL out_args argument by providing a local
+on-stack fallback object. This avoids unconditional null pointer dereferenc=
+es
+when the caller only wants to verify if the lookup works without keeping
+the result.
 
-> diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-> index 048adfa86a5d0..08874cf9b5617 100644
-> --- a/drivers/clk/clk.c
-> +++ b/drivers/clk/clk.c
+Closes: https://lore.kernel.org/all/20260710183359.61D3A1F000E9@smtp.kernel=
+.org/
 
+> diff --git a/drivers/of/base.c b/drivers/of/base.c
+> --- a/drivers/of/base.c
+> +++ b/drivers/of/base.c
 [ ... ]
-
-> @@ -5300,6 +5301,7 @@ struct clk_hw *of_clk_get_hw(struct device_node *np=
-, int index,
-> =20
->  	return hw;
->  }
-> +EXPORT_SYMBOL_IF_KUNIT(of_clk_get_hw);
-> =20
->  static struct clk *__of_clk_get(struct device_node *np,
->  				int index, const char *dev_id,
+> @@ -1554,6 +1554,8 @@ int of_parse_phandle_with_args_map(const struct dev=
+ice_node *np,
+>  	const __be32 *map, *mask, *pass;
+>  	static const __be32 dummy_mask[] =3D { [0 ... (MAX_PHANDLE_ARGS - 1)] =
+=3D cpu_to_be32(~0) };
+>  	static const __be32 dummy_pass[] =3D { [0 ... (MAX_PHANDLE_ARGS - 1)] =
+=3D cpu_to_be32(0) };
+> +	struct of_phandle_args _oa =3D {};
+> +	struct of_phandle_args *out_args =3D _out_args ? _out_args : &_oa;
+>  	__be32 initial_match_array[MAX_PHANDLE_ARGS];
 
 [Severity: High]
-This is a pre-existing issue, but exposing of_clk_get_hw() brings attention
-to how the returned pointer is managed in the surrounding code.
+This is a pre-existing issue, but could a malformed device tree cause an
+out-of-bounds stack write to initial_match_array?
 
-Could a concurrent clock provider unregistration cause a use-after-free
-vulnerability here?
+Later in of_parse_phandle_with_args_map(), the #<list>-cells property is
+read directly into list_size without being bounded to MAX_PHANDLE_ARGS:
 
-Looking at how __of_clk_get() uses the hardware pointer:
+	ret =3D of_property_read_u32(cur, cells_name, &list_size);
+	if (ret < 0)
+		goto put;
 
-__of_clk_get() {
-    ...
-    hw =3D of_clk_get_hw(np, index, con_id);
-    return clk_hw_create_clk(NULL, hw, dev_id, con_id);
-}
+	/* Precalculate the match array - this simplifies match loop */
+	for (i =3D 0; i < list_size; i++)
+		initial_match_array[i] =3D cpu_to_be32(out_args->args[i]);
 
-When of_clk_get_hw() calls of_clk_get_hw_from_clkspec(), it retrieves the hw
-pointer under of_clk_mutex but returns it without incrementing any
-underlying reference count.
+If a device tree node defines a #<list>-cells value greater than 16, this
+loop will read out of bounds from out_args->args and write out of bounds to
+the initial_match_array stack buffer.
 
-Once the mutex is released, another thread could unregister the clock
-provider, freeing both hw and hw->core.
+Does list_size need to be validated against MAX_PHANDLE_ARGS before being
+used as a loop limit?
 
-If that happens before clk_hw_create_clk() executes, does it dereference
-the freed pointer when evaluating hw->core and attempting try_module_get()
-on core->owner?
+>  	const __be32 *match_array =3D initial_match_array;
+>  	int i, ret, map_len, match;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-schneider-=
-v7-2-rc1-eip201-upstream-v3-0-98454e83845c@bootlin.com?part=3D2
+v7-2-rc1-eip-of-fix-v1-1-9b9383f936c6@bootlin.com?part=3D1
