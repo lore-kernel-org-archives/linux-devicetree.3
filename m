@@ -1,92 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88AFC3D16FC;
-	Thu, 16 Jul 2026 22:12:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E21834403A
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 22:24:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784239960; cv=none; b=G0NwgEnyWxsbkrx4SM1FJNryQZpAvccF4x4zw4kuFtTXi+RnBik7XSv+TDA9xN7VpKXNFeeH5XhGU6pUog1RPm9+16wb3Uzqz3fFnD9vmOtA9Ls3eF34kGDCbxoEkj6J76SbhFWADeBK9so4P5cH3knFjrbzfcT9rS6HSUlzLHc=
+	t=1784240647; cv=none; b=CUIjIxjQzCTjSNThH7BrU4QA4qpDCWMVKGW8h1uhRPixawqkGi06e0sMHAPaUO/unv4WwEdIy+fZ2C4BwCZ6iOkudr8IOaNVCk573xIvtNcybAZ9ebASW0Ul+Ut/L47pBikMxEZ/K/EW3MZPS4OCJ98Ca00Xxwp7sf9X3AO+idA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784239960; c=relaxed/simple;
-	bh=eJzzq0+eI4rwVsvSmcEtmwZJhnaVhKwdMpipS+zcvSY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nqNSXXwpBxlB0FzkfQCNEaQn6VlV6GnplOsgSx6mFKOviuSTvYJAGH8kPmwwhazDuO9MMseW3dBxYT7Yb0bcWiZ1gzGIXIYWnFhqJSdjizqXP1qYQb855Q6kW9QF6v3etsChPm1B88j+bWbYqqFNZp1LkbBiUlZMXjvcw3GiP8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ohIkqRSa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784240647; c=relaxed/simple;
+	bh=dwbUUGau/FBRMYP45tsb39aoeYWDIMQCiWrA64zKhfU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=akpo0Zux8FWOcJiCunlqT4p5E3AuYU+JIMzIwdk4VUAF4wU343OonmrnkaFpW1v5/Cb5hA4OmVVXIUOuWfc7fcHHtVxRkYMg/l7/+uayiXwIgqdscgaUYz8EF5gvzd/jFpOmw6T8wBG3x16nYAdTm+dYYe5jO9o7ynvhPDqG3eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZAeJmuuf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ohIkqRSa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F11031F000E9;
-	Thu, 16 Jul 2026 22:12:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZAeJmuuf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585931F000E9;
+	Thu, 16 Jul 2026 22:24:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784239959;
-	bh=wqHcuPVvvxXWxaysAf9SzeGo2yhyLZDJBTeRKU8ATfc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ohIkqRSaZ1F+eaXNAQmZkOjwuLDD8rkHwHrJ0rJj+tzNRibmdoaXMrPWqfwS0LKrQ
-	 +QSML5WqXq6l1m4Z5sVZcy7iDeGzrtBCHIpPu5H3E7EsyekTazlLCl+SviOEVEGtBK
-	 1zvzerPAKXFTvHqWjI3eRPc2E5OPPzRgrMuxVfMHwHBfkgKf9+xYGX9CUuZ7IK3DMg
-	 hLYcyGG2SEjpdC+qt30X4g5vU9H9S12UwaYTl/begEvFeS2ygWX1y7eU6Ahv97pfM1
-	 kB5Dvi92clrMZZAs7b5RiE+3O4MeeV8As0ngac03dxd0LSsXhkse5R4/mdxoq6MgBL
-	 VFv2UVcNHFhZA==
-Date: Thu, 16 Jul 2026 17:12:38 -0500
-From: Rob Herring <robh@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Eduard Bostina <egbostina@gmail.com>, dmitry.torokhov@gmail.com,
-	conor+dt@kernel.org, linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: input: Convert TI Keypad Controller to DT
- schema
-Message-ID: <20260716221238.GA1523257-robh@kernel.org>
-References: <20260708123252.1768355-1-egbostina@gmail.com>
- <20260708124112.1DC541F00A3A@smtp.kernel.org>
+	s=k20260515; t=1784240645;
+	bh=JXY7lxiDGoWfZKZC0zMpII1Kxrjnph5++CDvXGZo4Sw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZAeJmuuf5ZI99S04ZDPP9WwL/BU8WFEtJ79WhXwl6hCgQyqiig3KrA2+5605vvYjG
+	 W99pesyPrzgs2i6NLcK5Ck8L8bdmu7qgBlcptUcJ+93k9gmLe1homXlygjdXY4wfNu
+	 C3s/+p3t5R8nBA2vD6hqPQuponVh8hJvxoDjP1LktnPoJAaWkRpSTRtpphFS0v05ZI
+	 MqUg5CCTU7u/Kto9J4Ez/GnVL7JslOXqwdCrV0WS/dD0i1TJJfQr4y3Spekce0S7TT
+	 7BMHyT04HjfxENPeQ9vsZw4OVk/3o11wUZ0Jx2Bigh+qtaxKALv6+N/zC2geOor7co
+	 E0E4wZG9nPtsg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 01/13] dt-bindings: phy: Add zx297520v3 USB phy
+ documentation
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
+Cc: linux-phy@lists.infradead.org, conor+dt@kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org, robh@kernel.org, neil.armstrong@linaro.org, vkoul@kernel.org
+In-Reply-To: <20260717-zx29clk-v7-1-408411cfcf36@gmail.com>
+References: <20260717-zx29clk-v7-0-408411cfcf36@gmail.com>
+ <20260717-zx29clk-v7-1-408411cfcf36@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 16 Jul 2026 22:24:04 +0000
+Message-Id: <20260716222405.585931F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260708124112.1DC541F00A3A@smtp.kernel.org>
 
-On Wed, Jul 08, 2026 at 12:41:11PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] Properties strictly required by the hardware and driver ('keypad,num-rows', 'keypad,num-columns', 'interrupts', and 'linux,keymap') are omitted from the 'required:' list, allowing non-functional device trees to silently pass validation.
-> --
-> 
-> --- Patch [1]: [PATCH] dt-bindings: input: Convert TI Keypad Controller to DT schema ---
-> commit 31e1662350e854e7b96beb7e7de83fc2b0d265e2
-> Author: Eduard Bostina <egbostina@gmail.com>
-> 
-> dt-bindings: input: Convert TI Keypad Controller to DT schema
-> 
-> This commit converts the Texas Instruments Keypad Controller bindings to DT
-> schema format. It updates the autorepeat property name, adds the reg-names
-> property, and omits the keypad row and column properties from the required
-> list to prevent validation failures.
-> 
-> > diff --git a/Documentation/devicetree/bindings/input/ti,omap4-keypad.yaml b/Documentation/devicetree/bindings/input/ti,omap4-keypad.yaml
-> > new file mode 100644
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/input/ti,omap4-keypad.yaml
-> [ ... ]
-> > +required:
-> > +  - compatible
-> > +  - reg
-> 
-> [Severity: Medium]
-> The commit message mentions that keypad,num-rows and keypad,num-columns were
-> omitted from this required list because enforcing them causes validation
-> failures. Should these properties, along with interrupts and linux,keymap,
-> be included here to accurately reflect the driver's probing requirements?
-> 
-> Omitting them allows non-functional device tree nodes to silently pass
-> schema validation. At runtime, the omap4-keypad driver will unconditionally
-> fail to probe via platform_get_irq(), matrix_keypad_parse_properties(), and
-> matrix_keypad_build_keymap() when these properties are missing.
-> 
-> Would it be better to enforce the strict hardware and driver requirements in
-> the schema, and instead fix the incomplete device tree nodes that are
-> failing validation?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The example uses an undocumented compatible string 'zte,zx297520v3-=
+topcrm', which will break `make dt_binding_check` for this commit.
+--
 
-Yes. sashiko is right.
+--- Patch [1]: [PATCH v7 01/13] dt-bindings: phy: Add zx297520v3 USB phy do=
+cumentation ---
+commit 4c69b2717ebf9691d299b4744633e7788d392913
+Author: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
 
-Rob
+dt-bindings: phy: Add zx297520v3 USB phy documentation
+
+This commit adds device tree binding documentation for the ZTE zx297520v3 U=
+SB
+and HSIC PHY. It defines the required properties for the PHY, which acts as
+a child node to the topcrm controller.
+
+> diff --git a/Documentation/devicetree/bindings/phy/zte,zx297520v3-usb-phy=
+.yaml b/Documentation/devicetree/bindings/phy/zte,zx297520v3-usb-phy.yaml
+> new file mode 100644
+> index 0000000000000..8bad9365d5cc0
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/zte,zx297520v3-usb-phy.yaml
+[ ... ]
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/phy/phy-zte-zx297520v3-usb.h>
+> +
+> +    topcrm: clock-controller {
+> +        compatible =3D "zte,zx297520v3-topcrm", "syscon";
+
+[Severity: Low]
+Will this undocumented compatible string cause a regression in
+`make dt_binding_check` during bisection?
+
+Since the "zte,zx297520v3-topcrm" binding is added in the next patch, evalu=
+ating
+this commit on its own will result in validation failures because the strin=
+g is
+not documented in any schema and is not an allowed fallback in syscon.yaml.
+
+Additionally, does the example node need a "reg" property since it includes
+"syscon" in the compatible string? syscon.yaml requires it, which may lead =
+to
+further validation errors.
+
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +        #reset-cells =3D <1>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717-zx29clk-v7=
+-0-408411cfcf36@gmail.com?part=3D1
