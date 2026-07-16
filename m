@@ -1,235 +1,129 @@
-Received: from mail-08.mail-europe.com (mail-08.mail-europe.com [57.129.93.249])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 448183451BA
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 16:51:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.129.93.249
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A12B436D9E7;
+	Thu, 16 Jul 2026 16:54:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784220715; cv=none; b=ovB4P2qwCPxh4/vJmCstuBfTOt7EiZ49sNolxR8TO22y2hnOQQku9UJOS96D11ZirG1wiEnuN5dq2nCJGDzCDvFJlxx4I1TNhbqQgJVR5ZW4xiEfY0c95iEgXVYC3aj78HzcRXzrilhPUnmrYrLBPOlptwR/+YkNjuab8b6OIWg=
+	t=1784220876; cv=none; b=AM7jJJ7/dH0bLwclrYm152eHa3od7WLCjv3UIzkGAjZP2tNDbQKszCQlO+bqts8gHHk3oJDiMlsWCoIsav79mryyrd6nTDG/kvUWlzKPw7QBowWYnJyffZ/wnuMy5poBXGkf9Hi3SmtjjNbHAppGfwUpD/UQUnWxqXX9oBbP2fM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784220715; c=relaxed/simple;
-	bh=++4fSZ1b0TlFbEN6k2dLgetUrAGI7Nl1H5eauj/9Sow=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Lo6RKV2l7RgFF3/xmS4XMhf0MoFOy1LSVySfz5IRBrQvhh59CSjJzdd8n0n0bnRkvK/6pbOvol++vXlY7OFQCoYkoS6atAJvj/TuFYynYJeZm+cQbTY/DOfkYG1Cp32xn1fMjpNMfNy8/xED83uO+y1Xmp1VN7Xb1Sfc7pYjXm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=xyFoVDBH; arc=none smtp.client-ip=57.129.93.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1784220876; c=relaxed/simple;
+	bh=W/L+E6Bpgf1w17HOXtiE1hRBpI2QbTBmxfxVWYeqoWo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mI28V4GuAmvaq0646BIpASj8fyNGiLu5mNTkMzuxXu1qc1sYGNg8fZmrPyNn6xj/DBGT3NMgJsX3OEkGGtbIEV1fkNvGjUeKrMncP9Eal0d2gYsZfUHoZ46C7jzH68amsu6bbNbTDMZ71kDNL+lWgBjmrd2a2fsmfgJUOPVbzzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N71dIZEB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="xyFoVDBH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail3; t=1784220699; x=1784479899;
-	bh=qrb8hC/Y3Qak286c4lrbAZTCd38DaMdKc9tpip4M5II=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=xyFoVDBHNJjyrxn4RzxLEp59uo97V2wc5fzOFStV2tu0n9jlO5rabRzlYlk78KVvT
-	 7jtRWKcvywAfZ0xkPbXWEMyWqYla5mDv4obQEAi0bADP90alGovaudJPnYeyLrA9fo
-	 +Xdv0VfnYGRMOzZ6GM8630wE/HJfIHx1+D6oIjfkJFFKNOpefNb2gsElbi1FOvQRL1
-	 EsLLqpIY/c9RgifYaZmxFliC2HF+CpzXqTefU4FoPG2bbs4AZsW9m0X8X8XoCBMVQ+
-	 7VLo2FiLttwE6/jZjQ5ZuwL46udaSsAy52MtpNeTD/+HfCbNrAXczOc6uXrxui42Rl
-	 SvZdf2/SeV/Mw==
-Date: Thu, 16 Jul 2026 16:51:34 +0000
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-From: Esben Haabendal <esben@geanix.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, Sean Nyekjaer <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Martin Kepplinger <martin.kepplinger@theobroma-systems.com>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] iio: accel: mma8452: Allow open drain interrupt pin configuration
-Message-ID: <J2apVLUJhrI3AOweGpouqGGB0XhxbcqLiWasDpOdm4d2YGgNv8PuE-udUGJZcH0z-V9yyqbjIwMKDdtuam0mp6ya5F6GHUzf6OjRCo0GdaA=@geanix.com>
-In-Reply-To: <alefh86sqW-XvLHl@ashevche-desk.local>
-References: <20260715-mma8452-open-drain-v1-0-b1dd2a440c60@geanix.com> <20260715-mma8452-open-drain-v1-2-b1dd2a440c60@geanix.com> <cA7m1VgJxkr39GAxpnMPw9PVIKX2TR8Ju4Q0m6L2SxS_jJNITfZ6AA5LOeMIK0jGFXaUptY1_vPhDd_imWw5FQ==@protonmail.internalid> <aldH3vtk_eKh6oCC@ashevche-desk.local> <87ldbco582.fsf@geanix.com> <Tu8Mavh-mfl8Vv75Oab3vrghtEbTXiYPZ4qhj6RZv8xe5nWKP4lG1KSuJXEQfyKeio7zv9myLbmifMjFTl8juA==@protonmail.internalid> <aleQVYrK9YBoLqGl@ashevche-desk.local> <874ii0misv.fsf@geanix.com> <alefh86sqW-XvLHl@ashevche-desk.local>
-Feedback-ID: 133791852:user:proton
-X-Pm-Message-ID: ecf190f24607daa5641d0f141b74fa32cb0368f8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N71dIZEB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A5501F000E9;
+	Thu, 16 Jul 2026 16:54:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784220875;
+	bh=eizyMw1RZYBP05RNE6IyW2G1IdFAvlrLk3hdDOWwDGo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=N71dIZEBgnTMvh9MHwyNqWlAz4kogA6x2nLMcn/Bw1DsmwGrKmM+aRBG1E2aQLt2u
+	 EAFQl+24NJYi0Y+hAgZ4xaEEFH2SSVPYU9zQjcnRGowNLKKBsOeqCNSn5gu+Nkwm5A
+	 ui1muzHdvYDwWkmpH1DSXbiYcE31yXsqyrBi3fnTruvVu8KyLwWL5hze2bod8ULsmU
+	 SyKsljYlt6b9ipS9Les3t/ZNwQMqcpFKoGqX/WTec0SceVDLgOayUWi7JskplYri79
+	 Ntt98KoqEsoBlOPWph9J7KtOe2eYbGRI+uduoow9bm2PmrAlpCs58yxxb0WJxN3kaw
+	 zWfTYItMpUhWA==
+Date: Thu, 16 Jul 2026 11:54:34 -0500
+From: Rob Herring <robh@kernel.org>
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v9 01/14] dt-bindings: media: qcom,glymur-iris: Add
+ glymur video codec
+Message-ID: <20260716165434.GA290489-robh@kernel.org>
+References: <20260715-glymur-v9-0-8cf2cbe12a07@oss.qualcomm.com>
+ <20260715-glymur-v9-1-8cf2cbe12a07@oss.qualcomm.com>
+ <20260715142224.5FA721F00A3A@smtp.kernel.org>
+ <b179ac7a-af91-da67-3232-e9e41203ade0@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b179ac7a-af91-da67-3232-e9e41203ade0@oss.qualcomm.com>
 
-On Wednesday, 15 July 2026 at 16:56, Andy Shevchenko <andriy.shevchenko@int=
-el.com> wrote:
-
-> On Wed, Jul 15, 2026 at 04:25:20PM +0200, Esben Haabendal wrote:
-> > "Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
-> > > On Wed, Jul 15, 2026 at 01:35:41PM +0200, Esben Haabendal wrote:
-> > >> "Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
-> > >> > On Wed, Jul 15, 2026 at 10:07:39AM +0200, Esben Haabendal wrote:
->=20
-> ...
->=20
-> > >> >>  =09if (client->irq) {
-> > >> >>  =09=09ret =3D request_threaded_irq(client->irq, NULL, mma8452_in=
-terrupt,
-> > >> >> -=09=09=09=09=09   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
-> > >> >> +=09=09=09=09=09   IRQF_TRIGGER_LOW | IRQF_ONESHOT |
-> > >> >> +=09=09=09=09=09   data->open_drain ? IRQF_SHARED : 0,
-> > >> >>  =09=09=09=09=09   client->name, indio_dev);
-> > >> >
-> > >> > Why do we care?
-> > >>
-> > >> Care about what exactly?
-> > >
-> > > About exclusivity of the interrupt.
+On Thu, Jul 16, 2026 at 08:37:17AM +0530, Vishnu Reddy wrote:
+> 
+> On 7/15/2026 7:52 PM, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > - [Low] Unnecessary `#address-cells` and `#size-cells` properties on a node without addressable children.
+> > --
 > >
-> > Ok.
+> > --- Patch [1]: [PATCH v9 01/14] dt-bindings: media: qcom,glymur-iris: Add glymur video codec ---
+> > commit 8ca344fa9395fcf1d13bd1ea93de8bee21a5c176
+> > Author: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 > >
-> > >> We need to add IRQF_SHARED flag in order to allow shared interrupt, =
-and
-> > >> we should not add it when using (the default) push-pull mode.
-> > >
-> > > Why not? How would it make any difference from SW perspective?
+> > dt-bindings: media: qcom,glymur-iris: Add glymur video codec
 > >
-> > Not adding the IRQF_SHARED flag prevents use with shared interrupts. I
-> > think we are on the same page on that.
+> > This commit adds the device tree binding for the Qualcomm Glymur Iris video
+> > codec. It introduces a new dual-core architecture requiring additional
+> > power domains and clocks, and updates the maxItems limits in the common
+> > venus schema to accommodate these changes.
 > >
-> > Unconditional adding IRQF_SHARED flag would allow configurations where
-> > other devices share interrupt line with mma8452 compatible chip
-> > configured with push-pull, resulting in broken or unpredictable results=
-.
-> > I don't see why we should not care about that.
->=20
-> But it's not their problem! If it's this device that prevents this
-> configuration, it should have a check. With this code it just hides
-> and changing a DT property will lead to kernel warning.
-
-The chip such does not prevent the configuration, and does not prevent
-sharing the interrupt. The irq pin in the device can be configured in eithe=
-r
-push-pull mode or open-drain mode.
-In order to allow sharing interrupt line with other chips, the chip
-must be configured with irq pin in open-drain mode, which is what the
-drive-open-drain device-tree property I am adding in this series enables
-developers to do.
-If/when you add this property to the device-tree, the irq pin will be
-in open-drain mode, and the IRQF_SHARED flag can (and should IMHO) be set
-as the interrupt line can be shared.
-If/when the drive-open-drain property is not set (existing device-trees
-and current only supported behavior), the chip cannot support sharing the
-interrupt line, and adding the IRQF_SHARED flag would be a bug, as the
-chip irq pin requires an exclusive interrupt input.
-
-Maybe the confusion is caused by the fact that the drive-open-drain
-does not describe how the irq pin IS behaving, but rather how it SHOULD
-behave, and possibly required because of the HW designed having tied the
-irq pin to an irq input together with other irq sources.
-
-> > > Yes, I understand the HW case.
-> > >
-> > >> > The (hidden) problem this will have in the future is that the IRQ =
-core
-> > >> > will splat a warning in case that other shared IRQs might be
-> > >> > configured with different flags. Putting that flag conditionally m=
-akes
-> > >> > it a mine field for the users. Instead just unconditionally add th=
-at
-> > >> > flag and we will get reports as soon as there will be a user that
-> > >> > shares the same interrupt pin with some other devices which driver=
-s do
-> > >> > not use the same settings.
-> > >>
-> > >> If we add the IRQF_SHARED flag unconditionally, it will be set also =
-when
-> > >> push-pull mode is enabled. I don't see how the kernel will be able t=
-o
-> > >> notice that that is not going to work. If you have another device th=
-at
-> > >> uses IRQF_TRIGGER_LOW|IRF_ONESHOT|IRQF_SHARED, it will not work with=
- the
-> > >> MMA8452 device when configured as push-pull.
-> > >
-> > > Right, and why do we care (again)?
+> >> diff --git a/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml b/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml
+> >> new file mode 100644
+> >> --- /dev/null
+> >> +++ b/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml
+> >> @@ -0,0 +1,255 @@
+> > [ ... ]
+> >> +  interconnect-names:
+> >> +    items:
+> >> +      - const: cpu-cfg
+> >> +      - const: video-mem
+> >> +
+> >> +  '#address-cells':
+> >> +    const: 2
+> >> +
+> >> +  '#size-cells':
+> >> +    const: 2
+> > [Severity: Low]
+> > Are these properties necessary here? The schema strictly enforces const: 2
+> > for #address-cells and #size-cells at the root node, but none of the child
+> > nodes (non-pixel, pixel, firmware) define a reg property, and the parent
+> > does not define a ranges property. 
 > >
-> > Why we care that the system as a whole (SW on top of HW) will not work?
+> > Will this cause the DeviceTree compiler (dtc) to emit an 
+> > avoid_unnecessary_addr_size warning when compiling device trees using this
+> > node?
 > >
-> > If we don't care about that, why do we even have this IRQF_SHARED flag?
-> > The only purpose of that is to tell the kernel that this particular
-> > device / interrupt will work with shared interrupt or not.
-> >
-> > Isn't that exactly what I do with this change? Nothing more, nothing le=
-ss.
-> >
-> > > It's pure DT/FW/HW issue, not an SW issue.
-> > > Otherwise it will become a carefully placed mine for the poor user wh=
-o will
-> > > use these flags and try to share an interrupt with the mma8452 device=
- which
-> > > has no set property and uses push-pull mode.
-> >
-> > I don't get how you see it like that. Adding IRQF_SHARED unconditionall=
-y
-> > would create exactly the mine field you are talking about. Poor users
-> > can specify a system configuration (DT) that tries to use a shared
-> > interrupt line, but configures the mma8452 compatible chip in push-pull=
-.
-> > The poor user will not only be poor, but also unhappy.
->=20
-> > By applying the IRQF_SHARED dynamically, the kernel will be able to fai=
-l
-> > in a controlled manner instead, making it much less painful to create a
-> > working system configuration (DT)
->=20
-> And my point that we need to make less painful runtime experience.
+> >> +
+> >> +  non-pixel:
+> >> +    type: object
+> > [ ... ]
+> >> +        resets = <&gcc_video_axi0c_clk_ares>,
+> >> +                 <&gcc_video_axi0_clk_ares>,
+> >> +                 <&videocc_mvs0c_freerun_clk_ares>,
+> >> +                 <&videocc_mvs0_freerun_clk_ares>,
+> >> +                 <&gcc_video_axi1_clk_ares>,
+> >> +                 <&videocc_mvs1_freerun_clk_ares>;
+> >> +        reset-names = "core_bus",
+> >> +                      "vcodec0_bus",
+> >> +                      "core",
+> >> +                      "vcodec0_core",
+> >> +                      "vcodec1_bus",
+> >> +                      "vcodec1_core";
+> >> +
+> >> +        #address-cells = <2>;
+> >> +        #size-cells = <2>;
+> > [Severity: Low]
+> > Does the example need #address-cells and #size-cells? It demonstrates their
+> > use without any child nodes containing reg properties, which directly causes a
+> > dtc warning during dt_binding_check validation.
+> 
+> Without #address-cells and #size-cells, getting the below kernel warning prints.
+> [    6.953615] Missing '#address-cells' in /soc@0/video-codec@aa00000
+> [    6.968288] WARNING: drivers/of/base.c:115 at of_bus_n_addr_cells+0xa4/0xf4
+> 
+> [    7.440909] Missing '#size-cells' in /soc@0/video-codec@aa00000
+> [    7.447044] WARNING: drivers/of/base.c:142 at of_bus_n_size_cells+0xa4/0xf8
 
-Yes. We agree on that.
+Then the kernel is wrong.
 
-But I do believe that my patch is that painful runtime experience.
-
-Adding IRQF_SHARED flag when irq pin is configured in push-pull mode
-will be painful. I know, that was my initial approach. Does really not
-work, and can lead to wasting time on debugging the HW.
-=20
-> > Going back to your poor user story above, if the poor user tries to
-> > share the interrupt pin with the mma8452 device, it will get an error
-> > (just as it is with the kernel today). The device does not support
-> > shared interrupts. Reading the DT bindings documentation, the user
-> > should be able to find the drive-open-drain property, and add that to
-> > the device-tree to make things work. Maybe even consider if that is
-> > compatible with the hardware being used.
-> >
-> > If IRQF_SHARED was set unconditionally, the user would not get an error=
-,
-> > but most likely would get a system where no irq's were raised for the
-> > other chips. I sincerely believe that debugging this is much more
-> > painful than reading device-tree bindings.
-> >
-> > > Did I miss anything?
-> >
-> > I don't know. Maybe I am missing the obvious here.
->=20
-> I consider the case when shared interrupt is enabled on both devices, but
-> second one (driver) missed the same IRQ flags. This becomes a warning in
-> IRQ core.
-
-Missed which IRQ flags?
-
-> Shared interrupts it's also a contract with all stakeholders on keeping
-> the same flags for all devices.
-
-Of-course.
-
-And adding IRQF_SHARED is a contract that says that the interrupt can be
-shared. I can only see that it would be a bug to add that flag in cases
-where we know that the interrupt really cannot be shared.
-
-As for the IRQF_TRIGGER_LOW flag being set, I think that looks correct
-as long as we do not support switching to active high irq polarity.
-
-But on that topic, the chip actually supports selecting between active
-low and high irq polarity. Should we implement something along the lines
-of what is done in smi330_setup_irq() in iio/imu/smi330/smi330_core.c?
-And thereby allow using the device with active high irq?
-
-> ...
->=20
-> After looking into genirq code I don't see other way how to handle this.
-> It looks like we need to address the TRIGGER_LOW first, in other words
-> we need drop that flag when IRQF_SHARED is set, and leave it to users
-> to setup IRQ trigger properly on all sides.
-
-Why do we need to drop the IRQF_TRIGGER_LOW flag because IRQF_SHARED is
-set?
-
-Users as in those specifying the system device-tree?
-
-/Esben
+Rob
