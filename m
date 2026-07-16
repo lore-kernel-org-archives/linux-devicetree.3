@@ -1,106 +1,213 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADEF024DD17;
-	Thu, 16 Jul 2026 06:26:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A9112C11FA;
+	Thu, 16 Jul 2026 06:27:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784183179; cv=none; b=IEk7yHl+NyIjw9MGltuYYvDHW0CmChOzW6zZIO3O5BcjrxkJ3Hy5AqGNhi0aOEeo3FL/hqD50ISmbCs74JVlfLB8Rdcyuhj1n2r8sUpUQTak5QTQNcycYLR15U5w3wP++BK04wj8DlcAHInverREINL8v/XMwxRdjO7Ghq5ER6Q=
+	t=1784183261; cv=none; b=aH1adM537poljI1ZzLQvrgPCzhq6kA5P6+tHpgzwWW437XaiSDzkMbwe3q5fkgfb30lrbipfd86jHNU4bKAdVD8rCWMeum1buHjSNgiRYbBVzcnwVZ5NeKbJsZ6U4NGq0tmPmnppRuJlqFKtG2VOOvoj/seJ8NRSWwAHS2j7g4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784183179; c=relaxed/simple;
-	bh=6wJJGWpqnts062MSGJuv9bzWeGSd3fZ0wj23dUUQ/3Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cjtKnBssrVZ1nMj8OXSkobQhfFPwMU6cUrzl5oVPjnf4CeU2mq1jrEF3Ja63IhdDEnp6JOaPBQCqQQlXIzmDe3Majs0PZbll5dqMmaH03oe7PaY6kB7T0kTf58K7V7uLNn9eksKA8HsU36bp2o/HNPLS2YBu/dW07E48vQFAXco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=bZOBe5Xo; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1784183261; c=relaxed/simple;
+	bh=VEGCQA616zpgJx2Ani0WsRZAcwzbiIDqlj1EZLGZ7uM=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SsKjYfYTUv+DlSm5vVrK+GqESPIz6mBWmkeDdBQnFBJEDH+Q5AuLO9B/qzM8qhq5gOkFfHyBWLSv+fMpwIbRHRlBXk1Pe2FGsmFYqAjCungNNDuLLsZv1fFFXtttyUeRJjhQsAJaKZ/dEoV+XuTo7T7UIHwx8nMbxSw6RL/vD9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=fBeupTKW; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="bZOBe5Xo"
-Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net [178.82.120.96])
-	by mail11.truemail.it (Postfix) with ESMTPA id 2FFDD22924;
-	Thu, 16 Jul 2026 08:26:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1784183175;
-	bh=9HXub2A/v9RqkMGdUZjtbYvqdoMeY8h65+2Qb929duA=; h=From:To:Subject;
-	b=bZOBe5XorgczVLTaof+93M63kt1XlmU6uiFSMKAQUgg621TOnz+SJG/NQw5T45d33
-	 GI6nEOo8+pDX386o30SG2efdoiTBf4lm7hBti/iYxN76A10we1SmKNKX4YjT4xsH0y
-	 cl/41EFgXjuXG9MG5P0vziDFjuuK+HQzYKQuc3k6x9Njd5jiNNpgsFh5af2cgjslGP
-	 /q7G6Go4nQAWhdzcrTmdEnAz3KJrVIqJFGyf48JfeXI+4VfCFcYzv5OXWQHc9M3mj1
-	 8G8gMzSIMaYQoya/zjQjnvlXpav11aQO6GfZd4oVJkC1PPOqb1xyVnIwYpnAlg5s6N
-	 zyZN/MwGRLyWQ==
-Date: Thu, 16 Jul 2026 08:26:12 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Liu Ying <victor.liu@nxp.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
-	p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, shawnguo@kernel.org, s.hauer@pengutronix.de,
-	kernel@pengutronix.de, festevam@gmail.com, tglx@linutronix.de,
-	vkoul@kernel.org, kishon@kernel.org, Frank.Li@nxp.com,
-	lumag@kernel.org, aisheng.dong@nxp.com, agx@sigxcpu.org,
-	u.kleine-koenig@baylibre.com, dmitry.baryshkov@linaro.org
-Subject: Re: [PATCH v9 00/19] Add Freescale i.MX8qxp Display Controller
- support
-Message-ID: <20260716062612.GC9973@francesco-nb>
-References: <20250414035028.1561475-1-victor.liu@nxp.com>
- <20260714193627.GA9616@francesco-nb>
- <alh4a66fEro05ShA@raspi>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="fBeupTKW"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 66G6QGYf83437599, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1784183176; bh=Y5XRNJnPZSAm5lm9IWfGalOvrFDddPu+vsDu/YFgQc4=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	b=fBeupTKWxRaRBWdddptFNMx+fjL1aA6jvZEhiWo8xxEpGRLymmABf0praAWzC3g5k
+	 2cHUBltj+ZFZb3Qg6TcXr7ifpSJOs1tGxpDYZX0ZY2NkgYoL0iSUHrjoJ+03HtNxEF
+	 9soMuSEBLZoQOXOAKVCuiw5YehRRF6QpmzX4CoHu4cLzLywNgvx9xLZt+0+drbx/y8
+	 BNvaRbF6zQMmLzGS85PfCM6k1N0Fibv3tGTAgSqWP2WUH5sHO8FrDWPe0oFLC2Wtd+
+	 vnbnCapIptOEC67x3wBP3WFhWrVDgP1qvaHkJnuUGqhHIFCTn1amJG9scr5LpVpb4l
+	 LUknsjKR0nl1g==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 66G6QGYf83437599
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 16 Jul 2026 14:26:16 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Thu, 16 Jul 2026 14:26:15 +0800
+Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS05.realtek.com.tw
+ (10.21.1.55) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Thu, 16 Jul 2026 14:26:14 +0800
+From: Yu-Chun Lin <eleanor.lin@realtek.com>
+To: <eleanor.lin@realtek.com>
+CC: <Michael.Hennerich@analog.com>, <afaerber@suse.com>, <andy@kernel.org>,
+	<brgl@kernel.org>, <conor+dt@kernel.org>, <cy.huang@realtek.com>,
+	<devicetree@vger.kernel.org>, <dlechner@baylibre.com>,
+	<james.tai@realtek.com>, <jic23@kernel.org>, <krzk+dt@kernel.org>,
+	<lars@metafoo.de>, <linus.walleij@linaro.org>, <linusw@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-gpio@vger.kernel.org>,
+	<linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-realtek-soc@lists.infradead.org>, <mathieu.dubois-briand@bootlin.com>,
+	<mwalle@kernel.org>, <nuno.sa@analog.com>, <robh@kernel.org>,
+	<stanley_chang@realtek.com>, <tychang@realtek.com>, <wbg@kernel.org>
+Subject: RE: [PATCH v3 3/7] gpio: regmap: Add gpio_regmap_operation and write-enable support
+Date: Thu, 16 Jul 2026 14:26:14 +0800
+Message-ID: <20260716062614.1507243-1-eleanor.lin@realtek.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <d301ba0cd45d49d59e6a014188306ec9@realtek.com>
+References: <d301ba0cd45d49d59e6a014188306ec9@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alh4a66fEro05ShA@raspi>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Thu, Jul 16, 2026 at 02:21:31PM +0800, Liu Ying wrote:
-> On Tue, Jul 14, 2026 at 09:36:27PM +0200, Francesco Dolcini wrote:
-> > On Mon, Apr 14, 2025 at 11:50:09AM +0800, Liu Ying wrote:
-> > > Hi,
-> > > 
-> > > This patch series aims to add Freescale i.MX8qxp Display Controller support.
-> > > 
-> > > The controller is comprised of three main components that include a blit
-> > > engine for 2D graphics accelerations, display controller for display output
-> > > processing, as well as a command sequencer.
-> > 
-> > ...
-> > 
-> > > 
-> > > To follow up i.MX8qxp TRM, I changed the controller name to "Display Controller"
-> > > instead of the previous "DPU".  "DPU" is only mentioned in the SoC block
-> > > diagram and represents the whole display subsystem which includes the display
-> > > controller and prefech engines, etc.
-> > > 
-> > > With an additional patch[1] for simple-pm-bus.c, this series facilitates
-> > > testing a LVDS panel on i.MX8qxp MEK.
-> > > 
-> > > Please do NOT merge patch 14-19.  They are only used to facilitate testing
-> > > the LVDS panel.
-> > 
-> > What's the plan to conclude this work? What's the latest status?
-> > I am looking forward to have a way to use the i.MX8QXP display with
-> > mainline, but to my understanding some required changes on the SOC dtsi
-> > are not merged.
-> > 
-> > Can you help?
+Hi all,
+
+>> > @@ -185,7 +218,7 @@ static int gpio_regmap_set_direction(struct
+>> gpio_chip *chip,
+>> >                                    unsigned int offset, bool output)
+>> > {
+>> >       struct gpio_regmap *gpio = gpiochip_get_data(chip);
+>> > -     unsigned int base, val, reg, mask;
+>> > +     unsigned int base, val, reg, mask, wren_mask;
+>> >       int invert, ret;
+>> >
+>> >       if (gpio->reg_dir_out_base) {
+>> > @@ -198,7 +231,12 @@ static int gpio_regmap_set_direction(struct
+>> gpio_chip *chip,
+>> >               return -ENOTSUPP;
+>> >       }
+>> >
+>> > -     ret = gpio->reg_mask_xlate(gpio, base, offset, &reg, &mask);
+>> > +     ret = gpio->reg_mask_xlate(gpio, GPIO_REGMAP_SET_DIR_OP, base,
+>> offset, &reg, &mask);
+>> > +     if (ret)
+>> > +             return ret;
+>> > +
+>> > +     ret = gpio->reg_mask_xlate(gpio, GPIO_REGMAP_SET_DIR_WREN_OP,
+>> base, offset, &reg,
+>> > +                                &wren_mask);
+>> 
+>> What constrains these two to provide the same value back for reg?
+>> To me it seems like the write enable might well be in a different register.
+>> 
+>> >       if (ret)
+>> >               return ret;
+>> >
+>> > @@ -207,7 +245,7 @@ static int gpio_regmap_set_direction(struct
+>> gpio_chip *chip,
+>> >       else
+>> >               val = output ? mask : 0;
+>> >
+>> > -     return regmap_update_bits(gpio->regmap, reg, mask, val);
+>> > +     return regmap_update_bits(gpio->regmap, reg, mask | wren_mask,
+>> > + val | wren_mask);
+>> >  }
+>> >
+>> >  static int gpio_regmap_direction_input(struct gpio_chip *chip,
+>
+> My initial design indeed assumed that the WREN mask and Data mask reside in
+> the same register.
+>  
+> Regarding WREN support, especially if WREN and Data use separate registers, I
+> came up with three ideas. Which direction do you prefer?
+>  
+> Approach 1: Provide Custom Callbacks in config (Let consumer driver handle it)
+> We can add '.set' and '.set_direction' function pointers in
+> 'struct gpio_regmap_config'. If a driver requires WREN, it can implement these
+> callbacks itself.
 > 
-> I planned to add display controller DT node after prefetch engine support [1]
-> is picked up so that the prefetch engine could be enabled together with the
-> display controller.  Just want to avoid a DT that only enables the display
-> controller or bypasses the prefetch engine.  It makes the display controller
-> driver simpler.
+> static void gpio_regmap_set(struct gpio_chip *chip, unsigned int offset, int val)
+> {
+>         struct gpio_regmap *gpio = gpiochip_get_data(chip);
+>  
+>         /* If the driver provides a custom set (to handle WREN), delegate to it */
+>         if (gpio->set) {
+>                 gpio->set(chip, offset, val);
+>                 return;
+>         }
+>         /* ... existing generic regmap logic ... */
+> }
+>
+> Pros: Clean core, no need to touch existing drivers' xlate signature. The consumer
+> driver handles its own locking for different registers.
+> Cons: It feels a bit strange and inconsistent to expose only '.set' and
+> '.set_direction' overrides while keeping other operations entirely abstracted.
+>  
+> Approach 2: Handle separate WREN register in the core (with locking concerns)
+> We keep the 'XX_WREN_OP' in 'xlate'. If someone needs WREN and 'wren_reg != reg',
+> we write to both.
+>  
+> static int gpio_regmap_set(struct gpio_chip *chip, unsigned int offset,
+>                            int val)
+> {
+>         /* skip */
+>         ret = gpio->reg_mask_xlate(gpio, GPIO_REGMAP_SET_WREN_OP, base, offset, &wren_reg,
+>                                    &wren_mask);
+>         if (ret == -ENOTSUPP)
+>                 has_wren = false;
+>         else if (ret)
+>                 return ret;
 > 
-> [1] https://lore.kernel.org/all/20251027-imx8-dc-prefetch-v5-0-4ecb6c6d4941@nxp.com/
+>        ret = gpio->reg_mask_xlate(gpio, GPIO_REGMAP_SET_OP, base, offset, &reg, &mask);
+> 
+>        if (has_wren && reg == wren_reg) {
+>                mask |= wren_mask;
+>                mask_val |= wren_mask;
+>                has_wren = false;
+>        }
+> 
+>        if (has_wren)
+>                ret = regmap_set_bits(gpio->regmap, wren_reg, wren_mask); 
+> 
+>         /* ignore input values which shadow the old output value */
+>         if (gpio->reg_dat_base == gpio->reg_set_base)
+>                 ret = regmap_write_bits(gpio->regmap, reg, mask, mask_val);
+>         else
+>                 ret = regmap_update_bits(gpio->regmap, reg, mask, mask_val);
+>  
+>         return ret;
+> }
+>  
+> Pros: Keeps all WREN logic unified inside the core framework.
+> Cons: Introduces a locking issue. writing to 'wren_reg' and then 'reg' requires an
+> external lock to be atomic, which seems to defeat the purpose of relying on regmap's
+> internal lock. 
+> 
+> Approach 3: Assume WREN and Data always share the same register
+> 
+> static int gpio_regmap_set(struct gpio_chip *chip, unsigned int offset, int val)
+> {
+>         /* ... */
+>         ret = gpio->reg_mask_xlate(gpio, GPIO_REGMAP_SET_WREN_OP, base, offset, &reg, &wren_mask);
+>         if (ret == -ENOTSUPP)
+>                 wren_mask = 0;
+>         else if (ret)
+>                 return ret;
+>  
+>         ret = gpio->reg_mask_xlate(gpio, GPIO_REGMAP_SET_OP, base, offset, &reg, &mask);
+>  
+>         ret = regmap_update_bits(gpio->regmap, reg, mask | wren_mask, mask_val | wren_mask);
+>         return ret;
+> }
+>  
+> Regarding this approach, I would like to ask from your experience: Is it
+> actually common for hardware designs to place WREN and Data bits in completely
+> different registers for GPIO operations?
+> 
+> If they practically always share the same register, this simpler approach might
+> suffice.
+>  
+> Best Regards,
+> Yu Chun Lin
+> 
 
-That series is from October 2025, is there anything blocking to move it
-forward?
+If there are no further concerns, I will proceed with the third approach and
+send out v6.
 
-Francesco
-
+Thanks.
+Yu-Chun
