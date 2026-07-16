@@ -1,45 +1,53 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DCD1329E5A;
-	Thu, 16 Jul 2026 08:19:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C7F93D45C3
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 08:23:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784189954; cv=none; b=B38/z6KCTsIC01/uQsQxf1kMsz6J26qxyoO5yNGmTo4zZHoM0Sz+7nZlx+1itmQQEZN12WwtnZNFN75r+2Iwt7bxUQLvN07M00QzAigTF1cbfzPP4+M45p7VLIHTw+F4N0B/3BAPmTwhoYySGNNjKpiosb583H4+p3IL/F/wKVk=
+	t=1784190190; cv=none; b=i19951Rs1+LNRN2P4MGkoHPEe6q6Xp6Kd+xOXwVAwz4hJad+PZxVW4g0HvqDF4NcMVVSA4VH61CMYyP89ka44iAz5cPO8rMM8okeJl0l3Rn8Em0np+j/4xerKWju7ZELVqfYMhttPpASo8E0hOB3M7HXfHaUjf4zfvg6mI0Rnl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784189954; c=relaxed/simple;
-	bh=ssrBMW46VQIVcwyYOLSpAIFq/YRzLaGeov84JRUwx68=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mrT5ymrVoigdrVdEARDZLGF9zAfVpRbDUvHzke/CIyO59mQUaAQfsaS+kuNnZbDnxotshM0UNE0qF4qDB9OWdVDY/w/PzltjuN1qB/POHviZPf51V24G3lta6HSU+m8gPZoOKVrdcoevnsHwVheGhkbumB0ggk/E3vV58pg6XeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dFyC/2yY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784190190; c=relaxed/simple;
+	bh=RW5q+a1tQ8rzMCw6sEPsHd35hpEa336M/up1FHtobuM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=BC/m16prUGTGqZXkAuLQvTuoP9sKVuzordIL8yE5UbU+uDi38u1UXIEdZyZt38vr2VmMg6XCpNUWoseqbwYjpEdCkhrjr0qXcquemw03sAXXYk1qWHw+IazokMk6I3UQHU7BzbO/+17MDiHhiotlNRXr9HD3bwAf/Q49i6d8DUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=y66iOyDY; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dFyC/2yY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 497E91F000E9;
-	Thu, 16 Jul 2026 08:19:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784189952;
-	bh=b3GqK/sS1IxpozlDNYd0Q4Ov3M/omYleZPDCK54NcwA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dFyC/2yYSQYkB+Eqz7BImu2eWGJAPn9FfsmcN456OTz004CHdjpji/N+vZ2YNpWbb
-	 sUP42c1C4XD7nhQw5io1qAzaxCPQ1gL1XX5Gh1S/jCxs2WMb+Nc0ID+uJ+XGRZGcM/
-	 MdPQueYjM3VQXuj2RqNW+adKYpIdnrG7YEapAqepEzwrDpWjWZjyX9UVyM9CWO07+c
-	 eQQDisqu+k4xGEj0QC236fPwNsZfrFdLWre7YjiqjAB6kH6umsM7wCUNXJBLtIpzDa
-	 /Sn5yuZyIr9dSVHLn6WchyakjQpppYvK11tNktlu/UomlPO/L2wr+Qsuh96AdTI1vV
-	 fydnEzOEp3EqQ==
-Date: Thu, 16 Jul 2026 10:19:10 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, Naushir Patuck <naush@raspberrypi.com>, 
-	David Plowman <david.plowman@raspberrypi.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: Add imx708 image sensor
-Message-ID: <20260716-devout-papaya-kiwi-1cac62@quoll>
-References: <20260715-imx708-v1-0-1f36f54e14d4@ideasonboard.com>
- <20260715-imx708-v1-1-1f36f54e14d4@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="y66iOyDY"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id CC9B31A1024;
+	Thu, 16 Jul 2026 08:23:06 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9CCB1602B8;
+	Thu, 16 Jul 2026 08:23:06 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 76DEE11BD39FC;
+	Thu, 16 Jul 2026 10:23:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1784190186; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=RW5q+a1tQ8rzMCw6sEPsHd35hpEa336M/up1FHtobuM=;
+	b=y66iOyDYR/9ZIUQuamVzt1KsV9FwV6/h+E94f3BcfP0Eso5D/jblIk1FA/hLcZubcI6VBb
+	zSuSlTFDHs6hUhD4NqD8F4BqO2T6gwCzlCiwDEyqVKFzNRG6vVJcnbWplsyKPeKXU4MF91
+	C+L+JLmpeGWozMc6Uv20FvWAfaV/eqJwasKCuMz991QQqOIQvLfiNMgPtbXbM3OPM0EfzB
+	jXfmwnULE8Fu/0wWiAbUO5Aagb3C5+eQYVag9U4ZUkuymFuXJSmnvhkuyOp0ZXgjNzySxW
+	TCGLYlUNS52WAT1sLuTM+NSiS9Awrt5Og0atGFRsk1iFOddKE4pLwGGo644zzQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: sashiko-bot@kernel.org
+Cc: sashiko-reviews@lists.linux.dev,  conor+dt@kernel.org,
+  devicetree@vger.kernel.org,  robh@kernel.org
+Subject: Re: [PATCH v2 5/7] clk: Use the generic OF phandle parsing in only
+ one place
+In-Reply-To: <20260710183649.DE6331F000E9@smtp.kernel.org>
+	(sashiko-bot@kernel.org's message of "Fri, 10 Jul 2026 18:36:49
+	+0000")
+References: <20260710-schneider-v7-2-rc1-eip201-upstream-v2-0-b4680787377e@bootlin.com>
+	<20260710-schneider-v7-2-rc1-eip201-upstream-v2-5-b4680787377e@bootlin.com>
+	<20260710183649.DE6331F000E9@smtp.kernel.org>
+User-Agent: mu4e 1.12.7; emacs 30.2
+Date: Thu, 16 Jul 2026 10:23:04 +0200
+Message-ID: <87v7afcphz.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,48 +55,30 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260715-imx708-v1-1-1f36f54e14d4@ideasonboard.com>
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Jul 15, 2026 at 11:01:28PM +0530, Jai Luthra wrote:
-> Sony IMX708 is an 11.9 Megapixel CMOS sensor, that can output pixels
-> over MIPI CSI-2 bus. Add bindings for it.
-> 
-> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
-> ---
->  .../devicetree/bindings/media/i2c/sony,imx708.yaml | 120 +++++++++++++++++++++
->  MAINTAINERS                                        |   7 ++
->  2 files changed, 127 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx708.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx708.yaml
-> new file mode 100644
-> index 000000000000..bc346730e1f3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx708.yaml
-> @@ -0,0 +1,120 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/sony,imx708.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Sony IMX708 Sensor
-> +
-> +maintainers:
-> +  - Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+On 10/07/2026 at 18:36:49 GMT, sashiko-bot@kernel.org wrote:
 
-Drop, no shared mailboxes for bindings.
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [High] Switching to `of_parse_clkspec` breaks out-of-bounds indexed
+> clock lookups on nodes with `clock-ranges`, causing infinite loops and
+> topology corruption.
+> - [High] API mismatch between `of_clk_get_parent_name` and
+> `of_clk_get_parent_count` regarding `clock-ranges` support.
 
-> +  - Jai Luthra <jai.luthra@ideasonboard.com>
-> +
-> +description: |-
+These two issues are related, I feel like it is best to make sure that
+the semantics do not change, which is doable by making sure we do not
+loop over the parents when unnecessary, which avoids the possible
+out-of-bounds indexing and the API mismatch.
 
-Drop |-
+Said otherwise, in of_parse_clkspec() we may check the presence of the
+`clocks` property when looking up clks. If the `clocks` property is
+there, either we find the clock, or if we get an error it means we are
+out of bounds and can return early. If the `clocks` property is not
+present, this is when the clock-ranges property may be useful and when
+checking the parent is relevant (normal case).
 
-With thes two:
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
-
+Thanks,
+Miqu=C3=A8l
