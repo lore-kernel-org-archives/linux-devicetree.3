@@ -1,101 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F49B41736D
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 12:09:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65AE3DA5DC;
+	Thu, 16 Jul 2026 12:10:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784203751; cv=none; b=cMcoZDfgRUzNjaLukiNHmZzhFYwu/NbyDcJSbA7t4MdXaHiE6dVnLwywhUWnPnjKJ8ZcpwD1sE+S7QbsQs2pO0p/eKBIjEK9e8eWi7mXsaKNBw8bf+Kxc9WOK4m1i3V0H2qqQLJVlZQT6FCTCdPCw3cG4deRbGaW43Py6fFY3Fo=
+	t=1784203807; cv=none; b=YUCPV2Cmyz61H5nCk7N3WAkmHuz2MMauda/l11kp4f/Nj3DhhcHSssYajFkW/osS5A1/K583fdKDXGaVV0pKiL54n1/ZBXAxozMBWx2KC0LHKpUGTihlaDK+RWOgKVqDunkH7du/t5mqMoD9ZAffdZ3M2KAJNK/pyy/VpF9RCGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784203751; c=relaxed/simple;
-	bh=v46bTk69zLMulo2xApc2OT7PDtDnt9k2DehnsE2f08I=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IOZUvqgb5/WEv/SkUaOvZlbLZ3Vj9GY4JFn3psdThsJYbN69YmqqmJABX6WsypnNtoZRInrI5qXkpTRUiJuCEWaQz44qY8MkoZUhI/juXhgtm1WUAXw9wAyB7axM5pZ8IV27879YlMedXibnQLI7F/X0mIvwOGrBK5A2Gw9cQ6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eOTgVxA3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784203807; c=relaxed/simple;
+	bh=RH04RLGz+jFlIqWnHEegMUoRMI01fhF20NaK8B6pDMw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=TJJS/Rg0KA1nQcNeUIUINtV5Lp/8PCQH2NukLycQsRKu6pit/2V9FX0ujRONOpjFLrum1XAMPJMKeRp2TEpKvjj085KGE89IBXSM1sF+MvpMqhy6J0BJgzHCxEY6DLQXXdJIE5m56hQsPsB1J7A8knHniRYRwJPH4OvRbvHKUmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=FC89PrXK; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eOTgVxA3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE65A1F00ACF
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 12:09:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784203749;
-	bh=BcuTI5XT+ttFtyPpiLZjul0l9bnDn35LDJA5ZipJT84=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=eOTgVxA3Ppu+gBBOmkTZGi34W3YqBisBsHdanY/U0m/XdPzuyzn4JRqQHWScBCeDU
-	 8aCQLLmbv9Hj5AM4jEm7BDF2WXz/i+0SAIRXhxEncVcJV0fybJo5GYKBd5ZuNxQyEO
-	 ODytWRTQGaLmbnOasJOMnafApxc0YCEM6hbpg9xPQnJRT39hLy3eaqV7V66xIhZURs
-	 sGN8qhTig7VP3s8WwFlSScpu0jdGxAWDrar+B/dUW5gEZ0nhAUyz5BTQATTuBISx9F
-	 jK38ciFvs2AodHsEhdHjjszjIieU8KRpHScI+y86V+OVGqXqXD7d5cQ0V5w6Tbffe1
-	 eS3wLMvJhbzIQ==
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5b013084dc2so2737069e87.0
-        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 05:09:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rr3eHHRzHRfYy2dWOz8SVeVaVmyirG78wWS9AI/ZNVqHNy0NmNAndyXofEF2OW/7Gu9708kwMiEiOew@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx3eP31acZNmziLwg4x6729YO/Jq44qxhxdtBwN3EUXf7elLwxq
-	Sf6f0yxTqoS2W4hET9WkqNFdTsi5ZR/Zu2DdIzOh/9eWi32wphlLqYFuiNAgk+geGgf+XXR2NQJ
-	VsD9Y0l6Khwl4sFohCpadAvZaq1gIVLzf3cVjKbPt4A==
-X-Received: by 2002:a05:6512:287:b0:5b0:163b:e2d6 with SMTP id
- 2adb3069b0e04-5b0236bd419mr3463424e87.62.1784203748330; Thu, 16 Jul 2026
- 05:09:08 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 16 Jul 2026 05:09:05 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 16 Jul 2026 05:09:05 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <aleoVNavBOrF9r7O@vaman>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="FC89PrXK"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 66GC8wLhA3620812, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1784203738; bh=RH04RLGz+jFlIqWnHEegMUoRMI01fhF20NaK8B6pDMw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=FC89PrXKFju57TtTTAFDKLIpqT8K+zrLLqJZvevop/VX9IQuapCEyMsquHJ9OySqL
+	 2mVH4njGdnheS849qfn+QOOFEMekesJfXxx/WPvbwauw/6Ed2/Uv260NFkdYqfxR7h
+	 8gVRMVlnl5mJCYeSz1sJqpQcBcTV0JfeAu9oTxMyDwsfOHEfZnP4iiERwI+ufjJ+VL
+	 zSRih+2xZu3KezvkmziaPf5ctik/BG16VFha9bFtmTeUQIWbdYzdOTGxWrSs+/8BoI
+	 OueLMvOPUK9X9hqZ9OLMWkj2eLw6Q3UabJaqz/b50THmBHB6zGhuqfdhGBmDkQHGnE
+	 WS/x39TeiDyQQ==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 66GC8wLhA3620812
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 16 Jul 2026 20:08:58 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Thu, 16 Jul 2026 20:08:58 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::e6fd:5a3f:8946:92c4%10]) with mapi id
+ 15.02.2562.017; Thu, 16 Jul 2026 20:08:58 +0800
+From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
+To: Michael Walle <mwalle@kernel.org>, Andy Shevchenko
+	<andriy.shevchenko@intel.com>
+CC: "Michael.Hennerich@analog.com" <Michael.Hennerich@analog.com>,
+	"afaerber@suse.com" <afaerber@suse.com>, "andy@kernel.org" <andy@kernel.org>,
+	"brgl@kernel.org" <brgl@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, =?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?=
+	<cy.huang@realtek.com>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "dlechner@baylibre.com"
+	<dlechner@baylibre.com>, =?utf-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?=
+	<james.tai@realtek.com>, "jic23@kernel.org" <jic23@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "lars@metafoo.de"
+	<lars@metafoo.de>, "linus.walleij@linaro.org" <linus.walleij@linaro.org>,
+	"linusw@kernel.org" <linusw@kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-gpio@vger.kernel.org"
+	<linux-gpio@vger.kernel.org>, "linux-iio@vger.kernel.org"
+	<linux-iio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-realtek-soc@lists.infradead.org"
+	<linux-realtek-soc@lists.infradead.org>, "mathieu.dubois-briand@bootlin.com"
+	<mathieu.dubois-briand@bootlin.com>, "nuno.sa@analog.com"
+	<nuno.sa@analog.com>, "robh@kernel.org" <robh@kernel.org>,
+	=?utf-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>,
+	=?utf-8?B?VFlfQ2hhbmdb5by15a2Q6YC4XQ==?= <tychang@realtek.com>,
+	"wbg@kernel.org" <wbg@kernel.org>
+Subject: RE: [PATCH v3 3/7] gpio: regmap: Add gpio_regmap_operation and
+ write-enable support
+Thread-Topic: [PATCH v3 3/7] gpio: regmap: Add gpio_regmap_operation and
+ write-enable support
+Thread-Index: AQHc4cATPP5CAXxOA0S9aBj6QrzqgrYJ8C6AgFvXxWCACcZxAIAAIc4AgAALpoCAAAi9AIAAl8rg//9/lACAAIpZkP//gIUAgACMm8A=
+Date: Thu, 16 Jul 2026 12:08:58 +0000
+Message-ID: <b8eb4f0680b6424097d4b8049608b27b@realtek.com>
+References: <d301ba0cd45d49d59e6a014188306ec9@realtek.com>
+ <20260716062614.1507243-1-eleanor.lin@realtek.com>
+ <aliV4u6_xzx9D9Aq@ashevche-desk.local>
+ <DJZVLZ4LLD9E.3MPLYYXT1VQ9R@kernel.org>
+ <alim_HGTD5RCupav@ashevche-desk.local>
+ <9ee344c1d9c642bdb7d3b85bc922fe66@realtek.com>
+ <DJZY1YPMDLIN.3W0QOPEI9L8JA@kernel.org>
+ <068b13e117464cf38b7b215eee72fe7a@realtek.com>
+ <DJZYVQSJL0MO.143E5QFQRAXVV@kernel.org>
+In-Reply-To: <DJZYVQSJL0MO.143E5QFQRAXVV@kernel.org>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260708051023.2872304-1-mukesh.savaliya@oss.qualcomm.com>
- <20260708051023.2872304-3-mukesh.savaliya@oss.qualcomm.com> <aleoVNavBOrF9r7O@vaman>
-Date: Thu, 16 Jul 2026 05:09:05 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Mc_4TZ6QjUgQmLehBb_6f90bamYFhE5S_6m-Poem0-u1Q@mail.gmail.com>
-X-Gm-Features: AUfX_mxTc3KZzYNUMqguv9Cy5eW9ARpAh1ai_7rJA8YVyIlEo_EAMzkE55U-I6s
-Message-ID: <CAMRc=Mc_4TZ6QjUgQmLehBb_6f90bamYFhE5S_6m-Poem0-u1Q@mail.gmail.com>
-Subject: Re: [PATCH v8 2/4] dmaengine: qcom: gpi: Add lock/unlock TREs for
- multi-owner I2C transfers
-To: Vinod Koul <vkoul@kernel.org>
-Cc: viken.dadhaniya@oss.qualcomm.com, andi.shyti@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, 
-	andersson@kernel.org, konradybcio@kernel.org, 
-	dmitry.baryshkov@oss.qualcomm.com, linmq006@gmail.com, 
-	quic_jseerapu@quicinc.com, zhengxingda@iscas.ac.cn, kees@kernel.org, 
-	agross@kernel.org, linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dmaengine@vger.kernel.org, krzysztof.kozlowski@oss.qualcomm.com, 
-	bartosz.golaszewski@oss.qualcomm.com, bjorn.andersson@oss.qualcomm.com, 
-	konrad.dybcio@oss.qualcomm.com, 
-	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 15 Jul 2026 17:33:40 +0200, Vinod Koul <vkoul@kernel.org> said:
-> On 08-07-26, 10:40, Mukesh Kumar Savaliya wrote:
->
->> +/**
->> + * enum gpi_lock_action - request lock/unlock TRE sequencing
->> + * @GPI_LOCK_NONE: No lock/unlock TRE requested for this transfer
->> + * @GPI_LOCK_ACQUIRE: Emit a lock TRE before the transfer
->> + * @GPI_LOCK_RELEASE: Emit an unlock TRE after the transfer
->> + *
->> + * Used by protocol drivers for multi-owner controller setups (e.g. when
->> + * DeviceTree indicates the controller is shared via qcom,qup-multi-owner).
->> + */
->> +enum gpi_lock_action {
->> +	GPI_LOCK_NONE = 0,
->> +	GPI_LOCK_ACQUIRE,
->> +	GPI_LOCK_RELEASE,
->
-> Can qualcomm people please align on LOCK/UNLOCK interface? This is
-> second interface I am seeing now. Can you folks align internally on how
-> clients should communicating lock/unlock across different qualcomm
-> dmaengine drivers
->
-
-As discussed internally - this driver should follow the pattern we established
-for BAM DMA where we don't require consumers to be aware of the locking
-happening to any larger degree than is absolutely required (for instance:
-passing the address of the appropriate scratchpad register as is the case for
-BAM DMA).
-
-Bart
+PiBIaSwNCj4gDQo+ID4+IGludCAoKnZhbHVlX3hsYXRlKShzdHJ1Y3QgZ3Bpb19jaGlwICpjaGlw
+LCBlbnVtIGdwaW9fcmVnbWFwX29wIG9wLA0KPiA+PiB1bnNpZ25lZCBpbnQgb2Zmc2V0LCB1bnNp
+Z25lZCBpbnQgcmVnLCB1bnNpZ25lZCBpbnQgbWFzaywgdW5zaWduZWQNCj4gPj4gaW50ICp2YWx1
+ZSkNCj4gPj4NCj4gPj4gbWFzayBzaG91bGRuJ3QgbmVlZCB0byBiZSBhIHBvaW50ZXIgYXMgeW91
+IGRvbid0IGhhdmUgdG8gbW9kaWZ5IGl0LCBkbyB5b3U/DQo+ID4+IHJlZ19tYXNrX3hsYXRlLCBh
+bHJlYWR5IGRvZXMgdGhhdC4NCj4gPj4NCj4gPg0KPiA+IEFjdHVhbGx5LCBJIGRvIG5lZWQgdG8g
+bW9kaWZ5IHRoZSAnbWFzaycsIHNvIGl0IHN0aWxsIG5lZWRzIHRvIGJlDQo+ID4gcGFzc2VkIGFz
+IGEgcG9pbnRlciB0byB0aGlzIGNhbGxiYWNrLg0KPiA+DQo+ID4gU2luY2UgdGhlIFdSRU4gZW5h
+YmxlIGJpdCBhbmQgdGhlIGRhdGEgYml0IGFyZSBsb2NhdGVkIGF0IGRpZmZlcmVudA0KPiA+IGJp
+dCBwb3NpdGlvbnMsIHRoZSBmaW5hbCAnbWFzaycgdXNlZCBpbiB3cml0ZSBBUEkgbXVzdCBiZSBl
+eHBhbmRlZCB0bw0KPiA+IGluY2x1ZGUgYm90aCB0aGUgV1JFTiBtYXNrIGFuZCB0aGUgZGF0YSBt
+YXNrLg0KPiANCj4gWW91IGNvdWxkIHN0aWxsIHJldHVybiBib3RoIGJpdHMgaW4gdGhlIGZpcnN0
+IHhsYXRlLCBubz8NCj4gDQo+IEJ1dCB5ZWFoLCB0aGF0IG1pZ2h0IGJlIGEgYml0IGFzeW1tZXRy
+aWNhbCBhbmQgbm90IGludHVpdGl2ZS4gU28gY2hhbmdpbmcgdGhlDQo+IG1hc2sgKGFnYWluKSB3
+aXRoIHRoZSB2YWx1ZSBzb3VuZHMgb2sgdG8gbWUuDQo+IA0KPiAtbWljaGFlbA0KPiANCg0KVGhh
+bmtzIGZvciBhZ3JlZWluZy4gSnVzdCB0byBjbGFyaWZ5LCByZXR1cm5pbmcgYm90aCBiaXRzIGlu
+IHRoZSBmaXJzdCB4bGF0ZQ0KYWN0dWFsbHkgd291bGRuJ3Qgd29yayBmdW5jdGlvbmFsbHkuDQoN
+CklmICdtYXNrJyBpbmNsdWRlcyBib3RoIHRoZSBkYXRhIGFuZCBXUkVOIG1hc2tzLCBjbGVhcmlu
+ZyB0aGUgR1BJTyB3aWxsDQppbmFkdmVydGVudGx5IGNsZWFyIHRoZSBXUkVOIGJpdCBpbiAndmFs
+JyBhcyB3ZWxsLg0KDQoJcmV0ID0gZ3Bpby0+cmVnX21hc2tfeGxhdGUoLi4uLCAmbWFzayk7DQoJ
+LyogSWYgb3V0cHV0IGlzIDAsIFdSRU4gYml0IGluIHZhbCBiZWNvbWVzIDAqLw0KCXZhbCA9IG91
+dHB1dCA/IG1hc2sgOiAwOw0KDQpTaW5jZSB0aGUgV1JFTiBiaXQgbXVzdCBhbHdheXMgYmUgJzEn
+IGZvciB0aGUgaGFyZHdhcmUgdG8gdXBkYXRlLCB3ZSBtdXN0DQphcHBlbmQgaXQgYWZ0ZXIgJ3Zh
+bCcgaXMgZGV0ZXJtaW5lZC4NCg0KQmVzdCBSZWdhcmRzLA0KWXUtQ2h1bg0K
