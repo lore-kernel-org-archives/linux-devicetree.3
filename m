@@ -1,132 +1,98 @@
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D1493C3F73
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 21:21:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81FEB3C3F55;
+	Thu, 16 Jul 2026 21:22:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784236919; cv=none; b=IEk/D+Fq53pztkAPD4Nd5FJBHCRMe1rzGcwlSvMKe4LMzTS67aItsbjrLLWJpYo4DorYx1mVTaOtihZWuev/LFw1yjfQ3OLt2NY0YyEFt/SaklwI0uIgeEq90gjYhAvCjma/5FEtyYIV5iEffN1SFVnqOil3DjPSUDt00NfDyk0=
+	t=1784236922; cv=none; b=CfP6Vhgz1aBapGXjfT1/VaSZ3jWbva+r/3rzTVPFlB3n21TgTKdG/D742b3EpIosMfW1KzHgaAbqDAPJ7Z6qKGS2cpWDz8cTUfoFqSjfpmi7oho/s0K9i6l5UAd2SlnCTjiDTNcPfOvKdBj/GS1GupJ8Dk4RODBCqSE6FyIlcqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784236919; c=relaxed/simple;
-	bh=JD5Lp8KBOzUlFKcqEFqYNpeW9EwGOL+uYSqusXaqVIc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rL8AsxHAm0qAX4uHgy3NpGcS4ilgMjtGRFHpwiyVgdXAwz/FY+JjT+vNNpVq80dpj1YNfdX4W+EFjuiYOJqxzwe9PUYmEnThaDVskkp3q26uDjhzViE7vLWrJqNlSAPUj2YwxjZGjwtR4pR4ASos9+HQaYHSzJhXZ7+s4F+abUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NJB7aGiz; arc=none smtp.client-ip=209.85.128.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784236922; c=relaxed/simple;
+	bh=IIXfDbmyF4PISlHDsU3XySkrXsBnSU3kSUci847v5Qc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T2dSM2uJKq0WwmMW2DNe4U0wjhM5DJodtEByj/8wDgEVWI6yRqSd6Ynmr7NnEI1eqZBgdvyT1ZYPPsLMgWdTkQxUiom7YE7+jBoC4zyLtQpKW130nDn74ZUJnPwgOLnxU7F72qPOQTVvMjJnDGbKfrI0tHZXuLLrH8jfTCqxM8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KArvfXl9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NJB7aGiz"
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8114a4542b2so14790157b3.1
-        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 14:21:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784236917; x=1784841717; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kLUXzNCOe0RCZXyD10EHKPfmRl2c/iE1pNVJYbsebOo=;
-        b=NJB7aGiz8fKIl7h0n9uedQgm+0fobo9CG5WSWDq56vQkLe8EkBrh2KWGycGgDd8l64
-         Ae4xAfw+OLvT8bDLZWvNxmmKbglTm2sWzUtBxWU4Ppd1jci8dS6/0w7PArhfx1KzMhvh
-         +uemWOukNxi4J+pzX8tg6SC2xBC3/RwjF+AJzLaxzckFjPkwmxy54njRJ0xyyqs5ey/C
-         /XQF9bB43XeYhfEKRh2AyR0+hoPC7RjEXr0yuuhtc+QdQqF0GC+paSzxZe+MYoZQDWWV
-         z4qVf1NJK1gexAFw0biRLD/br4h8GtjfMyf4QhkMZHn3kv2U9Fkp9S1741eG/vwmHVnY
-         Q5Jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784236917; x=1784841717;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kLUXzNCOe0RCZXyD10EHKPfmRl2c/iE1pNVJYbsebOo=;
-        b=Vy5QXkEQQfsz7LkTgZhHEPSB4aZVYMONBOkwb6l0Z5Gqnj5zwCMdJWcQgD7z+yf2Zd
-         +ARXsutex4KG48LlEzSKnQsgmhD6Ku1JyNqUmTBSA4CQmD8Ovk2E4nnCpceSpfFSkWBb
-         LMHC499WaXQO7iu0H2X4cOuiZ7DfigFOR0JmKvQlHtnotCmuxLrU3FqaPowLzyWOUpG4
-         Y7W7a7Jp8zNd9OemSd0AT/oXThbXZZ3FcQNRt2I5pCR1XEjppkLzbXJk8qO7d8lx5h0s
-         0YqP6XgVKVmHcngOuJ0H8CtZ5+jC+P+CmH64lb7RRZ4bBsd3N/eIx2sX+OxMC9dw29q+
-         GMFQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp1tGlMoFK1iXaAWA2VbwMfVHmRxRdcH7xwTq1Wj0lzDFXFOfHciTIV4gGFL1GQ8mAtLQ7xblDTve+o@vger.kernel.org
-X-Gm-Message-State: AOJu0YwjAg+S1J7VwNz+KTyHz519obPGSWM08o+2wgZn55kch2+Wf9Ou
-	hBkDBiZOpoL8dWk1hgrkwVJjcHtZUr2ssk6yqREc+SgPz0JBGAZKAH50
-X-Gm-Gg: AfdE7cnLqON2sIu28757GDTJFPoZ0AiGRDiuAaYlwFoVSeq3C6gxqgWbZZ3b4H+tbZN
-	wqJuaT8gQwJkZo6q5dJI1xE27MJu9hWceXTpKxxEGtaOKi5LTA/WLcuIAUKlOJic209eetl03B9
-	WIXBrd4U/tMqRt0kdR1xk79i4gHVoX391//tRKxhCO65ZWs28IC2hp5vAe9bDWudF2LOz2Rsz1X
-	ExOo7e+vqlP/SbGYmH72uPYO04zs84FAxcHmTLnBo6UCjnAw3UHAJnQngNWIpptQnBKb3i7jp40
-	oXSn5zQ+bE5F2HInN1icX3B0kzaePCRw0irq7nnGBqv1g8VWnzcL89SWgszlQIJZtB297Ka/pRu
-	Ma5j7UhzMmyw/gWcHALd9P3tBZsgSpW608aULVNMIWB/WTRodpdJYk7goJvGni7EGTVumlVDdhz
-	K8YIeMt8ZT4XAnHdf0
-X-Received: by 2002:a05:690c:22c1:b0:81e:bbbf:7f6 with SMTP id 00721157ae682-81ecfa6bedbmr67424427b3.52.1784236917245;
-        Thu, 16 Jul 2026 14:21:57 -0700 (PDT)
-Received: from tresc054937.tre-sc.gov.br ([187.94.103.218])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81eee7fde39sm5026477b3.36.2026.07.16.14.21.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 14:21:56 -0700 (PDT)
-From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Date: Thu, 16 Jul 2026 18:21:39 -0300
-Subject: [PATCH 2/4] hwmon: (adt7470) Add ADT7470_PWM_MAX macro
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KArvfXl9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABEC51F000E9;
+	Thu, 16 Jul 2026 21:22:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784236921;
+	bh=PQAxKJampJ6BYjnx2tQU51KQl8X51MqlR83zG55ZGr8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KArvfXl9H4RoBsPCCXOF+k6eKVZITLKNR7uk5Cw5gKVsiwKkRgiVyhaauGx34K79G
+	 Orqq8A0WaxuRWNXmjKg9VTvKgK9lBltcG5WY/nPOsSoZZ7vOCK6NKBzDrmcfodz5J2
+	 LUlCS8WQOZL3jDgySOWedJJkr53+v5xopknnZWXR4lJUrZxQh51NRWVeeWjlzva+RI
+	 h+4LuPWG7WSmpJzGyF1sFg+IPKtecM1JLl3/2UJrdhj8Kclnw4m1yGQdy0uwWPO5oM
+	 aKGoVd9YfLch8z4Yhy/v9eGtKVJk40ZBk+j9DDcCdfNN3wMEujgMZc7ahwR3JvCeqf
+	 qUI8/r7vlV2Tw==
+Date: Thu, 16 Jul 2026 23:21:58 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-tegra@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 7/7] arm64: tegra: Add Host1x and VIC on Tegra264
+Message-ID: <allLaoy3uKyhIgs1@orome>
+References: <20260622-t264-host1x-v2-0-ff7364d9ff7b@nvidia.com>
+ <20260622-t264-host1x-v2-7-ff7364d9ff7b@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260716-adt7470_thermalzone-v1-2-cc55ef35edde@gmail.com>
-References: <20260716-adt7470_thermalzone-v1-0-cc55ef35edde@gmail.com>
-In-Reply-To: <20260716-adt7470_thermalzone-v1-0-cc55ef35edde@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, de Luca <luizluca@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="expvlkcbwdbfsl3w"
+Content-Disposition: inline
+In-Reply-To: <20260622-t264-host1x-v2-7-ff7364d9ff7b@nvidia.com>
 
-Instead of a magic 255, use a macro to refer to it.
 
-Signed-off-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
----
- drivers/hwmon/adt7470.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+--expvlkcbwdbfsl3w
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 7/7] arm64: tegra: Add Host1x and VIC on Tegra264
+MIME-Version: 1.0
 
-diff --git a/drivers/hwmon/adt7470.c b/drivers/hwmon/adt7470.c
-index 664349756dc2..4ac292cd7f47 100644
---- a/drivers/hwmon/adt7470.c
-+++ b/drivers/hwmon/adt7470.c
-@@ -100,6 +100,7 @@ static const unsigned short normal_i2c[] = { 0x2C, 0x2E, 0x2F, I2C_CLIENT_END };
- #define ADT7470_REG_FAN_MAX(x)	(ADT7470_REG_FAN_MAX_BASE_ADDR + ((x) * 2))
- 
- #define ADT7470_PWM_COUNT	4
-+#define ADT7470_PWM_MAX		255
- #define ADT7470_REG_PWM(x)	(ADT7470_REG_PWM_BASE_ADDR + (x))
- #define ADT7470_REG_PWM_MAX(x)	(ADT7470_REG_PWM_MAX_BASE_ADDR + (x))
- #define ADT7470_REG_PWM_MIN(x)	(ADT7470_REG_PWM_MIN_BASE_ADDR + (x))
-@@ -811,7 +812,7 @@ static int adt7470_pwm_write(struct device *dev, u32 attr, int channel, long val
- 
- 	switch (attr) {
- 	case hwmon_pwm_input:
--		val = clamp_val(val, 0, 255);
-+		val = clamp_val(val, 0, ADT7470_PWM_MAX);
- 		mutex_lock(&data->lock);
- 		data->pwm[channel] = val;
- 		err = regmap_write(data->regmap, ADT7470_REG_PWM(channel),
-@@ -869,7 +870,7 @@ static ssize_t pwm_max_store(struct device *dev,
- 	if (kstrtol(buf, 10, &temp))
- 		return -EINVAL;
- 
--	temp = clamp_val(temp, 0, 255);
-+	temp = clamp_val(temp, 0, ADT7470_PWM_MAX);
- 
- 	mutex_lock(&data->lock);
- 	data->pwm_max[attr->index] = temp;
-@@ -904,7 +905,7 @@ static ssize_t pwm_min_store(struct device *dev,
- 	if (kstrtol(buf, 10, &temp))
- 		return -EINVAL;
- 
--	temp = clamp_val(temp, 0, 255);
-+	temp = clamp_val(temp, 0, ADT7470_PWM_MAX);
- 
- 	mutex_lock(&data->lock);
- 	data->pwm_min[attr->index] = temp;
+On Mon, Jun 22, 2026 at 03:57:44PM +0900, Mikko Perttunen wrote:
+> Tegra264 has a host1x instance with a VIC (video image compositor).
+> Other multimedia engines have moved outside host1x. Stream IDs are
+> now namespaced by device rather than being defined globally --
+> however, the only engine we have using context isolation is VIC so
+> we only define VIC's range of context devices.
+>=20
+> Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
+> ---
+>  arch/arm64/boot/dts/nvidia/tegra264.dtsi | 63 ++++++++++++++++++++++++++=
+++++++
+>  1 file changed, 63 insertions(+)
 
--- 
-2.55.0
+Applied, thanks.
 
+Thierry
+
+--expvlkcbwdbfsl3w
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpZS3YACgkQ3SOs138+
+s6FirQ//RkjggMzhEiiMStdAyRG34FXZLizVqFQy+9aXzk5WxBZV7vkpMK7em2Dm
+wBmGzLoiHH+TYGw2R5k++U7D7zdg9EWtCIREGavtftZpSe4vkhFsCB3dM09ZD1Wi
+BempOfPGJ99/QCBbsm+WYrKtB1tct0+/r+t1a4tQS/CvX4oQzb9Db6VtdwcLWGSj
+h2YBSFiamk39UE24fOK1m9jplY152PecGBs0ogKcJ93MhsByUenJUwUh3EkOWa0D
+HFQ+9YgTDUEIE6vV87qO+YRxAnBhsMue89ljTfluZNK4enFrMNvtjXVhZWxFupZB
+4CF0mQ4beLHpZVlniEqMhM0hkPj6VFKHVekEcP1l3ZviOOFL828qqrx03PaxfM9s
+o9P7czdtBfuXWzKRT/efnCwDVlM76KoVUUVHjtUtxwtZtOhk2KoGdLCUcvhKzFrw
+iG796LIlnSk7d0jPMQpFHAQURrvjLLDsIkvMdNsBQfhM5pGu3/iskPN/YEkQd91J
+YkN/cLLH7xAirey8cfn7ravnHroKFecg6w13pO/YjtnHdZqqMkxPaul/vVr4zRJr
+nduN2TwJRX1WJIiKvDUGhRzkYNPuC+hPN0hzIuosYUOHH4He1rdKTZ4zI2Sf2OKJ
+VOar/djvXVuyclin+QnbvWqGw9d+M9vuCH5ZycVBzKmM3OPkg5U=
+=iUOG
+-----END PGP SIGNATURE-----
+
+--expvlkcbwdbfsl3w--
