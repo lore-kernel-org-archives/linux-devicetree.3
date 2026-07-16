@@ -1,113 +1,202 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BBA2EA154
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 11:05:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8A54156CF
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 11:12:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784199940; cv=none; b=iSgnNWENeVq9IQtlpnFYo/Az/hWDz1mF5iBz8/Qoqv4sOLM8+2WQjz9XyJCVhLB1OGePrXdKKhAvwO3NSm/H1Q03eWs0XgZUvD4adVnbK/5ZHrndMhxKWxI72Y9WkTqrN9pDK3R6W/5696ngJYS42QmMxIdm6jLfOl1CCDApxiA=
+	t=1784200347; cv=none; b=YphcQWHmaSm3qGS1INoec5qUSOv022b9mDGcqjQhmwp+nT/dwJ5pkFnadynkhwiUSs24TkbsGvtdTSicpE8xfWgEnl59tpYauCD0QLYIw3p97/MmhhzeJRKKqzSnw8mG+1umPEAiuRY67HaB1tj7nCdG3heNGu5gRW8yiPPUC34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784199940; c=relaxed/simple;
-	bh=ynIhMjGDixdnR3Owb00aFGOJlCj1PlTo8D961yjvORo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ojoEHHhKeDHAQM0jSj4gTbFYocXFm3hW3xd0o6mAn64c4ncq/1t8xQViCY2SfdCqyr6CqRpt44bxLEIVW0xwxRHpXuTaNZJ3OP5068Jq6iiOD0TKO5Xb/z9TFh6jbkhCtUP9W4NTI9/r7sGki/btcVtycKvECIygTAcKXrWTzGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cOQyVICZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784200347; c=relaxed/simple;
+	bh=yzH3rj1qE1iSUDcLNaIAmbiWve6bqP2OJ+u3kW2gTLo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iN0y7cKiIplu/E/lhTBWXYX/rRrzkmz6yp3UYJNquGWIgU24Dnfw57opKVniEVfx/QHeS0ciPefCgQQI2fhz+eotRSRUD9UcI/7MAxe0lGkXqCl8MvsEpZyI+Nr9oqxNz7E0SjUvR2JQcjgF6OT5eYBqlVRMyxZu7A2giZSI7PM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lXs5bHMJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LcbAR4Ys; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cOQyVICZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21AFC1F000E9;
-	Thu, 16 Jul 2026 11:05:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784199939;
-	bh=tvj0xAlNasnALYasJl64Cqf2swfTh/MvUmAZSpXEov4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cOQyVICZqwjV6dvWNRwRPRlBXH/+PJ9CxjKJiQl9463SLwuzOprKQ3PImtB0n+ytO
-	 iZZaIRK2ZWO6N1erL7UbxGeMu4zKrxJLe3xRGxDT9wbdQmDTJs3Z9AxxQcp6k/K3+y
-	 o2ZAj92XVQpaR++TF2v02/Fo62hdPfKgaXDR0wlSE6EH5/bAQxZRMvmN0b5nGlTgWw
-	 obET29XSYgO8cYbYjE4xiq8FCKed44nLK9wv/qqCGMfluccJkGGV5rX/i8uSmz18G3
-	 6i38aWFr8hRUvKq5m/Wv2q+qIAyx4t4/A4QEfSTRnQo5HpMcGwG2D1PzF15JTyVGKY
-	 rmtU38ZY7VQXg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] of: base: Handle optional argument in
- of_parse_phandle_with_args_map()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?TWlxdWVsIFJheW5hbCAoU2NobmVpZGVyIEVsZWN0cmljKQ==?= <miquel.raynal@bootlin.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260716-schneider-v7-2-rc1-eip-of-fix-v1-1-9b9383f936c6@bootlin.com>
-References: <20260716-schneider-v7-2-rc1-eip-of-fix-v1-1-9b9383f936c6@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 11:05:38 +0000
-Message-Id: <20260716110539.21AFC1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lXs5bHMJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LcbAR4Ys"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66G9rccZ2415920
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 11:12:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	hhRDmVLt+j+++2qCqj2WWEzcP52HQCdEmO997P4JbPo=; b=lXs5bHMJOg36IFTw
+	YHeHq0C1sRqamoqaV9r98QJULx1ZLHC3GM2/avlZ6k0pAmyz0y4rqRY8SeQzprIY
+	Mm+SK0oh+jPzsuH20YT7DRxT4JjLAr3i+WCWrQpc2vxBpOMOdy0GWwF2mHrKxKhF
+	rmVL+qLbdFb8AhwxOLjQSYbm5bSPL+4kp/l3/rklj2i98pFu1BaENR+oebUccaDa
+	vBGnMmdCt8k7uLUsMGJA3lCdijiuHM5d/HW632TxxvW9TvAkYk7v/88DqYdWDiId
+	FHVqIG6jYR+7AW4qQj9DZ5AqGjgIhFQJh1R+KpKTipc+Cp1kO3nRgVkw/1JtyJdv
+	b7nisA==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feve1rh9w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 11:12:21 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8484b57b98bso12596176b3a.0
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 04:12:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784200341; x=1784805141; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hhRDmVLt+j+++2qCqj2WWEzcP52HQCdEmO997P4JbPo=;
+        b=LcbAR4YsIFGB2ZF/Ma6ir4k1P/ITidnyiGZblwsCG1DZ2HmJ9s9R9p1ghEHQFyBjoJ
+         OneaZehxJui+/UD3+GryrBXvCefzq4SEHMy05QR4k2ueQgWimX7YUgTT/H/Cna4jNcpn
+         ONBHj2nC6Qi/zwi+B4eYVubM/8Q6sjjOQjcYHwB8RK1O76uW0Quut+RIloajO3+47gZU
+         I/0ODK+yjAC+Z9yeCGC6UIB9yLOo0YDP+eaQMmTJwkYhL5IOetytp8rVyHLznaMUGHOK
+         5tY7vmTnB/xyfkygaqbCxliBkMQiDaMkfv/9ti8Xq/jaxWNmDx80Kvwe3MaJzNMzzZvr
+         c7fA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784200341; x=1784805141;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hhRDmVLt+j+++2qCqj2WWEzcP52HQCdEmO997P4JbPo=;
+        b=IrQVJ6xGs9cMGg0hjCefkE0KAvcgVT2a2Ba3DzA9w411Q0y7kvN54REdABgr/yvW7q
+         F2Bf/DdmxOlic9mcjJeADB7YS75wHAz+SGZ+h0wzyA5uwlOu11+L27vQEMbjn5lU8X9s
+         YUs3IhHERWRRLJ4jZUH4vQDKpL9Ze5gPz2QTCfG4C1MyrGUlsl0voQ+dKFJHCE7505E5
+         JMvc2AAVrDZET9wlgwrf+JHxwbOOcvaES3/FvrsbysoiX28S/ilyGpbqDL7JCO196pKB
+         RMdZtisnpzlK+XkF9Y0V7a3gLPCycPcrk+HnpClULQbvnsrD/md4romUpOCjGu3lrotf
+         UGEw==
+X-Forwarded-Encrypted: i=1; AHgh+RqQUzSNOhzb44COaFEhnWk3AbAX8f1TRpFLc64wvFMPBHQJJZFGcVYT4+atoOeDtlXMhe45bGVhWs5k@vger.kernel.org
+X-Gm-Message-State: AOJu0YxzbvxaJxBvxQTfYViSUgr8C6Q4yq5sGBD4Q6bXSWcct/zfpk0f
+	LYREMzunnxo+R205rMnP50O9m2g0aUNZR/opRtc5lAvXOIH+HQrblaBw1KV+cKz5PBcDoyw+k2n
+	Ki9hLh1EPHaUZpEe9Wp7S0ciKhAu0itFtREIgYIb+3oR3BbCrOTCGdskaa/PigJ/8
+X-Gm-Gg: AfdE7ckco8QrM5Bvt9x6W4DPBOJHntUlD5t5/PqG1mOVvaTIOb1ce+IQDstWvDUkzVC
+	UQLh5ZaJX3zKmjYvfY8HLENTNZaRtO9xBnWr/xHaQuoaT09u4B8fxPFLDFwos5/26qkJiO4v9Fw
+	N7MPhgbMzU1xzhEBdcnneJzYjFmTUbPLq54I66mAnTBxR0FzF3n9+WMOiVAjRAV8IP9m1CaRx22
+	Dpbaa6Mb9anvGFJDSNemF3h2G1y1BjDegeOOAGM5Ofz+CIBrIVtnrqKh2npBJYwCSpF660CT/Om
+	x2NMSlbxihFi3XXYY1kH528M8F1YP0otJL3TcfFxqwuUdiRhIRmzfB7qiKXZdK1+o2nqizx+eZl
+	V/YkZ7rl7eo9YtZC1iz0KoHapoCI=
+X-Received: by 2002:a05:6a00:301a:b0:847:968d:b101 with SMTP id d2e1a72fcca58-84a51442e0cmr10682710b3a.21.1784200340772;
+        Thu, 16 Jul 2026 04:12:20 -0700 (PDT)
+X-Received: by 2002:a05:6a00:301a:b0:847:968d:b101 with SMTP id d2e1a72fcca58-84a51442e0cmr10682655b3a.21.1784200340258;
+        Thu, 16 Jul 2026 04:12:20 -0700 (PDT)
+Received: from [10.217.216.90] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84a4f23a5f3sm4578248b3a.5.2026.07.16.04.12.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 16 Jul 2026 04:12:19 -0700 (PDT)
+Message-ID: <316fd37b-9936-4bca-8521-9a11ee65cbd6@oss.qualcomm.com>
+Date: Thu, 16 Jul 2026 16:42:11 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] dt-bindings: clock: qcom: glymur-gcc: Add missing
+ CX power domain
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Maulik Shah <maulik.shah@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Brian Masney <bmasney@redhat.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        Qiang Yu <qiang.yu@oss.qualcomm.com>,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>
+References: <20260715-glymur-fix-gcc-cx-scaling-v3-0-72eb5adad156@oss.qualcomm.com>
+ <20260715-glymur-fix-gcc-cx-scaling-v3-1-72eb5adad156@oss.qualcomm.com>
+ <4b543abe-2482-4381-b41e-623cdf5be9a2@oss.qualcomm.com>
+ <olkjcrfq5t32gvqgpcqiuyp5jhf72f4piowz6osxhain77f7bc@ggwuk4nz2ak2>
+Content-Language: en-US
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+In-Reply-To: <olkjcrfq5t32gvqgpcqiuyp5jhf72f4piowz6osxhain77f7bc@ggwuk4nz2ak2>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDExNSBTYWx0ZWRfXzAkW/yG0uyRv
+ k4VUVzrybTcnHIOjkJ8E1mEObPE3ZtIu4FUIqP0JHvMW+hcWljF2y5TJwAWz/3lEfuTZ/eLqSoM
+ HwCCyHFR7sN7xDyQ99gEsiWmWj7VV+CoCO+dSZv6oUQhIzfZWI7ZIKFFeu4renGlQf6G+ZI8/gp
+ ijchRuxnP7o0bt2Uv893tw7Z3FNo5tF7O2F51g9IIirOW0jAYMM7RR+7PKmTcxZBTry2qLMusvo
+ j7pESVNa9UnekEavfkAJ8xEUJwazSxoV50iftiXGUYl1f5WJ5w++khGEQFEJNZCN5iD8EZA5GFv
+ y3qClcZg1lmawwyhKCVCi6gy2Z7rF0PvWpWzU1+jWLkHPIxdLeYADwaTLyhrmZEos0LBNujil6N
+ PHE0lfbTguW4CLABmLJGS+fvv+VSxSo8h8YpEZipCSMeg/iIavcrmavkMJqFmOAdWo9wViUbRu1
+ C4RsahDjZi1MhV6ZuyQ==
+X-Authority-Analysis: v=2.4 cv=DvpmPm/+ c=1 sm=1 tr=0 ts=6a58bc95 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=1U0sEZR_6ltlo9pre54A:9 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-GUID: GlRDM8rrTq1Ewy0uMMWkqj1mLwq11l7H
+X-Proofpoint-ORIG-GUID: GlRDM8rrTq1Ewy0uMMWkqj1mLwq11l7H
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDExNSBTYWx0ZWRfX54ftgydOR5r4
+ OibIxeleSRKFtzUIZxWWCuUjGPQYFbTMTQ6BzT7LiqS+rD0BdKxnBeyqXbXlmpumk8/osIUN4rK
+ 8zBFHhlJTxCPr6D+UVziPxvYMsVrHIQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-16_04,2026-07-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 priorityscore=1501 phishscore=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 malwarescore=0 impostorscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607160115
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] Missing bounds check on `list_size` causes an out-of-bounds stack =
-write and read when `#<list>-cells` exceeds `MAX_PHANDLE_ARGS`.
---
 
---- Patch [1]: [PATCH] of: base: Handle optional argument in of_parse_phand=
-le_with_args_map() ---
-commit 22223dd6c28b67c741e12313ce0dc7dc5d351701
-Author: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
+On 7/16/2026 12:52 PM, Abel Vesa wrote:
+> On 26-07-16 10:13:48, Taniya Das wrote:
+>>
+>>
+>> On 7/15/2026 6:59 PM, Abel Vesa wrote:
+>>> The GDSCs provided by the Glymur GCC are supplied by the RPMh CX power
+>>> domain. Model that parent domain in the GCC binding so the provider can
+>>> describe the dependency in devicetree.
+>>>
+>>> Add a single CX power-domain entry to the binding and make it required,
+>>> matching the hardware description needed by the GCC node.
+>>>
+>>> Fixes: ee2d967030fe ("dt-bindings: clock: qcom: document the Glymur Global Clock Controller")
+>>> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+>>> ---
+>>>  Documentation/devicetree/bindings/clock/qcom,glymur-gcc.yaml | 8 ++++++++
+>>>  1 file changed, 8 insertions(+)
+>>
+>>
+>> Abel, I feel we should add the 'required-opps' as well which will ensure
+>> the clock controllers minimum voltage requirement.
+> 
+> But it was agreed in v1 that we should not add the required-opps. So we
+> dropped it in v2.
+> 
 
-of: base: Handle optional argument in of_parse_phandle_with_args_map()
+Okay, sorry, may be I missed that comment.
 
-This commit handles the optional NULL out_args argument by providing a local
-on-stack fallback object. This avoids unconditional null pointer dereferenc=
-es
-when the caller only wants to verify if the lookup works without keeping
-the result.
 
-Closes: https://lore.kernel.org/all/20260710183359.61D3A1F000E9@smtp.kernel=
-.org/
+> Can you give more details to why you think it is needed ?
 
-> diff --git a/drivers/of/base.c b/drivers/of/base.c
-> --- a/drivers/of/base.c
-> +++ b/drivers/of/base.c
-[ ... ]
-> @@ -1554,6 +1554,8 @@ int of_parse_phandle_with_args_map(const struct dev=
-ice_node *np,
->  	const __be32 *map, *mask, *pass;
->  	static const __be32 dummy_mask[] =3D { [0 ... (MAX_PHANDLE_ARGS - 1)] =
-=3D cpu_to_be32(~0) };
->  	static const __be32 dummy_pass[] =3D { [0 ... (MAX_PHANDLE_ARGS - 1)] =
-=3D cpu_to_be32(0) };
-> +	struct of_phandle_args _oa =3D {};
-> +	struct of_phandle_args *out_args =3D _out_args ? _out_args : &_oa;
->  	__be32 initial_match_array[MAX_PHANDLE_ARGS];
+My reasoning is that if a clock controller requires a rail, it is
+preferable to explicitly specify the required operating level rather
+than rely on system/client vote. This makes the dependency
+self-contained and easier to reason about. Clients that require a higher
+operating level than the clock controller's minimum requirement remain
+free to vote for a higher level as needed.
 
-[Severity: High]
-This is a pre-existing issue, but could a malformed device tree cause an
-out-of-bounds stack write to initial_match_array?
 
-Later in of_parse_phandle_with_args_map(), the #<list>-cells property is
-read directly into list_size without being bounded to MAX_PHANDLE_ARGS:
+-- 
+Thanks,
+Taniya Das
 
-	ret =3D of_property_read_u32(cur, cells_name, &list_size);
-	if (ret < 0)
-		goto put;
-
-	/* Precalculate the match array - this simplifies match loop */
-	for (i =3D 0; i < list_size; i++)
-		initial_match_array[i] =3D cpu_to_be32(out_args->args[i]);
-
-If a device tree node defines a #<list>-cells value greater than 16, this
-loop will read out of bounds from out_args->args and write out of bounds to
-the initial_match_array stack buffer.
-
-Does list_size need to be validated against MAX_PHANDLE_ARGS before being
-used as a loop limit?
-
->  	const __be32 *match_array =3D initial_match_array;
->  	int i, ret, map_len, match;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-schneider-=
-v7-2-rc1-eip-of-fix-v1-1-9b9383f936c6@bootlin.com?part=3D1
