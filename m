@@ -1,147 +1,93 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719D0376BD1;
-	Thu, 16 Jul 2026 17:34:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A39374195;
+	Thu, 16 Jul 2026 17:35:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784223262; cv=none; b=JQrxQxg8YaKSy1skrSViAx/H5imArOjz9+P6+b7MFYbkSDyl6Cwxlg6gz4cRsQ+kP2OpBduUtLZelwfuxW4Qi+YK+p1xa2vLM7KWQSgZssyzGQWeuZJgXSHG5uk81kLXUkZzXJurvn5SRjZbFbO8RD6UINaH3GYDhx/TQBGaFHs=
+	t=1784223340; cv=none; b=ajaagccvnzybsPnvD6YsrLV5f86Cu6r7ThvOKNJFP+89OMWfw01F0deCqCoZgHwCbOIEQDuj2YMzcaC7zoY41bTpEn0b2k/87aHiWdGg34roYxcI84QTkKXZ6Jn9fLk3Z3yhjb0hNrJqNRO0Hczr4SHRBq0uinD4nZ7eaIjSfWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784223262; c=relaxed/simple;
-	bh=LdUVk/NYwiBLxejC3EguQWO9elJf87/PL/iYCAtTcfo=;
+	s=arc-20240116; t=1784223340; c=relaxed/simple;
+	bh=YwRmOEFI3f5URqYYo+eCqCa+D+XclSkaQGeBK/jZVos=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jjhTAbm9TWjHy+LZaaT5LLS6mbmpqZ0pKVPkZC5tZvA2iTPW+/fSKvQdmnv5nu5UnsaogLvjsaFBhi3ml403bS9XHdbeM6O5YR1zdjEpVp1D9cLSC2hJzhGjbYRFrR9sDhScJ2a/XswVU23cCJ0G5AV4fZlRy+alXmTQvNpzn0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mKgCzg6D; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=foo/zPctJVBAlxsQpTyOauePO+QxO98SJPYTqBksz6vkeiWIkunAuQyJ/C6s7XMJ6K4QFfcLncKVe9+XyoAUoee8l4h645nFJhM4zd65YOQ6OcTNiZK2z8Gc9+jcWxYS6IBcjzz8DZ4puqJ7AkZZEnuridHQKvc7lMZ6J5z1/SA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gZgEcGcA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mKgCzg6D"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784223260; x=1815759260;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=LdUVk/NYwiBLxejC3EguQWO9elJf87/PL/iYCAtTcfo=;
-  b=mKgCzg6DcKtyYDsHoeqsXbHDrViEp97nshLRTEah6+ewLEyMLNM711NM
-   vxNmN3yNxHsYsatOLZb3KF4ZKWpd+urNWxCzNbEE6WJfHNle3bdSGWyyz
-   jmicErUrYh2TDFisdE001Q6pKH7DNGKxrtnnFvmVZwCOrm/jKOwYZlE/M
-   2/UFGnh83NoX38556M7jC3rLuUGfog+xELfHvCwVtcOs7GziXPQK+pCkc
-   k70kHQdYxrPzNFlP1N7dbXVLho3Odlxak0OtH4hVhIdlPpTdnwCayLEIG
-   w/FVpeOJdA0Hs0h7uyUWkIFaMICrmU512F1FGAgbnYHA4+uNJXjd51Mh6
-   g==;
-X-CSE-ConnectionGUID: 1tWHmOtvT6qN278eTUd8tQ==
-X-CSE-MsgGUID: NMDcAI4qR82H+tq4V8y9Vg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="85009567"
-X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
-   d="scan'208";a="85009567"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 10:34:19 -0700
-X-CSE-ConnectionGUID: G088pS9JRWCNCTzsqTnKsA==
-X-CSE-MsgGUID: jHS8gdqYTkewW49IH6KeVQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
-   d="scan'208";a="260157517"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.26])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 10:34:14 -0700
-Date: Thu, 16 Jul 2026 20:34:11 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Wei Deng <wei.deng@oss.qualcomm.com>, linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-pm@vger.kernel.org,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v5 10/16] usb: hub: Power on connected M.2 E-key
- connectors with power sequencing API
-Message-ID: <alkWE-bQ9gGIXIJj@ashevche-desk.local>
-References: <20260715085348.3457359-1-wenst@chromium.org>
- <20260715085348.3457359-11-wenst@chromium.org>
- <aleKQKH2V-ck-SX6@ashevche-desk.local>
- <CAGXv+5Ed9Cn-NeHiXJ58er7NJs1P2ZUMrjqYac-gSky-TNV8Lw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gZgEcGcA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 242D81F000E9;
+	Thu, 16 Jul 2026 17:35:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784223339;
+	bh=yf2oHsNRk8ZDkNH1BFO0UXsDSvAMijvnvwM4EvDInNQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gZgEcGcABnGq3/tGZdLO4OlHyEubpxJf+OSCy0W6hvuvPeaL8h7GVKJK+5kyI0g7A
+	 zXXERFQi4Q6wEOfnEt+2G5FN3Fdx42fgzGmY/Z7C1m8HL9Y9tthuQoIpc3nBBnkie4
+	 9uowZVlTFc1k93B78AX8eAy19kH1ukCcplGj/MaoSHye+PmwEipzBnzhZ9O5N3wzu+
+	 iniEbbhoJaEFbieehJeW+ef+iyV1UmjhaUYLfdZDELdQYagbdwo9MlPndwx5+yZ5pT
+	 xO8hjIiEBrxjRRO/FZzIqSmzZhDZkkfN57WjYuB1RbXxt0Vz2TJ4htHEp9kcZ5TRXf
+	 /0c9ZoY2Fdhiw==
+Date: Thu, 16 Jul 2026 12:35:38 -0500
+From: Rob Herring <robh@kernel.org>
+To: Ninad Naik <ninadnaik07@gmail.com>
+Cc: lee@kernel.org, pavel@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	me@brighamcampbell.com, linux-kernel-mentees@lists.linux.dev,
+	skhan@linuxfoundation.org
+Subject: Re: [PATCH] dt-bindings: leds: lacie,ns2-leds: Convert to DT schema
+Message-ID: <20260716173538.GA534222-robh@kernel.org>
+References: <20260701175330.1645927-1-ninadnaik07@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGXv+5Ed9Cn-NeHiXJ58er7NJs1P2ZUMrjqYac-gSky-TNV8Lw@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260701175330.1645927-1-ninadnaik07@gmail.com>
 
-On Thu, Jul 16, 2026 at 06:02:38PM +0800, Chen-Yu Tsai wrote:
-> On Wed, Jul 15, 2026 at 9:25 PM Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> wrote:
-> > On Wed, Jul 15, 2026 at 04:53:40PM +0800, Chen-Yu Tsai wrote:
-
-...
-
-
-> > >       fwnode_handle_put(dev_fwnode(dev));
-> > > +     /* usb_hub_create_port_device() could leave an error value */
-> > > +     if (!IS_ERR(port_dev->pwrseq))
-> > > +             pwrseq_put(port_dev->pwrseq);
-> >
-> > Hmm... I would rather make pwrseq_put() NULL and error pointer-aware, so
-> > it will be no-op in such cases. But I think Bart has his own opinion about
-> > this.
-> >
-> > >       kfree(port_dev->req);
-> > >       kfree(port_dev);
-> > >  }
-> >
-> > >               put_device(&port_dev->dev);
-> > > +             hub->ports[port1 - 1] = NULL;
-> > >               return retval;
-> > >       }
-
-...
-
-> > > int usb_hub_create_port_device(struct usb_hub *hub, int port1)
-> >
-> > > +     port_dev->pwrseq = usb_hub_port_pwrseq_get(port_dev);
-> > > +     if (IS_ERR(port_dev->pwrseq)) {
-> > > +             retval = dev_err_probe(&port_dev->dev, PTR_ERR(port_dev->pwrseq),
-> > > +                                    "failed to get power sequencing descriptor\n");
-> > > +             goto err_put_kn;
-> >
-> > OTOH, how pwrseq can be non-NULL and at the same time port be created?
+On Wed, Jul 01, 2026 at 11:23:30PM +0530, Ninad Naik wrote:
+> Convert lacie,ns2-leds to DT schema.
 > 
-> I assume by non-NULL you mean returning an error?
+> Signed-off-by: Ninad Naik <ninadnaik07@gmail.com>
+> ---
+>  .../bindings/leds/lacie,ns2-leds.yaml         | 87 +++++++++++++++++++
+>  .../devicetree/bindings/leds/leds-ns2.txt     | 35 --------
+>  2 files changed, 87 insertions(+), 35 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/leds/lacie,ns2-leds.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/leds/leds-ns2.txt
 > 
-> device_register(&port_dev->dev) is called some lines above this.
-> 
-> usb_port is weird in that usb_hub_create_port_device() does a bunch
-> of stuff that is normally done in a driver's probe function. However
-> usb_port's driver is just a stub driver add for userspace compatibility
-> reasons. See commit d99f6b4130877 ("usb: rename usb_port device objects").
-> 
-> So at this point the usb_port device has been added to the driver model.
-> Or we can just zero out port_dev->pwrseq instead? I guess that is cleaner
-> than having some weird check in the release function.
+> diff --git a/Documentation/devicetree/bindings/leds/lacie,ns2-leds.yaml b/Documentation/devicetree/bindings/leds/lacie,ns2-leds.yaml
+> new file mode 100644
+> index 000000000000..679a618906d8
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/leds/lacie,ns2-leds.yaml
+> @@ -0,0 +1,87 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/leds/lacie,ns2-leds.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Dual-GPIO LEDs found on Network Space v2 (and parents)
+> +
+> +maintainers:
+> +  - Lee Jones <lee@kernel.org>
+> +  - Pavel Machek <pavel@kernel.org>
 
-So, why do we need to assign the error pointer to the field directly then?
-Make a local variable and assign it if and only if there is no error pointer
-in it. Would it work?
+This should be someone with the h/w, not subsystem maintainers.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> +
+> +description: |
 
+Dont need '|'.
 
+> +  The Network Space v2 dual-GPIO LED is wired to a CPLD. Three different LED
+> +  modes are available: off, on and SATA activity blinking. The LED modes are
+> +  controlled through two GPIOs (command and slow): each combination of values
+> +  for the command/slow GPIOs corresponds to a LED mode.
+
+Rest looks fine.
+
+Rob
