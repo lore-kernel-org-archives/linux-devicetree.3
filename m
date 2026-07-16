@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC5E42DFE4
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 17:26:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 804A6435502;
+	Thu, 16 Jul 2026 17:27:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784222816; cv=none; b=PvacOhAJwj3iJ+SvtYiBejbfF3RP6bMESjGJlc9q9oz8aieRiVQZfRgHFLcBgP+i42RgBoUd++anjWFEJGH2dqsQmC1x4n6vY1alR5ewvAN2vgqx28FnIriPn+1Knf4wYwDqFwI7Jr6eypOzO0V0JUUTuabJYyQ0e0/nKO2uTiA=
+	t=1784222851; cv=none; b=pK0QuZ64F/dXX76x0PnOYmG92yUn4WWWjWQeDmYq6kyDJKd6OKf+YW9ZpY1tqv69FKXNLYZ5FiHoOB9h6PrMhcRCmmGqX0cUthjkCQo2E7qqgfruAGWdCfIW6mu4/qWLpWPTgB1kPxS+3TaSaFzhfd7ruVG6nwfFKEDkrgFVA1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784222816; c=relaxed/simple;
-	bh=LPCaBZUg34Nlk6q9Z1cOriCqeplp2FoLmpMYdGSc0F0=;
+	s=arc-20240116; t=1784222851; c=relaxed/simple;
+	bh=j7qvQakrGWl2fs05CtftfQ8dyTWOe9EfAiWtFcbZTJw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=b1Iptff9Eqxd6AfWwG69ezuc9dlhojuM5MW90KwgB6OFqy8gy98wMeAPJuW+wODizhZTEnLvy+LRRQ6N+zYlbHPjPgtVUkOQ712ViDt+P2FZT+x2RACgNdwDQ1jyevuNVDQjztfCiAV6gvXD64nf4p6w34GnoL/TOQs4zlq7XuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UAgYf+56; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=C+qcoV2ggVyqwKlkP1Y6oeL2RS+7+cYu5uMZSe7CSE6L+KkJMC/1hJY5VhTYrejckWf9C5hNySWuBgcCZbKw84xHM0IxUef+9PAof/i4kp6mWbYQWOyKURV7PqXN7ehzsMbQM2nTazn/TJkzD/YsEXRMonoTi19oZrCbkQeny50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YKc1qDR7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UAgYf+56"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A8B41F000E9;
-	Thu, 16 Jul 2026 17:26:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YKc1qDR7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 089081F000E9;
+	Thu, 16 Jul 2026 17:27:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784222813;
-	bh=MK+1PurMIbCnFT5xBtPbQzEWhrKMqqPbp1w0eZgGEQo=;
+	s=k20260515; t=1784222850;
+	bh=tUsGVY4sN7rq2HiE8e9Ky+9qe2yG8lx04jcATYODPS4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UAgYf+56RCNfyh2pLc6cS0Nj8Jz8wbdRrrFyUgmbuIgjzVIfviFgJL6aj6CeMyK6I
-	 hFLqp+FM46dPh4qA5ucDo74DTlitiuApxIrCIgmtc8IGwbddcwyZm+0AG0BYUAB67k
-	 Oj/z++e7nfDuRGrBtLrsc8O3OtVQzqtw62kQXuP0IuxTnAVa96PjmH2Ufke+zLKSET
-	 ICr8L7ArsWExvUx+5A/SaxOu8mcsdkwLgHK5tFbkWGJe2fk4txdf8PD646Qe9Z5wNI
-	 iCLOq0eOZ7FeftP7adJ8K7EqG7Vnd/f6DXD9uhD/8msGrvS58U1Z+Ccq9T0wBpWpUu
-	 RJX1Sg8YQ+nFw==
+	b=YKc1qDR7bEQiWHFnucoqsvya+4yxjU6aRzKe52/4VFsDb7gLa4ZnDcCoJSybr6gpB
+	 8DR6hz92kHsCYuhdRu8j52R2xbT3nXgPZIwFtd+M4X05bkZmohzi6YKsEsjTNcjb6P
+	 aaR4M58IHzudBlxb2+8NWWIp1bsonNNsabYIrvjL4/+tTi5U4o34T3voJf5Mwi03QK
+	 dFlzrUpm2vZ2P9CZoj5lc5MxAON/OemcWtb6YF7LbBTCk6/m3TJ/ivqG1oW52CiTAW
+	 C50C/metl2mSr1eOKV2qU8clzc8yXwJg30DiodTcb3eh3IpUM3Asdq6IvKUJMIin63
+	 SvjQnES3JXsuA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/5] clk: samsung: clk-pll: Add support for pll_1061x
+Subject: Re: [PATCH 3/3] soc: mediatek: pwrap: add MT6589 PWARP and MT6320
+ PMIC support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexandru Chimac" <alex@chimac.ro>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260716-exynos9610-clocks-v2-3-c13ce8ef1861@chimac.ro>
-References: <20260716-exynos9610-clocks-v2-0-c13ce8ef1861@chimac.ro>
- <20260716-exynos9610-clocks-v2-3-c13ce8ef1861@chimac.ro>
+To: "Akari Tsuyukusa" <akkun11.open@gmail.com>
+Cc: mfd@lists.linux.dev, lee@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260716171733.300885-4-akkun11.open@gmail.com>
+References: <20260716171733.300885-1-akkun11.open@gmail.com>
+ <20260716171733.300885-4-akkun11.open@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 17:26:52 +0000
-Message-Id: <20260716172653.1A8B41F000E9@smtp.kernel.org>
+Date: Thu, 16 Jul 2026 17:27:29 +0000
+Message-Id: <20260716172730.089081F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,68 +47,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the fast-path ch=
-eck `samsung_pll46xx_mpk_change()` hardcodes a 9-bit mask for `mdiv`, which=
- incorrectly truncates the 10-bit `mdiv` used by the newly added `pll_1061x=
-` and the existing `pll_1460x`. This can bypass the main multiplier update =
-and leave the PLL running at the wrong frequency.
+- [Medium] Incorrect capability flag used for MT6320 PMIC: `PWRAP_DEW_DIO_E=
+N` is used instead of `PWRAP_SLV_CAP_DUALIO`, silently disabling Dual I/O m=
+ode.
 --
 
---- Patch [3]: [PATCH v2 3/5] clk: samsung: clk-pll: Add support for pll_10=
-61x ---
-commit 22c944c044739f58fab83d8908a877841003ecb0
-Author: Alexandru Chimac <alex@chimac.ro>
+--- Patch [3]: [PATCH 3/3] soc: mediatek: pwrap: add MT6589 PWARP and MT632=
+0 PMIC support ---
+commit 69d3d2c2fbeaf34ea620f48758fb711a4ca760f9
+Author: Akari Tsuyukusa <akkun11.open@gmail.com>
 
-clk: samsung: clk-pll: Add support for pll_1061x
+soc: mediatek: pwrap: add MT6589 PWARP and MT6320 PMIC support
 
-This patch adds support for the pll_1061x found in the Exynos9610 and
-Exynos9810 SoCs. It reuses the logic from pll_1460x, adapting it to use
-CON3 instead of CON1.
+This commit adds support for the MediaTek MT6589 PWRAP and MT6320 PMIC.
+It also refactors the existing MT8135 bridge register definitions to use
+a generic prefix.
 
-> diff --git a/drivers/clk/samsung/clk-pll.c b/drivers/clk/samsung/clk-pll.c
-> index fdb84bcec9127..5ec9423009c7b 100644
-> --- a/drivers/clk/samsung/clk-pll.c
-> +++ b/drivers/clk/samsung/clk-pll.c
+> diff --git a/drivers/soc/mediatek/mtk-pmic-wrap.c b/drivers/soc/mediatek/=
+mtk-pmic-wrap.c
+> index 0bcd858263755..3a5b007d60f58 100644
+> --- a/drivers/soc/mediatek/mtk-pmic-wrap.c
+> +++ b/drivers/soc/mediatek/mtk-pmic-wrap.c
 
 [ ... ]
 
-> @@ -827,7 +832,10 @@ static int samsung_pll46xx_set_rate(struct clk_hw *h=
-w, unsigned long drate,
->  	}
+> @@ -2186,6 +2341,14 @@ static const struct pwrap_slv_regops pwrap_regops3=
+2 =3D {
+>  	.regmap =3D &pwrap_regmap_config32,
+>  };
 > =20
->  	con0 =3D readl_relaxed(pll->con_reg);
-> -	con1 =3D readl_relaxed(pll->con_reg + 0x4);
-> +	if (pll->type =3D=3D pll_1061x)
-> +		con1 =3D readl_relaxed(pll->con_reg + 0xc);
-> +	else
-> +		con1 =3D readl_relaxed(pll->con_reg + 0x4);
-> =20
->  	if (!(samsung_pll46xx_mpk_change(con0, con1, rate))) {
->  		/* If only s change, change just s value only*/
-> @@ -845,7 +853,7 @@ static int samsung_pll46xx_set_rate(struct clk_hw *hw=
-, unsigned long drate,
+> +static const struct pwrap_slv_type pmic_mt6320 =3D {
+> +	.dew_regs =3D mt6320_regs,
+> +	.type =3D PMIC_MT6320,
+> +	.regops =3D &pwrap_regops16,
+> +	.caps =3D PWRAP_SLV_CAP_SPI | PWRAP_DEW_DIO_EN |
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does the fast-path check
-samsung_pll46xx_mpk_change() incorrectly truncate the 10-bit mdiv for
-the newly added pll_1061x and the existing pll_1460x?
+[Severity: Medium]
+Does using PWRAP_DEW_DIO_EN here instead of PWRAP_SLV_CAP_DUALIO accidental=
+ly
+disable Dual I/O mode?
 
-Looking at samsung_pll46xx_mpk_change(), it hardcodes a 9-bit mask for
-the comparison:
+PWRAP_DEW_DIO_EN is an enumeration value for a register index that evaluates
+to 1 (since PWRAP_DEW_BASE is 0). PWRAP_SLV_CAP_SPI is BIT(0), which also
+equals 1. Bitwise ORing them together results in a bitmask that completely
+omits the intended Dual I/O capability, as PWRAP_SLV_CAP_DUALIO is BIT(1).
 
-    old_mdiv =3D (pll_con0 >> PLL46XX_MDIV_SHIFT) & PLL46XX_MDIV_MASK;
+This causes HAS_CAP(wrp->slave->caps, PWRAP_SLV_CAP_DUALIO) to evaluate to
+false during pwrap_init(), skipping pwrap_init_dual_io() and leaving the
+PMIC wrapper in single I/O SPI mode.
 
-If the hardware boots with a 10-bit MDIV and the driver requests a new rate
-where the lower 9 bits match the current hardware state, old_mdiv =3D=3D ra=
-te->mdiv
-will incorrectly evaluate to true.
-
-Will this cause the driver to mistakenly take this SDIV-only fast-path,
-skipping the required main multiplier (MDIV) update and leaving the PLL
-running at the wrong frequency?
+> +		PWRAP_SLV_CAP_SECURITY,
+> +};
+> +
+>  static const struct pwrap_slv_type pmic_mt6323 =3D {
+>  	.dew_regs =3D mt6323_regs,
+>  	.type =3D PMIC_MT6323,
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-exynos9610=
--clocks-v2-0-c13ce8ef1861@chimac.ro?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716171733.3008=
+85-1-akkun11.open@gmail.com?part=3D3
