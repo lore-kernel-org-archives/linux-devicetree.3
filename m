@@ -1,109 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 995D419D89E
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 12:32:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8FD841D65C
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 12:34:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784205143; cv=none; b=sHXI7jqFY8FlbB51YhIF7ZmmXfSVTEqZiELJPecx0PSkQdgoNsowHKG3L7Nc8k/rLjWXyU2j8inmAaDS6vLi1n7d76SmhbPjS/wY85vyaBUpCmcXTNaZlj/5YjebST00qtDwnzPPqf9uKIvUNtcv1fZ7f136gU4JUhAW/7UC9eI=
+	t=1784205285; cv=none; b=gbP47ECAnWC+CHUtwciEJfXhZC6D0Y09WGQ5+7upO3vaSUkyL7BUfRaDCl5qEGn0vM9CZz9iGJETffJbuJI+ghbdylyOb/i/CmJb4vI7pj8+DVoapAQex0/ZxbVTh/iYEOaGS/ruj1TzfyMBa0heNIs/DiVSLqbNYMhgojZ5RyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784205143; c=relaxed/simple;
-	bh=pLjRunqtzdKfXAD0ErFs4Qsk76cPsu7I9iZbNmjkuBQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tppSWioHr6f964n7StsHxc39U9NVkaS4BWc/JG37VZBJhG7k5NyTCmlPICNlIFOvj9wFsPHR5jh7aDQR98pXciRp/ktfWIqmFlS/n6de4PTGFSGgsTAgVCHE8bK0XyRxj0yj1TFPQYN0ovdkks37QBFiP16U8ssHQ7Q33fu4DCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bRF7L+Pr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784205285; c=relaxed/simple;
+	bh=pNG4dt1MuDjJS2FfJJY5eOAN0jDemnvGolZRu57PMXc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FlvXCQIriaSTdbLu4DasLLMuefTJVaBNwhzMOtvoto+H7/pPf55RNMSbK9SYJbK4y1xujq8Klzy71c04TQdsDYW91jpZ0gtDkuHEybd+GPLv0NtuoObOBlHotgbpy6Wuj5cb47wNhnV8IMGfnsqmMD4QM4+40erTQutwzgnXxYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=awBjLE8z; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bRF7L+Pr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E37681F000E9;
-	Thu, 16 Jul 2026 12:32:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784205142;
-	bh=W0Oden4jsfvnuyJhr3xZtjr05qUl0WI/fNEhp///3pc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bRF7L+PragfsFfNWCWL4vW6Lr4/XaV4OoBE/OLl3np+j1yALL8dYGGKL5k4JJEE/h
-	 EJ23ZSZ57HFvpaDlsygS+TjkN1P2l7VCiOWsUG2eAbL8gmmJbyUGdqJkqfQA0v1Tqi
-	 8zP/tVlaVg1Fk8cDmi+2CajiginHFB/63pVfY3K0GB1Asn/4dRo8Xx5b299JNtAJAx
-	 g2119BSaY3FGOf0npfdz9NbUTcmDYTYu1QM2jsJPxzj2YuPplofRGzWwLS9Xxc1jZ+
-	 B/FF4fIX1c0xp658vm3maQD8xPktRHJI4veCJxWPd0wncBeKK59HxqySrk17DVDAUz
-	 05zSxMXadeIfg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 5/8] iio: dac: ad5686: implement new sync() op for
- the spi bus
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rodrigo Alencar" <rodrigo.alencar@analog.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260716-ad5686-new-features-v8-5-ebb0051af5e5@analog.com>
-References: <20260716-ad5686-new-features-v8-0-ebb0051af5e5@analog.com>
- <20260716-ad5686-new-features-v8-5-ebb0051af5e5@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 12:32:21 +0000
-Message-Id: <20260716123221.E37681F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="awBjLE8z"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4953ddae026so11741825e9.3
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 05:34:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784205282; x=1784810082; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ABw2degQi5xUj2ybacHY09V1CX8wIMU9fYlZ9atLanU=;
+        b=awBjLE8zMVDvEu2pyl2e0dDH3EVisLp+Wg13MSE8GnJRWj32EQtWzI4zn4F0z2xEru
+         Lh3287pA6+FVcjYoHgvSSgeO2DxA5/F5DQjL0FcajsdLKLymSQQFHz4sfYHQrTXIFltw
+         jM05oTiAa7jF5NNVW4UfUboX5/YDp7NgMqAQJ3dhWzgT/dUfCOrqmw9r59AzqE6Uu0yL
+         BfmjrM0w7Pff9QdrPm/DGMoR8/s8t3YCCndcHWJo1QGG1CvkvoV9e8v2Yd32Bnui8m75
+         HfRO10FjblC8sEZFJtPBx4EWlqCTI1Rxo6x7TpQ4ILPKusDUl/p94k/15mmTcGyL5hlT
+         G9aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784205282; x=1784810082;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ABw2degQi5xUj2ybacHY09V1CX8wIMU9fYlZ9atLanU=;
+        b=sLhHHMtYC36/4XA3eE5cGOIOEWKX41lSqGeL7hQdpd/BmWU9/tCarlh3KrokjDQhiY
+         nk3/d/mRjbBGLoTa9lrd9GNHhtNL+doxOQXcbcciDLAckMMwA2AT/5ODVLtYLt/s3+Sn
+         nqysdmDikv+wvZ06aMFM7dtiDeZcOOUuqzK9sxH6JIjJGYHtkoa9prbijMRJvm8/Xddf
+         9xAznmdGZs5rS25pSzfHkb/3OsKQs0u1pTb6jdyWIuYNHAne03MW5l6TZW+54rqairXP
+         fflSeCJiX7hfbuCf/uUmFqXIlO80cSMhQNu3gY+fyFzlVBrGakpFpHVTqMVRlrV0PKHD
+         2ybQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpR86Rw5eqvHjsI8vDmE8lF7omAcda/Mnw8CI3D5RNTlel0unKlBsEROfpm4S/J+WGIu3xGs0J3NJ2R@vger.kernel.org
+X-Gm-Message-State: AOJu0YyY8/d9GNui3Vo0v4Cta71jhUUeLN6MiTq/3UL4xlqvlBP66LDM
+	tJEfwxIQ5SGnMZMlh8kw2YROa5xBuPIqbvV8ocd3qPAIb0ERRRaHLtEI
+X-Gm-Gg: AfdE7ckGJWtYdhbRWGwQ+2liKvulU8QgpEtXSnMJZwQ3+ouLQJVdlMZ2PTo8BEbG3BT
+	8/XAP7CNBfjVlXLUeIgnwomiT/WgF+L9FfcEghD67PHKiLOCbSLa2GelQQj8zg8zTTRSHhUDo/M
+	ubmU6Dgce17OQKNxnVIS/uN/570ZbLvvF3b6nqAYQOyqx8JB87V+9f/2KXcWJy0hDoXLDc5+kCG
+	MwwyS6JxI/1jGh1VfBauYsP3odo0FAQUOweqr0OpcWmQ/ycQ47uZ2ydNUX1e+ilvLTTQXxLV93X
+	TezKY3BQ8Yx4qqZ02KGVV1Qc1BKwJA5lOoUA88KaI+JVueMeb1bjoF8fZEjInW5ajWmdDY2XMTq
+	eo4potbWTuBBUtVJIPn3EbPy9xXOhefV7X4WRBM+CBpi56LEsTgFSsoNkeeZCF0E8DVF/a5RlM/
+	AUl1qUIT9x7Y3gtWVa2zt/yVCAyAqMtvayxq9syogLOGJWG2imwokSYey+nVfvAT5ECW4zw++1S
+	Cnuw4e+LYs6DIINCIZcnzCFalo=
+X-Received: by 2002:a05:600d:8444:10b0:493:bd2a:93bb with SMTP id 5b1f17b1804b1-493f87d7eefmr180396215e9.3.1784205281874;
+        Thu, 16 Jul 2026 05:34:41 -0700 (PDT)
+Received: from iku.Home ([2a06:5906:61b:2d00:4150:a2d7:2b6b:840e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49541e83d05sm48582645e9.6.2026.07.16.05.34.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Jul 2026 05:34:41 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-renesas-soc@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v3 0/8] Add syscon support for Renesas RZ/T2H & RZ/N2H in CPG/MSSR driver
+Date: Thu, 16 Jul 2026 13:34:26 +0100
+Message-ID: <20260716123434.2576253-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Use of the C++ / C23 `auto` keyword for type inference causes a com=
-pilation error in standard Linux kernel C.
---
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
---- Patch [5]: [PATCH v8 5/8] iio: dac: ad5686: implement new sync() op for=
- the spi bus ---
-commit 6524307465bd775ca4dd7375ae2bb7b554ff6dde
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Hi All,
 
-iio: dac: ad5686: implement new sync() op for the spi bus
+This series adds syscon support for the Renesas RZ/T2H and RZ/N2H SoCs
+in the CPG/MSSR driver. The CPG/MSSR block on these SoCs is a
+multi-function block that integrates several system-level features beyond
+clock and reset control, including clock monitoring, write protection,
+and peripheral configuration registers.
 
-This commit introduces a new sync() operation for the SPI bus to handle
-multiple channel DAC writes more efficiently. It stores SPI transfers in
-a message and flushes them to the platform driver during the sync operation.
+For the other IP blocks to be configured a syscon support is provided in
+the CPG/MSSR driver. This allows other drivers to access the CPG/MSSR
+registers via a regmap interface.
 
-> diff --git a/drivers/iio/dac/ad5686-spi.c b/drivers/iio/dac/ad5686-spi.c
-> index d3b64b4361d51..2cb836038821f 100644
-> --- a/drivers/iio/dac/ad5686-spi.c
-> +++ b/drivers/iio/dac/ad5686-spi.c
-[ ... ]
-> @@ -13,59 +13,101 @@
->  static int ad5686_spi_write(struct ad5686_state *st,
->  			    u8 cmd, u8 addr, u16 val)
->  {
-> -	struct spi_device *spi =3D to_spi_device(st->dev);
-> -	u8 tx_len, *buf;
-> -
-> +	struct ad5686_spi_data *bus_data =3D st->bus_data;
-> +	struct spi_transfer *xfer;
-> +
-> +	if (bus_data->size >=3D bus_data->capacity)
-> +		return -E2BIG;
-> +
-> +	/*
-> +	 * This function stores spi transfers to a spi message to be sent over
-> +	 * the bus when sync() op is called. If there are already transfers in
-> +	 * the spi message, set the cs_change flag on the last transfer to
-> +	 * ensure that the chip select is deasserted between transfers. If this
-> +	 * is the first transfer, initialize the spi message. Later on, the
-> +	 * current transfer is added to the message with spi_message_add_tail().
-> +	 */
-> +	if (bus_data->size)
-> +		bus_data->xfers[bus_data->size - 1].cs_change =3D 1;
-> +	else
-> +		spi_message_init(&bus_data->msg);
-> +
-> +	xfer =3D &bus_data->xfers[bus_data->size];
-> +	auto buf =3D &st->data[bus_data->size];
+Note:
+- Patches have been rebased on top of next-20260715.
+- The WDT driver patches apply on top of series [0].
 
-[Severity: Low]
-Will this cause a compilation error? Standard GNU C11 used in the Linux ker=
-nel
-does not support the C++ or C23 auto keyword for type deduction.
+[0] https://lore.kernel.org/all/20260715133922.2129340-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
 
->  	switch (st->chip_info->regmap_type) {
->  	case AD5310_REGMAP:
+v2->v3:
+- Switched to non-RFC patches for the series.
+- Added new patch to split out the RZ/T2H CPG binding from the generic
+  Renesas CPG/MSSR binding.
+- Dropped WDT driver refactor changes from this series. These has be
+  submitted in a separate series which makes use of regmap.
+- Dropped registers from writeable_readable list.
+- Renamed sysc_init to post_init and updated signature to take
+  cpg_mssr_pub struct.
+- Created a single regmap covering both SYSC register regions
+  instead of two separate regmaps.
+- Updated commit messages
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-ad5686-new=
--features-v8-0-ebb0051af5e5@analog.com?part=3D5
+v1->v2:
+https://lore.kernel.org/all/20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+- Updated commit message for patch #1
+- Made use of for_each_child_of_node_scoped
+- Moved sysc_init() to the end of the probe function
+
+v1: https://lore.kernel.org/all/20260511185058.1926869-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+
+Cheers,
+Prabhakar
+
+Lad Prabhakar (8):
+  dt-bindings: clock: renesas: Split out RZ/T2H CPG binding
+  clk: renesas: r9a09g077: Register SYSC regmap
+  arm64: dts: renesas: r9a09g077: Adjust CPG register region sizes
+  arm64: dts: renesas: r9a09g087: Adjust CPG register region sizes
+  dt-bindings: watchdog: renesas,r9a09g057-wdt: Add CPG/MSSR syscon
+    support
+  watchdog: rzv2h: Add syscon support for WDTDCR
+  arm64: dts: renesas: r9a09g077: Use CPG/MSSR syscon for WDTDCR access
+  arm64: dts: renesas: r9a09g087: Use CPG/MSSR syscon for WDTDCR access
+
+ .../bindings/clock/renesas,cpg-mssr.yaml      |  27 +---
+ .../clock/renesas,rzt2h-cpg-mssr.yaml         |  87 ++++++++++++
+ .../watchdog/renesas,r9a09g057-wdt.yaml       |  29 +++-
+ arch/arm64/boot/dts/renesas/r9a09g077.dtsi    |  28 ++--
+ arch/arm64/boot/dts/renesas/r9a09g087.dtsi    |  28 ++--
+ drivers/clk/renesas/Kconfig                   |   2 +
+ drivers/clk/renesas/r9a09g077-cpg.c           | 130 ++++++++++++++++++
+ drivers/clk/renesas/renesas-cpg-mssr.c        |  18 ++-
+ drivers/clk/renesas/renesas-cpg-mssr.h        |   5 +
+ drivers/watchdog/Kconfig                      |   1 +
+ drivers/watchdog/rzv2h_wdt.c                  |  56 ++++++--
+ 11 files changed, 342 insertions(+), 69 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/clock/renesas,rzt2h-cpg-mssr.yaml
+
+-- 
+2.54.0
+
