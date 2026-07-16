@@ -1,176 +1,167 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011013.outbound.protection.outlook.com [52.101.70.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E63701531C8
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 03:39:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087B62F12AB;
+	Thu, 16 Jul 2026 03:47:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784173151; cv=pass; b=ZCy0rjmd5wVLk+tcHALMqxkJM+CSx3qtWv5Thc6mLIOdfQxh9CLh2SjuYcDYO6r+m0tm1cpgv/IFon0GeE1ztJoeeO3OkwiNsTjUZ2DA00B7uQRzx/zOU8I23dKWaZn3NzJnRed90VmyO0GcsZuyoVdRgaqNsZNWJO7qwzusb4A=
+	t=1784173672; cv=fail; b=Wd7ih5B2SJddGsv81gZxUet9H3r8XnVP8rAefo3pjPXdncHCxxytJWmllSjZlN73WMllCzel3xl06UzGYc09YRGDCPn8qNDUz5VlGSAuPldnAtnHJZotr/HUWsNFo1IFi3hCWOkwW4OFBeiPqwNp9cDrKxYZX1rbKQLdsHCPhyY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784173151; c=relaxed/simple;
-	bh=Uhqa8139JOnKLk54+zEOdrhrIOYk5862I6qAHmICEeo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=X6vBvbTE0YaO6dNIykJmn5+Jq+I9n4ze4Xx2dV/lQgE3Yy975gWCiU++ET9QnbmFQTVssl8D3jt69XDtfXOZbBHguw2GgpjM6a5U9MwsfPjw9U31AscB+d1WujTDaoqxuWe1kJV2ZoXtxawa3pDeMZbSIDiDivq2DgUMTToP0D0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dUvDcSKI; arc=pass smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784173672; c=relaxed/simple;
+	bh=gvNnIp1BCmvfCMqBNvI1Ys7QRURenpVwg+5KOHTMPqk=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=Qb6s0P9agie+nxJ0mO8qLA/9QFAxSmT0V5gRDN2vSocVwIlWs9897Ebr0UOt5L9t6rW8AkjI9SD98tCL/Cm61A4SwXce0D6Ea/JJuwT3VSku7jeOLV4DQQnOatXWbbT48cge/8lMoSRw+ZbDtBEv2+LvwzfsrLq5sXY0635d+OE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=PPZbZ4Xd; arc=fail smtp.client-ip=52.101.70.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dUvDcSKI"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-476d8e647e9so5715248f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 20:39:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784173147; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XDJU02AqfaLCXfJUVbcc120ZR8GmWd/bzGfw3invKXtWJUbrc/1SIrnh7l6mdfb2Ey
-         H7q8pcGLoUXZeN26bIzCwcrKS1lepkX8u9MAuWf3oRwrRLEJaitF+tVJQlLGHZCiHwIJ
-         nPx4uf14V2alTJ6QSsXEcTTpfP/aIaTA3wbP4sMI5zQaTuQjTT0SzaZ0QE4VsUgyuBK0
-         pmq56duTarf40pb/2gwC9mgpZRgCF1W8eKs8UEQWHzrIndsY/JJLCH/NGlkc/BMfsXCt
-         s6cle6Uq7AEJk0KSd6Owme7VE1TFEZmSEKQDrUNRjeyGAi63V7WqFb0e0sOuJpIzJvMN
-         CCsQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HaAi6r0o04lXEAunGEp84mPQVwuTB4awISro/owjdbQ=;
-        fh=bXP9gkCJoCv5T+qTckOvYB5vqQyiTIQnesiF6CO/2kg=;
-        b=CmfsXaDyOJziCZrL2STnYuhbiMIz3q0B3GxeYqg55Z9Q4iop4tJoQFQNTzXG84l/90
-         P+gNgeYQN421hqNiqHlsP9VUU6DNOw6azpDFLpODhkf6S0W2eKl78jRplbXn75McJ7DD
-         +tjEI/kyv21c7fpSxT6I7l/LKCiLvrG+jP1q3VKQbTeoeEuKmGFYQzKwWo7k/NJ8nLA8
-         IsgtaQ6Pfdrg15ZT/7VS5AUFLreDGTTZbcu11jpRo9KIvZwa1CFzludPVVWNLZom4Ghv
-         tk9Aw5NipI0FVBZWHD9MwOn660VvJ10sf1+p2ZFWSqhRmsuHpu4f3E7xZD+CgaIG/JLP
-         3irg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784173147; x=1784777947; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HaAi6r0o04lXEAunGEp84mPQVwuTB4awISro/owjdbQ=;
-        b=dUvDcSKIDeaU+UCJcfRTR+kPl+ykn+6NUQownCo3iOmvpWFRuEDXBLsTpmLMNj5Wtx
-         SAHzaGGAIpMT965kRvfn0JgG9k1zIs05uuDMGBjTgc843sNlAnlPztFEvCyrp3FiB8uL
-         unVvcVZUG0xz63bWogGb7j7U6oBuv7AQgJSIa5xUQNwL0coMTEgrQ+P4nxBXaQkuoiM3
-         VEeY7x9dhWV28guPmiDaX5/YyHg2y5Jw4v9qgyNB+ary+gjxH0PHd36rf3txXRuFmNb1
-         Ix2vWs08br11VBVcMLq43I2vmAduwhptQiYG9HbYViAyZGsPwOzFlmpHw/nMhCsQmVS4
-         cIng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784173147; x=1784777947;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HaAi6r0o04lXEAunGEp84mPQVwuTB4awISro/owjdbQ=;
-        b=B9z3E22yN6flPrpGfO8Avb6HSYe+ROSUu/NR9lsomf0ghnEJdXgbtlzBek63FICgL3
-         PQ44G0qxD/HInmuxgOzlJhATFgEHpohoxA0At47DY4/aAY3WIPH4ZZ9Gm2O8n6xhAQZ4
-         rndLUaowCuzpqpdfuEMOTBBV0TyeJ1ttBnIqs+/EVwyfRE+DCX2HUPs1Ou0B04YzmA8a
-         504IDqI+Tm7NFW4ye158ZDKN5T+m4qn+9d6E96mM1VTUMVu3NC8zeFjJ8kWQUcyzTSBr
-         J2pVku8gC/QpE52Uj8qAI8U5oO+xF06vc4BuRlHAYjyxM/6azlXsczZSXzqqdpeFaMC2
-         Wfog==
-X-Forwarded-Encrypted: i=1; AHgh+RobpgBD2qzbfC+VElHBE1IRDVR7gsiJUIC3K+8clSqVn55l11cexgnZOhnLyHZa9VOoF15NeeUjAZMw@vger.kernel.org
-X-Gm-Message-State: AOJu0YxPnIb7UcizNs7c8tndySlLYzKhc4DmQ0D2oQ/VKM13fjptRbzk
-	aSK5X91jMBsBmoM/tcG/IaOT5waglMR+fIiMJrcBeeEScrOo5ZSb3qPqX4ZI8kC1YHvPF7XfU9o
-	RJJl0G271IKH3JD3GSgJqtle+DAMpce0=
-X-Gm-Gg: AfdE7clcnpcoMgfTsudgktiHjDyeN/WuDEC6YB4tvbKuQ1+mMob8k9rcjQP+bbO8lcG
-	6SKwKWtDspzRHjUMlPhCNtUp1SkKQfdIDHvS86BRq81J4LgYMRvKGUhAaDFRzEfhqT1/84BZn/a
-	vSIK8J7QysOlovWkiXtndHuBfiqTCSuJlrFycmBg0xxYLYztq77FG8UEhKjOnSfyuFtq0s3uBrh
-	8KaoqyAURVXD9r8oNcIc2+vXiqN+oiPknTAoEoM3cz2UdufO9ZEE1TD9BZCp8JSAOpRy6xa
-X-Received: by 2002:a05:6000:461c:b0:473:506a:e47c with SMTP id
- ffacd0b85a97d-47f4886399amr11638724f8f.26.1784173146909; Wed, 15 Jul 2026
- 20:39:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="PPZbZ4Xd"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RLHRoYCtAyYVvNojGlnBVgcgZ2NyRbPM7ExAv98ujDTfENo6n0gG7LWCcTGnVMA4WqQHiCMKkT1DTCqLiRIerweFKCNu6IpIsCEvs1DAzhvUV2VCrg4dqT+HlrvuuAccYddH9rYJnPyr7F9thENDnO6Axf3lufg9v/Y0eK+OX53UUC4PkJ5YkZ4UrbvvxOb8iB7l5TCCHdtGw/JMrSfhltJHikM0YP8xA+EckA5w2laU3yYWdewMe8vvgqMzpU/UkbJIKrLKNf6SVhrahbm0sTmomaxNYlbnqyUJaXyX0TxbGiZei43qTA5bO4obuUMSwn6MIFMIm9AbqW4xZEaLQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=16YLvy3cbq1qvp0HYtQDGY4NAEu7awq4Z1OjeRAH9qY=;
+ b=NLt7ditLwfG46UN/KQ7RCbonfjOxPZuACwxs0v9/QFyF0OjHNNnVHhCht59bTjJ85oe8CgkmLjSh2wwDlwr9EyqNj4mi/Vdf1KMpyLRQQZh90SK1YVhPLIYiCoZUMc22CjI9iDgKeM/ItntWDn9PZWS/17qnIuJcEAEET9ePWc0lDw3WhLvpa+uyzdlxFUsOJ0wKNyCBBIFNbCAj9NmhTixBYiPHsXT6RyzGGOfYm5w4bTNh6KMKw/FxMD8uBhCbPH6WaikwIjqFTro17nPNKbjtGrELGLXT9E1ZjigP3Wnqie+QPK1IjU9mZB14hCSWBFIJ0aNdIh/Yy/0noA7jHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=16YLvy3cbq1qvp0HYtQDGY4NAEu7awq4Z1OjeRAH9qY=;
+ b=PPZbZ4XdicECQi3St6JkPBQRmvHHZUsib50kQR8cael/8nqyj6o1n/BaIKyR/KEMS4O3M9/gvHt40Qum6fgKnkMhl8N3acO0fopSGDQyFmlew/6jrbWAZoeD2gV5E2EItRInaWvOfA3f2TA5hmSmVWiubcTT+PaGgf6qp/czUCiuPc+PpDct8BAl69Z8bGT5f4KDzIN7v9Gzz5vI8Kk3i4xUiMrZIlU4PphYohh06PsFGsnTlxJnQBr4XmRTSnYRYjv9jRUXG6SoOr0Tz1zYhWspvckNQVkFSi56fy52gVjXODiUHjb7oHIvZYn+Ew7DMb7E/rIcxPR3S5ue8T9xJA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from VI1PR04MB5807.eurprd04.prod.outlook.com (2603:10a6:803:ec::21)
+ by DB9PR04MB9645.eurprd04.prod.outlook.com (2603:10a6:10:309::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Thu, 16 Jul
+ 2026 03:47:46 +0000
+Received: from VI1PR04MB5807.eurprd04.prod.outlook.com
+ ([fe80::3da4:2827:d637:37de]) by VI1PR04MB5807.eurprd04.prod.outlook.com
+ ([fe80::3da4:2827:d637:37de%4]) with mapi id 15.21.0223.008; Thu, 16 Jul 2026
+ 03:47:45 +0000
+From: Joy Zou <joy.zou@oss.nxp.com>
+Subject: [PATCH 0/3] regulator: handle regulator late cleanup race with PM
+ suspend
+Date: Thu, 16 Jul 2026 11:50:52 +0800
+Message-Id: <20260716-b4-regulator-pf01-v1-0-8c1519d54bd4@oss.nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABxVWGoC/yXMTQqEMAxA4atI1gba+jPoVcRFq6kTEZVUZUC8+
+ 1Rdfov3TggkTAHq5AShgwMvc4ROE+i+dh4IuY8Go0ypPrpEl6PQsE92WwRXrzQWvVOZdza3lYH
+ YrUKef8+zaV+H3Y3UbfcIrusPZ75wZHUAAAA=
+X-Change-ID: 20260716-b4-regulator-pf01-5db03fba4a92
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Ye Li <ye.li@nxp.com>, 
+ Jacky Bai <ping.bai@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
+ Dong Aisheng <aisheng.dong@nxp.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ Joy Zou <joy.zou@oss.nxp.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: SI2P153CA0013.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:4:140::12) To VI1PR04MB5807.eurprd04.prod.outlook.com
+ (2603:10a6:803:ec::21)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260612-synopsys-dw-dp-improvements-v3-0-dc61e6352508@collabora.com>
- <CANbgqATR-V0rRGfzj0hdJ2hsJex-iWzHMwD1L4vavTi2Jd79Kw@mail.gmail.com>
- <alfV1691ZgZ6KylX@venus> <2301403.NgBsaNRSFp@phil>
-In-Reply-To: <2301403.NgBsaNRSFp@phil>
-From: Andy Yan <andyshrk@gmail.com>
-Date: Thu, 16 Jul 2026 11:38:53 +0800
-X-Gm-Features: AUfX_myr_sOq7hYE4m85iq51mdLC4kRmODLTYq7q95ypFNA8vqcVX-4llt0DR9M
-Message-ID: <CANbgqASSwGjnUsqmpyPgYQ8Qy_6++krbVMQQywB8oJv8Jziz-g@mail.gmail.com>
-Subject: Re: [PATCH v3 08/10] drm/rockchip: dw_dp: Add runtime PM support
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>, Sandy Huang <hjc@rock-chips.com>, 
-	Andy Yan <andy.yan@rock-chips.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, Damon Ding <damon.ding@rock-chips.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Alexey Charkov <alchark@gmail.com>, dri-devel@lists.freedesktop.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, kernel@collabora.com, 
-	linux-arm-kernel@lists.infradead.org, yubing.zhang@rock-chips.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5807:EE_|DB9PR04MB9645:EE_
+X-MS-Office365-Filtering-Correlation-Id: acf8939e-5db4-43c9-1122-08dee2ecff1f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|376014|7416014|366016|23010399003|1800799024|10067099003|921020|6133799003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	hsbNjwOyd6Ix1nVvj0o8K00glc95KvnVcAW4U6s9TXLLj7wO/qhdI6Cmc/7nmDEoWHgK128UCLluPIeobHCVrVmgI7nqcBNzV3lz7BJbbVARFhmM7hnXz3V5qeNi1oMwC2ifB2eH8jHu9L7V01VYxF4cDpFbHukAD7rchKOg2mX3oc/aFpq6ig2zuaFHNgsT2cNE8vSle4W7l7axbTDPovsjZVxWyxKPwO8GLTI4RXYAcWDT6TUTRNADTgoM+RyN03IUWpsomGRF3SAs7ibihFWdHCUMlY6ThvY5iH8HXA1zPAUre/QLpuWSPCRJf1lygoSUZS9NX2lwP7IeEH5PVDGqHbXnGV3DoseTRtU5GGqcdavyuFfCrFAxJw6KZGJOb8AC5iwvGnu93XwdMyadE48cooqaOd3/OI2dWt+09B4tMhVTDC0Y3Pq1BXBO9yFVNac7yUnAk7R9QkDTG6Z9kv/rrJEjHqEEaxE6i+OK1rN23x9tcp+jNySRu0W3NcFSqh7BZ/om7xiVLfuduUHJMSD2RE8bSUuMFRqwrnSKg5YqVlxnnDVQ3rh6vTvqZ997lernaF1ZdkND8vP4k7aq0dXmiF7tLlepmM1rAiDA1B8Xhb8H+xQcrthsmDcXtTqTXzJNdffHYRh0q0QY3Yc9VzwJH47On7781nO7bwJhhhYVRObQ+l6tSXs3acT5V4ha2dYYr+SRs0XMkmVoZphzPw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5807.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(7416014)(366016)(23010399003)(1800799024)(10067099003)(921020)(6133799003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dklCZnpOZHhhZXdPMzhzS2ZUU08xcVBCUDNNMGN2VUNiaER4WEZDc3RnY0pG?=
+ =?utf-8?B?bS9EYVlwSGRCVy9HOTRyYTUyUVMvWUNUcnN6UlVNQ1MyRzJhdFowSzErcSs1?=
+ =?utf-8?B?RkFQMzNxZ3hyQTVDaUlVQ3k1Y3ZCZ3dTVkZhdTJ0RzI3b2JadFJKRktkaDl2?=
+ =?utf-8?B?WnMyM3dYcDUyeXVoazNjYmhuU3FrY2M3L3pBL01CWWQ5RUJxbGRiNG1leVBw?=
+ =?utf-8?B?S09hckY2N1l3MGlIQk9waERpR0k4blZ4SWxOYUkrbHJQaTQ3ZkZLRWJsQjBX?=
+ =?utf-8?B?MmRmQkhlRW5Sa3g0VmhES3dVODI4Zkcza2JnNkgyeUlNOThIZmNRK3VMOVVT?=
+ =?utf-8?B?SnpEQlJOdDc4bHVBeUU0UjhjQTJtWks2N0kxakllbWNDdElDaDVrOHlXdXlX?=
+ =?utf-8?B?S3ZPVzJuMWl2SkFIT1FlTzZ4ZTJLcHdockgwTndTOGVFYytuTDlWZzQ0MEZ0?=
+ =?utf-8?B?NFphVnFMcGtzczRWcm4vVTI5alUrZHJFbmVMbmpnU2U1dmppN3hxMXhtTmZW?=
+ =?utf-8?B?Sk94ZjhET202Q3JqRWtEelNzRVpkM0tKWVlQR2Z0Q3A2YVpjMHRNN01MLzZv?=
+ =?utf-8?B?MW9FN2RHeThkSWthbkFlbDJnWUtkZnFlRmNIUVhyd2I2Nko3UnNVZ20vRVhm?=
+ =?utf-8?B?WDFLVWtZUS9kZkw5U09RTkkyMmxWbWxjSEZuQUcvQmVoaXRaTUFveXJLclI3?=
+ =?utf-8?B?VkN4anpQVU8vc1BnQ1l0L0hZeVNQdGQzWkdQZUNPMk04UnREaFpvZ3ZqSW5U?=
+ =?utf-8?B?eHRNRnJlS3NxeEdHZkJreXA4NFN0ekFjSmtWc2lsdGpEKzFhUTNpeFczeWJE?=
+ =?utf-8?B?bzFpQXFIMTU0VG1jYkZjSTdtTXNna3BUUFdQQnl5QjdCbVUxbXhoK0dIYkpD?=
+ =?utf-8?B?dldmbDk2bGlnYUtxVXZROUhDMnpwekZaRE1vamNIRHp3ajZBWTVseXlieUFu?=
+ =?utf-8?B?dzZVTDVYdGpCUU84bHMrYm5CNnlqbUdiZHhtYVRqRnQ4ZXczVXZBOUJYM0Zv?=
+ =?utf-8?B?MjFPcWF3NUovMGw2Mldlemo0V0hvVDRtZTZtblpjRXFaN3ZjVjFvV3RZN2h3?=
+ =?utf-8?B?dlFRbVFzTi9sbEl5UXpXWmxuRGJlQkVxTkMvZFpOc1p1NDI0UFlCUDVxMzBY?=
+ =?utf-8?B?WlV5aERPZHh3QzdNT2pPNnU3aDhpekFuREtVNzJvWW1QWDg1TWxoOVJ1MDZY?=
+ =?utf-8?B?NmxYYnZBZVNpdGhoczJSd3hvNjVrOGlHTTI2akFNRDFoaUhqZjZyVnlEYzVj?=
+ =?utf-8?B?cEpCemNNamFWZzlrMXJIYklIRE1UbWNJb3kyK1c3Q2RsQ3ZmMlBEdEJudnRL?=
+ =?utf-8?B?c08wSlVZVWZoMmN1azRlTndOSkZPVkgvYmJsbmJqUllwdzhESURmNzFjelJU?=
+ =?utf-8?B?c2VRM05kN2J6NlpFYVRYUFVKZWUyRlJSZzFMQnk5OFQyQ1pPdjV1ZERrTUdK?=
+ =?utf-8?B?K1E5emltMDMzRHJMbCtlZlVQS0JYNzBPRk81cEJXR1Y5Y1IyR3ZaU2Z1bW56?=
+ =?utf-8?B?VW5wckIvVno0T0EwbG1idmp6d005ODAzcVZCeHFiblh3TTJHczM1Z0llQ1Q3?=
+ =?utf-8?B?U3p5cUMxb2pEa3dyNzkvSlZzY3Z6cjM0L0dqK0pnVk5tRWY3WXhoRDBENEpM?=
+ =?utf-8?B?MnBFQk9ocUgvM2w2dnRUYjZ0Yy9KSU93NnRzeHk1bGw5MFMrbHdpajBOSGFw?=
+ =?utf-8?B?bXVRd0NmdGdlalRGaTRjWWo2MTJEUElJV1lJc2VWbTR6NWc0dGNJMm1YdnBl?=
+ =?utf-8?B?UWxnRXpROTJtbkM1R0s3RkxyMHU5VmM2QjhQWVVJbVpVR215M0E5WkF3TW54?=
+ =?utf-8?B?T09QdVZ0R3BxU3QwOG9GM0pRenlnQkZwY013aVBBVnNYaytsL0hVUmovM2Jp?=
+ =?utf-8?B?REFXYmxIVytKR1NNNzlqcng1Q1hpK2lLMUMrbGF0UEJXaFNWbjU2K2FrczNm?=
+ =?utf-8?B?SklOMzNhb0kxYS96V25tTC9Oa3NCVllsUHJ1VmV4aXJUT09wWlhLZXpuOEsx?=
+ =?utf-8?B?M0NpM0p1SGdhejJmV2ZLSmRVWE5hQzl1VldFQ3FxRExCR2E1dnNyc09ISGdl?=
+ =?utf-8?B?R1ZxeVlWM0UwRGhvSys5TzRzcHhJa0VYN3lhSUl2bDFGMlI5eDczL3RBK2pp?=
+ =?utf-8?B?RnZmQkVRMjI0R2l3SWlmRFJVeDVkRHFqZnkyY2Rtd2pUYWQ3Vm5UUEZhaE02?=
+ =?utf-8?B?dER0RG5UN3VwYU1XVFRkSkJhK0N2Zk5iQzZQUEhnM3M0UjMvbVRUYU5TUXVO?=
+ =?utf-8?B?STZyUDd6ZGZOREFQeVlEdG5uK0Rha21yeVpCaTQvRk5ibmp6Vll6VE5xdHRo?=
+ =?utf-8?B?bU1pSUxNdUVkcVB1aitneXk0dXh3MHRzaXMyTnBwOWZWb01jNmsreVUvYk9G?=
+ =?utf-8?Q?LFKFlCa07wgIVefCPodQqBexCAdUh04hVXcCn?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: acf8939e-5db4-43c9-1122-08dee2ecff1f
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5807.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 03:47:45.6569
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iMH7PGhWq2isr/GmwadHlTKMgoNNVNy8/LuJvBq7Z7K6zz7dOgUveeUaMLKXjG3DdWfwMVPwhzzzjLv/zi8AaEMvX0B/qe8PJ7Y61PGQCijU3Qd0FldYf15mmny2YIN1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9645
 
-Hello =EF=BC=8C
+The regulator_init_complete_work fires ~30s after boot to disable
+unused regulators via I2C. When this work races with PM suspend, the
+I2C adapter may already be suspended, causing a -ESHUTDOWN warning
+dump.
 
-Heiko Stuebner <heiko@sntech.de> =E4=BA=8E2026=E5=B9=B47=E6=9C=8816=E6=97=
-=A5=E5=91=A8=E5=9B=9B 03:30=E5=86=99=E9=81=93=EF=BC=9A
->
-> Am Mittwoch, 15. Juli 2026, 21:00:12 Mitteleurop=C3=A4ische Sommerzeit sc=
-hrieb Sebastian Reichel:
-> > Hello Andy,
-> >
-> > On Tue, Jul 14, 2026 at 06:08:06PM +0800, Andy Yan wrote:
-> > > > @@ -58,6 +59,8 @@ static void dw_dp_rockchip_hpd_sw_sel(void *data,=
- bool
-> > > > force_hpd_from_sw)
-> > > >
-> > > >         dp->hpd_sel =3D force_hpd_from_sw;
-> > > >
-> > > > +       ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
-> > >
-> > > This can triger  HPD irq for USB-C DP AltMode, but for a standard
-> > > DP port, this is no way to acquire runtime, so there will no irq
-> > > when plug in.
-> >
-> > Right. I don't have any RK3588 or RK3576 system exposing a DP
-> > connector directly. This this is non-trivial to test for me :/
-> >
-> > I see the following options:
-> >
-> > 1. Only enable runtime PM when running in USB-C mode
-> > 2. Mux the HPD pin as GPIO to support waking up with the controller
-> >    being suspended; either remux when the controller is awake or use
-> >    the same mechanism as USB-C to do software based HPD on top of the
-> >    GPIO (which would allow using any GPIO as HPD).
-> > 3. Have a poll function, which wakes up the controller regularly to
-> >    check the status
-> >
-> > I consider going for option 1 for now, which allows option 2 to be
-> > implemented as a follow up. Mostly to avoid that the series becomes
-> > as big and messy as the USBDP PHY series became.
->
-> I'd agree with that solution.
-> I think we can all agree that option 3 is baaaad :-) .
+This series addresses the race and adds proper suspend power
+management for unused LDO regulators.
 
-  I'm also in favor of moving ahead with 1.
+Signed-off-by: Joy Zou <joy.zou@oss.nxp.com>
+---
+Joy Zou (3):
+      regulator: core: use system_freezable_wq for init complete work
+      regulator: pfuze100: add set_suspend_disable for LDO ops
+      arm64: dts: imx8mq-evk: add regulator-off-in-suspend for VGEN1/VGEN6
 
-  About Option 2: we've got a GPIO-based HPD workaround in our  BSP
-tree, but it's a bit flaky in some use-cases=EF=BC=9A
-  According to the DP spec, there are two types of interrupts:
-  1.  HOTPLUG_IRQ: A level-transition pulse that must be sustained for
-at least 2=E2=80=AFms.
-  2. HPD_IRQ:  A low-level pulse with a duration between 0.25=E2=80=AFms ~ =
-2=E2=80=AFms.
- With the GPIO-based solution, it is difficult to reliably detect such
-short pulses.
+ arch/arm64/boot/dts/freescale/imx8mq-evk.dts |  6 ++++++
+ drivers/regulator/core.c                     |  6 ++++--
+ drivers/regulator/pfuze100-regulator.c       | 17 +++++++++++++++++
+ 3 files changed, 27 insertions(+), 2 deletions(-)
+---
+base-commit: 34cf6dafc47441dfb6b356a095b89c3585a93714
+change-id: 20260716-b4-regulator-pf01-5db03fba4a92
 
+Best regards,
+--  
+Joy Zou <joy.zou@oss.nxp.com>
 
->
-> So with 1, functionality keeps working, and then someone can put the
-> special HPD handling on top later - the Rock-5-ITX does expose the DP1
-> (on a hdmi port)
->
->
-> Heiko
->
->
