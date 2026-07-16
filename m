@@ -1,409 +1,240 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013071.outbound.protection.outlook.com [40.107.162.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742A542F708
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 14:27:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784212023; cv=none; b=rYqf9++H6dZZd7VILos312sTw+x7Lt64SEusvruSLKJ5A4zogB5IcB8V74D7ovZedpEfTv3OPIPdc2Rqmh8Ns/UASCa5JFzj8RRpRcHzbYjwftCEtvamTmHj6DH0QuLuPdm99fes1/gtJq6Qfro/E4573Vw8k1x64pxT/TS8OGk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784212023; c=relaxed/simple;
-	bh=9lCpy4yMuQiIVMbLILXh8MsESNAKQDZrfg9EpLCWzV0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kueEbFnOHbxpwI4EwiTYw8UmSoyU/8X6SrU88lgE2jjScMc9SgUgL+dZ3UkSMF/jFWzJSkm7445SNU9iPL6UXREFr/sQID62uCIa9ITrsta1Oul/tBaRaVKgqICu6TQW6irTxSWRjEgiG34AXIPXKLXu7j8MXs2cE5aQXxCxmjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Vj/FQHPD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SvdA70No; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B511D42F719
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 14:27:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784212024; cv=fail; b=nijO9R5qMa0GU7fUP4kB5Z5p8G4fWlOJzMqsTGSfY6gHYQy14Jw1PWZ+Cuoqq9LQfJ7jfyYJcMmY07qHFgqymaixDcnD1Opv91pGrBPP3kv/HRqzERQEMYk6osJPo3uKKYAZ8Ig+O0gpRi31eOvvFbpb4dHQcunQxbDlxxqP2Ow=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784212024; c=relaxed/simple;
+	bh=Mzr0WNPi8MAQaIJKu2/rRUQdaLq88qjefpboWe+zlDk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=UAA4PVfHsEMbiikMnNblX+WjGHdYHBqqU55jBi6c/adXo00DKYvm6P3R/HerQGEtOVDXuie9Jp7TEWH+bP884SrqSnwO2RUjiBJpQbqtGlG2dxjIblwz2jtibO+fuVPOPrAF0YBrno38eY/UaWq0xGHoQZdADwPKsqAkqLF2Cu8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ltLfHD74; arc=fail smtp.client-ip=40.107.162.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Vj/FQHPD";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SvdA70No"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66GDJwQF2972684
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 14:27:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=KMAGdgkc01v
-	lnEx5rd8EGP1TUmnd1PB3iZ5H1xmsYY8=; b=Vj/FQHPDHj3DJ+WuK+Ejy0ok6Qm
-	jn5ywXUTwPs3ntDqlTWKxY/Du6DdHf+9E6VtvMQKmrHL9eJDb0SDqzzoYl5wQRq4
-	/Cf5SzJoB1btpEHdzJiaBLNsWeta53X/splNUGcfSqwvXlYbCFRvFGYuBbkDQhVt
-	DewSQcSRkBLJ2wsfK1tTAzuU6Cg71hOvVbNJB9w4uAmCnYHhrxtbM8nRAjaVNC8B
-	jz1cl/viGSU6+xWx1TznAvbN4fUppZUb6ymAYVrUKGRoKLaf1LbIpNp7ka0FoDGG
-	uojQswLvsrBAGMQLR7meHpDojkVbOyYaWMU6SXgnFEMYPSaFGv/jdFLbjPw==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feu109s37-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 14:27:00 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c0ab07320so61396541cf.2
-        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 07:27:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784212020; x=1784816820; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KMAGdgkc01vlnEx5rd8EGP1TUmnd1PB3iZ5H1xmsYY8=;
-        b=SvdA70NovaDBqMJYhDWj73DXuspsFvuaE9sEKjS/ETCdZMXkIF6JzZBFQZhyMRczWd
-         mLg2KFw2i8iR8AMvkF9AhFnfAGDp8Nik0ZMgI/XH+Hq6VneMlr/HsfTr3XdO6d4MHvdy
-         4g/tW0eTSu1Dahtf0L7C9rLJaXNtPo/aKs20Vd3DE3GYlobfVFSSq0y68MSw8S9g4tui
-         LBM+MbDAito5ZkFNJJvVfr7DEsl0SoaHAr3DGl5ChbGPwFj2vm0JpIaFGXpCuZhmACEV
-         dAq/c6kullLCzRwD5SNmmzD4nmicgGOULvcFoducKH5Mbk5X09/QuJp8s4ez34jHEGod
-         dRVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784212020; x=1784816820;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KMAGdgkc01vlnEx5rd8EGP1TUmnd1PB3iZ5H1xmsYY8=;
-        b=sq7rrEECLaAX6KiE6+DdN/l/evhmCPZr1bJKxLddlnrFKP7sgdsbmPItkN0GCHSfC4
-         S6Bgxkn9QQ0OcSkJ/x6SgwhxvurFYh6kyOguP9ZteIhD7jnBUqx04k35Dm2QLghr3CBd
-         mhhbfsAxF8PTtvIQ34qjAupNshsJr65Di730P/LXDQmRU0ODwqORzXF5+9gbT3ZG26VC
-         tohazEDfx7NYM4dApoMceTAQAbBPX/E0hgBZooDRcTt+NU7GXKKHj/sEZFaRArsiTeV5
-         ydtoQk4fQ+P+1AlT9rMgq/FbngQA/BBfWYlwDCEkJqKNhIjbl5OneBZ04Lq5QJRVGcm6
-         +sLg==
-X-Forwarded-Encrypted: i=1; AHgh+Ro4wPLBQObdPEGmVRL5+g7YFu2Xf02pfd48/AxE/mDra2NfS07tthEgS3CZ4svvS9LYOPWAmNPDar9l@vger.kernel.org
-X-Gm-Message-State: AOJu0YwnTfKiE41LGGNepITK9kN1ym09x0k77uo6/82usbDdUd8Z9djk
-	/vIjVlukiw5VRnzz0cyvmVFw1/apKBUX9azeMcXWsqybtQirkgKm10HZjeyZ3QoQbO+s9Z96cJ+
-	RH8pKpIbJy7hOOjh5f/j3TjpHkS6I32gCGFenWrxIubr+eN3ebNOXH9Gbge5RE77E
-X-Gm-Gg: AfdE7cnaR/TkblByZwQCdiC+ksg6A8K8i3DaGqaCTNjg8Q2/w2fJUpcIkHu2HKoh9/k
-	aND/E9PYOhLWUxauIW0/e2BHX/+eTicMRqzPUtDFyuOLXoVjv5pV/YA+WuDiTgny4sMfawQGJU6
-	YTfz2fo/1y8lR4vCcvPu4+vUByjssRIxP9FQVotwMoSbcX4eC6azceBFEXCbcOdHGXCMznzQfH6
-	7UrR1Ub9uET+ybXTD3EPbXiS0tt4T49L/97xY+uK0ISYHph0jVD9GN8jD9D5kd3TtiJrK6yl9TN
-	Z5l3UWdMs0xFXw0/HLNRCGdX1nermRrOFwXr8bPSiTtOxOYR+WSUTk80lt10FjE2eQXYTe3Gb1p
-	MsSLaw6F8UnC3THpkBe5Ty39LjPT3t6jwBBh7TxbYyh37EwbDf5Oe3CcbsY8k
-X-Received: by 2002:a05:622a:207:b0:51a:7d43:9392 with SMTP id d75a77b69052e-51cbf16f512mr229100181cf.8.1784212019627;
-        Thu, 16 Jul 2026 07:26:59 -0700 (PDT)
-X-Received: by 2002:a05:622a:207:b0:51a:7d43:9392 with SMTP id d75a77b69052e-51cbf16f512mr229099721cf.8.1784212019011;
-        Thu, 16 Jul 2026 07:26:59 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51caab6ed34sm152869121cf.4.2026.07.16.07.26.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 07:26:58 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v6 5/6] arm64: dts: qcom: Add device tree for Nord Ride board
-Date: Thu, 16 Jul 2026 22:26:00 +0800
-Message-ID: <20260716142605.2398433-6-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260716142605.2398433-1-shengchao.guo@oss.qualcomm.com>
-References: <20260716142605.2398433-1-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ltLfHD74"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YOt+DtHJi9KPhzCCcLur/KyTQ63U1PCTz280+dRSwRWLQjX4wnJzoIlyLmNQxouBcFHWyxkwlTvie7J/QQEspLLyC9qtQIXbuxBCKtC9m/1H4nQlGz/uGCdshbHuuOu4AY274JH3fpYnDknIu/37+HUObPJBKBs1tUz95CK0LcN54SlvEw2smoN3JgKJQlWR43kY20r4aGfxiTR9jicTUsuN3+TNP/f9GANbNWZ7gDypGUWKcb9kCwzcB2WXZmaVR9XbfTOAtbz7aCrIws09dVHSuZIyah3bstASX2wr67ZLFiqZzWPsoYeHGECz1dtYaOl5VyGCMQhhG8dSdYI45g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=olLs4zG2FjXERRCsCKPuPrfX/9BhSzp1N4aGQstr+P0=;
+ b=P3SEYHcyQZgK8bQKgIyBY3end1HDxGEnsjBmn7JtC/skDsweEh5C5++zDFNqh1KKmqDLKwNUFxyhfvIMhN82LAURiDLrAFqfT79q9vE0Nb2MWqZWJQb5LPdUWT9tG8Od9EDq3xKAj1KntXMcxxiOEUuFESR9CfroXqL5/47CveUbTofHkk2Sj7Oco3yd+1Mc1KzKGSzLA/y16kSagbRr1WIcsl9y8rUllEV8RaQV0ow7qgbO+rdOFH8hA13bzC27r2XF+yvO627huh6UYQ2ve/nRJQHXDIc7drIDvt+/Fhpg2WF7JOw+gKM7YLLqX80uYJxCi7ov6f8/04s9Rnq9bw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=olLs4zG2FjXERRCsCKPuPrfX/9BhSzp1N4aGQstr+P0=;
+ b=ltLfHD74OxnpAP7qd4UKBCjPVMq/osIUWnsjwQCBvA9nypX8x0+x0c2FLOjPDT2jBigtwvRbIRCCoxHHR/mker7RT7eXxcnNAFxu4QoRtbo2KQBJ2s3mPtaXwWMBJwNNshrPJibibqxMozvfiJM6VwzOVvIzlvMH850IbT/vZmtZEmtYD9Edx/ArTU7r3gIIIS1Ip7C6fJazTNXPACG4vhbYR/idcEL+flS4rlhX1VqYhpIT7wrNPaDEQMuAAnP8nnl5LPEnnNtpryqgHIGbyOouRCYvykT0pl/63hZAMGtS5cjFmaxvz2ZQCFM1Ex9f9nYMRcLLArPLGR4tFkKEvw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM9PR04MB7649.eurprd04.prod.outlook.com (2603:10a6:20b:2d8::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Thu, 16 Jul
+ 2026 14:26:58 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0223.011; Thu, 16 Jul 2026
+ 14:26:58 +0000
+Date: Thu, 16 Jul 2026 09:26:50 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Marek Vasut <marex@nabladev.com>
+Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org,
+	robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org,
+	imx@lists.linux.dev
+Subject: Re: [PATCH v4 4/6] arm64: dts: imx8mm: imx8mp: Add CM DTOs for Data
+ Modul i.MX8M Mini and Plus eDM SBC
+Message-ID: <aljqKuQN096QtUks@SMW015318>
+References: <20260705200534.151803-4-marex@nabladev.com>
+ <20260705202439.3F5771F000E9@smtp.kernel.org>
+ <alUICTI-24tREZO8@SMW015318>
+ <f1e52327-42da-48e1-8e4a-dabf148ce216@nabladev.com>
+ <alWR66rjt-9jGEOV@SMW015318>
+ <a3602ef8-2b77-4cc3-adef-2c4cba08a5d9@nabladev.com>
+ <alezsOsf61Zv6F4F@lizhi-Precision-Tower-5810>
+ <c9a67cbd-fda8-4016-9cff-9125f3191b74@nabladev.com>
+ <alf9pp3c_zI4rwC0@SMW015318>
+ <56953f06-2e3d-4137-a51a-ed91e9b0d577@nabladev.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <56953f06-2e3d-4137-a51a-ed91e9b0d577@nabladev.com>
+X-ClientProxiedBy: PH7P220CA0141.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:327::29) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: 8CBfy596sj3ICUQqvH4c0gS-TqByllVo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDE0OCBTYWx0ZWRfX6S7T3Nrcty8F
- 0XvoFGFtXhGAInp2WWR7GxnPvcUD3DL5CsN/nbfX/6hHR2DJzSVZtAW/6VsPUOogZ97HkL0fcXb
- pvIAS+GdjPQQFRq5holU1XoGplZpy4ZaOYQAYJJaQmZ2EyOoCO8IQ/ANQf3lSRSshuDEG/S+4E3
- wxhQKY390L+hkzLJY4elUmcR4fIUO2FM1mmfv+KNLoFo9fYw6a6rcGT/X1/qYYy04fsh07LMq7F
- Ggrb5TZFmOGYyy0EeeGebwSYGEYhSUpzQctFzC7e0kzlZuVYuF0Cs4PDfS8KksaVqgmCnLAkNGx
- zlMA1RW8XMfp16IXtThzEYi+p9Bjckxupo/0Rx2gx54xmjcIdGOxp/0lSB/+2ZlZlJEkOIqI+O1
- 3EaMchbqiiMDANqgQLLuvAE+ulNh7zv4h2903PTfqV1PP71YAxZYJkb9vDtowy6/jOvFcphf/eP
- cTvacQjm3jtMlwwXohQ==
-X-Proofpoint-GUID: 8CBfy596sj3ICUQqvH4c0gS-TqByllVo
-X-Authority-Analysis: v=2.4 cv=BPODalQG c=1 sm=1 tr=0 ts=6a58ea34 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=mTzsPlHQ6iguFW8dCWoA:9 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDE0OCBTYWx0ZWRfX5ubHJOB3sjgQ
- pRCrgYpy+VJpHd2oA6J70ljqeL+22CIpVQvocIhLrcht86Oq1TVzOcecK32l2IZ3VLF0LzkoFum
- OfTGiQ33ecOSc+sHvpVxk1K7MNwwXk0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-16_05,2026-07-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0
- priorityscore=1501 phishscore=0 bulkscore=0 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607160148
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB7649:EE_
+X-MS-Office365-Filtering-Correlation-Id: 39773be9-ea27-4d4c-91bb-08dee3464b03
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|19092799006|1800799024|23010399003|3023799007|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	WR/a3rHy5K2gcb+wn2HuwkuTGG41mAs8jWR8borKZVPsGJAVV8+wViAnJ/FWeB6t9f4TX2zY+O+VplyyPKFkoRHoWm29gC6k3VedhChMVBy1L/tUGQzatXOMRzbelLL1jEEaCbnXX1nbpGbMlYozaaTB9PU1ZMkiuKjEd9u7OmD/oN1iDLWvNktnclT6o/t9V2OZOtJVBqwodggjs/Q/UPtSGSvTZg8ucWMV3GwyhTijby00wu8QiyIcs4RpVcr8PNbFkr7Ly4pz4H+igHuDS1AXsIW4paZlVZLH+iuMG8OGETSxi7UFmMvA0jDGr/1HqMN/DEf5oPrSE1JDuHzvKclJz347a5f78YeXoSnUUe8ICef3oxOieNMqGqvJfs04cCGmV8JxXx60jZrJeEGQG+UzR4CQ8NWGHlZ0I6sGfR9wPggfZ1lQ6yRcdWVG/NOJxnUxuVWk/qCkT4+22EjPiBBWueJAC9M508SIZW3XxuJ8qSalpOtbnLiJsR7mileYhxdDCyLuY75oDeiALtwcwE9WxdIQdMpeVHQbIHVb6CIBy7O8o3vzuNV3ofUxT4XvYiGqj0ZfniYSziOLeN/uWErlqqn+BONyCqnARkrbTI58gyB4TJ8sLbCOdbICZcRzijsNowtFuLXlOKhVVwa6dpDbBQhoFr5P3mf0oy3fE0k=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(19092799006)(1800799024)(23010399003)(3023799007)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?LJ9i172YKm5CztHmqemQvumDQdCmsGkGs3F0RyKN9h0MT8MMfSUx4wbJMgc/?=
+ =?us-ascii?Q?rOgy+9yGyiaeKi1Fk+YAuFH6RQsZqhlZj0GsqSxQyrFFBWVy1Z9Cnchl68yD?=
+ =?us-ascii?Q?gGGCL9mohONTdaG4Tbgd+72EO1npSb3GjTyl18B1WIGqIqT80FBwIdizpqiC?=
+ =?us-ascii?Q?/X4GonLCk94n1uNs74ztDNMHwYCesFsYew9VqJTbbt0pt4K8We3xSZVrmmnk?=
+ =?us-ascii?Q?40VOjmVMAORELM88ZNEWgXSCX6JttgIlLmFBqdxVVxw3wvwM39x3l8qjt8Jd?=
+ =?us-ascii?Q?bc/pMsxVOhVkWc/CaeZZ7kFD+bMY8AKLraWwRCXMWfrddxPTOuEzRh562h0i?=
+ =?us-ascii?Q?eC1snhyafW3icFvVa9rRzR2joc9mVHeEWi04l0Jbk2rDj4es7BLBH92s3uZk?=
+ =?us-ascii?Q?dCdTk/9DI2WVbE1s3R0It9YNR/bwG3UphDzv5JN7XGY8KnpaP8aXXX+6LZZI?=
+ =?us-ascii?Q?peYyCtGreTYiNv92l0TjALAYQKdpRVHjx0ty9x8Yd+zgZq4NfQPsgM+T7XAu?=
+ =?us-ascii?Q?k5ptrDY+FsOGIWisw58TcxNVf/6xzXsxabESINAKPBIkzESGoH71sRPJZZKK?=
+ =?us-ascii?Q?Hzlt6pApYy4MlRD61MjaKDxtjndbZ9So0wpNUhCfsqEsoxCLImzo3Lo5n0PE?=
+ =?us-ascii?Q?c88RY5cnW6NfGJc/TQwHWkEBtTRApMMnU8is4O6gQYXS57L1TgaSqn6A8w9h?=
+ =?us-ascii?Q?NutLalb30sRbVIa01FydLKZzlhfMH+aW+TK8W+PtZ+/WiagetK0lZAxieYfZ?=
+ =?us-ascii?Q?X+U9vSnBQ9JmySD9a+GxCXJBfJOllMgMO8x+Gi+joO6PbwlgJttfaaR+tNu8?=
+ =?us-ascii?Q?WFuEE6AoDme+rqDAve+nsDHXZtXpN2xpzGgOSoxvZFrC9f3JoRsBW8/DyAzR?=
+ =?us-ascii?Q?rc5W4SQvdEWi0WnVm6FFP7vdVi4AfHYKOewTxdCaxhCZk2oQPUZ8yZv8jpaO?=
+ =?us-ascii?Q?18tUpXDv3owwbI/oWDXWGHRflT/RTc6iH7holo1grnCQkiR/e8LL+YJt5GLi?=
+ =?us-ascii?Q?Chexg27rT6Hd3lfIl0aton55T7okRNz3dFEG5ZwskMqfbhl/I6fwwPkIMg0g?=
+ =?us-ascii?Q?vCzXrurenhN8pGgHO3garQohvX8l34HCNAIJ+iLzalcZuRxtl2qu33WVU4w+?=
+ =?us-ascii?Q?CtHBqrjS0H/nXpEFVnP1H/VpJs3LbvSVg3aTEemml0jlqowz8a6jWyXhlUWD?=
+ =?us-ascii?Q?n05p25HCtmgvWyigyDq+oXBv0YZQQkbOI/MYEYjrd6L/o26n/UFJH4POvyWv?=
+ =?us-ascii?Q?wMghhyf3mLqWdSVSDkCN3nZ9dXjp1mH1RNG59szNv35/4dYVgZOVkV9IayMH?=
+ =?us-ascii?Q?R4gicyg56IEmOtJ/9b9hLfrSVwMwmoiGIZbYCmf24IdBQvRpeT6T1N4RU96f?=
+ =?us-ascii?Q?y4Vz1WQWqbuXcaZ5DSb9VYjILP5GMsr/gElgBe6oslgpsAHDGrN22u2GDOue?=
+ =?us-ascii?Q?OFA2DRVt9dMVqRtZct3nJenmYxwidcx7Jujlqmwo8rd/e9kWEoXMtubMdzU0?=
+ =?us-ascii?Q?Nu2KM6oUqjteQv/jHncPpjzPuQRW4lyPgkWea3tagWyEg7nQNIL40HgMR32Z?=
+ =?us-ascii?Q?n2O7GBcgdrMiTCeJ1a9NmU2ZpjMe8kueywc0LR6K3rK0HqghbySPAZp1gyf9?=
+ =?us-ascii?Q?rZvFWWsu8N2WbPvpHptlbzMw+447Gv78PfQbKsJds0tHIfntVdbN4wuVi6TG?=
+ =?us-ascii?Q?z7tiCBswmUAtmfgQ5nzbIrsmii2RHrRZW4efXpL/zT8OEt+e/2BjAW9aijIT?=
+ =?us-ascii?Q?BLq6SoUsWMmY2iRxIw2jBFte7azjUgBkEAVqYaSHyd2WMjY2WDoF?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39773be9-ea27-4d4c-91bb-08dee3464b03
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 14:26:58.1560
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XM5EODsdIZvnrfjZPA9HfMkuq8Kat3lqmdRrb225wwB3Hb5RtJo57T7Mi8xbNpW0iEfZiq/qJ40wixJasMD8eFsfTnTG+l0szcYcC+TOYlhYwIelLU73oBEPGhv5JH61
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7649
 
-From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+On Thu, Jul 16, 2026 at 01:30:17AM +0200, Marek Vasut wrote:
+> On 7/15/26 11:37 PM, Frank Li wrote:
+>
+> Hello Frank,
+>
+> > > > > > > > > [Severity: Medium]
+> > > > > > > > > Will this node name bypass the driver's carveout exclusion logic?
+> > > > > > > > >
+> > > > > > > > > Looking at imx_rproc_prepare(), it iterates over memory-regions and checks
+> > > > > > > > > specifically for the name "vdev0buffer" to skip processing the vdev buffer:
+> > > > > > > > >
+> > ...
+> > > > >
+> > > > > never existed in imx_rproc.c:
+> > > >
+> > > > AI refer old version code, but problem is the same
+> > >
+> > > No, sorry, the aforementioned piece of code never existed in imx_rproc.c
+> > > according to git log. There is no old version of the code that looked
+> > > anything like what the AI produced above.
+> > >
+> > > > if (strstarts(res.name, "vdev0buffer"))
+> > > >
+> > > > >
+> > > > > "
+> > > > > $ git log --follow -p next/master -- drivers/remoteproc/imx_rproc.c | grep
+> > > > > vdev0vring1
+> > > >     ^^^^^^^^^^
+> > > >
+> > > > vdev0buffer
+> > >
+> > > The AI generated review content above does refer to vdev0vring1 , which is a
+> >
+> > No, AI talk about "vdev0buffer" at beginning, never said vdev0vring1 at all.
+>
+> This is the code the AI quoted in the review feedback:
+>
+> "
+> 	if (!strcmp(it.node->name, "rsc-table") ||
+> 	    !strcmp(it.node->name, "vdev0vring0") ||
+> 	    !strcmp(it.node->name, "vdev0vring1") || <-------- HERE
+> 	    strstarts(res.name, "vdev0buffer"))
+> 		continue;
+> "
+>
+> It does not matter which identifier we use to look up the AI quoted code
+> snippet in git log, the important point is, that the aforementioned code
+> snippet never existed in the Linux kernel as far as I can tell.
+>
+> But as far as I understand this, I should adjust the DT to cover the test in
+> the aforementioned non-existent code snippet ?
 
-Add initial device tree for the Qualcomm SA8797P Ride reference board,
-which is built on Nord GearVM variant.
+AI is not 100% accurate. Need focus on the problem itself. AI find the
+problem, vdev0buffer, not vdevbuffer, which is really existed at kernel
+code, which use strstarts(res.name, "vdev0buffer").
 
- - Configure UART15 as the primary console and UART4 as the secondary
-   serial port
- - Enable UFS storage support
- - Define thermal zones for PMIC dies, UFS, and two SDRAM sensors,
-   all sourced from SCMI sensor protocol on channel 23
+But AI's provide reason or create refer code is wrong, like what you quoted
+AI review feedback.
 
-Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/Makefile      |   1 +
- arch/arm64/boot/dts/qcom/nord-ride.dts | 240 +++++++++++++++++++++++++
- 2 files changed, 241 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/nord-ride.dts
+The same problem, AI provide difference report at
+https://lore.kernel.org/imx/20260715071741.79CA81F000E9@smtp.kernel.org/
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index e05414290d8e..28bd17c1e2f2 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -159,6 +159,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-sony-xperia-yoshino-lilac.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-sony-xperia-yoshino-maple.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-sony-xperia-yoshino-poplar.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-xiaomi-sagit.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= nord-ride.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= purwa-iot-evk.dtb
- 
- purwa-iot-evk-el2-dtbs	:= purwa-iot-evk.dtb x1-el2.dtbo
-diff --git a/arch/arm64/boot/dts/qcom/nord-ride.dts b/arch/arm64/boot/dts/qcom/nord-ride.dts
-new file mode 100644
-index 000000000000..4ced77e3482e
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/nord-ride.dts
-@@ -0,0 +1,240 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/dts-v1/;
-+
-+#include "nord-gearvm.dtsi"
-+
-+/ {
-+	model = "Qualcomm Technologies, Inc. SA8797P Ride";
-+	compatible = "qcom,sa8797p-ride", "qcom,nord";
-+
-+	aliases {
-+		serial0 = &uart15;
-+		serial1 = &uart4;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	clocks {
-+		xo_board_clk: xo-board-clk {
-+			compatible = "fixed-clock";
-+			clock-frequency = <38400000>;
-+			#clock-cells = <0>;
-+		};
-+
-+		sleep_clk: sleep-clk {
-+			compatible = "fixed-clock";
-+			clock-frequency = <32000>;
-+			#clock-cells = <0>;
-+		};
-+	};
-+};
-+
-+&scmi3 {
-+	status = "okay";
-+};
-+
-+&scmi11 {
-+	status = "okay";
-+};
-+
-+&scmi15 {
-+	status = "okay";
-+};
-+
-+&scmi23 {
-+	status = "okay";
-+};
-+
-+&thermal_zones {
-+	pmic_kobra_thermal: pmic-a-die-thermal {
-+		polling-delay-passive = <100>;
-+		thermal-sensors = <&scmi23_sensor 3>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pmic_kai_0_thermal: pmic-e-die-thermal {
-+		polling-delay-passive = <100>;
-+		thermal-sensors = <&scmi23_sensor 4>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pmic_kai_1_thermal: pmic-f-die-thermal {
-+		polling-delay-passive = <100>;
-+		thermal-sensors = <&scmi23_sensor 5>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pmic_kai_2_thermal: pmic-g-die-thermal {
-+		polling-delay-passive = <100>;
-+		thermal-sensors = <&scmi23_sensor 6>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pmic_kai_3_thermal: pmic-h-die-thermal {
-+		polling-delay-passive = <100>;
-+		thermal-sensors = <&scmi23_sensor 7>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pmic_kai_4_thermal: pmic-i-die-thermal {
-+		polling-delay-passive = <100>;
-+		thermal-sensors = <&scmi23_sensor 8>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pmic_kai_5_thermal: pmic-j-die-thermal {
-+		polling-delay-passive = <100>;
-+		thermal-sensors = <&scmi23_sensor 9>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pmic_kai_6_thermal: pmic-k-die-thermal {
-+		polling-delay-passive = <100>;
-+		thermal-sensors = <&scmi23_sensor 10>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pmic_kai_7_thermal: pmic-l-die-thermal {
-+		polling-delay-passive = <100>;
-+		thermal-sensors = <&scmi23_sensor 11>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pmic_kai_ufs_thermal: ufs-thermal {
-+		polling-delay-passive = <0>;
-+		thermal-sensors = <&scmi23_sensor 0>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <105000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+
-+			trip1 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "critical";
-+			};
-+		};
-+	};
-+
-+	pmic_kai_sdram0_thermal: sdram0-thermal {
-+		polling-delay-passive = <0>;
-+		thermal-sensors = <&scmi23_sensor 1>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <105000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+
-+			trip1 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "critical";
-+			};
-+		};
-+	};
-+
-+	pmic_kai_sdram1_thermal: sdram1-thermal {
-+		polling-delay-passive = <0>;
-+		thermal-sensors = <&scmi23_sensor 2>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <105000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+
-+			trip1 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "critical";
-+			};
-+		};
-+	};
-+};
-+
-+&uart4 {
-+	status = "okay";
-+};
-+
-+&uart15 {
-+	status = "okay";
-+};
-+
-+&ufs_mem_hc {
-+	status = "okay";
-+};
--- 
-2.43.0
+Or another words,  AI found the real problem, but provide partial correct
+reason.
 
+We focus on the problem itself, not partial wrong part of reason.
+
+Frank
+
+>
+> > "   Looking at imx_rproc_prepare(), it iterates over memory-regions and checks
+> >     specifically for the name "vdev0buffer" to skip processing the vdev buffer:
+> > "
+> >
+> > > unique identifier, but that unique identifier exists only once is the entire
+> > > history of drivers/remoteproc/imx_rproc.c and that is as a code comment .
+> > > That proves my point that the aforementioned AI generated review feedback is
+> > > not based on code that ever existed in the kernel.
+> > >
+> > > > >       vdev regions are vdev0vring0, vdev0vring1, vdevbuffer and similar.
+> > > > > "
+> > > > >
+> > > > > It seems the AI hallucinated something which is not based in reality ?
+> > > >
+> > > > git log --follow -p linux-next/master -- drivers/remoteproc/imx_rproc.c | grep vdev0buffer
+> > > > -		if (!strcmp(it.node->name, "vdev0buffer"))
+> > > > +		if (strstarts(res.name, "vdev0buffer"))
+> > >
+> > > "
+> > > if (strstarts(res.name, "vdev0buffer"))
+> > > "
+> > >
+> > > and
+> > >
+> > > "
+> > > 	    strstarts(res.name, "vdev0buffer"))
+> > > "
+> > >
+> > > looks like different code , and the AI reported "strstarts(res.name,
+> > > "vdev0buffer"))" which never existed in drivers/remoteproc/imx_rproc.c as is
+> > > clearly visible from the command output you shared above.
+> > >
+> > > So, what exactly is the problem here , can you please clarify it without
+> > > referencing the AI generated content above ?
+> >
+> > The problem is simple, node name should use
+> >
+> > 	vdevbuffer: vdev0buffer@b8400000
+> >                          ^
+> I see.
