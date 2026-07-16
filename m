@@ -1,81 +1,222 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11021119.outbound.protection.outlook.com [52.101.65.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D0F3C3439;
-	Wed, 15 Jul 2026 23:47:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784159259; cv=none; b=dPBzY7FPY0d0zwdvzVecXEmRQnmovtzNhNGtvH07cPMKigrwxOxxeEccApTDlXpNus6IUOovREG8Td6CTNOHTzO3L0oXBqRXSOp48GdKvtO+m40KYENnoyZVnispwJqz2tVBBKAzRwVJ4JCT8HGqJAap+nmeS44oahM/ScQhYNI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784159259; c=relaxed/simple;
-	bh=ykq24m3qu7/gh46GyCdkk0cF4WWRLU9U63Gh81Ezk9c=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=pu7owIyGwrbNOJBSjcoB9jyDM3YwWStm01E0K8VeDOSxtBoxtUBg23vwnSZMrGINpyqb388yNx4kqwAaHTkx1X1cCHo3TPJreIvPXJI42uehQLMc7437Qjq2FIu2ED4sqHbsJ3+/2zvs4sAhlvkIh1EgKBiiJc5xxGuVobLUE9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T+t9BbyH; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA4DC800;
+	Thu, 16 Jul 2026 00:08:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.119
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784160541; cv=fail; b=Y8sCUc23qHXYL/HvrgriAHX30UwTxV9ZKlK7SPd4IWIeV8gsjqzgzibGdqgHMrXko1dzij+uxq59gT2JdjuD3Z1sqx4ZG+5jxaeUYJI8noIlExrZXw0mVyTHVQqqHYJxcGyOR82NUS41t3kl1qi1n91zQoNYTZp3t+M/LeUImqM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784160541; c=relaxed/simple;
+	bh=Oh3KYcBm3OtbueeO9K37i701Fca7XV8CVl3eypu3TS8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hLisd1nXpekLLZPmHBft6MND6Cq5esS2FFAIJPoipN6StqSgzxGem0UfZFDf7uF4JPZ1TD+7ptia/UqrmJx59roxyWf/AONs9a+PUSZyzXcJGh7TzF+QL1/BvvTYGFZTKnnmU4Nzb/qprycwy0MlpM0Uz3i4ttdTQqLDN+v0pkk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de; spf=pass smtp.mailfrom=phytec.de; dkim=pass (2048-bit key) header.d=phytec.de header.i=@phytec.de header.b=Atmpkyci; arc=fail smtp.client-ip=52.101.65.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T+t9BbyH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1D4A1F000E9;
-	Wed, 15 Jul 2026 23:47:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784159257;
-	bh=Bl5lk7GtKJUn87j4SLMbzfc5HjmGwGRh3/zLnBPvIAQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=T+t9BbyH/xH5eCUFOoC7kkJIlgvKdo+Ku+RFk+UbSXqwismvztyU1uJjx/qICqmS8
-	 QvO7B8sM5QeI2opwEKmvQC4yPbOmdP4N6cKRYX7vRjwwL3NcMIvpepZIETJDV1zpgP
-	 XmDE8ft22lJBNGenY9+yBXmAEA0HGqFaMiTzCoHJy1sjHckpdK11yfAx9JHKDCETQN
-	 m4LhxZHVyK/oCyCApXzQZFHgzprgyE8EMCfcsPBNWMSBD+94e8rxS6o2cMc48iE2pe
-	 DUFzXLoPeCMpVK88aihoRHaxPaeAOdJ2tYluLtlJkN3BWNgG/yMkvjz/L0PyEEYYHf
-	 DlaDnDB+4R8yQ==
-Date: Wed, 15 Jul 2026 18:47:36 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Leonardo Costa <leoreis.costa@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de,
-	festevam@gmail.com, leonardo.costa@toradex.com,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev, Sherry Sun <sherry.sun@nxp.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Richard Zhu <hongxing.zhu@nxp.com>, linux-pci@vger.kernel.org
-Subject: Re: [REGRESSION] mainline/master: Apalis iMX6 no longer boots
-Message-ID: <20260715234736.GA288957@bhelgaas>
+	dkim=pass (2048-bit key) header.d=phytec.de header.i=@phytec.de header.b="Atmpkyci"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vc1Tp61zh7YoMugGbpoWrzIPmxJJxPY9VWXQ8Y0I4pTNd8wit9RzzzX409jlmfVYiJhowpW8+IsFPG7eGdIOAPwgBVVdfIJzFlk2gtHmqLoKrZIz/Vsuk2HiyPHThXsLT1H6iPDqpKA+1IXNtrHm78r5r86tUHZ/l2htPcrh2jeanNp0s8q2+nTx33UVk5dRcu0pGtqsZxVLoq970VTCJpcZ7d0RRbaYCWiolnCfx2cVUrNCSCRg5XuSdqs/EUOtd39PJCkZJ44YS2r36LHbNqdz8pvzL6BLOPe/MsHtKP1u3MA10ErSHK/0CASg47vhujO+xr2j/wmr6NI20oFrWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JICTE7c0vCrS4PXYk/rEUMbOzyQUYInz/SONMkwMn3A=;
+ b=gRGc3JkjeUbsDvPj4uzsECMG2Okp8/bxYJa52uDAaW+2npbRveR8QZFGvdPlsqAvyC4TWX+rUt7VJ9Hli6smcG0gO9EErnuMoGK4kQVjz9s7oHQ37SqVflVP4xNEQ45ejueBGsvpqmvr7nJXVU5f83CSzpKiRXp/XgbAS1cjhM+22qcAEIR1R9T/IxixNGUU8Ncbut+HuzqIAUDDLxUhQ/07Tib6NOk4PazFrbQCbFKcoIsL+kJ3r22PtCTzoCcqy5b/vwGIZBA+1mlcGc44+bWh/pXkbAe8BmM2N1gshLMUvNpcN32GupjrJoeN/h3DtCLIdNKzutkF8Yc0Fkwiyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 91.26.50.189) smtp.rcpttodomain=ti.com smtp.mailfrom=phytec.de; dmarc=fail
+ (p=quarantine sp=quarantine pct=100) action=quarantine header.from=phytec.de;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.de;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JICTE7c0vCrS4PXYk/rEUMbOzyQUYInz/SONMkwMn3A=;
+ b=Atmpkyci96UxiQbppLmbKbaOikCVgiVOIO15q1OXERcjHjCVi3ig18gSGKSPVeXqqjafnOslWr2dg0PDchfxCI4i2oyHBlzO6YexNTkHxOhogWYoxC/0EEVkbLdfhnQkVt180baXSZjp6MrVJyY+TCwgnSwmrCoZGUqA/ViwSNbcOk8ZlZCO5l8VUoTljb+lHtrqsh7g3P9UAyZGniemqzlMaQ0Bl9jRx2JDa4reY+gKs8mL7YqvHXz3o/jUcLWuotnkpnTHG3/QHu2GqWdW1M/rzYWanV6owyLzTy1Rkb7OhsZ9FY4zn4ai2DeWVQ5Bs0MohYKzczgnlW3/Gbch8Q==
+Received: from DU2P251CA0017.EURP251.PROD.OUTLOOK.COM (2603:10a6:10:230::16)
+ by GV1P195MB1667.EURP195.PROD.OUTLOOK.COM (2603:10a6:150:52::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.11; Thu, 16 Jul
+ 2026 00:08:53 +0000
+Received: from DU2PEPF00028D0D.eurprd03.prod.outlook.com
+ (2603:10a6:10:230:cafe::ad) by DU2P251CA0017.outlook.office365.com
+ (2603:10a6:10:230::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.11 via Frontend Transport; Thu,
+ 16 Jul 2026 00:08:53 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 91.26.50.189)
+ smtp.mailfrom=phytec.de; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=phytec.de;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ phytec.de discourages use of 91.26.50.189 as permitted sender)
+Received: from Postix.phytec.de (91.26.50.189) by
+ DU2PEPF00028D0D.mail.protection.outlook.com (10.167.242.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.223.9 via Frontend Transport; Thu, 16 Jul 2026 00:08:52 +0000
+Received: from lws-haller-privat.phytec.de (172.25.39.212) by Postix.phytec.de
+ (172.25.0.11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 16 Jul
+ 2026 02:08:49 +0200
+From: Dominik Haller <d.haller@phytec.de>
+To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, "Tero
+ Kristo" <kristo@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: <upstream@lists.phytec.de>, Dominik Haller <d.haller@phytec.de>,
+	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH] arm64: dts: ti: k3-am68-phyboard-izar: Add pwm fan
+Date: Wed, 15 Jul 2026 17:08:25 -0700
+Message-ID: <20260716000827.84982-1-d.haller@phytec.de>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260629143439.361560-1-leoreis.costa@gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: Postix.phytec.de (172.25.0.11) To Postix.phytec.de
+ (172.25.0.11)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PEPF00028D0D:EE_|GV1P195MB1667:EE_
+X-MS-Office365-Filtering-Correlation-Id: ef6fd8e2-cce8-4700-ec07-08dee2ce6b4a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|56012099006|11063799006|3023799007|18002099003|10067099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	ESxilgMLcGTUrZ5zmwtCia/l3JgMH1cjQFjHf3f6mE2Zr4mw+Prquu9m5dZ/eCVVAa1zf4cgic9HnTD/+3xd2BWDQEAqVJzDOStZtlKrh0FAhvPm6DiUVPWrieBpzSfJXlsp27tPGFtVEJAs3mkQh/5EGsIGU4Oo588ZC6dWyjFGP4ksAVzOEFCS+L4Qta1ihVXAcvspjkJTYFqNXAO2+T99X2O641wPF297kPjh7cDtPYkghx2r+1qM6/FFxLhGj+uoA3ZtUvxo8RvXtrR4gnaRNqPo4eRsTUu5Wb6KKRG9mTW9OX/HxdjdnSxjBK32gGXTExsJTTjLhzT/aGMehQp6KTgB+vLl+Pkc9Be4pCIMJjBrpKQbl/8mGV2EJdfIcOC6Q8krfVUSlKOnIEgjrvBUkRYLxqX7S7A9LKQG2lnNQv9mdSu4fQ41MxCO8k9HbHV9pQfNG8ux9xfHVIdUwbAr+g698r9XsEPlhLT7O05E0vEd/4HAQxYHTRsclcX9jeI6HFOf695qd5F/YGdpLw/gZxtWVBj/fdqnUFj+U/V+CPo+TRnW36TnnP+ywwmLvm6CYLX0d1JidLFWK+cYsr8ERzhwNt3MhbXJC/GNksSjOO19gOdmaq53//ra2hPZF63TXihPwl4JYEgnCuFokmxztwEJmy8PjrJYzF8xqH7hwXwEgl7YgSJRxe50+dXsmKJ3MYneV4cBdG5Xa/6YKg==
+X-Forefront-Antispam-Report:
+	CIP:91.26.50.189;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:Postix.phytec.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(56012099006)(11063799006)(3023799007)(18002099003)(10067099003)(13003099007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	xYllibsOJ8DhrSCdJeBU8idQvZ6ygrfLTxOTn0htmS2TOOlCbEUTzhVglfXIN9IBKbclrXGrwt6uLy3E76LCd2dKgQgYrBPJKKToePh4sNAvszbJwdJTkcvHcStGHAcrX87p0rPsxR+gqqTJpiLRzULK4fsqFyeDplAJLigz7mbOQ/rzzGzCVlfg9kAbJNfANWecV3KD/wLBUS9z8s1cvUQSp90L0HukqcoVONDUh/ZWlUD6ZC52DyuLOJVjTcrXlKDJQMk1B60v4xjwgvVUwi5MItGlWY1jMDtQJKGBGwVsy8Zvx7TJ7+MLZbYi4WMcUYU3Iw0LBeBLc19mpP4Gq0IBEG5s7X8fdrHZthourNWk76QzS+sR5OudnOeHTydXh2t+lMX0ygV0HeexZ7pkITGg/Fykl1TZYodvhvtbKFjNVZUijE6KOWK11iIG2EAn
+X-OriginatorOrg: phytec.de
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 00:08:52.3672
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef6fd8e2-cce8-4700-ec07-08dee2ce6b4a
+X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e609157c-80e2-446d-9be3-9c99c2399d29;Ip=[91.26.50.189];Helo=[Postix.phytec.de]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU2PEPF00028D0D.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1P195MB1667
 
-[+cc Sherry, author of 610fa91d9863, Richard, Mani, linux-pci]
+Add an overlay to control the pwm fan[0] that comes with the kit.
 
-On Mon, Jun 29, 2026 at 11:34:32AM -0300, Leonardo Costa wrote:
-> Hello,
-> 
-> We are seeing a regression on Apalis iMX6 where the kernel doesn't boot in the
-> newest v7.2-rc1 (it was working before, in v7.1). The device tree being used is the imx6q-apalis-eval.dtb. The kernel
-> configuration used is the one shown below:
-> 
->     https://gist.github.com/lcosta37/53efdb2fb6e6e0fc05437c7e53b47737
-> 
-> The kernel logs stop almost immediately as the board starts to boot, and I 
-> don't notice any difference in the logs that points to the cause.
-> 
-> Is this known? We are seeing this behavior on all Apalis iMX6 modules, though
-> we don't see it on Colibri iMX6, so it is not SoC-specific.
+[0] https://www.sepa-europe.com/en/2023/06/16/axial-fan-lf40p/
 
-This regression is listed on
-https://linux-regtracking.leemhuis.info/regzbot/mainline/ as being
-caused by
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=master&id=610fa91d9863
-("PCI: imx6: Assert PERST# before enabling regulators") but I can't
-find any bisect or other report that specifically points to
-610fa91d9863.
+Signed-off-by: Dominik Haller <d.haller@phytec.de>
+---
+ arch/arm64/boot/dts/ti/Makefile               |  6 +-
+ .../dts/ti/k3-am68-phyboard-izar-pwm-fan.dtso | 74 +++++++++++++++++++
+ 2 files changed, 79 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-pwm-fan.dtso
 
-Can somebody confirm that reverting 610fa91d9863 fixes this
-regression, or at least that 610fa91d9863^ works and 610fa91d9863
-fails?
+diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+index 371f9a043fe5..bf03d895aed8 100644
+--- a/arch/arm64/boot/dts/ti/Makefile
++++ b/arch/arm64/boot/dts/ti/Makefile
+@@ -173,7 +173,10 @@ k3-am68-phyboard-izar-lvds-ph128800t006-dtbs := k3-am68-phyboard-izar.dtb \
+ 	k3-am68-phyboard-izar-lvds-ph128800t006.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am68-phyboard-izar-peb-av-15.dtb
+ k3-am68-phyboard-izar-peb-av-15-dtbs := k3-am68-phyboard-izar.dtb \
+-        k3-am68-phyboard-izar-peb-av-15.dtbo
++	k3-am68-phyboard-izar-peb-av-15.dtbo
++dtb-$(CONFIG_ARCH_K3) += k3-am68-phyboard-izar-pwm-fan.dtb
++k3-am68-phyboard-izar-pwm-fan-dtbs := k3-am68-phyboard-izar.dtb \
++	k3-am68-phyboard-izar-pwm-fan.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am68-sk-base-board.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am68-sk-base-board-pcie1-ep.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-common-proc-board.dtb
+@@ -387,6 +390,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
+ 	k3-am642-tqma64xxl-mbax4xxl-wlan.dtb \
+ 	k3-am68-phyboard-izar-lvds-ph128800t006.dtb \
+ 	k3-am68-phyboard-izar-peb-av-15.dtb \
++	k3-am68-phyboard-izar-pwm-fan.dtb \
+ 	k3-am68-sk-base-board-csi2-dual-imx219.dtb \
+ 	k3-am68-sk-base-board-pcie1-ep.dtb \
+ 	k3-am69-sk-csi2-dual-imx219.dtb \
+diff --git a/arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-pwm-fan.dtso b/arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-pwm-fan.dtso
+new file mode 100644
+index 000000000000..8c1a51216a90
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-pwm-fan.dtso
+@@ -0,0 +1,74 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * Copyright (C) 2026 PHYTEC Messtechnik GmbH
++ * Author: Dominik Haller <d.haller@phytec.de>
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/pwm/pwm.h>
++#include "k3-pinctrl.h"
++
++&{/} {
++	pwmfan: pwm-fan {
++		compatible = "pwm-fan";
++		pinctrl-names = "default";
++		pinctrl-0 = <&main_pwmfan_default_pins>;
++		#cooling-cells = <2>;
++		cooling-levels = <0 90 150 255>;
++		/* frequency needs to be the same as lvds backlight */
++		pwms = <&main_ehrpwm0 0 44000 PWM_POLARITY_INVERTED>;
++	};
++};
++
++&main_pmx0 {
++	main_pwmfan_default_pins: main-pwmfan-default-pins {
++		pinctrl-single,pins = <
++			J721S2_IOPAD(0x0cc, PIN_OUTPUT, 5) /* (AE27) SPI0_CS0.EHRPWM0_A */
++		>;
++	};
++};
++
++&main_ehrpwm0 {
++	status = "okay";
++};
++
++&main3_thermal {
++	trips {
++		cpu_low: cpu-low {
++			hysteresis = <3000>;
++			temperature = <55000>;
++			type = "active";
++		};
++
++		cpu_med: cpu-med {
++			hysteresis = <3000>;
++			temperature = <60000>;
++			type = "active";
++		};
++
++		cpu_high: cpu-high {
++			hysteresis = <3000>;
++			temperature = <65000>;
++			type = "active";
++		};
++	};
++
++	cooling-maps {
++		map1 {
++			cooling-device = <&pwmfan 1 1>;
++			trip = <&cpu_low>;
++		};
++
++		map2 {
++			cooling-device = <&pwmfan 2 2>;
++			trip = <&cpu_med>;
++		};
++
++		map3 {
++			cooling-device = <&pwmfan 3 3>;
++			trip = <&cpu_high>;
++		};
++	};
++};
+-- 
+2.43.0
 
-Bjorn
