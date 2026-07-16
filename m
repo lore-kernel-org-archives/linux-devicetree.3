@@ -1,365 +1,134 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 141F242255C;
-	Thu, 16 Jul 2026 13:02:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B1A41F7D7
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 13:05:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784206939; cv=none; b=mnnqDJABlqvw7vycDM++7qleksOSKvj0jEJQo2H7VISTmmjDC0mRak2jZvfuRECBq8wBikMn7Kdyva7+33kGICfbcwW0v5XCNPg5n1GHse3VqTDs6dh/+BaiOhNQqk+uNsoKAs+TofrdtmHENpwgCH4VDbCROJzmX+7BMIGFW94=
+	t=1784207115; cv=none; b=Ob2FpBO/Jhaeg8xlnLwTyzrQ1axuV8R1SDJUqchkIsncryY+xn7U0Y9dzJcbnsgEILVjtAgTLXEHMuT5i1RbqHCpt2L5vKudi5z/k2/rijJdOdAyEBw9wxO8bkntA7rqHyOJEOU18ZOzYeYHQm3AmPga9Ak73oA5JyMylJ+QyLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784206939; c=relaxed/simple;
-	bh=1HNP4Nw6q0zER9T0cMvm6r69fPS6nGavn7ZTsTwXnY4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tGIZgjnlQ8UQV9Ky8VpXmlBTGvbNzy71yNFLi0qQ5UwPqXC2oqb+YV4NnWCzvvcHK4R/w+JjLeGMLnJJmzvVnsMAlKAaHcnLoPBqA8ODx6Uc2TvQPqefnE0kyZABLr5ipWSpg08uO9/4AhXYs+CHqFI0kiFKyrrB+J2q1lb5cl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=eUOKg4Az; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1784207115; c=relaxed/simple;
+	bh=Ph5O7sdd3xwfE3bGAXgs+upkajj44wtizah1gh+lDoM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cRdhiO9nI1/jZsqMdG4sLTvgjpOFGrpfMuTsxZNZbJ+BUH5pyii3/YwCBB4hrEvkEO/v3RBin1wDKQyZ8O4holMXW0AboJ60QlXR3KhXnamjJ8YgTG1/CUum2MN9GvCIKb7erkIdkd61A7NYT6Kf3ROYyLcXIIABTkKjjvDPXxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QCidRpY5; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="eUOKg4Az"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 87EF4C2B9E8;
-	Thu, 16 Jul 2026 13:02:27 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1E309602B8;
-	Thu, 16 Jul 2026 13:02:10 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BEFE211BD3C6E;
-	Thu, 16 Jul 2026 15:01:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1784206927; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=zTUPSuHQAbihWXKOUNBC/PoJhnAlh+bcUK9ov3l4dIk=;
-	b=eUOKg4AzJ8Nj9dsSPxLDiiFkQt8iV8mJFUvm36BSRlszf/OY/clhHXabhnOfjqLmdx528s
-	zXNe//VBkUeEyPdfvt+uyUW7MZgN9O32bXq3VsvMH9mN4oWv9wxqKYyoq3zXBhz5mbtvt+
-	WTMnrTzWPTDjo78wpSQhYhBu3cOxbK22BILluJNsuOxKGr8Nki77FJpeq01uAAHEw1K2Xk
-	ms3aMDQ7KawllFARvO0dJDPSzz7kd0smDce/rj7PBzeLjlvkzOoagRReyQmQDyOlWK3js7
-	ZoK+jcZbcbMAmn8/xwwoA6Ks1hSs4bRsVJovl7SFLtxPFkn69q1rfeoYpnIJ+Q==
-Message-ID: <c7193123-72e1-4bf5-85f7-eb68a4000c44@bootlin.com>
-Date: Thu, 16 Jul 2026 15:01:57 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QCidRpY5"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-493d92b7db3so24891245e9.2
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 06:05:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784207113; x=1784811913; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HkXEhjWw8RR39Frioop/yuVyZX8tqDl1VlP5PStyz6E=;
+        b=QCidRpY5AiaVnAGt/yYU+uDtue9x62zA+cXUGm40lcq9F61JrpLXcF9VtcxXSjo1vv
+         qhzNqXq3KxPXAW190NuvTegi2UNDwCCtJhNxaXR+MIPGhgQ2Dm6jnQf8/XGsddWZywtu
+         tK0YPLZ7FZ4rSxKp29JCbBRD9afsHb0bt87y01CS27vUiSOUx06fTcDR2IfjGJ/f4yuG
+         ljfyls41AveZEoFpkyfrKWFyjxZ8F7vtFj5t9u7WhhJNHJySsiCRelAr6kQBexJhY+dg
+         hPA3V4nrXC21Hem5fA8vX1aLOMdNjALlaZAI1QHKCGpxcHKQIvyfKvDj+1OMRUjWvHLL
+         wQ4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784207113; x=1784811913;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HkXEhjWw8RR39Frioop/yuVyZX8tqDl1VlP5PStyz6E=;
+        b=MYynuOzjr4/Ut1CsSaROTtDwHQ3Q8JbvKWGUm4vFwhI9WnTTNo//2X5dJTPdO7kzcm
+         EFoBRCxzTURA/tfVsGULj6JUuuNVbtf6RttdoOnYuqdwPqIvLw/zZ2ZyS3GTgoG1DLhi
+         9rO/k1FG5iwc+/sK35iKLXlgqjcA/8UcthwzaDDybZn1FpbKk6WIaTGzqj4B4qPvo9a9
+         Mxc0MAGlzywNJOMjl8tuLceRBcyw8vLoa7OwJ9vWHpb/t27ImiZopdDOiJCF5CC6aI7W
+         mTq/JSQvJB9jJXlKX9jRVjHneLXqDVTLHkO7zFQzVtxYYyEvNP50U0KkrAE8w7dI1Qc9
+         ca7A==
+X-Forwarded-Encrypted: i=1; AHgh+RpNteJF6zpY5ouG7W1ZRY1EOcM7QrY0X+52VXV2F2QBacSMuG2CnVhlbdcPG1eyHckavkFfXxBtQ3DT@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz2zWpsm5hd3Qnn6jkVVNzU02OeZA+xYAw9IbbKjCcjCRe54tFc
+	3OZIpLPO245EuWMWkrYQ7/Im/LFxhOkaUJFUsftpVG7NKOxQ1Xk5KSTG
+X-Gm-Gg: AfdE7clQVRSmJjGdJcIJBfwnJ0EnzI0Kem5D8SN4nNXs+DrCN+KfTRk8W9jr5K9pMLQ
+	BYMXA3L36bGXAURwFi5o6Bz6vpLZ60AfpecxUyoAP+CV+c39mOrGdu8Xrj6wd7iPhuZ9UVN86wR
+	+R/xbvQu6S7kje4nnbilY/YRVADMzFtqJB3IJWbQ8W82xCxEd6uShtYMeRV6STszEm2K5FnxrKq
+	LPG9LYpUBxhutG3kZkZz+4WbiqQZLZiCy2DMrIQCf4BQ2NTTkEcNwKHfNpImutk8xGfaU2Fnw1y
+	RUvUNSW4HIpbAz1N+UVX5ayTb7jhFIX+yZJZ1sMB9gyZ7f0DWJaVR8S6maB1X05A68ytov7venY
+	NPBzUsT+IuqkRdqYEP4tSRdhV+KsNfenvJlD6kQWj1geybMvddWbM0JOxsifJ7d8us6aB9L5950
+	m9zYx5NHOZ0CYRbosdJkRzGy3nXD5DU3sxjSySrrizuo777peXYXd7i8OrrOBOVmK0knofX6PNn
+	vTwWb5/xDR6TLrK225ZMIw14BLme/6dvlRrwWgZs5/WblFLH+XisgVfiqgPD55nRGyGfkIaqKFw
+	cJtd9krfDZtwFgO6Fk788TDsouW8Wr99HXG5+zbT2SkGGyHH4S58X/dmQOw0G6axRjDr9iPY5Nn
+	LeNiMsSMM/Wes
+X-Received: by 2002:a05:600c:354e:b0:493:e38b:182d with SMTP id 5b1f17b1804b1-493f881800dmr243163685e9.22.1784207112542;
+        Thu, 16 Jul 2026 06:05:12 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49541e7d22asm57635025e9.1.2026.07.16.06.05.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Jul 2026 06:05:12 -0700 (PDT)
+Date: Thu, 16 Jul 2026 15:05:09 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: rodrigo.alencar@analog.com, Michael Auchter <michael.auchter@ni.com>,
+ linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron
+ <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Andy Shevchenko
+ <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Kees Cook <kees@kernel.org>, "Gustavo A. R.
+ Silva" <gustavoars@kernel.org>, sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 2/8] iio: dac: ad5686: missing NULL check on match
+ data
+Message-ID: <20260716150509.00002557@gmail.com>
+In-Reply-To: <20260716-ad5686-new-features-v8-2-ebb0051af5e5@analog.com>
+References: <20260716-ad5686-new-features-v8-0-ebb0051af5e5@analog.com>
+	<20260716-ad5686-new-features-v8-2-ebb0051af5e5@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 2/2] net: phy: add DAPU Telecom DAP8210R(I)
- Gigabit Ethernet PHY driver
-To: Artem Shimko <a.shimko.dev@gmail.com>, netdev@vger.kernel.org,
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260716113805.593215-1-a.shimko.dev@gmail.com>
- <20260716113805.593215-3-a.shimko.dev@gmail.com>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20260716113805.593215-3-a.shimko.dev@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+On Thu, 16 Jul 2026 13:14:18 +0100
+Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
 
-On 7/16/26 13:38, Artem Shimko wrote:
-> Add a new PHY driver for the DAPU Telecom DAP8211R(I) Gigabit
-> Ethernet PHY, which is commonly used in enterprise and industrial
-> networking applications.
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 > 
-> The driver implements extended register access via indirect addressing
-> through corresponding registers, and provides comprehensive device tree
-> support for RGMII delay configuration. The rx-internal-delay-ps and
-> tx-internal-delay-ps properties allow precise tuning of clock delays in
-> 150 ps steps from 0 to 2250 ps. Additionally, the optional
-> dapu,tx-inverted-clk flag enables 180-degree TX clock phase shift for
-> boards where signal integrity or MAC requirements necessitate clock
-> inversion.
+> Verify that chip_info pointer is not NULL. If a user binds the driver
+> using driver_override via sysfs with a device name not present in the
+> id_table or of_match_table, match data will be NULL.
 > 
-> Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
+> Fixes: 0eb1728461a1 ("iio: dac: ad5686: drop enum id")
+> Reported-by: sashiko-bot@kernel.org
+> Closes: https://lore.kernel.org/all/20260710113149.53EC51F000E9@smtp.kernel.org/
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 > ---
->  drivers/net/phy/Kconfig    |  10 ++
->  drivers/net/phy/Makefile   |   1 +
->  drivers/net/phy/dap8211r.c | 281 +++++++++++++++++++++++++++++++++++++
->  3 files changed, 292 insertions(+)
->  create mode 100644 drivers/net/phy/dap8211r.c
+>  drivers/iio/dac/ad5686.c | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> diff --git a/drivers/net/phy/Kconfig b/drivers/net/phy/Kconfig
-> index 099f25dceabb..4576f707ac94 100644
-> --- a/drivers/net/phy/Kconfig
-> +++ b/drivers/net/phy/Kconfig
-> @@ -237,6 +237,16 @@ config DAVICOM_PHY
->  	help
->  	  Currently supports dm9161e and dm9131
+> diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
+> index 713fe71ad1e7..d34250647aa4 100644
+> --- a/drivers/iio/dac/ad5686.c
+> +++ b/drivers/iio/dac/ad5686.c
+> @@ -479,6 +479,9 @@ int ad5686_probe(struct device *dev,
+>  	struct iio_dev *indio_dev;
+>  	int ret, i;
 >  
-> +config DAP8211R_PHY
-> +	tristate "DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY"
-> +	depends on OF
-> +	help
-> +	  Support for the DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY.
-> +	  This PHY is designed for enterprise and industrial networking
-> +	  applications, supporting 10/100/1000 Mbps operation.
-> +	  RGMII with: configurable TX/RX clock delays, optional flag to enable
-> +	  180-degree TX clock phase shift and internal packet generator.
+> +	if (!chip_info)
+> +		return -ENODEV;
 > +
->  config ICPLUS_PHY
->  	tristate "ICPlus PHYs"
->  	help
-> diff --git a/drivers/net/phy/Makefile b/drivers/net/phy/Makefile
-> index de660ae94945..ad35733eb4bb 100644
-> --- a/drivers/net/phy/Makefile
-> +++ b/drivers/net/phy/Makefile
-> @@ -53,6 +53,7 @@ obj-$(CONFIG_BROADCOM_PHY)	+= broadcom.o
->  obj-$(CONFIG_CICADA_PHY)	+= cicada.o
->  obj-$(CONFIG_CORTINA_PHY)	+= cortina.o
->  obj-$(CONFIG_DAVICOM_PHY)	+= davicom.o
-> +obj-$(CONFIG_DAP8211R_PHY)	+= dap8211r.o
->  obj-$(CONFIG_DP83640_PHY)	+= dp83640.o
->  obj-$(CONFIG_DP83822_PHY)	+= dp83822.o
->  obj-$(CONFIG_DP83848_PHY)	+= dp83848.o
-> diff --git a/drivers/net/phy/dap8211r.c b/drivers/net/phy/dap8211r.c
-> new file mode 100644
-> index 000000000000..e1e6a322ef0c
-> --- /dev/null
-> +++ b/drivers/net/phy/dap8211r.c
-> @@ -0,0 +1,281 @@
-> +// SPDX-License-Identifier: GPL
-> +/*
-> + * Driver for the DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY.
-> + *
-> + * Specifications:
-> + *   - IEEE 802.3 10BASE-Te, 100BASE-TX, 1000BASE-T
-> + *   - IEEE 802.3az-2010 Energy Efficient Ethernet
-> + *   - IEEE 1588 SyncE support
-> + *   - RGMII
-> + *
-> + * Author: Artem Shimko <a.shimko.dev@gmail.com>
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/errno.h>
-> +#include <linux/ethtool.h>
-> +#include <linux/kernel.h>
-> +#include <linux/mii.h>
-> +#include <linux/module.h>
-> +#include <linux/netdevice.h>
-> +#include <linux/of.h>
-> +#include <linux/phy.h>
-> +
-> +#define DAP8211R_PHY_ID			0x0008011B
-> +#define DAP8211R_PHY_ID_MASK		0xFFFFFFFF
-> +
-> +#define DAP8211R_EXT_ADD		0x1E
-> +#define DAP8211R_EXT_DATA		0x1F
-> +
-> +#define DAP8211R_PHY_CON		0xA001
-> +#define DAP8211R_PHY_SW_RST		BIT(15)
-> +
-> +#define DAP8211R_RGMII_CON		0xA003
-> +#define DAP8211R_RGMII_TX_DEL_MASK	GENMASK(3, 0)
-> +#define DAP8211R_RGMII_RX_DEL_MASK	GENMASK(13, 10)
-> +#define DAP8211R_RGMII_CLK_INVERT	BIT(14)
-> +
-> +/* Default RGMII delay: 13 * 150 == 1.95ns */
-> +#define DAP8211R_DEFAULT_DELAY_SEL	0xD
-> +
-> +struct dap8211r_delay_config {
-> +	u32 ps;
-> +	u8 sel;
-> +};
-> +
-> +static const struct dap8211r_delay_config delay_config[] = {
-> +	{   0, 0},
-> +	{ 150, 1},
-> +	{ 300, 2},
-> +	{ 450, 3},
-> +	{ 600, 4},
-> +	{ 750, 5},
-> +	{ 900, 6},
-> +	{1050, 7},
-> +	{1200, 8},
-> +	{1350, 9},
-> +	{1500, 10},
-> +	{1650, 11},
-> +	{1800, 12},
-> +	{1950, 13},
-> +	{2100, 14},
-> +	{2250, 15},
-> +};
-> +
-> +#define DAP8211R_DELAY_COUNT	ARRAY_SIZE(delay_config)
-> +
-> +/**
-> + * dap8211r_delay_ps_to_sel() - Convert ps to register value (exact match only)
-> + * @ps: Delay in picoseconds
-> + *
-> + * Converts a delay value in picoseconds to the corresponding register value
-> + * for RGMII delay configuration. The PHY supports specific values from
-> + * 0 to 2250 ps in 150 ps steps.
-> + *
-> + * Return: Register value (0-15) on success, -EINVAL if @ps is not supported.
-> + */
-> +
-> +static int dap8211r_delay_ps_to_sel(u32 ps)
-> +{
-> +	for (int i = 0; i < DAP8211R_DELAY_COUNT; i++)
-> +		if (ps == delay_config[i].ps)
-> +			return delay_config[i].sel;
-> +
-> +	return -EINVAL;
-> +}
-> +
-> +/**
-> + * dap8211r_read_ext() - Read extended register
-> + * @phydev: PHY device structure
-> + * @reg: Extended register address
-> + *
-> + * Reads a PHY extended register using the indirect access method.
-> + * The caller must hold the MDIO bus lock.
-> + *
-> + * Return: Register value on success, or negative error code
-> + */
-> +static int dap8211r_read_ext(struct phy_device *phydev, u16 reg)
-> +{
-> +	int ret;
-> +
-> +	phy_lock_mdio_bus(phydev);
-> +	ret = __phy_write(phydev, DAP8211R_EXT_ADD, reg);
-> +	if (ret < 0)
-> +		goto out;
-> +
-> +	ret = __phy_read(phydev, DAP8211R_EXT_DATA);
-> +out:
-> +	phy_unlock_mdio_bus(phydev);
-> +	return ret;
-> +}
-> +
-> +/**
-> + * dap8211r_modify_ext() - Modify extended register bits
-> + * @phydev: PHY device structure
-> + * @reg: Extended register address
-> + * @mask: Bit mask of bits to clear
-> + * @set: Bit mask of bits to set
-> + *
-> + * Modifies a PHY extended register using the indirect access method.
-> + * New value = (old value & ~mask) | set.
-> + * The caller must hold the MDIO bus lock.
-> + *
-> + * Return: 0 on success, or negative error code
-> + */
-> +static int dap8211r_modify_ext(struct phy_device *phydev, u16 reg, u16 mask, u16 set)
-> +{
-> +	int ret;
-> +
-> +	phy_lock_mdio_bus(phydev);
-> +	ret = __phy_write(phydev, DAP8211R_EXT_ADD, reg);
-> +	if (ret < 0)
-> +		goto out;
-> +
-> +	ret = __phy_modify(phydev, DAP8211R_EXT_DATA, mask, set);
-> +out:
-> +	phy_unlock_mdio_bus(phydev);
-> +	return ret;
-> +}
-> +
-> +/**
-> + * dap8211r_get_rgmii_delay() - Get RGMII delay from DT
-> + * @phydev: PHY device
-> + * @prop_name: DT property name
-> + * @is_id: If phy mode is PHY_INTERFACE_MODE_RGMII_[TXID,RXID,ID]
-> + *
-> + * Reads the RGMII delay from the device tree. If the property is not
-> + * specified, the default delay (1950ps) is used.
-> + *
-> + * Return: Register value (0-15) on success, negative error code on failure.
-> + *	   -EINVAL: Property not specified and is_id is false.
-> + */
-> +static int dap8211r_get_rgmii_delay(struct phy_device *phydev, const char *prop_name, bool is_id)
-> +{
-> +	struct device_node *np = phydev->mdio.dev.of_node;
-> +	u32 ps = 0;
-> +	int ret;
-> +
-> +	ret = of_property_read_u32(np, prop_name, &ps);
-> +	if (ret == -EINVAL)
-> +		return (is_id) ? DAP8211R_DEFAULT_DELAY_SEL : ret;
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return dap8211r_delay_ps_to_sel(ps);
-> +}
-> +
-> +/**
-> + * dap8211r_config_init() - Initialize PHY
-> + * @phydev: PHY device structure
-> + *
-> + * Configures the PHY during initialization:
-> + * - RGMII delays based on interface mode
-> + * - TX clock invertion
-> + * - Software reset to apply settings (low active, self clear)
-> + *
-> + * Return: 0 on success, or negative error code
-> + */
-> +static int dap8211r_config_init(struct phy_device *phydev)
-> +{
-> +	struct device_node *phydev_node = phydev->mdio.dev.of_node;
-> +	u16 mask = 0, set = 0;
-> +	int ret, retries = 10;
-> +
-> +	switch (phydev->interface) {
-> +	case PHY_INTERFACE_MODE_RGMII:
-> +		ret = dap8211r_get_rgmii_delay(phydev, "rx-internal-delay-ps", false);
-> +		if (ret >= 0) {
-> +			set = FIELD_PREP(DAP8211R_RGMII_RX_DEL_MASK, ret);
-> +			mask = DAP8211R_RGMII_RX_DEL_MASK;
-> +		} else if ((ret < 0) && (ret != -EINVAL)) {
-> +			return ret;
-> +		}
-> +
-> +		ret = dap8211r_get_rgmii_delay(phydev, "tx-internal-delay-ps", false);
-> +		if (ret >= 0) {
-> +			set |= FIELD_PREP(DAP8211R_RGMII_TX_DEL_MASK, ret);
-> +			mask |= DAP8211R_RGMII_TX_DEL_MASK;
-> +		} else if ((ret < 0) && (ret != -EINVAL)) {
-> +			return ret;
-> +		}
-> +		break;
-> +	case PHY_INTERFACE_MODE_RGMII_RXID:
-> +		ret = dap8211r_get_rgmii_delay(phydev, "rx-internal-delay-ps", true);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		set = FIELD_PREP(DAP8211R_RGMII_RX_DEL_MASK, ret);
-> +		mask = DAP8211R_RGMII_RX_DEL_MASK;
-> +		break;
-> +	case PHY_INTERFACE_MODE_RGMII_ID:
-> +		ret = dap8211r_get_rgmii_delay(phydev, "rx-internal-delay-ps", true);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		set = FIELD_PREP(DAP8211R_RGMII_RX_DEL_MASK, ret);
-> +		mask = DAP8211R_RGMII_RX_DEL_MASK;
-> +		fallthrough;
-> +	case PHY_INTERFACE_MODE_RGMII_TXID:
-> +		ret = dap8211r_get_rgmii_delay(phydev, "tx-internal-delay-ps", true);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		set |= FIELD_PREP(DAP8211R_RGMII_TX_DEL_MASK, ret);
-> +		mask |= DAP8211R_RGMII_TX_DEL_MASK;
-> +		break;
-> +	default:
-> +		phydev_err(phydev, "Unsupported interface: %d\n",
-> +			   phydev->interface);
-> +		return -EINVAL;
-> +	}
+>  	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
+>  	if (indio_dev == NULL)
+>  		return  -ENOMEM;
+> 
 
-You can simplify the whole delay parsing a log by using phy_get_internal_delay().
-It will give you the index of the delay from the delay table you have :)
+LGTM.
 
-https://elixir.bootlin.com/linux/v7.1.3/source/drivers/net/phy/phy_device.c#L3085
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 
-You can take a look at the few drivers that use it (mscc, dp83869) for reference
+-- 
+Kind regards
 
-Maxime
+CJD
