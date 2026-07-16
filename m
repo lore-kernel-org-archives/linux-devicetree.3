@@ -1,334 +1,156 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29378285CBC;
-	Thu, 16 Jul 2026 15:31:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D610D81AA8
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 15:32:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784215905; cv=none; b=CvmMpPxd1cf95oOrqtncD7qWTSfoBCaM/F+Ow3hXs12mORTb+ZflNAm3aNUAA6YOX1heLX96xl/VmLrjI7svf3jkf8uorP2eN9XtRBqAfTcSPDLwUzySyGaUbymXKhtAR9EiZ/kWaMNewPqb+RTjkMHBtrY9iSE3k0JXSlIBjMw=
+	t=1784215947; cv=none; b=P2IMuOVSbVucoTozBzPO0jIw6ynRUmVa7YxSCOnIk0oHTlrWHjoW5tIUe3LH/CVnnobfaQ8ZwYx0Kov+PNynoqjk+HBoyAdV14cxIkNXBS0NpuVw037n9D14lKQIjTIEXS0KxNowUM3BEu3ew1whCb9Hqp/xjF3rkZzHds932VU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784215905; c=relaxed/simple;
-	bh=/aKD5P9ldzbflKlZq17LYg/OiqJ1hCqlguUdWv2fQtc=;
+	s=arc-20240116; t=1784215947; c=relaxed/simple;
+	bh=unk9VhZXIRn8ljkn4Ob5TIDXdV302FVufjx8GNh3pKQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oEqz7ipfEvHqg4w/ey/EZnVQSd5WGhqwLzdMiltjdLOsAWxP0KLFdLeyYCnRpK18DrlHi+zlVwIVAJXBZTYGTyArXQBgC8PCndIwp0zoJ4JnJz7RQuE6wNc6QwjGadmRMQcFVjkX0IAjwaO6CqJYgwWatOufoabAwVXbiAi5qAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lx7s7dya; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=quptC9OCzz64UaECDQFi4ehQRFTh3qoLvYnVk8O0G6/qP0lQmwR/ryp1Vk8rgJVF0/QFbVHPbUmb/AedriFkfyIz3Iol0VvUnYTbwotZ+eFLuYzR21b6E68YVdBe0OUQGpPq8Q/ODpZ7Mn6DXDATMJ8pR7DL9VzcIU6yiL1RBio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y3rsHLJT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lx7s7dya"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83A471F000E9;
-	Thu, 16 Jul 2026 15:31:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y3rsHLJT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3526F1F000E9;
+	Thu, 16 Jul 2026 15:32:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784215903;
-	bh=cbPgB6IT7dVE0prhfdllz7GmFXMWmMYbsByAjbaeqKE=;
+	s=k20260515; t=1784215945;
+	bh=tAICV+0jS87OgfLepygtCxntEgf1KEv/6l/y8aNqgNU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lx7s7dyaK3fVwwsTMDOb8M0GXjonGiT9FJFnNjkkHTTKZUhy7A1IGsZpvxC1Sq1xN
-	 dogbGAf+1r4LS0Onlgrd9fMA7raEF57OFV7vHqCJMPPQ/8+VM/f/gxs7a3ifFZ4uPB
-	 nRtYlbI2PKNCrC5DVc5sC7hXQ2pPXNJvhmiRstaCF1anM/QTZPoHWQp9NjDUzSzdIU
-	 e1AIw6IelrWcQFBwlRv9ofq9Z9e7bT18yNkq9HBN6ZVVtz3xPVw/yrX4zwnn8SL/3D
-	 TDpPtefI9ps3CvCHp8j5UwSvSuoo/Xuhz7pWdlMJYgJ+uSMplZMJUQLTKcJJbsso+o
-	 tY8lC4EN8SpPg==
+	b=Y3rsHLJTXIqe3DJi7mK4a51BsGXfiMPmRAZ0jlz9nWf62IBgZjnNfjYsS8MMNTT2C
+	 HFQHTJYbqCNskXHyPOcg4pzg8ZFms8pmrOr9rmJB/ToKZ3+8myFUdq4sOsuVI+k1Bd
+	 QXaXsOo9xR7pY7MopiAL8RVTavaqnrFi6PW5NkS4b85eeWzxaQxdsjqEiiyPHZ7WOY
+	 ijQt5AxA85A6GpB+NQutttSr/v+24AS0m1YYR/2M/lgVX29cAwyCCzNIdnUU9C8e7w
+	 LiLUvqBOymOwBYY97aMn1OTxTIP8udQb7C/C6Y++2IaW78GFvyQk8dXYH1qH5S1qRQ
+	 vO41XKubrr3oQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/3] perf: Add Arm Bus Monitor Unit driver
+Subject: Re: [PATCH v1 1/2] arm64: dts: qcom: lemans: enable audio ML
+ offload memory and SMMU mappings
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Robin Murphy" <robin.murphy@arm.com>
-Cc: robh@kernel.org, linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <b0b0dc140673b0c8ead56117b3d551c6b48b2089.1784214112.git.robin.murphy@arm.com>
-References: <cover.1784214112.git.robin.murphy@arm.com>
- <b0b0dc140673b0c8ead56117b3d551c6b48b2089.1784214112.git.robin.murphy@arm.com>
+To: "Pratyush Meduri" <pratyush.meduri@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260716151854.3041914-2-pratyush.meduri@oss.qualcomm.com>
+References: <20260716151854.3041914-1-pratyush.meduri@oss.qualcomm.com>
+ <20260716151854.3041914-2-pratyush.meduri@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 15:31:43 +0000
-Message-Id: <20260716153143.83A471F000E9@smtp.kernel.org>
+Date: Thu, 16 Jul 2026 15:32:24 +0000
+Message-Id: <20260716153225.3526F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] Unconditional use of `ACPI_COMPANION()` and `acpi_device_uid()` ca=
-uses a NULL pointer dereference or build failure.
-- [High] Missing `continue` when Non-Secure access is disabled leads to wri=
-tes to inaccessible PMU registers.
-- [High] ABA vulnerability and NMI torn state in lockless `prev_count` upda=
-te causes massive PMU count corruption.
-- [High] Missing bounds check on the computed PMU region offset against the=
- actual ioremapped memory resource size.
-- [High] Missing cleanup of hardware interrupt state on probe error paths c=
-auses an unhandled interrupt storm.
-- [Medium] TOCTOU race in PMU CPU assignment during probe can bind the PMU =
-to an offline CPU, leaving it non-functional.
-- [Medium] Ignoring `-EPROBE_DEFER` for the interrupt permanently breaks IR=
-Q functionality.
-- [Medium] False-positive `WARN_ON` triggered by a race between event delet=
-ion and pending PMU interrupts.
-- [Low] Format string type mismatch passing a 32-bit `resource_size_t` / `p=
-hys_addr_t` to a 64-bit `%llx` specifier.
+- [High] ML stream IDs are assigned to the wrong device node (`remoteproc_a=
+dsp`), causing Stage 1 SMMU translation faults when the DSP accesses CMA me=
+mory mapped by `q6apmdai`.
+- [Medium] Adding the 'memory-region' property to the q6apmdai node violate=
+s the device tree binding schema.
+- [Medium] Adding multiple stream IDs to the `iommus` property of `remotepr=
+oc_adsp` violates the `maxItems: 1` constraint inherited from the PAS commo=
+n binding.
+- [Low] The reserved-memory node name `qcom,audio-ml` improperly contains a=
+ vendor prefix and comma.
 --
 
---- Patch [1]: [PATCH v2 1/3] perf: Add Arm Bus Monitor Unit driver ---
-commit 46bae7b04d539138ea677d6d9ef5697dcb457c20
-Author: Robin Murphy <robin.murphy@arm.com>
+--- Patch [1]: [PATCH v1 1/2] arm64: dts: qcom: lemans: enable audio ML off=
+load memory and SMMU mappings ---
+commit ca6c69a94d584933404e0f4eb77272a1012439df
+Author: Pratyush Meduri <pratyush.meduri@oss.qualcomm.com>
 
-perf: Add Arm Bus Monitor Unit driver
+arm64: dts: qcom: lemans: enable audio ML offload memory and SMMU mappings
 
-Arm's Bus Monitor Unit is a low-level performance analysis tool for
-matching and counting transactions at interconnect interfaces. Each
-BMU consists of a number of "interface monitoring units", with some
-global controls to synchronise them and so permit accurate calculation
-of cross-interface metrics.
+This commit adds a 16 MiB CMA region for audio ML offload and assigns it to
+the q6apm DAIs node. It also adds new SMMU stream IDs to the remoteproc
+ADSP node in the EL2 overlay to allow the DSP to access the buffers without
+faulting.
 
-> diff --git a/drivers/perf/arm_cspmu/arm-bmu.c b/drivers/perf/arm_cspmu/ar=
-m-bmu.c
-> new file mode 100644
-> index 0000000000000..c829a0728e9b2
-> --- /dev/null
-> +++ b/drivers/perf/arm_cspmu/arm-bmu.c
-[ ... ]
-> +static void arm_bmu_event_read(struct perf_event *event)
-> +{
-> +	struct hw_perf_event *hw =3D &event->hw;
-> +	u64 count, prev;
-> +
-> +	do {
-> +		prev =3D local64_read(&hw->prev_count);
-> +		count =3D arm_bmu_read_evcnt(event);
-> +	} while (local64_cmpxchg(&hw->prev_count, prev, count) !=3D prev);
-> +
-> +	count -=3D prev;
-> +	local64_add(count, &event->count);
-> +}
-> +
-> +static void arm_bmu_event_start(struct perf_event *event, int flags)
-> +{
-> +	struct arm_bmu_pmu *pmu =3D to_bmu_pmu(event);
-> +
-> +	writel_relaxed(1ULL << event->hw.idx, pmu->base + PMCNTENSET);
-> +}
-> +
-> +static void arm_bmu_event_stop(struct perf_event *event, int flags)
-> +{
-> +	struct arm_bmu_pmu *pmu =3D to_bmu_pmu(event);
-> +
-> +	writel_relaxed(1ULL << event->hw.idx, pmu->base + PMCNTENCLR);
+> diff --git a/arch/arm64/boot/dts/qcom/lemans-el2.dtso b/arch/arm64/boot/d=
+ts/qcom/lemans-el2.dtso
+> index 621ad930cf547..5b477346ef908 100644
+> --- a/arch/arm64/boot/dts/qcom/lemans-el2.dtso
+> +++ b/arch/arm64/boot/dts/qcom/lemans-el2.dtso
+> @@ -19,7 +19,9 @@ &iris {
+>  };
+> =20
+>  &remoteproc_adsp {
+> -	iommus =3D <&apps_smmu 0x3000 0x0>;
+> +	iommus =3D <&apps_smmu 0x3000 0x0>,
+> +		<&apps_smmu 0x3060 0x9>,
+> +		<&apps_smmu 0x3062 0x1>;
 
 [Severity: Medium]
-Should the hardware overflow state (PMOVSCLR) be cleared here when stopping
-the event?
+The common PAS schema for the adsp node=20
+(Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml)
+restricts the iommus property to maxItems: 1. Does adding three items
+here cause dtbs_check to fail?
 
-If an overflow occurs right before stopping, the pending interrupt bit
-remains set. When arm_bmu_event_del() completes, it clears the event pointe=
-r.
-When the interrupt is finally delivered, wouldn't the interrupt handler see
-the overflow bit set and incorrectly trigger the WARN_ON for a NULL event
-pointer?
+[Severity: High]
+Will placing the ML stream IDs on the remoteproc_adsp node result in SMMU
+translation faults when the DSP accesses the CMA memory?
 
-> +	if (flags & PERF_EF_UPDATE)
-> +		arm_bmu_event_read(event);
-> +}
+Because the memory-region is wired to the q6apmdai device later in this
+patch, the ALSA driver will map the DMA buffer into q6apmdai's IOMMU
+domain. However, remoteproc_adsp is a distinct platform device with its
+own domain. If the DSP performs transactions using stream IDs 0x3060 and
+0x3062, they will be translated by the remoteproc_adsp domain which lacks
+the mappings for the CMA buffer.
+
+>  };
+> =20
+>  &remoteproc_cdsp0 {
+
 [ ... ]
-> +static void arm_bmu_pmu_irq(struct arm_bmu_pmu *pmu)
-> +{
-> +	u32 reg =3D readl_relaxed(pmu->base + PMOVSCLR);
-> +	u64 __iomem *pmevcnt =3D pmu->base + PMEVCNTR_LO;
-> +
-> +	for (int i =3D 0; i < PMU_MAX_COUNTERS; i++) {
-> +		if (!(reg & (1U << i)))
-> +			continue;
-> +		if (WARN_ON(!pmu->evcnt[i]))
-> +			continue;
-> +		arm_bmu_event_read(pmu->evcnt[i]);
-> +		local64_set(&pmu->evcnt[i]->hw.prev_count, S64_MIN);
-> +		lo_hi_writeq_relaxed(S64_MIN, pmevcnt + i);
 
-[Severity: High]
-Is the lockless compare-and-exchange logic in arm_bmu_event_read() vulnerab=
-le
-to the ABA problem when resetting prev_count here?
-
-If an NMI interrupts this IRQ handler right after prev_count is set to S64_=
-MIN
-but before the hardware register is written, arm_bmu_event_read() could read
-the old wrapped hardware value and falsely succeed in the cmpxchg because
-prev_count is S64_MIN.
-
-This would save the wrapped value as prev_count. When the IRQ handler resum=
-es
-and resets the hardware to S64_MIN, wouldn't subsequent delta calculations
-underflow and cause massive permanent counter corruption?
-
-> +	}
-> +	writel_relaxed(reg, pmu->base + PMOVSCLR);
-> +}
-[ ... ]
-> +static int arm_bmu_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	/* The PMU pages *are* exclusively ours */
-> +	off =3D SZ_4K * FIELD_GET(MCUCFG_PMU_ELEMENT_START, cfg);
-> +	if (!devm_request_mem_region(dev, res->start + off, num * SZ_4K, dev_na=
-me(dev)))
-
-[Severity: High]
-Does this compute the PMU region offset without verifying it fits within the
-originally mapped memory resource size?
-
-If the hardware provides an offset such that the new region exceeds
-resource_size(res), applying this unvalidated offset to the virtual base po=
-inter
-and dereferencing it later will access memory outside the mapped virtual
-memory area, potentially causing a kernel page fault or panic.
-
-> +		return dev_err_probe(dev, -EADDRINUSE, "Unable to request PMU region\n=
-");
-> +
-> +	bmu =3D devm_kzalloc(dev, struct_size(bmu, imus, num), GFP_KERNEL);
-> +	if (!bmu)
-> +		return -ENOMEM;
-> +
-> +	bmu->dev =3D dev;
-> +	bmu->base =3D base;
-> +	bmu->num_imus =3D num;
-> +	platform_set_drvdata(pdev, bmu);
-> +
-> +	base +=3D off;
-> +	for (int i =3D 0; i < bmu->num_imus; i++, base +=3D SZ_4K) {
-> +		/* At least PMCFGR.SIZE should always be nonzero if visible */
-> +		reg =3D readl_relaxed(base + PMCFGR);
-> +		if (!reg) {
-> +			dev_warn(dev, "Non-Secure access to PMU %d not enabled?\n", i);
-> +			num =3D 0;
-> +		} else {
-
-[Severity: High]
-Should there be a continue statement when Non-Secure access is disabled?
-
-Without a continue, the code proceeds to unconditionally write to BMU_PMCR =
-and
-other registers for this PMU below. Writing to inaccessible secure hardware
-from EL1 typically triggers a Synchronous External Abort (SError), resulting
-in an immediate kernel panic.
-
-> +			num =3D 1 + FIELD_GET(PMCFGR_N, reg);
-> +		}
-> +		if (num > PMU_MAX_COUNTERS) {
-> +			dev_notice(dev, "PMU %d has %d counters, only using %d\n",
-> +				   i, num, PMU_MAX_COUNTERS);
-> +			num =3D PMU_MAX_COUNTERS;
-> +		}
-> +		bmu->imus[i].base =3D base;
-> +		bmu->imus[i].num_counters =3D num;
-> +
-> +		writel_relaxed(PMCR_P | PMCR_E, base + BMU_PMCR);
-> +		writel_relaxed(U32_MAX, base + PMCNTENCLR);
-> +		writel_relaxed(U32_MAX, base + PMOVSCLR);
-> +		writel_relaxed(U32_MAX, base + PMINTENSET);
-> +	}
-
-[Severity: High]
-Are hardware interrupts left enabled if an error occurs later in the probe
-function?
-
-If cpuhp_state_add_instance_nocalls() or perf_pmu_register() fails, the err=
-or
-path exits without clearing PMINTENCLR. If the hardware asserts the IRQ lin=
-e,
-the kernel would receive an interrupt without a registered handler, leading=
- to
-an unhandled interrupt storm.
-
-> +
-> +	bmu->cpu =3D cpumask_local_spread(atomic_fetch_inc(&n), dev_to_node(dev=
-));
-
-[Severity: Medium]
-Is there a race in assigning the target CPU without holding the CPU hotplug
-read lock?
-
-If the selected CPU goes offline before the hotplug registration, the
-arm_bmu_offline_cpu callback will not be invoked retroactively because
-cpuhp_state_add_instance_nocalls() is used below. Could this leave the PMU
-bound to an offline CPU, rendering it non-functional?
-
-> +	bmu->irq =3D platform_get_irq(pdev, 0);
-> +	if (bmu->irq > 0) {
-> +		err =3D devm_request_irq(dev, bmu->irq, arm_bmu_handle_irq,
-> +				       IRQF_NOBALANCING | IRQF_NO_THREAD,
-> +				       dev_name(dev), bmu);
-> +		if (err)
-> +			bmu->irq =3D err;
-> +		else
-> +			irq_set_affinity(bmu->irq, cpumask_of(bmu->cpu));
-> +	}
-> +	if (bmu->irq < 0)
-> +		dev_info(dev, "Continuing without IRQ\n");
-
-[Severity: Medium]
-Does this completely ignore -EPROBE_DEFER from platform_get_irq()?
-
-If platform_get_irq() returns -EPROBE_DEFER, the probe simply succeeds and
-falls back to polling mode. This permanently breaks deferred probing for the
-interrupt, preventing the driver from retrying when the interrupt controller
-is ready.
-
-> +
-> +	bmu->pmu =3D (struct pmu) {
-> +		.module =3D THIS_MODULE,
-> +		.parent =3D dev,
-> +		.attr_groups =3D arm_bmu_attr_groups,
-> +		.capabilities =3D PERF_PMU_CAP_NO_EXCLUDE,
-> +		.task_ctx_nr =3D perf_invalid_context,
-> +		.pmu_enable =3D arm_bmu_enable,
-> +		.pmu_disable =3D arm_bmu_disable,
-> +		.event_init =3D arm_bmu_event_init,
-> +		.add =3D arm_bmu_event_add,
-> +		.del =3D arm_bmu_event_del,
-> +		.start =3D arm_bmu_event_start,
-> +		.stop =3D arm_bmu_event_stop,
-> +		.read =3D arm_bmu_event_read,
-> +	};
-> +
-> +	name =3D acpi_device_uid(ACPI_COMPANION(dev));
-
-[Severity: High]
-Will this cause a NULL pointer dereference if the device has no ACPI compan=
-ion
-or if CONFIG_ACPI is disabled?
-
-ACPI_COMPANION() returns NULL in these cases, and acpi_device_uid() directly
-dereferences it. This would lead to a kernel panic during driver probe on
-such configurations.
-
-> +
-> +	if (name)
-> +		name =3D devm_kasprintf(dev, GFP_KERNEL, "arm_bmu_%s", name);
-> +	else
-> +		name =3D devm_kasprintf(dev, GFP_KERNEL, "arm_bmu_%llx", res->start >>=
- 12);
+> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/q=
+com/lemans.dtsi
+> index 3b0539e27b519..0605651137846 100644
+> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
+> @@ -624,6 +624,14 @@ reserved-memory {
+>  		#size-cells =3D <2>;
+>  		ranges;
+> =20
+> +		audio_cma_mem: qcom,audio-ml {
 
 [Severity: Low]
-Is there a format string type mismatch here?
+The dtschema for reserved-memory nodes enforces a regex pattern that does
+not permit commas (^[a-z0-9-]+(@[0-9a-f]+)?$). Could this vendor prefix and
+comma in the node name trigger a dtc node-name-has-comma warning?
 
-When CONFIG_PHYS_ADDR_T_64BIT is not enabled, resource_size_t is 32-bit.
-Passing a 32-bit integer to a %llx specifier causes undefined behavior,
-which can read garbage from the stack for the upper 32 bits.
+> +			compatible =3D "shared-dma-pool";
+> +			alloc-ranges =3D <0x0 0x00000000 0x0 0xffffffff>;
+> +			reusable;
+> +			alignment =3D <0x0 0x400000>;
+> +			size =3D <0x0 0x1000000>;
+> +		};
+> +
 
-> +	if (!name)
-> +		return -ENOMEM;
-> +
-> +	err =3D cpuhp_state_add_instance_nocalls(arm_bmu_cpuhp_state, &bmu->cpu=
-hp_node);
-> +	if (err)
-> +		return err;
-> +
-> +	err =3D perf_pmu_register(&bmu->pmu, name, -1);
-> +	if (err)
-> +		cpuhp_state_remove_instance_nocalls(arm_bmu_cpuhp_state, &bmu->cpuhp_n=
-ode);
-> +
-> +	return err;
-> +}
+[ ... ]
+
+> @@ -8134,6 +8142,7 @@ q6apmbedai: bedais {
+>  						q6apmdai: dais {
+>  							compatible =3D "qcom,q6apm-dais";
+>  							iommus =3D <&apps_smmu 0x3001 0x0>;
+> +							memory-region =3D <&audio_cma_mem>;
+
+[Severity: Medium]
+Does the qcom,q6apm-dai binding allow the memory-region property?
+
+Running dtbs_check might flag this as an error because the schema for
+Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml sets
+additionalProperties: false and doesn't explicitly define memory-region.
+
+>  						};
+>  					};
+>
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784214112.gi=
-t.robin.murphy@arm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716151854.3041=
+914-1-pratyush.meduri@oss.qualcomm.com?part=3D1
