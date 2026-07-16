@@ -1,125 +1,175 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03C7537E5EF;
-	Thu, 16 Jul 2026 18:12:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A90943634C
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 18:17:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784225545; cv=none; b=VqJ1YW73NGzYEHFxkaaYUMwuZ9VGlRM7BrPD/eEAjb8mOr4ypXhVR8fliKYEJPea1ybJOdJmW88SEPGxXS2I3q30r1uAgnduv+CElbvuiJIIL+sLBciTHHnmpC0D21jnwPfBuy4C7kLlgItv5KROmc7rdpIiPtUBqVfxgpiVwKk=
+	t=1784225840; cv=none; b=TKWDQsJGE4OApLhMtRuhaVxzx7cU+JCfslXkXDGOpblaucCUaBbQ4kQnz9lqYzu+Qoq0civBpGyRd4IP0XSvLItwKAfzuuT3TC8/qI6Lb6TjINtUpZOXZJ9X5399rEgy1mpFR3wrv2qZw6/XVG5G1eX7XkR2xGUW5w8CJ3lFQcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784225545; c=relaxed/simple;
-	bh=HRe+YAb2Bm91TATrooa6bgKBXqONK+AJw5tvfQrtomo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OLj9r01SPVZ3s5FlEPecig0g9ICDX0n77z8gWfA4ft4rXqevM5QWMzfofNmDVY/T1lnMQuzLQl5FtpfoItEXvsOlspIEVXhzlxf55bW2StSUq83pWr+etbaJwHrqbZW/WAaA/wgQx8S8xpo6mTqiaWREcqMUbSkg5kSFd7sCngU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=0Djob2ue; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1784225840; c=relaxed/simple;
+	bh=JhNa3NXChZgvvRp8vv1/TdGLxn6XWsdiqPg2ORbU7ok=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T6UaTtj9H1Aj/E8iwLLLDUnJ26JdCL+wHuiWRnGjNMYNYNsNF44Az2lymTHj+0H00OivdQ87J0hIzUQRLdo35xXj26OlsJnpMzyZNawwYPm/T1QYT8F2asWgVsPV7ceLaD3LJIyufHNUxknnsR4fLmEOLbi6fy/Q/Qmn7aE5RKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KmJt55C1; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=YG/Uqmnn; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="0Djob2ue"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=T1Kjd75GrDknuJfskGJbtCjuUzudFkj+B+wHx6EHO08=; b=0Djob2ueamTLt489wqKmvosaF1
-	Hj6Jaqc32ygFK5l+ehoF1u77JMiTTSAggjjpJC8ZNhl1DoQGC7D/nIk6IOBkN2QbUC3sngUo6D42f
-	BcIDgGfDLop1wndv7451eyRNpPXC75ZWYKhAJfZceYcjPuPNUP6eJ8bMEcENsNJfX8F+T/31e6Pz4
-	SDAVeLXD+u3cqeKVbx/tZ7gEEfy+0umjhVh0/U/MlTkUnzY7+Di1a7Jk/CUQ/WzOW3p8KskBjKfuy
-	YB7F6a/FAchPtlub2JPic1Q8E64vqty7+wxm58iy0NnF9IdVraYV3LJ98RbBDJPruxaAdu2+nDrpW
-	gZfbiDyw==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Hrushiraj Gandhi <hrushirajg23@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH v7 0/2] arm64: dts: rockchip: add Vicharak Axon board support
-Date: Thu, 16 Jul 2026 20:12:04 +0200
-Message-ID: <14508147.RDIVbhacDa@phil>
-In-Reply-To: <kzl6ykopmcj7nl6jnf4uav75cdn2znd3jb4vjlrde364homti6@2y2zfyvwni4x>
-References:
- <20260608060940.52549-1-hrushirajg23@gmail.com> <14045151.uLZWGnKmhe@phil>
- <kzl6ykopmcj7nl6jnf4uav75cdn2znd3jb4vjlrde364homti6@2y2zfyvwni4x>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KmJt55C1";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="YG/Uqmnn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784225833;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=I1EFQGj/5aBchHaJPdCzDRZXU3faNJ5yBKDRHdX2qjY=;
+	b=KmJt55C13XXrlI4AirAXkjtp5pQSA+OxORPDctLZB7f11k4FehoznYSdcl2JOsUbesUQ0V
+	zcDwyUmP0yiRxp+WZotMvxoGUTzexUGbvCGDebvXfVLtH5BOFobedOl2RZLKoTS53t8Khv
+	hP4YyVyxZbEQojUC4+WEAmJA5XJ6tEk=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-685-Ep86FWujOHO-0DJxhnp7ZQ-1; Thu, 16 Jul 2026 14:17:11 -0400
+X-MC-Unique: Ep86FWujOHO-0DJxhnp7ZQ-1
+X-Mimecast-MFC-AGG-ID: Ep86FWujOHO-0DJxhnp7ZQ_1784225831
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c1eb52e1fso117897391cf.0
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 11:17:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1784225831; x=1784830631; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=I1EFQGj/5aBchHaJPdCzDRZXU3faNJ5yBKDRHdX2qjY=;
+        b=YG/UqmnnyD6F28aNaSGNVVJUu65AB6omNJo2pAy26GXNlcOpaeyOrfGCMzWKfpZ5/n
+         gJG7tSnFlKvoZaR0ZGO5eQZ8wjSt7vpZxH26vk60Dbi7kZ0iAcRKu7+RrIFzFrHZTaXS
+         1zGR/LlnFuJNML07d7NxlDvxUA0IBlvv201ug5B8PqRHy2s4vB0vNf/hjBe0v2100rLl
+         d/gmnzZtFhNttwjwAR8/gfgaK188r3mS/M62Y2u7tLdixRwjouHlVpV6qI2kMC/3lWeG
+         gMykPdxtz23EDImIp1XtbBgRDLO9gmgSPxeo3Dr6/kDGUwB4A+wnmpuvNl0UgzMbm62M
+         MkQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784225831; x=1784830631;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I1EFQGj/5aBchHaJPdCzDRZXU3faNJ5yBKDRHdX2qjY=;
+        b=omuIWGz81YEmf0LEfOF/yfBUaIIKz0IlnVaaYITc1Hl2iKeVkY4FPo50RWjjd7PA4D
+         mA38CJeEqWy7AH2kMFvIxys6X5utp6fAmkAHZYclJamGBxwAnkBfTH7vxFmSwTUafWzU
+         dbUPkfcVAyvu65KANiZ4QoVC268i1TKwTFpxwPeUL0cQ5LIZeZFppLGh/sn8PgpJZ25w
+         oUM11JYqjgdkVZJ7IDij/8uilEwi4KPbCLQi8qjtwQsFSSMGF6sq7FFpMkzyjKsy9nAN
+         Z7W/nfn+ol3EGnBskFfgDypw32GxcDqJ5a1qpjFwrnh6w/3o64HSPb/GXMFfN5e81fa7
+         FKOg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr6VLWXNDOHSM2vkYW6GvUNWjU0d/0F0MosY1nDQkS81JoZe7xQ4mHgZAg+tjmA6xoF/AvMch7HtnFB@vger.kernel.org
+X-Gm-Message-State: AOJu0YxVip+taFAtyeWmTgK53xiuQxRH6DKcLjx8jsCHRS0LO37iif84
+	7m37q851MYHf1aCiQ9Rdap0DUnBawBTyPteKi3qBwNT5XABBBUOOAIsNE47bFh0t1TIKRuDldCY
+	SSZlj0wcKuvAB3iVlTq93JbQD8/ZYsSMvQcDJAppXLzo2YuT1gkcYcdFX825tFi0=
+X-Gm-Gg: AfdE7ckLHm+9+ntWOXcER6h6RpVBhNhMa9GQvX3wnBs/kn8/bRQe3sg5Ai/dENqE5Hz
+	TbUMghzYyEx6gBO1551End0N6uHDfYvHvryYoelBKCbhUATi5Kj4HhI6NHdUCQat84BoIfja/ug
+	VjLQmnckrEpuFtpFff2cRv0DKoEQe1tmg7hfrKtHjfGKAeuCpKZXB/gHt9BZOx4Z8cU7+Bm2rvZ
+	NrmznAPHZIO+Cpq5e58imACBjEvGUmKXUI6oEIZGYiD+uWGqzHKgA5w37TxjIk5NV43AcOwJoXb
+	Bu9vx250xTbznd9/xP7Op+lR2v9ZjxXS/SCT8Ljy2HtayaBIguzAMKGyU+q5aDC9lZj1Oq0betT
+	IFooieEtxQqfXrzm8kRFZzQ51Kx4RGfmMmv4=
+X-Received: by 2002:a05:622a:28e:b0:51c:7b12:5fd8 with SMTP id d75a77b69052e-51e4f12bb6cmr85086741cf.84.1784225831054;
+        Thu, 16 Jul 2026 11:17:11 -0700 (PDT)
+X-Received: by 2002:a05:622a:28e:b0:51c:7b12:5fd8 with SMTP id d75a77b69052e-51e4f12bb6cmr85086351cf.84.1784225830474;
+        Thu, 16 Jul 2026 11:17:10 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51caacaad78sm158378721cf.7.2026.07.16.11.17.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Jul 2026 11:17:09 -0700 (PDT)
+Date: Thu, 16 Jul 2026 14:17:07 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: wangjia@ultrarisc.com
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] clk: ultrarisc: Add DP1000 clock driver
+Message-ID: <alkgIyhI43ypvZdb@redhat.com>
+References: <20260714-ultrarisc-clock-v3-0-4b1ccaa26b37@ultrarisc.com>
+ <20260714-ultrarisc-clock-v3-3-4b1ccaa26b37@ultrarisc.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260714-ultrarisc-clock-v3-3-4b1ccaa26b37@ultrarisc.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-Am Mittwoch, 8. Juli 2026, 12:21:30 Mitteleurop=C3=A4ische Sommerzeit schri=
-eb Hrushiraj Gandhi:
-> On Tue, Jul 07, 2026 at 08:23:47PM +0200, Heiko Stuebner wrote:
-> > Am Dienstag, 7. Juli 2026, 18:03:54 Mitteleurop=C3=A4ische Sommerzeit s=
-chrieb Rob Herring:
-> > > On Thu, Jul 02, 2026 at 09:04:55PM +0200, Heiko Stuebner wrote:
-> > > >=20
-> > > > On Mon, 08 Jun 2026 11:39:38 +0530, Hrushiraj Gandhi wrote:
-> > > > > This series adds initial device tree support for the Vicharak Axon
-> > > > > single-board computer, which is based on the Rockchip RK3588 SoC.
-> > > > >=20
-> > > > > The Vicharak Axon is a feature-rich SBC targeting developer and e=
-mbedded
-> > > > > use cases. It ships with:
-> > > > >=20
-> > > > >   - Rockchip RK3588 (4x Cortex-A76 + 4x Cortex-A55)
-> > > > >   - RK806 PMIC providing all SoC power domains
-> > > > >   - eMMC 5.1 (on-board) and microSD slot
-> > > > >   - Gigabit Ethernet via RGMII (RTL8211F)
-> > > > >   - Dual HDMI 2.1 output and one HDMI 2.0 input (receiver)
-> > > > >   - PCIe 3.0 x4 and two PCIe 2.0 slots
-> > > > >   - SATA 3.0
-> > > > >   - USB 2.0 host ports (EHCI/OHCI)
-> > > > >   - NXP PCA9554 I/O expander for status LEDs
-> > > > >   - Haoyu HYM8563 RTC
-> > > > >=20
-> > > > > [...]
-> > > >=20
-> > > > Applied, thanks!
-> > > >=20
-> > > > [1/2] dt-bindings: arm: rockchip: add Vicharak Axon board
-> > > >       commit: e0008b108aaf8c5aa22930b2ceadf8f894562acb
-> > > > [2/2] arm64: dts: rockchip: add Vicharak Axon board
-> > > >       commit: e08c3389c78dbefd31a57df8807cf57ef6f3c9b1
-> > >=20
-> > > Both have issues and should be dropped.
-> >=20
-> > I've dropped both the Axon as well as the Vaaman2 board from the
-> > same vendor now.
-> >=20
-> > The whole thing is confusing.
-> >=20
-> > I should've caught the pinctrl issue, and do remember running a dtbsche=
-ck
-> > on at least one Vcharak board - but that must have been the Vaaman2 boa=
-rd
-> > because there the pmic fullfills the binding (and general setup of other
-> > rk3588 boards).
-> >=20
-> > The vendor-prefix is missing indeed. I found earlier versions of the
-> > version-avalanche had it, up until v6 [0] . Though I haven't figured out
-> > yet why it was lost.
->=20
-> Regarding the missing vendor prefix 'vicharak' that was noted: the prefix=
-=20
-> was already submitted separately upstream by my team in a different patch=
- [1].=20
-> Because it was already submitted, Krzysztof asked us to drop it from our=
-=20
-> own series to avoid duplicates [2].=20
+Hi Jia,
 
-Looks like that series with the vendor-prefix was applied last
-saturday [3], so I'll continue with your newly sent board versions :-)
+I have one minor question below.
 
+On Tue, Jul 14, 2026 at 09:35:09AM +0800, Jia Wang via B4 Relay wrote:
+> From: Jia Wang <wangjia@ultrarisc.com>
+> 
+> Add a clock driver for the UltraRISC DP1000 SoC.
+> 
+> The clock tree is driven by a SYSPLL and provides fixed-factor clocks for
+> the subsystem and PCIe, divider-based root clocks for GMAC and the UART,
+> I2C, and SPI blocks, and per-instance gate clocks for UART0-3, I2C0-3,
+> and SPI0-1.
+> 
+> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> ---
+>  MAINTAINERS                           |   1 +
+>  drivers/clk/Kconfig                   |   1 +
+>  drivers/clk/Makefile                  |   1 +
+>  drivers/clk/ultrarisc/Kconfig         |  18 ++
+>  drivers/clk/ultrarisc/Makefile        |   4 +
+>  drivers/clk/ultrarisc/clk-dp1000.c    | 154 +++++++++++++
+>  drivers/clk/ultrarisc/clk-ultrarisc.c | 407 ++++++++++++++++++++++++++++++++++
+>  drivers/clk/ultrarisc/clk-ultrarisc.h |  71 ++++++
+>  8 files changed, 657 insertions(+)
 
-Heiko
+[snip]
 
+> 
+> +static int ultrarisc_clk_register_dividers(struct platform_device *pdev,
+> +					   struct clk_hw_onecell_data *clk_data,
+> +					   const struct ultrarisc_clk_soc_data *soc_data,
+> +					   void __iomem *base,
+> +					   spinlock_t *lock)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	u32 i;
+> +
+> +	for (i = 0; i < soc_data->num_dividers; i++) {
+> +		const struct ultrarisc_divider_desc *desc;
+> +		struct clk_hw *parent_hw;
+> +		struct clk_hw *hw;
+> +
+> +		desc = &soc_data->dividers[i];
+> +		if (desc->id >= clk_data->num || desc->parent_id >= clk_data->num)
+> +			return -EINVAL;
+> +
+> +		parent_hw = clk_data->hws[desc->parent_id];
+> +		if (!parent_hw)
+> +			return -EINVAL;
+> +
+> +		hw = ultrarisc_clk_register_divider(dev, desc, parent_hw, base,
+> +						    lock);
+> +		if (IS_ERR(hw))
+> +			return PTR_ERR(hw);
+> +
+> +		if (desc->max_rate) {
+> +			unsigned long rate;
+> +
+> +			clk_hw_set_rate_range(hw, 0, desc->max_rate);
+> +
+> +			rate = clk_hw_get_rate(hw);
+> +			if (rate > desc->max_rate)
+> +				dev_warn(dev, "%s rate %lu exceeds max %lu\n",
+> +					 desc->name, rate, desc->max_rate);
 
-> [1] https://lkml.org/lkml/2026/6/24/929
-> [2] https://lore.kernel.org/linux-rockchip/96c9b1eb-9f8e-430d-9c38-eb4d48=
-9d7d24@kernel.org/
-[3] https://lore.kernel.org/all/178378800443.138068.8763713563230008567.b4-=
-ty@kernel.org/
+At this point in the probe, the clock tree may not be fully propagated
+yet. Is this check needed?
 
+Everything else in the driver looks fine to me.
+
+Brian
 
