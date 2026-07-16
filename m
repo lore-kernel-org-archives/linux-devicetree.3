@@ -1,58 +1,245 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D75C438468;
-	Thu, 16 Jul 2026 17:30:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2607435E1A6
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 17:33:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784223010; cv=none; b=fd6QuDNObbqrtGBpJDRIzu3iBu0iztsswqSyCqBmxUG+I5sJwhOQdI4DYLmxTWp2cXUKKHV3CBsdY/Em8IKJIhJk0Xoquhd1eRt8+yZOCpyaLz7aYCbRGdL9pUkqM+cAnWmYb0bPFXZ7OJrzSX2a/e6N10lUWh0ZlYAff6jMvZc=
+	t=1784223212; cv=none; b=hjqOxHXve9ie99yfCmtdvi9vCLrrSjPW4zIipPO8+1EXiRlC9bwAYc6iGaxLi+upWBuhwno470MwnogG6KaxoptPloqMAGaAlb1x5JyKv0u/ISprbI5rlr0VQ7LOyujk5aKm19YXvjem75UplauNhkk4Ado+uxPdQVALmc3NpvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784223010; c=relaxed/simple;
-	bh=SSQCfHZpEVyMZHr8vH4L0Fm48ICUdCzbiFkwB520D0Y=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VTrA4BCclNvUmF9dpSJz+zAyqq7fBFReD4XNQR/e2Ore6r/2OnTjB8un77HrZvNt1w44JOYc+zu1kY/xkAN8pgjvBPniU9jLHIvTrSvLaptiSp1wiPhFJYJqN3V+Is6a++S+60I+yJA7eQbt9AyBCf/oAzK+QqnpEIWIa8PnJEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dVpDeL8A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784223212; c=relaxed/simple;
+	bh=W3D0x1lfwDpQdeCF7MPZvqVSLMvd1HQezbnOejx3gZE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YppoyF1DKTx1fFnXVsAvO3a6hB1r4dMHN6k4dSv5F95+inLs768dQajA7vc4OnH/UUUUFd9aqWqX9OsSCeZC6MLTTDUBnuNrefoS/F0KnbdAa0lQ8i5+EBW39Uuy398CqjzYIwA/FA2wKC5dU6MHfnmaGXr2tJZI41vBuAAHtQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XXKbREht; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dVpDeL8A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0741C1F000E9;
-	Thu, 16 Jul 2026 17:30:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784223009;
-	bh=SSQCfHZpEVyMZHr8vH4L0Fm48ICUdCzbiFkwB520D0Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dVpDeL8A+AX3U7K8VGeda9bet2Ad5pIcRknbt3rCsjWv6LYfX7ehb6rZSjhII7Lnn
-	 xiqRyITZn/NeEnjFz6cMP0kIul2AyKTLjre0y3HfUz+T7LlQegFcbKeti7Hh/oefzd
-	 D6khnJojpoLlhE82IVsKMEoq9nq1A2Y5OMTtedqOOZdyK9w71yueDHdpKprxWaDHUx
-	 HUSWGgEoVZrUYVhH/NK+N9wJukS6DlLe8ymuTDpjxLjqY1UNFZh2KxCn9BoQiXIOsa
-	 jzTW/lv7lvPJ3YPkFWjfsNDFK152b5+xLDAIG+PRXYYwBcZWLpXZlcZBQylkpecgse
-	 8g3jrIF6eqCvw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: soc: mediatek: pwrap: Add compatible
- for MT6589 SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Akari Tsuyukusa" <akkun11.open@gmail.com>
-Cc: mfd@lists.linux.dev, lee@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260716171733.300885-2-akkun11.open@gmail.com>
-References: <20260716171733.300885-1-akkun11.open@gmail.com>
- <20260716171733.300885-2-akkun11.open@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 17:30:08 +0000
-Message-Id: <20260716173009.0741C1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XXKbREht"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-475417f010dso3590971f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 10:33:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784223209; x=1784828009; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XlCP9ujuR9NZBBVK1LgwxTqDNpIOuqus/+Z/8Qlhrtg=;
+        b=XXKbREht0czqOO3SFl5vXlpQTdH2u41A/u3xZOsolM5dDUV3Vl7FMtdoS1cOmKSulo
+         Xfl+OA47ktE2srsHynarPZkw/uQdcXJYvF/auoUYvfrFVSwAYW948gHuUAPGp2sdIa30
+         GnAzZGz+GcGL3PliCXbrsFWkkW8OnhckNgQQSRSGRgzjrE4jMgLfsEFxbYDNb4aDhN7D
+         dFGz26WNFgMQxeDo0hhzQyMCE2n02S0Sy8PlTtBJg4GSjFpZdfZzitWkSPnT2IBDIGQA
+         DoNPpcsapm1rtebmVzF7FVFwqRRdjK+ppPYp5rzEkFX1kYL7lqALLKMI2SeM7ZVstKUY
+         tLxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784223209; x=1784828009;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XlCP9ujuR9NZBBVK1LgwxTqDNpIOuqus/+Z/8Qlhrtg=;
+        b=MeV88CyR0F1JoBSwwR/YimnDJRDPcAQwz7NHHrbKFFoLeGApubeMefXWobKuijFQ9s
+         FBsHrP3iPNBCox5sVp3UIVsr3IFeeF3jPmy03RDU008iXMpV+OOKcWSpCnwKGwvwnyBb
+         n2K2iiP0aScJhoVGKhSa23gvCXU+iupyF8ZEVSMQ+kEUP4r2MwLd0Z8nRnChAjpWFAs6
+         H2WbYMI8mC5cSK8ozJsWzi+4LfkRjt9tW4nozA6iWNm68deJ4GhFCU6qV5l+Xh+67WyS
+         FELbIlTaqAAKrkKW73XI8ObdKXDpgsH3f7YG/WXNeAFTJ4GJ3zO4qJYEpX1ev0uWj0/i
+         5T/g==
+X-Forwarded-Encrypted: i=1; AHgh+RoExhVJC8EF6Y084OJSn7xs7sb6WZIFHlUsQeevP6jUIi+c1BBLP0S5hnjj8gku8A2DtEfroqK6I1uO@vger.kernel.org
+X-Gm-Message-State: AOJu0YxqrqwtaglMxiThqx65XJV42dX0hjF1hohZsZ729DIkIvGDT6yZ
+	edAKUY2t/RHdQPrpUeary5N2jE6PzH0K1d1CzlwYsQOnHycDfWgDfxlA
+X-Gm-Gg: AfdE7cku7FWpm0AnelNn03PJrVyO0Y/UtX7yjqJw0mA+MnHB76erYLu7E4gvzfveBkO
+	KORCHvOtof1F3ZM/6HGcCzesm5J5RMDozWiVrwzbgcp0T4QxGfNCwtAVDA+Tap6ElrLl/cICC+E
+	KX4a8L4x8Cat2J4qnos/euNYOZRNLu1T/cS+M/uzuqyMqSXO1dmOkF35zLAq95IbsgslWyoYxNl
+	2WaigzGatz+zEKcgiTfXsCqTTTjqNaNyKG+c3LMaUrTRyqL5M5K0VSM5ke30L6OS6t9bBduVH7g
+	JT3iMkkoFSlyoy7h2YflYgjsnUlW+VlnIL3jNIEoCcuc4ZUpiIO0t8E58ch/ie0B9V2jwsbSiNv
+	F5Hvfmy1E+c7E5rkDKszrXXURIPOzDltByEfjGXn2F9QZDtAuN4VUjpe/DCvsixbwb0IW/tu1st
+	ZLBxEE78mMFDsZKr0qg92uWtAQ9GtI0w==
+X-Received: by 2002:a05:600c:8b8c:b0:495:3f68:699b with SMTP id 5b1f17b1804b1-4953f6869f7mr74628045e9.9.1784223209162;
+        Thu, 16 Jul 2026 10:33:29 -0700 (PDT)
+Received: from NB-6746.corp.yadro.com ([188.243.183.76])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49541eb0343sm71768905e9.10.2026.07.16.10.33.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Jul 2026 10:33:28 -0700 (PDT)
+From: Artem Shimko <a.shimko.dev@gmail.com>
+To: netdev@vger.kernel.org,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Artem Shimko <a.shimko.dev@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH net-next v3 0/2] Add DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY driver
+Date: Thu, 16 Jul 2026 20:33:23 +0300
+Message-ID: <20260716173325.653164-1-a.shimko.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-> Add compatible string for MediaTek MT6589 PWRAP.
-> Also update the description since MT6589 has pwrap bridge.
->=20
-> Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
+Hello,
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+This series adds support for the DAPU Telecom DAP8211R(I) Gigabit
+Ethernet PHY, commonly used in enterprise and industrial networking
+applications. The PHY supports 10/100/1000 Mbps operation with RGMII
+interface and includes features such as IEEE 802.3az Energy Efficient
+Ethernet, IEEE 1588 SyncE, and an internal packet generator for
+diagnostics.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716171733.3008=
-85-1-akkun11.open@gmail.com?part=3D1
+The driver implements extended register access via indirect addressing
+(registers 0x1E/0x1F) and provides comprehensive device tree support
+for RGMII delay configuration. The rx-internal-delay-ps and
+tx-internal-delay-ps properties allow precise tuning of clock delays
+in 150 ps steps from 0 to 2250 ps. The optional dapu,tx-inverted-clk
+flag enables 180-degree TX clock phase shift for boards where signal
+integrity or MAC requirements necessitate clock inversion.
+
+This PHY is used on the NDA platform with 1G Ethernet tile and has
+been tested on that hardware with successful link establishment and
+RGMII delay tuning.
+
+Due to the specific PCB layout of the platform and FPGA configuration,
+the default RGMII timing configuration was insufficient, causing packet
+loss during normal operation. Tuning the TX/RX line delays and enabling
+clock inversion restored proper signal timing, resulting in zero packet
+loss and stable link performance.
+
+$ make dt_binding_check DT_SCHEMA_FILES=dapu,dap8211r.yaml
+  SCHEMA  Documentation/devicetree/bindings/processed-schema.json
+  CHKDT   ./Documentation/devicetree/bindings
+  LINT    ./Documentation/devicetree/bindings
+  STYLE   ./Documentation/devicetree/bindings
+  DTEX    Documentation/devicetree/bindings/net/dapu,dap8211r.example.dts
+  DTC [C] Documentation/devicetree/bindings/net/dapu,dap8211r.example.dtb
+
+grep -i "dap8211r" Documentation/devicetree/bindings/processed-schema.json
+chema.json
+    "http://devicetree.org/schemas/net/dapu,dap8211r.yaml": {
+        "$filename": ".../devicetree/bindings/net/dapu,dap8211r.yaml",
+        "$id": "http://devicetree.org/schemas/net/dapu,dap8211r.yaml#",
+        "title": "DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY",
+
+Working with xgmac.
+
+Board side:
+
+$ arping -I eth0 192.168.5.100
+ARPING 192.168.5.1 from 192.168.5.100 eth0
+Unicast reply from 192.168.5.1 [board.mac.addr]  8.543ms
+Unicast reply from 192.168.5.1 [board.mac.addr]  3.295ms
+Unicast reply from 192.168.5.1 [board.mac.addr]  4.301ms
+Unicast reply from 192.168.5.1 [board.mac.addr]  4.096ms
+Unicast reply from 192.168.5.1 [board.mac.addr]  2.872ms
+...
+
+$ Unfortunately, there is a dependence on the axibus speed here
+$ iperf3 -c 192.168.5.1
+Connecting to host 192.168.5.1, port 5201
+[  5] local 192.168.5.100 port 58936 connected to 192.168.5.1 port 5201
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-1.00   sec  7.88 MBytes  65.8 Mbits/sec    0    150 KBytes
+[  5]   1.00-2.00   sec  8.50 MBytes  71.4 Mbits/sec    0    165 KBytes
+[  5]   2.00-3.00   sec  8.25 MBytes  69.2 Mbits/sec    0    165 KBytes
+[  5]   3.00-4.01   sec  8.50 MBytes  71.1 Mbits/sec    0    165 KBytes
+[  5]   4.01-5.00   sec  8.38 MBytes  70.3 Mbits/sec    0    165 KBytes
+[  5]   5.00-6.00   sec  8.50 MBytes  71.5 Mbits/sec    0    165 KBytes
+[  5]   6.00-7.01   sec  8.62 MBytes  72.0 Mbits/sec    0    174 KBytes
+[  5]   7.01-8.00   sec  8.62 MBytes  72.8 Mbits/sec    0    174 KBytes
+[  5]   8.00-9.00   sec  8.62 MBytes  72.2 Mbits/sec    0    174 KBytes
+[  5]   9.00-10.04  sec  8.62 MBytes  69.9 Mbits/sec    0    174 KBytes
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-10.04  sec  84.6 MBytes  70.7 Mbits/sec    0 sender
+[  5]   0.00-10.12  sec  84.8 MBytes  70.3 Mbits/sec receiveriperf Done.
+
+$ ethtool -t eth0
+...
+The test extra info:
+ 1. MAC Loopback                 0
+ 2. MAC Loopback (diff. queues)  0
+ 3. PHY Loopback                 0
+...
+
+ELP side:
+...
+17:29:11.974973 ARP, Reply ELP is-at elp.mac.addr(oui Unknown), length 28
+17:29:12.975199 ARP, Request who-has ELP tell 192.168.5.100, length 46
+17:29:12.975217 ARP, Reply ELP is-at elp.mac.addr(oui Unknown), length 28
+17:29:13.975022 ARP, Request who-has ELP tell 192.168.5.100, length 46
+17:29:13.975035 ARP, Reply ELP is-at elp.mac.addr(oui Unknown), length 28
+17:29:14.974837 ARP, Request who-has ELP tell 192.168.5.100, length 46
+17:29:14.974849 ARP, Reply ELP is-at elp.mac.addr(oui Unknown), length 28
+17:29:15.975026 ARP, Request who-has ELP tell 192.168.5.100, length 46
+...
+
+Accepted connection from 192.168.5.100, port 58932
+[  5] local 192.168.5.1 port 5201 connected to 192.168.5.100 port 58936
+[ ID] Interval           Transfer     Bitrate
+[  5]   0.00-1.00   sec  7.12 MBytes  59.7 Mbits/sec
+[  5]   1.00-2.00   sec  8.50 MBytes  71.3 Mbits/sec
+[  5]   2.00-3.00   sec  8.50 MBytes  71.3 Mbits/sec
+[  5]   3.00-4.00   sec  8.38 MBytes  70.3 Mbits/sec
+[  5]   4.00-5.00   sec  8.50 MBytes  71.3 Mbits/sec
+[  5]   5.00-6.00   sec  8.38 MBytes  70.3 Mbits/sec
+[  5]   6.00-7.00   sec  8.62 MBytes  72.4 Mbits/sec
+[  5]   7.00-8.00   sec  8.62 MBytes  72.3 Mbits/sec
+[  5]   8.00-9.00   sec  8.62 MBytes  72.4 Mbits/sec
+[  5]   9.00-10.00  sec  8.62 MBytes  72.4 Mbits/sec
+[  5]  10.00-10.12  sec   896 KBytes  62.3 Mbits/sec
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate
+[  5]   0.00-10.12  sec  84.8 MBytes  70.3 Mbits/sec receiver
+
+DTS node example:
+&ethernet_1g_tile {
+  ...
+  phy-mode = "rgmii-rxid";
+  phy-handle = <&phy1>;
+  ...
+
+  mdio: mdio {
+    phy1: ethernet-phy@1 {
+      ...
+      compatible = "ethernet-phy-id0008.011b";
+      rx-internal-delay-ps = <1050>;
+      dapu,tx-inverted-clk;
+      ...
+    };
+  };
+};
+
+--
+Best regards,
+Artem Shimko
+
+ChangeLog:
+  v3:
+    - Use phy_get_internal_delay() for delay validation and selection
+    - Add poll timeout for reset using read_poll_timeout()
+  v2:
+    - https://lore.kernel.org/all/20260716113805.593215-1-a.shimko.dev@gmail.com/T/#t
+  v1:
+    - https://lore.kernel.org/all/20260713131223.279555-1-a.shimko.dev@gmail.com/T/#t
+
+Artem Shimko (2):
+  dt-bindings: net: add DAPU Telecom DAP8211R(I) PHY binding
+  net: phy: add DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY driver
+
+ .../bindings/net/dapu,dap8211r.yaml           |  73 +++++++
+ drivers/net/phy/Kconfig                       |  10 +
+ drivers/net/phy/Makefile                      |   1 +
+ drivers/net/phy/dap8211r.c                    | 191 ++++++++++++++++++
+ 4 files changed, 275 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/dapu,dap8211r.yaml
+ create mode 100644 drivers/net/phy/dap8211r.c
+
+-- 
+2.43.0
 
