@@ -1,222 +1,280 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11021119.outbound.protection.outlook.com [52.101.65.119])
+Received: from mx0a-00230701.pphosted.com (mx0a-00230701.pphosted.com [148.163.156.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA4DC800;
-	Thu, 16 Jul 2026 00:08:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6ED51F936;
+	Thu, 16 Jul 2026 00:10:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.156.19
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784160541; cv=fail; b=Y8sCUc23qHXYL/HvrgriAHX30UwTxV9ZKlK7SPd4IWIeV8gsjqzgzibGdqgHMrXko1dzij+uxq59gT2JdjuD3Z1sqx4ZG+5jxaeUYJI8noIlExrZXw0mVyTHVQqqHYJxcGyOR82NUS41t3kl1qi1n91zQoNYTZp3t+M/LeUImqM=
+	t=1784160613; cv=fail; b=oHNSk0d5O7PK8DI+z3rxWTPkqCbSMyCCWSE0pTShItw68I5Q/9VnhKCZxO7/lMjnnaBvhUgR9vH047k00sd9qABgPOUQupW6n1Fem/VFUwq1X/BnWigR39zz3KkduUCtjfoXflPz5k4buVzZpEtEPon+357OgGeP1sqB+30NDH8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784160541; c=relaxed/simple;
-	bh=Oh3KYcBm3OtbueeO9K37i701Fca7XV8CVl3eypu3TS8=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hLisd1nXpekLLZPmHBft6MND6Cq5esS2FFAIJPoipN6StqSgzxGem0UfZFDf7uF4JPZ1TD+7ptia/UqrmJx59roxyWf/AONs9a+PUSZyzXcJGh7TzF+QL1/BvvTYGFZTKnnmU4Nzb/qprycwy0MlpM0Uz3i4ttdTQqLDN+v0pkk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de; spf=pass smtp.mailfrom=phytec.de; dkim=pass (2048-bit key) header.d=phytec.de header.i=@phytec.de header.b=Atmpkyci; arc=fail smtp.client-ip=52.101.65.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.de
+	s=arc-20240116; t=1784160613; c=relaxed/simple;
+	bh=Hx9X9oAXUfhGBOal+2u07u6Gip3pIxZN9lSYIzung/Q=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=fCQl89BnyetJCXa1b1/5Qh8n4DtxBDkf17mFlbeD/6our59US84K55XiCxJPCTnqRqpxT2VuCmLeD2GUY5B+X9p1EHDl0wAoOmMxLdmf7BKSiv7GIu/a2jA/pvYUk34z4K5ecxgi3fGjkMdNCEy51DQTxPZ2cSRwexzUMU+R71M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com; spf=pass smtp.mailfrom=synopsys.com; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=Ra9R6qo8; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=MH+cXL7h; dkim=fail (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=Y3aC/1Ub reason="signature verification failed"; arc=fail smtp.client-ip=148.163.156.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synopsys.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=phytec.de header.i=@phytec.de header.b="Atmpkyci"
+	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="Ra9R6qo8";
+	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="MH+cXL7h";
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="Y3aC/1Ub"
+Received: from pps.filterd (m0297266.ppops.net [127.0.0.1])
+	by mx0a-00230701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66FKQ8YR3154064;
+	Wed, 15 Jul 2026 17:09:53 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com; h=
+	cc:content-id:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	pfptdkimsnps; bh=Hx9X9oAXUfhGBOal+2u07u6Gip3pIxZN9lSYIzung/Q=; b=
+	Ra9R6qo8GtHyW0eRpcq1DMSPGlSw+9he6BrdwVNG1d6+dqYKGyHWbJ05EGagrdtv
+	a9g9ChpoxqPHw265tjbgrkAHKnBYLkYx3vde20nICEXRBWt660dzCPmJxuISMjRH
+	XCerJCKhBqx5xlkj/HSx+nfBZMsyI+J4+n9h8NkU9e+XKL/SXl+zm+Y4IDvFL/2d
+	nm0yGcKiGIFbGNoQMIkjQOQmJDzrYycc2H1+lFLkTv067KMmXEZlVV4Qn5BWEzfJ
+	WTIe6Sox8qt0VLwU1XM9wUMm56Q1pmBzTLDH6ouiE6DJj25Yi+moj69hpZn4SFk0
+	wRd9s/Znef5ftidxQnS7VQ==
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com [149.117.87.133])
+	by mx0a-00230701.pphosted.com (PPS) with ESMTPS id 4feddmbrq6-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 15 Jul 2026 17:09:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+	t=1784160593; bh=Hx9X9oAXUfhGBOal+2u07u6Gip3pIxZN9lSYIzung/Q=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+	b=MH+cXL7hTv3KaSh4Mbv/hB4lpAtaI0KlmkKLi7mrqdIlv5Ck2lUqKUiDXEzFBwAhu
+	 kCCOlEt5uwwJRhcddO2NS1VW4UXlNpuwH3AaUfCZ5XzDrinXIbMGLVp0ZnvD+TSjo0
+	 OfVtsYUSP1IG8hfEL/jtbvuo9VxMX1s9zTHdRQLaXGi/91rRgG/BK0H2dFuwpBuTjX
+	 zMGxU6GLnaEx+1UAzB0NznWOTdk7mOa+gQMyexwsQ0nOQyrhjhov3lV91WrYalYBDE
+	 8umr/7Q9gibcuYCad5q1IwDY0aYVR+XqzHwaudw0XzNNHt6Qn0tMN2Wml1Bd3WkwH2
+	 cjlWUPT+xknWg==
+Received: from mailhost.synopsys.com (badc-mailhost3.synopsys.com [10.192.0.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
+	 client-signature RSA-PSS (2048 bits))
+	(Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
+	by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id E434C4035B;
+	Thu, 16 Jul 2026 00:09:52 +0000 (UTC)
+Received: from o365relay-in.synopsys.com (sv2-o365relay1.synopsys.com [10.202.1.137])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
+	 client-signature RSA-PSS (2048 bits) client-digest SHA256)
+	(Client CN "o365relay-in.synopsys.com", Issuer "Sectigo Public Server Authentication CA OV R36" (not verified))
+	by mailhost.synopsys.com (Postfix) with ESMTPS id 5F8FAA0068;
+	Thu, 16 Jul 2026 00:09:52 +0000 (UTC)
+Authentication-Results: o365relay-in.synopsys.com; dmarc=pass (p=reject dis=none) header.from=synopsys.com
+Authentication-Results: o365relay-in.synopsys.com; spf=pass smtp.mailfrom=synopsys.com
+Authentication-Results: o365relay-in.synopsys.com;
+	dkim=pass (1024-bit key; unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=selector1 header.b=Y3aC/1Ub;
+	dkim-atps=neutral
+Received: from BL0PR07CU001.outbound.protection.outlook.com (mail-bl0pr07cu00102.outbound.protection.outlook.com [40.93.4.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (2048 bits) server-digest SHA256
+	 client-signature RSA-PSS (2048 bits) client-digest SHA256)
+	(Client CN "mail.protection.outlook.com", Issuer "DigiCert SHA2 Secure Server CA" (verified OK))
+	by o365relay-in.synopsys.com (Postfix) with ESMTPS id EF64E40119;
+	Thu, 16 Jul 2026 00:09:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vc1Tp61zh7YoMugGbpoWrzIPmxJJxPY9VWXQ8Y0I4pTNd8wit9RzzzX409jlmfVYiJhowpW8+IsFPG7eGdIOAPwgBVVdfIJzFlk2gtHmqLoKrZIz/Vsuk2HiyPHThXsLT1H6iPDqpKA+1IXNtrHm78r5r86tUHZ/l2htPcrh2jeanNp0s8q2+nTx33UVk5dRcu0pGtqsZxVLoq970VTCJpcZ7d0RRbaYCWiolnCfx2cVUrNCSCRg5XuSdqs/EUOtd39PJCkZJ44YS2r36LHbNqdz8pvzL6BLOPe/MsHtKP1u3MA10ErSHK/0CASg47vhujO+xr2j/wmr6NI20oFrWw==
+ b=w739lOQOIgcloSILWG7jJLQpAMUxRooYtQMvcfG76VscO4ajE8TKu0KA/BTt2nLa5c9vPeuLDsfqlJ1NZDQLirFfD0GBhxwbUPweuILPHXI316PXNmqDFVjQIvO+/c/vLhItetjqaNfKxPsG16Khnv5E7s/rFab+50Vz8njhXuH6AmZlWPRgwzJqp+jVmULWpjdbX27cEacnfb6zgYaGtMo0/AblvyJcro56SXCW/5Q38LIknQwqb8LhvRylDyKZo6r7kMrs2ziN5QLyiY929VVoWcbxVmQBKE6rFQWMvbYwdd6yban9QAl35T6UyQiURx56KGMT2ahDGvGnhYrRsQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JICTE7c0vCrS4PXYk/rEUMbOzyQUYInz/SONMkwMn3A=;
- b=gRGc3JkjeUbsDvPj4uzsECMG2Okp8/bxYJa52uDAaW+2npbRveR8QZFGvdPlsqAvyC4TWX+rUt7VJ9Hli6smcG0gO9EErnuMoGK4kQVjz9s7oHQ37SqVflVP4xNEQ45ejueBGsvpqmvr7nJXVU5f83CSzpKiRXp/XgbAS1cjhM+22qcAEIR1R9T/IxixNGUU8Ncbut+HuzqIAUDDLxUhQ/07Tib6NOk4PazFrbQCbFKcoIsL+kJ3r22PtCTzoCcqy5b/vwGIZBA+1mlcGc44+bWh/pXkbAe8BmM2N1gshLMUvNpcN32GupjrJoeN/h3DtCLIdNKzutkF8Yc0Fkwiyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 91.26.50.189) smtp.rcpttodomain=ti.com smtp.mailfrom=phytec.de; dmarc=fail
- (p=quarantine sp=quarantine pct=100) action=quarantine header.from=phytec.de;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.de;
- s=selector2;
+ bh=Hx9X9oAXUfhGBOal+2u07u6Gip3pIxZN9lSYIzung/Q=;
+ b=GxrrSdcGOxkccI8HRqugd/Fuze9zTaCVAOp1VjqTXPKJGUtonlaKKqFDNk9gxprXTZON5m868XkX1tL9yECw0GNtUujyGTuRVcj1HKDzXjIkO7aAT8Y3BOxSs7KYwyup+yK0vhOyE4xjikCF3OyzKHYA97TCIgf5X9MPHtehOhoYX8c5/5CpxMWxogiSGsNUV3w53iOa8uN0aVfB2tn7eprNGUrl9hZwyis0N36NZPLaBzD734lkmBJ/BaSrJqcRrVxjkUZQO7Rq4fhZ4cULp+C3DXaRB/CtggujskdT0iKqJ3BX7TnvonUTGkMTKXKTYBP4ZvD/ndjThFxiUC8WJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
+ dkim=pass header.d=synopsys.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JICTE7c0vCrS4PXYk/rEUMbOzyQUYInz/SONMkwMn3A=;
- b=Atmpkyci96UxiQbppLmbKbaOikCVgiVOIO15q1OXERcjHjCVi3ig18gSGKSPVeXqqjafnOslWr2dg0PDchfxCI4i2oyHBlzO6YexNTkHxOhogWYoxC/0EEVkbLdfhnQkVt180baXSZjp6MrVJyY+TCwgnSwmrCoZGUqA/ViwSNbcOk8ZlZCO5l8VUoTljb+lHtrqsh7g3P9UAyZGniemqzlMaQ0Bl9jRx2JDa4reY+gKs8mL7YqvHXz3o/jUcLWuotnkpnTHG3/QHu2GqWdW1M/rzYWanV6owyLzTy1Rkb7OhsZ9FY4zn4ai2DeWVQ5Bs0MohYKzczgnlW3/Gbch8Q==
-Received: from DU2P251CA0017.EURP251.PROD.OUTLOOK.COM (2603:10a6:10:230::16)
- by GV1P195MB1667.EURP195.PROD.OUTLOOK.COM (2603:10a6:150:52::13) with
+ bh=Hx9X9oAXUfhGBOal+2u07u6Gip3pIxZN9lSYIzung/Q=;
+ b=Y3aC/1UbDD864VYzWNODf0cBq0XT7blea2/1mbZktHnLgVv26bJFLMA6kxWQrvEqA9uPhUTUGlrkRJN0GXPryZfMLSIjQKKWTD+I56NCYLdfez7HAS2kRfzsZ3zjWPDp16vmhEjS5kWmFJsxDyKnNKJief3l86YjszIcfpnUw0Y=
+Received: from PH0PR12MB7486.namprd12.prod.outlook.com (2603:10b6:510:1e9::6)
+ by DM6PR12MB4483.namprd12.prod.outlook.com (2603:10b6:5:2a2::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.11; Thu, 16 Jul
- 2026 00:08:53 +0000
-Received: from DU2PEPF00028D0D.eurprd03.prod.outlook.com
- (2603:10a6:10:230:cafe::ad) by DU2P251CA0017.outlook.office365.com
- (2603:10a6:10:230::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.11 via Frontend Transport; Thu,
- 16 Jul 2026 00:08:53 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 91.26.50.189)
- smtp.mailfrom=phytec.de; dkim=none (message not signed)
- header.d=none;dmarc=fail action=quarantine header.from=phytec.de;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- phytec.de discourages use of 91.26.50.189 as permitted sender)
-Received: from Postix.phytec.de (91.26.50.189) by
- DU2PEPF00028D0D.mail.protection.outlook.com (10.167.242.21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.9 via Frontend Transport; Thu, 16 Jul 2026 00:08:52 +0000
-Received: from lws-haller-privat.phytec.de (172.25.39.212) by Postix.phytec.de
- (172.25.0.11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 16 Jul
- 2026 02:08:49 +0200
-From: Dominik Haller <d.haller@phytec.de>
-To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, "Tero
- Kristo" <kristo@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: <upstream@lists.phytec.de>, Dominik Haller <d.haller@phytec.de>,
-	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH] arm64: dts: ti: k3-am68-phyboard-izar: Add pwm fan
-Date: Wed, 15 Jul 2026 17:08:25 -0700
-Message-ID: <20260716000827.84982-1-d.haller@phytec.de>
-X-Mailer: git-send-email 2.43.0
+ 2026 00:09:47 +0000
+Received: from PH0PR12MB7486.namprd12.prod.outlook.com
+ ([fe80::7df9:b25e:9216:f109]) by PH0PR12MB7486.namprd12.prod.outlook.com
+ ([fe80::7df9:b25e:9216:f109%6]) with mapi id 15.21.0223.008; Thu, 16 Jul 2026
+ 00:09:47 +0000
+X-SNPS-Relay: synopsys.com
+From: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+To: Peter Chen <peter.chen@oss.qualcomm.com>
+CC: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>,
+        "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+        "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 1/2] dt-bindings: qcom,snps-dwc3: Add property
+ indicating presence of eUSB2 phy
+Thread-Topic: [PATCH v4 1/2] dt-bindings: qcom,snps-dwc3: Add property
+ indicating presence of eUSB2 phy
+Thread-Index:
+ AQHdD4BaC5hZxDAhAEKCnMd1KCZXEbZlNA8AgADKiICAAFp+AIAAALcAgADmBwCAA8JjgIAADvOAgAESBICAAD0jAIABUBoAgABHNACAAVgyAA==
+Date: Thu, 16 Jul 2026 00:09:47 +0000
+Message-ID: <algVe_XD5xpB_w2c@vbox>
+References: <alBOC18CpkGDhM2m@vbox>
+ <20260710-warping-resolute-wasp-e4b8ce@quoll>
+ <7a099224-ea95-40ec-b279-f8834f261e23@kernel.org> <alFTxg0HLyke0gCK@vbox>
+ <b60b4d96-ea67-44d0-a627-c50ef0ed8615@kernel.org>
+ <alSRvWY2LWp8OeOr@hu-petche-lv.qualcomm.com> <alV0_DHvBFpzDumP@vbox>
+ <alWq4jAGPTINnpxD@hu-petche-lv.qualcomm.com> <albAccNnsI12AIUo@vbox>
+ <alcAjvLJCz9D9X3p@hu-petche-lv.qualcomm.com>
+In-Reply-To: <alcAjvLJCz9D9X3p@hu-petche-lv.qualcomm.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB7486:EE_|DM6PR12MB4483:EE_
+x-ms-office365-filtering-correlation-id: 4c07417a-73b3-441f-081e-08dee2ce8be9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|11063799006|4143699003|56012099006|10067099003|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info:
+ 1GkLL++hd4VZPx50YFVOjQrfeLqdqUp2aFbEKXDb2MP7KSveeBAApWUi96/c2q4L36u+lSHJi9RFy9hkTUu1wFlQSorKP8JeOOjPfsMX2j6eyguiWlwEdzbvJAVcBDgjS4oNs9WHJUwiB2yYMF9oSZ2KhcoUyKbwDUtfCwkFmSr5lzZA9RzRMPLnqY/o2PUvBPeXWkdZ9lZOEi//of3iP5Iu+fMJbFz2BI09fLxp3raB4oHmnCx2YlA7DiWWVndDVWdben9BPuXD1jgF6NgqeICdHfSUMByNJnHJyUwLFeTVeVTLDlc921TNp7Sz/hP7jhBnhayMt8QeCSqz1QUhWzouUvZwqIbTusAHmcDV0okT9S2vZ7TcHNnDNg6Rk6HH4D5CxYCzg9pEuOJzXASRFLova0PQcuawvn7WQ9M1L7MxPKJDQMazl+nYZtRNeiE/fTqkXHvyloIYis3FCwgraGzyhLLNwUFDvVwvtB+zf0jJZfiBmW7r99cYNFUuw6uhnenkWTpPgqdaSsmvmHxasUR22UGnN4bjGG1XlS3Qf3fxBKPYdDxzoWbpgooquNUQasZ1ADGRFD34KhIApJ8kWClgRImrIwGqbloJN7/7bQQfUCTk9GI923L+FcFPKvAyNp2GOtURGZ7CfFc8v0jl73ZV5A1rkQ4UAFUORfkA3FadXmr+GT8qb7SM6CAfVhm4n31eW+EeNjhSfm0WFfQB5xk/op9GM56pvbaQeLqe4ts=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7486.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(11063799006)(4143699003)(56012099006)(10067099003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?bTlQa25scnhkckZoZG5TTzJhQnpsUXkzb1pER1paVUh2Z1FqNllGbUFMbkty?=
+ =?utf-8?B?YXBZVDBrVCtwK3N1QjNlR1FDcjhOY0hCeTVkRTlVMDlWbUIzenRvV09peXVK?=
+ =?utf-8?B?RXU1bVZtMXdVUk9RQWJrVUl1eWk3aVpHSlp1MVkwelA4Q1Jpd1owa0ZSUWMz?=
+ =?utf-8?B?OTR3ZEN2NCt5M2lFWkxIbllYazNxWk5ENEFIbm9Fc0R4VlRadmFqSng3U05z?=
+ =?utf-8?B?dmJmc2NPaGtRL1ZSRjNBdmREWXlWLzRLaU1ZMUFlbmcvM0lSVXhvSXNORDk1?=
+ =?utf-8?B?M1FhT0QvcWtnOFUycWJxRHdWMGdrOGE2QWJyVXRQV082YkZpcnU2M1ZjRXJL?=
+ =?utf-8?B?Vk54UjRPYzdJb3hpemowRnBLR0dZRWdJOUxwOUd4U2tscnRwaG5TS0dZN1Na?=
+ =?utf-8?B?eTJIVTV5blViTStNRWpHUlZ0bHo1eU95ZTR2UTYveEtGb1M2RDRGRW9hbXp1?=
+ =?utf-8?B?YnlRaDRTK2wrTlNQNWZVRWdQdnpaaExZTThQUUVkK04vc3FDdHV1ZHE3eDRX?=
+ =?utf-8?B?bDlBZFkrRzRSRW9xdGcwVmlUVGZIaHZDVk9Hd0V4WmdEbEtCZzJDZk9KZG5R?=
+ =?utf-8?B?RUJsZjhCYjJoVGFtQ1lYdEdrcjZPZ0dMNUFHMkQwMUlMQndVeXIveEVYQ3dm?=
+ =?utf-8?B?L2Q3OExQMUpZUnJaQ3NCWVVjemlraFBEMFVQQVhGQUNoeEsyZTYrMXduKy9i?=
+ =?utf-8?B?R2ZUM0IvSmZYcHRYSjg2bnNuZkc4UDA1NjFON0FacFJvOXoyajQ4cGhBVG1O?=
+ =?utf-8?B?N0lsaVAycUVEbm9UdzdkQ1IwNXU5S0dWSXVUREIxTHlKdHYyTkR0STlnRFNx?=
+ =?utf-8?B?ZzFhN2VaeHhxUCszek8vMTBhRG1pSVljRm40dU1yRkh3NlI2MWV1MnNyOUE0?=
+ =?utf-8?B?L3NyZXNHMEY0T2NQQURsS2REZGc2SG5nbGY0a0dsZmUxTzZzMzZrQStJby8x?=
+ =?utf-8?B?dmc3R2hkY0lqRVkrcUhTNHQyYWNrZFY0UEJYQkZBU2F5aGt6aVNYeUQ3TmVP?=
+ =?utf-8?B?R1FtcHgxdlNSYzFQTWVPTEkxbklBQUM5d2xLUURvSXo5RlMyUnhsek1nNUlz?=
+ =?utf-8?B?MURPS3U5TjdYcE1wK1I4dXZNUGlrUDMxVURLcU5wOGhXNW11cnhqaEhWL09W?=
+ =?utf-8?B?ei84OXM5MEY2Ui9tRjNKZEZhUytxRU02THk1YVdvRWZkOTRZYjByNHFlSUVR?=
+ =?utf-8?B?Q2xDbHcrdVlQSk9JZlZsN05YdUp3amNkQ2N1WkhNbW5mN2UzdVhjOGZtQWZQ?=
+ =?utf-8?B?cE9Dclh4TjJjclkwR1B1TUVtNThsaEtTOXhVSm8wQ0cxQTVFZFZNaTdBV2RM?=
+ =?utf-8?B?RGpVUDU1SHhYS3U1KysvU2hQQkNET2daVExpVTczV01ZeUVkbTBkN2VZdlgw?=
+ =?utf-8?B?T3hRQy90LzZBc0U4dFhpUzVjRUxoVG5pSjJvTTg5Vkl6TmUxSDZHOFRpSE5a?=
+ =?utf-8?B?dUFjemk0VFkrTkVxb2hsdXg0bEs5WWhuRGM4VzMvNVBiaDkydjZDaENScnBC?=
+ =?utf-8?B?anN1N21Gd3hKR1c0YnVxRkgzNU1Kd3dGSU92VEJJV0xONldYTzB0R0JpbnV2?=
+ =?utf-8?B?b3prR2luSVEvRklvTmUzNk9iVjNtdWJ1UVA2cE5RR0lsSEVRbElaZ2tWWkJ3?=
+ =?utf-8?B?ZmN4MnlTTGthMFZZWUROQ1dkNEdJMmxNSjRtU0JDdWFMeFV0aHFEbnhLVDl2?=
+ =?utf-8?B?dmZ3eTVtZVhBR0NNYjNNUXRXME1uL2RTQlg2WkxJRktNZFhlSUhTcERDdWp4?=
+ =?utf-8?B?QTBwNkpiUTVxV2lzUSt3MkFWZUgwSTFBa2lNSjZlUGt2eU9peU9ndVkyWElB?=
+ =?utf-8?B?VVNjREE4cnlnVUtESERQdVFJT2drV1FlbXRTRXJRT0Fya2hUM3dPdzFtNWE0?=
+ =?utf-8?B?QVhQa2oyZjY0TEhRbERNaHJranRQamZQbW4vMWl1YkZEN1Rkbk95OUxoUHFJ?=
+ =?utf-8?B?TmRham45RXBNRWlzVHJNSml3ZjhBVFMvQ3hjMmc2ZUM2bnVOSVFjQXZ0Rldo?=
+ =?utf-8?B?elJCc2ptWjB6cVNmZXIrNnIvMlNOZzlKQ2pCMDVQSWxrUTU3Zm9QWjJxaHNo?=
+ =?utf-8?B?V3RjTzlYSW4xSHMzRS84TmdXQXVNTmdkOEoxeERrZVZQUVg4QlJXK2ErV3NN?=
+ =?utf-8?B?eitER3c1SU9qU2FSZ2ZoSDdrblN5WklROWhZY0xFMGN1cDJQbDVqcEhlOHpB?=
+ =?utf-8?B?TVFDTndQeFlEa080Q2JDVWg3dVVMdkZGOVZGQVpPNUVZUCtoMlQ4MUJNaFZR?=
+ =?utf-8?B?MlVKam9panZkSlM2SG9IbFc3b01sVWFlakNwMmRrZ2Q0aEVkbGNyTjh0VVJw?=
+ =?utf-8?B?cDAwZCtGcXkyQ2lNWlhCa3dsZXpFcTF1SytENE5UYVRmd0w4RVVOQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <337286172950CE469135A3DD281B92B6@namprd12.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: Postix.phytec.de (172.25.0.11) To Postix.phytec.de
- (172.25.0.11)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028D0D:EE_|GV1P195MB1667:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef6fd8e2-cce8-4700-ec07-08dee2ce6b4a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|56012099006|11063799006|3023799007|18002099003|10067099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	ESxilgMLcGTUrZ5zmwtCia/l3JgMH1cjQFjHf3f6mE2Zr4mw+Prquu9m5dZ/eCVVAa1zf4cgic9HnTD/+3xd2BWDQEAqVJzDOStZtlKrh0FAhvPm6DiUVPWrieBpzSfJXlsp27tPGFtVEJAs3mkQh/5EGsIGU4Oo588ZC6dWyjFGP4ksAVzOEFCS+L4Qta1ihVXAcvspjkJTYFqNXAO2+T99X2O641wPF297kPjh7cDtPYkghx2r+1qM6/FFxLhGj+uoA3ZtUvxo8RvXtrR4gnaRNqPo4eRsTUu5Wb6KKRG9mTW9OX/HxdjdnSxjBK32gGXTExsJTTjLhzT/aGMehQp6KTgB+vLl+Pkc9Be4pCIMJjBrpKQbl/8mGV2EJdfIcOC6Q8krfVUSlKOnIEgjrvBUkRYLxqX7S7A9LKQG2lnNQv9mdSu4fQ41MxCO8k9HbHV9pQfNG8ux9xfHVIdUwbAr+g698r9XsEPlhLT7O05E0vEd/4HAQxYHTRsclcX9jeI6HFOf695qd5F/YGdpLw/gZxtWVBj/fdqnUFj+U/V+CPo+TRnW36TnnP+ywwmLvm6CYLX0d1JidLFWK+cYsr8ERzhwNt3MhbXJC/GNksSjOO19gOdmaq53//ra2hPZF63TXihPwl4JYEgnCuFokmxztwEJmy8PjrJYzF8xqH7hwXwEgl7YgSJRxe50+dXsmKJ3MYneV4cBdG5Xa/6YKg==
-X-Forefront-Antispam-Report:
-	CIP:91.26.50.189;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:Postix.phytec.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(56012099006)(11063799006)(3023799007)(18002099003)(10067099003)(13003099007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	xYllibsOJ8DhrSCdJeBU8idQvZ6ygrfLTxOTn0htmS2TOOlCbEUTzhVglfXIN9IBKbclrXGrwt6uLy3E76LCd2dKgQgYrBPJKKToePh4sNAvszbJwdJTkcvHcStGHAcrX87p0rPsxR+gqqTJpiLRzULK4fsqFyeDplAJLigz7mbOQ/rzzGzCVlfg9kAbJNfANWecV3KD/wLBUS9z8s1cvUQSp90L0HukqcoVONDUh/ZWlUD6ZC52DyuLOJVjTcrXlKDJQMk1B60v4xjwgvVUwi5MItGlWY1jMDtQJKGBGwVsy8Zvx7TJ7+MLZbYi4WMcUYU3Iw0LBeBLc19mpP4Gq0IBEG5s7X8fdrHZthourNWk76QzS+sR5OudnOeHTydXh2t+lMX0ygV0HeexZ7pkITGg/Fykl1TZYodvhvtbKFjNVZUijE6KOWK11iIG2EAn
-X-OriginatorOrg: phytec.de
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 00:08:52.3672
+X-Exchange-RoutingPolicyChecked:
+	dRuwL/BuQg44+nakRyyoMNemc6ZGqLwNXJ6qSlLjUXZa6pBCClEdJSqqf199q1lRk5vgf4KeOseJfJaWFyZqhEIocYeHKNt3o167+i/7/r7yMNGhtaBnuHJOlqzb8qP7+dk6VovT+3vEysdUI1vtkZJDD/J8NhLA7UMCYPNweWPGGGDNAUdDJvFpO+3K7OCGs8HgAol2jRLo287SMLstcFMzMCejmO0BgGOoVh6qV3anTnXSZ1/7tO7OaNCke1QHqujDkDvbgY7xjgLRcYW7qwJMwhhhp6YpzV4Hw5O2NCrPjSXL8iGtt6hrLJcA2RjihtAuuLm+TlQxB25frIQdZA==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	Aw0RCTZa1GbmUNghGD2PIuFGgoN74p0vwdeO3x50/caD+qhX6FYLQ0tbI0A3jziVIgBDz9/JMMPYCvBAOWBCBDr+X7/gstTVFWpbTNxI5QNm9nqkSZtgWy4uRMBYn6OgL0hNXTTIEnIwrj9pSmRCR4TdyVXYnLjOuxqvYtM5h0trbnlYsp4JspgbYyOmsmcX4hLGGDp3duQ+AxaQ3VcWwfffwEVQmXQjjThKG7XhB51dmfsgh84WZNfOUur3BfMsQVa5Ey3gXZu7CHKTTAT/5G/7iJ8850JoBoxI0GX2qN9TpKDFkpNHY4SSA0WGbNF+4nICxzaxj3W7Esh2aonOQ4uGHuvWQoQqatQfzZbJfPHsho8PDM2Y2YVe+dNderyfFDEodNC0oPWP/lUtDO1aFKD4crdSXWazQMv8v6CbtrZlDxBOKM0hO5E6R+oSwtKg+yvn8Y4q6MxKt6TZnt+wCjRF5INnV1D6RTINN7pbQbWDUhP0hOm+FclzZsLGUUpM/bndOPdMK73ncWG9qURUDJt234+JlHw58FORZO2QcO7yzZS20pOuYm27FNFRzOH9A4RxuZERsnvYqKdImoqIcmYgEe2qmSsagfpBpK5/ZpOH23j4WP3FFx+nKtVdHtPlFPI252NS4tDO8fVsDo6H9w==
+X-OriginatorOrg: synopsys.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c07417a-73b3-441f-081e-08dee2ce8be9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jul 2026 00:09:47.1218
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef6fd8e2-cce8-4700-ec07-08dee2ce6b4a
-X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e609157c-80e2-446d-9be3-9c99c2399d29;Ip=[91.26.50.189];Helo=[Postix.phytec.de]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF00028D0D.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1P195MB1667
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /WDeAGQl/1WbhshijUW/Ek5hCICck1F1jNMCC1rQLC0bUNgSkKWGF2R+erniSfs7wylhgjt4x3PIfmE81h4bZQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4483
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDAwMCBTYWx0ZWRfX0YFOGtH7XPCI
+ rL0exdwNk8pjgH2L8f27qOevjEVhHieXzBD4EWNWjYiYfjcbPPWOt86bh5dTzuBMcrb2GbxMCon
+ W74R+oAwIdtyd8c4BuiSAwGAEWaGkpB69bFfEyenThsc/I84fpcXL/kpIpgjcz+p6E9PUEzS1EM
+ 990YODCKnciqoFq4W5gJcv8WWnNK9hSAIzmbsNfANk8VzCLhWDvZAiLMJ655Jv80Fndr1JDhTbQ
+ Nj2Q4X4362FLL/357tf0uVxnNSoeI12xC4DFLRtrfUhiiXj+GeU8Uxg3GQP8f/nZzVbra21w3p0
+ b7VPMgbZUbHAwnjXSxdAE0hHvDu5X+syQeTl9W0dsrlB9NY/FPAG6EwljdScEVOzxbqXlKfSPmm
+ 3WMOPwU25sM/l0zH/Tc89wxMEv+TsoGJyIsFNPwGty0y14UquZUJjCV2AGEoL+q2DRVD0NDswht
+ Y5M8nDuIDbW5HL7oqng==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDAwMCBTYWx0ZWRfXxmQ3ArqVzuQN
+ +Akq4Czimz4wCpywwlknk3QrfB1W7b5EqcUrWzN4s55lJN6b/s/tmue4IJ5B+kjgA+weQPiBUzZ
+ o8oAVFJrFU6mQjp+8JqtA9LQNbfATsw=
+X-Authority-Analysis: v=2.4 cv=Ir8utr/g c=1 sm=1 tr=0 ts=6a582151 cx=c_pps
+ a=t4gDRyhI9k+KZ5gXRQysFQ==:117 a=t4gDRyhI9k+KZ5gXRQysFQ==:17
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=qPHU084jO2kA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=tU_645BZ7FZt8VqRJtHG:22 a=Wo6YDfOMAEstGd-0DxeT:22
+ a=MVhNXCNigzl8e71xA8sA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: kgKJt7oe6ncOnilOvs1VNDVlDkycECaM
+X-Proofpoint-ORIG-GUID: kgKJt7oe6ncOnilOvs1VNDVlDkycECaM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-15_05,2026-07-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_active_cloned_notspam
+ policy=outbound_active_cloned score=0 priorityscore=1501 impostorscore=0
+ phishscore=0 bulkscore=0 suspectscore=0 spamscore=0 clxscore=1015
+ malwarescore=0 adultscore=0 lowpriorityscore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2606150000 definitions=main-2607160000
 
-Add an overlay to control the pwm fan[0] that comes with the kit.
-
-[0] https://www.sepa-europe.com/en/2023/06/16/axial-fan-lf40p/
-
-Signed-off-by: Dominik Haller <d.haller@phytec.de>
----
- arch/arm64/boot/dts/ti/Makefile               |  6 +-
- .../dts/ti/k3-am68-phyboard-izar-pwm-fan.dtso | 74 +++++++++++++++++++
- 2 files changed, 79 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-pwm-fan.dtso
-
-diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index 371f9a043fe5..bf03d895aed8 100644
---- a/arch/arm64/boot/dts/ti/Makefile
-+++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -173,7 +173,10 @@ k3-am68-phyboard-izar-lvds-ph128800t006-dtbs := k3-am68-phyboard-izar.dtb \
- 	k3-am68-phyboard-izar-lvds-ph128800t006.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am68-phyboard-izar-peb-av-15.dtb
- k3-am68-phyboard-izar-peb-av-15-dtbs := k3-am68-phyboard-izar.dtb \
--        k3-am68-phyboard-izar-peb-av-15.dtbo
-+	k3-am68-phyboard-izar-peb-av-15.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am68-phyboard-izar-pwm-fan.dtb
-+k3-am68-phyboard-izar-pwm-fan-dtbs := k3-am68-phyboard-izar.dtb \
-+	k3-am68-phyboard-izar-pwm-fan.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am68-sk-base-board.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am68-sk-base-board-pcie1-ep.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-j721s2-common-proc-board.dtb
-@@ -387,6 +390,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
- 	k3-am642-tqma64xxl-mbax4xxl-wlan.dtb \
- 	k3-am68-phyboard-izar-lvds-ph128800t006.dtb \
- 	k3-am68-phyboard-izar-peb-av-15.dtb \
-+	k3-am68-phyboard-izar-pwm-fan.dtb \
- 	k3-am68-sk-base-board-csi2-dual-imx219.dtb \
- 	k3-am68-sk-base-board-pcie1-ep.dtb \
- 	k3-am69-sk-csi2-dual-imx219.dtb \
-diff --git a/arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-pwm-fan.dtso b/arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-pwm-fan.dtso
-new file mode 100644
-index 000000000000..8c1a51216a90
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-pwm-fan.dtso
-@@ -0,0 +1,74 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Copyright (C) 2026 PHYTEC Messtechnik GmbH
-+ * Author: Dominik Haller <d.haller@phytec.de>
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/pwm/pwm.h>
-+#include "k3-pinctrl.h"
-+
-+&{/} {
-+	pwmfan: pwm-fan {
-+		compatible = "pwm-fan";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&main_pwmfan_default_pins>;
-+		#cooling-cells = <2>;
-+		cooling-levels = <0 90 150 255>;
-+		/* frequency needs to be the same as lvds backlight */
-+		pwms = <&main_ehrpwm0 0 44000 PWM_POLARITY_INVERTED>;
-+	};
-+};
-+
-+&main_pmx0 {
-+	main_pwmfan_default_pins: main-pwmfan-default-pins {
-+		pinctrl-single,pins = <
-+			J721S2_IOPAD(0x0cc, PIN_OUTPUT, 5) /* (AE27) SPI0_CS0.EHRPWM0_A */
-+		>;
-+	};
-+};
-+
-+&main_ehrpwm0 {
-+	status = "okay";
-+};
-+
-+&main3_thermal {
-+	trips {
-+		cpu_low: cpu-low {
-+			hysteresis = <3000>;
-+			temperature = <55000>;
-+			type = "active";
-+		};
-+
-+		cpu_med: cpu-med {
-+			hysteresis = <3000>;
-+			temperature = <60000>;
-+			type = "active";
-+		};
-+
-+		cpu_high: cpu-high {
-+			hysteresis = <3000>;
-+			temperature = <65000>;
-+			type = "active";
-+		};
-+	};
-+
-+	cooling-maps {
-+		map1 {
-+			cooling-device = <&pwmfan 1 1>;
-+			trip = <&cpu_low>;
-+		};
-+
-+		map2 {
-+			cooling-device = <&pwmfan 2 2>;
-+			trip = <&cpu_med>;
-+		};
-+
-+		map3 {
-+			cooling-device = <&pwmfan 3 3>;
-+			trip = <&cpu_high>;
-+		};
-+	};
-+};
--- 
-2.43.0
-
+T24gVHVlLCBKdWwgMTQsIDIwMjYsIFBldGVyIENoZW4gd3JvdGU6DQo+IE9uIDI2LTA3LTE0IDIz
+OjIzOjAxLCBUaGluaCBOZ3V5ZW4gd3JvdGU6DQo+ID4gT24gTW9uLCBKdWwgMTMsIDIwMjYsIFBl
+dGVyIENoZW4gd3JvdGU6DQo+ID4gPiANCj4gPiA+IFllcywgZVVTQjIgaXMgYmFzZWQgb24gVVRN
+SSBQYXJhbGxlbCBtb2RlLCBidXQgaXQgaGFzIGRlZGljYXRlZA0KPiA+ID4gUGh5c2ljYWwgTGF5
+ZXIgU3VwcGxlbWVudCBbMV0sIGVnIGF0IENIMi40LCBpdCBsaXN0cyBlVVNCMiBQSFkNCj4gPiA+
+IEZlYXR1cmVzLg0KPiA+ID4gDQo+ID4gPiANCj4gPiA+ID4gVG8gZ28gdGhpcyByb3V0ZSBwcm9w
+ZXJseSwgd2UnZCBuZWVkIHRvIGludHJvZHVjZSBhIG5ldyBwaHkgdHlwZQ0KPiA+ID4gPiBhdHRy
+aWJ1dGUgaW4gdGhlIHBoeSBmcmFtZXdvcmssIHdoaWNoIHdpbGwgYmUgYSBiaWdnZXIgY2hhbmdl
+IHRoYXQgbWF5DQo+ID4gPiA+IGltcGFjdCBtb3JlIHRoYW4gdGhpcyBkcml2ZXIuDQo+ID4gPiA+
+IA0KPiA+ID4gDQo+ID4gPiBJdCBpcyBub3QgYXQgZ2VuZXJpYyBQSFkgZnJhbWV3b3JrLCBpdCBp
+cyBqdXN0IGZvciBVU0IgUEhZIGRlZGljYXRlZC4NCj4gPiA+IA0KPiA+ID4gSSBkbyBub3Qgc2Vl
+IGJpZyBjaGFuZ2VzLCBpdCBvbmx5IG5lZWRzIHRvIGNoYW5nZSBhYm92ZSBmaWxlcyBhbmQgcmVs
+YXRlZA0KPiA+ID4gZHQtYmluZGluZyBmaWxlcywgYW5kIG90aGVyIHVzZXJzIG1heSBsZXZlcmFn
+ZSBpdCBpZiB0aGUgY29udHJvbGxlcg0KPiA+ID4gaGFzIHNwZWNpYWwgc2VxdWVuY2Ugb3Igc2V0
+dGluZ3MgZm9yIGVVU0IyLg0KPiA+ID4gDQo+ID4gDQo+ID4gVGhlIHVzYnBoeV9tb2RlcyBkZXNj
+cmliZXMgdGhlIGludGVyZmFjZSBiZXR3ZWVuIHRoZSBjb250cm9sbGVyIGFuZCB0aGUNCj4gPiBw
+aHkuIGV1c2IyIHN0aWxsIHVzZXMgdXRtaSwgc28gYWRkaW5nIGV1c2IyIHRoZXJlIGlzIHNlbWF0
+aWNhbGx5DQo+ID4gaW5jb3JyZWN0LiBJZiB3ZSBpbnRyb2R1Y2UgdGhlIGV1c2IyIG1vZGUgdGhl
+cmUsIHdlJ2QgaGF2ZSB0byBhdWRpdCBkd2MzDQo+ID4gYW5kIGV2ZXJ5IG90aGVyIGRyaXZlciB0
+aGF0IHVzZXMgdXNicGh5X21vZGVzIHRvIGhhbmRsZSB0aGUgbmV3IG1vZGUNCj4gPiBjb3JyZWN0
+bHkuDQo+ID4gDQo+ID4gVGhhdCBzYWlkLCBJIGhhdmUgbm8gb2JqZWN0aW9uIHRvIGFkZGluZyBh
+IG5ldyBwaHkgdHlwZSBmb3IgZXVzYjIuIEkNCj4gPiBqdXN0IHdhbnQgdG8gbm90ZSBpdCBpcyBh
+IGJpZ2dlciBjaGFuZ2UgcmVsYXRpdmUgdG8gYWRkaW5nIGEgYm9vbGVhbg0KPiA+IHByb3BlcnR5
+IHRvIHRoZSBEVCBiaW5kaW5nLg0KPiA+IA0KPiANCj4gSGkgVGhpbmgsDQo+IA0KPiBPbmx5IHRo
+ZSBuZXcgdXNlciBmb3IgYWRkaW5nIHBoeV90eXBlPSJldXNiMiIgYXQgZHRzIG5lZWRzIHRvIGNo
+ZWNrIHRoZQ0KPiBjb250cm9sbGVyIGxvZ2ljLCBhbmQgdGhpcyBpcyB3aGF0IHRoZSB1c2VyIG5l
+ZWRzIHRvIGRvIHRoYXQgY2hlY2sgdGhlDQo+IG5ldyBhZGRlZCBkZXZpY2UgdHJlZSBwcm9wZXJ0
+eSBsb2dpYyBhdCB0aGUgZHJpdmVyLg0KDQpUbyBjbGFyaWZ5LCBhcmUgeW91IHN1Z2dlc3Rpbmcg
+dG8gaW50cm9kdWNlIGEgbmV3IHBoeV90eXBlIHByb3BlcnR5IHRvDQppbmRpY2F0ZSBwaHkgdHlw
+ZT8gSWYgc28sIHRoYXQgc291bmRzIHNpbWlsYXIgdG8gcWNvbSxoYXMtZXVzYjItcGh5IGJ1dA0K
+bW9yZSBnZW5lcmljLiBBbHNvLCB3aGVyZSBkbyB5b3UgcGxhbiB0byBkZWZpbmUgaXQgKGR3YzMg
+b3IgcGh5IG5vZGUpPw0KDQo+IA0KPiBTbywgaXQgd2lsbCBub3QgYWZmZWN0IGN1cnJlbnQgdXNl
+ciBmb3IgcGh5X3R5cGUsIGFuZCBJIGNoZWNrZWQgdGhlIGR3YzMNCj4gY29yZSwgaXQgZG9lcyBu
+b3QgbmVlZCB0byBjaGFuZ2UgY29kZSBmb3IgbmV3IHBoeSB0eXBlLg0KPiANCj4gQ3VycmVudGx5
+LCBpdCBpcyBvbmx5IGJlbmVmaXQgZm9yIHFjb20gcGxhdGZvcm0sIGJ1dCBldXNiMiAodWVzYjJ2
+MiBsYXRlcikNCj4gaXMgdGhlIGNvbW1vbiBVU0IyIG1vZGUsIG90aGVyIHVzZXJzIG1heSBsZXZl
+cmFnZSBmb3IgdGhpcyBuZXcgcGh5IHR5cGUuDQo+IA0KDQpJZiB5b3UgbWVhbiBkZWZpbmluZyBh
+IG5ldyBQSFlfVFlQRV9FVVNCMiBjb25zdGFudCBpbg0KaW5jbHVkZS9kdC1iaW5kaW5ncy9waHkv
+cGh5LmgsIHRoZSBnbHVlIGRyaXZlciBuZWVkcyB0byBwYXJzZSB0aGUNCnBoYW5kbGUgYXJncywg
+YW5kIHRoZSBldXNiMiBiaW5kaW5ncyB3b3VsZCBhbHNvIG5lZWQgdG8gY2hhbmdlIHRoZQ0KbnVt
+YmVyIG9mICNwaHktY2VsbHMuIFRoYXQncyBhIGJpZ2dlciBjaGFuZ2UuDQoNClRoYW5rcywNClRo
+aW5o
