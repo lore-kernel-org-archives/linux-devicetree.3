@@ -1,106 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F2A34A3AB
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 21:28:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11610399377;
+	Thu, 16 Jul 2026 21:31:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784237320; cv=none; b=d917mBX1ePYxircNFJtWlBVotVwqYS6sGWJcb2BNORtTbu0WrtmCuUs1vKupoJ8y00Ih2Wu2+1GlzQYUZFALHl8ReOZ9esaPPKrQRYBIAb9oVq7mfZyKUijoKg/VvvOwhCH7f8S0cppNRw7M/r3e46D/uToziu/e4LL2gw+TXjI=
+	t=1784237476; cv=none; b=iyXAOiGOM6V4ZT/ppBvoh07m/n9Gxi2gXlWMlfn6XfBcHAwZK3ZvreQEzku/S7/gR3Yh2ksscC+Z6xvKDICtJ/ck2gxflLfAxWIV6IsT99E39F6ybbEpwK7+T4k1v4QF5g0qgwzqdu8cUdGCf9RD0l0cHoy1WpOzU4SqT3CGnkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784237320; c=relaxed/simple;
-	bh=eVW1FX/o1J1V51pt/koYfBZv9wxbAmzy887C3TP3ODY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Bm8egs/ifPJgjVQsyeLp+zjTOKwDknm+9pyB6r0bNKIsI6Uhn+SqlkjaF4mcpJtrqClTTUVptesrViIxaJllFFC2kSbj4RKzHxCPEpJNiven34K+a8MtpsuMC5QIvp0uBtDk4DQ/He4NYmt5moEXRnOTh7DIDjoO1713Ux7fO1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LaxilI/H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784237476; c=relaxed/simple;
+	bh=LkJq9jQsyM08G5vakOYdHBCw49Bildrt7SZugRBmbRE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eDob+YUtiyTAU9wxGVw9biazhUdZit4bly1tEEPD9yuDJFbwP5KMyiNvCfroJkV7WIxzotOs+a26WGbWmgUe5PMLxa6lk+IjSsqa+0/8CFHnYPt0YpzEx28+nKdbFWIox5oTwILjMucZX5J/KW1Uwg49FITtQDL5oNhXp9oi8sM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=UsM5lhk1; arc=none smtp.client-ip=195.154.119.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LaxilI/H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95B3F1F000E9;
-	Thu, 16 Jul 2026 21:28:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784237319;
-	bh=+eDaN4gSmbaO01DsKCGQcYOOVlD41y/UXWd5dN+6Z1g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LaxilI/HXgcEhuHS7++lJn30oxZdf+oD7zMj5jD4g0jw60QHCjO2Tkf45c2YGg7X1
-	 34s8j8qXw/VYHp9YKP59GRSdHndWwNsZBouFf2jzTkZyxAvZIBQpOAEY4GwZK+1Ot8
-	 ygoxfxx0opA+0O5UEOiuJhQ0r3ujWM5si0kuYPDLML9ubko4QNb2g/ZCDwISn5+V/m
-	 L9ixyfFp/mqd5bfe2FmpF+xnA5GMoALSCPZOSWxvHXbKJBRoKyGXpB/W92c631L6rM
-	 e5as9T2AeTKyr2O1sGqHGA9xVCbt/6jINw4DSZq+DdPzVD9ZaWnRMFntznsiTBRX8y
-	 bEszy18vNlw/g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/4] iio: adc: ltc2378: Add support for LTC2378-20
- and similar ADCs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <5108c89986ae8723139419058db1b2f2e74daff6.1784235595.git.marcelo.schmitt@analog.com>
-References: <cover.1784235595.git.marcelo.schmitt@analog.com>
- <5108c89986ae8723139419058db1b2f2e74daff6.1784235595.git.marcelo.schmitt@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 21:28:38 +0000
-Message-Id: <20260716212838.95B3F1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="UsM5lhk1"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
+	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
+	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
+	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
+	bh=DLyqifiJvUqD1TFfODwLCmx07fkJuJfKQGsBLX8IZRc=; b=UsM5lhk1eT8JUMCjFx1ZaIBmgB
+	M6oE6oAh/Yy8sqcqe3bBv9cM5wxp467kplWvF3DMnnfx34SQI8YkdNplUtaizM/DKzivX0mWlCZ9E
+	GBH158jtsuJZB8koFIxIeSNI5PeJyPwkZDj1sN2EsXgWfmd1Ptag+2qhuEnpZFZvUHPc34IMcGfzN
+	qk3HvL3tb3UGibM/2fpu1Or71ggpOUHnKYyxfJtmw2iF8BdemAxoAXn5cZmO0SbII0ZfnCG+8NEnr
+	aeY5vzUmGou1lBrEZ6gONWBgmI0sLlFYcAbPhZ3lqpdjg9099za+asd76i5+6ENUpj44B+aNi8h5v
+	hkW5RKdQ==;
+Received: from authenticated user
+	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <aurelien@aurel32.net>)
+	id 1wkTfj-00000003GSb-2MgD;
+	Thu, 16 Jul 2026 23:31:11 +0200
+Date: Thu, 16 Jul 2026 23:31:10 +0200
+From: Aurelien Jarno <aurelien@aurel32.net>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH 1/2] riscv: dts: spacemit: k3: add USB controller and USB
+ phy support
+Message-ID: <allNnol5HttviAan@aurel32.net>
+Mail-Followup-To: Inochi Amaoto <inochiama@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>
+References: <20260709040415.977784-1-inochiama@gmail.com>
+ <20260709040415.977784-2-inochiama@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260709040415.977784-2-inochiama@gmail.com>
+User-Agent: Mutt/2.2.13 (2024-03-09)
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `LTC2378_DIFF_CHANNEL` macro defines an IIO channel that is =
-intended to be differential but lacks the `.differential =3D 1`, `.indexed =
-=3D 1`, `.channel =3D 0`, and `.channel2 =3D 1` attributes.
---
-
---- Patch [2]: [PATCH v7 2/4] iio: adc: ltc2378: Add support for LTC2378-20=
- and similar ADCs ---
-commit 5710d5f25b45906977e2522567c1964b1d3219f8
-Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
-
-iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs
-
-This commit adds a new driver for the Analog Devices LTC2378-20 and
-similar analog-to-digital converters.
-
-> diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
-> new file mode 100644
-> index 0000000000000..5600c820c7f45
-> --- /dev/null
-> +++ b/drivers/iio/adc/ltc2378.c
-> @@ -0,0 +1,416 @@
-[ ... ]
-> +#define LTC2378_DIFF_CHANNEL(_sign, _real_bits, _storage_bits)			\
-> +{										\
-> +	.type =3D IIO_VOLTAGE,							\
-> +	.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |				\
-> +			      BIT(IIO_CHAN_INFO_SCALE),				\
-> +	.scan_index =3D 0,							\
-
-[Severity: Medium]
-Does this macro need to set .differential =3D 1, .indexed =3D 1, .channel =
-=3D 0,
-and .channel2 =3D 1? The name suggests these are differential channels, but
-without these attributes, the IIO ABI will expose them as single-ended
-(e.g., in_voltage_raw instead of in_voltage0-voltage1_raw).
-
-> +	.scan_type =3D {								\
-> +		.format =3D _sign ? IIO_SCAN_FORMAT_SIGNED_INT :			\
-> +				  IIO_SCAN_FORMAT_UNSIGNED_INT,			\
-> +		.realbits =3D _real_bits,						\
-> +		.storagebits =3D _storage_bits,					\
-> +		.shift =3D _storage_bits - _real_bits,				\
-> +		.endianness =3D IIO_BE,						\
-> +	},									\
-> +}
+On 2026-07-09 12:04, Inochi Amaoto wrote:
+> Add all USB device node to the Spacemit K3.
+> 
+> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> ---
+>  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 13 ++++++
+>  arch/riscv/boot/dts/spacemit/k3.dtsi         | 42 ++++++++++++++++++++
+>  2 files changed, 55 insertions(+)
+> 
+> diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> index b89c1521e664..2a6d35a64d5c 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> @@ -182,6 +182,11 @@ dldo7: dldo7 {
+>  	};
+>  };
+>  
+> +&combophy {
+> +	spacemit,apmu = <&syscon_apmu 0x11>;
+> +	status = "okay";
+> +};
 > +
-> +#define LTC2378_BIPOLAR_DIFF_CHANNEL(_real_bits)				\
-> +	LTC2378_DIFF_CHANNEL(1, _real_bits, (((_real_bits) > 16) ? 32 : 16))
+>  &eth0 {
+>  	pinctrl-names = "default";
+>  	pinctrl-0 = <&gmac0_rgmii_0_cfg>, <&gmac0_phy_0_cfg>;
+> @@ -221,3 +226,11 @@ hub@1 {
+>  &usb2_phy {
+>  	status = "okay";
+>  };
 > +
-> +#define LTC2378_UNIPOLAR_DIFF_CHANNEL(_real_bits)				\
-> +	LTC2378_DIFF_CHANNEL(0, _real_bits, (((_real_bits) > 16) ? 32 : 16))
+> +&usb3d_u2phy {
+> +	status = "okay";
+> +};
 > +
-[ ... ]
+> +&usb3d {
+> +	status = "okay";
+> +};
+> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+> index 19fc9b49668e..82c9e2da82e9 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
+> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+> @@ -7,6 +7,7 @@
+>  #include <dt-bindings/clock/spacemit,k3-clocks.h>
+>  #include <dt-bindings/reset/spacemit,k3-resets.h>
+>  #include <dt-bindings/interrupt-controller/irq.h>
+> +#include <dt-bindings/phy/phy.h>
+>  
+>  /dts-v1/;
+>  
+> @@ -438,6 +439,47 @@ soc: soc {
+>  		dma-noncoherent;
+>  		ranges;
+>  
+> +		usb3d: usb@81a00000 {
+> +			compatible = "spacemit,k3-dwc3";
+> +			reg = <0x0 0x81a00000 0x0 0x10000>;
+> +			interrupts = <149 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-parent = <&saplic>;
+> +			clocks = <&syscon_apmu CLK_APMU_USB3_PORTD_BUS>;
+> +			clock-names = "usbdrd30";
+> +			resets = <&syscon_apmu RESET_APMU_USB3_D_AHB>,
+> +				 <&syscon_apmu RESET_APMU_USB3_D_VCC>,
+> +				 <&syscon_apmu RESET_APMU_USB3_D_PHY>;
+> +			reset-names = "ahb", "vcc", "phy";
+> +			phys = <&usb3d_u2phy>,
+> +			       <&combophy 4 PHY_TYPE_USB3>;
+> +			phy-names = "usb2-phy", "usb3-phy";
+> +			phy_type = "utmi";
+> +			snps,dis_enblslpm_quirk;
+> +			snps,dis_u2_susphy_quirk;
+> +			snps,dis_u3_susphy_quirk;
+> +			snps,dis-del-phy-power-chg-quirk;
+> +			snps,dis-tx-ipgap-linecheck-quirk;
+> +			snps,parkmode-disable-ss-quirk;
+> +			dr_mode = "host";
+> +			status = "disabled";
+> +		};
+> +
+> +		usb3d_u2phy: phy@81b00000 {
+> +			compatible = "spacemit,k3-usb2-phy";
+> +			reg = <0x0 0x81b00000 0x0 0x200>;
+> +			clocks = <&syscon_apmu CLK_APMU_USB2_BUS>;
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784235595.gi=
-t.marcelo.schmitt@analog.com?part=3D2
+This should be CLK_APMU_USB3_PORTD_BUS.
+
+I am also not sure you want to declare the USB3 PHY in k3.dtsi. I think
+it should be defined at the board level, as other boards than the k3 
+Pico ITX might decide to keep this controller as USB 2 only and use the 
+combo PHY for PCIe.
+
+-- 
+Aurelien Jarno                          GPG: 4096R/1DDD8C9B
+aurelien@aurel32.net                     http://aurel32.net
