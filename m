@@ -1,122 +1,106 @@
-Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 816FE2F84F;
-	Thu, 16 Jul 2026 21:26:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F2A34A3AB
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 21:28:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784237208; cv=none; b=ZqBq/Tp8ShSxprlNaf6CZ+Qu4PyQXzuglXbDah+/BG8n0n4gUglGcgqSh+z9ngdcoT8d3zsIPrAAUlbvgHs0Dsygmq1za5ikCwz0GO25qG4CvfOClCHLNFRSz8U7SPnE3HWu0rdNoSotasAOoVrFCnrybJmhmReJBYXiTuRTJ7o=
+	t=1784237320; cv=none; b=d917mBX1ePYxircNFJtWlBVotVwqYS6sGWJcb2BNORtTbu0WrtmCuUs1vKupoJ8y00Ih2Wu2+1GlzQYUZFALHl8ReOZ9esaPPKrQRYBIAb9oVq7mfZyKUijoKg/VvvOwhCH7f8S0cppNRw7M/r3e46D/uToziu/e4LL2gw+TXjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784237208; c=relaxed/simple;
-	bh=eBD3xC2w2r6IMFzyfSKGhQgxI2gP5si1zBfAThzzpfg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e2rBdNxqjV5ih0U6McWcOL8pNvl78jIwYSOO45CPKAUP9I2w6rrRiSaMUDAzOvqg032QJzBl1i53wkkSxM4vhMjHqDuEjkUdBuKpQPQeVSmgQE7zsH9tFLoe+QtXBLdaqsQetX4pte+/XzEDCeEM3lhA0bVBsXAPg1iudJtdEEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=cETsKBSL; arc=none smtp.client-ip=195.154.119.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+	s=arc-20240116; t=1784237320; c=relaxed/simple;
+	bh=eVW1FX/o1J1V51pt/koYfBZv9wxbAmzy887C3TP3ODY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Bm8egs/ifPJgjVQsyeLp+zjTOKwDknm+9pyB6r0bNKIsI6Uhn+SqlkjaF4mcpJtrqClTTUVptesrViIxaJllFFC2kSbj4RKzHxCPEpJNiven34K+a8MtpsuMC5QIvp0uBtDk4DQ/He4NYmt5moEXRnOTh7DIDjoO1713Ux7fO1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LaxilI/H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="cETsKBSL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
-	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
-	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
-	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=IHHFZjWtMO0vAPMAs5btZr8tg9GjbzOdB+otmk/vwXE=; b=cETsKBSL6nUmD7VJt4o3Zp8jqG
-	xs+K/FktxVlsQBPuvrY7A80KwrljJJGEaVST+WolVNYk4CV2Z3WD5ILuBqJf153xu8Sw5QNUmXQ6Q
-	vH3e+2fT6JHUv+4sO/9THyFf/YeXQrUXtTYpS5LpRo/zi1clDvsvT0ZJoRimxIlmxs1bV0BHiPRER
-	fLMVf4ERAWxNBQQdwaCFIuK11Bbj3gtvM5YdzbIu8uVHAY8D+7Z35G5rZMSiW09dfLpIs9yWidYxt
-	2lQ5GTjs7VN3hXokGWUKW5RemGv9yCM2Y79TxMHELEIKWYV9664IknlrorIilev8q/hzwGfBNqemy
-	+erHCU1g==;
-Received: from authenticated user
-	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <aurelien@aurel32.net>)
-	id 1wkTbL-00000003GBa-2jK7;
-	Thu, 16 Jul 2026 23:26:39 +0200
-Date: Thu, 16 Jul 2026 23:26:38 +0200
-From: Aurelien Jarno <aurelien@aurel32.net>
-To: Yixun Lan <dlan@kernel.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@sandisk.com>,
-	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] riscv: dts: spacemit: k3: Add UFS support
-Message-ID: <allMjjHX9JhMm1M4@aurel32.net>
-Mail-Followup-To: Yixun Lan <dlan@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@sandisk.com>,
-	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-References: <20260702-08-k3-ufs-support-v1-0-1a64a3ab128f@kernel.org>
- <20260702-08-k3-ufs-support-v1-3-1a64a3ab128f@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LaxilI/H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95B3F1F000E9;
+	Thu, 16 Jul 2026 21:28:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784237319;
+	bh=+eDaN4gSmbaO01DsKCGQcYOOVlD41y/UXWd5dN+6Z1g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LaxilI/HXgcEhuHS7++lJn30oxZdf+oD7zMj5jD4g0jw60QHCjO2Tkf45c2YGg7X1
+	 34s8j8qXw/VYHp9YKP59GRSdHndWwNsZBouFf2jzTkZyxAvZIBQpOAEY4GwZK+1Ot8
+	 ygoxfxx0opA+0O5UEOiuJhQ0r3ujWM5si0kuYPDLML9ubko4QNb2g/ZCDwISn5+V/m
+	 L9ixyfFp/mqd5bfe2FmpF+xnA5GMoALSCPZOSWxvHXbKJBRoKyGXpB/W92c631L6rM
+	 e5as9T2AeTKyr2O1sGqHGA9xVCbt/6jINw4DSZq+DdPzVD9ZaWnRMFntznsiTBRX8y
+	 bEszy18vNlw/g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/4] iio: adc: ltc2378: Add support for LTC2378-20
+ and similar ADCs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <5108c89986ae8723139419058db1b2f2e74daff6.1784235595.git.marcelo.schmitt@analog.com>
+References: <cover.1784235595.git.marcelo.schmitt@analog.com>
+ <5108c89986ae8723139419058db1b2f2e74daff6.1784235595.git.marcelo.schmitt@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 16 Jul 2026 21:28:38 +0000
+Message-Id: <20260716212838.95B3F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260702-08-k3-ufs-support-v1-3-1a64a3ab128f@kernel.org>
-User-Agent: Mutt/2.2.13 (2024-03-09)
 
-On 2026-07-02 02:31, Yixun Lan wrote:
-> Add UFS Host Controller support for SpacemiT K3 SoC, and enable
-> it both on both Pico-ITX and CoM260-IFX boards.
-> 
-> Signed-off-by: Yixun Lan <dlan@kernel.org>
-> ---
->  arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts |  4 ++++
->  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts   |  4 ++++
->  arch/riscv/boot/dts/spacemit/k3.dtsi           | 13 +++++++++++++
->  3 files changed, 21 insertions(+)
-> 
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-> index 238bb03d0e9e..b37e1c7b03e3 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-> @@ -19,3 +19,7 @@ chosen {
->  		stdout-path = "serial0:115200n8";
->  	};
->  };
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `LTC2378_DIFF_CHANNEL` macro defines an IIO channel that is =
+intended to be differential but lacks the `.differential =3D 1`, `.indexed =
+=3D 1`, `.channel =3D 0`, and `.channel2 =3D 1` attributes.
+--
+
+--- Patch [2]: [PATCH v7 2/4] iio: adc: ltc2378: Add support for LTC2378-20=
+ and similar ADCs ---
+commit 5710d5f25b45906977e2522567c1964b1d3219f8
+Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
+
+iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs
+
+This commit adds a new driver for the Analog Devices LTC2378-20 and
+similar analog-to-digital converters.
+
+> diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
+> new file mode 100644
+> index 0000000000000..5600c820c7f45
+> --- /dev/null
+> +++ b/drivers/iio/adc/ltc2378.c
+> @@ -0,0 +1,416 @@
+[ ... ]
+> +#define LTC2378_DIFF_CHANNEL(_sign, _real_bits, _storage_bits)			\
+> +{										\
+> +	.type =3D IIO_VOLTAGE,							\
+> +	.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |				\
+> +			      BIT(IIO_CHAN_INFO_SCALE),				\
+> +	.scan_index =3D 0,							\
+
+[Severity: Medium]
+Does this macro need to set .differential =3D 1, .indexed =3D 1, .channel =
+=3D 0,
+and .channel2 =3D 1? The name suggests these are differential channels, but
+without these attributes, the IIO ABI will expose them as single-ended
+(e.g., in_voltage_raw instead of in_voltage0-voltage1_raw).
+
+> +	.scan_type =3D {								\
+> +		.format =3D _sign ? IIO_SCAN_FORMAT_SIGNED_INT :			\
+> +				  IIO_SCAN_FORMAT_UNSIGNED_INT,			\
+> +		.realbits =3D _real_bits,						\
+> +		.storagebits =3D _storage_bits,					\
+> +		.shift =3D _storage_bits - _real_bits,				\
+> +		.endianness =3D IIO_BE,						\
+> +	},									\
+> +}
 > +
-> +&ufshc {
-> +	status = "okay";
-> +};
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> index b89c1521e664..f1560a5a9031 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> @@ -221,3 +221,7 @@ hub@1 {
->  &usb2_phy {
->  	status = "okay";
->  };
+> +#define LTC2378_BIPOLAR_DIFF_CHANNEL(_real_bits)				\
+> +	LTC2378_DIFF_CHANNEL(1, _real_bits, (((_real_bits) > 16) ? 32 : 16))
 > +
-> +&ufshc {
-> +	status = "okay";
-> +};
+> +#define LTC2378_UNIPOLAR_DIFF_CHANNEL(_real_bits)				\
+> +	LTC2378_DIFF_CHANNEL(0, _real_bits, (((_real_bits) > 16) ? 32 : 16))
+> +
+[ ... ]
 
-I guess you want to keep the nodes sorted and put it before usb2_host. Anyway:
-
-Tested-by: Aurelien Jarno <aurelien@aurel32.net>
-
--- 
-Aurelien Jarno                          GPG: 4096R/1DDD8C9B
-aurelien@aurel32.net                     http://aurel32.net
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784235595.gi=
+t.marcelo.schmitt@analog.com?part=3D2
