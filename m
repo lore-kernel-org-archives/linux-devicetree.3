@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E382F290B
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 08:12:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8342933DED5
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 08:13:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784189551; cv=none; b=jzgabx75QGpoMufY9Bp1+Ci1ezlcjFNBM2CJFnyjt04lR84XC4uiJqgkUodHJ4U653BeKGSnD3zu8njOgayJbXZbTLUdiRveyenE1p1fc6WHmRF/Hj1Ex8phnWKsqBKnF4VBIt9gAm9orzuHwMUeWMD6106DRlVHi+TKQ5LctPU=
+	t=1784189582; cv=none; b=YDbSx5RqS7rRj+yAaQUuesvqXJFbWbxUGmbBMsgp+Q5gOuMQU2fVxE/4gC2TVMjyjkwGyrjvKF4LKqVaUIp8tZnowVMAmtW21ODw8/QgOAMAJLypKOc7A50OWzCozrYP7ji8/n5LCRedTc64h8YE4HnQcF9xM82kl2mVgl85MQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784189551; c=relaxed/simple;
-	bh=2+44lmWK9sBg0XccBXr2cyg6rQAMrdv4RdwzYGJ5FgA=;
+	s=arc-20240116; t=1784189582; c=relaxed/simple;
+	bh=JabEcnxLLj/kgEwv2xXdwiWkj6WnAqP/2wVxAMxxoTg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oAyWAKNqqQH/1QozXzUmBIshHYs6hEBXgTQjejiDU0UQM9sPf7AFSUfl0IXec7p9VtpOtMDW6fF8Lo0BsjPJMEsdKCDpodM/jIBTuMKcY9HR7BU8p1HNuHGiUQwjCdbkavegq1YppJgEgPPBhQVabbEtg/7xMvEMpxgCxzgPUz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JC8hd/uQ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=NAE8xbBhBG2gCyz4eEriuS1moDN/kNXSzrqC7JTz0tuzlWro3LUI3y+sRz7Rxo6L16eGiQeYGuvsjpnIUN0C0GvmcHvFdg08t1hLe6mGyEoygs/mehOK2K+LzvsweNZwu+kZX6NFJEAsXX92NNE81Ob8URzlCjot5gj5eMN4Ins=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JOb9Q//z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JC8hd/uQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 079AF1F000E9;
-	Thu, 16 Jul 2026 08:12:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JOb9Q//z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 182221F000E9;
+	Thu, 16 Jul 2026 08:13:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784189549;
-	bh=/h9zdnP2OWr/4UwmfdnWI84JhDqv9X2/irba2z6cc/A=;
+	s=k20260515; t=1784189581;
+	bh=mtJsyARLB6wnK2laYsPM2ArpQZBrTTd4M484W7GAXS4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JC8hd/uQec+i0feOdeqtbCa8wb803CIIH/PeV3aPE9zd5ED3+kyBUFp2toSUQy0vD
-	 nMtkSfxXNDu4nx4QHGILKSY0BtDnv2g8HPolra3UVLTJp3Q3jttsBjDLaYPqkpPoR5
-	 tm0NWl9xAbQqScjiuT+tWQqPUXVuLvlN2MXDEZItphQF7CdzYNV81EOxZ4ofJDTDhO
-	 0XumlKIXCzff3srLwHXTKH0I83e18rD7e0J5KaEg+6KZy4G9w/L6b77O4HAnvfJji7
-	 rhZxU5oTkrbjNk0NqitV9HExb+2sX9dbEu0CqZH6BUYXf8F7CbPf0Xw/mXMJEljixQ
-	 i7XW4NVyOOLvQ==
+	b=JOb9Q//zYZkwMPF02qtnQ4gtkQDyvqDWaFD91kpQh5n4XxA/GmoN/YIRDTDCU8p46
+	 GkPy2421vNwtHh5wz3ccMxJj4a8785mKU2qTLNII7CsoVVCVtp70ow+825ztYsXJgc
+	 QAXmnZURtIQ1+/oTkDgcMh8s9V6StByYwmRNMOZg92u3Bs291WMz0TFOE8DMtK9CRq
+	 zB1f+xlbpbrRbPSm4lfVdz9nrCN6E5GIGuhEWAqdiRyciSy5w4sEYbvqiQV5fZ1zKJ
+	 9ozFgkU2Ie3RZAJilWhk4toE11g5J4BM7w/w4tcpsNfSZAgwBJZT9aw+vOWySgU7/T
+	 AtnGb3dCjzBew==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] iio: dac: ad5710r: Add driver for AD5710R and
- AD5711R
+Subject: Re: [PATCH 2/3] dt-bindings: iio: dac: add adi,ad5710r.yaml
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kim Seer Paller" <kimseer.paller@analog.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260716-iio-ad5710r-upstream-v1-3-e848a4bb701f@analog.com>
+In-Reply-To: <20260716-iio-ad5710r-upstream-v1-2-e848a4bb701f@analog.com>
 References: <20260716-iio-ad5710r-upstream-v1-0-e848a4bb701f@analog.com>
- <20260716-iio-ad5710r-upstream-v1-3-e848a4bb701f@analog.com>
+ <20260716-iio-ad5710r-upstream-v1-2-e848a4bb701f@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 08:12:28 +0000
-Message-Id: <20260716081229.079AF1F000E9@smtp.kernel.org>
+Date: Thu, 16 Jul 2026 08:13:00 +0000
+Message-Id: <20260716081301.182221F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,88 +46,89 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Potential NULL pointer dereference of `st->chip_info`.
-- [Medium] The return value of reset_control_assert() is ignored, masking p=
-otential reset failures.
+- [Medium] The `minimum` and `maximum` constraints on the channel `reg` pro=
+perty are incorrectly wrapped in an `items` list schema, causing them to be=
+ silently ignored by the JSON Schema validator.
+- [Medium] The binding introduces a custom global property `adi,range-doubl=
+e` to configure the voltage range, which contradicts the hardware's per-cha=
+nnel capability and ignores standard IIO properties.
 --
 
---- Patch [3]: [PATCH 3/3] iio: dac: ad5710r: Add driver for AD5710R and AD=
-5711R ---
-commit b76ab75f312950575e4dba88d63f7b40e599ffe4
+--- Patch [2]: [PATCH 2/3] dt-bindings: iio: dac: add adi,ad5710r.yaml ---
+commit cd748f09cddc4b7eb091c3829a62e52f260a76b0
 Author: Kim Seer Paller <kimseer.paller@analog.com>
 
-iio: dac: ad5710r: Add driver for AD5710R and AD5711R
+dt-bindings: iio: dac: add adi,ad5710r.yaml
 
-This commit adds a new driver for the AD5710R and AD5711R DACs.
-The devices are 8-channel, low-power, configurable current/voltage
-output DACs.
+This commit adds device tree bindings for the Analog Devices AD5710R/AD5711R
+8-channel 12-/16-bit Configurable IDAC/VDAC.
 
-> diff --git a/drivers/iio/dac/ad5710r.c b/drivers/iio/dac/ad5710r.c
+> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5710r.yaml b=
+/Documentation/devicetree/bindings/iio/dac/adi,ad5710r.yaml
 > new file mode 100644
-> index 0000000000000..05bdada0bb6eb
+> index 0000000000000..17c1bf0092421
 > --- /dev/null
-> +++ b/drivers/iio/dac/ad5710r.c
+> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5710r.yaml
+> @@ -0,0 +1,143 @@
 
 [ ... ]
 
-> +static int ad5710r_setup(struct ad5710r_state *st, int external_vref_uV,=
- u8 *num_channels)
-> +{
+> +description: |
+> +  The AD5710R (16-bit) and AD5711R (12-bit) are 8-channel, low-power,
+> +  configurable current/voltage output digital-to-analog converters (DACs=
+) with
+> +  an on-chip 2.5V, 3ppm/=C2=B0C reference. Each channel can be independe=
+ntly
+> +  configured as a voltage output (0V to VREF or 0V to 2xVREF) or a curre=
+nt
 
 [ ... ]
 
-> +	if (reset) {
-> +		/* Hold RESET low; tRESET pulse width is 160 ns min (Table 4) */
-> +		reset_control_assert(reset);
+> +  adi,range-double:
+> +    description:
+> +      Configure the output range for all channels. If the property is pr=
+esent,
+> +      the output will range from 0V to 2Vref. If the property is not pre=
+sent,
+> +      the output will range from 0V to Vref.
+> +    type: boolean
 
 [Severity: Medium]
-Could this reset assertion fail? The return value of reset_control_assert()=
- is
-ignored here, which might leave the device in an unknown state if the reset
-controller (e.g., over I2C) returns an error.
+The description above explicitly states that "Each channel can be independe=
+ntly
+configured as a voltage output (0V to VREF or 0V to 2xVREF)". Does defining
+this as a global property artificially limit the hardware's per-channel
+capabilities?
 
-> +		fsleep(1);
-> +		ret =3D reset_control_deassert(reset);
-> +		if (ret)
-> +			return ret;
-> +	} else {
-
-[ ... ]
-
-> +static int ad5710r_probe(struct spi_device *spi)
-> +{
+Also, since the schema includes dac.yaml, could the standard per-channel
+property output-range-microvolt be used instead of defining a custom global
+boolean?
 
 [ ... ]
 
-> +	st->regmap =3D devm_regmap_init_spi(spi, &ad5710r_regmap_config);
-> +	if (IS_ERR(st->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(st->regmap),
-> +				     "Failed to init regmap\n");
+> +patternProperties:
+> +  "^channel@[0-7]$":
+> +    $ref: /schemas/iio/dac/dac.yaml#
+> +    type: object
+> +    description:
+> +      Represents the external channels which are connected to the DAC.
 > +
-> +	st->chip_info =3D spi_get_device_match_data(spi);
+> +    properties:
+> +      reg:
+> +        description: Channel number
+> +        items:
+> +          minimum: 0
+> +          maximum: 7
 
-[ ... ]
+[Severity: Medium]
+Are these minimum and maximum constraints incorrectly wrapped in an items
+list?
 
-> +	ret =3D ad5710r_setup(st, external_vref_uV, &num_channels);
-> +	if (ret)
-> +		return ret;
-> +
-> +	indio_dev->name =3D st->chip_info->name;
-
-[Severity: High]
-Is it possible for st->chip_info to be NULL here? If the device is bound via
-fallback mechanisms like writing to the driver_override sysfs attribute,
-spi_get_device_match_data() might return NULL, leading to a NULL pointer
-dereference when accessing st->chip_info->name.
-
-> +	indio_dev->info =3D &ad5710r_info;
-> +	indio_dev->modes =3D INDIO_DIRECT_MODE;
-> +	indio_dev->channels =3D st->iio_channels;
-> +	indio_dev->num_channels =3D num_channels;
-> +
-> +	return devm_iio_device_register(&spi->dev, indio_dev);
-> +}
+Since JSON Schema ignores numeric keywords when applied to an array type,
+will these bounds be silently bypassed during dt_binding_check validation,
+allowing out-of-bounds reg values? Should the minimum and maximum
+constraints be placed directly under the reg property instead?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-iio-ad5710=
-r-upstream-v1-0-e848a4bb701f@analog.com?part=3D3
+r-upstream-v1-0-e848a4bb701f@analog.com?part=3D2
