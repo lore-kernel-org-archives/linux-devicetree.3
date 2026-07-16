@@ -1,160 +1,177 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7603C3BED33
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 07:45:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4435834751B
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 07:50:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784187907; cv=none; b=Y2MLOPYcH5owASJq8P1WmuZn8WJXP2/wGSflii/IFTBUXH9W+CZzP0uXR71Zg5X1YEpnz80m+yMqTMfC6Np9NLePcMSDRTRTWDr4GM4yr0BUs6jQSTWFNs6FQyz5OCbJQ0NMZsWmgNIorIrnNyZfqxpQEDVhTOqo74pJdFyJaUU=
+	t=1784188213; cv=none; b=M+V0iH0tcGDF2Qy57hbmn9km3iBn7prZva0kPMLqgWpeou3CQ9PBZX8WudNFtMjw7B8Db5IA1V/GwLYeycIDM4Fq56mZ1L1Cg78KSAGiVwh08SmS4FTuET0TpKTGMeKPKiu9dL6zNQV6VI8b+xqY5TygIOvhbEnhEbRKvXl1O2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784187907; c=relaxed/simple;
-	bh=WFkoATWlYCc7bvJGZ9OZ5oGcqGoyYWfN/F2kt/MqMWc=;
+	s=arc-20240116; t=1784188213; c=relaxed/simple;
+	bh=WSm5DvyF8kAHJUVbVgOYyfVr+aqNLZrjwo3Xgdhidzg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eAWoi51UkJQVNr604kvZHfKrslFq0eDWtkvurBSBBDfR4T5Jry5YIKs9ltXp68EdyioDCy6NwUhgZvgQRZxe9AIPY7D+p60GlZ0FRO3uWm195BR2SFUSvJXIaDtgZX+uJ8J6eGJEinygX/BcyhkOIJHpYXUgtrhgOwWYu+HGe1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CgJ10oIO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bv/duN2g; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=E9OXEbVDjxrMjE2/TqMapwhn6TubIw/YgpTOgRUxKUZSrbzOKeS90e82U1+BIfRyX6yK5pnNsvX5pPsApargRFIdE1/jwJ38ENd/0n+SRz7jGg8R9G4YZ8WnCcEQ6krpV7ZhRCoC8DzBGlzajv860GvNoSREGNW/jzTCTQgJ0Cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Lupt5wgq; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CgJ10oIO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bv/duN2g"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66G7XOeE2175971
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 07:45:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=vP4P2MRDhAa/J8SMjgLk08z1
-	ZJ8mhkaQZHZh+HHsFC0=; b=CgJ10oIOBJfaJZuHFFjb9GHESyQoJ00doLflwBvT
-	jM0h6giZo3sapagZIN8+TxgJwQAWy92H99tbu2Abn4GayWGl4IUyQWq6o5xyXOqc
-	CEnb58Ynl7jpBTweIeq0pXcCpwkCeNLFObGVHjWgTE903JMIIwixlFepku58soi/
-	WnwekJxYAj4mo5NPCXZwleXa2CfHJpPZ13H1mQQgviU7hRhfSFTuTobmtXQVOkaw
-	4nTbP+s3+F1iaGgCwXoEKsN4U7DfOptIPUmflo2fLycHSKNfWVMNzJVz3l+eu3wR
-	Sz9kjddJOAHbcelw9gORqDg56DY6h6jXXX67gbLyrR+iBQ==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feu108198-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 07:45:05 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c88da04b719so2817797a12.2
-        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 00:45:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Lupt5wgq"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493f4638f4aso25249875e9.3
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 00:50:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784187904; x=1784792704; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1784188207; x=1784793007; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=vP4P2MRDhAa/J8SMjgLk08z1ZJ8mhkaQZHZh+HHsFC0=;
-        b=bv/duN2gItqjC6NNOGilk4ugusb6XiXAUMcciZio11t+LBr0BrtaqI4GgSkUYNjvAl
-         OQM4Tib9kOZbmA51fgdmVLX9/gyZBBNN4r1SwMzO2QkQJGxUsxoCYkVZIxS+BlyFwoql
-         tz73fZJOmeEUi6MiAzYzEquHcA4mN508rU6f4ZnYN7PbKWwFcyltL5PDjxPQ/kVtyRIc
-         Ku3h/6vqf3/YiJ3rIj0J5K4s7B8Foo8JlJ1yPb0TpxzFvNY0WuQU1mqA04EY0Sp9bKgt
-         l/nFlRmzAmBa0/bnC1QGUXDeFpp6aMLSiLGlqcMnv1k0t+4KOBjMH8Gi4Idca8O0hGUX
-         Jlgw==
+        bh=ZHFPco7TSnfWS2raS1ySQoxI4o7bq53nli6SfJ3sWqE=;
+        b=Lupt5wgqOQvVXWvd2Tdh+ciVGVTBVLlXkM7BhuziIwPl6prGNDAs2gVg5zXet1/ypY
+         qIKoo98MSCbfcRXEtD7Ov3lWrExsU80ToDdj11EgLoI3PZL7An2kZWU/frfPGB/Zm6Q0
+         l9liFOwLhMbN7NjRacXN+Fpd1IwDLgEfFCwf5dTbNNPDkTI4/7UrneTXo8FE9uBFhivR
+         5HLmaX5GYKF+LfmbZZ8bmVorbmG08XxKlpDCqCV2efST3r7n162ZH9Q5vOSK1441l6/H
+         /IAd41Ovk8M5C31EV48rljCyufHEDpNwqBe/6ojCxGXioMDZy5OyjGVfkg5O/0Iub3Er
+         +K2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784187904; x=1784792704;
+        d=1e100.net; s=20251104; t=1784188207; x=1784793007;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vP4P2MRDhAa/J8SMjgLk08z1ZJ8mhkaQZHZh+HHsFC0=;
-        b=e8k1okliW0TUwGl9Q41eenMqULPcqPTb1Ud9UY8tBWRU1qh8Wpsexemn9xDvNLHHa7
-         E9vBbR3fMlOKSWIO+yWeALI6PSuQ8kaQA0zuP90X7oJ1usW3FKzSAszRyvcKNquueGzU
-         mDM2lqeGLK5Hg+d57hM+m7kcWiAznDxkvqH81+EF9m8kWZMD4EuTF6LQZ6hjOc2mxOUD
-         ckOobHIG3NNHFEPlytikAmzLpw6P27oXx/kgab/1dAjPEZrANCl7PcFUgGZ7y7Mpl70X
-         PCeEqY8gs84lhLIdRuU3gEonzuEEQUBlU/IiA9GQyTIemrdWEkqH9jcZzM1XO44p3DFH
-         mg8A==
-X-Forwarded-Encrypted: i=1; AHgh+RqJf79wMrrWFag1MXVzQ2TTJHCmYlRfefUcvT33Z7gNhuRMAap30YuT+DIrm4F1hnrLRPE+jnojad6+@vger.kernel.org
-X-Gm-Message-State: AOJu0YydC1om/DcOp7IA7x059lB5vSxJSalgT9+eecQSJEc3TtwrpQYe
-	AzPyFlUUd9C1THe4JHok/CNfkF3k2frDE4fk+ac058ubLohuUMYKsNZf7jTuohbVc9ot0SiF6HW
-	yt2Trl5be5gAzmQ9OZ/+Q/7OBsh8Ebb4g0qmQbnltWo1+aM8WvcFV8zEHRrXn13pc
-X-Gm-Gg: AfdE7clsH+wHYHZwFchisk5exllVNyJOFEfs3//q289MTCK7VfsiXDi7tKOpf3ENrh5
-	XwmCFIOiY4Hf9oy5OvnP8PwI6ZOLtpJTn/624Xt4v3PnC+h+0bMuyiXGEdrYEMH7cUDmC5skEfb
-	Hx9KqDc04rD0Ympl3ZhVuv7OAzfd9soThkTDbKY/+kWjJ7lhDr6NcG1omp6xnFiZ0jrQp4JXO2k
-	2hR97qTZpxbZyhvLk9+6YNNY5Dep7HpW+xwIcav1KDPA+G6nI+MWjoxKkXsZxvNKBuUm95kEfPc
-	O0daBZ79bh14ZTi74r2BNMlUz1HOjqDw+LRvzRNdl3dmJ3Dfodrm7vjG22BdGhA944nM36cBtyR
-	RrAyy72mqYjbU+2IMLWNZrCl9/Ek=
-X-Received: by 2002:a05:6a21:510:b0:3bf:6c08:2b2b with SMTP id adf61e73a8af0-3c110b6e0a7mr23007936637.51.1784187904166;
-        Thu, 16 Jul 2026 00:45:04 -0700 (PDT)
-X-Received: by 2002:a05:6a21:510:b0:3bf:6c08:2b2b with SMTP id adf61e73a8af0-3c110b6e0a7mr23007904637.51.1784187903601;
-        Thu, 16 Jul 2026 00:45:03 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13cd4359166sm8015776c88.14.2026.07.16.00.45.00
+        bh=ZHFPco7TSnfWS2raS1ySQoxI4o7bq53nli6SfJ3sWqE=;
+        b=pVAnY/Bj77taoC+D/p2o0nKccgnGlf0ErE+I+xvHFc8LBEpwtM3kj5NrGazk9cU57X
+         cTMKk+Uo4c/T3L93bIjCdiibAnXtBAxqPNt/6Q6FxpDi07iUAQBpFI3BViWFgkNyKqNx
+         RmL9cVG6kDHGNTsY3qQa560/9cT8P5xS4Hsrt/Y2V5enNXXRezZGAEiEXVEie1CELzgz
+         fuyGwB4jLQ9/g+5hjlnsyxU+rlxjeNS+6/84TvBDPq3XyscinyNki41iqSgtBLl6LVzt
+         CePFVzSO/tKwGRDo5tnwrFpYrWVGPTG4MISYlxbKxMCWm6vN85XbVX4MKR9cqoT5vduy
+         FrgQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrSMz564+rw37vgpCTMey9ZGlNyjoSUGPppJmtCfusLWVHoLlTx/CBLrbm7Lhg18CrQriMlhhMBfHT4@vger.kernel.org
+X-Gm-Message-State: AOJu0YzHGxNA4G2SnfKReM1vndrSk+C+4M7c3pwRWxVecmzTFg0RdvN3
+	ZOs9AbqPt3DCObDxP+/mEhdl6lSiGRPQVQbY3o2NtDQRDMrLVdtGpIN2A9B8J++Vq5A=
+X-Gm-Gg: AfdE7cmalImZlLgFyL5SkbioQ2mNFZn8e8FXYbOJVUf6IDMrik6Y9P7WDyZ4vKyF3e8
+	qU8hdf3XQ0LGn1OaLLdSH4lIYKbSU0IKqprd5YxqaupVh4dPSScGrLLhwAYHiaZep7x/N5nbBbs
+	7CWUXyyuv8N+aoOgpK37GMbgnhc2LPqUZEraYNO+kqGhD5ef74g3zJvh6+rvZbdzBRT+FvhvWqD
+	5ZV1NT9maIfycNLRQ6oyV1E3KDA7GV5Pve46PgvUCnGqNUkdzoA/fqld29OOOdh+8ae3iygmn2j
+	6bXmntZzw0PVEBH1jaADuKUf7MLjwgjL7soOb7drT/Bd43giUVczWz39JzuEkOF+ikJa6uJQmba
+	ZJMNIKPGlmqYJhmDMAp55Xezr+Qce+eW0u+fAvmxE8GZQGX8tv6i7aGZtQ9py/nSIQ2bw6DzLh7
+	xoq+kvyxaWCdEyNAFN4VlJH6RL0tZECB4s2wvpnv1eOXVj7QYehj6W5OlYE+C0C3SQrA==
+X-Received: by 2002:a05:600c:a03:b0:495:4572:21af with SMTP id 5b1f17b1804b1-4954572224dmr31265e9.9.1784188207461;
+        Thu, 16 Jul 2026 00:50:07 -0700 (PDT)
+Received: from localhost (p200300f65f47db046a548a0537ec1e67.dip0.t-ipconnect.de. [2003:f6:5f47:db04:6a54:8a05:37ec:1e67])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49541e53680sm35386345e9.0.2026.07.16.00.50.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 00:45:03 -0700 (PDT)
-Date: Thu, 16 Jul 2026 13:14:57 +0530
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: mfd: qcom,tcsr: Add compatible for Shikra
-Message-ID: <20260716074457.72hpdvqbqsphro2u@hu-mojha-hyd.qualcomm.com>
-References: <20260501-shikra-tcsr-binding-v1-1-0c136d193634@oss.qualcomm.com>
+        Thu, 16 Jul 2026 00:50:06 -0700 (PDT)
+Date: Thu, 16 Jul 2026 09:50:05 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: sashiko-reviews@lists.linux.dev, robh@kernel.org
+Cc: Biju <biju.das.au@gmail.com>, wsa+renesas@sang-engineering.com, 
+	robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
+	linux-pwm@vger.kernel.org
+Subject: Re: [PATCH v6 02/11] dt-bindings: pwm: rzg2l-gpt: Document
+ renesas,poegs property
+Message-ID: <aliM3iVA1LY7tW38@monoceros>
+References: <20260604095647.108654-3-biju.das.jz@bp.renesas.com>
+ <20260604100619.75EC51F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dlfpmfyr2hw5fshj"
 Content-Disposition: inline
-In-Reply-To: <20260501-shikra-tcsr-binding-v1-1-0c136d193634@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: AGrahybiNUZa1o1SH7XLFiVTXMKu5kYu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDA3OCBTYWx0ZWRfX5oyLLs1U/x2g
- OipmvDZExZ0wVFECzX4FuOECUDNERRpU4wBB4VZdIG9FBbb2zwomfkQ7DbO7ayc+VMPSv8UAgBl
- XcR4+miZoJ+AC4BsrfQCeqd3LxrubM/yaYRa9VbA91JmIp+rT9mwAUdmh/wdvsviiKpTzmhCtDc
- aRCziz2NasTC0K6aEectbo7SxzpLNgSdlf7BqfgxYoLn1gvbL/32pkUmPFe9ldIWnzAze7Hchie
- 2HYVdYn64Kvbvs1X6K/s96Dk4nlLYeWxWoDk6j57+jDWTo8IgdxnTcwKIEJ51pGymcO247W+Wfr
- IGWHofYE11SVslGJycoXXujp2IX7bYbUvYHc8vISj2XkizRUq7LLs1RY2xq2R99+B72ITZZnFe6
- fjbbfv/JE2Azz2XRDiSarpA6ES2xgUTWAuawavYKH7gJxSVLYPJjttU08+4jp/Lj6jjOk7H+QeA
- KkrHlVvMGtj+JdVA93A==
-X-Proofpoint-GUID: AGrahybiNUZa1o1SH7XLFiVTXMKu5kYu
-X-Authority-Analysis: v=2.4 cv=BPODalQG c=1 sm=1 tr=0 ts=6a588c01 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=En0k0xXHmbUGYgfYSFQA:9 a=CjuIK1q_8ugA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDA3OCBTYWx0ZWRfX4aI7wtqtT+fk
- 4nwevWnppmW/+76wOWleblArbFD9p/cUw4ga044LauX5V0wsiHHJ2oQry8CqIyeNkCprZdKQhKF
- nWTDQTZHcpnCsb+JrtiuVlWhmREyE7g=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-16_03,2026-07-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0
- priorityscore=1501 phishscore=0 bulkscore=0 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607160078
+In-Reply-To: <20260604100619.75EC51F00893@smtp.kernel.org>
 
-On Fri, May 01, 2026 at 11:31:17PM +0530, Komal Bajaj wrote:
-> Document the qcom,shikra-tcsr compatible.
-> 
-> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml b/Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml
-> index 14ae3f00ef7e..51d0dcab5706 100644
-> --- a/Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml
-> @@ -33,6 +33,7 @@ properties:
->            - qcom,sdx55-tcsr
->            - qcom,sdx65-tcsr
->            - qcom,sdx75-tcsr
-> +          - qcom,shikra-tcsr
->            - qcom,sm4450-tcsr
->            - qcom,sm6115-tcsr
->            - qcom,sm8150-tcsr
-> 
-> ---
-> base-commit: 39704f00f747aba3144289870b5fd8ac230a9aaf
-> change-id: 20260501-shikra-tcsr-binding-fff1689e4097
 
-This change still applies on Linux-next. I see, this compatible  shows as
-undocumented there.
+--dlfpmfyr2hw5fshj
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 02/11] dt-bindings: pwm: rzg2l-gpt: Document
+ renesas,poegs property
+MIME-Version: 1.0
 
-Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Hello Rob,
 
--- 
--Mukesh Ojha
+On Thu, Jun 04, 2026 at 10:06:19AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] The `renesas,poegs` property improperly encodes the consumer's=
+ channel index as a phandle specifier, which is a Devicetree anti-pattern a=
+nd breaks standard phandle-array parsing semantics.
+> --
+>=20
+> commit 9d7f9847d3f320fb715022b6159c9c7e869aeedd
+> Author: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> dt-bindings: pwm: rzg2l-gpt: Document renesas,poegs property
+>=20
+> RZ/G2L GPT IP supports output pin disable function by dead time
+> error and detecting short-circuits between output pins.
+> Add documentation for the optional property renesas,poegs to
+> link a pair of GPT IOs with POEG.
+>=20
+> > diff --git a/Documentation/devicetree/bindings/pwm/renesas,rzg2l-gpt.ya=
+ml b/Documentation/devicetree/bindings/pwm/renesas,rzg2l-gpt.yaml
+> > --- a/Documentation/devicetree/bindings/pwm/renesas,rzg2l-gpt.yaml
+> > +++ b/Documentation/devicetree/bindings/pwm/renesas,rzg2l-gpt.yaml
+>=20
+> [ ... ]
+>=20
+> > @@ -245,6 +245,28 @@ properties:
+> >    resets:
+> >      maxItems: 1
+> > =20
+> > +  renesas,poegs:
+> > +    minItems: 1
+> > +    maxItems: 8
+> > +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> > +    items:
+> > +      items:
+> > +        - description: phandle to POEG instance that serves the output=
+ disable
+> > +        - enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+> > +          description: |
+> > +            An index identifying pair of GPT channels.
+>=20
+> [Severity: Medium]
+> Does this property correctly follow standard Devicetree phandle semantics?
+>=20
+> By Devicetree specification, phandle arguments in a phandle-array are
+> defined and interpreted by the target provider node, with their length
+> dictated by a cell-count property on the provider.
+>=20
+> This definition appears to invert that model by using the specifier to en=
+code
+> the consumer's (GPT) own channel index rather than a provider argument.
+>=20
+> Additionally, standard OS-agnostic DT parsers might fail to resolve this
+> because the referenced provider binding (renesas,rzg2l-poeg.yaml) enforces
+> additionalProperties: false and natively lacks a #poeg-cells property to
+> dictate the specifier length.
+>=20
+> Is it possible to redesign this binding so it doesn't encode the consumer=
+'s
+> index into the provider's phandle argument, or at least ensure the POEG
+> provider specifies a #poeg-cells property?
+
+You acked the patch. Is that review concern by Sashiko valid?
+
+Best regards
+Uwe
+
+--dlfpmfyr2hw5fshj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpYjSoACgkQj4D7WH0S
+/k6tuwgAoYXQ694Z1W43wtbN4Q8kTFE8ndqpCfHlpuCbB0NRKCtNaHfMKk1OPa4/
+0gPb9j+93rmTvlexpk6MtwSdwO+elEB7SbAsXmIFnybR+b3ciwZr+5LmGMRKBsw2
+xorhAlS2ouIZjnTYBDcmaXZB1mpodWWYzDvRdimGK9+eX+DH2lPtNCJ6g9wRtOvl
+F+YM1zXNuwWAxLoB6s2pfw83iG2CMLowNj4/q4rfmgFUHlWk0wOR2iDHDJDQbusJ
+e/rANSqVjpOz2hIl/Dz/+gJpUPQKph6siwen5swjqmVtIkTBW8L3YYc7RIhBkVA+
+J7364EUYQSEfnSx+nNBE/CnQWmhMgQ==
+=SEOL
+-----END PGP SIGNATURE-----
+
+--dlfpmfyr2hw5fshj--
