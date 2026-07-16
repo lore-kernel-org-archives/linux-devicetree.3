@@ -1,110 +1,260 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 380F2388873
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 06:10:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95206388873;
+	Thu, 16 Jul 2026 06:10:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784182215; cv=none; b=lCwnsC0rQ69ZCIsm9i+w84YipMjvwuzDUPhH3J6/ZbZmIwy2Du+XPhvfpDGFl5xGHC+E8bq5qVaBfYHxpnNJ5GpZFytwr5jT4sVjfoeUCKj8sbOsHlB0MD+h8P8fhkPdvJZ2yyfsV0mGtYF2LLm9QmORivjsSlPZIyt/NQsUKCw=
+	t=1784182227; cv=none; b=lyvF/cF2AoG6yPivUyQysuWk5zk+2Suj2A6KxZ+rUlt8dY7qZCuAcR1IGn/UeyGxrJJu8BhYThsBOl4jNPkxBYjIdInz76eQsdsOVpopxn4VrQfsP/lOCIgwdI0Fe0M9ATT40ukKps8SwsOJp52PSZ2xGcjLgEMQsFX7yX4ZQcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784182215; c=relaxed/simple;
-	bh=lJI+qosgeo3CjrxWmQ7X2FuKaIOOj76wxQwWDSyw1+c=;
+	s=arc-20240116; t=1784182227; c=relaxed/simple;
+	bh=Uh6ABBfZPdPXWpURmFrvQMBPfZHc5wIrvXxd7jUZ69Q=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=U8igH8JJigb9KAtoATyqmJS3UzQx91FsjHiZtNL1vAIjrvxOHGh84TbIwZTa4qqE0qE78TP/faV6LwCtuzLSmheIkKex2E5/lkMAumBt/odFsOheckejodR9R3lzaY2xxN+dqESVwQed+s3XKV9KPPYczloe69mUWGQ3DGzHhwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a2r1lWsH; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=L1HkoNSuVGMubJuzmiOeJQnOlwqgRvCYUpaRQDNptwwRg029408ltIQdnJ9jiJ+ANMzm4QvWdui6lDQRcYqUPY++eFZLXVZyah6m6cfHxhCSd+oTrsM0mBs0XCc2kAE9lb5Cu1dNaqmnBXG1jScHHskl+cJKw/0j51RwOkMoo/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BE6Nz2QD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a2r1lWsH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF0B41F000E9;
-	Thu, 16 Jul 2026 06:10:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BE6Nz2QD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5BB61F000E9;
+	Thu, 16 Jul 2026 06:10:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784182214;
-	bh=7Y8eug/xe8Uwf5nHwth6Wtx8g3cAktjmFFMynmMrbcY=;
+	s=k20260515; t=1784182225;
+	bh=U+9XFx9k+wgvnqOWHVT7g8LYfMgceZCCgTS/1XFdPII=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=a2r1lWsH7TOtcKgF7V7ZCmwoYzpUa1EPjMEUf9q3Sh1U2+lY02O7UgEUG3/TIci+H
-	 2hrkFh0dllbCErNTLRAJK8vIwNxL32xVcbFrzKQ/mksxloMcNEG71q3+tHiPH6E/Po
-	 cazEb5iaVKfdU/ZEcJGQKRQfGHs2PIkdYwvT6p8dr3iMcHviKlCLmLAbK2xSev8bp0
-	 srWaKcw8Upohgf+HG4nDFzW2id45di0bTXhFgtsJJtWythoPupaGYA26tzMBakdTb5
-	 Gvp7wcYY7yZCqw52+B6Fy48MmiXmvtdZ+wLLuz4/JWvivs4Z8RItTXmkJnNrwzWIjG
-	 sdAcF6dJlr6fA==
+	b=BE6Nz2QDpJYKqifD840lp/kfJZO1ZUTSbpBH4MRBzXVEj0pi3kFkavgY08mE4MnME
+	 7Bn+AZF1g2vq7UkEwCP08qFR5oo0QmAUGM6SLCMMFaAVL1XD99J4oi7TCSI8LNMGTx
+	 Q0Y8IZ8/QzYyh13bbzRhTJ3lQm8k7t3JIQcOLuDOoQzRURYGmxY7g2J5vteo3cNN87
+	 yZKcSg72aFzC5SGsIjGSHIO6XccfnQau6r5V605CTlPmMh72gtyOyyPoSbMD/OLNkL
+	 +wCA8uLIeF8BjA4UFCfQ8oBoT83CkH3+Pik9y3bGrfYqSfPf/evHDQrNpveelSRNMW
+	 6WwqqIXYAw43Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] arm64: dts: qcom: ipq9574-rdp-common: Enable quad
- SPI mode for SPI-NAND
+Subject: Re: [PATCH v5 1/6] arm64: dts: imx8mm: imx8mp: Add LVDS DTOs for
+ Data Modul i.MX8M Mini and Plus eDM SBC
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Md Sadre Alam" <md.alam@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260716-quad_dts-v1-1-74d86792944a@oss.qualcomm.com>
-References: <20260716-quad_dts-v1-0-74d86792944a@oss.qualcomm.com>
- <20260716-quad_dts-v1-1-74d86792944a@oss.qualcomm.com>
+To: "Marek Vasut" <marex@nabladev.com>
+Cc: imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260716055751.279033-1-marex@nabladev.com>
+References: <20260716055751.279033-1-marex@nabladev.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 06:10:13 +0000
-Message-Id: <20260716061013.CF0B41F000E9@smtp.kernel.org>
+Date: Thu, 16 Jul 2026 06:10:24 +0000
+Message-Id: <20260716061024.B5BB61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [Medium] The device tree changes attempt to enable Quad SPI mode, but the=
- underlying controller driver hardcodes single-bit transfers.
+- [High] The backlight enable GPIO is hardcoded for the i.MX8MM adapter in =
+the G215HVN011 panel overlay, breaking the backlight on the i.MX8MP native =
+LVDS board.
+- [Medium] Incorrect voltage mapping for state 0x3 in the AP63300 regulator=
+ configuration, which could lead to severe overvoltage.
+- [Medium] The common abstraction file contains an adapter-specific danglin=
+g phandle reference to `&gpio_display`.
+- [Low] The patch modifies a core SoC file (`imx8mp.dtsi`) to add the `spba=
+5` label, which is undocumented in the commit message.
+- [Low] The MP2328 voltage divider calculation comment is mathematically in=
+correct for the specified resistors.
+- [Low] The MIPI DSI burst-clock-frequency comment for the G215HVN01.1 pane=
+l is incorrect.
 --
 
---- Patch [1]: [PATCH 1/3] arm64: dts: qcom: ipq9574-rdp-common: Enable qua=
-d SPI mode for SPI-NAND ---
-commit fa94f9522a125598be3f36fef708de141603218d
-Author: Md Sadre Alam <md.alam@oss.qualcomm.com>
+--- Patch [1]: [PATCH v5 1/6] arm64: dts: imx8mm: imx8mp: Add LVDS DTOs for=
+ Data Modul i.MX8M Mini and Plus eDM SBC ---
+commit 0857188ec12e2f2c2c27ef0295f8548ec44a3213
+Author: Marek Vasut <marex@nabladev.com>
+arm64: dts: imx8mm: imx8mp: Add LVDS DTOs for Data Modul i.MX8M Mini and Pl=
+us eDM SBC
 
-arm64: dts: qcom: ipq9574-rdp-common: Enable quad SPI mode for SPI-NAND
+This commit adds device tree overlays for the DSI-to-LVDS adapter=20
+eDM-MOD-iMX8Mm-LVDS populated with Lontium LT9211 bridge. It provides=20
+support for multiple panels and is intended for use with both the=20
+i.MX8M Mini and i.MX8M Plus eDM SBCs.
 
-This commit sets the SPI-NAND device node to use 4-bit transmit and
-receive bus widths to enable quad SPI transfers.
-
-> diff --git a/arch/arm64/boot/dts/qcom/ipq9574-rdp-common.dtsi b/arch/arm6=
-4/boot/dts/qcom/ipq9574-rdp-common.dtsi
-> index 62877b46f9b3f..86138529ba77e 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq9574-rdp-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/ipq9574-rdp-common.dtsi
-> @@ -249,6 +249,8 @@ flash@0 {
->  		nand-ecc-engine =3D <&qpic_nand>;
->  		nand-ecc-strength =3D <4>;
->  		nand-ecc-step-size =3D <512>;
-> +		spi-rx-bus-width =3D <4>;
-> +		spi-tx-bus-width =3D <4>;
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-over=
+lay-edm-mod-imx8mm-common.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-data-=
+modul-edm-sbc-overlay-edm-mod-imx8mm-common.dtsi
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-overlay-edm=
+-mod-imx8mm-common.dtsi
+[ ... ]
+> +	reg_backlight_pwm_level: regulator-backlight-pwm-level {
+> +		compatible =3D "regulator-gpio";
+> +		regulator-name =3D "Backlight_SEL_PWM";
+> +		regulator-type =3D "voltage";
+> +		gpios =3D <&gpio_display 2 GPIO_ACTIVE_HIGH>; /* SEL_PWM */
 
 [Severity: Medium]
-This is a pre-existing issue, but does enabling the 4-bit bus width here
-actually result in quad SPI transfers?
+Does this create a dangling phandle reference when included by the native=20
+i.MX8MP adapter overlay? It looks like gpio_display is undefined in that=20
+context, which might inject a leaky abstraction into the common file.
 
-Looking at the QPIC controller driver in drivers/spi/spi-qpic-snand.c,
-qcom_spi_cmd_mapping() intercepts generic SPI NAND opcodes and hardcodes
-SPI_TRANSFER_MODE_x1:
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-over=
+lay-edm-mod-imx8mm-lvds-common.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-=
+data-modul-edm-sbc-overlay-edm-mod-imx8mm-lvds-common.dtsi
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-overlay-edm=
+-mod-imx8mm-lvds-common.dtsi
+[ ... ]
+> +&reg_panel_vcc {
+> +	/*
+> +	 * AP63300 voltage divider settings:
+> +	 *   R1=3D16k2
+> +	 *   R2=3D5k23 with optional series Rs=3D7k68 (5V) or Rt=3D1k5 (12V)
+> +	 *
+> +	 * 1 / Rx =3D (1 / R2) [ + (1 / Rs)][ + (1 / Rt)]
+> +	 * Vout =3D 0.8 * ((R1 / Rx) + 1)
+> +	 */
+> +	gpios =3D <&gpio_display 1 GPIO_ACTIVE_HIGH>,	/* 5V */
+> +		<&gpio_display 0 GPIO_ACTIVE_HIGH>;	/* 12V */
+> +	states =3D <3300000 0x0>,
+> +		 <5000000 0x1>,
+> +		 <12000000 0x2>,
+> +		 <3900000 0x3>;
 
-drivers/spi/spi-qpic-snand.c:qcom_spi_cmd_mapping() {
-        ...
-	case SPINAND_READ:
-		if (snandc->qspi->raw_rw) {
-			*cmd =3D (PAGE_ACC | LAST_PAGE | SPI_TRANSFER_MODE_x1 |
-					SPI_WP | SPI_HOLD | OP_PAGE_READ);
-		} else {
-			*cmd =3D (PAGE_ACC | LAST_PAGE | SPI_TRANSFER_MODE_x1 |
-					SPI_WP | SPI_HOLD | OP_PAGE_READ_WITH_ECC);
-		}
-        ...
-}
+[Severity: Medium]
+Is the state mapping for 0x3 safe to leave at 3900000? Based on the=20
+hardware calculations, it appears this state would actually output around=20
+13.6V. Could this lead to severe overvoltage and hardware damage if a=20
+future panel requests 3.9V and the regulator framework switches to this=20
+state?
 
-It appears the driver completely ignores the bus widths negotiated by the
-spi-mem framework, meaning transfers will silently remain single-bit.
+> +};
 
-Are there companion patches to the controller driver to handle the wider
-bus widths, or is this device tree change ineffective on its own?
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-over=
+lay-edm-mod-imx8mm-lvds-g215hvn011.dtsi b/arch/arm64/boot/dts/freescale/imx=
+8mm-data-modul-edm-sbc-overlay-edm-mod-imx8mm-lvds-g215hvn011.dtsi
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-overlay-edm=
+-mod-imx8mm-lvds-g215hvn011.dtsi
+[ ... ]
+> +&mipi_dsi {
+> +	samsung,burst-clock-frequency =3D <864000000>;	/* RX ByteClock ~27 MHz =
+*/
 
->  	};
->  };
+[Severity: Low]
+Is the comment regarding the RX ByteClock frequency accurate here? An=20
+864 MHz burst clock usually yields a byte clock of 108 MHz rather than=20
+27 MHz.
+
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-over=
+lay-lvds-g215hvn011.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-=
+edm-sbc-overlay-lvds-g215hvn011.dtsi
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-overlay-lvd=
+s-g215hvn011.dtsi
+> @@ -0,0 +1,30 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * Copyright 2022-2026 Marek Vasut
+> + */
+> +
+> +#include "imx8mm-data-modul-edm-sbc-overlay-lvds-5v0.dtsi"
+> +#include "imx8mm-data-modul-edm-sbc-overlay-lvds-dual.dtsi"
+> +
+> +&backlight {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&pinctrl_panel_backlight>;
+> +	enable-gpios =3D <&gpio3 0 GPIO_ACTIVE_HIGH>;
+
+[Severity: High]
+Does hardcoding this i.MX8MM-specific GPIO break the backlight when this=20
+overlay is used on the native i.MX8MP LVDS board? It seems this bypasses=20
+the abstract reg_panel_bl regulator. When the i.MX8MP overlay includes=20
+this file, it overrides the power supply but does not override this=20
+enable-gpios property, potentially causing it to toggle the wrong pin.
+
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-over=
+lay-edm-sbc-imx8mp-lvds-g215hvn011.dtso b/arch/arm64/boot/dts/freescale/imx=
+8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-g215hvn011.dtso
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm=
+-sbc-imx8mp-lvds-g215hvn011.dtso
+> @@ -0,0 +1,36 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * Copyright 2023-2026 Marek Vasut
+> + */
+> +
+> +#include "imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds.dtsi"
+> +#include "imx8mm-data-modul-edm-sbc-overlay-lvds-g215hvn011.dtsi"
+> +
+> +&backlight {
+> +	power-supply =3D <&reg_panel_bl_supply>;
+> +};
+
+[Severity: High]
+(Related to the previous point) Should this also override enable-gpios to=20
+prevent the i.MX8MM specific pin from being inherited?
+
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-over=
+lay-edm-sbc-imx8mp-lvds.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-data-mo=
+dul-edm-sbc-overlay-edm-sbc-imx8mp-lvds.dtsi
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm=
+-sbc-imx8mp-lvds.dtsi
+[ ... ]
+> +&{/} {
+> +	reg_panel_bl_supply: regulator-panel-bl-supply {
+> +		compatible =3D "regulator-gpio";
+> +		regulator-type =3D "voltage";
+> +		regulator-name =3D "PANEL_BL_SUPPLY";
+> +		enable-gpios =3D <&gpiolvds 0 0>;
+> +		enable-active-high;
+> +		status =3D "okay";
+> +
+> +		/*
+> +		 * MP2328 voltage divider settings:
+> +		 *   R1=3D51k1
+> +		 *   R2=3D5k62 with optional series Rs=3D2k21 (12V)
+> +		 *
+> +		 * 1 / Rx =3D (1 / R2) [ + (1 / Rs)][ + (1 / Rt)]
+> +		 * Vout =3D 0.5 + ((R1 / Rx) * 0.5)
+> +		 */
+
+[Severity: Low]
+Is the mathematical formula in this comment accurate for this circuit?
+If the resistors were placed in parallel, the formula=20
+1 / Rx =3D (1 / R2) + (1 / Rs) with R1=3D51.1k, R2=3D5.62k, and Rs=3D2.21k =
+would=20
+yield 16.6V instead of 12V. Does the hardware actually switch between the=20
+resistors rather than placing them in parallel?
+
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp.dtsi b/arch/arm64/boot/=
+dts/freescale/imx8mp.dtsi
+> index 90d7bb8f5619e..42a3216daed44 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mp.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
+> @@ -1437,7 +1437,7 @@ aips5: bus@30df0000 {
+>  			#access-controller-cells =3D <3>;
+>  			ranges =3D <0x30c00000 0x30c00000 0x400000>;
+> =20
+> -			spba-bus@30c00000 {
+> +			spba5: spba-bus@30c00000 {
+>  				compatible =3D "fsl,spba-bus", "simple-bus";
+>  				reg =3D <0x30c00000 0x100000>;
+>  				#address-cells =3D <1>;
+
+[Severity: Low]
+Could this core SoC DTSI modification be split into a separate patch?
+Adding the spba5 label here modifies a common architectural file silently=20
+during a board-level overlay patch, and it does not appear to be=20
+mentioned in the commit message.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-quad_dts-v=
-1-0-74d86792944a@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716055751.2790=
+33-1-marex@nabladev.com?part=3D1
