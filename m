@@ -1,63 +1,63 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DAED3812F2
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 16:19:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513493815D9
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 16:19:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784218799; cv=none; b=qyeBNoKiq0OcHTw6ZRS+WoYSQ2cWD4HHhpB9/pd+YZwvSi9/YqPscEsOBS6n3Czgg/MaAUSphtXEsLujMtK1IhkNowJtb9WdDJ+J/rBJDM6benQvmV2on+jr9UQLo0R/F6qYssR6uRx+ySeEbEc84AsGVFFgDc7RThaMeCOpFjQ=
+	t=1784218801; cv=none; b=a1ifvlFI3KSd+90BlEspPr4U6CtHWQvi5EgEquGs5s3W6ps1v+sK3isZyEpF8Z9elfvkcQ5v43P0q/krJ8piod5qkSoCXsQcq3+/rnAiGSGWkUSVHqVhjKm2S1TmCQD9aVrCIfehlwGEJo3dKil8PQArgkToJeR30PzELtdvHTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784218799; c=relaxed/simple;
-	bh=4daVTrSjSfN+ddZbT68UXgJEAvj9+FvfkJvj7Q7oQzw=;
+	s=arc-20240116; t=1784218801; c=relaxed/simple;
+	bh=Ap42d1f7fIua8rQzkYfJjJNGXZgBoc6E04vAq/26COg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rR2oEoL10IckfgBMiMQJ8VHnZTtwfVCPUHEZcfZnwXQZBW1kTY+gQMhoRtaBamZ6g0YxThSX5Km7/tYW2FG2eZ6dinsR6NbPKSzVOcvCY7etsag7tdiyAirJh4GWmzfM9atjwJCWI3RaYJ0TjRaNhpLfSIPiigsI96I9wjmYusk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CrX6D+Cl; arc=none smtp.client-ip=209.85.210.169
+	 MIME-Version; b=feMshbwCoPYu3u/YLhvy8mhtLbM0Lov6p27rTpTS5s0qYekrLHdNXFjYNnlUC/k2uhtwy4DbF9hVWWV7r4qrv85WrPCBgiGe5FwWy1qMh4NjhTYqp5XAn+ZrnEYWNLS/CgJToxKuxe8NDPh1mv0RlaCv+zAvvQjZij8BRQm48/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CiX7siZ5; arc=none smtp.client-ip=209.85.210.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CrX6D+Cl"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-84867f07d63so7800553b3a.2
-        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 09:19:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CiX7siZ5"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-84a4d8fd6ecso3652897b3a.1
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 09:19:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784218790; x=1784823590; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784218792; x=1784823592; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=v07hhIYgCpv/xDn5L0MGVWF5jtYyj0RekFw4y7lgqkQ=;
-        b=CrX6D+ClqzdTTCENHIRT7NW4L6+x++/c61jSYfCjjCiIbcV444oLhv8AKdjm5nFXCT
-         PH/pnu1rEKd20hHLMueQejnRcZ/TOsMKbPvfN9ao7g4uHRdmDb+Y4+e46XlFBPb9nlvh
-         Pw4KCJpiC69Dag5HJTw4NpH8e59PNF53bf/I6b9gUnt2Tj5hqqAfbImpkb7+UKdZpQUk
-         SHi12p/5k83H/L+/FR3IMQH7eknrFk8nbbSn9ZOaB0f1Ax/tDqh67A6D7QA4sdIuw/sS
-         gD5E5SN98Ea3Re3b5Odt0RVGkDKbmbxqGJD5sL1nn+dvqh+iwQwSBvZs88x/tRwL6JMe
-         7S1w==
+        bh=M0OTlWMyIHhFgUGrQUvQVfi6lsrfSqB/SXlDo2R7iDY=;
+        b=CiX7siZ5WqLh1d+cH2whUdG3F2cTStHh0WwMa2yW0jUILFStFX0nfRRt4TjiJqSd16
+         R336cpR9fYe2jsKhq/Ufxj6gkOMRyfR7ViWyQV45L9v+Q7EwtFtIbAotLaVe9LSiPaXU
+         TLiKG/I+XipI58CSQTzPh1+81+Md2UjH3tfGKEA10vPw5FqSRHTEVjOsgyTNoLs+E6s0
+         nLTjafs2LI0xhe9IUnqD9tAgCzouVHOH/giUz4REGvnPdlrbiIafkxW9Q0qYb7low1QJ
+         +HO/ex1nx+2mqeq1/YklDzXg60hwJv12P/ISV+svBObqeoUNLX0BKWTBY3KNZTWEGDBj
+         2lsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784218790; x=1784823590;
+        d=1e100.net; s=20251104; t=1784218792; x=1784823592;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v07hhIYgCpv/xDn5L0MGVWF5jtYyj0RekFw4y7lgqkQ=;
-        b=UqeaW8JqMc9KHz1mmo3rckVw6k0AxVwtuk3FpwOKDkoIgWRWHZlGQRzYbhL3CBgo99
-         VeDa/Bs9IAaZjEjRcT2OgbUl2aKIWlfB7yWDYRcA+mXUTozf988xFyVRayqy7gAxd73a
-         LlQ+7isg1mTWOV11mKOcRIzuTbk9ZYqeOkVTTJ0Ie0zOmjn6Zvzc1ZNQfywTVQidskje
-         eZclmesfF7ihX6k/nRo8MW9jcxUDsmBlhL3Tt8VvuGfTRf6i13KE7REes3ukai9izWNp
-         wdnue8cDOOQ5KQ/B+aevOEKTkhR1OPOF69ZbcQg2l83jP4EnnvBLFG+8MeI68nK8Bt8F
-         wt8w==
-X-Forwarded-Encrypted: i=1; AHgh+RpmEgKOoG6ABMaIq7x/xk0cWZ/ebyIBOqUMDmKgzLzlmSMVM6NNncYJ8bBZfZsxGYk6Zv8J/+9o9BAp@vger.kernel.org
-X-Gm-Message-State: AOJu0YyPT0AzIOfrKfjexnrTTkpSJOEdPeB3okiKCIXHJxgI04YYhCWV
-	jyfX0XbmF2u2li5lfdptU9NVTkHf+c0CJYYl6d44w80tSgUxND2vrIAo
-X-Gm-Gg: AfdE7cl+/9zDGvCZvBq6vVw//BMoZGspXrtLJ5f9hjnIXcgSMMvPzpTHDW64LF/p1bH
-	E74j6GVLHnD4xop9eIucwktZA43pUKTyp0UhsPqtKXfFz4G6URLe9sWXz/B9jumLUUzE0rbLqrW
-	EUeRCq+8yqHHUSOw6mxrEvRCwnp6wBnnY6YyV68KCTs5JZ4qF2t/ONYCiJK/0nnLOwHCGuX09UC
-	VyQ+lsLSkgGvc7YsxAPHOZ9TeaGjlnX/vGtCxj8wfmJFX5UERue2eRE70HBxSdmYcI7Djn5U2Rq
-	6q0FxxcwPb/smIw45aMnkWXzK9m0ptf7rum99+S6UQAv4YCguye7zqHeUUc6QY8oUoIVW2TnTfK
-	0b2eU9A71QUh4A4d4xn3Hvfnsl0G2B82+0Dql9g8SdEecuKvJItcM6M6C3EOkmt8/4wtlj5JgyQ
-	50extq+/kCavKDp6TNF872SVW5h9h9CBzUsA==
-X-Received: by 2002:a05:6a00:4f8f:b0:848:2f7a:2e50 with SMTP id d2e1a72fcca58-84a67308928mr7306361b3a.63.1784218789947;
-        Thu, 16 Jul 2026 09:19:49 -0700 (PDT)
+        bh=M0OTlWMyIHhFgUGrQUvQVfi6lsrfSqB/SXlDo2R7iDY=;
+        b=Fwy/NVpYqppBCIyaTZHttBPHzOkT5i5EVCF8k2CyPAB55U7zx+ge34nWEAz/XVPZKa
+         nundIh8C7IQcgSeDgQpoyMxD4bRCEJq8UJTs28Lh979QHsEHK/pu5mqFsOkaUHKCfxlb
+         f6XYiHjA1MSqXTm7FYxcQY9SjBD9FPt6b+L5Eh5TQIwth5DRAQBQc8yinOaELoMGe/6l
+         2EglnhP2dRR/ZL/S+mC5/F8ndHXzYRwSbbdhR2hLp5a/KA+RKXEGE3WHHZsCuo7q6lJf
+         byMwepH7UEB0Z52BiIoYx2LUodBWNL8trXIZqB3k0uzYlGjsWAr9QAEhfTUc6T1x0MCt
+         HMXQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoTQMVzYs71W35URuU2YfVOownlifmj6yQT6eVPCEtS0Ai2MEvxfFF+LSZWarttaKrIsjdb9i25ryjY@vger.kernel.org
+X-Gm-Message-State: AOJu0YwLJ4y6nfczCnUH6TbUHQaF4c6Go4GD2QcgngjTQO7ugJ6KZ3hu
+	ObM5s6NY5iDIyQlYyMP4OVOC7H/SKVTmIkMq3U7qvzVRLr9fEIxKWmVi
+X-Gm-Gg: AfdE7clCrzr7Wp9J/GCNa5agZuDBZoSji5OCE1a0gxJn94Ts4oyaI6q8AcbmJCGsI3i
+	oANBjIE5fnjWKCPiAiOPtz4PtlxIFll1H6dkxygWAcTanX+SUdvMJGZ/bLrtl5qMS2CFe0gpHkQ
+	D3cwKncu5jDuOyNDCqCg/dBfOxG5EpMFRHnkgy1aGRhAa8NaTF8/sEhZle5QBiRimRH2giPaaHG
+	IBzdhf7SCwEwa9sE4yYeR4V+U4h9bbE0hh2IP2hkEM+37SslFZVanuLQYE1Q3kIlPdem/7sr1Mr
+	ykdR61esnNntfvwUqP5C1RvuX0PD/GavCRXT9KPPTOvYj+IGfL5dm/daX4KcFEBkINsDCnUoXaJ
+	lrNvSrgiLQYXmh3tmxA9wXvNiIGuVUOGcnU0YxJm2HYfi9oJKwYr/17YTIX+Il0v9pIK6wBzYTv
+	gND/knGiS0AkLK85JuMajHJ194kkreOe15Seg4AY/Yj03b
+X-Received: by 2002:a05:6a00:240b:b0:847:973b:3d04 with SMTP id d2e1a72fcca58-84a6723fbc9mr7209157b3a.10.1784218792451;
+        Thu, 16 Jul 2026 09:19:52 -0700 (PDT)
 Received: from buffalo-ssd (M014013071096.v4.enabler.ne.jp. [14.13.71.96])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84a4f23a600sm5092661b3a.6.2026.07.16.09.19.47
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84a4f23a600sm5092661b3a.6.2026.07.16.09.19.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 09:19:49 -0700 (PDT)
+        Thu, 16 Jul 2026 09:19:52 -0700 (PDT)
 From: Akari Tsuyukusa <akkun11.open@gmail.com>
 To: Wim Van Sebroeck <wim@linux-watchdog.org>,
 	Guenter Roeck <linux@roeck-us.net>,
@@ -74,9 +74,9 @@ Cc: linux-watchdog@vger.kernel.org (open list:WATCHDOG DEVICE DRIVERS),
 	linux-mediatek@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
 	Roman Vivchar <rva333@protonmail.com>,
 	Akari Tsuyukusa <akkun11.open@gmail.com>
-Subject: [PATCH 2/7] dt-bindings: watchdog: mediatek,mtk-wdt: add compatibles for all SoCs
-Date: Fri, 17 Jul 2026 01:19:18 +0900
-Message-ID: <20260716161923.266315-3-akkun11.open@gmail.com>
+Subject: [PATCH 3/7] arm/arm64: dts: mediatek: drop mt6589 fallback from watchdog
+Date: Fri, 17 Jul 2026 01:19:19 +0900
+Message-ID: <20260716161923.266315-4-akkun11.open@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260716161923.266315-1-akkun11.open@gmail.com>
 References: <20260716161923.266315-1-akkun11.open@gmail.com>
@@ -88,51 +88,163 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The driver recognizes each SoC-specific compatible, update the binding
-to list them in the top-level enum alongside the existing ones. Keep
-the fallback items definition so that old DTS continue to validate.
+Remove the "mediatek,mt6589-wdt" fallback string from all in-tree
+device trees. Use only the SoC-specific compatible.
 
+No functional change.
 Affected SoCs: mt2701, mt6572, mt6582, mt6797, mt7622, mt7623,
-mt7629, mt8173, mt8189, mt8365, mt8516.
+mt7629, mt8173, mt8365, mt8516.
 
 Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
 ---
- .../bindings/watchdog/mediatek,mtk-wdt.yaml           | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ arch/arm/boot/dts/mediatek/mt2701.dtsi   | 3 +--
+ arch/arm/boot/dts/mediatek/mt6572.dtsi   | 2 +-
+ arch/arm/boot/dts/mediatek/mt6582.dtsi   | 2 +-
+ arch/arm/boot/dts/mediatek/mt7623.dtsi   | 3 +--
+ arch/arm/boot/dts/mediatek/mt7629.dtsi   | 3 +--
+ arch/arm64/boot/dts/mediatek/mt6797.dtsi | 2 +-
+ arch/arm64/boot/dts/mediatek/mt7622.dtsi | 3 +--
+ arch/arm64/boot/dts/mediatek/mt8173.dtsi | 3 +--
+ arch/arm64/boot/dts/mediatek/mt8365.dtsi | 2 +-
+ arch/arm64/boot/dts/mediatek/mt8516.dtsi | 3 +--
+ 10 files changed, 10 insertions(+), 16 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-index 953629cb9558..f4eaa5f7c5bc 100644
---- a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-+++ b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-@@ -20,17 +20,28 @@ properties:
-   compatible:
-     oneOf:
-       - enum:
-+          - mediatek,mt2701-wdt
-           - mediatek,mt2712-wdt
-+          - mediatek,mt6572-wdt
-+          - mediatek,mt6582-wdt
-           - mediatek,mt6589-wdt
-           - mediatek,mt6735-wdt
-           - mediatek,mt6795-wdt
-+          - mediatek,mt6797-wdt
-+          - mediatek,mt7622-wdt
-+          - mediatek,mt7623-wdt
-+          - mediatek,mt7629-wdt
-           - mediatek,mt7986-wdt
-           - mediatek,mt7988-wdt
-+          - mediatek,mt8173-wdt
-           - mediatek,mt8183-wdt
-           - mediatek,mt8186-wdt
-           - mediatek,mt8188-wdt
-+          - mediatek,mt8189-wdt
-           - mediatek,mt8192-wdt
-           - mediatek,mt8195-wdt
-+          - mediatek,mt8365-wdt
-+          - mediatek,mt8516-wdt
-       - items:
-           - enum:
-               - mediatek,mt2701-wdt
+diff --git a/arch/arm/boot/dts/mediatek/mt2701.dtsi b/arch/arm/boot/dts/mediatek/mt2701.dtsi
+index 128b87229f3d..f23a6d860a53 100644
+--- a/arch/arm/boot/dts/mediatek/mt2701.dtsi
++++ b/arch/arm/boot/dts/mediatek/mt2701.dtsi
+@@ -160,8 +160,7 @@ scpsys: power-controller@10006000 {
+ 	};
+ 
+ 	watchdog: watchdog@10007000 {
+-		compatible = "mediatek,mt2701-wdt",
+-			     "mediatek,mt6589-wdt";
++		compatible = "mediatek,mt2701-wdt";
+ 		reg = <0 0x10007000 0 0x100>;
+ 	};
+ 
+diff --git a/arch/arm/boot/dts/mediatek/mt6572.dtsi b/arch/arm/boot/dts/mediatek/mt6572.dtsi
+index ac70f266d698..5a6c9763bd6c 100644
+--- a/arch/arm/boot/dts/mediatek/mt6572.dtsi
++++ b/arch/arm/boot/dts/mediatek/mt6572.dtsi
+@@ -53,7 +53,7 @@ soc {
+ 		ranges;
+ 
+ 		watchdog: watchdog@10007000 {
+-			compatible = "mediatek,mt6572-wdt", "mediatek,mt6589-wdt";
++			compatible = "mediatek,mt6572-wdt";
+ 			reg = <0x10007000 0x100>;
+ 			interrupts = <GIC_SPI 126 IRQ_TYPE_LEVEL_LOW>;
+ 			timeout-sec = <15>;
+diff --git a/arch/arm/boot/dts/mediatek/mt6582.dtsi b/arch/arm/boot/dts/mediatek/mt6582.dtsi
+index f941ea44898a..501aeb3a2848 100644
+--- a/arch/arm/boot/dts/mediatek/mt6582.dtsi
++++ b/arch/arm/boot/dts/mediatek/mt6582.dtsi
+@@ -63,7 +63,7 @@ soc {
+ 		ranges;
+ 
+ 		watchdog: watchdog@10007000 {
+-			compatible = "mediatek,mt6582-wdt", "mediatek,mt6589-wdt";
++			compatible = "mediatek,mt6582-wdt";
+ 			reg = <0x10007000 0x100>;
+ 		};
+ 
+diff --git a/arch/arm/boot/dts/mediatek/mt7623.dtsi b/arch/arm/boot/dts/mediatek/mt7623.dtsi
+index aa42377b47da..48d6c348f667 100644
+--- a/arch/arm/boot/dts/mediatek/mt7623.dtsi
++++ b/arch/arm/boot/dts/mediatek/mt7623.dtsi
+@@ -281,8 +281,7 @@ scpsys: power-controller@10006000 {
+ 	};
+ 
+ 	watchdog: watchdog@10007000 {
+-		compatible = "mediatek,mt7623-wdt",
+-			     "mediatek,mt6589-wdt";
++		compatible = "mediatek,mt7623-wdt";
+ 		reg = <0 0x10007000 0 0x100>;
+ 	};
+ 
+diff --git a/arch/arm/boot/dts/mediatek/mt7629.dtsi b/arch/arm/boot/dts/mediatek/mt7629.dtsi
+index acab0883a3bb..b034e9ab5af1 100644
+--- a/arch/arm/boot/dts/mediatek/mt7629.dtsi
++++ b/arch/arm/boot/dts/mediatek/mt7629.dtsi
+@@ -141,8 +141,7 @@ topckgen: syscon@10210000 {
+ 		};
+ 
+ 		watchdog: watchdog@10212000 {
+-			compatible = "mediatek,mt7629-wdt",
+-				     "mediatek,mt6589-wdt";
++			compatible = "mediatek,mt7629-wdt";
+ 			reg = <0x10212000 0x100>;
+ 		};
+ 
+diff --git a/arch/arm64/boot/dts/mediatek/mt6797.dtsi b/arch/arm64/boot/dts/mediatek/mt6797.dtsi
+index 8ac98a378fd6..fe81faee0b0c 100644
+--- a/arch/arm64/boot/dts/mediatek/mt6797.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt6797.dtsi
+@@ -218,7 +218,7 @@ scpsys: power-controller@10006000 {
+ 	};
+ 
+ 	watchdog: watchdog@10007000 {
+-		compatible = "mediatek,mt6797-wdt", "mediatek,mt6589-wdt";
++		compatible = "mediatek,mt6797-wdt";
+ 		reg = <0 0x10007000 0 0x100>;
+ 	};
+ 
+diff --git a/arch/arm64/boot/dts/mediatek/mt7622.dtsi b/arch/arm64/boot/dts/mediatek/mt7622.dtsi
+index 158bd9a305d7..0b5ffe9fa806 100644
+--- a/arch/arm64/boot/dts/mediatek/mt7622.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt7622.dtsi
+@@ -322,8 +322,7 @@ pio: pinctrl@10211000 {
+ 	};
+ 
+ 	watchdog: watchdog@10212000 {
+-		compatible = "mediatek,mt7622-wdt",
+-			     "mediatek,mt6589-wdt";
++		compatible = "mediatek,mt7622-wdt";
+ 		reg = <0 0x10212000 0 0x800>;
+ 	};
+ 
+diff --git a/arch/arm64/boot/dts/mediatek/mt8173.dtsi b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
+index 78c2ccd5be13..04b91b751853 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8173.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
+@@ -528,8 +528,7 @@ power-domain@MT8173_POWER_DOMAIN_MFG {
+ 		};
+ 
+ 		watchdog: watchdog@10007000 {
+-			compatible = "mediatek,mt8173-wdt",
+-				     "mediatek,mt6589-wdt";
++			compatible = "mediatek,mt8173-wdt";
+ 			reg = <0 0x10007000 0 0x100>;
+ 		};
+ 
+diff --git a/arch/arm64/boot/dts/mediatek/mt8365.dtsi b/arch/arm64/boot/dts/mediatek/mt8365.dtsi
+index 2e782558fb77..2b5b761b92c8 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8365.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8365.dtsi
+@@ -469,7 +469,7 @@ power-domain@MT8365_POWER_DOMAIN_DSP {
+ 		};
+ 
+ 		watchdog: watchdog@10007000 {
+-			compatible = "mediatek,mt8365-wdt", "mediatek,mt6589-wdt";
++			compatible = "mediatek,mt8365-wdt";
+ 			reg = <0 0x10007000 0 0x100>;
+ 			#reset-cells = <1>;
+ 		};
+diff --git a/arch/arm64/boot/dts/mediatek/mt8516.dtsi b/arch/arm64/boot/dts/mediatek/mt8516.dtsi
+index b5e753759465..515eed0bee21 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8516.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8516.dtsi
+@@ -203,8 +203,7 @@ apmixedsys: apmixedsys@10018000 {
+ 		};
+ 
+ 		watchdog@10007000 {
+-			compatible = "mediatek,mt8516-wdt",
+-				     "mediatek,mt6589-wdt";
++			compatible = "mediatek,mt8516-wdt";
+ 			reg = <0 0x10007000 0 0x1000>;
+ 			interrupts = <GIC_SPI 198 IRQ_TYPE_LEVEL_LOW>;
+ 			#reset-cells = <1>;
 -- 
 2.54.0
 
