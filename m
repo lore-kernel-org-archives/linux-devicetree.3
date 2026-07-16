@@ -1,338 +1,193 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D09B30274D;
-	Thu, 16 Jul 2026 07:03:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F248037AA78
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 07:06:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784185383; cv=none; b=asnt/sCyn+XfZYa+7VPCtm2ZdBgX05hGXDP9WsfOCTTYumG19FUhVCipWauJ+C/wIAgomXB5G1zE3ndbK+KiuPSjTYobA+/4Fmqw8lYYzIQmRguA/DuItg4lqhLBwKFGGLv0KWTk8fKAXhlu6vnxT6zJbjcnF89iJtE5AjUFwhk=
+	t=1784185574; cv=none; b=QBx1l8qDVN1fliT3BgkkvbzVHg4ucAZHUN7Ua9KKFu53Qj1+2f7/L+pia+9T4N+YBihfxyTtOyNI9/1jQfvUojJJZ8/tfuICEUE+GjJDlI2mtcJ02+LdRl9gaA7RY87AZ+ZxUroJR1uyHjrfggVc51sKP2owHt9wm7zBMVCwpfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784185383; c=relaxed/simple;
-	bh=UJuRDBMkimoGr8tdAvZJiI+C7gbzOM2S6oiD9Cv/mZY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZrRK59rR1lRJzNio0BeJ11WefriOjRWcwKqdhsRNUNXMhsnNDNyB7LWtQWNB7ZbHxGJaPUO+YNpQ2AjA8eDJybgsWRHylHrD6xsfA4v5G3+x48kOS1p4Nn/ArulC+sTbKRVSuVWvsr9S1W8C8hmLM7dl42bv+m9Eg5qjFPY0O3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MNtlpbDG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784185574; c=relaxed/simple;
+	bh=DHbeBBoWF63nDs+Kj86fZ9znS4t4G7P+1Y1seAQtmPE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qL3wTTvPV8HNOtZXcqE2Wq/BTQzNwczWgl4X6uHryL7fVx1AIw0rvQftWVwI3lsR/2PHxmG6RH/r0WXvW8iwRjUEGU7LAjRx4FTiEHjt/CZDZ5ZZFAc99jzybgV0Jloy/Li+SPv9sBbXZIKY+PPI7bvj8Lede5/gS7qzJy4hAl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nV81pXkr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MNtlpbDG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DC6E1F000E9;
-	Thu, 16 Jul 2026 07:02:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nV81pXkr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A70DF1F00A3A;
+	Thu, 16 Jul 2026 07:06:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784185382;
-	bh=FFNUu0XXRGHNtH40B1tomItE0NdjZli+GhoQ7HxIkQY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MNtlpbDGcyUioUCN12h0sq/BaPNYcp3CTPfrl3k4yclHMwUiT0FKbToKL0v1p9GF1
-	 A4Qe73qDyOWUrWqlxv7XeaAa/kMufIqD9W/sXZ1Dya/gML2/ABdtcyc+5qyVQlTY+u
-	 KWt3XeJQ9HdwS2PpOiQefYOHtLvffdn6FUKXu3Yz32FhClnnzX8EIXgVkvHC6vKXJn
-	 hO/AnRBwTqRxsg//fzq68A0dksQpiNHhMxys6I7ANN2swVPTyc52dmGqUe0h6VMgMu
-	 1ms+hEojgD+9pEYegFTWYOyWVxG2xI9egyHr+D5WPU66s1QzzHVzejah5of6iifxWz
-	 4KgTCPF6Rhbbw==
-Date: Thu, 16 Jul 2026 09:02:39 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com, 
-	rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org, 
-	arnd@arndb.de, gregkh@linuxfoundation.org, daniel@riscstar.com, 
-	mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com, alexandre.torgue@foss.st.com, 
-	ast@kernel.org, boon.khai.ng@altera.com, chenchuangyu@xiaomi.com, 
-	chenhuacai@kernel.org, daniel@iogearbox.net, hawk@kernel.org, hkallweit1@gmail.com, 
-	inochiama@gmail.com, john.fastabend@gmail.com, julianbraha@gmail.com, 
-	livelycarpet87@gmail.com, mcoquelin.stm32@gmail.com, me@ziyao.cc, 
-	prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com, rohan.g.thomas@altera.com, 
-	sdf@fomichev.me, siyanteng@cqsoftware.com.cn, weishangjuan@eswincomputing.com, 
-	wens@kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 12/14] gpio: tc956x: add TC956x/QPS615 support
-Message-ID: <dhnylud7o5dhaaq6kvbes4vkml3ppa5ev542j2lyxdijibknzg@pfcy22wz6jav>
-References: <20260605010022.968612-1-elder@riscstar.com>
- <20260605010022.968612-13-elder@riscstar.com>
+	s=k20260515; t=1784185570;
+	bh=ybgprzuaFoH1F40LA3cnuSmEEi5c2IxaRujzKllW428=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nV81pXkrJTvDkiDLTDT0PkDKvBeAuJRqRg3y+9m10IL6YKS5P3yyTzKolvOMS9zMm
+	 gcl243YGlRXW5R0vFdwBtSZumYe4Y+VotbfxZk7VM7PTSpkoQLcHbpdt+Cd19ne5CE
+	 2+2zDaFehuYXZEFXmfvqVkHr+yLszQbF1llVj14VUYZHEg8siK1wE47IkLDnfsLhgS
+	 GOeCxlj7b+LCUsbB39uvF2kZByVH3syisFQYAElK+8hDMUkEZ7hh3/zDd7x4gpgWWn
+	 ombREO76UomBjJoJ+lCFMycp4zKIZt6J8v84lwEwocu+1NELuiMmgm+NxRlu7bId7d
+	 r+XeA1/MGBnLg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: dts: rockchip: Add ArmSoM CM5 and CM5-IO
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <b86032a8-42a9-4deb-a9ec-b1ff6c1935d6@smtp-relay.sendinblue.com>
+References: <20260716065548.2466198-1-gahing@gahingwoo.com>
+ <b86032a8-42a9-4deb-a9ec-b1ff6c1935d6@smtp-relay.sendinblue.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 16 Jul 2026 07:06:10 +0000
+Message-Id: <20260716070610.A70DF1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260605010022.968612-13-elder@riscstar.com>
 
-On Thu, Jun 04, 2026 at 08:00:19PM -0500, Alex Elder wrote:
-> Toshiba TC956x is an Ethernet-AVB/TSN bridge and is essentially
-> a small and highly-specialized SoC.  TC956x includes a GPIO block that
-> can be accessed, alongside several other peripherals, via two PCIe
-> endpoint functions.  The PCIe function driver creates an auxiliary
-> device for the GPIO block, and that device gets bound to this auxiliary
-> device driver.
-> 
-> This driver is implemented using the generic regmap-based GPIO driver.
-> 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Medium] Contradictory suspend state configuration for `vdd_cpu_lit_s0` a=
+nd `vdd_gpu_s0` regulators.
+- [Medium] `full-pwr-cycle-in-suspend` specified for eMMC without a `vmmc-s=
+upply`.
+- [Low] Missing ES8388 audio codec device node on I2C0 bus.
+- [Low] Use of deprecated `gpio` property instead of `gpios` in `vcc_3v3_pc=
+ie` fixed regulator.
+--
 
-While the regmap over the switch BAR works for GPIO access post-enumeration,
-there is a blocker in using these GPIOs to control the power to endpoints.
+--- Patch [2]: [PATCH v2 2/2] arm64: dts: rockchip: Add ArmSoM CM5 and CM5-=
+IO ---
+commit cd4f511d2817d5912abf4ba85345906a62079b4e
+Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-We have a design [1] where the GPIOs from the switch are used to control power
-and PERST# signals to the EP. With this current design, during the initial PCI
-bus scan, the switch will get enumerated, but the EP will not. Because, power to
-the EP depends on the GPIO Aux driver that will get probed only after the switch
-enumeration.
+arm64: dts: rockchip: Add ArmSoM CM5 and CM5-IO
 
-But this creates a chicken-and-egg problem with the PCI Pwrctrl design.
-pcie-qcom driver uses the Pwrctrl framework to power on the PCI endpoints before
-the initial PCI bus scan. It calls pci_pwrctrl_create_devices() and
-pci_pwrctrl_power_on_devices() APIs to create the platform device for all PCI
-devices defined in DT (that require pwrctrl support), waits for their respective
-pwrctrl drivers to get probed and then power ON all of them. This step is
-required because in DT platforms, many Root Ports are not hotplug capable and
-also BIOS doesn't assign bridge windows during boot. So all the devices has to
-appear during the initial PCI bus scan so that the PCI core can allocate the
-resources properly.
+Add the ArmSoM CM5, an RK3576 compute module (rk3576-armsom-cm5.dtsi),
+and its CM5-IO carrier (rk3576-armsom-cm5-io.dts). The module has the
+RK806 PMIC, HYM8563 RTC, eMMC, GMAC0 with an on-module MotorComm YT8531
+PHY, and the SDIO bus for the on-module WiFi.
 
-Now the issue with this Aux driver design is that, if an EP makes use of the
-switch GPIO for PERST# or power, like:
-
-	tc9563: pcie@0,0 {
-		compatible = "pci1179,0623";
-		reg = <0x10000 0x0 0x0 0x0 0x0>;
-		...
-
-		pcie@1,0 {
-			compatible = "pciclass,0604";
-			reg = <0x20800 0x0 0x0 0x0 0x0>;
-			#address-cells = <3>;
-			#size-cells = <2>;
-
-			device_type = "pci";
-			ranges;
-			bus-range = <0x3 0xff>;
-
-			reset-gpios = <&tc9563 5 GPIO_ACTIVE_LOW>;
-		};
-	...
-
-	};
-
-Then the pwrctrl driver (pci/pwrctrl/generic.c) will try to acquire the GPIO
-controller during its probe, but will fail with -EPROBE_DEFER as the GPIO
-controller won't be available at that time. So the whole PCIe instance will
-probe defer as the driver requires all pwrctrl drivers to be probed before
-starting the initial bus scan.
-
-So we need to make sure that the GPIO controller driver is available before
-enumerating the switch device. One way to achieve is by creating the GPIO Aux
-device in the pci/pwrctrl/pci-pwrctrl-tc9563.c driver and let the GPIO
-controller driver use I2C communication for setting up the GPIOs. Thankfully,
-the switch allows both I2C and BAR MMIO configurations for internal GPIOs.
-
-With this change, the GPIO driver will get probed by the time the pwrctrl
-generic driver acquires the 'reset-gpios' and will turn ON the EP.
-
-Let me know your thoughts!
-
-- Mani
-
-[1] https://lore.kernel.org/linux-pci/e2inl7k5gsjj6oomv2k5ximuzpb3gfiz66ufet3b4hvov7zqt4@qz4pifbos7yf/
-
-> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> ---
->  MAINTAINERS                |   1 +
->  drivers/gpio/Kconfig       |  12 ++++
->  drivers/gpio/Makefile      |   1 +
->  drivers/gpio/gpio-tc956x.c | 130 +++++++++++++++++++++++++++++++++++++
->  4 files changed, 144 insertions(+)
->  create mode 100644 drivers/gpio/gpio-tc956x.c
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 0924f7ec43cb0..0439607d1155f 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -27057,6 +27057,7 @@ M:	Alex Elder <elder@kernel.org>
->  M:	Daniel Thompson <danielt@kernel.org>
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
-> +F:	drivers/gpio/gpio-tc956x.c
->  F:	drivers/misc/tc956x_pci.c
->  
->  TOSHIBA WMI HOTKEYS DRIVER
-> diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-> index 020e51e30317a..36631ca722fa3 100644
-> --- a/drivers/gpio/Kconfig
-> +++ b/drivers/gpio/Kconfig
-> @@ -743,6 +743,18 @@ config GPIO_TB10X
->  	select GPIO_GENERIC
->  	select GENERIC_IRQ_CHIP
->  
-> +config GPIO_TC956X
-> +	tristate "Toshiba TC956X GPIO support"
-> +	depends on TOSHIBA_TC956X_PCI
-> +	select GPIO_REGMAP
-> +	default m
-> +	help
-> +	  This enables support for the GPIO controller embedded in the Toshiba
-> +	  TC956X (and Qualcomm QPS615).  This device connects to the host
-> +	  via PCIe port, which is the upstream port on an internal PCIe
-> +	  switch.  On some platforms, a few of the GPIO lines are used to
-> +	  manage external resets.
-> +
->  config GPIO_TEGRA
->  	tristate "NVIDIA Tegra GPIO support"
->  	default ARCH_TEGRA
-> diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
-> index b267598b517de..c3584e7cba9b4 100644
-> --- a/drivers/gpio/Makefile
-> +++ b/drivers/gpio/Makefile
-> @@ -178,6 +178,7 @@ obj-$(CONFIG_GPIO_SYSCON)		+= gpio-syscon.o
->  obj-$(CONFIG_GPIO_TANGIER)		+= gpio-tangier.o
->  obj-$(CONFIG_GPIO_TB10X)		+= gpio-tb10x.o
->  obj-$(CONFIG_GPIO_TC3589X)		+= gpio-tc3589x.o
-> +obj-$(CONFIG_GPIO_TC956X)		+= gpio-tc956x.o
->  obj-$(CONFIG_GPIO_TEGRA186)		+= gpio-tegra186.o
->  obj-$(CONFIG_GPIO_TEGRA)		+= gpio-tegra.o
->  obj-$(CONFIG_GPIO_THUNDERX)		+= gpio-thunderx.o
-> diff --git a/drivers/gpio/gpio-tc956x.c b/drivers/gpio/gpio-tc956x.c
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts b/arch=
+/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts
 > new file mode 100644
-> index 0000000000000..0dc6b1028d970
+> index 0000000000000..79a903585197c
 > --- /dev/null
-> +++ b/drivers/gpio/gpio-tc956x.c
-> @@ -0,0 +1,130 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +/*
-> + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights reserved.
-> + */
-> +
-> +/*
-> + * The Toshiba TC956X implements a PCIe Gen 3 switch that connects an
-> + * upstream x4 port to two downstream PCIe x2 ports.  It incorporates
-> + * an internal endpoint on a internal PCIe port that implements two
-> + * Synopsys XGMAC Ethernet interfaces.
-> + *
-> + * 35 GPIOs are also implemented by an embedded GPIO controller.  Three
-> + * registers control the first 32 GPIOs (other than 20 and 21, which are
-> + * reserved).  Three other registers control GPIOs 32 through 36. GPIOs
-> + * 22-24, 27-28, 31, and 34 are treated as "input only".
-> + *
-> + * There is a TC956X PCI power controller driver that accesses the
-> + * direction and output value registers for GPIOs 2 and 3.  These
-> + * GPIOs control the reset signal for the two downstream PCIe ports.
-> + * Their values will never change during operation of this driver, and
-> + * this driver reserves these two GPIOS.
-> + */
-> +
-> +#include <linux/auxiliary_bus.h>
-> +#include <linux/gpio/driver.h>
-> +#include <linux/module.h>
-> +#include <linux/regmap.h>
-> +#include <linux/gpio/regmap.h>
-> +
-> +#define DRIVER_NAME		"tc956x-gpio"
-> +
-> +#define TC956X_GPIO_COUNT	37	/* Number of GPIOs (20-21 reserved) */
-> +
-> +/* The GPIO offsets are relative to 0x1200 in TC956X SFR space. */
-> +#define GPIO_IN0_OFFSET		0x00		/* Input value (0-31) */
-> +#define GPIO_EN0_OFFSET		0x08		/* 0: out; 1: in (0-31) */
-> +#define GPIO_OUT0_OFFSET	0x10		/* Output value (0-31) */
-> +
-> +/*
-> + * There are two sets of registers, each representing (up to) 32 GPIOs with a
-> + * stride of 4 bytes (IN1 is 4 bytes past IN0, EN1 is 4 bytes past EN0, etc.).
-> + */
-> +#define GPIO_PER_REG		32
-> +#define GPIO_REG_STRIDE		4
-> +
-> +static int tc956x_gpio_init_valid_mask(struct gpio_chip *gc,
-> +				       unsigned long *valid_mask,
-> +				       unsigned int ngpios)
-> +{
-> +	/*
-> +	 * GPIOs 2 and 3 are used by the PCI power control driver, and
-> +	 * we don't allow them to be used.  GPIOs 20 and 21 are reserved
-> +	 * (and not usable).
-> +	 */
-> +	bitmap_fill(valid_mask, ngpios);
-> +	bitmap_clear(valid_mask, 2, 2);
-> +	bitmap_clear(valid_mask, 20, 2);
-> +
-> +	return 0;
-> +}
-> +
-> +static int tc956x_gpio_probe(struct auxiliary_device *adev,
-> +			     const struct auxiliary_device_id *id)
-> +{
-> +	DECLARE_BITMAP(zeroes, TC956X_GPIO_COUNT);
-> +	DECLARE_BITMAP(fixed, TC956X_GPIO_COUNT);
-> +	struct gpio_regmap_config config = { };
-> +	struct gpio_regmap *gpio_regmap;
-> +	struct device *dev = &adev->dev;
-> +
-> +	/* We need the regmap pointer, stored in our platform data */
-> +	if (!dev->platform_data)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * Only some of our GPIOs are fixed direction:
-> +	 *	22, 23, 24, 27, 28, 31, and 34	(all input-only)
-> +	 * Set up the fixed bitmap to indicate which are fixed.
-> +	 */
-> +	bitmap_zero(fixed, TC956X_GPIO_COUNT);
-> +	bitmap_set(fixed, 22, 3);
-> +	bitmap_set(fixed, 27, 2);
-> +	set_bit(31, fixed);
-> +	set_bit(34, fixed);
-> +
-> +	/* All fixed GPIOs are input; the zeroes bitmap indicates that. */
-> +	bitmap_zero(zeroes, TC956X_GPIO_COUNT);
-> +
-> +	config.parent = dev;
-> +	config.regmap = dev->platform_data;
-> +	config.label = DRIVER_NAME;
-> +	config.ngpio = TC956X_GPIO_COUNT;
-> +	config.reg_dat_base = GPIO_REGMAP_ADDR(GPIO_IN0_OFFSET);
-> +	config.reg_set_base = GPIO_REGMAP_ADDR(GPIO_OUT0_OFFSET);
-> +	config.reg_dir_in_base = GPIO_REGMAP_ADDR(GPIO_EN0_OFFSET);
-> +	config.reg_stride = GPIO_REG_STRIDE;
-> +	config.ngpio_per_reg = GPIO_PER_REG;
-> +	config.init_valid_mask = tc956x_gpio_init_valid_mask;
-> +	config.fixed_direction_mask = fixed;
-> +	config.fixed_direction_output = zeroes;
-> +
-> +	gpio_regmap = devm_gpio_regmap_register(dev, &config);
-> +	if (IS_ERR(gpio_regmap))
-> +		return PTR_ERR(gpio_regmap);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct auxiliary_device_id tc956x_gpio_ids[] = {
-> +	{ .name = "tc956x_pci.tc9564-gpio", },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(auxiliary, tc956x_gpio_ids);
-> +
-> +static struct auxiliary_driver tc956x_gpio_driver = {
-> +	.name		= DRIVER_NAME,
-> +	.probe          = tc956x_gpio_probe,
-> +	.id_table       = tc956x_gpio_ids,
-> +	.driver = {
-> +		.name		= DRIVER_NAME,
-> +		.owner		= THIS_MODULE,
-> +		.probe_type	= PROBE_PREFER_ASYNCHRONOUS,
-> +	},
-> +};
-> +module_auxiliary_driver(tc956x_gpio_driver);
-> +
-> +MODULE_DESCRIPTION("Toshiba TC956X PCIe GPIO Driver");
-> +MODULE_LICENSE("GPL");
-> +MODULE_ALIAS("auxiliary:" DRIVER_NAME);
-> -- 
-> 2.51.0
-> 
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts
+> @@ -0,0 +1,401 @@
 
--- 
-மணிவண்ணன் சதாசிவம்
+[ ... ]
+
+> +	/* PCIe 3.3 V for the M.2 slot, gated by GPIO0 PC3. */
+> +	vcc_3v3_pcie: regulator-vcc-3v3-pcie {
+> +		compatible =3D "regulator-fixed";
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&pcie_pwr_en>;
+> +		regulator-name =3D "vcc_3v3_pcie";
+> +		regulator-min-microvolt =3D <3300000>;
+> +		regulator-max-microvolt =3D <3300000>;
+> +		enable-active-high;
+> +		gpio =3D <&gpio0 RK_PC3 GPIO_ACTIVE_HIGH>;
+
+[Severity: Low]
+Does this regulator intentionally use the deprecated gpio property instead
+of gpios? Using gpios here would match standard devicetree bindings and
+the style used by other regulators in this file.
+
+> +		startup-delay-us =3D <5000>;
+> +		vin-supply =3D <&vcc_5v0_sys>;
+> +	};
+
+[ ... ]
+
+> +/*
+> + * I2C0: ES8388 audio codec @ 0x10, FUSB302 USB-C PD controller @ 0x22.
+> + * Pinctrl i2c0m1 (GPIO0 PC4 SCL / GPIO0 PC5 SDA).
+> + */
+> +&i2c0 {
+> +	status =3D "okay";
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&i2c0m1_xfer>;
+> +
+> +	usbc0: usb-typec@22 {
+
+[Severity: Low]
+The comment above mentions the ES8388 audio codec at 0x10, but is the device
+node for it missing here in &i2c0?
+
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5.dtsi b/arch/a=
+rm64/boot/dts/rockchip/rk3576-armsom-cm5.dtsi
+> new file mode 100644
+> index 0000000000000..4612b7e1d6e8a
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5.dtsi
+> @@ -0,0 +1,564 @@
+
+[ ... ]
+
+> +			vdd_cpu_lit_s0: dcdc-reg3 {
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt =3D <550000>;
+> +				regulator-max-microvolt =3D <950000>;
+> +				regulator-ramp-delay =3D <12500>;
+> +				regulator-name =3D "vdd_cpu_lit_s0";
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +					regulator-suspend-microvolt =3D <750000>;
+
+[Severity: Medium]
+Can a regulator be simultaneously turned off and maintain a specific suspend
+voltage? Specifying both regulator-off-in-suspend and
+regulator-suspend-microvolt appears contradictory and may cause unexpected
+behavior during suspend.
+
+> +				};
+> +			};
+
+[ ... ]
+
+> +			vdd_gpu_s0: dcdc-reg5 {
+> +				regulator-boot-on;
+> +				regulator-min-microvolt =3D <550000>;
+> +				regulator-max-microvolt =3D <900000>;
+> +				regulator-ramp-delay =3D <12500>;
+> +				regulator-name =3D "vdd_gpu_s0";
+> +				regulator-enable-ramp-delay =3D <400>;
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +					regulator-suspend-microvolt =3D <850000>;
+
+[Severity: Medium]
+Similar to vdd_cpu_lit_s0, is it correct to include both
+regulator-off-in-suspend and regulator-suspend-microvolt here for the GPU
+regulator?
+
+> +				};
+> +			};
+
+[ ... ]
+
+> +/* eMMC: on-module, HS400 200 MHz with enhanced strobe. */
+> +&sdhci {
+> +	bus-width =3D <8>;
+> +	full-pwr-cycle-in-suspend;
+> +	max-frequency =3D <200000000>;
+> +	mmc-hs400-1_8v;
+> +	mmc-hs400-enhanced-strobe;
+> +	no-sdio;
+> +	no-sd;
+> +	non-removable;
+> +	/delete-property/ supports-cqe;
+> +	status =3D "okay";
+> +};
+
+[Severity: Medium]
+Will full-pwr-cycle-in-suspend have any effect if vmmc-supply is not
+specified? Without a vmmc-supply to control the power, the MMC core may not
+be able to actually fully power down the device, potentially leading to sta=
+te
+mismatches on resume.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716065548.2466=
+198-1-gahing@gahingwoo.com?part=3D2
