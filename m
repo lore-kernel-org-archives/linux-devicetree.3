@@ -1,68 +1,135 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9C837EFEB;
-	Thu, 16 Jul 2026 16:36:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16CF340D9A;
+	Thu, 16 Jul 2026 16:37:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784219827; cv=none; b=V1o9sJhGL3wqnjE60p9BH2KbDbd3J91RabzmC08Bb81PuDhwTUoJajm2n6bP6xScAmAS18lV7p2A5pdmYckhNQZ8VKWJasFrOugi2dT/PVrt/R6BJ3QQ/r+bsg0f/vaLyoh2X9HVsR0HpnY3wlqq8wI5pWJRwujS3/bWsG336mc=
+	t=1784219856; cv=none; b=seFZ8I6L8DMw91Ctz6T1p867fxQsCS0Nj1Hqtw5Qwmyp6BLwSHTpadw2W/vcA0sSGVIGk5jmqVRYIJtE2BenD0KEus3lUh+INTZ8GnKkHC5x7JIbg0cz60W2p+jh5590QzhjZ/7ZkoM26MchzTCCfkFJbOGuWvRhIq1DZKL0uZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784219827; c=relaxed/simple;
-	bh=K0BF7FbuoxREQX7R9oRRuKih1khVUEkSGv6AiK2pt2M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I3VF3f+1hqkabOHy7553WP+3JfA3He/VENt18FCEbMtsJPhPFLhLu190W/BfIoe9nBwEejJQ0TYS3cGZ7uAEkxWeMEQO4g2wQxKjRK6TLW1+W7v/t0aixr9yU5wDpYPQED0tTPPWJ2oa6kFW//UY04EOKIPW9SOWO4zNYSiudR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=oUQiQEU7; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1784219856; c=relaxed/simple;
+	bh=5YDGoGw4bw187r9/1zeeQvV3kc805/e8bf0fLNuvEsI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=IqlOIULHll3mj1B3FkQ8MZRmSuuC/mTYRUxpTYgJ2WWUti8VhBCy1jR/yxpn3sD47+Ybt9ZR2gLW6cJIz9wE3f1zXOAmEsPBDE+QvQKhUnVkDeJZdJWbOgqjHib4pD52Qk6iawnG1txKqUW+i9AqtH3pKsr/1ONENAAUIp7cno8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i0FfLmJP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="oUQiQEU7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=d5qYlpD+dPBiVmXiI59yOgTPp/v55fuilkEwBEDMrA4=; b=oUQiQEU7IyGmWs61ai3ffx+pzj
-	m40tRCGB5E5Js7JSs+FAQDEezEDMuJdLGATgpr5vzY7oGf17YnAmOB/4+uIi7EOm0xdZihMceGlIU
-	vgWA9n6/6L09e4hsUjGZsB56X72LukVRfr1IJe6mVNOHXy3qxWYY7mGS6ZooUZnGTXg8=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wkP4s-00CaIa-AP; Thu, 16 Jul 2026 18:36:50 +0200
-Date: Thu, 16 Jul 2026 18:36:50 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Liu Changjie <liucj1228@outlook.com>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: Add Maxio MAE0621A PHY
-Message-ID: <1a02ef89-2608-44c4-847f-239d9b86c7ab@lunn.ch>
-References: <03b781d223194234bcf6e53df12880b4.1784011580644350.tspi3m-maxio-v1-cover@outlook.com>
- <MN0PR19MB6091ABAD3F4E6AC5FFD44E34ACF92@MN0PR19MB6091.namprd19.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i0FfLmJP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A068C1F000E9;
+	Thu, 16 Jul 2026 16:37:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784219840;
+	bh=pPb7MRYGqzMNG1yKEhlTe1zO85v6O2FdS8OZOizYqHo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=i0FfLmJPT7VicdzDkdLHmuoUgNZlfHgPCyhCXkjm7W/I7kHk5UHTibL0YVHsE79sd
+	 6EYy9Gc4PyGtOnhZTRR4PwQ5KLP0g5AvU8FWyz2N2reyjONSZObzaSOZ8K0uCV/5GJ
+	 F7N+kFxA+KaoahF2jUa5ENzlZh7++b0Fw9h6dtu5ZgyxSvXCDIYSM7tyZM1JUPJY5T
+	 00o5ESEUXhnz1XzvW+AqKbAi3d/fMM6FHOriq6U7mcKV1YBFsCI/2mTTajrmE1H3sP
+	 pgQFSCECqu3c/o1ATMeDemnIpf9ATsV2r7YW0DHy1y27H69/ieMumqKW/ULvZY/wqa
+	 kSpwdcqdMekkA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/7] watchdog: mtk_wdt: add explicit compatibles for
+ SoCs using mt6589 fallback
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Akari Tsuyukusa" <akkun11.open@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260716161923.266315-2-akkun11.open@gmail.com>
+References: <20260716161923.266315-1-akkun11.open@gmail.com>
+ <20260716161923.266315-2-akkun11.open@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 16 Jul 2026 16:37:19 +0000
+Message-Id: <20260716163719.A068C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <MN0PR19MB6091ABAD3F4E6AC5FFD44E34ACF92@MN0PR19MB6091.namprd19.prod.outlook.com>
 
-> +  maxio,clk-out-frequency-hz:
-> +    description:
-> +      Selects a 125 MHz clock on the CLKOUT pin. If the property is absent,
-> +      the hardware strap or bootloader configuration is preserved.
-> +    const: 125000000
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Not required, but maybe consider the value of 0 meaning the clock
-should be disabled? If the MAC does not need it, turning it off can
-save a little power.
+Pre-existing issues:
+- [High] Watchdog is registered to userspace before its state is fully init=
+ialized from the device tree.
+- [High] Watchdog hardware is not stopped during system suspend if it was r=
+unning before boot but not opened by userspace.
+--
 
-This is something which can also be added later.
+--- Patch [1]: [PATCH 1/7] watchdog: mtk_wdt: add explicit compatibles for =
+SoCs using mt6589 fallback ---
+commit d59566877973f13ae59e846770f459a7512fd9eb
+Author: Akari Tsuyukusa <akkun11.open@gmail.com>
 
-     Andrew
+watchdog: mtk_wdt: add explicit compatibles for SoCs using mt6589 fallback
+
+This patch adds dedicated of_device_id entries for several SoCs that
+currently rely on the "mediatek,mt6589-wdt" fallback compatible. This
+allows the driver to match directly on the SoC-specific string, which is
+a prerequisite for removing the fallback string from DTS files.
+
+> diff --git a/drivers/watchdog/mtk_wdt.c b/drivers/watchdog/mtk_wdt.c
+> index 91d110646e16f..345d2e89f414e 100644
+> --- a/drivers/watchdog/mtk_wdt.c
+> +++ b/drivers/watchdog/mtk_wdt.c
+> @@ -492,17 +492,28 @@ static int mtk_wdt_resume(struct device *dev)
+>  }
+
+[Severity: High]
+This isn't a bug introduced by this patch, but I noticed a potential
+problem with how the watchdog is handled during system suspend and resume.
+
+In mtk_wdt_suspend() and mtk_wdt_resume(), the driver only checks
+watchdog_active(), which is true if userspace has opened the device:
+
+drivers/watchdog/mtk_wdt.c:mtk_wdt_suspend() {
+    ...
+	if (watchdog_active(&mtk_wdt->wdt_dev))
+		mtk_wdt_stop(&mtk_wdt->wdt_dev);
+    ...
+}
+
+Will this cause the system to reboot unexpectedly during suspend if the
+hardware watchdog was already running before boot (WDOG_HW_RUNNING) but
+hasn't been opened by userspace?
+
+Should these functions also ensure the hardware is properly stopped even
+when the device hasn't been opened?
+
+[Severity: High]
+This is also a pre-existing issue, but does mtk_wdt_probe() expose the
+device to userspace too early?
+
+drivers/watchdog/mtk_wdt.c:mtk_wdt_probe() {
+    ...
+	err =3D devm_watchdog_register_device(dev, &mtk_wdt->wdt_dev);
+	if (unlikely(err))
+		return err;
+
+	// ... [code omitted] ...
+
+	mtk_wdt->disable_wdt_extrst =3D
+		of_property_read_bool(dev->of_node, "mediatek,disable-extrst");
+
+	mtk_wdt->reset_by_toprgu =3D
+		of_property_read_bool(dev->of_node, "mediatek,reset-by-toprgu");
+    ...
+}
+
+If userspace opens and starts the watchdog immediately after
+devm_watchdog_register_device() completes, could it be started with
+incorrect configurations before the device tree properties are parsed?
+
+Additionally, if toprgu_register_reset_controller() fails after the watchdog
+is registered, the probe will fail. Could this cause the watchdog to be
+deregistered while it is actively in use by userspace?
+
+> =20
+>  static const struct of_device_id mtk_wdt_dt_ids[] =3D {
+> +	{ .compatible =3D "mediatek,mt2701-wdt" },
+>  	{ .compatible =3D "mediatek,mt2712-wdt", .data =3D &mt2712_data },
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716161923.2663=
+15-1-akkun11.open@gmail.com?part=3D1
