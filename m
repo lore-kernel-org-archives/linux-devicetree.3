@@ -1,108 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 804A6435502;
-	Thu, 16 Jul 2026 17:27:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650923B19D5;
+	Thu, 16 Jul 2026 17:27:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784222851; cv=none; b=pK0QuZ64F/dXX76x0PnOYmG92yUn4WWWjWQeDmYq6kyDJKd6OKf+YW9ZpY1tqv69FKXNLYZ5FiHoOB9h6PrMhcRCmmGqX0cUthjkCQo2E7qqgfruAGWdCfIW6mu4/qWLpWPTgB1kPxS+3TaSaFzhfd7ruVG6nwfFKEDkrgFVA1Y=
+	t=1784222856; cv=none; b=AufMOwjDKhoBd7mNuvr+QiUo5rpsemABI9JRi1h/TyIuD4RUYg5viLunsZwDf1nMtL+DWwZ7kOPQ9nR75TVJ/T9StdaaP71Og+scY92l2foe7u7GWSPGrxdVNdaTCbBg8cB4T5CDta1fa2Bgu9vWGCH/NN0rvGcDaZwgN655RxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784222851; c=relaxed/simple;
-	bh=j7qvQakrGWl2fs05CtftfQ8dyTWOe9EfAiWtFcbZTJw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=C+qcoV2ggVyqwKlkP1Y6oeL2RS+7+cYu5uMZSe7CSE6L+KkJMC/1hJY5VhTYrejckWf9C5hNySWuBgcCZbKw84xHM0IxUef+9PAof/i4kp6mWbYQWOyKURV7PqXN7ehzsMbQM2nTazn/TJkzD/YsEXRMonoTi19oZrCbkQeny50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YKc1qDR7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784222856; c=relaxed/simple;
+	bh=4gdxKsGJhlOorwAzJny7Z3/wX5DGmtVW6peLelERwtg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gqDBGJzFKrkMEQSbqNf9mVTr1XjgAOzH40Et7gcF859BkYaExcAiWVvh0WiUkxei2ZcC71yFdNyZF/+n6f8eMzWilBoH4Wt3rxKDOV7lf9Q/MuruJHFnyQSeLUMKi4BDPkQlYZRFgsYBZ3oKmc0FYQjGCAXgwbwzc1yojr/27eA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ri0X19bM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YKc1qDR7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 089081F000E9;
-	Thu, 16 Jul 2026 17:27:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ri0X19bM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E35B11F000E9;
+	Thu, 16 Jul 2026 17:27:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784222850;
-	bh=tUsGVY4sN7rq2HiE8e9Ky+9qe2yG8lx04jcATYODPS4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YKc1qDR7bEQiWHFnucoqsvya+4yxjU6aRzKe52/4VFsDb7gLa4ZnDcCoJSybr6gpB
-	 8DR6hz92kHsCYuhdRu8j52R2xbT3nXgPZIwFtd+M4X05bkZmohzi6YKsEsjTNcjb6P
-	 aaR4M58IHzudBlxb2+8NWWIp1bsonNNsabYIrvjL4/+tTi5U4o34T3voJf5Mwi03QK
-	 dFlzrUpm2vZ2P9CZoj5lc5MxAON/OemcWtb6YF7LbBTCk6/m3TJ/ivqG1oW52CiTAW
-	 C50C/metl2mSr1eOKV2qU8clzc8yXwJg30DiodTcb3eh3IpUM3Asdq6IvKUJMIin63
-	 SvjQnES3JXsuA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] soc: mediatek: pwrap: add MT6589 PWARP and MT6320
- PMIC support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Akari Tsuyukusa" <akkun11.open@gmail.com>
-Cc: mfd@lists.linux.dev, lee@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260716171733.300885-4-akkun11.open@gmail.com>
-References: <20260716171733.300885-1-akkun11.open@gmail.com>
- <20260716171733.300885-4-akkun11.open@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 17:27:29 +0000
-Message-Id: <20260716172730.089081F000E9@smtp.kernel.org>
+	s=k20260515; t=1784222855;
+	bh=C7Ri43wnBZH/LIFHL9jN4Nlw6bbCudsffErXi9BbAO8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ri0X19bMgazH6mxlzhILR3c+9vGgCmx10wcV51E0x5hNbOWjUdYU9uzFCj2OfLpD4
+	 sneVATBmk1XNecfir3ZmxmHgRd+noU+ZdTkjz0PfjW+jj4+fz2HCmyVGLooBR9i7Fh
+	 AIIX7nM4vFVyuOu8buayBGzoqSq1LgzktSS39odvxe1hhel+phBq+QBENykoH/WXNn
+	 3C/0FLAcT8cb6c242npGzG/J0RUyOe55Nl5nVUluW+8Q0iGhXKSUXMyz2M6TTFQLX8
+	 wvMbi4KVadUn618fubfEScJ8J+Rt6IXIlEd6FjKdku2OLBbObnZR2/FUDH/Em/sFvb
+	 o2nqbINCuxuqw==
+Date: Thu, 16 Jul 2026 12:27:34 -0500
+From: Rob Herring <robh@kernel.org>
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: heiko@sntech.de, krzk+dt@kernel.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: arm: rockchip: Add ArmSoM CM5 and
+ CM5-IO
+Message-ID: <20260716172734.GA463528-robh@kernel.org>
+References: <20260716065548.2466198-1-gahing@gahingwoo.com>
+ <7e27ad59-0ffd-4323-9991-d00d69fde098@smtp-relay.sendinblue.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7e27ad59-0ffd-4323-9991-d00d69fde098@smtp-relay.sendinblue.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Incorrect capability flag used for MT6320 PMIC: `PWRAP_DEW_DIO_E=
-N` is used instead of `PWRAP_SLV_CAP_DUALIO`, silently disabling Dual I/O m=
-ode.
---
+On Thu, Jul 16, 2026 at 06:55:47PM +1200, Jiaxing Hu wrote:
+> 
+> Add compatibles for the ArmSoM CM5, an RK3576 compute module, and its
+> CM5-IO carrier board.
+> 
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> ---
+>  Documentation/devicetree/bindings/arm/rockchip.yaml | 7 +++++++
+>  1 file changed, 7 insertions(+)
 
---- Patch [3]: [PATCH 3/3] soc: mediatek: pwrap: add MT6589 PWARP and MT632=
-0 PMIC support ---
-commit 69d3d2c2fbeaf34ea620f48758fb711a4ca760f9
-Author: Akari Tsuyukusa <akkun11.open@gmail.com>
+Please don't send new versions so quickly. We all work 
+different timezones and are busy. Krzysztof reviewed v1.
 
-soc: mediatek: pwrap: add MT6589 PWARP and MT6320 PMIC support
-
-This commit adds support for the MediaTek MT6589 PWRAP and MT6320 PMIC.
-It also refactors the existing MT8135 bridge register definitions to use
-a generic prefix.
-
-> diff --git a/drivers/soc/mediatek/mtk-pmic-wrap.c b/drivers/soc/mediatek/=
-mtk-pmic-wrap.c
-> index 0bcd858263755..3a5b007d60f58 100644
-> --- a/drivers/soc/mediatek/mtk-pmic-wrap.c
-> +++ b/drivers/soc/mediatek/mtk-pmic-wrap.c
-
-[ ... ]
-
-> @@ -2186,6 +2341,14 @@ static const struct pwrap_slv_regops pwrap_regops3=
-2 =3D {
->  	.regmap =3D &pwrap_regmap_config32,
->  };
-> =20
-> +static const struct pwrap_slv_type pmic_mt6320 =3D {
-> +	.dew_regs =3D mt6320_regs,
-> +	.type =3D PMIC_MT6320,
-> +	.regops =3D &pwrap_regops16,
-> +	.caps =3D PWRAP_SLV_CAP_SPI | PWRAP_DEW_DIO_EN |
-
-[Severity: Medium]
-Does using PWRAP_DEW_DIO_EN here instead of PWRAP_SLV_CAP_DUALIO accidental=
-ly
-disable Dual I/O mode?
-
-PWRAP_DEW_DIO_EN is an enumeration value for a register index that evaluates
-to 1 (since PWRAP_DEW_BASE is 0). PWRAP_SLV_CAP_SPI is BIT(0), which also
-equals 1. Bitwise ORing them together results in a bitmask that completely
-omits the intended Dual I/O capability, as PWRAP_SLV_CAP_DUALIO is BIT(1).
-
-This causes HAS_CAP(wrp->slave->caps, PWRAP_SLV_CAP_DUALIO) to evaluate to
-false during pwrap_init(), skipping pwrap_init_dual_io() and leaving the
-PMIC wrapper in single I/O SPI mode.
-
-> +		PWRAP_SLV_CAP_SECURITY,
-> +};
-> +
->  static const struct pwrap_slv_type pmic_mt6323 =3D {
->  	.dew_regs =3D mt6323_regs,
->  	.type =3D PMIC_MT6323,
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716171733.3008=
-85-1-akkun11.open@gmail.com?part=3D3
+Rob
