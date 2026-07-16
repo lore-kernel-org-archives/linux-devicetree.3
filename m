@@ -1,63 +1,63 @@
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA10D4314B0
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 18:29:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC84A433BB3
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 18:29:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784226546; cv=none; b=X2ilFOPqy/+QqV38/8oabShLak+62S0BtWUUsFtAAn+BDxR3wfEiF3od3q9/+1rVY/9PaY4HqHtxjOF/uGCtvOPiCB8vAi8z/igRtBf5ocLhvZ7qTP/sMNZgOvaZs+fr7esN7uKyB2rdJGjhp0IX94FjFuhSCe+95GSuks++O+M=
+	t=1784226548; cv=none; b=d2OecsLRyIYEpTX4v3qGClAarQefotgEpI7Q1VThcV7dxUbGyi/ByCTW7E3glhnncoTz8QN0oIuZ3zffftaAzkRI9VDuQx2fIZ6NlFX+lojkfDaU053fzEO8yE6vhtcjTQg7RMoqh6XAM6Agxr6LkR620vH+cfsKMBLIx30K/gE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784226546; c=relaxed/simple;
-	bh=O83F5mb4uMnJzmc2/msxYxrX+19vruTkQvaEJ7jBfs8=;
+	s=arc-20240116; t=1784226548; c=relaxed/simple;
+	bh=WQutJRijrnKBWEOL5ffHyp1U1A8V6uH9D0gypdIpfJY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MXFHLaYruetCfYtsBoJwqUnmOTPXy1r3ngt28idy7OFovAmWsGiONDG8cfGfLtatY8itKHJs2xLdftesWVUpskfRQTLVocvl0m7n/m/PRFdJf2O/9wtgjPlS+T0+foj6uAd0qcPzAT3GozMq9n8fqKHjUKi1nuaoLn8oSZ4QZmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iJYsl5nc; arc=none smtp.client-ip=209.85.210.45
+	 MIME-Version; b=Js5Pn3IJZPkuNEvXf/4QNBdKe6Gmmd5T8E/sDwDXySSuG44J1McklPtLRGc1wAcaXYUnaQuHSPEEstXu/3VAI337vg5K5CHXKZdjqxe1pY4lv47eLzr54WyVyXi6HI4W89c5onzkIJOq0IUxYGPvFxqCG7OId7aYl1VNfuM9nOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XCSeQgeK; arc=none smtp.client-ip=209.85.210.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iJYsl5nc"
-Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-7eb64085c45so4533428a34.2
-        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 11:29:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XCSeQgeK"
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7e9f69ee6f4so2743039a34.2
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 11:29:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784226542; x=1784831342; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784226544; x=1784831344; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zeav82c+zHUEfGFTy6EKqJYIkUOVt3UnaQ/1FR4S0cQ=;
-        b=iJYsl5nc/4wZQlij6A6Th/CJCdSW7FhLLvIJvqiR+V1oZ8soz7JOPIQc0mVyT5hpHV
-         vrmNwz8zioB+UtKZ2R8rTfP9uPCx9OX9WH2ZqyfdaglLTRuPqZpWtGuMLXzXpz5Rvt2R
-         xjgNkCARyhofE4KGZ98o/4nYWYOBInyKDrXp1VA12W4r9X7VF4ZDUEAhtdk0xhi/U/yR
-         WiwqVIafbFoIIca8ou9qxZv/LQJS/GZg2ZtSPHTDfUrCiEmlj3BDqlX9D+Rlp3AtmnE4
-         mwhPuFiiqhlJHgxgGgppEC2fkvkYEXVucvTQi/QS+1R2IiBr0zACqeiZR2Ji7qL9pXvZ
-         pFZQ==
+        bh=BBQj5o1xBe0UYUjJRFQjbTlsi/qLCduPzV5e4TThaHw=;
+        b=XCSeQgeKOd+JX2QIHW3SI91cl2H2K+H4zXYMjxRqANnG+M3RJW+OSIPY2ixx/Swxwk
+         SVHSGpxuBZlSaqFmyZkFHNwwt05HlIoyS/ubIYXZat7xxY5XWiiA+1dGFpfeyRxeKlz4
+         SK86tDDpcBhoMlZxCmGX0v4JukKdggoGkUfiW6A3zugoZALXVIBVV42Y65qh3j/uoeKH
+         rZYX/6VgTF+eX6AY0Z87BPYKJDeQ7eCC7pYmxDaVbjGztn4ub/KBIaSzw32kNVVzaLvs
+         2ZbNk+cv2rRXxkr6yPIyOZKzeVIcblVtdNg0kLTkukadbiwufwxtE20+prkkOtfsQ/lG
+         3DGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784226542; x=1784831342;
+        d=1e100.net; s=20251104; t=1784226544; x=1784831344;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zeav82c+zHUEfGFTy6EKqJYIkUOVt3UnaQ/1FR4S0cQ=;
-        b=P5EIi0ACe7Gx7QkmBrFYP0Yr3gVjldjbqMtpgnSaRa+rvp2WCmIEcxi68fS/dNvc7N
-         jOx9mCyygj7KspbE1f+Zn1zj2HnAznD6QQDvQ5pBosLNS9gU8CQfA43uTjDIjY6m8Wco
-         qdl2wtSlFdnfxyUhQkEqR6VevVsLcaMy2dkCefJZhFCmOFOUNcp5GuyWI6JwZVz6cyG2
-         C1DUtuYuTdkB0zklNkKUgYNHizPq7yHbjd9JtKOTZi1TWRfElomKeW7rCyw+vm0c+isN
-         2ZLsuWKYUamxztMBmOTvFqNm+lkfLnGEp2bfFNzKtDfdlAA/iJ6iqeNmH2ponw0QlDle
-         K5Xg==
-X-Forwarded-Encrypted: i=1; AHgh+Rrlihjko5b0uVG69uNxUK4bNjyl0Ic28Oy4jjCU02UWpoN8jv5rORpHAOIhT/An27GeQk3QM6YhRQAC@vger.kernel.org
-X-Gm-Message-State: AOJu0YwX9oMxR9W9ljEFzhZ+fKxxhPXKnzw7ytvmC1opyCAraxZsNEBc
-	N+YcFioL1RHRGRw40dES1FDuwNdgb1ywt+YFIbxX/x1V8W5TMVLo4KrT
-X-Gm-Gg: AfdE7cnFchVabOoIpW5rQdiJcq8HUAj3ZxmCaB3gvKEXzYs8Re175PTEqKY6WKfJ7y8
-	ChsgWJMtw9jhco1Tp8I8/Os2aXmpuB2u2iNFavv5ykjGMb5gsFw8rybRja/wgLgS1NvYjc2Qzqm
-	EVUOaYuuVJXsqHlHr8uYGzockKy9njfacBylhrjGn7dJi3F2CTsCK8O7Vdy+5lkkPEkY7vHbTl+
-	gnUVSDGQBqad3lwbW4nf0cvHjOlm8yrOpmA/bfx6LtYG5bKBnQNzA9Ek09m8rQ1fVoAWzLv9Roa
-	09Hk9W9m+TCrv7mY/EfHtHT1oSKa7nfBBvwASPfAqf8hAI6yHypWa26fM42m6Uo+VBRbriAQ2he
-	1APQ2X9oC00rhQeVKQFSAKZMzODbk82pTXqKtV1+cjGcdTq5K+m7LDeUnWyFYdzxAuTBOX6CeO/
-	53
-X-Received: by 2002:a05:6830:6aeb:b0:7e9:cc39:2ef0 with SMTP id 46e09a7af769-7ec59cc5592mr5016777a34.18.1784226542136;
-        Thu, 16 Jul 2026 11:29:02 -0700 (PDT)
+        bh=BBQj5o1xBe0UYUjJRFQjbTlsi/qLCduPzV5e4TThaHw=;
+        b=Unk3cekv+BYk/RDlbx6DkDxpnscnoj/dmJVQNT4leOWkTUl1ND02nK0vAi1KvzDeHh
+         8PwiYjHOV3JRDcvh2mWWFcau36JnUML+/lBEMAPhOcHnc6EiHvaLy11zIQ7pps7ZZJrE
+         UQqcWug4SHPdHAFZjSbJ45vmlVjDKE2q2wXvHfF2ltixkxoJCvcQbE+ibip/rMFsZXle
+         Cxp4C6e2Zeibq6Z4qy1wRHufMvra30N6cADIJsuK7zFKpPHrtNwpAYlYaoetnTMHdgyy
+         6I3AwzE7o/Nui+95UH2DxwiGTeh5I2kUxJ5+rCRuFwxXFeCvJjhCV4XZqosEo8fBieKr
+         zEnA==
+X-Forwarded-Encrypted: i=1; AHgh+RqpME4xf9CQB5XDwNuXU2ltzhmqRgFS8Ubk7Cl4BwotG8DGOdQzW/1035AbIYjBj0NgaGqXpVpS38Hq@vger.kernel.org
+X-Gm-Message-State: AOJu0YzxDhOklXjNkvtjOsUuQF/Gjdm6U6uHb4jo8Mx1DTWkBxwZbmdE
+	psm/9xkFp1QJOobeamdHgmK7s7Ckw7+XokWDjAs2zx7AHtJ5GMyieCjF
+X-Gm-Gg: AfdE7cnoLf/bolvvngRLg1h49jYh5GjDAIy1UjQzP1VHI3E8QM+hXn0tGrqBkADeuKz
+	5gO9YBQzrNjBFiHsX2mj7oQ1/wo5p2lS16p/ZcWON2cjCOuUK9k501yTNMoyuOvfYRoPBvniWWH
+	89+7RVi3U7pa2XdEvC2U9w9+xbnvNAnS857J+Qh7/3SAX38oMziBn1k0SDuLZWEvBdJFdUf3LMh
+	P7/z5Zcv1Vc9sjzExseMHu9zbeDm7+An98pj6+oa60xPLrSsQppWpM5k1CBq8bJc/RhyEtgaXgB
+	n6vC7EknoxfKv5n8qp8Cg0Opd+KjLXZxcYFsnPgg3wigZKLG3NVhdcTgPwwwE1fTQj+IB/mQ/Tw
+	pskV2NV+xLZr7kQn3VMwOJYxBN4rK0ZUoWdF3HV2Vco1KNSIOghnBxiY/aFg/pwVhuW+3vWlVuv
+	C8
+X-Received: by 2002:a05:6830:710e:b0:7ec:6749:f38f with SMTP id 46e09a7af769-7ec9fe96c9emr470066a34.22.1784226544055;
+        Thu, 16 Jul 2026 11:29:04 -0700 (PDT)
 Received: from localhost.localdomain ([2600:1700:fb0:1bc0::54])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ebcb3f6826sm19939993a34.27.2026.07.16.11.29.01
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ebcb3f6826sm19939993a34.27.2026.07.16.11.29.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 11:29:01 -0700 (PDT)
+        Thu, 16 Jul 2026 11:29:03 -0700 (PDT)
 From: Chris Morgan <macroalpha82@gmail.com>
 To: linux-iio@vger.kernel.org
 Cc: andy@kernel.org,
@@ -73,9 +73,9 @@ Cc: andy@kernel.org,
 	robh@kernel.org,
 	andriy.shevchenko@intel.com,
 	Chris Morgan <macromorgan@hotmail.com>
-Subject: [PATCH V17 2/9] dt-bindings: iio: imu: icm42600: Add icm42607
-Date: Thu, 16 Jul 2026 13:26:29 -0500
-Message-ID: <20260716182637.24310-3-macroalpha82@gmail.com>
+Subject: [PATCH V17 4/9] iio: imu: inv_icm42607: Add SPI For icm42607
+Date: Thu, 16 Jul 2026 13:26:31 -0500
+Message-ID: <20260716182637.24310-5-macroalpha82@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260716182637.24310-1-macroalpha82@gmail.com>
 References: <20260716182637.24310-1-macroalpha82@gmail.com>
@@ -89,57 +89,161 @@ Content-Transfer-Encoding: 8bit
 
 From: Chris Morgan <macromorgan@hotmail.com>
 
-Add the ICM42607 and ICM42607P inertial measurement unit.
-
-This device is functionally very similar to the icm42600 series with a
-very different register layout. The icm42607 currently does not use an
-interrupt because wake on movement and buffers are not supported, and
-cannot be implemented on my test device which lacks an interrupt line.
+Add SPI driver support for InvenSense ICM-42607 devices.
 
 Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 ---
- .../bindings/iio/imu/invensense,icm42600.yaml  | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ drivers/iio/imu/inv_icm42607/Kconfig          |  12 ++
+ drivers/iio/imu/inv_icm42607/Makefile         |   3 +
+ .../iio/imu/inv_icm42607/inv_icm42607_spi.c   | 107 ++++++++++++++++++
+ 3 files changed, 122 insertions(+)
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c
 
-diff --git a/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml b/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
-index 9b2af104f186..81b6e85decd5 100644
---- a/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
-+++ b/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
-@@ -30,6 +30,8 @@ properties:
-       - invensense,icm42600
-       - invensense,icm42602
-       - invensense,icm42605
-+      - invensense,icm42607
-+      - invensense,icm42607p
-       - invensense,icm42622
-       - invensense,icm42631
-       - invensense,icm42686
-@@ -67,10 +69,24 @@ properties:
- required:
-   - compatible
-   - reg
--  - interrupts
+diff --git a/drivers/iio/imu/inv_icm42607/Kconfig b/drivers/iio/imu/inv_icm42607/Kconfig
+index 083c212087ab..23f461f57afc 100644
+--- a/drivers/iio/imu/inv_icm42607/Kconfig
++++ b/drivers/iio/imu/inv_icm42607/Kconfig
+@@ -16,3 +16,15 @@ config INV_ICM42607_I2C
  
- allOf:
-   - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - invensense,icm42600
-+              - invensense,icm42602
-+              - invensense,icm42605
-+              - invensense,icm42622
-+              - invensense,icm42631
-+              - invensense,icm42686
-+              - invensense,icm42688
-+    then:
-+      required:
-+        - interrupts
+ 	  This driver can be built as a module. The module will be called
+ 	  inv-icm42607-i2c.
++
++config INV_ICM42607_SPI
++	tristate "InvenSense ICM-42607 SPI driver"
++	depends on SPI_MASTER
++	select INV_ICM42607
++	select REGMAP_SPI
++	help
++	  This driver supports the InvenSense ICM-42607 motion tracking
++	  device over SPI.
++
++	  This driver can be built as a module. The module will be called
++	  inv-icm42607-spi.
+diff --git a/drivers/iio/imu/inv_icm42607/Makefile b/drivers/iio/imu/inv_icm42607/Makefile
+index 32046e2727d7..be109102e203 100644
+--- a/drivers/iio/imu/inv_icm42607/Makefile
++++ b/drivers/iio/imu/inv_icm42607/Makefile
+@@ -5,3 +5,6 @@ inv-icm42607-y += inv_icm42607_core.o
  
- unevaluatedProperties: false
- 
+ obj-$(CONFIG_INV_ICM42607_I2C) += inv-icm42607-i2c.o
+ inv-icm42607-i2c-y += inv_icm42607_i2c.o
++
++obj-$(CONFIG_INV_ICM42607_SPI) += inv-icm42607-spi.o
++inv-icm42607-spi-y += inv_icm42607_spi.o
+diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c
+new file mode 100644
+index 000000000000..8eee7f162126
+--- /dev/null
++++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c
+@@ -0,0 +1,107 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2026 InvenSense, Inc.
++ */
++
++#include <linux/bitfield.h>
++#include <linux/dev_printk.h>
++#include <linux/err.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/regmap.h>
++#include <linux/spi/spi.h>
++
++#include "inv_icm42607.h"
++
++static int inv_icm42607_spi_bus_setup(struct inv_icm42607_state *st)
++{
++	unsigned int val;
++	int ret;
++
++	/* Only support 4-wire mode for now. */
++	ret = regmap_set_bits(st->map, INV_ICM42607_REG_DEVICE_CONFIG,
++				      INV_ICM42607_DEVICE_CONFIG_SPI_AP_4WIRE);
++	if (ret)
++		return ret;
++
++	ret = regmap_clear_bits(st->map, INV_ICM42607_REG_INTF_CONFIG1,
++				INV_ICM42607_INTF_CONFIG1_I3C_DDR_EN |
++				INV_ICM42607_INTF_CONFIG1_I3C_SDR_EN);
++	if (ret)
++		return ret;
++
++	val = FIELD_PREP(INV_ICM42607_DRIVE_CONFIG3_SPI_MASK,
++			 INV_ICM42607_SLEW_RATE_2NS);
++	ret = regmap_update_bits(st->map, INV_ICM42607_REG_DRIVE_CONFIG3,
++				 INV_ICM42607_DRIVE_CONFIG3_SPI_MASK, val);
++	if (ret)
++		return ret;
++
++	val = FIELD_PREP(INV_ICM42607_INTF_CONFIG0_UI_SIFS_CFG_MASK,
++			 INV_ICM42607_INTF_CONFIG0_UI_SIFS_CFG_I2C_DIS);
++
++	return regmap_update_bits(st->map, INV_ICM42607_REG_INTF_CONFIG0,
++				  INV_ICM42607_INTF_CONFIG0_UI_SIFS_CFG_MASK,
++				  val);
++}
++
++static int inv_icm42607_probe(struct spi_device *spi)
++{
++	const struct inv_icm42607_hw *hw;
++	struct device *dev = &spi->dev;
++	struct regmap *regmap;
++
++	hw = spi_get_device_match_data(spi);
++	if (!hw)
++		return dev_err_probe(dev, -ENODATA, "Failed to get SPI data\n");
++
++	if (spi->mode & SPI_3WIRE)
++		return dev_err_probe(dev, -ENODEV, "SPI 3-wire mode not supported\n");
++
++	regmap = devm_regmap_init_spi(spi, &inv_icm42607_regmap_config);
++	if (IS_ERR(regmap))
++		return dev_err_probe(dev, PTR_ERR(regmap),
++				     "Failed to register spi regmap\n");
++
++	return inv_icm42607_core_probe(regmap, hw, inv_icm42607_spi_bus_setup);
++}
++
++static const struct spi_device_id inv_icm42607_spi_id_table[] = {
++	{
++		.name = "icm42607",
++		.driver_data = (kernel_ulong_t)&inv_icm42607_hw_data,
++	}, {
++		.name = "icm42607p",
++		.driver_data = (kernel_ulong_t)&inv_icm42607p_hw_data,
++	},
++	{ }
++};
++MODULE_DEVICE_TABLE(spi, inv_icm42607_spi_id_table);
++
++static const struct of_device_id inv_icm42607_of_matches[] = {
++	{
++		.compatible = "invensense,icm42607",
++		.data = &inv_icm42607_hw_data,
++	},
++	{
++		.compatible = "invensense,icm42607p",
++		.data = &inv_icm42607p_hw_data,
++	},
++	{ }
++};
++MODULE_DEVICE_TABLE(of, inv_icm42607_of_matches);
++
++static struct spi_driver inv_icm42607_driver = {
++	.driver = {
++		.name = "inv-icm42607-spi",
++		.of_match_table = inv_icm42607_of_matches,
++	},
++	.id_table = inv_icm42607_spi_id_table,
++	.probe = inv_icm42607_probe,
++};
++module_spi_driver(inv_icm42607_driver);
++
++MODULE_AUTHOR("InvenSense, Inc.");
++MODULE_DESCRIPTION("InvenSense ICM-42607 SPI driver");
++MODULE_LICENSE("GPL");
++MODULE_IMPORT_NS("IIO_ICM42607");
 -- 
 2.43.0
 
