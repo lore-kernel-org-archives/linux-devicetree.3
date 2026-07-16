@@ -1,117 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D25513BFAEA
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 22:25:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9333D647C
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 22:25:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784240725; cv=none; b=PHzpm0G3Buo20OtxzrA/kVapsNMAgkf0/kuYQFH7OkABT4tfVtjAb7yp1y8XqSYDpT0J8W3NnbuObnGx3EGpcF4FdzxuK09Za4smlO9pUSoW9SUnW/s+vpc5u06cL1rr8PtqXAUYg8ctcXyvbOaVsdlRBLFQ6MuPoxQhnrqDe/Q=
+	t=1784240745; cv=none; b=LAcguuPLNaQp6Nu0+lScZazEeW3tkUv+kx7VZnTihxfoG4dTvgSwVAJRQDyqi29PDeoIW7WR1tY0D6FdZO91lFokkFmzixTAWUc9GVFnvskA/l5UfUef0heG4B7hudZd8T57fTa27GgSJooemYEZHrKz31zha+fBtGuIniqJjl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784240725; c=relaxed/simple;
-	bh=n0my5HEGItJimrriuzZNpE6o7ysKGH/q3GeIuIdorp0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UGZ6zh8CjBfjECpQd8tO/If5eYhdtqKCMiHOMmWHV3BFuvQZbug3Kwm95ltrJoswmNRDn5h/oDZj15FlqS8SDWTCSezwKDSvCYGYBak2s8UY8ZmrLBqdnYsgsbjy34zRlhiSZAtYf386crsvYpCaLtpH3EOE/7i7bnf6XQmM3o4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QBrepYGT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784240745; c=relaxed/simple;
+	bh=HYT89RawmmfsAb7e1+1QSfqswIp/WGL73lEA1fxR5Ic=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=avKGYliFRl0Gn128ovtvSHFdp6AR40Y8C136BOyYmlcCboZX2NbK5mM1LJTiLAm5jlEY5zbUw90Sz5+++o+tJJosQmJ2uYuBkftacqvuDAZ29ql0djYeJtKhN5AZCPASMA2W0wvCW46T1tqOjopFRWxa9/khIDqdujw1kg6XOO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L1DvQPBE; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QBrepYGT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC76A1F000E9;
-	Thu, 16 Jul 2026 22:25:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784240724;
-	bh=gU0iP13+RfouvfHVkaahFQ1zO465Kj6qHfc4QGCebPs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QBrepYGTBYqJBAFbekJ3nGuMapJiHV2q5V1BR9Rd5RXKOw/NKfkN/o7hRK2/OZRSQ
-	 SiO6/who72wfeiKREfwEPKaSOLqD07+CkcHuW7C383nJXhDf8waH2x66PKm/TTpHzs
-	 4eKMv3w+CBtD+L+Lb6Hrg5X0ORmwvxygYPkIusZWXMdjJHoV6T/iF+hwgnrG15D3Cb
-	 L8+NHrLOoiNn2DH3e8Vc0Gy3POmPlo1ycAdY0hX84zumSayHZVA/KPGWpKvkl3ccI1
-	 K/HIny/tRntioUXPQpyT68HdMmQXjFk06hadCvkA2KoUg/LMRwjOUAyltP2uqADOji
-	 c6k4nBPvtxFJQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 03/13] dt-bindings: clk: zte: Add zx297520v3 matrix
- clock and reset controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
-Cc: vkoul@kernel.org, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, olteanv@gmail.com, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260717-zx29clk-v7-3-408411cfcf36@gmail.com>
-References: <20260717-zx29clk-v7-0-408411cfcf36@gmail.com>
- <20260717-zx29clk-v7-3-408411cfcf36@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 22:25:23 +0000
-Message-Id: <20260716222523.BC76A1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L1DvQPBE"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2cc6dd436c6so47573805ad.2
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 15:25:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784240743; x=1784845543; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UWloTcZIy9sIdRlodwyddcufvKR4RH37/mjop1hr3+I=;
+        b=L1DvQPBE7dQy/cw8z+uxTp/+C48FAtNxVtY+4XjhksmovLIw4aypZARva9OeQV1Gf8
+         6d9NHUFhb4bEd4TTbAsu0lzXFnTVSVm+/kEsQgF9eZw37Xyu5AgFLs879RRLnWGUEAgE
+         Jim7tHoUfmpnNSdaxdFOK6mJ3aH0YPliWAP9ZxOWl0oxDP/T2w5YiIyitGAY10slfMlb
+         DzMLKB6S0SpIKDXhnun3tQYqg3qNr4GYC36/crdq1g45VVL3UGgkUW8/pLP32DuJXj3U
+         +IpMsleDN//intDoKGcEFFLnAQsuprIxjsxVw1DvfNJgTaYV/Ad49e4hutZHRHQ5q1LE
+         6kjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784240743; x=1784845543;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=UWloTcZIy9sIdRlodwyddcufvKR4RH37/mjop1hr3+I=;
+        b=Xl3TiBk3CpwygOJS8k7Tg/9cZU0/SYZObNuqZtiqtGAvRFtguYOxJwFon8btwAtiAe
+         Wc+S2K0rTF4wePemFyjKsz5+HYIzSnjvka02umJhUcm0LhmLLDRBti6sbo9TfYsfNK9L
+         97wJSVZaCO4aGgVP5QAsvGp/zfiSzg0qKG2qoKK6KXSmOYPYtJI8UhjGs+Md2OCo49Fj
+         WUWy/K94dIvCMH4hfGjrqDGW3OhH32Ueq2vOuKeVtDvGvWlFbDMiuYllgm4cOk1lS2LY
+         3w8AbvEgu6Rztzp689ILHs+gQ0p2vVxblpj6c9GugrgyoRz/XEU2v9zOAUVcD0Fz3QO7
+         QDGA==
+X-Forwarded-Encrypted: i=1; AHgh+Rol9dOsM53Pqnq60f+2SeS3s7lo1t4PDXbqHCeiA3GrysE6BRxX5tyyx65nvKbGmplKKh24Vuj9ADLL@vger.kernel.org
+X-Gm-Message-State: AOJu0YyXVQ61fLZ6HeOOftoZP3qdAO07Ipl6NKnnGSd6/VjG9bJDUubC
+	1LRrH5KlHW7Etj1j5XAcvcQ1CcxI4UH1LeiPOTQz1RP7HoP27pgseHYr
+X-Gm-Gg: AfdE7clNRDOhvVUnJjjQNpSK3nVeLfeo6t0gSsOUgHga6xNwasYDGh3JKjTEOvihUK4
+	zo0mZC5mgHcYRD70F4LhoCSnSGBO+XPpVDoj8GrzL5+O+mJT7Yvz9V+2w8/sKm7F3ciAScMidvA
+	yXh24GuKHEScQMWG4XGIiqzyS2Vd+8mni7PQoRXiY287h/oBFahbY313PfUigZ+NkOf+fhRHr3E
+	K2wUxIkj+YXD04dWbytbAOcE8vtugJNLWi5SAZWRch4EtVEcpz2TKqyiXryfaxVGnfy9TPitJMG
+	qF1Ub1oGfRgPBhDXtEfcymB1AK4ezOY2sMQvNH7KhcqblcELzklko3+F4pYk4cQ7aqqLX9O8STm
+	i2IjlIHLvFw3gl75/vkVqW2FC90qegnpFToSw+aZSqq76eigPvHbLrQ==
+X-Received: by 2002:a05:6a20:2446:b0:3c3:9eca:aee0 with SMTP id adf61e73a8af0-3c3a5d428a4mr1081625637.48.1784240743152;
+        Thu, 16 Jul 2026 15:25:43 -0700 (PDT)
+Received: from localhost ([2001:da8:7001:11::cb])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13cd403a7f7sm13722999c88.0.2026.07.16.15.25.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Jul 2026 15:25:42 -0700 (PDT)
+Date: Fri, 17 Jul 2026 06:24:52 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, 
+	Inochi Amaoto <inochiama@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH 2/2] riscv: dts: spacemit: k3: Add PCIe device node
+Message-ID: <allaAnK4nfRSkacc@inochi.infowork>
+References: <20260709040415.977784-1-inochiama@gmail.com>
+ <20260709040415.977784-3-inochiama@gmail.com>
+ <2ml6mcgwkf4eidwjetmd75henrkig4zzugzfww7buirucddho7@qrs4gasurnv3>
+ <alRmA-X4xbQ9zPFn@inochi.infowork>
+ <CAEev2e8ZyM+b9qLxS6NZjkBZy5GFz37vjgtEfH0ax24nfPozow@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAEev2e8ZyM+b9qLxS6NZjkBZy5GFz37vjgtEfH0ax24nfPozow@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The newly added clock and reset macro definitions overlap with exis=
-ting definitions for a different controller (topcrm) in the same header fil=
-es, using the same `ZX297520V3_` prefix without disambiguation.
---
+On Mon, Jul 13, 2026 at 10:04:09AM -0500, Anirudh Srinivasan wrote:
+> Hi Inochi,
+> 
+> On Sun, Jul 12, 2026 at 11:19 PM Inochi Amaoto <inochiama@gmail.com> wrote:
+> >
+> > On Sun, Jul 12, 2026 at 11:13:07PM -0500, Anirudh Srinivasan wrote:
+> > > Hi Inochi,
+> > >
+> > > On Thu, Jul 09, 2026 at 12:04:14PM +0800, Inochi Amaoto wrote:
+> > > > Add all PCIe device node for Spacemit K3.
+> > > >
+> > > > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> > > > ---
+> > > >  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts |  38 ++++
+> > > >  arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi |  33 ++++
+> > > >  arch/riscv/boot/dts/spacemit/k3.dtsi         | 195 +++++++++++++++++++
+> > > >  3 files changed, 266 insertions(+)
+> > > >
+> > >
+> > > I see some warnings printed during probe
+> > >
+> > > [   10.842955] r8169 0002:01:00.0: of_irq_parse_pci: failed with rc=-22
+> > >
+> > > [   10.937754] rtw89_8852be 0004:01:00.0: of_irq_parse_pci: failed with rc=-22
+> > >
+> >
+> > This is an expected error because the driver does not support INTx
+> > but the hardware claims it supports. Since the vendor does not want
+> > to support it, so there is no way for the upstreamer to add this.
+> 
+> Are you saying that the hardware advertises support for INTx, but
+> spacemit hasn't provided a driver that uses it?
+> 
+> Is there a way to let the driver know to not try setting up legacy
+> interrupts then? It seems like it's trying to do that now, and failing
+> to find interrupts node in the DT.
+> 
 
---- Patch [3]: [PATCH v7 03/13] dt-bindings: clk: zte: Add zx297520v3 matri=
-x clock and reset controller ---
-commit 5ec0de6373fd034a146a7bae84009d3814552ed6
-Author: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
+IIRC it is hard to do this, this is more like a quirk for the spacemit
+PCIe controllers.
 
-dt-bindings: clk: zte: Add zx297520v3 matrix clock and reset controller
+Regards,
+Inochi
 
-This controller contains clocks and resets for high speed devices on the
-zx297520v3 board and hardware spinlocks that I expect will be necessary
-to communicate correctly with the LTE DSP firmware blob. A simple MFD driver
-will instantiate independent clock, reset and hwlock drivers.
-
-> diff --git a/include/dt-bindings/clock/zte,zx297520v3-clk.h b/include/dt-=
-bindings/clock/zte,zx297520v3-clk.h
-> index 1f010ff4e6ca6..09ee3de679d96 100644
-> --- a/include/dt-bindings/clock/zte,zx297520v3-clk.h
-> +++ b/include/dt-bindings/clock/zte,zx297520v3-clk.h
-> @@ -63,4 +63,45 @@
->  #define ZX297520V3_HSIC_WCLK			55
->  #define ZX297520V3_HSIC_PCLK			56
-> =20
-> +#define ZX297520V3_SYS_TIMER_WCLK		1
-> +#define ZX297520V3_CPU_WCLK			2
-
-[Severity: Low]
-Could these new clock macros overlap with the existing ones in this header
-and cause confusion?
-
-The existing topcrm clocks in this header also start at 1 and use the same
-ZX297520V3_ prefix, for example ZX297520V3_M0_WCLK. Is there a risk that a
-developer might accidentally use a matrixcrm clock macro for a topcrm node
-or vice versa? If they do, the C preprocessor will substitute the
-overlapping integer without error.
-
-Would it be safer to add a distinct prefix for the matrixcrm clocks, such
-as ZX297520V3_MATRIX_?
-
-[ ... ]
-
-> diff --git a/include/dt-bindings/reset/zte,zx297520v3-reset.h b/include/d=
-t-bindings/reset/zte,zx297520v3-reset.h
-> index 43db72bb59de0..4682d4a599c6a 100644
-> --- a/include/dt-bindings/reset/zte,zx297520v3-reset.h
-> +++ b/include/dt-bindings/reset/zte,zx297520v3-reset.h
-> @@ -29,4 +29,16 @@
->  #define ZX297520V3_HSIC_PHY_RESET		20
->  #define ZX297520V3_HSIC_RESET			21
-> =20
-> +#define ZX297520V3_CPU_RESET			0
-> +#define ZX297520V3_DDR_CTRL_RESET		1
-
-[Severity: Low]
-Does this identical prefix also cause an overlap risk for reset definitions?
-
-The new matrixcrm resets start at 0 and use the ZX297520V3_ prefix, which
-overlaps with the existing topcrm resets like ZX297520V3_ZSP_RESET.
-
-Could adding a matrixcrm-specific prefix here also help prevent potential
-device tree configuration errors?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717-zx29clk-v7=
--0-408411cfcf36@gmail.com?part=3D3
+> >
+> > > I see that all the 3 rc nodes are missing an interrupts node and an
+> > > interrupt parent (saplic). The vendor DT seems to have this. Not sure if
+> > > this is related.
+> > >
+> > > The 10G ethernet probes fine, but the wifi card fails to probe. Seems
+> > > like the card is trying to request 32 bit DMA addresses and we're
+> > > failing cause we have 64 bit memory only.
+> > > The vendor kernel seems to have a patch to enable 36 bit DMA in
+> > > the rtw89 driver. That'll probably fix this.
+> > >
+> >
+> > This warning is also found on my test, it is not related to
+> > the PCIe driver, but a lack of the RTL phy driver. :(
+> >
+> > You may also noticed a bad performance on this 10G ethernet,
+> > it is caused by the single queue used by the RTL driver.
+> > IIRC, even 9800 X3D can not achieve the max speed.
+> 
+> I don't have the ability to test the 10G NIC unfortunately :(
+> 
+> Regards
+> Anirudh Srinivasan
+> 
+> >
+> > Regards,
+> > Inochi
+> >
