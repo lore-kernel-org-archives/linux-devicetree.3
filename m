@@ -1,162 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189CB42D742;
-	Thu, 16 Jul 2026 14:49:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2225642E8E7
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 14:49:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784213385; cv=none; b=Dz7mnZeCbKBtZrP3aJJLA2ssIyNDhvywT0AzqqpQEr65aeAqXTnmGvpnbg0HyNF6gXwbdnRAAlvtoaMzQQGr5ScjfPdqTALGw7lA2dDYB9u2nDXvURBdmAkbQFFKKYA+HDg9/dfzFpNJecQpBkysCOAIoIgbxclIqfoD0Szw31s=
+	t=1784213391; cv=none; b=q3+M/Az3Y6U5QUoDxiBHytq1X8M2Atp3Edxu9Bn/pN+9N4T/PrecgZF0kRDlFyfsPt1WbA6az7+IEKYISV8vQIqygrMNynlZXyOl6Ty+f8lNVPVyHQnGnWV4rDda4JkwThy3Z8SH6wgYcEUx4tV12/k9uinVFs6nHY8veZke8yY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784213385; c=relaxed/simple;
-	bh=Par/M6s70tTS2iRS3SIAoAqNhvnWQDmlDyc1kEtdMtA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UYNkc37byC5WKqj+hqOYH93jl+tljES8uoEu0wxKJvy9PXGrFPM8XyIIm6pHYpGkCd2Co8c+E7wUNfMztOSqX/dZNzItGrJW7I3CIZxmhiyn3GZWOMUs9g41hQdpxhndoaJjY+j2SwWFGgWI4C21MUaYRJCQS5GZp/d425FjAI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3esabGf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784213391; c=relaxed/simple;
+	bh=A8omiOrzIneChK7Z4hBrVONUy/wwmjJ9JQDv5GOvpus=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HsNx+G+4QQkOwwApBDF5sDjt9Cl3+BtDAOcergQKLaj9RkdRZiJ7vHHzv0VcE21wPSHIWjZpq65Dlor6eaJn9xAwEbLyIMlSJXNjxLWyDZpWcyS2QT55ksovpJO+TNwqkvlvUon0qp2fWBMN+9VOJ7obXwFUG4fCwEGRUS4IyOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=izXSsCbU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3esabGf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30D7B1F000E9;
-	Thu, 16 Jul 2026 14:49:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="izXSsCbU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C90EA1F00AC4
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 14:49:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784213384;
-	bh=zqNK14fvUgJPkPKSw3F2wEzBp6SPYyPXK1qyOUdckgI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=K3esabGfmFIKjOLPgAKaolLSygDxiOrWrwG/Ry2KPI0YTB50PTTslkIhpdBVK24PH
-	 eqPi1gcalpvP/P65xerJArZDH03ErvYW+Ls2wOb98Y7u5DcbUsk/tJtRVludwWgps0
-	 scZvArB+O9fDEE+uh+OlV0FCHOqxjFMxycWqbf1/JDOIgziKpP+JiejFIUc3SOEsBI
-	 QVLc3HhonSLz2/9j0TJl/+98YUfTDlqhYNgi9nosmAWXQpfgvrcbVDV1ArAKx5OHJc
-	 4serm5zFAq3uG1kEn3yWDECkW50gOHrGA0TsdONZQfTErTY9kPNOSvR6RORaWJAQjQ
-	 bJJ1PUEbjZmCQ==
-Date: Thu, 16 Jul 2026 16:49:29 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Marc Zyngier <maz@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/2] PCI: apple: Integrate pwrctrl API
-Message-ID: <pbxefv7wotwcaavoas347htdx22rdupfqn6cbuyjf4y2kjlv4p@7xdael6h7d57>
-References: <20260707-apple-pcie-pwren-v1-0-5a281b182fe2@cyberchaos.dev>
- <20260707-apple-pcie-pwren-v1-1-5a281b182fe2@cyberchaos.dev>
- <86a4s3p2vy.wl-maz@kernel.org>
- <8a80a170-a508-4a9e-8090-27cfcedb1cd4@cyberchaos.dev>
- <865x2qq4ts.wl-maz@kernel.org>
- <jqaxvdaxfpm5g3tdwdqpuk2ubkwim6ckmlblocvakloqishvmm@c5ofbdbdj7lf>
- <76243051-e391-45d2-b47a-d4a904f0a36f@cyberchaos.dev>
+	s=k20260515; t=1784213389;
+	bh=0ZyxegXh9SghFaz+yYbYnHQqtvetyhgfvDvPkgba2Kw=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=izXSsCbU6UgaNJXI7JE/2yGpX4EL7MemPM12te1Pn+AglhZWKp0beKJQUB2XCYoTp
+	 rIsTIC4AeTSLQ4Ugy0rKnjDbDxpAauyemYh1jaB4pvyDe1mcX268Ov8t63I3myrGi8
+	 BUbCvKGpZ9fHFIj+tlTGiMP1RxBRbg9263MhqYs0xQokpUuxFhINi8DF+xBcP6lG8z
+	 YLd2m1VJGxxHtGFv1Nj5cJNQsywNapPMN43vDELlgApEL5xrMabXRhPNwGZWxNLYyL
+	 vWxjjxZFti8GfqqeZPG4YfsTJ1j4aZfSJqOL9QnyURJm8RxZ2fGnk6tJ36IPBZjc77
+	 uAhisJZNQIGMw==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5aeb24c0807so5090063e87.0
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 07:49:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrMvOwXRKytQnh58iZm6/POWi4geJy8UWR3wAl2ILxa4EZrySso9vpS2sbrJ5ml2sUKQQ5xGb1Nf7PX@vger.kernel.org
+X-Gm-Message-State: AOJu0YzUzVa8Ee3o3E4STR5KOZVUe7I738ovkpTHG+FfB9V+eTyVp5Vk
+	J9tYBwi3OSiNZ/DwLrg+a2yr7vYXIdzWZFpLjHMREVQBOVRBtLaSr1R1wrz1Y//BKlEhgJZDirU
+	l7Pic9FiLrZEtlM6oFpSfatQubKXipYTkoaA1T8gwQQ==
+X-Received: by 2002:ac2:4e05:0:b0:5b2:8c8d:5ee with SMTP id
+ 2adb3069b0e04-5b28c8d06e0mr347456e87.48.1784213388518; Thu, 16 Jul 2026
+ 07:49:48 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 16 Jul 2026 07:49:46 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 16 Jul 2026 07:49:46 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260716142605.2398433-5-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <76243051-e391-45d2-b47a-d4a904f0a36f@cyberchaos.dev>
+References: <20260716142605.2398433-1-shengchao.guo@oss.qualcomm.com> <20260716142605.2398433-5-shengchao.guo@oss.qualcomm.com>
+Date: Thu, 16 Jul 2026 07:49:46 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mfugz33hRuhGYDcka1+px7q5m6Kfo9HyLxiv1K5s028Gg@mail.gmail.com>
+X-Gm-Features: AUfX_mx6Z2cnegmdTpUxqzADNkqzjnPDRgXzazKBil78ZEh67oKaSYo4pqmtSuE
+Message-ID: <CAMRc=Mfugz33hRuhGYDcka1+px7q5m6Kfo9HyLxiv1K5s028Gg@mail.gmail.com>
+Subject: Re: [PATCH v6 4/6] dt-bindings: arm: qcom: Document Nord reference boards
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, 
+	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+	Bjorn Andersson <andersson@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Jul 14, 2026 at 06:57:11PM +0200, Yureka Lilian wrote:
-> 
-> On 7/9/26 14:29, Manivannan Sadhasivam wrote:
-> > On Tue, Jul 07, 2026 at 02:58:39PM +0100, Marc Zyngier wrote:
-> > > On Tue, 07 Jul 2026 13:04:21 +0100,
-> > > Yureka Lilian <yureka@cyberchaos.dev> wrote:
-> > > > On 7/7/26 11:25, Marc Zyngier wrote:
-> > > > > On Mon, 06 Jul 2026 23:38:27 +0100,
-> > > > > Yureka Lilian <yureka@cyberchaos.dev> wrote:
-> > > > > > Integrate the PCI pwrctrl framework into the Apple PCIe host driver to
-> > > > > > provide standardized power management for PCI devices.
-> > > > > > 
-> > > > > > Notably, this allows enabling powering on the WiFi, SD card reader on
-> > > > > > various Macs by means of the pwrctrl framework before probing the ports.
-> > > > > > 
-> > > > > > Previously, a custom solution for powering on the WiFi and SD card
-> > > > > > reader was proposed[1], but we can now use the new pci-pwrctrl-generic
-> > > > > > driver for this purpose.
-> > > > > > 
-> > > > > > Link[1]: https://lore.kernel.org/lkml/20220502093832.32778-4-marcan@marcan.st/
-> > > > > > 
-> > > > > nit: this paragraph and the accompanying link don't belong in the
-> > > > > commit message and should be moved below the --- mark or even better,
-> > > > > to the cover letter.
-> > > > ack, will leave it out of the commit message of the individual commit in v2
-> > > > > > Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
-> > > > > > ---
-> > > > > >    drivers/pci/controller/Kconfig      |  1 +
-> > > > > >    drivers/pci/controller/pcie-apple.c | 16 ++++++++++++++++
-> > > > > >    2 files changed, 17 insertions(+)
-> > > > > > 
-> > > > > > diff --git a/drivers/pci/controller/Kconfig b/drivers/pci/controller/Kconfig
-> > > > > > index 2247709ef6d6..af64630d28fa 100644
-> > > > > > --- a/drivers/pci/controller/Kconfig
-> > > > > > +++ b/drivers/pci/controller/Kconfig
-> > > > > > @@ -46,6 +46,7 @@ config PCIE_APPLE
-> > > > > >    	depends on OF
-> > > > > >    	depends on PCI_MSI
-> > > > > >    	select PCI_HOST_COMMON
-> > > > > > +	select PCI_PWRCTRL_GENERIC
-> > > > > >    	select IRQ_MSI_LIB
-> > > > > >    	help
-> > > > > >    	  Say Y here if you want to enable PCIe controller support on Apple
-> > > > > > diff --git a/drivers/pci/controller/pcie-apple.c b/drivers/pci/controller/pcie-apple.c
-> > > > > > index c2cffc0659f4..db038a9d4831 100644
-> > > > > > --- a/drivers/pci/controller/pcie-apple.c
-> > > > > > +++ b/drivers/pci/controller/pcie-apple.c
-> > > > > > @@ -30,6 +30,7 @@
-> > > > > >    #include <linux/msi.h>
-> > > > > >    #include <linux/of_irq.h>
-> > > > > >    #include <linux/pci-ecam.h>
-> > > > > > +#include <linux/pci-pwrctrl.h>
-> > > > > >      #include "pci-host-common.h"
-> > > > > >    @@ -825,6 +826,21 @@ static int apple_pcie_init(struct
-> > > > > > pci_config_window *cfg)
-> > > > > >    	if (WARN_ON(!pcie))
-> > > > > >    		return -ENOENT;
-> > > > > >    +	ret = pci_pwrctrl_create_devices(pcie->dev);
-> > > > > > +	if (ret) {
-> > > > > > +		dev_err(pcie->dev, "Failed to create pwrctrl devices: %pe\n", ret);
-> > > > > > +		return ret;
-> > > > > > +	}
-> > > > > > +
-> > > > > > +	ret = pci_pwrctrl_power_on_devices(pcie->dev);
-> > > > > > +	if (ret) {
-> > > > > > +		if (ret != -EPROBE_DEFER) {
-> > > > > > +			dev_err(pcie->dev, "Failed to power on devices: %pe\n", ret);
-> > > > > > +			pci_pwrctrl_destroy_devices(pcie->dev);
-> > > > > > +		}
-> > > > > > +		return ret;
-> > > > > > +	}
-> > > > > > +
-> > > > > Why is this done globally while the whole driver works on a per-port
-> > > > > basis, and that the proposed DT updates are also per port?
-> > > > pci_pwrctrl_power_on_devices takes a struct device as parameter, but
-> > > > pcie-apple does not allocate device structs for the individual ports.
-> > > > This could be changed of course. But since pci_pwrctrl_* operate on
-> > > > the subnodes recursively, it works just fine this way.
-> > > Works fine is one thing. Being consistent with the way the rest of the
-> > > driver works is another. pci_pwrctrl_create_device() and
-> > > pci_pwrctrl_power_on_device() appear to do exactly what would be
-> > > required for a single port. They just needs to be exported made
-> > > global/exported.
-> > > 
-> > I'm fine with exporting pci_pwrctrl_create_device() and
-> > pci_pwrctrl_power_on_device() and calling them with per-port np.
-> > 
-> > - Mani
-> 
-> In theory I do agree this would work to power on the slots, and I can send a
-> v2 of the patch doing it that way, but I don't quite understand yet how this
-> fits better with the existing driver code: If this is the case, what is the
-> difference between pcie-apple and pcie-qcom and why should pcie-qcom use the
-> recursive function but pcie-apple not?
-> 
+On Thu, 16 Jul 2026 16:25:59 +0200, Shawn Guo
+<shengchao.guo@oss.qualcomm.com> said:
+> Nord is a new generation of SoC series from Qualcomm which includes
+> SA8797P (for Automotive) and Dragonwing IQ10 (for IOT/Robotics).
+> Document SA8797P Ride and IQ10 Robotics Reference Design (RRD) boards.
+>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+> index bd184f062ec0..7ca4e75ea09f 100644
+> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+> @@ -396,6 +396,12 @@ properties:
+>                - xiaomi,sagit
+>            - const: qcom,msm8998
+>
+> +      - items:
+> +          - enum:
+> +              - qcom,iq10-rrd
+> +              - qcom,sa8797p-ride
+> +          - const: qcom,nord
+> +
+>        - description: Qualcomm Technologies, Inc. Robotics RB1
+>          items:
+>            - enum:
+> --
+> 2.43.0
+>
+>
 
-For pcie-qcom, it needs to iterate through all PCI child nodes, not just the RP
-as we have multiple nodes due to PCIe switch (and switches in some design). So
-this per-port API wouldn't work there.
-
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
