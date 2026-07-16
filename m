@@ -1,130 +1,201 @@
-Received: from mail-m1973197.qiye.163.com (mail-m1973197.qiye.163.com [220.197.31.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9442543F081;
-	Thu, 16 Jul 2026 10:02:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.97
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784196137; cv=none; b=FjWp4wEadOuDcTd6X58Az1UjmzLrhMAjtef3akkBGL3EsC/HYwFA6KaZyJHnEMM6zySiKptKdd52PtxvKe6tBRHD6YDVJdl9qxvlWOAHoM9w8yhuv9nkW3RPLR95XkFzvH206wWRFcrqqhD9bzj0FdcEafHfjpX0Sh8wJj4GL/w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784196137; c=relaxed/simple;
-	bh=jnO7+lKbYHEo4ZDzz30LozA6BlpK0wWUh9h0g+5Ykdg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Cy42ABP/iDjxZj0boyYQ1ea7uGOvoQ6987VBX8PzS1yxdCAxIPQvsAVEBVOBQYnMvW0fHftuSOABtZDu8917o9TO9D3d/SRtwfl17I4e/jDWgmn7ebhI89bmBAJhaY1ONbVT+7FekpNbMKuDcct4OW6EFIXPM+gNDGZunaqtLus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=hS0CDgbS; arc=none smtp.client-ip=220.197.31.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F376635AC03
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 10:02:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784196176; cv=pass; b=JWbgIoUKh5REzh5COPhmg/jUsMi0k6YJdLTKjNu6jb+PR2Vhz+W7LTll5klEZZrU+LW2PkEEYE0zBnugQAAGaEErJ2R/AxrfznDs8BY7EMEK9fr4u3S79CKYMKBZcJ4p/0PevmeQoOvtN39T/0RIvD1mhNKYu2BRRRmG1MVlDDs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784196176; c=relaxed/simple;
+	bh=wwzrrNyzpEPOxzsqP0CMmVuHMipqp7uhFBCNZZJQtZg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LUAjoyI6FcaaLUIDeQSw4ZSckH3mDxZ89wvEF/Z5Evjl999okxwXbLZ5jHH8In3SzVaBT0qtx1Unht7x4PD9L35o5S30TAnDw3pGPBUZ41tHjAyLGuCnUxW1V3RXs6XrsB9vm0L+rw5FNUoSrePuAXXEqlKJDKyHjl/AmOzbN0U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ABV4D2iP; arc=pass smtp.client-ip=74.125.224.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="hS0CDgbS"
-Received: from tsdl-HP-EliteDesk-880-G6-Tower-PC.. (unknown [36.129.139.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 466c9bc16;
-	Thu, 16 Jul 2026 16:46:28 +0800 (GMT+08:00)
-From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-To: krzk@kernel.org
-Cc: andersson@kernel.org,
-	broonie@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	dmitry.baryshkov@oss.qualcomm.com,
-	drake@endlessm.com,
-	hongyang.zhao@thundersoft.com,
-	katsuhiro@katsuster.net,
-	konradybcio@kernel.org,
-	krzk+dt@kernel.org,
-	krzysztof.kozlowski@oss.qualcomm.com,
-	lgirdwood@gmail.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	matteomartelli3@gmail.com,
-	mohammad.rafi.shaik@oss.qualcomm.com,
-	neil.armstrong@linaro.org,
-	perex@perex.cz,
-	robh@kernel.org,
-	rosh@debian.org,
-	srini@kernel.org,
-	tiwai@suse.com,
-	zhoubinbin@loongson.cn
-Subject: Re: [PATCH v2 0/6] Add audio support for QCS6490 RubikPi3
-Date: Thu, 16 Jul 2026 16:46:19 +0800
-Message-ID: <20260716084619.2835456-1-hongyang.zhao@thundersoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260716-valiant-elegant-wren-fbad5d@quoll>
-References: <20260716-valiant-elegant-wren-fbad5d@quoll>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ABV4D2iP"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-66810946e63so2127409d50.1
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 03:02:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784196170; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NFXQM2hzEBMoZ/N03sY2bgd/PieeRrKoPkH4NOp57v3kSP7R4QaA4OGAKALn8QTvzl
+         AlJMoTvL7lU7bJ+Ya/8fWBTZzYUxrU7basC9jprbilEgRR8Bqw53bsIUSjIuPLVcwQig
+         un6R+ezaPoLkBha8jHYseSA9dHg7CSloTIzjjaUXuO7Rn477ZcYzYXeZNsOhqi9nml1j
+         /HqyHAMICbbpoPAGAiIjbniRfc0e2eek/9T+fD4/qMQt0cMgcncRB+N87VKk0mERSlEX
+         JL0hqQj6BjoYWd8AycNd+a7IjzdHwJ30EOxzY9VVOHgfPu9Pspy7Y/n0zcUZlO3iKANk
+         GV5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=R96tNKpQ1InkbXm6qFatnXomzIHe/efCkhtTBmjY1zk=;
+        fh=5B2nDwRNJKOKS94++S1JvLbDJCWeX7zNeeSwOPa9u2U=;
+        b=jDh7I5GscjiebCI2LOBMRee/zWBwMKCXnUn/4OwEgWs+dDCbkZxFsLu+uBfZf6vWUq
+         TE0dr/PrZJgK6l8L9lf8QXLDAi/o1ZikHa3uwsv+/p4Ui9sO8hV268ilCupkTDRhHuNi
+         nthT3boI/oGTbgRUq5KDb3JyCL0rTunoIv7k9o6ZiLPFh1+abJraDWIh7X44Wi1X2s/f
+         QjrDunEMvgrwjmw75s5chcaeWeqpvbwP/nBLcEFzN3AR/ZRrb8gZmcR+Aml29yJvQhBM
+         EaZr9oc+Zncq5wHy9xom/9LFykEJRgy07N5L7Ncv6AyWowPsC0nfE/Zu0I2e/rJIbx29
+         YPwg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1784196170; x=1784800970; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=R96tNKpQ1InkbXm6qFatnXomzIHe/efCkhtTBmjY1zk=;
+        b=ABV4D2iPUtxj4CcbzBlkr/xHAvpZIb4jj0kT/KRDzYy6KcqyzPpz+oqjugqR6KHvb6
+         H3vNIVspSuNhoRLCu5UB5DmdcIzU0a4D2lpG5zoZZ5sBQgktDEtbBbIreVT1dqACU7/e
+         pc0YQRwD7r0jfGvDaZD/XKMs2V0DnOrid4EJQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784196170; x=1784800970;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=R96tNKpQ1InkbXm6qFatnXomzIHe/efCkhtTBmjY1zk=;
+        b=VT8qpF6VrsdrrdfOqAKZ2PMmt2HxI6XWzK2f3euWZ1Yx4yFA+eIz7rw9ZcaIxApesc
+         NDkWKByehUqNRbnLIpNif8OvQMJRuXFFQP44nTckooohl1e6MUYQjZ5lQ7mUG9cVjAPI
+         o4MVShFfYiCgaqwqzAKMysyrlb40XQ+IQHq6A3MmuhyHTpILt/e4Cx2Cm1P4Sko/9X2D
+         DVEoGidEeTV//UZZ3mUrHQfYJOmCWZ16AAvgCmDJxRavR7UgyVRhcglf+Rj0yoDPpDxQ
+         CvrFU3/05h3GMkbWbey1nc/ysWTjiLFAFiAHW4dC3yq8OgVqRnOU7AbvCzS2koAX7EE6
+         6Ulg==
+X-Forwarded-Encrypted: i=1; AHgh+RpGgALxEJqd+7KsFmv7dCVKsm3drEBzP1RSYgrgtM4oawa+NB8ClVOLItCJhYvZqnIjVgRj+e2Rf49n@vger.kernel.org
+X-Gm-Message-State: AOJu0YxcQCmnVuXAKfjy2vH3sDIWaRVrGwp6BenPx+NCcgOi3Oqag3e6
+	ATikh8xuMQHb7CcVBcJlZcoQ8x0SBxfEG10oyKCrdA5F0SZ5KWYOoys2BTVHIlTbZo25wkktcd8
+	dTQm5xo7vrg29G9kYDpwjJr80e3Q3YlDmvuvpcjsT
+X-Gm-Gg: AfdE7ckElLZIMEVsXf5AsqiUnuxvAZGUCb2Xkuuc/vd3PWRI+gfBHk0JWE6xn7nGice
+	ZzbFXN2ck9yFi/RVm7rXlo4K1uz4eEXiToMls1GhT3bTnM4el9dZtqL48GHxrMTTUGeOQKn90Ce
+	uBWe91HWAKFAIIupSRxJ7Xb/8CeuuaVBJn5nT179YZ8RTWWlx7zovAMZkNdfktxdxOrems2TH9v
+	uD+TxZ5luzkKbqk9UpAZq2LG7VhKHvXt2jaBb0+9bDykGGuJ1mtD7oc7HMHAXWPX3pzqNjd7ERy
+	ruTw1VZL7MkFprjK
+X-Received: by 2002:a05:690e:d02:b0:668:15cc:bcc4 with SMTP id
+ 956f58d0204a3-66815ccc501mr4350974d50.53.1784196169785; Thu, 16 Jul 2026
+ 03:02:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9f6a1b166f09d5kunma38bff0594886
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZThhLVkNPTUJIHUodSR0ZGVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVCQk
-	lOS1VKS0tVSkJLQlkG
-DKIM-Signature: a=rsa-sha256;
-	b=hS0CDgbSegqLVVQ3w14sOJ0NIGpUhua33iPOPasVm5vZyaCZrMt9UJsFqUbXtDNWY2vs5uMEhKP4wbIsqa9odAgl7ZUUYaUBpKrM5ZbfrNSAJUPlEahlcQlCuwe+3AaJ8Za/lK6OCEuHqLkJbc89i26J+Pv16Hxs3hj3h9tR/6Q=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
-	bh=jnO7+lKbYHEo4ZDzz30LozA6BlpK0wWUh9h0g+5Ykdg=;
-	h=date:mime-version:subject:message-id:from;
+References: <20260715085348.3457359-1-wenst@chromium.org> <20260715085348.3457359-11-wenst@chromium.org>
+ <aleKQKH2V-ck-SX6@ashevche-desk.local>
+In-Reply-To: <aleKQKH2V-ck-SX6@ashevche-desk.local>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Thu, 16 Jul 2026 18:02:38 +0800
+X-Gm-Features: AUfX_mxuW_5D4-j7y5auPPMU8fitwu4GAwXYmX14uCHTJY4CutBJo0OlCAdX-_s
+Message-ID: <CAGXv+5Ed9Cn-NeHiXJ58er7NJs1P2ZUMrjqYac-gSky-TNV8Lw@mail.gmail.com>
+Subject: Re: [PATCH v5 10/16] usb: hub: Power on connected M.2 E-key
+ connectors with power sequencing API
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Wei Deng <wei.deng@oss.qualcomm.com>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-pm@vger.kernel.org, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>, 
+	Alan Stern <stern@rowland.harvard.edu>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 15, 2026 at 10:02:49PM +0800, Hongyang Zhao wrote:
-> > Add audio support for the Thundercomm RubikPi3 board based on QCS6490.
-> >
-> > RubikPi3 uses AudioReach/GPR on the ADSP. An ES8316 codec connected to
-> > primary MI2S provides headset playback, headset capture and jack
-> > detection. The LT9611 bridge connected to quaternary MI2S provides HDMI
-> > audio playback.
-> >
-> > The series first documents the existing ES8316 jack-detect inversion
-> > property and adds a board-specific Qualcomm sound-card compatible. A
-> > generic Qualcomm headset helper is then added for codecs which implement
-> > component jack detection but are not connected through a WCD codec DMA
-> > link.
-> >
-> > The sc8280xp machine driver board data is converted to a per-DAI
-> > representation. This allows each backend to select its own DAI format,
-> > clock programming and jack setup. RubikPi3 uses this to drive the ES8316
-> > with a 19.2 MHz MCLK and to avoid unsupported sysclk programming on the
-> > LT9611 HDMI link.
-> >
-> > The final patch describes the two audio paths, clocks, pin control,
-> > codec power and jack-detect wiring in the RubikPi3 device tree.
-> >
-> > This series is based on next-20260710 and depends on Rafi's
-> > q6apm-lpass-dais MI2S clock control series and Neil's q6prm MCLK clock
-> > ID patch:
-> >
-> > Depends-on: https://lore.kernel.org/all/20260714145250.2473461-1-mohammad.rafi.shaik@oss.qualcomm.com/
-> > Depends-on: https://lore.kernel.org/all/20251008-topic-sm8x50-next-hdk-i2s-v2-1-6b7d38d4ad5e@linaro.org/
+On Wed, Jul 15, 2026 at 9:25=E2=80=AFPM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
 >
-> That's RFC with comments, so why do you send your patchset knowing IT
-> CANNOT BE merged?
+> On Wed, Jul 15, 2026 at 04:53:40PM +0800, Chen-Yu Tsai wrote:
+> > The new M.2 E-key connector can have a USB connection. For the USB devi=
+ce
+> > on this connector to work, its power must be enabled and the W_DISABLE2=
+#
+> > signal deasserted. The connector driver handles this and provides a
+> > toggle over the power sequencing API.
+> >
+> > This feature currently only supports a directly connected (no mux in
+> > between) M.2 E-key connector. Existing USB connector types are not
+> > covered. The USB A connector was recently added to the onboard devices
+> > driver. USB B connectors have historically been managed by the USB
+> > gadget or dual-role device controller drivers. USB C connectors are
+> > handled by TCPM drivers.
+> >
+> > The power sequencing API does not know whether a power sequence provide=
+r
+> > is not needed or not available yet, so we only request it for connector=
+s
+> > that we know need it, which at this time is just the E-key connector.
+> >
+> > On the USB side, the port firmware node (if present) is tied to the
+> > usb_port device. This device is used to acquire the power sequencing
+> > descriptor. This allows the provider to tell the different ports on one
+> > hub apart.
+> >
+> > This feature is not implemented in the onboard USB devices driver. The
+> > power sequencing API expects the consumer device to make the request,
+> > but there is no device node to instantiate a platform device to tie
+> > the driver to. The connector is not a child node of the USB host or
+> > hub, and the graph connection is from a USB port to the connector.
+> > And the connector itself already has a driver.
+> >
+> > Power sequencing is not directly enabled in the connector driver as
+> > that would completely decouple the timing of it from the USB subsystem.
+> > It would not be possible for the USB subsystem to toggle the power
+> > for a power cycle or to disable the port.
 >
-> Last days Mark complained, Rob complained, sure, we can ignore
-> maintainers, but just stop for a second and think: what can we do with
-> your patchset? Really, what can we do?
+> ...
 >
-> Best regards,
-> Krzysztof
+> > static void usb_port_device_release(struct device *dev)
+>
+> >       fwnode_handle_put(dev_fwnode(dev));
+> > +     /* usb_hub_create_port_device() could leave an error value */
+> > +     if (!IS_ERR(port_dev->pwrseq))
+> > +             pwrseq_put(port_dev->pwrseq);
+>
+> Hmm... I would rather make pwrseq_put() NULL and error pointer-aware, so
+> it will be no-op in such cases. But I think Bart has his own opinion abou=
+t
+> this.
+>
+> >       kfree(port_dev->req);
+> >       kfree(port_dev);
+> >  }
+>
+> >               put_device(&port_dev->dev);
+> > +             hub->ports[port1 - 1] =3D NULL;
+> >               return retval;
+> >       }
+>
+> ...
+>
+> > int usb_hub_create_port_device(struct usb_hub *hub, int port1)
+>
+> > +     port_dev->pwrseq =3D usb_hub_port_pwrseq_get(port_dev);
+> > +     if (IS_ERR(port_dev->pwrseq)) {
+> > +             retval =3D dev_err_probe(&port_dev->dev, PTR_ERR(port_dev=
+->pwrseq),
+> > +                                    "failed to get power sequencing de=
+scriptor\n");
+> > +             goto err_put_kn;
+>
+> OTOH, how pwrseq can be non-NULL and at the same time port be created?
 
-Hi Krzysztof,
+I assume by non-NULL you mean returning an error?
 
-You are right. I missed the RFC tag on Neil's series and misunderstood
-the status of that dependency.
+device_register(&port_dev->dev) is called some lines above this.
 
-In v1 I carried Neil's MCLK clock-ID patch. I changed this to a
-Depends-on reference in v2 because I did not want to resend somebody
-else's work without coordination. I now understand that this still
-leaves the RubikPi series non-actionable while the dependency remains
-an RFC.
+usb_port is weird in that usb_hub_create_port_device() does a bunch
+of stuff that is normally done in a driver's probe function. However
+usb_port's driver is just a stub driver add for userspace compatibility
+reasons. See commit d99f6b4130877 ("usb: rename usb_port device objects").
 
-Please consider this series withdrawn. I will coordinate with Neil
-about the MCLK clock-ID change and wait until the prerequisite work is
-in a mergeable state before sending another revision.
+So at this point the usb_port device has been added to the driver model.
+Or we can just zero out port_dev->pwrseq instead? I guess that is cleaner
+than having some weird check in the release function.
 
-Sorry for wasting your and the other maintainers' review time.
 
-Best regards,
-Hongyang
+ChenYu
