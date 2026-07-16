@@ -1,76 +1,61 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DA923C10A0
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 10:56:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 336673D410D;
+	Thu, 16 Jul 2026 11:02:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784199410; cv=none; b=XQeIhcSQiYShZLOfQ2CkXTi9jkxbP/brJih9NS3/d3h0MOjBrFZ4nLlUrN0UNgzo7Z3JoG3Cl2aAEKjXAAAoDFVOjDvLRvLRaD4A2SRTNfc5h+UDsVgSNCVUuRB3rVND01hQwzlWABPpZJm4v2avUCcfh4F8b7nzaqtB+Bss6BI=
+	t=1784199741; cv=none; b=OjEIWcvJhk4521ow8+xoLOSGBCwpHJd3el1Yam7BNAzUuOwGR06kELMUpYB9AabcCa+l5amoOYoMCDxe7ivMWw25AvXHJGw64L8otWyu/eQV5+jM480dYPeizJDHkB1+TpKJB/sfTe0AcXs+98AcOQ2c4H4CQDmxQW3dY9kdRzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784199410; c=relaxed/simple;
-	bh=O0294iFJqtBfsvbkV8XnCQuufzdC4+tPu19x1Wze+Tg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=it+qAePDPKQDzHPYDZkNtsuSUlMNzTUguZiAbvv1DIZ8mj4Nvezu0sEpADCatSZ2Wn8BtyViE642FcPJjzzEjurbksMuCz+Zs/sMOLmKp5xmS5gBK4D0f1ULEJalLmQgXjnYxoaI6FsI+qV8jHBzDj3zqllhDPGvJfgYltId9Tw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ijxRUksF; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1784199741; c=relaxed/simple;
+	bh=weglkylga4go7iUdRCKyCNLvh7z5pOV4FKb8pIuhERI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=SS14otI2uudh46IZvLBKFxi+IkkRxHD27c3hBXnsQcgbLPutvmnJfUUXwep/eb546amgQLCFTOFYZboPNI6wsQ/zVdNGBoEKcwyPogCVkX1LsPKzsCn63x6Fxzhun/49PGenYN8nX5zqVVfTFl31eLMVLxJyRgEmsKGEB7lVfko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FIGf+TL1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ijxRUksF"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 6291A4E40E00;
-	Thu, 16 Jul 2026 10:56:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2C527602B8;
-	Thu, 16 Jul 2026 10:56:46 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2E73611BD3BD0;
-	Thu, 16 Jul 2026 12:56:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1784199405; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=O0294iFJqtBfsvbkV8XnCQuufzdC4+tPu19x1Wze+Tg=;
-	b=ijxRUksFLrrRC9XOyW8gcVKnG3XdGF1wJzJE7AuZ0lIOLUGQNa5msOZbwUYFs6F4sf8tLj
-	QDIctbFFKlvOvuHw8VHKrvRBmjc0lK6f7EmhOo6zUnSwu3sDi32uPAZMuJpoNoIi0ZbDaZ
-	C6QOpIlnJBvg3WTIXw5dne4usYLjr2EArgLP7kh4lHtOxxL8+JUiDa6ZeCyXl6a8t86OgW
-	67iOmPhBJREpDiXBRXuIMs6q7RqIwxoh88bwrdD6Nc6yyn2odXbsqj+O6bmwjrgEUiHMZI
-	6JtsxE7+lvPlXGtBmGsLrg0hRsrWE9p16BVl0Z4ru3iY7/86JPjLms9kBQ8gkQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-renesas-soc@vger.kernel.org,  Herve Codina
- <herve.codina@bootlin.com>,  Geert Uytterhoeven <geert+renesas@glider.be>,
-  Magnus Damm <magnus.damm@gmail.com>,  Rob Herring <robh@kernel.org>,
-  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
- <conor+dt@kernel.org>,  devicetree@vger.kernel.org
-Subject: Re: [PATCH] ARM: dts: renesas: r9a06g032: don't set status to the
- default value
-In-Reply-To: <20260716101030.15252-2-wsa+renesas@sang-engineering.com>
-	(Wolfram Sang's message of "Thu, 16 Jul 2026 12:10:30 +0200")
-References: <20260716101030.15252-2-wsa+renesas@sang-engineering.com>
-User-Agent: mu4e 1.12.7; emacs 30.2
-Date: Thu, 16 Jul 2026 12:56:43 +0200
-Message-ID: <87bjc7cidw.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FIGf+TL1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8283A1F000E9;
+	Thu, 16 Jul 2026 11:02:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784199739;
+	bh=6nnmo/F1N1BR3ZAsLT77Fh9RIM/5mhmAJ8ig8kx0k9c=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=FIGf+TL12hw9Y1OZkWdlvnyP8NlyvXz1zoY2H/5seIXqs+HA08EHSOqxiZnFkrqq1
+	 ymv2gYsDmSt5bMOkIEDb1Egi78rgoZmcqwsdNFnTz+YMYunocK4VwyQf9qQAVh30Y6
+	 M59nQGwBgT11zApwGIORq55xe/c0y3rqr3MDkWxsyRSvNOz+0fvDp4koFtCgQVUeva
+	 a1cU3kAAK3AKo5P0+2nn2XRg6ropCT7SbuvVKlDHuCKMtEQNExrtaDv4a6iMBtDZrm
+	 4wSzbwtQIf1yfxWAOst66yX41kQ15fr6xiZL0NqS8ByBt9y88bzk0WsSApWh9zU1y6
+	 mAXy8v2LjQV9g==
+From: Lee Jones <lee@kernel.org>
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Manuel Ebner <manuelebner@mailbox.org>
+Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260710112529.435341-2-manuelebner@mailbox.org>
+References: <20260710112529.435341-2-manuelebner@mailbox.org>
+Subject: Re: (subset) [PATCH] dt-bindings: Add missing bracket
+Message-Id: <178419973728.1276269.15658607490515790554.b4-ty@b4>
+Date: Thu, 16 Jul 2026 12:02:17 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-Hi Wolfram,
+On Fri, 10 Jul 2026 13:25:29 +0200, Manuel Ebner wrote:
+> Add missing '};' to code.
 
-On 16/07/2026 at 12:10:30 +02, Wolfram Sang <wsa+renesas@sang-engineering.c=
-om> wrote:
+Applied, thanks!
 
-> "okay" is the default for 'status', so don't encode it explicitly.
->
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+[1/1] dt-bindings: Add missing bracket
+      commit: ce6fc04113241c82a698f362f8dc6e1cc2f65448
 
-Board still boots fine, which means the change is likely correct :)
+--
+Lee Jones [李琼斯]
 
-Tested-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-
-Thanks,
-Miqu=C3=A8l
