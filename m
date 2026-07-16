@@ -1,94 +1,76 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A90943634C
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 18:17:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 227FE446C03;
+	Thu, 16 Jul 2026 18:18:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784225840; cv=none; b=TKWDQsJGE4OApLhMtRuhaVxzx7cU+JCfslXkXDGOpblaucCUaBbQ4kQnz9lqYzu+Qoq0civBpGyRd4IP0XSvLItwKAfzuuT3TC8/qI6Lb6TjINtUpZOXZJ9X5399rEgy1mpFR3wrv2qZw6/XVG5G1eX7XkR2xGUW5w8CJ3lFQcQ=
+	t=1784225903; cv=none; b=J9ecqImJWTmrEGm5QKFFNL4ZMHOGaaMi3zdDpcDOZvCd01XpaC7QTNbZByG05QdhB/kavourngm2+dGHAOAXv7B3EgmHYl81GljeFxSxBJp2CO25Qovo/a6mFZQ66rtcqGBsmPcmHSsHqiwZCRNi/orfC2bi2tgrCaVgW89OjM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784225840; c=relaxed/simple;
-	bh=JhNa3NXChZgvvRp8vv1/TdGLxn6XWsdiqPg2ORbU7ok=;
+	s=arc-20240116; t=1784225903; c=relaxed/simple;
+	bh=ASXHjHLbjaG4HhkZTy5ARP5M0a5OaI9ugzKbquyfTh0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T6UaTtj9H1Aj/E8iwLLLDUnJ26JdCL+wHuiWRnGjNMYNYNsNF44Az2lymTHj+0H00OivdQ87J0hIzUQRLdo35xXj26OlsJnpMzyZNawwYPm/T1QYT8F2asWgVsPV7ceLaD3LJIyufHNUxknnsR4fLmEOLbi6fy/Q/Qmn7aE5RKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KmJt55C1; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=YG/Uqmnn; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=O0JwGU9Ckw0ArtFNjBXK1xBosd+8JyLWRR4bZ1pchmg6zk+T2WeDxrkH/NAFvvGzVEZD/JqgdJgC/4DUYjx7FCcFVEBl9pMQ8apPgye0wdRArJhch4sN8jMMEKThsJ2+png0hAW32VsS3b4hYMVCgi3L9i6eiK+Yis04Fr8pvNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WC/IJEgP; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KmJt55C1";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="YG/Uqmnn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784225833;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I1EFQGj/5aBchHaJPdCzDRZXU3faNJ5yBKDRHdX2qjY=;
-	b=KmJt55C13XXrlI4AirAXkjtp5pQSA+OxORPDctLZB7f11k4FehoznYSdcl2JOsUbesUQ0V
-	zcDwyUmP0yiRxp+WZotMvxoGUTzexUGbvCGDebvXfVLtH5BOFobedOl2RZLKoTS53t8Khv
-	hP4YyVyxZbEQojUC4+WEAmJA5XJ6tEk=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-685-Ep86FWujOHO-0DJxhnp7ZQ-1; Thu, 16 Jul 2026 14:17:11 -0400
-X-MC-Unique: Ep86FWujOHO-0DJxhnp7ZQ-1
-X-Mimecast-MFC-AGG-ID: Ep86FWujOHO-0DJxhnp7ZQ_1784225831
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c1eb52e1fso117897391cf.0
-        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 11:17:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1784225831; x=1784830631; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=I1EFQGj/5aBchHaJPdCzDRZXU3faNJ5yBKDRHdX2qjY=;
-        b=YG/UqmnnyD6F28aNaSGNVVJUu65AB6omNJo2pAy26GXNlcOpaeyOrfGCMzWKfpZ5/n
-         gJG7tSnFlKvoZaR0ZGO5eQZ8wjSt7vpZxH26vk60Dbi7kZ0iAcRKu7+RrIFzFrHZTaXS
-         1zGR/LlnFuJNML07d7NxlDvxUA0IBlvv201ug5B8PqRHy2s4vB0vNf/hjBe0v2100rLl
-         d/gmnzZtFhNttwjwAR8/gfgaK188r3mS/M62Y2u7tLdixRwjouHlVpV6qI2kMC/3lWeG
-         gMykPdxtz23EDImIp1XtbBgRDLO9gmgSPxeo3Dr6/kDGUwB4A+wnmpuvNl0UgzMbm62M
-         MkQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784225831; x=1784830631;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I1EFQGj/5aBchHaJPdCzDRZXU3faNJ5yBKDRHdX2qjY=;
-        b=omuIWGz81YEmf0LEfOF/yfBUaIIKz0IlnVaaYITc1Hl2iKeVkY4FPo50RWjjd7PA4D
-         mA38CJeEqWy7AH2kMFvIxys6X5utp6fAmkAHZYclJamGBxwAnkBfTH7vxFmSwTUafWzU
-         dbUPkfcVAyvu65KANiZ4QoVC268i1TKwTFpxwPeUL0cQ5LIZeZFppLGh/sn8PgpJZ25w
-         oUM11JYqjgdkVZJ7IDij/8uilEwi4KPbCLQi8qjtwQsFSSMGF6sq7FFpMkzyjKsy9nAN
-         Z7W/nfn+ol3EGnBskFfgDypw32GxcDqJ5a1qpjFwrnh6w/3o64HSPb/GXMFfN5e81fa7
-         FKOg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr6VLWXNDOHSM2vkYW6GvUNWjU0d/0F0MosY1nDQkS81JoZe7xQ4mHgZAg+tjmA6xoF/AvMch7HtnFB@vger.kernel.org
-X-Gm-Message-State: AOJu0YxVip+taFAtyeWmTgK53xiuQxRH6DKcLjx8jsCHRS0LO37iif84
-	7m37q851MYHf1aCiQ9Rdap0DUnBawBTyPteKi3qBwNT5XABBBUOOAIsNE47bFh0t1TIKRuDldCY
-	SSZlj0wcKuvAB3iVlTq93JbQD8/ZYsSMvQcDJAppXLzo2YuT1gkcYcdFX825tFi0=
-X-Gm-Gg: AfdE7ckLHm+9+ntWOXcER6h6RpVBhNhMa9GQvX3wnBs/kn8/bRQe3sg5Ai/dENqE5Hz
-	TbUMghzYyEx6gBO1551End0N6uHDfYvHvryYoelBKCbhUATi5Kj4HhI6NHdUCQat84BoIfja/ug
-	VjLQmnckrEpuFtpFff2cRv0DKoEQe1tmg7hfrKtHjfGKAeuCpKZXB/gHt9BZOx4Z8cU7+Bm2rvZ
-	NrmznAPHZIO+Cpq5e58imACBjEvGUmKXUI6oEIZGYiD+uWGqzHKgA5w37TxjIk5NV43AcOwJoXb
-	Bu9vx250xTbznd9/xP7Op+lR2v9ZjxXS/SCT8Ljy2HtayaBIguzAMKGyU+q5aDC9lZj1Oq0betT
-	IFooieEtxQqfXrzm8kRFZzQ51Kx4RGfmMmv4=
-X-Received: by 2002:a05:622a:28e:b0:51c:7b12:5fd8 with SMTP id d75a77b69052e-51e4f12bb6cmr85086741cf.84.1784225831054;
-        Thu, 16 Jul 2026 11:17:11 -0700 (PDT)
-X-Received: by 2002:a05:622a:28e:b0:51c:7b12:5fd8 with SMTP id d75a77b69052e-51e4f12bb6cmr85086351cf.84.1784225830474;
-        Thu, 16 Jul 2026 11:17:10 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51caacaad78sm158378721cf.7.2026.07.16.11.17.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 11:17:09 -0700 (PDT)
-Date: Thu, 16 Jul 2026 14:17:07 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: wangjia@ultrarisc.com
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WC/IJEgP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784225901; x=1815761901;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ASXHjHLbjaG4HhkZTy5ARP5M0a5OaI9ugzKbquyfTh0=;
+  b=WC/IJEgPxho2chSnGs3wjKv2z5SPcLrcWqAUb9SH0vFY7tqKq2EUA06W
+   53aKxSKDMeLQthaww/5EA6UtKXJaHWWjFvuZTYGorQZC87hLw1Tob4zEV
+   Yt1PyWLPI+yIiDibennPfVNymV46V1jf2/nkzMA1D5yyxU3CmEBJ0G3v/
+   DVe0jnhLgE1HOXuHgRU3wwyIdSdlMp4aw+RgHARUMfsN1JA28E1ijpMN4
+   HaUto/qcALf5PXM9voS5JmaDQM0idmbfk7w6hlGAHAhE0Chjb8BT3G7m7
+   ZOC6xI19+1zoXuMiwRoGLVs66QzF8/19LSOPJYVzChGFgI6Unl7HO0Q2X
+   A==;
+X-CSE-ConnectionGUID: Y31V9GbZSuixOjzWAmh6xw==
+X-CSE-MsgGUID: yoi12dRcQjyu5RBJrZb42w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="95498160"
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
+   d="scan'208";a="95498160"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 11:18:18 -0700
+X-CSE-ConnectionGUID: AxXYP0dITHCcLtJD2mnQDQ==
+X-CSE-MsgGUID: tOPTf6ULR5mxsL5l5fe1tQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
+   d="scan'208";a="279844539"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.26])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 11:18:15 -0700
+Date: Thu, 16 Jul 2026 21:18:13 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Esben Haabendal <esben@geanix.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] clk: ultrarisc: Add DP1000 clock driver
-Message-ID: <alkgIyhI43ypvZdb@redhat.com>
-References: <20260714-ultrarisc-clock-v3-0-4b1ccaa26b37@ultrarisc.com>
- <20260714-ultrarisc-clock-v3-3-4b1ccaa26b37@ultrarisc.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Martin Kepplinger <martink@posteo.de>,
+	Sean Nyekjaer <sean@geanix.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Martin Kepplinger <martin.kepplinger@theobroma-systems.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: accel: mma8452: Allow open drain interrupt pin
+ configuration
+Message-ID: <alkgZTnHyvEasMCk@ashevche-desk.local>
+References: <20260715-mma8452-open-drain-v1-0-b1dd2a440c60@geanix.com>
+ <20260715-mma8452-open-drain-v1-2-b1dd2a440c60@geanix.com>
+ <cA7m1VgJxkr39GAxpnMPw9PVIKX2TR8Ju4Q0m6L2SxS_jJNITfZ6AA5LOeMIK0jGFXaUptY1_vPhDd_imWw5FQ==@protonmail.internalid>
+ <aldH3vtk_eKh6oCC@ashevche-desk.local>
+ <87ldbco582.fsf@geanix.com>
+ <Tu8Mavh-mfl8Vv75Oab3vrghtEbTXiYPZ4qhj6RZv8xe5nWKP4lG1KSuJXEQfyKeio7zv9myLbmifMjFTl8juA==@protonmail.internalid>
+ <aleQVYrK9YBoLqGl@ashevche-desk.local>
+ <874ii0misv.fsf@geanix.com>
+ <alefh86sqW-XvLHl@ashevche-desk.local>
+ <J2apVLUJhrI3AOweGpouqGGB0XhxbcqLiWasDpOdm4d2YGgNv8PuE-udUGJZcH0z-V9yyqbjIwMKDdtuam0mp6ya5F6GHUzf6OjRCo0GdaA=@geanix.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -97,79 +79,199 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260714-ultrarisc-clock-v3-3-4b1ccaa26b37@ultrarisc.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+In-Reply-To: <J2apVLUJhrI3AOweGpouqGGB0XhxbcqLiWasDpOdm4d2YGgNv8PuE-udUGJZcH0z-V9yyqbjIwMKDdtuam0mp6ya5F6GHUzf6OjRCo0GdaA=@geanix.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Jia,
+On Thu, Jul 16, 2026 at 04:51:34PM +0000, Esben Haabendal wrote:
+> On Wednesday, 15 July 2026 at 16:56, Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+> > On Wed, Jul 15, 2026 at 04:25:20PM +0200, Esben Haabendal wrote:
+> > > "Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
+> > > > On Wed, Jul 15, 2026 at 01:35:41PM +0200, Esben Haabendal wrote:
+> > > >> "Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
+> > > >> > On Wed, Jul 15, 2026 at 10:07:39AM +0200, Esben Haabendal wrote:
 
-I have one minor question below.
+...
 
-On Tue, Jul 14, 2026 at 09:35:09AM +0800, Jia Wang via B4 Relay wrote:
-> From: Jia Wang <wangjia@ultrarisc.com>
+> > > >> >>  	if (client->irq) {
+> > > >> >>  		ret = request_threaded_irq(client->irq, NULL, mma8452_interrupt,
+> > > >> >> -					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
+> > > >> >> +					   IRQF_TRIGGER_LOW | IRQF_ONESHOT |
+> > > >> >> +					   data->open_drain ? IRQF_SHARED : 0,
+> > > >> >>  					   client->name, indio_dev);
+> > > >> >
+> > > >> > Why do we care?
+> > > >>
+> > > >> Care about what exactly?
+> > > >
+> > > > About exclusivity of the interrupt.
+> > >
+> > > Ok.
+> > >
+> > > >> We need to add IRQF_SHARED flag in order to allow shared interrupt, and
+> > > >> we should not add it when using (the default) push-pull mode.
+> > > >
+> > > > Why not? How would it make any difference from SW perspective?
+> > >
+> > > Not adding the IRQF_SHARED flag prevents use with shared interrupts. I
+> > > think we are on the same page on that.
+> > >
+> > > Unconditional adding IRQF_SHARED flag would allow configurations where
+> > > other devices share interrupt line with mma8452 compatible chip
+> > > configured with push-pull, resulting in broken or unpredictable results.
+> > > I don't see why we should not care about that.
+> > 
+> > But it's not their problem! If it's this device that prevents this
+> > configuration, it should have a check. With this code it just hides
+> > and changing a DT property will lead to kernel warning.
 > 
-> Add a clock driver for the UltraRISC DP1000 SoC.
+> The chip such does not prevent the configuration, and does not prevent
+> sharing the interrupt. The irq pin in the device can be configured in either
+> push-pull mode or open-drain mode.
+> In order to allow sharing interrupt line with other chips, the chip
+> must be configured with irq pin in open-drain mode, which is what the
+> drive-open-drain device-tree property I am adding in this series enables
+> developers to do.
+> If/when you add this property to the device-tree, the irq pin will be
+> in open-drain mode, and the IRQF_SHARED flag can (and should IMHO) be set
+> as the interrupt line can be shared.
+> If/when the drive-open-drain property is not set (existing device-trees
+> and current only supported behavior), the chip cannot support sharing the
+> interrupt line, and adding the IRQF_SHARED flag would be a bug, as the
+> chip irq pin requires an exclusive interrupt input.
 > 
-> The clock tree is driven by a SYSPLL and provides fixed-factor clocks for
-> the subsystem and PCIe, divider-based root clocks for GMAC and the UART,
-> I2C, and SPI blocks, and per-instance gate clocks for UART0-3, I2C0-3,
-> and SPI0-1.
+> Maybe the confusion is caused by the fact that the drive-open-drain
+> does not describe how the irq pin IS behaving, but rather how it SHOULD
+> behave, and possibly required because of the HW designed having tied the
+> irq pin to an irq input together with other irq sources.
+
+Why do we care of push-pull then? Can't we always make it open-drain?
+
+> > > > Yes, I understand the HW case.
+> > > >
+> > > >> > The (hidden) problem this will have in the future is that the IRQ core
+> > > >> > will splat a warning in case that other shared IRQs might be
+> > > >> > configured with different flags. Putting that flag conditionally makes
+> > > >> > it a mine field for the users. Instead just unconditionally add that
+> > > >> > flag and we will get reports as soon as there will be a user that
+> > > >> > shares the same interrupt pin with some other devices which drivers do
+> > > >> > not use the same settings.
+> > > >>
+> > > >> If we add the IRQF_SHARED flag unconditionally, it will be set also when
+> > > >> push-pull mode is enabled. I don't see how the kernel will be able to
+> > > >> notice that that is not going to work. If you have another device that
+> > > >> uses IRQF_TRIGGER_LOW|IRF_ONESHOT|IRQF_SHARED, it will not work with the
+> > > >> MMA8452 device when configured as push-pull.
+> > > >
+> > > > Right, and why do we care (again)?
+> > >
+> > > Why we care that the system as a whole (SW on top of HW) will not work?
+> > >
+> > > If we don't care about that, why do we even have this IRQF_SHARED flag?
+> > > The only purpose of that is to tell the kernel that this particular
+> > > device / interrupt will work with shared interrupt or not.
+> > >
+> > > Isn't that exactly what I do with this change? Nothing more, nothing less.
+> > >
+> > > > It's pure DT/FW/HW issue, not an SW issue.
+> > > > Otherwise it will become a carefully placed mine for the poor user who will
+> > > > use these flags and try to share an interrupt with the mma8452 device which
+> > > > has no set property and uses push-pull mode.
+> > >
+> > > I don't get how you see it like that. Adding IRQF_SHARED unconditionally
+> > > would create exactly the mine field you are talking about. Poor users
+> > > can specify a system configuration (DT) that tries to use a shared
+> > > interrupt line, but configures the mma8452 compatible chip in push-pull.
+> > > The poor user will not only be poor, but also unhappy.
+> > 
+> > > By applying the IRQF_SHARED dynamically, the kernel will be able to fail
+> > > in a controlled manner instead, making it much less painful to create a
+> > > working system configuration (DT)
+> > 
+> > And my point that we need to make less painful runtime experience.
 > 
-> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
-> ---
->  MAINTAINERS                           |   1 +
->  drivers/clk/Kconfig                   |   1 +
->  drivers/clk/Makefile                  |   1 +
->  drivers/clk/ultrarisc/Kconfig         |  18 ++
->  drivers/clk/ultrarisc/Makefile        |   4 +
->  drivers/clk/ultrarisc/clk-dp1000.c    | 154 +++++++++++++
->  drivers/clk/ultrarisc/clk-ultrarisc.c | 407 ++++++++++++++++++++++++++++++++++
->  drivers/clk/ultrarisc/clk-ultrarisc.h |  71 ++++++
->  8 files changed, 657 insertions(+)
-
-[snip]
-
+> Yes. We agree on that.
 > 
-> +static int ultrarisc_clk_register_dividers(struct platform_device *pdev,
-> +					   struct clk_hw_onecell_data *clk_data,
-> +					   const struct ultrarisc_clk_soc_data *soc_data,
-> +					   void __iomem *base,
-> +					   spinlock_t *lock)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	u32 i;
-> +
-> +	for (i = 0; i < soc_data->num_dividers; i++) {
-> +		const struct ultrarisc_divider_desc *desc;
-> +		struct clk_hw *parent_hw;
-> +		struct clk_hw *hw;
-> +
-> +		desc = &soc_data->dividers[i];
-> +		if (desc->id >= clk_data->num || desc->parent_id >= clk_data->num)
-> +			return -EINVAL;
-> +
-> +		parent_hw = clk_data->hws[desc->parent_id];
-> +		if (!parent_hw)
-> +			return -EINVAL;
-> +
-> +		hw = ultrarisc_clk_register_divider(dev, desc, parent_hw, base,
-> +						    lock);
-> +		if (IS_ERR(hw))
-> +			return PTR_ERR(hw);
-> +
-> +		if (desc->max_rate) {
-> +			unsigned long rate;
-> +
-> +			clk_hw_set_rate_range(hw, 0, desc->max_rate);
-> +
-> +			rate = clk_hw_get_rate(hw);
-> +			if (rate > desc->max_rate)
-> +				dev_warn(dev, "%s rate %lu exceeds max %lu\n",
-> +					 desc->name, rate, desc->max_rate);
+> But I do believe that my patch is that painful runtime experience.
+> 
+> Adding IRQF_SHARED flag when irq pin is configured in push-pull mode
+> will be painful. I know, that was my initial approach. Does really not
+> work, and can lead to wasting time on debugging the HW.
+>  
+> > > Going back to your poor user story above, if the poor user tries to
+> > > share the interrupt pin with the mma8452 device, it will get an error
+> > > (just as it is with the kernel today). The device does not support
+> > > shared interrupts. Reading the DT bindings documentation, the user
+> > > should be able to find the drive-open-drain property, and add that to
+> > > the device-tree to make things work. Maybe even consider if that is
+> > > compatible with the hardware being used.
+> > >
+> > > If IRQF_SHARED was set unconditionally, the user would not get an error,
+> > > but most likely would get a system where no irq's were raised for the
+> > > other chips. I sincerely believe that debugging this is much more
+> > > painful than reading device-tree bindings.
+> > >
+> > > > Did I miss anything?
+> > >
+> > > I don't know. Maybe I am missing the obvious here.
+> > 
+> > I consider the case when shared interrupt is enabled on both devices, but
+> > second one (driver) missed the same IRQ flags. This becomes a warning in
+> > IRQ core.
+> 
+> Missed which IRQ flags?
 
-At this point in the probe, the clock tree may not be fully propagated
-yet. Is this check needed?
+_LOW, for instance.
 
-Everything else in the driver looks fine to me.
+> > Shared interrupts it's also a contract with all stakeholders on keeping
+> > the same flags for all devices.
+> 
+> Of-course.
+> 
+> And adding IRQF_SHARED is a contract that says that the interrupt can be
+> shared. I can only see that it would be a bug to add that flag in cases
+> where we know that the interrupt really cannot be shared.
+> 
+> As for the IRQF_TRIGGER_LOW flag being set, I think that looks correct
+> as long as we do not support switching to active high irq polarity.
 
-Brian
+No, it's not. It overrides whatever platform wants to have. It prevents
+PCB level designs from anything else.
+
+> But on that topic, the chip actually supports selecting between active
+> low and high irq polarity. Should we implement something along the lines
+> of what is done in smi330_setup_irq() in iio/imu/smi330/smi330_core.c?
+> And thereby allow using the device with active high irq?
+
+...
+
+> > After looking into genirq code I don't see other way how to handle this.
+> > It looks like we need to address the TRIGGER_LOW first, in other words
+> > we need drop that flag when IRQF_SHARED is set, and leave it to users
+> > to setup IRQ trigger properly on all sides.
+> 
+> Why do we need to drop the IRQF_TRIGGER_LOW flag because IRQF_SHARED is
+> set?
+> 
+> Users as in those specifying the system device-tree?
+
+No, because like I said, the SHARED is a *contract*, it's not just a setting.
+And that contract includes the similarities on the IRQ flags. One may not
+have two devices with different trigger level, it's a common sense, right?
+
+So, SHARED must exclude anything that comes from the platform description or
+IRQ chip controller (limitations).
+
+So, without addressing that, it makes a little sense to add SHARED.
+
+...
+
+I would accept this patch without adding SHARED, perhaps. But still question
+why we can't use the OD instead of PP for the pin to begin with? Do we have
+real HW that uses IRQ input without a pull-up?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
