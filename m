@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B244234994
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 06:05:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E952732ABCD;
+	Thu, 16 Jul 2026 06:08:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784181932; cv=none; b=GSsscrfUJrsv+9dy0M4fXcZzS7w0ya6x18CWue0lZAEU4JYfPSRPMlbgD5kGzFv39Yd8mv6pBWYorZVuEeG2QfeSMRJapZHee+BWB2pJ0o5LFTl86hAPyqjm37jg+PenZTQw7o72nRqxVg1QEglNJWtUUzqJSVukKVMo856Fb78=
+	t=1784182128; cv=none; b=OP2ncbXpLmVfiF/dshCSjjJ5n9DxFUcdcNtedK5JQD3o5eE0CALNr4SK5NfeOspqqu8tgaEK6Z56ZQ4vctizbgkJi4qXL6xiVB3OFSEdFQcSlnLQ+AvwuH48x3T2znZ0dBabc5bluIs0o1pENKa/o0Lez/0G5iaTtYDlNGfDMAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784181932; c=relaxed/simple;
-	bh=H1VbI8LK2IOJPaoqXHAIVbVvzHqtMk+lvwXEkCWZxdM=;
+	s=arc-20240116; t=1784182128; c=relaxed/simple;
+	bh=W6KB8hjCFrW8lNF/IhnETpoM/XHjGkg8TMBkrzSRcBo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SwUc3EUaDKuLJojywK1QUWt2yGmgbhiciRzzCKuNoD52KvESLIMIzQeRyvIkjBocCSNkIyb5+Ht+/+WaoyyoIrky2bJgaHOXbt9Uz/1OW6c3X7AVeuo/KaTDHubcv4K2YFcY8nVKthcnVCq3YLcORQ+mH6BsUr2pyDdN8edo934=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HctHUCPz; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=erJ1jLNgG2J/NRRku8TE5TEw98SQmcCbhIZWKlh2kHxinFX0jczXE02YmUQvHhvaLMbKGmGOt5I6kjvGxUTiYIGl2WoVajRTd4gWehaVjHzrmpqjyMsrHY8ioQqvyWEkhDwC6AOkEYPQqDJ5wc9v6hBpxxT6FhnhcLChgdAEock=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aLVE06Pg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HctHUCPz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 925091F000E9;
-	Thu, 16 Jul 2026 06:05:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aLVE06Pg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34AC71F000E9;
+	Thu, 16 Jul 2026 06:08:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784181930;
-	bh=EFGJr6m98JKT1ewVUGhNkFOtESxFtSZnnIjhrZOT/TY=;
+	s=k20260515; t=1784182126;
+	bh=EDyV5Oh4971HFHj/K95mrqUvUskeT8xStKGitEcp//0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HctHUCPz5sL1DMNXH2cFFImuroOTDmrTx7UCV9u3PCT3FmmWDTRNlYdsTkSu09AJA
-	 lKOgilu+RNAsIwnPjNp3vAQtlgXqkvJuUKJQ0QLclvefwrWPDTni8XmOc+14HTtQpM
-	 xVG4+QfCnatHFQBYsC60h0St2zEK7rOh+sP52uhuM9WIODWXRfXPIL4UWGoFuIY3ji
-	 zcDM5uq+mRN2WOF9EM9OQDVRbDIZEox8v8sQthi8iHD6DBcC76Hxa5oc+TXa9WlHag
-	 F+0WOZ+kEoXFxk3NW0xPpsX4s9W6e6mmGqNoq4tOPOi0BgOBqBfzf7RT1r8e7so8x8
-	 2eBoq8bcP98vQ==
+	b=aLVE06PgELaIWZxLML1Jv7Cnkul7hpESTn6L9ZZyM2Qg/2pn1q60yZOJRbG3o5qTK
+	 Ys0OCPFxNVcM8g86heQ9Sfr9pFlSuSSlwJFwyHOwBp1yg+nbDViIgi8i02QXfs3/4p
+	 wKRnc47XTSO71iHLqI4z+VrRBb85WYAmSZ/9MYvHDss/scifmNeQ2KlObHmnMVNsBn
+	 Cq6t4d93F26LpsoesasaEEcv3JabA5LPZNB4D5ILyByjagpwX53EaGJvzgUT5EuIsI
+	 tv2BM39+Eu+Sf9WuP9LknDNCkihFJqKmmPjFg2vk0TAHzJusOnt4bAyzAWMus8tDmj
+	 fkcrzoLjw7gmw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: ipq5424-rdp466: Enable quad SPI
- mode for SPI-NAND
+Subject: Re: [PATCH v5 4/6] arm64: dts: imx8mm: imx8mp: Add CM DTOs for Data
+ Modul i.MX8M Mini and Plus eDM SBC
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Md Sadre Alam" <md.alam@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260716-quad_dts-v1-2-74d86792944a@oss.qualcomm.com>
-References: <20260716-quad_dts-v1-0-74d86792944a@oss.qualcomm.com>
- <20260716-quad_dts-v1-2-74d86792944a@oss.qualcomm.com>
+To: "Marek Vasut" <marex@nabladev.com>
+Cc: Frank.Li@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260716055751.279033-4-marex@nabladev.com>
+References: <20260716055751.279033-1-marex@nabladev.com>
+ <20260716055751.279033-4-marex@nabladev.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 06:05:30 +0000
-Message-Id: <20260716060530.925091F000E9@smtp.kernel.org>
+Date: Thu, 16 Jul 2026 06:08:45 +0000
+Message-Id: <20260716060846.34AC71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,58 +47,68 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Adding `spi-tx-bus-width =3D <4>` breaks SPI-NAND page writes beca=
-use the underlying QPIC SPI controller driver does not support quad program=
- opcodes, and `spi-rx-bus-width =3D <4>` silently fails to enable quad read=
-s.
+- [High] The CM4 devicetree overlay for the i.MX8MM board hardcodes reserve=
+d memory regions at physical addresses that lie outside the RAM boundaries =
+of the 1 GiB variant of the board.
 --
 
---- Patch [2]: [PATCH 2/3] arm64: dts: qcom: ipq5424-rdp466: Enable quad SP=
-I mode for SPI-NAND ---
-commit d94d344a7a9d7f1e09d33f7fca995cd1adf27026
-Author: Md Sadre Alam <md.alam@oss.qualcomm.com>
+--- Patch [4]: [PATCH v5 4/6] arm64: dts: imx8mm: imx8mp: Add CM DTOs for D=
+ata Modul i.MX8M Mini and Plus eDM SBC ---
+commit 570590d387e46a557b9ab429099f8826e9336ea2
+Author: Marek Vasut <marex@nabladev.com>
 
-arm64: dts: qcom: ipq5424-rdp466: Enable quad SPI mode for SPI-NAND
+arm64: dts: imx8mm: imx8mp: Add CM DTOs for Data Modul i.MX8M Mini and Plus=
+ eDM SBC
 
-This commit configures the SPI-NAND device to use 4-bit bus widths for
-both transmit and receive by adding spi-rx-bus-width and spi-tx-bus-width
-properties to the device tree.
+This commit adds device tree overlays which provide CM4/CM7 extras for
+the Data Modul i.MX8M Mini and Plus eDM SBCs. It allows CM4/CM7 firmware
+to be used with remoteproc and rpmsg without imposing overhead on all users.
 
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5424-rdp466.dts b/arch/arm64/boo=
-t/dts/qcom/ipq5424-rdp466.dts
-> --- a/arch/arm64/boot/dts/qcom/ipq5424-rdp466.dts
-> +++ b/arch/arm64/boot/dts/qcom/ipq5424-rdp466.dts
-> @@ -257,6 +257,8 @@ flash@0 {
->  		nand-ecc-engine =3D <&qpic_nand>;
->  		nand-ecc-strength =3D <4>;
->  		nand-ecc-step-size =3D <512>;
-> +		spi-rx-bus-width =3D <4>;
-> +		spi-tx-bus-width =3D <4>;
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-over=
+lay-cm4.dtso b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-over=
+lay-cm4.dtso
+> new file mode 100644
+> index 0000000000000..0bd770af2a68c
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-overlay-cm4=
+.dtso
+[ ... ]
+> +	reserved-memory {	/* CM4 reserved memory */
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+> +		ranges;
+> +
+> +		m_core_reserved: m_core@b7000000 {
+> +			reg =3D <0 0xb7000000 0 0x1000000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev0vring0: vdev0vring0@b8000000 {
+> +			reg =3D <0 0xb8000000 0 0x8000>;
+> +			no-map;
+> +		};
 
 [Severity: High]
-Does setting spi-tx-bus-width to 4 break SPI-NAND page writes on this
-platform?
+Will applying this overlay on the 1 GiB variant of the board cause a crash?
 
-The SPI-NAND core parses this property and will attempt to issue quad
-program opcodes during page writes. However, looking at the underlying QPIC
-SPI controller driver, it appears to reject any program load opcode except
-the 1-bit 0x84 opcode:
+The base board imx8mm-data-modul-edm-sbc.dts supports 1, 2, or 4 GiB varian=
+ts=20
+with physical memory starting at 0x40000000. On a 1 GiB variant, physical=20
+memory ends at 0x7FFFFFFF.
 
-drivers/spi/spi-qpic-snand.c:qcom_spi_cmd_mapping() {
-    ...
-    default:
-        dev_err(snandc->dev, "Opcode not supported: %u\n", opcode);
-        return -EOPNOTSUPP;
-}
+Since these memory regions are hardcoded at physical addresses starting at
+0xb7000000 and 0xb8000000, they fall outside the available DRAM for 1 GiB
+boards.=20
 
-When the core issues a quad program opcode (like 0x32), the driver will
-return -EOPNOTSUPP, causing all write operations to the storage to fail. Is
-the QPIC SPI driver missing support for quad page program opcodes, or should
-the tx width remain at 1-bit in the device tree?
+When the remoteproc driver probes and attempts to map and initialize these=
+=20
+reserved memory regions, will it access unbacked physical memory and trigge=
+r=20
+a synchronous external abort?
 
->  	};
->  };
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-quad_dts-v=
-1-0-74d86792944a@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716055751.2790=
+33-1-marex@nabladev.com?part=3D4
