@@ -1,403 +1,365 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013068.outbound.protection.outlook.com [52.101.83.68])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86C2830F95F
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 12:59:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.68
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784206799; cv=fail; b=iuiveFAGf80CKMTTLFETTOq5XgsnTreF9hwyWIMH9w8aH9rzyp7q4OL4Ko484nUW1DYH8RMUOmZsHGZ0JsacBZBM6BXawsA+sQZQeWDwYlGL30aadRD/7SZ+slTK30Bd+ScRO4XwfR1JQa6+Fcjkqu07LdhbwloLWaWBsccl8vw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784206799; c=relaxed/simple;
-	bh=NY4eeee8d4NTjshWm1mQhspPohn2tXBn6zjfVgpDdG8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=iRAY50luknQwVU3uI3vyawQrkAPbVCsgCkElrK/mcS9qs+4wDGXCGmi4+DY2xjCBF0/tmH7FzEuNYEWModWc9bQkD5/RJ2aOaMkzjE3vq0pLScC4goz672khh5ufZNaAh4eCUj4KCjJzoq0ZDarKt0VP54NQGQPBQjCTNnMaya0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=I5VnGA+K reason="signature verification failed"; arc=fail smtp.client-ip=52.101.83.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 141F242255C;
+	Thu, 16 Jul 2026 13:02:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784206939; cv=none; b=mnnqDJABlqvw7vycDM++7qleksOSKvj0jEJQo2H7VISTmmjDC0mRak2jZvfuRECBq8wBikMn7Kdyva7+33kGICfbcwW0v5XCNPg5n1GHse3VqTDs6dh/+BaiOhNQqk+uNsoKAs+TofrdtmHENpwgCH4VDbCROJzmX+7BMIGFW94=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784206939; c=relaxed/simple;
+	bh=1HNP4Nw6q0zER9T0cMvm6r69fPS6nGavn7ZTsTwXnY4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tGIZgjnlQ8UQV9Ky8VpXmlBTGvbNzy71yNFLi0qQ5UwPqXC2oqb+YV4NnWCzvvcHK4R/w+JjLeGMLnJJmzvVnsMAlKAaHcnLoPBqA8ODx6Uc2TvQPqefnE0kyZABLr5ipWSpg08uO9/4AhXYs+CHqFI0kiFKyrrB+J2q1lb5cl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=eUOKg4Az; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="I5VnGA+K"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uyriSgOAJ1yevXR7zRlyo6aZvji3sjwqOyS5uLwOPAYJYt16GrfdRjYHR78eMHhs5ksagFfXPAeI556gbUfV7Y6ZirTE3quRZ++HBv3kWeUGnuqqAX1XvD1Ex8OQzCw04/zujJtVHEMwNAcWejpZuwYSmIyyfgD617LZGFe9pIgzmMY+ODEKed8T8JivSYKBOi820wZkhR0t4zSk35nmwucwbVFQ9o9zY4xGo1wmReFnnwWhKLbZyL8HCZX2Ig5em12Qm9E+MKU7IY/Fo4ti9scfHRfRyeokyGvFpVtVAkckbfdzd40dsHOACaBbgfd0YHVK01Jb90PF7XbpXBcXHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P/zLpqry7qVauS3qG7B/cGI7ywU9x1DrkoFUFPGQZmA=;
- b=EnR/OS7UNIitzXV1T0hD0v7N/Wdwkv/OPFWEvXgfF0prsSueNMbYC6ujd0JkMg7b2Qcgc/sKIst5Me1qFoK3DdwKorFJuVDJCXWp3IhuE52uzArxIAmhxXrN4EruJQhf+tgwwJucYw5i2j6Ihx6aGlL5rA2vEVlk0mdrBA0ZfQWB8X2HDXHvhkUv56ptWKrw/nA9dWuCOv6yR7/8hLSSeT6dmFFox1h1nLwVpJgX36n8tTPaji8L0wJFNwe1ifNdPI43uRh6D1VXRV0gDlcCxHSosrVkjcaXFg7gqWLEsP4NRZMRlWiySjK+tlqn2meKnmO0rs0ETvoLkod/QUefxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P/zLpqry7qVauS3qG7B/cGI7ywU9x1DrkoFUFPGQZmA=;
- b=I5VnGA+K3vgwLWXRk2qy9F2lsBAeTw8EWYanubDdjNuOzDPPFUkr7LkjIiQcEKx4wAdz03CHt7/FncVHhvvXDxmDljVLpWtSfvyn5GVt4pXZD3VxGz2IAzl6VEAFsUfl774hcoPp5zjJtuPGHj8dPz1wDifYS8g/Xqho06zB/AuRTqxp4TSWVlKgEKzi8kjhIOt2nrGfBuZiXK1drVX80GW+y1QRqdcoG8eWa7Wsewz7lqdCHOkb3g83Q4UnaUKeM3mfrgrep7hx6353Qwiv2l6X2ftSBF+ibx3PWZN8Ag9xvn26BicIdZM0Qnl5N7to0y7pvhmVVMPUQNYh5VzfSg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by MRWPR04MB12145.eurprd04.prod.outlook.com (2603:10a6:501:97::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Thu, 16 Jul
- 2026 12:59:54 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0223.011; Thu, 16 Jul 2026
- 12:59:54 +0000
-Date: Thu, 16 Jul 2026 07:59:45 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: guoniu.zhou@oss.nxp.com, Frank.Li@kernel.org, robh@kernel.org,
-	conor+dt@kernel.org, media-ci@linuxtv.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev
-Subject: Re: [PATCH v12 3/3] media: nxp: Add i.MX95 CSI pixel formatter v4l2
- driver
-Message-ID: <aljVwX1wzPqV3c_7@SMW015318>
-References: <20260716-csi_formatter-v12-0-2601d17fc4af@oss.nxp.com>
- <20260716-csi_formatter-v12-3-2601d17fc4af@oss.nxp.com>
- <20260716072052.A20961F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260716072052.A20961F000E9@smtp.kernel.org>
-X-ClientProxiedBy: SN7PR04CA0057.namprd04.prod.outlook.com
- (2603:10b6:806:120::32) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="eUOKg4Az"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 87EF4C2B9E8;
+	Thu, 16 Jul 2026 13:02:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1E309602B8;
+	Thu, 16 Jul 2026 13:02:10 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BEFE211BD3C6E;
+	Thu, 16 Jul 2026 15:01:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1784206927; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=zTUPSuHQAbihWXKOUNBC/PoJhnAlh+bcUK9ov3l4dIk=;
+	b=eUOKg4AzJ8Nj9dsSPxLDiiFkQt8iV8mJFUvm36BSRlszf/OY/clhHXabhnOfjqLmdx528s
+	zXNe//VBkUeEyPdfvt+uyUW7MZgN9O32bXq3VsvMH9mN4oWv9wxqKYyoq3zXBhz5mbtvt+
+	WTMnrTzWPTDjo78wpSQhYhBu3cOxbK22BILluJNsuOxKGr8Nki77FJpeq01uAAHEw1K2Xk
+	ms3aMDQ7KawllFARvO0dJDPSzz7kd0smDce/rj7PBzeLjlvkzOoagRReyQmQDyOlWK3js7
+	ZoK+jcZbcbMAmn8/xwwoA6Ks1hSs4bRsVJovl7SFLtxPFkn69q1rfeoYpnIJ+Q==
+Message-ID: <c7193123-72e1-4bf5-85f7-eb68a4000c44@bootlin.com>
+Date: Thu, 16 Jul 2026 15:01:57 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MRWPR04MB12145:EE_
-X-MS-Office365-Filtering-Correlation-Id: c28580eb-49c2-4b10-362a-08dee33a2122
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|19092799006|1800799024|10067099003|18002099003|22082099003|56012099006|11063799006|5023799004|6133799003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	vCcEFSHDZLYI3aVTzMnBU6mCmafzaddPqbPBATQ+2yXwk5GsY9zAoCnKF+fkxKGw0b6TagfTJS15AjRLl/1OafIrooHQfRmOxDwAk1hnWnLozarI83IkA1hfMFRvXdN2a4hLQoUWsWPAwg9gQKVO+3nl0iBW7GKzr8hJU7Q71a6gy9yNYlbEEsjsPjwf+yNlBGM3q3EeVad7bUiJdBZQYQYvT6f30RBAePFoCjEjkkbvdIie3NmTJgKurBc3FqZ2VIUHAstYXhTeld99a4mt0JwUQoOQ4FzAOpCY9ws78q/wkEY76BadVzp1h3zhtBJWxlsJUkpzWvBOCijKYNt5krUezrEN1GzYaWU7QX2xwaaKXt0JjJQsDdGePKHq/laGV1su0izZd61X/L/upV8RPeiyD1ZrwIklT6+Cz7YkkI9UYt+ydqSU1TWMRdJi7t0RWYp3zLANpyGPQoeyLJyiWu3pWjhBUI6XgkPjC2/Rxb3Ji+cqS5gmAtOKL8Ech576oIpAtcoYC02hIKrbUDYPVL2lTVstDDNTETjHzgOgoQG0Bst8GEh+XgUmGLGGPhpgVmH0sOJZyrb5P4LLTaV3NImrA+Wx6DMWjJWRHcXkQMs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(19092799006)(1800799024)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(5023799004)(6133799003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?Pc+Umi9TM36ADICpUCduSeHOfVVVI93yEKSU3C//elMlldBHNtmVgRLAvN?=
- =?iso-8859-1?Q?ErP20ORp6Eq6AZew2aAr+8D2pBZUYNV82UUOHztOXJlG/PJ68Xocete6R+?=
- =?iso-8859-1?Q?1s3zhlmVV0qFJHZQ8B3oFEiK+11XqxcvB5trW9LiyY8/1UUaRnigFZoo7C?=
- =?iso-8859-1?Q?j1dQIO1/aei8hH/0n2zq2tbXlIOOXCXD1Y3IzFstmppSc61QfSawKUV0Qe?=
- =?iso-8859-1?Q?b46xrx633gebtuP2CbRQTwxmi/5wnxykvQyk+6o61Bwo+F8cUSZ0RwGr6W?=
- =?iso-8859-1?Q?XJe7sijr0XWNNFDWkQR7INDUxFC0uu/ASH7SvY04JEJWODpsTZzYLu5E9w?=
- =?iso-8859-1?Q?WA2uuDKFzp81Nq1M+DFU6lvsZ9DhA6yZ4bmYikXGE6vAWRIgzzymgUxEzm?=
- =?iso-8859-1?Q?XRBzACs6//rKE8asnFyxP0ckqDy9z1wUSOhtIM0zKKvZsyJ/HhaAoxTGNI?=
- =?iso-8859-1?Q?mh9qBTxxsm9yzVJmpyL1B+oAwk0ohwZ95U5ZMOO8mHyWjrBCLA6slCaLR2?=
- =?iso-8859-1?Q?pZzZ7y3uM/IuMTuIQzt+/gBaVX+U8BjPRs6Iwtkfwog2yNwiJH+oQ36D2N?=
- =?iso-8859-1?Q?VT1TZNmcxqvXnlf1/TwKMDl48irkju6fJU+iJGUdFIGGYK+Fs2qE04Wxx0?=
- =?iso-8859-1?Q?LChob6aMbnWET9n6zObTp1XDBhmnNzsHIW4YdW6DXVPje1rmReunS0hZC3?=
- =?iso-8859-1?Q?7moiyZxXyx8xiyt+axhXVsKkyGQ4e4+SEXmiwCNIGLrbWkmEOr4A1VJkMZ?=
- =?iso-8859-1?Q?+HAOoG3zVl9Eyn/vKGM6cqWgsU0rHXEYrpuAAmGOwP4gZiA0KCZ26GQhai?=
- =?iso-8859-1?Q?tFkDAt/U4hkuiyPZxHeSSXbj9zPYzJofw+YggAoD7gHnnR6jf3/cy03/rt?=
- =?iso-8859-1?Q?PSaP0c+OuAx4Gk+RhQJJ3MBU8gMXdvxEyfPdXafJ73gPKTNmVek+b2mzqk?=
- =?iso-8859-1?Q?yBfO3PsHt22YTBNmBsue0USsKjSRIQGExaYZATo0AYkXql2tiMahzBoGhG?=
- =?iso-8859-1?Q?ePqt4lrRqc4x8Xrb74nSgw6LP6yl/wfm9P4rOGTRnTYznJsXTZU26cgQh4?=
- =?iso-8859-1?Q?f5moO0LqVdIchpKYk1F+9nSZuJlDNzjNX4Rf9E9wSOmEtNreyeacKcjUy1?=
- =?iso-8859-1?Q?5vrWmgJEQMNaf18svb0atEqpeOUntn4+TryNRvWn2NNBsc4y6CSNl7meTk?=
- =?iso-8859-1?Q?NGop3wyCU9eLTUqAx0Vc/4mw9SrQpNnfpuQC4eXVEBwcKIiJ/gobIRjSQ6?=
- =?iso-8859-1?Q?rTjy4x7FMqkZ2zhum/nTwT8nfeJHhDmyzBQmncT58trzJd//bDEwv7C4sZ?=
- =?iso-8859-1?Q?kiv1RM2DC60LcUvtmoLpsvlT0PNxBJ/FXKrYn58gmGi7wRZJhfkIrhr2Tp?=
- =?iso-8859-1?Q?FGPJieACsEgywWPqDlqfUo//mc2bBxgqZR4N/cv9X36zPcNo1ltKslgzlX?=
- =?iso-8859-1?Q?D+SGqKCEMGKjxqRfOsJHQOy0yenkRC8HbYcCgJczbsNf9/xCIpjVOi+7mU?=
- =?iso-8859-1?Q?Jy7S96P6yjvDDIJkJLRad5J2QuYfMOCAig9zdCL6BxpaZE1AD/oB1REqe3?=
- =?iso-8859-1?Q?q64Um7UXGYsuUPgPHXhAFr+eo+7UIfic6LliCMNA5wx+U6rN6pAaNN4pwX?=
- =?iso-8859-1?Q?Fc6OXHnYH+O0NR6U5GhCtwqYAcGQb9kh8c8MyA6gZ/DFMWlCLrVBRG8UVr?=
- =?iso-8859-1?Q?kBasT89NTn5ZlU7Yn5w524IXae7S7OnK3OzRdnnrnulNchow/XLo7MLwaR?=
- =?iso-8859-1?Q?LBIxr7COvKDlX1LAViUdDbVloIVdjMpLS9Od90N+Zs2DzWH1qqJ7g5O7/t?=
- =?iso-8859-1?Q?v7Cj17a4byTo9xIzww58FdBFHUsl7n//VmxYGJ8Mh5D7v9AxASg8?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c28580eb-49c2-4b10-362a-08dee33a2122
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 12:59:53.8971
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: picHJ+xqdLW9XA31H3j12iHtDAHHDUWKvftPMPwNuSkr1gSpIJrSg+ApJVpSG6K0A/ntKxYfQ0Hj7VFDTRVfkLtUDTphf2+5Nc5h5bkY9tdq4dxrrR10fzu1oxguUlsn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MRWPR04MB12145
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2 2/2] net: phy: add DAPU Telecom DAP8210R(I)
+ Gigabit Ethernet PHY driver
+To: Artem Shimko <a.shimko.dev@gmail.com>, netdev@vger.kernel.org,
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260716113805.593215-1-a.shimko.dev@gmail.com>
+ <20260716113805.593215-3-a.shimko.dev@gmail.com>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20260716113805.593215-3-a.shimko.dev@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Jul 16, 2026 at 07:20:52AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
-> - [High] Missing NULL checks for the return value of `v4l2_subdev_state_get_format()` allow userspace to trigger a kernel panic.
-> - [High] The driver caches a pointer to the remote subdevice when bound, but fails to implement an `.unbind` callback to clear it, leading to a Use-After-Free.
-> - [Medium] Mixing `goto`-based error handling with scope-based cleanup (`__free` and `guard`) in the same function violates kernel cleanup guidelines.
-> - [Medium] `csi_formatter_subdev_set_fmt` partially modifies the subdevice state but returns `-EINVAL` if the stream has no active route.
-> - [Medium] The `csi_formatter_read` wrapper ignores the return value of `regmap_read`, potentially leading to uninitialized stack variable usage.
-> --
->
-> --- Patch [3]: [PATCH v12 3/3] media: nxp: Add i.MX95 CSI pixel formatter v4l2 driver ---
-> commit 0cff6156940653a6a408d93ee678b339b7218ebb
-> Author: Guoniu Zhou <guoniu.zhou@nxp.com>
-> Subject: media: nxp: Add i.MX95 CSI pixel formatter v4l2 driver
->
-> The CSI pixel formatter is a module found on i.MX95 used to reformat
-> packet info, pixel and non-pixel data from CSI-2 host controller to
-> match Pixel Link(PL) definition. Add data formatting support.
->
-> > diff --git a/drivers/media/platform/nxp/imx95-csi-formatter.c b/drivers/media/platform/nxp/imx95-csi-formatter.c
-> > new file mode 100644
-> > index 0000000000000..cea60327c9729
-> > --- /dev/null
-> > +++ b/drivers/media/platform/nxp/imx95-csi-formatter.c
->
-> [ ... ]
->
-> > +static int csi_formatter_subdev_enum_mbus_code(struct v4l2_subdev *sd,
-> > +					       struct v4l2_subdev_state *sd_state,
-> > +					       struct v4l2_subdev_mbus_code_enum *code)
-> > +{
-> > +	if (code->pad == CSI_FORMATTER_PAD_SOURCE) {
-> > +		struct v4l2_mbus_framefmt *fmt;
-> > +
-> > +		if (code->index > 0)
-> > +			return -EINVAL;
-> > +
-> > +		fmt = v4l2_subdev_state_get_format(sd_state, code->pad,
-> > +						   code->stream);
-> > +		code->code = fmt->code;
->
-> [Severity: High]
-> Can this cause a NULL pointer dereference?
->
-> The V4L2 core does not validate the stream ID provided by userspace in
-> VIDIOC_SUBDEV_ENUM_MBUS_CODE against the active routing table before calling
-> this function. If a user passes an invalid stream ID,
-> v4l2_subdev_state_get_format() returns NULL, which is then unconditionally
-> dereferenced here.
+Hi,
 
-Is it true?
+On 7/16/26 13:38, Artem Shimko wrote:
+> Add a new PHY driver for the DAPU Telecom DAP8211R(I) Gigabit
+> Ethernet PHY, which is commonly used in enterprise and industrial
+> networking applications.
+> 
+> The driver implements extended register access via indirect addressing
+> through corresponding registers, and provides comprehensive device tree
+> support for RGMII delay configuration. The rx-internal-delay-ps and
+> tx-internal-delay-ps properties allow precise tuning of clock delays in
+> 150 ps steps from 0 to 2250 ps. Additionally, the optional
+> dapu,tx-inverted-clk flag enables 180-degree TX clock phase shift for
+> boards where signal integrity or MAC requirements necessitate clock
+> inversion.
+> 
+> Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
+> ---
+>  drivers/net/phy/Kconfig    |  10 ++
+>  drivers/net/phy/Makefile   |   1 +
+>  drivers/net/phy/dap8211r.c | 281 +++++++++++++++++++++++++++++++++++++
+>  3 files changed, 292 insertions(+)
+>  create mode 100644 drivers/net/phy/dap8211r.c
+> 
+> diff --git a/drivers/net/phy/Kconfig b/drivers/net/phy/Kconfig
+> index 099f25dceabb..4576f707ac94 100644
+> --- a/drivers/net/phy/Kconfig
+> +++ b/drivers/net/phy/Kconfig
+> @@ -237,6 +237,16 @@ config DAVICOM_PHY
+>  	help
+>  	  Currently supports dm9161e and dm9131
+>  
+> +config DAP8211R_PHY
+> +	tristate "DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY"
+> +	depends on OF
+> +	help
+> +	  Support for the DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY.
+> +	  This PHY is designed for enterprise and industrial networking
+> +	  applications, supporting 10/100/1000 Mbps operation.
+> +	  RGMII with: configurable TX/RX clock delays, optional flag to enable
+> +	  180-degree TX clock phase shift and internal packet generator.
+> +
+>  config ICPLUS_PHY
+>  	tristate "ICPlus PHYs"
+>  	help
+> diff --git a/drivers/net/phy/Makefile b/drivers/net/phy/Makefile
+> index de660ae94945..ad35733eb4bb 100644
+> --- a/drivers/net/phy/Makefile
+> +++ b/drivers/net/phy/Makefile
+> @@ -53,6 +53,7 @@ obj-$(CONFIG_BROADCOM_PHY)	+= broadcom.o
+>  obj-$(CONFIG_CICADA_PHY)	+= cicada.o
+>  obj-$(CONFIG_CORTINA_PHY)	+= cortina.o
+>  obj-$(CONFIG_DAVICOM_PHY)	+= davicom.o
+> +obj-$(CONFIG_DAP8211R_PHY)	+= dap8211r.o
+>  obj-$(CONFIG_DP83640_PHY)	+= dp83640.o
+>  obj-$(CONFIG_DP83822_PHY)	+= dp83822.o
+>  obj-$(CONFIG_DP83848_PHY)	+= dp83848.o
+> diff --git a/drivers/net/phy/dap8211r.c b/drivers/net/phy/dap8211r.c
+> new file mode 100644
+> index 000000000000..e1e6a322ef0c
+> --- /dev/null
+> +++ b/drivers/net/phy/dap8211r.c
+> @@ -0,0 +1,281 @@
+> +// SPDX-License-Identifier: GPL
+> +/*
+> + * Driver for the DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY.
+> + *
+> + * Specifications:
+> + *   - IEEE 802.3 10BASE-Te, 100BASE-TX, 1000BASE-T
+> + *   - IEEE 802.3az-2010 Energy Efficient Ethernet
+> + *   - IEEE 1588 SyncE support
+> + *   - RGMII
+> + *
+> + * Author: Artem Shimko <a.shimko.dev@gmail.com>
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/errno.h>
+> +#include <linux/ethtool.h>
+> +#include <linux/kernel.h>
+> +#include <linux/mii.h>
+> +#include <linux/module.h>
+> +#include <linux/netdevice.h>
+> +#include <linux/of.h>
+> +#include <linux/phy.h>
+> +
+> +#define DAP8211R_PHY_ID			0x0008011B
+> +#define DAP8211R_PHY_ID_MASK		0xFFFFFFFF
+> +
+> +#define DAP8211R_EXT_ADD		0x1E
+> +#define DAP8211R_EXT_DATA		0x1F
+> +
+> +#define DAP8211R_PHY_CON		0xA001
+> +#define DAP8211R_PHY_SW_RST		BIT(15)
+> +
+> +#define DAP8211R_RGMII_CON		0xA003
+> +#define DAP8211R_RGMII_TX_DEL_MASK	GENMASK(3, 0)
+> +#define DAP8211R_RGMII_RX_DEL_MASK	GENMASK(13, 10)
+> +#define DAP8211R_RGMII_CLK_INVERT	BIT(14)
+> +
+> +/* Default RGMII delay: 13 * 150 == 1.95ns */
+> +#define DAP8211R_DEFAULT_DELAY_SEL	0xD
+> +
+> +struct dap8211r_delay_config {
+> +	u32 ps;
+> +	u8 sel;
+> +};
+> +
+> +static const struct dap8211r_delay_config delay_config[] = {
+> +	{   0, 0},
+> +	{ 150, 1},
+> +	{ 300, 2},
+> +	{ 450, 3},
+> +	{ 600, 4},
+> +	{ 750, 5},
+> +	{ 900, 6},
+> +	{1050, 7},
+> +	{1200, 8},
+> +	{1350, 9},
+> +	{1500, 10},
+> +	{1650, 11},
+> +	{1800, 12},
+> +	{1950, 13},
+> +	{2100, 14},
+> +	{2250, 15},
+> +};
+> +
+> +#define DAP8211R_DELAY_COUNT	ARRAY_SIZE(delay_config)
+> +
+> +/**
+> + * dap8211r_delay_ps_to_sel() - Convert ps to register value (exact match only)
+> + * @ps: Delay in picoseconds
+> + *
+> + * Converts a delay value in picoseconds to the corresponding register value
+> + * for RGMII delay configuration. The PHY supports specific values from
+> + * 0 to 2250 ps in 150 ps steps.
+> + *
+> + * Return: Register value (0-15) on success, -EINVAL if @ps is not supported.
+> + */
+> +
+> +static int dap8211r_delay_ps_to_sel(u32 ps)
+> +{
+> +	for (int i = 0; i < DAP8211R_DELAY_COUNT; i++)
+> +		if (ps == delay_config[i].ps)
+> +			return delay_config[i].sel;
+> +
+> +	return -EINVAL;
+> +}
+> +
+> +/**
+> + * dap8211r_read_ext() - Read extended register
+> + * @phydev: PHY device structure
+> + * @reg: Extended register address
+> + *
+> + * Reads a PHY extended register using the indirect access method.
+> + * The caller must hold the MDIO bus lock.
+> + *
+> + * Return: Register value on success, or negative error code
+> + */
+> +static int dap8211r_read_ext(struct phy_device *phydev, u16 reg)
+> +{
+> +	int ret;
+> +
+> +	phy_lock_mdio_bus(phydev);
+> +	ret = __phy_write(phydev, DAP8211R_EXT_ADD, reg);
+> +	if (ret < 0)
+> +		goto out;
+> +
+> +	ret = __phy_read(phydev, DAP8211R_EXT_DATA);
+> +out:
+> +	phy_unlock_mdio_bus(phydev);
+> +	return ret;
+> +}
+> +
+> +/**
+> + * dap8211r_modify_ext() - Modify extended register bits
+> + * @phydev: PHY device structure
+> + * @reg: Extended register address
+> + * @mask: Bit mask of bits to clear
+> + * @set: Bit mask of bits to set
+> + *
+> + * Modifies a PHY extended register using the indirect access method.
+> + * New value = (old value & ~mask) | set.
+> + * The caller must hold the MDIO bus lock.
+> + *
+> + * Return: 0 on success, or negative error code
+> + */
+> +static int dap8211r_modify_ext(struct phy_device *phydev, u16 reg, u16 mask, u16 set)
+> +{
+> +	int ret;
+> +
+> +	phy_lock_mdio_bus(phydev);
+> +	ret = __phy_write(phydev, DAP8211R_EXT_ADD, reg);
+> +	if (ret < 0)
+> +		goto out;
+> +
+> +	ret = __phy_modify(phydev, DAP8211R_EXT_DATA, mask, set);
+> +out:
+> +	phy_unlock_mdio_bus(phydev);
+> +	return ret;
+> +}
+> +
+> +/**
+> + * dap8211r_get_rgmii_delay() - Get RGMII delay from DT
+> + * @phydev: PHY device
+> + * @prop_name: DT property name
+> + * @is_id: If phy mode is PHY_INTERFACE_MODE_RGMII_[TXID,RXID,ID]
+> + *
+> + * Reads the RGMII delay from the device tree. If the property is not
+> + * specified, the default delay (1950ps) is used.
+> + *
+> + * Return: Register value (0-15) on success, negative error code on failure.
+> + *	   -EINVAL: Property not specified and is_id is false.
+> + */
+> +static int dap8211r_get_rgmii_delay(struct phy_device *phydev, const char *prop_name, bool is_id)
+> +{
+> +	struct device_node *np = phydev->mdio.dev.of_node;
+> +	u32 ps = 0;
+> +	int ret;
+> +
+> +	ret = of_property_read_u32(np, prop_name, &ps);
+> +	if (ret == -EINVAL)
+> +		return (is_id) ? DAP8211R_DEFAULT_DELAY_SEL : ret;
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return dap8211r_delay_ps_to_sel(ps);
+> +}
+> +
+> +/**
+> + * dap8211r_config_init() - Initialize PHY
+> + * @phydev: PHY device structure
+> + *
+> + * Configures the PHY during initialization:
+> + * - RGMII delays based on interface mode
+> + * - TX clock invertion
+> + * - Software reset to apply settings (low active, self clear)
+> + *
+> + * Return: 0 on success, or negative error code
+> + */
+> +static int dap8211r_config_init(struct phy_device *phydev)
+> +{
+> +	struct device_node *phydev_node = phydev->mdio.dev.of_node;
+> +	u16 mask = 0, set = 0;
+> +	int ret, retries = 10;
+> +
+> +	switch (phydev->interface) {
+> +	case PHY_INTERFACE_MODE_RGMII:
+> +		ret = dap8211r_get_rgmii_delay(phydev, "rx-internal-delay-ps", false);
+> +		if (ret >= 0) {
+> +			set = FIELD_PREP(DAP8211R_RGMII_RX_DEL_MASK, ret);
+> +			mask = DAP8211R_RGMII_RX_DEL_MASK;
+> +		} else if ((ret < 0) && (ret != -EINVAL)) {
+> +			return ret;
+> +		}
+> +
+> +		ret = dap8211r_get_rgmii_delay(phydev, "tx-internal-delay-ps", false);
+> +		if (ret >= 0) {
+> +			set |= FIELD_PREP(DAP8211R_RGMII_TX_DEL_MASK, ret);
+> +			mask |= DAP8211R_RGMII_TX_DEL_MASK;
+> +		} else if ((ret < 0) && (ret != -EINVAL)) {
+> +			return ret;
+> +		}
+> +		break;
+> +	case PHY_INTERFACE_MODE_RGMII_RXID:
+> +		ret = dap8211r_get_rgmii_delay(phydev, "rx-internal-delay-ps", true);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		set = FIELD_PREP(DAP8211R_RGMII_RX_DEL_MASK, ret);
+> +		mask = DAP8211R_RGMII_RX_DEL_MASK;
+> +		break;
+> +	case PHY_INTERFACE_MODE_RGMII_ID:
+> +		ret = dap8211r_get_rgmii_delay(phydev, "rx-internal-delay-ps", true);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		set = FIELD_PREP(DAP8211R_RGMII_RX_DEL_MASK, ret);
+> +		mask = DAP8211R_RGMII_RX_DEL_MASK;
+> +		fallthrough;
+> +	case PHY_INTERFACE_MODE_RGMII_TXID:
+> +		ret = dap8211r_get_rgmii_delay(phydev, "tx-internal-delay-ps", true);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		set |= FIELD_PREP(DAP8211R_RGMII_TX_DEL_MASK, ret);
+> +		mask |= DAP8211R_RGMII_TX_DEL_MASK;
+> +		break;
+> +	default:
+> +		phydev_err(phydev, "Unsupported interface: %d\n",
+> +			   phydev->interface);
+> +		return -EINVAL;
+> +	}
 
->
-> > +		return 0;
-> > +	}
->
-> [ ... ]
->
-> > +static int csi_formatter_subdev_set_fmt(struct v4l2_subdev *sd,
-> > +					struct v4l2_subdev_state *sd_state,
-> > +					struct v4l2_subdev_format *sdformat)
-> > +{
-> > +	struct csi_formatter_pix_format const *format;
-> > +	struct v4l2_mbus_framefmt *fmt;
-> > +
-> > +	if (sdformat->pad == CSI_FORMATTER_PAD_SOURCE)
-> > +		return v4l2_subdev_get_fmt(sd, sd_state, sdformat);
-> > +
-> > +	format = csi_formatter_find_format(sdformat->format.code);
-> > +	if (!format)
-> > +		format = &formats[0];
-> > +
-> > +	v4l_bound_align_image(&sdformat->format.width, 1, 0xffff, 2,
-> > +			      &sdformat->format.height, 1, 0xffff, 0, 0);
-> > +
-> > +	fmt = v4l2_subdev_state_get_format(sd_state, sdformat->pad,
-> > +					   sdformat->stream);
-> > +	*fmt = sdformat->format;
->
-> [Severity: High]
-> Does this also risk a NULL pointer dereference for the same reason?
-> Userspace can provide an invalid stream ID during VIDIOC_SUBDEV_S_FMT,
-> resulting in v4l2_subdev_state_get_format() returning NULL.
->
-> > +
-> > +	/* Set default code if user set an invalid value */
-> > +	fmt->code = format->code;
-> > +	sdformat->format = *fmt;
-> > +
-> > +	/* Propagate the format from sink stream to source stream */
-> > +	fmt = v4l2_subdev_state_get_opposite_stream_format(sd_state, sdformat->pad,
-> > +							   sdformat->stream);
-> > +	if (!fmt)
-> > +		return -EINVAL;
->
-> [Severity: Medium]
-> Does this leave the subdevice in an inconsistent state?
->
-> If a user configures the format on a sink pad stream that does not currently
-> have an active route to a source pad, v4l2_subdev_state_get_opposite_stream_format()
-> returns NULL. This causes the driver to return -EINVAL after the sink format
-> has already been updated in the state earlier in this function. Setting a
-> format on an unrouted stream is generally a valid V4L2 operation.
+You can simplify the whole delay parsing a log by using phy_get_internal_delay().
+It will give you the index of the delay from the delay table you have :)
 
-look like make sense,
+https://elixir.bootlin.com/linux/v7.1.3/source/drivers/net/phy/phy_device.c#L3085
 
-Does v4l2_subdev_state_get_opposite_stream_format() call before fmt->code?
+You can take a look at the few drivers that use it (mscc, dp83869) for reference
 
->
-> > +
-> > +	*fmt = sdformat->format;
-> > +
-> > +	return 0;
-> > +}
->
-> [ ... ]
->
-> > +static inline void csi_formatter_read(struct csi_formatter *formatter,
-> > +				      unsigned int reg, unsigned int *value)
-> > +{
-> > +	u32 offset = formatter->reg_offset;
-> > +
-> > +	regmap_read(formatter->regs, reg + offset, value);
-> > +}
->
-> [Severity: Medium]
-> Can this write uninitialized stack memory to hardware registers?
->
-> The wrapper csi_formatter_read() ignores the return value of regmap_read().
-> If the read fails, local stack variables remain uninitialized.
->
-> For example, when called from csi_formatter_start_stream():
->
->     u32 val;
->     ...
->     csi_formatter_read(formatter, CSI_VC_PIXEL_DATA_TYPE(vc), &val);
->     val |= BIT(csi_formatter_get_index_by_dt(pix_fmt->data_type));
->     csi_formatter_write(formatter, CSI_VC_PIXEL_DATA_TYPE(vc), val);
->
-> The driver performs bitwise operations on val and writes it back to the
-> CSI_VC_PIXEL_DATA_TYPE register. If regmap_read() failed, this writes
-> garbage data to the hardware.
-
-It should be fine. MMIO never return failure.
-
->
-> [ ... ]
->
-> > +static int csi_formatter_subdev_enable_streams(struct v4l2_subdev *sd,
-> > +					       struct v4l2_subdev_state *state,
-> > +					       u32 pad, u64 streams_mask)
-> > +{
-> > +	struct csi_formatter *formatter = sd_to_formatter(sd);
-> > +	struct device *dev = formatter->dev;
-> > +	u64 sink_streams;
-> > +	int ret;
-> > +
-> > +	sink_streams = v4l2_subdev_state_xlate_streams(state,
-> > +						       CSI_FORMATTER_PAD_SOURCE,
-> > +						       CSI_FORMATTER_PAD_SINK,
-> > +						       &streams_mask);
-> > +	if (!sink_streams || !streams_mask)
-> > +		return -EINVAL;
-> > +
-> > +	guard(mutex)(&formatter->lock);
-> > +
-> > +	if (!formatter->enabled_streams) {
-> > +		ret = pm_runtime_resume_and_get(formatter->dev);
-> > +		if (ret < 0) {
-> > +			dev_err(dev, "Failed to resume runtime PM: %d\n", ret);
-> > +			return ret;
-> > +		}
-> > +	}
-> > +
-> > +	ret = csi_formatter_start_stream(formatter, state, streams_mask);
-> > +	if (ret)
-> > +		goto err_runtime_put;
-> > +
-> > +	ret = v4l2_subdev_enable_streams(formatter->csi_sd,
-> > +					 formatter->remote_pad,
-> > +					 sink_streams);
-> > +	if (ret)
-> > +		goto err_stop_stream;
-> > +
-> > +	formatter->enabled_streams |= streams_mask;
-> > +
-> > +	return 0;
-> > +
-> > +err_stop_stream:
-> > +	csi_formatter_stop_stream(formatter, state, streams_mask);
-> > +err_runtime_put:
-> > +	if (!formatter->enabled_streams)
-> > +		pm_runtime_put(formatter->dev);
-> > +	return ret;
-> > +}
->
-> [Severity: Medium]
-> Is it safe to mix guard() with goto labels in the same function?
->
-> The kernel cleanup guidelines note that the expectation is that usage of
-> goto and cleanup helpers is never mixed in the same function to avoid
-> resource leaks or double-free bugs during future maintenance.
-
-This should be fine if goto to error path only
-
-Frank
-
->
-> [ ... ]
->
-> > +static const struct v4l2_async_notifier_operations formatter_notify_ops = {
-> > +	.bound = csi_formatter_notify_bound,
-> > +};
->
-> [Severity: High]
-> Could this result in a use-after-free?
->
-> The driver saves the remote subdev pointer in csi_formatter_notify_bound()
-> via formatter->csi_sd = sd, but there is no unbind callback in
-> formatter_notify_ops to clear formatter->csi_sd.
->
-> If the remote subdevice is unbound (e.g. the sensor module is removed), the
-> V4L2 async framework tears down the link. Because the pointer isn't cleared,
-> subsequent calls to VIDIOC_SUBDEV_ENABLE_STREAMS on the still-registered
-> formatter video node will dereference the freed formatter->csi_sd pointer
-> in csi_formatter_subdev_enable_streams().
->
-> [ ... ]
->
-> > +static int csi_formatter_async_register(struct csi_formatter *formatter)
-> > +{
-> > +	struct device *dev = formatter->dev;
-> > +	struct v4l2_async_connection *asc;
-> > +	int ret;
-> > +
-> > +	struct fwnode_handle *ep __free(fwnode_handle) =
-> > +		fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0,
-> > +						FWNODE_GRAPH_ENDPOINT_NEXT);
-> > +	if (!ep)
-> > +		return -ENOTCONN;
-> > +
-> > +	v4l2_async_subdev_nf_init(&formatter->notifier, &formatter->sd);
-> > +
-> > +	asc = v4l2_async_nf_add_fwnode_remote(&formatter->notifier, ep,
-> > +					      struct v4l2_async_connection);
-> > +	if (IS_ERR(asc)) {
-> > +		ret = PTR_ERR(asc);
-> > +		goto err_cleanup_notifier;
-> > +	}
-> > +
-> > +	formatter->notifier.ops = &formatter_notify_ops;
-> > +
-> > +	ret = v4l2_async_nf_register(&formatter->notifier);
-> > +	if (ret)
-> > +		goto err_cleanup_notifier;
-> > +
-> > +	ret = v4l2_async_register_subdev(&formatter->sd);
-> > +	if (ret)
-> > +		goto err_unregister_notifier;
-> > +
-> > +	return 0;
-> > +
-> > +err_unregister_notifier:
-> > +	v4l2_async_nf_unregister(&formatter->notifier);
-> > +err_cleanup_notifier:
-> > +	v4l2_async_nf_cleanup(&formatter->notifier);
-> > +	return ret;
-> > +}
->
-> [Severity: Medium]
-> Does mixing __free() scope declarations with goto error labels here risk
-> cleanup ordering issues?
->
-> The kernel guidelines specify that functions should either convert all
-> resources that need a goto cleanup to scope-based cleanup, or convert none
-> of them.
->
-> --
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260716-csi_formatter-v12-0-2601d17fc4af@oss.nxp.com?part=3
+Maxime
