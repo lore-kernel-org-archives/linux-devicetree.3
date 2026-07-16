@@ -1,144 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAB381D61BC
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 12:27:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA9D32F748;
+	Thu, 16 Jul 2026 12:28:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784204830; cv=none; b=lhCwtf1h8z6dabd8w6S1hHMFOxqrCTm/n0lauDAVhWbI/lY3t3Tg51tdlOoEZvqSS7WWx3KE4F2CDAAqXcdg0hh+PDMHSHIjjopTvAWOC840oSqLcCRUNr1jQis1RE6CmhXa5jn69E0OR5b+Khc5sDhpi9O9IXyBltnt4jEp5rk=
+	t=1784204903; cv=none; b=OCfaM4ernSd+bzr5oPXQOT8AZv+mLhG7qRn6qA1QZTRj23DRZM2bm5mET2QUmYd3kuXklWxs5Wr1A1BZQKzEcwBmjQDmYapx5GSjTGBTiFcb8EvGbY3OnCD7MQYuYaRKH6Wf9pRJHdg8jeiyJyuw8G04S+2JrroMLkNIV+mQbeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784204830; c=relaxed/simple;
-	bh=PGvxFPEAufXamjJIxOd7WSWOx3Om9+J2gX4ngxM6yQs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RTZoShAgtEqlWeFZ9HT8FMERH5J0S+lLvvb5j2T7eXyCn4Xu3AFg6K3OtFKkLqF74rN7fPIHw04UGufBMhadHJE3EWnujUozdWjXllLXFwS+QDUyvR4xDy6K9CU5pJTfXSI7NmpH9ffAnWSk4EyhCs0m/WIA6iADHHLKIhcJPlA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z8oVggR8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784204903; c=relaxed/simple;
+	bh=wJ7p5Hr3Ml/fLDeBV/Zu4Sbsm60AoLyZMW028tpDjm8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U2HbvWQC4T1E3sdIdSRLiUnX5T8/uv05VofbxX7miuTnE5o03W/VrHT2mvLonAj33W8S/bKneAOzCJGEdd5S6BTtk5yF4gfgV29Ume+bJPLqRdV/aHMkuOF9yrWsb+x0g3wZJ7J2YN6UB6Vre3JsxjUSR+18NanH1wFbJ19RVAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LIjvw7KN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z8oVggR8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0085A1F000E9;
-	Thu, 16 Jul 2026 12:27:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LIjvw7KN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4BF91F00A3A;
+	Thu, 16 Jul 2026 12:28:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784204829;
-	bh=KQHbzWY+jaQp3Mv3jlIgie8d+NzCoyhhVLWqyPnOjOk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Z8oVggR8N2DBqLRWo1fb4B20VhI3KCrimd1MBgWcjUf2v7ai3qXEQ+Pmk0t+jWf6/
-	 e7IAYpI9b/rlFWYvZq/wNyLasnegsdDarK57XYSfVOSRwo9ZtodMudUmQdnqO2XGQK
-	 wA1RJ0yY+9/U5Gz+mo4FHQTMI3pDQ198XnDIHsPd7LlRqvFUsedA223znWeuNLiMUg
-	 McoK46kl4izznKY0czDG0w1jdBHYUlP7yYrkkOg0+H0lafTNUMaWwU3O/6FzyCmNJ2
-	 e0+Q8XpkJc0yUfhGsjYyJjxTFP3MJz8d0yCL/QQt7v5bU0ItoiYSXFSsxpK4wRJXJs
-	 zB6eRDMizMBBw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/8] iio: dac: ad5686: missing NULL check on match
- data
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rodrigo Alencar" <rodrigo.alencar@analog.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260716-ad5686-new-features-v8-2-ebb0051af5e5@analog.com>
-References: <20260716-ad5686-new-features-v8-0-ebb0051af5e5@analog.com>
- <20260716-ad5686-new-features-v8-2-ebb0051af5e5@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 12:27:08 +0000
-Message-Id: <20260716122709.0085A1F000E9@smtp.kernel.org>
+	s=k20260515; t=1784204902;
+	bh=XUIXHAwtnYb54eJLERQoBDQ0TalVjOeh99dYSm21u84=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LIjvw7KNiotlHlYOeYCOrbA5z3nJezpNhPtw87oMaAgako67efja9MAJTHpwM02MK
+	 Ibxkip+8FA6F4k6daxISORKx6K32aWeyZbujMphb7LlEeF85QQIEL/rTZd9D3OZdM7
+	 Q3/4y3ov94QWm+xnRZlcnIpfHsn9x1uvKeiFElnKLYfE+zbmUG+WTg8qtzqMDI+rJA
+	 TAb7zmXF2P2nPI7I2rxSP1dtGBIBs8x5dhlH5UkBKT8HYQzft1U/UH2x+0leD9hmUA
+	 P39YQsLez90Nhqj8BACRQzjiPuSfUJ5nzz5Ww3K+m+gHty3TnGuTCvKmoOPrg05pTX
+	 oTo3k/SjhBzKw==
+Date: Thu, 16 Jul 2026 13:28:15 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Nuno =?iso-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
+Cc: Janani Sunil <janani.sunil@analog.com>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Marius Cristea <marius.cristea@microchip.com>,
+	Marcus Folkesson <marcus.folkesson@gmail.com>,
+	Kent Gustavsson <kent@minoris.se>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, Janani Sunil <jan.sun97@gmail.com>,
+	linux-spi@vger.kernel.org, Kent Gustavsson <nedo80@gmail.com>
+Subject: Re: [PATCH v6 1/5] spi: dt-bindings: Add spi-device-addr peripheral
+ property
+Message-ID: <0e3e45fe-4c34-45d0-b985-0938f60b5914@sirena.org.uk>
+References: <20260715-ad5529r-driver-v6-0-cfdf8b9f5ee3@analog.com>
+ <20260715-ad5529r-driver-v6-1-cfdf8b9f5ee3@analog.com>
+ <1c4af9b1-9937-4cbb-b57f-52ac575b8b89@sirena.org.uk>
+ <lpbqk3wv6emhdtxhnczrgufzzxprcfpfgenfepnmzhzfj3b3ci@rdphuko7ikti>
+ <157154d1-3995-454b-9e08-1527f1c5d409@sirena.org.uk>
+ <jsximyohkijphqrtgat6cjtcvtirjsdtbgn3lb6npw6yhgmcth@tq64dotfowss>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ZikkrN1PM8gmKHgy"
+Content-Disposition: inline
+In-Reply-To: <jsximyohkijphqrtgat6cjtcvtirjsdtbgn3lb6npw6yhgmcth@tq64dotfowss>
+X-Cookie: The more the merrier.
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] I2C and SPI transfer buffers physically overlap or share the same =
-cacheline, leading to potential data corruption during concurrent DMA mappi=
-ng.
---
+--ZikkrN1PM8gmKHgy
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
---- Patch [2]: [PATCH v8 2/8] iio: dac: ad5686: missing NULL check on match=
- data ---
-commit ab85ded3e88725bf58719fd51bdcdcb05af5fa48
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+On Thu, Jul 16, 2026 at 11:22:19AM +0200, Nuno S=E1 wrote:
+> On Wed, Jul 15, 2026 at 02:37:12PM +0100, Mark Brown wrote:
 
-iio: dac: ad5686: missing NULL check on match data
+> > You still need to work out how the ID appears in the byte stream that
+> > gets sent to/from the device, that's way more information than just a
+> > number and not something the byte stream SPI offers is going to cope
+> > well with.
 
-This commit adds a missing NULL check for the chip_info pointer in
-ad5686_probe() to prevent a crash when binding via driver_override with an
-unknown device name.
+> Not sure if I'm following you. Those ID pins just become something you
+> need to set on the spi_xfer. Or in Janani case, she's using regmap
+> reg_base in order to set the right thing depending on the address. I
+> would image this is always something that peripherals need to address in
+> terms of how the message/stream needs to be set. So my understanding is
+> that this should be pretty much transparent for the spi core.
 
-Fixes: 0eb1728461a1 ("iio: dac: ad5686: drop enum id")
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/all/20260710113149.53EC51F000E9@smtp.kernel=
-.org/
+Oh, isn't that just multi-pin chip selects then:
 
-> diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
-> index 713fe71ad1e7b..d34250647aa47 100644
-> --- a/drivers/iio/dac/ad5686.c
-> +++ b/drivers/iio/dac/ad5686.c
-> @@ -479,6 +479,9 @@ int ad5686_probe(struct device *dev,
->  	struct iio_dev *indio_dev;
->  	int ret, i;
-> =20
-> +	if (!chip_info)
-> +		return -ENODEV;
-> +
->  	indio_dev =3D devm_iio_device_alloc(dev, sizeof(*st));
->  	if (indio_dev =3D=3D NULL)
->  		return  -ENOMEM;
+   https://patch.msgid.link/cover.1783729282.git.Jonathan.Santos@analog.com
 
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential DMA cacheline shari=
-ng
-and overlap problem with the transfer buffers used in this driver.
+--ZikkrN1PM8gmKHgy
+Content-Type: application/pgp-signature; name="signature.asc"
 
-In drivers/iio/dac/ad5686.h:struct ad5686_state, the data array is defined =
-as:
+-----BEGIN PGP SIGNATURE-----
 
-	union {
-		__be32 d32;
-		__be16 d16;
-		u8 d8[4];
-	} data[3] __aligned(IIO_DMA_MINALIGN);
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpYzl4ACgkQJNaLcl1U
+h9D8uwf/exdzBvd6yn5UOVsD3+eaC/9G057ZONDF38P6m/7xH6Op5HHszAyQ7FMU
+nl8OpLnOpeI2aMd/h9AyhIEGi+411pwP0nrlS2+gt8FJL3WMIBeMTUrPF98WBUZF
+5SiwiZV3QjPdSzc4pvNyvoBiupU9hdCi+IU+DcigvAKpTuHUPeGiYCszSYYWJrIx
+rNU1J6vaKM3djX8KLx5jBUfQaG9JhPfkdsh66Up4JXZUnnJ5cEtWhX4C4xLj2QAj
+ln2pWsJmKmvmxp4Mv7xO3GT0QpFf+O06SUoK5sMGrCFQiQvjaf/ZVAwBI8Xo1/F8
+TDTiVu0iQHtarysr3vp+C3EOt3TtxA==
+=Pfy7
+-----END PGP SIGNATURE-----
 
-The __aligned attribute applies to the start of the array, but individual
-elements (data[1], data[2]) still share the same cacheline.
-
-In drivers/iio/dac/ad5686-spi.c:ad5686_spi_read(), the SPI transfer sets up
-simultaneous TX and RX using these elements:
-
-		}, {
-			.tx_buf =3D &st->data[1].d8[1],
-			.rx_buf =3D &st->data[2].d8[1],
-			.len =3D 3,
-		},
-
-Can this lead to data corruption on non-cache-coherent architectures? If the
-SPI master uses DMA, mapping memory regions that share a cacheline for both
-DMA_TO_DEVICE and DMA_FROM_DEVICE might violate DMA API constraints, as cac=
-he
-invalidation for the RX buffer could corrupt the TX buffer data.
-
-Similarly, in drivers/iio/dac/ad5696-i2c.c:ad5686_i2c_read(), the I2C trans=
-fer
-uses physically overlapping memory regions for TX and RX:
-
-	struct i2c_msg msg[2] =3D {
-		{
-			.addr =3D i2c->addr,
-			.flags =3D i2c->flags,
-			.len =3D 3,
-			.buf =3D &st->data[0].d8[1],
-		},
-		{
-			.addr =3D i2c->addr,
-			.flags =3D i2c->flags | I2C_M_RD,
-			.len =3D 2,
-			.buf =3D (char *)&st->data[0].d16,
-		},
-	};
-
-Could this overlapping buffer setup cause similar DMA data corruption issues
-when reading from the I2C bus?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-ad5686-new=
--features-v8-0-ebb0051af5e5@analog.com?part=3D2
+--ZikkrN1PM8gmKHgy--
