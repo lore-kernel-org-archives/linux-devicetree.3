@@ -1,194 +1,313 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com [209.85.222.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C5B383C7D
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 16:29:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3639938239D
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 16:32:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784219385; cv=none; b=tybQiokKMhDUr8EyoBqCIPW2SbtJ+Un3kIB03VaYajHDhU4Fcd9LcDHGqkkYKG30cEwbmc/To7rNE8eYJNAARHyCountl+HhyHZTdhtrWws719NKsAXuhEi8uUCO0pOl1PXwRLmQJRLvNOxaQg27NULDguYEItlpR1O0Qx6WeYk=
+	t=1784219531; cv=none; b=TNi1HJlLCsCCEOe6i8XVqGM3geC6vcI6OgT5yQ24g9+U/0sj3mZZ2RGHxiynQVQgCuJ/H8ycXfYZXWaSZidpM/l+zGi7ucGeM6IUPSwjJ8287eur9E5gNpAFnLnKilYnbNiDnTwAF8I+n1pgKtf7sKrwuZ3Czyc8znxrt9iCeoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784219385; c=relaxed/simple;
-	bh=O4ieXzCqLQFPHuFkvy/A9oNVBZ8iHeLxT7KjJawmoMk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qNBUtrifSMhMz5A114c9MOessmiaDSFsE/8+aS++fAOQeZ6ZztggvR7uH3flINlTt9eyZbJEjDMACsKnOAz7D4YQmFtJUNsB5wFn3aOjorW317nHvPMPuKJsuCizWovfw6+z0Q9xYLFw2DqdgefXs0KmkschWl03y0bx5Avz0gw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gOTCVOJf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FOcm4EPD; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784219531; c=relaxed/simple;
+	bh=M6a7x0sg+dVAjE0Txgq7XtY6czCMmgGKuXqVwquIz5M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=j2xMJwto5j+hOu3M1fpZQZ+67rMhqjDuGj4r5dBcq/bUUB4NqZO6Iol4FNEYj0lLCPxlZfz72GkwgZgcI/eiiUwaxlV1aRlpVElb3wexCEx2sKvsuM44LwBD0lWUl1gZv34BX0/aEcl9l1ZZV9DVel+HAPi4mGYV/jZdXzTLkfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=NMYhUvXr; arc=none smtp.client-ip=209.85.222.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gOTCVOJf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FOcm4EPD"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66GGSlRa3395603
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 16:29:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	DEU+od/n9kezYA4bc9/HXZ9tGN8JXCjIT3J8xUpS65Y=; b=gOTCVOJfp2F3kedK
-	llOKKOwexbiu9d9pZWJomZx9m0r99Eu3AQUIZgyveBlEc25r708wohUBiegJWIY5
-	lxHdNTiFvvzqxXVEDHbQctnzpmUgwfjtFk8X6W6v34preRGdDF7h1xl3CUwfxvFG
-	V4O666E2qYsKvOHyC0oa66IphJG3q8junUqqeDcQtMPXcI33aoCMj1OmNWB0g/jN
-	B9PE8QsahbqHNZCkFCaVyes7DkdIEAI9AVc9H5thkg45lQDfD0mbRgabM7PrTykv
-	xg5kLCKgQNoG2uF9ZCrXloBywEWiut0y3t3fa+NedHwGmnFzWda3aAqis9qU40RU
-	WE+8zw==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feym191nk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 16:29:38 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cc6dd43737so130553215ad.2
-        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 09:29:37 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="NMYhUvXr"
+Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-9696369925aso2237654241.0
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 09:32:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784219377; x=1784824177; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DEU+od/n9kezYA4bc9/HXZ9tGN8JXCjIT3J8xUpS65Y=;
-        b=FOcm4EPDWmpLJES8soLAivcxOMCUalrW9j1kjE4cJGQs8hxTYEPY5BJ/XptRzBfGuy
-         5IhdZ/cBgjPgyKgTYUwFXlZAB/maI6m7x6q3YNUEW39dF2QQerkh7o9Yp7AnQENgrm/R
-         +G1Wtn35bjBkRZ5dCGPevDiGnU1Emk6EfMWQimozZ/bUesb3OGd2LADf5R6uMXLmGz50
-         r1MXKb5Ai6Q7upAe8I4N+VtTPtZaf2SL/GprlKCtyJnWNNJOPS58KZ4MDtmTFqP7jZiu
-         RaLKxmGKL18KJMKi5tSViSDe7c2L5G1zvwxzx69o4ALUceOxwZ541+SLZiwFpSPI0E8D
-         q/iQ==
+        d=chromium.org; s=google; t=1784219522; x=1784824322; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=APiwPwxrp0Nqxoas85A4o7DfSgVInEX2Y+304zRUNvg=;
+        b=NMYhUvXrpwo44px1BGNBjdz8YnqVWEkFgpQpmYNav9WhBzosHOmXIU4XPSLls9qaMJ
+         +oA2u9ZqYE646eUu8Py0rngk+vcjQ9uB2ncAtpZXj3b97dgsUcBtoPPIdeqQg8MFqQTj
+         fZBQmFq5EpTP6Dx/284y6iDJaRYsu6bpL41Sc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784219377; x=1784824177;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1784219522; x=1784824322;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DEU+od/n9kezYA4bc9/HXZ9tGN8JXCjIT3J8xUpS65Y=;
-        b=Sr5vkhdHkIIUnEjL9uV0GytdzOgC50gzvXwrT05TiltA30uyGqmqKhCsz8+mM1P1MX
-         4ggnaq0Je7ebGb53RJWUgWUeSWf8avfO4mibLlwPqBtslmyf3f0m8Zuf2ZDBuJAwQyQF
-         Ajcb2XFqhnawIOhPQG/L9Z001DuhfxMh56ROkbwy8hBxVyJQIPcI9NCbOx86cD9vq/Gy
-         ieVaDrXAtyHc6TgcAwY59VeGTkSoUsPPNXF4rnCNJmbyrxcVMx2x/Ljny9ULgFnNpm3q
-         efEYWZnSvq+32DKKw8nyF1Fsgi/fbgq0LomB2itXc0hRuNiMvQB3zIgVOQZKfXnlOjnE
-         dGNQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrkfAN4T4cCPJYw3l7IJfqgbo1q7s4xawc1XTMRmg5T+2WfdaWkG6OeEF0+z9H47zrr6MYUKkrD0sS8@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFPyyrn6rfTd9StuRc1Vc7KPEeYtXayZpL36yOT7HrHvjdV5B+
-	J6V/j0FRpzGZvElT/gMAkN+yEijS1ryfNnXAlYQpIng4puY1uHA6rPsoxmfwEG8ey/dkpxKNlNK
-	yk0od8EtGvyo1l30SPsZz8gc/GPj0GJ3DIC8j/OoGIgz8+alL5u9VlgY2AenMPs3o
-X-Gm-Gg: AfdE7ckQMsKWSIc2hlROyNXhmrV7ysm3ny8+d4/GBjHVkN+8tgNg3w1pvSh5Wr/ZvAD
-	/78g4+bqpBI0FGZiTGvPMG7reQxGs8dplrwcCDEsTfKLkp/5BYsn+n1E6I31sxmRXISq5sQHtu7
-	p+9/ASG7ePyi6myx/lIT6FK17SlW7QRKMgjmOvodUXg+sXjGCvvGH6fYDdnuLmj9PE6X3Y+vYKe
-	TxDba55nLOoD/JOsPBUWlPXQlecSNFRZtBWld7H3NGaE6lNpawu2bBiSHA832yD56f91DrdB309
-	9wiosusX0JHw9cB2CdSNwCs+wQibuAk+BbVqaJbsIqP/xCIC4yt+qq5oSUs3Wakpm7Y95SOl4D1
-	lXcy6KCBROn1eEhU+p0hww7uJa5IkpH3UXPM0kaSU4JuyGohgm6DNGxzq32ygtfiofR7umw==
-X-Received: by 2002:a05:6a21:4d92:b0:3c3:a1b4:144d with SMTP id adf61e73a8af0-3c3a1b416camr628362637.35.1784219376986;
-        Thu, 16 Jul 2026 09:29:36 -0700 (PDT)
-X-Received: by 2002:a05:6a21:4d92:b0:3c3:a1b4:144d with SMTP id adf61e73a8af0-3c3a1b416camr628332637.35.1784219376584;
-        Thu, 16 Jul 2026 09:29:36 -0700 (PDT)
-Received: from hu-kriskura-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13cd42b2c0bsm11828262c88.8.2026.07.16.09.29.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 09:29:35 -0700 (PDT)
-From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Date: Thu, 16 Jul 2026 21:59:10 +0530
-Subject: [PATCH v3 4/4] arm64: dts: qcom: Enable USB controllers on Shikra
- IQS platform
+        bh=APiwPwxrp0Nqxoas85A4o7DfSgVInEX2Y+304zRUNvg=;
+        b=ThbS4jAWHG92XYn37V1Y4xCoYbBHskbToHENBWO0R/C7aBtI7Vv3jJ9sualBhahyzS
+         vtZIYqBbX1O28lF2+A2ZdFjCXMtltE52g0St7vXKZrl2L4O6QNtxz/8dvL7vhVQ1YoVy
+         g6LtIBevAEuVbSDM1tQz2+B/HjZeGxJ7+DrcZEysVDlGd35zlvWhttru5CWTw6c+BZgR
+         BRRUD1r8PGuoMblEqCT+9ioZwq/3eitZ8DR8FCtLNQq39meiL2u7iDBZUQr6zG5nbWnE
+         QHhrFgJd60mguw/9H+PAPjE83bcMp+mPber9x3SqNsMAQzqoCRE3iF9bSa+TNk6d3WeS
+         iWpg==
+X-Forwarded-Encrypted: i=1; AHgh+RoG11j/WTLgUaJW6ZDwhbzt5I3kWeG0m3uATLEl4jl2WceevoYIydJhNc7s6yJcqYjymPcPsqUfaiuL@vger.kernel.org
+X-Gm-Message-State: AOJu0YwOyNXl4msrJwFCg9/kUCcJGF/KSHWhH9AZj17BAQ1TLvixauMt
+	mOiKkBCgnnQZlQfE3G45Faa4YFGXo1sePbZsKAmZU2uiESypVf4svAl8p7Ufmr0UEzmoizPTao1
+	MIMw=
+X-Gm-Gg: AfdE7cliJ7gBOHSsAAa/hk5YHzp/hk/PkWiuWQ2yvqAggllVpZNSiRdD8DVngVb8Yce
+	0JOaLx4WK2Im3sFHXpeS3b9VUY1LCXBIciK+oo6sKTWmosw06VS3q/8EOS7TwM1dBezh6SW3MkT
+	1pZrIFqBgzyuflqcShaIuCisK7Bsrnqs9Xhd/TtS6cHbMdn81uUrDs+1CYkZZvZHx+NDslNb+zw
+	1szgHufbSuX0XFYnNtB98RIJGAGvrrl/30lE6UJ3RjWCahwWW+k4Qq3/WZsFtbKrIQRu8CnROOQ
+	NqHoZEpl+RyhLJkGnDjGxNBQdSF8Sg9yKuih+qd3VsKH/RpRGmJ2f7kUAohs6Wj2eo4UElHVMGD
+	s15tTd71VHcv5wDr7zd4ouy+071SHc55Jp/Bket08RVfmtNgDyw5JGMV6FVAd12OWLYT+wKRv57
+	wqyhgH8MSDV+bb4vADFuuCXlnaBFjhq58hG44sDLyuLCeTMC6JNZpHpT8=
+X-Received: by 2002:a05:6102:370c:b0:738:e2ba:6ee4 with SMTP id ada2fe7eead31-7457e684f5bmr7136857137.5.1784219522228;
+        Thu, 16 Jul 2026 09:32:02 -0700 (PDT)
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com. [209.85.221.174])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-96ed258bb75sm12369163241.1.2026.07.16.09.31.59
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 16 Jul 2026 09:31:59 -0700 (PDT)
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5bfaa014978so2387259e0c.3
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 09:31:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpcZArh28n05T0NaPWjXnxll6B98pUfvvL+vwcuaiPFpAif6shlRWZfqk2JMPzagmn8v+oU+U1XcTAX@vger.kernel.org
+X-Received: by 2002:a05:6122:208c:b0:5bf:8fdf:89d with SMTP id
+ 71dfb90a1353d-5c10eddf329mr6674207e0c.9.1784219518543; Thu, 16 Jul 2026
+ 09:31:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260716-shikra-usb-dt-v3-v3-4-13f73a0571bb@oss.qualcomm.com>
-References: <20260716-shikra-usb-dt-v3-v3-0-13f73a0571bb@oss.qualcomm.com>
-In-Reply-To: <20260716-shikra-usb-dt-v3-v3-0-13f73a0571bb@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784219358; l=1148;
- i=krishna.kurapati@oss.qualcomm.com; s=20260707; h=from:subject:message-id;
- bh=O4ieXzCqLQFPHuFkvy/A9oNVBZ8iHeLxT7KjJawmoMk=;
- b=RLbuJ9bOjtHnM4PxGoWI7q0CDTX0wAXKaDDuNY8TFkhLO8iQhNKBw6DJo8xsHUwV3N+pcukn6
- e6ebI9pJjZVAhSeaCMQjdNjtxn/gn2364g08byo2lfeLt2bBR/6BbKH
-X-Developer-Key: i=krishna.kurapati@oss.qualcomm.com; a=ed25519;
- pk=6PmiuwGCdov3wRO+bdmRlRxRtmJyDKz3ED57LLPVgds=
-X-Authority-Analysis: v=2.4 cv=KPRqylFo c=1 sm=1 tr=0 ts=6a5906f2 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=bymAw6jGh9HDV1aGW0AA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDE2OSBTYWx0ZWRfX3UeHqZJoXBMK
- +OYLxo+wleXUVo4fz8Ui1MuyTLyq/mtrn0auYjWjPsX53O9bFg81PhIhoSWSFkCwNY+jNTwVoFS
- kbX+iCjM+xU53IvMoNx8sjgvVsYU3pZEaNJHZp9u47ORHVGnJXe0W+vph6EotqLT297QGgyJHGv
- BbTXtcT0hucdfEX+3hAm8Cab3Ta3rZpctaVgZhn0ZomuvWYeQKGYQ4royduFuxBgszqlyiB5Tyt
- 0yjV6KAKah6vCmL++GWa8YxnyppvZcV1x3Wnd4HlSm3wLFtjos0a5szYntpJgyuV64AlF0Czs8B
- D/DRrITIKU5PJpELo9s3Zqydk/CXleTCWIvO8d/aNolgfk5l2zOueTlHDgPb93r6E5ur+RpPlOz
- LPz/bQXNASxoGgzmrGaYkVQOKpew9mT3cQioj+nFQ6BQAE2gwV8vd5noxaIpYwqpnLOnYRB3sK3
- 6D3NEvPV8xgK2ICmryw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDE2OSBTYWx0ZWRfX/e9Og7R9qJeW
- aTxIj3lXHpS9Qa5sT8Rz9P2hBRQSOk1lp6bdzv/vK5nRaLPfgxq73oFN8cEfBZV2hXm9SlthD77
- Uzac8x5d7nioN73PVkZuRfzkQdTWymk=
-X-Proofpoint-GUID: SECRDWNoNnL9c9KHswq5DeUudNiqHM6t
-X-Proofpoint-ORIG-GUID: SECRDWNoNnL9c9KHswq5DeUudNiqHM6t
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-16_06,2026-07-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 adultscore=0 impostorscore=0
- clxscore=1015 malwarescore=0 bulkscore=0 spamscore=0 phishscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607160169
+References: <20260714222338.2965707-1-dianders@chromium.org>
+ <20260714152138.6.Ia186a29119b4b5c409815b755e0c2c3965b0495f@changeid>
+ <8e3025c5-16a0-40d7-affa-098ca37699c7@kernel.org> <CAD=FV=Vrd9AxO-NY_CP2h+f21qt4uGY2pOoFgacV+G5bnfd32Q@mail.gmail.com>
+ <208b12fb-8f6f-4cc4-9517-bc59180aa094@kernel.org>
+In-Reply-To: <208b12fb-8f6f-4cc4-9517-bc59180aa094@kernel.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 16 Jul 2026 09:31:46 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XOGjLUF-1qOY=zCYJYq85MzkJ_56WbhraTcyAjU_z+RA@mail.gmail.com>
+X-Gm-Features: AUfX_my0b9oOkbCP3pS_I5q2w-6_jGf9HQ5lScUiSPnwh5yrj8idkqJOr-EqJaY
+Message-ID: <CAD=FV=XOGjLUF-1qOY=zCYJYq85MzkJ_56WbhraTcyAjU_z+RA@mail.gmail.com>
+Subject: Re: [PATCH 6/7] dt-bindings: mailbox: goog-mba: Add goog-mba mailbox bindings
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jassi Brar <jassisinghbrar@gmail.com>, Joonwon Kang <joonwonkang@google.com>, 
+	Subhash Jadavani <sjadavani@google.com>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
+	Lucas Wei <lucaswei@google.com>, Brian Norris <briannorris@chromium.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-samsung-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Enable both usb controllers in device mode on Shikra IQS platform.
+Hi,
 
-Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts | 35 +++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+On Wed, Jul 15, 2026 at 10:47=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.o=
+rg> wrote:
+>
+> > I don't suppose I can change your mind here? If we take
+> > "google,lga-mailbox-array" as the generic, then going foward a few
+> > generations we end up with:
+> >
+> > properties:
+> >   compatible:
+> >     oneOf:
+> >       - const: google,lga-mailbox-array
+> >       - items:
+> >           - enum:
+> >               - google,next-mailbox-array
+> >               - google,nextnext-mailbox-array
+> >               - google,another-mailbox-array
+> >           - const: google,lga-mailbox-array
+>
+> This is the expected appriach.
+>
+> >
+> > If we keep "google,mailbox-array" as the generic, then going forward a
+> > few generations we end up with this, which seems nicer / less
+> > confusing:
+> >
+> > properties:
+> >   compatible:
+> >     items:
+> >       - enum:
+> >           - google,lga-mailbox-array
+> >           - google,next-mailbox-array
+> >           - google,nextnext-mailbox-array
+> >           - google,another-mailbox-array
+> >       - const: google,mailbox-array
+>
+> It is the discouraged approach. I already have a few real examples for
+> Qualcomm when people added such generic mailbox and after some time it
+> turned out not generic. So people wanted to add an another generic one...
 
-diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-index 3003a47bd759..2d4e34ec3b82 100644
---- a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-@@ -38,3 +38,38 @@ &sdhc_1 {
- 
- 	status = "okay";
- };
-+
-+&usb_1 {
-+	dr_mode = "peripheral";
-+
-+	status = "okay";
-+};
-+
-+&usb_1_hsphy {
-+	vdd-supply = <&pm8150_l4>;
-+	vdda-pll-supply = <&pm8150_l12>;
-+	vdda-phy-dpdm-supply = <&pm8150_l13>;
-+
-+	status = "okay";
-+};
-+
-+&usb_qmpphy {
-+	vdda-phy-supply = <&pm8150_l6>;
-+	vdda-pll-supply = <&pm8150_l12>;
-+
-+	status = "okay";
-+};
-+
-+&usb_2 {
-+	dr_mode = "peripheral";
-+
-+	status = "okay";
-+};
-+
-+&usb_2_hsphy {
-+	vdd-supply = <&pm8150_l4>;
-+	vdda-pll-supply = <&pm8150_l12>;
-+	vdda-phy-dpdm-supply = <&pm8150_l13>;
-+
-+	status = "okay";
-+};
+OK, I'll change it to use "google,lga-mailbox-array" as the generic.
 
--- 
-2.34.1
 
+> >>> +  reg:
+> >>> +    minItems: 1
+> >>> +    items:
+> >>> +      - description: Host registers (not accessible to client)
+> >>> +      - description: Global registers (not present on newer IP block=
+s)
+> >>
+> >> You have only one SoC. One SoC has only one IP block, no?
+> >
+> > Nope! There are several instances of the MBA IP block per SoC. I tried
+> > to explain the situation exhaustively, but there's always the tradeoff
+> > between explaining thoroughly and providing too much text.
+>
+> That's ok, the "newer" is confusing.
+>
+> >
+> > To answer this specific question concretely, there is one MBA per
+> > remote processor. Looking at the downstream DTS, I see at least these
+> > MBA instances:
+> > * AOC (Always On Compute)
+> > * GSA (Google Security Anchor)
+> > * GDMC (Google Debug Monitor Core)
+> > * CPM (Central Power Manager)
+> >
+> > Each of these 4 MBA instances has its own "global" registers.
+> >
+> > To provide more context, each MBA instance can support communication
+> > beyond just the AP (Apps Processor). For instance, the AOC's MBA
+> > instance could be used to talk between the AOC and AP and also between
+> > the AOC and CPM. Let's take this as an example. In this case:
+> >
+> > * The AOC is the "host" of this MBA.
+> > * The AP is a "client" of this MBA.
+> > * The CPM is another "client" of this MBA.
+> >
+> > The AOC is the only one with access to the "host" registers.
+> >
+> > Everyone (AOC, AP, CPM in this case) has access to the read-only
+> > "global" registers describing the MBA instance.
+> >
+> > The clients have access to several banks of client registers, one per
+> > mailbox they can access. The host (AOC in this case) also has access
+> > to the client register spaces since that's where the shared message
+> > memory is located.
+> >
+> > The overall MBA instance is best identified by the address of the host
+> > registers, even if the client (the AP in this case) can't access those
+> > registers.
+> >
+> > On newer versions of the IP block the "global" register bank was
+> > removed and the read-only registers that were part of it were simply
+> > copied to each client instance.
+> >
+> > Does that clarify?
+>
+> Yeah, just s/on newer/on all/ ?
+
+No. Although this driver only supports the "laguna" version of the
+mailbox array, I tried to look forward to what was coming in the
+future. On "laguna", the "global" register bank is needed. On SoCs
+past "laguna" (AKA "newer" ones) there is no global register bank.
+This is why the global register bank needs to be optional.
+
+Yes, I could add some validation to tie it to a specific SoC version,
+but that doesn't really buy anything. It's just as easy to say that if
+the global register bank is defined in the device tree that it exists.
+If the global register bank isn't defined, the info must be in the
+per-client banks.
+
+If you insist, I can make the "global" register space non-optional for
+now and we can re-litigate when official support for newer SoCs is
+proposed.
+
+
+> >>> +patternProperties:
+> >>> +  "^mailbox@[0-9a-f]+$":
+> >>> +    type: object
+> >>> +    description:
+> >>> +      Each sub-node is a single-channel mailbox.
+> >>
+> >> This does not look like correct representation. You have one mailbox
+> >> controller with multiple mailboxes, not multiple mailbox controllers o=
+f
+> >> single channel boxes.
+> >
+> > I spent quite a bit of time debating this when rewriting the driver.
+> > While we could certainly hack things into the existing "mailbox with a
+> > bunch of channels", IMO it would be a worse representation of the
+> > hardware.
+> >
+> > I discussed this in the wall of text in this patch series, but
+> > re-hashing it here:
+> >
+> > Each "mailbox" in the mailbox array is more like a full-fledged
+> > mailbox than a channel within a mailbox. Each (single-channel)
+> > mailbox:
+> > * Has its own client register space.
+>
+> That's nothing special yet. Many providers of multiple resources have
+> these resources in dedicated registers. Arguing this, each GPIO in a
+> GPIO controller as well has its own register space so is basically a
+> GPIO controller on its own.
+>
+> > * Has its own interrupt.
+>
+> Just like GPIOs...
+
+Sure, having a giant list of interrupts and register offsets isn't the
+end of the world.
+
+
+> > * Can have a different amount of memory for messages.
+> > * Can have its own conventions for communication.
+
+I notice you didn't respond to the above bullets. How would I deal
+with different mailboxes in the array having different communication
+conventions? Different mailboxes in the array might have different
+"payload" sizes. Some mailboxes in the array might use "queue" mode
+conventions and some might not. Do I need to devise some complex
+scheme for describing which mailboxes in the array use which
+convention?
+
+
+> Well, this could be. But you still have one child per channel (cells=3D0)
+> and all children address space is in parent's space, so that's clear
+> indication. It's one controller with multiple, although some different,
+> channels.
+
+Sure, it's definitely one IP block and I'm not arguing against that.
+
+
+> > If we tried to represent the mailbox array as a single mailbox with a
+> > bunch of channels, each instance would have a different number of
+> > "reg" entries and a different number of interrupts. We would also need
+>
+> No, you would have only one device node. Very clean solution instead of
+> 100 children for each individual mailbox.
+
+There are definitely not anywhere near 100 children. At most a given
+instance of an MBA IP block could have 32 mailboxes. In practice, most
+have fewer.
+
+
+> It's the same with clocks (TI) - you do not get device node per clock,
+> even if TI did it 10 years ago. You do not get here device node per chann=
+el.
+
+Sure, the clock history is one thing to look at here. IMO, this is not
+the right comparison, though. Trying to describe all of the complexity
+of a clock tree in device tree is an exercise in futility. It's just
+too complex to get it right, and there really are hundreds of clocks.
+The mailbox array, on the other hand, is a much simpler beast.
+
+I think regulators and PMICs are a better comparison here. When we
+describe a PMIC in the device tree, do we have a single PMIC node and
+then have clients refer to a "regulator ID" to index into which
+specific regulator in the PMIC they want? No, we don't. We use
+sub-nodes for each specific regulator. This gives us a nice place in
+the device tree to put information about each individual regulator,
+since each regulator in a PMIC is different.
+
+Certainly if we had a mailbox controller with a bunch of identical
+channels then describing them as sub-nodes wouldn't make sense.
+Existing in-tree mailbox controllers have a bunch of homogenous
+channels, and thus the existing solution of using a channel ID works
+well. Here, the sub-nodes buy us something and provide for a cleaner
+solution.
+
+I don't understand the downside of my current proposal. It represents
+the hardware better (both the HW designers' intentions and the reality
+of its structure), avoids adding complexity to the device tree, and
+feels clean.
+
+
+-Doug
