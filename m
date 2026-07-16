@@ -1,374 +1,130 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 915D427AC4C
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 02:31:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784169101; cv=pass; b=DHmB0Zryq8rTNOxSak6T5n7L2oYWDF6+Iq/GedeRpHcIlTU7foUymFomgWDTYKaOyHT84ImrTrM/kvRgDWZUjsFmVmJQaYJTyp70/NI8L7o7dPPvwD9gf6rdOqjSwcltcx19t3atn57eTm9xi896sfb32NsvAtkze7uUB/uNW+0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784169101; c=relaxed/simple;
-	bh=R12zT8nSn9I0UCnw+iJtdZou5moWo+Kod+zyFuStb+A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uLpvbP+ykBp2zKRJy7Jh/cIgNbjhvZ7NThlj2l58luLu9fRbNKWj0E9vHXZx2V5FHhplaGBDE0vLWrfSbK+S34t5CYn/j4rjHOlQH4kjlzANpMjk1ttGiBOE3hlP37UiL2u5+vBqYiC+QG0tiA8h9iMicLCzaTVrCweFp8ATeyM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jeYB+X+C; arc=pass smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0DD32E62A9
+	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 02:33:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784169240; cv=none; b=s8gsiRiXbe98aDc+dd2JEg0E02kupbwtDFMup8lJX3O3zKnGt5wyUZZ1VZxowQVE56qv586Ds3UxirAE2cEeckWnI4roNbme/IswZWvBaiclXaC8x/l3kKPULcm8Btd3m4qdRPfKElbKzudYZMdXQ+iz6kOE0GrvVihCLpo2+EU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784169240; c=relaxed/simple;
+	bh=DcxIBTDfGFMcjuFLqAGUh8B8eNoT1j4rQhiygNTbZAU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=mOi/rNueK3WgyYBxM6sT8Tck3/8PmUOhzKkRxOdDgGAHQd2kwQJBMEDH9lu+nNVOKO7KlUMswqvosICNPRJBPWxu8oIWanUyjDEd4c5Fmc7H1+Eonn48cumG8jzm3mdYtAP2lxgmgVZpVCePFH3uGcsG8y1p0CRh0S3EPn2xODw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N+PKXmwG; arc=none smtp.client-ip=209.85.214.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jeYB+X+C"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c1670dad7a8so308881266b.3
-        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 19:31:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784169097; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pag1sZtAkd+jQUzNPe/n8fpM13S//ZakL7vgFv1NnjxB5HqGJkBdm1s9qdlbiRcFd9
-         Q9N1F0bHDAtATK2Z/v+VmhFzZEUKvCvNB0v9bKefYqS+FkcoJlIwbUW57qFBd/q30Zc/
-         Mwzyv+3X8nLL9PpNL30hxMK8lNGoUcp8DIfYtsDG4WxXv0cnpoBGYZoLo6otdR1/q9Ag
-         XtUxF0IHUVvhv+BIB6K5vEm2U0YRRp01Rw0Wqg7Y212e3Aq8HZTBZREQkcv0TPlW46AL
-         gDgRFZ1JZ3wzAB8y2xmuQjxPOeCysONqEyIm5wlIqs76v06+ValtA3Z6zn66eiNt3MUI
-         /n2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=q9RYbpoJ3iiaewLH/Dkbk54m1hisFAlN4vItAzmGB5U=;
-        fh=oy4TO1+ms59MJ9AOl7ztq/53FjRBu+kcVkxchpVKqm4=;
-        b=UdrlO+yqAs34cITxwu8V3qLt4u/tsTQ4qAONkP7P7Ra+6sy4iYqa5ogODR3nwAcNIb
-         rv6+INfIggBpKtaj/LmFXNgYGMmThK2ze+U4xa4frBevx9LlQE2dJIJmXSCm8y8t+1i5
-         UNlx2cKcR3Vq7Vs2+8fTL/jVQ+YvEOOQZVYFouP+AnSKmvYe3zRNdXiGjEp8RSjOPINL
-         L1ti/qKTxpl1ApPss/tC+6haIMwuxEgCwdduJ1qcuXm/2gSHc3W+PpV+G1k4jBJqaicl
-         nsvkmFYWnVu65GLh/rVxBTvuTv8Uti37YBsmrrisuzo2nN8siadvRflISFvYha1QIZXc
-         Fpjw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N+PKXmwG"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2cc97653887so69960425ad.1
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 19:33:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784169097; x=1784773897; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=q9RYbpoJ3iiaewLH/Dkbk54m1hisFAlN4vItAzmGB5U=;
-        b=jeYB+X+CVDujY8aoH46IalzhDJndXSNrzi8ug1VbOOby87bzUDjScfXRTNBzP57tUG
-         FhKlAbLHkXpt19Z+iBVJjjji/LPUBVgzR6x7cwpuBne5XX8JGFxU3N0dvamNbz6ED5ln
-         /lDXu6zgrnN7OR0z3TsgpwYfzbQwxjKorbX5RXdoE7MiZ/B7/DSq1rzlAKjYBIDTexBa
-         1HDjUDTAefsCv6lS/SKuWO2Uv2L1jHAOax/sbm2CLZR64UQ+lZcgpCUXyB4vebToeABB
-         iuYlnvuA7YWJeieK+V46oo98j06OZIQGBetSb1rCWjCP4yg7ua3rFUNymD1DFrR3fdmZ
-         hY8w==
+        d=gmail.com; s=20251104; t=1784169237; x=1784774037; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ufvoepbkxBTccdbf849+Ndmklty3uX56AMakRenyADg=;
+        b=N+PKXmwGBkgvxmEWT2eUNWfrRLb5YCm0ZZ/GhjBc1s8GqZibifUERAP4jdQeonGhTT
+         h9NE89OGNNWc1VUtzPJxfe2D3RpehHABS69gWhU5WC5J0BRRFK5JTX1ZgkSNJ7wQISQq
+         YmTMN5yL8Nj14U++X4h/9ie3FTdWQismgNRXo0Hearmup/XgQTkNP2yjZEmiYbIv70XK
+         o8xcG/45Pec/8M7FnM6UFJb8fdvkWecEW99H5Y4Ea6s3NIf8YUSeClDiUDgwBcFylnlt
+         ys3OKAxrru65Vhishcw0CnT6FnFWMvEh+ADfseF8wdeUbGHTGsTtFPde5/n5PwBt1xQ3
+         XDyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784169097; x=1784773897;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q9RYbpoJ3iiaewLH/Dkbk54m1hisFAlN4vItAzmGB5U=;
-        b=A+UwCZmgW74wVfG+MAhjpkulOyYloG9JTC2Xv9zILV6erJymyzZByY5NKEjStkSoCG
-         WJqf9Ew2bpgkxmY3F6evoRumND18SaO+ezS8iraXB+HzCZL0kHyi7sTjP7hj6TujJD0+
-         ZW5feuwAIXC+HHpNtsvJ9TXXfHqGA/2XHaOZrinnhu1Fk5LwX+Q8826Aj9u96YY6pHA1
-         u7Xc2q/sP2MFcnCL9+ThKgDRMYI36GpT7UzLRfbO2oI4qs2YGiR9eku24Zud2CarPHgJ
-         ViBk0nmen4DSXcw/VQ/ixRnVocUfDwW40zoB4tELtfXqEtGj2OKXEU2kRx8yDHBlAWnb
-         94Hg==
-X-Forwarded-Encrypted: i=1; AHgh+RpvCvgTtn2gph/8RX72krr2yLGbxZ1vzGRk9pm8weH+DmZ6FXyNpbgauf2XltBE6J+y8GROlk/pUYLJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YxH13q4DUZvG0NZRbgCdTnnrnfdGEa+xD7uoBY3idPyk/jyqzNu
-	VDIJUxW+avY+GbE6DUu934qXOtyFHViV+zlUZaYgoC4cK5lVdzTVMi1im/GTgL9FiMBTpaM9xhQ
-	DJM1/9U1R9hS08IxrddVXJ4uJESQRTsY=
-X-Gm-Gg: AfdE7cke13BylS977XJ5JEkoblrMdOMLwwocMn4fIzNHD5ya/rpwwD3xXWeE3fibgY8
-	rvhqLtm5tMU1lnCkpJRG7uhkWM0IoLkGwLXk6gVDdtsxbqKmMvoJeqGOAzMfxD2Z8PbzbD9ONzT
-	0MQTXs5dg7Q9WA+v7IJ6TUKEr88EXZYTsiyAUS41jA+SVPhxymTgtO/jZCF7SFIznoyCDOSQlel
-	1XAnyeszU5+YHWTkbqXBjuVjSgzdnWqedV2H3iMs6ZDkHrV4ryUTFU7StB3YrDV
-X-Received: by 2002:a05:6938:a08e:20b0:c16:8931:245c with SMTP id
- a640c23a62f3a-c16893125d4mr103944966b.21.1784169096566; Wed, 15 Jul 2026
- 19:31:36 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784169237; x=1784774037;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ufvoepbkxBTccdbf849+Ndmklty3uX56AMakRenyADg=;
+        b=bvWYPBUzqw9PLZ2q0jbjNNTFiZHSGyekrNc53xJ97h74ja66BTUKUc/N/CtINKNFT1
+         JYdi2y18yLPKZCMKTrE4v67APms6u+EVD+E5qfM5BfGWg+17nnVczWbxA0jCbi3NzVR9
+         6syBZqYvbm2LrencYEe0ayAlELN9VvFNoiEIF+OhXB1uMTIM84hW/EwDh6PmTD3h+znq
+         O0TY9SuilXjbXYdywKIXOFgyMUd7oyCo1TTDsf0p2QmRC0B94n/hOon6f4n8JBDpCcDN
+         H42khSgwKYzmUw+X0vPR+/nRq2nbR1LvSTUb9g14XGX14Uowft/MBc9UE9pTdNw+shUD
+         pI2w==
+X-Gm-Message-State: AOJu0YwXnfJVz+D8Xp9KdKmFpygkmYQVz/em/hnoKMN4VvsKoMsCUtTu
+	UraMC7p3fUav25FxNbu/I2aPzgDgHDsHB/YN66ByGU4Bi1QyEuK2QALgbNwbuw==
+X-Gm-Gg: AfdE7clFSsp8qPEm0ULXBFtWLcI6JkHJzKFGEL8Xd6B9Ne/C5/IkPAxTPStduWW2/H3
+	i8hYxBEdpj8OjkQ4TspK0C4/X6HC51TSAELecDDaSx1ya1Qtb2c+vzzRDY4siTvVjaQbPahTx+i
+	kgcui3No/0Xwm4sHPzu5OrbuxLfgWMJ3OwrS2DgrYo+emIhD9PVHMsJ9jjH1x69PCh3PwuhIKy4
+	t5Zc7Pxfv2Fq3MB5L2bh/NiGcwQZARa4efrtWgwebE1CLCi5krwTyI6pQWnwMergT8xTI675sfa
+	jmni8teVUbH50L6XhpQocVpc/Yph3XgfZQcBpq8QfI18WaLCzlSeRVzTrkDfhgZz/rkaOupQWiS
+	4o2DP8UFmdc8U0TilFIHHVRZUvUmX3aKK5EPgRtpo6AywWhBELJRHClFouAVgu3+c/pY57XFBJx
+	NEGnBlrtfNm9oHVvY/vTrtK/0Zp0gxWq/vLFMNWueSj1CrmvX45ZnniVU=
+X-Received: by 2002:a17:902:ef0c:b0:2ce:ed59:7044 with SMTP id d9443c01a7336-2cf03da0b8dmr49619015ad.30.1784169237122;
+        Wed, 15 Jul 2026 19:33:57 -0700 (PDT)
+Received: from [10.10.15.228] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf105bc642sm11540255ad.63.2026.07.15.19.33.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Jul 2026 19:33:56 -0700 (PDT)
+From: Potin Lai <potin.lai.pt@gmail.com>
+Date: Thu, 16 Jul 2026 10:31:17 +0800
+Subject: [PATCH] ARM: dts: aspeed: sanmiguel: fix PWRGD_RMC_N active-low
+ hog configuration
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1783670011.git.zhoubinbin@loongson.cn> <e5a574b2ae0e5e0ec32fe81c0ccd03eb3ad5a164.1783670011.git.zhoubinbin@loongson.cn>
- <CAAhV-H6Ae=J9a6y6C9WE-sfUJnrypWpc8e01VHJ3ndVt-F+RXA@mail.gmail.com>
-In-Reply-To: <CAAhV-H6Ae=J9a6y6C9WE-sfUJnrypWpc8e01VHJ3ndVt-F+RXA@mail.gmail.com>
-From: Binbin Zhou <zhoubb.aaron@gmail.com>
-Date: Thu, 16 Jul 2026 10:31:23 +0800
-X-Gm-Features: AUfX_mxc3FOZacVEQWuO-hOpQgpgQhvkeExldue96dEwy1_jdBhNox5YznqP9aE
-Message-ID: <CAMpQs4JQTnP96akj9V8iHjnPSj10_zmv=0+0j-6RbUB304BF0w@mail.gmail.com>
-Subject: Re: [PATCH 2/2] thermal/drivers/loongson2: Add thermal driver support
- for Loongson-2K0300
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Huacai Chen <chenhuacai@loongson.cn>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
-	Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260716-upstream-sanmiguel-fix-pwrgd-rmc-n-v1-1-8287b306e02a@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAHRCWGoC/yXNQQrCMBCF4auUWTvQdBGDVxEXSTrGERPDTFOF0
+ rsbdfnB438bKAmTwmnYQGhl5WfpMIcB4s2XRMhzN0zjZMejsdiqLkI+o/qSOTV64JXfWF+SZpQ
+ csaBxFENwzk5koYeqUJ/8Ts6Xv7WFO8XlW4Z9/wCZYzsfhgAAAA==
+X-Change-ID: 20260716-upstream-sanmiguel-fix-pwrgd-rmc-n-18ecbb8862e6
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Patrick Williams <patrick@stwcx.xyz>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ Cosmo Chou <cosmo.chou@quantatw.com>, Mike Hsieh <Mike_Hsieh@quantatw.com>, 
+ Mik Lin <Mik.Lin@quantatw.com>, Potin Lai <potin.lai.pt@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784169234; l=1357;
+ i=potin.lai.pt@gmail.com; s=20260522; h=from:subject:message-id;
+ bh=DcxIBTDfGFMcjuFLqAGUh8B8eNoT1j4rQhiygNTbZAU=;
+ b=AQKaX++ClRwxml6UKIVBauBZJ8nnK2N/HuEGZjzFOYDNDs1nhvSfaa7KcbzWT81FNH/I24l0P
+ Z/PKYqJgPqvCg8F7vsL5rVg7sxRe2+PIyfIT7ci50DeBG3axZfL98LE
+X-Developer-Key: i=potin.lai.pt@gmail.com; a=ed25519;
+ pk=j3/nMxzz1ZPpp1revghyZ8IqOnwi6RWfuxXN2XrNMRE=
 
-Hi:
+GPIO 14 on the fio_ioexp (pca9555) controller corresponds to the
+PWRGD_RMC_N signal, which is active-low.
 
-On Fri, Jul 10, 2026 at 10:32=E2=80=AFPM Huacai Chen <chenhuacai@kernel.org=
-> wrote:
->
-> Hi, Binbin,
->
-> On Fri, Jul 10, 2026 at 4:25=E2=80=AFPM Binbin Zhou <zhoubinbin@loongson.=
-cn> wrote:
-> >
-> > The Loongson-2K0300 SoC uses a new thermal sensor that requires reading
-> > a separate CPU ID register to obtain hardware version information. This
-> > version info is used as a correction factor (fix_data) in the
-> > temperature calculation formula.
-> >
-> > Its thermal sensor requires the following hardware-specific handling:
-> >  - Read chip ID register (offset 0x0 and 0x4) to get the compensation
-> >    value (comp_val). The value is stored in either bits [31:20] of the
-> >    ID0 register or bits [15:0] of the ID1 register, depending on the
-> >    EXTERN_ID bit.
-> >
-> >  - The compensation value is a signed 15-bit field; extract the value
-> >    and apply sign accordingly.
-> >
-> > Additionally, some early Loongson-2K0300 chips may have an old fuse tha=
-t
-> > yields invalid temperature readings outside the -55 to 125 range. In
-> > such cases, the driver falls back to a simplified formula (raw * 569 -
-> > 394700) and logs a warning, ensuring the system can still function
-> > without crashing.
-> >
-> > Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
-> > ---
-> >  drivers/thermal/loongson2_thermal.c | 83 ++++++++++++++++++++++++++---
-> >  1 file changed, 77 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loon=
-gson2_thermal.c
-> > index ea4dd2fb1f47..a7eb87070aa9 100644
-> > --- a/drivers/thermal/loongson2_thermal.c
-> > +++ b/drivers/thermal/loongson2_thermal.c
-> > @@ -2,9 +2,11 @@
-> >  /*
-> >   * Author: zhanghongchen <zhanghongchen@loongson.cn>
-> >   *         Yinbo Zhu <zhuyinbo@loongson.cn>
-> > - * Copyright (C) 2022-2023 Loongson Technology Corporation Limited
-> > + *         Binbin Zhou <zhoubinbin@loongson.cn>
-> > + * Copyright (C) 2022-2026 Loongson Technology Corporation Limited
-> >   */
-> >
-> > +#include <linux/bitfield.h>
-> >  #include <linux/interrupt.h>
-> >  #include <linux/io.h>
-> >  #include <linux/minmax.h>
-> > @@ -23,27 +25,44 @@
-> >  #define LOONGSON2_THSENS_CTRL_LOW_REG  0x8
-> >  #define LOONGSON2_THSENS_STATUS_REG    0x10
-> >  #define LOONGSON2_THSENS_OUT_REG       0x14
-> > +#define LOONGSON2_THSENS_CFG_REG       0x18
-> >
-> >  #define LOONGSON2_THSENS_INT_LO                BIT(0)
-> >  #define LOONGSON2_THSENS_INT_HIGH      BIT(1)
-> >  #define LOONGSON2_THSENS_INT_EN                (LOONGSON2_THSENS_INT_L=
-O | \
-> >                                          LOONGSON2_THSENS_INT_HIGH)
-> >  #define LOONGSON2_THSENS_OUT_MASK      0xFF
-> > +#define LS2K0300_THSENS_OUT_MASK       GENMASK(10, 0)
-> The naming is a little strange, maybe use LOONGSON2_THSENS_OUT_8B_MASK
-> and LOONGSON2_THSENS_OUT_10B_MASK?
->
-> > +
-> > +#define LS2K0300_CHIP_ID1              0x4
-> Also define LS2K0300_CHIP_ID0 here?
->
-> > +#define LS2K0300_EXTERN_ID             BIT(4)
-> > +#define LS2K0300_ID0_VAL_MASK          GENMASK(31, 20)
-> > +#define LS2K0300_ID1_VAL_MASK          GENMASK(15, 0)
-> > +
-> > +#define LS2K0300_COMP_VAL_MASK         GENMASK(14, 0)
-> > +#define LS2K0300_COMP_SIGN_BIT         BIT(15)
-> > +
-> > +#define LS2K0300_LOWEST_VALID_TEMP     (-55000)
-> > +#define LS2K0300_HIGHEST_VALID_TEMP    (125000)
-> >
-> >  /*
-> >   * This flag is used to indicate the temperature reading
-> >   * method of the Loongson-2K2000
-> >   */
-> >  #define LS2K2000_THSENS_OUT_FLAG       BIT(0)
-> > +#define LS2K0300_CHIP_ID_FLAG          BIT(1)
-> >
-> >  struct loongson2_thermal_chip_data {
-> >         unsigned int thermal_sensor_sel;
-> >         unsigned int flags;
-> > +       const struct thermal_zone_device_ops *thermal_ops;
-> >  };
-> >
-> >  struct loongson2_thermal_data {
-> > +       struct device *dev;
-> >         void __iomem *ctrl_reg;
-> >         void __iomem *temp_reg;
-> > +       void __iomem *id_reg;
-> >         const struct loongson2_thermal_chip_data *chip_data;
-> >  };
-> >
-> > @@ -71,6 +90,38 @@ static int loongson2_thermal_set(struct loongson2_th=
-ermal_data *data,
-> >         return 0;
-> >  }
-> >
-> > +static int loongson2_2k0300_get_temp(struct thermal_zone_device *tz, i=
-nt *temp)
-> > +{
-> > +       struct loongson2_thermal_data *tdata =3D thermal_zone_device_pr=
-iv(tz);
-> > +       int calib_data, calib_offset, temp_mc, raw_adc;
-> > +       u32 chip_id0, chip_id1;
-> > +
-> > +       raw_adc =3D FIELD_GET(LS2K0300_THSENS_OUT_MASK,
-> > +                           readl(tdata->ctrl_reg + LOONGSON2_THSENS_OU=
-T_REG));
-> > +       chip_id0 =3D readl(tdata->id_reg);
-> > +       chip_id1 =3D readl(tdata->id_reg + LS2K0300_CHIP_ID1);
-> > +
-> > +       if (chip_id0 & LS2K0300_EXTERN_ID)
-> > +               calib_data =3D FIELD_GET(LS2K0300_ID1_VAL_MASK, chip_id=
-1);
-> > +       else
-> > +               calib_data =3D FIELD_GET(LS2K0300_ID0_VAL_MASK, chip_id=
-0);
-> > +
-> > +       calib_offset =3D FIELD_GET(LS2K0300_COMP_VAL_MASK, calib_data);
-> > +       if (calib_data & LS2K0300_COMP_SIGN_BIT)
-> > +               calib_offset =3D -calib_offset;
-> > +
-> > +       temp_mc =3D (raw_adc + calib_offset) * 570 - 394700;
-> > +
-> > +       /* For old fuse which can not read right thermal data */
-> > +       if (temp_mc < LS2K0300_LOWEST_VALID_TEMP || temp_mc > LS2K0300_=
-HIGHEST_VALID_TEMP) {
-> Is there a better way to detect the old fuse? Because I think temp_mc
-> between LS2K0300_LOWEST_VALID_TEMP and  LS2K0300_HIGHEST_VALID_TEMP is
-> also not valid for the old fuse.
+The pwrgd-rmc-hog node currently specifies output-low for this GPIO
+with GPIO_ACTIVE_LOW flags. Under Linux gpiolib, configuring an
+active-low GPIO hog with output-low sets the logical value to inactive
+(0), causing the subsystem to drive the physical line high.
 
-Try communicating in person; there=E2=80=99s no better way. The current
-judgment criteria can only accommodate the standard temperature range.
+Correct the hog configuration to output-high, which sets the logical
+value to active (1), driving the physical pin low on boot as intended.
 
-Also, the `old fuse` refers to the very first batch of chips, so I
-don=E2=80=99t think the scope of the issue will be very broad.
->
-> Huacai
->
-> > +               dev_warn_once(tdata->dev, "It's an old fuse, thermal %d=
- is not right\n", temp_mc);
-> > +               temp_mc =3D raw_adc * 569 - 394700;
-> > +       }
-> > +       *temp =3D temp_mc;
-> > +
-> > +       return 0;
-> > +}
-> > +
-> >  static int loongson2_2k1000_get_temp(struct thermal_zone_device *tz, i=
-nt *temp)
-> >  {
-> >         int val;
-> > @@ -112,6 +163,11 @@ static int loongson2_thermal_set_trips(struct ther=
-mal_zone_device *tz, int low,
-> >         return loongson2_thermal_set(data, low/MILLI, high/MILLI, true)=
-;
-> >  }
-> >
-> > +static const struct thermal_zone_device_ops loongson2_2k0300_of_therma=
-l_ops =3D {
-> > +       .get_temp =3D loongson2_2k0300_get_temp,
-> > +       .set_trips =3D loongson2_thermal_set_trips,
-> > +};
-> > +
-> >  static const struct thermal_zone_device_ops loongson2_2k1000_of_therma=
-l_ops =3D {
-> >         .get_temp =3D loongson2_2k1000_get_temp,
-> >         .set_trips =3D loongson2_thermal_set_trips,
-> > @@ -124,7 +180,6 @@ static const struct thermal_zone_device_ops loongso=
-n2_2k2000_of_thermal_ops =3D {
-> >
-> >  static int loongson2_thermal_probe(struct platform_device *pdev)
-> >  {
-> > -       const struct thermal_zone_device_ops *thermal_ops;
-> >         struct device *dev =3D &pdev->dev;
-> >         struct loongson2_thermal_data *data;
-> >         struct thermal_zone_device *tzd;
-> > @@ -134,6 +189,7 @@ static int loongson2_thermal_probe(struct platform_=
-device *pdev)
-> >         if (!data)
-> >                 return -ENOMEM;
-> >
-> > +       data->dev =3D dev;
-> >         data->chip_data =3D device_get_match_data(dev);
-> >
-> >         data->ctrl_reg =3D devm_platform_ioremap_resource(pdev, 0);
-> > @@ -145,10 +201,13 @@ static int loongson2_thermal_probe(struct platfor=
-m_device *pdev)
-> >                 data->temp_reg =3D devm_platform_ioremap_resource(pdev,=
- 1);
-> >                 if (IS_ERR(data->temp_reg))
-> >                         return PTR_ERR(data->temp_reg);
-> > +       }
-> >
-> > -               thermal_ops =3D &loongson2_2k2000_of_thermal_ops;
-> > -       } else {
-> > -               thermal_ops =3D &loongson2_2k1000_of_thermal_ops;
-> > +       /* The chip id register is needed for Loongson-2K0300 */
-> > +       if (data->chip_data->flags & LS2K0300_CHIP_ID_FLAG) {
-> > +               data->id_reg =3D devm_platform_ioremap_resource(pdev, 1=
-);
-> > +               if (IS_ERR(data->id_reg))
-> > +                       return PTR_ERR(data->id_reg);
-> >         }
-> >
-> >         irq =3D platform_get_irq(pdev, 0);
-> > @@ -160,7 +219,7 @@ static int loongson2_thermal_probe(struct platform_=
-device *pdev)
-> >         loongson2_thermal_set(data, 0, 0, false);
-> >
-> >         for (i =3D 0; i <=3D LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
-> > -               tzd =3D devm_thermal_of_zone_register(dev, i, data, the=
-rmal_ops);
-> > +               tzd =3D devm_thermal_of_zone_register(dev, i, data, dat=
-a->chip_data->thermal_ops);
-> >
-> >                 if (!IS_ERR(tzd))
-> >                         break;
-> > @@ -181,17 +240,29 @@ static int loongson2_thermal_probe(struct platfor=
-m_device *pdev)
-> >         return 0;
-> >  }
-> >
-> > +static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k=
-0300_data =3D {
-> > +       .thermal_sensor_sel =3D 0,
-> > +       .flags =3D LS2K0300_CHIP_ID_FLAG,
-> > +       .thermal_ops =3D &loongson2_2k0300_of_thermal_ops,
-> > +};
-> > +
-> >  static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k=
-1000_data =3D {
-> >         .thermal_sensor_sel =3D 0,
-> >         .flags =3D 0,
-> > +       .thermal_ops =3D &loongson2_2k1000_of_thermal_ops,
-> >  };
-> >
-> >  static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k=
-2000_data =3D {
-> >         .thermal_sensor_sel =3D 0,
-> >         .flags =3D LS2K2000_THSENS_OUT_FLAG,
-> > +       .thermal_ops =3D &loongson2_2k2000_of_thermal_ops,
-> >  };
-> >
-> >  static const struct of_device_id of_loongson2_thermal_match[] =3D {
-> > +       {
-> > +               .compatible =3D "loongson,ls2k0300-thermal",
-> > +               .data =3D &loongson2_thermal_ls2k0300_data,
-> > +       },
-> >         {
-> >                 .compatible =3D "loongson,ls2k1000-thermal",
-> >                 .data =3D &loongson2_thermal_ls2k1000_data,
-> > --
-> > 2.52.0
-> >
+Signed-off-by: Potin Lai <potin.lai.pt@gmail.com>
+---
+ arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---=20
-Thanks.
-Binbin
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts
+index d7ed497d7227..ba71f1f9768a 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts
+@@ -592,7 +592,7 @@ fio_ioexp: gpio@20 {
+ 		pwrgd-rmc-hog {
+ 			gpio-hog;
+ 			gpios = <14 GPIO_ACTIVE_LOW>;
+-			output-low;
++			output-high;
+ 		};
+ 	};
+ 
+
+---
+base-commit: bd22661baff3295747e864c8647003e8eba46dd9
+change-id: 20260716-upstream-sanmiguel-fix-pwrgd-rmc-n-18ecbb8862e6
+
+Best regards,
+--  
+Potin Lai <potin.lai.pt@gmail.com>
+
