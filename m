@@ -1,135 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.3ffe.de (0001.3ffe.de [159.69.201.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C0843F081
-	for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 11:42:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 959B840863E;
+	Thu, 16 Jul 2026 11:42:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.201.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784202157; cv=none; b=HsnuPHLJ78ZnUElqgqjzxEvomMgb8sxCnjMKPZFbKNmD/IcLPIPKZd+vN3VWFCdtO+1EpKydtOy/D4asuRyYwb4h/qauamhOLMk1H2RoSNL9CMn2roVKyb3my5cTY52VqFkw5CEV6VkJ8idRnkWYErdMVwsptcihGKHDXsRPX1c=
+	t=1784202169; cv=none; b=A4l4oFJSTQN0O8fL8CvbjSNHbjdmB+MTR+v7P8zzLvr5Ns1KWRR6BtY82ySpDJx+4yCp51jTVuu3W7t6auqUMxMOW2AX8+rxr+PQxBTot8eivQkIxTOKmErXlP/xWaoMDXFeyUw/gs9z66XoHkofZ3ylWW3MmGBAgDevQdS06ZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784202157; c=relaxed/simple;
-	bh=iKQ1H0osuvBBtqtLLX10LMe1QZjp5YdWuDI8mkGlalc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JirGCrp+Tbuu0lKcUwMUgmbixH+VhEekUdZwyKF8HT0BPcJvh7hm4plk5exDgLiBCOtl3W/c1NpT7HreHBtqVYJURWT6d+CY5BBc6aAPrXPSi8nTk0VrbxDWUREULFIx3EyLvzd3dwOUZZwKLU7c6urmjsPYHvQGWdUEoKT0K7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nFtSq0tX; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nFtSq0tX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 507CD1F00A3A;
-	Thu, 16 Jul 2026 11:42:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784202155;
-	bh=nB9csBfAMwxJFe2SUT69F8LJxn1/k9/HmSOUfoQVcWk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nFtSq0tXd+uBhz8TJtKUL7e7j8jd2iQGoA2YTbkT7p65xsQL3Hnl+RvdaMmDVlz5g
-	 fnTZdn7cj1j8C6rK18sT2FD1t0Sp4R04M2oP4M0Z3oilU0DJhO5JNzuiay4w/j8ECq
-	 GDe2tuRU/di57BOYHtWswvvl441r6nJpZfwOs+sWCNap3p0mQAdiHD0NOeKVmgaS56
-	 KiG51kyRNgabAARezV4aJD1rahu65lJS9bknBS7i+8Ex9pchw2F1k9UOKJQknnz+UX
-	 Do0DnxaLTDzCiyYTmsFlQqk37Ivyb+VsD/CMBwhLpqflj6Ijgxj2xoJ5M5NmmvfKPE
-	 iXDOn5OhooB2w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 7/7] clk: tests: Add Kunit testing for nexus nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?TWlxdWVsIFJheW5hbCAoU2NobmVpZGVyIEVsZWN0cmljKQ==?= <miquel.raynal@bootlin.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260716-schneider-v7-2-rc1-eip201-upstream-v3-7-98454e83845c@bootlin.com>
-References: <20260716-schneider-v7-2-rc1-eip201-upstream-v3-0-98454e83845c@bootlin.com>
- <20260716-schneider-v7-2-rc1-eip201-upstream-v3-7-98454e83845c@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 11:42:34 +0000
-Message-Id: <20260716114235.507CD1F00A3A@smtp.kernel.org>
+	s=arc-20240116; t=1784202169; c=relaxed/simple;
+	bh=PBQlWJCk9cMAyUsTnpRIFnjmO6kFLFwLiyaWYbKlKug=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:From:To:Subject:
+	 References:In-Reply-To; b=N2JVTFPFxLGFOgHi0X6sOmiGZk88bCfjHb1eE3IyuVILsKZz3fZqdL6ncof3ZrXbIZxbhYJQ9+aZOgMHruvrK2FLYbokXlVvbH1O4wDWKB0FXq5XNz6Gx15TmruXjCodgu8R50sDnFGC7YD3e7ISdBuDG2YnAnzcsdzLlU/DnZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org; spf=pass smtp.mailfrom=walle.cc; arc=none smtp.client-ip=159.69.201.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=walle.cc
+Received: from localhost (unknown [IPv6:2a02:810b:4320:1000:4685:ff:fe12:5967])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.3ffe.de (Postfix) with ESMTPSA id 77979167;
+	Thu, 16 Jul 2026 13:42:44 +0200 (CEST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 16 Jul 2026 13:42:44 +0200
+Message-Id: <DJZYVQSJL0MO.143E5QFQRAXVV@kernel.org>
+Cc: "Michael.Hennerich@analog.com" <Michael.Hennerich@analog.com>,
+ "afaerber@suse.com" <afaerber@suse.com>, "andy@kernel.org"
+ <andy@kernel.org>, "brgl@kernel.org" <brgl@kernel.org>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ =?utf-8?b?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "dlechner@baylibre.com" <dlechner@baylibre.com>,
+ =?utf-8?b?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
+ "jic23@kernel.org" <jic23@kernel.org>, "krzk+dt@kernel.org"
+ <krzk+dt@kernel.org>, "lars@metafoo.de" <lars@metafoo.de>,
+ "linus.walleij@linaro.org" <linus.walleij@linaro.org>, "linusw@kernel.org"
+ <linusw@kernel.org>, "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-gpio@vger.kernel.org"
+ <linux-gpio@vger.kernel.org>, "linux-iio@vger.kernel.org"
+ <linux-iio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux-realtek-soc@lists.infradead.org"
+ <linux-realtek-soc@lists.infradead.org>,
+ "mathieu.dubois-briand@bootlin.com" <mathieu.dubois-briand@bootlin.com>,
+ "nuno.sa@analog.com" <nuno.sa@analog.com>, "robh@kernel.org"
+ <robh@kernel.org>, =?utf-8?b?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?=
+ <stanley_chang@realtek.com>, =?utf-8?b?VFlfQ2hhbmdb5by15a2Q6YC4XQ==?=
+ <tychang@realtek.com>, "wbg@kernel.org" <wbg@kernel.org>
+From: "Michael Walle" <mwalle@kernel.org>
+To: =?utf-8?b?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>,
+ "Andy Shevchenko" <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v3 3/7] gpio: regmap: Add gpio_regmap_operation and
+ write-enable support
+X-Mailer: aerc 0.20.0
+References: <d301ba0cd45d49d59e6a014188306ec9@realtek.com>
+ <20260716062614.1507243-1-eleanor.lin@realtek.com>
+ <aliV4u6_xzx9D9Aq@ashevche-desk.local>
+ <DJZVLZ4LLD9E.3MPLYYXT1VQ9R@kernel.org>
+ <alim_HGTD5RCupav@ashevche-desk.local>
+ <9ee344c1d9c642bdb7d3b85bc922fe66@realtek.com>
+ <DJZY1YPMDLIN.3W0QOPEI9L8JA@kernel.org>
+ <068b13e117464cf38b7b215eee72fe7a@realtek.com>
+In-Reply-To: <068b13e117464cf38b7b215eee72fe7a@realtek.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The `of_find_node_by_name_kunit` helper creates a double-free vu=
-lnerability if a KUnit-managed node is passed as the `from` argument.
-- [Low] The `of_find_node_by_name_kunit` kernel-doc incorrectly states the =
-return value is only a node or negative errno, omitting the NULL case when =
-a node is not found.
---
+Hi,
 
---- Patch [7]: [PATCH v3 7/7] clk: tests: Add Kunit testing for nexus nodes=
- ---
-commit 5c005eb5dfe6aeb07b97b34ac1e15ba0def6eeae
-Author: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
+>> int (*value_xlate)(struct gpio_chip *chip, enum gpio_regmap_op op, unsig=
+ned
+>> int offset, unsigned int reg, unsigned int mask, unsigned int *value)
+>>=20
+>> mask shouldn't need to be a pointer as you don't have to modify it, do y=
+ou?
+>> reg_mask_xlate, already does that.
+>>=20
+>
+> Actually, I do need to modify the 'mask', so it still needs to be passed
+> as a pointer to this callback.
+>
+> Since the WREN enable bit and the data bit are located at different bit
+> positions, the final 'mask' used in write API must be expanded to include
+> both the WREN mask and the data mask.
 
-clk: tests: Add Kunit testing for nexus nodes
+You could still return both bits in the first xlate, no?
 
-This commit adds a fake DT overlay with a nexus node to verify clock parsing
-in KUnit tests. It also introduces of_find_node_by_name_kunit() to manage
-device node lifetimes during tests.
+But yeah, that might be a bit asymmetrical and not intuitive. So
+changing the mask (again) with the value sounds ok to me.
 
-> diff --git a/drivers/clk/clk_kunit_helpers.c b/drivers/clk/clk_kunit_help=
-ers.c
-> index 68a28e70bb61c..151f62ab57c1a 100644
-> --- a/drivers/clk/clk_kunit_helpers.c
-> +++ b/drivers/clk/clk_kunit_helpers.c
-[ ... ]
-> +/**
-> + * of_find_node_by_name_kunit() - Test managed of_find_node_by_name()
-> + * @test: The test context
-> + * @from: Parent device node to start searching from, or NULL to search =
-from root
-> + * @name: The name string to match against
-> + *
-> + * Just like of_find_node_by_name(), except the device_noded is managed =
-by
-> + * the test case and is automatically put after the test case concludes.
-> + *
-> + * Return: the device_node on success or a negative errno value on failu=
-re.
+-michael
 
-[Severity: Low]
-This isn't a bug, but the kernel-doc states the function returns a device_n=
-ode
-on success or a negative errno on failure.
+> Aside from needing 'mask' as a pointer, I completely agree with the rest =
+of
+> your suggested signature.
+>
+> Best Regards,
+> Yu-Chun
+>
+>> -michael
+>>=20
+>> >               if (ret)
+>> >                       return ret;
+>> >       }
+>> >
+>> >       /* ignore input values which shadow the old output value */
+>> >       if (gpio->reg_dat_base =3D=3D gpio->reg_set_base)
+>> >               ret =3D regmap_write_bits(gpio->regmap, reg, mask,
+>> mask_val);
+>> >       else
+>> >               ret =3D regmap_update_bits(gpio->regmap, reg, mask,
+>> > mask_val);
+>> >
+>> >       return ret;
+>> > }
+>> >
+>> > Best Regards,
+>> > Yu-Chun
 
-However, the implementation also returns NULL if the node is not found.
-
-Could the documentation be updated to mention the NULL return case, so
-callers don't assume IS_ERR() is sufficient?
-
-> + */
-> +struct device_node *of_find_node_by_name_kunit(struct kunit *test, struc=
-t device_node *from,
-> +					       const char *name)
-> +{
-> +	struct device_node *np;
-> +	int ret;
-> +
-> +	np =3D of_find_node_by_name(from, name);
-
-[Severity: Medium]
-Could this result in a double-free if a KUnit-managed node is passed as the
-'from' argument?
-
-of_find_node_by_name() automatically consumes and drops the reference to the
-'from' node. If a developer chains KUnit-managed lookups:
-
-    parent =3D of_find_node_by_name_kunit(test, NULL, "parent_name");
-    child =3D of_find_node_by_name_kunit(test, parent, "child_name");
-
-The inner of_find_node_by_name() will drop the 'parent' reference.
-
-Since KUnit is unaware of this consumption, won't the deferred test cleanup
-still call of_node_put() on 'parent' at test exit, resulting in a guaranteed
-double-free?
-
-> +	if (!np)
-> +		return NULL;
-> +
-> +	ret =3D kunit_add_action_or_reset(test, of_node_put_wrapper, np);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	return np;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-schneider-=
-v7-2-rc1-eip201-upstream-v3-0-98454e83845c@bootlin.com?part=3D7
