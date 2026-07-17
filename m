@@ -1,90 +1,156 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7036EE54B
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 20:20:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6619A398902
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 20:30:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784319657; cv=none; b=jszs/uQlALeNiGq21L3/eq+lNUQtA0Kqj2qJurKP65zj8gCZoDLJi9eIvfTGGcqw/DApXMy342sM7kPCkNS3zsR4dxlLRsbYV2XuRUsSEU84KVZfgzSMD8t4SPpuDbIYBJ1e4ZsfAzh2o8pS7XH9vOI7OgXfQWCGqKSk23hocPc=
+	t=1784320221; cv=none; b=kleXLDv0m28GxqGc+Jd+jTPAkfOR7KLEX29DaQbmQzlypqM10J5Dp8t416wsWDDxxtU7gItOgYj0JZqVG9xEDPYFFRDLOrpNXLz85F9mOpnvvnoLrt/bUy0DH2YD5jiP+l3gckHF+/VvqLspPJ0gLZrJqbVfc0oVb3kYN8XaTH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784319657; c=relaxed/simple;
-	bh=4d2jKnnpuSsGeC7c+qWBZ90f6Wggfhcr3mDOinpQttI=;
+	s=arc-20240116; t=1784320221; c=relaxed/simple;
+	bh=sJtJD0LLEsLZ7L5OJQqYw9qKGV27mzCo8uWntMyp7EI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UfUdGPWcJ+Mf/duC97aPMGD91/BPSjdsGISPYM5gkV2ZKHheY2PLTmiPDJtcsQPjnbTaAHaBZEjQ2d3+e7+BS27k3cCLIKrjffHHb8SGCicY3y1Ee7/0LVpyncMVnB3RaC0y5ayDKzcaXcOHniO/Ikf9wkV4VQyquXGNSMF5vJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Updy25S8; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=nMWX7mlIGES7rxJ+yBZyylMYtO9y0qjMvkeDxWuS5sK2cgGfinAJxox3+zQsjwnxwA68ugsdQQgIPwE9COLdUUhSMIKaseVLVKwDesUk7DHQL32ij3NvIBDoL5Rpt4zW1zzdLb4xBd/hZ5lyCvieaVcH/96K+LROx681pKkJXv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hHXIyKyz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Updy25S8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D204B1F00A3A;
-	Fri, 17 Jul 2026 20:20:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hHXIyKyz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E54B1F000E9;
+	Fri, 17 Jul 2026 20:30:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784319656;
-	bh=+gLxicK8ku0aMFWUFX2ipcD1Th9VqYD6kwQmRjrDVYs=;
+	s=k20260515; t=1784320220;
+	bh=6iNtPA2tZq7QaMNtFzj7F/HM9HnW3W1t17ezjeXGyvg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Updy25S8frBzCvdPFv613eF+qOCJh5ESHma45HCH3EHzcGY6+DYDdLjxjlcr66eq7
-	 +SQFklapHhAiUD73Pqm2Jl5uF67PV5hpBSMWt3k1iY1YAdWagVUPk5ZLPqwPJ8kjAd
-	 UiFZzsLuV25tIp9aUu/f3xCaeoqJFBYR8sX764JuIWe2sGWlEJt6r/0LfVbdB4k/ty
-	 AniKFX8Tkvg8BBTO0wrscoqvSc1euBuHpuzNI08r1vfPW0IVnQ6GXEwOQh6d09U1gv
-	 lD8fouPHt+bRO7hlEQkxLW+IUy6Y7bhyHpKQohwrJz/E4+C0UJk0w/IuuMWtz8zWe6
-	 9NltrTWtWErtw==
+	b=hHXIyKyzc+HT+BvzG9W/05DEofvGRTbPYlegQxSwgn92rgzFYkbrzvpaJOD3Y9LW1
+	 8uOM3VVRwwaso9HSyHLmmqjXDg2Xe5fcnHljIBMy0dJEDsjCJ0E77srYr87vDoaKLO
+	 8ATNnmftvMWS1zTpimSQf9IblFZePysGxmYF0iEHUV1SzKdwkHYwY02Bobst9tPssw
+	 wJoSH3fO/u1TQ+Sk5/ZV0ESj06yOVLYvHz5/ryDsTktJCeNAFnbd1/FvIoMUPGb6LV
+	 EbVf1i7p0GyitdsYtooVzMIue1MY//zYHpPii5Rz41o2D0NMustN+oz6mehCIcjxBB
+	 tqeAy4TBTZlEA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 1/2] dt-bindings: iio: health: add adi,max86150
+Subject: Re: [PATCH v10 2/2] iio: health: add MAX86150 ECG and PPG biosensor
+ driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Md Shofiqul Islam" <shofiqtest@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260717201138.1078019-2-shofiqtest@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260717201138.1078019-3-shofiqtest@gmail.com>
 References: <20260717201138.1078019-1-shofiqtest@gmail.com>
- <20260717201138.1078019-2-shofiqtest@gmail.com>
+ <20260717201138.1078019-3-shofiqtest@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 20:20:54 +0000
-Message-Id: <20260717202055.D204B1F00A3A@smtp.kernel.org>
+Date: Fri, 17 Jul 2026 20:30:19 +0000
+Message-Id: <20260717203020.0E54B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] The `interrupts` property is missing from the `required` list.
+- [High] The driver uses hallucinated locking macros causing a build failur=
+e, and omits the mandatory lock release.
+- [High] The I2C read buffer `fifo_raw` is not cacheline aligned, violating=
+ DMA API requirements.
+- [High] The threaded IRQ handler incorrectly calls a hardirq-only IIO trig=
+ger poll function.
+- [Low] The i2c_device_id array is missing named initializers.
 --
 
---- Patch [1]: [PATCH v10 1/2] dt-bindings: iio: health: add adi,max86150 -=
---
-commit 6596564838aa000e36be829746bacd2e720d88d8
+--- Patch [2]: [PATCH v10 2/2] iio: health: add MAX86150 ECG and PPG biosen=
+sor driver ---
+commit b6c51e5d5e6b5f625bd2546556d36647cd05b62e
 Author: Md Shofiqul Islam <shofiqtest@gmail.com>
 
-dt-bindings: iio: health: add adi,max86150
+iio: health: add MAX86150 ECG and PPG biosensor driver
 
-This commit adds the Device Tree binding schema for the Analog Devices
-MAX86150 integrated biosensor. It outlines the configuration for the
-I2C device, including supply rails and a configurable interrupt for
-the hardware FIFO.
+This commit adds a new IIO driver for the Analog Devices MAX86150
+combined ECG and PPG biosensor. It supports hardware FIFO captures via
+a threaded trigger handler.
 
-> diff --git a/Documentation/devicetree/bindings/iio/health/adi,max86150.ya=
-ml b/Documentation/devicetree/bindings/iio/health/adi,max86150.yaml
+> diff --git a/drivers/iio/health/max86150.c b/drivers/iio/health/max86150.c
 > new file mode 100644
+> index 0000000000000..47d96570a95fc
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/health/adi,max86150.yaml
+> +++ b/drivers/iio/health/max86150.c
 [ ... ]
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
-> +  - avdd-supply
-> +  - vref-supply
-> +  - leds-supply
+> +struct max86150_data {
+> +	struct regmap		*regmap;
+> +	struct iio_trigger	*trig;
+> +	u32			 sample_period_ns;
+> +	u8			 fifo_raw[MAX86150_SAMPLE_BYTES];
 
-[Severity: Medium]
-Should the interrupts property be included in this required list?
+[Severity: High]
+Since this array is the target of regmap_noinc_read() and some I2C host
+controllers use DMA for bulk reads, should this buffer be cacheline aligned?
+Sharing a cacheline with sample_period_ns and trig can lead to silent
+corruption if the CPU accesses them concurrently during a DMA transfer.
 
-The commit message notes that the device raises an interrupt when the
-hardware FIFO reaches its almost-full threshold. If the interrupts
-property is omitted from the required list, device trees without it
-will incorrectly pass schema validation, potentially leading to
-runtime failures where the driver cannot receive interrupts to drain
-the buffer.
+> +	IIO_DECLARE_DMA_BUFFER_WITH_TS(s32, scan, MAX86150_NUM_SLOTS);
+> +};
+[ ... ]
+> +static int max86150_read_raw(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan,
+> +			     int *val, int *val2, long mask)
+> +{
+> +	struct max86150_data *data =3D iio_priv(indio_dev);
+> +	u32 ppg_red, ppg_ir;
+> +	s32 ecg;
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW: {
+> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> +
+> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +			return -EBUSY;
+
+[Severity: High]
+Do the IIO_DEV_ACQUIRE_DIRECT_MODE and IIO_DEV_ACQUIRE_FAILED macros
+exist in the IIO framework? If these are replaced with the standard
+iio_device_claim_direct() function, does this function also need
+corresponding iio_device_release_direct() calls on its return paths to
+prevent deadlocking the IIO device state?
+
+> +
+> +		ret =3D max86150_do_read_raw(data, &ppg_red, &ppg_ir, &ecg);
+[ ... ]
+> +static irqreturn_t max86150_irq_handler(int irq, void *private)
+> +{
+> +	struct iio_trigger *trig =3D private;
+> +	struct iio_dev *indio_dev =3D iio_trigger_get_drvdata(trig);
+> +	struct max86150_data *data =3D iio_priv(indio_dev);
+> +	unsigned int status;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(data->regmap, MAX86150_REG_INT_STATUS1, &status);
+> +	if (ret || !(status & MAX86150_INT_A_FULL))
+> +		return IRQ_NONE;
+> +
+> +	iio_trigger_poll(trig);
+
+[Severity: High]
+Since this handler is registered as the thread_fn in devm_request_threaded_=
+irq
+with a NULL hardirq handler, does calling iio_trigger_poll() here violate
+locking rules? iio_trigger_poll() expects to run in hardirq context. Should
+this use iio_trigger_poll_nested() instead?
+
+> +	return IRQ_HANDLED;
+> +}
+[ ... ]
+> +static const struct i2c_device_id max86150_id[] =3D {
+> +	{ "max86150" },
+
+[Severity: Low]
+Does the I2C subsystem API require initialized arrays of type
+struct i2c_device_id to use named initializers? Using named initializers
+such as { .name =3D "max86150" } ensures compliance with subsystem guidelin=
+es.
+
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, max86150_id);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717201138.1078=
-019-1-shofiqtest@gmail.com?part=3D1
+019-1-shofiqtest@gmail.com?part=3D2
