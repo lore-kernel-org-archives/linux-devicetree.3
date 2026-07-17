@@ -1,160 +1,146 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11020135.outbound.protection.outlook.com [52.101.193.135])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E54F2E7F39
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 07:58:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.135
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784275089; cv=fail; b=grCIwg1tuX6IL4eXEENhQFNxSmOUFGtAC7qTWLNahhSAIRVd+DVulJPjiuqNM22fpLXzTKrwILPVco+phfygJblWmYJI4IKs0nLyoN2tvOYCJQ6jJH1pYeCWSqeJhlN8ftQ3vIuh225eEsinLmOsEcnuy0wF8MBufI5PMmI7um0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784275089; c=relaxed/simple;
-	bh=0fxfPfDHKV/K+Rt1TbWQAmjQPqFpbBoQkQaA7KHQWzA=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=nohvo0bowQ1nziWQUkVFb6u9SC9ieGI2sU7gsJ9QbMl3/ROkj2aq+Yc6sOSayVfGsLw+GX5sG9RSaFvzowNlT1bfMkF8ay1OHFsmjln8xp7NpgmukD6N2SIi4xilvAZfRv8Vnxolq+cUzYBIQfuGDl9LMDbEG22vCsMjjALKRLU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=HSa1udIC; arc=fail smtp.client-ip=52.101.193.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF4632B118;
+	Fri, 17 Jul 2026 07:59:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784275160; cv=none; b=uLju3KvrmjPJph+R8rEGqKsYH7881EDL8IaZswTKt8K6gfx1jcyBGgwY4Mks8BrFWyKj7ayfKncJVMdh+K6Z8WRhVqEguDcNu5mni+c4iCZkuzAcLmKixWg0J8oNiEvsrhvwJ/vgAHn0qg2CQH3wj3rHU1rBwg1Yq0sGFKhcriU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784275160; c=relaxed/simple;
+	bh=Q+EVn7Icoe+5G9RJNubvOmg1kDD1KCJtqeY6TdN1HFM=;
+	h=MIME-Version:Content-Type:Date:Message-ID:CC:Subject:From:To:
+	 References:In-Reply-To; b=tSVHYetuEQQ3Mb15fUHt7M81TmFAdJdvFgQuFP+7+kGDrGyqjhzmYR2stbhaSoBEE6fV1QW/PLhnJQm64NX/5Nu3Pm2GWPiLewNjWfs6LfdbnP3oWu/JRZ0+mTYLJmXMV13JtEIk7R9AmyoESGdgtdLnaSLP1CPuTYQg2HAY1yI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=RSPk+Ks5; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="HSa1udIC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rEbNfGRd0Aa/R4Y8D+R0/qzXaD5UXY2Zz5ncWzD6WfWEfd0P7HUiQ8xKLKUgNIJNndcWRywuy7zoBx7+doWvVXZ5kIF1Pn0wNiDSGAEDbzCtAuyRmoLih03WhxLrlnkEShVSKIZ8xgOqX5gyqSRyyxohlZn295cLLiYrWaiOQU9Aa+i3zjc1AKZDqvcrcuyB9EQXE7wj4FcQJ3cUs0phbXYpckfdYm/R2EG14sbjepL1iOpWZzu4McLtfPpokdivR2/NxtA9kc+K+sFxxH8rFZ43r3g/Ak1WqHZNBkleLTIPTXqKMpnyG6W9iMK/BpYXCQJ+ePogdyU9tRhZfEKF6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0fxfPfDHKV/K+Rt1TbWQAmjQPqFpbBoQkQaA7KHQWzA=;
- b=Jn+Kq/zuQIAa2jbfXlrrWxyYO1jrf3pHekXrUpQSq3VWrDF0TAUKX5SFjvBsm9V6sscEU/W3K2PXPQgr0diBPLCN/jDanzF2hla7vALs5en4kkJ/b7Rug54yFS+o7rGg0c96dViHXOGg2yvIxDdiUmCQffEkRWPAMFGw82dPneb7FdnEelCB56pmQY8B2UmsDduMga2MNQIQQA661tl6Zx8wVZXQhX/aRkHWLSO7yLN6rzCr/9CJTPkXXyAAtbQW6wwz0YwxEdz9pWuto/wgW9pIgEKzpi+G1uAuHpU7nEbDri2de4zHHiZ4IMIgDMCngzd7kwImcjnjt7uDFzweZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
- dkim=pass header.d=axiado.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0fxfPfDHKV/K+Rt1TbWQAmjQPqFpbBoQkQaA7KHQWzA=;
- b=HSa1udICvhkmK9tXYcnxHxSrsV4JA1Khh8r0NNunNEdqSRAnXxnQTPzNgn3BkcMAFgH+eHw/pcQyyL9fWv9vri3R21vWfbgrx4sk2poiFEg0qNq5NN8lyhTfEAgnp3B9zkCavKVsbZ3Hbl2U6QCCFYynP+iX9bOvAiVG5Ypw6sgOXtKXCRaX054oFH4HBYo1G2WPj0HG1gzwjzpvruYnOp/3Zg6btP7SoXWf6ihB0ySKMABPH0nsq5pwI8nmtNhFrQJcqQfzAu9ZMhpEoe68qb5AQQ5hrOA1rl7tME0qiX6saPovGAUgVNfzemI0R1mZhUzcVNZc4NGI2Hgk7RK+Ig==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axiado.com;
-Received: from BL1PPF1B62FD55C.namprd18.prod.outlook.com
- (2603:10b6:20f:fc04::d8c) by LV3PR18MB5592.namprd18.prod.outlook.com
- (2603:10b6:408:19e::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Fri, 17 Jul
- 2026 07:57:54 +0000
-Received: from BL1PPF1B62FD55C.namprd18.prod.outlook.com
- ([fe80::8726:2e55:848b:39e]) by BL1PPF1B62FD55C.namprd18.prod.outlook.com
- ([fe80::8726:2e55:848b:39e%5]) with mapi id 15.21.0223.011; Fri, 17 Jul 2026
- 07:57:54 +0000
-Message-ID: <c2cef6dc-fa0f-4c43-aa97-6c5952c9bc4d@axiado.com>
-Date: Fri, 17 Jul 2026 15:57:48 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/8] dt-bindings: gpio: cdns: add Axiado AX3005 GPIO
- variant
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-i3c@lists.infradead.org,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, robh@kernel.org,
- Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-References: <20260716-upstream-axiado-ax3005-upstream-v3-0-c429095143ec@axiado.com>
- <20260716-upstream-axiado-ax3005-upstream-v3-2-c429095143ec@axiado.com>
- <20260717040056.6BA971F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Swark Yang <syang@axiado.com>
-In-Reply-To: <20260717040056.6BA971F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TP0P295CA0039.TWNP295.PROD.OUTLOOK.COM (2603:1096:910:4::8)
- To BL1PPF1B62FD55C.namprd18.prod.outlook.com (2603:10b6:20f:fc04::d8c)
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="RSPk+Ks5"
+Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66H6b9ob1510276;
+	Fri, 17 Jul 2026 03:59:12 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=BSiUi
+	wfP4JXN+h2q1J+srAmHmyCGKrFG27JR2xy0ykg=; b=RSPk+Ks5fvWRl732CZ4EK
+	HzY9eH3/I4midUU4gb79gy395ESH4UpKWau6EbuMTPjoayf3wSS8ZTd+8mxtxBs7
+	+rUjf+7wat3PnKkApytXZeeP8aZ7+KbNsJwctUpz82xDYUZLXjiUZpept2irUFTC
+	QGRuo6UwraSCqVCnUMwgxNgnvh5Tjf7QlP4nSTAt43ockod05d2Z4dUwI7V6eRU7
+	qAG+/JrASMWWyhCTvJHjYvDS2/5F+eXvhyigu7cpP/rrjcCJI6KU5+b7ZrlW3TEG
+	WyprxjCQJT5KfYAOKxDDgfDDSqv6o7u9YTEXXInuaPdXga9rZaHcPdYH+nL0Flah
+	g==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4ffbpg12pv-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 17 Jul 2026 03:59:11 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 66H7xAiY013697
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 17 Jul 2026 03:59:10 -0400
+Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
+ ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Fri, 17 Jul 2026 03:59:10 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
+ ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Fri, 17 Jul 2026 03:59:10 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Fri, 17 Jul 2026 03:59:10 -0400
+Received: from localhost ([10.66.6.191])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 66H7wotk009002;
+	Fri, 17 Jul 2026 03:58:53 -0400
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PPF1B62FD55C:EE_|LV3PR18MB5592:EE_
-X-MS-Office365-Filtering-Correlation-Id: 660ade65-3607-4499-e454-08dee3d91b28
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|10067099003|18002099003|22082099003|56012099006|3023799007|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	Csio3TUf5chu+mHY491lU4kK4XANk/pBUzC9QfBxJUMsqQM+FfCDprjvzmr/foDeQmLytjFWGLXYnIF0beVJBRUIl/vikBz5as41t7kA8IjRmICze3z8zC5KFMc1OFUzR2nt9YCuXt1n51eknsC1Rw/IIKCBv+h6JMyg5GiAXifI0HTcmgr6gNff43DB4TwfbNc6HLQAtDfDXgfXkSw/9rch3TdGLRZSXv8ZYpr72elgMg1k2BFxv/+K6JkdYrTyNkIRObK1ID5Cs+AqD7WUb2MkQAUhgG62VvL9VJhKJx1TXjp/cFUxV0uHUDQLwBP3YQ7xTVRybZ8NloxMnIwcHZvCRFJmImcC3CciYpprPcwMf6e90hJoAhrvMdpHw+S/qAURz4hAeCmWvb4qjCdms5tCqE/D+VYp8IDuVtz6ZxSO8WoM+1w18JIiIIIJayr6gI3QB+xp3kisJ9xWabMQ0cfJJpGDxU0dn8fuvU9I2A+lUhy9zCo6qybtGHuZREksFWKNpwKxfoDIdY8w2/XBXpF095X4ALwsyEUq1TgzKzorQ4LY+e3bkeBVWEnQNiQGG9qwhUvFUSd7h+w4yIka/7ZVRjQuo6rfRwDdfy89q/DzDipBPOL/BYo2qHtpYqlOJIONOKEnBDVwM72Jp4YQS8N1kUklkJSxSs838Us0XiY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PPF1B62FD55C.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(10067099003)(18002099003)(22082099003)(56012099006)(3023799007)(4143699003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RE8vSnJBTHNxd3E0MkxUbXMzTkJDVGlLLzduSytZUm84RE0ycjdUYW45TmlH?=
- =?utf-8?B?aVY3TUcrLzlhMVdVdW05ZGR6aFVEOGRaOHVJaHo0cEpCNmhCWTJVUG5QdTdM?=
- =?utf-8?B?eWxBNzE5aXlhS0dENzJ3MGxZZGFkeFJWbEYvelh6VlUzQWNhSk1RVldVb0Ez?=
- =?utf-8?B?amtBVUh1R3E3UjF6dXU2WW01ZVQvZDRGN09OdXFXVU0rQnFwMlB0OEo0dFBE?=
- =?utf-8?B?a2M4TkFyK2d6V296N0J5RWVYamZ6Q2Nwak1lRHA2cGlGNldzQjlIaGJEVEx2?=
- =?utf-8?B?Und5SXYwbEJnTHlsWVpNZFBrZE14bGdnS0hrMTErNkFBb2V6cU9saEEzN29R?=
- =?utf-8?B?NXVSVjNlWTMwN3JncCtUUnF4aGlrYzZrNjd2bmwwdnVUUG4zTkxRQ1FZNmhC?=
- =?utf-8?B?Y0psTFpLdjlmeUpaS0NvM20yYUJaOTg5czVnSkhzOG04U0RkMFJPT3FqT1c0?=
- =?utf-8?B?RnBaRVhCT2M3eXN4UmJTMDRMY1YwaHVRYUliQUxqN0Q3MWpUSklBalJnb3F4?=
- =?utf-8?B?d25rSkI0QnRtTURsdmdXUExLNXNIMWlOUlprTGpYb29qUXlLMjlPdXhmOFZz?=
- =?utf-8?B?Q25Sd0JxU3g5S01kWldoa2NTVGNMWlJpZ1VYVUNzWGpTTzE5a2lmeHp2a0pU?=
- =?utf-8?B?aWFjSGhueXg3Ny9NZG16LzAvQmFjTUlNVEd5V1BQMS9Xdi96ZlMyYzlzSkJ5?=
- =?utf-8?B?a292bWYzWlhmV1JrZUs2Qzdib2dTYnRHVE5pcDNZT3J0K3Yva1BEcFZqN3BV?=
- =?utf-8?B?a1NMVTd5WHJZVUd4V2V3TzNQa1B1TDRHSDk0NzVGT2dMb0pqZTdmN2MxZSs3?=
- =?utf-8?B?NlJhVHFjQUQvL1laY05LWCtFZlVNbG9lZmJpOUFFOTd3dngvZ2g3eHcxUkMy?=
- =?utf-8?B?MkdJanJORi9ZYzJCNWtFM2YwZWw1blc3M0RFSU9nbWFUUHB1dnlzOStwZ0xF?=
- =?utf-8?B?V3FYd1pUazN5ZHAwNGNHaVlES0ttN3VDb1BsY1BWOEpHQ2NTRjh5bGJVYndk?=
- =?utf-8?B?aGVyalY0TGlDTnBHRnNyMlpJbVEzZ1NNSytmbXc1WTlSS2ludjVKQkZyUnFl?=
- =?utf-8?B?R1ZoQU1ycjNzd0J3OXB0dy9pT0ZPZlhIQS9YcTl6MG43ZlhHdGxvS2Z1MVJl?=
- =?utf-8?B?SytpWXBxREtLb1lGYmJ6ZGo5TDE3bGNpR0hqWEtEK2k4c08wTEo0Z0hxTkNl?=
- =?utf-8?B?U3lraXlQOUdQUjlndTFYTExvODNQZkx6dWEwMW43YkRndUIvQW5xQjA4ZU52?=
- =?utf-8?B?Y240SzMwMk1PbVoramJjZTBZOWVUZGFPYllEVnhkR0EybStNeTR3VFo4ZlFi?=
- =?utf-8?B?UHJtdndwMnBEc2QxSnFSaWpqcjhBdjc5SWphRkpWUUxPZ3E2bWZxK01zMmlk?=
- =?utf-8?B?L1RPMVJwbjhSL0V4RDFPTlRFLzZ6U3pmSXpCbnpCYUFidUw0clZiTDRvQ0tn?=
- =?utf-8?B?dGFVWDBEUVRFYVBJZ205b0QzOWUzOXhWbkk3ZUZTRVg5TmJtYmwwY3l3MW9Q?=
- =?utf-8?B?ZitBLy9nUDBqWit3Q1BFVkgwUFovbzFPSU1MckFXb3JPZ1ltQjRkL1cyazB1?=
- =?utf-8?B?Wm5wNkt2UTdCWnJqS1ZwQ1RMMVhIK1N4aVFjRk5PUWE0dVV1cW9CeExSNXVJ?=
- =?utf-8?B?RUVqZXRpRHpTb2tmNitzZmZqaDdJZWk5Mk5PUFUwc3dUVmwzZXFObFQwOGdr?=
- =?utf-8?B?OVZUc29ZeXJnUlJKRERicURvTlBsL1h5SHdhT0Z0cXpydDloOGFjU0tWazcr?=
- =?utf-8?B?d0NxNHBhRk1nc3VNUTQzVlUvdWpUbktlU0RLME11VmNmMEwzYlIvcVJiQWpp?=
- =?utf-8?B?YzlKTk82NWs0bDY5dW5YNSttWDFXdjI5ZjkzTHUvaGVqQTZPZDMvc2dCU2dE?=
- =?utf-8?B?bnl0cEJ2aFlUNlphM3NMN3hWZHRqWjhKaXFLT0RNT2xyTGtKbC9ZQ01Bc1Vm?=
- =?utf-8?B?blZKczB5bEtMN0k1QjFoaE45NWRkWU4wN0gvVnhVcm1iNi92Wko5MmxOV0tM?=
- =?utf-8?B?NzI3UXArMGhNd0kyYUJuTENjaXhhWld1SGJDQUdRUnVZWHhoQWl5VllxVGky?=
- =?utf-8?B?NS9aeUg0N2pXOE9laHphRG40MlIveksxU0N2a1VnQi9TbWx2YWZOanFCYnE1?=
- =?utf-8?B?alBUZi93cVZVak1sNU8rL3ZIVVVpOWpRZXVOcFl5bDh6WGh6YU1mNHM5bmhG?=
- =?utf-8?B?MFkyN3BIK2tCVERESHhqL1VpRUJ0ZEVsU1FMbXNiNk9jSVYreVIvWVRFblJ3?=
- =?utf-8?B?WmxuSFdtdXhpTHA0WTF3RExFVmJpNlJoMEpWMnQyajlYTUdqOWVSWE5CNHJT?=
- =?utf-8?B?bVRkRFRicWIxZUFOYmRwc2RLVWR2RXM3UUQvazJTNnBNTmdFSE15Zz09?=
-X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 660ade65-3607-4499-e454-08dee3d91b28
-X-MS-Exchange-CrossTenant-AuthSource: BL1PPF1B62FD55C.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 07:57:54.1745
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: I0OUaPyQeCF3STSHJpOISVHSXTXfadAXvsQJ/lXaSxqDXgTpSis9nW247dYAPGLpycAUWE8PboIZZRArGAc8Ew==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR18MB5592
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Fri, 17 Jul 2026 15:58:44 +0800
+Message-ID: <DK0OQSHG4QF2.CCD4OGSWXFBH@analog>
+CC: Jonathan Cameron <jic23@kernel.org>,
+        David Lechner
+	<dlechner@baylibre.com>,
+        =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+        "Andy
+ Shevchenko" <andy@kernel.org>,
+        Michael Hennerich
+	<Michael.Hennerich@analog.com>,
+        Rob Herring <robh@kernel.org>,
+        "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Philipp
+ Zabel" <p.zabel@pengutronix.de>, <linux-iio@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux@analog.com>,
+        <devicetree@vger.kernel.org>
+Subject: Re: [PATCH 1/3] iio: ABI: add DAC high_z powerdown mode and current
+ output entries
+From: Kim Seer Paller <kimseer.paller@analog.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+X-Mailer: aerc 0.8.2
+References: <20260716-iio-ad5710r-upstream-v1-0-e848a4bb701f@analog.com>
+ <20260716-iio-ad5710r-upstream-v1-1-e848a4bb701f@analog.com>
+ <alkcBaHV0gHY37wR@ashevche-desk.local>
+In-Reply-To: <alkcBaHV0gHY37wR@ashevche-desk.local>
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Authority-Analysis: v=2.4 cv=YqE/gYYX c=1 sm=1 tr=0 ts=6a59e0cf cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22 a=tdLBGZj91k5LuzOrVg0A:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: QOa9qxn6_HDcDbqv9B46cTz6fUGHEKoQ
+X-Proofpoint-ORIG-GUID: QOa9qxn6_HDcDbqv9B46cTz6fUGHEKoQ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDA3OCBTYWx0ZWRfXx3P0aBL9iuas
+ Zkd/TCs3IumXtAo8lGrVafLYp5gGHUnGKIFNq4852CPtrKPcLWMyLf63gMl5lkEpqK1UTFboFcn
+ 2eQpoFFTwVdYXpcRZU5KGZIPPuhkGOUdqhzHAqhNpvKPOdGF9m4x
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDA3OCBTYWx0ZWRfX9uid8WQoCHfr
+ ckiv8spe8xEglophEQzeobRVEYj0sp9HbsuSJq8SjMhmYh5WAWY/qSKWDkKK4zow1B9Nv8KuEUU
+ 0grFgCa926t5oJalfjTbi3yzbFNOCj844Cr7tUf1XMauRvxPM2pWNF25KM83j/WYhycD7a0eaDC
+ Y36SkTa3RPur4MQOkgOck47r4/9PO3qbA30W1otvwcYH8pJyMeml2iqj95ZcRSER2IkzCfh1Lo4
+ j6mcOvfL1QSVfbfCxaO1is+T0+fB54rMiNOflzFapO5VEVHavAM0/NpGbB8zvrMZxHZOynkc5LY
+ BQwrxToDYNsSbzi9+uTRvNA+NH7SXBws6sHQ2zJFR+ORvdKk49iM+UzR1lcZuWtBc0ULenNQTg1
+ lRJtz5+EX8jUvmPo4Y80Ih/S40v/bAGS2o4Wu86R04o3lq5Sbm+e4AIo+p+zXQuP3YRG4m0AfmO
+ DYlPAfiWnF0rA67hWrQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-17_02,2026-07-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0 priorityscore=1501
+ impostorscore=0 adultscore=0 clxscore=1015 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170078
 
-On 7/17/2026 12:00 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] The schema enforces a 3-item compatible string chain that unintentionally forces AX3005 devices to inherit an AX3000-specific driver quirk, contradicting the commit message.
-> --
+On Fri Jul 17, 2026 at 1:59 AM PST, Andy Shevchenko wrote:
+> On Thu, Jul 16, 2026 at 03:59:25PM +0800, Kim Seer Paller wrote:
+> > Add high_z powerdown mode for DACs with high impedance output in
+> > current mode (IDAC) and 15kohm_to_gnd resistor to GND. Also add
+> > out_currentY_powerdown_mode, out_currentY_powerdown_mode_available,
+> > and out_currentY_powerdown entries to document current output
+> > powerdown support.
+>
+> ...
+>
+> >  		125kohm_to_gnd: connected to ground via an 125kOhm resistor,
+> >  		500kohm_to_gnd: connected to ground via a 500kOhm resistor,
+> >  		640kohm_to_gnd: connected to ground via a 640kOhm resistor,
+> > -		three_state: left floating.
+> > +		three_state: left floating,
+> > +		high_z: left floating.
+>
+> It may be less churn if just located before three_state, but hey, why?!
+> three_state is a synonym to high_z. What's the impediment to use it?
 
-Thanks for the report.
+You are right, thanks. I added high_z because that is the term the datashee=
+t
+uses for current output powerdown mode. Since three_state means the same=20
+thing I will drop the high_z addition and use the existing three_state.
 
-To clarify, the 3-item fallback in the code is intentional and correct.
-The AX3005 GPIO block is fully compatible with the AX3000 implementation
-and indeed requires the exact same driver quirks (such as the specific
-direction mode and output enable handling).
+>
+> --=20
+> With Best Regards,
+> Andy Shevchenko
 
-The issue is just a poor description in my commit message. It should
-have been worded as follows:
-"Add binding for the Axiado AX3005 GPIO controller. The AX3005 GPIO
-block is fully compatible with the AX3000 implementation and requires
-the same driver quirks. Therefore, it is added with a fallback to the
-'axiado,ax3000-gpio' compatible string, which in turn falls back to the
-generic 'cdns,gpio-r1p02'."
-
-I will hold off on sending a v4 just for this commit message update to
-avoid unnecessary noise on the list. I'll wait for further review
-comments on the rest of the series and will include this updated message
-if a v4 re-roll is needed.
-
-Best Regards,
-Swark
