@@ -1,382 +1,351 @@
-Received: from th8-a.mail-neoserv.si (th8-a.mail-neoserv.si [152.89.234.173])
+Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76C621EB5FD;
-	Fri, 17 Jul 2026 12:03:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=152.89.234.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784289789; cv=fail; b=E001blasR53qXAtckqoERAsdHaN+jxiRIvsegw56LCK4C04v03t36V0Nm0Vi7s/TiCI0e5AKEv8rMiyHBIHcAPkjW22ElCuWFuciWsz4sNPirCJflW01xfwetlIKSj0OL9KVwADhFbbiSRqmu82O6xNgHsBP2Qx8YsdWoJ7rAMY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784289789; c=relaxed/simple;
-	bh=HJEE6D52PzAAraSZp2z43G1ocPYu02jSX6QRhRsFPig=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NElolGuwE/1/R/Af86BJcAVwHLqpDsRnTwh3Loo5vsSt2i+QHsF51EX96JZaqK8BeWhvBjEYI2XM4nbYUxJ43PFcWAGYuPbGT9aCAG0zFi04hPJsUk1RW9xDStc9lAf7+EqKWIPhGw0i6sasw9wpo38whvHhqGbBHw+mFI7NPuo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kanardia.eu; spf=pass smtp.mailfrom=kanardia.eu; dkim=pass (2048-bit key) header.d=kanardia.eu header.i=@kanardia.eu header.b=IJIC5mEr; arc=fail smtp.client-ip=152.89.234.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kanardia.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kanardia.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A412C3C3F7B;
+	Fri, 17 Jul 2026 12:03:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784289788; cv=none; b=ecnajiYb1aIOSIknoD/6PGSk3hP05qA2ri5BLc8ukkVIz++3v6cpnthRoW/JHYAlAGAB6Fed8qulp4NotkoSn3DOMye5VTIHV0EctDt6aHHl60Yu2ncOnaI2fQZKC4BiUEe87RiQiT6b1duvaUTlIIOxA1jy5PsHOSYYHwiWHlQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784289788; c=relaxed/simple;
+	bh=nqR4r9pKpDKHO5BZtzZ5YuzN+u9b56QZSOcI+nVdzuw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=eLIKGiny4HdXuXXgy4/mL8be1OKDqDkJiJ+l2nU2EKkVJ3CV29aaf9goCMsO0F6I1YvasvkztKawSh40gv6EugVUXfSRno59PoXdix0XfwG6MCGS/9Y1pN3afmNQxtUGMK4CFmooQFzvbcwA6A7aBJpnyDFjZQM3en/Ezcmc9Nk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=E25F3SCK; arc=none smtp.client-ip=79.135.106.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kanardia.eu header.i=@kanardia.eu header.b="IJIC5mEr"
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=th8.neoserv.si; s=default;
-	 b=bTTWRJf+XMhOqPKQ7BPD4xAkaVeF8baFGXkdpiMxs75/34gUYAKfh03vX9CL3DEmfsjXehAfWr
-	  zaayOr9GBxhx4Fayht12yBKve3RxgQPlLZcMCgAMXHAztf6oV02fCwtTDkvLvdpLUA224Wd3eG
-	  63y9BNDmplM3ilfl7CB2zJWdY78J24IzGehTjppXqo+j+0bcp5aY4JUOJXqwe2DaNggQ+S6Esj
-	  072cET5NZavK23LnL/9+Y8NpYIgEGAmcJsV558Gwpsbt/J4cGnRe/CS/Lr3vvcNJqF7jdTsAn3
-	  x3gZvUkilwwqBeB95SK3611o4o/bdz1X8lpZYEIS2Tl0/w==;
-ARC-Authentication-Results: i=1; th8.neoserv.si; smtp.remote-ip=193.77.36.193;
-	auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=th8.neoserv.si; s=default;
-	bh=HJEE6D52PzAAraSZp2z43G1ocPYu02jSX6QRhRsFPig=;
-	h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:
-	  Date:Subject:Cc:To:From:DKIM-Signature;
-	b=hs2AAiHOATnFkggiiGMrk/eFJkEktsvH5I237eWWRtZ0ZLW1Ub69acfEbghxLWVStNlnH6vBWT
-	  4LMkaCVkpHzE8kDSvYimkGxvwqcd+jiL6FPDpRmVUQAHDmmYvq4Xa/wCEMF6v3NhsAUJcJl4NF
-	  /3hx+TEZ/f7PrbAwBqcftcCT1x+PQKd8XlSd/7tKGFv/Tpqe05Rgw/fJraC+wp0/nSQVTQwIsU
-	  kcgpJ9yD5wkxakYpJiZPgwhC+ric5UlWmB1wLePP28OKXZ/KEw85E1j8nnANjpD/iRlTEFlr8C
-	  fs3ghQJNmsniBk714Vew1BxybQ0PPITO4OGlgECshiSAFw==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kanardia.eu
-	; s=default; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=KkN4fPntNghDZyQYOm91IR8364WzNb2R09AK1tRR9bk=; b=IJIC5mEr2K667BtITzqIgDJJh0
-	a+7EUWX1nJx2Kstr1TMD/KGJoFy38FedT3BfpIebboW+xsT9IG09AcpotSYrNIRIpOUYz+EpfjEo0
-	NEX9PukBFnwKU/tIvzVundaaHSMwEuOIMALxb+AlaV8DBkkxo4i3cHjdugPsAxzBP7RaWSi/Vh6v4
-	nKXzwekAyiL6nCj5xR6+F58YJKVA3VxdrjXgSPY0HrNVAKHxkZRwU9NQgQa8u2ZgulZs3q5j/KnbX
-	K+JRTk5UOiosYABHrsY64xFiIkeNgOfUZlhXPZekDovYISspt+NY1QmWONJOvmjQoB13OBlG75tcy
-	vYAw1oig==;
-Received: from [193.77.36.193] (port=54788 helo=rok-trip.kanardia.eu)
-	by th8.neoserv.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.4)
-	(envelope-from <rok@kanardia.eu>)
-	id 1wkhHJ-00000001fP1-23GD;
-	Fri, 17 Jul 2026 14:02:53 +0200
-From: Rok Markovic <rok@kanardia.eu>
-To: Heiko Stuebner <heiko@sntech.de>,
-	Sandy Huang <hjc@rock-chips.com>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Alibek Omarov <a1ba.omarov@gmail.com>,
-	Rok Markovic <rok@kanardia.eu>
-Subject: [PATCH 3/4] drm/rockchip: lvds: add RK3568 support
-Date: Fri, 17 Jul 2026 14:00:04 +0200
-Message-ID: <20260717120005.2087386-4-rok@kanardia.eu>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260717120005.2087386-1-rok@kanardia.eu>
-References: <20260717120005.2087386-1-rok@kanardia.eu>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="E25F3SCK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail3; t=1784289774; x=1784548974;
+	bh=I6m3yaEF5ELVd0mQbxCMpVLD/FGyD/SZefnd+stECQM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=E25F3SCK/QrVkAKZ+PVTgiEr5ABjBlGrgr/qxrAOVGQ2z63rW26jacjth7DpENVRG
+	 rjm3QDBNoByCz6QBJWaI5EbEo/CjwJ65JRojcMulWdhLPjxY2jM9t/62h2rK+sT2SY
+	 eXDrYOZS0yF2IrnqQEa6zIYJOveF6B1RzxbwTh5zTdAkVrDJN9y1uE9jeA3kRjmaMU
+	 boX6H5TcRBukfOWnYJYkTz3tPsqVRQOql8oJGtUYN7CVCSWEmoU3G/PYYQvQdvDXEV
+	 n2uLF9e+z74z+WLmMN1VaAhCzdOFYYwat+/M7sxZu1lOK47RmZJYEGINEFs4FJ3J1x
+	 y+kbT3ikdaLLQ==
+X-Pm-Submission-Id: 4h1pSq68Cfz2Scn8
+From: Esben Haabendal <esben@geanix.com>
+To: "Andy Shevchenko" <andriy.shevchenko@intel.com>
+Cc: "Jonathan Cameron" <jic23@kernel.org>,  "Lars-Peter Clausen"
+ <lars@metafoo.de>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
+  "Martin Kepplinger" <martink@posteo.de>,  "Sean Nyekjaer"
+ <sean@geanix.com>,  "David Lechner" <dlechner@baylibre.com>,  Nuno
+ =?utf-8?Q?S=C3=A1?=
+ <nuno.sa@analog.com>,  "Andy Shevchenko" <andy@kernel.org>,  "Martin
+ Kepplinger" <martin.kepplinger@theobroma-systems.com>,
+  <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,
+  <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] iio: accel: mma8452: Allow open drain interrupt pin
+ configuration
+In-Reply-To: <alkgZTnHyvEasMCk@ashevche-desk.local> (Andy Shevchenko's message
+	of "Thu, 16 Jul 2026 21:18:13 +0300")
+References: <20260715-mma8452-open-drain-v1-0-b1dd2a440c60@geanix.com>
+	<20260715-mma8452-open-drain-v1-2-b1dd2a440c60@geanix.com>
+	<cA7m1VgJxkr39GAxpnMPw9PVIKX2TR8Ju4Q0m6L2SxS_jJNITfZ6AA5LOeMIK0jGFXaUptY1_vPhDd_imWw5FQ==@protonmail.internalid>
+	<aldH3vtk_eKh6oCC@ashevche-desk.local> <87ldbco582.fsf@geanix.com>
+	<Tu8Mavh-mfl8Vv75Oab3vrghtEbTXiYPZ4qhj6RZv8xe5nWKP4lG1KSuJXEQfyKeio7zv9myLbmifMjFTl8juA==@protonmail.internalid>
+	<aleQVYrK9YBoLqGl@ashevche-desk.local> <874ii0misv.fsf@geanix.com>
+	<alefh86sqW-XvLHl@ashevche-desk.local>
+	<J2apVLUJhrI3AOweGpouqGGB0XhxbcqLiWasDpOdm4d2YGgNv8PuE-udUGJZcH0z-V9yyqbjIwMKDdtuam0mp6ya5F6GHUzf6OjRCo0GdaA=@geanix.com>
+	<nnp75d8J8In8paKGfojb_WdiRMfnz84lOlzz_LBKVsxDzR3fG7Y5Mn91q6P4BF2LetfZS7da2SeqGhpiLUOE-A==@protonmail.internalid>
+	<alkgZTnHyvEasMCk@ashevche-desk.local>
+Date: Fri, 17 Jul 2026 14:02:50 +0200
+Message-ID: <877bmtsu1h.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Authentication-Results: th8.neoserv.si;
-	auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
-X-NEOSERV-MailScanner-Information: Please contact the ISP for more information
-X-NEOSERV-MailScanner-ID: 1wkhHJ-00000001fP1-23GD
-X-NEOSERV-MailScanner: Found to be clean
-X-NEOSERV-MailScanner-SpamCheck: not spam, SpamAssassin (not cached,
-	score=1.31, required 7, ALL_TRUSTED -1.00, BAYES_50 0.80,
-	KAM_DMARC_QUARANTINE 1.50, KAM_DMARC_STATUS 0.01)
-X-NEOSERV-MailScanner-SpamScore: s
-X-NEOSERV-MailScanner-From: rok@kanardia.eu
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - th8.neoserv.si
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - kanardia.eu
-X-Get-Message-Sender-Via: th8.neoserv.si: authenticated_id: rok@kanardia.eu
-X-Authenticated-Sender: th8.neoserv.si: rok@kanardia.eu
+Content-Type: text/plain
 
-The RK3568 LVDS transmitter has no register block of its own. It is
-driven entirely through the GRF and re-uses the MIPI DSI0 D-PHY in
-PHY_MODE_LVDS, which phy-rockchip-inno-dsidphy already supports.
+"Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
 
-Based on Alibek Omarov's earlier posting [1], with the changes below.
+> On Thu, Jul 16, 2026 at 04:51:34PM +0000, Esben Haabendal wrote:
+>> On Wednesday, 15 July 2026 at 16:56, Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+>> > On Wed, Jul 15, 2026 at 04:25:20PM +0200, Esben Haabendal wrote:
+>> > > "Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
+>> > > > On Wed, Jul 15, 2026 at 01:35:41PM +0200, Esben Haabendal wrote:
+>> > > >> "Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
+>> > > >> > On Wed, Jul 15, 2026 at 10:07:39AM +0200, Esben Haabendal wrote:
+>
+> ...
+>
+>> > > >> >>  	if (client->irq) {
+>> > > >> >>  		ret = request_threaded_irq(client->irq, NULL, mma8452_interrupt,
+>> > > >> >> -					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
+>> > > >> >> +					   IRQF_TRIGGER_LOW | IRQF_ONESHOT |
+>> > > >> >> +					   data->open_drain ? IRQF_SHARED : 0,
+>> > > >> >>  					   client->name, indio_dev);
+>> > > >> >
+>> > > >> > Why do we care?
+>> > > >>
+>> > > >> Care about what exactly?
+>> > > >
+>> > > > About exclusivity of the interrupt.
+>> > >
+>> > > Ok.
+>> > >
+>> > > >> We need to add IRQF_SHARED flag in order to allow shared interrupt, and
+>> > > >> we should not add it when using (the default) push-pull mode.
+>> > > >
+>> > > > Why not? How would it make any difference from SW perspective?
+>> > >
+>> > > Not adding the IRQF_SHARED flag prevents use with shared interrupts. I
+>> > > think we are on the same page on that.
+>> > >
+>> > > Unconditional adding IRQF_SHARED flag would allow configurations where
+>> > > other devices share interrupt line with mma8452 compatible chip
+>> > > configured with push-pull, resulting in broken or unpredictable results.
+>> > > I don't see why we should not care about that.
+>> >
+>> > But it's not their problem! If it's this device that prevents this
+>> > configuration, it should have a check. With this code it just hides
+>> > and changing a DT property will lead to kernel warning.
+>>
+>> The chip such does not prevent the configuration, and does not prevent
+>> sharing the interrupt. The irq pin in the device can be configured in either
+>> push-pull mode or open-drain mode.
+>> In order to allow sharing interrupt line with other chips, the chip
+>> must be configured with irq pin in open-drain mode, which is what the
+>> drive-open-drain device-tree property I am adding in this series enables
+>> developers to do.
+>> If/when you add this property to the device-tree, the irq pin will be
+>> in open-drain mode, and the IRQF_SHARED flag can (and should IMHO) be set
+>> as the interrupt line can be shared.
+>> If/when the drive-open-drain property is not set (existing device-trees
+>> and current only supported behavior), the chip cannot support sharing the
+>> interrupt line, and adding the IRQF_SHARED flag would be a bug, as the
+>> chip irq pin requires an exclusive interrupt input.
+>>
+>> Maybe the confusion is caused by the fact that the drive-open-drain
+>> does not describe how the irq pin IS behaving, but rather how it SHOULD
+>> behave, and possibly required because of the HW designed having tied the
+>> irq pin to an irq input together with other irq sources.
+>
+> Why do we care of push-pull then? Can't we always make it open-drain?
 
-Power the D-PHY from the encoder enable path rather than from probe.
-phy_power_on() runs the phy driver's whole LVDS bring-up: PLL and
-bandgap power-on, a settle, PLL mode select, then a reset pulse of the
-serializer and the lane enables. None of that is safe at probe time -
-the GRF has not yet switched the block to LVDS mode (LVDS0_MODE_EN is
-set from rk3568_lvds_poweron(), i.e. the enable path) and the VOP is
-not driving dclk. The serializer is clocked from dclk and latches its
-state coming out of that reset, so it comes up dead and stays dead.
-The failure is silent: every register in the phy, the GRF and the VOP
-reads back exactly as on a working system while the lanes sit at
-common mode and never toggle.
+No. Open-drain requires an external pull-up resistor. If there are no
+external pull-up resistor, open-drain will not work, and interrupt
+sharing is not possible.
 
-Program RK3568_LVDS0_DCLK_INV_SEL from the CRTC state's bus_flags so
-the panel's declared pixelclk-active is honoured on the LVDS block as
-well as on the VOP pin polarity. Both have to agree with the edge the
-panel samples on.
+>> > > > Yes, I understand the HW case.
+>> > > >
+>> > > >> > The (hidden) problem this will have in the future is that the IRQ core
+>> > > >> > will splat a warning in case that other shared IRQs might be
+>> > > >> > configured with different flags. Putting that flag conditionally makes
+>> > > >> > it a mine field for the users. Instead just unconditionally add that
+>> > > >> > flag and we will get reports as soon as there will be a user that
+>> > > >> > shares the same interrupt pin with some other devices which drivers do
+>> > > >> > not use the same settings.
+>> > > >>
+>> > > >> If we add the IRQF_SHARED flag unconditionally, it will be set also when
+>> > > >> push-pull mode is enabled. I don't see how the kernel will be able to
+>> > > >> notice that that is not going to work. If you have another device that
+>> > > >> uses IRQF_TRIGGER_LOW|IRF_ONESHOT|IRQF_SHARED, it will not work with the
+>> > > >> MMA8452 device when configured as push-pull.
+>> > > >
+>> > > > Right, and why do we care (again)?
+>> > >
+>> > > Why we care that the system as a whole (SW on top of HW) will not work?
+>> > >
+>> > > If we don't care about that, why do we even have this IRQF_SHARED flag?
+>> > > The only purpose of that is to tell the kernel that this particular
+>> > > device / interrupt will work with shared interrupt or not.
+>> > >
+>> > > Isn't that exactly what I do with this change? Nothing more, nothing less.
+>> > >
+>> > > > It's pure DT/FW/HW issue, not an SW issue.
+>> > > > Otherwise it will become a carefully placed mine for the poor user who will
+>> > > > use these flags and try to share an interrupt with the mma8452 device which
+>> > > > has no set property and uses push-pull mode.
+>> > >
+>> > > I don't get how you see it like that. Adding IRQF_SHARED unconditionally
+>> > > would create exactly the mine field you are talking about. Poor users
+>> > > can specify a system configuration (DT) that tries to use a shared
+>> > > interrupt line, but configures the mma8452 compatible chip in push-pull.
+>> > > The poor user will not only be poor, but also unhappy.
+>> >
+>> > > By applying the IRQF_SHARED dynamically, the kernel will be able to fail
+>> > > in a controlled manner instead, making it much less painful to create a
+>> > > working system configuration (DT)
+>> >
+>> > And my point that we need to make less painful runtime experience.
+>>
+>> Yes. We agree on that.
+>>
+>> But I do believe that my patch is that painful runtime experience.
+>>
+>> Adding IRQF_SHARED flag when irq pin is configured in push-pull mode
+>> will be painful. I know, that was my initial approach. Does really not
+>> work, and can lead to wasting time on debugging the HW.
+>>
+>> > > Going back to your poor user story above, if the poor user tries to
+>> > > share the interrupt pin with the mma8452 device, it will get an error
+>> > > (just as it is with the kernel today). The device does not support
+>> > > shared interrupts. Reading the DT bindings documentation, the user
+>> > > should be able to find the drive-open-drain property, and add that to
+>> > > the device-tree to make things work. Maybe even consider if that is
+>> > > compatible with the hardware being used.
+>> > >
+>> > > If IRQF_SHARED was set unconditionally, the user would not get an error,
+>> > > but most likely would get a system where no irq's were raised for the
+>> > > other chips. I sincerely believe that debugging this is much more
+>> > > painful than reading device-tree bindings.
+>> > >
+>> > > > Did I miss anything?
+>> > >
+>> > > I don't know. Maybe I am missing the obvious here.
+>> >
+>> > I consider the case when shared interrupt is enabled on both devices, but
+>> > second one (driver) missed the same IRQ flags. This becomes a warning in
+>> > IRQ core.
+>>
+>> Missed which IRQ flags?
+>
+> _LOW, for instance.
 
-Re-assert RK3568_LVDS0_P2S_EN in rk3568_lvds_poweron().
-rk3568_lvds_poweroff() clears MODE_EN and P2S_EN together, so setting
-P2S_EN once at probe would leave the parallel-to-serial converter off
-after the first disable/enable cycle.
+All devices sharing an interrupt really do need to agree on these
+flags. Do you known any drivers that does not specify the trigger type
+when requesting an irq?.
+You cannot share an interrupt line if not all devices have the
+same trigger mode. So if one device on a shared interrupt has _LOW, all
+the other devices need to have that. Not just the flags, but the actual
+triggering mode of the device. Some chips might support more than one
+mode, others only one specific mode.
 
-Use regmap_write() rather than regmap_update_bits() for the GRF. These
-registers are write-masked - the upper 16 bits select which of the
-lower 16 a write may change - so there is nothing to preserve and no
-reason to read first. Passing a FIELD_PREP_WM16() value as both the
-mask and the value of an update_bits() applies the masking twice and
-only works by accident.
+>> > Shared interrupts it's also a contract with all stakeholders on keeping
+>> > the same flags for all devices.
+>>
+>> Of-course.
+>>
+>> And adding IRQF_SHARED is a contract that says that the interrupt can be
+>> shared. I can only see that it would be a bug to add that flag in cases
+>> where we know that the interrupt really cannot be shared.
+>>
+>> As for the IRQF_TRIGGER_LOW flag being set, I think that looks correct
+>> as long as we do not support switching to active high irq polarity.
+>
+> No, it's not. It overrides whatever platform wants to have.
 
-Between the two, nothing needs programming at probe at all: the GRF is
-written entirely from the enable path, so px30_lvds_probe() is left
-alone rather than being refactored into a shared phy helper.
+The trigger type is not just a platform thing. It describes how the
+device behaves. Device that only support one triggering mode must set
+the flag that describes that. Devices that can be configured for
+different triggering modes can implement that, and should then configure
+the device for the chosen mode and set the flags accordingly.
 
-[1] https://lore.kernel.org/all/20230119184807.171132-1-a1ba.omarov@gmail.com/
+> It prevents PCB level designs from anything else.
 
-Co-developed-by: Alibek Omarov <a1ba.omarov@gmail.com>
-Signed-off-by: Alibek Omarov <a1ba.omarov@gmail.com>
-Signed-off-by: Rok Markovic <rok@kanardia.eu>
-Assisted-by: Claude:claude-opus-4-8
----
- drivers/gpu/drm/rockchip/rockchip_lvds.c | 161 +++++++++++++++++++++++
- drivers/gpu/drm/rockchip/rockchip_lvds.h |  10 ++
- 2 files changed, 171 insertions(+)
+Yes. In this case, the current driver does not support designs that
+requires the mma8452 compatible chip to be configured for active high
+irq trigger. We could and probably should address that.
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.c b/drivers/gpu/drm/rockchip/rockchip_lvds.c
-index 95fa0a9..f45d04a 100644
---- a/drivers/gpu/drm/rockchip/rockchip_lvds.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_lvds.c
-@@ -435,6 +435,133 @@ static void px30_lvds_encoder_disable(struct drm_encoder *encoder)
- 	drm_panel_unprepare(lvds->panel);
- }
- 
-+static int rk3568_lvds_poweron(struct rockchip_lvds *lvds)
-+{
-+	int ret;
-+
-+	ret = clk_enable(lvds->pclk);
-+	if (ret < 0) {
-+		DRM_DEV_ERROR(lvds->dev, "failed to enable lvds pclk %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = pm_runtime_get_sync(lvds->dev);
-+	if (ret < 0) {
-+		DRM_DEV_ERROR(lvds->dev, "failed to get pm runtime: %d\n", ret);
-+		clk_disable(lvds->pclk);
-+		return ret;
-+	}
-+
-+	/*
-+	 * Enable LVDS mode and the parallel-to-serial converter. These are
-+	 * write-masked registers, so a plain write only touches the bits named
-+	 * here; there is nothing to preserve and no need to read first.
-+	 */
-+	return regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
-+			    RK3568_LVDS0_MODE_EN(1) |
-+			    RK3568_LVDS0_P2S_EN(1));
-+}
-+
-+static void rk3568_lvds_poweroff(struct rockchip_lvds *lvds)
-+{
-+	regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
-+		     RK3568_LVDS0_MODE_EN(0) | RK3568_LVDS0_P2S_EN(0));
-+
-+	pm_runtime_put(lvds->dev);
-+	clk_disable(lvds->pclk);
-+}
-+
-+static int rk3568_lvds_grf_config(struct drm_encoder *encoder,
-+				  struct drm_display_mode *mode)
-+{
-+	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
-+	struct rockchip_crtc_state *s =
-+		to_rockchip_crtc_state(encoder->crtc->state);
-+	bool negedge = !!(s->bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE);
-+
-+	if (lvds->output != DISPLAY_OUTPUT_LVDS) {
-+		DRM_DEV_ERROR(lvds->dev, "Unsupported display output %d\n",
-+			      lvds->output);
-+		return -EINVAL;
-+	}
-+
-+	/*
-+	 * The LVDS block has its own dclk inversion select, separate from the
-+	 * VOP's pin polarity. Both have to agree with what the panel samples on.
-+	 */
-+	regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
-+		     RK3568_LVDS0_DCLK_INV_SEL(negedge));
-+
-+	/* Set format */
-+	return regmap_write(lvds->grf, RK3568_GRF_VO_CON0,
-+			    RK3568_LVDS0_SELECT(lvds->format) |
-+			    RK3568_LVDS0_MSBSEL(1));
-+}
-+
-+static void rk3568_lvds_encoder_enable(struct drm_encoder *encoder)
-+{
-+	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
-+	struct drm_display_mode *mode = &encoder->crtc->state->adjusted_mode;
-+	int ret;
-+
-+	drm_panel_prepare(lvds->panel);
-+
-+	ret = rk3568_lvds_poweron(lvds);
-+	if (ret) {
-+		DRM_DEV_ERROR(lvds->dev, "failed to power on LVDS: %d\n", ret);
-+		drm_panel_unprepare(lvds->panel);
-+		return;
-+	}
-+
-+	ret = rk3568_lvds_grf_config(encoder, mode);
-+	if (ret) {
-+		DRM_DEV_ERROR(lvds->dev, "failed to configure LVDS: %d\n", ret);
-+		drm_panel_unprepare(lvds->panel);
-+		return;
-+	}
-+
-+	/*
-+	 * Only now bring the D-PHY up. phy_power_on() runs the whole
-+	 * inno_dsidphy_lvds_mode_enable() sequence - PLL and bandgap power-on,
-+	 * a settle, PLL mode select, then a reset pulse of the serializer and
-+	 * the lane enables. All of that has to happen with the block already
-+	 * switched to LVDS mode in the GRF (above) and with the VOP's dclk
-+	 * running, because the serializer is clocked from dclk and latches its
-+	 * state out of that reset.
-+	 *
-+	 * Doing it at probe instead - as this driver used to - resets and
-+	 * enables the serializer against a block that is not in LVDS mode yet
-+	 * and has no input clock. Every register then reads back correct while
-+	 * the lanes sit at common mode forever. Rockchip's BSP orders it this
-+	 * way (GRF writes, then phy_set_mode + phy_power_on).
-+	 */
-+	ret = phy_set_mode(lvds->dphy, PHY_MODE_LVDS);
-+	if (ret) {
-+		DRM_DEV_ERROR(lvds->dev, "failed to set phy mode: %d\n", ret);
-+		drm_panel_unprepare(lvds->panel);
-+		return;
-+	}
-+
-+	ret = phy_power_on(lvds->dphy);
-+	if (ret) {
-+		DRM_DEV_ERROR(lvds->dev, "failed to power on phy: %d\n", ret);
-+		drm_panel_unprepare(lvds->panel);
-+		return;
-+	}
-+
-+	drm_panel_enable(lvds->panel);
-+}
-+
-+static void rk3568_lvds_encoder_disable(struct drm_encoder *encoder)
-+{
-+	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
-+
-+	drm_panel_disable(lvds->panel);
-+	phy_power_off(lvds->dphy);
-+	rk3568_lvds_poweroff(lvds);
-+	drm_panel_unprepare(lvds->panel);
-+}
-+
- static const
- struct drm_encoder_helper_funcs rk3288_lvds_encoder_helper_funcs = {
- 	.enable = rk3288_lvds_encoder_enable,
-@@ -449,6 +576,13 @@ struct drm_encoder_helper_funcs px30_lvds_encoder_helper_funcs = {
- 	.atomic_check = rockchip_lvds_encoder_atomic_check,
- };
- 
-+static const
-+struct drm_encoder_helper_funcs rk3568_lvds_encoder_helper_funcs = {
-+	.enable = rk3568_lvds_encoder_enable,
-+	.disable = rk3568_lvds_encoder_disable,
-+	.atomic_check = rockchip_lvds_encoder_atomic_check,
-+};
-+
- static int rk3288_lvds_probe(struct platform_device *pdev,
- 			     struct rockchip_lvds *lvds)
- {
-@@ -512,6 +646,22 @@ static int px30_lvds_probe(struct platform_device *pdev,
- 	return phy_power_on(lvds->dphy);
- }
- 
-+static int rk3568_lvds_probe(struct platform_device *pdev,
-+			     struct rockchip_lvds *lvds)
-+{
-+	/*
-+	 * Grab and init the phy, but do NOT power it on here - that is done in
-+	 * rk3568_lvds_encoder_enable() once the GRF is in LVDS mode and dclk is
-+	 * running. See the comment there. The GRF is not touched at probe
-+	 * either: every bit of it is programmed from the enable path.
-+	 */
-+	lvds->dphy = devm_phy_get(&pdev->dev, "dphy");
-+	if (IS_ERR(lvds->dphy))
-+		return PTR_ERR(lvds->dphy);
-+
-+	return phy_init(lvds->dphy);
-+}
-+
- static const struct rockchip_lvds_soc_data rk3288_lvds_data = {
- 	.probe = rk3288_lvds_probe,
- 	.helper_funcs = &rk3288_lvds_encoder_helper_funcs,
-@@ -522,6 +672,11 @@ static const struct rockchip_lvds_soc_data px30_lvds_data = {
- 	.helper_funcs = &px30_lvds_encoder_helper_funcs,
- };
- 
-+static const struct rockchip_lvds_soc_data rk3568_lvds_data = {
-+	.probe = rk3568_lvds_probe,
-+	.helper_funcs = &rk3568_lvds_encoder_helper_funcs,
-+};
-+
- static const struct of_device_id rockchip_lvds_dt_ids[] = {
- 	{
- 		.compatible = "rockchip,rk3288-lvds",
-@@ -531,6 +686,10 @@ static const struct of_device_id rockchip_lvds_dt_ids[] = {
- 		.compatible = "rockchip,px30-lvds",
- 		.data = &px30_lvds_data
- 	},
-+	{
-+		.compatible = "rockchip,rk3568-lvds",
-+		.data = &rk3568_lvds_data
-+	},
- 	{}
- };
- MODULE_DEVICE_TABLE(of, rockchip_lvds_dt_ids);
-@@ -601,6 +760,8 @@ static int rockchip_lvds_bind(struct device *dev, struct device *master,
- 	encoder = &lvds->encoder.encoder;
- 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev,
- 							     dev->of_node);
-+	rockchip_drm_encoder_set_crtc_endpoint_id(&lvds->encoder,
-+						  dev->of_node, 0, 0);
- 
- 	ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_LVDS);
- 	if (ret < 0) {
-diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.h b/drivers/gpu/drm/rockchip/rockchip_lvds.h
-index 2d92447..93d3415 100644
---- a/drivers/gpu/drm/rockchip/rockchip_lvds.h
-+++ b/drivers/gpu/drm/rockchip/rockchip_lvds.h
-@@ -121,4 +121,14 @@
- #define   PX30_LVDS_P2S_EN(val)			FIELD_PREP_WM16(BIT(6), (val))
- #define   PX30_LVDS_VOP_SEL(val)		FIELD_PREP_WM16(BIT(1), (val))
- 
-+#define RK3568_GRF_VO_CON0			0x0360
-+#define   RK3568_LVDS0_SELECT(val)		FIELD_PREP_WM16(GENMASK(5, 4), (val))
-+#define   RK3568_LVDS0_MSBSEL(val)		FIELD_PREP_WM16(BIT(3), (val))
-+
-+#define RK3568_GRF_VO_CON2			0x0368
-+#define   RK3568_LVDS0_DCLK_INV_SEL(val)	FIELD_PREP_WM16(BIT(9), (val))
-+#define   RK3568_LVDS0_DCLK_DIV2_SEL(val)	FIELD_PREP_WM16(BIT(8), (val))
-+#define   RK3568_LVDS0_MODE_EN(val)		FIELD_PREP_WM16(BIT(1), (val))
-+#define   RK3568_LVDS0_P2S_EN(val)		FIELD_PREP_WM16(BIT(0), (val))
-+
- #endif /* _ROCKCHIP_LVDS_ */
--- 
-2.43.0
+But that is a different issue than what I am doing here. And I don't
+have hardware readily available where this can be tested, so I would
+prefer to let somebody else do that.
 
+I am adding support for designs that require the mma8452 compatible chip
+to be configured for open-drain, while staying backwards compatible and
+allowing support for designs without external pull-up.
+
+In all cases, the driver should register the interrupt handle with the
+IRQF_TRIGGER_* flag that matches what the chip is configured for.
+I believe leaving it out is invalid.
+
+>> But on that topic, the chip actually supports selecting between active
+>> low and high irq polarity. Should we implement something along the lines
+>> of what is done in smi330_setup_irq() in iio/imu/smi330/smi330_core.c?
+>> And thereby allow using the device with active high irq?
+>
+> ...
+>
+>> > After looking into genirq code I don't see other way how to handle this.
+>> > It looks like we need to address the TRIGGER_LOW first, in other words
+>> > we need drop that flag when IRQF_SHARED is set, and leave it to users
+>> > to setup IRQ trigger properly on all sides.
+>>
+>> Why do we need to drop the IRQF_TRIGGER_LOW flag because IRQF_SHARED is
+>> set?
+>>
+>> Users as in those specifying the system device-tree?
+>
+> No, because like I said, the SHARED is a *contract*, it's not just a setting.
+
+Absolutely. That is the key here.
+
+IQRF_SHARED is a contract, where the driver promises to return IRQ_NONE
+if the interrupt is not for that device. This is already implemented
+by mma8452_interrupt().
+
+> And that contract includes the similarities on the IRQ flags. One may not
+> have two devices with different trigger level, it's a common sense,
+> right?
+
+Right.
+
+And that is exactly why we have to specify the IRQF_TRIGGER_* flag that
+the irq output is configured for. The driver will not switch to the
+desired trigger level based on what other devices on the same interrupt
+uses. You have to configure/specify the trigger mode and leve and set
+the IRQF_TRIGGER_* flag accordingly.
+
+> So, SHARED must exclude anything that comes from the platform description or
+> IRQ chip controller (limitations).
+
+Now you got me confused again. The IRQF_TRIGGER_LOW flag given to
+request_threaded_irq() is not coming from platform description or IRQ
+chip controller. It describes the trigger mode that the chip is
+excercising in the current implementation.
+
+The kernel would not know how to configure the IRQ chip controller, and
+in case of shared interrupts, would not be able to check that the
+devices sharing the interrupt is configured correctly.
+
+> So, without addressing that, it makes a little sense to add SHARED.
+
+Not true.
+
+Let me take my system here. I have multiple chips / irq sources
+connected to the same interrupt input on the CPU. They are all using
+level low triggering (which hardware and system engineers have ofcourse
+been observant enough to ensure).
+
+Without my change, the mma8452 driver does not support configuring the
+chip to use open-drain, so it will be pulling the interrupt line high,
+interrupting irq for all interrupt sources.
+
+With my change, I can now configure the device to use open-drain,
+register the interrupt, and everything works nicely.
+
+And the change is backwards compatible, as you have to specify
+drive-open-drain to switch from PP to OD.
+
+How does that not make sense?
+
+> I would accept this patch without adding SHARED, perhaps.
+
+Without IRQF_SHARED, I cannot use it with the hardware I have which are
+sharing the interrupt.
+
+> But still question why we can't use the OD instead of PP for the pin
+> to begin with?
+
+Because HW needs to be designed for OD. It is perfectly valid to design
+hardware that relies on the default mode of mma8452 and compatible chips
+to use PP. Switching to OD will not work for such systems without
+external pull-up.
+
+> Do we have real HW that uses IRQ input without a pull-up?
+
+I certainly have had such designs many times in the past.
+
+Why should we implement the driver so that we cannot support such valid
+HW designs?
+
+/Esben
