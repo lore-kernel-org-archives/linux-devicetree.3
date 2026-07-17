@@ -1,153 +1,160 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11020135.outbound.protection.outlook.com [52.101.193.135])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A54226CF6;
-	Fri, 17 Jul 2026 07:50:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784274648; cv=none; b=QKmIlUHPHqfvcGelzq/NH2lM5TEO/MKrL9vbUGcA0dwa1GPY9OR9zCiYhKI4gKRgnUDdM+DzWsxXerWbibSvtGmQLWdIiJi1tNKu/Hac2MuJUtIfWHE7UgVCH7IUKYd0YioiQhSNrKw7nzCHdwdltgqzrx16HzFUc8KPdJ867KQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784274648; c=relaxed/simple;
-	bh=kgAGybEsaOjp+xPWEc4RGfD+Mh0ktDu3vgeJIJ8nl3Y=;
-	h=MIME-Version:Content-Type:Date:Message-ID:Subject:From:To:CC:
-	 References:In-Reply-To; b=dvN7UJZPJx8nZsAFAzOr7RqNCGh7YkZDxrXlZbvBse0ZixNfGoFcRIIHwOeS5f6DhXMTnDpTfB3DQRUcsetsxC4aD3FkmPgugJ6jH/mAuEjugcpmbWo54nuIcqDyKUA416US+syDjewc0t3xvBvT4Ic671EEm0uq6f3NGEw5HL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=sCLm3amu; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E54F2E7F39
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 07:58:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.135
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784275089; cv=fail; b=grCIwg1tuX6IL4eXEENhQFNxSmOUFGtAC7qTWLNahhSAIRVd+DVulJPjiuqNM22fpLXzTKrwILPVco+phfygJblWmYJI4IKs0nLyoN2tvOYCJQ6jJH1pYeCWSqeJhlN8ftQ3vIuh225eEsinLmOsEcnuy0wF8MBufI5PMmI7um0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784275089; c=relaxed/simple;
+	bh=0fxfPfDHKV/K+Rt1TbWQAmjQPqFpbBoQkQaA7KHQWzA=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=nohvo0bowQ1nziWQUkVFb6u9SC9ieGI2sU7gsJ9QbMl3/ROkj2aq+Yc6sOSayVfGsLw+GX5sG9RSaFvzowNlT1bfMkF8ay1OHFsmjln8xp7NpgmukD6N2SIi4xilvAZfRv8Vnxolq+cUzYBIQfuGDl9LMDbEG22vCsMjjALKRLU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=HSa1udIC; arc=fail smtp.client-ip=52.101.193.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="sCLm3amu"
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66H6bC9O1510284;
-	Fri, 17 Jul 2026 03:50:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=4eeob
-	4l3AjjxjDVcQjSngGKQONDdDpbpdG/uhtKbDhU=; b=sCLm3amujfN0umhW0SEJb
-	xoX+bn49G9ICm+UUkunQOATB9X0MrrhpeIJDeqdcT2lhhWMSobifBdKs1XPfK//i
-	FtvRpaJVN89l/yLKHzU8Eg+mGgloijjilE8OHaS4aORakWAX7hxOX5aaXg0ye/Uv
-	KljK71Tkkdlo6f8qXzeHx5qGBY+M3M6o6nc82C1mJC/bRHjIw5eD4uMODIcA0zow
-	hMTNzmFIcgBkdHtgJlr6E2qJZET6EK9Lxnd+XKtFiYA2QuPTG2i9huDELNKXOawl
-	KEQ/qTXs89LKs5/J/AVzKx5otC0KcqVHkneb4EHPGkAWTgHiabBZ4rmljeFdMVB9
-	A==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4ffbpg1208-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 17 Jul 2026 03:50:35 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 66H7oY0x013146
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 17 Jul 2026 03:50:34 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Fri, 17 Jul
- 2026 03:50:33 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Fri, 17 Jul 2026 03:50:33 -0400
-Received: from localhost ([10.66.6.191])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 66H7oGAb008716;
-	Fri, 17 Jul 2026 03:50:19 -0400
+	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="HSa1udIC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rEbNfGRd0Aa/R4Y8D+R0/qzXaD5UXY2Zz5ncWzD6WfWEfd0P7HUiQ8xKLKUgNIJNndcWRywuy7zoBx7+doWvVXZ5kIF1Pn0wNiDSGAEDbzCtAuyRmoLih03WhxLrlnkEShVSKIZ8xgOqX5gyqSRyyxohlZn295cLLiYrWaiOQU9Aa+i3zjc1AKZDqvcrcuyB9EQXE7wj4FcQJ3cUs0phbXYpckfdYm/R2EG14sbjepL1iOpWZzu4McLtfPpokdivR2/NxtA9kc+K+sFxxH8rFZ43r3g/Ak1WqHZNBkleLTIPTXqKMpnyG6W9iMK/BpYXCQJ+ePogdyU9tRhZfEKF6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0fxfPfDHKV/K+Rt1TbWQAmjQPqFpbBoQkQaA7KHQWzA=;
+ b=Jn+Kq/zuQIAa2jbfXlrrWxyYO1jrf3pHekXrUpQSq3VWrDF0TAUKX5SFjvBsm9V6sscEU/W3K2PXPQgr0diBPLCN/jDanzF2hla7vALs5en4kkJ/b7Rug54yFS+o7rGg0c96dViHXOGg2yvIxDdiUmCQffEkRWPAMFGw82dPneb7FdnEelCB56pmQY8B2UmsDduMga2MNQIQQA661tl6Zx8wVZXQhX/aRkHWLSO7yLN6rzCr/9CJTPkXXyAAtbQW6wwz0YwxEdz9pWuto/wgW9pIgEKzpi+G1uAuHpU7nEbDri2de4zHHiZ4IMIgDMCngzd7kwImcjnjt7uDFzweZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
+ dkim=pass header.d=axiado.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0fxfPfDHKV/K+Rt1TbWQAmjQPqFpbBoQkQaA7KHQWzA=;
+ b=HSa1udICvhkmK9tXYcnxHxSrsV4JA1Khh8r0NNunNEdqSRAnXxnQTPzNgn3BkcMAFgH+eHw/pcQyyL9fWv9vri3R21vWfbgrx4sk2poiFEg0qNq5NN8lyhTfEAgnp3B9zkCavKVsbZ3Hbl2U6QCCFYynP+iX9bOvAiVG5Ypw6sgOXtKXCRaX054oFH4HBYo1G2WPj0HG1gzwjzpvruYnOp/3Zg6btP7SoXWf6ihB0ySKMABPH0nsq5pwI8nmtNhFrQJcqQfzAu9ZMhpEoe68qb5AQQ5hrOA1rl7tME0qiX6saPovGAUgVNfzemI0R1mZhUzcVNZc4NGI2Hgk7RK+Ig==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received: from BL1PPF1B62FD55C.namprd18.prod.outlook.com
+ (2603:10b6:20f:fc04::d8c) by LV3PR18MB5592.namprd18.prod.outlook.com
+ (2603:10b6:408:19e::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Fri, 17 Jul
+ 2026 07:57:54 +0000
+Received: from BL1PPF1B62FD55C.namprd18.prod.outlook.com
+ ([fe80::8726:2e55:848b:39e]) by BL1PPF1B62FD55C.namprd18.prod.outlook.com
+ ([fe80::8726:2e55:848b:39e%5]) with mapi id 15.21.0223.011; Fri, 17 Jul 2026
+ 07:57:54 +0000
+Message-ID: <c2cef6dc-fa0f-4c43-aa97-6c5952c9bc4d@axiado.com>
+Date: Fri, 17 Jul 2026 15:57:48 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/8] dt-bindings: gpio: cdns: add Axiado AX3005 GPIO
+ variant
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-i3c@lists.infradead.org,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, robh@kernel.org,
+ Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+References: <20260716-upstream-axiado-ax3005-upstream-v3-0-c429095143ec@axiado.com>
+ <20260716-upstream-axiado-ax3005-upstream-v3-2-c429095143ec@axiado.com>
+ <20260717040056.6BA971F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Swark Yang <syang@axiado.com>
+In-Reply-To: <20260717040056.6BA971F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TP0P295CA0039.TWNP295.PROD.OUTLOOK.COM (2603:1096:910:4::8)
+ To BL1PPF1B62FD55C.namprd18.prod.outlook.com (2603:10b6:20f:fc04::d8c)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Fri, 17 Jul 2026 15:50:08 +0800
-Message-ID: <DK0OK76VQ1QV.3U5B7UFI0UB9F@analog>
-Subject: Re: [PATCH 0/3] Add AD5710R/AD5711R DAC
-From: Kim Seer Paller <kimseer.paller@analog.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-CC: Jonathan Cameron <jic23@kernel.org>,
-        David Lechner
-	<dlechner@baylibre.com>,
-        =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
-        Andy
- Shevchenko <andy@kernel.org>,
-        Michael Hennerich
-	<Michael.Hennerich@analog.com>,
-        Rob Herring <robh@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Philipp
- Zabel <p.zabel@pengutronix.de>, <linux-iio@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux@analog.com>,
-        <devicetree@vger.kernel.org>
-X-Mailer: aerc 0.8.2
-References: <20260716-iio-ad5710r-upstream-v1-0-e848a4bb701f@analog.com>
- <alkbtNdOe__XP7ud@ashevche-desk.local>
-In-Reply-To: <alkbtNdOe__XP7ud@ashevche-desk.local>
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Authority-Analysis: v=2.4 cv=YqE/gYYX c=1 sm=1 tr=0 ts=6a59decb cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22 a=gAnH3GRIAAAA:8
- a=JQP-ejImbwYSbvTK7cUA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: cGro57Bd-sCOjAWCPAwWV1tXrC_DKXFO
-X-Proofpoint-ORIG-GUID: cGro57Bd-sCOjAWCPAwWV1tXrC_DKXFO
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDA3NyBTYWx0ZWRfXzcJAB6YK9v7k
- QCY3bPhsZnOJDZ+djcOc4gYDf81Z4pYdhMsw0S3HhYF6JEGGtdFDTyFRd0059GIA5GfR7mv1RPn
- rBH/igpoYlivZkdPYiamZGXJbP0n7dN2idVH/2gYgJKIP7SWmoEZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDA3NyBTYWx0ZWRfXxv/LOPEuRCPu
- 8lNrtecymB22qEaM6HcG4Dz9IgrD7YQkMt6fjy/UBfLXSIYfD2nWTJs2Z8rtW9UWj9mMbUmetLt
- DKhRFa4nckm25y8lbncy47ik7bxFgH8Pq9LNwbkpYvJasSR1Ql8JYEHsTlqdit4/uzu963Lb/vc
- Mn3zIYqm6ONifxnsWZZQIclB+7xoEirvU+VoQgBa/SCtBVNKStlMYxJs8AVW7qDy5g7CTwXkIaC
- dFs8u9aJk6LnW4UoZ8icBkG88rp1K6DlkWLc5U0bT0n0HpOlDhQhFT2HdN6bBa0XpG67cInXojy
- dDGkxH4e8W5XSrzokEK5uDQZkNH75PNkKGBsxLm1G+O08GmwSgrW+0uOHSFlHIt2NC/V8cXwcz4
- 8DadjirbR3ur6UjKyh2DJJUa14LAtgqCW4pIAapa/r7YPHdcoVTrko+G+vWvP5T+RlrAkWhMtK6
- XQ2zRdAkYqZ5rQXOA0w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-17_02,2026-07-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0 priorityscore=1501
- impostorscore=0 adultscore=0 clxscore=1015 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170077
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PPF1B62FD55C:EE_|LV3PR18MB5592:EE_
+X-MS-Office365-Filtering-Correlation-Id: 660ade65-3607-4499-e454-08dee3d91b28
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|10067099003|18002099003|22082099003|56012099006|3023799007|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	Csio3TUf5chu+mHY491lU4kK4XANk/pBUzC9QfBxJUMsqQM+FfCDprjvzmr/foDeQmLytjFWGLXYnIF0beVJBRUIl/vikBz5as41t7kA8IjRmICze3z8zC5KFMc1OFUzR2nt9YCuXt1n51eknsC1Rw/IIKCBv+h6JMyg5GiAXifI0HTcmgr6gNff43DB4TwfbNc6HLQAtDfDXgfXkSw/9rch3TdGLRZSXv8ZYpr72elgMg1k2BFxv/+K6JkdYrTyNkIRObK1ID5Cs+AqD7WUb2MkQAUhgG62VvL9VJhKJx1TXjp/cFUxV0uHUDQLwBP3YQ7xTVRybZ8NloxMnIwcHZvCRFJmImcC3CciYpprPcwMf6e90hJoAhrvMdpHw+S/qAURz4hAeCmWvb4qjCdms5tCqE/D+VYp8IDuVtz6ZxSO8WoM+1w18JIiIIIJayr6gI3QB+xp3kisJ9xWabMQ0cfJJpGDxU0dn8fuvU9I2A+lUhy9zCo6qybtGHuZREksFWKNpwKxfoDIdY8w2/XBXpF095X4ALwsyEUq1TgzKzorQ4LY+e3bkeBVWEnQNiQGG9qwhUvFUSd7h+w4yIka/7ZVRjQuo6rfRwDdfy89q/DzDipBPOL/BYo2qHtpYqlOJIONOKEnBDVwM72Jp4YQS8N1kUklkJSxSs838Us0XiY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PPF1B62FD55C.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(10067099003)(18002099003)(22082099003)(56012099006)(3023799007)(4143699003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RE8vSnJBTHNxd3E0MkxUbXMzTkJDVGlLLzduSytZUm84RE0ycjdUYW45TmlH?=
+ =?utf-8?B?aVY3TUcrLzlhMVdVdW05ZGR6aFVEOGRaOHVJaHo0cEpCNmhCWTJVUG5QdTdM?=
+ =?utf-8?B?eWxBNzE5aXlhS0dENzJ3MGxZZGFkeFJWbEYvelh6VlUzQWNhSk1RVldVb0Ez?=
+ =?utf-8?B?amtBVUh1R3E3UjF6dXU2WW01ZVQvZDRGN09OdXFXVU0rQnFwMlB0OEo0dFBE?=
+ =?utf-8?B?a2M4TkFyK2d6V296N0J5RWVYamZ6Q2Nwak1lRHA2cGlGNldzQjlIaGJEVEx2?=
+ =?utf-8?B?Und5SXYwbEJnTHlsWVpNZFBrZE14bGdnS0hrMTErNkFBb2V6cU9saEEzN29R?=
+ =?utf-8?B?NXVSVjNlWTMwN3JncCtUUnF4aGlrYzZrNjd2bmwwdnVUUG4zTkxRQ1FZNmhC?=
+ =?utf-8?B?Y0psTFpLdjlmeUpaS0NvM20yYUJaOTg5czVnSkhzOG04U0RkMFJPT3FqT1c0?=
+ =?utf-8?B?RnBaRVhCT2M3eXN4UmJTMDRMY1YwaHVRYUliQUxqN0Q3MWpUSklBalJnb3F4?=
+ =?utf-8?B?d25rSkI0QnRtTURsdmdXUExLNXNIMWlOUlprTGpYb29qUXlLMjlPdXhmOFZz?=
+ =?utf-8?B?Q25Sd0JxU3g5S01kWldoa2NTVGNMWlJpZ1VYVUNzWGpTTzE5a2lmeHp2a0pU?=
+ =?utf-8?B?aWFjSGhueXg3Ny9NZG16LzAvQmFjTUlNVEd5V1BQMS9Xdi96ZlMyYzlzSkJ5?=
+ =?utf-8?B?a292bWYzWlhmV1JrZUs2Qzdib2dTYnRHVE5pcDNZT3J0K3Yva1BEcFZqN3BV?=
+ =?utf-8?B?a1NMVTd5WHJZVUd4V2V3TzNQa1B1TDRHSDk0NzVGT2dMb0pqZTdmN2MxZSs3?=
+ =?utf-8?B?NlJhVHFjQUQvL1laY05LWCtFZlVNbG9lZmJpOUFFOTd3dngvZ2g3eHcxUkMy?=
+ =?utf-8?B?MkdJanJORi9ZYzJCNWtFM2YwZWw1blc3M0RFSU9nbWFUUHB1dnlzOStwZ0xF?=
+ =?utf-8?B?V3FYd1pUazN5ZHAwNGNHaVlES0ttN3VDb1BsY1BWOEpHQ2NTRjh5bGJVYndk?=
+ =?utf-8?B?aGVyalY0TGlDTnBHRnNyMlpJbVEzZ1NNSytmbXc1WTlSS2ludjVKQkZyUnFl?=
+ =?utf-8?B?R1ZoQU1ycjNzd0J3OXB0dy9pT0ZPZlhIQS9YcTl6MG43ZlhHdGxvS2Z1MVJl?=
+ =?utf-8?B?SytpWXBxREtLb1lGYmJ6ZGo5TDE3bGNpR0hqWEtEK2k4c08wTEo0Z0hxTkNl?=
+ =?utf-8?B?U3lraXlQOUdQUjlndTFYTExvODNQZkx6dWEwMW43YkRndUIvQW5xQjA4ZU52?=
+ =?utf-8?B?Y240SzMwMk1PbVoramJjZTBZOWVUZGFPYllEVnhkR0EybStNeTR3VFo4ZlFi?=
+ =?utf-8?B?UHJtdndwMnBEc2QxSnFSaWpqcjhBdjc5SWphRkpWUUxPZ3E2bWZxK01zMmlk?=
+ =?utf-8?B?L1RPMVJwbjhSL0V4RDFPTlRFLzZ6U3pmSXpCbnpCYUFidUw0clZiTDRvQ0tn?=
+ =?utf-8?B?dGFVWDBEUVRFYVBJZ205b0QzOWUzOXhWbkk3ZUZTRVg5TmJtYmwwY3l3MW9Q?=
+ =?utf-8?B?ZitBLy9nUDBqWit3Q1BFVkgwUFovbzFPSU1MckFXb3JPZ1ltQjRkL1cyazB1?=
+ =?utf-8?B?Wm5wNkt2UTdCWnJqS1ZwQ1RMMVhIK1N4aVFjRk5PUWE0dVV1cW9CeExSNXVJ?=
+ =?utf-8?B?RUVqZXRpRHpTb2tmNitzZmZqaDdJZWk5Mk5PUFUwc3dUVmwzZXFObFQwOGdr?=
+ =?utf-8?B?OVZUc29ZeXJnUlJKRERicURvTlBsL1h5SHdhT0Z0cXpydDloOGFjU0tWazcr?=
+ =?utf-8?B?d0NxNHBhRk1nc3VNUTQzVlUvdWpUbktlU0RLME11VmNmMEwzYlIvcVJiQWpp?=
+ =?utf-8?B?YzlKTk82NWs0bDY5dW5YNSttWDFXdjI5ZjkzTHUvaGVqQTZPZDMvc2dCU2dE?=
+ =?utf-8?B?bnl0cEJ2aFlUNlphM3NMN3hWZHRqWjhKaXFLT0RNT2xyTGtKbC9ZQ01Bc1Vm?=
+ =?utf-8?B?blZKczB5bEtMN0k1QjFoaE45NWRkWU4wN0gvVnhVcm1iNi92Wko5MmxOV0tM?=
+ =?utf-8?B?NzI3UXArMGhNd0kyYUJuTENjaXhhWld1SGJDQUdRUnVZWHhoQWl5VllxVGky?=
+ =?utf-8?B?NS9aeUg0N2pXOE9laHphRG40MlIveksxU0N2a1VnQi9TbWx2YWZOanFCYnE1?=
+ =?utf-8?B?alBUZi93cVZVak1sNU8rL3ZIVVVpOWpRZXVOcFl5bDh6WGh6YU1mNHM5bmhG?=
+ =?utf-8?B?MFkyN3BIK2tCVERESHhqL1VpRUJ0ZEVsU1FMbXNiNk9jSVYreVIvWVRFblJ3?=
+ =?utf-8?B?WmxuSFdtdXhpTHA0WTF3RExFVmJpNlJoMEpWMnQyajlYTUdqOWVSWE5CNHJT?=
+ =?utf-8?B?bVRkRFRicWIxZUFOYmRwc2RLVWR2RXM3UUQvazJTNnBNTmdFSE15Zz09?=
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 660ade65-3607-4499-e454-08dee3d91b28
+X-MS-Exchange-CrossTenant-AuthSource: BL1PPF1B62FD55C.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 07:57:54.1745
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: I0OUaPyQeCF3STSHJpOISVHSXTXfadAXvsQJ/lXaSxqDXgTpSis9nW247dYAPGLpycAUWE8PboIZZRArGAc8Ew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR18MB5592
 
-On Fri Jul 17, 2026 at 1:58 AM PST, Andy Shevchenko wrote:
-> On Thu, Jul 16, 2026 at 03:59:24PM +0800, Kim Seer Paller wrote:
-> > The AD5710R (16-bit) and AD5711R (12-bit) are 8-channel, low-power,
-> > configurable current/voltage output DACs with an on-chip 2.5V reference=
-.
-> > Each channel can be independently configured as a voltage output
-> > (0V to VREF or 0V to 2xVREF) or a current output (0mA to 50mA).
-> >=20
-> > This series adds support for these parts:
-> >  - ABI documentation for the high_z powerdown mode and the current-outp=
-ut
-> >    powerdown attributes
-> >  - device tree bindings for the AD5710R/AD5711R
-> >  - basic IIO DAC driver, supporting per-channel voltage/current output
-> >    selection, per-channel powerdown, software or hardware (LDAC) DAC
-> >    updates, optional output range doubling, internal or external
-> >    reference, and hardware reset (with a software-reset fallback).
->
-> Why a brand new driver?
+On 7/17/2026 12:00 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] The schema enforces a 3-item compatible string chain that unintentionally forces AX3005 devices to inherit an AX3000-specific driver quirk, contradicting the commit message.
+> --
 
-After looking more closely, the register map is the same as the AD3530R fam=
-ily.
-I originally kept it separate because of the functional differences: per ch=
-annel
-VDAC/IDAC selection described in device tree via adi,ch-func, selectable 12=
-/16 bit
-resolution, and current output path. But those can be fit the existing chip=
-_info
-abstraction. Given that, I'm leaning toward extending ad3530r to support th=
-e
-ad5710r/ad5711r and dropping the standalone driver. Does that direction wor=
-k for
-you? If so, I will do it in v2.
+Thanks for the report.
 
->
-> > Datasheet:
-> > https://www.analog.com/media/en/technical-documentation/data-sheets/ad5=
-711r-ad5710r.pdf
->
-> --=20
-> With Best Regards,
-> Andy Shevchenko
+To clarify, the 3-item fallback in the code is intentional and correct.
+The AX3005 GPIO block is fully compatible with the AX3000 implementation
+and indeed requires the exact same driver quirks (such as the specific
+direction mode and output enable handling).
 
+The issue is just a poor description in my commit message. It should
+have been worded as follows:
+"Add binding for the Axiado AX3005 GPIO controller. The AX3005 GPIO
+block is fully compatible with the AX3000 implementation and requires
+the same driver quirks. Therefore, it is added with a fallback to the
+'axiado,ax3000-gpio' compatible string, which in turn falls back to the
+generic 'cdns,gpio-r1p02'."
+
+I will hold off on sending a v4 just for this commit message update to
+avoid unnecessary noise on the list. I'll wait for further review
+comments on the rest of the series and will include this updated message
+if a v4 re-roll is needed.
+
+Best Regards,
+Swark
