@@ -1,61 +1,63 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB7463A9852
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 06:55:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F8C3CF1FC
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 06:55:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784271311; cv=none; b=M3EGny37910iLIIm2LFYWwEgd5zQlbAa/eklC7YL1dV3X5wvXV0LpbyySQDwDZ4BPf0IDGKsEwBpEMlv8Pu1dwwtsfnwoCkhfSOPfsxuNVenO8gwiwIIPY+oLzRgQ/AbKnrxEPXbYI0VtWY72aRRIJ30zcFk6VNvBP1VHbUQ/yQ=
+	t=1784271314; cv=none; b=hwyXPzPk8IZvhEqhw+GdxqPhGpF/xybCRquuZk/HaC7weGHvf9GRrvZWpknhajoZ7vWW4z1QYs3GBo887qFOvDhF+nTPbBVbILNb6ZiT5+J5k1bcq8AfwAjKXdLKtBsqdLIW4bzpcuOMBbb4nwF177OMBN6CxRDcD3D8x2AaJQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784271311; c=relaxed/simple;
-	bh=JETqst9Fon2crKtqIHNEcl7ls3EvP5xzuBOxhJMVC3w=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=jGin814/LyiPpJNt7aVkkodNAGUyp81D5zUX/aScqwQw2M6SSTbnvvdpintKxrFLwaNV+BM6YVBvzof3rdtM1F+43cDgpVGwUC4pOYzT/kXmrG3r3Bz5CaLpTGPlX/85x0VVZJYXw76kjd09eyonr9V+Pq5EF+xWiBXeEFc45X8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IMxEXDRq; arc=none smtp.client-ip=209.85.128.49
+	s=arc-20240116; t=1784271314; c=relaxed/simple;
+	bh=CJvqDLmPG24fOFkd+XITnf0C1yZg7Dy1/8JZEY/tTGY=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UHNz2/4kX/2kQx5H9L/3RfhqaX4rtkxdZ7h96DHCqp7PGEc//cic+OsYBTpwwZs/NPc8cECmh8L31ebCo0EDXOsrOsrbiD/3g95/bTm+HbkKWqhLimN01qeam/ZQ2yhmS+zQfzWV9Ly3/rnE02zIwm7t6pnVAzNH90KqQlIRch8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NCzExuBw; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IMxEXDRq"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-493f45e20cdso43363425e9.2
-        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 23:55:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NCzExuBw"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-495437bb891so8431625e9.1
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 23:55:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784271308; x=1784876108; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xUKU1D5cUN0Qg6xvLwdian0LsUeuBf5DwRzyt6yTiC8=;
-        b=IMxEXDRqUj5caI+fd1AvZexUWkUXD1iEf1rzgFSwIepNKLrbPxMRH2wEeIEK+bymOS
-         Cpq+heTNxoqb1NLvcB5MqfSrM+gdnUsoyqfD4qhlmJb/AMwIAObsfx949tD0UPj6Rx7m
-         IjURku2ZkGRs0DJ4NZ7zwSY5orCDW+HAihMeScL4mUmGSZ9iVqZ5540BFaJLjoTnX19Y
-         tgkf+3oucYJAGHwsOtU+PlQ4W+rE71Caonm69t58h6nHG2xh8td1DDKt9ok4h5TDpdPH
-         ekgzvCNsyXQmqbfopDhPgiXENLFLyetKZQZgW8NsEsi9gpx39zIswPexCXvvsE82eVYd
-         4yBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784271308; x=1784876108;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=gmail.com; s=20251104; t=1784271310; x=1784876110; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=xUKU1D5cUN0Qg6xvLwdian0LsUeuBf5DwRzyt6yTiC8=;
-        b=G0p8/+wt7l7tfcJzGXHNa0JyFDXAo+OW4zlxW5SZBLUn6WLBj0DModvRXA8Tkm2gOZ
-         8hBkVyk85nlJojyCGjQURXxRhEyr6CsJzUktHrCWr+L2+qxIsiE9NmI0tSNO++mAjaRB
-         1gImR8v8FXjdSuWPJtX1+nTn51+l6LRyyyV8hxVnsL2edvbKP3R+zb/JdL6GzVyxc3/v
-         aAA7eKJcFicZQjsmTqtJeMx7iqYjSGAp0t+sIClC1vgA7u1ff0cUTTUm+6LhyMVPi1f5
-         2Omjo361R36Ksol2geSXJZIG9Auzax0DUWqMDHVFhJXAqkWF4E1uxY4l57iWpYW7FJU+
-         AQpw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp63FdzURmzdA7441nnCbCO2+jk+e+Na5Vrv6CHm4BRQ7Gftpjxs1r+eh2U1rB0sQoeC8dQBq3WMXR8@vger.kernel.org
-X-Gm-Message-State: AOJu0YzhkjXXjmErW0QkZH/P+GYmC1ap1hz8c9wwx7XNDJHrxdDdBU5F
-	4SvkvPsSWagF1HYFrzN5M89gboOwU5S5ffjd1v+9k/OWKpZY3aNUUneG
-X-Gm-Gg: AfdE7ckJ5ubA0ilfg2orGZGVhi+SoxD24J4Xf2jKbf99chC0h9eXzPCDIsmO2W50EXE
-	shsAYV37Qar1FSmqlkbNzqUjOKVQsJmYyNbBi1qotgnHWRc9RnDzHGOInf+tY1fIxN5bkwmWxGw
-	Jqc9kUkqHO4ERJwsFkMPuWnKGOzpXDS0dynqW1t2lXR5ggVl7gK/slXbchfYI04e66EmBLL0iII
-	Iq3iHMooqfMR6UlaPwOUdEfZdfCEh5CHqD8DP6gWQ8JXRtP+/Os/cam4FyKnLGSMERCNjL0kD2E
-	vpOY/JaPGEQWjXFZ4Y8VRW/vNGkHAc/ihmDtuyHw+HMTGO5vTd/0StdVtiFGJBFzxYUXBKsyO/f
-	yWiaY6e/Rmd+KE0fdBRel6ZJBpZlAXEMxTFuEz+9AJXWKXVtSiw8O91oxB0TEdFp+8Q9vdaPnOx
-	pCG7JOjaZpGf48O75zp248Nz3WylJYvFgXf+6peXezyqWP1RKeje/wF6W36jeAVlZE5wtG3A==
-X-Received: by 2002:a05:600c:154e:b0:495:405c:38d3 with SMTP id 5b1f17b1804b1-4954a3df9f9mr16057155e9.9.1784271307739;
-        Thu, 16 Jul 2026 23:55:07 -0700 (PDT)
+        bh=Z0uRZpPkHTFGQEhRIP55ce7iIYoUNOFMFnyc5qdnNIQ=;
+        b=NCzExuBw4t94AXqZENzfcDW+JjAVn3t9S6dFw2i8hkdLyFVsFHTGg86vymG52fb9By
+         kb2sGDxlioN/zLVOPGpt3trY1nDZyRoXK9t5OlqR6f5RhyuQmVkqb6Flxq0lmIoP0JQk
+         S6o6LJjlODf761azulKh4XydJFIp2t2iT4o32BXi2cBrekYQ8N0PskmOcdXAtkc9JV3t
+         yBO5Bmbjw2YoDrufcuVkbpo1F4HsX76or8PPuEJ95j0PRfad6FxvjXhKyI51ayZC7AiC
+         VpIabpFyIeO+CYZ8ntF6wJMOgB0f23OAWqO//FS2qKNrXNWsWOFzPtQUYcpXSlb+8+sD
+         JJFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784271310; x=1784876110;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Z0uRZpPkHTFGQEhRIP55ce7iIYoUNOFMFnyc5qdnNIQ=;
+        b=M/ZVaEYH+jhZfB5IglcMUqhwn1rBWSs8kyjdmuN+LS361tRzfSH+PfkjpF5Zhu0FLF
+         OUX6K61LoT+C0GTzso8fF7WoBO+r+JEA9okoI5xpNkOxV1i/S3UiAiKbwK6bSwl847bM
+         ojq0+hY8XrF48MexS6ADSWtPKeCHRi9qknPcDrnO8A+RM5KSIZXM6FZnCx0bcMj9+ETu
+         EaG5mgqERS6xKMhlqYImGhyZ8zled9xFCF0ReC0lSuGyxV+Hh+czqv9uOrSnWGQcEeHn
+         jKC6/4dVEqGeaS5XfZLF7Qenv95/5k1NKTE1Bwz1OBPrm6zJbTi4dND3N6jZl2x2G+Ls
+         mjLg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro5ZgAUWGH7pJnsKgGRHAaJshGIM569jrxewCesh1PnzcLchpQ7U2+0FRhPCrt5GkiZZa1btX+AEUEl@vger.kernel.org
+X-Gm-Message-State: AOJu0YwBp9SlFnxBeVZPrKlcVjz4OAYY1+QABGnHuqanSXE1zozmTluW
+	9nPixEksjrVQjXfDKCWPDCtdFG91fdWWihWcvwmw59uiyINGlRdCC9VF
+X-Gm-Gg: AfdE7ckBK1FlNNt4KyVubDjfKGUGczxL/erJfV0DSZ+llWNDecpfCUxxjdzzZ1LQKZ6
+	h7echYFyd7Cu5d4yLfkEadoyqnsAuLNub+F4cG3eWLozB1Qvs1NFdzQq6Ts8P2ztToSrD0Cr37K
+	6ckmYWJDffSJoEVk8GMeT3XtCni0bvsTr/laUQZo14v378t4kLJptU00JNWRY0NH0TXqTd1W860
+	pJ5QgPDO5skWyiyfx64AjCj6Nx8qaKmvGebpgHMt15ZJUemaEgAAuOu4WFbaeD5G0dImt34SUPU
+	9d65+6DV7GXWAi5qHFlwq1VXWmCSXyMIGoXvA1T9vrCP3zUdydHPXNNGPT+vh0fjU89DNCUMTCI
+	x7Vq9q4W+DlxFRxI0cthBGOsqAOfTaUI9cr/vGfoh2xpjdgO2MNgtWHjN5SbOesKbUoug8dhF7Y
+	dZN67i10VX9N07xompSBV6spRl9fTgJcUMlPol2KPk/ZbSieBhDa5ggGxyEopZFyTYRR4+PQ==
+X-Received: by 2002:a05:600c:a210:b0:493:c566:7bd6 with SMTP id 5b1f17b1804b1-4954a341bcdmr7403935e9.18.1784271309770;
+        Thu, 16 Jul 2026 23:55:09 -0700 (PDT)
 Received: from Ansuel-XPS24.localdomain (host-95-248-227-210.retail.telecomitalia.it. [95.248.227.210])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-495499f3f99sm24260835e9.0.2026.07.16.23.55.05
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-495499f3f99sm24260835e9.0.2026.07.16.23.55.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 23:55:07 -0700 (PDT)
+        Thu, 16 Jul 2026 23:55:09 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -81,10 +83,12 @@ To: Andrew Lunn <andrew+netdev@lunn.ch>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org,
 	Maxime Chevallier <maxime.chevallier@bootlin.com>
-Subject: [PATCH net-next v9 00/12] net: pcs: Introduce support for fwnode PCS
-Date: Fri, 17 Jul 2026 08:54:00 +0200
-Message-ID: <20260717065448.1498335-1-ansuelsmth@gmail.com>
+Subject: [PATCH net-next v9 01/12] net: phylink: keep and use MAC supported_interfaces in phylink struct
+Date: Fri, 17 Jul 2026 08:54:01 +0200
+Message-ID: <20260717065448.1498335-2-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260717065448.1498335-1-ansuelsmth@gmail.com>
+References: <20260717065448.1498335-1-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -93,234 +97,105 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series introduce a most awaited feature that is correctly
-provide PCS with fwnode without having to use specific export symbol
-and additional handling of PCS in phylink.
+Add in phylink struct a copy of supported_interfaces from phylink_config
+and make use of that instead of relying on phylink_config value.
 
-At times there were 2 different implementation (this and the one
-from Sean) but Sean agreed that this can be picked and used in favor
-of his implementation as long as his case with race condition is
-correctly handled.
+This in preparation for support of PCS handling internally to phylink
+where a PCS can be removed or added after the phylink is created and we
+need both a reference of the supported_interfaces value from
+phylink_config and an internal value that can be updated with the new
+PCS info.
 
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 ---
-First the PCS fwnode:
+ drivers/net/phy/phylink.c | 22 +++++++++++++++-------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
 
-The concept is to implement a producer-consumer API similar to other
-subsystem like clock or PHY.
-
-That seems to be the best solution to the problem as PCS driver needs
-to be detached from phylink and implement a simple way to provide a
-PCS while maintaining support for probe defer or driver removal.
-
-To keep the implementation simple, the PCS driver devs needs some
-collaboration to correctly implement this. This is O.K. as helper
-to correctly implement this are provided hence it's really a matter
-of following a pattern to correct follow removal of a PCS driver.
-
-A PCS provider have to implement and call fwnode_pcs_add_provider() in
-probe function and define an xlate function to define how the PCS
-should be provided based on the requested interface and phandle spec
-defined in fwnode (based on the #pcs-cells)
-
-fwnode_pcs_get() is provided to provide a specific PCS declared in
-fwnode at index.
-
-A simple xlate function is provided for simple single PCS
-implementation, fwnode_pcs_simple_get.
-
-A PCS provider on driver removal should first call
-fwnode_pcs_del_provider() to delete itself as a provider and then
-release the PCS from phylink with phylink_release_pcs() under rtnl
-lock.
-
----
-Second PCS handling in phylink:
-
-We have the PCS problem for the only reason that in initial
-implementation, we permitted way too much flexibility to MAC driver
-and things started to deviate. At times we couldn't think SoC
-would start to put PCS outside the MAC hence it was OK to assume
-they would live in the same driver. With the introduction of
-10g in more consumer devices, we are observing a rapid growth
-of this pattern with multiple PCS external to MAC.
-
-To put a stop on this, the only solution is to give back to phylink
-control on PCS handling and enforce more robust supported interface
-definition from both MAC and PCS side.
-
-It's suggested to read patch 0003 of this series for more info, here
-a brief explaination of the idea:
-
-This series introduce handling of PCS in phylink and try to deprecate
-.mac_select_pcs.
-
-Phylink now might contain a linked list of available PCS and
-those will be used for PCS selection on phylink_major_config.
-
-MAC driver needs to define pcs_interfaces mask in phylink_config
-for every interface that needs a dedicated PCS.
-
-These PCS needs to be provided to phylink at phylink_create time
-by setting the .fill_available_pcs and .num_possible_pcs in phylink_config.
-Helpers to parse PCS from fwnode are provided
-fwnode_phylink_pcs_count() that will return the count of PCS entries
-described in the firmware node and fwnode_phylink_pcs_parse() that will
-fill a preallocated array of PCS pointer with the actual available PCS
-(ignoring the one that still needs to be probed).
-
-phylink_create() will fill the internal PCS list with the passed
-array of PCS. phylink_major_config and other user of .mac_select_pcs
-are adapted to make use of this new PCS list.
-
-The supported interface value is also moved internally to phylink
-struct. This is to handle late removal and addition of PCS.
-(the bonus effect to this is giving phylink a clear idea of what
-is actually supported by the MAC and his constraint with PCS)
-
-The supported interface mask in phylink is done by OR the
-supported_interfaces in phylink_config with every PCS in PCS list.
-
-PCS removal is supported by forcing a mac_config, refresh the
-supported interfaces and run a phy_resolve().
-
-PCS late addition is supported by introducing a global notifier
-for PCS provider. If a phylink have the pcs_interfaces mask not
-zero, it's registered to this notifier.
-
-PCS provider will emit a global PCS add event to signal any
-interface that a new PCS might be available.
-
-The function will then check if the PCS is related to the MAC
-fwnode and add it accordingly.
-
-A user for this new implementation is provided as an Airoha PCS
-driver. This was also tested downstream with the IPQ95xx QCOM SoC
-and with the help of Daniel also on the various Mediatek MT7988
-SoC with both SFP cage implementation and DSA attached.
-
-Lots of tests were done with driver unbind/bind and with interface
-up/down also by adding print to make sure major_config_fail gets
-correctly triggered and reset once the PCS comes back.
-
-The dedicated commits have longer description on the implementation
-so it's suggested to also check there for additional info.
-
-It's worth to mention that OpenWrt is currently using this on
-Mediatek SoC and QCOM ipq807x/ipq60xx/ipq50xx and Airoha are
-already ported in staging tree for testing.
-
----
-
-Changes v9:
-- Rebase on top of net-next/main
-- Drop early verification of supported_interface
-  (it can also be provided by get_capabilites MAC OP)
-Changes v8:
-- Back to RFC (net-next closed)
-- Address additional bug reported by Sashiko bot
-  - Better handle priv interface for Airoha PCS driver
-  - Better handle locking for modifying the PCS list in
-    phylink code
-  - Improve fwnode_phylink_pcs_parse() parsing on -ENOENT
-  - Better handle error condition in phylink_create()
-  - Turn down the link when current PCS is released
-- Fix compilation warning caused by copy paste error
-Changes v7:
-- Address all the bug from the Sashiko bot
-- Rename .num_available_pcs to .num_possible_pcs
-- Link PCS in phylink_create()
-- Correctly unregister the notifier on phylink_destroy()
-- Introduce fwnode_phylink_pcs_count()
-- Better handle locking in phylink for PCS handling
-- Better handle unavailable PCS at phylink_create() time
-- Improve Documentation file
-- Other minor fixes to address suggestion from bot
-- Rebase on top of net-next
-Changes v6:
-- Rebase on top of net-next
-- Add Documentation files
-- Add fw_devlink patch
-- Fix some comments typo
-- Rework the airoha_eth.c implementation with new multi serdes code
-- Extend PCS code with PCIe and USB support
-- Align schema to new property
-Changes v5:
-- Rebase on top of net-next
-- Use the new force_major_config
-- Reword some comments and commit description
-- Return -ENODEV instead of -EPROBE_DEFER to perevent race condition
-- Drop phy_interface_copy patch (Russell pushed an equivalent version)
-Changes v4:
-- Move patch 0002 phy_interface_copy to 0002 (fix bisectability
-  problem)
-- Address review from Lorenzo for Airoha ethernet driver
-- Fix kdoc error with missing Return (actually missing : before Return)
-- Fix UNMET dependency reported error for CONFIG_FWNODE_PCS
-- Revert to pcs.c instead of core.c (due to name conflict with other kmod)
-- Fix clang compilation error for Airoha PCS driver
-- Add missing inline function to pcs.h function
-Changes v3:
-- Out of RFC
-- Fix various spelling mistake
-- Drop circular dependency patch
-- Complete Airoha Ethernet phylink integration
-- Introduce .pcs_link_down PCS OP
-Changes v2:
-- Switch to fwnode
-- Implement PCS provider notifier
-- Better split changes
-- Move supported_interfaces to phylink
-- Add circular dependency patch
-- Rework handling with indirect addition/removal and
-  trigger of phylink_resolve()
-
-Christian Marangi (12):
-  net: phylink: keep and use MAC supported_interfaces in phylink struct
-  net: phylink: introduce internal phylink PCS handling
-  net: phylink: add phylink_release_pcs() to externally release a PCS
-  net: pcs: implement Firmware node support for PCS driver
-  net: phylink: support late PCS provider attach
-  net: Document PCS subsystem
-  MAINTAINERS: add myself as PCS subsystem maintainer
-  of: property: fw_devlink: Add support for "pcs-handle"
-  net: phylink: add .pcs_link_down PCS OP
-  dt-bindings: net: pcs: Document support for Airoha Ethernet PCS
-  net: pcs: airoha: add PCS driver for Airoha AN7581 SoC
-  net: airoha: add phylink support
-
- .../bindings/net/pcs/airoha,pcs.yaml          |  261 ++
- Documentation/networking/index.rst            |    1 +
- Documentation/networking/pcs.rst              |  229 ++
- MAINTAINERS                                   |    9 +
- drivers/net/ethernet/airoha/Kconfig           |    1 +
- drivers/net/ethernet/airoha/airoha_eth.c      |  194 +-
- drivers/net/ethernet/airoha/airoha_eth.h      |    7 +-
- drivers/net/ethernet/airoha/airoha_regs.h     |   12 +
- drivers/net/pcs/Kconfig                       |    8 +
- drivers/net/pcs/Makefile                      |    3 +
- drivers/net/pcs/airoha/Kconfig                |   12 +
- drivers/net/pcs/airoha/Makefile               |    7 +
- drivers/net/pcs/airoha/pcs-airoha-common.c    | 1324 +++++++++++
- drivers/net/pcs/airoha/pcs-airoha.h           | 1311 +++++++++++
- drivers/net/pcs/airoha/pcs-an7581.c           | 2093 +++++++++++++++++
- drivers/net/pcs/pcs.c                         |  261 ++
- drivers/net/phy/phylink.c                     |  366 ++-
- drivers/of/property.c                         |    2 +
- include/linux/pcs/pcs-provider.h              |   41 +
- include/linux/pcs/pcs.h                       |  140 ++
- include/linux/phylink.h                       |   30 +
- 21 files changed, 6261 insertions(+), 51 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/net/pcs/airoha,pcs.yaml
- create mode 100644 Documentation/networking/pcs.rst
- create mode 100644 drivers/net/pcs/airoha/Kconfig
- create mode 100644 drivers/net/pcs/airoha/Makefile
- create mode 100644 drivers/net/pcs/airoha/pcs-airoha-common.c
- create mode 100644 drivers/net/pcs/airoha/pcs-airoha.h
- create mode 100644 drivers/net/pcs/airoha/pcs-an7581.c
- create mode 100644 drivers/net/pcs/pcs.c
- create mode 100644 include/linux/pcs/pcs-provider.h
- create mode 100644 include/linux/pcs/pcs.h
-
+diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+index 59dfe35afa54..3464e3ec5699 100644
+--- a/drivers/net/phy/phylink.c
++++ b/drivers/net/phy/phylink.c
+@@ -60,6 +60,11 @@ struct phylink {
+ 	/* The link configuration settings */
+ 	struct phylink_link_state link_config;
+ 
++	/* What interface are supported by the current link.
++	 * Can change on removal or addition of new PCS.
++	 */
++	DECLARE_PHY_INTERFACE_MASK(supported_interfaces);
++
+ 	/* The current settings */
+ 	phy_interface_t cur_interface;
+ 
+@@ -628,7 +633,7 @@ static int phylink_validate_mask(struct phylink *pl, struct phy_device *phy,
+ static int phylink_validate(struct phylink *pl, unsigned long *supported,
+ 			    struct phylink_link_state *state)
+ {
+-	const unsigned long *interfaces = pl->config->supported_interfaces;
++	const unsigned long *interfaces = pl->supported_interfaces;
+ 
+ 	if (state->interface == PHY_INTERFACE_MODE_NA)
+ 		return phylink_validate_mask(pl, NULL, supported, state,
+@@ -1867,6 +1872,9 @@ struct phylink *phylink_create(struct phylink_config *config,
+ 	mutex_init(&pl->state_mutex);
+ 	INIT_WORK(&pl->resolve, phylink_resolve);
+ 
++	phy_interface_copy(pl->supported_interfaces,
++			   config->supported_interfaces);
++
+ 	pl->config = config;
+ 	if (config->type == PHYLINK_NETDEV) {
+ 		pl->netdev = to_net_dev(config->dev);
+@@ -2025,7 +2033,7 @@ static int phylink_validate_phy(struct phylink *pl, struct phy_device *phy,
+ 		 * those which the host supports.
+ 		 */
+ 		phy_interface_and(interfaces, phy->possible_interfaces,
+-				  pl->config->supported_interfaces);
++				  pl->supported_interfaces);
+ 
+ 		if (phy_interface_empty(interfaces)) {
+ 			phylink_err(pl, "PHY has no common interfaces\n");
+@@ -2827,12 +2835,12 @@ static phy_interface_t phylink_sfp_select_interface(struct phylink *pl,
+ 		return interface;
+ 	}
+ 
+-	if (!test_bit(interface, pl->config->supported_interfaces)) {
++	if (!test_bit(interface, pl->supported_interfaces)) {
+ 		phylink_err(pl,
+ 			    "selection of interface failed, SFP selected %s (%u) but MAC supports %*pbl\n",
+ 			    phy_modes(interface), interface,
+ 			    (int)PHY_INTERFACE_MODE_MAX,
+-			    pl->config->supported_interfaces);
++			    pl->supported_interfaces);
+ 		return PHY_INTERFACE_MODE_NA;
+ 	}
+ 
+@@ -3760,14 +3768,14 @@ static int phylink_sfp_config_optical(struct phylink *pl)
+ 
+ 	phylink_dbg(pl, "optical SFP: interfaces=[mac=%*pbl, sfp=%*pbl]\n",
+ 		    (int)PHY_INTERFACE_MODE_MAX,
+-		    pl->config->supported_interfaces,
++		    pl->supported_interfaces,
+ 		    (int)PHY_INTERFACE_MODE_MAX,
+ 		    pl->sfp_interfaces);
+ 
+ 	/* Find the union of the supported interfaces by the PCS/MAC and
+ 	 * the SFP module.
+ 	 */
+-	phy_interface_and(pl->sfp_interfaces, pl->config->supported_interfaces,
++	phy_interface_and(pl->sfp_interfaces, pl->supported_interfaces,
+ 			  pl->sfp_interfaces);
+ 	if (phy_interface_empty(pl->sfp_interfaces)) {
+ 		phylink_err(pl, "unsupported SFP module: no common interface modes\n");
+@@ -3938,7 +3946,7 @@ static int phylink_sfp_connect_phy(void *upstream, struct phy_device *phy)
+ 
+ 	/* Set the PHY's host supported interfaces */
+ 	phy_interface_and(phy->host_interfaces, phylink_sfp_interfaces,
+-			  pl->config->supported_interfaces);
++			  pl->supported_interfaces);
+ 
+ 	/* Do the initial configuration */
+ 	return phylink_sfp_config_phy(pl, phy);
 -- 
 2.53.0
 
