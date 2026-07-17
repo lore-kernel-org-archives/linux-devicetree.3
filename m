@@ -1,149 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F08F3F9F28
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 12:41:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD3AD388E7A;
+	Fri, 17 Jul 2026 12:44:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784292093; cv=none; b=QzOX5UDWgG3bYckpyVPMkGOoK72NdEO2Q5D4Hq09Vyb24/+NfizTvuL5f2kNQ0GNpQmoVJgukL5hk1GRUQL9EK+fkm5EimQK5sXEjcZaxB+IC2qcjhAc7q/mgX2E0Yu4Ia0plbOA7P7uhOzT7fzoJb1x9rggNw5gS3FhHz/jNKA=
+	t=1784292271; cv=none; b=eFaGe+4ikrwdZi7fld7zXZKFVJd7QTMXiar78zmOPmaPl3+c26pz1mrCLLP/EeAY24Rbi/RM3X/guLcJusW1BJKIvdmne4iEHkX8Bso9Sdf7FN88JUndVX1WzYzE/R3OPqgGo4PzCOj6Jvu4z7Q4Kk00WtysnAa47+vj2fJpiDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784292093; c=relaxed/simple;
-	bh=ad7ujwsfWBYlBrp+APexI3QPW2pYIsMMi5ey2r7FrDs=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gJaQN+bg41uoek4NRVtzmisnJSm/ri7VgmqS0K29JFrLLIR5KLKV2gy6/jCmH5tBn3FbT9mhde6xQTKrQDQJtdpppJ5Ui8WhStfY6IsJm4yaL9ZmXb5hfJYwpBn4TNAOcIen1sNeINkv02xRZxBkijET3I2u+0e7aEPtItUDgBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P5JKUawp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784292271; c=relaxed/simple;
+	bh=As6RDX6p31gbcMsLLe8dj4wEfwwYenDNellDAaL46Ck=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PpFHgi1q4bsGv5LNmZXU6dbmy4KQeEeqezybV/PLA4de2WO2/UjKOzl4VpFArLhIBYukXav9yiW/MNjuq5feLdJMEEAlBRbgAXojUlrg7fj8JzVhmN+njrHmrcXRWrR8Y80rZviB6/DtWQzehl6K3eqgRb7aijJWuZFOWZbto9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=amH54H40; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P5JKUawp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2740F1F0155B
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 12:41:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="amH54H40"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B01521F000E9;
+	Fri, 17 Jul 2026 12:44:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784292092;
-	bh=m+axLXnaKJEGHNFMBEGT4Zy3Q/EEwboTj2mFiNNj1t8=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=P5JKUawpVnBajyTslMgPIqsB/u9snuQGu2uU9xp9L1kK0MokZuGgHazXGGk2u22HN
-	 hbzS7ZPx3cFkxH39c8lmdGIcnZ7q79Po9KVHDqhzLweRthuAR9d6ql13EJVIEnNQtG
-	 33rPY5Xujv3b8Kho68WWv0SKksWxvSdaWJDEdXx2gvP3RGM+6DaTGMOmSPbg9/6iKp
-	 0yVKKk9lbwnZhNdDN44W4Fib8dQD68EBxT65AylDkDTc/2Swf2EciT+Z1LuSgpbAuw
-	 iioiWhtafNswud8HZDEJkDVrOHEuMpbYUP1tZdfa0RgMZsohhGCMdgg8aXIZMr/Dwt
-	 /xsNyWE/dWo+A==
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5b15c6fb864so2637762e87.1
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 05:41:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rps9PG1AylXDRsXtfGA6ugKo+Vp5Wt4D9r5NHwCdt39O6wvzh92kvtQxEGIK74lGmlUkiRG6pj/FcDy@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzm+7L7bYkznpU79PLsPV/3zZx+0ljNSwAVRcP7j7kNVgaVFzUp
-	P4BiIitvBlw1fYbP394nA+XQCjGAVi8BWJEr4EnVqH6c6PahJnd0oayJ6NGxL9b6FV8qrGoAQGD
-	z1cAcoziRbbv7YZdKEi56XeXA/RDFXbasS0/j9EiKWQ==
-X-Received: by 2002:a05:6512:8054:b0:5b0:f9d:f7af with SMTP id
- 2adb3069b0e04-5b28f85e66emr449360e87.4.1784292090707; Fri, 17 Jul 2026
- 05:41:30 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 17 Jul 2026 05:41:29 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 17 Jul 2026 05:41:29 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <CAFEp6-0HnYOboVWc3GUG5qMN_phP4ryJp=T=LgZs2ujyX1isMg@mail.gmail.com>
+	s=k20260515; t=1784292270;
+	bh=As6RDX6p31gbcMsLLe8dj4wEfwwYenDNellDAaL46Ck=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=amH54H402cNrVhhUcwRafka0QURJ8F/JrZCSW7ryMeU4sqGURm1wFhB71cb4+l7nt
+	 1Zd8Mljb6D+bPc4iM7UaQAQewljI3TgSCZnGFi0JPySah10aidQaTdOhLpirY/vtD6
+	 N7+Hp0QNmlZa92iWyDYnimzHmZwcvw8wcfyUw6qHiQDLVj19Asq/7yOipNwvH/L4VB
+	 jFc3MXKm7eP0ikDdxvQnpUrwDC8GmxUjox0l7BVA8y7nJz0xnUOA2mDVS7n9qr16Cm
+	 n5305jckH4T/nySPp06eALVeK95OXBMfGY/oUvscaGhzGCoXfTuGRjEDMbloUGKSbu
+	 tt7r6fsZi6xDQ==
+Date: Fri, 17 Jul 2026 13:44:26 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Victor Krawiec <victor.krawiec@arturia.com>, lgirdwood@gmail.com,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/4] regulator: dt-bindings: Add Silergy SYR82X allowed
+ modes
+Message-ID: <38adfbda-2cdb-49bb-84d4-aae0a6258f68@sirena.org.uk>
+References: <20260715155141.128601-1-victor.krawiec@arturia.com>
+ <20260715155141.128601-2-victor.krawiec@arturia.com>
+ <20260717-nostalgic-raptor-of-sunshine-1aba9a@quoll>
+ <fd7d5b72-a400-435c-bbac-9e661d98e3c9@arturia.com>
+ <94ce2136-3adc-40f5-946f-b56778f6343c@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260716-monza-wireless-v4-0-9b02e6f549d7@oss.qualcomm.com>
- <20260716-monza-wireless-v4-8-9b02e6f549d7@oss.qualcomm.com>
- <CAMRc=Mc3gt_uruVmUmqsOsvKX=52V4TBVC0hbo69KgjEGhch3A@mail.gmail.com> <CAFEp6-0HnYOboVWc3GUG5qMN_phP4ryJp=T=LgZs2ujyX1isMg@mail.gmail.com>
-Date: Fri, 17 Jul 2026 05:41:29 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MdhNJEkSOCnz9tnT=wYgseZdFkUs-7VbLgBJhWWjU_cig@mail.gmail.com>
-X-Gm-Features: AUfX_mxPH67iV8-drcRF8TjP1xX1r4zX-SMyz8sadg86rCJAZgfpcbCWPTxNlVQ
-Message-ID: <CAMRc=MdhNJEkSOCnz9tnT=wYgseZdFkUs-7VbLgBJhWWjU_cig@mail.gmail.com>
-Subject: Re: [PATCH v4 08/11] Bluetooth: hci_qca: Support QCA2066 on M.2
- connector via pwrseq
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-pci@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org, 
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="/ixPGCn6sCa7O3VG"
+Content-Disposition: inline
+In-Reply-To: <94ce2136-3adc-40f5-946f-b56778f6343c@kernel.org>
+X-Cookie: Enjoy yourself while you're still old.
+
+
+--/ixPGCn6sCa7O3VG
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 17 Jul 2026 14:32:27 +0200, Loic Poulain
-<loic.poulain@oss.qualcomm.com> said:
-> Hi Bartosz,
->
-> On Fri, Jul 17, 2026 at 11:35=E2=80=AFAM Bartosz Golaszewski <brgl@kernel=
-.org> wrote:
->>
->> On Thu, 16 Jul 2026 18:18:25 +0200, Loic Poulain
->> <loic.poulain@oss.qualcomm.com> said:
->> > For QCA2066 (and other QCA chips) on M.2 connectors, the UART enable i=
-s
->> > controlled by the W_DISABLE2# signal managed by the pcie-m2 power sequ=
-encer
->> > rather than a dedicated BT enable GPIO.
->> >
->> > When the serdev controller has an OF graph (indicating it is connected=
- to
->> > an M.2 connector), acquire the 'uart' pwrseq target from the connector=
-'s
->> > power sequencer and use it to control BT power instead of the bt-enabl=
-e
->> > GPIO. This is factored out into qca_serdev_get_m2_pwrseq().
->> >
->> > Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
->> > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
->> > ---
->> >  drivers/bluetooth/hci_qca.c | 41 +++++++++++++++++++++++++++++++-----=
------
->> >  1 file changed, 31 insertions(+), 10 deletions(-)
->> >
->> > diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
->> > index 25c4387136245fca25e375951f960d7240116781..22f6185a946ef04c45e41b=
-2b34126e3f58d603ca 100644
->> > --- a/drivers/bluetooth/hci_qca.c
->> > +++ b/drivers/bluetooth/hci_qca.c
->> > @@ -1872,6 +1872,9 @@ static int qca_power_on(struct hci_dev *hdev)
->> >                       /* Controller needs time to bootup. */
->> >                       msleep(150);
->> >               }
->> > +
->> > +             if (qcadev->bt_power.pwrseq)
->> > +                     pwrseq_power_on(qcadev->bt_power.pwrseq);
->> >       }
->> >
->> >       clear_bit(QCA_BT_OFF, &qca->flags);
->> > @@ -2387,6 +2390,28 @@ static int qca_init_regulators(struct qca_power=
- *qca,
->> >       return 0;
->> >  }
->> >
->> > +static void qca_serdev_put_pwrseq(void *data)
->> > +{
->> > +     pwrseq_put(data);
->> > +}
->> > +
->> > +static int qca_serdev_get_m2_pwrseq(struct qca_serdev *qcadev)
->> > +{
->> > +     struct serdev_device *serdev =3D qcadev->serdev_hu.serdev;
->> > +     struct pwrseq_desc *pwrseq;
->> > +
->> > +     if (!of_graph_is_present(dev_of_node(&serdev->ctrl->dev)))
->> > +             return 0;
->> > +
->> > +     pwrseq =3D pwrseq_get(&serdev->ctrl->dev, "uart");
->>
->> There's devm_pwrseq_get() you can use instead of scheduling your own act=
-ion.
->
-> The reason is discussed here:
-> https://lore.kernel.org/all/20260716083141.GA4101439@google.com/
->
-> We want the lifetime of the pwrseq descriptor to be tied to the serdev
-> consumer device rather than the underlying serdev controller.
-> Maybe a short comment explaining this relationship would be helpful.
->
+On Fri, Jul 17, 2026 at 02:31:51PM +0200, Krzysztof Kozlowski wrote:
+> On 17/07/2026 14:02, Victor Krawiec wrote:
 
-Ah, subtle. Yeah a comment would be helpful.
+> > The underlying implementation in the driver (in fan53555_device_mode_ma=
+p_setup() it the patch serie) is limited to=A0SYR82X because it is the only=
+ hardware that I'm able to test. That's why the binding part was referring =
+to this specific device.
 
-Bart
+> So you are adding constants for one device but used in the bindings and
+> driver for other? Are they valid there?
+
+It's one of these devices that's got a bunch of clones from various
+manufacturers with minor differences and share a driver.
+
+--/ixPGCn6sCa7O3VG
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpaI6kACgkQJNaLcl1U
+h9Bz/Af+JDp5Ibxu8Mzsa5wzSvHhAKXAFadewcTtuZKsb54Lrc8/K4t7aHfgtkp5
+Zd7U3MHSig8BPzv7qLQJAZvgpaJlk/Eb/ADcOt/GuaF4oHdddGKG9OfvPEHbabkM
+S4oHX0jKw6ortFitaG0TumZXLpCm0V+VczkZqlO+6b7XkTlJJwszN2lBQQg+aoZM
+MtgDYvMx/veb6WOivl9c4CtG4Xep2bpkGM2+FvLrDcoSNkXgsHHG7ncaGS++EFSY
+K+lUAV/OUWqwvfadKiWP58zv8GF+/L+VdQkExQr92BrlEYM70igAyChu3i8UrsLE
+/TnMCwiXq3elzyKF2H01JLQ1lzftXA==
+=swZq
+-----END PGP SIGNATURE-----
+
+--/ixPGCn6sCa7O3VG--
