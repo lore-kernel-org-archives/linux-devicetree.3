@@ -1,316 +1,109 @@
-Received: from mail-m155116.qiye.163.com (mail-m155116.qiye.163.com [101.71.155.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC2301898FB;
-	Fri, 17 Jul 2026 02:43:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.116
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784256214; cv=none; b=bqVQK2UmdzxeLdi7gE3wxGLMqs5TdV6JxEF4HV60Wr4PfCy6CNS+QGAktxJSz1OUd0ecPrycuQwMpcy1jX/JGxKp0BfzeX/ij1mJGerdqA0/y4WUebvF/R1dHUccLVXSiI5uk9Dn34K6P5zZA53Nk6yWI9iM+4/yJ627DkdqBWI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784256214; c=relaxed/simple;
-	bh=mgbTsIvSpUkt8yfPB9/LCotfwQcKSFgw9CN0tbcjYbE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PCCnyB3VeRTZL3aSB2pUSR3DHn+j89RzFm13vlq2Gy8b7q5e5LV7FxtV8lcPbFESctX6TAdZFtC1gQOyDQZRVGOLAepAuog2r4YY3nMMQUgL8lRD+rIooSIRDvJMbb0mHj+C20d2A7Gkcn2aAwIykuIbe8q1t1901/YstTw9nLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=XgfBY9Ty; arc=none smtp.client-ip=101.71.155.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7720119E992
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 02:48:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784256512; cv=pass; b=DJCLrsn9uNOK1s3RCJknpcd6L+MeFvrjjaHAUrGFY5Fdt5E5IpnQ1LSdvnS1n0FieAQc9lt6Pk/du9hKcU4Dcd39q5Qy2uv9skxhyKqbVGS9xj5dUHtAWYA2smA9nLvGY2Im813LnKPpHD4OpHGq5POF25ICI6ai2oLLJREuAKY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784256512; c=relaxed/simple;
+	bh=Xeh0/cpIX++YPWKoD+NWyrftViTAmvcFGOAmCGY5v7Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DLb4QW32RbMbuEadPW7ifAoPoYW5Nti6WpTQ2d71VOYtiWfKACbSgoprBwzuwgOdOKFeHtIdUO95k8nU0TSUjTpwkv64p+SGE1zKXG5dZUL20OeC3+sON2wOM2APWP8wsHEzCAAPgkSTQZPXhyPLIHiGQRnEQePqf1oYy8aOSew=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mE01Zffm; arc=pass smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="XgfBY9Ty"
-Received: from [172.16.12.74] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 46859c9bd;
-	Fri, 17 Jul 2026 10:38:08 +0800 (GMT+08:00)
-Message-ID: <cb0d7306-ee3a-4df8-aed4-e7e5b4e2cc16@rock-chips.com>
-Date: Fri, 17 Jul 2026 10:38:08 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mE01Zffm"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c15b33f7b23so1076213766b.3
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 19:48:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784256509; cv=none;
+        d=google.com; s=arc-20260327;
+        b=f6OMVH+WhKKjNgVPou4M4uTRL1L2vo2NgWr1Z3E1YBrlbBdyLQuTP2fhb2yYTpLQHx
+         Ox4/hEW0eVSIpbpQ8TV5y9alvuSy29+9E3goVTgViRq8j93acSHew7xCMVcniDKD9NQ0
+         Pp8yZefZZesnjk1Ov06rcKZKP8w6xSnAkfr9zvIrO1sL9H6Rs0RN4lxkTKXVes/Bd7aA
+         eN//i/+Cu12k9LWGjXAHO+21Idwk6H6FGaMERE+PgjTYHCQn0c8m3uOPQq8O8/9NKs/x
+         pPIoSsIekHIn/6LQdrC98/dokaSBJVUziVl3JQaocXRyqcIC0o+UncqovkHA7sfVGuxE
+         wC+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Xeh0/cpIX++YPWKoD+NWyrftViTAmvcFGOAmCGY5v7Y=;
+        fh=sEEtQKN2mTDRV4YiaNXAsLHmIA6suRid/ymwRMPTVDw=;
+        b=MuVFueSmHhU42bWPVLoaSMQ277xX4iO5QM9KNfY9myKQANRwElJT7PNHinnslFuBzd
+         LyUQoHrc5pvzlwhcktiO1SZHqQHBePNlmmoWRcUCZrupiVaNYp1ofmvcPH0q0/DCtf4R
+         yoDrE9mY7O/loVrREHHbNCI8SOQ6yXnCESYJE8J91R2NiP09LbRjHog2PFNZUlqGEDx1
+         OVkheOy0LEz/ZaeFotG3tLlF3gk0PFmQuNUXxF5BSu1Hb1SixlcBglykxBjMcUpwdNg7
+         EwP+/GNA94SUK22hSyxSe+Wptbfvy1Cj9g6PuRb4dKtO/lK15H7jv1f8MrnMOoYEl6xF
+         THgw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784256509; x=1784861309; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Xeh0/cpIX++YPWKoD+NWyrftViTAmvcFGOAmCGY5v7Y=;
+        b=mE01Zffmh8ckiAJA0rMP+NKoiIIbrCnec5AJxiLlmmc1M72Dyg8PoQvF+yfrVnzTTJ
+         PrySwLxxeAy+JdGZnc8IhjxtOk/gDP35V3Rf5TIcoFSF3mCEojKUKQgykAVLv2gNnUJn
+         lF2Q3g8fS/2YPG+HN5qMNC0P+SD3Jax4XeGNk2XrRDW7hmT9yKw0v2sJorf9rH8OXuik
+         S6sajYmh3BIqhkHme4CDjJfhFwjeRZvcg7PzL+/Pa5C4SAzZgL92nMJmcmWqf1JLqU3k
+         5rxvbcZ9Pu8/YL1ycsFMYtQ4Q/A1DGnMIjWxtr2WA5ezu78mJgFwfr5iXLxxP82aYXZ+
+         VmmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784256509; x=1784861309;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Xeh0/cpIX++YPWKoD+NWyrftViTAmvcFGOAmCGY5v7Y=;
+        b=O2aMNebE7XjPMSTwfhLwjR+fliPLVNybMmzVUOmyJhgY8mtZBghQNHPHu/SmxNYbwZ
+         /i2E/y5ZjlolnKr9PNmbQ7sCKg9AiazSdFbI2BE+QSsbNKHCWM3sIS9UcW1ReNwnY7/b
+         AaXpgKaWcFd6TJnvs+39mozWGBvKfBdL+YolWjGWbQzyeqhOpuhxEpiPq4E2Bf9GHmtj
+         2hXEmvSeVoe0GtedeP82phwJp2CWXdrRgT7lPUoLkEfCpUaVmNSiJz9y95A3ppVhU5rZ
+         R2V5eZUdTgaRCSBa7PuH7+AVIo0IcX1lWIguO30kjhSi5WiO4LD40fYvOmT/ukJ8zcco
+         HCOA==
+X-Forwarded-Encrypted: i=1; AHgh+RomzLWV1MSCfh9q+KyfVAq/nmBmAZuNEOr5w/mFPukrxMefRPMaQDxvNIfWcYcAjrjMQFiBiH05BNZL@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw0AYZHAe4dIFo+vwJ1k7cBZCwpTwqEoSHUpWeS/uwZqXAjiBfr
+	98Jxqxpo2i48MSFBg35BXmWxr9aO89oaE7pqOLXD+eYtmdlcQJMmMz7lxWofhfljUcotMNXLHP2
+	KnCn4cBHFQLDxliVJ2NbPqr5uERrwrvA=
+X-Gm-Gg: AfdE7ck7r//wOP7ga2PO4CK7F6ioHCt4Z3Zcvusn16JPlL5RZ/9LPAQS2WFLvZIrc2g
+	op3k2zFj9m7uh9QvKWFsZUvT4K4+jKv1ntM57YIKDViBEs1ICVXjtPOWzqTFrlOCzprqgFSYSJC
+	NDa1KV72QKLaMQXqyGa51RjBEb8cSblbuen0QCeN4liJL1BF0R0OVWWOMHCkT/TBdgCS4cbBSVw
+	c8/jD9XDh1BhQAssLzK4oxFSYZEj6duSynYoxiGeZcu0OQ249rU3uR02BBQ8TH+5bJg42FIRdRe
+	n3qOXGwHCdBZDroF+w==
+X-Received: by 2002:a17:907:1b09:b0:c16:8aed:cec3 with SMTP id
+ a640c23a62f3a-c16b48643b7mr18580866b.58.1784256509566; Thu, 16 Jul 2026
+ 19:48:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/6] pwm: Add rockchip PWMv4 driver
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Lee Jones <lee@kernel.org>, William Breathitt Gray <wbg@kernel.org>,
- kernel@collabora.com, Jonas Karlman <jonas@kwiboo.se>,
- Alexey Charkov <alchark@gmail.com>, linux-rockchip@lists.infradead.org,
- linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org
-References: <20260420-rk3576-pwm-v5-0-ae7cfbbe5427@collabora.com>
- <20260420-rk3576-pwm-v5-3-ae7cfbbe5427@collabora.com>
- <alDK7JahbqYpwQmZ@monoceros>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <alDK7JahbqYpwQmZ@monoceros>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9f6df03d4603a8kunmde6ff62349f89
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHxpDVktOQ01PQ0lJGBpNGlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=XgfBY9TygDAgGW+TnQhdKri9XOCiteJldFJIFc92VlZOH4m4c8Hrv1MuWydsFFtdFO+0ihNUUH4V/uzVZrx3GNcsycjs/F7cIEOxM1QmBpvQSJKfgAWTtKZbKDUy4bb2SLkMb27wtSpy+GBP0okIG6SC13XlC9URiLwuQDHxgW4=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=4+trae873noI6M/KTwB+mA2F5xNHhg6Nh9ODu1W4DXc=;
-	h=date:mime-version:subject:message-id:from;
+References: <20260716-adt7470_thermalzone-v1-0-cc55ef35edde@gmail.com>
+ <20260716-adt7470_thermalzone-v1-4-cc55ef35edde@gmail.com> <091279bb-391e-4c0a-8ecc-a51f95be3f27@roeck-us.net>
+In-Reply-To: <091279bb-391e-4c0a-8ecc-a51f95be3f27@roeck-us.net>
+From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Date: Thu, 16 Jul 2026 23:48:16 -0300
+X-Gm-Features: AUfX_mz9AVIsM_AQi3achJz8IUPx3rvSBxfgPtBXoYk3dxmYM3rsybnFUAJ9i5s
+Message-ID: <CAJq09z72Na3yzdei_BVd69sLKFttWZP8vmF3gf66A_qYZ2Yirw@mail.gmail.com>
+Subject: Re: [PATCH 4/4] hwmon: (adt7470) Add thermal zone sensor support
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Uwe,
+> Detailed explanation why HWMON_C_REGISTER_TZ does not work or is
+> insufficient goes here and into the driver code as comment.
 
-On 7/10/2026 7:02 PM, Uwe Kleine-König wrote:
-> Hello Nicolas,
-> 
-> On Mon, Apr 20, 2026 at 03:52:40PM +0200, Nicolas Frattaroli wrote:
->> [...]
->> +/**
->> + * rockchip_pwm_v4_round_single - convert a PWM parameter to hardware
->> + * @rate: clock rate of the PWM clock, as per clk_get_rate
->> + *        Assumed to be <= 1GHz for overflow considerations
->> + * @in_val: parameter in nanoseconds to convert
->> + *
->> + * Returns the rounded value, saturating at U32_MAX if too large
->> + */
->> +static u32 rockchip_pwm_v4_round_single(unsigned long rate, u64 in_val)
-> 
-> very picky: if you name this function rockchip_pwm_v4_ns_to_ticks it
-> becomes clearer what the purpose is.
-> 
->> +{
->> +	u64 tmp;
->> +
->> +	tmp = mul_u64_u64_div_u64(rate, in_val, NSEC_PER_SEC);
->> +	if (tmp > U32_MAX)
->> +		tmp = U32_MAX;
->> +
->> +	return tmp;
->> +}
->> +
->> +/**
->> + * rockchip_pwm_v4_round_params - convert PWM parameters to hardware
->> + * @rate: PWM clock rate to do the calculations at
->> + * @wf: pointer to the generic &struct pwm_waveform input parameters
->> + * @wfhw: pointer to the hardware-specific &struct rockchip_pwm_v4_wf output
->> + *        parameters that the results will be stored in
->> + *
->> + * Convert nanosecond-based duty/period/offset parameters to the PWM hardware's
->> + * native rounded representation in number of cycles at clock rate @rate. Should
->> + * any of the input parameters be out of range for the hardware, the
->> + * corresponding output parameter is the maximum permissible value for said
->> + * parameter with considerations to the others.
->> + */
->> +static void rockchip_pwm_v4_round_params(unsigned long rate,
->> +					 const struct pwm_waveform *wf,
->> +					 struct rockchip_pwm_v4_wf *wfhw)
->> +{
->> +	wfhw->period = rockchip_pwm_v4_round_single(rate, wf->period_length_ns);
->> +
->> +	wfhw->duty = rockchip_pwm_v4_round_single(rate, wf->duty_length_ns);
->> +
->> +	/* As per TRM, PWM_OFFSET: "The value ranges from 0 to (period-duty)" */
-> 
-> Have you tried what happens if you break this rule? That seems like a
-> very arbitrary restriction that might just originate from the
-> documentation author.
-> 
+No need to explain anything. I was just unaware of the existence of
+HWMON_C_REGISTER_TZ.
 
-According to the IC design, any offset value larger than (period - duty) 
-will be clamped to (period - duty) by the hardware internally. Given 
-this hardware limitation, the validation check Nicolas introduced does 
-serve a practical purpose.
+You are absolutely right. I'll refactor the driver to use it and make
+the code much cleaner. Thanks!
 
->> +	wfhw->offset = rockchip_pwm_v4_round_single(rate, wf->duty_offset_ns);
->> +	if (!wfhw->period) /* Don't underflow when pwm disabled */
->> +		wfhw->offset = 0;
->> +	else if (wfhw->offset > wfhw->period - wfhw->duty)
->> +		wfhw->offset = wfhw->period - wfhw->duty;
-> 
-> You don't enforce wfhw->period >= wfhw->duty, which however seems like a
-> reasonable restriction. When knowing that you can drop the explicit
-> check for !wfhw->period and just keep the else-if branch.
-> 
->> +}
->> [...]
->> +static int rockchip_pwm_v4_write_wf(struct pwm_chip *chip, struct pwm_device *pwm,
->> +				    const void *_wfhw)
->> +{
->> +	struct rockchip_pwm_v4 *pc = to_rockchip_pwm_v4(chip);
->> +	const struct rockchip_pwm_v4_wf *wfhw = _wfhw;
->> +	bool was_enabled;
->> +	int ret;
->> +
->> +	ret = mfpwm_acquire(pc->pwmf);
->> +	if (ret)
->> +		return ret;
->> +
->> +	was_enabled = rockchip_pwm_v4_is_enabled(mfpwm_reg_read(pc->pwmf->base,
->> +								PWMV4_REG_ENABLE));
->> +
->> +	/*
->> +	 * "But Nicolas", you ask with valid concerns, "why would you enable the
->> +	 * PWM before setting all the parameter registers?"
->> +	 *
->> +	 * Excellent question, Mr. Reader M. Strawman! The RK3576 TRM Part 1
->> +	 * Section 34.6.3 specifies that this is the intended order of writes.
->> +	 * Doing the PWM_EN and PWM_CLK_EN writes after the params but before
->> +	 * the CTRL_UPDATE_EN, or even after the CTRL_UPDATE_EN, results in
->> +	 * erratic behaviour where repeated turning on and off of the PWM may
->> +	 * not turn it off under all circumstances. This is also why we don't
->> +	 * use relaxed writes; it's not worth the footgun.
-> 
-> I wonder if it's worth however to delay setting PWMV4_CTRL_UPDATE_EN
-> until after the clkrate is handled to (maybe) prevent glitches?
+Regards,
 
-I agree with your point. For the PWM enable sequence, we should enable 
-the PWM dclk before any register operations. Conversely, when disabling 
-PWM, it's better to carry out dclk disabling only after all register 
-accesses are fully completed.
-
-> 
->> +	 */
->> +	if (wfhw->rate)
->> +		mfpwm_reg_write(pc->pwmf->base, PWMV4_REG_ENABLE,
->> +				FIELD_PREP_WM16(PWMV4_EN_BOTH_MASK,
->> +						PWMV4_EN_BOTH_MASK));
->> +	else
->> +		mfpwm_reg_write(pc->pwmf->base, PWMV4_REG_ENABLE,
->> +				FIELD_PREP_WM16(PWMV4_EN_BOTH_MASK, 0));
->> +
->> +	mfpwm_reg_write(pc->pwmf->base, PWMV4_REG_PERIOD, wfhw->period);
->> +	mfpwm_reg_write(pc->pwmf->base, PWMV4_REG_DUTY, wfhw->duty);
->> +	mfpwm_reg_write(pc->pwmf->base, PWMV4_REG_OFFSET, wfhw->offset);
->> +
->> +	mfpwm_reg_write(pc->pwmf->base, PWMV4_REG_CTRL, PWMV4_CTRL_CONT_FLAGS);
->> +
->> +	/* Commit new configuration to hardware output. */
->> +	mfpwm_reg_write(pc->pwmf->base, PWMV4_REG_ENABLE,
->> +			PWMV4_CTRL_UPDATE_EN);
->> +
->> +	if (wfhw->rate) {
->> +		if (!was_enabled) {
->> +			dev_dbg(&chip->dev, "Enabling PWM output\n");
->> +			ret = clk_enable(pc->pwmf->core);
->> +			if (ret)
->> +				goto err_mfpwm_release;
->> +			ret = clk_set_rate_exclusive(pc->pwmf->core, wfhw->rate);
->> +			if (ret) {
->> +				clk_disable(pc->pwmf->core);
->> +				goto err_mfpwm_release;
->> +			}
->> +
->> +			/*
->> +			 * Output should be on now, acquire device to guarantee
->> +			 * exclusion with other device functions while it's on.
->> +			 *
->> +			 * It's highly unlikely that this fails, as mfpwm has
->> +			 * already been acquired before, and this is just a
->> +			 * usage counter increase. Not worth the added
->> +			 * complexity of clearing the PWMV4_REG_ENABLE again,
->> +			 * especially considering the CTRL_UPDATE_EN behaviour.
->> +			 */
->> +			ret = mfpwm_acquire(pc->pwmf);
->> +			if (ret) {
->> +				clk_rate_exclusive_put(pc->pwmf->core);
->> +				clk_disable(pc->pwmf->core);
->> +				goto err_mfpwm_release;
->> +			}
->> +		}
-> 
-> Can it happen that we have
-> 
-> 	wfhw->rate && was_enabled && wfhw->rate != clk_get_rate()
-> 
-> ?
-> 
->> +	} else if (was_enabled) {
->> +		dev_dbg(&chip->dev, "Disabling PWM output\n");
->> +		clk_rate_exclusive_put(pc->pwmf->core);
->> +		clk_disable(pc->pwmf->core);
->> +		/* Output is off now, extra release to balance extra acquire */
->> +		mfpwm_release(pc->pwmf);
->> +	}
->> +
->> +err_mfpwm_release:
->> +	mfpwm_release(pc->pwmf);
->> +
->> +	return ret;
->> +}
->> [...]
->> +static int rockchip_pwm_v4_probe(struct platform_device *pdev)
->> +{
->> +	struct rockchip_mfpwm_func *pwmf = dev_get_platdata(&pdev->dev);
->> +	struct rockchip_pwm_v4 *pc;
->> +	struct pwm_chip *chip;
->> +	struct device *dev = &pdev->dev;
->> +	int ret;
->> +
->> +	/*
->> +	 * For referencing the PWM in the DT to work, we need the parent MFD
->> +	 * device's OF node.
->> +	 */
->> +	dev->of_node_reused = true;
->> +	device_set_node(dev, of_fwnode_handle(dev->parent->of_node));
->> +
->> +	chip = devm_pwmchip_alloc(dev, 1, sizeof(*pc));
->> +	if (IS_ERR(chip))
->> +		return PTR_ERR(chip);
->> +
->> +	pc = to_rockchip_pwm_v4(chip);
->> +	pc->pwmf = pwmf;
->> +
->> +	ret = mfpwm_acquire(pwmf);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Couldn't acquire mfpwm in probe\n");
->> +
->> +	if (!rockchip_pwm_v4_on_and_continuous(pc))
->> +		mfpwm_release(pwmf);
->> +	else {
->> +		dev_dbg(dev, "PWM was already on at probe time\n");
->> +		ret = clk_enable(pwmf->core);
->> +		if (ret) {
->> +			dev_err_probe(dev, ret, "Enabling pwm clock failed\n");
->> +			goto err_mfpwm_release;
->> +		}
->> +		ret = clk_rate_exclusive_get(pc->pwmf->core);
->> +		if (ret) {
->> +			dev_err_probe(dev, ret, "Protecting pwm clock failed\n");
->> +			goto err_clk_disable;
->> +		}
->> +	}
->> +
->> +	platform_set_drvdata(pdev, chip);
-> 
-> This is unused.
-> 
->> +
->> +	chip->ops = &rockchip_pwm_v4_ops;
->> +
->> +	ret = devm_pwmchip_add(dev, chip);
->> +	if (ret) {
->> +		dev_err_probe(dev, ret, "Failed to add PWM chip\n");
->> +		if (rockchip_pwm_v4_on_and_continuous(pc))
->> +			goto err_rate_put;
->> +
->> +		return ret;
->> +	}
->> +
->> +	return 0;
->> +
->> +err_rate_put:
->> +	clk_rate_exclusive_put(pwmf->core);
->> +err_clk_disable:
->> +	clk_disable(pwmf->core);
->> +err_mfpwm_release:
->> +	mfpwm_release(pwmf);
->> +
->> +	return ret;
->> +}
-> 
-> Best regards
-> Uwe
-
-Best regards,
-Damon
-
+Luiz
