@@ -1,123 +1,82 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6154265CA2
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:01:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B6DF265CA2;
+	Fri, 17 Jul 2026 09:01:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784278868; cv=none; b=eZEpl8Ps4ptrNWG2o6ufoum4ysL6rRjuj2LoHRoagJhz4rj5wHTVu9mUFms3+hsQp7zgo23C7+GGYTjiwSxNlx7l31ChZ3m06jEy0DmHfwmMwBQzp0/jC1ddt6hbbz2IAJOB+TdTbzWsw8mVQRW8ZSYMvMrIEYjDNFzyM/GVNRc=
+	t=1784278881; cv=none; b=r69izyLVyIe6oD1wXUMmINKOfOZb2M50DnDozPRayNWygetkwQhzkPsywR2jJcSZXL1Kj9PqPGyLOUJYNYYACXIrzP+uPqI0gHh2V5b4dPoDrHyeo3xs7HvOh1E+FR/Jm3a/G7JvOXwnM7GwqApHdTLMkyN9/G8W2bIy66cbldk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784278868; c=relaxed/simple;
-	bh=hBKE11kFXeBhrQ6CVyj82fNMOPBdKff1X/FeyW5jrXs=;
+	s=arc-20240116; t=1784278881; c=relaxed/simple;
+	bh=gpV7a2a5B/Copc4n/Y78TLsNHu/G2Z1lPcl7IprjQj4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HrkeNKuD5VRvFhGpxrnJQ/c+joP6e/uzjTZobKHfGJzukCQok8WXtrsfv94U78nC4v35HzXxihe5T5JyseYxRWfbC3KcA7tM/qDCuCsmn6UxnaV8gxsKDkjtI3KsNQwsh0RcVvQN5Ygjrus1phF7gH5j10abMi6a4muP5xtW2u4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=AoB1YgN3; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=odse/FTfVx43lknhXtGobyZj7Ki/DHWgm2JDiPEp0j2AUv49/XHD5sYfxTFAT1uN18KECE5U4BisSoOFALv77DiWXqTMMEBBz8OdvOTx6EF+iNO8ZJ8wX8L7xG/EvzeURT2Bp2FAB03Y+KjrktANGd6/sHlWJNX7lh+RdMzSpfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mfk5DtTZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="AoB1YgN3"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-493c733f15aso65717135e9.0
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 02:01:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1784278865; x=1784883665; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hBKE11kFXeBhrQ6CVyj82fNMOPBdKff1X/FeyW5jrXs=;
-        b=AoB1YgN3BoUoVupd5wccOo9HnOLjnPV+PbI1W4PYzWhhtE9ADq+1A6qHN30dXjLDwj
-         aSLhtx3ICMiT3rx1vAWdnlZUCBIoUMF3TSPqRJX6UCFslaZ1vnuPsJxd5q+n7truZ/h3
-         LNC0JO9n0bQj08x6ZKRqMo1uthZvrj7ufqiOicISdMop1s05Wh3wYDoF3mrDzoM3Waiv
-         b6t0jE4Nk2hHcaNg350akvLg1i/KmNRuFWqdzAwlMiPB2xQU3+AcCCE++K5E0MMvHDhk
-         GIIHIxKDtUx4RWojeRbGphjgV5yU3Fo9MU16HPvJq2opfaejOtP7jutvllgYWSe4DzoT
-         GJAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784278865; x=1784883665;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hBKE11kFXeBhrQ6CVyj82fNMOPBdKff1X/FeyW5jrXs=;
-        b=ApjMTl3l7eGbfWNtRtwor/GC0JijBdaMHnlQv5vNgHakElDfUlbO6pguRPDsUEW3wH
-         TWFFucE7T3DwLUmJbbVb7WtjA5T5W3/k3DeTYwZNrG7mQ6pnU6fHo0/iPzuOJLNNCmjZ
-         kz1+ezJ/ECytHWuqZUBi/4buv51eWfu7QCRLeW8ansQhAIfBDCZx71htHPKkUMswmQtP
-         jBLoHDgdfAqYFoHvAyHpr5ExUWYd2lEY3/fCS4G8QuQY56j0SXcqLQAQZJBJTZPDupBs
-         1dvY/Fg33ZWuSKuCgQG3nv1YDORNvL2GSJ8UkVbkdM/Jc6m28EtgkPaNT5/VwzZb5/n9
-         iT0w==
-X-Forwarded-Encrypted: i=1; AHgh+RpZ1Qrj/PRcTDDOGkg+Y5ldYzKv62rOTke/CdhcEE1cCaYLyEvgGdlpYsruUUP1unBjzalqxm868uFY@vger.kernel.org
-X-Gm-Message-State: AOJu0YyPyJyDjcYp0ppZIgxZVT9HbRdmJx7d1RnUgFhdtSxzkapzWgoW
-	UKpdKr9xmCh8Ub7nhTvTyC+pocmIUbTVCeIDYoX48nJmgKVIipd008Nu9Rv6mCjXVNo=
-X-Gm-Gg: AfdE7cnFX3KHObGCqzMhtP3Y7Ck9H6FUTU1jNclodZYRRH/x+OsFc1QXCijaqpCyULY
-	0ttmDnkXK9HfV44iXixI2GGUJQCCCwe6Id9BlTDxfcK6oykIABwhpXXWMQLWpTnNB5CdArXTfhO
-	LtMwwGhmY87/Ow+7B1iZ0wmF8c33Mt1FpbrYIGgfL+p7ApJG9zT/Z4wkaxzLoTCgWnDMf9Ow2nz
-	vpqPLALNHDNSkm+CpoI1NxtJRBdR/tgGAwyGLMDJrDQSFZAkdASvrrJM4/YFDD8s6mUjCTd9M2Z
-	Jv4cmES23Ge2LPSAbbIW6kxYztyJC2T3LOIGNuIbqnjvhSbEoUUFzpqpoD+CDNbyK6IV4AfWo3s
-	pRjDjzBXf0CYgIgepBe554XGfcbtJGU1BtS7vxHrwJknU0STRzLB7ANrbwsCpEfxfNIYkL1hFcO
-	Pfqwmww5ooHu3+WPn/0pVq/MLua0K/iZCkzRHiZo5PjtfskCN0Uo7f5s8ry9bAS4b5fA==
-X-Received: by 2002:a05:600c:4fc9:b0:493:ad1b:b38d with SMTP id 5b1f17b1804b1-4954a512d82mr20084655e9.37.1784278864712;
-        Fri, 17 Jul 2026 02:01:04 -0700 (PDT)
-Received: from localhost (p200300f65f47db047d2d8b161e35ab77.dip0.t-ipconnect.de. [2003:f6:5f47:db04:7d2d:8b16:1e35:ab77])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49549a3e56fsm33414285e9.5.2026.07.17.02.01.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 02:01:03 -0700 (PDT)
-Date: Fri, 17 Jul 2026 11:01:02 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Kim Seer Paller <kimseer.paller@analog.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, linux@analog.com, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 3/3] iio: dac: ad5710r: Add driver for AD5710R and AD5711R
-Message-ID: <alnu5e8PX3ZjpYht@monoceros>
-References: <20260716-iio-ad5710r-upstream-v1-0-e848a4bb701f@analog.com>
- <20260716-iio-ad5710r-upstream-v1-3-e848a4bb701f@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mfk5DtTZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B82181F000E9;
+	Fri, 17 Jul 2026 09:01:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784278879;
+	bh=FYExw+VMJVC7bFatSvjeTfw2RtJrbhlmPYUJgLcmXyc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mfk5DtTZd0K/zLJqO3pyO7JeZjWxr5LGLhf0cX7XFML+plN1Cz/LWjhOkl745Ii1z
+	 /6h/DJ7JVbQ536yJwXTmNvcanGVeQcGGLZA18JLdwvuOYXhHLKecwZlOyjJk1aVCAG
+	 etPzxbvbvj23ShZkNiU2Hjxw8H2VRqmf8du8yJcy1DEfTy9KzHD+5ph5+PEzCl+4dX
+	 35hWqybTj8YXocNzUXJFZ7TxD5pmZJC/+f+X9SvdTdaBuvkFQ2Pv37eVRIpl98cKWg
+	 XLYR/2zbuzvXxx3tWe1pXpNLyj0CA4npwHyEZwVoQZag6owHVSsNChBi8a80FHRjpw
+	 4klCCn6Pow3PQ==
+Date: Fri, 17 Jul 2026 11:01:15 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, prasad.kumpatla@oss.qualcomm.com, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v2 2/3] ASoC: dt-bindings: qcom,lpass-va-macro: Add hawi
+ heartbeatpulse clock
+Message-ID: <20260717-resolute-dexterous-turkey-3a5bd7@quoll>
+References: <20260717-master-v2-0-ae200627ad62@oss.qualcomm.com>
+ <20260717-master-v2-2-ae200627ad62@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vydgxj5snaasavru"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260716-iio-ad5710r-upstream-v1-3-e848a4bb701f@analog.com>
+In-Reply-To: <20260717-master-v2-2-ae200627ad62@oss.qualcomm.com>
 
+On Fri, Jul 17, 2026 at 01:21:16AM +0530, Sarath Ganapathiraju wrote:
+> Extend the qcom,lpass-va-macro to add the qcom,hawi-lpass-va-macro
+> compatible, which consumes an additional heartbeatpulse clock
+> alongside its existing mclk, macro, and dcodec clocks, for a total
+> four-clock constraint.
+> 
+> Signed-off-by: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/sound/qcom,lpass-va-macro.yaml | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+> index aea31fbdad..ae4df89678 100644
+> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+> @@ -19,6 +19,7 @@ properties:
+>            - qcom,sm8450-lpass-va-macro
+>            - qcom,sm8550-lpass-va-macro
+>            - qcom,sc8280xp-lpass-va-macro
+> +          - qcom,hawi-lpass-va-macro
 
---vydgxj5snaasavru
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 3/3] iio: dac: ad5710r: Add driver for AD5710R and AD5711R
-MIME-Version: 1.0
+Put this as first entry, trying to keep alphanumerical sort.
 
-Hello,
+Anyway, where is any user of this? Please carefully read submitting
+patches (both documents) since this breaks its rules.
 
-On Thu, Jul 16, 2026 at 03:59:27PM +0800, Kim Seer Paller wrote:
-> +#include <linux/mod_devicetable.h>
-> [...]
-> +#include <linux/spi/spi.h>
+Best regards,
+Krzysztof
 
-Please don't add <linux/mod_devicetable.h> to the list of includes. I'm
-working on getting rid of that and all the *_device_id you need are
-already provided by <linux/spi/spi.h>.
-
-Best regards
-Uwe
-
---vydgxj5snaasavru
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpZ70wACgkQj4D7WH0S
-/k5fHAf/aE3czFNEtV4VL+mdJc3P4dipMfRLlAYu+8AU9xQagCuj0+kceTV2yYjs
-phvQS78SLQ8d3eSdPnhv/IskyAKUQW6OekIE4V+47n+2wmFH5zacXD8ZnKVot7CW
-dVGNsMz+TZTp5glinIu9QfNaZ1lFuevCPmN7IiBtZ7CogL42KQLWRdVtKIW3iTUi
-A2nr1d/eB/zrAMrHZn81mJMUSy7lNg7m+nSXPqvOCynaPubEUFnLUc4NVXmztfbx
-/R8IibP5PssuH8fGYiM8wFZ4kb8VVklRjby3Jfepy/C/BRkdI1sVU7kppQNcletn
-bxU/qpCVhSGBiSK5FG6p8oPr3wZsgA==
-=E433
------END PGP SIGNATURE-----
-
---vydgxj5snaasavru--
