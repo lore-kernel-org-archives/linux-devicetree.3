@@ -1,207 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B17F332621;
-	Fri, 17 Jul 2026 09:00:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6154265CA2
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:01:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784278839; cv=none; b=dV7mSCT8WROd2hjVtnReeF4MCA9Nbi3M5aJEYwSLB82+ragxNlypo6GZX0XDvS8+Z7Gh3HavUkDuRMkrIJh7I1dK5WNUrpRbV0DOPn8bGTN4xuarAqPoh78lMbf+MILbke+oxy2kTn3yWe1vMSkVgFISkMd+gArsUdBkBrPfiCo=
+	t=1784278868; cv=none; b=eZEpl8Ps4ptrNWG2o6ufoum4ysL6rRjuj2LoHRoagJhz4rj5wHTVu9mUFms3+hsQp7zgo23C7+GGYTjiwSxNlx7l31ChZ3m06jEy0DmHfwmMwBQzp0/jC1ddt6hbbz2IAJOB+TdTbzWsw8mVQRW8ZSYMvMrIEYjDNFzyM/GVNRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784278839; c=relaxed/simple;
-	bh=GqjgZLWJqTzmWIfJ5GwXdDYPIGnoXvZyG09dvJHTZ1E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=n/NUMr+VwlE41pkgGqEtNFbX9kx0NMjl9/RgS8xPX5NwbsLCqjNkTMmqoRpMIeThMYVaTtkRSXhUPBgrk+mVzt2mfPFJRc16J9bjpOscP2CZVSJ0lB1eCG9X10rgeTatT/ySJxP0PtmxqzVAxqu2zMLMoYBhQzbI2GNyPyjYd/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b85LfvAO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784278868; c=relaxed/simple;
+	bh=hBKE11kFXeBhrQ6CVyj82fNMOPBdKff1X/FeyW5jrXs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HrkeNKuD5VRvFhGpxrnJQ/c+joP6e/uzjTZobKHfGJzukCQok8WXtrsfv94U78nC4v35HzXxihe5T5JyseYxRWfbC3KcA7tM/qDCuCsmn6UxnaV8gxsKDkjtI3KsNQwsh0RcVvQN5Ygjrus1phF7gH5j10abMi6a4muP5xtW2u4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=AoB1YgN3; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b85LfvAO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E9FC1F000E9;
-	Fri, 17 Jul 2026 09:00:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784278834;
-	bh=iFm4cxvRaJYlbGT94XL0tWog7kZGwd4Kba+4eMUzxzw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=b85LfvAOZYoPP6e1uXSEyhqBqP2IMf0gqopu1vmXKYvgf2VaRATeVgCEzqB2/YZa0
-	 GzlW+Uk+XfyTV+zNLQH2gJUuw64okr9F9mz95o0hQuPlSTxpvtYwiP8mRQCFJFfkh7
-	 zTlaP8YuyNc7mfnrZB9bBPiE7TD0P+tAHG8Muhyhb6Fdom7q1S6mmqgCDFQxAvUDEp
-	 t359pgPi3h3NCfK510mfW/IBhRx08hpIMwxEPnGFgQXBLZPMvckuGrrrex+FUPXPR7
-	 Tbhn5U4XjktLOiILRHX+S7txWq5cJkVzJtx3Va3KYrHYJnVjuNOp5Isr6GwDnbAlBL
-	 mfwXgXaPYQfvw==
-Message-ID: <e28077e2-dec3-4e75-9aac-fecea3f260cd@kernel.org>
-Date: Fri, 17 Jul 2026 11:00:25 +0200
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="AoB1YgN3"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-493c733f15aso65717135e9.0
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 02:01:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1784278865; x=1784883665; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hBKE11kFXeBhrQ6CVyj82fNMOPBdKff1X/FeyW5jrXs=;
+        b=AoB1YgN3BoUoVupd5wccOo9HnOLjnPV+PbI1W4PYzWhhtE9ADq+1A6qHN30dXjLDwj
+         aSLhtx3ICMiT3rx1vAWdnlZUCBIoUMF3TSPqRJX6UCFslaZ1vnuPsJxd5q+n7truZ/h3
+         LNC0JO9n0bQj08x6ZKRqMo1uthZvrj7ufqiOicISdMop1s05Wh3wYDoF3mrDzoM3Waiv
+         b6t0jE4Nk2hHcaNg350akvLg1i/KmNRuFWqdzAwlMiPB2xQU3+AcCCE++K5E0MMvHDhk
+         GIIHIxKDtUx4RWojeRbGphjgV5yU3Fo9MU16HPvJq2opfaejOtP7jutvllgYWSe4DzoT
+         GJAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784278865; x=1784883665;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hBKE11kFXeBhrQ6CVyj82fNMOPBdKff1X/FeyW5jrXs=;
+        b=ApjMTl3l7eGbfWNtRtwor/GC0JijBdaMHnlQv5vNgHakElDfUlbO6pguRPDsUEW3wH
+         TWFFucE7T3DwLUmJbbVb7WtjA5T5W3/k3DeTYwZNrG7mQ6pnU6fHo0/iPzuOJLNNCmjZ
+         kz1+ezJ/ECytHWuqZUBi/4buv51eWfu7QCRLeW8ansQhAIfBDCZx71htHPKkUMswmQtP
+         jBLoHDgdfAqYFoHvAyHpr5ExUWYd2lEY3/fCS4G8QuQY56j0SXcqLQAQZJBJTZPDupBs
+         1dvY/Fg33ZWuSKuCgQG3nv1YDORNvL2GSJ8UkVbkdM/Jc6m28EtgkPaNT5/VwzZb5/n9
+         iT0w==
+X-Forwarded-Encrypted: i=1; AHgh+RpZ1Qrj/PRcTDDOGkg+Y5ldYzKv62rOTke/CdhcEE1cCaYLyEvgGdlpYsruUUP1unBjzalqxm868uFY@vger.kernel.org
+X-Gm-Message-State: AOJu0YyPyJyDjcYp0ppZIgxZVT9HbRdmJx7d1RnUgFhdtSxzkapzWgoW
+	UKpdKr9xmCh8Ub7nhTvTyC+pocmIUbTVCeIDYoX48nJmgKVIipd008Nu9Rv6mCjXVNo=
+X-Gm-Gg: AfdE7cnFX3KHObGCqzMhtP3Y7Ck9H6FUTU1jNclodZYRRH/x+OsFc1QXCijaqpCyULY
+	0ttmDnkXK9HfV44iXixI2GGUJQCCCwe6Id9BlTDxfcK6oykIABwhpXXWMQLWpTnNB5CdArXTfhO
+	LtMwwGhmY87/Ow+7B1iZ0wmF8c33Mt1FpbrYIGgfL+p7ApJG9zT/Z4wkaxzLoTCgWnDMf9Ow2nz
+	vpqPLALNHDNSkm+CpoI1NxtJRBdR/tgGAwyGLMDJrDQSFZAkdASvrrJM4/YFDD8s6mUjCTd9M2Z
+	Jv4cmES23Ge2LPSAbbIW6kxYztyJC2T3LOIGNuIbqnjvhSbEoUUFzpqpoD+CDNbyK6IV4AfWo3s
+	pRjDjzBXf0CYgIgepBe554XGfcbtJGU1BtS7vxHrwJknU0STRzLB7ANrbwsCpEfxfNIYkL1hFcO
+	Pfqwmww5ooHu3+WPn/0pVq/MLua0K/iZCkzRHiZo5PjtfskCN0Uo7f5s8ry9bAS4b5fA==
+X-Received: by 2002:a05:600c:4fc9:b0:493:ad1b:b38d with SMTP id 5b1f17b1804b1-4954a512d82mr20084655e9.37.1784278864712;
+        Fri, 17 Jul 2026 02:01:04 -0700 (PDT)
+Received: from localhost (p200300f65f47db047d2d8b161e35ab77.dip0.t-ipconnect.de. [2003:f6:5f47:db04:7d2d:8b16:1e35:ab77])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49549a3e56fsm33414285e9.5.2026.07.17.02.01.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 02:01:03 -0700 (PDT)
+Date: Fri, 17 Jul 2026 11:01:02 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Kim Seer Paller <kimseer.paller@analog.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, linux@analog.com, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 3/3] iio: dac: ad5710r: Add driver for AD5710R and AD5711R
+Message-ID: <alnu5e8PX3ZjpYht@monoceros>
+References: <20260716-iio-ad5710r-upstream-v1-0-e848a4bb701f@analog.com>
+ <20260716-iio-ad5710r-upstream-v1-3-e848a4bb701f@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] ASoC: dt-bindings: qcom,lpass-va-csr: Add
- HeartBeat pulse clock
-To: sarath.ganapathiraju@oss.qualcomm.com,
- Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- prasad.kumpatla@oss.qualcomm.com,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260717-master-v2-0-ae200627ad62@oss.qualcomm.com>
- <20260717-master-v2-1-ae200627ad62@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260717-master-v2-1-ae200627ad62@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-On 16/07/2026 21:51, Sarath Ganapathiraju via B4 Relay wrote:
-> From: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
-> 
-> Add Qualcomm LPASS VA CSR rate generator node that exposes
-> the lpass_heartbeat_pulse clock on hawi.
-> 
-> The HeartBeat Pulse (also known as RateGen Pulse) synchronizes the
-> start of the DMAs and Codec Interfaces for the audio usecase
-> and can serve as a periodic wakeup source for the DSP.
-> 
-> Signed-off-by: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
-> ---
->  .../bindings/sound/qcom,lpass-va-csr.yaml          | 52 ++++++++++++++++++++++
->  1 file changed, 52 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-va-csr.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-va-csr.yaml
-> new file mode 100644
-> index 0000000000..131debb04f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-va-csr.yaml
-> @@ -0,0 +1,52 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/qcom,lpass-va-csr.yaml#
-
-I do not understand why a clock controller is part of sound. This makes
-little sense and desription does not help me.
-
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm LPASS VA CSR heartbeat pulse clock provider
-> +
-> +maintainers:
-> +  - Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-> +  - Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
-> +
-> +description:
-> +  The LPASS VA CSR block contains the rate generator hardware which
-> +  produces the heartbeatpulse consumed by the Bolero codec macros
-> +  (rx, tx, wsa, va). It is modelled as a clock provider
-> +  so consumers can reference it by name in their clocks list.
-
-Drop last syntax, explain the hardware, not duplicate schema as text.
-
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - qcom,hawi-lpass-va-csr
-> +
-> +  reg:
-> +    maxItems: 1
-> +    description: Must cover the full VA CSR block (base 0x7EE0000, size 0xE000).
-
-Drop description, redundant. Why would not device MMIO address range
-cover full block?
-
-> +
-> +  "#clock-cells":
-> +    const: 0
-> +    description:
-> +      Single clock output "lpass_heartbeat_pulse". Consumers reference
-> +      it by clock-name "heartbeatpulse" in their clocks list.
-
-Drop description. Not even accurate. Consumers reference it however they
-wish and it is not any business of the provider.
-
-From where did you take such style?
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - "#clock-cells"
-> +
-> +unevaluatedProperties: false
-
-And this...
-
-> +
-> +examples:
-> +  - |
-> +    soc {
-> +      #address-cells = <2>;
-> +      #size-cells = <2>;
-> +
-> +      va-csr@7ee0000 {
-
-Node names should be generic. See also an explanation and list of
-examples (not exhaustive) in DT specification:
-https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
-If you cannot find a name matching your device, please check in kernel
-sources for similar cases or you can grow the spec (via pull request to
-DT spec repo).
-
-> +        compatible = "qcom,hawi-lpass-va-csr";
-> +        reg = <0x0 0x07ee0000 0x0 0xe000>;
-> +        #clock-cells = <0>;
-> +      };
-> +    };
-> 
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vydgxj5snaasavru"
+Content-Disposition: inline
+In-Reply-To: <20260716-iio-ad5710r-upstream-v1-3-e848a4bb701f@analog.com>
 
 
-Best regards,
-Krzysztof
+--vydgxj5snaasavru
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 3/3] iio: dac: ad5710r: Add driver for AD5710R and AD5711R
+MIME-Version: 1.0
+
+Hello,
+
+On Thu, Jul 16, 2026 at 03:59:27PM +0800, Kim Seer Paller wrote:
+> +#include <linux/mod_devicetable.h>
+> [...]
+> +#include <linux/spi/spi.h>
+
+Please don't add <linux/mod_devicetable.h> to the list of includes. I'm
+working on getting rid of that and all the *_device_id you need are
+already provided by <linux/spi/spi.h>.
+
+Best regards
+Uwe
+
+--vydgxj5snaasavru
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpZ70wACgkQj4D7WH0S
+/k5fHAf/aE3czFNEtV4VL+mdJc3P4dipMfRLlAYu+8AU9xQagCuj0+kceTV2yYjs
+phvQS78SLQ8d3eSdPnhv/IskyAKUQW6OekIE4V+47n+2wmFH5zacXD8ZnKVot7CW
+dVGNsMz+TZTp5glinIu9QfNaZ1lFuevCPmN7IiBtZ7CogL42KQLWRdVtKIW3iTUi
+A2nr1d/eB/zrAMrHZn81mJMUSy7lNg7m+nSXPqvOCynaPubEUFnLUc4NVXmztfbx
+/R8IibP5PssuH8fGYiM8wFZ4kb8VVklRjby3Jfepy/C/BRkdI1sVU7kppQNcletn
+bxU/qpCVhSGBiSK5FG6p8oPr3wZsgA==
+=E433
+-----END PGP SIGNATURE-----
+
+--vydgxj5snaasavru--
