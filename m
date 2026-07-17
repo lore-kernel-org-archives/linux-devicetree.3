@@ -1,65 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48C03769F4;
-	Fri, 17 Jul 2026 03:23:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A1C37649B;
+	Fri, 17 Jul 2026 03:23:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784258616; cv=none; b=EbV9f78mX85xMRW/07TTyudJCHJEyB5O3UrnYmyYa4xmkrPrYPApwNcSMdNLfi+PjXUtOPwOEW/udc4jtiY6ht+LhdsoipC5evwrTmQtMqOgwrisrWrRhzy28RdrszxGf90fdATRQBMQnf+ouwfcodnvkQGWfjI1swkW4u3mrmI=
+	t=1784258618; cv=none; b=pE5MPxAn47F3eBg3afxng6MGvYRQUDLPRO3d1JngfO+iEEMs9Ol34XcJljB6aURo1FivWzn2qXeJIvV+5tD/tS5p6xQy9pJ/NMI74dNwI4crKAvIELLwGAbqCMb7jMi2xhl1mb6j9PUeNojU7/qcceFa4pmL/F4q4GOgG08+95o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784258616; c=relaxed/simple;
-	bh=1M0To1MU0tImHUkn34uPpb19O3/0IcPwD709mQbCsao=;
+	s=arc-20240116; t=1784258618; c=relaxed/simple;
+	bh=Yvt4bXaLPLcmGUcbEuDtQOHNV52FCCWtiWq5ro29HBg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Y0XgGEwhYk4gFqKjJ8lqlScA5Oq8U+Y1Cvww8+sqSOd91ZAZWrU7YNMA2gT2r8TcRwK28cjRT11viVZZckuGH1Lp1zkfpGb3SCWOdO4ywlN/0ojlvrCYWhDmVQ72UQwVDNhPQE1cu+TNouFVs+Yhz9ZXaTILTgQ2JfS73Fi08es=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BA1Hir2M; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=WV/KAz3hjhesaWILrK7druD42EKaVWoT9S4O7dSH1S+0kdsgjeW9UepoPfkld8HNLUNU6mqUgb3CA4Jr4q9OJ8Df5LzEG2bxz3ig3n5Xa4h9oLKO7ToaUVvo3PN6kTZrj3ADPGiAihvagm94e1siuY1ehaSfNLrNgz4DoNJqRkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E4TPmGiz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BA1Hir2M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABC9B1F00ACA;
-	Fri, 17 Jul 2026 03:23:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E4TPmGiz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0DAD1F00A3E;
+	Fri, 17 Jul 2026 03:23:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784258615;
-	bh=o/qb2RKP1gt+o5S5xlP/9GtyvSsasD9MBz/T5eM9AMg=;
+	s=k20260515; t=1784258616;
+	bh=/VqzxVCDFmwFmPQS1FYO69tNbNI+exaelWIFLylNn7Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BA1Hir2MfK2xX48hv5Dv/8u/3o9fb1K0MSIwcwcflO8qaXGLrmZAX3qcSk2B7Mpea
-	 7iErUhOkw/0ru+XTIVdzwXKUPCEr057/BplJiwD22EY7TTJ3Y4HpZp5YQ5U06L3doD
-	 YwMH/OPnPqOUk53awsior0I340c8epHqTHyPXUDm7FKKHUeBQxVfMKI9PmrKkLD4g0
-	 JxVfkcoFZo0q2on9ahvbo3swp7n0fJETP/aSPR766CBsoJrJYGK0fG0HUSaW5E1BZW
-	 2dopaO/8/5zIhrrNArX7xoF3Uzga/8TfgKoIyrvwp3FjjnUkaw2ZhSztwR0pwQxEfw
-	 bIN8cpUpNzy/A==
+	b=E4TPmGizNZGASZCJWCSPS9J4GQ4CCI/DTjSURZfBdiM1SPUN0p2tXYSQ9Ivhk/5Ux
+	 GNSiJ4GJQS5ftSOtt6MiVfjksfxCJDVZC6C7yzkt2/okleSyCOUZq7EB+AcnR3C7x9
+	 nbIG2Ky0hJvwVFfFGSkPCv0l0Itk1D3ZO9UqViacpwix36fSlaV+1ai0HF5ylIOQ9Z
+	 l1KAUXHdndLBSxUZyQerEzszXA7JPwYui/Cy9/z7fpKxXEYcEM7K5/2XNykozG5/8S
+	 i/hVC2o4o/9HX/z/ePZfBmgR7yvfdiIhwIuKJc3A6NBjyblrwEPIWvN4cVpjZhpa5l
+	 aYF2/KHqXackQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Taniya Das <taniya.das@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Maulik Shah <maulik.shah@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Brian Masney <bmasney@redhat.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
+	Esteban Urrutia <esteuwu@proton.me>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-	Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
-	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-	Qiang Yu <qiang.yu@oss.qualcomm.com>,
-	Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
-	Abel Vesa <abelvesa@kernel.org>
-Subject: Re: (subset) [PATCH v3 0/3] clk: qcom: gcc-glymur: Tie the CX power domain to controller
-Date: Thu, 16 Jul 2026 22:23:24 -0500
-Message-ID: <178425854604.1084804.1992392341244608368.b4-ty@kernel.org>
+	phone-devel@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/2] SM8450 QoL changes (dts)
+Date: Thu, 16 Jul 2026 22:23:25 -0500
+Message-ID: <178425854592.1084804.16144771627314071470.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260715-glymur-fix-gcc-cx-scaling-v3-0-72eb5adad156@oss.qualcomm.com>
-References: <20260715-glymur-fix-gcc-cx-scaling-v3-0-72eb5adad156@oss.qualcomm.com>
+In-Reply-To: <20260711-sm8450-qol-dts-v2-0-5eb2e86468c5@proton.me>
+References: <20260711-sm8450-qol-dts-v2-0-5eb2e86468c5@proton.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,22 +53,18 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 15 Jul 2026 16:29:13 +0300, Abel Vesa wrote:
-> The suggestion of having the CX power domain tied up to the GCC
-> controller started here:
+On Sat, 11 Jul 2026 23:12:26 -0400, Esteban Urrutia wrote:
+> These patches focus on correcting some details on the DTS for the SM8450
+> SoC.
 > 
-> https://lore.kernel.org/lkml/fe210f0b-692b-4c45-afc4-fc2bc5e57854@oss.qualcomm.com/
 > 
-> and then, for Glymur, it has been brought up here as well:
-> 
-> [...]
 
 Applied, thanks!
 
-[1/3] dt-bindings: clock: qcom: glymur-gcc: Add missing CX power domain
-      commit: d22a37e9fba7838cdcb8c55b913b1a37a7a4a198
-[2/3] clk: qcom: gcc-glymur: Enable runtime PM
-      commit: 8d4f342369d0d77f32a0211692442d3b6d455872
+[1/2] arm64: dts: qcom: sm8450: Remove unneeded reserved memory nodes
+      commit: 0ed8261e0ebdac5f1f08dcbfc209efe36937ed2d
+[2/2] arm64: dts: qcom: sm8450: Add mode-switch property to qmpphy
+      commit: 8a2b4481b66c802af293e55eee07406971d5aa7b
 
 Best regards,
 -- 
