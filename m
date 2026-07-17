@@ -1,87 +1,67 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117273EC6AA
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 10:44:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B9DC3EDE6D
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 10:44:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784285087; cv=none; b=sLAyc9KU4JuonsUpp41FwB4cD1vqNimLaCp9mVfXXgRWoxvnOS2PlqGQa/vOG4Rm0zfsmP060m44z2F/yeJyj/NjZYbUK1CdzgLmSXmhlVNeuBxIBC1wqSMwTJl+L4LmI4alGFN1u9GyLPpOsZzkJhPlPVq5AIbuoZC6Bx0aELQ=
+	t=1784285102; cv=none; b=cfumnEs1P4eBJzUvazVgUaK8ecvom/kYY4esxki2L2b3o6zKlyRoR/TaDzc81VqDN/WpMjAFQN08OhkV2BYG3IeOdUVxf9Y5Kz1SHCo2AV8wcqCHIBM7sJvtROgu3JgGfxcsF7uPZ9CHlo8N2SItXB95TuQCEGwUa+oh0+Qf+yw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784285087; c=relaxed/simple;
-	bh=m+JTc+Gp3pM8N148mXJ9dkMFXYzE/eJxUs6Dv9hiEdg=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=kcrTSn8j0BPHiCiP7GtYQlLsOhg4V/tZmteEU/joYmTtQmerVZJpITUq2xHYDSQjRZ5a41KQnSmoWdNfU65fP504TgezhoodLwTTPaADmrBHOWbv20CxccI5t8/2JI2ZsVbCOMkGHAPzfWHnq++9NZ+1N0xEZRF6zWshPnoQtVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CL9HPBVu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BT3BWhXA; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784285102; c=relaxed/simple;
+	bh=2pEd2PoX7gxj2uadPnEorYAgEq8J/PjNx7zkix44hD8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bqXPwzUj5wFcdAPlaKut5UPMU4bY80v4a+SRjPwydKV5lbuvvBMI6/I1CGbaA2DD3QFPLtvfqT6HbI7YrMDSj2ZXlfauKkidnUua5uloRp0mhhY6GCFea+xr6s/kf9gcN/AbYBWuXJttFeVDBTptpYEtKtpkx5fqsKFfYQTmGyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ducQ3wXX; arc=none smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CL9HPBVu";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BT3BWhXA"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66HASicc1614782
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 10:44:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	EyyU/Qc9UyahVBWmmJxyG2aqScYM6OzoucwPCiZaUtg=; b=CL9HPBVufsgj7Mf+
-	oBxm9fcpuQr6aXOSmJCIb9wyxDI5P4YYG5ojVIQpyPEMdVHXMCu4i/gMAGEc4CDM
-	CwRPVO2lxBjMTbfXQB6BFCF06vIzOXlCg9A8WnDS/JJmQIHlVXrOiCsDu8806lFZ
-	mv8fJqMwSnXBde+0FE4E1coba4YNJ63FXbxFHGLC9OdnlXwgOcXwv8qnI7n4eUMt
-	NA57JsHJtNX6k3NZJ9BynNgVn3EG/3BtRGwC1dsTdyX98TfRc7OMTAH3tg/F8hNg
-	Dxp1vaHMaAgt6G0nfIlcLyRF9NrjnoAV3+IlJthSQvfIqvfY6j4mabzGVaTWM5vs
-	KR68aQ==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ffhpfg9he-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 10:44:44 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8488ac68185so14145976b3a.2
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 03:44:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ducQ3wXX"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c15cb6f5c12so1339287866b.0
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 03:44:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784285084; x=1784889884; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:references:cc:to
-         :from:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=EyyU/Qc9UyahVBWmmJxyG2aqScYM6OzoucwPCiZaUtg=;
-        b=BT3BWhXAqiJpATlfFKVYyN0TIzvWlz4wSptqX6i+B5AeRroF+MqkpnXAucxCedr3jf
-         KK9CEjdPdq/BTn3ngjwjZdvEmCfqdv96Gh1bK0ke8hGZ6yi+A8YYDfW0TNNFAcRJxq31
-         elikqdVVR2cytJy4ISxxjreM8rX6RIMYmHP+/E93dXoTfdXGyu8Jm+QzBbK67YCCnnGa
-         DYfrjgGNvl5qLoYOF7n7FYAry9kYGhT1fLEPSZrvILVsnfLM/Dtx43rFf94J3s9+fg4g
-         sl2H+5GH2uVAPLou+1XUBV2jOwjGxKt9CJ3b5qK/tT1n9y3S6LeuNfMktkLR8b+v3mDT
-         /Reg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784285084; x=1784889884;
-        h=content-transfer-encoding:content-type:in-reply-to:references:cc:to
-         :from:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1784285098; x=1784889898; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EyyU/Qc9UyahVBWmmJxyG2aqScYM6OzoucwPCiZaUtg=;
-        b=Tnx452sV/oMzSqFb0/r31FGQ6ldMFSA/uG4T75r9+/AfH5CEfsQYB2H0EsGnya/Rvl
-         m/Q3qGB1pxMDjAEJtKsg9uhcvXVyukLC70Xb549prujeRgvP8zostJR3r9c+riZPyIDv
-         8+KA+l0qYQNhoLqwuxIQt8J2Ubd54GW60cFDNt36yrkW4cI63n73ijWr0FgMAGi3NkHV
-         GUs26mCks/YkmSv2+/Pd20mQeAaAej8Vi+faWcL6VGri1dTcHxI7Xb1qHWSQSGEoLvj1
-         ey+tRn/AmtbAqWy5wdodvVejCX1N3Mt90TPI/gVThMZvMTy15uq9O+Lz/gAHbJIwKmb2
-         LtJQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp5gI9uOJr5dM9fJUDDFR2LSq9EPofaxDNFDOPvzrLXTLxdUVL3L7rkspYnsIum0RzF6rKLfFCoUdre@vger.kernel.org
-X-Gm-Message-State: AOJu0YyczJ4WY7r+5uWQCgZf4bkMU1xp46astOomvztYe65my794ZhtB
-	nPtf8yknlUcb/sMd0S9e7VW4GSslHOejRsOVpeUtHKdDxoXcuj0zyt6dDkiJac7oOSAURRM92U1
-	BR5KxxQrHHHETHyW8/oKceGfLWh0OPGQvmE0MY+IX816hfGqFEUP15lbSygdsD9fW
-X-Gm-Gg: AfdE7cmrep4OsoM89G7UGkSRWJc1Ajpkjjae4FV0SdMqy72Nswr6ZmJcJl0PYnX45LI
-	C7nKQgbDODUs5PWyW7Ie0Rmf02lZsxa5EQZmwB9rtinmm2XUxWKnO94t2IB9Ky0/VK8NbX7SK7G
-	BfxKnU4Q9+MFZM75uJbSxOPB8r1BrvJ5y+vx2XyQlItXiJCVyZt1cw2+yKktpqKgwj1sdwzlrox
-	o9QMXXVya277Rs+jzm+SlZId2PHwgG0MZK46SwBuDsMWeMENgllNjxQygHn4MKJHHD2AyDbed0R
-	4gr5o2NEJRxlC0W0YIas+koiobcs6cXFYZcGBexusyJsYaSuWpD9i+cEuBMxBl66IS1VJ27Otfs
-	UJIplxdSlUhY8FLA2uDAOKTjFs+TePlsEhnDYy3Kw/TLlZjxGVvGCZm+hSDK/+7CY02+DInPVG7
-	E=
-X-Received: by 2002:a05:6a00:4603:b0:848:4810:2b70 with SMTP id d2e1a72fcca58-84c294d4154mr2047691b3a.68.1784285083769;
-        Fri, 17 Jul 2026 03:44:43 -0700 (PDT)
-X-Received: by 2002:a05:6a00:4603:b0:848:4810:2b70 with SMTP id d2e1a72fcca58-84c294d4154mr2047634b3a.68.1784285083114;
-        Fri, 17 Jul 2026 03:44:43 -0700 (PDT)
-Received: from [10.133.33.143] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c2af6e3e0sm806712b3a.43.2026.07.17.03.44.37
+        bh=GHMjre5IwjmjoZwiytENVYpWI2A7IWIyRw+/ii0+cJ8=;
+        b=ducQ3wXXnM0/C16tx2bW4w73XQrvGY4nKM0b1cv6zI5EMAbtR1n7oJOgB7kGezYoTv
+         fxwmR/zA/AKiNlfaRiuM0GUqqa/p2WM3gegjD5Pf2+IqLS6c4HN7/0OpHVqoPY5zVRke
+         ftS/YdlP+sPW1Isn1uu8xwr+bgfpHjUpZFOniKxF7n1zP0huz2nb0oxg7DkaMZ+SRZQ5
+         YBH64t/nr72UYJuTqXpQQnoJ6QXnq/y9/x+XBAyxZyZSaw3H7g5YlXajZbqqge8EE7vL
+         BTiifURUn/859051xj9FFksz6zRNxDy+J6CnVbUan3XQ5KNgiYNTUkXUPKNW3xCQxmPk
+         4c+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784285098; x=1784889898;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GHMjre5IwjmjoZwiytENVYpWI2A7IWIyRw+/ii0+cJ8=;
+        b=QC+lUbimwZBo+5DdF0nH4Ervi6qOavXG8lIpIUN6Rr4l7iK3zpAWIcEI4+xYkBZk6Q
+         QHwT56O88DuiMVulYQ/uDn/JfTDwSETqJGX9R/ywuTkYBRT6WZcFXjhOjgdRhv3PSQMX
+         knh2lPApoJr4mVesD3RWiFz7C503krPrjyj9yQ69gCxV6HYqtliixvvqzsiOBTjO/Fkn
+         HyB0LtqYQxXOcOZDl2rXs/0l7uKjMebzGRQZD6Op3IT7I61qhlG7rJJnYDVDICGJO9FW
+         GvzXATMaHuuAoEoZCuNaxulh54e61a8O1V9P07pV9EqyCzYFSAa0xOBzr9e+kV0n1dWX
+         CQTw==
+X-Forwarded-Encrypted: i=1; AHgh+RrKr8Tdge5FyWmNPnLpiha2QtQ3yuTkEZx8KepcfnuPQCWbrIN9FjGSzM1JlTZce/2vvvgrOecqycVG@vger.kernel.org
+X-Gm-Message-State: AOJu0YweuVzlb31vFShl6aph3GFZh2CqEFkHxp36zpSwKismK9LFtcAT
+	uxEyVyfLWXdekz2aO384piXu/Qh/EVLlmr+Fro6Y3cWNqMWZt5O+2GPj
+X-Gm-Gg: AfdE7clOEFMkO3Cn6Dkkl5I1Exri0kxxRYaScBOxqoVnUnHEHOn5HGKPVFqrQdfjdNP
+	E4UYMPVfmkD4kROInSgUBpG2dubTGE9Ti1K6LBAu/GsUHrlv9Abq2XD6tOvf/MQkvF11isOIxuQ
+	6EspBN1G5cNR1efjTOoqodyDM9csxIjkFwl/ROMXg1GcIgpKKqx/7AEyEMna5GWIR0sFVPXDOnB
+	cc9PMZJ6LP7MpgaU+Mzw0xNtRpJg2XG2llMFYaCoHL7VFk5XY3kT5jcskjImq1Cc5kp3azObVUD
+	If6LLc9utrnwE5Isy7firWv79Pc19JCOYqM1aOdd4pNBhN0Ky7uEEMLq0EFnkjj73DXk9vAmj04
+	EI4ioo584oap2Df999z0/8YnmDw8FswsFL2ueBZ6UuwZ+cJ/Y6X5PQNNZfGTtnTJmDXsh5qsueQ
+	qpLs6u/Xg92xn/Og==
+X-Received: by 2002:a17:907:841:b0:c16:66dc:3abe with SMTP id a640c23a62f3a-c16b46fe83dmr88156066b.28.1784285097922;
+        Fri, 17 Jul 2026 03:44:57 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1740bf91bdsm52739366b.63.2026.07.17.03.44.55
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Jul 2026 03:44:42 -0700 (PDT)
-Message-ID: <a25a09c6-30fe-41de-9e6d-49e07934f263@oss.qualcomm.com>
-Date: Fri, 17 Jul 2026 18:44:36 +0800
+        Fri, 17 Jul 2026 03:44:57 -0700 (PDT)
+Message-ID: <dba037fa-0f21-4a50-8727-076a3b177c47@gmail.com>
+Date: Fri, 17 Jul 2026 12:44:54 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,235 +69,124 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/12] coresight: Add CPU cluster funnel/replicator/tmc
- support
-From: Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>
-To: "Maulik Shah (mkshah)" <maulik.shah@oss.qualcomm.com>,
-        Sudeep Holla <sudeep.holla@arm.com>, ulfh@kernel.org,
-        Suzuki K Poulose <suzuki.poulose@arm.com>, Leo Yan <leo.yan@linux.dev>
-Cc: Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, kernel@oss.qualcomm.com,
-        coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, Jie Gan <jie.gan@oss.qualcomm.com>
-References: <20251218-cpu_cluster_component_pm-v2-0-2335a6ae62a0@oss.qualcomm.com>
- <20251218-careful-ruby-wildebeest-a8babd@sudeepholla>
- <d0ce8306-84e0-4940-98aa-dbc356d87593@oss.qualcomm.com>
- <20251219-hysterical-sparkling-meerkat-59c5eb@sudeepholla>
- <11a01108-63da-4317-a547-5977a469a7dc@oss.qualcomm.com>
- <1714ad84-18cf-48d4-973d-b5e454d27c6c@oss.qualcomm.com>
-In-Reply-To: <1714ad84-18cf-48d4-973d-b5e454d27c6c@oss.qualcomm.com>
+Subject: Re: [PATCH] dma-iommu: Introduce API to reserve IOVA regions for
+ dynamically created devices
+To: Jason Gunthorpe <jgg@ziepe.ca>, Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Robin Murphy <robin.murphy@arm.com>, joro@8bytes.org, will@kernel.org,
+ m.szyprowski@samsung.com, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, dikshita.agarwal@oss.qualcomm.com,
+ Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Robin Clark <robclark@qti.qualcomm.com>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>
+References: <20260119054936.3350128-1-busanna.reddy@oss.qualcomm.com>
+ <cfd23f75-8952-4463-abd5-815b995031b0@arm.com>
+ <bb59f07e-ca7e-f012-6a4b-0a148350b69c@oss.qualcomm.com>
+ <20260612172649.GM1066031@ziepe.ca>
+ <da77c21d-25b3-46c3-a48f-71f0549e9f5f@oss.qualcomm.com>
+ <20260615125257.GS1066031@ziepe.ca>
+ <dcc0d02e-91fb-ddbe-399a-0191bab94c4f@oss.qualcomm.com>
+ <20260617194038.GC231643@ziepe.ca>
+ <e9e76c9f-b3b1-4ffd-9547-183556f6bb60@kernel.org>
+ <20260618151745.GD231643@ziepe.ca>
+Content-Language: en-US
+From: Konrad Dybcio <konradybcio@gmail.com>
+In-Reply-To: <20260618151745.GD231643@ziepe.ca>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDEwNyBTYWx0ZWRfX8LxG/xWYgc2L
- Z56ZALaLx0926FxonHccBZszliHgWjHcY/Xn35B5WKdQuGv4c4j1td6xhfiuOGcs0/VwyYBS6mx
- pS54oGzXNWrAVB2wiWiWY4Av610XG+92sBVIUUPgUKv456Tegmmj+Urdb65JXqHSrN5dCH1B16c
- 5bCVUXCr3/kRMOQLCSdIi/b6K2QdpDIHNHv6x/KIXbz70HcT3kwRiPSPlaOK3d6cbJUO0Vxkhci
- wRK82UUCVzumlCR9qmjgbNyCyouG+w4t2acRusPeCDjDQP/Yv/qldR4IBTKjn66PQRZ+9+Iv63o
- rUfPED/OfuWACkqeizEgTxR6kU6YFHUKlWiGdszHgIJKb86z7cynQzXKS+e/c3PDDxF7oWBMdKP
- 4U3EXLqE+EFpA7PlksYDmBRET+t+7qgWGnc+z6XDbBvIDmrTtIgPLxKBUE6Z+X/KXaZv55VjHh2
- Cu7HZvVDy1mLdqBS3ww==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDEwNyBTYWx0ZWRfX/rXTLroxXK2N
- QAV4w2J8XOJfcKhXnMC1SxXgmH+/ymief8ECJtXe3N25af/bdpve8nXftxn2IAZ3n13ytwhNAlR
- Xd4/nFojjL4/SytZxA3AOBMXa4xPEIs=
-X-Authority-Analysis: v=2.4 cv=YeWNIQRf c=1 sm=1 tr=0 ts=6a5a079c cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=7CQSdrXTAAAA:8 a=ynM2Uctx98uadF1GduAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=OpyuDcXvxspvyRM73sMx:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-GUID: ZCYzYYHOi1zpVxDq8UFKHlMkC9Zyueub
-X-Proofpoint-ORIG-GUID: ZCYzYYHOi1zpVxDq8UFKHlMkC9Zyueub
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-17_03,2026-07-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
- spamscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170107
+Content-Transfer-Encoding: 7bit
 
-Hi Sudeep & Suzuki,
+On 6/18/26 5:17 PM, Jason Gunthorpe wrote:
+> On Thu, Jun 18, 2026 at 01:57:40PM +0200, Krzysztof Kozlowski wrote:
 
-Gentle reminder on this patch series. Please let me know if you have any concerns or suggestions.
+[...]
 
-Thanks, Yuanfang
+> So, if we are going to do a hack in DT to accomodate Linux, I argue to
+> choose explicit child devices so VPU does not need to create a special
+> bus, call of_dma_configue, or hack in new DMA API things that only it
+> will ever use.
 
-On 6/29/2026 1:55 PM, Yuanfang Zhang wrote:
-> Hi Sudeep & Suzuki,
-> 
-> Gentle reminder on this patch. Any feedback would be appreciated.
-> 
-> Thanks,
-> Yuanfang.
-> 
-> On 5/25/2026 9:17 PM, Maulik Shah (mkshah) wrote:
->>
->>
->> On 12/19/2025 3:51 PM, Sudeep Holla wrote:
->>> On Fri, Dec 19, 2025 at 10:13:14AM +0800, yuanfang zhang wrote:
->>>>
->>>>
->>>> On 12/18/2025 7:33 PM, Sudeep Holla wrote:
->>>>> On Thu, Dec 18, 2025 at 12:09:40AM -0800, Yuanfang Zhang wrote:
->>>>>> This patch series adds support for CoreSight components local to CPU clusters,
->>>>>> including funnel, replicator, and TMC, which reside within CPU cluster power
->>>>>> domains. These components require special handling due to power domain
->>>>>> constraints.
->>>>>>
->>>>>
->>>>> Could you clarify why PSCI-based power domains associated with clusters in
->>>>> domain-idle-states cannot address these requirements, given that PSCI CPU-idle
->>>>> OSI mode was originally intended to support them? My understanding of this
->>>>> patch series is that OSI mode is unable to do so, which, if accurate, appears
->>>>> to be a flaw that should be corrected.
->>>>
->>>> It is due to the particular characteristics of the CPU cluster power
->>>> domain.Runtime PM for CPU devices works little different, it is mostly used
->>>> to manage hierarchicalCPU topology (PSCI OSI mode) to talk with genpd
->>>> framework to manage the last CPU handling in cluster.
->>>
->>> That is indeed the intended design. Could you clarify which specific
->>> characteristics differentiate it here?
->>
->> Sorry for coming very late on this.
->>
->> This series is intended to handle coresight components which resides within CPU cluster.
->> For the cases where cluster is in deepest idle low power mode or all CPUs belonging to cluster
->> are hotplugged off, access to coresight components can not be done.
->>
->> The implementation tried to address in two parts,
->> 1. Using cluster power-domain to know which coresight component belongs to which cluster/CPUs
->> 2. Schedule the task on intended cluster's CPU to make sure the CPU (and cluster) power is
->> ON while coresight component of the cluster is being accessed (using smp_call_function_single()).
->>
->> The use of power-domains in (1) will limit this to PSCI OS-Initiated mode,
->> to have this support on PSCI Platform-Coordinated mode too, probably instead of power-domains,
->> cpu-maps (which also defines the clusters) from device tree is a better choice which will give
->> the information on which CPU belongs to which cluster.
->>
->> (2) ensured that scheduling happened on intended CPU and while the access is in progress, CPU (and
->> cluster) will not enter power down in between.
->>
->>>
->>>> It doesn’t really send IPI to wakeup CPU device (It don’t have
->>>> .power_on/.power_off) callback implemented which gets invoked from
->>>> .runtime_resume callback. This behavior is aligned with the upstream Kernel.
->>>>
->>>
->>> I am quite lost here. Why is it necessary to wake up the CPU? If I understand
->>> correctly, all of this complexity is meant to ensure that the cluster power
->>> domain is enabled before any of the funnel registers are accessed. Is that
->>> correct?
->>
->> Yes, This is to ensure that CPU (and cluster) power is ON while coresight components
->> for same cluster are being accessed.
->>
->>>
->>> If so, and if the cluster domains are already defined as the power domains for
->>> these funnel devices, then they should be requested to power on automatically
->>> before any register access occurs. Is that not the case?
->>
->> Cluster power-domains will be only available for PSCI OS-initiated mode but also
->> will not help for cases where all CPUs in cluster are hotplugged off as hotplugs are
->> platform coordinated.
->>
->> After discussion with our HW team to automatically request power on for coresight
->> component GPR [1] can be used but they seems not working as intended on the existing
->> SoCs and will be available on next generation SoC.
->>
->> [1] https://developer.arm.com/documentation/ddi0480/d/Functional-Overview/Granular-Power-Requestor
->>
->>>
->>> What am I missing in this reasoning?
->>>
->>> The only explanation I can see is that the firmware does not properly honor
->>> power-domain requests coming directly from the OS. I believe that may be the
->>> case, but I would be glad to be proven wrong.
->>>
->>
->> please see below comment for more details, This seems not a firmware issue.
->>
->>>>>
->>>>>> Unlike system-level CoreSight devices, these components share the CPU cluster's
->>>>>> power domain. When the cluster enters low-power mode (LPM), their registers
->>>>>> become inaccessible. Notably, `pm_runtime_get` alone cannot bring the cluster
->>>>>> out of LPM, making standard register access unreliable.
->>>>>>
->>>>>
->>>>> Are these devices the only ones on the system that are uniquely bound to
->>>>> cluster-level power domains? If not, what additional devices share this
->>>>> dependency so that we can understand how they are managed in comparison?
->>>>>
->>>>
->>>> Yes, devices like ETM and TRBE also share this power domain and access constraint.
->>>> Their drivers naturally handle enablement/disablement on the specific CPU they
->>>> belong to (e.g., via hotplug callbacks or existing smp_call_function paths).
->>>
->>> I understand many things are possible to implement, but the key question
->>> remains: why doesn’t the existing OSI mechanism - added specifically to cover
->>> cases like this solve the problem today?
->>>
->>> Especially on platforms with OSI enabled, what concrete limitation forces us
->>> into this additional “wake-up” path instead of relying on OSI to manage the
->>> dependency/power sequencing?
->>
->> + Ulf in loop.
->>
->> Current platforms with OSI enabled, Linux PSCI do not implement the power_on/power_off
->> requests, as far as i know, runtime PM was never meant to implement this part and
->> pm_runtime_get_sync() (from drivers/cpuidle/cpuidle-psci.c) call is only used to convey
->> to cluster power domains about a child CPU/ sub domain being on after it has already
->> been landed in Linux.
->>
->> The standalone invoke of pm_runtime_get_sync() from another CPU do not really turn on/get
->> the CPU (and cluster), as the CPUs either use CPUidle / CPU hotplug paths to enter/exit
->> low power mode.
->>
->> To put it other way,
->> For a hot-plugged off CPU, invoking a pm_runtime_get_sync() won't get the CPU (and make
->> its cluster power domain) ON. In order to turn on the CPU, one has to still request
->> the online of the CPU, say via sysfs command echo 1 > /sys/devices/system/cpu/cpuX/online
->> which would invoke PSCI CPU_ON function and the power domain for CPU gets marked as ON
->> only after CPU already landed in Linux via psci_idle_cpuhp_up() invoking pm_runtime_get_sync().
->>
->> I used specific hotplug example but same applies to idle powered down CPU (or Cluster) too.
->>
->>>
->>>>>> To address this, the series introduces:
->>>>>> - Identifying cluster-bound devices via a new `qcom,cpu-bound-components`
->>>>>>   device tree property.
->>>>>
->>>>> Really, no please.
->>>>>
->>>>
->>>> Our objective is to determine which CoreSight components are physically locate
->>>> within the CPU cluster power domain.
->>>>
->>>> Would it be acceptable to derive this relationship from the existing
->>>> power-domains binding?
->>>
->>> In my opinion, this is not merely a possibility but an explicit expectation.
->>>
->>>> For example, if a Funnel or Replicator node is linked to a power-domains
->>>> entry that specifies a cpumask, the driver could recognize this shared
->>>> dependency and automatically apply the appropriate cluster-aware behavior.
->>>>
->>>
->>> Sure, but for the driver to use that information, we need clear explanation
->>> for all the questions above. In short, why it is not working with the existing
->>> PSCI domain idle support.
->>>
->>
->> Explained above.
->>
->> Thanks,
->> Maulik
-> 
+Bit late to the party, but I'll chime in with some more "amazing news"..
 
+All of the multimedia HW on QC platforms (camera, display, GPU, video
+and their specialized variations) has at least part of the same problems:
+
+* Multiple SID groups that need to be accommodated for different purposes
+  (normal vs secure buffers provided by the same device, different
+  "logical functions" generally speaking) apply to all of them
+
+* Different IOVA limitations per SID group seems to also concern at
+ least the camera uC ("ICP") (but not all of camera hw)
+
+* Remoteprocs (and therefore also the audio stack) expose a number of
+  subfunctions, some of which we currently model as subnodes (although
+  many arguably only exist as such because someone decided it was
+  convenient to express them this way). This, for example led to the
+  representation of each SID group associated with the remoteproc
+  (fastrpc/"run compute on rproc") as a separate node:
+
+-- qcom/hamoa.dtsi
+remoteproc_adsp: remoteproc@6800000 {
+	[...]
+
+	// no iommus OR iommus used for another purpose (fw loading)
+
+	fastrpc {
+		// no iommus
+
+		compute-cb@3 {
+			compatible = "qcom,fastrpc-compute-cb";
+			reg = <3>;
+			iommus = <&apps_smmu 0x1003 0x80>,
+				 <&apps_smmu 0x1063 0x0>;
+			dma-coherent;
+		};
+
+		compute-cb@4 {
+			compatible = "qcom,fastrpc-compute-cb";
+			reg = <4>;
+			iommus = <&apps_smmu 0x1004 0x80>,
+				 <&apps_smmu 0x1064 0x0>;
+			dma-coherent;
+		};
+
+		[...] (there's a lot of them)
+	};
+};
+
+There may be more hiding in plain sight, but those are the ones I'm
+aware of.
+
+
+I was kinda hoping there would be more buy-in to follow what PCIe
+does, but to my understanding you're opposed to it because "vpu_bus"
+is not dynamically discoverable. PCIe generally obviously is, but
+we already have prior art regarding hardwired/onboard devices - many
+qcom DTs carry per-board iommu-map overrides to please the allocator
+with known-in-advance BDF values (because the HW has only so many
+SIDs):
+
+-- qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
+iommu-map = <0x0 &apps_smmu 0x1c00 0x1>,
+            <0x100 &apps_smmu 0x1c01 0x1>,
+            <0x208 &apps_smmu 0x1c04 0x1>,
+            <0x210 &apps_smmu 0x1c05 0x1>,
+            <0x218 &apps_smmu 0x1c06 0x1>,
+            <0x300 &apps_smmu 0x1c07 0x1>,
+            <0x400 &apps_smmu 0x1c08 0x1>,
+            <0x500 &apps_smmu 0x1c09 0x1>,
+            <0x501 &apps_smmu 0x1c10 0x1>;
+
+Although it seems to me that it's more of a hack than anything else..
+
+
+With that in mind, do you still prefer that this is handled through
+separate nodes, presumably for all of the aforementioned cases?
+
+Konrad
