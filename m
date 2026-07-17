@@ -1,185 +1,132 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE3872F6591;
-	Fri, 17 Jul 2026 15:59:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0D033BBCB
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 16:07:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784303988; cv=none; b=SKnQFSorXQ+amlVp7ad+B7n0vsxy0RUoJ8sDVubl5jWaa450+oKaEKVWizqX5TUb6ukM+npZ0pahnRDJyMFTmfCfOkOigecDyP5PSd9H69CHSmY4WUw5ACcJMZriOgYtGdRshbo4ygf835z5q93jM/cTNEuG5XE2GQDKu1f8gO4=
+	t=1784304441; cv=none; b=A0lVcaUqmp6HFbxusSv2MTOC+C6BK8AXpnseApnFfC0yxK0k+IeYccBFVAZW0/2p7WEl+RYJ0OBRdL31OX2y9E2ggxC2zu3nYtTUNbfMgAPHcICqvBqVZwcMdSOOSrLrS2/nDQgiSf2NN/5J0SMAlMHotP8RiJ1qpbVB5sOPaYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784303988; c=relaxed/simple;
-	bh=hm5zNnEPwqUONrgyk4Vb0mT5qLt2h29Hef++RAqWOzs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NO0L/bBzauRoBfUrGcWa9pT5GhAuDeWZ9UJBhFD/sOs44EUTkrDtYhuXe0OSZeTWbZejBo6aueM0trzPU7Fd4Za85wF5kVNf1SEuuxWMiQ9P0dEk930NODkUX8A1JVJgnY/b09ya2nw0WxHx8hrDLBPiosLSCN4jPbXeqXjHlok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=MGnhFktf; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1784304441; c=relaxed/simple;
+	bh=iVyrSwrZmNx4bprcJ7yvv2W/LjWegRQAvxGt7YUy2mg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DtdAhWJezAiTyNecyYM+4+oA5gmNSXDPys+NJaYClV4tuhNQjm/KaOR+voxY6mOsp5Itucm1BV3PJqE4NwFVMta3KtaYm7/w0sIxIDY7nZlB9Pt4dfOXnofSYZxYmAmh74Gwx5TgEOHSq77p5nnmbmzmvsLnZ54IN5Iwee99V4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=WQxI3jF4; arc=none smtp.client-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="MGnhFktf"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 6CB891A1063;
-	Fri, 17 Jul 2026 15:59:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3FEB760361;
-	Fri, 17 Jul 2026 15:59:45 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B0BBB11BD2635;
-	Fri, 17 Jul 2026 17:59:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1784303984; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=6dmtcyA4tztmbUkoOE4VBkGPmZReS7qFIfSkMOL+N4U=;
-	b=MGnhFktfZKyovY4JpuAXpg7FBR54ypoh67L/HHl+m5ZXh6Tlrm0zvrQv4zjMs8U5XcrRB9
-	L3w0AvIBe94Q6hVSCJA/DsEsJc9pRlP/PzTdsFMjMHJMw5y0cv5vA9/rF6zXvVE/8aeLpx
-	R2l7PR6KYUtp84nJ5ILmLwUg0pZaDRUp+FFikpilnOAxMo19+kdHbLFA0rclYk+IMCpSc/
-	TVyyAxPQEu9LrcLWDNZx5D7J4ceYUGncIGxzikTUJFd7TnErZK5q74po3HSdHZxCYCXAND
-	0BSn3WoU3LewNSmEphAUq94viKF6V8gqbDStoBzEVbMKnSniE/xvlgbwu847Ww==
-From: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>
-Date: Fri, 17 Jul 2026 17:59:23 +0200
-Subject: [PATCH v4 7/7] clk: tests: Add Kunit testing for nexus nodes
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="WQxI3jF4"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-51c0cea8883so19574891cf.1
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:07:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1784304439; x=1784909239; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iVyrSwrZmNx4bprcJ7yvv2W/LjWegRQAvxGt7YUy2mg=;
+        b=WQxI3jF4/RoSRcLBYIFnJq37uVc+P3uBZgSN2J5whGY6r2LmLida1pKk1GrrHtcU+A
+         LSvDoJee+1qT0rKJZP2VaL258HiDotdM1G3V/OFLpcNHfxd7PTEs5T8nz7RRw4pwBEfU
+         heweIZbKGQ9Ox2BYRqfPGOtbP07zdYYPq1OwDbMCxQeYopFo0QSdbGhMk+MPWEZTAkVZ
+         1QmpBN6Kr+Qt/YBwf6h133Tj2IvaGHO79yFfo0oyAeotJQ+e6B2Nc4z+NWhQHh+ruAC1
+         PxeXBdFOd0IFspqwYN0DNQEfDQaHeXGdF77hm60plqcK2XJm7kg0LVhsKpjXGXGh+wF8
+         YY9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784304439; x=1784909239;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iVyrSwrZmNx4bprcJ7yvv2W/LjWegRQAvxGt7YUy2mg=;
+        b=iwvAeY1yeFMxAScLruzEPXLdCM4TxFc2EbO6LEwuZpvq70qdWLqsFLsrLitq/xlgAy
+         X3seA8zpUF24z1BZw4HyNnYC8CCSkInBYFgetklvDbkGIFDNIpNoJScfbk7ewxGJxs6l
+         U+IsZqX3FvNHTW2XI46LoTp8sQX2ZMIQilLcbOfrcO8PGUf539BrnsYmdg8c1/mA90d+
+         ARZFkN3xmK8YribgLki4f80nhPFyFRvPY6LH6sKih9kRWadSBIrvQZAex6axWgsl+53X
+         QQ/NoL1HRKKo9wx+qOhTIenyTeqwgcnBiMniRNJRmhuOpraTvtYo1eoUk55mkIIWTYxY
+         ML7A==
+X-Forwarded-Encrypted: i=1; AHgh+RpL37n5EuJQ2yLkYYtmXTmcK+Naew7Ty2c4E4U/SM8vfI216NXYVIgNngzPmBBntghbsT1NzkjFiJY5@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywl7ksH+fZajvMoZVBNYAva/gu8Lsw2w6f6avX+JFYh7MU33Uzk
+	Ifx5E6Oef+TE7ebvyxwubTwP9n8szGhKxa35dPro3erpu3PSGfygD6rXXqmVxcspum4=
+X-Gm-Gg: AfdE7cnO2WiU0OuRfE3CYpxGGdZb9TC124peW1+jdSM+wPYo13MjvvV1nm4UWzMRuXs
+	Z2sznRN3e404pxfwn5zGjiIvcpJ1IWnZ4mc71t9cZNLYAdrnHpX4hFa6OsXlc61DEgaJAcEOjoH
+	5Ln8hrjVt14g2ljIb3r3G4d43FFfHS7rkhOkT4H331Vg7ENw/TZgY9a9oCVgZj58VipARNoG8uX
+	CVINvnLAINzlgMVjumvIG9uXp4ElgUsDIQbSYfVzFJmJgIqTYiLZIN1amJFbNYhlpPyqrLrCTNQ
+	ID6M6uc77Ad9gZi3Sb7CUTrlxjCVGhxV06f1sGLalLSLHKSmbmsnwzJlY4+HRI3/Ry0x3Pz3XXg
+	ZnffAp/jN2fwRm5BKBPJPyeNAc2zU15jwSbWVKLe7Q+MRim5FXQ==
+X-Received: by 2002:a05:622a:1b12:b0:51c:558:cbbd with SMTP id d75a77b69052e-51fc214bd5emr69273551cf.41.1784304438760;
+        Fri, 17 Jul 2026 09:07:18 -0700 (PDT)
+Received: from ziepe.ca ([159.2.72.92])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9077871d06csm20242736d6.43.2026.07.17.09.07.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 09:07:17 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1wkl5o-00000004hEV-4513;
+	Fri, 17 Jul 2026 13:07:16 -0300
+Date: Fri, 17 Jul 2026 13:07:16 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Konrad Dybcio <konradybcio@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Robin Murphy <robin.murphy@arm.com>, joro@8bytes.org,
+	will@kernel.org, m.szyprowski@samsung.com, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, dikshita.agarwal@oss.qualcomm.com,
+	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Robin Clark <robclark@qti.qualcomm.com>,
+	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>
+Subject: Re: [PATCH] dma-iommu: Introduce API to reserve IOVA regions for
+ dynamically created devices
+Message-ID: <20260717160716.GA701389@ziepe.ca>
+References: <cfd23f75-8952-4463-abd5-815b995031b0@arm.com>
+ <bb59f07e-ca7e-f012-6a4b-0a148350b69c@oss.qualcomm.com>
+ <20260612172649.GM1066031@ziepe.ca>
+ <da77c21d-25b3-46c3-a48f-71f0549e9f5f@oss.qualcomm.com>
+ <20260615125257.GS1066031@ziepe.ca>
+ <dcc0d02e-91fb-ddbe-399a-0191bab94c4f@oss.qualcomm.com>
+ <20260617194038.GC231643@ziepe.ca>
+ <e9e76c9f-b3b1-4ffd-9547-183556f6bb60@kernel.org>
+ <20260618151745.GD231643@ziepe.ca>
+ <dba037fa-0f21-4a50-8727-076a3b177c47@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260717-schneider-v7-2-rc1-eip201-upstream-v4-7-751547e160e5@bootlin.com>
-References: <20260717-schneider-v7-2-rc1-eip201-upstream-v4-0-751547e160e5@bootlin.com>
-In-Reply-To: <20260717-schneider-v7-2-rc1-eip201-upstream-v4-0-751547e160e5@bootlin.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
- Rae Moar <raemoar63@gmail.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Pascal EBERHARD <pascal.eberhard@se.com>, 
- Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
- "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <dba037fa-0f21-4a50-8727-076a3b177c47@gmail.com>
 
-Add a nexus node with a child requesting a mapped clock in the fake DT
-overlay to verify that the parsing is also correctly working.
+On Fri, Jul 17, 2026 at 12:44:54PM +0200, Konrad Dybcio wrote:
 
-Create an of_find_node_by_name() like kunit helper to garbage collect the
-node automatically in case of failed assertion.
+> I was kinda hoping there would be more buy-in to follow what PCIe
+> does, but to my understanding you're opposed to it because "vpu_bus"
+> is not dynamically discoverable.
 
-Suggested-by: Stephen Boyd <sboyd@kernel.org>
-Signed-off-by: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
----
- drivers/clk/clk_kunit_helpers.c          | 31 +++++++++++++++++++++++++++++++
- drivers/clk/clk_test.c                   | 15 +++++++++++++++
- drivers/clk/kunit_clk_parse_clkspec.dtso | 10 ++++++++++
- include/kunit/clk.h                      |  2 ++
- 4 files changed, 58 insertions(+)
+PCIe allows describing devices in DT. What this weird vpu_bus thing
+seems to be about is to actively avoid describing the devices in DT
+while simultaenously treating them like devices. I think it makes no
+sense..
 
-diff --git a/drivers/clk/clk_kunit_helpers.c b/drivers/clk/clk_kunit_helpers.c
-index 68a28e70bb61..daaf1cf1546c 100644
---- a/drivers/clk/clk_kunit_helpers.c
-+++ b/drivers/clk/clk_kunit_helpers.c
-@@ -233,5 +233,36 @@ int of_clk_add_hw_provider_kunit(struct kunit *test, struct device_node *np,
- }
- EXPORT_SYMBOL_GPL(of_clk_add_hw_provider_kunit);
- 
-+KUNIT_DEFINE_ACTION_WRAPPER(of_node_put_wrapper, of_node_put, struct device_node *);
-+
-+/**
-+ * of_find_node_by_name_kunit() - Test managed of_find_node_by_name()
-+ * @test: The test context
-+ * @from: Parent device node to start searching from, or NULL to search from root
-+ * @name: The name string to match against
-+ *
-+ * Just like of_find_node_by_name(), except the device_noded is managed by
-+ * the test case and is automatically put after the test case concludes.
-+ *
-+ * Return: the device_node on success, NULL if not found, or a negative errno value on failure.
-+ */
-+struct device_node *of_find_node_by_name_kunit(struct kunit *test, struct device_node *from,
-+					       const char *name)
-+{
-+	struct device_node *np;
-+	int ret;
-+
-+	np = of_find_node_by_name(from, name);
-+	if (!np)
-+		return NULL;
-+
-+	ret = kunit_add_action_or_reset(test, of_node_put_wrapper, np);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	return np;
-+}
-+EXPORT_SYMBOL_GPL(of_find_node_by_name_kunit);
-+
- MODULE_LICENSE("GPL");
- MODULE_DESCRIPTION("KUnit helpers for clk providers and consumers");
-diff --git a/drivers/clk/clk_test.c b/drivers/clk/clk_test.c
-index 4084559e157d..0c2f1efdaa8e 100644
---- a/drivers/clk/clk_test.c
-+++ b/drivers/clk/clk_test.c
-@@ -3650,10 +3650,25 @@ static void of_clk_get_parent_name_gets_parent_name(struct kunit *test)
- 			   of_clk_get_parent_name(ctx->cons_np, 0));
- }
- 
-+static void of_clk_get_hw_maps_thru_nexus(struct kunit *test)
-+{
-+	struct clk_parse_clkspec_ctx *ctx = test->priv;
-+	struct clk_hw *expected;
-+	struct device_node *np;
-+
-+	np = of_find_node_by_name_kunit(test, NULL, "kunit-clock-nexus-child");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, np);
-+	expected = of_clk_get_hw(ctx->cons_np, 1, NULL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, expected);
-+
-+	KUNIT_EXPECT_PTR_EQ(test, expected, of_clk_get_hw(np, 0, NULL));
-+}
-+
- static struct kunit_case clk_parse_clkspec_test_cases[] = {
- 	KUNIT_CASE(clk_parse_clkspec_with_correct_index_and_name),
- 	KUNIT_CASE(clk_parse_clkspec_with_incorrect_index_and_name),
- 	KUNIT_CASE(of_clk_get_parent_name_gets_parent_name),
-+	KUNIT_CASE(of_clk_get_hw_maps_thru_nexus),
- 	{}
- };
- 
-diff --git a/drivers/clk/kunit_clk_parse_clkspec.dtso b/drivers/clk/kunit_clk_parse_clkspec.dtso
-index c93feb93e101..a4115216d2aa 100644
---- a/drivers/clk/kunit_clk_parse_clkspec.dtso
-+++ b/drivers/clk/kunit_clk_parse_clkspec.dtso
-@@ -18,4 +18,14 @@ kunit-clock-consumer {
- 		clocks = <&kunit_clock_provider1 0>, <&kunit_clock_provider2 0>;
- 		clock-names = "first_clock", "second_clock";
- 	};
-+
-+	kunit_clock_nexus: kunit-clock-nexus {
-+		clocks = <&kunit_clock_provider2 0>;
-+		clock-map = <&kunit_clock_provider2 0>;
-+		#clock-cells = <0>;
-+
-+		kunit-clock-nexus-child {
-+			clocks = <&kunit_clock_nexus>;
-+		};
-+	};
- };
-diff --git a/include/kunit/clk.h b/include/kunit/clk.h
-index f226044cc78d..ab24f7747516 100644
---- a/include/kunit/clk.h
-+++ b/include/kunit/clk.h
-@@ -29,5 +29,7 @@ int of_clk_hw_register_kunit(struct kunit *test, struct device_node *node,
- int of_clk_add_hw_provider_kunit(struct kunit *test, struct device_node *np,
- 				 struct clk_hw *(*get)(struct of_phandle_args *clkspec, void *data),
- 				 void *data);
-+struct device_node *of_find_node_by_name_kunit(struct kunit *test, struct device_node *from,
-+					       const char *name);
- 
- #endif
+IMHO the approach inverts the thing, you start the main driver then
+use vpu_bus to dynamically create a bunch of struct device DMA handles
+for the main driver to use.
 
--- 
-2.54.0
+I think it is much better if you start the main driver, use the new
+component stuff:
 
+https://docs.kernel.org/driver-api/component.html
+
+To aggregate a driver from the struct device DMA handles that DT will
+create automatically. ie the reversed flow, the struct devices
+pre-exist created by DT instead of being created by code in your
+driver.
+
+Jason
