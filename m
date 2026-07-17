@@ -1,90 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD3AD388E7A;
-	Fri, 17 Jul 2026 12:44:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3557BA3D
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 12:48:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784292271; cv=none; b=eFaGe+4ikrwdZi7fld7zXZKFVJd7QTMXiar78zmOPmaPl3+c26pz1mrCLLP/EeAY24Rbi/RM3X/guLcJusW1BJKIvdmne4iEHkX8Bso9Sdf7FN88JUndVX1WzYzE/R3OPqgGo4PzCOj6Jvu4z7Q4Kk00WtysnAa47+vj2fJpiDE=
+	t=1784292496; cv=none; b=XNxnPw2+2iu7tY5PHchw8qv0ECa+Jd4YngqHwTdmJ03u77GGUUkKI6fd2/WodvqSSIVQUgpOgWgnalnD+5c5PWZowtZN/ZGC6M+RV46pu4VYq6TVC8JZ8YJpCZWU/0d+2diuPf7LoDsFG0h/KX0gMIK1iVmBCQt2U86LfIFyBoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784292271; c=relaxed/simple;
-	bh=As6RDX6p31gbcMsLLe8dj4wEfwwYenDNellDAaL46Ck=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PpFHgi1q4bsGv5LNmZXU6dbmy4KQeEeqezybV/PLA4de2WO2/UjKOzl4VpFArLhIBYukXav9yiW/MNjuq5feLdJMEEAlBRbgAXojUlrg7fj8JzVhmN+njrHmrcXRWrR8Y80rZviB6/DtWQzehl6K3eqgRb7aijJWuZFOWZbto9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=amH54H40; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784292496; c=relaxed/simple;
+	bh=no3ycw6KIP74R5jJ1YPjMV/yC3/6fNEizQL8yWKwt/c=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Pm58eB+s2gh0vwFWswDYV5A3H/Tx5Eqgg4Y5frHXnbkFgt4Mll3624CXtMixEqF1jgp7Hd+DDRVZoD9kBTZh/dV4LnU4IRNDH+50Mgy89tmWVxIAxzJ0zEMS+S5sETMCLQJCpS9+ZMyi2T9tjXKbLN+Gp2/gPl5zRMgULyPAtcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bQnal47q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="amH54H40"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B01521F000E9;
-	Fri, 17 Jul 2026 12:44:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bQnal47q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C76D41F000E9;
+	Fri, 17 Jul 2026 12:48:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784292270;
-	bh=As6RDX6p31gbcMsLLe8dj4wEfwwYenDNellDAaL46Ck=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=amH54H402cNrVhhUcwRafka0QURJ8F/JrZCSW7ryMeU4sqGURm1wFhB71cb4+l7nt
-	 1Zd8Mljb6D+bPc4iM7UaQAQewljI3TgSCZnGFi0JPySah10aidQaTdOhLpirY/vtD6
-	 N7+Hp0QNmlZa92iWyDYnimzHmZwcvw8wcfyUw6qHiQDLVj19Asq/7yOipNwvH/L4VB
-	 jFc3MXKm7eP0ikDdxvQnpUrwDC8GmxUjox0l7BVA8y7nJz0xnUOA2mDVS7n9qr16Cm
-	 n5305jckH4T/nySPp06eALVeK95OXBMfGY/oUvscaGhzGCoXfTuGRjEDMbloUGKSbu
-	 tt7r6fsZi6xDQ==
-Date: Fri, 17 Jul 2026 13:44:26 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Victor Krawiec <victor.krawiec@arturia.com>, lgirdwood@gmail.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/4] regulator: dt-bindings: Add Silergy SYR82X allowed
- modes
-Message-ID: <38adfbda-2cdb-49bb-84d4-aae0a6258f68@sirena.org.uk>
-References: <20260715155141.128601-1-victor.krawiec@arturia.com>
- <20260715155141.128601-2-victor.krawiec@arturia.com>
- <20260717-nostalgic-raptor-of-sunshine-1aba9a@quoll>
- <fd7d5b72-a400-435c-bbac-9e661d98e3c9@arturia.com>
- <94ce2136-3adc-40f5-946f-b56778f6343c@kernel.org>
+	s=k20260515; t=1784292495;
+	bh=fWCKhGCJ+0IjAhMoUdoAT5KDtzHHgtMmDg/6Kd9tR7g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bQnal47qS0nOgluaYiyV4/fCVAQYgXlhoLYzoEZfNqGoDsBEODlCHCI1FHNVZ02B3
+	 nWUU2J9ysvRImgTGcYi/1qvh5ofapd6vKibGMWA1S2ncd7f413Ax39gh0TtUcaoj+/
+	 bHFvb0Q1N1+Zj/cZ6VXh9yU4FVRkvTEeHXtV91b7xWyPm9Mwo5/Gdi8Gs7OdjU9iwm
+	 7YxyOdOMtpRCAyUHXo3YS0KFTv0BmY4wuiMIheyxq5NhuofodzRJWCKrUABkOreKDO
+	 tfZ2H+GmS8vkCGSWFcoijAQdqSPQFRHtkeM6Uh8hCaAZxHsPd20/k2GneHep/IEk0Y
+	 DSlFRuOmmuweA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] iio: adc: add MAX40080 current-sense amplifier
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Stefan Popa" <stefan.popa@analog.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260717123852.1140893-3-stefan.popa@analog.com>
+References: <20260717123852.1140893-1-stefan.popa@analog.com>
+ <20260717123852.1140893-3-stefan.popa@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 12:48:14 +0000
+Message-Id: <20260717124814.C76D41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/ixPGCn6sCa7O3VG"
-Content-Disposition: inline
-In-Reply-To: <94ce2136-3adc-40f5-946f-b56778f6343c@kernel.org>
-X-Cookie: Enjoy yourself while you're still old.
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Uninitialized stack variable `tmp` is read and assigned to `*iv`=
+ on the error path in `max40080_read_iv`.
+- [Medium] Unprotected read of `st->range` in `max40080_read_raw` races wit=
+h concurrent modifications.
+--
 
---/ixPGCn6sCa7O3VG
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--- Patch [2]: [PATCH v4 2/2] iio: adc: add MAX40080 current-sense amplifie=
+r driver ---
+commit b542cce161e1d593b12f173fe74a0a6612fdcb77
+Author: Stefan Popa <stefan.popa@analog.com>
 
-On Fri, Jul 17, 2026 at 02:31:51PM +0200, Krzysztof Kozlowski wrote:
-> On 17/07/2026 14:02, Victor Krawiec wrote:
+iio: adc: add MAX40080 current-sense amplifier driver
 
-> > The underlying implementation in the driver (in fan53555_device_mode_ma=
-p_setup() it the patch serie) is limited to=A0SYR82X because it is the only=
- hardware that I'm able to test. That's why the binding part was referring =
-to this specific device.
+This commit adds a new driver for the Analog Devices MAX40080 bidirectional
+current-sense amplifier. It exposes current and voltage channels via IIO and
+allows configuring oversampling and input ranges through I2C.
 
-> So you are adding constants for one device but used in the bindings and
-> driver for other? Are they valid there?
+diff --git a/drivers/iio/adc/max40080.c b/drivers/iio/adc/max40080.c
+new file mode 100644
+--- /dev/null
++++ b/drivers/iio/adc/max40080.c
+[ ... ]
+> +static int max40080_read_iv(struct max40080_state *st, u32 *iv)
+> +{
+> +	struct i2c_client *client =3D st->client;
+> +	int ret, io_ret;
+> +	u32 tmp;
+[ ... ]
+> +	ret =3D read_poll_timeout(max40080_read_iv_once, io_ret,
+> +				io_ret || (tmp & MAX40080_IV_VALID_MSK),
+> +				1 * USEC_PER_MSEC, 50 * USEC_PER_MSEC,
+> +				false, st, &tmp);
+> +	/*
+> +	 * Update *iv even on timeout =E2=80=94 the caller checks ret first, bu=
+t the
+> +	 * last-read value (with valid bit still clear) can be useful for debug.
+> +	 */
+> +	*iv =3D tmp;
 
-It's one of these devices that's got a bunch of clones from various
-manufacturers with minor differences and share a driver.
+[Severity: Medium]
+If max40080_read_iv_once() fails on the first attempt and returns a negative
+error code (like -EIO), read_poll_timeout() will short-circuit without
+evaluating the right side of the condition.
 
---/ixPGCn6sCa7O3VG
-Content-Type: application/pgp-signature; name="signature.asc"
+Will this leave tmp uninitialized, resulting in uninitialized stack memory
+being copied to *iv before the error is returned?
 
------BEGIN PGP SIGNATURE-----
+[ ... ]
+> +static int max40080_read_raw(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan,
+> +			     int *val, int *val2, long mask)
+> +{
+> +	struct max40080_state *st =3D iio_priv(indio_dev);
+> +	unsigned int range;
+> +	int ret;
+> +
+> +	switch (mask) {
+[ ... ]
+> +	case IIO_CHAN_INFO_SCALE:
+> +		/*
+> +		 * The selectable current-sense range is exposed through
+> +		 * scale: each RANGE setting has its own precomputed
+> +		 * mA-per-code value. Userspace picks the range by writing
+> +		 * the matching scale.
+> +		 */
+> +		switch (chan->type) {
+> +		case IIO_CURRENT:
+> +			range =3D st->range;
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpaI6kACgkQJNaLcl1U
-h9Bz/Af+JDp5Ibxu8Mzsa5wzSvHhAKXAFadewcTtuZKsb54Lrc8/K4t7aHfgtkp5
-Zd7U3MHSig8BPzv7qLQJAZvgpaJlk/Eb/ADcOt/GuaF4oHdddGKG9OfvPEHbabkM
-S4oHX0jKw6ortFitaG0TumZXLpCm0V+VczkZqlO+6b7XkTlJJwszN2lBQQg+aoZM
-MtgDYvMx/veb6WOivl9c4CtG4Xep2bpkGM2+FvLrDcoSNkXgsHHG7ncaGS++EFSY
-K+lUAV/OUWqwvfadKiWP58zv8GF+/L+VdQkExQr92BrlEYM70igAyChu3i8UrsLE
-/TnMCwiXq3elzyKF2H01JLQ1lzftXA==
-=swZq
------END PGP SIGNATURE-----
+[Severity: Medium]
+Since max40080_set_range() updates st->range while holding st->lock,
+could reading it here without taking the lock cause a data race if a user
+concurrently reads and writes the scale sysfs attribute?
 
---/ixPGCn6sCa7O3VG--
+> +			*val =3D st->current_scale[range][0];
+> +			*val2 =3D st->current_scale[range][1];
+> +			return IIO_VAL_INT_PLUS_NANO;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717123852.1140=
+893-1-stefan.popa@analog.com?part=3D2
