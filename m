@@ -1,147 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776963A9618;
-	Fri, 17 Jul 2026 21:12:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27985191F98
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 21:13:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784322746; cv=none; b=WYcW54hwUp3ePptwVMpotbbHNaWCYbZY5fP4G9FZw+1kpEQ9wuX5fp0S+KlAS99HlrchPtUQisaZonsoiIOi3J8RuNGbH6XwD6fmgWERe8r+7dbVsi/Viao8/hFUN4K3nyo6CqtN35QDKArZE4KPbHfrvKHLUMj6qBm/0bEJ9Cg=
+	t=1784322830; cv=none; b=Orj1itabV2uNq4MywiYOB5N3DIF/CRxS68KQmSpfrdCHOc+SKp3c2P49K8B77uS6ItG+hceskLqSUYFOirDRhhqzB0EUeTUbkFpejJbHctfYQkVDhDZhfv2yvf+P8pJp2K4Qmuq1ZmZaj8u8+5je7KRFWO8AoR0fqYkd7Niaml8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784322746; c=relaxed/simple;
-	bh=HwpvmVDSTFQ8lO5yxSoe7u03I4PkFjeLNTvBPH5keI8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VUhNJxA8mnIIv5vDB3r4ugw1B20Uqurahp5ltAxr6vwRRmSazwj2Z0bwIhfHMKko13M0NH6/Y+gib7XZa3qLVRhVz6cneCbALnl10Fbolu9y/3aI8kcokbEVmCfSd25o0rY0efLyq4lAn0UiqnKHRPcz540aFkxvyrKQwxN3L04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PGKoprfU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784322830; c=relaxed/simple;
+	bh=wU1n0hOrlprQHWnhzkaItTdslJW+pRo/wRH8azhdL3g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CvBev7juC1Fymbnczn5Uh6ViQ/Ce8vZ0hOlV05Smh7rBU5dv6zit2FHTCU704kFwTq655GPWW/ZHzwLi2zhg8mgPnaG1cGbGBs1JJQ2/aXAeV3zlI7Dpljn+gD22IneOrAFyO89vJzyAHasN/MRSPuc+ZEaV/E0h30xxfFef6bo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=Qa8WNCTN; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PGKoprfU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9E291F000E9;
-	Fri, 17 Jul 2026 21:12:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784322745;
-	bh=rReIroXHoNeXulNu+SCIgeKE3eR9zgzCvAaSuBKEbKY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PGKoprfUDP8lURcW3DWa7pqJdPemiBByBtDdEIZN4AmArts9nMVJjkph44pyIoadk
-	 ndSt6jOgGq8LZtC+7L874L7ZQKhHVDiBkBMSTO+LM2/7yJfg7tecymNoVzp97im8wv
-	 PEYfVf/vZIsWqVB5JYJMmF2+vqbI8c7xUCYRnvTckIwjBE87VQpOxNHP+yl9bnVp0S
-	 lP4E5uhzHbGc6yc6FEznABHDeXzrmJ2wh7+5DsooPXPyhJraQ5ejO309ITaWBSlLYj
-	 ZOzHYhfPxzvyLOAcwL7VIC8GrGI3aq2ZQXFVgMffT3azstrZfX6//JSnzhIhOaLMEC
-	 ZduT4Tqryh3wQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/6] hwmon: (adt7470) Fix busy-loop and I2C flooding
- in update thread
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luiz Angelo Daros de Luca" <luizluca@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260717-adt7470_thermalzone-v2-3-a55147958fad@gmail.com>
-References: <20260717-adt7470_thermalzone-v2-0-a55147958fad@gmail.com>
- <20260717-adt7470_thermalzone-v2-3-a55147958fad@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 21:12:24 +0000
-Message-Id: <20260717211224.B9E291F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="Qa8WNCTN"
+Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net [178.82.120.96])
+	by mail11.truemail.it (Postfix) with ESMTPA id 00E771F9FE;
+	Fri, 17 Jul 2026 23:13:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1784322827;
+	bh=yMr4YvPSGTUuTkpmhzKNy6bqQMBEMI+em96DebwBIU4=; h=From:To:Subject;
+	b=Qa8WNCTNZQoAWiX+O4hlDcq7TKa5qf37Ez5FtotARqbMVnyVjyATdvE5ao5Jqqnqw
+	 3GuLyDRJ3XOkIAxbUWj6i3qzRhAYgkScI2QOPk2s2zXrh/lNaafOrt0NlneDRnfKJg
+	 XWG4nmNOSHJMQJLUrZ7jpAUi8hOsuWsQtCv0cBSZaN3Y1UdrHZgNGWD5cnTRPU9Gr3
+	 7c1vSn4gJLc2Tvcpaa7ejBJrXMmUHyvl18nSfxlFvFf6UgsdnXwXA1A3KFFi7fWMo1
+	 Ji9bohztIvHjTG8VOd4nSkY8mHP+vTpz7ytj3HXeYRXVIsm2phq3kxgAAjEA5moJSH
+	 j3XI+HZRUbeLg==
+Date: Fri, 17 Jul 2026 23:13:44 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Frank Li <Frank.li@oss.nxp.com>,
+	Francesco Dolcini <francesco@dolcini.it>
+Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org,
+	robh@kernel.org, dri-devel@lists.freedesktop.org,
+	Frank.Li@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
+Subject: Re: [PATCH v1 1/4] dt-bindings: lcdif: Add interface pixel format
+Message-ID: <20260717211344.GC512678@francesco-nb>
+References: <20260717121847.488148-1-francesco@dolcini.it>
+ <20260717121847.488148-2-francesco@dolcini.it>
+ <20260717122808.693211F000E9@smtp.kernel.org>
+ <alpQh0ASY1HgdNqE@SMW015318>
+ <20260717205754.GB512678@francesco-nb>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260717205754.GB512678@francesco-nb>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On Fri, Jul 17, 2026 at 10:57:54PM +0200, Francesco Dolcini wrote:
+> On Fri, Jul 17, 2026 at 10:55:51AM -0500, Frank Li wrote:
+> > On Fri, Jul 17, 2026 at 12:28:07PM +0000, sashiko-bot@kernel.org wrote:
+> > > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > > - [Low] Introduction of the legacy, non-standard `interface-pix-fmt` property for a standard hardware concept (parallel bus width), violating modern DT principles.
+> > > --
+> > >
+> > > --- Patch [1]: [PATCH v1 1/4] dt-bindings: lcdif: Add interface pixel format ---
+> > > commit 7225ea545d2ff50540972dd75d375b8ecea4f315
+> > > Author: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > >
+> > > dt-bindings: lcdif: Add interface pixel format
+> > >
+> > > This commit updates the fsl,lcdif device tree binding to support the
+> > > interface-pix-fmt property. The property is used to describe the hardware's
+> > > parallel data bus transfer width to match board wiring and prevent shifted
+> > > colors.
+> > >
+> > > > diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> > > > index 2dd0411ec6516..209ee5a96e393 100644
+> > > > --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> > > > +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> > > > @@ -58,6 +58,13 @@ properties:
+> > > >      items:
+> > > >        - const: rx
+> > > >
+> > > > +  interface-pix-fmt:
+> > > > +    $ref: /schemas/types.yaml#/definitions/string
+> > > > +    enum:
+> > > > +      - rgb24
+> > > > +      - rgb565
+> > > > +      - rgb666
+> > >
+> > > [Severity: Low]
+> > > Is this introducing a legacy, non-standard property into the new schema ABI?
+> > >
+> > > Standard devicetree guidelines usually prefer endpoint properties like
+> > > bus-width (defined in video-interfaces.yaml) to describe physical parallel
+> > > data line configurations, such as setting bus-width = <18> for RGB666.
+> > 
+> > Make sense, can we use standard property?
+> 
+> video-interfaces.yaml is for video capture interfaces (cameras and the
+> media/v4l subsystem). It does not apply here for DPI display interfaces.
 
-Pre-existing issues:
-- [High] Module unload hang due to missed wakeup in kthread loop
-- [High] Temperature alarm bitmask logic error causes false negatives and i=
-ncorrect states
-- [High] Unfreezable polling kthread can crash or hang the I2C bus during s=
-ystem suspend
-- [High] Subsystem guideline violation: Driver uses private lock instead of=
- hwmon_lock()
---
+ok, looking at this closer, it seems this is a used property also in the
+DRM subsystem. I'll appreciate a feedback from some DT maintainer before
+reworking this patch accordingly.
 
---- Patch [3]: [PATCH v2 3/6] hwmon: (adt7470) Fix busy-loop and I2C floodi=
-ng in update thread ---
-commit e6d87eed20a630165f01d0513e17b82247a7f775
-Author: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-
-hwmon: (adt7470) Fix busy-loop and I2C flooding in update thread
-
-This commit prevents a busy-loop and I2C flooding in the background kthread
-when userspace configures auto_update_interval and num_temp_sensors to 0.
-It resolves the issue by raising the lower limit of the clamp_val in
-auto_update_interval_store() from 0 to 500 milliseconds.
-
-Closes: https://lore.kernel.org/r/20260716213252.EACA71F000E9@smtp.kernel.o=
-rg
-
-> diff --git a/drivers/hwmon/adt7470.c b/drivers/hwmon/adt7470.c
-> index 481d51617f4be..77e7be6927906 100644
-> --- a/drivers/hwmon/adt7470.c
-> +++ b/drivers/hwmon/adt7470.c
-> @@ -509,7 +509,7 @@ static ssize_t auto_update_interval_store(struct devi=
-ce *dev,
->  	if (kstrtol(buf, 10, &temp))
->  		return -EINVAL;
-> =20
-> -	temp =3D clamp_val(temp, 0, 60000);
-> +	temp =3D clamp_val(temp, 500, 60000);
-> =20
->  	mutex_lock(&data->lock);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the use of a private
-mutex for an extra sysfs attribute violate the HWMON subsystem directive
-to use the central hwmon_lock() and hwmon_unlock() for this purpose?
-
->  	data->auto_update_interval =3D temp;
-
-I would also like to ask about some other pre-existing issues in this file:
-
-drivers/hwmon/adt7470.c:adt7470_update_thread() {
-    [ ... ]
-	while (!kthread_should_stop()) {
-		mutex_lock(&data->lock);
-		adt7470_read_temperatures(data);
-		mutex_unlock(&data->lock);
-
-		if (kthread_should_stop())
-			break;
-
-		schedule_timeout_interruptible(msecs_to_jiffies(data->auto_update_interva=
-l));
-	}
-    [ ... ]
-}
-
-[Severity: High]
-This is a pre-existing issue, but does checking the stop condition while
-the thread is in TASK_RUNNING without preparing to sleep cause missed
-wakeups?
-
-If the unbind process calls kthread_stop(), it sets the stop flag and
-wakes the thread. Because the thread is still in TASK_RUNNING, the wake
-is a no-op, and the thread will then call schedule_timeout_interruptible()
-and go to sleep, hanging module unload for up to 60 seconds.
-
-[Severity: High]
-This is also a pre-existing issue, but does this kthread lack
-set_freezable() and try_to_freeze()? It appears to unconditionally attempt
-I2C access while the bus might be suspended. Can this crash or hang the
-I2C bus during system suspend and resume transitions?
-
-drivers/hwmon/adt7470.c:adt7470_temp_read() {
-    [ ... ]
-	case hwmon_temp_alarm:
-		*val =3D !!(data->alarm & channel);
-		break;
-    [ ... ]
-}
-
-[Severity: High]
-This is a pre-existing issue, but does this logic incorrectly use the
-integer index channel as a bitwise AND mask instead of a bit shift?
-Could this yield completely incorrect hardware alarm states, preventing
-userspace from properly monitoring temperature emergencies?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717-adt7470_th=
-ermalzone-v2-0-a55147958fad@gmail.com?part=3D3
