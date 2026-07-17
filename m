@@ -1,125 +1,143 @@
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D91343112C1
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 15:38:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784302740; cv=pass; b=oUV9dCfd6agafaw4myV7sSN1Uhw9YITZ24QJJNzg2SeCWgmhhvySaXTmK+UubHH8dpqYNQHTVY2eqnS20ahJKQImttlWHQQJ6Gni3IdTj6NpDx66B2bcnCQvmBkal4jOsPVVxHjyxlsmnIuehk7rh8HJg9hK7radresF1l0K/eY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784302740; c=relaxed/simple;
-	bh=jhrpYmMFVx06rokjDPKklo1tN6B0jx/vPKzFLz4wuMQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ruFEfn/F4XYs5WdFeYLg2Jx9MF3Psy+SFyxr7PK9N5bUw+lqHhYV7pWx81DM085ysT1/c0CmuicRvqwcbViujajscI5oeqQ14p/RYE5L2i/I+e8w8xpLvgeFoNPTiVlqWNq9FV+q6vLC+As7TnzbobyQUjPKQwVWTDAjKty3MzY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h1npArxw; arc=pass smtp.client-ip=209.85.160.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 049552F7F02;
+	Fri, 17 Jul 2026 15:40:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784302807; cv=none; b=hTCfJvvB85O3RKJ0t4+d58UXQDrCJuNGeWCU9ldi5vGQXt44vcsxKVSh4WcF5XIj3eOZU5AfZgvU2PMrxlVyq9pibG99i/osXA0EwJUMX51eL2hC88XulkTw3nOnzRpk3Z2EyDRGaLTkoXYdRsK+KawG4ZCJU/1KHrhiJtA/G5k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784302807; c=relaxed/simple;
+	bh=vtK61xJMiEJMYpu7nNFrb6vw2/PWQ+Y0YGwGnBOhtsU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lU0xQDz3stiPyrr4TAYZo0zLSncRjolC7+hKx6rpEkwNBDJCnxVW7eUBqhVuBlPdgqgBHf5hkxqCTU8/xGZLOsGzkSN8BL9y0R0SnPBFh5D4AgtVGo2OasIW8RS13Ycvf5Y/gpsuNRtbPb5D3ljr2Rm9Ywnm0VBLpkorPLDVnfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WykY+3gH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h1npArxw"
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-51c928bf172so55017191cf.3
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 08:38:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784302738; cv=none;
-        d=google.com; s=arc-20260327;
-        b=raSw61DOt7v5MLNkJeeMjVudJX0Qr1MHnVEMO5jHxdbGIAgB1NzS26IFfrSeNB2qOo
-         gksgbnOOvdaOZjLr/3Or3idUe80MTE9XFQgZeNhcidNUcJ1bgzDzNazSIy6ebTwBIqfK
-         tNQoyjQF1aK/GZxwk16AI798w8vKenMqtqITBT6LSrQ5boeTtmWBfYGfb9eIqRD/FOzl
-         K2RgY2J2mW3YyYFi8MOZCnyR1ADW+OJaAynb3F2tpA0LCmtEokjhsMnFu9vzM9h97MUt
-         vH/gYQbLM+0HgRlThPli/BEVuFsckj0zgGnO55/W3YicOYUt1dOQigXtY1dxvTw45r58
-         qjiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jhrpYmMFVx06rokjDPKklo1tN6B0jx/vPKzFLz4wuMQ=;
-        fh=LLYnvVrNyMVmYx8UItYeFHgynrkagtGywx37Wit/LVU=;
-        b=UBBE62YvG5LxvojOFiRHZRoZcgUqPY0UvvQv0HY7bR4Wg8pmVj/Nw67XVczOtx+6wr
-         VjscLOXG/iYVrw6nV4ruvhOkdGKaLx9+Ij7qBvF1nlHlfRDUW8NQgPLAxz1/aU2BTPQi
-         1o8QhK2OSUq5wrH+36hwYVtujJQy173dXEENXJGZR72hNFJQAv3lFIQjUxoNo0HdX6jB
-         LtoNz5gFk+XjelYO24MFjqeIO/x6zNgGu582XypgHR1QyDtfQLaBFsmLhpPWs0i0ueGQ
-         KSycmomDZcn47DE4AQlPp9poik841DD+DCDZjCUt47fUNlsdZPqJQAY1+ueWmA4H7Gzv
-         D9rg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784302738; x=1784907538; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jhrpYmMFVx06rokjDPKklo1tN6B0jx/vPKzFLz4wuMQ=;
-        b=h1npArxwpua28NF76JLqrTrVuJkPIosil3Wx6assNObWgbBuAD719GHm9wlhSFMK0A
-         eRDK3mdQ7kzoOkdzsHgTrUX5I0FrOo2HjkUZyaAACWjIWNpDPXyNjMGysLuzyx5GA7Mb
-         H5LmkpcAd+Phj0Kwy1lTlscMaR8nzuHW5gSdeIZ662VsryWt2fiO5ofsxmAPuhTP0w2u
-         rFI+kbnM1d0CYblUQ5dY4yJbWyWMYO9xkeQGT/sSgUsUTVg63OTenZMs6VllsiW9CMXK
-         2CcfrNkHCS6QnWyXvMRpf65l72YtYh6TCaikCqFhLrTLog/uSmk9Tfl9cMHzJNF03Hb5
-         IQuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784302738; x=1784907538;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jhrpYmMFVx06rokjDPKklo1tN6B0jx/vPKzFLz4wuMQ=;
-        b=cT1NbJCUSFjoHyqYxp3nIj317o87cyEd0x7ARo/9evygA7kEbnea2/V5ooK0oGRApG
-         6itRgW1c85Udkzkcen1QWac2Hw6llZui6L0TwUXJh/8inXXcBCRlRZ87n3kVpBv91yF9
-         1DoMAqV0BIvOWAnn0egtKEVlFm7CtgVZgElps+WwOH7gby6atc2hZ5BgAe+wGx4S91mr
-         ygmIZla7Bx6s05XW5jjsO4U3fV4MVw27wppWVpaSKSEwAlmrVQpdGQwzjJCuOLAv3FG9
-         R5+sgP4JymU8mPgZalQsh+jfkrJTX2LTYeJffsnut9QuefIv+HY1sMF7jfys90qYORTE
-         xxTg==
-X-Forwarded-Encrypted: i=1; AHgh+Rryq03mxl244nEeXvibD6kyzD8H6l3elVlV0TMEuVSOLmZVRIQ5GqlNl/hoEO0x0EFK5K2Zrs+v6sFH@vger.kernel.org
-X-Gm-Message-State: AOJu0YztH8mas2VpDv/xvbzCO1ktELusq6s6OUWEGAY3eSvgqgLThR41
-	CYla1roQBdmsK2N5o5P80pkWBlKbf/Y3aRFEPKyuPAe2abh8m+4+8esySmOhGWpBdRIpqY/yEuX
-	OHgtK/7B+tKwitAy0EYtBv5wLtQql4Sw=
-X-Gm-Gg: AfdE7cmk8vyvqnhl4i8d5wLO/Ocfzh1A5d7yM2SVUz7t+7/X28CNnboagfh5Csz1nEL
-	sy2Bz0bZeRI6254/SxLo2ySV4tXnIw4DdLd4GJ69TdDi+/PpYwyC+D9aCa0stpMTozoVqiaEVN+
-	w6IyAGGT/9d8N6O5kraZt2NqOWBejS8mP2Mjzm6Zw+ggBNDYHRlIFOPIGwrll8JQreZ1PtmkZjt
-	EZFn7mnsxzB+o+bABSDdXvbzsl3NVqgNq/RJ1ysYoxfdH1kGdxtzGvxkwqAidniQ+L4RfUv/ct9
-	8nCp
-X-Received: by 2002:a05:622a:5d1:b0:51c:bfd:772b with SMTP id
- d75a77b69052e-5213ea80af2mr28037441cf.65.1784302737601; Fri, 17 Jul 2026
- 08:38:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WykY+3gH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 444E41F000E9;
+	Fri, 17 Jul 2026 15:40:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784302805;
+	bh=IYQbjKkcN5rEQRbPBCFllWyIyfp70MK4yhulBooLxg4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WykY+3gHfslwU5GtQrAMJOTSXnF10wxW2n6WXXNcIRNvl8whL6V8UPWLGgM156UGy
+	 pnTf3eZVH0F8Ci2WbI8xTz6JArKNK/d/iP8Uj/UzKNtKOnPsQ12qVaMs1uwraAEpXc
+	 BQO+NpSlF1Gw85lFZjXto9ZejKsXkyqYIfB1py1vOnRaCd3pUwlzZ241aK2IpFnlmQ
+	 jVofoh8jxZs0S/AFnTWQDWRoVecTxoJYP4k8dqlZJGn/FihqFACB0E/X59+ZaF9MYq
+	 OUgYBSsIKUSfrs3/Z3KaUrfksDyd8DveqwQdETZx1S4gc3owv2rAixolkzf3hvc0wt
+	 XW8VRkfHSEfpw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/4] clk: sunxi-ng: div: add read-only operation
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jerome Brunet" <jbrunet@baylibre.com>
+Cc: robh@kernel.org, linux-rtc@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>
+In-Reply-To: <20260717-a733-rtc-v5-2-3874cc26abf7@baylibre.com>
+References: <20260717-a733-rtc-v5-0-3874cc26abf7@baylibre.com>
+ <20260717-a733-rtc-v5-2-3874cc26abf7@baylibre.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 15:40:04 +0000
+Message-Id: <20260717154005.444E41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260716161923.266315-1-akkun11.open@gmail.com>
-In-Reply-To: <20260716161923.266315-1-akkun11.open@gmail.com>
-From: Akari Tsuyukusa <akkun11.open@gmail.com>
-Date: Sat, 18 Jul 2026 00:38:46 +0900
-X-Gm-Features: AUfX_mwBl3dquzxsUOjYfNF9eon0dxcQ4kYle5GNTVWYorRVVQ4G71Eq6B_eMk4
-Message-ID: <CAKr_iV76upuWauE-ad7ds5W+jA_aSCkCGsG4oKqC8KNQBG=JGg@mail.gmail.com>
-Subject: Re: [PATCH 0/7] Add reset support to MT6589 wdt and remove fallback compatibles
-To: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: "open list:WATCHDOG DEVICE DRIVERS" <linux-watchdog@vger.kernel.org>, 
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, 
-	"open list:ARM/Mediatek SoC support" <linux-kernel@vger.kernel.org>, 
-	"moderated list:ARM/Mediatek SoC support" <linux-arm-kernel@lists.infradead.org>, 
-	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>, Roman Vivchar <rva333@protonmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 17, 2026 at 1:19=E2=80=AFAM Akari Tsuyukusa <akkun11.open@gmail=
-.com> wrote:
->
-> This series adds TOPRGU reset controller support to the MT6589 watchdog
-> and removes the use of "mediatek,mt6589-wdt" as the fallback compatible
-> from many other MediaTek SoCs.
->
-> Many SoCs have been using "mediatek,mt6589-wdt" as the fallback.
-> However, they are not compatible with the MT6589's reset register.
->
-> To add reset support to MT6589 wdt and resolve this problem safely,
-> the series proceeds step by step:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Better patch series is available
-Link: https://lore.kernel.org/linux-mediatek/20260717151134.678839-1-l.scor=
-cia@gmail.com/T/#t
+New issues:
+- [High] Missing `.set_parent` in `ccu_rodiv_ops` leads to silent software-=
+hardware clock tree desynchronization during reparenting.
 
-I'm withdrawing this series.
+Pre-existing issues:
+- [High] Unvalidated hardware register read passed to `divider_ro_determine=
+_rate()` can cause a divide-by-zero kernel panic.
+--
 
-Best regards,
-Akari
+--- Patch [2]: [PATCH v5 2/4] clk: sunxi-ng: div: add read-only operation s=
+upport ---
+commit d732b1bc291c593bb4873ef5f04edb2855137f30
+Author: Jerome Brunet <jbrunet@baylibre.com>
+
+clk: sunxi-ng: div: add read-only operation support
+
+This commit adds support for read-only dividers in the sunxi-ng clock
+driver. It introduces a new ccu_rodiv_ops structure and updates the rate
+determination helper to handle the read-only flag.
+
+> diff --git a/drivers/clk/sunxi-ng/ccu_div.c b/drivers/clk/sunxi-ng/ccu_di=
+v.c
+> index 62d680ccb524b..93cb4cb93abe8 100644
+> --- a/drivers/clk/sunxi-ng/ccu_div.c
+> +++ b/drivers/clk/sunxi-ng/ccu_div.c
+> @@ -20,8 +20,22 @@ static int ccu_div_determine_rate_helper(struct ccu_mu=
+x_internal *mux,
+>  	if (cd->common.features & CCU_FEATURE_FIXED_POSTDIV)
+>  		req->rate *=3D cd->fixed_post_div;
+> =20
+> -	ret =3D divider_determine_rate(&cd->common.hw, req, cd->div.table,
+> -				     cd->div.width, cd->div.flags);
+> +	if (cd->div.flags & CLK_DIVIDER_READ_ONLY) {
+> +		unsigned long val;
+> +		u32 reg;
+> +
+> +		reg =3D readl(cd->common.base + cd->common.reg);
+> +		val =3D reg >> cd->div.shift;
+> +		val &=3D (1 << cd->div.width) - 1;
+> +
+> +		ret =3D divider_ro_determine_rate(&cd->common.hw, req, cd->div.table,
+> +						cd->div.width, cd->div.flags, val);
+
+[Severity: High]
+This is a pre-existing issue, but could this unvalidated register read caus=
+e=20
+a divide-by-zero kernel panic?
+
+In ccu_div_determine_rate_helper(), the raw register value is read and
+passed as 'val' to divider_ro_determine_rate(). If the register contains
+an unexpected value from the bootloader (or 0 when CLK_DIVIDER_ONE_BASED
+is set) that _get_div() maps to 0, divider_ro_determine_rate() lacks a=20
+zero-check before calculating:
+
+    req->rate =3D DIV_ROUND_UP_ULL((u64)req->best_parent_rate, div);
+
+> +
+> +	} else {
+
+[ ... ]
+
+> @@ -143,3 +157,15 @@ const struct clk_ops ccu_div_ops =3D {
+>  	.set_rate	=3D ccu_div_set_rate,
+>  };
+>  EXPORT_SYMBOL_NS_GPL(ccu_div_ops, "SUNXI_CCU");
+> +
+> +const struct clk_ops ccu_rodiv_ops =3D {
+> +	.disable	=3D ccu_div_disable,
+> +	.enable		=3D ccu_div_enable,
+> +	.is_enabled	=3D ccu_div_is_enabled,
+> +
+> +	.get_parent	=3D ccu_div_get_parent,
+> +
+> +	.determine_rate	=3D ccu_div_determine_rate,
+> +	.recalc_rate	=3D ccu_div_recalc_rate,
+> +};
+
+[Severity: High]
+Could the missing .set_parent callback in ccu_rodiv_ops lead to a silent
+desynchronization between the software clock tree and the hardware?
+
+The struct provides reparenting capabilities via .get_parent and
+.determine_rate, but omits .set_parent. If a rate request causes
+ccu_mux_helper_determine_rate() to evaluate and select a new parent, the
+Common Clock Framework will apply this new parent in software but skip
+updating the hardware since .set_parent is NULL.=20
+
+This would leave all downstream clock rate calculations incorrect.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717-a733-rtc-v=
+5-0-3874cc26abf7@baylibre.com?part=3D2
