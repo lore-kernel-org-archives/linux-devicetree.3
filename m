@@ -1,164 +1,157 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from flow-b8-smtp.messagingengine.com (flow-b8-smtp.messagingengine.com [202.12.124.143])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E907F3815F8
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 08:50:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 438B23D669C;
+	Fri, 17 Jul 2026 08:52:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.143
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784278230; cv=none; b=bXbGFGSaQZ5II75jBguVocCXUc3Hks4TKfjxJURxOxlqedS8dDPBFuos5zFSH5bJlqwJ2/aJrCJw4X5Fg7BGaPP3kopz7p7jZhTCe7KFZbA12nlhNA/hhRsf4IosPh+sfu9nehvUD+Qm0OCWElfY+syUPyJUu4YdDW+8d+hcFIc=
+	t=1784278357; cv=none; b=mJSFkFbb0iZXrh59x/GP7podBgvQRxUHGu0X22YF1Tmukgdw+gaTH9c0RN5Yp6z0EozU9xkjzL5QaG5Fk7WUSObKm9rMvFmw/DUuiTI3+c5ZB1yKvbjdyWbingD8IVhUQh6jx2COIKhN1OViX1Sb/ZCDx/eZ7cgfilB9aKEzlIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784278230; c=relaxed/simple;
-	bh=oKGmd9VKITYAgis71P4kQGwc4rXok/tzjeOQCJucBHI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s3R+PobEoMLZUWtonaKo2PKLrBbU+mjAfLt6V2AU3GlA95jfDhR6kLsRdsd9kIJ095cG6CIlckk6m9Q4b29m8igtQaFwiDowJfjQy+qUXIG9NHwITHfN8WlO/8MgESLPjbJhcXRJDB4e7/PwIn1gKrptK5n5MUuOE+yHQdxvX5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=meGs3FhD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Hme2WIWn; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784278357; c=relaxed/simple;
+	bh=M0+slYyH8RAlNFuYXuUUdwkkN20cJraqDaOz2qeFhDI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=r05ziSm22TiQuTGHrEiSEHSDFhLL0mw0t4oJ2Sdzb69eyBUE2aa+453wgC+Ry1uDsTMaDHBcoHbMcuQ3H8Y6dH9n3ziVSkbVaNLT8T0HcmmAvZTjgyoLDd8eyfZnXynKDGxljtIG+EgIUNIJfuK7fEHDwpXeeSYtgIumq+sQuR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=x5AlX3nc; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=NcF8RDet; arc=none smtp.client-ip=202.12.124.143
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="meGs3FhD";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Hme2WIWn"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66H6d85M821253
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 08:50:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	5U3C/GjAzha7ZrtVRpecfP8NcD9XDmgMj/TS9PpZ8Q4=; b=meGs3FhDszga7BLA
-	U5tmgAPuL8aaJGrRpyOVZeqV4klE4ljmPghPzo4jFAOXSjJTama2dhuDt9eGBAb4
-	k1aPMWKeJADPBzT8W5OXqSVm5zoLONijScDI/Wvc8+736I89g61+FI+qPK4iFETO
-	WV9AE5OT3SeSkfsKE7PwoNbTWC+JCwmNtuxpzlur/Viaq7v8ZjfI7LB5SnJ0LeZi
-	3dJmmkZMo1+2WADAb1PppwOy7myfF2VY5taDjKaRgKLrDwSu5sJujLgYZAi6Jvko
-	ooMJlJIi6L/LSsTjR+ML9Q/f1vSn4H9FZZ9CefUwLL67akgPdCN8PDYuTmN9lbJg
-	dniOSw==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fffag8f23-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 08:50:28 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c069f73e4so16068901cf.1
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 01:50:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784278227; x=1784883027; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5U3C/GjAzha7ZrtVRpecfP8NcD9XDmgMj/TS9PpZ8Q4=;
-        b=Hme2WIWnaG0MK5adiNwDGrFaimIdjptyODgsjFyMUW2qBkuakbiWMjtQEG0Gl25oJi
-         aQH/snNuNOWAsoOnNUu69S11Op7wOUQnxIQXeyRrV1QeEH+XyFvpitrKnEgpuGfBYfnX
-         Am8W5lXob/he0Nh/pxtR4APhtgjZqIwTCVPlDan7TSF+6vkVgdsabLHgzjPdQH9T6n/d
-         93NiLmews3vQho9DK53laxqHRVgBwZ5ETAk9e6hE1PFpHzpSl34YhWmq3RWzIMiRQPzN
-         6zzUQmyX0KdO0hLpdU9t0Z5U16CRcaZMiV22ACAMNyaKk0Cfon3FZNiBX0BNqtgtUtWG
-         3WUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784278227; x=1784883027;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5U3C/GjAzha7ZrtVRpecfP8NcD9XDmgMj/TS9PpZ8Q4=;
-        b=LTUSALJiLx3FOAEGBGvC2G2JUhVfntaG/MAG2NdlnvViGPG0nsPjUaAU8a8sbqT40c
-         U/tLFDizozziLPnKhw/XEYGbvGO67XTe0xUVTrU2JHKkGE9SkRnTY9AYyiWoibw2Hf9+
-         UoYJVYvaP/Z7bctf8fMbUhpN5FnB12ABW5yJDJ+vHpeyD1A+C5Fkb5+DCdLUNof1j++W
-         6b0ztEQyvxuh5tBVzFEMXM/r2zhmH6NPLhAk2azxaOlyInrigBjs7LUrfbuXX+HZMjmz
-         G91dNlmgs6K5PfRUZbmIJpN2V4+BbCeOi3oJp3jnzPIstcFyqAcBQn56twXpYTj/zBvc
-         hZ4A==
-X-Forwarded-Encrypted: i=1; AHgh+RruyXZYg2O3khX6/EOA4ustXIOuXWZWNMydjSECfEz6YqHMDWXcjk0TUW7sf/c6e83fLp7m3un/6CQW@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz0L9eq0MQrUXH4clELVheAfyCDqe/gexZ+2Dwk7xv+Q493c4Wa
-	tTwunsJfCW4JNQv4DRiJ+dZoezjBDZp2KHiS1TwoByni2TEFeHZ7DoD5MWMnTkykBvAVPFmzexF
-	9Tc7vUjtNoBizpGq6UV7lsNWJOzngcZdOndDGEjkF3T0p/3J6CXG4kPWTgbxaXpcR
-X-Gm-Gg: AfdE7ck9Woe/PUJE8phuRyoYyTjuIW/P9Bhy7Va2CZbxLZinHrH7T13lETo84yS+Dns
-	3koXyfiBYfHX5NxXafZ8h8krwH907rEKtfzrbIdMQeaqJwphox7/neRrfZbFyS4F3wrCnGL7B/y
-	UkYS+7SKKlFTMiNHyNEsm81/bw+A6wAESNyBe1wHIHN+sxrYaWIvVGEI5ylnspuNtCavV9wFFGl
-	aR+QnoafTSCXhLbgaqrzFmh/J0an6mm9mySpFrKK156inVbYvnyxfMnQ1MY9dOySMYl7og4qMSu
-	/4KaSr18xOS0BU/7hiu8kkmvwDk48311B+peTxOIMMU17IQWVtOrfdgr3PkwLVVOqErLlm8RmCW
-	Q1qezb3NanT5RMjUH/O+6jFtB
-X-Received: by 2002:a05:622a:9dc:20b0:51c:223:3c57 with SMTP id d75a77b69052e-5213f375aedmr7960371cf.10.1784278227271;
-        Fri, 17 Jul 2026 01:50:27 -0700 (PDT)
-X-Received: by 2002:a05:622a:9dc:20b0:51c:223:3c57 with SMTP id d75a77b69052e-5213f375aedmr7960061cf.10.1784278226882;
-        Fri, 17 Jul 2026 01:50:26 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69e6eb22107sm357981a12.0.2026.07.17.01.50.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Jul 2026 01:50:24 -0700 (PDT)
-Message-ID: <7cc35fc2-9fe7-470a-b068-8b088cf1fbe7@oss.qualcomm.com>
-Date: Fri, 17 Jul 2026 10:50:21 +0200
+	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="x5AlX3nc";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="NcF8RDet"
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailflow.stl.internal (Postfix) with ESMTP id 350891300278;
+	Fri, 17 Jul 2026 04:52:33 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-09.internal (MEProxy); Fri, 17 Jul 2026 04:52:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:content-type
+	:date:date:from:from:in-reply-to:message-id:mime-version
+	:reply-to:subject:subject:to:to; s=fm1; t=1784278353; x=
+	1784281953; bh=+9eMGt1+53CE3PhB4AIL89VGOcvh7qJ9QlK1Ab9++kU=; b=x
+	5AlX3ncFjkAxw7W/XlmKlDcCCnAA9R2aEkk3hvhCNywMTGPgNvgc6QIdh+3PrZuj
+	pmlxdOhYgI5bbd2toHRh6pqNk4x9v0/WnB2bysgpWxgUsaEmZsCsNKpXHlyDHdqT
+	26ORmpta6AKRZMs25WmyhvNlkMOjJ+C7aYW/+9TZBhkei65cFQgMr0dPQxq+gRGv
+	KS6JUo6gnJ3oHnrkBWSoHfUJbntFwa21t9H/V9ZMnrQb6QPKVEaL5ShVr7efPZLi
+	WzTQjoH7h2fhwMrt1PDLxCevix050bxaZ8VHP3jLS4y1hUOcQLT9x5Igpr4kIWX5
+	5FiOY6MgMU7iD0+adNnZA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1784278353; x=1784281953; bh=+9eMGt1+53CE3PhB4AIL89VGOcvh
+	7qJ9QlK1Ab9++kU=; b=NcF8RDetvmAiLjJ3baWiSY5MG/8P20S8MyA7Z7d9Su49
+	I9y58dW15p+c38WAuAdbST7bBF+ZmiUgwdiDkbJAQkqZT+zzRHEO47ldGk7zjrl8
+	ReyxQILAIz+XMV42A9Eax+Sui6AEgwEy24yWqOuQwJUXOduZ7Ue8TWLnF9mz9VfS
+	mAObinqU9jru3fIbE6hYtaxDjI66IvUmuWLaEF8Pck6nxoYcMKCNCqekzPxCA6o2
+	nl4Rx/IXtCFhWiUdLFa1uhCl+sl+8bHAsv2e/c7/EGq7oiAFwInbddf9GBn77gGj
+	Zm8z/s8rwVzGa+FPhTP7Ju0jraif8msxJVCjOSBzYw==
+X-ME-Sender: <xms:T-1Zape-R9_WgaOa5lpFKTDSApTOc-NGwTcRcgW36cs55yy3-xe8tg>
+    <xme:T-1ZajEf_wdzPizB3sZJvHewnfe5WGbpgE81sklr5JMFbte717YufTaeJJm_YgHKc
+    i7zNwoXnVSZtFmomeF_-fzBjkosKwjrKgSWv6y1aFCNjKXCJFueouU>
+X-ME-Received: <xmr:T-1ZauA05uXAxTf5nz7jyXEaHbQgG4gIJirf9aYh5W9dOnyGNmEr6i_Y29qnZGzf3g5ZeUzQdzh5bPfy7Tk>
+X-ME-Proxy-Cause: dmFkZTEV7KuzTcNcLactwUMRBuXXlaKWPyUvy02wJFAij4FmALZ7XghVw1H/+GtDAfNlwD
+    GzRVL4qOJ6mHaQO7vkVMPTIgFBQFKNu63S9n2cVtGwmq3WZrXNcN7nmoa2wofvSM5kS5Xg
+    rM5Y/9XOI0OX6bOiV5CmjHp+eMZ0IgJrNuGXbV8MKmiov9F+wGBf1hiVtlMejS6Oo5OFc/
+    RSganAfg1NOoPcPTCiAZ8QOhP8AUcjlui7qYLzKBk4RQJFLi01ZcLw2n6+rONGwLr1eDnA
+    qUKKq17gJOQ5U7AQtS5VOr/bQsIagPW559gj4JOBmPZpO7PCZdccqnjqxTjupch+Zn6dsK
+    LgsEeHjmKU5ONptLpnTFMTODIa0qM8KDo5ToHC1PB67KytIgDiFxY1mNTnqmQ7aDd1Q1C4
+    JKLNf6guQX+f4M94q0cN0lWqXwuS11Df56hrUrxlhFSLdq2bgc2FE+4JNcm3n2UlmwvEBY
+    v9eA63hRQAOYQptd0UTKE17Y0ULDAOJxBP8yLy6zR/+kPI5W3B49294DmMRK6yw/9BPMw/
+    Wm2vEoIhEDjmo2umu6p4Okov3cBrHuBGjPEDp0HwHo6/pjM7efjtkuaMwsEqowHjT5+ZHo
+    R+SUToeJn9PAoJrwJUlCj1HoQsvXUySiOssw/L8lWX7Q9jUxg3avTRkVaNhA
+X-ME-Proxy: <xmx:T-1Zam6teAi6wo-cIh9FrlOdlp4dE-bM-y4aI-cI8BWv7F1qEerOAw>
+    <xmx:T-1ZatlkBsgWYxK5mprkrbn8MrWgMRUOqmqtcXAfiKMu-MJUX0Ef9Q>
+    <xmx:T-1Zav58u89nPJJnHSA_n19Z7JGtz8Wmng4NuKGqziit9_teZG3yew>
+    <xmx:T-1ZarWNEm0ws1xDq2e-zcNlwfpO-3RRn0UECS2p8XNhIuBeNspDvg>
+    <xmx:UO1ZalNSzj_SPzf-jx_zw0DWm3acLdYivKeEqONvdd1xxCGa5gy8vuzO>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 17 Jul 2026 04:52:25 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	ulfh@kernel.org,
+	p.zabel@pengutronix.de,
+	ogabbay@kernel.org
+Cc: dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [RFC PATCH 0/9] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Fri, 17 Jul 2026 20:50:38 +1200
+Message-ID: <20260717085220.3212274-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 4/4] arm64: dts: qcom: add SoCCP DT node for Glymur
-To: Ananthu C V <ananthu.cv@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Maulik Shah <maulik.shah@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>, Qiang Yu <qiang.yu@oss.qualcomm.com>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
-        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260709-glymur-soccp-v6-0-16f70227547d@oss.qualcomm.com>
- <20260709-glymur-soccp-v6-4-16f70227547d@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260709-glymur-soccp-v6-4-16f70227547d@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDA4NyBTYWx0ZWRfX6qrBh1qUCvvP
- 4yXUMtvPKTGb+oBACDGq6eDWReA6zk8lcaeXZLHlSJcyVGhuOfyt5xcx0wjzZHo465IKJUAMU3l
- DXfk2/I+4w4FmMYBQMqgV+W/naRZ3Po1BndxsOugJyctVahRHrANJrSOBJRwMe5kIpIGETRCV39
- gQGtdxF2Jy6YwELVFnFfWh6ChCG4dh8WLqf8dJDE7F+y5BKDsSY9Mujjm20QdPV43h/kIy4e5td
- i2K+U0d7dp8dcPZqo4K6oJx2zcZ/UJh/1fluNUiJhjgNbSz0eHx5AL+GPFWC2nUF2trX8txaFKZ
- 1PzzjJM+2qVsc9Aw8/R/zkMHLCfedJfNsCjRSWdZaqOrF92kUmjDdpKWeXDbVfP5JNht0YXwOQI
- tysRX7YRu46HhAi5Ky+Dk8Q6/qXpdyXt40khZ8B51xrlSKP1UWX/B+ndCm9KjSaryY1uVzXBo0a
- GdP/gM6ChP1t3n66xXQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDA4NyBTYWx0ZWRfX4X/aIKlpyD0b
- j1k0hGgN3ZLvlAXjhObA2b8gJqmkBvRdJODRDMzx4/luM4x+Ze7fpHazYOrLGadiDWI+kd5srxf
- 5/YCaWFAGW7LHQ4sxU60DTVcIN20k7w=
-X-Authority-Analysis: v=2.4 cv=KZfidwYD c=1 sm=1 tr=0 ts=6a59ecd4 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=sWIZHQe7GSxdn9xkVP8A:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: XGnuOuPQHGDMF6StWbRLvrWbghpCuaRH
-X-Proofpoint-ORIG-GUID: XGnuOuPQHGDMF6StWbRLvrWbghpCuaRH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-17_02,2026-07-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 clxscore=1015 malwarescore=0 spamscore=0
- adultscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170087
+Content-Transfer-Encoding: 8bit
 
-On 7/10/26 8:39 AM, Ananthu C V wrote:
-> From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-> 
-> The SoC Control Processor (SoCCP) is a small RISC-V MCU that controls
-> USB Type-C, battery charging, and various other functions on Qualcomm SoCs.
-> 
-> Add the nodes required to enable SoCCP on Glymur/Mahua SoCs.
-> 
-> Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-> Co-developed-by: Ananthu C V <ananthu.cv@oss.qualcomm.com>
-> Signed-off-by: Ananthu C V <ananthu.cv@oss.qualcomm.com>
-> ---
+This adds RK3576 NPU support to accel/rocket. RFC: the NPU brings up and
+runs, but full inference is not correct yet, and I would rather get
+feedback now than sit on it.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Tested on a Radxa ROCK 4D. The NPU probes, powers on, brings up its
+IOMMUs, and runs jobs to completion (rocket + Mesa Teflon). Getting there
+took a few fixes outside the driver too: a power-domain settle delay and
+reset cycling (else a cold power-on throws an async SError), two rk_iommu
+fixes for banks firmware leaves faulted, taking the full clock set on the
+MMU nodes, and both NPU power domains on the core.
 
-Konrad
+Not solved: only the first operation in a power session gives the right
+answer. Every later one engages and DMAs its input, but the compute
+output never lands, so the readback is the zero-point. I chased it
+through the whole software surface (registers, IOMMU/TLB, cache,
+power/clock/reset, dispatch) and it reproduces even with the driver
+environment matched to the vendor's on the same kernel, so it looks to be
+below software, in the fixed-function block. Traces available.
+
+Two asks: review of the bring-up and the shared pmdomain/iommu changes;
+and if anyone knows the RK3576 NPU internals, whether that
+per-power-session arm can be driven from software at all.
+
+The series is split by subsystem (binding, pmdomain, iommu, driver, DT).
+The board DT keeps vdd_npu_s0 always-on for now; happy to switch to
+proper runtime control if preferred.
+
+I used Claude Opus 4.8 to help trim this series out of my debugging tree
+and generate the diffs.
+
+Jiaxing Hu (9):
+  dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+  pmdomain/rockchip: add optional per-domain power-on settle delay
+  pmdomain/rockchip: cycle optional power-domain resets on power-on
+  iommu/rockchip: skip orphaned-fault banks in rk_iommu_is_stall_active
+  iommu/rockchip: skip orphaned-fault banks in CMD_ENABLE_STALL dispatch
+  iommu/rockchip: take all DT clocks
+  accel/rocket: add RK3576 NPU (RKNN) support
+  arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
+  arm64: dts: rockchip: rk3576-rock-4d: enable NPU
+
+ .../npu/rockchip,rk3588-rknn-core.yaml        |   2 +-
+ .../boot/dts/rockchip/rk3576-rock-4d.dts      |  16 ++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi      |  78 ++++++++-
+ drivers/accel/rocket/rocket_core.c            |  43 ++++-
+ drivers/accel/rocket/rocket_core.h            |  22 ++-
+ drivers/accel/rocket/rocket_device.c          |   4 +
+ drivers/accel/rocket/rocket_drv.c             |   1 +
+ drivers/accel/rocket/rocket_job.c             | 154 ++++++++++++++----
+ drivers/iommu/rockchip-iommu.c                |  66 +++++---
+ drivers/pmdomain/rockchip/pm-domains.c        |  68 +++++---
+ 10 files changed, 367 insertions(+), 87 deletions(-)
+
+-- 
+2.43.0
 
