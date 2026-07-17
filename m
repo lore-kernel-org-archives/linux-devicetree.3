@@ -1,46 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0DED37472F;
-	Fri, 17 Jul 2026 03:23:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48C03769F4;
+	Fri, 17 Jul 2026 03:23:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784258614; cv=none; b=aRdxepI+UmaZw6QRN3YEiWGx5RIBNb+DtIpCgtAUnN+7njHjgpuP1K+EIZomOd52ZWFMbRKqLuTY1YBU+hcD1L9SDiOf6yFPwZDvrBlc1ryvrBlnigJhE+6jYg1Vy2ulKhEraCeikJGFP6oNafnVJVwD7Vs4mjNQmRquLrJ3tDE=
+	t=1784258616; cv=none; b=EbV9f78mX85xMRW/07TTyudJCHJEyB5O3UrnYmyYa4xmkrPrYPApwNcSMdNLfi+PjXUtOPwOEW/udc4jtiY6ht+LhdsoipC5evwrTmQtMqOgwrisrWrRhzy28RdrszxGf90fdATRQBMQnf+ouwfcodnvkQGWfjI1swkW4u3mrmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784258614; c=relaxed/simple;
-	bh=avYVlncwf1oYpbp5S4zFZVmKdFw2/OKOUl00tovFIRA=;
+	s=arc-20240116; t=1784258616; c=relaxed/simple;
+	bh=1M0To1MU0tImHUkn34uPpb19O3/0IcPwD709mQbCsao=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=i7ac8kMiDm69XZrkiCamPWVQ3elv1k5vWQsDpsn2CTuy+JrdMhuOwV9NiMgLVm/pmPo398m/laAiZtyp58+kVSgwvC63HwrjqdNg2/UJqDXtyaOzI7TyU52BCLz5e+QDo+anuXQ7fsNTzGIRTxpzxlQqTFOhdJXznhwu/eqLK3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hc9z9uCZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Y0XgGEwhYk4gFqKjJ8lqlScA5Oq8U+Y1Cvww8+sqSOd91ZAZWrU7YNMA2gT2r8TcRwK28cjRT11viVZZckuGH1Lp1zkfpGb3SCWOdO4ywlN/0ojlvrCYWhDmVQ72UQwVDNhPQE1cu+TNouFVs+Yhz9ZXaTILTgQ2JfS73Fi08es=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BA1Hir2M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hc9z9uCZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4ECA1F000E9;
-	Fri, 17 Jul 2026 03:23:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BA1Hir2M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABC9B1F00ACA;
+	Fri, 17 Jul 2026 03:23:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784258613;
-	bh=mg1lOxDj0UuYWtFFnn0rnObUzFJsZMLbSuRKelWl85M=;
+	s=k20260515; t=1784258615;
+	bh=o/qb2RKP1gt+o5S5xlP/9GtyvSsasD9MBz/T5eM9AMg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hc9z9uCZ1yhM8TI6gz25pznMY+ndxH/2ixf1oR53xQH3JtXrwkHnM9R56bEX6OOob
-	 WK8rUga9e2maV5xtCgLwFdN+5bQ/TwQMcayoWSDb/Md8fy77wgy3xocv8tSUlrn4iU
-	 9IYIMH9PmYty8n1CpAoFHi/ZBxkOxqTYMXKIsEif8gVFCEbdaeKzYzOzfawnZUTxT6
-	 3u781o7nfmCULgbt7FupiovrSmZLGSD/jxgiHEOPhU3jsWXPkGRCc+M9am6B3MzWm1
-	 obIxWS+b6F3Cm8JuyFwtZKoTqaxsJtbQbJjqS80uOAX5NKi3EoAovX1QAflpzIef2+
-	 WBEUpC95xLiBw==
+	b=BA1Hir2MfK2xX48hv5Dv/8u/3o9fb1K0MSIwcwcflO8qaXGLrmZAX3qcSk2B7Mpea
+	 7iErUhOkw/0ru+XTIVdzwXKUPCEr057/BplJiwD22EY7TTJ3Y4HpZp5YQ5U06L3doD
+	 YwMH/OPnPqOUk53awsior0I340c8epHqTHyPXUDm7FKKHUeBQxVfMKI9PmrKkLD4g0
+	 JxVfkcoFZo0q2on9ahvbo3swp7n0fJETP/aSPR766CBsoJrJYGK0fG0HUSaW5E1BZW
+	 2dopaO/8/5zIhrrNArX7xoF3Uzga/8TfgKoIyrvwp3FjjnUkaw2ZhSztwR0pwQxEfw
+	 bIN8cpUpNzy/A==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
+To: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Maulik Shah <maulik.shah@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Brian Masney <bmasney@redhat.com>,
 	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: eliza-mtp: Enable touchscreen
-Date: Thu, 16 Jul 2026 22:23:23 -0500
-Message-ID: <178425854598.1084804.6274686639393427870.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+	Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+	Qiang Yu <qiang.yu@oss.qualcomm.com>,
+	Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+	Abel Vesa <abelvesa@kernel.org>
+Subject: Re: (subset) [PATCH v3 0/3] clk: qcom: gcc-glymur: Tie the CX power domain to controller
+Date: Thu, 16 Jul 2026 22:23:24 -0500
+Message-ID: <178425854604.1084804.1992392341244608368.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260708-dts-qcom-eliza-mtp-enable-ts-v1-1-372020a7a86b@oss.qualcomm.com>
-References: <20260708-dts-qcom-eliza-mtp-enable-ts-v1-1-372020a7a86b@oss.qualcomm.com>
+In-Reply-To: <20260715-glymur-fix-gcc-cx-scaling-v3-0-72eb5adad156@oss.qualcomm.com>
+References: <20260715-glymur-fix-gcc-cx-scaling-v3-0-72eb5adad156@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,20 +70,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 08 Jul 2026 13:18:26 +0300, Abel Vesa wrote:
-> The Eliza MTP uses a Goodix GT9916 touchscreen controller connected
-> over SPI.
+On Wed, 15 Jul 2026 16:29:13 +0300, Abel Vesa wrote:
+> The suggestion of having the CX power domain tied up to the GCC
+> controller started here:
 > 
-> Describe the controller, its power supply, interrupt and reset GPIOs to
-> enable touchscreen support.
+> https://lore.kernel.org/lkml/fe210f0b-692b-4c45-afc4-fc2bc5e57854@oss.qualcomm.com/
 > 
+> and then, for Glymur, it has been brought up here as well:
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: eliza-mtp: Enable touchscreen
-      commit: f61fdd70f112ec5226f7adde3c29cf7aa55c6a42
+[1/3] dt-bindings: clock: qcom: glymur-gcc: Add missing CX power domain
+      commit: d22a37e9fba7838cdcb8c55b913b1a37a7a4a198
+[2/3] clk: qcom: gcc-glymur: Enable runtime PM
+      commit: 8d4f342369d0d77f32a0211692442d3b6d455872
 
 Best regards,
 -- 
