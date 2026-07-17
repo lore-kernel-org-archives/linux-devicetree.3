@@ -1,97 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4AF0377558;
-	Fri, 17 Jul 2026 17:50:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C642379960;
+	Fri, 17 Jul 2026 17:58:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784310652; cv=none; b=esbWv5S1uzjTkHahFaZ3I/feA0+4re2sWdGd02SJMMpmZU0+8rtu3/GtEnWL8JJkw5oC2umxB/lZmtOkFrroajtJ+pias6qtzwMkV+sPpfEZDnGDCGACGUxo3sXMbtxAMi0+VAvNRTjqj9Y/M0644SkEitDzXK16TLUG5lDcZrI=
+	t=1784311128; cv=none; b=loKazUnKbJCquIMuDtp3HLzdrUTevpLInvjSdmu7DJVbbhqBBbbdvD+04iA52C790lUx7pPKbT/FKuizzHjgj0kJ/LuVT/9s0j8KYTUf9PVQanadQjZK0guUbmakl75pyKnf7DItBcgKg1yoZ+qCKB0sxF4p7LeCtAyJUiewEAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784310652; c=relaxed/simple;
-	bh=6pCqkTZFeL3KDtJL2IeiD2UVLkXXzgJPhQG33y1hrDw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eFLenjAOWktzO5azhzruL8kBMcnITkPD9vaEifRX8RbAB/bMg8CQb4ql966qaiedzrY55Dv6vT6ghajyBEVTVNwlbvQMnS1Myks9yBOwbECb88EdXArhl32gaveR6PbBy50fClZU/tYd2/Q3P902q4VbH+Le+Us5ZNP0y9XQneM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nim79BmG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784311128; c=relaxed/simple;
+	bh=8rjsxe/+hBTNSxWiB7hQbS3d98WUbAUDizYkOQYvCdk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AvoBEDJ9wtj9Zyvngi/wJaptCm9yJ2BqjzAYNCnrgtK8Vh9aX4VkilwBb/j4M6EaeMybk2AhREPyaAD1GTzN20fHW++gXcsUMcsmkdoNns/cbPvL70iWWXZIYOsh7N6xsc3XQH8yKxt2L0R97jdsEbLPwVKceeQAIentEWfRn2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Rf8onXkH; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nim79BmG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D9A31F000E9;
-	Fri, 17 Jul 2026 17:50:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784310651;
-	bh=QTeuEtAoFyQbd3tRI55GUWQau2Iy0uaZTpg7PUeJd3I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Nim79BmGtTwZ4qRkh8uwLSroEpQLBVKT5H8zzgsc2gAElGtqtF/i8HQykR4mRQL7B
-	 v6pmtrjER6rLJ5S0j8gAm9l9njQYHvyvCMSJ0QDBkQuq6qaybc213w9/qddvYgznDs
-	 zhGG/lionWIhmJr99m/Y0IPEchZWpAZIpyXbbOV1R68yXCq2rBSsSZlp7/iBXf+tA8
-	 vRpFqEzI9BSGqA7l/GR+Vp6rJ4yC+UTUJ+cwcgbBmPbooVyDo0Tq0NgOCiwCXxVbnZ
-	 W2uFL74LaNKOq3JGvlvTvfs2gYYUdWjaL+EiGDffU4d/HnNOsZ9J5Ml8LQCEB7WtIr
-	 MJcpurYwTbBag==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/7] dt-bindings: reset: Add reset controller
- constants for mt8167
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260717163959.714561-5-l.scorcia@gmail.com>
-References: <20260717163959.714561-1-l.scorcia@gmail.com>
- <20260717163959.714561-5-l.scorcia@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 17:50:50 +0000
-Message-Id: <20260717175051.3D9A31F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Rf8onXkH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784311127; x=1815847127;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=8rjsxe/+hBTNSxWiB7hQbS3d98WUbAUDizYkOQYvCdk=;
+  b=Rf8onXkHhrs3dGaDWr0PW7pYShtnl6Bo+dmX3bpKQU0z3K1ifhVP1u6V
+   WvgivXFdGUysZuaBrmHN2XiTQQHsyNhJGlHMzhAGmkU3WpGEwWoaKkegf
+   zJdCDyJzms4gWWI+SpTdkd7GtLktfEJQ37JjlmdK7bl6NS61OSwoeQVvn
+   vwfWCGiByekPzDrzaYv8RIX/7mlh7OvL1WvQha5x39SYmulcSn7HgExkW
+   LxA+gpwEednX3Icew0XnXzRgmziu76gVU8VXQwSQMyuZxfQWA3BtGBbv+
+   bvKTBki8V4cp7FvHi6u+UG+QVK4PVBsqYjeFyletBVr8oiyS445p68Flu
+   A==;
+X-CSE-ConnectionGUID: WbAE88FaSMWtVJ3Jxm6rKA==
+X-CSE-MsgGUID: +LfMEYNISH+Xs7ckjAv3tg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11849"; a="85079773"
+X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
+   d="scan'208";a="85079773"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 10:58:46 -0700
+X-CSE-ConnectionGUID: eri9T9lNT4atpIO1QIPHeQ==
+X-CSE-MsgGUID: hJ2wjK+eQFGJolFSjQ3Y1g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
+   d="scan'208";a="257477854"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.143])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 10:58:44 -0700
+Date: Fri, 17 Jul 2026 20:58:41 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Stefan Popa <stefan.popa@analog.com>
+Cc: linux-iio@vger.kernel.org, jic23@kernel.org, nuno.sa@analog.com,
+	devicetree@vger.kernel.org,
+	Ciprian Hegbeli <ciprian.hegbeli@analog.com>
+Subject: Re: [PATCH v4 2/2] iio: adc: add MAX40080 current-sense amplifier
+ driver
+Message-ID: <alptURwc08RaBA7H@ashevche-desk.local>
+References: <20260717123852.1140893-1-stefan.popa@analog.com>
+ <20260717123852.1140893-3-stefan.popa@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260717123852.1140893-3-stefan.popa@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Incorrect reset ID mapping for MMSYS SW1 reset constants.
---
+On Fri, Jul 17, 2026 at 03:38:49PM +0300, Stefan Popa wrote:
+> The MAX40080 is a bidirectional current-sense amplifier with an
+> integrated 12-bit ADC and an I2C/SMBus interface. It measures the
+> voltage across an external shunt resistor and the input bus voltage,
+> storing the results in an internal FIFO.
+> 
+> No existing IIO driver covers this device or a register-compatible part.
+> The closest relatives target different silicon with incompatible register
+> maps and feature sets: max9611 is a unidirectional high-side sensor with a
+> die-temperature channel and MUX-selected gain and no FIFO/PEC, while
+> max34408 is an 8-bit multi-channel current monitor. The MAX40080 has a
+> device-specific register map with bidirectional 13-bit current, a 64-entry
+> FIFO, PEC, a single-measurement mode triggered by an SMBus Quick Command,
+> and two selectable input ranges, so it warrants its own driver.
+> 
+> Add a direct-mode IIO driver exposing the current and voltage channels
+> with raw and scale attributes, a configurable oversampling (digital
+> averaging) ratio, and PEC-protected register access. The two selectable
+> current-sense ranges are exposed through scale/scale_available; the
+> current scale is derived from the shunt-resistor-micro-ohms device-tree
+> property.
 
---- Patch [4]: [PATCH v2 4/7] dt-bindings: reset: Add reset controller cons=
-tants for mt8167 ---
-commit 3e501b19a4f1986647da6f341a25af00a37a8d1d
-Author: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+...
 
-dt-bindings: reset: Add reset controller constants for mt8167
+> +struct max40080_state {
+> +	struct i2c_client *client;
+> +	/* Serializes read-modify-write access to the CFG register. */
+> +	struct mutex lock;
+> +	u32 shunt_resistor_uOhm;
+> +	/*
+> +	 * Cached configuration, also used to restore the device on resume after
+> +	 * a suspend that may have cut its power: the selected RANGE index and
+> +	 * the oversampling ratio.
+> +	 */
+> +	unsigned int range;
+> +	int oversampling_ratio;
+> +	/*
+> +	 * Precomputed current scale (mA per code) for each RANGE setting, as
+> +	 * {integer, nano} pairs for IIO_VAL_INT_PLUS_NANO. The range is
+> +	 * selected by writing the corresponding scale.
+> +	 */
+> +	int current_scale[ARRAY_SIZE(max40080_csa_gain)][2];
 
-This commit adds identifying bits for watchdog and mmsys resets on
-the mt8167 platform.
+> +	/* DMA-safe buffer for i2c_smbus_read_i2c_block_data(). */
+> +	u8 buf[4] ____cacheline_aligned;
 
-> diff --git a/include/dt-bindings/reset/mediatek,mt8167-resets.h b/include=
-/dt-bindings/reset/mediatek,mt8167-resets.h
-> new file mode 100644
-> index 0000000000000..85d2d0e99c689
-> --- /dev/null
-> +++ b/include/dt-bindings/reset/mediatek,mt8167-resets.h
+Why don't you use the specific IIO macro for this?
+Do you have internal reviews for this patch series?
 
-[ ... ]
+> +};
 
-> +#define MT8167_MMSYS_SW0_RST_B_DPI0		23
-> +#define MT8167_MMSYS_SW0_RST_B_MIPI_TX_CONFIG	24
-> +#define MT8167_MMSYS_SW1_RST_B_LVDS_ENCODER	25
-> +#define MT8167_MMSYS_SW1_RST_B_DPI1		26
-> +#define MT8167_MMSYS_SW1_RST_B_HDMI		27
+-- 
+With Best Regards,
+Andy Shevchenko
 
-[Severity: High]
-Will these reset IDs correctly map to the SW1 register?
 
-In drivers/soc/mediatek/mtk-mmsys.c, mtk_mmsys_reset_update() dynamically
-calculates the register offset by dividing the ID by 32.
-
-Since MT8167 does not provide an rst_tb mapping array, the raw ID is used f=
-or
-this division. For IDs 25, 26, and 27, this calculates to an offset of 0,
-which targets the SW0_RST_B register instead of SW1_RST_B.
-
-Should these IDs be greater than or equal to 32 if they belong to SW1, or is
-the SW1 naming a typo for bits that actually reside in the SW0 register?
-
-> +
-> +#endif  /* _DT_BINDINGS_RESET_CONTROLLER_MT8167 */
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717163959.7145=
-61-1-l.scorcia@gmail.com?part=3D4
