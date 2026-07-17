@@ -1,189 +1,180 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6C030EF63
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 07:36:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31EAD3ACA6F
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 07:37:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784273779; cv=none; b=KwcwfzZ3Nyu1fx0o5Gqhw6R6BT1QglqKnYWaFqnc61ManTMZGNkIlXYU1juJ1BRwZFvNrLZCBOcz3OmuEYTl0CdQeuXHASFNZ8fP941m9hPcx1WZXoUA8oKgsnRMdqXsW1+qQxklgNPPVWNa1FkvSAhl5W6kMOgAysAqTLVz/y8=
+	t=1784273823; cv=none; b=UI6gVALoorfpGposL3CvVACPZRMijbvmSBZkTZ2aeQHw06NiP+r1sfH5pes6r2exJwT3VTIW8Wv1YjB2JSK0Gei7e3+EeRbIlrIyltQVknYFukp2pLLjS4FLE3IiTcKgt6ZL5OH4Njtna1pkpd3f4EUvPsEx9J57/dMjTbAVVdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784273779; c=relaxed/simple;
-	bh=IZDUbHKMIMWw9GZtaaY622c0BCnjWRTff5OD6XNIH7Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MJsEXKfl9vXu2u06H70d7iSMp9Ca6l+HWZhgMO1sPG9d/5wVrtQVCuKNtNjJBtGWACvbA6WbiO4JeNytiipnhTwhVuv9l5PKdaCDiwjCV9v3zSUVKhISgng2pSMlfBUcFCMlY6JQKEsDxdnEWDYt56ex6Jgiqk+pJhIZcfBrBjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ImE9L04U; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UsMriSrs; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784273823; c=relaxed/simple;
+	bh=N7TRc/IALjT7cQ1NPTohOxma00X43/wjC9r4ZIJEZCg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gkemyj6VimBu9tFhoLMba5tQ7LPajdknj/tIpxP0woXcammgUwBITlmDynRJxJciiVe7NM2T6F/4f11h1B4FkipEBJoFqwWdUGg/JarKrrA/KiE+YWsyzCx+/sHPYxFyk3SxgImb4HrSkLo5wWOQ6DVc3JEqh0HFlbMFk3vmjUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cvDNUGyO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ImE9L04U";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UsMriSrs"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66H6cIp12098571
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 07:36:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	NW6RQI9UDAbY0cyHYYXMDr9odRZDv+nXa8Wh08S2C18=; b=ImE9L04UB6ab49sw
-	YQG1ulxC96csZhTtpQEohtd3wSouduH1b8jNE8rMbG+hgKwlT/CWQ5X5lHibhUbD
-	EBT/eokG4UT1/IuItzCC55oOHty/cRd1pci8+5o8u3pnBiEdr5DcCAjUAabHXoo1
-	VEH4a12B7e7YumEhocIpXu4X1aQgdGvgCM/oAfSvpv476bKhU7LDvJ25CbAf+HvO
-	tU5PsJ/zrhTL4IU2TE2b/okXswxljQLMNTTWMLOrWKnBWjkASNKJ6q7qWFzgp0An
-	1DbX3v/oRjcRsNWRYE0/ipJG483M2yhwrN2g7N0bAE2q/9H+znhNqZyS8fp81I3J
-	htyk9g==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ff3u6jkpa-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 07:36:17 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ca5d2474c7so109958065ad.2
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 00:36:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784273777; x=1784878577; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NW6RQI9UDAbY0cyHYYXMDr9odRZDv+nXa8Wh08S2C18=;
-        b=UsMriSrsIkhJ3nx+MRPsFKfroNBujlP3nwdPFWDRMOZiqMmbtDD5DucrHOPJabywt/
-         fsYNfe7AA/dt7b6cN2MMpfJ+X2zQ+xHz+m+8BWbY0SanmpI4VaUaJsqwuQfAAYEeqSSy
-         njgraTvL82+z4Zubkh1cc3mowa/8lPT5nxhULeZXpXyg2nCWtzQvlh4uwft0S/WEKvDg
-         6reS7WpTGbo/tmBRTh9RcGBWZN5NuOt1Z0j05bvP6pdSb3J8qJ4AVgc7QSoqybIROAWs
-         ZtF3oq6n/1pdJvFdknk+czTrJdg1L6SgaJp+qFOtWfNpTl+bL803noEZT8YGD3Im8Ij+
-         i1cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784273777; x=1784878577;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NW6RQI9UDAbY0cyHYYXMDr9odRZDv+nXa8Wh08S2C18=;
-        b=SJukRkApE8O672W4xTfcyWKbfSy1P8tSpA+WMMVlH6WT/qKQStHAxG3Vh0aGj+UDo9
-         WvM3PbxTL2+x/A4SSsaSXX3sGKtfEDbTP+Oebf6lmc97fss4eStT/ubcrG9ij+U7E4Ty
-         8aDx6AKCw2P53TTpMfFo59mnmU/KM0NY195EuRxdVM9fqIkH+mvHeJy8ECx16JGQV6gS
-         oQJjePh9OtOCp7jDJXkl1uJ33Io56hbPTqwuEjWKnyLRm/+Y+blBHsl9HaL8pYmLvolK
-         r4+r32KvWKu0anJUFewr73uEL3NYUz6lc45X3jel4xBXkBHzwDOD+y7Vxs/XCoRks+Ri
-         el9Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rpz7NziUoStolQZLaEYIiwclwgHavdJTR22Xoa/FCExlTJ9kO6kX2eB+qnO2rIh62noTwQsycqVfW3C@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywi6wHtW0uBfBG74U+Q4FIyevNXs84db38EGXEv5Di8W55cn59D
-	mMXsLK/2CjzfX9mv96nGgL2sV4CyH3F5CthIBCBPKb1vWr6p72GLSOYYwMoV7HNJp4mDQKFpdjT
-	1ZqC8wNRbNAPBX2BizVSLt+0bizCO9ap+6oIngXLag2u9xSqN08fiFdcUw/MGnL84
-X-Gm-Gg: AfdE7cnyvL3s9nqbPilZjNWgDpdZUhaXdfQD/1z9BMLnHHpyjxn4G+EMmytrSIIBQaz
-	+LA5+SaC/YuoKwdt3n/49e7t0LP8zdmL73VlEj8wqkevr9PMRiJbrXOrqUDy9Dm5UYz3awl8XZV
-	jnNfAWeNHkXyeEo28kBW11Nyg4OVVVP+0LSQ4vlqoylRgpxN6P9bVghv50FOwF72wJrE52QvYLw
-	n5F7nf/C9+FX7Nq5JC0Cz+lkk76pSyFM8P2qjy3gBQI9kp1IY3NrUKXHqisJuUh665oPFx0r1XH
-	46nBH1qcwHLrNAs85R13fTc9ie6nBQTcXG4sECDKzbhAhnQ0zYBCmxZHPAZ/1zW0U9i079puuqQ
-	d7LGRKvjFwHOnQFyqV3/hJahrjEmfCSLUz5CZK9WAWkSjYgw5eJfu1UqsIVbCCpFo8+gi
-X-Received: by 2002:a17:902:f705:b0:2c8:1c05:16bb with SMTP id d9443c01a7336-2cf3494f91fmr14982305ad.24.1784273776906;
-        Fri, 17 Jul 2026 00:36:16 -0700 (PDT)
-X-Received: by 2002:a17:902:f705:b0:2c8:1c05:16bb with SMTP id d9443c01a7336-2cf3494f91fmr14982015ad.24.1784273776361;
-        Fri, 17 Jul 2026 00:36:16 -0700 (PDT)
-Received: from [10.133.33.92] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf346da07csm5823275ad.52.2026.07.17.00.36.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Jul 2026 00:36:16 -0700 (PDT)
-Message-ID: <ce87b217-778c-4a14-a5c9-d28f927f099b@oss.qualcomm.com>
-Date: Fri, 17 Jul 2026 15:36:11 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cvDNUGyO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94A511F000E9;
+	Fri, 17 Jul 2026 07:37:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784273821;
+	bh=qJ44VYICKRu7NTJkrWqGuJBunIAeihG/t5fKHcvpSrk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cvDNUGyO9FodPYbN5IpesgLSqfTAeSHxvo0q2ErKiuGrq/uFEZH+v6GcRqzmONB+i
+	 10oRp0EUOhYPSD6mMNUVGgLNNqbRNmJTQ7hxhF8VaEXkVSlyd4T41zVv3hPcdeLzV5
+	 TzHvKevBoOPD/fJwqh2Yq6t1iQ/LxsDYIBU73AZ50826eIs9ZsnAKkCWr5LeySyudv
+	 qDp5AOZWRXTdHxs0+MwNBDDpNSCns9Mfc663qgDwbFjD19XkvEM709dVHDNWru3mMc
+	 F+8OxTOaMzI837hfGQNtLMQgP3MZV2vGjnMIhX+8t9lVuHUXE9ewuvd+P+9fsyiT4l
+	 Ggos+eh9sYbbg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] clk: spacemit: k3: fix missing /2 factor in i2s
+ sysclk dividers
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260717-k3-clk-fix-i2s-v1-3-e95001a692ee@linux.spacemit.com>
+References: <20260717-k3-clk-fix-i2s-v1-0-e95001a692ee@linux.spacemit.com>
+ <20260717-k3-clk-fix-i2s-v1-3-e95001a692ee@linux.spacemit.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 07:37:01 +0000
+Message-Id: <20260717073701.94A511F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: remoteproc: qcom,sm8550-pas: Add Hawi and
- Maili MPSS compatible
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260713093237.691117-1-mukesh.ojha@oss.qualcomm.com>
-Content-Language: en-US
-From: Yijie Yang <yijie.yang@oss.qualcomm.com>
-In-Reply-To: <20260713093237.691117-1-mukesh.ojha@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDA3NCBTYWx0ZWRfX+/ZagErBOuyy
- Sw035gBm842fo/WJApLZ5z0fKCm0ehXtKf8YLm4pcW7DtU6RXKHPOsYOvHCzo8R6zcz3NmZTGPS
- gBakoDi7nM4JkWGfKK7rNcj4jmDwQVjS9/3EWlo3r12JetMMjtRQZOSa/nhY3EVO+TylS5XNdI5
- ycMrVWUZtMYWqFUy0/4DlrxYF57MuQMUDtvh1MShQLWzhSQGOVlg1h6UdnugdKH31xN8NgmOu9q
- t+2US9ylMzlr5zLOlW7EZRmPT2eGaxUtc/yEWDStQUCzvg5Ow6os1NDD4Btt9WSejbX8aOcHHtl
- 1flltsjYv8FLSKOkLavnhY1Bw/2EPdGzp+TkYfVkwQARyPcFzb6XH2F8c3eVVO6rQWgOXJpMBH6
- jIWiB2OJYdKm7hi4OiS9hcBlO0uhbeWUTD3oBBM6xWNtEVdBO+4yr9DhXvfuIJ8JSfMV/FcCtc0
- rK9qILPTYujUxnNkVnQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDA3NCBTYWx0ZWRfX2Magw6b5YjcY
- MoTQiG1CR+/ZOG/3REYioyfavTfZc56Zh2YM00vRZvkLeO2kRgo9SXvawDLTUd/MiOS5Ar7thWq
- TZKkM/+Ib4yuEHN5UU8QoGTrSNT30YA=
-X-Authority-Analysis: v=2.4 cv=DYMnbPtW c=1 sm=1 tr=0 ts=6a59db71 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=O2hqE-0K3YR9ZxWvhRwA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-GUID: EGiSh1dqQssJsGbm6MQMwrZuWGiQ9xSE
-X-Proofpoint-ORIG-GUID: EGiSh1dqQssJsGbm6MQMwrZuWGiQ9xSE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-17_02,2026-07-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 lowpriorityscore=0 bulkscore=0 phishscore=0
- adultscore=0 priorityscore=1501 spamscore=0 malwarescore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170074
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
+New issues:
+- [Medium] The commit message mathematically contradicts the driver's actua=
+l hardware implementation.
 
-On 7/13/2026 5:32 PM, Mukesh Ojha wrote:
-> Document compatible string for the MPSS Peripheral Authentication
-> Service on the Hawi and Maili SoCs. The Hawi and Maili MPSS is
-> compatible with the SM8650 MPSS (six interrupts, CX and MSS power
-> domains, memory region).
-> 
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Pre-existing issues:
+- [High] Kernel panic due to unhandled zero divisor (`num`) in clock rate c=
+alculations.
+--
+
+--- Patch [3]: [PATCH 3/3] clk: spacemit: k3: fix missing /2 factor in i2s =
+sysclk dividers ---
+commit f6d65354cd50f2c66ffa439212d0df739e8b5882
+Author: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+
+clk: spacemit: k3: fix missing /2 factor in i2s sysclk dividers
+
+This commit updates the i2s sysclk dividers in the spacemit k3 clock driver=
+ to
+set pre_div to 2. This accounts for a fixed 1/2 hardware divider after the
+configurable divider.
+
+> The i2s{0,2,3,4,5}_sysclk_div DDNs have an additional fixed 1/2
+> divider in the hardware IP after the configurable divider, so the
+> real output rate is:
+>=20
+>     rate =3D parent_rate * num / (den * 2)
+
+[Severity: Medium]
+Does this formula mathematically contradict the driver's implementation?
+
+The code in drivers/clk/spacemit/ccu_ddn.c calculates the rate by multiplyi=
+ng
+by den and dividing by num:
+
+drivers/clk/spacemit/ccu_ddn.c:ccu_ddn_calc_rate() {
+    ...
+    return prate * den / pre_div / num;
+    ...
+}
+
+The file's documentation also notes:
+
+ *              Fin     denominator
+ *      Fout =3D ----- * -------------
+ *               2       numerator
+
+Could the commit message be updated to reflect the actual hardware behavior?
+
+> Set pre_div to 2 to account for it.
+>=20
+> Fixes: e371a77255b8 ("clk: spacemit: k3: add the clock tree")
+> Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+>=20
 > ---
->   .../devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml     | 6 ++++++
->   1 file changed, 6 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
-> index faf7b2890de8..0d9fd1598b5b 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
-> @@ -17,6 +17,8 @@ properties:
->     compatible:
->       oneOf:
->         - enum:
-> +          - qcom,hawi-mpss-pas
-> +          - qcom,maili-mpss-pas
->             - qcom,sdx75-mpss-pas
->             - qcom,sm8550-adsp-pas
->             - qcom,sm8550-cdsp-pas
-> @@ -196,6 +198,8 @@ allOf:
->         properties:
->           compatible:
->             enum:
-> +            - qcom,hawi-mpss-pas
-> +            - qcom,maili-mpss-pas
->               - qcom,sdx75-mpss-pas
->               - qcom,sm8650-mpss-pas
->       then:
-> @@ -246,6 +250,8 @@ allOf:
->         properties:
->           compatible:
->             enum:
-> +            - qcom,hawi-mpss-pas
-> +            - qcom,maili-mpss-pas
->               - qcom,sdx75-mpss-pas
->               - qcom,sm8550-mpss-pas
->               - qcom,sm8650-mpss-pas
+>  drivers/clk/spacemit/ccu-k3.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/clk/spacemit/ccu-k3.c b/drivers/clk/spacemit/ccu-k3.c
+> index abcc5caa67bd7..675cf03d98f05 100644
+> --- a/drivers/clk/spacemit/ccu-k3.c
+> +++ b/drivers/clk/spacemit/ccu-k3.c
+> @@ -244,11 +244,11 @@ CCU_MUX_DEFINE(i2s3_sysclk_sel, i2s_sysclk_parents,=
+ MPMU_I2S_SYSCLK_CTRL, 12, 2,
+>  CCU_MUX_DEFINE(i2s4_sysclk_sel, i2s_sysclk_parents, MPMU_I2S_SYSCLK_CTRL=
+, 16, 2, 0);
+>  CCU_MUX_DEFINE(i2s5_sysclk_sel, i2s_sysclk_parents, MPMU_I2S_SYSCLK_CTRL=
+, 20, 2, 0);
+> =20
+> -CCU_DDN_DEFINE(i2s0_sysclk_div, i2s0_sysclk_sel, MPMU_I2S0_SYSCLK, 0, 16=
+, 16, 16, 1, 0);
+> -CCU_DDN_DEFINE(i2s2_sysclk_div, i2s2_sysclk_sel, MPMU_I2S2_SYSCLK, 0, 16=
+, 16, 16, 1, 0);
+> -CCU_DDN_DEFINE(i2s3_sysclk_div, i2s3_sysclk_sel, MPMU_I2S3_SYSCLK, 0, 16=
+, 16, 16, 1, 0);
+> -CCU_DDN_DEFINE(i2s4_sysclk_div, i2s4_sysclk_sel, MPMU_I2S4_SYSCLK, 0, 16=
+, 16, 16, 1, 0);
+> -CCU_DDN_DEFINE(i2s5_sysclk_div, i2s5_sysclk_sel, MPMU_I2S5_SYSCLK, 0, 16=
+, 16, 16, 1, 0);
+> +CCU_DDN_DEFINE(i2s0_sysclk_div, i2s0_sysclk_sel, MPMU_I2S0_SYSCLK, 0, 16=
+, 16, 16, 2, 0);
 
-IMO, both should fall back to sm8650.
+[Severity: High]
+This is a pre-existing issue, but can this lead to a kernel panic due to an
+unhandled zero divisor?
 
+In drivers/clk/spacemit/ccu_ddn.c, ccu_ddn_recalc_rate() reads hardware
+registers directly:
 
--- 
-Best Regards,
-Yijie
+drivers/clk/spacemit/ccu_ddn.c:ccu_ddn_recalc_rate() {
+    ...
+    num =3D (val & ddn->num_mask) >> ddn->num_shift;
+    den =3D (val & ddn->den_mask) >> ddn->den_shift;
+   =20
+    return ccu_ddn_calc_rate(prate, num, den, ddn->pre_div);
+    ...
+}
 
+If the register contains 0 for num, ccu_ddn_calc_rate() will divide by zero:
+
+drivers/clk/spacemit/ccu_ddn.c:ccu_ddn_calc_rate() {
+    ...
+    return prate * den / pre_div / num;
+    ...
+}
+
+Additionally, in ccu_ddn_calc_best_rate(), if the parent rate is less than
+ddn->pre_div (for example, if prate is 0), the calculation
+prate / ddn->pre_div evaluates to 0. This causes rational_best_approximatio=
+n()
+to set num to 0, which is then passed to ccu_ddn_calc_rate(), again leading=
+ to
+a division by zero.
+
+Should we add validation to prevent division by zero in these paths?
+
+> +CCU_DDN_DEFINE(i2s2_sysclk_div, i2s2_sysclk_sel, MPMU_I2S2_SYSCLK, 0, 16=
+, 16, 16, 2, 0);
+> +CCU_DDN_DEFINE(i2s3_sysclk_div, i2s3_sysclk_sel, MPMU_I2S3_SYSCLK, 0, 16=
+, 16, 16, 2, 0);
+> +CCU_DDN_DEFINE(i2s4_sysclk_div, i2s4_sysclk_sel, MPMU_I2S4_SYSCLK, 0, 16=
+, 16, 16, 2, 0);
+> +CCU_DDN_DEFINE(i2s5_sysclk_div, i2s5_sysclk_sel, MPMU_I2S5_SYSCLK, 0, 16=
+, 16, 16, 2, 0);
+> =20
+>  static const struct clk_parent_data i2s2_sysclk_parents[] =3D {
+>  	CCU_PARENT_HW(i2s_sysclk),
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717-k3-clk-fix=
+-i2s-v1-0-e95001a692ee@linux.spacemit.com?part=3D3
