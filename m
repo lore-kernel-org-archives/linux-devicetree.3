@@ -1,651 +1,195 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE1D43ECBFE
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 10:29:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 874E93ECBC8
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 10:30:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784284194; cv=none; b=ZISnqJCzpUq90ONUXILllbbGmrImgzurzCMa4JgMJ5jKc4CcURXbsVdPqhHXC2u3AmIGAvxdZEURftOSJEFOC8CEZRNsab4Yn1wUnxWXsSvXgL2zFFbJIUr56s05E029xxQPK9t/sHGGwASd4uQPH0IbLzF5SpQNiX25iD4Fwvs=
+	t=1784284202; cv=none; b=f1EqhiaTF3fxsGDATdQEghQm5BsLXvkSQj9+EdeKWd8NmB/AI09o6x5W270+1TK/iFrCBHacIcxnLShqciuwkJJ5Xv7+pKsuv4pEUBEWTJDMJBfrsTWuarjHzjoSsuqq76jsuWNw6arl86rb26FPQ1Clk7OjQOdbF0Cye1AtFh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784284194; c=relaxed/simple;
-	bh=HHeO0peHcPczwXiZLvgGMvbWfB9HGrwgRSM6dVIHq4I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VXV72ystHLaInVsPuvYGGowoukeay1S58uz5/rZik8PfzD2AQHCINwUq86owaSnvA/rypcDQImfOJfBmktev5GbsgbOkN87/b2Ov95v+rRNA5ujkyHeFzY2+rpJTav5bSqktWPYMoDrDaf/DR7sWLDfXXEJxapwY5XmkQwjqUvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dWZAfI0v; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784284202; c=relaxed/simple;
+	bh=qHe6ZlC3NRO8RIAOPo9zIJdPF2tWl92RPA2ZXw+M0Zg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FkwSKApkjBUTS1o70D8B+SOU5eYkiexcr4V4UoHUGWmSxXZVA6RM+0XYnhqNYnAv8u3S/awxRk0OHnLxr8iVJmlQdbOSMQai5MhijekAt4SSL0LTwU8OK/oqv2lcby5HtLSFgc9Nuv2DP90QcRo+8CwQN+fBE1fkO522elQUiFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YXt7wPM2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=N3i/mpPD; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dWZAfI0v"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-493f4638f4aso35945645e9.3
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 03:29:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YXt7wPM2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="N3i/mpPD"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66HASoMJ1695387
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 10:30:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	jXQqLcZa4k3vOKE8Gg+Xq0ho5HHR9pHsqihv6Qjt5CA=; b=YXt7wPM2Lx+uXriv
+	7OVETmQbV7NL6XlQ7eZE/7iBpT0BAQdqQsc6keobpEVAdWzf1VBjJbfFV+Su7cii
+	3VOCXNgb9d59l617qQTxzYGYehHLEOkNzhhznkq7oRdS4xnQnQpDERJfeExxmv96
+	+FU7FBl7XS/pRax518Dx6NK0y81yuJrvzFXnHKfwAfXkCT4354G7GGcl/5Qh+BwS
+	0tlS+g7XgT8EQhMfeZdjmWn/hg4JoNh5UbeOoBzwFRmNPQ+/XrLI+96MF5mrv4Bw
+	QgcxDWicQanA6uU5ym70lBnzSlb0bTMvVxumCZhGVFT2yOFM9p7F8HHubGpckjLA
+	Za39sg==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ffd3asbny-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 10:29:59 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e2f61c09dso3521375a91.2
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 03:29:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784284191; x=1784888991; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jsgcp/MnBuFq6dLGYwnaWyHFFuPkmvggU/3qktY8YmU=;
-        b=dWZAfI0vg7GZNGvaHxoXDYa2kRBY+cWjfC4FPeyb0wdyDk87GoV0TkWI6IQ4O5EpGd
-         k+v3njX8u46C1Er35b23DLVtajMHvXW1b65HueTzk5rOrKJzvBAq1sXx5CBFnOulHP8h
-         qXHPUqv5muiQY+p/ZBGvvmCIZ1ZXwMUcTB1dFKtaRzYLj3hF7tCPs5wbR9+7gS1S2akg
-         WMlW2ecTCZ/nuiLiaPbXgR5OkSE7h0nkfxlnPJsiYFvkIiVVQ6+e7LURnQGIk0NCtp5B
-         377x+5aHmIZqhf3P0ahlUmet1RdfQPt9SVobAMxn06cMXOnzNf6Y2IFSrVmrouTs/G/g
-         o03A==
+        d=oss.qualcomm.com; s=google; t=1784284199; x=1784888999; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jXQqLcZa4k3vOKE8Gg+Xq0ho5HHR9pHsqihv6Qjt5CA=;
+        b=N3i/mpPD+a1OmdBIcGViO7uGXz00BUqs8V+S34C66j8tbknRnA4/e//RSOwk8LhHeo
+         xfEc3uMnn5nftML1qEc5ShiMBCXkRW6bUZNy0UhkrKthptnXp3b8GnMp7Cj8EIqKG9or
+         mXvc7u5Tl45TzRUp3mcmCSseBgQQarLsWdpawJPapCsY6TVfJ25Lp2NsyCbyjVAI8QI4
+         jYledxk9M8BS3X/iGWJPzj+5jyy2DrueoW0sC4D9iMVBeRQkB6lEJ7S1vdjRcbJFrjP8
+         Q0+Z4mmAxKup/OOF9bEPwo4GLg67/arIhFVHBk7iiyKhYzSFQcqGD440vX3AVIGeoj7C
+         4YoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784284191; x=1784888991;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jsgcp/MnBuFq6dLGYwnaWyHFFuPkmvggU/3qktY8YmU=;
-        b=GXTRnezVnkQCjSTl/xSxRvHvBYUEZpH9DvE8tG1FyHDEkrE53CZlb+u0ySv9ATnB4Q
-         ifuS2JCGAXL3MBXbqxRGz0L5U7DzzqbZrtAUO8ZTIaYMjfndk07TQsEQCA96yL//KSvS
-         lFFgn+Xt7s5f9U1PNqyUSClRxpuIuNHGYW6YgRLB5bpizfAGQj9n7cWDfR9D7YH5Xmfa
-         krZrcl0WHmM7WSXhgv43WCvoyah8nXXvUZBk7844Y1f+grbYVHZa6zY+FqQQcOF0ccvr
-         NsDWHm4tbo/EYQHxRGE5QiwVRJCd+dkHVHrZN4MoU7VzK0o06YnduVJTSZLAOi1BkT7S
-         nMtA==
-X-Forwarded-Encrypted: i=1; AHgh+RpDonPf6UI6uIsiYWAAtgmauHrn8pSaA2ctRVbA8x4EQqY71v7z8vfSIXvjDAnuEDrTAr/VYfWk1q1H@vger.kernel.org
-X-Gm-Message-State: AOJu0YwgPmFo+6X1rhIYkp4inYKZi+dPeoULxb4b/vcL988LCzQphIhj
-	1yv/XHAfcNby7NZH2uMLkz61S3fVF3K7CpL+vUHaTofvshTRELDjQQe5
-X-Gm-Gg: AfdE7cm4tq7zjJFH0QD3vLEmh3qDLgA5eYEXMVNtfRoYkNc0iOUySaox+qlvuXW2Ib7
-	PvRjT3TPgKyNPScnzZmPVrfQGpfPSmnlcX7KKHNqNoZMJ+M1+9Ue5GuLwYCAIznup11kbOFXFTG
-	F3T0EkwPZ7ZjrlLdc69BXGcd8aPXTy99uXBi4vVIGSuRIise4fYPKyboi4eU8CIDAw7SaG+9I/N
-	fxUcFTr48Te4yhatUvI2V9GwxrotEUbVtfVV85lOxjqCnGJbpcoY9NLCevCC7oob1u6mfYVWcMA
-	nU/VempzhjALMU5t1Yg4el2SMCre2y/kDVIGc/WF7D3qw4/J3A34CS+Q/sUb4OJ5gFf3KUCh23/
-	5srhytuSLiOzZJxplMg94+NOiQ5ZjbIcDbP3ucaEPTWvDE3s25iEHCLhKswIqybpuO+TznUj33j
-	7IpcMyJuLdzfVUmqT1faoP9gLDjf9dq9RBnL5tkkMf29sbrvNga/qBoozc9OCdAFS+umwHe1FDB
-	jvoRQ/iyf2iEfk=
-X-Received: by 2002:a05:600c:3b24:b0:493:e79e:da6b with SMTP id 5b1f17b1804b1-4954a41148amr23677745e9.21.1784284190421;
-        Fri, 17 Jul 2026 03:29:50 -0700 (PDT)
-Received: from Lord-Beerus.station (net-93-144-65-248.cust.dsl.teletu.it. [93.144.65.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49549a3f07esm39931735e9.6.2026.07.17.03.29.47
+        d=1e100.net; s=20251104; t=1784284199; x=1784888999;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=jXQqLcZa4k3vOKE8Gg+Xq0ho5HHR9pHsqihv6Qjt5CA=;
+        b=RCDoonyTwObQP4LtnLUnVw3WmxcPCnf3mpXTmgVqt9yijam1YSrAf4YFSIMtDPSpmy
+         iOMGqNS/WE6/tkhr1ccoxN0nn8TYkirTNfBja5F6Q0MjlNb1QWF+0fjVH215H5MiD4CN
+         JtXZeDrc/hvBsAt2zcxsvj481H0mZwdzyaeZVHkqkxLIJF7HEbtsfKcC3j7Uh3lXnsfX
+         bEcQ6+Wplnwpdk6Wzje0nH8lHkOmIzruApoLj2yfaQTTf8AFQVhb/phP0WP7bdrvjx5j
+         nVm16eZ6M2KWgssizsu20/nFw9aPX1n63FKB0VyN+kN5QrH2oz8dx5n0tZRZQa5HSsuw
+         M8tA==
+X-Gm-Message-State: AOJu0YwnSF8r/csGoXw1YNWzPZhm2lyTXm1ojkKqwRCzI2tb7W14ma6S
+	7rE+OmS5EJ5DUF4VGidMFl94fBXsUxBxpPJTUC79J3Ximi28yiI28raTq9RCpSFw78LfxnquL8j
+	WPLEe4nRm7WczziO9MiUs9GOCKXPio8iiIID3hw/Fg3vMxmhUe+v8DAWfOVLjVebq
+X-Gm-Gg: AfdE7clznMgp7e8/ml/JMsLKqTyc7b898vy8vVPyalFNYoTqv4Ju07Xco5xuWN0o0MN
+	+1DDb2218xhQnnCTBGrQeNOBVP4QzlaqhAwdOKDaF2a4gcdaoPCGrd0YkRxISgdR09IEw1JvpI5
+	5WO+bWWnWpUYReaXQaySzvaB2rTR3JKIzsoPJMxGUhm3P1z02/1+uBpeYTSVImX2kkzKon/k00N
+	5/P9uJzZGyg4YzIwNXhfSL75QHDLvk/XoUGSwqMGRWHEbes2MxZ5P1JmqPUvwps1VTgDJjTVLcC
+	v5kgMeE+Vg+FiBBIpB/awQYHD50Sfb4q9Ecu7MEsnl57av/Iy4fNJNuUUJr51hUP6DxMfYHSWGN
+	OWo16rQAGwU9jlIEkLU1Ha/8VyP2/v/tmi6HEj66/JmqIKeU=
+X-Received: by 2002:a17:90b:1f88:b0:37f:9cdf:f0ac with SMTP id 98e67ed59e1d1-38e4b538984mr2018245a91.27.1784284199039;
+        Fri, 17 Jul 2026 03:29:59 -0700 (PDT)
+X-Received: by 2002:a17:90b:1f88:b0:37f:9cdf:f0ac with SMTP id 98e67ed59e1d1-38e4b538984mr2018225a91.27.1784284198548;
+        Fri, 17 Jul 2026 03:29:58 -0700 (PDT)
+Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e39deab2dsm2671936a91.1.2026.07.17.03.29.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 03:29:49 -0700 (PDT)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Josua Mayer <josua@solid-run.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-	Maud Spierings <maudspierings@gocontroll.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>
-Subject: [PATCH v6 3/3] arm64: dts: imx8qm-var-som: Add support for Variscite Symphony board
-Date: Fri, 17 Jul 2026 12:29:39 +0200
-Message-ID: <459b5ece914a1e736287331d236d7d1c917043fc.1784284092.git.stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1784284092.git.stefano.r@variscite.com>
-References: <cover.1784284092.git.stefano.r@variscite.com>
+        Fri, 17 Jul 2026 03:29:58 -0700 (PDT)
+Date: Fri, 17 Jul 2026 03:29:56 -0700
+From: Qiang Yu <qiang.yu@oss.qualcomm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v9 2/7] dt-bindings: clock: qcom,glymur-tcsr: Add mahua
+ support
+Message-ID: <aloEJLLGtDW9TBU8@hu-qianyu-lv.qualcomm.com>
+References: <20260713-tcsr_qref_0714-v9-0-373670ab15f9@oss.qualcomm.com>
+ <20260713-tcsr_qref_0714-v9-2-373670ab15f9@oss.qualcomm.com>
+ <20260714050831.0E9631F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260714050831.0E9631F000E9@smtp.kernel.org>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDEwNSBTYWx0ZWRfX/9Rp6GpPttm+
+ Uj1Un0koskJe+sZC82dlgygxaFu24pyoKcWS+ZhxMAZHPB5UxYv0d+zr2FIim/FfT0XqsKpR++c
+ NceUjdJ43m63ujmFG0sDfKeQ8KqH33E=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDEwNSBTYWx0ZWRfXwkAtvHGUg0oO
+ b0ivXJnxmd3DVyROEyuwAyhw3iqucPZF+783W0jYXMImPkXGL7EdD9+vW+7dlfHGMFta2dzalRu
+ 8voQpNpYmp7EOk00kHZXmJ7IHO5N0b25m1VW6WvBPk49Qm2gNo/4K9xDcYK1FzpeJOlnowdErYe
+ Fj+ZjpUf/B9edAjttLho5YYZ+g/eztvscEsMslAGq/4FXm0kPiUbXf9E3aZtxgih8o1x186OmnS
+ HmgcOIFTb4oErn2WWds8Gyq/aStsb/vuHEGD1CS80yf2NOg+qfyWoIThbPiRsJOPTpTvXIiriyF
+ TTwsqB+YgDr0Y4rj06OQGb+POmTol+Z0zR2QPFzxIUR6zYDsCpLERG0OVkkkA4UWKEjqobA9o7D
+ 4PkjGNWPWyejF0AQuuASajfi4AlNPxugWVhvFN2VVqazEXEhwM4JstNAraF7c9mxg01aqSg696+
+ WhY2VVBw7mJccPXiuEg==
+X-Proofpoint-GUID: wLr379fHqS7WxQ9H6sYZIXKjWHNhMtyi
+X-Proofpoint-ORIG-GUID: wLr379fHqS7WxQ9H6sYZIXKjWHNhMtyi
+X-Authority-Analysis: v=2.4 cv=e/M2j6p/ c=1 sm=1 tr=0 ts=6a5a0427 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=8nJEP1OIZ-IA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=uKqSePO24bDyLZl5HWsA:9
+ a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+ a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-17_03,2026-07-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 suspectscore=0 phishscore=0 priorityscore=1501
+ spamscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170105
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+On Tue, Jul 14, 2026 at 05:08:30AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] Consumer supply properties for Mahua are incorrectly named after the external provider regulators rather than the consumer's internal hardware block.
+> --
+> 
+> --- Patch [2]: [PATCH v9 2/7] dt-bindings: clock: qcom,glymur-tcsr: Add mahua support ---
+> commit 6be182ccdfcaa98dff1b1eb3997c0618159a4ce8
+> Author: Qiang Yu <qiang.yu@oss.qualcomm.com>
+> 
+> dt-bindings: clock: qcom,glymur-tcsr: Add mahua support
+> 
+> This commit adds device tree binding support for the qcom,mahua-tcsr
+> hardware variant. It notes that Mahua features a single QREF block fed
+> by refgen4, which is in turn supplied by the vdda-refgen3-1p2 and
+> vdda-refgen3-0p9 regulators.
+> 
+> > diff --git a/Documentation/devicetree/bindings/clock/qcom,glymur-tcsr.yaml b/Documentation/devicetree/bindings/clock/qcom,glymur-tcsr.yaml
+> > --- a/Documentation/devicetree/bindings/clock/qcom,glymur-tcsr.yaml
+> > +++ b/Documentation/devicetree/bindings/clock/qcom,glymur-tcsr.yaml
+> 
+> [ ... ]
+> 
+> > @@ -82,6 +83,25 @@ allOf:
+> >          - vdda-refgen3-1p2-supply
+> >          - vdda-refgen4-0p9-supply
+> >          - vdda-refgen4-1p2-supply
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            const: qcom,mahua-tcsr
+> > +    then:
+> > +      required:
+> > +        - vdda-qrefrpt0-0p9-supply
+> > +        - vdda-qrefrpt1-0p9-supply
+> > +        - vdda-qrefrpt2-0p9-supply
+> > +        - vdda-qrefrpt3-0p9-supply
+> > +        - vdda-qrefrpt4-0p9-supply
+> > +        - vdda-qrefrpt5-0p9-supply
+> > +        - vdda-qrefrx1-0p9-supply
+> > +        - vdda-qrefrx2-0p9-supply
+> > +        - vdda-qrefrx3-0p9-supply
+> > +        - vdda-qreftx1-0p9-supply
+> > +        - vdda-refgen3-0p9-supply
+> > +        - vdda-refgen3-1p2-supply
+> 
+> [Severity: Medium]
+> Should these supply properties be named after the consumer's internal
+> hardware block (refgen4) rather than the external provider regulators?
+> 
+> The commit message notes that Mahua has a single QREF block fed by refgen4
+> only. Since device tree supply properties are typically named after the
+> consumer's input pins or blocks rather than the board-level supply rails,
+> would it be more appropriate to name these vdda-refgen4-0p9-supply and
+> vdda-refgen4-1p2-supply to keep the ABI independent of the external
+> regulator names?
+>
+The vdda-refgen3-0p9-supply and vdda-refgen3-1p2-supply are named after
+the LDO names defined in the power grid, even though they supply power to
+REFGEN4. Renaming them to vdda-refgen4-* would not match the documented
+LDO names and would effectively invent a new name not backed by the
+power grid.
 
-Add device tree support for the Variscite Symphony carrier board with
-the VAR-SOM-MX8 QuadMax system on module.
-
-The Symphony board includes
-- uSD Card support
-- USB ports and OTG
-- Additional Gigabit Ethernet interface
-- Uart, SPI and I2C interfaces
-- GPIO Expanders
-- RTC module
-- TPM module
-- CAN peripherals
-- PCIE support
-
-Link: https://variscite.com/carrier-boards/symphony-board/
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
----
-v5->v6:
- - 
-
-v4->v5:
- - 
-
-v3->v4:
- - 
-
-v2->v3:
- - Fix led typo
- - Moved reset-gpios in pciea_port0
- - Removed wrong captouch pinctrl gpio
-
-v1->v2:
- - Fix ptn5150 interrupt
- - Fix ecspi1 cs gpio
-
- arch/arm64/boot/dts/freescale/Makefile        |   1 +
- .../dts/freescale/imx8qm-var-som-symphony.dts | 490 ++++++++++++++++++
- 2 files changed, 491 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts
-
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index be3c858f1eeb..b7bfa3f4be77 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -542,6 +542,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-v1.1-ixora-v1.1.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-v1.1-ixora-v1.2.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8qm-mek.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8qm-tqma8qm-mba8x.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8qm-var-som-symphony.dtb
- 
- imx8qm-mek-ov5640-csi0-dtbs := imx8qm-mek.dtb imx8qm-mek-ov5640-csi0.dtbo
- dtb-${CONFIG_ARCH_MXC} += imx8qm-mek-ov5640-csi0.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts
-new file mode 100644
-index 000000000000..7c7fc8958efc
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts
-@@ -0,0 +1,490 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Variscite Symphony carrier board for VAR-SOM-MX8 QuadMax
-+ *
-+ * Link: https://variscite.com/carrier-boards/symphony-board/
-+ *
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
-+ *
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
-+#include "imx8qm-var-som.dtsi"
-+
-+/ {
-+	model = "Variscite VAR-SOM-MX8 on Symphony evaluation board";
-+	compatible = "variscite,var-som-imx8qm-symphony",
-+		     "variscite,var-som-imx8qm", "fsl,imx8qm";
-+	chosen {
-+		stdout-path = &lpuart0;
-+	};
-+
-+	 gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		button-back {
-+			label = "Back";
-+			gpios = <&pca9534 1 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_BACK>;
-+		};
-+
-+		button-home {
-+			label = "Home";
-+			gpios = <&pca9534 2 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_HOME>;
-+		};
-+
-+		button-menu {
-+			label = "Menu";
-+			gpios = <&pca9534 3 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_MENU>;
-+		};
-+	};
-+
-+	gpio-leds {
-+		compatible = "gpio-leds";
-+
-+		led-heartbeat {
-+			function = LED_FUNCTION_STATUS;
-+			color = <LED_COLOR_ID_GREEN>;
-+			gpios = <&pca9534 0 GPIO_ACTIVE_LOW>;
-+			linux,default-trigger = "heartbeat";
-+		};
-+	};
-+
-+	reg_fec_phy: regulator-fec-phy {
-+		compatible = "regulator-fixed";
-+		regulator-name = "fec-phy";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-enable-ramp-delay = <20000>;
-+		vin-supply = <&reg_vselect>;
-+		gpio = <&pca9534 7 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	reg_usb_otg1_vbus: regulator-usb-otg1-vbus {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb_otg1_vbus";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpio = <&lsio_gpio0 18 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	reg_usdhc2_vmmc: regulator-usdhc2-vmmc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "sw-3p3-sd1";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-always-on;
-+	};
-+
-+	reg_vselect: regulator-vselect {
-+		compatible = "regulator-fixed";
-+		regulator-name = "reg_vselect";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-always-on;
-+		gpio = <&pca9534 6 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
-+&ethphy0 {
-+	leds {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		led@0 {
-+			reg = <0>;
-+			color = <LED_COLOR_ID_YELLOW>;
-+			function = LED_FUNCTION_LAN;
-+			linux,default-trigger = "netdev";
-+		};
-+
-+		led@1 {
-+			reg = <1>;
-+			color = <LED_COLOR_ID_GREEN>;
-+			function = LED_FUNCTION_LAN;
-+			linux,default-trigger = "netdev";
-+		};
-+	};
-+};
-+
-+&fec1 {
-+	mdio {
-+		ethphy1: ethernet-phy@5 {
-+			compatible = "ethernet-phy-ieee802.3-c22";
-+			reg = <5>;
-+			vddio-supply = <&reg_phy_vddio>;
-+			reset-gpios = <&pca9534 5 GPIO_ACTIVE_LOW>;
-+			reset-assert-us = <10000>;
-+			reset-deassert-us = <100000>;
-+
-+			leds {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				led@0 {
-+					reg = <0>;
-+					color = <LED_COLOR_ID_YELLOW>;
-+					function = LED_FUNCTION_LAN;
-+					linux,default-trigger = "netdev";
-+				};
-+
-+				led@1 {
-+					reg = <1>;
-+					color = <LED_COLOR_ID_GREEN>;
-+					function = LED_FUNCTION_LAN;
-+					linux,default-trigger = "netdev";
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&fec2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_fec2>;
-+	/*
-+	 * The required RGMII TX and RX 2ns delays are implemented directly
-+	 * in hardware via passive delay elements on the SOM PCB.
-+	 * No delay configuration is needed in software via PHY driver.
-+	 */
-+	phy-mode = "rgmii";
-+	phy-handle = <&ethphy1>;
-+	phy-supply = <&reg_fec_phy>;
-+	status = "okay";
-+};
-+
-+&flexcan1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_flexcan1>;
-+	status = "okay";
-+};
-+
-+&flexcan2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_flexcan2>;
-+	status = "okay";
-+};
-+
-+&hsio_phy {
-+	fsl,hsio-cfg = "pciea-pcieb-sata";
-+	fsl,refclk-pad-mode = "input";
-+	status = "okay";
-+};
-+
-+&i2c1 {
-+	clock-frequency = <100000>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_i2c1>;
-+	status = "okay";
-+
-+	pca9534: gpio@20 {
-+		compatible = "nxp,pca9534";
-+		reg = <0x20>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_pca9534>;
-+		interrupt-parent = <&lsio_gpio1>;
-+		interrupts = <24 IRQ_TYPE_LEVEL_LOW>;
-+	};
-+
-+	/* USB Type-C Controller */
-+	typec_ptn5150: typec@3d {
-+		compatible = "nxp,ptn5150";
-+		reg = <0x3d>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_ptn5150>;
-+		interrupt-parent = <&lsio_gpio3>;
-+		interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
-+
-+		port {
-+			typec_dr_sw: endpoint {
-+				remote-endpoint = <&usb3_drd_sw>;
-+			};
-+		};
-+	};
-+};
-+
-+&i2c4 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	clock-frequency = <100000>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_i2c4>;
-+	status = "okay";
-+
-+	pca6408: gpio@21 {
-+		compatible = "nxp,pcal6408";
-+		reg = <0x21>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		/* RGB_SEL */
-+		lvds-brg-enable-hog {
-+			gpio-hog;
-+			gpios = <7 GPIO_ACTIVE_HIGH>;
-+			output-low;
-+			line-name = "lvds_brg_en";
-+		};
-+	};
-+
-+	st33ktpm2xi2c: tpm@2e {
-+		compatible = "st,st33ktpm2xi2c", "tcg,tpm-tis-i2c";
-+		reg = <0x2e>;
-+		label = "tpm";
-+		reset-gpios = <&pca6408 4 GPIO_ACTIVE_LOW>;
-+	};
-+
-+	/* Capacitive touch */
-+	ft5x06_ts: touchscreen@38 {
-+		compatible = "edt,edt-ft5406";
-+		pinctrl-names = "default";
-+		reg = <0x38>;
-+		pinctrl-0 = <&pinctrl_captouch>;
-+		interrupt-parent = <&lsio_gpio0>;
-+		interrupts = <19 IRQ_TYPE_LEVEL_LOW>;
-+		touchscreen-size-x = <800>;
-+		touchscreen-size-y = <480>;
-+		touchscreen-inverted-x;
-+		touchscreen-inverted-y;
-+		wakeup-source;
-+	};
-+
-+	rtc@68 {
-+		compatible = "dallas,ds1337";
-+		reg = <0x68>;
-+	};
-+};
-+
-+&lpspi1 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_lpspi1>;
-+	cs-gpios = <&lsio_gpio3 24 GPIO_ACTIVE_LOW>;
-+	status = "okay";
-+};
-+
-+/* console */
-+&lpuart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_lpuart0>;
-+	status = "okay";
-+};
-+
-+/* header */
-+&lpuart2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_lpuart2>;
-+	status = "okay";
-+};
-+
-+&pca9534 {
-+	usb3-signal-route-hog {
-+		gpio-hog;
-+		gpios = <4 GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "usb3_signal_route";
-+	};
-+};
-+
-+&pciea{
-+	phys = <&hsio_phy 0 PHY_TYPE_PCIE 0>;
-+	phy-names = "pcie-phy";
-+	status = "okay";
-+};
-+
-+&pciea_port0 {
-+	reset-gpios = <&pca6408 1 GPIO_ACTIVE_LOW>;
-+};
-+
-+&usb3_phy {
-+	status = "okay";
-+};
-+
-+&usbotg1 {
-+	dr_mode = "host";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_usbotg1>;
-+	vbus-supply = <&reg_usb_otg1_vbus>;
-+	srp-disable;
-+	hnp-disable;
-+	adp-disable;
-+	disable-over-current;
-+	status = "okay";
-+};
-+
-+&usbotg3 {
-+	status = "okay";
-+};
-+
-+&usbotg3_cdns3 {
-+	dr_mode = "otg";
-+	usb-role-switch;
-+	status = "okay";
-+
-+	port {
-+		usb3_drd_sw: endpoint {
-+			remote-endpoint = <&typec_dr_sw>;
-+		};
-+	};
-+};
-+
-+&usbphy1 {
-+	status = "okay";
-+};
-+
-+&usdhc2 {
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz";
-+	pinctrl-0 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-1 = <&pinctrl_usdhc2_100mhz>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-2 = <&pinctrl_usdhc2_200mhz>, <&pinctrl_usdhc2_gpio>;
-+	bus-width = <4>;
-+	cd-gpios = <&lsio_gpio0 14 GPIO_ACTIVE_LOW>;
-+	vmmc-supply = <&reg_usdhc2_vmmc>;
-+	status = "okay";
-+};
-+
-+&iomuxc {
-+	pinctrl_captouch: captouchgrp {
-+		fsl,pins = <
-+			IMX8QM_GPT1_COMPARE_LSIO_GPIO0_IO19			0x06000021
-+		>;
-+	};
-+
-+	pinctrl_fec2: fec2grp {
-+		fsl,pins = <
-+			IMX8QM_ENET1_RGMII_TX_CTL_CONN_ENET1_RGMII_TX_CTL	0x06000048
-+			IMX8QM_ENET1_RGMII_TXC_CONN_ENET1_RGMII_TXC		0x06000048
-+			IMX8QM_ENET1_RGMII_TXD0_CONN_ENET1_RGMII_TXD0		0x06000048
-+			IMX8QM_ENET1_RGMII_TXD1_CONN_ENET1_RGMII_TXD1		0x06000048
-+			IMX8QM_ENET1_RGMII_TXD2_CONN_ENET1_RGMII_TXD2		0x06000048
-+			IMX8QM_ENET1_RGMII_TXD3_CONN_ENET1_RGMII_TXD3		0x06000048
-+			IMX8QM_ENET1_RGMII_RXC_CONN_ENET1_RGMII_RXC		0x06000048
-+			IMX8QM_ENET1_RGMII_RX_CTL_CONN_ENET1_RGMII_RX_CTL	0x06000048
-+			IMX8QM_ENET1_RGMII_RXD0_CONN_ENET1_RGMII_RXD0		0x06000048
-+			IMX8QM_ENET1_RGMII_RXD1_CONN_ENET1_RGMII_RXD1		0x06000048
-+			IMX8QM_ENET1_RGMII_RXD2_CONN_ENET1_RGMII_RXD2		0x06000048
-+			IMX8QM_ENET1_RGMII_RXD3_CONN_ENET1_RGMII_RXD3		0x06000048
-+		>;
-+	};
-+
-+	pinctrl_flexcan1: flexcan0grp {
-+		fsl,pins = <
-+			IMX8QM_FLEXCAN0_TX_DMA_FLEXCAN0_TX			0x00000021
-+			IMX8QM_FLEXCAN0_RX_DMA_FLEXCAN0_RX			0x00000021
-+		>;
-+	};
-+
-+	pinctrl_flexcan2: flexcan1grp {
-+		fsl,pins = <
-+			IMX8QM_FLEXCAN1_TX_DMA_FLEXCAN1_TX			0x00000021
-+			IMX8QM_FLEXCAN1_RX_DMA_FLEXCAN1_RX			0x00000021
-+		>;
-+	};
-+
-+	pinctrl_i2c1: i2c1grp {
-+		fsl,pins = <
-+			IMX8QM_USB_SS3_TC3_DMA_I2C1_SDA				0xc6000020
-+			IMX8QM_USB_SS3_TC1_DMA_I2C1_SCL				0xc6000020
-+		>;
-+	};
-+
-+	pinctrl_i2c4: i2c4grp {
-+		fsl,pins = <
-+			IMX8QM_ENET1_MDC_DMA_I2C4_SCL				0xc6000020
-+			IMX8QM_ENET1_MDIO_DMA_I2C4_SDA				0xc6000020
-+		>;
-+	};
-+
-+	pinctrl_lpspi1: lpspi1grp {
-+		fsl,pins = <
-+			IMX8QM_ADC_IN3_DMA_SPI1_SCK				0x0600004c
-+			IMX8QM_ADC_IN4_DMA_SPI1_SDO				0x0600004c
-+			IMX8QM_ADC_IN5_DMA_SPI1_SDI				0x0600004c
-+			IMX8QM_ADC_IN6_LSIO_GPIO3_IO24				0x00000021
-+		>;
-+	};
-+
-+	pinctrl_lpuart0: lpuart0grp {
-+		fsl,pins = <
-+			IMX8QM_UART0_RX_DMA_UART0_RX				0x06000020
-+			IMX8QM_UART0_TX_DMA_UART0_TX				0x06000020
-+		>;
-+	};
-+
-+	pinctrl_lpuart2: lpuart2grp {
-+		fsl,pins = <
-+			IMX8QM_LVDS0_I2C1_SCL_DMA_UART2_TX			0x06000020
-+			IMX8QM_LVDS0_I2C1_SDA_DMA_UART2_RX			0x06000020
-+		>;
-+	};
-+
-+	pinctrl_pca9534: pca9534grp {
-+		fsl,pins = <
-+			IMX8QM_MIPI_CSI0_MCLK_OUT_LSIO_GPIO1_IO24		0x00000021
-+		>;
-+	};
-+
-+	pinctrl_ptn5150: ptn5150grp {
-+		fsl,pins = <
-+			IMX8QM_SPI2_CS1_LSIO_GPIO3_IO11				0x00000021
-+		>;
-+	};
-+
-+	pinctrl_usbotg1: otg1grp {
-+		fsl,pins = <
-+			IMX8QM_GPT1_CAPTURE_LSIO_GPIO0_IO18			0x06000048
-+		>;
-+	};
-+
-+	pinctrl_usdhc2: usdhc2grp {
-+		fsl,pins = <
-+			IMX8QM_USDHC1_CLK_CONN_USDHC1_CLK			0x06000041
-+			IMX8QM_USDHC1_CMD_CONN_USDHC1_CMD			0x00000021
-+			IMX8QM_USDHC1_DATA0_CONN_USDHC1_DATA0			0x00000021
-+			IMX8QM_USDHC1_DATA1_CONN_USDHC1_DATA1			0x00000021
-+			IMX8QM_USDHC1_DATA2_CONN_USDHC1_DATA2			0x00000021
-+			IMX8QM_USDHC1_DATA3_CONN_USDHC1_DATA3			0x00000021
-+			IMX8QM_USDHC1_VSELECT_CONN_USDHC1_VSELECT		0x00000021
-+		>;
-+	};
-+
-+	pinctrl_usdhc2_100mhz: usdhc2-100mhzgrp {
-+		fsl,pins = <
-+			IMX8QM_USDHC1_CLK_CONN_USDHC1_CLK			0x06000040
-+			IMX8QM_USDHC1_CMD_CONN_USDHC1_CMD			0x00000020
-+			IMX8QM_USDHC1_DATA0_CONN_USDHC1_DATA0			0x00000020
-+			IMX8QM_USDHC1_DATA1_CONN_USDHC1_DATA1			0x00000020
-+			IMX8QM_USDHC1_DATA2_CONN_USDHC1_DATA2			0x00000020
-+			IMX8QM_USDHC1_DATA3_CONN_USDHC1_DATA3			0x00000020
-+			IMX8QM_USDHC1_VSELECT_CONN_USDHC1_VSELECT		0x00000020
-+		>;
-+	};
-+
-+	pinctrl_usdhc2_200mhz: usdhc2-200mhzgrp {
-+		fsl,pins = <
-+			IMX8QM_USDHC1_CLK_CONN_USDHC1_CLK			0x06000040
-+			IMX8QM_USDHC1_CMD_CONN_USDHC1_CMD			0x00000020
-+			IMX8QM_USDHC1_DATA0_CONN_USDHC1_DATA0			0x00000020
-+			IMX8QM_USDHC1_DATA1_CONN_USDHC1_DATA1			0x00000020
-+			IMX8QM_USDHC1_DATA2_CONN_USDHC1_DATA2			0x00000020
-+			IMX8QM_USDHC1_DATA3_CONN_USDHC1_DATA3			0x00000020
-+			IMX8QM_USDHC1_VSELECT_CONN_USDHC1_VSELECT		0x00000020
-+		>;
-+	};
-+
-+	pinctrl_usdhc2_gpio: usdhc2-gpiogrp {
-+		fsl,pins = <
-+			IMX8QM_GPT0_CLK_LSIO_GPIO0_IO14				0x00000021
-+		>;
-+	};
-+};
--- 
-2.47.3
-
+- Qiang Yu
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260713-tcsr_qref_0714-v9-0-373670ab15f9@oss.qualcomm.com?part=2
