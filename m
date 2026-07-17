@@ -1,94 +1,73 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E5838836A;
-	Fri, 17 Jul 2026 18:42:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB32314D35;
+	Fri, 17 Jul 2026 18:43:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784313763; cv=none; b=e15BCj5W8+7t4AHtM3npTnk49Def9dzs0pg9ufvXN0HUzt+ai8wSYW3D3SFBy9IR0Xttmk33GW2HZ4vqOSO+HJIoZoPkGxTl7T8CBV2p1RUjwEEyb5uS1YGP0zOVt7Z6C4Zgm8Dd0cO2nVQOROR1ow52vIkpYeRPhLmBiGTeqy0=
+	t=1784313840; cv=none; b=r/jzoNKXS7It+Fi8zBnlI3hEQ2eThhyzrfACTauaDBfmNmrNaKYsNKoFtKwO9X/1nK/2fwCR9RBUUnziL6RSnVP4N1oSzhHezEWx0c6E+zXgGW142OFgbtfcA2nUJYl+D00O0fLOSC1pZt/29615lNnaggPi6wYKnM+8rgzNziY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784313763; c=relaxed/simple;
-	bh=O/On+t6NH7FIUwf5eOrp3o3fXMmLkuqMuRWAk4VgT5g=;
+	s=arc-20240116; t=1784313840; c=relaxed/simple;
+	bh=TGMFu4c3VcpXs7vuvyQyBW5BiVDYt7TNCx4cPiM4E6A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=la+/qj2ZffMgbIuc0Tf+OD7WZcy0ElW63ZUG3K21D33PsoLpE/3CIphkhg3QzRSi9J3N3RwW/U0oszZhTVeJoRj6JqjlisU+ExoaqY2WRJnvfWKLoZrb4NrjRg5uupgxRc6zfQ5yYJl+lO/MmcE1pwmo5Bu8Pxb7wQVMixO/t1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=iZgq4XYQ; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=lVJR5rYkgeYrVRISZLMykicsBqwF547+JSAUHj/G3xW+Jp1w/W+7bOpk1MwvDfuKyIi7po/kE5CLzR7E2JFbRLD8m8U+SZrhB0liAOax4NTQoIX+uW7xc3T/FBNT4eyfxWXCm66GbAWPvXMdXiSrEYepziAporkH9XHcolIAqzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MbJV9CL3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="iZgq4XYQ"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B8E8A664;
-	Fri, 17 Jul 2026 20:41:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784313702;
-	bh=O/On+t6NH7FIUwf5eOrp3o3fXMmLkuqMuRWAk4VgT5g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iZgq4XYQJ1R7SThlFwvEVIqJe5VZdTleXFsX+QiHeeL9E9pyIgUVRKV0Irm45bfh3
-	 pSJkAGXJ4UyP05dmctqI9OVRKf8YA/HZ/gHZ6lSZYZGX1E/EttCB0mdlsqWXXu3oMb
-	 hkj9cA0gtZ0nb50HSwFXtoyG1RGjHWtJhzo/soCs=
-Date: Fri, 17 Jul 2026 21:42:37 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Johan Hovold <johan@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	Thuan Nguyen <thuan.nguyen-hong@banvien.com.vn>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	linux-renesas-soc@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/4] drm/bridge: display-connector: Fix I2C adapter
- resource leak
-Message-ID: <20260717184237.GE1889304@killaraus.ideasonboard.com>
-References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260705213542.28987-3-laurent.pinchart+renesas@ideasonboard.com>
- <alpEVeVmH5oiqmaj@hovoldconsulting.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MbJV9CL3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52B051F000E9;
+	Fri, 17 Jul 2026 18:43:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784313839;
+	bh=P1b9DeYrFDNJXSmhHkvkSVwxA9oSUUdj93hOLCrfhtk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MbJV9CL39vRQMy2v/CN3jcpLY6clKVcc/kJEtuwRWFP5I6XZWtmd0F374u+m0u0LP
+	 Z8aSfnF6sBxzl9bNULI/oiKqnkmBZVMxLhQjV72/+84dDvvUAw+1eHq/LN5OqR1EOV
+	 EOnDSqwZytgo1rXC2lnnrfPKOralZwgqYCb3jVbR40l2nfZWFPpri/Oc6CQqMay2Im
+	 Ub6NfcUc0ehh9cqiA2a41ayCfi0/61486Qik2KE+VcxaKX4RGW3rc+u+2Z9FTCNUT3
+	 tQqJZDgP7wS0kMUizFUS8PhNnhNo5vLFmSq+Mc3Ox45WkgQuOmKIA6rqXB08WBP7gz
+	 tx4OqaF8o+u8Q==
+Date: Fri, 17 Jul 2026 13:43:58 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Frank.Li@oss.nxp.com
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Shawn Guo <shawnguo@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Fabio Estevam <festevam@gmail.com>,
+	Conor Dooley <conor+dt@kernel.org>, imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: soc: imx: Add fsl,eim-bus
+Message-ID: <178431383816.1803857.6272472582726116965.robh@kernel.org>
+References: <20260708-imx53-eim-v1-0-913b4559e5b5@nxp.com>
+ <20260708-imx53-eim-v1-1-913b4559e5b5@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <alpEVeVmH5oiqmaj@hovoldconsulting.com>
+In-Reply-To: <20260708-imx53-eim-v1-1-913b4559e5b5@nxp.com>
 
-On Fri, Jul 17, 2026 at 05:03:49PM +0200, Johan Hovold wrote:
-> On Mon, Jul 06, 2026 at 12:35:40AM +0300, Laurent Pinchart wrote:
-> > If the probe function returns an error after getting the I2C adapter for
-> > DDC, the reference to the adapter is never released. Fix it by releasing
-> > it in the bridge .destroy() handler.
-> > 
-> > There is no need to test the ddc pointer with !IS_ERR(), as
-> > of_get_i2c_adapter_by_node() returns NULL on error.
-> 
-> I stumbled over this this morning as well and posted a fix here (which
-> releases the adapter on driver unbind as is currently done):
-> 
-> 	https://lore.kernel.org/lkml/20260717085716.1619275-1-johan@kernel.org/
-> 
-> > Fixes: 6de79dd3a920 ("drm/bridge: display-connector: add ddc-en gpio support")
-> 
-> I believe this issue was first introduced by commit 2e2bf3a5584d
-> ("drm/bridge: display-connector: add DP support") a few releases
-> earlier.
 
-You're right. I'll update the Fixes: tag.
-
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+On Wed, 08 Jul 2026 16:00:44 -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
 > 
-> Reviewed-by: Johan Hovold <johan@kernel.org>
+> Add the fsl,eim-bus compatible strings for i.MX51 variants.
+> 
+> These compatibles are only intended for existing legacy chips (more than 15
+> years old) and will not be used for new device trees.
+> 
+> Fix below CHECK_DTBS warnings
+> arch/arm/boot/dts/nxp/imx/imx53-ard.dtb: /eim-cs1@f4000000: failed to match any schema with compatible: ['fsl,eim-bus', 'simple-bus']
+> 
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> ---
+>  Documentation/devicetree/bindings/bus/fsl,spba-bus.yaml | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
 
--- 
-Regards,
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-Laurent Pinchart
