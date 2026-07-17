@@ -1,64 +1,63 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D542D1907
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 06:55:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B976E3D0905
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 06:55:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784271333; cv=none; b=Usx/d3qwyuYaD2nh49iLjED8MtkZh0OP2dphn+urCLhJa6KSYP/mqzKH13vBzCueGIvlnhciuKC1/xuFfAYFPFGNMMlKExbx/827Q93++i/GJokXRZi3fQJYTCKNkApxvwBffhAQq13NRxvx1Nnjn8E7RRZIlhtgrK99LqWhR5U=
+	t=1784271333; cv=none; b=gqv7UBnfghGbUrgzOhZop9T/vSjpk7Qk//zHr6fsdnapxjY5+xMtsVA4EHEUEkzXvbLpVx2KHWARgT5MUcYA61jZEKCsoUTQ4VPnJwi3CEmQCsTJVayXUkhH1A9fjPtv+VO1NADM7o+reX4XDiH62Q/JQSpvf/hi2srRsgHovsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784271333; c=relaxed/simple;
-	bh=2r+f9uPZ1R4h4a0Uh06IGRRG0WQkscQ8w3n3d26beRo=;
+	bh=q8erQ5YercewkjFj31D9or1Mr6d1F3WoS0ksnOd7MtM=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ihHJFv3p6iyaNypfbLyJjgYBN9PRHAxgeigylFvh6625G4QbCFl11YjP+2KSnqKg7Qgzw9JqtkKCyb7TvmzsGLWnmjCFW/X6uLSUt5O2kBsuTEpsF6HsIqfgHgLy4oAnCSsRDDZFQ1say2hxrXNhPu5dZ9F/biXyJkg0km0HZyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pzsszMCX; arc=none smtp.client-ip=209.85.128.46
+	 MIME-Version; b=ZWHHHlP/rK9IzWG0uOLGaEAvpkjTCdtOyOeGJtxULN/fIVVyTYZuMDQH9ZsYPgPHGLO3KDkMF6WlPIuWjyxEFjuZeiAoIEn7ibQb+cjme2fEx7EWXKcPTx0bMrf4js3VBoO5seVAWi5SqCWCryG31BIndtrQWSGQpQW7aE8mMMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XEgv7Z7s; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pzsszMCX"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so53018605e9.1
-        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 23:55:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XEgv7Z7s"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4954aff6088so899825e9.3
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 23:55:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784271325; x=1784876125; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784271327; x=1784876127; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=USxuj5cdXcSxjhj0RWDyCY2SPnAhuicY80xMgRrTLdI=;
-        b=pzsszMCXQwQ6w+pscj95dpEQUhE5WyzSVzqsxzDjLFdg5wYvKLnUNrHHlBtUqi5XlA
-         Zgq2ao2rYQw4Wqy94XZ9y6jhMy8WXeBPd4Q4WNHi3JKKWmvSPFzx5eYsxLuaxULmEYKo
-         WcAJLdQz/HE0VrLuiYwtnuCejzwF1Vv3sM9xuV6gIZLlndaFPXhG+/J+PO/17J8ojRQF
-         09dsjDIf7YDKl+TsJ3oB+3hIeZsWiGcAcDkybO2UvJEF3cSnbSHWx3TDzU0J9a52Btze
-         mN7GkT3A4KRtSHEN6NubQOeHjnK5uth/2qlGYUHZMtgL2xc3BsmkE+V1PbvGM2AqDBT7
-         GpmA==
+        bh=FLNBnsANrTUMdnBcC9IapvMl8huqE7Ah/L99fobP8RQ=;
+        b=XEgv7Z7sw7r6riCtVVCgwM/6pWAwdzwhUIEeQBMo4cnBOw8PCL/oL8c/QvjpESddW8
+         RBbteaIOpnEnFKCFtqZvuS9kwJa/di2D+ZBFt8VMoH6QRHktQKROLj9tkxIfA6ovQn4h
+         EwkB1QzOHXCfjjbIl+Zz7d1e6jTeCvHPb+ShB3nO/bSPoh1Wp9zXubd7tkq+IC8qp52n
+         vyvBdV3SkhBnZKL2+9KGTSdR4iaXRn2+ZvbPy1wxnT6LE0w7C1BmJW9PQW+ipBRfeBaB
+         BNHPe/cxIRG1kHlySKCdhRfDHStxanqi2DCjUCGU7nKqMXyz3ZssUUXn9iovRQ6Y8c3p
+         76/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784271325; x=1784876125;
+        d=1e100.net; s=20251104; t=1784271327; x=1784876127;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=USxuj5cdXcSxjhj0RWDyCY2SPnAhuicY80xMgRrTLdI=;
-        b=HOJAS8BrPCjnzSyA2Ns1oUnB2xwWZz8WJ+xpMK8eW9rIbRVqKHSK30C54/ZzHBjyfZ
-         mdlsLkrbliDSVhwt301bPeW5aAFvkZfszFLeVFBfhkvlxx3WE+dihMHZsy8ez9xcj34v
-         I9Tw1/wXvmlIAkKrrYu+QGBgOMhfh5tiNX8t1E1NaCzDTUnJuM6b0Y9biUNpg/QwfQ2A
-         dtvhTuzGvKuogZLLlbQ9Yzbu47rkIRPr6TdUvR+37PEcQs5kDjTj2eckYkqEgy/fRna0
-         Jq0caNKEvIUa6MTftExKQuogwiNCJvJae3v/TRYTI9Qx9WgTdnKaIAFt6wk6DuOQQmYP
-         iTbA==
-X-Forwarded-Encrypted: i=1; AHgh+Rr4jMqALOsQwU5bY/sjuj+2YBliKuAmHT/hWpNcMJmjU6YZsZtQ8Ls0jO+LGHu0EHr5XsOCTsOcbZmo@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz2q6KhZ02a0KeaQZBArLPGsjIghOeSk2MjwwJGX5FPcN0Mz66P
-	Txh/0XpFOWwRM2e3SfzfKoxutSzWb2xwg0Zb6mczoUVpXxxwt//YrWO3
-X-Gm-Gg: AfdE7cnGF5DVtUAz2wnOmBZCW9zUYVwIskp4mAGdK4U+esxbqSWCYcMctC8A4R+6m5K
-	O+jliiWrCkOkR0F3rExNtjwF3ghIUIW276fmJvuDkctzQ94eIl39Ff8MKwcVNgOlm9ptwg8Swwd
-	sGTw8ZsJLeDMNLGJUseJbxL6rkjMuLsqp6Blq6owbUsZ8fBe9ZSu6GUPNpMmdwwGuZO0oRI/G7s
-	Afkz8V6CNFVk2/zVNbnUxMknryCZKAjDJKW7oqUFarqOMUCkmd/AjLKSjjQJOmIQh0KIn4aMMTa
-	3lvQh1Yn7IpsJYGKjBMtd2YFo4aGBY7Aoh6cUvrKQu8RJy0+68xGe6pfO2XYmF9oVFYS5H2nT1G
-	6j/hs35exPWMfiW/uTcuMXW8sfm1PkSZvazp0cdyswOrv2iuKqKPgfjB+B7ZZDARnD8XbnvIphM
-	/9j4VwD8BcjV45Wuhm6lfYh4usHr2UoYL8Zty7YczErhn0JwdLng65I9kzeGFo6EX61coFUOfrf
-	3aNc6ei
-X-Received: by 2002:a05:600c:3b05:b0:493:bb23:152a with SMTP id 5b1f17b1804b1-4954a508804mr12738645e9.34.1784271325219;
-        Thu, 16 Jul 2026 23:55:25 -0700 (PDT)
+        bh=FLNBnsANrTUMdnBcC9IapvMl8huqE7Ah/L99fobP8RQ=;
+        b=Cq8MCh25UMZYmVaWU6qYSj843aILyxyypuJ1mepDfD2ZPYMjOLwNsI4W/hxpHHlX/l
+         h9D9x5rqLlSMgx+S2sV6LUvEvhOv2nKDYvwccO9kmq7Jl5Tmu4FeZAfWfGaQbzYGeIu4
+         iKMoTBPJFFkziXSTsXcHpi1IJE2ITt69iITybdYWIcqVoVVPYy23dkXPR9mOzykNeRwv
+         Uva3t2oX++X7OJEXfYutkXGfvmJbWoBpTfePzZGJ+oX4RIjAlOJAfsl4h+hqjiNSUzF1
+         MyFLVPIvHRpXUTehOXO9dNJWKFYyQEFI26aBI0TvWMFXog0ZrmwjDL+HK0r2NiRmUmzb
+         7K1w==
+X-Forwarded-Encrypted: i=1; AHgh+Roojx8/YojMo7UkFYuy2ql8OwOhOm0P8fpsJI8880KMFxEsde/AfdazrRxt8MGWYAAzsrdqbod4MPfL@vger.kernel.org
+X-Gm-Message-State: AOJu0YzsYd+t+f9mYZi+qlT82CL8YLxIrqpbjIUze0F3cIkyfOmJnuUE
+	GfXsWitRHvOnEmBelghaU559abqKvQxCR2XVgwWv9+L8IXzxMn48tFBQ
+X-Gm-Gg: AfdE7clXisWKffPWkAkvOVGQEBVEvGURtpplnbY//GsatGOlPT1Kcb6HrU0jVy+bCDn
+	P8ioU5RtYOU//RfgDDQJ4sdZqEbt+NfgPyYRPAfYGPUn1AEmwSsMiT/i1nxX5BWLIm/4YsKKmgP
+	9sN+aCUGDra6CQEccbRHAFuJx26/3+Boutw3wqfAozZRAQ1sycL01Wu7zqBMpX0sOUXKZU5hYh0
+	1z8NDodLBl6Aod52oND3VbpQDcCRk1BiihaU2F19IC/Bk5lPUJNV+dmqwe2gcf3FgjEl/NDOoeB
+	2nLJUeL1wpr4iD9wInKOTgEXODGzBelChZOcZ0w0qZI+6s7+xlyqoOPnqhQajVlgpRUZ2HEdlxO
+	wHFHXHM0QHIbawuEiQD9f5C5XmN/3oO8NVVZ4YMJfGsYfWMgcTq0GcyyrDYmH+J21014Hqy8Gfg
+	4GmmRAxKpS/Q0by+nF9UwfBCPIvFdA8dRiN5SflRJuKHlat/FwT0/waCVwMFw8+pNYKAfEMw==
+X-Received: by 2002:a05:600c:4504:b0:493:c194:4e7a with SMTP id 5b1f17b1804b1-4954a3d09c8mr13071185e9.3.1784271327147;
+        Thu, 16 Jul 2026 23:55:27 -0700 (PDT)
 Received: from Ansuel-XPS24.localdomain (host-95-248-227-210.retail.telecomitalia.it. [95.248.227.210])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-495499f3f99sm24260835e9.0.2026.07.16.23.55.23
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-495499f3f99sm24260835e9.0.2026.07.16.23.55.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 23:55:24 -0700 (PDT)
+        Thu, 16 Jul 2026 23:55:26 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -84,9 +83,9 @@ To: Andrew Lunn <andrew+netdev@lunn.ch>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org,
 	Maxime Chevallier <maxime.chevallier@bootlin.com>
-Subject: [PATCH net-next v9 09/12] net: phylink: add .pcs_link_down PCS OP
-Date: Fri, 17 Jul 2026 08:54:09 +0200
-Message-ID: <20260717065448.1498335-10-ansuelsmth@gmail.com>
+Subject: [PATCH net-next v9 10/12] dt-bindings: net: pcs: Document support for Airoha Ethernet PCS
+Date: Fri, 17 Jul 2026 08:54:10 +0200
+Message-ID: <20260717065448.1498335-11-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260717065448.1498335-1-ansuelsmth@gmail.com>
 References: <20260717065448.1498335-1-ansuelsmth@gmail.com>
@@ -98,87 +97,287 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Permit for PCS driver to define specific operation to tear down the link
-between the MAC and the PCS.
+Document support for Airoha Ethernet PCS for AN7581 SoC.
 
-This might be needed for some PCS that reset counter or require special
-reset to correctly work if the link needs to be restored later.
+Airoha AN7581 SoC expose multiple Physical Coding Sublayer (PCS) for
+the various Serdes port supporting different Media Independent Interface
+(10BASE-R, USXGMII, 2500BASE-X, 1000BASE-X, SGMII).
 
-On phylink_link_down() call, the additional phylink_pcs_link_down() will
-be called after .mac_link_down to tear down the link.
-
-PCS driver will need to define .pcs_link_down to make use of this.
+This follow the new PCS provider with the use of #pcs-cells property.
 
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 ---
- drivers/net/phy/phylink.c |  9 +++++++++
- include/linux/phylink.h   | 12 ++++++++++++
- 2 files changed, 21 insertions(+)
+ .../bindings/net/pcs/airoha,pcs.yaml          | 261 ++++++++++++++++++
+ 1 file changed, 261 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/pcs/airoha,pcs.yaml
 
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index 1d83b31874fb..e36a6647d7e8 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -1037,6 +1037,12 @@ static void phylink_pcs_link_up(struct phylink_pcs *pcs, unsigned int neg_mode,
- 		pcs->ops->pcs_link_up(pcs, neg_mode, interface, speed, duplex);
- }
- 
-+static void phylink_pcs_link_down(struct phylink_pcs *pcs)
-+{
-+	if (pcs && pcs->ops->pcs_link_down)
-+		pcs->ops->pcs_link_down(pcs);
-+}
+diff --git a/Documentation/devicetree/bindings/net/pcs/airoha,pcs.yaml b/Documentation/devicetree/bindings/net/pcs/airoha,pcs.yaml
+new file mode 100644
+index 000000000000..9c1d116c1b01
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/pcs/airoha,pcs.yaml
+@@ -0,0 +1,261 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/pcs/airoha,pcs.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- static void phylink_pcs_disable_eee(struct phylink_pcs *pcs)
- {
- 	if (pcs && pcs->ops->pcs_disable_eee)
-@@ -1738,6 +1744,9 @@ static void phylink_link_down(struct phylink *pl)
- 
- 	pl->mac_ops->mac_link_down(pl->config, pl->act_link_an_mode,
- 				   pl->cur_interface);
++title: Airoha Ethernet PCS and Serdes
 +
-+	phylink_pcs_link_down(pl->pcs);
++maintainers:
++  - Christian Marangi <ansuelsmth@gmail.com>
 +
- 	phylink_info(pl, "Link is Down\n");
- }
- 
-diff --git a/include/linux/phylink.h b/include/linux/phylink.h
-index 15e6b1a39dfe..ecf4c384fd31 100644
---- a/include/linux/phylink.h
-+++ b/include/linux/phylink.h
-@@ -528,6 +528,7 @@ struct phylink_pcs {
-  * @pcs_an_restart: restart 802.3z BaseX autonegotiation.
-  * @pcs_link_up: program the PCS for the resolved link configuration
-  *               (where necessary).
-+ * @pcs_link_down: tear down link between MAC and PCS.
-  * @pcs_disable_eee: optional notification to PCS that EEE has been disabled
-  *		     at the MAC.
-  * @pcs_enable_eee: optional notification to PCS that EEE will be enabled at
-@@ -555,6 +556,7 @@ struct phylink_pcs_ops {
- 	void (*pcs_an_restart)(struct phylink_pcs *pcs);
- 	void (*pcs_link_up)(struct phylink_pcs *pcs, unsigned int neg_mode,
- 			    phy_interface_t interface, int speed, int duplex);
-+	void (*pcs_link_down)(struct phylink_pcs *pcs);
- 	void (*pcs_disable_eee)(struct phylink_pcs *pcs);
- 	void (*pcs_enable_eee)(struct phylink_pcs *pcs);
- 	int (*pcs_pre_init)(struct phylink_pcs *pcs);
-@@ -690,6 +692,16 @@ void pcs_an_restart(struct phylink_pcs *pcs);
- void pcs_link_up(struct phylink_pcs *pcs, unsigned int neg_mode,
- 		 phy_interface_t interface, int speed, int duplex);
- 
-+/**
-+ * pcs_link_up() - tear down link between MAC and PCS
-+ * @pcs: a pointer to a &struct phylink_pcs.
-+ *
-+ * This call will be made just after mac_link_down() to inform the PCS the
-+ * link has gone down. PCS should be configured to stop processing packets
-+ * for transmission and reception.
-+ */
-+void pcs_link_down(struct phylink_pcs *pcs);
++description:
++  Airoha AN7581 SoC expose multiple Physical Coding Sublayer (PCS) for
++  the various Serdes port supporting different Media Independent Interface
++  (10BASE-R, USXGMII, 2500BASE-X, 1000BASE-X, SGMII).
 +
- /**
-  * pcs_disable_eee() - Disable EEE at the PCS
-  * @pcs: a pointer to a &struct phylink_pcs
++properties:
++  compatible:
++    enum:
++      - airoha,an7581-pcs-eth
++      - airoha,an7581-pcs-pon
++      - airoha,an7581-pcs-pcie
++      - airoha,an7581-pcs-usb
++
++  reg:
++    minItems: 6
++    maxItems: 15
++
++  reg-names:
++    minItems: 6
++    maxItems: 15
++
++  airoha,scu:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: phandle to the SCU node required to configure
++      the serdes line to the correct interface mode.
++
++  phys:
++    maxItems: 1
++
++  "#pcs-cells": true
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - "#pcs-cells"
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - airoha,an7581-pcs-eth
++              - airoha,an7581-pcs-pon
++
++    then:
++      properties:
++        reg:
++          items:
++            - description: PCS MAC reg
++            - description: HSGMII AN reg
++            - description: HSGMII PCS reg
++            - description: MULTI SGMII reg
++            - description: USXGMII reg
++            - description: HSGMII rate adaption reg
++            - description: PCS Analog register
++            - description: PCS PMA (Physical Medium Attachment) register
++
++        reg-names:
++          items:
++            - const: pcs_mac
++            - const: hsgmii_an
++            - const: hsgmii_pcs
++            - const: multi_sgmii
++            - const: usxgmii
++            - const: hsgmii_rate_adp
++            - const: pcs_ana
++            - const: pcs_pma
++
++        phys: false
++
++        "#pcs-cells":
++          const: 0
++
++      required:
++        - airoha,scu
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: airoha,an7581-pcs-pcie
++
++    then:
++      properties:
++        reg:
++          items:
++            - description: PCS MAC 0 reg
++            - description: HSGMII AN 0 reg
++            - description: HSGMII PCS 0 reg
++            - description: MULTI SGMII 0 reg
++            - description: USXGMII 0 reg
++            - description: HSGMII rate adaption 0 reg
++            - description: PCS MAC 1 reg
++            - description: HSGMII AN 1 reg
++            - description: HSGMII PCS 1 reg
++            - description: MULTI SGMII 1 reg
++            - description: USXGMII 1 reg
++            - description: HSGMII rate adaption 1 reg
++            - description: PCS Analog register
++            - description: PCS PMA (Physical Medium Attachment) 0 register
++            - description: PCS PMA (Physical Medium Attachment) 1 register
++
++        reg-names:
++          items:
++            - const: pcs_mac0
++            - const: hsgmii_an0
++            - const: hsgmii_pcs0
++            - const: multi_sgmii0
++            - const: usxgmii0
++            - const: hsgmii_rate_adp0
++            - const: pcs_mac1
++            - const: hsgmii_an1
++            - const: hsgmii_pcs1
++            - const: multi_sgmii1
++            - const: usxgmii1
++            - const: hsgmii_rate_adp1
++            - const: pcs_ana
++            - const: pcs_pma0
++            - const: pcs_pma1
++
++        phys: false
++
++        "#pcs-cells":
++          const: 1
++
++      required:
++        - airoha,scu
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: airoha,an7581-pcs-usb
++
++    then:
++      properties:
++        reg:
++          items:
++            - description: PCS MAC reg
++            - description: HSGMII AN reg
++            - description: HSGMII PCS reg
++            - description: MULTI SGMII reg
++            - description: HSGMII rate adaption reg
++            - description: PCS Analog register
++
++        reg-names:
++          items:
++            - const: pcs_mac
++            - const: hsgmii_an
++            - const: hsgmii_pcs
++            - const: multi_sgmii
++            - const: hsgmii_rate_adp
++            - const: pcs_ana
++
++        airoha,scu: false
++
++        "#pcs-cells":
++          const: 0
++
++      required:
++        - phys
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/phy/phy.h>
++
++    pcs@1fa08000 {
++      compatible = "airoha,an7581-pcs-pon";
++      reg = <0x1fa08000 0x1000>,
++            <0x1fa80000 0x60>,
++            <0x1fa80a00 0x164>,
++            <0x1fa84000 0x450>,
++            <0x1fa85900 0x338>,
++            <0x1fa86000 0x300>,
++            <0x1fa8a000 0x1000>,
++            <0x1fa8b000 0x1000>;
++      reg-names = "pcs_mac", "hsgmii_an", "hsgmii_pcs",
++                  "multi_sgmii", "usxgmii",
++                  "hsgmii_rate_adp", "pcs_ana", "pcs_pma";
++
++      airoha,scu = <&scuclk>;
++      #pcs-cells = <0>;
++    };
++
++    pcs@1fa09000 {
++      compatible = "airoha,an7581-pcs-eth";
++      reg = <0x1fa09000 0x1000>,
++            <0x1fa70000 0x60>,
++            <0x1fa70a00 0x164>,
++            <0x1fa74000 0x450>,
++            <0x1fa75900 0x338>,
++            <0x1fa76000 0x300>,
++            <0x1fa7a000 0x1000>,
++            <0x1fa7b000 0x1000>;
++      reg-names = "pcs_mac", "hsgmii_an", "hsgmii_pcs",
++                  "multi_sgmii", "usxgmii",
++                  "hsgmii_rate_adp", "pcs_ana", "pcs_pma";
++
++      airoha,scu = <&scuclk>;
++      #pcs-cells = <0>;
++    };
++
++    pcs@1fa04000 {
++      compatible = "airoha,an7581-pcs-pcie";
++      reg = <0x1fa04000 0x1000>,
++            <0x1fa50000 0x60>,
++            <0x1fa50a00 0x164>,
++            <0x1fa54000 0x450>,
++            <0x1fa55900 0x338>,
++            <0x1fa56000 0x300>,
++            <0x1fa05000 0x1000>,
++            <0x1fa60000 0x60>,
++            <0x1fa60a00 0x164>,
++            <0x1fa64000 0x450>,
++            <0x1fa65900 0x338>,
++            <0x1fa66000 0x300>,
++            <0x1fa5a000 0x1000>,
++            <0x1fa5b000 0x1000>,
++            <0x1fa5c000 0x1000>;
++      reg-names = "pcs_mac0", "hsgmii_an0", "hsgmii_pcs0",
++                  "multi_sgmii0", "usxgmii0",
++                  "hsgmii_rate_adp0",
++                  "pcs_mac1", "hsgmii_an1", "hsgmii_pcs1",
++                  "multi_sgmii1", "usxgmii1",
++                  "hsgmii_rate_adp1",
++                  "pcs_ana", "pcs_pma0", "pcs_pma1";
++
++      airoha,scu = <&scuclk>;
++      #pcs-cells = <1>;
++    };
++
++    pcs@1fa07000 {
++      compatible = "airoha,an7581-pcs-usb";
++      reg = <0x1fa07000 0x1000>,
++            <0x1fa90000 0x60>,
++            <0x1fa90a00 0x164>,
++            <0x1fa94000 0x450>,
++            <0x1fa96000 0x300>,
++            <0x1fa9a000 0x600>;
++      reg-names = "pcs_mac", "hsgmii_an", "hsgmii_pcs",
++                  "multi_sgmii", "hsgmii_rate_adp","pcs_ana";
++
++      phys = <&usb0_phy PHY_TYPE_USB3>;
++
++      #pcs-cells = <0>;
++    };
 -- 
 2.53.0
 
