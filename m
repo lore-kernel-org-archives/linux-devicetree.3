@@ -1,252 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F673AD534;
-	Fri, 17 Jul 2026 06:32:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF3D36AB7C;
+	Fri, 17 Jul 2026 06:35:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784269947; cv=none; b=Zzg0aVtvAszrygEYV6Uva5aRxu93ttxUSa5TsnIpTaKW6yMxT2v3OO4MWFSJAZAskVBSpwT5bRIJqy8TQvwAYK+T7HrabHYNpcGs8EsaQOCqxB0UaUAIm+JNprp7RPHeXn+jOx3ajqbalnBUA3wUx+jPRnx2e1ob4I0edoYPnWg=
+	t=1784270144; cv=none; b=LAA9Fi+Psl8fHvyqAYU98CRmkZsa1ukw2Itq/sERfNejNwKZP6eHBZC8mDK71Sv/UqgdIpJLir4HpevulJCeBfInTUCtpM1brK8m6gK+ILwVja8lAAF9vQcYSsG27qM5pb+pjArvo+TrPFV9YxtLco661CBIyDEp8877m+Rdjf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784269947; c=relaxed/simple;
-	bh=tiQGLMndWiRKE5SemlMVI08e5kJ1cjRcFQ+gAFg8sko=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a1h2gIusk7QXhfjtMxdYV5MFswwW+XNjhz7zvPNrTXHlmmGfAHhOrznxVbbz7T1upt4oZlco6GZCfflZrc2myDvF7FF9CRAQCX29GxZPMvMxeN0RB2XWmwe+01GAtbfIB+4SvRPVPZ09xMaB76suTjUK7Be0V4bV5QaLlFGJn2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IMny/Fb2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784270144; c=relaxed/simple;
+	bh=FIb4cYS6QqbHNhO1g+w7esXFrMiyD97QYDATrsw8YsU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HZm9RyZwGZZI24iRvUsSDlhncy1QTFpFIvJ/hLaP3kT/DDJL/lpG0++Gf16iCf5U8TxJP2tcOeGM0PszdgKdQkN1cxbTpRuQZbgC8eIXHPLlw07klb++4+jR46NOcDJjGCImw3QTZebGXBslSXsedfHcTPE3SlYdqpI7tESF8FA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PT5bLunu; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IMny/Fb2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0560C1F000E9;
-	Fri, 17 Jul 2026 06:32:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784269942;
-	bh=F88kXLHiJluPemsV2dA4XtGRZ7VlVzWVhA8ffVQ3Koc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IMny/Fb25eeaa/OqOPZX4svMfgDHI7w0zXjZMf26ygEip02soGXnmovgLeF0Zeaqh
-	 5RftwD4Rrg+jPyHRDyTmifGl+hu+9Xtlkk7U/2YbyFKcrg2vTVE9W5YXatBOARy94Y
-	 d3v1r2hey2BjzJ3t349UtnDHdBH1jxf3cGlcHy94vQmV/aX01wcDNHQAZ3jAwZpduN
-	 CgyJtId8oAWdNLYUOisnNsVoYaW38Kxgs3uqBwvBjouNNa5bNTudReiCTkNkyLOJda
-	 Y9P7WGyS2GSQADpXl1q+IUegPM0TTdn8p1lmhnjF9YczbFUkcqI7kwJ9m+2wbJOYR2
-	 Z7Obh8mWh0Tug==
-Date: Fri, 17 Jul 2026 08:32:18 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Stefan =?utf-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Brian Masney <bmasney@redhat.com>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Russell King <linux@armlinux.org.uk>, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org
-Subject: Re: [PATCH v7 01/13] dt-bindings: phy: Add zx297520v3 USB phy
- documentation
-Message-ID: <20260717-uncovered-feathered-groundhog-eab16e@quoll>
-References: <20260717-zx29clk-v7-0-408411cfcf36@gmail.com>
- <20260717-zx29clk-v7-1-408411cfcf36@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PT5bLunu"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 83675C2BCC7;
+	Fri, 17 Jul 2026 06:35:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784270143;
+	bh=FIb4cYS6QqbHNhO1g+w7esXFrMiyD97QYDATrsw8YsU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=PT5bLunuru/Uk71FLiqnZnC8YlPehekFmNJT/RQBBWMCWgNjDkHMQwlVCt53HLXQ/
+	 4nuVTrb9YxxXrkKz1ycHppOMVDjA2GJN6Uo+cEBi6fvW8XRt4kGdqnqfeseobXzS5W
+	 vBcKaEJr9UisOYm7g4uNrsaf0254rdCK20z/rLqJo9sfIWPlCOCl9x63OXOXLpLZwC
+	 ARi3qrCohInk1raLV3CmMqnILGkZ3cVfJ7upGuT+QuPSW2V33cPjRKWGVmajpRus1o
+	 8xQtCpwjFEHJ6A8Z/UgtWiN5vbLm7oPK1nxb9A8wQFjtCJ7TstxcQRcIubsRNJE3Ey
+	 BLTcVLV3eJAZg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 65143C44507;
+	Fri, 17 Jul 2026 06:35:43 +0000 (UTC)
+From: Haoning CHENG via B4 Relay <devnull+Haoning.CHENG.cn.bosch.com@kernel.org>
+Date: Fri, 17 Jul 2026 14:35:35 +0800
+Subject: [PATCH v9 1/3] dt-bindings: thermal: imx: Document temperature
+ offset property
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260717-zx29clk-v7-1-408411cfcf36@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260717-b4-symana21-11221-imx-thermal-support-upstream-6-18-v9-1-75f4af8974f4@cn.bosch.com>
+References: <20260717-b4-symana21-11221-imx-thermal-support-upstream-6-18-v9-0-75f4af8974f4@cn.bosch.com>
+In-Reply-To: <20260717-b4-symana21-11221-imx-thermal-support-upstream-6-18-v9-0-75f4af8974f4@cn.bosch.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Haoning CHENG <Haoning.CHENG@cn.bosch.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784270138; l=2298;
+ i=Haoning.CHENG@cn.bosch.com; s=20260709; h=from:subject:message-id;
+ bh=PV3MnYc2Hk8Iy2pB7or+nfukgwcqkNEuWR6y8WvDrsg=;
+ b=iqEwDbHQhnAlfvKPaj9J/P38F7tJfNrV2zE5yTWKDwZDOJxpYd9wBgWzq/p8SML8/m/gGyylp
+ afNnUnhea7XC3vT8p7oRJJ9XUrg7dwk/kR3Xs20W9kE81E2U3Q5WMjI
+X-Developer-Key: i=Haoning.CHENG@cn.bosch.com; a=ed25519;
+ pk=glQGwad/fosRS5gZUJYbLDPPLGe7rFTrTV2VxY/ySdc=
+X-Endpoint-Received: by B4 Relay for Haoning.CHENG@cn.bosch.com/20260709
+ with auth_id=860
+X-Original-From: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
+Reply-To: Haoning.CHENG@cn.bosch.com
 
-On Fri, Jul 17, 2026 at 12:35:37AM +0300, Stefan D=C3=B6singer wrote:
-> This binding will be used as a subnode of topcrm, which will be added in
-> the next patch.
+From: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
 
-Irrelevant, drop. Also not true, because next patch is driver patch.
+Some boards need the reported temperature to reflect the SoC
+package-surface temperature rather than the internal die temperature.
 
->=20
-> Why is this a child node and not #phy-cells added to topcrm itself,
-> like clocks and resets as writing-bindings.rst suggests? Because
-> of_phy_provider_register checks if the of_node the PHY provider is added
-> to belongs to the device or is a child of the device, so I can't put the
-> PHY driver into an MFD (or AUX) child without its own node.
+Document the optional fsl,temp-calibration-offset-millicelsius property,
+a signed offset in millicelsius applied to the internally measured
+temperature to make it better correspond to the package-surface
+temperature. The offset is board-specific and is determined through
+thermal characterization. When absent, the offset is zero.
 
->=20
-> Signed-off-by: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
->=20
-> ---
->=20
-> How do I handle examples? It would be identical to the example in
-> topcrm. The example needs the reset defines from the next patch in
-> either case.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
+Signed-off-by: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
+---
+ .../devicetree/bindings/thermal/imx-thermal.yaml          | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-1. No, it does not need. Just use whatever numbers.
-2. Other code would give you the hint: one example in parent's schema.
+diff --git a/Documentation/devicetree/bindings/thermal/imx-thermal.yaml b/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
+index 949b154856c5..6c268d56291b 100644
+--- a/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
++++ b/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
+@@ -59,6 +59,20 @@ properties:
+   clocks:
+     maxItems: 1
+ 
++  fsl,temp-calibration-offset-millicelsius:
++    minimum: -20000
++    maximum: 20000
++    description:
++      A signed offset, in millicelsius, added to the calculated
++      sensor temperature to make the TEMPMON reading better correspond
++      to the SoC package-surface temperature observed during board-level
++      thermal characterization. This is not a sensor calibration offset;
++      it is a board-specific conversion offset derived from the
++      relationship between the internal sensor reading and the
++      package-surface temperature, which depends on the package, PCB
++      layout, cooling arrangement, and operating environment. The range
++      is limited to ±20 °C. When absent, no offset is applied.
++
+   "#thermal-sensor-cells":
+     const: 0
+ 
+@@ -109,6 +123,7 @@ examples:
+             nvmem-cells = <&tempmon_calib>, <&tempmon_temp_grade>;
+             nvmem-cell-names = "calib", "temp_grade";
+             clocks = <&clks IMX6SX_CLK_PLL3_USB_OTG>;
++            fsl,temp-calibration-offset-millicelsius = <(-6400)>;
+             #thermal-sensor-cells = <0>;
+         };
+     };
 
-> ---
->  .../bindings/phy/zte,zx297520v3-usb-phy.yaml       | 96 ++++++++++++++++=
-++++++
->  MAINTAINERS                                        |  2 +
->  include/dt-bindings/phy/phy-zte-zx297520v3-usb.h   | 12 +++
->  3 files changed, 110 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/phy/zte,zx297520v3-usb-phy=
-=2Eyaml b/Documentation/devicetree/bindings/phy/zte,zx297520v3-usb-phy.yaml
-> new file mode 100644
-> index 000000000000..8bad9365d5cc
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/zte,zx297520v3-usb-phy.yaml
-> @@ -0,0 +1,96 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/phy/zte,zx297520v3-usb-phy.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ZTE zx297520v3 USB and HSIC PHY
-> +
-> +maintainers:
-> +  - Stefan D=C3=B6singer <stefandoesinger@gmail.com>
-> +
-> +description: |
-> +  This PHY is found on zx297520v3 boards. It has no configurability on i=
-ts own,
-> +  but it does require a correct reset and wait sequence to initialize. I=
-t can
-> +  provide interrupt notification when USB is connected and disconnected.
-> +
-> +  The phy is a component of the board's topcrm controller. The hardware =
-needs to
-> +  be declared as a child node of the zte,zx297520v3-topcrm node.
-> +
-> +  The register space and IRQs always account for two PHYs: One USB 2.0 O=
-TG phy
-> +  and a HSIC PHY. Not all boards have both. If one is missing, the corre=
-sponding
-> +  ready flag will never be set.
-> +
-> +  The "include/dt-bindings/phy/phy-zte-zx297520v3-usb.h" header contains=
- the
-> +  definition for the PHY indices.
-> +
-> +properties:
-> +  compatible:
-> +    const: zte,zx297520v3-usb-phy
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    items:
-> +      - description: IRQ reporting USB connection
-> +      - description: IRQ reporting USB disconnection
-> +      - description: IRQ reporting HSIC connection
-> +      - description: IRQ reporting HSIC disconnection
-> +
-> +  interrupt-names:
-> +    items:
-> +      - const: usb-up
-> +      - const: usb-down
-> +      - const: hsic-up
-> +      - const: hsic-down
-> +
-> +  resets:
-> +    items:
-> +      - description: USB phy reset
-> +      - description: HSIC phy reset
+-- 
+2.43.0
 
-Why do you reference here resets from the parent? That's a clear signal
-you have one device, so one device node regardless of Linux phy core
-behavior.
 
-> +
-> +  reset-names:
-> +    items:
-> +      - const: usb
-> +      - const: hsic
-> +
-> +  "#phy-cells":
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - interrupt-names
-> +  - resets
-> +  - reset-names
-> +  - "#phy-cells"
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/phy/phy-zte-zx297520v3-usb.h>
-> +
-> +    topcrm: clock-controller {
-> +        compatible =3D "zte,zx297520v3-topcrm", "syscon";
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +        #reset-cells =3D <1>;
-
-Drop node, you have warnings.
-
-> +
-> +        usb-phy@84 {
-> +          compatible =3D "zte,zx297520v3-usb-phy";
-> +          reg =3D <0x84>;
-> +          interrupts =3D <GIC_SPI 42 IRQ_TYPE_EDGE_RISING>,
-> +            <GIC_SPI 43 IRQ_TYPE_EDGE_RISING>,
-> +            <GIC_SPI 45 IRQ_TYPE_EDGE_RISING>,
-> +            <GIC_SPI 46 IRQ_TYPE_EDGE_RISING>;
-
-Align it properly/
-
-> +          interrupt-names =3D "usb-up", "usb-down", "hsic-up", "hsic-dow=
-n";
-> +          resets =3D <&topcrm 18>,
-> +            <&topcrm 20>;
-
-Same here.
-
-> +          reset-names =3D "usb", "hsic";
-> +          #phy-cells =3D <1>;
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 8729cea57c3d..cb50c2e3b4ea 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -3878,8 +3878,10 @@ L:	linux-arm-kernel@lists.infradead.org (moderated=
- for non-subscribers)
->  S:	Odd fixes
->  F:	Documentation/arch/arm/zte/
->  F:	Documentation/devicetree/bindings/arm/zte.yaml
-> +F:	Documentation/devicetree/bindings/phy/zte,zx297520v3-usb-phy.yaml
->  F:	arch/arm/boot/dts/zte/
->  F:	arch/arm/mach-zte/
-> +F:	include/dt-bindings/phy/phy-zte-zx297520v3-usb.h
-> =20
->  ARM/ZYNQ ARCHITECTURE
->  M:	Michal Simek <michal.simek@amd.com>
-> diff --git a/include/dt-bindings/phy/phy-zte-zx297520v3-usb.h b/include/d=
-t-bindings/phy/phy-zte-zx297520v3-usb.h
-> new file mode 100644
-> index 000000000000..8a0a3ccbdd63
-> --- /dev/null
-> +++ b/include/dt-bindings/phy/phy-zte-zx297520v3-usb.h
-
-Filename MUST match compatible.
-
-> @@ -0,0 +1,12 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +/*
-> + * Copyright (C) Stefan D=C3=B6singer.
-> + */
-> +
-> +#ifndef __DT_BINDINGS_PHY_USB_ZX297520V3_H
-> +#define __DT_BINDINGS_PHY_USB_ZX297520V3_H
-> +
-> +#define ZX297520V3_USB_PHY	0
-> +#define ZX297520V3_HSIC_PHY	1
-> +
-> +#endif /* __DT_BINDINGS_PHY_USB_ZX297520V3_H */
->=20
-> --=20
-> 2.54.0
->=20
