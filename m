@@ -1,118 +1,234 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010044.outbound.protection.outlook.com [52.101.84.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C950C331237
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 11:45:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784288736; cv=none; b=Cx9Lql9P8dVug0Wf2ZG7t0RkxMJHn08nqfwYI26r0SvSwQadXtMZkzugr4nLhvPTgMhKzFfdWJiR1TfXUvCXsv0fVq71kRHkbN9BmT9OhZk3nOITu8VmIhzdyCHgEkfxuXVIDX/kVGzh/GqtOwsKA3C+eHJZt8UbcXPYrH9YNkQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784288736; c=relaxed/simple;
-	bh=Gp9rEZnBlCdYZ83KomJ1Rix6qPb0mAp0og56IEFZHZg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oKu0WrgHccrgu3JTf2iT8PxcAVgol6yuOT3POAmSST8zn44YU3BLD1My7zu5TfJ572/jl1nGm0p16Ov05ivRqMSSQtqcPneIkL8TTnlSbEWmThPBc35JkYCwyebug7kQbUijt6z1sTSaqf2mSznwsC92r1Iio1K+hO/hDhmds78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=wW8YZIku; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF0D3EDAC9;
+	Fri, 17 Jul 2026 11:50:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784289022; cv=fail; b=fqTNjs5h3pffhLNORDF3ljhnmIWy9T1zyd+QIQ8rbywK+pIWYiPSY2Ulz6rGFb4Ci7Z89wrBSILKjVcRRzojNDbyOPnk1+oqF3nxVQjuZII9uBeOHkWqEUS4ov53h2gJDPn/mZCzb/dw3YDrNUAOduBwjAV1LRIfgAT6pq12IUE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784289022; c=relaxed/simple;
+	bh=8LjfjN00uSVV+PmDv34oEb/CR3hIwWJDRT9PuVjJghc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Q/iJ29exVaeCKdgi1Jb5q/K5CSnoRaQ4fu5u0E+P8tgt5iQXvBf/yrOEYisUv5izx5oEIH5JWZtuZlRGNVQF0iTtQ09uos9hV4XseURLW6BCk9DGglDqNsNtio0Oh47PerpvbtTjn1xGp6aoPwlIBZ+BXvtDAB09ZSkp8UjO/34=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mt.com; spf=fail smtp.mailfrom=mt.com; dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b=AP9bRSpv; arc=fail smtp.client-ip=52.101.84.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mt.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=mt.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="wW8YZIku"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-493d92b7db3so33073155e9.2
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 04:45:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1784288729; x=1784893529; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/4pJ9iuKTUV6iyRj89cg8Mv/REeAs+Q/BrxX8LSxG30=;
-        b=wW8YZIku8uWaR2+cXIHwGaf6buawK7buWuIoJGTv41YmztDBiTJnfbIs/h5e+Yfuj9
-         N1OlwaWfP/a534pEIVhiD1hqUAkyRu9GRYZ1Vbq9tA3MCkbgAOXya7ONAwsYq0R9tisx
-         00d4VhfAK7VY9JyQmmygsMgV3pmR7Qy8DMiLqKbKhmagSwFnQtHmFbxPU5Rp1q+OSZH0
-         4CaacT8rZu5VZUyE6gpkCF9tLJnuDoOyBLrcC6xk/EexErt7upaYMYXwhbPpnZwlg0X+
-         9LXlSZPAHM6A3JAk58+3gti9Jz0zmj/wg17vgUe3w1hS6rGztq6KwEsGgEjYeZwYwMXa
-         3LAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784288729; x=1784893529;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/4pJ9iuKTUV6iyRj89cg8Mv/REeAs+Q/BrxX8LSxG30=;
-        b=Jlj5u1wVtu9twA4Y9HgJwJBN9C9QtjL4cNAne9VUfSV9qZygrBw1YJK6d3hQNnH/36
-         9am+LryycdZGDoQPIRt5j18+xT9h5ckJdZg98HMTRyGgxDpm56sSCMo89gqmAT4Mdss4
-         ILaEXwydDfNZR+3bWjWlayTL6XD2hoMA8wy2pU1p1Ab/29KA7KolokgIAYu/+Wu9HBWT
-         QUOLOFo7kASvjmTWihjmgzIgkEg3YEOqrxz6KmoNw2W0mWikaPyCNnWMtLZySJQRqo5M
-         JENAwZ4R/322WIe2fojeVBwwhrqmnP21Xtz5hSYGilPEOGdO4SLJNN0M0b9A3LHLo527
-         I6PQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpDnvTHcMSGvIM5mFP2qiL9hF8LtEUgsX+t0vaVMTMJoQxS8jpFiJ+8Uwa2NekJM4HuDKotS0zQ4cfH@vger.kernel.org
-X-Gm-Message-State: AOJu0YxrpkWBcvc5b2/KAdO95AjjqBLU203IoTEjjbgjZqkL2Jdh2hDA
-	yEOQgJuEG1b2TOkNzgukOjXj/cTpf6t+LeDKhimM41y1eQxJsqsDJ4mYqvQocPaiM8o=
-X-Gm-Gg: AfdE7cksJHV3EWH6/bpe1VoIAcgFz0V6JjEAXEwO7GXhD/pcGhH6hLtczHaACazIEFv
-	9ywgQCJLMg6knAd/YWHvmBcjntGVRM97AAnaRH1sjdCoFF3PhLadjs0V4FgbN15M4Pm9Y1F25B0
-	XRo7qTRB+r5IYPLww1cdI77z3TxBkzrV6456P8V+tya8z9f4acCDFKPKhNrrKr/xKeLXEoPUlkC
-	0/yckPykejrjmUv9wo/4JsQIpDxoRx13m2M+xSxPdJY4G1oCnM4JdkJG1YSfk33n0n5Diu6/hjM
-	H5eQXOptOvJzivY3QQ7WHLx0mrRLENo9+yHcDjMxTcWVpxFTopgvTngl3uc/cIa2r2xI+AI2rwA
-	vgobfE/H2yXRnZLc9WBugSGEI+9LcCONMEM9nxR3VwVK/Zm0rWPDxU1IiJf5P8nHWo0hb8rHC/X
-	x8
-X-Received: by 2002:a05:600c:1c0b:b0:495:46dd:e238 with SMTP id 5b1f17b1804b1-4954a50ea30mr28928275e9.30.1784288729096;
-        Fri, 17 Jul 2026 04:45:29 -0700 (PDT)
-Received: from [172.18.170.139] ([185.104.138.147])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-495499f3f99sm41353855e9.0.2026.07.17.04.45.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 04:45:28 -0700 (PDT)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 17 Jul 2026 13:45:02 +0200
-Subject: [PATCH 1/2] dt-bindings: interconnect: qcom-bwmon: Add Milos
- cpu-bwmon compatible
+	dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b="AP9bRSpv"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SeOG3YbdlNpqvVeJBpXkehXUJEJTJlUzRi2zYdy5ltXTBqT9E/45x5vaoR/Uo9K1UpMrXbgR7mCsaVF6eHeeMovP4Svs+gLM0s/C8BnTAm6/gqJ3kE7zFg0cM5WWH5CdxiFojZMAQuC4Jer6MTT8ctRI7H2rIUXT5U2mE3d6h4kIpJzvKA9uR9EVLdb/YTPj6sOQ1EjQjtSQ7idVG5o7fs4Jtse+biWSarjfLpddOeNTs/+uJ7vXsUGFHkIHjQKXf4Hbij6HzzNyoQzhvhjI3yuZcP049ZGwgJM8MeJpjTmCIScqyJ1oLihZFBkybWn5bOGLxGv91jsLCldMT/DnBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=E8tPc4V/vwrOJYowbjT/LlgTu3EaHCYi3TA78VVpRqA=;
+ b=cXhWmELjxAjHB2XXZ5dADnamXkTbsQfgbR/saQcS3hD6mnpEsNea94LYqVC6ghHsYACRqTQpl8hy9v5cGCXnfQ1cwDhGHmxWVhfi5c4yblXZIs0lFVTd13BITMjfO4qEZ8FHyd7FrRjAVM5RBAjy2cGrdjv0G9p92Os5gG0WT80A2hYKrhnWur7NvwojvKtYv/2/7RJl848LVol+SQ2bDivNzFUBvphKNDorFitaeziwQl0H+BLm/8uafNEP61axRUD6Nq+RQz6wH+5kNuc6CXjobgSVu6Pb8LB65GJ2BNoXL80OB43JTseh8xOBeuPGIwlmeZcYQ5mS09EYnNh/nA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mt.com; dmarc=pass action=none header.from=mt.com; dkim=pass
+ header.d=mt.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mt.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=E8tPc4V/vwrOJYowbjT/LlgTu3EaHCYi3TA78VVpRqA=;
+ b=AP9bRSpvrl2LdJNRi4cxUXK9jP5w34qvFCIEmj2z8AQBNXYvtiI3EaPHFKne0NJmYQybPZu+t85Aebz/iCRtzVSuHQAwMxK6Mmhy1R1thTZwmrnsiTLUbimve0rHY4QvbVKthGBQMqH85rU0BPvsw4r+qK0/JSc5uf4EU7UeTK4YruVBE9tA4u6XX/Q6XTl1lfL61gcCo76AyEFQC591F9Q/LTtDHT6XqXwph9tzpJaIzf9TVsbzTICjyh1BVyXNJFUWOmvPcEefuEjYf1xrhYqvivVT9NXjhC5Q34/nl7wwTJMaT7OmyOJseTwEsLDpCZF6NWip12JGBJvFFLyGGQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mt.com;
+Received: from DB9PR03MB7180.eurprd03.prod.outlook.com (2603:10a6:10:22d::13)
+ by GVXPR03MB8308.eurprd03.prod.outlook.com (2603:10a6:150:6e::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Fri, 17 Jul
+ 2026 11:50:12 +0000
+Received: from DB9PR03MB7180.eurprd03.prod.outlook.com
+ ([fe80::6fd2:12a9:4423:8ddc]) by DB9PR03MB7180.eurprd03.prod.outlook.com
+ ([fe80::6fd2:12a9:4423:8ddc%6]) with mapi id 15.21.0223.011; Fri, 17 Jul 2026
+ 11:50:12 +0000
+From: Wojciech Dubowik <wojciech.dubowik@mt.com>
+To: linux-kernel@vger.kernel.org
+Cc: Wojciech Dubowik <Wojciech.Dubowik@mt.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Marek Vasut <marex@denx.de>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH v5 1/3] drm/bridge: ti-sn65dsi83: Simplify error condition logic
+Date: Fri, 17 Jul 2026 13:49:59 +0200
+Message-ID: <20260717115002.308035-2-wojciech.dubowik@mt.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260717115002.308035-1-wojciech.dubowik@mt.com>
+References: <20260717115002.308035-1-wojciech.dubowik@mt.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ZR0P278CA0063.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:21::14) To DB9PR03MB7180.eurprd03.prod.outlook.com
+ (2603:10a6:10:22d::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260717-milos-cpu-bwmon-v1-1-dfe0bac9898c@fairphone.com>
-References: <20260717-milos-cpu-bwmon-v1-0-dfe0bac9898c@fairphone.com>
-In-Reply-To: <20260717-milos-cpu-bwmon-v1-0-dfe0bac9898c@fairphone.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>, 
- Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784288726; l=940;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=Gp9rEZnBlCdYZ83KomJ1Rix6qPb0mAp0og56IEFZHZg=;
- b=x5sMB4LhOoiMg6caeXJmg8aAp9bmLEHqIa7MZpv9P6PG9JcZmMQrCEpDiXG9fnuO9V391JC1i
- oULEO+qXM+lA9p1wYt8fOGCB8jyNQNP9+iHRbNR00Lyw9izp5e1ACE3
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR03MB7180:EE_|GVXPR03MB8308:EE_
+X-MS-Office365-Filtering-Correlation-Id: fb753e3e-17bc-459a-858f-08dee3f98f4e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|19092799006|1800799024|23010399003|56012099006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	GTjXrkRu+qVsheLbWo0m7CuMkHRF7SY0F7VdL4W/D8Ff6ycF8dKLTOp7VNQL+WJgjMKw0KhNc19zfgu4Zi+eTp13l5r3VtqMdKF2ZfsIyYZG/q47PRrVgXXXtDInVYFNva3M/5lB8JdZEpPcAZU7L309HzU2frwJyfDgP45GN38TYhs/sBtBm+g1f3PvVvMGKnR1rgyUvnIb47XQAEwMh4NWNUAHU+IUlajZ6wvy7mKVDTNT9uB4WEXZ/ekm6TZQd/X/mSD/k6VbI1d9FfT9b1ChPG/+s3ikayt46SYGh+95LXU++ewQ4U50eX2gIyi5/mo7oNv6O+8d4cRGjkF9UBc0kmoQkVb7B5WXlffO4lUvJHsa0qHU99NGzYrv7IdHgF3miJOgBcP1P8Xgs3WyeXFdFEjr2rYgtLy5aGrAx8EEZvd7rqrGqbdytN2iM5OLlcoM0yeyPEt6C89BYPBGWFch7MlI9vPDUb/ibtXVRed1lpTjojNnbtNwhvG7N96zcJLtJrh/O5AUZagJFpk2/M3MU0r6AOQUY3b4VCcK/WQGG8SNZQ5w9AXvAS+tFKRbCIBvMYlUk5UJ+wDGLbjPXuRAo9TSXXGaZGDFZVSOVi2NtnFwDBSm0qxP4Z2+BkfUoAsF2zeUaT5VOnGlkTN/R06NDOCcBvXE5g8JzU5TYN8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR03MB7180.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(19092799006)(1800799024)(23010399003)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?8rGBPP4MzXsRzEU5NvsAS7fzbWaM/waE6YLRLnGZMTL5xRiT1HEaTSlXnyQN?=
+ =?us-ascii?Q?cH4e/9lMx1GR3D/ODHARfBuR5n0Mok7DqGftnPVlemeyL+NAQz2guSYwdg8a?=
+ =?us-ascii?Q?cWvPlXuj//ZBaonE3pM+o+c5eAImE7ffP0tT0RgDQtGl8F1lLVIqkC7XBnBz?=
+ =?us-ascii?Q?451BG3F1r/9AHg8ttxEF+LPxlxiRtFHJMJpBX5Bw4D8RRMxODWWUZErmD9+k?=
+ =?us-ascii?Q?rk2Pha4a8h9YRNEq4GErLkMVZZgIFN8P0NB96UQUltSYlTkEa7oNf8JqH2+1?=
+ =?us-ascii?Q?uKAeFWCnWNzpb2L3zZN7htUs5u2uA3s06gx1aCYJ6U9mNtVpR8AeFJwPdzw/?=
+ =?us-ascii?Q?083iTkIWemBffhZtIb5D9GcsQoR4yMI5J7ct3L6WbPJUrFrqM4QshuyIy2Eo?=
+ =?us-ascii?Q?rMb7fJEWRbOLV/ED0EbXSThPX2ZoSWXomdvOS7vkimZXCs9wgF/bTG01QVa6?=
+ =?us-ascii?Q?mx02iQtI2+T7w2dm8HMMrXhsm8FDJgl6FT6XltZNYI7HRgYzPj3/ajmfkRrA?=
+ =?us-ascii?Q?RVKOZ61dNoQfkUyEJQDMvxX8wChfhdu2gqJbNKG03cf8MOANidNYiYZaWlkg?=
+ =?us-ascii?Q?5iZ7P0/XV4rx1NNBRXcwEBC+fnbmprcqnRzqQFlis4ceFbOvntxYY3yj5c6J?=
+ =?us-ascii?Q?cY/+1vlqxsTnX/3oxN0S8J6mIJZF1H0diINUfjtYK+N7KHc+iueYnvJ9ko+N?=
+ =?us-ascii?Q?53lSDGTlLaCXPZr+yNhy5gcbi2mwV924ItYya1zg/FQe+VjXmFXfC7xXUmnX?=
+ =?us-ascii?Q?jJ67UJUt9Wb2yGVE+UXPaGKPZpfLPSelst9mliUqXZYqwWVQlmQA3xEKsECG?=
+ =?us-ascii?Q?70Kh9mcJ10SI+g7RTrEoBgwdNURxQT3insC1IaClATwDKgCf6aZwKtGv2thT?=
+ =?us-ascii?Q?0PKdVYRF5M+8TUixxibWicgTpimsuuUKq/4OHT50FqfQ0lk8FaHlQn1F5+jD?=
+ =?us-ascii?Q?Pfff9vuokXIPWlIPeAuQn6+uGStYZh6t9K3J/V8ePEfLn9PA06NJTvNS6FLl?=
+ =?us-ascii?Q?V6LeWa/k13fF9ozFlYll/+C7rsB3Bx71/7O+0he+2mJgVeXNElcrwPeVjmR8?=
+ =?us-ascii?Q?TQuUBsRHJfKSA5QuyKQvjEVCa3w6HbDdmZGHCeWV7GiDvE4Y/HCDLWySfwt8?=
+ =?us-ascii?Q?fjzyuywexl5bZQuqr2gYJ1psEUQT96GKygEDtUihk4EfbdCMUXDTTtxTlp5X?=
+ =?us-ascii?Q?SdYU6o68unWVmubPqX1xzwibCFLIdl9M9sMCdhhuWgV5pYaqkgIaZDoEH+yZ?=
+ =?us-ascii?Q?+N5Xg1gZVMVI2OkRbqELCHFKjO1UTUg1Xzqmv8KVKeDGHAJ6kOLGYpM7dLNO?=
+ =?us-ascii?Q?Td3ZpHbuofeIV+XluipWEucAw39kWTXJ18P2jONb8sSMZ474jtX90lSR83ht?=
+ =?us-ascii?Q?N1po6n8V0zcCINWILebSJxmFWGptbG2H7OZ0kc1fpgWrrojLXGXY5GxwXRdY?=
+ =?us-ascii?Q?ZvfHbx2Hc4voiRS7Z/Nvm5J3Q40E/e1/NaJjpyp1iErwFpetWZIiIcgHgt6U?=
+ =?us-ascii?Q?GkbzDQJLrM2IIaHn8UfO2SDPXz/uRQ5vWx4WEQ/uwQp7Ws492yJXNTP4OHAT?=
+ =?us-ascii?Q?xrosvVCCtbJZlXT/Mdll1UtRsRZ5TChdodqiNFwgovEagNN7GUC5DX55QLVY?=
+ =?us-ascii?Q?J2ED9NfZ8L1tCD0OeYoWt3uiLmm6RNLvMv7s75oSRdiviF2urI6tg5uV+0Pb?=
+ =?us-ascii?Q?lgUu+EF7018rqQcPP2qPBbL05xw9zdaKeI5LfE/5IKsb9Xh0NS+qbhu9McOS?=
+ =?us-ascii?Q?Ci7srnd7lg=3D=3D?=
+X-OriginatorOrg: mt.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb753e3e-17bc-459a-858f-08dee3f98f4e
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7180.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 11:50:12.5233
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fb4c0aee-6cd2-482f-a1a5-717e7c02496b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: i+HLK6V9zYsXZ3QOwPWwuCzG/xSY0OYNGHSPxcm9noli2pgPPrMRRvIIih04N/e19zMFcK+MyT1YBPK105403Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR03MB8308
 
-Add the compatible string for the CPU-to-DDR bandwidth monitor on the
-Milos SoC, which is BWMONv5.
+From: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
 
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Simplify error condition logic in lvds device tree property parsing. It
+makes it easier to add extra properties without handling complex goto
+entries.
+
+Signed-off-by: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
 ---
- Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c | 43 ++++++++-------------------
+ 1 file changed, 13 insertions(+), 30 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml b/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml
-index c0a5e925ff95..4e33c75d9243 100644
---- a/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml
-+++ b/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml
-@@ -49,6 +49,7 @@ properties:
-           - enum:
-               - qcom,eliza-llcc-bwmon
-               - qcom,hawi-llcc-bwmon
-+              - qcom,milos-cpu-bwmon
-               - qcom,qcs615-llcc-bwmon
-               - qcom,qcs8300-llcc-bwmon
-               - qcom,sa8775p-llcc-bwmon
-
+diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+index 42b451432bbb..f8a786953526 100644
+--- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
++++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+@@ -825,48 +825,35 @@ static int sn65dsi83_select_lvds_vod_swing(struct device *dev,
+ static int sn65dsi83_parse_lvds_endpoint(struct sn65dsi83 *ctx, int channel)
+ {
+ 	struct device *dev = ctx->dev;
+-	struct device_node *endpoint;
+-	int endpoint_reg;
++	int endpoint_reg = (channel == CHANNEL_A) ? 2 : 3;
++	struct device_node *endpoint __free(device_node) =
++		of_graph_get_endpoint_by_regs(dev->of_node, endpoint_reg, -1);
+ 	/* Set so the property can be freely selected if not defined */
+ 	u32 lvds_vod_swing_data[2] = { 0, 1000000 };
+ 	u32 lvds_vod_swing_clk[2] = { 0, 1000000 };
+ 	/* Set default near end terminataion to 200 Ohm */
+ 	u32 lvds_term = 200;
+ 	int lvds_vod_swing_conf;
+-	int ret = 0;
+ 	int ret_data;
+ 	int ret_clock;
+ 
+-	if (channel == CHANNEL_A)
+-		endpoint_reg = 2;
+-	else
+-		endpoint_reg = 3;
+-
+-	endpoint = of_graph_get_endpoint_by_regs(dev->of_node, endpoint_reg, -1);
+-
+ 	of_property_read_u32(endpoint, "ti,lvds-termination-ohms", &lvds_term);
+ 	if (lvds_term == 100)
+ 		ctx->lvds_term_conf[channel] = OHM_100;
+ 	else if (lvds_term == 200)
+ 		ctx->lvds_term_conf[channel] = OHM_200;
+-	else {
+-		ret = -EINVAL;
+-		goto exit;
+-	}
++	else
++		return -EINVAL;
+ 
+ 	ret_data = of_property_read_u32_array(endpoint, "ti,lvds-vod-swing-data-microvolt",
+ 					lvds_vod_swing_data, ARRAY_SIZE(lvds_vod_swing_data));
+-	if (ret_data != 0 && ret_data != -EINVAL) {
+-		ret = ret_data;
+-		goto exit;
+-	}
++	if (ret_data != 0 && ret_data != -EINVAL)
++		return ret_data;
+ 
+ 	ret_clock = of_property_read_u32_array(endpoint, "ti,lvds-vod-swing-clock-microvolt",
+ 					lvds_vod_swing_clk, ARRAY_SIZE(lvds_vod_swing_clk));
+-	if (ret_clock != 0 && ret_clock != -EINVAL) {
+-		ret = ret_clock;
+-		goto exit;
+-	}
++	if (ret_clock != 0 && ret_clock != -EINVAL)
++		return ret_clock;
+ 
+ 	/* Use default value if both properties are NOT defined. */
+ 	if (ret_data == -EINVAL && ret_clock == -EINVAL)
+@@ -876,17 +863,13 @@ static int sn65dsi83_parse_lvds_endpoint(struct sn65dsi83 *ctx, int channel)
+ 	if (!ret_data || !ret_clock) {
+ 		lvds_vod_swing_conf = sn65dsi83_select_lvds_vod_swing(dev, lvds_vod_swing_data,
+ 						lvds_vod_swing_clk, ctx->lvds_term_conf[channel]);
+-		if (lvds_vod_swing_conf < 0) {
+-			ret = lvds_vod_swing_conf;
+-			goto exit;
+-		}
++		if (lvds_vod_swing_conf < 0)
++			return lvds_vod_swing_conf;
+ 	}
+ 
+ 	ctx->lvds_vod_swing_conf[channel] = lvds_vod_swing_conf;
+-	ret = 0;
+-exit:
+-	of_node_put(endpoint);
+-	return ret;
++
++	return 0;
+ }
+ 
+ static int sn65dsi83_parse_dt(struct sn65dsi83 *ctx, enum sn65dsi83_model model)
 -- 
-2.55.0
+2.47.3
 
