@@ -1,112 +1,124 @@
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [185.100.197.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0734A3A8746
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 21:00:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E7B02F6560;
+	Fri, 17 Jul 2026 21:04:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784322003; cv=none; b=EJlfhvyD/zrM53/RuaAuxadohw+SKQPYqgGuM5bAioe6VcmTpqX0x2kopMupa1r3lGGeKffiC2kFTfoEWLOFZ0ws55DMiRMzRp/8BZJxHSs/smG67IQzlnv85oAx+6XqYyWakdVClEgkcaEVSAL/qFQqP+mWINw8euVHpeqNWDc=
+	t=1784322268; cv=none; b=nwP5qLyhGrVhzFZpn6aQyQPEU5C0swNEkAuFe7lQt0i+wrSxM41NsTU1gnzKr8w4WvZwAMunglr3zP/U5a9awym2yhJBlhMDuAE2jFdCJrS6g3GTYpr4BVJBug2MowCVSk3XC2MjAet4dv9VIoFblT2zL6PTdNw7g92wOCF9feY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784322003; c=relaxed/simple;
-	bh=8Fve2063ng9ha5wZtD1FR+vdZcWSIu8cW4ZgNpjdBwk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jmkpsKP3rkUDxAeWQ+uWgBV2LsZ7aOkj4l5sV37EN4oJr8iRtavh3ZBBF+UZv6Ddm8krTjGI4mV/+n7DriHbtLUOfymiZzezB023FFvDKWpTKapuQac5vEmEHS+zswApWR2aQt6+GdnDzBjN/pqwfJz5U0mMwhR7NEiAef0pip0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SOzuxz/S; arc=none smtp.client-ip=209.85.128.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784322268; c=relaxed/simple;
+	bh=tcBsvlAtSpPMBcAz8qshWjkmRpMsGtUzftMHBrdxQF0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YvA/cX0fkM0zKs0ebOVhLJTOZq0xWmSA4qWvMOvQFX/p1a10KggQSh8AmaAd8TdlqNF6C1sJEZ6+p4EJH7Oa1eeXl/Ky56ukpwMazQ1zmH3YB7sLXtMepWTYw3MSifmI048u4Fuc2FY7zkDa5pYnc0E5kTow93qY9j6gRUPcDDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=lyf/zbfo; arc=none smtp.client-ip=185.100.197.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SOzuxz/S"
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-7ff05e5d009so106857887b3.1
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 14:00:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784322001; x=1784926801; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FetDMiCgPkyxkRzwngK3OSAJNfZgDIIZiTYVMWGBG8I=;
-        b=SOzuxz/SPFR6TLAAXwUIM6M971JUOobWorPE/Bxo2kwum8Ro0dBuy945l/pZy55KVe
-         1iJ84shaDHpsIMeyqAm8sdV0lhrYDCE0JEuLbBnzfwv4HUFX30CV3YTUXCfzH6kLnv2E
-         1Kwts0XjYrPjUsSZdCXM/gSxN9wMBLMFoIP0S4LDKfGHb07QzbuTIHDTJrekC74kOpH4
-         r58sdMJI4PzEEEKEhvRZny7lkmI6FHwLNneZU6pev6K+6dbsO6iS+OkyJ04uxH7j52xQ
-         i7iGwgFMS3MswGjvaMnzeayG5VjOvZ7Y0JnhE6cEzk/fq6UfmPz4XqlmQDeqzL3O0IJ+
-         jfXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784322001; x=1784926801;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FetDMiCgPkyxkRzwngK3OSAJNfZgDIIZiTYVMWGBG8I=;
-        b=LJvXtw4xQASyQAGYa0BzToL2cXGeW2ljX3WfLz65UdOXXGxEcvU2v5M9CU3a8sJK+Z
-         aks/h6BCtudgbLUk7TijnYhOfYzhr/YXxwtHyR05/i0+9vXMUqmMm+1dvFf2k2rhVI5m
-         mbQu3OS9kFhmZM7iOhoKVmlSX9YvW8ibhjsSpMRR/RNAIRzX6Nk/tCCyRqOV6oqvw/Im
-         XcTiWjsly/WSA73JTf8azhQyBorEFZ98yy+UunS9rMYyBufOFkQBFzdMIpoiyhqvzi4w
-         27gdNnGEwAMaQGCdAYdeMA0k0nanEkIYRCrn9vu/enWhN2lNQ1pIpglewgx/41bKT5I+
-         L0lw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr1qpEudJr0LNWq7Qe5reGu7t2xPKRjBIr+W+eWVtxWCZGWmqh0MIN197xt4+s1cnonhttPXZ1FoXMa@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz7wrndkVQBf9sRkD/luZys2pew7BBmKXWDExcUr26iQBSiEawM
-	vcjlnQx+ydgGvXPWBIrjHfPBUmsaYPcqUiUfrq5D1MQDBmI3QXei/1HB
-X-Gm-Gg: AfdE7cniVTJeSU38shwTNEUfl87266oBJwkILrb93JI1VSXnINh3LIKH2fovfqJ3EHc
-	9uoY3E0i4WohNO7CqRS8Ypjg0m7J+vxMKini9Z3Ah+d2BcIcfUwAFg4p3x0f6WTKPi0r0CUB9wc
-	3km4e/TE9rpkMQJAWKRxAtDi+Ey5WN9I+pXV/tfOmpTXJXh+kZiNxkjqgJdDSq3KyVvbFw6QC4k
-	DMvwmm8RBCcFKe4vWs9xGITS4rzdiqMA2iwB13clzGZyGVlkepletSmAv3uth+iLB6KatnJv2Gu
-	cJv6s0pE7Mh34XO3+UUFF6XQGjboPf1+mQHq/bXvPwbzDwwR8INHToL2HA3ucAfmOU120Sk08Zq
-	w/MJV/63STmWJ6MGx45iM9rfHAREwwk7F0c+J4Uzu5Bv4SuZFQfF6LKNQbbCVEFhvasrgvDnPcb
-	Jm+W2En+jvtuONDKIv
-X-Received: by 2002:a05:690c:650f:b0:81d:42e6:6a82 with SMTP id 00721157ae682-81ef273585emr18799947b3.25.1784322000847;
-        Fri, 17 Jul 2026 14:00:00 -0700 (PDT)
-Received: from tresc054937.tre-sc.gov.br ([187.94.103.218])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81ef3e6656dsm20013647b3.0.2026.07.17.13.59.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 14:00:00 -0700 (PDT)
-From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Date: Fri, 17 Jul 2026 17:59:19 -0300
-Subject: [PATCH v2 6/6] hwmon: (adt7470) Add thermal zone sensor support
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="lyf/zbfo"
+Received: from [192.168.1.182] (ip-62-24-73-79.bb.vodafone.cz [62.24.73.79])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 40CCE53403BB;
+	Fri, 17 Jul 2026 23:04:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1784322261;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=CQr7QuU6rNfGQjeOhr67iZ0L0PzYiU0lqA4hYXfpOiA=;
+	b=lyf/zbfo/D7AH7bWPFixM9GwauXS01iM2aUf3w+R47UIm7FNWNZKjU8XEBM14RfRLH9Lmx
+	dDoqRgJPGXdJsKjh4VlChW6mhwxPBHhfC9+2ATRPqLisUdD5PNVC47Ze1WpSyI1pCD0YdN
+	3AefX2CHKzp3KpPubz/aReCxYbdqrrE=
+Message-ID: <88a87da7-ffa0-4f34-aba8-e8aa995aa79f@ixit.cz>
+Date: Fri, 17 Jul 2026 23:04:20 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/2] SM8450 QoL changes (dts)
+To: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Esteban Urrutia <esteuwu@proton.me>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260711-sm8450-qol-dts-v2-0-5eb2e86468c5@proton.me>
+ <178425854592.1084804.16144771627314071470.b4-ty@kernel.org>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <178425854592.1084804.16144771627314071470.b4-ty@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260717-adt7470_thermalzone-v2-6-a55147958fad@gmail.com>
-References: <20260717-adt7470_thermalzone-v2-0-a55147958fad@gmail.com>
-In-Reply-To: <20260717-adt7470_thermalzone-v2-0-a55147958fad@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Chris Packham <chris.packham@alliedtelesis.co.nz>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- "Darrick J. Wong" <djwong@us.ibm.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Luiz Angelo Daros de Luca <luizluca@gmail.com>, linux-pwm@vger.kernel.org
-X-Mailer: b4 0.15.2
 
-Expose the ADT7470 external temperature sensors to the thermal
-framework using HWMON_C_REGISTER_TZ.
+On 17/07/2026 05:23, Bjorn Andersson wrote:
+> 
+> On Sat, 11 Jul 2026 23:12:26 -0400, Esteban Urrutia wrote:
+>> These patches focus on correcting some details on the DTS for the SM8450
+>> SoC.
+>>
+>>
+> 
+> Applied, thanks!
+> 
+> [1/2] arm64: dts: qcom: sm8450: Remove unneeded reserved memory nodes
+>        commit: 0ed8261e0ebdac5f1f08dcbfc209efe36937ed2d
+> [2/2] arm64: dts: qcom: sm8450: Add mode-switch property to qmpphy
+>        commit: 8a2b4481b66c802af293e55eee07406971d5aa7b
+> 
+> Best regards,
 
-Signed-off-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
----
- drivers/hwmon/adt7470.c | 2 ++
- 1 file changed, 2 insertions(+)
+I'm afraid there is v3 of this patchset :(
 
-diff --git a/drivers/hwmon/adt7470.c b/drivers/hwmon/adt7470.c
-index aaae14a421cd..595a8f934d60 100644
---- a/drivers/hwmon/adt7470.c
-+++ b/drivers/hwmon/adt7470.c
-@@ -1251,6 +1251,8 @@ static const struct hwmon_ops adt7470_hwmon_ops = {
- };
- 
- static const struct hwmon_channel_info * const adt7470_info[] = {
-+	HWMON_CHANNEL_INFO(chip,
-+			   HWMON_C_REGISTER_TZ),
- 	HWMON_CHANNEL_INFO(temp,
- 			   HWMON_T_INPUT | HWMON_T_MIN | HWMON_T_MAX | HWMON_T_ALARM,
- 			   HWMON_T_INPUT | HWMON_T_MIN | HWMON_T_MAX | HWMON_T_ALARM,
+https://lore.kernel.org/all/20260713-sm8450-qol-dispcc-v3-0-56fd05822270@proton.me/
 
--- 
-2.55.0
-
+David
