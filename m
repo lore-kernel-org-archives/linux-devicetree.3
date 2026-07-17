@@ -1,193 +1,310 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC07A3B71BC;
-	Fri, 17 Jul 2026 06:35:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232DD2BDC26;
+	Fri, 17 Jul 2026 06:36:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784270144; cv=none; b=dJMgEJmZlJcXX1QFg4hk9Qn5rCMcOvC3Taw1joT8SLSRhyug+9UZyJol1H7jLmCTKVU319Xguby7vueCy4oSL0VSwET+oQCE7LkWWxkng+tS+x504bWlc7rbbWNlNW5/EmHZd4+f+Oqqs4XCAPHqty7wsdX44xb561OaQOrujbQ=
+	t=1784270209; cv=none; b=HDsheMpywTPBZsxNkInMnTcf6o903e3hXMU5XvflUopFtgzw4N9cHHWbWaoK1T+xccZssLe5CROYS/EOe915NaX4i4TNtYT6oXT6HE5s9d5ws8n+PMbBK/KC4EhVzAMB1C0QGB4Ovw0d+Ig/maJ2G+7CPpoiabqLMnCVR++JsaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784270144; c=relaxed/simple;
-	bh=RRcs+ox/+l+BNogr/PA/wCNLqq/mugFwKw0T+RxD2PI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tpC2v22Uxy0uuLQIFBWiA2xZxiWvqRGCAAbBVB6B23Nkdpx6MVg4zzlUVwSr/TkJnliLBUqxAIpbHPwd+vT8HxPav5k6MTuuZ0FKCRdHQLIAaOEGJ7XVp9CtG9PC/ywfpSS0a3ySn/2rSn8t61byj/5tn9Hm+5m8/h4j2EJKvKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LAZc8Q/C; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1784270209; c=relaxed/simple;
+	bh=1dyWJ7BNjXPKQ91vN4hr5IebREH/q569lnAIZat0Wqc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sZs4XM1S/3EwUewGfC37UMA887W8fHflkE3gMIxHk78tMOc/u8T/eiNKQK8Bzk5EsvaQ2EiEjvH/R8RfrUa2XzCUqWeWsr4OMCcEZ5N8p2G9IxdOv4CkQ92bAtWYX2mvwiuH73wnUTbUx2+zrCvixzr0OzCH470v3Y2JvyIBA+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D/i0xzEM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LAZc8Q/C"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 74383C2BCB8;
-	Fri, 17 Jul 2026 06:35:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784270143;
-	bh=RRcs+ox/+l+BNogr/PA/wCNLqq/mugFwKw0T+RxD2PI=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=LAZc8Q/CCJUVIhHkpjVke/p5CRWBWFI1AAO2DJEYzHqntSY4Rkl3p+U6VRgGsryUY
-	 aFoHXWIKO3muu2K5NBkoCKUcrkFw04oCcsu45IDTU5O9tweh9WhYWaJd1ePDbxQ0PM
-	 jMfqHq/br7qwgJLioKVp3sshleqPpqCQgv9CzIWfJx/STpSblbo34IQYliLwh51VtV
-	 uBlAZINdt50tfZcEJnZrI4XlYqlocZ1GCRrjn1lGV2bp0WOj7ctFuQsbGR6B0NeaDS
-	 /Jkb/synt8Zrg9RoyrZBF8/UQJ+IJeZvcyag9PHQb96fN6lIgT9knaXi1VYOkYNVnV
-	 cWFy/syj5p9og==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 51427C44517;
-	Fri, 17 Jul 2026 06:35:43 +0000 (UTC)
-From: Haoning CHENG via B4 Relay <devnull+Haoning.CHENG.cn.bosch.com@kernel.org>
-Subject: [PATCH v9 0/3] thermal: imx: Add temperature offset support
-Date: Fri, 17 Jul 2026 14:35:34 +0800
-Message-Id: <20260717-b4-symana21-11221-imx-thermal-support-upstream-6-18-v9-0-75f4af8974f4@cn.bosch.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D/i0xzEM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38AB81F000E9;
+	Fri, 17 Jul 2026 06:36:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784270207;
+	bh=Lljk+JIhcAb/zEjJzyuuqqatn2RTMTgui2137D8pfLg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=D/i0xzEMwfTibnDac22AeQ0bkbAd92QYFS8pe+rFdVGOnOWGRY9amt96rHJkAwJSq
+	 gc+HDWoV6Ln+rssf92JW57A1O5iXAGGP97GhlCKFPo5eJOIAuyO+dZikURyhByNAFr
+	 hEiFVl9Tr5x9ge5qthNRspo8+1FPQ3osGIg/qqzEAKXxYoeB5CSxru9I6S4VEaSQ9n
+	 mpfoxhKrGngRSstIN7+yhQkV3OR6PsE7Y61Kv3eXeNU9NHhpvXprJ85VWX0gTOBLfs
+	 Z8Stdik+W7/isBChIK9qqlDE8KNoArY6i1tFUeXzdmUqzfS9upRBLEk0zYbwm4YMId
+	 MeOb8cywPHusQ==
+Date: Fri, 17 Jul 2026 08:36:42 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Stefan =?utf-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Brian Masney <bmasney@redhat.com>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Russell King <linux@armlinux.org.uk>, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org
+Subject: Re: [PATCH v7 02/13] dt-bindings: clk: zte: Add zx297520v3 top clock
+ and reset controller
+Message-ID: <20260717-berserk-faithful-cat-a34ad8@quoll>
+References: <20260717-zx29clk-v7-0-408411cfcf36@gmail.com>
+ <20260717-zx29clk-v7-2-408411cfcf36@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIADbNWWoC/63Sy27DIBAF0F+pWJdowDy76n9UXQAeaqr6IXCsR
- FH+vTjZRJVXqTdIVxpxRnAvpGBOWMjby4VkXFJJ41CDfX0hoXPDF9LU1kw4cAUaLPWClnPvBsc
- ZZYzXM/UnOneYe/dDy3GaxjzT41TmjK6nijJDHRhhjWjRa0XqzVPGmE439ePznsvRf2OYV2qd6
- FKZx3y+rbWwde5/GyyMAgWIxkTBbQP+PQwHP5bQHcLYk3WJhe/A8DsTNRdWIhcbTPPAMHiOaSr
- TehsDt0IHKTcYsQMjKsMiRqtbFrSEDUY+Ms1zjKyMsgJkaEAFtfU3agdGVcYY12gTHQa39Wh6B
- 0avFbBe1a4r65FtMOaREc8xZq2AFK1RFpAp/MNcr9dfkqm0MdwDAAA=
-X-Change-ID: 20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-a084984deb76
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Haoning CHENG <Haoning.CHENG@cn.bosch.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784270138; l=6002;
- i=Haoning.CHENG@cn.bosch.com; s=20260709; h=from:subject:message-id;
- bh=RRcs+ox/+l+BNogr/PA/wCNLqq/mugFwKw0T+RxD2PI=;
- b=sId27MHdWmFGaRgCwMPUSwr1UiTWv85UPhMJiuQkKZL7NE1iASb0gCGloLTSanU3/2pQ9bEgJ
- ENdSwe1YA3UCwpP8qvzAyTyocZsrlfmnEzqGmBNdLYrw6xIRtW3ibXq
-X-Developer-Key: i=Haoning.CHENG@cn.bosch.com; a=ed25519;
- pk=glQGwad/fosRS5gZUJYbLDPPLGe7rFTrTV2VxY/ySdc=
-X-Endpoint-Received: by B4 Relay for Haoning.CHENG@cn.bosch.com/20260709
- with auth_id=860
-X-Original-From: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
-Reply-To: Haoning.CHENG@cn.bosch.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260717-zx29clk-v7-2-408411cfcf36@gmail.com>
 
-Some i.MX boards need the reported temperature to represent the SoC
-package-surface temperature rather than the internal die temperature.
-This series adds an optional DT property to specify a board-specific
-conversion offset and implements the corresponding support in the
-imx_thermal driver.
+On Fri, Jul 17, 2026 at 12:35:38AM +0300, Stefan D=C3=B6singer wrote:
+> diff --git a/Documentation/devicetree/bindings/clock/zte,zx297520v3-topcr=
+m.yaml b/Documentation/devicetree/bindings/clock/zte,zx297520v3-topcrm.yaml
+> new file mode 100644
+> index 000000000000..454997063573
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/zte,zx297520v3-topcrm.yaml
+> @@ -0,0 +1,123 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/zte,zx297520v3-topcrm.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: ZTE zx297520v3 SoC top clock and reset controller
+> +
+> +maintainers:
+> +  - Stefan D=C3=B6singer <stefandoesinger@gmail.com>
+> +
+> +description: |
+> +  The zx297520v3 top clock and reset controller generates clocks for core
+> +  devices on the board like the main bus, USB and timers. In addition to=
+ clocks
+> +  it has reset controls for peripherals, a global board reset, watchdog =
+reset
+> +  controls and a USB status register.
+> +
+> +  The controller has two clock inputs: a 26 MHz and a 32 KHz external
+> +  oscillator. They need to be provided as input clocks. The controller p=
+rovides
+> +  PLL output frequencies to downstream clock controllers.
+> +
+> +  The USB PHY functionality is exposed as a child node documented in
+> +  zte,zx297520v3-usb-phy.yaml.
+> +
+> +  All available clocks are defined as preprocessor macros in the
+> +  "include/dt-bindings/clock/zte,zx297520v3-clk.h" header. The resets are
+> +  defined in the "include/dt-bindings/reset/zte,zx297520v3-reset.h" head=
+er.
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: zte,zx297520v3-topcrm
+> +      - const: syscon
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: 26 MHz external oscillator
+> +      - description: 32 KHz external oscillator
+> +
+> +  clock-names:
+> +    items:
+> +      - const: osc26m
+> +      - const: osc32k
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 0
+> +
+> +  "#clock-cells":
+> +    const: 1
+> +
+> +  "#reset-cells":
+> +    const: 1
+> +
+> +  syscon-reboot:
+> +    type: object
+> +    $ref: /schemas/power/reset/syscon-reboot.yaml#
+> +    description:
+> +      Reboot method for the SoC.
+> +
+> +  usb-phy@84:
 
-Patch 1 documents the new fsl,temp-calibration-offset-millicelsius
-property in the i.MX thermal DT binding. The offset is board-specific,
-determined through thermal characterization, and limited to ±20 °C.
+No, do not children with and without addressing. syscon-reboot should
+have address as well. Or this one should not, since it looks pretty
+redundant - it is deducible from the top level compatible, no? So just
+usb-phy.
 
-Patch 2 fixes the i.MX7D alarm temperature conversion to use
-ceiling division (DIV_ROUND_UP() for non-negative, plain /
-for negative) and clamp() to stay within the 9-bit register range.
+> +          compatible =3D "zte,zx297520v3-usb-phy";
+> +    type: object
+> +    $ref: /schemas/phy/zte,zx297520v3-usb-phy.yaml#
+> +    description:
+> +      USB and HSIC PHY controller.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - syscon-reboot
+> +  - usb-phy@84
+> +  - "#address-cells"
+> +  - "#size-cells"
+> +  - "#clock-cells"
+> +  - "#reset-cells"
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/reset/zte,zx297520v3-reset.h>
+> +    #include <dt-bindings/phy/phy-zte-zx297520v3-usb.h>
+> +    #include <dt-bindings/clock/zte,zx297520v3-clk.h>
+> +
+> +    topcrm: clock-controller@13b000 {
+> +        compatible =3D "zte,zx297520v3-topcrm", "syscon";
+> +        reg =3D <0x0013b000 0x400>;
+> +        clocks =3D <&osc26m>, <&osc32k>;
+> +        clock-names =3D "osc26m", "osc32k";
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +        #clock-cells =3D <1>;
+> +        #reset-cells =3D <1>;
+> +
+> +        syscon-reboot {
+> +          compatible =3D "syscon-reboot";
+> +          offset =3D <0x0>;
+> +          mask =3D <0x1>;
+> +          value =3D <0x1>;
+> +        };
+> +
+> +        usb-phy@84 {
 
-Patch 3 reads this property in the imx_thermal driver and applies
-the offset symmetrically: it is added when reporting temperature to
-the thermal framework (to produce a package-surface estimate) and
-subtracted when programming hardware alarm thresholds (to keep trip
-point semantics consistent). Out-of-range values are rejected with
--EINVAL at probe time. When the property is absent, the default
-offset is 0.
+> +          reg =3D <0x84>;
+> +          interrupts =3D <GIC_SPI 42 IRQ_TYPE_EDGE_RISING>,
+> +            <GIC_SPI 43 IRQ_TYPE_EDGE_RISING>,
+> +            <GIC_SPI 45 IRQ_TYPE_EDGE_RISING>,
+> +            <GIC_SPI 46 IRQ_TYPE_EDGE_RISING>;
 
-Signed-off-by: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
----
-Changes in v9:
-- Rephrase the series to clarify that the offset converts the internal
-  TEMPMON reading to a package-surface temperature estimate, rather than
-  calibrating the sensor for better die temperature accuracy (Frieder)
-- dt-bindings: update the property description to explicitly state it is
-  a board-specific conversion offset, not a sensor calibration
-- driver commit message: distinguish die temperature from package-surface
-  temperature in the symmetric offset mechanism explanation
-- Pick up Reviewed-by tags from Frank Li (patches 2,3) and Lukasz Luba
-  (patches 1,2,3)
-- Link to v8: https://patch.msgid.link/20260714-b4-symana21-11221-imx-thermal-support-upstream-6-18-v8-0-d54d8690e16e@cn.bosch.com
+Here also misaligned.
 
-Changes in v8:
-- binding: s/behaviour/behavior/ (Lukasz)
-- New prep patch: use ceiling division (DIV_ROUND_UP() for non-negative, plain /
-  for negative) and clamp() for i.MX7D, extracted into a separate patch (Frank)
-- driver commit message: add offset mechanism explanation with a +3000 m°C calculation example (Lukasz)
-- probe: reject out-of-range offset with -EINVAL instead of silently clamping (Lukasz)
-- prep patch: handle negative alarm_temp with plain division (C rounds toward zero)
-- Link to v7: https://patch.msgid.link/20260713-b4-symana21-11221-imx-thermal-support-upstream-6-18-v7-0-09b6b7669be1@cn.bosch.com
+> +          interrupt-names =3D "usb-up", "usb-down", "hsic-up", "hsic-dow=
+n";
+> +          resets =3D <&topcrm ZX297520V3_USB_PHY_RESET>,
+> +            <&topcrm ZX297520V3_HSIC_PHY_RESET>;
+> +          reset-names =3D "usb", "hsic";
+> +          #phy-cells =3D <1>;
+> +        };
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index cb50c2e3b4ea..5f962b9947ab 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -3878,10 +3878,13 @@ L:	linux-arm-kernel@lists.infradead.org (moderate=
+d for non-subscribers)
+>  S:	Odd fixes
+>  F:	Documentation/arch/arm/zte/
+>  F:	Documentation/devicetree/bindings/arm/zte.yaml
+> +F:	Documentation/devicetree/bindings/clock/zte,zx297520v3-topcrm.yaml
+>  F:	Documentation/devicetree/bindings/phy/zte,zx297520v3-usb-phy.yaml
+>  F:	arch/arm/boot/dts/zte/
+>  F:	arch/arm/mach-zte/
+> +F:	include/dt-bindings/clock/zte,zx297520v3-clk.h
+>  F:	include/dt-bindings/phy/phy-zte-zx297520v3-usb.h
+> +F:	include/dt-bindings/reset/zte,zx297520v3-reset.h
+> =20
+>  ARM/ZYNQ ARCHITECTURE
+>  M:	Michal Simek <michal.simek@amd.com>
+> diff --git a/include/dt-bindings/clock/zte,zx297520v3-clk.h b/include/dt-=
+bindings/clock/zte,zx297520v3-clk.h
 
-Changes in v7:
-- Align the author name with the Signed-off-by trailer.
-- Link to v6: https://patch.msgid.link/20260713-b4-symana21-11221-imx-thermal-support-upstream-6-18-v6-0-88a378faeca5@cn.bosch.com
+Same mistake. Filename MUST match the compatible.
 
-Changes in v6:
-- Align the author name with the Signed-off-by trailer.
-- Link to v5: https://patch.msgid.link/20260713-b4-symana21-11221-imx-thermal-support-upstream-6-18-v5-0-69405c306c6b@cn.bosch.com
+> new file mode 100644
+> index 000000000000..1f010ff4e6ca
+> --- /dev/null
+> +++ b/include/dt-bindings/clock/zte,zx297520v3-clk.h
+> @@ -0,0 +1,66 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +/*
+> + * Copyright (C) Stefan D=C3=B6singer.
+> + */
+> +
+> +#ifndef __DT_BINDINGS_CLOCK_ZX297520V3_H
+> +#define __DT_BINDINGS_CLOCK_ZX297520V3_H
+> +
+> +#define ZX297520V3_M0_WCLK			1
 
-Changes in v5:
-- Move calibration offset application out of c2 initialization, instead
-  apply it in imx_get_temp(), imx_set_alarm_temp() and imx_set_panic_temp()
-  for consistent style across i.MX6 and i.MX7D
-- Subtract calibration offset from alarm_temp before the if-else block in
-  imx_set_alarm_temp(), simplifying both SoC branches (Frank's suggestion)
-- Link to v4: https://patch.msgid.link/20260710-b4-symana21-11221-imx-thermal-support-upstream-6-18-v4-0-1fef97d1c750@cn.bosch.com
+Start from 0 since you started resets also from 0.
 
-Changes in v4:
-- dt-bindings: drop maxItems to allow minimum/maximum constraints for
-  temp-calibration-offset-millicelsius
-- Link to v3: https://patch.msgid.link/20260710-b4-symana21-11221-imx-thermal-support-upstream-6-18-v3-0-db9fc2947c55@cn.bosch.com
+> +#define ZX297520V3_SRAM1_PCLK			2
+> +#define ZX297520V3_SRAM2_PCLK			3
+> +#define ZX297520V3_UART0_WCLK			4
+> +#define ZX297520V3_UART0_PCLK			5
+> +#define ZX297520V3_I2C0_WCLK			6
+> +#define ZX297520V3_I2C0_PCLK			7
+> +#define ZX297520V3_RTC_WCLK			8
+> +#define ZX297520V3_RTC_PCLK			9
+> +#define ZX297520V3_LPM_GSM_WCLK			10
+> +#define ZX297520V3_LPM_GSM_PCLK			11
+> +#define ZX297520V3_LPM_LTE_WCLK			12
+> +#define ZX297520V3_LPM_LTE_PCLK			13
+> +#define ZX297520V3_LPM_TD_WCLK			14
+> +#define ZX297520V3_LPM_TD_PCLK			15
+> +#define ZX297520V3_LPM_W_WCLK			16
+> +#define ZX297520V3_LPM_W_PCLK			17
+> +#define ZX297520V3_TIMER_T08_WCLK		18
+> +#define ZX297520V3_TIMER_T08_PCLK		19
+> +#define ZX297520V3_TIMER_T09_WCLK		20
+> +#define ZX297520V3_TIMER_T09_PCLK		21
+> +#define ZX297520V3_MPLL				22
+> +#define ZX297520V3_MPLL_D5			23
+> +#define ZX297520V3_DPLL				24
+> +#define ZX297520V3_GPLL				25
+> +#define ZX297520V3_GPLL_D2			26
+> +#define ZX297520V3_GATED_OSC26M			27
+> +#define ZX297520V3_PMM_WCLK			28
+> +#define ZX297520V3_PMM_PCLK			29
+> +#define ZX297520V3_OUT0_WCLK			30
+> +#define ZX297520V3_OUT1_WCLK			31
+> +#define ZX297520V3_OUT2_WCLK			32
+> +#define ZX297520V3_OUT32K_WCLK			33
+> +#define ZX297520V3_RMIIPHY_WCLK			34
+> +#define ZX297520V3_TIMER_T12_WCLK		35
+> +#define ZX297520V3_TIMER_T12_PCLK		36
+> +#define ZX297520V3_TIMER_T13_WCLK		37
+> +#define ZX297520V3_TIMER_T13_PCLK		38
+> +#define ZX297520V3_TIMER_T14_WCLK		39
+> +#define ZX297520V3_TIMER_T14_PCLK		40
+> +#define ZX297520V3_TIMER_T15_WCLK		41
+> +#define ZX297520V3_TIMER_T15_PCLK		42
+> +#define ZX297520V3_TIMER_T16_WCLK		43
+> +#define ZX297520V3_TIMER_T16_PCLK		44
+> +#define ZX297520V3_TIMER_T17_WCLK		45
+> +#define ZX297520V3_TIMER_T17_PCLK		46
+> +#define ZX297520V3_WDT_T18_WCLK			47
+> +#define ZX297520V3_WDT_T18_PCLK			48
+> +#define ZX297520V3_USIM1_WCLK			49
+> +#define ZX297520V3_USIM1_PCLK			50
+> +#define ZX297520V3_AHB_WCLK			51
+> +#define ZX297520V3_AHB_PCLK			52
+> +#define ZX297520V3_USB_WCLK			53
+> +#define ZX297520V3_USB_PCLK			54
+> +#define ZX297520V3_HSIC_WCLK			55
+> +#define ZX297520V3_HSIC_PCLK			56
+> +
+> +#endif /* __DT_BINDINGS_CLOCK_ZX297520V3_H */
+> diff --git a/include/dt-bindings/reset/zte,zx297520v3-reset.h b/include/d=
+t-bindings/reset/zte,zx297520v3-reset.h
+> new file mode 100644
+> index 000000000000..43db72bb59de
+> --- /dev/null
+> +++ b/include/dt-bindings/reset/zte,zx297520v3-reset.h
 
-Changes in v3:
-- dt-bindings: add minimum/maximum (-28580/+28580) for
-  temp-calibration-offset-millicelsius, as suggested by Conor Dooley
-- Link to v2: https://patch.msgid.link/20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-v2-0-00ff72495e24@cn.bosch.com
-
-Changes in v2:
-- dt-bindings: Removed explicit `$ref: /schemas/types.yaml#/definitions/int32`
-  for fsl,temp-calibration-offset-millicelsius; the `-millicelsius` suffix
-  already resolves to int32-array via property-units.yaml (Rob).
-- dt-bindings: Fixed example indentation.
-- driver: Replaced C integer division (/) with DIV_ROUND_CLOSEST() in
-  imx_set_alarm_temp() to prevent off-by-one alarm threshold mismatch that
-  could cause IRQ storms on i.MX7D.
-- driver: Added clamp() bounds check for alarm_value [0, 0x1ff] to avoid
-  corrupting adjacent register fields (PANIC_ALARM).
-- Link to v1: https://patch.msgid.link/20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-v1-0-00f88f42930b@cn.bosch.com
-
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-To: Daniel Lezcano <daniel.lezcano@linaro.org>
-To: Zhang Rui <rui.zhang@intel.com>
-To: Lukasz Luba <lukasz.luba@arm.com>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Shawn Guo <shawnguo@kernel.org>
-To: Sascha Hauer <s.hauer@pengutronix.de>
-To: Pengutronix Kernel Team <kernel@pengutronix.de>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: linux-pm@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: imx@lists.linux.dev
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-
----
-Haoning CHENG (3):
-      dt-bindings: thermal: imx: Document temperature offset property
-      thermal/drivers/imx: Fix rounding and clamp for i.MX7D alarm
-      thermal/drivers/imx: Add temperature offset support
-
- .../devicetree/bindings/thermal/imx-thermal.yaml   | 15 +++++++++
- drivers/thermal/imx_thermal.c                      | 39 ++++++++++++++++++++--
- 2 files changed, 51 insertions(+), 3 deletions(-)
----
-base-commit: c50a940dcde35c647e097e89a9150003abd48329
-change-id: 20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-a084984deb76
+Same here.
 
 Best regards,
---  
-Haoning Cheng <Haoning.CHENG@cn.bosch.com>
-
+Krzysztof
 
