@@ -1,119 +1,101 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D37C33B6C4
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 12:02:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E8273B14BC;
+	Fri, 17 Jul 2026 12:02:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784289728; cv=none; b=ZwZK7lloMJkpQFFpGtvgmCRx96rPD+rEUdPNJ//DhVyaHhI3h++Sm2mwL6QRGGJVx6MWzqe6nngiqxC8vugrukciYu88XBT+Qaypo0F/EM1xIPybOeDEZvVkJYWZ263rethwQ1uddc5a9ZXz/BehcpVnfMaomstoTsOQq5qSWJc=
+	t=1784289764; cv=none; b=Os7Up/kif5vG6gFjprqVZ6279G5FRjmqOgQFLRfUM/pjsZmQsZxczJs4ohwIZTiUs+DUWj11YOI48nqlDf6qgwfB7zNT7CxX1/czPbCwkRq0ypJR24mGzyHABA0h/ScO0riP8/nlDjRZdPhs10a9ztW+1/ohgk6pHqTCPOoiWXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784289728; c=relaxed/simple;
-	bh=8Uw740j8vtVBDWekYMNzNzazdHY/o1xs3KjRekg8knY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=S+00wM+lDxv9rLnBxJR1KnNSuOzY0fX5jYlqCgU6Cmu+olqMJPEhnnmp3VxHE4HxTZ3++1hp3LW+rX8y46XBtQCoZhLqPGvBJOwy0jofTvEnwlKSYBGPDUlyPPD/mjrXRi1eJU9rUO7QWmogXSkGJ/bcVmhvXeWybVZNvfk6BsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arturia.com; spf=pass smtp.mailfrom=arturia.com; dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b=PsRRLhTK; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arturia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arturia.com
+	s=arc-20240116; t=1784289764; c=relaxed/simple;
+	bh=M6dliTL3upPz3AWTcFuW/Bf8sQHGqFSf/FvFJ52AEJY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l9MYNYWA3Bpp819UCNDe+JUNa+wOfKqcDXg60x+0q3Tiihwwh2VuedriQwhzMjh5tHoeRlNtyHuqNfDHcDp6NqTMTfuAaobhd4zx3otJJJY8bA3VWpv/Xi19pDfNyYQvyU7sCFUeD6PiaGIMzRS6Oml+v3LwFxstZU6eU13KywE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=afG26BD5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b="PsRRLhTK"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49544a80b9dso9747835e9.1
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 05:02:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arturia.com; s=arturia; t=1784289722; x=1784894522; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3ytxZbr+En2Se18JmJbsiXT61grY1p5Cg8Gm6wZ0DgQ=;
-        b=PsRRLhTKfyASTINcz+00uDlWbgww+w9iib80uTKez4bEFSZvP06wco5hAPQGY8ESr1
-         ao41TM70S2MkIKtNPGatLYpB6lXDf7vM2fplVCZ8Jrulc8/6Ce9wb9VNeX+80BPZ9s2u
-         lWB0IDP/Yd1h/33MUhhUu3/gKJvrYN6qyuTuaErusDknNjqFZiomzV6HOVmgnegbK6fJ
-         eiKcKjMAcN7xvk0DJgDWNqzdUIzbhIakwdWYlaUFFG8ArHVbirotjoDM2iOpIYBNMOf3
-         XK6f0GrXm59ZhVcFx2U+UDF/uMZUWmJ5NRMqRRLMHM2FgJe4RcxnV93q7H2kQg4lB1Io
-         nISw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784289722; x=1784894522;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3ytxZbr+En2Se18JmJbsiXT61grY1p5Cg8Gm6wZ0DgQ=;
-        b=WfjdZVNTqNUNbWn2Dd12++FRUFM8juPTYsDUmA5As83Q5dHrVJ3cxJvoFkpPc3VNNT
-         bd2KrNqW39jc4xTQZRLZQOE84UkDMOfUVGwoytOGlThFzaONnevcCaVpXJILRGkKMZvS
-         e+s0bYQTlYseEsggCtURzS3AzRc98FugnRJXdu7gU/K0QC38QXqr1XyxjafPc9gaSY6W
-         vdZwtFY6x3Dr+Ytm9QzHn/9CYyR5GLD74o1BJBcoPONss6pkTJ9PlouoChSC06klSXdS
-         dIYZ5Q+YlxFH3znRMCSPj4KOgDi+fsw4rQ3tqpuRR1SNbHJweErAeoc/Boejn5zWM/Ye
-         ji7w==
-X-Forwarded-Encrypted: i=1; AHgh+RpwT035I/Dbf1aNqAuTZn+6El60uOCBgoE2QRRheLxEH12FTg7SKdpEdgmF4TOytZABTcgWrwBQKOqr@vger.kernel.org
-X-Gm-Message-State: AOJu0YwOKo0tdstOd3l76pcmmjuqXOgjPm/3m6FSv/X1lxFv0U16pnJu
-	FZdx1cNHGNmoT1h6eyP7Y2MWJEgwbWNYQPCfNtFpLDnvzap8WVVapyMXvWtJJzkXBlw=
-X-Gm-Gg: AfdE7cmB0lpCb+hvlV0gDhHHBCL99ccZoO9Tvvb+4HaCr0Deh2iTBhs0AswtyOXyFcF
-	fDwGPWFMwvTtPCTlS+Tvk8mu61SSfwZ04QtTww/BpYDPdxyXKHvPnhIS+T9hVr22ZEw8k3y8XJU
-	FAWedxXrR4kIlO9ZIaMSAWj8jpt8oHCkI31pyidKdRZErrG65pC7MylvdMvmujTNleqiVo8KaPz
-	1Ly9x0k1xC+jm4vr9zLIYCu6y58klrwDjlhThx2AXBQbnC3XxQm58m930m2CThs3UfMQezKsb6z
-	TtK1ZZbD6hzKlbp53uB6vZLXXa7aD+lOZHBGI+W1xQzaKqi9jCAi//nu6OyxOYPtt7juf8lGeMS
-	jBZD2czhdNNkdjv8N59mXgzsut3+qYtMYVStQGwMzcF4+Wm12ABg6N7Sxz2A6/wv7aezynyyoY7
-	P1+2qPI7MiGN0FtRB52U33rJslX+LtshsD4AofIbVOnya5/ccndS8X+c8Zcgg=
-X-Received: by 2002:a05:600c:154e:b0:495:405c:38d3 with SMTP id 5b1f17b1804b1-4954a3df9f9mr31966885e9.9.1784289721703;
-        Fri, 17 Jul 2026 05:02:01 -0700 (PDT)
-Received: from ?IPV6:2001:861:2128:c8c0:8e8c:fdab:4545:5849? ([2001:861:2128:c8c0:8e8c:fdab:4545:5849])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63ed2313sm3034899f8f.23.2026.07.17.05.02.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Jul 2026 05:02:01 -0700 (PDT)
-Message-ID: <fd7d5b72-a400-435c-bbac-9e661d98e3c9@arturia.com>
-Date: Fri, 17 Jul 2026 14:02:00 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="afG26BD5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03A1A1F000E9;
+	Fri, 17 Jul 2026 12:02:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784289763;
+	bh=M6dliTL3upPz3AWTcFuW/Bf8sQHGqFSf/FvFJ52AEJY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=afG26BD5DJqcY9jFPHWwLoeF+nbY3GkVgbzmYISsj7xeZVCukUAa6Tdq4RdHOi1kv
+	 VhO0c4wlgnq8/uJ4G1UyEHvTyxI9wOPKKaqgViGb19EFGyS0cg19B9qoWfDnJR0YZm
+	 xD7VopeVKolG7iP9adxYqAQAtLV8auh9YJx/PsTDMa4HNn8peJiYCom6ppiEpBE6Ri
+	 O5VPY2KO8x4IepP8GFuNG7upUnYOFwAgzIaIiRLTvysiIiBbNcvkYDfO9/wew8cRsb
+	 l3JKPUr7GFFU/UKQZM1P948sh1G9gBvmTEg4KhGcT678i50OfZ6MBUBq9hVbqmsveD
+	 3Nyo9BqNTTjfQ==
+Date: Fri, 17 Jul 2026 13:02:35 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Swark Yang <syang@axiado.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, Jan Kotas <jank@cadence.com>,
+	Michal Simek <michal.simek@amd.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	=?utf-8?Q?Przemys=C5=82aw?= Gaj <pgaj@cadence.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Boris Brezillon <bbrezillon@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Mathias Nyman <mathias.nyman@intel.com>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org,
+	linux-i3c@lists.infradead.org, linux-serial@vger.kernel.org,
+	linux-spi@vger.kernel.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH v3 6/8] dt-bindings: spi: dw-apb-ssi: add Axiado AX3005
+ SPI variant
+Message-ID: <6d69cfd0-5f3b-4324-8d64-b4695cbb3e92@sirena.org.uk>
+References: <20260716-upstream-axiado-ax3005-upstream-v3-0-c429095143ec@axiado.com>
+ <20260716-upstream-axiado-ax3005-upstream-v3-6-c429095143ec@axiado.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] regulator: dt-bindings: Add Silergy SYR82X allowed
- modes
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: lgirdwood@gmail.com, broonie@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260715155141.128601-1-victor.krawiec@arturia.com>
- <20260715155141.128601-2-victor.krawiec@arturia.com>
- <20260717-nostalgic-raptor-of-sunshine-1aba9a@quoll>
-Content-Language: en-US
-From: Victor Krawiec <victor.krawiec@arturia.com>
-In-Reply-To: <20260717-nostalgic-raptor-of-sunshine-1aba9a@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="70M3+S0UoM/WolbI"
+Content-Disposition: inline
+In-Reply-To: <20260716-upstream-axiado-ax3005-upstream-v3-6-c429095143ec@axiado.com>
+X-Cookie: Enjoy yourself while you're still old.
 
-On 7/17/26 11:08, Krzysztof Kozlowski wrote:
 
-> On Wed, Jul 15, 2026 at 05:51:38PM +0200, Victor Krawiec wrote:
->> Make the PWM mode configurable from devicetree. Some boards require forced
->> PWM mode to keep the supply ripple within acceptable limits under light
->> load conditions
->>
->> Indexes are starting from 1 to keep backward compatibility with existing
->> device trees
->>
->> Signed-off-by: Victor Krawiec <victor.krawiec@arturia.com>
->> ---
->>  .../dt-bindings/regulator/silergy,syr82x.h    | 20 +++++++++++++++++++
->>  1 file changed, 20 insertions(+)
->>  create mode 100644 include/dt-bindings/regulator/silergy,syr82x.h
->>
-> This header should be mentioned in the binding in property description.
-Thank you for the review. I'll add it to the binding in the next iteration.
->> diff --git a/include/dt-bindings/regulator/silergy,syr82x.h b/include/dt-bindings/regulator/silergy,syr82x.h
->> new file mode 100644
->> index 000000000000..6d4aa86bb5c1
->> --- /dev/null
->> +++ b/include/dt-bindings/regulator/silergy,syr82x.h
-> Some confusing name. How is your binding file called? This must be the
-> same.
+--70M3+S0UoM/WolbI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The binding file is named fcs,fan53555.yaml and handles several devices including the Silergy SYR82X which I was targeting in this patch serie. I will rename the header to have the same name as the binding file. Should I also rename the macros defined inside the header (SYR82X_REGULATOR_MODE_*) ?
+On Thu, Jul 16, 2026 at 08:51:13PM -0700, Swark Yang wrote:
+> Add binding for Axiado AX3005 SPI controller. So far, no changes
+> are known, so it can fall back to the snps,dwc-ssi-1.01a compatible.
 
-The underlying implementation in the driver (in fan53555_device_mode_map_setup() it the patch serie) is limited to SYR82X because it is the only hardware that I'm able to test. That's why the binding part was referring to this specific device.
+Please include human readable descriptions of things like commits and
+issues being discussed in e-mail in your mails, this makes them much
+easier for humans to read especially when they have no internet access.
+I do frequently catch up on my mail on flights or while otherwise
+travelling so this is even more pressing for me than just being about
+making things a bit easier to read.
 
-Best regards,
-Victor
+If there is no need for things to be part of a multi-subsystem series
+(eg, dependencies) it's normally better to send each subsystem
+separately.
 
+--70M3+S0UoM/WolbI
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpaGdoACgkQJNaLcl1U
+h9CYYgf/a6ZXfaJE/jmFwdCosDxknw75RDj7nPAqr8ZtQ6OEKCVRSIVBgwrMG1B6
+7TPPAIzIrDPqOWeb/BZihDW7BKUj2aDsl7pZivADMe0txrRhev2UcBUZUMxW1sXn
+DgyCTELlXBzkCAltV41zPIZTn6Rwcy8lHkkDXAfh0JGD5azOUiDxKAusCY9IhML1
+YtCaED6Zm325NAZ+cUqXIKy177WK3d4XQrt4N/qPahtGnlsER6BwUocE9HGNpNLh
+l3iTBw5h+slXmMR6H40Ax4/E64jiKe5RpDEW3MeDQgZLROX+xs5G+fp3eE5NGFPQ
+Z9zQeNxaiqK3XtZlukPgm9tW3O9UDA==
+=i8XU
+-----END PGP SIGNATURE-----
+
+--70M3+S0UoM/WolbI--
