@@ -1,161 +1,982 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586E03E7176
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:58:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F4A3B42F6
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:58:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784282329; cv=none; b=RD+G6Ic83GM4w1ZdWess2NMiMVwfVOsKfVizq6T3F/bRrTgI4hMIcz/ujbJAcItBh10SJW4eDwy849N7G8IlV+sz1G0g1ckXEfC/jdVDiJTU94jBJViwZsNpnC4pZTKg5qgLUlZ/V8KKIBfW/1yJkmoMqETfOy52/rzSvuaRDyw=
+	t=1784282329; cv=none; b=EIGWGWSHHHbO0zJoxroRyWwpjTMogeElNicJQiSn++FRvbXShBSI25P/DYM9WX/8D41vJ1LpA1UHPMM4xnESAw1U9Gvn6ZiyEF0FrtOvBA0DtZkvfZ1CSTFaSg1+zAIsOy/j779aj/LEEyY7pT8pTZ+5MHvEj0O1UQUxWcCO71Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784282329; c=relaxed/simple;
-	bh=3+7H0KM7b3GCDElOGl9jlYjs8r5xlY0/JVR0gENvQG8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=SLV0ZoIhJnpZp75cRYaOZNZPlbga2ttXhLJzKf8jPnGzQmfS/r9fAI2ieWcowzkGstWvB8E8tMhrfgmP99/DUx6TlcKhKw8l8/7BeUT/C7HDuWdQ+YDJbO8GIBbDaiVTi8qdQhYTzbIYaJje3n17FFC1ugvAENcFOVGHaytRjVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KsrsmOJX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fRPs8FMU; arc=none smtp.client-ip=205.220.168.131
+	bh=q1EiFxkJaT4Z23yESZhbCCIOkzXXr3f11mGRRTEbqTI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Nd/mDpjheTZO5Q9RVaFK498FZs4XJE5bfncV9SV/HXeqx9AqyHEeOSrvcRyD/mvfkHLtApFaSEJmfAZkk3JHxbXf9FyVXDm0ko2xKnIk+vkeF9rYPQblLYczRiTVPwj3XkNgNwD/SsHlptEy9GtBoAVz2daZ9LkBCVZ2rVz2RFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dWcGiQ+q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V+icxE/R; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KsrsmOJX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fRPs8FMU"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66H6cHj82098532
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:58:45 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dWcGiQ+q";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V+icxE/R"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66H9utie1120336
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:58:44 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=rHwgU4bJuDw
-	LyN0I2lr2dORoG/+b5/ihZjySSIbII/U=; b=KsrsmOJXHJ+zWC4ycVLKgVReP+2
-	dOflN4kwDkcZ/XSxcWvuWqfH+n1apdDVXrOeQKGiNVKFONa2l38dNuo5k/4HM/8A
-	glOm0W5GX4fW4Leb1cHrkLaUwvtspaIGf2QaLnzvQU0YzI22En2jk5bQ+AOOMEHT
-	wBVKw3f7cEVuB5XRDiVtE0+IugLi8K/72WH5Jt5ax1Qf6+SFFP5nx8drQWkjfeBH
-	j0TcjSOmfEfVpPN8reG1iLqZZU2nVg3a3eLIFW9MoYpMRorm5S6fZ0KVAuKsHbU9
-	GItawNkldJFuLG0C51AILopy9KQv+evfq9cRRl9+NpLUnKgjqJ4QgdKGb+Q==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ff3u6k5pc-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	cRmmpJFrMPan4EUP/lePPKYnmXbOjxD/SkRuul3w5rU=; b=dWcGiQ+qx18rfZKz
+	tWZA5762qP2VcAQoHBN452lPPCJ1Hbv7xlSCcwbA4p5GRuA62vj3MPKRDvD0B4kl
+	dWX4APLGGjEwhuOv7ZKQc7gcT9A3ghNhRKepU7ckbOTQsFF+3HfFl+1KFWr6ZvR7
+	e0hJR/pPn+t2CuRlCuOvYjafW29AwgCG8K+UMAiImVQH2b5bK2xkJPvrI8owwsF6
+	qMIQAoKC4vNKIaKQLRbZ6icIV4ceQWZndI8yNdzDXYFEYGFguXg7B7Bpb8so+Emf
+	wkAVlXpKXdUR2YsUI/MO+/z2Jcxn1P6DlqQAXAMUYHKDxim9TDzVpUoVwtkMBhJp
+	k9tbfw==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ffj78r06v-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:58:45 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38869800848so11572944a91.0
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 02:58:45 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:58:43 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c9c26587e67so1939582a12.0
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 02:58:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784282325; x=1784887125; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1784282323; x=1784887123; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rHwgU4bJuDwLyN0I2lr2dORoG/+b5/ihZjySSIbII/U=;
-        b=fRPs8FMUVuvdk9kXtVXRTy9KQ0cgrXbkTstQ6OrN4W8oT2/P4IdoHt7S3VD1JByxss
-         lfITsQi2+9tTVNW56Aj9FVUpcnM1dzdI6DBGdOWphUWXTuZReGtdXsStJRDOeK987N8n
-         L5RJ/cSze9hOn3zJ5//sf7fr8lQmsIBLCtej7X3GpkopERupBwIf+UefrQAunYsOT0UP
-         G2wzEQR77cOnc/d+l6UtuJf8HHGzAGygOyzCvJWVxiwL9koIA+ybahgtcB9T5025jPAv
-         HFAvADM/S7neVDuYLezIVogCK15q8omaBvYQIdD5VIKWV5Y0fpBlONi7zzXrtqhWJ51k
-         6klw==
+        bh=cRmmpJFrMPan4EUP/lePPKYnmXbOjxD/SkRuul3w5rU=;
+        b=V+icxE/Rf6BHQTIdjwefaM3GTC5/PHjg7neSc7bPYAaJkujIm2mL09Crp+LW1g0PjO
+         GR8EbqfUUhSaSiVVgSJ5C3L+AFcOlzXpUPYRN9RN4x3l7/13gbuhFWFiswIw5O4wCUVM
+         JaHlvdzJvtPQ/CH/Tob0LHJC8nNFbQdiMa32xaX1WWiI6vxeHbQXGDJaAy54P2X74MPD
+         TfB9JMyCZ6h0d2qtbYxl936gcdypXTB87kMnFNKpQUm+proFFDu2DAmASJ9HNap+Ua/C
+         wANvHd5vOgcePD2Y52fwNZxZeQDKBrifFbpwS5cWrlbx9Ep5rwHUVYhltFxHonITAlca
+         r5QQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784282325; x=1784887125;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rHwgU4bJuDwLyN0I2lr2dORoG/+b5/ihZjySSIbII/U=;
-        b=neFJtQXUB3tLE+WfMtulir+dyzGxiCb4JHD2tF9U06E366qDrcQXxEI/BTf4IPdllq
-         PCD5rBgo2esOGAYAu2M7XtWmD426Z4fNDo3XY047vYiFmxccahTp91OEzU6BBZoRE3BS
-         d1D9fmW/ggtBCx1fbnSo5Di9iXufmWoWRIJgUaEzZ0VL4DAdXUafsiW6v2Z7ZC5AR65k
-         eRrBbugaBBek2JTlWmsZdKw+NVa2eaxvUY1d17wpx4tNPZRER100nSz/SMHQyA5e+Mvi
-         e7ka4cbCEO0lb7eEAKdcCAqXFepWLwku5an2BnU/tx05OVjTm3tOfat4CF2S2JjB7TMn
-         VBRg==
-X-Forwarded-Encrypted: i=1; AHgh+RopGZAW0roI8yRSf0DJgZ/dyr4Ddbew7mA3Kta5i+CYfJ2MKSK9GHtUp6ZnnRaboRhYpvqQ4kEDr/Tt@vger.kernel.org
-X-Gm-Message-State: AOJu0YycdBe/ZuucnBSx41o4pF10WOyn0nl7PSUE4sSIfsg1HwQhXx7W
-	cesJ2DtEZD6AwlbuoWFTu6g3BMSMC/h/Cr8EQ9vHrSPq7YFhmxr9i8Y/IV8kAJra2NtycEhMRPY
-	SVySn7Ut+9rM1HOaYfS1B+F7MQFQrYc5aWCIkLkskpmlGrkHG21YEbaNJQzJ0YlYf
-X-Gm-Gg: AfdE7ck7uZ+6x5Ks6aCVBqhgTBByGH0j2gF5dISnaXxmYr4GHe1IUOmCjlkPXRrskPT
-	rwxg3KLGtAtHE49+uk6yLH5LUbbTH9UKvELo/GvJpvHPLiIt8pxtONwi49V6uNrFsFAPeeB8Q+Q
-	3rqlgjlnY+jvmQCSJpF7OUZTEgVxpUQLOd2CW+8Yub2DKaniDl2DB3T+gPnJVAqPs98FfvX4/yX
-	heXcaYn6rPANbEhbdCKiCkf7sdvG0ax/olhRy9R3ba7CSEMe1EfuLpf3oWNHPYBcSyd5SfYF0Sx
-	sCHxdaiXzFBXwgcovgNyGAYeWrCfBK3vAWtchTmzHBPwzm66r5Lzk4+tdp15JBkuMDPbY6tjRak
-	FLCBUNdFcK20BKUx4/dCb7vNndB0FlAPKskwE
-X-Received: by 2002:a17:90b:3dc8:b0:38e:e9b:ffa4 with SMTP id 98e67ed59e1d1-38e4b3e1419mr1736761a91.6.1784282324584;
-        Fri, 17 Jul 2026 02:58:44 -0700 (PDT)
-X-Received: by 2002:a17:90b:3dc8:b0:38e:e9b:ffa4 with SMTP id 98e67ed59e1d1-38e4b3e1419mr1736734a91.6.1784282324108;
-        Fri, 17 Jul 2026 02:58:44 -0700 (PDT)
-Received: from hu-mpratyus-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e39de7875sm2661071a91.2.2026.07.17.02.58.40
+        d=1e100.net; s=20251104; t=1784282323; x=1784887123;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cRmmpJFrMPan4EUP/lePPKYnmXbOjxD/SkRuul3w5rU=;
+        b=H6VA35ADU6eZ0lkfvhRs3GVTSogvD220GAyLfMfj1XeIJjrx9g8sUaWsCSqwnumbAq
+         nhmS6u/BvYiXqenFRjm+RM7gLAmfHH30ZNmWv4SMWuLzklZjdtvaeXAP5rZzqFSUj5T3
+         pm+g8uJ8Yfih2k8PTWtUrvDxTf/1m05bvJjFfwCl4k0080qej5knWZ+Txhw5dbThwPRz
+         D+uNs1rFTluch8VV+/tg0ZXlm1JqVnpo5/7Vo0CZNsEw0MKiBVhJvsEU+GzazSP9lHuc
+         mrSzE6Hvtll2AAwZeT9DDuUs/RGE/quPwEmZTPZ0icsArahgRbfh8FMtFLMobnHoOXCd
+         U7cA==
+X-Forwarded-Encrypted: i=1; AHgh+RrWFwV4Xl199TswTei1Tom4mEL1LXkh1X29YnA9Xyjw/Ptn7Q59QBWaLlxxQBR8fKNRYhDbRo1RlFIk@vger.kernel.org
+X-Gm-Message-State: AOJu0YwgbcvCNhwXYY8C7fEUilQ29CQa+esinHJdTjyRH1MOB8Ff2ing
+	/RGIZL+vPDg1sKKJwY5r3fM+dJgEdMxNH5is5U8NhPE7yFZivxrdtTaXO2er1mppt2JKjmxROyh
+	7Yre2Y/1uc9S3NO3M/6W2MrDbb4wYU5ijT34PGAh26D2CvbwPJBbz+IT7qbZKG/L9
+X-Gm-Gg: AfdE7clXk1ZY9TrnVgIcUASwYx5/msW/oeDJskC4Cbcm2Vy7MszFjT/igYwC2FP4YZt
+	7uLwZfEZn7Hg6zC+5LFpgPWVqlPdMwY/2/3dCyQDfAGjmAtgace6Pg6uOUhRYrdZY7aJB4celr1
+	MV8+VSDwkUkWL0rrlBqK8jlxrULa6zg6WbIHyq3bGS+2aD4oMZhRdNfCqM8i2btQ66BU95Yqemy
+	WoBI7AnVw9WkM0XgF/On0JHFwb2WpuWvoNKHJUateMhuJ2Q1/BOGHkMtXPtT1JRTiht0dER+X8Z
+	XFzwModsxESWbD0Ib4Sw+yKDhsRbB1GNw7P4LJU4xYG2Clp+PJi1e0bx5n3qYYKIFLu+iVTH4N2
+	qr0RcfuEDuETIXoCm/BwRxWhp0zYisLMOgrGOCyuVEsM529U=
+X-Received: by 2002:a17:90b:540f:b0:37f:e5b1:ec4b with SMTP id 98e67ed59e1d1-38e3d163538mr7217513a91.5.1784282322779;
+        Fri, 17 Jul 2026 02:58:42 -0700 (PDT)
+X-Received: by 2002:a17:90b:540f:b0:37f:e5b1:ec4b with SMTP id 98e67ed59e1d1-38e3d163538mr7217475a91.5.1784282322200;
+        Fri, 17 Jul 2026 02:58:42 -0700 (PDT)
+Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a02b7f2sm5586375eec.13.2026.07.17.02.58.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 02:58:43 -0700 (PDT)
-From: Pratyush Meduri <pratyush.meduri@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/3] dt-bindings: remoteproc: qcom,pas-common: allow up to 3 iommus
-Date: Fri, 17 Jul 2026 15:28:23 +0530
-Message-Id: <20260717095825.3962666-2-pratyush.meduri@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260717095825.3962666-1-pratyush.meduri@oss.qualcomm.com>
-References: <20260717095825.3962666-1-pratyush.meduri@oss.qualcomm.com>
+        Fri, 17 Jul 2026 02:58:41 -0700 (PDT)
+From: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Date: Fri, 17 Jul 2026 02:58:34 -0700
+Subject: [PATCH v5 2/3] phy: qcom: qmp-pcie: Add QMP PCIe Multi-PHY driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDA5OSBTYWx0ZWRfX8w+t+TR8nEyC
- mEfFCuLAoY1FkoViKB4DwKQh96waXVF9/xdunFdhmGQJ3wxuiX/Eh/kbr4lPjvH6g/b1tmvui78
- IiCo/LWvuXfdzbSPkhv9w8dRr1vqSPNDIh9f0LCl2O9uZHFp4iiE4LLXUJRZ0l4zeN5shEm31JU
- Nh3IMPntl+PrwCiRyJBybCQwgge7YGRrrNTtGOvNB47SxvBiay499Xpdc9usvkZ/l3qQY2fcKOP
- 59ReSQ0S6JYyF86hxJBbsjJid0oyacwQvN9tMvAK2fwYPxyNWJmy5vbJ+eU/bYSJl57Tl6hEhe4
- iBHc+5pYtAJrsOWOcBEDOmDtBTkksaf9rKXP03n5RBBINphjrrOVx9Uifz8wB/lZ+eakp7FGlna
- HGE1fbOG/b12gwEWFvgpeLGUL7qqsBST7AWK4uM7ST9gQNjqiNsZ3g47onXXGXvTb3OAWZaDl2Z
- 4UzYorqaonW5ichSVdw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDA5OSBTYWx0ZWRfX8vubEIGkl6Eb
- 2sD6Fv3qWq5JPgPySYQIZKoO8dem2naWKFUMYiaQi52S8Q1wIxAlMDZez1+QI4ZKQu1GSkWPa/v
- Sghdx0jzK9uElORKaOckDujkV/Bo3bM=
-X-Authority-Analysis: v=2.4 cv=DYMnbPtW c=1 sm=1 tr=0 ts=6a59fcd5 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=7cYE88sQBSXScjUnM7gA:9 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-GUID: k54UDOZiGL01JMQtHVGE-_pR9KZnS2vs
-X-Proofpoint-ORIG-GUID: k54UDOZiGL01JMQtHVGE-_pR9KZnS2vs
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260717-glymur_linkmode_0717-v5-2-4f9e87a61463@oss.qualcomm.com>
+References: <20260717-glymur_linkmode_0717-v5-0-4f9e87a61463@oss.qualcomm.com>
+In-Reply-To: <20260717-glymur_linkmode_0717-v5-0-4f9e87a61463@oss.qualcomm.com>
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Qiang Yu <qiang.yu@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784282318; l=23112;
+ i=qiang.yu@oss.qualcomm.com; s=20250513; h=from:subject:message-id;
+ bh=q1EiFxkJaT4Z23yESZhbCCIOkzXXr3f11mGRRTEbqTI=;
+ b=q1R5RPNqtTSwZyu8yBCJjLbVh/rkgmikC4IWThvpqXdpSTAovXepS0nKw71v3FKeZ7n7uqKap
+ s+Z2cS3Enh6AmdBoGrbY9veQmwl8lyzABeodqC9k3M8QLTy5FWEVyEG
+X-Developer-Key: i=qiang.yu@oss.qualcomm.com; a=ed25519;
+ pk=Rr94t+fykoieF1ngg/bXxEfr5KoQxeXPtYxM8fBQTAI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDA5OCBTYWx0ZWRfX+Gk2iy5129SJ
+ cQ1esZyNWyl57qV3yUPxWhLTqD70r7GPs0jNXBBVdb5u5a+FBMUFF1xGhqB29VLUZbYW7X/Erq9
+ Ac5+iZTJR+6NOiFE6P9x8IQtbiNg3NEkZ+CZRmbwPArh3Rq5LPoxw1x0K4Y0nEQcpueuFlZaIV8
+ l0aauB1vYdqf4WzXb/8h0pztShlWr2nnv2ikcgYMTIm4cWPZAIcwuWxxlU/my/h8hnmNPkeD/Dc
+ 9JxQwrMKrGhvzZRHhT8vjmFMbZUrRxCrLwWR7I2TmtiIALFDIagm+akA/K+9Ni2EoD+ZjslOvwR
+ 8blFBgtDnu6wNTCdcP6vFYeZ1Ij9bzvL/n+GjXyfOfT7W1dqdErnJEXOLUqaBwUSCqin00dAnZ1
+ p4QY0hGt3SGQwdllpkO2ZYMZ5AD+JWOxGIUbDsNUHV48PXkxx4wrc3Vsk6htonVKDiEIxpBVbtk
+ W91FGwh0JrWkSGBNBMA==
+X-Proofpoint-ORIG-GUID: eFUj4iY10x3FkewW9AFV335PlGlSCnJN
+X-Authority-Analysis: v=2.4 cv=U9Ciy+ru c=1 sm=1 tr=0 ts=6a59fcd3 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=mlzxmGbil-RpS_vCRPwA:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-GUID: eFUj4iY10x3FkewW9AFV335PlGlSCnJN
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDA5OCBTYWx0ZWRfX8qAFoNvpFLed
+ BjDZ7RBQ4dhoydav8/LHC24aLgceHLZCbCepZCAfxoJTJ/05oboGj68ATKSg+Qe6Wo85TZ5ilRT
+ Xj71fQ7L7s45uTbszHMA134fKRGij8o=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-17_02,2026-07-15_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 lowpriorityscore=0 bulkscore=0 phishscore=0
- adultscore=0 priorityscore=1501 spamscore=0 malwarescore=0 suspectscore=0
+ adultscore=0 suspectscore=0 phishscore=0 spamscore=0 lowpriorityscore=0
+ clxscore=1015 priorityscore=1501 malwarescore=0 impostorscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170099
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170098
 
-The ADSP PAS on several Qualcomm SoCs (e.g. SA8775P/lemans, QCS8300,
-Monaco) needs more than a single SMMU stream ID for the audio ML
-(machine-learning) offload use case. In addition to the primary
-ADSP stream ID, the DSP/SPF issues DMA transactions through extra
-stream IDs that are not covered by the existing single-entry mapping.
+Some QMP PCIe PHY hardware blocks support multiple link topologies (e.g.
+x8 or x4+x4) selected via a TCSR register. The existing single-instance
+QMP PCIe PHY driver has no way to model this: it assumes a single cfg per
+DT node and instantiates exactly one PHY.
 
-Relax the iommus constraint to allow between 1 and 3 entries so the
-additional ML offload stream IDs can be described, fixing dtb_check
-schema violations on device trees that add them.
+Add a dedicated driver for this class of PHY. Match data carries a
+per-mode cfg table; qmp_pcie_multiphy_probe() reads the current link
+mode from the TCSR register pointed to by "qcom,link-mode", looks up the
+corresponding cfg array, and instantiates one qmp_pcie per sub-PHY
+required by that link mode, registering the clock and #phy-cells = <1> phy
+providers so consumers can address individual sub-PHYs by index.
 
-Signed-off-by: Pratyush Meduri <pratyush.meduri@oss.qualcomm.com>
+The driver inherits the phy setting and link-mode programmed by firmware,
+so only the no_csr reset is used and no phy setting tables are provided.
+
+Add the first match data and compatible, qcom,glymur-qmp-gen5x8-pcie-phy,
+for the Glymur Gen5 PCIe PHY that can bifurcate into two x4 links or
+operate as a single x8 link.
+
+Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
 ---
- .../devicetree/bindings/remoteproc/qcom,pas-common.yaml        | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/phy/qualcomm/Kconfig                      |  11 +
+ drivers/phy/qualcomm/Makefile                     |   1 +
+ drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c | 770 ++++++++++++++++++++++
+ 3 files changed, 782 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
-index 11faf655f530..fb656bda8527 100644
---- a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
-+++ b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
-@@ -33,7 +33,8 @@ properties:
-     maxItems: 6
+diff --git a/drivers/phy/qualcomm/Kconfig b/drivers/phy/qualcomm/Kconfig
+index 60a0ead127fa..31241d1bbef2 100644
+--- a/drivers/phy/qualcomm/Kconfig
++++ b/drivers/phy/qualcomm/Kconfig
+@@ -77,6 +77,17 @@ config PHY_QCOM_QMP_PCIE
+ 	  Enable this to support the QMP PCIe PHY transceiver that is used
+ 	  with PCIe controllers on Qualcomm chips.
  
-   iommus:
--    maxItems: 1
-+    minItems: 1
-+    maxItems: 3
++config PHY_QCOM_QMP_PCIE_MULTIPHY
++	tristate "Qualcomm QMP PCIe Multiple Link-mode PHY Driver"
++	depends on PCI || COMPILE_TEST
++	select GENERIC_PHY
++	default PHY_QCOM_QMP
++	help
++	  Enable this to support the QMP PCIe PHY transceiver that is used
++	  with PCIe controllers on Qualcomm chips. This PHY is a single
++	  multi-lane QMP block that can be configured either as one wide
++	  link or as multiple narrower independent links (bifurcation).
++
+ config PHY_QCOM_QMP_PCIE_8996
+ 	tristate "Qualcomm QMP PCIe 8996 PHY Driver"
+ 	depends on PCI || COMPILE_TEST
+diff --git a/drivers/phy/qualcomm/Makefile b/drivers/phy/qualcomm/Makefile
+index b71a6a0bed3f..8bf887d58ee4 100644
+--- a/drivers/phy/qualcomm/Makefile
++++ b/drivers/phy/qualcomm/Makefile
+@@ -10,6 +10,7 @@ obj-$(CONFIG_PHY_QCOM_PCIE2)		+= phy-qcom-pcie2.o
  
-   power-domains:
-     minItems: 1
+ obj-$(CONFIG_PHY_QCOM_QMP_COMBO)	+= phy-qcom-qmp-combo.o phy-qcom-qmp-usbc.o
+ obj-$(CONFIG_PHY_QCOM_QMP_PCIE)		+= phy-qcom-qmp-pcie.o
++obj-$(CONFIG_PHY_QCOM_QMP_PCIE_MULTIPHY)	+= phy-qcom-qmp-pcie-multiphy.o
+ obj-$(CONFIG_PHY_QCOM_QMP_PCIE_8996)	+= phy-qcom-qmp-pcie-msm8996.o
+ obj-$(CONFIG_PHY_QCOM_QMP_UFS)		+= phy-qcom-qmp-ufs.o
+ obj-$(CONFIG_PHY_QCOM_QMP_USB)		+= phy-qcom-qmp-usb.o
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c b/drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c
+new file mode 100644
+index 000000000000..b79edf2b7d5f
+--- /dev/null
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c
+@@ -0,0 +1,770 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) 2026, Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#include <linux/clk.h>
++#include <linux/clk-provider.h>
++#include <linux/delay.h>
++#include <linux/err.h>
++#include <linux/io.h>
++#include <linux/iopoll.h>
++#include <linux/mfd/syscon.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/phy/phy.h>
++#include <linux/platform_device.h>
++#include <linux/pm_domain.h>
++#include <linux/pm_runtime.h>
++#include <linux/regmap.h>
++#include <linux/regulator/consumer.h>
++#include <linux/reset.h>
++#include <linux/slab.h>
++
++#include "phy-qcom-qmp.h"
++
++#define PHY_INIT_COMPLETE_TIMEOUT		10000
++
++enum qmp_pcie_glymur_link_mode {
++	QMP_PCIE_GLYMUR_MODE_X8,
++	QMP_PCIE_GLYMUR_MODE_X4X4,
++};
++
++enum qphy_reg_layout {
++	QPHY_PCS_STATUS,
++	QPHY_LAYOUT_SIZE
++};
++
++static const unsigned int pciephy_v8_50_regs_layout[QPHY_LAYOUT_SIZE] = {
++	[QPHY_PCS_STATUS]		= QPHY_V8_50_PCS_STATUS1,
++};
++
++struct qmp_pcie_offsets {
++	u16 pcs;
++};
++
++struct qmp_phy_cfg {
++	const struct qmp_pcie_offsets *offsets;
++
++	const char * const *reg_names;
++	int num_regs;
++
++	const char * const *pd_names;
++	int num_pds;
++
++	const char * const *nocsr_reset_list;
++	int num_nocsr_resets;
++
++	const char * const *vreg_list;
++	int num_vregs;
++
++	const unsigned int *regs;
++
++	unsigned int phy_status;
++
++	const char * const *clk_list;
++	int num_clks;
++	const char * const *pipe_clk_list;
++
++	int num_pipe_clks;
++};
++
++struct qmp_pcie {
++	struct device *dev;
++
++	const struct qmp_phy_cfg *cfg;
++
++	void __iomem **base;
++
++	struct clk_bulk_data *clks;
++	struct clk_bulk_data *pipe_clks;
++
++	struct reset_control_bulk_data *nocsr_resets;
++
++	struct regulator_bulk_data *vregs;
++
++	struct device **pd_devs;
++
++	struct clk_fixed_rate pipe_clk_fixed;
++};
++
++struct qmp_pcie_multiphy {
++	struct phy **phys;
++	const struct qmp_pcie_link_mode_cfg *mode_cfg;
++
++	int num_pipe_outputs;
++	struct clk_fixed_rate *pipe_out_clks;
++};
++
++struct qmp_pcie_link_mode_cfg {
++	const struct qmp_phy_cfg * const *cfgs;
++	u32 num_phys;
++};
++
++struct qmp_pcie_match_data {
++	const struct qmp_pcie_link_mode_cfg *mode_cfgs;
++	u32 num_modes;
++};
++
++static const char * const glymur_pciephy_clk_l[] = {
++	"aux", "cfg_ahb", "ref", "rchng", "phy_b_aux",
++};
++
++static const char * const glymur_pciephy_a_clk_l[] = {
++	"aux", "cfg_ahb", "ref", "rchng",
++};
++
++static const char * const glymur_pciephy_b_clk_l[] = {
++	"phy_b_aux", "cfg_ahb_b", "ref", "rchng_b",
++};
++
++static const char * const glymur_pciephy_pipeclk_l[] = {
++	"pipe",
++};
++
++static const char * const glymur_pipephy_b_pipeclk_l[] = {
++	"pipe_b", "pipediv2_b",
++};
++
++static const char * const glymur_vreg_l[] = {
++	"vdda-phy", "vdda-pll", "vdda-refgen0p9", "vdda-refgen1p2",
++};
++
++static const char * const glymur_pciephy_a_reg_l[] = {
++	"port_a",
++};
++
++static const char * const glymur_pciephy_b_reg_l[] = {
++	"port_b",
++};
++
++static const char * const glymur_pciephy_reg_l[] = {
++	"port_a", "port_b",
++};
++
++static const char * const glymur_pciephy_a_pd_l[] = {
++	"phy_a_gdsc",
++};
++
++static const char * const glymur_pciephy_b_pd_l[] = {
++	"phy_b_gdsc",
++};
++
++static const char * const glymur_pciephy_pd_l[] = {
++	"phy_a_gdsc", "phy_b_gdsc",
++};
++
++static const char * const glymur_pciephy_a_nocsr_reset_l[] = {
++	"phy_a_nocsr",
++};
++
++static const char * const glymur_pciephy_nocsr_reset_l[] = {
++	"phy_a_nocsr", "phy_b_nocsr",
++};
++
++static const char * const glymur_pciephy_b_nocsr_reset_l[] = {
++	"phy_b_nocsr",
++};
++
++static const struct qmp_pcie_offsets glymur_pcie_offsets_v8_50 = {
++	.pcs		= 0x9000,
++};
++
++static const struct qmp_phy_cfg glymur_qmp_gen5x4_pciephy_a_cfg = {
++	.offsets		= &glymur_pcie_offsets_v8_50,
++	.reg_names		= glymur_pciephy_a_reg_l,
++	.num_regs		= ARRAY_SIZE(glymur_pciephy_a_reg_l),
++	.pd_names		= glymur_pciephy_a_pd_l,
++	.num_pds		= ARRAY_SIZE(glymur_pciephy_a_pd_l),
++	.nocsr_reset_list	= glymur_pciephy_a_nocsr_reset_l,
++	.num_nocsr_resets	= ARRAY_SIZE(glymur_pciephy_a_nocsr_reset_l),
++	.vreg_list		= glymur_vreg_l,
++	.num_vregs		= ARRAY_SIZE(glymur_vreg_l),
++	.regs			= pciephy_v8_50_regs_layout,
++	.phy_status		= PHYSTATUS_4_20,
++	.pipe_clk_list		= glymur_pciephy_pipeclk_l,
++	.num_pipe_clks		= ARRAY_SIZE(glymur_pciephy_pipeclk_l),
++	.clk_list		= glymur_pciephy_a_clk_l,
++	.num_clks		= ARRAY_SIZE(glymur_pciephy_a_clk_l),
++};
++
++static const struct qmp_phy_cfg glymur_qmp_gen5x4_pciephy_b_cfg = {
++	.offsets		= &glymur_pcie_offsets_v8_50,
++	.reg_names		= glymur_pciephy_b_reg_l,
++	.num_regs		= ARRAY_SIZE(glymur_pciephy_b_reg_l),
++	.pd_names		= glymur_pciephy_b_pd_l,
++	.num_pds		= ARRAY_SIZE(glymur_pciephy_b_pd_l),
++	.nocsr_reset_list	= glymur_pciephy_b_nocsr_reset_l,
++	.num_nocsr_resets	= ARRAY_SIZE(glymur_pciephy_b_nocsr_reset_l),
++	.vreg_list		= glymur_vreg_l,
++	.num_vregs		= ARRAY_SIZE(glymur_vreg_l),
++	.regs			= pciephy_v8_50_regs_layout,
++	.phy_status		= PHYSTATUS_4_20,
++	.pipe_clk_list		= glymur_pipephy_b_pipeclk_l,
++	.num_pipe_clks		= ARRAY_SIZE(glymur_pipephy_b_pipeclk_l),
++	.clk_list		= glymur_pciephy_b_clk_l,
++	.num_clks		= ARRAY_SIZE(glymur_pciephy_b_clk_l),
++};
++
++static const struct qmp_phy_cfg glymur_qmp_gen5x8_pciephy_cfg = {
++	.offsets		= &glymur_pcie_offsets_v8_50,
++	.reg_names		= glymur_pciephy_reg_l,
++	.num_regs		= ARRAY_SIZE(glymur_pciephy_reg_l),
++	.pd_names		= glymur_pciephy_pd_l,
++	.num_pds		= ARRAY_SIZE(glymur_pciephy_pd_l),
++	.nocsr_reset_list	= glymur_pciephy_nocsr_reset_l,
++	.num_nocsr_resets	= ARRAY_SIZE(glymur_pciephy_nocsr_reset_l),
++	.vreg_list		= glymur_vreg_l,
++	.num_vregs		= ARRAY_SIZE(glymur_vreg_l),
++	.regs			= pciephy_v8_50_regs_layout,
++	.phy_status		= PHYSTATUS_4_20,
++	.pipe_clk_list		= glymur_pciephy_pipeclk_l,
++	.num_pipe_clks		= ARRAY_SIZE(glymur_pciephy_pipeclk_l),
++	.clk_list		= glymur_pciephy_clk_l,
++	.num_clks		= ARRAY_SIZE(glymur_pciephy_clk_l),
++};
++
++static const struct qmp_phy_cfg * const glymur_qmp_gen5x8_mode_x8_cfgs[] = {
++	&glymur_qmp_gen5x8_pciephy_cfg,
++};
++
++static const struct qmp_phy_cfg * const glymur_qmp_gen5x8_mode_x4x4_cfgs[] = {
++	&glymur_qmp_gen5x4_pciephy_a_cfg,
++	&glymur_qmp_gen5x4_pciephy_b_cfg,
++};
++
++static const struct qmp_pcie_link_mode_cfg glymur_qmp_gen5x8_mode_cfgs[] = {
++	[QMP_PCIE_GLYMUR_MODE_X8] = {
++		.cfgs		= glymur_qmp_gen5x8_mode_x8_cfgs,
++		.num_phys	= ARRAY_SIZE(glymur_qmp_gen5x8_mode_x8_cfgs),
++	},
++	[QMP_PCIE_GLYMUR_MODE_X4X4] = {
++		.cfgs		= glymur_qmp_gen5x8_mode_x4x4_cfgs,
++		.num_phys	= ARRAY_SIZE(glymur_qmp_gen5x8_mode_x4x4_cfgs),
++	},
++};
++
++static const struct qmp_pcie_match_data glymur_qmp_gen5x8_match_data = {
++	.mode_cfgs	= glymur_qmp_gen5x8_mode_cfgs,
++	.num_modes	= ARRAY_SIZE(glymur_qmp_gen5x8_mode_cfgs),
++};
++
++static int qmp_pcie_pd_power_on(struct qmp_pcie *qmp)
++{
++	const struct qmp_phy_cfg *cfg = qmp->cfg;
++	int i, ret;
++
++	for (i = 0; i < cfg->num_pds; i++) {
++		ret = pm_runtime_get_sync(qmp->pd_devs[i]);
++		if (ret < 0) {
++			dev_err(qmp->dev, "failed to power on %s domain\n",
++				cfg->pd_names[i]);
++			goto err_power_off;
++		}
++	}
++
++	return 0;
++
++err_power_off:
++	while (--i >= 0)
++		pm_runtime_put(qmp->pd_devs[i]);
++
++	return ret;
++}
++
++static void qmp_pcie_pd_power_off(struct qmp_pcie *qmp)
++{
++	const struct qmp_phy_cfg *cfg = qmp->cfg;
++	int i;
++
++	for (i = cfg->num_pds - 1; i >= 0; i--)
++		pm_runtime_put(qmp->pd_devs[i]);
++}
++
++static int qmp_pcie_init(struct phy *phy)
++{
++	struct qmp_pcie *qmp = phy_get_drvdata(phy);
++	const struct qmp_phy_cfg *cfg = qmp->cfg;
++	int ret;
++
++	ret = qmp_pcie_pd_power_on(qmp);
++	if (ret)
++		return ret;
++
++	ret = regulator_bulk_enable(cfg->num_vregs, qmp->vregs);
++	if (ret) {
++		dev_err(qmp->dev, "failed to enable regulators, err=%d\n", ret);
++		goto err_pd_power_off;
++	}
++
++	ret = reset_control_bulk_assert(qmp->cfg->num_nocsr_resets, qmp->nocsr_resets);
++	if (ret) {
++		dev_err(qmp->dev, "no-csr reset assert failed\n");
++		goto err_disable_regulators;
++	}
++
++	usleep_range(200, 300);
++
++	ret = clk_bulk_prepare_enable(qmp->cfg->num_clks, qmp->clks);
++	if (ret)
++		goto err_disable_regulators;
++
++	return 0;
++
++err_disable_regulators:
++	regulator_bulk_disable(cfg->num_vregs, qmp->vregs);
++err_pd_power_off:
++	qmp_pcie_pd_power_off(qmp);
++
++	return ret;
++}
++
++static int qmp_pcie_exit(struct phy *phy)
++{
++	struct qmp_pcie *qmp = phy_get_drvdata(phy);
++	const struct qmp_phy_cfg *cfg = qmp->cfg;
++
++	reset_control_bulk_assert(qmp->cfg->num_nocsr_resets, qmp->nocsr_resets);
++
++	clk_bulk_disable_unprepare(qmp->cfg->num_clks, qmp->clks);
++	regulator_bulk_disable(cfg->num_vregs, qmp->vregs);
++	qmp_pcie_pd_power_off(qmp);
++
++	return 0;
++}
++
++static int qmp_pcie_power_on(struct phy *phy)
++{
++	struct qmp_pcie *qmp = phy_get_drvdata(phy);
++	const struct qmp_phy_cfg *cfg = qmp->cfg;
++	const struct qmp_pcie_offsets *offs = cfg->offsets;
++	void __iomem *status;
++	unsigned int val;
++	int i, ret;
++
++	ret = clk_bulk_prepare_enable(qmp->cfg->num_pipe_clks, qmp->pipe_clks);
++	if (ret)
++		return ret;
++
++	ret = reset_control_bulk_deassert(qmp->cfg->num_nocsr_resets, qmp->nocsr_resets);
++	if (ret) {
++		dev_err(qmp->dev, "no-csr reset deassert failed\n");
++		goto err_disable_pipe_clk;
++	}
++
++	for (i = 0; i < cfg->num_regs; i++) {
++		status = qmp->base[i] + offs->pcs + cfg->regs[QPHY_PCS_STATUS];
++		ret = readl_poll_timeout(status, val, !(val & cfg->phy_status), 200,
++					 PHY_INIT_COMPLETE_TIMEOUT);
++		if (ret) {
++			dev_err(qmp->dev, "phy initialization timed-out (%s)\n",
++				cfg->reg_names[i]);
++			goto err_disable_pipe_clk;
++		}
++	}
++
++	return 0;
++
++err_disable_pipe_clk:
++	clk_bulk_disable_unprepare(qmp->cfg->num_pipe_clks, qmp->pipe_clks);
++
++	return ret;
++}
++
++
++static int qmp_pcie_power_off(struct phy *phy)
++{
++	struct qmp_pcie *qmp = phy_get_drvdata(phy);
++
++	clk_bulk_disable_unprepare(qmp->cfg->num_pipe_clks, qmp->pipe_clks);
++
++	return 0;
++}
++
++static int qmp_pcie_enable(struct phy *phy)
++{
++	int ret;
++
++	ret = qmp_pcie_init(phy);
++	if (ret)
++		return ret;
++
++	ret = qmp_pcie_power_on(phy);
++	if (ret)
++		qmp_pcie_exit(phy);
++
++	return ret;
++}
++
++static int qmp_pcie_disable(struct phy *phy)
++{
++	int ret;
++
++	ret = qmp_pcie_power_off(phy);
++	if (ret)
++		return ret;
++
++	return qmp_pcie_exit(phy);
++}
++
++static const struct phy_ops qmp_pcie_phy_ops = {
++	.power_on	= qmp_pcie_enable,
++	.power_off	= qmp_pcie_disable,
++	.owner		= THIS_MODULE,
++};
++
++static void qmp_pcie_pd_detach(void *data)
++{
++	struct qmp_pcie *qmp = data;
++	const struct qmp_phy_cfg *cfg = qmp->cfg;
++	int i;
++
++	for (i = 0; i < cfg->num_pds; i++) {
++		if (!IS_ERR_OR_NULL(qmp->pd_devs[i]))
++			dev_pm_domain_detach(qmp->pd_devs[i], true);
++	}
++}
++
++static int qmp_pcie_pd_init(struct qmp_pcie *qmp)
++{
++	const struct qmp_phy_cfg *cfg = qmp->cfg;
++	struct device *dev = qmp->dev;
++	int i, ret;
++
++	if (!cfg->num_pds)
++		return 0;
++
++	qmp->pd_devs = devm_kcalloc(dev, cfg->num_pds, sizeof(*qmp->pd_devs),
++				    GFP_KERNEL);
++	if (!qmp->pd_devs)
++		return -ENOMEM;
++
++	for (i = 0; i < cfg->num_pds; i++) {
++		qmp->pd_devs[i] = dev_pm_domain_attach_by_name(dev,
++							       cfg->pd_names[i]);
++		if (IS_ERR(qmp->pd_devs[i])) {
++			ret = PTR_ERR(qmp->pd_devs[i]);
++			goto err_detach;
++		}
++	}
++
++	return devm_add_action_or_reset(dev, qmp_pcie_pd_detach, qmp);
++
++err_detach:
++	while (--i >= 0)
++		dev_pm_domain_detach(qmp->pd_devs[i], false);
++
++	return ret;
++}
++
++static int qmp_pcie_vreg_init(struct qmp_pcie *qmp)
++{
++	const struct qmp_phy_cfg *cfg = qmp->cfg;
++	struct device *dev = qmp->dev;
++	int i;
++
++	qmp->vregs = devm_kcalloc(dev, cfg->num_vregs, sizeof(*qmp->vregs),
++				  GFP_KERNEL);
++	if (!qmp->vregs)
++		return -ENOMEM;
++
++	for (i = 0; i < cfg->num_vregs; i++)
++		qmp->vregs[i].supply = cfg->vreg_list[i];
++
++	return devm_regulator_bulk_get(dev, cfg->num_vregs, qmp->vregs);
++}
++
++static int qmp_pcie_reset_init(struct qmp_pcie *qmp)
++{
++	const struct qmp_phy_cfg *cfg = qmp->cfg;
++	struct device *dev = qmp->dev;
++	int i, ret;
++
++	qmp->nocsr_resets = devm_kcalloc(dev, cfg->num_nocsr_resets,
++					 sizeof(*qmp->nocsr_resets),
++					 GFP_KERNEL);
++	if (!qmp->nocsr_resets)
++		return -ENOMEM;
++
++	for (i = 0; i < cfg->num_nocsr_resets; i++)
++		qmp->nocsr_resets[i].id = cfg->nocsr_reset_list[i];
++
++	ret = devm_reset_control_bulk_get_exclusive(dev,
++						    cfg->num_nocsr_resets,
++						    qmp->nocsr_resets);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to get no-csr resets\n");
++
++	return 0;
++}
++
++static int qmp_pcie_clk_init(struct qmp_pcie *qmp)
++{
++	const struct qmp_phy_cfg *cfg = qmp->cfg;
++	struct device *dev = qmp->dev;
++	int i, ret;
++
++	qmp->clks = devm_kcalloc(dev, cfg->num_clks, sizeof(*qmp->clks),
++				 GFP_KERNEL);
++	if (!qmp->clks)
++		return -ENOMEM;
++
++	for (i = 0; i < cfg->num_clks; i++)
++		qmp->clks[i].id = cfg->clk_list[i];
++
++	ret = devm_clk_bulk_get_optional(dev, cfg->num_clks, qmp->clks);
++	if (ret)
++		return ret;
++
++	qmp->pipe_clks = devm_kcalloc(dev, cfg->num_pipe_clks,
++				      sizeof(*qmp->pipe_clks), GFP_KERNEL);
++	if (!qmp->pipe_clks)
++		return -ENOMEM;
++
++	for (i = 0; i < cfg->num_pipe_clks; i++)
++		qmp->pipe_clks[i].id = cfg->pipe_clk_list[i];
++
++	return devm_clk_bulk_get_optional(dev, cfg->num_pipe_clks,
++					  qmp->pipe_clks);
++}
++
++static int __phy_pipe_clk_register(struct device *dev, struct device_node *np,
++				   int idx, struct clk_fixed_rate *fixed)
++{
++	struct clk_init_data init = { };
++	int ret;
++
++	ret = of_property_read_string_index(np, "clock-output-names", idx,
++					    &init.name);
++	if (ret) {
++		dev_err(dev, "%pOFn: No clock-output-names\n", np);
++		return ret;
++	}
++
++	init.ops = &clk_fixed_rate_ops;
++
++	if (!fixed->fixed_rate)
++		fixed->fixed_rate = 125000000;
++
++	fixed->hw.init = &init;
++
++	return devm_clk_hw_register(dev, &fixed->hw);
++}
++
++static struct clk_hw *qmp_pcie_multiphy_clk_hw_get(struct of_phandle_args *clkspec,
++						    void *data)
++{
++	struct qmp_pcie_multiphy *qmp_data = data;
++	unsigned int idx = 0;
++
++	if (clkspec->args_count)
++		idx = clkspec->args[0];
++
++	if (idx < (unsigned int)qmp_data->num_pipe_outputs)
++		return &qmp_data->pipe_out_clks[idx].hw;
++
++	return ERR_PTR(-EINVAL);
++}
++
++static int qmp_pcie_multiphy_register_clocks(struct device *dev,
++					      struct device_node *np,
++					      struct qmp_pcie_multiphy *qmp_data)
++{
++	int num_pipe_outputs;
++	int i, ret;
++
++	num_pipe_outputs = of_property_count_strings(np, "clock-output-names");
++	if (num_pipe_outputs < 0)
++		num_pipe_outputs = 1;
++
++	qmp_data->num_pipe_outputs = num_pipe_outputs;
++	qmp_data->pipe_out_clks = devm_kcalloc(dev, num_pipe_outputs,
++					       sizeof(*qmp_data->pipe_out_clks),
++					       GFP_KERNEL);
++	if (!qmp_data->pipe_out_clks)
++		return -ENOMEM;
++
++	for (i = 0; i < num_pipe_outputs; i++) {
++		ret = __phy_pipe_clk_register(dev, np, i,
++					      &qmp_data->pipe_out_clks[i]);
++		if (ret)
++			return ret;
++	}
++
++	return devm_of_clk_add_hw_provider(dev, qmp_pcie_multiphy_clk_hw_get, qmp_data);
++}
++
++static int qmp_pcie_get_mmio(struct qmp_pcie *qmp)
++{
++	struct platform_device *pdev = to_platform_device(qmp->dev);
++	const struct qmp_phy_cfg *cfg = qmp->cfg;
++	struct device *dev = qmp->dev;
++	void __iomem *base;
++	int i;
++
++	qmp->base = devm_kcalloc(dev, cfg->num_regs, sizeof(*qmp->base),
++				 GFP_KERNEL);
++	if (!qmp->base)
++		return -ENOMEM;
++
++	for (i = 0; i < cfg->num_regs; i++) {
++		base = devm_platform_ioremap_resource_byname(pdev, cfg->reg_names[i]);
++		if (IS_ERR(base))
++			return PTR_ERR(base);
++
++		qmp->base[i] = base;
++	}
++
++	return 0;
++}
++
++static int qmp_pcie_read_link_mode(struct device *dev, unsigned int *link_mode)
++{
++	struct regmap *map;
++	unsigned int args[1];
++	int ret;
++
++	map = syscon_regmap_lookup_by_phandle_args(dev->of_node, "qcom,link-mode",
++						   ARRAY_SIZE(args), args);
++	if (IS_ERR(map))
++		return PTR_ERR(map);
++
++	ret = regmap_read(map, args[0], link_mode);
++	if (ret)
++		return ret;
++
++	return 0;
++}
++
++static struct phy *qmp_pcie_multiphy_xlate(struct device *dev,
++					   const struct of_phandle_args *args)
++{
++	struct qmp_pcie_multiphy *qmp_data = dev_get_drvdata(dev);
++	unsigned int idx;
++
++	if (!qmp_data || args->args_count < 1)
++		return ERR_PTR(-EINVAL);
++
++	idx = args->args[0];
++
++	if (idx < (unsigned int)qmp_data->mode_cfg->num_phys)
++		return qmp_data->phys[idx] ?: ERR_PTR(-EINVAL);
++
++	return ERR_PTR(-EINVAL);
++}
++
++static int qmp_pcie_probe_phy(struct qmp_pcie *qmp, struct device_node *np,
++			      struct phy **out_phy)
++{
++	int ret;
++
++	ret = qmp_pcie_get_mmio(qmp);
++	if (ret)
++		return ret;
++
++	ret = qmp_pcie_clk_init(qmp);
++	if (ret)
++		return ret;
++
++	ret = qmp_pcie_reset_init(qmp);
++	if (ret)
++		return ret;
++
++	ret = qmp_pcie_vreg_init(qmp);
++	if (ret)
++		return ret;
++
++	ret = qmp_pcie_pd_init(qmp);
++	if (ret)
++		return ret;
++
++	*out_phy = devm_phy_create(qmp->dev, np, &qmp_pcie_phy_ops);
++	if (IS_ERR(*out_phy))
++		return PTR_ERR(*out_phy);
++
++	phy_set_drvdata(*out_phy, qmp);
++
++	return 0;
++}
++
++
++static int qmp_pcie_multiphy_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct phy_provider *phy_provider;
++	struct qmp_pcie_multiphy *qmp_data;
++	const struct qmp_pcie_match_data *match_data;
++	struct qmp_pcie *qmp;
++	struct phy **phys;
++	unsigned int link_mode;
++	int phy_index;
++	int ret;
++
++	qmp_data = devm_kzalloc(dev, sizeof(*qmp_data), GFP_KERNEL);
++
++	match_data = of_device_get_match_data(dev);
++	if (!match_data)
++		return -EINVAL;
++
++	if (!qmp_data)
++		return -ENOMEM;
++
++	ret = qmp_pcie_read_link_mode(dev, &link_mode);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to read qcom,link-mode\n");
++
++	if (link_mode >= match_data->num_modes)
++		return dev_err_probe(dev, -EINVAL, "invalid qcom,link-mode: %u\n",
++				     link_mode);
++
++	qmp_data->mode_cfg = &match_data->mode_cfgs[link_mode];
++
++	qmp = devm_kcalloc(dev, qmp_data->mode_cfg->num_phys, sizeof(*qmp), GFP_KERNEL);
++	if (!qmp)
++		return -ENOMEM;
++
++	phys = devm_kcalloc(dev, qmp_data->mode_cfg->num_phys, sizeof(*phys), GFP_KERNEL);
++	if (!phys)
++		return -ENOMEM;
++
++	qmp_data->phys = phys;
++	dev_set_drvdata(dev, qmp_data);
++
++	for (phy_index = 0; phy_index < qmp_data->mode_cfg->num_phys; phy_index++) {
++		qmp[phy_index].dev = dev;
++		qmp[phy_index].cfg = qmp_data->mode_cfg->cfgs[phy_index];
++		ret = qmp_pcie_probe_phy(&qmp[phy_index], dev->of_node, &phys[phy_index]);
++		if (ret)
++			return ret;
++	}
++
++	ret = qmp_pcie_multiphy_register_clocks(dev, dev->of_node, qmp_data);
++	if (ret)
++		return ret;
++
++	phy_provider = devm_of_phy_provider_register(dev, qmp_pcie_multiphy_xlate);
++
++	return PTR_ERR_OR_ZERO(phy_provider);
++}
++
++static const struct of_device_id qmp_pcie_multiphy_of_match_table[] = {
++	{
++		.compatible = "qcom,glymur-qmp-gen5x8-pcie-phy",
++		.data = &glymur_qmp_gen5x8_match_data,
++	},
++	{ }
++};
++MODULE_DEVICE_TABLE(of, qmp_pcie_multiphy_of_match_table);
++
++static struct platform_driver qmp_pcie_multiphy_driver = {
++	.probe		= qmp_pcie_multiphy_probe,
++	.driver = {
++		.name	= "qcom-qmp-pcie-multiphy",
++		.of_match_table = qmp_pcie_multiphy_of_match_table,
++	},
++};
++module_platform_driver(qmp_pcie_multiphy_driver);
++
++MODULE_AUTHOR("Qiang Yu <qiang.yu@oss.qualcomm.com>");
++MODULE_DESCRIPTION("Qualcomm QMP PCIe PHY driver for Glymur");
++MODULE_LICENSE("GPL");
+
 -- 
 2.34.1
 
