@@ -1,207 +1,134 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1653F9F41
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 14:45:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784299516; cv=pass; b=DMivOh6WQoU7c0BG06x2AT0Z36eJluHxpqC6ez3q1bLVJDw2UCS2//ybj/XSgF0yS48xDDrQwU6HuDlkhzeCXOIFG1Gt6XsLaeLuw8XCWZGuttCgXTsDo75rPGiwYvaKz/6C7vAVMHBTJiJ5AKxokSrx53dSUfpqGcOGYlOO0NQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784299516; c=relaxed/simple;
-	bh=FNzsOpMvx2fOI919kTiNEIxpFwaZQjVvzDd/rPsGLQc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=n6sIXdN94ALJejmUFKt+SjgmkMdDeAWCuwPDUYOOzW8aUmbOqKMWQHwKzoqTbf2vHv+jTjMAb3+9JbAigfuyEWokqGghCLMxqPPfF83nRkf2pDAEcbrN0NEnQgygRDWCpgLOmV+k55qrVkpicj/l8FidNRKVJMKsE0wXrewjaf0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LgURRFqr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=D68BI3dv; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 129BA42A7B0
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 14:46:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784299584; cv=none; b=bjHtUpdRzLw5+moUD0VN7prYAp+S3PFvmqfwo3KzykgvNBR7bq2j0W7xFQPSNjcge+S4ywPr9ufNO9nmj6l6G6soOe+nNPzBCxBgAo+jkaJFx38vlEhJINQ1+0TCiXtT70PInmAN8oj9c4A5e1Nhtl8Lw1xIxJNMGwqlBBV16ik=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784299584; c=relaxed/simple;
+	bh=OIPMXvKZwuWAWDHePcauH/eSNbDXWC6yVHtpY8sqHRI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=oPgxVsFH4RAP/eso8J0KL5vK+l9OLhFZ3MvX88QM1RoasXkYdQgoVBZVWfYjDb6Vkt94c42us+fbhHZ48VYb+Wwv25enhnhNHLJ89lxD6y3HIalk7aK0gWVLR1M0SFZBzwpKEm4rl0LERrNeYFSZk1Ol2ugDmsOb2EnX6w51vfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZJ55eadi; arc=none smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LgURRFqr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D68BI3dv"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66HE7o8A1809366
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 14:45:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	FNzsOpMvx2fOI919kTiNEIxpFwaZQjVvzDd/rPsGLQc=; b=LgURRFqrlyVMT+rN
-	DOONXjUOuinpRQGIpUDcZfiDuF0qiWwRCHIJMhp4rmAHIIm+LPtl/yHwWBfv0OGv
-	4ubsLPL/cMwo4MeQny3CEs/OfKd6V3c3H8dHjWXXTAJSK4w3v5oNLS6B1T0AjjRH
-	hehaqU+4YcUg2NEh4TD2fLrzEItb9woYQ2O4cRddbgFJRhioqfE1WBY5buPNd0KC
-	s24Vppribf8S2/UxeDXp8C4EwtkL6jfglBPs8yhrwysfm0wgJFYOT/CtR3+h6iv/
-	XzOo9yOHLMjkkdIOKotPJfbrlMKPc/N0aZJAb44l8ptFUuxXIEjQPxPu9Kxw4d7B
-	jmgf/Q==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ff3u8m7gg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 14:45:14 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-930b571432fso208296085a.0
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 07:45:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784299514; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CFsczTi2dZM9SG6KPopiiwpBnQs+DCzHGA5HSIRTk9rv90tdPd8wYLLWBGyhZugpqI
-         tE/HdwAXEbgtTl6KDEYmbjb0SVFAhyVezxzzlmDhv/9YlhV1rliE5StbqL5TAJYq9Lly
-         imKzD69Y37yzCO7+opY/GHSdT0igoMA1EMfkZsa62B+HUsscRtsupYi8IhkP8+hJzG+N
-         N2fYV2vjDECa9bfVkYVucbtv6Byxmjwscd0taLLpcmurBGF0MUa1PXfhqdxOpeIwxmo9
-         iJnZ5nY2Wvnnf+KAXxKcgSJP+Z4IF+v/M1l3BHuvcXx3QslDVdoBZh9dwMgrYlLw8Zxq
-         34pQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FNzsOpMvx2fOI919kTiNEIxpFwaZQjVvzDd/rPsGLQc=;
-        fh=NTyH1lJUIFq678yJ8f+L/fcd4eD6tvWqxwgTnTMdNGs=;
-        b=otaFNzw6Uo1KxuUhrmjlREzgQSv19V3rho9b25+YXZsFiq25+ujpxd030Bs9kALpa+
-         pD7S9lVIneXh8/gRqWlfiJCAjsaIE1n4CuzEcT+nsh1bdxmEXZr0uxQdrnRkr9Nw/xdH
-         c47g1ZoooW1QSztRyZYXrCADrynrPbJbRz60gEgI5O2UY3vNrRa5kcSKeL8M6UHctDkC
-         7U9hmV6MafV+mA2RFcuxDqEHX9vZLBL3nZZGu6gsxNhj8cgFDXAjsGzs7t2I1qIUOMSH
-         66o9NT+JpBmCsWDZdVxiKQQnlSEetVgF6yMfJeaebT0Fjjp2mvrok7uLOsQm8iVajvHX
-         VOOA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZJ55eadi"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8485b358552so8708873b3a.2
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 07:46:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784299514; x=1784904314; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FNzsOpMvx2fOI919kTiNEIxpFwaZQjVvzDd/rPsGLQc=;
-        b=D68BI3dvWRmdAIR65e0X57xipBxSsWd3Hv4hH7Bof1XPMbWMtpV+ZYyptldiIWUX8y
-         L+z2NQhVRwPPdiSzGenL0eSf+FGDN96uO06Rf5ZilDVGyxE09AYa5mWjPRytTByLnu58
-         GlIXSk5DzFjA+tFtTjA1Hk7OVPRR0m1RqZBYXkadKTvHAu+Yedxozn/EtAAJyv4X4Pst
-         Zga66iXSBuGTxAfAktmnF/1Ssb3oMJ8/bq7Gvz5TVJQV1HIYy32GL1R5TvQc4Cddi/DM
-         Xb90bmlJoc8Rh4hz2kdO5MoilXFf/WkA9jYM+Mo193bWXV6Ar5gbyyhKfpbUFJ+hH56k
-         9PnQ==
+        d=gmail.com; s=20251104; t=1784299582; x=1784904382; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=m6JMxGAMeORwl1SYUzJ4Avq6RnSUEQpdwdVOG9zM+x0=;
+        b=ZJ55eadiSz/HA6N8F7GM3oNOwvUQ4fXvnr9pQ42x/t2tDJRjDBgB9ohwqcsvlo0EkW
+         6VbVAAsqo0X7kXHLGESOZTDr7VntuQjcBkHvX7kKVrKLh7WsZtECGIoAyJbBp9WJiBj9
+         BYyivlAwEqaat+131a4d23i5CyXxhXjBOLvgXtFM+XX/Oh+3uhEAALvrGYzlzp4C4SsU
+         MsSAZybjB1J1eVvO6maX1oFMg6UzBxbLbPRj452a+bpmF1ktg185yHulzJd2FvgW9FLu
+         NK9S23xiFR58+SPNAwFW5OmfJa36eaSYbo2SuD/h3mYIbRtisgdVGc7HptM3HOmJCRLk
+         /drw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784299514; x=1784904314;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FNzsOpMvx2fOI919kTiNEIxpFwaZQjVvzDd/rPsGLQc=;
-        b=HBrDSs4hO/fY1QJU9x97fJxxLRMFxD+UUeEg/wPwTxJ3FnpiViNYv2LQ2Ilb8uZrYZ
-         CKaNf2a22FlJo/HbJ7b74DMIhRVVzprv1ZcYIxC3ym+Cc3XJh9d7QdtbXKc/En3pIdTf
-         +O1a3BLxW9xPpXcit9uyvH3BvWwS5BuAaK05UxSNgxShKeRu8+ZOqmR2JHcN+p0dllep
-         z7A55GhxlbTMUibtEypioaEfS8f4txqg88Brf/w6rRIgSq9V8okDBFxmpvdjg8BapEDL
-         YL2G3IOAY8JFzqGfTwACT/CLlHrcmOZ18tQMmv6XhnZp7VpKVVUMoadoOmrXSmv4ZqgW
-         YCoA==
-X-Forwarded-Encrypted: i=1; AHgh+RqmU0iZFiDmNcdoky8+zXx4WkD/PXSWw1HULEABr1/TZ3dPshSe05/ruQWnnKydQaAUKuv1HfyS02r2@vger.kernel.org
-X-Gm-Message-State: AOJu0YynMcWUieUTpOhlAkMdQT63mFP/46quIwsPG13xpMXqQil014Y9
-	n1MXZ59Lhn/DvwzfHsw2Is8WO5sxRCKsliziusQgg4exl4LgO5ydkxksR5E1B+4I0qdufmEINd0
-	7Y/MICIlhKTcwoWolg1K/WvDmJsE6DKCiE81d7kfu2MFJSSdNXPN7eIEXIyQqDhKGLKACN09jLa
-	kPwnw3CQXLh4aV8MyG+vfDjEtUt+1lc5ab+0nHsV4=
-X-Gm-Gg: AfdE7ckkcsnnnWFIN8P8qk1qlll7Xe1lRIpmvTCs4V/3it0YnD7vBFJYuNJRdtHDv9F
-	dPkNSNdDRZdCuS7zyRxVRzCfhucE3MrJhXdA9N2TFn3UtagLrAEKEReHN+YDXFO9knejAbzd2VL
-	B701otIeh3uDDdu5om+i0wUfXs10U/YlM5uG4nZ+y3HmrNqr5VSpXiGSXI+n/VlX4E0R1AXutvo
-	BK1AU4hVfQPegFsa5LGJg1qW3FND6Uy0W9gBc99XdDaP5HBDRawSiyjAqKlmcpCBvb/6cZIR9MO
-X-Received: by 2002:a05:620a:6914:b0:927:efb0:3ad1 with SMTP id af79cd13be357-930b4929a49mr284921985a.26.1784299513697;
-        Fri, 17 Jul 2026 07:45:13 -0700 (PDT)
-X-Received: by 2002:a05:620a:6914:b0:927:efb0:3ad1 with SMTP id
- af79cd13be357-930b4929a49mr284915985a.26.1784299513132; Fri, 17 Jul 2026
- 07:45:13 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784299582; x=1784904382;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=m6JMxGAMeORwl1SYUzJ4Avq6RnSUEQpdwdVOG9zM+x0=;
+        b=FUpyoqS4qXHd/yViZ4fASHsuqgtZt5ta4/DbjYU9rT2/rVN1HqwVOghO24YFPRQBqG
+         I2WFn0kffuktBv3Y5N9bqNYyCUwEwH6eXXOq7nGeJUwBiuA4ooTWbvnRC8AmSqaYKFnh
+         VfNwiVRzX3A+CLjSoLYMp2dWPrOYjDXn/a1xoT0CKI37x0fdKSTEunmpFxZ3Stm6DwZk
+         IOc5c6/tatiib2wZ6nFrKcz+IVJ3/OJg+dmPr2uuX1CXJRkF8HgYErYbfghuC9VRS8u7
+         BcJo+FweivlcV/kopG8JNFvagp6sNsHcPqILa2fkUHaHFs1pNI6ZpJhKlu6CKqgcBP3j
+         5i2A==
+X-Gm-Message-State: AOJu0Ywsny9x79LPcJvlc83KsD44NU0jkj4FHlYxm2177bhVZ2U9Eb4F
+	nbL0xs8NoU5IPbnTCpNhNNjEE64ufM4FPFmVIssOffMzTYPagKSeNghd
+X-Gm-Gg: AfdE7cmGIQmnKXnPe2OTFVr8rK7o9SWAyFVbcZ8t3zc5I7GtlIWSP2kwUWLCU+EEZKz
+	3EmPhbAuk+M/v70ktfG5gjfO26fIiCmnGl1BysOA/lonX59pZ61gtRST/4ylscqphcdlSn/n6/c
+	0t7GJsCqktkOPc/OvJzX3AR3kRLZQWikwatXzrQD0i8RmC81y4BWKip+zu4m1a/ovhVE4qpW1h0
+	InhzIKBiFi5JR8mKzxWxfzJAx2EOIxgV3KnxFDuS1ANRaIcZBMDqlnGk/1fIX0Rn9Y3Q3VpEawp
+	RkHRJlQanFJe6Z32qUDBvU9QPBo4V40F9cGo6m4G+oyhPTYaM+qOMmTN1XzC6K/gKcfilUmyiP0
+	DvgSSjQNsMQ7iiC+I8+vxd2kiHe4Njo+k1lHZTUrbw6vkGjxqzEaJFWl78+7KurKSK2ei8NA8yv
+	nc1A==
+X-Received: by 2002:a05:6a00:1784:b0:848:65f3:23c0 with SMTP id d2e1a72fcca58-84c2923a63bmr2877553b3a.1.1784299582194;
+        Fri, 17 Jul 2026 07:46:22 -0700 (PDT)
+Received: from [127.0.1.1] ([192.220.14.58])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c2af6d519sm1166408b3a.40.2026.07.17.07.46.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 07:46:21 -0700 (PDT)
+From: Zhengyu He <hezhy472013@gmail.com>
+Subject: [PATCH 0/4] spi: spacemit: support K3 SPI controllers
+Date: Fri, 17 Jul 2026 07:45:24 -0700
+Message-Id: <20260717-k3-com260-spi-v7-2-rc2-b4-preview-20260716-v1-0-969a1b0f783f@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260716-monza-wireless-v4-0-9b02e6f549d7@oss.qualcomm.com>
- <20260716-monza-wireless-v4-3-9b02e6f549d7@oss.qualcomm.com> <CAMRc=Md8mLgYRsLd-KhwVV8X9AcYbHf--RB_pf0xFBP_P_DvCQ@mail.gmail.com>
-In-Reply-To: <CAMRc=Md8mLgYRsLd-KhwVV8X9AcYbHf--RB_pf0xFBP_P_DvCQ@mail.gmail.com>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Fri, 17 Jul 2026 16:45:00 +0200
-X-Gm-Features: AUfX_mxmtgHrdkc082wiMIxBxijXxJxzFJEhJ2gZz60O6dCpV0Wr6tzd5_cVl7k
-Message-ID: <CAFEp6-2pbYXFTuozcg51+dQ_mKin05o-GqThyJLBjquFs91RQg@mail.gmail.com>
-Subject: Re: [PATCH v4 03/11] power: sequencing: Add pwrseq_is_controllable() API
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: cE902jNbQ3yNMEjMsgs0hMjgrNKbm2CF
-X-Proofpoint-ORIG-GUID: cE902jNbQ3yNMEjMsgs0hMjgrNKbm2CF
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDE1MCBTYWx0ZWRfX70MkteEl9o+A
- Q6ZwdAsPDMAqsn9onVdyrVPC6pgRfrlWOHq8r2189XvpXxEsbjcCnYtsuggs1DDE5Mxi0IbTz5N
- DrjvyCA7/kF+j3nhEN9JTI5wnFnH9Rg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDE1MCBTYWx0ZWRfX0zfBMUrBT6YU
- mVEiU3QEHWA8OUt4O+bjAAITW2nvRtL11lTjAWFWf1raZGGGpihbi5No2xfC6/BpotiqzuXgkK1
- cRBsMncehuFAJeU66+t4QWnyZqP08ZbeOzINW5LebbPYVMd8J1z5MEfF0wWDnkCLDwmyQO4A+hn
- jlVtqKLxRZAKlKFvCfpVJXUdHueU0xpUn1B/xUgXnb4fSP2MT3Vy+ZhK5ZRJQWxrUP/KBUUF/FX
- S1L23j2hAmck5tVfbgQmD6NnKOOPbJNq8VPJayxZ6VMKE1K+coQRP+o9eS/ZGiXt+8ENlw6W/Hg
- pWIotgp4BtUSO9TPHOElAmTf+7TeycKSZKEP1o/Gc85isuBruMQlcwzREqpr9Bj6YDrlHCCsIID
- 3AlPvCMuToKlPC7gUDb2zbMXjjv7JTJV8nEubv+M0cUGNFicebkSnYvq2MNvNpLNii0hbQG2zOe
- 7PSIFsaMhxPQ6gtupgw==
-X-Authority-Analysis: v=2.4 cv=TL11jVla c=1 sm=1 tr=0 ts=6a5a3ffa cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=LMDkYzAWLNq1XrXRUzQA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-17_04,2026-07-17_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 clxscore=1015 lowpriorityscore=0
- spamscore=0 bulkscore=0 malwarescore=0 suspectscore=0 adultscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607170150
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/z2N0QrCMBAEf6XcswtJDIn4K+KDTS96im3JaRVK/
+ 91UwceB2Z2ZlIuw0r6ZqfAkKkNfwW4aSpdTf2ZIV5mcccFEG3DbIg33CtBRMEU4lOTQeozrnl/
+ 4qybGvAud9T4bqodVyPL+xg7HH+uzvXJ6rAValg9gBWi9jgAAAA==
+X-Change-ID: 20260716-k3-com260-spi-v7-2-rc2-b4-preview-20260716-077f86d144f0
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
+ Mark Brown <broonie@kernel.org>, Alex Elder <elder@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ linux-spi@vger.kernel.org, Zhengyu He <hezhy472013@gmail.com>, 
+ wefu@redhat.com, liyeshan <yeshan.li@spacemit.com>, 
+ Guodong Xu <docular.xu@gmail.com>, Cody Kang <cody.kang.hk@outlook.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1159; i=hezhy472013@gmail.com;
+ h=from:subject:message-id; bh=OIPMXvKZwuWAWDHePcauH/eSNbDXWC6yVHtpY8sqHRI=;
+ b=owEBbQKS/ZANAwAKAc32nDaAuA3YAcsmYgBqWkAt6LQ1BMVvY5sduW/KRV9RVz2vmM1p+9bjq
+ P+2is2xrAaJAjMEAAEKAB0WIQS9XD2kxy1NmfC2u/XN9pw2gLgN2AUCalpALQAKCRDN9pw2gLgN
+ 2LRYEACGXe+KRwOLl6dDegR3fIqUbV3Spz7oC1VhGZo+Ogpb4C56+sLl8CngaAHlpFyyv3gyqpQ
+ q58zd8HxcznBK6W+syG9HQzhCaeQxpceyb/WYTeEb7+UoKPbZ0IyhJFSn4dlqdFdIpaZgmYwCdM
+ xLQVaG36ffyc1/u/6n3b3REhKzWKKhB7P+Sh/8V1ZF2aDbDzGpr/E6DSKQN3Wo4RtSuTemi+PJ+
+ PwC013IrNg4LLps7qPu5IqJ6RQ8y9MH1thoFIMHAUoWi1/b+Ixajk0xRYXJ9X1Mihz1MiJWKrd4
+ wGPAKrayGl0CjOKI6wjqEw2VnHdHEOK/0w+PMGWzsLtBILZCFSL0ZBL2rpv0bJfYvACPmFT08PR
+ QCao193VhuW0hQHbFbH6Km+tzmg921cKQH08Y9S5vQkz+Cj3LHS+pCH0M3D3d0ssf0tFxnMIuIF
+ CMiAAE2XTH5vPZE0HQK36n7Ez1p+POPLhQZx2MhpX9WeSErDz3LRDH+vRe9lOgXZK+T9jv7k2/l
+ 4r6s0ahnqkJUaI7aw0zZG/+Dn6QhyduANPqsIvruZmZdaq17su/+3rgdiDX9sFcJ8ixJ3lucdn+
+ MQvbvaV/5tIsgDiX3p5iGNlC+iE3oHHB7pKozFtVxrFAKIiYGuzVaSvAyqtedi4HIqBrBZXPGLj
+ GtbxA0tYKjHBjig==
+X-Developer-Key: i=hezhy472013@gmail.com; a=openpgp;
+ fpr=26CA97B1A229C229822278F254AF850165158959
 
-Hi Bartosz,
+This series adds K3 PDMA request numbers, documents the K3 SPI
+compatible, and enables SPI0 on the K3 CoM260-IFX.
 
-On Fri, Jul 17, 2026 at 11:29=E2=80=AFAM Bartosz Golaszewski <brgl@kernel.o=
-rg> wrote:
->
-> On Thu, 16 Jul 2026 18:18:20 +0200, Loic Poulain
-> <loic.poulain@oss.qualcomm.com> said:
-> > On some boards a power sequencing target has no host-controllable enabl=
-e
-> > for its function, for instance when the enable line is not wired up to =
-a
-> > GPIO and is hardwired to an always-on level. The pcie-m2 "uart" target =
-is
-> > one such example: when the M.2 connector does not route the W_DISABLE2#
-> > signal to a host GPIO, its enable/disable are no-ops and the consumer
-> > cannot gate the Bluetooth function at all or exclusively.
-> >
-> > Add a generic pwrseq_is_controllable() helper. It reports whether the
-> > target's final unit provides a host-controllable dedicated power actuat=
-or.
-> > The target can implement a new optional is_controllable() callback,
-> > reporting whether that actuator is effective on this target (for exampl=
-e
-> > depending on GPIO presence). If the target does not provide the callbac=
-k,
-> > it is assumed to be controllable.
-> >
-> > Note this only describes the target's own enable actuator. It does not
-> > imply that a power-off reaches an electrical OFF state, since a target =
-may
-> > have multiple consumers. It also does not mean that power is uncontroll=
-ed
-> > for the target's dependencies: those may still be gated on their own. A=
-nd
-> > it does not restrict consumers from calling pwrseq_power_off() either,
-> > which remains valid to drop this consumer's vote on the (possibly share=
-d)
-> > resources and dependencies of the target.
-> >
-> > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> > ---
->
-> Thanks, this looks good to me now. This series is a bit all over the plac=
-e,
-> what is the merge strategy?
+This series is available here:
+  https://github.com/imguoguo/linux/tree/k3-com260-spi-v1
 
-Since the entire series ultimately depends/touch on the pwrseq topic,
-the simplest approach may be to take it all through your pwrseq
-branch, with the possible exception of the DTS patches (through
-Bjorn)?
+This series is based on v7.2-rc2.
 
-Regards,
-Loic
+Signed-off-by: Zhengyu He <hezhy472013@gmail.com>
+---
+Zhengyu He (3):
+      spi: dt-bindings: spacemit: add K3 SPI compatible
+      riscv: dts: spacemit: add SPI controllers for K3
+      riscv: dts: spacemit: enable SPI0 on K3 CoM260-IFX
+
+liyeshan (1):
+      riscv: dts: spacemit: add K3 PDMA request numbers
+
+ .../devicetree/bindings/spi/spacemit,k1-spi.yaml   |  6 +-
+ arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts     | 13 +++-
+ arch/riscv/boot/dts/spacemit/k3-pdma.h             | 83 ++++++++++++++++++++++
+ arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi       | 21 ++++++
+ arch/riscv/boot/dts/spacemit/k3.dtsi               | 49 ++++++++++++-
+ 5 files changed, 169 insertions(+), 3 deletions(-)
+---
+base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+change-id: 20260716-k3-com260-spi-v7-2-rc2-b4-preview-20260716-077f86d144f0
+
+Best regards,
+--  
+Zhengyu He <hezhy472013@gmail.com>
+
