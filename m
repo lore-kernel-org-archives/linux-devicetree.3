@@ -1,45 +1,46 @@
 Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010044.outbound.protection.outlook.com [52.101.84.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853E03F4833;
-	Fri, 17 Jul 2026 11:50:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B6493F6C42;
+	Fri, 17 Jul 2026 11:50:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.44
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784289027; cv=fail; b=SB0WGr4l7VQPN1HhdCtSgNrBa5pPouckQunD38LvgwpR6h1CUB773VurCXWC66xf+dwnODEb5yqbLp/eqFFfAvo8QrQdz4JnODogopB/GblUjOy1wI1bQHKN3JgxThrSImYZhFOkb561AJCkbLEclMhbz1uNF8SzgtmxUVdGxME=
+	t=1784289032; cv=fail; b=StHRWbGJ3g5Uq233vvbZaCvimaQ3taQv2wbM5rbyq33+emvGTRffymgaOBvR1XphT21LF5KIOENZ1AaCKky/gz4LwQ48OCQHvrAmvARZPnPGd9VDPhoYJFarMsRVijsmkeSgjjlQ9G2E6cwUDdXZE1Fjjz5AeI6KiKk2yVWc1Dg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784289027; c=relaxed/simple;
-	bh=BjOqY+oNXEky2DqhGa3jKZdT2DUpY2cIhgOfjIMbkzM=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=QVH+Ce1woiXmyplRhRA/auodZtgi8s98wVAdJLGSJaL5Ava8lJjrln6neSfI1hBF+AMPcOz/5F5uS7V4USfiRtvRKV8I9ft3rBrF7FswZ517FNLUSObSd5Oy1jJCgQvN7GNnkW3u5VEZAZZNTqJnoZsUQAyvoQrD+F8N2lmg11Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mt.com; spf=fail smtp.mailfrom=mt.com; dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b=XTqhmXdk; arc=fail smtp.client-ip=52.101.84.44
+	s=arc-20240116; t=1784289032; c=relaxed/simple;
+	bh=cDL039dyHBBXjd85P/D/40dIqbW9V/14mdBoxKnSt4o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=OjMiV346bK0i6x16QmdMkqOJoNocjLlbd6re7YEnLki/pA51pzeGQV5T2k2mkhjul1JqSwzlcBdeA0QSXYQaHyHJTLGvutQ23Wh+nDcupcODy2rXfp8e7yhHhTMCJBAfBPQBzPiDDZHELr7X6TGpHX0ivLrJ4Au2pfGMUDS3e+U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mt.com; spf=fail smtp.mailfrom=mt.com; dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b=i4t0wjwi; arc=fail smtp.client-ip=52.101.84.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mt.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=mt.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b="XTqhmXdk"
+	dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b="i4t0wjwi"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sG2lSoixnD08BpHhRL1XQVddrLSv4k6jWqZ+qb+ExL4zpiOyL3OnvNMzMo0AEhdSliyHI0lG2iZpvNuP0goc6hlSK5cOXqJThsvZ75K8oY9IjvgUqXWYSh6Fs6Y9NemNiZcErl+EbImSnysZ1hkgDMcYD/gJQlkTtw76XyoWYvJ1bGLTkga4LH9JrWz+SodY94jXT5YMw1vFDAhYFOW1tmVBgb3Fx+WOUujCpZ5xDNLl0h82cRwR29ehzCHrcqOI5st/Su0Bv1+ggY+b9pwhcMMRF5uztjZX5ma/fibLqvsVEyNPVglAGOsrdwR7oaPK39dnbEl5aWC2lbx8ToXnNg==
+ b=XH9iyG4WoJjuwMC6y77uAIh3xPBZ9aTEP1Tj4ImEb0FPuRV+PWzAJEp48eOcTzjOSyzuBVh7oj+JJtqmMo/SPhPBhiCk+tFDr0bAt9fmq/4gynHqzhbWUJHqXhm6o7yV6A0noOxK19fbDpLDnBNdYfIRkx3IGJXJiVOWygvZ2iNsVC8tyCehWBu/WRmSX8ay7r798tPxCLPprMiycsStOYsBEQkC6BUBFxI9nPogyHO5oO1phN1528e6o/mO6tg1j8qKmW13+R+ZftuRajtu0MnVjbYt5TuAPZiPigNBZ0SOj9bsqObKa/fjxb2ON9EM19gm9aMlWYMu3CCCDVcr5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=blwlh6ADyGrLrZzSCqjIWjNH2D+SuOi1DRaojMZIU/E=;
- b=svNImTxrrYIaTUrazsv+J7pOSr9pr/aCMEYlVAzdzBrudJjQV8Yrfd+pujD2GaxPs43QiX0oLiHjXUJ4yuE79qUFMECk1ur1e1CnpLFTRM4YtBRW5iMseCXlxiZ8kSAWbYP9JSyNfVTW7ozZ6wK6x9Vff++4IhT5Ky5svJ9j4ACMjBs/AQ8HjA3jN9UiHcBY0dx5frGpWUqgdG18YkRg4Vy0TazqMFz43UHorUZ1c7+A4csa0FBh3Uqqn0bd/aGfy5jaC79M78eeP6hiiR5RnLUjqJEXOp6qUT5nTGJhtG3jzCse8eU6+Q4YWXBoOHzTRpDbWWVShuogZmszTGNTIQ==
+ bh=tpjxbHLpoalhaZKi3JVYsKJaD0E8a/dXC5RUcAI2KyY=;
+ b=L08mR67LxGh0WdoXJICdvpHJ223aFW8funA/4X2LaWNOFjOFytkSqoN/QNLNAWpmzVAHjIeRSpRCGqGt0SXONf4OcXpzOBwjeDNfepwuBb+Hhzam23kvUvThWxRUdKK8YXcJHklcl1lCBXsdG93iox7O6WKVW58LWlCgwj0HPyZv7RosT92mSvcM+i372h9I7bwKpzDRXYsAsaDzn805xx3i+lvgX3n6gXpXwqqA7YSESQ0SDbT7h8Sv0gQRHiOXMiWQxO7ZMhgw9JSS7LHegbVULGDpj2z+H1URYdnmUMMnSvUQLpUE3phyQqhTuIIqkgZcULhZWXa0n8o/G5OoGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=mt.com; dmarc=pass action=none header.from=mt.com; dkim=pass
  header.d=mt.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mt.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=blwlh6ADyGrLrZzSCqjIWjNH2D+SuOi1DRaojMZIU/E=;
- b=XTqhmXdkCAGkxEyZXbIz1Z7uxRcj1NX6CsTwYDNY+cARxHrHpUEWVj03duyscifZlaKL8aGrfRYi1cKOzEnq4aTH4vVQPNDpb3unUiLueRdrIKZNgeqoR1FlaEuP1jY9hHUlSa6dtJ3Bcdhfzg+GrMczCqPV1ncnENsDaYSsX2IIu3jt88HBSERRRscAj3o0EAxPya2sP0AhGW4s7GuSaoDO44Cy1qR2jyBFTlHpCZxBSFST6CdY9vkdcNPRjCTLhq5z2iyfVWNdcawOEaU3YrxzKhPsxr5lqOhzaJVWktyLS6cav/J1iXLtBcs3/3AHoY9GZlnR+8dUnk39olMM5g==
+ bh=tpjxbHLpoalhaZKi3JVYsKJaD0E8a/dXC5RUcAI2KyY=;
+ b=i4t0wjwi6F6IM+1Kh6O3oKsgf9V90Hlwm8Ikqjxvg0Fvq6LuAFMD9l3QiBnjofqBdoqxiiUG/d+Z5YLUu9acHCDhFtLuqYZR3x0OR2ncTGNwDcC4ffD33RmHasosmRb0jniFOlJPA3gbvVHgKVBV8ZBWFC8aRQT+C9U+2L+BG4GBnaPSyM+kClL/f/TfYPOCFKibv4JlIzumGptOZ2lpjHWg/+MGZ5OQRAhOcDOzNNUdT+zVl755tVZrgS3JBdmahUM4tsqnFiST6wjqeZVPrdZjWZO/742MZ9kH2tJJSK9iEA28GX/iWZhBulHHQbRjx2XzuvMgO50h7jl1YHdc/A==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=mt.com;
 Received: from DB9PR03MB7180.eurprd03.prod.outlook.com (2603:10a6:10:22d::13)
  by GVXPR03MB8308.eurprd03.prod.outlook.com (2603:10a6:150:6e::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Fri, 17 Jul
- 2026 11:50:11 +0000
+ 2026 11:50:13 +0000
 Received: from DB9PR03MB7180.eurprd03.prod.outlook.com
  ([fe80::6fd2:12a9:4423:8ddc]) by DB9PR03MB7180.eurprd03.prod.outlook.com
  ([fe80::6fd2:12a9:4423:8ddc%6]) with mapi id 15.21.0223.011; Fri, 17 Jul 2026
- 11:50:11 +0000
+ 11:50:13 +0000
 From: Wojciech Dubowik <wojciech.dubowik@mt.com>
 To: linux-kernel@vger.kernel.org
 Cc: Wojciech Dubowik <Wojciech.Dubowik@mt.com>,
@@ -61,10 +62,12 @@ Cc: Wojciech Dubowik <Wojciech.Dubowik@mt.com>,
 	Marek Vasut <marex@denx.de>,
 	dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH v5 0/3] drm/bridge: ti-sn65dsi83: Add reverse lvds lanes support
-Date: Fri, 17 Jul 2026 13:49:58 +0200
-Message-ID: <20260717115002.308035-1-wojciech.dubowik@mt.com>
+Subject: [PATCH v5 2/3] dt-bindings: display: sn65dsi83: Add output data-lanes property
+Date: Fri, 17 Jul 2026 13:50:00 +0200
+Message-ID: <20260717115002.308035-3-wojciech.dubowik@mt.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260717115002.308035-1-wojciech.dubowik@mt.com>
+References: <20260717115002.308035-1-wojciech.dubowik@mt.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: ZR0P278CA0063.CHEP278.PROD.OUTLOOK.COM
@@ -78,92 +81,130 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DB9PR03MB7180:EE_|GVXPR03MB8308:EE_
-X-MS-Office365-Filtering-Correlation-Id: 32993455-5894-44fb-e25b-08dee3f98eb7
+X-MS-Office365-Filtering-Correlation-Id: 8da4b9bc-9b0f-452a-4f8c-08dee3f98fec
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|19092799006|1800799024|23010399003|56012099006|10067099003|6133799003|18002099003|3023799007;
+	BCL:0;ARA:13230040|366016|7416014|376014|19092799006|1800799024|23010399003|56012099006|10067099003|22082099003|18002099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	l+TxvAlhqN/cWu83e7NNzK0mdN4Q1dqL3jX/dY5tO9rhZwx6FDnGK8FXA2geFxPplxe+tu914XUX8OGrZNbtXzJodOEJqD80+lWPzE0tXkB0PR5N4DJ+cP6mAGd51MDdowZnbQf+Rzr7lzBdJoqXOAnyzG3c0jXSFyUCCAq0pbZEp3fz5KRD7zqxWpJMuIkIm/EuRzUsTkLKd2MF01VReTe8jPg2oYo/AkPplQdFSFWPnqx3FT15S7T9GXcoxlnubWLGjkEvScc7rfcovQumJihoV4OGkHJhTt7JHOLXVxQiNBjWd1vMdSifnAA4xEwxyWYddjvPnjhJQ8LrPdeTnQnVDai7XDcLnrP09au/FoOeoJUMHZ+DMV9352ZxU1qQ3JrMe0MfJZKGzMKmbPy8aq6wX9xiXQaZcOJkyqFpP7mY+KL1iZHouwojoJkHEZqeDMlR8LBjf1e19MPeK7sVfPUDg5jSarWGKdkPn00VAOI2amjyQKs6Z/yHHUYvKmZzuEjs0ExeWNckLfROkOnrwZ7T/AyK2GOd8DssDyk7drgK9jHzKrl/N1DWqWt8j5K5fkpcdNDKqt597ISKbVrfi9N8Omc/zsqyEve8L/Lx+d0P+3j41XcaPaC27JFnEIIBuQW4HqXRHZ1qYJsmILJDQ3ngsymRjbER971T4hZGDJ8=
+	WZE+GWufplV5XdKwkPuZuutBzQBllgv7ntWFRIqcqsB8gHTjCQBe9TNZMCumqR3YLz2Q8NQ4902ScjZdNq2aPyw7QNaRWXEmzvgV7egln2JWY/dELBvoJ9tWGhQhOUCODf2HlSBqRP4ra4UiiDkqBFrYZhHOY88LiCKIaRyi1lLzqY9/rrKzbI4tZ6FPqDVXLwsnwLX11DI+VPV6fGA25MaL4EarBQOWzri8ScToKTNa19oKRal0EO97XisNuKnlxcTnkhx1kOCcmU1WGGlxZUSRf43vc+aYY4bVSr8bTd4cAgIerYDKX0aXyFY6sB4RIeETzJqKTzGIstMwhodWvazNDia8DSAcNXMgG8LotjZZc6GJWGYenJn0DVNyJepDW1Vxa2E4/1LQJ+i1CfjxQViON2SG4VFVMLAaYjKLTJzI16WWqqtsDpzuyGcHLckWdu1FTrAWl8CyZ0w5Q1qGVxLA4KqccTgqTKWlgESoEhglqA7JFQv3v3z6PSdUQnWEWk5alInao0TE3DJYaLXQaK5CuC896e1CCVTpz130+F2Jm8ppfo5+R25c5lDiCQNdPgaWnEfDpqU7eNo/b50pxywcL6weQ+zLsPdMDDwTOlBqBzKUtCfg1isp+p+4sjI1DxkTf1vvxTOp+PHObLkrEfYZqHtfESzwlaNuBnNWCTw=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR03MB7180.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(19092799006)(1800799024)(23010399003)(56012099006)(10067099003)(6133799003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR03MB7180.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(19092799006)(1800799024)(23010399003)(56012099006)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?M+MHLuf7Q5uYtZdMR9zXcl1qj0iBFL/bToxzGozEWyVLFGcBnGwYG4jkGzBb?=
- =?us-ascii?Q?4B9GXy6HfNpGUZDBmEnFklvs0aRFTxijzdn61zR2qVhFMlU2gg13PHasDejx?=
- =?us-ascii?Q?H9dftMzmX/XRYDK2joqNahUQqsb+hRGxE0zV4hiNBFVTiGpBOPWjhu8WiQzH?=
- =?us-ascii?Q?7krVJGSfcClTiO4qsBwJKVzVuoKTgH9q2UssyBZSUO7YMYFljctU516G+PcD?=
- =?us-ascii?Q?K0ROrlkaZ24Bl9/jI6TtxfdfY8sFBwBavjyuoC9yVGXTwwXtbzNl24ZyGIER?=
- =?us-ascii?Q?GdcWMXIJQ+NuZVY8wvULyUqJuV/f4FaYst5uXsg6R9+zvlSCWlQ+E6Ak/ltc?=
- =?us-ascii?Q?9y612CNrItEow7eq5RsEqOTv80khCkV9ZylDDPXJtiYDeQwAejnIt6aNea/5?=
- =?us-ascii?Q?MvjmIkmF1e4VBMJ80z8HSfS5PrZnbOlMwoDQ6jwxH75oaVSTQXKIUgenkHHO?=
- =?us-ascii?Q?NRdDTiOXsyz8/toqWoTOb/8iqXoPifcgjEMFo/fftZfB2HdDFBh4bdzUP+8O?=
- =?us-ascii?Q?2Kn+Ayq4Mkm4K5akq7rc2fLavVJTTiThq0x4ipZhD7BdPHzXlvElcMYu0nz/?=
- =?us-ascii?Q?e0l6bcawEkGgHEwpnWzRdr8x3XkNv3vDW9Juhh4DhqYaG84haN/5On/EyTVm?=
- =?us-ascii?Q?svK3/P0dS2OwQ4mPP2MbGbOZ0MGs4Nh/IysLQVzMCiXE1nh7HJN49ZnsPIqE?=
- =?us-ascii?Q?CRb+QXlUvyO0EgqBpKtFBB3oD7iVwp8vNIISrdAY/lEE332hy7C2Ol9nY4UW?=
- =?us-ascii?Q?QTUdLomHzTiuQtajfiwn6sD8grYaldUWeS/0YhATdl+82Js/YbauIQYL1r9b?=
- =?us-ascii?Q?w1SiK/H8XjMcpLv03r8JfKrzwIcY1fr7Ei4H67c9HBGTVNIV+XyZ1V25Xh1J?=
- =?us-ascii?Q?RZq4bSXz+YvVtgtJTC91Ype/sJHtGBhPo0kP3SbsilHmWHJ3G5S+HsnVI3pV?=
- =?us-ascii?Q?ejfzTUedmJzbIS0AHm8rviyK/nDGP22g+qNJKdRpVSPmrdMFEeet5xuzHYUE?=
- =?us-ascii?Q?XqsxnMYCQxZMaqfoS47mB4zKSRusn44ewqF+92NTAGjao/ZEZZFz5yBcqKQW?=
- =?us-ascii?Q?d8YzV0gt5JfFNlHLS7+a9sY/4T2ZoTthCDh5DJtMyo+9fRA2ppApWYG/pefL?=
- =?us-ascii?Q?rV5Vcr3Px5Ooq+DaWqClFwaKJ1iV/Ibuhep0aH0to32PNjeuQEcObRlbkaXK?=
- =?us-ascii?Q?kuPeCmSQwNshq0cukHMwDuCZWa4kd2InWL4d0t9rqAJoM1bJN+n+n0I3v7FY?=
- =?us-ascii?Q?LuddSxqwmPDHCOHox5rF4UQx7HHzWQ6oGLINv+CMjPLdfk560lfIdy9Rb+Mh?=
- =?us-ascii?Q?hwtXg9CVdUeqfNUm6m1DONrPvzN9kTc5Gu4N8ZyHMaB1weZQaqk/cYvg4hVV?=
- =?us-ascii?Q?RCRnha82Z8Rif1xgeXA98BGee0cQbqSwh5PXh0wUzWT770nZJHSH6yJz1i6P?=
- =?us-ascii?Q?mKG4x5frALgJDOyZB1iVJmVpIEvbVOrla4Fkw56BVtMVZEkKbc/UBlLm0EY/?=
- =?us-ascii?Q?aRWxmadhkDlgdeToN9cG0uyLJVG/UDG1oDOJCwk1xv6/dQ2vGyzNDya5Ynhq?=
- =?us-ascii?Q?dwdpZG9jnWp1xeWmVFQ7t7bqkaifc/h1sXCvY864bUUY6vz7LfVPcITJK8Ry?=
- =?us-ascii?Q?DoQ4cEF44fo1OfrckzKTXQI6fLe8FPlte6I+7ckzY1PbVOLMzXCLBudkftju?=
- =?us-ascii?Q?qAUR3gCHbuMPFJOgXoVEBfaRV06EJ/qnaxcNzgqZoHvbmXhAP6E56ln2W9gi?=
- =?us-ascii?Q?q4E8iqI5MQ=3D=3D?=
+	=?us-ascii?Q?zhuo62VBBSQvDhCny8+u3R9Ev1LyYS9V7y/nGCZvCRGprIqPKvW0tML86pP+?=
+ =?us-ascii?Q?DUk81RjKJphXXBqH1UvRtrxcieZJutRPyTLj2J3drsc3BWmgt3IcaKWqgbzV?=
+ =?us-ascii?Q?aaKpc0SVxmhGDSfs181hEzACPtHw7m+AxNGIzqADlkj21hdr7crtmYdVQd1a?=
+ =?us-ascii?Q?RFmCVatesUgE+8OeBOKL47ycNg+nYd2GxMxLF215Qu+VCGzH6EcMKF1KvjUJ?=
+ =?us-ascii?Q?JM3mLFddKBU4z1FuyqYvOksUhmDxmPzooPWR/TxZOdD8lI2airg5iT2xFOV9?=
+ =?us-ascii?Q?5ij2KZJ3UpZF3aphbyb0hMj+Y95E364OE05EqA12ZVNyLDm8eDfLc5hiyZ+S?=
+ =?us-ascii?Q?bXHvI1ST+m6CCVNwhqZVceJtssutmj1eL6K07F2AvFmZ+hAQ2pNmra0QVvxV?=
+ =?us-ascii?Q?P0JmvwN7CmCRAb+AGs6pZVnOUeinGlROisMwOepVr6j9Rmh6xGjqTO3mC6vK?=
+ =?us-ascii?Q?fbzWENFQvMElgV2fGZAAVB3xzZrOnaGieG1yxiJpSefYyb0XnJQIVYOtK/WW?=
+ =?us-ascii?Q?9lSqZOJ0s3u5pOVisuepViujLr7cmkVScOwCOBbCxF9R0QVIgIgAFIq5j2Ym?=
+ =?us-ascii?Q?5xSOzjWFRwC1t+1/+jNck9+dnnvGhoEmAkhmv4rdPXejkm4KvItsPlGmM7b0?=
+ =?us-ascii?Q?RCkoDy0BoBchwH5zRGl8bHt5MEpVfsW6k5MOcb1BmkS1VX7ifC+EGavv9Rde?=
+ =?us-ascii?Q?+xu7tZO5PtewPiv2VYywsa0NmAGglICBy4GJKPsQTnfkspknbWjxWKHNSTnr?=
+ =?us-ascii?Q?smkbHAnEqhbB9Srp6GEaWSW9IqBut8Bq7vdr6J4qiwzIyeSMwAGI5ViESFcw?=
+ =?us-ascii?Q?nZdyTOviS4eF9TBEAaGladHLomVUYCNFKSOAnsM3FVwsWa8jnZ+rUdiIJHyC?=
+ =?us-ascii?Q?ffgYRtrZsyhWZaxPm2hptpbfY7tjTVYfqfa4uwLvQtLBMB7xIVESwZfg8L9o?=
+ =?us-ascii?Q?UcopvF3wp9Ct2plIgQ4Sx/xIq+0Vov4ZtDRT4rOy9ryIKRuB0WDxqMSklzU/?=
+ =?us-ascii?Q?GyF9qcVDsGzlDxajwT5CQNnAE/vJZdF57j0TEDKZ6Wlg4aHTuNCkgFyuPAjz?=
+ =?us-ascii?Q?d59g7YdfUwH34fvN5StO1DKtJKIKEdZy16r2tqoJC9r9/KOr85NtuIJUCuO0?=
+ =?us-ascii?Q?5uJOD7P1/2fjj7HX9vlOmbA6jReBwomQMp4KlQ/y2sOCxiE0Pa1L7BGtYkCN?=
+ =?us-ascii?Q?TvkeBlUQng42M31bTzqsF4RR+IOQ6W/SsjNM9+PdJBJ8BerREWtIQHyirxGx?=
+ =?us-ascii?Q?3LHydZF2vrny/jyyUF+9lZVDur3QxpvTReOQbetFI1IrB9GqMIfGuWu22CsF?=
+ =?us-ascii?Q?jzJKIMp88DKYXFzGk1Ls3gmlnKbQED99ydTc+333XvYD+C43KZ2dIaZKRmKK?=
+ =?us-ascii?Q?5AkQrFgLsd1GdoF+8KQL7DPvZ7OMp3uBbam9RTDNAICXlWzDozuXqqvYgYYd?=
+ =?us-ascii?Q?zMA+59/rZADjoejM9WtjlSBei693E/I6ivS0eBz2TRpiEfnn39zmmULzuSSQ?=
+ =?us-ascii?Q?eowPpMebLJjXMHImTOfpLebn6YuGXJvmLdMCEdVkLVfnumW8ABx3iBO3uw1e?=
+ =?us-ascii?Q?/kYpPUWbuer41b6aF1uanmwwBwFOfMJXwY1IctCVPcLTz+p3xj5AdLhmCEZf?=
+ =?us-ascii?Q?vbg8t7Pz3LwDZU1lSobhf+NAIbxwqtIEuUJ3YHuHVL16IfFpC6HImGkzciYK?=
+ =?us-ascii?Q?apHxZY4PIjd6Y8DfjEp52D5M9r0u6XuRQnGMkysxSnBjeW6TLGS1q7CUatGX?=
+ =?us-ascii?Q?83caLED6fg=3D=3D?=
 X-OriginatorOrg: mt.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32993455-5894-44fb-e25b-08dee3f98eb7
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8da4b9bc-9b0f-452a-4f8c-08dee3f98fec
 X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7180.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 11:50:11.5529
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 11:50:13.4957
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: fb4c0aee-6cd2-482f-a1a5-717e7c02496b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lsbX3WsRpF/XDk50OyEBiPVnUwFP7yy88wS2AedIfMQoYFr2OrpHTAnXsMqp0rRseCx/DD0Q2YHIT1mKfe2PLg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: JP8ChCtjW9e6P1jts9r97tTZvH9MIxgrFcijqfqijlKa0B3pkT12Mi4+vdmguDI+nwSLkSrcpFXJyMmBB17kLA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR03MB8308
 
 From: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
 
-Add support for reversed lvds output lanes. With an optional
-data-lanes property one can support default layout <1 2 3 4>
-or reversed layout <4 3 2 1>. The property is optional and when
-not set it keeps the default output layout.
+Add an optional output lvds data lanes property with two allowed values.
+The array <1 2 3 4> for standard layout and <4 3 2 1> for reversed lvds
+output lanes. The latter informs the driver that reverse lvds config
+option has to be set in config register for the respective output channel.
 
 Signed-off-by: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
 ---
-Changes in v5:
-- Add an extra patch to simplify error handling in lvds DT parsing
-  suggested by Luca
-- Fix formatting and description in dt-bindings
-- Make naming consistent for lane mappings constants
-- Simplify parsing of data-lanes
-Changes in v4:
-- Fix data-lanes bindings to be under endpoint subnode and not in
-  the node itself, discovered by shashiko-reviews
-Changes in v3:
-- Add optional data-lanes bindings for output nodes
-Changes in v2:
-- Parse existing data-lanes property instead of ading new DT
-  bindings
----
-Wojciech Dubowik (3):
-  drm/bridge: ti-sn65dsi83: Simplify error condition logic
-  dt-bindings: display: sn65dsi83: Add output data-lanes property
-  drm/bridge: ti-sn65dsi83: Add reversed lvds lanes support
+ .../bindings/display/bridge/ti,sn65dsi83.yaml | 44 +++++++++++++++++++
+ 1 file changed, 44 insertions(+)
 
- .../bindings/display/bridge/ti,sn65dsi83.yaml | 44 ++++++++++++
- drivers/gpu/drm/bridge/ti-sn65dsi83.c         | 72 +++++++++++--------
- 2 files changed, 87 insertions(+), 29 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml b/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
+index e69b6343a8eb..4000bf0b1370 100644
+--- a/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
+@@ -86,10 +86,54 @@ properties:
+         description: Video port for LVDS Channel-A output (panel or bridge).
+         $ref: '#/$defs/lvds-port'
+ 
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml#
++            unevaluatedProperties: false
++
++            properties:
++              data-lanes:
++                $ref: /schemas/types.yaml#/definitions/uint32-array
++                description:
++                  Array of physical LVDS data lane indexes
++                oneOf:
++                  - items:
++                      - const: 1
++                      - const: 2
++                      - const: 3
++                      - const: 4
++                  - items:
++                      - const: 4
++                      - const: 3
++                      - const: 2
++                      - const: 1
++
+       port@3:
+         description: Video port for LVDS Channel-B output (panel or bridge).
+         $ref: '#/$defs/lvds-port'
+ 
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml#
++            unevaluatedProperties: false
++
++            properties:
++              data-lanes:
++                $ref: /schemas/types.yaml#/definitions/uint32-array
++                description:
++                  Array of physical LVDS data lane indexes
++                oneOf:
++                  - items:
++                      - const: 1
++                      - const: 2
++                      - const: 3
++                      - const: 4
++                  - items:
++                      - const: 4
++                      - const: 3
++                      - const: 2
++                      - const: 1
++
+     required:
+       - port@0
+       - port@2
 -- 
 2.47.3
 
