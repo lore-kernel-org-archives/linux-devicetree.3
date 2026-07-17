@@ -1,180 +1,221 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31EAD3ACA6F
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 07:37:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B1FB3D669C;
+	Fri, 17 Jul 2026 07:42:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784273823; cv=none; b=UI6gVALoorfpGposL3CvVACPZRMijbvmSBZkTZ2aeQHw06NiP+r1sfH5pes6r2exJwT3VTIW8Wv1YjB2JSK0Gei7e3+EeRbIlrIyltQVknYFukp2pLLjS4FLE3IiTcKgt6ZL5OH4Njtna1pkpd3f4EUvPsEx9J57/dMjTbAVVdM=
+	t=1784274145; cv=none; b=QKOMkMPYYPBnW09hzHUmRgp6Fz/hzCNxJEjEKUxxfDNJno2smRtK3yI+vsHPjC+/zpLCfGgxUMh8tH2ECPm99sNEGtQDGW3mGt9j7gE3BW4Zb9GwwImYsn2CqNLChTPa8zX02sHnFws54yqvcHeqvux9mCB+kp/STj1p8q+tVmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784273823; c=relaxed/simple;
-	bh=N7TRc/IALjT7cQ1NPTohOxma00X43/wjC9r4ZIJEZCg=;
+	s=arc-20240116; t=1784274145; c=relaxed/simple;
+	bh=SeGa6h3elsa2u/ae1KM0J4qwZhjss9PEPUa9CtRTt4Y=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gkemyj6VimBu9tFhoLMba5tQ7LPajdknj/tIpxP0woXcammgUwBITlmDynRJxJciiVe7NM2T6F/4f11h1B4FkipEBJoFqwWdUGg/JarKrrA/KiE+YWsyzCx+/sHPYxFyk3SxgImb4HrSkLo5wWOQ6DVc3JEqh0HFlbMFk3vmjUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cvDNUGyO; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=SbGk0K07dyFoyvAzcmPFZD0NjbmfE2cyxNPVCrNfmzqiJCCKh55az3DrhhzTfZqQwdko5sKhVDFh/z3XuDbhjFVcdDbEiw2RjcPqK7zLDfj8YXB506Y6uS6W9WnmN2VbrJgUry4/g79wEB/l+15isBFFOJiFAAdwFuhuNUMt2ac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j50c4n0p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cvDNUGyO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94A511F000E9;
-	Fri, 17 Jul 2026 07:37:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j50c4n0p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 698821F000E9;
+	Fri, 17 Jul 2026 07:42:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784273821;
-	bh=qJ44VYICKRu7NTJkrWqGuJBunIAeihG/t5fKHcvpSrk=;
+	s=k20260515; t=1784274132;
+	bh=WpqKZ4yodzh1XCqXtDL11sldJN/E+dMTk/MCscuwknE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cvDNUGyO9FodPYbN5IpesgLSqfTAeSHxvo0q2ErKiuGrq/uFEZH+v6GcRqzmONB+i
-	 10oRp0EUOhYPSD6mMNUVGgLNNqbRNmJTQ7hxhF8VaEXkVSlyd4T41zVv3hPcdeLzV5
-	 TzHvKevBoOPD/fJwqh2Yq6t1iQ/LxsDYIBU73AZ50826eIs9ZsnAKkCWr5LeySyudv
-	 qDp5AOZWRXTdHxs0+MwNBDDpNSCns9Mfc663qgDwbFjD19XkvEM709dVHDNWru3mMc
-	 F+8OxTOaMzI837hfGQNtLMQgP3MZV2vGjnMIhX+8t9lVuHUXE9ewuvd+P+9fsyiT4l
-	 Ggos+eh9sYbbg==
+	b=j50c4n0pcGF1aYUcW9fopK3RviiObjDRfgVyP6VvD9j8mGwzEi9LIrLR+hEj+waQp
+	 +tLEgSAlYOlXI6H5+iT+NiKgvhxqDijx3Lkcpeoyfel2X9r8HVmCSdSckW8LNyWzd2
+	 H6uaJPRaZpn80/6cykSPkKe3xA8+J2jsaxf0KrRw6hJSTD3xYclyQvQ6dX85YUZ3Xw
+	 Y81hsSHdMiB6WsPYd90cZMlRjC9s8uBFyWWkRMczSo3pBKBvcU9ygHRW5sxb3aP5r0
+	 MCf+4ZsMgTnb/aOLcLQcsAVZrcoopNleznyXY3ZldYsFFz72uzLDNQq33nBWNUqztz
+	 KzT9lxoCYMVvg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] clk: spacemit: k3: fix missing /2 factor in i2s
- sysclk dividers
+Subject: Re: [PATCH v4 3/3] input: misc: Add Qualcomm SPMI PMIC haptics
+ driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260717-k3-clk-fix-i2s-v1-3-e95001a692ee@linux.spacemit.com>
-References: <20260717-k3-clk-fix-i2s-v1-0-e95001a692ee@linux.spacemit.com>
- <20260717-k3-clk-fix-i2s-v1-3-e95001a692ee@linux.spacemit.com>
+To: "Fenglin Wu" <fenglin.wu@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-input@vger.kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <20260717-qcom-spmi-haptics-v4-3-b0fe0ed30849@oss.qualcomm.com>
+References: <20260717-qcom-spmi-haptics-v4-0-b0fe0ed30849@oss.qualcomm.com>
+ <20260717-qcom-spmi-haptics-v4-3-b0fe0ed30849@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 07:37:01 +0000
-Message-Id: <20260717073701.94A511F000E9@smtp.kernel.org>
+Date: Fri, 17 Jul 2026 07:42:11 +0000
+Message-Id: <20260717074212.698821F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-
-New issues:
-- [Medium] The commit message mathematically contradicts the driver's actua=
-l hardware implementation.
-
-Pre-existing issues:
-- [High] Kernel panic due to unhandled zero divisor (`num`) in clock rate c=
-alculations.
+- [High] Missing stop logic in the haptics worker causes indefinite playbac=
+k and PM reference leak when effect duration expires.
+- [Medium] Explicit input_unregister_device() on a devm-managed device viol=
+ates input subsystem rules.
+- [Medium] Data race on `irq_enabled` causes permanently unbalanced IRQ dis=
+able depth on bus errors.
+- [Low] Use of undefined macro `kmalloc_obj` causes compilation failure.
 --
 
---- Patch [3]: [PATCH 3/3] clk: spacemit: k3: fix missing /2 factor in i2s =
-sysclk dividers ---
-commit f6d65354cd50f2c66ffa439212d0df739e8b5882
-Author: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+--- Patch [3]: [PATCH v4 3/3] input: misc: Add Qualcomm SPMI PMIC haptics d=
+river ---
+commit e63f14da39f2a372d48e418f9fac8b20cd9d0698
+Author: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
 
-clk: spacemit: k3: fix missing /2 factor in i2s sysclk dividers
+input: misc: Add Qualcomm SPMI PMIC haptics driver
 
-This commit updates the i2s sysclk dividers in the spacemit k3 clock driver=
- to
-set pre_div to 2. This accounts for a fixed 1/2 hardware divider after the
-configurable divider.
+Adds an initial driver for the Qualcomm PMIH0108 PMIC haptics module.
+Supports DIRECT_PLAY and FIFO modes via the input force-feedback framework.
 
-> The i2s{0,2,3,4,5}_sysclk_div DDNs have an additional fixed 1/2
-> divider in the hardware IP after the configurable divider, so the
-> real output rate is:
->=20
->     rate =3D parent_rate * num / (den * 2)
+> diff --git a/drivers/input/misc/qcom-spmi-haptics.c b/drivers/input/misc/=
+qcom-spmi-haptics.c
+> new file mode 100644
+> index 0000000000000..235f77e0229c5
+> --- /dev/null
+> +++ b/drivers/input/misc/qcom-spmi-haptics.c
+
+[ ... ]
+
+> +static int haptics_enqueue_play_req(struct qcom_haptics *h, int effect_i=
+d, bool play)
+> +{
+> +	struct haptics_play_req *req;
+> +
+> +	guard(spinlock_irqsave)(&h->play_queue_lock);
+> +
+> +	/*
+> +	 * Coalesce with an already queued request for
+> +	 * the same effect instead of appending.
+> +	 */
+> +	list_for_each_entry(req, &h->play_queue, node) {
+> +		if (req->effect_id =3D=3D effect_id) {
+> +			req->play =3D play;
+> +			return 0;
+> +		}
+> +	}
+> +
+> +	req =3D kmalloc_obj(*req, GFP_ATOMIC);
+> +	if (!req)
+> +		return -ENOMEM;
+
+[Severity: Low]
+Does this code compile successfully? I couldn't find kmalloc_obj() defined =
+in
+the standard kernel headers. Should this use kmalloc() or kzalloc() instead?
+
+> +
+> +	req->effect_id =3D effect_id;
+> +	req->play =3D play;
+
+[ ... ]
+
+> +static irqreturn_t haptics_fifo_empty_irq(int irq, void *dev_id)
+> +{
+
+[ ... ]
+
+> +	/* Refill: write the next chunk */
+> +	to_write =3D min_t(u32, h->data_len - h->data_written,
+> +			 h->fifo_len - FIFO_EMPTY_THRESH);
+> +	ret =3D haptics_write_fifo_chunk(h, &h->fifo_data[h->data_written], to_=
+write);
+> +	if (ret) {
+> +		dev_err(h->dev, "refill FIFO samples failed, ret=3D%d\n", ret);
+> +		/*
+> +		 * If data refilling is failed,stop the HW play and disable the
+> +		 * IRQ to prevent the FIFO empty IRQ being fired continuously.
+> +		 */
+> +		cfg_write(h, HAP_CFG_SPMI_PLAY_REG, 0);
+> +		disable_irq_nosync(h->fifo_empty_irq);
+> +		h->irq_enabled =3D false;
 
 [Severity: Medium]
-Does this formula mathematically contradict the driver's implementation?
+Can a data race occur on h->irq_enabled here?=20
 
-The code in drivers/clk/spacemit/ccu_ddn.c calculates the rate by multiplyi=
-ng
-by den and dividing by num:
+If userspace stops playback concurrently with a bus write failure in
+haptics_fifo_empty_irq(), both paths could check and modify h->irq_enabled
+without mutual exclusion.
 
-drivers/clk/spacemit/ccu_ddn.c:ccu_ddn_calc_rate() {
-    ...
-    return prate * den / pre_div / num;
-    ...
-}
+For example, this path:
 
-The file's documentation also notes:
+haptics_fifo_empty_irq()
+    disable_irq_nosync(h->fifo_empty_irq);
+    h->irq_enabled =3D false;
 
- *              Fin     denominator
- *      Fout =3D ----- * -------------
- *               2       numerator
+Could race with:
 
-Could the commit message be updated to reflect the actual hardware behavior?
+haptics_stop_locked()
+    haptics_fifo_irq_enable(h, false);
 
-> Set pre_div to 2 to account for it.
->=20
-> Fixes: e371a77255b8 ("clk: spacemit: k3: add the clock tree")
-> Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
->=20
-> ---
->  drivers/clk/spacemit/ccu-k3.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/clk/spacemit/ccu-k3.c b/drivers/clk/spacemit/ccu-k3.c
-> index abcc5caa67bd7..675cf03d98f05 100644
-> --- a/drivers/clk/spacemit/ccu-k3.c
-> +++ b/drivers/clk/spacemit/ccu-k3.c
-> @@ -244,11 +244,11 @@ CCU_MUX_DEFINE(i2s3_sysclk_sel, i2s_sysclk_parents,=
- MPMU_I2S_SYSCLK_CTRL, 12, 2,
->  CCU_MUX_DEFINE(i2s4_sysclk_sel, i2s_sysclk_parents, MPMU_I2S_SYSCLK_CTRL=
-, 16, 2, 0);
->  CCU_MUX_DEFINE(i2s5_sysclk_sel, i2s_sysclk_parents, MPMU_I2S_SYSCLK_CTRL=
-, 20, 2, 0);
-> =20
-> -CCU_DDN_DEFINE(i2s0_sysclk_div, i2s0_sysclk_sel, MPMU_I2S0_SYSCLK, 0, 16=
-, 16, 16, 1, 0);
-> -CCU_DDN_DEFINE(i2s2_sysclk_div, i2s2_sysclk_sel, MPMU_I2S2_SYSCLK, 0, 16=
-, 16, 16, 1, 0);
-> -CCU_DDN_DEFINE(i2s3_sysclk_div, i2s3_sysclk_sel, MPMU_I2S3_SYSCLK, 0, 16=
-, 16, 16, 1, 0);
-> -CCU_DDN_DEFINE(i2s4_sysclk_div, i2s4_sysclk_sel, MPMU_I2S4_SYSCLK, 0, 16=
-, 16, 16, 1, 0);
-> -CCU_DDN_DEFINE(i2s5_sysclk_div, i2s5_sysclk_sel, MPMU_I2S5_SYSCLK, 0, 16=
-, 16, 16, 1, 0);
-> +CCU_DDN_DEFINE(i2s0_sysclk_div, i2s0_sysclk_sel, MPMU_I2S0_SYSCLK, 0, 16=
-, 16, 16, 2, 0);
+This might result in disable_irq() being called twice while enable_irq() is
+only called once, leaving the IRQ permanently disabled and breaking future
+FIFO playback.
+
+> +		return IRQ_HANDLED;
+> +	}
+> +
+> +	h->data_written +=3D to_write;
+
+[ ... ]
+
+> +static void haptics_play_work(struct work_struct *work)
+> +{
+> +	struct qcom_haptics *h =3D container_of(to_delayed_work(work),
+> +					      struct qcom_haptics, play_work);
+> +	struct haptics_play_req *req =3D haptics_dequeue_play_req(h);
+> +	bool rearmed =3D false;
+> +	u32 length_us;
+> +	int ret;
+> +
+> +	guard(mutex)(&h->play_lock);
+> +
+> +	/* No valid request available */
+> +	if (req =3D=3D NULL)
+> +		return;
 
 [Severity: High]
-This is a pre-existing issue, but can this lead to a kernel panic due to an
-unhandled zero divisor?
+When a finite-length effect expires, schedule_delayed_work() wakes up this
+worker, but haptics_dequeue_play_req() returns NULL since the queue is
+empty.=20
 
-In drivers/clk/spacemit/ccu_ddn.c, ccu_ddn_recalc_rate() reads hardware
-registers directly:
+Since we return early here when req is NULL, how does the driver stop the
+active effect and release the runtime PM reference? This appears to leave
+the device vibrating indefinitely.
 
-drivers/clk/spacemit/ccu_ddn.c:ccu_ddn_recalc_rate() {
-    ...
-    num =3D (val & ddn->num_mask) >> ddn->num_shift;
-    den =3D (val & ddn->den_mask) >> ddn->den_shift;
-   =20
-    return ccu_ddn_calc_rate(prate, num, den, ddn->pre_div);
-    ...
-}
+> +
+> +	if (req->play) {
+> +		ret =3D haptics_start_locked(h, req->effect_id);
 
-If the register contains 0 for num, ccu_ddn_calc_rate() will divide by zero:
+[ ... ]
 
-drivers/clk/spacemit/ccu_ddn.c:ccu_ddn_calc_rate() {
-    ...
-    return prate * den / pre_div / num;
-    ...
-}
+> +static void qcom_haptics_remove(struct platform_device *pdev)
+> +{
+> +	struct qcom_haptics *h =3D platform_get_drvdata(pdev);
+> +
+> +	/*
+> +	 * Unregister the input device explicitly at the beginning
+> +	 * to avoid the input device being used after the resources
+> +	 * are freed.
+> +	 */
+> +	input_unregister_device(h->input);
 
-Additionally, in ccu_ddn_calc_best_rate(), if the parent rate is less than
-ddn->pre_div (for example, if prate is 0), the calculation
-prate / ddn->pre_div evaluates to 0. This causes rational_best_approximatio=
-n()
-to set num to 0, which is then passed to ccu_ddn_calc_rate(), again leading=
- to
-a division by zero.
+[Severity: Medium]
+Is it safe to explicitly unregister this input device here?
 
-Should we add validation to prevent division by zero in these paths?
+The input device is allocated with devm_input_allocate_device() during
+probe, which means the input core will automatically handle unregistration
+when the provider device is unbound.
 
-> +CCU_DDN_DEFINE(i2s2_sysclk_div, i2s2_sysclk_sel, MPMU_I2S2_SYSCLK, 0, 16=
-, 16, 16, 2, 0);
-> +CCU_DDN_DEFINE(i2s3_sysclk_div, i2s3_sysclk_sel, MPMU_I2S3_SYSCLK, 0, 16=
-, 16, 16, 2, 0);
-> +CCU_DDN_DEFINE(i2s4_sysclk_div, i2s4_sysclk_sel, MPMU_I2S4_SYSCLK, 0, 16=
-, 16, 16, 2, 0);
-> +CCU_DDN_DEFINE(i2s5_sysclk_div, i2s5_sysclk_sel, MPMU_I2S5_SYSCLK, 0, 16=
-, 16, 16, 2, 0);
-> =20
->  static const struct clk_parent_data i2s2_sysclk_parents[] =3D {
->  	CCU_PARENT_HW(i2s_sysclk),
+Manually calling input_unregister_device() on a devm-managed device can
+lead to double-unregistration.
+
+> +	disable_delayed_work_sync(&h->play_work);
+> +	scoped_guard(mutex, &h->play_lock) {
+> +		haptics_queue_flush(h);
+> +		haptics_stop_locked(h, true);
+> +	}
+> +
+> +	haptics_enable_module(h, false);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717-k3-clk-fix=
--i2s-v1-0-e95001a692ee@linux.spacemit.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717-qcom-spmi-=
+haptics-v4-0-b0fe0ed30849@oss.qualcomm.com?part=3D3
