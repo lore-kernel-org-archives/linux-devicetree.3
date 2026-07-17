@@ -1,59 +1,94 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C642379960;
-	Fri, 17 Jul 2026 17:58:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8860A2E8897
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 18:02:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784311128; cv=none; b=loKazUnKbJCquIMuDtp3HLzdrUTevpLInvjSdmu7DJVbbhqBBbbdvD+04iA52C790lUx7pPKbT/FKuizzHjgj0kJ/LuVT/9s0j8KYTUf9PVQanadQjZK0guUbmakl75pyKnf7DItBcgKg1yoZ+qCKB0sxF4p7LeCtAyJUiewEAg=
+	t=1784311367; cv=none; b=ZabjTo+mfwsXeVMCSGibODFl6lS+O0Xn4nmpmQjYS9z59xX+Ur3jhALlQizwgWvUO75ei71Uu0wyztWPnM506Q3G5zHUkB1XfmjHjTGpZ+OVIycuYkUe7Z1/Mst951NEqX0JDcTjEWHjQdjrUCnAD7bz/gJbWj5PH+2+X2ECRPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784311128; c=relaxed/simple;
-	bh=8rjsxe/+hBTNSxWiB7hQbS3d98WUbAUDizYkOQYvCdk=;
+	s=arc-20240116; t=1784311367; c=relaxed/simple;
+	bh=IVp6OxKPnY5RRxUc+Z+0GDhftR8+TVNhQ2/e2GddRG4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AvoBEDJ9wtj9Zyvngi/wJaptCm9yJ2BqjzAYNCnrgtK8Vh9aX4VkilwBb/j4M6EaeMybk2AhREPyaAD1GTzN20fHW++gXcsUMcsmkdoNns/cbPvL70iWWXZIYOsh7N6xsc3XQH8yKxt2L0R97jdsEbLPwVKceeQAIentEWfRn2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Rf8onXkH; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=He2amMt/pHz09O0qFPCX2bwYKvzruc09q4KJ+hsj5K2E/13m6i0u7wchTTGgH7wDtBccJ1Tg45fwulB3aRXlZPT7mFUGaNlYs77saynRwIZee8FeSS4Ba0HDBUkM+CQbrrRyzyC5YJtjs8wctYXqXwVslpBTJVgNDlaUJQWTzhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mk5C9eQ6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=H/z8vIwu; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Rf8onXkH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784311127; x=1815847127;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=8rjsxe/+hBTNSxWiB7hQbS3d98WUbAUDizYkOQYvCdk=;
-  b=Rf8onXkHhrs3dGaDWr0PW7pYShtnl6Bo+dmX3bpKQU0z3K1ifhVP1u6V
-   WvgivXFdGUysZuaBrmHN2XiTQQHsyNhJGlHMzhAGmkU3WpGEwWoaKkegf
-   zJdCDyJzms4gWWI+SpTdkd7GtLktfEJQ37JjlmdK7bl6NS61OSwoeQVvn
-   vwfWCGiByekPzDrzaYv8RIX/7mlh7OvL1WvQha5x39SYmulcSn7HgExkW
-   LxA+gpwEednX3Icew0XnXzRgmziu76gVU8VXQwSQMyuZxfQWA3BtGBbv+
-   bvKTBki8V4cp7FvHi6u+UG+QVK4PVBsqYjeFyletBVr8oiyS445p68Flu
-   A==;
-X-CSE-ConnectionGUID: WbAE88FaSMWtVJ3Jxm6rKA==
-X-CSE-MsgGUID: +LfMEYNISH+Xs7ckjAv3tg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11849"; a="85079773"
-X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
-   d="scan'208";a="85079773"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 10:58:46 -0700
-X-CSE-ConnectionGUID: eri9T9lNT4atpIO1QIPHeQ==
-X-CSE-MsgGUID: hJ2wjK+eQFGJolFSjQ3Y1g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
-   d="scan'208";a="257477854"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.143])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 10:58:44 -0700
-Date: Fri, 17 Jul 2026 20:58:41 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Stefan Popa <stefan.popa@analog.com>
-Cc: linux-iio@vger.kernel.org, jic23@kernel.org, nuno.sa@analog.com,
-	devicetree@vger.kernel.org,
-	Ciprian Hegbeli <ciprian.hegbeli@analog.com>
-Subject: Re: [PATCH v4 2/2] iio: adc: add MAX40080 current-sense amplifier
- driver
-Message-ID: <alptURwc08RaBA7H@ashevche-desk.local>
-References: <20260717123852.1140893-1-stefan.popa@analog.com>
- <20260717123852.1140893-3-stefan.popa@analog.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mk5C9eQ6";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="H/z8vIwu"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66HGoHGC2209790
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 18:02:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=xJ763sHUzQ6G+X1IGzyYd0jA
+	GypHFriotS7bOyxUKWI=; b=mk5C9eQ6Ycao0XoN7QPb1GLJYNsp25EBKechTS60
+	tID5+3aL4/f3sPPE9zRMJSEYE/3cpn+AEnZPbZ5WYrTg0e7c8pdmKBzEK+roZkn2
+	zy4dvxdXNj3gqatw2CnlfUUxuJAoa4b4p325WvwPw4yWlVG1e2RSySiZW6S48gRX
+	ms7aVZos4TToUolaPB9/PjhY6374o20G30zbBN83zVR35dLJDHc+DZqjdCCp2ZZM
+	07M0vEapqN6xYJtapjgMu0CpzBMyFiUAjFAyxw9VIov82It8TrPdvC55OQgdaFx3
+	V/Jxn0TDjXpGeGRWFgxN/lvcGHGiDoZinFqrbKzoEGBidw==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fffagakwd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 18:02:45 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ce8a76df2dso142087115ad.2
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 11:02:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784311365; x=1784916165; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xJ763sHUzQ6G+X1IGzyYd0jAGypHFriotS7bOyxUKWI=;
+        b=H/z8vIwuzLZBgodNbDyrQBW4hvTFr60BixL/7rUyf/CXHVQjHOBo6TCr8UV55EVh+m
+         wHi0Ht/XJMMkUJoJdjdzqzhN8FZ9YRtJNmdt3WEnLy7d59SR/OZoVASn5Z137924ULEI
+         NzLfHl/ha3ZXzZN+GC/Fu1oQBVrHWH5D9KTD4MrxnB53cEUA9SYBdYQgI75KmLQgxi3F
+         Nj9d7PkfcQHeJt35vOr0p50xvs2ggbKNXVxnK/P6qhhrFFWp6ZeAhlsW7mdVy62XlCTI
+         2rdF9yHV8z205AbETHndPjYbnhQsVCImwqLllIajlu8wxXb6COyh4M4R43gWl/16TEuj
+         bCAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784311365; x=1784916165;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xJ763sHUzQ6G+X1IGzyYd0jAGypHFriotS7bOyxUKWI=;
+        b=W6YCh63mdBYt4BFUFUbAHgG8B8EIy/Gjiun/rWsSDZzd0YDDsQa0ZVyKE3L5NNRmdL
+         PpIFd2wP8URKS1H3BHpoTuWrPsMwBFMH8FAjqZXXmxpYD7Dl1ynPXXpWtn5p/0xhLXYm
+         QuhVFRusZuD+XcNao0b7XiNWrXLkuYkF+FdtGz6IYOt1NWyzn2GWHhf3RR05VLcWrWDc
+         V4cQqYZ8yZUN9yVj2njWP2E7pgfVPWQNZBUMqg6hMU0DgNnqfmqoNRXVfCnsPsrMZYe+
+         4fvy8Dtv9BPeeoY5pbcB4tZ/wQRzGHWNdmFVCq0kimGErzsW05dsyPis64tk24dOMJPe
+         mDSQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpcPqtoJ4VOov1XrnwD7osw0y4VXBHZ9PKemlcdFQyzaYNaupv5QjFwwg8y22W2P/m85INr+BbiAi5p@vger.kernel.org
+X-Gm-Message-State: AOJu0YzssmpPVbrU+L+2JUhNAuLhcXyD47UCWTwoxW/7/RKTqf4Vxx+h
+	WocsWqVl2RkzGGVR+i7HuQCU64x1r8myJTPwtEQghAB115nJNm4HSyqck2yvSUVhYVK5jQ2crwE
+	/++j//m0gZJfkWcDDxjZJZS4ccvl4h9UEZQEnIQehQhDqdyjXDWsFptogpaRQ2aRB
+X-Gm-Gg: AfdE7cnPXB1f/NU3S4T938CDpxJdJ4BXowhTMhsndyTB08Rv+dbZTPESrsTt5ndvTkk
+	/5ZH/CimnnIRfp3dBf5xkoKndAiFhUSS8BIv1qetO7swyJy5r4o6sC4dl7dpTs5nIurW9RJgHHS
+	9ujh9k47w+BM6zUXXRFk1p/iiwB0+XTGZeZ+Gexm813LsLts+Y16HU94JfKAjDWGZLugbEI/0Oq
+	gb2HoY46h5ICTe3M4492gGmmN5KGGPexuUWaqr/RoO6mmIU/R+DXFCfWF7itVZpR3vTYdtymntl
+	VCWJfxF/jIEWHQyg7glYQWP1arjAt2PHGFdeoX4LED/ZP/sFEI4WHyof/pWgcCBAVywupnUQP91
+	q3ljXF5fDvJtF2ZyUaPLndlKSJN4=
+X-Received: by 2002:a17:90b:2e0b:b0:389:8f6c:4d58 with SMTP id 98e67ed59e1d1-38e4b54c1d9mr4217536a91.34.1784311364834;
+        Fri, 17 Jul 2026 11:02:44 -0700 (PDT)
+X-Received: by 2002:a17:90b:2e0b:b0:389:8f6c:4d58 with SMTP id 98e67ed59e1d1-38e4b54c1d9mr4217511a91.34.1784311364247;
+        Fri, 17 Jul 2026 11:02:44 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a1bbab9sm10950517eec.15.2026.07.17.11.02.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 11:02:43 -0700 (PDT)
+Date: Fri, 17 Jul 2026 23:32:38 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: sram: Document qcom,shikra-imem compatible
+Message-ID: <20260717180238.2dysmrp6wanewgmg@hu-mojha-hyd.qualcomm.com>
+References: <20260430-shikra-imem-binding-v1-1-c6976239f90f@oss.qualcomm.com>
+ <178425854616.1084804.7965648558976512392.b4-ty@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -62,63 +97,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260717123852.1140893-3-stefan.popa@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <178425854616.1084804.7965648558976512392.b4-ty@kernel.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDE4NCBTYWx0ZWRfX6bYAfMi0Iacd
+ Z5nH7o7OEHhkdxqb/DS3/ZYdNM3/Aj2E8WP1KvwWMZ/b1ZOF7R3qF/DEBni+WiqM9IrO+mOHqnR
+ N7dzP4qPa/NNWfF+mHugEGYzfBpOexwxsyWvQDOlpryvLhbrLm+Xhg3tInFQmQyXRrNKZdEoBK0
+ CJ+GEG5O51FcexFmhApYevSw+mb3tKQabY5u+4EKNNn1sBfGw+c8F2EF0BhNHh6thpuPHmQLDB6
+ u7QNklu4yiH1bnbNvgWhxP0Ze/Xy0zaKynzQ46UbbSgQ2uRGhWkjJIh5XUqxqwHMfDzLJcih48b
+ yIgT1ZWWv46gEYmcyXOrHoTnFhW6DkQW7SwELDXdcWXXoK57nIyCnlrilCdJ/pppNj58xw6km+J
+ NjKDxJs/aDZM3lcYqXlkKW4/I3i+ttgDXtWCOy62PPerGJPNX9C/tBGh9aDmMqR2AJWNLfpW2ls
+ YWqLTi1x5J0sumyUIMg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDE4NCBTYWx0ZWRfXyGluzlJb5RZh
+ NZXsq3v2O34Lgs/pC73aMO8Mki5ZugBicqVnmi2g6J5iHwyjlhOMW4AGvF8uirEn0jy2SCgHPM5
+ FBcUXebtCmt9GAkJbemjoA2bVD12k0U=
+X-Authority-Analysis: v=2.4 cv=KZfidwYD c=1 sm=1 tr=0 ts=6a5a6e45 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=u-DBnAx98IGjIwESew4A:9 a=CjuIK1q_8ugA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-GUID: Z7yNvut5t1DQrPufIZenxz1TKnWny07d
+X-Proofpoint-ORIG-GUID: Z7yNvut5t1DQrPufIZenxz1TKnWny07d
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-17_05,2026-07-17_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 clxscore=1015 malwarescore=0 spamscore=0
+ adultscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170184
 
-On Fri, Jul 17, 2026 at 03:38:49PM +0300, Stefan Popa wrote:
-> The MAX40080 is a bidirectional current-sense amplifier with an
-> integrated 12-bit ADC and an I2C/SMBus interface. It measures the
-> voltage across an external shunt resistor and the input bus voltage,
-> storing the results in an internal FIFO.
+On Thu, Jul 16, 2026 at 10:23:26PM -0500, Bjorn Andersson wrote:
 > 
-> No existing IIO driver covers this device or a register-compatible part.
-> The closest relatives target different silicon with incompatible register
-> maps and feature sets: max9611 is a unidirectional high-side sensor with a
-> die-temperature channel and MUX-selected gain and no FIFO/PEC, while
-> max34408 is an 8-bit multi-channel current monitor. The MAX40080 has a
-> device-specific register map with bidirectional 13-bit current, a 64-entry
-> FIFO, PEC, a single-measurement mode triggered by an SMBus Quick Command,
-> and two selectable input ranges, so it warrants its own driver.
+> On Thu, 30 Apr 2026 18:08:04 +0530, Komal Bajaj wrote:
+> > Add compatible for Shikra SoC IMEM.
+> > 
+> > 
 > 
-> Add a direct-mode IIO driver exposing the current and voltage channels
-> with raw and scale attributes, a configurable oversampling (digital
-> averaging) ratio, and PEC-protected register access. The two selectable
-> current-sense ranges are exposed through scale/scale_available; the
-> current scale is derived from the shunt-resistor-micro-ohms device-tree
-> property.
+> Applied, thanks!
+> 
+> [1/1] dt-bindings: sram: Document qcom,shikra-imem compatible
+>       commit: 26ead60b1a2722627759dc8c279ed336826bb5e1
+> 
+> 
+> Please make sure to Cc linux-arm-msm@vger.kernel.org, so changes like this
+> shows up in my inbox.
 
-...
-
-> +struct max40080_state {
-> +	struct i2c_client *client;
-> +	/* Serializes read-modify-write access to the CFG register. */
-> +	struct mutex lock;
-> +	u32 shunt_resistor_uOhm;
-> +	/*
-> +	 * Cached configuration, also used to restore the device on resume after
-> +	 * a suspend that may have cut its power: the selected RANGE index and
-> +	 * the oversampling ratio.
-> +	 */
-> +	unsigned int range;
-> +	int oversampling_ratio;
-> +	/*
-> +	 * Precomputed current scale (mA per code) for each RANGE setting, as
-> +	 * {integer, nano} pairs for IIO_VAL_INT_PLUS_NANO. The range is
-> +	 * selected by writing the corresponding scale.
-> +	 */
-> +	int current_scale[ARRAY_SIZE(max40080_csa_gain)][2];
-
-> +	/* DMA-safe buffer for i2c_smbus_read_i2c_block_data(). */
-> +	u8 buf[4] ____cacheline_aligned;
-
-Why don't you use the specific IIO macro for this?
-Do you have internal reviews for this patch series?
-
-> +};
+There is a very high chance it can get missed. Is there a better way, like
+adding sram.yaml to the ARM/QUALCOMM mailing list in the MAINTAINERS file?
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+-Mukesh Ojha
