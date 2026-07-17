@@ -1,111 +1,200 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC902F8EB4;
-	Fri, 17 Jul 2026 18:28:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 254C8383C77
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 18:38:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784312889; cv=none; b=iK8BM8PSsbQ9BsfNu9CveE4+UU3eA7thyrTq6QQ3+LgdUF89DrrYCKOkF3hM3hdbKltj4n9RTQoAOWatGRVT3meJES6pDqPWIehCzB/mMLEcTQ/ioEsClYAWuLKPurUs6RKF0ASIrTP3aF0wCkAgLtwhxDjXx75Bn6+9lBmloI8=
+	t=1784313518; cv=none; b=XdwxtlnRS/sjEOShMswEmsHe7s5BE/RCNEoBVpEYRzyYNLtviR0pTgjIihQMxX+eBtTW9pJBHQf3sdi4zUvd6uvYfNtOFa84GDsfZT3OtQFW9w+n2QsYsncyaxhGBzWyQ0UEUzKc8qzxupmyElMVm59GId27T7c9IUHuYmGBS94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784312889; c=relaxed/simple;
-	bh=cY72Q3eaRUqzShiCt1IhCPUROEqqx3q2tARINzYOV4E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FFU+sttlpUG01patG5Vkw9QweVjSjjA8yc6UZfuFAu54sIfhw7eN/7RwGNEL4Bxe3qN2HosdCWuKsxIy93EBcPwcEkpVfUSfaaGU1Z2hwFqPE3NYEhnkCg7B/Bp0ugvILPW8G7YzZqnCCfZ/jvt0auTIFboFzcRR5kkGxtZCRjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=R7STgd6L; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1784313518; c=relaxed/simple;
+	bh=kFA8+JpRfL4hz6wnmPF5xh33Ev/27gjiNs5aJbXbQd8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oKSaCGlPOR383IwO0Tzg4WSZJ3ilbqpep/qNWkX15ieosoKStxaY7eT8eBELEeYcNGuv5vq4YQvNjU+IHq1sqi/fvorJy9feUU8mKFEG2r6QK3mOXuycTspN6kbYLR/wtMKC2opoEKKJitGNbZ/ITTn9lYLuxVvk5WMLoBOYf/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nmifvpnt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c73ulOVm; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="R7STgd6L"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 848A3664;
-	Fri, 17 Jul 2026 20:27:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784312827;
-	bh=cY72Q3eaRUqzShiCt1IhCPUROEqqx3q2tARINzYOV4E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=R7STgd6L+KOgQCiaKfyd7K6xlKz0oKgSyLncZv15XbVpe7f8XdcG6/yZywtz/cnPJ
-	 FEUE/B2JxA4axWgncKM7reSaVprTV0eA/ixjWhhY1SToj65R2WXm/w5KUXPe77/CZj
-	 yyBRUcU113yN8RFmRgtdLk+8Gk88+OXbIMwue1zI=
-Date: Fri, 17 Jul 2026 21:28:02 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	Thuan Nguyen <thuan.nguyen-hong@banvien.com.vn>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	linux-renesas-soc@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/4] drm/bridge: display-connector: Fix I2C adapter
- resource leak
-Message-ID: <20260717182802.GD1889304@killaraus.ideasonboard.com>
-References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260705213542.28987-3-laurent.pinchart+renesas@ideasonboard.com>
- <alpEVeVmH5oiqmaj@hovoldconsulting.com>
- <DK0Y5JTE66EA.111RUXTL6W8FA@bootlin.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nmifvpnt";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c73ulOVm"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66HGo0uQ2208850
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 18:38:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	w7xeXeUjDsqowIPU4EoEBnhrjhFKz6OTuTIikIlnuy0=; b=nmifvpnt/4cdjDhd
+	eTDYw1cQhHSDWX2fvdy47F0Mqk2DEbUiYBZM6wv1QlNg4zC5YaaSvdKgj7GFSvBo
+	xL5ImU8rYrwXLdc1x5eZ/XidQ6c96GvnwMLfzzqv2v8ygXZS2s3fDhKMyO8LIT4f
+	bD1NOkmq5hPKHU9Su4ZVINn7EuNPjOncUPmaPNpmoctz4FD8h6ym2DvALsmtmPJ8
+	xBgr1F+c5qG21W//BYpNY4VaA7+RrmoyAobN+JCJg+XVqpDL/ghxPf8FHM0DDhDV
+	HzEw8isswWgGVyggCUxEMCbgMYKtOknOYLiFXh13Qvikyqr3aGKDfQ6MSBOIeol2
+	ZrTdWw==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fffagarat-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 18:38:36 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38dc085b0a7so11505066a91.2
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 11:38:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784313515; x=1784918315; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=w7xeXeUjDsqowIPU4EoEBnhrjhFKz6OTuTIikIlnuy0=;
+        b=c73ulOVmiT9P/QjVa78RtYD2UI04hfKbyv19yynXzubjoauv3isPqGmH9s6MGIRnkK
+         vUuSaJJbM9koWDg0Iv5XCaO3jceEacZ2+SHJwXWm9Xtdj9itwqLtjx+wJTVBU4IzOnVC
+         tG4PYZX0tWUmpIQtRkUp/BvnlSbnhO7I9lhF18dsS7BY1qkfNKudqiR3TNutIsycufpo
+         i0zAKWZ1UV2UKR00ktIKVv9RPeC4Ce5+i7I9rIkt5vIQeZPG/HGi8I2MMnQdN1Hy0haZ
+         41B2Z++3VH10BYklXs4E1LEMMMb1wKkUbb/tk+q3sARuB+9+RMKhbLXFKIJf10fthfFD
+         BwNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784313515; x=1784918315;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w7xeXeUjDsqowIPU4EoEBnhrjhFKz6OTuTIikIlnuy0=;
+        b=snc4bvUkLJ50oaj9187if3+FvHbGSKbAwPZRuVLDLCjupOAEa/8SvqPQqbkJ8O93ce
+         /KfI7yL3zZygyvOJpmHDc+bLiuwt0oQAvA3GwPlG/vxi5j/w+pokkWVGpTh0iYQkBJhh
+         kX44C2aPG5gYtzMOgacpY+L3HFMF6cKUODCiVkqGj2Om8rIcxg4mg8nMoRlH0VHCDMQB
+         FDQNSwSVZyHz2vTfpv2M0p2k9mcYVlhjDr2zKfwFrrjbirKAbFlVJxJw2DAVQnlFXwwm
+         MIGrcpipnNYY4M8CVkKvEIq4RvDZZO4uZ2hua9IuQEdmi6jmRTiLtNIencbAD5ze+4wU
+         DyMA==
+X-Forwarded-Encrypted: i=1; AHgh+Rot/dNqihfA18pHw7ukoAeNIi8dBeyAVeprF7ZRle1zmskNVVR+gQmSSEExvBE8NqlJN0b9YopHT3pP@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx6cpTQLTz18vJI5P/BuolE7/0f18PemoHZhC7kVMEJ5JJPdwu8
+	acJdyN1nzWKKTuycbvjcZd/XitEneIv1YQs5FjHB7cjmn61dVzeevjbgRlzF5EstOXqXpF5ssag
+	nRjDj1PdsOLDeHicYiEPH8PtYf7GA2sczRiPcI4yVdICYEDNUWiNJJkybpZCYHklltZwzV5kU
+X-Gm-Gg: AfdE7cm1uMWQxedf1vkg4puS9huOHVC2Uys5G+35vxxCzDE/dZF2IhGh17J82opHVIg
+	bmZWi2RsKyhbFoeUyw+FjKNIUYkyk0pw3bqUwaOV34HV4rzAEuJK3+DLqGBNqpwfPdGjq007QAt
+	jiB8KCiexPZJv+7s9Mz3grlE2b2kiwOImWZCTGGRJFy7+bpyL5bqzmsX1JxPUs2iIv0bOaR/2Rw
+	xLOEaxWZoNMGgK+Jh0F7iFf7nxQ+bdr6t5a7BeRejv14Lu6gCiX706T8BEHvJHFj5cX1sOWCTn4
+	IrzEb2o1OJV/P9XCKZF4F1oPSEf04m4aKe0UxksjZohGcHfeDUR73PuEJIAKoDKDli/5/680M2g
+	zqFutPVSB7tOEQbQh49jr9XkwoQ==
+X-Received: by 2002:a17:90a:e7c1:b0:36b:9e24:c692 with SMTP id 98e67ed59e1d1-38e4b53439emr3328867a91.20.1784313515518;
+        Fri, 17 Jul 2026 11:38:35 -0700 (PDT)
+X-Received: by 2002:a17:90a:e7c1:b0:36b:9e24:c692 with SMTP id 98e67ed59e1d1-38e4b53439emr3328842a91.20.1784313515006;
+        Fri, 17 Jul 2026 11:38:35 -0700 (PDT)
+Received: from localhost ([50.35.46.84])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a1bbab9sm11215882eec.15.2026.07.17.11.38.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 11:38:34 -0700 (PDT)
+Date: Fri, 17 Jul 2026 11:38:30 -0700
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Stefan Popa <stefan.popa@analog.com>, linux-iio@vger.kernel.org,
+        jic23@kernel.org, nuno.sa@analog.com, devicetree@vger.kernel.org,
+        Ciprian
+ Hegbeli <ciprian.hegbeli@analog.com>
+Subject: Re: [PATCH v4 2/2] iio: adc: add MAX40080 current-sense amplifier
+ driver
+Message-ID: <20260717113830.00007d40@oss.qualcomm.com>
+In-Reply-To: <alptURwc08RaBA7H@ashevche-desk.local>
+References: <20260717123852.1140893-1-stefan.popa@analog.com>
+	<20260717123852.1140893-3-stefan.popa@analog.com>
+	<alptURwc08RaBA7H@ashevche-desk.local>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <DK0Y5JTE66EA.111RUXTL6W8FA@bootlin.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDE5MCBTYWx0ZWRfX6pNTFXPIkwMC
+ BTlIuwi/Pyw5pbHDzH4wZ4l0w/SCysLGcAj6ZGWd0s54k4A+g2DZW0mse5c+GrHHIag8xiEF4f5
+ 1G995eD2Y2tlOlqbM4gnNx8CQywSgaBUfxjiAVuzk1cg7Mk1pWZq0dG3anYF5/y/9fJZTzoqX8/
+ wh1ckJATNFHdIX1xXzW82yMXGMRMp624uW9DaAK0O+rpK2ZSshLA5tbGG8Amw6ls06ED/Ta6odg
+ L8q7O3mbpYC7RLyBm49e1sk7uFFbzvNsKOOppfbUYf/satfLgrIdZX6R8ucppEz5soCRXyFwblU
+ /x8nGPqMffu41IUb13r0j5L9FXxCAMEY0tB8ZvH7mfMymkVxjMH9g6mSqNiNPGYB+OwB5xr469C
+ VXYE1OBWFrLRlRTJdZnDSbNU2PMemZLJxULbj8I6RjmA01LizEV0VVzdDf3cwZ2mxIBKYZs1IL3
+ Pps+m+sM2X2ZLhEOXJQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDE5MCBTYWx0ZWRfX5CVuaO9kZYvD
+ kYIyGEqUgy6JUZE0DpUYp1nTnNt9SUB8IY6O2yCXjDJ8vZfLLTxLxqD8bS+h7Fb3HoPQjLmhEqJ
+ mpQMeOms3GDmAFkG8E2VIwLIhlSC1is=
+X-Authority-Analysis: v=2.4 cv=KZfidwYD c=1 sm=1 tr=0 ts=6a5a76ac cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=qC1CW/w66vtJz1P9yTJxNA==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=QyXUC8HyAAAA:8 a=p1EoV59dKfn0TkCHIRwA:9 a=CjuIK1q_8ugA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-GUID: ei9a-4UyKZa5HNiQHVwysRjR4_P5UzLM
+X-Proofpoint-ORIG-GUID: ei9a-4UyKZa5HNiQHVwysRjR4_P5UzLM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-17_05,2026-07-17_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 clxscore=1015 malwarescore=0 spamscore=0
+ adultscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170190
 
-On Fri, Jul 17, 2026 at 05:21:11PM +0200, Luca Ceresoli wrote:
-> On Fri Jul 17, 2026 at 5:03 PM CEST, Johan Hovold wrote:
-> > On Mon, Jul 06, 2026 at 12:35:40AM +0300, Laurent Pinchart wrote:
-> >> If the probe function returns an error after getting the I2C adapter for
-> >> DDC, the reference to the adapter is never released. Fix it by releasing
-> >> it in the bridge .destroy() handler.
-> >>
-> >> There is no need to test the ddc pointer with !IS_ERR(), as
-> >> of_get_i2c_adapter_by_node() returns NULL on error.
-> >
-> > I stumbled over this this morning as well and posted a fix here (which
-> > releases the adapter on driver unbind as is currently done):
-> >
-> > 	https://lore.kernel.org/lkml/20260717085716.1619275-1-johan@kernel.org/
-> >
-> >> Fixes: 6de79dd3a920 ("drm/bridge: display-connector: add ddc-en gpio support")
-> >
-> > I believe this issue was first introduced by commit 2e2bf3a5584d
-> > ("drm/bridge: display-connector: add DP support") a few releases
-> > earlier.
-> >
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> >
-> > Reviewed-by: Johan Hovold <johan@kernel.org>
+On Fri, 17 Jul 2026 20:58:41 +0300
+Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
+
+> On Fri, Jul 17, 2026 at 03:38:49PM +0300, Stefan Popa wrote:
+> > The MAX40080 is a bidirectional current-sense amplifier with an
+> > integrated 12-bit ADC and an I2C/SMBus interface. It measures the
+> > voltage across an external shunt resistor and the input bus voltage,
+> > storing the results in an internal FIFO.
+> > 
+> > No existing IIO driver covers this device or a register-compatible part.
+> > The closest relatives target different silicon with incompatible register
+> > maps and feature sets: max9611 is a unidirectional high-side sensor with a
+> > die-temperature channel and MUX-selected gain and no FIFO/PEC, while
+> > max34408 is an 8-bit multi-channel current monitor. The MAX40080 has a
+> > device-specific register map with bidirectional 13-bit current, a 64-entry
+> > FIFO, PEC, a single-measurement mode triggered by an SMBus Quick Command,
+> > and two selectable input ranges, so it warrants its own driver.
+> > 
+> > Add a direct-mode IIO driver exposing the current and voltage channels
+> > with raw and scale attributes, a configurable oversampling (digital
+> > averaging) ratio, and PEC-protected register access. The two selectable
+> > current-sense ranges are exposed through scale/scale_available; the
+> > current scale is derived from the shunt-resistor-micro-ohms device-tree
+> > property.  
 > 
-> While Johan's patch has the benefit of putting the i2c adapter at remove
-> time (as opposed to destroy time, which is potentially a long time later),
-> it is also more complex. So I'd say this patch is fine.
-
-In this case putting the I2C adapter early is probably fine, but in
-general I really prefer reference-counting and releasing references at
-destroy time. This ensures that the resources stay available if they
-need to be accessed between .remove() and destruction (for instance in a
-.release() handler following a close() or munmap() from userspace). I
-think late release should be the default, as it's safer, and early
-release should be carefully reviewed when it's required.
-
-> Maybe we should have a devm version of of_get_i2c_adapter_by_node() to make
-> it all simpler.
+> ...
 > 
-> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> > +struct max40080_state {
+> > +	struct i2c_client *client;
+> > +	/* Serializes read-modify-write access to the CFG register. */
+> > +	struct mutex lock;
+> > +	u32 shunt_resistor_uOhm;
+> > +	/*
+> > +	 * Cached configuration, also used to restore the device on resume after
+> > +	 * a suspend that may have cut its power: the selected RANGE index and
+> > +	 * the oversampling ratio.
+> > +	 */
+> > +	unsigned int range;
+> > +	int oversampling_ratio;
+> > +	/*
+> > +	 * Precomputed current scale (mA per code) for each RANGE setting, as
+> > +	 * {integer, nano} pairs for IIO_VAL_INT_PLUS_NANO. The range is
+> > +	 * selected by writing the corresponding scale.
+> > +	 */
+> > +	int current_scale[ARRAY_SIZE(max40080_csa_gain)][2];  
+> 
+> > +	/* DMA-safe buffer for i2c_smbus_read_i2c_block_data(). */
+> > +	u8 buf[4] ____cacheline_aligned;  
+> 
+> Why don't you use the specific IIO macro for this?
+> Do you have internal reviews for this patch series?
 
--- 
-Regards,
+This is also wrong.  Despite the naming ___cacheline_aligned is not
+sufficient on some architectures.   It's a performance hint, not
+a correctness statement so can often be the size for say the l2 cache but
+the l3 cache line is higher and the lack of coherency is beyond that point.
+ARCH_DMA_MINALIGN is probably sufficient. The IIO_DMA_MINALIGN defintion
+predates that being available on all architectures + ensures the buffers
+are always aligned to at least 8 bytes which makes a few other things simpler
+for very little cost.
 
-Laurent Pinchart
+Jonathan
+
+> 
+> > +};  
+> 
+
