@@ -1,201 +1,88 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC8521B192
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 00:33:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1613219AD90;
+	Fri, 17 Jul 2026 00:35:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784248408; cv=none; b=GDIcQKuli0xGlxvGp0yP/F6zqWht7S2VApzbFuASWw5/hUphYBvjR4oFqnEzoQfo9iBRpwzLkkgw1NR4UX16SGB5g/nM9LNAdV2rlPHhTcZDamQ+nCjbsrFGAqypQEibUpnUTBCcowqB4xajmbiQettuVILxDEJbIz7e3/Jn+Vg=
+	t=1784248539; cv=none; b=TYTCijLKtMc91J0lq8cG8KbxTVsxQeh7TqIPCI/2x2utFMPg7nN5Tey3FldYeiaDWjzvybqUqu4Iftki8USS1lFcoxzJOvOBYIdx4Pbx+essiwH1w+Abff+KfJnEi/wu52vQDLbhyR+BXhKHYDt37tKIk6NvqW/WAiRxKtLAIHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784248408; c=relaxed/simple;
-	bh=LUeZ7PoROwJXdCUV2ckt7VTKtyjdbcIz+8qX4WtsqLc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qjuVNR5y81GcKaY+ZO04t1b79HHBG8WlW5vDsGaRIdOImSA8NQOK0TxA4g6Coiz5EMsb9bT/TXuufqiIsCtSrHgZwDivxhkJd4DWKBY7dAR1sKpDD9xvWA89SowoDbc2yCCizkGaw8mVmROpq7FB5ioOpbs3eDClQdeKSyIOocg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=USeF9gf2; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784248539; c=relaxed/simple;
+	bh=la9ppKLG1GqKDdpSeTATmaSmOyisP/oD1W7wRd5tbeo=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=EGNBMEgNSyC/2/liHM0OaW41pn4VCF7BnyAkM4j/qJfWYe97aMtX8MvjjRjJhcSjG/nsWc3Fk7oyqK8qIQEqM1hmoUTS8flObIarlSg+yEEEybQRqG2dtyzK7CD1cz4G7ogynYhK/TDxwoAype+L/oo1ArT5iGNmvjo4uQNel1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fNLcOwgG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="USeF9gf2"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2cce6a0c9c3so66054405ad.1
-        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 17:33:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784248406; x=1784853206; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1uPNpnjtf15pOqkeyn/OTIVkD0Q5Q/QxgSoCVuNMeg0=;
-        b=USeF9gf2qVZKlAk03bVlbxi0v2wbQy7kXyVTB/Z8EkOv6JXD8zkGGJQFw7ZezBm954
-         ebmZ95iIBVn++MBKrXUhJfx47LyqHgtzSsQ0GK8SkYlDPxvyek9Nrqy4JBOxLtxrppI/
-         Wc4lXzRTfcDBYGKeL+wNtWnxybI7Xq/u7mGH2y4eYNQEVDx4+NMWpX5bgpYv272TBgrG
-         UjzRC2s/2PrA2X44XYEPKHS8b0G7pp+IzMVzEkRUQp4WJ+mtwIPvs/Pu+qlMPToPxM+G
-         YLuPESdBgmKYXNQlm893ZYEAV4E+1sRCHh7iduA3wntNLcmfJ/ME1ImpNpTeJKi87n0Y
-         65+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784248406; x=1784853206;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1uPNpnjtf15pOqkeyn/OTIVkD0Q5Q/QxgSoCVuNMeg0=;
-        b=XSlYKbp66n+NRNFoadezNtRZysg5h6WPtmqSPKVyvDlzCTfFH7nSQahDV3mhF8Q5rU
-         kly31hxUb5vcdywyzbtQ1Zq55Tsth7+kdlp9Jbe364eUvhYchSFBLdVfpMYbtCqUrhno
-         /E2BsnIkBWaLAUNNaWbg4bLAYj838Zrb9KCI2ruXy09sNucUx9ksGqLzQZxDs6fpqxtN
-         F3Ys/P0G37Dw+2R23f8qqm2i5cP3115O5do20p7ptSO/IGHeTJfJ1ZyK42gjm78/aSsO
-         U0vWYwOJqPX/FqyLJ19qtjQLWDufjDpMo+WpKcruZtHdpr7+QOhtv5pDnPbLv/WS+O6/
-         9uuw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro5x/E6T80DS3+CWNs8h9BVqrtdPE1PR0JiNv3m1tzDytiY/z3Hji3SyLD1NVkRtky9Y5xSZePJyXrM@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz3Y/bHdUd2hqS5veNVnXTbh1kHQ/T0+r9/zPoLfu+DRkGzH10R
-	yf3fUqirjhkIms8DSyr5txR1svjLueLMTIjczQVOM/N2anqTVYnA2W2C
-X-Gm-Gg: AfdE7cm9Uh9z3XNjc5CKrRx/DEijD3HjLx/hYlZD37Ve86R36f2kN/tgx6Fr2iRaCnj
-	flnRnF0lUEhdYE1HHud2vkurOyh0Ru0gK9LEfuGchMqeu2yV+imvLgQ4l+cRtCX1cDKCK6tKAdy
-	VaC2nTfgkmVK2S1dsdkNgGOj4//2pJTl4ytXQIzW9Lsld34/eQRfh2KTUQxm9CEXKFeTbIRTYyO
-	zoqX5qhZRHLR7Xul7qEHIWuzvnNB6H8G6v1ZLqUyZmwETmVRSJNp39DXvtNjVpnZ9fX4/Ws96ci
-	zV1PGWhlOmg0gHjd7RtQKHT+nWDSQOwHWJ+NRNTnirH+4UlJgRvcWI8H3wiPdND03DL07mqvijZ
-	fx+fVP4KWwk7H5CvO9k9rg/vXVOB7xwVYZHEcYMdAlnkBXEFnz73EjdRg2YjP3cduFdiQbNZnzm
-	UBlKzAGrtXyaz/B9gpnoNUZD23hpKjKiggj4Sb0WxWg+78DhZiuOjXWA==
-X-Received: by 2002:a17:903:3807:b0:2c2:bd7f:ccd4 with SMTP id d9443c01a7336-2cf349175f9mr3229355ad.21.1784248406238;
-        Thu, 16 Jul 2026 17:33:26 -0700 (PDT)
-Received: from [172.19.1.42] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf344f4481sm1139735ad.32.2026.07.16.17.33.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 16 Jul 2026 17:33:25 -0700 (PDT)
-Message-ID: <c95a8d31-f84a-471c-b216-f4cac5faf464@gmail.com>
-Date: Fri, 17 Jul 2026 08:33:22 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fNLcOwgG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 876B71F000E9;
+	Fri, 17 Jul 2026 00:35:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784248537;
+	bh=ovdFFy+hiQQ6Lz6T/cVfUyU7pOYUGQM2mUPHwvD8qlQ=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=fNLcOwgGYv/sujxdrm+V6Eqr1Nvi9x8TRZHHBVb8At5C3mXzL3vJa1hXNiRfHXqMT
+	 GJxG2EUMNHEWq73HgGp7hktSv5J1TTM3NhU//L1zfhqlQ5MhoWByjxk7wGLRMEr5Uz
+	 Sd4MAnEDNQrVbeFInW2R6l1Pst52AHB2HYCdXJ5ZXE44RkX93M+/NQS2f3ofyDEEb6
+	 /T4p9In+BBzT2PjgvcFaasaxpcDalfQFxUVJmjEsEoh8r1SfQaS0sslPaZt+ezVvtb
+	 Spg/5gjpVVwigxqzc51rGxdL6+DcOizLraaBGh58LDtlum/Ibq+h2/WC9r1OCfJkL+
+	 nyvDRX2RqCC7A==
+Date: Thu, 16 Jul 2026 19:35:36 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] pwm: Add Nuvoton MA35D1 PWM controller support
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-pwm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- cwweng@nuvoton.com, Trevor Gamblin <tgamblin@baylibre.com>
-References: <20260617025925.2539334-1-cwweng.linux@gmail.com>
- <20260617025925.2539334-3-cwweng.linux@gmail.com>
- <alj1UapHAq9f_MiF@monoceros>
-Content-Language: en-US
-From: Chi-Wen Weng <cwweng.linux@gmail.com>
-In-Reply-To: <alj1UapHAq9f_MiF@monoceros>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+ Ulf Hansson <ulfh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Judith Mendez <jm@ti.com>
+In-Reply-To: <20260716232641.2659710-2-jm@ti.com>
+References: <20260716232641.2659710-1-jm@ti.com>
+ <20260716232641.2659710-2-jm@ti.com>
+Message-Id: <178424853689.2124957.15369600144295618972.robh@kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: mmc: Add post-power-off-delay-ms
+ property
 
 
-Uwe Kleine-König 於 2026/7/16 下午 11:29 寫道:
-> Hello,
->
-> On Wed, Jun 17, 2026 at 10:59:25AM +0800, Chi-Wen Weng wrote:
->> +#include <linux/bits.h>
->> +#include <linux/clk.h>
->> +#include <linux/io.h>
->> +#include <linux/math64.h>
->> +#include <linux/mod_devicetable.h>
-> Please don't include that file, <linux/platform_device.h> should pull in
-> the things you need from that file.
->
->> +#include <linux/module.h>
->> +#include <linux/platform_device.h>
->> +#include <linux/pwm.h>
->> +
->> +#define MA35D1_REG_PWM_CTL0			0x00
->> +#define MA35D1_REG_PWM_CTL1			0x04
->> +#define MA35D1_REG_PWM_CNTEN			0x20
->> +#define MA35D1_REG_PWM_PERIOD(ch)		(0x30 + 4 * (ch))
->> +#define MA35D1_REG_PWM_CMPDAT(ch)		(0x50 + 4 * (ch))
->> +#define MA35D1_REG_PWM_WGCTL0			0xb0
->> +#define MA35D1_REG_PWM_WGCTL1			0xb4
->> +#define MA35D1_REG_PWM_POLCTL			0xd4
->> +#define MA35D1_REG_PWM_POEN			0xd8
->> +
->> +#define MA35D1_PWM_CTL1_CNTMODE_MASK(ch)	BIT(16 + (ch))
->> +#define MA35D1_PWM_CTL1_OUTMODE_MASK(ch)	BIT(24 + ((ch) / 2))
->> +
->> +#define MA35D1_PWM_WGCTL_ACTION_MASK		0x3
->> +#define MA35D1_PWM_WGCTL_ACTION_LOW		1
->> +#define MA35D1_PWM_WGCTL_ACTION_HIGH		2
-> If you make this:
->
-> 	#define MA35D1_PWM_WGCTL_ACTION(ch)		GENMASK(2 * (ch) + 2, 2 * (ch))
-> 	#define MA35D1_PWM_WGCTL_ACTION_LOW		1
-> 	#define MA35D1_PWM_WGCTL_ACTION_HIGH		2
->
-> you can drop the static inlines below.
->
->> +
->> +#define MA35D1_PWM_WGCTL_ZERO_HIGH(ch)		\
->> +	(MA35D1_PWM_WGCTL_ACTION_HIGH << (2 * (ch)))
->> +#define MA35D1_PWM_WGCTL_CMP_UP_LOW(ch)		\
->> +	(MA35D1_PWM_WGCTL_ACTION_LOW << (2 * (ch)))
->> +
->> +#define MA35D1_PWM_CNTEN_EN(ch)			BIT(ch)
->> +#define MA35D1_PWM_POEN_EN(ch)			BIT(ch)
->> +#define MA35D1_PWM_POLCTL_INV(ch)		BIT(ch)
->> +
->> +#define MA35D1_PWM_MAX_CMPDAT			0xffff
->> +#define MA35D1_PWM_MAX_PERIOD			0xfffe
->> +#define MA35D1_PWM_MAX_PERIOD_CYCLES		(MA35D1_PWM_MAX_PERIOD + 1)
-> This is irritating with similar names and different values/semantic.
->
->> +#define MA35D1_PWM_NUM_CHANNELS			6
->> +
->> [...]
->> +static int nuvoton_pwm_probe(struct platform_device *pdev)
->> +{
->> [...]
->> +	nuvoton_pwm_init(nvtpwm);
-> This clobbers what the hardware is doing. The idea here is to not modify
-> the hardware settings at probe time to keep e.g. a backlight configured
-> as it was setup by the bootloader and only modify on explicit calls to
-> .apply().
->
->> +
->> +	chip->ops = &nuvoton_pwm_ops;
->> +	chip->atomic = true;
->> +
->> +	ret = devm_pwmchip_add(dev, chip);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Unable to add PWM chip\n");
->> +
->> +	return 0;
->> +}
-> Best regards
-> Uwe
+On Thu, 16 Jul 2026 18:26:40 -0500, Judith Mendez wrote:
+> Add post-power-off-delay-ms property to MMC controller common.
+> 
+> This property shall be used to specify delay if needed after
+> deasserting power during MMC power cycles.
+> 
+> Signed-off-by: Judith Mendez <jm@ti.com>
+> ---
+>  .../devicetree/bindings/mmc/mmc-controller-common.yaml    | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
 
-Hi Uwe,
+My bot found errors running 'make dt_binding_check' on your patch:
 
-Thanks for the review.
+yamllint warnings/errors:
 
-On the include, I will drop <linux/mod_devicetable.h> as
-<linux/platform_device.h> already provides what is needed here.
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml: properties:post-power-off-delay-ms: '$ref' should not be valid under {'const': '$ref'}
+	hint: Standard unit suffix properties don't need a type $ref
+	from schema $id: http://devicetree.org/meta-schemas/core.yaml
 
-For the WGCTL helpers, I will rework this to avoid the extra static inline
-helpers and compute the 2-bit action field mask/value locally when 
-configuring
-a channel. The WGCTL action field is 2 bits wide, so I will use the bit 
-range
-[2 * ch + 1 : 2 * ch] for the mask.
+doc reference errors (make refcheckdocs):
 
-I will also rename the maximum value definitions to make the semantics 
-clearer.
-The intent is to keep PERIOD below the 16-bit register field maximum so that
-CMPDAT can be programmed greater than PERIOD to generate a 100% duty cycle.
+See https://patchwork.kernel.org/project/devicetree/patch/20260716232641.2659710-2-jm@ti.com
 
-Most importantly, you are right about the probe-time initialization. The 
-driver
-should not reconfigure CTL1/WGCTL for all channels during probe, as that can
-disturb a PWM output already configured and enabled by firmware, such as a
-backlight.
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-In the next version I will remove the controller initialization from 
-probe().
-Instead, the driver will configure only the channel being changed from the
-.apply() callback. The disable path will only clear POENn and CNTENn and 
-will
-not touch the waveform/control configuration.
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-Best regards,
-Chi-Wen
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
