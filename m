@@ -1,229 +1,182 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1985A1EB5C2
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 00:27:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE5DC1A9B24
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 00:31:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784248068; cv=none; b=KgqikkAN4ZejnTWotf5K6swylZt66cbvINtHM7ifphhc5TYQZj7CUnAqk78QJTfW+71Wd5Mv6U1y97L8u/8AGe1gdt3LhYbd1co0AIzCYJEzT3VZUW8iM6GIvl3VB/Dcogw4z8ER/Q9COEn0/RhUOD36BQp6ViwAHqMf7VhbVXU=
+	t=1784248266; cv=none; b=YKlIz2gEdI116RsEL2+vHerR4DYdq5aRlIMMMnR+5SKSxABAyMXcFQGoH944rr+Jex+4oWnHtf7mv80IOJ7CbjKJtmX8ZTzkTX9qTapkQ74mEJu3ZOTnu2II421Nr4wJ1WyTVvP8AhArG+Rb/v6aWrbiTYnQhvhVQxvq8zuK+tY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784248068; c=relaxed/simple;
-	bh=WuxboMC8gwuYa9IvYfTHmmVyytT8FQoSrk7u1Q1bNM8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tHutuZHSYNTi7x7YM+BovJb979iCrq5UUdgGc1OPT+MO6WE4iJQO3Xh+Scm7PLNedDUMnrc6KNtvtGdyXVCaH6em3VxfmhoEbsq1V/3JLkS3j3r7il8fhYM7BdNHNmEH9PIRNMoeh3bmmg0EXO5HmWGKjGM/zh/UYmqhZivucwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=amcTjttH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=J5N12laW; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1784248266; c=relaxed/simple;
+	bh=ytJd3IGSAL1N+rwcJpzr/vFDhEwruTPMalUoBQnrxXg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CIUb3nw21rk8hHhxUz7mVVZr9KYv9eWqQEQaMZqmpq9gRl0NvkQEPXV5UYDQ3I5dhGipX6mvlMBQ11fOcf7ef1ASXjnXqwWNtRnY9PGhIL15M1uLySSjHDLG0yCMxfBsbHNsZbtTrPk8ta119xt/FMnRDSpfUeUjwI7cQMPwaEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XVyJOzoP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Miey3vxU; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="amcTjttH";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J5N12laW"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66GNJ83Y049980
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 00:27:46 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XVyJOzoP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Miey3vxU"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66GNIh3Y4179199
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 00:31:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	CXMtlO1SDpulkCJC4RwfiN8jyZ4jMbi7pNzjkUsjMVw=; b=amcTjttHrWtguKC5
-	n++lHJEs5cWDSbrwXvydXhhqunjR7ll8/C0DW8kN9C+hSMohgftQUZLG6krSoG2q
-	AJaR4wmVw3hM2uJI7ByZYhtiKDm5bQUMjaJkqH3cS21J95WK6WmCRyd9ExGRW6L7
-	v7ZZ4Y/fdnneG7aPBMTFocabwVSjpLBtqbNeehXf9C7Ew8yX5ev2PXS1PkPWDS6Q
-	m7KgVk3VEuAjSIw9fmtKPQdCtx4+GpYw35ECCXAvPyYfvFWwOVQBeOn7Gybpgoe4
-	ogzAXGzGIzJzBd9v90ay8F8xZt6aghIG/HTOoddLcJ9sN4W7yNDRoO+6EhZV4WzU
-	JZvh+g==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feve1upyu-1
+	KLhv4uLuj2a0CwkzFlguBw7pHPr92MMB0a10TBLdZz0=; b=XVyJOzoPVLGEGKHk
+	0Z58+V3wLWE/gQjodIn+fi2m248drcXqjWT+pAqorhGvlYVBAcMhwQJMQ9pBIcwp
+	/EG4KBCaFgdOAJoK21OMH3VHUsMadLsMvTQhRp4u8AFkxpm/ETUnc6RgPm0X+a1a
+	0jg8lBMZ3i0mb8iwSY1xPN3vLxTJubyEdtSDRQiJLhR0j5uKu8VWAzam2EMtIdfE
+	NonB3MX7vZwb65PD60WwlaRJe7KEfkhH4VVFJfbe6woGqcuvfTgNvemdaMA3LsWT
+	Hpl9w85km2Dx3l1ow87/iVr9Fcs5FCUQLlJRMivDZwk64F71Cj/6ZFvof4hZwsSA
+	sntTjA==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ff2f2st1e-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 00:27:45 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c88aab7c1fcso17071542a12.3
-        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 17:27:45 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 00:31:02 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cb11535e6a1so3656863a12.0
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 17:31:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784248065; x=1784852865; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=CXMtlO1SDpulkCJC4RwfiN8jyZ4jMbi7pNzjkUsjMVw=;
-        b=J5N12laWJ4tlObv15JycFnYxrI3ljqf+5xWw8JwbTnjpAoQtQgS0KBhIIo7uKjALmQ
-         wXLDr6jGpwQqOXMOJwTaOBecd4c8VkkEuQANqm2tVM54oBJExXPLfK2x1pVLK6tTG5DX
-         KCTfhpdZh09tnt9fi9+7OtgX0a060KUWjIpGU6B4UzS0f03LoouEun3NhcQ/G8BX/pLk
-         MWgLoZiMRf1KCBNhzEZFVPRqXUuPtZmGobPMEP/sph0YjpqQjNmAiM0G3Fa35qZiE2V2
-         Eg4csrNvrLniC5E4Ixj3Pu8jOK3el3iL5dbbTPX/kmDZCQ4AcDMOFqbhIDwqRWpC50KT
-         hsVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784248065; x=1784852865;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1784248262; x=1784853062; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CXMtlO1SDpulkCJC4RwfiN8jyZ4jMbi7pNzjkUsjMVw=;
-        b=Bj+Dc0EJIDBIODtyYvWUUCBoLzAqW8OD4+0URPtr8soYorEQAYubBllSL8IFs6WX6g
-         iqEm+vykgAZt/SiFuxdnCVVXHYDwRA1bkoo32CevOJvRvsQf85W8UrCrWaHdtdgQYM1D
-         M340OD3CxetbAD65H7foUDWsHRyf63AQHSQ+pmjP+JPK+W9wrbp99fOzMdlEUhw85rG+
-         cGlrNQIVLI18ObZg4lwM0cEBqFDDLG6AGZ+tAPybrOxud9BqUVfsiPN/mY+ge0nxMqUC
-         kduTuGc5jD98rCFgD7Z6QkO3kcz0YkoicStEXAL+plMwTz6+B72bo0m0OKBy2eurvjRP
-         lN4g==
-X-Forwarded-Encrypted: i=1; AHgh+RrXm3FOJj/XtDTiLrbt6yROcKu7BwrL/MLyxjA3Z0C4fH/qPaIVqSjc0JOOcG2KAZHP1FPtXy4rvfsV@vger.kernel.org
-X-Gm-Message-State: AOJu0YyejHZ+xcDsDv+FCgsXYIcwsoFo8LdFabHT/m/7M2cuNXM+3XnK
-	I5N0fDuziHa2dlZszzNhgx45BDbQQeoOvLKLOS9lLXunKmcpLo+r0uMP1tOLLciA+6oiUXI5Py3
-	K7S5nKFnj4guVY7eriIXmwhr4jCbeajgeEohMO4BDrONOJ4dpGjl9cRMBJQjT91An
-X-Gm-Gg: AfdE7cl7Dew40bTAreFmatjIOpm+JjTq8L3Zxr71DAK9KDg2kGom2OZPf9cZ99QjMLT
-	H8L/LOObwGLsgBO7PDGgCayAFZiAbu+j0g5I4UJ1iArp9On3BvBmMzl7AqnWS9MKTxLUQhdqXQ2
-	xRBGfiLX1YaKBek0BJIKQpsAgY+Na3ZhnPrFtCG00urYst/4AFwOJ9SjtrVezEgJ4EXRJSw5m6s
-	Z9hSPB2HeICbfOpRIFgFyhi5lOo55tyoowz9wCLcdH3+FXgj8AA7HhCAEQ+HQK+lBMxJCNQVNQF
-	c04sd51MuUQBE344PJJ6vahDlpaoaBSQCWKXK6kPPhkR6OongN3QVgcR5kNE06NdQ7D8JI5yo5J
-	GPpS1z0H7Ye02uMoSkEvyU/MWtA==
-X-Received: by 2002:a05:6a21:a8b:b0:3c0:9c18:d5a3 with SMTP id adf61e73a8af0-3c3ad97361bmr219839637.64.1784248064703;
-        Thu, 16 Jul 2026 17:27:44 -0700 (PDT)
-X-Received: by 2002:a05:6a21:a8b:b0:3c0:9c18:d5a3 with SMTP id adf61e73a8af0-3c3ad97361bmr219804637.64.1784248064246;
-        Thu, 16 Jul 2026 17:27:44 -0700 (PDT)
-Received: from localhost ([50.35.46.84])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a20c158sm523718eec.29.2026.07.16.17.27.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 17:27:44 -0700 (PDT)
-Date: Thu, 16 Jul 2026 17:27:40 -0700
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>,
-        Jonathan Cameron
- <jic23@kernel.org>,
-        Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>,
-        linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-        linux-hardening@vger.kernel.org, Lars-Peter
- Clausen <lars@metafoo.de>,
-        Michael Hennerich
- <Michael.Hennerich@analog.com>,
-        David Lechner <dlechner@baylibre.com>,
-        Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof
- Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Philipp
- Zabel <p.zabel@pengutronix.de>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Shuah
- Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A.
- R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v7 07/17] iio: test: add kunit tests for channel prefix
- naming generation
-Message-ID: <20260716172740.00002b37@oss.qualcomm.com>
-In-Reply-To: <alcpb-7GVSfk6jFB@ashevche-desk.local>
-References: <20260707-ad9910-iio-driver-v7-0-a4ec30f63700@analog.com>
-	<20260707-ad9910-iio-driver-v7-7-a4ec30f63700@analog.com>
-	<20260712020928.2c8d1667@jic23-huawei>
-	<egyms7ulkxsgu4pvfkoruelec3sf6ca4bndcuqkvxljrdluqwu@edlqne7oy3xs>
-	<20260714180812.000070c4@oss.qualcomm.com>
-	<alcpb-7GVSfk6jFB@ashevche-desk.local>
-Organization: Qualcomm
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        bh=KLhv4uLuj2a0CwkzFlguBw7pHPr92MMB0a10TBLdZz0=;
+        b=Miey3vxUv6zQ6J0Haibc7hKwD68G8G9VLkpGEj0ilooVTAmx8slIP4ykQGVslskxEP
+         Vefp5xkfp0PTs7HBGln6WwvnXjSG+WJaX45Kzn3V6/Z0MPf971Hg3yHFJKJb8Er24qlz
+         X1ridboB0+pG7umPK1rvjAw5NzIG+EX82PEK1qeHzJzH4jhpkZl3jsfwwqzPzk914EA/
+         /7oYdC2lLvYE6/Tj181997DGJ/9alojpdjR/h2CxB2CLN7PH4xVSBnPyt0WY+IzlbBhe
+         DgZcbr7rh3Is75g2kCHHjOB3s+1+9jSy2v7jI4r/XFRhflL/Jv3/iHP6U8le5Epf/JLj
+         Nbsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784248262; x=1784853062;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KLhv4uLuj2a0CwkzFlguBw7pHPr92MMB0a10TBLdZz0=;
+        b=nywwa5OxBELjEaOBKXul3QcuX0eAM28wiEk2WhXi4UiR1FHWCKPZ6Wbg/orKiI6/VD
+         kwgDycDYxn2YYsy8Sr7qKDKb55ZjcCBqDC6mV+mq4NcRDt6EHR5WXLI5P58bQ0zEVLhx
+         +G7B0Z6E/Ou6kw219WbETKJ+LX4WhhACKM4odLi5hqpAVtuW2SZ8d/IKcAq1IN6u2ouV
+         Jn1grlAnXSGAyOdcRGubrJpmey0/7d1aZdWeRHRQFD3cVG29krTm6Ko6Z09TdP6jICKI
+         qvjyClDe4Iojk6XwpDylJ+8TJy95/k4EklSViHgMHthlTCNw6BtRWH7Dpl3E/EzG6Khy
+         vHIA==
+X-Forwarded-Encrypted: i=1; AHgh+RqKgzs7XEB7aLM6j0lIIuHHG3p33Mp35ch2Bd0OuKv2uEjbOhTO7tXqEMwq1SDikDf0mO2opxZLIis2@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+egxBLfJzqQhbChfVpKcbiLobvw9JPlNyChb/xtnefJPhaUmw
+	+/E+eE14iA2wcJPG5sZ3lvhJ5AWVRxQPVEw2S3EVeQ1RdKHnfoUgCl9ugoHplY7hmXw8fJXVyxC
+	Iax3jgiONiCD7kQv3feN8KC1uJJjq5CFJjul9NH56tGvGrjkkN0caad5bLDIlkNbc
+X-Gm-Gg: AfdE7cnyuVXhYKTdt3yZRcdtEhnDOwl0mzJ8/cHY5oGR7AXvMnwRwgAaDzJSIxtM1w2
+	ttFMUX0IlFdO+U1appJNQCZ/MNb5Cfwn5DimCxF9kKFYZeRfkP9TZrThgXkvcjN7Fc94LYu6RR3
+	vCVZbz2+9iSpogE4z+HGR3PDYWe+TclMQ/FCYem3giPdMUm87SPl35MXs9dva/qNiqYGCG7lnp5
+	Xwrqd0/yac7tWqQGyqPoBcHqPrdjOla5nzKgP6sXSxFMjgGE3Tr26hqFY1cZOPRZWRZi1kTTkAy
+	6OnPyTXjo5q84GuDn//q6wXppUPe/iB8udX/WLx34wC5gl1zVPWlB2N457/4MQpyA7al1fJtABL
+	03sHTF+8nTMU4xHH+qsN4FUM3t/oAzsiNB/3tVuAfypOqWBDa34WqcGwHfB/jStO/rv0X
+X-Received: by 2002:a05:6a20:cc0b:b0:3a3:a9c4:3d60 with SMTP id adf61e73a8af0-3c3ad7ac045mr262466637.27.1784248261592;
+        Thu, 16 Jul 2026 17:31:01 -0700 (PDT)
+X-Received: by 2002:a05:6a20:cc0b:b0:3a3:a9c4:3d60 with SMTP id adf61e73a8af0-3c3ad7ac045mr262407637.27.1784248260974;
+        Thu, 16 Jul 2026 17:31:00 -0700 (PDT)
+Received: from [192.168.1.7] ([122.177.244.170])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cb519de26a5sm37551a12.22.2026.07.16.17.30.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 16 Jul 2026 17:31:00 -0700 (PDT)
+Message-ID: <3763d264-e958-4a2a-ad7b-204e6af37655@oss.qualcomm.com>
+Date: Fri, 17 Jul 2026 06:00:55 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/4] arm64: dts: qcom: Enable USB controllers on Shikra
+ IQS platform
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+References: <20260716-shikra-usb-dt-v3-v3-0-13f73a0571bb@oss.qualcomm.com>
+ <20260716-shikra-usb-dt-v3-v3-4-13f73a0571bb@oss.qualcomm.com>
+ <606db992-446c-4601-805a-d86d0fb74110@oss.qualcomm.com>
+Content-Language: en-US
+From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+In-Reply-To: <606db992-446c-4601-805a-d86d0fb74110@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDAwMiBTYWx0ZWRfX469p4GWKJ7D9
- ++6SkWnbDd1sIx3AnGgUOqY77pcCdT4klUViESx1rqxpNYK8cysIyG5XZHJG+EbDJD50bKKSUEV
- gFqu2D2Nmy5lCYVQmOxo2466AC2offSqf2N46kz1nB697OqJs2hfnuQclz0oRUzF3rw57KlGPsc
- a3qpkeb6888ovpKvDfynBhI6hCzuUAF+f9NI+BmrCVgtZWERNpkhSTvP6pzqPGm5dkn951GUrQq
- WZI7ZBGYkAeYNkOiZE3pqdVlNCzJJf+SNsnOZ7nDLBVxnf5R6PbfKpYYPoavxtRzoAEUUgafyaW
- tbSqqRElp8FQZCxaMuMoXvLCWQmFUI6QdKDLqppnjEoHGWERmIDFCZjEwmjTSdqcd3eE6FhBvZH
- slMs5uV+rg83mRCkVT1w8cGamzwoweJe1CIp0YZNZgXqtmGE5dq1iwqX6b/Ka+GobOhcpdacRez
- f0YbBSVBN+w0aPwyq7A==
-X-Authority-Analysis: v=2.4 cv=DvpmPm/+ c=1 sm=1 tr=0 ts=6a597701 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=qC1CW/w66vtJz1P9yTJxNA==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=QyXUC8HyAAAA:8 a=pGLkceISAAAA:8 a=VwQbUJbxAAAA:8 a=xcsdVRPUYcZtn2NnLoAA:9
- a=CjuIK1q_8ugA:10 a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-GUID: A0hgLHZzfzxhnAIK6_twa2YL2m-bsx7d
-X-Proofpoint-ORIG-GUID: A0hgLHZzfzxhnAIK6_twa2YL2m-bsx7d
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDAwMiBTYWx0ZWRfXwqdeiKepWer/
- kTGlU0h2FuIbpb3L7Yb5xh7taGTg4CfQIH8mugyLTO+zonw6aXfBN4MHgfVIkORpkvUORZHIfzT
- rL9weCaVi20fgWuN53a/UMV+Fp4Tq1w=
+X-Proofpoint-ORIG-GUID: 8XO6ARyB71QAMrzu4MrynBLEAV0OYR5X
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDAwMyBTYWx0ZWRfX+mjV+l4vh0X4
+ wrRy9Arube9+gEqUV//lkxDUoczylBmEajIlIww5jGfklNkcTI4t85bue7ECYGCTCsfHVMYWMie
+ vRnDabmpYP3fMDW8bU//ItGm6vOhaXE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDAwMyBTYWx0ZWRfX0TzsDjG/xgO9
+ JghBNS0tpZzN9c9pHtz2QY1xfI0iTgxFzWqrZg8uedzC9yilObu+qTMme2OomHIghc7SnJxsjBs
+ 5xhBtjoPcS2WXh/yLulHOHQHz5DBB+44bCCb0BLPGOp+U3jW+TNiBj83sNGWYHOe4R4eFAqSwJ6
+ 4x6MW5cTPrp75Elx5siUs9LF9RIkb8Ym0Zad8aS6xkFmZ7Qs1T9zUmCJJzPvFI3VcKoH9TYxb9x
+ iuh1yennNbCq3IbZ3Ns7s9GyaDmgYyOlraW57FB8hE6jCFmika2V4az7PoVOQg0OijpLlkBA1xJ
+ eRVLaGTXMWbX8ws8niAIR9O9dkf1rlWIKtapbP6mQgMG81+NWdc9Z1ghfaljYk7lBIVksVf3oD5
+ 3LZyoHAFf6fl/SORLSSGb4jXML56j0yrIbA8iIqSiOsZzy/UQc6FwmyRhHMG3jX0aljERDz3DN3
+ kNp6LxvUFNuBz0hlErQ==
+X-Authority-Analysis: v=2.4 cv=NcTWEWD4 c=1 sm=1 tr=0 ts=6a5977c6 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=HtVcTGqVJrL9f/+MTxaKuA==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=KWuMA8URoD_tUPs-JecA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-GUID: 8XO6ARyB71QAMrzu4MrynBLEAV0OYR5X
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-16_08,2026-07-15_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 priorityscore=1501 phishscore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 malwarescore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ suspectscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0
+ clxscore=1015 phishscore=0 bulkscore=0 spamscore=0 adultscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607170002
+ definitions=main-2607170003
 
-On Wed, 15 Jul 2026 09:32:15 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-> On Tue, Jul 14, 2026 at 06:08:12PM -0700, Jonathan Cameron wrote:
-> > On Mon, 13 Jul 2026 10:52:56 +0100
-> > Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:  
-> > > On 12/07/26 02:09, Jonathan Cameron wrote:  
-> > > > On Tue, 07 Jul 2026 15:04:28 +0100
-> > > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:  
-> 
-> ...
-> 
-> > > > > Because __iio_chan_prefix_emit() is static, the test translation unit
-> > > > > is pulled into industrialio-core.c.    
-> 
-> KUnit also has static/non-static automation via a macro (defined in the
-> kunit/visibility.h) and I see that's used in the below example.
-> 
-> > > > Isn't there some magic route cases like this that makes it non static
-> > > > only when self tests are enabled? 
-> > > > Claude tells me to look at include/kunit/visibility.h    
-> > > 
-> > > There is, Although I think that using
-> > > 
-> > > 	#if IS_ENABLED(CONFIG_IIO_CHANNEL_PREFIX_KUNIT_TEST)
-> > > 		#include "test/iio-test-channel-prefix.c"
-> > > 	#endif
-> > > 
-> > > was more straight forward, less invasive and easier to change than..  
-> 
-> Maybe, but thanks to this thread, I fixed other modules that use their own
-> approach to use the standard KUnit infra for this (as below).
-> 
-> > > 	/* In "drivers/iio/industrialio-core.c" */
-> > > 
-> > > 	#include <kunit/visibility.h>
-> > > 	...
-> > > 	VISIBLE_IF_KUNIT ssize_t __iio_chan_prefix_emit(...)
-> > > 	{
-> > > 	...
-> > > 	}
-> > > 	EXPORT_SYMBOL_IF_KUNIT(__iio_chan_prefix_emit);
-> > > 
-> > > 	/* In "iio_core.h" */
-> > > 
-> > > 	#if IS_ENABLED(CONFIG_KUNIT)
-> > > 		ssize_t __iio_chan_prefix_emit(...);
-> > > 	#endif
-> > > 
-> > > 	/* In "drivers/iio/test/iio-test-channel-prefix.c" */
-> > > 
-> > > 	#include <kunit/visibility.h>
-> > > 	#include <iio_core.h>
-> > > 	...
-> > > 	MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
-> > > 	...
-> > > 	// Use __iio_chan_prefix_emit() in tests  
-> > 
-> > I'd rather this wasn't built into the core module.  So prefer you jump
-> > though those hoops.  
-> 
-> Hmm... The above (while being verbose) is the standard way of how we export
-> symbols for KUnit tests. Do you have a better alternative that everyone can
-> use? (Not only IIO subsystem.)
 
-Ah. I put that comment in an unhelpful place. I meant the include above not this bit.
-Absolutely fine with the exports being there.
-
-Jonathan
-
+On 7/16/2026 11:10 PM, Konrad Dybcio wrote:
+> On 7/16/26 6:29 PM, Krishna Kurapati wrote:
+>> Enable both usb controllers in device mode on Shikra IQS platform.
+>>
+>> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+>> ---
+>>   arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts | 35 +++++++++++++++++++++++++++++
+>>   1 file changed, 35 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
+>> index 3003a47bd759..2d4e34ec3b82 100644
+>> --- a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
+>> +++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
+>> @@ -38,3 +38,38 @@ &sdhc_1 {
+>>   
+>>   	status = "okay";
+>>   };
+>> +
+>> +&usb_1 {
+>> +	dr_mode = "peripheral";
+> 
+> Why does this one have to be peripheral if the other boards are otg?
 > 
 
+Actually I missed adding dr_mode as peripheral for other boards. I put 
+in commit message that I want them to work in device mode but missed 
+adding dr_mode property. Since the default behavior is peripheral mode, 
+i saw no functional issue while testing. Shall I send v2 with either 
+removing dr mode here in iqs or adding it in cqs/cqm ?
+
+> [...]
+> 
+>> +&usb_2 {
+>> +	dr_mode = "peripheral";
+>> +
+>> +	status = "okay";
+> 
+> And why do the other boards lack the secondary USB?
+As mentioned in cover letter, on pure upstream build, I validated both 
+controllers on iqs platform and only primary controller on cqs/cqm 
+platform on a remote access setup.
+
+Regards,
+Krishna,
