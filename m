@@ -1,134 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77903DDAFF;
-	Fri, 17 Jul 2026 11:33:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1E53264C7
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 11:38:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784288005; cv=none; b=cHdmFLz1/vFRWR+RXK+jGQnhNMjkiNqMvgwN1/Ca1t4wP+4mq4PmohrffDinGnNyIvlT1/rjEI74Ux+GrH/isr8WCDXVGPo+yh4J+srGlRgwm0P+/A4D1aoy4Aw4LndeWaZQ1+6lzqSvUBvSdIO2xPi0xIAuR7mKmQfz3jII1qM=
+	t=1784288324; cv=none; b=OaW6sqrM3QcpZKk+kgplFOfZIxocs7snKCPhc4ffjIU77d/eOGD0M6gYnWNHj58rnHk+sqY1buUQav9/QOdzbyi77VB0rwaV+bZ4puuiwA6i0zZpYKZijH5XHD9lxgpX3FluBATGex753yCsCPupXaaK7FBDXPEstWc4jRk6j1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784288005; c=relaxed/simple;
-	bh=4/0Dy3bG2N03PMXD4tDRtwJ/GlANJubEfXkggJ+LawY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VsNlg8n3L4x/jBLN3wvuZEMbbKPNhQLszWuAJmZxD6/JPp+SJX9BR6jS+qgIeL8OcqRABpdpUmwN3qoQYAJLVBqu9ICvEvVlssM5j1XbXCwGXVDh9m4QUhm9zNqtGPD/09wjVpeB8QZ9UXeZAc+8+D8VtjqKX6PRWIK6uJJG5+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fqrJFIJO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784288324; c=relaxed/simple;
+	bh=b2ptLegdjgLTw2mCpbk+J/wHkKueQwDVlvq9JpiGvx0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=bfPjAQvUG0sGtEn9Vyw5dWZLWFBANiBUrj01BdumYGRNXY6kmrGL/eWMWtTcCglK90WMnXFrLFcKtXsZZugSYI7GzfC4jtaXmVKWQryZPYpBDLuV9NXDRrYzlByXZIi/rqF96ubKTo2HHy8WcBMHCaBP5nyFRFBTwQmhEo7X2bc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IYLryoE2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fqrJFIJO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E35B1F000E9;
-	Fri, 17 Jul 2026 11:33:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IYLryoE2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20D271F000E9;
+	Fri, 17 Jul 2026 11:38:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784288002;
-	bh=jSLvds9pdoa0j+cXfuPtqcpXERUeedl9jkwipFR9BEs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fqrJFIJOhqYsL8/YfnDl6dpe7Old51x8q+mAj+NNbcY/f2CvxeUosaR9dtOwfjRcS
-	 YfZ5Y1WetF3oBH2diMGx26bq182H1TZITD5Vim2xwYjIpP7LMqqd1G4iDR0boZXxQf
-	 ejOTCk1p3NtVkDqiKUnDqWZH0btO4g4ib4iMyFR4wuDNfJkEGWSGdTqWA1nj9YngDG
-	 u8tAhSGdaGK1qGfzBwN/3MNySOsu2FBeyoh66uASTyVI6iyq2tQ1cTt3xL5P03Ffot
-	 SdfPzyEgP2xJknP1rU8PdJzngFbfD31E4X6xp7z2QOaDuIBe/BSq874t2qje47yA60
-	 DgVQKc50JDJ+w==
-Message-ID: <f0278842-ceba-4d90-9dc0-4a15a7e7b342@kernel.org>
-Date: Fri, 17 Jul 2026 13:33:15 +0200
+	s=k20260515; t=1784288323;
+	bh=RoViZDo48y/mJlTTjKvpRzm6gH4+FjtUR0S1MdKn9p8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IYLryoE2U1WKexr397b8Lkcc4s+X8whlil8mxMkfKCloWOkjACpxL5k1V6m48C3r7
+	 3G5CHnaHgLd2xID7kb5Tyb6Ber9UyYNEIXpLnKR68awVsdqeQpM/bZGgiwuC9iFgsn
+	 mB5NedGOCcKRH5DSd3Ey3NX1R+a2mdv8HbYbYxWo3W9n0kkuv3uEjO0ZZcIpuH1s3O
+	 E9hTbQ0xkFE2ZhONewaJbIEBzU7D+rsgzD//0NXpohdpc6BP4yuTsK2FPYNhjncw0A
+	 8/CHzALb1BMRabsd1n/6Oyac0D6+SX6PuwXFP0n+Gh7a9Yy0XDFeVgL1ws6tXZk0dP
+	 QrA1li92mZ9nw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v2 1/2] dt-bindings: net: add DAPU Telecom
+ DAP8211R(I) PHY binding
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Artem Shimko" <a.shimko.dev@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260716113805.593215-2-a.shimko.dev@gmail.com>
+References: <20260716113805.593215-1-a.shimko.dev@gmail.com>
+ <20260716113805.593215-2-a.shimko.dev@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 11:38:42 +0000
+Message-Id: <20260717113843.20D271F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: i3c: dw: Document missing optional core
- reset
-To: Shubham Patil <shubhamsanjay.patil@amd.com>,
- alexandre.belloni@bootlin.com, Frank.Li@nxp.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, radhey.shyam.pandey@amd.com,
- michal.simek@amd.com
-References: <20260717105829.567522-1-shubhamsanjay.patil@amd.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260717105829.567522-1-shubhamsanjay.patil@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 17/07/2026 12:58, Shubham Patil wrote:
-> The DesignWare I3C master IP supports a core reset input, but the
-> binding is missing the corresponding reset description.
-> 
-> Document the reset property and name in the binding. Keep the reset
-> optional because the reset line is integration-specific..
-> 
-> Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
-> ---
-> Note:
-> The DesignWare I3C driver support was added by
-> 1dd728f5d4d4 ("i3c: master: Add driver for Synopsys DesignWare IP").
-> 
-> The original Synopsys DesignWare I3C binding was added by
-> 116e246a8bcd ("dt-binding: i3c: Document Synopsys DesignWare I3C"),
-> but it did not document the optional core reset.
-> ---
->  .../devicetree/bindings/i3c/snps,dw-i3c-master.yaml         | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
-> index e803457d3f55..822faf8d221b 100644
-> --- a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
-> +++ b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
-> @@ -38,6 +38,12 @@ properties:
->    interrupts:
->      maxItems: 1
->  
-> +  resets:
-> +    maxItems: 1
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The 'dapu' vendor prefix used in 'dapu,tx-inverted-clk' is not docu=
+mented in vendor-prefixes.yaml.
+--
+
+--- Patch [1]: [PATCH net-next v2 1/2] dt-bindings: net: add DAPU Telecom D=
+AP8211R(I) PHY binding ---
+commit 05e0cd0742ef4792c4b9865b36c3662e45293902
+Author: Artem Shimko <a.shimko.dev@gmail.com>
+
+dt-bindings: net: add DAPU Telecom DAP8211R(I) PHY binding
+
+This commit adds device tree binding documentation for the DAPU Telecom
+DAP8211R(I) Gigabit Ethernet PHY, including properties for configuring
+TX and RX clock delays and a vendor-specific flag for clock inversion.
+
+> diff --git a/Documentation/devicetree/bindings/net/dapu,dap8211r.yaml b/D=
+ocumentation/devicetree/bindings/net/dapu,dap8211r.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/dapu,dap8211r.yaml
+[ ... ]
+> +  tx-internal-delay-ps:
+> +    description:
+> +      RGMII TX clock delay in picoseconds (0 to maximum).
+> +    multipleOf: 150
+> +    maximum: 2250
+> +    default: 1950
 > +
-> +  reset-names:
-> +    const: core_rst
+> +  dapu,tx-inverted-clk:
 
-Drop the names, pretty redundant, and fix the driver. Sneaking ABI is a
-poor excuse, IMO, to keep discouraged names.
+[Severity: Low]
+Is the dapu vendor prefix documented in vendor-prefixes.yaml?
 
-Best regards,
-Krzysztof
+The dt-schema tool strictly validates all vendor prefixes against the
+registry. Because it appears to be missing from
+Documentation/devicetree/bindings/vendor-prefixes.yaml, running
+make dt_binding_check will result in a schema validation error for an
+undocumented vendor prefix.
+
+> +    $ref: /schemas/types.yaml#/definitions/flag
+> +    description:
+> +      If present, the RGMII TX clock to the MAC is inverted (180 degree
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716113805.5932=
+15-1-a.shimko.dev@gmail.com?part=3D1
