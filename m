@@ -1,293 +1,294 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azolkn19010017.outbound.protection.outlook.com [52.103.23.17])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E3A37AA98;
-	Fri, 17 Jul 2026 03:44:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.23.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784259844; cv=fail; b=SlPicNMm4e1+sYyKX7KstmvSmEfdW9XtEmTWNO1idY3V+eu2IQ+v8VUg3JG89zioDs1tkR8plZSLSeRHxQA1BhHLXK/PyLU1EW0K/4igVxVlq0bA5JAxQJvovFmAmsNuTEM6eAEghMjnk5+cjQSmjeGKatOEBkBaJ7bimkEJgKI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784259844; c=relaxed/simple;
-	bh=XLvmpt+z8fMk4/sMRQfta2BeBL5R1nnANk50M+QYUy4=;
-	h=From:Date:Message-ID:In-Reply-To:References:To:Cc:Subject:
-	 Content-Type:MIME-Version; b=GC8olIiPtfNF4NqKGKqhFcMupPe5LZtyAX2L3MS+V6ydwMgMB67USbIU+WBbjzBUrJU2/FZvZqk4ZwdZEfMBlR4qNHK1DejdTEmDfm1DjOAKjdB6HKFCqVRe9AE4Nr0Swth2HMv+EwV7uiFggZd7HB3TUUv5xwZl+YlN1jNAEh4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=QlRKRJvR; arc=fail smtp.client-ip=52.103.23.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE7415A86D
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 03:46:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784260012; cv=none; b=ac7VlEVPVqFqTORUfyEnsjYIU1IQaJItEVwTbgq0opmDGE+oC5Yd251QoJv/nKN0i+sIioe/QKNAnHa3nfcRHoneUhOjexwz6DqQ6gaElSmZxbsGgLfFr+y7ZuLhAoMzgwSYOpUcqkj6zaQp7X4GVkG+tUEmm9ntmn1PonjWk3U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784260012; c=relaxed/simple;
+	bh=xeS7TuAWqC3a2+4w8CYotSIfCCdHNfwCj0vuvc731FE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bjBmB31WgENWeban9gJI5NmkG010FKCE+boIALL3+WBFBUhZ6rTW7URr4I78KhhjrqzdpdEMYr8knTOqiOKQecFkH9tAc3q2cELlGkjV6p3JwXBByXZNVZvqg0VG4/ko/kMLmRKq2w5jabAOCcK2grexZ33zYPzBpcwN0Y9ZPfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fWgCcWR7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MtleqQCW; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="QlRKRJvR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xO9Z7vwzjPnlmNMwvIuzUbqnNvvzajvasg+8HmOF7fOoJCya0mfvr+XrQBoP0ekNK979vPeoI8RApQfP2tc2pkZXuw2abidXksZ/h72UuoKnOpjrv9FatJVlE2PQ1RsOdV9tLQndYcRAVqzwyp1IM65JQJVWFjYNqqoIxUyHTL53FerVwQq47ljjSoZNgr11vlL0G1waNCr+XI9zCZ305JTOmmD379/fA5zvtn4QPxYQjppJGZD5MnHdFd9YX1xHp/bTYVTOErhyniSr4LTGFdPd9y9RuRsgsFLouMBFTmG7p+PkbaZEOLYKJblrzdGUKJhP2OXpRR9qYjHbocOpiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AedscYHBzLkBiT9cd/FDBy1cI5LT4FZ+m2BUeXrzWAI=;
- b=hVSnwhjTgP5fci3jpBmsZ28ngbxVZ1mZFU9Yt6jVyWn1mgT+A/JFz1X2htyCbiMpBzji88NYhANsir6exA6lA9nFEkLhwXQQbCHFmlyprpabbJiz6fzVfBZieINaxSD1fpJHr3XHV2Q9g9+JfUIQg9GC9gyaYFeHWnum/hyWvi6MQRIU1Mc9N7S7oORrlPqhz76i2aeYl1JI9YV33+b5sBf7cAC5BRuTNwwX1lA+ULy/27ELgNQNDa/Jbasrr2xOUI9S7Pd0zI0p+D6XuK1th4dzy/z9dNb7fBISArTnW9gH3jkQYnnA1DH8qck5PGxMUWJSZ1G37pdpPxvlyrvu/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AedscYHBzLkBiT9cd/FDBy1cI5LT4FZ+m2BUeXrzWAI=;
- b=QlRKRJvRhzl1R0wS8MY0Dn2qam5eOpOETRdQ/OpeoBnEnONU4ozMQFGjGsUa25/zBO9LF7Fom/duuplmcUOdSERNWxe03Lir3v5G3T9VdKhoaNVIXctA+Z1FUk/8HZk99j+TAUnsTR7DKzcjV9PYUyqLapDBb9B5yiAkUAcg6PTALn8jj3ERxaC9CAJFHEEeTHcgxe4r2jV7oHy8JgBQmDq4ISQg+wX+U2CuaXJEmF0JR5AOtfcCTmVePvhWwHJc6POZFPsn61C2DHU2vJCAH8VGmHRV6NM9cSYdcWrWJ/4IDPxEC5a0g6SWvddM3hPkCJWDMrX4qRIkyNtsOrHWhQ==
-Received: from MN0PR19MB6091.namprd19.prod.outlook.com (2603:10b6:208:382::21)
- by DSWPR19MB796710.namprd19.prod.outlook.com (2603:10b6:8:3b8::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Fri, 17 Jul
- 2026 03:44:01 +0000
-Received: from MN0PR19MB6091.namprd19.prod.outlook.com
- ([fe80::af9a:4cc3:facf:9374]) by MN0PR19MB6091.namprd19.prod.outlook.com
- ([fe80::af9a:4cc3:facf:9374%5]) with mapi id 15.21.0223.011; Fri, 17 Jul 2026
- 03:44:01 +0000
-From: Liu Changjie <liucj1228@outlook.com>
-Date: Fri, 17 Jul 2026 11:44:03 +0800
-Message-ID:
- <MN0PR19MB609153A4A590C66241B8A3CDACC62@MN0PR19MB6091.namprd19.prod.outlook.com>
-In-Reply-To: <MN0PR19MB609154F210DF84DCB29D3696ACC62@MN0PR19MB6091.namprd19.prod.outlook.com>
-References: <MN0PR19MB609154F210DF84DCB29D3696ACC62@MN0PR19MB6091.namprd19.prod.outlook.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org
-Cc: Russell King <linux@armlinux.org.uk>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Luo Jie <jie.luo@oss.qualcomm.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2 2/2] net: phy: Add support for the Maxio MAE0621A
-Content-Type: text/plain
-X-ClientProxiedBy: TP0P295CA0027.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:910:5::14) To MN0PR19MB6091.namprd19.prod.outlook.com
- (2603:10b6:208:382::21)
-X-Microsoft-Original-Message-ID:
- <515b8e4afa7b419e93e749c880e1f868.1784259843215293.tspi3m-maxio-v2-2@outlook.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fWgCcWR7";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MtleqQCW"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66H33eiV314109
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 03:46:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Z5W+HbbHXYh5BWmthVDLvjbzDM6yxh4CTBRhyy88iEI=; b=fWgCcWR7H/tADzU7
+	gv9UAGC9+6P2xGMFkXF3jEJdATfbxdt0AujnvhsWgp9hQde826cM0/hZfPITj+Ks
+	Xm+T9SFqEs53sQu5awfkanIpgpK0fumcDstcY6WFx0bu6plas+H76vGi/eia3GNn
+	/U2N+F61T2TQmUBIL6mi7bmfzYe/1VP5nLmP+eEJ6mxP6Uyc1bSFwPLp9i0ezR67
+	ucFfljNv/6i203QkNpYytbIGpI9NvvdB3z8tZiDcZtYwcKToNYslM8B7GQYjHRv6
+	cjt1eNglHLOVUFfU0vxsmoF2KgvdEc4bNxcipKEdi/F9hj1+Z+DqRvEMepEeXYnJ
+	Ksy13A==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ff3u8hvs5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 03:46:50 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38dad28e86eso9693313a91.0
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 20:46:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784260010; x=1784864810; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z5W+HbbHXYh5BWmthVDLvjbzDM6yxh4CTBRhyy88iEI=;
+        b=MtleqQCWU4cVKnHAGISceqS0hDuZzF6M2dEwP7RW7E1EeYTqnU7L8aKHLjaMlnAe0N
+         kA6Pjp8VVfyyHS9GMFqjEPIcXn+9W2OjRC0SxTNyA/yRKH4M1ynA02YG8jzeZBeezI5Z
+         kXzKl2jMrY8FzjbsI/YPgh19iA3Na7AnyimHnt1m6+fjZIFBpKn/JSHQyjfWaxPJDQm7
+         qOl4rkqqB+89tq/avePEIFayLA04IHw613RIY5IcyrcdpR4gNTGZuUn4tfWA7N+y07Dy
+         K9LCq1AKZ9DsmdXJun4mi3g+fEC4UUCZmEQRPi8Kqh2xvKQzzopreKNiB+2CJM8I6lqi
+         umzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784260010; x=1784864810;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z5W+HbbHXYh5BWmthVDLvjbzDM6yxh4CTBRhyy88iEI=;
+        b=Tx5U8tzj8iIT2W4BWTvDiks1rtZV4+24N1eKbGnssn7VUsZiS+COk6VZRjmOACzPRa
+         5Te6hLlK49NtuEiVQokBLPmwhCPWEiBnhjOWcL5hrjINKJmPOFGc6vWnCu+qBIEAFm10
+         iA9L82UVCP2i5JD4odNu7Ee8zvDeL5I7NlYeE/CTSA4E7jgzGFDVgFDJKUIFFhufElMf
+         y0zYFDaGN9+Z1vVnHn/gCAklnEZQzjDzEfcdKPgbkQ+4CnOTJKpru78GGD434EgrIQWd
+         /76I5i1IXErN+gfmkg/FhfzdwLIb3ImTdQx3DeKR2tYZZe5X4n6JqLdGyx50wq9T6nzE
+         UzUA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqd5TNmwq0McJvME86t9oyEeqBI2qznxYf4UE90TP76OuzsPAGF7UfReCx0dW/X7U5wNuZq5ymNEeHB@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+skRUBwxfTaGWxTAPBOVMMTIu4m9NVRo0cFJUoOtwpq1q12+Z
+	uH9TSxWp/oZcjHwPpU2owPWv4BASPvku2XaqWy7BQuBcPjCzpDDMmsne9oD0K/4cBsszXYpXEW+
+	QDj5+TD1dJ6oRU6UgKNBRKKM6GaQ9YBUEP0PFRO7/OgFasl91T/dO8eAw+8y+UmWW
+X-Gm-Gg: AfdE7cmty/teIh6EjXm7uy3o0/2KNT6mlh0w34tS6/kjmGa9AkVVujOlreBmaOTlGUs
+	wxA2AEG8gHoFvOwM92ZpfJh2BKQ4STWdXZmxPj4wa6anfD2MI/hb4LP8UVT2vJ/nh7539aEnI4u
+	aYqDmsiYSInCqUVY/VdXo4ybQWOJH+r1JEPlNGRl3KniDlxdsqlk+TE6smBqIGJm3Y83eAyry5Y
+	Ju4DggcWuwJB/r4ujiXOIC84XvFkdT1zvQ3EtQSZqci4Q8cEwMP01h452/XtJ+nCAri/xurFB5Y
+	U23o4cPVkybIk/srP982ExEHqHEup50eFVHcd3iVrMOjllbv0TfeGNvLFVyRcia0FQYEYFodLPl
+	236tmB3B5VF9qAIQb0r8wAkjPvY/djyhx
+X-Received: by 2002:a17:90b:2b4c:b0:387:e0db:3fae with SMTP id 98e67ed59e1d1-38e4b5f285fmr791773a91.39.1784260010123;
+        Thu, 16 Jul 2026 20:46:50 -0700 (PDT)
+X-Received: by 2002:a17:90b:2b4c:b0:387:e0db:3fae with SMTP id 98e67ed59e1d1-38e4b5f285fmr791744a91.39.1784260009709;
+        Thu, 16 Jul 2026 20:46:49 -0700 (PDT)
+Received: from [10.206.105.200] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a1bbaf6sm1523528eec.17.2026.07.16.20.46.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 16 Jul 2026 20:46:49 -0700 (PDT)
+Message-ID: <2ec138d8-242d-6d0a-0b87-cd6a65c7228c@oss.qualcomm.com>
+Date: Fri, 17 Jul 2026 09:16:42 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR19MB6091:EE_|DSWPR19MB796710:EE_
-X-MS-Office365-Filtering-Correlation-Id: 62a108df-1427-4b98-8968-08dee3b5a3ea
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|25010399006|23021999003|5072599009|37011999003|51005399006|8060799015|15080799012|41001999006|19110799012|24021099003|26104999009|440099028|3412199025|40105399003;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?FV34PMWTP2ZXe8jfRrBgx2dzfMydw8PWK+OKBVlfOeKHgEIHVQrFE/KNh1OP?=
- =?us-ascii?Q?cEdjn8XVb9e5mGpXtvTySVWq77rM20eNuVd3lG1gMvWW948YDNwlw0mJXoGU?=
- =?us-ascii?Q?UeRTduuAWE09vsQsqSCuhj/NanRmDvpe3krcfsd/tToCRtviJI+WXkPO+nTV?=
- =?us-ascii?Q?UW34nZc+WJEnpyHE9JwsldHk4w+NVIMzAWXU3CtKWnmTz2fki2JyteFe0MJO?=
- =?us-ascii?Q?8/SGokCzt3XhngauwIj/CrQ1Z3cawd4YouwTnrmlZBGTXxNbwRGADZGGl43l?=
- =?us-ascii?Q?ZUhfjBsWARlpg0UAOXioYQezAjhH3hw3p8RGVl+hIFsxqb15o2E2JSYy7j9K?=
- =?us-ascii?Q?qjZwchJ7UegL2UzM2gy92lcFFgeQy0Hywh8bECzbjg2t172qjS37Ofyttg8/?=
- =?us-ascii?Q?W4CRSWMUMEO/o1zuUkh7bh0avKXfX515uEx/xLTk9X8YinGK0NusNIx1AMa9?=
- =?us-ascii?Q?VdCZ7KQxU8Fr5k41HGoCpj0nXz7MkQjZRfqmnOP76gEDVIkkZgX2abYh1D0k?=
- =?us-ascii?Q?P6mhWYPRuQr3zxkWFQcDQElg6F7PYf7etVBlA7uggJU57ofNYFXpxwIsmw0N?=
- =?us-ascii?Q?KPse0eosxP4eSO/RtquK6aYjaELysVIMQ3/hoivaPAc58M20mFYWHFYU5PMI?=
- =?us-ascii?Q?tIkz2bovblDaGxgXZzjAXyG7r5hLcoyYVnDsWxM3lVwhPFTId4mMRCysLCUK?=
- =?us-ascii?Q?SHeaCScLJgGl3rUECEhrQVDMkrwgH0fsHxi0xEyHoTyQRbKDxn6V7maVmBeD?=
- =?us-ascii?Q?TRcbY+OWt5ptzgnVXVjTOVm2EdqdKa0X/pUCkza3vn9iU3uCNt5yDyIt3Mbz?=
- =?us-ascii?Q?FZ0UguXwXqOJ4qGlPdGSSsr4xZK/PbsJo6igakGlGQJmL6tJrZHqVuRS4Kk/?=
- =?us-ascii?Q?dV1AB7prY5hu/XL3HzvQJfFIiGAQTnFFfEp7n8Ow2CidU0tpJTueozOmjWfB?=
- =?us-ascii?Q?yoyKL3vfS/BY0APt882M7XN9UIs+9f7BsWq/tdCkGHBqUdUe0d3TNC75Q4c1?=
- =?us-ascii?Q?NbEE?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?sgDSVtpw/NliJ06KcX5PW8xufOZRFRAd3obCSTUc3hu/8hxmM6iNR/EwffNE?=
- =?us-ascii?Q?lQyoVNaH4Lc/81V72LE6BoHYXVNcB9uVhPixk2nQnfautRA9teOVDrllehhV?=
- =?us-ascii?Q?6umTh/ydc4zhn1HzK7Q93JDYTBoeOiW943S2gxAzdAW9JP6E59Rq/6AZPwgu?=
- =?us-ascii?Q?fM1fxARp2DnZfTVSyaq1tDEHxoorHzHETaIuBBklKJiWODIsDHv7VxmlAxIS?=
- =?us-ascii?Q?omv8dr1wRw+Bd80bqQTXv7AptDOow4/y8c/UB2DVQeun9imR/ihkOu81syOe?=
- =?us-ascii?Q?NW6Ejv9296xN9zmdAwOL2I4Xr7aLwSv7Vyw5vuo/9aOEcsoDy5fqhKlxqB1i?=
- =?us-ascii?Q?CugVqgBiBOHFU4AHbdsWtDsomVuszYQDyuAkOWFoyPPYxxM6TAUqNkcZGcyp?=
- =?us-ascii?Q?sIIkXaZMTu2wc26BSFa8nIJ42xg+Zn1XCg+pbwb0/FcCymqAaoG6o5jVGJdE?=
- =?us-ascii?Q?kZdwjyxga6FI60iZX8LX/ffKa2iTnyZj1lufTQWgFGh71IuNaOk1S1FRv8Ag?=
- =?us-ascii?Q?KyV6+c+wDe8VIFcy3f1SASbTI0e9kWdgmUymvX1lQCIYgH9DdiDO+PrNcR7+?=
- =?us-ascii?Q?xIg5LqV0hALfhpMye6q8bqYu7t2j32VijKNMr2YV33DU33DR1S5Li2qF4xYm?=
- =?us-ascii?Q?GjUm6dPwU7bDzvl8TcUhi3SUlpAoqO9t+bFS2oM0ZNfeoSbeoPlm+ZRwqO3P?=
- =?us-ascii?Q?l7J4c1cnxAmB+Qj1mcfk7wg0KZPUN9EBQP7UiPhwSvYq7Al+jR4Z3aFd8xNf?=
- =?us-ascii?Q?3clLcrz3eOOuL9BGhTwogFwCqSFsg9KE9YwRkaQsvPJIaGOM5sKC8fJWyhvz?=
- =?us-ascii?Q?6bEYvMScAfAJsAzB3cW+SFT2Tb22Cs0mO0Qcsh13I2/kIdgtBAMzaKrF2EMP?=
- =?us-ascii?Q?RiFMf7FyFazGfSUci6n+bHSKcbm6vDe25k4yTbO4w8qDSXtL6TTssHuu3YaQ?=
- =?us-ascii?Q?G9y3rgrskU9UA3VqmgTEKgpRaJBOpjuFriiMjmI3YhTfCohHT2ipRtHNkpUY?=
- =?us-ascii?Q?uOLk2hij41vVufidddAPm+ipsvW1ysOlL9Kb7V6uYG01YHOihI0ST+0zE7Ij?=
- =?us-ascii?Q?7sNix34kLjV/8GccIfpP61dVxHzQWvFcLF6MijXXQPbcbqIs3a/UNHhRXMiI?=
- =?us-ascii?Q?Eqte5RloGGZ2WxBvjDMuds8L1bxQDsb87lwNSb29xVqNsWKvHVcbAMP4ME76?=
- =?us-ascii?Q?CY2oI7WQPrbqqJePd+xUIJRQhxJE9staqwdO7/BujHQ4u6m91RP8CfdGS8YZ?=
- =?us-ascii?Q?c6KdWsDCqZx/qezr+owYSh4r6bn4FG9Cm1Ws5NThNGUXCPc4mpMNpFrvVR+9?=
- =?us-ascii?Q?QAkyu1YnP7o4b1U19iTJaRbr1AXbZteDjLUND0WU1PmPSQx0TVmbT0prshBA?=
- =?us-ascii?Q?50s2gmBna+8cqvBj+aRnbbMivJmOTjDfzqy6CoA3YcHvZH6lxQ=3D=3D?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62a108df-1427-4b98-8968-08dee3b5a3ea
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR19MB6091.namprd19.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 03:44:01.4115
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR19MB796710
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v7 04/18] media: iris: Filter UBWC raw formats based on
+ hardware capabilities
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+References: <20260709-iris-ar50lt-v7-0-76af9dd4d1f6@oss.qualcomm.com>
+ <20260709-iris-ar50lt-v7-4-76af9dd4d1f6@oss.qualcomm.com>
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <20260709-iris-ar50lt-v7-4-76af9dd4d1f6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: LjhupV9rDtUK-rIGluUCea4FNbam98Ub
+X-Proofpoint-ORIG-GUID: LjhupV9rDtUK-rIGluUCea4FNbam98Ub
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDAzMiBTYWx0ZWRfX4f5KRFrENUil
+ gQ0Ny/NJtE7YQ65n09g7GaVw/Pdpy99kTeilZ4jolP4aA4HrHOVyScATXh+OwCyEb0zqRqIF1vW
+ 1moBXCQcczvIg6iHkwcyZ+byPDyuv1U=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDAzMiBTYWx0ZWRfXx6JdaMzHNylF
+ vV1+iJiIh2dD9ZTlSgA2hD7gi5w9F2D7swL2iPEMJKOGFzjWnJOX4EG+CKhMwlgkc7RzNWWW654
+ Q6XmrFDYCih+4C5MC0JQV3czCxudj0jUh7j1Y0tV3YKiIrCLdYqEYoxA9qg8z2C7OiXgBdxnOt0
+ +0C9YBGT6VSqL3vPMBvJCZRCe6Zl4Aspwmewy5tSQBP7+Matps2OdgEn6P1liquI4m5eZ2Y0B8w
+ PaVOvKJ3/v0xMCZAWgK5wMBtVfDWINztwzGHLr3i1jmp0/NGOkxuqn5jnVRT7sJCVUgBGpdzwyS
+ MFp+GKucMvsYPJ+iaCiZqFJ4LHDNt0GwL+80eaID8yRhIzGbJjLuT7yLv1ID0C2kntYDZS+ypN+
+ Hzus5tiSwN6zqzCG854pS0yImYAY6eSpYri6ViITgBD5hmVeAJYvymPtKJ3fbk1UphgzPXEtR0H
+ 1TDgQg5ZcxMdzc8VjRg==
+X-Authority-Analysis: v=2.4 cv=TL11jVla c=1 sm=1 tr=0 ts=6a59a5aa cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=8n6RmP5xwyQ-3vr3y5EA:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-17_01,2026-07-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 clxscore=1015 lowpriorityscore=0
+ spamscore=0 bulkscore=0 malwarescore=0 suspectscore=0 adultscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607170032
 
-Add exact PHY ID matching and optional 125 MHz CLKOUT configuration
-for the Maxio MAE0621A Gigabit Ethernet PHY. Preserve the existing
-hardware configuration when the firmware property is absent.
 
-Signed-off-by: Liu Changjie <liucj1228@outlook.com>
----
- drivers/net/phy/Kconfig  |   8 +++
- drivers/net/phy/Makefile |   1 +
- drivers/net/phy/maxio.c  | 103 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 112 insertions(+)
- create mode 100644 drivers/net/phy/maxio.c
+On 7/9/2026 7:11 PM, Dmitry Baryshkov wrote:
+> From: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+>
+> The raw formats supported by Iris were previously advertised
+> unconditionally, assuming UBWC support on all platforms. However, some
+> platforms do not support UBWC which results in incorrect format
+> capability exposure.
+>
+> Use the UBWC configuration provided by the platform to dynamically
+> filter raw formats at runtime. If UBWC is not supported, UBWC-based
+> formats are omitted from the advertised capability list, while linear
+> formats remain available.
+>
+> Signed-off-by: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/media/platform/qcom/iris/iris_vdec.c | 26 ++++++++++++++++++++++----
+>  drivers/media/platform/qcom/iris/iris_venc.c | 25 +++++++++++++++++++++----
+>  2 files changed, 43 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/media/platform/qcom/iris/iris_vdec.c b/drivers/media/platform/qcom/iris/iris_vdec.c
+> index 4c8bc7aac135..9fee5f28097d 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vdec.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vdec.c
+> @@ -3,6 +3,7 @@
+>   * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
+>   */
+>  
+> +#include <linux/soc/qcom/ubwc.h>
+>  #include <media/v4l2-event.h>
+>  #include <media/v4l2-mem2mem.h>
+>  
+> @@ -69,8 +70,14 @@ static const u32 iris_vdec_formats_cap[] = {
+>  	V4L2_PIX_FMT_QC10C,
+>  };
+>  
+> +static const u32 iris_vdec_formats_noubwc_cap[] = {
+> +	V4L2_PIX_FMT_NV12,
+> +	V4L2_PIX_FMT_P010,
+> +};
+> +
+>  static bool check_format(struct iris_inst *inst, u32 pixfmt, u32 type)
+>  {
+> +	const struct qcom_ubwc_cfg_data *ubwc = inst->core->ubwc_cfg;
+>  	unsigned int size, i;
+>  	const u32 *fmt;
+>  
+> @@ -80,8 +87,13 @@ static bool check_format(struct iris_inst *inst, u32 pixfmt, u32 type)
+>  		size = inst->core->iris_platform_data->inst_iris_fmts_size;
+>  		break;
+>  	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
+> -		fmt = iris_vdec_formats_cap;
+> -		size = ARRAY_SIZE(iris_vdec_formats_cap);
+> +		if (ubwc->ubwc_enc_version) {
+> +			fmt = iris_vdec_formats_cap;
+> +			size = ARRAY_SIZE(iris_vdec_formats_cap);
+> +		} else {
+> +			fmt = iris_vdec_formats_noubwc_cap;
+> +			size = ARRAY_SIZE(iris_vdec_formats_noubwc_cap);
+> +		}
+>  		break;
+>  	default:
+>  		return false;
+> @@ -110,6 +122,7 @@ static bool check_format(struct iris_inst *inst, u32 pixfmt, u32 type)
+>  
+>  static u32 find_format_by_index(struct iris_inst *inst, u32 index, u32 type)
+>  {
+> +	const struct qcom_ubwc_cfg_data *ubwc = inst->core->ubwc_cfg;
+>  	unsigned int size;
+>  	const u32 *fmt;
+>  
+> @@ -119,8 +132,13 @@ static u32 find_format_by_index(struct iris_inst *inst, u32 index, u32 type)
+>  		size = inst->core->iris_platform_data->inst_iris_fmts_size;
+>  		break;
+>  	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
+> -		fmt = iris_vdec_formats_cap;
+> -		size = ARRAY_SIZE(iris_vdec_formats_cap);
+> +		if (ubwc->ubwc_enc_version) {
+> +			fmt = iris_vdec_formats_cap;
+> +			size = ARRAY_SIZE(iris_vdec_formats_cap);
+> +		} else {
+> +			fmt = iris_vdec_formats_noubwc_cap;
+> +			size = ARRAY_SIZE(iris_vdec_formats_noubwc_cap);
+> +		}
+>  		break;
+>  	default:
+>  		return 0;
+> diff --git a/drivers/media/platform/qcom/iris/iris_venc.c b/drivers/media/platform/qcom/iris/iris_venc.c
+> index 16c52ad07e2c..2f2c56bf9122 100644
+> --- a/drivers/media/platform/qcom/iris/iris_venc.c
+> +++ b/drivers/media/platform/qcom/iris/iris_venc.c
+> @@ -3,6 +3,7 @@
+>   * Copyright (c) 2022-2025 Qualcomm Innovation Center, Inc. All rights reserved.
+>   */
+>  
+> +#include <linux/soc/qcom/ubwc.h>
+>  #include <media/v4l2-event.h>
+>  #include <media/v4l2-mem2mem.h>
+>  
+> @@ -89,15 +90,25 @@ static const u32 iris_venc_formats_out[] = {
+>  	V4L2_PIX_FMT_QC08C,
+>  };
+>  
+> +static const u32 iris_venc_formats_noubwc_out[] = {
+> +	V4L2_PIX_FMT_NV12,
+> +};
+> +
+>  static bool check_format(struct iris_inst *inst, u32 pixfmt, u32 type)
+>  {
+> +	const struct qcom_ubwc_cfg_data *ubwc = inst->core->ubwc_cfg;
+>  	unsigned int size, i;
+>  	const u32 *fmt;
+>  
+>  	switch (type) {
+>  	case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
+> -		fmt = iris_venc_formats_out;
+> -		size = ARRAY_SIZE(iris_venc_formats_out);
+> +		if (ubwc->ubwc_enc_version) {
+> +			fmt = iris_venc_formats_out;
+> +			size = ARRAY_SIZE(iris_venc_formats_out);
+> +		} else {
+> +			fmt = iris_venc_formats_noubwc_out;
+> +			size = ARRAY_SIZE(iris_venc_formats_noubwc_out);
+> +		}
+>  		break;
+>  	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
+>  		fmt = iris_venc_formats_cap;
+> @@ -117,13 +128,19 @@ static bool check_format(struct iris_inst *inst, u32 pixfmt, u32 type)
+>  
+>  static u32 find_format_by_index(struct iris_inst *inst, u32 index, u32 type)
+>  {
+> +	const struct qcom_ubwc_cfg_data *ubwc = inst->core->ubwc_cfg;
+>  	unsigned int size;
+>  	const u32 *fmt;
+>  
+>  	switch (type) {
+>  	case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
+> -		fmt = iris_venc_formats_out;
+> -		size = ARRAY_SIZE(iris_venc_formats_out);
+> +		if (ubwc->ubwc_enc_version) {
+> +			fmt = iris_venc_formats_out;
+> +			size = ARRAY_SIZE(iris_venc_formats_out);
+> +		} else {
+> +			fmt = iris_venc_formats_noubwc_out;
+> +			size = ARRAY_SIZE(iris_venc_formats_noubwc_out);
+> +		}
+>  		break;
+>  	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
+>  		fmt = iris_venc_formats_cap;
 
-diff --git a/drivers/net/phy/Kconfig b/drivers/net/phy/Kconfig
-index 099f25dce..32e1a035b 100644
---- a/drivers/net/phy/Kconfig
-+++ b/drivers/net/phy/Kconfig
-@@ -283,6 +283,14 @@ config MARVELL_88X2222_PHY
- 	  Support for the Marvell 88X2222 Dual-port Multi-speed Ethernet
- 	  Transceiver.
- 
-+config MAXIO_PHY
-+	tristate "Maxio Ethernet PHYs"
-+	help
-+	  Support for Maxio Ethernet PHYs. Currently this driver supports the
-+	  MAE0621A Gigabit Ethernet PHY. The driver optionally selects a 125 MHz
-+	  clock on the CLKOUT pin while preserving the hardware configuration on
-+	  boards which do not request it.
-+
- config MAXLINEAR_GPHY
- 	tristate "Maxlinear Ethernet PHYs"
- 	select POLYNOMIAL if HWMON
-diff --git a/drivers/net/phy/Makefile b/drivers/net/phy/Makefile
-index de660ae94..7fb3626f0 100644
---- a/drivers/net/phy/Makefile
-+++ b/drivers/net/phy/Makefile
-@@ -70,6 +70,7 @@ obj-$(CONFIG_MARVELL_10G_PHY)	+= marvell10g.o
- obj-$(CONFIG_MARVELL_PHY)	+= marvell.o
- obj-$(CONFIG_MARVELL_88Q2XXX_PHY)	+= marvell-88q2xxx.o
- obj-$(CONFIG_MARVELL_88X2222_PHY)	+= marvell-88x2222.o
-+obj-$(CONFIG_MAXIO_PHY)		+= maxio.o
- obj-$(CONFIG_MAXLINEAR_GPHY)	+= mxl-gpy.o
- obj-$(CONFIG_MAXLINEAR_86110_PHY)	+= mxl-86110.o
- obj-y				+= mediatek/
-diff --git a/drivers/net/phy/maxio.c b/drivers/net/phy/maxio.c
-new file mode 100644
-index 000000000..d2cb23895
---- /dev/null
-+++ b/drivers/net/phy/maxio.c
-@@ -0,0 +1,103 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Driver for Maxio Ethernet PHYs. */
-+
-+#include <linux/bitops.h>
-+#include <linux/module.h>
-+#include <linux/phy.h>
-+#include <linux/property.h>
-+
-+#define MAXIO_MAE0621A_PHY_ID		0x7b744412
-+
-+#define MAXIO_PAGE_SELECT		0x1f
-+#define MAXIO_MAE0621A_PHYCR2_PAGE	0xa43
-+#define MAXIO_MAE0621A_PHYCR2		0x19
-+#define MAXIO_MAE0621A_CLKOUT_125M	BIT(11)
-+#define MAXIO_MAE0621A_CLKOUT_ENABLE	BIT(0)
-+
-+struct maxio_priv {
-+	bool clk_out_125m;
-+};
-+
-+static int maxio_read_page(struct phy_device *phydev)
-+{
-+	return __phy_read(phydev, MAXIO_PAGE_SELECT);
-+}
-+
-+static int maxio_write_page(struct phy_device *phydev, int page)
-+{
-+	return __phy_write(phydev, MAXIO_PAGE_SELECT, page);
-+}
-+
-+static int maxio_mae0621a_probe(struct phy_device *phydev)
-+{
-+	struct device *dev = &phydev->mdio.dev;
-+	struct maxio_priv *priv;
-+	u32 frequency;
-+	int ret;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	phydev->priv = priv;
-+
-+	ret = device_property_read_u32(dev, "maxio,clk-out-frequency-hz",
-+				       &frequency);
-+	if (ret == -EINVAL)
-+		return 0;
-+	if (ret)
-+		return ret;
-+
-+	if (frequency != 125000000) {
-+		phydev_err(phydev, "invalid CLKOUT frequency %u\n", frequency);
-+		return -EINVAL;
-+	}
-+
-+	priv->clk_out_125m = true;
-+
-+	return 0;
-+}
-+
-+static int maxio_mae0621a_config_init(struct phy_device *phydev)
-+{
-+	struct maxio_priv *priv = phydev->priv;
-+	int ret;
-+
-+	if (!priv->clk_out_125m)
-+		return 0;
-+
-+	ret = phy_modify_paged_changed(phydev, MAXIO_MAE0621A_PHYCR2_PAGE,
-+				       MAXIO_MAE0621A_PHYCR2,
-+				       MAXIO_MAE0621A_CLKOUT_ENABLE |
-+				       MAXIO_MAE0621A_CLKOUT_125M,
-+				       MAXIO_MAE0621A_CLKOUT_ENABLE |
-+				       MAXIO_MAE0621A_CLKOUT_125M);
-+	if (ret <= 0)
-+		return ret;
-+
-+	return genphy_soft_reset(phydev);
-+}
-+
-+static struct phy_driver maxio_drivers[] = {
-+	{
-+		PHY_ID_MATCH_EXACT(MAXIO_MAE0621A_PHY_ID),
-+		.name		= "Maxio MAE0621A",
-+		.probe		= maxio_mae0621a_probe,
-+		.config_init	= maxio_mae0621a_config_init,
-+		.suspend	= genphy_suspend,
-+		.resume		= genphy_resume,
-+		.read_page	= maxio_read_page,
-+		.write_page	= maxio_write_page,
-+	},
-+};
-+module_phy_driver(maxio_drivers);
-+
-+static const struct mdio_device_id __maybe_unused maxio_tbl[] = {
-+	{ PHY_ID_MATCH_EXACT(MAXIO_MAE0621A_PHY_ID) },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(mdio, maxio_tbl);
-+
-+MODULE_AUTHOR("Liu Changjie <liucj1228@outlook.com>");
-+MODULE_DESCRIPTION("Maxio Ethernet PHY driver");
-+MODULE_LICENSE("GPL");
--- 
-2.55.0
+Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 
