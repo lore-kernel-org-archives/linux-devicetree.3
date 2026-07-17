@@ -1,155 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BBE03E00A0;
-	Fri, 17 Jul 2026 11:13:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C943F12C6
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 11:21:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784286843; cv=none; b=WXUPproOfxuVdi7c9/XWNpdlQ87oBai2fxWyo2eJpGZzc79F/Jp9Ait+Piaj7fZbNzldYtYiWhG4Hvs8hwXYuXaIQFCCTjGa0hkvZGSF2qtktF84Ee1zaUkCgeSXdiCHPBnB50oo12l0+c/ujUzU5iIGeDcdQ8ux2+xPqWXiJDY=
+	t=1784287283; cv=none; b=sRtkUZyY01sq8IYZmiaNd7jzdVM9v0dy3fgjVgOPdDwJwmbdm3vqspT5iO2FkkLu599rnNw1SANFJkCj00aDRKLutEXaNe/rF5GgIZi+kUDg4ff1XOaR74m2tzcvLYXp+03Uyr1wsxEr2Vi13rUw+ybJaTFraec+YSUNde92Jsc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784286843; c=relaxed/simple;
-	bh=sk0eOjiWfLdBO4dFoSZ82lj1PSQGh/il6Iq4os//iqw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ku4k4s1nBi06EA/QvTTxsKCAPSXZsl1NgTHfknb7XXfupSHLoMI0L0aMcWJXnNlkopsKiAifhi+dQrwZPCANUy75Jv6UtlSDpPiL9U6wzKFRqBfu4CiGJIq4GzeZkxTZ4KLIhem3IqFnieEbatCUlLVaEgWoAGwUUHz8uEkxJtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LwCYzx5D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784287283; c=relaxed/simple;
+	bh=iqpOIrvf1/AYDcZd+jy1J9GwVJaYJ+8HlZKlo7iiIfo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Az8ecS3hZqIfQ+uLUDO8IDfGBCP+ycDGkH8byqTLxQcXXkpQ00oP6KPBtf7kSuPzD9iCjomRbDpo0XgX7p4qbIWTJsKWX2EOlWuA2swfhuF+rwsqxQ8ZnjuAkf2MSQHvbV6LHwC4J8sbgQGVfn0eoCK/nZArEFLD9sDJdbylp1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bWXkK6hL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=C6nCS7Ic; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LwCYzx5D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D5471F000E9;
-	Fri, 17 Jul 2026 11:13:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784286833;
-	bh=N1P3tm+3viukU6o7pAXegXS21/+qzlmGV14II2fwkHw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LwCYzx5DcuDukHCBlVc9k3CbrhFVy+n0N4vYBCkLCiIjCPqqG3hJnZF/4kupEmVBv
-	 xB+K72FqwXrgxPPoOb4C6tUVjAWJDtxl1W8I4ajkSjjENAXL4fOLhMYeZ+omJBuPwm
-	 /xuZ9Ot46UF0DemPmWa63TTjRs75jFZhQ6PkUgHegqzYzlxx3YOLw855D6PgeXXaNo
-	 VwA5JoR8ZH6dsR5YJ6u4pqS5dhSwxcfHErbRz3IWFACFMFHMdyEDQIygmLTMMDjCG5
-	 wCAaJ8s+psDL/Q11jEbo/EK0l5ybx0o+JIJKaDjpTxUgQb+Y5V3ehiKYCrDsMoqyRM
-	 qF55H46IzbAaA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v28 4/7] firmware: imx: device context dedicated to priv
-Reply-To: sashiko-reviews@lists.linux.dev
-To: pankaj.gupta@oss.nxp.com
-Cc: Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260717-imx-se-if-v28-4-0a9659c7e69d@nxp.com>
-References: <20260717-imx-se-if-v28-0-0a9659c7e69d@nxp.com>
- <20260717-imx-se-if-v28-4-0a9659c7e69d@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 11:13:53 +0000
-Message-Id: <20260717111353.7D5471F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bWXkK6hL";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C6nCS7Ic"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66HASaCO1191092
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 11:21:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	J8pzbcnonnfSYtaHaFkzFDz5W4k5Z1JCVBdf54V9yvA=; b=bWXkK6hLCJC5o4mj
+	zVsOOOFADXkVa7QEql72ZntBww1L68pJz2Vm3ziufB49Z9/5OZylYYZIK807u3DL
+	KVSATuOI+eMHD/gmli6xm5RWN3PbgtGPxxhMLwT4PoiBFNgjh4OR8mLBx1lw085m
+	050ctqSUyQ9bR4qxmbiJ4OpBXkHUoe823el+47t7AIItZZ+VeNJC759ZOkUmIv6v
+	Hy3cmzDJuTr5PJ2/CmAMHq1wckhj8FSmQEdXxEout2cnRTgM6sy97kkLzvR3ZXBt
+	42BKW/3gYw28NyA1hljnqtBK2zwUJkTBbl1UjIn4sX8ihPIJQ+SBNasKdpCYdJpm
+	VASFIQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ffj78r8yt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 11:21:16 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92eebb130dcso165520885a.1
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 04:21:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784287275; x=1784892075; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J8pzbcnonnfSYtaHaFkzFDz5W4k5Z1JCVBdf54V9yvA=;
+        b=C6nCS7IcBh95L/p21dnY6mlAgSfOhCINwAyrILhPv7gXid30UIBaQHgVD1A8YC5PhM
+         abMN0+dcA5sBItzmGXmQKC4qGWPaRcTbnnSQQSjh6DgYwu89U0G9kxwPh/+KMXqqhViE
+         OU0nUMZYmIscy+R0c+V9f/mGcv6c/rvkO1gbUi+wCHBM4kshozLilHqO6AoBwfIR9I47
+         FRtrhwIoUHaTVgE1x/fzMABp1et33RQda2xMjblyvmWGp/8A85sZs/fj9cMdP08OYqcP
+         IAAj2F520NolWtyhDYNlWwiNxvlaoXmrQsp/ZtPVHWS5DehSMNPt9PxpG3T+baNbqpes
+         sEPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784287275; x=1784892075;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=J8pzbcnonnfSYtaHaFkzFDz5W4k5Z1JCVBdf54V9yvA=;
+        b=Xx9PFre4TH6aXKU5eWOnPhB7K213aCdL2Ie8XIXLgezLiQcPbA2GuRqXkp6X3Or/ox
+         AtBaho+inPqFIkF6jpt39hwREvLXQywdwrUM5/gy0BFHe4Nl8rV9/BPXc76KRf56+O1g
+         dwhmeObSSlLoboC2htqsloSLdPuIt5Q2xSssWj/JXzf7lO/ZKap+CPmZV2CtwxparZVy
+         TUf8dSB7hqklLGndzIpkY9Eh9pwe6ejVxjHPfjNnpUROgokHzC92xSIR614OimqF6fYa
+         LWOauRThFdZn26mnh1bp+v6ig7TUKEUwTtiklQIOnNIaOxRgvFLv6It6WBQTr+iIDf2l
+         UeRg==
+X-Forwarded-Encrypted: i=1; AHgh+RqDoQdRcVJ0MMEDpAY8+OiUNfqnHYwsLA98giiRb/0QVL3C4GUgjCLhhjulPYGLkHJ9ZC+Rx5tPMJFU@vger.kernel.org
+X-Gm-Message-State: AOJu0YwKTqOwjPiWreZtFxq1UkRnVBEDsTr7dwkOOcGCPgdw7SH6IebU
+	3rcsSwiXX0PpQAdygbTZ0dsCkUj2JJ6Z3WCd2zjgcX6agwwtTdciJO00Az2ZHMkzqI4+3vyQMyL
+	vfJt6C9KVuGKWbTCrlpz1dgIYV/QIeT8BULEBsmb4xr+JKDG5W9GzITttpcJiKe0X
+X-Gm-Gg: AfdE7cnHncjhkwUGk8x2XBpYYaAHN2eOe2pPFjTSg/ZR2oP2q132l6NK5C+03gamVlK
+	WbEDD97TFngESm5B251UV7HR2o16vsGtqsPQIzlMKBOZlDTfItFibJz+ULMIKEDYc2UtOOPQOYb
+	3hLCj3UNLEN+SqxkC/rEwpgB2aqpYXGrdES5Tp41r0qPGi6tu+WMyoBVe+bSCHTv/cTvlHVAYPM
+	gGX37rF5mESkiLt9aNu43sPo3K/2YTR3M3uBY2IzY9RxAkZVFndJtpO3KtBerY48a0aizVKgP7D
+	yAo3kKwhgOn5xUGIXt+X9Li/1FKuypiee0dvQsskNz/slCl3Bs3kEINdbeD8xjN1Wj/oHuL6ykE
+	4dX282RVP9FiDehJMwYG6Eulo
+X-Received: by 2002:a05:620a:4396:b0:92a:228:1bfc with SMTP id af79cd13be357-930b3e2e4famr192961085a.2.1784287275318;
+        Fri, 17 Jul 2026 04:21:15 -0700 (PDT)
+X-Received: by 2002:a05:620a:4396:b0:92a:228:1bfc with SMTP id af79cd13be357-930b3e2e4famr192958285a.2.1784287274849;
+        Fri, 17 Jul 2026 04:21:14 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69e6fefdd4dsm512093a12.11.2026.07.17.04.21.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 17 Jul 2026 04:21:14 -0700 (PDT)
+Message-ID: <a9e75dcc-6895-41a9-ba0c-1d3e86a421d2@oss.qualcomm.com>
+Date: Fri, 17 Jul 2026 13:21:11 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 04/11] arm64: dts: qcom: x1e80100-crd: Add pm8010 CRD
+ pmic,id=m regulators
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260708-x1e-camss-csi2-phy-dtsi-v4-0-572348ad1b2a@linaro.org>
+ <20260708-x1e-camss-csi2-phy-dtsi-v4-4-572348ad1b2a@linaro.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260708-x1e-camss-csi2-phy-dtsi-v4-4-572348ad1b2a@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDExNCBTYWx0ZWRfXzEELmkRRbRQQ
+ z77QYQgT3YqupBAFYClwJv2CN/G/i5JgAHHXJmVsToTB+nfPy6GmvGAaUJAlpHytBoykMnFTW5e
+ W9/vbFFRSk+CKPgVGUKIiRb8xC5V/ghY+tyunGICgLIjpiUBn4Z23CWhosPIcxt28NBDQIgNFEO
+ OdgRjbdakSCxWtz7gUqXNvKpfvV+E23NxOcs2Cea5ciRCC9b4SrDtczUeexOyl/U3Jocf3YIh+O
+ wY6m6EDVSbSplRGpMp6giaNvyoa9mrgMl5mDzoquP0hIyBbxad8x9WHFmWWam8PvxAEpaXXX8H6
+ xsodM7CVbS7nFi67LUkU4KT9YQzKkN4NzRjM9QsIdFqchvdYcWPeGDbh1qnfLUHuz2ZQGk5zr0i
+ PpIWbyKKoDGfm/8HLduVDAODWJq86aCe6wqTQj/tA4BReRhS4oR0u2x9quPhE+GEP9962LFw2wT
+ QyC5jxdRS+Jcm7I1OUw==
+X-Proofpoint-ORIG-GUID: aS761S3EAbbjw6jQ2c3fxtW1rVpv9fJk
+X-Authority-Analysis: v=2.4 cv=U9Ciy+ru c=1 sm=1 tr=0 ts=6a5a102c cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=f-AdFH0jOpSPBr_pIgEA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: aS761S3EAbbjw6jQ2c3fxtW1rVpv9fJk
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDExNCBTYWx0ZWRfXzUjCuS/2LY3s
+ h2gFG6qYUnuafolbsq7Wxov0u56BiDyLx27SQKGuJnzrQBBu2V4y9U1k2FDQZao6cWDDaAOL6LS
+ XuDg6Dq/CcfI7VRyEh2INBh9vwOE5sA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-17_03,2026-07-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 phishscore=0 spamscore=0 lowpriorityscore=0
+ clxscore=1015 priorityscore=1501 malwarescore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170114
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Data race in `ele_msg_send_rcv()` when initializing `waiting_rsp_c=
-lbk_hdl` state, leading to a potential NULL pointer dereference in the RX i=
-nterrupt handler.
-- [Low] Unused variable `flags` in `ele_msg_send_rcv()`.
---
+On 7/8/26 2:44 AM, Bryan O'Donoghue wrote:
+> Add pmic,id = m rpmh to regulator definitions. This regulator set provides
+> vreg_l3m_1p8 the regulator for the ov08x40 RGB sensor on the CRD.
+> 
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
 
---- Patch [4]: [PATCH v28 4/7] firmware: imx: device context dedicated to p=
-riv ---
-commit 64e554919e156aa88c2007ef9dd9fafde735e583
-Author: Pankaj Gupta <pankaj.gupta@nxp.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-firmware: imx: device context dedicated to priv
+Konrad
 
-Add priv_dev_ctx to prepare enabling misc-device context based send-receive
-path, to communicate with FW. No functionality change.
-
-Closes: https://sashiko.dev/#/patchset/20260715-imx-se-if-v27-0-bb7c45952f0=
-6@nxp.com?part=3D4
-
-> diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele=
-_common.c
-> index ca8a32a82689b..1ca22c53b55c4 100644
-> --- a/drivers/firmware/imx/ele_common.c
-> +++ b/drivers/firmware/imx/ele_common.c
-
-[ ... ]
-
-> @@ -149,34 +151,38 @@ static void ele_msg_send_rcv_cleanup(struct se_if_p=
-riv *priv)
->  	unsigned long flags;
-> =20
->  	spin_lock_irqsave(&priv->waiting_rsp_clbk_hdl.clbk_rx_lock, flags);
-> +	priv->waiting_rsp_clbk_hdl.dev_ctx =3D NULL;
->  	priv->waiting_rsp_clbk_hdl.rx_msg =3D NULL;
->  	priv->waiting_rsp_clbk_hdl.rx_msg_sz =3D 0;
->  	spin_unlock_irqrestore(&priv->waiting_rsp_clbk_hdl.clbk_rx_lock, flags);
->  }
-> =20
->  /* API used for send/receive blocking call. */
-> -int ele_msg_send_rcv(struct se_if_priv *priv, void *tx_msg, int tx_msg_s=
-z,
-> -		     void *rx_msg, int exp_rx_msg_sz)
-> +int ele_msg_send_rcv(struct se_if_device_ctx *dev_ctx, void *tx_msg,
-> +		     int tx_msg_sz, void *rx_msg, int exp_rx_msg_sz)
->  {
-> +	struct se_if_priv *priv =3D dev_ctx->priv;
-> +	unsigned long flags;
-
-[Severity: Low]
-Is this flags variable used anywhere in this function?
-
-It appears to be declared but never utilized in the function scope, which
-will trigger a -Wunused-variable compiler warning.
-
->  	int err;
-> =20
->  	guard(mutex)(&priv->se_if_cmd_lock);
-> =20
->  	if (atomic_read(&priv->fw_busy)) {
-> -		dev_dbg(priv->dev, "ELE became unresponsive.\n");
-> +		dev_dbg(priv->dev, "%s: ELE became unresponsive.\n", dev_ctx->devname);
->  		return -EBUSY;
->  	}
->  	reinit_completion(&priv->waiting_rsp_clbk_hdl.done);
-> +	priv->waiting_rsp_clbk_hdl.dev_ctx =3D dev_ctx;
->  	priv->waiting_rsp_clbk_hdl.rx_msg_sz =3D exp_rx_msg_sz;
->  	priv->waiting_rsp_clbk_hdl.rx_msg =3D rx_msg;
-
-[Severity: High]
-Could these lockless updates result in a data race with the interrupt
-handler?
-
-They are updated here without acquiring clbk_rx_lock. If a delayed firmware
-response from a previous command arrives concurrently, the interrupt handler
-se_if_rx_callback() will execute.
-
-Due to CPU reordering or compiler optimizations, can the interrupt handler
-observe the new rx_msg pointer before the new dev_ctx pointer becomes
-visible?
-
-> -	err =3D ele_msg_send(priv, tx_msg, tx_msg_sz);
-> +	err =3D ele_msg_send(dev_ctx, tx_msg, tx_msg_sz);
-
-[ ... ]
-
-> @@ -302,8 +310,8 @@ void se_if_rx_callback(struct mbox_client *mbox_cl, v=
-oid *msg)
->  			dev_info(dev, "ELE responded (late), recovery FW available.");
->  			return;
->  		}
-> -		dev_dbg(dev, "Selecting resp waiter: for mesg header:0x%x.",
-> -			*(u32 *)header);
-> +		dev_dbg(dev, "Selecting resp waiter:%s for mesg header:0x%x.",
-> +			se_clbk_hdl->dev_ctx->devname, *(u32 *)header);
-
-If the interrupt handler sees a non-NULL rx_msg, it assumes the transaction
-is active and attempts to access se_clbk_hdl->dev_ctx->devname here. If
-dev_ctx is still NULL from the previous cleanup, won't this result in a NULL
-pointer dereference?
-
-> =20
->  		/*
->  		 * For rsp_tag traffic, the sender provides the expected response
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717-imx-se-if-=
-v28-0-0a9659c7e69d@nxp.com?part=3D4
