@@ -1,338 +1,253 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3C439C657
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:22:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3111635B632
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:23:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784280130; cv=none; b=ZkgoA2ii63blEH64rYE75qO5kOEEI0vgBmLRt3j+HnsP53D6iwZjfjDosszit78a+baZqO3yr/EZ8aT4YxFtNa+SF9CO/e8R+Jg+yLA0tsv4Pa2FVs2V7ox9Ca16ApWEP0cyvZLRUuanYPor/Fjzs3KW/P1qDXzhsPZdTNXQYhw=
+	t=1784280185; cv=none; b=QXxUHtURhgVobMPD0GG1AnufFs+5MTIaVrM2bwAjJvK5gOi8WSJkMnDnTkWyB/TP4prsDJNlAl5rbtX0qjRRzwzKS0+uqegCTg0vzd7G5BAZkF4SW698pUkDTPqeMJJSuOAgT7mewjjiT2GQTLLT3jkIS9RxeViTtTR3hjtcap8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784280130; c=relaxed/simple;
-	bh=7xdOZGot6BtG+nkkhzDAvDczSMEadk3BnxqsMRs+TSw=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P3pB+Qhy37IiWTPCJsdhVAeeJE/xuSiykEW+4hpOrq7RsfAAhLASt8suhgp2KR8I/bmsx7uluq3TRQCzuVS5XnvSh5qCpjW/KkVTI6lCevsPsu2IfPwf8M29+WWC9+3wdoDuq7KOWTE/rsOsu8hA7ARhQ22lgIEPDyWPgI8Jtss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Jb1o91ue; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1784280185; c=relaxed/simple;
+	bh=jp447OfKY8nnfST6PtLsnsKG4ChdHSQOcPwQFLVFgnA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=mzvSeWAl6GCtsK9xwqJejcC0hr1yan3VJzYyLCaeuIXMtNvmDa5/KFFyhnvd11bDygWgGp/y9xVm9fF2apqbAziPUlwVA4weWG9EfgMq6CyfV1wL01ZgntAccj00+y2Jp7oEQkr2hTQp1jznt01pCbcUWVcbQ4n0v/Uqh9WBJy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cKAjkLIS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Jb1o91ue"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49548e01d02so2606335e9.0
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 02:22:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1784280126; x=1784884926; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gzjBXZKIKg4NMJoFDhnAAkVBwR6E1EVSUHn48IzBxJ8=;
-        b=Jb1o91ueqniRLSCQoeWwQVh9rnYnvxKTZLzaXV389NTCH0Uw7ayIlTP5M43wTE5Mt/
-         uOxTgqHOls0Eiqu760MexeooopRqytH0wmJOG+JqbFWC8sdwuw+opKuR0z6gxSlaSOLG
-         /3WZ5gK4uhNlXENEFW4eT3SwdEgQQ2SlGFxssYzk26csgfG1tGmfn1oTUYxRt/NG8GyC
-         JDT575onu643mGt4PXfvRr3FojbQuLLgznYeDnod1ehQkw7dtRjFSaIQSKWkiIS3nfkj
-         2MYmz1/8QJCUbZd6rIZflQdya2lBb08NETUz5lOYC8EKDRW2G7TZZQDJDV/WHf4u2ar/
-         vqeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784280126; x=1784884926;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=gzjBXZKIKg4NMJoFDhnAAkVBwR6E1EVSUHn48IzBxJ8=;
-        b=VCS4zsc37bRTViZg7mYKbmXuhW21XwnHjukzbONUrxBYXxCzgTScwwKiKL+90sYlyP
-         ZVeOGMHeppvnT4Xq0jFVIDAJ14yukvEYKF4ff8BNdFscf8Wgp12prYV0h9SkKTKZs1XQ
-         +5lUUdaRvC0mBsGBt+z0scur47wJQ5Ln/tMwZRclNxFwXnuCpuoHT5xNg7SnUTqBT+sR
-         A2yMBo67drmrb7/Mo0PBMj7RHGHLZxLGl175PzUEFCqbslWgFVwTlsRNa6qnCcUok3iV
-         jv1h1YYzQP5qf9BynCiasrWKblD1upO7irFVfg0i8bVY+kxAF+BQYfPQYEU08pmHsQvd
-         lsTw==
-X-Forwarded-Encrypted: i=1; AHgh+Rrf799AMOnUQtRMW6IhajvhDosIYfB0zPnScDgvlKDRQxaHtnSSQT9/bVfg4pC1TRu+eYqWrgPhiuTc@vger.kernel.org
-X-Gm-Message-State: AOJu0YzAr2fMejljOGF3jwa/JTauQqtINF9FhGLNfau0Oz/09NFz6O3R
-	lRYv/wa8ZRTF1WQGLy1dQ0Puubh78pf0Z4DYenZQ4Qrrp9HoebfC9Jj8pCQAHk+szl0=
-X-Gm-Gg: AfdE7cm6oidqZUPGq2598GTuPYk+2uK0nDc5pafEo7Gn7Oc0sR1PkzTgRONbUf7BaTX
-	cyD4A+SU6XO9/LW8vsEF2pc1yz9fXwFRU8dm62j7+mvy39Vcu3NJCXPKmCbwIz6eobYcOLZ1bl4
-	gMkSCZjv0lo+gCyvBtI9SsnBWKBjlcdRO7oJLg+FDViANtWHizv4okVqcC+Trrp32XZGwaDmaGs
-	NNLPd4zCwGL6lL2oeVbgDsl+jjZhUQEz+Jfhve6XvQQn9UtR4w7OuWnouFXCm1X1dMWqO8ZvsCB
-	BYGsLJ+9mR5eH23WItV0nK3DhqKs3TELnFFVV4u+kkJb86QBqehbsci4eNbG6a/t6ooak0MCn2C
-	d5P1na6XTHLLc+tkc/fYI2GwUyVrH+0GHBmBTixZ2lrECtlgShqtgCsS6IJYV0giXtTC7gyht+9
-	/NplGeHGF+Dc0=
-X-Received: by 2002:a05:600c:a40c:b0:492:53e8:3bc1 with SMTP id 5b1f17b1804b1-4954a3eb0b4mr13340425e9.17.1784280126576;
-        Fri, 17 Jul 2026 02:22:06 -0700 (PDT)
-Received: from localhost ([195.94.145.62])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49549c96fecsm40535225e9.11.2026.07.17.02.22.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 02:22:06 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Fri, 17 Jul 2026 11:25:35 +0200
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>
-Cc: Andrea della Porta <andrea.porta@suse.com>, linux-pwm@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Naushir Patuck <naush@raspberrypi.com>,
-	Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com,
-	Sean Young <sean@mess.org>, Julian Braha <julianbraha@gmail.com>
-Subject: Re: [PATCH v6 2/3] pwm: rp1: Add RP1 PWM controller driver
-Message-ID: <aln1D3E5QZULZ2U1@apocalypse>
-References: <cover.1783097764.git.andrea.porta@suse.com>
- <5171610d8bebdd10eea44bff5236502d765b5918.1783097764.git.andrea.porta@suse.com>
- <alibzwe9Mjf3GxJo@monoceros>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cKAjkLIS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4E031F000E9;
+	Fri, 17 Jul 2026 09:23:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784280184;
+	bh=6fxUl6vZHOXNAFKDrRG9N1/wTZD/wLlZazvwSSdIeoI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cKAjkLISdVBTGZfQ/3PFeiZqL57qjk9h/XyCQtdZJoUTTG6mhyjwADMbulRNWKdxw
+	 smpAvntFNjar+Rc9XJN+kZseb7Zzl3clul65JRZwWZvo2BLhywvi9FkrtlDq9vtL3U
+	 wuBv/6gVecTGTYH3WVpcCxMl9Ai4+z29MHt/s+uW28D19u44EjWQJU+5dxKjACxvkG
+	 Q3+Ym8+syCHgRhyPFi9GnmpClEdYFA5ClO1rO/ksG8nfQoVknR/AK0dnYiEa53Urlj
+	 ySAGtzxVVi8uMMnG8H+CwYpiDVOz2/agCo2O9wmexRyUOLPWnvDmbGt9OBz87I+Vu4
+	 HRJqRi6hzXTxA==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 5/9] iommu/rockchip: skip orphaned-fault banks in
+ CMD_ENABLE_STALL dispatch
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260717085220.3212274-6-gahing@gahingwoo.com>
+References: <20260717085220.3212274-1-gahing@gahingwoo.com>
+ <20260717085220.3212274-6-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 09:23:03 +0000
+Message-Id: <20260717092303.C4E031F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <alibzwe9Mjf3GxJo@monoceros>
 
-Hi Uwe,
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-On 11:18 Thu 16 Jul     , Uwe Kleine-König wrote:
-> Hello,
-> 
-> On Fri, Jul 03, 2026 at 07:05:25PM +0200, Andrea della Porta wrote:
-> > +static int rp1_pwm_round_waveform_tohw(struct pwm_chip *chip,
-> > +				       struct pwm_device *pwm,
-> > +				       const struct pwm_waveform *wf,
-> > +				       void *_wfhw)
-> > +{
-> > +	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-> > +	u64 period_ticks, duty_ticks, offset_ticks;
-> > +	struct rp1_pwm_waveform *wfhw = _wfhw;
-> > +	u64 clk_rate = rp1->clk_rate;
-> > +	int ret = 0;
-> > +
-> > +	if (!wf->period_length_ns) {
-> > +		wfhw->enabled = false;
-> > +		wfhw->inverted_polarity = (pwm_get_polarity(pwm) == PWM_POLARITY_INVERSED);
-> 
-> pwm_get_polarity(pwm) looks wrong here for several reasons. 1st the
-> polarity is defined in *wf and should not depend on the current state,
-> 2nd for a disabled hardware the polarity doesn't matter anyhow, and 3rd
-> you should not call pwm API functions from the lowlevel driver (which
-> might interfere with subsystem locking).
+New issues:
+- [Medium] Missing reset_control_put() causes a resource leak on PM domain =
+removal.
+- [Medium] rk_iommu_disable_stall() unconditionally times out if all MMU ba=
+nks are in the orphaned-fault state.
+- [Low] Relaxing the global 'required' list breaks validation for RK3588 NP=
+U.
 
-Ok, but in this case what the output of the disabled channel should be?
-If it was inverted before the disable, would it make sense to let the output
-be high? Or are we allowed to hard code a polarity value on disable?
+Pre-existing issues:
+- [High] On multi-bank IOMMUs (num_mmu > 1), rk_iommu_disable_stall and rk_=
+iommu_disable_paging return success prematurely when disabling, potentially=
+ leaving banks active.
+- [High] The `rk_iommu_probe` function contains a critical flaw in how it p=
+opulates and handles errors in the `iommu->bases` array, leading to a guara=
+nteed kernel panic on malformed device trees and a sparse array bug resulti=
+ng in `ERR_PTR` dereferences.
+--
 
-> 
-> Also please initialize the whole structure, best done using:
-> 
-> 	*wfhw = (typeof(*wfhw)){
-> 		.enabled = false,
-> 	}
+--- Patch [5]: [RFC PATCH 5/9] iommu/rockchip: skip orphaned-fault banks in=
+ CMD_ENABLE_STALL dispatch ---
+commit e1850eec170c4af87cf79a1f7f05257d02a8ccf8
+Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-Ack. In this case inverted_polarity would be falsei though, see above.
+iommu/rockchip: skip orphaned-fault banks in CMD_ENABLE_STALL dispatch
 
-> 
-> > +		return 0;
-> > +	}
-> > +
-> > +	period_ticks = mul_u64_u64_div_u64(wf->period_length_ns, clk_rate, NSEC_PER_SEC);
-> > +
-> > +	/*
-> > +	 * The period is limited to U32_MAX, and it will be decremented by one later
-> > +	 * to allow 100% duty cycle.
-> > +	 */
-> > +	if (period_ticks > U32_MAX) {
-> > +		period_ticks = U32_MAX;
-> > +	} else if (period_ticks < 2) {
-> > +		period_ticks = 2;
-> > +		ret = 1;
-> > +	}
-> > +
-> > +	duty_ticks = mul_u64_u64_div_u64(wf->duty_length_ns, clk_rate, NSEC_PER_SEC);
-> > +	duty_ticks = min(duty_ticks, period_ticks);
-> > +	offset_ticks = mul_u64_u64_div_u64(wf->duty_offset_ns, clk_rate, NSEC_PER_SEC);
-> > +	if (offset_ticks >= period_ticks) {
-> > +		u64 remainder;
-> > +
-> > +		div64_u64_rem(offset_ticks, period_ticks, &remainder);
-> > +		offset_ticks = remainder;
-> 
-> 		offset_ticks = period_ticks - 1;
+Sending CMD_ENABLE_STALL to a bank that carries an orphaned firmware
+fault (PAGE_FAULT_ACTIVE & !STALL_ACTIVE & IDLE) causes the command to
+be silently dropped by that bank.  The dropped command also interferes
+with the other banks' stall transition, delaying them past the poll
+timeout even though they would otherwise stall within a few
+microseconds.
 
-Ack.
+> diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iomm=
+u.c
+> index ad462cee6bd89..7dbcc978ede79 100644
+> --- a/drivers/iommu/rockchip-iommu.c
+> +++ b/drivers/iommu/rockchip-iommu.c
+> @@ -436,7 +436,21 @@ static int rk_iommu_enable_stall(struct rk_iommu *io=
+mmu)
+>  	if (!rk_iommu_is_paging_enabled(iommu))
+>  		return 0;
+> =20
+> -	rk_iommu_command(iommu, RK_MMU_CMD_ENABLE_STALL);
+> +	/*
+> +	 * Do not send CMD_ENABLE_STALL to orphaned-fault banks
+> +	 * (PAGE_FAULT_ACTIVE & !STALL_ACTIVE & IDLE): the command is ignored
+> +	 * by such a bank but its presence on the shared bus delays the other
+> +	 * banks from reaching STALL_ACTIVE within the poll timeout.
+> +	 */
+> +	for (i =3D 0; i < iommu->num_mmu; i++) {
+> +		u32 status =3D rk_iommu_read(iommu->bases[i], RK_MMU_STATUS);
+> +
+> +		if ((status & RK_MMU_STATUS_PAGE_FAULT_ACTIVE) &&
+> +		    !(status & RK_MMU_STATUS_STALL_ACTIVE) &&
+> +		    (status & RK_MMU_STATUS_IDLE))
+> +			continue;
+> +		writel(RK_MMU_CMD_ENABLE_STALL, iommu->bases[i] + RK_MMU_COMMAND);
+> +	}
+> =20
+>  	ret =3D readx_poll_timeout(rk_iommu_is_stall_active, iommu, val,
+>  				 val, RK_MMU_POLL_PERIOD_US,
 
-> 
-> > +	}
-> > +	if (duty_ticks && offset_ticks &&
-> > +	    duty_ticks + offset_ticks >= period_ticks) {
-> > +		wfhw->duty_ticks = period_ticks - duty_ticks;
-> > +		wfhw->inverted_polarity = true;
-> > +	} else {
-> > +		wfhw->duty_ticks = duty_ticks;
-> > +		wfhw->inverted_polarity = false;
-> > +	}
-> > +	/* Account for the extra tick at the end of the period */
-> > +	wfhw->period_ticks = period_ticks - 1;
-> > +
-> > +	wfhw->enabled = true;
-> > +
-> > +	return ret;
-> > +}
-> > +
-> > +static int rp1_pwm_round_waveform_fromhw(struct pwm_chip *chip,
-> > +					 struct pwm_device *pwm,
-> > +					 const void *_wfhw,
-> > +					 struct pwm_waveform *wf)
-> > +{
-> > +	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-> > +	const struct rp1_pwm_waveform *wfhw = _wfhw;
-> > +	u64 clk_rate = rp1->clk_rate;
-> > +	u64 ticks;
-> > +
-> > +	*wf = (struct pwm_waveform){ };
-> > +
-> > +	if (!wfhw->enabled)
-> > +		return 0;
-> > +
-> > +	wf->period_length_ns = DIV_ROUND_UP_ULL(((u64)wfhw->period_ticks + 1) * NSEC_PER_SEC,
-> > +						clk_rate);
-> > +
-> > +	if (!wfhw->inverted_polarity) {
-> > +		wf->duty_length_ns = DIV_ROUND_UP_ULL((u64)wfhw->duty_ticks * NSEC_PER_SEC,
-> > +						      (u32)clk_rate);
-> > +	} else {
-> > +		if (wfhw->duty_ticks > (u64)wfhw->period_ticks + 1) {
-> > +			/* 100% duty cycle case */
-> > +			ticks = 0;
-> > +		} else {
-> > +			ticks = (u64)wfhw->period_ticks + 1 - wfhw->duty_ticks;
-> > +		}
-> > +		wf->duty_length_ns = DIV_ROUND_UP_ULL(ticks * NSEC_PER_SEC, clk_rate);
-> > +		wf->duty_offset_ns = wf->period_length_ns - wf->duty_length_ns;
-> 
-> The duty_offset_ns calculation is wrong.
-> 
-> Consider clk_rate = 3000000, period_ticks = 8, inverted_polarity = true and
-> duty_ticks = 4.
-> 
-> Then you have:
-> 
-> 	.period_length_ns = 2666.6666666666666 ns ~> 2667
-> 	.duty_length_ns = 1333.3333333333333 ns -> 1334
-> 	.duty_offset_ns = 1333.3333333333333 ns -> 1334
-> 
-> but .period_length_ns - .duty_length_ns is 1333.
-> 
-> To get this right, you have to calculate
-> 
-> 	wf->duty_offset_ns = DIV_ROUND_UP_ULL((u64)(wfhw->period_ticks + 1 - ticks) * NSEC_PER_SEC, clk_rate);
+[Severity: Medium]
+Does rk_iommu_disable_stall() unconditionally timeout if all MMU banks are =
+in
+the orphaned-fault state?
 
-So it will end up as 'duty_length_ns + duty_offset_ns > period_length_ns', which is
-timing violation. Is it allowed (or even required) in the PWM subsystem?
+Looking at rk_iommu_is_stall_active(), if all banks are orphaned, the loop
+skips evaluating them:
 
-> 
-> > +	}
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static int rp1_pwm_write_waveform(struct pwm_chip *chip,
-> > +				  struct pwm_device *pwm,
-> > +				  const void *_wfhw)
-> > +{
-> > +	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-> > +	const struct rp1_pwm_waveform *wfhw = _wfhw;
-> > +	u32 value, ctrl;
-> > +
-> > +	/* set polarity */
-> > +	regmap_read(rp1->regmap, RP1_PWM_CHAN_CTRL(pwm->hwpwm), &value);
-> > +	if (!wfhw->inverted_polarity)
-> > +		value &= ~RP1_PWM_CHAN_CTRL_POLARITY;
-> > +	else
-> > +		value |= RP1_PWM_CHAN_CTRL_POLARITY;
-> > +	regmap_write(rp1->regmap, RP1_PWM_CHAN_CTRL(pwm->hwpwm), value);
-> > +
-> > +	/* early exit if disabled */
-> > +	regmap_read(rp1->regmap, RP1_PWM_GLB_CTRL, &ctrl);
-> > +	if (!wfhw->enabled) {
-> > +		ctrl &= ~RP1_PWM_GLB_CTRL_CHANNEL_ENABLE(pwm->hwpwm);
-> > +		goto exit_disable;
-> 
-> Please don't use goto unless for error handling.
+drivers/iommu/rockchip-iommu.c:rk_iommu_is_stall_active() {
+...
+	for (i =3D 0; i < iommu->num_mmu; i++) {
+...
+		if ((status & RK_MMU_STATUS_PAGE_FAULT_ACTIVE) &&
+		    !(status & RK_MMU_STATUS_STALL_ACTIVE) &&
+		    (status & RK_MMU_STATUS_IDLE))
+			continue;
 
-Ack.
+		active &=3D !!(status & RK_MMU_STATUS_STALL_ACTIVE);
+	}
 
-> 
-> > +	}
-> > +
-> > +	/* set period and duty cycle */
-> > +	regmap_write(rp1->regmap,
-> > +		     RP1_PWM_RANGE(pwm->hwpwm), wfhw->period_ticks);
-> > +	regmap_write(rp1->regmap,
-> > +		     RP1_PWM_DUTY(pwm->hwpwm), wfhw->duty_ticks);
-> > +
-> > +	/* enable the channel */
-> > +	ctrl |= RP1_PWM_GLB_CTRL_CHANNEL_ENABLE(pwm->hwpwm);
-> > +exit_disable:
-> > +	regmap_write(rp1->regmap, RP1_PWM_GLB_CTRL, ctrl);
-> > +
-> > +	rp1_pwm_apply_config(chip, pwm);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static int rp1_pwm_read_waveform(struct pwm_chip *chip,
-> > +				 struct pwm_device *pwm,
-> > +				 void *_wfhw)
-> > +{
-> > +	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-> > +	struct rp1_pwm_waveform *wfhw = _wfhw;
-> > +	u32 value;
-> > +
-> > +	regmap_read(rp1->regmap, RP1_PWM_GLB_CTRL, &value);
-> > +	wfhw->enabled = !!(value & RP1_PWM_GLB_CTRL_CHANNEL_ENABLE(pwm->hwpwm));
-> > +
-> > +	regmap_read(rp1->regmap, RP1_PWM_CHAN_CTRL(pwm->hwpwm), &value);
-> > +	wfhw->inverted_polarity = !!(value & RP1_PWM_CHAN_CTRL_POLARITY);
-> > +
-> > +	if (wfhw->enabled) {
-> > +		regmap_read(rp1->regmap, RP1_PWM_RANGE(pwm->hwpwm), &wfhw->period_ticks);
-> > +		regmap_read(rp1->regmap, RP1_PWM_DUTY(pwm->hwpwm), &wfhw->duty_ticks);
-> > +	} else {
-> > +		wfhw->period_ticks = 0;
-> > +		wfhw->duty_ticks = 0;
-> > +	}
-> 
-> Ideally use *wfhw = (typeof(*wfhw)){ ... } here, too, to make it obvious
-> that the complete struct is initialized.
+	return active;
+}
 
+Since 'active' starts as true, it remains true and does not reflect their
+bypassed state, meaning a fully-skipped IOMMU reports as stalled.
 
-Ack.
+Then in rk_iommu_disable_stall():
 
-> 
-> > +
-> > +	return 0;
-> > +}
-> > [...]
-> > +static struct platform_driver rp1_pwm_driver = {
-> > +	.probe = rp1_pwm_probe,
-> > +	.remove = rp1_pwm_remove,
-> > +	.driver = {
-> > +		.name = "rp1-pwm",
-> > +		.of_match_table = rp1_pwm_of_match,
-> > +		.pm = pm_ptr(&rp1_pwm_pm_ops),
-> > +		.suppress_bind_attrs = true,
-> 
-> If the driver cannot be removed, .remove() is just dead code. Drop it
-> and note in a comment that this is needed because a syscon cannot be
-> removed.
+drivers/iommu/rockchip-iommu.c:rk_iommu_disable_stall() {
+...
+	ret =3D readx_poll_timeout(rk_iommu_is_stall_active, iommu, val,
+				 !val, RK_MMU_POLL_PERIOD_US,
+				 RK_MMU_POLL_TIMEOUT_US);
+...
+}
 
-Ack.
+The polling loop waits for !rk_iommu_is_stall_active(), which will
+unconditionally exhaust its timeout if all banks are orphaned and continual=
+ly
+report as stalled.
 
-Many thanks,
-Andrea
+[Severity: High]
+This is a pre-existing issue, but do rk_iommu_disable_stall() and
+rk_iommu_disable_paging() return success prematurely when disabling on
+multi-bank IOMMUs?
 
-> 
-> Best regards
-> Uwe
+Because of the bitwise AND reduction in rk_iommu_is_stall_active():
 
+drivers/iommu/rockchip-iommu.c:rk_iommu_is_stall_active() {
+...
+	for (i =3D 0; i < iommu->num_mmu; i++) {
+...
+		active &=3D !!(status & RK_MMU_STATUS_STALL_ACTIVE);
+	}
 
+	return active;
+}
+
+The function returns false (indicating no stall) if ANY single bank has
+finished its stall transition, ignoring banks that are still active.
+
+Then in rk_iommu_disable_stall():
+
+drivers/iommu/rockchip-iommu.c:rk_iommu_disable_stall() {
+...
+	ret =3D readx_poll_timeout(rk_iommu_is_stall_active, iommu, val,
+				 !val, RK_MMU_POLL_PERIOD_US,
+...
+}
+
+The poll condition !val incorrectly succeeds as soon as any single bank
+unstalls, potentially leaving other hardware banks active.
+
+[Severity: High]
+This is a pre-existing issue, but is there a risk of a kernel panic in
+rk_iommu_probe() due to how the iommu->bases array is handled?
+
+If the device tree has 0 resources, or if devm_ioremap_resource() fails for=
+ an
+early resource but succeeds for a later one in a multi-MMU configuration, t=
+he
+array is populated sparsely:
+
+drivers/iommu/rockchip-iommu.c:rk_iommu_probe() {
+...
+	for (i =3D 0; i < num_res; i++) {
+		res =3D platform_get_resource(pdev, IORESOURCE_MEM, i);
+		if (!res)
+			continue;
+		iommu->bases[i] =3D devm_ioremap_resource(&pdev->dev, res);
+		if (IS_ERR(iommu->bases[i]))
+			continue;
+		iommu->num_mmu++;
+	}
+	if (iommu->num_mmu =3D=3D 0)
+		return PTR_ERR(iommu->bases[0]);
+...
+}
+
+If zero resources are provided, devm_kcalloc() returns ZERO_SIZE_PTR, which=
+ is
+then invalidly dereferenced at index 0. Also, if an early resource fails
+mapping, the array is populated sparsely using loop index 'i' instead of
+'num_mmu', but runtime logic expects contiguous valid pointers, leading to a
+dereference of ERR_PTR during register reads.
+
+[Severity: Medium]
+Does rockchip_pm_remove_one_domain() miss freeing reset controls on
+PM domain removal?
+
+When the PM domain is removed (e.g., during driver unbind) or if probing
+fails for a later power domain:
+
+drivers/pmdomain/rockchip/pm-domains.c:rockchip_pm_remove_one_domain() {
+...
+	clk_bulk_unprepare(pd->num_clks, pd->clks);
+	clk_bulk_put(pd->num_clks, pd->clks);
+...
+}
+
+This teardown function misses the reset_control_put() call to free the
+reset controls retrieved during addition, causing a resource leak.
+
+[Severity: Low]
+Does relaxing the global 'required' list break validation for RK3588 NPU?
+
+Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml:
+...
+  - reset-names
+  - npu-supply
+
+additionalProperties: false
+...
+
+The 'sram-supply' property was removed from the global 'required' list here.
+Will DT schema validation fail to flag missing 'sram-supply' for RK3588
+devices?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717085220.3212=
+274-1-gahing@gahingwoo.com?part=3D5
