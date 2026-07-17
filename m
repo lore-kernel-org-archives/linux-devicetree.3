@@ -1,124 +1,117 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E7B02F6560;
-	Fri, 17 Jul 2026 21:04:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B88E2F6560;
+	Fri, 17 Jul 2026 21:04:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784322268; cv=none; b=nwP5qLyhGrVhzFZpn6aQyQPEU5C0swNEkAuFe7lQt0i+wrSxM41NsTU1gnzKr8w4WvZwAMunglr3zP/U5a9awym2yhJBlhMDuAE2jFdCJrS6g3GTYpr4BVJBug2MowCVSk3XC2MjAet4dv9VIoFblT2zL6PTdNw7g92wOCF9feY=
+	t=1784322281; cv=none; b=j6yhO7Lf3Qit1EsfZNK3SD33aAMCBV+N6Ydy9qgpq/GWAuSPhM4IFqpA1dHsMOcZplywySLYgUXfRYkiru697QBQMizjXWn2w+yGL79TJuXFOI9qFfNcgwbYoH31euM5dHxU9kM1SBVR2ncTN0afOgS4oZd601w2XW2w4KQxwDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784322268; c=relaxed/simple;
-	bh=tcBsvlAtSpPMBcAz8qshWjkmRpMsGtUzftMHBrdxQF0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YvA/cX0fkM0zKs0ebOVhLJTOZq0xWmSA4qWvMOvQFX/p1a10KggQSh8AmaAd8TdlqNF6C1sJEZ6+p4EJH7Oa1eeXl/Ky56ukpwMazQ1zmH3YB7sLXtMepWTYw3MSifmI048u4Fuc2FY7zkDa5pYnc0E5kTow93qY9j6gRUPcDDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=lyf/zbfo; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1784322281; c=relaxed/simple;
+	bh=yekfXRmwlRMvH84INcz8e9jagUUnoXVHiB38rlBCarE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=aVI/kEgcbdCsL25Qe4HTvTiQ/5wtMYuBHSgjBEgJNZplEV0jiUZpNtel+VzWZgzM7CAqifrhKKIfxMDbIub3YJ87W+L8IQi2DGkjmNC0ZJeYI6bP+oKvM/djCnNp5nwKKIoZcTP6QJDYnhyz88RGx9EeJ+ZvXFJABAKEp2n+BFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c1qRUmvd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="lyf/zbfo"
-Received: from [192.168.1.182] (ip-62-24-73-79.bb.vodafone.cz [62.24.73.79])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 40CCE53403BB;
-	Fri, 17 Jul 2026 23:04:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1784322261;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=CQr7QuU6rNfGQjeOhr67iZ0L0PzYiU0lqA4hYXfpOiA=;
-	b=lyf/zbfo/D7AH7bWPFixM9GwauXS01iM2aUf3w+R47UIm7FNWNZKjU8XEBM14RfRLH9Lmx
-	dDoqRgJPGXdJsKjh4VlChW6mhwxPBHhfC9+2ATRPqLisUdD5PNVC47Ze1WpSyI1pCD0YdN
-	3AefX2CHKzp3KpPubz/aReCxYbdqrrE=
-Message-ID: <88a87da7-ffa0-4f34-aba8-e8aa995aa79f@ixit.cz>
-Date: Fri, 17 Jul 2026 23:04:20 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c1qRUmvd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 356FF1F000E9;
+	Fri, 17 Jul 2026 21:04:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784322279;
+	bh=YgOjt/3apkL/eAsD4E5satsvN/a+k1K4/m4OipOPBFs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=c1qRUmvd/lhSIjYou20LJDSfZuHn1WmFoydWJtOP2r566y2xEpoh+zL+QU2lnZvOW
+	 hwymQUF6+Z9rcJrA60z7GCjg2PBHUzEi1VxETHpFylwFS5kfbzAYoxmMGkvksj/6eB
+	 fKYkmiCoQYCwM9v9w4ANNHtGEfwNOW479VCvvuMF7B7dbW9Agw1YE2pL1rwHtG12Wt
+	 Vg4js+grsmeygUNK6lwtjxv0LQ71gJkS4eR8io60fu+0QLxI0mdrHZMecN4AGSXxhe
+	 OmPmTJduB9wHp5dSazuaCGczCI54KYmp53qWL1GRu7Z9qIORVKA17v9t8LGXJtZ9sn
+	 ShXC6zUXL4e6g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/6] dt-bindings: hwmon: add binding for adi,adt7470
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Luiz Angelo Daros de Luca" <luizluca@gmail.com>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260717-adt7470_thermalzone-v2-1-a55147958fad@gmail.com>
+References: <20260717-adt7470_thermalzone-v2-0-a55147958fad@gmail.com>
+ <20260717-adt7470_thermalzone-v2-1-a55147958fad@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 21:04:38 +0000
+Message-Id: <20260717210439.356FF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] SM8450 QoL changes (dts)
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Esteban Urrutia <esteuwu@proton.me>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260711-sm8450-qol-dts-v2-0-5eb2e86468c5@proton.me>
- <178425854592.1084804.16144771627314071470.b4-ty@kernel.org>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
- 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
- lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
- 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
- dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
- F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
- NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
- 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
- AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
- k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
- ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
- AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
- AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
- afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
- loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
- jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
- ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
- VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
- W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
- zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
- QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
- UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
- zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
- 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
- IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
- jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
- FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
- aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
- NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
- AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
- hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
- rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
- qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
- 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
- 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
- 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
- NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
- GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
- yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
- zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
- fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
- ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
-In-Reply-To: <178425854592.1084804.16144771627314071470.b4-ty@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 17/07/2026 05:23, Bjorn Andersson wrote:
-> 
-> On Sat, 11 Jul 2026 23:12:26 -0400, Esteban Urrutia wrote:
->> These patches focus on correcting some details on the DTS for the SM8450
->> SoC.
->>
->>
-> 
-> Applied, thanks!
-> 
-> [1/2] arm64: dts: qcom: sm8450: Remove unneeded reserved memory nodes
->        commit: 0ed8261e0ebdac5f1f08dcbfc209efe36937ed2d
-> [2/2] arm64: dts: qcom: sm8450: Add mode-switch property to qmpphy
->        commit: 8a2b4481b66c802af293e55eee07406971d5aa7b
-> 
-> Best regards,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The binding defines PWM output and thermal sensor provider capab=
+ilities but fails to include `#pwm-cells` and `#thermal-sensor-cells` in th=
+e `required` list.
+--
 
-I'm afraid there is v3 of this patchset :(
+--- Patch [1]: [PATCH v2 1/6] dt-bindings: hwmon: add binding for adi,adt74=
+70 ---
+commit 6372aff696282f1ac0ec9a8f1372c186734704a2
+Author: Luiz Angelo Daros de Luca <luizluca@gmail.com>
 
-https://lore.kernel.org/all/20260713-sm8450-qol-dispcc-v3-0-56fd05822270@proton.me/
+dt-bindings: hwmon: add binding for adi,adt7470
 
-David
+The ADT7470 hardware monitoring chip supports PWM fan control and temperatu=
+re
+monitoring. This commit introduces the YAML device tree binding schema for =
+it,
+defining PWM and thermal sensor provider capabilities.
+
+> diff --git a/Documentation/devicetree/bindings/hwmon/adi,adt7470.yaml b/D=
+ocumentation/devicetree/bindings/hwmon/adi,adt7470.yaml
+> new file mode 100644
+> index 0000000000000..14bb6359c91f2
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/adi,adt7470.yaml
+[ ... ]
+> +properties:
+> +  compatible:
+> +    const: adi,adt7470
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  "#pwm-cells":
+> +    const: 2
+> +    description: |
+> +      Number of cells in a PWM specifier.
+> +      - The first cell is the PWM channel (0 to 3).
+> +      - The second cell is the PWM period in nanoseconds.
+> +
+> +  "#thermal-sensor-cells":
+> +    const: 1
+> +    description: |
+> +      Number of cells required to uniquely identify the temperature sens=
+ors.
+> +      Valid index values are 0 to 9, corresponding to temp1 through temp=
+10.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+
+[Severity: Medium]
+Should #pwm-cells and #thermal-sensor-cells be included in this required li=
+st?
+
+Because this binding defines the device as a PWM output and thermal sensor
+provider, omitting these cell properties from the required list allows
+incomplete device tree nodes to silently pass schema validation.=20
+
+If an adt7470 node is created without them, dependent drivers attempting to
+reference it as a provider may fail at runtime when parsing the provider
+specifier.
+
+Could both #pwm-cells and #thermal-sensor-cells be added to the required
+array to enforce complete node validation?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717-adt7470_th=
+ermalzone-v2-0-a55147958fad@gmail.com?part=3D1
