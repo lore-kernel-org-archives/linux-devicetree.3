@@ -1,133 +1,120 @@
-Received: from mail-m1973174.qiye.163.com (mail-m1973174.qiye.163.com [220.197.31.74])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E470C3AB286;
-	Fri, 17 Jul 2026 10:25:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28723A0B2E;
+	Fri, 17 Jul 2026 10:28:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784283907; cv=none; b=l1/0IWb8HA9vKxXDZNTfCXh9+MvtLrknyk7jGXAf8MXUcMcqcAerdybPDjgXhJP/TeP4XRU2KwJp3QFhKnhJR2db1bcyB3rD5YoSkw3OqEIgHQa7muo3z5NRfpZzmOqUXXwjFtwSlxDMyA6Sr4HXp9r0cKqcsFgpk8lZjU7FvN0=
+	t=1784284141; cv=none; b=UwV7xP+9SJRJg5TOXr76o9kThuVWAweliB6VpFZ6qVDkv9KfCexvAin/Z6ZHMYzOhB3QAL4sHDujpykj3njjseXT2vjpUysiXmDkkHBI5rN5+NwkXyg+jR/zi34a43l25Z32AIYeHtC2D+TZdBVXMb6fhU6fo2/JdJwz445ek04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784283907; c=relaxed/simple;
-	bh=4hLCZVE7kcH3RuQTjhQF0FHZtG7wlWFFSqLa61Ha5LI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GrVzZBzv8uPzksgGlzHTIFGHI6ZGx/bwkjbUl+eFzfWYdYOZxy3S3Fwhx3I4lhJlxknpnKoSgypZi2WtTaaxJULi7GlmZGN8YbmkMBCly5rlDKDzvkuJWIiv1/L2jSnPf0K0nmbovA1NW3RN5p3L2TWt8Aio8qca3ktayYy0MBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=Ofxz/03T; arc=none smtp.client-ip=220.197.31.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1784284141; c=relaxed/simple;
+	bh=Cd/VtuFBCKSyAi98W3gkxJkPrKArDgXzdstC5RR4eq4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tfMhydSXMvfbPypVTDygKszsvYp55WCAE6LRx09TJ8pB4iqdIGxP942xdNU7HJa6URNXZwS37KtWfDcIcd18WGPq8b7QTWCQoId1/cFtNVN5+7DHuB2tHhu9Y8S/Rxr92N4BgtnPkkvN1pznndO+7KS8HpZMoIr/TfvQ67UWHcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jknpeIEk; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="Ofxz/03T"
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 46969559a;
-	Fri, 17 Jul 2026 18:19:38 +0800 (GMT+08:00)
-Message-ID: <b921b071-4187-4e53-b4c4-69bab0cea278@rock-chips.com>
-Date: Fri, 17 Jul 2026 18:19:38 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jknpeIEk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784284140; x=1815820140;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Cd/VtuFBCKSyAi98W3gkxJkPrKArDgXzdstC5RR4eq4=;
+  b=jknpeIEkxL4LdnYGnvJegPHxQEKWxC0ZAEk08CFYNLRRaqbH/x2YP2bs
+   i26y4NZn6n9d8VXCle/khWdSqq7WPHj0k1qom/Pp+X1uW6vb5RFOAM9LC
+   ypaEB7nlTANvkijsr+xbaAd0VyxndqeXBo7JnzgHls7ZuA4gPmiIXNYQt
+   UIRGzLaDBiS6EJGKT8cYgJZ7EqEjIbqtkqVTKCFi9AjA1Ln/JWe3Q/iED
+   1+WY8pokiaiTO13r+Gzod6kDisWe/Kp4W0KgEy0BReI8H9ifBJOS6Q7wU
+   35pl13B2kYYI3faUgdhuFDTlXffWjd4+1D25WtqNJvFIbZhtOmKHGPdSr
+   g==;
+X-CSE-ConnectionGUID: H+4QslTGTMOILzC62DhkbA==
+X-CSE-MsgGUID: c2RIYpYkQquA2eRtpZixaA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="88854118"
+X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
+   d="scan'208";a="88854118"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 03:28:59 -0700
+X-CSE-ConnectionGUID: ARFOpTYCTAyMwKD86DZEdg==
+X-CSE-MsgGUID: y2rwKgaDSwyOJBhdQDRtEQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
+   d="scan'208";a="261036964"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.143])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 03:28:55 -0700
+Date: Fri, 17 Jul 2026 13:28:52 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: Michael Auchter <michael.auchter@ni.com>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 2/8] iio: dac: ad5686: missing NULL check on match data
+Message-ID: <aloD5HdbntKu--xC@ashevche-desk.local>
+References: <20260716-ad5686-new-features-v8-0-ebb0051af5e5@analog.com>
+ <20260716-ad5686-new-features-v8-2-ebb0051af5e5@analog.com>
+ <alkmAcDvSXr_COc_@ashevche-desk.local>
+ <ondynh4kmchzugk2l24klamrcaje3qxnhgiks7gnc46wwwvo35@hysk2zaimb2e>
+ <alnknz55FbyyqqlL@ashevche-desk.local>
+ <gy2dn5emz7sreavy6kioz27f3sx2ip6zhkgzs2uz4qzecpkrbe@zgsortof6aqn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 6/9] iommu/rockchip: take all DT clocks
-To: Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net,
- heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, ulfh@kernel.org,
- p.zabel@pengutronix.de, ogabbay@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260717085220.3212274-1-gahing@gahingwoo.com>
- <20260717085220.3212274-7-gahing@gahingwoo.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20260717085220.3212274-7-gahing@gahingwoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9f6f96c23c09dakunm3c6aa1ca9c9ec
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGUNJVhpKGUNOH01DTU0YTFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=Ofxz/03TjZrHZN71x5wg4XZHSMeVGRnlrU/saD9oYpiWkJcbrwu8PUBFz4i6f/7AfPCtqiloFRJ/dR1AFHyEt/vJnbU5WcnJGz5SvvKEpeu0TbHXMGbYur+AMN+8jKWl0YfCwqftKasqgtgZb1qP8Ga/bvcekMhsS/bohnLNUbU=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=fukq5CudpGBKu5jdyMM5vf8cGCrXvOss1I+wnUPLRAc=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <gy2dn5emz7sreavy6kioz27f3sx2ip6zhkgzs2uz4qzecpkrbe@zgsortof6aqn>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hello Jiaxing,
+On Fri, Jul 17, 2026 at 10:31:26AM +0100, Rodrigo Alencar wrote:
+> On 17/07/26 11:15, Andy Shevchenko wrote:
+> > On Fri, Jul 17, 2026 at 07:51:35AM +0100, Rodrigo Alencar wrote:
+> > > On 16/07/26 21:42, Andy Shevchenko wrote:
+> > > > On Thu, Jul 16, 2026 at 01:14:18PM +0100, Rodrigo Alencar via B4 Relay wrote:
 
-On 7/17/2026 4:50 PM, Jiaxing Hu wrote:
-> rk_iommu only enabled a fixed {aclk,iface} pair. On the RK3576 NPU the
-> MMU sits behind the CBUF/DSU gates, so writes to DTE_ADDR are silently
-> dropped until those clocks run too (reads work, writes need more clocks).
-> Take every clock described in the DT for the IOMMU instead of a fixed
-> pair, so a platform can list the full set it needs.
+...
+
+> > > > >  	struct iio_dev *indio_dev;
+> > > > >  	int ret, i;
+> > > > 
+> > > > Move an assignment here as well.
+> > > > 
+> > > > 	chip_info = ...
+> > > 
+> > > assignment? this is an input param validation
+> > 
+> > Can we make sure we always get a correct one to begin with?
+> > With that an assignment and check can be coupled together.
+> > Also consider use -ENODATA as it's most likely comes from
+> > driver_data.
 > 
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-> ---
->  drivers/iommu/rockchip-iommu.c | 30 ++++++++++--------------------
->  1 file changed, 10 insertions(+), 20 deletions(-)
+> I suppose you are suggesting to move the check to the bus code with:
 > 
-> diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iommu.c
-> index ce586919b..49c841095 100644
-> --- a/drivers/iommu/rockchip-iommu.c
-> +++ b/drivers/iommu/rockchip-iommu.c
-> @@ -93,11 +93,6 @@ struct rk_iommu_domain {
->  	struct iommu_domain domain;
->  };
->  
-> -/* list of clocks required by IOMMU */
-> -static const char * const rk_iommu_clocks[] = {
-> -	"aclk", "iface",
-> -};
-> -
->  struct rk_iommu_ops {
->  	phys_addr_t (*pt_address)(u32 dte);
->  	u32 (*mk_dtentries)(dma_addr_t pt_dma);
-> @@ -1274,25 +1269,20 @@ static int rk_iommu_probe(struct platform_device *pdev)
->  	iommu->reset_disabled = device_property_read_bool(dev,
->  					"rockchip,disable-mmu-reset");
->  
-> -	iommu->num_clocks = ARRAY_SIZE(rk_iommu_clocks);
-> -	iommu->clocks = devm_kcalloc(iommu->dev, iommu->num_clocks,
-> -				     sizeof(*iommu->clocks), GFP_KERNEL);
-> -	if (!iommu->clocks)
-> -		return -ENOMEM;
-> -
-> -	for (i = 0; i < iommu->num_clocks; ++i)
-> -		iommu->clocks[i].id = rk_iommu_clocks[i];
-> -
->  	/*
-> -	 * iommu clocks should be present for all new devices and devicetrees
-> -	 * but there are older devicetrees without clocks out in the wild.
-> -	 * So clocks as optional for the time being.
-> +	 * Take every clock the devicetree provides.  Most IOMMU instances
-> +	 * need exactly "aclk" + "iface", but e.g. the RK3576 NPU IOMMUs sit
-> +	 * behind additional gates (CBUF/DSU) whose clocks must be running
-> +	 * for register writes to land.  Clocks stay optional because there
-> +	 * are older devicetrees without clocks out in the wild.
->  	 */
+> 	info = i2c_get_match_data(i2c);
+> 	if (!info)
+> 		return -ENODATA;
+> 
+> rather than here in the core/common code.
 
-It does not seem necessary to modify the comments, as there are indeed
-many MMUs with multiple clocks :)
+Yes! This avoids layering violation and makes the API contract cleaner.
 
-> -	err = devm_clk_bulk_get(iommu->dev, iommu->num_clocks, iommu->clocks);
-> -	if (err == -ENOENT)
-> +	err = devm_clk_bulk_get_all(iommu->dev, &iommu->clocks);
-> +	if (err == -ENOENT || err == 0)
->  		iommu->num_clocks = 0;
-
-err == 0 is redundant.
-
-> -	else if (err)
-> +	else if (err < 0)
->  		return err;
-> +	else
-> +		iommu->num_clocks = err;
->  
->  	err = clk_bulk_prepare(iommu->num_clocks, iommu->clocks);
->  	if (err)
+> > > > > +	if (!chip_info)
+> > > > > +		return -ENODEV;
 
 -- 
-Best, 
-Chaoyi
+With Best Regards,
+Andy Shevchenko
+
+
