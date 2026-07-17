@@ -1,194 +1,205 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E9B3E95BD
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 10:07:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D9882DCF57
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 10:08:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784282828; cv=none; b=JTHpl0cEzgZZpf9MQPkz6e+py0eFmAgLiODu3fNYGJW67KsQhom32WHAhDGvZ16p2Os+V5ofFTxEkgGKwC1AMSLAATYNjGSKN7eCPIzEQFeHqwJyI0MMAl0Lm7Pdz0E3UMRdVCJlwACWF+h0sbKiiktusMNdwOwtR3qX5v8uPfs=
+	t=1784282909; cv=none; b=lm2nctxqV3LErU10Km0MVvEmJoTgjnxADmsNlQDtQZkEoBlqgjP/SF0lzc8N5aPMXBS/xzoKXq3VUuOaQLesZPCBnYw9188qrGGSAGUWEBupayyZE7RZZipBkYEewS5WsbZ7wkJhFpnc/cOtNlcZjK3cFy/T7m23lR9ylRsZHTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784282828; c=relaxed/simple;
-	bh=k66LPfKQ3cSpYtH1fqSpFHQnHK2RdIrkDszF1Co0Lh0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qZVTSSgRDT9LGmITzAzTal68uEo5mW0yDnnkoM/bhMyewjZT0Oywv95Agx0Clu8xxA2cGMGad3jb1n9V5vUNv1l2UdEutzUrpgAQE0AuwIC69znfmiuHoR3i0TM8H6KP6VIb/ALARzx1ZpDZsvz45XsMALAJfOiJYhc4lS+wCww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Q1953pEP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JkeFzKoK; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784282909; c=relaxed/simple;
+	bh=GeDX+bi3pCmQzz+WMnBzbz9f69l+QlvlSP5MHbfWGiA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PIl6oecpWE6Axvry9As1ADGKcIyXnlSYM/SLiPVFeroSf4ffrhOs7Po0EXmQ67xI33TJ23jAfPPFsVZYKJA8KLa4gdg/Z87ETSBUThlXPsQPsBpWV3Qzr+appIYMriuOhr2MgdokAn/cRoSWTguaDYUxvILBHTe0CccJvWnF+QM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kMgNEhXQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q1953pEP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JkeFzKoK"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66H6cSf2851587
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 10:07:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6katBA3YYMgPj3qSfM8s5QF3Giyse2MBZ1kakUqCeyY=; b=Q1953pEPD+/NGkVz
-	ZccmSzyzr3NZxcAqr0OQHwGLh/pGmI4J/FZNOG4xpD2KI/TX/mD2UNjm4+T7S5Al
-	L36Weu7MzZdrr8LOgN7Uv+Q/+LY5FPTfP+VY0HtwHBnPZlgyE1vZvuVvd7v6BMXK
-	z2qLw7DL7Zd9zwZs7qYME601IWtkti2A2+RNuN2A2oOqjyljuvKsRgjQd2tWJh1k
-	SVrrqPp1CotqPLOCRmeHRc6/LN13sIEFBncHOV1z+oxGTgwrVKicR+qMVL3IlGAS
-	le5EVRjsTY6kSFbd2ycgBTtrDLXkxvZPtT3URSOyqc3GjmDk4PV67aDaNg+2ncEX
-	jxzNhg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fff9p8stv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 10:07:05 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e5110c89eso188676985a.3
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 03:07:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784282825; x=1784887625; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6katBA3YYMgPj3qSfM8s5QF3Giyse2MBZ1kakUqCeyY=;
-        b=JkeFzKoKxgdK0WgwYgEJw1QRw0ivd1SQc8OCUM9UMRAFuJxjjY02nz54OI2POBocti
-         MDtGxcI8KENh2CF3dWmJsnOdUgJnmZqKpnLzWkhJBmL8LM6/iUY0+gdaRrmdwkrWGFJf
-         B5xYyfj0aTwG+18Az9NR+/YtAaPmou0KqbCWKu0F1RytWdikkw5kh+9BVMXlu/e3miWt
-         t9SinyUyw4T3QGKG0+RLTq3Pu3PNOy0s9CvmjLplf3TjbvhIEal/4OgK9Uhw96Ps4VWO
-         7u8h84L4FxGorjn7VTnBEDi1MWA5kBr8mxBFBI+At0DS/16vLQXRSpaih6VZZ7qPI2Qr
-         dPEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784282825; x=1784887625;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6katBA3YYMgPj3qSfM8s5QF3Giyse2MBZ1kakUqCeyY=;
-        b=hPD5bwN8pzFlXqRO7MDoELc62r7TIWIGGHB6+o6/sY223YCXhizQBvmUk88FWDtr05
-         YQqxd2KAuA8dmcRaq+jiwZttKAeWunUHg8T5JHSaVahsmuRXBuJJ+GYiFIqcnGhJ1Bl8
-         6+gdFI+x03Z6VfJVpxucvocjHjBJmhMtg67NviemM8XSWyuJUZpHcblfrwcbrIyOQnyf
-         7CwolUnAt5kvnon9AtSTgYduEVXwZeAVW84vHHk520sDewnKSGK1fE2GabxX3Gxd9N0K
-         PmuWMcQFp1LxRgctlMgcjUaQNyA6SchWWTP0eIN4TGbStt7YhM5bez/pl09P2w1LBJNm
-         dTqA==
-X-Forwarded-Encrypted: i=1; AHgh+Roy8ndNmiry0mU67Ibe2bA2W2bBlHAm1b9ub/vwlW5PhnZLhSs2CFt9M9surIsszqfr3ADcVVPugaj9@vger.kernel.org
-X-Gm-Message-State: AOJu0YyszT82rdDWur12eYlHd5aNxK7frl79THCe9iZ5mrumW265XM3x
-	SCq/etvC6xWBg8YZ3unrkVQKpGF2q6QjA+C8pSq0CrVdsB80zRnE7Kw+/RBo+vAgOQDvn/BUSfz
-	jb4Ros3w3lUbQUqpa5bhPU/UeD1EVhOEsA2XXTmgF+wP1YEOw3WYHskG9gTjo2TLa
-X-Gm-Gg: AfdE7cnYDy5wr3EweRnhONwuQC47TBJv/1V23AVbJrAxwfkNebXLkKj6qo0Jnwie01x
-	uEG+2yxurffXJa8CZGr6nTzjDS3e6T5HsAT72KkeqTmUZoY88lSByYjIk8+npPFJBaYvTLyf+sq
-	z0OpF+7ArkLus7LiwFX8PZLIiuUIs8SZwTdi6ZN9OTmazFmPzFlPs9tAHu9VN9PKDy+N8ntJ+Wg
-	pbQjFoD0ualt06pEAlV4ghmc7w/O+D4BEENo1TevXUkU/K4A3YoPBSLZ8XtEK0bjg5fag/b2fAj
-	yTp7MS195pcyVq0YkL01CwwB98y5u0EAETYJp0ShgipYHmGEZe3fERgimFulRMrgYztHzEh86x5
-	cO+kukyHLgt+SDo37Ymutn6BY
-X-Received: by 2002:a05:620a:ab08:b0:92b:7420:bd58 with SMTP id af79cd13be357-930b3cdf523mr129229985a.0.1784282825242;
-        Fri, 17 Jul 2026 03:07:05 -0700 (PDT)
-X-Received: by 2002:a05:620a:ab08:b0:92b:7420:bd58 with SMTP id af79cd13be357-930b3cdf523mr129227785a.0.1784282824741;
-        Fri, 17 Jul 2026 03:07:04 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1705a09a4fsm51391466b.18.2026.07.17.03.07.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Jul 2026 03:07:03 -0700 (PDT)
-Message-ID: <6d12cbb6-23de-4e41-b449-9d9b6cbab342@oss.qualcomm.com>
-Date: Fri, 17 Jul 2026 12:06:59 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kMgNEhXQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 592531F000E9;
+	Fri, 17 Jul 2026 10:08:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784282907;
+	bh=mfsXVq7Es0SlaNvWU1/A0xZ0pIP6D3BTqYEFvGJ1dNs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kMgNEhXQ8w3pItp0qGr+0mWqZ5qdazo257pWR2/BehWpupBADqLqXkvkug6KC3aR6
+	 hwHG+Rs2/1GBzD4q9+064GDllIJk9logvCYJamWsBjDyBpa3Tnq2Pc5absCb8Yf3he
+	 LvIyZT538Cg6GEGXzprtZTaJDIJpFSE3GZiz4Jl+dB8haozhLztp5hpYlAl//40SFl
+	 iaUHzlev8atXoe9id07cRy0lrEvlArTZI98fyA71dPgwQnoNiAHG7DWh2hC906Rgrr
+	 4rfY2mSTXvbet2qshriDceJhndC+r2I2wV/tr4F2LKf+0iFUgegvCIs2om0bmfdeF/
+	 HYFdKPHfbg08g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/4] clocksource/drivers: Add support for the Renesas
+ RZ/N1 timers
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?SGVydmUgQ29kaW5hIChTY2huZWlkZXIgRWxlY3RyaWMp?= <herve.codina@bootlin.com>
+Cc: wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260717095552.767475-3-herve.codina@bootlin.com>
+References: <20260717095552.767475-1-herve.codina@bootlin.com>
+ <20260717095552.767475-3-herve.codina@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 10:08:26 +0000
+Message-Id: <20260717100827.592531F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 8/8] arm64: dts: qcom: eliza-mtp: Enable Adreno A722 GPU
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>,
-        Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev
-References: <20260705-eliza-gpu-v1-0-c9f1354dbd29@oss.qualcomm.com>
- <20260705-eliza-gpu-v1-8-c9f1354dbd29@oss.qualcomm.com>
- <clfy5lvz7vm3ogw7pvyyidiujqcjxftx55p67szwgc6ivsq6r6@xrrcbfdkqkjo>
- <2d9d6724-a3ea-42ad-8cb3-ef08fd0882be@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <2d9d6724-a3ea-42ad-8cb3-ef08fd0882be@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: cYGMKafSUHMGZs6jkeaUoeGPbQgkwq9E
-X-Proofpoint-ORIG-GUID: cYGMKafSUHMGZs6jkeaUoeGPbQgkwq9E
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDEwMCBTYWx0ZWRfXx97q2rN1GEKg
- YULN5oOk0Gys+AIbPxfQ3hgmuFYN6hkWLX/XgszUrqVrwh8d0ubYmkQE6kpRhFm4LpTshbEBzw7
- yQ1tG6GS2yO9rLOpuHcPovG2awPJJ3Dw/nQvCt4LfHPFmDRc/Pln8yTfmOTSHe95QrckYlJUeBX
- /TdyPDa3CAWagB8QC8xj4jJ42Tz5d8Rq8JReXsJP+WP+YceHHt5jqUTTZjDy7/p2qXJmERA5rE7
- uVp0Sz1rs5sRw0SBBWyHlYbpm+82OtYmPcTXCL1Ds7QXPr3hBpnCuqo1A9j+f72WBvtCgRLFlHV
- Ihh5ztmdF45wFLCvDlQPDb8WbiIflMwLxYZDi6rKe1e043CrDCuFCBjDEKEUkOToXwsfK1BG732
- /iQ/jA8ZbsY6Sbdthl0ISjefxWYO9weXYbsEKLPbWi3fGq7uuLVZX9aMHKwBfyjCyZqr1Av6TQS
- BbKWhdp922be+Gbey2Q==
-X-Authority-Analysis: v=2.4 cv=TaqmcxQh c=1 sm=1 tr=0 ts=6a59fec9 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=J1ZTZr7FdFypxrWY4IMA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDEwMCBTYWx0ZWRfX1TAXcgpb4Eva
- /ae2KMjf7Zws46RQrhc1IgrvabR6oApIPP7YR1InKmmyOLleDUnKB2AMqfO7sQNek52YJsUciW8
- W6bDeE645bn32DsdwlKDFa1seaEGzyw=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-17_02,2026-07-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
- adultscore=0 spamscore=0 bulkscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170100
 
-On 7/13/26 9:50 PM, Akhil P Oommen wrote:
-> On 7/7/2026 3:53 AM, Dmitry Baryshkov wrote:
->> On Sun, Jul 05, 2026 at 01:44:23PM +0530, Akhil P Oommen wrote:
->>> From: Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>
->>>
->>> Enable the Adreno A722 GPU on the Eliza MTP board and provide the zap
->>> shader firmware path.
->>>
->>> Signed-off-by: Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>
->>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>> ---
->>>  arch/arm64/boot/dts/qcom/eliza-mtp.dts | 8 ++++++++
->>>  1 file changed, 8 insertions(+)
->>>
->>> diff --git a/arch/arm64/boot/dts/qcom/eliza-mtp.dts b/arch/arm64/boot/dts/qcom/eliza-mtp.dts
->>> index 1374afd9d14e..b280d8e845b1 100644
->>> --- a/arch/arm64/boot/dts/qcom/eliza-mtp.dts
->>> +++ b/arch/arm64/boot/dts/qcom/eliza-mtp.dts
->>> @@ -417,6 +417,14 @@ vreg_l7k: ldo7 {
->>>  	};
->>>  };
->>>  
->>> +&gpu {
->>> +	status = "okay";
->>> +};
->>> +
->>> +&gpu_zap_shader {
->>> +	firmware-name = "qcom/eliza/gen70e00_zap.mbn";
->>
->> Should it be gen71700_zap.mbn?
-> 
-> Downstream uses gen70e00_zap.mbn as this fw is shared between Eliza and
-> another GPU. But, for upstream we can rename it. In linux-firmware, I
-> will keep gen71700_zap.mbn as a symlink to gen70e00_zap.mbn.
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] Off-by-one error in CPU bounds check allows out-of-bounds array ac=
+cess in the hotplug callback.
+- [High] A 16-bit high-frequency clocksource is incorrectly flagged with CL=
+OCK_SOURCE_SUSPEND_NONSTOP, breaking system suspend timekeeping.
+- [High] Probe incorrectly returns a positive IRQ number on devm_request_ir=
+q failure.
+- [High] Missing teardown callback in cpuhp_setup_state causes a Use-After-=
+Free of clockevent devices.
+- [Medium] Down-counting timer values are potentially returned directly, br=
+eaking the requirement for monotonic increasing counters.
+- [Medium] Failing CPU bringup by returning an error from a CPU hotplug sta=
+rting callback.
+--
 
-Let's use the name you proposed. I mistook it for the GMU fw, which is
-named differently.
+--- Patch [2]: [PATCH v3 2/4] clocksource/drivers: Add support for the Rene=
+sas RZ/N1 timers ---
+commit 67eeb3e62e1eb246f2738740b9b5319a484b8d50
+Author: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+clocksource/drivers: Add support for the Renesas RZ/N1 timers
 
-Konrad
+The Renesas RZ/N1 timer block controller is the controller in charge of
+timers available in the Renesas RZ/N1 SoCs family. This controller handles
+8 timers: 6 16-bit timers and 2 32-bit timers.
 
+> diff --git a/drivers/clocksource/timer-rzn1.c b/drivers/clocksource/timer=
+-rzn1.c
+> new file mode 100644
+> index 0000000000000..024f01bb0227b
+> --- /dev/null
+> +++ b/drivers/clocksource/timer-rzn1.c
 
+[ ... ]
+
+> +static u64 notrace rzn1_sched_read(void)
+> +{
+> +	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_=
+REG);
+> +}
+> +
+> +static u64 rzn1_clksrc_read(struct clocksource *cs)
+> +{
+> +	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_=
+REG);
+> +}
+
+[Severity: Medium]
+Since RZN1_TIMER_LOAD_COUNT_REG is used earlier to set the timer period,
+does this hardware act as a down-counter?
+
+If the hardware counts downward, will returning the raw value here break the
+timekeeping requirement for monotonically increasing values?
+
+> +static struct clocksource rzn1_clocksource =3D {
+> +	.name =3D "rzn1_timer_clocksource",
+> +	.rating =3D 200,
+> +	.flags =3D CLOCK_SOURCE_IS_CONTINUOUS | CLOCK_SOURCE_SUSPEND_NONSTOP,
+
+[Severity: High]
+Is it safe to flag a 16-bit clocksource with CLOCK_SOURCE_SUSPEND_NONSTOP?
+
+Since a 16-bit counter fed by a high-frequency clock will wrap around very
+quickly, will this cause massive wall time jumps if the system suspends for
+longer than the wrap interval?
+
+> +	.read =3D rzn1_clksrc_read,
+> +};
+> +
+> +/* Timers table where 32-bit timers will be assigned per-cpu */
+> +static struct rzn1_timer *rzn1_tab_timers;
+> +
+> +static int rzn1_local_timer_starting_cpu(unsigned int cpu)
+> +{
+> +	struct rzn1_timer *timer;
+> +
+> +	if (cpu > RZN1_TIMER_NB_32BIT_TIMERS)
+> +		return -EINVAL;
+
+[Severity: Medium]
+Will returning an error like -EINVAL completely abort the hotplug process
+for any CPU beyond the first two?
+
+Should this return 0 instead, allowing additional CPUs to still boot online
+and rely on a global broadcast timer?
+
+[Severity: High]
+Also, does the greater-than condition here have an off-by-one error?
+
+If RZN1_TIMER_NB_32BIT_TIMERS is 2, a cpu value of 2 bypasses this check.
+
+> +
+> +	timer =3D &rzn1_tab_timers[cpu + RZN1_TIMER_BASE_INDEX_32BIT_TIMERS];
+
+[Severity: High]
+If a cpu value of 2 bypassed the check above, will this access out of bound=
+s?
+
+The array is only sized for 8 elements total. Adding a cpu value of 2 to
+RZN1_TIMER_BASE_INDEX_32BIT_TIMERS (which is 6) computes an index of 8.
+
+[ ... ]
+
+> +static int rzn1_timer_setup_timers(struct platform_device *pdev,
+> +				   struct rzn1_timer *tab_timers,
+> +				   unsigned int first_timer_index,
+> +				   unsigned int last_timer_index,
+> +				   void __iomem *base, unsigned long clock_rate)
+> +{
+
+[ ... ]
+
+> +		ret =3D devm_request_irq(dev, timer->ced.irq, rzn1_timer_interrupt,
+> +				       IRQF_TIMER, timer->ced.name, timer);
+> +		if (ret < 0)
+> +			return dev_err_probe(dev, irq, "timer%u: Failed to request IRQ\n", i);
+
+[Severity: High]
+Will calling dev_err_probe() with irq return the positive IRQ number back to
+the caller instead of the negative ret code?
+
+If the driver probe returns a positive integer, won't the driver core assume
+the probe succeeded despite the failure?
+
+[ ... ]
+
+> +static int rzn1_timer_probe_first(struct platform_device *pdev,
+> +				  struct rzn1_timer *tab_timers,
+> +				  void __iomem *base, unsigned long clock_rate)
+> +{
+
+[ ... ]
+
+> +	/*
+> +	 * Second step, almost all operations that can fail have been called.
+> +	 * Timers are ready to work. Start with the last operation that can fai=
+l,
+> +	 * installing and invoking hotplug callbacks
+> +	 */
+> +	rzn1_tab_timers =3D tab_timers;
+> +	ret =3D cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
+> +				"clockevents/rzn1/global_timer:starting",
+> +				rzn1_local_timer_starting_cpu, NULL);
+
+[Severity: High]
+Does passing a NULL teardown callback here leave registered clockevent
+devices dangling if a subsequent step fails during probe?
+
+If the driver fails and frees its timer structures via devres, or if a CPU
+is dynamically offlined later, will this lack of teardown cause a
+use-after-free in the clockevents core?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717095552.7674=
+75-1-herve.codina@bootlin.com?part=3D2
