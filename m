@@ -1,166 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F1663C13F9
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:30:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA8833C4552
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:30:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784280631; cv=none; b=kavciccTYQbMAmx+RrsPvxXhm3Z5JjmOT+esbfgpbetIbSpCIVM/w1XT6eVkuqXXRdx7144Tix919vRkchqk1X1Qf8dXBuTaW95djJb0B6pmi2/OcY5g9jEQ8IUD1GG3qXyC5Kb/PeNbQX+4IdGnIaNZfqCYHir/nmtewGBqYO4=
+	t=1784280655; cv=none; b=rm4x+N1O7B+BvNxUXXNKaWYChau5pwEqOgC6Vc4qRNXopSOHUfLt4NIJtoKjVoy27xsoxspx07lwzPLz8GFG7/ZMgHzTXfgV7+7d8z2jPRLrV8rj0Fwz+nGLdizVLNpw7vbvFNyaIwFKdbJpeUiCghBtyvuqk6+nWenvRf+Qs6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784280631; c=relaxed/simple;
-	bh=yxhru80BERmn+K3+3L7UNHqX4jqEDBDMiOXXOKx0wDU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TYXVXQ2uehQigVr6hbR8UulRsY6WlRSD7SpitXO+tuxxT+Ycy2/f/cugh0FJ+Re4vkStDv+7FM/wC22vDXNbzyBKraPsfFNk8qfkkkWKB5fI4HEWxMegbCoBKSdNPKLAj2PfkkvrNkBVR//ELjcQ2OPFc2ZRYLdW0jsEoWHHD88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aSxLFIzd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784280655; c=relaxed/simple;
+	bh=tbCI00YSlwDRg6JIkFR/niiKWVVn+eRN2wiQbbOWrWU=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iyd1YM0uQjm0YkfGxqBBwiefY8Z9xNG4go9wL0wy36ZsKqWcb/Y8nLBZ92KaeDq2Ah2wrWDFqK2RrW8IAZyyxjNt1TrTtivRI7uHj7hqIiN6Ntz4+wKXve5SqreqBJNYl5iOCOT9zvDkDVsT5OzLTSVK5pyfvxaExDsUmAAPugg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TTfTZXMb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aSxLFIzd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA6381F000E9;
-	Fri, 17 Jul 2026 09:30:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TTfTZXMb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86EF41F0155A
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:30:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784280630;
-	bh=DVP9uy58NDlH96curs5ytICz2hkVCLecnKJpkngEyn8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aSxLFIzdW3H/om3yoHvxVl1WZKIe0sS8Ms7VxuDc9Wn39PZInfJgv3mNLNBn7VoJn
-	 +7PY5w9e9JEwrb8iZ5iiPckdymjlJECD1UZnC1CGqbLadTu9mHbxgxDZkaRg1Zouh7
-	 hsuGkrohL9r5sVpNLDbWuO87MX8HNEbYcBfy2wGeK0OU0KU1rHmb6RVMonorHeSvoy
-	 i1A7HcqZz+66TCz8kWSzb/hdXBE4o6qMtcwfb3zD3nxBV/Lay140OOCqgYrDOZ2j/P
-	 2X2Wa3cLQEGpKxAKfml/nr5ulG9E4IvtPTAM9s+wk6bVbZyKBy7iNB+vHbeceEP1v6
-	 HThe0QepTQGPA==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 8/9] arm64: dts: rockchip: rk3576: add NPU (RKNN)
- nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260717085220.3212274-9-gahing@gahingwoo.com>
-References: <20260717085220.3212274-1-gahing@gahingwoo.com>
- <20260717085220.3212274-9-gahing@gahingwoo.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 09:30:29 +0000
-Message-Id: <20260717093029.AA6381F000E9@smtp.kernel.org>
+	s=k20260515; t=1784280652;
+	bh=iyJ4B2wLQ9s15BrAYrM1DXNCJwAOqNuA61/FpLM63sE=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=TTfTZXMbAPYTlaw0Apg12nkkjFAKZd8c8OsOaSFQzFpYgsh2ORh/KG5gyqelszTN8
+	 BXhdphF3n+OXSnNsN9acPO+7ogLCuV6aJwvEDSyGw1gUrDfEYGvuVkHsiwXjjrNNmM
+	 fDWIiyK4O8s15X4mz1vxrTH6D7qJTIlKTTYvMTCajLEWSGcy5q3lOSlel4Ax6+8K8o
+	 OF6dlP4PPa8+F4A57hE2ci0nwnjx0cJvGj30LDTvGQwjbBv3DKulZe4OlP4eoQp/ZU
+	 UUYpY3ZXIEfnYGxYqzbD2th6su/ry1aC5QOLtwThGyssBrSd7DPhKKTv8yfr1AFGP8
+	 xtqfOyLjiFkWg==
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-39c95395230so34340831fa.2
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 02:30:52 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrQ0vcIF4dgfOwBvi3S0HjaUPDbpoDUwJjKcqs4MFcDbfl3XNu3Pmtk0uIucbEKCCXYrg5GDHDXoXxU@vger.kernel.org
+X-Gm-Message-State: AOJu0YxVRVRCkJVeESMr7apqj3mV0BgcGdAClJmpkGP6EMHyYcDRRIqU
+	tZtoIdKfMkVqFQ4sBRngxSthUgWL+a6ZBqOeIWv4qFLSRtvo5PtoF/UwiljqQd2XYTJ0a2PZQgz
+	1j67FS5B0axPnsIwRoRvG2cXLu75StqRPNGO0U22KIA==
+X-Received: by 2002:ac2:550f:0:b0:5b0:163b:e2d6 with SMTP id
+ 2adb3069b0e04-5b28fabab20mr360225e87.62.1784280651204; Fri, 17 Jul 2026
+ 02:30:51 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 17 Jul 2026 02:30:50 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 17 Jul 2026 02:30:50 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260716-monza-wireless-v4-6-9b02e6f549d7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260716-monza-wireless-v4-0-9b02e6f549d7@oss.qualcomm.com> <20260716-monza-wireless-v4-6-9b02e6f549d7@oss.qualcomm.com>
+Date: Fri, 17 Jul 2026 02:30:50 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mcr8dCAeHe48LBOQ_Rg0iSQaHmL_HrC44ohqEUdjg12aA@mail.gmail.com>
+X-Gm-Features: AUfX_mw7JByjcuNC_OA-Xwp9N1-sIdcb6nu73GcpC0DTViDxeC5IKKiUyNbwp_I
+Message-ID: <CAMRc=Mcr8dCAeHe48LBOQ_Rg0iSQaHmL_HrC44ohqEUdjg12aA@mail.gmail.com>
+Subject: Re: [PATCH v4 06/11] Bluetooth: hci_qca: Set 'bt_en_available' based
+ on pwrseq power controllability
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: linux-pci@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org, 
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Missing `aclk_cbuf` and `hclk_cbuf` clocks in `rknn_core_1` node.
-- [High] Single power-domain definition for NPU cores causes probe failure =
-(`-EEXIST`) and violates hardware constraints.
-- [High] The physical register address for `rknn_mmu_1` is incorrectly mapp=
-ed to `0x2770a000` instead of `0x27712000`.
---
-
---- Patch [8]: [RFC PATCH 8/9] arm64: dts: rockchip: rk3576: add NPU (RKNN)=
- nodes ---
-commit 5396e10743f01d595779ccc7127139fe5f89e996
-Author: Jiaxing Hu <gahing@gahingwoo.com>
-
-arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
-   =20
-Add the RK3576 NPU: rknn_core_0/1 and rknn_mmu_0/1, with register
-addresses, GIC_SPI 247/248 interrupts, clocks, resets and power-domains.
-
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/d=
-ts/rockchip/rk3576.dtsi
-> index e12a2a0cfb891..5033f762840ae 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-[ ... ]
-> @@ -1804,6 +1812,72 @@ qos_npu_m1ro: qos@27f22100 {
->  			reg =3D <0x0 0x27f22100 0x0 0x20>;
->  		};
-> =20
-> +		rknn_core_0: npu@27700000 {
-> +			compatible =3D "rockchip,rk3576-rknn-core";
-> +			reg =3D <0x0 0x27700000 0x0 0x1000>,
-> +			      <0x0 0x27701000 0x0 0x1000>,
-> +			      <0x0 0x27703000 0x0 0x1000>,
-> +			      <0x0 0x27704000 0x0 0x1000>,
-> +			      <0x0 0x27705000 0x0 0x1000>;
-> +			reg-names =3D "pc", "cna", "core", "dpu", "dpu_rdma";
-> +			interrupts =3D <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks =3D <&cru ACLK_RKNN0>, <&cru HCLK_RKNN_ROOT>,
-> +				 <&cru CLK_RKNN_DSU0>, <&cru PCLK_NPUTOP_ROOT>,
-> +				 <&cru ACLK_RKNN_CBUF>, <&cru HCLK_RKNN_CBUF>;
-> +			clock-names =3D "aclk", "hclk", "npu", "pclk",
-> +				      "aclk_cbuf", "hclk_cbuf";
-> +			resets =3D <&cru SRST_A_RKNN0>;
-> +			reset-names =3D "srst_a";
-> +			power-domains =3D <&power RK3576_PD_NPU0>;
-
-[Severity: High]
-Does listing a single power domain here cause probe to fail?
-
-The rocket_core_init driver expects both RK3576_PD_NPU0 and RK3576_PD_NPU1 =
-on
-rknn_core_0 to satisfy a hardware constraint where the CBUF->CMAC read path
-requires both.
-
-Because the DT only lists one power domain per core, the kernel platform bus
-auto-attaches it and sets dev->pm_domain. When the driver then calls
-devm_pm_domain_attach_list(), it will return -EEXIST, which the driver trea=
-ts
-as a fatal error and aborts probe. Missing RK3576_PD_NPU1 on rknn_core_0 al=
-so
-breaks runtime PM, leading to AXI lockups.
-
-> +			iommus =3D <&rknn_mmu_0>;
-> +			status =3D "disabled";
-> +		};
+On Thu, 16 Jul 2026 18:18:23 +0200, Loic Poulain
+<loic.poulain@oss.qualcomm.com> said:
+> A Bluetooth device only needs the non-persistent setup if the host can
+> gate its power, so that it is actually reset on the next power-on. When the
+> power is controlled by a power sequencer, whether the host can gate it
+> depends on the hardware wiring, e.g. the presence of the BT_EN or
+> W_DISABLE2# line.
+>
+> Query the generic pwrseq_is_controllable() helper whenever the BT power
+> comes from a sequencer, regardless of which provider it is (M2, WCN, ...).
+> If the power is not controllable, clear 'bt_en_available' so that
+> HCI_QUIRK_NON_PERSISTENT_SETUP is not set.
+>
+> This is based on Manivannan's original patch that keyed the decision off
+> the W_DISABLE2# device tree property, it now uses the generic pwrseq helper
+> and handles the always-on case.
+>
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
+>  drivers/bluetooth/hci_qca.c | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
+> index 17f436484e1e74d1dd690ada22134315abb767c4..41e8c302abc2a820022d1783f1fad76b358ae67c 100644
+> --- a/drivers/bluetooth/hci_qca.c
+> +++ b/drivers/bluetooth/hci_qca.c
+> @@ -2548,7 +2548,18 @@ static int qca_serdev_probe(struct serdev_device *serdev)
+>  			return PTR_ERR(qcadev->susclk);
+>  		}
+>  	}
+> -
 > +
-[ ... ]
-> +		rknn_core_1: npu@27710000 {
-> +			compatible =3D "rockchip,rk3576-rknn-core";
-> +			reg =3D <0x0 0x27710000 0x0 0x1000>,
-> +			      <0x0 0x27711000 0x0 0x1000>,
-> +			      <0x0 0x27713000 0x0 0x1000>,
-> +			      <0x0 0x27714000 0x0 0x1000>,
-> +			      <0x0 0x27715000 0x0 0x1000>;
-> +			reg-names =3D "pc", "cna", "core", "dpu", "dpu_rdma";
-> +			interrupts =3D <GIC_SPI 248 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks =3D <&cru ACLK_RKNN1>, <&cru HCLK_RKNN_ROOT>,
-> +				 <&cru CLK_RKNN_DSU0>, <&cru PCLK_NPUTOP_ROOT>;
-> +			clock-names =3D "aclk", "hclk", "npu", "pclk";
+> +	if (qcadev->bt_power->pwrseq) {
+> +		bt_en_available = pwrseq_is_controllable(qcadev->bt_power->pwrseq);
+> +		if (!bt_en_available) {
+> +			/* The host cannot gate the BT power individually.
+> +			 * Treat it as always-on and drop the pwrseq handle.
+> +			 */
+> +			pwrseq_power_on(qcadev->bt_power->pwrseq);
+> +			qcadev->bt_power->pwrseq = NULL;
 
-[Severity: High]
-Will the driver fail to probe here due to missing CBUF clocks?
+Maybe a little comment saying this will be released by devres? It looks like
+a leak otherwise.
 
-The rocket_core_init function explicitly requests 6 clocks (aclk, hclk, npu,
-pclk, aclk_cbuf, hclk_cbuf) using devm_clk_bulk_get(). Since rknn_core_1 on=
-ly
-defines 4 clocks, the API will fail with -ENOENT, making the second NPU core
-unusable.
+Bart
 
-> +			resets =3D <&cru SRST_A_RKNN1>;
-> +			reset-names =3D "srst_a";
-> +			power-domains =3D <&power RK3576_PD_NPU1>;
-> +			iommus =3D <&rknn_mmu_1>;
-> +			status =3D "disabled";
-> +		};
+> +		}
+> +	}
 > +
-> +		rknn_mmu_1: iommu@2770a000 {
-> +			compatible =3D "rockchip,rk3576-iommu", "rockchip,rk3568-iommu";
-> +			reg =3D <0x0 0x2770a000 0x0 0x100>,
-> +			      <0x0 0x2770a100 0x0 0x100>;
-
-[Severity: High]
-Is this physical register address mapped correctly?
-
-It looks like the base address is misplaced by 0x8000 relative to where it
-belongs inside the rknn_core_1 memory footprint. The rknn_core_1 registers
-span 0x27710000-0x27715000, with a 1-page gap at 0x27712000 for the IOMMU
-(which is structurally symmetric to rknn_core_0 having its IOMMU at
-0x27702000).
-
-When the IOMMU driver attempts to access 0x2770a000 instead of 0x27712000, =
-it
-will likely cause a Synchronous External Abort or fail to translate memory
-for the NPU.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717085220.3212=
-274-1-gahing@gahingwoo.com?part=3D8
+>  	err = hci_uart_register_device(&qcadev->serdev_hu, &qca_proto);
+>  	if (err) {
+>  		BT_ERR("serdev registration failed");
+>
+> --
+> 2.34.1
+>
+>
