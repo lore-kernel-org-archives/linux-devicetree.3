@@ -1,98 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 609C1194C96
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 01:12:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 779BB17B50A;
+	Fri, 17 Jul 2026 01:15:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784250745; cv=none; b=WZ7/T7PZFrV9PooxbqkTT5tabFzgEPUa8QcAL9M+kcFZyiQfCMUAK8L0lxYSnOleYBkP3z7Nxdykft+on+8myWl8F/S2wvD9rUoFNSrnIxoJ3QWxEB5VfQr0UyTp279Eber3ecuMs5zmBWwjN75f77+RF3W8XO8nt/sg5jqdb3U=
+	t=1784250917; cv=none; b=NZ92fEBYwGmktOtoKj1emQzAEQASv/iKx24mNxSyZGaCsC20LVD3JeomcEZJNcFNyzrfyvf7Mcy8w6BlPcRcUU+trQNRmZOzx00UqBu8xyeJOY6whNKGX2hzmYtDLW2qGQi+v2zH5HkaH51okbPFlaLlZGRXcwovVU9uU2+Nl+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784250745; c=relaxed/simple;
-	bh=vXfIqqepDP8p5zP7c8Hs2nnLLHbA26kLUb8mUfSfjkw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uZberXTqsWZlkoMDwy2GSO1eu39gpfmuYRMXcs20VhVp9dl2GNbHFXZl157wMSn/Valu2OuxqlEjB6Enz+mM8D4otrWtJq4QxhjJ5RYDyBslVNMAnNfNhNJJLvTRIXzar4DLUT4+Jh1xJwMkZ4Dxfkfu+6VfQU3QpREdQsk1k68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lg3vxVEi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784250917; c=relaxed/simple;
+	bh=IT/rhUvKxnUjwSTnczEX0JUrUPEt6H0YklyOCcJpNYs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YnBUuk0wzVGzFB4TfPwI5LWmSnrwn1VgcjSUSzZ/Y9OQErlqoBJiIR4IW1tiRemD0Re7WGZNlmKbei7bxkmDuBQnAYvx0vOmq1aJA5G5s9XXl1jPXHFiUh94pJ5mmOBUepN5ThzTIScPTTD9tJMaZgTl7vbBlCQvMO96v9Z2Zys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R/6fl00O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lg3vxVEi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C24A71F000E9;
-	Fri, 17 Jul 2026 01:12:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R/6fl00O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53C8F1F000E9;
+	Fri, 17 Jul 2026 01:15:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784250744;
-	bh=RkZ7wpnl9IZcN/0/D+5DPL3iFBZh3ONFBzRDmUShDug=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lg3vxVEiIR9PRWeNb3vQ7TmZKujpsdTqWRkywxEu/l4Mkk9bFH51UIxFELkfCPl/o
-	 nN6zTI/MNXvzOfMQERT98ozQEE0/crdwZUKeoXQavigGV03OqGxGCRuA9VQduOpbwX
-	 //QsUqRI5mcMpAAdLJq2NM+nLd82TUFlBbVqNPdVRWCAvSyoj+3WRiF/CU1rLpbGMg
-	 KqSFdkozs7one4TTzOe4pBVyLbpelc7A/VJqbH/8Rfjb/JH1Umg2rE0GfVYTsr58Uz
-	 gLkRbVuNW5hsI8NdmlH0VQjcYpXFfh3NoCDe7HzO078KDQEVuajW85w37dwjd7kaNX
-	 vmuznAkDYXaLg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] arm64: dts: rockchip: Keep rk3399-roc-pc-plus work
- LED on
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fabio Estevam" <festevam@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260717010736.578419-3-festevam@gmail.com>
-References: <20260717010736.578419-1-festevam@gmail.com>
- <20260717010736.578419-3-festevam@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 01:12:23 +0000
-Message-Id: <20260717011223.C24A71F000E9@smtp.kernel.org>
+	s=k20260515; t=1784250916;
+	bh=Ms8NC8oprBVh+kGhcsMCSQTckEuQU9O/j7JwpEqpIJQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=R/6fl00OTNQ9ncBL70U71NKLytxHnn4SkDA7b8uxWve0TnB1VGs/Vfr3vIZE9Igxk
+	 jA7/AVZeGBChTjxK0q2jM/n0uiD1nC+i7gfX7VzU5mBR97rCKP8mSFC+Xi92NBjk7B
+	 0Noo34qANgciuIewns3xDuujxyAwM1Hv38SDV9+ngKdhjX1BN+lt2YR9FWtabUGjUi
+	 SxO6aXbNGnsTnHzQ6CxjZ7if+PD/tmo53b6LlIXqZ3RSECtpb2kDDAm7zv8rDHVW6q
+	 UpsoRIa0iCoB0Xwk/p6jyoipLv1M/jtHB9Y364F7/gdVDb0uT7/s79YN2DEjjhtE9N
+	 YiL3Vld3JivCg==
+Date: Thu, 16 Jul 2026 20:15:11 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Maulik Shah <maulik.shah@oss.qualcomm.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Brian Masney <bmasney@redhat.com>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Sibi Sankar <sibi.sankar@oss.qualcomm.com>, 
+	Pankaj Patil <pankaj.patil@oss.qualcomm.com>, Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>, 
+	Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>, Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, 
+	Qiang Yu <qiang.yu@oss.qualcomm.com>, 
+	Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>
+Subject: Re: [PATCH v3 1/3] dt-bindings: clock: qcom: glymur-gcc: Add missing
+ CX power domain
+Message-ID: <almBxBhYxTR9n5FZ@baldur>
+References: <20260715-glymur-fix-gcc-cx-scaling-v3-0-72eb5adad156@oss.qualcomm.com>
+ <20260715-glymur-fix-gcc-cx-scaling-v3-1-72eb5adad156@oss.qualcomm.com>
+ <4b543abe-2482-4381-b41e-623cdf5be9a2@oss.qualcomm.com>
+ <olkjcrfq5t32gvqgpcqiuyp5jhf72f4piowz6osxhain77f7bc@ggwuk4nz2ak2>
+ <316fd37b-9936-4bca-8521-9a11ee65cbd6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <316fd37b-9936-4bca-8521-9a11ee65cbd6@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The commit message describes the work LED as a "prominent blue f=
-ront-panel status LED", but the patch fails to override the inherited "gree=
-n:work" label, resulting in a code and commit message mismatch.
---
+On Thu, Jul 16, 2026 at 04:42:11PM +0530, Taniya Das wrote:
+> 
+> 
+> On 7/16/2026 12:52 PM, Abel Vesa wrote:
+> > On 26-07-16 10:13:48, Taniya Das wrote:
+> >>
+> >>
+> >> On 7/15/2026 6:59 PM, Abel Vesa wrote:
+> >>> The GDSCs provided by the Glymur GCC are supplied by the RPMh CX power
+> >>> domain. Model that parent domain in the GCC binding so the provider can
+> >>> describe the dependency in devicetree.
+> >>>
+> >>> Add a single CX power-domain entry to the binding and make it required,
+> >>> matching the hardware description needed by the GCC node.
+> >>>
+> >>> Fixes: ee2d967030fe ("dt-bindings: clock: qcom: document the Glymur Global Clock Controller")
+> >>> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> >>> ---
+> >>>  Documentation/devicetree/bindings/clock/qcom,glymur-gcc.yaml | 8 ++++++++
+> >>>  1 file changed, 8 insertions(+)
+> >>
+> >>
+> >> Abel, I feel we should add the 'required-opps' as well which will ensure
+> >> the clock controllers minimum voltage requirement.
+> > 
+> > But it was agreed in v1 that we should not add the required-opps. So we
+> > dropped it in v2.
+> > 
+> 
+> Okay, sorry, may be I missed that comment.
+> 
+> 
+> > Can you give more details to why you think it is needed ?
+> 
+> My reasoning is that if a clock controller requires a rail, it is
+> preferable to explicitly specify the required operating level rather
+> than rely on system/client vote. This makes the dependency
+> self-contained and easier to reason about. Clients that require a higher
+> operating level than the clock controller's minimum requirement remain
+> free to vote for a higher level as needed.
+> 
 
---- Patch [3]: [PATCH 3/3] arm64: dts: rockchip: Keep rk3399-roc-pc-plus wo=
-rk LED on ---
-commit 7bd9a09829c15f03ac88e155bb13da9235dada8c
-Author: Fabio Estevam <festevam@nabladev.com>
+You're expressing this in generic terms, can you please provide the
+concrete example of what this would look for in the Glymur GCC case? 
 
-arm64: dts: rockchip: Keep rk3399-roc-pc-plus work LED on
-   =20
-This commit overrides the default LED trigger for the rk3399-roc-pc-plus
-work LED to default-on. It changes the behavior from a distracting continuo=
-us
-blink to a steady status indication.
+What is the required-opps for the Glymur GCC?
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-roc-pc-plus.dts b/arch/a=
-rm64/boot/dts/rockchip/rk3399-roc-pc-plus.dts
-> index f87bc7b6afc14..7e8039b19be7e 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3399-roc-pc-plus.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3399-roc-pc-plus.dts
-> @@ -93,6 +93,10 @@ leds {
->  	};
->  };
-> =20
-> +&work_led {
-> +	linux,default-trigger =3D "default-on";
-> +};
+Regards,
+Bjorn
 
-[Severity: Medium]
-The commit message mentions this is the prominent blue front-panel status L=
-ED.
-Since the board inherits from rk3399-roc-pc.dtsi where the work LED is
-typically configured with the green:work label, does this node also need a
-color or label override?
-
-If the inherited label is not overridden here, the sysfs interface might
-misrepresent the physical blue LED as green, causing a mismatch between the
-commit message's description and the resulting device tree.
-
-> +
->  &fusb0 {
->  	vbus-supply =3D <&vcc_vbus_typec1>;
->  };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717010736.5784=
-19-1-festevam@gmail.com?part=3D3
+> 
+> -- 
+> Thanks,
+> Taniya Das
+> 
