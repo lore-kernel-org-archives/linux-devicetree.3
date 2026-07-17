@@ -1,67 +1,69 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1C53FCB1E
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 13:20:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E40B43FD140
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 13:20:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784294419; cv=none; b=VxZ9m6lxYd17pctmnMElCi3vr3hBXnmPRbGPQ8SQx4JQNRKqLCyAbVe06kqZNhYr8uzaojH0hp0534yUBgP/Ez1zNZlPWXX2rU56HeBAJt7GLnxT+/GAtefwDtWknbSGcp6Zsd/CvkAX7D7kTzTIcKkcwWTnpUhYQSl395YPjLw=
+	t=1784294420; cv=none; b=Z/7ANDtMFOmxgP0HFByPDhc0lsuelQseMc+N7xP0RcIV8sxsLp2r94K5uVmQPjiBMp9E+L0XmzzIsEClLqRKzd6JuZ8MM0/hCjU/lEP5I+jlv4yQewFTM2JUxT1YtTYkzMbOYuDh6AZXhY99dPk2WLMXft/w31pe8jqUaVQUigA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784294419; c=relaxed/simple;
-	bh=Vij6gTuB2IbPu8RHSX8DVU8gbwxXjKYqNrf+scD0CVQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=c0EBQ849Leql/hYLCacE2juODOsKHSvPf5DI0AlDMzahv5gmvCHUfbSu3PL86jPZ3bZIYxxJpXLiGZgjlyxKw80pdcy9/sEfjwVgn7T+OqNXwjOZqS2hASBcr3yO3og/Fwg/oYNWeK2+gDl4P7nGJzgk3tMiXppJ5kDhGdMFWMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=igS+ZGI6; arc=none smtp.client-ip=209.85.128.48
+	s=arc-20240116; t=1784294420; c=relaxed/simple;
+	bh=Lh1yjlAX8esXdYueaYWyiSDs//SfZxXLwLueck9yyAI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=FZ2f5C5pUeJy9G+4gejAGxyiwsw/kyhRPg34bbG0Xv1Kyu+nmnZ+9fgh35/5bzowi2foovaeriJZ1Dx2DJMNxj6M0Cxlsz4lcqN/jINlIyGWVVv9aMveJOdPxxRiunDyC/aXWpIoGG1Hql9UM3xo14rXrrAlFqkN2FPkNDUlyU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=pF1TxKvt; arc=none smtp.client-ip=209.85.221.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="igS+ZGI6"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-495441b72ecso9374685e9.2
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 06:20:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="pF1TxKvt"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-476d8e647e9so7164375f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 06:20:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1784294414; x=1784899214; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2BvHPB3SGSXQyfBzrX4v3mVNOezdsBFjJjO0Euau75s=;
-        b=igS+ZGI63o0H+Q5XbAkSpDQyAfZdlevmMtC0Fv9i8KwsAqhxLUZls89mYUT/u7MAqD
-         geI1OXogN88cZDKrcIpiUWn+CeT+QaHWlG9Zo7jf3/Ria66dkBupFk6NZwJUx5vYlDm7
-         K/Cylp7D5TovL/INMTqqiKVXkitM2XKqn2W8f93ZOnoq4k7Ku9MPmq6hWr3oeN9dm6zy
-         +QyveDmG3mMVNVB+zi2Qs1gAiNC2FGJnNlmo7GXKdEB/nUTyr8sHVvzC0lhVBcAO9AMN
-         zDMeG+ue0z4a3t20TyhlVGAnCPd3LAb2FzLmjKa/28fbE2vm2/vhwdvcisMFNSZRbNOy
-         s+lg==
+        d=fairphone.com; s=fair; t=1784294416; x=1784899216; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pwsJk+i3NeJs+ZF7Kk9piamvI98/NXn+ATaYUyeG1vs=;
+        b=pF1TxKvtxjg9C1v29aTZW1zE1Ew2u6ASdcdA+QAuwK0I4M7Tt8EYZGp7ZcFH4kab8H
+         cSLwUvFT2y9fcdbneOtH60rM2vcZvzmKiRGSnTTq0UNlXaH5ymzUTs4gOxktrXr/759c
+         0zSu0OVId2O8xb2Sc8CbiApgwL9LMVuklK1m3aue5kGzPRa5VnJ64ghNOrh6WE4bxHeG
+         Za2LOfsTYT63+fe4mDoiotdFPjqauRrzcXf7ZBaHqb5GPDLsOs6T9WAyrxJAbWkvSiiH
+         hDYNSu3sypv26VTrQZWI1qqqFYZiYAJ0haVPSouyyMcnnQo8dWvtzzcI+Hz/nQ25Qweo
+         mxsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784294414; x=1784899214;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2BvHPB3SGSXQyfBzrX4v3mVNOezdsBFjJjO0Euau75s=;
-        b=ZQR20KsJsisM0COV0+TAnFA4DoYfuCGjdlSw2Y1/swpF7gPcr3T1xpLItbPsMSPgF7
-         GTbsDmw3ZZh8BLpeI8q+OIIP2Tm0qljsHVdW337s2Ux3ogE2WMY0eOp4OA2C/p/VHjAz
-         nFsoutNhBFmLtxSt56Nl3HrrPw1KRdqgtJMDwoyF7UoUKAvdSZ6tYIhLQDA1oHwb1dL5
-         BEx6TA0NjTNTTqi0lc8tDJFSoNA2tiRbIqqxYgsd0tuznwLphmFOUJQE2Fc1eMH/VHnJ
-         zwu4T9IGlx4VkDLuQsxY4gEDA21hVSvuUa+t+dukCLEUTqUi3F/wvwaHKGTcJDTN0mZ+
-         61Pw==
-X-Forwarded-Encrypted: i=1; AHgh+RqphczCjpAW8W3Ry7l9sLzz+QO5DW6aex0X1r6cdRiKaxkgSU1ykjBpzyXPoi2hOA5KInfd8Edl//zS@vger.kernel.org
-X-Gm-Message-State: AOJu0YwmxusNrjZSxjJtju2X7oCJH1Ub8hWidXaYbtUWZf0hLEq1Jdoz
-	hI1p/yNOShVMNSauqvmcgGNiT6Nb7SvBNolmZql3sIG8WrbTSbMqHLR2TY9kPvSdEKM=
-X-Gm-Gg: AfdE7cnxkSMgMunZ8+I2knkKt9T9KA0+lmaCxAt1KhqjMpJbfDOZTgtBN5PXwqdJuBV
-	SKSw8/srZhIiPWPyWq3U+GBA88KBGNGv9btUZWQUFMkUqUASpJs726wKK8WilqS1OGqvPjJcWPn
-	emnUdtoLyY5S3m9WABuawJLJOMWaQC/GjDkYqMvrJLmpHBY8oyv8AQ5ZForm3zfeJDLjIaew7rb
-	17zrbLAP1dqfkZ2Z8dgOEtvWqFoTS4AC54VnMz1FKjiFzUuLPXQ9soqYXY+omROMrQkl3U8n6R6
-	AdGKiJE30cLmEMyZJhUVjWTrtNbIn9RGRYochlXVEkYlZJcJGUNXK4C1OIsESKhJ+v1vGi1aLp+
-	wfuUpbzvUIqloDpwCdlqq0R2jZqEzECgt8DjIhfSYyVhg5+rs9eABMtn863uEuW0nib4vdEEtK0
-	V2Dr98Tphnez6aCU6nHLJuMmB9Dw==
-X-Received: by 2002:a05:600c:4f86:b0:495:3e81:76fa with SMTP id 5b1f17b1804b1-4954e1e065cmr1074925e9.15.1784294414391;
-        Fri, 17 Jul 2026 06:20:14 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784294416; x=1784899216;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pwsJk+i3NeJs+ZF7Kk9piamvI98/NXn+ATaYUyeG1vs=;
+        b=J1txymPVHes57plCcI6+2dsx1MYeYxt5CnXfPRlQFaRDRpjXgMMCtQMM73SNlDgnfm
+         qCryfrhEwo3qtrrJwx2tC/oRKFNNRHP404lk3WFUWPqym6sv4hUO4rWueCB/wH70LB5I
+         2hXSIQMxoT6el7wwXtPsNECImWrotBDsxTxQ4LXCuvGTPxlJN+V79M6OsM9+IRNYC0H2
+         JtmE5kZi8Rgo5vxBHV+X4g1AiBjmHIKFrDgpj5rhETTpvgfDeG94U6l9mhCjh1NMHfyp
+         eHMQctlQdrskPDQZRaJ+ap4qgEvXnwqNmOjuc10pXqmaX3hVb3hsABDvW5jxnARDsuEt
+         8pmg==
+X-Forwarded-Encrypted: i=1; AHgh+RpM/OJSsLIjy9FVf2sfzsTzLl6t1SVsYgrYB+kEjuzH/id4k4jRGEDgKx9Jr+qiwhw/57gP8WJosfun@vger.kernel.org
+X-Gm-Message-State: AOJu0YzcK41nL+G75pa0D/zZH1PyFS8fVtFsMrT/XMpcK70ttLfYzUFH
+	RpEphQAJQFMIiWocfLVC4zj9UZU1uq0kSULzISyEZ1IVg4/2hshR3+rXestZA3cWHIc2SZW0kxJ
+	or9THQ2+VeA==
+X-Gm-Gg: AfdE7ckzH3qwPr0OMbhmhpLNxCVDZt8iS7JsGyzJ0g3iGucH19DroIGjUOK1cdhSG0i
+	oHY8wTmTadtG8rSFUu5bKAlXj7uM8SFllt/7QJxQlFR9vD8wF/EvRjXEFdDBnCeA/Dg7RXMKEzS
+	NVaLLomRBj171gc11yyhuapbg8gGWMP5QZj+wP8SXBkk9HPE/yIR63lxSB3A032eGAMQBxQVBDC
+	79w37XlG47U4AzSJ3h3gKdBA1ciGQU+p+q7eZzGd+ZY4UNyE66naINEaTqIlGJRII/mQv2Dkifc
+	ujir6spoEteiMNWUA8ngECVoqwtq9XCTuoWtzNTeGlfdtTD+RFkNtetGW7WPINMIVoS6DkI0sZU
+	WVrQbe8ePwve0W/dx63TSQsjt2BBt2aUcGgJOlf3gfSWWaoMSCgfTBEpjIZI4onDpTukVa/5f6p
+	8iHRbW898WvKk+gvg=
+X-Received: by 2002:a05:600c:46d4:b0:493:f140:c3fb with SMTP id 5b1f17b1804b1-4954a3d64c9mr36467525e9.7.1784294415668;
+        Fri, 17 Jul 2026 06:20:15 -0700 (PDT)
 Received: from [172.18.170.139] ([185.104.138.147])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4954ba2abd0sm28220295e9.15.2026.07.17.06.19.43
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4954ba2abd0sm28220295e9.15.2026.07.17.06.20.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 06:20:14 -0700 (PDT)
+        Fri, 17 Jul 2026 06:20:15 -0700 (PDT)
 From: Luca Weiss <luca.weiss@fairphone.com>
-Subject: [PATCH v2 0/3] Sort kodiak pinctrl nodes & add camera mclk
- definitions
-Date: Fri, 17 Jul 2026 15:19:31 +0200
-Message-Id: <20260717-kodiak-cam-mclk-v2-0-04451f1374bd@fairphone.com>
+Date: Fri, 17 Jul 2026 15:19:32 +0200
+Subject: [PATCH v2 1/3] arm64: dts: qcom: kodiak: Sort pinctrl subnodes by
+ pins
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,11 +72,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WOQQ6CMBBFr0K6dkxbRZSV9zAuSpnKiKXaFoIh3
- N0Ca5cv8/9/M7GAnjCwMpuYx4ECuS6B3GVMN6p7IFCdmEkuT/wkJLSuJtWCVhasfrWgCjwXdV6
- J/Jyz1Hp7NDSui7f7xqGvnqjjMrMkGgrR+e+qHMSS+78+COBgank5GsP5QcmrUeTfjetwr51l9
- 3lTePz06fe4eVmlAkK6W4pl1uEYYTUUIk+N+QeaCdjW9QAAAA==
-X-Change-ID: 20260612-kodiak-cam-mclk-a7e87d5b1585
+Message-Id: <20260717-kodiak-cam-mclk-v2-1-04451f1374bd@fairphone.com>
+References: <20260717-kodiak-cam-mclk-v2-0-04451f1374bd@fairphone.com>
+In-Reply-To: <20260717-kodiak-cam-mclk-v2-0-04451f1374bd@fairphone.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -82,45 +82,1453 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784294383; l=1153;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784294383; l=31467;
  i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=Vij6gTuB2IbPu8RHSX8DVU8gbwxXjKYqNrf+scD0CVQ=;
- b=qs7sS+9Sws9TDqoxHLKHJjn9FxMOtP1EnH/U6zR1q0GvrfRw6uJbeLqd6r1l0dTYAoSOnu8Ym
- bGD/d1hKhAhCQns6vPGfeDWwRxT7vSxKuw4Qpw168HfabB5x1l09Fs7
+ bh=Lh1yjlAX8esXdYueaYWyiSDs//SfZxXLwLueck9yyAI=;
+ b=08TAy6R/lJRlvGyubmdsZ2HGcinl4m7KF1/Vmgl25Twg6A1+yjHt4snujKYflDaiZZ1nYd0kt
+ Gny0xEZAufsDP7f+GCGEWe0XTTuQUc51YKp6mIdxLgehCB7gM4lJ8uy
 X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
  pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-First patch is just cleanup with no functional change, the second patch
-adds some camera mclk pinctrl definitions for preparation of adding more
-cameras on different kodiak devices. Third patch adopts the new define
-for qcs6490-rb3gen2-vision-mezzanine.dtso.
+As documented in the "Devicetree Sources (DTS) Coding Style" document,
+pinctrl subnodes should be sorted by the pins property. Do this once for
+kodiak.dtsi so that future additions can be added at the right places.
 
+No functional change intended, verified with dtx_diff.
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
-Changes in v2:
-- Add patch to make qcs6490-rb3gen2-vision-mezzanine.dtso use the common
-  define (Konrad)
-- Pick up tags
-- Link to v1: https://patch.msgid.link/20260612-kodiak-cam-mclk-v1-0-fd294ff003a2@fairphone.com
+ arch/arm64/boot/dts/qcom/kodiak.dtsi | 1382 +++++++++++++++++-----------------
+ 1 file changed, 691 insertions(+), 691 deletions(-)
 
----
-Luca Weiss (3):
-      arm64: dts: qcom: kodiak: Sort pinctrl subnodes by pins
-      arm64: dts: qcom: kodiak: Add camera mclk pinctrl definitions
-      arm64: dts: qcom: qcs6490-rb3gen2-vision-mezzanine: Use common pinctrl
+diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+index 7e73348fe0d0..d5fc38fc10ed 100644
+--- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
++++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+@@ -5851,6 +5851,676 @@ tlmm: pinctrl@f100000 {
+ 			gpio-ranges = <&tlmm 0 0 175>;
+ 			wakeup-parent = <&pdc>;
+ 
++			qup_i2c0_data_clk: qup-i2c0-data-clk-state {
++				pins = "gpio0", "gpio1";
++				function = "qup00";
++			};
++
++			qup_spi0_data_clk: qup-spi0-data-clk-state {
++				pins = "gpio0", "gpio1", "gpio2";
++				function = "qup00";
++			};
++
++			qup_uart0_cts: qup-uart0-cts-state {
++				pins = "gpio0";
++				function = "qup00";
++			};
++
++			qup_uart0_rts: qup-uart0-rts-state {
++				pins = "gpio1";
++				function = "qup00";
++			};
++
++			qup_uart0_tx: qup-uart0-tx-state {
++				pins = "gpio2";
++				function = "qup00";
++			};
++
++			qup_spi0_cs: qup-spi0-cs-state {
++				pins = "gpio3";
++				function = "qup00";
++			};
++
++			qup_spi0_cs_gpio: qup-spi0-cs-gpio-state {
++				pins = "gpio3";
++				function = "gpio";
++			};
++
++			qup_uart0_rx: qup-uart0-rx-state {
++				pins = "gpio3";
++				function = "qup00";
++			};
++
++			qup_i2c1_data_clk: qup-i2c1-data-clk-state {
++				pins = "gpio4", "gpio5";
++				function = "qup01";
++			};
++
++			qup_spi1_data_clk: qup-spi1-data-clk-state {
++				pins = "gpio4", "gpio5", "gpio6";
++				function = "qup01";
++			};
++
++			qup_uart1_cts: qup-uart1-cts-state {
++				pins = "gpio4";
++				function = "qup01";
++			};
++
++			qup_uart1_rts: qup-uart1-rts-state {
++				pins = "gpio5";
++				function = "qup01";
++			};
++
++			qup_uart1_tx: qup-uart1-tx-state {
++				pins = "gpio6";
++				function = "qup01";
++			};
++
++			qup_spi1_cs: qup-spi1-cs-state {
++				pins = "gpio7";
++				function = "qup01";
++			};
++
++			qup_spi1_cs_gpio: qup-spi1-cs-gpio-state {
++				pins = "gpio7";
++				function = "gpio";
++			};
++
++			qup_uart1_rx: qup-uart1-rx-state {
++				pins = "gpio7";
++				function = "qup01";
++			};
++
++			qup_i2c2_data_clk: qup-i2c2-data-clk-state {
++				pins = "gpio8", "gpio9";
++				function = "qup02";
++			};
++
++			qup_spi2_data_clk: qup-spi2-data-clk-state {
++				pins = "gpio8", "gpio9", "gpio10";
++				function = "qup02";
++			};
++
++			qup_uart2_cts: qup-uart2-cts-state {
++				pins = "gpio8";
++				function = "qup02";
++			};
++
++			qup_uart2_rts: qup-uart2-rts-state {
++				pins = "gpio9";
++				function = "qup02";
++			};
++
++			qup_uart2_tx: qup-uart2-tx-state {
++				pins = "gpio10";
++				function = "qup02";
++			};
++
++			qup_spi2_cs: qup-spi2-cs-state {
++				pins = "gpio11";
++				function = "qup02";
++			};
++
++			qup_spi2_cs_gpio: qup-spi2-cs-gpio-state {
++				pins = "gpio11";
++				function = "gpio";
++			};
++
++			qup_uart2_rx: qup-uart2-rx-state {
++				pins = "gpio11";
++				function = "qup02";
++			};
++
++			qspi_data0: qspi-data0-state {
++				pins = "gpio12";
++				function = "qspi_data";
++			};
++
++			qup_i2c3_data_clk: qup-i2c3-data-clk-state {
++				pins = "gpio12", "gpio13";
++				function = "qup03";
++			};
++
++			qup_spi3_data_clk: qup-spi3-data-clk-state {
++				pins = "gpio12", "gpio13", "gpio14";
++				function = "qup03";
++			};
++
++			qup_uart3_cts: qup-uart3-cts-state {
++				pins = "gpio12";
++				function = "qup03";
++			};
++
++			qspi_data1: qspi-data1-state {
++				pins = "gpio13";
++				function = "qspi_data";
++			};
++
++			qup_uart3_rts: qup-uart3-rts-state {
++				pins = "gpio13";
++				function = "qup03";
++			};
++
++			qspi_clk: qspi-clk-state {
++				pins = "gpio14";
++				function = "qspi_clk";
++			};
++
++			qup_uart3_tx: qup-uart3-tx-state {
++				pins = "gpio14";
++				function = "qup03";
++			};
++
++			qspi_cs0: qspi-cs0-state {
++				pins = "gpio15";
++				function = "qspi_cs";
++			};
++
++			qup_spi3_cs: qup-spi3-cs-state {
++				pins = "gpio15";
++				function = "qup03";
++			};
++
++			qup_spi3_cs_gpio: qup-spi3-cs-gpio-state {
++				pins = "gpio15";
++				function = "gpio";
++			};
++
++			qup_uart3_rx: qup-uart3-rx-state {
++				pins = "gpio15";
++				function = "qup03";
++			};
++
++			qspi_data23: qspi-data23-state {
++				pins = "gpio16", "gpio17";
++				function = "qspi_data";
++			};
++
++			qup_i2c4_data_clk: qup-i2c4-data-clk-state {
++				pins = "gpio16", "gpio17";
++				function = "qup04";
++			};
++
++			qup_spi4_data_clk: qup-spi4-data-clk-state {
++				pins = "gpio16", "gpio17", "gpio18";
++				function = "qup04";
++			};
++
++			qup_uart4_cts: qup-uart4-cts-state {
++				pins = "gpio16";
++				function = "qup04";
++			};
++
++			qup_uart4_rts: qup-uart4-rts-state {
++				pins = "gpio17";
++				function = "qup04";
++			};
++
++			qup_uart4_tx: qup-uart4-tx-state {
++				pins = "gpio18";
++				function = "qup04";
++			};
++
++			qspi_cs1: qspi-cs1-state {
++				pins = "gpio19";
++				function = "qspi_cs";
++			};
++
++			qup_spi4_cs: qup-spi4-cs-state {
++				pins = "gpio19";
++				function = "qup04";
++			};
++
++			qup_spi4_cs_gpio: qup-spi4-cs-gpio-state {
++				pins = "gpio19";
++				function = "gpio";
++			};
++
++			qup_uart4_rx: qup-uart4-rx-state {
++				pins = "gpio19";
++				function = "qup04";
++			};
++
++			qup_i2c5_data_clk: qup-i2c5-data-clk-state {
++				pins = "gpio20", "gpio21";
++				function = "qup05";
++			};
++
++			qup_spi5_data_clk: qup-spi5-data-clk-state {
++				pins = "gpio20", "gpio21", "gpio22";
++				function = "qup05";
++			};
++
++			qup_uart5_tx: qup-uart5-tx-state {
++				pins = "gpio22";
++				function = "qup05";
++			};
++
++			qup_spi5_cs: qup-spi5-cs-state {
++				pins = "gpio23";
++				function = "qup05";
++			};
++
++			qup_spi5_cs_gpio: qup-spi5-cs-gpio-state {
++				pins = "gpio23";
++				function = "gpio";
++			};
++
++			qup_uart5_rx: qup-uart5-rx-state {
++				pins = "gpio23";
++				function = "qup05";
++			};
++
++			qup_i2c6_data_clk: qup-i2c6-data-clk-state {
++				pins = "gpio24", "gpio25";
++				function = "qup06";
++			};
++
++			qup_spi6_data_clk: qup-spi6-data-clk-state {
++				pins = "gpio24", "gpio25", "gpio26";
++				function = "qup06";
++			};
++
++			qup_uart6_cts: qup-uart6-cts-state {
++				pins = "gpio24";
++				function = "qup06";
++			};
++
++			qup_uart6_rts: qup-uart6-rts-state {
++				pins = "gpio25";
++				function = "qup06";
++			};
++
++			qup_uart6_tx: qup-uart6-tx-state {
++				pins = "gpio26";
++				function = "qup06";
++			};
++
++			qup_spi6_cs: qup-spi6-cs-state {
++				pins = "gpio27";
++				function = "qup06";
++			};
++
++			qup_spi6_cs_gpio: qup-spi6-cs-gpio-state {
++				pins = "gpio27";
++				function = "gpio";
++			};
++
++			qup_uart6_rx: qup-uart6-rx-state {
++				pins = "gpio27";
++				function = "qup06";
++			};
++
++			qup_i2c7_data_clk: qup-i2c7-data-clk-state {
++				pins = "gpio28", "gpio29";
++				function = "qup07";
++			};
++
++			qup_spi7_data_clk: qup-spi7-data-clk-state {
++				pins = "gpio28", "gpio29", "gpio30";
++				function = "qup07";
++			};
++
++			qup_uart7_cts: qup-uart7-cts-state {
++				pins = "gpio28";
++				function = "qup07";
++			};
++
++			qup_uart7_rts: qup-uart7-rts-state {
++				pins = "gpio29";
++				function = "qup07";
++			};
++
++			qup_uart7_tx: qup-uart7-tx-state {
++				pins = "gpio30";
++				function = "qup07";
++			};
++
++			qup_spi7_cs: qup-spi7-cs-state {
++				pins = "gpio31";
++				function = "qup07";
++			};
++
++			qup_spi7_cs_gpio: qup-spi7-cs-gpio-state {
++				pins = "gpio31";
++				function = "gpio";
++			};
++
++			qup_uart7_rx: qup-uart7-rx-state {
++				pins = "gpio31";
++				function = "qup07";
++			};
++
++			qup_i2c8_data_clk: qup-i2c8-data-clk-state {
++				pins = "gpio32", "gpio33";
++				function = "qup10";
++			};
++
++			qup_spi8_data_clk: qup-spi8-data-clk-state {
++				pins = "gpio32", "gpio33", "gpio34";
++				function = "qup10";
++			};
++
++			qup_uart8_cts: qup-uart8-cts-state {
++				pins = "gpio32";
++				function = "qup10";
++			};
++
++			qup_uart8_rts: qup-uart8-rts-state {
++				pins = "gpio33";
++				function = "qup10";
++			};
++
++			qup_uart8_tx: qup-uart8-tx-state {
++				pins = "gpio34";
++				function = "qup10";
++			};
++
++			qup_spi8_cs: qup-spi8-cs-state {
++				pins = "gpio35";
++				function = "qup10";
++			};
++
++			qup_spi8_cs_gpio: qup-spi8-cs-gpio-state {
++				pins = "gpio35";
++				function = "gpio";
++			};
++
++			qup_uart8_rx: qup-uart8-rx-state {
++				pins = "gpio35";
++				function = "qup10";
++			};
++
++			qup_i2c9_data_clk: qup-i2c9-data-clk-state {
++				pins = "gpio36", "gpio37";
++				function = "qup11";
++			};
++
++			qup_spi9_data_clk: qup-spi9-data-clk-state {
++				pins = "gpio36", "gpio37", "gpio38";
++				function = "qup11";
++			};
++
++			qup_uart9_cts: qup-uart9-cts-state {
++				pins = "gpio36";
++				function = "qup11";
++			};
++
++			qup_uart9_rts: qup-uart9-rts-state {
++				pins = "gpio37";
++				function = "qup11";
++			};
++
++			qup_uart9_tx: qup-uart9-tx-state {
++				pins = "gpio38";
++				function = "qup11";
++			};
++
++			qup_spi9_cs: qup-spi9-cs-state {
++				pins = "gpio39";
++				function = "qup11";
++			};
++
++			qup_spi9_cs_gpio: qup-spi9-cs-gpio-state {
++				pins = "gpio39";
++				function = "gpio";
++			};
++
++			qup_uart9_rx: qup-uart9-rx-state {
++				pins = "gpio39";
++				function = "qup11";
++			};
++
++			qup_i2c10_data_clk: qup-i2c10-data-clk-state {
++				pins = "gpio40", "gpio41";
++				function = "qup12";
++			};
++
++			qup_spi10_data_clk: qup-spi10-data-clk-state {
++				pins = "gpio40", "gpio41", "gpio42";
++				function = "qup12";
++			};
++
++			qup_uart10_cts: qup-uart10-cts-state {
++				pins = "gpio40";
++				function = "qup12";
++			};
++
++			qup_uart10_rts: qup-uart10-rts-state {
++				pins = "gpio41";
++				function = "qup12";
++			};
++
++			qup_uart10_tx: qup-uart10-tx-state {
++				pins = "gpio42";
++				function = "qup12";
++			};
++
++			qup_spi10_cs: qup-spi10-cs-state {
++				pins = "gpio43";
++				function = "qup12";
++			};
++
++			qup_spi10_cs_gpio: qup-spi10-cs-gpio-state {
++				pins = "gpio43";
++				function = "gpio";
++			};
++
++			qup_uart10_rx: qup-uart10-rx-state {
++				pins = "gpio43";
++				function = "qup12";
++			};
++
++			qup_i2c11_data_clk: qup-i2c11-data-clk-state {
++				pins = "gpio44", "gpio45";
++				function = "qup13";
++			};
++
++			qup_spi11_data_clk: qup-spi11-data-clk-state {
++				pins = "gpio44", "gpio45", "gpio46";
++				function = "qup13";
++			};
++
++			qup_uart11_cts: qup-uart11-cts-state {
++				pins = "gpio44";
++				function = "qup13";
++			};
++
++			qup_uart11_rts: qup-uart11-rts-state {
++				pins = "gpio45";
++				function = "qup13";
++			};
++
++			qup_uart11_tx: qup-uart11-tx-state {
++				pins = "gpio46";
++				function = "qup13";
++			};
++
++			dp_hot_plug_det: dp-hot-plug-det-state {
++				pins = "gpio47";
++				function = "dp_hot";
++			};
++
++			qup_spi11_cs: qup-spi11-cs-state {
++				pins = "gpio47";
++				function = "qup13";
++			};
++
++			qup_spi11_cs_gpio: qup-spi11-cs-gpio-state {
++				pins = "gpio47";
++				function = "gpio";
++			};
++
++			qup_uart11_rx: qup-uart11-rx-state {
++				pins = "gpio47";
++				function = "qup13";
++			};
++
++			qup_i2c12_data_clk: qup-i2c12-data-clk-state {
++				pins = "gpio48", "gpio49";
++				function = "qup14";
++			};
++
++			qup_spi12_data_clk: qup-spi12-data-clk-state {
++				pins = "gpio48", "gpio49", "gpio50";
++				function = "qup14";
++			};
++
++			qup_uart12_cts: qup-uart12-cts-state {
++				pins = "gpio48";
++				function = "qup14";
++			};
++
++			qup_uart12_rts: qup-uart12-rts-state {
++				pins = "gpio49";
++				function = "qup14";
++			};
++
++			qup_uart12_tx: qup-uart12-tx-state {
++				pins = "gpio50";
++				function = "qup14";
++			};
++
++			qup_spi12_cs: qup-spi12-cs-state {
++				pins = "gpio51";
++				function = "qup14";
++			};
++
++			qup_spi12_cs_gpio: qup-spi12-cs-gpio-state {
++				pins = "gpio51";
++				function = "gpio";
++			};
++
++			qup_uart12_rx: qup-uart12-rx-state {
++				pins = "gpio51";
++				function = "qup14";
++			};
++
++			qup_i2c13_data_clk: qup-i2c13-data-clk-state {
++				pins = "gpio52", "gpio53";
++				function = "qup15";
++			};
++
++			qup_spi13_data_clk: qup-spi13-data-clk-state {
++				pins = "gpio52", "gpio53", "gpio54";
++				function = "qup15";
++			};
++
++			qup_uart13_cts: qup-uart13-cts-state {
++				pins = "gpio52";
++				function = "qup15";
++			};
++
++			qup_uart13_rts: qup-uart13-rts-state {
++				pins = "gpio53";
++				function = "qup15";
++			};
++
++			qup_uart13_tx: qup-uart13-tx-state {
++				pins = "gpio54";
++				function = "qup15";
++			};
++
++			qup_spi13_cs: qup-spi13-cs-state {
++				pins = "gpio55";
++				function = "qup15";
++			};
++
++			qup_spi13_cs_gpio: qup-spi13-cs-gpio-state {
++				pins = "gpio55";
++				function = "gpio";
++			};
++
++			qup_uart13_rx: qup-uart13-rx-state {
++				pins = "gpio55";
++				function = "qup15";
++			};
++
++			qup_i2c14_data_clk: qup-i2c14-data-clk-state {
++				pins = "gpio56", "gpio57";
++				function = "qup16";
++			};
++
++			qup_spi14_data_clk: qup-spi14-data-clk-state {
++				pins = "gpio56", "gpio57", "gpio58";
++				function = "qup16";
++			};
++
++			qup_uart14_cts: qup-uart14-cts-state {
++				pins = "gpio56";
++				function = "qup16";
++			};
++
++			qup_uart14_rts: qup-uart14-rts-state {
++				pins = "gpio57";
++				function = "qup16";
++			};
++
++			qup_uart14_tx: qup-uart14-tx-state {
++				pins = "gpio58";
++				function = "qup16";
++			};
++
++			qup_spi14_cs: qup-spi14-cs-state {
++				pins = "gpio59";
++				function = "qup16";
++			};
++
++			qup_spi14_cs_gpio: qup-spi14-cs-gpio-state {
++				pins = "gpio59";
++				function = "gpio";
++			};
++
++			qup_uart14_rx: qup-uart14-rx-state {
++				pins = "gpio59";
++				function = "qup16";
++			};
++
++			edp_hot_plug_det: edp-hot-plug-det-state {
++				pins = "gpio60";
++				function = "edp_hot";
++			};
++
++			qup_i2c15_data_clk: qup-i2c15-data-clk-state {
++				pins = "gpio60", "gpio61";
++				function = "qup17";
++			};
++
++			qup_spi15_data_clk: qup-spi15-data-clk-state {
++				pins = "gpio60", "gpio61", "gpio62";
++				function = "qup17";
++			};
++
++			qup_uart15_cts: qup-uart15-cts-state {
++				pins = "gpio60";
++				function = "qup17";
++			};
++
++			qup_uart15_rts: qup-uart15-rts-state {
++				pins = "gpio61";
++				function = "qup17";
++			};
++
++			qup_uart15_tx: qup-uart15-tx-state {
++				pins = "gpio62";
++				function = "qup17";
++			};
++
++			qup_spi15_cs: qup-spi15-cs-state {
++				pins = "gpio63";
++				function = "qup17";
++			};
++
++			qup_spi15_cs_gpio: qup-spi15-cs-gpio-state {
++				pins = "gpio63";
++				function = "gpio";
++			};
++
++			qup_uart15_rx: qup-uart15-rx-state {
++				pins = "gpio63";
++				function = "qup17";
++			};
++
+ 			cam_mclk3_default: cam-mclk3-default-state {
+ 				pins = "gpio67";
+ 				function = "cam_mclk";
+@@ -5914,24 +6584,14 @@ cci3_sleep: cci3-sleep-state {
+ 				bias-pull-down;
+ 			};
+ 
+-			dp_hot_plug_det: dp-hot-plug-det-state {
+-				pins = "gpio47";
+-				function = "dp_hot";
++			pcie1_clkreq_n: pcie1-clkreq-n-state {
++				pins = "gpio79";
++				function = "pcie1_clkreqn";
+ 			};
+ 
+-			edp_hot_plug_det: edp-hot-plug-det-state {
+-				pins = "gpio60";
+-				function = "edp_hot";
+-			};
+-
+-			mi2s0_data0: mi2s0-data0-state {
+-				pins = "gpio98";
+-				function = "mi2s0_data0";
+-			};
+-
+-			mi2s0_data1: mi2s0-data1-state {
+-				pins = "gpio99";
+-				function = "mi2s0_data1";
++			pcie0_clkreq_n: pcie0-clkreq-n-state {
++				pins = "gpio88";
++				function = "pcie0_clkreqn";
+ 			};
+ 
+ 			mi2s0_mclk: mi2s0-mclk-state {
+@@ -5944,696 +6604,36 @@ mi2s0_sclk: mi2s0-sclk-state {
+ 				function = "mi2s0_sck";
+ 			};
+ 
++			mi2s0_data0: mi2s0-data0-state {
++				pins = "gpio98";
++				function = "mi2s0_data0";
++			};
++
++			mi2s0_data1: mi2s0-data1-state {
++				pins = "gpio99";
++				function = "mi2s0_data1";
++			};
++
+ 			mi2s0_ws: mi2s0-ws-state {
+ 				pins = "gpio100";
+ 				function = "mi2s0_ws";
+ 			};
+ 
+-			mi2s1_data0: mi2s1-data0-state {
+-				pins = "gpio107";
+-				function = "mi2s1_data0";
+-			};
+-
+ 			mi2s1_sclk: mi2s1-sclk-state {
+ 				pins = "gpio106";
+ 				function = "mi2s1_sck";
+ 			};
+ 
++			mi2s1_data0: mi2s1-data0-state {
++				pins = "gpio107";
++				function = "mi2s1_data0";
++			};
++
+ 			mi2s1_ws: mi2s1-ws-state {
+ 				pins = "gpio108";
+ 				function = "mi2s1_ws";
+ 			};
+ 
+-			pcie0_clkreq_n: pcie0-clkreq-n-state {
+-				pins = "gpio88";
+-				function = "pcie0_clkreqn";
+-			};
+-
+-			pcie1_clkreq_n: pcie1-clkreq-n-state {
+-				pins = "gpio79";
+-				function = "pcie1_clkreqn";
+-			};
+-
+-			qspi_clk: qspi-clk-state {
+-				pins = "gpio14";
+-				function = "qspi_clk";
+-			};
+-
+-			qspi_cs0: qspi-cs0-state {
+-				pins = "gpio15";
+-				function = "qspi_cs";
+-			};
+-
+-			qspi_cs1: qspi-cs1-state {
+-				pins = "gpio19";
+-				function = "qspi_cs";
+-			};
+-
+-			qspi_data0: qspi-data0-state {
+-				pins = "gpio12";
+-				function = "qspi_data";
+-			};
+-
+-			qspi_data1: qspi-data1-state {
+-				pins = "gpio13";
+-				function = "qspi_data";
+-			};
+-
+-			qspi_data23: qspi-data23-state {
+-				pins = "gpio16", "gpio17";
+-				function = "qspi_data";
+-			};
+-
+-			qup_i2c0_data_clk: qup-i2c0-data-clk-state {
+-				pins = "gpio0", "gpio1";
+-				function = "qup00";
+-			};
+-
+-			qup_i2c1_data_clk: qup-i2c1-data-clk-state {
+-				pins = "gpio4", "gpio5";
+-				function = "qup01";
+-			};
+-
+-			qup_i2c2_data_clk: qup-i2c2-data-clk-state {
+-				pins = "gpio8", "gpio9";
+-				function = "qup02";
+-			};
+-
+-			qup_i2c3_data_clk: qup-i2c3-data-clk-state {
+-				pins = "gpio12", "gpio13";
+-				function = "qup03";
+-			};
+-
+-			qup_i2c4_data_clk: qup-i2c4-data-clk-state {
+-				pins = "gpio16", "gpio17";
+-				function = "qup04";
+-			};
+-
+-			qup_i2c5_data_clk: qup-i2c5-data-clk-state {
+-				pins = "gpio20", "gpio21";
+-				function = "qup05";
+-			};
+-
+-			qup_i2c6_data_clk: qup-i2c6-data-clk-state {
+-				pins = "gpio24", "gpio25";
+-				function = "qup06";
+-			};
+-
+-			qup_i2c7_data_clk: qup-i2c7-data-clk-state {
+-				pins = "gpio28", "gpio29";
+-				function = "qup07";
+-			};
+-
+-			qup_i2c8_data_clk: qup-i2c8-data-clk-state {
+-				pins = "gpio32", "gpio33";
+-				function = "qup10";
+-			};
+-
+-			qup_i2c9_data_clk: qup-i2c9-data-clk-state {
+-				pins = "gpio36", "gpio37";
+-				function = "qup11";
+-			};
+-
+-			qup_i2c10_data_clk: qup-i2c10-data-clk-state {
+-				pins = "gpio40", "gpio41";
+-				function = "qup12";
+-			};
+-
+-			qup_i2c11_data_clk: qup-i2c11-data-clk-state {
+-				pins = "gpio44", "gpio45";
+-				function = "qup13";
+-			};
+-
+-			qup_i2c12_data_clk: qup-i2c12-data-clk-state {
+-				pins = "gpio48", "gpio49";
+-				function = "qup14";
+-			};
+-
+-			qup_i2c13_data_clk: qup-i2c13-data-clk-state {
+-				pins = "gpio52", "gpio53";
+-				function = "qup15";
+-			};
+-
+-			qup_i2c14_data_clk: qup-i2c14-data-clk-state {
+-				pins = "gpio56", "gpio57";
+-				function = "qup16";
+-			};
+-
+-			qup_i2c15_data_clk: qup-i2c15-data-clk-state {
+-				pins = "gpio60", "gpio61";
+-				function = "qup17";
+-			};
+-
+-			qup_spi0_data_clk: qup-spi0-data-clk-state {
+-				pins = "gpio0", "gpio1", "gpio2";
+-				function = "qup00";
+-			};
+-
+-			qup_spi0_cs: qup-spi0-cs-state {
+-				pins = "gpio3";
+-				function = "qup00";
+-			};
+-
+-			qup_spi0_cs_gpio: qup-spi0-cs-gpio-state {
+-				pins = "gpio3";
+-				function = "gpio";
+-			};
+-
+-			qup_spi1_data_clk: qup-spi1-data-clk-state {
+-				pins = "gpio4", "gpio5", "gpio6";
+-				function = "qup01";
+-			};
+-
+-			qup_spi1_cs: qup-spi1-cs-state {
+-				pins = "gpio7";
+-				function = "qup01";
+-			};
+-
+-			qup_spi1_cs_gpio: qup-spi1-cs-gpio-state {
+-				pins = "gpio7";
+-				function = "gpio";
+-			};
+-
+-			qup_spi2_data_clk: qup-spi2-data-clk-state {
+-				pins = "gpio8", "gpio9", "gpio10";
+-				function = "qup02";
+-			};
+-
+-			qup_spi2_cs: qup-spi2-cs-state {
+-				pins = "gpio11";
+-				function = "qup02";
+-			};
+-
+-			qup_spi2_cs_gpio: qup-spi2-cs-gpio-state {
+-				pins = "gpio11";
+-				function = "gpio";
+-			};
+-
+-			qup_spi3_data_clk: qup-spi3-data-clk-state {
+-				pins = "gpio12", "gpio13", "gpio14";
+-				function = "qup03";
+-			};
+-
+-			qup_spi3_cs: qup-spi3-cs-state {
+-				pins = "gpio15";
+-				function = "qup03";
+-			};
+-
+-			qup_spi3_cs_gpio: qup-spi3-cs-gpio-state {
+-				pins = "gpio15";
+-				function = "gpio";
+-			};
+-
+-			qup_spi4_data_clk: qup-spi4-data-clk-state {
+-				pins = "gpio16", "gpio17", "gpio18";
+-				function = "qup04";
+-			};
+-
+-			qup_spi4_cs: qup-spi4-cs-state {
+-				pins = "gpio19";
+-				function = "qup04";
+-			};
+-
+-			qup_spi4_cs_gpio: qup-spi4-cs-gpio-state {
+-				pins = "gpio19";
+-				function = "gpio";
+-			};
+-
+-			qup_spi5_data_clk: qup-spi5-data-clk-state {
+-				pins = "gpio20", "gpio21", "gpio22";
+-				function = "qup05";
+-			};
+-
+-			qup_spi5_cs: qup-spi5-cs-state {
+-				pins = "gpio23";
+-				function = "qup05";
+-			};
+-
+-			qup_spi5_cs_gpio: qup-spi5-cs-gpio-state {
+-				pins = "gpio23";
+-				function = "gpio";
+-			};
+-
+-			qup_spi6_data_clk: qup-spi6-data-clk-state {
+-				pins = "gpio24", "gpio25", "gpio26";
+-				function = "qup06";
+-			};
+-
+-			qup_spi6_cs: qup-spi6-cs-state {
+-				pins = "gpio27";
+-				function = "qup06";
+-			};
+-
+-			qup_spi6_cs_gpio: qup-spi6-cs-gpio-state {
+-				pins = "gpio27";
+-				function = "gpio";
+-			};
+-
+-			qup_spi7_data_clk: qup-spi7-data-clk-state {
+-				pins = "gpio28", "gpio29", "gpio30";
+-				function = "qup07";
+-			};
+-
+-			qup_spi7_cs: qup-spi7-cs-state {
+-				pins = "gpio31";
+-				function = "qup07";
+-			};
+-
+-			qup_spi7_cs_gpio: qup-spi7-cs-gpio-state {
+-				pins = "gpio31";
+-				function = "gpio";
+-			};
+-
+-			qup_spi8_data_clk: qup-spi8-data-clk-state {
+-				pins = "gpio32", "gpio33", "gpio34";
+-				function = "qup10";
+-			};
+-
+-			qup_spi8_cs: qup-spi8-cs-state {
+-				pins = "gpio35";
+-				function = "qup10";
+-			};
+-
+-			qup_spi8_cs_gpio: qup-spi8-cs-gpio-state {
+-				pins = "gpio35";
+-				function = "gpio";
+-			};
+-
+-			qup_spi9_data_clk: qup-spi9-data-clk-state {
+-				pins = "gpio36", "gpio37", "gpio38";
+-				function = "qup11";
+-			};
+-
+-			qup_spi9_cs: qup-spi9-cs-state {
+-				pins = "gpio39";
+-				function = "qup11";
+-			};
+-
+-			qup_spi9_cs_gpio: qup-spi9-cs-gpio-state {
+-				pins = "gpio39";
+-				function = "gpio";
+-			};
+-
+-			qup_spi10_data_clk: qup-spi10-data-clk-state {
+-				pins = "gpio40", "gpio41", "gpio42";
+-				function = "qup12";
+-			};
+-
+-			qup_spi10_cs: qup-spi10-cs-state {
+-				pins = "gpio43";
+-				function = "qup12";
+-			};
+-
+-			qup_spi10_cs_gpio: qup-spi10-cs-gpio-state {
+-				pins = "gpio43";
+-				function = "gpio";
+-			};
+-
+-			qup_spi11_data_clk: qup-spi11-data-clk-state {
+-				pins = "gpio44", "gpio45", "gpio46";
+-				function = "qup13";
+-			};
+-
+-			qup_spi11_cs: qup-spi11-cs-state {
+-				pins = "gpio47";
+-				function = "qup13";
+-			};
+-
+-			qup_spi11_cs_gpio: qup-spi11-cs-gpio-state {
+-				pins = "gpio47";
+-				function = "gpio";
+-			};
+-
+-			qup_spi12_data_clk: qup-spi12-data-clk-state {
+-				pins = "gpio48", "gpio49", "gpio50";
+-				function = "qup14";
+-			};
+-
+-			qup_spi12_cs: qup-spi12-cs-state {
+-				pins = "gpio51";
+-				function = "qup14";
+-			};
+-
+-			qup_spi12_cs_gpio: qup-spi12-cs-gpio-state {
+-				pins = "gpio51";
+-				function = "gpio";
+-			};
+-
+-			qup_spi13_data_clk: qup-spi13-data-clk-state {
+-				pins = "gpio52", "gpio53", "gpio54";
+-				function = "qup15";
+-			};
+-
+-			qup_spi13_cs: qup-spi13-cs-state {
+-				pins = "gpio55";
+-				function = "qup15";
+-			};
+-
+-			qup_spi13_cs_gpio: qup-spi13-cs-gpio-state {
+-				pins = "gpio55";
+-				function = "gpio";
+-			};
+-
+-			qup_spi14_data_clk: qup-spi14-data-clk-state {
+-				pins = "gpio56", "gpio57", "gpio58";
+-				function = "qup16";
+-			};
+-
+-			qup_spi14_cs: qup-spi14-cs-state {
+-				pins = "gpio59";
+-				function = "qup16";
+-			};
+-
+-			qup_spi14_cs_gpio: qup-spi14-cs-gpio-state {
+-				pins = "gpio59";
+-				function = "gpio";
+-			};
+-
+-			qup_spi15_data_clk: qup-spi15-data-clk-state {
+-				pins = "gpio60", "gpio61", "gpio62";
+-				function = "qup17";
+-			};
+-
+-			qup_spi15_cs: qup-spi15-cs-state {
+-				pins = "gpio63";
+-				function = "qup17";
+-			};
+-
+-			qup_spi15_cs_gpio: qup-spi15-cs-gpio-state {
+-				pins = "gpio63";
+-				function = "gpio";
+-			};
+-
+-			qup_uart0_cts: qup-uart0-cts-state {
+-				pins = "gpio0";
+-				function = "qup00";
+-			};
+-
+-			qup_uart0_rts: qup-uart0-rts-state {
+-				pins = "gpio1";
+-				function = "qup00";
+-			};
+-
+-			qup_uart0_tx: qup-uart0-tx-state {
+-				pins = "gpio2";
+-				function = "qup00";
+-			};
+-
+-			qup_uart0_rx: qup-uart0-rx-state {
+-				pins = "gpio3";
+-				function = "qup00";
+-			};
+-
+-			qup_uart1_cts: qup-uart1-cts-state {
+-				pins = "gpio4";
+-				function = "qup01";
+-			};
+-
+-			qup_uart1_rts: qup-uart1-rts-state {
+-				pins = "gpio5";
+-				function = "qup01";
+-			};
+-
+-			qup_uart1_tx: qup-uart1-tx-state {
+-				pins = "gpio6";
+-				function = "qup01";
+-			};
+-
+-			qup_uart1_rx: qup-uart1-rx-state {
+-				pins = "gpio7";
+-				function = "qup01";
+-			};
+-
+-			qup_uart2_cts: qup-uart2-cts-state {
+-				pins = "gpio8";
+-				function = "qup02";
+-			};
+-
+-			qup_uart2_rts: qup-uart2-rts-state {
+-				pins = "gpio9";
+-				function = "qup02";
+-			};
+-
+-			qup_uart2_tx: qup-uart2-tx-state {
+-				pins = "gpio10";
+-				function = "qup02";
+-			};
+-
+-			qup_uart2_rx: qup-uart2-rx-state {
+-				pins = "gpio11";
+-				function = "qup02";
+-			};
+-
+-			qup_uart3_cts: qup-uart3-cts-state {
+-				pins = "gpio12";
+-				function = "qup03";
+-			};
+-
+-			qup_uart3_rts: qup-uart3-rts-state {
+-				pins = "gpio13";
+-				function = "qup03";
+-			};
+-
+-			qup_uart3_tx: qup-uart3-tx-state {
+-				pins = "gpio14";
+-				function = "qup03";
+-			};
+-
+-			qup_uart3_rx: qup-uart3-rx-state {
+-				pins = "gpio15";
+-				function = "qup03";
+-			};
+-
+-			qup_uart4_cts: qup-uart4-cts-state {
+-				pins = "gpio16";
+-				function = "qup04";
+-			};
+-
+-			qup_uart4_rts: qup-uart4-rts-state {
+-				pins = "gpio17";
+-				function = "qup04";
+-			};
+-
+-			qup_uart4_tx: qup-uart4-tx-state {
+-				pins = "gpio18";
+-				function = "qup04";
+-			};
+-
+-			qup_uart4_rx: qup-uart4-rx-state {
+-				pins = "gpio19";
+-				function = "qup04";
+-			};
+-
+-			qup_uart5_tx: qup-uart5-tx-state {
+-				pins = "gpio22";
+-				function = "qup05";
+-			};
+-
+-			qup_uart5_rx: qup-uart5-rx-state {
+-				pins = "gpio23";
+-				function = "qup05";
+-			};
+-
+-			qup_uart6_cts: qup-uart6-cts-state {
+-				pins = "gpio24";
+-				function = "qup06";
+-			};
+-
+-			qup_uart6_rts: qup-uart6-rts-state {
+-				pins = "gpio25";
+-				function = "qup06";
+-			};
+-
+-			qup_uart6_tx: qup-uart6-tx-state {
+-				pins = "gpio26";
+-				function = "qup06";
+-			};
+-
+-			qup_uart6_rx: qup-uart6-rx-state {
+-				pins = "gpio27";
+-				function = "qup06";
+-			};
+-
+-			qup_uart7_cts: qup-uart7-cts-state {
+-				pins = "gpio28";
+-				function = "qup07";
+-			};
+-
+-			qup_uart7_rts: qup-uart7-rts-state {
+-				pins = "gpio29";
+-				function = "qup07";
+-			};
+-
+-			qup_uart7_tx: qup-uart7-tx-state {
+-				pins = "gpio30";
+-				function = "qup07";
+-			};
+-
+-			qup_uart7_rx: qup-uart7-rx-state {
+-				pins = "gpio31";
+-				function = "qup07";
+-			};
+-
+-			qup_uart8_cts: qup-uart8-cts-state {
+-				pins = "gpio32";
+-				function = "qup10";
+-			};
+-
+-			qup_uart8_rts: qup-uart8-rts-state {
+-				pins = "gpio33";
+-				function = "qup10";
+-			};
+-
+-			qup_uart8_tx: qup-uart8-tx-state {
+-				pins = "gpio34";
+-				function = "qup10";
+-			};
+-
+-			qup_uart8_rx: qup-uart8-rx-state {
+-				pins = "gpio35";
+-				function = "qup10";
+-			};
+-
+-			qup_uart9_cts: qup-uart9-cts-state {
+-				pins = "gpio36";
+-				function = "qup11";
+-			};
+-
+-			qup_uart9_rts: qup-uart9-rts-state {
+-				pins = "gpio37";
+-				function = "qup11";
+-			};
+-
+-			qup_uart9_tx: qup-uart9-tx-state {
+-				pins = "gpio38";
+-				function = "qup11";
+-			};
+-
+-			qup_uart9_rx: qup-uart9-rx-state {
+-				pins = "gpio39";
+-				function = "qup11";
+-			};
+-
+-			qup_uart10_cts: qup-uart10-cts-state {
+-				pins = "gpio40";
+-				function = "qup12";
+-			};
+-
+-			qup_uart10_rts: qup-uart10-rts-state {
+-				pins = "gpio41";
+-				function = "qup12";
+-			};
+-
+-			qup_uart10_tx: qup-uart10-tx-state {
+-				pins = "gpio42";
+-				function = "qup12";
+-			};
+-
+-			qup_uart10_rx: qup-uart10-rx-state {
+-				pins = "gpio43";
+-				function = "qup12";
+-			};
+-
+-			qup_uart11_cts: qup-uart11-cts-state {
+-				pins = "gpio44";
+-				function = "qup13";
+-			};
+-
+-			qup_uart11_rts: qup-uart11-rts-state {
+-				pins = "gpio45";
+-				function = "qup13";
+-			};
+-
+-			qup_uart11_tx: qup-uart11-tx-state {
+-				pins = "gpio46";
+-				function = "qup13";
+-			};
+-
+-			qup_uart11_rx: qup-uart11-rx-state {
+-				pins = "gpio47";
+-				function = "qup13";
+-			};
+-
+-			qup_uart12_cts: qup-uart12-cts-state {
+-				pins = "gpio48";
+-				function = "qup14";
+-			};
+-
+-			qup_uart12_rts: qup-uart12-rts-state {
+-				pins = "gpio49";
+-				function = "qup14";
+-			};
+-
+-			qup_uart12_tx: qup-uart12-tx-state {
+-				pins = "gpio50";
+-				function = "qup14";
+-			};
+-
+-			qup_uart12_rx: qup-uart12-rx-state {
+-				pins = "gpio51";
+-				function = "qup14";
+-			};
+-
+-			qup_uart13_cts: qup-uart13-cts-state {
+-				pins = "gpio52";
+-				function = "qup15";
+-			};
+-
+-			qup_uart13_rts: qup-uart13-rts-state {
+-				pins = "gpio53";
+-				function = "qup15";
+-			};
+-
+-			qup_uart13_tx: qup-uart13-tx-state {
+-				pins = "gpio54";
+-				function = "qup15";
+-			};
+-
+-			qup_uart13_rx: qup-uart13-rx-state {
+-				pins = "gpio55";
+-				function = "qup15";
+-			};
+-
+-			qup_uart14_cts: qup-uart14-cts-state {
+-				pins = "gpio56";
+-				function = "qup16";
+-			};
+-
+-			qup_uart14_rts: qup-uart14-rts-state {
+-				pins = "gpio57";
+-				function = "qup16";
+-			};
+-
+-			qup_uart14_tx: qup-uart14-tx-state {
+-				pins = "gpio58";
+-				function = "qup16";
+-			};
+-
+-			qup_uart14_rx: qup-uart14-rx-state {
+-				pins = "gpio59";
+-				function = "qup16";
+-			};
+-
+-			qup_uart15_cts: qup-uart15-cts-state {
+-				pins = "gpio60";
+-				function = "qup17";
+-			};
+-
+-			qup_uart15_rts: qup-uart15-rts-state {
+-				pins = "gpio61";
+-				function = "qup17";
+-			};
+-
+-			qup_uart15_tx: qup-uart15-tx-state {
+-				pins = "gpio62";
+-				function = "qup17";
+-			};
+-
+-			qup_uart15_rx: qup-uart15-rx-state {
+-				pins = "gpio63";
+-				function = "qup17";
+-			};
+-
+ 			sdc1_clk: sdc1-clk-state {
+ 				pins = "sdc1_clk";
+ 			};
 
- arch/arm64/boot/dts/qcom/kodiak.dtsi               | 1413 ++++++++++----------
- .../dts/qcom/qcs6490-rb3gen2-vision-mezzanine.dtso |   13 +-
- 2 files changed, 727 insertions(+), 699 deletions(-)
----
-base-commit: 19827e7930a5511c68e12aac6e4522f3661a1709
-change-id: 20260612-kodiak-cam-mclk-a7e87d5b1585
-
-Best regards,
---  
-Luca Weiss <luca.weiss@fairphone.com>
+-- 
+2.55.0
 
