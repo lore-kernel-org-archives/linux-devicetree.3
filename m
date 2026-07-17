@@ -1,351 +1,156 @@
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
+Received: from th8-a.mail-neoserv.si (th8-a.mail-neoserv.si [152.89.234.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A412C3C3F7B;
-	Fri, 17 Jul 2026 12:03:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784289788; cv=none; b=ecnajiYb1aIOSIknoD/6PGSk3hP05qA2ri5BLc8ukkVIz++3v6cpnthRoW/JHYAlAGAB6Fed8qulp4NotkoSn3DOMye5VTIHV0EctDt6aHHl60Yu2ncOnaI2fQZKC4BiUEe87RiQiT6b1duvaUTlIIOxA1jy5PsHOSYYHwiWHlQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784289788; c=relaxed/simple;
-	bh=nqR4r9pKpDKHO5BZtzZ5YuzN+u9b56QZSOcI+nVdzuw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=eLIKGiny4HdXuXXgy4/mL8be1OKDqDkJiJ+l2nU2EKkVJ3CV29aaf9goCMsO0F6I1YvasvkztKawSh40gv6EugVUXfSRno59PoXdix0XfwG6MCGS/9Y1pN3afmNQxtUGMK4CFmooQFzvbcwA6A7aBJpnyDFjZQM3en/Ezcmc9Nk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=E25F3SCK; arc=none smtp.client-ip=79.135.106.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4D93F824A;
+	Fri, 17 Jul 2026 12:03:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=152.89.234.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784289806; cv=fail; b=rtG8RuZAUOrunel8KrdDpn7jaSQ3+S2CGdW9nYK2Gtosqfdx1cTKZuA4VVH8EkeHPE7HfnDVUCb8tMuOFBnF8IBJP6IQDheOcSbaa4Nb6BPOQ/ZT8I/8gaQzaWbgZG99DnkWJ3tf5US9jJvdMmtklTrGeqS6j/P4OMzku3y7hPM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784289806; c=relaxed/simple;
+	bh=7o4gkyWUm5NRKXjCtq4QFPNOZqVGYX0NqrC25z6iTAQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=X6ctM0Gzs3lDpB7cj1cJWSgWFILAKPcfcWJZz67NepCRY2NTF/i0pg/T7NuyGFBWwHfb5gpYA/K2IXFfaWHot9qEY/QeosoXTPBuQ/fimbAlhByaP/vbHLej1mQyf6B0gn02wopcUzhMmJHi7RwylrNcxu0bFfx/U0TMXL6y3Zw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kanardia.eu; spf=pass smtp.mailfrom=kanardia.eu; dkim=pass (2048-bit key) header.d=kanardia.eu header.i=@kanardia.eu header.b=fIA0Q6bF; arc=fail smtp.client-ip=152.89.234.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kanardia.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kanardia.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="E25F3SCK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail3; t=1784289774; x=1784548974;
-	bh=I6m3yaEF5ELVd0mQbxCMpVLD/FGyD/SZefnd+stECQM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=E25F3SCK/QrVkAKZ+PVTgiEr5ABjBlGrgr/qxrAOVGQ2z63rW26jacjth7DpENVRG
-	 rjm3QDBNoByCz6QBJWaI5EbEo/CjwJ65JRojcMulWdhLPjxY2jM9t/62h2rK+sT2SY
-	 eXDrYOZS0yF2IrnqQEa6zIYJOveF6B1RzxbwTh5zTdAkVrDJN9y1uE9jeA3kRjmaMU
-	 boX6H5TcRBukfOWnYJYkTz3tPsqVRQOql8oJGtUYN7CVCSWEmoU3G/PYYQvQdvDXEV
-	 n2uLF9e+z74z+WLmMN1VaAhCzdOFYYwat+/M7sxZu1lOK47RmZJYEGINEFs4FJ3J1x
-	 y+kbT3ikdaLLQ==
-X-Pm-Submission-Id: 4h1pSq68Cfz2Scn8
-From: Esben Haabendal <esben@geanix.com>
-To: "Andy Shevchenko" <andriy.shevchenko@intel.com>
-Cc: "Jonathan Cameron" <jic23@kernel.org>,  "Lars-Peter Clausen"
- <lars@metafoo.de>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
-  "Martin Kepplinger" <martink@posteo.de>,  "Sean Nyekjaer"
- <sean@geanix.com>,  "David Lechner" <dlechner@baylibre.com>,  Nuno
- =?utf-8?Q?S=C3=A1?=
- <nuno.sa@analog.com>,  "Andy Shevchenko" <andy@kernel.org>,  "Martin
- Kepplinger" <martin.kepplinger@theobroma-systems.com>,
-  <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,
-  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] iio: accel: mma8452: Allow open drain interrupt pin
- configuration
-In-Reply-To: <alkgZTnHyvEasMCk@ashevche-desk.local> (Andy Shevchenko's message
-	of "Thu, 16 Jul 2026 21:18:13 +0300")
-References: <20260715-mma8452-open-drain-v1-0-b1dd2a440c60@geanix.com>
-	<20260715-mma8452-open-drain-v1-2-b1dd2a440c60@geanix.com>
-	<cA7m1VgJxkr39GAxpnMPw9PVIKX2TR8Ju4Q0m6L2SxS_jJNITfZ6AA5LOeMIK0jGFXaUptY1_vPhDd_imWw5FQ==@protonmail.internalid>
-	<aldH3vtk_eKh6oCC@ashevche-desk.local> <87ldbco582.fsf@geanix.com>
-	<Tu8Mavh-mfl8Vv75Oab3vrghtEbTXiYPZ4qhj6RZv8xe5nWKP4lG1KSuJXEQfyKeio7zv9myLbmifMjFTl8juA==@protonmail.internalid>
-	<aleQVYrK9YBoLqGl@ashevche-desk.local> <874ii0misv.fsf@geanix.com>
-	<alefh86sqW-XvLHl@ashevche-desk.local>
-	<J2apVLUJhrI3AOweGpouqGGB0XhxbcqLiWasDpOdm4d2YGgNv8PuE-udUGJZcH0z-V9yyqbjIwMKDdtuam0mp6ya5F6GHUzf6OjRCo0GdaA=@geanix.com>
-	<nnp75d8J8In8paKGfojb_WdiRMfnz84lOlzz_LBKVsxDzR3fG7Y5Mn91q6P4BF2LetfZS7da2SeqGhpiLUOE-A==@protonmail.internalid>
-	<alkgZTnHyvEasMCk@ashevche-desk.local>
-Date: Fri, 17 Jul 2026 14:02:50 +0200
-Message-ID: <877bmtsu1h.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kanardia.eu header.i=@kanardia.eu header.b="fIA0Q6bF"
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=th8.neoserv.si; s=default;
+	 b=e4wr1RIKGAKwFb7CvuoGhMJksMeo2X6/du0d44Wq3M86JsufEJ01y5xkiTjZ+cmiJQgGjB4QO1
+	  1TbbpN3L7Tbdqym2X2awQ3EQrGWIZxh+U7wwbBTSvimGkQoC94d8eVA0DqAAuQwkHOGcVrBL1K
+	  cvOVaE3NHoR2kaR6CNmVirZJOTTPwbNg5l+SUhhXWkyW6jcDkmqj4hvmkTTPb8Q168+VBdnHDD
+	  qUfOr85z7MBLDvI1+BxnohyGqqboNAJ/q0ZT56ka3y01nF1t1xbQb+YTfVR/wKt20NhYNGk4eu
+	  93Bc+VOsl1zz7+CgS36w/ayT2Wxm0DdaKVHPHxpa8WO1Mg==;
+ARC-Authentication-Results: i=1; th8.neoserv.si; smtp.remote-ip=193.77.36.193;
+	auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=th8.neoserv.si; s=default;
+	bh=7o4gkyWUm5NRKXjCtq4QFPNOZqVGYX0NqrC25z6iTAQ=;
+	h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:
+	  Date:Subject:Cc:To:From:DKIM-Signature;
+	b=Fzw+J56PO1j78a7aA8LdOOs2v7ZvPZR2V0ma8jd8Fbjf1F4mmLuzSMOee751na36an2fjPpJUU
+	  fk2RIDactnsZRThjMxmp8+ywjglcpvcpiuNNhWzzKR0lgcgyf/VwUfIvEDypMa1c3v978ZQBnv
+	  XCVrhObnvq+dGtiQx8kRIuAKOVZ4sKvSSv9uXbjQNRDNyS7JXVmZuomzxAAwbPpdGsRgEQCKxK
+	  h8wpZWA9kkM8n3W937gUXg6wXD3EuDI8hmZ3S5ZgeoZ1GhhFcHCU231b14VB7cXniltvAVT9tX
+	  GfA/xaXrxsxBDIxy2H+BpC+eQ1S00NkzIUVoai08+TNkQA==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kanardia.eu
+	; s=default; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=rhqQocmDn1ZVyttVBuCGSQaZNCEQDuZfGNQteeSIaWI=; b=fIA0Q6bFjuSYbA8c5wvLsqNuEU
+	ggOi2blAwuHhpFw5QDqdoC7VaajtNA6OqXiB4DDkd6VqvIFZ82T6FeP1AmsfDCwBg+V4sCgmAaK0j
+	mvKvRAb4MC0TfDp0rHyX0gT+oNHSz4wOR1JTC2X56T6Ujq0nOhbKYGcPbc8Ex7rLO2SgxCB7InYz9
+	pv7Jx+WQnhQCsp/R/zBZLR5p+QMoxaO/pq/mxIXly9dkbJxdLKifLeauNPUtrCQj65oEcdoepCivc
+	A+XaKBFNTpTc+OY+W5lwplzzMva2JT4/QMHQfm23NvsutXeftWWiazEqOTejZMth+aQty/7uoDHtg
+	p4kD/n0Q==;
+Received: from [193.77.36.193] (port=54788 helo=rok-trip.kanardia.eu)
+	by th8.neoserv.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.4)
+	(envelope-from <rok@kanardia.eu>)
+	id 1wkhHh-00000001fP1-22Ww;
+	Fri, 17 Jul 2026 14:03:17 +0200
+From: Rok Markovic <rok@kanardia.eu>
+To: Heiko Stuebner <heiko@sntech.de>,
+	Sandy Huang <hjc@rock-chips.com>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Alibek Omarov <a1ba.omarov@gmail.com>,
+	Rok Markovic <rok@kanardia.eu>
+Subject: [PATCH 4/4] arm64: dts: rockchip: rk356x: add LVDS node
+Date: Fri, 17 Jul 2026 14:00:05 +0200
+Message-ID: <20260717120005.2087386-5-rok@kanardia.eu>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260717120005.2087386-1-rok@kanardia.eu>
+References: <20260717120005.2087386-1-rok@kanardia.eu>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+Authentication-Results: th8.neoserv.si;
+	auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
+X-NEOSERV-MailScanner-Information: Please contact the ISP for more information
+X-NEOSERV-MailScanner-ID: 1wkhHh-00000001fP1-22Ww
+X-NEOSERV-MailScanner: Found to be clean
+X-NEOSERV-MailScanner-SpamCheck: not spam, SpamAssassin (not cached,
+	score=1.31, required 7, ALL_TRUSTED -1.00, BAYES_50 0.80,
+	KAM_DMARC_QUARANTINE 1.50, KAM_DMARC_STATUS 0.01)
+X-NEOSERV-MailScanner-SpamScore: s
+X-NEOSERV-MailScanner-From: rok@kanardia.eu
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - th8.neoserv.si
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - kanardia.eu
+X-Get-Message-Sender-Via: th8.neoserv.si: authenticated_id: rok@kanardia.eu
+X-Authenticated-Sender: th8.neoserv.si: rok@kanardia.eu
 
-"Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
+Add the LVDS transmitter node. It has no register block of its own -
+it is programmed through the GRF and borrows the MIPI DSI0 D-PHY - so
+it carries no reg, only the DSITX_0 pclk, the phy and the VO power
+domain.
 
-> On Thu, Jul 16, 2026 at 04:51:34PM +0000, Esben Haabendal wrote:
->> On Wednesday, 15 July 2026 at 16:56, Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
->> > On Wed, Jul 15, 2026 at 04:25:20PM +0200, Esben Haabendal wrote:
->> > > "Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
->> > > > On Wed, Jul 15, 2026 at 01:35:41PM +0200, Esben Haabendal wrote:
->> > > >> "Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
->> > > >> > On Wed, Jul 15, 2026 at 10:07:39AM +0200, Esben Haabendal wrote:
->
-> ...
->
->> > > >> >>  	if (client->irq) {
->> > > >> >>  		ret = request_threaded_irq(client->irq, NULL, mma8452_interrupt,
->> > > >> >> -					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
->> > > >> >> +					   IRQF_TRIGGER_LOW | IRQF_ONESHOT |
->> > > >> >> +					   data->open_drain ? IRQF_SHARED : 0,
->> > > >> >>  					   client->name, indio_dev);
->> > > >> >
->> > > >> > Why do we care?
->> > > >>
->> > > >> Care about what exactly?
->> > > >
->> > > > About exclusivity of the interrupt.
->> > >
->> > > Ok.
->> > >
->> > > >> We need to add IRQF_SHARED flag in order to allow shared interrupt, and
->> > > >> we should not add it when using (the default) push-pull mode.
->> > > >
->> > > > Why not? How would it make any difference from SW perspective?
->> > >
->> > > Not adding the IRQF_SHARED flag prevents use with shared interrupts. I
->> > > think we are on the same page on that.
->> > >
->> > > Unconditional adding IRQF_SHARED flag would allow configurations where
->> > > other devices share interrupt line with mma8452 compatible chip
->> > > configured with push-pull, resulting in broken or unpredictable results.
->> > > I don't see why we should not care about that.
->> >
->> > But it's not their problem! If it's this device that prevents this
->> > configuration, it should have a check. With this code it just hides
->> > and changing a DT property will lead to kernel warning.
->>
->> The chip such does not prevent the configuration, and does not prevent
->> sharing the interrupt. The irq pin in the device can be configured in either
->> push-pull mode or open-drain mode.
->> In order to allow sharing interrupt line with other chips, the chip
->> must be configured with irq pin in open-drain mode, which is what the
->> drive-open-drain device-tree property I am adding in this series enables
->> developers to do.
->> If/when you add this property to the device-tree, the irq pin will be
->> in open-drain mode, and the IRQF_SHARED flag can (and should IMHO) be set
->> as the interrupt line can be shared.
->> If/when the drive-open-drain property is not set (existing device-trees
->> and current only supported behavior), the chip cannot support sharing the
->> interrupt line, and adding the IRQF_SHARED flag would be a bug, as the
->> chip irq pin requires an exclusive interrupt input.
->>
->> Maybe the confusion is caused by the fact that the drive-open-drain
->> does not describe how the irq pin IS behaving, but rather how it SHOULD
->> behave, and possibly required because of the HW designed having tied the
->> irq pin to an irq input together with other irq sources.
->
-> Why do we care of push-pull then? Can't we always make it open-drain?
+Disabled by default; boards that route LVDS enable it along with
+dsi_dphy0 and wire lvds_in to a VOP2 video port.
 
-No. Open-drain requires an external pull-up resistor. If there are no
-external pull-up resistor, open-drain will not work, and interrupt
-sharing is not possible.
+Signed-off-by: Rok Markovic <rok@kanardia.eu>
+Assisted-by: Claude:claude-opus-4-8
+---
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 25 +++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
->> > > > Yes, I understand the HW case.
->> > > >
->> > > >> > The (hidden) problem this will have in the future is that the IRQ core
->> > > >> > will splat a warning in case that other shared IRQs might be
->> > > >> > configured with different flags. Putting that flag conditionally makes
->> > > >> > it a mine field for the users. Instead just unconditionally add that
->> > > >> > flag and we will get reports as soon as there will be a user that
->> > > >> > shares the same interrupt pin with some other devices which drivers do
->> > > >> > not use the same settings.
->> > > >>
->> > > >> If we add the IRQF_SHARED flag unconditionally, it will be set also when
->> > > >> push-pull mode is enabled. I don't see how the kernel will be able to
->> > > >> notice that that is not going to work. If you have another device that
->> > > >> uses IRQF_TRIGGER_LOW|IRF_ONESHOT|IRQF_SHARED, it will not work with the
->> > > >> MMA8452 device when configured as push-pull.
->> > > >
->> > > > Right, and why do we care (again)?
->> > >
->> > > Why we care that the system as a whole (SW on top of HW) will not work?
->> > >
->> > > If we don't care about that, why do we even have this IRQF_SHARED flag?
->> > > The only purpose of that is to tell the kernel that this particular
->> > > device / interrupt will work with shared interrupt or not.
->> > >
->> > > Isn't that exactly what I do with this change? Nothing more, nothing less.
->> > >
->> > > > It's pure DT/FW/HW issue, not an SW issue.
->> > > > Otherwise it will become a carefully placed mine for the poor user who will
->> > > > use these flags and try to share an interrupt with the mma8452 device which
->> > > > has no set property and uses push-pull mode.
->> > >
->> > > I don't get how you see it like that. Adding IRQF_SHARED unconditionally
->> > > would create exactly the mine field you are talking about. Poor users
->> > > can specify a system configuration (DT) that tries to use a shared
->> > > interrupt line, but configures the mma8452 compatible chip in push-pull.
->> > > The poor user will not only be poor, but also unhappy.
->> >
->> > > By applying the IRQF_SHARED dynamically, the kernel will be able to fail
->> > > in a controlled manner instead, making it much less painful to create a
->> > > working system configuration (DT)
->> >
->> > And my point that we need to make less painful runtime experience.
->>
->> Yes. We agree on that.
->>
->> But I do believe that my patch is that painful runtime experience.
->>
->> Adding IRQF_SHARED flag when irq pin is configured in push-pull mode
->> will be painful. I know, that was my initial approach. Does really not
->> work, and can lead to wasting time on debugging the HW.
->>
->> > > Going back to your poor user story above, if the poor user tries to
->> > > share the interrupt pin with the mma8452 device, it will get an error
->> > > (just as it is with the kernel today). The device does not support
->> > > shared interrupts. Reading the DT bindings documentation, the user
->> > > should be able to find the drive-open-drain property, and add that to
->> > > the device-tree to make things work. Maybe even consider if that is
->> > > compatible with the hardware being used.
->> > >
->> > > If IRQF_SHARED was set unconditionally, the user would not get an error,
->> > > but most likely would get a system where no irq's were raised for the
->> > > other chips. I sincerely believe that debugging this is much more
->> > > painful than reading device-tree bindings.
->> > >
->> > > > Did I miss anything?
->> > >
->> > > I don't know. Maybe I am missing the obvious here.
->> >
->> > I consider the case when shared interrupt is enabled on both devices, but
->> > second one (driver) missed the same IRQ flags. This becomes a warning in
->> > IRQ core.
->>
->> Missed which IRQ flags?
->
-> _LOW, for instance.
+diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+index 64bdd8b..9244b55 100644
+--- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+@@ -878,6 +878,31 @@
+ 		};
+ 	};
+ 
++	lvds: lvds {
++		compatible = "rockchip,rk3568-lvds";
++		clocks = <&cru PCLK_DSITX_0>;
++		clock-names = "pclk_lvds";
++		phys = <&dsi_dphy0>;
++		phy-names = "dphy";
++		power-domains = <&power RK3568_PD_VO>;
++		rockchip,grf = <&grf>;
++		rockchip,output = "lvds";
++		status = "disabled";
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			lvds_in: port@0 {
++				reg = <0>;
++			};
++
++			lvds_out: port@1 {
++				reg = <1>;
++			};
++		};
++	};
++
+ 	qos_gpu: qos@fe128000 {
+ 		compatible = "rockchip,rk3568-qos", "syscon";
+ 		reg = <0x0 0xfe128000 0x0 0x20>;
+-- 
+2.43.0
 
-All devices sharing an interrupt really do need to agree on these
-flags. Do you known any drivers that does not specify the trigger type
-when requesting an irq?.
-You cannot share an interrupt line if not all devices have the
-same trigger mode. So if one device on a shared interrupt has _LOW, all
-the other devices need to have that. Not just the flags, but the actual
-triggering mode of the device. Some chips might support more than one
-mode, others only one specific mode.
-
->> > Shared interrupts it's also a contract with all stakeholders on keeping
->> > the same flags for all devices.
->>
->> Of-course.
->>
->> And adding IRQF_SHARED is a contract that says that the interrupt can be
->> shared. I can only see that it would be a bug to add that flag in cases
->> where we know that the interrupt really cannot be shared.
->>
->> As for the IRQF_TRIGGER_LOW flag being set, I think that looks correct
->> as long as we do not support switching to active high irq polarity.
->
-> No, it's not. It overrides whatever platform wants to have.
-
-The trigger type is not just a platform thing. It describes how the
-device behaves. Device that only support one triggering mode must set
-the flag that describes that. Devices that can be configured for
-different triggering modes can implement that, and should then configure
-the device for the chosen mode and set the flags accordingly.
-
-> It prevents PCB level designs from anything else.
-
-Yes. In this case, the current driver does not support designs that
-requires the mma8452 compatible chip to be configured for active high
-irq trigger. We could and probably should address that.
-
-But that is a different issue than what I am doing here. And I don't
-have hardware readily available where this can be tested, so I would
-prefer to let somebody else do that.
-
-I am adding support for designs that require the mma8452 compatible chip
-to be configured for open-drain, while staying backwards compatible and
-allowing support for designs without external pull-up.
-
-In all cases, the driver should register the interrupt handle with the
-IRQF_TRIGGER_* flag that matches what the chip is configured for.
-I believe leaving it out is invalid.
-
->> But on that topic, the chip actually supports selecting between active
->> low and high irq polarity. Should we implement something along the lines
->> of what is done in smi330_setup_irq() in iio/imu/smi330/smi330_core.c?
->> And thereby allow using the device with active high irq?
->
-> ...
->
->> > After looking into genirq code I don't see other way how to handle this.
->> > It looks like we need to address the TRIGGER_LOW first, in other words
->> > we need drop that flag when IRQF_SHARED is set, and leave it to users
->> > to setup IRQ trigger properly on all sides.
->>
->> Why do we need to drop the IRQF_TRIGGER_LOW flag because IRQF_SHARED is
->> set?
->>
->> Users as in those specifying the system device-tree?
->
-> No, because like I said, the SHARED is a *contract*, it's not just a setting.
-
-Absolutely. That is the key here.
-
-IQRF_SHARED is a contract, where the driver promises to return IRQ_NONE
-if the interrupt is not for that device. This is already implemented
-by mma8452_interrupt().
-
-> And that contract includes the similarities on the IRQ flags. One may not
-> have two devices with different trigger level, it's a common sense,
-> right?
-
-Right.
-
-And that is exactly why we have to specify the IRQF_TRIGGER_* flag that
-the irq output is configured for. The driver will not switch to the
-desired trigger level based on what other devices on the same interrupt
-uses. You have to configure/specify the trigger mode and leve and set
-the IRQF_TRIGGER_* flag accordingly.
-
-> So, SHARED must exclude anything that comes from the platform description or
-> IRQ chip controller (limitations).
-
-Now you got me confused again. The IRQF_TRIGGER_LOW flag given to
-request_threaded_irq() is not coming from platform description or IRQ
-chip controller. It describes the trigger mode that the chip is
-excercising in the current implementation.
-
-The kernel would not know how to configure the IRQ chip controller, and
-in case of shared interrupts, would not be able to check that the
-devices sharing the interrupt is configured correctly.
-
-> So, without addressing that, it makes a little sense to add SHARED.
-
-Not true.
-
-Let me take my system here. I have multiple chips / irq sources
-connected to the same interrupt input on the CPU. They are all using
-level low triggering (which hardware and system engineers have ofcourse
-been observant enough to ensure).
-
-Without my change, the mma8452 driver does not support configuring the
-chip to use open-drain, so it will be pulling the interrupt line high,
-interrupting irq for all interrupt sources.
-
-With my change, I can now configure the device to use open-drain,
-register the interrupt, and everything works nicely.
-
-And the change is backwards compatible, as you have to specify
-drive-open-drain to switch from PP to OD.
-
-How does that not make sense?
-
-> I would accept this patch without adding SHARED, perhaps.
-
-Without IRQF_SHARED, I cannot use it with the hardware I have which are
-sharing the interrupt.
-
-> But still question why we can't use the OD instead of PP for the pin
-> to begin with?
-
-Because HW needs to be designed for OD. It is perfectly valid to design
-hardware that relies on the default mode of mma8452 and compatible chips
-to use PP. Switching to OD will not work for such systems without
-external pull-up.
-
-> Do we have real HW that uses IRQ input without a pull-up?
-
-I certainly have had such designs many times in the past.
-
-Why should we implement the driver so that we cannot support such valid
-HW designs?
-
-/Esben
