@@ -1,88 +1,87 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB1137B40A
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 20:42:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B8338B122
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 20:42:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784320930; cv=none; b=YUH7ahEyIMxn8hV19rp73Q9Eg6tb/KOwH1//j7t6hf6JkMiwHl9QYUrGX4HsoWxxNR0kcGoPP3wJioToSMrmkHbRx3U+dVswTnEpcYxgU8Pi65hUNc8D5isJ4a9DkQQCLsB8Kp3je4OKfdO92EeR58zuaazZLV1LfQV+0TDDvy0=
+	t=1784320941; cv=none; b=TFSpJ2GQXxwEd2ggCQU4uc7pHd+kiGF8OkRdo+cgbp6sE3bRJDy1TtDW6hYkJIJwsP+82y+vdZQszpJvKKkRY7DEW2z1MMgndTk3dIsYAE3AzbZP5K6CyOQHhn28ziYAa2Odd0FCkVArx2vTfrdjECwDhx+3zvJZAC10Ji0crJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784320930; c=relaxed/simple;
-	bh=OTjz/hUYsdXL1nGMP1P88FY2BvXLf3kfPOscxh457b4=;
+	s=arc-20240116; t=1784320941; c=relaxed/simple;
+	bh=ORuJoAoettsQm9dY3C70D1HHQExfcfjXXumBcgpKzYE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IT54iu4+0XGsJHvgKL6KWmQfe/9+My6JkEl7y0KsW343BX967kXKAyKW/pQP+/M4Eo/JpNdm/eF/I2dU+j8y0HB89RWIUBWq2TaPiSqoL1XjKSh8j1LS+d8D6VzpS1gGfJz+rn4f9on4G63DMSL6FdbSpvdQ7ZoGykN62ysYk0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=F8KWpHMR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cHL2Z92c; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=o1BeBhrjva2bHR7vmWMvCsc9cHfHPsAGXuqsyn7S/NKFUc/1W0N68btz5UyHqmzpslxWLRB15Nn9KuLMrl1lrBnI9lShAYuBNpyfmaHO0kcH1tw5F33K8elZchLaPGJddEU5rw3lh3tvjJQ0Y4OA54S3nUJ6RR8hZyha49uDN1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Q+qcSSg6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AvbPxN2I; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="F8KWpHMR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cHL2Z92c"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66HJtNno2619448
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 20:42:08 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q+qcSSg6";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AvbPxN2I"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66HJtB1X2597230
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 20:42:18 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HEJ0uZQVI09LETC6xozJYzAod+qX4DJ0MzQIJLZn12I=; b=F8KWpHMRjsjMPMsl
-	iZCB39fkxhgaevrxxSw/OnsjJu9+UxkQXWwyBPOT+jkzHSgljNuwfR7rUYwSxqBj
-	97ZmV+/G7hGE5Xy3FoeF2vRifP56AW3n4++Q6qbFuWC9LZDrXBRmsdvMY9Y3m/3W
-	JTladnYYNU26T2lZCh4aEjapaV/kTGlnmi8WGIEIlYuvhEiwWdNvxFT/fmuhoQu5
-	HNiMz5Mxfl8UV9xci0w+ayfeCtSJ68XMLnAeCljwOQ6KhI7Oaqn3rihx1GWzciVU
-	MMb8dhXBsTpKqwWFXnYvm/VipgnF/2ly2maxApBLr7xG32iInLxmzEiovSZ8DRVz
-	Ih6oew==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fffagb6nc-1
+	8GdHObSQMDYkUt+upRu+wEdB3PXKFkB5YG0odHh404U=; b=Q+qcSSg6/BBs4X6M
+	Sz9VqQRFRwisd9ZcEogWLwJY1i8QfNLBEXoxeKzCcpnlTOwZ2domwqYxOQMJ5vUp
+	YI6Cn3xgNWNlyan0iA8GinOxsImWOOWcItga2rwscNMBE7n0WCTpjxhcNxJQjh4e
+	VDnfCGnr2BdfdtRvxrK3nsFa+wdXz26VwpshquPb1ZSBF8lfY2Idh3IwnBN9G9Kb
+	ETYqUKJJerZg6Uhekc32gKR+ZohWuZf8zYVoIpMwmnn4gXCCr++fhQuZcXDuFaDn
+	P2Y57mmlDrpkDmWpwIJU4cfXXi/o6V9jEA8yGrzzAYohtZvubUargeAJarIIJ4Aa
+	yWoVhA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ffrp8rrdn-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 20:42:08 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38dbe39ce62so2226753a91.0
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 13:42:08 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 20:42:17 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38e1118e4abso7191409a91.0
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 13:42:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784320927; x=1784925727; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1784320937; x=1784925737; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HEJ0uZQVI09LETC6xozJYzAod+qX4DJ0MzQIJLZn12I=;
-        b=cHL2Z92crkdvNhfwNdrx4OH5AQ2qI9zJaCWWLyRtNsx/5dn51vxA1JqOcgLi1lL26z
-         dwe+JbOxVK4JREuo9kxRwwnv8QRQezR7Bz/mNud6gYtk+VKIw0/WqeJIYgDO73CbmQJi
-         Qx9ynj47KxuLtWpmuLGpVkL8Qar6ghm+4qqPkRj1SPu9XYkuoG2ObbLELN1nK+6qCPLy
-         LVaIhuWCROfHitKGAsbxVvtfSnCPc24YDC3N8YFmk2D7EZGIcbpbB59DHShihh6cbdvC
-         45GMH8Uvlf9PtpRLkPMlWFshiWUzqx7endVwEJx+12cOiIMtyLBYK8raJfqktMReMQ5t
-         wZrQ==
+        bh=8GdHObSQMDYkUt+upRu+wEdB3PXKFkB5YG0odHh404U=;
+        b=AvbPxN2IPAQb8SPrSc0ACDGazaKUQf2VVfColI/xpp1Ll1ypWybdQLwA5opNEcv1Sq
+         xd8530r+ZOG8mI2oHMGF0AUaUvmMFI1KCz0eJlqq8foWI8q49T+/OsmjiYVPU+Tvyg67
+         RWXUTxs47RatExjINbDLY9XXMLwU65ol0Fl3+gXGjtkqeFKHacmyyzCZDbZ/s1ukG2P5
+         XtduvNE89Jf3YP2luZzfGDLeUiwHT/7TnnSBYI9/zXm44zOaaaNbJTfO8QpZ75wxbN+7
+         ksLOAKd5H5Tbr+sHoxK61LQTzWvQPgmQ650GnrtmzvkT/Y1LOuEcyzmkxraFHZ5jaTVP
+         RLHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784320927; x=1784925727;
+        d=1e100.net; s=20251104; t=1784320937; x=1784925737;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=HEJ0uZQVI09LETC6xozJYzAod+qX4DJ0MzQIJLZn12I=;
-        b=OfS66MgW786GkWeZIYkystMvoRNFF8FlSVlf0KNKB2Gec9Fxqk4ou5fvj0OuD6nAqK
-         1xDdOyXbQ07gR5ul9vEoBq9VwWHGmH8DGr3RPbMR5ITKFz5W1XHZVCOEffOoqrI5dApH
-         XSOBk035D3I4SLSWu9VwXO+KoLVZLSMGNGZZzVTEw12WE666/yr9hB7jjuIGGmWMgv6m
-         U1uguwX2e4UHaKjTbYC3xk2df6n5iAKCM/vHm5NrualeWWoKLYGARwlJLaN9NYmpRQeV
-         7aDutxTsk0fPXfoEMkTetMXL7y5tNBVu77hPPgLUXJArW8nie7RALmKVX3ggxYoO7uaa
-         Gx6w==
-X-Forwarded-Encrypted: i=1; AHgh+Roh1VW2m9bO/xKb6vD/SeWZZK9V+tfL4DGxfqLZ9nbFE7CqEMFHLUbdh8nXnul8GdqKcVPgBXhHeHO5@vger.kernel.org
-X-Gm-Message-State: AOJu0YwUjwOxIesPZvrkRokRFbM7axDXzw7s8tFizum6S3NReTj3tZDQ
-	VJV9lIsBKflsveSiaWDf7A907fna+Mox2SrdYNIbWdXEKKPhr/BsdClsAUiAkKvuQERLEPccaZQ
-	NCgc3dGSGNt7xADsihpMM9p+J3+tilynV/0LPC7DatF4RxmpuibyQlBQdFU/RAfnk
-X-Gm-Gg: AfdE7ckjqJ68PDuK+9dSTYzmMWw6U6n99HFtiQ8A2Yn45BM3eBG9UzNHiuVK/y41yvL
-	+OWEeM4JOg8UzyNEsIz1SpxVJ9SJa6a6EGI5otZDFkZJZ058EBYHV3P5mfW4WFPJp8n8PopQrqT
-	LBBDiExPwW40X/aWw+BcRy2e9k3xMju+EyYQXGpl1H6Q5SVmLYwBXFHxBCWkLWB1dcmhZBzO/ZR
-	FbXphv47Ig64nx+C1YOB28DE2v9tl5wN7re2JX9yGwX1PLYvZfVhuRiUmMFQy9yDUyIYw6/Ysdd
-	jqD0Noqdvg3UpDc1H0jdSuqyvKCANnwN4mb9Ne/Pjhfn7GZVJa09i+V4aZfZU3CfV0dj1/Kyodq
-	khCJq+K9N3k+BEblVNTomGtk3
-X-Received: by 2002:a17:90b:540f:b0:37f:e5b1:ec4b with SMTP id 98e67ed59e1d1-38e3d163538mr10090675a91.5.1784320927535;
-        Fri, 17 Jul 2026 13:42:07 -0700 (PDT)
-X-Received: by 2002:a17:90b:540f:b0:37f:e5b1:ec4b with SMTP id 98e67ed59e1d1-38e3d163538mr10090626a91.5.1784320926891;
-        Fri, 17 Jul 2026 13:42:06 -0700 (PDT)
+        bh=8GdHObSQMDYkUt+upRu+wEdB3PXKFkB5YG0odHh404U=;
+        b=rI4F3Qiizi91z9sevus0fe94wPT/2Kx0MZe1hMIiSh1rme88F7mfNLrM57VHfu3kmP
+         KT4gcQZ4iXcHqoVj9tNbvrlmWofLZzZzXN3HrB4hx1B6/WB/4hZaYrUNb6oDFxx0ZX28
+         Mb6tXgMHELz44hKAmNrzg9M41dUysagxGi1MX6JlZ933c6q2pfcy6yXjsP1EXpe4YENE
+         ea+QoldEI/RubAE2IkPmMOm2LdxGq1ZP53VNzdFNPUHHvQbiGvIPBkOOPPk5vsfKpSgc
+         pewi5xF6rqqariP1x0fx7ZAJlfsI471TBmmPxIGAObYslNy5+gDjd3+Imv3dOMe3crS7
+         eQWw==
+X-Forwarded-Encrypted: i=1; AHgh+RqpNPd+87XLAwdUpxKXMl5DTk29gskI0nZiM1AvLcqcjMZhAuQhuzhLGBJXBpz8Ak/wCcpcydFfrnXf@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywmh9e0KtoRxSS7RMlm2Mc0pl+0271rha83FMnWDvwI8okN/bBW
+	sVLOJ42utaEPt+r2nDjP98pqKHvc7Uok2fHFg0np2y7c2jXVjgQKYJEscUmenTwWCpkVdFLNs9w
+	thFLnlM4/o5Rh321KZCIxxKr5q4Du43+UagybZfLH2HU1q5Zh+WeGvKqEsE/TRla9
+X-Gm-Gg: AfdE7cn0stEw3vI3a7BzP1gQwkIFUO1Huz6hTBrbZcdzAiIKOarqpkoiwnFaNydpmRa
+	tq+BAxaCFqlMDy4yVjJRrlAnnu5sgbSH2FWA3jdicXq52cACPRB7SL11ljnhkP5oTGqnLBBnoz7
+	0Wr7x59AdET+y8ZRbZAmVoghbUTZI0vyYWDrnCV8MFpW/8oBeZ21pe3esE13f5/Y5SBRAHMFJee
+	2hRxIFdoiaZY3xuvUaGocsTqdF2mW17z3s6ru+DSWncOcXoh7tjew9gtua6Yon1ZOvc35cnFG51
+	4MXk8twBBDG2mgCBzw4lzzD3OYpBL0Q964X2KDK8UFWib4GVzs+UqOUyd+G802fr0xITTE1FDMe
+	c1ls5REDQEnyitNjy6ijmtUBX
+X-Received: by 2002:a17:90b:2f8c:b0:38e:4b71:8b0 with SMTP id 98e67ed59e1d1-38e4b7108fbmr4581710a91.25.1784320936700;
+        Fri, 17 Jul 2026 13:42:16 -0700 (PDT)
+X-Received: by 2002:a17:90b:2f8c:b0:38e:4b71:8b0 with SMTP id 98e67ed59e1d1-38e4b7108fbmr4581665a91.25.1784320936040;
+        Fri, 17 Jul 2026 13:42:16 -0700 (PDT)
 Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a1e348bsm11322997eec.25.2026.07.17.13.41.58
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a1e348bsm11322997eec.25.2026.07.17.13.42.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 13:42:06 -0700 (PDT)
+        Fri, 17 Jul 2026 13:42:15 -0700 (PDT)
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Sat, 18 Jul 2026 02:11:27 +0530
-Subject: [PATCH v2 2/9] drm/msm/a6xx: Rename GBIF_CX_CONFIG to a A6XX-
- variant register
+Date: Sat, 18 Jul 2026 02:11:28 +0530
+Subject: [PATCH v2 3/9] drm/msm/a6xx: Add Adreno 722 support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,8 +89,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260718-eliza-gpu-v2-2-64379dbebd7a@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260718-eliza-gpu-v2-3-64379dbebd7a@oss.qualcomm.com>
 References: <20260718-eliza-gpu-v2-0-64379dbebd7a@oss.qualcomm.com>
 In-Reply-To: <20260718-eliza-gpu-v2-0-64379dbebd7a@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
@@ -114,113 +113,826 @@ Cc: Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>,
         dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
         linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
         linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784320899; l=3230;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784320899; l=38054;
  i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=OTjz/hUYsdXL1nGMP1P88FY2BvXLf3kfPOscxh457b4=;
- b=arW5LOtnhsz7GNASG3k6T6849UaVGE8SxWpxFRJrV5xGwidmIhco5hKA79Zbb2P93PIK0zXO5
- NW9ANLNRiHjBZZmVwziWRlZIJZJK1ayJsn7ebxeRUw+CxcdiSQZwX1A
+ bh=dGQDlJzWbaCq9nF8A+/XXH+++kDnm7GdqDxAqhMdbBc=;
+ b=/NYqcvxQwtHXrMWJDtgikGDn6x4VsgsKPOoGb4BYzc3rOK/aNsPObrP44EFEqCtYMK+w0Pti5
+ U11yZBsGPQKB7QEWeDToxAWXxsK2SSVDRVe9SzXVZLIqkIdAOfFBcYy
 X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
  pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDIxMiBTYWx0ZWRfX24xtLWBhRadJ
- 8pWOnMozFsVS8pa+2VBQXBcPhS6alUhBpqJZI7pz76IKkLefx9mTv0zTQzr2qxVcUGCa6yqafct
- cMwTIg5Nw+iqhNKRNtS8+JxVTltM0nB7dWyCqYXmBp8CtXS0bIaQxg//qlYeSw+Wuc8JnfFxIRV
- 7CnkkKZamXZQ1SKV3HM5yCNT3yu4yXwFztqGO/h66lNWq6QkWuC/fD+IihTmQNAPQOqbkFrjwX+
- 0cqHxQLfk8s5dZxjobFP4NVAkqqUfiWBzUb4SykZaqOYZgwNrht97N16tAouWZ4hadg0j5ENed8
- pK0pXyuDP+2oCco+BItH3nVRWGsDa0VGx6GpICrVSxzlAWi6woE8YesKRVjlTzDORkD3dCPWwy8
- emnv9gyPZ7Mtu3oh/23g9Fec+jIB7FT3aIrM/Y8rW82QWPlvYgJicm8K3snq0w5tTXKNh2x7o2q
- 05Wtl/lk+GCL2VihA2g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDIxMiBTYWx0ZWRfX3MAqFRjAdi1z
- BvNQasykUXQDVEnh/T/1k/5vqVm99C3kY2bSG6ipwe7ABvLvdh/0icwz2NTMYM3yW/kEfs1FTto
- cIgCK3C+2xXjyWPxT6EVZn6LXmUqK18=
-X-Authority-Analysis: v=2.4 cv=KZfidwYD c=1 sm=1 tr=0 ts=6a5a93a0 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDIxMiBTYWx0ZWRfX+ysqEDiMe7Ap
+ Ua4+SVikF75HmV43hG+k4f7Qa1H2CyzpGXmebrlXaJSXrQtV+ufnB9JucLigWDj/ltNTRMGmcUe
+ Y84nIg6Gpy9q80NsI8Plp5KNqrxio18=
+X-Proofpoint-ORIG-GUID: N9voaYBaYI7PHKov80Qy-WIXNQeGsQMv
+X-Proofpoint-GUID: N9voaYBaYI7PHKov80Qy-WIXNQeGsQMv
+X-Authority-Analysis: v=2.4 cv=fMYJG5ae c=1 sm=1 tr=0 ts=6a5a93a9 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=W9u8H8Hp_niEWJubwdoA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: Yfcb7r1P96flHDR4lRBfStvUL-zcJIQv
-X-Proofpoint-ORIG-GUID: Yfcb7r1P96flHDR4lRBfStvUL-zcJIQv
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=Q64VJQA17u1ZpEKa0AEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDIxMiBTYWx0ZWRfX5PIwRS451exP
+ UVXBTMT5xNA3MSVgXA03gB5GikDrO5SfK79ZCzP7WZDE0EKk1KcZpVW5lxOZhF+wJuixOX08LxQ
+ +R5lbaVIw0uOVVY4izBuYq84g3/GRBYHLLfUtbTV8LM3M4MQwkWnR3tuxMZZ4aR7J9WzgQlluNf
+ hW2WyJU3JAZBZPt4n/z/fIQOCCK05CcGMX7eFM3ISsWdkBQKj932eHPQfXI8cvovV4O4TzYdmcC
+ 4a0y9wzbK/JADM/KoaaNPbnrppWPd6ikElW47M0/x8UMVyrzbsB/bJnjJRmklH1DLyxFOm6A1KS
+ pKiJsWJrWCO2+PPZsoHEfL59Y4rHBk3ym/wcKZfguIJaOZN1WPkjlxAAXretpGXt7ma4mdriI1r
+ jQ7MhdNh40zLlY0qH3l37WplsV68iK7wcRxQf517Pj2bKpRB8TGkhd4yaWgkWr985VuwjMVmwp4
+ aeiQ2J0zdyjTNzelx+w==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-17_06,2026-07-17_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 clxscore=1015 malwarescore=0 spamscore=0
- adultscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170212
+ impostorscore=0 malwarescore=0 priorityscore=1501 suspectscore=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 adultscore=0 clxscore=1015
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607170212
 
-The GBIF_CX_CONFIG register exists on GPUs prior to A8XX (it is used on
-A722, for example), so it should be tagged as an A6XX variant to match
-the register spec. Widen its variant range from "A8XX-" to "A6XX-" in the
-register XML and rename the generated macro accordingly at all existing
-usage sites.
+From: Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Add support for Adreno A722, a member of the GEN1 A7xx family. It is
+derived from A730 and shares the same IP-level configurations: HWCG
+registers, protected registers, GBIF CX registers and gmu_cgc_mode.
+Major differences include lower cache/core counts, 1MB GMEM, no
+Concurrent Binning & LPAC support. Some of the peripheral blocks like
+RSCC are from A740 that resulted in updates to RSC layout.
+
+Add a new entry to the catalog to describe the usual configuration and
+few additional fixup mainly due to missing CB/LPAC features and updated
+RSC layout.
+
+Signed-off-by: Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>
 Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c     | 2 +-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c         | 2 +-
- drivers/gpu/drm/msm/adreno/a8xx_gpu.c         | 2 +-
- drivers/gpu/drm/msm/registers/adreno/a6xx.xml | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c          |  34 ++
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |  15 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |   4 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        |  81 +++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h        |   5 +
+ .../gpu/drm/msm/adreno/adreno_gen7_17_0_snapshot.h | 428 +++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   5 +
+ 7 files changed, 549 insertions(+), 23 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-index a98d550b72d0..4b68416e4d05 100644
+index 4b68416e4d05..e6598d9ba2b0 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-@@ -2180,7 +2180,7 @@ static const struct adreno_reglist a840_gbif[] = {
- 	{ REG_A6XX_GBIF_QSB_SIDE1, 0x00071e20 },
- 	{ REG_A6XX_GBIF_QSB_SIDE2, 0x00071e20 },
- 	{ REG_A6XX_GBIF_QSB_SIDE3, 0x00071e20 },
--	{ REG_A8XX_GBIF_CX_CONFIG, 0x20023000 },
-+	{ REG_A6XX_GBIF_CX_CONFIG, 0x20023000 },
- 	{ },
- };
- 
+@@ -1500,6 +1500,40 @@ static const struct adreno_info a7xx_gpus[] = {
+ 			.gmu_cgc_mode = 0x00020000,
+ 		},
+ 		.preempt_record_size = 2860 * SZ_1K,
++	}, {
++		.chip_ids = ADRENO_CHIP_IDS(0x43020100),
++		.family = ADRENO_7XX_GEN1,
++		.fw = {
++			[ADRENO_FW_SQE] = "qcom/gen71700_sqe.fw",
++			[ADRENO_FW_GMU] = "qcom/gen71700_gmu.bin",
++		},
++		.gmem = SZ_1M,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
++			  ADRENO_QUIRK_HAS_HW_APRIV |
++			  ADRENO_QUIRK_PREEMPTION,
++		.funcs = &a7xx_gpu_funcs,
++		.a6xx = &(const struct a6xx_info) {
++			.hwcg = a730_hwcg,
++			.protect = &a730_protect,
++			.pwrup_reglist = &a7xx_pwrup_reglist,
++			.dyn_pwrup_reglist = &a7xx_dyn_pwrup_reglist,
++			.gbif_cx = a640_gbif,
++			.gmu_chipid = 0x07110000,
++			.gmu_cgc_mode = 0x00020000,
++			.bcms = (const struct a6xx_bcm[]) {
++				{ .name = "SH0", .buswidth = 16 },
++				{ .name = "MC0", .buswidth = 4 },
++				{
++					.name = "ACV",
++					.fixed = true,
++					.perfmode = BIT(3),
++					.perfmode_bw = 16500000,
++				},
++				{ /* sentinel */ },
++			},
++		},
++		.preempt_record_size = 1536 * SZ_1K,
+ 	}, {
+ 		.chip_ids = ADRENO_CHIP_IDS(0x43050a01), /* "C510v2" */
+ 		.family = ADRENO_7XX_GEN2,
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 2e5d7b53a0c3..4a3c8dc8bb88 100644
+index 4a3c8dc8bb88..0e11d7d69f5b 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -1032,7 +1032,7 @@ static int a6xx_gmu_fw_start(struct a6xx_gmu *gmu, unsigned int state)
- 		gpu_write(gpu, gbif_cx[i].offset, gbif_cx[i].value);
+@@ -710,7 +710,8 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
+ 	gmu_write_rscc(gmu, REG_A6XX_RSCC_HIDDEN_TCS_CMD0_DATA + 2, 0);
+ 	gmu_write_rscc(gmu, REG_A6XX_RSCC_HIDDEN_TCS_CMD0_ADDR + 2, 0);
+ 	gmu_write_rscc(gmu, REG_A6XX_RSCC_HIDDEN_TCS_CMD0_DATA + 4,
+-		       adreno_is_a740_family(adreno_gpu) ? 0x80000021 : 0x80000000);
++		       (adreno_is_a740_family(adreno_gpu) ||
++			adreno_is_a722(adreno_gpu)) ? 0x80000021 : 0x80000000);
+ 	gmu_write_rscc(gmu, REG_A6XX_RSCC_HIDDEN_TCS_CMD0_ADDR + 4, 0);
+ 	gmu_write_rscc(gmu, REG_A6XX_RSCC_OVERRIDE_START_ADDR, 0);
+ 	gmu_write_rscc(gmu, REG_A6XX_RSCC_PDC_SEQ_START_ADDR, 0x4520);
+@@ -718,7 +719,7 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
+ 	gmu_write_rscc(gmu, REG_A6XX_RSCC_PDC_MATCH_VALUE_HI, 0x4514);
  
+ 	/* The second spin of A7xx GPUs messed with some register offsets.. */
+-	if (adreno_is_a740_family(adreno_gpu))
++	if (adreno_is_a740_family(adreno_gpu) || adreno_is_a722(adreno_gpu))
+ 		seqmem0_drv0_reg = REG_A7XX_RSCC_SEQ_MEM_0_DRV0_A740;
+ 
+ 	/* Load RSC sequencer uCode for sleep and wakeup */
+@@ -1034,7 +1035,9 @@ static int a6xx_gmu_fw_start(struct a6xx_gmu *gmu, unsigned int state)
  	if (adreno_is_a8xx(adreno_gpu)) {
--		gpu_write(gpu, REG_A8XX_GBIF_CX_CONFIG, 0x20023000);
-+		gpu_write(gpu, REG_A6XX_GBIF_CX_CONFIG, 0x20023000);
+ 		gpu_write(gpu, REG_A6XX_GBIF_CX_CONFIG, 0x20023000);
  		gmu_write(gmu, REG_A6XX_GMU_MRC_GBIF_QOS_CTRL, 0x33);
+-	}
++	} else if (adreno_is_a722(adreno_gpu))
++		gpu_rmw(gpu, REG_A6XX_GBIF_CX_CONFIG, GENMASK(31, 29),
++			FIELD_PREP(GENMASK(31, 29), 2));
+ 
+ 	/* Set up the lowest idle level on the GMU */
+ 	a6xx_gmu_power_config(gmu);
+@@ -1087,7 +1090,8 @@ static void a6xx_gmu_rpmh_off(struct a6xx_gmu *gmu)
+ 	u32 val, seqmem_off = 0;
+ 
+ 	/* The second spin of A7xx GPUs messed with some register offsets.. */
+-	if (adreno_is_a740_family(adreno_gpu) || adreno_is_a8xx(adreno_gpu))
++	if (adreno_is_a740_family(adreno_gpu) || adreno_is_a722(adreno_gpu) ||
++	    adreno_is_a8xx(adreno_gpu))
+ 		seqmem_off = 4;
+ 
+ 	/* Make sure there are no outstanding RPMh votes */
+@@ -1100,7 +1104,8 @@ static void a6xx_gmu_rpmh_off(struct a6xx_gmu *gmu)
+ 	gmu_poll_timeout_rscc(gmu, REG_A6XX_RSCC_TCS3_DRV0_STATUS + seqmem_off,
+ 		val, (val & 1), 100, 1000);
+ 
+-	if (!adreno_is_a740_family(adreno_gpu) && !adreno_is_a8xx(adreno_gpu))
++	if (!adreno_is_a740_family(adreno_gpu) && !adreno_is_a722(adreno_gpu) &&
++	    !adreno_is_a8xx(adreno_gpu))
+ 		return;
+ 
+ 	gmu_poll_timeout_rscc(gmu, REG_A7XX_RSCC_TCS4_DRV0_STATUS + seqmem_off,
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 8b3bb2fd433b..2228dd683982 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1273,7 +1273,8 @@ static int hw_init(struct msm_gpu *gpu)
+ 	if (!(adreno_is_a650_family(adreno_gpu) ||
+ 	      adreno_is_a702(adreno_gpu) ||
+ 	      adreno_is_a730(adreno_gpu))) {
+-		gmem_range_min = adreno_is_a740_family(adreno_gpu) ? SZ_16M : SZ_1M;
++		gmem_range_min = (adreno_is_a740_family(adreno_gpu) ||
++				  adreno_is_a722(adreno_gpu)) ? SZ_16M : SZ_1M;
+ 
+ 		/* Set the GMEM VA range [0x100000:0x100000 + gpu->gmem - 1] */
+ 		gpu_write64(gpu, REG_A6XX_UCHE_GMEM_RANGE_MIN, gmem_range_min);
+@@ -1338,6 +1339,7 @@ static int hw_init(struct msm_gpu *gpu)
+ 
+ 	/* Enable fault detection */
+ 	if (adreno_is_a612(adreno_gpu) ||
++	    adreno_is_a722(adreno_gpu) ||
+ 	    adreno_is_a730(adreno_gpu) ||
+ 	    adreno_is_a740_family(adreno_gpu))
+ 		gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0xcfffff);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+index 166365359fa6..37a0c8cc4e60 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+@@ -11,12 +11,14 @@
+ static const unsigned int *gen7_0_0_external_core_regs[] __always_unused;
+ static const unsigned int *gen7_2_0_external_core_regs[] __always_unused;
+ static const unsigned int *gen7_9_0_external_core_regs[] __always_unused;
++static const unsigned int *gen7_17_0_external_core_regs[] __always_unused;
+ static const struct gen7_sptp_cluster_registers gen7_9_0_sptp_clusters[] __always_unused;
+ static const u32 gen7_9_0_cx_debugbus_blocks[] __always_unused;
+ 
+ #include "adreno_gen7_0_0_snapshot.h"
+ #include "adreno_gen7_2_0_snapshot.h"
+ #include "adreno_gen7_9_0_snapshot.h"
++#include "adreno_gen7_17_0_snapshot.h"
+ 
+ struct a6xx_gpu_state_obj {
+ 	const void *handle;
+@@ -404,8 +406,13 @@ static void a7xx_get_debugbus_blocks(struct msm_gpu *gpu,
+ 	int i;
+ 
+ 	if (adreno_gpu->info->family == ADRENO_7XX_GEN1) {
+-		debugbus_blocks = gen7_0_0_debugbus_blocks;
+-		debugbus_blocks_count = ARRAY_SIZE(gen7_0_0_debugbus_blocks);
++		if (adreno_is_a722(adreno_gpu)) {
++			debugbus_blocks = gen7_17_0_debugbus_blocks;
++			debugbus_blocks_count = ARRAY_SIZE(gen7_17_0_debugbus_blocks);
++		} else {
++			debugbus_blocks = gen7_0_0_debugbus_blocks;
++			debugbus_blocks_count = ARRAY_SIZE(gen7_0_0_debugbus_blocks);
++		}
+ 		gbif_debugbus_blocks = a7xx_gbif_debugbus_blocks;
+ 		gbif_debugbus_blocks_count = ARRAY_SIZE(a7xx_gbif_debugbus_blocks);
+ 	} else if (adreno_gpu->info->family == ADRENO_7XX_GEN2) {
+@@ -678,8 +685,13 @@ static void a7xx_get_dbgahb_clusters(struct msm_gpu *gpu,
+ 	unsigned dbgahb_clusters_size;
+ 
+ 	if (adreno_gpu->info->family == ADRENO_7XX_GEN1) {
+-		dbgahb_clusters = gen7_0_0_sptp_clusters;
+-		dbgahb_clusters_size = ARRAY_SIZE(gen7_0_0_sptp_clusters);
++		if (adreno_is_a722(adreno_gpu)) {
++			dbgahb_clusters = gen7_17_0_sptp_clusters;
++			dbgahb_clusters_size = ARRAY_SIZE(gen7_17_0_sptp_clusters);
++		} else {
++			dbgahb_clusters = gen7_0_0_sptp_clusters;
++			dbgahb_clusters_size = ARRAY_SIZE(gen7_0_0_sptp_clusters);
++		}
+ 	} else if (adreno_gpu->info->family == ADRENO_7XX_GEN2) {
+ 		dbgahb_clusters = gen7_2_0_sptp_clusters;
+ 		dbgahb_clusters_size = ARRAY_SIZE(gen7_2_0_sptp_clusters);
+@@ -839,8 +851,13 @@ static void a7xx_get_clusters(struct msm_gpu *gpu,
+ 	unsigned clusters_size;
+ 
+ 	if (adreno_gpu->info->family == ADRENO_7XX_GEN1) {
+-		clusters = gen7_0_0_clusters;
+-		clusters_size = ARRAY_SIZE(gen7_0_0_clusters);
++		if (adreno_is_a722(adreno_gpu)) {
++			clusters = gen7_17_0_clusters;
++			clusters_size = ARRAY_SIZE(gen7_17_0_clusters);
++		} else {
++			clusters = gen7_0_0_clusters;
++			clusters_size = ARRAY_SIZE(gen7_0_0_clusters);
++		}
+ 	} else if (adreno_gpu->info->family == ADRENO_7XX_GEN2) {
+ 		clusters = gen7_2_0_clusters;
+ 		clusters_size = ARRAY_SIZE(gen7_2_0_clusters);
+@@ -977,8 +994,13 @@ static void a7xx_get_shaders(struct msm_gpu *gpu,
+ 	int i;
+ 
+ 	if (adreno_gpu->info->family == ADRENO_7XX_GEN1) {
+-		shader_blocks = gen7_0_0_shader_blocks;
+-		num_shader_blocks = ARRAY_SIZE(gen7_0_0_shader_blocks);
++		if (adreno_is_a722(adreno_gpu)) {
++			shader_blocks = gen7_17_0_shader_blocks;
++			num_shader_blocks = ARRAY_SIZE(gen7_17_0_shader_blocks);
++		} else {
++			shader_blocks = gen7_0_0_shader_blocks;
++			num_shader_blocks = ARRAY_SIZE(gen7_0_0_shader_blocks);
++		}
+ 	} else if (adreno_gpu->info->family == ADRENO_7XX_GEN2) {
+ 		shader_blocks = gen7_2_0_shader_blocks;
+ 		num_shader_blocks = ARRAY_SIZE(gen7_2_0_shader_blocks);
+@@ -1376,8 +1398,13 @@ static void a7xx_get_registers(struct msm_gpu *gpu,
+ 	const struct gen7_reg_list *reglist;
+ 
+ 	if (adreno_gpu->info->family == ADRENO_7XX_GEN1) {
+-		reglist = gen7_0_0_reg_list;
+-		pre_crashdumper_regs = gen7_0_0_pre_crashdumper_gpu_registers;
++		if (adreno_is_a722(adreno_gpu)) {
++			reglist = gen7_17_0_reg_list;
++			pre_crashdumper_regs = gen7_9_0_pre_crashdumper_gpu_registers;
++		} else {
++			reglist = gen7_0_0_reg_list;
++			pre_crashdumper_regs = gen7_0_0_pre_crashdumper_gpu_registers;
++		}
+ 	} else if (adreno_gpu->info->family == ADRENO_7XX_GEN2) {
+ 		reglist = gen7_2_0_reg_list;
+ 		pre_crashdumper_regs = gen7_0_0_pre_crashdumper_gpu_registers;
+@@ -1433,7 +1460,9 @@ static void a7xx_get_post_crashdumper_registers(struct msm_gpu *gpu,
+ 	const u32 *regs;
+ 
+ 	BUG_ON(adreno_gpu->info->family > ADRENO_7XX_GEN3);
+-	regs = gen7_0_0_post_crashdumper_registers;
++	regs = adreno_is_a722(adreno_gpu) ?
++		gen7_17_0_post_crashdumper_registers :
++		gen7_0_0_post_crashdumper_registers;
+ 
+ 	a7xx_get_ahb_gpu_registers(gpu,
+ 		a6xx_state, regs,
+@@ -1540,19 +1569,35 @@ static void a7xx_get_indexed_registers(struct msm_gpu *gpu,
+ {
+ 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+ 	const struct a6xx_indexed_registers *indexed_regs;
++	const struct a6xx_indexed_registers *mempool_regs;
+ 	int i, indexed_count, mempool_count;
++	bool concurrent_binning;
+ 
+-	if (adreno_gpu->info->family <= ADRENO_7XX_GEN2) {
++	if (adreno_is_a722(adreno_gpu)) {
++		/*
++		 * Eliza has no BV or LPAC SQE — skip the BV/LPAC indexed
++		 * registers and the BV mempool
++		 */
++		indexed_regs = gen7_17_0_cp_indexed_reglist;
++		indexed_count = ARRAY_SIZE(gen7_17_0_cp_indexed_reglist);
++		mempool_regs = a7xx_cp_mempool_indexed;
++		mempool_count = ARRAY_SIZE(a7xx_cp_mempool_indexed);
++		concurrent_binning = false;
++	} else if (adreno_gpu->info->family <= ADRENO_7XX_GEN2) {
+ 		indexed_regs = a7xx_indexed_reglist;
+ 		indexed_count = ARRAY_SIZE(a7xx_indexed_reglist);
++		mempool_regs = a7xx_cp_bv_mempool_indexed;
++		mempool_count = ARRAY_SIZE(a7xx_cp_bv_mempool_indexed);
++		concurrent_binning = true;
+ 	} else {
+ 		BUG_ON(adreno_gpu->info->family != ADRENO_7XX_GEN3);
+ 		indexed_regs = gen7_9_0_cp_indexed_reg_list;
+ 		indexed_count = ARRAY_SIZE(gen7_9_0_cp_indexed_reg_list);
++		mempool_regs = a7xx_cp_bv_mempool_indexed;
++		mempool_count = ARRAY_SIZE(a7xx_cp_bv_mempool_indexed);
++		concurrent_binning = true;
  	}
  
-diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-index 9e44fd1ae634..6a75bfb6cec1 100644
---- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-@@ -228,7 +228,7 @@ static void a8xx_set_hwcg(struct msm_gpu *gpu, bool state)
- 		 * GMU enables clk gating in GBIF during boot up. So,
- 		 * override that here when hwcg feature is disabled
- 		 */
--		gpu_rmw(gpu, REG_A8XX_GBIF_CX_CONFIG, BIT(0), 0);
-+		gpu_rmw(gpu, REG_A6XX_GBIF_CX_CONFIG, BIT(0), 0);
- 	}
+-	mempool_count = ARRAY_SIZE(a7xx_cp_bv_mempool_indexed);
+-
+ 	a6xx_state->indexed_regs = state_kcalloc(a6xx_state,
+ 					indexed_count + mempool_count,
+ 					sizeof(*a6xx_state->indexed_regs));
+@@ -1567,15 +1612,17 @@ static void a7xx_get_indexed_registers(struct msm_gpu *gpu,
+ 			&a6xx_state->indexed_regs[i]);
+ 
+ 	gpu_rmw(gpu, REG_A6XX_CP_CHICKEN_DBG, 0, BIT(2));
+-	gpu_rmw(gpu, REG_A7XX_CP_BV_CHICKEN_DBG, 0, BIT(2));
++	if (concurrent_binning)
++		gpu_rmw(gpu, REG_A7XX_CP_BV_CHICKEN_DBG, 0, BIT(2));
+ 
+ 	/* Get the contents of the CP_BV mempool */
+ 	for (i = 0; i < mempool_count; i++)
+-		a6xx_get_indexed_regs(gpu, a6xx_state, &a7xx_cp_bv_mempool_indexed[i],
++		a6xx_get_indexed_regs(gpu, a6xx_state, &mempool_regs[i],
+ 			&a6xx_state->indexed_regs[indexed_count + i]);
+ 
+ 	gpu_rmw(gpu, REG_A6XX_CP_CHICKEN_DBG, BIT(2), 0);
+-	gpu_rmw(gpu, REG_A7XX_CP_BV_CHICKEN_DBG, BIT(2), 0);
++	if (concurrent_binning)
++		gpu_rmw(gpu, REG_A7XX_CP_BV_CHICKEN_DBG, BIT(2), 0);
+ 	return;
  }
  
-diff --git a/drivers/gpu/drm/msm/registers/adreno/a6xx.xml b/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
-index 3349c01646e1..69dd0446f8d2 100644
---- a/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
-+++ b/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
-@@ -1268,7 +1268,7 @@ by a particular renderpass/blit.
- 	<reg32 offset="0x3119" name="VBIF_PERF_PWR_CNT_HIGH1" variants="A6XX"/>
- 	<reg32 offset="0x311a" name="VBIF_PERF_PWR_CNT_HIGH2" variants="A6XX"/>
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
+index b49d8427b59e..f4e912ecd50a 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
+@@ -462,6 +462,11 @@ static const struct a6xx_indexed_registers a7xx_cp_bv_mempool_indexed[] = {
+ 		REG_A7XX_CP_BV_MEM_POOL_DBG_DATA, 0x2200, NULL },
+ };
  
--	<reg32 offset="0x3c00" name="GBIF_CX_CONFIG" variants="A8XX-"/>
-+	<reg32 offset="0x3c00" name="GBIF_CX_CONFIG" variants="A6XX-"/>
- 	<reg32 offset="0x3c01" name="GBIF_SCACHE_CNTL0"/>
- 	<reg32 offset="0x3c02" name="GBIF_SCACHE_CNTL1"/>
- 	<reg32 offset="0x3c03" name="GBIF_QSB_SIDE0"/>
++static const struct a6xx_indexed_registers a7xx_cp_mempool_indexed[] = {
++	{ "CP_MEM_POOL_DBG", REG_A6XX_CP_MEM_POOL_DBG_ADDR,
++		REG_A6XX_CP_MEM_POOL_DBG_DATA, 0x2200, NULL },
++};
++
+ #define DEBUGBUS(_id, _count) { .id = _id, .name = #_id, .count = _count }
+ 
+ static const struct a6xx_debugbus_block {
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gen7_17_0_snapshot.h b/drivers/gpu/drm/msm/adreno/adreno_gen7_17_0_snapshot.h
+new file mode 100644
+index 000000000000..00a4a0fc97d2
+--- /dev/null
++++ b/drivers/gpu/drm/msm/adreno/adreno_gen7_17_0_snapshot.h
+@@ -0,0 +1,428 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) Qualcomm Innovation Center, Inc. All rights reserved.
++ */
++#ifndef __ADRENO_GEN7_17_0_SNAPSHOT_H
++#define __ADRENO_GEN7_17_0_SNAPSHOT_H
++
++#include "a6xx_gpu_state.h"
++
++/*
++ * Snapshot tables for Adreno A722 (Eliza).
++ * Cluster sub-arrays that are identical to A730 reference gen7_0_0_*
++ * symbols; adreno_gen7_0_0_snapshot.h is included first in the TU.
++ */
++
++static const u32 gen7_17_0_rscc_registers[] = {
++	0x14000, 0x14034, 0x14036, 0x14036, 0x14040, 0x14042, 0x14044, 0x14045,
++	0x14047, 0x14047, 0x14080, 0x14084, 0x14089, 0x1408c, 0x14091, 0x14094,
++	0x14099, 0x1409c, 0x140a1, 0x140a4, 0x140a9, 0x140ac, 0x140b1, 0x140b4,
++	0x140b9, 0x140bc, 0x14100, 0x14104, 0x14114, 0x14119, 0x14124, 0x14132,
++	0x14154, 0x1416b, 0x14340, 0x14341, 0x14344, 0x14344, 0x14346, 0x1437c,
++	0x143f0, 0x143f8, 0x143fa, 0x143fe, 0x14400, 0x14404, 0x14406, 0x1440a,
++	0x1440c, 0x14410, 0x14412, 0x14416, 0x14418, 0x1441c, 0x1441e, 0x14422,
++	0x14424, 0x14424, 0x14498, 0x144a0, 0x144a2, 0x144a6, 0x144a8, 0x144ac,
++	0x144ae, 0x144b2, 0x144b4, 0x144b8, 0x144ba, 0x144be, 0x144c0, 0x144c4,
++	0x144c6, 0x144ca, 0x144cc, 0x144cc, 0x14540, 0x14548, 0x1454a, 0x1454e,
++	0x14550, 0x14554, 0x14556, 0x1455a, 0x1455c, 0x14560, 0x14562, 0x14566,
++	0x14568, 0x1456c, 0x1456e, 0x14572, 0x14574, 0x14574, 0x145e8, 0x145f0,
++	0x145f2, 0x145f6, 0x145f8, 0x145fc, 0x145fe, 0x14602, 0x14604, 0x14608,
++	0x1460a, 0x1460e, 0x14610, 0x14614, 0x14616, 0x1461a, 0x1461c, 0x1461c,
++	0x14690, 0x14698, 0x1469a, 0x1469e, 0x146a0, 0x146a4, 0x146a6, 0x146aa,
++	0x146ac, 0x146b0, 0x146b2, 0x146b6, 0x146b8, 0x146bc, 0x146be, 0x146c2,
++	0x146c4, 0x146c4, 0x14738, 0x14740, 0x14742, 0x14746, 0x14748, 0x1474c,
++	0x1474e, 0x14752, 0x14754, 0x14758, 0x1475a, 0x1475e, 0x14760, 0x14764,
++	0x14766, 0x1476a, 0x1476c, 0x1476c, 0x147e0, 0x147e8, 0x147ea, 0x147ee,
++	0x147f0, 0x147f4, 0x147f6, 0x147fa, 0x147fc, 0x14800, 0x14802, 0x14806,
++	0x14808, 0x1480c, 0x1480e, 0x14812, 0x14814, 0x14814, 0x14888, 0x14890,
++	0x14892, 0x14896, 0x14898, 0x1489c, 0x1489e, 0x148a2, 0x148a4, 0x148a8,
++	0x148aa, 0x148ae, 0x148b0, 0x148b4, 0x148b6, 0x148ba, 0x148bc, 0x148bc,
++	0x14930, 0x14938, 0x1493a, 0x1493e, 0x14940, 0x14944, 0x14946, 0x1494a,
++	0x1494c, 0x14950, 0x14952, 0x14956, 0x14958, 0x1495c, 0x1495e, 0x14962,
++	0x14964, 0x14964,
++	UINT_MAX, UINT_MAX,
++};
++static_assert(IS_ALIGNED(sizeof(gen7_17_0_rscc_registers), 8));
++
++static const u32 gen7_17_0_cpr_registers[] = {
++	0x26800, 0x26805, 0x26808, 0x2680c, 0x26814, 0x26814, 0x2681c, 0x2681c,
++	0x26820, 0x26838, 0x26840, 0x26840, 0x26848, 0x26848, 0x26850, 0x26850,
++	0x26880, 0x2688e, 0x26980, 0x269b0, 0x269c0, 0x269c2, 0x269c6, 0x269c8,
++	0x269e0, 0x269ee, 0x269fb, 0x269ff, 0x26a02, 0x26a07, 0x26a09, 0x26a0b,
++	0x26a10, 0x26b0f, 0x27440, 0x27441, 0x27444, 0x27444, 0x27480, 0x274a2,
++	0x274ac, 0x274c4, 0x274c8, 0x274da,
++	UINT_MAX, UINT_MAX,
++};
++static_assert(IS_ALIGNED(sizeof(gen7_17_0_cpr_registers), 8));
++
++static const u32 gen7_17_0_gpucc_registers[] = {
++	0x24000, 0x2400f, 0x24400, 0x2440f, 0x24800, 0x24805, 0x24c00, 0x24cff,
++	0x25400, 0x25404, 0x25800, 0x25804, 0x25c00, 0x25c04, 0x26000, 0x26004,
++	0x26400, 0x26405, 0x26414, 0x2641d, 0x2642a, 0x2642c, 0x2642e, 0x26432,
++	0x26434, 0x26434, 0x26443, 0x26457, 0x26459, 0x2645d, 0x2645f, 0x26464,
++	0x26477, 0x26479, 0x26489, 0x2648b, 0x2649a, 0x2649b, 0x264ad, 0x264af,
++	0x264b1, 0x264b5, 0x264d6, 0x264d8, 0x264e7, 0x264e9, 0x264f9, 0x264fa,
++	0x2650a, 0x2650d, 0x2651f, 0x26520, 0x2652d, 0x2652f, 0x2653e, 0x2653e,
++	0x26540, 0x2654e, 0x26554, 0x26573, 0x26576, 0x26576, 0x26593, 0x26593,
++	0x26600, 0x26616, 0x26620, 0x2662d, 0x26630, 0x26631, 0x26635, 0x26635,
++	0x26637, 0x26637, 0x2663a, 0x2663a, 0x26642, 0x26642, 0x26656, 0x26658,
++	0x2665b, 0x2665d, 0x2665f, 0x26662,
++	UINT_MAX, UINT_MAX,
++};
++static_assert(IS_ALIGNED(sizeof(gen7_17_0_gpucc_registers), 8));
++
++static const u32 *gen7_17_0_external_core_regs[] = {
++	gen7_17_0_gpucc_registers,
++	gen7_17_0_cpr_registers,
++};
++
++static const u32 gen7_17_0_debugbus_blocks[] = {
++	A7XX_DBGBUS_CP_0_0,
++	A7XX_DBGBUS_CP_0_1,
++	A7XX_DBGBUS_RBBM,
++	A7XX_DBGBUS_HLSQ,
++	A7XX_DBGBUS_UCHE_0,
++	A7XX_DBGBUS_TESS_BR,
++	A7XX_DBGBUS_PC_BR,
++	A7XX_DBGBUS_VFDP_BR,
++	A7XX_DBGBUS_VPC_BR,
++	A7XX_DBGBUS_TSE_BR,
++	A7XX_DBGBUS_RAS_BR,
++	A7XX_DBGBUS_VSC,
++	A7XX_DBGBUS_COM_0,
++	A7XX_DBGBUS_LRZ_BR,
++	A7XX_DBGBUS_UFC_0,
++	A7XX_DBGBUS_UFC_1,
++	A7XX_DBGBUS_GMU_GX,
++	A7XX_DBGBUS_DBGC,
++	A7XX_DBGBUS_GPC_BR,
++	A7XX_DBGBUS_LARC,
++	A7XX_DBGBUS_HLSQ_SPTP,
++	A7XX_DBGBUS_RB_0,
++	A7XX_DBGBUS_RB_1,
++	A7XX_DBGBUS_UCHE_WRAPPER,
++	A7XX_DBGBUS_CCU_0,
++	A7XX_DBGBUS_CCU_1,
++	A7XX_DBGBUS_VFD_BR_0,
++	A7XX_DBGBUS_VFD_BR_1,
++	A7XX_DBGBUS_VFD_BR_2,
++	A7XX_DBGBUS_VFD_BR_3,
++	A7XX_DBGBUS_USP_0,
++	A7XX_DBGBUS_USP_1,
++	A7XX_DBGBUS_TP_0,
++	A7XX_DBGBUS_TP_1,
++	A7XX_DBGBUS_TP_2,
++	A7XX_DBGBUS_TP_3,
++	A7XX_DBGBUS_USPTP_0,
++	A7XX_DBGBUS_USPTP_1,
++	A7XX_DBGBUS_USPTP_2,
++	A7XX_DBGBUS_USPTP_3,
++};
++
++static const struct gen7_sel_reg gen7_17_0_rb_rac_sel = {
++	.host_reg = REG_A6XX_RB_SUB_BLOCK_SEL_CNTL_HOST,
++	.cd_reg = REG_A6XX_RB_SUB_BLOCK_SEL_CNTL_CD,
++	.val = 0x0,
++};
++
++static const struct gen7_sel_reg gen7_17_0_rb_rbp_sel = {
++	.host_reg = REG_A6XX_RB_SUB_BLOCK_SEL_CNTL_HOST,
++	.cd_reg = REG_A6XX_RB_SUB_BLOCK_SEL_CNTL_CD,
++	.val = 0x9,
++};
++
++static const u32 gen7_17_0_post_crashdumper_registers[] = {
++	0x00535, 0x00535,
++	UINT_MAX, UINT_MAX,
++};
++static_assert(IS_ALIGNED(sizeof(gen7_17_0_post_crashdumper_registers), 8));
++
++static const u32 gen7_17_0_gpu_registers[] = {
++	0x00000, 0x00000, 0x00002, 0x00002, 0x00011, 0x00012, 0x00016, 0x0001b,
++	0x0001f, 0x00032, 0x00038, 0x0003c, 0x00042, 0x00042, 0x00044, 0x00044,
++	0x00047, 0x00047, 0x00049, 0x0004a, 0x0004c, 0x0004c, 0x00050, 0x00050,
++	0x00056, 0x00056, 0x00073, 0x00075, 0x000ad, 0x000ae, 0x000b0, 0x000b0,
++	0x000b4, 0x000b4, 0x000b8, 0x000b8, 0x000bc, 0x000bc, 0x000c0, 0x000c0,
++	0x000c4, 0x000c4, 0x000c8, 0x000c8, 0x000cc, 0x000cc, 0x000d0, 0x000d0,
++	0x000d4, 0x000d4, 0x000d8, 0x000d8, 0x000dc, 0x000dc, 0x000e0, 0x000e0,
++	0x000e4, 0x000e4, 0x000e8, 0x000e8, 0x000ec, 0x000ec, 0x000f0, 0x000f0,
++	0x000f4, 0x000f4, 0x000f8, 0x000f8, 0x00100, 0x00100, 0x00104, 0x0010b,
++	0x0010f, 0x0011d, 0x0012f, 0x0012f, 0x00200, 0x0020d, 0x00215, 0x00243,
++	0x00260, 0x00268, 0x00272, 0x00274, 0x00286, 0x00286, 0x0028a, 0x0028a,
++	0x0028c, 0x0028c, 0x00300, 0x00401, 0x00500, 0x00500, 0x00507, 0x0050b,
++	0x0050f, 0x0050f, 0x00511, 0x00511, 0x00533, 0x00534, 0x00540, 0x00555,
++	0x00564, 0x00567, 0x00800, 0x00808, 0x00810, 0x00813, 0x00820, 0x00821,
++	0x00823, 0x00827, 0x00830, 0x00834, 0x00840, 0x00841, 0x00843, 0x00847,
++	0x0084f, 0x00886, 0x008a0, 0x008ab, 0x008c0, 0x008c0, 0x008c4, 0x008c5,
++	0x008d0, 0x008dd, 0x008f0, 0x008f3, 0x00900, 0x00903, 0x00908, 0x00911,
++	0x00928, 0x0093e, 0x00942, 0x0094d, 0x00980, 0x00984, 0x0098d, 0x0098f,
++	0x009b0, 0x009b4, 0x009c2, 0x009c9, 0x009ce, 0x009d7, 0x00a00, 0x00a00,
++	0x00a02, 0x00a03, 0x00a10, 0x00a4f, 0x00a67, 0x00a6c, 0x00a9c, 0x00a9f,
++	0x00c00, 0x00c00, 0x00c02, 0x00c04, 0x00c06, 0x00c06, 0x00c10, 0x00cd9,
++	0x00ce0, 0x00d0c, 0x00df0, 0x00df4, 0x00e01, 0x00e02, 0x00e07, 0x00e0e,
++	0x00e10, 0x00e12, 0x00e17, 0x00e17, 0x00e19, 0x00e19, 0x00e1b, 0x00e2b,
++	0x00e30, 0x00e32, 0x00e38, 0x00e3c,
++	UINT_MAX, UINT_MAX,
++};
++static_assert(IS_ALIGNED(sizeof(gen7_17_0_gpu_registers), 8));
++
++static const u32 gen7_17_0_dbgc_registers[] = {
++	0x00600, 0x0061c, 0x0061e, 0x00634, 0x00640, 0x0065a, 0x00679, 0x0067a,
++	0x00699, 0x00699, 0x0069b, 0x0069e, 0x18400, 0x1841c, 0x1841e, 0x18434,
++	0x18440, 0x1845c, 0x18479, 0x1847c, 0x18580, 0x18581,
++	UINT_MAX, UINT_MAX,
++};
++static_assert(IS_ALIGNED(sizeof(gen7_17_0_dbgc_registers), 8));
++
++static const u32 gen7_17_0_noncontext_pipe_br_registers[] = {
++	0x00887, 0x0088c, 0x08600, 0x08600, 0x08602, 0x08602, 0x08610, 0x0861b,
++	0x08620, 0x08620, 0x08630, 0x08630, 0x08637, 0x08639, 0x08640, 0x08640,
++	0x09600, 0x09600, 0x09602, 0x09603, 0x0960a, 0x09616, 0x09624, 0x0963a,
++	0x09640, 0x09640, 0x09e00, 0x09e00, 0x09e02, 0x09e07, 0x09e0a, 0x09e16,
++	0x09e19, 0x09e19, 0x09e1c, 0x09e1c, 0x09e20, 0x09e25, 0x09e30, 0x09e31,
++	0x09e40, 0x09e51, 0x09e64, 0x09e64, 0x09e70, 0x09e72, 0x09e78, 0x09e79,
++	0x09e80, 0x09fff, 0x0a600, 0x0a600, 0x0a603, 0x0a603, 0x0a610, 0x0a61f,
++	0x0a630, 0x0a631, 0x0a638, 0x0a638,
++	UINT_MAX, UINT_MAX,
++};
++static_assert(IS_ALIGNED(sizeof(gen7_17_0_noncontext_pipe_br_registers), 8));
++
++static const u32 gen7_17_0_noncontext_rb_rac_pipe_br_registers[] = {
++	0x08e10, 0x08e1c, 0x08e20, 0x08e25, 0x08e51, 0x08e54,
++	UINT_MAX, UINT_MAX,
++};
++static_assert(IS_ALIGNED(sizeof(gen7_17_0_noncontext_rb_rac_pipe_br_registers), 8));
++
++static const u32 gen7_17_0_noncontext_rb_rbp_pipe_br_registers[] = {
++	0x08e01, 0x08e01, 0x08e04, 0x08e04, 0x08e06, 0x08e09, 0x08e0c, 0x08e0c,
++	0x08e28, 0x08e28, 0x08e2c, 0x08e35, 0x08e3b, 0x08e3f, 0x08e50, 0x08e50,
++	0x08e5b, 0x08e5d, 0x08e5f, 0x08e5f, 0x08e61, 0x08e61, 0x08e63, 0x08e65,
++	0x08e68, 0x08e68, 0x08e70, 0x08e79, 0x08e80, 0x08e8f,
++	UINT_MAX, UINT_MAX,
++};
++static_assert(IS_ALIGNED(sizeof(gen7_17_0_noncontext_rb_rbp_pipe_br_registers), 8));
++
++static const u32 gen7_17_0_pc_cluster_fe_pipe_br_registers[] = {
++	0x09800, 0x09804, 0x09806, 0x0980a, 0x09810, 0x09811, 0x09884, 0x09886,
++	0x09970, 0x09972, 0x09b00, 0x09b08,
++	UINT_MAX, UINT_MAX,
++};
++static_assert(IS_ALIGNED(sizeof(gen7_17_0_pc_cluster_fe_pipe_br_registers), 8));
++
++static const u32 gen7_17_0_sp_cluster_sp_ps_pipe_lpac_hlsq_state_registers[] = {
++	0x0aa40, 0x0aabf,
++	UINT_MAX, UINT_MAX,
++};
++static_assert(IS_ALIGNED(sizeof(gen7_17_0_sp_cluster_sp_ps_pipe_lpac_hlsq_state_registers), 8));
++
++static const u32 gen7_17_0_sp_cluster_sp_ps_pipe_lpac_usptp_registers[] = {
++	0x0aa40, 0x0aabf,
++	UINT_MAX, UINT_MAX,
++};
++static_assert(IS_ALIGNED(sizeof(gen7_17_0_sp_cluster_sp_ps_pipe_lpac_usptp_registers), 8));
++
++static const u32 gen7_17_0_non_context_tpl1_pipe_none_usptp_registers[] = {
++	0x0b602, 0x0b602, 0x0b604, 0x0b604, 0x0b608, 0x0b60c, 0x0b60f, 0x0b621,
++	0x0b630, 0x0b633,
++	UINT_MAX, UINT_MAX,
++};
++static_assert(IS_ALIGNED(sizeof(gen7_17_0_non_context_tpl1_pipe_none_usptp_registers), 8));
++
++static const u32 gen7_17_0_non_context_tpl1_pipe_br_usptp_registers[] = {
++	0x0b600, 0x0b600,
++	UINT_MAX, UINT_MAX,
++};
++static_assert(IS_ALIGNED(sizeof(gen7_17_0_non_context_tpl1_pipe_br_usptp_registers), 8));
++
++static const u32 gen7_17_0_tpl1_cluster_sp_vs_pipe_br_usptp_registers[] = {
++	0x0b300, 0x0b307, 0x0b309, 0x0b309, 0x0b310, 0x0b310,
++	UINT_MAX, UINT_MAX,
++};
++static_assert(IS_ALIGNED(sizeof(gen7_17_0_tpl1_cluster_sp_vs_pipe_br_usptp_registers), 8));
++
++static const u32 gen7_17_0_tpl1_cluster_sp_ps_pipe_br_usptp_registers[] = {
++	0x0b180, 0x0b183, 0x0b190, 0x0b195, 0x0b2c0, 0x0b2d5, 0x0b300, 0x0b307,
++	0x0b309, 0x0b309, 0x0b310, 0x0b310,
++	UINT_MAX, UINT_MAX,
++};
++static_assert(IS_ALIGNED(sizeof(gen7_17_0_tpl1_cluster_sp_ps_pipe_br_usptp_registers), 8));
++
++/* No BV pipe — gen7_0_0_* sub-arrays are shared from adreno_gen7_0_0_snapshot.h */
++static struct gen7_cluster_registers gen7_17_0_clusters[] = {
++	{ A7XX_CLUSTER_NONE, PIPE_BR, STATE_NON_CONTEXT,
++		gen7_17_0_noncontext_pipe_br_registers, },
++	{ A7XX_CLUSTER_NONE, PIPE_BR, STATE_NON_CONTEXT,
++		gen7_17_0_noncontext_rb_rac_pipe_br_registers, &gen7_17_0_rb_rac_sel, },
++	{ A7XX_CLUSTER_NONE, PIPE_BR, STATE_NON_CONTEXT,
++		gen7_17_0_noncontext_rb_rbp_pipe_br_registers, &gen7_17_0_rb_rbp_sel, },
++	{ A7XX_CLUSTER_PS, PIPE_BR, STATE_FORCE_CTXT_0,
++		gen7_0_0_rb_rac_cluster_ps_pipe_br_registers, &gen7_17_0_rb_rac_sel, },
++	{ A7XX_CLUSTER_PS, PIPE_BR, STATE_FORCE_CTXT_1,
++		gen7_0_0_rb_rac_cluster_ps_pipe_br_registers, &gen7_17_0_rb_rac_sel, },
++	{ A7XX_CLUSTER_PS, PIPE_BR, STATE_FORCE_CTXT_0,
++		gen7_0_0_rb_rbp_cluster_ps_pipe_br_registers, &gen7_17_0_rb_rbp_sel, },
++	{ A7XX_CLUSTER_PS, PIPE_BR, STATE_FORCE_CTXT_1,
++		gen7_0_0_rb_rbp_cluster_ps_pipe_br_registers, &gen7_17_0_rb_rbp_sel, },
++	{ A7XX_CLUSTER_GRAS, PIPE_BR, STATE_FORCE_CTXT_0,
++		gen7_0_0_gras_cluster_gras_pipe_br_registers, },
++	{ A7XX_CLUSTER_GRAS, PIPE_BR, STATE_FORCE_CTXT_1,
++		gen7_0_0_gras_cluster_gras_pipe_br_registers, },
++	{ A7XX_CLUSTER_FE, PIPE_BR, STATE_FORCE_CTXT_0,
++		gen7_17_0_pc_cluster_fe_pipe_br_registers, },
++	{ A7XX_CLUSTER_FE, PIPE_BR, STATE_FORCE_CTXT_1,
++		gen7_17_0_pc_cluster_fe_pipe_br_registers, },
++	{ A7XX_CLUSTER_FE, PIPE_BR, STATE_FORCE_CTXT_0,
++		gen7_0_0_vfd_cluster_fe_pipe_bv_registers, },
++	{ A7XX_CLUSTER_FE, PIPE_BR, STATE_FORCE_CTXT_1,
++		gen7_0_0_vfd_cluster_fe_pipe_bv_registers, },
++	{ A7XX_CLUSTER_FE, PIPE_BR, STATE_FORCE_CTXT_0,
++		gen7_0_0_vpc_cluster_fe_pipe_br_registers, },
++	{ A7XX_CLUSTER_FE, PIPE_BR, STATE_FORCE_CTXT_1,
++		gen7_0_0_vpc_cluster_fe_pipe_br_registers, },
++	{ A7XX_CLUSTER_PC_VS, PIPE_BR, STATE_FORCE_CTXT_0,
++		gen7_0_0_vpc_cluster_pc_vs_pipe_br_registers, },
++	{ A7XX_CLUSTER_PC_VS, PIPE_BR, STATE_FORCE_CTXT_1,
++		gen7_0_0_vpc_cluster_pc_vs_pipe_br_registers, },
++	{ A7XX_CLUSTER_VPC_PS, PIPE_BR, STATE_FORCE_CTXT_0,
++		gen7_0_0_vpc_cluster_vpc_ps_pipe_br_registers, },
++	{ A7XX_CLUSTER_VPC_PS, PIPE_BR, STATE_FORCE_CTXT_1,
++		gen7_0_0_vpc_cluster_vpc_ps_pipe_br_registers, },
++};
++
++/* No BV pipe; 2 SPs, 2 USPTPs */
++static struct gen7_sptp_cluster_registers gen7_17_0_sptp_clusters[] = {
++	{ A7XX_CLUSTER_NONE, A7XX_SP_NCTX_REG, PIPE_BR, 0, A7XX_HLSQ_STATE,
++		gen7_0_0_sp_noncontext_pipe_br_hlsq_state_registers, 0xae00 },
++	{ A7XX_CLUSTER_NONE, A7XX_SP_NCTX_REG, PIPE_BR, 0, A7XX_SP_TOP,
++		gen7_0_0_sp_noncontext_pipe_br_sp_top_registers, 0xae00 },
++	{ A7XX_CLUSTER_NONE, A7XX_SP_NCTX_REG, PIPE_BR, 0, A7XX_USPTP,
++		gen7_0_0_sp_noncontext_pipe_br_usptp_registers, 0xae00 },
++	{ A7XX_CLUSTER_SP_VS, A7XX_SP_CTX0_3D_CVS_REG, PIPE_BR, 0, A7XX_HLSQ_STATE,
++		gen7_0_0_sp_cluster_sp_vs_pipe_br_hlsq_state_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_VS, A7XX_SP_CTX0_3D_CVS_REG, PIPE_BR, 0, A7XX_SP_TOP,
++		gen7_0_0_sp_cluster_sp_vs_pipe_br_sp_top_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_VS, A7XX_SP_CTX0_3D_CVS_REG, PIPE_BR, 0, A7XX_USPTP,
++		gen7_0_0_sp_cluster_sp_vs_pipe_br_usptp_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_VS, A7XX_SP_CTX1_3D_CVS_REG, PIPE_BR, 1, A7XX_HLSQ_STATE,
++		gen7_0_0_sp_cluster_sp_vs_pipe_br_hlsq_state_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_VS, A7XX_SP_CTX1_3D_CVS_REG, PIPE_BR, 1, A7XX_SP_TOP,
++		gen7_0_0_sp_cluster_sp_vs_pipe_br_sp_top_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_VS, A7XX_SP_CTX1_3D_CVS_REG, PIPE_BR, 1, A7XX_USPTP,
++		gen7_0_0_sp_cluster_sp_vs_pipe_br_usptp_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_SP_CTX0_3D_CPS_REG, PIPE_BR, 0, A7XX_HLSQ_STATE,
++		gen7_0_0_sp_cluster_sp_ps_pipe_br_hlsq_state_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_SP_CTX0_3D_CPS_REG, PIPE_BR, 0, A7XX_HLSQ_DP,
++		gen7_0_0_sp_cluster_sp_ps_pipe_br_hlsq_dp_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_SP_CTX0_3D_CPS_REG, PIPE_BR, 0, A7XX_SP_TOP,
++		gen7_0_0_sp_cluster_sp_ps_pipe_br_sp_top_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_SP_CTX0_3D_CPS_REG, PIPE_BR, 0, A7XX_USPTP,
++		gen7_0_0_sp_cluster_sp_ps_pipe_br_usptp_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_SP_CTX0_3D_CPS_REG, PIPE_LPAC, 0, A7XX_HLSQ_STATE,
++		gen7_17_0_sp_cluster_sp_ps_pipe_lpac_hlsq_state_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_SP_CTX0_3D_CPS_REG, PIPE_LPAC, 0, A7XX_USPTP,
++		gen7_17_0_sp_cluster_sp_ps_pipe_lpac_usptp_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_SP_CTX1_3D_CPS_REG, PIPE_BR, 1, A7XX_HLSQ_STATE,
++		gen7_0_0_sp_cluster_sp_ps_pipe_br_hlsq_state_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_SP_CTX1_3D_CPS_REG, PIPE_BR, 1, A7XX_HLSQ_DP,
++		gen7_0_0_sp_cluster_sp_ps_pipe_br_hlsq_dp_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_SP_CTX1_3D_CPS_REG, PIPE_BR, 1, A7XX_SP_TOP,
++		gen7_0_0_sp_cluster_sp_ps_pipe_br_sp_top_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_SP_CTX1_3D_CPS_REG, PIPE_BR, 1, A7XX_USPTP,
++		gen7_0_0_sp_cluster_sp_ps_pipe_br_usptp_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_SP_CTX2_3D_CPS_REG, PIPE_BR, 2, A7XX_HLSQ_DP,
++		gen7_0_0_sp_cluster_sp_ps_pipe_br_hlsq_dp_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_SP_CTX2_3D_CPS_REG, PIPE_BR, 2, A7XX_SP_TOP,
++		gen7_0_0_sp_cluster_sp_ps_pipe_br_sp_top_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_SP_CTX2_3D_CPS_REG, PIPE_BR, 2, A7XX_USPTP,
++		gen7_0_0_sp_cluster_sp_ps_pipe_br_usptp_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_SP_CTX3_3D_CPS_REG, PIPE_BR, 3, A7XX_HLSQ_DP,
++		gen7_0_0_sp_cluster_sp_ps_pipe_br_hlsq_dp_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_SP_CTX3_3D_CPS_REG, PIPE_BR, 3, A7XX_SP_TOP,
++		gen7_0_0_sp_cluster_sp_ps_pipe_br_sp_top_registers, 0xa800 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_SP_CTX3_3D_CPS_REG, PIPE_BR, 3, A7XX_USPTP,
++		gen7_0_0_sp_cluster_sp_ps_pipe_br_usptp_registers, 0xa800 },
++	{ A7XX_CLUSTER_NONE, A7XX_TP0_NCTX_REG, PIPE_NONE, 0, A7XX_USPTP,
++		gen7_17_0_non_context_tpl1_pipe_none_usptp_registers, 0xb600 },
++	{ A7XX_CLUSTER_NONE, A7XX_TP0_NCTX_REG, PIPE_BR, 0, A7XX_USPTP,
++		gen7_17_0_non_context_tpl1_pipe_br_usptp_registers, 0xb600 },
++	{ A7XX_CLUSTER_SP_VS, A7XX_TP0_CTX0_3D_CVS_REG, PIPE_BR, 0, A7XX_USPTP,
++		gen7_17_0_tpl1_cluster_sp_vs_pipe_br_usptp_registers, 0xb000 },
++	{ A7XX_CLUSTER_SP_VS, A7XX_TP0_CTX1_3D_CVS_REG, PIPE_BR, 1, A7XX_USPTP,
++		gen7_17_0_tpl1_cluster_sp_vs_pipe_br_usptp_registers, 0xb000 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_TP0_CTX0_3D_CPS_REG, PIPE_BR, 0, A7XX_USPTP,
++		gen7_17_0_tpl1_cluster_sp_ps_pipe_br_usptp_registers, 0xb000 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_TP0_CTX1_3D_CPS_REG, PIPE_BR, 1, A7XX_USPTP,
++		gen7_17_0_tpl1_cluster_sp_ps_pipe_br_usptp_registers, 0xb000 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_TP0_CTX2_3D_CPS_REG, PIPE_BR, 2, A7XX_USPTP,
++		gen7_17_0_tpl1_cluster_sp_ps_pipe_br_usptp_registers, 0xb000 },
++	{ A7XX_CLUSTER_SP_PS, A7XX_TP0_CTX3_3D_CPS_REG, PIPE_BR, 3, A7XX_USPTP,
++		gen7_17_0_tpl1_cluster_sp_ps_pipe_br_usptp_registers, 0xb000 },
++};
++
++static struct gen7_shader_block gen7_17_0_shader_blocks[] = {
++	{ A7XX_TP0_TMO_DATA,                  0x0200, 2, 2, PIPE_BR, A7XX_USPTP },
++	{ A7XX_TP0_SMO_DATA,                  0x0080, 2, 2, PIPE_BR, A7XX_USPTP },
++	{ A7XX_TP0_MIPMAP_BASE_DATA,          0x03c0, 2, 2, PIPE_BR, A7XX_USPTP },
++	{ A7XX_SP_INST_DATA,                  0x0800, 2, 2, PIPE_BR, A7XX_USPTP },
++	{ A7XX_SP_INST_DATA_1,                0x0800, 2, 2, PIPE_BR, A7XX_USPTP },
++	{ A7XX_SP_LB_0_DATA,                  0x0800, 2, 2, PIPE_BR, A7XX_USPTP },
++	{ A7XX_SP_LB_1_DATA,                  0x0800, 2, 2, PIPE_BR, A7XX_USPTP },
++	{ A7XX_SP_LB_2_DATA,                  0x0800, 2, 2, PIPE_BR, A7XX_USPTP },
++	{ A7XX_SP_LB_3_DATA,                  0x0800, 2, 2, PIPE_BR, A7XX_USPTP },
++	{ A7XX_SP_LB_4_DATA,                  0x0800, 2, 2, PIPE_BR, A7XX_USPTP },
++	{ A7XX_SP_LB_5_DATA,                  0x0800, 2, 2, PIPE_BR, A7XX_USPTP },
++	{ A7XX_SP_CB_RAM,                     0x0390, 2, 2, PIPE_BR, A7XX_USPTP },
++	{ A7XX_SP_INST_TAG,                   0x0090, 2, 2, PIPE_BR, A7XX_USPTP },
++	{ A7XX_SP_TMO_TAG,                    0x0080, 2, 2, PIPE_BR, A7XX_USPTP },
++	{ A7XX_SP_SMO_TAG,                    0x0080, 2, 2, PIPE_BR, A7XX_USPTP },
++	{ A7XX_SP_STATE_DATA,                 0x0040, 2, 2, PIPE_BR, A7XX_USPTP },
++	{ A7XX_SP_HWAVE_RAM,                  0x0100, 2, 2, PIPE_BR, A7XX_USPTP },
++	{ A7XX_SP_L0_INST_BUF,                0x0050, 2, 2, PIPE_BR, A7XX_USPTP },
++	{ A7XX_HLSQ_CVS_BE_CTXT_BUF_RAM_TAG,  0x0010, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_CPS_BE_CTXT_BUF_RAM_TAG,  0x0010, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_GFX_CVS_BE_CTXT_BUF_RAM,  0x0300, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_GFX_CPS_BE_CTXT_BUF_RAM,  0x0300, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_CHUNK_CVS_RAM,            0x01c0, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_CHUNK_CPS_RAM,            0x0300, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_CHUNK_CVS_RAM_TAG,        0x0040, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_CHUNK_CPS_RAM_TAG,        0x0040, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_ICB_CVS_CB_BASE_TAG,      0x0010, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_ICB_CPS_CB_BASE_TAG,      0x0010, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_CVS_MISC_RAM,             0x0280, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_CPS_MISC_RAM,             0x0800, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_CPS_MISC_RAM_1,           0x0200, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_INST_RAM,                 0x0800, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_GFX_CVS_CONST_RAM,        0x0800, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_GFX_CPS_CONST_RAM,        0x0800, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_CVS_MISC_RAM_TAG,         0x0010, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_CPS_MISC_RAM_TAG,         0x0010, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_INST_RAM_TAG,             0x0080, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_GFX_CVS_CONST_RAM_TAG,    0x0064, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_GFX_CPS_CONST_RAM_TAG,    0x0064, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_INST_RAM_1,               0x0800, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_STPROC_META,              0x0010, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_BV_BE_META,               0x0010, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_DATAPATH_META,            0x0020, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_FRONTEND_META,            0x0040, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_INDIRECT_META,            0x0010, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++	{ A7XX_HLSQ_BACKEND_META,             0x0040, 1, 1, PIPE_BR, A7XX_HLSQ_STATE },
++};
++
++static struct gen7_reg_list gen7_17_0_reg_list[] = {
++	{ gen7_17_0_gpu_registers, NULL },
++	{ gen7_17_0_dbgc_registers, NULL },
++	{ NULL, NULL },
++};
++
++static const struct a6xx_indexed_registers gen7_17_0_cp_indexed_reglist[] = {
++	{ "CP_SQE_STAT", REG_A6XX_CP_SQE_STAT_ADDR,
++		REG_A6XX_CP_SQE_STAT_DATA, 0x40, NULL },
++	{ "CP_DRAW_STATE", REG_A6XX_CP_DRAW_STATE_ADDR,
++		REG_A6XX_CP_DRAW_STATE_DATA, 0x100, NULL },
++	{ "CP_SQE_UCODE_DBG", REG_A6XX_CP_SQE_UCODE_DBG_ADDR,
++		REG_A6XX_CP_SQE_UCODE_DBG_DATA, 0x8000, NULL },
++	{ "CP_ROQ_DBG", REG_A6XX_CP_ROQ_DBG_ADDR,
++		REG_A6XX_CP_ROQ_DBG_DATA, 0, a7xx_get_cp_roq_size },
++};
++
++#endif /* __ADRENO_GEN7_17_0_SNAPSHOT_H */
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index 1f201322cb6e..114a40f79ef3 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -562,6 +562,11 @@ static inline int adreno_is_x185(struct adreno_gpu *gpu)
+ 	return gpu->info->chip_ids[0] == 0x43050c01;
+ }
+ 
++static inline int adreno_is_a722(struct adreno_gpu *gpu)
++{
++	return gpu->info->chip_ids[0] == 0x43020100;
++}
++
+ static inline int adreno_is_a740_family(struct adreno_gpu *gpu)
+ {
+ 	if (WARN_ON_ONCE(!gpu->info))
 
 -- 
 2.54.0
