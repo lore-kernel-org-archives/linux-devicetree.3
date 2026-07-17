@@ -1,192 +1,169 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B9DC3EDE6D
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 10:44:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784285102; cv=none; b=cfumnEs1P4eBJzUvazVgUaK8ecvom/kYY4esxki2L2b3o6zKlyRoR/TaDzc81VqDN/WpMjAFQN08OhkV2BYG3IeOdUVxf9Y5Kz1SHCo2AV8wcqCHIBM7sJvtROgu3JgGfxcsF7uPZ9CHlo8N2SItXB95TuQCEGwUa+oh0+Qf+yw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784285102; c=relaxed/simple;
-	bh=2pEd2PoX7gxj2uadPnEorYAgEq8J/PjNx7zkix44hD8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bqXPwzUj5wFcdAPlaKut5UPMU4bY80v4a+SRjPwydKV5lbuvvBMI6/I1CGbaA2DD3QFPLtvfqT6HbI7YrMDSj2ZXlfauKkidnUua5uloRp0mhhY6GCFea+xr6s/kf9gcN/AbYBWuXJttFeVDBTptpYEtKtpkx5fqsKFfYQTmGyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ducQ3wXX; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACD02FB97B
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 10:46:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784285189; cv=pass; b=HFyObDTn32nEIdiUHQ4urxS7/QdGRvfKGGs5ZSNS9a7JaRpylIb4pKfGV3YYf3H1kbmWs3OIEvz2gp4/nJHqx3PwLt2nPpBQw9F4gax+1iIAk5Km6n0UDxxNwKDD2eyS7stEIqT2Q07yIq4skvfWZE92pKQTJShcmN4bq+9+oSo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784285189; c=relaxed/simple;
+	bh=1T+N4cx+v3W0V1Sqwc8Or6I1w5aOdKMG9Ld/eFkP6sA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gq0NTVGbLrvPT1LXTBYo6VpbFNjCFu5h2OJwUud/xQJGxwssgh8cWOBia3PYdEhZQDL93dU1RLOzu9D+j/uV7QmIgmdYht5lf9ER5iXaGEfE/AaVRSbwhxZOzSwUDtPymTavStDFJeZtKQw5r9z5cURQu413Jsq7nI/QgIztyck=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YjEiGCaG; arc=pass smtp.client-ip=209.85.167.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ducQ3wXX"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c15cb6f5c12so1339287866b.0
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 03:44:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YjEiGCaG"
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5aeae771c49so8844055e87.3
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 03:46:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784285183; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bBTNqr+ecG8Awnar6om+cPuV/UEs56OSUGvu0tFUUfAuDootJUWfiT7V43wNtHFaAZ
+         Nnrm/pIbyLZVd56j/GAcF+OGR3mVWYDS7vz+w2rZky7dho25oys3c+Yf8AYwHygtfXJ0
+         0FSWmkPvvmstAV/dHLTbiG7xlcPCQ/C0gQBuq3ldxap4uy5GjhedqUi/duQZBfZw6EOz
+         yh8Mrga/tYYvBtBCSpIXHjlgYVrtYWjBWBRvA2VihcoaOvc0qupdG0sFGYaJywrsta5Z
+         pJRW3aUsawx5GXPK1Lpz+BIUS5AvshymKyRSRI3DjLuh+PN2+dvlfYf4k9DLHpXNX/wQ
+         iBcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=YHbZnUgfhySQwLZmZxFG4/4tCoDafXP3bzmxOBvVJ8o=;
+        fh=tedmmGTJMm6H7ToSlKvJ2e4WJlW1FQCjGbm+ceQy8Fk=;
+        b=pETqEBYdv90gBIjBL3llSG4MPO9pD6IIQX8MBvUp1mqcbhstdFd1F/RO6IbIZ0/c9d
+         tx6wXxbWGZ2bj2q5wVw013QDfUuwd8PSb7JMd1zwj1cAm4Njfsi9RZON3fpuzuT3PZZV
+         l8LDw+CA2il/MZTNVDzecJLwgp/XzwXLJTDSj6v733CVm99UrNhhvPedJ/UY+6Q9XASB
+         y4gIzaMzSVKwFLImw+q8uk3eFA5j2iUR3gwNvMN0K5gDRGEa8uerwdpZUgBc0xDaLG8r
+         F/8pg14tINEzhCzQZ2qi0JtxSAl2c3Ywm+WPEXEjMKsk94H//dfxnbAUtjkBPY7wJ48K
+         NDOQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784285098; x=1784889898; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1784285183; x=1784889983; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GHMjre5IwjmjoZwiytENVYpWI2A7IWIyRw+/ii0+cJ8=;
-        b=ducQ3wXXnM0/C16tx2bW4w73XQrvGY4nKM0b1cv6zI5EMAbtR1n7oJOgB7kGezYoTv
-         fxwmR/zA/AKiNlfaRiuM0GUqqa/p2WM3gegjD5Pf2+IqLS6c4HN7/0OpHVqoPY5zVRke
-         ftS/YdlP+sPW1Isn1uu8xwr+bgfpHjUpZFOniKxF7n1zP0huz2nb0oxg7DkaMZ+SRZQ5
-         YBH64t/nr72UYJuTqXpQQnoJ6QXnq/y9/x+XBAyxZyZSaw3H7g5YlXajZbqqge8EE7vL
-         BTiifURUn/859051xj9FFksz6zRNxDy+J6CnVbUan3XQ5KNgiYNTUkXUPKNW3xCQxmPk
-         4c+Q==
+        bh=YHbZnUgfhySQwLZmZxFG4/4tCoDafXP3bzmxOBvVJ8o=;
+        b=YjEiGCaGEbDSDMXLzpK6Etcn8cpQ6kLhKtQ5amU3CCqNLWPnJJsV9eniRkraCiFyxz
+         cbbb/PMNGhL5oR8Agw4TwRnAmrFc7djsZZWMoKwDOBa5eOupNx2xNUKSltDOunX5oFKL
+         wv3B2vnxce/fWyx5bYzeKtc434YBwB3ha6zre17+Tf6+2iHj4asx3LF9v95Y4deywEbL
+         07JJi89V0El7MPqaLCZl/wihtdhgMlJHbXCFniuANJ3bKQXa3YcfPGAUbXV2d5JGcJRp
+         4DFSi3eM3/3fv6Sg8EZIe4GjLa/stpeZ0AqLyCVm0oe1p3K8ab267A5uyGRPM0f1Qkzl
+         ccyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784285098; x=1784889898;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GHMjre5IwjmjoZwiytENVYpWI2A7IWIyRw+/ii0+cJ8=;
-        b=QC+lUbimwZBo+5DdF0nH4Ervi6qOavXG8lIpIUN6Rr4l7iK3zpAWIcEI4+xYkBZk6Q
-         QHwT56O88DuiMVulYQ/uDn/JfTDwSETqJGX9R/ywuTkYBRT6WZcFXjhOjgdRhv3PSQMX
-         knh2lPApoJr4mVesD3RWiFz7C503krPrjyj9yQ69gCxV6HYqtliixvvqzsiOBTjO/Fkn
-         HyB0LtqYQxXOcOZDl2rXs/0l7uKjMebzGRQZD6Op3IT7I61qhlG7rJJnYDVDICGJO9FW
-         GvzXATMaHuuAoEoZCuNaxulh54e61a8O1V9P07pV9EqyCzYFSAa0xOBzr9e+kV0n1dWX
-         CQTw==
-X-Forwarded-Encrypted: i=1; AHgh+RrKr8Tdge5FyWmNPnLpiha2QtQ3yuTkEZx8KepcfnuPQCWbrIN9FjGSzM1JlTZce/2vvvgrOecqycVG@vger.kernel.org
-X-Gm-Message-State: AOJu0YweuVzlb31vFShl6aph3GFZh2CqEFkHxp36zpSwKismK9LFtcAT
-	uxEyVyfLWXdekz2aO384piXu/Qh/EVLlmr+Fro6Y3cWNqMWZt5O+2GPj
-X-Gm-Gg: AfdE7clOEFMkO3Cn6Dkkl5I1Exri0kxxRYaScBOxqoVnUnHEHOn5HGKPVFqrQdfjdNP
-	E4UYMPVfmkD4kROInSgUBpG2dubTGE9Ti1K6LBAu/GsUHrlv9Abq2XD6tOvf/MQkvF11isOIxuQ
-	6EspBN1G5cNR1efjTOoqodyDM9csxIjkFwl/ROMXg1GcIgpKKqx/7AEyEMna5GWIR0sFVPXDOnB
-	cc9PMZJ6LP7MpgaU+Mzw0xNtRpJg2XG2llMFYaCoHL7VFk5XY3kT5jcskjImq1Cc5kp3azObVUD
-	If6LLc9utrnwE5Isy7firWv79Pc19JCOYqM1aOdd4pNBhN0Ky7uEEMLq0EFnkjj73DXk9vAmj04
-	EI4ioo584oap2Df999z0/8YnmDw8FswsFL2ueBZ6UuwZ+cJ/Y6X5PQNNZfGTtnTJmDXsh5qsueQ
-	qpLs6u/Xg92xn/Og==
-X-Received: by 2002:a17:907:841:b0:c16:66dc:3abe with SMTP id a640c23a62f3a-c16b46fe83dmr88156066b.28.1784285097922;
-        Fri, 17 Jul 2026 03:44:57 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1740bf91bdsm52739366b.63.2026.07.17.03.44.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Jul 2026 03:44:57 -0700 (PDT)
-Message-ID: <dba037fa-0f21-4a50-8727-076a3b177c47@gmail.com>
-Date: Fri, 17 Jul 2026 12:44:54 +0200
+        d=1e100.net; s=20251104; t=1784285183; x=1784889983;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=YHbZnUgfhySQwLZmZxFG4/4tCoDafXP3bzmxOBvVJ8o=;
+        b=CGyP0DuEOiXeGM9rTbGXIxa08+GNiuJT7wN1FaoW+UBI1KDGsfFFLeRgjqjs81Dv08
+         61Y4JdnKTChrXIfu4aTbozr32rWij+/ONgL4GbiEf7CITMZQo1aw8PUMBs4fWHlaBpeq
+         EsXszlnnm0MX8mwo98uSq1x+XQaf/cFRe1bndUPy34W3GePJoM0nokWuoxaEvtJ+pjBc
+         KSjjkDy5+3l0+b2Jzz0cnAusnEzSaAzEc29t1BTpueoyGKafB+hJn2WImyxuVMZgS+Je
+         Nas9pnfUjOK2bQ103jVkGjuSYhgOkQZvLOrdZvPLB9X8IPymcXPzmOx5rxfpoLYjvRat
+         RVJQ==
+X-Forwarded-Encrypted: i=1; AHgh+RopqQodrG+86L2iCF19XSnPtZpOPoZaOkInPeM2euuUEaZ6mmnbXtL2vTzFq8UCkQt0civ+RVMmHro2@vger.kernel.org
+X-Gm-Message-State: AOJu0YzDpXWBo35oli3Z+5nt/Mx+v7GyrI8FIhUL3F432+TJTkmeHsiT
+	EeB0u6qmJPTDPavS6Fb0W0V9ejX9Ie2dzudQmiS51F2c69M3WdZShazaWwxKcxb8LDibsRzndcf
+	BU+Qpu/UUay1rI6CwU1T+EOTUR20vpls=
+X-Gm-Gg: AfdE7cnNk9rGGSkxc9IcbDelNAZcP7Im97uW8lXSEyeTyJmkhrLtaSNrMZMnDHC+fYV
+	cjITke2B/Chw01xobWZaWgH+RaQJ20sJHtw0X1ujaW9AY3OLGnJP1qG3jgvAgdLoLrZVzycmHyO
+	ujrkaKG8vd/0RmJuSN4j8NdbSHvvkrgLZEszjjwr8hjQCWSF0keTqOrfUSJPJlBhz0NQS0yrziS
+	6Im7wGczWn+lXlwNYFAt6v9Hj5rM5nuM4Th1Vbr5nf6diVlVdeAKwNshYCUM34psBFe/qHtU6q8
+	XsCFC+FdFwYMOKT+udINBNPCwP4/S1Kwwn95orGiUM1sRQ+VwL/hXkZRIEXPM1aukp2920rRqrQ
+	4r74Y
+X-Received: by 2002:ac2:51cf:0:b0:5ae:b136:acdc with SMTP id
+ 2adb3069b0e04-5b28f9a589emr536086e87.35.1784285182682; Fri, 17 Jul 2026
+ 03:46:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-iommu: Introduce API to reserve IOVA regions for
- dynamically created devices
-To: Jason Gunthorpe <jgg@ziepe.ca>, Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Robin Murphy <robin.murphy@arm.com>, joro@8bytes.org, will@kernel.org,
- m.szyprowski@samsung.com, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, dikshita.agarwal@oss.qualcomm.com,
- Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Robin Clark <robclark@qti.qualcomm.com>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>
-References: <20260119054936.3350128-1-busanna.reddy@oss.qualcomm.com>
- <cfd23f75-8952-4463-abd5-815b995031b0@arm.com>
- <bb59f07e-ca7e-f012-6a4b-0a148350b69c@oss.qualcomm.com>
- <20260612172649.GM1066031@ziepe.ca>
- <da77c21d-25b3-46c3-a48f-71f0549e9f5f@oss.qualcomm.com>
- <20260615125257.GS1066031@ziepe.ca>
- <dcc0d02e-91fb-ddbe-399a-0191bab94c4f@oss.qualcomm.com>
- <20260617194038.GC231643@ziepe.ca>
- <e9e76c9f-b3b1-4ffd-9547-183556f6bb60@kernel.org>
- <20260618151745.GD231643@ziepe.ca>
-Content-Language: en-US
-From: Konrad Dybcio <konradybcio@gmail.com>
-In-Reply-To: <20260618151745.GD231643@ziepe.ca>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260714101146.200416-1-kieweg.leander@gmail.com>
+ <20260714101146.200416-3-kieweg.leander@gmail.com> <d817d031-6ef2-4909-81cb-a9d417550dd8@suse.de>
+In-Reply-To: <d817d031-6ef2-4909-81cb-a9d417550dd8@suse.de>
+From: Leander Kieweg <kieweg.leander@gmail.com>
+Date: Fri, 17 Jul 2026 12:46:09 +0200
+X-Gm-Features: AUfX_mw8ch0ZGElQgNP-r5TJUFlhtJZKGB1M8n9Xm63PvlrnxX6RSRURqwTyDwk
+Message-ID: <CAMwcS0h--iZtjVZUeeHmoV4MngfW_f9auAseBDhqXMGc_zqVqg@mail.gmail.com>
+Subject: Re: [RFC PATCH 2/3] drm/glanda: Add initial DRM driver for GlandaGPU
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 6/18/26 5:17 PM, Jason Gunthorpe wrote:
-> On Thu, Jun 18, 2026 at 01:57:40PM +0200, Krzysztof Kozlowski wrote:
+Hi Thomas,
 
-[...]
+Thanks for the detailed review, going through each point:
 
-> So, if we are going to do a hack in DT to accomodate Linux, I argue to
-> choose explicit child devices so VPU does not need to create a special
-> bus, call of_dma_configue, or hack in new DMA API things that only it
-> will ever use.
+> Please use drm_device.dev instead.
 
-Bit late to the party, but I'll chime in with some more "amazing news"..
+Will drop this field and use gdev->drm.dev everywhere instead.
 
-All of the multimedia HW on QC platforms (camera, display, GPU, video
-and their specialized variations) has at least part of the same problems:
+> Synchronization happens with drm_gem_fb_begin_cpu_access(). No need to
+> take the lock here.
+>
+> > +     ret = drm_gem_shmem_vmap_locked(shmem, &map);
+>
+> This vmap should not happen here, but in begin_fb_access.  We have
+> helpers that set up the mapping for your driver. Take a look at
+> DRM_GEM_SHADOW_PLANE_HELPER_FUNCS and DRM_GEM_SHADOW_PLANE_FUNCS and the
+> drivers that use them.
 
-* Multiple SID groups that need to be accommodated for different purposes
-  (normal vs secure buffers provided by the same device, different
-  "logical functions" generally speaking) apply to all of them
+I wasn't aware these helpers existed, this looks like exactly the
+right fit for what I'm doing (software render into shmem, blit into
+hardware VRAM on flip). I'll switch to
+DRM_GEM_SHADOW_PLANE_HELPER_FUNCS/DRM_GEM_SHADOW_PLANE_FUNCS and drop
+the manual dma_resv_lock/vmap_locked handling entirely for v2.
 
-* Different IOVA limitations per SID group seems to also concern at
- least the camera uC ("ICP") (but not all of camera hw)
+> That's confusing. Each pixel is 32 bit. But each color channel is only 4
+> bit. So there's a 20-bit hole in each pixel, right?   Why don't you use
+> 16 bit per pixel?
 
-* Remoteprocs (and therefore also the audio stack) expose a number of
-  subfunctions, some of which we currently model as subnodes (although
-  many arguably only exist as such because someone decided it was
-  convenient to express them this way). This, for example led to the
-  representation of each SID group associated with the remoteproc
-  (fastrpc/"run compute on rproc") as a separate node:
+You're right that it's wasteful as-is. One thing worth mentioning
+though, my VRAM write port on the hardware side is a fixed 32-bit
+Avalon-MM slave without byteenable support. The hardware itself
+always reads the lower 12 bits and ignores the rest, so that part is
+fine regardless of write width, but I'm not certain the interconnect
+would reliably place a 16-bit write into the lower half of the
+32-bit word rather than, say, the upper half depending on address
+alignment, without byteenable support to make that explicit.
 
--- qcom/hamoa.dtsi
-remoteproc_adsp: remoteproc@6800000 {
-	[...]
+I'm already planning to update the hardware to accept XRGB8888
+natively, which will need the full 32-bit width regardless and
+removes the CPU-side pixel conversion entirely, so I'll leave this
+as a 32-bit write for now and address it as part of that hardware
+change rather than adding byteenable support for what would only be
+a temporary fix.
 
-	// no iommus OR iommus used for another purpose (fw loading)
+> I don't think it is possible that new_state is NULL.
 
-	fastrpc {
-		// no iommus
+I'll drop the redundant check.
 
-		compute-cb@3 {
-			compatible = "qcom,fastrpc-compute-cb";
-			reg = <3>;
-			iommus = <&apps_smmu 0x1003 0x80>,
-				 <&apps_smmu 0x1063 0x0>;
-			dma-coherent;
-		};
+> No need for this function. drm_gem_fb_create_with_dirty() is exactly
+> what you're looking for.
 
-		compute-cb@4 {
-			compatible = "qcom,fastrpc-compute-cb";
-			reg = <4>;
-			iommus = <&apps_smmu 0x1004 0x80>,
-				 <&apps_smmu 0x1064 0x0>;
-			dma-coherent;
-		};
+Thanks, I'll drop glanda_fb_create()/glanda_fb_funcs and just assign
+drm_gem_fb_create_with_dirty directly.
 
-		[...] (there's a lot of them)
-	};
-};
+> Drop these ioctls entirely. As I outlined in my reply to the cover
+> letter, these will not work with DRM as they are now. Especially since
+> you're using gem-shmem as a shadow buffer. All your rendering happens in
+> system memory in user space in software.
 
-There may be more hiding in plain sight, but those are the ones I'm
-aware of.
+Agreed, as mentioned in my reply to the cover letter, these are gone
+in v2.
 
+> This function is going away. You can open-code it instead.
 
-I was kinda hoping there would be more buy-in to follow what PCIe
-does, but to my understanding you're opposed to it because "vpu_bus"
-is not dynamically discoverable. PCIe generally obviously is, but
-we already have prior art regarding hardwired/onboard devices - many
-qcom DTs carry per-board iommu-map overrides to please the allocator
-with known-in-advance BDF values (because the HW has only so many
-SIDs):
+Will do, thanks for the heads up.
 
--- qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-iommu-map = <0x0 &apps_smmu 0x1c00 0x1>,
-            <0x100 &apps_smmu 0x1c01 0x1>,
-            <0x208 &apps_smmu 0x1c04 0x1>,
-            <0x210 &apps_smmu 0x1c05 0x1>,
-            <0x218 &apps_smmu 0x1c06 0x1>,
-            <0x300 &apps_smmu 0x1c07 0x1>,
-            <0x400 &apps_smmu 0x1c08 0x1>,
-            <0x500 &apps_smmu 0x1c09 0x1>,
-            <0x501 &apps_smmu 0x1c10 0x1>;
+I'll include all of this in v2 along with what we discussed on the
+cover letter thread. Thanks again for the thorough review.
 
-Although it seems to me that it's more of a hack than anything else..
-
-
-With that in mind, do you still prefer that this is handled through
-separate nodes, presumably for all of the aforementioned cases?
-
-Konrad
+Best regards,
+Leander
