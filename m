@@ -1,122 +1,229 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F613AC00;
-	Fri, 17 Jul 2026 00:14:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1985A1EB5C2
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 00:27:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784247282; cv=none; b=HgdPdje9yRZAYF1mJocITTUSVqTpdNS07GRqOYI2hwYhpehUHFVr6B4lwEmg6hQ5HhJlI+4Knm19fq44NHilUungHKCKqSk/PNgodBRXL7Iq6xCFBDsvw7WiBs9xxsRcGHb7YP+YIwMTt8p1HLT7J7+8SBHgELC48j5C4Vs+IqQ=
+	t=1784248068; cv=none; b=KgqikkAN4ZejnTWotf5K6swylZt66cbvINtHM7ifphhc5TYQZj7CUnAqk78QJTfW+71Wd5Mv6U1y97L8u/8AGe1gdt3LhYbd1co0AIzCYJEzT3VZUW8iM6GIvl3VB/Dcogw4z8ER/Q9COEn0/RhUOD36BQp6ViwAHqMf7VhbVXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784247282; c=relaxed/simple;
-	bh=CFwqJQO1ta6+ptVsHeiLZ/rQADPVCMfNTr1YJLlUhAw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F41+2Zs4YSGrUCw7Tn7bDL7hyRNmhSOsgQ1jdP3wutfr+bfP/MspX3ynIUEmo1mFnBTR/U2P+/qqzMPVn0NLJ4O9CuGcRQ0cSOtgpRQmTpxshuW7i0B0PBPGfJLI/gCMwKBXWgfVbIu7C2P9wO4XsAsLeKuW7Lczk/7hhw1LT5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YQEIkJ/l; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784248068; c=relaxed/simple;
+	bh=WuxboMC8gwuYa9IvYfTHmmVyytT8FQoSrk7u1Q1bNM8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tHutuZHSYNTi7x7YM+BovJb979iCrq5UUdgGc1OPT+MO6WE4iJQO3Xh+Scm7PLNedDUMnrc6KNtvtGdyXVCaH6em3VxfmhoEbsq1V/3JLkS3j3r7il8fhYM7BdNHNmEH9PIRNMoeh3bmmg0EXO5HmWGKjGM/zh/UYmqhZivucwI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=amcTjttH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=J5N12laW; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YQEIkJ/l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD6151F000E9;
-	Fri, 17 Jul 2026 00:14:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784247280;
-	bh=8jgb1Lj/jjjbbAsZsTgqZe2AVm3Aj+u2+c0KvkludQc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YQEIkJ/lpVoIT2AzB4Ho0l8TKYm6IpULG4Df4o9zJmJehRsFNAWihZ7hGAb8EgPVV
-	 W9dhMaKuBYZUi2qH4RVOjB2d4pR39BZJbd3YjaoXIhCuKPPTW+m9jGljIg5ZZj+nUu
-	 MF3YccCjRCHBr2/r+sqYh0ymTdGLvaQ0PKtXtjSEBTy98jfovYyy6aOtU31W43kjhV
-	 se8qRwZltUuWElH2X8h5FQPLo3LtjWFmUrcW1CA9xV4Vuyw8Vk3OBZMFHtxnUXT/cn
-	 kFGXkGnXqrLJXY4rvgfosRlmKwGK1gFgdlpbbRSK/lts+VTLUjPL0hYSpoqAV51EJU
-	 IoaJSUf3K6TYQ==
-Date: Thu, 16 Jul 2026 19:14:37 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rakesh Kota <rakesh.kota@oss.qualcomm.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, jishnu.prakash@oss.qualcomm.com, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sebastian Reichel <sre@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: soc: qcom: pmic-glink: Document
- batteryless property
-Message-ID: <allz1-dD9V_Ck8LK@baldur>
-References: <20260519082526.odmn5dqi2jftwnln@hu-kotarake-hyd.qualcomm.com>
- <20260519-first-wine-bulldog-a6a4c7@quoll>
- <20260521071341.q4efqssppvettaey@hu-kamalw-hyd.qualcomm.com>
- <86f76a81-832d-4ba5-81d5-38b46b7dc0a7@kernel.org>
- <6c595a5f-b979-4e8b-ae77-d28d24700588@oss.qualcomm.com>
- <e07085c5-0fe8-4ea7-8e51-ebe104e7aa2d@kernel.org>
- <82019c2e-6b6e-4edd-91b3-a28ef6eb09eb@oss.qualcomm.com>
- <20260525120139.dyfnm6nwfzuoxd7p@hu-kotarake-hyd.qualcomm.com>
- <20260702113010.zjrk4kr7fpjp6asj@hu-kotarake-hyd.qualcomm.com>
- <dqe3ntmtmjqixp2l5n7qm6zpcwh4sizr7jd5g3cl3tzpvl6tvo@casnjg3orldd>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="amcTjttH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J5N12laW"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66GNJ83Y049980
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 00:27:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	CXMtlO1SDpulkCJC4RwfiN8jyZ4jMbi7pNzjkUsjMVw=; b=amcTjttHrWtguKC5
+	n++lHJEs5cWDSbrwXvydXhhqunjR7ll8/C0DW8kN9C+hSMohgftQUZLG6krSoG2q
+	AJaR4wmVw3hM2uJI7ByZYhtiKDm5bQUMjaJkqH3cS21J95WK6WmCRyd9ExGRW6L7
+	v7ZZ4Y/fdnneG7aPBMTFocabwVSjpLBtqbNeehXf9C7Ew8yX5ev2PXS1PkPWDS6Q
+	m7KgVk3VEuAjSIw9fmtKPQdCtx4+GpYw35ECCXAvPyYfvFWwOVQBeOn7Gybpgoe4
+	ogzAXGzGIzJzBd9v90ay8F8xZt6aghIG/HTOoddLcJ9sN4W7yNDRoO+6EhZV4WzU
+	JZvh+g==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feve1upyu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 00:27:45 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c88aab7c1fcso17071542a12.3
+        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 17:27:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784248065; x=1784852865; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=CXMtlO1SDpulkCJC4RwfiN8jyZ4jMbi7pNzjkUsjMVw=;
+        b=J5N12laWJ4tlObv15JycFnYxrI3ljqf+5xWw8JwbTnjpAoQtQgS0KBhIIo7uKjALmQ
+         wXLDr6jGpwQqOXMOJwTaOBecd4c8VkkEuQANqm2tVM54oBJExXPLfK2x1pVLK6tTG5DX
+         KCTfhpdZh09tnt9fi9+7OtgX0a060KUWjIpGU6B4UzS0f03LoouEun3NhcQ/G8BX/pLk
+         MWgLoZiMRf1KCBNhzEZFVPRqXUuPtZmGobPMEP/sph0YjpqQjNmAiM0G3Fa35qZiE2V2
+         Eg4csrNvrLniC5E4Ixj3Pu8jOK3el3iL5dbbTPX/kmDZCQ4AcDMOFqbhIDwqRWpC50KT
+         hsVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784248065; x=1784852865;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CXMtlO1SDpulkCJC4RwfiN8jyZ4jMbi7pNzjkUsjMVw=;
+        b=Bj+Dc0EJIDBIODtyYvWUUCBoLzAqW8OD4+0URPtr8soYorEQAYubBllSL8IFs6WX6g
+         iqEm+vykgAZt/SiFuxdnCVVXHYDwRA1bkoo32CevOJvRvsQf85W8UrCrWaHdtdgQYM1D
+         M340OD3CxetbAD65H7foUDWsHRyf63AQHSQ+pmjP+JPK+W9wrbp99fOzMdlEUhw85rG+
+         cGlrNQIVLI18ObZg4lwM0cEBqFDDLG6AGZ+tAPybrOxud9BqUVfsiPN/mY+ge0nxMqUC
+         kduTuGc5jD98rCFgD7Z6QkO3kcz0YkoicStEXAL+plMwTz6+B72bo0m0OKBy2eurvjRP
+         lN4g==
+X-Forwarded-Encrypted: i=1; AHgh+RrXm3FOJj/XtDTiLrbt6yROcKu7BwrL/MLyxjA3Z0C4fH/qPaIVqSjc0JOOcG2KAZHP1FPtXy4rvfsV@vger.kernel.org
+X-Gm-Message-State: AOJu0YyejHZ+xcDsDv+FCgsXYIcwsoFo8LdFabHT/m/7M2cuNXM+3XnK
+	I5N0fDuziHa2dlZszzNhgx45BDbQQeoOvLKLOS9lLXunKmcpLo+r0uMP1tOLLciA+6oiUXI5Py3
+	K7S5nKFnj4guVY7eriIXmwhr4jCbeajgeEohMO4BDrONOJ4dpGjl9cRMBJQjT91An
+X-Gm-Gg: AfdE7cl7Dew40bTAreFmatjIOpm+JjTq8L3Zxr71DAK9KDg2kGom2OZPf9cZ99QjMLT
+	H8L/LOObwGLsgBO7PDGgCayAFZiAbu+j0g5I4UJ1iArp9On3BvBmMzl7AqnWS9MKTxLUQhdqXQ2
+	xRBGfiLX1YaKBek0BJIKQpsAgY+Na3ZhnPrFtCG00urYst/4AFwOJ9SjtrVezEgJ4EXRJSw5m6s
+	Z9hSPB2HeICbfOpRIFgFyhi5lOo55tyoowz9wCLcdH3+FXgj8AA7HhCAEQ+HQK+lBMxJCNQVNQF
+	c04sd51MuUQBE344PJJ6vahDlpaoaBSQCWKXK6kPPhkR6OongN3QVgcR5kNE06NdQ7D8JI5yo5J
+	GPpS1z0H7Ye02uMoSkEvyU/MWtA==
+X-Received: by 2002:a05:6a21:a8b:b0:3c0:9c18:d5a3 with SMTP id adf61e73a8af0-3c3ad97361bmr219839637.64.1784248064703;
+        Thu, 16 Jul 2026 17:27:44 -0700 (PDT)
+X-Received: by 2002:a05:6a21:a8b:b0:3c0:9c18:d5a3 with SMTP id adf61e73a8af0-3c3ad97361bmr219804637.64.1784248064246;
+        Thu, 16 Jul 2026 17:27:44 -0700 (PDT)
+Received: from localhost ([50.35.46.84])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a20c158sm523718eec.29.2026.07.16.17.27.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Jul 2026 17:27:44 -0700 (PDT)
+Date: Thu, 16 Jul 2026 17:27:40 -0700
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>,
+        Jonathan Cameron
+ <jic23@kernel.org>,
+        Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>,
+        linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+        linux-hardening@vger.kernel.org, Lars-Peter
+ Clausen <lars@metafoo.de>,
+        Michael Hennerich
+ <Michael.Hennerich@analog.com>,
+        David Lechner <dlechner@baylibre.com>,
+        Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof
+ Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Philipp
+ Zabel <p.zabel@pengutronix.de>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Shuah
+ Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A.
+ R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v7 07/17] iio: test: add kunit tests for channel prefix
+ naming generation
+Message-ID: <20260716172740.00002b37@oss.qualcomm.com>
+In-Reply-To: <alcpb-7GVSfk6jFB@ashevche-desk.local>
+References: <20260707-ad9910-iio-driver-v7-0-a4ec30f63700@analog.com>
+	<20260707-ad9910-iio-driver-v7-7-a4ec30f63700@analog.com>
+	<20260712020928.2c8d1667@jic23-huawei>
+	<egyms7ulkxsgu4pvfkoruelec3sf6ca4bndcuqkvxljrdluqwu@edlqne7oy3xs>
+	<20260714180812.000070c4@oss.qualcomm.com>
+	<alcpb-7GVSfk6jFB@ashevche-desk.local>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <dqe3ntmtmjqixp2l5n7qm6zpcwh4sizr7jd5g3cl3tzpvl6tvo@casnjg3orldd>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDAwMiBTYWx0ZWRfX469p4GWKJ7D9
+ ++6SkWnbDd1sIx3AnGgUOqY77pcCdT4klUViESx1rqxpNYK8cysIyG5XZHJG+EbDJD50bKKSUEV
+ gFqu2D2Nmy5lCYVQmOxo2466AC2offSqf2N46kz1nB697OqJs2hfnuQclz0oRUzF3rw57KlGPsc
+ a3qpkeb6888ovpKvDfynBhI6hCzuUAF+f9NI+BmrCVgtZWERNpkhSTvP6pzqPGm5dkn951GUrQq
+ WZI7ZBGYkAeYNkOiZE3pqdVlNCzJJf+SNsnOZ7nDLBVxnf5R6PbfKpYYPoavxtRzoAEUUgafyaW
+ tbSqqRElp8FQZCxaMuMoXvLCWQmFUI6QdKDLqppnjEoHGWERmIDFCZjEwmjTSdqcd3eE6FhBvZH
+ slMs5uV+rg83mRCkVT1w8cGamzwoweJe1CIp0YZNZgXqtmGE5dq1iwqX6b/Ka+GobOhcpdacRez
+ f0YbBSVBN+w0aPwyq7A==
+X-Authority-Analysis: v=2.4 cv=DvpmPm/+ c=1 sm=1 tr=0 ts=6a597701 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=qC1CW/w66vtJz1P9yTJxNA==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=QyXUC8HyAAAA:8 a=pGLkceISAAAA:8 a=VwQbUJbxAAAA:8 a=xcsdVRPUYcZtn2NnLoAA:9
+ a=CjuIK1q_8ugA:10 a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-GUID: A0hgLHZzfzxhnAIK6_twa2YL2m-bsx7d
+X-Proofpoint-ORIG-GUID: A0hgLHZzfzxhnAIK6_twa2YL2m-bsx7d
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDAwMiBTYWx0ZWRfXwqdeiKepWer/
+ kTGlU0h2FuIbpb3L7Yb5xh7taGTg4CfQIH8mugyLTO+zonw6aXfBN4MHgfVIkORpkvUORZHIfzT
+ rL9weCaVi20fgWuN53a/UMV+Fp4Tq1w=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-16_08,2026-07-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 priorityscore=1501 phishscore=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 malwarescore=0 impostorscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607170002
 
-On Thu, Jul 02, 2026 at 02:49:37PM +0300, Dmitry Baryshkov wrote:
-> On Thu, Jul 02, 2026 at 05:00:10PM +0530, Rakesh Kota wrote:
-> > On Mon, May 25, 2026 at 05:31:39PM +0530, Rakesh Kota wrote:
-> > > On Fri, May 22, 2026 at 11:24:19AM +0200, Konrad Dybcio wrote:
-> > > > On 5/21/26 11:58 AM, Krzysztof Kozlowski wrote:
-> > > > > On 21/05/2026 10:46, Konrad Dybcio wrote:
-> > > > >> On 5/21/26 9:20 AM, Krzysztof Kozlowski wrote:
-> > > > >>>> Since firmware does not have a way to dynamically tell if it on a
-> > > > >>>> debug-board powered device or a DCIN powered device, We are required to
-> > > > >>>> add this new DT property.
-> > > > >>>
-> > > > >>> Neither debug-board powered device nor battery-less will have
-> > > > >>> monitored-battery, thus again, why lack of that property cannot tell you
-> > > > >>> what you need?
-> > > > >>
-> > > > >> A device with a battery will not have a monitored-battery either
-> > > > > But why? If for such device property "no battery" is suitable, then for
-> > > > > me "monitored-battery" is suitable as well. IOW, if you say that having
-> > > > > a property describing batter is not a accurate hardware property here,
-> > > > > then neither saying "no battery" is, because no batter is basically some
-> > > > > sort of battery (just like empty set is still a set, empty array is
-> > > > > still an array).
-> > > > 
-> > > > The battmgr service running on one of the remoteprocs already has all
-> > > > the information about the battery and it also handles all the type-c,
-> > > > PD and charger configuration, only letting the OS know about the
-> > > > results.
-> > > > 
-> > > > Hence, unless there's some other hardware at play (e.g. for custom
-> > > > 200 W charging), which wasn't fully implemented in the QC firmware,
-> > > > there is no reason to describe a battery separately, since the OS
-> > > > can't do anything useful with that information
-> > > > 
-> > > > In some abstract way, perhaps monitored_battery = <&pmic_glink> could
-> > > > be thought of as valid (since that's the data source the OS gets to
-> > > > see)
+On Wed, 15 Jul 2026 09:32:15 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+
+> On Tue, Jul 14, 2026 at 06:08:12PM -0700, Jonathan Cameron wrote:
+> > On Mon, 13 Jul 2026 10:52:56 +0100
+> > Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:  
+> > > On 12/07/26 02:09, Jonathan Cameron wrote:  
+> > > > On Tue, 07 Jul 2026 15:04:28 +0100
+> > > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:  
+> 
+> ...
+> 
+> > > > > Because __iio_chan_prefix_emit() is static, the test translation unit
+> > > > > is pulled into industrialio-core.c.    
+> 
+> KUnit also has static/non-static automation via a macro (defined in the
+> kunit/visibility.h) and I see that's used in the below example.
+> 
+> > > > Isn't there some magic route cases like this that makes it non static
+> > > > only when self tests are enabled? 
+> > > > Claude tells me to look at include/kunit/visibility.h    
 > > > 
-> > > Should we use monitored-battery = <&pmic_glink>; If so, would it be
-> > > incorrect to mark pmic_glink as simple-battery, as that may cause the
-> > > schema validation to fail?
-> > 
-> > Hi @Konrad Dybcio, @Krzysztof Kozlowski , 
-> > 
-> > Following up on the earlier discussion — is monitored-battery =
-> > <&pmic_glink>; a valid pattern? And if so, would marking pmic_glink as
-> > simple-battery cause DT schema validation failures?
+> > > There is, Although I think that using
+> > > 
+> > > 	#if IS_ENABLED(CONFIG_IIO_CHANNEL_PREFIX_KUNIT_TEST)
+> > > 		#include "test/iio-test-channel-prefix.c"
+> > > 	#endif
+> > > 
+> > > was more straight forward, less invasive and easier to change than..  
 > 
-> I'd say, no, monitored-battery should be pointing to the battery device.
-> Please fix this on the firmware side, so that the firmware can report
-> having no battery at all.
+> Maybe, but thanks to this thread, I fixed other modules that use their own
+> approach to use the standard KUnit infra for this (as below).
+> 
+> > > 	/* In "drivers/iio/industrialio-core.c" */
+> > > 
+> > > 	#include <kunit/visibility.h>
+> > > 	...
+> > > 	VISIBLE_IF_KUNIT ssize_t __iio_chan_prefix_emit(...)
+> > > 	{
+> > > 	...
+> > > 	}
+> > > 	EXPORT_SYMBOL_IF_KUNIT(__iio_chan_prefix_emit);
+> > > 
+> > > 	/* In "iio_core.h" */
+> > > 
+> > > 	#if IS_ENABLED(CONFIG_KUNIT)
+> > > 		ssize_t __iio_chan_prefix_emit(...);
+> > > 	#endif
+> > > 
+> > > 	/* In "drivers/iio/test/iio-test-channel-prefix.c" */
+> > > 
+> > > 	#include <kunit/visibility.h>
+> > > 	#include <iio_core.h>
+> > > 	...
+> > > 	MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
+> > > 	...
+> > > 	// Use __iio_chan_prefix_emit() in tests  
+> > 
+> > I'd rather this wasn't built into the core module.  So prefer you jump
+> > though those hoops.  
+> 
+> Hmm... The above (while being verbose) is the standard way of how we export
+> symbols for KUnit tests. Do you have a better alternative that everyone can
+> use? (Not only IIO subsystem.)
+
+Ah. I put that comment in an unhelpful place. I meant the include above not this bit.
+Absolutely fine with the exports being there.
+
+Jonathan
+
 > 
 
-This won't be fixed in the firmware on my devices.
-
-Regards,
-Bjorn
-
-> -- 
-> With best wishes
-> Dmitry
