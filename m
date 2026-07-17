@@ -1,169 +1,174 @@
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACD02FB97B
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 10:46:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1EA83C4175
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 10:51:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784285189; cv=pass; b=HFyObDTn32nEIdiUHQ4urxS7/QdGRvfKGGs5ZSNS9a7JaRpylIb4pKfGV3YYf3H1kbmWs3OIEvz2gp4/nJHqx3PwLt2nPpBQw9F4gax+1iIAk5Km6n0UDxxNwKDD2eyS7stEIqT2Q07yIq4skvfWZE92pKQTJShcmN4bq+9+oSo=
+	t=1784285471; cv=pass; b=Srh5DgVf4JdOB0xlwAvOKvaQm9SFl7YfDCZKOhBvGLprPSlTQcvR4J8CHwBXvFOKSB4/vJLcBaxd1VZUk9WmWAqIXU+eDOP7TMr5sgDIMe+vNqpL6fScU8WLfzp9yCcglK6mG+HiKb7sutAp0+NqvfR/PjLhp8MVZ4ivuWnFNag=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784285189; c=relaxed/simple;
-	bh=1T+N4cx+v3W0V1Sqwc8Or6I1w5aOdKMG9Ld/eFkP6sA=;
+	s=arc-20240116; t=1784285471; c=relaxed/simple;
+	bh=wtMim/ZKUUVD2LU1q4V7ckwd7xbQrB5ulh7CVx/7A4E=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gq0NTVGbLrvPT1LXTBYo6VpbFNjCFu5h2OJwUud/xQJGxwssgh8cWOBia3PYdEhZQDL93dU1RLOzu9D+j/uV7QmIgmdYht5lf9ER5iXaGEfE/AaVRSbwhxZOzSwUDtPymTavStDFJeZtKQw5r9z5cURQu413Jsq7nI/QgIztyck=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YjEiGCaG; arc=pass smtp.client-ip=209.85.167.53
+	 To:Cc:Content-Type; b=tjfLQCRksB+ecakQaAzPT6w89XCVf7LRZL+lj0AQ/yE6ubkMcKjN0atKM779jMpx2OQCFu+Dq7Jze6o+u1ok/E1rIDkZUgwUx4fXWVohZ346+bn+SOTkK0WaTV6cjwTXfPFAWOZJZ2/VuVPwIfSFKMUFR8+A2pO6atg2Zm9eymY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=flQ5yOkO; arc=pass smtp.client-ip=209.85.218.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YjEiGCaG"
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5aeae771c49so8844055e87.3
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 03:46:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784285183; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="flQ5yOkO"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c15e03c2763so327799366b.0
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 03:51:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784285468; cv=none;
         d=google.com; s=arc-20260327;
-        b=bBTNqr+ecG8Awnar6om+cPuV/UEs56OSUGvu0tFUUfAuDootJUWfiT7V43wNtHFaAZ
-         Nnrm/pIbyLZVd56j/GAcF+OGR3mVWYDS7vz+w2rZky7dho25oys3c+Yf8AYwHygtfXJ0
-         0FSWmkPvvmstAV/dHLTbiG7xlcPCQ/C0gQBuq3ldxap4uy5GjhedqUi/duQZBfZw6EOz
-         yh8Mrga/tYYvBtBCSpIXHjlgYVrtYWjBWBRvA2VihcoaOvc0qupdG0sFGYaJywrsta5Z
-         pJRW3aUsawx5GXPK1Lpz+BIUS5AvshymKyRSRI3DjLuh+PN2+dvlfYf4k9DLHpXNX/wQ
-         iBcg==
+        b=Xvfj4VdHsewfcmSeKC7W/cA9/PoQjRtdKEJ0fvtpjpjYA5vYMkKAi5aaIjbzLo4Ywx
+         r1THx1VGoeWkycFvtdx2VvjUbOkcZkIibKCe1o7UpNFdIZiG7yfrTYgCT8qP+2pqAtbO
+         vLzC0oz1EL7yHwYGpgzE0deoVdkttNtfzbYdZmfGBezgwEmsIVlCB2zY2d4He7449HHc
+         +n2I4VWbcFIK2/n8HjIlQumh3kACoZQYNRFHEJn3hNLWyhcqOsQDUpiaWtrQpr053oNB
+         oqWfakzci5Jpz8ksf7ZX9kMk62gDyvQVhSdPOP51TIjivkQ6OtYal/VkMgOC7WQXJn1u
+         Z2KQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=YHbZnUgfhySQwLZmZxFG4/4tCoDafXP3bzmxOBvVJ8o=;
-        fh=tedmmGTJMm6H7ToSlKvJ2e4WJlW1FQCjGbm+ceQy8Fk=;
-        b=pETqEBYdv90gBIjBL3llSG4MPO9pD6IIQX8MBvUp1mqcbhstdFd1F/RO6IbIZ0/c9d
-         tx6wXxbWGZ2bj2q5wVw013QDfUuwd8PSb7JMd1zwj1cAm4Njfsi9RZON3fpuzuT3PZZV
-         l8LDw+CA2il/MZTNVDzecJLwgp/XzwXLJTDSj6v733CVm99UrNhhvPedJ/UY+6Q9XASB
-         y4gIzaMzSVKwFLImw+q8uk3eFA5j2iUR3gwNvMN0K5gDRGEa8uerwdpZUgBc0xDaLG8r
-         F/8pg14tINEzhCzQZ2qi0JtxSAl2c3Ywm+WPEXEjMKsk94H//dfxnbAUtjkBPY7wJ48K
-         NDOQ==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wtMim/ZKUUVD2LU1q4V7ckwd7xbQrB5ulh7CVx/7A4E=;
+        fh=PspNA05O9dNJPM0ubLJsb68kKLdlFl9EFB9TheeWMgM=;
+        b=qPGnzSvq4m+hMj/kHSdOanffGjBUuKF4y8XOTzEb/BFsshJskzETzcVuZLnAiWVc1Z
+         71T54+W0H8nyar35TiafZ8EpS+HLgf032lH7GboPIpP7JBj099dIEnQsHPZoTZud2uOv
+         Nw0XxW0kLRW85veF3CcFqhxJX7/f4wc6Vfj7Sihx5FNGsV9jThgYuo96ZwiCtELwpxmx
+         d+70oKBaM6rm0hHqV+FOHErMzy0UvepZSI3Lfyknl2uahBFSfsVZ8Aa+gqZjeV12FL95
+         lgKWz2z/fc9n/YHaM36utBsyOAHmeS6sso/6VL5Rl15Po6mVWZ6ceXd/nwH7bdOkaBgK
+         OwdA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784285183; x=1784889983; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YHbZnUgfhySQwLZmZxFG4/4tCoDafXP3bzmxOBvVJ8o=;
-        b=YjEiGCaGEbDSDMXLzpK6Etcn8cpQ6kLhKtQ5amU3CCqNLWPnJJsV9eniRkraCiFyxz
-         cbbb/PMNGhL5oR8Agw4TwRnAmrFc7djsZZWMoKwDOBa5eOupNx2xNUKSltDOunX5oFKL
-         wv3B2vnxce/fWyx5bYzeKtc434YBwB3ha6zre17+Tf6+2iHj4asx3LF9v95Y4deywEbL
-         07JJi89V0El7MPqaLCZl/wihtdhgMlJHbXCFniuANJ3bKQXa3YcfPGAUbXV2d5JGcJRp
-         4DFSi3eM3/3fv6Sg8EZIe4GjLa/stpeZ0AqLyCVm0oe1p3K8ab267A5uyGRPM0f1Qkzl
-         ccyA==
+        d=gmail.com; s=20251104; t=1784285468; x=1784890268; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wtMim/ZKUUVD2LU1q4V7ckwd7xbQrB5ulh7CVx/7A4E=;
+        b=flQ5yOkOMsWdZNWpGQeCGk6fCVE/JY0nswtMP/Rvh2buK2RNd/Yfl8BHnkooiwy4Ua
+         pTyGyHiW2qKQsfBOGy/FgraKnR1BG2f7io3Gm1+sPLUHQ21XPj6j7LoI/H31OQjqSSFC
+         EosUgTqhMFWI9knpzmMG2nI+9GDNY3wnC+Es/3yvT0fQsBmjEu050bHIZ61g5Ccyvwwq
+         dRJzijCI95noeoNuDSZFEB/yx6DME6zkqUj/Q/ng5ombYCQBYY8Z4sLFLkavBoGGjYGx
+         32kxfetjTSRHqx+NCYw7CKTbdOTRTfqVFWdR1nIwMINHIqejFtb236/WIc5OCNadvKae
+         jv9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784285183; x=1784889983;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YHbZnUgfhySQwLZmZxFG4/4tCoDafXP3bzmxOBvVJ8o=;
-        b=CGyP0DuEOiXeGM9rTbGXIxa08+GNiuJT7wN1FaoW+UBI1KDGsfFFLeRgjqjs81Dv08
-         61Y4JdnKTChrXIfu4aTbozr32rWij+/ONgL4GbiEf7CITMZQo1aw8PUMBs4fWHlaBpeq
-         EsXszlnnm0MX8mwo98uSq1x+XQaf/cFRe1bndUPy34W3GePJoM0nokWuoxaEvtJ+pjBc
-         KSjjkDy5+3l0+b2Jzz0cnAusnEzSaAzEc29t1BTpueoyGKafB+hJn2WImyxuVMZgS+Je
-         Nas9pnfUjOK2bQ103jVkGjuSYhgOkQZvLOrdZvPLB9X8IPymcXPzmOx5rxfpoLYjvRat
-         RVJQ==
-X-Forwarded-Encrypted: i=1; AHgh+RopqQodrG+86L2iCF19XSnPtZpOPoZaOkInPeM2euuUEaZ6mmnbXtL2vTzFq8UCkQt0civ+RVMmHro2@vger.kernel.org
-X-Gm-Message-State: AOJu0YzDpXWBo35oli3Z+5nt/Mx+v7GyrI8FIhUL3F432+TJTkmeHsiT
-	EeB0u6qmJPTDPavS6Fb0W0V9ejX9Ie2dzudQmiS51F2c69M3WdZShazaWwxKcxb8LDibsRzndcf
-	BU+Qpu/UUay1rI6CwU1T+EOTUR20vpls=
-X-Gm-Gg: AfdE7cnNk9rGGSkxc9IcbDelNAZcP7Im97uW8lXSEyeTyJmkhrLtaSNrMZMnDHC+fYV
-	cjITke2B/Chw01xobWZaWgH+RaQJ20sJHtw0X1ujaW9AY3OLGnJP1qG3jgvAgdLoLrZVzycmHyO
-	ujrkaKG8vd/0RmJuSN4j8NdbSHvvkrgLZEszjjwr8hjQCWSF0keTqOrfUSJPJlBhz0NQS0yrziS
-	6Im7wGczWn+lXlwNYFAt6v9Hj5rM5nuM4Th1Vbr5nf6diVlVdeAKwNshYCUM34psBFe/qHtU6q8
-	XsCFC+FdFwYMOKT+udINBNPCwP4/S1Kwwn95orGiUM1sRQ+VwL/hXkZRIEXPM1aukp2920rRqrQ
-	4r74Y
-X-Received: by 2002:ac2:51cf:0:b0:5ae:b136:acdc with SMTP id
- 2adb3069b0e04-5b28f9a589emr536086e87.35.1784285182682; Fri, 17 Jul 2026
- 03:46:22 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784285468; x=1784890268;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wtMim/ZKUUVD2LU1q4V7ckwd7xbQrB5ulh7CVx/7A4E=;
+        b=aDsnD+vSb8rCjxjU5U/i2vMRbGW5LDtEy7mlU0qCipsNwP9DxxXdEbp5royfVqj9Zz
+         d9hQnKrTA31Qv/xqI6OokWWXR6IMmsJgAES70idjfXqyuojuX6zDFMLnW5BM+HwmrT0D
+         kL6BHC2H2bE3uMiMmCWsKwYlDZu4b02YC/OB9u02zf4gTfU3RHm5nxx+joqnIzNQZxQP
+         CNf0iovr63Sz9gsJL1h5BWMijosSJLSSDwwUK4YAz2AOw5GOOZH66Uge+SIiP48lBwVT
+         2llHqcrboxdfnTDlZFKwyvkT18BOAuRl62M+8vcGVOz1lKa5XbY80P0sSc5TBARnedDq
+         XODQ==
+X-Forwarded-Encrypted: i=1; AHgh+RobAHeBa+nemvapRnSXo/pLso3buehZ6l+Nt3MSYCiWDkGl7EjKgLTFYRTedwPkpCOBxD2XC6HxcNH1@vger.kernel.org
+X-Gm-Message-State: AOJu0YxWcaUCfQt2rOGG46zX+EINsXkMnLSAO6EpV78uwtc3U0/bLhFb
+	cAZdfCuseXFFdTXgDjYvQZX9NO2876ioD5j3rqZ8SadmI0xiWW5R7lCVvfgBhy+0Z81njZoLks3
+	W6pOU8ezOQg4me3fnGRuGg91dn8LXtkrGbj7k
+X-Gm-Gg: AfdE7ck1WazIKeFy6K1KXOZbsEHh4fMP/7H80LEOaIcQaUmQIe1jOwdjkZxviQZ6FZA
+	MyZEBufAIwD6rIUs7o6Eyu0lTnP5+n7wHRY6MhMoA0dfHsP0+/vb8Qpi3scYDKiF90n4myiuUOf
+	gBFOO3YhY5qVqbZ7KRNu5vJ6uEHEmXi9mPI3Tzl114aqA7xrg0lzcX4G4LEuGxUm77BTWN3VRl/
+	uLBfTjxkSezcXlLRYQ9lRZnywQrcc3IEth3U9YFKdEvS9JtKcjmm9dVa/EbPWk=
+X-Received: by 2002:a17:906:4fd5:b0:c16:64e3:945a with SMTP id
+ a640c23a62f3a-c16b41370ccmr92556166b.25.1784285467779; Fri, 17 Jul 2026
+ 03:51:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260714101146.200416-1-kieweg.leander@gmail.com>
- <20260714101146.200416-3-kieweg.leander@gmail.com> <d817d031-6ef2-4909-81cb-a9d417550dd8@suse.de>
-In-Reply-To: <d817d031-6ef2-4909-81cb-a9d417550dd8@suse.de>
-From: Leander Kieweg <kieweg.leander@gmail.com>
-Date: Fri, 17 Jul 2026 12:46:09 +0200
-X-Gm-Features: AUfX_mw8ch0ZGElQgNP-r5TJUFlhtJZKGB1M8n9Xm63PvlrnxX6RSRURqwTyDwk
-Message-ID: <CAMwcS0h--iZtjVZUeeHmoV4MngfW_f9auAseBDhqXMGc_zqVqg@mail.gmail.com>
-Subject: Re: [RFC PATCH 2/3] drm/glanda: Add initial DRM driver for GlandaGPU
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+References: <20260716173325.653164-1-a.shimko.dev@gmail.com> <77f1cc14-cc5f-4f32-a972-f0350a60931b@bootlin.com>
+In-Reply-To: <77f1cc14-cc5f-4f32-a972-f0350a60931b@bootlin.com>
+From: Artem Shimko <a.shimko.dev@gmail.com>
+Date: Fri, 17 Jul 2026 13:50:56 +0300
+X-Gm-Features: AUfX_mzSmKf21HSDXphC1gph7rPE_T36Tux4M65Qywsv6eC1VFfF4erCVlhOaJ8
+Message-ID: <CAOPX746tZcytWVq-LqE166j8hoVNrndZfZGAgnhiE6Ry_BY8+w@mail.gmail.com>
+Subject: Re: [PATCH net-next v3 0/2] Add DAPU Telecom DAP8211R(I) Gigabit
+ Ethernet PHY driver
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Zhi Li <lizhi2@eswincomputing.com>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Thomas,
+Hi Maxime,
 
-Thanks for the detailed review, going through each point:
-
-> Please use drm_device.dev instead.
-
-Will drop this field and use gdev->drm.dev everywhere instead.
-
-> Synchronization happens with drm_gem_fb_begin_cpu_access(). No need to
-> take the lock here.
->
-> > +     ret = drm_gem_shmem_vmap_locked(shmem, &map);
->
-> This vmap should not happen here, but in begin_fb_access.  We have
-> helpers that set up the mapping for your driver. Take a look at
-> DRM_GEM_SHADOW_PLANE_HELPER_FUNCS and DRM_GEM_SHADOW_PLANE_FUNCS and the
-> drivers that use them.
-
-I wasn't aware these helpers existed, this looks like exactly the
-right fit for what I'm doing (software render into shmem, blit into
-hardware VRAM on flip). I'll switch to
-DRM_GEM_SHADOW_PLANE_HELPER_FUNCS/DRM_GEM_SHADOW_PLANE_FUNCS and drop
-the manual dma_resv_lock/vmap_locked handling entirely for v2.
-
-> That's confusing. Each pixel is 32 bit. But each color channel is only 4
-> bit. So there's a 20-bit hole in each pixel, right?   Why don't you use
-> 16 bit per pixel?
-
-You're right that it's wasteful as-is. One thing worth mentioning
-though, my VRAM write port on the hardware side is a fixed 32-bit
-Avalon-MM slave without byteenable support. The hardware itself
-always reads the lower 12 bits and ignores the rest, so that part is
-fine regardless of write width, but I'm not certain the interconnect
-would reliably place a 16-bit write into the lower half of the
-32-bit word rather than, say, the upper half depending on address
-alignment, without byteenable support to make that explicit.
-
-I'm already planning to update the hardware to accept XRGB8888
-natively, which will need the full 32-bit width regardless and
-removes the CPU-side pixel conversion entirely, so I'll leave this
-as a 32-bit write for now and address it as part of that hardware
-change rather than adding byteenable support for what would only be
-a temporary fix.
-
-> I don't think it is possible that new_state is NULL.
-
-I'll drop the redundant check.
-
-> No need for this function. drm_gem_fb_create_with_dirty() is exactly
-> what you're looking for.
-
-Thanks, I'll drop glanda_fb_create()/glanda_fb_funcs and just assign
-drm_gem_fb_create_with_dirty directly.
-
-> Drop these ioctls entirely. As I outlined in my reply to the cover
-> letter, these will not work with DRM as they are now. Especially since
-> you're using gem-shmem as a shadow buffer. All your rendering happens in
-> system memory in user space in software.
-
-Agreed, as mentioned in my reply to the cover letter, these are gone
-in v2.
-
-> This function is going away. You can open-code it instead.
-
-Will do, thanks for the heads up.
-
-I'll include all of this in v2 along with what we discussed on the
-cover letter thread. Thanks again for the thorough review.
-
+I could suggest a couple options for how I should handle the driver:
+1. Recognizing that this is a problem with the PCS layer, I can remove
+the inversion from the patch
+(but add it to my working project as a separate, non-upstream patch).
+This way, we'll just leave the delays setting in the driver, which is
+fairly common among driver users.
+2. Leave the inversion in the driver until some future common
+framework solution is developed, and
+then adapt this part of the driver to that solution. I'd be happy to
+help develop/modify that framework =3D).
+A packet generator could also be added to it.
+--
 Best regards,
-Leander
+Artem
+
+On Thu, Jul 16, 2026 at 9:11=E2=80=AFPM Maxime Chevallier
+<maxime.chevallier@bootlin.com> wrote:
+>
+> Hi Artem,
+>
+> Please slow down a bit, you need to wait at least 24h between patch
+> submissions :
+>
+> https://docs.kernel.org/process/maintainer-netdev.html
+>
+> On 7/16/26 19:33, Artem Shimko wrote:
+> > Hello,
+> >
+> > This series adds support for the DAPU Telecom DAP8211R(I) Gigabit
+> > Ethernet PHY, commonly used in enterprise and industrial networking
+> > applications. The PHY supports 10/100/1000 Mbps operation with RGMII
+> > interface and includes features such as IEEE 802.3az Energy Efficient
+> > Ethernet, IEEE 1588 SyncE, and an internal packet generator for
+> > diagnostics.
+> >
+> > The driver implements extended register access via indirect addressing
+> > (registers 0x1E/0x1F) and provides comprehensive device tree support
+> > for RGMII delay configuration. The rx-internal-delay-ps and
+> > tx-internal-delay-ps properties allow precise tuning of clock delays
+> > in 150 ps steps from 0 to 2250 ps. The optional dapu,tx-inverted-clk
+> > flag enables 180-degree TX clock phase shift for boards where signal
+> > integrity or MAC requirements necessitate clock inversion.
+>
+> +Zhi Li
+>
+> This isn't the first time we see clock inversion being used to overcome
+> RGMII timing issues, for setups that have too big of an internal delay,
+> see [1].
+>
+> I'm wondering if we should either reject this on the account that this
+> is bad HW design, or embrace that in which case it would probably be
+> a good idea to come-up with more generic ways to handle that.
+>
+> This patch proposes the "dapu,tx-inverted-clk" property, while Zhi Li's
+> patch has a dedicated compatible for that (and inversion is on RX, on the
+> MAC side)
+>
+> If clock inversion is a common thing for MAC and PHYs to be able to do,
+> should we add some way of representing the RGMII delays that are
+> introduced by the HW itself in DT, and let drivers figure-out from that
+> if they need to resort to clock inversion to align clk and data correctly=
+ ?
+>
+> Phylib could maybe even provide helpers for that ?
+>
+> [1] : https://lore.kernel.org/netdev/20260707064159.1299-1-lizhi2@eswinco=
+mputing.com/
+>
+> Maxime
+>
