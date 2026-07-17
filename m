@@ -1,120 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A7A296BCF
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:02:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7065A3254BB;
+	Fri, 17 Jul 2026 09:02:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784278930; cv=none; b=j7xChqosdWTB4h84Qjgi4LQLbTS+oNoo/I0HfuT0+3Kd53f8fczADqNFh73uf6SIljw4rZ+EiZbjvZj02RbR9Y0n1qjlaPMk/82xRcu/ywzZP7uwMwT0BV2/LiR+SR+qs24tTl6PtFfLardrE21U/xIQmmrYSc7fCXttFu+Ddz4=
+	t=1784278966; cv=none; b=o3xJed4oGZ/imfRrhMUwUh0jHOcSxVQi2AsJSs/6yoHQgPBRa4rrJpNhC5HttAChhjjFyHQNSolZ1j/ZxBxaemlAEMSazozLXXMx2QMqgAF7xeRxM/9/w9qNwZx2lvD7drBJ/2Fm2yUrqCX84U6Lp3X9gBwWEwasRaFHJ3D+l5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784278930; c=relaxed/simple;
-	bh=PxM8JFyMlGvK1jrARDEYDMkpQO5rsda9DRT6Jfu7GJw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FCVqnv+JBYKE+Eesimf0tSuo1V00gfcY9aUSnA2Kcww5Ti0SflK8lIMBP8hb3ky/Ou6iF4P9+b7t2vMj9oAo/So8bB/nGFdeST2eC4Xl2GwGJTcFFJ2NengpKG12ouI8rovJk5pwkXgO8YRfxv86scz78URrVXR2XnDq0e2Op7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SRaXTU2H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784278966; c=relaxed/simple;
+	bh=NehbN4YKikETW4r9a28YWhM4y3B1oSP+pQzliSEBHBo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WogitQR7P1DCVPGnHiCfzf23Vs/nYGf0Hi82Ms4C9iF5hfNFb8Y7cla1WU4yLdBKCND4JE5w32O7ExGi+QX3egQ2YCYh9mYHqO3hKfFKWKuis4D7PRRVLHcLx7C6WEId+7OedMAhcF4Wp1D+2BiL2cjOZL8hlMUKk0dXlPmAXGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c1liovBt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SRaXTU2H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A09B1F000E9;
-	Fri, 17 Jul 2026 09:02:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c1liovBt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58EBE1F000E9;
+	Fri, 17 Jul 2026 09:02:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784278929;
-	bh=zqY7aaRp8XgOEjqywuoA5hqxPs/CZyEgnn7hRf5QbsE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SRaXTU2HyVSfX7qNO42OZK2GktNTiotquxCR6xBz2NyIPuDuTth4D+Rdnb+5v8k2c
-	 YKK1Xgtd8d3PzT7P2ImT5MCbuGXp++c4PtUVl60gb5JTUYywpLIglsWBBaVhTK/W4s
-	 lO6HA7JN2x8w9uDOajEhgo2ohKatZBB4jDVqQ1rYvRzcI06wBHjADPE15jMo77oG2q
-	 e1cC5WCiKGMGHtRy/IfTMwrzoItUP2EcFBU4/z36ZF2EngB9/i3IaIz5GYWhf+DptR
-	 jkBTYfBnUDgDnN70ndX8l3f+u7gX9BbeLtjyULyiP6nOuU0oPr6juz+SPRGcC+UFhT
-	 xsDHPheluzCbA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/4] mfd: axp20x: Add support for AXP318W PMIC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jerome Brunet" <jbrunet@baylibre.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260717-axp318-regulator-v3-2-779dc1b97dd4@baylibre.com>
-References: <20260717-axp318-regulator-v3-0-779dc1b97dd4@baylibre.com>
- <20260717-axp318-regulator-v3-2-779dc1b97dd4@baylibre.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 09:02:08 +0000
-Message-Id: <20260717090209.2A09B1F000E9@smtp.kernel.org>
+	s=k20260515; t=1784278965;
+	bh=0rkMuhbyCe+SuxUq+i2Titkafj65wjJ3bETt3hS3Mk4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=c1liovBtU0E9PZxr5RN7gCSbpT5J3IAtuvgBocjZifx3F7KNZFQModGm5H7eHcsRh
+	 l4OwQT33HbwkY/+J23Gto5hewSgy4i3HRTRvts0VQ6nPj6RbWO7fLlLFRjDGEgn3h4
+	 HToPsK+6FzKosgSNGuSQBYodnGPKngqT4Ys7d6xmRCekc7a1NBpQzU3+3BXrW+4Hz0
+	 33tEt8h2PXzKUS6IaUkect8i8i7VVX89pVHEbquFkZtXRo2tjo95YJ+tXtcOjHHbcD
+	 0YUbfPg/98n0E8WQdmF3VDrKhuytfGSsza1qR7EGb5t8Cn7txqknvqxH7e5FjwsmbR
+	 Jx2gYwyiub1QA==
+Date: Fri, 17 Jul 2026 11:02:41 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, prasad.kumpatla@oss.qualcomm.com, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v2 3/3] ASoC: Add LPASS VA CSR heartbeat pulse clock
+Message-ID: <20260717-outgoing-bold-tanuki-d4db9e@quoll>
+References: <20260717-master-v2-0-ae200627ad62@oss.qualcomm.com>
+ <20260717-master-v2-3-ae200627ad62@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260717-master-v2-3-ae200627ad62@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] The newly added I2C device ID `axp318w` fails to use named initi=
-alizers and omits the `.driver_data` field, resulting in it defaulting to `=
-0` (`AXP152_ID`).
-- [Medium] The MFD cell and resources for the power key (`axp20x-pek`) are =
-completely omitted from `axp318_cells`, despite the commit message claiming=
- to support it and IRQs being defined.
-- [Low] The `axp318_cells` array uses a hard-coded ID of `1` for the regula=
-tor cell, which violates MFD subsystem guidelines and risks sysfs naming co=
-llisions.
---
-
---- Patch [2]: [PATCH v3 2/4] mfd: axp20x: Add support for AXP318W PMIC ---
-commit c0a61d967fff87b52d26e4cb329e69e10684fb89
-Author: Andre Przywara <andre.przywara@arm.com>
-
-mfd: axp20x: Add support for AXP318W PMIC
-
-This patch adds support for the AXP318W PMIC connected via I2C. It sets up
-the regmap configurations, volatile ranges, interrupts, and registers the
-MFD cells for the regulator devices.
-
-> Describe the regmap and the MFD bits, along with the registers exposed
-> via I2C only. This covers the regulator, interrupts and power key
-> devices for now.
-
-[Severity: Medium]
-Is the power key device missing from the MFD cells array in this patch? The
-commit message mentions it is covered, but there are no power key resources
-or cells defined for the AXP318W.
-
-> diff --git a/drivers/mfd/axp20x-i2c.c b/drivers/mfd/axp20x-i2c.c
-> index 5c93136f977e7..4e4ebfc78525c 100644
-> --- a/drivers/mfd/axp20x-i2c.c
-> +++ b/drivers/mfd/axp20x-i2c.c
-> @@ -83,6 +84,7 @@ static const struct i2c_device_id axp20x_i2c_id[] =3D {
->  	{ "axp221" },
->  	{ "axp223" },
->  	{ "axp313a" },
-> +	{ "axp318w" },
-
-[Severity: Medium]
-Does this need named initializers to provide the .driver_data payload?
-
-Without setting .driver_data like the of_device_id table does, won't this
-default to 0, which is AXP152_ID? If this device is instantiated via legacy
-I2C methods, device_get_match_data() might return AXP152_ID instead,
-causing the driver to mistakenly configure it as an AXP152 variant.
-
-> diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
-> index 679364189ea58..c8aeebd01bbcd 100644
-> --- a/drivers/mfd/axp20x.c
-> +++ b/drivers/mfd/axp20x.c
-[ ... ]
-> @@ -1061,6 +1129,10 @@ static struct mfd_cell axp313a_cells[] =3D {
->  	MFD_CELL_RES("axp313a-pek", axp313a_pek_resources),
->  };
-> =20
-> +static const struct mfd_cell axp318_cells[] =3D {
-> +	MFD_CELL_BASIC("axp20x-regulator", NULL, NULL, 0, 1),
-
-[Severity: Low]
-Should this use PLATFORM_DEVID_AUTO instead of a hard-coded ID of 1?
-
-Assigning a hardcoded ID can lead to device naming collisions in sysfs if
-multiple instances of the device are present.
-
-> +};
+On Fri, Jul 17, 2026 at 01:21:17AM +0530, Sarath Ganapathiraju wrote:
+> The HeartBeat Pulse (also known as RateGen Pulse) synchronizes the
+> start of the DMAs and Codec Interfaces for the audio usecases
+> and can serve as a periodic wakeup source for the DSP.
+> 
+> Add the LPASS VA CSR driver that models the rate generator as a clock
+> provider so it is enabled and disabled automatically alongside the
+> other clocks during runtime PM resume and suspend.
+> 
+> Signed-off-by: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+> ---
+>  sound/soc/codecs/Kconfig        |  13 ++++
+>  sound/soc/codecs/Makefile       |   2 +
+>  sound/soc/codecs/lpass-va-csr.c | 143 ++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 158 insertions(+)
+> 
+> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+> index 76e90144ea..5dbfa77d0e 100644
+> --- a/sound/soc/codecs/Kconfig
+> +++ b/sound/soc/codecs/Kconfig
+> @@ -2902,11 +2902,24 @@ config SND_SOC_LPASS_WSA_MACRO
+>  	select SND_SOC_LPASS_MACRO_COMMON
+>  	tristate "Qualcomm WSA Macro in LPASS(Low Power Audio SubSystem)"
+>  
+> +config SND_SOC_LPASS_VA_CSR
+> +	depends on COMMON_CLK
+> +	select REGMAP_MMIO
+> +	tristate "Qualcomm LPASS VA CSR heartbeat pulse clock provider"
+> +	help
+> +	  Qualcomm LPASS VA CSR block contains the rate generator hardware
+> +	  that produces the HeartBeat Pulse (also known as RateGen Pulse).
+> +	  This driver models the rate generator as a clock provider so
+> +	  that consumers can enable or disable it via the common clock
+> +	  framework, and it can be used to synchronize the start of DMAs
+> +	  and Codec Interfaces or as a periodic wakeup source for the DSP.
 > +
+>  config SND_SOC_LPASS_VA_MACRO
+>  	depends on COMMON_CLK
+>  	depends on PM_CLK
+>  	select REGMAP_MMIO
+>  	select SND_SOC_LPASS_MACRO_COMMON
+> +	select SND_SOC_LPASS_VA_CSR
+>  	tristate "Qualcomm VA Macro in LPASS(Low Power Audio SubSystem)"
+>  
+>  config SND_SOC_LPASS_RX_MACRO
+> diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+> index aa0396e5b5..3e86c1bbf9 100644
+> --- a/sound/soc/codecs/Makefile
+> +++ b/sound/soc/codecs/Makefile
+> @@ -163,6 +163,7 @@ snd-soc-lpass-rx-macro-y := lpass-rx-macro.o
+>  snd-soc-lpass-tx-macro-y := lpass-tx-macro.o
+>  snd-soc-lpass-wsa-macro-y := lpass-wsa-macro.o
+>  snd-soc-lpass-va-macro-y := lpass-va-macro.o
+> +snd-soc-lpass-va-csr-y := lpass-va-csr.o
+>  snd-soc-madera-y := madera.o
+>  snd-soc-max9759-y := max9759.o
+>  snd-soc-max9768-y := max9768.o
+> @@ -886,6 +887,7 @@ obj-$(CONFIG_SND_SOC_TPA6130A2)	+= snd-soc-tpa6130a2.o
+>  obj-$(CONFIG_SND_SOC_LPASS_MACRO_COMMON)	+= snd-soc-lpass-macro-common.o
+>  obj-$(CONFIG_SND_SOC_LPASS_WSA_MACRO)	+= snd-soc-lpass-wsa-macro.o
+>  obj-$(CONFIG_SND_SOC_LPASS_VA_MACRO)	+= snd-soc-lpass-va-macro.o
+> +obj-$(CONFIG_SND_SOC_LPASS_VA_CSR)	+= snd-soc-lpass-va-csr.o
+>  obj-$(CONFIG_SND_SOC_LPASS_RX_MACRO)	+= snd-soc-lpass-rx-macro.o
+>  obj-$(CONFIG_SND_SOC_LPASS_TX_MACRO)	+= snd-soc-lpass-tx-macro.o
+>  
+> diff --git a/sound/soc/codecs/lpass-va-csr.c b/sound/soc/codecs/lpass-va-csr.c
+> new file mode 100644
+> index 0000000000..1d0805789e
+> --- /dev/null
+> +++ b/sound/soc/codecs/lpass-va-csr.c
+> @@ -0,0 +1,143 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#include <linux/clk-provider.h>
+> +#include <linux/device.h>
+> +#include <linux/module.h>
+> +#include <linux/of_clk.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717-axp318-reg=
-ulator-v3-0-779dc1b97dd4@baylibre.com?part=3D2
+Why a clock provider driver, which has nothing to do with ASoC and uses
+nothing from the ASoC, is placed in ASoC directory?
+
+No, this is really wrong interpretation of Linux subsystems.
+
+Best regards,
+Krzysztof
+
