@@ -1,123 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C4037DAD4
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 19:11:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD612609C5
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 19:13:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784315474; cv=none; b=AiMdqdLmsFa5vCmY6YudAB+DO5yIVnQr6eFqpq8TzSCek5wKFRvabsw7ZzNVGzagNUX9ieQP+7H+ojIEkiRtijMD7lusFCsuzUFYaHbvaxDF7sg1QJhk6RTa+rih0idUUuTYCHly18bp9RTI1pgubrEsvP7IESO17K+39liZ2jI=
+	t=1784315621; cv=none; b=IzoLR2gQS8m+5r+rZfDL5Dy46SACAItlbAqpPuh/u2sMVUY+lVPv4wgngJKB/Axpku2G7onNaJWZu855F8yoY5y06EckMhDbi9kRkMd4awgaxjf/M91nBCw9Vwzg14MPPwaBjaPf6/bnM/Xu58CH/BfuNbEElRMrbE0h6FE6GrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784315474; c=relaxed/simple;
-	bh=xa/tU5wRqGohTWAJMxT/6MNJ9n8OUpMHJkuwhXpm+lM=;
+	s=arc-20240116; t=1784315621; c=relaxed/simple;
+	bh=56m7mWn7xqOfJ52wXGCB59tB88EgIpHtsPzaYrz3RV0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Dv6w7VW1mewZlFndMs9hTcIRBKsDgVL56sNh5yCAdayf249iRgdsHNQtuVbWejqrPiKDv8nt1UMX7HDAlwZYZQa4JWE2p53ZyEmHJUTEzA3AAmDaZPD4AJCl2cC3C8pYfXTtSkqxVGyWeq5UuWPgRgJISBmVEWdXipinW6LF9g4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HYHdkPAr; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=GOoPtt7+eesxmZJ0NZXdaTDJXKLJaplno/xZ415PV/h35/7xjWxvSz18rB2VVLwoMMFon1SuWoERKHPh2W8iCnQSABpsUjQxcT53nS1BHViQVsFtIVs6BMgLkg2WJ1bZ1NkP/C4ZFFFio2/pQ2/o6zPQn+Ctc6voSleev+SMpAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g4GZTkuP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HYHdkPAr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E8961F000E9;
-	Fri, 17 Jul 2026 19:11:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g4GZTkuP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AFCC1F000E9;
+	Fri, 17 Jul 2026 19:13:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784315472;
-	bh=CYZ0DPv8l35rB76J6zj9DpjK/i7BPDhEA8RWwniQqAs=;
+	s=k20260515; t=1784315619;
+	bh=4dGNDyKz6a88d6gKB0D43gGjMSPfEzeWtmkUMz1yvT8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HYHdkPAr92D/0kPvvK3Ra9ki4lYSivymRvqiHgGQe6L6MBCoLZTo8l7FJ6lOnDoiB
-	 JhIeggxah9rdYXtut6LqD2wLdj0ZLEJA3FYCCqTsYXf4+zOOUe1JlUtOZp0BRBE0EF
-	 46P3VyY1XRkVC+oYgVcD2jmya8SAUKXQq7+PuQdGVRW7mG8t0qEzIa7UEYJ9pMIcQa
-	 yNRXPzlJ66L53ZVTqDeukuQOpP7Hw/ie9e9Js/l67TF+BKNFwh852+LebIOQEoz7C+
-	 Nf8ZyTnJNrrDpZCyLNvYfH39SrgfQAXVti0+dfEDbEkxwAmun3u8V5reGx/7eS9bum
-	 bOzu5Osqeuw0g==
+	b=g4GZTkuPWHqQiav5tbptAkVdAEJec+UyVxqpxhEuwAM6U6SlfWHkWG2qZRnmTvLCn
+	 pSfNO1yoCtQo8ptAsz4ip4zy9djYcBxkKtSEtXNh0LuV4hsXdyY6Ar8Npi2F1g27Sk
+	 haduU+WedEMhfSsLAnxU6cZuZmRx3XPAjX+q5sU3DXoqMInxboTidAdAnndlMlZ6dN
+	 Fgingq3Wy8adIk65Ciq5Qni/lINU82R04yeRcEo6xCdXBCGYTw1/1yVQsCWlL2yVM4
+	 P/p9627hnxflMSpmrCw857i/d1BOUC2jZSUgQT5eJK/1LR/TefEEJhJ/XJzFU1oprW
+	 VygPWgY0uOxZg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 04/17] spi: spi-mem: teach spi_mem_adjust_op_freq()
- about post-config ops
+Subject: Re: [PATCH v5 07/17] spi: cadence-quadspi: add DQS support to read
+ data capture
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Santhosh Kumar K" <s-k6@ti.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260717185116.2065505-5-s-k6@ti.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260717185116.2065505-8-s-k6@ti.com>
 References: <20260717185116.2065505-1-s-k6@ti.com>
- <20260717185116.2065505-5-s-k6@ti.com>
+ <20260717185116.2065505-8-s-k6@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 19:11:11 +0000
-Message-Id: <20260717191112.5E8961F000E9@smtp.kernel.org>
+Date: Fri, 17 Jul 2026 19:13:39 +0000
+Message-Id: <20260717191339.6AFCC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Missing hardware limit clamping for post_config_max_speed_hz
-- [High] Exact frequency equality check overloads capability field as a sta=
-te flag, causing tuning failure and regressions
+- [Medium] The patch adds a `dqs` parameter to `cqspi_readdata_capture()` b=
+ut hardcodes it to `false` in its only caller, which unconditionally clears=
+ the DQS hardware bit and destroys any preexisting bootloader configuration.
 --
 
---- Patch [4]: [PATCH v5 04/17] spi: spi-mem: teach spi_mem_adjust_op_freq(=
-) about post-config ops ---
-commit d5308ce32807c28e1b6f48e6c7412cc09f81f812
+--- Patch [7]: [PATCH v5 07/17] spi: cadence-quadspi: add DQS support to re=
+ad data capture ---
+commit 9c04e0d8a632e24ea7f330776f17875445decaac
 Author: Santhosh Kumar K <s-k6@ti.com>
 
-spi: spi-mem: teach spi_mem_adjust_op_freq() about post-config ops
+spi: cadence-quadspi: add DQS support to read data capture
 
-This commit extends spi_mem_adjust_op_freq() with a bypass for ops where
-op->max_freq equals post_config_max_speed_hz. All other ops are capped to
-max_speed_hz, integrating the policy into the single frequency-adjustment
-point.
+This commit adds a DQS (Data Strobe) parameter to cqspi_readdata_capture()
+to control data capture timing. It updates the register read-modify-write
+sequence to configure the DQS bit and modifies the caller to provide this
+new parameter.
 
-> diff --git a/drivers/spi/spi-mem.c b/drivers/spi/spi-mem.c
-> index a88b9f0383564..e20eca1b82457 100644
-> --- a/drivers/spi/spi-mem.c
-> +++ b/drivers/spi/spi-mem.c
-> @@ -591,9 +591,18 @@ EXPORT_SYMBOL_GPL(spi_mem_adjust_op_size);
->   * Some chips have per-op frequency limitations and must adapt the maxim=
-um
->   * speed. This function allows SPI mem drivers to set @op->max_freq to t=
-he
->   * maximum supported value.
-> + *
-> + * When @mem->spi->post_config_max_speed_hz is set, ops with @op->max_fr=
-eq
-> + * equal to that value are treated as post-configuration ops (e.g. PHY-t=
-uned)
-> + * and are allowed to run at the full post-config rate. All other ops are
-> + * capped to @mem->spi->max_speed_hz, the always-reachable base rate.
->   */
->  void spi_mem_adjust_op_freq(struct spi_mem *mem, struct spi_mem_op *op)
->  {
-> +	if (mem->spi->post_config_max_speed_hz &&
-> +	    op->max_freq =3D=3D mem->spi->post_config_max_speed_hz)
-> +		return;
-
-[Severity: High]
-Does this early return bypass the hardware capability limit clamping for
-post-config operations?
-
-If a device tree provides a post-config frequency that exceeds the
-controller's absolute hardware capabilities (spi->controller->max_speed_hz),
-could returning early here force the SPI controller to configure unbounded
-frequencies?
-
-[Severity: High]
-Since op is often an ephemeral local variable and op->max_freq is a static
-capability bound initialized from flash driver templates (such as
-SPINAND_OP_VARIANTS), will this exact equality check fail to match during
-actual operation?
-
-For example, if a flash command supports up to 200MHz, but the board is tun=
-ed
-to 133MHz, the equality check would fail. In this scenario, does the tuned
-operation incorrectly fall through and get clamped to the slower untuned
-max_speed_hz?
-
-Could this also cause pre-tuning operations to accidentally bypass the clamp
-if their natural maximum frequency happens to match the board's post-config
-target frequency?
-
+> diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-=
+quadspi.c
+> index f8e2663723677..046fa5d69b0f7 100644
+> --- a/drivers/spi/spi-cadence-quadspi.c
+> +++ b/drivers/spi/spi-cadence-quadspi.c
+[ ... ]
+> @@ -476,6 +477,11 @@ static void cqspi_readdata_capture(struct cqspi_st *=
+cqspi, const bool bypass,
+>  	reg |=3D (delay & CQSPI_REG_READCAPTURE_DELAY_MASK)
+>  	       << CQSPI_REG_READCAPTURE_DELAY_LSB;
+> =20
+> +	if (dqs)
+> +		reg |=3D BIT(CQSPI_REG_READCAPTURE_DQS_LSB);
+> +	else
+> +		reg &=3D ~BIT(CQSPI_REG_READCAPTURE_DQS_LSB);
 > +
->  	if (!op->max_freq || op->max_freq > mem->spi->max_speed_hz)
->  		op->max_freq =3D mem->spi->max_speed_hz;
+>  	writel(reg, reg_base + CQSPI_REG_READCAPTURE);
 >  }
+> =20
+> @@ -1317,7 +1323,7 @@ static void cqspi_configure(struct cqspi_flash_pdat=
+a *f_pdata,
+>  		cqspi->sclk =3D sclk;
+>  		cqspi_config_baudrate_div(cqspi);
+>  		cqspi_delay(f_pdata);
+> -		cqspi_readdata_capture(cqspi, !cqspi->rclk_en,
+> +		cqspi_readdata_capture(cqspi, !cqspi->rclk_en, false,
+
+[Severity: Medium]
+Does passing false here unconditionally clear the DQS hardware bit that was
+previously preserved from the bootloader?
+
+Prior to this change, the read-modify-write sequence in
+cqspi_readdata_capture() did not touch bit 8 (CQSPI_REG_READCAPTURE_DQS_LSB=
+).
+Now, by hardcoding dqs to false, cqspi_readdata_capture() will actively cle=
+ar
+the DQS bit.
+
+Could this degrade timing margins and cause read data corruption on platfor=
+ms
+that currently rely on the bootloader's DQS configuration?
+
+>  				       f_pdata->read_delay);
+>  	}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717185116.2065=
-505-1-s-k6@ti.com?part=3D4
+505-1-s-k6@ti.com?part=3D7
