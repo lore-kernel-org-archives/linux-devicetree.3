@@ -1,149 +1,164 @@
-Received: from flow-b8-smtp.messagingengine.com (flow-b8-smtp.messagingengine.com [202.12.124.143])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B003E44F3;
-	Fri, 17 Jul 2026 08:55:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.143
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3E13E1736
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 08:58:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784278523; cv=none; b=nR3WcGzUqaHw3t5no5ZzzjWPn2NuBhgth7YwXJKcO8zDbPbUGYIqVq5JgIH0CQCgiWONAqQShi22jvfd/Ups/U8EXSGjPjVGcsT2rFm94RubGZfmwI6vRTdoV4hM/5+2xOj2umqAlSJ3OO5382i1jBw8Nn7N693eq1F2OOatTeI=
+	t=1784278740; cv=none; b=J/vATuLfhqUobMsZFnBjh3AekNEsxt7Xbafb4VTuqE9CJc8fz6wLyrpDJybKF3++HVoAu+kIRp/jqOk7964wIo+ZxoEv4mkKsI2bULgFAzCkoJjGPdxm2aaGa9uNwKAUIJS5+8x8otfadstoWrvCrssGirZrpXF/M+buvPnRnRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784278523; c=relaxed/simple;
-	bh=xwyTtf8+JfQD1dpFKE+tIj/qERhLNymFR9/Nw9qnYNI=;
+	s=arc-20240116; t=1784278740; c=relaxed/simple;
+	bh=iKr+ORJN/0HmCwv5NrZPcwiCSwGwPmGXsiFEI46TzZc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RQotDr7BpEHILhrXI9omEz7Cc0MTQnPn9kpQ46ezMxW8xgMZjp7+KmD8GWo4Q3HL6yFGsmBgjx5w7Vgqp0Aiuu/RMZLDHKcuv4GSDsWdq7FC37q1LMiLqlITd85n/JiUg1n5ZA57vUjdXYwtuNZsjSTB4Q3FeadnR19Vgjs4Bhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=EgKc7488; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=c2N3OeLE; arc=none smtp.client-ip=202.12.124.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
+	 MIME-Version:Content-Type; b=VhuwsRJREDB8c2aureawi62SWylGoJUXyEr7Hqlq62GirFp+K1wgFTsEbrfEhi140xPY2ybiuYtb/AItqrgpL2ssSC41QouVk5LDh0hx8/138p8mwl92ngpi8uWgs0vk9xXddiNh5j/+uNhCsUTYL5eg7rfq0sv2TQcXnqKz0PQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=l400jifc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SEtOBm4/; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="EgKc7488";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="c2N3OeLE"
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailflow.stl.internal (Postfix) with ESMTP id 999A013002E9;
-	Fri, 17 Jul 2026 04:55:21 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-10.internal (MEProxy); Fri, 17 Jul 2026 04:55:22 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1784278521; x=
-	1784282121; bh=Zvd1osMYewGqon41SsFYB9MFb6slH1HcdKHtX5RAEpk=; b=E
-	gKc7488I5Z9VTl7QMWXAF/psMQGuTz+k6DzFkDtAGftumnkGTZfPk2hkAncjLENy
-	3lhd+L/wvAV+XUcWtlBqrHwn+s0Ptx3qMEb6EBdCH2cIee+3P6sk/vOURW+EgVq9
-	UB41pWP9mMx4qIiuvzzglXlEyCdQnFKwtbCnfnoG9hX+JHHAnWgGHy38UYsPmYyl
-	w2FFb1uX313jG54k9GbVvswxVZDI6FqJ3B/oOwQIAwYhYKNcDJETZHF/1Mh5RuLj
-	C6ETziDGp6s+mtmZo9GMsnX4xv1sA5kJdPq0bri+aR2EkdYFiIJitjBE2Tv0RN1K
-	HBvKSWRdbBfLKrgyBb15Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1784278521; x=1784282121; bh=Z
-	vd1osMYewGqon41SsFYB9MFb6slH1HcdKHtX5RAEpk=; b=c2N3OeLEOynyxMYUC
-	uxfQfjDMA5BKinX4c5noX8w1esmnWz6udH74WmYHNk6ijpjIyYSUC6JeJ3heqsW8
-	+X9qarILtjVfgUKbDdG6OZFZO95Ompz1vYt97/hBxxEJkHxjhMojT8GRDwqjaBbX
-	p347mov/v+8CGtA8l4iE6+ayXlg3ZPf7SutFipH9kxejEBPVJQPYCb2/h2Akb5L7
-	NKY78pA4xhlGqQXpH3twO+qDTPXjme8bEFlgPFBRx1FfNi+p47b0LcUlsweUwaz4
-	qPxi/VXQA3ZIBWfGG7nyDmVZhxTK7aVaGXBPX7xX2lldUDzvLPXBiOk7PXjaNqHF
-	tCtUQ==
-X-ME-Sender: <xms:-e1ZaoVfHSjGr1nlzAKFMGWoA5RK0prc2QUfW2FUjNjNVS-R6MLu1g>
-    <xme:-e1ZaqQQA-bVOBEHyNh1qnX3EWAbXpdZg7HEETfVhVrPMO4Bje_DT2yTd2GS_38n6
-    QG-eHX1sR7GVVTH22BVqHRL_oXPCWyPNsyVtSkc1-4M0K8KdTnw_bk>
-X-ME-Received: <xmr:-e1ZauJX5JIzCi9JD54MACly-_OVPhXCvAkAeF0WEx1kMHhOhKMHh19qK0lFe6LClM5dIjEZUT5uDwmXUvc>
-X-ME-Proxy-Cause: dmFkZTFS7GW/vS+PGg3aNaRtXNWwH13wr4t6a3PsYvzLEfoa0d1tCLQMk4kuPOyqJxWYg8
-    zWRgYifu3Q3qEvL/I6D+A7sONbehMF6Fzv0Jx15W8Bp0zPI2L6EoHnTvsn7KCzlmdcjq5Z
-    AMiUX8pm/4UU/5q2rly/ctUYuGrpfv6aggolOMe4+7cw+YQgQv04wJ8otXu77hR4cT4fFc
-    rauulgYGXJAH/ttinZ2FdpHwYOQghdgc8wZDZhtrydZHcBfVIkqxRabCZivPsjLLb49//R
-    HUixI1q1RTZqMytwufV0grN2inkZxcvjyE8RnYSpDV3z9U1hNPWgMeNXqfzcYN3TNROTMi
-    g6lcYmPvi0ApJCuAabf56PdATqWvLMqqCJcKwwqf0txVfcxEFd+NU5gwyCeb3MzCwQHT4s
-    EYXLpjKzizp+/UuGKB61wzx+QKsc4bJ+eA7Tcughh+f+oX0EK2E+8ajqxfHbtGhkgMdraU
-    j2th4GtLuUd00xhVbvRlL17mbuXgmQPIe9KShH84oXetiVFix/VxRfbJKcEiu+tPu/4qAy
-    6LzMCGZJzCC1rlQBrFP+2s18jy5eOZIAJrxhuQdL/iREbdthHA9uD4/9o++C0Vyo1Cw8lp
-    6h4ZTMPnLU/gcmGCjyf19X1ADFp+MT0enTqyJ9/FtLX4vM858uFBQaTmIZkg
-X-ME-Proxy: <xmx:-e1Zaj0w8i3RrzWEFcY0cU0LA94nT7bQjStr-o09z17slP2zF-n_rg>
-    <xmx:-e1ZapLuDEa9Ai3K5-cem91ym2X2ttXYudxavBycRNLI2jl11rKsEw>
-    <xmx:-e1ZarnhOgaW2dVFhx5xqBl6qj9s1vXpHOhHHWAa7fjvQEVJpa5DVg>
-    <xmx:-e1ZavMFedxs_IZnYYaxtmNo7DwoKzbKJuDKYPp6VtNWI1I7ZxDd7w>
-    <xmx:-e1Zao_01By5GE1USQQXBduANFFQiDaHpbJdzBRF5QXfuV3sR617AdTI>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 17 Jul 2026 04:55:15 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net,
-	heiko@sntech.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	ulfh@kernel.org,
-	p.zabel@pengutronix.de,
-	ogabbay@kernel.org
-Cc: dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [RFC PATCH 9/9] arm64: dts: rockchip: rk3576-rock-4d: enable NPU
-Date: Fri, 17 Jul 2026 20:50:47 +1200
-Message-ID: <20260717085220.3212274-10-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260717085220.3212274-1-gahing@gahingwoo.com>
-References: <20260717085220.3212274-1-gahing@gahingwoo.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="l400jifc";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SEtOBm4/"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66H6cf6h1078348
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 08:58:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	V6MbJnmX7m7Q+rNiwCmFsJ4wLFKfE9U7mLaz8j8CV9U=; b=l400jifcL5aKd65B
+	5LUw2Bc0DKEUaD+NP5xqtPA0B+pUH7FOZJXvTs+5QjLB6A5Gg8elI6ZNoyfPveE3
+	c6jq6vIIbzxH9mI9jgJ3j0N+TLBSoEiiPaWzLOHUlLViZNgsZmc/WjtUN0Bh+1wD
+	FBsECLyhP50+rHKfuAww3lq6pCtK3FMsoNMX/+5UPmIhIgCf+34zN7ItdPiQRVn1
+	YuBZTVahOP5+znFPqWN37skx8eW25UhncLxEY5No6gd7D2EJk6mlPGaNSy+HmlSv
+	7ZU/elCzCRgFqR2DaXZBaHSiUoaiCj/LdbpP9HjwCRdDBT6RXnsOPSUQ69WmcMTU
+	YlF3BA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feym1ca7a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 08:58:58 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c0e702df8so91937641cf.2
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 01:58:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784278737; x=1784883537; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=V6MbJnmX7m7Q+rNiwCmFsJ4wLFKfE9U7mLaz8j8CV9U=;
+        b=SEtOBm4/hnGL9sPKUVw8C0KctLCeClf3lpLteGqHro9v66g5E1iMTGTUtCsLhd7CkW
+         +zfzkIvZoEcyCrbM9DS1pYlO6Hgefh1W6d2i/jGJCMrB9Nf7lgNTZHyYjHFYX08wTddZ
+         TQJeDpEqiXeYrW7NCye5DlcR/20LLkPZWGzzLuo6iX8BQN2OdkLbcyQUMXGzw3HDUGnn
+         3WjdwvY4NZFfGquxQPlfympBgv6pg+1Hlh7et/F6YrAhQ0vOf+Xa1fkSNyzl0x+wan7C
+         FLbGDPlNKiigxyk+Ug5HfN8hSwtYM4ighpwD+IXmBMRsxP924fCcPNb6kpISQQnQNVTW
+         pp2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784278737; x=1784883537;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V6MbJnmX7m7Q+rNiwCmFsJ4wLFKfE9U7mLaz8j8CV9U=;
+        b=IaJDdbS9piDXNhsWsJ0O+wtuaLhtfd/sAQTwTcS95qVlyW1j9MqU7CH4EnpMOu7icf
+         HNfJSvBvfgZnyc+I2dhga+WegVfmFf9Cp+JAIqclMxbkTNle3ad2SfLbx72/Z40oMEo+
+         R7b/ror8ilNa+bSSLppjj68/wYMytANz2/cTDNG1sd3aSKKss9DcNClYcyoSN/Ke+OFP
+         mRKM8bQ09I+MPsjrVpbIn3BXqDvuCTtQRQezF1fumZ9svFs6bpkGynhPnEdtKiMl5hBd
+         1XKaD+/0NhiqU+kRrK0k+f1dvqpBJ7JxV9X1nnHeVPxUiNcPk1TZ/9dsnlrF4wVok93P
+         wdwA==
+X-Forwarded-Encrypted: i=1; AHgh+RoZcxIhcWgj2IIlLBpuhQyh6F57HKjlSbO7VnwJBacKBNMl2hvVEBTlW0r6rTxQyFXgkZcpLi5MeAcc@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx4MnFhn7Av/H13dSWYWsb/kJvVIuxCTsjI6wIY3LY6pN9plvyn
+	U93O2B+iaS5sUmObj1VjRwlqGsZnOOuTze/2TaZYNof92QX2JiZTS1Lp0YlvMyLjcOtc9BbwDVS
+	Iz9TeDXhq03mUq63xiubivCzIMiMIUEKR6C3oR9ixMzCr0M1xE8HWxejVWiHhaMo3
+X-Gm-Gg: AfdE7cnUtlTxhFW2W/HHNE23eX4GLFCg4JrZazKyWEMTDnqVJpENexEa4WbuClsBw0r
+	m6p0e9KpImY9ppegQTdQ7Ht0Kn5pG7DLzhmusKEOnNE5zxp0d7zirGp/dIeALY0o5QCkpRzCD1N
+	Kv/1gf9SGha1oROlrqsj018uhi2cQpMr4TXIKl1GygwWvrh+0LWqykWJH2yIpvqzzkkJtuuhCyo
+	n+5i34ozJ3lOV9+usKlfXvCyvNytmSQKIhoUW+GDQNgUpOaXHih10my8hg08h+GZhpmmUlnhoNH
+	DDOQZHyB55+6EvBh6QpCSQ00Kpi5SBE5R1gxEptuBE4sg1wpj2BmOiVBRb6q6L0/Y9FHr5bJz+t
+	HXKygENVvL20GFy5OTCdUqZ4BZJsS
+X-Received: by 2002:a05:622a:1346:b0:51c:1eb5:333d with SMTP id d75a77b69052e-5213eb757d0mr12604721cf.66.1784278737601;
+        Fri, 17 Jul 2026 01:58:57 -0700 (PDT)
+X-Received: by 2002:a05:622a:1346:b0:51c:1eb5:333d with SMTP id d75a77b69052e-5213eb757d0mr12604541cf.66.1784278737262;
+        Fri, 17 Jul 2026 01:58:57 -0700 (PDT)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:dc44:5b1b:5396:79d6])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63e65644sm1911449f8f.16.2026.07.17.01.58.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 01:58:55 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
+        Linus Walleij <linusw@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>, Jan Kotas <jank@cadence.com>,
+        Michal Simek <michal.simek@amd.com>,
+        Andi Shyti <andi.shyti@kernel.org>,
+        =?UTF-8?q?Przemys=C5=82aw=20Gaj?= <pgaj@cadence.com>,
+        Alexandre Belloni <alexandre.belloni@bootlin.com>,
+        Frank Li <Frank.Li@nxp.com>, Boris Brezillon <bbrezillon@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Jiri Slaby <jirislaby@kernel.org>, Mark Brown <broonie@kernel.org>,
+        Mathias Nyman <mathias.nyman@intel.com>, Swark Yang <syang@axiado.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+        linux-i2c@vger.kernel.org, linux-i3c@lists.infradead.org,
+        linux-serial@vger.kernel.org, linux-spi@vger.kernel.org,
+        linux-usb@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: (subset) [PATCH v3 0/8] arm64: Add Axiado AX3005 SoC and EVK support
+Date: Fri, 17 Jul 2026 10:58:47 +0200
+Message-ID: <178427872043.9452.9219608850005529427.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260716-upstream-axiado-ax3005-upstream-v3-0-c429095143ec@axiado.com>
+References: <20260716-upstream-axiado-ax3005-upstream-v3-0-c429095143ec@axiado.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=KPRqylFo c=1 sm=1 tr=0 ts=6a59eed2 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=zGYnv34WkyyXCUjmJXsA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDA4OSBTYWx0ZWRfXyrmCYUB7JJ9f
+ 8IgnYEkzDvSfqr6SzQ3qugY6tyYp+H6Wmf2VxPSQDHWeh0OEQhOgHQOtERmZVHoaoS4z+zfc/CV
+ 7KatcOOnCPFmNT2nSJxME2C/w8MP3jubPkesydrhb9hN1RxSiYE450fA3J3gCZmqWVklPQQTJUY
+ 40DbjFkNEy62nNAFG9arGWnjgI+SJyU6S87O3xUU5aSv7vTcoSTRQE2EFTw6NbySyRyJ99Qa4bI
+ ochbnxsGbzzrl0d6cPPHi/Bdsj5HI9S9UoitiophmQHvyv7UZntZfX/x0CCUmbqpdOfnY1WFj9X
+ OIZyA7q6eSEgWdl7gdgCxky9nLwIShL9k5PDgx+SUMqY+8m0SthRifdjxi62CeA2BNd+h2C/Q/o
+ 8qmOjo8NT7IvXQTCS6u+fQLFI7VefraMhaUOsqm53R4I46/JBIb7mkfxJgfEJtY5v/OXgzsAqU6
+ zuq1ydTfX0344wZFAXQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDA4OSBTYWx0ZWRfX9wSAqiDq+0/1
+ twfiqF+2ewhIoG3jk1ZQ1fIPrrJEHvPKcAT/J8tWr0w6bZp74RHm3c+/JIMvoz73Zof7uVOeIXM
+ f4RIV+5GvLhzDaTVEyv/AKKH+WyjnB0=
+X-Proofpoint-GUID: SW8hXiU9I31hGJiM_gC6NZSf-LhWCYAp
+X-Proofpoint-ORIG-GUID: SW8hXiU9I31hGJiM_gC6NZSf-LhWCYAp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-17_02,2026-07-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 adultscore=0 impostorscore=0
+ clxscore=1015 malwarescore=0 bulkscore=0 spamscore=0 phishscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607170089
 
-Enable rknn_core_0 and rknn_mmu_0 on the Radxa ROCK 4D. Supply the NPU
-rail (vdd_npu_s0) via npu-supply; it is marked regulator-always-on for
-now because the NPU power sequencing is still being brought up (see the
-cover letter) -- happy to switch to proper runtime control once the
-compute path is sorted.
 
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
----
- arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+On Thu, 16 Jul 2026 20:51:07 -0700, Swark Yang wrote:
+> This series adds initial device tree support for the Axiado AX3005 SoC
+> and its evaluation board (EVK).
+> 
+> The AX3005 uses Cadence-derived UART/I2C/I3C/GPIO and Synopsys
+> DesignWare SPI IP blocks. These are already described by
+> existing bindings, so the device tree reuses the "axiado,ax3000-*",
+> "cdns,*" and "snps,*" compatible strings; only a new SoC/board
+> level compatible is added.
+> 
+> [...]
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-index 272af1012..09d2fc98b 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-@@ -442,6 +442,7 @@ regulator-state-mem {
- 			};
- 
- 			vdd_npu_s0: dcdc-reg2 {
-+				regulator-always-on;
- 				regulator-boot-on;
- 				regulator-enable-ramp-delay = <400>;
- 				regulator-min-microvolt = <550000>;
-@@ -869,3 +870,18 @@ vp0_out_hdmi: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
- 		remote-endpoint = <&hdmi_in_vp0>;
- 	};
- };
-+
-+&rknn_core_0 {
-+	npu-supply = <&vdd_npu_s0>;
-+	/*
-+	 * Power BOTH NPU domains (NPU0 + NPU1) like the vendor's single NPU node,
-+	 * even though rocket computes only on core 0: the CBUF->CMAC read path is
-+	 * only fully powered with NPU1 up. rocket attaches the multi-PD list.
-+	 */
-+	power-domains = <&power RK3576_PD_NPU0>, <&power RK3576_PD_NPU1>;
-+	status = "okay";
-+};
-+
-+&rknn_mmu_0 {
-+	status = "okay";
-+};
+Applied, thanks!
+
+[2/8] dt-bindings: gpio: cdns: add Axiado AX3005 GPIO variant
+      https://git.kernel.org/brgl/c/e8a40b3566887c1c83d4cb87058d4e98ec8b4a14
+
+Best regards,
 -- 
-2.43.0
-
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
