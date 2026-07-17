@@ -1,162 +1,102 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134E0175A6C;
-	Fri, 17 Jul 2026 12:25:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D3F63EDAC9;
+	Fri, 17 Jul 2026 12:28:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784291135; cv=none; b=g7TqRjTiWLH9akEKXqKUxeBpu6ke2Y8cYMMSyngp+c9APwpdFZG+SNMwxrFCvXcz+PrKOueV6g2SE8GiIR/mEGPI48EoRXjGmIZ9x8YQAvWa7OyiMpuOQT9NNTTJo6g8lvUtJNM8LSAojDW1Ae8MduK45z4I8iOsfYXSO1oDblY=
+	t=1784291295; cv=none; b=M8NwT4mhOx9LYahfxlja6Hs/aRp85DitrmvsrDvfwSPvDO1aG7EjMDaWelqdVK88o48TWVGz5AxSLXbPPUXmVMKLSP+Yu5T88l+lMrq1XjH/J9GLgHdwHwp0PVp7dLYmsmQbS1xv6A+WPT30Q5X+W4Mvq2VvPuiRsnEWIHRkPwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784291135; c=relaxed/simple;
-	bh=LIrveOCfC/Nm2xJTklxOIDfpSLD9jwkNtd1XzE9uHnI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cHYDL3Ga7gnIoA//0OXu/qPSiR1ylxr7HQ38DQ+ytx43QyvCQZcROpV1z4yQlEv20RprsHY7aG9YOk+WSxwzjXvRaD2aMNTJ9Al/zqhwrmYkHdtErT2H7eiXlUf23r1aVSYh/O+1sang2IE1rZaAHq4VRAfqKg9obfthTRpEGAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=fUUzWve9; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1784291295; c=relaxed/simple;
+	bh=jgyoMbC4/kBLBBf3ArnlKCLVia+4jd5r5fkGoCzrlkA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KlJ66xA96Xj+sXWF2E9HGyxKDJVJkRtST/4jgR4exZ0H7sr0FMHxXA5U+1QVn+PNNKMcwn4i7XD2H5RL+MN1bMWc2Yvx4AJwOgA6xTLPsvUZ2O1fmQDHdcnCNmyBcpVOPk9abTj6tu5MDErQhaAZwYrJc+JJeyPSNqdyOcHRwkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BAAstyqs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="fUUzWve9"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 299B5192C;
-	Fri, 17 Jul 2026 14:24:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784291075;
-	bh=LIrveOCfC/Nm2xJTklxOIDfpSLD9jwkNtd1XzE9uHnI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=fUUzWve9M6ijhuqHco2oiiamtGr16UN66GYsD4wsoE6ZUuICZGnrrOsuY5ORgwwrn
-	 1/LN6VAO2Z8g2+R8JNX5RgzffNCi4svhKJLQyW9nJOlG8OIM3MKFfqCxsMpvbdVbiH
-	 +XUx40XMcM8J65RHuLMDh3hZPw6AdyvsXqlvVmcE=
-Date: Fri, 17 Jul 2026 15:25:30 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	Thuan Nguyen <thuan.nguyen-hong@banvien.com.vn>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: display: vga-connector: Allow
- hardcoding EDID
-Message-ID: <20260717122530.GA1955120@killaraus.ideasonboard.com>
-References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260705213542.28987-2-laurent.pinchart+renesas@ideasonboard.com>
- <20260706-capable-beaver-of-excellence-a3cf10@houat>
- <20260706094522.GA42740@killaraus.ideasonboard.com>
- <20260706-fancy-perch-of-satiation-0c220e@houat>
- <20260706160243.GB106045@killaraus.ideasonboard.com>
- <20260707-meaty-chocolate-lemming-fa9ead@houat>
- <20260707080143.GA211515@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BAAstyqs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 693211F000E9;
+	Fri, 17 Jul 2026 12:28:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784291288;
+	bh=mLUhEODnpqoOCbWwLaXeT4x8ON01RupU/xxbO4MV1LE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BAAstyqs33CZc4v/2JHllCtggkNKz0uQSvIGuZJanBZn+0vmKqrDXWjKJF3yEARNe
+	 AXMEWG3oh0lDGEL6gjnlvpXe0HSTlr4MrTYj5jdmuEK1k0sIAxVwVAnQGCNsfzcjq0
+	 4I3FIjvosJmfP1+LCDlWqWwN9pOGR2k/KKA5grcBHPiTP64CgROYpBibVcB8T+zhOM
+	 YIiyqdQwmMO3NpWwAHaade4fQIyq83ONCUOWYv16MkvTaHW5jh81BdQ7DxOIVpGJTk
+	 ykhnklu5JuJ8wDeOr1viPrgv9LXHg9kTAqI5SNP+8V7SqTqd1JvRTK7WIs4QWXpT8R
+	 1oI1fDDZ8eqBQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 1/4] dt-bindings: lcdif: Add interface pixel format
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Francesco Dolcini" <francesco@dolcini.it>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, Frank.Li@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260717121847.488148-2-francesco@dolcini.it>
+References: <20260717121847.488148-1-francesco@dolcini.it>
+ <20260717121847.488148-2-francesco@dolcini.it>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 12:28:07 +0000
+Message-Id: <20260717122808.693211F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260707080143.GA211515@killaraus.ideasonboard.com>
 
-Hi Maxime,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Introduction of the legacy, non-standard `interface-pix-fmt` proper=
+ty for a standard hardware concept (parallel bus width), violating modern D=
+T principles.
+--
 
-On Tue, Jul 07, 2026 at 11:01:43AM +0300, Laurent Pinchart wrote:
-> On Tue, Jul 07, 2026 at 09:46:52AM +0200, Maxime Ripard wrote:
-> > On Mon, Jul 06, 2026 at 07:02:43PM +0300, Laurent Pinchart wrote:
-> > > On Mon, Jul 06, 2026 at 05:40:30PM +0200, Maxime Ripard wrote:
-> > > > On Mon, Jul 06, 2026 at 12:45:22PM +0300, Laurent Pinchart wrote:
-> > > > > On Mon, Jul 06, 2026 at 10:52:32AM +0200, Maxime Ripard wrote:
-> > > > > > On Mon, Jul 06, 2026 at 12:35:39AM +0300, Laurent Pinchart wrote:
-> > > > > > > Since DDC version 2, introduced in 1996, VGA monitors have exposed EDID
-> > > > > > > data over an I2C bus. The bus is also used to detect the presence of a
-> > > > > > > connected monitor by trying to read the EDID data.
-> > > > > > > 
-> > > > > > > Some devices where the VGA display is integrated in the device and
-> > > > > > > always connected do not connect the DDC pins. Some development boards,
-> > > > > > > such as the Renesas M3N Salvator-XS, also do not connect the DDC pins.
-> > > > > > > 
-> > > > > > > To support those, add the ability to provide hardcoded EDID data in the
-> > > > > > > device tree. This is mutually exclusive with specifying a DDC bus, and
-> > > > > > > can only be done when the VGA display is guaranteed to be always
-> > > > > > > connected.
-> > > > > > > 
-> > > > > > > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> > > > > > 
-> > > > > > This feels redundant with the EDID firmware loading mechanism we have in
-> > > > > > KMS already. It should at least be mentioned why we would need to set it
-> > > > > > in the device tree at all.
-> > > > > 
-> > > > > Very good question.
-> > > > > 
-> > > > > I assume you're talking about CONFIG_DRM_LOAD_EDID_FIRMWARE, as the
-> > > > > debugfs override_edid feature isn't meant for production. If there are
-> > > > > other relevant mechanisms I'm not aware of, please let me know.
-> > > > 
-> > > > No, that's indeed what I meant.
-> > > > 
-> > > > > In the use case at hand, the VGA display is an integral part of the
-> > > > > device, the same way an LVDS or DSI panel would be. Using
-> > > > > CONFIG_DRM_LOAD_EDID_FIRMWARE, the manufacturer would need to set the
-> > > > > drm.edid_firmware command line parameter, and provide EDID as a file in
-> > > > > /lib/firmware/ (possibly in an initramfs). Beside the complexity, and
-> > > > > the fact it won't be very friendly to people who run a different
-> > > > > userspace on the device, I think EDID counts in this case as system
-> > > > > description, the same way we support specifying panel timings in device
-> > > > > tree.
-> > > > 
-> > > > It's *some* hardware description, but you have no idea whether it's
-> > > > actually the hardware you're running from. What would be in that EDID
-> > > > anyway?
-> > > 
-> > > It would be the EDID corresponding to the connected display :-) I see it
-> > > as identical to how a user of the simple panel driver is responsible for
-> > > listing the timings corresponding to the hardware in the device tree.
-> > 
-> > What's the expected user-experience for someone with that board
-> > unplugging a display and plugging another then? Update the device tree,
-> > rebuild it, rebuild the firmware and / or resign it and reboot?
-> 
-> The whole point is that they can't easily unplug the display. This patch
-> series is meant to support devices where the display is an integral part
-> of the device. The user experience is expected to be the same as for a
-> user who will take a phone, remove the display panel, and plug a
-> different one. It's certainly possible, and they would have to update
-> the DT indeed.
-> 
-> > That doesn't sound very practical, and even impossible in some cases.
-> > 
-> > > > There's another alternative we've used several times already, in
-> > > > simple-bridge for example: just register any VESA mode up to a given
-> > > > resolution:
-> > > > https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/bridge/simple-bridge.c#L66
-> > > 
-> > > I don't see how that would help. The goal is to provide the kernel with
-> > > the data corresponding to the display integrated in the device.
-> > 
-> > How is that not helping? Your problem is that you have a display you
-> > can't get the supported resolutions from. What I'm suggesting allows you
-> > to create all the possible resolutions for that display, allowing the
-> > user to use the display, which is what we did for multiple drivers with
-> > the same problem.
-> 
-> How would the possible resolutions be provided to the kernel ? Isn't it
-> the whole point of EDID ?
-> 
-> > You seem to be set on providing the EDID to the kernel, but it's a
-> > terrible idea to begin with, so I'd rather discuss alternatives.
-> 
-> Could you elaborate on why it is a terrible idea ?
+--- Patch [1]: [PATCH v1 1/4] dt-bindings: lcdif: Add interface pixel forma=
+t ---
+commit 7225ea545d2ff50540972dd75d375b8ecea4f315
+Author: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-I'd be happy to continue this discussion when you'll have time.
+dt-bindings: lcdif: Add interface pixel format
 
--- 
-Regards,
+This commit updates the fsl,lcdif device tree binding to support the
+interface-pix-fmt property. The property is used to describe the hardware's
+parallel data bus transfer width to match board wiring and prevent shifted
+colors.
 
-Laurent Pinchart
+> diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/D=
+ocumentation/devicetree/bindings/display/fsl,lcdif.yaml
+> index 2dd0411ec6516..209ee5a96e393 100644
+> --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> @@ -58,6 +58,13 @@ properties:
+>      items:
+>        - const: rx
+> =20
+> +  interface-pix-fmt:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum:
+> +      - rgb24
+> +      - rgb565
+> +      - rgb666
+
+[Severity: Low]
+Is this introducing a legacy, non-standard property into the new schema ABI=
+?=20
+
+Standard devicetree guidelines usually prefer endpoint properties like
+bus-width (defined in video-interfaces.yaml) to describe physical parallel
+data line configurations, such as setting bus-width =3D <18> for RGB666.
+
+If a custom property is strictly necessary here rather than using the stand=
+ard
+endpoint properties, does this require a vendor prefix like
+fsl,interface-pix-fmt to comply with modern devicetree naming conventions?
+
+> +
+>    interrupts:
+>      items:
+>        - description: LCDIF DMA interrupt
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717121847.4881=
+48-1-francesco@dolcini.it?part=3D1
