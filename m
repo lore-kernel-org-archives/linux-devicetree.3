@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38BE3DB65A
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 14:52:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E69242CAE9
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 14:54:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784299924; cv=none; b=NFxIelTkLIbsuuHHxgE2kjC9YV67fJnE8HIviiTf13jL5rlo61TbMd4IYiMwpk5U0Lrod91JKdtw1bVbCzri6IxmeUF4z2q3dHbIKKED8vNlYGUkt43SijqNz+7/RXwKAvlXbLmtV/hMwbtiz2Umx3pGCSjk1AzuyxIPnXamkVc=
+	t=1784300051; cv=none; b=ch0HekVWNYVyMfb21aC8yoht146AaCGNp++3aHYTVAj/AvMWqRBkCPrOILJqd/jKCGd7P77+nMhIkWJQpFIY2Tp+VGBlPc5G/Nq4Wx4lAQfBx/pLk3TbnS5dO0C0uRBYIUIfKIcVmdXTKLNZ97NxZ+pWUfIXSE9yXPg7n//2wPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784299924; c=relaxed/simple;
-	bh=ysf2qz+g/EPCx+CPAT8LcVMXdG9Dd9/oo6hCat5P73E=;
+	s=arc-20240116; t=1784300051; c=relaxed/simple;
+	bh=LrgXqftk3akNQcomGYqS6PHGjYp4aL0Lmpd34N/NNNU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hZyO1ugGlMnhXHuCqd2h6+HXZBHgLmpcfSCL47JBdKtFFJF7Q7KLZf4gjnrymzmNjtc7mxjqf2nHHyqTIcr7uFFsh/lVvmBFpwj/HBLbXoFOGOk+4Yv7ph2H06sc7HQJolL0W6w3CH3onU6YneflErIoWcjfJ878KLv7WMu/0l8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N8mIYdSf; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=B/wThf8J6WtmAdZzsg7JW/+pTvF5pYzefSYDFZsedVuPVgQAzwdrTXtUVm+Fu7JTA+Nd4RehP3b/cHdkvbN4nXeUIBJe9LUgZz9e1O240e+uXGy7rnmavUarPWt5T/bUG6sU9R/OTRrAA06UhUW+Tsplhu5fk0OS+Z7mHJ1CAcs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=crkKUGTa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N8mIYdSf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECA911F00A3D;
-	Fri, 17 Jul 2026 14:51:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="crkKUGTa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C99A01F00A3A;
+	Fri, 17 Jul 2026 14:54:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784299918;
-	bh=R2gCiliXSMnAMfaCcQ7/PZ1PpnYd8q9DDwEMc7rW32Q=;
+	s=k20260515; t=1784300049;
+	bh=02kJ4NP9eTZJ6Uals0gvjYtOqN45NETaAlJ4bNyYvIQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=N8mIYdSf09CPG4h3zjYlBxbmCsHDpDjt3Fj/gzRhE+pjx2/oGtN5s+o0g7FrWQl2G
-	 au6AJFQiTvMCE2zSQ6Qf2ffJ5NfOPPadwk71cVsc+owDsRz2k6+iN/FBlu3ue+nOZi
-	 j5KtLir7/fhC/ojfalhWKn8NddO+qaBLJcztzxBY/A7A4KpT14tpx6QkPyvjJZFzxx
-	 7qIYnivVWKxg1zPfnMNLitdB1VFRnsf7+UgTw/Re57JiOHrTxqHbsVrA/nYk69MLep
-	 efnh9x7VCMlD4S5nHtYX8FopazCD27dNrjtdO3LTcL+LsxrtMtw9WkXdFicHFSmWPT
-	 OTW4CxQ5SqZ4g==
+	b=crkKUGTaN7dfN8iQ7E7VV2ISBqlibsy3FwhvJV721hWnudQ3KqKNbEV6r/5+ZM0bm
+	 IaxYNM08hsu1mAzLQ/GlWVjZe9ZCGtStBiKn51QwS+Utg7e8eHP5/s98meXTJi1nQS
+	 K6A6h0mDfBrvum2lqPa5v5iBlEf3TlVHFvU3lG6o24ZwG61o7o/SCW4WXUvLPrLom7
+	 KsKYsN568Ht3Ovxp6Z6PBixUFCa9zoBan93kKdX01laLW/EE7TEu0Vef9hLRSkb+0K
+	 uSKne3NGfKFFs9+H2ClNZDeZEIn5P2d79flfq0D1jdxi1/6tjJV+A8ASf99wYI5+LU
+	 mHk8acETkT99Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] riscv: dts: spacemit: enable SPI0 on K3 CoM260-IFX
+Subject: Re: [PATCH v4 4/5] mfd: axp20x-i2c: Fix i2c instantiation
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Zhengyu He" <hezhy472013@gmail.com>
+To: "Jerome Brunet" <jbrunet@baylibre.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260717-k3-com260-spi-v7-2-rc2-b4-preview-20260716-v1-4-969a1b0f783f@gmail.com>
-References: <20260717-k3-com260-spi-v7-2-rc2-b4-preview-20260716-v1-0-969a1b0f783f@gmail.com>
- <20260717-k3-com260-spi-v7-2-rc2-b4-preview-20260716-v1-4-969a1b0f783f@gmail.com>
+In-Reply-To: <20260717-axp318-regulator-v4-4-50aff97084dd@baylibre.com>
+References: <20260717-axp318-regulator-v4-0-50aff97084dd@baylibre.com>
+ <20260717-axp318-regulator-v4-4-50aff97084dd@baylibre.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 14:51:57 +0000
-Message-Id: <20260717145157.ECA911F00A3D@smtp.kernel.org>
+Date: Fri, 17 Jul 2026 14:54:08 +0000
+Message-Id: <20260717145408.C99A01F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,71 +46,87 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The commit message claims to describe a SPI NOR flash chip on ch=
-ip select 0, but the corresponding device tree node is absent.
-- [Medium] The pinctrl configuration sets the SPI pad voltage to 1.8V, whic=
-h conflicts with the 3.3V Winbond W25Q64JV SPI NOR flash mentioned in the c=
-ommit message.
+
+Pre-existing issues:
+- [High] Missing Error Handling / API Ambiguity causing unmatched devices t=
+o probe as AXP152.
+- [High] MFD subsystem guideline violation: Hard-coded IDs used in mfd_cell=
+ array instead of PLATFORM_DEVID_AUTO.
 --
 
---- Patch [4]: [PATCH 4/4] riscv: dts: spacemit: enable SPI0 on K3 CoM260-I=
-FX ---
-commit 195bf5fbf14f1dbf36d3f0697603287770b0c9db
-Author: Zhengyu He <hezhy472013@gmail.com>
+--- Patch [4]: [PATCH v4 4/5] mfd: axp20x-i2c: Fix i2c instantiation ---
+commit df6eff33eb956b610bd8100dff8a5beb1887390f
+Author: Jerome Brunet <jbrunet@baylibre.com>
 
-riscv: dts: spacemit: enable SPI0 on K3 CoM260-IFX
+mfd: axp20x-i2c: Fix i2c instantiation
 
-This commit enables the PDMA controller and SPI0 on the K3 CoM260-IFX board.
-It also adds the pinctrl states for the SPI0 pins exposed on the board's 40=
--pin
-header.
+This patch fixes I2C instantiation for the AXP20X driver by moving the
+variant matching directly into the bus-specific probes. It also adds support
+for the AXP323 device.
 
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts b/arch/riscv/=
-boot/dts/spacemit/k3-com260-ifx.dts
-> --- a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
+Link: https://lore.kernel.org/r/20260717090209.2A09B1F000E9@smtp.kernel.org
+
+> diff --git a/drivers/mfd/axp20x-i2c.c b/drivers/mfd/axp20x-i2c.c
+> index 4e4ebfc78525c..64c212b76e5e6 100644
+> --- a/drivers/mfd/axp20x-i2c.c
+> +++ b/drivers/mfd/axp20x-i2c.c
+> @@ -35,6 +35,7 @@ static int axp20x_i2c_probe(struct i2c_client *i2c)
+>  	axp20x->irq =3D i2c->irq;
+>  	dev_set_drvdata(axp20x->dev, axp20x);
+> =20
+> +	axp20x->variant =3D (kernel_ulong_t)i2c_get_match_data(i2c);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but because AXP152_ID is defined
+as 0, a match failure returning NULL is indistinguishable from a successful
+AXP152 match.
+
+Since the driver blindly defaults to AXP152_ID on NULL, it could configure
+an unrelated device as an AXP152 PMIC if forced via a sysfs bind. Writing
+PMIC configurations to an unrelated I2C device can result in hardware
+damage or system crashes.
+
+Should the variant IDs be updated to start from 1 to allow unambiguous
+error checking?
+
+>  	ret =3D axp20x_match_device(axp20x);
+>  	if (ret)
+>  		return ret;
+
 [ ... ]
-> +&spi0 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&ssp0_2_cfg>;
-> +	status =3D "okay";
-> +};
 
-[Severity: Medium]
-The commit message states this patch will "describe the SPI NOR on chip sel=
-ect
-0 for the current validation setup", but is the child node for the flash ch=
-ip
-missing here?
+> diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
+> index 2bbe73afff435..25509e47bedc8 100644
+> --- a/drivers/mfd/axp20x.c
+> +++ b/drivers/mfd/axp20x.c
+> @@ -1339,7 +1339,6 @@ int axp20x_match_device(struct axp20x_dev *axp20x)
+>  	const struct mfd_cell *cells_no_irq =3D NULL;
+>  	int nr_cells_no_irq =3D 0;
+> =20
+> -	axp20x->variant =3D (long)device_get_match_data(dev);
+>  	switch (axp20x->variant) {
+>  	case AXP152_ID:
+>  		axp20x->nr_cells =3D ARRAY_SIZE(axp152_cells);
 
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/bo=
-ot/dts/spacemit/k3-pinctrl.dtsi
-> --- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-[ ... ]
-> +	/omit-if-no-ref/
-> +	ssp0_2_cfg: ssp0-2-cfg {
-> +		ssp0-0-pins {
-> +			pinmux =3D <K3_PADCONF(104, 1)>,  /* ssp0 tx */
-> +				 <K3_PADCONF(105, 1)>,  /* ssp0 rx */
-> +				 <K3_PADCONF(106, 1)>;  /* ssp0 clk */
-> +
-> +			bias-disable;
-> +			drive-strength =3D <25>;
-> +			power-source =3D <1800>;
+[Severity: High]
+This is a pre-existing issue, but there are hard-coded IDs used in the
+mfd_cell arrays defined in this file:
 
-[Severity: Medium]
-Does this 1.8V power source configuration match the validation setup descri=
-bed
-in the commit message?
+drivers/mfd/axp20x.c:axp806_cells[] =3D {
+	{
+		.id		=3D 2,
+		.name		=3D "axp20x-regulator",
+	},
+};
 
-The commit message mentions testing with a Winbond W25Q64JV, which is a 3.3V
-component (the 1.8V equivalent is the W25Q64JW). If the SoC IO is driving
-1.8V signals without a level shifter, it might fail to meet the 3.3V chip's
-input high voltage thresholds. Could this be a typo in the commit message, =
-or
-is the power-source value incorrect for this board?
+Using hard-coded IDs in the mfd_cell array bypasses standard subsystem
+indexing. This can lead to device naming collisions in sysfs and driver
+load failures. A regulator driver load failure here could cause critical
+power domains to remain uninitialized, leading to an unusable system.
+
+Would it be possible to use PLATFORM_DEVID_AUTO in mfd_add_devices and
+avoid hard-coded id fields in the mfd_cell arrays?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717-k3-com260-=
-spi-v7-2-rc2-b4-preview-20260716-v1-0-969a1b0f783f@gmail.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717-axp318-reg=
+ulator-v4-0-50aff97084dd@baylibre.com?part=3D4
