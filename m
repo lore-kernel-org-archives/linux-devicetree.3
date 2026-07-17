@@ -1,108 +1,155 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from flow-b4-smtp.messagingengine.com (flow-b4-smtp.messagingengine.com [202.12.124.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0EE3BED46
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 06:59:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784271551; cv=pass; b=Yl/6Bc9lFVgvsMx49qIuIA5YQLfL0b2RDegeDpXh5gRWmdwbx3/Bh8VExFJP6GEfCgKoyFBicGEp50TxuNIcQQman6kQIH30HSGEQ/aPaSACRX/I3YIkwIEq9AEqaeg1Bg+jfU2y1hJ4400/y2nDA0D0hyRo0LCxGM4FlxCRjUg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784271551; c=relaxed/simple;
-	bh=LRhaAiyoY63/EjHSGFr1tgoiXiEMzGg3wcIFnjjeKug=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cJGMm8w+SuY2DA8ixajBNhOtwF/M4mKkkW1Fzn48+qgPO+lHSjIHAQdPq56NfcT1K/vkODQfobYSwe1oL2i+JskTk8RwbZPpy8aYytOI7S/dULeUavubVvIMmZn4yX7649lRVgYmLybo4fpeIEWKJ3UhS2wEafdK/eQdT312YBA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D26oLBW6; arc=pass smtp.client-ip=209.85.160.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C723D25CE;
+	Fri, 17 Jul 2026 06:59:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.139
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784271552; cv=none; b=dKh0JmhJmuFfjDL3nzgQG8CkukRSyj5xs6iNQcVUGA0RU16DY4FEouSM9o1XexgdgOnt+549Oh2ieMGobd5F/LtcFNyihrNq6c4bgCpIU8/uWa6AbUtgPMjWHV7lMeIsWOBjW6XXlhQ2YW6VLlTNIXaZmjITmRH/TBubiRQ9948=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784271552; c=relaxed/simple;
+	bh=47lwzH5Ipn8yN48jPLz4J3dznmUAjNYCWwwjYOdFKvc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H6h6WlnTy084ABXl8+lX43BJXG7PqGdni0RthlhDPSU78Ad3CuwJXgz5jlYZhCsEUaugfMJ4v3No4kf9S6RHa6G0s5TDgPOJEU2TXaYrp+vAlXF/0mzz7k9HOYwQs1AsisdZmaCaFDW5zVc9pGUKbF3/sd3B4IzjSj4cpuvMQSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=HD3EiK65; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=pD6m/Sfh; arc=none smtp.client-ip=202.12.124.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D26oLBW6"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5218927884fso1246191cf.3
-        for <devicetree@vger.kernel.org>; Thu, 16 Jul 2026 23:59:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784271549; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hUEFwijpJu0RtKP1pjt8rMkwh6FS2Qt9LV/tJDIAGTLGUpXN4AjCR1nJYqxTsMuZ+U
-         QYbi9LBC8b0xMiDNAYE8I+52QEL5lgYfjREMgK4aKaEKGwgDzmg5BWato8+ouG0qa2FA
-         5k6jAJxy6oGa3uff1RE+G8zqh/b8B+1bBEVG6jBZ9lLX1Bpo915ss5/M1O5o0ycIEG/m
-         TIsbMq/K61U8rjLVL+M3gcr2qSUXrUxn56gEXwXaA4MCmmTXouTxFTNeJsMB1xgHtTQz
-         UY2v9ay4GW8BTqOsmtOC8X/s9uAfd2E5S4Ouih+GDsrwZFS7LtTrVTbPnhT6wN1syrHv
-         CIGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=LRhaAiyoY63/EjHSGFr1tgoiXiEMzGg3wcIFnjjeKug=;
-        fh=ZPc/sjyei24ba5X/gLN9ViN8F8xC7zTpHmyAPy7A+mY=;
-        b=P0PiVq8c9gLxu/JqIjJhDtE3SGtqq4zI8wW0csyhh/3Ml3lsNjEAwPQ8NN2yt9TdLt
-         JPo/i837omPsGhrEl3QZj8wlyGH+pLxsbjAN7MtMkA4FNpv/Nam2Xqc8bXmpuP9Sygsz
-         bvFA/x56SeZkzKvwZCr3v39nTbgDdJMTaRjtcVdRVNycvgJ4OgfuvVpIMf62C7oVCaWq
-         DR8xDI1XD144xcRIAR1+KFLvPI2w9h5yqt0Pl2uN6u1Ok7mDF6hgwlh14CRGztdl6kkx
-         yFeE8MlQlokF0fehA4gWAlJq8Y6Eh2fpnc3ag7WY8MM0Ev0mfPYCgy6SXeAq4dyM7wVf
-         ZsfQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784271549; x=1784876349; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LRhaAiyoY63/EjHSGFr1tgoiXiEMzGg3wcIFnjjeKug=;
-        b=D26oLBW6a7XhYCRE7IYFQKGj6zaPxshFzUFEGZUDTkQJjv3BnRcWAjb68bcFdj5HBe
-         ItI1JQvoqf5l41B9/YMNkIbjKX0gnsbQ8fZ0+YKtEveVJnlv2SoZMi7oYLN2QFUyraxM
-         +LbLy1HbhOzKdbskBEq1mQSp+RGLDdmX2HDCSO/IX6v50jiVUoCzc+Iu8AjfPoKeyQ7q
-         jM0exS/VWg9eWnISwxZ3aTsNe3iFy8DNjplJ2IrIqTteSh/yBe2xcPde6CHiEME6NJtH
-         oZKqx8CqisKYGiOpnZ8RLuawwqv8caSjlwY4GpyMbYp+9fKcuh5cBoHBfzuUFmq8Fmh9
-         HHOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784271549; x=1784876349;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LRhaAiyoY63/EjHSGFr1tgoiXiEMzGg3wcIFnjjeKug=;
-        b=WneoNjxdURjS/7KskrOdtgKzHkIpXoqp74Z3LvTIIrtO4ylYqaiWbzTQajp6le3vHJ
-         rFDGa6PkBh/OzQecSMNav3IzRZo7s4YfZAiSxCqrXkWDDYpIYdsm0zyIHeW5qwNojae9
-         sqaPadw3qFx44qYI0fiOdcJiVSGThUVH087H/VETdLoKEObvsz6zXOZyWfhtpaFaCWcu
-         7Cxm9wi9G6L1IZsxw4vT6X9c0tF1IE9wjiXZ2VJW3Fx3GC0Sy4iRxva3P8ozb6DirnjH
-         /wlY7AO9z7rbFDlVhYsjB1WZHsTKBtOhCCIL1eftP98OMtgiokyAByxOYWMEl7B591VR
-         zs5w==
-X-Forwarded-Encrypted: i=1; AHgh+Rq5VOMLM5Ouhyy2pY/kSdwMkKq8W44EML35iq9Y6zF0NO79nZ5vJ4AHvstHspUJr+G6B2GdwXab6zOs@vger.kernel.org
-X-Gm-Message-State: AOJu0YxiIB17dComFr5uQGW8DuB+48lYe9zAFohBAtOuYibD/9Ewx7Ns
-	sCiRisjWt0P/xe7Atz2XYci/0ZETS7Uz/Uq36rXBwaiTOAKS4s/DgJnkqYiCtvL6G+rQcieTNz1
-	7JmGuYPHhnAgTaOlHJbhsjnMfaP00ENA=
-X-Gm-Gg: AfdE7cnq6PnT2BqJCT9aHCKg+cRZtEVWFhlsLVwdIejiouBglF6HaA7hIZu5XqtMYfX
-	MTD1u+A1oMwH7nhAFtH54sFQfTJsWScW2qRfKmqHnF2EuLmnGkHuzfl3078Rp+nzWr0kYYxzt4B
-	jZAeqzmQ/73GkHx/6T6MMmHILmCoiezF91YkjeO7GO+B158Wq0ZixbUplBTsH9eQ0hmOd73d0CX
-	dutDc8SNWXmi+moe3awMP4bvp0CP0Cwe9Ms6J+VJgXKLGPI/d16as8E94elJVRB
-X-Received: by 2002:a05:622a:181f:b0:51a:8c86:bd3c with SMTP id
- d75a77b69052e-5213c9d9a01mr11762361cf.57.1784271549319; Thu, 16 Jul 2026
- 23:59:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="HD3EiK65";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="pD6m/Sfh"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailflow.stl.internal (Postfix) with ESMTP id 2B63D130029D;
+	Fri, 17 Jul 2026 02:59:09 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Fri, 17 Jul 2026 02:59:09 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm1; t=1784271549; x=1784275149; bh=8HvXs7CUgg
+	+W9jq4h9ThPVWtnVBLT+yspWDmg3Ue+dM=; b=HD3EiK65LPmAYjSM8nVyfNvTTT
+	G+I1vUt8aJHzLBQSJfA8is89p3PBkw3oEdcIyq24MwujgH8IIsJCyJd5t5rvYSH9
+	iE7BC9cHhy5QqlOFFw+D4wx5xFWxZfoNclTtgzFSVaDQKkvDHDLCOQA7MG9Osph+
+	iZyr3YbwHRJRhTaMfPTrd4cT2jla+ITzUT0jssIbZLg1mfZkWmbD7tW+1PUkUl9X
+	2946J6FdbrJI/FUMjVG6iHR9zFfhaBz2LiPNo63a9CITox5GHWtzvMihSf1RfrV+
+	3GVrCq3S8V+zESNDyh5oiuCkoHKVZomPuARcz8Kapz71Fu6OxgCubGoUKDOg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1784271549; x=1784275149; bh=8HvXs7CUgg+W9jq4h9ThPVWtnVBLT+yspWD
+	mg3Ue+dM=; b=pD6m/SfhuubRBW0GBtNOr8ovoROY4BNBsd74lXc0fu+ABdV8HQ7
+	sa2Ug4veA4ONmKni3bnRuxw37mq3tvPGwUTS5uV+3zjwWxyyZJpIUBAdJIM67iDI
+	OZichqnBctOS+EH1WrP+yppzLPCoI0TpU/GwCdfaLVVCQVFzhD/iFQIJsLSAK00F
+	lsaW9T7UxekHeEDdJh9abMv4lDsU2bP9sHiSYF+n6noVwnEFtyCLLxC2Me8f+6+a
+	MnKub5MJorsWdCOeFS9dkWIQRCouZjVofJcbwQhIIJZvHNOI8bjpNPu4GDd/9HDB
+	5iUrepkjNMArB5rpT7oB3I49rbL1NMZw1zQ==
+X-ME-Sender: <xms:vNJZaooLvJow1uswiov3v9MKsXqwJajs0ebDMTAgusFT8Amk-wOEvg>
+    <xme:vNJZarPMcpsI4kpvFKcw57Yrrt1EnUXVlSEXHAJaRRpEM3cFIBr5WjsVEps5I0tGm
+    ZTyn9gtv8vQWnSglBqRlACj1XM-GOGfIzIDmVtgq9YCvZK1i7VE2wgc>
+X-ME-Received: <xmr:vNJZahozdLZXWJfs91bZbYyb29ycW9SiZEcW6LL0-WwM9yQ1C4_NjOpulG6pm0icE0J6wFHBUa9HudpsgL0>
+X-ME-Proxy-Cause: dmFkZTGxFtQ7rm5S321BiQW3lDhmeAbt7qejiWZVfY1YXg8QXynsse9vIbWj+GXyF8syfr
+    /j1kfqmqx0gO0BaTbe0qe/v0fky4zWGTYviTLuvvWFmsC7lSafc2/60BpZzdsOZJy4x806
+    /CoQGzL68sqaB1sE9zAv0xaAkYSoysb2E7lEPVG5xX4176I2/q7PfIkWK26KlfBK0f3tuo
+    eO4acG27Km7FmYkG5PoT5jT8JbR72LXiJSaYCPZFVCZikDf9Ks0WqL1ynRXO+fLOr8u2eu
+    IHCjynQTY68Ja330c0e6EFzvWkoGgbLTgNNXWJ3r2ixwi1KTFjl/RHlvztzuRkCKQp9FdF
+    lOb2VySduc3Ocw/uV/Dc9vVTs21c1FHK0ubkSaXbXN5vVkA26CymV+tY0RaMzMyntiGsGv
+    scC6VefnafC56+b8y5naZIXN6UwAUkIf8ZglWYoWqHgzpPErorEVvbidPX1t0peXxFa4oU
+    dypXTglLfJMSoAYDH1Cb8XXkjqksFtg4HuExTnkNTihiHsZh67tmbxP45Vui2koTAm45+k
+    Bw18+l6PWWsr1EE8qLZZDfrLjZYm1V54FxPFcZPWbRUNYiwsupn2S5glF3JfZZY1EYJGbO
+    9W3FZoz875GVO07+V7opL0nWI9CEyHG+qo9OyKmxMGynFzJMa+KM0830UhBA
+X-ME-Proxy: <xmx:vNJZamsf0O19wjAU-rzZ6FHDcE6CAlgrGfGogWsz1baPsim9mAIaEw>
+    <xmx:vNJZao1amVr0CHj5RPrjC-Wyak7WfgrZjTa0q03_2EydO2nJGPdyvQ>
+    <xmx:vNJZapGzpPNwPQK_j4kkxlUuphmw3qRAm7pEGXzjJvWybU23i_lfeQ>
+    <xmx:vNJZarsj4ZHc54n46QK-byKCqSRXMJrygZfJ3SBsWSZGbp6IHPdXpw>
+    <xmx:vNJZav665iCjuY9jJCdbK7RZ4TRPrsFSjRbOpyaAGszXSm2Y4TQSlYiG>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 17 Jul 2026 02:59:05 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [PATCH v4 0/2] arm64: dts: rockchip: Add ArmSoM CM5 and CM5-IO
+Date: Fri, 17 Jul 2026 18:59:01 +1200
+Message-ID: <20260717065903.2629399-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260716171733.300885-1-akkun11.open@gmail.com>
- <20260716171733.300885-4-akkun11.open@gmail.com> <20260716172730.089081F000E9@smtp.kernel.org>
-In-Reply-To: <20260716172730.089081F000E9@smtp.kernel.org>
-From: Akari Tsuyukusa <akkun11.open@gmail.com>
-Date: Fri, 17 Jul 2026 15:58:57 +0900
-X-Gm-Features: AUfX_mw-f0NpYAct72rPmUcEbtzcmaBSPm7yFj-EtAmmmokjNJ0yQdRy__B__oo
-Message-ID: <CAKr_iV6PsWZ8MPsO2NdfS1ppy6pUCGjvn4MFF8UMz7updckW_g@mail.gmail.com>
-Subject: Re: [PATCH 3/3] soc: mediatek: pwrap: add MT6589 PWARP and MT6320
- PMIC support
-To: sashiko-reviews@lists.linux.dev
-Cc: mfd@lists.linux.dev, lee@kernel.org, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, robh@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 17, 2026 at 2:27=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
-> [Severity: Medium]
-> Does using PWRAP_DEW_DIO_EN here instead of PWRAP_SLV_CAP_DUALIO accident=
-ally
-> disable Dual I/O mode?
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716171733.30=
-0885-1-akkun11.open@gmail.com?part=3D3
+Add mainline support for the ArmSoM CM5, an RK3576 compute module, and
+its CM5-IO carrier board.
 
-100% correct review, I'll fix in v2.
+Patch 1 adds the binding, patch 2 the module dtsi and the carrier dts.
+
+The on-module YT8531 PHY has no crystal and needs the SoC 25 MHz
+reference clock (clk_mac_refout). Ungating it for RGMII needs a small
+dwmac-rk change sent separately to netdev [1]; the clock is optional so
+this DTS applies without it.
+
+Tested on a CM5-IO: the YT8531 links at 1000 Mbit/s; RK806, HYM8563,
+eMMC, microSD, the USB3 hub and the PCIe root complex all probe.
+dtbs_check is clean.
+
+Sorry about the v3 traffic: it went out twice because my mail provider
+accepted the first copy but then held it for hours before delivering, so
+a resend and the original both landed. That is fixed now.
+
+Changes in v4:
+- Use phy-mode = "rgmii-id" and let the YT8531 add both RGMII delays
+  internally; drop the MAC tx_delay/rx_delay. The PCB does not use long
+  clock lines, so rgmii-id is the correct description, and this matches
+  the other rk3576 boards. Re-tested: link still comes up at 1000 Mbit/s
+  (Andrew Lunn).
+- Drop the redundant clocks/assigned-clocks on the PHY node; the 25 MHz
+  reference is enabled and rated through clk_mac_refout on the gmac node,
+  and clock properties on an MDIO child are not processed (sashiko-bot).
+- Enable &sai6, the I2S CPU DAI the HDMI sound card needs to probe
+  (sashiko-bot).
+- Pick up Krzysztof's Acked-by on patch 1.
+
+Changes in v3:
+- Remove the ES8388 codec from the file header and the i2c0 block comment
+  (the node was dropped in v2 but the comments still named it).
+- Use gpios instead of gpio in the vcc_3v3_pcie fixed regulator.
+
+Changes in v2:
+- Type-C DP alt-mode: name the altmodes child "displayport" and make svid
+  a /bits/ 16 value; drop the undocumented svid from &usbdp_phy and add
+  the missing mode-switch.
+- Move the FUSB302 role-switch endpoint into the connector's ports and
+  rename the node to usb-typec@22.
+- Drop the ES8388 node and the unreferenced gmac0_rst, bt_reg_on and
+  wifi_host_wake_irq pinctrls.
+- Rename the wifi-poweren-gpio pinctrl node (collided with
+  gpio-consumer.yaml).
+- Describe the PHY reset at the MDIO bus level rather than with the
+  deprecated snps,reset-gpios.
+
+[1] net: stmmac: dwmac-rk: enable the reference clock for output mode
+
+Jiaxing Hu (2):
+  dt-bindings: arm: rockchip: Add ArmSoM CM5 and CM5-IO
+  arm64: dts: rockchip: Add ArmSoM CM5 and CM5-IO
+
+ .../devicetree/bindings/arm/rockchip.yaml     |   7 +
+ arch/arm64/boot/dts/rockchip/Makefile         |   1 +
+ .../dts/rockchip/rk3576-armsom-cm5-io.dts     | 402 +++++++++++++
+ .../boot/dts/rockchip/rk3576-armsom-cm5.dtsi  | 558 ++++++++++++++++++
+ 4 files changed, 968 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5.dtsi
+
+-- 
+2.43.0
+
