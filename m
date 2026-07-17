@@ -1,87 +1,141 @@
-Received: from mail-m3269.qiye.163.com (mail-m3269.qiye.163.com [220.197.32.69])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C792E37E5F6;
-	Fri, 17 Jul 2026 07:12:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD1B825C80E
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 07:13:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784272372; cv=none; b=q6l3dp6HaXeZu/44PkSq+IB0phN4L+BE4wyRRfTbuoN+9Yy1CzUrMIChKflN1fiwA6VCZ16YMQOh5poap6ACHT/vNkiJHIpFU3cgyhE+h4Hh6ACEkogH+OEPsmh3zNgmIMlJChzefZigxgOyZ9q8qvQXfHxlMr105IIUcm/sGLg=
+	t=1784272381; cv=none; b=DjXZRl7GLwhBb9DNTeuWSX6UWNP5HB106PORFYmGSKOLbuy6y8Es8mMoqyQwOH1WqR3zhTTGp/rLZSvDxfnkZRKyljW3RoKbms1k+TToxXaR4xiIbqhje5jvTnIJTOoAMV3COk3qX4PgLqUKTbE4JZffd8kW6ADhq2D7fKDqFvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784272372; c=relaxed/simple;
-	bh=YlRIym1f+hk4LE555ReYuoQhkt2lDXlgS/4RiXh4pqc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dJ9cv+B+U6PEkBaLZoD9nq90OfKHPIggawqSlpvzAPPm7k9+u/PE35pogVdE3NzT2pMd9aOWC7kCLqvhwa1qg17hqXYpc+sW4LLZ8cUpbbCv2nUUB3WQfY7LlljcA77zx4gp/0TS0jguwdkVDh/jnuHvtoCQkOwf/eCJCB0XrDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=hyLPdBxw; arc=none smtp.client-ip=220.197.32.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	s=arc-20240116; t=1784272381; c=relaxed/simple;
+	bh=pivLIBY6iue9cC3FbsyF3y2r/iEvs72YEZX+xXSpiCo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=e2l4gYmOwyW5dqruuZgdRsO6uj9BZsZ9WbalTq1fM+Uj/VKTgvt3kdptnJKF08ZwtECAWYiUsNc+gUq6ymHlTYXVLJXLIvkgb1kAQFBymdVHIxs3jCJO/YP3oXTkAsh2ja4cbVxo9P3vSZu1Q6Q45NcURas1q8PNGODB1EoXis0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DNcxMk3f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="hyLPdBxw"
-Received: from tsdl-HP-EliteDesk-880-G6-Tower-PC.. (unknown [36.129.139.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 468ec0c8f;
-	Fri, 17 Jul 2026 15:07:26 +0800 (GMT+08:00)
-From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-To: neil.armstrong@linaro.org
-Cc: andersson@kernel.org,
-	broonie@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	konradybcio@kernel.org,
-	krzk+dt@kernel.org,
-	lgirdwood@gmail.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	robh@kernel.org,
-	srini@kernel.org,
-	srinivas.kandagatla@oss.qualcomm.com,
-	tiwai@suse.com,
-	Hongyang Zhao <hongyang.zhao@thundersoft.com>
-Subject: Re: [PATCH RFC v2 1/6] ASoC: qcom: qdsp6: q6prm: add the missing MCLK clock IDs
-Date: Fri, 17 Jul 2026 15:06:55 +0800
-Message-ID: <20260717070655.3275253-1-hongyang.zhao@thundersoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20251008-topic-sm8x50-next-hdk-i2s-v2-1-6b7d38d4ad5e@linaro.org>
-References: <20251008-topic-sm8x50-next-hdk-i2s-v2-1-6b7d38d4ad5e@linaro.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DNcxMk3f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF6951F00A3A;
+	Fri, 17 Jul 2026 07:12:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784272380;
+	bh=sUkvQHEoyMvcVvUx0pHNkfEPeBB5iCMNzo3TgZN4qfo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DNcxMk3f3acv+GooM4biCJDZbRs4yPrlCqloz1SY/5CwUIu0cLyrqVyhOANo3O/OQ
+	 HYQMEOx5GnfRjYVxT++lcduOpU0bHVcqIt2zu19mIf8xeCa9z2mufFZiGVsiq0R04J
+	 AneLVt7XlQCFBnANRwptfN4vtMOcNFJ8QpfvKVczG0/eYm/YhKYACApXbg+dp1g317
+	 g7USaVG1q/zz1unss+20FLqNesK+YyRzxuHAFTXm8oooFv0vqnFJyj9vj992HjsOVk
+	 ygBQzyUUk3GoCjIYs8naco9ndF75UX5QiugjP8gQcOSrnwEtzNUzsRNw4pt5Z7LsKt
+	 gXbBymganiuOw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] arm64: dts: rockchip: Add ArmSoM CM5 and CM5-IO
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260717065903.2629399-3-gahing@gahingwoo.com>
+References: <20260717065903.2629399-1-gahing@gahingwoo.com>
+ <20260717065903.2629399-3-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 07:12:59 +0000
+Message-Id: <20260717071259.EF6951F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9f6ee6c9a303a9kunm2ce6559b5b59e1
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHk9DVhlNQ0sdGUIYTh5OGlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lPT09IVUpLS1VKQktLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=hyLPdBxw1dyhKw9/hZpDyPUy9Ux/m0ekFFqsVKNs92U9vngkedVVIyP+YsfJnqqbLkwfUJ+UWeeLQZC8knrgl0qAYwR/7CXEdMX0ZjhtLuCoream5E5kh4ZBNNgHQ/69PrPCmJo23ZhfgnnQSc3JGKlmuFUBslhFcoSNLQtyhAw=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
-	bh=YlRIym1f+hk4LE555ReYuoQhkt2lDXlgS/4RiXh4pqc=;
-	h=date:mime-version:subject:message-id:from;
 
-Hi Neil,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The 25 MHz reference clock `clk_mac_refout` for the YT8531 Etherne=
+t PHY is not enabled by the driver in RGMII mode, leaving the PHY without a=
+ clock.
+- [Medium] DisplayPort Alt Mode VDO advertises all capabilities and reserve=
+d bits as 1 (`0xffffffff`).
+--
 
-On Wed, Oct 08, 2025 at 08:56:48PM +0200, Neil Armstrong wrote:
-> Add the missing MCLK ids for the q6prm DSP interface.
->
-> Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+--- Patch [2]: [PATCH v4 2/2] arm64: dts: rockchip: Add ArmSoM CM5 and CM5-=
+IO ---
+commit e58918599e73710e92e762060f9447be7d1a658e
+Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-I have tested this patch successfully on the RubikPi3 board:
+arm64: dts: rockchip: Add ArmSoM CM5 and CM5-IO
 
-Tested-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+This commit adds support for the ArmSoM CM5 (an RK3576 compute module) and
+its CM5-IO carrier board. It includes configurations for the RK806 PMIC,
+Ethernet MAC, WiFi/Bluetooth, USB, HDMI, and various other peripherals.
 
-Would you mind if I carry this patch unchanged as the first patch in
-the next revision of the RubikPi3 audio series, drop the RFC prefix,
-and preserve your authorship and the existing Reviewed-by and
-Signed-off-by trailers? I would also add my Signed-off-by as the person
-forwarding the patch.
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts b/arch=
+/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts
+> new file mode 100644
+> index 0000000000000..40d9be0c69f42
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts
 
-Alternatively, would you prefer to resend it as a standalone non-RFC
-patch?
+[ ... ]
 
-Thanks,
-Hongyang
+> @@ -198,22 +198,15 @@ usbc0: usb-typec@22 {
+>  			source-pdos =3D
+>  				<PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
+> =20
+>  			altmodes {
+>  				displayport {
+>  					svid =3D /bits/ 16 <0xff01>;
+>  					vdo =3D <0xffffffff>;
 
+[Severity: Medium]
+Is this vdo value correct? Setting the DisplayPort Alt Mode VDO to all 1s
+(0xffffffff) asserts all possible DisplayPort capabilities and sets reserved
+bits to 1.
+
+Could this cause connected hosts to mistakenly detect the board as a
+DisplayPort sink (phantom monitor) and fail alt mode negotiations?
+
+>  				};
+>  			};
+
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5.dtsi b/arch/a=
+rm64/boot/dts/rockchip/rk3576-armsom-cm5.dtsi
+> new file mode 100644
+> index 0000000000000..91d7918c29c5a
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5.dtsi
+
+[ ... ]
+
+> @@ -138,20 +138,15 @@ &cpu_l3 {
+>  /*
+>   * GMAC0 drives an on-module MotorComm YT8531. The PHY has no local crys=
+tal, so
+>   * it relies on the SoC 25 MHz reference: clk_mac_refout (REFCLKO25M_GMA=
+C0_OUT)
+>   * has to be named on the gmac node for dwmac-rk to enable it, and
+>   * ethm0_clk0_25m_out routes it to the pad.
+>   */
+>  &gmac0 {
+>  	phy-mode =3D "rgmii-id";
+>  	clock_in_out =3D "output";
+>  	clocks =3D <&cru CLK_GMAC0_125M_SRC>, <&cru CLK_GMAC0_RMII_CRU>,
+>  		 <&cru PCLK_GMAC0>, <&cru ACLK_GMAC0>,
+>  		 <&cru CLK_GMAC0_PTP_REF>, <&cru REFCLKO25M_GMAC0_OUT>;
+>  	clock-names =3D "stmmaceth", "clk_mac_ref", "pclk_mac", "aclk_mac",
+>  		      "ptp_ref", "clk_mac_refout";
+
+[Severity: High]
+Will the PHY receive its reference clock with this configuration?=20
+
+The commit message notes that the YT8531 lacks a crystal and relies on the
+SoC 25 MHz reference output described here as clk_mac_refout. However, the
+device tree specifies phy-mode =3D "rgmii-id", and dwmac-rk only parses and
+enables clk_mac_refout if the PHY mode is RMII.
+
+Since the clock is ignored in RGMII mode, does the PHY remain unclocked and
+break Ethernet initialization?
+
+>  	phy-handle =3D <&rgmii_phy0>;
+>  	phy-supply =3D <&vcc_3v3_s3>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717065903.2629=
+399-1-gahing@gahingwoo.com?part=3D2
