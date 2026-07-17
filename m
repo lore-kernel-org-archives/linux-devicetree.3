@@ -1,175 +1,234 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72DC282F29;
-	Fri, 17 Jul 2026 18:11:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01D96376A10
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 18:14:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784311907; cv=none; b=N6/sqzXvC9rYHG/qYk0zdiihmuXhojQ0cDZEaid0OuvKoTSbRpiwR6wcL576J9wqluQmzyFWR2gu55+pQqEhzbbibYamAYGizLvO9+VNUqF5q28753wd1Qzt9TLh9tyVK75JNbrYskTamKD72q64juPBFpuDnrRgiev2kmVkF4U=
+	t=1784312050; cv=none; b=JS424sDVaJbV4nNpwEPB/Z9GYkNCFjNvjYZmQi13P2YtndCxWiMO9eYzjtYxRRtE1dkrLNuff7IUxDTxtSw53Npq+l7/7PwbmYuRDSxsWvN1+9f5o7zkcJqnr3/zICV4Fv3uug7/VQHog3UOpi2jp604QLX1ncNoMxkqGG4XVKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784311907; c=relaxed/simple;
-	bh=XVSVXi/J+aA3MsFvB71CmNQ6JTmVnyH3QblVg1ydcxo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FuKEtwPlLQ3p/nchI8hQt66h4GBv81/+DmetqgrYNiJlv7zb9X7/s0NQuNi39bxRGPjGFmkOUF7XKKzO76merbaxO2MRj2vUWec2WSXCZPvyBcPbRmgbUgus17twCjDV3WzxJphPq9guBjy8Kr/qoXRWMG4/OuOG2Hj5fh4kfLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Mt/8QQtB; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1784312050; c=relaxed/simple;
+	bh=BvrWutf46V7GF8UMCePKeTmByVz5+e8XZmZw/vPd65Q=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qfOrepZ3ae1gOa9SNo8bQdLA10HDZgjkCb6ZVsHYtQh/ih1FHpUO4FE33yx5qc0WVZSVUzja+QFajz5Dth4sgWtOpSo07kyCL4rotbsOOD5Ear9tXYgzpOtbMh/joqQ3ekTS398pxvmXTrv4ZWqEg6ioDBiRzEaoseH1mo1CSJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i/gDmloh; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Mt/8QQtB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784311906; x=1815847906;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=XVSVXi/J+aA3MsFvB71CmNQ6JTmVnyH3QblVg1ydcxo=;
-  b=Mt/8QQtBtiVW/q9xcLlFTMMn28iZNdRYbNeECkoLGdEhwLoqNpqYpMSZ
-   3DkQZvZD8CdAmKjPlr//64y+PceBtK26i6EDaWMoGbIBEnnus9yQUW9lJ
-   qxesCf/Yqc8PGdbzKqV0TMi73Icr3eS9Cz1lkH7w5FzcSfmBV2Ce0zLvE
-   M/Pn4aDf0Dhl+qw8MDS9o8t7Muv8WmntUoo42jHh7vARKL8bhSMM/ClIM
-   lqukJowcsUJinZwxzKv3SrYGL1ezUVtPuYooUzFruqBTNlEzU06IIpSmM
-   kf6rKZw0MM2Wl7f0EEWVGWWibzikXFqoXySbPggh8lgMCovMrjlDw7+u3
-   g==;
-X-CSE-ConnectionGUID: EaOc4KS9RvS0JLbOOqp7Hw==
-X-CSE-MsgGUID: H93GMUWFQPOmC9P+VmdaQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11849"; a="84941474"
-X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
-   d="scan'208";a="84941474"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 11:11:45 -0700
-X-CSE-ConnectionGUID: dV31b4u0R8KjtbgJ2OlSTA==
-X-CSE-MsgGUID: SUiXW48FQz2VODOnKix56g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
-   d="scan'208";a="250497505"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.143])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 11:11:40 -0700
-Date: Fri, 17 Jul 2026 21:11:37 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Yu-Chun Lin =?utf-8?B?W+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
-Cc: Michael Walle <mwalle@kernel.org>,
-	"Michael.Hennerich@analog.com" <Michael.Hennerich@analog.com>,
-	"afaerber@suse.com" <afaerber@suse.com>,
-	"andy@kernel.org" <andy@kernel.org>,
-	"brgl@kernel.org" <brgl@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	=?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"dlechner@baylibre.com" <dlechner@baylibre.com>,
-	James Tai =?utf-8?B?W+aItOW/l+WzsF0=?= <james.tai@realtek.com>,
-	"jic23@kernel.org" <jic23@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"lars@metafoo.de" <lars@metafoo.de>,
-	"linus.walleij@linaro.org" <linus.walleij@linaro.org>,
-	"linusw@kernel.org" <linusw@kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-realtek-soc@lists.infradead.org" <linux-realtek-soc@lists.infradead.org>,
-	"mathieu.dubois-briand@bootlin.com" <mathieu.dubois-briand@bootlin.com>,
-	"nuno.sa@analog.com" <nuno.sa@analog.com>,
-	"robh@kernel.org" <robh@kernel.org>,
-	Stanley =?utf-8?B?Q2hhbmdb5piM6IKy5b63XQ==?= <stanley_chang@realtek.com>,
-	=?utf-8?B?VFlfQ2hhbmdb5by15a2Q6YC4XQ==?= <tychang@realtek.com>,
-	"wbg@kernel.org" <wbg@kernel.org>
-Subject: Re: [PATCH v3 3/7] gpio: regmap: Add gpio_regmap_operation and
- write-enable support
-Message-ID: <alpwWcfHLmOdbrVF@ashevche-desk.local>
-References: <d301ba0cd45d49d59e6a014188306ec9@realtek.com>
- <20260716062614.1507243-1-eleanor.lin@realtek.com>
- <aliV4u6_xzx9D9Aq@ashevche-desk.local>
- <DJZVLZ4LLD9E.3MPLYYXT1VQ9R@kernel.org>
- <alim_HGTD5RCupav@ashevche-desk.local>
- <DJZXVOGZ3ZTH.20P8NY7DON0X7@kernel.org>
- <alkbVkB5KNNR7ffN@ashevche-desk.local>
- <82f3f73764ac4553a8e2743bbebd90e8@realtek.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i/gDmloh"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cf110997efso7135965ad.2
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 11:14:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784312048; x=1784916848; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ne/ftA2xlJxQKz2vL4nuVk6v4kA0+IzBpOxppG0Objc=;
+        b=i/gDmlohGsk5GHITeurBf9h5qnYMiwBFa1XDLJzg5y/1cc+PiY6hX0fmyCSrLP5+9k
+         eh5/W9hmM9Io6VTLkIKWtRKpnNE5tDYnSe6vgKsrhrBXkJgQRZ9/T5cQ8wn/r67kzp4G
+         j7xqpSS4pzAqbVup5roLMFqzBfHJGcLtv7HVP8NE+MPeNrhPMmYMgXY7NDe2KkAMzMIY
+         iXGHJf3xiWEkydoqcid3uTmeae57R/Gclsqsmxqa1gUfgKH/DM/47erkQtSa8Ggd0cCW
+         FXJWngIDYZSiHBNNnAlAcW4IUcl3CS7fpxQBHk7Tqxh+tySf4eC/k/iODmch4JmYB+pg
+         Xc2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784312048; x=1784916848;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ne/ftA2xlJxQKz2vL4nuVk6v4kA0+IzBpOxppG0Objc=;
+        b=RS0ffhJMt/xMmLWdC1TXk7auy8SjZBNWHwI6MnoNPqPHDHjh/PP8/UdKDNwbNU0A6p
+         RxdG/0qzIwGlhCt1WZrlf770fRgMKytpN5L1D6YUmglkMEAmvh+M3sJWXqod6101qtl9
+         S4EG4pBQLoH2sfjOz5Gm/y9x7OopSBUeFHgGW/AoTWG0nLj7SuTlILPB6JyBfijjbAUw
+         mewkzm+/A+u3BbfzQs7kPp2er192AcTpnrI+D8b0T4dVKLjdOK2Ee8ITrilaHxYulOwV
+         g04QDddGo5ieb7VIjIYWIvsB0TJEyvJyfRILmTUNcjIi4Cde5b+LT4KoMphksthe0Eoa
+         FH6A==
+X-Forwarded-Encrypted: i=1; AHgh+RqtjX5rtcAbLWIrtChaWRwBDIFGWDklCS9ZPvc5LPs25DSXI2QRRz3QfrqbAUeTooZW3BB1VT1BhAfc@vger.kernel.org
+X-Gm-Message-State: AOJu0YzT2haHXiE3SjQa5ekfcfE3NyWcTQqK1JmWaDI8UtKgKBk4xWmG
+	7dgY1wvmkp/pXlpVi2rensLhSUjsJ8bYgtV+MNZm93zSRL7Rrtmg02Fh
+X-Gm-Gg: AfdE7cm57sMQxPdgDh34mGCDWv07BhdBOqyhkb2w53vBMmvgVEiLuRCHV/lO8EzXThy
+	dKneUVMhJMzLe5mNne7t+0n1W5eHg4wyUd+/y/Po9ts1ZYryIZj8bGeTz7P903evHvMWhfk6WCY
+	kIJ92GHElTaN0JyqGjG+y9fNghfYOibQhE5R2bb0E8Hyddk/OlpetCueMJ8qX4QLSP0WUhjzCL+
+	o/4/0g/acB7hbHTXSYmdsUTSwkUN1qO+Ae4hToypVadg3be9p2VNA9UoZtr9qidn4sFawDJawtN
+	KD+ib0O9b1IdMqCq0T1f7VtRyGEQLp+kBndX1+d50M5s9ib9quk7n38xJo4L2B6c3OvlM99w9gw
+	VaiDkowv8kRZ8bgW/n1+LYdIufufxdMrDR0xzSsKF6CwY1TyZQ7Cg5n9Ej7hNg+j301q9gWIbvD
+	S9wlZMoyR18DwSDQ==
+X-Received: by 2002:a17:902:e541:b0:2c9:fbde:ab68 with SMTP id d9443c01a7336-2cf349ba5f2mr31420215ad.3.1784312048158;
+        Fri, 17 Jul 2026 11:14:08 -0700 (PDT)
+Received: from [172.28.140.252] ([2409:40c2:5425:b99:7cf7:c083:fd30:1cea])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13ce2cbb69bsm6719029c88.11.2026.07.17.11.13.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 11:14:07 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Fri, 17 Jul 2026 23:43:37 +0530
+Subject: [PATCH] dt-bindings: clock: ti,dm816-fapll-clock: Convert to DT
+ schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <82f3f73764ac4553a8e2743bbebd90e8@realtek.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260717-ti-fapll-clock-v1-1-1b684cb2543b@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBuwoYy6SrQQm2pINDQiCO+et
+ HyL/19IHIUTjNULkW9JEnxBU1dgd+M3RlmKgRRppWnAS3A1p3NoXbAHdr1RZEm3rBWU6Iy8yvM
+ PpznnD/LpFexgAAAA
+X-Change-ID: 20260629-ti-fapll-clock-57a02c264e60
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ Tero Kristo <kristo@kernel.org>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784312036; l=4428;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=BvrWutf46V7GF8UMCePKeTmByVz5+e8XZmZw/vPd65Q=;
+ b=3oBlTRL9LpK42P2YqbG7RbkmmV/efbb/bJZKWcwearbdAlzWjeGQhm2uJZhTqjfr8mpVD9Fkb
+ 5QcsiwtL8W0BC/qYhbIQ7H+/mMcxcqbxCQBFnk07b7yq+qguH5YejJK
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-On Fri, Jul 17, 2026 at 03:38:35PM +0000, Yu-Chun Lin [林祐君] wrote:
-> > On Thu, Jul 16, 2026 at 12:55:37PM +0200, Michael Walle wrote:
-> > > On Thu Jul 16, 2026 at 11:40 AM CEST, Andy Shevchenko wrote:
-> > > > On Thu, Jul 16, 2026 at 11:08:55AM +0200, Michael Walle wrote:
-> > > >> On Thu Jul 16, 2026 at 10:27 AM CEST, Andy Shevchenko wrote:
-> > > >> > On Thu, Jul 16, 2026 at 02:26:14PM +0800, Yu-Chun Lin wrote:
+Convert the Texas Instruments DM816 FAPLL clock binding from plain text
+to YAML DT schema.
 
-...
+The text documented #clock-cells to be set as 0, while the example and
+existing dt and driver require it to be 1. The schema now strictly
+enforces #clock-cells = <1>.
 
-> > > >> > From the above list I tend to the approach 2, but this might
-> > > >> > require to have GPIO regmap level of locking. I'm a bit lost in
-> > > >> > the context, though. I assume we need a fresh start, id est issue
-> > > >> > a v6 with approach 2 or 3 in place and summarize the choices in
-> > > >> > the cover letter, so we can understand what has been considered.
-> > > >>
-> > > >> I don't really like approach 3. You'd need to check if the regs of
-> > > >> both xlate calls are the same. With the sample code above, you
-> > > >> silently drop the first xlate'd reg.
-> > > >
-> > > > If I rank the proposals, the worst is #1, the best is #2.
-> > > >
-> > > >> And honestly, it really seems like a one-off. What controllers, are
-> > > >> there that need a write enable bit. The real problem seems to be
-> > > >> the assumption that we operate on just one bit. IOW we either set
-> > > >> mask or don't set mask in gpio_regmap_set().
-> > > >
-> > > > Yes, we should KISS.
-> > >
-> > > But IMHO #2 and #3 are not KISS. Approach 2 is just a way of adding
-> > > some kind of pre op to a gpio set. Just tying it to a write enable
-> > > feature. That kinda bothers me. It might also be useful for other
-> > > things, too. So don't tie it to just write enable. And who is doing a
-> > > write disable if it's not self clearing for example. Probably Some
-> > > kind of post op :)
-> > >
-> > > Approach 3 is a way to change the value of the written value - in a
-> > > restricted way, as is is just doing a OR with both values.
-> > >
-> > > Also approach 2 might not even work if the hardware requires the write
-> > > enable bit set in the *same* write as the gpio set bit. Thus, we might
-> > > need both anyway in the future.
-> > >
-> > > >> For a more generic solution, we should be able to control the
-> > > >> written value. We could add another .value_xlate().
-> > > >
-> > > > Maybe not now?
-> > >
-> > > But if not now, then when? I wouldn't add the write enable feature and
-> > > later a more generic solution which also covers the write enable
-> > > feature.
-> > 
-> > Taking into account how it's done in HW, I think the whole approach can be
-> > folded to just a boolean flag  (or a simply bit shift) in the config.
-> > Wouldn't it work?
-> 
-> To respect Michael's perspective on keeping WREN-specific code out of the
-> framework, I think adding a value_xlate callback in the config is a cleaner
-> approach. It allows us to wrap this hardware quirk within the callback and let
-> the consumer driver handle it entirely.
-> 
-> To ensure it is truly generic, I will not introduce any WREN-specific operation
-> flags. Instead, value_xlate will reuse the gpio_regmap_operation enum
-> (e.g., GPIO_REGMAP_OP_SET, GPIO_REGMAP_OP_SET_DIR).
+Properties clock-indices and clock-output-names are documented in the
+binding and added as required as driver strictly requires it and existing
+dt already use this property.
 
-OK! But don't forget add a good documentation that users will understand
-the logic behind it.
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+ .../devicetree/bindings/clock/ti/fapll.txt         | 31 ----------
+ .../bindings/clock/ti/ti,dm816-fapll-clock.yaml    | 72 ++++++++++++++++++++++
+ 2 files changed, 72 insertions(+), 31 deletions(-)
 
-> > > > As per IPs, Synopsys IPs (not exactly GPIO) likes to have that kind
-> > > > of "protection". So, from HW perspective it's kinda pattern, and it
-> > > > might be possible to see more IPs (including GPIO) that follow it in
-> > > > some cases.
+diff --git a/Documentation/devicetree/bindings/clock/ti/fapll.txt b/Documentation/devicetree/bindings/clock/ti/fapll.txt
+deleted file mode 100644
+index 88986ef39ddd..000000000000
+--- a/Documentation/devicetree/bindings/clock/ti/fapll.txt
++++ /dev/null
+@@ -1,31 +0,0 @@
+-Binding for Texas Instruments FAPLL clock.
+-
+-This binding uses the common clock binding[1]. It assumes a
+-register-mapped FAPLL with usually two selectable input clocks
+-(reference clock and bypass clock), and one or more child
+-syntesizers.
+-
+-[1] Documentation/devicetree/bindings/clock/clock-bindings.txt
+-
+-Required properties:
+-- compatible : shall be "ti,dm816-fapll-clock"
+-- #clock-cells : from common clock binding; shall be set to 0.
+-- clocks : link phandles of parent clocks (clk-ref and clk-bypass)
+-- reg : address and length of the register set for controlling the FAPLL.
+-
+-Examples:
+-	main_fapll: main_fapll {
+-		#clock-cells = <1>;
+-		compatible = "ti,dm816-fapll-clock";
+-		reg = <0x400 0x40>;
+-		clocks = <&sys_clkin_ck &sys_clkin_ck>;
+-		clock-indices = <1>, <2>, <3>, <4>, <5>,
+-				<6>, <7>;
+-		clock-output-names = "main_pll_clk1",
+-				     "main_pll_clk2",
+-				     "main_pll_clk3",
+-				     "main_pll_clk4",
+-				     "main_pll_clk5",
+-				     "main_pll_clk6",
+-				     "main_pll_clk7";
+-	};
+diff --git a/Documentation/devicetree/bindings/clock/ti/ti,dm816-fapll-clock.yaml b/Documentation/devicetree/bindings/clock/ti/ti,dm816-fapll-clock.yaml
+new file mode 100644
+index 000000000000..9b6b824faa30
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/ti/ti,dm816-fapll-clock.yaml
+@@ -0,0 +1,72 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/ti/ti,dm816-fapll-clock.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments FAPLL clock
++
++maintainers:
++  - Tony Lindgren <tony@atomide.com>
++  - Tero Kristo <kristo@kernel.org>
++
++description:
++  This binding uses the common clock binding. It assumes a register-mapped
++  FAPLL with usually two selectable input clocks (reference clock and bypass
++  clock), and one or more child synthesizers.
++
++properties:
++  compatible:
++    const: ti,dm816-fapll-clock
++
++  "#clock-cells":
++    const: 1
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: phandle for parent clock clk-ref
++      - description: phandle for parent clock clk-bypass
++
++  clock-indices:
++    description:
++      Maps child synthesizers to physical indices 1-7. Index 0 is physically
++      reserved for the Master PLL.
++    minItems: 1
++    maxItems: 7
++    items:
++      minimum: 1
++      maximum: 7
++
++  clock-output-names:
++    description:
++      Names of the child synthesizer outputs. The length of this array must
++      match clock-indices.
++    minItems: 1
++    maxItems: 7
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - "#clock-cells"
++  - clock-indices
++  - clock-output-names
++
++additionalProperties: false
++
++examples:
++  - |
++    clock-controller@400 {
++        #clock-cells = <1>;
++        compatible = "ti,dm816-fapll-clock";
++        reg = <0x400 0x40>;
++        clocks = <&sys_clkin_ck &sys_clkin_ck>;
++        clock-indices = <1>, <2>, <3>, <4>, <5>, <6>, <7>;
++        clock-output-names = "main_pll_clk1", "main_pll_clk2", "main_pll_clk3",
++                             "main_pll_clk4", "main_pll_clk5", "main_pll_clk6",
++                             "main_pll_clk7";
++
++    };
 
+---
+base-commit: 0716f9b9338a86dd27796e00ed0fd560c653323a
+change-id: 20260629-ti-fapll-clock-57a02c264e60
+
+Best regards,
 -- 
-With Best Regards,
-Andy Shevchenko
-
+Bhargav
 
