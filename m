@@ -1,146 +1,167 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF4632B118;
-	Fri, 17 Jul 2026 07:59:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B103F3328FA
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 08:01:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784275160; cv=none; b=uLju3KvrmjPJph+R8rEGqKsYH7881EDL8IaZswTKt8K6gfx1jcyBGgwY4Mks8BrFWyKj7ayfKncJVMdh+K6Z8WRhVqEguDcNu5mni+c4iCZkuzAcLmKixWg0J8oNiEvsrhvwJ/vgAHn0qg2CQH3wj3rHU1rBwg1Yq0sGFKhcriU=
+	t=1784275267; cv=none; b=qU29iY+k7BnUkavifsurvzkp1CrV0el3RUy4L2AJthK8jWQ+7BunlkgjxKv6nefDf5nzTOhNpBU5cHBg21dOUcdbEGbix9AdLsDWO6MvCwnjsR3dydX0HORoYp+PVLYSVodIszVzg5wu+aZbu5KMukmbmNEVL58NZ9ixwjKL/JU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784275160; c=relaxed/simple;
-	bh=Q+EVn7Icoe+5G9RJNubvOmg1kDD1KCJtqeY6TdN1HFM=;
-	h=MIME-Version:Content-Type:Date:Message-ID:CC:Subject:From:To:
-	 References:In-Reply-To; b=tSVHYetuEQQ3Mb15fUHt7M81TmFAdJdvFgQuFP+7+kGDrGyqjhzmYR2stbhaSoBEE6fV1QW/PLhnJQm64NX/5Nu3Pm2GWPiLewNjWfs6LfdbnP3oWu/JRZ0+mTYLJmXMV13JtEIk7R9AmyoESGdgtdLnaSLP1CPuTYQg2HAY1yI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=RSPk+Ks5; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1784275267; c=relaxed/simple;
+	bh=nQaWCPt1P7z1yRrFDCW/WImJ+ZcDX3SQQr4xMEW1bQg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=EeQLl3pP3kfc1u5b4B4gH+0n82QGniVs8qQ35gF5r+q3f7lVJLSCASX23gXsvlTTnPcLNaESRVk3rtDcYgZa2NeeH4KJJP4RQyNlR+YNYwokEGSc+8g1OxVQzxVs7CjYmBXAu2h9Yp9JCYWhfbvQM2c62zsGRqswSytv67El/bI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MYz8vQ1E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="RSPk+Ks5"
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66H6b9ob1510276;
-	Fri, 17 Jul 2026 03:59:12 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=BSiUi
-	wfP4JXN+h2q1J+srAmHmyCGKrFG27JR2xy0ykg=; b=RSPk+Ks5fvWRl732CZ4EK
-	HzY9eH3/I4midUU4gb79gy395ESH4UpKWau6EbuMTPjoayf3wSS8ZTd+8mxtxBs7
-	+rUjf+7wat3PnKkApytXZeeP8aZ7+KbNsJwctUpz82xDYUZLXjiUZpept2irUFTC
-	QGRuo6UwraSCqVCnUMwgxNgnvh5Tjf7QlP4nSTAt43ockod05d2Z4dUwI7V6eRU7
-	qAG+/JrASMWWyhCTvJHjYvDS2/5F+eXvhyigu7cpP/rrjcCJI6KU5+b7ZrlW3TEG
-	WyprxjCQJT5KfYAOKxDDgfDDSqv6o7u9YTEXXInuaPdXga9rZaHcPdYH+nL0Flah
-	g==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4ffbpg12pv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 17 Jul 2026 03:59:11 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 66H7xAiY013697
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 17 Jul 2026 03:59:10 -0400
-Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
- ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Fri, 17 Jul 2026 03:59:10 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
- ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Fri, 17 Jul 2026 03:59:10 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Fri, 17 Jul 2026 03:59:10 -0400
-Received: from localhost ([10.66.6.191])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 66H7wotk009002;
-	Fri, 17 Jul 2026 03:58:53 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MYz8vQ1E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA9F51F000E9;
+	Fri, 17 Jul 2026 08:01:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784275266;
+	bh=Uu0wTGd+OyPGInm31ZdHqR2IOPXBZooPDxLPi8J3bTY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MYz8vQ1ELp4H3leqvJQE2fVrTtze647R5VWnOmzIMj260HiJB7r83KFxNB7DqReej
+	 IIOUJu6ZODqigChHf894NHWaOpB4Fx+zeKHlghcnnYq/9EifUKgekthv4tqtmleOc3
+	 9UEUtPoStrZu48EH4e+2iEoQdf9OsvGbEjRXWQcw0/f2+kZukQDzf0WO8WoVHsX8Oy
+	 920We/b8tPSeYN/9i9JzZLPIn4b0KTfbIzoQDvWIVB3z8L4WiNbz84jRAMEN5z3fzF
+	 SmFJBFqgE+Jru4B5rQkFgwBMyswAtctrLOU+2DvPVIuG2ChJXsWIitfJXh38VNm14F
+	 n96E93tnbx2Zw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] spi: amlogic: spisg: Fix the incorrect keep_ss of
+ the last descriptor
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
+Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, robh@kernel.org
+In-Reply-To: <20260717-a9-spisg-v1-2-2eeea77be19f@amlogic.com>
+References: <20260717-a9-spisg-v1-0-2eeea77be19f@amlogic.com>
+ <20260717-a9-spisg-v1-2-2eeea77be19f@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 08:01:05 +0000
+Message-Id: <20260717080105.EA9F51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Fri, 17 Jul 2026 15:58:44 +0800
-Message-ID: <DK0OQSHG4QF2.CCD4OGSWXFBH@analog>
-CC: Jonathan Cameron <jic23@kernel.org>,
-        David Lechner
-	<dlechner@baylibre.com>,
-        =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
-        "Andy
- Shevchenko" <andy@kernel.org>,
-        Michael Hennerich
-	<Michael.Hennerich@analog.com>,
-        Rob Herring <robh@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Philipp
- Zabel" <p.zabel@pengutronix.de>, <linux-iio@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux@analog.com>,
-        <devicetree@vger.kernel.org>
-Subject: Re: [PATCH 1/3] iio: ABI: add DAC high_z powerdown mode and current
- output entries
-From: Kim Seer Paller <kimseer.paller@analog.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-X-Mailer: aerc 0.8.2
-References: <20260716-iio-ad5710r-upstream-v1-0-e848a4bb701f@analog.com>
- <20260716-iio-ad5710r-upstream-v1-1-e848a4bb701f@analog.com>
- <alkcBaHV0gHY37wR@ashevche-desk.local>
-In-Reply-To: <alkcBaHV0gHY37wR@ashevche-desk.local>
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Authority-Analysis: v=2.4 cv=YqE/gYYX c=1 sm=1 tr=0 ts=6a59e0cf cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22 a=tdLBGZj91k5LuzOrVg0A:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: QOa9qxn6_HDcDbqv9B46cTz6fUGHEKoQ
-X-Proofpoint-ORIG-GUID: QOa9qxn6_HDcDbqv9B46cTz6fUGHEKoQ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDA3OCBTYWx0ZWRfXx3P0aBL9iuas
- Zkd/TCs3IumXtAo8lGrVafLYp5gGHUnGKIFNq4852CPtrKPcLWMyLf63gMl5lkEpqK1UTFboFcn
- 2eQpoFFTwVdYXpcRZU5KGZIPPuhkGOUdqhzHAqhNpvKPOdGF9m4x
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDA3OCBTYWx0ZWRfX9uid8WQoCHfr
- ckiv8spe8xEglophEQzeobRVEYj0sp9HbsuSJq8SjMhmYh5WAWY/qSKWDkKK4zow1B9Nv8KuEUU
- 0grFgCa926t5oJalfjTbi3yzbFNOCj844Cr7tUf1XMauRvxPM2pWNF25KM83j/WYhycD7a0eaDC
- Y36SkTa3RPur4MQOkgOck47r4/9PO3qbA30W1otvwcYH8pJyMeml2iqj95ZcRSER2IkzCfh1Lo4
- j6mcOvfL1QSVfbfCxaO1is+T0+fB54rMiNOflzFapO5VEVHavAM0/NpGbB8zvrMZxHZOynkc5LY
- BQwrxToDYNsSbzi9+uTRvNA+NH7SXBws6sHQ2zJFR+ORvdKk49iM+UzR1lcZuWtBc0ULenNQTg1
- lRJtz5+EX8jUvmPo4Y80Ih/S40v/bAGS2o4Wu86R04o3lq5Sbm+e4AIo+p+zXQuP3YRG4m0AfmO
- DYlPAfiWnF0rA67hWrQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-17_02,2026-07-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0 priorityscore=1501
- impostorscore=0 adultscore=0 clxscore=1015 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170078
 
-On Fri Jul 17, 2026 at 1:59 AM PST, Andy Shevchenko wrote:
-> On Thu, Jul 16, 2026 at 03:59:25PM +0800, Kim Seer Paller wrote:
-> > Add high_z powerdown mode for DACs with high impedance output in
-> > current mode (IDAC) and 15kohm_to_gnd resistor to GND. Also add
-> > out_currentY_powerdown_mode, out_currentY_powerdown_mode_available,
-> > and out_currentY_powerdown entries to document current output
-> > powerdown support.
->
-> ...
->
-> >  		125kohm_to_gnd: connected to ground via an 125kOhm resistor,
-> >  		500kohm_to_gnd: connected to ground via a 500kOhm resistor,
-> >  		640kohm_to_gnd: connected to ground via a 640kOhm resistor,
-> > -		three_state: left floating.
-> > +		three_state: left floating,
-> > +		high_z: left floating.
->
-> It may be less churn if just located before three_state, but hey, why?!
-> three_state is a synonym to high_z. What's the impediment to use it?
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-You are right, thanks. I added high_z because that is the term the datashee=
-t
-uses for current output powerdown mode. Since three_state means the same=20
-thing I will drop the high_z addition and use the existing three_state.
+Pre-existing issues:
+- [Critical] Missing hardware abort on SPI transfer timeout leads to DMA Us=
+e-After-Free and memory corruption.
+- [High] 32-bit integer overflow in `spi_delay_to_sclk` leads to severely t=
+runcated SPI delays.
+- [High] `SPISG_BLOCK_MAX` exceeds the hardware mask size, causing maximum-=
+length transfers to be processed as zero-length.
+- [High] Hardware limits for `cs_setup` and `cs_hold` delays are not clampe=
+d before being packed into register fields, causing long delays to silently=
+ wrap around to short values.
+--
 
->
-> --=20
-> With Best Regards,
-> Andy Shevchenko
+--- Patch [2]: [PATCH 2/3] spi: amlogic: spisg: Fix the incorrect keep_ss o=
+f the last descriptor ---
+commit 07f3c7893cd8bdd39413002b5f617a22e93e0842
+Author: Sunny Luo <sunny.luo@amlogic.com>
 
+spi: amlogic: spisg: Fix the incorrect keep_ss of the last descriptor
+
+This patch fixes an issue where the CFG_KEEP_SS flag is unconditionally
+cleared on the last SPI descriptor. It records the cs_change value of
+the last transfer and properly programs CFG_KEEP_SS on the final descriptor.
+When a null descriptor is used for cs-hold, the flag is kept on the
+preceding descriptor and the recorded value is applied at the end.
+
+> diff --git a/drivers/spi/spi-amlogic-spisg.c b/drivers/spi/spi-amlogic-sp=
+isg.c
+> index afc8af04638d3..0f026d3e43e0b 100644
+> --- a/drivers/spi/spi-amlogic-spisg.c
+> +++ b/drivers/spi/spi-amlogic-spisg.c
+> @@ -529,9 +530,11 @@ static int aml_spisg_transfer_one_message(struct spi=
+_controller *ctlr,
+>  				spi_delay_to_sclk(xfer->effective_speed_hz, &msg->spi->cs_setup));
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can the 32-bit multiplication
+in spi_delay_to_sclk() overflow here?
+
+If a requested delay in nanoseconds and the SPI clock frequency in Hz are
+multiplied together, it evaluates as a 32-bit unsigned operation before bei=
+ng
+cast to 64-bit for the division:
+
+drivers/spi/spi-amlogic-spisg.c:spi_delay_to_sclk() {
+    ...
+	return DIV_ROUND_UP_ULL(slck_speed_hz * ns, NSEC_PER_SEC);
+}
+
+For example, at a 100MHz clock, a delay greater than 42.9us will wrap aroun=
+d,
+causing hardware setup or hold delays to become extremely short or zero.
+
+[Severity: High]
+This is also a pre-existing issue, but are the hardware limits for cs_setup
+and cs_hold delays clamped before being packed into the register fields?
+
+CFG_CS_SETUP is a 4-bit field (max 15). If spi_delay_to_sclk() returns
+a value greater than 15, FIELD_PREP() will silently truncate the upper
+bits, resulting in an incorrect, drastically shorter delay.
+
+>  		/* calculate cs-hold delay with the last xfer speed */
+> -		if (list_is_last(&xfer->transfer_list, &msg->transfers))
+> +		if (list_is_last(&xfer->transfer_list, &msg->transfers)) {
+>  			cs_hold_in_sclk =3D
+>  				spi_delay_to_sclk(xfer->effective_speed_hz, &msg->spi->cs_hold);
+> +			last_xfer_keep_ss =3D xfer->cs_change;
+> +		}
+
+[ ... ]
+
+[Severity: Critical]
+This is a pre-existing issue, but does the error handling path for timeouts=
+ in
+aml_spisg_transfer_one_message() lack a hardware abort?
+
+If a hardware transfer times out, the driver unmaps DMA buffers and frees t=
+he
+transfer descriptors without stopping the SPI controller hardware:
+
+drivers/spi/spi-amlogic-spisg.c:aml_spisg_transfer_one_message() {
+    ...
+	if (wait_for_completion_timeout(&spisg->completion, ...))
+		ret =3D spisg->status ? -EIO : 0;
+	else
+		ret =3D -ETIMEDOUT;
+
+	dma_unmap_single(dev, descs_paddr, descs_len, DMA_TO_DEVICE);
+end:
+    ...
+}
+
+Could this lead to the hardware continuing to write to or read from freed m=
+emory
+pages (DMA Use-After-Free) since the hardware isn't stopped?
+
+[Severity: High]
+This is a pre-existing issue, but can the maximum blocks count exceed the
+hardware mask size in aml_spisg_setup_transfer()?
+
+The blocks count is capped at SPISG_BLOCK_MAX (0x100000):
+
+drivers/spi/spi-amlogic-spisg.c:aml_spisg_setup_transfer() {
+    ...
+		blocks =3D min_t(int, blocks, SPISG_BLOCK_MAX);
+		desc->cfg_start |=3D FIELD_PREP(CFG_BLOCK_SIZE, block_size & 0x7) |
+				   FIELD_PREP(CFG_BLOCK_NUM, blocks);
+    ...
+}
+
+Since CFG_BLOCK_NUM uses a 20-bit mask (GENMASK(19, 0)), a transfer bounded
+exactly at SPISG_BLOCK_MAX (0x100000) will be silently zeroed out when mask=
+ed,
+causing it to be processed as a zero-length transfer.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717-a9-spisg-v=
+1-0-2eeea77be19f@amlogic.com?part=3D2
