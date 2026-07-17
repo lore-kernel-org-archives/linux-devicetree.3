@@ -1,94 +1,206 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA41742E8C3;
-	Fri, 17 Jul 2026 15:25:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12FC242E8F8
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 15:25:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784301916; cv=none; b=CxLDAPVObwuMlz5J4nKD8UTf9anM4FXaWfskBL0+zDWrMDUO9wp5xV/ZRQmTJeBGk89jfDxmJDM5HqoeJjqdgp61S907/kD2p/kRcq2BfXIH0yogwAeSapPasRPAfx3GIFsI0pfxszU3hlsMdBBDFlT39s5qLbmfpHMWWqf1Hxw=
+	t=1784301920; cv=none; b=pUwuOqYLhO7BulKsGYszUPmSuDagoxR7+H4NPJAgrjd+puoyHMQDMBHGv32TPxUaaguFMcAMNm/Dek/S2AEegcIBRgjqgIaFYBru+oPXOVQeAgll3s+ddsIzbMZF4H59s1bjh54fXM7RI+ZtTZ4A4L9NtW5ZhxgUXF0QsXNYWzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784301916; c=relaxed/simple;
-	bh=tZiO8lSZLE/keV9Gu5FSWu4lN6md6rKk20R60ZG5yYQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=onbITrKjRuJJTsvqFtYCCz18dmDG9SHf90SwbcCDWPeXriilocOoN6hmlmmpR7tE3qRNC7fc7NJl50S13uUHzSZE8f4uQRbkPh5Jdimhvb8xtMdotVjXymGOtwhTxDaBvP3ZDshLsKaVXiCfSHlTAlwlwx9XH/2LwaST/sMuV5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GI0zHGSq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784301920; c=relaxed/simple;
+	bh=6iIA0WTn0kaWrc1sr3Kek/HJCNSFbL8qhQ+00WGwRBM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=eedui3HfPDgA8g4FybwXTTqy4suiPRDCYWcTq0ldj6kVY6Z3tsD37T6csewQUxpq2Ux9QW3fHOjmKYfBfxZPiQcgL40AUynK8AUQu1LMqeabCKU+t5cUBLkBHodShYkwKvZklgGgAfLqyvJBK1WxjPLM+1/mGK/lB2PzM6DRq9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=RvSHDH2b; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GI0zHGSq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 623261F00ACA;
-	Fri, 17 Jul 2026 15:25:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784301910;
-	bh=tZiO8lSZLE/keV9Gu5FSWu4lN6md6rKk20R60ZG5yYQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GI0zHGSqLzNIIfkJTeCWBVc3h1zxgHibBYaLej63XmKwzSGnLnCR1C5obqRgnw7Iu
-	 AA6SkF4jKGsQZam08m9fBT9hVYWhWEg5HfQ2tc+BLcrZloEPp6wXhpG/Qw6cMYEtGQ
-	 hAw31ZvZbQTbfS8SuCOn/v+XLISxRxANifoP3v6o8kcvHG5dGZcmemDxTmjfg4iJ4x
-	 0N18stwOEIADIuZG/mbamkXcQ/9uvnF7w6c+mm0H21FpmDdME2ON1YQiG3uazVZdby
-	 90xxWPzInMjqqgg97OYtaIwxSH4rHDSg3czhHHxVI6q2VNaOMBbSuQUlGstC/Osyl2
-	 DW8LJ5k0cCGCg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/7] dt-bindings: reset: Add MT6589 toprgu reset IDs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
-Cc: linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260717151134.678839-2-l.scorcia@gmail.com>
-References: <20260717151134.678839-1-l.scorcia@gmail.com>
- <20260717151134.678839-2-l.scorcia@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 15:25:08 +0000
-Message-Id: <20260717152509.623261F00ACA@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="RvSHDH2b"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-47d70879764so5788102f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 08:25:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1784301913; x=1784906713; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3wgMh3yFxpSQUpY7Ql+FMu1f7EBXpSaKGdxPimN78QQ=;
+        b=RvSHDH2byUamNAM18X5VAOPjKzpBKo/GEVf2bl1Xkna1njhFb6r/quhPdMCZJLXp6j
+         5Z0t9irlPwJi8wdl36ZK35rvH9ar2339LQUcuU2/0aoMgduZOvSGzHGff8EKWTxhjmGI
+         PAvvYbyiyOQd0XRUId/ZoF4kAVVYRNlxil5BRHVBiUkgfHiRo42DNjVZt4PYyzS7M72q
+         kiwkuZozwismyIdQvjybdZEiRdcELuPq20j9qyqSRH5YoO2y6sbamG9YzKX1InjKFsa/
+         A1+7+b0CkVI+hFwXD1sp6CBbOf2gQBv0LP1wQKkkOL8wXo3UT1Ykf59NUX3CB6D0jbl2
+         AkQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784301913; x=1784906713;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3wgMh3yFxpSQUpY7Ql+FMu1f7EBXpSaKGdxPimN78QQ=;
+        b=qqbph0UYRHOq4eVDVoKuriQxSkOwLvUuqFa3ujOviGA15qU0oSV5ltUNOCZToNT+e0
+         Y86bX2QIAGOyrkP30qQCgVbmtEBFrR241UGP13ff4czy0e3w7GOz+b7Ux+1FZR0cQxWE
+         E59pEsg7hQMvPKS951pgiTURXwY8WIuvLWnOXlkrP2GR+FWm4iHPxIeQKv/gVlV8QI/g
+         jYlf7ILrFfiGtEZA8insGuEOrvKJylD6WDVasAESJlo7+r4bHhGBvJdPvYGOd9pGV0U/
+         21hujE/oozUAE8o0X5+Rg05R/Xqu7cz+AVW9hdxVettb35pAI8XJV6jTIJ62N4aHrrgs
+         9shg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp7NxVU0Lp/3jFmXqQyJCBrlmKF6OHQpwlNQg0GSmPRglDQkW3V9DE2lJ9eGqQtR6Oq8QNHhWVH0Rmn@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz/yoq9hh5s5lwKs8QbJzTO2Z02Z9UUG4JOuExq3zVOYWzNdH0E
+	f9xSxmDOHOWRFrqloUAikTDMlMc/QPnzeZITVAgp43ZWQHbpw1h1+Xh9mIURBrP4RfxKnHGtPM6
+	JsmcL
+X-Gm-Gg: AfdE7cmp6WLb07jfkq3yVfLLId1ZXWKYTzIMTR7hK3kyMABBiTu84tMTTfKd10sHSkc
+	WUytTbiBPwd5H1BjnJ9Qiyv6jCJOIwRw5jwAWyVgsKp6bjgPbA3fi8RjjKJG+JiLCWJwb+TzH3p
+	gIjBtwRJAyW391ODH+uLWU6PhUxhKTbQ9AW8u/UC8rzHQr+CTxQ0TaFIPyEWs5Kc+9nqh5EhyZi
+	NGW3mBXb1nQfxlyFDgdssflArHjbLz3W0CavKoMGU6KdK2+Y+Dla5QdkP41STkUSCBo7H52pEvv
+	HxenWkhKbO611jRn8VYJrAxmzxlFjgm7e77PZj3/rWska3VU1Yd5buGBymfmjf9CBJJBl2oz3F9
+	kVVM1MvK2xHyPQGnjpri/I4MguqEHLU2g+XmmPhJnEkeJIKycK6XP5xw5RznTFP2uchk68SETJt
+	q/
+X-Received: by 2002:a05:6000:1882:b0:47f:5e89:aa2 with SMTP id ffacd0b85a97d-47f62338d7dmr3838108f8f.51.1784301912982;
+        Fri, 17 Jul 2026 08:25:12 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:8e22:8a15:f33f:dc60])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47f63e496ffsm4808169f8f.3.2026.07.17.08.25.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 08:25:10 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+Date: Fri, 17 Jul 2026 17:24:52 +0200
+Subject: [PATCH v5 2/4] clk: sunxi-ng: div: add read-only operation support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260717-a733-rtc-v5-2-3874cc26abf7@baylibre.com>
+References: <20260717-a733-rtc-v5-0-3874cc26abf7@baylibre.com>
+In-Reply-To: <20260717-a733-rtc-v5-0-3874cc26abf7@baylibre.com>
+To: Junhui Liu <junhui.liu@pigmoral.tech>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Maxime Ripard <mripard@kernel.org>
+Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+ Jerome Brunet <jbrunet@baylibre.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3662; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=6iIA0WTn0kaWrc1sr3Kek/HJCNSFbL8qhQ+00WGwRBM=;
+ b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqWklNbHRTWu+C+fdTSwA8INAva/DV0orsBtig+
+ o8EwQ1NvI+JAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCalpJTQAKCRDm/A8cN/La
+ hW7YEACFQgs0gDea4IfvKYhJ1hf7FoiOwHPm4tFr2Kwikrbz/InoPDNLw3I8YPgnEXuT3MNUJkH
+ GBywQ3xsx/f8qCtV+nYNELgy1zlm//70eoe8gk0W+O451Acv6ztXiiJBIiNtXC/ArXnUCDJgufo
+ oTrn3eKvmlbAdSPUIEEFYPTZR3Q6n0pYAQckIZ13fZyNfW5OlC6D3CI+VSPXFzbTzSqtrwmblyT
+ YgEY0TTGhgHKQ4na+E1rTJ5p+pkf56LIvv08Clf5/Bl4POHDz07KMmLbU3DVJ7yHf4vKwHceHjn
+ leMhf6SJUEsENp3XIcvo/YDVtAKE8lR0rWfbFAXSI1MpAayGdzgUMKpVIltkpQj8tnznHShrt2J
+ ptBOUAvE9+GtFSZW0MvpklDn/fOjMniZ7FadxnUqGJj++GbKm0tVAxCQOu1VmcIQmLl6wt1hamc
+ aZz9AHLU2VzQUR9ckVe46iUIHMlkdi6SS0vGPVA5XxCmNO7R2+TWaiVgNygmw4+WkZMs6LUikCc
+ 0UeuiZIwItjIPQj7IUGtJIT2RPyBQN6ISzoFwf5GKUhOQxRC0FE5CLbXMxhnpPXU0NQbvVKOLoQ
+ vK0biMw+yjrTxywcCSFehJLjFnr6n8+/pFldsgGJEpsDIJf2EtXoXHL0H3Z6pD/4b5WpNPDYCrs
+ PPg2Ow8dyy3i3bQ==
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The watchdog binding schema is not updated to require `#reset-cells=
-` for the MT6589 watchdog after it gained reset provider capabilities.
---
+Add support for sunxi-ng read-only dividers. This will be
+useful to the a733 oscillator detection logic.
 
---- Patch [1]: [PATCH 1/7] dt-bindings: reset: Add MT6589 toprgu reset IDs =
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
-commit 8e7eeaa8443a5e5f9043d85f10bedf8f05afe2b3
-Author: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+ drivers/clk/sunxi-ng/ccu_div.c | 30 ++++++++++++++++++++++++++++--
+ drivers/clk/sunxi-ng/ccu_div.h |  1 +
+ drivers/clk/sunxi-ng/ccu_mux.c |  2 +-
+ drivers/clk/sunxi-ng/ccu_mux.h |  4 ++++
+ 4 files changed, 34 insertions(+), 3 deletions(-)
 
-dt-bindings: reset: Add MT6589 toprgu reset IDs
+diff --git a/drivers/clk/sunxi-ng/ccu_div.c b/drivers/clk/sunxi-ng/ccu_div.c
+index 62d680ccb524..93cb4cb93abe 100644
+--- a/drivers/clk/sunxi-ng/ccu_div.c
++++ b/drivers/clk/sunxi-ng/ccu_div.c
+@@ -20,8 +20,22 @@ static int ccu_div_determine_rate_helper(struct ccu_mux_internal *mux,
+ 	if (cd->common.features & CCU_FEATURE_FIXED_POSTDIV)
+ 		req->rate *= cd->fixed_post_div;
+ 
+-	ret = divider_determine_rate(&cd->common.hw, req, cd->div.table,
+-				     cd->div.width, cd->div.flags);
++	if (cd->div.flags & CLK_DIVIDER_READ_ONLY) {
++		unsigned long val;
++		u32 reg;
++
++		reg = readl(cd->common.base + cd->common.reg);
++		val = reg >> cd->div.shift;
++		val &= (1 << cd->div.width) - 1;
++
++		ret = divider_ro_determine_rate(&cd->common.hw, req, cd->div.table,
++						cd->div.width, cd->div.flags, val);
++
++	} else {
++		ret = divider_determine_rate(&cd->common.hw, req, cd->div.table,
++					     cd->div.width, cd->div.flags);
++	}
++
+ 	if (ret)
+ 		return ret;
+ 
+@@ -143,3 +157,15 @@ const struct clk_ops ccu_div_ops = {
+ 	.set_rate	= ccu_div_set_rate,
+ };
+ EXPORT_SYMBOL_NS_GPL(ccu_div_ops, "SUNXI_CCU");
++
++const struct clk_ops ccu_rodiv_ops = {
++	.disable	= ccu_div_disable,
++	.enable		= ccu_div_enable,
++	.is_enabled	= ccu_div_is_enabled,
++
++	.get_parent	= ccu_div_get_parent,
++
++	.determine_rate	= ccu_div_determine_rate,
++	.recalc_rate	= ccu_div_recalc_rate,
++};
++EXPORT_SYMBOL_NS_GPL(ccu_rodiv_ops, "SUNXI_CCU");
+diff --git a/drivers/clk/sunxi-ng/ccu_div.h b/drivers/clk/sunxi-ng/ccu_div.h
+index be00b3277e97..a30a92780a05 100644
+--- a/drivers/clk/sunxi-ng/ccu_div.h
++++ b/drivers/clk/sunxi-ng/ccu_div.h
+@@ -300,5 +300,6 @@ static inline struct ccu_div *hw_to_ccu_div(struct clk_hw *hw)
+ }
+ 
+ extern const struct clk_ops ccu_div_ops;
++extern const struct clk_ops ccu_rodiv_ops;
+ 
+ #endif /* _CCU_DIV_H_ */
+diff --git a/drivers/clk/sunxi-ng/ccu_mux.c b/drivers/clk/sunxi-ng/ccu_mux.c
+index 75ec3457324c..905570375711 100644
+--- a/drivers/clk/sunxi-ng/ccu_mux.c
++++ b/drivers/clk/sunxi-ng/ccu_mux.c
+@@ -67,7 +67,7 @@ unsigned long ccu_mux_helper_apply_prediv(struct ccu_common *common,
+ 	return parent_rate / ccu_mux_get_prediv(common, cm, parent_index);
+ }
+ 
+-static unsigned long ccu_mux_helper_unapply_prediv(struct ccu_common *common,
++unsigned long ccu_mux_helper_unapply_prediv(struct ccu_common *common,
+ 					    struct ccu_mux_internal *cm,
+ 					    int parent_index,
+ 					    unsigned long parent_rate)
+diff --git a/drivers/clk/sunxi-ng/ccu_mux.h b/drivers/clk/sunxi-ng/ccu_mux.h
+index c94a4bde5d01..272a2c36a8f2 100644
+--- a/drivers/clk/sunxi-ng/ccu_mux.h
++++ b/drivers/clk/sunxi-ng/ccu_mux.h
+@@ -134,6 +134,10 @@ unsigned long ccu_mux_helper_apply_prediv(struct ccu_common *common,
+ 					  struct ccu_mux_internal *cm,
+ 					  int parent_index,
+ 					  unsigned long parent_rate);
++unsigned long ccu_mux_helper_unapply_prediv(struct ccu_common *common,
++					    struct ccu_mux_internal *cm,
++					    int parent_index,
++					    unsigned long parent_rate);
+ int ccu_mux_helper_determine_rate(struct ccu_common *common,
+ 				  struct ccu_mux_internal *cm,
+ 				  struct clk_rate_request *req,
 
-This commit adds a new header file defining reset IDs for the 12 MT6589 top=
-rgu
-resets.
+-- 
+2.47.3
 
-> diff --git a/include/dt-bindings/reset/mediatek,mt6589-resets.h b/include=
-/dt-bindings/reset/mediatek,mt6589-resets.h
-> new file mode 100644
-> index 0000000000000..ee08c39df5131
-> --- /dev/null
-> +++ b/include/dt-bindings/reset/mediatek,mt6589-resets.h
-> @@ -0,0 +1,24 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +/*
-> + * Author: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-> + */
-> +
-> +#ifndef _DT_BINDINGS_RESET_CONTROLLER_MT6589
-> +#define _DT_BINDINGS_RESET_CONTROLLER_MT6589
-
-[Severity: Low]
-Does the MT6589 watchdog binding schema in
-Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml also need =
-an
-update to require the #reset-cells property?
-
-Since the MT6589 watchdog is gaining reset provider capabilities with these
-constants, device tree nodes omitting #reset-cells might incorrectly pass
-schema validation unless an if-then block is added to the watchdog schema to
-enforce it.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717151134.6788=
-39-1-l.scorcia@gmail.com?part=3D1
