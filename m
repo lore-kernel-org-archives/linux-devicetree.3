@@ -1,74 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CFC4335BDB
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:08:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD8C382F1F;
+	Fri, 17 Jul 2026 09:08:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784279301; cv=none; b=Cjo0lzcvNPh1MnUmCiBsuTjMWMF6WVYgPYT6PxhAEo+XF+RW186/O1GL4IyFRtrMxX7hXnIPbEgvwBfAsGPwXBmJ+ZCOfYk4F9Iw3e2cX8meQ+QsAlk2NdVnunHnOrcOHTHjlxwwb/qqA6s86wJWl2EWccImy1jOnAtKyWAXn98=
+	t=1784279325; cv=none; b=udqHxQjBZgHvFN4c08EPcPrFEw9LmwGeLPI6tPtWHMfh1U59KOBidNvF7ez9LKt+AqlHR0nbVy/do2M1dFv+bt1+YjkZPwLdUTk3samIqzwanpJ0n8Aa9BfXANw7a34TwMTlQLxpYDPpBaxJ4meJ3DkZiNB8ajoVnY2SwIAYXv0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784279301; c=relaxed/simple;
-	bh=FStDs1QLXBULcvy9mcclTjM97EJjIMpHj+q+dyPLZGk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XEM6Bfs0sAzSL9pVyU5a/UzwEZYvhYV5rd++JMLEhudhpWRou98Q+zlPfvRfg8ebXGnb/UuQl+AaYzLer8xreRZ4+i00CUTJgPW/GJ0hSHItUS1It55pc6QGMHbXPqH3hdKWgl9ISgzOIbJe9nBALi3bMMZj1xNDH1bV/LDGYeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UrYLQVOp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784279325; c=relaxed/simple;
+	bh=GDWRXrZEknRkuvCqP6RLWC28QBZDKqdzMSDQ1PtIVRI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fn6a34QPYeV3ZHzINmSnuX3+XMEGCQpaE+88IV3odDeFyfLcvS0uc6i2nqsBb5aa+uoGsaYOXRNjvzd5dm9sw7/LDS8Q4epOVKTkQctdt863p6LFzFtrYZETbHm/X7Gr+9xSVsKEhw8b/eHSMekBKekzeYpkgiLvRwVZUZQAgO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MgNOYqeX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UrYLQVOp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFC501F000E9;
-	Fri, 17 Jul 2026 09:08:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MgNOYqeX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DE8F1F000E9;
+	Fri, 17 Jul 2026 09:08:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784279300;
-	bh=FStDs1QLXBULcvy9mcclTjM97EJjIMpHj+q+dyPLZGk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UrYLQVOpba5GkzbZ2UI+DpyP6UByJdzU+nyecsFEkpvz51cgIU5Stzm4UtyOU23DW
-	 oAtHKC402gqiAsjai1EINf1WjXqZjOtNB8dgIF6xpee7KIdmQVMDrVkcqn456i1spR
-	 nXW2dcv2AbKiVQJ3hrSEiQPKXb1QV9Z++4eHwgeRWoJn9bwr6PafYct8fUue/S86ql
-	 4J1LyWUgltMZhXlNH0Lj/n85mJb2FavD0qf/uHrsDpQ1XqvLUHC7bo8KW3R4F6p02o
-	 y+WstwtZFik1UL+9WQIApCSybghCUAZRBOildhvZl4PRm0M9nn6xSsFjz1UixDXW1D
-	 z9c3jmrn9RFmg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/4] mfd: axp20x: constify axp313 and axp717 cells
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jerome Brunet" <jbrunet@baylibre.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260717-axp318-regulator-v3-3-779dc1b97dd4@baylibre.com>
-References: <20260717-axp318-regulator-v3-0-779dc1b97dd4@baylibre.com>
- <20260717-axp318-regulator-v3-3-779dc1b97dd4@baylibre.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 09:08:19 +0000
-Message-Id: <20260717090819.BFC501F000E9@smtp.kernel.org>
+	s=k20260515; t=1784279316;
+	bh=k+FHj5qRGfDWAK/ise/mUZ9KdtU3ALPXsehLKlWvtc4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MgNOYqeXf60WzTNbLayt0BexSXJ/JIhPIhol2kwXVZE5AzG29edYO68juEXE72gIq
+	 Xvp99sNAFUqlSrD36xVJ4inDvH0Oy9Cw+ZQ/UHm3dc0f/rfR631Q4NboQ/1bJ4vtjm
+	 8zGnBrHThYrX7K92Y0LG70RQfu4N2u4BW+CZz0aIiL+Ta3EeLcYxBNeRuHuQ9edte7
+	 SMQyVGmVr9mGHmeeFBnStWzmvzLuPF5l8epyJHuAPHDD9AB3oofiYZzVTY+Gw+EuxO
+	 Z4sqXDr0GqxY10U2oWeh6LdIXV1+v2drwb6M3OPWpJjpKjNDpCwsyiUgs3Jl29v9Fb
+	 sqEPc13klVrBg==
+Date: Fri, 17 Jul 2026 11:08:32 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Victor Krawiec <victor.krawiec@arturia.com>
+Cc: lgirdwood@gmail.com, broonie@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/4] regulator: dt-bindings: Add Silergy SYR82X allowed
+ modes
+Message-ID: <20260717-nostalgic-raptor-of-sunshine-1aba9a@quoll>
+References: <20260715155141.128601-1-victor.krawiec@arturia.com>
+ <20260715155141.128601-2-victor.krawiec@arturia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260715155141.128601-2-victor.krawiec@arturia.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The commit message description is not capitalized, violating the MF=
-D subsystem convention.
---
+On Wed, Jul 15, 2026 at 05:51:38PM +0200, Victor Krawiec wrote:
+> Make the PWM mode configurable from devicetree. Some boards require forced
+> PWM mode to keep the supply ripple within acceptable limits under light
+> load conditions
+> 
+> Indexes are starting from 1 to keep backward compatibility with existing
+> device trees
+> 
+> Signed-off-by: Victor Krawiec <victor.krawiec@arturia.com>
+> ---
+>  .../dt-bindings/regulator/silergy,syr82x.h    | 20 +++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+>  create mode 100644 include/dt-bindings/regulator/silergy,syr82x.h
+>
 
---- Patch [3]: [PATCH v3 3/4] mfd: axp20x: constify axp313 and axp717 cells=
- ---
-commit fa2a5821d61bb79ab715c28d8480fa7cf50eb9a0
-Author: Jerome Brunet <jbrunet@baylibre.com>
+This header should be mentioned in the binding in property description.
 
-mfd: axp20x: constify axp313 and axp717 cells
+> diff --git a/include/dt-bindings/regulator/silergy,syr82x.h b/include/dt-bindings/regulator/silergy,syr82x.h
+> new file mode 100644
+> index 000000000000..6d4aa86bb5c1
+> --- /dev/null
+> +++ b/include/dt-bindings/regulator/silergy,syr82x.h
 
-This commit constifies the mfd_cells arrays for the axp313 and axp717 chips
-to match other supported devices.
+Some confusing name. How is your binding file called? This must be the
+same.
 
-> mfd: axp20x: constify axp313 and axp717 cells
+Best regards,
+Krzysztof
 
-[Severity: Low]
-This isn't a bug, but the MFD subsystem guidelines request that the
-description following the subsystem prefix be capitalized. Should this be
-updated to "Constify axp313 and axp717 cells" to match the standard subsyst=
-em
-naming conventions?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717-axp318-reg=
-ulator-v3-0-779dc1b97dd4@baylibre.com?part=3D3
