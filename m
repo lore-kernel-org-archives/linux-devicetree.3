@@ -1,75 +1,76 @@
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7AA3BE14D
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 16:34:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E5834DCE3
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 16:37:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784306061; cv=none; b=j3oEgZiTclDkaqmW+23L9VwiC0x4CNSDZaERGzGv6j3EuSkuVDWdxRyPPNJL25exVT4jTJUxP9zm1tog8Hnpz7PqLZueoaPw8P0eunTXg4RKF+LGMcjnwM92vv3dTS58CZ7m4vd+iCINVUDTcoijJ4Czyd1SLATvfj1ndhRatYw=
+	t=1784306230; cv=none; b=RaKlDq897P23+3yeYoyBRVZyDhBIsH6wK0JX17PaIQ4bitMM54mImQrpDdnk9/d/0TzxfzcCHy/NsCNbU1+A3LeimuC+61CRLqxr2b/FCcXwxrfhMih24Q6MRoetRpHYJU0HxVaOiQsEdF5Lk9bxj64SRDMqaE80kBV5e/PNcAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784306061; c=relaxed/simple;
-	bh=6wnDDJQBQfpjll1dAST5KuLlqAlQD+gfIzZDEDQKs6o=;
+	s=arc-20240116; t=1784306230; c=relaxed/simple;
+	bh=tGwzjYdByfoFaIh4ZwoemqEAXz0OnUd03AbzuPL+9IA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iL9bQn+lo8gfbX6Br23+0fP42XhqIhbjbPCJ84s2iyYfsszaz8QpeZOJ7u7HNl5UEaVXpH960b5GD7WcLNhIh3KLcxVpDPIq9Mznqxby/59SZEkRE2D/74fqqaD96C9RqBlNnAsHyjT28e+IzMBW5tVUfRunla2bC+uh2egPwUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LetJwMu4; arc=none smtp.client-ip=209.85.128.175
+	 Content-Type:Content-Disposition:In-Reply-To; b=cpJ9iS3RdrHP2w2WUQnaPfnYsH8zkYk0h7FDevN6Lxok/XShBCPbhiI0MEc07Wj19KD/+Xjz2LaDxK7CGhQltg/D6kfDcwAM6epViRu8ePS36XuH6KtS8jjSY6hy7soiFXbKw0lCH1VkYbh4SBZcOcsXVnnwfd1gTeaE47B+evY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MdnY9X4k; arc=none smtp.client-ip=209.85.128.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LetJwMu4"
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-81ef11a0972so10055807b3.1
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:34:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MdnY9X4k"
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-81ee2c048acso25876437b3.3
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:37:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784306056; x=1784910856; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784306227; x=1784911027; darn=vger.kernel.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :content-type:mime-version:references:message-id:subject:cc:to:from
          :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SN6iKB84XjlCdyQZDXiTIhq7M2trG088S3ZqcAJw8RI=;
-        b=LetJwMu4heHGTkO9n0+tizadoIYlVjFv8exTgBmshyKjC07HVJ+polcD/CB531vB2A
-         KWF9iCfpo0/qOS+NFk4aDL6Hr9cV1i5TDHPHZ1dpproD6FbcWopBaAqXMfxIuQ2UPQ9S
-         T2+7oHMdeoiLCnjw+eJB+Va7Gw0ov2wCCC1S8/iUbT+ODf55IV2dLyQvdMUbWuu3UAK2
-         3xStBpkSevm2TAnyg8ASRtOkmNQJDovCS+lRpn5V8VWVuZCJFDTDMvh1P6hL/f8m2Qoj
-         8SknQvy23JyEa/VR+y5jpxqY4kv7V0WP6Vfb1utu6puMaWfjDwFmlSML+REx3o5KilRJ
-         tzkA==
+        bh=UnLMXcEn62d3oMMgJrrwZa8KdOiLTui4IgFDQmHHq2Q=;
+        b=MdnY9X4kK+T4/S8xOTzaGcXE9dlGmdzSmL05goIEj6wxQ31qXSVnZ4Uy1QMoKgYO80
+         zcsLn2xF8Kn6zdZqDvWAV/wLGH9lszWgjXIlnWOudlgDx9ArctXvtLwQ3ozzXUlhBF1v
+         Qsiq3e/N3pmCxPPMUV8dg/CkcXBbU9a8aV0Tvl+W5IeL72o/hQc87Zf9SlYtki3TlVG0
+         araiNYR3XkLMp80xYF54ymSkyVjfEhNF0BdM9Ktgr6vQEU2ehG+R8pfsLqjbk18dgtVX
+         KVEdsZwnGXxEk+raHLsBBVu+Qzux/mZfpHa7riZ0bI8aHZSGX0QvYegeMgyXa9P+LHUg
+         3/sA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784306056; x=1784910856;
+        d=1e100.net; s=20251104; t=1784306227; x=1784911027;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :content-type:mime-version:references:message-id:subject:cc:to:from
          :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=SN6iKB84XjlCdyQZDXiTIhq7M2trG088S3ZqcAJw8RI=;
-        b=V52KUge1skphpu1BTLtU6A7ODVBrYxFlPu54gCCUNaIEbpNspNVT1FX+saZSGU/6Zk
-         50k2tBtUIpT7HLJIMgk22gMlubU611GjHjZFqcUAke3jOepEoFdCjHjkqf98SiPrSwH/
-         5j2bYcs9GBGDXNW3jp6BEBiSIt3NQ1ipMVCZzoYO6eGXzL3vKCMEMNtWu9aW6Svw5Q3T
-         Lf21ee0EvhA2ClFAAa3R4jB8D9MCKbC+cpIDzNLsv9jNk8sdCWzdEWr1Hf0nJYyrYHNx
-         rnetI8qtUauL4MNxev4t2StYMS166DxjdiypQ+wfT9DT25rv5aMdc/9dvXV+lEUXw/nL
-         lgNQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqRjM1srf9yZgNuHxVAwEmrUT3+7DhCu70I1yNfOhntatHZKhoIyj/VCvq7/znTfIifhOhLSF4PLHAz@vger.kernel.org
-X-Gm-Message-State: AOJu0YwA0rNMypaW1Uc216NEMuL8dPPIqROwlkazHw2iQ+VR4rFsYv6a
-	jXTPRMbXP7rkignqh+UG5aBDordWaK0aUwzdsQbelriMSbwjhriLVoEK
-X-Gm-Gg: AfdE7cl2zaA6zq2xEFRsoKwnGrLlITjDEOJzGiWBhhkC3iis3nt56lHp9vetntOwFmT
-	1825YXI/yI/Xyu7VNaxWbdGB0b1RuotdsCzUC/WEZ4Fs7Z9xTC4bhm/y3US/i2jfFrnluAWhmis
-	Nlujt2c+4htabi+FpftjZGQ6sWqNRZyDynA2EnPYvxpgSeMylu37te0grJ9EcePpHt0Ekmc9J2f
-	vUubfHf8dZ9HVArKN+BQf+R6WWpPD7uuz9UeOjXmeRw9kBt8ATQb+cHCuP2URQlBbjgsEBlYDeW
-	pYcqDZQF4GH5j/XOqDy35GyR9sTLxziE6jjoiVgLT1HYGZ7FywwSkBivyem07OF1o/MEbAT6JEK
-	roRPqATL+oIAWIGXjlJZQh64MaUqmMAg5s9lixXlB9SfKC09abfBrhH1IA5XJAgOlCCSSnchSyI
-	TCRzh8On8CNPY=
-X-Received: by 2002:a05:690c:6107:b0:81e:bbcd:f5c3 with SMTP id 00721157ae682-81ef25e16eamr11174017b3.36.1784306056131;
-        Fri, 17 Jul 2026 09:34:16 -0700 (PDT)
+        bh=UnLMXcEn62d3oMMgJrrwZa8KdOiLTui4IgFDQmHHq2Q=;
+        b=OgoiGJ4hlXbShjS8TVQyUmKkL1M0A+gZIK7VMNUzx3I5Fki4VrXHZ5QELlM24Gf6za
+         597Z1lYXpfEyZB6AndhepqRjPAEg1hh8QR7sKXy4pn1b7pxbtdc7qF4Dk6Zo8bn+8Yoh
+         3I8nhbgL1GegRr5EojluNyIEl1dxf7Nt9o+gq0FV3FvvEV3JeYx7FE35ixiY7RWAPa7r
+         9ndHFuAJYJyALjAuITY6fueOPHn8jX0uEkqojtphq95CG4dCJtp1ksyOwKp3yBYxTS3i
+         elDzDKy8xtocEy0Q2CDEBYvPUHT00NvME+pFizZoPi6I7jK+FOAZUHK86nNEWIFiVtAc
+         ezTA==
+X-Forwarded-Encrypted: i=1; AHgh+RpuDC/KsSYA38v/cyMDk/nNAEn/q+043TsGeYLYezb/6YqjeG9gGVfftIOVR9B/wYi0cWr++uU6UhGk@vger.kernel.org
+X-Gm-Message-State: AOJu0YzyphVX/KiHwdcsTC4X5WjKji90Yq6eAWWyCDrkawlhUmHWP2YA
+	hKvd3ozPcrwFPNujIQTBIpX9X+BuaFgc+EvB6lPMvFHsRq+eYTfSZZm6xv910Q==
+X-Gm-Gg: AfdE7clu+mGnkxPBQNvsE7UXCR2STYs2kKnJoIKTDuMEbNs5+4ZAQcSO0bHrWsGJBNJ
+	2ErhGJAMylT2m0MlO6/0wHt9X04nN4GHRn/SmBt4OwGq9bcNcRcO1+f/HW1J9NeRMNbbOSZY+oY
+	/bEC6RXNq10jnXMb9q4jwoKUML5nkFVdgc4FiW5yo1Uqf/cIqsAx6BTMoIjWOc+3GzfbeWcrbkV
+	4QvLt4bwkGEvGayKCZIbYIaroojXPJC9B5kD0vM1q0fh+xt7ebriLBS7COAiBjx1dADak6YBlzy
+	xE3EmEwA04/QsNDXf1AIDur7z1rC/HREPYarl9qN2BBQ0XUa6A658430BKx/1zgi5WGLYl78Tvj
+	CstmlBvggyquu5RSs8pOOnJEy8W8+rf+qTjh5fii2wkI2OA/+Vks+bEZEY8oiB4obE9RowrOHaL
+	UP1w/0N2VXrSY=
+X-Received: by 2002:a05:690c:6888:b0:81e:dc5a:a4f2 with SMTP id 00721157ae682-81ef26a5f43mr12401847b3.41.1784306227436;
+        Fri, 17 Jul 2026 09:37:07 -0700 (PDT)
 Received: from localhost ([2804:30c:1f09:b400:47f8:7933:2105:dd41])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81efe45416fsm53397b3.6.2026.07.17.09.34.14
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81ef42c4ef3sm14017747b3.40.2026.07.17.09.37.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 09:34:14 -0700 (PDT)
-Date: Fri, 17 Jul 2026 13:35:14 -0300
+        Fri, 17 Jul 2026 09:37:06 -0700 (PDT)
+Date: Fri, 17 Jul 2026 13:38:07 -0300
 From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
 To: sashiko-reviews@lists.linux.dev
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, robh@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org,
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, robh@kernel.org,
 	linux-iio@vger.kernel.org, marcelo.schmitt1@gmail.com
-Subject: Re: [PATCH v7 3/4] iio: adc: ltc2378: Enable high-speed data capture
-Message-ID: <alpZwoau3QVPtBsP@debian-BULLSEYE-live-builder-AMD64>
+Subject: Re: [PATCH v7 2/4] iio: adc: ltc2378: Add support for LTC2378-20 and
+ similar ADCs
+Message-ID: <alpab2gBs4nPDU5g@debian-BULLSEYE-live-builder-AMD64>
 References: <cover.1784235595.git.marcelo.schmitt@analog.com>
- <564b975c2c62d28ee6733f86bd5632c41a7c80e4.1784235595.git.marcelo.schmitt@analog.com>
- <20260716212451.923951F000E9@smtp.kernel.org>
+ <5108c89986ae8723139419058db1b2f2e74daff6.1784235595.git.marcelo.schmitt@analog.com>
+ <20260716212838.95B3F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -79,90 +80,73 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260716212451.923951F000E9@smtp.kernel.org>
+In-Reply-To: <20260716212838.95B3F1F000E9@smtp.kernel.org>
 
 On 07/16, sashiko-bot@kernel.org wrote:
 > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] Integer divide-by-zero leading to kernel panic in `ltc2378_update_conversion_rate` when a sampling frequency of 1 Hz is requested and the PWM driver rounds the period length above 1 second.
+> - [Medium] The `LTC2378_DIFF_CHANNEL` macro defines an IIO channel that is intended to be differential but lacks the `.differential = 1`, `.indexed = 1`, `.channel = 0`, and `.channel2 = 1` attributes.
 > --
 > 
-> --- Patch [3]: [PATCH v7 3/4] iio: adc: ltc2378: Enable high-speed data capture ---
-> commit ef54f2c79f2cac1649922032814adc7fcc5f9684
+> --- Patch [2]: [PATCH v7 2/4] iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs ---
+> commit 5710d5f25b45906977e2522567c1964b1d3219f8
 > Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> Subject: iio: adc: ltc2378: Enable high-speed data capture
 > 
-> This commit enables high-speed data capture for the ltc2378 ADC driver by
-> utilizing SPI transfer offloading. It allows data acquisition at faster sample
-> rates up to 2 MSPS.
+> iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs
+> 
+> This commit adds a new driver for the Analog Devices LTC2378-20 and
+> similar analog-to-digital converters.
 > 
 > > diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
-> > index 5600c820c7f45..7d29f021cb7b4 100644
-> > --- a/drivers/iio/adc/ltc2378.c
+> > new file mode 100644
+> > index 0000000000000..5600c820c7f45
+> > --- /dev/null
 > > +++ b/drivers/iio/adc/ltc2378.c
+> > @@ -0,0 +1,416 @@
+> [ ... ]
+> > +#define LTC2378_DIFF_CHANNEL(_sign, _real_bits, _storage_bits)			\
+> > +{										\
+> > +	.type = IIO_VOLTAGE,							\
+> > +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |				\
+> > +			      BIT(IIO_CHAN_INFO_SCALE),				\
+> > +	.scan_index = 0,							\
 > 
+> [Severity: Medium]
+> Does this macro need to set .differential = 1, .indexed = 1, .channel = 0,
+> and .channel2 = 1? The name suggests these are differential channels, but
+> without these attributes, the IIO ABI will expose them as single-ended
+> (e.g., in_voltage_raw instead of in_voltage0-voltage1_raw).
+
+For parts with multiple inputs and configurable differential channels (e.g.
+AD4130-8, MCP3561/2/4R, NAFE13388 [1, 2, 3]), the voltageY-voltageZ ABI helps
+clarifying what physical inputs make up a channel. For differential only parts,
+the ABI seems to be flexible by only requiring a 'consistent labeling' (either
+voltageY or voltageY-voltageZ IIUC). Will set the channel with the differential
+ABI if maintainers believe that's the best way to have it. Might slightly tweak
+the channel macros to keep .differential = 0 for pseudo-differential chips
+(e.g.LTC2369-18).
+
+[1]: https://www.analog.com/media/en/technical-documentation/data-sheets/ad4130-8.pdf
+[2]: https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP3561_2_4R-Data-Sheet-DS200006391C.pdf
+[3]: https://www.nxp.com/docs/en/data-sheet/NAFE13388.pdf
+
+> 
+> > +	.scan_type = {								\
+> > +		.format = _sign ? IIO_SCAN_FORMAT_SIGNED_INT :			\
+> > +				  IIO_SCAN_FORMAT_UNSIGNED_INT,			\
+> > +		.realbits = _real_bits,						\
+> > +		.storagebits = _storage_bits,					\
+> > +		.shift = _storage_bits - _real_bits,				\
+> > +		.endianness = IIO_BE,						\
+> > +	},									\
+> > +}
+> > +
+> > +#define LTC2378_BIPOLAR_DIFF_CHANNEL(_real_bits)				\
+> > +	LTC2378_DIFF_CHANNEL(1, _real_bits, (((_real_bits) > 16) ? 32 : 16))
+> > +
+> > +#define LTC2378_UNIPOLAR_DIFF_CHANNEL(_real_bits)				\
+> > +	LTC2378_DIFF_CHANNEL(0, _real_bits, (((_real_bits) > 16) ? 32 : 16))
+> > +
 > [ ... ]
 > 
-> > +	/*
-> > +	 * Configure SPI offload PWM trigger.
-> > +	 * The trigger should fire after tBUSYLH + tCONV + tDSDOBUSYL.
-> > +	 * Minimum time needed: TBUSYLH (13ns) + TCONV (part-specific) + TDSDOBUSYL (5ns)
-> > +	 *
-> > +	 * Use the same period as CNV PWM to avoid timing issues.
-> > +	 * Convert back from period to frequency for the SPI offload API.
-> > +	 */
-> > +	offload_period_ns = cnv_wf.period_length_ns;
-> > +	config.periodic.frequency_hz = div_u64(HZ_PER_GHZ, offload_period_ns);
-> > +	min_read_offset = LTC2378_TBUSYLH_NS + st->info->tconv_ns + LTC2378_TDSDOBUSYL_NS;
-> > +	offload_offset_ns = min_read_offset;
-> > +	count = 100;
-> > +	do {
-> > +		config.periodic.offset_ns = offload_offset_ns;
-> > +		ret = spi_offload_trigger_validate(st->offload_trigger, &config);
-> > +		if (ret)
-> > +			return ret;
-> > +		offload_offset_ns += 10;
-> > +	} while (count-- && config.periodic.offset_ns < min_read_offset);
-> > +
-> > +	/* Check the minimum CNV to SCLK delay is met */
-> > +	if (config.periodic.offset_ns < min_read_offset)
-> > +		return -EDOM;
-> > +
-> > +	/* Check the PWM periods remain the same */
-> > +	offload_period_ns = div64_u64(HZ_PER_GHZ, config.periodic.frequency_hz);
-> 
-> [Severity: High]
-> Could this result in a kernel panic due to an integer division by zero?
-> 
-> If a user writes 1 to the IIO in_voltage_sampling_frequency sysfs attribute,
-> ltc2378_update_conversion_rate() is called with freq_Hz = 1, and the initial
-> requested PWM period is calculated as 1,000,000,000 ns.
-> 
-> If the underlying hardware PWM driver rounds the period slightly upwards
-> (e.g., to 1,000,000,001 ns) during pwm_round_waveform_might_sleep() due to
-> clock granularity, offload_period_ns will exceed HZ_PER_GHZ.
-> 
-> This causes config.periodic.frequency_hz = div_u64(HZ_PER_GHZ, offload_period_ns)
-> to evaluate to 0.
-> 
-> When div64_u64(HZ_PER_GHZ, config.periodic.frequency_hz) is subsequently called,
-> it divides by zero.
-
-If we have cnv_wf.period_length_ns == NSEC_PER_SEC + 1 after the offset_ns loop
-and config.periodic.frequency_hz == 0 as suggested, then spi_offload_trigger_validate()
-will fail the frequency_hz check and ltc2378_update_conversion_rate() errors
-out with -EINVAL before reaching div64_u64(HZ_PER_GHZ, config.periodic.frequency_hz).
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/spi/spi-offload-trigger-pwm.c?h=v7.2-rc3#n48
-
-> 
-> > +	if (cnv_wf.period_length_ns != offload_period_ns)
-> > +		return -EDOM;
-> > +
-> > +	st->offload_trigger_config = config;
-> > +	st->cnv_wf = cnv_wf;
-> > +	st->cnv_Hz = DIV_ROUND_CLOSEST_ULL(HZ_PER_GHZ, cnv_wf.period_length_ns);
-> > +
-> > +	return 0;
-> > +}
-> 
 > -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/cover.1784235595.git.marcelo.schmitt@analog.com?part=3
+> Sashiko AI review · https://sashiko.dev/#/patchset/cover.1784235595.git.marcelo.schmitt@analog.com?part=2
