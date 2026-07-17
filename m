@@ -1,79 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-170.mta1.migadu.com (out-170.mta1.migadu.com [95.215.58.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDA12418A3C;
-	Fri, 17 Jul 2026 13:59:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF2631326B
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 14:03:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784296792; cv=none; b=mSux7qrHB3LWSe7OVNv9gJrmu8xduS7qks2Oxz+T4L55l7B6ZzbgRwgLjScwkt7VlOhi7l9m2Rx3RhzRDHnE8DMx4VTgYvIRhTbX6diDH1QAwpVkBLClLtNot9drkocGiS+UeLG3Wjn5PSxY9OeAMgs/n34ZcIUzo7XDoHU2fiI=
+	t=1784297035; cv=none; b=dAY2zwXrMvMaAwGqpH1dZc+rJ5t2YJpZSjNi7fwuKcoRe1rWD8urkx+ch9/JOU7ubo8uMwBCKuoEiq5tsjoLps4hqCr+whOoKMbICoOicRnvPLb1tWnOrU4QJzGBxhJQ7Gm4jSO/FCvn/hYXrSQybEfk4fwwAiOhZ9ZDr6xLWJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784296792; c=relaxed/simple;
-	bh=cy/xsKq3fMo5CXtvCkmfY7yTRVSjvkgSfPW2ya5IdDk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qv/wAIzIguJ7M0aADuEpcdsREAW0YVsF3asIHvN/nQ1vlT1QQ52RK6xXTQZX7fPToS56fJ+biymK6/SQpdudJKlG1TWHzuZJslxOgXvIHF6f+OHAny4zHe6G0ODmFkSGwipg3YjMS+dYPH73RUpgVCHAPNd6dYQSE1pRB1yUafs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VaziPRFN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784297035; c=relaxed/simple;
+	bh=skLfCDy11TiauSQNSDWPhDw88faje0em6NYTYSP6tNY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Grk0htGMTP6ekNp7Nw/rcWAz+yl/MQpTHri5GcvEM4f4Tm79Qn1G4lB1KdVpbe0QhVh88vdPK0FsDrK5ZOoydk9XXUB9qZuKyVM8XeZR25OJeJp7jdIF+IBzkpbhzElR+93W65uGxj6MPCobBEA2fxQn0XAJ708yFo74YmF/RTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YqhUveRW; arc=none smtp.client-ip=95.215.58.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VaziPRFN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 686751F000E9;
-	Fri, 17 Jul 2026 13:59:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784296790;
-	bh=Iu1fYMemoRzsLaUDl+FpewPLFgJ5kKqgw36YQDXyJEo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VaziPRFN8QO4BZ1W9/a5ZtmZBroMmzgtfSeNF2GAyhSPqpTXYewMZBgR+1uasZZfM
-	 Z/z3KRSCLHFuVf8xiRUCazJHd5VvMwX/3AGFCurqBATvSapSBizoAkStbF4qNeNTXn
-	 tqPgzTKvuLwKmaJCNTtvo8/AJxBDU4xLMl+ZEDmVsiPm7HviaDusPTY4VfReO8WiQs
-	 2+f0bZrp1hm8wtngFhaKLeccUuB6bIEKnfQ3R6GVu3EGxqH9Nx/0eH7UCpW24JbDWF
-	 v7cOUH130ViIYeZoOCpQzg5L66SPahvmVTm9/XWu1nYwJwuIy55u0HHM3r9j0kWDL1
-	 5l+pyf6Yv9S6Q==
-Date: Fri, 17 Jul 2026 08:59:49 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Frank.Li@oss.nxp.com
-Cc: linux-kernel@vger.kernel.org,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	imx@lists.linux.dev, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Lee Jones <lee@kernel.org>, Fabio Estevam <festevam@gmail.com>
-Subject: Re: [PATCH 1/3] dt-bindings: mfd: st,stmpe: add deprecated properties
-Message-ID: <178429678856.574428.4894136808352380805.robh@kernel.org>
-References: <20260708-dts-stmpe-v1-0-1f51d15bb358@nxp.com>
- <20260708-dts-stmpe-v1-1-1f51d15bb358@nxp.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YqhUveRW"
+Message-ID: <61b1f4de5a756d5176c5d388f92082a29e3f489f.camel@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784297032;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=skLfCDy11TiauSQNSDWPhDw88faje0em6NYTYSP6tNY=;
+	b=YqhUveRWlqnGPuexi/rNaOXV3LgBQOx8fG9RPKQ7r5Aa87RolMIEHxKUYS9BLUJf84FFO0
+	64DdD/JDHII8Q/YQIut607EY5oQ9Vljjg2ZJAXJQBtgICgLjRyK5ZRTIKIa4FQsabI3km1
+	Qwj3vNVrFV1Xm+XZaO9uB/5TC4XlRpc=
+Subject: Re: [PATCH v4 0/2] iio: adc: add MAX40080 current-sense amplifier
+ driver
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Siratul Islam <siratul.islam@linux.dev>
+To: Stefan Popa <stefan.popa@analog.com>
+Cc: jic23@kernel.org, andriy.shevchenko@linux.intel.com, nuno.sa@analog.com,
+ 	devicetree@vger.kernel.org, linux-iio@vger.kernel.org
+Date: Fri, 17 Jul 2026 20:03:33 +0600
+In-Reply-To: <20260717123852.1140893-1-stefan.popa@analog.com>
+References: <20260717123852.1140893-1-stefan.popa@analog.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260708-dts-stmpe-v1-1-1f51d15bb358@nxp.com>
+X-Migadu-Flow: FLOW_OUT
 
+On Fri, 2026-07-17 at 15:38 +0300, Stefan Popa wrote:
+> This series adds support for the Maxim MAX40080, a bidirectional
+> current-sense amplifier with an integrated 12-bit ADC and an I2C/SMBus
+> interface. It measures the voltage across an external shunt resistor and
+> the input bus voltage.
+>=20
+> The driver operates in direct (INDIO_DIRECT_MODE) mode. Each raw read
+> triggers a single on-demand conversion (SMBus Quick Command) and reads
+> back the matched current/voltage pair, so results are always fresh. It
+> exposes the current and voltage channels with raw and scale attributes,
+> a configurable oversampling (digital averaging) ratio, and PEC-protected
+> register access. The two selectable current-sense ranges are exposed
+> through scale/scale_available; the current scale is derived from the
+> shunt-resistor-micro-ohms device-tree property.
+>=20
+> Tested on hardware with four MAX40080 devices on an I2C bus.
+>=20
+> Regarding regmap: it does not support SMBus PEC or Quick Command, both of
+> which are required by this device. The mlx90614 driver uses the same raw
+> i2c_smbus approach for similar reasons.
+>=20
+> Changes in v4:
+>=20
+...
+>=20
+...
+> --
+> 2.53.0
 
-On Wed, 08 Jul 2026 15:48:56 -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> Add deprecated properties st,sample-time, st,sample-time, st,mod-12b and
-> st,ref-sel. The both driver drivers/mfd/stmpe.c and
-> drivers/input/touchscreen/stmpe-ts.c parse these information. Some dts
-> put these properties under mfd, but some put these under child node
-> sample_ts.
-> 
-> Allow these properties put under sample_ts and mark as deprecated to fix
-> below CHECK_DTBS warnings:
->   arch/arm/boot/dts/nxp/imx/imx6q-novena.dtb: stmpe811@44 (st,stmpe811): touchscreen: Unevaluated properties are not allowed ('st,adc-freq', 'st,mod-12b', 'st,ref-sel', 'st,sample-time' were unexpected)
->         from schema $id: http://devicetree.org/schemas/mfd/st,stmpe.yaml
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
->  .../devicetree/bindings/mfd/st,stmpe.yaml          | 24 ++++++++++++++++++++++
->  1 file changed, 24 insertions(+)
-> 
+Was it intentional to drop people from your Cc list who
+were present / engaged in previous versions? Please try to keep it consiste=
+nt.
+Also, it helps to include the links to the previous versions.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-
+--
+Best regards,
+Sirat
