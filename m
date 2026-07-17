@@ -1,152 +1,136 @@
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E5834DCE3
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 16:37:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6129E371885
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 16:41:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784306230; cv=none; b=RaKlDq897P23+3yeYoyBRVZyDhBIsH6wK0JX17PaIQ4bitMM54mImQrpDdnk9/d/0TzxfzcCHy/NsCNbU1+A3LeimuC+61CRLqxr2b/FCcXwxrfhMih24Q6MRoetRpHYJU0HxVaOiQsEdF5Lk9bxj64SRDMqaE80kBV5e/PNcAA=
+	t=1784306511; cv=none; b=PTUuGNqP4GV8Xf6mRPEQ93mZcwBiuH+AxzzPcANiadBxe/wrW+W/c4t5EaTbdE/Iy2hrgmqRmqn1x0NpSe7IeOQaM1H5fnQdp6A6udfTBc2iA+9FQZ7pfqNArp81zv7dMVzAytcjqbmo7ezEFSPZrXxKABbgwhLp+Vnf2sDlNCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784306230; c=relaxed/simple;
-	bh=tGwzjYdByfoFaIh4ZwoemqEAXz0OnUd03AbzuPL+9IA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cpJ9iS3RdrHP2w2WUQnaPfnYsH8zkYk0h7FDevN6Lxok/XShBCPbhiI0MEc07Wj19KD/+Xjz2LaDxK7CGhQltg/D6kfDcwAM6epViRu8ePS36XuH6KtS8jjSY6hy7soiFXbKw0lCH1VkYbh4SBZcOcsXVnnwfd1gTeaE47B+evY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MdnY9X4k; arc=none smtp.client-ip=209.85.128.173
+	s=arc-20240116; t=1784306511; c=relaxed/simple;
+	bh=YoSkvKhLIDEZRtgz0gCZBHnLnjY7Arw0eRwzeYXJ1Ws=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g3giqTh+HFs486ote3ACR8UyBV8WpMjr2au235ts6dazJcCzkRhGMrYINMo3qsyTUKA8E1VIY+MB6bRete+uKLFi96nYiWxerDzg5ej62Ek+aEl5XnD07oxrAWOcIknFlpDmCX8Q+tmdCZVWUz/eXq3lTFIs2QADD4AWfJZJCXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VYiv7x1L; arc=none smtp.client-ip=209.85.218.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MdnY9X4k"
-Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-81ee2c048acso25876437b3.3
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:37:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VYiv7x1L"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c1670dad7a8so637017766b.3
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:41:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784306227; x=1784911027; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UnLMXcEn62d3oMMgJrrwZa8KdOiLTui4IgFDQmHHq2Q=;
-        b=MdnY9X4kK+T4/S8xOTzaGcXE9dlGmdzSmL05goIEj6wxQ31qXSVnZ4Uy1QMoKgYO80
-         zcsLn2xF8Kn6zdZqDvWAV/wLGH9lszWgjXIlnWOudlgDx9ArctXvtLwQ3ozzXUlhBF1v
-         Qsiq3e/N3pmCxPPMUV8dg/CkcXBbU9a8aV0Tvl+W5IeL72o/hQc87Zf9SlYtki3TlVG0
-         araiNYR3XkLMp80xYF54ymSkyVjfEhNF0BdM9Ktgr6vQEU2ehG+R8pfsLqjbk18dgtVX
-         KVEdsZwnGXxEk+raHLsBBVu+Qzux/mZfpHa7riZ0bI8aHZSGX0QvYegeMgyXa9P+LHUg
-         3/sA==
+        d=gmail.com; s=20251104; t=1784306509; x=1784911309; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Upsuqa7VWRcDlZ5pIPK+Qqnf3tlxThPfy/sKdzeNaMI=;
+        b=VYiv7x1LMUcbaJFZhDYwVPB6zB9yTKzlxh22OEgo22w570WkeQBBo5QVKTusIFLvMF
+         x8GInwN2TxMF9WD0m9Ot5KuigHpH+2rJzu6OGXNClGNWEe1GSk7DOhV6VIZTbNU6WmP7
+         9LYcuQtO1FilG4cNJXFNkprxWfuc2ct0X7lLw0fgLU0lNXx191AhErkVnKrG/ok6mEZS
+         BkEoGNUzH/3+EqM7/wAZvl2dWtQsdx3axhsqsP+jySFLBHSVbjcPrdq0jySqvv6BAuDj
+         M9lpIhjlKdxwjtFIz4S2HCAeXauqLhmf48jbQ7skNaG3gMdDD5o9A9+yPZUDy7iuqA0C
+         XZRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784306227; x=1784911027;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=UnLMXcEn62d3oMMgJrrwZa8KdOiLTui4IgFDQmHHq2Q=;
-        b=OgoiGJ4hlXbShjS8TVQyUmKkL1M0A+gZIK7VMNUzx3I5Fki4VrXHZ5QELlM24Gf6za
-         597Z1lYXpfEyZB6AndhepqRjPAEg1hh8QR7sKXy4pn1b7pxbtdc7qF4Dk6Zo8bn+8Yoh
-         3I8nhbgL1GegRr5EojluNyIEl1dxf7Nt9o+gq0FV3FvvEV3JeYx7FE35ixiY7RWAPa7r
-         9ndHFuAJYJyALjAuITY6fueOPHn8jX0uEkqojtphq95CG4dCJtp1ksyOwKp3yBYxTS3i
-         elDzDKy8xtocEy0Q2CDEBYvPUHT00NvME+pFizZoPi6I7jK+FOAZUHK86nNEWIFiVtAc
-         ezTA==
-X-Forwarded-Encrypted: i=1; AHgh+RpuDC/KsSYA38v/cyMDk/nNAEn/q+043TsGeYLYezb/6YqjeG9gGVfftIOVR9B/wYi0cWr++uU6UhGk@vger.kernel.org
-X-Gm-Message-State: AOJu0YzyphVX/KiHwdcsTC4X5WjKji90Yq6eAWWyCDrkawlhUmHWP2YA
-	hKvd3ozPcrwFPNujIQTBIpX9X+BuaFgc+EvB6lPMvFHsRq+eYTfSZZm6xv910Q==
-X-Gm-Gg: AfdE7clu+mGnkxPBQNvsE7UXCR2STYs2kKnJoIKTDuMEbNs5+4ZAQcSO0bHrWsGJBNJ
-	2ErhGJAMylT2m0MlO6/0wHt9X04nN4GHRn/SmBt4OwGq9bcNcRcO1+f/HW1J9NeRMNbbOSZY+oY
-	/bEC6RXNq10jnXMb9q4jwoKUML5nkFVdgc4FiW5yo1Uqf/cIqsAx6BTMoIjWOc+3GzfbeWcrbkV
-	4QvLt4bwkGEvGayKCZIbYIaroojXPJC9B5kD0vM1q0fh+xt7ebriLBS7COAiBjx1dADak6YBlzy
-	xE3EmEwA04/QsNDXf1AIDur7z1rC/HREPYarl9qN2BBQ0XUa6A658430BKx/1zgi5WGLYl78Tvj
-	CstmlBvggyquu5RSs8pOOnJEy8W8+rf+qTjh5fii2wkI2OA/+Vks+bEZEY8oiB4obE9RowrOHaL
-	UP1w/0N2VXrSY=
-X-Received: by 2002:a05:690c:6888:b0:81e:dc5a:a4f2 with SMTP id 00721157ae682-81ef26a5f43mr12401847b3.41.1784306227436;
-        Fri, 17 Jul 2026 09:37:07 -0700 (PDT)
-Received: from localhost ([2804:30c:1f09:b400:47f8:7933:2105:dd41])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81ef42c4ef3sm14017747b3.40.2026.07.17.09.37.06
+        d=1e100.net; s=20251104; t=1784306509; x=1784911309;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Upsuqa7VWRcDlZ5pIPK+Qqnf3tlxThPfy/sKdzeNaMI=;
+        b=WCcIOS1yxkFx4Pvs7R68LrXubE/Fu+HpbWzeVvOmUzDLSSNoAXgTnEFEJNw6LwreAt
+         DkSz2yI16ZC8QOpJ4A35tKGyc1SJEcn/FuUSiEHH+ag8kq6Sn/ptesVqU+Tg/Bc+oZyo
+         lpp0Wu8ek6i9nCAnzJTfdW8EB5iSfSNBf/Bl8MWleCRrrWaTmeb7hiQwvEM4StU1EIPE
+         OG6jTAz2y2JCPRoueVR44MjorgHy0yREGsG4Yobc4e0AdwmHcimxIbBUoB8k7PiLiOtW
+         YDnciiufuKe20+/5YbmvQ+WpL0bVMPV+fudt7leVOUK0Zivi3YRz5AO6WNgglkUEuUc0
+         scsA==
+X-Forwarded-Encrypted: i=1; AHgh+RryXLuUVZGBNZ64y4gAM9RooTViuFfiGaRKk7VGpiQfSxrUz/GtwvPsIoMNi4RsoaL2Jj9ymNEpxB2u@vger.kernel.org
+X-Gm-Message-State: AOJu0YyiZZzjzLFAO+10Jkk0BgD3rBoOozkF6nHly7jT63z4/1Uf9ut1
+	gQOyrC2z0F+KOjdE/kFEyH8a7rQATsVWj5q1OsCirc5UCnoyy1F0e20x
+X-Gm-Gg: AfdE7clsv/qXwS8jj/P3I9LKScHlr7hD/6ElMrv4Y0po4JI8xmtZ6F0A43v9OnfO4Te
+	9Jm9N315WOc2RxRP+P1Tr3c9x7jdkUX9ASNdImNYSdKYDN6lbgfLIvALjSL7IQkkCVtOk1zWthL
+	s2cunQTMAE8BIHiH1T7hWRR64EUKTvvAIQX6SMB+oklOLQ95A0+Pd4MhsRdAElLE8fYgMe1t8Hc
+	WVlrW6Dtq2a40PkisQT7OqUz1gFtfFFM0XN+Yx4VwIRL7pXMntSOrsJzRPWsJuic2aAmOuUsyqy
+	F73ZGP0n0Vn2bPklU7ZYBm8Ol6shVQ/n7tGqMea0kAFldQplUDGdtkxvM5/3rG6OOBn/5iqtGDL
+	RcBUwA3Lf6jVqZCCujXeTQ8rovPX05+vViq+BZF2TNHOi7oM7fbWnodHR2e+2l8o1dGGJWI0NYQ
+	==
+X-Received: by 2002:a17:907:7a89:b0:c16:1df9:6eda with SMTP id a640c23a62f3a-c16b48d373emr163696066b.49.1784306508409;
+        Fri, 17 Jul 2026 09:41:48 -0700 (PDT)
+Received: from luca-vm.. ([109.52.116.145])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1705912972sm105880366b.14.2026.07.17.09.41.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 09:37:06 -0700 (PDT)
-Date: Fri, 17 Jul 2026 13:38:07 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, robh@kernel.org,
-	linux-iio@vger.kernel.org, marcelo.schmitt1@gmail.com
-Subject: Re: [PATCH v7 2/4] iio: adc: ltc2378: Add support for LTC2378-20 and
- similar ADCs
-Message-ID: <alpab2gBs4nPDU5g@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1784235595.git.marcelo.schmitt@analog.com>
- <5108c89986ae8723139419058db1b2f2e74daff6.1784235595.git.marcelo.schmitt@analog.com>
- <20260716212838.95B3F1F000E9@smtp.kernel.org>
+        Fri, 17 Jul 2026 09:41:48 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-watchdog@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v2 0/7] Properly describe mt8167 watchdog and mmsys resets
+Date: Fri, 17 Jul 2026 18:39:11 +0200
+Message-ID: <20260717163959.714561-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260716212838.95B3F1F000E9@smtp.kernel.org>
 
-On 07/16, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] The `LTC2378_DIFF_CHANNEL` macro defines an IIO channel that is intended to be differential but lacks the `.differential = 1`, `.indexed = 1`, `.channel = 0`, and `.channel2 = 1` attributes.
-> --
-> 
-> --- Patch [2]: [PATCH v7 2/4] iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs ---
-> commit 5710d5f25b45906977e2522567c1964b1d3219f8
-> Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> 
-> iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs
-> 
-> This commit adds a new driver for the Analog Devices LTC2378-20 and
-> similar analog-to-digital converters.
-> 
-> > diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
-> > new file mode 100644
-> > index 0000000000000..5600c820c7f45
-> > --- /dev/null
-> > +++ b/drivers/iio/adc/ltc2378.c
-> > @@ -0,0 +1,416 @@
-> [ ... ]
-> > +#define LTC2378_DIFF_CHANNEL(_sign, _real_bits, _storage_bits)			\
-> > +{										\
-> > +	.type = IIO_VOLTAGE,							\
-> > +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |				\
-> > +			      BIT(IIO_CHAN_INFO_SCALE),				\
-> > +	.scan_index = 0,							\
-> 
-> [Severity: Medium]
-> Does this macro need to set .differential = 1, .indexed = 1, .channel = 0,
-> and .channel2 = 1? The name suggests these are differential channels, but
-> without these attributes, the IIO ABI will expose them as single-ended
-> (e.g., in_voltage_raw instead of in_voltage0-voltage1_raw).
+Currently mt8167 inherits its watchdog from the included mt8516 dtsi,
+which in turn falls back on mt6589-wdt. However according to the data
+sheet mt8167 has 15 sw resets instead of 12, and the reset bits are
+different from mt6589.
 
-For parts with multiple inputs and configurable differential channels (e.g.
-AD4130-8, MCP3561/2/4R, NAFE13388 [1, 2, 3]), the voltageY-voltageZ ABI helps
-clarifying what physical inputs make up a channel. For differential only parts,
-the ABI seems to be flexible by only requiring a 'consistent labeling' (either
-voltageY or voltageY-voltageZ IIUC). Will set the channel with the differential
-ABI if maintainers believe that's the best way to have it. Might slightly tweak
-the channel macros to keep .differential = 0 for pseudo-differential chips
-(e.g.LTC2369-18).
+In the first two patches we improve the description of the resets for
+mt6589 with values obtained from Android sources.
 
-[1]: https://www.analog.com/media/en/technical-documentation/data-sheets/ad4130-8.pdf
-[2]: https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP3561_2_4R-Data-Sheet-DS200006391C.pdf
-[3]: https://www.nxp.com/docs/en/data-sheet/NAFE13388.pdf
+Then we introduce a dedicated mediatek,mt8167-wdt compatible for the
+watchdog driver that describes correctly this SoC's resets. Also while
+we're touching the bindings reset header, we add constants for the MMSYS
+resets.
 
-> 
-> > +	.scan_type = {								\
-> > +		.format = _sign ? IIO_SCAN_FORMAT_SIGNED_INT :			\
-> > +				  IIO_SCAN_FORMAT_UNSIGNED_INT,			\
-> > +		.realbits = _real_bits,						\
-> > +		.storagebits = _storage_bits,					\
-> > +		.shift = _storage_bits - _real_bits,				\
-> > +		.endianness = IIO_BE,						\
-> > +	},									\
-> > +}
-> > +
-> > +#define LTC2378_BIPOLAR_DIFF_CHANNEL(_real_bits)				\
-> > +	LTC2378_DIFF_CHANNEL(1, _real_bits, (((_real_bits) > 16) ? 32 : 16))
-> > +
-> > +#define LTC2378_UNIPOLAR_DIFF_CHANNEL(_real_bits)				\
-> > +	LTC2378_DIFF_CHANNEL(0, _real_bits, (((_real_bits) > 16) ? 32 : 16))
-> > +
-> [ ... ]
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/cover.1784235595.git.marcelo.schmitt@analog.com?part=2
+In the 6th patch we add a node for the mt8167 watchdog referring to the
+new compatible in the SoC dtsi.
+
+In the last patch, we define the mmsys reset table for the SoC. According
+to the datasheet, there are 28 mmsys reset bits divided across two
+adjacent registers.
+
+Changes in v2:
+- Sashiko pointed out correctly a missing entry in the mmsys reset table
+  in the last patch.
+
+Initial version: [1]
+
+[1] https://lore.kernel.org/linux-mediatek/20260717151134.678839-1-l.scorcia@gmail.com/
+
+Luca Leonardo Scorcia (7):
+  dt-bindings: reset: Add MT6589 toprgu reset IDs
+  watchdog: mediatek: Add wdt/toprgu resets for MT6589
+  dt-bindings: watchdog: Add compatible for MediaTek mt8167
+  dt-bindings: reset: Add reset controller constants for mt8167
+  watchdog: mediatek: Add support for mt8167 TOPRGU/WDT
+  arm64: dts: mt8167: Properly describe the SoC watchdog
+  soc: mediatek: mtk-mmsys: Add resets for mt8167
+
+ .../bindings/watchdog/mediatek,mtk-wdt.yaml   |  1 +
+ arch/arm64/boot/dts/mediatek/mt8167.dtsi      |  7 +++
+ drivers/soc/mediatek/mt8167-mmsys.h           | 41 ++++++++++++++
+ drivers/soc/mediatek/mtk-mmsys.c              |  3 ++
+ drivers/watchdog/mtk_wdt.c                    | 13 ++++-
+ .../reset/mediatek,mt6589-resets.h            | 24 +++++++++
+ .../reset/mediatek,mt8167-resets.h            | 53 +++++++++++++++++++
+ 7 files changed, 141 insertions(+), 1 deletion(-)
+ create mode 100644 include/dt-bindings/reset/mediatek,mt6589-resets.h
+ create mode 100644 include/dt-bindings/reset/mediatek,mt8167-resets.h
+
+-- 
+2.43.0
+
