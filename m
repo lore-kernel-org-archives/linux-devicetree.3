@@ -1,89 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D30F839AD51;
-	Fri, 17 Jul 2026 11:00:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC953F8EA7;
+	Fri, 17 Jul 2026 11:00:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784286037; cv=none; b=o1FLgcRBPmVxiwYAcYNWdDSqLFh+W1jbcc3yH2v+VDSpdNgMlGHDnf0c9zwFclfLavIAOmZ/R6sAJnyeDGIRZaxP+h6erAhkLB2mugM7AxANm/ydb6Kq92zMOoooZcx40upniNwa72gT0BXD1B8CArOb/VzJDlXjdX82ZKxdBMU=
+	t=1784286043; cv=none; b=a1ZO8vIpvh/N4N1tJLh5zP78HS/aAza6EzjRQes1ju/arZ+HSrIMQXRVIhTrwiAYOgxdh8ZLAc8iQp6yTeD76iwiB+3h7EXNHesI8tngz/X11XfUQGCFtl/tzbASsDPzDcJ8inJtTuC8mMLPVkOG4GiG7x+PrA4dybL9g/p4F/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784286037; c=relaxed/simple;
-	bh=V7SapS0BruEobbiXITZJJGj2Y51FNtWmFLVuJ2evs0A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=inYy5neJoTB//ioQTp0ofp7Rzehe0eGPl5kRqNSUFOelMiYrz38lARq9M4MrutM8lGBDR3Ey5vitOXyhON0vwQlYyZ4HwlWbINe1hZ3RMqlVWjlYQVQKXZ1Fv0uS3WYZT61aoxeQAhypQ0sg0TgKJIJdcSqebL4FUY6eEbKUAVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JJzBrJLo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784286043; c=relaxed/simple;
+	bh=bzN/qkUbGiEZG8wEsRAIo5B2iTgIew+XFMs8Lak6Hjg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fAD0Wc/fKqHYCjRUZ+4ne+FtZ8UFYB8g05HQp95Uam/hszl62n4exhiwEDKvWp0L56lc6gqfPUWGj190BpFRGINL8TcfUgjW3f9oF1hhQNlCLo9X19jrzJJOSi6lvERYLvmRu4Z/nyD286mb+AvF9OsEAiFqopVRIqMnA9nklSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=biJvd7/G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JJzBrJLo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 643D11F000E9;
-	Fri, 17 Jul 2026 11:00:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="biJvd7/G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD2FC1F00A3D;
+	Fri, 17 Jul 2026 11:00:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784286022;
-	bh=AMCcUfGITNZzZaRp8jtcUJFaWkIKYyCgIoQhy/elzGI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=JJzBrJLoUjSBgcew+/w8CVocUOdns0ku95XpYfXjQ8QcTdzy5bxhtwt/mXYwKSUcl
-	 nUSc2VVrxE/aq04igIbXz/vOMFTN8L1ikNy0rkoMhgORUAsD9AiTsmEI20DP+1Q/34
-	 e8uiBl+1V1jgKe9src0O7FiHQsbnnPyZO9056RimfqkaUmVGYyFR16VJDZXIM0ZfAK
-	 rkIjFiBN4lzzKOqdJlVcyoQBDOvHJzhg6aY2F/1Duc4ZboMOShxW2p2OjBruQaKwWP
-	 lHaaPZuxcmNFCvUA6RWpzr7xIzkZ8TrdcBg3rHkR7W59ZQrT3DPFkkjuCAWKDtqglB
-	 39XXzkxj4AoWA==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Fri, 17 Jul 2026 13:00:01 +0200
-Subject: [PATCH v2 4/5] arm64: dts: qcom: qcs8300-ride: Fix BT RFA supply
- name
+	s=k20260515; t=1784286027;
+	bh=e5LSyuWTWKLVr8IE+14DkJ70svz7RXQr9FVyOd24cr8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=biJvd7/Ga/XZigc6xHVV+zS/HpCeDgdByqADeIuDS1zAHyo5ALB0v3tKBPOrtLGIc
+	 p+7yu52PJqPgSrWoGWdPaa/wwd6Q4smTzAi1s1XVPwH00P+mmVzVn4fHSlOlPYt4fA
+	 O8w0i1mu3Uyc/d8ArCPBboqcsrhzM3uCeUp9Msc1exRY2VUWYdQP2hKNSTUg9NNB9B
+	 VyVLqBTMVzvo1/iLhc4Xh80hmwN3Y70BE7hiAqBZKfvSWou9c1Do7Ngq6pvw4wkEaD
+	 Lp8vEtmsGSoH5lhL6f4nYf/t8WkkSsTu9/gK6irYFTa/Zyjm9lp6+kCJ5MtqHikJmh
+	 ksL34YZ59X+Cg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v28 1/7] Documentation/firmware: add imx/se to
+ other_interfaces
+Reply-To: sashiko-reviews@lists.linux.dev
+To: pankaj.gupta@oss.nxp.com
+Cc: conor+dt@kernel.org, imx@lists.linux.dev, robh@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260717-imx-se-if-v28-1-0a9659c7e69d@nxp.com>
+References: <20260717-imx-se-if-v28-0-0a9659c7e69d@nxp.com>
+ <20260717-imx-se-if-v28-1-0a9659c7e69d@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 11:00:26 +0000
+Message-Id: <20260717110026.CD2FC1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260717-topic-june26_dts_fixes-v2-4-797cd46e5d9f@oss.qualcomm.com>
-References: <20260717-topic-june26_dts_fixes-v2-0-797cd46e5d9f@oss.qualcomm.com>
-In-Reply-To: <20260717-topic-june26_dts_fixes-v2-0-797cd46e5d9f@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
- Luca Weiss <luca@lucaweiss.eu>, Gabriela David <ultracoolguy@disroot.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784286000; l=842;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=ibFploazir3MXEFLcPVYX9ZIT/3eQn7Tkc6omZuu9ZU=;
- b=z5BScDXqBAvm+9psNsQzM1mpcpT/ytzMZno3jr8RqogynwUzObuyIO0dBsQNahZ91UVt9XDmS
- IEeLjobkGbiCntsPVpxgpV1okV/VKiHtn3yFbUMmHd1zekCJbNj7w+g
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] The documentation references a missing file `drivers/firmware/imx/s=
+e_ctrl.c`.
+- [Low] Multiple grammatical and phrasing issues in the newly added documen=
+tation hinder readability.
+--
 
-Fix up the supply name to align with qcom,wcn6855-bt bindings.
+--- Patch [1]: [PATCH v28 1/7] Documentation/firmware: add imx/se to other_=
+interfaces ---
+commit d14736a873782e28bc9a614142ccc96cf497924b
+Author: Pankaj Gupta <pankaj.gupta@nxp.com>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/qcs8300-ride.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Documentation/firmware: add imx/se to other_interfaces
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs8300-ride.dts b/arch/arm64/boot/dts/qcom/qcs8300-ride.dts
-index e9a8553a8d82..1ff39530ea3d 100644
---- a/arch/arm64/boot/dts/qcom/qcs8300-ride.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs8300-ride.dts
-@@ -837,7 +837,7 @@ bluetooth: bluetooth {
- 		vddbtcmx-supply = <&vreg_pmu_btcmx_0p85>;
- 		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
- 		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
--		vddrfa1p8-supply = <&vreg_pmu_rfa_1p7>;
-+		vddrfa1p7-supply = <&vreg_pmu_rfa_1p7>;
- 	};
- };
- 
+This commit documents the i.MX SoC Service layer and character device
+driver for SoCs containing NXP hardware IPs for Secure Enclaves. It
+details features like the NXP EdgeLock Enclave on i.MX93 and i.MX8ULP.
 
--- 
-2.55.0
+> diff --git a/Documentation/driver-api/firmware/other_interfaces.rst b/Doc=
+umentation/driver-api/firmware/other_interfaces.rst
+> index 06ac89adaafba..6c6fa9a0ba1df 100644
+> --- a/Documentation/driver-api/firmware/other_interfaces.rst
+> +++ b/Documentation/driver-api/firmware/other_interfaces.rst
+> @@ -49,3 +49,136 @@ of the requests on to a secure monitor (EL3).
+> =20
+>  .. kernel-doc:: drivers/firmware/stratix10-svc.c
+>     :export:
+> +
+> +NXP Secure Enclave Firmware Interface
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +Introduction
+> +------------
+> +The NXP's i.MX HW IP like EdgeLock Enclave, V2X etc., creates an embedde=
+d secure
+> +enclave within the SoC boundary to enable features like:
 
+[Severity: Low]
+This isn't a bug, but does this documentation contain several awkward
+phrases and grammatical errors? Phrases like "The NXP's i.MX HW IP like",
+"enabled with the such secure enclaves", and "there is/are dedicated" might
+make this difficult to read. Could this section be reworded for clarity?
+
+[ ... ]
+
+> +When a user sends a command to the firmware, it registers its device_ctx
+> +as waiter of a response from firmware.
+> +
+> +Enclave's Firmware owns the storage management over a Linux filesystem.
+> +For this c_dev provisions a dedicated slave device called "receiver".
+> +
+> +.. kernel-doc:: drivers/firmware/imx/se_ctrl.c
+> +   :export:
+
+[Severity: Low]
+Does this file actually exist in the repository at this commit? Generating
+the kernel documentation will likely result in a build warning or error
+because the source file drivers/firmware/imx/se_ctrl.c cannot be found.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717-imx-se-if-=
+v28-0-0a9659c7e69d@nxp.com?part=3D1
