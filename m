@@ -1,111 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 465433FFAC9
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 13:58:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDA12418A3C;
+	Fri, 17 Jul 2026 13:59:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784296711; cv=none; b=Crg5hlSc3vhGySkSydS/nCVo1/WZNw2ElyVryMPrRirPY/BxGvxbH45wsE2CX9LYbQWrQfR4xwXX7pe3tIXFTmtcBBugPOqlyEVKdIqfHADy4bfwwTMZK3Y8kEG6ERifH3XbLDlUuWnhl5mk6ivwV/QEXz8kwpKFh0JRCcOph5c=
+	t=1784296792; cv=none; b=mSux7qrHB3LWSe7OVNv9gJrmu8xduS7qks2Oxz+T4L55l7B6ZzbgRwgLjScwkt7VlOhi7l9m2Rx3RhzRDHnE8DMx4VTgYvIRhTbX6diDH1QAwpVkBLClLtNot9drkocGiS+UeLG3Wjn5PSxY9OeAMgs/n34ZcIUzo7XDoHU2fiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784296711; c=relaxed/simple;
-	bh=44teChrBfz4WzM8dRrr8D0pP+Pxvot3D/5T9HTkD6Jo=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZkDfaHlVoFXr1jBzjvOpMl0UiIwSmQRy4IXQ/f7X9RG1LFpo/7I28v0JAfBUxsYKLjkjkGLpQiE2skat++7XIlE0YQDOs7VrvXGPuFHASa5eGAuXYW57989r9i+bThmT8qTH3hSclEXQ9bA5YCWcoNpMlC63q0IaFjlb8r2xDAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QCuXfAkB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784296792; c=relaxed/simple;
+	bh=cy/xsKq3fMo5CXtvCkmfY7yTRVSjvkgSfPW2ya5IdDk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qv/wAIzIguJ7M0aADuEpcdsREAW0YVsF3asIHvN/nQ1vlT1QQ52RK6xXTQZX7fPToS56fJ+biymK6/SQpdudJKlG1TWHzuZJslxOgXvIHF6f+OHAny4zHe6G0ODmFkSGwipg3YjMS+dYPH73RUpgVCHAPNd6dYQSE1pRB1yUafs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VaziPRFN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QCuXfAkB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDC741F00ADB
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 13:58:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VaziPRFN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 686751F000E9;
+	Fri, 17 Jul 2026 13:59:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784296709;
-	bh=9E+BMzfZUVu65yt/BRBpUoOTZX7tfdy7JNdw1kjEZcg=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=QCuXfAkBMq+R1I4qKbsD+nR3FK21xgzwmHYVpShSzjhNEBh0axfjK14FxE/h/ZI5i
-	 QohBXR2nPYHHoAuK7PIWgMMl1HNpwoWhlmAYtSYiUwvWHQT7JKrmE3rWM5XYcQk800
-	 WgmD+ZEHeFCBmmNy81za9s+rySMQykH396nwKCNsw3lTnI5WhenPiTiHGt79pAVSbA
-	 IXZRQPsAqeOHbFp29MtCqTHiWyFEYy8U5ZDkRbD6fu/GMzM/BfV405CXHVEa8MbJR2
-	 nbB2OV2mo/CkwH9BsXzki2YeGUfcWZEPBKfGc6bV50jT3yjtgLkBhYICVrnQZ2Kk1J
-	 XGPWknmCT1+Uw==
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5aea0fff535so5089745e87.3
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 06:58:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoxxbwFUsi2Dn1GRMPFrlijNejUo7BftRcvmVVKf7iSZ6sPiAXHSou2Hj1QL+NV0wOSUBuVG3zcb1qV@vger.kernel.org
-X-Gm-Message-State: AOJu0YwdW5GFDlCzAF8RnA49UMmq+4RWjnpOlf2yQEXak7+KKQiaQyf4
-	BM58+2CM0VoZwpEu1xhdjM+kmIbD7AaOWKkGFHT2MYIYEw3Lcso2JKBGQhmP80oQBsi14U84vYA
-	NVUDqq53o209kUAZQmIT9ueQAcRfIVRHNMW3YJDJLgg==
-X-Received: by 2002:a05:6512:65:b0:5b0:cce:d9e9 with SMTP id
- 2adb3069b0e04-5b28f874d01mr476963e87.19.1784296708587; Fri, 17 Jul 2026
- 06:58:28 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 17 Jul 2026 06:58:27 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 17 Jul 2026 06:58:27 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <b522c9b4-4944-4fb2-94f9-bd2553690901@oss.qualcomm.com>
+	s=k20260515; t=1784296790;
+	bh=Iu1fYMemoRzsLaUDl+FpewPLFgJ5kKqgw36YQDXyJEo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VaziPRFN8QO4BZ1W9/a5ZtmZBroMmzgtfSeNF2GAyhSPqpTXYewMZBgR+1uasZZfM
+	 Z/z3KRSCLHFuVf8xiRUCazJHd5VvMwX/3AGFCurqBATvSapSBizoAkStbF4qNeNTXn
+	 tqPgzTKvuLwKmaJCNTtvo8/AJxBDU4xLMl+ZEDmVsiPm7HviaDusPTY4VfReO8WiQs
+	 2+f0bZrp1hm8wtngFhaKLeccUuB6bIEKnfQ3R6GVu3EGxqH9Nx/0eH7UCpW24JbDWF
+	 v7cOUH130ViIYeZoOCpQzg5L66SPahvmVTm9/XWu1nYwJwuIy55u0HHM3r9j0kWDL1
+	 5l+pyf6Yv9S6Q==
+Date: Fri, 17 Jul 2026 08:59:49 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Frank.Li@oss.nxp.com
+Cc: linux-kernel@vger.kernel.org,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Linus Walleij <linusw@kernel.org>,
+	imx@lists.linux.dev, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Lee Jones <lee@kernel.org>, Fabio Estevam <festevam@gmail.com>
+Subject: Re: [PATCH 1/3] dt-bindings: mfd: st,stmpe: add deprecated properties
+Message-ID: <178429678856.574428.4894136808352380805.robh@kernel.org>
+References: <20260708-dts-stmpe-v1-0-1f51d15bb358@nxp.com>
+ <20260708-dts-stmpe-v1-1-1f51d15bb358@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260716142605.2398433-1-shengchao.guo@oss.qualcomm.com>
- <20260716142605.2398433-7-shengchao.guo@oss.qualcomm.com> <b522c9b4-4944-4fb2-94f9-bd2553690901@oss.qualcomm.com>
-Date: Fri, 17 Jul 2026 06:58:27 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Me-t1EWa+ACmaUdtzRTCVEH97ONtbnF2vGZBX_u8k9OwA@mail.gmail.com>
-X-Gm-Features: AUfX_mzSA_kwBtc7KtkCfI0ZwiKvjN0AgLB3g6Bf9PkLji-sDT7coShxTHPluvA
-Message-ID: <CAMRc=Me-t1EWa+ACmaUdtzRTCVEH97ONtbnF2vGZBX_u8k9OwA@mail.gmail.com>
-Subject: Re: [PATCH v6 6/6] arm64: dts: qcom: Add device tree for Nord RRD board
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, 
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Shawn Guo <shengchao.guo@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260708-dts-stmpe-v1-1-1f51d15bb358@nxp.com>
 
-On Thu, 16 Jul 2026 19:17:14 +0200, Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> said:
-> On 7/16/26 4:26 PM, Shawn Guo wrote:
->> Add initial device tree for the Qualcomm Dragonwing IQ10 RRD (Robotics
->> Reference Design) board, which is built on Nord Embedded variant. Enable
->> the debug UART, UFS storage, PMICs, I2C and SPI.
->>
->> Co-developed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
->> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
->> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
->> ---
->
-> [...]
->
->> +	/* PMIC A - Kobra_MM (PMM8650AU) - SID 0x0, Bus E0 */
->
-> This comment is very useful
->
->> +	regulators-0 {
->> +		compatible = "qcom,pmm8654au-rpmh-regulators";
->> +		qcom,pmic-id = "A_E0";
->> +
->> +		/* LDO Regulators */
->
-> This is much less so
->
-> [...]
->
->> +		vreg_l7a_1p2: ldo7 {
->> +			regulator-name = "vreg_l7a_1p2";
->> +			regulator-min-microvolt = <1200000>;
->> +			regulator-max-microvolt = <1200000>;
->> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
->> +			regulator-always-on;
->> +			regulator-boot-on;
->> +			regulator-allow-set-load;
->
-> You made a lot of the regulators always-/boot-on - are you sure about
-> each one of them?
->
 
-I double checked and for vreg_l3e_1p8 and vreg_l2i_1p2 we can drop the flags.
-The first one feeds the efuse, the second UFS. The rest is fine.
+On Wed, 08 Jul 2026 15:48:56 -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> Add deprecated properties st,sample-time, st,sample-time, st,mod-12b and
+> st,ref-sel. The both driver drivers/mfd/stmpe.c and
+> drivers/input/touchscreen/stmpe-ts.c parse these information. Some dts
+> put these properties under mfd, but some put these under child node
+> sample_ts.
+> 
+> Allow these properties put under sample_ts and mark as deprecated to fix
+> below CHECK_DTBS warnings:
+>   arch/arm/boot/dts/nxp/imx/imx6q-novena.dtb: stmpe811@44 (st,stmpe811): touchscreen: Unevaluated properties are not allowed ('st,adc-freq', 'st,mod-12b', 'st,ref-sel', 'st,sample-time' were unexpected)
+>         from schema $id: http://devicetree.org/schemas/mfd/st,stmpe.yaml
+> 
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> ---
+>  .../devicetree/bindings/mfd/st,stmpe.yaml          | 24 ++++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
+> 
 
-Bart
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+
