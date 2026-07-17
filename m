@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBFBB3AE18D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0FB3BB12E;
 	Fri, 17 Jul 2026 06:35:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784270144; cv=none; b=mhnPANDTrgd+UlkxhMtyGnIWi/eKP1rrj/Wr0oOU3CSqEIzlcG94SStj8amST2SEZgzJrBDmpkvMCKOgtOrKLWS+OYooPGLBAZvZj9QOwxNSaZ4hKfgq+4VhFjnxrVybkX0UixgbgV5Jh3lkr30CVqGC8FLMgHf0kpRkleWlfQE=
+	t=1784270144; cv=none; b=hb3oxUU49OZHgzfHVuihOjEW9lBZBLqtKIwnaasJ+Kf3HYKkQsto53y3D0IKv7aV0oC4GC5cYG62dVrizkCFGYVLOclwIbU0f27jp/Ae2hcjjptwY4jQPsM74UpqcNQ6kj2yBGzN2g+GLXYgDRcR2SbzxQ3+iH8Cb4Jsao7GDMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784270144; c=relaxed/simple;
-	bh=mhJJOiGSAySJ9mUo6G70qcgxDi+mETTMgMGHEkSRrZQ=;
+	bh=w8K92w25Y6Wl0j3LBHVzVnwX1f2PDQ2AKUEQQFZiqzc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZzVF3o6vq/RCwlNxmAIRdmt+jLK1yLdaWXphUEj9ejmw6ZKOEOlgQ5MADX7fLErVeqZ/xJiponOeniHDBoRusMIj1Tsx32jXhxEqw639wPE3DV72Xv19BN71cjvdWzVZQC6lE9JcM9QZFSyVkgGZqD5C2yt+8NrlZLZ8DJFKduQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J2yzw+nh; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=T70IDju1lhiIVP9rkCHTM4gI9dr1bGj0znVNo49ytr0o//pMrTz0OrIT98JiP2svbUsx1zJZQjdUtP4OH0jh6lH/XxPwpv5b/mfvGloxn7Kg8L04OsghdL0zcO/KHHX1haZGgANBVwpWCtvfdD3epgybcIMyZ5aV/c4e8Ad54UM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fCZ+ajVd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J2yzw+nh"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9332DC2BCB9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fCZ+ajVd"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A0D85C2BCF6;
 	Fri, 17 Jul 2026 06:35:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1784270143;
-	bh=mhJJOiGSAySJ9mUo6G70qcgxDi+mETTMgMGHEkSRrZQ=;
+	bh=w8K92w25Y6Wl0j3LBHVzVnwX1f2PDQ2AKUEQQFZiqzc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=J2yzw+nhMW8VMhFXrK0Oc8zmL4Yr4ewqnqgBZ2bBKd7n/hG9CUFybZj72yc3ZnUg0
-	 M1452BSW9lH8DIN9UfaEooVHSlaa/mAW133UO9pdaKgeqebsa9F98WTucb0dAcu7d3
-	 QnLGpQNpuUELMaMfwo/HfBmsbjLUjBxhDQnxIGcFwAkVqAVQQGhbHm3+YNWzVmVE3D
-	 fa+w62xgPwpO2OmJ9V69oeVY/M6t0UKabKLlHPj6sI2vjwmGHkuJUw4SbaDi/5O0qX
-	 /tDPtY8QlOhrTFqx1xR4jKSS1iH+cm0Ek9/dtpqsZt5kYHQoNMR1E0C6PqDVmIXLtX
-	 aJkezYvscWq6Q==
+	b=fCZ+ajVd65qTSAsxshrGQMjcFL5doYVnCD6w8rCRRHXjzqRTKaRZDWWkhQtR2a38m
+	 VUQhLOjQYNzzyIsAFg1BEmJva20Yeb96Q0VnQ1ibh5eXwR7dBdDORt4+3SoB8j3cYD
+	 pdl583doqDjky6M0rA7l13CIcfGOJElhfIxHMgucJfZIr1HtSlRos4Z8bgiQyeyFtO
+	 B5jgS4DO+NA5Rjgvpc2fsP+/lRvg5ltdqpri3iqtLv7mxbEuEeb7U6kgkZXsn9x/qi
+	 fgLjCaMTCpBJ36Phki++WifmNHHHB5TWcU1uMArdFngkpzyAQxh1t7uHDXGI60nosn
+	 ReR0EqbYZyHhQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7597BC44515;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 852BAC4451B;
 	Fri, 17 Jul 2026 06:35:43 +0000 (UTC)
 From: Haoning CHENG via B4 Relay <devnull+Haoning.CHENG.cn.bosch.com@kernel.org>
-Date: Fri, 17 Jul 2026 14:35:36 +0800
-Subject: [PATCH v9 2/3] thermal/drivers/imx: Fix rounding and clamp for
- i.MX7D alarm
+Date: Fri, 17 Jul 2026 14:35:37 +0800
+Subject: [PATCH v9 3/3] thermal/drivers/imx: Add temperature offset support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,8 +39,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260717-b4-symana21-11221-imx-thermal-support-upstream-6-18-v9-2-75f4af8974f4@cn.bosch.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260717-b4-symana21-11221-imx-thermal-support-upstream-6-18-v9-3-75f4af8974f4@cn.bosch.com>
 References: <20260717-b4-symana21-11221-imx-thermal-support-upstream-6-18-v9-0-75f4af8974f4@cn.bosch.com>
 In-Reply-To: <20260717-b4-symana21-11221-imx-thermal-support-upstream-6-18-v9-0-75f4af8974f4@cn.bosch.com>
 To: "Rafael J. Wysocki" <rafael@kernel.org>, 
@@ -57,11 +56,11 @@ Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Haoning CHENG <Haoning.CHENG@cn.bosch.com>, 
  Frank Li <Frank.Li@nxp.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784270138; l=1704;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784270138; l=4532;
  i=Haoning.CHENG@cn.bosch.com; s=20260709; h=from:subject:message-id;
- bh=9D7qX15817iSb+CvnZ+YgaTi5ivABKiNn7DaNl6d+D8=;
- b=fmFFePCNG9PZ7XUYjFBhZjg4onieYgP36c7WsmnkpLw+X+HxCyGq4YtPLjvAPYaB7ov/3Hjq1
- XhPzhmUIPReB3uwF+XRu/JyH+Uj9ehTIV5JjZuIxiz7QMBEoqWHdm5V
+ bh=zUo85bPxIO8Rx2XjCQkmetPidch+NJgoFn1tU6EFSfE=;
+ b=xvHPkg79ydE596ItU2Sz0uCY+KXWwrC0oSdUbgI3T6NGWZ7yuoAkIglbioefIvfK3mJEmKPlB
+ +RQZvZuUplnAZ4wgeAkF0TqL8HHVXqWtBCiP4KQ2J2ZLkNeundmvvbf
 X-Developer-Key: i=Haoning.CHENG@cn.bosch.com; a=ed25519;
  pk=glQGwad/fosRS5gZUJYbLDPPLGe7rFTrTV2VxY/ySdc=
 X-Endpoint-Received: by B4 Relay for Haoning.CHENG@cn.bosch.com/20260709
@@ -71,48 +70,125 @@ Reply-To: Haoning.CHENG@cn.bosch.com
 
 From: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
 
-Convert the alarm temperature from millicelsius to degrees for i.MX7D
-using ceiling division instead of integer division, ensuring rounding
-errors do not cause the alarm to trigger below the intended threshold.
-Use DIV_ROUND_UP() for non-negative values and plain integer division
-for negative values, since C rounds toward zero which is equivalent to
-ceiling when the divisor is positive.
+Some boards need a small per-design offset to make the TEMPMON reading
+better correspond to the SoC package-surface temperature. This is not a
+sensor calibration that improves the die temperature accuracy; it is a
+board-specific conversion from the internal sensor reading to a
+package-surface temperature estimate required by certain applications.
 
-Add clamp() to ensure the hardware register value stays within the 9-bit
-range (0..0x1ff) of the i.MX7D alarm field, preventing silent truncation
-if an out-of-range value is written.
+Read the optional fsl,temp-calibration-offset-millicelsius property from
+DT and apply it uniformly to the i.MX6/6SX/7D formulas.
+
+The offset is applied symmetrically at two points to keep the trip point
+semantics consistent:
+
+1. In imx_set_alarm_temp() and imx_set_panic_temp(): the temperature
+   threshold is *subtracted* by the offset before being converted to a
+   hardware register value. This shifts the hardware IRQ trigger to the
+   die temperature that corresponds to the intended package-surface
+   threshold.
+
+2. In imx_get_temp(): after computing the die temperature from the
+   hardware register, the offset is *added* to produce a value that
+   better correlates with the package-surface temperature. The thermal
+   framework always sees this package-surface estimate.
+
+For example, if DT sets offset = +3000 m°C and the passive trip is 95°C:
+
+  imx_set_alarm_temp(95000):
+    alarm_temp = 95000 - 3000 = 92000
+    → hardware register programmed for 92°C die temperature
+
+  Hardware IRQ fires at 92°C die temperature
+
+  imx_get_temp():
+    reads hardware, computes 92°C die temperature
+    *temp = 92000 + 3000 = 95000
+    → thermal framework sees 95°C → correct trip
+
+When the property is not present, the offset defaults to 0, preserving
+the current behavior.
 
 Reviewed-by: Frank Li <Frank.Li@nxp.com>
 Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
 Signed-off-by: Haoning Cheng <Haoning.CHENG@cn.bosch.com>
 ---
- drivers/thermal/imx_thermal.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ drivers/thermal/imx_thermal.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
 diff --git a/drivers/thermal/imx_thermal.c b/drivers/thermal/imx_thermal.c
-index 38c993d1bcb3..7f7d1116b9d6 100644
+index 7f7d1116b9d6..d471acc16bce 100644
 --- a/drivers/thermal/imx_thermal.c
 +++ b/drivers/thermal/imx_thermal.c
-@@ -240,10 +240,16 @@ static void imx_set_alarm_temp(struct imx_thermal_data *data,
+@@ -85,6 +85,10 @@ enum imx_thermal_trip {
+ #define TEMPMON_IMX6SX			2
+ #define TEMPMON_IMX7D			3
+ 
++/* Calibration offset limits (±20 °C in millicelsius) */
++#define IMX_TEMP_CALIB_OFFSET_MIN	(-20000)
++#define IMX_TEMP_CALIB_OFFSET_MAX	20000
++
+ struct thermal_soc_data {
+ 	u32 version;
+ 
+@@ -207,6 +211,7 @@ struct imx_thermal_data {
+ 	struct regmap *tempmon;
+ 	u32 c1, c2; /* See formula in imx_init_calib() */
+ 	int temp_max;
++	s32 calibration_offset;
+ 	int alarm_temp;
+ 	int last_temp;
+ 	bool irq_enabled;
+@@ -223,6 +228,7 @@ static void imx_set_panic_temp(struct imx_thermal_data *data,
+ 	struct regmap *map = data->tempmon;
+ 	int critical_value;
+ 
++	panic_temp -= data->calibration_offset;
+ 	critical_value = (data->c2 - panic_temp) / data->c1;
+ 
+ 	regmap_write(map, soc_data->panic_alarm_ctrl + REG_CLR,
+@@ -239,6 +245,7 @@ static void imx_set_alarm_temp(struct imx_thermal_data *data,
+ 	int alarm_value;
  
  	data->alarm_temp = alarm_temp;
++	alarm_temp -= data->calibration_offset;
  
--	if (data->socdata->version == TEMPMON_IMX7D)
--		alarm_value = alarm_temp / 1000 + data->c1 - 25;
--	else
-+	if (data->socdata->version == TEMPMON_IMX7D) {
-+		if (alarm_temp >= 0)
-+			alarm_temp = DIV_ROUND_UP(alarm_temp, 1000);
-+		else
-+			alarm_temp /= 1000;
-+		alarm_value = alarm_temp + data->c1 - 25;
-+		alarm_value = clamp(alarm_value, 0, 0x1ff);
-+	} else {
- 		alarm_value = (data->c2 - alarm_temp) / data->c1;
+ 	if (data->socdata->version == TEMPMON_IMX7D) {
+ 		if (alarm_temp >= 0)
+@@ -283,6 +290,7 @@ static int imx_get_temp(struct thermal_zone_device *tz, int *temp)
+ 		*temp = (n_meas - data->c1 + 25) * 1000;
+ 	else
+ 		*temp = data->c2 - n_meas * data->c1;
++	*temp += data->calibration_offset;
+ 
+ 	/* Update alarm value to next higher trip point for TEMPMON_IMX6Q */
+ 	if (data->socdata->version == TEMPMON_IMX6Q) {
+@@ -635,6 +643,25 @@ static int imx_thermal_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, data);
+ 
++	if (of_property_present(dev->of_node,
++				"fsl,temp-calibration-offset-millicelsius")) {
++		ret = of_property_read_s32(dev->of_node,
++					   "fsl,temp-calibration-offset-millicelsius",
++					   &data->calibration_offset);
++		if (ret)
++			return dev_err_probe(dev, ret,
++					     "failed to read calibration offset\n");
++
++		if (data->calibration_offset < IMX_TEMP_CALIB_OFFSET_MIN ||
++		    data->calibration_offset > IMX_TEMP_CALIB_OFFSET_MAX)
++			return dev_err_probe(dev, -EINVAL,
++					     "calibration offset %d millicelsius out of range\n",
++					     data->calibration_offset);
++
++		dev_dbg(dev, "calibration offset: %d millicelsius\n",
++			data->calibration_offset);
 +	}
- 
- 	regmap_write(map, soc_data->high_alarm_ctrl + REG_CLR,
- 		     soc_data->high_alarm_mask);
++
+ 	if (of_property_present(dev->of_node, "nvmem-cells")) {
+ 		ret = imx_init_from_nvmem_cells(pdev);
+ 		if (ret)
 
 -- 
 2.43.0
