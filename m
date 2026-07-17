@@ -1,83 +1,126 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C5C53BFAD5
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:31:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FCB3BBFD3
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:32:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784280693; cv=none; b=YLsK09wLxQr/MbfA4cdsbu7ag85IaTthDwBtPxd0l7e/r8jCS3dBbdwgp5FrpGuCpeAvUzK+Z+Fj5T0pNdZUJgrOcJBdtwdBuz6G9qOSPyCCSQe4RuQbZq4CT3pRhdT4OYz6xWTjMAx+HBJXHVTwjjByrD5JGaqecljqfT/W/q8=
+	t=1784280736; cv=none; b=gW28wawo8V3NSElUVbokRnaQfgjGxL8xwFcATHRhHB0hRB4RK15l7Q+tX9SEGyn+jozZ0aA18dilWlvzN8bKEB5XdzAuX/aEDLErIoMk0QcQWWXylRZNDKi7PSpfDqrbQwXbfsKeCt+R1Ml1OBDS/7NfXnzv1AluAH3KuJ/1X84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784280693; c=relaxed/simple;
-	bh=idyDIDnbrWb05N4rusK5NDUWMXuYrFaoFGUInQ0RKUY=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=g3+ow85Bb7fY3vmd2VxwdMw30ScinrAoG1fh8AYvX0rebRMmss0VwTXT2M4aOKabesPdGc3dUI6HFhTeOYAZPcM7109+opS2Y3jW89IXQzqvypmS0CYpnpAqXXT2ijZJ3FK9uMehl3amc2Gk42aH6St5MwCdss60Zif8FfD5OjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZAUXZgfE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784280736; c=relaxed/simple;
+	bh=qLuE6H+EoQh0bIJkS8YR4gzAhuj8f8XnCqykO7YNIEA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=RabEtVdTJGCyZsWzp2LpFuS/+no4V3z3TmSnJCc+tWxgA/bcKoO0b/hkZpDjzEVzc9PB2S+Ho25snZEgYYvsBKaO7mvKdOcT+0vTw6pyAAdX9Oaw+49G5shb9PIW6alaxIZIYwatDGqB6Rb+JskkAuUvYKTnqEOFfIcybOr8gNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J9ttQivl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZAUXZgfE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23B1E1F01559
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:31:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J9ttQivl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B291F1F000E9;
+	Fri, 17 Jul 2026 09:32:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784280692;
-	bh=idyDIDnbrWb05N4rusK5NDUWMXuYrFaoFGUInQ0RKUY=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=ZAUXZgfEt4tJUPjuOKXh+I0aEsTaLTqhZkgFdhoVvk8xTRHOR4YKcor5S3GGiJlmO
-	 pzlITU0fec9otfVvrqmikj9/kfhsr5fZWbY9xiL7VYzmhT6LdpHkh0KkDNbvTCBf79
-	 xv7R8Cat5Bnw8kG+sJJskivwTirKGtJ/cBbirTrsLdEUJ6LLf+hnKlRUVgSkjVj6Wq
-	 8R8iYHllTM/2CdwPwDaXQN09XQ/8AExMoePhilJ+I7tcLCkxsxSneTLscQkPxqyZ2s
-	 HxOpiMWhGC5Wj6gsENFFyAwumhJ9McYQt19d0ini49zeHUXw+8MD16qi/rOYlJD/3n
-	 VlqciQUZ5L99w==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b0231a3e86so7019358e87.0
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 02:31:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rp61XvwKaOpb1ZcbuqaOT9Vj+jmDggZe7PnoeH1rET36K8iWOnXdITGcpd3oHZ+jo0q74RvSSqpdHFg@vger.kernel.org
-X-Gm-Message-State: AOJu0YxE40i/fvBKu73RmUit6G2g0e2t5GVcewn0cc5KtLx6OXvTsMEL
-	piVkMqIiRMfYCabbSbVxsU7vh5/qIaS9zl6qajwH+R1bQ2X03SL6svGfUE79M9sGX+T8L9nJF/w
-	5soBidz1Ie2UpoIePSOEw7XMRHS++d1h9598aXlNjNQ==
-X-Received: by 2002:a05:6512:108d:b0:5b0:137f:9467 with SMTP id
- 2adb3069b0e04-5b28f9ac5cbmr482378e87.34.1784280690891; Fri, 17 Jul 2026
- 02:31:30 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 17 Jul 2026 04:31:29 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 17 Jul 2026 04:31:29 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260716-monza-wireless-v4-7-9b02e6f549d7@oss.qualcomm.com>
+	s=k20260515; t=1784280735;
+	bh=Q//o8vGbXXq+0kgHfmQL5NBT5qItyGKywaDEhIwEYTA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=J9ttQivlNgFOfgnbrYI8ZAgRp9WxEPl0QfdqIBbGyw741pmTU3/XszBtnillNvgvD
+	 mt3HbuPGFKPQNQt7JQLl+dBflnd9DpS/FK/XBs5HqvtBFdBtQRa22oLCINVeQUVvcp
+	 VHRk6ZZGhbim9N2LetPPciGzkR3/xEer/XZlOdKqgb3A6cAgeajFIACaGsZgSVbJS1
+	 RIXbl+bgrlGA7j6PRR8rovYVxueo3YEmbLKyMinWbnEdTMPEGBlKRBGHqlN8J7FNSQ
+	 1jtw9h4/Z394jC0VvRnaRnieOP/DiSZq0lfd2u6dK+TKEO6OEmsCDENjoOfSZXYa0C
+	 X9s7iYjs4AA4Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 9/9] arm64: dts: rockchip: rk3576-rock-4d: enable
+ NPU
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260717085220.3212274-10-gahing@gahingwoo.com>
+References: <20260717085220.3212274-1-gahing@gahingwoo.com>
+ <20260717085220.3212274-10-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 09:32:14 +0000
+Message-Id: <20260717093214.B291F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260716-monza-wireless-v4-0-9b02e6f549d7@oss.qualcomm.com> <20260716-monza-wireless-v4-7-9b02e6f549d7@oss.qualcomm.com>
-Date: Fri, 17 Jul 2026 04:31:29 -0500
-X-Gmail-Original-Message-ID: <CAMRc=MfmfWs=jMB94uiiE0dUtc5hEiYBdV82mOfLsoZUfOXSSQ@mail.gmail.com>
-X-Gm-Features: AUfX_myKUmYFvmwFkx01Fktbv79abVzfk5hHWq1rwGSJURh2ZxpSwF-OnLa0xCk
-Message-ID: <CAMRc=MfmfWs=jMB94uiiE0dUtc5hEiYBdV82mOfLsoZUfOXSSQ@mail.gmail.com>
-Subject: Re: [PATCH v4 07/11] Bluetooth: hci_qca: Embed bt_power in struct qca_serdev
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: linux-pci@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org, 
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 16 Jul 2026 18:18:24 +0200, Loic Poulain
-<loic.poulain@oss.qualcomm.com> said:
-> 'bt_power' is allocated dynamically only for a subset of SOC types, using a
-> switch on the SOC type that mirrors the one that follows it. This is about
-> to become pointless as the power sequencer path (used by M.2 modules) is
-> independent of the SOC type and needs 'bt_power' populated for any type.
->
-> Embed 'struct qca_power' directly in 'struct qca_serdev' instead of
-> allocating it separately. This drops the extra allocation and its dedicated
-> SOC-type switch, and removes the need for NULL checks on the pointer.
->
-> No functional change intended.
->
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Unconditional call to `devm_pm_domain_attach_list()` breaks probe =
+on single power-domain platforms (e.g., RK3588).
+- [Medium] Devicetree binding schema violation: `power-domains` has multipl=
+e items.
+--
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+--- Patch [9]: [RFC PATCH 9/9] arm64: dts: rockchip: rk3576-rock-4d: enable=
+ NPU ---
+commit b202e27a2b4bfe1725b5bf2c08f62041f816c518
+Author: Jiaxing Hu <gahing@gahingwoo.com>
+
+arm64: dts: rockchip: rk3576-rock-4d: enable NPU
+
+This commit enables rknn_core_0 and rknn_mmu_0 on the Radxa ROCK 4D. It
+supplies the NPU rail and configures the power domains.
+
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts b/arch/arm64=
+/boot/dts/rockchip/rk3576-rock-4d.dts
+> index 272af1012ab03..09d2fc98bb4c1 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
+
+[ ... ]
+
+> +&rknn_core_0 {
+> +	npu-supply =3D <&vdd_npu_s0>;
+> +	/*
+> +	 * Power BOTH NPU domains (NPU0 + NPU1) like the vendor's single NPU no=
+de,
+> +	 * even though rocket computes only on core 0: the CBUF->CMAC read path=
+ is
+> +	 * only fully powered with NPU1 up. rocket attaches the multi-PD list.
+> +	 */
+> +	power-domains =3D <&power RK3576_PD_NPU0>, <&power RK3576_PD_NPU1>;
+
+[Severity: High]
+Does the driver's handling of the multi-PD list break probe on single-PD
+platforms like RK3588?
+
+The comment here notes that rocket attaches the multi-PD list. When a device
+has exactly one power-domains entry, the driver core automatically populates
+dev->pm_domain before rocket_core_init() runs.
+
+If the driver unconditionally calls devm_pm_domain_attach_list():
+
+drivers/accel/rocket/rocket_core.c:rocket_core_init() {
+    ...
+		err =3D devm_pm_domain_attach_list(dev, NULL, &pd_list);
+		if (err < 0)
+			return dev_err_probe(dev, err,
+					     "failed to attach NPU power domains\n");
+    ...
+}
+
+In this scenario, devm_pm_domain_attach_list() returns -EEXIST because
+dev->pm_domain is already set. Since -EEXIST is less than 0, won't this abo=
+rt
+the probe via dev_err_probe(), fatally failing initialization for platforms
+with only one power domain?
+
+[Severity: Medium]
+Will this multiple power domain configuration cause dtbs_check validation
+errors?
+
+The schema currently restricts the power-domains property to a single item:
+
+Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml:
+  power-domains:
+    maxItems: 1
+
+Since this adds both RK3576_PD_NPU0 and RK3576_PD_NPU1, could the schema
+be updated to support maxItems: 2 before adding this configuration to avoid
+build-time tooling errors?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717085220.3212=
+274-1-gahing@gahingwoo.com?part=3D9
