@@ -1,197 +1,149 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010061.outbound.protection.outlook.com [52.101.69.61])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012071.outbound.protection.outlook.com [40.93.195.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF43F3F58CD;
-	Fri, 17 Jul 2026 10:56:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.61
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487543F413D;
+	Fri, 17 Jul 2026 10:58:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.71
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784285807; cv=fail; b=SerrgusOci6JSaxBOIofzqDIX2s49ASN6vcNXgohck3SQsX1FQ9kDW6sMUgKYWu/cZkjJzXRMZz1vpgjPRTKhQrmTeDbjuRiq/G13L+VnFs76Q5vHFNZgQLZWwX5MTzoPPuVMaGFdY9CvMU9Fw60/mXiItEIxMxlWVsP7QLCSTg=
+	t=1784285941; cv=fail; b=Xx5k9oE/LVLl8hj4KWszM13N7kaEI4gihFuHNQVGfGXsqll6ePJtHGiBe8O43jKLmsc69FVLnt8tRpc0z4/v1bz1o6i4sXdxkFs7t5zm9OwpWlXWy+kwtVMupqY479DWeh5mruqF65asuhnLloIkgQPg21FkMIwkwrZ52RI8MaA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784285807; c=relaxed/simple;
-	bh=rXCz+RjRryPw6okSsLS2gT1n2zw3GWgVY8tsmT6TdRg=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=QIzkGs1b9dzj+zuNxdvWVF+1aaDVnjVwKx6QRSGIToXIsM41y/fFlwqgMHTEqQMwtqjcONkGKnlWo+siGstUPD+OMSHtyVhdw/PJWthHcFnhZxVGqqHmtnisGrRCjJ4EcwJqD3JCFr7DjuMGYmhpa2OXmqUzvG7PFB5uZhN31/U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=EGUnVjfq; arc=fail smtp.client-ip=52.101.69.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1784285941; c=relaxed/simple;
+	bh=DM0mxD+r34IYBbjYDGULu7aAZ4owVJe5LLVLpkOqsTs=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qZA97UvkumL9jJ0GjVz3SsTkgNVqxW/ww6WC35E59w3NMNylAQxCWkQ2+sMiKDXRsQmehM65gyz4cGLn/PMEED/kObVcqC7S2szQubAQoaunMafvJZlP95TgJINBJjRZRz+MnizabIl2p3U6iol4A+Ck7FuKfggi7mIYqZwFono=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=q6IiKNtY; arc=fail smtp.client-ip=40.93.195.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="EGUnVjfq"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="q6IiKNtY"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Aj0/kewCbp4Mg8YgjMzsn+iOreuu0c35xyctVIA+sqhxyHMMtGq0bjc2j4fNaUTtEXK+rRIFjXn3IzQ2w2kbWOCiS1y5PTaYdqjV8bclHJ/H6s48ldGIei2onMGZJXEL+g4ULcf5/c+oTBrIOlHzeMoLlohd692eb6JFFjVv/95WPnivWAoivXSRAzxYsbvpsOcgGOhTjIApU0P93oZofnLFVqE7lUtEksbELxtCE6YfVdo07J/RiD6ESBkas4DEscYvi1SKKpYhLFxDM8EeZTJM/Y966u16JGzEPDFi2Db3rtkNYh2WSTnCvDVeotANoN7MVIC1gCcijkb0o5SHqw==
+ b=YlPbexpH7rtwXyU1olCDa6HingK0hHd9EGht/VyzyGUyntWxOiYCs3IZwgTk4eOHGOxDMfK5C+22/aY4Qqlv/lflnoNSBiT9kx2rWkLKgr+T2C+T8AY026j5s3YHHI2q4Jdu3+ZdqvEwcdUoZDa2Ds4f+cRNNBeZjZT7xs/9tjS2sYv6wXWdX/K1YmXHQWe0mgsGmiZHnjzAfWQFrbt3mZxfruh9FAZz6wuq1qgj5NgEtvsWbtc92gEoGM2JY2hPGJ9pEWON7yrRe96Y7r430OCoQCpmqYnTnGmMVfmIkUgV8xw2CCF9JGLeN/+enTe8+PqaxIdn0DAunAblPsa3GQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zuCQjnIjcHcsCbC4CeSNrKK4n8UqQjP5j6wVuK5Frmw=;
- b=gGm59dETIayfAsF8ce3cr0eKXhU3xxbBCyF2zPwLgSNN13h1zV117CErfeWaHFRr/r5P93jsgJ0Zv6T/e6JJIh1odkTLqwCKd9XWaMSVa1MGZMIFQD8v6bD3DMOYibFM3cfSCqg/lwfXShbXa8a3rjo4ESx/XVy7466IpyLR2FE9CQoPjhT4iMN9mVEKVg7/lJqCGZHvdnRy0QL7QEEyKjShmN6p3JCxjneVwCplDCy0erAM38iUNZICGBvwU1l4ze8oRx7hwv8soam9zLXpP5jnqKyLXHVPtxM6LQC+QkpxcIgjMgHuG+I3YoPIu/rrDiluhGhkeauqSPXogsir1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ bh=yRYeAw+7aBSpV6WT4hcuV5EiFzbWiq1oOReKg+Z+TGw=;
+ b=M8tb51LeHz9f8QQDZq7nBG6M1NFHg9FzSgpFtrqpZt1YOVLxnWfRE17S69NJj9pw/frwjaMuprMmq6Zyqf1TSjlSJ92Mki86Ui4N8InksIJKebtwqgZHt5uKAxPXfokKL5+5ql5QnFnfBUNbaJPqiZAd5YD43ZQ6i2wBCwFlHPQyLKnQhBxBMNr3z4Am9/AbMyt1HKvn0sQh44YZ/Oz9C0LUS3ZRiR5+8NLLppWNvJkTAlT8XfcGfyqLuLEBXPYymnWpglwvMUfxtxmXBsH7T7JIMD4i4UjovBNuOVsMcBFcvJSmmF3NnUAL/XGldN1uqvDwBdd8es51MXcsHQ9cKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=bootlin.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zuCQjnIjcHcsCbC4CeSNrKK4n8UqQjP5j6wVuK5Frmw=;
- b=EGUnVjfqpLj69ILwkqOqmmPby1seqIQvY5uJa8nuD+q6J9AM55r9MV1eB0OBG2hbaVhJ2PZCv1xoa7TbWsuxErjCae+YWUBse8cANLsitEkuCxpQnmIOMxolhZJOGZ0XKizjHZ4TP8vtLpwP3IZxaZQLX24mznmnabXtpw3NG8tCC55jqKeKmhXx0J0qSjt4wcBdo9aBIyvCoDpCNY75asxCoQEMiNuWs+Pp0LZk38gSj+RQyKpvNzuT28QLPTyngIWT76X6X2ukplLsNBG/dU4+i6ko7CKJHEcMD6lo08sQdtKsbmrk/DPvYchxBJ/C/Qlew3BabQo6gczdYskhww==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AS8PR04MB8465.eurprd04.prod.outlook.com (2603:10a6:20b:348::19)
- by VI2PR04MB10224.eurprd04.prod.outlook.com (2603:10a6:800:228::5) with
+ bh=yRYeAw+7aBSpV6WT4hcuV5EiFzbWiq1oOReKg+Z+TGw=;
+ b=q6IiKNtYImMM3WKcevj5dgs4rDrAsmfs22Bsuxm4OcXUaVrneWzP9V5wj2ozMaQwY/dp5fnDm45KAfGcuvLcgFpDqcqV1zl1ji9X9hQusgzsDTFLKqi3c2NcT5k5GVboIDv9HUcRNIePvsEw+pEusssgwlhtnbLoxE6gEkRcXA0=
+Received: from SJ0PR05CA0178.namprd05.prod.outlook.com (2603:10b6:a03:339::33)
+ by SA0PR12MB7073.namprd12.prod.outlook.com (2603:10b6:806:2d5::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.11; Fri, 17 Jul
- 2026 10:55:54 +0000
-Received: from AS8PR04MB8465.eurprd04.prod.outlook.com
- ([fe80::36fa:43c3:5ac6:9545]) by AS8PR04MB8465.eurprd04.prod.outlook.com
- ([fe80::36fa:43c3:5ac6:9545%6]) with mapi id 15.21.0223.011; Fri, 17 Jul 2026
- 10:55:54 +0000
-From: pankaj.gupta@oss.nxp.com
-Date: Fri, 17 Jul 2026 17:15:38 +0530
-Subject: [PATCH v28 7/7] arm64: dts: imx8ulp-evk: add reserved memory
- property
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260717-imx-se-if-v28-7-0a9659c7e69d@nxp.com>
-References: <20260717-imx-se-if-v28-0-0a9659c7e69d@nxp.com>
-In-Reply-To: <20260717-imx-se-if-v28-0-0a9659c7e69d@nxp.com>
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Pankaj Gupta <pankaj.gupta@nxp.com>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784288732; l=1279;
- i=pankaj.gupta@nxp.com; s=20240523; h=from:subject:message-id;
- bh=hnPFsRK9/RoyluFDiCjFX7uqhb3SO3ctyv+6dqueb4c=;
- b=k9nxcbt5+zAbGHn3RsETTmYwSwQLsjuqvkK/9kNl5VgsopCG69Z9AeeKu56Phy0m1o/w8fbN5
- DO1lt04TN6JCtOMoUOhri/TfsO60ql56KzfUY3wMPL0HQp1KixeKaW7
-X-Developer-Key: i=pankaj.gupta@nxp.com; a=ed25519;
- pk=OA0pBQoupy5lV0XfKzD8B0OOBVB6tpAoIf+0x1bYGRg=
-X-ClientProxiedBy: MA5P287CA0070.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1b3::9) To AS8PR04MB8465.eurprd04.prod.outlook.com
- (2603:10a6:20b:348::19)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Fri, 17 Jul
+ 2026 10:58:41 +0000
+Received: from SJ1PEPF00001CDE.namprd05.prod.outlook.com
+ (2603:10b6:a03:339:cafe::7c) by SJ0PR05CA0178.outlook.office365.com
+ (2603:10b6:a03:339::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.5 via Frontend Transport; Fri, 17
+ Jul 2026 10:58:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF00001CDE.mail.protection.outlook.com (10.167.242.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.5 via Frontend Transport; Fri, 17 Jul 2026 10:58:40 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 17 Jul
+ 2026 05:58:40 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 17 Jul
+ 2026 05:58:39 -0500
+Received: from xhdshubhraj40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 17 Jul 2026 05:58:36 -0500
+From: Shubham Patil <shubhamsanjay.patil@amd.com>
+To: <alexandre.belloni@bootlin.com>, <Frank.Li@nxp.com>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>
+CC: <linux-i3c@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <radhey.shyam.pandey@amd.com>,
+	<michal.simek@amd.com>, Shubham Patil <shubhamsanjay.patil@amd.com>
+Subject: [PATCH] dt-bindings: i3c: dw: Document missing optional core reset
+Date: Fri, 17 Jul 2026 16:28:28 +0530
+Message-ID: <20260717105829.567522-1-shubhamsanjay.patil@amd.com>
+X-Mailer: git-send-email 2.49.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8PR04MB8465:EE_|VI2PR04MB10224:EE_
-X-MS-Office365-Filtering-Correlation-Id: 35eb2a0e-5a41-43de-263b-08dee3f1f912
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDE:EE_|SA0PR12MB7073:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7faba198-f05f-404f-f6c3-08dee3f25c8c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|19092799006|23010399003|7416014|10067099003|11063799006|56012099006|18002099003|22082099003|921020;
+	BCL:0;ARA:13230040|82310400026|376014|1800799024|23010399003|36860700016|56012099006|11063799006|10067099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	xNm4HDf4Wo57d5qqJ52l8Q3KtdIRlQ1QLMYQfmFmbKFtaOLtTCMpmCVHlo0jGh5h6N2hemgYqJsz+AnByiLJQJ3Vdzbd6mXUZdpYfN3ovH6svj6SMprC6eSTKFG6bS3hewS7fCdEaHtKEzhvxTvIP7ABQBB6YT27tISlXIf+5+tnbdkfON7yMKhg2VhcKUwApfjUeRRHBE6S4Y4qouAEQD5M3VvNNhaJyVn8VTVF+2KyTX3U/wBIMYkhbrAdl4Y3aNTaLuAMkuR72asS2I6T248rYX5Uk2Cobl/keNS7OFhaCU2eaYP/0ULpcifI2afSbN9o4MPh/rAikF8NmvMbV7Tth760eVdUtlA/XI47NgNkY5vg5AOTGpdew13udlzGvzHqmYep5E10yh5qfrCeI23DtA/D4K9jJ0arsN5af+tADhH01PM8keZtFTtuDyPBK3dxZEZ1u/FXm++6Sp6nyGb39waVT0vu/sE4fDDY9ioOlvg9Ja76kn/rVt+F6Nr4WYPKYSF6F1qHG3bUuf3jqsQy4AZhuBgSysXOFsyLo6hGY27Xzo1jl9yft8evqWrwOt0AfmzWRVMscxMiTR6kelxryXqyTdHU31J7GRvkRVmk9lQWCSdOZPHAqcbzsEnln0ATOuIgsqJ/HCkaGxwNe1VAnmmpCzMcmIIKcwgFbWVmeCweVafbyoE3uiwZhJIjnwLPPyERXaYIbnToG7759g==
+	lYs4TV3IdWSAD/zBFciJlGGzceqqwDhRcBCCUbT0LQChLfwkJjquULfLfwQxI3H9X0ErR7eEQG5jKQIrtYsciy7ygHc7TslQvLS3YjczFFnrAm5WAfnsiEY1HNH/ir1IRiIRmQ82Yzd8eSUoQGY8Jf5opj3Rvj+RHbz0RhW325pMFwufNfbCY9zgYyvloiZUFCYaHus0Aj17WllvKtceISpTWxvHYXY3qAiqdVTDTbKWxCIEZAKJcK3ngW8ofUNWmx0Y6qCOW6FbvwKN584IvZqwoz/XAPpoQ6mixNynWQyGawaO1FdHWjILDVkCUI4zBQmkVJYoavZlMh4ECmT5AGCFEyMV/tZLhrQl2LMLHPf/ciecM1do9Ytuf+pP1sPrYUq8AszJ8/crPWk/VRzuDBM1zRVsIUVnDdSPkWWP9X/vZ5xFskeXUlhXAR/z9dFwOBtNkxWBuZZXYgcBV3CXhmbg/cwBtOjwaoqG2Hjwo4YfmAu3eBwYfIPrYF2zvBQEiqO8687nCT3vDrHdc07D9L8XtWBYyONTYdKU2f02SJ43ae2QVGYMWMiB7C/tOGytuMDGyopui/L+Xf0qXdOL6wNksPHz4UpB1aLbeAp9t5GQQnF13DAzHjfhh4+VAhMctiltYZULVoH0ZCd1zHH/NrA+WLXb+gOnLq2jAoqRwFVsert5MMp9N4IRsdU1w2MqOlqib1FveTG03rrwwr0Cww==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB8465.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(19092799006)(23010399003)(7416014)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003)(921020);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(23010399003)(36860700016)(56012099006)(11063799006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Yk5EQ3A3dGJ4aXVkSUVLS2tVdmxlUjNqRVVCVnRjcUVCZ0N5aTY0WFBsS25E?=
- =?utf-8?B?Z1pYMDR2N0x4czJTSy9ob2cvbGo5YzFzWi9vSlhTVHZvanhuWXlvWUFWUG5S?=
- =?utf-8?B?aGxjelZ2OHRIOXlJM0p1dlRpQXdyK2F2cnY4UXppT1lkT2RwNWZIU0ZJR3hZ?=
- =?utf-8?B?Y3BzRkFKdWluR3FQTktKM1NJUE5aY2llSlNpdVgvRThiQ3hRdURXajBiLzVT?=
- =?utf-8?B?WGR1N1p6UE1JNWE0V3FtNFg3YmJ2UTZVazV5REhBTEttc3g5MkdRcUhldVo0?=
- =?utf-8?B?MDJJTWRUU0NndGNjQ2IvdThkK3FDTjZxbEcyVXRIbFBYeWJsRVp0M2FCZlVj?=
- =?utf-8?B?VWkxVkYvb0VBc1hzb00vWGUrV09NWktMSXpSZ2ZlYXhMQnBXTlEwR0dTakVu?=
- =?utf-8?B?K1U4QnVvUkd6TEJnc3p3REhHZGFXQ0tDRFdrbStVNnZUYitySzBWNFJ3eHFp?=
- =?utf-8?B?akFQd20xTy9OMG1OZUNzL0FzNTR1eXZ3NU9qS3NYdnFTSU5JRnk5UGFjYXAr?=
- =?utf-8?B?QkFaN0swUFM0YVk1ajFSSEE3REx5VmpWVnVpLzlDbUYrVG1raWVIZWI2cEF3?=
- =?utf-8?B?RDMxdm9lTTFJY0NIOWNSMTRqVmFtK1lMZEVLTi9Kb01PSGs5SHpiR3BRemI5?=
- =?utf-8?B?UGowdkI5aGppTFozRHlhMVBTcWpLL2gyRGhkc1E4RURqQWFjazZ0aURsTGdR?=
- =?utf-8?B?SU1HOVRtVU9vKy9GcjBRaWY3cjVHblhPdk95VGF5c25DcThpRnlGa2JIWkd3?=
- =?utf-8?B?SXE1SDFoQkFsWlNMcGlIM0FJV0Z5cHdBZ3UrN0o5YjNRb2hmOXgrNzJubzg0?=
- =?utf-8?B?WWVZMndqbzZOUm9zZy92MjlVdUJRMzhmY0xrUkt5UEVxZUhKcEpvSEJPdG1E?=
- =?utf-8?B?UjZWVmNTK3dCQ3kzYjJJVkdySE1NSWU1a24yK1EvcE1ja0NMc0JrcU0yMmtv?=
- =?utf-8?B?ejFFcXRJN2RGRE5HaTJhdHZOeVU0K1hXeFBFMElabkZzczk1b2dNV3BPbmY0?=
- =?utf-8?B?V05wUjVNa0lKdC8vTDYyU0RPMStJcStZTzNsZUs3dURoVGY0V3lrcEJITXkw?=
- =?utf-8?B?STUxZi9HS09ZeFJHQXlyZW5iQkxqcUwwZWhGanhVRzJIeUdQSC9ZWndaSXNx?=
- =?utf-8?B?ZkZKcEZCa0RiR0txY1NUWWJMQlBOVVgrM0lwbHRyN3I1SXRoRjA5SU9YSFVk?=
- =?utf-8?B?TEtxTmJtL05kdVFoMmJrWWNZTXN0ZmVpWlVkejJ6YUp5UHViT0NjOEpVbEd3?=
- =?utf-8?B?SDg5aHVEV0Npa0NIKzV3WCtRQjJJWHVkTzJ3VS9YdklQNnI4cjg5UklkY2oz?=
- =?utf-8?B?YlJYUlFlTStyV3RrVi9XeVFkQWkzVC9sWG9zNlM1LzhzajY5c0swM1Rvc3dV?=
- =?utf-8?B?aHdKYTFMRG1Ec1RSWjRQbk1xQWlLV3oyNkFRNUpoYnBBazFVNlVvbHF0NFgx?=
- =?utf-8?B?N1dzZmo2UUtESjRYUUprM05ITko3SkpxN2hOZ0RCby9abzVyWVpUZ0Z6N2NO?=
- =?utf-8?B?VFZOR0pCYTZxSWQ3ZW03aGVOelBXbmp1WHQyU3dvM0ZnSm9BQ1QxS1BHbU0w?=
- =?utf-8?B?VFAzeGloOXR4QjFIZnBoWmd5ZEYyT3NlcU40STZISTQ3QW1Ock1jcDIraStT?=
- =?utf-8?B?NGYzZ2RHSi85WGlvOG5kaG1CMzMvTk8rWHRibEs2K3l6Y2M0VlQ5TXFpS2lQ?=
- =?utf-8?B?Y2I4eG1Lb0s3S0dpc3U1SVR6L2F5YmJjVXNlbVhpcFFtMkJmQlpxdVZEVnh3?=
- =?utf-8?B?cjVYWEhva2RJZTV2dHhzZ2hSVDF1K0NGTTJNeDQ1V0t2aW5hZ0NQMlJuWjBw?=
- =?utf-8?B?LzlZRlFWZmpkRllBSDhPaFF6azAyekZyRGY3WjB1QXEzWHJtTjd5QjBybVp6?=
- =?utf-8?B?YU10UzNMQ2NUWDN3dVdwKytPZFZralhyTGpMY3dZVDVTWWF3RlhtU3BzNUhk?=
- =?utf-8?B?Vk9jc1NCVnFiZjJjemVqNEdVYXJKOG9OM0EzNDU4dml2L1h5NEdDTDhqTkxU?=
- =?utf-8?B?KzBsM1ZZbDM4QVh1UzFxVVk0b3UzUXpxNElYV2w2U28yd2wySFE2UW0xOG5O?=
- =?utf-8?B?dDQ5Nzl1dlJXUW1DS0dUTGZSZmcyWUhmQk55K2orNDJZdEpxVE80UEVrRHY1?=
- =?utf-8?B?SUxnQ1hzaVhLSnd5RFFucEh5UjU1aHhYUWpXSkhVYTRDSXV4RjhjTndLQnJ5?=
- =?utf-8?B?aVZUS2xKZytSL3M3eG03V0lRSFlldzdqRG82bnMrOU1yRjdReU9Eb0Q1dzh2?=
- =?utf-8?B?R0lTam9iSW9pL1JXbXpDRWlLNENoeURmdlFhbUJNWEZwaVZwVm5oTFpTaWg5?=
- =?utf-8?B?cWlyMlNJUEpaR3VTODVwRDRSOFdYUkxuaVVTWHo2RHRNVXJJcG92ZU5YdlA4?=
- =?utf-8?Q?ODUSW/v/9l4O2W4zNNkTGEVFU59S0iKGwvWgi?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35eb2a0e-5a41-43de-263b-08dee3f1f912
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8465.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 10:55:53.9845
+	MkyMauL5QDx6ZoVGB9d/VSYkiLEFUmf+EDL3/HPRVpTrhiB5QEWKzfv8ksAjKWqfOre+zB1bPuPGmUs9+65/RA2CPECBEQE2qQICtve9/Fnz2EnXaA6dSMwVNSKkSiXk6PvQeNg3E5wpQ6wjRU3xNIZxXt+EDZd8rmUc0sCRdTnqci2O70QFqdpDTxxX7KoiYFDsyLNroM9mQhYy+KjCncVHBkogTGVM1vweUk/Zj0XUUp9+R3yaRROGO/Nox5qPavmXc6vqAK/l+OK9JJvjZLm5e6lC29v8T8cgYBUfqhTCWPRyiCA28mH99wL63joajzkpMYv7FPRHTC6xuoyk80SZ4es7o03QI6WNWy598/LTP6jdOtl4xmVKyng6RVb4AZVtxx/VyF3xQKHAJn2VlzW+PrVr/9VZ2uz+yUa/IHdZuktbusqTanxd4FhTk06j
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 10:58:40.6265
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T09F/2Uz6nXNMbSAtGuGABWXO7iTo9cf/wU5zgrmjMBQvuiuVAimt36nVTY+Be58Lb/ZfzqvsNcdFDZ8/6SI+QQc6ysw7826kiMPYkjQ46q9XarC2x4F0fn5t1gtTcan
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10224
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7faba198-f05f-404f-f6c3-08dee3f25c8c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00001CDE.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7073
 
-From: Pankaj Gupta <pankaj.gupta@nxp.com>
+The DesignWare I3C master IP supports a core reset input, but the
+binding is missing the corresponding reset description.
 
-Reserve 1MB of DDR memory region due to EdgeLock Enclave's hardware
-limitation restricting access to DDR addresses from 0x80000000
-to 0xafffffff.
+Document the reset property and name in the binding. Keep the reset
+optional because the reset line is integration-specific..
 
-Signed-off-by: Pankaj Gupta <pankaj.gupta@nxp.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
 ---
- arch/arm64/boot/dts/freescale/imx8ulp-evk.dts | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+Note:
+The DesignWare I3C driver support was added by
+1dd728f5d4d4 ("i3c: master: Add driver for Synopsys DesignWare IP").
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts b/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-index 5dea66c1e7aa..16399d921e04 100644
---- a/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
- /*
-- * Copyright 2021 NXP
-+ * Copyright 2021, 2025 NXP
-  */
- 
- /dts-v1/;
-@@ -37,6 +37,12 @@ linux,cma {
- 			linux,cma-default;
- 		};
- 
-+		ele_reserved: memory@90000000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0 0x90000000 0 0x100000>;
-+			no-map;
-+		};
-+
- 		m33_reserved: noncacheable-section@a8600000 {
- 			reg = <0 0xa8600000 0 0x1000000>;
- 			no-map;
-@@ -259,6 +265,10 @@ &usdhc0 {
- 	status = "okay";
- };
- 
-+&hsm0 {
-+	memory-region = <&ele_reserved>;
-+};
-+
- &fec {
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&pinctrl_enet>;
+The original Synopsys DesignWare I3C binding was added by
+116e246a8bcd ("dt-binding: i3c: Document Synopsys DesignWare I3C"),
+but it did not document the optional core reset.
+---
+ .../devicetree/bindings/i3c/snps,dw-i3c-master.yaml         | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
+diff --git a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+index e803457d3f55..822faf8d221b 100644
+--- a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
++++ b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+@@ -38,6 +38,12 @@ properties:
+   interrupts:
+     maxItems: 1
+ 
++  resets:
++    maxItems: 1
++
++  reset-names:
++    const: core_rst
++
+   power-domains:
+     maxItems: 1
+ 
+
+base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
 -- 
-2.43.0
+2.49.1
 
