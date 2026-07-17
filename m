@@ -1,67 +1,69 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BEED3BE646;
-	Fri, 17 Jul 2026 08:11:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B493E1234;
+	Fri, 17 Jul 2026 08:15:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784275867; cv=none; b=SbCjyFL8Cg6Suy7RgJuKKmLe8ERkskPQlBI/aeeUCBfbHA6Xzk+Efx1yhrKWPwMoLACnap+IrYMw+gfiEHm55i0Y5tU/sHS3jooTuE9Ws4V2fCc0fR7I75eCE8hCRT7diH9QyZ19T1+AuAICihNZ4CKph0A6vQWpB8WNx35jmHE=
+	t=1784276134; cv=none; b=V+Rqs6jR77d+V04mycEWaYUAX0SzVPlsmfHXND9eRTaAn2ZF7Bz7zumHf2LIZ52d3DlQ7IjlO10AcTpmbx7vaUaLbzcXvVySO/H7wPxZcM5JzVWP8yvT4FtqOQV1WWKo0J0rrZiDFVrjhhVZPUNAKuepctntjvizRVhP4GC9AWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784275867; c=relaxed/simple;
-	bh=qUehnQl2XZn5FAct0Ga/H/Nt9FjYkTUtLcIRO8YoX6o=;
+	s=arc-20240116; t=1784276134; c=relaxed/simple;
+	bh=Icfqbb3rEIiFxXFRxS8O+X8oNH9+xaaTCNfk2QK60rY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UT1fVocSnm0CWxoHJAqev35e7W3mXGm2U8ubfp+vLG8pQkbR59QqhpFq1noDXyDbZgPg9Na9uWN8zjG1bZk/s5ZZFLh8paAFWr9x8LeskAmAn0pTydZAsRgtZhc0tiuOi2kLqYyzDe2KaNLzQ0x4wc1ipr9cZ1X5q7fLGbUmoao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BIyrfM/G; arc=none smtp.client-ip=198.175.65.11
+	 Content-Type:Content-Disposition:In-Reply-To; b=uMIuSxONsRqdAtREx32Er9Mh5zoz/F2niw7jPkiFE90m3LVxunvmPpEf+msZy9RyMyLQd+DaZjresBHwCLVUaICufLQL5F1un0LvrKkI7HAIEx69CjCmcc4fsXJCo94bO2jnZYqrXN9qVjgNaDaBjWhQrEkbRHhTdiwrVqjBh9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Qol3CTLt; arc=none smtp.client-ip=198.175.65.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BIyrfM/G"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Qol3CTLt"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784275865; x=1815811865;
+  t=1784276133; x=1815812133;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=qUehnQl2XZn5FAct0Ga/H/Nt9FjYkTUtLcIRO8YoX6o=;
-  b=BIyrfM/Gtcz5/qzOb44JlpAqDeJaYz4c1UoF58Q/z77P13n6V44i7Jgu
-   eel5lqkq32EBgf4HLUzpqXrh75F5709BRRIK3ch//rCxZCAgE/CQV2ULq
-   UEQG6RLfyle2B4YDSyd2sZfw+otVkj898LM9FtLDht69BplyzFwkpzcJz
-   MzvqcLTvb4IcAQlxLwk4/w/YHd02rlUwCDTlohwh0302h1GS6zEio5kkA
-   AQI+xvcIG9E1BG0QlTagyZ+NCMndmu0BJxJsvJQdNK/D0hKwSXTvC6TDL
-   I9gxBAqbu5HcNvnzBX7Aa/YR6YBXnB8UlUd+LIgRQIxl+G46v/JC3cAaK
+  bh=Icfqbb3rEIiFxXFRxS8O+X8oNH9+xaaTCNfk2QK60rY=;
+  b=Qol3CTLt6XsDyXFHOftWwY+35LJBcust+SRnT1pY4LhSZHs6zKnJaoiR
+   dV4w2M89B6aE4GODFN7ootA79tX4ij2tTfq+4tv3jOZqV6IyUtF7yGkl7
+   9qNJ1+ukyt/wN8HUNxSomh0LbptYTIF1n4sXbKg7F4O5YV3GJDJ97vD6h
+   GvdG0NtK9WHe+MziXyCTC/6EpeTwGQY+eXi/XMhUGsW917srlhsBed1qk
+   aDGkoYlFe+ZMgj7Y18bw3Yr9k86SoyjciUq+cX4SsnoaHQ4FCJM3+CgE4
+   S1dTrcOJOQrKhjwn/MlvEIjtM4G5aq8TABMrxTRKlsxg4MtrWu/UnoCfl
    w==;
-X-CSE-ConnectionGUID: fm8UVsHvQ8aAr8dLjHsqdg==
-X-CSE-MsgGUID: ptDlWrQeT/SerF4MF+vyxQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="95300484"
+X-CSE-ConnectionGUID: 5jCHv8KwTh+IYuf4rWBp7g==
+X-CSE-MsgGUID: REUT/e4nRImColF+/yaxnA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="95300707"
 X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
-   d="scan'208";a="95300484"
+   d="scan'208";a="95300707"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 01:11:04 -0700
-X-CSE-ConnectionGUID: wKDCDXWdTuivXPUEv93h5w==
-X-CSE-MsgGUID: +7AE6BiuQkGZIcIucC83ig==
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 01:15:33 -0700
+X-CSE-ConnectionGUID: FEMOgqSsQICEJ6vQ/MYLvg==
+X-CSE-MsgGUID: reeqV29lRv29dNC9HSRyLA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; 
-   d="scan'208";a="250377080"
+   d="scan'208";a="250377846"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.143])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 01:11:01 -0700
-Date: Fri, 17 Jul 2026 11:10:59 +0300
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 01:15:29 -0700
+Date: Fri, 17 Jul 2026 11:15:27 +0300
 From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Kim Seer Paller <kimseer.paller@analog.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
+To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: Michael Auchter <michael.auchter@ni.com>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
 	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Rob Herring <robh@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux@analog.com,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 0/3] Add AD5710R/AD5711R DAC
-Message-ID: <alnjk8WkaWqXlEXf@ashevche-desk.local>
-References: <20260716-iio-ad5710r-upstream-v1-0-e848a4bb701f@analog.com>
- <alkbtNdOe__XP7ud@ashevche-desk.local>
- <DK0OK76VQ1QV.3U5B7UFI0UB9F@analog>
+	Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 2/8] iio: dac: ad5686: missing NULL check on match data
+Message-ID: <alnknz55FbyyqqlL@ashevche-desk.local>
+References: <20260716-ad5686-new-features-v8-0-ebb0051af5e5@analog.com>
+ <20260716-ad5686-new-features-v8-2-ebb0051af5e5@analog.com>
+ <alkmAcDvSXr_COc_@ashevche-desk.local>
+ <ondynh4kmchzugk2l24klamrcaje3qxnhgiks7gnc46wwwvo35@hysk2zaimb2e>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,41 +72,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <DK0OK76VQ1QV.3U5B7UFI0UB9F@analog>
+In-Reply-To: <ondynh4kmchzugk2l24klamrcaje3qxnhgiks7gnc46wwwvo35@hysk2zaimb2e>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Jul 17, 2026 at 03:50:08PM +0800, Kim Seer Paller wrote:
-> On Fri Jul 17, 2026 at 1:58 AM PST, Andy Shevchenko wrote:
-> > On Thu, Jul 16, 2026 at 03:59:24PM +0800, Kim Seer Paller wrote:
-> > > The AD5710R (16-bit) and AD5711R (12-bit) are 8-channel, low-power,
-> > > configurable current/voltage output DACs with an on-chip 2.5V reference.
-> > > Each channel can be independently configured as a voltage output
-> > > (0V to VREF or 0V to 2xVREF) or a current output (0mA to 50mA).
-> > > 
-> > > This series adds support for these parts:
-> > >  - ABI documentation for the high_z powerdown mode and the current-output
-> > >    powerdown attributes
-> > >  - device tree bindings for the AD5710R/AD5711R
-> > >  - basic IIO DAC driver, supporting per-channel voltage/current output
-> > >    selection, per-channel powerdown, software or hardware (LDAC) DAC
-> > >    updates, optional output range doubling, internal or external
-> > >    reference, and hardware reset (with a software-reset fallback).
-> >
-> > Why a brand new driver?
+On Fri, Jul 17, 2026 at 07:51:35AM +0100, Rodrigo Alencar wrote:
+> On 16/07/26 21:42, Andy Shevchenko wrote:
+> > On Thu, Jul 16, 2026 at 01:14:18PM +0100, Rodrigo Alencar via B4 Relay wrote:
+
+...
+
+> > >  	struct iio_dev *indio_dev;
+> > >  	int ret, i;
+> > 
+> > Move an assignment here as well.
+> > 
+> > 	chip_info = ...
 > 
-> After looking more closely, the register map is the same as the AD3530R family.
-> I originally kept it separate because of the functional differences: per channel
-> VDAC/IDAC selection described in device tree via adi,ch-func, selectable 12/16 bit
-> resolution, and current output path. But those can be fit the existing chip_info
-> abstraction. Given that, I'm leaning toward extending ad3530r to support the
-> ad5710r/ad5711r and dropping the standalone driver. Does that direction work for
-> you? If so, I will do it in v2.
+> assignment? this is an input param validation
 
-Yes, pretty much!
+Can we make sure we always get a correct one to begin with?
+With that an assignment and check can be coupled together.
+Also consider use -ENODATA as it's most likely comes from
+driver_data.
 
-> > > Datasheet:
-> > > https://www.analog.com/media/en/technical-documentation/data-sheets/ad5711r-ad5710r.pdf
+> > > +	if (!chip_info)
+> > > +		return -ENODEV;
 
 -- 
 With Best Regards,
