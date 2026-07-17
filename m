@@ -1,83 +1,85 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FEAF384235
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 20:35:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B55773A1695
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 20:41:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784320528; cv=none; b=ogtbXm1V0ia2XA1+aVjWK/YW5b0v5MooaJhDwSBJ5g7pzFXOi84sKA9fyKv6u0i19xGpa8sIrH2y+QuNa5sEPe+oLTGYR2TqAeMgQXSKvvIvzoU5TCsgSqFS9u4rhYfa/H3//4r1hurWz8o13OWVXkugldx65VmOuWheuMYwrBc=
+	t=1784320913; cv=none; b=gKVDT254zZexr8Xusb1NMkSRRbGAwddeHas/nvrNNoK6DFKryh0cWSjLieb660xOeXfeobhaBgW+10Bl1aDe63Ac9OP2SE0dsSrhNFEdeGk/hOoCtjzx5C8DOiaZ7VBNEzVtJz7nP2ykG6KUsMP4cV62xyhhJwBp1mmJbcdKhCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784320528; c=relaxed/simple;
-	bh=oUtHmlS+6lFNDKPDMmSUMugEVw9ScUuaOklUrcljiro=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=GzyB02pdwP52sCzNS9/NRhkZ9yM7IKB+0HbdiaoVywjMBpJzqp0ebz6Vg97m6PNc6D/AKwGWnpTTEkl/RpQvb2MSvuwUsMsoM5UnDHmA/LXWnbcfoAnwZ7r44RP/1HZOYgEE0jf8DWlEnb8VcO+wYlhoJcL0bP+S/AtIcRVb37o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ah3OTkBN; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Njgg2KUt; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1784320913; c=relaxed/simple;
+	bh=6VEjrqVhr7MezwfVHfIVDsIN0YyS4xKPQEXFGvXAkd4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=gDPwgmbFyZHHXt5PwFMX1UGNYN3bagcqoC1YtXwAZ7yUSg3l5fRwILbOLOIM3LGpQbLvyppGXNOdbIwaXCsK4+BkUS8MiVGW9Oi1lXOqjfWEgrusSGi+WUcIwWvPl0Uxmdfn9OxSgKjAJ+Wq/Znn0d+8rU2XNJzcDaH/S2H1kSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HW0ZOYY2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b30XoyN8; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ah3OTkBN";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Njgg2KUt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784320525;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Is7QXRJ9Lqxz/W/+MXTuCWFGjk5bJ6zhQmYPGnfDWvM=;
-	b=Ah3OTkBNfenuzGhK7XzsotjAxVSF6WCpAbMmXgyF6rhJE5ZEcskARiiqkGuxAo2k2sjIMM
-	YzRV/fWDE0NdH4SiYAXOhLDSAA/1mx94WvsC6JbVZyvMxP3Gapzna9LM67IWyq4AB32Elr
-	mvUy6nnflabT3ySB+lnJQVnP6SSqA7A=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-433-CON8h-1mMJuGfhI6YLOlQg-1; Fri, 17 Jul 2026 16:35:18 -0400
-X-MC-Unique: CON8h-1mMJuGfhI6YLOlQg-1
-X-Mimecast-MFC-AGG-ID: CON8h-1mMJuGfhI6YLOlQg_1784320518
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92ef13b61bcso1254646085a.1
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 13:35:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HW0ZOYY2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b30XoyN8"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66HJtTDs2886999
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 20:41:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=sVH+YK2y1vG4lsBrivCXnD
+	TuyI7sx5ytr7WDEkhCxnA=; b=HW0ZOYY2FpGcSHpEnfmuVuVyl9JGzmftZEOCaD
+	DsPsngIbXbdhA2BGmz7sYPEGS85X8TT+PrP63hasVtmNBcfIrxQPKe1OweE6cB0y
+	UZBkk5VqbXoAgBUN8f3zGdBpQbzwVtlQjeys1cqOQKK6iK82SMb2vtBoSUARukYE
+	VZ6uWk/mf6YOPdDbB0Jv4SMQbE19eWNZFdLlGrlSGH/Nkd+eqw5FqyjJOgPo5DIG
+	tza7D2JwV9v9GT/hcX2om3TNECdCCoBXVMFRKPOcvMhja9Mzo+blHVySnLrNJX0/
+	VUM9EzkUB6lDaCNV7mzpqoLH+CGgXAbepodZX/stvLNr//OA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ffhpfjm5f-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 20:41:50 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3811279d51aso8805164a91.1
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 13:41:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1784320518; x=1784925318; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+        d=oss.qualcomm.com; s=google; t=1784320909; x=1784925709; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=Is7QXRJ9Lqxz/W/+MXTuCWFGjk5bJ6zhQmYPGnfDWvM=;
-        b=Njgg2KUt3NdcTNaAyRtYCreGpte0oaosuMaOmei5Uj4CXEkgGEpBV6o4l7oSmA2WkT
-         IXt3X+rqbgTQ2txiZthEyvrAxhzYvjChox6O/axT/SMb2duDTGBbyhICqygiLkBYX7vL
-         ZshLQe4nXEiFsfzLuXxdvJBYaLGsoxW7qMeUkWMzJB9BwHI8oOxOEYBzroBpIOC6vvLx
-         wFkMcScjs0rZ+ihPnHo0pDlHfgAvhHpTX+8lyvd2DqGBAEfqnLh8bTV3y7yghKvNjBcQ
-         PyvwCjgFC9012SBO2SyRRVGrLIL3I8CAAr68IHS6AwQhJSU5vg4c7HIuHrLifuDSvJUN
-         0mhg==
+        bh=sVH+YK2y1vG4lsBrivCXnDTuyI7sx5ytr7WDEkhCxnA=;
+        b=b30XoyN8+hIu2YKEV9k9NhuzEyK8uFmiBzBgq+x7gkNXkDD5fL5utJ2bVI6vd48qNk
+         gWmlzLnBCN1VrfUqtPqkbVvRcoHwMu6P6POi2BdbH10l19jtim2C5w0TR2mCctKNzeVv
+         GmpytDVi6go4/74ZhiX672YpHqdVCvuUfeDt71W6SvK+9421b0FssKjq5zJWLdu13D7m
+         bHDzj7kCkSYrYWapHcCQpKjS+Q1KUpFjN+smWZUy5+VW+8S4nQVAo+RvAVN8RDlsJGSu
+         eZV6L7yYpqtUradLMDDlrtKNetNb3R/ECW1n2BK4IDVTzDSjEETY6VEWrguCddjzfLzg
+         oGFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784320518; x=1784925318;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Is7QXRJ9Lqxz/W/+MXTuCWFGjk5bJ6zhQmYPGnfDWvM=;
-        b=iG6I6yH8i09E4TKizddWCxTG+XjKCTcYNckZsTkUth9t/qwCe/aWimlw23qyieHr9M
-         SDInPRMW5A9PEo5Z4V4edKkAy8RP8Vv8RNWA6N9pkR0ESl6BIi/nwNCl1RPwbZ5iMamb
-         FcEItcvqX8vMed79PXZMIOih6gxtwTFUc8kivG4RlG+GPWruygVtWGxdfA35dXpZIpJx
-         RW31NVspP4OzOTFpDgi7PEhjX4UnDs+qgkG0rpTIBdcYz9nflvWDyRWwC7dCRWuKKNqu
-         zoblAfQSZXVUGpD1BpH7f4eYXRlnDUtzmNZKCktoZ3xerhd13GnSsxxaUaY2NMdT4oAl
-         L4Ww==
-X-Forwarded-Encrypted: i=1; AHgh+RooO0M+1pbvbWfkypKF+kgTDS4o0NBVV8sCata6IsIJTeoe7VFgQ4980UYMTmNGU0WFZiq207VYLryh@vger.kernel.org
-X-Gm-Message-State: AOJu0YxUnaUIJqfiUES1Vp86rm0EMGCpklVkvDBE4d44BgehXbykTCc5
-	UKttvA46xW9/FYg+O7HPMOymQL67CJsAY78dwrMuUaeLsFm898Zn1gfp7eLlqztV5QyQ48EsBeX
-	6qfS08JUAoetzV8zQVvA9xNm9HkA5/t1btlwXsEwuHfE2E8BNwWKuJkNVGCmQ4SA=
-X-Gm-Gg: AfdE7clmimjLbwEMDS4YwNdYRKzxCDmBRw6BIP9CHMmg0jOtXqC+RsJq8HDyBwjAOiT
-	tMND+jSo+uOifHGtWAScmxkDYpc3yNbSLY3ZSjPNiHpRrsOTmVuGGPWUwSntlQQtmVKBuzHuxJo
-	DVFDhENfMOu8MuOHIGhRngngqd+QhghGahQkV+cj4B8KSvt18Sb1VrEofRczibFe0NI4peV05VE
-	jZye8nbOtWvyIytQz+Brkrtgth+jX1ccJ5xh3+t2PBnUZgOLyNUFUFA6ATk20Eq0sTqHTasw4B5
-	slSSjplCNp19doSC2Oaa+CYnOMbhQAwI595/X0tO3PcGvWMqdkYZ81N/zzsEDz1AY1NfCov/C6d
-	SS6eNYndkMfKBujL1+7pgx2kWUlmBtzix
-X-Received: by 2002:a05:620a:8807:b0:92e:7d1f:d3aa with SMTP id af79cd13be357-930b3f45332mr464674985a.31.1784320517664;
-        Fri, 17 Jul 2026 13:35:17 -0700 (PDT)
-X-Received: by 2002:a05:620a:8807:b0:92e:7d1f:d3aa with SMTP id af79cd13be357-930b3f45332mr464671285a.31.1784320517096;
-        Fri, 17 Jul 2026 13:35:17 -0700 (PDT)
-Received: from jkangas-thinkpadp1gen3.rmtuswa.csb ([2601:1c2:4480:2110:932e:45ef:6b6c:ddd0])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-930b545e253sm232859985a.36.2026.07.17.13.35.13
+        d=1e100.net; s=20251104; t=1784320909; x=1784925709;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sVH+YK2y1vG4lsBrivCXnDTuyI7sx5ytr7WDEkhCxnA=;
+        b=joyh2sr9HzguSp2LkDKgwfGpFQu4cYS2ONuMxqn/jrTkfQrG295cnyWU6lzg5+ekH8
+         pgu3bcxsbFkvzgrwSbF/r6cxuYIWJs8UaI9pcGur4sci14v931EvbX6l/PImiulVT+qm
+         3U9e6RaL45QoZGhIqcPjC7TxEqov+4gaLn2NCrCEQfND8Ygk7ote+hnGK9s3dcoBS1Ny
+         SvGTQzIf3oIQkUTIJmLfkGoZE9O+9VVMVrNTA9jdldoH00NjQac3LkBY/gCfmvcVfxlE
+         +p5SHnKjfhpldjYfJ66F8HGhHgpfxd5YZSWnX3r6DReXRPUJTHXkNLyi2zO4+G2A/rB4
+         x/Lg==
+X-Forwarded-Encrypted: i=1; AHgh+RrIKCpL8TXrFcPylKOe85+VoqC7sxVWYpBvNWajg0K40cSML84zL0BD6NtuVHCmhUMCEXgufpSE961I@vger.kernel.org
+X-Gm-Message-State: AOJu0YzbTRbTZvZa4s0SsS3C48YEocCLw3tG/M5D3Ze84wimBDI67wVa
+	mQzH3flG5K9D3wVRcotsi6pMlPJVRv+/F5ZqOo6+PpGrAcRQOs4DMRu3Tsf8LmSgfFdHFfMVbX9
+	/44UQALHINex2HP06OE+GKupNwM+mtOAqSUu8Qqd4j0b2556944soRRKPUYbVpI6u
+X-Gm-Gg: AfdE7cl5m/OOj8wIFELXnHJxIt9l24nanFs8VojLCYiF+k6gn9amZco0BcpGI8xZwtG
+	ONotoUluF0r+Fdm4iYfvEr1dg8VKCXRF/Nx/ojeN8jvTKo66O0dH1iN1Sd5gMo+5ZHOQbTILnqX
+	lCwZh55ns1C4AzguFQVTW+//OHEFBrJ5tv9yRl0iutgZ0m2GlntohlsAatFBRDHp5L8X828DO2a
+	dJrXYUX9yk30bjfzgIhwqzgo4kYC/B6fCjgwAGjm3yzWw2p6cExEyJoS6tXulLNuLuhDRHmJme5
+	Jvqen68KMlC9X8RqWi7UQRxxhkqPekDR67j1qo14B4pq9n/ZOxeRYWARde9PPe4SeikFv+3ty1k
+	Bk7wgJHOUQ3K7kIo6Dj9Fyk8m
+X-Received: by 2002:a17:90b:1dca:b0:38d:ef48:b04 with SMTP id 98e67ed59e1d1-38e4b454d1cmr4623506a91.10.1784320909230;
+        Fri, 17 Jul 2026 13:41:49 -0700 (PDT)
+X-Received: by 2002:a17:90b:1dca:b0:38d:ef48:b04 with SMTP id 98e67ed59e1d1-38e4b454d1cmr4623483a91.10.1784320908803;
+        Fri, 17 Jul 2026 13:41:48 -0700 (PDT)
+Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a1e348bsm11322997eec.25.2026.07.17.13.41.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 13:35:15 -0700 (PDT)
-From: Jared Kangas <jkangas@redhat.com>
-Date: Fri, 17 Jul 2026 13:33:56 -0700
-Subject: [PATCH v7] arm64: dts: s32g: Add GPR syscon region
+        Fri, 17 Jul 2026 13:41:48 -0700 (PDT)
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Subject: [PATCH v2 0/9] drm/msm: Support for Eliza GPU
+Date: Sat, 18 Jul 2026 02:11:25 +0530
+Message-Id: <20260718-eliza-gpu-v2-0-64379dbebd7a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -86,112 +88,137 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260717-upstream-s32g-gpr-syscon-v7-1-ee198f287682@redhat.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MMQ6DMAxA0asgz1iiARLKVVAHBE7wQIjsFhUh7
- k7E+Ib/T1ASJoW+OEFoZ+UtZriygGkZYyDkORtMZWzlXg5/Sb9C44pam4AhCeqh0xbRtf5trO9
- sNzeQ8yTk+f+sh8913XcTkxpqAAAA
-X-Change-ID: 20260717-upstream-s32g-gpr-syscon-75f926f868d4
-To: Chester Lin <chester62515@gmail.com>, 
- Matthias Brugger <mbrugger@suse.com>, 
- Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>, 
- NXP S32 Linux Team <s32@nxp.com>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Dan Carpenter <error27@gmail.com>, Jared Kangas <jkangas@redhat.com>, 
- Dan Carpenter <error27@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAHWTWmoC/2WP22rDMAyGXyXoei62m6Q4jLH3GCU4itIa6qS1k
+ tADefc5bi4GAyH4dfh+6QVMwRFDlb0g0OzYDX0U+iMDPNv+RMK1UYOWupQHmQu6uKcVp+skCLF
+ TJi+x2SPE+Wugzt0T6+f41oFuU0SO7yI0lkng4L0bq6yn+yg2rF73PTHbZFhln6lRSiOazbL2v
+ kas51LEkEId2k4aKkwu8Xtg3t0me1nRu5i+YPU/Ox6H8EivzSodsNkVf76YVaSh6dS+yNum1eY
+ fDY7LsvwCx3XanCkBAAA=
+X-Change-ID: 20260704-eliza-gpu-eccf1946cb3c
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>
+Cc: Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784320513; l=2673;
- i=jkangas@redhat.com; s=20251111; h=from:subject:message-id;
- bh=Su44JoHUNIT+NILqohVHQyIxNtJALtkgLhgf6U3PzRs=;
- b=yu/MhwLbciKwwtbena2H4ob80CIrdSVWImmgvPDfdQYil0HgnUhDWGX8kWATuLCNUqkPL5X2N
- wWNF+/HbdMLDhuEOGC3Q65MuEZGnrTmnS9P3sZgL8Fmho2Q0bTXkoZZ
-X-Developer-Key: i=jkangas@redhat.com; a=ed25519;
- pk=eFM2Mqcfarb4qox390655bUATO0fG9gwgaw7kGmOEZQ=
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784320899; l=3090;
+ i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
+ bh=6VEjrqVhr7MezwfVHfIVDsIN0YyS4xKPQEXFGvXAkd4=;
+ b=SNwxy/SDmWuwEjIaqCpTdLVsE7jZE/sH0Uta1x17D2avioGP0wvW5JmMtKbo/r0IwoMsTchaW
+ sdJOBpo6jhuBxTd0mN2Iwym1w7M71JU8qdNIuLFrokRXTF7MmACLhLE
+X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
+ pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDIxMiBTYWx0ZWRfX+n+VuPPT9/20
+ wVVgZJbnqp6cWM2OgiHXIHCjxbVKx2fdZIhee1Fs6t+Y1ro+o/VBxg1tKxKaciGShlp3OXnwOq0
+ NBFnP4aqH6bQpJhKJczEIwNzlk3+ZNxjFXiFx/yYH1hGx5DN0ZdQIdS+oFA0MU1Z9uG4zSVg6x7
+ RduQVS2BQySXxhxgHurZ9GPnHHv5k/GWdjQn+OYmIb1QC+rFUDETFaXmzDZ1nm1UGfZxcqCP/gh
+ +WBLd7FFeeYcyY7C76NSZjD3jX8c0n1syPcEe+YKT2tXSTRXLqoWvOBjDXFcmw7U7eSzXWUr3ln
+ jv1jmzuuLBveAJkwnIprC5tm9DSWkeQ/+4+CiSI0Z2UtJG8W4jhcsia61GPUVJwgmobxmW6Ud0u
+ MKQUw+kRJsLv06xFrfn3BW6NlWUha/I4GIO4LfQUbG/pDnB641c8jB35GVZ6It9Az5R0gXPuDm2
+ iFuGCnUekIyhn7icYMw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDIxMiBTYWx0ZWRfX7c/s8JVPiY4h
+ QYYfI54KeyekTLUCGtBMVfouPYWORoQJRt+xRtJygofg8n/Nvb6t5RdATjDz2XjXXZSLSeY6rMK
+ 0ymsHqMelzlFVMD6At44SQtkE3yoaDg=
+X-Authority-Analysis: v=2.4 cv=YeWNIQRf c=1 sm=1 tr=0 ts=6a5a938e cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=VR85YU2tW1KY0NdMjCQA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-GUID: yphL9UpquMISm1LzCAXtau54akB9N6Bo
+X-Proofpoint-ORIG-GUID: yphL9UpquMISm1LzCAXtau54akB9N6Bo
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-17_06,2026-07-17_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
+ spamscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170212
 
-From: Dan Carpenter <error27@gmail.com>
+Adreno 722 found in Eliza chipset belongs to the A7x Gen1 family. It is
+derived from A730 and shares the same IP-level configurations: HWCG
+registers, protected registers, GBIF CX registers and gmu_cgc_mode.
+Major differences include smaller cache/core counts, 1MB GMEM, no
+Concurrent Binning & LPAC support. Some of the peripheral blocks like
+RSCC are from A740 that resulted in updates to RSC layout.
 
-Add the GPR syscon region for the s32 chipset.
+The first few patches that updates driver and dt binding docs are for
+Rob Clark and the remaining devicetree bits are for Bjorn to pick up.
 
-Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
-[jkangas@redhat.com: GPR syscon resized from 0x3000 to 0x100]
-Tested-by: Jared Kangas <jkangas@redhat.com>
-Signed-off-by: Jared Kangas <jkangas@redhat.com>
+Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
-Revision of Dan's v6 patch based on discussion in [1] to avoid a panic
-when reading the debugfs regmap's registers file.
-
-[1]: https://lore.kernel.org/all/aej2X2Gp-UI3Vmvo@rh-jkangas-kernel/
-
-v7: Shrink gpr size from 0x3000 -> 0x100, add 'arm64:' prefix to subject
-v6: no change
-v5: no change
-v4: no change
-v3: no change
-v2: Remove #address-cells and #size-cells
----
- arch/arm64/boot/dts/freescale/s32g2.dtsi | 6 ++++++
- arch/arm64/boot/dts/freescale/s32g3.dtsi | 6 ++++++
- 2 files changed, 12 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/freescale/s32g2.dtsi b/arch/arm64/boot/dts/freescale/s32g2.dtsi
-index 809019ea0e299..81280ec6b07a9 100644
---- a/arch/arm64/boot/dts/freescale/s32g2.dtsi
-+++ b/arch/arm64/boot/dts/freescale/s32g2.dtsi
-@@ -325,6 +325,11 @@ usdhc0-200mhz-grp4 {
- 			};
- 		};
- 
-+		gpr: syscon@4007c000 {
-+			compatible = "nxp,s32g2-gpr", "syscon";
-+			reg = <0x4007c000 0x100>;
-+		};
-+
- 		ocotp: nvmem@400a4000 {
- 			compatible = "nxp,s32g2-ocotp";
- 			reg = <0x400a4000 0x400>;
-@@ -795,6 +800,7 @@ gmac0: ethernet@4033c000 {
- 			compatible = "nxp,s32g2-dwmac";
- 			reg = <0x4033c000 0x2000>, /* gmac IP */
- 			      <0x4007c004 0x4>;    /* GMAC_0_CTRL_STS */
-+			nxp,phy-sel = <&gpr 0x4>;
- 			interrupt-parent = <&gic>;
- 			interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
- 			interrupt-names = "macirq";
-diff --git a/arch/arm64/boot/dts/freescale/s32g3.dtsi b/arch/arm64/boot/dts/freescale/s32g3.dtsi
-index 22e80fc03f9c7..da35083a5e0e5 100644
---- a/arch/arm64/boot/dts/freescale/s32g3.dtsi
-+++ b/arch/arm64/boot/dts/freescale/s32g3.dtsi
-@@ -383,6 +383,11 @@ usdhc0-200mhz-grp4 {
- 			};
- 		};
- 
-+		gpr: syscon@4007c000 {
-+			compatible = "nxp,s32g3-gpr", "syscon";
-+			reg = <0x4007c000 0x100>;
-+		};
-+
- 		ocotp: nvmem@400a4000 {
- 			compatible = "nxp,s32g3-ocotp", "nxp,s32g2-ocotp";
- 			reg = <0x400a4000 0x400>;
-@@ -874,6 +879,7 @@ gmac0: ethernet@4033c000 {
- 			compatible = "nxp,s32g2-dwmac";
- 			reg = <0x4033c000 0x2000>, /* gmac IP */
- 			      <0x4007c004 0x4>;    /* GMAC_0_CTRL_STS */
-+			nxp,phy-sel = <&gpr 0x4>;
- 			interrupt-parent = <&gic>;
- 			interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
- 			interrupt-names = "macirq";
+Changes in v2:
+- Add a new patch for GPU passive cooling
+- Rename firmwares to gen717*
+- Capture trailers
+- Link to v1: https://lore.kernel.org/r/20260705-eliza-gpu-v1-0-c9f1354dbd29@oss.qualcomm.com
 
 ---
-base-commit: fce2dfa773ced15f27dd27cd0b482a7473cdcf2a
-change-id: 20260717-upstream-s32g-gpr-syscon-75f926f868d4
+Abel Vesa (1):
+      arm64: dts: qcom: eliza: Add GPU SMMU node
+
+Akhil P Oommen (2):
+      drm/msm/a6xx: Rename GBIF_CX_CONFIG to a A6XX- variant register
+      dt-bindings: arm-smmu: Document GPU SMMU for Eliza SoC
+
+Gaurav Kohli (1):
+      arm64: dts: qcom: eliza: Add GPU cooling
+
+Puranam V G Tejaswi (5):
+      drm/msm/a6xx: Fix RBBM_CLOCK_CNTL3_TP0 value in a730_hwcg
+      drm/msm/a6xx: Add Adreno 722 support
+      dt-bindings: display/msm: Document Adreno 722 GPU and GMU
+      arm64: dts: qcom: eliza: Add GPU nodes
+      arm64: dts: qcom: eliza-mtp: Enable Adreno A722 GPU
+
+ .../devicetree/bindings/display/msm/gmu.yaml       |   1 +
+ .../devicetree/bindings/display/msm/gpu.yaml       |   1 +
+ .../devicetree/bindings/iommu/arm,smmu.yaml        |   2 +
+ arch/arm64/boot/dts/qcom/eliza-mtp.dts             |   8 +
+ arch/arm64/boot/dts/qcom/eliza.dtsi                | 209 +++++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c          |  38 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |  17 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |   4 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        |  81 +++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h        |   5 +
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c              |   2 +-
+ .../gpu/drm/msm/adreno/adreno_gen7_17_0_snapshot.h | 428 +++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   5 +
+ drivers/gpu/drm/msm/registers/adreno/a6xx.xml      |   2 +-
+ 14 files changed, 773 insertions(+), 30 deletions(-)
+---
+base-commit: a9498e40e3e314ade387d3ab0d5cb14f0f3aa1ad
+change-id: 20260704-eliza-gpu-eccf1946cb3c
+prerequisite-message-id: <20260609-b4-eliza_mm_cc_v6-v6-0-17df09e5940c@oss.qualcomm.com>
+prerequisite-patch-id: ecae5e45a33a79ec3f500e3f318e3a0129fddfb7
+prerequisite-patch-id: 19fe32e5af810250eef42dab488c982ef70c055c
+prerequisite-patch-id: 60dde5421adbc86f355b4899bedd0d7a1a0c4e5e
+prerequisite-patch-id: 58c9dbb18795c662ea22c3a82b07d6465f604e08
+prerequisite-patch-id: 0c6e220ecf2b42776f990ea5b98ba4ee97d229ee
+prerequisite-patch-id: 0e0bed1091d12c102e2542b1c2931f61a543f2b0
+prerequisite-patch-id: c0f22b4ff0bb79935848dde50c524f6063011ebb
 
 Best regards,
 -- 
-Jared Kangas <jkangas@redhat.com>
+Akhil P Oommen <akhilpo@oss.qualcomm.com>
 
