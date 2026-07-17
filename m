@@ -1,166 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BBF6429032
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 17:33:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6BDC26FA4B;
+	Fri, 17 Jul 2026 17:39:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784309627; cv=none; b=TSQDtbNb8iLq+2xUDdoI7EfA1LIZN2RroQk2liT2PgE4yplV9NAEpeN0UTJaE2nbpxmHmpwvuxwdVOwu+wlWqzUVJ8qYuG2AuL1G5EmbrKx1E5OMSokrmTnn5YZBF092jLZowuGDEQWNaRnl7kxpdTC17dpASGK/U4HXnEaJO34=
+	t=1784309960; cv=none; b=T0VFG4g2ioX9kPbcavZUf68UTYu2mAlOZgwIp7huDXHBVdil2qJdhkpjxu7AQpALKRpdp+2Zuf4h+wqjJGGpFwjMc7VUBRqwxzvf9o+lUglUiNTu5T+6j5BFgfAlSnuuhCML4NPqW6XogyI9qB7lwuGqa3AS+3rJTiRSSnRPjik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784309627; c=relaxed/simple;
-	bh=g8lt+JaesE+ExdqjUecqVefMKjhMUt1pSs8kwkA6fCs=;
+	s=arc-20240116; t=1784309960; c=relaxed/simple;
+	bh=dtP/MW12yFmQoRjPto5WIL1OLcgDMWkGlCBnNiTlVm0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fUYwHWH6XnjcCeAmAFXomXH0buB30vYYKwv0moZuZaH/AXWtQWSg0VN0HAO5Fbd6/pSAtzbdrPMujP+KClqZ2tjjpKGCSo6yYqgEgm7oQXNJe0f8j29qMEWbh1Jc60+RYHy6XtwAHMupO297WmcOiqBXCfOrtc1Gyt2utpqwbI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lPDn2/Cn; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=SM13w87vBHOxOhlvcfWUEb1ZnpO82TeIbcUgsKgFNkPsAvmzMWE1CwtDPSca0+v4V0PrBqd9DBRIvHTyMoQfz3nzUcacnZyKIwXrcZmK4k+7ZNTLFaGX3Qv257aGUVKI3JU3qPPxTuESBH7bUensiIy5q5eokxsoc/5aQGEHbEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lv4S3tZo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lPDn2/Cn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81F261F00A3A;
-	Fri, 17 Jul 2026 17:33:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lv4S3tZo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F38C21F000E9;
+	Fri, 17 Jul 2026 17:39:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784309624;
-	bh=9k/QBB7kXxm70NbuIbcBdulx1BUSAqK35iOJppc1+3E=;
+	s=k20260515; t=1784309959;
+	bh=KsSlOvkHW4kPr+vyID9BdIu2wQUKlb5NVh1SlBnks+c=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lPDn2/CnBTRoWbnl9P7fqzDSJgFln6y+CmTMGkv8SIvNG18N+4oMSwFQK8+JAriSr
-	 M/N0jkI94BeKtyQA+J4lUe1CZaMxTK2AFij3xF2lrX+EuyEkqxpeIRhZXGY/CT+mLo
-	 ClPNpG42KUiuDv/kofuK+X2a6xQC17wo6uoIZ10/yZGk2Sa+tP0owrlg5/02kYjf/H
-	 5mDfjOpzXB6L83T2W40maPueJ9mAs3AvcJ/gIgDDDFKRE0FwqCP4qHtfHfEL9OcYv6
-	 rK61vJUikts0oCnnPfeBffXRl08BQjEBpvRM+tJSWyOwfT2khE8GESPVNmoGfMFw5/
-	 TAj1ntZk7xFnA==
+	b=Lv4S3tZooFIsSDzaqzmJK/tp0LmuZ4bpzbsWF1fmJV8G0/qmqwqKZ1RJM+gK/MwpX
+	 i2RnYW+jqIZh4Sj0nLTbpbwX7LmphzFR2gUH8Iwe7vQ/n3rtd/JT5MMxvREx0/TX4c
+	 zHCFXYDTCEVFKh0zUY9f1mQ9T2pJzzxdz6oIqTGJUkQcbAIJA3QY0rOd0JcNjJrLF7
+	 uv/kJ0eRbkVeC/fpV5fA9jwlMqWFkKLcb4w/cyLatzQPqAz1RT5fqhUA3Zs7xOsCab
+	 1Hti562Xaxwi00iaNWFMMjFEgqmG/+65JJGjmwE6zAq/IB/k3AAMfpEyrX4USN7omW
+	 0RJSG+WavA3Cw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 2/2] net: phy: add DAPU Telecom DAP8211R(I)
- Gigabit Ethernet PHY driver
+Subject: Re: [PATCH v2 3/7] dt-bindings: watchdog: Add compatible for
+ MediaTek mt8167
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Artem Shimko" <a.shimko.dev@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260716173325.653164-3-a.shimko.dev@gmail.com>
-References: <20260716173325.653164-1-a.shimko.dev@gmail.com>
- <20260716173325.653164-3-a.shimko.dev@gmail.com>
+To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
+Cc: linux-watchdog@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260717163959.714561-4-l.scorcia@gmail.com>
+References: <20260717163959.714561-1-l.scorcia@gmail.com>
+ <20260717163959.714561-4-l.scorcia@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 17:33:44 +0000
-Message-Id: <20260717173344.81F261F00A3A@smtp.kernel.org>
+Date: Fri, 17 Jul 2026 17:39:18 +0000
+Message-Id: <20260717173918.F38C21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The fallback logic for missing delay properties incorrectly applie=
-s default delays to both RX and TX paths for RGMII_TXID and RGMII_RXID mode=
-s, breaking RGMII semantics.
-- [High] Silent truncation of negative MDIO read errors due to `u16` variab=
-le typing causes the PHY reset polling loop to falsely report success.
-- [High] The RGMII configuration is written to the PHY after the software r=
-eset, preventing the settings from taking effect.
+- [Medium] The `mediatek,mt8167-wdt` compatible string is added as a standa=
+lone compatible (without fallback) in the DT bindings, but the patch series=
+ is missing the corresponding driver support and reset definitions header.
 --
 
---- Patch [2]: [PATCH net-next v3 2/2] net: phy: add DAPU Telecom DAP8211R(=
-I) Gigabit Ethernet PHY driver ---
-commit cafde85b2bbf112f7902c7badc2f66ec1f9c7bc5
-Author: Artem Shimko <a.shimko.dev@gmail.com>
+--- Patch [3]: [PATCH v2 3/7] dt-bindings: watchdog: Add compatible for Med=
+iaTek mt8167 ---
+commit 666f2d36168cb1a5fa647ba2d10b40b0cd2f2240
+Author: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 
-    net: phy: add DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY driver
+dt-bindings: watchdog: Add compatible for MediaTek mt8167
 
-This commit adds a new driver for the DAPU Telecom DAP8211R(I) Gigabit
-Ethernet PHY. It supports RGMII delay configuration through device tree
-properties and optional 180-degree TX clock phase shifting.
+This commit adds a dedicated compatible string for the MediaTek mt8167
+watchdog. It replaces the previous fallback to mt6589-wdt since the
+mt8167 hardware has 15 software resets instead of 12, and in a different
+order.
 
-> diff --git a/drivers/net/phy/dap8211r.c b/drivers/net/phy/dap8211r.c
-> new file mode 100644
-> index 0000000000000..e6381fd8c98c2
-> --- /dev/null
-> +++ b/drivers/net/phy/dap8211r.c
-[ ... ]
-> +static int dap8211r_config_init(struct phy_device *phydev)
-> +{
-> +	struct device_node *phydev_node =3D phydev->mdio.dev.of_node;
-> +	u16 set =3D 0, val =3D 0;
+> diff --git a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.=
+yaml b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
+> index 953629cb9558b..f514be8a5851d 100644
+> --- a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
+> +++ b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
+> @@ -26,6 +26,7 @@ properties:
+>            - mediatek,mt6795-wdt
+>            - mediatek,mt7986-wdt
+>            - mediatek,mt7988-wdt
+> +          - mediatek,mt8167-wdt
 
-[Severity: High]
-Does declaring val as u16 truncate negative error codes returned by=20
-dap8211r_read_ext() during polling?=20
+[Severity: Medium]
+Will this new compatible string probe successfully without driver support?
 
-If dap8211r_read_ext() returns a negative error like -EIO, the truncated=20
-value will still have its high bit set, which might cause the polling=20
-loop below to exit early and falsely report success.
+Looking at the driver match table:
 
-> +	int ret;
-> +	s32 internal_delay;
-> +
-> +	if (of_property_read_bool(phydev_node, "dapu,tx-inverted-clk"))
-> +		set |=3D DAP8211R_RGMII_CLK_INVERT;
-> +
-> +	internal_delay =3D phy_get_internal_delay(phydev, dap8211r_internal_del=
-ay,
-> +						DAP8211R_DELAY_SIZE, true);
-> +	if (internal_delay < 0) {
-> +		if (phydev->interface =3D=3D PHY_INTERFACE_MODE_RGMII)
-> +			internal_delay =3D 0;
-> +		else
-> +			internal_delay =3D DAP8211R_DEFAULT_DEL_SEL;
-> +	}
+drivers/watchdog/mtk_wdt.c:mtk_wdt_dt_ids[] {
+    { .compatible =3D "mediatek,mt2712-wdt", .data =3D &mt2712_data },
+    ...
+}
 
-[Severity: High]
-If the rx-internal-delay-ps property is missing and the interface mode is=20
-PHY_INTERFACE_MODE_RGMII_TXID, does this fallback logic incorrectly apply=20
-the default delay (DAP8211R_DEFAULT_DEL_SEL) to the RX path?=20
+It seems there is no match entry for "mediatek,mt8167-wdt".
 
-For RGMII_TXID, should the RX delay instead be 0?
+Since this is added as a standalone compatible without a fallback to
+an existing string, any device tree using it will fail to probe the
+watchdog driver.
 
-> +
-> +	set |=3D FIELD_PREP(DAP8211R_RGMII_RX_DEL_MASK, internal_delay);
-> +
-> +	internal_delay =3D phy_get_internal_delay(phydev, dap8211r_internal_del=
-ay,
-> +						DAP8211R_DELAY_SIZE, false);
-> +	if (internal_delay < 0) {
-> +		if (phydev->interface =3D=3D PHY_INTERFACE_MODE_RGMII)
-> +			internal_delay =3D DAP8211R_INIT_TX_DEL_VAL;
-> +		else
-> +			internal_delay =3D DAP8211R_DEFAULT_DEL_SEL;
-> +	}
+Additionally, the commit message mentions the mt8167 has 15 software resets
+instead of 12, but there doesn't appear to be a corresponding dt-bindings
+header exporting these new reset indices for device tree consumers to use.
 
-[Severity: High]
-Similarly, if tx-internal-delay-ps is missing and the interface mode is=20
-PHY_INTERFACE_MODE_RGMII_RXID, will this incorrectly apply the default dela=
-y=20
-to the TX path when it should be 0?
-
-> +
-> +	set |=3D FIELD_PREP(DAP8211R_RGMII_TX_DEL_MASK, internal_delay);
-> +
-> +	ret =3D dap8211r_modify_ext(phydev, DAP8211R_PHY_CON, DAP8211R_PHY_SW_R=
-ST, 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Wait for reset self-clear (max 200 us) */
-> +	ret =3D read_poll_timeout(dap8211r_read_ext, val,
-> +				(val & DAP8211R_PHY_SW_RST),
-> +				20, 200, false, phydev, DAP8211R_PHY_CON);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D dap8211r_modify_ext(phydev, DAP8211R_RGMII_CON, DAP8211R_RGMII_=
-CONFIG_MASK, set);
-
-[Severity: High]
-Is the RGMII configuration written to the PHY after the software reset=20
-completes?=20
-
-The initialization comment mentions a software reset is used to apply=20
-settings. If we write the RGMII configuration after the reset, will the=20
-settings take effect, or will the PHY operate with uninitialized values?
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-[ ... ]
+>            - mediatek,mt8183-wdt
+>            - mediatek,mt8186-wdt
+>            - mediatek,mt8188-wdt
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716173325.6531=
-64-1-a.shimko.dev@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717163959.7145=
+61-1-l.scorcia@gmail.com?part=3D3
