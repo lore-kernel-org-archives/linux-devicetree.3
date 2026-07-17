@@ -1,267 +1,168 @@
-Received: from ironport.ite.com.tw (219-87-157-213.static.tfn.net.tw [219.87.157.213])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0A43EB0E5;
-	Fri, 17 Jul 2026 10:02:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=219.87.157.213
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B49C3E832C
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 10:04:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784282570; cv=none; b=CDyJs+LcYFmeLbxR6LSBZrHwjibFEX2a/ez2HuYizr/9RbWUD2xxNbx6R7xIv3vYjbjfMwW07qq7dT9v+BhbUmmcqrZc/APHzoJ8a+GK/PVirrx/inIIzN6MBiaCo7QI4Mnx1o27axahVt1fqifDzUJtCXuXmrLXBorDPS5RGVo=
+	t=1784282658; cv=none; b=HHXZ+GoN5s693ZcM/uGE+fdHpXly0DxtyDLj1tIY53TQek/3hgjKRAUpTArFIKN+URyyvKXjj/XeKaQ7CxKZo7buRzhDc1TMda1CmrYSqrWTkl0u/2CllMJWTAbXbe1ZQZQA9jpeRb6lQcsXC7LGiFWtBIHRewLUqULriRcLU/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784282570; c=relaxed/simple;
-	bh=qRbuU1fJONUFcXhwsNls3CqW9F1neg4PzJBapUH/D9Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=SKfNVpktMhP32ESPGQ8NKBKtaDHM7N8+SIM0vjvhIiDkS4tiPMGcWuZvFf8KWjAJs9e0jqfrSKwyBxDExXcxHcdnrKz471l22Nt2HwsAyp9AoktE/ECRJiFx2o9mOOwPjiT1rvwN+os/rgTm9inBjiHOSGi0AOgmQ191YA0ioTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=akia1yoW; arc=none smtp.client-ip=219.87.157.213
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+	s=arc-20240116; t=1784282658; c=relaxed/simple;
+	bh=b+LOl3IQIWey+yqKD15aAKzUfwpcbFTQfAYLBqw7JY4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GdNdSV/IyTVb8MptCnFP5lO22agPBdIb3FGfQPS3ie/r8bjUykM5GbfkfMR6YDk5SIQIaYqo2Fk7NVVhWA+WmeE69v992DDMF1RCIe3PqPVjWQVv7kCGjTdxuQBNYSyibhPAtfDLaPyva+Y2NJgFyvr+Qg+ILQY1P0ao1xIN3Xc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MRg1oEUb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=R7q3Qx4A; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="akia1yoW"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MRg1oEUb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R7q3Qx4A"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66H6d4OG821192
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 10:04:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	anIBn74AomYL3LvVUUMgs2E/qq+99IUZOlzTnnvEbFM=; b=MRg1oEUb4Ni+i2BO
+	85OR+1wFl0TJaLyWh6kTHFHLaUjOj02Cx1mtmUilXdPxNcb0DnnWBJ4skh/mCkA1
+	b9KmpzUt8yVzFY74+PuBChac/gqyBCLx4yJSJuUtjQRhswQiicgCzK7dF0qiqqfQ
+	ZTDxKD4gxoGhuD7/cErPwg0+vk0CNPQrRZwg0/gWe3f1970scNms3dAHTOvc7KTv
+	ufs39S7hoqiVvu9aqfM5PZtTG2D/LXlUwgVqL+nYmT/VPOdL9aSNkMxEspzoN5H6
+	I7VeS0QMmRCoU3UZxipET5FLKH06WNTwwJX4p8qPvCkSqGNLywbVhAM++An3KYPh
+	qeuKDw==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fffag8rfp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 10:04:16 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c07313be5so15253891cf.2
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 03:04:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=LR4WdiBTr8AybkBsMPgR38RfaV4nk2T6g/AEoefKEsw=;
-  b=akia1yoW0CigY/SfnO3hQjJbR0TLAq+3gzqHaPsWhox1yfDyRC+WX2Mk
-   Rjxx1Oaz9J6WABVz+4eBHb7pen7AzUwtS+/P8uqEmik00QEm+LfZ3nNOb
-   JjU37OdiWo+2g0BiXYTwQuStOHW/P5xln1ne+djE2m4F5BjJEWH96I6fy
-   MMz+F3DDRCuvsXnJjhBahN1R1X3BnM/16WAHGzggWstyJCV5i4PwMCKad
-   a02UYtro7QMMEwVcAi6fLTxE+HkraQR9iZvvthuZ4EzxvzpaV4VlkCas1
-   b2sbhcWvzlU4GVcO3vdtsNvWDBjrivVKxrxwPBWA5nE4F2MwSyDju/cEq
-   g==;
-X-CSE-ConnectionGUID: DvZuyMllSPCvlqQlXPr66w==
-X-CSE-MsgGUID: kiJ5WEOjSWONzsw6fDWUKA==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 17 Jul 2026 17:59:23 +0800
-Received: from hscmail1.internal.ite.com.tw (HSCMAIL1.internal.ite.com.tw [192.168.35.58])
-	by mse.ite.com.tw with ESMTP id 66H9xEuE095317;
-	Fri, 17 Jul 2026 17:59:14 +0800 (+08)
-	(envelope-from amber.kao@ite.com.tw)
-Received: from [127.0.1.1] (192.168.37.107) by HSCMAIL1.internal.ite.com.tw
- (192.168.35.58) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 17 Jul
- 2026 17:59:12 +0800
-From: Amber Kao <amber.kao@ite.com.tw>
-Date: Fri, 17 Jul 2026 17:59:49 +0800
-Subject: [PATCH v4 1/2] dt-bindings: usb: Add ITE IT8851/IT8853 Type-C PD
- controllers
+        d=oss.qualcomm.com; s=google; t=1784282656; x=1784887456; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=anIBn74AomYL3LvVUUMgs2E/qq+99IUZOlzTnnvEbFM=;
+        b=R7q3Qx4A29+ftl+IGmAeO/YmhktsLmm7i+1Pq5hE5RCDEp9rOFNyFJGgdvIWi91hEr
+         JxGMMk2wvaGpv/j3oe2rFS0UUv8PiDJbBHAzLzEQtuvtQ6NgRwQKUYgvAJUa6H5HE94l
+         DhsgJYgUo91i9IlUJ9MG7NxxPD1zzsi2svA4oTMhqAaoOwUt98f6klrVpBcSLCO+yK+J
+         f68q73KBy+qhaKf3riCuc/TcS4ufEFYdB2FS3Jru0pzyZCr2USsadbHb3UIBZRZTJ6vB
+         YRP60MfqEdAW2VJonjfeVsf7jhbXEJUhOFkhUtEvCXC3XYPoHgk8qOWe409Z3ZrV01Zq
+         zdug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784282656; x=1784887456;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=anIBn74AomYL3LvVUUMgs2E/qq+99IUZOlzTnnvEbFM=;
+        b=g24LGLPhmsTb9Z/osAKVEHdJASkSKlxYN44AsLEkcjJjZwcRaA5o89/LQ/BAMyw5RC
+         n1Th/BWVYYzMotY6f28O7YuwyxDjvZH/pNow7/71KLRJKU2B2L2zSvIQEZdb5q+9CIGn
+         ULLnCWXSGQ7b1rIPF5LCSleHa7briWckv/JdFoe0XHesOAMWwcGNrrTn5s+1N6/c3d85
+         qbE4F80KdwYzItkb3yH0PR+pgZR7AlABwLehC62agfm/gLnAAxLpmZe48vsPRZwXko6k
+         VnA9TWu99g/f4VfpP4vUdH91iMFh5aIMlqx8t+ebV2OQviM5VpR98XFcIk8wl8NyCrao
+         oOeg==
+X-Forwarded-Encrypted: i=1; AHgh+RrLXZUs/CQhfCuX7CNPEuPUurA8v6dvzbRRwKkEf83Hfqkh26C/6D6wTewxRPpgu7O8QjsecNT1lOeZ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx02J7z9qhTFn9GlMos5bXMhyMipJjXsByBBJ/0fv6W9TNm+9ig
+	AlseHi1EoicRTRbObj8D2jHN6w5Iy36/4ByOIJ9JCN9F2aKkKNK1otuXsGtrnw2zNfuAZ6Y/SXQ
+	dnJ0S8ki/lBYGBWh/lj+MW05caTxV3bo8Ue81G0Z3HhpZBXiY1y7CD2A8tlVDsRI9
+X-Gm-Gg: AfdE7cl9kzpBQJmuz4E/pIeKQvm7UyI1CgdZ0HDoDozFLtJRRv5V1W7dsjozTWDq+N6
+	3Bw2vsu78B/jUAtcoas7RVotrZN4b8p353M/0F1ifhXs9ZJnB9RmUyiTzBER8lA0N/3dTkLg9BF
+	0IW+CyC2nv2/WMI5b4HyKNzOhYcx+JsPOH80GqxUqrTlC3LPZXzYBq9PiOY4Ka+LiMn51/KMx/E
+	epjAUqX7eZDCR1AN5Wf7j9invNm/vykCwLO1mYui1QGFTi/3L/TLp53r/o0frnBLfAWf/hXH48E
+	g5JsgtipjLqELHygnpC4e5Q6D3JsTJgfA9b8oTGcvWQreJxX7lDH+aHEzpA/N+F77iS2z9sSmDc
+	r19Fa4TcvB3HM7635ImGeZrIq
+X-Received: by 2002:a05:622a:1c15:b0:517:5e32:f3ac with SMTP id d75a77b69052e-521382dd29cmr12698131cf.0.1784282655973;
+        Fri, 17 Jul 2026 03:04:15 -0700 (PDT)
+X-Received: by 2002:a05:622a:1c15:b0:517:5e32:f3ac with SMTP id d75a77b69052e-521382dd29cmr12697701cf.0.1784282655380;
+        Fri, 17 Jul 2026 03:04:15 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c17127358e1sm51516866b.25.2026.07.17.03.04.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 17 Jul 2026 03:04:14 -0700 (PDT)
+Message-ID: <2c6b3958-696b-46d9-ab70-87081610524d@oss.qualcomm.com>
+Date: Fri, 17 Jul 2026 12:04:10 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260717-ucsi-itepd-v4-1-f3ba5addd0df@ite.com.tw>
-References: <20260717-ucsi-itepd-v4-0-f3ba5addd0df@ite.com.tw>
-In-Reply-To: <20260717-ucsi-itepd-v4-0-f3ba5addd0df@ite.com.tw>
-To: Jeson Yang <jeson.yang@ite.com.tw>, Yaode Fang <Yaode.Fang@ite.com.tw>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring
-	<robh@kernel.org>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/8] arm64: dts: qcom: eliza: Add GPU nodes
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>
-CC: <linux-usb@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, Amber Kao <amber.kao@ite.com.tw>,
-        Bling
- Chiang <Bling.Chiang@ite.com.tw>, Eric Su <Eric.Su@ite.com.tw>,
-        Doreen Lin
-	<doreen.lin@ite.com.tw>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TPEMAIL1.internal.ite.com.tw (192.168.15.58) To
- HSCMAIL1.internal.ite.com.tw (192.168.35.58)
-X-TM-SNTS-SMTP:
-	99561AA220601B9EE1261A8CC89F853DE619C57C64E1D819E72BAC1760A6C9D42002:8
-X-MAIL:mse.ite.com.tw 66H9xEuE095317
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>
+Cc: Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev
+References: <20260705-eliza-gpu-v1-0-c9f1354dbd29@oss.qualcomm.com>
+ <20260705-eliza-gpu-v1-7-c9f1354dbd29@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260705-eliza-gpu-v1-7-c9f1354dbd29@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDEwMCBTYWx0ZWRfX285WxvdZIGXC
+ bdM6IgCZdV6ACpVJIAtVzHsRh9+Y0+J08DvZ1HWMySE+ov74gamQqZ8cowpSH4a3b779vnnQ6bn
+ js71tb35efDvRkMtwAPmWNHgTBVTOmpHer17LOzXOoJFOfeDcO5P1p4hNeZDuHfw3Sebog/knqf
+ NUVwCYgO9zKwk2p2qTNmEbLDs/mu06wYBOR9nrfKMN7xVrrXAxyCEX/ygN37Mn0cVEZnTDuUbjF
+ e6GFaYZ2D0/QjTo/MdRHpNhF6AuP7g/PAnvzPxgL4kwZeGZkWjkoRjbVftM0RYl2d48QtpjaMs+
+ LkdS6b0BaeVlpa3drJ8lUQq27o7SnCtWGzvmPehSqB5/6zZO5ZsPSZg0P8U6URwZSS42rQwKqbI
+ LQyjmN22UOPFACPpdvOYoRJdqLUTdW3C/W9G6XP/z8ucP7wG8QWnk2mBKHDoWlPNWZl3c1fVx2T
+ cf/yjHJ6U9OuCtHrmfg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDEwMCBTYWx0ZWRfX8asyJOKCC27Z
+ oP++i+iETd7DT78foY6gKv2t+x1Al8SpcLGMmaMotq0cu64EUFtu2pHDNewfB6pmp5kUyXDiaFj
+ Lodqe3535Pv8gvNLAoMSft93FveOvM8=
+X-Authority-Analysis: v=2.4 cv=KZfidwYD c=1 sm=1 tr=0 ts=6a59fe20 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=LzKdWfoJb4QxxMUDPeAA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-GUID: ueZRCk09nIVe5MjJyanretHKqzgWHf6c
+X-Proofpoint-ORIG-GUID: ueZRCk09nIVe5MjJyanretHKqzgWHf6c
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-17_02,2026-07-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 clxscore=1015 malwarescore=0 spamscore=0
+ adultscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170100
 
-Add device tree binding for the ITE IT8851 and IT8853 I2C-based USB
-Type-C Power Delivery controllers.
-The IT8851 supports one Type-C port; the IT8853 is the two-port variant
-sharing the same interface.
+On 7/5/26 10:14 AM, Akhil P Oommen wrote:
+> From: Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>
+> 
+> Adreno 722 found in Eliza chipset belongs to the A7x GEN1 family. It is
+> derived from A730 and shares the same IP-level configurations: HWCG
+> registers, protected registers, GBIF CX registers and gmu_cgc_mode.
+> Major differences include lower cache/core counts, 1MB GMEM, no
+> Concurrent Binning & LPAC support. Some of the peripheral blocks like
+> RSCC are from A740 that resulted in updates to RSC layout.
+> 
+> Add the necessary devicetree nodes to describe this GPU.
+> 
+> Signed-off-by: Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> ---
 
-Add a MAINTAINERS entry for the binding.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Cc: Yaode Fang <Yaode.Fang@ite.com.tw>
-Cc: Jeson Yang <jeson.yang@ite.com.tw>
-Cc: Bling Chiang <Bling.Chiang@ite.com.tw>
-Cc: Eric Su <Eric.Su@ite.com.tw>
-Cc: Doreen Lin <doreen.lin@ite.com.tw>
-Signed-off-by: Amber Kao <amber.kao@ite.com.tw>
----
- .../devicetree/bindings/usb/ite,it8851.yaml        | 142 +++++++++++++++++++++
- MAINTAINERS                                        |   8 ++
- 2 files changed, 150 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/usb/ite,it8851.yaml b/Documentation/devicetree/bindings/usb/ite,it8851.yaml
-new file mode 100644
-index 000000000000..97c1e5490518
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/ite,it8851.yaml
-@@ -0,0 +1,142 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/usb/ite,it8851.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ITE IT8851/IT8853 USB Type-C Power Delivery Controller
-+
-+maintainers:
-+  - Jeson Yang <jeson.yang@ite.com.tw>
-+
-+description:
-+  The ITE IT8851 is an I2C-based USB Type-C Power Delivery (PD) controller
-+  supporting one Type-C port.
-+  The IT8853 is the two-port variant sharing the same programming interface.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ite,it8851
-+      - ite,it8853
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  wakeup-source: true
-+
-+  '#address-cells':
-+    const: 1
-+
-+  '#size-cells':
-+    const: 0
-+
-+patternProperties:
-+  "^connector@[01]$":
-+    $ref: /schemas/connector/usb-connector.yaml#
-+    unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: ite,it8851
-+    then:
-+      properties:
-+        connector@1: false
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        typec@40 {
-+            compatible = "ite,it8853";
-+            reg = <0x40>;
-+            interrupts-extended = <&tlmm 129 IRQ_TYPE_EDGE_FALLING>;
-+            wakeup-source;
-+
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            connector@0 {
-+                compatible = "usb-c-connector";
-+                reg = <0>;
-+                label = "USB-C-0";
-+                power-role = "dual";
-+                data-role = "dual";
-+
-+                ports {
-+                    #address-cells = <1>;
-+                    #size-cells = <0>;
-+
-+                    port@0 {
-+                        reg = <0>;
-+                        endpoint {
-+                            remote-endpoint = <&eud_con>;
-+                        };
-+                    };
-+
-+                    port@1 {
-+                        reg = <1>;
-+                        endpoint {
-+                            remote-endpoint = <&redriver_ss_out>;
-+                        };
-+                    };
-+
-+                    port@2 {
-+                        reg = <2>;
-+                        endpoint {
-+                            remote-endpoint = <&fsa4480_sbu_mux>;
-+                        };
-+                    };
-+                };
-+            };
-+
-+            connector@1 {
-+                compatible = "usb-c-connector";
-+                reg = <1>;
-+                label = "USB-C-1";
-+                power-role = "dual";
-+                data-role = "dual";
-+
-+                ports {
-+                    #address-cells = <1>;
-+                    #size-cells = <0>;
-+
-+                    port@0 {
-+                        reg = <0>;
-+                        endpoint {
-+                          remote-endpoint = <&usb1_hs_con>;
-+                        };
-+                    };
-+                    port@1 {
-+                        reg = <1>;
-+                        endpoint {
-+                          remote-endpoint = <&redriver1_ss_out>;
-+                        };
-+                    };
-+                    port@2 {
-+                        reg = <2>;
-+                        endpoint {
-+                          remote-endpoint = <&sbu_mux1>;
-+                        };
-+                    };
-+                };
-+            };
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 461a3eed6129..ec0eeea79b9e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -13720,6 +13720,14 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	Documentation/devicetree/bindings/display/bridge/ite,it66121.yaml
- F:	drivers/gpu/drm/bridge/ite-it66121.c
- 
-+ITE IT8851 TYPE-C PD CONTROLLER DRIVER
-+M:	Amber Kao <amber.kao@ite.com.tw>
-+R:	Jeson Yang <jeson.yang@ite.com.tw>
-+R:	Yaode Fang <Yaode.Fang@ite.com.tw>
-+L:	linux-usb@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/usb/ite,it8851.yaml
-+
- IVTV VIDEO4LINUX DRIVER
- M:	Andy Walls <awalls@md.metrocast.net>
- L:	linux-media@vger.kernel.org
-
--- 
-2.53.0
+Konrad
 
