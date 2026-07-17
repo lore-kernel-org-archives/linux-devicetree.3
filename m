@@ -1,186 +1,167 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B93C3E1689
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 08:04:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C8BF2EDD78;
+	Fri, 17 Jul 2026 08:05:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784275446; cv=none; b=VH2ZljNSgtZsAV+XwgJ1FPME05rEOmV/o8/EDu+1OToAmaaLyRzgJmimpWS+BIWKPEPfQ+spbti/AgmtQJfSk1OPJaljDKh+mZJSUBmky7naGa2ES01t9/bd0OH9Q35bhE5zTkUe2tTjMGYNTlmoFfpVA5721XGzvJZ2/FItQp8=
+	t=1784275518; cv=none; b=KouT+CMxNS7hsa4WhQJoxOzbsVN6TxtQQfUJp+NM5o3b3jOLGlgGqL6TXGi8jQiT4AfnaRwIzpyRmrUahKKSNMcHFO9xmbe7u3LhpiWDLK9dPlrOcrRWoIjE8p7F9NbiBkYf5oBwiyBZmJTawTOSxUijQMGmRnqR187Ja5VlLCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784275446; c=relaxed/simple;
-	bh=wAOUV999ROhkzt50m9xWAwQ2jf8Fo+MNYzK04yKphcI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IQKHmqYT9Kz7ffdfbcKxiuJX0eXdPcRw5yKbzMiA5I/7Rfce7ARguiqkHRNOlSbgDBAZ983gb7KCMUg0VT+SncRGvYijJKHg4EWwuCDcWdxyuFl9xomiVWn6oQT2VToCgOPLCU72AP03+LVxDHYooFcU7Ticd9Zv0vRd9H4vY20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LEtvljTf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784275518; c=relaxed/simple;
+	bh=x9JygAPOcH52L+hYgzFwecjlCVuIqXcwZPNFrDd78eM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GG2s1EgTS7BJxfyYKqfy205HZ+shVMwBbfZtxIMVTzQlCIdbt58fYpwYziHMkWEgt4OrmsAdHq8MS907Wn+n3ef56mJ97qMuyOdxL/7VnN2TBpaBeo3d2tQG+GaDGrZDCVvfGSg4VMR3ex725P+dWK1yCANfsm6saoP7VNVe/kQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AAYnRLYR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LEtvljTf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76DD91F000E9;
-	Fri, 17 Jul 2026 08:04:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AAYnRLYR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 010A51F000E9;
+	Fri, 17 Jul 2026 08:05:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784275444;
-	bh=0CbAhbRA8Tg4xKwUdb4WXdDz/GTyZXdxx/wUbgFU6Yc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LEtvljTfBWJ7FdQA5PUubV71KAM5/cR40ELQ8o7uN5va6hpC8/PmSWoqfvT0KX6E+
-	 QcpQ+094y+ZciBQv30kxPYxu0os3Xhv1bOaNK9sGDLk8yLCaPIivn7zgb6vIQuVgN9
-	 Yq7TTFy5NZGcu4P9TAvBXZ/EE1dQMT1z4Q7f3E993TBPHOYSZ1OxcK+YSPtjdit558
-	 KV2ibr1fCecabwPx8dndvHbU3bLzBjqJi9aWSCbiq1J4339acZ1bFdE2JdKhIgbP3L
-	 Lwk7SdZy7TKJSv1/rsIPhXzvboqGRDZBwLgZpqZaHyOwjtLrmtIQBZHDautanvqjJh
-	 lhH0XDJq4ZrXg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] spi: amlogic: spisg: Add support for A9 controller
- features
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org, robh@kernel.org
-In-Reply-To: <20260717-a9-spisg-v1-3-2eeea77be19f@amlogic.com>
-References: <20260717-a9-spisg-v1-0-2eeea77be19f@amlogic.com>
- <20260717-a9-spisg-v1-3-2eeea77be19f@amlogic.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 08:04:03 +0000
-Message-Id: <20260717080404.76DD91F000E9@smtp.kernel.org>
+	s=k20260515; t=1784275516;
+	bh=d5wRCC0mU/NbriydP8DlwWMqdbFD0Kyhuy6entsN1ak=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AAYnRLYR5nSHilgjUq+StjglS3Z+PMb8Planx0U8fjwQeAHn4RuQzeoBuYVptnCay
+	 hku53KZqFAbAVa7h4Ur35l9BwX3MzN2SZY5br4g07/43LCF+AmtuNeuuUooSE03UpF
+	 3X9EBWBd2/Vqy1wnwGyJwPiGB4RSPotIGA0rNEMgCrMfoTRjsAGxYP7j0FTVcqqlhJ
+	 levtY1yoCi31iphVl8xLgppZIvS7g2It7xNujZvWEL0FIjD6HN8Ryz/k5tJgxCGCrO
+	 3GzAUHnZKNs09FbPeDvIOMIG+yF8vPhoO2eFPFCL8tFWBsG2cZDKTyEM5H7ky/b5oU
+	 eASES6yHaGAiw==
+Date: Fri, 17 Jul 2026 09:05:09 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Cristian Marussi <cristian.marussi@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 00/10] R-Car X5H Ironhide CPG/MDLC SCMI remapping
+ support
+Message-ID: <20260715-greedy-ocelot-of-feminism-5be3bf@sudeepholla>
+References: <cover.1783505329.git.geert+renesas@glider.be>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1783505329.git.geert+renesas@glider.be>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Wed, Jul 08, 2026 at 12:16:18PM +0200, Geert Uytterhoeven wrote:
+> 	Hi all,
+> 
+> TL;DR:
+> 
+>     Describe hardware in DT, and perform the mapping to SCMI in Linux.
+> 
+> The Renesas R-Car X5H-based Ironhide board is the first Renesas
+> SoC/board combination that implements the ARM System Control and
+> Management Interface (SCMI).
+> 
+> This means Linux can no longer perform various system operations (e.g.
+> clock, power domain, and reset control) by accessing the hardware
+> directly.  Instead, these operations are abstracted according to various
+> SCMI sub-protocols, and Linux has to send messages to an SCMI-compliant
+> firmware running on a System Control Processor (SCP).
+> More specifically, the R-Car X5H SCP FW SCMI controls access to:
+>   1. Core clocks and module clocks,
+>   2. Module resets,
+>   3. Power domains,
+>   4. System power.
+> The latter is not relevant for this discussion.
+> 
+> Using SCMI also has an impact on the board DTS: besides the addition of
+> a firmware/scmi node with protocol-specific subnodes, devices using
+> SCMI-abstracted system resources now have to refer to these resources
+> using resource specifiers containing phandles to the SCMI protocol
+> subnodes, and firmware-specific object IDs[1].
+> 
+> Unfortunately we encountered several issues with this:
+>   - The clock, reset, and power domain IDs are not stable by design,
+>     causing DT incompatibilities.
+>     SCMI requires that the ID space exposed to an agent (i.e. Linux)
+>     starts at zero and is contiguous.  Hence any change in system
+>     partitioning (Application CPU core vs. Realtime CPU core,
+>     virtualization, ...) may mean a renumbering of all SCMI IDs,
+>     implying a massive change to the DT.
 
-New issues:
-- [High] The calculated CFG_CS_HOLD delay value lacks bounds checking befor=
-e being written via FIELD_MODIFY, leading to silent bitwise truncation and =
-incorrectly shortened hold times.
+Yes it is well known fact. But where this is a feature or limitation
+is debatable. Why would SCP firmware churn and re-number or re-assign
+a differ domain ID everytime it is updated is questionable to me.
 
-Pre-existing issues:
-- [High] The driver fails to abort the hardware operation when a transfer t=
-imes out, leading to DMA use-after-free and cascading synchronization failu=
-res.
-- [High] `spi_delay_to_sclk()` suffers from a 32-bit integer overflow when =
-calculating delay cycles, resulting in drastically shorter setup and hold t=
-imes than requested.
---
+>   - There may be different SCP firmware lineages, e.g. proprietary and
+>     certified variants, and FLOSS variants,
 
---- Patch [3]: [PATCH 3/3] spi: amlogic: spisg: Add support for A9 controll=
-er features ---
-commit 850f7cb5955f8bd514dfd78b459ee02b15378db4
-Author: Xianwei Zhao <xianwei.zhao@amlogic.com>
+No sure if I understand the issue here.
 
-spi: amlogic: spisg: Add support for A9 controller features
-   =20
-The Amlogic A9 SPISG controller extends the A4 controller with additional
-configuration options. Add SoC-specific capability data and configure
-these features when supported by the hardware, while keeping compatibility
-with existing A4 controllers.
+>   - SCMI features may differ across firmware versions,
 
-> diff --git a/drivers/spi/spi-amlogic-spisg.c b/drivers/spi/spi-amlogic-sp=
-isg.c
-> index 0f026d3e43e0b..845eb81d483a3 100644
-> --- a/drivers/spi/spi-amlogic-spisg.c
-> +++ b/drivers/spi/spi-amlogic-spisg.c
-[ ... ]
-> @@ -525,9 +541,17 @@ static int aml_spisg_transfer_one_message(struct spi=
-_controller *ctlr,
->  		}
-> =20
->  		/* calculate cs-setup delay with the first xfer speed */
-> -		if (list_is_first(&xfer->transfer_list, &msg->transfers))
-> -			desc->cfg_bus |=3D FIELD_PREP(CFG_CS_SETUP,
-> -				spi_delay_to_sclk(xfer->effective_speed_hz, &msg->spi->cs_setup));
-> +		if (list_is_first(&xfer->transfer_list, &msg->transfers)) {
-> +			val =3D spi_delay_to_sclk(xfer->effective_speed_hz, &msg->spi->cs_set=
-up);
+Again, features must be discoverable that is the advantage of DT vs this
+firmware interface, so not sure what is the issue in this matter.
 
-[Severity: High]
-This is a pre-existing issue, but can spi_delay_to_sclk() suffer from a
-32-bit integer overflow when calculating delay cycles?
+>   - SCMI may abstract the hardware in a different way, requiring changes
+>     in (possibly existing) DT bindings and drivers to support the same
+>     hardware with and without SCMI:
+>       - E.g. the number of SCMI clocks inputs to a hardware block may
+> 	differ from the actual hardware,
+>       - E.g. hardware clock inputs may be abstracted as SCMI power
+> 	domains (or vice versa), like on Qualcomm SA8255P[2].
 
-Looking at spi_delay_to_sclk():
+True, the moment SCMI like interface is used in OSPM, the firmware
+description hides real h/w details and provide what firmware thinks
+OSPM must view hardware as(how VMMs virtualise things for VMs, firmware
+can have similar effect with such interfaces).
 
-drivers/spi/spi-amlogic-spisg.c:spi_delay_to_sclk() {
-    ...
-    return DIV_ROUND_UP_ULL(slck_speed_hz * ns, NSEC_PER_SEC);
-}
+>     Experience has taught that not describing the hardware in DT may
+>     lead to major issues later.
 
-If a client requests a large delay, the multiplication of the two 32-bit
-integers (slck_speed_hz and ns) can wrap around before being cast to a
-64-bit integer by DIV_ROUND_UP_ULL.
+OK, that's interesting. But the whole point with these interfaces is to
+hide those, so just don't use such abstraction interface if you want the
+hardware to be described as is to the OSPM.
 
-Could this result in drastically shorter setup and hold times than
-requested?
+>   - SCMI does not support the concept of a clock domain, so existing
+>     drivers can no longer rely on Runtime PM, but need to be changed to
+>     manage functional clocks explicitly,
 
-> +			if (data && data->cs_setup_extend_ctrl) {
-> +				val =3D min_t(u32, 0xFF, val);
-> +				desc->cfg_bus |=3D FIELD_PREP(CFG_CS_SETUP, val & 0xF);
-> +				FIELD_MODIFY(CFG_CS_SETUP_EXTEND, &spisg->cfg_spi, val >> 4);
-> +			} else {
-> +				val =3D min_t(u32, 0xF, val);
-> +				desc->cfg_bus |=3D FIELD_PREP(CFG_CS_SETUP, val);
-> +			}
-> +		}
-> =20
->  		/* calculate cs-hold delay with the last xfer speed */
->  		if (list_is_last(&xfer->transfer_list, &msg->transfers)) {
-> @@ -542,7 +566,12 @@ static int aml_spisg_transfer_one_message(struct spi=
-_controller *ctlr,
->  				       xfer->effective_speed_hz);
->  	}
-> =20
-> -	if (cs_hold_in_sclk) {
-> +	if (data && data->cs_hold_ctrl) {
-> +		cs_hold_in_sclk =3D cs_hold_in_sclk ? : 1;
-> +		val =3D cs_hold_in_sclk * (FIELD_GET(CFG_CLK_DIV, spisg->cfg_bus) + 1);
-> +		FIELD_MODIFY(CFG_CS_HOLD, &spisg->cfg_spi, val);
+Not sure what that means, you mean clock protocol is not good enough to
+model the h/w clock domains on your platform ? If so, you are welcome to
+improve the specification.
 
-[Severity: High]
-Does the calculated CFG_CS_HOLD delay value lack bounds checking before
-being written via FIELD_MODIFY?
+>   - U-Boot IPL (Initial Program Loader) needs a proper hardware
+>     description in DT, not using SCMI.
+> 
 
-Unlike CFG_CS_SETUP which safely uses min_t(), cs_hold is left unbounded.
-Since CFG_CS_HOLD is a 15-bit field, if an SPI client requests a large CS
-hold time, the FIELD_MODIFY macro will silently apply a bitwise mask.
+I am going to ignore that.
 
-Will this cause the delay to wrap around (e.g. 32768 becomes 0) rather
-than clamping at the maximum supported hardware limit, leading to hardware
-timing violations?
+> This list deliberately ignores ID instability and the need for SCMI
+> quirks during development of the SCMI firmware.  While upstream Linux
+> must only support sufficiently mature firmware versions, vendor trees
+> (e.g. renesas-lts) may still want to support development firmware
+> versions.
+> 
 
-[Severity: High]
-This isn't a bug introduced by this patch, but is it possible for the
-timeout error path to free DMA-mapped memory without halting the active
-hardware?
+Fair enough, but the acceptance of such changes depends on maintenance
+and possible absuse with such spec deviations.
 
-Looking further down in aml_spisg_transfer_one_message():
-
-drivers/spi/spi-amlogic-spisg.c:aml_spisg_transfer_one_message() {
-    ...
-    if (wait_for_completion_timeout(&spisg->completion, ...))
-        ret =3D spisg->status ? -EIO : 0;
-    else
-        ret =3D -ETIMEDOUT;
-
-    dma_unmap_single(dev, descs_paddr, descs_len, DMA_TO_DEVICE);
-end:
-    ...
-    kfree(descs);
-    ...
-}
-
-If an SPI transfer times out and wait_for_completion_timeout() expires,
-the code proceeds directly to unmap the DMA memory and free the descriptor
-array. However, the hardware is never halted or reset (e.g. by writing 0
-to the descriptor list register).
-
-Might the hardware still be actively performing DMA, resulting in memory
-corruption from a use-after-free? Furthermore, if the hardware eventually
-completes, could the delayed interrupt falsely wake up subsequent transfers?
-
-> +		desc--;
-> +	} else if (cs_hold_in_sclk) {
->  		/* additional null-descriptor to achieve the cs-hold delay */
->  		aml_spisg_setup_null_desc(spisg, desc, cs_hold_in_sclk);
->  		desc--;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717-a9-spisg-v=
-1-0-2eeea77be19f@amlogic.com?part=3D3
+-- 
+Regards,
+Sudeep
