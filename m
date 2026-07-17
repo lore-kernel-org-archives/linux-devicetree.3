@@ -1,149 +1,164 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f226.google.com (mail-vk1-f226.google.com [209.85.221.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8860A2E8897
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 18:02:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741DE360ED1
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 18:06:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784311367; cv=none; b=ZabjTo+mfwsXeVMCSGibODFl6lS+O0Xn4nmpmQjYS9z59xX+Ur3jhALlQizwgWvUO75ei71Uu0wyztWPnM506Q3G5zHUkB1XfmjHjTGpZ+OVIycuYkUe7Z1/Mst951NEqX0JDcTjEWHjQdjrUCnAD7bz/gJbWj5PH+2+X2ECRPE=
+	t=1784311593; cv=none; b=QaVyfK0UHnGUP6wGr49zzzPXEFPrk245MaHjU/Hnt1Y7gzx/oKwOHZhQobXt7AypuDMsifZ4hJ997oeBBPA8AONzp6FEFwk5CzqnltdpAijJJzHtTELcHwrS4+bKKMTm6hWtgsw7MMbvwjOTAS1elWU0iBfGCNmPLY+giTtCk2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784311367; c=relaxed/simple;
-	bh=IVp6OxKPnY5RRxUc+Z+0GDhftR8+TVNhQ2/e2GddRG4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=He2amMt/pHz09O0qFPCX2bwYKvzruc09q4KJ+hsj5K2E/13m6i0u7wchTTGgH7wDtBccJ1Tg45fwulB3aRXlZPT7mFUGaNlYs77saynRwIZee8FeSS4Ba0HDBUkM+CQbrrRyzyC5YJtjs8wctYXqXwVslpBTJVgNDlaUJQWTzhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mk5C9eQ6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=H/z8vIwu; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784311593; c=relaxed/simple;
+	bh=+hV0vQQ2qccegCAb9oQyV62O6SKN6X4yQBpfcmEKnnE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=r3ylzQPIITX5Ssb6isuNoqoHcazjeoFvoAmz6jef6xPrqi+JTOVNjNRuI7mmf3Bn5Kgr7V82Y9vim/8xzV8F0GLs/PvP+xWGrC++gyhwyRp+PWwoLtNdi8lggO458G2Q0l9f+tvtgY5PfPhIglWq6Ygn36ABqL1er6FNtAWwF8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=Kf/QXJtg; arc=none smtp.client-ip=209.85.221.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mk5C9eQ6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="H/z8vIwu"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66HGoHGC2209790
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 18:02:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=xJ763sHUzQ6G+X1IGzyYd0jA
-	GypHFriotS7bOyxUKWI=; b=mk5C9eQ6Ycao0XoN7QPb1GLJYNsp25EBKechTS60
-	tID5+3aL4/f3sPPE9zRMJSEYE/3cpn+AEnZPbZ5WYrTg0e7c8pdmKBzEK+roZkn2
-	zy4dvxdXNj3gqatw2CnlfUUxuJAoa4b4p325WvwPw4yWlVG1e2RSySiZW6S48gRX
-	ms7aVZos4TToUolaPB9/PjhY6374o20G30zbBN83zVR35dLJDHc+DZqjdCCp2ZZM
-	07M0vEapqN6xYJtapjgMu0CpzBMyFiUAjFAyxw9VIov82It8TrPdvC55OQgdaFx3
-	V/Jxn0TDjXpGeGRWFgxN/lvcGHGiDoZinFqrbKzoEGBidw==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fffagakwd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 18:02:45 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ce8a76df2dso142087115ad.2
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 11:02:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784311365; x=1784916165; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xJ763sHUzQ6G+X1IGzyYd0jAGypHFriotS7bOyxUKWI=;
-        b=H/z8vIwuzLZBgodNbDyrQBW4hvTFr60BixL/7rUyf/CXHVQjHOBo6TCr8UV55EVh+m
-         wHi0Ht/XJMMkUJoJdjdzqzhN8FZ9YRtJNmdt3WEnLy7d59SR/OZoVASn5Z137924ULEI
-         NzLfHl/ha3ZXzZN+GC/Fu1oQBVrHWH5D9KTD4MrxnB53cEUA9SYBdYQgI75KmLQgxi3F
-         Nj9d7PkfcQHeJt35vOr0p50xvs2ggbKNXVxnK/P6qhhrFFWp6ZeAhlsW7mdVy62XlCTI
-         2rdF9yHV8z205AbETHndPjYbnhQsVCImwqLllIajlu8wxXb6COyh4M4R43gWl/16TEuj
-         bCAQ==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="Kf/QXJtg"
+Received: by mail-vk1-f226.google.com with SMTP id 71dfb90a1353d-5bf95ade656so1702426e0c.1
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 11:06:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784311365; x=1784916165;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xJ763sHUzQ6G+X1IGzyYd0jAGypHFriotS7bOyxUKWI=;
-        b=W6YCh63mdBYt4BFUFUbAHgG8B8EIy/Gjiun/rWsSDZzd0YDDsQa0ZVyKE3L5NNRmdL
-         PpIFd2wP8URKS1H3BHpoTuWrPsMwBFMH8FAjqZXXmxpYD7Dl1ynPXXpWtn5p/0xhLXYm
-         QuhVFRusZuD+XcNao0b7XiNWrXLkuYkF+FdtGz6IYOt1NWyzn2GWHhf3RR05VLcWrWDc
-         V4cQqYZ8yZUN9yVj2njWP2E7pgfVPWQNZBUMqg6hMU0DgNnqfmqoNRXVfCnsPsrMZYe+
-         4fvy8Dtv9BPeeoY5pbcB4tZ/wQRzGHWNdmFVCq0kimGErzsW05dsyPis64tk24dOMJPe
-         mDSQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpcPqtoJ4VOov1XrnwD7osw0y4VXBHZ9PKemlcdFQyzaYNaupv5QjFwwg8y22W2P/m85INr+BbiAi5p@vger.kernel.org
-X-Gm-Message-State: AOJu0YzssmpPVbrU+L+2JUhNAuLhcXyD47UCWTwoxW/7/RKTqf4Vxx+h
-	WocsWqVl2RkzGGVR+i7HuQCU64x1r8myJTPwtEQghAB115nJNm4HSyqck2yvSUVhYVK5jQ2crwE
-	/++j//m0gZJfkWcDDxjZJZS4ccvl4h9UEZQEnIQehQhDqdyjXDWsFptogpaRQ2aRB
-X-Gm-Gg: AfdE7cnPXB1f/NU3S4T938CDpxJdJ4BXowhTMhsndyTB08Rv+dbZTPESrsTt5ndvTkk
-	/5ZH/CimnnIRfp3dBf5xkoKndAiFhUSS8BIv1qetO7swyJy5r4o6sC4dl7dpTs5nIurW9RJgHHS
-	9ujh9k47w+BM6zUXXRFk1p/iiwB0+XTGZeZ+Gexm813LsLts+Y16HU94JfKAjDWGZLugbEI/0Oq
-	gb2HoY46h5ICTe3M4492gGmmN5KGGPexuUWaqr/RoO6mmIU/R+DXFCfWF7itVZpR3vTYdtymntl
-	VCWJfxF/jIEWHQyg7glYQWP1arjAt2PHGFdeoX4LED/ZP/sFEI4WHyof/pWgcCBAVywupnUQP91
-	q3ljXF5fDvJtF2ZyUaPLndlKSJN4=
-X-Received: by 2002:a17:90b:2e0b:b0:389:8f6c:4d58 with SMTP id 98e67ed59e1d1-38e4b54c1d9mr4217536a91.34.1784311364834;
-        Fri, 17 Jul 2026 11:02:44 -0700 (PDT)
-X-Received: by 2002:a17:90b:2e0b:b0:389:8f6c:4d58 with SMTP id 98e67ed59e1d1-38e4b54c1d9mr4217511a91.34.1784311364247;
-        Fri, 17 Jul 2026 11:02:44 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a1bbab9sm10950517eec.15.2026.07.17.11.02.41
+        d=1e100.net; s=20251104; t=1784311591; x=1784916391;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TzgfqCvjoQZnveGpPF7MFJ2MVCAWx2MGGUIgss3Wdts=;
+        b=ozGoSwOQflJS/jKBp8S6hQ1SDcibglrcGRhs0jl1h30WTbfIxrhYf2NeKISVMzVWJS
+         88Zl6K2eDOljpkO2hnWUm8UnEA/4Odoe9I4I9VB/exTV38m5cHzGdMQrwWX5j2aCWRtU
+         jPNW3c13LXSgh2ZTC7LIEtJbz3TW+TjAOxrHFuoeDZt9XNOehYfHrWS+xNXoK4+CG5CR
+         B0AJTE5fk92gKXdpWe6q775HgNaBtsimpljh/Txyc0MF3RaKlOrxOpZGXTeJLxR5ZRUn
+         pqGdADSLdYfrG+exwnKZi4V1Pw7Abesf4d2KO4XbqqceJDHChAES1whrCvdKVX5UJ9y6
+         bkaA==
+X-Forwarded-Encrypted: i=1; AHgh+RpcalfZQNrryuGipYKjUJiTBkdk9rRZAmhrBuNo1QOLrJlEWd2Ria3YFEYrZovH5c5TZB1Cfrx6KfrH@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw0JPzWCCdpfizUuVkkAC0MDf6uO1JuD1PmBZ7SasflrRJs3VcT
+	Dt3k2M86MBaq1NV1rhK0oO2q/fX1qOGgQXcnopss5SI/9zfMm54c+G+ZkLNpL+CUq4juBdIjak1
+	c1I0t6tRiSH/P1Kq7Pff7xojVKOBATm+qOB0Um27v9pVQjKrfw5doB+N3clPYdNZa36jqMKltuT
+	AqtIvky3MlG/mH21vZZaV5SCHJKpwmU/W1jwHgmnY7dSNpscPjUdfJ0h9E/v9HIKxVSE4Lal85W
+	ju6DgCcWHCjPQ==
+X-Gm-Gg: AfdE7cmwn2vhd98u5L89sDEgsJWPqmBuMhTMXo0NfysAH3dDrxj4cvGA3g12+s1STWg
+	/1BWumBmUaJ7YZL5LPRxvOyqbjvGt83rByjBVefWlA1NnabtQwXin6slW3TruOu2aclyemodroi
+	qXsZiUm2c4Ncsyr7crqjuYBPJs/up4xnD5GM8xCEXei4rdNwlzFJ/8C5hABwbiYsn7dy0bQ3Pza
+	Lvzxq0fP5dX2Oee/gMJBZqP59zZn4rd+WkehcdcYWNNogQvDrD0nlQRZF3SyLLqpq6aUsqiHq+c
+	IcxEcriLBvcTKbAkQRETAq8kWkc/DOw0Hb128jqtHo/QTrlnFOfYqQsQ/Qetup1vwNiJ//T1CRR
+	EatoxIkv4sE3rQvIoPzeujAFLFJGkzcNmBY3rr/19PJ+2SYhZzgeWDl/NyTjxn8oFkIE8b3DS4g
+	LVAfxouFCYlIrtF3ziIkj0yx48vAHiIo1hPYc=
+X-Received: by 2002:a05:6122:8b10:b0:5bf:a181:d46d with SMTP id 71dfb90a1353d-5c1b64e6136mr639571e0c.3.1784311591093;
+        Fri, 17 Jul 2026 11:06:31 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-117.dlp.protect.broadcom.com. [144.49.247.117])
+        by smtp-relay.gmail.com with ESMTPS id a1e0cc1a2514c-976fc46ea84sm109075241.3.2026.07.17.11.06.30
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 17 Jul 2026 11:06:31 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8fdace20927so58503726d6.2
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 11:06:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1784311590; x=1784916390; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TzgfqCvjoQZnveGpPF7MFJ2MVCAWx2MGGUIgss3Wdts=;
+        b=Kf/QXJtg4ZPT43THpMyP6ntKSrXuECkPTKWeMGwbPUCMWUOPA3G2jCUVwn+iy0VuoJ
+         3k17dk2/QSDsV9WU4hO8UH8g1zEUGiLdAR4liHVxu7613lJXHwT/v0SC0bSfbdNsQJnD
+         iVzcB5hAozn/gBR/S9juPC08kkpRFhqEuVbPM=
+X-Forwarded-Encrypted: i=1; AHgh+RqyLIMJwOd0uwhBFUgnhQ84p2vsRq+rXhnI2cua6VJhLRbSsK740hOuP3H/BwWXwNttoG7M8MMwmcyg@vger.kernel.org
+X-Received: by 2002:a05:6214:2387:b0:8ec:a010:9af9 with SMTP id 6a1803df08f44-907783b332cmr41216996d6.40.1784311589850;
+        Fri, 17 Jul 2026 11:06:29 -0700 (PDT)
+X-Received: by 2002:a05:6214:2387:b0:8ec:a010:9af9 with SMTP id 6a1803df08f44-907783b332cmr41216276d6.40.1784311589265;
+        Fri, 17 Jul 2026 11:06:29 -0700 (PDT)
+Received: from mail.broadcom.net ([192.19.144.250])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9077856002esm23175896d6.11.2026.07.17.11.06.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 11:02:43 -0700 (PDT)
-Date: Fri, 17 Jul 2026 23:32:38 +0530
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: sram: Document qcom,shikra-imem compatible
-Message-ID: <20260717180238.2dysmrp6wanewgmg@hu-mojha-hyd.qualcomm.com>
-References: <20260430-shikra-imem-binding-v1-1-c6976239f90f@oss.qualcomm.com>
- <178425854616.1084804.7965648558976512392.b4-ty@kernel.org>
+        Fri, 17 Jul 2026 11:06:28 -0700 (PDT)
+From: Kamal Dasu <kamal.dasu@broadcom.com>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: Kamal Dasu <kamal.dasu@broadcom.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Pedro Demarchi Gomes <pedrodemargomes@gmail.com>,
+	Erick Shepherd <erick.shepherd@ni.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-mmc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] mmc: core: Add a host capability to skip SLEEP for cards with a broken resume
+Date: Fri, 17 Jul 2026 14:05:34 -0400
+Message-Id: <20260717180536.1757204-1-kamal.dasu@broadcom.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178425854616.1084804.7965648558976512392.b4-ty@kernel.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDE4NCBTYWx0ZWRfX6bYAfMi0Iacd
- Z5nH7o7OEHhkdxqb/DS3/ZYdNM3/Aj2E8WP1KvwWMZ/b1ZOF7R3qF/DEBni+WiqM9IrO+mOHqnR
- N7dzP4qPa/NNWfF+mHugEGYzfBpOexwxsyWvQDOlpryvLhbrLm+Xhg3tInFQmQyXRrNKZdEoBK0
- CJ+GEG5O51FcexFmhApYevSw+mb3tKQabY5u+4EKNNn1sBfGw+c8F2EF0BhNHh6thpuPHmQLDB6
- u7QNklu4yiH1bnbNvgWhxP0Ze/Xy0zaKynzQ46UbbSgQ2uRGhWkjJIh5XUqxqwHMfDzLJcih48b
- yIgT1ZWWv46gEYmcyXOrHoTnFhW6DkQW7SwELDXdcWXXoK57nIyCnlrilCdJ/pppNj58xw6km+J
- NjKDxJs/aDZM3lcYqXlkKW4/I3i+ttgDXtWCOy62PPerGJPNX9C/tBGh9aDmMqR2AJWNLfpW2ls
- YWqLTi1x5J0sumyUIMg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDE4NCBTYWx0ZWRfXyGluzlJb5RZh
- NZXsq3v2O34Lgs/pC73aMO8Mki5ZugBicqVnmi2g6J5iHwyjlhOMW4AGvF8uirEn0jy2SCgHPM5
- FBcUXebtCmt9GAkJbemjoA2bVD12k0U=
-X-Authority-Analysis: v=2.4 cv=KZfidwYD c=1 sm=1 tr=0 ts=6a5a6e45 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=u-DBnAx98IGjIwESew4A:9 a=CjuIK1q_8ugA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-GUID: Z7yNvut5t1DQrPufIZenxz1TKnWny07d
-X-Proofpoint-ORIG-GUID: Z7yNvut5t1DQrPufIZenxz1TKnWny07d
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-17_05,2026-07-17_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 clxscore=1015 malwarescore=0 spamscore=0
- adultscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170184
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Thu, Jul 16, 2026 at 10:23:26PM -0500, Bjorn Andersson wrote:
-> 
-> On Thu, 30 Apr 2026 18:08:04 +0530, Komal Bajaj wrote:
-> > Add compatible for Shikra SoC IMEM.
-> > 
-> > 
-> 
-> Applied, thanks!
-> 
-> [1/1] dt-bindings: sram: Document qcom,shikra-imem compatible
->       commit: 26ead60b1a2722627759dc8c279ed336826bb5e1
-> 
-> 
-> Please make sure to Cc linux-arm-msm@vger.kernel.org, so changes like this
-> shows up in my inbox.
+This is v2 of Florian's original patch:
 
-There is a very high chance it can get missed. Is there a better way, like
-adding sram.yaml to the ARM/QUALCOMM mailing list in the MAINTAINERS file?
+  Link: https://lore.kernel.org/r/20260413180551.3683969-1-florian.fainelli@broadcom.com/
+
+Background: the Kioxia 016G01 eMMC takes ~10ms to exit SLEEP (CMD5)
+instead of the ~1ms it advertises via S_A_TIMEOUT, which can be
+problematic on systems that resume from Suspend-to-DRAM by first
+pulling boot code from eMMC using hard wired logic that is not field
+updatable -- if the card is still asleep when that logic reads it, it
+resets the board. The device stays powered throughout suspend-to-
+DRAM (no software-controlled VCC/VCCQ regulator toggling on this
+path), and the CMD0-before-resume sequence follows the JEDEC boot
+spec, so this isn't something the kernel's resume ordering can fix
+on its own.
+
+v1 addressed this with a card-level MMC_QUIRK_BROKEN_SLEEP quirk
+keyed off the device CID. Ulf pointed out that a device-specific
+quirk doesn't generalize well and suggested a host capability bit
+instead, settable from DT (or derived from a compatible string),
+mirroring the existing no-sdio/no-sd/no-mmc properties. Oleksij
+separately noted that quirks registered in mmc_blk_fixups[] are only
+applied once the mmc_block driver probes, which is too late to avoid
+a race against an earlier SLEEP/poweroff triggered on an under-
+voltage path -- a host cap resolved in mmc_of_parse(), before any
+card exists, sidesteps that ordering problem entirely.
+
+This series implements that direction:
+
+  - Patch 1 documents a new "no-mmc-sleep" DT flag property.
+  - Patch 2 adds MMC_CAP2_NO_SLEEP_CMD, parses the DT property in
+    mmc_of_parse(), and has mmc_card_can_sleep() honor it.
+
+The actual board DT change (adding "no-mmc-sleep;" to the affected
+brcmstb eMMC controller node) will follow separately once this lands,
+since that DT lives outside of mainline.
+
+Changes in v2:
+  - Dropped the card-quirk/CID-match approach entirely in favor of a
+    host capability bit, per Ulf's suggestion.
+  - Added a DT property ("no-mmc-sleep") to set that capability,
+    following the no-sdio/no-sd/no-mmc precedent, per Ulf.
+  - This also resolves Oleksij's concern about mmc_blk_fixups[]
+    being applied too late to close the race on an early
+    SLEEP/poweroff path, since the host cap is resolved in
+    mmc_of_parse() before a card exists.
+  - Reworded the rationale in patch 1's commit message and binding
+    description per Florian's review.
+  - Added a Reported-by/Closes tag crediting Florian for the
+    original bug report.
+
+Kamal Dasu (2):
+  dt-bindings: mmc: Document no-mmc-sleep property
+  mmc: core: Add MMC_CAP2_NO_SLEEP_CMD host capability
+
+ .../devicetree/bindings/mmc/mmc-controller-common.yaml    | 8 ++++++++
+ drivers/mmc/core/host.c                                   | 2 ++
+ drivers/mmc/core/mmc.c                                    | 3 +++
+ include/linux/mmc/host.h                                  | 1 +
+ 4 files changed, 14 insertions(+)
 
 -- 
--Mukesh Ojha
+2.34.1
+
