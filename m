@@ -1,194 +1,88 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1868A3C2BA8;
-	Fri, 17 Jul 2026 12:21:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3105F3DFC62;
+	Fri, 17 Jul 2026 12:22:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784290883; cv=none; b=gecZGaLIrUP5QC+C1NL416+JTwYsHFCDLodcBhEBi6T/LmypofAnU1dQ7FD8ZAZR5sX2r+6tlEAc/kZG8hVyE/EEyid6gMvZ5+6nUG+xHjI0OisscJYVK59uxKQPwIGwHwYG0truuemZRDt0DMsYliHJ89/PmCMncXldWzxhq90=
+	t=1784290948; cv=none; b=hxAivWm41LwcjqEIrMj5oKiIR/R2f0xA0pICz6gQ8vfhSCnGc/RwUtZWdy4J/jEATU6z78IskE+CiXjmV42RrXHUP1HSal/cY+co3WVRB3YiTXsbeg9PukedNXSbPdi05sd7SQLLJUnlLE1jsuTpEIQKL1IV8cEL7BngbKnuvbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784290883; c=relaxed/simple;
-	bh=12JKqVcIZ52E2RLSxqShm8ptLKwpwxt2fZwzEHcI1Sk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qAQQZU1ssbhT5u1df2YpKeFuI8cnldpWRxL1RgRbDBzDk+X611Wf26qVquNybPZQtcK6hvXOa0697Sg6Z2gjog6Im8v4fOswoSmhPX+i3yM91UIHV2kvJlcomIhxJyGHKZWlg1GlsCVWHNWDY3WKyQIcY63FrNiBBwrK3kGwSjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=s02f0Fj0; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1784290948; c=relaxed/simple;
+	bh=l/wlF4QcdizdEvDsLf+DlBNxr6UFs70WEyf/E/9DHRI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Adshn5YX+pLCEQc9M2V42RkB6M3kyio5n7qo4cPeu7N3EnZXFh3mCtRv5MV0jhTinl9Q7tZwvKX+lVvUZg1GY92UfVTmueTS6v6xV6ifQ4F9ZdJOOw1uLGtgHdjDhfLa3kZvSEIWzT4Au77kJ98UYph6/YNlYuFXrIvQjNzSWbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=McD3J9mt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="s02f0Fj0"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DB7571476;
-	Fri, 17 Jul 2026 05:21:15 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6CD653F7B4;
-	Fri, 17 Jul 2026 05:21:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1784290879; bh=12JKqVcIZ52E2RLSxqShm8ptLKwpwxt2fZwzEHcI1Sk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=s02f0Fj0gEDxPOKdbFt0hj9bVWROJ4+nqGTlH7fJYt6Am1SLtfGBpHaK+s+YcsjUn
-	 68WVavT9WpIVJBPQE0hhc2YB33mvKz08BXVzgDu8MTXC2UIcZC8JhxaZ+DHPjxMB0z
-	 LxTIM8ClFctMv13i6Txtm3vaqEYPcdva7jAS8I74=
-Message-ID: <f61a0a67-2cb5-4fac-818e-70eb9ed69f95@arm.com>
-Date: Fri, 17 Jul 2026 13:21:14 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="McD3J9mt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D5BB1F000E9;
+	Fri, 17 Jul 2026 12:22:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784290945;
+	bh=l/wlF4QcdizdEvDsLf+DlBNxr6UFs70WEyf/E/9DHRI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=McD3J9mt9QSo7ejD7wNm9b11kBvlEasv6/0urt2iDOpy9k07/l/qOJH1MKdPtF3r2
+	 IW6as2u0DlBAaeZ4SLfBBORYpTKO7MCxkvWRIZTnq6hs3/Gdox7ttSJOoNvfVYCL8n
+	 cncWXYVW43C1Pc6NOtMyyrCRRDmbfc8XJVpsrPUGoGdMs2RdNQ9IS0l1K4VkY3o+cw
+	 +z9+ac1mfOyrHuV3BLIc5I4WCfcSN+/GbuJpV8Z03WOq4uNCF2m/r91VBVQCCB3hQ5
+	 WpF6kIoKF7Lax1yw3aySncsrbS77nqXW0Jzheb7BUgRRt4jS1g5lDWORIZVWPNDXfI
+	 k40IHEJfCTZyQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 01/11] arm64: dts: lx2160a: explicitly enable
+ serdes_1 node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ioana Ciornei" <ioana.ciornei@nxp.com>
+Cc: Frank.Li@kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260717120635.2118610-2-ioana.ciornei@nxp.com>
+References: <20260717120635.2118610-1-ioana.ciornei@nxp.com>
+ <20260717120635.2118610-2-ioana.ciornei@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 12:22:24 +0000
+Message-Id: <20260717122225.2D5BB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-iommu: Introduce API to reserve IOVA regions for
- dynamically created devices
-To: Konrad Dybcio <konradybcio@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>, joro@8bytes.org,
- will@kernel.org, m.szyprowski@samsung.com, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, dikshita.agarwal@oss.qualcomm.com,
- Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Robin Clark <robclark@qti.qualcomm.com>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>
-References: <20260119054936.3350128-1-busanna.reddy@oss.qualcomm.com>
- <cfd23f75-8952-4463-abd5-815b995031b0@arm.com>
- <bb59f07e-ca7e-f012-6a4b-0a148350b69c@oss.qualcomm.com>
- <20260612172649.GM1066031@ziepe.ca>
- <da77c21d-25b3-46c3-a48f-71f0549e9f5f@oss.qualcomm.com>
- <20260615125257.GS1066031@ziepe.ca>
- <dcc0d02e-91fb-ddbe-399a-0191bab94c4f@oss.qualcomm.com>
- <20260617194038.GC231643@ziepe.ca>
- <e9e76c9f-b3b1-4ffd-9547-183556f6bb60@kernel.org>
- <20260618151745.GD231643@ziepe.ca>
- <dba037fa-0f21-4a50-8727-076a3b177c47@gmail.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <dba037fa-0f21-4a50-8727-076a3b177c47@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 17/07/2026 11:44 am, Konrad Dybcio wrote:
-> On 6/18/26 5:17 PM, Jason Gunthorpe wrote:
->> On Thu, Jun 18, 2026 at 01:57:40PM +0200, Krzysztof Kozlowski wrote:
-> 
-> [...]
-> 
->> So, if we are going to do a hack in DT to accomodate Linux, I argue to
->> choose explicit child devices so VPU does not need to create a special
->> bus, call of_dma_configue, or hack in new DMA API things that only it
->> will ever use.
-> 
-> Bit late to the party, but I'll chime in with some more "amazing news"..
-> 
-> All of the multimedia HW on QC platforms (camera, display, GPU, video
-> and their specialized variations) has at least part of the same problems:
-> 
-> * Multiple SID groups that need to be accommodated for different purposes
->    (normal vs secure buffers provided by the same device, different
->    "logical functions" generally speaking) apply to all of them
-> 
-> * Different IOVA limitations per SID group seems to also concern at
->   least the camera uC ("ICP") (but not all of camera hw)
-> 
-> * Remoteprocs (and therefore also the audio stack) expose a number of
->    subfunctions, some of which we currently model as subnodes (although
->    many arguably only exist as such because someone decided it was
->    convenient to express them this way). This, for example led to the
->    representation of each SID group associated with the remoteproc
->    (fastrpc/"run compute on rproc") as a separate node:
-> 
-> -- qcom/hamoa.dtsi
-> remoteproc_adsp: remoteproc@6800000 {
-> 	[...]
-> 
-> 	// no iommus OR iommus used for another purpose (fw loading)
-> 
-> 	fastrpc {
-> 		// no iommus
-> 
-> 		compute-cb@3 {
-> 			compatible = "qcom,fastrpc-compute-cb";
-> 			reg = <3>;
-> 			iommus = <&apps_smmu 0x1003 0x80>,
-> 				 <&apps_smmu 0x1063 0x0>;
-> 			dma-coherent;
-> 		};
-> 
-> 		compute-cb@4 {
-> 			compatible = "qcom,fastrpc-compute-cb";
-> 			reg = <4>;
-> 			iommus = <&apps_smmu 0x1004 0x80>,
-> 				 <&apps_smmu 0x1064 0x0>;
-> 			dma-coherent;
-> 		};
-> 
-> 		[...] (there's a lot of them)
-> 	};
-> };
-> 
-> There may be more hiding in plain sight, but those are the ones I'm
-> aware of.
-> 
-> 
-> I was kinda hoping there would be more buy-in to follow what PCIe
-> does, but to my understanding you're opposed to it because "vpu_bus"
-> is not dynamically discoverable. PCIe generally obviously is, but
-> we already have prior art regarding hardwired/onboard devices - many
-> qcom DTs carry per-board iommu-map overrides to please the allocator
-> with known-in-advance BDF values (because the HW has only so many
-> SIDs):
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Incomplete device tree update: the patch claims to explicitly enab=
+le the `serdes_1` node in "all board DT files" to prepare for an SoC defaul=
+t change, but misses several LX2160A and LX2162A board files.
+--
 
-It's not really about dynamic discoverability, it's more the fact that 
-PCI requester IDs are a real and well-defined thing.
+--- Patch [1]: [PATCH v3 01/11] arm64: dts: lx2160a: explicitly enable serd=
+es_1 node ---
+commit d3826fcfc7d054169418a33dbec45e352c709bff
+Author: Ioana Ciornei <ioana.ciornei@nxp.com>
 
-> -- qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-> iommu-map = <0x0 &apps_smmu 0x1c00 0x1>,
->              <0x100 &apps_smmu 0x1c01 0x1>,
->              <0x208 &apps_smmu 0x1c04 0x1>,
->              <0x210 &apps_smmu 0x1c05 0x1>,
->              <0x218 &apps_smmu 0x1c06 0x1>,
->              <0x300 &apps_smmu 0x1c07 0x1>,
->              <0x400 &apps_smmu 0x1c08 0x1>,
->              <0x500 &apps_smmu 0x1c09 0x1>,
->              <0x501 &apps_smmu 0x1c10 0x1>;
-> 
-> Although it seems to me that it's more of a hack than anything else..
+arm64: dts: lx2160a: explicitly enable serdes_1 node
 
-No, that is describing a genuine mapping of physical PCIe requester ID 
-values to physical SMMU StreamID values which exists in the system, and 
-which any OS needs to understand in order to be able to configure the 
-SMMU correctly at all. Sure, that mapping probably is programmed in a 
-lookup table in the root complex by the bootloader in a board-specific 
-manner (like I know the NXP Layerscape platforms do, for instance) but 
-it's still a real description of the system configuration, and it's 
-perfectly fine if StreamIDs and/or LUT entries are limited to only 
-configure BDFs known to be present at boot (if there's no SR-IOV or 
-hotplug to worry about), since it's a reasonable expectation that an OS 
-won't go arbitrarily renumbering buses just for fun.
+This commit enables the serdes_1 node in board-specific device tree files.
+This change prepares for a subsequent update that will set the default
+status of the serdes_1 node to disabled in the main SoC device tree.
 
-It's another thing entirely to have a bunch of distinct logical devices 
-whose only physical identifier is already an SMMU StreamID, then invent 
-a fake mapping of made-up numbers to StreamIDs in order to pretend they 
-can use common infrastructure, except still needing invasive hacks at 
-almost every level of said common infrastructure in order to even try to 
-make it actually work.
+> Explicitly enable the serdes_1 node in all board DT files. This is
+> needed in order to be able to change the default status of the node to
+> "disabled" from the SoC DT file.
 
-How anyone can read, let alone write "This creates a limitation when 
-child requires a different iommu-address range than its parent, as 
-device tree cannot express the reservation per child." and not 
-immediately conclude that the Devicetree binding must be wrong because 
-it is unable to adequately describe the properties and requirements of 
-the hardware, frankly I struggle to imagine...
+[Severity: High]
+Does this commit miss updating several other lx2160a and lx2162a board
+files?
 
-Thanks,
-Robin.
+If the default status in the SoC device tree file is changed to disabled,
+it appears boards that rely on serdes_1 for high-speed IO (PCIe,
+networking, SATA) might be left without functional interfaces.
 
-> 
-> 
-> With that in mind, do you still prefer that this is handled through
-> separate nodes, presumably for all of the aforementioned cases?
-> 
-> Konrad
+Could the following board files also need the serdes_1 node enabled:
+- arch/arm64/boot/dts/freescale/fsl-lx2160a-bluebox3.dts
+- arch/arm64/boot/dts/freescale/fsl-lx2160a-qds.dts
+- arch/arm64/boot/dts/freescale/fsl-lx2162a-qds.dts
+- arch/arm64/boot/dts/freescale/fsl-lx2160a-tqmlx2160a.dtsi
 
+Is there a reason these files were omitted from this patch?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717120635.2118=
+610-1-ioana.ciornei@nxp.com?part=3D1
