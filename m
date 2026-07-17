@@ -1,139 +1,71 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4EED2F2910
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 13:52:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB2C417D6E;
+	Fri, 17 Jul 2026 13:56:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784296349; cv=none; b=XC1kjkQwRTezRi4GcIi8Re16RUi6yZafMlcbsqvdltAAf7m99E9LAANtqn3wnI3+40vrHyVAIQCB71b5p9pocU8mMDI5sCm5nheEi1V3MZyxQ3NcchWoXR9VmYJWLxMnc3unvVzUwxhB0KA8wXXPEbISJ9P2UZ88oy6qEebmcc0=
+	t=1784296570; cv=none; b=SWc0FlVu+TabrGJ1C1M1RkDx82v/nV3e5MXy7moLUJ9QzxewN+mOUr1AQ9MgO9K1D0Pn5iyfTtQEL/CLyFnRLL3Q/GqkZAQ7KWotBI17b173FwV3cm/QjfjR4GsUldoG94C6Z9Od/v/6ugwYGnLWJsOCiefThXkZorafi1MfnaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784296349; c=relaxed/simple;
-	bh=YNdudccxgF0GNeZMVRI+WGS9EJ7qAu7VHHOEJlJmZlk=;
+	s=arc-20240116; t=1784296570; c=relaxed/simple;
+	bh=VzknG6bu5GyNIajsFcQXasKy5FqWpeRcQpGJezwoO5k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fubN2lzvxlEBYjFTmoIvbWmx005TI3flnQwdtkjgoz21HVd6S3C23ZPOe5zb9NRXSUY57AsQ/ZVVc1T3PUvkk1JdIn3/jtRTnIv+hvJGnVd8LgQ/gfQnZysrYm/3k/98nOxc+AzQn1LbJDY5mMp8flMvxYwANMGdVoIHXTn6j24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UHCTH/ci; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=sFh2yOkHQ4uRbUMHgU3j0KuRQHsBvhPsG5K1RmYEcthN4vI9FKVENaZhTKNbYFnIy5/whUVUe7dhxFYCjKuoL919p9MvBk56I3M5pIHWRUaPyGcdW6iAK6/7B8ubpNsbROft8sGlMzM4qPHsH1sGWn8WDYOBwjpz2tww9Luiopw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xr3v0Mr/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UHCTH/ci"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-493f45e20cdso46087665e9.2
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 06:52:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784296346; x=1784901146; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aL2gd+WxGuY6Bl16wWSEIS9/aMLXAhdRbeLUUN3ab9g=;
-        b=UHCTH/cicWaaigvH5YGRT1CK7H/et6c/VQGalUXh9iJVTrNl+t8YMOcDpkaLy9RhjH
-         G94yF2PHO1ZTDEzqTD//sXtQglgiWGCN3/yBClXm/gDBCVhOoS+agY4dnfGvyLZKz/YJ
-         JYdDzJ9HIJDjAgWykhIfqbbt5FR6/WbapDO/tGmf66U68VNdC8Xnw9PFac69yg++gXOy
-         +P57ytzFhNE/YP9jP21a4R0q5M731q2eublSMJa52qIYT1zc85+WR959IGHGiVmK7WP4
-         7KKrDmUWVkZ5wRgm6yLyvlES0deodwpjayUVNqqaXS10VM1i845RBJDwAN2o7iNpkte8
-         tgUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784296346; x=1784901146;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=aL2gd+WxGuY6Bl16wWSEIS9/aMLXAhdRbeLUUN3ab9g=;
-        b=AJLzyL0u8H60lbp0C6+rPZnCXjO7BpHPpvsn43ZNO1yMnk7WqxviOMx2mBPdSs0eSb
-         Xmpqyv/+4d3067u2y6XwsgUz2i22QehorqwVwGWNOyiS54lrIZOBs8oIWwVL97UjYPZk
-         6n6tZWdVAzKLha19PbILbEsm70zCHrwwQahFxKDHpYBRNZxuePmIxM88xhBWWBPc2bUf
-         nEZH5g7+QtwIJjbXRxlRZ7D6XQyO8OCeX9Aoc/+oEYWY1e6uFqjJE2w5VNFeKN4V5np0
-         Cq2aWkZ6GEGVye4F7r/dhAqY6a+GxhLhafmbhZGYuDuoZhRucjfn0aSsScz1Vn2GM0YS
-         mdvg==
-X-Forwarded-Encrypted: i=1; AHgh+RqyHhqdVAw/eGM8ai4Xf4MNOzaL+OOafCuvNwyeIk4kLzslyXlcUiIsHglRoszOLTUxdFvdk1m+A6Ma@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz/pkXsl/5IC5D0bjs5gsqgBZT819GSR/ibNNHnwCnCr2F9MKVC
-	uZ8ijHp8QucMrpww8+R6LY9UH8M5zFd1Qybu0hRpik4Qt8/GmnV/aQM3
-X-Gm-Gg: AfdE7cm6IBPsWKycFjUp70LpjkeB+WyvOyum6Z4nSJ993+Mks5cdmMs55F2vj9VBDkA
-	pn+ELecR6Xi+SHTIc8kbekaeK8/1vsqLEufq6BFX7MaT2EwBZ/DSd7nmaRTMiezwIdVrPTiUkFH
-	Sqwr8UIUkqxFC7xVVQiJsjxfEwDGs0dlyekxQrC8p08SQr/abE2ojyOv20t0rhwXbWwNVdBMk7Y
-	bjqWmninLM4tIDy1WDrMcRr+Ex4ugvWardWB4u3guQ/gsrz8vh9gKi9seRXuAj9xtju/3pfOyfv
-	a4x6L+Nc3dEOAL2CNjWhAgkP8MDGKyRWRa8v6AlZb0YvLICqA7uAFcXD1yCh04L/7kNmVOkPUC/
-	W6Sjh7phA+rBJ06HgMaGXa6lcwfU8JbkIIjuSCpzKTh9UiI0QumtTPrAFqoRNukgqqzZgJBRXgJ
-	sv+giPjoaw80R02fihyDGowxDHRds=
-X-Received: by 2002:a05:600c:304a:b0:493:af56:8e64 with SMTP id 5b1f17b1804b1-4954a40ff61mr24483915e9.32.1784296345884;
-        Fri, 17 Jul 2026 06:52:25 -0700 (PDT)
-Received: from NSA-L02.ad.analog.com ([137.71.226.102])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63e52673sm4424709f8f.15.2026.07.17.06.52.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 06:52:25 -0700 (PDT)
-Date: Fri, 17 Jul 2026 15:52:01 +0200
-From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Conor Dooley <conor@kernel.org>, 
-	Janani Sunil <janani.sunil@analog.com>, Lars-Peter Clausen <lars@metafoo.de>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Marius Cristea <marius.cristea@microchip.com>, 
-	Marcus Folkesson <marcus.folkesson@gmail.com>, Kent Gustavsson <kent@minoris.se>, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Janani Sunil <jan.sun97@gmail.com>, linux-spi@vger.kernel.org, Kent Gustavsson <nedo80@gmail.com>
-Subject: Re: [PATCH v6 1/5] spi: dt-bindings: Add spi-device-addr peripheral
- property
-Message-ID: <zeooo2jqsp7rkovhdxtra6qjlzjsppyppe3nqojrskcv2sc2x3@2npaf56m66p7>
-References: <20260715-ad5529r-driver-v6-0-cfdf8b9f5ee3@analog.com>
- <20260715-ad5529r-driver-v6-1-cfdf8b9f5ee3@analog.com>
- <1c4af9b1-9937-4cbb-b57f-52ac575b8b89@sirena.org.uk>
- <lpbqk3wv6emhdtxhnczrgufzzxprcfpfgenfepnmzhzfj3b3ci@rdphuko7ikti>
- <157154d1-3995-454b-9e08-1527f1c5d409@sirena.org.uk>
- <jsximyohkijphqrtgat6cjtcvtirjsdtbgn3lb6npw6yhgmcth@tq64dotfowss>
- <0e3e45fe-4c34-45d0-b985-0938f60b5914@sirena.org.uk>
- <20260716-stole-copious-7cdaacb6cef6@spud>
- <27746e91-ab2b-40a0-822b-6d3a8997cefc@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xr3v0Mr/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A1761F000E9;
+	Fri, 17 Jul 2026 13:56:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784296569;
+	bh=TtOURXpd31C7HKu1aW6O0V01W5j1OYbvK0lLANhiC6w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Xr3v0Mr/8Bam4zcalsN9+wfe2WEPuYpAl/SuZAXc8wE7BlXg4KCeXP3SgErP0IDLi
+	 5m8zXMkW4AOII65WjjdRenMQNk3cRoDjk4+VSklCgu7pM7552HShZcc5k8me7NUBmP
+	 gj4LXosJo0tTuLmgqG0JSjjaV92YMjJ2q+CjenfV2PW4V7/fbJOLN0nQjMYQPRz6B8
+	 OE+mlswkr//6r2hbXld2yh8i1LRuHEd2TWEuT0Y8kuYmAPNcIQAO7zFnvzYyGkq2FC
+	 O9zbMV29CvNJ4f7x99K+N7hhrcBBHchsekOlBx9NjD5Kdn5267RMEWJ4aXxYozG9MM
+	 XT83Bs6Lgh+hA==
+Date: Fri, 17 Jul 2026 08:56:08 -0500
+From: Rob Herring <robh@kernel.org>
+To: Imran Shaik <imran.shaik@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
+	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] dt-bindings: clock: qcom: Add Qualcomm Shikra
+ AudioCoreCC and AudioCoreCSR
+Message-ID: <20260717135608.GA476084-robh@kernel.org>
+References: <20260708-shikra-audiocorecc-v2-0-b320d822cdd0@oss.qualcomm.com>
+ <20260708-shikra-audiocorecc-v2-2-b320d822cdd0@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <27746e91-ab2b-40a0-822b-6d3a8997cefc@sirena.org.uk>
+In-Reply-To: <20260708-shikra-audiocorecc-v2-2-b320d822cdd0@oss.qualcomm.com>
 
-On Fri, Jul 17, 2026 at 12:51:53PM +0100, Mark Brown wrote:
-> On Thu, Jul 16, 2026 at 06:06:13PM +0100, Conor Dooley wrote:
-> > On Thu, Jul 16, 2026 at 01:28:15PM +0100, Mark Brown wrote:
-> 
-> > > Oh, isn't that just multi-pin chip selects then:
-> 
-> > >    https://patch.msgid.link/cover.1783729282.git.Jonathan.Santos@analog.com
-> 
-> > No, I think that's something different.
-> 
-> > In this case, there is one chip select that all instances of the device
-> > share. Both the ADI and Microchip devices then use the upper bits of the
-> > first/address byte during reads and write to access individual devices.
-> > In the microchip case that I'm familiar with, what upper bits the device
-> > responds to are set by fuses in the factory. They also share the same MOSI
-> > and MISO.
-> 
-> I'm struggling to identify a way in which this is functionally different
-> to a multi-pin chip select.
-> 
-> > The SPI core already supports two of these devices from Microchip, since
-> > it just modifies the contents of tx_buf in a spi_transfer.
-> 
-> When I said we'd have to modify the bitstream I was told that wasn't the
-> case and this was just asserting more pins along with the "chip select".
+On Wed, Jul 08, 2026 at 11:55:06PM +0530, Imran Shaik wrote:
+> Add device tree bindings for the Audio Core Clock Controller (AudioCoreCC)
+> that provides clocks and Audio Core CSR that provides resets on Qualcomm
+> Shikra SoC.
 
-Oh sorry,
+This should be 2 schema docs. They share very little.
 
-Likely I was not clear. The part as some ID pins which are just
-configuration! So they are two pins and depending on how they are set
-(low/high) each chip can have four possible addresses! Now all of the chips
-(to a max of 4) are connected to same CS of the controller so just one CS get's
-asserted.
-
-Of course the above will assert on all devices on that same CS but only
-the one where the ID pins combo match the spi xfer high bits (part of
-the address) will reply.
-
-Hopefully the above makes it clear.
-
-- Nuno Sá
+> 
+> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+> ---
+>  .../bindings/clock/qcom,shikra-audiocorecc.yaml    | 90 ++++++++++++++++++++++
+>  .../dt-bindings/clock/qcom,shikra-audiocorecc.h    | 49 ++++++++++++
+>  2 files changed, 139 insertions(+)
