@@ -1,156 +1,197 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6619A398902
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 20:30:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FEAF384235
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 20:35:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784320221; cv=none; b=kleXLDv0m28GxqGc+Jd+jTPAkfOR7KLEX29DaQbmQzlypqM10J5Dp8t416wsWDDxxtU7gItOgYj0JZqVG9xEDPYFFRDLOrpNXLz85F9mOpnvvnoLrt/bUy0DH2YD5jiP+l3gckHF+/VvqLspPJ0gLZrJqbVfc0oVb3kYN8XaTH4=
+	t=1784320528; cv=none; b=ogtbXm1V0ia2XA1+aVjWK/YW5b0v5MooaJhDwSBJ5g7pzFXOi84sKA9fyKv6u0i19xGpa8sIrH2y+QuNa5sEPe+oLTGYR2TqAeMgQXSKvvIvzoU5TCsgSqFS9u4rhYfa/H3//4r1hurWz8o13OWVXkugldx65VmOuWheuMYwrBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784320221; c=relaxed/simple;
-	bh=sJtJD0LLEsLZ7L5OJQqYw9qKGV27mzCo8uWntMyp7EI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nMWX7mlIGES7rxJ+yBZyylMYtO9y0qjMvkeDxWuS5sK2cgGfinAJxox3+zQsjwnxwA68ugsdQQgIPwE9COLdUUhSMIKaseVLVKwDesUk7DHQL32ij3NvIBDoL5Rpt4zW1zzdLb4xBd/hZ5lyCvieaVcH/96K+LROx681pKkJXv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hHXIyKyz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784320528; c=relaxed/simple;
+	bh=oUtHmlS+6lFNDKPDMmSUMugEVw9ScUuaOklUrcljiro=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=GzyB02pdwP52sCzNS9/NRhkZ9yM7IKB+0HbdiaoVywjMBpJzqp0ebz6Vg97m6PNc6D/AKwGWnpTTEkl/RpQvb2MSvuwUsMsoM5UnDHmA/LXWnbcfoAnwZ7r44RP/1HZOYgEE0jf8DWlEnb8VcO+wYlhoJcL0bP+S/AtIcRVb37o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ah3OTkBN; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Njgg2KUt; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hHXIyKyz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E54B1F000E9;
-	Fri, 17 Jul 2026 20:30:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784320220;
-	bh=6iNtPA2tZq7QaMNtFzj7F/HM9HnW3W1t17ezjeXGyvg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hHXIyKyzc+HT+BvzG9W/05DEofvGRTbPYlegQxSwgn92rgzFYkbrzvpaJOD3Y9LW1
-	 8uOM3VVRwwaso9HSyHLmmqjXDg2Xe5fcnHljIBMy0dJEDsjCJ0E77srYr87vDoaKLO
-	 8ATNnmftvMWS1zTpimSQf9IblFZePysGxmYF0iEHUV1SzKdwkHYwY02Bobst9tPssw
-	 wJoSH3fO/u1TQ+Sk5/ZV0ESj06yOVLYvHz5/ryDsTktJCeNAFnbd1/FvIoMUPGb6LV
-	 EbVf1i7p0GyitdsYtooVzMIue1MY//zYHpPii5Rz41o2D0NMustN+oz6mehCIcjxBB
-	 tqeAy4TBTZlEA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 2/2] iio: health: add MAX86150 ECG and PPG biosensor
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Md Shofiqul Islam" <shofiqtest@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260717201138.1078019-3-shofiqtest@gmail.com>
-References: <20260717201138.1078019-1-shofiqtest@gmail.com>
- <20260717201138.1078019-3-shofiqtest@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 20:30:19 +0000
-Message-Id: <20260717203020.0E54B1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ah3OTkBN";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Njgg2KUt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784320525;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Is7QXRJ9Lqxz/W/+MXTuCWFGjk5bJ6zhQmYPGnfDWvM=;
+	b=Ah3OTkBNfenuzGhK7XzsotjAxVSF6WCpAbMmXgyF6rhJE5ZEcskARiiqkGuxAo2k2sjIMM
+	YzRV/fWDE0NdH4SiYAXOhLDSAA/1mx94WvsC6JbVZyvMxP3Gapzna9LM67IWyq4AB32Elr
+	mvUy6nnflabT3ySB+lnJQVnP6SSqA7A=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-433-CON8h-1mMJuGfhI6YLOlQg-1; Fri, 17 Jul 2026 16:35:18 -0400
+X-MC-Unique: CON8h-1mMJuGfhI6YLOlQg-1
+X-Mimecast-MFC-AGG-ID: CON8h-1mMJuGfhI6YLOlQg_1784320518
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92ef13b61bcso1254646085a.1
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 13:35:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1784320518; x=1784925318; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Is7QXRJ9Lqxz/W/+MXTuCWFGjk5bJ6zhQmYPGnfDWvM=;
+        b=Njgg2KUt3NdcTNaAyRtYCreGpte0oaosuMaOmei5Uj4CXEkgGEpBV6o4l7oSmA2WkT
+         IXt3X+rqbgTQ2txiZthEyvrAxhzYvjChox6O/axT/SMb2duDTGBbyhICqygiLkBYX7vL
+         ZshLQe4nXEiFsfzLuXxdvJBYaLGsoxW7qMeUkWMzJB9BwHI8oOxOEYBzroBpIOC6vvLx
+         wFkMcScjs0rZ+ihPnHo0pDlHfgAvhHpTX+8lyvd2DqGBAEfqnLh8bTV3y7yghKvNjBcQ
+         PyvwCjgFC9012SBO2SyRRVGrLIL3I8CAAr68IHS6AwQhJSU5vg4c7HIuHrLifuDSvJUN
+         0mhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784320518; x=1784925318;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Is7QXRJ9Lqxz/W/+MXTuCWFGjk5bJ6zhQmYPGnfDWvM=;
+        b=iG6I6yH8i09E4TKizddWCxTG+XjKCTcYNckZsTkUth9t/qwCe/aWimlw23qyieHr9M
+         SDInPRMW5A9PEo5Z4V4edKkAy8RP8Vv8RNWA6N9pkR0ESl6BIi/nwNCl1RPwbZ5iMamb
+         FcEItcvqX8vMed79PXZMIOih6gxtwTFUc8kivG4RlG+GPWruygVtWGxdfA35dXpZIpJx
+         RW31NVspP4OzOTFpDgi7PEhjX4UnDs+qgkG0rpTIBdcYz9nflvWDyRWwC7dCRWuKKNqu
+         zoblAfQSZXVUGpD1BpH7f4eYXRlnDUtzmNZKCktoZ3xerhd13GnSsxxaUaY2NMdT4oAl
+         L4Ww==
+X-Forwarded-Encrypted: i=1; AHgh+RooO0M+1pbvbWfkypKF+kgTDS4o0NBVV8sCata6IsIJTeoe7VFgQ4980UYMTmNGU0WFZiq207VYLryh@vger.kernel.org
+X-Gm-Message-State: AOJu0YxUnaUIJqfiUES1Vp86rm0EMGCpklVkvDBE4d44BgehXbykTCc5
+	UKttvA46xW9/FYg+O7HPMOymQL67CJsAY78dwrMuUaeLsFm898Zn1gfp7eLlqztV5QyQ48EsBeX
+	6qfS08JUAoetzV8zQVvA9xNm9HkA5/t1btlwXsEwuHfE2E8BNwWKuJkNVGCmQ4SA=
+X-Gm-Gg: AfdE7clmimjLbwEMDS4YwNdYRKzxCDmBRw6BIP9CHMmg0jOtXqC+RsJq8HDyBwjAOiT
+	tMND+jSo+uOifHGtWAScmxkDYpc3yNbSLY3ZSjPNiHpRrsOTmVuGGPWUwSntlQQtmVKBuzHuxJo
+	DVFDhENfMOu8MuOHIGhRngngqd+QhghGahQkV+cj4B8KSvt18Sb1VrEofRczibFe0NI4peV05VE
+	jZye8nbOtWvyIytQz+Brkrtgth+jX1ccJ5xh3+t2PBnUZgOLyNUFUFA6ATk20Eq0sTqHTasw4B5
+	slSSjplCNp19doSC2Oaa+CYnOMbhQAwI595/X0tO3PcGvWMqdkYZ81N/zzsEDz1AY1NfCov/C6d
+	SS6eNYndkMfKBujL1+7pgx2kWUlmBtzix
+X-Received: by 2002:a05:620a:8807:b0:92e:7d1f:d3aa with SMTP id af79cd13be357-930b3f45332mr464674985a.31.1784320517664;
+        Fri, 17 Jul 2026 13:35:17 -0700 (PDT)
+X-Received: by 2002:a05:620a:8807:b0:92e:7d1f:d3aa with SMTP id af79cd13be357-930b3f45332mr464671285a.31.1784320517096;
+        Fri, 17 Jul 2026 13:35:17 -0700 (PDT)
+Received: from jkangas-thinkpadp1gen3.rmtuswa.csb ([2601:1c2:4480:2110:932e:45ef:6b6c:ddd0])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-930b545e253sm232859985a.36.2026.07.17.13.35.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 13:35:15 -0700 (PDT)
+From: Jared Kangas <jkangas@redhat.com>
+Date: Fri, 17 Jul 2026 13:33:56 -0700
+Subject: [PATCH v7] arm64: dts: s32g: Add GPR syscon region
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260717-upstream-s32g-gpr-syscon-v7-1-ee198f287682@redhat.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MMQ6DMAxA0asgz1iiARLKVVAHBE7wQIjsFhUh7
+ k7E+Ib/T1ASJoW+OEFoZ+UtZriygGkZYyDkORtMZWzlXg5/Sb9C44pam4AhCeqh0xbRtf5trO9
+ sNzeQ8yTk+f+sh8913XcTkxpqAAAA
+X-Change-ID: 20260717-upstream-s32g-gpr-syscon-75f926f868d4
+To: Chester Lin <chester62515@gmail.com>, 
+ Matthias Brugger <mbrugger@suse.com>, 
+ Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>, 
+ NXP S32 Linux Team <s32@nxp.com>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Dan Carpenter <error27@gmail.com>, Jared Kangas <jkangas@redhat.com>, 
+ Dan Carpenter <error27@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784320513; l=2673;
+ i=jkangas@redhat.com; s=20251111; h=from:subject:message-id;
+ bh=Su44JoHUNIT+NILqohVHQyIxNtJALtkgLhgf6U3PzRs=;
+ b=yu/MhwLbciKwwtbena2H4ob80CIrdSVWImmgvPDfdQYil0HgnUhDWGX8kWATuLCNUqkPL5X2N
+ wWNF+/HbdMLDhuEOGC3Q65MuEZGnrTmnS9P3sZgL8Fmho2Q0bTXkoZZ
+X-Developer-Key: i=jkangas@redhat.com; a=ed25519;
+ pk=eFM2Mqcfarb4qox390655bUATO0fG9gwgaw7kGmOEZQ=
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] The driver uses hallucinated locking macros causing a build failur=
-e, and omits the mandatory lock release.
-- [High] The I2C read buffer `fifo_raw` is not cacheline aligned, violating=
- DMA API requirements.
-- [High] The threaded IRQ handler incorrectly calls a hardirq-only IIO trig=
-ger poll function.
-- [Low] The i2c_device_id array is missing named initializers.
---
+From: Dan Carpenter <error27@gmail.com>
 
---- Patch [2]: [PATCH v10 2/2] iio: health: add MAX86150 ECG and PPG biosen=
-sor driver ---
-commit b6c51e5d5e6b5f625bd2546556d36647cd05b62e
-Author: Md Shofiqul Islam <shofiqtest@gmail.com>
+Add the GPR syscon region for the s32 chipset.
 
-iio: health: add MAX86150 ECG and PPG biosensor driver
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+[jkangas@redhat.com: GPR syscon resized from 0x3000 to 0x100]
+Tested-by: Jared Kangas <jkangas@redhat.com>
+Signed-off-by: Jared Kangas <jkangas@redhat.com>
+---
+Revision of Dan's v6 patch based on discussion in [1] to avoid a panic
+when reading the debugfs regmap's registers file.
 
-This commit adds a new IIO driver for the Analog Devices MAX86150
-combined ECG and PPG biosensor. It supports hardware FIFO captures via
-a threaded trigger handler.
+[1]: https://lore.kernel.org/all/aej2X2Gp-UI3Vmvo@rh-jkangas-kernel/
 
-> diff --git a/drivers/iio/health/max86150.c b/drivers/iio/health/max86150.c
-> new file mode 100644
-> index 0000000000000..47d96570a95fc
-> --- /dev/null
-> +++ b/drivers/iio/health/max86150.c
-[ ... ]
-> +struct max86150_data {
-> +	struct regmap		*regmap;
-> +	struct iio_trigger	*trig;
-> +	u32			 sample_period_ns;
-> +	u8			 fifo_raw[MAX86150_SAMPLE_BYTES];
+v7: Shrink gpr size from 0x3000 -> 0x100, add 'arm64:' prefix to subject
+v6: no change
+v5: no change
+v4: no change
+v3: no change
+v2: Remove #address-cells and #size-cells
+---
+ arch/arm64/boot/dts/freescale/s32g2.dtsi | 6 ++++++
+ arch/arm64/boot/dts/freescale/s32g3.dtsi | 6 ++++++
+ 2 files changed, 12 insertions(+)
 
-[Severity: High]
-Since this array is the target of regmap_noinc_read() and some I2C host
-controllers use DMA for bulk reads, should this buffer be cacheline aligned?
-Sharing a cacheline with sample_period_ns and trig can lead to silent
-corruption if the CPU accesses them concurrently during a DMA transfer.
+diff --git a/arch/arm64/boot/dts/freescale/s32g2.dtsi b/arch/arm64/boot/dts/freescale/s32g2.dtsi
+index 809019ea0e299..81280ec6b07a9 100644
+--- a/arch/arm64/boot/dts/freescale/s32g2.dtsi
++++ b/arch/arm64/boot/dts/freescale/s32g2.dtsi
+@@ -325,6 +325,11 @@ usdhc0-200mhz-grp4 {
+ 			};
+ 		};
+ 
++		gpr: syscon@4007c000 {
++			compatible = "nxp,s32g2-gpr", "syscon";
++			reg = <0x4007c000 0x100>;
++		};
++
+ 		ocotp: nvmem@400a4000 {
+ 			compatible = "nxp,s32g2-ocotp";
+ 			reg = <0x400a4000 0x400>;
+@@ -795,6 +800,7 @@ gmac0: ethernet@4033c000 {
+ 			compatible = "nxp,s32g2-dwmac";
+ 			reg = <0x4033c000 0x2000>, /* gmac IP */
+ 			      <0x4007c004 0x4>;    /* GMAC_0_CTRL_STS */
++			nxp,phy-sel = <&gpr 0x4>;
+ 			interrupt-parent = <&gic>;
+ 			interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-names = "macirq";
+diff --git a/arch/arm64/boot/dts/freescale/s32g3.dtsi b/arch/arm64/boot/dts/freescale/s32g3.dtsi
+index 22e80fc03f9c7..da35083a5e0e5 100644
+--- a/arch/arm64/boot/dts/freescale/s32g3.dtsi
++++ b/arch/arm64/boot/dts/freescale/s32g3.dtsi
+@@ -383,6 +383,11 @@ usdhc0-200mhz-grp4 {
+ 			};
+ 		};
+ 
++		gpr: syscon@4007c000 {
++			compatible = "nxp,s32g3-gpr", "syscon";
++			reg = <0x4007c000 0x100>;
++		};
++
+ 		ocotp: nvmem@400a4000 {
+ 			compatible = "nxp,s32g3-ocotp", "nxp,s32g2-ocotp";
+ 			reg = <0x400a4000 0x400>;
+@@ -874,6 +879,7 @@ gmac0: ethernet@4033c000 {
+ 			compatible = "nxp,s32g2-dwmac";
+ 			reg = <0x4033c000 0x2000>, /* gmac IP */
+ 			      <0x4007c004 0x4>;    /* GMAC_0_CTRL_STS */
++			nxp,phy-sel = <&gpr 0x4>;
+ 			interrupt-parent = <&gic>;
+ 			interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-names = "macirq";
 
-> +	IIO_DECLARE_DMA_BUFFER_WITH_TS(s32, scan, MAX86150_NUM_SLOTS);
-> +};
-[ ... ]
-> +static int max86150_read_raw(struct iio_dev *indio_dev,
-> +			     struct iio_chan_spec const *chan,
-> +			     int *val, int *val2, long mask)
-> +{
-> +	struct max86150_data *data =3D iio_priv(indio_dev);
-> +	u32 ppg_red, ppg_ir;
-> +	s32 ecg;
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW: {
-> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-> +
-> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
-> +			return -EBUSY;
+---
+base-commit: fce2dfa773ced15f27dd27cd0b482a7473cdcf2a
+change-id: 20260717-upstream-s32g-gpr-syscon-75f926f868d4
 
-[Severity: High]
-Do the IIO_DEV_ACQUIRE_DIRECT_MODE and IIO_DEV_ACQUIRE_FAILED macros
-exist in the IIO framework? If these are replaced with the standard
-iio_device_claim_direct() function, does this function also need
-corresponding iio_device_release_direct() calls on its return paths to
-prevent deadlocking the IIO device state?
+Best regards,
+-- 
+Jared Kangas <jkangas@redhat.com>
 
-> +
-> +		ret =3D max86150_do_read_raw(data, &ppg_red, &ppg_ir, &ecg);
-[ ... ]
-> +static irqreturn_t max86150_irq_handler(int irq, void *private)
-> +{
-> +	struct iio_trigger *trig =3D private;
-> +	struct iio_dev *indio_dev =3D iio_trigger_get_drvdata(trig);
-> +	struct max86150_data *data =3D iio_priv(indio_dev);
-> +	unsigned int status;
-> +	int ret;
-> +
-> +	ret =3D regmap_read(data->regmap, MAX86150_REG_INT_STATUS1, &status);
-> +	if (ret || !(status & MAX86150_INT_A_FULL))
-> +		return IRQ_NONE;
-> +
-> +	iio_trigger_poll(trig);
-
-[Severity: High]
-Since this handler is registered as the thread_fn in devm_request_threaded_=
-irq
-with a NULL hardirq handler, does calling iio_trigger_poll() here violate
-locking rules? iio_trigger_poll() expects to run in hardirq context. Should
-this use iio_trigger_poll_nested() instead?
-
-> +	return IRQ_HANDLED;
-> +}
-[ ... ]
-> +static const struct i2c_device_id max86150_id[] =3D {
-> +	{ "max86150" },
-
-[Severity: Low]
-Does the I2C subsystem API require initialized arrays of type
-struct i2c_device_id to use named initializers? Using named initializers
-such as { .name =3D "max86150" } ensures compliance with subsystem guidelin=
-es.
-
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, max86150_id);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717201138.1078=
-019-1-shofiqtest@gmail.com?part=3D2
