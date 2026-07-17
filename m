@@ -1,99 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E11E7175A60;
-	Fri, 17 Jul 2026 21:25:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C22C3A8398;
+	Fri, 17 Jul 2026 21:27:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784323540; cv=none; b=m3zkCLr9P3c+9a83GXDavMhHD8HX6eLt0bzz8O7LZ6CKxcCTgyz3Hd2J+/3hvW4vSLYXk1loGQdox1BbJw8acpsdofOEk9x/w8MnhBeTqaFnC+64PNEcEIi03aU9OgK8NKRvzC8s2ydsrfm3j37AWh0u1rl3lpTtLr4PmrmaVaA=
+	t=1784323641; cv=none; b=gLdUOKsJQbBpIDNiJ++pqFIH1PUvsG5gB7xQZjxDtRIVwR6bMN/ySbfxL6J0cDw5YJ5oG6v6OUngulTDtWm6MnTHFNBeHrhATubZAkrJARssxgSZK2qd/pBpZlp4moSHfnKG4cezjBgWtg7QGBFVl+3pTRcTdYWyCuj43B5jPM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784323540; c=relaxed/simple;
-	bh=yC0POvPsfRNhdhiUDbp40bKMTP/i1hzVEOnmK6V1bcw=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=WmeTU5bL5CGykD0qz25yn3YF+W+xW5aJ2c9M0IfSaF1JN2KUFYO0I5cgR+EF+CfCfkbFnuV63mLe8T/LegjhlLZAksHsRfMBWABAwTrMmwGP1/tA2o8hSpE2dv2yXEAOez5nGE8sRhz9IB61KMHeP3WyzxO0KhwwiwurNo8i7lE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=daIMHzfC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784323641; c=relaxed/simple;
+	bh=hlOvDEGjOs+X9GIX7iU0G0rAaBph46MvyoP4I7opZic=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=toN4q6kEmVPPVEuMnbGwVlWbJ5plqVeokZ8iwY8jsdpj5aZvDn9Zi+QMJBQ3r6PybE9tDwgIMTE3AAYm1+F5/BiESwbQ99ina4SzDlliUk9ZjNz4WpJY6x9F5onA4N1lsV3FsZqGkheNhi/gBMhDTd07UAxBwVbPTpMBdiYr4OM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BPbvkNOR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="daIMHzfC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70E8F1F00A3A;
-	Fri, 17 Jul 2026 21:25:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BPbvkNOR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1F161F000E9;
+	Fri, 17 Jul 2026 21:27:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784323538;
-	bh=QZH8NbU6Pjk6keXGAJ73rI0VCvSsVgApqc8JqdUGKRA=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=daIMHzfCeyc+1NhwDFp2eN/v/EtUrBeyqQcKZ/Bp5AL+omM1fSTL14slLwR/W2eNg
-	 wiiFr91N8b/dkhfrCUv76/9JOCeaihPzP1P/PICtVvKsZHGQDj9K5FHdfkpygMNYrk
-	 gNN+c9JOHgn0hivyAzehXjlcZWUem8ffgEMxA34SoRLCHslw+3W4WvvuwLcQHZ5gPy
-	 74s6R3CfAZE8LadZdjd7Ws9K8COvToRLzCR32mzThm4x4XKkiqFtaZuL6XLcCokZWJ
-	 R+U0XrKfZh5V/4PWLnfaP9nCWmyeY6QTnRPFVizsEC2r4T/PWE4qaZdbbWnW32dX+N
-	 4DfRE1fMklUXA==
-Date: Fri, 17 Jul 2026 16:25:37 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1784323640;
+	bh=dBXnne14TzlGPYAE+jbYfL9GYyOWxF/Hk8U7r5KsX5I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BPbvkNORLypm5tMeKLGKGv1izmes31ey74tGLqP1f0nloc7ykPU6tRrhX8tOwb0T5
+	 /P+l6Y+g2XjbjmiGE1bgryblIglANr9DKZfzapdI85P3ktmk5whQ2khOtIzXAHqXH8
+	 VfGR4JPdOMgV9GOO648cnbqY/d2yLMfShrjOb1dNOHDHN0oUsWfOGq22bEh106sc9d
+	 vtKTNCe4pPOQgD9MyHSb6qEY5mAxDVBt2U5xYNBxhHAeYNa3L5Y2Q1TfIuAbLKYbvz
+	 HBGB/Fkwd19p1VP6qLPPJm+7UXgn6ezJTXQg0ukqMb18nP/IoHdevI4YOQre+bPIbm
+	 o+mVVVHzIWuUQ==
+Date: Fri, 17 Jul 2026 16:27:19 -0500
+From: Rob Herring <robh@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: net: nvidia,tegra234-mgbe: Add missing
+ properties
+Message-ID: <20260717212719.GA2687584-robh@kernel.org>
+References: <20260716212001.989872-1-thierry.reding@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Fabio Estevam <festevam@gmail.com>, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Peng Fan <peng.fan@nxp.com>, 
- devicetree@vger.kernel.org, Shawn Guo <shawnguo@kernel.org>
-To: Frank.Li@oss.nxp.com
-In-Reply-To: <20260717201519.844259-1-Frank.Li@oss.nxp.com>
-References: <20260717201519.844259-1-Frank.Li@oss.nxp.com>
-Message-Id: <178432353778.2692844.15138095566024676604.robh@kernel.org>
-Subject: Re: [PATCH v2 1/1] dt-bindings: soc: imx-iomuxc-gpr: allow
- bridge@18 as child node
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260716212001.989872-1-thierry.reding@kernel.org>
 
-
-On Fri, 17 Jul 2026 16:15:17 -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
+On Thu, Jul 16, 2026 at 11:20:01PM +0200, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
 > 
-> The legacy i.MX6SX (>15 year) SoC imx-iomuxc-gpr contains one LDB_CTRL
-> register. Allow the LVDS Display Bridge(LDB) child node under
-> imx-iomuxc-gpr.
+> Being a DWMAC derivative, the Tegra234 MGBE supports AXI configuration
+> nodes named stmmac-axi-config and phandle references to them using the
+> snps,axi-config property.
 > 
-> Fix below CHECK_DTBS warnings:
->   arch/arm/boot/dts/nxp/imx/imx6sx-nitrogen6sx.dtb: syscon@20e4000 (fsl,imx6sx-iomuxc-gpr): '#address-cells', '#size-cells', 'bridge@18' do not match any of the regexes: '^ipu[12]_csi[01]_mux$', '^pinctrl-[0-9]+$
+> While at it, add the 10gbase-r PHY mode.
 > 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
 > ---
-> change in v2
-> - remove status = "disabled" at example
-> ---
->  .../bindings/soc/imx/fsl,imx-iomuxc-gpr.yaml  | 58 +++++++++++++++++++
->  1 file changed, 58 insertions(+)
+> This gets rid of the remaining warnings on half of the Tegra234 boards.
 > 
+>  .../devicetree/bindings/net/nvidia,tegra234-mgbe.yaml    | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/nvidia,tegra234-mgbe.yaml b/Documentation/devicetree/bindings/net/nvidia,tegra234-mgbe.yaml
+> index 215f14d1897d..dc897e312c55 100644
+> --- a/Documentation/devicetree/bindings/net/nvidia,tegra234-mgbe.yaml
+> +++ b/Documentation/devicetree/bindings/net/nvidia,tegra234-mgbe.yaml
+> @@ -81,8 +81,9 @@ properties:
+>    phy-mode:
+>      contains:
+>        enum:
+> -        - usxgmii
+>          - 10gbase-kr
+> +        - 10gbase-r
+> +        - usxgmii
+>  
+>    mdio:
+>      $ref: mdio.yaml#
+> @@ -90,6 +91,12 @@ properties:
+>      description:
+>        Optional node for embedded MDIO controller.
+>  
+> +  snps,axi-config:
+> +    $ref: snps,dwmac.yaml#/properties/snps,axi-config
+> +
+> +  stmmac-axi-config:
+> +    $ref: snps,dwmac.yaml#/properties/stmmac-axi-config
 
-My bot found errors running 'make dt_binding_check' on your patch:
+You should be referencing the whole snps,dwmac.yaml.
 
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/soc/imx/fsl,imx-iomuxc-gpr.example.dtb: syscon@20e4000 (fsl,imx6sx-iomuxc-gpr): bridge@18:reg: [[24, 4]] is too short
-	from schema $id: http://devicetree.org/schemas/soc/imx/fsl,imx-iomuxc-gpr.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/soc/imx/fsl,imx-iomuxc-gpr.example.dtb: bridge@18 (fsl,imx6sx-ldb): reg: [[24, 4]] is too short
-	from schema $id: http://devicetree.org/schemas/display/bridge/fsl,ldb.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260717201519.844259-1-Frank.Li@oss.nxp.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+Rob
