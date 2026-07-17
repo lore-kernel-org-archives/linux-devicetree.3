@@ -1,163 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD8362882CD;
-	Fri, 17 Jul 2026 13:49:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4EED2F2910
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 13:52:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784296183; cv=none; b=MiUsXaxcHQ58jtMfcmcMDNXsDCEM8xhmZo9m9UpY3uymv9gC7BezaUea98ebFMAA2Y7lUqikkCX7vXEuA4LxmEXyx/kzdfjRnUyyac5xzzzm9xkgA4bH6/LHpVvi2heZs/4VK5/zlZp3iFu5atYWhouRn23T3j4vcxUP0XikPfo=
+	t=1784296349; cv=none; b=XC1kjkQwRTezRi4GcIi8Re16RUi6yZafMlcbsqvdltAAf7m99E9LAANtqn3wnI3+40vrHyVAIQCB71b5p9pocU8mMDI5sCm5nheEi1V3MZyxQ3NcchWoXR9VmYJWLxMnc3unvVzUwxhB0KA8wXXPEbISJ9P2UZ88oy6qEebmcc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784296183; c=relaxed/simple;
-	bh=AkwHWZII0F/BybCTZb4VDHcXVkNVOznlkRAjKJa07YE=;
+	s=arc-20240116; t=1784296349; c=relaxed/simple;
+	bh=YNdudccxgF0GNeZMVRI+WGS9EJ7qAu7VHHOEJlJmZlk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ce2fCesQThvFs+nozEhnoxm+RjaUEkRi0hSNBGdSWpLmDzLRxRJtUZtbBwxqidvDZ+7gA8bY3KJLywpPIHTuc1xRwqKaneVA8vu1BaR00zMrIYMqW6P6ucsmtwVt3eaauK1XkLWLwQHmwk4JzYFrUKThWj02oNhDYiyWaQYsry4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bS+u6ktS; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=fubN2lzvxlEBYjFTmoIvbWmx005TI3flnQwdtkjgoz21HVd6S3C23ZPOe5zb9NRXSUY57AsQ/ZVVc1T3PUvkk1JdIn3/jtRTnIv+hvJGnVd8LgQ/gfQnZysrYm/3k/98nOxc+AzQn1LbJDY5mMp8flMvxYwANMGdVoIHXTn6j24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UHCTH/ci; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bS+u6ktS"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 30B701F000E9;
-	Fri, 17 Jul 2026 13:49:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784296182;
-	bh=DcKvn5xWvX7Tr6o2MEzx2nnPtuk3QJuyXuR/1daQF0o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bS+u6ktSdRzWUanGEc0V5cWmp6CbSnnJYUP7RynZcNWeWsDwEdf3CXtkhPE0D/Ohw
-	 w8+Jtl2vezLlDPYM+dWjAvVh2t29XjkWaxu49NoZe1e+GWEcIQy25ItHK2p7Cu2kAE
-	 LJIfgHW8IVixF1j33i0yvRkRPqQODccgtnTUTyb9ej0ZuUUOuwM7vih/Bfj/wDfvMu
-	 Vu9eJ/4hCInKHzxKuAx50vq0eC0Cp/KWhpe1UOz/Gxvq8jfvY/suYkEGyyvacmCirm
-	 mCJBR1L6DzPm1iswUgYINM05WE+5OG81pWgDR9niqWipTeiTq1wneATBBdWBP1wjuQ
-	 wmPoS4nIQExAQ==
-Date: Fri, 17 Jul 2026 15:49:40 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Andrea della Porta <andrea.porta@suse.com>
-Cc: linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UHCTH/ci"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-493f45e20cdso46087665e9.2
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 06:52:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784296346; x=1784901146; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aL2gd+WxGuY6Bl16wWSEIS9/aMLXAhdRbeLUUN3ab9g=;
+        b=UHCTH/cicWaaigvH5YGRT1CK7H/et6c/VQGalUXh9iJVTrNl+t8YMOcDpkaLy9RhjH
+         G94yF2PHO1ZTDEzqTD//sXtQglgiWGCN3/yBClXm/gDBCVhOoS+agY4dnfGvyLZKz/YJ
+         JYdDzJ9HIJDjAgWykhIfqbbt5FR6/WbapDO/tGmf66U68VNdC8Xnw9PFac69yg++gXOy
+         +P57ytzFhNE/YP9jP21a4R0q5M731q2eublSMJa52qIYT1zc85+WR959IGHGiVmK7WP4
+         7KKrDmUWVkZ5wRgm6yLyvlES0deodwpjayUVNqqaXS10VM1i845RBJDwAN2o7iNpkte8
+         tgUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784296346; x=1784901146;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=aL2gd+WxGuY6Bl16wWSEIS9/aMLXAhdRbeLUUN3ab9g=;
+        b=AJLzyL0u8H60lbp0C6+rPZnCXjO7BpHPpvsn43ZNO1yMnk7WqxviOMx2mBPdSs0eSb
+         Xmpqyv/+4d3067u2y6XwsgUz2i22QehorqwVwGWNOyiS54lrIZOBs8oIWwVL97UjYPZk
+         6n6tZWdVAzKLha19PbILbEsm70zCHrwwQahFxKDHpYBRNZxuePmIxM88xhBWWBPc2bUf
+         nEZH5g7+QtwIJjbXRxlRZ7D6XQyO8OCeX9Aoc/+oEYWY1e6uFqjJE2w5VNFeKN4V5np0
+         Cq2aWkZ6GEGVye4F7r/dhAqY6a+GxhLhafmbhZGYuDuoZhRucjfn0aSsScz1Vn2GM0YS
+         mdvg==
+X-Forwarded-Encrypted: i=1; AHgh+RqyHhqdVAw/eGM8ai4Xf4MNOzaL+OOafCuvNwyeIk4kLzslyXlcUiIsHglRoszOLTUxdFvdk1m+A6Ma@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz/pkXsl/5IC5D0bjs5gsqgBZT819GSR/ibNNHnwCnCr2F9MKVC
+	uZ8ijHp8QucMrpww8+R6LY9UH8M5zFd1Qybu0hRpik4Qt8/GmnV/aQM3
+X-Gm-Gg: AfdE7cm6IBPsWKycFjUp70LpjkeB+WyvOyum6Z4nSJ993+Mks5cdmMs55F2vj9VBDkA
+	pn+ELecR6Xi+SHTIc8kbekaeK8/1vsqLEufq6BFX7MaT2EwBZ/DSd7nmaRTMiezwIdVrPTiUkFH
+	Sqwr8UIUkqxFC7xVVQiJsjxfEwDGs0dlyekxQrC8p08SQr/abE2ojyOv20t0rhwXbWwNVdBMk7Y
+	bjqWmninLM4tIDy1WDrMcRr+Ex4ugvWardWB4u3guQ/gsrz8vh9gKi9seRXuAj9xtju/3pfOyfv
+	a4x6L+Nc3dEOAL2CNjWhAgkP8MDGKyRWRa8v6AlZb0YvLICqA7uAFcXD1yCh04L/7kNmVOkPUC/
+	W6Sjh7phA+rBJ06HgMaGXa6lcwfU8JbkIIjuSCpzKTh9UiI0QumtTPrAFqoRNukgqqzZgJBRXgJ
+	sv+giPjoaw80R02fihyDGowxDHRds=
+X-Received: by 2002:a05:600c:304a:b0:493:af56:8e64 with SMTP id 5b1f17b1804b1-4954a40ff61mr24483915e9.32.1784296345884;
+        Fri, 17 Jul 2026 06:52:25 -0700 (PDT)
+Received: from NSA-L02.ad.analog.com ([137.71.226.102])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63e52673sm4424709f8f.15.2026.07.17.06.52.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 06:52:25 -0700 (PDT)
+Date: Fri, 17 Jul 2026 15:52:01 +0200
+From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Conor Dooley <conor@kernel.org>, 
+	Janani Sunil <janani.sunil@analog.com>, Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Naushir Patuck <naush@raspberrypi.com>, Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com, 
-	Sean Young <sean@mess.org>, Julian Braha <julianbraha@gmail.com>
-Subject: Re: [PATCH v6 2/3] pwm: rp1: Add RP1 PWM controller driver
-Message-ID: <alowzfIvKGFkZI1q@monoceros>
-References: <cover.1783097764.git.andrea.porta@suse.com>
- <5171610d8bebdd10eea44bff5236502d765b5918.1783097764.git.andrea.porta@suse.com>
- <alibzwe9Mjf3GxJo@monoceros>
- <aln1D3E5QZULZ2U1@apocalypse>
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Marius Cristea <marius.cristea@microchip.com>, 
+	Marcus Folkesson <marcus.folkesson@gmail.com>, Kent Gustavsson <kent@minoris.se>, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Janani Sunil <jan.sun97@gmail.com>, linux-spi@vger.kernel.org, Kent Gustavsson <nedo80@gmail.com>
+Subject: Re: [PATCH v6 1/5] spi: dt-bindings: Add spi-device-addr peripheral
+ property
+Message-ID: <zeooo2jqsp7rkovhdxtra6qjlzjsppyppe3nqojrskcv2sc2x3@2npaf56m66p7>
+References: <20260715-ad5529r-driver-v6-0-cfdf8b9f5ee3@analog.com>
+ <20260715-ad5529r-driver-v6-1-cfdf8b9f5ee3@analog.com>
+ <1c4af9b1-9937-4cbb-b57f-52ac575b8b89@sirena.org.uk>
+ <lpbqk3wv6emhdtxhnczrgufzzxprcfpfgenfepnmzhzfj3b3ci@rdphuko7ikti>
+ <157154d1-3995-454b-9e08-1527f1c5d409@sirena.org.uk>
+ <jsximyohkijphqrtgat6cjtcvtirjsdtbgn3lb6npw6yhgmcth@tq64dotfowss>
+ <0e3e45fe-4c34-45d0-b985-0938f60b5914@sirena.org.uk>
+ <20260716-stole-copious-7cdaacb6cef6@spud>
+ <27746e91-ab2b-40a0-822b-6d3a8997cefc@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jjjqwa23viq7hrdc"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <aln1D3E5QZULZ2U1@apocalypse>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <27746e91-ab2b-40a0-822b-6d3a8997cefc@sirena.org.uk>
 
+On Fri, Jul 17, 2026 at 12:51:53PM +0100, Mark Brown wrote:
+> On Thu, Jul 16, 2026 at 06:06:13PM +0100, Conor Dooley wrote:
+> > On Thu, Jul 16, 2026 at 01:28:15PM +0100, Mark Brown wrote:
+> 
+> > > Oh, isn't that just multi-pin chip selects then:
+> 
+> > >    https://patch.msgid.link/cover.1783729282.git.Jonathan.Santos@analog.com
+> 
+> > No, I think that's something different.
+> 
+> > In this case, there is one chip select that all instances of the device
+> > share. Both the ADI and Microchip devices then use the upper bits of the
+> > first/address byte during reads and write to access individual devices.
+> > In the microchip case that I'm familiar with, what upper bits the device
+> > responds to are set by fuses in the factory. They also share the same MOSI
+> > and MISO.
+> 
+> I'm struggling to identify a way in which this is functionally different
+> to a multi-pin chip select.
+> 
+> > The SPI core already supports two of these devices from Microchip, since
+> > it just modifies the contents of tx_buf in a spi_transfer.
+> 
+> When I said we'd have to modify the bitstream I was told that wasn't the
+> case and this was just asserting more pins along with the "chip select".
 
---jjjqwa23viq7hrdc
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 2/3] pwm: rp1: Add RP1 PWM controller driver
-MIME-Version: 1.0
+Oh sorry,
 
-Hello Andrea,
+Likely I was not clear. The part as some ID pins which are just
+configuration! So they are two pins and depending on how they are set
+(low/high) each chip can have four possible addresses! Now all of the chips
+(to a max of 4) are connected to same CS of the controller so just one CS get's
+asserted.
 
-On Fri, Jul 17, 2026 at 11:25:35AM +0200, Andrea della Porta wrote:
-> On 11:18 Thu 16 Jul     , Uwe Kleine-K=F6nig wrote:
-> > On Fri, Jul 03, 2026 at 07:05:25PM +0200, Andrea della Porta wrote:
-> > > +static int rp1_pwm_round_waveform_tohw(struct pwm_chip *chip,
-> > > +				       struct pwm_device *pwm,
-> > > +				       const struct pwm_waveform *wf,
-> > > +				       void *_wfhw)
-> > > +{
-> > > +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
-> > > +	u64 period_ticks, duty_ticks, offset_ticks;
-> > > +	struct rp1_pwm_waveform *wfhw =3D _wfhw;
-> > > +	u64 clk_rate =3D rp1->clk_rate;
-> > > +	int ret =3D 0;
-> > > +
-> > > +	if (!wf->period_length_ns) {
-> > > +		wfhw->enabled =3D false;
-> > > +		wfhw->inverted_polarity =3D (pwm_get_polarity(pwm) =3D=3D PWM_POLA=
-RITY_INVERSED);
-> >=20
-> > pwm_get_polarity(pwm) looks wrong here for several reasons. 1st the
-> > polarity is defined in *wf and should not depend on the current state,
-> > 2nd for a disabled hardware the polarity doesn't matter anyhow, and 3rd
-> > you should not call pwm API functions from the lowlevel driver (which
-> > might interfere with subsystem locking).
->=20
-> Ok, but in this case what the output of the disabled channel should be?
-> If it was inverted before the disable, would it make sense to let the out=
-put
-> be high? Or are we allowed to hard code a polarity value on disable?
+Of course the above will assert on all devices on that same CS but only
+the one where the ID pins combo match the spi xfer high bits (part of
+the address) will reply.
 
-Given that not all hardwares can drive the output of a disabled PWM to a
-fixed level, a consumer that relies on a fixed inactive level output
-must not disable the PWM. So it doesn't matter what you do on
-wf->period_length_ns =3D=3D 0, the only objective is to save power.
+Hopefully the above makes it clear.
 
-> > > +	if (!wfhw->inverted_polarity) {
-> > > +		wf->duty_length_ns =3D DIV_ROUND_UP_ULL((u64)wfhw->duty_ticks * NS=
-EC_PER_SEC,
-> > > +						      (u32)clk_rate);
-> > > +	} else {
-> > > +		if (wfhw->duty_ticks > (u64)wfhw->period_ticks + 1) {
-> > > +			/* 100% duty cycle case */
-> > > +			ticks =3D 0;
-> > > +		} else {
-> > > +			ticks =3D (u64)wfhw->period_ticks + 1 - wfhw->duty_ticks;
-> > > +		}
-> > > +		wf->duty_length_ns =3D DIV_ROUND_UP_ULL(ticks * NSEC_PER_SEC, clk_=
-rate);
-> > > +		wf->duty_offset_ns =3D wf->period_length_ns - wf->duty_length_ns;
-> >=20
-> > The duty_offset_ns calculation is wrong.
-> >=20
-> > Consider clk_rate =3D 3000000, period_ticks =3D 8, inverted_polarity =
-=3D true and
-> > duty_ticks =3D 4.
-> >=20
-> > Then you have:
-> >=20
-> > 	.period_length_ns =3D 2666.6666666666666 ns ~> 2667
-> > 	.duty_length_ns =3D 1333.3333333333333 ns -> 1334
-> > 	.duty_offset_ns =3D 1333.3333333333333 ns -> 1334
-> >=20
-> > but .period_length_ns - .duty_length_ns is 1333.
-> >=20
-> > To get this right, you have to calculate
-> >=20
-> > 	wf->duty_offset_ns =3D DIV_ROUND_UP_ULL((u64)(wfhw->period_ticks + 1 -=
- ticks) * NSEC_PER_SEC, clk_rate);
->=20
-> So it will end up as 'duty_length_ns + duty_offset_ns >
-> period_length_ns', which is timing violation. Is it allowed (or even
-> required) in the PWM subsystem?
-
-Not all hardwares support that, but logically it makes sense. The active
-phase of the output just crosses the period border. With duty_length_ns
-+ duty_offset_ns < period_length_ns (and duty_offset > 0) it's the
-inactive phase that crosses the period border, and there is no reason
-why the active phase should be more special than the inactive one.
-
-Best regards
-Uwe
-
---jjjqwa23viq7hrdc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpaMvEACgkQj4D7WH0S
-/k5Qrwf9EZx/Oe2WWXWSFUVsH8QkJDmP3mG5iNkR/MQ0szDAAbCoKKKjO82HN/L2
-5fGLEoeIblzXzA+UjdFGz8Agg08zLTrbEc2/SclkG0O6nUVpJ1OtMjRSqKcAk7bn
-Zi1CwmtHROqTTPcULCzHFO+8O0a0YwxQUpKysR1R0fTI0/WC0Yj/R72K2wH5qQAI
-AwzU4MUjk6DCl5jljRaRlfGn78mB9NXmkyFDD26ZLraglEhTi8ZZUv3ZkM9OXI3j
-i6N+xJ6hQCpp2LyVZPmylZ+rQ8VljWF2UJeZLBUEzHwXbTzfqnpz0aiujMDJGWX0
-VDBHJxe2pBQ4yt6dlW3sND+xCf3GdQ==
-=oeK6
------END PGP SIGNATURE-----
-
---jjjqwa23viq7hrdc--
+- Nuno Sá
