@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0753B14D4
-	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 07:23:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4AFD3DD84B
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 07:23:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784272997; cv=none; b=AI2wkr9Tvjddy5zlrxZ1dePYNzO2OTrdu9Oypveel64k0d6ANvV3hALd7HuUaqzDu0nW1ukRGKBOSO+CfPNaX/27P1tjeA2eYNCfVIOoGwRUiuwqskTPi4dV2qQNEI0podzR+64zp2utbUlPRA0CzyT51+5OOX/XuiOyqkq5BTI=
+	t=1784272996; cv=none; b=JHkJkxYALRxR6qkoltSA3R4Pjg/171rbWIYz80P4AJmCvQGPjV7e5H7mkglIkFdA3jQdfuKJw344aBlfu7rNnimBxrKSgsBYF1WZwKYm31nWF1vUeUCAfOhrC5wdsuLys6Lhm1aI7O01zpcyjI4WlDq2DkIC9TP4D9B3on/9K68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784272997; c=relaxed/simple;
-	bh=bedEX7IdqcLQwG2ntTfKH+49oD/U3l2m9X3GPu4//iA=;
+	s=arc-20240116; t=1784272996; c=relaxed/simple;
+	bh=nVtNc2VmZD4F7sfKsw28OjiO5gd4yZY0UtdlTmzLCkY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=n2ehn67D05qQxWQ4I/+C/a3dHOodm18xc1jAopOKpfioxk+pukQl1OPxH6HsyQe9VdgtAAerwsmJpHBY5td69mRKphOsCeFo9N31srMRUoBXqblSXvFmz5hJlL17Uh3PV0jZ6AokUvLQbZgvnvlwCk/C1AdPOJfp1XjIt+2T1BQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LoLYdGBK; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=AvGC+dDMkHIUs+XgTtkiuKFBC8vE9Kq0lL72Nh1BOOvoF9G0H/x4AO53mY4Ff3oDH81LurcE/C5H3rCfOedFl1FwTx9Oj9cUns+Bf/c6WQgnoq47pRd3xj/VxFupg7vR+1WzT6y6xkZ6xJub36yKXfXxUbxUmFx0TbPVWWr9JR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gRYIVwiE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LoLYdGBK"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4BAACC2BD00;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gRYIVwiE"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3C777C4AF0C;
 	Fri, 17 Jul 2026 07:23:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1784272996;
-	bh=bedEX7IdqcLQwG2ntTfKH+49oD/U3l2m9X3GPu4//iA=;
+	bh=nVtNc2VmZD4F7sfKsw28OjiO5gd4yZY0UtdlTmzLCkY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=LoLYdGBKcoT466rAJBYl62YMB2NaP0jWUyPlZLYKg06zYwE2BppljbXb3eh6oB9hT
-	 9LjPKVn0tpMVYWER94q2aMh8LniKXvjVLsgNEZfDp79+CE3yN23UZ0Jcgj4ZmO/tO+
-	 cYO/G3NF2jKfaY7ItGNejntGXUKDSV5AwuE1yIYBpp6c6kuTJ6Qy98Ui6zWd3XnFTe
-	 im5HHuNYkXv+ZvUBqvJ9yseC6QBW6o67rnCI8KaXmr4ZNDth6EDhnRrsk5DvmxMsKJ
-	 lPdVP09VGyg10VHj28VimKspIz2W/esgNo/fZmvpJtgrpF6SrhnQPBWdnjyAIFqJqQ
-	 I8eGdukeG6oTQ==
+	b=gRYIVwiEvhYBuW+8j28X73mkgnGqiAHj4rh3ZQnQwj9RvYghEvZfIfTb1Cr4Z1Z1Q
+	 i3hocfivVpsfc9kB2LCL+C1MIOoxiLd1S+GvIixN3OC3tUVCY35U1/9rAQQaIlu6VH
+	 wViayFtZBtMlX/KmFUdYULHk1njtR8ELpp5y5+3HWEIccjaBWm4auOLY/Lwwg1morX
+	 PYgHQ7BG/kDpMkKfuQOhr7qSFzIV56WtvRFq1Ivc3zdFFq174wtDsLajCgHQ522nd5
+	 R3sPY18raOXh9hd5IJYEAUGDJr4zTAq553Gpx4YRkmn8T7D9TzXml+iGFN1Jp4rgbm
+	 az9Fpa2Z5UfVA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 39DE7C44507;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C5B3C44517;
 	Fri, 17 Jul 2026 07:23:16 +0000 (UTC)
 From: Joachim Eastwood via B4 Relay <devnull+joachim.eastwood.gmail.com@kernel.org>
-Date: Fri, 17 Jul 2026 09:23:06 +0200
-Subject: [PATCH v4 08/12] arm64: dts: rockchip: rk3588s-nanopi-r6: add
- gmac1 add phy-supply
+Date: Fri, 17 Jul 2026 09:23:05 +0200
+Subject: [PATCH v4 07/12] arm64: dts: rockchip: rk3588s-nanopi-r6: remove
+ useless vcc_3v3_pcie20
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,20 +41,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260717-nanopi-m6-v4-8-b31391a72e41@gmail.com>
+Message-Id: <20260717-nanopi-m6-v4-7-b31391a72e41@gmail.com>
 References: <20260717-nanopi-m6-v4-0-b31391a72e41@gmail.com>
 In-Reply-To: <20260717-nanopi-m6-v4-0-b31391a72e41@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
 Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-rockchip@lists.infradead.org, diederik@cknow-tech.com, 
- jonas@kwiboo.se, Joachim Eastwood <joachim.eastwood@gmail.com>
+ jonas@kwiboo.se, Joachim Eastwood <joachim.eastwood@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784272993; l=746;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784272993; l=1725;
  i=joachim.eastwood@gmail.com; s=20260701; h=from:subject:message-id;
- bh=cbMRGCjK0cqeVUY3RIsYZSs7mBZYvBiBTtHs1FmJ/94=;
- b=ZnRgRgisL/g9rcTeSEO7p9vVAGRpab0QuLj3vnVlT/BTHqHnEd9GZQT7kr0ClemfbYKctbbtb
- pWgo/2thcMFC90774z5QIB1fhKjLSwwRN22ESyUN0RNxVVQ9R7aPOxf
+ bh=EfLs2ZxoByu/f+Z3fMnXZ7XWXMt5chC8hLRJwZe05Cs=;
+ b=FGfR5Yj9WqI/vD3sRKD3w4TFcryXdmSUeTVxqhSYzh2ESBja27MFIkg6RWTqv2DWRTvJZjcut
+ n2bucUwomxdClIDCSLcYWRMCKUipwqMaeNmLVhD6CjRZxNK3G23jgOV
 X-Developer-Key: i=joachim.eastwood@gmail.com; a=ed25519;
  pk=ZN/8xWtdYaSd5oEfloYSZ1a+/ri0n0VZqjlEeHlbXFU=
 X-Endpoint-Received: by B4 Relay for joachim.eastwood@gmail.com/20260701
@@ -64,25 +65,54 @@ Reply-To: joachim.eastwood@gmail.com
 
 From: Joachim Eastwood <joachim.eastwood@gmail.com>
 
-The RTL8211F Ethernet phy is powered from the VCC_3V3_S3 rail.
+There is no separate regulator for boards with RTL8125BG MACs.
+The power is only separated from VCC_3V3_S3 with a ferrite bead.
 
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Joachim Eastwood <joachim.eastwood@gmail.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi | 14 ++------------
+ 1 file changed, 2 insertions(+), 12 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi
-index 30e09352bbe9..97a495eab7d5 100644
+index c12c05247d80..30e09352bbe9 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi
-@@ -210,6 +210,7 @@ &gmac1 {
- 	clock_in_out = "output";
- 	phy-handle = <&rgmii_phy1>;
- 	phy-mode = "rgmii-rxid";
-+	phy-supply = <&vcc_3v3_s3>;
- 	pinctrl-0 = <&gmac1_miim
- 		     &gmac1_tx_bus2
- 		     &gmac1_rx_bus2
+@@ -131,16 +131,6 @@ vcc_3v3_sd_s0: regulator-vcc-3v3-sd-s0 {
+ 		vin-supply = <&vcc_3v3_s3>;
+ 	};
+ 
+-	vcc_3v3_pcie20: regulator-vcc3v3-pcie20 {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vcc_3v3_pcie20";
+-		regulator-always-on;
+-		regulator-boot-on;
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-		vin-supply = <&vcc_3v3_s3>;
+-	};
+-
+ 	vcc5v0_usb: regulator-vcc5v0-usb {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vcc5v0_usb";
+@@ -361,7 +351,7 @@ &pcie2x1l1 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pcie20x1_1_perstn_m2>;
+ 	reset-gpios = <&gpio1 RK_PA7 GPIO_ACTIVE_HIGH>;
+-	vpcie3v3-supply = <&vcc_3v3_pcie20>;
++	vpcie3v3-supply = <&vcc_3v3_s3>;
+ 	status = "okay";
+ };
+ 
+@@ -370,7 +360,7 @@ &pcie2x1l2 {
+ 	pinctrl-0 = <&pcie20x1_2_perstn_m0>, <&pcie20x1m0_clkreqn>;
+ 	supports-clkreq;
+ 	reset-gpios = <&gpio3 RK_PD1 GPIO_ACTIVE_HIGH>;
+-	vpcie3v3-supply = <&vcc_3v3_pcie20>;
++	vpcie3v3-supply = <&vcc_3v3_s3>;
+ 	status = "okay";
+ };
+ 
 
 -- 
 2.55.0
