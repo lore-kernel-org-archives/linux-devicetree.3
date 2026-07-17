@@ -1,106 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB963B19AF;
-	Fri, 17 Jul 2026 09:18:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5420433D51A
+	for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 09:18:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784279897; cv=none; b=sWQM+OJcu+/GaxnucGtyb+FpXagqo93yNBISovLsAAc8CeSbsQOlk+n2t1LLd0QDD/NyBXetl0xm7RZPwxXELKY1joNleqvVEPhA4/8hoULMWIWb8FXUyInmP0KvO/5OYpKNLZGbDLkIj/TzrOKEmw7gS9QfNQcncpylleH2xz0=
+	t=1784279928; cv=none; b=RMbH5yWOp5g89sa67fchGWQX6sn7S204gkKN5V9RnSyhXjk72vFePkbQDeFaUSudJ5QHAgcGaI99gqUOrCPAl5KnO5RI86qZY29Yq+EKan1O+5i7E8AYGBMxvOJDqJpAjiMIO25XrTZB9i7CAXXcGxvmmyCbbQcAjiglY3gALOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784279897; c=relaxed/simple;
-	bh=6SWx8qQGsQZgVBljHKSvItwVJKc1vh7TrxTrg0P1deE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gHzcCWdQoET5LpCIgC3Und4EcCxF69z/xfAoi70dBcBlIOJB16Rvmq/QxEiT9ytRjNNrjqRdra6wSVndzyUIksL/QwPQtvx0Ls+6odVS1epJ8XDhj0gkoZirhATuUu5gXYTTgJ/0TJa4dy30uCom0heUOQT4+wkiXN47hlBdycU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GOKFWh+p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784279928; c=relaxed/simple;
+	bh=YXVuy0BWseWcfrInblHRODlSdwkVaQGiRMW77gD/U+E=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=a0fW1ykPH946ySBivqZpKMwMLvokfiCQQvivBsu29H6YTs2Df8TF19GSKdAyQz8Rzxpra5bgmHreaDfrSthqvq4aZcjx4XTH+NurzpirOsydEnBYQwwUaxMBuSdp1m19wVZhkI5Bp833SKG7X2oWlqNhOTPeABNdGvjCSmFq7zg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UyV7BZas; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GOKFWh+p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62BC11F000E9;
-	Fri, 17 Jul 2026 09:18:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UyV7BZas"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB9021F00A3A;
+	Fri, 17 Jul 2026 09:18:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784279896;
-	bh=1UT95bLXGY5IEzB0fijX3mfVzEGvJ1LcjJS5f8nS+1A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GOKFWh+pfFbTfNTJR4GU/Twcbplcra7BM0uZsF1hLDaY5hFOTheKAhi24IHPeWNw0
-	 xAhEo1uL47D1idT9QYYG6fxLWaQKFHIRdCF7lML/D9RTF+SdNGJzSUME0pCxZFEfAr
-	 OKgmkexnRF0aa0tw/Ez6YksJ4fAZXeF5PupjPdB3um/cY3uQf5JzeTe54WNlQ89JlM
-	 eVa0jT0lfg+WRmFOQ6sSB8hpERpoKGRZswKv21hqTor1xhKfS1IqU/BgySTBiTNYBu
-	 c7XK3H7pyov/rVrAUxTjgIb7RM4m7AXXAcUntnauH6X0mJ0RhA0v5eYjM3f5UfvBGp
-	 H6E1sW3gZ9enQ==
-Date: Fri, 17 Jul 2026 11:18:12 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Akari Tsuyukusa <akkun11.open@gmail.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	"open list:WATCHDOG DEVICE DRIVERS" <linux-watchdog@vger.kernel.org>, 
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, 
-	"open list:ARM/Mediatek SoC support" <linux-kernel@vger.kernel.org>, 
-	"moderated list:ARM/Mediatek SoC support" <linux-arm-kernel@lists.infradead.org>, 
-	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>, Roman Vivchar <rva333@protonmail.com>
-Subject: Re: [PATCH 5/7] dt-bindings: reset: Add bindings for MediaTek MT6589
- reset controller
-Message-ID: <20260717-rattlesnake-of-enjoyable-dignity-42da64@quoll>
-References: <20260716161923.266315-1-akkun11.open@gmail.com>
- <20260716161923.266315-6-akkun11.open@gmail.com>
+	s=k20260515; t=1784279927;
+	bh=u7yr8puykvqgk8Pk4hUO3lvSbTV2KqC+y+qlSBE2xjA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UyV7BZasgaZ0+b/AC1XdclIKg3gn1ARcshVePsrky4fw3UyzMF3v/jzIuCd4SEWK4
+	 JNq5TrWmo9mnD6IaIwmEY/V5OfDgI4j932i2dviawYEdXXM+TBoWXgNuD/dzcgQbLq
+	 9o+pEkueeiYAdU7dW/TMoQhNdvCPLDNNUjMHJFNiIrSQ6oqrpmRcKan6c6qRqWTP25
+	 CrbZPAlMaBS5e6qz77Gz8OB4Y+XVwDKcvfCAC7Zf+q4OMVxGesOWni1u4hssSQW1zQ
+	 B98oBTkC1VfuFTDs2z995+g3ngIn0KW3Uc1L3gBtDCZYnG1GdGXzyca8xZLiS1G+vg
+	 asa2YQChzTy6Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/4] regulator: axp20x: add support for the AXP318W
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jerome Brunet" <jbrunet@baylibre.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260717-axp318-regulator-v3-4-779dc1b97dd4@baylibre.com>
+References: <20260717-axp318-regulator-v3-0-779dc1b97dd4@baylibre.com>
+ <20260717-axp318-regulator-v3-4-779dc1b97dd4@baylibre.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 09:18:46 +0000
+Message-Id: <20260717091846.BB9021F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260716161923.266315-6-akkun11.open@gmail.com>
 
-On Fri, Jul 17, 2026 at 01:19:21AM +0900, Akari Tsuyukusa wrote:
-> Add MT6589 reset controller bindings.
-> 
-> Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
-> ---
->  include/dt-bindings/reset/mt6589-resets.h | 25 +++++++++++++++++++++++
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Unhandled AXP318_ID variant in `axp20x_set_dcdc_workmode` trigge=
+rs a kernel splat if `x-powers,dcdc-workmode` is in the Device Tree.
+--
 
-Filename must match compatible.
+--- Patch [4]: [PATCH v3 4/4] regulator: axp20x: add support for the AXP318=
+W ---
+commit 8de3219334d650160512cfdeb429dbaddb9ab5cb
+Author: Andre Przywara <andre.przywara@arm.com>
 
-Why is this separate from the patch adding the binding? Where is this
-explained?
+regulator: axp20x: add support for the AXP318W
 
->  1 file changed, 25 insertions(+)
->  create mode 100644 include/dt-bindings/reset/mt6589-resets.h
-> 
-> diff --git a/include/dt-bindings/reset/mt6589-resets.h b/include/dt-bindings/reset/mt6589-resets.h
-> new file mode 100644
-> index 000000000000..18ef729022a9
-> --- /dev/null
-> +++ b/include/dt-bindings/reset/mt6589-resets.h
-> @@ -0,0 +1,25 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +/*
-> + * Copyright (c) 2026 Akari Tsuyukusa <akkun11.open@gmail.com>
-> + */
-> +
-> +#ifndef _DT_BINDINGS_RESET_MT6589_RESETS_H
-> +#define _DT_BINDINGS_RESET_MT6589_RESETS_H
-> +
-> +/* TOPRGU */
-> +#define MT6589_TOPRGU_INFRA_RST		0
-> +#define MT6589_TOPRGU_DISP_RST		1
-> +#define MT6589_TOPRGU_MFG_RST		2
-> +#define MT6589_TOPRGU_VENC_RST		3
-> +#define MT6589_TOPRGU_VDEC_RST		4
-> +#define MT6589_TOPRGU_IMG_RST		5
-> +#define MT6589_TOPRGU_DDRPHY_RST	6
-> +#define MT6589_TOPRGU_MD_RST		7
-> +#define MT6589_TOPRGU_INFRA_AO_RST	8
-> +#define MT6589_TOPRGU_MD_LITE_RST	9
-> +#define MT6589_TOPRGU_APMIXED_RST	10
-> +#define MT6589_TOPRGU_PWRAP_SPICTL_RST	11
-> +
-> +#define MT6589_TOPRGU_RST_NUM		12
+The X-Powers AXP318W is a typical PMIC from X-Powers, featuring nine
+DC/DC converters and 28 LDOs, on the regulator side. Describe the chip's
+voltage settings and switch registers, how the voltages are encoded, and
+connect this to the MFD device via its regulator ID.
 
-Not a binding, drop.
+> diff --git a/drivers/regulator/axp20x-regulator.c b/drivers/regulator/axp=
+20x-regulator.c
+> index da891415efc0b..6f887250d6402 100644
+> --- a/drivers/regulator/axp20x-regulator.c
+> +++ b/drivers/regulator/axp20x-regulator.c
 
-Best regards,
-Krzysztof
+[ ... ]
 
+> @@ -1585,6 +1858,10 @@ static int axp20x_regulator_probe(struct platform_=
+device *pdev)
+>  		regulators =3D axp313a_regulators;
+>  		nregulators =3D AXP313A_REG_ID_MAX;
+>  		break;
+> +	case AXP318_ID:
+> +		regulators =3D axp318_regulators;
+> +		nregulators =3D AXP318_REG_ID_MAX;
+> +		break;
+>  	case AXP717_ID:
+>  		regulators =3D axp717_regulators;
+>  		nregulators =3D AXP717_REG_ID_MAX;
+
+[Severity: Medium]
+Could this trigger a kernel splat if the device tree contains the
+"x-powers,dcdc-workmode" property for an AXP318 regulator?
+
+During initialization in axp20x_regulator_probe(), the property is read
+and passed to axp20x_set_dcdc_workmode():
+
+	ret =3D of_property_read_u32(rdev->dev.of_node,
+				   "x-powers,dcdc-workmode",
+				   &workmode);
+	if (!ret) {
+		if (axp20x_set_dcdc_workmode(rdev, i, workmode))
+...
+
+However, axp20x_set_dcdc_workmode() does not seem to handle AXP318_ID
+in its switch statement, which will cause it to fall through to the
+default case:
+
+	default:
+		/* should not happen */
+		WARN_ON(1);
+		return -EINVAL;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717-axp318-reg=
+ulator-v3-0-779dc1b97dd4@baylibre.com?part=3D4
