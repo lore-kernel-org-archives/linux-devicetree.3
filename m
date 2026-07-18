@@ -1,110 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D496F2E1EE0
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 03:22:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FCBC22F74A
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 03:24:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784344972; cv=none; b=HcI4Bvd0pDStA8esGHGZ/S2FF/q6HT9xqb/M0ixNtjB2u1kJZ4HrvyJ5jd37LCv9QLNmxujKpQI8ZiPTU9hCJm/s0txroGdlFUtghnHD/DNW0JmJScP+UUjoH/qfoRSENmY25xbJTtYn+k8XihdOEKga+lDYB2L9gRLBzjvM4GM=
+	t=1784345049; cv=none; b=uqVmCLhCrhG3SHwz5Omhp/cmVsnr1Ti8Lowzbg0Qure+ztsqxniUxwaEHi78bMKw5eB0UYjeBNBRkuqvVXjwuXlb5sredhEMYM7LCxkw3Xfv5/vMvXdSSBU+7RomXF0QlmGQkovlIYlLGsg+BfeujLDIaQHZ5IMQInRaXJ41ubk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784344972; c=relaxed/simple;
-	bh=YWd4TieSh21FN1VSdL19ZXupEQILj63tj4PQEr7iBhI=;
+	s=arc-20240116; t=1784345049; c=relaxed/simple;
+	bh=vtmDhsXxpi0qB7MtCo/pvFxsoXJqMJFDaBPe6gqUHu8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sFr/ivVer8Du9v9gTn4QqBkFSL7ra0asmGeyR8kUZNNlu+uJErl2wpE8uARgrwiTOXxYPPkHWU52DW/rK5B/udGzdqrKFWydJpPv2NugnkVYOnGS8ZjaGt/NHH1xfkgoYKp1Jvh8wjXzh/V2Z1TPa8ZD4sFgtiNhVMaIrOpkaNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SLNFk26Y; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ScUBsbH4AKwITb8AdY0GiEnx1Q3UGtjnei5Udep4GfCeo1rdAW71Nnyy2ewktgKDMTaLYW9lYQlSEkfdCa+O67fdjZEPVjUif7/ylvYW/b8vzeM5x+ps1VxL5bPGxk5u4qGSwyRiVMj/uPizrgZYtU65np3qcQbQ7TtJHRotEAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xf625NNl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SLNFk26Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62A161F00A3A;
-	Sat, 18 Jul 2026 03:22:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xf625NNl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01E2B1F000E9;
+	Sat, 18 Jul 2026 03:24:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784344970;
-	bh=hZZaorNOsTjlLFz6817wQI6en3+FJJDqncHKkhcqc/4=;
+	s=k20260515; t=1784345048;
+	bh=QWDpKk/hHyhDckxWfZbQsXEEtAAbLv7oRw2rKvFpN0Q=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SLNFk26Y3xme+a2wn9ZAUg+hfgsZ5jFvfalkYp9tqqXDbqJWFqv404to03F6QymGH
-	 sCfk9O8O/psdzVcGBnR6pf3xUgXDBKeOvtx2a53pQPXwVBVqXqrid1/9Zq6aM3L1tm
-	 v7+fbs2s0HPzCENM/X2+543iOA9z3w22ZWr6OM/dZvjz9D2yCXH1nIn3Lohax7k849
-	 YG0QuNgWpEeGdf9DD89lso4ZfAuxqBxUWWFRg1626Q1g131Qq0e8hU5wSYSTcyVV1g
-	 jYRjPZQLhWjCgovRrBn25bofKva3WqR1e6I0oL2g5B8sJzQirubUl4e+yFzbBA/I8Y
-	 vIoHq44bLBkrQ==
+	b=Xf625NNl/59kDNKKlv94EopljDSO0Z3/WUz1evqTT3xfztOi4zpPVIvQ+c2/3S6J5
+	 3RMuSBnfpFog5hKUfUj3rXgYU7AmHAVgkeGmL7zTjZmsTqd9qZIMUnHIAxqI2v7F4M
+	 LLZPHxpBH3mjFlzk84IBtCD2k0hWC7gPjDnVxfR+kfnKcNw4dEH/1WlGH8k12pI0IP
+	 bgBdEpUEjz4V00g9ekLMpZfo0xlAPuguWr76xNQC1xgfyqNntiXU+Q7svcyNy8a0Qz
+	 twnQy4pZw238XMvmwf1USErdyVt/HIKJRhtkwnumB+sJRXT+Rx8KgBx2QsIVrF/hwF
+	 Wgma5bspW/5BQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 3/8] pmdomain/rockchip: cycle optional
- power-domain resets on power-on
+Subject: Re: [RFC PATCH v2 8/8] arm64: dts: rockchip: rk3576-rock-4d: enable
+ NPU
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260718031146.3368811-4-gahing@gahingwoo.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260718031146.3368811-9-gahing@gahingwoo.com>
 References: <20260718031146.3368811-1-gahing@gahingwoo.com>
- <20260718031146.3368811-4-gahing@gahingwoo.com>
+ <20260718031146.3368811-9-gahing@gahingwoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 18 Jul 2026 03:22:50 +0000
-Message-Id: <20260718032250.62A161F00A3A@smtp.kernel.org>
+Date: Sat, 18 Jul 2026 03:24:07 +0000
+Message-Id: <20260718032408.01E2B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [Critical] Probe error path fails to remove parent power domains (due to =
-subdomain links), leaving freed memory linked in the global genpd list, lea=
-ding to a Use-After-Free.
+- [High] An SoC-level power domain dependency is improperly implemented as =
+a board-level override in `rk3576-rock-4d.dts`.
+- [Medium] The device tree assigns two power domains to `rknn_core_0`, whic=
+h violates the DT binding schema's `maxItems: 1` constraint.
+- [Medium] The NPU regulator is forced permanently on via `regulator-always=
+-on`, circumventing proper power management, and the `npu-supply` property =
+is functionally dead code.
 --
 
---- Patch [3]: [RFC PATCH v2 3/8] pmdomain/rockchip: cycle optional power-d=
-omain resets on power-on ---
-commit 6b47e7abcdceaeb541eb946e08c3911e47f8d51e
+--- Patch [8]: [RFC PATCH v2 8/8] arm64: dts: rockchip: rk3576-rock-4d: ena=
+ble NPU ---
+commit 1ea2a06c9849a71ed6c8698699f42f0e551d0d72
 Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-pmdomain/rockchip: cycle optional power-domain resets on power-on
+arm64: dts: rockchip: rk3576-rock-4d: enable NPU
+   =20
+Enable rknn_core_0 and rknn_mmu_0 on the Radxa ROCK 4D and supply the
+NPU rail (vdd_npu_s0) via npu-supply.
 
-This commit adds support for an optional resets property to the rockchip
-power domain driver. Resets are now explicitly asserted and deasserted
-during the power-on sequence to ensure the hardware interfaces observe
-the necessary reset edge.
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts b/arch/arm64=
+/boot/dts/rockchip/rk3576-rock-4d.dts
+> index 272af1012ab03..09d2fc98bb4c1 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
+> @@ -442,6 +442,7 @@ regulator-state-mem {
+>  			};
+> =20
+>  			vdd_npu_s0: dcdc-reg2 {
+> +				regulator-always-on;
 
-> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
-ckchip/pm-domains.c
-> index 1787f62ba3a81..8ce0cc3de0bfb 100644
-> --- a/drivers/pmdomain/rockchip/pm-domains.c
-> +++ b/drivers/pmdomain/rockchip/pm-domains.c
+[Severity: Medium]
+Does this unconditionally force the regulator on, completely defeating runt=
+ime
+power management and causing a permanent power leak when the NPU is idle?
+
+>  				regulator-boot-on;
+>  				regulator-enable-ramp-delay =3D <400>;
+>  				regulator-min-microvolt =3D <550000>;
 
 [ ... ]
 
-> @@ -928,6 +945,7 @@ static void rockchip_pm_remove_one_domain(struct rock=
-chip_pm_domain *pd)
-> =20
->  	clk_bulk_unprepare(pd->num_clks, pd->clks);
->  	clk_bulk_put(pd->num_clks, pd->clks);
-> +	reset_control_put(pd->resets);
+> +
+> +&rknn_core_0 {
+> +	npu-supply =3D <&vdd_npu_s0>;
 
-[Severity: Critical]
-This is a pre-existing issue, but does this error path leave freed memory
-linked in the global genpd list?
+[Severity: Medium]
+The commit message mentions supplying the NPU rail via npu-supply, but is t=
+his
+property functionally dead code here?
 
-When a probe failure triggers cleanup via rockchip_pm_domain_cleanup(), it
-iterates over all domains and calls rockchip_pm_remove_one_domain().
+The rocket driver does not appear to make any regulator API calls, and there
+is no OPP table present to trigger generic devfreq parsing.
 
-Since subdomain links are not explicitly removed first, pm_genpd_remove()
-fails with -EBUSY for parent domains and leaves them linked in the global
-gpd_list:
+> +	/*
+> +	 * Power BOTH NPU domains (NPU0 + NPU1) like the vendor's single NPU no=
+de,
+> +	 * even though rocket computes only on core 0: the CBUF->CMAC read path=
+ is
+> +	 * only fully powered with NPU1 up. rocket attaches the multi-PD list.
+> +	 */
+> +	power-domains =3D <&power RK3576_PD_NPU0>, <&power RK3576_PD_NPU1>;
 
-rockchip_pm_remove_one_domain()
-    ret =3D pm_genpd_remove(&pd->genpd);
-    if (ret < 0)
-        dev_err(...) // -EBUSY is caught here but ignored
+[Severity: Medium]
+Will this assignment of two power domains fail dtbs_check validation?
 
-Because devm will subsequently free the rockchip_pm_domain structure which
-embeds the genpd structure, could this lead to a use-after-free later when
-the genpd core iterates gpd_list, for instance in genpd_power_off_unused()?
+Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+explicitly enforces maxItems: 1 for power-domains.
 
-> =20
->  	/* protect the zeroing of pm->num_clks */
->  	mutex_lock(&pd->pmu->mutex);
+[Severity: High]
+Should this power domain dependency be placed in the SoC's .dtsi file inste=
+ad
+of a board-specific override?
+
+Since the CBUF->CMAC read path hardware dependency is a property of the RK3=
+576
+silicon rather than board wiring, keeping it in the board DTS means any oth=
+er
+RK3576 board enabling rknn_core_0 via the base rk3576.dtsi might silently l=
+ack
+this dependency, leading to hardware hangs or corrupted reads.
+
+> +	status =3D "okay";
+> +};
+> +
+> +&rknn_mmu_0 {
+> +	status =3D "okay";
+> +};
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260718031146.3368=
-811-1-gahing@gahingwoo.com?part=3D3
+811-1-gahing@gahingwoo.com?part=3D8
