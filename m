@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A007E25A354
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 03:20:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C19642248A8
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 03:22:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784344837; cv=none; b=U2bc1rTo4KELb7x6PsadQBohhk5ZJGjTvDbJkGGqD7lRioWzvZiPJNr5/Kmr7BldM2QSzxUx4ybLcLqzZPyalJsw25xjEn7gBS6ARvmSe/1OpU46A7hdEWoY0syq67vjisdpn8p35DeeHdtiICReKoPmaiXYPz0y8hdFW0SGndk=
+	t=1784344950; cv=none; b=VzLihG9m6YenBluOkRKTZ1EZXTCAkoOf4xVcGoHmulrz2bto2n/WVLERElDZ907qKvEhkQFKlf3Bkg7RUpcTqKBBYNPnmyRexfA2Z6lfIOs+i08ydIDpdml4hQx89ssLwPNMoMp0PuvgJxwDgptZ084/8k1vgiHadVLcbdLM2bI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784344837; c=relaxed/simple;
-	bh=qW8ay5yIEqK2iqMeHLqtnfg0D6dfz+XzqyOAsGbrbwA=;
+	s=arc-20240116; t=1784344950; c=relaxed/simple;
+	bh=8ehDo32BLO0fVjvGaWkTPEC2NcES0lOIEPwLsXeJ1I4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=V+T8YJWWctFQftd1ld5RUwnuBfBLNaDoQOkSRoT53SPgCf62fxIR2bszzQKJnllcM4XbDTSLud0TMEGlBnwNEtHaPj3jJZM4lCSRtOlOtjNrjwpnyd+XRdyeteVUPxWGh8IaN4v8vcqqInxpk+J8RM/IA2+0nD5ODOineYyDTfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PWQkKH0+; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=PKMR+lHNCW2ez4uJMgnqbc/qMvllWJgRPPdijXPrnPZx8itOd1ZF2B86iq0Md/tVyLbNuDpr/ZBWCJNMQVFbYfShGWIy6x1Mj/7MPI/ex5lco62auXc3s3+b3//8TOVt0sHwz0Q5sQGlQ9yyS6KSk9AVoH3HKjCk7rVSjzFeqyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X6xznPjz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PWQkKH0+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1000A1F000E9;
-	Sat, 18 Jul 2026 03:20:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X6xznPjz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 266CE1F000E9;
+	Sat, 18 Jul 2026 03:22:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784344836;
-	bh=odXcpOwQmd8uyldO3l8CCz4AVEO+Gh5iU9jICwEg1bc=;
+	s=k20260515; t=1784344949;
+	bh=dwiwGKyPqy9MzIZpuFMrcKfYrPscbIfkR2JtX98D87Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PWQkKH0+HgXcn/HrNqCNhkJYecMuC9gHnJcqG6e71ec+6onOyDF6hrJ5ng7A1ALOK
-	 pO3PYfOFVqvxryUEL1H35kmvUJRbL0xqguildB4pIjzhnBhHwhXLq9EOK+80FepDpa
-	 AuApeeGXoiwWhcTtvBP/blNGXuY2xbgWL020feb1OVQngekux0cMW9KGQMUQ/PBaP+
-	 jfwSzmUI3Ha0t4KAjM+/vnEdtw039ZX86RNKZpPUlevhEZygYT7LXGT6UcjPBpEzj5
-	 CJzCEmaSs5HD4IeWyo5xsA69KS+LdsDN6sCn/SP82u6cgW5BHvm1sHODyiE3iYinFf
-	 Z1GsmJO0IvBKg==
+	b=X6xznPjzFpjynbmNf7KXbUFfO47OkceLSJ7KPnHlQSqCjHhQF7o0UqKLLQHuHHwoQ
+	 VDa0A+vBTxRJYNOz6CkXjn3W5DvS3hnBBrRoKsJrdB3LVXPqmf98MenJDwkvEIzUMp
+	 zAn8dQB0ULzNGgc2d7fb2xJi/uRqzqJBVjgySfzwiX9ml8MvXuPbsP+0x7VhVjBjWa
+	 K8DERMDkvgUKyXMdfuiJapKitPbpm25ymFhZSz2gBtkuFGBWVR6MTxhcw7rUwjpeh1
+	 BMVaz1tdpV0Axg1Slftb0bLxYfAPNBw4+wveMAugemYizAf5E5ymyMZ5aTILH4MqdQ
+	 QLa/ALWCxzL0w==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 2/8] pmdomain/rockchip: add optional per-domain
- power-on settle delay
+Subject: Re: [RFC PATCH v2 4/8] iommu/rockchip: take all DT clocks
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260718031146.3368811-3-gahing@gahingwoo.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+In-Reply-To: <20260718031146.3368811-5-gahing@gahingwoo.com>
 References: <20260718031146.3368811-1-gahing@gahingwoo.com>
- <20260718031146.3368811-3-gahing@gahingwoo.com>
+ <20260718031146.3368811-5-gahing@gahingwoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 18 Jul 2026 03:20:35 +0000
-Message-Id: <20260718032036.1000A1F000E9@smtp.kernel.org>
+Date: Sat, 18 Jul 2026 03:22:28 +0000
+Message-Id: <20260718032229.266CE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,73 +48,101 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Missing state rollbacks in the error paths of rockchip_pd_power() =
-can leave the hardware in an inconsistent or unusable state, leading to a k=
-ernel panic.
+- [High] Resource mapping loop incorrectly indexes `iommu->bases` array, le=
+ading to gaps and invalid pointer dereferences
 --
 
---- Patch [2]: [RFC PATCH v2 2/8] pmdomain/rockchip: add optional per-domai=
-n power-on settle delay ---
-commit 5d8a3f8a8260643f6533a94cae0393fe9867b0cc
+--- Patch [4]: [RFC PATCH v2 4/8] iommu/rockchip: take all DT clocks ---
+commit 77bcbb4eca287b3632f08a8528235d32ff400f72
 Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-pmdomain/rockchip: add optional per-domain power-on settle delay
+iommu/rockchip: take all DT clocks
+   =20
+rk_iommu only enabled a fixed {aclk,iface} pair.  On the RK3576 NPU the
+MMU sits behind the CBUF/DSU gates, so writes to DTE_ADDR are silently
+dropped until those clocks run too (reads work, writes need more clocks).
+Use devm_clk_bulk_get_all() to take every clock the devicetree provides
+instead of a fixed pair, so a platform can list the full set it needs.
+Clocks stay optional for the older clock-less devicetrees.
 
-This commit adds a per-domain settle delay for the RK3576 NPU domains.
-It introduces a delay_us field to rockchip_domain_info and applies the
-delay in rockchip_pd_power() before restoring QoS settings.
-
-> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
-ckchip/pm-domains.c
-> index 490bbb1d1d8e8..1787f62ba3a81 100644
-> --- a/drivers/pmdomain/rockchip/pm-domains.c
-> +++ b/drivers/pmdomain/rockchip/pm-domains.c
+> diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iomm=
+u.c
+> index 87ae036d64145..2ac65c0c5c0b4 100644
+> --- a/drivers/iommu/rockchip-iommu.c
+> +++ b/drivers/iommu/rockchip-iommu.c
 
 [ ... ]
 
-> @@ -667,6 +668,9 @@ static int rockchip_pd_power(struct rockchip_pm_domai=
-n *pd, bool power_on)
->  		if (ret < 0)
->  			goto out;
+> @@ -1254,25 +1249,20 @@ static int rk_iommu_probe(struct platform_device =
+*pdev)
 
 [Severity: High]
-This is a pre-existing issue, but there appears to be a problem with the
-error path in rockchip_pd_power() when a domain transition fails.
+This is a pre-existing issue, but does the resource mapping loop in
+rk_iommu_probe() incorrectly index the iommu->bases array?
 
-When the genpd framework attempts to power off a domain and
-rockchip_pd_power() is called with power_on set to false, the driver
-successfully idles the bus interconnect:
+If multiple memory resources are provided but one fails to map (for example,
+if num_res =3D 2 and mapping for index 0 fails), iommu->bases[0] holds an
+ERR_PTR while iommu->bases[1] holds the valid base. However, iommu->num_mmu
+becomes 1.
 
-        if (!power_on) {
-                rockchip_pmu_save_qos(pd);
+Since subsequent driver loops iterate from 0 to num_mmu - 1 and
+unconditionally dereference iommu->bases, this would lead to a crash on
+iommu->bases[0].
 
-                /* if powering down, idle request to NIU first */
-                ret =3D rockchip_pmu_set_idle_request(pd, true);
-                if (ret < 0)
-                        goto out;
-        }
+Also, if num_res =3D=3D 0, devm_kcalloc() returns ZERO_SIZE_PTR and reading
+iommu->bases[0] on the error path would panic:
 
-If the subsequent call to rockchip_do_pmu_set_power_domain(pd, false) fails
-due to a hardware timeout, the function jumps to the out label without
-reverting the idle request.
+	for (i =3D 0; i < num_res; i++) {
+		res =3D platform_get_resource(pdev, IORESOURCE_MEM, i);
+		if (!res)
+			continue;
+		iommu->bases[i] =3D devm_ioremap_resource(&pdev->dev, res);
+		if (IS_ERR(iommu->bases[i]))
+			continue;
+		iommu->num_mmu++;
+	}
+	if (iommu->num_mmu =3D=3D 0)
+		return PTR_ERR(iommu->bases[0]);
 
-The genpd framework seems to gracefully handle the error by keeping the
-domain status as GENPD_STATE_ON. However, when a consumer device later
-resumes and attempts to access its MMIO registers, the interconnect remains
-physically idled.
+Could we assign to iommu->bases[iommu->num_mmu] instead of iommu->bases[i]
+to prevent gaps in the array, and handle the num_res =3D=3D 0 error path
+differently?
 
-Can this cause the bus to hang and raise an SError, leading to a kernel
-panic? Would it be appropriate to revert the idle request in the error path
-before returning?
-
+> 	iommu->reset_disabled =3D device_property_read_bool(dev,
+> 					"rockchip,disable-mmu-reset");
 > =20
-> +		if (pd->info->delay_us)
-> +			udelay(pd->info->delay_us);
-> +
->  		rockchip_pmu_restore_qos(pd);
->  	}
->
+> -	iommu->num_clocks =3D ARRAY_SIZE(rk_iommu_clocks);
+> -	iommu->clocks =3D devm_kcalloc(iommu->dev, iommu->num_clocks,
+> -				     sizeof(*iommu->clocks), GFP_KERNEL);
+> -	if (!iommu->clocks)
+> -		return -ENOMEM;
+> -
+> -	for (i =3D 0; i < iommu->num_clocks; ++i)
+> -		iommu->clocks[i].id =3D rk_iommu_clocks[i];
+> -
+> 	/*
+> -	 * iommu clocks should be present for all new devices and devicetrees
+> -	 * but there are older devicetrees without clocks out in the wild.
+> -	 * So clocks as optional for the time being.
+> +	 * Take every clock the devicetree provides.  Most IOMMU instances
+> +	 * need exactly "aclk" + "iface", but e.g. the RK3576 NPU IOMMUs sit
+> +	 * behind additional gates (CBUF/DSU) whose clocks must be running
+> +	 * for register writes to land.  Clocks stay optional because there
+> +	 * are older devicetrees without clocks out in the wild.
+> 	 */
+> -	err =3D devm_clk_bulk_get(iommu->dev, iommu->num_clocks, iommu->clocks);
+> +	err =3D devm_clk_bulk_get_all(iommu->dev, &iommu->clocks);
+> 	if (err =3D=3D -ENOENT)
+> 		iommu->num_clocks =3D 0;
+> -	else if (err)
+> +	else if (err < 0)
+> 		return err;
+> +	else
+> +		iommu->num_clocks =3D err;
+> =20
+> 	err =3D clk_bulk_prepare(iommu->num_clocks, iommu->clocks);
+> 	if (err)
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260718031146.3368=
-811-1-gahing@gahingwoo.com?part=3D2
+811-1-gahing@gahingwoo.com?part=3D4
