@@ -1,110 +1,160 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF301A5B9E
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 12:16:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06E0A1A5B9E
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 12:17:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784377010; cv=none; b=lvm4eHJr+onjwdmXLA0tflNCDPSmrK9q57/rsKJX6D+PyFpfsXeFPS8aNOl+osdfS2KYqqKxUT+UayGYjbkElnuofCXtnTDVZqO7+mU/zut9245YXRTztzAO/YMZ2XislCf9c3uxASU+HZXdoxcYiDZpofKMAPTU1sbAEEnsL8s=
+	t=1784377038; cv=none; b=YiEo3bQRguDxGFyDB+UhhrmgFLc1ohw1ZxQvaH7XY/ckL89Ax1gQxtwKMAtIwz5dOxBQrjsSJpD+DJ8NBjmfAUWpWIBG4qcuv57PD+ccGOP9By6CNq7SmaYNf+6rwXvhGDPBchEllsZiZdWe3k2q8NftEHzxiKPzETFPsNPA2lg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784377010; c=relaxed/simple;
-	bh=3QOKPOL+WBjXDEDXQDlFSVG28bbZnUDIVBw+V8bE2Xc=;
+	s=arc-20240116; t=1784377038; c=relaxed/simple;
+	bh=zTcOGKOB9JmDkfL1EW/6hCA4XYZ3w/Xj11BKLfWa6DU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qB8kTSRfz/3eghkGMOEfri0GvFCjo25X8RgE81mZoDzNU8onfFN78I/2UaOIX0YpQZADwoR5YIhaFNlEWzLcvyxvuGP9QmfbaQd3zoHiDoi2kNj9Hf0MoaIBpNzFIjHNA0OGhapfiqbCb2DHV/qoYC0uTNxXMk5uR9FEkizn3Tc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y1vQoh16; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=P6GglsBlL5yuSifiyQ2YbJbbiyse2z5yeyDj9uDAoASuQaBZRlL8oFimSrYqEO9uFqEDkKfOIZ5BZcW9zt8vYq1F/qfL2Tu3b17wv0dVEHYdeSsNdX/jvh1F0EzwaTzJ5+LvF1IvH5TCs5eADmMaVVf9UTqxaZ78dwMKSPeqn6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ac0sxYVi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y1vQoh16"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1714C1F000E9;
-	Sat, 18 Jul 2026 12:16:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ac0sxYVi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77AD31F000E9;
+	Sat, 18 Jul 2026 12:17:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784377009;
-	bh=q/wbcwWNjfvLyOLoxpg+CVgzZ155Yakr5QriKucJtLw=;
+	s=k20260515; t=1784377036;
+	bh=+DrYsj4IrLqQYUIlFVaQiJG2atPub9XGna77Clhm/JE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Y1vQoh16PrFygeqb4R5YR3WX1yVu6yWaPOjOVhHoER36t6pghzR9Rdqcg2TzaKWjF
-	 jrWXmal5owR3Ucf9NSa5GKzq3z8Pl9MBRHTI/ACnhI7523NRc1ghkzMH5txPCtiuv+
-	 8yjcyhmL0pvFCShXRV9WnWM4SdcVZKKyE0SJCdVrLiqPKha97Ex0JGggI6Wa+fBAnN
-	 3GyRXQB8Zkgv1QC5mUA4DDlKveH3oVA5s/uw2akJR3PvugsbvsN6LegI2qoi480w9s
-	 lpdX1rKFImZbgSaS9ss1cNE68r5OUS532Hustea7L5rZYTya7qKP1d/ddMc3rvSf8d
-	 dezcbKV4m1SNw==
+	b=Ac0sxYViXbBgorRvCLIxrimd/636iVkikOgwnFlrRfrcm7tkrof9iexiovMPx1BhN
+	 BxXLeYVzWMZi8dRuQOgrOx++1lt9f8nbPqFEm9Acv/Hibt7rjKlu/v4VWwDsRlvV9c
+	 d4MbuRI2bt/7ACFZkYWVJOzyL39iH4p5XDBQs/KbKQ5myscRn2+7w1TUyhpvDwPTRQ
+	 TeZ7oJqfUo8O7VSM9Q6PhSelZ9ItmkRP/bASQTsShNvafyJKJ86ZvTemK9i0GCZScb
+	 58Bn0fGs/D+DkbDQpxuz26oVw/ZgaKxE11FrbZ4a8PBK134rKxbGDcPssruMgcGUqw
+	 LomAPNJ3wCvFg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/5] arm64: dts: qcom: Add Kalambo CRD
+Subject: Re: [PATCH 2/5] arm64: dts: qcom: Add Kalambo SoC
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Gopikrishna Garmidi" <gopikrishna.garmidi@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260718-b4-kalambo-crd-v1-3-a1069b5a2757@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260718-b4-kalambo-crd-v1-2-a1069b5a2757@oss.qualcomm.com>
 References: <20260718-b4-kalambo-crd-v1-0-a1069b5a2757@oss.qualcomm.com>
- <20260718-b4-kalambo-crd-v1-3-a1069b5a2757@oss.qualcomm.com>
+ <20260718-b4-kalambo-crd-v1-2-a1069b5a2757@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 18 Jul 2026 12:16:48 +0000
-Message-Id: <20260718121649.1714C1F000E9@smtp.kernel.org>
+Date: Sat, 18 Jul 2026 12:17:16 +0000
+Message-Id: <20260718121716.77AD31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] The device tree leaves orphaned nodes for the physically absent =
-PMIC 'D', leading to invalid SPMI device probing and thermal zone registrat=
-ion.
+- [High] The bandwidth monitor (`bwmon_cluster0`) for the removed CPU clust=
+er 0 is neither disabled nor removed.
+- [High] Thermal sensors (`tsens0`) and thermal zones monitoring the remove=
+d CPU cluster 0 are left active.
+- [Medium] Incomplete update of SCMI SCP low-priority shared memory registe=
+r windows creates an asymmetric channel configuration.
 --
 
---- Patch [3]: [PATCH 3/5] arm64: dts: qcom: Add Kalambo CRD ---
-commit aaa6e566ef6b80e52c726e5cb734189e7e8ad2a3
+--- Patch [2]: [PATCH 2/5] arm64: dts: qcom: Add Kalambo SoC ---
+commit c5f01045fbad11461a4f9c8629b706f4e0af8944
 Author: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
 
-arm64: dts: qcom: Add Kalambo CRD
+arm64: dts: qcom: Add Kalambo SoC
 
-Introduce support for the CRD based on the Qualcomm Kalambo SoC.
-It reuses the common CRD board description and drops the PMIC nodes
-not present on this design.
+Introduce support for the Qualcomm Kalambo SoC. It is derived from Mahua
+with CPU cluster 0 removed, leaving it with just cluster 1. As a result,
+the PDP mailbox and SCP low-priority register windows are updated to
+match the reduced CPU complex. Everything else should work as-is.
 
-> diff --git a/arch/arm64/boot/dts/qcom/kalambo-crd.dts b/arch/arm64/boot/d=
-ts/qcom/kalambo-crd.dts
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/qcom/kalambo.dtsi b/arch/arm64/boot/dts/=
+qcom/kalambo.dtsi
 > new file mode 100644
-> index 0000000000000..b4441807f4602
+> index 0000000000000..a56ff68b57b47
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/kalambo-crd.dts
-> @@ -0,0 +1,21 @@
+> +++ b/arch/arm64/boot/dts/qcom/kalambo.dtsi
+> @@ -0,0 +1,29 @@
 > +// SPDX-License-Identifier: BSD-3-Clause
 > +/*
 > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 > + */
 > +
-> +/dts-v1/;
+> +#include "mahua.dtsi"
 > +
-> +#include "kalambo.dtsi"
-> +#include "glymur-crd.dtsi"
+> +/delete-node/ &cluster0_pd;
+> +/delete-node/ &cpu_map_cluster0;
+
+[Severity: High]
+Since cluster 0 is removed, does the bandwidth monitor (bwmon_cluster0) also
+need to be disabled?
+
+The qcom,glymur-cpu-bwmon driver automatically probes bwmon_cluster0 during
+boot. If left active, it will attempt to map and access MMIO registers at
+0x0100c400 for a physical cluster that no longer exists in the SoC, which
+can result in a hardware/bus fault (SError) and system crash.
+
+Looking at glymur.dtsi, the node cannot be safely deleted with /delete-node/
+because it houses the cpu_bwmon_opp_table used by the remaining clusters:
+
+		bwmon_cluster0: pmu@100c400 {
+			compatible =3D "qcom,glymur-cpu-bwmon", "qcom,sdm845-bwmon";
+
+Should this be explicitly marked with status =3D "disabled" instead?
+
+[Severity: High]
+Similarly, should the thermal sensors (tsens0) and the thermal zones
+monitoring cluster 0 be explicitly removed?
+
+The thermal framework will initialize and poll the active cpu-0-*-thermal
+zones, which attempt to read from tsens0 registers corresponding to the
+absent cluster 0. This can also trigger an SError crashing the system or
+cause fatal thermal subsystem errors.
+
+For example, glymur.dtsi defines these zones:
+
+		cpu-0-0-0-thermal {
+			thermal-sensors =3D <&tsens0 1>;
+
+Should &tsens0 and the un-labeled cluster 0 thermal zones inside
+&thermal_zones be deleted?
+
+> +/delete-node/ &cpu0;
+> +/delete-node/ &cpu1;
+> +/delete-node/ &cpu2;
+> +/delete-node/ &cpu3;
+> +/delete-node/ &cpu4;
+> +/delete-node/ &cpu5;
+> +/delete-node/ &cpu_pd0;
+> +/delete-node/ &cpu_pd1;
+> +/delete-node/ &cpu_pd2;
+> +/delete-node/ &cpu_pd3;
+> +/delete-node/ &cpu_pd4;
+> +/delete-node/ &cpu_pd5;
 > +
-> +/delete-node/ &pmcx0102_d_e0;
-> +/delete-node/ &pmcx0102_d0_thermal;
+> +&pdp0_mbox {
+> +	reg =3D <0 0x17610000 0 0x8000>, <0 0x1a980000 0 0x8000>;
+> +};
+> +
+> +&cpu_scp_lpri1 {
+> +	reg =3D <0x180 0x60>;
+> +};
 
 [Severity: Medium]
-Are the deletions for the SPMI bus 1 endpoint and its thermal zone missing
-here?
+Does the TX window (cpu_scp_lpri0) need to be updated to match the
+reduced CPU complex as well?
 
-This drops the SPMI bus 0 endpoint for PMIC D, but seems to leave the bus 1
-endpoint (&pmcx0102_d_e1) and its thermal zone (&pmcx0102_d1_thermal) activ=
-e.
-Since the PMIC is physically absent, attempting to probe the orphaned bus 1
-device and poll the absent thermal sensor can cause SPMI bus timeouts,
-deferred probes, and log spam from the thermal framework.
+The commit shrinks the RX window size (cpu_scp_lpri1) from 0x180 to 0x60,
+but misses the TX window, which remains oversized at 0x180:
 
-Should &pmcx0102_d_e1 and &pmcx0102_d1_thermal also be deleted in this bloc=
-k?
+			cpu_scp_lpri0: scp-sram-section@0 {
+				compatible =3D "arm,scmi-shmem";
+				reg =3D <0x0 0x180>;
+			};
 
-> +/delete-node/ &pmh0104_i_e0;
-> +/delete-node/ &pmh0104_i0_thermal;
-> +/delete-node/ &pmh0104_j_e0;
-> +/delete-node/ &pmh0104_j0_thermal;
-> +
-> +/ {
-> +	model =3D "Qualcomm Technologies, Inc. Kalambo CRD";
-> +	compatible =3D "qcom,kalambo-crd", "qcom,kalambo";
-> +};
+If the system firmware expects both windows to be symmetrically shrunk and
+contiguous, this asymmetric configuration might cause SCMI initialization to
+fail.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260718-b4-kalambo=
--crd-v1-0-a1069b5a2757@oss.qualcomm.com?part=3D3
+-crd-v1-0-a1069b5a2757@oss.qualcomm.com?part=3D2
