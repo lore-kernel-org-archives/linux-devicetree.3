@@ -1,133 +1,173 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.web.de (mout.web.de [212.227.15.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EFF83D47D4
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 15:21:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD6DD22A7F0;
+	Sat, 18 Jul 2026 15:36:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784388097; cv=none; b=YgM7psKZFrQ0tjLWTvsxIR57wGlBLmm7URmapeujRxA5H4N8toPW57SHxafA0dGtkGaSvvwhG0U+SSkuiFTKYEwNHjZL4KBxBZ5Na8rIvdSLZ/n4hZEAiTcA9U4HGRkl1/4d7VKiixwUVLnoe/TBc88wfdigDv35niWezEyotZ8=
+	t=1784389021; cv=none; b=o7PVjdGS+1iusYEKSTbIMI1MiYEzkOr/QZZIr/nxXZ2kqWX/qss98/4HxmGDJB9T2XsdipaQAUeOT4QdAYojU64m12fD9u2DKDvZ+MG1I+SeF0GcWWcU5EihE8jkCMEzHxlfCGu9tmHGekrWsDX+HxkDIt84cHmsTmTKADcC6RA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784388097; c=relaxed/simple;
-	bh=pDPn99N+ICG1K7TKp4PgKMOzXmJllsI8p04WRkYOgbQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=JhFKICvmqfY8CmQtSkCsDenNAM8xqJDN4DUaAoS1pR2XLHnDIXSGHzLLCI+nDvJszFRNqS9SeA7J5RJ7Tq+mX3xE3O14fKHVetob8kEU3YCum/mA6BF6hlV7euNXtT11ZPmKh9L8YgS7EjuEshtdDhUKC9DmVXb0J/oVDqcfaTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r0PTt4WX; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784389021; c=relaxed/simple;
+	bh=UE0IrFl6mZ50TJfg/b29+c/8RhalAY5uVgKMBKdPOSE=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
+	 In-Reply-To:Content-Type; b=B1tGuHjMb2a6EgRjm1frF7jMRVqHilwF5ECibObIIuhS6C5kGv7mck2Btx8XQLeW87EX4Ypa2Y3HQCeDpDLNiT147EzI8OYuArSAecHYeVtjdMYKTurxUsWg8Urc7P3t1CWvCWb8VjPqW+5tvqGAJjGhHPWz53OWmRM//yXjin0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=FQwMaS3n; arc=none smtp.client-ip=212.227.15.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r0PTt4WX"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38511175ad3so7289560a91.2
-        for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 08:21:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784388095; x=1784992895; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=yEoG8yRI+aYCT3H+YBQOUKD8pSL6ReWVyutnSqA0MV0=;
-        b=r0PTt4WXtJ3v2C/rv9/7EShJe/7MQFeGy3Ybudc5nJvVH3QKTchPNorZSG60Gz/wZA
-         /f3gN+/t7alJc5svO5W/dfZXltyVbW+t4t45BHa9UozbX4PEaWnOo3vk/tofYKkaSEP6
-         UCN/GMGprNpUcZXTuvvgvpEyxkpnxjlwhGER4rcXgAIrK/8h20o67SaugyoTVAPIrsXR
-         Z6/w2RqJxVj4hUi5BQ5R5ngZG//n+c2UKw79jLLuIIJIM//wd1CxlmaJZOqkMVoMkkrp
-         fwL3I52jdjVv4Z5CtLWDpESku2xTHPE2Z1hv1iaN6+/XcwrjIlEmGjT9zPdnkEHtqVnU
-         xMNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784388095; x=1784992895;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=yEoG8yRI+aYCT3H+YBQOUKD8pSL6ReWVyutnSqA0MV0=;
-        b=k8Y8GLuyFrmr1kFzhzfybpjAxphYYjg5EYImPBQOs08QjqjEDk8xcQHgl/r5UmsyOB
-         /TyvB0cUyCJWjAtwyYaG2zlQ0iZe7O987eU2upMEzwmLTIxj+rUPduh5+MqbzSbh4kHO
-         ixP1RejRyKA5g4z5M2+E1U57vYfP1gWlOy4wwjvSsBVjJcI+3kjAEBTFnuIWwDfRlAgz
-         IuM+5+X7jj82Ysu+O8OzPzW4KxhH8rPYAL7vJewDXZcCfZnZt9TeKGEXnTXpuiu7krS9
-         VLwqQ3T8+fNSMwQWptKNqSNTfu7KYK9CBMDiT0o1dgkQOY/K1BF9utktKO1Jy2/tcIgp
-         zJWg==
-X-Forwarded-Encrypted: i=1; AHgh+RqAsjeJGTRZ2FocHz/muMo936a32JMulJ8EqcKJ2+UcJ6040YFycWPL4XSJKwGqXSsMGCb8ljICt3JV@vger.kernel.org
-X-Gm-Message-State: AOJu0YxnZXQJ8F5OJ1LV/fQexYBWPpfMya9pR4E8JDOU0MGzErVgFTA5
-	Cn4jXA/TQZ8ElptAEH5h7rtC6j9hylycc6++wSSBngTbS10sWGvLufRD2CAkYhYv
-X-Gm-Gg: AfdE7cksEu0VqAQpi40n3ITh+AnpMh5BbqZd7lUDaD65b6nZaDa0VzLg/d9KpC3Dil/
-	rO7+mIBrsH5RukMlKgVy/GnfR//SIkm0yPfv95lalR4INdYjeVpJUOIIAGaGyEoEiaN+R08xk8j
-	DMoSGLlaM89NAnag0pz25O3gMeF7fMrsnIB4S6Fn/lqfx3yj0Ungqed14EKSzso2uVqupFMAKYp
-	AM3re2BghfugsOcaFfApNaiIupxHwioCcTqXmvqaMVpp7Z3tH7Jk3ykG44L7BLDS9teQ8Zh43mu
-	r0OSzHbW+j7QQwdJX2kctDp+YuP30lUAEpRzLVwjqWIB7LH5sls51sDwuVeC1GWg+0yP9SWsAKf
-	+pjbLL6yvmkqAagKx4NNeaeVRx7nYf/RAYu5EYey0Ft7YK+eONZ6D6a69BSCd+KiAc1ZKf3Popr
-	KVHQwU15Ww
-X-Received: by 2002:a17:90b:1f8d:b0:38d:c0f9:30be with SMTP id 98e67ed59e1d1-38e4b578797mr7711017a91.38.1784388094777;
-        Sat, 18 Jul 2026 08:21:34 -0700 (PDT)
-Received: from [192.168.0.103] ([45.113.100.172])
-        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-31429f9bcccsm21303405eec.4.2026.07.18.08.21.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Jul 2026 08:21:34 -0700 (PDT)
-From: Biswapriyo Nath <nathbappai@gmail.com>
-Date: Sat, 18 Jul 2026 15:21:25 +0000
-Subject: [PATCH] arm64: dts: qcom: sm6125-xiaomi-ginkgo: Add vbus-supply in
- Type-C connector
+	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="FQwMaS3n"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1784388997; x=1784993797; i=markus.elfring@web.de;
+	bh=vlqpzFLlrEy+zLb0mNrc9tyh0tSEdDV9LsIQWGFvLrI=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=FQwMaS3npCiQY3nl+5hI23wILTMuFYqOOEeXQ2CemmkQjO4NF1IvjeKtFZFsK7Ya
+	 JQ8NI1+PZb4e57flmPSQs5VxR+l9h5WjF5eoR/MKVv1FhsUEdczm/7Qfk2wCt3s2L
+	 8LJSUW44lHngZ3TcDeJo9cH9ztdKr1DF/8hK/snCYq3A97fPjfe0vUPy9HB81Sig9
+	 s4wiTxB061pk85ph1xwrBVSqmEFfP9rXORhmS4hsowcF9nyEtshYJ3NOsULLoYbIm
+	 4STlpqfhxUT9QXMLbOd0B9KzIAGGZlml273g1besAcj+iU1XdwSE2/5uGg1F4eXPW
+	 Dmpf5XaA9SAebPQS/w==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1Ma0PY-1wZ61p2Hsi-00X5yM; Sat, 18
+ Jul 2026 17:36:37 +0200
+Message-ID: <3e194c71-2902-462a-ac77-e55f30f3820b@web.de>
+Date: Sat, 18 Jul 2026 17:36:34 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260718-ginkgo-vbus-typec-v1-1-d5ed0aa6b78b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2Nyw6CMBBFf4V07RDLu8QY/8OwKO2IVctrCtEQ/
- t0KbiY5yZ1zFkY4GiRWBgsbcTZkutYDPwRM3WXbIBjtmUXHKDvmvIDGtM+mg7meCNynRwVS5Fr
- EhdAy1sz/9SPezHtzXqudaaofqNxP9F+MOEw+5vYZs0gkt1gZnLZWygV4DTjV2702c8iAJ3maZ
- CKNikhfOqJwmORLddaG/pxZta5fYhs829MAAAA=
-X-Change-ID: 20260718-ginkgo-vbus-typec-a97d9389da3d
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
- phone-devel@vger.kernel.org, Biswapriyo Nath <nathbappai@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784388090; l=1616;
- i=nathbappai@gmail.com; s=20260718; h=from:subject:message-id;
- bh=pDPn99N+ICG1K7TKp4PgKMOzXmJllsI8p04WRkYOgbQ=;
- b=7KDba2OaRdEYGWz/amL5v2WMGbUjUZyEWGEv+7QG7GQ5sPQLIaaMv/Wc6kT0U0i4LK470diaV
- WR9/mCnqATqCZqIstaZea6CsLysP2O7o4Ckvq4SAaMlNZNQjl97OBpZ
-X-Developer-Key: i=nathbappai@gmail.com; a=ed25519;
- pk=ATtK28d7wNTkFPtwgWLEaJ1T7ikcnGabljPw7CKsQ0Q=
+User-Agent: Mozilla Thunderbird
+To: Gianluca Boiano <morf3089@gmail.com>, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Takashi Iwai <tiwai@suse.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, Baojun Xu <baojun.xu@ti.com>,
+ Kevin Lu <kevin-lu@ti.com>, Sen Wang <sen@ti.com>,
+ Shenghao Ding <shenghao-ding@ti.com>
+References: <20260717233402.414326-3-morf3089@gmail.com>
+Subject: Re: [PATCH v3 2/2] ASoC: codecs: add TAS2557 mono smart amplifier
+ driver
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20260717233402.414326-3-morf3089@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:tCDrBaixQC/OFVfwomcnq9eCR7eMtn6T3DHlaPePu+NE6ivMBg0
+ jzs32X/QFTigD5z94NCm+ldULCsAzQgF8HPyWHGhPHX/2JfpkyUO0/ZjWSx0+3whXRKqCPY
+ XFxTp39jVaFD/E2SuEaenNYj0EdmRC1OfgM1ee0LOPS/SgyVefZuBNyt1Uses7z65xsR5+I
+ qz+urAzvUQJ0a2AT4uE2g==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:sp+/EaP03/M=;UhIEXivxFUr4ckLx7BJFara3ula
+ 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
 
-VBUS supply property was moved from pmi632 typec node to USB-C connector.
-This fixes the following warning in kernel message.
-pmic@2:typec@1500: supply vdd-vbus not found, using dummy regulator
+=E2=80=A6
+> +++ b/sound/soc/codecs/tas2557.c
+> @@ -0,0 +1,3067 @@
+=E2=80=A6
+> +static int tas2557_dev_read(struct tas2557_priv *tas2557, unsigned int =
+chn,
+> +			    unsigned int reg, unsigned int *value)
+> +{
+=E2=80=A6
+> +	mutex_lock(&tas2557->dev_lock);
+> +	ret =3D tas2557_change_book_page(tas2557, chn, TAS2557_BOOK_ID(reg),
+> +				       TAS2557_PAGE_ID(reg));
+=E2=80=A6
+> +	mutex_unlock(&tas2557->dev_lock);
+> +	return ret;
+> +}
+=E2=80=A6
 
-Fixes: c1da9374c3e0 ("arm64: dts: qcom: sm6125-xiaomi-ginkgo: Add PMI632 Type-C property")
-Signed-off-by: Biswapriyo Nath <nathbappai@gmail.com>
----
- arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+Under which circumstances would you become interested to apply a statement
+like =E2=80=9Cguard(mutex)(&tas2557->dev_lock);=E2=80=9D?
+https://elixir.bootlin.com/linux/v7.2-rc3/source/include/linux/mutex.h#L25=
+3
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
-index a5458ab41629..59042a593753 100644
---- a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
-@@ -133,6 +133,8 @@ connector {
- 		typec-power-opmode = "default";
- 		pd-disable;
- 
-+		vbus-supply = <&pmi632_vbus>;
-+
- 		port {
- 			pmi632_hs_in: endpoint {
- 				remote-endpoint = <&usb_dwc3_hs>;
-
----
-base-commit: 0718283ab28bc3907e10b61a6b4be6fefa1cbb2f
-change-id: 20260718-ginkgo-vbus-typec-a97d9389da3d
-prerequisite-message-id: <20260519-fix-tcpm-vbus-v1-6-14754695282d@oss.qualcomm.com>
-prerequisite-patch-id: 6c6c95591d4aff3681de3a3bbeae9d23f77040c5
-prerequisite-patch-id: 51a84aabba9117f91505cc9c17f2c7064768ca33
-prerequisite-patch-id: 2432fbca7762ddb799b5c64f932760083ff0ea85
-prerequisite-patch-id: e3fe6166b11e43616b406a1ff6a8ac28611e7cdf
-prerequisite-patch-id: fe4070481a2bfc530e1a869bd981c32a8147f7e9
-prerequisite-patch-id: 4fc9afebebdfadfe644126dcdcdfe30f8e0ae685
-
-Best regards,
---  
-Biswapriyo Nath <nathbappai@gmail.com>
-
+Regards,
+Markus
