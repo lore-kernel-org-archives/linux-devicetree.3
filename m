@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B5051C84A6
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 00:23:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B430A1BD9C9
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 00:29:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784334226; cv=none; b=YG+x70dYMko4oNtesJCCmh4FkfHiI1IWIAyPFWEotPWhzebAVg2ILXRu2UUJ4sekhGovrGZN3oqBBfzay/Rcde1cZNoUIf1sajy4+S5l6YTJR2MoXWJLRJDrbNU78OQG4FB5lsK5GmllN3V5WF7uTHb43u2z/DVzHmY1kxfIiAA=
+	t=1784334552; cv=none; b=nioTliWkQWXZ0zgBzcQVy8SoFW3qrW8sKV9UyHfC8+uQchtRH5MpFFIUrlsLf71CCssm9tTnVyd6EyFbI4/vUeD4hkJVo0kF/uMa9jfAo1EemoRRJweVXsQBXbPk7yL8BSQjsH1x03slpB8oCX5Fh/xwLSX+7RC7ZIZxLKQlFpw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784334226; c=relaxed/simple;
-	bh=suHqQOzmFUUZuMn8sVgvmQzO8eMkWUD7blxL3kePC8w=;
+	s=arc-20240116; t=1784334552; c=relaxed/simple;
+	bh=owl//JImKANHFm8f83LBdTCi8IMfLgZqTMhK1VKcZEg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=u1ZdRKBjQYla7lWEzwyMK/WI7dpkbxzc9WmiOXAqa3l7T+p3B2atVhxUNaCywEZ/chsDBQIbZO1f/iwj06+evPxyQOW8zH77f4BWmoFqVKZSohXlY+AOEtv7Tq3csJwZb/uQJbCq/LMhdJZcW6VlVFSImL70H1oYLR6UZeest2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dDI8bWX0; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=dklVi+6zSzytnM/kC3dxp1tcfR/7rKg+pTFXL672ukAhKA48M6+QhNPYPKKrE3ZgkbOU23JMLgp5x7TXvLF9c7DFqZaG7nF1kOEisJeT97uTOixC52eA+S7c7kEpUuPKvZwOTaL4SmRAodupOjf1l9KPl6nX/mi9Ylileu0f6Xc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qt/oFY5O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dDI8bWX0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 836221F00A3A;
-	Sat, 18 Jul 2026 00:23:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qt/oFY5O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A0941F00A3A;
+	Sat, 18 Jul 2026 00:29:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784334224;
-	bh=BK3co8iST1mzG1je6z2uBv18jgytmKfSV0WDRRaJ6LY=;
+	s=k20260515; t=1784334551;
+	bh=jsFFAqYqiWtHBJUkiFmS6vOQMOq3ElhsZBuQiGsCZ4E=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dDI8bWX0Pa2/ofU3F6wu5s919IOzhlk70uBOL6vGri4/xZSHxrZMPapSuLa+O0lMH
-	 /WWtsEgSNnEeuuNa6MWiQcjRyo7376oB3pDn1qX5hlvsYWRgRHctE0rdkFVKy731b4
-	 9nQ3cAvDpNH0aML8AzeGHZkVeUDv/B3TKXPgKTC0y4fJwFHdo83kMBPr8ZpF4bG/ug
-	 MMod6olrZScznqgej8mOpiwwIWDsjDHTaLzmy895k0lFaqJCzmVEbCl5QYORJYVir6
-	 zkfMgpN3tBfVEg1NATfsx1hqwhsN/LeUdXSF+TRq+wGn0tKrjhy604wnvr97eRAkEV
-	 kpJ7WFRU9R/ew==
+	b=Qt/oFY5OsBjrQmP8QHReftnvXnJy9UhR3QHkciAYFr6e94VQ7sYTS0dYcpbRD6zPV
+	 Tq8ig92pnMsvBu2tW4WHtDBQ8yxRXzxWYPWMbGArRUukHwfkWNvyO6DXkeun/8i4k7
+	 Zyz/qGaiqOevg2XuCPL83jE2+4O0qxXAFnbbKgiWeJ+mUd1NFcDQMvFKXITZ741dM7
+	 XSA0G/gixjSe77ZJjQT8P6VqDY6KPCrVbyBRC7/M72xR1fgkvb7pLpQduS6d6rhAeb
+	 YNFFdkyJXsFn+ZL31JiX7Nga1s5idcYxVi+KGx+cKPhw/Ss0BmL7WP/BDso8dilo2Z
+	 svNLwWeDjxuTA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: soc: tegra: pmc: Document Tegra210B01
+Subject: Re: [PATCH 2/2] soc/tegra: pmc: Add Tegra210B01 support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Aaron Kling" <webgeek1234@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260717-t210b01-pmc-v1-1-bf776be8b3a7@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260717-t210b01-pmc-v1-2-bf776be8b3a7@gmail.com>
 References: <20260717-t210b01-pmc-v1-0-bf776be8b3a7@gmail.com>
- <20260717-t210b01-pmc-v1-1-bf776be8b3a7@gmail.com>
+ <20260717-t210b01-pmc-v1-2-bf776be8b3a7@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 18 Jul 2026 00:23:44 +0000
-Message-Id: <20260718002344.836221F00A3A@smtp.kernel.org>
+Date: Sat, 18 Jul 2026 00:29:10 +0000
+Message-Id: <20260718002911.1A0941F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,57 +46,59 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The schema binds `nvidia,tegra210b01-pmc` to the exact same pinm=
-ux pad constraints as `nvidia,tegra210-pmc`, despite the commit message exp=
-licitly stating there are pad differences. Furthermore, the human-readable =
-description tables were not updated to reflect these hardware differences.
+- [Low] Unnecessary code duplication of identical pad and pin description a=
+rrays for Tegra210B01.
 --
 
---- Patch [1]: [PATCH 1/2] dt-bindings: soc: tegra: pmc: Document Tegra210B=
-01 ---
-commit 4180e7276638ec7a0b3917f5607e6419625d20cc
-Author: Aaron Kling <webgeek1234@gmail.com>
+--- Patch [2]: [PATCH 2/2] soc/tegra: pmc: Add Tegra210B01 support ---
+commit 79bca764e8d02b78b29f77c96575489573ae132e
+Author: Azkali Manad <a.ffcc7@gmail.com>
 
-dt-bindings: soc: tegra: pmc: Document Tegra210B01
-   =20
-The PMC in Tegra210B01 is very similar to the one in the original
-Tegra210, but has a few powergate and pad differences. Document this
-soc.
+soc/tegra: pmc: Add Tegra210B01 support
 
-> diff --git a/Documentation/devicetree/bindings/soc/tegra/nvidia,tegra20-p=
-mc.yaml b/Documentation/devicetree/bindings/soc/tegra/nvidia,tegra20-pmc.ya=
-ml
-> index f516960dbbefb..8ec36c49f9594 100644
-> --- a/Documentation/devicetree/bindings/soc/tegra/nvidia,tegra20-pmc.yaml
-> +++ b/Documentation/devicetree/bindings/soc/tegra/nvidia,tegra20-pmc.yaml
+This commit adds support for the Tegra210B01 SoC to the Tegra PMC driver.
+It introduces new powergates, IO pads, voltage controls, and pin descriptio=
+ns
+specifically for this variant.
 
+> diff --git a/drivers/soc/tegra/pmc.c b/drivers/soc/tegra/pmc.c
+> index f419a5395545f..4d77aa66d690c 100644
+> --- a/drivers/soc/tegra/pmc.c
+> +++ b/drivers/soc/tegra/pmc.c
 [ ... ]
+> @@ -3897,6 +3923,139 @@ static const struct tegra_pmc_soc tegra210_pmc_so=
+c =3D {
+>  	.has_single_mmio_aperture =3D true,
+>  };
+> =20
+> +static const struct tegra_io_pad_soc tegra210b01_io_pads[] =3D {
 
-> @@ -346,7 +347,9 @@ allOf:
->        properties:
->          compatible:
->            contains:
-> -            const: nvidia,tegra210-pmc
-> +            enum:
-> +              - nvidia,tegra210-pmc
-> +              - nvidia,tegra210b01-pmc
->      then:
->        properties:
->          pinmux:
+[Severity: Low]
+Are these IO pad arrays identical to the existing tegra210 versions?
 
-[Severity: Medium]
-The commit message states that the Tegra210B01 PMC has a few "powergate
-and pad differences" from the original Tegra210. However, this groups the
-Tegra210B01 variant into the exact same conditional block as Tegra210 for
-pinmux validation.
+Looking at tegra210_io_pads, tegra210_io_pad_vctrls, and tegra210_pin_descs,
+it seems this code duplicates them exactly. Could tegra210b01_pmc_soc direc=
+tly
+reference the existing tegra210 arrays instead of duplicating these structu=
+res
+to reduce binary size?
 
-Could this regression cause the schema to incorrectly enforce identical
-constraints instead of modeling the pad differences?=20
-
-Should the human-readable description tables for powergates and pinmux also
-be updated in this binding to reflect the new Tegra210B01 hardware differen=
-ces?
+> +	TEGRA_IO_PAD(TEGRA_IO_PAD_AUDIO, 17, 0x1b8, 0x1bc, "audio"),
+> +	TEGRA_IO_PAD(TEGRA_IO_PAD_AUDIO_HV, 29, 0x1c0, 0x1c4, "audio-hv"),
+[ ... ]
+> +	TEGRA_IO_PAD(TEGRA_IO_PAD_USB_BIAS, 12, 0x1b8, 0x1bc, "usb-bias"),
+> +};
+> +
+> +static const struct tegra_io_pad_vctrl tegra210b01_io_pad_vctrls[] =3D {
+> +	TEGRA_IO_PAD_VCTRL(TEGRA_IO_PAD_AUDIO, PMC_PWR_DET_VALUE, 5),
+[ ... ]
+> +	TEGRA_IO_PAD_VCTRL(TEGRA_IO_PAD_UART, PMC_PWR_DET_VALUE, 2),
+> +};
+> +
+> +static const struct pinctrl_pin_desc tegra210b01_pin_descs[] =3D {
+> +	TEGRA_IO_PIN_DESC(TEGRA_IO_PAD_AUDIO, "audio"),
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717-t210b01-pm=
-c-v1-0-bf776be8b3a7@gmail.com?part=3D1
+c-v1-0-bf776be8b3a7@gmail.com?part=3D2
