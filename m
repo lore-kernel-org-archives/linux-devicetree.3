@@ -1,79 +1,43 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C2E49620
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 18:47:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB0D12EA154;
+	Sat, 18 Jul 2026 20:58:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784400451; cv=none; b=YtCG7JZImVtKJDnneSvwDKIxtcZId7FhfgauajD6dGqem7o8CTPhtAhYArl56DK29D2+ouxrkbQ7CXPNS/qC6N0tBRcc7EaJWxdCqMln/qaULmOn/BwAI8GdfMCsWDmDxb8l7kpv0duFNwiBu05Ihd+9BDU9+DlXwKIG8Np4Xcw=
+	t=1784408302; cv=none; b=CArhjTN7eRc0r5XUpIYD7dpqQPGeDqERBqDdmhH8CPyejM9nA9p55JD+e1/UWCEPn5Yqg1RAG6lhTEzGaR7I3TfbyIigptHLi4/6bo2sTjXYbQay4pvdroEGiAeF4PaDahrfurlJF73MnIJbBZv1b73j9nhHE1Aift2AnenGo04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784400451; c=relaxed/simple;
-	bh=5brdqZ/1wXfjtic17d235LNB+dpZfhc5OvtCZzsQ5RU=;
+	s=arc-20240116; t=1784408302; c=relaxed/simple;
+	bh=lhYz8gK5Lvcy83kTSlni2Q5LYxjFYVqeUAJ+5ZZj/PY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M/+IRXmxBMSLnWn+2L1Tts/V1qcPVjll4B4zO+DU8+65fzLCE/Wgb6WGbBaAJdXUg8cGBGflRALB5PkylLcUsdG8jwL1tZIYyLtcn5PiCj1bfN82Esmgxh7ZvaySHNRRjdyi/A758PaCd4Fc5zGgoqfCGMmytVygCHCA1y1ynyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=POG7pQ8v; arc=none smtp.client-ip=74.125.224.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=W6j8fiMJEqtZ1hmFC8Lr1Q3/Ry06aArYmja991LAN1hV7hrgxxw4ptqIjC1voMSlxpSW6MpEnKUZZWZCh0R3on2w3nDhyuG3Dk0hF+4Qwa5t2WltLRVaJKKV+8Zkza/Sa0MKsX3ve3zdY+y0EMnC0Y/jxPyWAN8C4Sbao79H3/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=vlevDmuf; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="POG7pQ8v"
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-667ef69424bso7241997d50.2
-        for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 11:47:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784400449; x=1785005249; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fQTOmrHG5pvHqSModWaQQhiPltxOaTHtUmOHNGx1d18=;
-        b=POG7pQ8v3KB/6vyUYyUYCxySdycEoBZzCBU2w0EMwOKUa5lE4Ewy46/ksux2jM4CzA
-         aycdIaP/DMPLOH1lFGbB375owKzFI2cVYRI9r8QmaaDGo2AYAlKmUrznKcbpdQCtXRPO
-         grwIO3fdv926fDBdLX/HIAkmogvd7RLEyIZhfE52ud1AtAg5iVcr0fD+nK26HEs1syAp
-         AoRf/nJE56qG/4c1wyWroCrimPBStMPS4h+VRbVZkbrhdCMDCUS8N51RNvpG3WTIK4kp
-         Kqp6IC5psFKHnN4P5QJgvTUYTFnKLlOGHQY8F3oB/ORd+l0KRlye1dsWDO6GWNOPWa9z
-         jO8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784400449; x=1785005249;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fQTOmrHG5pvHqSModWaQQhiPltxOaTHtUmOHNGx1d18=;
-        b=PmHZ9Her+SBkt35pMEqhwOiLhHJeOEo/PNRBpCx9SGhA7nyEsBSREKgi+olsDrSz3U
-         dYPnR7zn/RYu5+kexfNWGu/QV/e1VJrQtQxBfaSdTP/Zf0/5ob1etTJHZwll74FurKrB
-         mebJJCqMRdXwDS0bzz/FZIjsww21Hh45sfOKsaoNILsoHOl0VBcstWJzk5mZuHESHyaN
-         c5rlQaeaLrqpDxCArMp3joDlVv5X1NWABGLLU1TH8n/mWyj55D+NYsMgz2nHrLBO10xj
-         v1j9+z5BTTlu4yn1EB2k25jjyjmqwH/PnI6h252Z8i9O/J9UuDOVWfoeNlgQwTugfRJS
-         xIFA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp1vnrX+T+muaXaOxXYgnnUlTfBFWK1k1srQGGZICh65pZ8OJnIhOn+eQQIFLaYpcXbJ/riweUZuLQq@vger.kernel.org
-X-Gm-Message-State: AOJu0YwhB7Dn5f1ODlSN8h/+0U4LxSWImBvbYRdZeVPqoYBTUr8Zc8RF
-	tfO9dJefN2Omcf0mAdT7luUX9LON1CTSnKcCkyQQihzFAvrcxKw41Gw0ZbluDw==
-X-Gm-Gg: AfdE7cnI0PU04Q1AMr8BNAXr5PIyhOQtMKsqUDv8rjqPZT8zmqyr5i+aD7qYDjFEpXd
-	+T0eiNNEN9/RkK+W5d8M6yvR7uvqvYGNquGyLgwOYAlip2AxCaG73cWTgBcKjWdUTlTsK1TisYq
-	fTsdmAhEN8X8ilD4UGqIOrxO4vOcJeruv8Mpt1JX8h2JRqu35WGtbBeutZ+dzoAjQUZq9Dj8gdg
-	gBJbaOUzazbJTbTtgNnBrbidTjpKDORQ0s31joLWD0my7XiVk4zYWj4nfVrwk4BS2SQi5sUR6Yk
-	tI7IZjkAN1RvIA7v7lITASvfqKDcsShqMR71UuNkHax555XQrEU4kJtEEID7Mii/flJTQ8EMsyR
-	NQshlCwfkjR+KVdAVNqSz9r493R8PLw+t7z/SWumhpAsNDQw92cRdpUzTOItToYrG4pD8L6fwnB
-	5cm7wZVQ8HNg==
-X-Received: by 2002:a05:690c:9a8f:b0:7ff:19d6:74ee with SMTP id 00721157ae682-81ef28589d4mr26330087b3.33.1784400449216;
-        Sat, 18 Jul 2026 11:47:29 -0700 (PDT)
-Received: from localhost ([2804:30c:90d:6100:8a69:5cf5:f1f8:a1e1])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81ef4279508sm33890157b3.26.2026.07.18.11.47.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Jul 2026 11:47:28 -0700 (PDT)
-Date: Sat, 18 Jul 2026 15:48:29 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: sashiko-reviews@lists.linux.dev,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, robh@kernel.org,
-	linux-iio@vger.kernel.org
-Subject: Re: [PATCH v7 2/4] iio: adc: ltc2378: Add support for LTC2378-20 and
- similar ADCs
-Message-ID: <alvKfTS8Kj1MF3db@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1784235595.git.marcelo.schmitt@analog.com>
- <5108c89986ae8723139419058db1b2f2e74daff6.1784235595.git.marcelo.schmitt@analog.com>
- <20260716212838.95B3F1F000E9@smtp.kernel.org>
- <alpab2gBs4nPDU5g@debian-BULLSEYE-live-builder-AMD64>
- <20260718024628.3e2872ca@jic23-huawei>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="vlevDmuf"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=Pw0QjSmfdaB3HnkcT8LgeuXdKGUxBtNlYl3Sq69kVYQ=; b=vlevDmufoIZiJPBc5ej/sYoPze
+	ifIMgLxyYKR1mBUkMMhaG0jnQqsZ2w+zS/IwxtppyRrm17KUr2bwhdCqcsgviqY/3e8yAAWWqelP5
+	+ELVtCyH1ryVtkfb575Ury7lMUJ6wM+/OWXS29XY7lRrNakW4UU4cLjFN+Urn+V1YprM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wlC6x-00Cyvg-PO; Sat, 18 Jul 2026 22:58:15 +0200
+Date: Sat, 18 Jul 2026 22:58:15 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+Cc: heiko@sntech.de, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: dts: rockchip: Add Vicharak Vaaman board
+Message-ID: <2a3e70fd-8b52-4612-958c-75b1aae5cc68@lunn.ch>
+References: <20260718065900.755631-1-hrushirajg23@gmail.com>
+ <20260718065900.755631-3-hrushirajg23@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,77 +46,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260718024628.3e2872ca@jic23-huawei>
+In-Reply-To: <20260718065900.755631-3-hrushirajg23@gmail.com>
 
-TL;DR: Will switch to voltageY-voltageZ ABI.
+> +&gmac {
+> +	assigned-clocks = <&cru SCLK_RMII_SRC>;
+> +	assigned-clock-parents = <&clkin_gmac>;
+> +	clock_in_out = "input";
+> +	phy-supply = <&vcc3v3_lan>;
+> +	/* TX/RX delays tuned for the Vaaman board PCB trace lengths */
+> +	phy-mode = "rgmii";
 
-On 07/18, Jonathan Cameron wrote:
-> On Fri, 17 Jul 2026 13:38:07 -0300
-> Marcelo Schmitt <marcelo.schmitt1@gmail.com> wrote:
-> 
-> > On 07/16, sashiko-bot@kernel.org wrote:
-> > > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> > > - [Medium] The `LTC2378_DIFF_CHANNEL` macro defines an IIO channel that is intended to be differential but lacks the `.differential = 1`, `.indexed = 1`, `.channel = 0`, and `.channel2 = 1` attributes.
-> > > --
-> > > 
-> > > --- Patch [2]: [PATCH v7 2/4] iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs ---
-> > > commit 5710d5f25b45906977e2522567c1964b1d3219f8
-> > > Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> > > 
-> > > iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs
-> > > 
-> > > This commit adds a new driver for the Analog Devices LTC2378-20 and
-> > > similar analog-to-digital converters.
-> > >   
-> > > > diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
-> > > > new file mode 100644
-> > > > index 0000000000000..5600c820c7f45
-> > > > --- /dev/null
-> > > > +++ b/drivers/iio/adc/ltc2378.c
-> > > > @@ -0,0 +1,416 @@  
-> > > [ ... ]  
-> > > > +#define LTC2378_DIFF_CHANNEL(_sign, _real_bits, _storage_bits)			\
-> > > > +{										\
-> > > > +	.type = IIO_VOLTAGE,							\
-> > > > +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |				\
-> > > > +			      BIT(IIO_CHAN_INFO_SCALE),				\
-> > > > +	.scan_index = 0,							\  
-> > > 
-> > > [Severity: Medium]
-> > > Does this macro need to set .differential = 1, .indexed = 1, .channel = 0,
-> > > and .channel2 = 1? The name suggests these are differential channels, but
-> > > without these attributes, the IIO ABI will expose them as single-ended
-> > > (e.g., in_voltage_raw instead of in_voltage0-voltage1_raw).  
-> > 
-> > For parts with multiple inputs and configurable differential channels (e.g.
-> > AD4130-8, MCP3561/2/4R, NAFE13388 [1, 2, 3]), the voltageY-voltageZ ABI helps
-> > clarifying what physical inputs make up a channel. For differential only parts,
-> > the ABI seems to be flexible by only requiring a 'consistent labeling' (either
-> > voltageY or voltageY-voltageZ IIUC). Will set the channel with the differential
-> > ABI if maintainers believe that's the best way to have it. Might slightly tweak
-> > the channel macros to keep .differential = 0 for pseudo-differential chips
-> > (e.g.LTC2369-18).
-> 
-> Whilst I get your point on differential only cases not really requiring the
-> specification of two inputs, I think that does provide a simple indication
-> to users that they are differential channel.
-Agree. The first ADCs I've worked with were single-ended so having to provide
-the negative input when working with differential ones was something noticeable
-to me. Though, one applications engineer once called me out for the
-voltageY-voltageZ naming arguing that a differential channel provided only one
-input to his application and thus it should be labeled only 'voltageY' or even
-just 'voltage'. Despite understanding that argument, I share the opinion 
-that an indication of differential channel is helpful. Anyways, besides the
-possibility for application to display channel names differently in user space,
-I see we now have .read_label so the whole discussion seems pointless.
+Please could you read:
 
-> 
-> I would prefer that we make them 'look' like differential channels so make up
-> a suitable number for the negative side.
+https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bindings/net/ethernet-controller.yaml#L287
 
-Would it make sense to adjust the ABI doc to encourage the dual numbering for
-differential channels? So I don't fall the temptation of single index in the
-future :)
+and then expand the comment to explain in detail what is going on
+here.
 
-Thanks,
-Marcelo
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&rgmii_pins>;
+> +	snps,reset-gpio = <&gpio3 RK_PB7 GPIO_ACTIVE_LOW>;
+> +	snps,reset-active-low;
+> +	snps,reset-delays-us = <0 10000 50000>;
+> +	tx_delay = <0x28>;
+> +	rx_delay = <0x11>;
+> +	status = "okay";
+> +};
+
+I don't see a phy-handle here?
+
+  Andrew
