@@ -1,86 +1,88 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C7B15733E
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 12:56:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A78FF3612EC
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 12:56:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784379387; cv=none; b=bxHs/ZJcVx0A/X3iiREQHv4fIb3dE+OmOk42t74LAMPnjWkRxnqjD5FP+FeJbpTbD39m5tqraZK03yEl3CnEEc59R8LrfTVArsqI4ruThxO6ligDMBrqJAkNQtfDMmHnLs6d8PTwSKevBAj1l4wHuSAkAAtH/igCmDGfJCqcdoo=
+	t=1784379394; cv=none; b=KsiEhKhq6FGUcfIMoEoxdb7voJvRR8MJa6BoUh7n0M1zBhvLRsIE9GwVgT2kwLcUBko/QGbBODsjfh8+fSbjMns+ill4C+YyvC3ftJ3X2GJU7KrgOkxQItL1iPYENTkz7jbL6zf10xgag9BoprsuPgP8d+nQkGR0sa43YudwzNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784379387; c=relaxed/simple;
-	bh=rh2XhYb9Y0A67WdVNJ2cfhj/MALONQN8WmX6Glr3VgA=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=a0bE1BYg/mjrg3+crDjo/czt7hg8B2pmm2ABxi5X/njJ7Wbpk2qQATwPzOsk2xoaK0Ic/rb5L4bwOt/IsciBHvjYivK/Mk7XbPjX9Nq4/EJcLPJSLG6AwNwwAsbX3CKsZIab/A6taKRg8gGAw2kMnNR7yfxt1rDtgqjVlE+rVDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gZMJVYvZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eoAhwtWG; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1784379394; c=relaxed/simple;
+	bh=g0E4F8674D2m6OtmzWH25tEnm3jJCsC0/R8WR+XNFKA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=nsCZIc2ZDtpO0M5dIBVAKEFBBE9WD93SlehRXi1XU3DFLaf0l4aejerAj8q4f01lJlELXZTrlu+v+wnc35wKACQpw4Ty65y3X/qCsx3bPHXOS9+usSES1bUgQqEGLM/BDZtd3HUpE+ouy2O7qfyhVZ1KFk1cM+u2GfXufpIn4vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AzDwSa62; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ffqxt1Ne; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gZMJVYvZ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eoAhwtWG"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66IAHKJg475153
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 12:56:25 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AzDwSa62";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ffqxt1Ne"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66IBliRw524174
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 12:56:31 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=AdR7vRy5XBtV40I2ljwZ7F
-	KFKDRSO+UZ/5LcwdVSpBs=; b=gZMJVYvZg9/SnmsV2xmONc0UR6Iyfb/Hp5Jbxl
-	xY/mDdqGJml69TS8JFkZB4oNBlDJFnJdmD3+jePL90FJ6DGp2iLpu7/5sCQkVVHH
-	u37GWRvAmPVAyE5+9LXr6nRHau6h8Eiv5lZ44Sukjoum7de/KxzWo02nqX4Q0MaM
-	nshOzL/+gnNvD8fZNTNiasLpJfkVLItUSNzdsaEouLYqw13HkkHeIwJtV+PR5wNh
-	DLxQcn2CIGmRCLxLN19J97/OEineafuAUUbk6lt87KurEX1vufthyeLyvvrls6L8
-	ZKgTe9GSL5sc6inQecW62ew8LyVAn6aW0OVkXHr9Dta39X4A==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2bngsnf-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	cxFIKcsRQTXS8HxFCAZb+qVsqo4wG4SsyGlor4rl0rY=; b=AzDwSa62HnHSNjBa
+	ttJLsu9binLSHD9L75vOud7QS797BdPVkaQtBNUMBUuBli+nLy1r61qGNKrWWtnU
+	/6BKApcUA51NQOJxBElUwi1MtbRQzg3qS8oVale53chtjjUU8FZ6E/C218vewURR
+	BoFR82Pj/ewot03TGahXtkVnjMDlqPFzQfBmp0FlROZ631xtzQJ7YQj/L+u6oRse
+	Im/2n5Y9DRjhVRk+cdgrsOrpil7IMZPJAt1O/rlLWMkU9+er/BODFVKUBQp0P+qY
+	ZOsbnRLPt5FxhGCmb0N9nEJRxUWjDHQFAwzWPGNlukOfqX0IAKfpPAuMVZMwKmQ1
+	cYi25g==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2bngrv3-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 12:56:25 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38dc085b0a7so12590489a91.2
-        for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 05:56:25 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 12:56:31 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-381ed6616f7so13172012a91.1
+        for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 05:56:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784379384; x=1784984184; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AdR7vRy5XBtV40I2ljwZ7FKFKDRSO+UZ/5LcwdVSpBs=;
-        b=eoAhwtWG473Gw5/NZzRqzkhJ5WZNF/dQfGTR0gs5Cg59ceflde8R7VL0lwO/1snwLE
-         7XD/BdoLsZoFw0RMiiWIWnOIoDeEP+1GUvD81u/ym/c2bFY12LtpVBHKCzKwHE8dyu79
-         ttN1qo1wJrjmf2RVJxzv1la/asIxW1uv6MvIZEp2i/BQTFjUvLw1+v1ltKcGAoOODD0h
-         Gz3igmmMtYxdD+0JWR+zEPYnyW10SDcjMxt4iNbgvrb3wUi82H5Q+5Jfo+dK1PBCZtOe
-         e7uLWJiLfdmQMFn7BD081AK6GOCgjDBizQuVtIcvVv0Op1y5WJyF24yi0BJJQSV4OI7B
-         1FGQ==
+        d=oss.qualcomm.com; s=google; t=1784379390; x=1784984190; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cxFIKcsRQTXS8HxFCAZb+qVsqo4wG4SsyGlor4rl0rY=;
+        b=ffqxt1NeONI4IPoS9nlbqhekQRr67S0mBjfSpBr+QVHXoFu62sDwhYCfd6vOrr9mLy
+         N3pEjZhrCqbX38z684LZ6gf8F2f+o9we4EvQN8jHYVnmj7+22lG1SpcUJEL4PWIxyrEa
+         FsAjachkAVO/FhiocFSIzI9Q+But/Zilj6sUkV5qjdyfuUJWpWG8u1hBtBO1C9A2p+Ds
+         3P3BqMQ2jmco9LwBU+2PNsvRLUwGcFMWTj+FYuZQtoy5IDyfda6sssEg9e8/kJ0oC9/6
+         cPFc92uiwZ0cCIHGJ8gjDQdQE8LLEO1mTjy64c9DLzft0v7N8bkiixZ9Yvl9lyqwLKQz
+         /Qsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784379384; x=1784984184;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=AdR7vRy5XBtV40I2ljwZ7FKFKDRSO+UZ/5LcwdVSpBs=;
-        b=O1ipu7EbzQyQ+HfUOPt9qh+MpO2w5tq5+eJP/1vriIm3DCmpvpzxp1UDyu556skuGY
-         ZSDSZ+nc7+jrjgJrPC5521Xbd0GQIU7CbPOjD7If9+dz7j3SQagTz6txWLKVfmEeQJYa
-         Uw1iYLOUrpw4iglo8KVX5xWlhtMRrDRrzDGYZUlhmzGpg3fhXnHo03HJU4aph9py2NGE
-         S71eeoUDPyGeD2299YXBd5/xn+AZ+2eZhpsOvozAAtVdORP9zzkLDuXv9u1NPr/42WGt
-         4alcsm69kMC/mY6EAzw+ib4jmCQKNaqoSdGs/W9oU0yT4bwu2uPMsQZQUN1FkV0EcBza
-         kiWw==
-X-Forwarded-Encrypted: i=1; AHgh+RrS2jIyOG9g4aLfOITChWdFAJ1L7n4NNlnHWP8m7F8nXQxyCP5635EmvrIsinGZ0uIjBVuyPZWNL8+a@vger.kernel.org
-X-Gm-Message-State: AOJu0YyFK5kBNYi2cu6GqVTPo2LAk3C4RwOMI+3zfT75MYfmZNA8cxJe
-	VOxNaOej+R/DxRhJrVjWlwxlVuLL87i2G4JhhAvnT/ac6VQP8rrbUTICg3vGDnAUXwItqEgjknU
-	ySjL8Bsfwqb5ue7z9RoySGmo4VzwCrPu+/mmBJ7ejnx6km0UjPhY3uS8QAZgbEGT3
-X-Gm-Gg: AfdE7cm3Zd3A7YkNZzG2fGg31SeUONs91Ct4ezmolaKAp/pvA+V0PACF+aaEWFOtKEh
-	4+UDWGsHs/+uJ80gY3vsyeZcHsvSefNg1wd98Rs2d+XlIHIrBHne0+yHae7NIWZqdzdErWeNQ3Q
-	EOYqcHhuw1UM6NdftqABUMaBp82M8i4DuARV+ViQPZZelQf0YJSerEkMSrDJ4H/DxwMmHFuFjJc
-	IpFrudYwKvag8Csox80X2YbaewCXhFW1bhtRxxcL7IYGdj+fZXV473RE7xxyHmSg4PwN2PPhrpe
-	+vQOWK4czO5m2xNjfT+VPPZgifuuj97WIcNTNYI09NyKqleY++vuGzTvquieTJpF5uOn15hgs2c
-	pNkevMZaJ/Hlz9RdDII7UuFwBzCdyFZk=
-X-Received: by 2002:a17:90b:57c5:b0:38e:2860:253f with SMTP id 98e67ed59e1d1-38e4b447cd5mr7158290a91.12.1784379384385;
-        Sat, 18 Jul 2026 05:56:24 -0700 (PDT)
-X-Received: by 2002:a17:90b:57c5:b0:38e:2860:253f with SMTP id 98e67ed59e1d1-38e4b447cd5mr7158234a91.12.1784379383894;
-        Sat, 18 Jul 2026 05:56:23 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784379390; x=1784984190;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cxFIKcsRQTXS8HxFCAZb+qVsqo4wG4SsyGlor4rl0rY=;
+        b=g9A/CyRpgzqGT+SmpYeolrwGxwN2eg4fkEgxttip3fc2wSyH0/4oeIikJHtbOaPsDl
+         AMc3ZRYP74ufnUA+ZzIG2e7xrQZtLWIl586RevRLslZtZSpAEmw/PCjL6ggd6fSLCKiA
+         WpBOQqBc09s25eXvH0EY5Rh23FBEvA5G9MBLIWaxlqsQG9LR2L+/XQxHHuNrk0OTuV1V
+         sjOHWFK1A3W6BbJVoFLcJwlPidae7XwE1IuVJoJ4HE/3WelW1aOc/0jJxcAM/FgPSkA2
+         Q2VS5iFVbqrcr89Kk9O8TQWrWoGHZ6MdXwCNPWCpQ5nlkjyDvR5jDYlNo/mOMRYa+cFt
+         ogww==
+X-Forwarded-Encrypted: i=1; AHgh+RpgboFtVhxCsFg2rWLhz+Ll1VaqFVkdwDBIF9Ny+0vTXyG1sdCxJhMCCtCRaWJ+tdcgFTHmONfov2Lt@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw8JetSs6WsGw3y6DmHgVYRF+QwEhrJUISzfpfiafoQsEDxMoTM
+	5TK0L0cybvPHZrraZNVBJoRdZ8jqkMn1HoS6KImXq8kcqBHo6hLvVvSyC79mBq4vDIm9gnjCtJe
+	qbY3WVqx/aD1RX1wNT425dv69ru0o10aROCG6zG8zZox+JtScTF5bpaLN/UmgXLN9
+X-Gm-Gg: AfdE7cm6aoai0+G48xcuRYT20YCwt85VGvlSsQ3LyJUTgZ63yxCcvYIKWV8jF4N7kQZ
+	TLy3s+WkFBymBs5/+v8qpGa2Eeoco5IJ4WU7UXStS+NWXT2o4h10iFJWWCvJTK8CGaMNawxVOVP
+	h+YOFt7XdP+X4r20ZPHUjATyERKnEzo7HcMO7tBqTygPzpscqcSSI7dNhmUqkTCho4VrRUZGN1K
+	X05Lud9kB4gPPhZqHNQVKDH8YnLSoqEirjTGd0L039Gl9jxPg1A+f3wXr8OuF2PZpELqmt+E9fC
+	WDcYdgEPBeSiQ+9RNh8ixBOdSMcBFkDQXdyKApTIqj3dYkAWINiGzApA1hyqMOmObcfYrLHIEM9
+	hTr71dfMzetwylHVP+JPTAnr0lnGbeKc=
+X-Received: by 2002:a17:90a:c104:b0:38e:679f:3b21 with SMTP id 98e67ed59e1d1-38e679f4c4amr949658a91.23.1784379390449;
+        Sat, 18 Jul 2026 05:56:30 -0700 (PDT)
+X-Received: by 2002:a17:90a:c104:b0:38e:679f:3b21 with SMTP id 98e67ed59e1d1-38e679f4c4amr949619a91.23.1784379389982;
+        Sat, 18 Jul 2026 05:56:29 -0700 (PDT)
 Received: from hu-imrashai-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13ce2a18a47sm14238910c88.8.2026.07.18.05.56.17
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13ce2a18a47sm14238910c88.8.2026.07.18.05.56.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Jul 2026 05:56:23 -0700 (PDT)
+        Sat, 18 Jul 2026 05:56:29 -0700 (PDT)
 From: Imran Shaik <imran.shaik@oss.qualcomm.com>
-Subject: [PATCH v6 00/16] clk: qcom: Add DISPCC and GPUCC support for the
- Qualcomm Shikra SoC
-Date: Sat, 18 Jul 2026 18:26:07 +0530
-Message-Id: <20260718-shikra-dispcc-gpucc-v6-0-62703e05ef0f@oss.qualcomm.com>
+Date: Sat, 18 Jul 2026 18:26:08 +0530
+Subject: [PATCH v6 01/16] dt-bindings: clock: qcom,qcm2290-dispcc: Add
+ missing power-domains property
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,12 +91,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAOd3W2oC/33Qu27DMAwF0F8JNFeBSD1sd+p/FB1kPWKhTexIs
- ZEg8L+XSQdnsLsQuBfgIcA7KyGnUNj77s5ymFJJ/YmCedsx19nTIfDkKTMUaIQGyUuXvrPlPpX
- BOX4YRpom6sahFCiiZrQ55BDT9al+fv3lHM4j4Zel7FK59Pn2vDzBo/3/yARccB29qSQoY1v86
- EvZn0f74/rjcU+DPdgJXyis1ykkqtEyIkEitu0GJRfKCFinJFEGHLRWVlKHeoNSr5RapxRRNQo
- VQWAjATYovVCV2PiVJso5kDUar7y2K9Q8z7+TkF4z/gEAAA==
-X-Change-ID: 20260513-shikra-dispcc-gpucc-6f59c23020f5
+Message-Id: <20260718-shikra-dispcc-gpucc-v6-1-62703e05ef0f@oss.qualcomm.com>
+References: <20260718-shikra-dispcc-gpucc-v6-0-62703e05ef0f@oss.qualcomm.com>
+In-Reply-To: <20260718-shikra-dispcc-gpucc-v6-0-62703e05ef0f@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
         Michael Turquette <mturquette@baylibre.com>,
         Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -109,123 +108,87 @@ Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
         linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE4MDEzMiBTYWx0ZWRfX7seEcSympKMe
- Mlc0Cv6jjevZmeSoKxwG0Zj7tn0dINWDtyX6QbtYd9vO9cSHNwgSnAYZ1fwJ87WzWyi+eV7QT0a
- aZ3DLXp6sNejRErtzotmAi9xsuc6onAHoq9ra9PcTiKjURxWXJIOBUeKQFi2Yhl7nc4k4f5O9cC
- ib7aSAnHFhl13zFXCdu68EZrsq/eysNhlCkEdvRe2/yjDhtkOPy0CZ1ryDgSf9MIzIF/bU43MwY
- 7rCqNtwK9LEu3OZBlC7KS1t4KX7nJRWW9ogdDjCzarzYNbPjGBi3RAbMFceXO9BSGSganZYpwHU
- 6gHV+RbTW/P4Vj2bVWw07TezdEs2KC9usHMUBF+u1k8cSt9+TuPnaYBkIMBN23wjcUqrd+NClWk
- IjbKc84vexnkihMCZoUefWWpdQ4XSKqphbOShMa9Y2dq5Tcdjsh+C86CCNsCzDGmTbxMonLYMk8
- arwd7v/jRDprrft+x6Q==
-X-Proofpoint-ORIG-GUID: lsuRlzHAF6QwLrK9zYQCPvVZ7m8xSHvl
-X-Proofpoint-GUID: lsuRlzHAF6QwLrK9zYQCPvVZ7m8xSHvl
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE4MDEzMiBTYWx0ZWRfX81aqYjoQJe6i
- /gJYxBuh8afWrRWgdS+I/d1WlipIHFrYthOx2M6HAOPZdGbj9wGizFxXgsywTvuvfrRYQ/YfXrC
- 6k6tnK4WAY+sSke1ahDruIvtiSncplI=
-X-Authority-Analysis: v=2.4 cv=deOwG3Xe c=1 sm=1 tr=0 ts=6a5b77f9 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-GUID: XVshJj8liSVXcs5HScBxZZHKdPdgWbFq
+X-Proofpoint-ORIG-GUID: XVshJj8liSVXcs5HScBxZZHKdPdgWbFq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE4MDEzMyBTYWx0ZWRfX/DxRboUWv3oH
+ vQKDrOLfFNiWJGotrMemNAdFFK/0cFU2aX3dBEC9lqg4mhOIz68bT6i/6Vgn3U4wp1h7RITqJiu
+ FatMTTYigQ4mgzvjCWE1KNChdIvOVr5pmNGmkKz14tQdOuLLzRRHZRinAL8BYKe0tGyh940DkDm
+ QMml7pFdOAJ2XriE61S88sbLQsosHymuQ0SEhQGdf3/jxWRHEup0ChiFHC/iCazJTj0YiDu/CW7
+ Zh3O7mbdgSIQyb7CXZX2i8BFi4+XjYavJNr8cZ8rkRHpwrVOW2EI/Minf34PDYIcdA1bph5o4Hf
+ gBwXrLsRTfwonvlDAV/vGln6rL9lGCqN8x7gj9CoRKhEb1he4JySjW4BHyIzD9iO4kS+M+BtQ0C
+ ZPAXirL4+zqyonya2lh7yD9DPqZ+7WuCmf/xKvYSsTbqMWmVv/GzKHEfRhki5Q3k0mXlS/33I2f
+ N3/DUMt/181ZTX++5hQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE4MDEzMyBTYWx0ZWRfX8YbMlC3VXNF4
+ qMGXnCZKCI9D7hq4j2mO4BPUCEAaIzaS8z1DOWyoArTxIVxTYwxZjzP0D5MUHZ8xkyVYMcDoVVc
+ dyBAUp9HKWRpJah9ibTZ7O9imee9X+o=
+X-Authority-Analysis: v=2.4 cv=YsQ/gYYX c=1 sm=1 tr=0 ts=6a5b77ff cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Jt_u-2xrBEiAwH-zeXIA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=v1ZIPYeosOrn89kA6pEA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-18_03,2026-07-17_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015 phishscore=0
- suspectscore=0 impostorscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607180132
+ impostorscore=0 priorityscore=1501 phishscore=0 adultscore=0
+ lowpriorityscore=0 suspectscore=0 clxscore=1015 spamscore=0 malwarescore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607180133
 
-This series adds support for the Display clock controller (DISPCC) and
-GPU Clock Controller (GPUCC) on Qualcomm Shikra SoC, by reusing the
-respective QCM2290 SoC drivers, and adds fix-ups for the QCM2290 Clock
-drivers.
+Add the missing power-domains property to associate DISPCC with RPMPD_CX.
+This is to ensure the genpd performance state votes on the GDSC to get
+propagated to the CX rail and to avoid the rail under-voltage conditions.
+This change breaks ABI, as the power-domains property is marked as
+required.
 
+Fixes: 85cedb4e0c9d ("dt-bindings: clock: Add qualcomm QCM2290 DISPCC bindings")
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
 ---
-Changes in v6:
-- Rebased on next-20260716, as the dependent RPMCC/GCC and Shikra base DTS
-  changes were merged.
-- Collected all Reviewed-by tags received on v5.
-- Added the Fixes tags to relevant patches [Dmitry/Konrad]
-- Reordered the series to place the fix patches at top of the series [Dmitry]
-- Updated the DISPCC driver to use use_rpm, as required by the
-  power-domain fix-up changes [Konrad]
-- Dropped the additional external clock, index-based driver, and DTS
-  changes to avoid an ABI change that has no functional impact [Krzysztof/Konrad]
-- Updated the commit text for few patches [Konard/Dmitry]
-- Link to v5: https://lore.kernel.org/r/20260703-shikra-dispcc-gpucc-v5-0-cc13826d4d5a@oss.qualcomm.com
+ Documentation/devicetree/bindings/clock/qcom,qcm2290-dispcc.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Changes in v5:
-- Collected all Reviewed-by tags received on v4.
-- Updated the commit text of the bindings patches [Krzysztof]
-- Converted only the critical GCC clocks to the latest clk_cbcr convention
-- Reorganize the series into logically independent patches [Krzysztof/Dmitry]
-- Added CX power domain support for DISPCC [Konrad]
-- Dropped DSI1 PHY clock input support from the driver, as these clocks
-  are not referenced by any frequency table.
-- Dropped moving dispcc driver to DT index approach patch as the
-  external sleep_clk is not there in the DTS, and no functional impact.
-- Dropped HW_CTRL_TRIGGER patch as it is not applicable [Konrad]
-- Link to v4: https://lore.kernel.org/r/20260604-shikra-dispcc-gpucc-v4-0-8204f1029311@oss.qualcomm.com
+diff --git a/Documentation/devicetree/bindings/clock/qcom,qcm2290-dispcc.yaml b/Documentation/devicetree/bindings/clock/qcom,qcm2290-dispcc.yaml
+index 4a533b45eec2d8e7b866c3436bfe6f80fcd714fb..e9c2326adfd285444257b96f5adc68e27213281f 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,qcm2290-dispcc.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,qcm2290-dispcc.yaml
+@@ -37,10 +37,15 @@ properties:
+       - const: dsi0_phy_pll_out_byteclk
+       - const: dsi0_phy_pll_out_dsiclk
+ 
++  power-domains:
++    items:
++      - description: CX domain
++
+ required:
+   - compatible
+   - clocks
+   - clock-names
++  - power-domains
+   - '#power-domain-cells'
+ 
+ allOf:
+@@ -53,6 +58,7 @@ examples:
+     #include <dt-bindings/clock/qcom,dispcc-qcm2290.h>
+     #include <dt-bindings/clock/qcom,gcc-qcm2290.h>
+     #include <dt-bindings/clock/qcom,rpmcc.h>
++    #include <dt-bindings/power/qcom-rpmpd.h>
+     clock-controller@5f00000 {
+             compatible = "qcom,qcm2290-dispcc";
+             reg = <0x5f00000 0x20000>;
+@@ -68,6 +74,7 @@ examples:
+                           "gcc_disp_gpll0_div_clk_src",
+                           "dsi0_phy_pll_out_byteclk",
+                           "dsi0_phy_pll_out_dsiclk";
++            power-domains = <&rpmpd RPMPD_VDDCX>;
+             #clock-cells = <1>;
+             #reset-cells = <1>;
+             #power-domain-cells = <1>;
 
-Changes in v4:
-- Included new patch for Shikra DISPCC/GPUCC DT node support
-- Link to v3: https://lore.kernel.org/r/20260601-shikra-dispcc-gpucc-v3-0-61c1ba3735e8@oss.qualcomm.com
-
-Changes in v3:
-- Updated the QCM2290 GCC patch to use the .clk_cbcr convention
-- Extended the QCM2290 GPUCC bindings to add DSI1 PHY and Sleep clocks
-- Separated the patches as per the review comments in v2 series
-- Added Agatti DISPCC DT node changes as per the latest bindings changes
-- Link to v2: https://lore.kernel.org/r/20260528-shikra-dispcc-gpucc-v2-0-953f246a0fbb@oss.qualcomm.com
-
-Changes in v2:
-- Dropped QCM2290 GCC critical clocks modelling to kept them ON from probe.
-- Updated the QCM2290 DISPCC/GPUCC bindings to align for Shikra drivers reuse.
-- Reused the QCM2290 DISPCC driver for Shikra without modernizing
-  (keeping the clock-names approach) for now to avoid potential bindings ABI breakage.
-- Modernized QCM2290 GPUCC driver to use common qcom_cc_probe() model
-  and reuse for Shikra. 
-- Link to v1: https://lore.kernel.org/r/20260513-shikra-dispcc-gpucc-v1-0-5fd673146ab2@oss.qualcomm.com
-
----
-Imran Shaik (16):
-      dt-bindings: clock: qcom,qcm2290-dispcc: Add missing power-domains property
-      clk: qcom: gcc-qcm2290: Keep the critical clocks always-on from probe
-      clk: qcom: dispcc-qcm2290: Move to the latest common qcom_cc_probe() model
-      clk: qcom: dispcc-qcm2290: Enable runtime PM support
-      clk: qcom: qcm2290: Set POLL_CFG_GDSCR flag for DISPCC and GPUCC GDSCs
-      clk: qcom: qcm2290: Add RETAIN_FF_ENABLE flag for DISPCC and GPUCC GDSCs
-      clk: qcom: qcm2290: Update DISPCC and GPUCC GDSC *wait_val values
-      clk: qcom: gpucc-qcm2290: Drop pm_clk handling
-      clk: qcom: gpucc-qcm2290: Move to the latest common qcom_cc_probe() model
-      clk: qcom: gpucc-qcm2290: Keep the critical clocks always-on from probe
-      clk: qcom: gpucc-qcm2290: Park RCG's clk source at XO during disable
-      arm64: dts: qcom: agatti: Add missing CX power domain to DISPCC
-      dt-bindings: clock: qcom: Add Qualcomm Shikra Display clock controller
-      dt-bindings: clock: qcom: Add Qualcomm Shikra GPU clock controller
-      clk: qcom: Add support for Qualcomm GPU Clock Controller on Shikra
-      arm64: dts: qcom: shikra: Add support for DISPCC/GPUCC nodes
-
- .../bindings/clock/qcom,qcm2290-dispcc.yaml        |  15 ++-
- .../bindings/clock/qcom,qcm2290-gpucc.yaml         |   4 +-
- arch/arm64/boot/dts/qcom/agatti.dtsi               |   1 +
- arch/arm64/boot/dts/qcom/shikra.dtsi               |  36 +++++++
- drivers/clk/qcom/dispcc-qcm2290.c                  |  44 ++++----
- drivers/clk/qcom/gcc-qcm2290.c                     | 113 +++------------------
- drivers/clk/qcom/gpucc-qcm2290.c                   | 102 ++++++++-----------
- 7 files changed, 137 insertions(+), 178 deletions(-)
----
-base-commit: 1a1757b76427f6201bfe0bf1bea9f7574f332a93
-change-id: 20260513-shikra-dispcc-gpucc-6f59c23020f5
-
-Best regards,
 -- 
-Imran Shaik <imran.shaik@oss.qualcomm.com>
+2.34.1
 
