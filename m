@@ -1,40 +1,33 @@
-Received: from mout.web.de (mout.web.de [212.227.15.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD6DD22A7F0;
-	Sat, 18 Jul 2026 15:36:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB372DB780;
+	Sat, 18 Jul 2026 15:55:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784389021; cv=none; b=o7PVjdGS+1iusYEKSTbIMI1MiYEzkOr/QZZIr/nxXZ2kqWX/qss98/4HxmGDJB9T2XsdipaQAUeOT4QdAYojU64m12fD9u2DKDvZ+MG1I+SeF0GcWWcU5EihE8jkCMEzHxlfCGu9tmHGekrWsDX+HxkDIt84cHmsTmTKADcC6RA=
+	t=1784390147; cv=none; b=NPhrKt8nD7MCetj5prNqM9SH6JKLKp1sYo1MhAtpUXMKLVShzbaShMK6b8HLPwgmxCZvD7AoCmyciomNaZOIqEkj/H8ocphcYIezNuAVug+n3wNNYOxvty5w4YaBA+SkaY4jXJf9njv6GEZKVVDfAtqeOh2HER/+uhfiv7+ukaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784389021; c=relaxed/simple;
-	bh=UE0IrFl6mZ50TJfg/b29+c/8RhalAY5uVgKMBKdPOSE=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
-	 In-Reply-To:Content-Type; b=B1tGuHjMb2a6EgRjm1frF7jMRVqHilwF5ECibObIIuhS6C5kGv7mck2Btx8XQLeW87EX4Ypa2Y3HQCeDpDLNiT147EzI8OYuArSAecHYeVtjdMYKTurxUsWg8Urc7P3t1CWvCWb8VjPqW+5tvqGAJjGhHPWz53OWmRM//yXjin0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=FQwMaS3n; arc=none smtp.client-ip=212.227.15.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	s=arc-20240116; t=1784390147; c=relaxed/simple;
+	bh=P4Q6PZd4Q4GovjqQgSSjvrqw9clXH+1jsklEJnEW3po=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HXiWD2L3Vc3U8T9ljgck3zYCxZ3MVL8PJS2pfs7p77AQxEyP2CqRt/7xJxOJFwl+f9MVKs4+IJ2Z3PXJsW5loDJOU75m/yJoJyUSG14iKpII+afNw6Royy3YLdfyb1edKQH1xLULJpP9MB/tEhEJJ2oY/iW7rOzOiKUpavtvZwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DCyh3ycs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="FQwMaS3n"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1784388997; x=1784993797; i=markus.elfring@web.de;
-	bh=vlqpzFLlrEy+zLb0mNrc9tyh0tSEdDV9LsIQWGFvLrI=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
-	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=FQwMaS3npCiQY3nl+5hI23wILTMuFYqOOEeXQ2CemmkQjO4NF1IvjeKtFZFsK7Ya
-	 JQ8NI1+PZb4e57flmPSQs5VxR+l9h5WjF5eoR/MKVv1FhsUEdczm/7Qfk2wCt3s2L
-	 8LJSUW44lHngZ3TcDeJo9cH9ztdKr1DF/8hK/snCYq3A97fPjfe0vUPy9HB81Sig9
-	 s4wiTxB061pk85ph1xwrBVSqmEFfP9rXORhmS4hsowcF9nyEtshYJ3NOsULLoYbIm
-	 4STlpqfhxUT9QXMLbOd0B9KzIAGGZlml273g1besAcj+iU1XdwSE2/5uGg1F4eXPW
-	 Dmpf5XaA9SAebPQS/w==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb005
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1Ma0PY-1wZ61p2Hsi-00X5yM; Sat, 18
- Jul 2026 17:36:37 +0200
-Message-ID: <3e194c71-2902-462a-ac77-e55f30f3820b@web.de>
-Date: Sat, 18 Jul 2026 17:36:34 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DCyh3ycs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A6051F000E9;
+	Sat, 18 Jul 2026 15:55:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784390129;
+	bh=wPjijAVg35MkHTacNeTYFYiw8V0qpSbo7X/KDhdz+HE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=DCyh3ycs9qCeG4YWLcbdpOWTwWo/i5gAqfQQE0qfNCCUfAXkuOlI2hbQ5WD5m+G59
+	 dG2CTOAKKbqP1g2lvxtO4X9NBa2VKSTf2Zcua9neuQXwSotnK381A9lqYZZDq1OpRJ
+	 lEfNKOukpWiWFNn7r2EXV5PzxuwQ6GS4eU4RVxJrHWba1AkmWBZK9/7ZcEkjeOqE8j
+	 CoseEfApuqddfDqIysU7XGNd2qlIugjt4MjS1A+lB1HKq2rmBEQh213VMW398azUvF
+	 oTYu52ysjdyKksQT/CYb7QhcxQdN/2vgAUY3P/Zz341/dKl3uGxAv6uVTPdbrlwcZc
+	 VGDHbhSRbHp3A==
+Message-ID: <767e5a58-3d2e-4f80-bb85-d300757a9dbc@kernel.org>
+Date: Sat, 18 Jul 2026 17:55:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -42,132 +35,146 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Gianluca Boiano <morf3089@gmail.com>, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Takashi Iwai <tiwai@suse.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, Baojun Xu <baojun.xu@ti.com>,
- Kevin Lu <kevin-lu@ti.com>, Sen Wang <sen@ti.com>,
- Shenghao Ding <shenghao-ding@ti.com>
-References: <20260717233402.414326-3-morf3089@gmail.com>
-Subject: Re: [PATCH v3 2/2] ASoC: codecs: add TAS2557 mono smart amplifier
- driver
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20260717233402.414326-3-morf3089@gmail.com>
+Subject: Re: [PATCH v7 2/2] drm/bridge: Add Lontium LT9609C(EX/UXD) MIPI DSI
+ to HDMI driver
+To: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+Cc: Sunyun Yang <syyang@lontium.com>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
+ Jessica Zhang <jesszhan0024@gmail.com>, y@hu-mdsor-hyd.qualcomm.com
+References: <20260716-lt9611c-v7-v7-0-7553a14735fc@oss.qualcomm.com>
+ <20260716-lt9611c-v7-v7-2-7553a14735fc@oss.qualcomm.com>
+ <85505d92-ebe3-4ffd-84e1-8fe26994e053@kernel.org>
+ <altfrJgx2IjO1g33@hu-mdsor-hyd.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <altfrJgx2IjO1g33@hu-mdsor-hyd.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:tCDrBaixQC/OFVfwomcnq9eCR7eMtn6T3DHlaPePu+NE6ivMBg0
- jzs32X/QFTigD5z94NCm+ldULCsAzQgF8HPyWHGhPHX/2JfpkyUO0/ZjWSx0+3whXRKqCPY
- XFxTp39jVaFD/E2SuEaenNYj0EdmRC1OfgM1ee0LOPS/SgyVefZuBNyt1Uses7z65xsR5+I
- qz+urAzvUQJ0a2AT4uE2g==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:sp+/EaP03/M=;UhIEXivxFUr4ckLx7BJFara3ula
- FAXXqi5osJQJbXuuNIjQqu/JP3UQMaAeHSCEQJaua3PtNtczOI66JNYKGIBBJdTMVXu6TVPAE
- TpH7kaLL9iz3g/wMZoHRqLuZlbHoPlNWZKNzHJgrnt1hBetJbWGBTt9hVHsf/Z1dwtVtSzv6a
- 3Ci50ScIkCl113Ksod+zGB7UONwh9m/EQnv1IkWd+6sDCJ716Ciyg9riE0M03l8oq3PefVtfF
- y2pTuVi0bph3YQtvNRnDH8+gR28UeZpDJ6E5IiTENYtVwxiGz3ndZ/ydSKgltEX+3jp1OAnvK
- Rh2pAhaV5rSVwYPzeXqQs5YfEr1pNJ+yVWDB8fQFSqMd7WC/bPuChJiP9882rzp+cxH24+35I
- nKVkAqCWhImEE3MXmxHo6cPte7YVO3c0BaNECIX/y1abEe9MMNmeHBx/7zYBZfSWxXJ9VlRM3
- NaxwDPhbEwIbghVow+xTFW4AvL6wAFeur7eremCBZrBvOtU0gRfpydM+618qToKHcz3T/ar8P
- DvjUHqmUp43GFj84T+TcCkzFH04KNVMA4nx4C03QRV5KYty8wxhPHoQkTSa47iH6E/P3xjIoO
- 2/tygVND5EgnOChm9nTtnQkMnTa2FC6A1u6eFUblYevkx66dXthWh29LES68834Ghf7N05PW+
- lueENlfzrPCmSo5ptllx5tmPyl1Qb2bpnAIkeU/B/VYBWYsWkq+XISIw/AbyQHjhw3ofLvPZq
- v6gqJoWNxo4DzljF+EBFooTx6Q2mKmn59QTj3SnXqJZTM1ih9Sp0JIhT1yHvwndsZ2j/jL2aV
- a0rbsRK0cUzHSRZL35Etr9zCcNQG68ehbv3VXJcuHiZdR4atxOAFACfWVmK3Gp1LDNT4UNo47
- d88DU0fpLklJks0cHsMYl6hF/67twkEYh7jrU+BQJ/Os77J5pNZuVKNQX+xffVVteuGgylRFo
- aCY5Tm9EpE+cN5Iq+drnTispyZ/tY4UmoC0OUagFFcP0bRq92O9lNBrtE3hYvfnY5TidnYQQ2
- CZXh4skJnnFdNu6XvEcR9Z+w8g35eLyjsnhQxKAaC/SElz8soSNs59AKFwgXT20D6yNI+Mmrq
- JG2nNEoftmCUsauwtSTiR/J9JYlb/wCVuOOmcWEBZX9aRypDH/RrnaSlFyZh/jCBonA0SBPZ4
- CMqJWn4bspivv05N94EtdE9sxfh7gVxg8t02wBci6+9735KP5r86SqdDr2LC5xX9qBt9R0n4Y
- 3Lvv9ZdZ+vFsglxOP/NpeSFbvwAz/Mb+LxMagmjZhLELpF/F14XyxyjGe0AIgfsqMhQ4T9C6C
- vKCsOqT1SvtPcpqlFS/J4ZRuuH8wiMWy04rCbkd+PhQKumY+0VDrNIQr+HwSCdWW+b8Oj/mXW
- l1QGrJd+gv1hpW8fAvIfsQEXF4v9tef35UaKDW5LZPZ0PU0X4RkpT8JHEJVexQkzsogoSJd/5
- b/NqHIko4IoaENABTxIQJLmg5oeJMUGfKNuvOePW3d/EBCDRkN4JFSZ1PlyF4r96usE64XBGp
- 8H7qnVaMI3e2xQt2CfUPj+cZ7y43ZPWGsiaRNgdT43kjrVUouY5sycUvprn1sQGJG/QAz0Cg8
- ypyPOKg1OmuvrchCmKmp17HUHi80CKH42gU9RC6U4SE6A70LCHceo3STqOAlLOqV1Vfyv/J6N
- 7Yyzd3EDNuwewin3B4wKpU/AG0vl1k6DaZiCeyw2TcABh056Z+W/ACpw4HA3jusNYp7U2wJYB
- kUCHX0YPnBcbeFG3P6mrj8/IelDjqxm6dCVcdGzwzmIuv7+t1YAms9+i9vuEEc72TkCn/OIZS
- 0VCTMnU4aUWio522z9wOaPFZrWb2MUHP8UPKjTctcemeR4wBAT0GW3WnKpbSWdL3L/KL9chUb
- /jb2MRCHhP0ompb8ZNRvmBggvMR5mgyiXYNniB0y6bJcL0/Q330NQkCCGnSnpUPMkhFSz2Q8D
- Fo4VFRKv+vhCKMbZFEoedH/gpHtXiAOe+OdYR2yduewSyBQDmkQqABT/KrPHwzb/E0lvd5A2+
- B4rrCjGBT/R9Z17/19ZCqs9omj3/0/GpuTQjPAd+tSqVnsinw0T1str0Moa6A0CCAsNAPoHE6
- aY38u8dYFJmia1OiFS6K4XYGfcsQQLjW1eMAh5kZOrLla09/JsgYAa1qfhmLZ7sk0q+Fr7weC
- ScVZvN4YE4gIfXyfCQuMJMWEULHo16GJIVz6Ta8WfgnCgTJItzLX/rw2HEXje71V/NT5KLUQV
- evP+V5UyI2S2Yc/NFMYYBBFZfcJuJ6kprdco2QFCKKjy2Fro+GGjfkTQnUhu2QGdSdfArGxko
- mE++98Mgubs+jjADGiKLfzJJrkpv5Guu4LjU2RvoHgzQnSmjdR90yaujDoT7EDC03zKgiqVTP
- CBw1PO5z5hEdOJqKFH0gj7vHWZRqMyFi4b9pMkSuSyYlrGqjmgfK7KGJakmajuoduHmFokHv/
- BcrlafqA5sFwKzxmQkJtH+lejtoqwksuzh4JogH5KvGd0+98mX2TKb7qpZqVLUNdq96x6w9dW
- Bxwtjy4LGtGpn7IORxVgXh3i+Ts7Ap1NnvHEZe8Vky6oNAEvFeoI3Y+EKXSklS5sSH0fzSYn4
- Y9xz2Vyp6QvLTJxiBrFsrOmYc2OqrjF4+xMRrP+7riDyCdqvK5nMUXYzEY+ShydxM+nxNmZNk
- dxhHeXoIyca1HdcHXctTI8S48aXqzHtNdGvC1HEL97Bg5rm6gZd+bdw5b3xMzGINjlzC7948l
- YDGeFtSo+xcrjI3rGyqSm0LvKapk1atWh89VYLpyoaiKbZJyXS/LNN9EyVLEwBox7ZNpRjb2L
- kxXt7UoaOWvOa9GfVdxJFlY6IN7AQPqSliUXdQ4C1YxNtzX5PvlMxbmqoKSRhf1dkFDoTMEXl
- yRbGfL00gnGEHCgS0raI71cmbfWAolFisa1ib1b8pWm8YCSmUVnGyzDY7n7DQpXOXVc8/gv2x
- 43Kxa56CjH+mqCXZNJfpc1TjBfRfwTRP2QCOpIrI0D81cN0cpSYdJQc+Cr5KUXrI9F8Q8oxae
- XodXoOTtpRHjT2kjRhxXTAnVpEB092mui5ccWc77DXLF9eKQDDdEGRI8iEorP/UXIHCm7YGLG
- HhlHZzMKXGOrHcAZhQVwrda3Mp4sFKApcU9iw+fvONjIJlF41GMWDJdZMjSciHSFxRdRh/YZO
- H7IE8fPSUXa6Bb8i2fFcS8450+X6dK5cLLKO4Sv2lhAk0dg4WG9dn+Z6PQMiHedL5b/wHBmGk
- xrp+o5e/SsQe8/n936/585yMQ/T01D4uL9BHU6ohCwpnuv3GldXqbM3kVb5nlv21w4dtHht7L
- 2SvAvcyVbuxh4LuYsTvrjkR7PUPtF9sJhYDZoXoOw0IZ3RXzwyraC23V7LjXZ5O98KEW+IhOo
- LubGSG5GjzcXiI8oJOcfkS3CAdNJRrNRchkq74U60Vm13YREHKU8LvC30p8KgGf1zzoVFpwuw
- 51j3gNDOsDd7DhPMHfkpveq52iGr26ZW0vwLs7thCFILxov6Fkx5L9Q2EAod4CeIGQpfAF4TC
- /nZb8SS5TJSo+S6esSiDmUvGln3kYRPYfZoLAuVd4KC9fN0ApT12XhOmLm29FeLRhaIQ+CS1k
- gS+/3Tqld+3Bkan+DH7pf2YZ8Zs8VLcHM199wIlRnsZb0UYsCDMzcQfEdzrZfkmdWd6dtdjQ5
- +RtuJXoXSl7u8Si4IoLCQ/2F4Ls0D8Eub46LNEXCJbyAqmdQIgiUi0IshgKBE7tt35f5VVLqm
- orTQoWbCBoTLGXc4KmJxIAALBOqHSM18+EVCs3b93TTP5CNW/6r5stOsmnABiMPMi9eT2CuAO
- bstf4OTL2tKYFcblrEZqpA4J9X1okTvjS0tKvkrvfBvCCXZ4rd8rZfuL5lCOxBELP7Vq5xvTS
- kie1OyDVGmXGqq+KG/aP7ddoYNt1FsWswXx2ZGs8CbBUOBwXGuzk+o0XSjRNYbPUsL+8z6/At
- +0jNHCjsUbiLQS7dpaimPJE6CsXkaHDOllr8/I191rrT4zg9T2X9tAsaJWvQDEOrF1atNzbdG
- Nc2IwmEPSLhuNNu4GFReOSrPBsl2GgCiTDCs9l8qd9iWMGy0W0Z/doh2Em6Amu2V4Zipy240k
- 9AWU1dE9/aJLsZ4FbvKwdwTh5rZPbnTTidxPRtPWIKqN07jYq6afzTajZ4lWwzuyE6bPimJL/
- acvdLWWQdu4SUdNrrk636I6UldJdwWk7Pa6hWoyBrOodgL8bnp+4HbgPMukHhLj1mIBfZFwG1
- KiCKtBOy2doVie7BoaY5aO39/2oAidd42Ebj+W3zOfgmaO0wZdUyAZA6Hr8AaH5AQhRueU0jD
- zo6HYwccIN25domhxrJxO0DCQTUutquIwsKlr+FEVKZJhqcem+uBszUP2XCURUPPL/PSO8AiW
- j7yqbqT02FHGBJYFpgxxN49hOyF7Yo1Qsm8qjTOhkKU2B+Vo/e3RxRM8IXmqjeBzDjj6nleM+
- XSZqVcfRtny4DnmEVnY2OfhGtnTuHU5SYrz42MuIYvuA/rY3a6HnhS3ZgnY7z9SS0wNP1A+j/
- F0DAM56BE0XloG9d2Nr4dQpW1k9p/bTEM+bjUoqAMJUEfkd5riHvikoEPQS8KCG88jbX9xcls
- JhOv44R5lHo7E8q9/FfuiIOiKJ5RTHaJMkb+S42ovVXG5P20bz/LsECIJ0XajoBUd08T375GG
- sITjjhSPr8RbDdqTDBWUemRql2IU0gUXBFJjrVUY9cYeP6+YVaEZrffMdrF0AzhyxAMAadGcb
- QCzfRJOqvu4osE+8aNlnZ1m/jHNw06I3jZ+++Cn/HSQQQt4Mw+tKR64kddaeAa7QHc0ToMn23
- pOMFbGAY/BEtgM2UX1/fmiEJ+q9Rpe6mM3xy+mdOO4owzG++tJ6hLXnfbCzPHJrZeWGm01/My
- N4/tCQpNPtKaEJY7a5FebRm3zfp0OcmVBbhGmy12lVpqCz0WwLZGJLhO1l9+BdOomC8XjuMyk
- nBHIR3MFQ1YD5ON0LP4ZIB3Ey+09GlM45iZXzzMfNZUnDO0lLChwQRGq33O1GeMn5KFg7S+52
- 843P1d2oFJJOxR/Pp2P5xwNS8BdBd8TBo5IiZqjAGuNOrgheRtdyAeIxR/4Mf5aGPuaG8LVm/
- xfZMQ0dsBUHnGzZ2Dg6nvenL+fRAQzOh7Qqrsxc1q4Ah84BaeNs3ZhTBoewhl/BXZ6iOa9bfG
- 7tPKhAieRb8xglBFFE9+untUItqza21Db7R+LZaimgaTPA07p+HzxyPdOZeHRVhcWEOW5Lg42
- Q6HifzDJk8PEgZ10JLK2tToOJXOHBBAcNBBB9WkTc4AsWK1liE6kGv7hnTp+wwFyWq1s2fV+Z
- qGy/RwDF6CSaeKbOwOw6vJU56KdmNZd5BCv9cK7WKPuoNkid/KYgcAajspMT9iQVguzxcp2MH
- pNraQc+a5a8c9n58c9wmuYQTsZZYPws8OKGM7BKJcMNZFyI7T66vB35/R5y87XonxBXHw9ozS
- iNV7lUrCvfydFZi/toV6eulcfspzGqdK9ts0VCraMP1omHdh8XD2fokuJ93LWVVufCzoGq4Pc
- x0AjGqMgFNb6eoBivaJeCQLBpScwR4AQCduTEuE4+D3Qxgp0Myc+Jp7lcuO4jane70D0CrmCb
- 2nIIS7R32hdlILPooGZe2uQG8mPNfjdcN5hGLSPpg7ohaHJ0NYOfBL7szewWDADMheHbrz55G
- W7RJ6KeMah76az9Ybf+aai/lmM+URVXC3Az87ga/C+LsFfqPhXACwRU+9nUANiDMvIcIY2kJ0
- YtZRI0fHy0G3qveFoXaSBAmOZwupkWABTY5MtE7vzGg==
+Content-Transfer-Encoding: 7bit
 
-=E2=80=A6
-> +++ b/sound/soc/codecs/tas2557.c
-> @@ -0,0 +1,3067 @@
-=E2=80=A6
-> +static int tas2557_dev_read(struct tas2557_priv *tas2557, unsigned int =
-chn,
-> +			    unsigned int reg, unsigned int *value)
-> +{
-=E2=80=A6
-> +	mutex_lock(&tas2557->dev_lock);
-> +	ret =3D tas2557_change_book_page(tas2557, chn, TAS2557_BOOK_ID(reg),
-> +				       TAS2557_PAGE_ID(reg));
-=E2=80=A6
-> +	mutex_unlock(&tas2557->dev_lock);
-> +	return ret;
-> +}
-=E2=80=A6
+On 18/07/2026 13:12, Mohit Dsor wrote:
+> On Thu, Jul 16, 2026 at 02:56:02PM +0200, Krzysztof Kozlowski wrote:
+>> On 16/07/2026 13:31, mohit.dsor@oss.qualcomm.com wrote:
+>>> From: Sunyun Yang <syyang@lontium.com>
+>>>
+>>> LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
+>>> mipi dsi and output hdmi, differences in hardware features:
+>>> - LT9611C: supports 1-port mipi dsi to hdmi 1.4
+>>> - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
+>>> - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
+>>>
+>>> Signed-off-by: Sunyun Yang <syyang@lontium.com>
+>>> Co-developed-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+>>> Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+>>> ---
+>>>  MAINTAINERS                              |    7 +
+>>>  drivers/gpu/drm/bridge/Kconfig           |   18 +
+>>>  drivers/gpu/drm/bridge/Makefile          |    1 +
+>>>  drivers/gpu/drm/bridge/lontium-lt9611c.c | 1293 ++++++++++++++++++++++++++++++
+>>>  4 files changed, 1319 insertions(+)
+>>>
+>>> diff --git a/MAINTAINERS b/MAINTAINERS
+>>> index 6dea93a41962..30be2eaf2bec 100644
+>>> --- a/MAINTAINERS
+>>> +++ b/MAINTAINERS
+>>> @@ -15184,6 +15184,13 @@ S:	Maintained
+>>>  F:	Documentation/devicetree/bindings/display/bridge/lontium,lt8912b.yaml
+>>>  F:	drivers/gpu/drm/bridge/lontium-lt8912b.c
+>>>  
+>>> +LONTIUM LT9611C MIPI DSI TO HDMI BRIDGE
+>>> +M:	Sunyun Yang <syyang@lontium.com>
+>>> +M:	Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+>>> +S:	Maintained
+>>> +F:	Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+>>> +F:	drivers/gpu/drm/bridge/lontium-lt9611c.c
+>>> +
+>>>  LOONGARCH
+>>>  M:	Huacai Chen <chenhuacai@kernel.org>
+>>>  R:	WANG Xuerui <kernel@xen0n.name>
+>>> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+>>> index 4a57d49b4c6d..b8959b8e2ad0 100644
+>>> --- a/drivers/gpu/drm/bridge/Kconfig
+>>> +++ b/drivers/gpu/drm/bridge/Kconfig
+>>> @@ -177,6 +177,24 @@ config DRM_LONTIUM_LT9611
+>>>  	  HDMI signals
+>>>  	  Please say Y if you have such hardware.
+>>>  
+>>> +config DRM_LONTIUM_LT9611C
+>>> +	tristate "Lontium LT9611C DSI/HDMI bridge"
+>>> +	select SND_SOC_HDMI_CODEC if SND_SOC
+>>> +	depends on OF
+>>> +	select CRC8
+>>> +	select FW_LOADER
+>>> +	select DRM_PANEL_BRIDGE
+>>> +	select DRM_KMS_HELPER
+>>> +	select DRM_MIPI_DSI
+>>> +	select DRM_DISPLAY_HELPER
+>>> +	select DRM_DISPLAY_HDMI_STATE_HELPER
+>>> +	select REGMAP_I2C
+>>> +	help
+>>> +	  Driver for Lontium DSI to HDMI bridge
+>>> +	  chip driver that converts dual DSI and I2S to
+>>> +	  HDMI signals
+>>> +	  Please say Y if you have such hardware.
+>>
+>> Please wrap the code to appropriate limits.
+> I checked the others in Kconfigs they appear to be similar,
+> still i will try to fix it.
 
-Under which circumstances would you become interested to apply a statement
-like =E2=80=9Cguard(mutex)(&tas2557->dev_lock);=E2=80=9D?
-https://elixir.bootlin.com/linux/v7.2-rc3/source/include/linux/mutex.h#L25=
-3
+This is nowhere close to the limit expressed by coding style.
 
-Regards,
-Markus
+Best regards,
+Krzysztof
