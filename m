@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E47543F0AB;
-	Sat, 18 Jul 2026 07:47:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3CA43F0AB;
+	Sat, 18 Jul 2026 07:50:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784360880; cv=none; b=soRX/kHnQu81MA/upPag+vQ88bcHUASiXLauTdWm16hMwiOHmarfcuZCToSt5zD7JcwZc3kA2VfPasuzna5fgx2vLXZoIgi9A2GnPlr3F5Xd2YvCjE3sI9/uvOj8cWOPn7HnPTExN0pDzuTfQ0LoKmJ2iO87/4btAgV7Un8IvTg=
+	t=1784361001; cv=none; b=k07C0ceXpMOkoQeMVOpNcOQz+QDmvlKk524VVDMW7AvK0BTkio8o/BpPUq9ZSgKcmh8nmRb7v6GFXFG4opsvRAVdLsFSW9gZRt1eCGFyPNwPYVV3srEl3eMjX1tgFc3m9ZppPk9VKWlEa5NonlcenZBwCN0vkMLn6OE+PTzAux0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784360880; c=relaxed/simple;
-	bh=Vl0g6EGkGHLDV4qr06wWCVXY6OTuZcrPxISap9QChIk=;
+	s=arc-20240116; t=1784361001; c=relaxed/simple;
+	bh=DbgiZLy1PECDw0W67w5QbrXxcTAF8kf56RtPWGaYVHA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nBoAxpdEejwyzRgmtf7pfeI259HXExpSW054wuGHRaHHn1eT11G+nmAutU2mhwghtzGboOQGE4GFJuv1aWa54VJdPEHxnwlVs+zDOrx073FekJzDJYnycLjGSF8ciCqn7ZYo7UFvtUfPI53tX9sHHlA3X0MeW1R3/jhxyBtkxq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ODh5ubbp; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=srRfNe7uDtsVQQJaGb4ALpnwNq0IBcwtCQ4sqrVdhpHMbqOX/wIfOacSvtCz5H65pyACOMFrz8m8REoBhqT9o3ewa/rX8o7gcxDktnb2vv17RY65Nl8OnyGXqgevpJsrYRHcwLAYKsw4tcARhPSBAHjPKaFZ8Pr5+uqv948rrx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y93DPKIV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ODh5ubbp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 488A21F000E9;
-	Sat, 18 Jul 2026 07:47:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y93DPKIV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60C661F000E9;
+	Sat, 18 Jul 2026 07:49:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784360878;
-	bh=Kk4t+KKRwZFpcw+1tWwmyImai/c4zSUMD76bk5C8kNI=;
+	s=k20260515; t=1784361000;
+	bh=AHie92NtWc9kV2QZnhQ58NiM0LWOumFCPzL2zEinWuk=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ODh5ubbpuPCgl5b61xVxz+tkarFhF9HNWnrRao/l+vVTlUBNKTK9WuYScSwrnzepS
-	 kpRtA9RUh/mtmPtWp6mJtilbaY2uuQNeltb5u5V6tIm1jfcle1Apr7e5SvyH9Ha1n0
-	 IaNIyX4ARcB5bv3ksCeKdqwlyMQN0x3QQqmqozy7wSANDkpj5kKAKColuWJVfskCDD
-	 ohssM9jVPcRb88LV0D5emGb4tmC6BxX8/B2wjm/+RsMhGG9QUlvm2UF2RHOQS72xNi
-	 WC4X9pceri2VDTU4ScbUjcgvBFpg3I+5LqZlRzEZu25hLyjBOf7xFbQ1L11ji651L2
-	 HXPconHcShJDw==
-Message-ID: <06daa43f-c03d-407e-b785-980a85d50be9@kernel.org>
-Date: Sat, 18 Jul 2026 09:47:53 +0200
+	b=Y93DPKIVRYXCXxAkmwRIJC2IUhY2mAcyPq8Za6LHZxBZLu9q0Xj8FbSCjVuIl81+P
+	 RXq+HjGlfIJnQiHVqi0WtISYManHrK4U65hv0M8rP+CAsZzpUU7lESMFlF+rlIfplk
+	 AXbONeccwOxJCHnRlAzJdJvbZyXKSkt7ngxRfU8Fbcr9ysWE9XA+3Q/qfxHuQilI6s
+	 o5lHXFRlRZMwtW8SEsKdr1MoD25CDm4AhVeM1aMicvFu2Lme9wbvSBd6t2vIiCMlpj
+	 CWO5k/2kKovAePuSWkKO3M+Vc1ZQjfw/1N7CIv3aWuC6b9NyXMzPJDG8JjVMS7xOA+
+	 uNhZQRMaV3BDQ==
+Message-ID: <cfebdb15-38f1-470c-ae90-9ef06a612398@kernel.org>
+Date: Sat, 18 Jul 2026 09:49:49 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,14 +35,18 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: arm: rockchip: Add Vicharak Vaaman
- board
-To: Hrushiraj Gandhi <hrushirajg23@gmail.com>, heiko@sntech.de
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-References: <20260718065900.755631-1-hrushirajg23@gmail.com>
- <20260718065900.755631-2-hrushirajg23@gmail.com>
+Subject: Re: [RFC PATCH v2 1/8] dt-bindings: npu: rockchip: add
+ rockchip,rk3576-rknn-core
+To: Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net,
+ heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, ulfh@kernel.org,
+ p.zabel@pengutronix.de, ogabbay@kernel.org
+Cc: chaoyi.chen@rock-chips.com, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260718031146.3368811-1-gahing@gahingwoo.com>
+ <20260718031146.3368811-2-gahing@gahingwoo.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -88,21 +92,43 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260718065900.755631-2-hrushirajg23@gmail.com>
+In-Reply-To: <20260718031146.3368811-2-gahing@gahingwoo.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18/07/2026 08:58, Hrushiraj Gandhi wrote:
-> Document the compatible string for the Vicharak Vaaman, an RK3399-based
-> single-board computer.
-> 
-> Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
-> ---
->  Documentation/devicetree/bindings/arm/rockchip.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
+On 18/07/2026 05:11, Jiaxing Hu wrote:
+> Document the RK3576 NPU core: add rockchip,rk3576-rknn-core to the
+> compatible enum.  The RK3576 has no NPU SRAM supply, so make sram-supply
+> required only for rockchip,rk3588-rknn-core
 
+Full stop here.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ via an allOf/if-then instead
+> of dropping it from the shared required list (which would have weakened
+> validation for RK3588).
+
+This is redundant.
+
+...
+
+>    - npu-supply
+> -  - sram-supply
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: rockchip,rk3588-rknn-core
+> +    then:
+> +      required:
+> +        - sram-supply
+>  
+
+else:
+  properties:
+    sram-supply: false
+
 
 Best regards,
 Krzysztof
