@@ -1,202 +1,164 @@
-Received: from out-178.mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F8B207A20
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 11:18:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8B52773C3
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 11:24:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784373490; cv=none; b=Z825zv1U0YUwNfwQxyZqFC85V6kC0RBsn9C89wmN6lTef4rYjMadyKCsWpeE42RtHdGGDvMLlIz3Phu8bZnXehglQkkaYwyDWg+ZoJ8TKn44qiLS7cMOUx8VezXKvvHUnQ8hLQyOl/jMZIngBq8Uo8pBQCr3Ik4h/oAHYw/j4Lk=
+	t=1784373860; cv=none; b=mWINnlkyiR1CzwAfcOCjhN5sEo7SBUxafP3ZrLbIcaFo90n8gV3CTdJdYuw2bFwugrNso1mPD1ok4zo0ig8l30DFeTbT4kcwSo3DqtAozFZcP6nctYWJxccND6XRIAR3D4vcqHNVBlbI9sl5D3Gt/lVVfSOrCDxWkVamCfn0878=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784373490; c=relaxed/simple;
-	bh=/0f0tHZ1IHioTznWyI0hVTGFtkZLQKRSwDPVVu6rmnc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s0MGTiaI+NRL8xQPsuNteuDjJoacfz50+svnkJQrEWJHjQJrRlD4XtfjLUgMqzjWkJZ+/liShHBqUzgE/qALn/X+ulKottPfSNHFnRETL37tl7ZZ4Wx3DH2WV8DIwbxsGssTx2VUspRxc5EC5MrTHBO70qlybOjrOqsr4DTb6qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mieulab.com; spf=pass smtp.mailfrom=mieulab.com; dkim=pass (2048-bit key) header.d=mieulab.com header.i=@mieulab.com header.b=QPMlD6/O; arc=none smtp.client-ip=95.215.58.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mieulab.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mieulab.com
+	s=arc-20240116; t=1784373860; c=relaxed/simple;
+	bh=YWz9z2v7WyQPPaA42TELX4X4BjKpqR+/n1w7xOQyOWI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mjvAoYiY0sEJoyPmbXMLSgQxte2Gs2MbCS3PEMmDORvTxsaq6SNOeK9Iq73ckzy4q+sZWBHTl9+EroyElyaLsgrpcdZihDyZfqNDVBEZ+5ZA75P0YsNm4evf1KIdYUuuLh/agbDXYTp3h8C7JMtvWjrsUAw/wgc0dLQE31SIdq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QTlad+du; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kuIiNoiy; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mieulab.com header.i=@mieulab.com header.b="QPMlD6/O"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mieulab.com; s=key1;
-	t=1784373487;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iX+mNcsLzoRlbFysdi2lELSN0lTLQ6Chr+xxoRDbP5k=;
-	b=QPMlD6/O5/Lsvl23y5B4KKBWFZMRIMHic9yi0aOgL8KgoVFqgXC765fppxcTzX/tAlZUsr
-	BWmeHq/uIjJkvjHNlG5xgqUxgd3zu2rdQTWLl2lf1zNyKnN0u/SiWuyif8GwCxVFXtKoHT
-	MZe52lPofJxNEZXBlPHi3XNOH084F5Ypk64LgnlrFGH6icm/iT7OZ8CCBwihHJYoeXv6o1
-	SlpEy/+K9RSVS9PVcvnkisHCpnMRoNvz0VilZU6fQeiIIg4dCNPIKm2mqYjWEsutAfRXVD
-	FOAHNBF3fxg7NA4KcP094WBjg1jNl53PkRL7V/dmUYUXuQ9xsBLLOYMYX1XQ0w==
-From: Zinan Zhou <zinan@mieulab.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Zinan Zhou <zinan@mieulab.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-amlogic@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 2/2] drm/meson: add GXLX2 HDMI register support
-Date: Sat, 18 Jul 2026 20:15:27 +0900
-Message-ID: <20260718111527.119231-3-zinan@mieulab.com>
-In-Reply-To: <20260718111527.119231-1-zinan@mieulab.com>
-References: <20260718111527.119231-1-zinan@mieulab.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QTlad+du";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kuIiNoiy"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66IAHkJN502132
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 11:24:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=AzDUyRgvDHVngaIEHKVhUBdn
+	DlQ3twYyLRSt0qfwN+U=; b=QTlad+du8edz4t5mWhtU68EE999fXX7shAlXVM+3
+	DZQrkECFySp2MiS8s02MxAepe6UbG8KsqO4tlN+Ffp17EauptDZ//tNle8rI+cMl
+	lY8LdxH3BQsgVOAqgv5yWw4XJVTm1dSGEJZBDJ6UcikQOot50d+ddmpe5KAFj0li
+	AkXekdh+tXm5MtIboT0gQ8S7ZFzlAQAedI43zLHWDNGE7NgyfLiceiCP1zVLVstn
+	gQ+/AUhOij1lWX/DerAq/P7RG5vX4nfBKpTI2BnWdEYuNTEcujZ0HRQqJy2/NGQM
+	C8I7ixwr15b3uyrmjvbHY3Fe6KcDaixSpQRZXisKOaIBwA==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2c68n4q-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 11:24:16 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c856470fe9fso4574257a12.2
+        for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 04:24:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784373855; x=1784978655; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AzDUyRgvDHVngaIEHKVhUBdnDlQ3twYyLRSt0qfwN+U=;
+        b=kuIiNoiygtgat2RDzEBqE6xb6D2Ww4qfUB1uj52N+WGB7ggYB8rF2sNkgUev7Aw1jF
+         P35Lk+TF4L4d3BDlj/ZQs6IjAN8LcEIH5TYQ6+rHXkjMj6+BnGuYGkgw4gP1HHKNcyoW
+         cP5vlnQrYmjZ++ksAaPVJo2cnav8eyJX1Tu4RxeTNz4rGext6W+oq8VPlBrHvUFiLdIZ
+         bVL+tqGIixLPTUIEbLpsxBVzpLTQVYGrZYUbxTpiBkfuAoCQbD7+ghXWT8FhivgPEFvh
+         cJyBsDKcx4zmnsgdACtGJqy/pwVp9OiaMUx0Hss43Oo1MDw7MveVYjT/wj5zN/XVRktr
+         ByvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784373855; x=1784978655;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AzDUyRgvDHVngaIEHKVhUBdnDlQ3twYyLRSt0qfwN+U=;
+        b=lvJ2DrJofZqBQMOqv7eQJvDeBxGuo04gc8STYd8YzFJewn+fE1JgOXAPHiSP+cDe5+
+         ARyRNsIBco7Dc7SyJwsI0EJRzvYxQnQn0lGFeiPZZb5y/KbWyFcrCzY2EfAEB+P0sOS6
+         eDm1mqX7c9mRmEdMJkaqqTiWCOy/IBb/FIspQs5ZMWjx2jpryhjZC2dA8gwoLUJjR4Mp
+         ncM/HIxXmD4FaLonCEA7CbVB0XRabwFMDIMCjrH5xTmzfMHKGoVYGB2bBKkorS4vP8YW
+         5KBx6Xjn9fN4jLpJ70dfLanuZUfjJdqehWeGlePj7OLu0aYyQpYLuXV3p3f/3cB3oe2j
+         v38Q==
+X-Forwarded-Encrypted: i=1; AHgh+RoUebvaHP0hG/Y7wC3yR3wqUtN2XnKn0a/cZwi+Sw1zSEQCRTda1G2gCmxNXeYtoGTLcEkfsXCCx04m@vger.kernel.org
+X-Gm-Message-State: AOJu0YzYY9U4GWcqEJKIrPLtyg77a8THmFuU4wHiUOiHV9hBIk3+LQx2
+	ZrSxNF/RNtFXxmBXavvZyuDRPnpDY7pHzUCk1w07O5HGYRx5IfqeYaE0QVF0jOBQzK7sorC5mCJ
+	JjvAKJv7OYZbjzkqs9vlLauxA7RvVawd9kzCDponHI/YD/7eG6FAnKawxtilZOW/h
+X-Gm-Gg: AfdE7cmRAG8AtNkjdMyqZAvSXVX61XZKHAFRWimQExSR9q6Es7rx2cn4klj/tNZ71ZW
+	c2ps20g3R3WaJ6UPRwsrCzAHHQR9b8vrsZrAsdUV14WtLaQReKBSxafN0yKGoG0+fssMY+vd1/o
+	zJioHzsDVYdKcozkh+G1UhydwN2kgOetp++QCkcirU5tDzIwzRwjz80R17oeD1Xmj1SEqbnXKfg
+	KUSWe+e6oYQrSrZ7jrxNxFF8AXJMJBP8kQYKrwrjTxpwTV12nvDvMiAVAD+R04r7Edbqs/V2svK
+	xpI+/CQaub3N33YCQ5c04fsVHZGuKI9Ub9QfJ3fa3FaqEIcAVhcf0900sqikrxncVXdGnGZb8UM
+	0/NB8ars5c2vjiND8yJQuWD27TA==
+X-Received: by 2002:a05:6a21:1519:b0:3c3:a168:edc3 with SMTP id adf61e73a8af0-3c3ad9717dfmr6290201637.38.1784373855449;
+        Sat, 18 Jul 2026 04:24:15 -0700 (PDT)
+X-Received: by 2002:a05:6a21:1519:b0:3c3:a168:edc3 with SMTP id adf61e73a8af0-3c3ad9717dfmr6290178637.38.1784373855014;
+        Sat, 18 Jul 2026 04:24:15 -0700 (PDT)
+Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a20cfe3sm17579432eec.30.2026.07.18.04.24.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 18 Jul 2026 04:24:14 -0700 (PDT)
+Date: Sat, 18 Jul 2026 16:54:07 +0530
+From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        venkata.valluru@oss.qualcomm.com,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Mohit Dsor <mdsor@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: shikra-iqs-evk: Add LT9611UXD
+ HDMI bridge support
+Message-ID: <altiV4pSkfVs5UKM@hu-mdsor-hyd.qualcomm.com>
+References: <20260717-shikra-work-v2-0-86ae8552259e@oss.qualcomm.com>
+ <20260717-shikra-work-v2-1-86ae8552259e@oss.qualcomm.com>
+ <04a9d8ce-e83a-4307-8b14-4afe739b31e0@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <04a9d8ce-e83a-4307-8b14-4afe739b31e0@oss.qualcomm.com>
+X-Proofpoint-GUID: 8zqlPy-aICDKg-tCWjk2c76ccFQ5uWBk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE4MDExNSBTYWx0ZWRfX1Z5iFFP0UAOc
+ V7bjJ4Q+nkhFuELBId+3OvpLLjMXpBeEYnsfXK5A7RPbNFyv+ycmd2M5dLF6umeIFHoKKfCaW8d
+ WJ0G7JhkaLl6puVdZHwE8AsFojwwHuMIZ+aseMoN90Dl+Akc7zBYxrB28VcS1/2TvMosocV0i+F
+ xLyYpeE6Y4mLTvVPcgFX+Hu6ZVVmOxXC/XP0qLnya5AQ/pEdPKesTAth1LzkpyhwmpG692il4+n
+ Q17I5cydKE9DvkqCSGQwO01EgGL2J0hyh4RFf9iUa0CwGgBs8fo2va5Kj0th6pgg5jh0Y329TjX
+ S4w7cUPb1+KzjDOgf71mdITmiI83wNLwQfz+jorbhIMKCXKkoJKyo3kQNH3chaVaPx6Zn11/MHJ
+ y1siA/2dkmEcGWNJRd9bHkk5CW5td9E5avS5ecLYzVVKs9/x7o1SBP8HzhDMEZR2sabOnu6hOPT
+ 4knlDC0NJvZAuueBt3A==
+X-Proofpoint-ORIG-GUID: 8zqlPy-aICDKg-tCWjk2c76ccFQ5uWBk
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE4MDExNSBTYWx0ZWRfX3E8vkKMaV268
+ F3pcqG5k9U3f6xekm3K7UeWJzvCHB/9JxSe5m94NqlJDPmIdRm3/R4gN8/XmT9RPEF7BEGI0Rf8
+ V2maHY3eMZ8pTwCjkPteL+dXhkD4pS0=
+X-Authority-Analysis: v=2.4 cv=CJQamxrD c=1 sm=1 tr=0 ts=6a5b6260 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=yFymH_mhhIGMXtPSOccA:9 a=CjuIK1q_8ugA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-18_03,2026-07-17_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0
+ suspectscore=0 phishscore=0 priorityscore=1501 spamscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607180115
 
-GXLX2 combines a GXL-like display pipeline and HDMI PHY with directly
-mapped DesignWare and TOP registers. Reusing the indirect GX callbacks
-returns an invalid HDMI controller ID and prevents the HDMI component from
-binding.
-
-Add GXLX2 match data using the existing direct register callbacks, while
-retaining the GXL PHY initialization values. Do not enable APB3
-fail-on-error through the legacy indirect control-register offsets for a
-direct-register device. Add the compatible to the VPU component match list
-and use the GXLX2-specific HHI_HDMI_PHY_CNTL0 value for the 297 MHz
-pixel-clock bucket.
-
-The register layout and the 297 MHz value were determined by analysis of
-the HG680-LC vendor kernel. Public Amlogic-derived source independently
-documents the direct access mechanism and the ordinary GXL PHY values; no
-vendor code is copied by this change.
-
-An equivalent Linux 6.6 implementation was tested on an HG680-LC with 1080p
-HDMI video and two-channel HDMI audio. The Linux 6.12 port boots from eMMC
-with working Ethernet, 1080p and native 1440p video, and two-channel HDMI
-audio. This port has passed arm64 compilation; 4K30 physical validation of
-the 297 MHz branch remains pending.
-
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Zinan Zhou <zinan@mieulab.com>
----
- drivers/gpu/drm/meson/meson_drv.c     |  1 +
- drivers/gpu/drm/meson/meson_dw_hdmi.c | 33 +++++++++++++++++++++++----
- 2 files changed, 29 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/meson/meson_drv.c b/drivers/gpu/drm/meson/meson_drv.c
-index 49ff9f1f16d3..5c136743e60c 100644
---- a/drivers/gpu/drm/meson/meson_drv.c
-+++ b/drivers/gpu/drm/meson/meson_drv.c
-@@ -469,6 +469,7 @@ static void meson_drv_shutdown(struct platform_device *pdev)
- static const struct of_device_id components_dev_match[] = {
- 	{ .compatible = "amlogic,meson-gxbb-dw-hdmi" },
- 	{ .compatible = "amlogic,meson-gxl-dw-hdmi" },
-+	{ .compatible = "amlogic,meson-gxlx2-dw-hdmi" },
- 	{ .compatible = "amlogic,meson-gxm-dw-hdmi" },
- 	{ .compatible = "amlogic,meson-g12a-dw-hdmi" },
- 	{}
-diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-index 1004108fb7ca..f02d6a513dd3 100644
---- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
-+++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-@@ -136,6 +136,8 @@ struct meson_dw_hdmi_data {
- 				     unsigned int addr, unsigned int data);
- 	u32 cntl0_init;
- 	u32 cntl1_init;
-+	u32 phy_cntl0_3g;
-+	bool uses_direct_regs;
- };
- 
- struct meson_dw_hdmi {
-@@ -287,7 +289,9 @@ static void meson_hdmi_phy_setup_mode(struct meson_dw_hdmi *dw_hdmi,
- 	/* For 420, pixel clock is half unlike venc clock */
- 	if (mode_is_420) pixel_clock /= 2;
- 
--	if (dw_hdmi_is_compatible(dw_hdmi, "amlogic,meson-gxl-dw-hdmi") ||
-+	if (dw_hdmi_is_compatible(dw_hdmi,
-+				  "amlogic,meson-gxlx2-dw-hdmi") ||
-+	    dw_hdmi_is_compatible(dw_hdmi, "amlogic,meson-gxl-dw-hdmi") ||
- 	    dw_hdmi_is_compatible(dw_hdmi, "amlogic,meson-gxm-dw-hdmi")) {
- 		if (pixel_clock >= 371250) {
- 			/* 5.94Gbps, 3.7125Gbps */
-@@ -295,7 +299,8 @@ static void meson_hdmi_phy_setup_mode(struct meson_dw_hdmi *dw_hdmi,
- 			regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL3, 0x2136315b);
- 		} else if (pixel_clock >= 297000) {
- 			/* 2.97Gbps */
--			regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL0, 0x33303382);
-+			regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL0,
-+				     dw_hdmi->data->phy_cntl0_3g);
- 			regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL3, 0x2036315b);
- 		} else if (pixel_clock >= 148500) {
- 			/* 1.485Gbps */
-@@ -586,6 +591,7 @@ static const struct meson_dw_hdmi_data meson_dw_hdmi_gxl_data = {
- 	.dwc_write = dw_hdmi_dwc_write,
- 	.cntl0_init = 0x0,
- 	.cntl1_init = PHY_CNTL1_INIT,
-+	.phy_cntl0_3g = 0x33303382,
- };
- 
- static const struct meson_dw_hdmi_data meson_dw_hdmi_g12a_data = {
-@@ -595,6 +601,19 @@ static const struct meson_dw_hdmi_data meson_dw_hdmi_g12a_data = {
- 	.dwc_write = dw_hdmi_g12a_dwc_write,
- 	.cntl0_init = 0x000b4242, /* Bandgap */
- 	.cntl1_init = PHY_CNTL1_INIT,
-+	.uses_direct_regs = true,
-+};
-+
-+/* GXLX2 uses the direct register layout with the older GXL PHY setup. */
-+static const struct meson_dw_hdmi_data meson_dw_hdmi_gxlx2_data = {
-+	.top_read = dw_hdmi_g12a_top_read,
-+	.top_write = dw_hdmi_g12a_top_write,
-+	.dwc_read = dw_hdmi_g12a_dwc_read,
-+	.dwc_write = dw_hdmi_g12a_dwc_write,
-+	.cntl0_init = 0x0,
-+	.cntl1_init = PHY_CNTL1_INIT,
-+	.phy_cntl0_3g = 0x33353382,
-+	.uses_direct_regs = true,
- };
- 
- static void meson_dw_hdmi_init(struct meson_dw_hdmi *meson_dw_hdmi)
-@@ -612,8 +631,8 @@ static void meson_dw_hdmi_init(struct meson_dw_hdmi *meson_dw_hdmi)
- 	reset_control_reset(meson_dw_hdmi->hdmitx_ctrl);
- 	reset_control_reset(meson_dw_hdmi->hdmitx_phy);
- 
--	/* Enable APB3 fail on error */
--	if (!meson_vpu_is_compatible(priv, VPU_COMPATIBLE_G12A)) {
-+	/* The APB3 control registers exist only with the indirect interface. */
-+	if (!meson_dw_hdmi->data->uses_direct_regs) {
- 		writel_bits_relaxed(BIT(15), BIT(15),
- 				    meson_dw_hdmi->hdmitx + HDMITX_TOP_CTRL_REG);
- 		writel_bits_relaxed(BIT(15), BIT(15),
-@@ -769,7 +788,9 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
- 	dw_plat_data->disable_cec = true;
- 	dw_plat_data->output_port = 1;
- 
--	if (dw_hdmi_is_compatible(meson_dw_hdmi, "amlogic,meson-gxl-dw-hdmi") ||
-+	if (dw_hdmi_is_compatible(meson_dw_hdmi,
-+				  "amlogic,meson-gxlx2-dw-hdmi") ||
-+	    dw_hdmi_is_compatible(meson_dw_hdmi, "amlogic,meson-gxl-dw-hdmi") ||
- 	    dw_hdmi_is_compatible(meson_dw_hdmi, "amlogic,meson-gxm-dw-hdmi") ||
- 	    dw_hdmi_is_compatible(meson_dw_hdmi, "amlogic,meson-g12a-dw-hdmi"))
- 		dw_plat_data->use_drm_infoframe = true;
-@@ -854,6 +875,8 @@ static const struct of_device_id meson_dw_hdmi_of_table[] = {
- 	  .data = &meson_dw_hdmi_gxl_data },
- 	{ .compatible = "amlogic,meson-gxm-dw-hdmi",
- 	  .data = &meson_dw_hdmi_gxl_data },
-+	{ .compatible = "amlogic,meson-gxlx2-dw-hdmi",
-+	  .data = &meson_dw_hdmi_gxlx2_data },
- 	{ .compatible = "amlogic,meson-g12a-dw-hdmi",
- 	  .data = &meson_dw_hdmi_g12a_data },
- 	{ }
--- 
-2.43.0
-
+On Fri, Jul 17, 2026 at 11:17:10AM +0200, Konrad Dybcio wrote:
+> On 7/16/26 9:30 PM, mohit.dsor@oss.qualcomm.com wrote:
+> > From: Mohit Dsor <mdsor@oss.qualcomm.com>
+> > 
+> > Enable the Shikra MDSS display subsystem on the Qualcomm Shikra IQS
+> > EVK board and add the Lontium LT9611UXD DSI-to-HDMI bridge node.
+> > 
+> > The LT9611UXD is connected via I2C (bus 4, address 0x41), powered by
+> > a GPIO-controlled 3.3V regulator (PM8150 GPIO4) and an always-on 1.8V
+> > rail. Reset is on GPIO76 and interrupt on GPIO85.
+> > 
+> > The bridge receives DSI output from MDSS and drives an HDMI-A
+> > connector, with the link wired as: DPU -> DSI0 -> LT9611UXD -> HDMI.
+> > 
+> > Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+> > ---
+> 
+> Does the other EVK not have this same hardware?
+Yes other variants have this hardware but only IQS variant has
+DS-HDMI as default, others have DLC panel as default.
+> 
+> [...]
+> 
+> > +&pm8150_l11 {
+> > +	/* DSI VDDA - must be at NOM voltage for PHY PLL lock */
+> 
+> This comment is superfluous
+This comment will be removed in next revision.
+> 
+> Konrad
