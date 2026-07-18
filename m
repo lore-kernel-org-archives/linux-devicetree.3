@@ -1,118 +1,268 @@
-Received: from mail-m49204.qiye.163.com (mail-m49204.qiye.163.com [45.254.49.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8386E3845CF;
-	Sat, 18 Jul 2026 09:57:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.204
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784368653; cv=none; b=gItpna5L/pn29mexn8CCpS4kflzvsmLUrBOAEnM0L5jCZCk2ZhSAw7jbx9UYYOE3na/f1oTF4OIm1r7Da5e9Go3XdfX0JaiTpHPquG/spUGjan3UJQVtmtd3gqwOz9OKWEZZWjP74bdzVS19/1HRwP88FPmwssGX/53ytvmv4Zo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784368653; c=relaxed/simple;
-	bh=T1dnzuCOirb4oTOrTln/mdR/NNhVCCKZTUISOr5SuhU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uoO3uzb+mKNZewPqgS0n8TJiCs9nZqNFbJgdHYD1pLteRTCjPHwg9/sdhmpbCrA69Bs+ShXWGdpMhybcxgpyUDSxhMLH/hdcMTvX6pZz+r+ZhJoM7PCpjlWAsVc4WB0UU5LtPxq5ev2CnWBEMZG1KvzjBuy+rDni4c8hA9B7rHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=AYb1THux; arc=none smtp.client-ip=45.254.49.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2906223DCE
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 10:53:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784372005; cv=pass; b=jxoLm93bMN2soHddrs5AKMccg4SMsTX2X6n0k6+yGkdmjmdjnfmLIC7uvPvBiGCGwvET78f+x19IdGekUwsI2sjvy/sI7Ya1FMBxqe2QhcZPFQsQSFVI/fQyvq/J2pNNA3Q0k7uEh1l3efKeLqwSZmk2dtFJLTfLFYxIXOefZZw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784372005; c=relaxed/simple;
+	bh=JGgwZZnE1y8KJOtlsAIYdBnf+29pDWlCFFjUwVetfQQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=q0oSYjTp7HSwdCsvYSjfWr8nrB6tAWOrjyJfmT9FXfZ84Qwhnlxn58hebIRimEK1eeYsjRZsjASoA2OnXxSNrB5Y4WdF4Sm9TI0qsbYhxz/N/vNBdZhB+ETx69GmE80+jqLt8BX3EKyNF6xsFOiZ1pBTxNf9ykaewd5mQN9p8HA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V8LVqutO; arc=pass smtp.client-ip=74.125.224.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="AYb1THux"
-Received: from tsdl-HP-EliteDesk-880-G6-Tower-PC.. (unknown [36.129.139.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 46adb6181;
-	Sat, 18 Jul 2026 17:41:55 +0800 (GMT+08:00)
-From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-To: konrad.dybcio@oss.qualcomm.com
-Cc: andersson@kernel.org,
-	broonie@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	dmitry.baryshkov@oss.qualcomm.com,
-	drake@endlessm.com,
-	hongyang.zhao@thundersoft.com,
-	katsuhiro@katsuster.net,
-	konradybcio@kernel.org,
-	krzk+dt@kernel.org,
-	lgirdwood@gmail.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	matteomartelli3@gmail.com,
-	mohammad.rafi.shaik@oss.qualcomm.com,
-	neil.armstrong@linaro.org,
-	perex@perex.cz,
-	robh@kernel.org,
-	rosh@debian.org,
-	srini@kernel.org,
-	tiwai@suse.com,
-	zhoubinbin@loongson.cn
-Subject: [PATCH v2 6/6] arm64: dts: qcom: qcs6490-rubikpi3: Add audio support
-Date: Sat, 18 Jul 2026 17:41:47 +0800
-Message-ID: <20260718094147.413795-1-hongyang.zhao@thundersoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <43944722-3eeb-4e02-b3a6-6251d5fc78af@oss.qualcomm.com>
-References: <43944722-3eeb-4e02-b3a6-6251d5fc78af@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V8LVqutO"
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-667b9bee563so1048202d50.3
+        for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 03:53:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784372003; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iGLVQiQSL9BRMwpk3vbd3DS/jM5OtFxBMFdEXCS0+sFIxKntOa12B+q+j5IlRV1lDO
+         wEraD8ZNaGL9LxwVBtGvJZxqpInloRkGF/7+FZasdh1qcwTWIu9ms8O1Qid2g6TDhz5N
+         nSGVjN/yyTyJ255l0CcGXNhEenoigAbMMP6BQY4ctBC79ynh0Bqu+e+PjKArMAQwvL8i
+         TIaSVwQMc1ucVH2yat5WMv6Iw5Xs3wcG69yHbYkPAuVJOFaR13ZRqRsyIeZKK+RXcd02
+         Jvr/xatfjmsRDOMspgEdM+MJs9wqvboSPXmluwi8akA+KxyJrK3y87+jtAXBDsDGSTFb
+         WlQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=g5VfXhgwYuTBmwNIMAkrlRtJzbyswvn4JxfZ/7609S8=;
+        fh=FWGQs2sLjKPgWt4gRkj7juhsLKeLqw16kmwYtvdaH/c=;
+        b=Ns3B+bnVTcYTZ4MmMQMjmup4JIVxlVG5E+Jjqml2Z33zDoRLtbI+Gx2BBPKYEh90gC
+         XkDScZCtDHhGsKdTZ6SxAMAvNVTn3QinAb/A2HmLXPmpsvvT8ktJWjG6p9co6eSrE9Q3
+         WaSfEGhzoBe5L1oz5HrSxG01ih5tz5RbuovtVM9nH5v5e5gpvj/iCMOGG3nMS9lGfWx0
+         nwk6QkkN1dev59NF3fD5IFxaVDUrp5bakBOLLAAj1Tvha7Ft67xyv8jyU1deNoNIvTKp
+         qpFMrn7VRb3tjTFzCpnpBivMZl8syutcTYz6HJCKXJDFtvtTKvEk51kKvnhug2eG0Xo8
+         nkQA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784372003; x=1784976803; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=g5VfXhgwYuTBmwNIMAkrlRtJzbyswvn4JxfZ/7609S8=;
+        b=V8LVqutOrheJVU6F2jXcsAO9+EsNWM17B+Uba+ru5aHih1CsmIOuYG9kXx3Bn6Soju
+         rH2m/8YNxBrD6NiN+IxQzp+NzQeHZrFJzlijPA03oIRAejGK1hOZ+iJ5pRjYUHcXZ1I0
+         yUbvjZmSJjcx9EzaJWMzYB2XLJ1X0AuHgEavXH2mrc4oM16dHeUlvg82uOQqT86QTbSI
+         PAYf64uWXofXZ8utFmqIcOclGIjqiWIRcP6ME7J++C1pp0iwRjwYM1VlaPQZA1yr2nlz
+         8uD8QUYj94VWCQz673eVCaolSTz9QZy18vWqUueXYTu0g069ImVUFFzG4LpNV3RhJ25f
+         RhVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784372003; x=1784976803;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=g5VfXhgwYuTBmwNIMAkrlRtJzbyswvn4JxfZ/7609S8=;
+        b=ia/ygW/R4yj++lsZTF0NPVtL/TwOPlac62Ai2+dy79daV/EmvbWPwPDvwVfFVtkIjz
+         UUETygpoWn+iZ+u31rWA7jqklGZKnMIK2m8CboUpR1Ol4eZ1qq4saRE2yZpKR8dWe+X7
+         +dIPaJ4GEgO+cgrjFTDrQyGP5dBAy7UB3O1N4jbintMuMQHWOHvDaU1qIKDeuL1bOLbV
+         tUh3/qPy3SBsdQL2+x7/4uTpSk3VWfI6IntHo84EIdWH39fTM9rZZV2FAHp9CQRcYkek
+         6pyanpViNzMpka/xfENw7fTyXV2LkKEnny7WybAtCS9KisO9Df6tmfkezp2h2lhy+EaY
+         KZhA==
+X-Forwarded-Encrypted: i=1; AHgh+RofEVs3G8n59XRIvyERhrJJGelTVrWaYMxnCiL2knQAJauNZTYLczla+3/9rK4GRCVRI+lnm1ycSd64@vger.kernel.org
+X-Gm-Message-State: AOJu0YzmMbIUhnv0TWv5OJ66a4aukHnCJVOq9+4X10EU6aP8qr6HsWep
+	RLXz230TGDXadFUvJWoSGxhFdqxzTGtwdy3qbGPR1YHLKzv9aOt7P6xQ3D7FjSFo8/p63ZKlJfC
+	YTNsPn7B3QvnxVWto/zedYG6zaNvvJH0=
+X-Gm-Gg: AfdE7clPSdTy27GqF2bWLysV9mmj/ZD4MUXwzHadwVBnddknDxyE5zU36T6QmdiM6uo
+	2XQi7NJgVV00AY7MJz4q/09V5/7FP6HpnU2wpUJGzH5+LFVIbECO9E285MYJ0sQ/ziie2nj7J7v
+	jluhv4b3t4J3czMkSmDHD/eK5h9GnP8Rk1BGwrbEFlOxo5iyxID8j1ueHZhCMSb9l2VuoNv4fC3
+	qirq3QBm3Wl6wN1Fzx7uLcA8zW3Nb+OwLbtbwsZsl45imAbiKuMfEMObFkppVXGLK4oNmKZy7pE
+	navqjZGqbbDtycNHajU=
+X-Received: by 2002:a05:690e:458a:20b0:664:f227:385a with SMTP id
+ 956f58d0204a3-6683bdde001mr1424612d50.6.1784372002826; Sat, 18 Jul 2026
+ 03:53:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9f749a938a09d5kunm1186d5631fe997
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGhkYVktIHxlPSkIdGEJMGVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVCQk
-	lOS1VKS0tVSkJLQlkG
-DKIM-Signature: a=rsa-sha256;
-	b=AYb1THux6FDa2eq0vDUqBKvSl8L/MuUxWXZmatNXsx6+r56gWMEc4Xvvfr8J/1S+Yx5oaTOiwrXjPLqA6doAjehqyCM8mMs6vjMFF+NXisuFMLHIdYlYKb8zPvAW5W5u0EPuqOmz8aeotrFGx641O9LRlrpJ47xqAxJmxmDMh6I=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
-	bh=ZgyFMNAPh8OewPBkUg16pLl+pzENS/cg9LAueq0w9IA=;
-	h=date:mime-version:subject:message-id:from;
+References: <20260718085728.6797-1-royalnet026@gmail.com> <20260718085728.6797-3-royalnet026@gmail.com>
+ <20260718090955.A79E51F000E9@smtp.kernel.org>
+In-Reply-To: <20260718090955.A79E51F000E9@smtp.kernel.org>
+From: Igor Paunovic <royalnet026@gmail.com>
+Date: Sat, 18 Jul 2026 12:53:10 +0200
+X-Gm-Features: AUfX_mwF1UuqQgMjQjfeJUF2YEeUCF9mcy5VYFqR6MQOo8I3upFsyKrktRhAwBs
+Message-ID: <CAEWPSH6AFkMEVLJQxt4X554w47S6iVzupxh=eL_Rrfbcmb-hkA@mail.gmail.com>
+Subject: Re: [PATCH v3 2/4] media: synopsys: hdmirx: add HDMI audio capture support
+To: sashiko-reviews@lists.linux.dev, 
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Sebastian Reichel <sebastian.reichel@collabora.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, kernel@collabora.com, 
+	linux-kernel@vger.kernel.org
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, 
+	media-ci@linuxtv.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 7/15/26 4:02 PM, Hongyang Zhao wrote:
-> > RubikPi 3 uses the AudioReach firmware path for its external audio
-> > interfaces. The primary MI2S interface connects to an ES8316 codec for
-> > headset playback and capture, while the quaternary MI2S interface feeds
-> > the LT9611 HDMI bridge.
+> Does this byte-swapping logic scramble the extraction of the CTS and N
+> values on little-endian architectures?
+
+No. This is the same finding as in the v2 review, where it was already
+answered, and the comment this v3 adds above the swap documents exactly
+this. Two premises in the report don't match the ACR packet layout:
+CTS does not live in PB0..PB2 and is not little-endian. Subpacket
+byte 0 is reserved, CTS[19:16] sits in PB1[3:0], CTS[15:8] in PB2 and
+CTS[7:0] in PB3 (MSB first), with N likewise in PB4..PB6. The packet
+decoder stores PB0 in register bits [7:0], so the byte swap is
+precisely what lines the bytes up before the 20-bit masks.
+
+It is also the path validated on hardware: with a 44.1 kHz source the
+card reports 44.1 kHz rather than falling back to the 48 kHz default,
+and sample-rate switches are followed. Neither would work if the
+extraction produced garbage.
+
+> Can this lead to a use-after-free if the driver is unbound while an
+> audio stream is active?
+
+No -- the synchronization the report treats as missing is provided by
+the ALSA core, and relying on it is why the v2 workaround was dropped
+on Dmitry's review in the first place.
+
+The worker is only ever armed between hw_params() and
+audio_shutdown(). If a capture stream is still open when the codec
+platform device is unregistered, teardown does not complete until the
+stream is gone: soc_cleanup_card_resources() calls snd_card_free()
+(sound/soc/soc-core.c), which blocks in wait_for_completion() until
+the last file handle is closed (sound/core/init.c: "wait, until all
+devices are ready for the free operation"). A disconnected card still
+routes that final close through the original release path
+(snd_disconnect_release() -> disconnected_f_op->release()), so
+snd_pcm_release() runs soc_pcm_close() -> hdmi_codec shutdown ->
+hdmirx_audio_shutdown(), which clears the streaming flag and
+cancel_delayed_work_sync()s the worker.
+
+platform_device_unregister() therefore cannot return with the worker
+armed, and the devm-allocated state is freed only after remove()
+returns. There is no window for the work to fire on freed memory.
+
+Also exercised on the Orange Pi 5 Plus: unbinding the driver through
+sysfs while arecord was actively capturing. The ALSA disconnect kicks
+the reader out with ENODEV, the file handle is closed -- which is
+where audio_shutdown() runs and cancels the worker -- and only then
+does the unbind complete. A subsequent bind re-probes cleanly and the
+card comes back. The kernel log stays free of warnings throughout.
+
+Igor
+
+
+On Sat, Jul 18, 2026 at 11:09=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
 >
-> [...]
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [High] Incorrect byte-swapping logic completely scrambles the extractio=
+n of Audio Clock Regeneration (ACR) CTS and N values, breaking sample rate =
+recovery on little-endian architectures.
+> - [High] The `audio_work` delayed work is not explicitly cancelled in `hd=
+mirx_remove()`, leading to a Use-After-Free if the driver is unbound while =
+an audio stream is active.
+> --
 >
-> > +	vreg_es8316_3v3: regulator-es8316-3v3 {
-> > +		compatible = "regulator-fixed";
+> --- Patch [2]: [PATCH v3 2/4] media: synopsys: hdmirx: add HDMI audio cap=
+ture support ---
+> commit b04bcd22f40b424aac824100715c46f764531875
+> Author: Igor Paunovic <royalnet026@gmail.com>
+>
+> media: synopsys: hdmirx: add HDMI audio capture support
+>
+> The Synopsys DesignWare HDMI RX controller extracts the audio stream
+> embedded in the incoming HDMI signal and feeds it to an on-SoC I2S
+> controller. Expose it as an ALSA capture device by registering the
+> generic hdmi-codec as a child of the controller.
+>
+> > diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/dri=
+vers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> > index 25f8ca0d6d946..22f50cbf3fa7a 100644
+> > --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> > +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+>
+> [ ... ]
+>
+> > +/* Recover the incoming audio sample rate from the ACR N/CTS + TMDS cl=
+ock. */
+> > +static u32 hdmirx_audio_fs(struct snps_hdmirx_dev *hdmirx_dev)
+> > +{
+> > +     u64 tmds_clk, fs_audio =3D 0;
+> > +     u32 acr_cts, acr_n, tmdsqpclk_freq;
+> > +     u32 acr_pb3_0, acr_pb7_4;
 > > +
-> > +		regulator-name = "vreg_es8316_3v3";
-> > +		regulator-min-microvolt = <3300000>;
-> > +		regulator-max-microvolt = <3300000>;
+> > +     tmdsqpclk_freq =3D hdmirx_readl(hdmirx_dev, CMU_TMDSQPCLK_FREQ);
+> > +     hdmirx_readl(hdmirx_dev, PKTDEC_ACR_PH2_1);
+> > +     acr_pb3_0 =3D hdmirx_readl(hdmirx_dev, PKTDEC_ACR_PB3_0);
+> > +     acr_pb7_4 =3D hdmirx_readl(hdmirx_dev, PKTDEC_ACR_PB7_4);
+> > +     /*
+> > +      * The packet decoder stores the ACR subpacket bytes with packet =
+byte
+> > +      * 0 in register bits [7:0], so byte-swap each word to line the b=
+ytes
+> > +      * up: CTS is packet bytes 1-3 (PKTDEC_ACR_PB3_0) and N is packet
+> > +      * bytes 4-6 (PKTDEC_ACR_PB7_4), 20 bits each.
+> > +      */
+> > +     acr_cts =3D be32_to_cpu((__force __be32)acr_pb3_0) & 0xfffff;
+> > +     acr_n =3D (be32_to_cpu((__force __be32)acr_pb7_4) & 0x0fffff00) >=
+> 8;
+>
+> [Severity: High]
+> Does this byte-swapping logic scramble the extraction of the CTS and N va=
+lues
+> on little-endian architectures?
+>
+> Since the HDMI ACR packet transmits the 20-bit CTS value across PB0, PB1,=
+ and
+> PB2, and because it is little-endian, applying a bitmask like
+> acr_pb3_0 & 0xfffff natively yields the correct CTS value without any swa=
+ps.
+>
+> By byte-swapping the 32-bit register, the bytes are completely reversed.
+> The subsequent bitmask extracts the lower 20 bits of the swapped word, wh=
+ich
+> correspond to the lower nibble of PB1, all of PB2, and all of PB3, discar=
+ding
+> PB0 entirely.
+>
+> The same applies to acr_pb7_4 to extract N. Will this regression result i=
+n
+> garbage values for both acr_cts and acr_n, forcing the driver to blindly
+> fall back to the default sample rate?
+>
+> [ ... ]
+>
+> > @@ -2784,6 +3052,9 @@ static void hdmirx_remove(struct platform_device =
+*pdev)
+> >       struct device *dev =3D &pdev->dev;
+> >       struct snps_hdmirx_dev *hdmirx_dev =3D dev_get_drvdata(dev);
+> >
+> > +     if (hdmirx_dev->audio_pdev)
+> > +             platform_device_unregister(hdmirx_dev->audio_pdev);
 > > +
-> > +		gpio = <&tlmm 117 GPIO_ACTIVE_HIGH>;
-> > +		enable-active-high;
-> > +
-> > +		pinctrl-0 = <&es8316_power_on>;
-> > +		pinctrl-names = "default";
-> > +
-> > +		regulator-always-on;
-> > +		regulator-boot-on;
 >
-> Does it need to be always-on? Is it really on at boot time?
-
-I think the regulator-always-on constraint is currently required.
-GPIO117 controls the power switch for the ES8316, but the existing
-ES8316 binding and driver do not model regulator supplies.
-
-GPIO117 is not kept asserted before Linux takes over,
-so I will drop regulator-boot-on.
-
+> [Severity: High]
+> Can this lead to a use-after-free if the driver is unbound while an audio
+> stream is active?
 >
-> [...]
+> The v3 changelog notes that the synchronous cancel for the audio_work
+> delayed work was removed here under the assumption that audio_shutdown()
+> handles it.
 >
-> > +	mi2s-playback-dai-link {
+> However, ALSA does not synchronously invoke the PCM .shutdown callback
+> when a device is unregistered if a userspace application holds the file
+> descriptor open.
 >
-> mi2s-'c'apture < mi2s-'p'layback
-
-Got it. I will move mi2s-capture-dai-link before mi2s-playback-dai-link
-in the next revision.
-
+> Because hdmirx_dev is allocated using devm_kzalloc, it is freed immediate=
+ly
+> after hdmirx_remove() returns. Will the un-cancelled audio_work delayed w=
+ork
+> subsequently fire and access the freed hdmirx_dev memory?
 >
-> Konrad
-
-Best regards,
-Hongyang
+> >       v4l2_debugfs_if_free(hdmirx_dev->infoframes);
+> >       debugfs_remove_recursive(hdmirx_dev->debugfs_dir);
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260718085728.67=
+97-1-royalnet026@gmail.com?part=3D2
