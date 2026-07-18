@@ -1,148 +1,198 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99FF633D6F9
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 08:57:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B2F41DD0EF
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 09:01:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784365076; cv=none; b=Z/QVWrkeH32W+OHWeFEE5m4NBSQCjvn944ZQrKyq2jvh36zAd4hjdtlEKiJGvQ3uwuXbzgCp44tA4FhZkzJp9doWrGfR/4LTgweDStdMgKsfWGN0R+68D2k2RERf/nnX1gs7gb9MQ0HO/FZkvXExAymRVLcvQxjb/Um+RLlq95Y=
+	t=1784365275; cv=none; b=U8osG0r8LeCt49CXX+HhTVFpQXfSWAsgxSKAVBPvHFKujX05mgC/Mov/kh+mC04oeb2JSakK5aFXoC8HqMf2/inEy3RFuxYJhj1jvWmTlIoC7JcNlZs4AQnZsTXx+Kvaz5YQBt/Af4b4iJKqWRWiG9SbdycHZ2gafXH7iUEV2P8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784365076; c=relaxed/simple;
-	bh=tizS5g0h70SzokJT7ulA6Z1Qe+e6ZmlUwrpJqQZsAiA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X9WoX/dL2bZQUurUVwRgE7XZvMXv6VdxByK3E8J8mhSNbOYQc2G2hLv3OsUaSKHeExAEQLjMweGWggKTAb0vV3M757UJZdIoMCs/gQeq7ecaYg8vwZ6XLQ5h55M9NmdlVvQzqbGvqmslQxquD7K1PP8RaGRKXFGqlUhxYpOnbXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bPGJMfXH; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784365275; c=relaxed/simple;
+	bh=rMBptVlMqvlXGwz4iLjFkvz1xuVGPZHE32iZRcnNW0U=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=M9o4O2xxQI8NemFBR9UKHRDvKuQEucRXbMq9L5dFEXfXSfQfPwSxYM6mw12jEQQd/+ccxHPF/ZGyS66b/YQhUiW2o9xxnIMm/kTgqHQ6E6TQR7fwEXBT+O1cy0iN2+4+4AP39iTpc1w5s9NW94wdyG645PXk3V0E742XQYk8eBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ao8KBOlm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bPGJMfXH"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-495522bc0e2so272175e9.2
-        for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 01:57:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784365069; x=1784969869; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OkAddxCtIZjvbuQcdVYEMV492MXwwpyu35XKLgJr4rw=;
-        b=bPGJMfXHeDy9xisKFzTaiYeCLN2keI7S37xUaolhVDOkoWTRr6ECxNncheVTfHSgc1
-         wVgxJJZ7cT5gqtMILcda/olZqOgu8dlq+NxcKb0p4XAxcKr2Aw6MKFUUdrsJHnGss8AF
-         8clSKjO92BWxMRXYCpugj0SEJhdHpUi9oMZ4MvBL+eDKxZmUXVwyO7WaM/sjfDzelj6j
-         VOwAt+p2PB/a2rUGLzhF+sWaFaCR21yHcUitIU3mKAddJ/EORl+StzmHav93WcXF2RSe
-         QJ5aml6SNjn+DpOk9WavoJtdvtA3zDWiqlU9svkZm5DVTRGzeYtCxLILZ5QIN4qhVvFR
-         bjAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784365069; x=1784969869;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OkAddxCtIZjvbuQcdVYEMV492MXwwpyu35XKLgJr4rw=;
-        b=PJC/DZPs0uX/be9mMDJNJJGOYLntBrLIhK8WoDbr5xi1XXGIF1PKDaoIX9KyQDAbcJ
-         lnBkdB+mzL572ZvkWmEG7T+wZL8kcjJBLnEP4r41bwblhoSOxrVz8gcKK33ybnvXQAkJ
-         Cdn3pbiG2aT9c9kyDgKaVfqtPtgdySvbc7yfjie6uEQz007DQ00HfZj9YLhI4tTzlAya
-         p/Qgdu/MGRqLeyqrRbk+Xh4uG8lla23mCW+SGM3wZrA7pKKITxfpjlsYqVZ8mj3XaauH
-         HGLreH6iTK2GO1LRwxccMELeBa46hSWyJpk8PI3oK4WnfETwsLETTqrx/R89R/ZjAvLf
-         tN0w==
-X-Forwarded-Encrypted: i=1; AHgh+RoGGeGX74ks1njIXf3vhMT59CPaNIu+T02MD7VcleZfeXap13Pm1PVjxNvY3s3KtuishK0x0iiw7QjX@vger.kernel.org
-X-Gm-Message-State: AOJu0YxZ0XEtNX22/CkRGxPxZYwhNP0dXjRD0u/0jyUsQEtg8T9XLnAn
-	A2Yt+GxNomwiWx2uZzqfpHgQjJGQiv2iMIXcQGzrcT5qmxJ0ufaiPxg5
-X-Gm-Gg: AfdE7cmF35qhcoh9nGo/jEXic/5HqFDVQx87mB5BBvsruxcDMR/Efo8aPD7TRi3Sg2F
-	C+Svq8/PPP9UNDkleR1j3ku7YxQOUY0mm75KrE3CAQklwLr4AOtpwZQ1ssCP/ZHd6vLX3n1BR7N
-	mynK16U0aLWh8R8bCrKxJJth2LjqCJ3ikHp6HgNFSGWLkecNgX8GZuO/20SRe+h82K+rYkqEs8K
-	gBeoRRj/qU9qaOy2B20EmrocHMjGIRmHHB/3JHazMbZIkoEVQ1+eX0kgS2/9QKmHVjILhpRA/lx
-	cScFm87AZdMFDO3JxXo+vdMRn7r4i0xKBv4FBh9/Wjo6gDFnXGeuBjyPxc8v/QpKA1aSXwC7IQw
-	Idv5nyJM6zZuUncgLga37euW6uiEoB8cWPGxNbw+gn6QP7UUSjYyIvRtFcCvINDxBd3g497vs6f
-	bw0cd+uBHV7xqZtKbcVHPRssCeN3rkxPY5AiHviDVdqwMakLlTEPUtgF/8aa6m+U3I/+gA8nMAI
-	Gfcm7CKag==
-X-Received: by 2002:a05:600c:3553:b0:495:4a33:2c34 with SMTP id 5b1f17b1804b1-4954a39955emr39555925e9.0.1784365068868;
-        Sat, 18 Jul 2026 01:57:48 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B8D1600206D23E70680CBAA.dsl.pool.telekom.hu. [2001:4c4e:1b8d:1600:206d:23e7:680:cbaa])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4954834edc3sm91477455e9.0.2026.07.18.01.57.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Jul 2026 01:57:48 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	kernel@collabora.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH v3 4/4] arm64: dts: rockchip: enable HDMI RX audio capture on Orange Pi 5 Plus
-Date: Sat, 18 Jul 2026 10:57:28 +0200
-Message-ID: <20260718085728.6797-5-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260718085728.6797-1-royalnet026@gmail.com>
-References: <20260718085728.6797-1-royalnet026@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ao8KBOlm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B275D1F000E9;
+	Sat, 18 Jul 2026 09:01:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784365273;
+	bh=fayga3POyiV8RI9Mhs4NR268tM/FAqP/w0xKfG2g1ZA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ao8KBOlmYVqjFkL9YSW8l4Yd2YFJZF0Oz9CsCqokZ6t7S4YTbqx568oNCGVIQspiJ
+	 i8iqZAh/pYvzFy/m5Tt/ttPc93Fn71/kkIfeR24s62NvOjhQfRsv96gjaytukVNQMI
+	 TleR1MLiZbk1FnvUmsoDQNU8ZURq5jV7JCdgdu8rxLSNIaGOnBD2fyM/CBrBQNc25z
+	 xX/3WVwDArig2a6eNzjgDicAdTJIPChoa2mD3+deSy7XeOBtLd6g+0xygQHvZ32+If
+	 FtTxAEOmWZaSKr/2QA41XkIzZLF9Tw4n5K0dQ7Tmt3A+Ae7oHXPOML/NNaz2gQm4hZ
+	 fpSokCJqJT6jA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v9 05/12] net: phylink: support late PCS
+ provider attach
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260717065448.1498335-6-ansuelsmth@gmail.com>
+References: <20260717065448.1498335-1-ansuelsmth@gmail.com>
+ <20260717065448.1498335-6-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 18 Jul 2026 09:01:13 +0000
+Message-Id: <20260718090113.B275D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Route the HDMI receiver audio to i2s7_8ch, the receive-only I2S
-interface dedicated to HDMI RX, through a simple-audio-card with the
-receiver as bitclock and frame master. Together with the audio
-capture support in the snps_hdmirx driver this exposes a capture-only
-ALSA card fed by the HDMI input.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [Critical] Missing PCS removal notification leads to Use-After-Free when =
+a PCS module is unloaded.
+- [High] A TOCTOU race condition in `phylink_create()` can cause a newly ad=
+ded PCS provider to be permanently missed.
+- [High] Unconditional `list_add()` in `pcs_provider_notify()` causes doubl=
+y-linked list corruption during concurrent additions.
+- [High] Late PCS attachment fails for multi-port devices (e.g., DSA switch=
+es) due to incorrect fwnode lookup.
+- [Medium] Synchronous acquisition of `rtnl_lock()` in the blocking notifie=
+r chain introduces a fragile self-deadlock risk.
+--
 
-Tested on the Orange Pi 5 Plus with multiple HDMI sources: capture
-follows the source sample rate and stays in sync via the FIFO-level
-clock tracking in the driver.
+--- Patch [5]: [PATCH net-next v9 05/12] net: phylink: support late PCS pro=
+vider attach ---
+commit 0738f7b893f648f2683558ff4efb6327359c5920
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
----
-New in v3.
+net: phylink: support late PCS provider attach
 
- .../dts/rockchip/rk3588-orangepi-5-plus.dts   | 20 +++++++++++++++++++
- 1 file changed, 20 insertions(+)
+Add support for late PCS provider attachment to a phylink instance.
+This works by creating a global notifier for the PCS provider and
+making each phylink instance that makes use of fwnode subscribe to
+this notifier.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-index 9950d11..d5840e1 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-@@ -37,6 +37,22 @@
- 		};
- 	};
- 
-+	hdmiin-sound {
-+		compatible = "simple-audio-card";
-+		simple-audio-card,name = "rockchip,hdmiin";
-+		simple-audio-card,format = "i2s";
-+		simple-audio-card,bitclock-master = <&hdmiin_codec>;
-+		simple-audio-card,frame-master = <&hdmiin_codec>;
-+
-+		simple-audio-card,cpu {
-+			sound-dai = <&i2s7_8ch>;
-+		};
-+
-+		hdmiin_codec: simple-audio-card,codec {
-+			sound-dai = <&hdmi_receiver 0>;
-+		};
-+	};
-+
- 	ir-receiver {
- 		compatible = "gpio-ir-receiver";
- 		gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_LOW>;
-@@ -247,6 +263,10 @@
- 	status = "okay";
- };
- 
-+&i2s7_8ch {
-+	status = "okay";
-+};
-+
- &led_blue_gpio {
- 	gpios = <&gpio3 RK_PA6 GPIO_ACTIVE_HIGH>;
- 	status = "okay";
--- 
-2.53.0
+[ ... ]
 
+> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+> index 986e0c1e3d678..1d83b31874fb2 100644
+> --- a/drivers/net/phy/phylink.c
+> +++ b/drivers/net/phy/phylink.c
+
+[ ... ]
+
+> @@ -1999,6 +2001,53 @@ static int phylink_fill_available_pcs(struct phyli=
+nk *pl,
+>  	return ret;
+>  }
+> =20
+> +static int pcs_provider_notify(struct notifier_block *self,
+> +			       unsigned long val, void *data)
+> +{
+> +	struct phylink *pl =3D container_of(self, struct phylink, fwnode_pcs_nb=
+);
+> +	struct fwnode_handle *pcs_fwnode =3D data;
+> +	struct phylink_pcs *pcs;
+> +
+> +	rtnl_lock();
+
+[Severity: Medium]
+Does unconditional acquisition of rtnl_lock() here risk a deadlock?
+
+If a network driver registers a PCS provider from a context that already
+holds rtnl_lock() (which is common in network driver probe or open paths),
+wouldn't the synchronous notifier callback attempt to recursively acquire
+the lock and hang the system?
+
+> +
+> +	/* Check if the just added PCS provider is
+> +	 * in the phylink instance pcs-handle property.
+> +	 */
+> +	pcs =3D fwnode_phylink_pcs_get_from_fwnode(dev_fwnode(pl->config->dev),
+> +						 pcs_fwnode);
+
+[Severity: High]
+Will this lookup fail for multi-port devices like DSA switches?
+
+It seems to fetch the fwnode from the parent device (pl->config->dev) rather
+than the port-specific fwnode passed during phylink creation. If the
+pcs-handle property is in the port's subnode, will this return an error and
+silently abort the late attachment?
+
+> +	if (IS_ERR(pcs)) {
+> +		rtnl_unlock();
+> +		return NOTIFY_DONE;
+> +	}
+> +
+> +	/* Add the PCS */
+> +	mutex_lock(&pl->state_mutex);
+> +
+> +	/* Link PCS with phylink */
+> +	list_add(&pcs->list, &pl->pcs_list);
+
+[Severity: High]
+Could this corrupt the doubly-linked list if the PCS is already present?
+
+If a PCS provider is added concurrently, it might already be picked up by
+phylink_fill_available_pcs() and then passed to this notifier. Calling
+list_add() unconditionally on a node already in the list overwrites its
+pointers and causes list corruption.
+
+> +	pcs->phylink =3D pl;
+> +
+
+[ ... ]
+
+> @@ -2116,6 +2165,12 @@ struct phylink *phylink_create(struct phylink_conf=
+ig *config,
+>  	if (ret < 0)
+>  		goto unlink_pcs_list;
+> =20
+> +	/* Register notifier for late PCS attach */
+> +	if (!phy_interface_empty(config->pcs_interfaces)) {
+> +		pl->fwnode_pcs_nb.notifier_call =3D pcs_provider_notify;
+> +		register_fwnode_pcs_notifier(&pl->fwnode_pcs_nb);
+> +	}
+
+[Severity: High]
+Is there a race condition between fetching available PCS providers and
+registering this notifier?
+
+In phylink_create(), the list of available PCS providers is fetched earlier
+via phylink_fill_available_pcs(). If a PCS provider calls
+fwnode_pcs_add_provider() exactly after the list is fetched but before
+register_fwnode_pcs_notifier() is called here, wouldn't the provider be
+permanently missed since it wasn't in the global list initially and the
+notification was missed?
+
+>  	return pl;
+> =20
+>  unlink_pcs_list:
+
+[ ... ]
+
+> diff --git a/include/linux/pcs/pcs.h b/include/linux/pcs/pcs.h
+> index b7cfdd680b2ab..45e8f96662db2 100644
+> --- a/include/linux/pcs/pcs.h
+> +++ b/include/linux/pcs/pcs.h
+> @@ -4,7 +4,36 @@
+> =20
+>  #include <linux/phylink.h>
+> =20
+> +enum fwnode_pcs_notify_event {
+> +	FWNODE_PCS_PROVIDER_ADD,
+> +};
+
+[Severity: Critical]
+Does the lack of a removal notification event create a use-after-free risk?
+
+If a PCS provider module is unloaded, fwnode_pcs_del_provider() is called to
+free internal state, but phylink is never notified because there is no
+FWNODE_PCS_PROVIDER_DEL event.
+
+Won't the freed pointer remain linked in pl->pcs_list and be dereferenced
+during the next phylink_resolve() run triggered by a timer or link state
+change?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717065448.1498=
+335-1-ansuelsmth@gmail.com?part=3D5
