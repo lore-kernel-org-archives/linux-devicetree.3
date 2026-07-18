@@ -1,179 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7CE62931C6;
-	Sat, 18 Jul 2026 21:52:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 147FC379EDF
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 21:56:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784411560; cv=none; b=sP9JAHdRdOs0GhQnhxYyA64zpX/E9r+QJnqqwD+bxUX0cEcamAgsZUqrBZpWoop3WHmLN478CZXIYTPGUAMC8bnZHm4kLKGl9hJzjfiEcKmnqXypFVTlmTNioJfKsXiOE6q6x3c86WA3ykFdF2RKr02BUYcmeSzk279ppz7+kgE=
+	t=1784411815; cv=none; b=QyzTC1EPD4U4tfDAoPw1oCWYGUz1l81NqBXZ83sJMKCWCpYUsV4RZm0mbO/kZt2dCCVFkVv+1gjUzIq+oRk0lWkVV+H6dXzye6kFtNF+eC3OK4YepL3RC1qZ/aH8sXBex0uKAVM9f67matMzcgxIrQ7UCGLMXvYCH3ORu9e5P4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784411560; c=relaxed/simple;
-	bh=jE4vEmWhqDfDnAyeKBZeUXueuYyuLFzU0M2qXfPhGvk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oCEX0WkrOox8df1xMvM1Z/FgeyuWG7j31ldgR6cC+FN6EiIOVgsdaP8W4erB2/EQP+m9VylhvrYys903hwQ3e/7fJaoiba/j42CGfj0kbcKeRBXWuy186NnuoB6poxQuQ3d1guBqLoE6RodgTNg+A8Xj7gekhLZQS/hO8N2PiQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YujYHtOC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784411815; c=relaxed/simple;
+	bh=rzwO6KWzTXHWycRBHAGWS0dbS7KaZgmt4k1yCVLlY8Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SO0JWc48ZDRUevr+CBEssO+pzAKMNl5wQGazZ1UpWaA71PbYFSnfr0O8gCrl0lYWmQhdarHybD1Yeosc10vN9acL6+FQ6dFbN2E0KmLsIULOOVvFrWwxI7MBwdtoc6MmQLE76+m9D74q740vTNzu2fXMBjtQlUwSMKDo5fizGy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=frgKMBK3; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YujYHtOC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BE551F00A3A;
-	Sat, 18 Jul 2026 21:52:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784411558;
-	bh=lp4SazQGY6OnqYiO++L8vIaDIiazS2LuP5GWhLWSCMc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YujYHtOCxmRpOy8QFdqyFHsHAqxxlf28YDSXfl9MxaEplTnF0B6gtkTYIAuBq1FbM
-	 magGl0O1n+BUZIGJt2mnULkceBBK5F+vsBRrdiEHwuo+PhnOTSBbiDLN59gQggmcaI
-	 WMln4vOzTRxYXUQUXrYuITr62ue4nD5XhdlUlVRh97MbLNpp/bDImJ8vKYH8yyh0cw
-	 Clq1PI9k+1E0Mmf9aC6J/QtZYTNXt9LkyN1OcYUHBrxRvlqWNRZdPfkNMzCz0CDIuJ
-	 ftPddR0Str88YU3aWExUkubvTJT5SDT/PuhSMNd6xJecIvcQuppktVyNVd26HliIxZ
-	 FwsCjnsIx2U9w==
-Date: Sat, 18 Jul 2026 16:52:34 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Taniya Das <taniya.das@oss.qualcomm.com>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v9 0/7] clk: qcom: Add common clkref support and migrate
- Glymur and Mahua
-Message-ID: <alv1Q0ZmGVdUTGCu@baldur>
-References: <20260713-tcsr_qref_0714-v9-0-373670ab15f9@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="frgKMBK3"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-493c19bad03so66110905e9.2
+        for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 14:56:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784411812; x=1785016612; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9u5KL9RtfMSzVJ4pDX8HPR4lAEE6w6qofkrh2nVYcFI=;
+        b=frgKMBK3F4/h1Xe7+pQ0UdV4lS7KT3WDlcQMBN6ugZkmgXdqpk5wDnKbvPPIPW4G7d
+         7SBxDX3vKRtfAOY2/nY4zMPivGZY/gH8KJXXKhbLfS5JvSH9873IyCGUrP6Q9JF63L6e
+         CTHpIDgmls57LzMRRlhd5PyU9oyke4PiDBWcoW7+kyqbujLiO5r+UBtynViMdTlTlmgd
+         X1QtZCefvnQRKhrZyD8YKCsp7veCHbxlecqC4D4/z6ERxkmT/0gAlzJ3LAWITE3a6lOZ
+         k4fVRvY5qspALLAQnGrMSjBnA0Lhk9GBr9ndCqs+3h3EPsJDDf8KfP7Fk4/VPm8zmHyv
+         LHcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784411812; x=1785016612;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9u5KL9RtfMSzVJ4pDX8HPR4lAEE6w6qofkrh2nVYcFI=;
+        b=KiUxti+yR4lbIYDDgsAp0AISXl1D5J79YHo/jDzO6AfHMpTEnL3Z2leOguQSAXpnfC
+         iXudJjWf6Dtxcu7tM01NjYJutezW2oiVjjoMbqkk0fg8e4/Yid67/MwjUonBVKdbiMbL
+         73YIfv7dnoAEOUIPKvJaxaDhWccKxmh6XMCglmEMyQbBnyCHSd936e0UysR4LiUQ24rt
+         Pu8KWMNKYsUKYeKFWZ68JNYscseUO9Nx81UERb53uaO8BXH8qfO4iQSw3YAFw8QCI8PF
+         rV9gzzIlUiKGaSU0rgMFX+4SvtlwQd3b1+vcNnJu5qxgFoeA+lzC8xWvres9Zv2OwKWm
+         77nA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro+b2iC4viZho4bQndp8MoKyOHO7nYShj6uz0SV4rd+4N2AFJR77OQM1mXhDHUBijlN9C9rq44DC4fD@vger.kernel.org
+X-Gm-Message-State: AOJu0YzC0OWb20yelhqGxikZRubzLC9VozCrFx5BGuTawmlDYoajvSX7
+	B8AWrpGEy9fgQq/fhlpGETkBuMvP1ORqqn7A+A+iYQLdlPBw2gexv5F8
+X-Gm-Gg: AfdE7cmA61jtNEvU3L9IC8Mqu0AuT0egIo5+rpKGjflYPGKIoiWn0ZyDCiU8aYx6SW1
+	pIqIq2gTXI7wmQjaVHgquCw9Sneqs5TssHoG4xhfM6g0KVW/0LMKsDiJC8UtJAn/cwAqP+koLaU
+	FeRn05MhaC2xa0HVOOVsTv6yDJYrU9Zp4Q8Qpu+sjWp20+bXWF84xgHpxXmu0Gv5o0E16OEf6Ba
+	jsGxN4q90txZ8SPOeVspxFnpTOG5R1qcMfkGciaUv+eMqzTJIFOT5xGl07/yIC9gfbXU/FOntFg
+	sUvOQyk5EHtbPN2FeSdunX9z4LPnfnh7Xe94IzFJgSjociswB6XLEgJACFBGoYd0fN/Dt038eiq
+	N5FryPFtqhLrZdzzmHf01T/Bx1nHidcqH8zaBTVZbRblK6zyaWFAmbH412tnWrDZKIXRkoOY4+F
+	wQGmOjCKkLRMY+1M48pPqqCNNauEI7jDlQsAV+AtTFKuMp
+X-Received: by 2002:a05:600c:3b1b:b0:495:443b:1bbb with SMTP id 5b1f17b1804b1-4954a50c473mr78247845e9.25.1784411812179;
+        Sat, 18 Jul 2026 14:56:52 -0700 (PDT)
+Received: from localhost.localdomain ([188.26.50.240])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4954c0a81f7sm101199835e9.1.2026.07.18.14.56.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 18 Jul 2026 14:56:51 -0700 (PDT)
+From: Eduard Bostina <egbostina@gmail.com>
+To: Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Thompson <danielt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	Eduard Bostina <egbostina@gmail.com>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-leds@vger.kernel.org,
+	linux-omap@vger.kernel.org,
+	Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Roger Quadros <rogerq@kernel.org>,
+	Tony Lindgren <tony@atomide.com>
+Cc: daniel.baluta@nxp.com,
+	simona.toaca@nxp.com,
+	goledhruva@gmail.com,
+	m-chawdhry@ti.com
+Subject: [PATCH v2 0/3] dt-bindings: Convert TI TPS65217 to DT schema
+Date: Sat, 18 Jul 2026 21:56:29 +0000
+Message-ID: <20260718215632.3295049-1-egbostina@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260713-tcsr_qref_0714-v9-0-373670ab15f9@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 13, 2026 at 09:59:35PM -0700, Qiang Yu wrote:
-> This series adds a common clkref_en implementation and converts glymur
-> and mahua to use it, along with the related binding and DTS updates.
-> 
-> The PCIe clkref clocks on Glymur and Mahua gate the QREF block which
-> provides reference clocks to the PCIe PHYs. QREF requires LDO supplies
-> and a reference voltage from the refgen block to operate. The refgen
-> block itself requires vdda-refgen_0p9 and vdda-refgen_1p2 LDOs to
-> function.
-> 
-> Previously, these QREF votes were done in PHY drivers. In earlier
-> discussion [1], the feedback was that this is the wrong ownership point:
-> those supplies are for the QREF controlled by clkref registers, not for
-> the PHY directly. Based on that feedback, this series keeps the
-> regulator handling with the clkref control path.
-> 
-> Another reason for this series is reuse. clkref_en registers may live in
-> different blocks across platforms (for example TCSR on Glymur, TLMM on
-> SM8750 [2]), while the behavior is the same. The common helper lets each
-> driver provide simple descriptors (name, offset, optional supplies) and
-> reuse shared registration and runtime logic.
-> 
-> Glymur and Mahua share the same QREF TX/RPT/RX component naming but
-> have different PCIe QREF topologies. Both are handled in tcsrcc-glymur.c
-> via match_data to select the correct descriptor table per compatible.
-> 
-> [1] https://lore.kernel.org/lkml/aEBfV2M-ZqDF7aRz@hovoldconsulting.com/
-> [2] https://lore.kernel.org/linux-arm-msm/20260202-topic-8750_tcsr-v1-0-cd7e6648c64f@oss.qualcomm.com/
-> 
-> Changes in v9:
->   - Add reviewed-by tags, no code change.
->   - Link to v8: https://lore.kernel.org/all/20260708-tcsr_qref_0708-v8-0-62c42b5fa269@oss.qualcomm.com/
-> 
-> Changes in v8:
->   - Define refs with __counted_by(num_refs) and make provider a single allocation
->   - Use mahua_tcsr_tx1_rpt012_rx2_regulators for PCIe6.
->   - Link to v7: https://lore.kernel.org/all/20260702-tcsr_qref_0702-v7-0-776f2811b7af@oss.qualcomm.com/
-> 
-> Changes in v7:
->   - Define compatible as an enum and add the per-compatible allOf/if/then block upfront for glymur. Reword commit msg for patch1
->   - Drop Krzysztof's Reviewed-by since the patch changed substantially from what he reviewed.
->   - Added a comment noting that on Mahua the REFGEN4 block is supplied by the vdda-refgen3-* regulators, and mentioned this in the commit message for patch2.
->   - Change the descriptor array to an array of pointers (const struct qcom_clk_ref_desc * const *). Skip unpopulated indices with if (!desc)
->   - Convert tcsr_cc_glymur_clk_descs[] and tcsr_cc_mahua_clk_descs[] to a pointer array.
->   - Add regulator lists for clkref_en on Mahua.
->   - Null-check device_get_match_data() result in probe.
->   - Add rx0 regulator in mahua tcsr node
->   - Squashed the former patch 8 (switch pcie5_phy ref clock to RPMH_CXO_CLK) into patch7, so Mahua PCIe probes at every commit.
->  - Link to v6: https://lore.kernel.org/all/20260621-tcsr_qref_0622-v6-0-c939c22ded0c@oss.qualcomm.com/
-> 
-> Changes in v6:
-> - Split dt-bindings patch into two: one to move glymur-tcsr to its own
->   binding file, and one to add mahua support
-> - Use regmap_set_bits()/regmap_clear_bits() instead of regmap_update_bits()
->   in clk-ref.c
-> - Move clk_init_data from struct qcom_clk_ref to a stack variable in
->   qcom_clk_ref_register()
-> - Add Co-developed-by/Reviewed-by tags from Konrad Dybcio
-> - Add missing regulator supplies for EDP and USB clkref_en on glymur
-> - Link to v5: https://patch.msgid.link/20260602-tcsr_qref_0527-v5-0-8ea174a59d7e@oss.qualcomm.com
-> 
-> Changes in v5:
-> - Return 0 if regmap_read fail
-> - Add a separate file for glymur-tcsr and mahua-tcsr
-> - Link to v4: https://patch.msgid.link/20260527-tcsr_qref_0527-v4-0-ded83866c9d9@oss.qualcomm.com
-> 
-> Changes in v4:
-> - Add mahua QREF support (binding, driver, DTS) to avoid dtb check error
-> - Override pcie5_phy ref clock to RPMH_CXO_CLK on mahua since
->   TCSR_PCIE_1_CLKREF_EN is not available
-> - Rename regulator arrays to topology-based names and merge duplicates
-> - Remove else: false blocks from binding
-> - Sort supply properties alphabetically in binding and DTS
-> - Link to v3: https://lore.kernel.org/all/20260506-qref_vote_0506-v3-0-5ab71d2e6f16@oss.qualcomm.com/
-> 
-> Changes in v3:
-> - Fix dtb check error: allOf:0: 'then' is a dependency of 'if'.
-> - Link to v2: https://lore.kernel.org/all/20260420-vote_qref_in_tcsrcc-v2-0-589a23ae640a@oss.qualcomm.com/
-> 
-> Changes in v2:
-> - RFC tag dropped
-> - Changed back to additionalProperties: false
-> - Moved all Glymur supply properties into top-level properties so they are explicitly defined.
-> - Link to v1: https://lore.kernel.org/all/20260331-qref_vote-v1-0-3fd7fbf87864@oss.qualcomm.com/
-> 
-> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
-> ---
-> Qiang Yu (7):
->       dt-bindings: clock: qcom: Move glymur TCSR to own binding
->       dt-bindings: clock: qcom,glymur-tcsr: Add mahua support
->       clk: qcom: Add generic clkref_en support
->       clk: qcom: tcsrcc-glymur: Add regulator supplies and migrate to clk_ref helper
->       clk: qcom: tcsrcc-glymur: Add Mahua QREF regulator support
->       arm64: dts: qcom: glymur: Add QREF regulator supplies to TCSR
->       arm64: dts: qcom: mahua: Add QREF regulator supplies to TCSR
-> 
->  .../bindings/clock/qcom,glymur-tcsr.yaml           | 146 +++++++
->  .../bindings/clock/qcom,sm8550-tcsr.yaml           |   2 -
->  arch/arm64/boot/dts/qcom/glymur-crd.dts            |  20 +
->  arch/arm64/boot/dts/qcom/mahua-crd.dts             |  16 +
->  arch/arm64/boot/dts/qcom/mahua.dtsi                |  13 +
->  drivers/clk/qcom/Makefile                          |   1 +
->  drivers/clk/qcom/clk-ref.c                         | 205 +++++++++
->  drivers/clk/qcom/tcsrcc-glymur.c                   | 471 +++++++++++----------
->  include/linux/clk/qcom.h                           |  67 +++
->  9 files changed, 704 insertions(+), 237 deletions(-)
-> ---
-> base-commit: 3da905eb243cad56200f09bb7eaa060537aed0cc
+This series converts the Texas Instruments TPS65217 PMIC bindings to DT
+schema.
 
-I was hoping to apply this series, but I don't have this commit and
-patch 4 ("migrate to clk_ref helper") doesn't apply to my tree.
+Changes in v2:
+- Set 'additionalProperties' to false and documented all child nodes
+  ('regulators', 'charger', 'pwrbutton').
+- Documented the 'interrupts', 'interrupt-controller', '#interrupt-cells'
+  and 'ti,pmic-shutdown-controller' properties.
+- Dropped 'isink-en' from the schema. It is not read by any driver, so it
+  is now removed from am335x-guardian.dts instead.
+- Added the power button conversion and referenced it from
+  the leds schema.
 
-What did you base this on? Why don't you test your changes on latest
-mainline or linux-next?
+Eduard Bostina (3):
+  ARM: dts: ti: am335x-guardian: Drop unused isink-en property
+  dt-bindings: input: Convert TI TPS65217 power button to DT schema
+  dt-bindings: leds: backlight: Convert TPS65217 to DT schema
 
-Please rebase and test on a relevant branch.
+ .../bindings/input/ti,tps65217-pwrbutton.yaml |  42 ++++++
+ .../bindings/input/tps65218-pwrbutton.txt     |  30 -----
+ .../bindings/leds/backlight/ti,tps65217.yaml  | 123 ++++++++++++++++++
+ .../leds/backlight/tps65217-backlight.txt     |  27 ----
+ arch/arm/boot/dts/ti/omap/am335x-guardian.dts |   3 -
+ 5 files changed, 165 insertions(+), 60 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/input/ti,tps65217-pwrbutton.yaml
+ delete mode 100644 Documentation/devicetree/bindings/input/tps65218-pwrbutton.txt
+ create mode 100644 Documentation/devicetree/bindings/leds/backlight/ti,tps65217.yaml
+ delete mode 100644 Documentation/devicetree/bindings/leds/backlight/tps65217-backlight.txt
 
-Regards,
-Bjorn
+-- 
+2.43.0
 
-> change-id: 20260713-tcsr_qref_0714-0ee27bc42a07
-> 
-> Best regards,
-> --  
-> Qiang Yu <qiang.yu@oss.qualcomm.com>
-> 
