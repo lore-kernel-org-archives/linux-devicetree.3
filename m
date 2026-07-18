@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E25370AD6
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 12:15:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF301A5B9E
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 12:16:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784376931; cv=none; b=FSzQD7Cx7A/KuoJNcgBqUB3a7f9iNFz5YSAR76ugZCtqPQpOm4vSV3x2HwaeMtz5VAEzS8ce0aUJXHY+kcMZJnKBccFg7zh78nRGdzgSIWZzU5Qnu5BNM+ClT6dhdG94qOidcNqjgvWIZSpcY/1Ygwpxz1/bUmYKCQ+8te0TqMg=
+	t=1784377010; cv=none; b=lvm4eHJr+onjwdmXLA0tflNCDPSmrK9q57/rsKJX6D+PyFpfsXeFPS8aNOl+osdfS2KYqqKxUT+UayGYjbkElnuofCXtnTDVZqO7+mU/zut9245YXRTztzAO/YMZ2XislCf9c3uxASU+HZXdoxcYiDZpofKMAPTU1sbAEEnsL8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784376931; c=relaxed/simple;
-	bh=4i8mThI/5nJg5BOe4xWE7l8k9lBocxglTgmlsqp/rkY=;
+	s=arc-20240116; t=1784377010; c=relaxed/simple;
+	bh=3QOKPOL+WBjXDEDXQDlFSVG28bbZnUDIVBw+V8bE2Xc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JiMtgtlkXxMIUhAZ5jaOVpGzFEYwXRpf5ZYQVnSWw+axv6fuL9rexUH3JhlYaiiixXMUJmH9gpD4Syhpke2ipmp3S45nEcR20uDZHDo8HeKTykR8a5Wa8mW6tgP9ief/l+YNZX5kTKgAE77fsedX6QlFr60OR1e2XQs8pGunT1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e4OB/gYz; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=qB8kTSRfz/3eghkGMOEfri0GvFCjo25X8RgE81mZoDzNU8onfFN78I/2UaOIX0YpQZADwoR5YIhaFNlEWzLcvyxvuGP9QmfbaQd3zoHiDoi2kNj9Hf0MoaIBpNzFIjHNA0OGhapfiqbCb2DHV/qoYC0uTNxXMk5uR9FEkizn3Tc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y1vQoh16; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e4OB/gYz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B17C21F000E9;
-	Sat, 18 Jul 2026 12:15:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y1vQoh16"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1714C1F000E9;
+	Sat, 18 Jul 2026 12:16:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784376930;
-	bh=azL5l5HDDmz2JjzUCCBBZHl5c1Q8QqnmrtBB3Yb+J2A=;
+	s=k20260515; t=1784377009;
+	bh=q/wbcwWNjfvLyOLoxpg+CVgzZ155Yakr5QriKucJtLw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=e4OB/gYzjQ4XYzj6PZzZ7VVpYWlUQSh+RYYrUzdUqeBeXQznJGgF9t+GPazJJdi2n
-	 mj3/FtC2fPsuuG9QeJ3qG7bxKbTTXKhHgsGZVB8vNVtLIeVoJx0sD1GPGhfJiprpzR
-	 dTDv2XN8B5g+ANZXTERqd4zlsZb2Ss1k2UdvUeN7m6ck/jLz0lxFzfG+SUrOuUlC8M
-	 bb/WLGAw1u1/tMoGD/0TmT+/8LR8+1xXnMGo1i8JygF9i1qjZ8kZag88ymelSm48HU
-	 unUSlVxI7uoAjyJe2c+2BEts2Mk9QtpeEmG5EDRgkZYWT7FMibs4sp4WEWsSB6hH9t
-	 RNCyfjNr9r/wA==
+	b=Y1vQoh16PrFygeqb4R5YR3WX1yVu6yWaPOjOVhHoER36t6pghzR9Rdqcg2TzaKWjF
+	 jrWXmal5owR3Ucf9NSa5GKzq3z8Pl9MBRHTI/ACnhI7523NRc1ghkzMH5txPCtiuv+
+	 8yjcyhmL0pvFCShXRV9WnWM4SdcVZKKyE0SJCdVrLiqPKha97Ex0JGggI6Wa+fBAnN
+	 3GyRXQB8Zkgv1QC5mUA4DDlKveH3oVA5s/uw2akJR3PvugsbvsN6LegI2qoi480w9s
+	 lpdX1rKFImZbgSaS9ss1cNE68r5OUS532Hustea7L5rZYTya7qKP1d/ddMc3rvSf8d
+	 dezcbKV4m1SNw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/5] firmware: qcom: scm: Allow QSEECOM on Kalambo CRD
+Subject: Re: [PATCH 3/5] arm64: dts: qcom: Add Kalambo CRD
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Gopikrishna Garmidi" <gopikrishna.garmidi@oss.qualcomm.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260718-b4-kalambo-crd-v1-4-a1069b5a2757@oss.qualcomm.com>
+In-Reply-To: <20260718-b4-kalambo-crd-v1-3-a1069b5a2757@oss.qualcomm.com>
 References: <20260718-b4-kalambo-crd-v1-0-a1069b5a2757@oss.qualcomm.com>
- <20260718-b4-kalambo-crd-v1-4-a1069b5a2757@oss.qualcomm.com>
+ <20260718-b4-kalambo-crd-v1-3-a1069b5a2757@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 18 Jul 2026 12:15:29 +0000
-Message-Id: <20260718121529.B17C21F000E9@smtp.kernel.org>
+Date: Sat, 18 Jul 2026 12:16:48 +0000
+Message-Id: <20260718121649.1714C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,73 +46,65 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Incorrect error check for irq_create_fwspec_mapping() return value=
- breaks deferred probing and causes permanent probe failure.
+- [Medium] The device tree leaves orphaned nodes for the physically absent =
+PMIC 'D', leading to invalid SPMI device probing and thermal zone registrat=
+ion.
 --
 
---- Patch [4]: [PATCH 4/5] firmware: qcom: scm: Allow QSEECOM on Kalambo CR=
-D ---
-commit 64635e7b37ce27df0438767be7b9b4011a0fa5f6
+--- Patch [3]: [PATCH 3/5] arm64: dts: qcom: Add Kalambo CRD ---
+commit aaa6e566ef6b80e52c726e5cb734189e7e8ad2a3
 Author: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
 
-firmware: qcom: scm: Allow QSEECOM on Kalambo CRD
+arm64: dts: qcom: Add Kalambo CRD
 
-This commit adds the Kalambo CRD board to the QSEECOM allowlist. This
-enables access to efivars on this platform.
+Introduce support for the CRD based on the Qualcomm Kalambo SoC.
+It reuses the common CRD board description and drops the PMIC nodes
+not present on this design.
 
-> diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qco=
-m_scm.c
-> index f35f2ee391304..d1cc6c908daa4 100644
-> --- a/drivers/firmware/qcom/qcom_scm.c
-> +++ b/drivers/firmware/qcom/qcom_scm.c
-> @@ -2327,6 +2327,7 @@ static const struct of_device_id qcom_scm_qseecom_a=
-llowlist[] __maybe_unused =3D {
->  	{ .compatible =3D "microsoft,romulus15", },
->  	{ .compatible =3D "qcom,glymur-crd" },
->  	{ .compatible =3D "qcom,hamoa-iot-evk" },
-> +	{ .compatible =3D "qcom,kalambo-crd" },
+> diff --git a/arch/arm64/boot/dts/qcom/kalambo-crd.dts b/arch/arm64/boot/d=
+ts/qcom/kalambo-crd.dts
+> new file mode 100644
+> index 0000000000000..b4441807f4602
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/kalambo-crd.dts
+> @@ -0,0 +1,21 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include "kalambo.dtsi"
+> +#include "glymur-crd.dtsi"
+> +
+> +/delete-node/ &pmcx0102_d_e0;
+> +/delete-node/ &pmcx0102_d0_thermal;
 
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential problem in
-qcom_scm_probe() related to how the return value of qcom_scm_get_waitq_irq()
-is checked.
+[Severity: Medium]
+Are the deletions for the SPMI bus 1 endpoint and its thermal zone missing
+here?
 
-When qcom_scm probes before the interrupt controller,
-irq_create_fwspec_mapping() fails to find the IRQ domain and returns 0 to
-indicate a failure to map the IRQ.
+This drops the SPMI bus 0 endpoint for PMIC D, but seems to leave the bus 1
+endpoint (&pmcx0102_d_e1) and its thermal zone (&pmcx0102_d1_thermal) activ=
+e.
+Since the PMIC is physically absent, attempting to probe the orphaned bus 1
+device and poll the absent thermal sensor can cause SPMI bus timeouts,
+deferred probes, and log spam from the thermal framework.
 
-drivers/firmware/qcom/qcom_scm.c:qcom_scm_get_waitq_irq() {
-    ...
-    return irq_create_fwspec_mapping(&fwspec);
-}
+Should &pmcx0102_d_e1 and &pmcx0102_d1_thermal also be deleted in this bloc=
+k?
 
-This means qcom_scm_get_waitq_irq() can return 0. However, in qcom_scm_prob=
-e():
-
-drivers/firmware/qcom/qcom_scm.c:qcom_scm_probe() {
-    ...
-	irq =3D qcom_scm_get_waitq_irq(scm);
-	if (irq < 0)
-		irq =3D platform_get_irq_optional(pdev, 0);
-    ...
-}
-
-Should this check be if irq <=3D 0?
-
-By only checking irq < 0, a return value of 0 bypasses the fallback to
-platform_get_irq_optional(). This function would have correctly deferred the
-probe by returning -EPROBE_DEFER.
-
-Does this instead cause the driver to attempt to request IRQ 0 via
-devm_request_threaded_irq(), which would fail with -EINVAL and result in a
-permanent probe failure for the qcom_scm driver during boot?
-
->  	{ .compatible =3D "qcom,mahua-crd" },
->  	{ .compatible =3D "qcom,purwa-iot-evk" },
->  	{ .compatible =3D "qcom,sc8180x-primus" },
+> +/delete-node/ &pmh0104_i_e0;
+> +/delete-node/ &pmh0104_i0_thermal;
+> +/delete-node/ &pmh0104_j_e0;
+> +/delete-node/ &pmh0104_j0_thermal;
+> +
+> +/ {
+> +	model =3D "Qualcomm Technologies, Inc. Kalambo CRD";
+> +	compatible =3D "qcom,kalambo-crd", "qcom,kalambo";
+> +};
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260718-b4-kalambo=
--crd-v1-0-a1069b5a2757@oss.qualcomm.com?part=3D4
+-crd-v1-0-a1069b5a2757@oss.qualcomm.com?part=3D3
