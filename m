@@ -1,67 +1,33 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54CB02571C0
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 03:33:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843AA370D68;
+	Sat, 18 Jul 2026 06:47:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784345597; cv=none; b=D+dWx3y1UWRT5N3GFmcTpI38oBhUY9l6mt6UMcpQ0jLok79TxMqNi3PPqPrLrL+E0sFTpbhULfeFasOYhii9LaPSpoCUsKqqZ6mkCn8dFkikErFm+9tLc4IRgfFHPYm29jPNy34AOHicMjbY1qTZFCkwVDrJcv/RRFi05cNqVRg=
+	t=1784357271; cv=none; b=p13lG1bxN3gkB4ooQ8HPJ4xI8AfIN48IhHin93qClDm8/RzofSSn8t+a293OhOYlkMahtowS01KYYHXEhiHQMjVuJW4xU4kMQKlFab3hrBaps2QvycZ/dKsJz5fpTkhUlXf5cCyW191yh0FRjyg0ExC1hkHfPv0Gp5i/zUmKDoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784345597; c=relaxed/simple;
-	bh=kaqjCteR81ythu/pDBmenR0kkU7QwNiyr7zQkyHZO5A=;
+	s=arc-20240116; t=1784357271; c=relaxed/simple;
+	bh=akcl/X3Zh085FbmD24mBaTpgdR39QtgAEEVKgzeoUkM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sixMzGOpyVFFz3ezXSuBQOcZ5ha9ivr1/f1prxkja5P7QKfTPUxqkN4LWINYHWqbYiqJ4CRN4Y4iAF8VnfJ0mpP6PaG4UCNFIj9Pxj0FeQ+oes7bRAv2eHDk5wSmw15Rfqvim9R1rMQP7nqh5FgIphtgTPVFkTMXsmfp8hi/Jps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=x/v2vumU; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 In-Reply-To:Content-Type; b=hFijzROVrdojAFkjZHK/LHQEimoU3W7Snc9/R66Ajdi+JGXZ84TbWBrOYxLj7lK8WD8hX5gt9S0ggPEjniYa9mO1n6Wm04kUFIkKX3akfyhc2862TmgyO8X7pskGb5EPOc2ubj65QyZcY97OUAm++0UAMfvT94T+xCawHNP9bGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ehMEUqy8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="x/v2vumU"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4954c9f380bso6759735e9.0
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 20:33:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784345593; x=1784950393; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0oED1FrZVUrTl2AQuQZdpXVSq6u4FM7QrMIHjereqjI=;
-        b=x/v2vumUECza+CIPo6DFjjOti2B2HT6z+eXDvbYCiQ6XkMANUTU7M+7xW2r6xvqnsL
-         l29RQV9tM7MxPWtqv50lyR56VYsZfcJ91+veCVJLXb8a9He7ZVuELhki/HhmDfoDvdth
-         BzG+CmcR/LkDZyL5aDZJQ6rwympAY5UdZfM0m9BOonYVh5OB+bdzZKhc1UvFK8jDGyXr
-         Wu+w2eOj88PxADuBdpaL1I7By1abKfaECRmQiPQMxzw7QK/e44TOmT4a8SgR6zsT6f83
-         XCYzylbb1/7tUFv8vRq7o/SWCGyHIS9jYWE5s5PKH91XAQ5ga8qnL0umd3taBhnJcbkA
-         F2Zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784345593; x=1784950393;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0oED1FrZVUrTl2AQuQZdpXVSq6u4FM7QrMIHjereqjI=;
-        b=Fk/69Sb4528A3Rcc+tOWS/kMwRrZmN18ihP/x/TAIaCid5X/JvbgmYDCNe1Mq5Mm08
-         Se2cJdXjrjg/NuVQh4Wza94hVkdEPW8wsCnzGh/ZWtFv8WHbzonVj0A4+MuXDCtdq5ew
-         zeUzhwaLNkVAzC6CIPjuyYNNFiZRXIGyB6jnDuyUimqqDO07t/HlwAu8U9768adOtcnt
-         EEA3axGPtjfb7j0jNZ013voDt/puKEQevXitZztuE/0oVYGUO9/enbDYMfKIB0L7YokV
-         mxCBrOd3Wx+QtfgOHuWzEjDTIEjHkZoA9puLvV9hKkbB/mX42gDMwSNO/u1g9RzC902L
-         hBYw==
-X-Forwarded-Encrypted: i=1; AHgh+RpPDQtpXrvEIjJBLVM+s+gmt6dAFjF2v83kQLFwMdDhKuAXLSGz58F5pY46fE1Vpo3OxTaz1JLjiPz7@vger.kernel.org
-X-Gm-Message-State: AOJu0YzAIFGVE55KanQsXGpHdsE+tcr8AGYW+Sxwfxbh36vJ0NQRLB6q
-	yGupFccfyQmxttzjYUbEjPRKtHEM2Xp8Uw24jOc8bj1wcwbMwN5rcQra9e13plSepAw=
-X-Gm-Gg: AfdE7clkem64G6volEITVf4PDbMuQlfBbv3AN+eRKtKR2PLzWvx+AyVfDSn0BVPIEov
-	QpbCPAh980SoPtWqvv3dFMhYSBmLIdA0lyezc3S6bZhetQoIVuTEOscZbzo77TFO7QtTjFuJvc6
-	sty4mLjYuaT0YikVCvSDs0wwkVQmfxTSe2R0KaKQzrX5iZLFl8EfZW2JOKyr4rylwXbFTenyG+0
-	eAOHf7KkDBoGxDYWzRsYrcN1/6/zLnp/tMRMrXMrAqWjoSKrQbHXnGLBreMyO067wwJ8+yj1qsh
-	BUq2ES+ULeCSmJA7Y6QNCr4/bkg1ps0n2p3tafhmjChxpv0Ucj+ZLICuifi0Vy4Nh4pzNQppb+Q
-	haYUMzZHKuFrS69e+Ib9oxpjJaJwVTSN0mMcsa7ezjCOs7eflhqGqiZ+2Ym7ghRKBRtYgc8WW9P
-	a+FD4yaIgZE6xH+0QN0r2yWLc=
-X-Received: by 2002:a05:600c:3512:b0:493:cfe8:5b36 with SMTP id 5b1f17b1804b1-4954a3eec4bmr60734855e9.8.1784345593339;
-        Fri, 17 Jul 2026 20:33:13 -0700 (PDT)
-Received: from [192.168.0.35] ([109.76.77.100])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4954a2e8529sm91284285e9.11.2026.07.17.20.33.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Jul 2026 20:33:12 -0700 (PDT)
-Message-ID: <e8e9c2c8-b0a5-446b-860c-a693f33a03c5@linaro.org>
-Date: Sat, 18 Jul 2026 04:33:11 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ehMEUqy8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36EE21F000E9;
+	Sat, 18 Jul 2026 06:47:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784357268;
+	bh=LZj8jMnhKIozpm0pkDZUugILyxCWNaIvxfhDDunAeb4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ehMEUqy8MlO9snpvIIEKg0b/nTTPQZqWOzvv9mHQvAWLqGwDsIq5yZ4S98P5AuGOL
+	 8yuI7oxYQC7wUejv1c08ffQQmZCPZt/elP4HP56Xe9CmT096G5WENar/Zur7RsFm/s
+	 AatbMqdL1YYbzde7/SXzaX8LRZnuO+F1affnaju4wm0kfN5CCjOU+48jcY8kxaAIbg
+	 vAKASYe5BjlvVW9NqXn6IO+tLgVclM/fEoiyZvS16Q2s19f+bUQD+Bl1rSU6lZDKNq
+	 PZc1XEANv01f9nG7nd6b1eLZZMovW5nSQgBVdEjn0imAjoNDSlmDwN1qmwWqCo189c
+	 9IZdreZT+7O4Q==
+Message-ID: <c05c19e4-e960-4df3-a848-ee451cd3169e@kernel.org>
+Date: Sat, 18 Jul 2026 08:47:42 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,166 +35,91 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-To: sashiko-reviews@lists.linux.dev
-Cc: neil.armstrong@linaro.org, linux-phy@lists.infradead.org,
- olteanv@gmail.com, devicetree@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org, media-ci@linuxtv.org, vkoul@kernel.org
-References: <20260718-x1e-csi2-phy-v10-0-5720a7888953@linaro.org>
- <20260718-x1e-csi2-phy-v10-2-5720a7888953@linaro.org>
- <20260718025109.EED601F000E9@smtp.kernel.org>
+Subject: Re: [PATCH] dt-bindings: sram: Document qcom,shikra-imem compatible
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Komal Bajaj <komal.bajaj@oss.qualcomm.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260430-shikra-imem-binding-v1-1-c6976239f90f@oss.qualcomm.com>
+ <178425854616.1084804.7965648558976512392.b4-ty@kernel.org>
+ <20260717180238.2dysmrp6wanewgmg@hu-mojha-hyd.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <20260718025109.EED601F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260717180238.2dysmrp6wanewgmg@hu-mojha-hyd.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 18/07/2026 03:51, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> - [High] Incorrect translation of logical to physical lanes causes register offset errors and bitwise truncation.
-> - [High] Integer truncation in division leads to potential division-by-zero panic in settle count calculation.
-> - [Low] Hardware version register read does not mask upper bits, potentially corrupting the version struct.
-> --
+On 17/07/2026 20:02, Mukesh Ojha wrote:
+> On Thu, Jul 16, 2026 at 10:23:26PM -0500, Bjorn Andersson wrote:
+>>
+>> On Thu, 30 Apr 2026 18:08:04 +0530, Komal Bajaj wrote:
+>>> Add compatible for Shikra SoC IMEM.
+>>>
+>>>
+>>
+>> Applied, thanks!
+>>
+>> [1/1] dt-bindings: sram: Document qcom,shikra-imem compatible
+>>       commit: 26ead60b1a2722627759dc8c279ed336826bb5e1
+>>
+>>
+>> Please make sure to Cc linux-arm-msm@vger.kernel.org, so changes like this
+>> shows up in my inbox.
 > 
-> --- Patch [2]: [PATCH v10 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver ---
-> commit 3a4ef513bbeefe5185b0f08d343f98883cbe66ca
-> Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> 
-> phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-> 
-> This commit adds a new MIPI CSI2 driver in DPHY mode initially. It supports
-> devices like "qcom,x1e80100-csi2-phy" and imports CAMSS CSI PHY init sequences.
-> 
->> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
->> index 0000000000000..5ac0d041b36b7
->> --- /dev/null
->> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-> 
-> [ ... ]
-> 
->> +static void phy_qcom_mipi_csi2_hw_version_read(struct mipi_csi2phy_device *csi2phy)
->> +{
->> +	const struct mipi_csi2phy_device_regs *regs = csi2phy_dev_to_regs(csi2phy);
->> +	u32 tmp;
->> +
->> +	writel(CSIPHY_3PH_CMN_CSI_COMMON_CTRL6_SHOW_REV_ID, csi2phy->base +
->> +	       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, 6));
->> +
->> +	tmp = readl_relaxed(csi2phy->base +
->> +			    CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(regs->common_regs_offset, 12));
->> +	csi2phy->hw_version = tmp;
-> 
-> [Severity: Low]
-> Is it possible for the hardware register to return garbage or reserved bits in
-> the upper bytes here? Since this first read is assigned directly without
-> masking (e.g., tmp & 0xFF), any upper garbage bits would remain in hw_version
-> and wouldn't be cleared by the subsequent bitwise OR operations.
+> There is a very high chance it can get missed. Is there a better way, like
+> adding sram.yaml to the ARM/QUALCOMM mailing list in the MAINTAINERS file?
 
-This is not credible.
+Sorry, but no. We discussed this on just a few days ago. Exactly this
+case. This should not have been posted separately from DTS, thus problem
+does not exist in practice, if developer follows expected approach.
 
->> +
->> +	tmp = readl_relaxed(csi2phy->base +
->> +			    CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(regs->common_regs_offset, 13));
->> +	csi2phy->hw_version |= (tmp << 8) & 0xFF00;
-> 
-> [ ... ]
-> 
->> +static u8 phy_qcom_mipi_csi2_settle_cnt_calc(s64 link_freq, u32 timer_clk_rate)
->> +{
->> +	u32 t_hs_prepare_max_ps;
->> +	u32 timer_period_ps;
->> +	u32 t_hs_settle_ps;
->> +	u8 settle_cnt;
->> +	u32 ui_ps;
->> +
->> +	if (link_freq <= 0)
->> +		return 0;
->> +
->> +	ui_ps = div_u64(PSEC_PER_SEC, link_freq);
-> 
-> [Severity: High]
-> Does this code silently truncate link_freq?
-> 
-> The div_u64() macro expects a u32 divisor, but link_freq is an s64. This will
-> implicitly truncate the 64-bit link_freq value to 32 bits.
-> 
-> If link_freq happens to be an exact multiple of 2^32, the truncated divisor
-> becomes exactly 0, which would cause a division-by-zero panic. Frequencies
-> exceeding 4.29 GHz would also be silently corrupted.
-> 
-> Could this be updated to use div64_u64() or similar to avoid truncation?
+If developer did not intend to merge it through Bjorn, but as usually
+through DT then everything was fine, list was correct.
 
-This is a pretty outlandish level of defensive coding. Nope, not doing it.
-
-> 
->> +	ui_ps /= 2;
->> +	t_hs_prepare_max_ps = 85000 + 6 * ui_ps;
-> 
-> [ ... ]
-> 
->> +static int phy_qcom_mipi_csi2_lanes_enable(struct mipi_csi2phy_device *csi2phy,
->> +					   struct mipi_csi2phy_stream_cfg *cfg)
->> +{
->> +	const struct mipi_csi2phy_device_regs *regs = csi2phy_dev_to_regs(csi2phy);
->> +	struct mipi_csi2phy_lanes_cfg *lane_cfg = &cfg->lane_cfg;
->> +	u8 settle_cnt;
->> +	u8 val;
->> +	int i;
->> +
->> +	settle_cnt = phy_qcom_mipi_csi2_settle_cnt_calc(cfg->link_freq, csi2phy->timer_clk_rate);
->> +	if (!settle_cnt)
->> +		return -EINVAL;
->> +
->> +	/*
->> +	 * CSI_COMMON_CTRL5 is a physical lane power-up bitmap:
->> +	 * - Bits [0,2,4,6] → D-PHY data lanes(LN0, LN2, LN4, LN6)
->> +	 * - Bits [1,3,5] → C-PHY trio lanes(LN1, LN3, LN5)
->> +	 * - Bit [7] → D-PHY clock lane(LNCK) dedicated clock enable
->> +	 */
->> +	val = BIT(lane_cfg->clk.pos);
->> +	for (i = 0; i < cfg->num_data_lanes; i++)
->> +		val |= BIT(lane_cfg->data[i].pos * 2);
-> 
-> [Severity: High]
-> Can this bitmask overflow the u8 val?
-> 
-> If the device tree uses physical indices (e.g., 4 or 6) for pos, pos * 2
-> becomes 8 or 12. Since val is a u8, using BIT(8) or BIT(12) will overflow
-> and silently truncate to 0, failing to enable the corresponding hardware lane.
-> 
-
-Actually no - the current yaml has a range of data-lanes = <0 1 2 3> => 
-3 * 2 == 6
-
->> +
->> +	writel(val, csi2phy->base +
->> +	       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, 5));
->> +
->> +	/* Lane configuration for polarity @ CSIPHY-base + CTRL9 */
->> +	for (i = 0; i < cfg->num_data_lanes; i++) {
->> +		if (lane_cfg->data[i].pol) {
->> +			u8 pos = lane_cfg->data[i].pos;
->> +
->> +			writel(BIT(2), csi2phy->base + CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(pos));
-> 
-> [Severity: High]
-> Does this correctly map logical to physical lanes?
-> 
-> The CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(pos) macro computes 0x200 * pos + 0x24.
-> However, D-PHY data lane blocks are spaced at offsets 0, 0x400, 0x800, and
-> 0xC00.
-> 
-> If pos is a logical index like 1, this would access offset 0x200 (which is a
-> C-PHY lane) instead of the intended 0x400.
-
-True.
-
-Baby don't be sad, cause 1/4 ain't bad.
-> 
->> +		}
->> +	}
->> +
->> +	if (lane_cfg->clk.pol)
->> +		writel(BIT(2), csi2phy->base + CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(lane_cfg->clk.pos));
-> 
-
+Best regards,
+Krzysztof
