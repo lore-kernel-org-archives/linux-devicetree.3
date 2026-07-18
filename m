@@ -1,218 +1,179 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D6930566E
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 21:39:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7CE62931C6;
+	Sat, 18 Jul 2026 21:52:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784410766; cv=none; b=AzzFMS6/h+5XmG+hTJxRoIKtTqslI42/mp89CWRhdR9c/4EjPfb5jh84Jnu4wJnYs4+ENONwxgTo85BwrEmi+7kkKbqS9Hdrv0CzTzcQwC1qvdLPNeQvCjB6TSmwkTZfOi19ulsUdphg+z/lQuQL2Uq9qjbjYr2MeS3QFHmjxq0=
+	t=1784411560; cv=none; b=sP9JAHdRdOs0GhQnhxYyA64zpX/E9r+QJnqqwD+bxUX0cEcamAgsZUqrBZpWoop3WHmLN478CZXIYTPGUAMC8bnZHm4kLKGl9hJzjfiEcKmnqXypFVTlmTNioJfKsXiOE6q6x3c86WA3ykFdF2RKr02BUYcmeSzk279ppz7+kgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784410766; c=relaxed/simple;
-	bh=St8lrbOXTIb2EDDMh8Gp1CY0mvOIWlWOZZgLTowwB3E=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QKeGLkxDl54JBVngNM4Y+0rTJx1iK1qUmEil5Kj1rRQhUoO/NyHBr0qOtPvsy5GM3sFuLe6TowHoZ8A59g9/pGxrw33Yc+CKn454Yq5qs9atPqXwFeZc7groPnHi8swG5bF5qTfXh56N4ExCWiN139eD+U6SSp6BfLDw7Pg4TRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mJh+m50X; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Yd9VedAX; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784411560; c=relaxed/simple;
+	bh=jE4vEmWhqDfDnAyeKBZeUXueuYyuLFzU0M2qXfPhGvk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oCEX0WkrOox8df1xMvM1Z/FgeyuWG7j31ldgR6cC+FN6EiIOVgsdaP8W4erB2/EQP+m9VylhvrYys903hwQ3e/7fJaoiba/j42CGfj0kbcKeRBXWuy186NnuoB6poxQuQ3d1guBqLoE6RodgTNg+A8Xj7gekhLZQS/hO8N2PiQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YujYHtOC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mJh+m50X";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Yd9VedAX"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66IJrgxC1398445
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 21:39:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jLchW2mZfrswA2WmEJ9iJOe+wGFLOQRWz/g/uapSmbE=; b=mJh+m50XxKib3kbn
-	hvf1mt1rtUkvcdGF6Z88aTRxUvvQDYFn+WkkeCpqm2RKYa/KipjB+szDN9tyXWfC
-	VJTt78LFnTJ0VHv7rk8Yo+TPG8zggDxdCME7mQVsOjBR2Nj28zgaI53X5JfPRlyM
-	XcUCPrnXaxhbmAFI7at8fWneagHdscWef0NknKMdH1R5ter5j+Ougs1U7BPcw67W
-	0cvV80eyonxhTrlb/3Su2zccBXF08kpnO7amcz03najPkimOBEbp2B/Gmoi7WmPn
-	NQNviBYI06+2SQyoeA3Lk2LPafs6KKxyrJGxUYXjN9tRHMvXrPVTA8sH1BrlfMdo
-	heae+A==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2bvsk6h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 21:39:23 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cb6ef75149cso208887a12.1
-        for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 14:39:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784410763; x=1785015563; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jLchW2mZfrswA2WmEJ9iJOe+wGFLOQRWz/g/uapSmbE=;
-        b=Yd9VedAX3Pwc9NQu1wRl6AWt6SKdNYPMkcOU+U4wDZZPYrJpsI0+gKcnsFPvtOCpab
-         xJGGle6G0bxmKvdMD5+Gld3OVTMsbD86amjdP6cdw6pLyhGVqCdSnxGxlUwujCgI2uz4
-         e756OpnHescnIw8vAbuDm0GVHhquYlRXD+qnO6Np1Vb09ZNHoO1uFmr0RVcXdVdfnvwu
-         RRmlUNbDQ5Xu59UaGRRc16iguZ4UEPfj82pYhyz3GkkPw5A25tZ07UnNK/aV2DzdYllu
-         vf/eX9fALGyWgrbMTfcFHht3SjKeYBMEfzfdEuShRT5vFa3pqSJ7lE/VbAmu/64v2/td
-         GiLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784410763; x=1785015563;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jLchW2mZfrswA2WmEJ9iJOe+wGFLOQRWz/g/uapSmbE=;
-        b=kkI1OZUGIIP7Zgyy3Hl6jFkfByYCA2i5Df5R9m4YR9neHZ62jCLpuM9w18gihkFfQs
-         EBjm+PJRsAQmqhpcePVRItLXpZa97DwFqLadaRmaN0IZ0ybKXHorknM4gccA+2uhAae7
-         b7nzoeXotElSj5R71oiNinrAz4SbcpjSqCaRebGA0YCegqwP7dTnpVOq0GO+ytjQOgYE
-         AnNo/MjB2g8e+6qNHJf9107L2tNhuH5hi6DdNi6ndY+F5FmwedOzUXTNqQGi3LxH0mgf
-         fzO3ObsXDke5ij69ObToC0OErm86Uc3TOwXestJJ6hfa4O6Pbr72y1BAkpXvTa9E9kES
-         c0IQ==
-X-Forwarded-Encrypted: i=1; AHgh+RohBrh9yfUWYHesDidbot8RnfUSOdfSTbJdtSO3JMD3M618sMdGKjE0sxJgRwPrl9iHb/HSAgBzQUJ7@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyli7xbE/qaxx5Co4uY2dxwMQN9bfbcuBrOGmZejVrCmzJ8n85M
-	sPUWhz8sX8Y7mXjteRS9YCVc1U0yB+jjfn0mtEL/24FB7Pj9AHpO9X5eq7q8lNLBiQ89q2XObYN
-	yMlmk6x/W/9ZdmyICapuf4bxaqsV1sbI0nhcxnO9auHHaHBtwSJ/cr3iC22qm/Uje
-X-Gm-Gg: AfdE7cnxLtnOTVJRBBFhMHaZLXh54EYc6mU7E+B+gOoTyYbe3266KTYR9a4K1Wa56i3
-	tZIO8tcgf5sfio9R5AEZ8d4A7+LmuWqIG8srLm/kb5UDdM8hYWk0t/ckjB71L1QBFK496j3RjBL
-	vMAfIfpYM+5Lz1OEnnxRby9SAekk9byKIKJCpUpyKwFhhPReUzvQ8uPUXcW4NFSP1/M0AABbJyI
-	mshGEP41a7+hMoufh5zOJTiE5h3YwN8kpEXZ+BcuqYtuKd1zCLZZfkUwyg+0PP2s3uv16uOHZtQ
-	gyqRbRy4ohSgWhDn8QqS5j6WtxTWlYBy+3LskgsZeFg6tZu40rE4JtuQYPcmF7scZ0nLopbMKJX
-	0/M74kitEI3AQClQd
-X-Received: by 2002:a05:6a00:1492:b0:848:2f73:8ffb with SMTP id d2e1a72fcca58-84c29528564mr9028595b3a.68.1784410762908;
-        Sat, 18 Jul 2026 14:39:22 -0700 (PDT)
-X-Received: by 2002:a05:6a00:1492:b0:848:2f73:8ffb with SMTP id d2e1a72fcca58-84c29528564mr9028577b3a.68.1784410762406;
-        Sat, 18 Jul 2026 14:39:22 -0700 (PDT)
-Received: from jic23-huawei ([50.35.46.84])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c2abe3e23sm3252413b3a.0.2026.07.18.14.39.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Jul 2026 14:39:21 -0700 (PDT)
-Date: Sat, 18 Jul 2026 22:39:19 +0100
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-Cc: sashiko-reviews@lists.linux.dev,
-        Marcelo Schmitt
- <marcelo.schmitt@analog.com>, conor+dt@kernel.org,
-        devicetree@vger.kernel.org, robh@kernel.org, linux-iio@vger.kernel.org
-Subject: Re: [PATCH v7 2/4] iio: adc: ltc2378: Add support for LTC2378-20
- and similar ADCs
-Message-ID: <20260718223919.0cf0475e@jic23-huawei>
-In-Reply-To: <alvKfTS8Kj1MF3db@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1784235595.git.marcelo.schmitt@analog.com>
-	<5108c89986ae8723139419058db1b2f2e74daff6.1784235595.git.marcelo.schmitt@analog.com>
-	<20260716212838.95B3F1F000E9@smtp.kernel.org>
-	<alpab2gBs4nPDU5g@debian-BULLSEYE-live-builder-AMD64>
-	<20260718024628.3e2872ca@jic23-huawei>
-	<alvKfTS8Kj1MF3db@debian-BULLSEYE-live-builder-AMD64>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YujYHtOC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BE551F00A3A;
+	Sat, 18 Jul 2026 21:52:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784411558;
+	bh=lp4SazQGY6OnqYiO++L8vIaDIiazS2LuP5GWhLWSCMc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YujYHtOCxmRpOy8QFdqyFHsHAqxxlf28YDSXfl9MxaEplTnF0B6gtkTYIAuBq1FbM
+	 magGl0O1n+BUZIGJt2mnULkceBBK5F+vsBRrdiEHwuo+PhnOTSBbiDLN59gQggmcaI
+	 WMln4vOzTRxYXUQUXrYuITr62ue4nD5XhdlUlVRh97MbLNpp/bDImJ8vKYH8yyh0cw
+	 Clq1PI9k+1E0Mmf9aC6J/QtZYTNXt9LkyN1OcYUHBrxRvlqWNRZdPfkNMzCz0CDIuJ
+	 ftPddR0Str88YU3aWExUkubvTJT5SDT/PuhSMNd6xJecIvcQuppktVyNVd26HliIxZ
+	 FwsCjnsIx2U9w==
+Date: Sat, 18 Jul 2026 16:52:34 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Taniya Das <taniya.das@oss.qualcomm.com>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v9 0/7] clk: qcom: Add common clkref support and migrate
+ Glymur and Mahua
+Message-ID: <alv1Q0ZmGVdUTGCu@baldur>
+References: <20260713-tcsr_qref_0714-v9-0-373670ab15f9@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: bogyjKJkBy7W-HcyFJVSXl1R5Hb316ey
-X-Authority-Analysis: v=2.4 cv=EcH4hvmC c=1 sm=1 tr=0 ts=6a5bf28b cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=qC1CW/w66vtJz1P9yTJxNA==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=pGLkceISAAAA:8 a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8 a=P2-tWYp8ALOPO-qZRlwA:9
- a=CjuIK1q_8ugA:10 a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE4MDIyNyBTYWx0ZWRfX2G/6L2l3Wtma
- IparRwgeKrTrstIelAmAMYv6fOzQEn93DcCMmJ2doCWLLajpK0fSytrhUQHODim/HYg60WOtgEN
- aNlaTeKkykfhc9fBLcT5Zi8uyu2EN+HxJFiBKNlSw60bQsQATSWLre5PUKF42DI3BDf8OaU+L0W
- EdKskoBlY5o/YhrgiOfQ7R9vbF245PwgHTVh5W97xspWJwQ9jfh4lKAMLv5ZE7V/6TY8HecR0M0
- ECJVrBUwIzXVU+4DBn21jk6UUw8RfcmvxX+58J5JDY1IZA+PpxrIKwWTZ/RFwfMbu2oef1YyWGH
- ZO9A2y8V8XeUfRChCjj/m4zqatWN5KcmLwVmP9cMud1XLYOLVdj6U6PqdI53C3hKxJckwyMXDFY
- rMiSAz1nYqKiefGopeIOOYi0uWmvnTE0kamNfkpVIaRGJs2Qh5GAtpACyWOe97hg7CVL4FdIFSo
- mwunm3KBZZodKX0OIEg==
-X-Proofpoint-ORIG-GUID: bogyjKJkBy7W-HcyFJVSXl1R5Hb316ey
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE4MDIyNyBTYWx0ZWRfXxCbQbK+nuK+f
- dgCZw6onkJUPHdJag+XYT/hINggQXbOg5aH6ksU7wU+YzN4PB3h8dC7EDT1z0yjYTmjW5axsqTg
- Jjv1wT+cvN2xMrWbDcEF4aBd5mhrpZs=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-18_06,2026-07-17_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 bulkscore=0 clxscore=1015 impostorscore=0
- phishscore=0 adultscore=0 malwarescore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607180227
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260713-tcsr_qref_0714-v9-0-373670ab15f9@oss.qualcomm.com>
 
-On Sat, 18 Jul 2026 15:48:29 -0300
-Marcelo Schmitt <marcelo.schmitt1@gmail.com> wrote:
-
-> TL;DR: Will switch to voltageY-voltageZ ABI.
+On Mon, Jul 13, 2026 at 09:59:35PM -0700, Qiang Yu wrote:
+> This series adds a common clkref_en implementation and converts glymur
+> and mahua to use it, along with the related binding and DTS updates.
 > 
-> On 07/18, Jonathan Cameron wrote:
-> > On Fri, 17 Jul 2026 13:38:07 -0300
-> > Marcelo Schmitt <marcelo.schmitt1@gmail.com> wrote:
-> >   
-> > > On 07/16, sashiko-bot@kernel.org wrote:  
-> > > > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> > > > - [Medium] The `LTC2378_DIFF_CHANNEL` macro defines an IIO channel that is intended to be differential but lacks the `.differential = 1`, `.indexed = 1`, `.channel = 0`, and `.channel2 = 1` attributes.
-> > > > --
-> > > > 
-> > > > --- Patch [2]: [PATCH v7 2/4] iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs ---
-> > > > commit 5710d5f25b45906977e2522567c1964b1d3219f8
-> > > > Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> > > > 
-> > > > iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs
-> > > > 
-> > > > This commit adds a new driver for the Analog Devices LTC2378-20 and
-> > > > similar analog-to-digital converters.
-> > > >     
-> > > > > diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
-> > > > > new file mode 100644
-> > > > > index 0000000000000..5600c820c7f45
-> > > > > --- /dev/null
-> > > > > +++ b/drivers/iio/adc/ltc2378.c
-> > > > > @@ -0,0 +1,416 @@    
-> > > > [ ... ]    
-> > > > > +#define LTC2378_DIFF_CHANNEL(_sign, _real_bits, _storage_bits)			\
-> > > > > +{										\
-> > > > > +	.type = IIO_VOLTAGE,							\
-> > > > > +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |				\
-> > > > > +			      BIT(IIO_CHAN_INFO_SCALE),				\
-> > > > > +	.scan_index = 0,							\    
-> > > > 
-> > > > [Severity: Medium]
-> > > > Does this macro need to set .differential = 1, .indexed = 1, .channel = 0,
-> > > > and .channel2 = 1? The name suggests these are differential channels, but
-> > > > without these attributes, the IIO ABI will expose them as single-ended
-> > > > (e.g., in_voltage_raw instead of in_voltage0-voltage1_raw).    
-> > > 
-> > > For parts with multiple inputs and configurable differential channels (e.g.
-> > > AD4130-8, MCP3561/2/4R, NAFE13388 [1, 2, 3]), the voltageY-voltageZ ABI helps
-> > > clarifying what physical inputs make up a channel. For differential only parts,
-> > > the ABI seems to be flexible by only requiring a 'consistent labeling' (either
-> > > voltageY or voltageY-voltageZ IIUC). Will set the channel with the differential
-> > > ABI if maintainers believe that's the best way to have it. Might slightly tweak
-> > > the channel macros to keep .differential = 0 for pseudo-differential chips
-> > > (e.g.LTC2369-18).  
-> > 
-> > Whilst I get your point on differential only cases not really requiring the
-> > specification of two inputs, I think that does provide a simple indication
-> > to users that they are differential channel.  
-> Agree. The first ADCs I've worked with were single-ended so having to provide
-> the negative input when working with differential ones was something noticeable
-> to me. Though, one applications engineer once called me out for the
-> voltageY-voltageZ naming arguing that a differential channel provided only one
-> input to his application and thus it should be labeled only 'voltageY' or even
-> just 'voltage'. Despite understanding that argument, I share the opinion 
-> that an indication of differential channel is helpful. Anyways, besides the
-> possibility for application to display channel names differently in user space,
-> I see we now have .read_label so the whole discussion seems pointless.
+> The PCIe clkref clocks on Glymur and Mahua gate the QREF block which
+> provides reference clocks to the PCIe PHYs. QREF requires LDO supplies
+> and a reference voltage from the refgen block to operate. The refgen
+> block itself requires vdda-refgen_0p9 and vdda-refgen_1p2 LDOs to
+> function.
 > 
-> > 
-> > I would prefer that we make them 'look' like differential channels so make up
-> > a suitable number for the negative side.  
+> Previously, these QREF votes were done in PHY drivers. In earlier
+> discussion [1], the feedback was that this is the wrong ownership point:
+> those supplies are for the QREF controlled by clkref registers, not for
+> the PHY directly. Based on that feedback, this series keeps the
+> regulator handling with the clkref control path.
 > 
-> Would it make sense to adjust the ABI doc to encourage the dual numbering for
-> differential channels? So I don't fall the temptation of single index in the
-> future :)
-Yes. That would be good!
-
-Thanks,
-
-Jonathan
-
+> Another reason for this series is reuse. clkref_en registers may live in
+> different blocks across platforms (for example TCSR on Glymur, TLMM on
+> SM8750 [2]), while the behavior is the same. The common helper lets each
+> driver provide simple descriptors (name, offset, optional supplies) and
+> reuse shared registration and runtime logic.
 > 
-> Thanks,
-> Marcelo
+> Glymur and Mahua share the same QREF TX/RPT/RX component naming but
+> have different PCIe QREF topologies. Both are handled in tcsrcc-glymur.c
+> via match_data to select the correct descriptor table per compatible.
 > 
+> [1] https://lore.kernel.org/lkml/aEBfV2M-ZqDF7aRz@hovoldconsulting.com/
+> [2] https://lore.kernel.org/linux-arm-msm/20260202-topic-8750_tcsr-v1-0-cd7e6648c64f@oss.qualcomm.com/
+> 
+> Changes in v9:
+>   - Add reviewed-by tags, no code change.
+>   - Link to v8: https://lore.kernel.org/all/20260708-tcsr_qref_0708-v8-0-62c42b5fa269@oss.qualcomm.com/
+> 
+> Changes in v8:
+>   - Define refs with __counted_by(num_refs) and make provider a single allocation
+>   - Use mahua_tcsr_tx1_rpt012_rx2_regulators for PCIe6.
+>   - Link to v7: https://lore.kernel.org/all/20260702-tcsr_qref_0702-v7-0-776f2811b7af@oss.qualcomm.com/
+> 
+> Changes in v7:
+>   - Define compatible as an enum and add the per-compatible allOf/if/then block upfront for glymur. Reword commit msg for patch1
+>   - Drop Krzysztof's Reviewed-by since the patch changed substantially from what he reviewed.
+>   - Added a comment noting that on Mahua the REFGEN4 block is supplied by the vdda-refgen3-* regulators, and mentioned this in the commit message for patch2.
+>   - Change the descriptor array to an array of pointers (const struct qcom_clk_ref_desc * const *). Skip unpopulated indices with if (!desc)
+>   - Convert tcsr_cc_glymur_clk_descs[] and tcsr_cc_mahua_clk_descs[] to a pointer array.
+>   - Add regulator lists for clkref_en on Mahua.
+>   - Null-check device_get_match_data() result in probe.
+>   - Add rx0 regulator in mahua tcsr node
+>   - Squashed the former patch 8 (switch pcie5_phy ref clock to RPMH_CXO_CLK) into patch7, so Mahua PCIe probes at every commit.
+>  - Link to v6: https://lore.kernel.org/all/20260621-tcsr_qref_0622-v6-0-c939c22ded0c@oss.qualcomm.com/
+> 
+> Changes in v6:
+> - Split dt-bindings patch into two: one to move glymur-tcsr to its own
+>   binding file, and one to add mahua support
+> - Use regmap_set_bits()/regmap_clear_bits() instead of regmap_update_bits()
+>   in clk-ref.c
+> - Move clk_init_data from struct qcom_clk_ref to a stack variable in
+>   qcom_clk_ref_register()
+> - Add Co-developed-by/Reviewed-by tags from Konrad Dybcio
+> - Add missing regulator supplies for EDP and USB clkref_en on glymur
+> - Link to v5: https://patch.msgid.link/20260602-tcsr_qref_0527-v5-0-8ea174a59d7e@oss.qualcomm.com
+> 
+> Changes in v5:
+> - Return 0 if regmap_read fail
+> - Add a separate file for glymur-tcsr and mahua-tcsr
+> - Link to v4: https://patch.msgid.link/20260527-tcsr_qref_0527-v4-0-ded83866c9d9@oss.qualcomm.com
+> 
+> Changes in v4:
+> - Add mahua QREF support (binding, driver, DTS) to avoid dtb check error
+> - Override pcie5_phy ref clock to RPMH_CXO_CLK on mahua since
+>   TCSR_PCIE_1_CLKREF_EN is not available
+> - Rename regulator arrays to topology-based names and merge duplicates
+> - Remove else: false blocks from binding
+> - Sort supply properties alphabetically in binding and DTS
+> - Link to v3: https://lore.kernel.org/all/20260506-qref_vote_0506-v3-0-5ab71d2e6f16@oss.qualcomm.com/
+> 
+> Changes in v3:
+> - Fix dtb check error: allOf:0: 'then' is a dependency of 'if'.
+> - Link to v2: https://lore.kernel.org/all/20260420-vote_qref_in_tcsrcc-v2-0-589a23ae640a@oss.qualcomm.com/
+> 
+> Changes in v2:
+> - RFC tag dropped
+> - Changed back to additionalProperties: false
+> - Moved all Glymur supply properties into top-level properties so they are explicitly defined.
+> - Link to v1: https://lore.kernel.org/all/20260331-qref_vote-v1-0-3fd7fbf87864@oss.qualcomm.com/
+> 
+> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+> ---
+> Qiang Yu (7):
+>       dt-bindings: clock: qcom: Move glymur TCSR to own binding
+>       dt-bindings: clock: qcom,glymur-tcsr: Add mahua support
+>       clk: qcom: Add generic clkref_en support
+>       clk: qcom: tcsrcc-glymur: Add regulator supplies and migrate to clk_ref helper
+>       clk: qcom: tcsrcc-glymur: Add Mahua QREF regulator support
+>       arm64: dts: qcom: glymur: Add QREF regulator supplies to TCSR
+>       arm64: dts: qcom: mahua: Add QREF regulator supplies to TCSR
+> 
+>  .../bindings/clock/qcom,glymur-tcsr.yaml           | 146 +++++++
+>  .../bindings/clock/qcom,sm8550-tcsr.yaml           |   2 -
+>  arch/arm64/boot/dts/qcom/glymur-crd.dts            |  20 +
+>  arch/arm64/boot/dts/qcom/mahua-crd.dts             |  16 +
+>  arch/arm64/boot/dts/qcom/mahua.dtsi                |  13 +
+>  drivers/clk/qcom/Makefile                          |   1 +
+>  drivers/clk/qcom/clk-ref.c                         | 205 +++++++++
+>  drivers/clk/qcom/tcsrcc-glymur.c                   | 471 +++++++++++----------
+>  include/linux/clk/qcom.h                           |  67 +++
+>  9 files changed, 704 insertions(+), 237 deletions(-)
+> ---
+> base-commit: 3da905eb243cad56200f09bb7eaa060537aed0cc
 
+I was hoping to apply this series, but I don't have this commit and
+patch 4 ("migrate to clk_ref helper") doesn't apply to my tree.
+
+What did you base this on? Why don't you test your changes on latest
+mainline or linux-next?
+
+Please rebase and test on a relevant branch.
+
+Regards,
+Bjorn
+
+> change-id: 20260713-tcsr_qref_0714-0ee27bc42a07
+> 
+> Best regards,
+> --  
+> Qiang Yu <qiang.yu@oss.qualcomm.com>
+> 
