@@ -1,255 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37A2937AA97
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 09:01:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030E6369D4E
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 09:01:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784365278; cv=none; b=kZLEWA+DeZb92kZMgLAADrjNSgwzFtWd9MiVGjywSs/8rQqxpqgYYWMedNSNRbglsJ5dvjr8dGnQLiBfBBV2L2qqSlxFyJBSYqwDuzFkoAHw0XRC0AIu+xSqLlglM3PmWf0Utlj+Tv7OAPo56gpwnzpDc5YzBHOO1fsiUfMi0Rw=
+	t=1784365279; cv=none; b=ge1W3W0OQqzoJ2wEC0CV4OE2GApM0E+yUm6XPkDgxm85uAGJkLBSvxmUFA6B6w2cgNU28de3sukvK4xw8FDHEJTXzpjw53i1tE5OsU6H9veSy9As8paic6VeTiM9mTlzSnQwhr41ykjRsVKrh4yiRCMn9gY4x7xKPec4FTvZi/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784365278; c=relaxed/simple;
-	bh=f7R+l0JTK1c+VJk6NsDsp6nrsoh+BspwU6E6s0p9gcc=;
+	s=arc-20240116; t=1784365279; c=relaxed/simple;
+	bh=gN72ZDEprL3AZi/fDwfEPfymnwrgQn1CkeTXlxRCqxc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cq3BvAGJ7y/BYepXpWbzXg4ILxvw6P9AwHtOABXf6/MCni0l1kY9vxBfv4lHYmDAxd+x80tKoKQqSLA7/wsg2YzrGtHg1b1jp8qCA+g5I48tH0MuxbsSfJkQoDByAcElVGzwLU97W1yv1XcMdclGz6vW32goIoCOX5KM/WxcDcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DAhGw1Ww; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=lICVHENA1/VNuOlrGvB1IV8f0tUsPY4M2NVpEMCfDKzR2maZh93G4PDzR527jBWVHI6TduLym9pEWxzJMOxLWBao9ca0RZWpaMBKk0SSTRV5B6XvCRnjVPPvBT1b7lXwfPnhMg7GYqmUtiYlgXpp666gswiwRw4Rce7Q9+teUX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ngJsDzge; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DAhGw1Ww"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDF841F00A3A;
-	Sat, 18 Jul 2026 09:01:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ngJsDzge"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD06A1F00A3D;
+	Sat, 18 Jul 2026 09:01:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1784365277;
-	bh=RuzugZwlxdZZQPCX73GS44RTOZV+vL6qpO7/WGh968c=;
+	bh=zZRuZficSQajuqeRkmQ1oJa/9dReyJ3gu0Ofvm5hwsY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DAhGw1Wwl+9FT4jIikxcpXcLRjNVcgMVYOlNppHBOspcW+vwhOH1Z5Wpxi2n1ex69
-	 Tyepej0vqcHf49khIutLXn18szfUMzzns9rXjBgWnL50vFg5RroUMKK+tgsEWH0laB
-	 +VwfWlELF88fUn1rxnENJWaOZF53SsYRy5JnqjvFaAKQ2lEYmiDLvyZwhJUkQSC/Mv
-	 ntkfArOGLfL473RZ+sdUh5aawpTBgKGqBLfHZt5wrLD0T7Sh6cfv66hGXDxd28jFYK
-	 JV9EoNYaAJM5LvVg+IPAYota7rnYy8iv+5rfJYfZ24iicBLd7Ws0ibYpDxZ4JKZHvZ
-	 c3GL+LDkDcOYQ==
+	b=ngJsDzgePrspaZ8Rk8DX9agLuQQ+slAQFcEVa4jehvNmeGI7kaiFgbeT73Fn1tCkO
+	 VWDhLR/Dn57T+HsXT3zsfwOASd8CFN6DE718cPU4/+7WTchuMGgw8ZxAY9eobfWx7P
+	 9CQ+1nPnTh/KC9VYk2RsgjyCO+bKYaG+A8oNq/Xwyzepg4qIEXMsCWpLO+x5HdPz6g
+	 ruvCRUZMHKDAOW/boORLzI9QpeTZjcsvCkF1Bz/Y8Yx5+C9V56d/kYPO899YZz0Jcf
+	 YIyMtNxi6fLKRXOOCpMA9Ex0IopB5EJoOCSwp5nM9X0fyh7hh0X8KHvClm9aFvGrJ4
+	 TMlF0WaIWUW6w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v9 04/12] net: pcs: implement Firmware node
- support for PCS driver
+Subject: Re: [PATCH net-next v9 06/12] net: Document PCS subsystem
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260717065448.1498335-5-ansuelsmth@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260717065448.1498335-7-ansuelsmth@gmail.com>
 References: <20260717065448.1498335-1-ansuelsmth@gmail.com>
- <20260717065448.1498335-5-ansuelsmth@gmail.com>
+ <20260717065448.1498335-7-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 18 Jul 2026 09:01:16 +0000
-Message-Id: <20260718090116.CDF841F00A3A@smtp.kernel.org>
+Date: Sat, 18 Jul 2026 09:01:17 +0000
+Message-Id: <20260718090117.AD06A1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The PCS provider API lacks module reference counting or device lin=
-king, creating a use-after-free vulnerability.
-- [High] Ignoring missing PCS providers breaks probe deferral and corrupts =
-the mapping of the retrieved PCS array via unintended array squashing.
-- [High] Potential AB-BA deadlock due to calling provider callback while ho=
-lding global fwnode_pcs_mutex.
-- [Low] API Misuse: Passing -1 to the unsigned int nargs parameter.
+- [High] phylink_create() returns an invalid non-error pointer (or NULL) on=
+ invalid config->type.
 --
 
---- Patch [4]: [PATCH net-next v9 04/12] net: pcs: implement Firmware node =
-support for PCS driver ---
-commit 9d0c6df31924499c98bee1b3b6194d084ae4c002
+--- Patch [6]: [PATCH net-next v9 06/12] net: Document PCS subsystem ---
+commit 867ad4be39467be718a5df59cf2a9739b1c43531
 Author: Christian Marangi <ansuelsmth@gmail.com>
 
-net: pcs: implement Firmware node support for PCS driver
+net: phylink: introduce internal phylink PCS handling
 
-Implement the foundation of Firmware node support for PCS driver.
-To support this, implement a simple Provider API where a PCS driver can
-expose multiple PCS with an xlate .get function.
+This commit introduces internal handling of PCS for phylink, moving the
+selection logic to phylink using the supported_interface value. It updates
+phylink_create() to allocate and populate an array of PCS pointers from the
+MAC, creating a linked list of available PCS devices. The changes also incl=
+ude
+new validation to ensure a selected PCS supports the requested interfaces.
 
-> diff --git a/drivers/net/pcs/pcs.c b/drivers/net/pcs/pcs.c
-> new file mode 100644
-> index 0000000000000..0cc4daf7beeae
-> --- /dev/null
-> +++ b/drivers/net/pcs/pcs.c
-> @@ -0,0 +1,212 @@
-
+> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+> index 3464e3ec56997..d96941d4c5235 100644
+> --- a/drivers/net/phy/phylink.c
+> +++ b/drivers/net/phy/phylink.c
 [ ... ]
-
-> +int fwnode_pcs_add_provider(struct fwnode_handle *fwnode,
-> +			    struct phylink_pcs *(*get)(struct fwnode_reference_args *pcsspec,
-> +						       void *data),
-> +			    void *data)
-> +{
+> @@ -1854,13 +1964,17 @@ struct phylink *phylink_create(struct phylink_con=
+fig *config,
+[ ... ]
+> +	/* Fill the PCS list with available PCS from phylink config */
+> +	ret =3D phylink_fill_available_pcs(pl, config);
+> +	if (ret < 0)
+> +		goto free_pl;
+[ ... ]
+>  	pl->config =3D config;
+>  	if (config->type =3D=3D PHYLINK_NETDEV) {
+>  		pl->netdev =3D to_net_dev(config->dev);
+> @@ -1882,8 +2012,7 @@ struct phylink *phylink_create(struct phylink_confi=
+g *config,
+>  	} else if (config->type =3D=3D PHYLINK_DEV) {
+>  		pl->dev =3D config->dev;
+>  	} else {
+> -		kfree(pl);
+> -		return ERR_PTR(-EINVAL);
+> +		goto unlink_pcs_list;
 
 [Severity: High]
-Does this API need a way to track module ownership or establish device link=
-s?
-Since providers don't pass their module owner (e.g., THIS_MODULE) or a devi=
-ce
-pointer during registration, consumers can't hold a reference to the provid=
-er
-module. If a provider module is unloaded, could it leave consumers with
-dangling phylink_pcs pointers resulting in a use-after-free?
+Can this jump to unlink_pcs_list return an invalid pointer instead of an er=
+ror?
 
-> +	struct fwnode_pcs_provider *pp;
+If config->type is invalid, the code jumps to unlink_pcs_list without setti=
+ng
+'ret =3D -EINVAL'. Because 'ret' still holds the non-negative result from
+phylink_fill_available_pcs(), ERR_PTR(ret) will return a valid-looking poin=
+ter
+(or NULL) instead of an error pointer.
 
+This would bypass the caller's IS_ERR() check and could lead to a crash when
+they attempt to use the returned phylink pointer.
+
+>  	}
+> =20
 [ ... ]
-
-> +static int fwnode_parse_pcsspec(const struct fwnode_handle *fwnode,
-> +				int index, const char *name,
-> +				struct fwnode_reference_args *out_args)
-> +{
-
-[ ... ]
-
-> +	ret =3D fwnode_property_get_reference_args(fwnode, "pcs-handle",
-> +						 "#pcs-cells",
-> +						 -1, index, out_args);
-
-[Severity: Low]
-Is it intentional to pass -1 to the nargs parameter of
-fwnode_property_get_reference_args()? Since nargs is an unsigned int, this
-will be implicitly cast to UINT_MAX.
-
-> +	if (ret || (name && index < 0))
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
-> +static struct phylink_pcs *
-> +fwnode_pcs_get_from_pcsspec(struct fwnode_reference_args *pcsspec)
-> +{
-> +	struct fwnode_pcs_provider *provider;
-> +	struct phylink_pcs *pcs =3D ERR_PTR(-ENODEV);
-
-[Severity: High]
-Should this default to -EPROBE_DEFER instead of -ENODEV? If a provider hasn=
-'t
-probed yet, returning -ENODEV will prevent the consumer from correctly
-deferring its probe.
-
-> +
-> +	if (!pcsspec)
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	mutex_lock(&fwnode_pcs_mutex);
-> +	list_for_each_entry(provider, &fwnode_pcs_providers, link) {
-> +		if (provider->fwnode =3D=3D pcsspec->fwnode) {
-> +			pcs =3D provider->get(pcsspec, provider->data);
-
-[Severity: High]
-Can calling the provider's get() callback while holding the global
-fwnode_pcs_mutex cause an AB-BA deadlock?
-
-If an advanced provider needs to acquire a driver-local lock in its get()
-callback, it creates a lock order of fwnode_pcs_mutex -> local_lock.
-
-During provider removal, the driver might acquire local_lock before calling
-fwnode_pcs_del_provider(), which then tries to acquire fwnode_pcs_mutex.
-
-> +			if (!IS_ERR(pcs))
-> +				break;
-> +		}
-> +	}
-> +	mutex_unlock(&fwnode_pcs_mutex);
-> +
-> +	return pcs;
-> +}
-> +
-> +static struct phylink_pcs *__fwnode_pcs_get(struct fwnode_handle *fwnode,
-> +					    unsigned int index, const char *con_id)
-> +{
-> +	struct fwnode_reference_args pcsspec;
-> +	struct phylink_pcs *pcs;
-> +	int ret;
-> +
-> +	ret =3D fwnode_parse_pcsspec(fwnode, index, con_id, &pcsspec);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	pcs =3D fwnode_pcs_get_from_pcsspec(&pcsspec);
-> +	fwnode_handle_put(pcsspec.fwnode);
-> +
-> +	return pcs;
-
-[Severity: High]
-Since this returns a bare pointer to the consumer without taking a reference
-on the provider module, and there is no corresponding put() API, what preve=
-nts
-the provider from freeing the PCS memory while the consumer is still using =
-it?
-
-> +}
-
-[ ... ]
-
-> +unsigned int fwnode_phylink_pcs_count(struct fwnode_handle *fwnode)
-> +{
-> +	struct fwnode_reference_args out_args;
-> +	int index =3D 0;
-> +	int ret;
-> +
-> +	while (true) {
-> +		ret =3D fwnode_property_get_reference_args(fwnode, "pcs-handle",
-> +							 "#pcs-cells",
-> +							 -1, index, &out_args);
-
-[Severity: Low]
-Is this another location where we are passing -1 to an unsigned int paramet=
-er?
-
-> +		/* We expect to reach an -ENOENT error while counting */
-> +		if (ret)
-> +			break;
-
-[ ... ]
-
-> +int fwnode_phylink_pcs_parse(struct fwnode_handle *fwnode,
-> +			     struct phylink_pcs **available_pcs,
-> +			     unsigned int num_pcs)
-> +{
-> +	unsigned int i, found =3D 0;
-
-[ ... ]
-
-> +	for (i =3D 0; i < num_pcs; i++) {
-> +		struct phylink_pcs *pcs;
-> +
-> +		pcs =3D fwnode_pcs_get(fwnode, i);
-> +		if (IS_ERR(pcs)) {
-> +			/* Exit early if no PCS remain.*/
-> +			if (PTR_ERR(pcs) =3D=3D -ENOENT)
-> +				break;
-> +
-> +			/*
-> +			 * Ignore -ENODEV error for PCS that still
-> +			 * needs to probe.
-> +			 */
-> +			if (PTR_ERR(pcs) =3D=3D -ENODEV)
-> +				continue;
-
-[Severity: High]
-Does ignoring -ENODEV and continuing without incrementing the "found" index
-corrupt the hardware mapping for the MAC driver?
-
-By not storing a placeholder or deferring probe, any subsequently probed PCS
-will be shifted into the wrong index in the available_pcs array. If the MAC
-driver expects index i to map to physical lane i, won't this result in
-incorrect routing?
-
-> +
-> +			return PTR_ERR(pcs);
-> +		}
-> +
-> +		available_pcs[found] =3D pcs;
-> +		found++;
-> +	}
-> +
-> +	return found;
-> +}
+> +unlink_pcs_list:
+> +	list_for_each_entry(pcs, &pl->pcs_list, list)
+> +		pcs->phylink =3D NULL;
+> +free_pl:
+> +	kfree(pl);
+> +	return ERR_PTR(ret);
+>  }
+>  EXPORT_SYMBOL_GPL(phylink_create);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717065448.1498=
-335-1-ansuelsmth@gmail.com?part=3D4
+335-1-ansuelsmth@gmail.com?part=3D6
