@@ -1,64 +1,64 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B21384CC2
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 08:57:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99FF633D6F9
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 08:57:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784365074; cv=none; b=Qtr0isWW/PtAEJZ/cvVqLi50jvypgzSOMIlw9oWpQdN5zGhtjmHYdhi8bAGAOSC9uUnQnjil9PSm0bL9UAtu8okw5WmJk5K+YsU4RtoC2K3Yok7BfFBK94bzrH2e7eY26Ys16oVATgquXiu/W3pKX4xS0TSGgv07xkAf75xyXb4=
+	t=1784365076; cv=none; b=Z/QVWrkeH32W+OHWeFEE5m4NBSQCjvn944ZQrKyq2jvh36zAd4hjdtlEKiJGvQ3uwuXbzgCp44tA4FhZkzJp9doWrGfR/4LTgweDStdMgKsfWGN0R+68D2k2RERf/nnX1gs7gb9MQ0HO/FZkvXExAymRVLcvQxjb/Um+RLlq95Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784365074; c=relaxed/simple;
-	bh=og04sSBm3wAKBXPeDuda5ze9nmSKybKCjjyV0RwL3LY=;
+	s=arc-20240116; t=1784365076; c=relaxed/simple;
+	bh=tizS5g0h70SzokJT7ulA6Z1Qe+e6ZmlUwrpJqQZsAiA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cNjodTxKGFZ+DYV2jObazKJqbsReNxgnhJebCp1ATrKuM7oXfhy+U7ID8A4zSCUjDZVnESu9FglOhPhz8TQ6iaI2HjnFjd0wNVO4c/86WoRR3Gv3LVREVRPHsraE8NK7zdjeRmkf4ZP28IiIaF2Fs5kXsS+wXBrkfOado+4sfsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bxVeuD9C; arc=none smtp.client-ip=209.85.128.46
+	 MIME-Version; b=X9WoX/dL2bZQUurUVwRgE7XZvMXv6VdxByK3E8J8mhSNbOYQc2G2hLv3OsUaSKHeExAEQLjMweGWggKTAb0vV3M757UJZdIoMCs/gQeq7ecaYg8vwZ6XLQ5h55M9NmdlVvQzqbGvqmslQxquD7K1PP8RaGRKXFGqlUhxYpOnbXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bPGJMfXH; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bxVeuD9C"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-494049206c6so2170645e9.2
-        for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 01:57:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bPGJMfXH"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-495522bc0e2so272175e9.2
+        for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 01:57:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784365068; x=1784969868; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784365069; x=1784969869; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IVdUc4K/IhqrOMLTX+JPmZv/Y1bCw+s3TFSm96hNeQA=;
-        b=bxVeuD9C27aI0nrUaD6Mf0aKe+hxBj+IDtlseurS5RoXQPNXBMU7B0LuI/uPCc6kVd
-         VBjzbUM5oLJwJ43sh2GBhJCqXry9pd99hH1XGxkyHhzAL1xvOEaW//gGtBHgQGLHlG38
-         qgaXp4NcQNL58/BXvtmZR0QFRlobkwvDcoIP0S4dTarMGu4YJ31noOcOdm3Zw7PILZgb
-         DHBj2QJr3SC9YF+kvuvcQsBSFcsShq50CiYNVskM9SbaJNU3YB9MlO1rvLs99IYguEuP
-         VkeGc9fM9h2WdPspMVV8TCRMU18MVRHpciPGhWN7Q0cE4wPV3rygVQbfxRdmCPatz48C
-         Cqnw==
+        bh=OkAddxCtIZjvbuQcdVYEMV492MXwwpyu35XKLgJr4rw=;
+        b=bPGJMfXHeDy9xisKFzTaiYeCLN2keI7S37xUaolhVDOkoWTRr6ECxNncheVTfHSgc1
+         wVgxJJZ7cT5gqtMILcda/olZqOgu8dlq+NxcKb0p4XAxcKr2Aw6MKFUUdrsJHnGss8AF
+         8clSKjO92BWxMRXYCpugj0SEJhdHpUi9oMZ4MvBL+eDKxZmUXVwyO7WaM/sjfDzelj6j
+         VOwAt+p2PB/a2rUGLzhF+sWaFaCR21yHcUitIU3mKAddJ/EORl+StzmHav93WcXF2RSe
+         QJ5aml6SNjn+DpOk9WavoJtdvtA3zDWiqlU9svkZm5DVTRGzeYtCxLILZ5QIN4qhVvFR
+         bjAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784365068; x=1784969868;
+        d=1e100.net; s=20251104; t=1784365069; x=1784969869;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IVdUc4K/IhqrOMLTX+JPmZv/Y1bCw+s3TFSm96hNeQA=;
-        b=a9A7y6cm9w2jGcfU5ZseDwn7Jol5Pex8+S6ulhRBQuG2tISI69kbPIVFgpkW9UFr0v
-         JpW/bfRznFDf9aCLuiw4rw3pTeB01n9W8ADC+x3d49JqA5HXDa6TzwIfPZSfN3luPfqK
-         L7AXH3cp9XJwi3YM1gwlctAyKS0fZQ96y1OYZKgiZY0FLpvcCwEN+eD4kCSwh/PJ1yF2
-         ZbJqMsJ3QcG0/5FIZfgEcjeR0YvLlMsucaY1KObJkkN3NHoHOvo0cuvxRjbIRL5Yr3Sj
-         4/gO4sqHYgsGWuEA8mi3KB5sMxUmZ41fe00O/EIwtwDrutZT6VdK3QwbR7sG2UOQ4nbx
-         UFQA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpf/hmWcNiLOxKqeiemmRQHDHTIKs8f6KsU+ENotMvEl23SaX19NbZ8BixBjculBDQEFw/c/Iz0t4DO@vger.kernel.org
-X-Gm-Message-State: AOJu0YxTqyYtM/AlMgYqm0HckO5GV0DcZAtg+KcvnKt6ufaHbwiVXvOE
-	QEKYePOIIrW4JQ70WYYM2hHQd8WCF8vUB27ocHDpaztBiftjlCyt++85
-X-Gm-Gg: AfdE7ck8xKYe5tmqtjjRtv6HBoJI1kSIjgMSrDt5kj85kNBnsJm7X+uAoLw9lg4BXTE
-	0T89m1OiVVA1QAwJda6aMUg0zV0QEca77DD+cqdpQSyS+jww1RQ28RTU/x3ep5vQEEEkcGsrf4s
-	qc/M8zmXtvMbVxax6CwtuQbU9+x8kiN7YtJik8H8VlR21nmDRAAHZVaSWXX2QDFL/UP6Kd9G+Pz
-	A4Vv2RGsnBfsnoAfodfHF4puf2hw0yuW40kJrEiXi9txH8QqMeMWv7lZSjDm+YL/IGebf4qDVO1
-	DH4+ELnghO/Nz3RdGisqaEhNPgn1WuoZC2Bg54FrZ/ECIoAlotDFnn7eU+D/rsc6YeqimOt++aq
-	8fZcqw3HYvZhsEa5BXrfR5wWspyp7LEXgn0zZeTuZnl2JWfBudGID3SLtQp9tl2cCCztVVVcRFF
-	eX/2ZvV8vdE0oAsdEQxsRT+n9H/m25pgmma7pcwCWhBTMh3Z7xlGfDpaSjlwt4bBlTLwpZzApBt
-	8+sxKnzKH/ZN92Mv3S/
-X-Received: by 2002:a05:600c:350a:b0:493:f13a:3f74 with SMTP id 5b1f17b1804b1-4954a51df12mr39497985e9.5.1784365067516;
-        Sat, 18 Jul 2026 01:57:47 -0700 (PDT)
+        bh=OkAddxCtIZjvbuQcdVYEMV492MXwwpyu35XKLgJr4rw=;
+        b=PJC/DZPs0uX/be9mMDJNJJGOYLntBrLIhK8WoDbr5xi1XXGIF1PKDaoIX9KyQDAbcJ
+         lnBkdB+mzL572ZvkWmEG7T+wZL8kcjJBLnEP4r41bwblhoSOxrVz8gcKK33ybnvXQAkJ
+         Cdn3pbiG2aT9c9kyDgKaVfqtPtgdySvbc7yfjie6uEQz007DQ00HfZj9YLhI4tTzlAya
+         p/Qgdu/MGRqLeyqrRbk+Xh4uG8lla23mCW+SGM3wZrA7pKKITxfpjlsYqVZ8mj3XaauH
+         HGLreH6iTK2GO1LRwxccMELeBa46hSWyJpk8PI3oK4WnfETwsLETTqrx/R89R/ZjAvLf
+         tN0w==
+X-Forwarded-Encrypted: i=1; AHgh+RoGGeGX74ks1njIXf3vhMT59CPaNIu+T02MD7VcleZfeXap13Pm1PVjxNvY3s3KtuishK0x0iiw7QjX@vger.kernel.org
+X-Gm-Message-State: AOJu0YxZ0XEtNX22/CkRGxPxZYwhNP0dXjRD0u/0jyUsQEtg8T9XLnAn
+	A2Yt+GxNomwiWx2uZzqfpHgQjJGQiv2iMIXcQGzrcT5qmxJ0ufaiPxg5
+X-Gm-Gg: AfdE7cmF35qhcoh9nGo/jEXic/5HqFDVQx87mB5BBvsruxcDMR/Efo8aPD7TRi3Sg2F
+	C+Svq8/PPP9UNDkleR1j3ku7YxQOUY0mm75KrE3CAQklwLr4AOtpwZQ1ssCP/ZHd6vLX3n1BR7N
+	mynK16U0aLWh8R8bCrKxJJth2LjqCJ3ikHp6HgNFSGWLkecNgX8GZuO/20SRe+h82K+rYkqEs8K
+	gBeoRRj/qU9qaOy2B20EmrocHMjGIRmHHB/3JHazMbZIkoEVQ1+eX0kgS2/9QKmHVjILhpRA/lx
+	cScFm87AZdMFDO3JxXo+vdMRn7r4i0xKBv4FBh9/Wjo6gDFnXGeuBjyPxc8v/QpKA1aSXwC7IQw
+	Idv5nyJM6zZuUncgLga37euW6uiEoB8cWPGxNbw+gn6QP7UUSjYyIvRtFcCvINDxBd3g497vs6f
+	bw0cd+uBHV7xqZtKbcVHPRssCeN3rkxPY5AiHviDVdqwMakLlTEPUtgF/8aa6m+U3I/+gA8nMAI
+	Gfcm7CKag==
+X-Received: by 2002:a05:600c:3553:b0:495:4a33:2c34 with SMTP id 5b1f17b1804b1-4954a39955emr39555925e9.0.1784365068868;
+        Sat, 18 Jul 2026 01:57:48 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME (20014C4E1B8D1600206D23E70680CBAA.dsl.pool.telekom.hu. [2001:4c4e:1b8d:1600:206d:23e7:680:cbaa])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4954834edc3sm91477455e9.0.2026.07.18.01.57.46
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4954834edc3sm91477455e9.0.2026.07.18.01.57.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Jul 2026 01:57:47 -0700 (PDT)
+        Sat, 18 Jul 2026 01:57:48 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
 To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -74,9 +74,9 @@ Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH v3 3/4] arm64: dts: rockchip: add #sound-dai-cells to the RK3588 HDMI receiver
-Date: Sat, 18 Jul 2026 10:57:27 +0200
-Message-ID: <20260718085728.6797-4-royalnet026@gmail.com>
+Subject: [PATCH v3 4/4] arm64: dts: rockchip: enable HDMI RX audio capture on Orange Pi 5 Plus
+Date: Sat, 18 Jul 2026 10:57:28 +0200
+Message-ID: <20260718085728.6797-5-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260718085728.6797-1-royalnet026@gmail.com>
 References: <20260718085728.6797-1-royalnet026@gmail.com>
@@ -88,30 +88,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Synopsys HDMI RX controller exposes two digital audio interfaces,
-one for I2S (0) and one for S/PDIF (1). Add the #sound-dai-cells
-property so audio cards can reference them as a codec, as documented
-by the snps,dw-hdmi-rx binding.
+Route the HDMI receiver audio to i2s7_8ch, the receive-only I2S
+interface dedicated to HDMI RX, through a simple-audio-card with the
+receiver as bitclock and frame master. Together with the audio
+capture support in the snps_hdmirx driver this exposes a capture-only
+ALSA card fed by the HDMI input.
+
+Tested on the Orange Pi 5 Plus with multiple HDMI sources: capture
+follows the source sample rate and stays in sync via the FIFO-level
+clock tracking in the driver.
 
 Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
 ---
 New in v3.
 
- arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+ .../dts/rockchip/rk3588-orangepi-5-plus.dts   | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
-index a264001..fa100e3 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
-@@ -338,6 +338,7 @@
- 		reset-names = "axi", "apb", "ref", "biu";
- 		rockchip,grf = <&sys_grf>;
- 		rockchip,vo1-grf = <&vo1_grf>;
-+		#sound-dai-cells = <1>;
- 		status = "disabled";
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+index 9950d11..d5840e1 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+@@ -37,6 +37,22 @@
+ 		};
  	};
  
++	hdmiin-sound {
++		compatible = "simple-audio-card";
++		simple-audio-card,name = "rockchip,hdmiin";
++		simple-audio-card,format = "i2s";
++		simple-audio-card,bitclock-master = <&hdmiin_codec>;
++		simple-audio-card,frame-master = <&hdmiin_codec>;
++
++		simple-audio-card,cpu {
++			sound-dai = <&i2s7_8ch>;
++		};
++
++		hdmiin_codec: simple-audio-card,codec {
++			sound-dai = <&hdmi_receiver 0>;
++		};
++	};
++
+ 	ir-receiver {
+ 		compatible = "gpio-ir-receiver";
+ 		gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_LOW>;
+@@ -247,6 +263,10 @@
+ 	status = "okay";
+ };
+ 
++&i2s7_8ch {
++	status = "okay";
++};
++
+ &led_blue_gpio {
+ 	gpios = <&gpio3 RK_PA6 GPIO_ACTIVE_HIGH>;
+ 	status = "okay";
 -- 
 2.53.0
 
