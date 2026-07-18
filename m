@@ -1,91 +1,139 @@
-Received: from out-171.mta1.migadu.com (out-171.mta1.migadu.com [95.215.58.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271351DF74F
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 08:36:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7999838836E
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 08:39:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784363818; cv=none; b=fDoOujyTyKuL0MQOzEHQXw1WNFs3dPZNAzXv2tmov/nIs9mothnsWqGMjmSuQs325X/T+DGFGxAaVJGQOXDSeY9srgjISubgX2l6AVIhAagDeBrbPjlFgPwOOqrliK/41Sg1uRsR7Q8NK4yJqkVWGCW/tX2eikBcRyEK7sh/4no=
+	t=1784363995; cv=none; b=bbm80ovbU/JPLiiaWNFZkllIeEQscxV6ECxnAgoTaU32TCbbCKJkXA2hDMXqxVFuBzEkOQji0W3z1OJ5haGYQVtB6TK0f39fFWELo0U9NvAVKj3DXeo0HTKT7WNHnFkQeXeCr9smf7QfjGeAsPz1hyrIXpLJahbJD0OunbJ4Mxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784363818; c=relaxed/simple;
-	bh=F7N+y3gCNAmJZfNUR6yLudPtRwbf81nGC8KlaAu9p9E=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Wpqu/hjksI8YixTrcyGo/IkjCe8J7oIPLCvgKn5z2FILl06Es4GH9P/w5jHPe9WbG/s2aIwE0QEU0Niw+EMTE31AfHX467QpQ3CJjJYpplsanC/KtvP9fdNB+rH1bje+Arh9W5TTsktue/75bXEeFw6auZvpgVMRjmZyGuZ5+KI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pu1wGEEK; arc=none smtp.client-ip=95.215.58.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pu1wGEEK"
-Message-ID: <cb8eb38462312fa6c09ccea6fdc9c20d7cf11831.camel@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784363811;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=F7N+y3gCNAmJZfNUR6yLudPtRwbf81nGC8KlaAu9p9E=;
-	b=pu1wGEEKSSQ1eLvgAZcYWANfkrIgWwV2PMb9AqNHHI6AKps/0uMlLG61iAOaq6wmbxTjTl
-	OyxePNx03h3URQRJn9aMRA2TW7y/Vf+shnjwDVeYRnmws76TXNRDhzEXx1p+h4GDcYBjBd
-	sH4qehZIhtJVLXi6wiZWTW4+MrlumP4=
-Subject: Re: [PATCH v10 0/2] iio: health: add MAX86150 ECG and PPG biosensor
- driver
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Siratul Islam <siratul.islam@linux.dev>
-To: Md Shofiqul Islam <shofiqtest@gmail.com>
-Cc: jic23@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, andriy.shevchenko@intel.com, 
-	u.kleine-koenig@baylibre.com, joshua.crofts1@gmail.com, nuno.sa@analog.com,
- 	Michael.Hennerich@analog.com, dlechner@baylibre.com, linux@analog.com, 
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sat, 18 Jul 2026 14:36:02 +0600
-In-Reply-To: <20260717201138.1078019-1-shofiqtest@gmail.com>
-References: <20260717201138.1078019-1-shofiqtest@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	s=arc-20240116; t=1784363995; c=relaxed/simple;
+	bh=wxhO085La/+XeWU00w7Xk6/Dkf9lbbQyMuWbzMBiyk0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Cn7nokSI2RoM/fkxBlCkSVCMaWizPEtTitTp9yI2WUOAqD8kNAS27XPLKq91DD42G0UeqyeUsU7yENDSrSxFokLq9Bzpd+Bm2+HZ37nM4YkQuhlb27ss1VmJDBozO0ybQvghFVCjPDqJmLXEAFvZKzfG2/2zDOocp/f2P0z4stc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-472326ca506so6746178f8f.2
+        for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 01:39:53 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784363992; x=1784968792;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7tMDcOMCOuv2/S1kjEybtD3qi7le2Cks8fYUJXxydzs=;
+        b=RvmBOTtyxUlRi0W2LvZwUzgD8rLQvuX9v/yjkvvbvE5jInEmB4MZY/c7Qw5j/xZJWC
+         ROXsUsaZWOGJwa+Y35ooE5oZ9YXNJxsUSOt8ZdHxa7J96d/TASwloce4UK6PENBaslVa
+         cg7jYhmOKHU0YPaUiUP6h+hoYDZ3voUm3rFhLVfAwVmPn5Mrn2omUvUk+0fy9YRoZbX6
+         FEjoTkr0cyqaIc/YoRZsAMVScFutDkSuDUFD7NjD0odoA1hiiSu6ftwnfrLflJKtGvrz
+         Xw6DJtpHL9ne8kUDTxjJRz7LbwvjCsjAnLZvK2pyEU9MogjsvWZuvTZfxLetHktwPX8H
+         dB4g==
+X-Forwarded-Encrypted: i=1; AHgh+RqkPwYHKJTMkEKtJ1egcNDSuNg3J7utYSS7COoS46bSv+ghY/0o2EwHkgqTPQl0FW75sPpQU0EiH41r@vger.kernel.org
+X-Gm-Message-State: AOJu0YzpWWvBvjCoeyVWJljmQtGcAGXmg35L0+pYqRRNkXwUJDCUgs0d
+	hRYnwiKKpDw8OWyRShUSjFSluJ/wjQZzIGZgs6ICeOSRUv4gVWNBnwy3
+X-Gm-Gg: AfdE7cmMFCMmPSLpMtDkJrrnzqmGds86YXd0qjpqQrNz08cLw8zrvDlUfBjguR95nR7
+	fcOQOPThggcayOcXCp00s9WMjmdM5b4fIRZLjU7OhTmHa0mwoYuJLCKbH+5Z6gwpEh2KY3XH6Ht
+	nYQZYBmuqY+a1r5HefzoI8gTBXevaCgjtWyB605kgvzb7b42yGXTkLESAnTYkp0wX2vOlXjZkY0
+	ZPY/cD85C0RtH/2gTy2OLktGLCn0W8ONdEiLppEit1COCsotXPJzjM1DEjncbMUVwY6tSNPUQ9/
+	WbBF0G9XEVtWguZQ0bpP8q1rfGIuGNP5o1GLXodrCvT50cjYF/WHKFW2MmhAW/T/oZ/ZxVWwspE
+	v7WWGB+9mVsfje0/q0Yc9kVQgxZf+8EdLFLe6HOcldU+54PbQJjYlGbODklbcenbRsZHRGaCT/N
+	Sw3TZnaw+XDczFtVwc333qEzsS1Xyz5oe54OqcCVKnm0fisJ9e47aM1lj9XhWIPVvbP9cdWJyc4
+	vEAgk7RSA==
+X-Received: by 2002:a5d:458c:0:b0:47f:45b1:128c with SMTP id ffacd0b85a97d-47f6233eda7mr5267829f8f.58.1784363991641;
+        Sat, 18 Jul 2026 01:39:51 -0700 (PDT)
+Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183? ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63eddd27sm10661708f8f.28.2026.07.18.01.39.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 18 Jul 2026 01:39:51 -0700 (PDT)
+Message-ID: <57f5675c-8bcd-4022-978b-9f7933bb0032@reactivated.net>
+Date: Sat, 18 Jul 2026 09:39:48 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Migadu-Flow: FLOW_OUT
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/6] iommu: Add Broadcom BCM2712 IOMMU driver
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ nick.hollinghurst@raspberrypi.com
+References: <20260712-bcm2712-iommu-submit-v1-0-80e10cdde2ea@reactivated.net>
+ <20260712-bcm2712-iommu-submit-v1-5-80e10cdde2ea@reactivated.net>
+ <20260712221125.GD1835788@ziepe.ca>
+Content-Language: en-US
+From: Daniel Drake <dan@reactivated.net>
+In-Reply-To: <20260712221125.GD1835788@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, 2026-07-17 at 23:11 +0300, Md Shofiqul Islam wrote:
-> Sorry for the long gap since v9. Between then and now the driver's
-> buffer implementation was rewritten from the kfifo-based design onto
-> the standard IIO hardware-trigger and triggered-buffer framework, and
-> I read through every open comment from every reviewer before sending
-> this rather than sending again too quickly.
->=20
-...
->=20
-> Changes since v9:
-> - Rewrote the buffer implementation around devm_iio_trigger_alloc() +
-> =C2=A0 devm_iio_triggered_buffer_setup() instead of the kfifo buffer and
-> =C2=A0 manual postenable/predisable pair. The hard-irq handler now only
-> =C2=A0 reads and clears INT_STATUS1 before calling iio_trigger_poll();
-> =C2=A0 the threaded trigger handler does the FIFO drain. This relies on
-> =C2=A0 the trigger core's own attach/detach synchronization instead of an
-> =C2=A0 explicit iio_buffer_enabled() guard or synchronize_irq(), which th=
-e
-> =C2=A0 old design needed to avoid a NULL active_scan_mask race on teardow=
-n
-> =C2=A0 (Sashiko, both HIGH severity findings)
->=20
-...
->=20
-> --
-> 2.51.1
+Hi,
 
-Not sure if it was said already, but please include change log from older v=
-ersions too.=C2=A0
-You could keep the description short, and include Links to each version as =
-well. It is=C2=A0
-difficult to hunt them down one by one from lore.
+On 12/07/2026 23:11, Jason Gunthorpe wrote:
+>> +static int bcm2712_iommu_map_pages(struct iommu_domain *domain,
+>> +				   unsigned long iova, phys_addr_t paddr,
+>> +				   size_t pgsize, size_t pgcount, int prot,
+>> +				   gfp_t gfp, size_t *mapped)
+>> +{
+>> +	struct bcm2712_iommu_domain *mydomain = to_bcm2712_domain(domain);
+>> +	struct pt_iommu *pt = &mydomain->pt.iommu;
+>> +
+>> +	return pt->ops->map_range(pt, bcm2712_iova_to_offset(mydomain, iova),
+>> +				  paddr, pgsize * pgcount, prot, gfp, mapped);
+>> +}
+> 
+> These ops should not be present, the iommpt provides the ops directly
+> through a macro;
+> 
+>> +static const struct iommu_ops bcm2712_iommu_ops = {
+>> +	.identity_domain = &bcm2712_identity_domain,
+>> +	.domain_alloc_paging = bcm2712_iommu_domain_alloc,
+>> +	.probe_device = bcm2712_iommu_probe_device,
+>> +	.device_group = generic_single_device_group,
+>> +	.of_xlate = bcm2712_iommu_of_xlate,
+>> +	.default_domain_ops = &(const struct iommu_domain_ops) {
+>> +		.attach_dev	 = bcm2712_iommu_attach_dev,
+>> +		.iotlb_sync      = bcm2712_iommu_sync,
+>> +		.iotlb_sync_map  = bcm2712_iommu_sync_map,
+>> +		.flush_iotlb_all = bcm2712_iommu_sync_all,
+>> +		.free		 = bcm2712_iommu_domain_free,
+>> +		.map_pages       = bcm2712_iommu_map_pages,
+>> +		.unmap_pages     = bcm2712_iommu_unmap_pages,
+>> +		.iova_to_phys    = bcm2712_iova_to_phys,
+>> +	},
+> 
+> Then use something like:
+> 
+> 		IOMMU_PT_DOMAIN_OPS(bcm2712),
+> 
+> To define all the page table related ops automatically.
+I don't think I can use that because this setup uses an IOVA aperture at 
+base 0xA00000000, whereas generic_pt assumes it is managing a 0-indexed 
+virtual address space. So the driver has to intercept every incoming 
+IOVA and translate for the aperture, see how map_pages calls:
 
-Also, don't send "To" a list. send your patches to Maintainers and=C2=A0
-Cc Reviewers and lists.
+  static inline unsigned long
+  bcm2712_iova_to_offset(struct bcm2712_iommu_domain *domain, unsigned 
+long iova)
+  {
+  	return iova - domain->mmu->aperture_start;
+  }
 
---
-Best regards,
-Sirat
+That's why I also set is_iommupt=false. I will add a comment to make 
+this clear. Let me know if you see a better approach. I was wondering 
+about making iommupt understand apertures and translate accordingly, but 
+I imagine you would want to keep that kind of thing out of the generic 
+fast path?
+
+Thanks for all the other feedback too - working on it!
+
+Daniel
+
