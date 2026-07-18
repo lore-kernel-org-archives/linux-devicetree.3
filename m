@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A92D176FB1
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 09:09:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2330435E948
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 09:12:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784365797; cv=none; b=SgXWLTv05pSU6vv197P7B/ZWCIQu9NFQBSEFLZQL1e9bc0cY+i/1JtybTzPxt1SaV/ZnrYKwVAmTWIPY9f6Lf42gK0KJNk2f7jph75d7o61dTgiE2BMD5LVX0TqPomLJi3t05uteg2s7AmPaFNQ7DDeD0OdOcA1zjpQ9onCZ/Os=
+	t=1784365922; cv=none; b=u7nH3RayBSLghwOKuuqkaJqFN9RLmcZ658cs9vkO97sYkiXL97E9zBbs3kQsUnDhIsC9UD6plPO8X6r7i2kdDaIxFrHe39YzTTGqdf/uMBS8X8y0C+i2Ru1o1wUYWGgHSJMWxw9IWqRE9zzETOEYJaq/Mkhi6xzmOKcJgU1Se/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784365797; c=relaxed/simple;
-	bh=u8wz0iE476go4ijdQsYSkQKRx3zPhqxohWpMWCSDXgg=;
+	s=arc-20240116; t=1784365922; c=relaxed/simple;
+	bh=yrsR3AdbCIM8lOhHPGujhMAfDZwzGxt25FqRLYf6uaU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZqeBh/+hgZ9jJ8G5S6m03R1vh+K+/+N3K9+kG3s1ZUj5tF2T7F69DZdE/wcn2GNgHfxBkOh7oa09HqXXm5e1wELL1Oe4tt8gLStarJgiszLY3NBv4y/3jxgxCau240rl02NaczD5OGerUX+8Mw9NNZRUrtrecHnPffmNEFhp8JA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=URkOGN3d; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ndNUoDj+96aecEvpzDJg4HO8WLIqWHWSrEPv1LQYfnIp3VsWTLfF+/5OiLOmqCLWLvmpMjhjQR7tKQdf81ibKV9PSKHFggAbi3qXxuw1geMXL4ySTRh3BF9SuMlwLENQfXqXOwtbqdEjMExvU22dVIhbUOa0KmVFkda9AXxGREI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Atsh+UR3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="URkOGN3d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A79E51F000E9;
-	Sat, 18 Jul 2026 09:09:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Atsh+UR3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65AE21F000E9;
+	Sat, 18 Jul 2026 09:12:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784365796;
-	bh=RpKt7bFbtUXGvJYn5m3p9J251WLHphfCK6DFjnuvH+4=;
+	s=k20260515; t=1784365920;
+	bh=Szm3e1s5DVw/nWZX0kmk6gz6B97jYm2fffijIXySo9I=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=URkOGN3dnJZceI4VFPcd4Yid+r/lvYonRirzBr6cmnDs/7QwdzRdgKX1VB2ppacOu
-	 ZcWU9fVbdAw4ST0cz/MMOOdiODO5QuXjMlG5v2LvKcPqp+ZR3+W4Iz+dfAC1bNhVi2
-	 cnbVJV968utJM/4DI28U4FGfkmsanrW/UR9UUdHid5kVkDKehb/GQwnZTkCmNf85L6
-	 SLLcEnUZNk1VglMaZJ6BkoPwJ/RlChSHd8JDNtnZe8qrm30xoCqMf92TYraa7PXgeN
-	 qePLhHSOcCy3KqeMVCEKpYT4aKJcfLeAX1I8rcHH/mpr0V/gI2CsrKv2zh6agMOVea
-	 HbIhR1RI9BReg==
+	b=Atsh+UR3M/WB3FhXrap0LS9facggSODnHfYHaBZtiEsBHLzS7MYQ4H6iDY3AgNlcP
+	 Aas78aZ5mA7kvhWAx4I+5QsgEkcBsn8Dnvkh+3j4QXXxRe0fy56air8K3vfMgrCPtg
+	 zmbImMQFnNXvW9UEN8dIcwpUXa22OrxszhYueLyCuRW2JUbOiZ99MjzVQntOSDdNch
+	 Ph4KopHPy1LgSX8ckJYNDymoWePOmfVANiM6KKc+BJQwB82sx6h+OuL3mGDrhOMVYb
+	 hGo6G9MAxFYZpTy0A/yyhI8SNcMBtYOeZIOCycqwC7KyevLLR8dg2vKh79thUdZiD6
+	 fNSwroPkJG6cQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/4] media: synopsys: hdmirx: add HDMI audio capture
- support
+Subject: Re: [PATCH v3 4/4] arm64: dts: rockchip: enable HDMI RX audio
+ capture on Orange Pi 5 Plus
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Igor Paunovic" <royalnet026@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260718085728.6797-3-royalnet026@gmail.com>
+Cc: media-ci@linuxtv.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260718085728.6797-5-royalnet026@gmail.com>
 References: <20260718085728.6797-1-royalnet026@gmail.com>
- <20260718085728.6797-3-royalnet026@gmail.com>
+ <20260718085728.6797-5-royalnet026@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 18 Jul 2026 09:09:55 +0000
-Message-Id: <20260718090955.A79E51F000E9@smtp.kernel.org>
+Date: Sat, 18 Jul 2026 09:11:59 +0000
+Message-Id: <20260718091200.65AE21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,105 +47,101 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Incorrect byte-swapping logic completely scrambles the extraction =
-of Audio Clock Regeneration (ACR) CTS and N values, breaking sample rate re=
-covery on little-endian architectures.
-- [High] The `audio_work` delayed work is not explicitly cancelled in `hdmi=
-rx_remove()`, leading to a Use-After-Free if the driver is unbound while an=
- audio stream is active.
+- [High] The audio_work delayed work is not cancelled during system suspend=
+, leading to a fatal bus fault.
+- [Medium] Incorrect use of be32_to_cpu() for unconditional byte swapping b=
+reaks audio capture on big-endian architectures.
 --
 
---- Patch [2]: [PATCH v3 2/4] media: synopsys: hdmirx: add HDMI audio captu=
-re support ---
-commit b04bcd22f40b424aac824100715c46f764531875
+--- Patch [4]: [PATCH v3 4/4] arm64: dts: rockchip: enable HDMI RX audio ca=
+pture on Orange Pi 5 Plus ---
+commit 030cd8fd5334b79e1751dec57b1de1f5fa4e3df3
 Author: Igor Paunovic <royalnet026@gmail.com>
 
-media: synopsys: hdmirx: add HDMI audio capture support
+arm64: dts: rockchip: enable HDMI RX audio capture on Orange Pi 5 Plus
 
-The Synopsys DesignWare HDMI RX controller extracts the audio stream
-embedded in the incoming HDMI signal and feeds it to an on-SoC I2S
-controller. Expose it as an ALSA capture device by registering the
-generic hdmi-codec as a child of the controller.
+This patch routes the HDMI receiver audio to the i2s7_8ch interface. It cre=
+ates
+a simple-audio-card configuration to expose a capture-only ALSA card driven
+by the HDMI input. The setup uses the receiver as the bitclock and frame ma=
+ster.
 
-> diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drive=
-rs/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> index 25f8ca0d6d946..22f50cbf3fa7a 100644
-> --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-
-[ ... ]
-
-> +/* Recover the incoming audio sample rate from the ACR N/CTS + TMDS cloc=
-k. */
-> +static u32 hdmirx_audio_fs(struct snps_hdmirx_dev *hdmirx_dev)
-> +{
-> +	u64 tmds_clk, fs_audio =3D 0;
-> +	u32 acr_cts, acr_n, tmdsqpclk_freq;
-> +	u32 acr_pb3_0, acr_pb7_4;
-> +
-> +	tmdsqpclk_freq =3D hdmirx_readl(hdmirx_dev, CMU_TMDSQPCLK_FREQ);
-> +	hdmirx_readl(hdmirx_dev, PKTDEC_ACR_PH2_1);
-> +	acr_pb3_0 =3D hdmirx_readl(hdmirx_dev, PKTDEC_ACR_PB3_0);
-> +	acr_pb7_4 =3D hdmirx_readl(hdmirx_dev, PKTDEC_ACR_PB7_4);
-> +	/*
-> +	 * The packet decoder stores the ACR subpacket bytes with packet byte
-> +	 * 0 in register bits [7:0], so byte-swap each word to line the bytes
-> +	 * up: CTS is packet bytes 1-3 (PKTDEC_ACR_PB3_0) and N is packet
-> +	 * bytes 4-6 (PKTDEC_ACR_PB7_4), 20 bits each.
-> +	 */
-> +	acr_cts =3D be32_to_cpu((__force __be32)acr_pb3_0) & 0xfffff;
-> +	acr_n =3D (be32_to_cpu((__force __be32)acr_pb7_4) & 0x0fffff00) >> 8;
-
-[Severity: High]
-Does this byte-swapping logic scramble the extraction of the CTS and N valu=
-es
-on little-endian architectures?
-
-Since the HDMI ACR packet transmits the 20-bit CTS value across PB0, PB1, a=
-nd
-PB2, and because it is little-endian, applying a bitmask like
-acr_pb3_0 & 0xfffff natively yields the correct CTS value without any swaps.
-
-By byte-swapping the 32-bit register, the bytes are completely reversed.
-The subsequent bitmask extracts the lower 20 bits of the swapped word, which
-correspond to the lower nibble of PB1, all of PB2, and all of PB3, discardi=
-ng
-PB0 entirely.
-
-The same applies to acr_pb7_4 to extract N. Will this regression result in
-garbage values for both acr_cts and acr_n, forcing the driver to blindly
-fall back to the default sample rate?
-
-[ ... ]
-
-> @@ -2784,6 +3052,9 @@ static void hdmirx_remove(struct platform_device *p=
-dev)
->  	struct device *dev =3D &pdev->dev;
->  	struct snps_hdmirx_dev *hdmirx_dev =3D dev_get_drvdata(dev);
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/ar=
+ch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+> index 145986695720a..2a68610cddbc3 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+> @@ -37,6 +37,22 @@ hdmi1_con_in: endpoint {
+>  		};
+>  	};
 > =20
-> +	if (hdmirx_dev->audio_pdev)
-> +		platform_device_unregister(hdmirx_dev->audio_pdev);
+> +	hdmiin-sound {
+> +		compatible =3D "simple-audio-card";
+> +		simple-audio-card,name =3D "rockchip,hdmiin";
+> +		simple-audio-card,format =3D "i2s";
+> +		simple-audio-card,bitclock-master =3D <&hdmiin_codec>;
+> +		simple-audio-card,frame-master =3D <&hdmiin_codec>;
 > +
+> +		simple-audio-card,cpu {
+> +			sound-dai =3D <&i2s7_8ch>;
+> +		};
+> +
+> +		hdmiin_codec: simple-audio-card,codec {
+> +			sound-dai =3D <&hdmi_receiver 0>;
 
 [Severity: High]
-Can this lead to a use-after-free if the driver is unbound while an audio
-stream is active?
+Does exposing this codec to the ALSA subsystem trigger a suspend regression=
+ in
+the hdmirx driver?
 
-The v3 changelog notes that the synchronous cancel for the audio_work
-delayed work was removed here under the assumption that audio_shutdown()
-handles it.
+Looking at the underlying codec driver hdmirx_suspend() in snps_hdmirx.c:
 
-However, ALSA does not synchronously invoke the PCM .shutdown callback
-when a device is unregistered if a userspace application holds the file
-descriptor open.
+drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c:hdmirx_suspend()
+{
+	struct snps_hdmirx_dev *hdmirx_dev =3D dev_get_drvdata(dev);
 
-Because hdmirx_dev is allocated using devm_kzalloc, it is freed immediately
-after hdmirx_remove() returns. Will the un-cancelled audio_work delayed work
-subsequently fire and access the freed hdmirx_dev memory?
+	hdmirx_disable_irq(dev);
 
->  	v4l2_debugfs_if_free(hdmirx_dev->infoframes);
->  	debugfs_remove_recursive(hdmirx_dev->debugfs_dir);
+	/* TODO store CEC HW state */
+	disable_irq(hdmirx_dev->cec->irq);
+
+	return hdmirx_disable(dev);
+}
+
+The audio_work delayed work is queued on system_unbound_wq, which is not
+freezable, but this suspend callback doesn't cancel it.=20
+
+If system suspend is initiated while audio capture is active, the worker
+could fire after clocks are disabled via hdmirx_disable(), resulting in
+a bus fault when it performs MMIO reads.
+
+[Severity: Medium]
+Will this audio capture work correctly on big-endian architectures?
+
+The underlying hdmirx_audio_fs() driver function uses be32_to_cpu() for an
+unconditional byte swap when calculating the ACR subpacket:
+
+drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c:hdmirx_audio_fs()
+{
+...
+	acr_cts =3D be32_to_cpu((__force __be32)acr_pb3_0) & 0xfffff;
+	acr_n =3D (be32_to_cpu((__force __be32)acr_pb7_4) & 0x0fffff00) >> 8;
+...
+}
+
+Since be32_to_cpu() behaves as a no-op on big-endian CPUs, the bytes remain
+unswapped, causing the bitwise masking to extract the wrong bytes for the
+ACR CTS and N fields.=20
+
+Should swab32() be used here instead to ensure the byte swap happens
+unconditionally on all architectures?
+
+> +		};
+> +	};
+> +
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260718085728.6797=
--1-royalnet026@gmail.com?part=3D2
+-1-royalnet026@gmail.com?part=3D4
