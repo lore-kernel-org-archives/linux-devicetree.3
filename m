@@ -1,112 +1,109 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93859369980;
-	Sat, 18 Jul 2026 06:56:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D4D1FC8
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 06:59:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784357796; cv=none; b=hgNjXSagzs8NCm4y0mSiL5O+paj5bdrDkhoOwlUSO1Tw67OyDuweNqyTYGCzI4fEEU3B1p0cXSJpsu/Qk5AnxVJqkmXQNFEBNFrJDFxOZVtZb3irhRu7nKPHvqzFGgvChAsrTBlsgtBzF4NcFckZamrmCKjf7kXzzFzXk9+pT3Y=
+	t=1784357950; cv=none; b=iZ/zYl4l49XMYaLFaY7EBXJU4FDMMgXjTfviirqGkILorYdOlxJidJDoiU2t8GBQweuQdB9r3pEsXVw6fvwJytGccpI5VPn4PXybOi1UMGPR7G35KhuTpxaqolaDuPsxv6B1m44wuiuEj7FIKgIEFtw6ENU2AdZSsP6pZ6/p7eU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784357796; c=relaxed/simple;
-	bh=fpZKYx4t8aho1pYFI8QxHjvgDRauRrTRTzr1s5bxysI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IQ3vG5qUvq/3xXIepyV+7fOXBg3+m0/g2/TQek7ccejcE7QeadJaH9fXNu/9HaVmammFAuuStGJC53+OiagU7ePTLF1IUmHx8XaM7U3WTVYGkTrPsRanu56XaDKPMza6MsTN+UmvoxxMa95B11Dsu2qZ5qyqO1yhnVAx9D/o4jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HTl5Kq0W; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1784357950; c=relaxed/simple;
+	bh=3CEWfrM8epbvugGBRW7VbGIlaAMHZevhPiYoSea+v+U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uyFWVrk1h028hhMjwBYS40Xe2sm5jl3VOuFLaWKw8ZGRzh9Zuc3rly7l2gggt3qRZdQvzL8bKE83C2CMcsFxAj/J0QOaTWykFpJhn6Qr+xA/dyK+kY6r9zqiFDAbN4pD1reFYaGPHFD4bbaTfykVKvtk5nmJbQkySEx63++Owmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cRqwpZ1p; arc=none smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HTl5Kq0W"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784357796; x=1815893796;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=fpZKYx4t8aho1pYFI8QxHjvgDRauRrTRTzr1s5bxysI=;
-  b=HTl5Kq0Ww4ukp9r5XkyJ/IZUA+nstkPzJzmvDFk5NwlJ6kbIpdj+Zi3A
-   7izOxyXubfqPZpAhKW3in3VmnVwqByi4qBW2b5zdk+xa80JGHTMq2MNVn
-   h2sE99k6dHtggAQxWenkLMyme83YwelfSK1ttMwF7vA6tgXfnDbWTnsje
-   02q2Xi0GsejCj9JJMtxDDI7TMFyUXbIEpfma79eLoMq+y1yg4koOykSnQ
-   vdJM75etSZ0g5zVAiW88yh9i9xlESufO0x32uTDC1DE/rBnDWKIx06hR5
-   qJu1lxi0kjDhcH2ttnojraK1GQCZFUiGqK5I8WW7Ty/17nzPHjNnFwYpT
-   g==;
-X-CSE-ConnectionGUID: 03WR6STxQCWICdCMpkpfUQ==
-X-CSE-MsgGUID: 16zrn2czQRyigF2Pd3yA/Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11849"; a="102569156"
-X-IronPort-AV: E=Sophos;i="6.25,170,1779174000"; 
-   d="scan'208";a="102569156"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 23:56:35 -0700
-X-CSE-ConnectionGUID: ZdLhnlPlQg6R9njqmlrb2Q==
-X-CSE-MsgGUID: BVDzW+AVQkCOtxA6c0+vlA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,170,1779174000"; 
-   d="scan'208";a="295165354"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.22])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jul 2026 23:56:31 -0700
-Date: Sat, 18 Jul 2026 09:56:29 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Md Shofiqul Islam <shofiqtest@gmail.com>
-Cc: linux-iio@vger.kernel.org, jic23@kernel.org, devicetree@vger.kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	u.kleine-koenig@baylibre.com, joshua.crofts1@gmail.com,
-	nuno.sa@analog.com, Michael.Hennerich@analog.com,
-	dlechner@baylibre.com, linux@analog.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 2/2] iio: health: add MAX86150 ECG and PPG biosensor
- driver
-Message-ID: <alsjndog518gToDA@ashevche-desk.local>
-References: <20260717201138.1078019-1-shofiqtest@gmail.com>
- <20260717201138.1078019-3-shofiqtest@gmail.com>
- <alsjNBDgHm9fkp3c@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cRqwpZ1p"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-c9aea40d799so2438810a12.0
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 23:59:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784357948; x=1784962748; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MbNJCbR9fwKlsvB8FKMzu9iZUQ3KKsxGZYdnUhTBU4U=;
+        b=cRqwpZ1pBRAkDxLMpmhoWWUWdhNL0UEGDiTVlM648Z335gESRYjCctUdnv0hDqg23y
+         qKsN70xSpKWw49EtqRrBvrhyjLlrzI6OclYvlpSw2+6JsWpSC9cdk2xxViCYJBymh549
+         8Igy1PQL7Ok2tn6EzN00ux72MZbKnHXmhsvtfxgvLSYMdk6MPzHVxmO329p15pGP0Z2A
+         MeAbCM3ANr8kSgwmh44Lzf9FqO6/da720l+BJ3F8XDgPd3K7NcCw0duqv/vYDEE8MT7O
+         n79xoYny1/KlXCxm5oBlgxhiQEv3ePYm+ZiME82n4x4KpXuqsHp8VOshUTGfOT7bTe0b
+         WWSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784357948; x=1784962748;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MbNJCbR9fwKlsvB8FKMzu9iZUQ3KKsxGZYdnUhTBU4U=;
+        b=KHTeU/rUugyHrhEUyKBlFSnD1LLJ5yfa1Qz0FPWMGkJE5RFZ1VyB3rCjEJl4zLn6qD
+         As6B+TUUwQRTJ185rtOTSIr/W9rDeeA3e7Gj/YWPMyUK/uHP5JaxNmBaUceP7qs3kb93
+         FFzTjJTuLSx/xejErv447Bh/Ws7U4LK8pUBt31Vm7IAhnvU5oBn/xTad6LqWliX6pQmP
+         8bPD9eiozD6fBxZuzxuDVhNywpXn9DeSMPr1PnqrJljF67q/vTalrs0PpKl/0RiMbSbi
+         4WDHdLsrhjm+p3SZ2GwJGeHzpuOnwJ1w2uQqb89PdYeo0NuUkFgFKQMTLWWrfazHRGA0
+         4ayA==
+X-Gm-Message-State: AOJu0YxfGsu6eOOrPbDkCjI9Yh3QBakk/3g2YGZmlmbZQJbSFL1/MCts
+	LYVRlDhsd8CR/8PHAUi7EOv18YSXE8aIPAmHQhep19odFmDSdXa3x1Fi
+X-Gm-Gg: AfdE7cmnxuD4TMECeo7CoByOOYVzCgavh/K09e8cHIzS5TUUtDVtjZi+SaXeTz/L27L
+	Hvg+HFffDm9oM7nLDJn/3J9NtsTI3xsr9Z/lvBzyk2bhloAbp5PsYsoyawRJ7MLmsswN3peCp9b
+	360RIdKlVUIXXxBy5wLmQw1qh5SBzyM7jW08v63gtugnfoTG9eWd8XwJnDSak2a1rle8Rmght73
+	MkHx0yjjJ48iLnV3smD6nEOSzSp8BngfMleQdmUvObQk1wRPWO831CPqyG5Ftl62bBJ1Ryy3JFU
+	SfmX98OvmWZGKE8vF44ZCsFHsrb6kTcoDwy7XeLun0IHQ8om9rupYOf+nzuJse3UbRZZdka83yg
+	iPlXuyASq9AgP/kJRdHhOK1Ms5AaZn6FD3LPgB65IkWnY5X+Q41nuS9AES5ysT6WMTSTS9X7EUc
+	5lFzClV540fu0x+BpWMnOQ
+X-Received: by 2002:a05:6a20:734f:b0:3bf:c07b:a9ab with SMTP id adf61e73a8af0-3c3ad9dfdecmr6595081637.55.1784357948230;
+        Fri, 17 Jul 2026 23:59:08 -0700 (PDT)
+Received: from i386.168.1.127 ([2402:a00:163:2ce9:6882:91b7:8e79:7958])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31429f9bb62sm13426133eec.2.2026.07.17.23.59.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 23:59:07 -0700 (PDT)
+From: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+To: heiko@sntech.de
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Hrushiraj Gandhi <hrushirajg23@gmail.com>
+Subject: [PATCH v2 0/2] Add support for Vicharak Vaaman board
+Date: Sat, 18 Jul 2026 12:28:58 +0530
+Message-ID: <20260718065900.755631-1-hrushirajg23@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alsjNBDgHm9fkp3c@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Sat, Jul 18, 2026 at 09:54:50AM +0300, Andy Shevchenko wrote:
-> On Fri, Jul 17, 2026 at 11:11:37PM +0300, Md Shofiqul Islam wrote:
+This series adds initial support for the Vicharak Vaaman, an RK3399-based
+single-board computer.
 
-...
+Patch 1 documents the "vicharak,vaaman" compatible string in the Rockchip
+arm bindings.
 
-> > +static int max86150_read_one_sample(struct max86150_data *data,
-> > +				    u32 *ppg_red, u32 *ppg_ir, s32 *ecg)
-> > +{
-> > +	int ret;
-> > +
-> > +	ret = regmap_noinc_read(data->regmap, MAX86150_REG_FIFO_DATA,
-> > +				data->fifo_raw, MAX86150_SAMPLE_BYTES);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	*ppg_red = (data->fifo_raw[0] & 0x07) << 16 |
-> > +		    data->fifo_raw[1] << 8 | data->fifo_raw[2];
-> 
-> Use get_unaligned_be16()
+Patch 2 adds the board devicetree, enabling the RK808 PMIC with
+SYR827/SYR828 CPU-big/GPU regulators, Mali GPU, Gigabit Ethernet,
+eMMC, microSD, SARADC/TSADC, and UART2 console.
 
-Actually it should be get_unaligned_be24().
+The vendor prefix 'vicharak' was previously accepted via:
+https://lkml.org/lkml/2026/6/24/929
 
-> > +	*ppg_ir  = (data->fifo_raw[3] & 0x07) << 16 |
-> > +		    data->fifo_raw[4] << 8 | data->fifo_raw[5];
-> 
-> Ditto.
-> 
-> > +	*ecg = sign_extend32((data->fifo_raw[6] & 0x03) << 16 |
-> > +			      data->fifo_raw[7] << 8 | data->fifo_raw[8], 17);
-> 
-> Ditto.
-> 
-> > +	return 0;
-> > +}
+Changes in v2:
+- Fix fixed-regulator node naming to use 'regulator-[voltage]' prefix
+  consistently throughout
+
+Hrushiraj Gandhi (2):
+  dt-bindings: arm: rockchip: Add Vicharak Vaaman board
+  arm64: dts: rockchip: Add Vicharak Vaaman board
+
+ .../devicetree/bindings/arm/rockchip.yaml     |   5 +
+ arch/arm64/boot/dts/rockchip/Makefile         |   1 +
+ .../dts/rockchip/rk3399-vicharak-vaaman.dts   | 438 ++++++++++++++++++
+ 3 files changed, 444 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3399-vicharak-vaaman.dts
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.47.3
 
