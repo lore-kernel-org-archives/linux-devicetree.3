@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52BC369D4E
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 09:01:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EC93368B5
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 09:01:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784365280; cv=none; b=LXRMY5XR5wjq5HBxlQW16yQg2y7o0yGDeWwM1w5ShF3wLJtDG2Doj7atE8lTuCNGp71fnEBuldVlS3yYD7WsLPQWSxEKCUiAbG9IZv2O2G+ZxtKuFjmuuHDA7LeDESf81f6s8pRuiO4iwULyEIfcudgd2rn9GDFaZMmzQgWlB8k=
+	t=1784365281; cv=none; b=KIIs+nlbHS0HquWxthNqqX+WqveJ4qTZPMbBynAuAtD8qjt6EDSQmOXpK3MiQEzmnhMIYmpmoHAPCEcZ0IJ0tN3bTCCpoOU+6R6pL7b6FuhXAE8k+t+LdSYWGeJQm/VxXi2f4mCrFtFaVade3dQczo5FYmMvHJQNDWhG2CDJ2og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784365280; c=relaxed/simple;
-	bh=pKqtQxShwsPQOd6Jw3wAmODwt5bqqCeLDMef+CLX7xY=;
+	s=arc-20240116; t=1784365281; c=relaxed/simple;
+	bh=MZOfKD2XGT/VT+ImPNgLmhXH8w+3qL99XgrXqq28zzY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZD960B+k9EcYCRxHDbBrknIx5nVhcm7H9nXzA3+Wg+IJiiCLzCEeaJotmQkUjTMyxR93Oz64IeawfRijpDtC7Ucx5FQFClc6IVSbh8icXHjMN+IU2XE/mH1um2Cy9DIdROsgs40ZIPMopPta8e8Ys5tHHvIsgONTgCcsFDp0oRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DuVI1t3l; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=EviVjx0fIyX5jXlW+qKEfEASKPLKl2ZK+zzMWgEo4+0yYxBDCc0C3/LADE1DAtCtBlMRIysgT7QHLQMlMWF5VwbdTG3xFDC4TU7kNejPfot0pXRK7BjJ0OY52haBK1MaNYecEwGDBDiPOiBBMhi3Q70T7eoq+BMjFcUl4LL61R0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R1S5C+j/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DuVI1t3l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 434621F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R1S5C+j/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E43D01F00A3A;
 	Sat, 18 Jul 2026 09:01:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784365279;
-	bh=rByq2Q2A7NzEHyDkOG4OcZizfk1/vNqkiKAjaZU5Vzg=;
+	s=k20260515; t=1784365280;
+	bh=RCSzL2+2JLFXycw1VAgABWey465RTihoLGZmIRQ81OU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DuVI1t3l+0A3uBfgRKryxT6LMwWfTpL5BajWla/zF4n1k7iDAMYTeCQCMD6SwFCLj
-	 ybQlJU7eBtn/ZaS6ZcNGR/w+pskjY5XT6306QwdCJcrCSaeGrtGft1Qd+WNK19ZCMZ
-	 XhzyFrAzloesHt+RMFCzbSPsCfRguEclYUd4ZYxL56j6J1V8x9Bj2hXRA/b8jOw883
-	 /MGYbaLzbC+OeICFIceTy12cbiuazK8IL1tuka2HwiaLNV5GDI7eEcdcsv2Ro8VhbS
-	 gddipiCUyQzZzwKIRUR2fdTtBuw/pkmlk7hG8CT6eLBNnc5C694ge/xsmmdQqO5ofR
-	 HusGFUDZ6BZNw==
+	b=R1S5C+j/1uztx7j/KvzjzmssOrGkLOOify+vU2//IgyhmfpTESnpiJ7YSyU+fbMfz
+	 pPduzk4eof51cPdazFRcGuoQjUerch/lQdRwOcQ7Z7mQT7yWtUHRnfC0LFA5NMuZgd
+	 F5IOVZv2gQMW5eVaKHRR9dPOwIK7j6Xm5vegfxaegzpPpp1tGssCf4N2kRoSUa9vNa
+	 ABXhOTM0GZtmdtbUcbNwAxbVZUfHYiJp17lwDIZkNPRbOynHhyzijRb6jnDQf4xDR0
+	 fzInvHPdJjur1Eeum81tDbrSJd530P0MHTJh/EMIy0IwKIFxGHnqlujAWIYnRVaHZR
+	 738+hqu2uppdQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v9 08/12] of: property: fw_devlink: Add support
- for "pcs-handle"
+Subject: Re: [PATCH net-next v9 09/12] net: phylink: add .pcs_link_down PCS
+ OP
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260717065448.1498335-9-ansuelsmth@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260717065448.1498335-10-ansuelsmth@gmail.com>
 References: <20260717065448.1498335-1-ansuelsmth@gmail.com>
- <20260717065448.1498335-9-ansuelsmth@gmail.com>
+ <20260717065448.1498335-10-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 18 Jul 2026 09:01:18 +0000
-Message-Id: <20260718090119.434621F000E9@smtp.kernel.org>
+Date: Sat, 18 Jul 2026 09:01:19 +0000
+Message-Id: <20260718090119.E43D01F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,59 +47,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Adding `pcs-handle` to `fw_devlink` supplier bindings defeats the =
-dynamic 'late PCS provider attach' and hotplug logic in `phylink`.
+- [Low] The kernel-doc comment for `pcs_link_down()` incorrectly names the =
+function as `pcs_link_up()`, due to a copy-paste error.
 --
 
---- Patch [8]: [PATCH net-next v9 08/12] of: property: fw_devlink: Add supp=
-ort for "pcs-handle" ---
-commit f6fc253d355d434feccac1a9dee68ebce25d5fe8
+--- Patch [9]: [PATCH net-next v9 09/12] net: phylink: add .pcs_link_down P=
+CS OP ---
+commit 44243b57b5aa440d9df2c5da5110db53f51717a0
 Author: Christian Marangi <ansuelsmth@gmail.com>
 
-of: property: fw_devlink: Add support for "pcs-handle"
+net: phylink: add .pcs_link_down PCS OP
 
-This commit adds support for parsing the "pcs-handle" binding, allowing
-fw_devlink to enforce device dependencies with Ethernet ports.
-
-> diff --git a/drivers/of/property.c b/drivers/of/property.c
-> index 72cf12907de03..91c3e3931fa6e 100644
-> --- a/drivers/of/property.c
-> +++ b/drivers/of/property.c
+This commit adds a .pcs_link_down operation to the phylink_pcs_ops
+structure, allowing PCS drivers to define specific link teardown behavior.
+The new callback is invoked during phylink_link_down() immediately after
+the MAC link is brought down.
 
 [ ... ]
 
-> @@ -1571,6 +1572,7 @@ static const struct supplier_bindings of_supplier_b=
-indings[] =3D {
->  	{ .parse_prop =3D parse_interrupts, },
->  	{ .parse_prop =3D parse_interrupt_map, },
->  	{ .parse_prop =3D parse_access_controllers, },
-> +	{ .parse_prop =3D parse_pcs_handle, },
+> diff --git a/include/linux/phylink.h b/include/linux/phylink.h
+> index 15e6b1a39dfe2..ecf4c384fd31c 100644
+> --- a/include/linux/phylink.h
+> +++ b/include/linux/phylink.h
+> @@ -690,6 +692,16 @@ void pcs_an_restart(struct phylink_pcs *pcs);
+>  void pcs_link_up(struct phylink_pcs *pcs, unsigned int neg_mode,
+>  		 phy_interface_t interface, int speed, int duplex);
+> =20
+> +/**
+> + * pcs_link_up() - tear down link between MAC and PCS
 
-[Severity: High]
-Does enforcing a strict supplier-consumer dependency here conflict with the
-dynamic hotplug and late-attach logic in phylink?
+[Severity: Low]
+This isn't a bug, but should this kernel-doc name be pcs_link_down() to mat=
+ch
+the function prototype below it? This copy-paste typo will likely cause a
+kernel-doc documentation build warning.
 
-If fw_devlink creates a managed device link for pcs-handle, it enforces str=
-ict
-boot ordering. This prevents the MAC from probing before the PCS, which blo=
-cks
-phylink's late-attach feature.
-
-Additionally, because fw_devlink applies DL_FLAG_AUTOREMOVE_CONSUMER, unloa=
-ding
-the PCS module would cause the driver core to unceremoniously unbind the MAC
-driver and remove the network interface. This circumvents phylink's graceful
-link down handling via phylink_release_pcs().
-
-Since similar properties like phy-handle are intentionally omitted from
-of_supplier_bindings to allow for dynamic PHY/PCS presence, should pcs-hand=
-le
-also be excluded to preserve these phylink features?
-
->  	{ .parse_prop =3D parse_regulators, },
->  	{ .parse_prop =3D parse_gpio, },
->  	{ .parse_prop =3D parse_gpios, },
+> + * @pcs: a pointer to a &struct phylink_pcs.
+> + *
+> + * This call will be made just after mac_link_down() to inform the PCS t=
+he
+> + * link has gone down. PCS should be configured to stop processing packe=
+ts
+> + * for transmission and reception.
+> + */
+> +void pcs_link_down(struct phylink_pcs *pcs);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717065448.1498=
-335-1-ansuelsmth@gmail.com?part=3D8
+335-1-ansuelsmth@gmail.com?part=3D9
