@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B473368B5
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 09:01:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A92D176FB1
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 09:09:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784365283; cv=none; b=qvV2cqY9UUKLjT/M5icGW15NMAqrIET00R6TuPYfFH6m5CKO1hXlmkEbHcxF7WZHb3eMh5BuYiTvFKt7LJVn9+oK0RcBIezOtnrkARexf0yzOoBT09w3j6Q6cngIRTwxz3MUrh1zAmWj4m8TyMrTRPgRXXEhFW4ZxkQZbrGiPvk=
+	t=1784365797; cv=none; b=SgXWLTv05pSU6vv197P7B/ZWCIQu9NFQBSEFLZQL1e9bc0cY+i/1JtybTzPxt1SaV/ZnrYKwVAmTWIPY9f6Lf42gK0KJNk2f7jph75d7o61dTgiE2BMD5LVX0TqPomLJi3t05uteg2s7AmPaFNQ7DDeD0OdOcA1zjpQ9onCZ/Os=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784365283; c=relaxed/simple;
-	bh=tLr19T9WWLDW1tJcGBiCXt3zTLcEyMOQEHKqFZ2djp0=;
+	s=arc-20240116; t=1784365797; c=relaxed/simple;
+	bh=u8wz0iE476go4ijdQsYSkQKRx3zPhqxohWpMWCSDXgg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Vk0pFi/aaGuDBjzezfhlf++eDSbJLQ5HAH26ADpl8fNFLzdo7lxBwMcwR9mA+Uk2ThfOILyX9YULAnerWwXhlrzHHmyEKwhrjg6cybOUbJLBVnZpEE/41SDwicdt+WUx70bOUH6MI7ClWXVN771FTxRgVmueR1KhLZ13IKBNdpM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ig2H1YFX; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ZqeBh/+hgZ9jJ8G5S6m03R1vh+K+/+N3K9+kG3s1ZUj5tF2T7F69DZdE/wcn2GNgHfxBkOh7oa09HqXXm5e1wELL1Oe4tt8gLStarJgiszLY3NBv4y/3jxgxCau240rl02NaczD5OGerUX+8Mw9NNZRUrtrecHnPffmNEFhp8JA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=URkOGN3d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ig2H1YFX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79D3A1F00A3D;
-	Sat, 18 Jul 2026 09:01:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="URkOGN3d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A79E51F000E9;
+	Sat, 18 Jul 2026 09:09:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784365281;
-	bh=Xj68q7+4SZ64ya0ebkXURTk+O9juc6TNZcPMDQcvyNg=;
+	s=k20260515; t=1784365796;
+	bh=RpKt7bFbtUXGvJYn5m3p9J251WLHphfCK6DFjnuvH+4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ig2H1YFXMWGtTMyaiCBeU8FofvIDjWvYvy6e4ehhDvz81UMhYgCafmhvJbqchj4vU
-	 xHsOtTTXmUpy2iNIch40My0JnpkZXBKL5bX4oDKneGQu8n5X8KL4GRjZt8fchXA0z8
-	 iKWUI335FL5xnJ+0zG9CrFatNJ5e2B7EI4pj0Cs/zZp2Nuuu+3ehsAGqOw9RfuL+vO
-	 kuBtlbPKANXSQ8skPdY49y3xWSp/QbaqlQRuMAG7x5hQjRcLNhJMGki/ybg3tTqvzH
-	 whTpPqHcSnFXgtQGLzU8J+CcuPQMcp6JTZvPxkLlWDncYKCzILF1eyytgjriMT9ZQL
-	 /G9MD+SiZ3OIg==
+	b=URkOGN3dnJZceI4VFPcd4Yid+r/lvYonRirzBr6cmnDs/7QwdzRdgKX1VB2ppacOu
+	 ZcWU9fVbdAw4ST0cz/MMOOdiODO5QuXjMlG5v2LvKcPqp+ZR3+W4Iz+dfAC1bNhVi2
+	 cnbVJV968utJM/4DI28U4FGfkmsanrW/UR9UUdHid5kVkDKehb/GQwnZTkCmNf85L6
+	 SLLcEnUZNk1VglMaZJ6BkoPwJ/RlChSHd8JDNtnZe8qrm30xoCqMf92TYraa7PXgeN
+	 qePLhHSOcCy3KqeMVCEKpYT4aKJcfLeAX1I8rcHH/mpr0V/gI2CsrKv2zh6agMOVea
+	 HbIhR1RI9BReg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v9 12/12] net: airoha: add phylink support
+Subject: Re: [PATCH v3 2/4] media: synopsys: hdmirx: add HDMI audio capture
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260717065448.1498335-13-ansuelsmth@gmail.com>
-References: <20260717065448.1498335-1-ansuelsmth@gmail.com>
- <20260717065448.1498335-13-ansuelsmth@gmail.com>
+To: "Igor Paunovic" <royalnet026@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260718085728.6797-3-royalnet026@gmail.com>
+References: <20260718085728.6797-1-royalnet026@gmail.com>
+ <20260718085728.6797-3-royalnet026@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 18 Jul 2026 09:01:21 +0000
-Message-Id: <20260718090121.79D3A1F00A3D@smtp.kernel.org>
+Date: Sat, 18 Jul 2026 09:09:55 +0000
+Message-Id: <20260718090955.A79E51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,117 +47,105 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [Medium] Missing phy-mode property now unconditionally causes probe failu=
-re, breaking old device trees.
-
-Pre-existing issues:
-- [High] The spinlock `port->lock` is acquired using `spin_lock()` in proce=
-ss contexts without disabling softirqs, creating a deadlock risk if interru=
-pted by a softirq calling `ndo_get_stats64`.
+- [High] Incorrect byte-swapping logic completely scrambles the extraction =
+of Audio Clock Regeneration (ACR) CTS and N values, breaking sample rate re=
+covery on little-endian architectures.
+- [High] The `audio_work` delayed work is not explicitly cancelled in `hdmi=
+rx_remove()`, leading to a Use-After-Free if the driver is unbound while an=
+ audio stream is active.
 --
 
---- Patch [12]: [PATCH net-next v9 12/12] net: airoha: add phylink support =
----
-commit bb8a7d4b36e6cc8dd02385bcf6f62f3da412aa5a
-Author: Christian Marangi <ansuelsmth@gmail.com>
+--- Patch [2]: [PATCH v3 2/4] media: synopsys: hdmirx: add HDMI audio captu=
+re support ---
+commit b04bcd22f40b424aac824100715c46f764531875
+Author: Igor Paunovic <royalnet026@gmail.com>
 
-net: airoha: add phylink support
+media: synopsys: hdmirx: add HDMI audio capture support
 
-Add phylink support for each GDM port. For GDM1 add the internal interface
-mode as the only supported mode. For GDM2/3/4 add the required
-configuration of the PCS to make the external PHY or attached SFP cage
-work.
+The Synopsys DesignWare HDMI RX controller extracts the audio stream
+embedded in the incoming HDMI signal and feeds it to an on-SoC I2S
+controller. Expose it as an ALSA capture device by registering the
+generic hdmi-codec as a child of the controller.
 
-> diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ether=
-net/airoha/airoha_eth.c
-> index 59001fd4b6f74..ed1ac032f3374 100644
-> --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> +++ b/drivers/net/ethernet/airoha/airoha_eth.c
+> diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drive=
+rs/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> index 25f8ca0d6d946..22f50cbf3fa7a 100644
+> --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+
 [ ... ]
-> @@ -1837,7 +1838,7 @@ static void airoha_update_hw_stats(struct airoha_gd=
-m_dev *dev)
->  	struct airoha_gdm_port *port =3D dev->port;
->  	int i;
+
+> +/* Recover the incoming audio sample rate from the ACR N/CTS + TMDS cloc=
+k. */
+> +static u32 hdmirx_audio_fs(struct snps_hdmirx_dev *hdmirx_dev)
+> +{
+> +	u64 tmds_clk, fs_audio =3D 0;
+> +	u32 acr_cts, acr_n, tmdsqpclk_freq;
+> +	u32 acr_pb3_0, acr_pb7_4;
+> +
+> +	tmdsqpclk_freq =3D hdmirx_readl(hdmirx_dev, CMU_TMDSQPCLK_FREQ);
+> +	hdmirx_readl(hdmirx_dev, PKTDEC_ACR_PH2_1);
+> +	acr_pb3_0 =3D hdmirx_readl(hdmirx_dev, PKTDEC_ACR_PB3_0);
+> +	acr_pb7_4 =3D hdmirx_readl(hdmirx_dev, PKTDEC_ACR_PB7_4);
+> +	/*
+> +	 * The packet decoder stores the ACR subpacket bytes with packet byte
+> +	 * 0 in register bits [7:0], so byte-swap each word to line the bytes
+> +	 * up: CTS is packet bytes 1-3 (PKTDEC_ACR_PB3_0) and N is packet
+> +	 * bytes 4-6 (PKTDEC_ACR_PB7_4), 20 bits each.
+> +	 */
+> +	acr_cts =3D be32_to_cpu((__force __be32)acr_pb3_0) & 0xfffff;
+> +	acr_n =3D (be32_to_cpu((__force __be32)acr_pb7_4) & 0x0fffff00) >> 8;
+
+[Severity: High]
+Does this byte-swapping logic scramble the extraction of the CTS and N valu=
+es
+on little-endian architectures?
+
+Since the HDMI ACR packet transmits the 20-bit CTS value across PB0, PB1, a=
+nd
+PB2, and because it is little-endian, applying a bitmask like
+acr_pb3_0 & 0xfffff natively yields the correct CTS value without any swaps.
+
+By byte-swapping the 32-bit register, the bytes are completely reversed.
+The subsequent bitmask extracts the lower 20 bits of the swapped word, which
+correspond to the lower nibble of PB1, all of PB2, and all of PB3, discardi=
+ng
+PB0 entirely.
+
+The same applies to acr_pb7_4 to extract N. Will this regression result in
+garbage values for both acr_cts and acr_n, forcing the driver to blindly
+fall back to the default sample rate?
+
+[ ... ]
+
+> @@ -2784,6 +3052,9 @@ static void hdmirx_remove(struct platform_device *p=
+dev)
+>  	struct device *dev =3D &pdev->dev;
+>  	struct snps_hdmirx_dev *hdmirx_dev =3D dev_get_drvdata(dev);
 > =20
-> -	spin_lock(&port->stats_lock);
-> +	spin_lock(&port->lock);
+> +	if (hdmirx_dev->audio_pdev)
+> +		platform_device_unregister(hdmirx_dev->audio_pdev);
+> +
 
 [Severity: High]
-This is a pre-existing issue, but using spin_lock() here without disabling
-softirqs creates a deadlock risk.
+Can this lead to a use-after-free if the driver is unbound while an audio
+stream is active?
 
-This function is called from process context (like ethtool callbacks), but =
-it
-is also called by airoha_dev_get_stats64() which can run in softirq context.
-If a softirq interrupts the process-context caller while it holds port->loc=
-k,
-the softirq handler will attempt to acquire the same lock and spin forever.
+The v3 changelog notes that the synchronous cancel for the audio_work
+delayed work was removed here under the assumption that audio_shutdown()
+handles it.
 
-Should all process-context acquisitions of this lock be updated to use
-spin_lock_bh() instead?
+However, ALSA does not synchronously invoke the PCM .shutdown callback
+when a device is unregistered if a userspace application holds the file
+descriptor open.
 
-[ ... ]
-> +static void airoha_mac_link_up(struct phylink_config *config, struct phy=
-_device *phy,
-> +			       unsigned int mode, phy_interface_t interface,
-> +			       int speed, int duplex, bool tx_pause, bool rx_pause)
-> +{
-> +	struct airoha_gdm_dev *dev =3D container_of(config, struct airoha_gdm_d=
-ev,
-> +						  phylink_config);
-> +	struct airoha_gdm_port *port =3D dev->port;
-> +	struct airoha_eth *eth =3D dev->eth;
-> +	u32 frag_size_tx, frag_size_rx;
-> +	u32 mask, val;
-> +
-> +	/* TX/RX frag is configured only for GDM4 */
-> +	if (port->id !=3D AIROHA_GDM4_IDX)
-> +		return;
-[ ... ]
-> +	spin_lock(&port->lock);
-> +
-> +	/* Configure TX/RX frag based on speed */
+Because hdmirx_dev is allocated using devm_kzalloc, it is freed immediately
+after hdmirx_remove() returns. Will the un-cancelled audio_work delayed work
+subsequently fire and access the freed hdmirx_dev memory?
 
-[Severity: High]
-This is a pre-existing issue with the locking design, but since
-airoha_mac_link_up() is a new process-context caller, using spin_lock() here
-introduces a new instance of the deadlock surface mentioned above against
-softirq callers like airoha_dev_get_stats64().
-
-Should this be changed to spin_lock_bh() as well?
-
-[ ... ]
-> +static int airoha_setup_phylink(struct net_device *netdev)
-> +{
-> +	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> +	struct device_node *np =3D netdev->dev.of_node;
-> +	struct airoha_gdm_port *port =3D dev->port;
-> +	struct phylink_config *config;
-> +	phy_interface_t phy_mode;
-> +	struct phylink *phylink;
-> +	int err;
-> +
-> +	err =3D of_get_phy_mode(np, &phy_mode);
-> +	if (err) {
-> +		dev_err(&netdev->dev, "incorrect phy-mode\n");
-> +		return err;
-> +	}
-
-[Severity: Medium]
-Does this mandatory check break backwards compatibility with older device t=
-rees?
-
-If a device tree is missing the phy-mode property, this will now unconditio=
-nally
-fail the driver probe, whereas the previous driver version allowed successf=
-ul
-probe without it.
-
-Is there a fallback mode we should apply here instead of returning the erro=
-r?
+>  	v4l2_debugfs_if_free(hdmirx_dev->infoframes);
+>  	debugfs_remove_recursive(hdmirx_dev->debugfs_dir);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717065448.1498=
-335-1-ansuelsmth@gmail.com?part=3D12
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260718085728.6797=
+-1-royalnet026@gmail.com?part=3D2
