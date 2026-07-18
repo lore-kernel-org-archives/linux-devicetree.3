@@ -1,255 +1,234 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F67287246
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 03:28:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54CB02571C0
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 03:33:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784345282; cv=none; b=OTWdlCScUPIxisPfn2EJARZ12qtBpfpcrF1KYygLnVNmVOv0bGjIVGPwroF9ypJ6bKtQwJO/slFnMQ2JB0YzJXYWTZQeNiOz13Jw2LOgzDaTBBCHV88KBU4i6iEw70ldZ7XVPTJKlRbLvt0Dy9S3S+t2hJo4kVAZLFeUt5eSJVw=
+	t=1784345597; cv=none; b=D+dWx3y1UWRT5N3GFmcTpI38oBhUY9l6mt6UMcpQ0jLok79TxMqNi3PPqPrLrL+E0sFTpbhULfeFasOYhii9LaPSpoCUsKqqZ6mkCn8dFkikErFm+9tLc4IRgfFHPYm29jPNy34AOHicMjbY1qTZFCkwVDrJcv/RRFi05cNqVRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784345282; c=relaxed/simple;
-	bh=fcoO2GeaQjGkN2l5GmYlnNXkrBYRpI2wxO/P8pWVC14=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hH9Id8j6tPv6XbgL8y9G4egGF4B5y/qJletj+dKFyUH0u5sDmYbWT7XTVl/jWdl+WeMYIduvMvHO/l0OC0hIyT9I93wbHke8wjuQxMoVj7kX4+i1XPbr96L9vkkcC+kb99UL2ji1I+EwDcBr/RsP75iymF7juf3P/45Mg2ylsoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CExkVN77; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784345597; c=relaxed/simple;
+	bh=kaqjCteR81ythu/pDBmenR0kkU7QwNiyr7zQkyHZO5A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sixMzGOpyVFFz3ezXSuBQOcZ5ha9ivr1/f1prxkja5P7QKfTPUxqkN4LWINYHWqbYiqJ4CRN4Y4iAF8VnfJ0mpP6PaG4UCNFIj9Pxj0FeQ+oes7bRAv2eHDk5wSmw15Rfqvim9R1rMQP7nqh5FgIphtgTPVFkTMXsmfp8hi/Jps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=x/v2vumU; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CExkVN77"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9514E1F000E9;
-	Sat, 18 Jul 2026 03:27:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784345280;
-	bh=/59ZmpMOZOu/U2hJkANuZv/zYxUgr0tvoErd4Rm9NB4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CExkVN77hOyySj6AVvu5FxSvt9zqF3KKfyApp0icMwPNDENm3bhdby4lGIMGmZKve
-	 tvoXyl+xrrRimscWEJPUtmc9yeqnGz3oB1RXIphoHWJ8mFqJDEAzdnN/gY4n1u+tyr
-	 TmxjvgnV8U9JXwT8HhW6XzqxdHipjweO0EJexD2d+TD9w2vsavEOvCY7oumbuWx7ZF
-	 fjfx2SB0T3Sor3PpdnsQJD6i/TCM1S2NDhn+TBpClZ3VNO68XkGyN2hySFIa7LyOHb
-	 4/CDGwET3auYY4E/b0onzSLYNKdoftBiub5L/B2R2o98AljABl3t29TqNJQObi8DJl
-	 Ax57msRWtU7TQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 6/8] accel/rocket: add RK3576 NPU (RKNN) support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260718031146.3368811-7-gahing@gahingwoo.com>
-References: <20260718031146.3368811-1-gahing@gahingwoo.com>
- <20260718031146.3368811-7-gahing@gahingwoo.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 18 Jul 2026 03:27:59 +0000
-Message-Id: <20260718032759.9514E1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="x/v2vumU"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4954c9f380bso6759735e9.0
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 20:33:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1784345593; x=1784950393; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0oED1FrZVUrTl2AQuQZdpXVSq6u4FM7QrMIHjereqjI=;
+        b=x/v2vumUECza+CIPo6DFjjOti2B2HT6z+eXDvbYCiQ6XkMANUTU7M+7xW2r6xvqnsL
+         l29RQV9tM7MxPWtqv50lyR56VYsZfcJ91+veCVJLXb8a9He7ZVuELhki/HhmDfoDvdth
+         BzG+CmcR/LkDZyL5aDZJQ6rwympAY5UdZfM0m9BOonYVh5OB+bdzZKhc1UvFK8jDGyXr
+         Wu+w2eOj88PxADuBdpaL1I7By1abKfaECRmQiPQMxzw7QK/e44TOmT4a8SgR6zsT6f83
+         XCYzylbb1/7tUFv8vRq7o/SWCGyHIS9jYWE5s5PKH91XAQ5ga8qnL0umd3taBhnJcbkA
+         F2Zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784345593; x=1784950393;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0oED1FrZVUrTl2AQuQZdpXVSq6u4FM7QrMIHjereqjI=;
+        b=Fk/69Sb4528A3Rcc+tOWS/kMwRrZmN18ihP/x/TAIaCid5X/JvbgmYDCNe1Mq5Mm08
+         Se2cJdXjrjg/NuVQh4Wza94hVkdEPW8wsCnzGh/ZWtFv8WHbzonVj0A4+MuXDCtdq5ew
+         zeUzhwaLNkVAzC6CIPjuyYNNFiZRXIGyB6jnDuyUimqqDO07t/HlwAu8U9768adOtcnt
+         EEA3axGPtjfb7j0jNZ013voDt/puKEQevXitZztuE/0oVYGUO9/enbDYMfKIB0L7YokV
+         mxCBrOd3Wx+QtfgOHuWzEjDTIEjHkZoA9puLvV9hKkbB/mX42gDMwSNO/u1g9RzC902L
+         hBYw==
+X-Forwarded-Encrypted: i=1; AHgh+RpPDQtpXrvEIjJBLVM+s+gmt6dAFjF2v83kQLFwMdDhKuAXLSGz58F5pY46fE1Vpo3OxTaz1JLjiPz7@vger.kernel.org
+X-Gm-Message-State: AOJu0YzAIFGVE55KanQsXGpHdsE+tcr8AGYW+Sxwfxbh36vJ0NQRLB6q
+	yGupFccfyQmxttzjYUbEjPRKtHEM2Xp8Uw24jOc8bj1wcwbMwN5rcQra9e13plSepAw=
+X-Gm-Gg: AfdE7clkem64G6volEITVf4PDbMuQlfBbv3AN+eRKtKR2PLzWvx+AyVfDSn0BVPIEov
+	QpbCPAh980SoPtWqvv3dFMhYSBmLIdA0lyezc3S6bZhetQoIVuTEOscZbzo77TFO7QtTjFuJvc6
+	sty4mLjYuaT0YikVCvSDs0wwkVQmfxTSe2R0KaKQzrX5iZLFl8EfZW2JOKyr4rylwXbFTenyG+0
+	eAOHf7KkDBoGxDYWzRsYrcN1/6/zLnp/tMRMrXMrAqWjoSKrQbHXnGLBreMyO067wwJ8+yj1qsh
+	BUq2ES+ULeCSmJA7Y6QNCr4/bkg1ps0n2p3tafhmjChxpv0Ucj+ZLICuifi0Vy4Nh4pzNQppb+Q
+	haYUMzZHKuFrS69e+Ib9oxpjJaJwVTSN0mMcsa7ezjCOs7eflhqGqiZ+2Ym7ghRKBRtYgc8WW9P
+	a+FD4yaIgZE6xH+0QN0r2yWLc=
+X-Received: by 2002:a05:600c:3512:b0:493:cfe8:5b36 with SMTP id 5b1f17b1804b1-4954a3eec4bmr60734855e9.8.1784345593339;
+        Fri, 17 Jul 2026 20:33:13 -0700 (PDT)
+Received: from [192.168.0.35] ([109.76.77.100])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4954a2e8529sm91284285e9.11.2026.07.17.20.33.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 17 Jul 2026 20:33:12 -0700 (PDT)
+Message-ID: <e8e9c2c8-b0a5-446b-860c-a693f33a03c5@linaro.org>
+Date: Sat, 18 Jul 2026 04:33:11 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+To: sashiko-reviews@lists.linux.dev
+Cc: neil.armstrong@linaro.org, linux-phy@lists.infradead.org,
+ olteanv@gmail.com, devicetree@vger.kernel.org, robh@kernel.org,
+ conor+dt@kernel.org, media-ci@linuxtv.org, vkoul@kernel.org
+References: <20260718-x1e-csi2-phy-v10-0-5720a7888953@linaro.org>
+ <20260718-x1e-csi2-phy-v10-2-5720a7888953@linaro.org>
+ <20260718025109.EED601F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <20260718025109.EED601F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-
-New issues:
-- [High] Resource leak on `devm_pm_domain_attach_list` failure.
-- [High] Teardown order race in `rocket_job_fini` allows the hrtimer to be =
-re-armed after cancellation.
-- [High] Race condition and hardware state corruption on RK3576 DMA errors =
-due to double-processing and unsynchronized MMIO writes.
-
-Pre-existing issues:
-- [High] Unconditional MMIO access in shared IRQ handler causes bus faults =
-while device is suspended.
-- [High] Leaked IOMMU group reference on job completion.
-- [High] The runtime suspend callback powers down the device without synchr=
-onizing the shared IRQ.
-- [High] Calling `drm_sched_fini` on a partially initialized scheduler caus=
-es a kernel panic.
---
-
---- Patch [6]: [RFC PATCH v2 6/8] accel/rocket: add RK3576 NPU (RKNN) suppo=
-rt ---
-commit 3624dfd3291e5171660b2a505645f90fa60606b8
-Author: Jiaxing Hu <gahing@gahingwoo.com>
-
-accel/rocket: add RK3576 NPU (RKNN) support
-
-This commit adds RK3576 support to the rocket DRM accelerator driver. It
-introduces new clocks, power domains, and a polled completion mechanism
-since the RK3576 has no maskable completion interrupt.
-
-> diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/ro=
-cket_core.c
-> index b3b2fa9ba645a..140e37969a7b1 100644
-> --- a/drivers/accel/rocket/rocket_core.c
-> +++ b/drivers/accel/rocket/rocket_core.c
-> @@ -65,6 +83,23 @@ int rocket_core_init(struct rocket_core *core)
->  		return err;
->  	}
-> =20
-> +	/*
-> +	 * RK3576: the NPU spans TWO power domains (PD_NPU0 + PD_NPU1).
+On 18/07/2026 03:51, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> - [High] Incorrect translation of logical to physical lanes causes register offset errors and bitwise truncation.
+> - [High] Integer truncation in division leads to potential division-by-zero panic in settle count calculation.
+> - [Low] Hardware version register read does not mask upper bits, potentially corrupting the version struct.
+> --
+> 
+> --- Patch [2]: [PATCH v10 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver ---
+> commit 3a4ef513bbeefe5185b0f08d343f98883cbe66ca
+> Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> 
+> phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+> 
+> This commit adds a new MIPI CSI2 driver in DPHY mode initially. It supports
+> devices like "qcom,x1e80100-csi2-phy" and imports CAMSS CSI PHY init sequences.
+> 
+>> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+>> index 0000000000000..5ac0d041b36b7
+>> --- /dev/null
+>> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+> 
 > [ ... ]
-> +	if (core->soc->multi_power_domain) {
-> +		struct dev_pm_domain_list *pd_list;
-> +
-> +		err =3D devm_pm_domain_attach_list(dev, NULL, &pd_list);
-> +		if (err < 0)
-> +			return dev_err_probe(dev, err,
-> +					     "failed to attach NPU power domains\n");
-> +	}
-> +
+> 
+>> +static void phy_qcom_mipi_csi2_hw_version_read(struct mipi_csi2phy_device *csi2phy)
+>> +{
+>> +	const struct mipi_csi2phy_device_regs *regs = csi2phy_dev_to_regs(csi2phy);
+>> +	u32 tmp;
+>> +
+>> +	writel(CSIPHY_3PH_CMN_CSI_COMMON_CTRL6_SHOW_REV_ID, csi2phy->base +
+>> +	       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, 6));
+>> +
+>> +	tmp = readl_relaxed(csi2phy->base +
+>> +			    CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(regs->common_regs_offset, 12));
+>> +	csi2phy->hw_version = tmp;
+> 
+> [Severity: Low]
+> Is it possible for the hardware register to return garbage or reserved bits in
+> the upper bytes here? Since this first read is assigned directly without
+> masking (e.g., tmp & 0xFF), any upper garbage bits would remain in hw_version
+> and wouldn't be cleared by the subsequent bitwise OR operations.
 
-[Severity: High]
-Does this early return leak resources?
+This is not credible.
 
-In rocket_core_init(), rocket_job_init() is called earlier, which allocates
-non-devm resources such as an ordered workqueue and a DRM scheduler.
-
-If devm_pm_domain_attach_list() fails, the function returns directly with
-dev_err_probe() and skips the necessary rocket_job_fini() and
-iommu_group_put() cleanup.
-
-> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
-ket_drv.c
-> --- a/drivers/accel/rocket/rocket_drv.c
-> +++ b/drivers/accel/rocket/rocket_drv.c
-> @@ -260,7 +276,7 @@ static int rocket_device_runtime_suspend(struct devic=
-e *dev)
->  	if (!rocket_job_is_idle(&rdev->cores[core]))
->  		return -EBUSY;
-> =20
-> -	clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks), rdev->co=
-res[core].clks);
-> +	clk_bulk_disable_unprepare(rdev->cores[core].soc->num_clks, rdev->cores=
-[core].clks);
-> =20
-
-[Severity: High]
-This is a pre-existing issue, but does this power down the device without
-synchronizing the shared IRQ?
-
-Since the driver uses IRQF_SHARED, another device sharing the IRQ line could
-trigger the interrupt handler just as the clocks are being disabled.
-
-Can this race condition cause the IRQ handler to execute on powered-down
-hardware, potentially leading to a kernel panic? Should we call
-synchronize_irq() before turning off the clocks?
-
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -326,12 +360,55 @@ static struct dma_fence *rocket_job_run(struct drm_=
-sched_job *sched_job)
+>> +
+>> +	tmp = readl_relaxed(csi2phy->base +
+>> +			    CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(regs->common_regs_offset, 13));
+>> +	csi2phy->hw_version |= (tmp << 8) & 0xFF00;
+> 
 > [ ... ]
-> +static void rocket_job_handle_irq(struct rocket_core *core)
-> +{
-> +	u32 clear =3D 0x1ffff;
-> +
-> +	if (core->soc->poll_completion) {
-> +		/* Stop the completion poll -- we're handling it now. */
-> +		atomic_set(&core->poll_active, 0);
-> +		hrtimer_cancel(&core->poll_timer);
-> +		clear |=3D PC_INTERRUPT_MASK_RK3576_PC_DONE_0 |
-> +			 PC_INTERRUPT_MASK_RK3576_PC_DONE_1;
-> +	}
-> +
->  	pm_runtime_mark_last_busy(core->dev);
-> =20
->  	rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
-> -	rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
-> +	rocket_pc_writel(core, INTERRUPT_CLEAR, clear);
-> =20
+> 
+>> +static u8 phy_qcom_mipi_csi2_settle_cnt_calc(s64 link_freq, u32 timer_clk_rate)
+>> +{
+>> +	u32 t_hs_prepare_max_ps;
+>> +	u32 timer_period_ps;
+>> +	u32 t_hs_settle_ps;
+>> +	u8 settle_cnt;
+>> +	u32 ui_ps;
+>> +
+>> +	if (link_freq <= 0)
+>> +		return 0;
+>> +
+>> +	ui_ps = div_u64(PSEC_PER_SEC, link_freq);
+> 
+> [Severity: High]
+> Does this code silently truncate link_freq?
+> 
+> The div_u64() macro expects a u32 divisor, but link_freq is an s64. This will
+> implicitly truncate the 64-bit link_freq value to 32 bits.
+> 
+> If link_freq happens to be an exact multiple of 2^32, the truncated divisor
+> becomes exactly 0, which would cause a division-by-zero panic. Frequencies
+> exceeding 4.29 GHz would also be silently corrupted.
+> 
+> Could this be updated to use div64_u64() or similar to avoid truncation?
 
-[Severity: High]
-Can a DMA error on RK3576 trigger a race condition that corrupts hardware
-state?
+This is a pretty outlandish level of defensive coding. Nope, not doing it.
 
-On RK3576, a DMA error drops OPERATION_ENABLE to 0 and raises a DMA error
-interrupt. This simultaneously triggers the threaded IRQ handler and the
-poll timer workqueue, which will both see OPERATION_ENABLE =3D=3D 0.
-
-Both threads will concurrently invoke rocket_job_handle_irq(). Because this
-function clears OPERATION_ENABLE outside the job_lock, one thread can write
-0 to OPERATION_ENABLE right after the other thread has already submitted the
-next job and written 1.
-
-Does this permanently halt the hardware by leaving the newly submitted job
-disabled?
-
->  	scoped_guard(mutex, &core->job_lock)
->  		if (core->in_flight_job) {
+> 
+>> +	ui_ps /= 2;
+>> +	t_hs_prepare_max_ps = 85000 + 6 * ui_ps;
+> 
 > [ ... ]
->  			iommu_detach_group(NULL, iommu_group_get(core->dev));
+> 
+>> +static int phy_qcom_mipi_csi2_lanes_enable(struct mipi_csi2phy_device *csi2phy,
+>> +					   struct mipi_csi2phy_stream_cfg *cfg)
+>> +{
+>> +	const struct mipi_csi2phy_device_regs *regs = csi2phy_dev_to_regs(csi2phy);
+>> +	struct mipi_csi2phy_lanes_cfg *lane_cfg = &cfg->lane_cfg;
+>> +	u8 settle_cnt;
+>> +	u8 val;
+>> +	int i;
+>> +
+>> +	settle_cnt = phy_qcom_mipi_csi2_settle_cnt_calc(cfg->link_freq, csi2phy->timer_clk_rate);
+>> +	if (!settle_cnt)
+>> +		return -EINVAL;
+>> +
+>> +	/*
+>> +	 * CSI_COMMON_CTRL5 is a physical lane power-up bitmap:
+>> +	 * - Bits [0,2,4,6] → D-PHY data lanes(LN0, LN2, LN4, LN6)
+>> +	 * - Bits [1,3,5] → C-PHY trio lanes(LN1, LN3, LN5)
+>> +	 * - Bit [7] → D-PHY clock lane(LNCK) dedicated clock enable
+>> +	 */
+>> +	val = BIT(lane_cfg->clk.pos);
+>> +	for (i = 0; i < cfg->num_data_lanes; i++)
+>> +		val |= BIT(lane_cfg->data[i].pos * 2);
+> 
+> [Severity: High]
+> Can this bitmask overflow the u8 val?
+> 
+> If the device tree uses physical indices (e.g., 4 or 6) for pos, pos * 2
+> becomes 8 or 12. Since val is a u8, using BIT(8) or BIT(12) will overflow
+> and silently truncate to 0, failing to enable the corresponding hardware lane.
+> 
 
-[Severity: High]
-This is a pre-existing issue, but does this leak the IOMMU group reference?
+Actually no - the current yaml has a range of data-lanes = <0 1 2 3> => 
+3 * 2 == 6
 
-The call to iommu_group_get() increments the reference count, but
-iommu_detach_group() does not consume or release it.
+>> +
+>> +	writel(val, csi2phy->base +
+>> +	       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, 5));
+>> +
+>> +	/* Lane configuration for polarity @ CSIPHY-base + CTRL9 */
+>> +	for (i = 0; i < cfg->num_data_lanes; i++) {
+>> +		if (lane_cfg->data[i].pol) {
+>> +			u8 pos = lane_cfg->data[i].pos;
+>> +
+>> +			writel(BIT(2), csi2phy->base + CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(pos));
+> 
+> [Severity: High]
+> Does this correctly map logical to physical lanes?
+> 
+> The CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(pos) macro computes 0x200 * pos + 0x24.
+> However, D-PHY data lane blocks are spaced at offsets 0, 0x400, 0x800, and
+> 0xC00.
+> 
+> If pos is a logical index like 1, this would access offset 0x200 (which is a
+> C-PHY lane) instead of the intended 0x400.
 
-Since job completion is a hot path, will this quickly overflow the refcount
-or leak memory? Should the driver just use the already cached
-core->iommu_group instead?
+True.
 
-> @@ -424,9 +514,22 @@ static irqreturn_t rocket_job_irq_handler(int irq, v=
-oid *data)
->  {
->  	struct rocket_core *core =3D data;
->  	u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
+Baby don't be sad, cause 1/4 ain't bad.
+> 
+>> +		}
+>> +	}
+>> +
+>> +	if (lane_cfg->clk.pol)
+>> +		writel(BIT(2), csi2phy->base + CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(lane_cfg->clk.pos));
+> 
 
-[Severity: High]
-This is a pre-existing issue, but can this unconditional MMIO read cause a
-bus fault if the device is suspended?
-
-Because the driver uses IRQF_SHARED, another device could trigger
-rocket_job_irq_handler() while the NPU is runtime suspended and powered dow=
-n.
-Reading from a powered-down device typically returns garbage data or causes=
- a
-synchronous external abort.
-
-Should we use pm_runtime_get_if_active() to verify the device is powered
-before touching MMIO registers?
-
-> @@ -486,6 +593,10 @@ int rocket_job_init(struct rocket_core *core)
-> [ ... ]
->  err_sched:
->  	drm_sched_fini(&core->sched);
-
-[Severity: High]
-This is a pre-existing issue, but can calling drm_sched_fini() here cause a
-kernel panic?
-
-If drm_sched_init() fails internally (e.g., due to memory allocation failur=
-e),
-the waitqueues and lists inside the scheduler structure are left uninitiali=
-zed.
-When we jump to the err_sched label, drm_sched_fini() will unconditionally
-try to wake up these uninitialized waitqueues.
-
-> @@ -486,6 +593,10 @@ int rocket_job_init(struct rocket_core *core)
-> =20
->  void rocket_job_fini(struct rocket_core *core)
->  {
-> +	atomic_set(&core->poll_active, 0);
-> +	hrtimer_cancel(&core->poll_timer);
-> +	cancel_work_sync(&core->poll_work);
-> +
->  	drm_sched_fini(&core->sched);
-> =20
-
-[Severity: High]
-Is there a teardown order race that allows the hrtimer to be re-armed after
-cancellation?
-
-The poll timer and workqueue are cancelled before stopping the DRM schedule=
-r.
-If a concurrent scheduler thread pulls a pending job and calls
-rocket_job_hw_submit(), it will restart poll_timer.
-
-Can this lead to a use-after-free when the timer fires on freed memory after
-teardown completes? Should we stop the scheduler before cancelling the time=
-r?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260718031146.3368=
-811-1-gahing@gahingwoo.com?part=3D6
