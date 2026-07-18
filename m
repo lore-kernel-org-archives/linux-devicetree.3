@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DFFB25A354
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 03:19:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A007E25A354
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 03:20:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784344760; cv=none; b=a37xoytFz/blagJP4obAYY798XKoSHDLJ0SabyfuG83AYbHdATayJFOSOmLcvj7X6RoH8+JLT7Pz9Az84VA7csu9PoP6j1MHc983Y2U0D7JYOVTbbtpyWahxLQkYZvTfVrBfTFzSawpb6Y3mVz48H1fOrgD7kU6Cdnxbi1YHcLg=
+	t=1784344837; cv=none; b=U2bc1rTo4KELb7x6PsadQBohhk5ZJGjTvDbJkGGqD7lRioWzvZiPJNr5/Kmr7BldM2QSzxUx4ybLcLqzZPyalJsw25xjEn7gBS6ARvmSe/1OpU46A7hdEWoY0syq67vjisdpn8p35DeeHdtiICReKoPmaiXYPz0y8hdFW0SGndk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784344760; c=relaxed/simple;
-	bh=DSCNEw/ge/qlO25WBVEbXrCequYrhe2o0VU6FxfRoIU=;
+	s=arc-20240116; t=1784344837; c=relaxed/simple;
+	bh=qW8ay5yIEqK2iqMeHLqtnfg0D6dfz+XzqyOAsGbrbwA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mY8BFWoDR9MKa2/mW5p8PTcU2AJJh6YelWjs4xSCFOtPRHhe9Qw0k5Ua/FcuI+SqDhc+Xv0hIM3zNTneAxRy8MzMpmvVc3kCc+JYFvF54lt7hckr9UiUnOQkQ8NI28WRZjCNeCXYxIYdOCpWMaEmyAMJnOYOptrAFKM8pYdIU7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vif4lhcf; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=V+T8YJWWctFQftd1ld5RUwnuBfBLNaDoQOkSRoT53SPgCf62fxIR2bszzQKJnllcM4XbDTSLud0TMEGlBnwNEtHaPj3jJZM4lCSRtOlOtjNrjwpnyd+XRdyeteVUPxWGh8IaN4v8vcqqInxpk+J8RM/IA2+0nD5ODOineYyDTfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PWQkKH0+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vif4lhcf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDCDC1F000E9;
-	Sat, 18 Jul 2026 03:19:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PWQkKH0+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1000A1F000E9;
+	Sat, 18 Jul 2026 03:20:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784344759;
-	bh=8hswH5SY+ol+rA06OBext9z9Ry74y5yrt8cC4kWViWI=;
+	s=k20260515; t=1784344836;
+	bh=odXcpOwQmd8uyldO3l8CCz4AVEO+Gh5iU9jICwEg1bc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Vif4lhcfbkv1BZ1yRL34Ejr94OTSTKCcZuz1bbTWFo3rIOR4XKB6md34tcHHsGv5w
-	 FV3Mxu19pSftzbPjLE9pfxQyCXYUYL3u4JWPySkJEVsHbgZaaJLUkC+sEhEZymt8vN
-	 KdVg8SaUo/3OM/95oCxCBEaQcM4oDIN4Zw5qtcr3pFXUc+Ggy+NeKAG/bnMLTzC4zQ
-	 dANORh+wFHlEDNoeWtQJvUDfsRjAAhvFgMjy+J+t8Vq4W9MyqfoIRWF6Ciwdm7z985
-	 nuBdQy+3sFj0hfU+i9nEK25IAiTRsTjnAd6BkbCjviDy70zxdasACfvgISiO/eBax8
-	 ESLhGRy6G8T9g==
+	b=PWQkKH0+HgXcn/HrNqCNhkJYecMuC9gHnJcqG6e71ec+6onOyDF6hrJ5ng7A1ALOK
+	 pO3PYfOFVqvxryUEL1H35kmvUJRbL0xqguildB4pIjzhnBhHwhXLq9EOK+80FepDpa
+	 AuApeeGXoiwWhcTtvBP/blNGXuY2xbgWL020feb1OVQngekux0cMW9KGQMUQ/PBaP+
+	 jfwSzmUI3Ha0t4KAjM+/vnEdtw039ZX86RNKZpPUlevhEZygYT7LXGT6UcjPBpEzj5
+	 CJzCEmaSs5HD4IeWyo5xsA69KS+LdsDN6sCn/SP82u6cgW5BHvm1sHODyiE3iYinFf
+	 Z1GsmJO0IvBKg==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 1/8] dt-bindings: npu: rockchip: add
- rockchip,rk3576-rknn-core
+Subject: Re: [RFC PATCH v2 2/8] pmdomain/rockchip: add optional per-domain
+ power-on settle delay
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260718031146.3368811-2-gahing@gahingwoo.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260718031146.3368811-3-gahing@gahingwoo.com>
 References: <20260718031146.3368811-1-gahing@gahingwoo.com>
- <20260718031146.3368811-2-gahing@gahingwoo.com>
+ <20260718031146.3368811-3-gahing@gahingwoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 18 Jul 2026 03:19:18 +0000
-Message-Id: <20260718031918.DDCDC1F000E9@smtp.kernel.org>
+Date: Sat, 18 Jul 2026 03:20:35 +0000
+Message-Id: <20260718032036.1000A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,61 +47,75 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The schema allows `sram-supply` to be specified for RK3576 even tho=
-ugh the hardware does not support it.
+
+Pre-existing issues:
+- [High] Missing state rollbacks in the error paths of rockchip_pd_power() =
+can leave the hardware in an inconsistent or unusable state, leading to a k=
+ernel panic.
 --
 
---- Patch [1]: [RFC PATCH v2 1/8] dt-bindings: npu: rockchip: add rockchip,=
-rk3576-rknn-core ---
-commit af7a16605153304ec36efac86040bd1175195ecd
+--- Patch [2]: [RFC PATCH v2 2/8] pmdomain/rockchip: add optional per-domai=
+n power-on settle delay ---
+commit 5d8a3f8a8260643f6533a94cae0393fe9867b0cc
 Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+pmdomain/rockchip: add optional per-domain power-on settle delay
 
-This commit documents the RK3576 NPU core by adding it to the compatible
-enum. It also moves sram-supply from the globally required list to an
-if-then block specifically for RK3588, as the RK3576 does not use it.
+This commit adds a per-domain settle delay for the RK3576 NPU domains.
+It introduces a delay_us field to rockchip_domain_info and applies the
+delay in rockchip_pd_power() before restoring QoS settings.
 
-> diff --git a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-c=
-ore.yaml b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.=
-yaml
-> index caca2a4903cd1..985cde6b2f523 100644
-> --- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-> +++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
+ckchip/pm-domains.c
+> index 490bbb1d1d8e8..1787f62ba3a81 100644
+> --- a/drivers/pmdomain/rockchip/pm-domains.c
+> +++ b/drivers/pmdomain/rockchip/pm-domains.c
 
 [ ... ]
 
-> @@ -75,7 +76,16 @@ required:
->    - resets
->    - reset-names
->    - npu-supply
-> -  - sram-supply
+> @@ -667,6 +668,9 @@ static int rockchip_pd_power(struct rockchip_pm_domai=
+n *pd, bool power_on)
+>  		if (ret < 0)
+>  			goto out;
+
+[Severity: High]
+This is a pre-existing issue, but there appears to be a problem with the
+error path in rockchip_pd_power() when a domain transition fails.
+
+When the genpd framework attempts to power off a domain and
+rockchip_pd_power() is called with power_on set to false, the driver
+successfully idles the bus interconnect:
+
+        if (!power_on) {
+                rockchip_pmu_save_qos(pd);
+
+                /* if powering down, idle request to NIU first */
+                ret =3D rockchip_pmu_set_idle_request(pd, true);
+                if (ret < 0)
+                        goto out;
+        }
+
+If the subsequent call to rockchip_do_pmu_set_power_domain(pd, false) fails
+due to a hardware timeout, the function jumps to the out label without
+reverting the idle request.
+
+The genpd framework seems to gracefully handle the error by keeping the
+domain status as GENPD_STATE_ON. However, when a consumer device later
+resumes and attempts to access its MMIO registers, the interconnect remains
+physically idled.
+
+Can this cause the bus to hang and raise an SError, leading to a kernel
+panic? Would it be appropriate to revert the idle request in the error path
+before returning?
+
+> =20
+> +		if (pd->info->delay_us)
+> +			udelay(pd->info->delay_us);
 > +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: rockchip,rk3588-rknn-core
-> +    then:
-> +      required:
-> +        - sram-supply
-
-[Severity: Low]
-Does this change inadvertently allow sram-supply to be specified for RK3576?
-
-Because sram-supply is defined in the top-level properties block, removing
-it from the global required list makes it implicitly optional for RK3576,
-rather than forbidding it.
-
-Device tree nodes for RK3576 could mistakenly include sram-supply without
-triggering a validation error during dt_binding_check.
-
-Would it be appropriate to add an else block setting sram-supply: false to
-fully restrict it?
-
->  additionalProperties: false
+>  		rockchip_pmu_restore_qos(pd);
+>  	}
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260718031146.3368=
-811-1-gahing@gahingwoo.com?part=3D1
+811-1-gahing@gahingwoo.com?part=3D2
