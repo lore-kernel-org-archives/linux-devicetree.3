@@ -1,60 +1,62 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D4D1FC8
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 06:59:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2A7437CD39
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 06:59:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784357950; cv=none; b=iZ/zYl4l49XMYaLFaY7EBXJU4FDMMgXjTfviirqGkILorYdOlxJidJDoiU2t8GBQweuQdB9r3pEsXVw6fvwJytGccpI5VPn4PXybOi1UMGPR7G35KhuTpxaqolaDuPsxv6B1m44wuiuEj7FIKgIEFtw6ENU2AdZSsP6pZ6/p7eU=
+	t=1784357954; cv=none; b=sV95sA3TRmusDs6ELktYUJn5r1PmvX7IkjDCJMTWUmsDH4FHUqdeyS9NtCK3Dq5HaD89qW33AkYylGoKlu1xF4wWuN44z5tqwRoKVqUEq/SR7aac5MxYFn3wthXa49modfzsIpBFgHP5Q3ZJkOp+879FC0yn6D9DmvIb4O4EJaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784357950; c=relaxed/simple;
-	bh=3CEWfrM8epbvugGBRW7VbGIlaAMHZevhPiYoSea+v+U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uyFWVrk1h028hhMjwBYS40Xe2sm5jl3VOuFLaWKw8ZGRzh9Zuc3rly7l2gggt3qRZdQvzL8bKE83C2CMcsFxAj/J0QOaTWykFpJhn6Qr+xA/dyK+kY6r9zqiFDAbN4pD1reFYaGPHFD4bbaTfykVKvtk5nmJbQkySEx63++Owmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cRqwpZ1p; arc=none smtp.client-ip=209.85.215.169
+	s=arc-20240116; t=1784357954; c=relaxed/simple;
+	bh=0aEnkMJF34zHcSad9mJgGTJERjlHufLEtpJoRgmqTEM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=A+V532LZnHk8gEEqhePHZoMILgkh1pFuJc9mYaGGRKv9hamJHmqzt63ny4noLhjdKq8f044QwaZo6N50e44kTXnG8/A5DpM6NsoyUKjb6bGcEXpMOlL6ZEDPIdONMX/oTvgEJaovvRSEuaq4ymiaO4fxZfuTd1v2WxUuCg6yRu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rJa5DInU; arc=none smtp.client-ip=209.85.214.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cRqwpZ1p"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-c9aea40d799so2438810a12.0
-        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 23:59:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rJa5DInU"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2caf228a910so67362765ad.2
+        for <devicetree@vger.kernel.org>; Fri, 17 Jul 2026 23:59:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784357948; x=1784962748; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MbNJCbR9fwKlsvB8FKMzu9iZUQ3KKsxGZYdnUhTBU4U=;
-        b=cRqwpZ1pBRAkDxLMpmhoWWUWdhNL0UEGDiTVlM648Z335gESRYjCctUdnv0hDqg23y
-         qKsN70xSpKWw49EtqRrBvrhyjLlrzI6OclYvlpSw2+6JsWpSC9cdk2xxViCYJBymh549
-         8Igy1PQL7Ok2tn6EzN00ux72MZbKnHXmhsvtfxgvLSYMdk6MPzHVxmO329p15pGP0Z2A
-         MeAbCM3ANr8kSgwmh44Lzf9FqO6/da720l+BJ3F8XDgPd3K7NcCw0duqv/vYDEE8MT7O
-         n79xoYny1/KlXCxm5oBlgxhiQEv3ePYm+ZiME82n4x4KpXuqsHp8VOshUTGfOT7bTe0b
-         WWSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784357948; x=1784962748;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1784357952; x=1784962752; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MbNJCbR9fwKlsvB8FKMzu9iZUQ3KKsxGZYdnUhTBU4U=;
-        b=KHTeU/rUugyHrhEUyKBlFSnD1LLJ5yfa1Qz0FPWMGkJE5RFZ1VyB3rCjEJl4zLn6qD
-         As6B+TUUwQRTJ185rtOTSIr/W9rDeeA3e7Gj/YWPMyUK/uHP5JaxNmBaUceP7qs3kb93
-         FFzTjJTuLSx/xejErv447Bh/Ws7U4LK8pUBt31Vm7IAhnvU5oBn/xTad6LqWliX6pQmP
-         8bPD9eiozD6fBxZuzxuDVhNywpXn9DeSMPr1PnqrJljF67q/vTalrs0PpKl/0RiMbSbi
-         4WDHdLsrhjm+p3SZ2GwJGeHzpuOnwJ1w2uQqb89PdYeo0NuUkFgFKQMTLWWrfazHRGA0
-         4ayA==
-X-Gm-Message-State: AOJu0YxfGsu6eOOrPbDkCjI9Yh3QBakk/3g2YGZmlmbZQJbSFL1/MCts
-	LYVRlDhsd8CR/8PHAUi7EOv18YSXE8aIPAmHQhep19odFmDSdXa3x1Fi
-X-Gm-Gg: AfdE7cmnxuD4TMECeo7CoByOOYVzCgavh/K09e8cHIzS5TUUtDVtjZi+SaXeTz/L27L
-	Hvg+HFffDm9oM7nLDJn/3J9NtsTI3xsr9Z/lvBzyk2bhloAbp5PsYsoyawRJ7MLmsswN3peCp9b
-	360RIdKlVUIXXxBy5wLmQw1qh5SBzyM7jW08v63gtugnfoTG9eWd8XwJnDSak2a1rle8Rmght73
-	MkHx0yjjJ48iLnV3smD6nEOSzSp8BngfMleQdmUvObQk1wRPWO831CPqyG5Ftl62bBJ1Ryy3JFU
-	SfmX98OvmWZGKE8vF44ZCsFHsrb6kTcoDwy7XeLun0IHQ8om9rupYOf+nzuJse3UbRZZdka83yg
-	iPlXuyASq9AgP/kJRdHhOK1Ms5AaZn6FD3LPgB65IkWnY5X+Q41nuS9AES5ysT6WMTSTS9X7EUc
-	5lFzClV540fu0x+BpWMnOQ
-X-Received: by 2002:a05:6a20:734f:b0:3bf:c07b:a9ab with SMTP id adf61e73a8af0-3c3ad9dfdecmr6595081637.55.1784357948230;
-        Fri, 17 Jul 2026 23:59:08 -0700 (PDT)
+        bh=bSYaq4nat1jPpXSI23xdg6ZNt7J9ZT6NEZnDaQEBhfg=;
+        b=rJa5DInU5QeblOeh2bBMT5cxMuVXDkRdSFhA5Rc6+tSHOCVMwCJEwY9T/FAz+HBnyw
+         3f5xFODH/eZzD5aq0zdSfQ3wO8jrVJg1e0ZhQlZa/NE7o1XaJESZ8jYb3KPrTjzUuFfD
+         iKkiJS6pEKBAOKifAXw4YoK+KCQtlgyHzyZ5oJPgaClSvORsCUeLhM9wsXiPUbYpkhiB
+         NPU43HqZNr8/HRl7G+8PWKh7RprOdpgL+FfRQsxj6vu4Yc1QloggVE5rDUcEjpYKlNb8
+         TXf+aBAVQaYiV6xlJNufRyrBD19wLMBLizJyDjPOr+atnohZ3EIGrqPyZAxVGLgNXNHn
+         B40Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784357952; x=1784962752;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bSYaq4nat1jPpXSI23xdg6ZNt7J9ZT6NEZnDaQEBhfg=;
+        b=Ko2A+FqfaGVXOwMY3hbfi350X6WtQkB5tZcVRn5gI6eJbyU/NW8w2LiaRoUTIJcNMj
+         g+F05iH/aj3wwIxgyy/Q9UvObIawIPjj7VMe5FVWEkuXFhi5MTauOjpmO4z4Lh87ynTR
+         V6gm7p9BU9QXcfydKheDgCANIxGK0XWIQJ58T0Wxl2Zce1xbdaw2LbpJ1iuDV2RouevT
+         wdkH9W2r/3MoPD6cAzA/67yxf0RdvqGK37aM6hAU1TBQwOGCri6xgqRP/w27pBLh0Uhw
+         8fcPEvyF812rbSdJo4bct4BjmAXg7xfcowkTGs0NGYo2hOtcSXBEJ+6MXRNECwslk7ym
+         q83g==
+X-Gm-Message-State: AOJu0Yy+kKSGGbZR6wASlvNzt7NimS6+ZFuwubqACPcxfdJYrrH5p3QX
+	Bbi1SpF1F9enM241K/Kn9cLQ374lFfmuBqkRhsLFA6LVwsypF6uirpxu
+X-Gm-Gg: AfdE7cndU3i8uGiVv0CyfBrrofgcZwOsm0kTqlPA/cx8JVaM0vhLjwL/K+8QKCMrDR/
+	YeK0vwTpTqzNs83E8oFWbDaNFTCSzx9A4Yd4BfDuGT/43K69KKP9JmF4yNa75PPd0MsZZ/tRPRg
+	Uxe2f0E9QNGST92/BHJWgH32moio/C5ICEYX7tiHZ+4BZpiAz9++9tClloHMLwyeeuMp4Pp2zW3
+	MyzTZ6/CcAG7jGzLcF3dPk5iqlpt4oOCljFuF6w6VTJdtiz+2jfasDQXD9MHZikSMzqP/XWAdaN
+	K78H08auM7qtHjAQskmp2SFjw6xEjiEagvXX1Kb8oaY0p+KqPEaoylhqWWJBXx4d5O8e7A6K34E
+	968vdCoFpd5/x3iv/U4a5xweROmXAWHFE1ltOxJWBDtYcqH7PzsM7P5nKoOtFl0XNoKIyVTrKMb
+	kaaV4WGlACNA==
+X-Received: by 2002:a05:6a20:9183:b0:3c0:9c19:65c0 with SMTP id adf61e73a8af0-3c3adaf501cmr6434455637.72.1784357952083;
+        Fri, 17 Jul 2026 23:59:12 -0700 (PDT)
 Received: from i386.168.1.127 ([2402:a00:163:2ce9:6882:91b7:8e79:7958])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31429f9bb62sm13426133eec.2.2026.07.17.23.59.04
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31429f9bb62sm13426133eec.2.2026.07.17.23.59.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 23:59:07 -0700 (PDT)
+        Fri, 17 Jul 2026 23:59:11 -0700 (PDT)
 From: Hrushiraj Gandhi <hrushirajg23@gmail.com>
 To: heiko@sntech.de
 Cc: devicetree@vger.kernel.org,
@@ -65,10 +67,12 @@ Cc: devicetree@vger.kernel.org,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org,
 	Hrushiraj Gandhi <hrushirajg23@gmail.com>
-Subject: [PATCH v2 0/2] Add support for Vicharak Vaaman board
-Date: Sat, 18 Jul 2026 12:28:58 +0530
-Message-ID: <20260718065900.755631-1-hrushirajg23@gmail.com>
+Subject: [PATCH v2 1/2] dt-bindings: arm: rockchip: Add Vicharak Vaaman board
+Date: Sat, 18 Jul 2026 12:28:59 +0530
+Message-ID: <20260718065900.755631-2-hrushirajg23@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260718065900.755631-1-hrushirajg23@gmail.com>
+References: <20260718065900.755631-1-hrushirajg23@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -77,33 +81,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds initial support for the Vicharak Vaaman, an RK3399-based
+Document the compatible string for the Vicharak Vaaman, an RK3399-based
 single-board computer.
 
-Patch 1 documents the "vicharak,vaaman" compatible string in the Rockchip
-arm bindings.
+Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Patch 2 adds the board devicetree, enabling the RK808 PMIC with
-SYR827/SYR828 CPU-big/GPU regulators, Mali GPU, Gigabit Ethernet,
-eMMC, microSD, SARADC/TSADC, and UART2 console.
-
-The vendor prefix 'vicharak' was previously accepted via:
-https://lkml.org/lkml/2026/6/24/929
-
-Changes in v2:
-- Fix fixed-regulator node naming to use 'regulator-[voltage]' prefix
-  consistently throughout
-
-Hrushiraj Gandhi (2):
-  dt-bindings: arm: rockchip: Add Vicharak Vaaman board
-  arm64: dts: rockchip: Add Vicharak Vaaman board
-
- .../devicetree/bindings/arm/rockchip.yaml     |   5 +
- arch/arm64/boot/dts/rockchip/Makefile         |   1 +
- .../dts/rockchip/rk3399-vicharak-vaaman.dts   | 438 ++++++++++++++++++
- 3 files changed, 444 insertions(+)
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3399-vicharak-vaaman.dts
-
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index 1a9dde18626d..7cfd3687768c 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -1306,6 +1306,11 @@ properties:
+           - const: turing,rk1
+           - const: rockchip,rk3588
+ 
++      - description: Vicharak Vaaman
++        items:
++          - const: vicharak,vaaman
++          - const: rockchip,rk3399
++
+       - description: WolfVision PF5 mainboard
+         items:
+           - const: wolfvision,rk3568-pf5
 -- 
 2.47.3
 
