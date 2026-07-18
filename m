@@ -1,229 +1,184 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 223A21E47C5
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 23:19:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784416749; cv=none; b=mdqj165BwIJW0wdIJUgBo4e41n+jCU1AA+b1ehkn3dRvgCMji315IuN2XSApe9GVHpyr/DYefaOyO/n6p66KodCl1q3UDZUDYVGsUrN/+DaVZn8pLVMbvhKBMSpVu/4valA/M6QFoCwVHTGcDD4XPHXFOkv0hg1G3HDUm4jucoU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784416749; c=relaxed/simple;
-	bh=oTAbK977qB4/Q5mPO8to8DKHkighS9A5v0zD8qSCZE0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MaReD+NyRXoWXQ1woMljg6sL4DdGzhOUxs0qc+1a9rhwjDbSfEm4LCoO8gR991MNFYCp0gmiVZ7oprvXqdRy9C0E44Y3i/O/qZhQ9tc+uVu/mjIQkTS2op1979hGmbw1WI4Li+StEuV4lTGREqWUYTsremMDbGLguYTmUQPcNSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=b+N4z26U; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IR4fbEw1; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A1143F099;
+	Sat, 18 Jul 2026 23:32:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784417530; cv=pass; b=AzcSs5gRg7XtKM2+dhLiwodHVICZ+D5OAkAdDane4ZUaPTNiZcucExM3bqSEUoJj8KH1BhuZ0eACySUZqdNLXUKsALhOeXSL0GVoMmvC0DEjmPCURwp0+k6aCyWYReWsfwIPLXH5cJ3SQ/Bj2UcbUmDeWLdHoy5dnteDnaK4a/0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784417530; c=relaxed/simple;
+	bh=RqtFYTexteQxVcWst3wcvuvjxFyI1jJyzw43+6a0XOQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h+4996PLlPV0izCrkr8tyaxG6FjNR39ICZJg5abWMLwPMJslWKmxsMbBsRtc/WNE1LDFwdX3xqzOSXandMhXqIYHu+LJM0Vom1b85dQ2yJ064gVfBpqpRkkbeWZxbX6wtS2eVDstjaR1zAOWs5TYEcpRXYe37SDLwzyi/qs4TqQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=aW8DOYx1; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="b+N4z26U";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IR4fbEw1"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66IN255F2156764
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 23:19:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Wixpu2kchuiVCtWTEBuCD9grp0pwB8m9u6bmCRDtb/k=; b=b+N4z26Ugd8jFgPw
-	pH9UdUbLhENi3IJxjAvAwydUlAJBZ7RV+vlAqik0hAGZzK9/UgiPYtfdMYTBDHO1
-	7FIdNNMYF6RsNCbPUO5XO02p+aHCIvEGwI2MrH4gmWrtjfp43R6JVqOvKq5vXvjq
-	k8/In88xguQXOK+whNnbyCqJx4Pz4dof/Q3aoArLGi2qHKhO4fda+IEGawZWDgRz
-	J/K1q5U6HxNSXvuFBi7e9ahQEyClO/GTUC+1yC/x4CHCn86UB1zRaqccsPvCC4D7
-	CoBKRdN77CUi2I6RL8XPpxs2pkxbKW+OdzU5NRuB6XcqRdud4FJjEsyDKtmzBcmO
-	tRj8tg==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2d91qat-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 23:19:07 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-381250979d5so6245545a91.0
-        for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 16:19:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784416746; x=1785021546; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Wixpu2kchuiVCtWTEBuCD9grp0pwB8m9u6bmCRDtb/k=;
-        b=IR4fbEw1uanf/GJK0CYb5OqOZBKtJzpFydbjQ6okxmiM+uncaaW0zfZ3t48T4vvgAZ
-         TGl1oy0x1/XBKX+3j/yf68/qhj32Ewq/gRHQRbzII9baZLSpywkMj44v739Dbjl4EVzy
-         GwwQTt3B0s92sa5Dh5H5tXq3Nqm9sgjK/YUkMhgjTIKWqUyzaVfkhbFXBR23uCdBrEi/
-         DDyfkAiDjnIQwFROIrlAL0RD3+FxKRzkNZukxpE71upcn/aUoBWOYwskJeuzNb8sH3NU
-         kuIrJwvU7SYmHxteGBwVIKfX2hFizYTlfzJ+AXTwGELSPI5M6lVOqI9kckYKO+HFiNok
-         QLTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784416746; x=1785021546;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Wixpu2kchuiVCtWTEBuCD9grp0pwB8m9u6bmCRDtb/k=;
-        b=CGE+ZiR2jIYXpzWnRcT2zwn5Rzykbth0f5jw6AB4qjBBychgLo2aD5as0lgmtu3VYb
-         6a+k3UkK9fj+SsC5OICTojDnyxdHT2NWtN0N6c48tewLms+PDsgH4JVBagbBQaRdqd6j
-         gwsObLgWq6tOJQff4PRoLBBpvqC+FEwrtKBTnvUPKLxB+x+fAP+twVg/Yjx6TTbVXPeb
-         l+9kzWtBwwUS8twiQvHlUwhFhy8Ll/k/TWK1+uSnCNE4WyyZlUdb60loPSq2siP11Vfw
-         3BMb9L5KI25UL25OXdu4cCTG4ecQZ9BPLS6Y1bXUNeCs91a3iC77xcTLpI5lW2uGYysc
-         Tvjg==
-X-Forwarded-Encrypted: i=1; AHgh+Rqvs29awN1yAQI6Av+Eb/bR0ZlbZmc4tqXL5o2gy+bNM/PyxoJWps6hKMK4yVw/O1oY7KxgK3J2ZeA3@vger.kernel.org
-X-Gm-Message-State: AOJu0YyG/S2ZJ2919W/bUDSikpyFH61OBBKYjRlwEQlC+s1JnMKTyZhQ
-	iXDw9KAcQ7q0DsWCGy0v6zWROliwQ8lj7Lqch5F4bcM05I0aRZpdrf/kvbAjPwcjtNJ2M+JUa2R
-	lznJIwsevGzSnFgMY+SgVu4sW2rR5aCgt4z0+RppgxkiIbS9GDCvGkVGc9TvuTXAz
-X-Gm-Gg: AfdE7ck3Xc2EEH8hic0HD2vywAw+qOm8YBQFG+UUUBlCvy9p1CFBIq6NBqOgbGwqtjr
-	uFFTuZjl3Hns8oTLXEhiy/9tzWFUEaWHAil67LJ6HxMhzIa+W1f539DlLjm1A3avgjXMeo08NOa
-	FnVyE2Ny0NxnpO3JysUGsKu5wFLarjYwIEZ2Ae6oMBvZPFFW+G8ohknGvRIYw78m6mS2RdrlhFe
-	L82YbDg8j3TuCzj9vgR+JeRUqjUWIuH/X7SPeIWi2iY/2y/d2uXrrmlaR9tE7wsGB/5v/xCrzrD
-	nK7wH/8gVy5TFGCD2n3c19UrjDRYaMZK3LUr6BDLHNIG6Xz5J86t+7jMwnSDw7ndBGoixwDURJ6
-	9RiHs9TwyPG1stN7T
-X-Received: by 2002:a17:90a:ec88:b0:38d:adae:4866 with SMTP id 98e67ed59e1d1-38e4b516544mr9060519a91.21.1784416746415;
-        Sat, 18 Jul 2026 16:19:06 -0700 (PDT)
-X-Received: by 2002:a17:90a:ec88:b0:38d:adae:4866 with SMTP id 98e67ed59e1d1-38e4b516544mr9060496a91.21.1784416745955;
-        Sat, 18 Jul 2026 16:19:05 -0700 (PDT)
-Received: from jic23-huawei ([50.35.46.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e4ae14a32sm3377126a91.0.2026.07.18.16.19.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Jul 2026 16:19:05 -0700 (PDT)
-Date: Sun, 19 Jul 2026 00:19:00 +0100
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: Chris Morgan <macromorgan@hotmail.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-        Chris Morgan
- <macroalpha82@gmail.com>, linux-iio@vger.kernel.org,
-        andy@kernel.org, nuno.sa@analog.com, dlechner@baylibre.com,
-        jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
-        devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
-        krzk+dt@kernel.org, robh@kernel.org, andriy.shevchenko@intel.com
-Subject: Re: [PATCH v16 02/10] dt-bindings: iio: imu: icm42600: Remove
- interrupts from required
-Message-ID: <20260719001848.435886e0@jic23-huawei>
-In-Reply-To: <PH0PR19MB99733836951FBC9755A5361641A5F82@PH0PR19MB997338.namprd19.prod.outlook.com>
-References: <20260713215842.69097-1-macroalpha82@gmail.com>
-	<20260713215842.69097-3-macroalpha82@gmail.com>
-	<20260715-mottled-uncovered-mastodon-6c08be@quoll>
-	<PH0PR19MB997338D80EB8ABB7C623850A23A5F82@PH0PR19MB997338.namprd19.prod.outlook.com>
-	<82e3c736-f06f-484a-887c-9e156cb7cb44@kernel.org>
-	<PH0PR19MB99733836951FBC9755A5361641A5F82@PH0PR19MB997338.namprd19.prod.outlook.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="aW8DOYx1"
+ARC-Seal: i=1; a=rsa-sha256; t=1784417506; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=mjlBT5fBOmj0puaOAj3NrQ4dZIxtuOA+NuCb2Yzp1io4uYKf/JLzyEvzPxyp6rpc1wznjzHszAc6K/k9XBPK9IYRPJpNKcqW9EeFoyUmzYdfXmJGYnUdPyBtti8FyWT/1duxip0xZ+Jdbm5BWJ8thayTrVTDNSZDEsos0oid4Po=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784417506; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=oMGvRNkuFyXaMYeP4ES+8jelR30jNKVF+YZjl8fjH+c=; 
+	b=TbfNsxKSpnNYMGfhpBfgeOqw7FcUXw62jOTFe/BZYXXiMdcvqp/HSlMIdMOl5yIckY69c1dXk/LiybPChgxtXLdAq1xBTCkMgk/6tl04QI4BAkfjCBzzzYFU19EdGkKMSmT2ntdnN5RLD/+SXe1m0S0yIFKIs8rNYhXmMYqxCFc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784417506;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=oMGvRNkuFyXaMYeP4ES+8jelR30jNKVF+YZjl8fjH+c=;
+	b=aW8DOYx18xezxX/CNds+Jm5xao3XhXf0fOSTgrsWOjnRFZPS9yPLGz0G2STbaGGV
+	SwdjbNK3dU0INwq+tHVxn5ZaaSIW9JhWVo246avHA7kdjEjND5cuOxR/hRhIMpnN3Me
+	ZDffuyEhqnXqJEj8O/dh84qj58eb5Q9pYTHIoDUo=
+Received: by mx.zohomail.com with SMTPS id 1784417504416910.5266533899085;
+	Sat, 18 Jul 2026 16:31:44 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 2C8CE1804CF; Sun, 19 Jul 2026 01:31:39 +0200 (CEST)
+Date: Sun, 19 Jul 2026 01:31:39 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Igor Paunovic <royalnet026@gmail.com>
+Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, kernel@collabora.com, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 4/4] arm64: dts: rockchip: enable HDMI RX audio
+ capture on Orange Pi 5 Plus
+Message-ID: <alwKdkNsMi9L4ZiY@venus>
+References: <20260718085728.6797-1-royalnet026@gmail.com>
+ <20260718085728.6797-5-royalnet026@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=HpxG3UTS c=1 sm=1 tr=0 ts=6a5c09eb cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=qC1CW/w66vtJz1P9yTJxNA==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=69EAbJreAAAA:8 a=74V_kGC0JxGC7Umba8gA:9 a=CjuIK1q_8ugA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-GUID: d7vhuL-GFVEQNT8bimOXt0wlE_OZB1aN
-X-Proofpoint-ORIG-GUID: d7vhuL-GFVEQNT8bimOXt0wlE_OZB1aN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE4MDI0NCBTYWx0ZWRfX5yxmReZqQG2E
- Q0Eb7x0Vbdg2e58UWRNxzRBLBfL+5pgsXY1F4quwNdyFkmaysY/QP4YZ02gnu9MZf4MvXjgnw9H
- DGUc1sVVGrb6HSDdknXyaSJSvePH9LHK/qTSPMDkP28FB2rO+LG8MiTz0hD8ao9MrGJj2WcSrrP
- t2wJzV73izHUuLSZnjnEkGMLP2HVp0Kfnm8t6665iWYLMZCBP5jWPEnssbVSuW4BpnegWZ+zdn+
- yxzlo5W2GaNABcBjJOnCKhb8kXCSKsP4Ed49lxDG2EwKDODNe13PlOPNR4Rnsg1J9zf3ATazwam
- quLm6kC9hFjMqnYqsNXscs7670vbz+Fb3a55g8a359VeS8ICZws5YrZfvDH9kfwuX0zuZPw9Gqs
- 1vOkLXcy0KSgZ8q+kYZ/GTSL3UFbskYS7RLuTzhV6c7cWgnCqIGS3AYpLfQRk8umJBinby7ZHtc
- nQFDw6Iy43wKtOe43gw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE4MDI0NCBTYWx0ZWRfX1Q9cQIwFbLsN
- vMhIK4C1yvOfWmXtROF/oY936Ankc5tJb/suy1EG1OLa3NydVUEI8NCewQ+OkizuhntzO8antQU
- 8yeMGXLhn0GwIhZsCmX273qKrHU6DEo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-18_07,2026-07-17_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 malwarescore=0 clxscore=1015 priorityscore=1501
- adultscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607180244
-
-On Wed, 15 Jul 2026 15:34:53 -0500
-Chris Morgan <macromorgan@hotmail.com> wrote:
-
-> On Wed, Jul 15, 2026 at 08:29:44PM +0200, Krzysztof Kozlowski wrote:
-> > On 15/07/2026 16:52, Chris Morgan wrote:  
-> > > On Wed, Jul 15, 2026 at 07:52:52AM +0200, Krzysztof Kozlowski wrote:  
-> > >> On Mon, Jul 13, 2026 at 04:58:32PM -0500, Chris Morgan wrote:  
-> > >>> From: Chris Morgan <macromorgan@hotmail.com>
-> > >>>
-> > >>> Interrupts are almost never required for IIO devices per upstream
-> > >>> maintainers. Remove interrupt as a required parameter for the
-> > >>> devicetree binding.  
-> > >>
-> > >> That's an odd statement. We do require interrupts when the hardware
-> > >> requires them. We do not require interrupts, not because we have such
-> > >> policy, but because hardware does not require them.
-> > >>
-> > >> Plus, we do require interrupts when software implementing ABI requires
-> > >> them.
-> > >>
-> > >> Above commit msg is simply inaccurate and misleading. Instead, please
-> > >> use actual hardware arguments or how ABI is actually used. You must not
-> > >> introduce changes to ABI just "because" while for example making that
-> > >> ABI conflicting with existing implementation.  
-> > > 
-> > > I will defer then to Jonathan on the specifics of this, but from what I
-> > > can tell:
-> > > 
-> > > 1) The icm42600 devices don't need an interrupt for operation other
-> > > than for buffered mode or wake on movement. One-shot should work
-> > > without it.
-> > > 
-> > > 2) The existing icm42600 driver does require an interrupt however, and
-> > > refuses to bind without it. The driver could in theory be modified to
-> > > not require an interrupt though and skip using buffered mode and WoM
-> > > when no interrupt is present; however I don't plan on making these
-> > > changes at this time.
-> > > 
-> > > 3) The new icm42607 driver I'm trying to upstream does not use an
-> > > interrupt, because on my current test device it's not even wired up.
-> > > On future devices that I have with this chip I may pursue using an
-> > > interrupt, but it will never be required.
-> > > 
-> > > So should I go back to requiring the interrupt for all devices except
-> > > for the new driver then?  
-> > 
-> > You mentioned two drivers, I don't know how does this relate to them. In
-> > any case your commit msg is inaccurate and not a correct reason to make
-> > a change.
-> > 
-> > Best regards,
-> > Krzysztof  
-> 
-> I'm confused, so again should I just go back to the way things were?
-> 
-> This binding is to describe the hardware for devices using two distinct
-> drivers, the inv_icm42600 and the new (that I am trying to finish)
-> inv_icm42607 driver. The hardware requires an interrupt if you want to
-> use features such as wake-on-motion or hardware buffers. The existing
-> driver inv_icm42600 always assumes an interrupt is present and thus
-> fails to probe if one is not (making it a "requirement"). The new
-> driver I'm writing does not use the interrupt, because I don't have
-> one.
-
-For dt-bindings, look at it from the question of 'is the hardware useful
-without this interrupt?'  Answer is yes for vast majority of sensors as we
-can either reduce features but still have some useful ones, or use another
-approach such as polling a ready flag to replace doing it with an interrupt.
-It is very common for boards to come out where none of the interrupts are
-wired.
-
-The only time I've seen that they are actually required for IIO stuff is
-for very simple devices where the interrupt is the data - e.g. stand alone
-threshold detectors with no ADC like functionality.
-
-All this is independent of the driver working without the interrupt.
-It is fully allowed to refuse to probe because it relies on something
-optional in the DT-binding.
-
-Jonathan
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5auwkjfiihzxz3ef"
+Content-Disposition: inline
+In-Reply-To: <20260718085728.6797-5-royalnet026@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/284.404.57
+X-ZohoMailClient: External
 
 
-> 
-> I'm thinking I'll just go back to the way it was previously, unless
-> Jonathan disagrees. The interrupt will be listed as required for all
-> devices using the inv_icm42600 driver, and not required for devices
-> using the inv_icm42607 driver.
-> 
-> Thank you.
-> 
+--5auwkjfiihzxz3ef
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 4/4] arm64: dts: rockchip: enable HDMI RX audio
+ capture on Orange Pi 5 Plus
+MIME-Version: 1.0
 
+Hi,
+
+On Sat, Jul 18, 2026 at 10:57:28AM +0200, Igor Paunovic wrote:
+> Route the HDMI receiver audio to i2s7_8ch, the receive-only I2S
+> interface dedicated to HDMI RX, through a simple-audio-card with the
+> receiver as bitclock and frame master. Together with the audio
+> capture support in the snps_hdmirx driver this exposes a capture-only
+> ALSA card fed by the HDMI input.
+>=20
+> Tested on the Orange Pi 5 Plus with multiple HDMI sources: capture
+> follows the source sample rate and stays in sync via the FIFO-level
+> clock tracking in the driver.
+>=20
+> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+> ---
+> New in v3.
+>=20
+>  .../dts/rockchip/rk3588-orangepi-5-plus.dts   | 20 +++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+>=20
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/ar=
+ch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+> index 9950d11..d5840e1 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+> @@ -37,6 +37,22 @@
+>  		};
+>  	};
+> =20
+> +	hdmiin-sound {
+> +		compatible =3D "simple-audio-card";
+> +		simple-audio-card,name =3D "rockchip,hdmiin";
+
+The name is exposed to userspace and visible to the user (e.g.
+in alsamixer), but also used by Alsa UCM2. I suggest to use
+"RK3588 HDMI-IN".
+
+> +		simple-audio-card,format =3D "i2s";
+> +		simple-audio-card,bitclock-master =3D <&hdmiin_codec>;
+> +		simple-audio-card,frame-master =3D <&hdmiin_codec>;
+> +
+> +		simple-audio-card,cpu {
+> +			sound-dai =3D <&i2s7_8ch>;
+> +		};
+> +
+> +		hdmiin_codec: simple-audio-card,codec {
+> +			sound-dai =3D <&hdmi_receiver 0>;
+> +		};
+> +	};
+> +
+
+Move the whole card definition to rk3588-extra.dtsi with a new label
+(e.g. hdmi_receiver_sound) and add status =3D "disabled"; Then just do
+
+&hdmi_receiver_sound {
+    status =3D "okay";
+};
+
+in the Orange Pi 5+ DT, i.e. just like the soundcards for HDMI
+output. This reduces a lot of duplication as the soundcard is the
+same on all boards considering there is a dedicated I2S channel for
+it. It's disabled by default as some boards do not route the HDMI
+receiver at all.
+
+Greetings,
+
+-- Sebastian
+
+>  	ir-receiver {
+>  		compatible =3D "gpio-ir-receiver";
+>  		gpios =3D <&gpio4 RK_PB3 GPIO_ACTIVE_LOW>;
+> @@ -247,6 +263,10 @@
+>  	status =3D "okay";
+>  };
+> =20
+> +&i2s7_8ch {
+> +	status =3D "okay";
+> +};
+> +
+>  &led_blue_gpio {
+>  	gpios =3D <&gpio3 RK_PA6 GPIO_ACTIVE_HIGH>;
+>  	status =3D "okay";
+> --=20
+> 2.53.0
+>=20
+
+--5auwkjfiihzxz3ef
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpcDNYACgkQ2O7X88g7
++przAxAAmp27ahike5cooDDpLsXCvhfzlAUohPcO39nvyh7GFLDhdFywIckmqKXe
+UQnJTwlqRZ2YQank3VipcBojKahUe+fvYFM5RSo1A7qc4eGHryFmNxBwGGh14qCm
+A+3dpyh7baCzsOPI/2rYib6Uncb/G6cQ/udYhE6le1dll3XnGTNq2iuBnFzxZd0U
+p1Wg8F/XLnrytXM6+1QAh5XoGPkjGUNjDqyrM+P+rvS46DR2UE2+bGvl8ggROL+e
+1ClG2mLugtFeV2VPpsdexirwUgqv0y4tRTv9Dw+XwzvweBE7EVz4mvZOVTphcHjL
+LjrTcKzLw2ZEUslgwXuyuVYNIUjs7Q1MgWDivPS8BFFI3YVruhHiAu0f6/sJUokL
+8mTNpE2b0N6VV+s85/W20LsHHAzdnJE+lERY1Zxw1ZT9ii+XXIn+N1VB0xBIGzMc
+7epiBSwb3N5Z7d+XwQtHCsma42JsGXFCBpgbIswphhoq0rLndqiT4dTUdn0yfL1h
+Y5Gm4dBH4h+yKioxzIrm3NZ6drbX3Eyd9TY7v0thdycAIGtuXtmLTnP9Fha98lb3
+jLXxlCBDtZ0kIV964HslAqBjOaV7Q1QSMRJ11+sy64p3GV6YMt0AevWRWua5w0fT
+qvGboGN2P6KsR85rLJ5ryFeEilUivC2nu3F/eId0Wpu+fUuCHEQ=
+=1b/t
+-----END PGP SIGNATURE-----
+
+--5auwkjfiihzxz3ef--
