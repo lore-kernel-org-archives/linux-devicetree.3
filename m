@@ -1,85 +1,85 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D891F72618
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 22:19:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3E037A85A
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 22:40:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784413199; cv=none; b=mBbaCU+oYJEDjmgM4H/iKrQK7e/kxl6ZHX8CQv9KWl7u7XJ/8iMwaLBQr2LvkERzwe/BsYFoKm5Afq6TtrELuuj+U2JgBVlbp2YufgGmhQ/0bi5wgBakerAjGRwNziz1ZB4vfE6uTwMsNOYH7zSTtQGwWTxnHK9+KH3vdrNZbUk=
+	t=1784414414; cv=none; b=PqBIgNpele12KoET9eY57lmLpZYyTRKGNSVyHJgdtWLWsE2eXkqeNdVLCb6iA4ysblSq/upNFT8YKNPSujobJ4Q5DFufnJ4kdLvzHIhpK4b/3PBjH1m7lM0PENTQ6t+hjFPAJXyi65r+B5J26Ep5iFDQsiWQstWHCrLfW05mG6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784413199; c=relaxed/simple;
-	bh=uBQ8XlnqOMtNKgZqtoqvdpfI4CIFQ2BHelfCbW+fGw0=;
+	s=arc-20240116; t=1784414414; c=relaxed/simple;
+	bh=ij9zSvaARFFdNiQibj8Hn+xroqdI78iNy60qatAmMN8=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KBxe1MCx6EMzeuTZNM121Kr2eL/lm8vAAOJ47RAxfsCiFeAIj/9twGx+x9RMRYpCKkYz23lPlrxSTnEAxuo2n8sQHWz7FRnz7NsV1KBWhS7TDQXI0m/MOdRIaM1g4NyrEwBRsA17mSjoryNqINl4w0NW0hrzg/3XGYJCgmC/jMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IHKXe/yR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DbgUTvSX; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version:Content-Type; b=sCDJgXiGuZaK2t3o+HPiuh7j9plXhGgJRQLCxvP80YcG052w4pis7BZ2Lzse5TvwCbe0F8eZduLltVq4XAVYkib5SsT7fsT3VH1W6GVmPtd976ZPJXqWX/2sMMxVklvHMMQux5xXe/DjiasIRjF4tQLz07dxQYjaT8vAW70+YCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CQwqE0Ix; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Lf6MwBym; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IHKXe/yR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DbgUTvSX"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66IJpXB81352269
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 22:19:57 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CQwqE0Ix";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Lf6MwBym"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66IJq3RT1664154
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 22:40:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	OSIoHX29BzBjnIxq4ol7lBXbSbHoZ60LqztgJWDtdzA=; b=IHKXe/yRaHMq1eKf
-	iUOY+J0bLWQGmFRD4VkHY1ft2Y2SMgFE7ONLhZOq0WJMCvWPcCHEuFXxqkjARsTs
-	8sqP9K52dEGalJvRHOo/+q8KBcaDZezZMzY6P2A+gd6jMQEV4g2L4w5apQ/NpLrt
-	1LUWoSYJlrTZXgUHebAyo85ueTRmN3G+zSOYN9Ak8zl+XJKOQB2BbTJy1e9eOMpW
-	oqhd3BUN2Y7JFZ6N48T50lz29sJj1VJtmtpeVgOwJSOo0gXRD7cyg5tUKDUAXGRo
-	B7VDSurJIbiAP9SDwBT6LZQj6zuruXAmO7KfPd5qUgjQcPcSPWLSTFvVXk+L+lDN
-	Ulydog==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2s7sktc-1
+	MFDnOTEdzHVmM59NkckRT1t2GNOeWUkaT0VyaskjyP8=; b=CQwqE0IxaCXiQLFO
+	4ICgfn+lRqE1Z3PJrvjblq0qK/YrnyrEfqcmc3aFIdz2uGV/wKqpaw9xdO63fCKL
+	V0pGAUffAOpG6gTBmPEjf5v7m7JP8nsQvne3ojoxch7PwR1cgfo4kSqVzsyqhDzK
+	z2zWbFPqzrvtHnYAAKChvZBwTYK05DAtgDV+7DBfKaFOfr8/EHjHhcgd+DfQ593A
+	3fJy85gOFpyBb8QKOk/xMj5lrbW1Vc7VpWb1LQtGxrfDJ0KWSjigEQ3C4rutZJz/
+	ArUURrNHO8KvHJSPXbaPr6Rxms0Jh2qph1OKhToKOsu1xneCSu8pK8WDhZU6s3vh
+	ZadAdA==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2af1p3e-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 22:19:57 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38de0739ab6so6489928a91.3
-        for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 15:19:56 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 22:40:09 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c890bac374eso20615549a12.1
+        for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 15:40:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784413196; x=1785017996; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1784414409; x=1785019209; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=OSIoHX29BzBjnIxq4ol7lBXbSbHoZ60LqztgJWDtdzA=;
-        b=DbgUTvSXMGrUqBw4szZ64Gj33aUwlMsxfMdbcQHKHwdgsv/ugyew0nWOv0geRN9zG0
-         kNth8PTc4udeH70DE7M2aNCV4URAsRZa7KIx40vEe/4y4iwuwaGy941TiEVbU3g01wjL
-         vpGCssscxWYK3n7toF0NRd68+hPOJUi/ev+soBBJd51NJpS6dv31NU2UuCszL2vhn7e1
-         kWBiihM0Sy5YFtwo/z5pC+dYGa46WxnSGfLz9f9yxhuJv4r6njum++CYinLfFHau5qbp
-         KH3hzrlWYDidOO7RHnmee3Ux25CcbjhBGB43E1cTAYXV/8ZOM/NN1SLbMYKZmv6FQ5Lg
-         g7zA==
+        bh=MFDnOTEdzHVmM59NkckRT1t2GNOeWUkaT0VyaskjyP8=;
+        b=Lf6MwBymu5jNfESC9VTXu1GB+IX7Ua7dPaK6sWUvUKuVK1o5exzMljqXstc8FqlUOE
+         QqYHO+PDu99oDdTjHf1QgalQ7Q0OkGWyygAfUqc9iyuPB8kCnMEvd0ZdQeAKALwrlKeR
+         gn49sxkyltSJNJSrIj17YqtQcihNpYAURMdZKH/H7LrgK+GthZX2DRXjnKeRenX5CfQf
+         zrbCoeBvFD/opFhAMWiF9FLsFd5Dw4eY7fXoJZG6at4OtytT9LYO4gis8EkSQ0g+AoqR
+         Rl6MKmgyFprUrwLEazWESH1whzq2cl8UDN8zgmdiWald4vs4cqvs5udAQGAeQRUiuCwk
+         yLfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784413196; x=1785017996;
+        d=1e100.net; s=20251104; t=1784414409; x=1785019209;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OSIoHX29BzBjnIxq4ol7lBXbSbHoZ60LqztgJWDtdzA=;
-        b=YwraPiWNUWJv1EuArqUrp7ZRHXqEuKXoHjgDJzKlEbzRTLKkz6OMEW03citJGIKg/z
-         TPbYV0fmmQnoIHS7wqn5cd+1xtMOaWyqfGumxp6orGGwz+eZ/+MQYKCC4Alo2BPyUOJf
-         uS4asab7eYrXXMITgc7pTc+ImHdEi3DHC7CPEPdw9QR9iwvzTPavaC6Xz9OcHYx0R2pJ
-         /ral8gJDeDgqgLbNbZ9RE78ol/5Fs4qfHm2HyIuZp8nL5ZOrZ1OR38ulUxytarGLHIky
-         qF2LVQeWALAhnP7m4GaDa2/fMUlxCZFVYkZUiWhsPlRugDUGEgyQtONIr/4XH0CYaPPv
-         O+ZA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpm/hVb6ZsVD2xUoazQmr9xX3vG8kwssXqtJ4603FYFhsgUVtzBpb6ViQHgGd49azxoyRZlJaVx48uP@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx/IysGETf67dNPfeJpbHVbDmAkDVSyJouGByC7aKi4v1Ildptk
-	I2mf8yILmdQkmv3FlB21whbD8IVksN0YTSHk1Co0FG7Lp9NR0YLiup6A+Th4W7V3O4uejTMAiFN
-	IbAL2pqcxzHrX6xzy22V9HZCHJJZ+5pWPx95AI+PH+rpoRFeIgIlwBcik+LYhH9sY
-X-Gm-Gg: AfdE7cmyqQ4d7cjhX+eXjks4VZxbfIj2LRPxm6pqoPlaftYozDLkQKiwHb0+eNXrZDt
-	023F2Lg3l7LtK32uZUiQ+9tf8Kmd0L3B5W0pq3eBwv0E6y/pcry4oLkRHWpaQAd9M0UgvPQNwfB
-	WPZFD/dTUjKe4COdxtwlwxc+idgjcOXJ2oYlZjcD7Ei8MqoEk7HFFUXucWm8ViWisMGvVy8jikF
-	ysj5GaT1NW2r9t/8yurgaWUsm9YF2TIKW0vRnHAGj+PC4AWXNFQUZ4HauX+Cjf3VW7KQMQUEKYQ
-	jyHtg/NzKS0Cb70+cL+bWdD9cahUxOkim49mpjWoYrvlhoNgMkCWllXKHapyOzoXZLfmeGQTZAK
-	1m+GmQ1XrT6mzWbvn
-X-Received: by 2002:a17:90b:58ee:b0:37f:9ce0:af32 with SMTP id 98e67ed59e1d1-38e4b595a3dmr8487155a91.29.1784413196367;
-        Sat, 18 Jul 2026 15:19:56 -0700 (PDT)
-X-Received: by 2002:a17:90b:58ee:b0:37f:9ce0:af32 with SMTP id 98e67ed59e1d1-38e4b595a3dmr8487134a91.29.1784413195919;
-        Sat, 18 Jul 2026 15:19:55 -0700 (PDT)
+        bh=MFDnOTEdzHVmM59NkckRT1t2GNOeWUkaT0VyaskjyP8=;
+        b=kPEcpyxZ3TmC27o1f+fZLZoB4xXAIaQpJxKJTQFv9B9A619macVlM2xG6D27r7vGDO
+         Ud7S50zjOenKx5o4o5y7qv8nXhtQ96Te7mexkOFg1zqLWuTjfWFLzrQau35NZ6Fzu0at
+         jSHaLXr01bKwtMWw12LFaWt2BKe3Q0amZ6qXDaub8/dg4y0MEYvKa+coPoWT7I4mlNzu
+         l/GFeLfrB93IFc81+G8azgTZkI0dac4+ntdES2HoiyqLBsOSbINhUJsIXmdVaW2938yP
+         oIz/DcQrs72R5qB0jEU5EcImF2m7E2LwS6HvrNKifo5XOZCyrTT4MeBtqDHDNkHC5fLM
+         zEng==
+X-Forwarded-Encrypted: i=1; AHgh+RoRvuW3CbfIw5AE0HRFitA5tD6/cAw69XjeQkCJrZ/vb0agGyMpJKc5rdZe8u6L+/UmMFn9V1LJIFUo@vger.kernel.org
+X-Gm-Message-State: AOJu0YypVDka8W9JGi0pxoHeukbUaJ5BXnN6yMkcy8pOSQkXNfHvKRYg
+	TG+i7n+Is3tHweGowrwPJcVKtEYOXUjOUeCY5Qi/gQxAshcGLqrfPBQA5Zy2wm6XxUG/FQj0Wmr
+	x9QjvpgCny+0ZkF6hHT8yIJiGJHy/IsseuzDLvIvvODDYTQ+FG/Qex/vZ86I2NWUF
+X-Gm-Gg: AfdE7ckg1SF6QyrqbCLZjiqM7I+byfJE0e5/k6S4mmf+yLaT5GhcDPBtPUMxSdXeh0L
+	Vxl3668Rnvte9Hjx8K0TpT12peQXmOYABRXt5D2zetqocF8vwiaHB2SmixY5CFSq6SNpSV676IQ
+	UHa6Gmq7u4X6mSPua2fmMdl2P01CQ4qD9NJ78StA/ylJNQ7Tmb3eCQFtx8OpFUIpTXWOY9iBRKt
+	21T3OtAcbRddzfCtnLVeh+t/JQKS18env58f4QYee7N3ndQnW1wPJtKOw8CjSDbpHei11HHU///
+	DHPfGMrRg1QzQ/gspWdNrzUMdqE0ZsWoLy/8/e19gFEg7VEtiwwudP8UK8x4UxknagzvOh0JcUF
+	Ryf78Iq5f5fscysn8
+X-Received: by 2002:a05:6a21:512:b0:3bf:7f0b:2f6e with SMTP id adf61e73a8af0-3c3ad9d1ba1mr8201496637.46.1784414408615;
+        Sat, 18 Jul 2026 15:40:08 -0700 (PDT)
+X-Received: by 2002:a05:6a21:512:b0:3bf:7f0b:2f6e with SMTP id adf61e73a8af0-3c3ad9d1ba1mr8201476637.46.1784414408156;
+        Sat, 18 Jul 2026 15:40:08 -0700 (PDT)
 Received: from jic23-huawei ([50.35.46.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e39de785dsm5062346a91.4.2026.07.18.15.19.52
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cb519aeb334sm2620363a12.18.2026.07.18.15.40.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Jul 2026 15:19:54 -0700 (PDT)
-Date: Sat, 18 Jul 2026 23:19:49 +0100
+        Sat, 18 Jul 2026 15:40:07 -0700 (PDT)
+Date: Sat, 18 Jul 2026 23:40:00 +0100
 From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 To: Md Shofiqul Islam <shofiqtest@gmail.com>
 Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
@@ -87,11 +87,12 @@ Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
         u.kleine-koenig@baylibre.com, joshua.crofts1@gmail.com,
         nuno.sa@analog.com, Michael.Hennerich@analog.com,
         dlechner@baylibre.com, linux@analog.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 1/2] dt-bindings: iio: health: add adi,max86150
-Message-ID: <20260718231938.54f41543@jic23-huawei>
-In-Reply-To: <20260717201138.1078019-2-shofiqtest@gmail.com>
+Subject: Re: [PATCH v10 2/2] iio: health: add MAX86150 ECG and PPG biosensor
+ driver
+Message-ID: <20260718233949.2b1bc12f@jic23-huawei>
+In-Reply-To: <20260717201138.1078019-3-shofiqtest@gmail.com>
 References: <20260717201138.1078019-1-shofiqtest@gmail.com>
-	<20260717201138.1078019-2-shofiqtest@gmail.com>
+	<20260717201138.1078019-3-shofiqtest@gmail.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -101,109 +102,239 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE4MDIzNCBTYWx0ZWRfXwblmkE1GWoCi
- o0LEuXznIA3RQs9nXE+r2TvbotbXHrR0NF39GM/OknVr1tffHi7RB1jz8I3kAEzaA41ucoCtW9d
- qOx/bDK/tnpYwtaaEcNx7omzQD00IeRkz0Zp1V9rrMdd+LzocwuDGwtwyDLQa1D3jmse55oG8sw
- X1yx6r6jhmAMef6Ej4cvyWsUGTggh0k6DUaaYHZ+7PBhKYkPUpCS9U4QDnTdL4SzI94vihxdxyi
- xdNMUVg/qSlLzjGlAgy1r/JTUHM29oMaUoIzg+7HS+ioAyF5n2lrIIblXHB+Joza3XqX1olsXGJ
- iWbDCiao4+rlFvNpF4EQEYRHc6m84SvCV7VqcOqnEmr+y+t2JnUSiZo5shVDTlYZX3PzQ1MOP01
- RjCoK2063y5CPV/jK1/Jj3NMxsirlOCr9BGvhLk5Irat5CGagMb1LFn93eG1FyoE4gUUPuxt+s3
- nz2ZibP2R253YN9/3pg==
-X-Authority-Analysis: v=2.4 cv=eKsjSnp1 c=1 sm=1 tr=0 ts=6a5bfc0d cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=qC1CW/w66vtJz1P9yTJxNA==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE4MDIzNyBTYWx0ZWRfX+jm2b+74yjSF
+ SAf1fcMII67IANJuvRwmh03+P5xyq57Zo28/vY71PZVnkhK3fjTaUTnBDBv1/51e2S0qSx25Ge9
+ 1iC60a6ujuuPBGyC1sndtSYpk64uUf4=
+X-Proofpoint-GUID: M_AqALv4bya5Z8HVsINIjSXeLA1t_Gbc
+X-Proofpoint-ORIG-GUID: M_AqALv4bya5Z8HVsINIjSXeLA1t_Gbc
+X-Authority-Analysis: v=2.4 cv=a+sAM0SF c=1 sm=1 tr=0 ts=6a5c00c9 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=qC1CW/w66vtJz1P9yTJxNA==:17
  a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=gEfo2CItAAAA:8 a=gAnH3GRIAAAA:8 a=pGLkceISAAAA:8 a=KgpIswxficZqQvW3BnAA:9
- a=CjuIK1q_8ugA:10 a=iS9zxrgQBfv6-_F4QbHw:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-ORIG-GUID: D_mjG0Wefl1B6S02m5tz7cA88fM8gb10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE4MDIzNCBTYWx0ZWRfXyP9PQnAX8awb
- JcDhgavtouXarAZ1ApULdj8AB4AU2qHkSdr/JohLcp+R/kBlzDeAPGoGcSmBJ9/ksMW/MK/TXJV
- j/Ruobg/98eKxKl5ltY/KHkl42CCB+E=
-X-Proofpoint-GUID: D_mjG0Wefl1B6S02m5tz7cA88fM8gb10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=pGLkceISAAAA:8 a=VwQbUJbxAAAA:8 a=80GZHuB-04ZerDwFyH4A:9 a=CjuIK1q_8ugA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE4MDIzNyBTYWx0ZWRfX2ZN6t34XlXzw
+ rMyeoBa4/RVcfGhyMPI+82zFY7NaihUJib0Rhzmd/SHWUrY3rU98Nx+f+dmUwSsUrz50Ia0A7Kv
+ EhZqVHXAteTPKf26TRzxdi4V36VXSjnuQQdbaF1eR9MT0AtPhUVcnLXi3a1F9W6SVT0ue+UB9pR
+ sKS5FSqQShV/cDHIkCQ4Q1uLN96ZgQE4qweHCWhgTgWJbC1gdtxhqbijUimB0L1ShQOZqYFEdu3
+ GJ1VCcp2CTFcYfoJYL/ByAJRFfmmdNxlB7eWmpv9fi9fCzrkiVYCOgHdTvoRiBLJkNsqLkiUd2y
+ QFRctlI31zhFLRfkXeIxrDUVE9cTwiDpN2C5B//Sj7SRab+Q4c23CBW7Lhw04VYsUCwNngfUSSJ
+ Wkvz6bEjXJKbWb5825QhhlBcdTXJDgtQMcBQh9QCVNW7ZRjOwFlqm1CpMsNNknVcIM0jLTk7rTm
+ GtoGvfAlscA6kapbYSQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-18_06,2026-07-17_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 impostorscore=0 malwarescore=0
- clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607180234
+ suspectscore=0 clxscore=1015 impostorscore=0 malwarescore=0 spamscore=0
+ phishscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607180237
 
-On Fri, 17 Jul 2026 23:11:36 +0300
+On Fri, 17 Jul 2026 23:11:37 +0300
 Md Shofiqul Islam <shofiqtest@gmail.com> wrote:
 
-> Add the Device Tree binding schema for the Analog Devices MAX86150
-> integrated biosensor, which combines two photoplethysmography (PPG)
-> channels (Red LED and IR LED) and one electrocardiogram (ECG) channel
-> in a single I2C device. Samples are buffered in a 32-entry hardware
-> FIFO with a configurable almost-full interrupt.
+> Add a new IIO driver for the Analog Devices MAX86150 integrated
+> biosensor, which combines two PPG optical channels (Red/IR LED) and
+> one ECG biopotential channel in a single I2C device.
 > 
-> The device requires four independent supply rails per the datasheet
-> power tree: digital core (vdd), analog core (avdd), ECG reference
-> (vref), and LED anode (leds).
+> The device has a 32-entry hardware FIFO with a configurable almost-full
+> interrupt. The driver uses the standard IIO hardware-trigger and
+> triggered-buffer framework: a hard-irq handler reads and clears
+> INT_STATUS1 to de-assert the line before calling iio_trigger_poll(),
+> and the threaded trigger handler drains the FIFO and pushes samples,
+> with timestamps back-calculated from the interrupt arrival time by one
+> sample_period_ns per step. Relying on the trigger core's own
+> attach/detach synchronization avoids the need for an explicit
+> iio_buffer_enabled() guard or synchronize_irq() in the interrupt path.
+
+Why is it using a triggered buffer + trigger?  We normally don't do
+that when a hardware fifo is involved. That stuff is all about when
+a trigger indicate a scan of channels (one set of samples of all channels).
+
+Look at the drivers that register a kfifo directly.  Sorry I didn't
+raise this earlier.  I think I got too focused on the narrow details
+rather than the big picture.
+
+
 > 
+> Key implementation details:
+> - Part ID register (0xFF) verified against 0x1E on probe; mismatched
+>   devices are rejected with -ENODEV so the driver cannot bind to the
+>   wrong hardware
+> - Stale A_FULL and PPG_RDY status bits are cleared before arming the
+>   interrupt or polling for a sample, so a previously-latched flag
+>   cannot fire the handler against garbage state
+> - 24-bit FIFO words decoded directly from the raw byte buffer
+> - regmap_set_bits() / regmap_clear_bits() for single-direction writes
+> - Device remains in shutdown between captures to suppress LED current
+> - vdd, avdd, vref and leds regulators required per the datasheet power
+>   tree
+> - iio_get_time_ns() used for timestamps so they respect the IIO
+>   device's configured clock source
+> - A_FULL status bit used to detect FIFO exactly full (wr_ptr == rd_ptr
+>   with OVF_COUNTER == 0) so valid samples are not silently dropped
+> - No IRQ trigger-type override: the device has no register to
+>   reconfigure interrupt polarity or type, so IRQF_ONESHOT with
+>   whatever type firmware provides is sufficient
+> 
+> Suggested-by: Jonathan Cameron <jic23@kernel.org>
+> Suggested-by: Joshua Crofts <joshua.crofts1@gmail.com>
 > Assisted-by: Claude:claude-sonnet-5
 > Signed-off-by: Md Shofiqul Islam <shofiqtest@gmail.com>
-A few small things inline from a fresh look.
 
-Thanks,
 
-Jonathan
-
-> ---
->  .../bindings/iio/health/adi,max86150.yaml     | 78 +++++++++++++++++++
->  MAINTAINERS                                   |  6 ++
->  2 files changed, 84 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/health/adi,max86150.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/health/adi,max86150.yaml b/Documentation/devicetree/bindings/iio/health/adi,max86150.yaml
+> diff --git a/drivers/iio/health/max86150.c b/drivers/iio/health/max86150.c
 > new file mode 100644
-> index 0000000000000..da2ff9b0ada2b
+> index 0000000000000..47d96570a95fc
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/health/adi,max86150.yaml
-> @@ -0,0 +1,78 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/health/adi,max86150.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Analog Devices MAX86150 ECG and PPG Biosensor
-> +
-> +maintainers:
-> +  - Md Shofiqul Islam <shofiqtest@gmail.com>
-> +
-> +description: |
-> +  The MAX86150 is an integrated biosensor SoC that combines:
-> +    - Two PPG (photoplethysmography) channels: Red LED and IR LED,
-> +      for heart rate and blood-oxygen saturation (SpO2) measurement.
-> +    - One ECG (electrocardiogram) channel for biopotential recording.
-> +
-> +  The device communicates over I2C at up to 400 kHz and raises an
-> +  active-low interrupt when the 32-entry hardware FIFO reaches its
-> +  configurable almost-full threshold.
+> +++ b/drivers/iio/health/max86150.c
 
-For this the 32-entry fifo bit is good but maybe move ti to the interrupt
-description. The rest of this paragraph is a repeat of detail below where
-it is more useful. Hence I would drop it.
+
+
+> +static int max86150_chip_init(struct max86150_data *data)
+> +{
+...
+> +	if (ret)
+> +		return ret;
+> +
+> +	data->sample_period_ns = 10000000; /* matches MAX86150_PPG_SR_SP_100HZ above */
+
+Probably express as NANO / 100;
+
 
 > +
-> +  Datasheet:
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/MAX86150.pdf
+> +static int max86150_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct iio_dev *indio_dev;
+> +	struct max86150_data *data;
+> +	unsigned int part_id;
+> +	int ret;
 > +
-> +properties:
-> +  compatible:
-> +    const: adi,max86150
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
 > +
-> +  reg:
-> +    maxItems: 1
+> +	data = iio_priv(indio_dev);
 > +
-> +  interrupts:
-> +    maxItems: 1
-> +    description: |
+> +	ret = devm_regulator_get_enable(dev, "vdd");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable vdd supply\n");
+> +
+> +	ret = devm_regulator_get_enable(dev, "avdd");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable avdd supply\n");
+> +
+> +	ret = devm_regulator_get_enable(dev, "vref");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable vref supply\n");
+> +
+> +	ret = devm_regulator_get_enable(dev, "leds");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable leds supply\n");
 
-Formatting not needed so drop the |
+Given there are 4 of these devm_regulator_bulk_get_enable() probably makes sense.
 
-> +      Active-low interrupt line.  Asserted when the FIFO almost-full
-> +      threshold is reached or when a new PPG sample is ready.
+> +
+> +	data->regmap = devm_regmap_init_i2c(client, &max86150_regmap_config);
+> +	if (IS_ERR(data->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(data->regmap),
+> +				     "Failed to init regmap\n");
+> +
+> +	ret = regmap_read(data->regmap, MAX86150_REG_PART_ID, &part_id);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Cannot read part ID\n");
+> +
+> +	if (part_id != MAX86150_PART_ID_VAL)
+> +		return dev_err_probe(dev, -ENODEV,
+> +				     "Unexpected part ID 0x%02x (expected 0x%02x)\n",
+> +				     part_id, MAX86150_PART_ID_VAL);
+
+This breaks fallback dt compatibles. Normally if we get a missmatch we just print
+a message and carry on anyway.  If we need to not do that for some reason here
+add a comment to that affect.
+
+> +
+> +	ret = max86150_chip_init(data);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Chip initialisation failed\n");
+> +
+> +	ret = devm_add_action_or_reset(dev, max86150_powerdown, data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	indio_dev->name         = "max86150";
+> +	indio_dev->channels     = max86150_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(max86150_channels);
+> +	indio_dev->info         = &max86150_iio_info;
+> +	indio_dev->modes        = INDIO_DIRECT_MODE;
+> +
+> +	if (client->irq > 0) {
+> +		data->trig = devm_iio_trigger_alloc(dev, "%s-dev%d",
+> +						    indio_dev->name,
+> +						    iio_device_id(indio_dev));
+> +		if (!data->trig)
+> +			return -ENOMEM;
+> +
+> +		data->trig->ops = &max86150_trigger_ops;
+> +		iio_trigger_set_drvdata(data->trig, indio_dev);
+> +
+> +		/*
+> +		 * The device only ever drives an active-low interrupt line;
+> +		 * there is no register to reconfigure its polarity or type,
+> +		 * so the trigger type from firmware needs no help here.
+
+Not need to say this.  It is most common situation.
+
+> +		 */
+> +		ret = devm_request_threaded_irq(dev, client->irq,
+> +						NULL,
+> +						max86150_irq_handler,
+> +						IRQF_ONESHOT,
+> +						"max86150", data->trig);
+
+Using a trigger for a fifo full interrupt is always a little bit overly
+complex.  In this case you have both validation function set so
+you can't use the buffer without this trigger being available.
+If it is meaningful to trigger this from another source then
+maybe you use a triggered_buffer.  In some cases where both types
+of operation are things people want (maybe from a sysfs trigger) we don't
+necessarily register a trigger for the fifo interrupt. The lack of having
+set a trigger can mean that path should be used.
+
+Normal thing to do in this case is no trigger + directly register
+a kfifo to fill from the hardware fifo.  Simply turning that buffer
+on is the signal to begin capture.
+
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = devm_iio_trigger_register(dev, data->trig);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to register trigger\n");
+> +	}
+> +
+> +	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
+> +					      iio_pollfunc_store_time,
+> +					      max86150_trigger_handler,
+> +					      NULL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * Set the default trigger AFTER buffer setup succeeds.  Setting it
+> +	 * before would leak the iio_trigger_get() reference if buffer setup
+> +	 * failed: INDIO_BUFFER_TRIGGERED is not set on that path so
+> +	 * iio_device_release() skips iio_trigger_put().
+
+I don't believe there is anything stopping you just registering
+the triggered_buffer before the trigger.  That would get rid of
+this complexity.
+
+> +	 */
+> +	if (data->trig)
+> +		indio_dev->trig = iio_trigger_get(data->trig);
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
