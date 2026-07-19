@@ -1,63 +1,63 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618FF296BA9
-	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 09:34:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21AA8296BA9
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 09:34:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784453659; cv=none; b=Tw95562BDFpIN6fw8kIRx+Kf782S86bgnnIf3BlcL7LYT2jCfAJArHMQ4dbzOyy1YbP1N7ilqWhGHsuLk5Cukca9X2QIxucdvJEqu2g7sz7uYmAEKhLylg8stfi9QlnXFNZzj5hrZdjaQ+vO3Qlz1UhT7cfpDaYxjGSuhedSJZE=
+	t=1784453666; cv=none; b=VNbhAy29DdQYK77Jmuz4eMXZATA6Kxh1S8Y0JzW9mRqMCq1//ToJAPBZ69n+eh3qowy7ZO+sS4eYO3bxjXwVkgYkHICxONzWcOnSkyVmK8R44TYJIMP3MkKuUK0Pgzn+k5bNlqihAWPl9jSanpiYTW9S9P1OXkcNHgjhuTsOeeM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784453659; c=relaxed/simple;
-	bh=09PJK7FyMop3+ThvZevw9MOmAi18VAWw4VwXOzDbcio=;
+	s=arc-20240116; t=1784453666; c=relaxed/simple;
+	bh=mCE15SUxGJwW0nO7J03alUZYVUV9YJMCRYto9xozsfo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=J45QtXv1mHRsGz30VDOtOi05d13BtsHzcv4Ize+ZJBGxKHOeKDHw6KpEPho1TR/CQ8brB6jo4LuMITRvKXxo0rF5yxWxK0FjyULhFEBWF5Y9DLwEmFijWdSeYaEVl+ltdqptwTz+VOgg6k8Z/fgtgoaMRa0sJQTuNcHSzpmq3vE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MreVIFbr; arc=none smtp.client-ip=209.85.210.174
+	 MIME-Version; b=PAdfbHgEOAJmf+Ic6Rq35FGJx4eYtVhR82h1uJyNNhQfkONFhc63JxUbVYWi3w87AzpBlTewPeFjj9qEAs2KNFeATM3yydk9zTuAzXFrQBe94Gr3PG9gAu+H+EexuX/hpr6j5US+S0TWpzPIAf+uM3mbZ+KQLWuMQA90dARCYFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AYk8MWNO; arc=none smtp.client-ip=209.85.210.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MreVIFbr"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8487088510aso9388628b3a.0
-        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 02:34:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AYk8MWNO"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8485b358552so10030331b3a.2
+        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 02:34:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784453658; x=1785058458; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784453662; x=1785058462; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CPBP+QpHeGYXcnpllis6xEmJf6ioNH1lXkoxfgOlON8=;
-        b=MreVIFbroHcu76YJhCRntfjPps/Bl2+ZxJE9DFdoQPG/eZbwekwuDZI48JEdp8NRPl
-         uOw5GkA7eBQmdZdNLkL9WJckkq+CSdux5vjKpyeBvKUiIzki1WcoqVSF1UaBjqzaygm1
-         3ArFx8k4x3lzJP8jQ2FdZx/85yd8hNt6Xv3q3JlTxS61D3Zutdxqv4z94iSWBgh4BWLp
-         Uoklchkv6Ul+kgDu/NMHPYgfahgGC4riePO9rLLdCPI4VYTktpZurLFPgLSl17BPhPHS
-         xVJ8Hq2Rn8e0knsvjsdiPqqxr0L8NFM8XiDix8KtkcPBSd8jZ18NKhV9Kmco8NF5LH0S
-         Mx0A==
+        bh=NGGOVoVE7RQwRw7DFaaFqya4qnlvOJxtktA3yPhnXe4=;
+        b=AYk8MWNO2zqGy4DSIom5tzzOW83vhIPg7PWz2QZd4l+e0lwHltfBgUGg/O3v8F6jQD
+         SMrgmPOGuYov/Ut1uZTr+VnitlzwWKfQuooy9fDBmIk8MDb5rQtddLSYCy9RUyhEyXN4
+         0Bwr2ukhxmjApJ0vgsBZ+OQODLegMH9o2k9E3V5NsXdeUryflOnrzpsqEdkemC77+wzC
+         HGMCUXFGWuDzEz/GdczuvWH+FxXfM7WVl2tYCQHgWqPZhoOJiYzt9blbPb+KcTC9YOMQ
+         JkSu2ylLIEn/XurrReaGZ9yphNisqazxyQ9CMGqgSAx+AOeRvV0Urn0jdrQuCU+nyA7A
+         WtGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784453658; x=1785058458;
+        d=1e100.net; s=20251104; t=1784453662; x=1785058462;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CPBP+QpHeGYXcnpllis6xEmJf6ioNH1lXkoxfgOlON8=;
-        b=TIK37zz5/P6gBAmjfuVW5beSJ7ALcOSdj1yUAVUdeuaW9P8XvpEteL/RkEaZA6YbvB
-         WQ967e5BbbNg/BltoCMgqIaQVLAcrfQ55MR4MeWX4xloCFTSEOA6T+Z3poh9lIKzzrLM
-         JPyYEOpMyYlMdz5f+zBw8URIKv5YE/yuTPSIo25LTMBtc4SUN0qjyZ9eddp5Njduklu0
-         JGPBd5KZA9zFWD0i3uVlz2z/Xsy3EaLvHqbNA/s5uHFU89RIHLycvskgk0tZGKEOP+B5
-         gkk7iLGYwKIEvNjc5ClNe+sMtzLpmF7RvaceimR6lmiqfOjnUHHOtVpZZs63ZHKwfSIg
-         7wTw==
-X-Forwarded-Encrypted: i=1; AHgh+RrUqyiJiZOYgQ3CQ87LhSatBWNC90ereW9KQx8h95/12VPX/jRzPwM/ptsjrJVH3Jxnt4cEaCk2ng0j@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw7MAcSY/7fJKtD5/CzWm6leTZI8hs7EqvjRm1hJ8xncvU0lm4F
-	QHnd4MT10hZ9SC1NtK7nNxtFdFhiTIoH5h7f8wV/yjds9NYQKtLkwQ9P
-X-Gm-Gg: AfdE7cn4CBab1//bjbaBLfyGFcwrtIITzQVGNokA15AxENyeM5QgJ2K1kLCRmiNTcl9
-	VqsqLXxAvHwwz1iVOs5QJasnxV09dEX+a9aX8e/ESzBqpqnF8dzi3UDBEg2CHRpOgSLzE2Le5WC
-	I8PzrK+jxaoycD9GlPGVhStET9XXga++wyJxbyvkxcG81ALo7zcvBTu/xu/O1E+7iX87E+SVzD5
-	Ek4fdw0yjep1DsY1Fdulo66Up+53PZvBIYDWCHeCsWKGTiHcvx+2FZXoge5Ti48kg+zPJ4G67AS
-	3AJCforvgXz1hKXeHsAXXlsZTqmhN6rkbSA2WyD29YINeLneIuhsJcDFCxk2LlMP5P+XQ8SFdtv
-	SuCBcXFEJoVFUTrpZY2SWMuVWWekLvRxXIyez+ziTa51PvCy0TVFmrNFuuznA4tokF5jDRt7m6U
-	9td5/7bXTQpLSGZqZwF0VZgoEq4NohmyiG5K8HIhWrxcM=
-X-Received: by 2002:a05:6a00:3cce:b0:848:4d4f:d477 with SMTP id d2e1a72fcca58-84c29310889mr9580482b3a.18.1784453657671;
-        Sun, 19 Jul 2026 02:34:17 -0700 (PDT)
+        bh=NGGOVoVE7RQwRw7DFaaFqya4qnlvOJxtktA3yPhnXe4=;
+        b=e0RMpacI+BmDHgOy6FnJSMEYZhb6zah3bhJK5DAg7qe5gFkkoC1uxIovPsVQpNwZbb
+         3aAJOMkO3tlk1DoipuYs1jQd5PoqD9hMFsgUZ4tDfacX5MILNBgqXBghIHU9QNhs5AYX
+         ugOlCx/2WA9IysIPEHw7VShMHOcChkLTrKyskZqMpfmEpuW9DkrMZ70EfDCQaeiXiQGc
+         +N/s6SsLaca4vT6BlrrBQnA8D++vjPBRxPFUCh6v3CBAOjX/8N5meK1JgnRhfdwbNjsr
+         cxuul4aKptf8ALvI/z0UhHKpHmrk7RZd82ZSK7tj0DsecAtQCBgNK05Art/C5YmFbrx0
+         v9Fw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro+aRhmgQnI1OhSo2GyNpdN35r1i2WoXYfi7lT9U2r3Ghb51TzaEkss7sgbDvHapPG/xLrlSu1KjUVY@vger.kernel.org
+X-Gm-Message-State: AOJu0YzaomSB2cEnMN4ocDAa9HrFbKJyIPZiZXRymRE3CG0ury8iXGYN
+	NYxCG09ctnbsmsuHBgsMeROGQ2JOnA0MtJCUUeV+3IT7ZH1ZD7PLVbZE
+X-Gm-Gg: AfdE7clL2MuTfJPExUrgFiUYSygTlwjCF10K4s34lw2MY0s3MgIwAGCPKaNBQeQBwtu
+	5edcy+34eu0NFbxKDlIg02xOUTEAwZFy47ORIVXseiKQa5Dy26JBjuifZoWz7Un7gPLUjakCDdo
+	2+yIRYJDAj+kbjs1LcgGsNZLdAsdv87NClKLoorUIiSoWsPuOr7kVcjgnBH2ggnLdulI2/zVk8z
+	xvwHki4bvjgV4YtwVLoKFuA1ogV9s8widuWsxDpsPjQ1iWHQQYbadAzt3RG1MVrPQ1R+3E8V8Wk
+	4lFCDtND+FXqKwObDXggZxkGglUdgsxUwrWSMnKFOnhQzVAwizjTZamAdnaeeTpS8jVORs3tyGa
+	nNEph9ajhtZuXyxONicO6UUqVUP7KWuuS1j2HDevX5t3kv/ogcxtr6xXlCVWChhogseYYFY8Pfq
+	EkUl4+ixvNcexdcKUC9r45R8L/EZKP+hCw
+X-Received: by 2002:a05:6a00:94d3:b0:848:67ca:c03 with SMTP id d2e1a72fcca58-84c294bbb07mr9453471b3a.58.1784453662353;
+        Sun, 19 Jul 2026 02:34:22 -0700 (PDT)
 Received: from nuvole ([2408:8456:3214:35e7:8e03:79a6:7390:9fc3])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c2adcaa0bsm4022342b3a.20.2026.07.19.02.34.13
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c2adcaa0bsm4022342b3a.20.2026.07.19.02.34.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Jul 2026 02:34:17 -0700 (PDT)
+        Sun, 19 Jul 2026 02:34:21 -0700 (PDT)
 From: Pengyu Luo <mitltlatltl@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
@@ -69,9 +69,9 @@ Cc: inux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	guf296@126.com,
 	Pengyu Luo <mitltlatltl@gmail.com>
-Subject: [PATCH 1/2] dt-bindings: arm: qcom: Document Lenovo Legion Y700 Gen4
-Date: Sun, 19 Jul 2026 17:32:25 +0800
-Message-ID: <20260719093226.197740-2-mitltlatltl@gmail.com>
+Subject: [PATCH 2/2] arm64: dts: qcom: sm8750: Add Lenovo Legion Y700 Gen4
+Date: Sun, 19 Jul 2026 17:32:26 +0800
+Message-ID: <20260719093226.197740-3-mitltlatltl@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260719093226.197740-1-mitltlatltl@gmail.com>
 References: <20260719093226.197740-1-mitltlatltl@gmail.com>
@@ -83,26 +83,1154 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add compatible for the SM8750-based Lenovo Legion Y700 Gen4, using its
-codename, elden.
+Add an initial devicetree for the Lenovo Legion Y700 Gen4, which is
+based on sm8750-qrd.
+
+Supported features:
+- Altmode
+- Backlight
+- Battery & Charge (Full speed)
+- Buttons
+- Framebuffer (Require mdss and dispcc to be disabled)
+- USB (Two ports)
+
+Downstream supported features:
+- Display (8/10 bits) (Pending [1])
+- GPU
+- Touchscreen
+
+Unsupported features:
+- BT & WIFI
+- Cameras & Flash
+- Microphones & Speakers (Downstream available, pending test [2])
+- Sensors (Downstream available, pending test [3])
+- Vibrators (Downstream available, pending test [2])
+
+[1]: https://lore.kernel.org/dri-devel/20260709142846.12463-1-mitltlatltl@gmail.com
+[2]: https://github.com/GUF296/linux/commits/codex/tb321fu-full-remediation-20260715
+[3]: https://github.com/linux-msm/hexagonrpc
 
 Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
 ---
- Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/qcom/Makefile             |    1 +
+ .../boot/dts/qcom/sm8750-lenovo-elden.dts     | 1097 +++++++++++++++++
+ 2 files changed, 1098 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index c7c9a9279684..e1ade271e712 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -1160,6 +1160,7 @@ properties:
- 
-       - items:
-           - enum:
-+              - lenovo,elden
-               - qcom,sm8750-mtp
-               - qcom,sm8750-qrd
-           - const: qcom,sm8750
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index e05414290d8e..cb93708e0415 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -405,6 +405,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk-rear-camera-card.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-mtp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-qrd.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-lenovo-elden.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-mtp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-qrd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk.dtb
+diff --git a/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
+new file mode 100644
+index 000000000000..c67c00ea45a0
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
+@@ -0,0 +1,1096 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
++ * Copyright (c) 2025-2026 Pengyu Luo <mitltlatltl@gmail.com>
++ */
++
++/dts-v1/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/phy/phy.h>
++#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
++#include "sm8750.dtsi"
++#include "pm8550.dtsi"
++#define PMK8550VE_SID 8
++#include "pm8550ve.dtsi"
++#include "pmih0108.dtsi"
++#include "pmk8550.dtsi"
++#include "sm8750-pmics.dtsi"
++
++/ {
++	model = "Lenovo Legion Y700 Gen4";
++	compatible = "lenovo,elden", "qcom,sm8750";
++	chassis-type = "tablet";
++
++	aliases {
++		i2c5 = &i2c5;
++		i2c6 = &i2c6;
++		i2c9 = &i2c9;
++		i2c10 = &i2c10;
++		serial1 = &uart14;
++	};
++
++	/* mandatory, ABL requires the chosen node to boot */
++	chosen {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		framebuffer: framebuffer@fc800000 {
++			compatible = "simple-framebuffer";
++			reg = <0x0 0xfc800000 0x0 0x2b00000>;
++			width = <1904>;
++			height = <3040>;
++			stride = <(1904 * 4)>;
++			format = "a8r8g8b8";
++		};
++	};
++
++	clocks {
++		xo_board: xo-board {
++			compatible = "fixed-clock";
++			clock-frequency = <76800000>;
++			#clock-cells = <0>;
++		};
++
++		sleep_clk: sleep-clk {
++			compatible = "fixed-clock";
++			clock-frequency = <32000>;
++			#clock-cells = <0>;
++		};
++
++		bi_tcxo_div2: bi-tcxo-div2-clk {
++			compatible = "fixed-factor-clock";
++			#clock-cells = <0>;
++
++			clocks = <&rpmhcc RPMH_CXO_CLK>;
++			clock-mult = <1>;
++			clock-div = <2>;
++		};
++
++		bi_tcxo_ao_div2: bi-tcxo-ao-div2-clk {
++			compatible = "fixed-factor-clock";
++			#clock-cells = <0>;
++
++			clocks = <&rpmhcc RPMH_CXO_CLK_A>;
++			clock-mult = <1>;
++			clock-div = <2>;
++		};
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++
++		pinctrl-0 = <&volume_up_n>;
++		pinctrl-names = "default";
++
++		key-volume-up {
++			label = "Volume Up";
++			linux,code = <KEY_VOLUMEUP>;
++			gpios = <&pm8550_gpios 6 GPIO_ACTIVE_LOW>;
++			debounce-interval = <15>;
++			linux,can-disable;
++			wakeup-source;
++		};
++	};
++
++	pmic-glink {
++		compatible = "qcom,sm8750-pmic-glink",
++			     "qcom,sm8550-pmic-glink",
++			     "qcom,pmic-glink";
++		#address-cells = <1>;
++		#size-cells = <0>;
++		orientation-gpios = <&tlmm 61 GPIO_ACTIVE_HIGH>;
++
++		/* Long edge */
++		connector@0 {
++			compatible = "usb-c-connector";
++			reg = <0>;
++
++			power-role = "dual";
++			data-role = "dual";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					pmic_glink_hs_in: endpoint {
++						remote-endpoint = <&usb_dwc3_hs>;
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					pmic_glink_ss_in: endpoint {
++						remote-endpoint = <&usb_dp_qmpphy_out>;
++					};
++				};
++
++				port@2 {
++					reg = <2>;
++
++					pmic_glink_sbu: endpoint {
++						remote-endpoint = <&fsa4480_sbu_mux>;
++					};
++				};
++			};
++		};
++
++		/* Short edge */
++		connector@1 {
++			compatible = "usb-c-connector";
++			reg = <1>;
++
++			power-role = "dual";
++			data-role = "dual";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					pmic_glink_hs_c2_in: endpoint {
++						remote-endpoint = <&usb_dwc3_hs2>;
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					pmic_glink_hs_sbu: endpoint {
++						remote-endpoint = <&fsa4480_hs_sbu_mux>;
++					};
++				};
++			};
++		};
++	};
++
++	reserved-memory {
++		/*
++		 * Use this to tell the BL to initialize the display related
++		 * resources, so we can use efifb. Please 's/-/_/'
++		 */
++		splash-region {
++			reg = <0 0xfc800000 0 0x2b00000>;
++			no-map;
++		};
++	};
++
++	vph_pwr: vph-pwr-regulator {
++		compatible = "regulator-fixed";
++
++		regulator-name = "vph_pwr";
++		regulator-min-microvolt = <3700000>;
++		regulator-max-microvolt = <3700000>;
++
++		regulator-always-on;
++		regulator-boot-on;
++	};
++
++	vreg_iovdd_1p8: regulator-dsi-1p8 {
++		compatible = "regulator-fixed";
++
++		regulator-name = "vreg_iovdd_1p8";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++
++		gpio = <&tlmm 161 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++
++		pinctrl-0 = <&iovdd_reg_en>;
++		pinctrl-names = "default";
++
++		regulator-always-on;
++		regulator-boot-on;
++	};
++
++	vreg_vsp_6p1: regulator-vsp-6p1 {
++		compatible = "regulator-fixed";
++
++		regulator-name = "vreg_vsp_6p1";
++		regulator-min-microvolt = <6100000>;
++		regulator-max-microvolt = <6100000>;
++
++		gpio = <&tlmm 72 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++
++		pinctrl-0 = <&vsp_reg_en>;
++		pinctrl-names = "default";
++
++		regulator-always-on;
++		regulator-boot-on;
++	};
++
++	vreg_vsn_5p8: regulator-vsn-5p8 {
++		compatible = "regulator-fixed";
++
++		regulator-name = "vreg_vsn_5p8";
++		regulator-min-microvolt = <5800000>;
++		regulator-max-microvolt = <5800000>;
++
++		gpio = <&tlmm 73 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++
++		pinctrl-0 = <&vsn_reg_en>;
++		pinctrl-names = "default";
++
++		regulator-always-on;
++		regulator-boot-on;
++	};
++};
++
++&apps_rsc {
++	regulators-0 {
++		compatible = "qcom,pm8550-rpmh-regulators";
++
++		vdd-bob1-supply = <&vph_pwr>;
++		vdd-bob2-supply = <&vph_pwr>;
++		vdd-l1-l4-l10-supply = <&vreg_s3g_1p8>;
++		vdd-l2-l13-l14-supply = <&vreg_bob1>;
++		vdd-l3-supply = <&vreg_s7i_1p2>;
++		vdd-l5-l16-supply = <&vreg_bob1>;
++		vdd-l6-l7-supply = <&vreg_bob1>;
++		vdd-l8-l9-supply = <&vreg_bob1>;
++		vdd-l11-supply = <&vreg_s7i_1p2>;
++		vdd-l12-supply = <&vreg_s3g_1p8>;
++		vdd-l15-supply = <&vreg_s3g_1p8>;
++		vdd-l17-supply = <&vreg_bob2>;
++
++		qcom,pmic-id = "b";
++
++		vreg_bob1: bob1 {
++			regulator-name = "vreg_bob1";
++			regulator-min-microvolt = <3008000>;
++			regulator-max-microvolt = <4000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_bob2: bob2 {
++			regulator-name = "vreg_bob2";
++			regulator-min-microvolt = <2704000>;
++			regulator-max-microvolt = <3008000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l1b_1p8: ldo1 {
++			regulator-name = "vreg_l1b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2b_3p0: ldo2 {
++			regulator-name = "vreg_l2b_3p0";
++			regulator-min-microvolt = <3008000>;
++			regulator-max-microvolt = <3048000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l4b_1p8: ldo4 {
++			regulator-name = "vreg_l4b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l5b_3p1: ldo5 {
++			regulator-name = "vreg_l5b_3p1";
++			regulator-min-microvolt = <3100000>;
++			regulator-max-microvolt = <3148000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l6b_1p8: ldo6 {
++			regulator-name = "vreg_l6b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <3008000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l7b_1p8: ldo7 {
++			regulator-name = "vreg_l7b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <3008000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l8b_1p8: ldo8 {
++			regulator-name = "vreg_l8b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <3008000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l9b_2p9: ldo9 {
++			regulator-name = "vreg_l9b_2p9";
++			regulator-min-microvolt = <2960000>;
++			regulator-max-microvolt = <3008000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l10b_1p8: ldo10 {
++			regulator-name = "vreg_l10b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l14b_3p2: ldo14 {
++			regulator-name = "vreg_l14b_3p2";
++			regulator-min-microvolt = <3200000>;
++			regulator-max-microvolt = <3200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l15b_1p8: ldo15 {
++			regulator-name = "vreg_l15b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l16b_2p8: ldo16 {
++			regulator-name = "vreg_l16b_2p8";
++			regulator-min-microvolt = <2800000>;
++			regulator-max-microvolt = <2800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l17b_2p5: ldo17 {
++			regulator-name = "vreg_l17b_2p5";
++			regulator-min-microvolt = <2504000>;
++			regulator-max-microvolt = <2504000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-1 {
++		compatible = "qcom,pm8550ve-rpmh-regulators";
++
++		vdd-l1-supply = <&vreg_s7i_1p2>;
++		vdd-l2-supply = <&vreg_s1d_0p97>;
++		vdd-l3-supply = <&vreg_s1d_0p97>;
++		vdd-s1-supply = <&vph_pwr>;
++		vdd-s3-supply = <&vph_pwr>;
++		vdd-s4-supply = <&vph_pwr>;
++
++		qcom,pmic-id = "d";
++
++		vreg_s1d_0p97: smps1 {
++			regulator-name = "vreg_s1d_0p97";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <1100000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_s3d_1p2: smps3 {
++			regulator-name = "vreg_s3d_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1300000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_s4d_0p85: smps4 {
++			regulator-name = "vreg_s4d_0p85";
++			regulator-min-microvolt = <500000>;
++			regulator-max-microvolt = <1036000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l1d_1p2: ldo1 {
++			regulator-name = "vreg_l1d_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2d_0p88: ldo2 {
++			regulator-name = "vreg_l2d_0p88";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <912000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3d_0p88: ldo3 {
++			regulator-name = "vreg_l3d_0p88";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <920000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-2 {
++		compatible = "qcom,pm8550ve-rpmh-regulators";
++
++		vdd-l1-supply = <&vreg_s1d_0p97>;
++		vdd-l2-supply = <&vreg_s7i_1p2>;
++		vdd-l3-supply = <&vreg_s3g_1p8>;
++		vdd-s5-supply = <&vph_pwr>;
++
++		qcom,pmic-id = "f";
++
++		vreg_s5f_0p5: smps5 {
++			regulator-name = "vreg_s5f_0p5";
++			regulator-min-microvolt = <500000>;
++			regulator-max-microvolt = <1000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l1f_0p88: ldo1 {
++			regulator-name = "vreg_l1f_0p88";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <920000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2f_1p2: ldo2 {
++			regulator-name = "vreg_l2f_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3f_1p8: ldo3 {
++			regulator-name = "vreg_l3f_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++	};
++
++	regulators-3 {
++		compatible = "qcom,pm8550ve-rpmh-regulators";
++
++		vdd-l1-supply = <&vreg_s1d_0p97>;
++		vdd-l2-supply = <&vreg_s3g_1p8>;
++		vdd-l3-supply = <&vreg_s7i_1p2>;
++		vdd-s1-supply = <&vph_pwr>;
++		vdd-s3-supply = <&vph_pwr>;
++
++		qcom,pmic-id = "g";
++
++		vreg_s1g_0p5: smps1 {
++			regulator-name = "vreg_s1g_0p5";
++			regulator-min-microvolt = <300000>;
++			regulator-max-microvolt = <700000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_s3g_1p8: smps3 {
++			regulator-name = "vreg_s3g_1p8";
++			regulator-min-microvolt = <1856000>;
++			regulator-max-microvolt = <2000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_s4g_0p75: smps4 {
++			regulator-name = "vreg_s4g_0p75";
++			regulator-min-microvolt = <300000>;
++			regulator-max-microvolt = <900000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l1g_0p91: ldo1 {
++			regulator-name = "vreg_l1g_0p91";
++			regulator-min-microvolt = <912000>;
++			regulator-max-microvolt = <936000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2g_1p8: ldo2 {
++			regulator-name = "vreg_l2g_1p8";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1860000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3g_1p2: ldo3 {
++			regulator-name = "vreg_l3g_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1256000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-4 {
++		compatible = "qcom,pm8550ve-rpmh-regulators";
++
++		vdd-l1-supply = <&vreg_s7i_1p2>;
++		vdd-l2-supply = <&vreg_s7i_1p2>;
++		vdd-l3-supply = <&vreg_s1d_0p97>;
++		vdd-s7-supply = <&vph_pwr>;
++		vdd-s8-supply = <&vph_pwr>;
++
++		qcom,pmic-id = "i";
++
++		vreg_s7i_1p2: smps7 {
++			regulator-name = "vreg_s7i_1p2";
++			regulator-min-microvolt = <1224000>;
++			regulator-max-microvolt = <1340000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_s8i_0p9: smps8 {
++			regulator-name = "vreg_s8i_0p9";
++			regulator-min-microvolt = <900000>;
++			regulator-max-microvolt = <972000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l1i_1p2: ldo1 {
++			regulator-name = "vreg_l1i_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2i_1p2: ldo2 {
++			regulator-name = "vreg_l2i_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3i_0p88: ldo3 {
++			regulator-name = "vreg_l3i_0p88";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <912000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-5 {
++		compatible = "qcom,pm8550vs-rpmh-regulators";
++
++		vdd-l1-supply = <&vreg_s1d_0p97>;
++		vdd-l2-supply = <&vreg_s7i_1p2>;
++		vdd-s2-supply = <&vph_pwr>;
++		vdd-s3-supply = <&vph_pwr>;
++
++		qcom,pmic-id = "j";
++
++		vreg_s2j_1p1: smps2 {
++			regulator-name = "vreg_s2j_1p1";
++			regulator-min-microvolt = <1000000>;
++			regulator-max-microvolt = <1100000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_s3j_1p1: smps3 {
++			regulator-name = "vreg_s3j_1p1";
++			regulator-min-microvolt = <1000000>;
++			regulator-max-microvolt = <1100000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l1j_0p91: ldo1 {
++			regulator-name = "vreg_l1j_0p91";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <920000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2j_1p2: ldo2 {
++			regulator-name = "vreg_l2j_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++};
++
++&gpi_dma1 {
++	status = "okay";
++};
++
++&gpi_dma2 {
++	status = "okay";
++};
++
++&i2c5 {
++	status = "okay";
++
++	typec-mux@42 {
++		compatible = "fcs,fsa4480";
++		reg = <0x42>;
++
++		vcc-supply = <&vreg_bob1>;
++
++		mode-switch;
++		orientation-switch;
++
++		port {
++			fsa4480_hs_sbu_mux: endpoint {
++				remote-endpoint = <&pmic_glink_hs_sbu>;
++			};
++		};
++	};
++
++	typec-mux@43 {
++		compatible = "fcs,fsa4480";
++		reg = <0x43>;
++
++		vcc-supply = <&vreg_bob1>;
++
++		mode-switch;
++		orientation-switch;
++
++		port {
++			fsa4480_sbu_mux: endpoint {
++				remote-endpoint = <&pmic_glink_sbu>;
++			};
++		};
++	};
++
++	eusb_repeater: redriver@4f {
++		compatible = "nxp,ptn3222"; /* PTN3222DUK */
++		reg = <0x4f>;
++		#phy-cells = <0>;
++
++		vdd3v3-supply = <&vreg_l5b_3p1>;
++		vdd1v8-supply = <&vreg_l15b_1p8>;
++
++		reset-gpios = <&pm8550ve_gpios 6 GPIO_ACTIVE_LOW>;
++
++		pinctrl-0 = <&eusb_reset_n>, <&eusb_mux_default>;
++		pinctrl-names = "default";
++	};
++};
++
++&i2c6 {
++	status = "okay";
++
++	/* haptic_hv_l@5a haptic_hv_r@5b */
++};
++
++&i2c9 {
++	status = "okay";
++
++	/* aw882xx_smartpa@34 @37 */
++};
++
++&i2c10 {
++	status = "okay";
++
++	/* i2c_wl2868c@2F */
++
++	/*
++	 * bias@3e, as9702 or aw37504
++	 *
++	 * gpio72/gpio73: enable pin for OUTP/OUTN
++	 * In practical, register programming is not required for as9702
++	 *
++	 * as9702: (REG02H[7:0]=0xf1)
++	 * reg: 0x00 0x01 0x03
++	 * val: 0x15 0x12 0x73
++	 *
++	 * aw37504: (REG04H[1:0]=0x01)
++	 * reg: 0x00 0x01 0x03 0x04
++	 * val: 0x15 0x12 0x43 0x09
++	 */
++
++	backlight: backlight@76 {
++		compatible = "awinic,aw99706";
++		reg = <0x76>;
++
++		enable-gpio = <&tlmm 88 GPIO_ACTIVE_HIGH>;
++
++		pinctrl-0 = <&aw99706_bl_active>;
++		pinctrl-names = "default";
++
++		default-brightness = <511>;
++		max-brightness = <4095>;
++
++		awinic,dim-mode = <1>;
++		awinic,sw-freq-hz = <750000>;
++		awinic,sw-ilmt-microamp = <3000000>;
++		awinic,uvlo-thres-microvolt = <2200000>;
++		awinic,iled-max-microamp = <30000>;
++		awinic,ramp-ctl = <3>;
++	};
++};
++
++&mdss {
++	status = "okay";
++};
++
++&mdss_dp0 {
++	status = "okay";
++};
++
++&mdss_dp0_out {
++	remote-endpoint = <&usb_dp_qmpphy_dp_in>;
++};
++
++&mdss_dsi0 {
++	vdda-supply = <&vreg_l3g_1p2>;
++
++	qcom,dual-dsi-mode;
++	qcom,sync-dual-dsi;
++	qcom,master-dsi;
++
++	status = "okay";
++
++	/* panel: csot,pp8807hb1-1 */
++};
++
++&mdss_dsi0_phy {
++	vdds-supply = <&vreg_l3i_0p88>;
++	phy-type = <PHY_TYPE_CPHY>;
++
++	status = "okay";
++};
++
++&mdss_dsi1 {
++	/* Bonded DSI, source to dsi0_phy PLL */
++	clocks = <&dispcc DISP_CC_MDSS_BYTE1_CLK>,
++		 <&dispcc DISP_CC_MDSS_BYTE1_INTF_CLK>,
++		 <&dispcc DISP_CC_MDSS_PCLK1_CLK>,
++		 <&dispcc DISP_CC_MDSS_ESC1_CLK>,
++		 <&dispcc DISP_CC_MDSS_AHB_CLK>,
++		 <&gcc GCC_DISP_HF_AXI_CLK>,
++		 <&mdss_dsi0_phy DSI_PIXEL_PLL_CLK>,
++		 <&mdss_dsi0_phy DSI_BYTE_PLL_CLK>,
++		 <&dispcc DISP_CC_ESYNC1_CLK>,
++		 <&dispcc DISP_CC_OSC_CLK>,
++		 <&dispcc DISP_CC_MDSS_BYTE1_CLK_SRC>,
++		 <&dispcc DISP_CC_MDSS_PCLK1_CLK_SRC>;
++
++	vdda-supply = <&vreg_l3g_1p2>;
++
++	qcom,dual-dsi-mode;
++	qcom,sync-dual-dsi;
++
++	status = "okay";
++};
++
++&mdss_dsi1_phy {
++	vdds-supply = <&vreg_l3i_0p88>;
++	phy-type = <PHY_TYPE_CPHY>;
++
++	status = "okay";
++};
++
++&pcie0 {
++	vdda-supply = <&vreg_l1f_0p88>;
++	vddpe-3v3-supply = <&vreg_l3g_1p2>;
++
++	pinctrl-0 = <&pcie0_default_state>;
++	pinctrl-names = "default";
++
++	status = "okay";
++};
++
++&pcie0_phy {
++	vdda-phy-supply = <&vreg_l1f_0p88>;
++	vdda-pll-supply = <&vreg_l3g_1p2>;
++
++	status = "okay";
++};
++
++&pcieport0 {
++	wake-gpios = <&tlmm 104 GPIO_ACTIVE_HIGH>;
++	reset-gpios = <&tlmm 102 GPIO_ACTIVE_LOW>;
++
++	/* WCN7861, id: pci17cb,110e */
++};
++
++&pm8550_gpios {
++	volume_up_n: volume-up-n-state {
++		pins = "gpio6";
++		function = "normal";
++		bias-pull-up;
++		input-enable;
++		power-source = <1>;
++	};
++};
++
++&pm8550ve_gpios {
++	eusb_reset_n: eusb-reset-n-state {
++		pins = "gpio6";
++		function = "normal";
++		bias-disable;
++		power-source = <1>;
++		qcom,drive-strength = <2>;
++	};
++};
++
++&pmih0108_eusb2_repeater {
++	vdd18-supply = <&vreg_l15b_1p8>;
++	vdd3-supply = <&vreg_l5b_3p1>;
++};
++
++&pon_pwrkey {
++	status = "okay";
++};
++
++&pon_resin {
++	linux,code = <KEY_VOLUMEDOWN>;
++
++	status = "okay";
++};
++
++&qupv3_1 {
++	status = "okay";
++};
++
++&qupv3_2 {
++	status = "okay";
++};
++
++&remoteproc_adsp {
++	firmware-name = "qcom/sm8750/LENOVO/elden/adsp.mbn",
++			"qcom/sm8750/LENOVO/elden/adsp_dtb.mbn";
++
++	status = "okay";
++};
++
++&remoteproc_cdsp {
++	firmware-name = "qcom/sm8750/LENOVO/elden/cdsp.mbn",
++			"qcom/sm8750/LENOVO/elden/cdsp_dtb.mbn";
++
++	status = "okay";
++};
++
++&spi4 {
++	status = "okay";
++
++	/* novatek@0 */
++};
++
++&sdhc_2 {
++	cd-gpios = <&tlmm 55 GPIO_ACTIVE_HIGH>;
++
++	vmmc-supply = <&vreg_l9b_2p9>;
++	vqmmc-supply = <&vreg_l8b_1p8>;
++
++	no-sdio;
++	no-mmc;
++
++	pinctrl-0 = <&sdc2_default &sdc2_card_det_n>;
++	pinctrl-1 = <&sdc2_sleep &sdc2_card_det_n>;
++	pinctrl-names = "default", "sleep";
++
++	status = "okay";
++};
++
++&tlmm {
++	/* For CDT: <32 3> <37 2> <77 1>; */
++	/* reserved for secure world */
++	gpio-reserved-ranges = <39 1>, <74 1>;
++
++	aw99706_bl_active: aw99706-bl-active-state {
++		pins = "gpio88";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++	};
++
++	eusb_mux_default: eusb-mux-default-state {
++		pins = "gpio29";
++		function = "gpio";
++		drive-strength = <2>;
++		output-high; /* Unconditionally enable */
++		bias-pull-down;
++	};
++
++	iovdd_reg_en: iovdd-reg-en-state {
++		pins = "gpio161";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-pull-up;
++	};
++
++	sdc2_card_det_n: sd-card-det-n-state {
++		pins = "gpio55";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-up;
++	};
++
++	vsp_reg_en: vsp-reg-en-state {
++		pins = "gpio72";
++		function = "gpio";
++		drive-strength = <16>;
++		bias-pull-up;
++	};
++
++	vsn_reg_en: vsn-reg-en-state {
++		pins = "gpio73";
++		function = "gpio";
++		drive-strength = <16>;
++		bias-pull-up;
++	};
++};
++
++&uart14 {
++	status = "okay";
++
++	/* WCN7861-BT */
++};
++
++&ufs_mem_phy {
++	vdda-phy-supply = <&vreg_l1j_0p91>;
++	vdda-pll-supply = <&vreg_l3g_1p2>;
++
++	status = "okay";
++};
++
++&ufs_mem_hc {
++	reset-gpios = <&tlmm 215 GPIO_ACTIVE_LOW>;
++
++	vcc-supply = <&vreg_l17b_2p5>;
++	vcc-max-microamp = <1300000>;
++	vccq-supply = <&vreg_l1d_1p2>;
++	vccq-max-microamp = <1200000>;
++
++	status = "okay";
++};
++
++&usb {
++	dr_mode = "otg";
++	maximum-speed = "super-speed-plus-gen2x1";
++
++	status = "okay";
++
++	ports {
++		/*
++		 * USB2.0 is shared for two ports, set pinctrl eusb_mux_default
++		 * to select the repeter. Plugging out one of them will reset
++		 * the DWC3, which causes both of them to be disconnected.
++		 */
++		port@0 {
++			reg = <0>;
++
++			usb_dwc3_hs: endpoint {
++				remote-endpoint = <&pmic_glink_hs_in>;
++			};
++		};
++
++		port@2 {
++			reg = <2>;
++
++			usb_dwc3_hs2: endpoint {
++				remote-endpoint = <&pmic_glink_hs_c2_in>;
++			};
++		};
++	};
++};
++
++&usb_dp_qmpphy {
++	vdda-phy-supply = <&vreg_l3g_1p2>;
++	vdda-pll-supply = <&vreg_l2d_0p88>;
++
++	mode-switch;
++	orientation-switch;
++
++	status = "okay";
++};
++
++&usb_dp_qmpphy_dp_in {
++	remote-endpoint = <&mdss_dp0_out>;
++};
++
++&usb_dp_qmpphy_out {
++	remote-endpoint = <&pmic_glink_ss_in>;
++};
++
++&usb_hsphy {
++	vdd-supply = <&vreg_l2d_0p88>;
++	vdda12-supply = <&vreg_l3g_1p2>;
++
++	phys = <&eusb_repeater>;
++
++	status = "okay";
++};
 -- 
 2.54.0
 
