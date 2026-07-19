@@ -1,137 +1,274 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4429229C33F;
-	Sun, 19 Jul 2026 19:58:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8FB30E0E4
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 21:13:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784491140; cv=none; b=X9skxSpJ1LZfLoqKtXUPhjFw8DxlE4p+OwF7Vqg3Mq1P2V/ZIC/KjzTH11BVc87cBB+tN6qBGorVAfHfShlLtlT9E/GALJpjWeZPI4yAJXaz7So87aKWnE+9m8AsO3R4qwlO9imcHxglYG0qzWkXTYx3ShyV0/200+iMwJDKYWo=
+	t=1784495626; cv=none; b=RprzjHa1UlugYGeiJEc6IRBTw/FiyZQgtCzj0MjNV0ny8ZUiTtGDLMS74QG0tCxPs7nAP6Sfmgm0uVaGFhWCLKLtoJDfNS7JXR6vmuKcgG3C7+UrNqbe3PlrfwO8xvNm0BgXWaJtrPkyil6kJT3gaewcEp61EjPch+rlG1UfwIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784491140; c=relaxed/simple;
-	bh=MdGf/q8cH48YhOxGOU9vZCobhS12SJhHSg09QFu6zFo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=e1oFPAfuZLmKKF0Zam2V8j81Rhgf618Nf5JCjJfslrze+S1HH0GmWHZy0UdH/uxejkV9jdGQ+Hs2q97eXWlQWLyD9ZfgaJay5mXZFraFGwudcp/7vJ8qy+4CwECq8pwRQesuDIv12W18gy7h/NXb19QY6HFBjqDAhgR3asWU1Kw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aAAXNh5g; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1784495626; c=relaxed/simple;
+	bh=e07fAaUhpcUkCZZMoFfPX2XrQcVmO3HNNsorV6toWLU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=LpSAivxo745CwrLLNGtx0mI78OEk6zSg2Cs5PUrHnOIyjWBk0Otcz1uZvpGepMzysaOrhQj25lRVVi2VPZQ2BjOC62K5pw5SEfKVkBrvZ7dc8QS9E0Hmg0ik21n7oE/O/EuLu+s00wyYUVuYkmxPTJKM9deUwApm8flgWHThf4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=daSuNbsZ; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aAAXNh5g"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66JHIITM090900;
-	Sun, 19 Jul 2026 19:58:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=tEzDJvW5UDDMSbpE5FQiM9F8jUc4zEDNPh3
-	tDkslJfI=; b=aAAXNh5gwQh0mZfFM8o1ssxD3tL+qktnUwQ9wFsgrvwU9VmhpEB
-	WiSyGIOy5ogqrLiYJr7yYH2/OwLpudTcPUjVyhd/UQbj7YavJZIXQibRgRs2tBk7
-	gvQdx0tPYnH/viZsvkGCsgoBH5H4ZhesvkdwZJTY985G2XTIaTKkD5wkwz8Qi5oJ
-	A2Vh/EudwcbW1rpETnUyHPEbYhUK8U+EQk9zLsN4KbAA9Q5/bNByVjifNfgANpFp
-	FwU6R7CbGCyAIU5wnBJvj0zkCt8JmeUQCZcmZRYX2gKhZ57Gf9464LI5rUfTufOs
-	+aSv9vLH0Mu2vwxgaCv1MGU1V7CxTB5/OUQ==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2bnkdfv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 19 Jul 2026 19:58:40 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 66JJwa1x003189;
-	Sun, 19 Jul 2026 19:58:36 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4fgj3v6h06-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 19 Jul 2026 19:58:36 +0000 (GMT)
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 66JJwa8j003184;
-	Sun, 19 Jul 2026 19:58:36 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com ([10.213.101.157])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 66JJwaRv003182
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 19 Jul 2026 19:58:36 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2342877)
-	id 52B5D647; Mon, 20 Jul 2026 01:28:35 +0530 (+0530)
-From: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
-To: krzk+dt@kernel.org, robh@kernel.org, andersson@kernel.org, mani@kernel.org,
-        alim.akhtar@samsung.com, bvanassche@acm.org, avri.altman@wdc.com,
-        conor+dt@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-scsi@vger.kernel.org,
-        Nitin Rawat <nitin.rawat@oss.qualcomm.com>
-Subject: [PATCH V2] scsi: ufs: dt-bindings: Document the Maili UFS Controller
-Date: Mon, 20 Jul 2026 01:28:33 +0530
-Message-Id: <20260719195833.136543-1-nitin.rawat@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="daSuNbsZ"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3860f32307bso1560198a91.0
+        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 14:13:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784495623; x=1785100423; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gTIjnhiBERStWEwLazrFs+tWSWYBzp910us9UNmsjTU=;
+        b=daSuNbsZWBrsz3He/O+BTgLI1xtaIIcISWVhd5cw7LetnYvD+SpeP5hUVMz6yijFHu
+         xTCZSVHSsOrT9UcjT2z13GbUHhuVo1pusCpJOw5tr5/6VzYMD+KPVL6yj+ntdWk3Ql2z
+         j3m54ALsRhCXUg4k+y6xzjiVa7wfriQ0fZrU+aQG7BXbjrN9B0OJpdQ0u7QpuaaouFjx
+         wKvvnMNY8rNmapjSaXUOkemo0OxIjnl4Ewj8vqOndfsk9KFigcwceRBmb8F1wvpOZHF8
+         trkXczvTkhpurDeBc5FQ4bF3b5lSaE1MyI11s4m+nNt0xzI5wdkSFAAr+m2dWeZX7otl
+         1BPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784495623; x=1785100423;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=gTIjnhiBERStWEwLazrFs+tWSWYBzp910us9UNmsjTU=;
+        b=ltiDGowDcmmcsQ3PZg5LDswijxvlB9/dUaw0Pp6lEhl1nw+qDym0AS2R15qrZC75lF
+         xjCv3PpKNOMNwYR+77l1wYQenx6hzspX+jZtfvBuJ/kmKNvmBqP7dSw4weW1PX9C3o/X
+         23+wUZ2f9NovviEbJEjQOxFkOD5bmsSTn8nkIAEsh67AIaUcEM9xQUa3tlDYnKJ0wA+n
+         C0ojiLAfw5c+DLwgQSka+/gUZ0b9nUV99ZTUeal3ayyDI8DJ0wtWi2N/s/+NdNH3LIe/
+         8at+9867o3dCcJKFDH94FGYSfW90ZS1dlJGy5Og7q63NqS36uCgRZtTah+3gL7AM8s7z
+         uwKw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq+4kQtpMBSidZdy9J2/489l0pxhwJT1HlB2rgQHr6IL+EXqHq90XuzOpXdG0xR7y4hLBf5WwyjlMj9@vger.kernel.org
+X-Gm-Message-State: AOJu0YzkH16/dGAGl2xw1dawUGQiwxCJ+L0kr4HVxShxsTJdZnKkkdws
+	lS4se8DMGU3+FXMYIN64r94m4pXpPCQckEqgTF2nn6d6Xe2ZF2t6MH2F
+X-Gm-Gg: AfdE7ckpWKPkOMZMhItVHIi8xC8WcjQp+QBbOxh5w3nwjMWX//fS3nnNDCQDJ3KrcL9
+	nXNO+VcuNbiN4crYP/VAw3chfX17N/jzz1TUizKkcm0s7YgXxIfCO8Iwkvcj2vDM8+hHaEygvPI
+	F5X/uYfR0/MjxT0wPhNhpSnHe3eK1/UJVGf3B+NlVPsF7URZGyb4UVbYC9CgBda9WGA2cpri5XS
+	YjWCx3wDaHUn4Dc7FT0L7eaTp/SvqlthLR9H7JPygJc+ezFNEJtcnia/kxa9Fud7rDxpewRTyi1
+	9EENeCITXD1hoZHwxwzg7PS3s28/urFHkMj0v+5RIoXiUIJepuRjubHO80iQCSNc1mJWGcj77eI
+	NOpQyVssIU6+JKLaCvmLRXS4gBK/7+XxWnl3lx44ORYACXmIW86SY6R+WShsvxR/4Qccmc1Jm6k
+	8sXHiCwkXPUcbWuGI=
+X-Received: by 2002:a17:902:fc47:b0:2cc:df15:91e2 with SMTP id d9443c01a7336-2cf34a3e692mr95258635ad.7.1784495623273;
+        Sun, 19 Jul 2026 14:13:43 -0700 (PDT)
+Received: from [172.28.140.252] ([2409:40c2:5413:1bcb:522f:a9d1:353f:2e7f])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31429fdcaefsm29001067eec.10.2026.07.19.14.13.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 19 Jul 2026 14:13:42 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Mon, 20 Jul 2026 02:43:23 +0530
+Subject: [PATCH] dt-bindings: media: ti,am437x-vpfe: Convert to DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE5MDIyMyBTYWx0ZWRfX3KiFHkWARBdf
- 06kVuASVwPMXpr30/kHhZ9LBJsT40+kgUmLvoOLWhm+zp4ubyAsFtyi3Y9OljBFGtULDwjaVhJ9
- TPJ8CouYYtk5IEOKWhOjcCus0Qh/QBKEw4zZwrrn1CaLcptxQ0UarYk5C9Hd5dOEOPosD3/ZVhT
- I4GhLCXgXeH75KJg9Ywse547DKiSU31e/CIrP3I+RInGWgLoFfFq+hwH8v1mBa97hkTgtiZFiy3
- zAhiYPjjxnkf6RgiZGqB9qXSQ1Lb0oKk+OndEH8wO0mYLEtJGB0AgFAWP2OCeGzP4uhr4pXdCgT
- K1Ez2NfGCvv+jucR22CAWxg2wtT2754R8q5IlFC9Let25d3W6SCP8RHTU4IAPZXL4zQWhH4vsMD
- wxnRl8yzTDzcriyRVzPF55uHw/69zd2QT+KWZVW9a7r3nH3SlnBugs0vBg1b5HzW7HKmBLDPhX4
- 263lLkgy0AWWTI3bBzg==
-X-Proofpoint-ORIG-GUID: HXdRCbFW1qHbusG2gpMYE73xQEZtFZiu
-X-Proofpoint-GUID: HXdRCbFW1qHbusG2gpMYE73xQEZtFZiu
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE5MDIyMyBTYWx0ZWRfX3Gu0SI8/+dEj
- iwkP+2eRNMWc/L37hUkgfrxLxGamzzAspP9DFJFk3bt9TTXYTq4ETRwSVlQyXy0duxk40+G7mss
- 2Ser6vq7GEc0Fr5GDbKfu0+YqwHSfaE=
-X-Authority-Analysis: v=2.4 cv=deOwG3Xe c=1 sm=1 tr=0 ts=6a5d2c70 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=3pRFFtUwbMGDAvonun0A:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-19_06,2026-07-17_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015 phishscore=0
- suspectscore=0 impostorscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607190223
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260720-ti-am437x-vpfe-v1-1-d4a260021b64@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDcyMD3ZJM3cRcE2PzCt2ygrRUXXNjSwszwyRDY9PURCWgpoKi1LTMCrC
+ B0bG1tQBGzChyYAAAAA==
+X-Change-ID: 20260720-ti-am437x-vpfe-739861b135ea
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Benoit Parrot <bparrot@ti.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784495615; l=5632;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=e07fAaUhpcUkCZZMoFfPX2XrQcVmO3HNNsorV6toWLU=;
+ b=FOIB+Tzdra6V0I4I4j5p8/BaByrNUDmVBT1Wr7ToUbH+FRsHUTDGMZ6EsYLAp3fd4fSbdGGcS
+ /LeofrkO9hbC82udhTCWOPEJ7GweHqaHirPOd/Tn/2wVimoFR3vQkqP
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Document the UFS Controller on Maili SoC.
+Convert Texas Instruments AM437x CAMERA Video Processing Front End
+(VPFE) from legacy text to DT schema.
 
-Signed-off-by: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 ---
-Change from v1:
-1. Addressed Krzysztof's comment to update 'qcom,maili-ufshc'
-   to the allOf condition required for MCQ targets.
----
- Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+ .../devicetree/bindings/media/ti,am437x-vpfe.yaml  | 93 ++++++++++++++++++++++
+ .../devicetree/bindings/media/ti-am437x-vpfe.txt   | 61 --------------
+ 2 files changed, 93 insertions(+), 61 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml b/Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml
-index b441f0d26081..d03295806657 100644
---- a/Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml
-+++ b/Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml
-@@ -18,6 +18,7 @@ select:
-           - qcom,eliza-ufshc
-           - qcom,hawi-ufshc
-           - qcom,kaanapali-ufshc
-+          - qcom,maili-ufshc
-           - qcom,nord-ufshc
-           - qcom,sm8650-ufshc
-           - qcom,sm8750-ufshc
-@@ -31,6 +32,7 @@ properties:
-           - qcom,eliza-ufshc
-           - qcom,hawi-ufshc
-           - qcom,kaanapali-ufshc
-+          - qcom,maili-ufshc
-           - qcom,nord-ufshc
-           - qcom,sm8650-ufshc
-           - qcom,sm8750-ufshc
-@@ -78,6 +80,7 @@ allOf:
-           contains:
-             enum:
-               - qcom,eliza-ufshc
-+              - qcom,maili-ufshc
-               - qcom,nord-ufshc
-     then:
-       properties:
---
-2.34.1
+diff --git a/Documentation/devicetree/bindings/media/ti,am437x-vpfe.yaml b/Documentation/devicetree/bindings/media/ti,am437x-vpfe.yaml
+new file mode 100644
+index 000000000000..983e705ab1e8
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/ti,am437x-vpfe.yaml
+@@ -0,0 +1,93 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/ti,am437x-vpfe.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments AM437x CAMERA Video Processing Front End (VPFE)
++
++maintainers:
++  - Benoit Parrot <bparrot@ti.com>
++  - Bhargav Joshi <j.bhargav.u@gmail.com>
++
++description:
++  The Video Processing Front End (VPFE) is a key component for image capture
++  applications. The capture module provides the system interface and the
++  processing capability to connect RAW image-sensor modules and video decoders
++  to the AM437x device.
++
++properties:
++  compatible:
++    const: ti,am437x-vpfe
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++    description:
++      A single parallel input port connecting to an external image sensor or
++      video decoder. The VPFE supports only one input port per instance.
++
++    properties:
++      endpoint:
++        $ref: video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          ti,am437x-vpfe-interface:
++            $ref: /schemas/types.yaml#/definitions/uint32
++            enum: [0, 1, 2, 3, 4]
++            description:
++              Selects the VPFE input interface type can be one of following
++                0 - Raw Bayer        (VPFE_RAW_BAYER)
++                1 - BT.656 8-bit     (VPFE_BT656)
++                2 - BT.656 10-bit    (VPFE_BT656_10BIT)
++                3 - YCbCr 8-bit sync (VPFE_YCBCR_SYNC_8)
++                4 - YCbCr 16-bit sync (VPFE_YCBCR_SYNC_16)
++
++          bus-width:
++            minimum: 8
++            maximum: 16
++
++        required:
++          - remote-endpoint
++          - ti,am437x-vpfe-interface
++          - bus-width
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    vpfe@48328000{
++        compatible = "ti,am437x-vpfe";
++        reg = <0x48328000 0x2000>;
++        interrupts = <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
++
++        pinctrl-names = "default", "sleep";
++        pinctrl-0 = <&vpfe_pins_default>;
++        pinctrl-1 = <&vpfe_pins_sleep>;
++
++        port {
++            vpfe0_ep: endpoint {
++                remote-endpoint = <&ov2659_1>;
++                ti,am437x-vpfe-interface = <0>;
++                bus-width = <8>;
++                hsync-active = <0>;
++                vsync-active = <0>;
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/media/ti-am437x-vpfe.txt b/Documentation/devicetree/bindings/media/ti-am437x-vpfe.txt
+deleted file mode 100644
+index 3932e766553a..000000000000
+--- a/Documentation/devicetree/bindings/media/ti-am437x-vpfe.txt
++++ /dev/null
+@@ -1,61 +0,0 @@
+-Texas Instruments AM437x CAMERA (VPFE)
+---------------------------------------
+-
+-The Video Processing Front End (VPFE) is a key component for image capture
+-applications. The capture module provides the system interface and the
+-processing capability to connect RAW image-sensor modules and video decoders
+-to the AM437x device.
+-
+-Required properties:
+-- compatible: must be "ti,am437x-vpfe"
+-- reg: physical base address and length of the registers set for the device;
+-- interrupts: should contain IRQ line for the VPFE;
+-- ti,am437x-vpfe-interface: can be one of the following,
+-	0 - Raw Bayer Interface.
+-	1 - 8 Bit BT656 Interface.
+-	2 - 10 Bit BT656 Interface.
+-	3 - YCbCr 8 Bit Interface.
+-	4 - YCbCr 16 Bit Interface.
+-
+-VPFE supports a single port node with parallel bus. It should contain one
+-'port' child node with child 'endpoint' node. Please refer to the bindings
+-defined in Documentation/devicetree/bindings/media/video-interfaces.txt.
+-
+-Example:
+-	vpfe: vpfe@f0034000 {
+-		compatible = "ti,am437x-vpfe";
+-		reg = <0x48328000 0x2000>;
+-		interrupts = <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
+-
+-		pinctrl-names = "default", "sleep";
+-		pinctrl-0 = <&vpfe_pins_default>;
+-		pinctrl-1 = <&vpfe_pins_sleep>;
+-
+-		port {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-
+-			vpfe0_ep: endpoint {
+-				remote-endpoint = <&ov2659_1>;
+-				ti,am437x-vpfe-interface = <0>;
+-				bus-width = <8>;
+-				hsync-active = <0>;
+-				vsync-active = <0>;
+-			};
+-		};
+-	};
+-
+-	i2c1: i2c@4802a000 {
+-
+-		ov2659@30 {
+-			compatible = "ti,ov2659";
+-			reg = <0x30>;
+-
+-			port {
+-				ov2659_1: endpoint {
+-					remote-endpoint = <&vpfe0_ep>;
+-					bus-width = <8>;
+-					mclk-frequency = <12000000>;
+-				};
+-			};
+-	};
+
+---
+base-commit: c6859eed755df351a3978b33cb92365f9b3e8f06
+change-id: 20260720-ti-am437x-vpfe-739861b135ea
+
+Best regards,
+-- 
+Bhargav
 
