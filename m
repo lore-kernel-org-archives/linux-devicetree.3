@@ -1,187 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84AC337FF67;
-	Sun, 19 Jul 2026 09:52:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784454723; cv=none; b=MAr92XiwwK38isu8JLvFtHLQ33/ubs6oe+OerSkkTr9faLiTFYFABbNUdT1tcFkIpGsN3CJon310chgUyNAjNoaY0kzYQjjM/jGjll1aOXjG3vrFGy69b0NyxaFPTVCpQNLvP7cigUEqOTEFAnk2qQwBzdG0hRzEHQFdK4/pjQw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784454723; c=relaxed/simple;
-	bh=lXScJa8OJQoqeBtvvym2KfAmG9yf8mt7R7cSNm1O8tA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qF/94Pc6UHa2oS0n9KXp5QXfjzLuMhxzU8uk3CmtWAXESjyx2W7FQRNzD7IeoLQSse1z7+Tw1fYD3ZcIxOQaiwSUIduMs8Ymc1ANTXmrYiMkO82Anbh3XSPNIpMegUV796jmJ16z9IwISEzv12AJwJtkrZrLUY/HxnBeJT5i9CI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TMU+9CdY; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7593812EB
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 09:54:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784454848; cv=pass; b=ArxyanjGusI7mg6XlXgXVzOr1g2gd1Lt73qb3jyAmhmbHmuPxmtpCyMHjvHIPHVB9US3GHU0re0VEttLkrsxVX4neIyxtabWqDYylSYGdw8wJ2e7AXYV/AG7tA2BsbhpXoq6MOjG7Wmg2bzPbXU9k/8D8qevX5gj8hvqHyP+knA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784454848; c=relaxed/simple;
+	bh=Dj0w+ljIvfyL0X8ARKA4zzlY3yd9IT7rYIdvJJ87vnQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jKzfq8/l1A++dkxXScarQNwldlJab2TxqmHUjZjstEjvBly/w0wjlZ6EcXVKnZYuKFs2s6JmBkX2EnMK8GFKQfxIEqq8zYr70v4g2QT7DnrSOMOgPrqJ3bp/6zVj7oOD+5ukWyarXWqsF3w9k4W1MeoUmTOMfUzEM14qWDAjNK0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZXaJVtTJ; arc=pass smtp.client-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TMU+9CdY"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 25298C2BCFD;
-	Sun, 19 Jul 2026 09:52:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784454723;
-	bh=lXScJa8OJQoqeBtvvym2KfAmG9yf8mt7R7cSNm1O8tA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=TMU+9CdYYYExaz5T2OB1l7BT8qNgKNxtoJA/QZbAhiW+zYBUW0nXWx7OC3bht+jSP
-	 rhXc6Hcv5vgaJengA0YK50IQTY6TivJCZVbFIi4JRbK85JiQ+OOPTEvR7OFu3oREpS
-	 vUbt3s9Li1hnaDfR9Oip3mBExHiVFbxEPLyAzoUNLoObXekVzlTH73JG0oqamiERXY
-	 iKtMSVqZTWenoB6bE4FpDWIehoN9V1uL3nWIjp6S+hXTAcFMKRVZ+9A+hN978nePOR
-	 qFttbymaNBwyvk7gHiCozM5B9d+4f2sm30gqBDqzEdw1vuoWnZWInrqEWi8TXvZ49E
-	 jNMMPYXk3sTAQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 071F7C44523;
-	Sun, 19 Jul 2026 09:52:03 +0000 (UTC)
-From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Sun, 19 Jul 2026 10:52:00 +0100
-Subject: [PATCH 4/4] iio: dac: ad5686: update device list and file header
- comments
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZXaJVtTJ"
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-81f08502c4bso239237b3.2
+        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 02:54:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784454846; cv=none;
+        d=google.com; s=arc-20260327;
+        b=k8nuobwIMBgTFKdj/LhqpRqP3GaMlrN4mIe/2Rvb8rJBObZyQHgYHlz2Xr1tpSX7jd
+         e4O9rC26kRdP40ApADkBvbU2hGEugukrOqSTSPT5EH0Bo1O3K3JHQOItwAPpg/0GwDYz
+         2TlkQNCOaGUV7Q8jWazPU2GwUn2lumFTEYQbOT8h3HPUCX/J2iTTDkjf4qUBIg1LawiP
+         SfpaBFJX8VowdXfos1AQ5sUPRjzS1QWTWOJNFVSpTWz+Ot2bf6myRf3EZzYOv7R3k+NZ
+         zsji1nTh/eKdz/6LICwblL505Dz8YA12zA/Hklw8OuCwB/pugtpDOPKuB31Hw3wHlBOM
+         uPtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xHGgD8K9zQ4es88RgHY8FFmbRbAWwqwav6HnZA/PD+k=;
+        fh=VpLN3i+agL5y9B8V503nBnHy4KySK9iV/x5TQy/4F9E=;
+        b=nF7amL2MVu9+JdXOKaO1FYIU671tE/WbqtaH6D1YxXiftrog46RBRiW+h097qPIsSb
+         LG2VA0VBPUaVrz3wJ/GMnacxI6DmcDSq38qahPARramuVcN8sKBi+WF403X+busb9W2z
+         5dP9A0KTbC2OyfhUwHoG21CO6q/AAGtGQPfSXh8q48zqXhMQrwntrTDxH+ngaqtz5wwq
+         sIr+VFzz3pYn8Hhvtms+RI/uWVzJkLg29rKNKb/hJIyoIjurdMRbZuuvHduaghcuZ25d
+         R+D0EG1Tg5kHsfYFS4wARlRdufnsuZ6HdP1NBzBOyKjEQQLGueA9u384uj9BWkITIsWd
+         tPbw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784454846; x=1785059646; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xHGgD8K9zQ4es88RgHY8FFmbRbAWwqwav6HnZA/PD+k=;
+        b=ZXaJVtTJIBFdH9heDSwQ/WYT1RRdz4tyKPW5/W/Kn7z06zoxSE0Gw1+QjKmKEEDp4l
+         MnCfPn42chR6JKY56kaK4hIuzEo44xlxyC/Uh6ImNCoTuPpJJtrI8tejs4XoDB2lG2Yb
+         H9JCGM/oZCK1VelcQbWf29qO/EEMs8MVssMmQxBWuRdvVJ+LWc7zDqt59iVcVxs0FDi0
+         Jjwi30pr2DAAEj4Gi0a/tfvbjyeB5DdeCHd6g72wfxx95DXNIe2R24Y/AB83zpUfLBEd
+         x6MeAuH7GjsVTHa5T7BYzIDQT4pEfxv4mF50SAG7Yemc+GKc5dJMc0yDbDUIohexDC1s
+         ocYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784454846; x=1785059646;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xHGgD8K9zQ4es88RgHY8FFmbRbAWwqwav6HnZA/PD+k=;
+        b=gqa5k9Nryg//QEODdx4Y87B0QZKdurTNpFj0OkbW/0O4/kqTbUpBG4R2S2UTi/Zpdv
+         8wLdVBrDo7qd+GtclYizibLWsr3M19UtbqX9CruXXQ/qr4x80z6GsR0BqSIiGIvNxSTK
+         oJEQzrU5x/AN08lEWs5+56bsbNsfpZ4dr29h+gqn3yrFqHLxK8/Q8toLkHgEoCxajZ2y
+         /akuBl0Vta5RSgEUNbJp1LzMrdwyJwILPtlCuIlt8dI6E/jo8P4evnUTE7WT8dhQ1WgP
+         hQMt/i4j4zEAdXH8jKsM+5FRn4XAZZB3uLZDMtoD26InvNiTg8yLWyi3G67XMsWxNKIw
+         v53w==
+X-Forwarded-Encrypted: i=1; AHgh+RrpzzoAIXx8a/y8OmuJkdySzNIBRwrNOPDhoJMPCdhAHVyvrxAHlQF85Srgi4+6NVE1CM890dFIwbiE@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywl/Brf8hG94JVRVwdTflqkKm1O9niF2GmH9THZJ8YQLL4ZNRA3
+	/nZpZYDgYVSRiqz42Zs21Ct4/7fbijyIJxD4eRQIWMLP3oLWxGap0OMCpKlLlxUXhmIKEiMOdXU
+	Y+1jU4kt4t9+gURETV8eXaUdHIen3oFg=
+X-Gm-Gg: AfdE7cmlxSL2xx92RtAsfrpb7uZ+Yw83vELxkyAS/MbVxcQDNJ7fBSkPw7MF6Nt1wa3
+	gwc0YiWt5Su93LBpk7XJE4YScgVSQCgCCKHvkwHouKF4hyy+JUJbHRG2A15yfDa1rsL6It02eUZ
+	pqWOcTEYIomAoKBRiNlGmL/H92Qb6pJ0qsjGLvoPiG9ZwjyxmbOm24I0tHZT8ZRA833sjqMCZ0x
+	uxTrBfwh/DawAW8PdVBqmmP+nsoevl7wrxMpyRpekh+31k0F6bt3ekSKK6QxOiNSmZMXqzrqwm2
+	3Gwu2bHq1hqfYRgLe2YR9qF6je++71c=
+X-Received: by 2002:a05:690c:60c3:b0:80d:8bad:2ceb with SMTP id
+ 00721157ae682-81ef217a008mr32451757b3.0.1784454846106; Sun, 19 Jul 2026
+ 02:54:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260719-ad5686-extend-dev-support-v1-4-841ec75cf5d8@analog.com>
-References: <20260719-ad5686-extend-dev-support-v1-0-841ec75cf5d8@analog.com>
-In-Reply-To: <20260719-ad5686-extend-dev-support-v1-0-841ec75cf5d8@analog.com>
-To: Michael Auchter <michael.auchter@ni.com>, linux@analog.com, 
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Cc: Michael Hennerich <Michael.Hennerich@analog.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Rodrigo Alencar <rodrigo.alencar@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784454721; l=4144;
- i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=g87LSQvSH5zO99f8r0mYhWdXFrEI0PIUf10Rds43rLE=;
- b=3kkX5U/Dmb4CYXRm3XMM/lysS2S6upGe2fOml1gdgoaPuEPnI9rOYVatEmXbFniPNsZR/nlbD
- TROlJfiNL6vCKJVrN+vMGP0sDKCxRh/g+SRttCu7epfqFstzxaMTFVs
-X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
- pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
-X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
- with auth_id=561
-X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Reply-To: rodrigo.alencar@analog.com
+References: <20260718085728.6797-1-royalnet026@gmail.com> <20260718085728.6797-2-royalnet026@gmail.com>
+ <20260719-sassy-muskrat-of-finesse-b426b0@quoll>
+In-Reply-To: <20260719-sassy-muskrat-of-finesse-b426b0@quoll>
+From: Igor Paunovic <royalnet026@gmail.com>
+Date: Sun, 19 Jul 2026 11:53:54 +0200
+X-Gm-Features: AUfX_mzrG1Pq4Zo417YCDgy1H34zh5K02k55OjzpmQP6GATHpyCvJf-ba4NVTOo
+Message-ID: <CAEWPSH6aUOzxhweOdwi18LgtsUQhQEfJ0usWJvsC7WHF6XMQzA@mail.gmail.com>
+Subject: Re: [PATCH v3 1/4] dt-bindings: media: snps,dw-hdmi-rx: add #sound-dai-cells
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Sebastian Reichel <sebastian.reichel@collabora.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	kernel@collabora.com, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Hi Krzysztof,
 
-Update device list entries in Kconfig and remove device description from
-file headers. One can rely on the ID table(s) to check for supported
-devices. Adjust comment header accordingly and update Copyright notice in
-comment file headers with the current year.
+Thanks -- both done for v4: the schema now references
+/schemas/sound/dai-common.yaml# with unevaluatedProperties: false, and
+the consumer comment is dropped from the example.
 
-Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
----
- drivers/iio/dac/Kconfig      | 31 ++++++++++++++++++++++++-------
- drivers/iio/dac/ad5686-spi.c |  7 ++-----
- drivers/iio/dac/ad5686.c     |  4 ++--
- drivers/iio/dac/ad5696-i2c.c |  6 ++----
- 4 files changed, 30 insertions(+), 18 deletions(-)
+I'll fold this into the v4 respin together with Sebastian's dts
+comments, holding it for Dmitry's testing round on the driver side so
+everything lands in one go.
 
-diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
-index d6d560c09e25..ba2065241af3 100644
---- a/drivers/iio/dac/Kconfig
-+++ b/drivers/iio/dac/Kconfig
-@@ -251,9 +251,18 @@ config AD5686_SPI
- 	depends on SPI
- 	select AD5686
- 	help
--	  Say yes here to build support for Analog Devices AD5672R, AD5674R,
--	  AD5676, AD5676R, AD5679R, AD5684, AD5684R, AD5684R, AD5685R, AD5686,
--	  AD5686R Voltage Output Digital to Analog Converter.
-+	  Say yes here to build support for Analog Devices Voltage Output
-+	  Digital to Analog Converters:
-+	  - Single-channel:
-+	    AD5310R, AD5681R, AD5682R, AD5683R, AD5683R
-+	  - Dual-channel:
-+	    AD5313R, AD5687, AD5687R, AD5689, AD5689R
-+	  - Quad-channel:
-+	    AD5317R, AD5684, AD5684R, AD5685R, AD5686, AD5686R
-+	  - 8-channel:
-+	    AD5672R, AD5676, AD5676R
-+	  - 16-channel:
-+	    AD5674, AD5674R, AD5679, AD5679R
- 
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called ad5686.
-@@ -263,10 +272,18 @@ config AD5696_I2C
- 	depends on I2C
- 	select AD5686
- 	help
--	  Say yes here to build support for Analog Devices AD5311R, AD5337,
--	  AD5338R, AD5671R, AD5673R, AD5675R, AD5677R, AD5691R, AD5692R, AD5693,
--	  AD5693R, AD5694, AD5694R, AD5695R, AD5696, and AD5696R Digital to
--	  Analog converters.
-+	  Say yes here to build support for Analog Devices Voltage Output
-+	  Digital to Analog Converters:
-+	  - Single-channel:
-+	    AD5311R, AD5691R, AD5692R, AD5693, AD5693R
-+	  - Dual-channel:
-+	    AD5338R, AD5697R
-+	  - Quad-channel:
-+	    AD5316R, AD5694, AD5694R, AD5695R, AD5696, AD5696R
-+	  - 8-channel:
-+	    AD5671R, AD5675, AD5675R
-+	  - 16-channel:
-+	    AD5673R, AD5677R
- 
- 	  To compile this driver as a module, choose M here: the module will be
- 	  called ad5696.
-diff --git a/drivers/iio/dac/ad5686-spi.c b/drivers/iio/dac/ad5686-spi.c
-index 003541edb742..b4531b49cb22 100644
---- a/drivers/iio/dac/ad5686-spi.c
-+++ b/drivers/iio/dac/ad5686-spi.c
-@@ -1,11 +1,8 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * AD5672R, AD5674R, AD5676, AD5676R, AD5679R,
-- * AD5681R, AD5682R, AD5683, AD5683R, AD5684,
-- * AD5684R, AD5685R, AD5686, AD5686R
-- * Digital to analog converters driver
-+ * SPI driver for AD5686 and similar Digital to Analog Converters
-  *
-- * Copyright 2018 Analog Devices Inc.
-+ * Copyright 2018-2026 Analog Devices Inc.
-  */
- 
- #include <linux/array_size.h>
-diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
-index 090707d76d6e..fc0bccfb0a03 100644
---- a/drivers/iio/dac/ad5686.c
-+++ b/drivers/iio/dac/ad5686.c
-@@ -1,8 +1,8 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * AD5686R, AD5685R, AD5684R Digital to analog converters  driver
-+ * Core driver for AD5686 and similar Digital to Analog Converters
-  *
-- * Copyright 2011 Analog Devices Inc.
-+ * Copyright 2011-2026 Analog Devices Inc.
-  */
- 
- #include <linux/array_size.h>
-diff --git a/drivers/iio/dac/ad5696-i2c.c b/drivers/iio/dac/ad5696-i2c.c
-index 7254bb976388..19605274e787 100644
---- a/drivers/iio/dac/ad5696-i2c.c
-+++ b/drivers/iio/dac/ad5696-i2c.c
-@@ -1,10 +1,8 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * AD5338R, AD5671R, AD5673R, AD5675R, AD5677R, AD5691R, AD5692R, AD5693,
-- * AD5693R, AD5694, AD5694R, AD5695R, AD5696, AD5696R
-- * Digital to analog converters driver
-+ * I2C driver for AD5696 and similar Digital to Analog Converters
-  *
-- * Copyright 2018 Analog Devices Inc.
-+ * Copyright 2018-2026 Analog Devices Inc.
-  */
- 
- #include <linux/bitfield.h>
+Igor
 
--- 
-2.43.0
-
-
+On Sun, Jul 19, 2026 at 10:54=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.o=
+rg> wrote:
+>
+> On Sat, Jul 18, 2026 at 10:57:25AM +0200, Igor Paunovic wrote:
+>
+> > diff --git a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.ya=
+ml b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
+> > index b7f6c87..fa6cd0d 100644
+> > --- a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
+> > +++ b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
+> > @@ -78,6 +78,13 @@ properties:
+> >        The phandle of the syscon node for the Video Output GRF register
+> >        to enable EDID transfer through SDAIN and SCLIN.
+> >
+> > +  "#sound-dai-cells":
+> > +    const: 1
+> > +    description:
+> > +      The HDMI RX controller has two digital audio interfaces, one for
+> > +      I2S and one for S/PDIF. The DAI cell selects the interface, 0 fo=
+r
+> > +      I2S and 1 for S/PDIF.
+> > +
+>
+> Schema should also reference dai-common.yaml and use
+> "unevaluatedProperties: false".
+>
+> >  required:
+> >    - compatible
+> >    - reg
+> > @@ -129,4 +136,6 @@ examples:
+> >        pinctrl-0 =3D <&hdmim1_rx_cec &hdmim1_rx_hpdin &hdmim1_rx_scl &h=
+dmim1_rx_sda &hdmirx_5v_detection>;
+> >        pinctrl-names =3D "default";
+> >        hpd-gpios =3D <&gpio1 22 GPIO_ACTIVE_LOW>;
+> > +      /* referenced by a sound card as <&hdmi_receiver 0> (0: I2S, 1: =
+S/PDIF) */
+>
+> Drop comment, not needed. Consumer is not really relevant.
+>
+> Best regards,
+> Krzysztof
+>
