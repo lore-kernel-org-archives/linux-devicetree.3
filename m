@@ -1,80 +1,54 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1269E2459E5
-	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 14:49:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F0225B086
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 14:56:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784472558; cv=none; b=vCaakzMLyCuzy9sbnxQqho5pz5/NgZTfh7v69rRaQu0t9Bjl/x92cfLG67Fodeoq0W+LcFYRrK0fVGgJJKcxFQfON2RCoritxxByvFK+mGvAZ+AdVCPuylOr2Rq3FrNF/V5a+KYNRNR+ym7SkRrbhJySq7O0AS4+aACCORsaaro=
+	t=1784473018; cv=none; b=ZtYJtqorxLFnGOZQHHALonGXoUV82gU8Pd2lq9iuNVUdxbOYD9cSE5Lxc6ynfd0HWt1eNuN9FJYI4fct97bgjhjaY0Y5nVw+NDCeL/+xqwp5g7mKIaRDQEgnSBSupY9SNUyWSA3g8Tlbe27gIangvmv/IZuGbtUpIDoSr127H3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784472558; c=relaxed/simple;
-	bh=Q7gzfp1xZ2LJLRXakoxDM6BFrJKfq47cA5ROeBV11tM=;
+	s=arc-20240116; t=1784473018; c=relaxed/simple;
+	bh=2s7kwBO2kbTXuCbnAKbmNtkLDNAupTyVU3LlUE3MzYs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QbNYV9zFRKYrao0Li+8K8P3FKBEAqSt6yCot+uzWLklVp43yoEcVkArrjzKV2qKXLLZbEA5Iho9T6QeDxUBXhE4jHckJMEfXYSfPDaaiOhWAdSBY8/LQl7FyGCCmjEosSVV9/adR+6CzT0uvjaI3a3sFr5woxR90c6gUIlPASs0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bALFb5vg; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=nXHa1S3X14U/oG1Kuua/hn8dyHLXH7990Ntc2kRZvn2mcC2DEsQDcejz8aJaB3Hams+SNP2SYoTqP8Ie54kXud/XNsEqXEog3f4TVbfIgtzB7Z+33gHHDzwGVQ5NxtOdhL4nIEplcrnvyLTouU0XpJS70xIGJtNzSbneWyE8EVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=iPhbhiid; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bALFb5vg"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38175907a56so2189854a91.0
-        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 07:49:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784472556; x=1785077356; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=G8ozcmP5Do3BF80PgSf++jutnr7umepQsuoe/U76RbE=;
-        b=bALFb5vgoVSnztkqrbJBw9i/AEV1eonjxaninheOn5ONRjFsYUejuTDwskloMMNpd2
-         iHJ2vzh6f8GFhmZsDKWpF/JVyOMyLbb4pqql6uXhMdHJP9It3UawsMPizOxoWt6gBE8W
-         RjVbWH95UZnXPSXruIc6WSKsOGrcIIu3m3GyqZVZmnK28Pi0OZ/yaCbXLovlAvF64+Ic
-         1UUPST/SkJA0XsJ0JFu1AAlUKSv5wAqK0mz7yPg5SWFTsVC3zge8PzF+38OITz2N2er0
-         +UojSmYaIpUTiB6sj8uNbFdOMCqKqAT9ZGhyA4pMeM3OudI3g1ZFwNzWdtTDOGcl/DY3
-         va9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784472556; x=1785077356;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G8ozcmP5Do3BF80PgSf++jutnr7umepQsuoe/U76RbE=;
-        b=UmUURdHpsX1P7Dap9+n0AjADXTwVohiVlb2DWg/cneUphGivtKhMYjHiofr7A2U+ZJ
-         Cml8cn4Zc3sNF63CWxYnu19L1b30LzSk1VDl1sa2Kh2+FLLstLKpHbGG0RPDh/Ypwy3J
-         kkTylfjawqLdbjDGXQZI4Bs0qeFV25wwNDgo0X7Lb/p7IPYNClw0p7XBa4bqgCvv66SD
-         rIwNIS7QtCKrJ1G/1cey6xy1qMukJh3tlZtEjtZWEuS1MCoHvYHlHqb9kil2F8UCJzV9
-         Gty9Hg1QXnxaLYO6j5OM1aL1MLKRoud4tExJ2r7AD7AztIFUXcw2dMYuGVah/3XAk08W
-         bKdw==
-X-Forwarded-Encrypted: i=1; AHgh+RqS0Yo5i6Tr4WYrwcon8sNj03hxWUAu3ZPZxJMYHR1KAb0so7NGwWhWAePsoeqjLmBXfa7T2qvn+wfv@vger.kernel.org
-X-Gm-Message-State: AOJu0YyCgN6uB00viyB6ePRFJTOhEDID8rW7pVQab/TDGxknf6o59S/y
-	FxhzA40GBX3mdjhn+rM5m8nDrB/CjJZ3IedTiiRgwV2qX5uF8MP4ZhGV
-X-Gm-Gg: AfdE7ckaaiTVZ79Q26e12h3oUBTiEFRWW8LDkl87hcYwodgnXuX8dRxkj/CUkwov3Ez
-	6swA7C31SJ/HUPmRWOkr5fIrR46aSyAe53tMsjDVFWuzdcum5KNWUm/7pQGvJyAp/EML/u30iMH
-	FggnCrdtxDa3oDf9CK7l0cKijIOf7BqKVZ9SI9vuVX0TvhdlDuoj8pYaiOdihU7mj2Xwvu/cCzW
-	p0yoO0C+m1bL5Gcwz/OWzRjTkur4cE6Vs5hxU6KPYJXfFbwJwaij9tlXwsCZ6bCj65hybsDQdp4
-	wOJ3jqBWNoMg/i97a4bIKXpE8eYGmX+6dV4km2QaOIwJ4SSMpDHX74UBEuqxb4ov+T5c641hHw5
-	tNXqaYz8ZvrGPDzhUdqiJi+7MYEMXx2C7GC7hwYwzHAqIRS7rMJeZDjCbvZbGmBSJy3fPFZRWmg
-	ufm3c0GwODBZ8EN7c=
-X-Received: by 2002:a17:90b:5644:b0:387:d5bd:622e with SMTP id 98e67ed59e1d1-38e4b6828cdmr8514207a91.17.1784472556341;
-        Sun, 19 Jul 2026 07:49:16 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e3a0d82d1sm6034463a91.10.2026.07.19.07.49.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Jul 2026 07:49:15 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sun, 19 Jul 2026 07:49:15 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chris Packham <chris.packham@alliedtelesis.co.nz>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Darrick J. Wong" <djwong@us.ibm.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
-Subject: Re: [PATCH v2 5/6] hwmon: (adt7470) Register as a PWM provider
-Message-ID: <f882feec-c764-4990-8a11-186c028b6cdc@roeck-us.net>
-References: <20260717-adt7470_thermalzone-v2-0-a55147958fad@gmail.com>
- <20260717-adt7470_thermalzone-v2-5-a55147958fad@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="iPhbhiid"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 7E5674E40E64;
+	Sun, 19 Jul 2026 14:56:46 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2FEF1601A5;
+	Sun, 19 Jul 2026 14:56:46 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 26BC511BD0158;
+	Sun, 19 Jul 2026 16:56:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1784473004; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=ynNcPxPXyZlRa+EHFb9XVlCnx8pqFltjRJq0sIxgaeo=;
+	b=iPhbhiidJ8ANasDEkzcjwOsDcSgVvlrD29BoEUQsRwMk8B6QSv5VLG4ecWsDT6BKZMlpqX
+	qyEjPxTL1M5aJOUR+QvOiEdSBLl+tv54GFboNVKuXeowa8fzECYhPYZkQJe0Ha0p0I4K0N
+	+kPnIpSfwPfq4384j6+pAPpk89qv+CcU/rdCkzpxn00q+e2mE0zh3KBsJTv4hMf75R2nwr
+	qn3CicuLfsrnaz+0d+YJHLtjtpUGREhFors2K3/1p7kiGkjYOoM3hc/SS+BuzFUKbEIBSu
+	g4XLAU9K06pG/bzI7DrzKzvjADEnyP/foenGUUl1sZk62qeLL3sBTqKnyNd9pw==
+Date: Sun, 19 Jul 2026 16:56:39 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Eduard Bostina <egbostina@gmail.com>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Kevin Hilman <khilman@baylibre.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org,
+	linux-rtc@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	daniel.baluta@nxp.com, simona.toaca@nxp.com, goledhruva@gmail.com,
+	m-chawdhry@ti.com
+Subject: Re: [PATCH 1/2] dt-bindings: rtc: Convert TI Palmas RTC to DT schema
+Message-ID: <202607191456398730de31@mail.local>
+References: <20260719141008.3562347-1-egbostina@gmail.com>
+ <20260719141008.3562347-2-egbostina@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,20 +57,115 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260717-adt7470_thermalzone-v2-5-a55147958fad@gmail.com>
+In-Reply-To: <20260719141008.3562347-2-egbostina@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Jul 17, 2026 at 05:59:18PM -0300, Luiz Angelo Daros de Luca wrote:
-> hwmon: (adt7470) Register as a PWM provider
+On 19/07/2026 14:10:07+0000, Eduard Bostina wrote:
+> Convert the Texas Instruments Palmas RTC controller bindings
+> to DT schema.
 > 
-> The ADT7470 features four PWM outputs that can be used to control fans.
-> Previously, these were only accessible through the legacy hwmon sysfs
-> interface.
+> As part of the conversion, declare 'wakeup-source: true'.
+> This documents the Palmas PMIC's capability to wake the system.
 > 
-> Register the ADT7470 as a generic PWM provider. This enables standard
-> Device Tree PWM consumers, such as "pwm-fan", to use the device through
-> the "#pwm-cells" property.
+> Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+> ---
+>  .../devicetree/bindings/rtc/rtc-palmas.txt    | 32 -----------
+>  .../bindings/rtc/ti,palmas-rtc.yaml           | 57 +++++++++++++++++++
+>  2 files changed, 57 insertions(+), 32 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/rtc/rtc-palmas.txt
+>  create mode 100644 Documentation/devicetree/bindings/rtc/ti,palmas-rtc.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/rtc/rtc-palmas.txt b/Documentation/devicetree/bindings/rtc/rtc-palmas.txt
+> deleted file mode 100644
+> index c6cf37758a77..000000000000
+> --- a/Documentation/devicetree/bindings/rtc/rtc-palmas.txt
+> +++ /dev/null
+> @@ -1,32 +0,0 @@
+> -Palmas RTC controller bindings
+> -
+> -Required properties:
+> -- compatible:
+> -  - "ti,palmas-rtc" for palma series of the RTC controller
+> -- interrupts: Interrupt number of RTC submodule on device.
+> -
+> -Optional properties:
+> -
+> -- ti,backup-battery-chargeable: The Palmas series device like TPS65913 or
+> -	TPS80036 supports the backup battery for powering the RTC when main
+> -	battery is removed or in very low power state. The backup battery
+> -	can be chargeable or non-chargeable. This flag will tells whether
+> -	battery is chargeable or not. If charging battery then driver can
+> -	enable the charging.
+> -- ti,backup-battery-charge-high-current: Enable high current charging in
+> -	backup battery. Device supports the < 100uA and > 100uA charging.
+> -	The high current will be > 100uA. Absence of this property will
+> -	charge battery to lower current i.e. < 100uA.
+> -
+> -Example:
+> -	palmas: tps65913@58 {
+> -		...
+> -		palmas_rtc: rtc {
+> -			compatible = "ti,palmas-rtc";
+> -			interrupt-parent = <&palmas>;
+> -			interrupts = <8 0>;
+> -			ti,backup-battery-chargeable;
+> -			ti,backup-battery-charge-high-current;
+> -		};
+> -		...
+> -	};
+> diff --git a/Documentation/devicetree/bindings/rtc/ti,palmas-rtc.yaml b/Documentation/devicetree/bindings/rtc/ti,palmas-rtc.yaml
+> new file mode 100644
+> index 000000000000..ac64f0589c84
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/rtc/ti,palmas-rtc.yaml
+> @@ -0,0 +1,57 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/rtc/ti,palmas-rtc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Texas Instruments Palmas RTC
+> +
+> +maintainers:
+> +  - Eduard Bostina <egbostina@gmail.com>
+> +
+> +allOf:
+> +  - $ref: /schemas/rtc/rtc.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: ti,palmas-rtc
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  wakeup-source: true
+> +
+> +  ti,backup-battery-chargeable:
+> +    type: boolean
+> +    description:
+> +      The backup battery can be chargeable or non-chargeable. This flag
+> +      indicates whether the battery is chargeable. If present, the driver
+> +      can enable charging.
+> +
 
-Use case, please.
+It would be great to convert to the genric proeprty which is
+aux-voltage-chargeable from rtc.yaml
 
-Thanks,
-Guenter
+> +  ti,backup-battery-charge-high-current:
+> +    type: boolean
+> +    description:
+> +      Enable high current charging in the backup battery.
+> +      Device supports the < 100uA and > 100uA charging. The high current will
+> +      be > 100uA. Absence of this property will charge battery to lower
+> +      current i.e. < 100uA.
+
+
+I guess we could make trickle-resistor-ohms fit or get a new generic
+property for this.
+
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
