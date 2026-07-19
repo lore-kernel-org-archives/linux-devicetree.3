@@ -1,165 +1,201 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB023128B2
-	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 21:13:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E9F25B084
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 21:18:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784495638; cv=none; b=YaKhvWJ9xglZfAN4f3GKqZJP+ab5+xT/SEgOAIed7S4YO4QKk9p0Q9quf3E2M3leEkA4hiRjqxzhHzlrhHKWlh/pDnCPW7IUbE86sU39iq1lnJ/0xHDat/FL1MziON9HNvHf0rLfSNzjoBCAflz+B3i3BRMWyZcUDVB5T7YDxTc=
+	t=1784495930; cv=none; b=CpxmDEI3cAdtkA4YWAkd+mSz001RyitkH73jOtMNoLjqd5/ve4BrUGV2SzsRSf/rpf4wiCk/sE8ggzWwxRscyvsd76N2lmpS1L6M4eFiczqIUtzGLpo+AazhgigcdHADTiQ5INKuYpmfnDbrm3gLSYTqstvwGm1QFEl7yMeBKPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784495638; c=relaxed/simple;
-	bh=uZZtbCVhOKhzC2tpXj5NKZbfR/sFeNe4FarJkD89skY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Qm2I9nFiCq4dSuIWL07MybX+22RBSQvCELXan9l1HneR/ot3Nf2luj9ZYfIoLBWDJJkNY9WSRtGMSdbU5v4vvS2nke4zjkOkMLgcrIu/EYK4a6WClhNHgBABkWU98YSc2Qtx9r74Lvv+ISUO7J1JiHwrVFUmKcw+v+07/q1gxmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HHOMQ3E4; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784495930; c=relaxed/simple;
+	bh=5XGjAEIPAFFHs8X4OPua/UqRJ496ky3R/V16qbOzb8Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IBKmHzFsrJsBRqgs/mvO2gNb5m8+nGZsLPER0Ftp0X2j8rGctQEf5NhtC4zY/mFJHwur92ipF0bPJq4nGxib2xTIwduZAWBWORSr3bnDeI5it4JCx49LWbKEXl6KXtvOvGlefWKdz5/9Y+tLcd0kgWpnHIPkfDe8BAQ+M94BuPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HMRWaoG7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=L8pU2KQC; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HHOMQ3E4"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4955484387cso5289325e9.1
-        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 14:13:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HMRWaoG7";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L8pU2KQC"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66JKRFEb236907
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 21:18:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/rBC+CxZn4GlCYjW5P8YRIplF0bbqZaToAlF2Gujn0k=; b=HMRWaoG75gWYc4MS
+	A4DJOPBUZ3i384SUWFyujWv8UEvjsauVj7NpqitS161qTz9VQSG9iXMe64aXfUI2
+	YU9ZcLnJI3qABjhYd86dw3ZQlwXaCjQdz6XvRGZRNOW1x1id05wcyzDUYwuEP/MC
+	YLJ3RpyA/ejb/MywQJWVN44iP/IwUzD3CaRiY2S24D50DipRbrIfaqGFbaJk0SzY
+	l4FvpuQc+c7RNABKAAdgWnKFiwf1lZjzlkD8DQzIlwnaa5/stA/dM3SCJLPZ/7+e
+	HBqyfgwnjHTyy6cf9vPvLOTV4uiZlROLWDgdkMHO6uJVhc+91sHgy3axTb6akGUR
+	qoicOQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2chker4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 21:18:47 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38e7ff7b375so328945a91.1
+        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 14:18:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784495632; x=1785100432; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1784495927; x=1785100727; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=mSI4AxiakfLEoxCkbMXngSkCPIZ/Cb8g+GVzqOuksO8=;
-        b=HHOMQ3E4s/WUkEluNM15tPgrFhQP51cmgDqqvt9kY4aoF7clbLQCDrgkcQ7blMfbYH
-         f/itB+tACSl5q/h+FN9fV5by8AIdZqLm236IHMZ/GFdL5IbqCJgOzQWnb1BEIQv9y1+B
-         PcPukeLfhkcQSEdIVn4Q7DEgRCBcuL33gwT2fj09JjXC2Ju1kxnDe7Z70c4bipKYAvPc
-         8MoyJ7rwjtDABDPyUCerWNWtI0kjo7jogTVUA9p82qKQB11e6q6mp3J6aQfdL3qQFMiU
-         z5PNFcCdZB+fw/40DnBkzBIuJRbuDXMREguBpRuJnAFfaNFEymm0/6Q8zndZbFbca/DU
-         ahCA==
+        bh=/rBC+CxZn4GlCYjW5P8YRIplF0bbqZaToAlF2Gujn0k=;
+        b=L8pU2KQCF/iWdAUTY42Z5hEzcOQmQ438sKmSGmnOFH3gCCphNogEv6R/s1fqekAuUA
+         5anoxnVFm9iyZHtt2hKZb3fAG2wkkaKG2NJZrFa1XZ8JVyQVLyBlG41cPYb6TOer05Em
+         SbHwVjGZ4HSiprHvKKNSGCX74xQOZyWapfOzCNQP76GQ1z0CvaNhxfMpaw3bS8MmCIZZ
+         xkrpWx5xfQr8jtRADCesLvFmKsxL8MxYEVw0ueH4B+Rg3BUe9Bldx51J6SyaVYVj/vjO
+         /wlkpS16rSY6SRbP9ilx24iIn3kIAFnX3R/mkzBxFBNSNhsoUKa2elSFBDgKHF8QhNXA
+         n4ZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784495632; x=1785100432;
+        d=1e100.net; s=20251104; t=1784495927; x=1785100727;
         h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mSI4AxiakfLEoxCkbMXngSkCPIZ/Cb8g+GVzqOuksO8=;
-        b=Z9Pm3sGQmIhokf+ePO2TLNcn1mnKAcqCo2eDHgeSTlxIk2MCr1R5lwx0C6QjnMKj7g
-         iPC0jr5aMZsITcnmxDMzsHgGlE3eGTt+wcgoZYXjzdjopVktHt3g5xK8jTf8mnCFhA9l
-         m5kXWzx3hUZfmdujZPp4vIdOr2523V77idF8PQnerhmhT2p1KzqTnUnVcGZaUnKzhpJN
-         2XV56f+Gg6GGFo6aJa3bkprozMvJs3+BGIoUyMeT8jHwqZya3S6WqV5ZGd87LAG+NAjn
-         EDpUFByJsMDUGBLPdSpSuPX3cWbZLtVwqlvME/bpJF+xY5gNGUmWD86ZwnYdTvEY4QMo
-         qPbw==
-X-Forwarded-Encrypted: i=1; AHgh+RqmixeigV3GC35dkCb84BzhUm+oAfKKNVBNleW7x7hvE37f+bNpczFqqMX9WcViXw8AhXFYlerKeVXi@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxgu813ZeENgZG7fm1UFqjYpOJHRJyj74kkqLRq6IKqwVgpIV9A
-	jPtjY+5w0ZUUtz60K00dFjX9sLh/In9sKuy8UBWh/E9STpR89NnalPjw
-X-Gm-Gg: AfdE7clYjkAr/zdC+mIdboTnhxjdLMAtr06Qf3FfBzoy3arpXWSf0Y0Jve5IFZwMYWb
-	HnIb1H7f/z7VAkGL8/2J0Ao98GnA9paM0oPZ9gsuKPLHAAmOELyGziz2S9nww7WTs4+72LDXimu
-	EBphR8kl931iQp9IvlMhoyfdbMX4Yub2mVhe4YJSRFYaIi/jfWAeE9Fdf4CkwjtryYKA0oB14zJ
-	4qFX7Rp45pL3YQUMKy7NApP4TCZSdzMJljLifc+/d/BnmxenW+uSvr+U6Xtm/B/67Frr4ZV/SEc
-	KYDwNnDEXbh9x6rvWX3EdSxBlgzveJV1TF36hTIbXdEhvwmBaaggo57sFSWQS/5mqIgT94Mztl5
-	npC+kmizI+e+mzyx2ErfOLqxFt3o8lPuChrEuc1esIu5bCQ8q1lM4WKlXFgp1SRMFESuQmTMCH7
-	KGdxx7AuDenyxsl6Eubq/hTE8oEdxrbdgpY7/3
-X-Received: by 2002:a05:600d:8494:10b0:495:4056:2c6d with SMTP id 5b1f17b1804b1-4954a402f4fmr101550685e9.23.1784495631684;
-        Sun, 19 Jul 2026 14:13:51 -0700 (PDT)
-Received: from localhost.localdomain ([2a0d:3344:2841:7708:a101:2b8a:f76:a00f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49549a3e2a9sm224108815e9.4.2026.07.19.14.13.49
+        bh=/rBC+CxZn4GlCYjW5P8YRIplF0bbqZaToAlF2Gujn0k=;
+        b=rLO1gXZnIre/0WSdFU1+BNVYCaxuT4gBFeCySM1+CcO7NY/bhwUkhc8L4YDagp231n
+         VCGYtEwIdhntN6tBSldXJqmxl/yz63Vj8YaRxEFUS/1PmHNPVJbjvTjYW5AGrZ0SePPY
+         G/P7VtAMktvPtE9TczmJrR4KemEyJOZqmX9uNiMsWTr/+PmuafHZYbGZUbLAEOTfU74G
+         VDl51Kq/S7y4DNPAG6+Bu3Y8H6+324BhDh+lRQmT+hB2/DNFf6X6QVaKFNkcYdmLaQbG
+         8uODInwmE4vC0/PqCE0exhpW0/v79Sq3S/DqF8GIB0VSGKLJUslRnzxamDR77eDaJ69K
+         Y3cg==
+X-Forwarded-Encrypted: i=1; AHgh+RpAyo9XRvlfgo2BmqExbKjb8Jtyd7vHK2/VqL2eVFNhEmQOK/4VEdD5Wk2xPgiUJFhpNXH1jfRQ1+um@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyb8kr2qMwrROCHZo5YK1kToXNzOo0sRHPCzobOy6CuugzjSIgO
+	S9lW43fb6jxXkPpRl8JhrGwp1k8FkUJH30cudYULHdKW1hVYfdOsi3VOpVHymI7/JuWchQSB8Wo
+	Yw7O5bQ2FE4zcFYSbtK0y4oUWhWPwhWNcoZ2W1GwYerXjfOOsQwRmh6B9Y6NYS1se
+X-Gm-Gg: AfdE7cmTk87Zr08F6NJs/srDlDWGsiodtpx4Gw/WVP9hiCm8iOQKcZY67EL+dzDfjV4
+	brknuvJmwuh4Mrw6QYanRlFNzLqDqK+ncq3uhtpdrypb70pxqvkJuPyRdMndSDzYT5a7MlZ6jfJ
+	rMTJ37LOqQI4XQeX9HfSRPncqJ2bcx5/3tIIS8QV12EjCwQwVgwF3RtF9mx64Y9tTlgKuDmXuHG
+	hni1TZ8d4Xdw9i6od4/kLeLb1TIvVWEWdljhkmu8nma8WrCmHtlgTBA9b4PB2KtveGoATZMY/8B
+	9YrTUy7FG/eoHlW87VJVecbqvYHpDIsx1QajNYyWiy14IsZAgSFbc1KO/uxDgytS4PwqjKlmEuL
+	DfBzcAFs0p1bQx0vK
+X-Received: by 2002:a17:90b:3886:b0:36b:944b:fd81 with SMTP id 98e67ed59e1d1-38e4b3d27c3mr12329710a91.4.1784495926859;
+        Sun, 19 Jul 2026 14:18:46 -0700 (PDT)
+X-Received: by 2002:a17:90b:3886:b0:36b:944b:fd81 with SMTP id 98e67ed59e1d1-38e4b3d27c3mr12329678a91.4.1784495926161;
+        Sun, 19 Jul 2026 14:18:46 -0700 (PDT)
+Received: from jic23-huawei ([50.35.46.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e39deab2dsm6553192a91.1.2026.07.19.14.18.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Jul 2026 14:13:51 -0700 (PDT)
-From: =?UTF-8?q?Juan=20Manuel=20L=C3=B3pez=20Carrillo?= <juanmanuellopezcarrillo@gmail.com>
-To: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>
-Cc: Brian Masney <bmasney@redhat.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-clk@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Juan=20Manuel=20L=C3=B3pez=20Carrillo?= <juanmanuellopezcarrillo@gmail.com>
-Subject: [PATCH v1 4/4] arm64: dts: allwinner: t527-orangepi-4a: add GPU OPP table
-Date: Sun, 19 Jul 2026 23:13:19 +0200
-Message-ID: <20260719211319.982285-5-juanmanuellopezcarrillo@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260719211319.982285-1-juanmanuellopezcarrillo@gmail.com>
-References: <20260719211319.982285-1-juanmanuellopezcarrillo@gmail.com>
+        Sun, 19 Jul 2026 14:18:45 -0700 (PDT)
+Date: Sun, 19 Jul 2026 22:18:40 +0100
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: rodrigo.alencar@analog.com, Michael Auchter <michael.auchter@ni.com>,
+        linux@analog.com, linux-iio@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Michael Hennerich
+ <Michael.Hennerich@analog.com>,
+        David Lechner <dlechner@baylibre.com>,
+        Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof
+ Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Conor
+ Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH 1/4] dt-bindings: iio: dac: ad5696: extend device
+ support
+Message-ID: <20260719221840.625525a3@jic23-huawei>
+In-Reply-To: <20260719-ad5686-extend-dev-support-v1-1-841ec75cf5d8@analog.com>
+References: <20260719-ad5686-extend-dev-support-v1-0-841ec75cf5d8@analog.com>
+	<20260719-ad5686-extend-dev-support-v1-1-841ec75cf5d8@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE5MDIzOCBTYWx0ZWRfXwOl9VmQzDkEB
+ jeOtN1t+On++ylf3lMK1K4WEYTCE7y50U5WekG4JQftetpOM07PsqaOtTcbzPEgOEf/fp40+mO9
+ LHTMKdc9WFCBexrwEHIxZRmAKrQjUGU=
+X-Proofpoint-GUID: xczL2jUk0EF0FOOTqzQR9s8FFjdBwJyB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE5MDIzOCBTYWx0ZWRfX/dv6rjmjuJaP
+ ea9xUmj7SgR696MyWmCHVO0u03ukt3n5dLUnq1ej8DEdMyWdgyVPz21C204fSO+/hsedMc1l6gL
+ C4tAs7SbOUirbT7NQqgZHqwqjeEJNMjY6qSY3bm7Ue72LE7HeYK8SuWUvTzmIkTs8wZGZVNClJ9
+ fxykNLFAsuts1z3EcNaGlxCCuKDQx/wg/hjk6kTjdAeLQsLxGfJB8bwaX0gts8mMJ+btj02X9Os
+ ErNd+IlUAitiN8B/swtPfmcpE0Y4zpnEikRTBLMaNH7OWtSiuZ4dBnXTqQQ2b3FgCXlm8nQxn3r
+ 5KWpokCxm0pwRear7rklmW/v+hFm4cP3LNnulLN+i7L+lCfmRBixKW/VAzx2vwSxq3Q5yefPVgD
+ HD8s/B02MCPiM1tnLU1S38RvH7jmSC1sPhJ5cJwWT8iTOoBv0R8PYN+lacGbSCn5+kv00Tl4qUg
+ xZqvvTBJ7sa65RMsZAQ==
+X-Authority-Analysis: v=2.4 cv=T5K8ifKQ c=1 sm=1 tr=0 ts=6a5d3f37 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=qC1CW/w66vtJz1P9yTJxNA==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8 a=XYAwZIGsAAAA:8 a=HLCVoeTYkPwaNVPRpFcA:9
+ a=CjuIK1q_8ugA:10 a=rl5im9kqc5Lf4LNbBjHf:22 a=E8ToXWR_bxluHZ7gmE-Z:22
+X-Proofpoint-ORIG-GUID: xczL2jUk0EF0FOOTqzQR9s8FFjdBwJyB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-19_07,2026-07-17_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 impostorscore=0 bulkscore=0 adultscore=0
+ suspectscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607190238
 
-Add the Mali-G57 operating points from the vendor BSP universal table
-(150/200/300/400/600 MHz) so panfrost devfreq can scale the GPU
-instead of running at the boot clock.
+On Sun, 19 Jul 2026 10:51:57 +0100
+Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
 
-All operating points use 920 mV: the BSP table specifies 900 mV for
-every universal OPP, but on this board the GPU rail (AXP717 DCDC2,
-vdd-gpu-sys) is a fixed 920 mV supply, so the OPP voltage states the
-actual rail value and voltage transitions are no-ops.  The higher
-speed-bin points of the BSP (648-792 MHz) are not included: they are
-gated by a SID efuse bin and need pll-gpu as a live parent.
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> 
+> Support for AD5316R, AD5673R, AD5675, AD5677R and AD5697R missing from the
 
-Depends on the sun55i-a523 GPU clock divider fix (the OPP rates are
-only produced correctly with the cycle-masking divider model);
-validated on hardware with the Mali cycle counter: 149/199/300/399/597
-MHz measured under load, thermal-emulation throttling included.
+I'd drop the 'missing' given I think until this series they weren't used.
 
-Signed-off-by: Juan Manuel López Carrillo <juanmanuellopezcarrillo@gmail.com>
----
- .../dts/allwinner/sun55i-t527-orangepi-4a.dts | 30 +++++++++++++++++++
- 1 file changed, 30 insertions(+)
+If nothing else comes up I'll just make that change whilst applying.
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts b/arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts
-index 055be86e5..0fd73a1bb 100644
---- a/arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts
-@@ -30,6 +30,35 @@ ext_osc32k: ext-osc32k-clk {
- 		clock-output-names = "ext_osc32k";
- 	};
- 
-+	gpu_opp_table: opp-table-gpu {
-+		compatible = "operating-points-v2";
-+
-+		opp-150000000 {
-+			opp-hz = /bits/ 64 <150000000>;
-+			opp-microvolt = <920000>;
-+		};
-+
-+		opp-200000000 {
-+			opp-hz = /bits/ 64 <200000000>;
-+			opp-microvolt = <920000>;
-+		};
-+
-+		opp-300000000 {
-+			opp-hz = /bits/ 64 <300000000>;
-+			opp-microvolt = <920000>;
-+		};
-+
-+		opp-400000000 {
-+			opp-hz = /bits/ 64 <400000000>;
-+			opp-microvolt = <920000>;
-+		};
-+
-+		opp-600000000 {
-+			opp-hz = /bits/ 64 <600000000>;
-+			opp-microvolt = <920000>;
-+		};
-+	};
-+
- 	leds {
- 		compatible = "gpio-leds";
- 
-@@ -116,6 +145,7 @@ &gmac1 {
- 
- &gpu {
- 	mali-supply = <&reg_dcdc2>;
-+	operating-points-v2 = <&gpu_opp_table>;
- 	status = "okay";
- };
- 
--- 
-2.47.3
+
+> device-tree bindings documentation. These devices have different bit
+> resolutions or different number of channels so no fallback compatibles
+> are used.
+> 
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> ---
+>  Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml b/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
+> index e10f8596f9d3..835fa21c474e 100644
+> --- a/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
+> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
+> @@ -16,10 +16,14 @@ properties:
+>    compatible:
+>      enum:
+>        - adi,ad5311r
+> +      - adi,ad5316r
+>        - adi,ad5337r
+>        - adi,ad5338r
+>        - adi,ad5671r
+> +      - adi,ad5673r
+> +      - adi,ad5675
+>        - adi,ad5675r
+> +      - adi,ad5677r
+>        - adi,ad5691r
+>        - adi,ad5692r
+>        - adi,ad5693
+> @@ -29,6 +33,7 @@ properties:
+>        - adi,ad5695r
+>        - adi,ad5696
+>        - adi,ad5696r
+> +      - adi,ad5697r
+>  
+>    reg:
+>      maxItems: 1
+> @@ -84,6 +89,7 @@ allOf:
+>          compatible:
+>            contains:
+>              enum:
+> +              - adi,ad5675
+>                - adi,ad5693
+>                - adi,ad5694
+>                - adi,ad5696
+> 
 
