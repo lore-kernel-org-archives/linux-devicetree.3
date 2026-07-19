@@ -1,166 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 150C627B4F7;
-	Sun, 19 Jul 2026 19:05:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4429229C33F;
+	Sun, 19 Jul 2026 19:58:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784487926; cv=none; b=QoIgRGLjyCra3pKqQGtUplA8ND+5lVXZuR3yhr049Pyvd2Jo8RIvnDaXEKOarz12+MSNXQmDfHd6wwAdu/PMRUrO/ubNyTlNYO0QxFtmG2Oly5LVLaXdE8ccT1XVcgAtpyjGhWS+zlIdcEGEqc2IevOiAMGp8pLMG0grIAR143k=
+	t=1784491140; cv=none; b=X9skxSpJ1LZfLoqKtXUPhjFw8DxlE4p+OwF7Vqg3Mq1P2V/ZIC/KjzTH11BVc87cBB+tN6qBGorVAfHfShlLtlT9E/GALJpjWeZPI4yAJXaz7So87aKWnE+9m8AsO3R4qwlO9imcHxglYG0qzWkXTYx3ShyV0/200+iMwJDKYWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784487926; c=relaxed/simple;
-	bh=UjNGwV6X6Ee4IIr5vJ/ucxQFBpbRIKdeOD7NbBUnRBU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IvHU4n/XHpf0thPmWUBNoLu7BBgEvShxVB0vrZ5JIB1rzOaW95Dej0XamDqITUcbOrOoLx6538r+q9U2NLjhdJF2CDjigEdeg0bkY8eUrMjibhMEmJT45dz4GBBCzbxuawLhy7QL2rdlgNA5gCpBpcoYQoOQYXr1vzrD1SRrPYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fS0sMdQL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784491140; c=relaxed/simple;
+	bh=MdGf/q8cH48YhOxGOU9vZCobhS12SJhHSg09QFu6zFo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=e1oFPAfuZLmKKF0Zam2V8j81Rhgf618Nf5JCjJfslrze+S1HH0GmWHZy0UdH/uxejkV9jdGQ+Hs2q97eXWlQWLyD9ZfgaJay5mXZFraFGwudcp/7vJ8qy+4CwECq8pwRQesuDIv12W18gy7h/NXb19QY6HFBjqDAhgR3asWU1Kw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aAAXNh5g; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fS0sMdQL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F8EE1F000E9;
-	Sun, 19 Jul 2026 19:05:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784487924;
-	bh=NuEx5IO0hfsFaxuOKrYc1dtYQmdvVEcNNyzH04R5Kiw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fS0sMdQLHgZ2CcVz778TGjmYUsckuxHxSr+TNM8F1THJ6AZRO3z5FLiEDL5hzrcMc
-	 HqnN7txln9R/XkcuZdTr3YyYwB8dG2y4KWZDpMn20Q6CZAJq8sTw2cF6vqAYMOMIGY
-	 s6AqHvgkJ2vE/l0TdZyadn+mK446+PQFBBeSAMOd0l7QYj9GzXC1GNcK1Hd43C/06x
-	 jUYFY/ul7ZNchcpnw0pQ7MRTXfoHs/Xm0auoDoVmbrZzZlKVi7OMRCxD1n6WbjEqJ7
-	 c1J/cbjqCjrNWUmtdzjCRDTo0PLX6ziYSf/1Sv3zGMZuhbyYY9X3MMLEZo6oAKVurI
-	 A4SS35+LQE8Xw==
-Date: Sun, 19 Jul 2026 20:05:19 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Gianluca Boiano <morf3089@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>, "Wang, Sen" <sen@ti.com>,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] ASoC: codecs: add TAS2557 mono smart amplifier
- driver
-Message-ID: <de369f10-e7c6-4528-aa57-56241bf700b3@sirena.org.uk>
-References: <20260717233402.414326-1-morf3089@gmail.com>
- <20260717233402.414326-3-morf3089@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aAAXNh5g"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66JHIITM090900;
+	Sun, 19 Jul 2026 19:58:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=tEzDJvW5UDDMSbpE5FQiM9F8jUc4zEDNPh3
+	tDkslJfI=; b=aAAXNh5gwQh0mZfFM8o1ssxD3tL+qktnUwQ9wFsgrvwU9VmhpEB
+	WiSyGIOy5ogqrLiYJr7yYH2/OwLpudTcPUjVyhd/UQbj7YavJZIXQibRgRs2tBk7
+	gvQdx0tPYnH/viZsvkGCsgoBH5H4ZhesvkdwZJTY985G2XTIaTKkD5wkwz8Qi5oJ
+	A2Vh/EudwcbW1rpETnUyHPEbYhUK8U+EQk9zLsN4KbAA9Q5/bNByVjifNfgANpFp
+	FwU6R7CbGCyAIU5wnBJvj0zkCt8JmeUQCZcmZRYX2gKhZ57Gf9464LI5rUfTufOs
+	+aSv9vLH0Mu2vwxgaCv1MGU1V7CxTB5/OUQ==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2bnkdfv-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 19 Jul 2026 19:58:40 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 66JJwa1x003189;
+	Sun, 19 Jul 2026 19:58:36 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4fgj3v6h06-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 19 Jul 2026 19:58:36 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 66JJwa8j003184;
+	Sun, 19 Jul 2026 19:58:36 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com ([10.213.101.157])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 66JJwaRv003182
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 19 Jul 2026 19:58:36 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2342877)
+	id 52B5D647; Mon, 20 Jul 2026 01:28:35 +0530 (+0530)
+From: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+To: krzk+dt@kernel.org, robh@kernel.org, andersson@kernel.org, mani@kernel.org,
+        alim.akhtar@samsung.com, bvanassche@acm.org, avri.altman@wdc.com,
+        conor+dt@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-scsi@vger.kernel.org,
+        Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+Subject: [PATCH V2] scsi: ufs: dt-bindings: Document the Maili UFS Controller
+Date: Mon, 20 Jul 2026 01:28:33 +0530
+Message-Id: <20260719195833.136543-1-nitin.rawat@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="oxmBckQ0O84Mzxol"
-Content-Disposition: inline
-In-Reply-To: <20260717233402.414326-3-morf3089@gmail.com>
-X-Cookie: Courage is grace under pressure.
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE5MDIyMyBTYWx0ZWRfX3KiFHkWARBdf
+ 06kVuASVwPMXpr30/kHhZ9LBJsT40+kgUmLvoOLWhm+zp4ubyAsFtyi3Y9OljBFGtULDwjaVhJ9
+ TPJ8CouYYtk5IEOKWhOjcCus0Qh/QBKEw4zZwrrn1CaLcptxQ0UarYk5C9Hd5dOEOPosD3/ZVhT
+ I4GhLCXgXeH75KJg9Ywse547DKiSU31e/CIrP3I+RInGWgLoFfFq+hwH8v1mBa97hkTgtiZFiy3
+ zAhiYPjjxnkf6RgiZGqB9qXSQ1Lb0oKk+OndEH8wO0mYLEtJGB0AgFAWP2OCeGzP4uhr4pXdCgT
+ K1Ez2NfGCvv+jucR22CAWxg2wtT2754R8q5IlFC9Let25d3W6SCP8RHTU4IAPZXL4zQWhH4vsMD
+ wxnRl8yzTDzcriyRVzPF55uHw/69zd2QT+KWZVW9a7r3nH3SlnBugs0vBg1b5HzW7HKmBLDPhX4
+ 263lLkgy0AWWTI3bBzg==
+X-Proofpoint-ORIG-GUID: HXdRCbFW1qHbusG2gpMYE73xQEZtFZiu
+X-Proofpoint-GUID: HXdRCbFW1qHbusG2gpMYE73xQEZtFZiu
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE5MDIyMyBTYWx0ZWRfX3Gu0SI8/+dEj
+ iwkP+2eRNMWc/L37hUkgfrxLxGamzzAspP9DFJFk3bt9TTXYTq4ETRwSVlQyXy0duxk40+G7mss
+ 2Ser6vq7GEc0Fr5GDbKfu0+YqwHSfaE=
+X-Authority-Analysis: v=2.4 cv=deOwG3Xe c=1 sm=1 tr=0 ts=6a5d2c70 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=3pRFFtUwbMGDAvonun0A:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-19_06,2026-07-17_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015 phishscore=0
+ suspectscore=0 impostorscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607190223
 
+Document the UFS Controller on Maili SoC.
 
---oxmBckQ0O84Mzxol
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Signed-off-by: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+---
+Change from v1:
+1. Addressed Krzysztof's comment to update 'qcom,maili-ufshc'
+   to the allOf condition required for MCQ targets.
+---
+ Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-On Sat, Jul 18, 2026 at 01:34:00AM +0200, Gianluca Boiano wrote:
+diff --git a/Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml b/Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml
+index b441f0d26081..d03295806657 100644
+--- a/Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml
++++ b/Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml
+@@ -18,6 +18,7 @@ select:
+           - qcom,eliza-ufshc
+           - qcom,hawi-ufshc
+           - qcom,kaanapali-ufshc
++          - qcom,maili-ufshc
+           - qcom,nord-ufshc
+           - qcom,sm8650-ufshc
+           - qcom,sm8750-ufshc
+@@ -31,6 +32,7 @@ properties:
+           - qcom,eliza-ufshc
+           - qcom,hawi-ufshc
+           - qcom,kaanapali-ufshc
++          - qcom,maili-ufshc
+           - qcom,nord-ufshc
+           - qcom,sm8650-ufshc
+           - qcom,sm8750-ufshc
+@@ -78,6 +80,7 @@ allOf:
+           contains:
+             enum:
+               - qcom,eliza-ufshc
++              - qcom,maili-ufshc
+               - qcom,nord-ufshc
+     then:
+       properties:
+--
+2.34.1
 
-> The TAS2557 is a mono Class-D smart amplifier with an on-chip DSP for
-> speaker protection. Audio is received over I2S/TDM (ASI) and processed
-> by DSP firmware before reaching the Class-D output stage.
-
-> +static const unsigned int tas2557_startup_data[] = {
-> +	TAS2557_GPI_PIN_REG,              0x15,	/* enable DIN, MCLK, CCI */
-> +	TAS2557_GPIO1_PIN_REG,            0x01,	/* enable BCLK (ASI1) */
-> +	TAS2557_GPIO2_PIN_REG,            0x01,	/* enable WCLK (ASI1) */
-> +	/* ASI2 GPIO wiring; arm the BCLK source (GPIO5) before its dividers */
-> +	TAS2557_GPIO6_PIN_REG,            0x01,	/* GPIO6 = ASI2 WCLK input */
-> +	TAS2557_GPIO8_PIN_REG,            0x02,	/* GPIO8 = ASI2 DIN */
-> +	TAS2557_GPIO5_PIN_REG,            0x01,	/* GPIO5 = ASI2 BCLK input */
-
-This looks awfully board specific....
-
-> +static int tas2557_dev_bulk_write(struct tas2557_priv *tas2557, unsigned int chn,
-> +				  unsigned int reg, const u8 *data, size_t len)
-> +{
-> +	int ret;
-> +
-> +	/* The chip auto-increments past reg 0x7f into the page register */
-> +	if (TAS2557_PAGE_REG_ADDR(reg) + len > 128)
-> +		return -EINVAL;
-
-I didn't check but is there room for sharing code with the other
-multi-book TI devices?
-
-> +static int fw_parse_header(struct tas2557_priv *tas2557,
-> +			   struct tas2557_firmware *fw,
-> +			   const u8 *data, size_t size)
-> +{
-
-> +	fw->device = get_unaligned_be32(data); data += 4;
-> +	if (fw->device != TAS2557_FW_DEVICE_MONO &&
-> +	    fw->device != TAS2557_FW_DEVICE_STEREO) {
-> +		dev_err(tas2557->dev,
-> +			"unsupported device %u in firmware (expected 2=mono or 3=stereo)\n",
-> +			fw->device);
-> +		return -EINVAL;
-> +	}
-
-The tas2781 checks to see if there are one or two devices being
-controlled by the driver and rejects a mismatch.  Also, is there some
-overlap in firmware formats here?  Again I didn't actually check.
-
-> +static int tas2557_set_program(struct tas2557_priv *tas2557,
-> +			       unsigned int prog_idx, int config_idx)
-
-> +	/* Load PLL configuration for this config (firmware-driven) */
-> +	if (config->pll < fw->num_plls) {
-> +		ret = tas2557_load_pll(tas2557, config->pll);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-
-Shouldn't an out of range value be an error?
-
-> +static int tas2557_enable(struct tas2557_priv *tas2557, bool enable)
-> +{
-
-> +	} else if (!enable && tas2557->powered) {
-> +		ret = tas2557_load_data_all(tas2557, tas2557_shutdown_data);
-> +		if (ret < 0)
-> +			dev_err(tas2557->dev, "shutdown failed: %d\n", ret);
-> +
-> +		tas2557->powered = false;
-> +		tas2557->dac_muted = true;
-> +		tas2557->sense_muted = true;
-> +
-> +		dev_dbg(tas2557->dev, "amplifier group powered off\n");
-> +	}
-
-Does sense_muted get handled properly for suspend?  The core mutes and
-unmutes playback streams over suspend but not capture.
-
-> +static int tas2557_hw_params(struct snd_pcm_substream *substream,
-> +                            struct snd_pcm_hw_params *params,
-> +                            struct snd_soc_dai *dai)
-
-> +       /* Commit cached stream state now the hardware writes have succeeded */
-> +       tas2557->sample_rate = rate;
-> +       tas2557->wordlength = wordlength;
-
-This won't actually take effect if the device doesn't power down - you
-should probably not set use_pmdown_time to force a power down/up, though
-that's annoying when the configuration is the same.
-
---oxmBckQ0O84Mzxol
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpdH+4ACgkQJNaLcl1U
-h9Aj1wf/QvZks+ZBhOnKUZ62Iir49WjJTgw/TZhOZV6G2dpBbaKEo+787jjgkJb/
-bX7umhA4h3lPoS5TcZvDjTyg4ybEmT+8JdT4Lq4nThdMtr23DFDer8z2Kn6I1ezi
-LIPsXKLa2FtpfydbOR4CUa4dycTkJV+MW3qeWWbdC/NiqUzK51dF5sj6MlZzfpjl
-oIqK1ydfIK9o85+g9PQdWEIhp9q7TyR29Hi39YnF8ApJZ37VfhOAyiGDcWtgXnQw
-npck348pPEjtstrmfV2D/QFzKx1/DEXh0VJJFhO86DvffF/opjEg6g+kgiWtWUEI
-cBzChwoDBSh8tV8PW0G24wzpXBFbyg==
-=TGcm
------END PGP SIGNATURE-----
-
---oxmBckQ0O84Mzxol--
