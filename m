@@ -1,50 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CFE1377544;
-	Sun, 19 Jul 2026 06:36:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E13F507;
+	Sun, 19 Jul 2026 06:43:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784443016; cv=none; b=LDIY/pt8tzlhnkYesXUjE5t07NwD15xqtIiqVBriR9KXQfydsg8qkmOkwsQ9HogRFAmhpeddhqPzidQN6jgg/QHz6vHJuYuMND9lfs5j0bGibfp4lmkpSUj2/vNPbk6wCL92fpHbQ9OWyj8butWijXNX3qD3OeHApSlC9KRkz44=
+	t=1784443430; cv=none; b=AaodIQHdFg5rCHR65bOl++wXVTVbo7YZRV4RlPbkQJgngftfShAqvLt49PV2AGT5xxxSrlg7eIyV0Y8vXhhqzaknbb1Wwd0rsPVbNnNb2M+JIKT7Dr7OX1/2ZM9CXPB6wmYZkCXRHXHjDbt5FciQrnVZ4NY4g1IFlaoW+EKpRJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784443016; c=relaxed/simple;
-	bh=tldwZ4EXRHah6EyQ6swYsR//bbm1uj49wsgBDQgwpPQ=;
+	s=arc-20240116; t=1784443430; c=relaxed/simple;
+	bh=GBjgmtAqD+aw7/cCyrWxT5N4xxE/egaH2Bp6QVMBsM8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y6vSY6vIH7y9gHJ1D4fuEZZ7dfGNX/b1z0nqBovHeTA624n9cntDZYu+rWHMeiycf52Q2k2Pv6owgrjtE13Z2BJXulsRlPsNw9kbgTnpBlQMm9l1pWKYyHOPmE7reI2O3cOnzeHEqgSJ+C5cKsp5Kkgn9NB5W73y9MV7yT+s08o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gqhCDR36; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=NUzDYl537T2i25xIo2k5MQVb+Lc+ADpjAxUvcsc11ow8DshXktbMGXeLSJ1pxAtrLtZypY7wV6FlIE+zjDPUjsE63H7x7R6Bq+oQkb/XnhIdj9xHPak/paueKDWSDQ0SRhh0CMCadOPqEbJl4HtQABGQvFmC1c5l+yYPOhT+yIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UQdnVp+8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gqhCDR36"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D657C1F000E9;
-	Sun, 19 Jul 2026 06:36:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UQdnVp+8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBF451F000E9;
+	Sun, 19 Jul 2026 06:43:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784443014;
-	bh=+PjcEzkWWzz3QTNuwTMEVCktYabiHfk1iyhikVnYDPM=;
+	s=k20260515; t=1784443428;
+	bh=SLQl6/ZZUHU837YWcDE8ts1N0/0M5SUGrVQi06gSLno=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gqhCDR36DJ+lRfFFv15fPgL6OcbahMRqsrkzZTq9QpNDuXamK1Pswa41udbRNJrgq
-	 t1FbHZnQukGPwEFFesnPsiKCKiEny/92DvepEYH/IMiKeBmsJ13huR70TXDKvXRibi
-	 IUpAC3f+irjQVXT4r7SWII6j5SyAwWBJb8dWeLd+fn4K2IPBrvFYloinlsyJ1KLY1m
-	 YSi+FMvDKqKzuCPmObcdpdhy94RM445vPDVoDkCnvgXQN2XGHIeIyVGwxFhx48e7kM
-	 vVDdKub3A8Njs0UKCKot2DI020pooJcquGmgOH7OQrSL8Em5Hf1xfkEhc86q5mCs1x
-	 FWYAEm0BXkbzg==
-Date: Sun, 19 Jul 2026 08:36:51 +0200
+	b=UQdnVp+8dvCoRsUVrVpgGCNt39oqqv8caElyU3XF1drfpkXoXs9GJwY6VJdBZL/qe
+	 x54S5jVM6fDfNwfQoKv5n4vIu5NdrH+XktoF72MO7SIwlJ+1je2FczVBTLVTe3dvsX
+	 b5JvUAE5wfInIzK7x3GeP5b99QUoXQd3mOTlLugXRY+MPFLZmepafOgyxx41R2sZEp
+	 ElysEV9Ib0EfOYV7f7MCMxnYxZ0ZOIJYtETqCu/pYYRYyW9TURJhoGLVLpvSnVoYZP
+	 7cE0TqfY1tjfXVa3Mf+bf9qNH82IgnIpa8jZyMjyKJPXumc2vLsCJCvp7XKL2BgKln
+	 kPFro7/CZcx4A==
+Date: Sun, 19 Jul 2026 08:43:43 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: mohit.dsor@oss.qualcomm.com
-Cc: Sunyun Yang <syyang@lontium.com>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+To: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vinod Koul <vkoul@kernel.org>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Mohit Dsor <mdsor@oss.qualcomm.com>
-Subject: Re: [PATCH v7 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
- MIPI DSI to HDMI driver
-Message-ID: <20260719-sparkling-musical-lionfish-bb9d80@quoll>
-References: <20260716-lt9611c-v7-v7-0-7553a14735fc@oss.qualcomm.com>
- <20260716-lt9611c-v7-v7-1-7553a14735fc@oss.qualcomm.com>
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 0/3] Add QMP PCIe multiple link-mode PHY support
+Message-ID: <20260719-beautiful-pheasant-of-variation-61b8cd@quoll>
+References: <20260717-glymur_linkmode_0717-v5-0-4f9e87a61463@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,51 +47,44 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260716-lt9611c-v7-v7-1-7553a14735fc@oss.qualcomm.com>
+In-Reply-To: <20260717-glymur_linkmode_0717-v5-0-4f9e87a61463@oss.qualcomm.com>
 
-On Thu, Jul 16, 2026 at 05:01:09PM +0530, mohit.dsor@oss.qualcomm.com wrote:
-> From: Sunyun Yang <syyang@lontium.com>
->=20
-> LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
-> mipi dsi and output hdmi, differences in hardware features:
-> - LT9611C: supports 1-port mipi dsi to hdmi 1.4
+On Fri, Jul 17, 2026 at 02:58:32AM -0700, Qiang Yu wrote:
+> Hi all,
+> 
+> Some QMP PCIe PHY hardware blocks can be configured through a link-mode
+> register into different link topologies, such as a single wide link, or
+> multiple independent narrower links (e.g. x8 or x4+x4 mode on the Glymur
+> PCIe3 PHY).
+> 
+> Earlier revisions tried to extend the existing single-instance
+> phy-qcom-qmp-pcie.c driver to cover this hardware. That added a large
+> amount of conditional, multi-PHY logic to a driver whose data model
+> assumes one PHY per node.
+> 
+> This series adds a dedicated PHY provider driver,
+> phy-qcom-qmp-pcie-multiphy.c:
+> 
+> A single PHY provider node describes the shared hardware block. A new
+> "qcom,link-mode" property points at the TCSR syscon register that reports
+> the active topology; the driver reads it once at probe. #phy-cells = <1>
+> lets consumers pass a logical PHY index to obtain their sub-PHY. Match
+> data is indexed by link mode, and each link mode has its own array of
+> per-PHY config tables, so one shared provider exposes a different set of
+> logical PHYs depending on the active mode. The driver inherits the PHY
+> settings and link mode already programmed by UEFI, so only the no-CSR
+> reset is used, and no PHY setting tables or related structures are
+> defined. Each sub-PHY owns its register regions and power domain, so in a
+> bifurcated mode the links are brought up, and powered independently.
+> 
+> The driver is implemented and validated on Glymur, and is intended to
+> be extensible to other multi-mode QMP PCIe PHYs.
+> 
+> This series depends on a prerequisite patch by Krzysztof Kozlowski:
+> https://lore.kernel.org/r/20260420133616.88740-2-krzysztof.kozlowski@oss.qualcomm.com
 
-So you need "if:then:" block disallowing port@1.
-
-> - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-> - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
->=20
-> Signed-off-by: Sunyun Yang <syyang@lontium.com>
-> Signed-off-by: Mohit Dsor <mdsor@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/display/bridge/lontium,lt9611.yaml        | 8 ++=
-++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9=
-611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.=
-yaml
-> index 429a06057ae8..e0821a63d9d7 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-> +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-> @@ -4,19 +4,23 @@
->  $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> =20
-> -title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
-> +title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
-> =20
->  maintainers:
->    - Vinod Koul <vkoul@kernel.org>
-> =20
->  description: |
-> -  The LT9611 and LT9611UXC are bridge devices which convert DSI to HDMI
-> +  The LT9611=E3=80=81LT9611UXC=E3=80=81LT9611C=E3=80=81LT9611EX and LT96=
-11UXD
-
-These are some odd characters here. I guess this was in earlier versions
-as well...
+There was a v2, still not applied I think:
+https://lore.kernel.org/all/20260609141608.354186-2-krzysztof.kozlowski@oss.qualcomm.com/
 
 Best regards,
 Krzysztof
