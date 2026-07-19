@@ -1,150 +1,156 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D1EE3B14A6
-	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 18:16:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F363B3BF5
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 18:17:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784484965; cv=none; b=Eu3rvnjdkMeCmGNCmMRQLFAsy2Z5vwF4fmFUaqxkRT3KzHTFIG8KNMN1a9Nd56yB27AYxnmYvpXxm13EXobLYeFl27E18jyfM7XQgB/R1DGiHRN2TshQsBsyAn/aoGTwPI3WA6zxP1WfY2OWgIIHRtm4PKNG5VIgD8e75L1NIUw=
+	t=1784485044; cv=none; b=igVXxfwvMRPZVHV4WCee0icP3IObqfjHKTPFtoxEv3kgp2rqCwEv2GfhSWQo/B4luIXkPjEe7fPVIqjf21r5ojG00lhdV1Fe+scBjj0+JvVk5LxbpEVlPbqnO6SwprTm1++1VnBwJjjKRV6hVB6zOK/28yI3iAiNY9DKeHfQtlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784484965; c=relaxed/simple;
-	bh=Bup5QMfktUv6vIlZ/2dKlZb4eV36tShddzLwobmWWGQ=;
+	s=arc-20240116; t=1784485044; c=relaxed/simple;
+	bh=Zg51ZGBpEcfalb+FcnEqWbNFPLpzzGex2X3Xk3rETdI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IGFcRFLfrc7ryRekR53WahWPzPkFQ5KwvW3jXa24KUkRZtUZVTLw4JNGzjyKnD1Ag318NUikZlLv0bJ1pqyaFCrKXg344eaH3xAEwl21KRpHVKGAWICcD62izOpV10uqnt2gJhFFMAcBgqnXcNT4PkvbgBfzUerH0L+4pkCc9RA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MOnM2+Wn; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=sYeEPQjdr/wMTytQFTgDTCsHYP41uKA78zUSaxZF32aie1KJn/qWJp+NycI1+fxPKqjqYe7Cc+FXuYzH/2HFg67rb3qQ2ArO9TkEPNqM6VGj48dbiUxGeJQtxubnc/PRGYeNvfLmRaK84doFPVWdkbWHgKhSePVLbB+NzYnrtR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hMYe7PFX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MOnM2+Wn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C80331F000E9;
-	Sun, 19 Jul 2026 18:15:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hMYe7PFX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38FC41F000E9;
+	Sun, 19 Jul 2026 18:17:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784484960;
-	bh=zAN9ptDDYbzsSmxT9BuixNmXSrTNrgbLOjdbdwaEqVU=;
+	s=k20260515; t=1784485041;
+	bh=bxS+HRDpwiyFsfByFIQ3b2Rr2QgXwuq1esZvZJuGnYo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MOnM2+WnOLe226P3XxWDOv0e7KPpv6vncq43L5jU6LAdgE/E8Mo6wiUDXE/qF3I8K
-	 prK22I1MBJpow1Zg7OKeGaJ+LO1V2KYgl0UMShVUOCMcARY5NRIwdH6Q21Q0LV0fDn
-	 r0TIgkj6irg44IWbl0bFajzRCEV6Mn+GTh1crC8QP4Acn1SogDjG7ld4uKbe6iDsLq
-	 Vd4G+uFn2yyPTby+9CV3imDY+aDWvvHuAw/gQtaxjWqzH1J2+SfnDkS1ZRALIHVes5
-	 E2JfI33a6Gug7hPXRAZliPW6mc8KTF2/hkLIUQyCvGbmURGFVmPXyfYDLQn3SIp/J/
-	 9g61uv3Y8+tog==
+	b=hMYe7PFXib5l+D6d2zwxqRzPqbepNfrubuywC9xuqL2TufCYpFRWvSW7OEc3FVpNR
+	 +ww8joznbvB4x/ZSdPE8LHlurej6VoDobiT9F3NP4Kyh0/YQq2qmtIa8nObOZhsvlQ
+	 zlAQFgn0RAc0RlLRGV12z7WqsCQNqR18qYJbcYYt39kOVJDfqpDB/O2vAC3pTbRZ1Q
+	 STJAwFDpT43j5MZrG7uNvOO5t3UkrDJEaxE+OAWf/0VsqyyDJp8Y51VW7rmyBjaILH
+	 3o3LndDSjavNHes/FDiBID4ErfUycAxIn3sHtk5EYo2Bl2F0htzubyE4yduTdZfzuO
+	 VjCCUwpF4d6Pw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: monaco-evk: Add LVDS display
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: qcs6490-rb3gen2: Add LVDS display
  overlay
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vishnu Saini" <vishnu.saini@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260719-lvds-support-v1-2-1f1aca3213ba@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260719-lvds-support-v1-3-1f1aca3213ba@oss.qualcomm.com>
 References: <20260719-lvds-support-v1-0-1f1aca3213ba@oss.qualcomm.com>
- <20260719-lvds-support-v1-2-1f1aca3213ba@oss.qualcomm.com>
+ <20260719-lvds-support-v1-3-1f1aca3213ba@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 19 Jul 2026 18:15:59 +0000
-Message-Id: <20260719181559.C80331F000E9@smtp.kernel.org>
+Date: Sun, 19 Jul 2026 18:17:20 +0000
+Message-Id: <20260719181721.38FC41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] The device tree overlay specifies an unsupported compatible string=
- `lontium,lt9211c` for the LVDS bridge without a valid fallback, preventing=
- the bridge from probing.
-- [Low] The `panel-lvds` node defines a dual-port LVDS panel using the `por=
-ts` construct, which violates the strict `panel-lvds` generic schema requir=
-ements.
+- [High] The LVDS bridge device tree node uses an unsupported `compatible` =
+string (`"lontium,lt9211c"`), which will prevent the driver from matching a=
+nd probing, and lacks a fallback compatible string.
+- [Low] The compatible strings `"lontium,lt9211c"` and `"boe,dv215fhm-r01"`=
+ are used but not documented in any device tree bindings schema.
+- [Low] The `panel-lvds` node defines multiple ports inside a `ports` conta=
+iner, violating the `panel-lvds` DT binding schema.
 --
 
---- Patch [2]: [PATCH 2/3] arm64: dts: qcom: monaco-evk: Add LVDS display o=
-verlay ---
-commit c66e770010c2090d7d3ca762b7283b36aac9f68f
+--- Patch [3]: [PATCH 3/3] arm64: dts: qcom: qcs6490-rb3gen2: Add LVDS disp=
+lay overlay ---
+commit 8bcbc23969051c16954909a078c84444cd4362af
 Author: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
 
-arm64: dts: qcom: monaco-evk: Add LVDS display overlay
+arm64: dts: qcom: qcs6490-rb3gen2: Add LVDS display overlay
 
-This commit adds a device tree overlay for the Monaco EVK IFP mezzanine to
-support an LVDS display using the Lontium LT9211C bridge. It includes the
-bridge node, panel timings, and necessary power routing.
+This commit adds a DTBO overlay for the QCS6490 RB3 Gen2 industrial mezzani=
+ne
+to support LVDS display output via the Lontium LT9211C DSI-to-LVDS bridge.
+It wires up the LT9211C bridge on I2C1 and adds a dual-channel panel-lvds n=
+ode.
 
-> diff --git a/arch/arm64/boot/dts/qcom/monaco-evk-lvds-boe,dv215fhm-r01.dt=
-so b/arch/arm64/boot/dts/qcom/monaco-evk-lvds-boe,dv215fhm-r01.dtso
+> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanin=
+e-lvds-boe,dv215fhm-r01.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-ind=
+ustrial-mezzanine-lvds-boe,dv215fhm-r01.dtso
 > new file mode 100644
-> index 0000000000000..d62f6baeca858
+> index 0000000000000..65af688503429
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/monaco-evk-lvds-boe,dv215fhm-r01.dtso
-> @@ -0,0 +1,131 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +
-> +&{/} {
-> +	model =3D "Qualcomm Technologies, Inc. Monaco-EVK Mezzanine Lvds";
+> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine-lvds-=
+boe,dv215fhm-r01.dtso
+> @@ -0,0 +1,110 @@
+[ ... ]
+> +	hdmi-connector {
+> +		status =3D "disabled";
+> +	};
 > +
 > +	panel_lvds: panel-lvds {
 > +		compatible =3D "boe,dv215fhm-r01", "panel-lvds";
+
+[Severity: Low]
+Are these compatible strings documented in the device tree bindings?
+
+A search of the tree reveals no schema definitions for boe,dv215fhm-r01
+in the panel bindings. This will cause make dtbs_check validation to fail.
+
 > +		data-mapping =3D "vesa-24";
 > +		width-mm =3D <476>;
 > +		height-mm =3D <268>;
-> +		power-supply =3D <&lcd_disp_bias>;
 > +
 > +		status =3D "okay";
-> +
-> +		panel-timing {
-
 [ ... ]
-
+> +		panel-timing {
+> +			clock-frequency =3D <148500000>;
+[ ... ]
+> +			de-active =3D <1>;
 > +		};
 > +
 > +		ports {
 > +			#address-cells =3D <1>;
 > +			#size-cells =3D <0>;
+
+[Severity: Low]
+Will this ports container cause a device tree validation failure?
+
+This overlay matches the generic panel-lvds binding, which strictly requires
+and only allows a single port property. Panels requiring dual LVDS ports
+typically use dedicated schemas that explicitly support a ports container
+instead of falling back to the strictly single-port panel-lvds.
+
 > +
 > +			port@0 {
 > +				reg =3D <0>;
-
-[Severity: Low]
-Will this ports construct fail device tree schema validation?
-
-The panel-lvds.yaml schema generally mandates unevaluatedProperties: false
-and only accepts a single port node, rejecting the ports container used for
-dual-link mapping. Does this pass make dtbs_check?
-
-> +				dual-lvds-odd-pixels;
-> +				panel_in_lvds_odd: endpoint {
-> +					remote-endpoint =3D <&lt9211c_out_odd>;
-> +				};
-> +			};
-
 [ ... ]
-
-> +&i2c8 {
+> +&i2c1 {
 > +	#address-cells =3D <1>;
 > +	#size-cells =3D <0>;
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&qup_i2c8_data_clk>;
-> +
 > +	status =3D "okay";
 > +
-> +	lt9211c_codec: lvds-bridge@2d {
+> +	lvds_bridge: lvds-bridge@29 {
 > +		compatible =3D "lontium,lt9211c";
-> +		reg =3D <0x2d>;
 
 [Severity: High]
-Will this bridge actually probe with this compatible string?
+Will the display bridge driver successfully probe with this compatible stri=
+ng?
 
-The string "lontium,lt9211c" appears to be unhandled by the kernel, lacking
-a fallback (such as "lontium,lt9211"). Could this prevent the device from
-binding to the driver and leave the display pipeline non-functional?
+The upstream Lontium LT9211 driver and its match tables only support and ma=
+tch
+the lontium,lt9211 compatible string. Because the overlay specifies
+lontium,lt9211c without providing a supported fallback like:
 
-> +		reset-gpios =3D <&tlmm 66 GPIO_ACTIVE_HIGH>;
-> +		vccio-supply =3D <&vreg_l5a>;
+    compatible =3D "lontium,lt9211c", "lontium,lt9211";
+
+the I2C subsystem might fail to bind the driver to the device,
+resulting in a dead display output.
+
+[Severity: Low]
+Additionally, is the lontium,lt9211c compatible string documented?
+
+It does not appear to be present in the lontium,lt9211.yaml schema,
+which will also trigger dtbs_check warnings during device tree validation.
+
+> +		reg =3D <0x29>;
+> +		reset-gpios =3D <&tlmm 117 GPIO_ACTIVE_HIGH>;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260719-lvds-suppo=
-rt-v1-0-1f1aca3213ba@oss.qualcomm.com?part=3D2
+rt-v1-0-1f1aca3213ba@oss.qualcomm.com?part=3D3
