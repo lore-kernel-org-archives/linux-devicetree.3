@@ -1,112 +1,119 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0FED26AC3
-	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 00:15:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD9F1EA7DB
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 01:11:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784420118; cv=none; b=dXrKAdlU8ZRmcK+mQu2wCu9OaU3RRi/dctbAF5XZuaHHrD3dGRrY8Xz9OMVqTJe98PYICfTJ1pLOJU/BgVY4pRumScQhxffyx42J9b4dfcI4e6Neo8yMxeZ+OvHuOnQt4i2ueGh2k12K9iS8wn0F3FMjjRT8YhUVrTVECm9PLik=
+	t=1784423504; cv=none; b=CA2itIxwwJ5bzpNvHbGovVJAefAnUe1b3mkC2qe5pZjYslshwQlXpWzeawblppiedu25vwpI4HkFwUguAILdJYCcy7PdkybiqS3M52MorlOzjn30jSsQtfR+JGsdbErvu2NWa7qL2UC5Hjx1o7W/Tp8yATXEeQrE9/KULef7rU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784420118; c=relaxed/simple;
-	bh=u1fp1alkBNst/d1DzrEnNRW68x049gphSMGWlVawCIo=;
+	s=arc-20240116; t=1784423504; c=relaxed/simple;
+	bh=0TfEzFFGXqmt4Xl+O4yLjBvtmcrtUB9VahO854SBzmE=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WyP1qlZgsnfNkqVuI9PD7Q60l4c8TEY95L6sblvxBsmgqHPCEpl94wcuPO8NoryImRlz7M08HpAUVf63VY5uU/T7Z28jFAxGSxg9AUlY7jIlVLUjevMhydMhaV4hWvAo2vkMtcMUNfgEX6/HMn6hh1CVWos0ziQhAa+QXParJzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RUCLgyIR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=M3egmu6u; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version:Content-Type; b=qf0HX8Ozj5PN+8vKyz2spH0N+gXcdLxgXV9g2Re8dE/6VaefHjGtDgy7cGgpUp6FWAnFOv6b/fNYOmnJrpjxfQLWNekDvkF08CbcTSP7337T2nkw6jsGgzZLZ8ib+iiCm6QCvx+m5AYcl4BxdDA2eez/0jWi9+sJIfxvNgetruc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iaIRoWwY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JEzr40hY; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RUCLgyIR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M3egmu6u"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66IN2DU21585163
-	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 00:15:15 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iaIRoWwY";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JEzr40hY"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66IN2lSg3060006
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 01:11:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jVtBejOk/fS9XQZvzarHu+foBgQblzV41Qics6xtFZ4=; b=RUCLgyIRYVts9/2s
-	6+y7DuyqiVzp5l33JMD9gJqSwGPG7bHiCuiHZjgRPIPWzkOTf6ajAA4RJvvihwxl
-	3V91JAmPf+SRgPdoZJYk43iIHaVuBgzrB1TTK8MDCv6igWSxhIurQjK6tLiibFBY
-	zKEGYPVVN5wtSIBl89y4jf/vXkSkqzsJcQyomvkI5rvADW+/eJ2UosjX5C5qjvsW
-	WmZR/+A9euUPR/oCJRPG54xCRZ/j/yx0zrQSlEq2UuthZsdBZbU1xeMEuKlSbFGG
-	7+5LJCsI2V5nJwELHJcMpbskCC1yZQx3+SrGHyLrwtMzqiFLs943HQCwu0bR06M0
-	QdJgTw==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2nhhsfk-1
+	Ju/k8V62Ud0g8qqzByRylNWN6L6LzWDAf/Nkbc0IKfk=; b=iaIRoWwYMOrpfvEC
+	lWzZ3GuoH2ux5OVyTdwd2N/627pEf8oUOpsh6R0pBvbcswoI69JWakE+zibxTT9A
+	9vWD3z0ELAn0/ZmoAxspqHSsgkCkWfKX2ahjfDa5bmJClynPHMjhXKhV0NAGo5qo
+	kN9F9mck2FAWnqrtI3qJ/wYc/Dah4U8nXCnpjjOlGAAIl1VPFwCVV8ykjsViFWSU
+	71gVRuPnKPRUCWvUSUFDdKT0sXJOB9NUNB1Nqd2usnSdPSt4qb+a/pxG3cN/7jLa
+	iiAzckuIsteVlXVwOGsUXNmt8MPxklANDT0Nx8A7/JXVPcG3sAxyizyThH06uMDs
+	XKkzAQ==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2aasusm-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 00:15:14 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c88cfe287e1so5230511a12.1
-        for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 17:15:14 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 01:11:42 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-848d21bbb55so4152781b3a.0
+        for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 18:11:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784420114; x=1785024914; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1784423502; x=1785028302; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=jVtBejOk/fS9XQZvzarHu+foBgQblzV41Qics6xtFZ4=;
-        b=M3egmu6uR/v4t7VVo0x6s3uFM2hUuzGlDyu24kqAAJgo0eSGFxXrDSChjIq46P8O04
-         hBZIxq4zWc299PtJvfUVvzBIrYUckCuOZrEVAPCPXYc7h7iq5+GevmpcG6toUMPEzyyr
-         1Mvp/46Q+sVhaT/+a/FOeMgnisjFpn+e6iLgAiEfLpbBpS/G6+4eQDBuokvy3FemSavF
-         2DoB55JmwCkcJfQ5ncUQGW+/qIrgbd9UuncPy6REZVOOH9alqXCFRMhIiaNEdiG1aC1A
-         7W9ADVeHKTZNY5y4CyvW/GC7ys50lYkw6IUv0OJrGEvjl1zxSrAZi+TLbxeF2g2v7eJu
-         trIA==
+        bh=Ju/k8V62Ud0g8qqzByRylNWN6L6LzWDAf/Nkbc0IKfk=;
+        b=JEzr40hYCcswKTq+SnlOWKAVOZFQ1zmAh64OEsEOwNCQmXFmWeaB57aHrKmghgA+15
+         wJs/6vA+d8w+97iEb7wfa8nrhMN8VI9BFrDNSaFYN/muCndf/VtEH1iNie15w4nLC3dH
+         q1gOaU24aWOKIeJ1+kVO2EuZ13YUGK9z0w2TCLNniw1yzP4XAWFicUEKjNUmeLltq0K7
+         TDKSuS+GamLb+gQ4RfqijCX4bEejsqzbacZsrzv4BV8DuIr3Wqb6TgXUI3uRLJco87ux
+         lwznqrAiFrqiwQI3pDbnFAzVZQ2r/JgosKXPRyebLkJUEetyo3P+qiF917GZHxiESdGf
+         yoaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784420114; x=1785024914;
+        d=1e100.net; s=20251104; t=1784423502; x=1785028302;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jVtBejOk/fS9XQZvzarHu+foBgQblzV41Qics6xtFZ4=;
-        b=XBexAJCOw3KB68aV9MKfVcic7ar14iD0rMiYr4U18hYNm0kK5FITymLzmPDXy3Q0gN
-         Xo/13ONz0mkeavgjG44AjA8Ex3uzx6SghEf2Cs4Ps6dz5Tmdoj/URf8uHIz1f723mGQC
-         XdmmMbTJSDStNvJQFRpDe4xtP8oE+q9Q/wmslJA5gUx9OjTvLqNiyIH/GdO+20QlM3WB
-         97eHbYUXFurOX0uL8UpeaApNvSHoJCwyccZPfq0ekiJqP1CnmaXOYPNgptG3d9wZoLiD
-         Qu0WbV7M8MPdEfLM98vLicuRb4q2VPw5whiHNgD/xpTd+Hgotyjpu9o5z/GZjknPLf3S
-         7l6A==
-X-Forwarded-Encrypted: i=1; AHgh+Roz1obqB5zmB7vuxWYQeb+1m86ZPF7J6YJc+zagbE6ynRoUBVV9pUOU6zZJ6jSkQ1lfUDpSp8WPo4xj@vger.kernel.org
-X-Gm-Message-State: AOJu0YxUnhkxqlx2XVTY26Ub4m5kwmxQEW0wCJdoeHNeztasdtz/2l5X
-	Bqc7qIAu6HNbFpC7kMp+IdUL6Xwt51/NpDvdl2IkboXlloGbF2RhDY8IspV0HqzMHjyANw5XZ1H
-	IC6KkcJGGRTPkbFjdXzx0JIT9LW4JemmAu/z/+hbvG6GLRECSTnJu5EYTbkaHD996
-X-Gm-Gg: AfdE7cn2wtnpjwiGWg1FZEr2TIyHiFDfvVBN1eNY3ODE98AyCId3pRdrPREsAbTC7mO
-	HEOWykEFjLOBCBQad2FPRcbi8kCyEAHrOAJEo+NEk5FGqgN6grZWuAZgvTt8vo3qb8Yp7XYri0C
-	xB/y6+LpBfu0Ck9BZS2GSAXno/OutGJVZy1nq7Ztm0/+in3pAlJTgs5aGMqPxuxZ/SROrkQOVy1
-	wFZGsQzmXi9UyHdkULYElveG/+2h6Zta5bYyVdMb4raruxFOLzFAgtQbTGrFYkt4rQ0ou1kqefr
-	IwdYVR2PobGozWDIjLrO66xalSyKM3+pB6skp/C1uQ8JmAIy+Xkyw3mk9i6kHa80GEs33hlB/3T
-	52siwE/cH1AFP2vuc
-X-Received: by 2002:a05:6a00:9283:b0:848:2f74:1d5f with SMTP id d2e1a72fcca58-84c29568665mr7946957b3a.69.1784420114218;
-        Sat, 18 Jul 2026 17:15:14 -0700 (PDT)
-X-Received: by 2002:a05:6a00:9283:b0:848:2f74:1d5f with SMTP id d2e1a72fcca58-84c29568665mr7946915b3a.69.1784420113746;
-        Sat, 18 Jul 2026 17:15:13 -0700 (PDT)
+        bh=Ju/k8V62Ud0g8qqzByRylNWN6L6LzWDAf/Nkbc0IKfk=;
+        b=gdOMX3ABExIxAs0Ro7HW57cJUXU9A+ofAXyemb6F4uabGr/XcXMCicGcfmesR8fqnZ
+         FgB/lsZtZqUN1IOIjF0gPA3eN3J1UFNPrFrGsvpgZPBBYR2VJtQM6pwlL+6lIFHQ0S99
+         7zjV6mG4X+AaQ4hd53Ml5a1Ev54H3jhELglOzyxobWD5i6JnJCGd2gG8Bq6IbJamNP8X
+         HQVPnCsUy1kBaS4r4Z20eCDYqpm98WLV3BRxVX8M8tu03Z4xeUXOKunFRFtbb/5Z0wiL
+         MbTdc5quG1Wwg0nbXFsrTFkf0YP1GVHwR9rZMjsn/4gKuc3E9fRAMSYVJlc4+Td5PjDT
+         zpGw==
+X-Forwarded-Encrypted: i=1; AHgh+RpImVvVGQTajNOJQBENoqMlOAuIApE8KpGwDHK4oPx6qyfQ6/B7cyUQuOYsbq/aKXuWSBv0oR5w6aKF@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxgfy7mDrJyxw9039a+re9YUztVdW4YvV/2aKrCGqgAlWVMJ0dc
+	uw12JPTwPylWDeRcruVenu6vMT2TO5j2Q42dMCbC/Nw99x/khpiJAOSVOSg4qFgb2T1PhGXvZyL
+	TAJaQWOxZrIqTq2Cu37V18cXMA64RMLXpmXbfqhOm4bFrEiyDqbnEmLxJm8gGI2gY
+X-Gm-Gg: AfdE7ckFtOqC8WoBcjy5t3PCWKFNFKUYjhJRCNbCy89vnH8PISEWN76Xz1jyx00xFTb
+	53YaKJc+HFK0MpqPBY5U7DJmGytqMep/oJcCfV/+BG0aQKDqd8BFa0Nw0DYOuZI5B5HJOeuPVPz
+	GDBymEuuIP/JpcWegEDS0tJj2ESNvq9mOG9RlWYsplPhCu6RmUwNVjtOpCB5BTNO+wZgR92Sncp
+	4Z6+KFeXBqKrnnCpAmvtm+5MvR0lF1dm3IHO5S9SjRU49A2Y1ZwYkpAPNGmVE1OpdchBxHzCCK9
+	C6/ULCa1F74uzX3Fr3+qAR23lyLkTgTxh2+fACVca+0/hc9fzj6bCBbUIX8ogQUiIK/0+/4IYc8
+	C3tHUEcc1NIPsi3km
+X-Received: by 2002:a05:6a00:428d:b0:845:e011:5b83 with SMTP id d2e1a72fcca58-84c29069af3mr8992863b3a.0.1784423502057;
+        Sat, 18 Jul 2026 18:11:42 -0700 (PDT)
+X-Received: by 2002:a05:6a00:428d:b0:845:e011:5b83 with SMTP id d2e1a72fcca58-84c29069af3mr8992841b3a.0.1784423501638;
+        Sat, 18 Jul 2026 18:11:41 -0700 (PDT)
 Received: from jic23-huawei ([50.35.46.84])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c2ad89d0csm3466351b3a.6.2026.07.18.17.15.11
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c2adcc74csm3588167b3a.18.2026.07.18.18.11.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Jul 2026 17:15:13 -0700 (PDT)
-Date: Sun, 19 Jul 2026 01:15:07 +0100
+        Sat, 18 Jul 2026 18:11:41 -0700 (PDT)
+Date: Sun, 19 Jul 2026 02:11:37 +0100
 From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: rodrigo.alencar@analog.com, Michael Auchter <michael.auchter@ni.com>,
-        linux@analog.com, linux-iio@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-hardening@vger.kernel.org,
-        Michael
- Hennerich <Michael.Hennerich@analog.com>,
-        David Lechner
- <dlechner@baylibre.com>,
-        Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook
- <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>, sashiko-bot@kernel.org,
-        Maxwell Doose <m32285159@gmail.com>,
-        Joshua Crofts
- <joshua.crofts1@gmail.com>,
-        Andy Shevchenko <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v8 0/8] New features for the AD5686 IIO driver
-Message-ID: <20260719011454.10239afd@jic23-huawei>
-In-Reply-To: <20260716-ad5686-new-features-v8-0-ebb0051af5e5@analog.com>
-References: <20260716-ad5686-new-features-v8-0-ebb0051af5e5@analog.com>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Esben Haabendal <esben@geanix.com>,
+        "Lars-Peter Clausen"
+ <lars@metafoo.de>,
+        "Rob Herring" <robh@kernel.org>,
+        "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>,
+        "Conor Dooley" <conor+dt@kernel.org>,
+        "Martin
+ Kepplinger" <martink@posteo.de>,
+        "Sean Nyekjaer" <sean@geanix.com>,
+        "David
+ Lechner" <dlechner@baylibre.com>,
+        Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>,
+        "Andy Shevchenko" <andy@kernel.org>,
+        "Martin
+ Kepplinger" <martin.kepplinger@theobroma-systems.com>,
+        <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] iio: accel: mma8452: Allow open drain interrupt pin
+ configuration
+Message-ID: <20260719021137.6acb5dee@jic23-huawei>
+In-Reply-To: <20260715150148.000045ad@gmail.com>
+References: <20260715-mma8452-open-drain-v1-0-b1dd2a440c60@geanix.com>
+	<20260715-mma8452-open-drain-v1-2-b1dd2a440c60@geanix.com>
+	<PLKuTyVcES-o-CEsU7WA3Ir7-phI9WLM9PJ5UErJeahWgus8heVF4GPky0SC-EpaHLv54lZya37ivhub3W9kNQ==@protonmail.internalid>
+	<20260715104542.0000433d@gmail.com>
+	<87pl0oo5iq.fsf@geanix.com>
+	<0RfJ6kNIpjdTDIh2uWC-FK3HRObOpQWqSWRm6hTgOFq6_wdHDyRfpatKMsvApvfFc0r-ye6piEWG888mBhp3yw==@protonmail.internalid>
+	<20260715134053.000012d4@gmail.com>
+	<87bjc8o32z.fsf@geanix.com>
+	<20260715150148.000045ad@gmail.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -116,122 +123,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=Le0MLDfi c=1 sm=1 tr=0 ts=6a5c1712 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=qC1CW/w66vtJz1P9yTJxNA==:17
+X-Proofpoint-GUID: Gtl421edvh30GYo1ZdX8BLaM5qwMEGa5
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE5MDAxMCBTYWx0ZWRfXwX+VwHWytWrK
+ TjUNq8fqRCk7115rA9vmP0osXx1eAua7Kf1zlAHZP0XDUVQtSZNTgOZWELWnvptqapnjd47XRFT
+ 8Hr53d6JlYwMpis2GulujNQ0hmiJZrU=
+X-Authority-Analysis: v=2.4 cv=b9aCJNGx c=1 sm=1 tr=0 ts=6a5c244e cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=qC1CW/w66vtJz1P9yTJxNA==:17
  a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8 a=evLihkQWVGAqolPEgxMA:9 a=CjuIK1q_8ugA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-GUID: IeD26PhNV4yVCueloBgWwYl_V9fttGA6
-X-Proofpoint-ORIG-GUID: IeD26PhNV4yVCueloBgWwYl_V9fttGA6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE5MDAwMCBTYWx0ZWRfX4sDpF72e/uNK
- lsyZEgTDrq+YMrcr53QQ+DyAYg3O3rjqkJShr4LyDnT3nb9LCWbt+AXXIl7P2ubsi3Z5jAEjKWC
- uHj06fcH5bPhaNrt2FiW0oTHZbCFbe4kjSo+c5peJZu0adwgdf2yydUDMJWwqrGPyyBQC5KCXJN
- TrfO97mKxqUdc5lsRIScsrRRM9khpmnrYdmUgsjwanmhVD9kQK/zOHvArzirAm0esj8//9jEoiY
- 3L17U7JWjLT3yWcEFDfAl7rtLydFQZwGNOakWc/CFp9bndu8LsRjjXjB2CdijbqAjtu08c0qBKm
- 5qw+nryePuIY01cL1I5RF/RNf3QLmzcjWez9j5Wd5R3Y6vxNs/bcpZBHwhUaknM9OoJvbhUt7Mh
- CBLMsv10BEW2szpgoKX+BtdGfcMFIeXwO+x2cNgVfGCfBWXccaLHRHLsfuWE+ez5vFkxas+FrNS
- 18rVeOXiTEwBUFSvFSA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE5MDAwMCBTYWx0ZWRfX6zTe23OmxSVc
- AGjz8klUS0MUDYLoeBoxC91zo1Hy8znkJ5zPp/edLYot8w9lULK4hwZ6lovst8CRnwliCd9i8xa
- 14XlJ4hHxQpp575tsTKU7phGv/LvRrE=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=pGLkceISAAAA:8 a=ilKATfAMAAAA:8 a=DeELNmMnKrt2i4icEn0A:9 a=CjuIK1q_8ugA:10
+ a=OpyuDcXvxspvyRM73sMx:22 a=73awMTU50e6eLoBjGbzZ:22
+X-Proofpoint-ORIG-GUID: Gtl421edvh30GYo1ZdX8BLaM5qwMEGa5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE5MDAxMCBTYWx0ZWRfX0FQGDLXsBD5n
+ iLmsriG+EKAEMCaghLu+emxejU4Z4STNOX7P8u/TBO3TXSiQ02SU0S3odj5r8ltaxLVLlefh2UN
+ S0UMzka3fWm32kzFTXZnFGHYANyE3oZ8aCJiFK+g4pgP/nRjwgC1uh01xr3mZMOBjp0C5+Y6VqD
+ 30t/bQE3Ic4+uty4++Dqy/UpdCCqwC09Cwzn0pDCvcIREl3gSytUzY9DhYTNy8eL9ywzZte1z6O
+ WFujhfv0wkd/f8RQeTaWSuKoVG+Rj6G+rueSCnR9y4GBjlWXI6WqnhSNGXq4Gxtbtt/GHEYSX2o
+ T2HIVI7AOGpTutlGvNu3ogNokax2owWGAH1IMU9hQqriELRBK4Z33gW4wPneRYGL/xhdnZWwx9J
+ vDGb+Y5tmXxX2Rjpef4bsmX3DIDlkY1SPaOT1C7ZfpuJxt6CUKjcUgC40PshknnV4AgrnI3q30I
+ dGrL8sycK6Rhx/yP0UA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-18_07,2026-07-17_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0 phishscore=0
- bulkscore=0 impostorscore=0 priorityscore=1501 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607190000
+ impostorscore=0 suspectscore=0 phishscore=0 priorityscore=1501
+ lowpriorityscore=0 clxscore=1015 adultscore=0 malwarescore=0 bulkscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607190010
 
-On Thu, 16 Jul 2026 13:14:16 +0100
-Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+On Wed, 15 Jul 2026 15:01:48 +0200
+Joshua Crofts <joshua.crofts1@gmail.com> wrote:
 
-> This is the second series of three on updating the AD5686 driver.
+> On Wed, 15 Jul 2026 14:21:56 +0200
+> Esben Haabendal <esben@geanix.com> wrote:
 > 
-> Initially, a big patch series was sent:
-> https://lore.kernel.org/r/20260422-ad5313r-iio-support-v1-0-ed7dca001d1b@analog.com
+> > > I'm not sure if this was intentional or not in the original implementation.    
+> > 
+> > Ah okay. I assumed it was intentional, hinting at the hierarchy of the
+> > defines.
+> > Should I flatten that, or is it okay to leave it as it is?
+> > For what it is worth, I like the current format :)  
 > 
-> Then, the first patch series added fixes and cleanups:
-> https://lore.kernel.org/linux-iio/20260524-ad5686-fixes-v7-0-b6bf395d08bd@analog.com/
+> Up to you of course, nobody can force you to do anything :P
 > 
-> This one is introducing new features:
-> - Consume optional reset and correct power supplies;
-> - LDAC GPIO handling (active-low, held low when unused);
-> - SPI bus sync() implementation for batching multiple transfers;
-> - Triggered buffer support, leveraging LDAC and sync() to flush
->   all channel writes atomically;
-> - Gain control support through the scale property.
-> 
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Applied 2-8 but with tweaks as called out.  Pushed out as testing, please
-check I didn't mess it up.
 
-For 1, hopefully I'll get some time this week to put out a set adding
-the defensive check in the i2c layer.  That API is just too weird
-today for my liking.
+FWIW I often ask for this style as it makes it visually much
+easier to see what each set are. 
+No extra spaces == register addresses
+2 extra spaces == fields in registers.
+4 extra spaces == values for those fields.
+
+Naming does this to some degree but doesn't span multiple registers
+or fields in the same way that a bit of indenting does.
 
 Jonathan
-
-> ---
-> Changes in v8:
-> - Add nul-check for chip_info match data.
-> - Update comments/commit text and other minor changes.
-> - Link to v7: https://lore.kernel.org/r/20260710-ad5686-new-features-v7-0-1bcc8c280e4d@analog.com
-> 
-> Changes in v7:
-> - Fix return value check of i2c_transfer().
-> - Amend refactoring of command/data macros.
-> - Link to v6: https://lore.kernel.org/r/20260705-ad5686-new-features-v6-0-269594c7aae5@analog.com
-> 
-> Changes in v6:
-> - Refactor command/data macros in favor of FIELD_PREP()
-> - Link to v5: https://lore.kernel.org/r/20260628-ad5686-new-features-v5-0-577caadbf7c0@analog.com
-> 
-> Changes in v5:
-> - Create auxiliary handler for the triggered buffer.
-> - Do not allow modification of double_scale in case gain_gpio is not set.
-> - Link to v4: https://lore.kernel.org/r/20260623-ad5686-new-features-v4-0-28962a57db0f@analog.com
-> 
-> Changes in v4:
-> - Replace anyof+const for enum in dt-bindings. 
-> - Address some sashiko's comments.
-> - Use guard(mutex)() in trigger handler and other misc changes.
-> - Link to v3: https://lore.kernel.org/r/20260616-ad5686-new-features-v3-0-f829fb7e9262@analog.com
-> 
-> Changes in v3:
-> - Add range-double property.
-> - Acquire reset control after power-up delay.
-> - Include cleanup.h and use guard(mutex)() in read_raw().
-> - Link to v2: https://lore.kernel.org/r/20260609-ad5686-new-features-v2-0-70b423f5c76d@analog.com
-> 
-> Changes in v2:
-> - Get reset control deasserted.
-> - Update entire spi_transfer struct rather than individual fields.
-> - Replace udelay() for fsleep() in probe().
-> - Minor changes addressing further feedback.
-> - Link to v1: https://lore.kernel.org/r/20260602-ad5686-new-features-v1-0-691e01883d27@analog.com
-> 
-> ---
-> Rodrigo Alencar (8):
->       iio: dac: ad5696: properly check i2c_transfer() return value
->       iio: dac: ad5686: missing NULL check on match data
->       iio: dac: ad5686: refactor command/data macros
->       iio: dac: ad5686: introduce sync operation
->       iio: dac: ad5686: implement new sync() op for the spi bus
->       iio: dac: ad5686: read_raw/write_raw: use guard(mutex)()
->       iio: dac: ad5686: add triggered buffer support
->       iio: dac: ad5686: add gain control support
-> 
->  drivers/iio/dac/Kconfig      |   2 +
->  drivers/iio/dac/ad5686-spi.c | 142 +++++++++++++++++++++-------
->  drivers/iio/dac/ad5686.c     | 217 +++++++++++++++++++++++++++++++++++++++----
->  drivers/iio/dac/ad5686.h     |  52 ++++++++---
->  drivers/iio/dac/ad5696-i2c.c |  18 ++--
->  5 files changed, 355 insertions(+), 76 deletions(-)
-> ---
-> base-commit: 4c0ecdbdc0d87570f74e656e21d56bae1ab6a8f1
-> change-id: 20260602-ad5686-new-features-e116c04bddb9
-> 
-> Best regards,
-
