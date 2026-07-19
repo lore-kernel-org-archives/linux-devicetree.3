@@ -1,150 +1,248 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E8343F0BE;
-	Sun, 19 Jul 2026 21:24:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E432B17BB21
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 21:30:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784496292; cv=none; b=QKhFrHhaB9PUX04r6RRnNZEYNK2eZrIHH+RRPC4mJBZoDGZibfzCzb5jvgRE1Wgs85kTVfFmUOCLK7RLie5eFr6TR1Qw2uwhygkPTPV8razFGp3X5IqfTi+eBBgJaUFC3ZmKnX0+dwFakylE6zg47xZrJ/h6jduquV4bnoE1aQY=
+	t=1784496658; cv=none; b=M4PnjfxbPnQfIOrUfRAyOqECEHHhQwBTonS8WD/Ag2WEo0qVH6HsnJ0R8H3EwCem+GYpTCggsvRl0Y6jnDBSzZh1gBEvycoaUsI82xmbJoOB9U6Eu+ePq7kv/ODvFeb8xmXtEwuhPjFsOBoGsc7CgzKkyj4syqw0H6LhUQx9RxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784496292; c=relaxed/simple;
-	bh=SroTm4qpWcRBKHmJ7r5PXwb+eOHxI6t+GZ/nBqHsjME=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Sh9yeefs6AXWJ3aFPC1Roer9HWmtARRROdELwnulpY/aJmB1h0j5qxCXwJt4JvxB5/lPYnCRBcnJEcTam3gxr73TqsF2t6GpTegbv3F9YDT8u4lFKhhlZbFchoXXT+dXQ53DziVE68YXNPmMxk/LvIoVJWeQ6IYTA2ynRQmbN+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nGELbAJE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784496658; c=relaxed/simple;
+	bh=uYhD72jyFtcft7wqlIG8dj+1gNo5zDOA0i7x8wGPwXY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VbSJb0ZDoKwRXL4Wkwadnwn5yYchnTFLQ2JaSXIyQkvZYYR2K4icuYjcYH9QULdrBKCPpMfsqIDhWS8iKqhb2GguaHzvPdSEUutJW2sLruwfoej2WoPMrsTojCZMh7CPBgddHJvJhLvOYW0VumWKNihMkiZlNh7SPvj3ubIrP1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LvmYWNts; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V4uyfDfM; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nGELbAJE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1B7F1F000E9;
-	Sun, 19 Jul 2026 21:24:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784496291;
-	bh=XyLPM2cunSI1SY8qFdpOOQaBWYiUSp+VgnhJXH4pe4w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nGELbAJE94MPbDMYqP0Q0gc9DjN52m0Iv+npLvogjpgGJrhnOebZ5aIEUdiSSwF9K
-	 06Js7+8lq7+dpLpuSSnTi4grTv/0a5g/ux543eguZ4Jhs1njexOEdLUaLehkeqrwa8
-	 yMtU/i5Uc83iums02yi3Myxp6uuU8c02fVxttI1LtddBMqdDRFFmreMdtEAASzcwsA
-	 Q3a3GWnzZ4H/VcvhX48B7bf1kdHKG84QXBwzdZiCm8LjfFqcrf+Fmp64WKO4NuFEod
-	 ueXl5iW5xtAKxjyPgQhvtPky+FEyU3J+8lJxflBNnTQWn0pQ/yTEXnRcmyuZRFFkM8
-	 Q4up8uSkIl3LA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 1/4] clk: sunxi-ng: add cycle-masking divider
- (maskdiv) clock type
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?SnVhbiBNYW51ZWwgTMOzcGV6IENhcnJpbGxv?= <juanmanuellopezcarrillo@gmail.com>
-Cc: linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260719211319.982285-2-juanmanuellopezcarrillo@gmail.com>
-References: <20260719211319.982285-1-juanmanuellopezcarrillo@gmail.com>
- <20260719211319.982285-2-juanmanuellopezcarrillo@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 19 Jul 2026 21:24:50 +0000
-Message-Id: <20260719212450.D1B7F1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LvmYWNts";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V4uyfDfM"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66JKS2Cc146582
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 21:30:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	4GBWwZd4zr1Ikl+41JSFiE4ebzTAey4w2s4sUP3axoI=; b=LvmYWNts6O0KOow8
+	xyNpIMVhrtLplYd/lXwieeu3mt2YWY3DMDhHlcBUhvRxlPUWRtBvjuYlTW8bE8YW
+	kVoY/Q9WKiQ6WGLH5qIOi4nUxz/88iW7lGqGTIhKYc+EfaCsz92dce6SpB0rI4eX
+	Vam+qaOi34hUhhBx0c1WSDtra5/3JO3wjolHizxaIv/IJ8lp1QFjWhKC9VaVl48s
+	toq4+9uxDub6A1JQJ3F2h3phpjZ4tHXiS5pYjKblkGUbGUUcnXpJsKdBS6Y4B/D+
+	FJctbfJQR1KAXN5LAKmUtwo8CKkvN/l4plh1RToJ7X6epa2FqZZ8jfX/WSCWAGQT
+	mN37jw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2s7ues4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 21:30:56 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e22137fb3so7124248a91.0
+        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 14:30:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784496655; x=1785101455; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4GBWwZd4zr1Ikl+41JSFiE4ebzTAey4w2s4sUP3axoI=;
+        b=V4uyfDfMvj2+QhqbGnA8tE0j/LOnarFnNwMGOsNc31YcWdSUvUWEI7hLm6tyJZT90U
+         9xm2TqzirpJaGwNnSVv5xRnsUie9T6+2j+k8ippyA42u6/CphQt5GL4PaeSGdS3oB5sF
+         wb9o5SY00OgQoUBO90jXSq0hFTF05vyodMfcmPEsQZfOZdi1Mp4XUHu6BbSW0uU3ixw2
+         Oh7P5q8DQVS/Xl28gPkmbrssCKud3/CW5XohFlyk/xjhWoFDFgUz3PW8SJGzDbm5Bb+k
+         LMjFS13Q8pq3Ze6dHrB4D+PYgQvg+IbaZWZlqYiPfR3kwrXUsslecpCdfb6gFx4cuXqK
+         IGnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784496655; x=1785101455;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4GBWwZd4zr1Ikl+41JSFiE4ebzTAey4w2s4sUP3axoI=;
+        b=NjvKp7aaAjwEji1MwBV3sSoW/6C0EJW1jd/JPHL/yB/szkfv4ATzqlkqpwwcFXCPEE
+         +d12tibC4miMKEGdHxgGvGjupDTgeHxbtf9HtIMTounzEIKc6braO58KxIMH8KxaQ0vf
+         2eJhqCX64WSHwaPEuKsmV96eBt7xK2ybRkmbcO51qtEM8Lv1p28xaF9i7kkPJ0JBhDzn
+         NXVCidJaIa7rP4JHeGTPzaaI4wFffFyccVPaFc1ZfGcO8em/vESVm5gY5zPDvPkD57Cd
+         E1CMUfdvT88320E1RKjMz9IRFPTi9ZHft9W0sO9ut9OHQI4fYnd7i3D3Li/0E9+8GP90
+         51aQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rocog+XlyxUMew+IPQApETAT5Cv5Ln54gpqVWxt3II0gC1tErLvql7rw+ZliUvRt326gk/jvKTLD+I2@vger.kernel.org
+X-Gm-Message-State: AOJu0YzFkKBKvBMGzzXuCugKTE+WJNUqfOq+uFzVgNZHCcaaWmn5AWys
+	fKR3I/x3hHj+nsNDFHoB3kf0VSkqs1mfu8GJ1SLKe0ZoMoI1YIk9+Cb/IB/Q3F/InCAO9GTJpZ7
+	7FyS6+xkc2WLClLquUp24eTbz73dxdMPx3ZzREVJywJ+k80GrDu2Bfrsvo169KnD1
+X-Gm-Gg: AfdE7clDwezGLlGh/8IIf4VIJCFuLTCyunUI9bx525erVFkaqO8us4Lia2L6T+sfzKt
+	6p9vv2cn6VuSTZkzUD0gmsmfdzo9aZpC9JM3zslaJhAzDtMTwEFfBJ7LjjyAla2RenczRqPhvR0
+	Y/S3BwHz0haJpfvnFinN7JNhCIR2CgljRMSL+FdpnFG4gh1ms+bZ/90GnvI99Gf9J8nCrt+QMtV
+	3EopZ+luty0j1SwjXawIVH7TGk1uSX47zRpoLSwxo9eQSoo3/N0rA4ZqAS1fgjhv6HCpzDaHCV+
+	ZmYCaw8z/oviQ+r3zQ1g38Y/L7VxjV21ofyZ9/6V32FUimA+CJn9thyYrF8Cm0Z/WyiUwXfoORr
+	6usM78gb7RKd8iXVz
+X-Received: by 2002:a17:90a:d405:b0:38e:712a:bb38 with SMTP id 98e67ed59e1d1-38e712ac393mr4103064a91.24.1784496655349;
+        Sun, 19 Jul 2026 14:30:55 -0700 (PDT)
+X-Received: by 2002:a17:90a:d405:b0:38e:712a:bb38 with SMTP id 98e67ed59e1d1-38e712ac393mr4103022a91.24.1784496654690;
+        Sun, 19 Jul 2026 14:30:54 -0700 (PDT)
+Received: from jic23-huawei ([50.35.46.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e4ae14a32sm4679897a91.0.2026.07.19.14.30.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 19 Jul 2026 14:30:54 -0700 (PDT)
+Date: Sun, 19 Jul 2026 22:30:48 +0100
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: rodrigo.alencar@analog.com, Michael Auchter <michael.auchter@ni.com>,
+        linux@analog.com, linux-iio@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Michael Hennerich
+ <Michael.Hennerich@analog.com>,
+        David Lechner <dlechner@baylibre.com>,
+        Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof
+ Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH 4/4] iio: dac: ad5686: update device list and file
+ header comments
+Message-ID: <20260719223035.0acb57d6@jic23-huawei>
+In-Reply-To: <20260719-ad5686-extend-dev-support-v1-4-841ec75cf5d8@analog.com>
+References: <20260719-ad5686-extend-dev-support-v1-0-841ec75cf5d8@analog.com>
+	<20260719-ad5686-extend-dev-support-v1-4-841ec75cf5d8@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE5MDI0MCBTYWx0ZWRfX8JHj/04m/8io
+ C5YQqM53alXjcJMhIHzBIdEnEz+GUPSW7kz0exZJcekyv6ufceNfIaf7kjebtGD+hGuvZ8oVn3A
+ UQCVqb7fiZ4tbARpiZDfZCICC0mIOz2s+LNnDiKU0XpkHxalbgvM/+1aIPI1A8JQvSMLGtDdpz/
+ IGdSE4OOs5eEGuCDRXBgngTwH9EKVHQpbBWdCEixYndqrN7y+Fsx0Coqq4yhZXLKVqlhA8E3WFL
+ IyhhEmteFz1r7Z/uUg9/EkLKty0IxvnM8bQdLDycRU0SutMpWYmT9sYrm9+y0HAKUQ7jxKLUtIw
+ XkkCkvpyhp+c4j93TjF3OlY1k5gc1kdPTHXvdq8BgHuMXTXIYnWcHSzL131/45nqejM0iEfs7nt
+ KEGtZxjNOieg2EyM7CVyhkX+tpCHru4HEZxghZpvfKpDqS2rtK6bAZ1hfhQL7qeQdrVUILQ5SU7
+ cXVvylAViPiwgQalGag==
+X-Authority-Analysis: v=2.4 cv=eKsjSnp1 c=1 sm=1 tr=0 ts=6a5d4210 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=qC1CW/w66vtJz1P9yTJxNA==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8 a=-MFOFTiwL1uGPFAEI7kA:9 a=CjuIK1q_8ugA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-ORIG-GUID: G1ld2vuHe6GWhUU4_yuqyiiXjKceG1dX
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE5MDI0MCBTYWx0ZWRfXy5dz7JOrBU4C
+ 4PZQGsV6x6PSLLuv7qtZHUHAYFu3Max7cvL2eL99eFkRZjPXivaq4PE3kJ1XYlPuywzFUJUnA13
+ 3xEtzPa8bOXBaD6qUFFJy9QFcueWoes=
+X-Proofpoint-GUID: G1ld2vuHe6GWhUU4_yuqyiiXjKceG1dX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-19_07,2026-07-17_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 impostorscore=0 malwarescore=0
+ clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607190240
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] ccu_maskdiv_determine_rate ignores the CLK_SET_RATE_PARENT flag, b=
-reaking rate propagation.
-- [Medium] ccu_maskdiv_set_rate fails to apply CCU_FEATURE_UPDATE_BIT and C=
-CU_FEATURE_KEY_FIELD, causing inconsistent state latching.
---
+On Sun, 19 Jul 2026 10:52:00 +0100
+Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
 
---- Patch [1]: [PATCH v1 1/4] clk: sunxi-ng: add cycle-masking divider (mas=
-kdiv) clock type ---
-commit 07eec9d5dafd1fbf248e0e56bb3c42f8da46589d
-Author: Juan Manuel L=C3=B3pez Carrillo <juanmanuellopezcarrillo@gmail.com>
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> 
+> Update device list entries in Kconfig and remove device description from
+> file headers. One can rely on the ID table(s) to check for supported
+> devices. Adjust comment header accordingly and update Copyright notice in
+> comment file headers with the current year.
+> 
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> ---
 
-clk: sunxi-ng: add cycle-masking divider (maskdiv) clock type
+Main comments here are about the patch break up.  I think it needs
+just enough modification for a v2 to be needed.
 
-This commit introduces a cycle-masking divider clock type for sunxi-ng.
-Instead of a linear divider, it masks M pulses out of every 2^width parent
-cycles, which is used for hardware like the A523/T527 GPU clock.
+>  drivers/iio/dac/Kconfig      | 31 ++++++++++++++++++++++++-------
+>  drivers/iio/dac/ad5686-spi.c |  7 ++-----
+>  drivers/iio/dac/ad5686.c     |  4 ++--
+>  drivers/iio/dac/ad5696-i2c.c |  6 ++----
+>  4 files changed, 30 insertions(+), 18 deletions(-)
+> 
+> diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
+> index d6d560c09e25..ba2065241af3 100644
+> --- a/drivers/iio/dac/Kconfig
+> +++ b/drivers/iio/dac/Kconfig
+> @@ -251,9 +251,18 @@ config AD5686_SPI
+>  	depends on SPI
+>  	select AD5686
+>  	help
+> -	  Say yes here to build support for Analog Devices AD5672R, AD5674R,
+> -	  AD5676, AD5676R, AD5679R, AD5684, AD5684R, AD5684R, AD5685R, AD5686,
+> -	  AD5686R Voltage Output Digital to Analog Converter.
 
-> diff --git a/drivers/clk/sunxi-ng/ccu_maskdiv.c b/drivers/clk/sunxi-ng/cc=
-u_maskdiv.c
-> new file mode 100644
-> index 0000000000000..2d3cccf081493
-> --- /dev/null
-> +++ b/drivers/clk/sunxi-ng/ccu_maskdiv.c
-> @@ -0,0 +1,199 @@
+Given this is adding entrees that were in the previous patch, I'd have
+preferred to see the more complex dance of a precursor patch before that
+which did the reformat (and dropped the stuff form the c files)
 
-[ ... ]
+That would then be followed the new stuff being added as part of the previous
+patch.
 
-> +static int ccu_maskdiv_determine_rate(struct clk_hw *hw,
-> +				      struct clk_rate_request *req)
-> +{
-> +	struct ccu_maskdiv *cmd =3D hw_to_ccu_maskdiv(hw);
-> +	unsigned long best_rate =3D 0, best_parent_rate =3D 0;
-> +	struct clk_hw *best_parent =3D NULL;
-> +	unsigned int best_m =3D UINT_MAX;
-> +	unsigned int i;
-> +
-> +	for (i =3D 0; i < clk_hw_get_num_parents(hw); i++) {
-> +		struct clk_hw *parent =3D clk_hw_get_parent_by_index(hw, i);
-> +		unsigned long parent_rate, new_rate;
-> +		unsigned int m;
-> +
-> +		if (!parent)
-> +			continue;
-> +
-> +		parent_rate =3D clk_hw_get_rate(parent);
-> +		m =3D ccu_maskdiv_find_m(parent_rate, req->rate, cmd->width);
-> +		new_rate =3D ccu_maskdiv_calc_rate(parent_rate, m, cmd->width);
+Whilst the ends result is the same I think it is worth doing a v2 just
+to clean that break down of patches up.
 
-[Severity: High]
-Does this implementation ignore the CLK_SET_RATE_PARENT flag?
+> +	  Say yes here to build support for Analog Devices Voltage Output
+> +	  Digital to Analog Converters:
+> +	  - Single-channel:
+> +	    AD5310R, AD5681R, AD5682R, AD5683R, AD5683R
 
-By using clk_hw_get_rate(parent) instead of clk_hw_round_rate(), this loop
-only evaluates parents at their currently locked rates. It appears this
-prevents the framework from adjusting the parent's rate (such as the
-underlying pll-gpu).
+Eagle eyed Sashiko spotted last entry is a duplicate.
 
-Could this silently break Dynamic Voltage and Frequency Scaling (DVFS) by
-locking the GPU to a masked fraction of the PLL's fixed boot rate?
+> +	  - Dual-channel:
+> +	    AD5313R, AD5687, AD5687R, AD5689, AD5689R
+> +	  - Quad-channel:
+> +	    AD5317R, AD5684, AD5684R, AD5685R, AD5686, AD5686R
+> +	  - 8-channel:
+> +	    AD5672R, AD5676, AD5676R
+> +	  - 16-channel:
+> +	    AD5674, AD5674R, AD5679, AD5679R
+>  
+>  	  To compile this driver as a module, choose M here: the
+>  	  module will be called ad5686.
+> @@ -263,10 +272,18 @@ config AD5696_I2C
+>  	depends on I2C
+>  	select AD5686
+>  	help
+> -	  Say yes here to build support for Analog Devices AD5311R, AD5337,
+> -	  AD5338R, AD5671R, AD5673R, AD5675R, AD5677R, AD5691R, AD5692R, AD5693,
+> -	  AD5693R, AD5694, AD5694R, AD5695R, AD5696, and AD5696R Digital to
+> -	  Analog converters.
+> +	  Say yes here to build support for Analog Devices Voltage Output
+> +	  Digital to Analog Converters:
+> +	  - Single-channel:
+> +	    AD5311R, AD5691R, AD5692R, AD5693, AD5693R
+> +	  - Dual-channel:
+> +	    AD5338R, AD5697R
+> +	  - Quad-channel:
+> +	    AD5316R, AD5694, AD5694R, AD5695R, AD5696, AD5696R
+> +	  - 8-channel:
+> +	    AD5671R, AD5675, AD5675R
+> +	  - 16-channel:
+> +	    AD5673R, AD5677R
+>  
+>  	  To compile this driver as a module, choose M here: the module will be
+>  	  called ad5696.
+> diff --git a/drivers/iio/dac/ad5686-spi.c b/drivers/iio/dac/ad5686-spi.c
+> index 003541edb742..b4531b49cb22 100644
+> --- a/drivers/iio/dac/ad5686-spi.c
+> +++ b/drivers/iio/dac/ad5686-spi.c
+> @@ -1,11 +1,8 @@
+>  // SPDX-License-Identifier: GPL-2.0
+>  /*
+> - * AD5672R, AD5674R, AD5676, AD5676R, AD5679R,
+> - * AD5681R, AD5682R, AD5683, AD5683R, AD5684,
+> - * AD5684R, AD5685R, AD5686, AD5686R
+> - * Digital to analog converters driver
+> + * SPI driver for AD5686 and similar Digital to Analog Converters
+>   *
+> - * Copyright 2018 Analog Devices Inc.
+> + * Copyright 2018-2026 Analog Devices Inc.
 
-> +
-> +		if (new_rate > req->rate)
-> +			continue;
+That definitely belongs in the patch that made a real change, not one
+that is just messing with comments.
 
-[ ... ]
+>   */
+>  
+>  #include <linux/array_size.h>
 
-> +static int ccu_maskdiv_set_rate(struct clk_hw *hw, unsigned long rate,
-> +				unsigned long parent_rate)
-> +{
-> +	struct ccu_maskdiv *cmd =3D hw_to_ccu_maskdiv(hw);
-> +	unsigned int m;
-> +	unsigned long flags;
-> +	u32 reg;
-> +
-> +	m =3D ccu_maskdiv_find_m(parent_rate, rate, cmd->width);
-> +
-> +	spin_lock_irqsave(cmd->common.lock, flags);
-> +
-> +	reg =3D readl(cmd->common.base + cmd->common.reg);
-> +	reg &=3D ~GENMASK(cmd->shift + cmd->width - 1, cmd->shift);
-> +	writel(reg | (m << cmd->shift), cmd->common.base + cmd->common.reg);
-
-[Severity: Medium]
-Will hardware register updates fail to latch here if the clock requires the
-CCU_SUNXI_UPDATE_BIT or CCU_FEATURE_KEY_FIELD?
-
-The standard ccu_common framework relies on these feature bits to
-synchronize hardware changes, which ccu_mux_helper_set_parent() applies
-automatically.
-
-Since this direct write ignores cmd->common.features, could rate changes
-silently fail to apply for clocks that require the update bit?
-
-> +
-> +	spin_unlock_irqrestore(cmd->common.lock, flags);
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260719211319.9822=
-85-1-juanmanuellopezcarrillo@gmail.com?part=3D1
