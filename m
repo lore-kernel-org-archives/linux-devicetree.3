@@ -1,79 +1,93 @@
-Received: from mx0.gmx.wtf (mx0.gmx.wtf [203.137.112.168])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B53B2BEC2C;
-	Sun, 19 Jul 2026 16:15:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.137.112.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72A9F18A6DB
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 16:19:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784477721; cv=none; b=JlrLr2VkTdj3Lcin8hC757fAvx/y3cf9bR6R5Ii4XG/poMWj8W7hiAlF429EIvhnwOHzsSJY6OI9maSfRFtBwPgE+01vSWkcTvbouABdPxXTwejzuEAUOW39nJ5NGQGX8hYRSwgjw9YSyuS9KwprMaAIbhd4di3CGj330e9q8Fo=
+	t=1784477956; cv=none; b=H3keOSTxiB0oE8/v+RyoY/BxCf1q3EGHNRkcXnIz/TcISe0BBC+45hR8nfM7+ltDG72a61lIyq43ZKIMZ0LxTj70Ass006jqZMKGhnaAgNiAItsXY/GYl+Y2VL7HPHM9N/KLHDo8i8VUlYCjQomVd2ku/4UviORJNo98qABX1QI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784477721; c=relaxed/simple;
-	bh=H2L0XwexQTLFwFIN1aMrdC2PYPHb+Q6wCLspbhgSNPY=;
-	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=gTX0W9+lRcMVFieYhjfijaaOcHzIqv2V37Hmuql9my1USa7yri/DzEQXlFnpUhQO+ZjLX8r98N81i/SmpBi4RZbTD+9W4uBOWlxXl5BUTXpYuPmlaJbYZixSpHg9v3OSNw7tLaR7g5OEt+z/rr5XIvqY+7g24qaMPC61MhyZGA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vicb.net; spf=pass smtp.mailfrom=vicb.net; dkim=pass (2048-bit key) header.d=vicb.net header.i=@vicb.net header.b=M9VoFfaN; arc=none smtp.client-ip=203.137.112.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vicb.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vicb.net
+	s=arc-20240116; t=1784477956; c=relaxed/simple;
+	bh=cvKT2ikX2+sCR6IEeFGvzmpaA+oHv3y/SwsrziYO4LY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jnfsUGcPLWKZM9ZuXo9MwltTo9F9ZE1pc/ht02dF+EzgFQIJjDxwTGrD+ppKIxZ6wRmmmXBKmnM6vU+4G41w90ZERV6/PYBF1dEEifh9KdOBIq1pv9qcUst60vTxkgkA6jxQ61ES5KUxcjeGeaGJ4irgGqDUd/3n99NtsKQMtIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HTx6HEBh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vicb.net header.i=@vicb.net header.b="M9VoFfaN"
-Date: Sun, 19 Jul 2026 18:05:43 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=vicb.net;
-	s=f747d04263f05989; t=1784477146;
-	bh=H2L0XwexQTLFwFIN1aMrdC2PYPHb+Q6wCLspbhgSNPY=;
-	h=Date:From:To:Subject:From;
-	b=M9VoFfaNZ6WWq5eFh++yubo2HQwK679uc7UkUqilrIeybYLyEilavjmY+kinBO/RE
-	 1XM299z1BPWVI1NJD8UTZnZ63Id3HbtX8D8j5SnKk/T6twqMHQBcdgQ4Ee/6u9mFM8
-	 FFzoUjn9crRmfxlDAX0N1TDw8zdLRti0JTSrTUj7NzoCAtBp9KUeSRoWk6RRi1CzWn
-	 MyE9xFjJFe3XxzUYiU4F9qFOOuTeAKh8Q1i7FTCI9nAttofW8HMO4VFwmbvwWpTVE2
-	 MAGgAsAP1ZCZV5bNBezg6UQzjdxToR1RN1DfhAIt71sXqKWe7MTsXgKLR1qn2uBCU0
-	 JTaIgeuNc2VBQ==
-From: Vic B <linux@vicb.net>
-To: linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org, Heiko Stuebner <heiko@sntech.de>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Jensen Huang <jensenhuang@friendlyarm.com>
-Subject: [PATCH] arm64: dts: rockchip: fix label of sys_led for nanopi-r4s
-Message-ID: <alz112qGhm77liqi@vicb.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HTx6HEBh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77CA01F000E9;
+	Sun, 19 Jul 2026 16:19:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784477954;
+	bh=xUVv45BkNIa3yFtliZt4xe192D4Qd03FSSpj9g5elyk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HTx6HEBhqFuEId+VyT031N4D1TiucDT6EXOQAYpRpkDioeXxMy0yGfPP8Jebet0CG
+	 +514m8XSMduwckLc4k6B2OiNeG0KrBcr7i6hKHPB0EVLJgvLQY1sEB4XRQ5v2df+Kf
+	 hzRFbFb/APX5hChgNSmrjN19VLrlbNKD6sIVdcvWOWkMuq0eJVWvdZEJvqM+lxGhXW
+	 OBvnkj8Ln8yOAQ7FIHK/s4ChEkaf+Ulv0gxrA2DHk1NLZplj6u37RLh5nsG4KHEaKS
+	 DOiG+Bjf9GqM279ZO3CpLDGwRtnpJpyK5NDa9QulDliwuIlSIzNW5PbjZzp24qzsAo
+	 on+y0Q1cr3WUw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: rockchip: fix label of sys_led for
+ nanopi-r4s
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vic B" <linux@vicb.net>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <alz112qGhm77liqi@vicb.net>
+References: <alz112qGhm77liqi@vicb.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 19 Jul 2026 16:19:13 +0000
+Message-Id: <20260719161914.77CA01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-The sys_led of NanoPi R4S is labeled as SYS on the board and on the
-original case, and it is green, not red.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The patch assigns a new value to the deprecated `label` property in=
+stead of modernizing the LED Device Tree binding to use `color` and `functi=
+on`.
+--
 
-The board also has a red power led, but that one is connected to 3V3
-and cannot be controled via GPIO.
+--- Patch [1]: [PATCH] arm64: dts: rockchip: fix label of sys_led for nanop=
+i-r4s ---
+commit ceee1e0876cda2fa407388b630cd3de2ef149410
+Author: Vic B <linux@vicb.net>
 
-The above can checked on page 17 of board's schematics at
-https://wiki.friendlyelec.com/wiki/images/0/06/NanoPi-R4S-1GB-2008-Schematic.pdf
+arm64: dts: rockchip: fix label of sys_led for nanopi-r4s
 
-This patch changes the label for sys_led from red:power to green:sys.
+This commit corrects the system LED configuration for the NanoPi R4S by
+changing the label from red:power to green:sys. It aligns the device tree
+with the physical board schematics.
 
-Signed-off-by: Vic B <linux@vicb.net>
----
- arch/arm64/boot/dts/rockchip/rk3399-nanopi-r4s.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-nanopi-r4s.dtsi b/arch/a=
+rm64/boot/dts/rockchip/rk3399-nanopi-r4s.dtsi
+> index 4274d1b6e80ae..6fbc76e2e679e 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3399-nanopi-r4s.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3399-nanopi-r4s.dtsi
+> @@ -31,7 +31,7 @@ lan_led: led-lan {
+> =20
+>  		sys_led: led-sys {
+>  			gpios =3D <&gpio0 RK_PB5 GPIO_ACTIVE_HIGH>;
+> -			label =3D "red:power";
+> +			label =3D "green:sys";
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-nanopi-r4s.dtsi b/arch/arm64/boot/dts/rockchip/rk3399-nanopi-r4s.dtsi
-index 4274d1b6e80a..6fbc76e2e679 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-nanopi-r4s.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-nanopi-r4s.dtsi
-@@ -31,7 +31,7 @@ lan_led: led-lan {
- 
- 		sys_led: led-sys {
- 			gpios = <&gpio0 RK_PB5 GPIO_ACTIVE_HIGH>;
--			label = "red:power";
-+			label = "green:sys";
- 			default-state = "on";
- 		};
- 
--- 
-2.47.3
+[Severity: Low]
+Since the label property is deprecated in modern LED Device Tree bindings,
+would it be better to replace this with the color and function properties?
 
+Modern user-space LED managers rely on standard sysfs directories named
+color:function. Defining the LED using the color and function properties
+would align the driver with current subsystem guidelines and prevent
+userspace from relying on the legacy label field to correctly identify
+the hardware role.
+
+>  			default-state =3D "on";
+>  		};
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/alz112qGhm77liqi@vi=
+cb.net?part=3D1
