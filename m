@@ -1,66 +1,73 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2076B3368B5;
-	Sun, 19 Jul 2026 08:37:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117A737C11C;
+	Sun, 19 Jul 2026 08:51:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784450277; cv=none; b=Vrbqvd9PFYm5iBMZeaIpUl1cwPHcmbw+r5AOo5wdrJivOIqKY+ieCPTp+j70JA75jjbcqsN8M/jtZLStu0JbbfpFfnWZPCBVY971HrV7UEiRxDRUrwIG6e8g5rymxYJ6OKdxnk+pQwz1eva74bgVajTjE+NEyCkluFIEbFQ276Y=
+	t=1784451065; cv=none; b=UMkqfRzSRpQ9vXFfOuCV8phlk4wp8QIMnQz84LR+R3+WHX98cPKeAqujZoMWDxyPt7Tv5z37i0ZR4sPQaee0lAuVB0PDZQGAzBgl2vYER73nF6RKbohq7/rFpKCDnQTHXGPettbfgDijY308Y+uwTVx396jSlNOoWvtKJF9iIc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784450277; c=relaxed/simple;
-	bh=6A1AAWCG1HXME5VojPiVPd/SvTC7z3zlEgixnlAcm6Q=;
+	s=arc-20240116; t=1784451065; c=relaxed/simple;
+	bh=hlFHADT7M8WKqTUivZ0uesc6ti/xylnQDSjOfcsb9rg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GmdiMVxU5Z/3C2OgJ8Rvg2/Jq04+zcWTSVYMpydV36EeaPYGJeH9FS1SIfWlc1aiFsXlzcudyzkGm5PqCI1SeCzqF9xK5neP3/MP3HSwCpP3iJobTSDuw/K+67IrhVdElXAsYfwgG0LnkLF+RFziyFBVhDpe1mb/Fj7K5AysYSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SH+I4UYp; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=LnGDUpwBjUBgb3vMQNOe1KAQ+kao6aSxC083ZlRN4o2dKQRv9YKETqhfSTJf04zgen6mAVoS/M2+7j5MxXeRxnu5guqbWKqEKo+amaJKVwORJsixOXbr+tt9Ooa3DJKaRzfuqvzPKV2Eu/026DaEp36XtwKvWR1RCdOH3GhkOAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nQcY13VG; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SH+I4UYp"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nQcY13VG"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784450276; x=1815986276;
+  t=1784451063; x=1815987063;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=6A1AAWCG1HXME5VojPiVPd/SvTC7z3zlEgixnlAcm6Q=;
-  b=SH+I4UYpudOFEMvcq5s9lYAIga5ByFNYb2QvXjiUZhUKD6FWvXfuKf6L
-   WeJ5638hodyClLcaG7XeOejVePLnVm6zb4c7qaRKIDpl7M6zwj3ni42q6
-   HbxvmySqG9SOgpL0FTbd5PZNUzVoGijjMIYF/eTjsOBZVfbRNN1AihFIM
-   T4JuYLq4B0fie9pk0A41b+zpMxcVeZDow61xzrWsrf9bp3pfonrGImzmR
-   CvW34/u4ciRV/tRZU9p1LHfpOoIhn/xvRhBUoFa8LLw/byFhiGH+gyhfX
-   hhdZTaPdaLjVIfyKWE/gOQhO5eVjS8Hq38KmWmPsOUR6jNflnlC8jMFPL
-   w==;
-X-CSE-ConnectionGUID: yku8rTHBTCeHTvmnbMI7Mw==
-X-CSE-MsgGUID: JeZNhq8GS4K2aIUqw+38+w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11850"; a="85262744"
+  bh=hlFHADT7M8WKqTUivZ0uesc6ti/xylnQDSjOfcsb9rg=;
+  b=nQcY13VGaRAmv5GQNEhFVC44LOan6Zf3+NgOwQHzR3Ci4hLfsNr2urQz
+   KDR7Ri/ELlBTXRcaGe5QI4qR1SqSx2f3J31htyk79yMcsdfSUktYDLzAb
+   DgPmqighuP/88I2nvJbmN27UFATkCcmwuv8MrDXpRxHlfwycAAV2vjWps
+   cappoMeKaVFYlJmIcPhgTs8nr7EnhLgKw4QC+Aosoouqi+FGVSz/oPcS0
+   YYUxtz8Rei6PRphbgz9Zhqh/F8BF0N2se/e4f7ak3mlyq932nEnLBiENz
+   psNuX65B2I6NZWN+5/4a8gPZpMvVhDKD42km3pUmcfmNVbdn+22UrwI90
+   Q==;
+X-CSE-ConnectionGUID: E1g5NgdkSRmR0oKU4p53ug==
+X-CSE-MsgGUID: PxEgoyC5RNCwhRSco2Fucg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11850"; a="84830378"
 X-IronPort-AV: E=Sophos;i="6.25,172,1779174000"; 
-   d="scan'208";a="85262744"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jul 2026 01:37:55 -0700
-X-CSE-ConnectionGUID: MPlDAIe7Te2ViXWmZ77pGg==
-X-CSE-MsgGUID: c7dMYrhZSzG9mcavhyURVw==
+   d="scan'208";a="84830378"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jul 2026 01:51:03 -0700
+X-CSE-ConnectionGUID: uk2FLjnZSlqSQKaOnnJWqQ==
+X-CSE-MsgGUID: falftuuCR0i44QhfWAmBFg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,172,1779174000"; 
-   d="scan'208";a="256610099"
+   d="scan'208";a="255405333"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.56])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jul 2026 01:37:51 -0700
-Date: Sun, 19 Jul 2026 11:37:49 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Xu Yang <xu.yang_2@nxp.com>, linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 3/3] device property: add test cases for
- fwnode_for_each_child_node()
-Message-ID: <alyMt-ya5skHmhtx@ashevche-desk.local>
-References: <20260611203537.1786399-1-andriy.shevchenko@linux.intel.com>
- <20260611203537.1786399-4-andriy.shevchenko@linux.intel.com>
- <DK1RFV9AABBD.KP0VPMWKFYWM@kernel.org>
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jul 2026 01:50:59 -0700
+Date: Sun, 19 Jul 2026 11:50:56 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>,
+	Michael Auchter <michael.auchter@ni.com>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 2/8] iio: dac: ad5686: missing NULL check on match data
+Message-ID: <alyP8NlQzRpXnSq9@ashevche-desk.local>
+References: <20260716-ad5686-new-features-v8-0-ebb0051af5e5@analog.com>
+ <20260716-ad5686-new-features-v8-2-ebb0051af5e5@analog.com>
+ <alkmAcDvSXr_COc_@ashevche-desk.local>
+ <ondynh4kmchzugk2l24klamrcaje3qxnhgiks7gnc46wwwvo35@hysk2zaimb2e>
+ <alnknz55FbyyqqlL@ashevche-desk.local>
+ <gy2dn5emz7sreavy6kioz27f3sx2ip6zhkgzs2uz4qzecpkrbe@zgsortof6aqn>
+ <aloD5HdbntKu--xC@ashevche-desk.local>
+ <20260719005533.41520a27@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,30 +76,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <DK1RFV9AABBD.KP0VPMWKFYWM@kernel.org>
+In-Reply-To: <20260719005533.41520a27@jic23-huawei>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sat, Jul 18, 2026 at 04:18:12PM +0200, Danilo Krummrich wrote:
-> On Thu Jun 11, 2026 at 10:31 PM CEST, Andy Shevchenko wrote:
-> >
-> > Add test cases for fwnode_for_each_child_node() API.
-> >
-> > Test command:
-> > $ ./tools/testing/kunit/kunit.py run property-entry
-> >
-> > Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
-> > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> 
-> This patch broke the build [1], hence I dropped it from the queue (but kept the
-> first two patches of this series).
-> 
-> of_node_init() can't be used from modules, either it needs EXPORT_SYMBOL_GPL()
-> itself, or of_node_ktype needs to be exported for this kunit test to work.
+On Sun, Jul 19, 2026 at 12:55:44AM +0100, Jonathan Cameron wrote:
+> On Fri, 17 Jul 2026 13:28:52 +0300
+> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-Oh, thanks for pointing out.
+...
 
-> [1] https://lore.kernel.org/all/202607181651.RnUuV8n6-lkp@intel.com/
+> I applied the following rather than going for a v9 for just this:
+
+Thanks!
+
+> Shout if I messed it up.
+
+...
+
+> +       if (!chip_info)
+> +               return -ENODEV;
+
+Perhaps stick with -ENODATA? (Maybe in a separate change, dunno...)
 
 -- 
 With Best Regards,
