@@ -1,162 +1,307 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D15582609C5
-	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 09:47:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB9934F24A;
+	Sun, 19 Jul 2026 09:52:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784454456; cv=none; b=Lm2Wss2VSKYPDtFhUj7hTgeculxklyb4D0dondzzUnAJSIirWvx3/Z9nNmGdlNnjyyOcd7tGqdtpHIWNtnvVB/kjd1ljZ3w/MqVDZqq8HpECbySJYvH5tinYZ+WrYTXE2PkC2EzA3RyZZHHUBtHqlknE+bP/Gy+71Tw9z73zlC4=
+	t=1784454723; cv=none; b=klyFWclpERsia58TvEoKXXbO4Gil2tckqNEnB5DZ+33qdfcgAZmnECwxG52s1sTtv33R9P6q1EM70Cr6kCM5mEGiDushF/XGisjrxcMPLbFefvdJrS4Hx6NOomGzrTV7B7JP1cenWsRDFUm5sjGNsOG3zEjZeHWC8I/e6Ly1Pmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784454456; c=relaxed/simple;
-	bh=M9SHjjSXP4vpheft86YGAjk375lREXVE+1vl7ygc7n8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ovvgDPT/+Y6W76QQUDMEwbyuP4RtP/t+NA3sGOC2BQgBeJ6/FL2WmXEVoXsa3MFYXy0yDQMNcK+C2479zSRQHejAG61aBGtCFNRCyDRODl+hnMt7keJxRL5NdxcBb1wk1XsoVUji+cmz6CbKuZ3QoxLIP/lr1gHpCM4FNmTOt5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hAB8z7e1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784454723; c=relaxed/simple;
+	bh=ziMmmYZydXy7SVXF5YowcDdIWRal6R6m0TBQhYZ1nm0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=j4BKj+jNbglNd5cd1hEUrKl6slggQ6oI/CD1x3PiUNJgAn+onIw9hTGeakxofgcWzIErFYT1pmuouGO55lSTQXiXwJrSqvu6jAfh5rQbvPM7HXuoQQbrtpD2ZoeMW+uVxUwBQB3VV49lG14Y3tz3ucvpQM9Xo567YUzIyh1kYyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tv4fA/6Q; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hAB8z7e1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49E811F000E9;
-	Sun, 19 Jul 2026 09:47:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784454455;
-	bh=x3nmhEOuiuSh/QrRWREKogxmfV2vojmHwxfMiwTj7hI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hAB8z7e1KVBNf6kh70k7NTrtbjeC6eeieRyx9mD2umNbMayytaGyaq+C4dA52b7rL
-	 l2y0WIWQ8TL0CnNoqdy7CgohOIs0UJE1/GXCSVgLXaOsS60Z3cO4MBK+CConFhRKUm
-	 MUoxqSaisdO5NHl2+YaQ17lGk9epP8q6t194/r4i/meX+gNhIRdl2xwYr5N2+WN0Bs
-	 OtSka+TD5O9DZUgYNXZTRvOdE4/aEHzlDy96cpJjxf0fQxbQiwG0w0rpquI1oskRM0
-	 Qdo/1oFgA9wV6Ytvi1ezZug5Y74YeGXA742XwVjCZyR6WIA/xpvIYQua/bYM/Fsole
-	 gXYHid6JlvWXw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: sm8750: Add Lenovo Legion Y700
- Gen4
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pengyu Luo" <mitltlatltl@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260719093226.197740-3-mitltlatltl@gmail.com>
-References: <20260719093226.197740-1-mitltlatltl@gmail.com>
- <20260719093226.197740-3-mitltlatltl@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 19 Jul 2026 09:47:34 +0000
-Message-Id: <20260719094735.49E811F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tv4fA/6Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 14166C2BCFC;
+	Sun, 19 Jul 2026 09:52:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784454723;
+	bh=ziMmmYZydXy7SVXF5YowcDdIWRal6R6m0TBQhYZ1nm0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=tv4fA/6Q8UFj+xLnS6gkZfay52EhREVYzSEV0watvaW4QiETaBBneEOm/NuoOk/kY
+	 wTjdPnpuWyvMM8RDG156kj9wNRruX5apKHrHa56FJd8kfOHSp3DxWJQqRFsZY4tn1W
+	 uAiIcOUngx4+YEF//9DkygXpIamMjoljDWj7JwyvCSCaMRI7CN+vH31NNj7yQgvYRH
+	 IkrlXZPXgM4N7sWQEhkt0nK/sJ0tn1eHIyB2z1XaXTprPi48SDXgfXVVQ1drksBEJh
+	 cRbeQFzj8Q0koUhjxxFrX7Fqy0EW1FchWYwaXUYHTrSH00N2X9ZgvhYTH7V1RZTWtQ
+	 0FsOlzmY7kxww==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EDD73C44524;
+	Sun, 19 Jul 2026 09:52:02 +0000 (UTC)
+From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Date: Sun, 19 Jul 2026 10:51:59 +0100
+Subject: [PATCH 3/4] iio: dac: ad5686: extend device support with new parts
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260719-ad5686-extend-dev-support-v1-3-841ec75cf5d8@analog.com>
+References: <20260719-ad5686-extend-dev-support-v1-0-841ec75cf5d8@analog.com>
+In-Reply-To: <20260719-ad5686-extend-dev-support-v1-0-841ec75cf5d8@analog.com>
+To: Michael Auchter <michael.auchter@ni.com>, linux@analog.com, 
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Cc: Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Rodrigo Alencar <rodrigo.alencar@analog.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784454721; l=10989;
+ i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
+ bh=pwyIWIwpbueR4AW5F3cEAEBFNsVvf6IGY71bPbLlF4g=;
+ b=AjeIocc/+0xj5fsFGGEJ3FskdB5kdwwYZJCi/KKkus1xND75sEWp0/de/kikfSIEk8dULRYN+
+ N4ef89IkYDMAsbQh8DrhPjVY9kyhyueOpCDSct8k+NM9nWaGKI50xAf
+X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
+ pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
+X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
+ with auth_id=561
+X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Reply-To: rodrigo.alencar@analog.com
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Medium] SD card detection GPIO polarity is inverted.
-- [Medium] Unresolved `splash-region` node name breaks bootloader framebuff=
-er setup.
-- [Medium] The SBU mux (`fsa4480_hs_sbu_mux`) for the short edge Type-C con=
-nector is improperly mapped to `port@1` instead of `port@2`.
-- [Low] Invalid scalar property `enable-gpio` used for the Awinic backlight=
- driver instead of `enable-gpios`.
---
+From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
---- Patch [2]: [PATCH 2/2] arm64: dts: qcom: sm8750: Add Lenovo Legion Y700=
- Gen4 ---
-commit fd69339b25380307f4c2239ad2b73d115e6d80d8
-Author: Pengyu Luo <mitltlatltl@gmail.com>
+Add support for AD5313R, AD5317R, AD5674, AD5679, AD5687, AD5687R, AD5689,
+AD5689R to the AD5686 SPI driver. Also adding support for AD5316R, AD5675,
+AD5697R to the AD5696 I2C driver. AD5673R and AD5677R were missing from
+the of_match table. This includes the creation of seven chip info struct
+instances and reuse of existing ones.
 
-arm64: dts: qcom: sm8750: Add Lenovo Legion Y700 Gen4
+Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+---
+ drivers/iio/dac/ad5686-spi.c | 16 +++++++++++++
+ drivers/iio/dac/ad5686.c     | 55 ++++++++++++++++++++++++++++++++++++++++++++
+ drivers/iio/dac/ad5686.h     |  7 ++++++
+ drivers/iio/dac/ad5696-i2c.c |  8 +++++++
+ 4 files changed, 86 insertions(+)
 
-Add an initial devicetree for the Lenovo Legion Y700 Gen4, which is
-based on sm8750-qrd.
+diff --git a/drivers/iio/dac/ad5686-spi.c b/drivers/iio/dac/ad5686-spi.c
+index 227ddb269669..003541edb742 100644
+--- a/drivers/iio/dac/ad5686-spi.c
++++ b/drivers/iio/dac/ad5686-spi.c
+@@ -178,10 +178,14 @@ static int ad5686_spi_probe(struct spi_device *spi)
+ 
+ static const struct spi_device_id ad5686_spi_id[] = {
+ 	{ .name = "ad5310r", .driver_data = (kernel_ulong_t)&ad5310r_chip_info },
++	{ .name = "ad5313r", .driver_data = (kernel_ulong_t)&ad5338r_chip_info },
++	{ .name = "ad5317r", .driver_data = (kernel_ulong_t)&ad5317r_chip_info },
+ 	{ .name = "ad5672r", .driver_data = (kernel_ulong_t)&ad5672r_chip_info },
++	{ .name = "ad5674",  .driver_data = (kernel_ulong_t)&ad5674_chip_info },
+ 	{ .name = "ad5674r", .driver_data = (kernel_ulong_t)&ad5674r_chip_info },
+ 	{ .name = "ad5676",  .driver_data = (kernel_ulong_t)&ad5676_chip_info },
+ 	{ .name = "ad5676r", .driver_data = (kernel_ulong_t)&ad5676r_chip_info },
++	{ .name = "ad5679",  .driver_data = (kernel_ulong_t)&ad5679_chip_info },
+ 	{ .name = "ad5679r", .driver_data = (kernel_ulong_t)&ad5679r_chip_info },
+ 	{ .name = "ad5681r", .driver_data = (kernel_ulong_t)&ad5681r_chip_info },
+ 	{ .name = "ad5682r", .driver_data = (kernel_ulong_t)&ad5682r_chip_info },
+@@ -193,16 +197,24 @@ static const struct spi_device_id ad5686_spi_id[] = {
+ 	{ .name = "ad5685r", .driver_data = (kernel_ulong_t)&ad5685r_chip_info },
+ 	{ .name = "ad5686",  .driver_data = (kernel_ulong_t)&ad5686_chip_info },
+ 	{ .name = "ad5686r", .driver_data = (kernel_ulong_t)&ad5686r_chip_info },
++	{ .name = "ad5687",  .driver_data = (kernel_ulong_t)&ad5687_chip_info },
++	{ .name = "ad5687r", .driver_data = (kernel_ulong_t)&ad5687r_chip_info },
++	{ .name = "ad5689",  .driver_data = (kernel_ulong_t)&ad5689_chip_info },
++	{ .name = "ad5689r", .driver_data = (kernel_ulong_t)&ad5689r_chip_info },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(spi, ad5686_spi_id);
+ 
+ static const struct of_device_id ad5686_of_match[] = {
+ 	{ .compatible = "adi,ad5310r", .data = &ad5310r_chip_info },
++	{ .compatible = "adi,ad5313r", .data = &ad5338r_chip_info },
++	{ .compatible = "adi,ad5317r", .data = &ad5317r_chip_info },
+ 	{ .compatible = "adi,ad5672r", .data = &ad5672r_chip_info },
++	{ .compatible = "adi,ad5674",  .data = &ad5674_chip_info },
+ 	{ .compatible = "adi,ad5674r", .data = &ad5674r_chip_info },
+ 	{ .compatible = "adi,ad5676",  .data = &ad5676_chip_info },
+ 	{ .compatible = "adi,ad5676r", .data = &ad5676r_chip_info },
++	{ .compatible = "adi,ad5679",  .data = &ad5679_chip_info },
+ 	{ .compatible = "adi,ad5679r", .data = &ad5679r_chip_info },
+ 	{ .compatible = "adi,ad5681r", .data = &ad5681r_chip_info },
+ 	{ .compatible = "adi,ad5682r", .data = &ad5682r_chip_info },
+@@ -213,6 +225,10 @@ static const struct of_device_id ad5686_of_match[] = {
+ 	{ .compatible = "adi,ad5685r", .data = &ad5685r_chip_info },
+ 	{ .compatible = "adi,ad5686",  .data = &ad5686_chip_info },
+ 	{ .compatible = "adi,ad5686r", .data = &ad5686r_chip_info },
++	{ .compatible = "adi,ad5687",  .data = &ad5687_chip_info },
++	{ .compatible = "adi,ad5687r", .data = &ad5687r_chip_info },
++	{ .compatible = "adi,ad5689",  .data = &ad5689_chip_info },
++	{ .compatible = "adi,ad5689r", .data = &ad5689r_chip_info },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, ad5686_of_match);
+diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
+index 873dfb5b9107..090707d76d6e 100644
+--- a/drivers/iio/dac/ad5686.c
++++ b/drivers/iio/dac/ad5686.c
+@@ -409,8 +409,11 @@ DECLARE_AD5683_CHANNELS(ad5683r_channels, 16, 0);
+ /* dual-channel */
+ DECLARE_AD5338_CHANNELS(ad5337r_channels, 8, 8);
+ DECLARE_AD5338_CHANNELS(ad5338r_channels, 10, 6);
++DECLARE_AD5338_CHANNELS(ad5687r_channels, 12, 4);
++DECLARE_AD5338_CHANNELS(ad5689r_channels, 16, 0);
+ 
+ /* quad-channel */
++DECLARE_AD5686_CHANNELS(ad5317r_channels, 10, 6);
+ DECLARE_AD5686_CHANNELS(ad5684r_channels, 12, 4);
+ DECLARE_AD5686_CHANNELS(ad5685r_channels, 14, 2);
+ DECLARE_AD5686_CHANNELS(ad5686r_channels, 16, 0);
+@@ -486,6 +489,44 @@ const struct ad5686_chip_info ad5338r_chip_info = {
+ };
+ EXPORT_SYMBOL_NS_GPL(ad5338r_chip_info, "IIO_AD5686");
+ 
++const struct ad5686_chip_info ad5687_chip_info = {
++	.channels = ad5687r_channels,
++	.num_channels = 2,
++	.regmap_type = AD5686_REGMAP,
++};
++EXPORT_SYMBOL_NS_GPL(ad5687_chip_info, "IIO_AD5686");
++
++const struct ad5686_chip_info ad5687r_chip_info = {
++	.channels = ad5687r_channels,
++	.int_vref_mv = 2500,
++	.num_channels = 2,
++	.regmap_type = AD5686_REGMAP,
++};
++EXPORT_SYMBOL_NS_GPL(ad5687r_chip_info, "IIO_AD5686");
++
++const struct ad5686_chip_info ad5689_chip_info = {
++	.channels = ad5689r_channels,
++	.num_channels = 2,
++	.regmap_type = AD5686_REGMAP,
++};
++EXPORT_SYMBOL_NS_GPL(ad5689_chip_info, "IIO_AD5686");
++
++const struct ad5686_chip_info ad5689r_chip_info = {
++	.channels = ad5689r_channels,
++	.int_vref_mv = 2500,
++	.num_channels = 2,
++	.regmap_type = AD5686_REGMAP,
++};
++EXPORT_SYMBOL_NS_GPL(ad5689r_chip_info, "IIO_AD5686");
++
++const struct ad5686_chip_info ad5317r_chip_info = {
++	.channels = ad5317r_channels,
++	.int_vref_mv = 2500,
++	.num_channels = 4,
++	.regmap_type = AD5686_REGMAP,
++};
++EXPORT_SYMBOL_NS_GPL(ad5317r_chip_info, "IIO_AD5686");
++
+ const struct ad5686_chip_info ad5684_chip_info = {
+ 	.channels = ad5684r_channels,
+ 	.num_channels = 4,
+@@ -547,6 +588,13 @@ const struct ad5686_chip_info ad5676r_chip_info = {
+ };
+ EXPORT_SYMBOL_NS_GPL(ad5676r_chip_info, "IIO_AD5686");
+ 
++const struct ad5686_chip_info ad5674_chip_info = {
++	.channels = ad5674r_channels,
++	.num_channels = 16,
++	.regmap_type = AD5686_REGMAP,
++};
++EXPORT_SYMBOL_NS_GPL(ad5674_chip_info, "IIO_AD5686");
++
+ const struct ad5686_chip_info ad5674r_chip_info = {
+ 	.channels = ad5674r_channels,
+ 	.int_vref_mv = 2500,
+@@ -555,6 +603,13 @@ const struct ad5686_chip_info ad5674r_chip_info = {
+ };
+ EXPORT_SYMBOL_NS_GPL(ad5674r_chip_info, "IIO_AD5686");
+ 
++const struct ad5686_chip_info ad5679_chip_info = {
++	.channels = ad5679r_channels,
++	.num_channels = 16,
++	.regmap_type = AD5686_REGMAP,
++};
++EXPORT_SYMBOL_NS_GPL(ad5679_chip_info, "IIO_AD5686");
++
+ const struct ad5686_chip_info ad5679r_chip_info = {
+ 	.channels = ad5679r_channels,
+ 	.int_vref_mv = 2500,
+diff --git a/drivers/iio/dac/ad5686.h b/drivers/iio/dac/ad5686.h
+index c1222ef83a4f..482bc70515f7 100644
+--- a/drivers/iio/dac/ad5686.h
++++ b/drivers/iio/dac/ad5686.h
+@@ -106,8 +106,13 @@ extern const struct ad5686_chip_info ad5683r_chip_info;
+ /* dual-channel instances */
+ extern const struct ad5686_chip_info ad5337r_chip_info;
+ extern const struct ad5686_chip_info ad5338r_chip_info;
++extern const struct ad5686_chip_info ad5687_chip_info;
++extern const struct ad5686_chip_info ad5687r_chip_info;
++extern const struct ad5686_chip_info ad5689_chip_info;
++extern const struct ad5686_chip_info ad5689r_chip_info;
+ 
+ /* quad-channel instances */
++extern const struct ad5686_chip_info ad5317r_chip_info;
+ extern const struct ad5686_chip_info ad5684_chip_info;
+ extern const struct ad5686_chip_info ad5684r_chip_info;
+ extern const struct ad5686_chip_info ad5685r_chip_info;
+@@ -120,7 +125,9 @@ extern const struct ad5686_chip_info ad5676_chip_info;
+ extern const struct ad5686_chip_info ad5676r_chip_info;
+ 
+ /* 16-channel instances */
++extern const struct ad5686_chip_info ad5674_chip_info;
+ extern const struct ad5686_chip_info ad5674r_chip_info;
++extern const struct ad5686_chip_info ad5679_chip_info;
+ extern const struct ad5686_chip_info ad5679r_chip_info;
+ 
+ /**
+diff --git a/drivers/iio/dac/ad5696-i2c.c b/drivers/iio/dac/ad5696-i2c.c
+index 31439567f00f..7254bb976388 100644
+--- a/drivers/iio/dac/ad5696-i2c.c
++++ b/drivers/iio/dac/ad5696-i2c.c
+@@ -80,10 +80,12 @@ static int ad5686_i2c_probe(struct i2c_client *i2c)
+ 
+ static const struct i2c_device_id ad5686_i2c_id[] = {
+ 	{ .name = "ad5311r", .driver_data = (kernel_ulong_t)&ad5311r_chip_info },
++	{ .name = "ad5316r", .driver_data = (kernel_ulong_t)&ad5317r_chip_info },
+ 	{ .name = "ad5337r", .driver_data = (kernel_ulong_t)&ad5337r_chip_info },
+ 	{ .name = "ad5338r", .driver_data = (kernel_ulong_t)&ad5338r_chip_info },
+ 	{ .name = "ad5671r", .driver_data = (kernel_ulong_t)&ad5672r_chip_info },
+ 	{ .name = "ad5673r", .driver_data = (kernel_ulong_t)&ad5674r_chip_info },
++	{ .name = "ad5675",  .driver_data = (kernel_ulong_t)&ad5676_chip_info },
+ 	{ .name = "ad5675r", .driver_data = (kernel_ulong_t)&ad5676r_chip_info },
+ 	{ .name = "ad5677r", .driver_data = (kernel_ulong_t)&ad5679r_chip_info },
+ 	{ .name = "ad5691r", .driver_data = (kernel_ulong_t)&ad5681r_chip_info },
+@@ -95,16 +97,21 @@ static const struct i2c_device_id ad5686_i2c_id[] = {
+ 	{ .name = "ad5695r", .driver_data = (kernel_ulong_t)&ad5685r_chip_info },
+ 	{ .name = "ad5696",  .driver_data = (kernel_ulong_t)&ad5686_chip_info },
+ 	{ .name = "ad5696r", .driver_data = (kernel_ulong_t)&ad5686r_chip_info },
++	{ .name = "ad5697r", .driver_data = (kernel_ulong_t)&ad5687r_chip_info },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, ad5686_i2c_id);
+ 
+ static const struct of_device_id ad5686_of_match[] = {
+ 	{ .compatible = "adi,ad5311r", .data = &ad5311r_chip_info },
++	{ .compatible = "adi,ad5316r", .data = &ad5317r_chip_info },
+ 	{ .compatible = "adi,ad5337r", .data = &ad5337r_chip_info },
+ 	{ .compatible = "adi,ad5338r", .data = &ad5338r_chip_info },
+ 	{ .compatible = "adi,ad5671r", .data = &ad5672r_chip_info },
++	{ .compatible = "adi,ad5673r", .data = &ad5674r_chip_info },
++	{ .compatible = "adi,ad5675",  .data = &ad5676_chip_info },
+ 	{ .compatible = "adi,ad5675r", .data = &ad5676r_chip_info },
++	{ .compatible = "adi,ad5677r", .data = &ad5679r_chip_info },
+ 	{ .compatible = "adi,ad5691r", .data = &ad5681r_chip_info },
+ 	{ .compatible = "adi,ad5692r", .data = &ad5682r_chip_info },
+ 	{ .compatible = "adi,ad5693",  .data = &ad5683_chip_info },
+@@ -114,6 +121,7 @@ static const struct of_device_id ad5686_of_match[] = {
+ 	{ .compatible = "adi,ad5695r", .data = &ad5685r_chip_info },
+ 	{ .compatible = "adi,ad5696",  .data = &ad5686_chip_info },
+ 	{ .compatible = "adi,ad5696r", .data = &ad5686r_chip_info },
++	{ .compatible = "adi,ad5697r", .data = &ad5687r_chip_info },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, ad5686_of_match);
 
-Link: https://lore.kernel.org/dri-devel/20260709142846.12463-1-mitltlatltl@=
-gmail.com
-Link: https://github.com/GUF296/linux/commits/codex/tb321fu-full-remediatio=
-n-20260715
-Link: https://github.com/linux-msm/hexagonrpc
+-- 
+2.43.0
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts b/arch/arm6=
-4/boot/dts/qcom/sm8750-lenovo-elden.dts
-> new file mode 100644
-> index 0000000000000..602e7322b921b
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
 
-[ ... ]
-
-> +		/* Short edge */
-> +		connector@1 {
-> +			compatible =3D "usb-c-connector";
-> +			reg =3D <1>;
-> +
-> +			power-role =3D "dual";
-> +			data-role =3D "dual";
-> +
-> +			ports {
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-
-[ ... ]
-
-> +				port@1 {
-> +					reg =3D <1>;
-> +
-> +					pmic_glink_hs_sbu: endpoint {
-> +						remote-endpoint =3D <&fsa4480_hs_sbu_mux>;
-> +					};
-> +				};
-> +			};
-> +		};
-> +	};
-
-[Severity: Medium]
-Is this SBU mux mapped to the correct port? According to the usb-connector
-schema, port 1 is reserved for SuperSpeed, while port 2 is reserved for SBU.
-Will mapping this to port 1 cause the Type-C subsystem and pmic_glink_altmo=
-de
-driver to misidentify the SBU mux as a SuperSpeed switch and break routing?
-
-> +	reserved-memory {
-> +		/*
-> +		 * Use this to tell the BL to initialize the display related
-> +		 * resources, so we can use efifb. Please 's/-/_/'
-> +		 */
-> +		splash-region {
-> +			reg =3D <0 0xfc800000 0 0x2b00000>;
-> +			no-map;
-> +		};
-> +	};
-
-[Severity: Medium]
-Will this node name break out-of-the-box framebuffer initialization?
-Since the comment indicates the bootloader expects an underscore, could we
-provide the correctly formatted splash_region here directly rather than
-relying on a manual string replacement during compilation or deployment?
-
-[ ... ]
-
-> +	backlight: backlight@76 {
-> +		compatible =3D "awinic,aw99706";
-> +		reg =3D <0x76>;
-> +
-> +		enable-gpio =3D <&tlmm 88 GPIO_ACTIVE_HIGH>;
-
-[Severity: Low]
-Should this be enable-gpios instead of enable-gpio? While gpiolib
-transparently handles the singular fallback at runtime, using the singular
-form will likely cause dtbs_check to fail since the awinic,aw99706 binding
-requires the plural property name.
-
-[ ... ]
-
-> +&sdhc_2 {
-> +	cd-gpios =3D <&tlmm 55 GPIO_ACTIVE_HIGH>;
-
-[Severity: Medium]
-Is the polarity for cd-gpios correct here? The sdc2_card_det_n pinctrl
-node further down defines a bias-pull-up, meaning a floating (empty) slot
-will pull high.
-
-With GPIO_ACTIVE_HIGH logic, will this cause the driver to incorrectly
-interpret an empty slot as occupied?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260719093226.1977=
-40-1-mitltlatltl@gmail.com?part=3D2
