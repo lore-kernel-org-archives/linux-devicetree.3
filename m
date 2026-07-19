@@ -1,101 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B63B2D12EC
-	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 04:04:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8302123A99F
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 05:23:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784433872; cv=none; b=UF10cENzSfXM6Xyfz/H8biXkMHHT83S3DgpKcqCuFbcNI6IK9yv+34lwaCHImUb6AdJL3BT43ZYq8gKuXZsGnZJAmDCD3hm980Zgt+5SiKVHv2wOorjLAZK8nF0m0YdbWvJNjBZwNcFDPPxrhVyOx7wKNb7Ia5kiWUWVOBkMdvA=
+	t=1784438590; cv=none; b=s9aMyHtxoGMRO0Kdm+SRcRyA42y8ccXQ0TtEWj+wHViZjhRpXU8jU89hOTvDY3wxrxVbWnkWwyLV6DhRy5Laly+b4SBvTpG2SGXKKDh6GYQ/b+/AoruSrF31Iw5faETEybq6+xiMNPvFap/Ar8k2Xa5lOU2VGQiIKA01mb+ceF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784433872; c=relaxed/simple;
-	bh=n+xOyzxNtXqtSBBM4WCfP3uDIqmU4acamtF2KkfrSUo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tXFBuWJOtHshOZDX+NR3xFQh+bEs043pqhfNg/CWFyYGdoifi2tmraYapkmoeXlGPcZE++w4XdGtdaUD5cbz4iKHuonG0FTmIy4iuetbQgF4NuI6KoH3X9Tt7xg+cTKsbUk95rl8s2ejkeG+vAhl5D9G4nH4wj0LaJssQNWVv/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OVECXvZC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784438590; c=relaxed/simple;
+	bh=wzG5n1sSiy8BSbirHoZMIcpe1yDKqvIcLp//a8GpMqA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BdzYvAHl4CYCHfN4Tk+AeaFBXu6j1JpwpKf9zh+XtCPOtW5xf9VE2I1cP3v7HLSFgIojj4LNC9WHjbo4A4+zPFGIECa3vbt66BPw7DTb9yEUdhiVX8GTZVHq0y0HsvcftPmK/AgsP0sJfV0WTzLRH7H+7BnPcL9G8oUgEaFrHuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jan6/PYo; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OVECXvZC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFA801F000E9;
-	Sun, 19 Jul 2026 04:04:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784433871;
-	bh=oKatGeXJd5EOPehZ+fRGHGZRCGTkTHAB4YnwaIXYKQM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OVECXvZCg/MSyn+/Nu2ZKJHmsTDNnPytJ6qpjMZ3iKLLTRFQdS17bP8ZO5+4qxk1Z
-	 BqzeLTRcVDiOQAXNhiohFgfq+2eGAqIOhHxcl8VTReLwDk2gFzbbGiFmSn8cDuZrs2
-	 uGOzdWz94eHDQ0SU4oNJnQd87iTMQTShQ3KueG+H0dPCk+yGoU3AFz7kFl2Jw3IA+0
-	 5LKbd9fsjqQoJd/Byym6v3qOSF9CYOhjY933wA3cQSzuE9ERTr4RTclAWFS37Opr6C
-	 Zoaxt2FztsHtHj0pKudgXlQPJJCoUXNh/zt7E1S0f/WOVv5WDKFzaz+CB4HDGrELwP
-	 Jy0ecUQEv6Qlg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] arm64: dts: rockchip: Add ArmSoM CM5 and CM5-IO
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260719034611.3623066-3-gahing@gahingwoo.com>
-References: <20260719034611.3623066-1-gahing@gahingwoo.com>
- <20260719034611.3623066-3-gahing@gahingwoo.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 19 Jul 2026 04:04:30 +0000
-Message-Id: <20260719040430.DFA801F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jan6/PYo"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-ca766c1c9ccso5318103a12.0
+        for <devicetree@vger.kernel.org>; Sat, 18 Jul 2026 22:23:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784438589; x=1785043389; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lQcYHP742JQAyp0Zxye8wRRdYiQ3akELTcoPNLHuwtg=;
+        b=Jan6/PYo/7iUoGOyJ2+okjh06jfPYfQ2EnuXxh/y+0kydIbi9vHA/1LtX2OvyJlA42
+         NqcIgVQ/l0SDOdVFy2+puKfExeG3nBalceBfFWihd5Q2j3FT0mCjA3bnF31GaSwPE72N
+         ZQ8+0wlE0JuT1/twSkSW3r7i3jQIHRiTEw472khLy3E6iIyG8nkfyd7O9ucBNd3tIICj
+         d/67RgxXOfbfYnXsYqorlOoj5q9PWuSU5hGySpBwJlAxFGvnBcZ/PHJ9cPZPicraQUbL
+         oGi+XlgLk7LqkBnx88C93UwtEUTU+v3OvcuUJdhuvBQFplBMXIHgsx/Jbyxn55UWUlsj
+         jVGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784438589; x=1785043389;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lQcYHP742JQAyp0Zxye8wRRdYiQ3akELTcoPNLHuwtg=;
+        b=o7iUQXrxAECWr02bul0IIeillB8gxLZ8qAPwhMFdbn1sHdb9Fa2SBYM4WAIj8IGw2h
+         hTOXNEYB88rsS7IxcqJ8VRDZkXgqbLEGEF01K4AHqYOzvmKPXM/OsLa7pqnotajTLDmN
+         5ZP8lX2H0Dy4yw5KwnBnkwhqAfHx/uiOYyDhf352gGJQhXcVd2q2nCHvF94zuOSplLQR
+         feFqFXhcujCQHu60fHqt1S0iMDkgJL97J015gxuwRpZQssYgNixy+po2w6i3fSDGnsUs
+         B05gRnayx1c2A7PE/nWNb38UMIA2vJZdHbnM6MV/+SyiTXirkz/K+5oFpdrs04KCVhG3
+         mFAw==
+X-Gm-Message-State: AOJu0Yx+3k1TMLccrr6yEA2dhUIE1bv8bCi+a4fF7d/FZmlfF5eDDjvw
+	5ducLb3Fc49+Zf4NAl9bA6MtfkRNYcSKUXPsaBdFuwx/LgVegvBVz2X6
+X-Gm-Gg: AfdE7cnuaLu0EkZLkW4aLrschCAf8MXh40dRbP/UwMnrpChQsqkWfYvgn4UuAhq6Hcb
+	F7Xj5lDHZSn+c8ayGWvPXNCY9R2WRrZR+tCQ5KKnVAih431Sw316/PlZ6Awi4cpNtudqAywSTDv
+	w0XuVSmembWszLAQxCLiWceKD5SRJ/BCMck8EpMln4aBny2GN2QWxfgw8Br7QOxkO18PTV6PeIB
+	XquipvEVLQy5yLj63HhQmF08hvcahJgPcoR44uB8fa1zlF0ls3g6UdvIr0rZxZh2Tyirtq2WHBY
+	KFi3hdpNj5m+kmBYlk7CcfHQoRSQO/npDTM0NvvfVYAkLkAm0aMiCcLlVWmR/AByhduLh1ZlqVV
+	oDy/20baerRbj2jGfbxTjNYcUymLAM8c7WOCgDXBXSnarSkY7DBVmtgMOQfOhlIE8qfhOai4kOZ
+	5QG31mLPX9J8YwDuHpPfWYkFMoW2OLZBDzQl8nAZXFyRDg7szVq36gmTFfRUNVpwbPqRUWthT0a
+	RWN
+X-Received: by 2002:a05:6a20:9f8d:b0:3c3:ad17:edf7 with SMTP id adf61e73a8af0-3c3ada267d8mr9727040637.63.1784438588669;
+        Sat, 18 Jul 2026 22:23:08 -0700 (PDT)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:431d:c6bc:133f:2959])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a1bbab9sm25950461eec.15.2026.07.18.22.23.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 18 Jul 2026 22:23:06 -0700 (PDT)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Subject: [PATCH 0/3] powerpc: 512x: Convert ADS7845 touchscreen on PDM360NG
+ to device tree
+Date: Sat, 18 Jul 2026 22:22:52 -0700
+Message-Id: <20260718-ads7846-pdm360ng-v1-0-f318f85cda57@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACxfXGoC/yXMQQqDMBBA0avIrBuIsWTUq5QuNJnoCEbJtEUQ7
+ 26qy7f4fwehxCTQFjsk+rHwEjPKRwFu7OJAin02GG2sxhJV5wXrp1Wrnyur46DIIfkmoAm1gZy
+ tiQJv1/L1vi3ffiL3+X/gOE7wwndQdAAAAA==
+X-Change-ID: 20260717-ads7846-pdm360ng-ec7ed9f72f82
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Anatolij Gustschin <agust@denx.de>
+Cc: devicetree@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16-dev-b242f
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Uninitialized hardware state (missing clock enablement & reset seq=
-uence violation) due to motorcomm PHY driver not handling clocks.
---
+The reason for this series is to remove support for platform data in the
+ads7846 touchscreen driver, as pdm360ng is the last user of legacy
+platform data in the kernel for this driver.
 
---- Patch [2]: [PATCH v5 2/2] arm64: dts: rockchip: Add ArmSoM CM5 and CM5-=
-IO ---
-commit c0855ea5f59329ce1c87ee05212dc9c8bf0d2728
-Author: Jiaxing Hu <gahing@gahingwoo.com>
+This series converts the ADS7845 touchscreen on the PDM360NG board to
+use Device Tree bindings instead of legacy platform data callbacks:
 
-arm64: dts: rockchip: Add ArmSoM CM5 and CM5-IO
+- Move GPIO controller capabilities into mpc5121.dtsi so all MPC5121
+  boards inherit proper controller definitions, and remove redundant
+  local declarations from ac14xx.dts
+- Update pdm360ng.dts to use "ti,ads7845" with pendown-gpio and
+  interrupt-parent referencing gpio_pic
+- Add "ifm,pdm360ng" to mpc512x_generic.c and delete obsolete
+  pdm360ng.c.
 
-This patch adds device tree support for the Rockchip RK3576 based
-ArmSoM CM5 compute module and its CM5-IO carrier board. It configures
-the GMAC0 Ethernet with an on-module MotorComm YT8531 PHY.
+This change has been discussed in '24i but I just got around to
+implementing this:
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5.dtsi b/arch/a=
-rm64/boot/dts/rockchip/rk3576-armsom-cm5.dtsi
-> new file mode 100644
-> index 0000000000000..b6977b973b340
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5.dtsi
-[ ... ]
-> +&mdio0 {
-> +	reset-gpios =3D <&gpio2 RK_PB3 GPIO_ACTIVE_LOW>;
-> +	reset-delay-us =3D <20000>;
-> +	reset-post-delay-us =3D <100000>;
-> +
-> +	rgmii_phy0: phy@1 {
-> +		compatible =3D "ethernet-phy-id4f51.e91b",
-> +			     "ethernet-phy-ieee802.3-c22";
-> +		reg =3D <0x1>;
-> +		clocks =3D <&cru REFCLKO25M_GMAC0_OUT>;
-> +	};
-> +};
+https://lore.kernel.org/r/ZoNHLjmSvCN12vU5@google.com/
 
-[Severity: High]
-The commit message states that the REFCLKO25M_GMAC0_OUT clock is enabled by
-the PHY driver. Does the motorcomm PHY driver actually handle clocks?
+Note that this should compile but I have not tried this on real
+hardware.
 
-Looking at drivers/net/phy/motorcomm.c, there don't appear to be any calls =
-to
-clk_get() or devm_clk_get() to fetch and enable the clocks specified in the
-device tree.
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+Dmitry Torokhov (3):
+      powerpc/dts: mpc5121: Move GPIO controller properties to SoC dtsi
+      powerpc/dts: pdm360ng: Convert ADS7845 touchscreen to DT bindings
+      powerpc/512x: Remove pdm360ng platform setup in favor of mpc512x_generic
 
-Additionally, dwmac-rk.c only fetches a PHY clock if the phy-is-integrated
-property is present, which is missing here.
+ arch/powerpc/boot/dts/ac14xx.dts              |  13 ---
+ arch/powerpc/boot/dts/mpc5121.dtsi            |   6 +-
+ arch/powerpc/boot/dts/pdm360ng.dts            |   7 +-
+ arch/powerpc/platforms/512x/Kconfig           |   3 +-
+ arch/powerpc/platforms/512x/Makefile          |   1 -
+ arch/powerpc/platforms/512x/mpc512x_generic.c |   1 +
+ arch/powerpc/platforms/512x/pdm360ng.c        | 126 --------------------------
+ 7 files changed, 12 insertions(+), 145 deletions(-)
+---
+base-commit: 8e9685d3c41c35dd1b37df70d854137abcb2fbac
+change-id: 20260717-ads7846-pdm360ng-ec7ed9f72f82
 
-Because the MDIO bus deasserts the reset-gpios before the PHY device is
-probed, will the PHY be brought out of reset with a dead clock?
+Thanks.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260719034611.3623=
-066-1-gahing@gahingwoo.com?part=3D2
+-- 
+Dmitry
+
