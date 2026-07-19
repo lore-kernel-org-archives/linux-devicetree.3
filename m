@@ -1,211 +1,147 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F6A17C220
-	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 22:30:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA46317150
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 22:41:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784500238; cv=none; b=HWLa4n+REWd8bf5OFGaK47KL9BzdI76lKZefCFkpyNXys3mvxOppUNEOsj6QR/3tjRW1YjOIbtZMyW8FMz5nRn6aq0SFbTvjuFCsnFKSSTlfpCzzlnCfcf5rIuKFOTSoUNJvrLZweXZAUXg3PiRaAq35+XBiyCyzYGU51hJAWoY=
+	t=1784500883; cv=none; b=T3lOvtXSeMeoXa/mV/DWlz1EQn44KLlK7Iu7TQXZXPPvjm7kEOf+jtRfXxVLujnniEUuQfNx2kdxtlUPnHsfHBLFYypBp68KdHNiHZONBoo1v94VPHT9YtlGKqZ9xjAwX4266+udRTerS+ITmSOVfyC4fVeJhyQ6tMFisFVEUNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784500238; c=relaxed/simple;
-	bh=0C2jaq6CHwX65Dpl7hbWEPT8Pg5z8tLgPBCiFFKIv+U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WWGEO0ZBibp2zy/Ec7O4MMu9DlbDH6ItTicyhnGbtazZU2DRuOIZuXfzWncj09aT79czxJG7LCaoEsM0/gF8L18IatTLxYC5Vcsbi+C3hBi41T3r7Z2sY5iL7MFdRlHUjyCAvDhQNTr0hhlhtXMEihHRtpBF5fhb+vySwRwQqOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=APirxx09; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1784500883; c=relaxed/simple;
+	bh=Hu3XhQuZ0TYfdwZPUp9ITftdo6OiblAWkpOPMAPxcYw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=A2ypJ4+wMljq+qJg1V2qvVXyP0RjtnGht+3dVR3dhguvW4z5ukVqik0hm9Xju5H/lohv2wylI5rOPeFFNNUwmnNruWBlvN5QjG9R9YIDUMg/QGNm8hGSfDhs3IB7YKmK9DW/t4CsfAuICyLtVgfrUzKpPiyfVNpsiZge+0IHe9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MjuAtnZh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=haw8G8R3; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="APirxx09"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4955aa106b1so5040165e9.0
-        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 15:30:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MjuAtnZh";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="haw8G8R3"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66JKR2SI236615
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 22:41:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	G14pMQuK0WnX0nA66QGQu45FpDKSIwIW+JyHDqzn2pw=; b=MjuAtnZhnwDXNHXH
+	LgBQX1cf2yzabCiy/D1e7BbDxjyeyG9H97/X79zoQDWmWfnLpAuo+gKn0rLXVCLw
+	nxULbBkN0wn3w/Qw0kRdbMJwBsgW0hyltX53LlAW/UFy0sfevW3FR/n5VYdzNJL7
+	JRossYgWG7kDlJcCeAyupHnyOdtsTGqrzY3QuRW8UfICX1xeWeeY8Zp8BsVEbDiD
+	DBAiy1/hRtuBdFPKaIQodhqMAny5ZWWOkhhlkO/HkHkXSdqgLQWsn+8iIN3BrArV
+	h4Qsm+zwMY4VhWkRY8iVYLNYVuWExc+R/4C+yNzpSpwHMe9Nl9dVqjSvwmRysrB3
+	Bn227A==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2chkjpq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 22:41:20 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3811ae55313so5612056a91.3
+        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 15:41:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784500235; x=1785105035; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VNPJswjr3SJLrlJpAZg7EHmOY10XaD74Uxuqros5GpM=;
-        b=APirxx09m8+yqruUa6RaOEARqWJpfVhd09TLtldU7M9uG3HYuvSjsZnHJzDmtZAeNg
-         UTQ5MT92m4iHKPltYsXMY9ziKGCRsE4EGByHgMgsqVmQP5CMc9vuoFkr2+2bpTpeJNHL
-         zh63/4WjEPy4vkieanY6FPKpx9JuD0i+bko9fgB1/mhm/KibOuvOI0K6BeleKvNihzK/
-         /LUDhQ+NlmDMG1n+vJQ7Z3erkAnaQ4Fqi8N9gqBjokaPt2ZtqPqF7QcHtt6z4kBwznkm
-         7OuqYv4/c61fw22w9JbdeQX5FWU5INKURRk9gID+vGAbpzpMfBivvs7imJS1GRxW8cW9
-         kPAw==
+        d=oss.qualcomm.com; s=google; t=1784500880; x=1785105680; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=G14pMQuK0WnX0nA66QGQu45FpDKSIwIW+JyHDqzn2pw=;
+        b=haw8G8R3QE72sxBQMwpGvbXH0DdUbX0aAZvQlov7aUEKYQnHO1hI01O1kBYJP/VAoR
+         dQBERstvCdDi8+EKZJJhvW2wGqL+/plCPSfZ/G0Du017yX0yyzqe9hJDDVXr9uJ533Qr
+         85ygxWdxWjtdTKmymu58McF4Wf6YEuAoeByg8N55ltP7IQH/ZYrSGN9woDJfFaAixhLo
+         4TRHIlWg60hIPB/EgbeFb9cJTFRGXjUEs0APY1V1dif+lR6AsbTp/hAqrS16rcuR3se/
+         dsSvnatBcXPndrMism0driMGpUJ9Ewo3V1TYhKLCcRBnkUKr7c7PiYuLP4c4qHiQ2cih
+         Fu6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784500235; x=1785105035;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VNPJswjr3SJLrlJpAZg7EHmOY10XaD74Uxuqros5GpM=;
-        b=VWrLP29aX3i8uB2V6gcV200vF1Q9pPjYGJb7gQVw41mMIndyJbQKW0ZmGSDueXriWJ
-         K72SPvp1KJN9MWFHbMW6jKWBpNx1tyrV4TraH4krSy5rVXweg75YF+XQ7UPDZ05ORkU8
-         hO36l3l0+DpyBFkZKgs8+ZTREf85gMntFkCq8G42ucA4QAY9uAMlXpM+qRPkbWhGtlKT
-         mca6AiDTZM5s+2k6lWfm2S70JW1sAigAOH/+kvLb5jIU7OluhHwWzMrGtBpfANi4ituG
-         qJhj4NqID07IiaI44CMMighXbK/QdWFXctoTtk8RUY/EmB3uHiWl6F4Z+r2VV1Op2JHb
-         I+NQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqETqEEV4bTeevLmAj+BqotOfHsHm5DwuJWGjp6IM/C+dd7rE1TtQRBegbnx4+VNEosURNE6gixJ9NQ@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywjr/0Cc4R4DgUv04cyWGMnzGAqAB9rRx1ioVWhbCTgTx6lUAs3
-	CbZBTV8YaexBJUcd07j8PIBmizzFbGZN3EbPj5f3+uwSdGXDJMa3ccI4UyCdvLmhRD4=
-X-Gm-Gg: AfdE7cnRmKzfEtHfoFLGhIQ35eQW6IsL/PwgquTNKDh/ratP9wuyLNJc4XpY+/i4kEC
-	I5O/7vYZfDBgOZuuEugSBo2rQULJe5sWy0aznNzKWUh7mEIYnUt/qKqwZKeRkstpNe9Q2tH47dT
-	baU5qQ2sjFbS7e5i7x4Y05qj0cqkuY3Hx1FRHkSlw9p/qiydnmH3crPGaUM9C7ef9MI9UpJ9Uss
-	xcbushGepuCqF28LiGT3wLH6xo+fRNF58+l3qKCqaJjfKIpVYSIbYTG5t0or+pfhLuVrp5rlQiL
-	cXpeSd34u+HIDUUWueFsm5pvccAqy4oiKj0sl6o+U1F8YkoLFb/VfQp2CbomzK6U1sQp1L+uSyg
-	eyb77piTe4vLToAtWfjh/I+IweUk/Afxe3QsF/VmxKmB3i020Ly7Le3cWhXeJ4cqxdR30TcG7Xa
-	mQM9l28C4fIsgOQ0pgyqLUf/4L
-X-Received: by 2002:a05:600c:4445:b0:493:f262:b8 with SMTP id 5b1f17b1804b1-4954a3e374cmr116983045e9.1.1784500234679;
-        Sun, 19 Jul 2026 15:30:34 -0700 (PDT)
-Received: from [192.168.0.101] ([109.76.79.119])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4954a2edda2sm217846365e9.13.2026.07.19.15.30.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Jul 2026 15:30:34 -0700 (PDT)
-Message-ID: <61f7c25d-fd50-42bd-aabc-8da1ea28e233@linaro.org>
-Date: Sun, 19 Jul 2026 23:30:33 +0100
+        d=1e100.net; s=20251104; t=1784500880; x=1785105680;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G14pMQuK0WnX0nA66QGQu45FpDKSIwIW+JyHDqzn2pw=;
+        b=Jp6cCWz0Uu13kgK/SBenpb5TK8GsHc5hVTDwg/ElNUHg0eQCDXzpVQKY4YLBZfV5jm
+         UdFDvp+GDch1Ai3jS2uYRP35w/+jmRf4YSi8oTHqaEwtCsABZj9c5Lgy8lAlFg2b27l3
+         nJ4apAc/Kg49iwxEpApcwAPxEIF7CPvY1QNnWG3Y+gbkt5RnrWphj35EtZRbqzRI03i2
+         8Ym96HrfxrK5pDZWl1mwdgoGVhxWKmkcy3HttmW35lcf+LJQsvBtnSd7FrnicdptpHcD
+         wXI4qOaawI+HYWpWFNWZZhdbgO/QWyvRkmiGjy4EBCfYpbhboUheo8R3M5ZaNTMjT1sc
+         pmJQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoFU6yRha2avw8mF2F5hwtiAmUiAciA0QT6mb7GJmzl8Vvm6Ag6r6a/UVUmqesM9olkabhlj+xbFj8i@vger.kernel.org
+X-Gm-Message-State: AOJu0YzVni/tbp5ZAreRL/3ZKcpB+J5hlKhx6BeMYQX+ZjlzFyeI1DEt
+	NrAUC9NvDnPQ1M8BZELjJEEzI05SJWFCN5bTnYJ7ykaR3b0ql9LdfldVOpeYI5P3GHzQ5GdfAn2
+	rh5QK7IbGqBf4xa/BwN1Hb8AhwAJeKoTIrmIlErWdSKXHbwR2FOxskgnynIDWzDXN
+X-Gm-Gg: AfdE7clE2njvLkesLAy9I6UkzZgU/40tHskzXCV2o5VzJ8Hf5vvutrl7y3aRay8Qmh+
+	0x9L3xOJvW1Zudbdigo1TSmHynXsb929tovFjogje5EbA4oCzpHVpWmFQ1z+NZ7R9dIhonYdC/9
+	BtLxvOWOmtbyxk0ZuJnM3udcHrl9uBvhYQM1K0UrDo/b2fNE+tevyjBVOplgCjiN5GGnn0ihvv3
+	nDglv94zS7Y2dSRzAQ+QnDnQQW39s2EUnBOE0VuH8NUcBeELGHpXuFRS+5Gk+TcVZCUHfkPJbuB
+	3GOriq86d2fBLFknNP+dvr17SPW5/MVbDn20yL+jUR7dDOvrvVRVPPaj98FCJm+pbEcmIHtflT8
+	9IdE9SOVojLof5b7b
+X-Received: by 2002:a05:6a21:b94:b0:3c3:8d4c:667a with SMTP id adf61e73a8af0-3c3ad7a4394mr12721145637.18.1784500879602;
+        Sun, 19 Jul 2026 15:41:19 -0700 (PDT)
+X-Received: by 2002:a05:6a21:b94:b0:3c3:8d4c:667a with SMTP id adf61e73a8af0-3c3ad7a4394mr12721135637.18.1784500879183;
+        Sun, 19 Jul 2026 15:41:19 -0700 (PDT)
+Received: from jic23-huawei ([50.35.46.84])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cb51a2c2a13sm3599068a12.31.2026.07.19.15.41.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 19 Jul 2026 15:41:18 -0700 (PDT)
+Date: Sun, 19 Jul 2026 23:41:13 +0100
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: David Lechner <dlechner@baylibre.com>
+Cc: Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>, nuno.sa@analog.com,
+        andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, mranostay@gmail.com, ~lkcamp/patches@lists.sr.ht,
+        linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev
+Subject: Re: [PATCH v4] dt-bindings: iio: proximity: move LIDAR-Lite out of
+ trivial-devices
+Message-ID: <20260719234047.629d1a8e@jic23-huawei>
+In-Reply-To: <7b8973fd-385d-4532-8213-bb0a811081ae@baylibre.com>
+References: <20260714215433.41259-1-rodrigo.gobbi.7@gmail.com>
+	<7b8973fd-385d-4532-8213-bb0a811081ae@baylibre.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, media-ci@linuxtv.org, vkoul@kernel.org,
- conor+dt@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org,
- linux-phy@lists.infradead.org, olteanv@gmail.com
-References: <20260719-x1e-csi2-phy-v12-0-cc7311326d1b@linaro.org>
- <20260719-x1e-csi2-phy-v12-2-cc7311326d1b@linaro.org>
- <20260719135920.2195A1F00A3A@smtp.kernel.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260719135920.2195A1F00A3A@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE5MDI1NCBTYWx0ZWRfXyhV3aq+ecYYQ
+ tCfWpjnw5EpOjvfdCgrBX6xZOkkl7AG3UcXE1oMkzRgpHG2q2TVcbCXB2ZFHlXDpVEumGrEjDwL
+ 8piMcy0hE4j7VxUMIGWYtJgWlVFovso=
+X-Proofpoint-GUID: 1DI4GddA6OSKCmdVr6LTx8vk6KRBMqsc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE5MDI1NCBTYWx0ZWRfX/Cgi+ZnTXaY2
+ wGxa8TBy9mSfuaAGOmhO8iDBYHNW0UivusoG5RAqyxlnod47xC2WB7agAW7tUYHgqzAk3lCVBLl
+ 4sNVeCpf36LQNz28LZV5OhQ7JOWgbtWlAlU3Ea2VoEaV0x/N1IxkDsa9Um168jAJDnasxSDsB+A
+ uUaELiZnWZw6SYz1K6sF8wdxF7p5tfnDuiLDvs1sClGWOFTaeucjAYH6v9dqWp2kSXZPK0/mI+5
+ oI33AKzkwFRFL67nJNDuShC8IVzSSxtVBzgFkrjW76yvCb8iahnLDynZfcD3sNbf5tAUjThL58f
+ 1YUHuXUcmXR9mXJJHdEtqn/3PNRllYy9W3H15YGxNhlxkil50s1Qy8M84Y6nZGH7Sd6pHqvW8iz
+ 7c91OwHozs5o3F+Jj6Ft8HNEQgW1/lXMW9KUiOrMM3O0XzKmtMeWK8z5n5Q8YCwgC2r7HZKb0Bq
+ i210ZAXt+0BqmAq906A==
+X-Authority-Analysis: v=2.4 cv=T5K8ifKQ c=1 sm=1 tr=0 ts=6a5d5290 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=qC1CW/w66vtJz1P9yTJxNA==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=XdlB6Cn_7BDTE3YMWMYA:9 a=CjuIK1q_8ugA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: 1DI4GddA6OSKCmdVr6LTx8vk6KRBMqsc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-19_07,2026-07-17_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 impostorscore=0 bulkscore=0 adultscore=0
+ suspectscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607190254
 
-On 19/07/2026 14:59, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> - [High] Valid calculated settle_cnt of 0 is erroneously rejected as an error, causing PHY initialization to fail.
-> - [High] Potential NULL pointer dereference in clock name comparison during probe when parsing malformed device trees.
-> - [Medium] Missing PM_OPP Kconfig dependency causes unconditional runtime probe failures.
-> --
+> > 
+> > [1] https://lore.kernel.org/all/c39a2980-f5e5-44aa-9fd3-20e0658f62dc@gmail.com/
+> > 
+> > Changelog:
+> > v4: unify patches rather than using a series to keep the tree bisectable;
+> >     rewrite the commit msg, naming the devices explicitly;  
 > 
-> --- Patch [2]: [PATCH v12 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver ---
-> commit 7fdedc509474184e47a62af468ae08b71f96dfd5
-> Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> Subject: phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-> 
-> This commit adds a new MIPI CSI2 driver in DPHY mode. It imports existing
-> CAMSS CSI PHY initialization sequences to support devices like the
-> qcom,x1e80100-csi2-phy.
-> 
->> diff --git a/drivers/phy/qualcomm/Kconfig b/drivers/phy/qualcomm/Kconfig
->> index 60a0ead127fa9..779a3511ba852 100644
->> --- a/drivers/phy/qualcomm/Kconfig
->> +++ b/drivers/phy/qualcomm/Kconfig
->> @@ -28,6 +28,20 @@ config PHY_QCOM_EDP
->>   	  Enable this driver to support the Qualcomm eDP PHY found in various
->>   	  Qualcomm chipsets.
->>   
->> +config PHY_QCOM_MIPI_CSI2
->> +	tristate "Qualcomm MIPI CSI2 PHY driver"
->> +	depends on ARCH_QCOM || COMPILE_TEST
->> +	depends on OF
->> +	depends on PM
->> +	depends on COMMON_CLK
->> +	select GENERIC_PHY
->> +	select GENERIC_PHY_MIPI_DPHY
-> 
-> [Severity: Medium]
-> Should this Kconfig entry select or depend on PM_OPP?
-> 
-> Without CONFIG_PM_OPP enabled, the stub for devm_pm_opp_of_add_table()
-> used during probe will return -EOPNOTSUPP, causing the driver probe to
-> unconditionally fail with an "invalid OPP table" error.
+> We lost the IIO driver patch though. The change adding a new compatible
+> won't be accepted without it.
 
-By design in fact as a result of a Sashiko review as I recall. Context 
-window between runs seems required for this tool.
-
-> 
->> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
->> new file mode 100644
->> --- /dev/null
->> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-> 
-> [ ... ]
-> 
->> +static int phy_qcom_mipi_csi2_lanes_enable(struct mipi_csi2phy_device *csi2phy,
->> +					   struct mipi_csi2phy_stream_cfg *cfg)
->> +{
->> +	const struct mipi_csi2phy_device_regs *regs = csi2phy_dev_to_regs(csi2phy);
->> +	struct mipi_csi2phy_lanes_cfg *lane_cfg = &cfg->lane_cfg;
->> +	u8 settle_cnt;
->> +	u8 val;
->> +	int i;
->> +
->> +	settle_cnt = phy_qcom_mipi_csi2_settle_cnt_calc(cfg->link_freq, csi2phy->timer_clk_rate);
->> +	if (!settle_cnt)
->> +		return -EINVAL;
-> 
-> [Severity: High]
-> Does this incorrectly reject a valid settle count of zero?
-> 
-> Looking at the math in phy_qcom_mipi_csi2_settle_cnt_calc():
-> 
-> phy_qcom_mipi_csi2_settle_cnt_calc() {
->          ...
->          settle_cnt = t_hs_settle_ps / timer_period_ps - 6;
->          return settle_cnt;
-> }
-> 
-> If the link frequency and timer clock rate yield exactly 6 timer periods
-> for t_hs_settle, the calculation results in 0. By rejecting 0 here,
-> legitimate MIPI CSI2 configurations might fail to initialize.
-
-Yeah, I guess a zero settle count should be legitimate.
-
-> 
->> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
->> new file mode 100644
->> --- /dev/null
->> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
-> 
-> [ ... ]
-> 
->> +static int phy_qcom_mipi_csi2_probe(struct platform_device *pdev)
->> +{
-> 
-> [ ... ]
-> 
->> +	ret = devm_clk_bulk_get_all(dev, &csi2phy->clks);
->> +	if (ret < 0)
->> +		return dev_err_probe(dev, ret, "Failed to get clocks\n");
->> +
->> +	if (num_clk != ret) {
->> +		return dev_err_probe(dev, -ENODEV, "clock count %d expected %d\n",
->> +				     ret, num_clk);
->> +	}
->> +
->> +	for (i = 0; i < num_clk; i++) {
->> +		if (!strcmp(csi2phy->clks[i].id, "timer")) {
-> 
-> [Severity: High]
-> Could csi2phy->clks[i].id be NULL here?
-> 
-> The clk_bulk_get_all() infrastructure can leave the .id field as NULL if
-> the device tree node has a "clocks" property but is missing "clock-names".
-> Calling strcmp() on a NULL pointer will cause a kernel panic during probe
-> when parsing malformed device trees.
-
-clock-names are required in the schema but sure I add a check for this.
-
-This ping-pong with this tool is taking forever, I need to figure out 
-how to run this locally to stop wasting my own time.
-
->> +			csi2phy->timer_clk = csi2phy->clks[i].clk;
->> +			break;
->> +		}
->> +	}
->> +	if (!csi2phy->timer_clk)
->> +		return dev_err_probe(dev, -ENODEV, "no timer clock\n");
-> 
+I think it is fully backwards compatible?  If so we don't need to do
+anything in the driver. We could tweak the name, but perhaps not worth
+the bother in this case.
 
