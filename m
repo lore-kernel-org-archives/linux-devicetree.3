@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2CE1A9F90;
-	Sun, 19 Jul 2026 05:58:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03653E573;
+	Sun, 19 Jul 2026 06:04:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784440689; cv=none; b=Wg52rckqACa+oHDbkmxCv8TtZ+4HvRqmSoJ2+2gD1ENU7h4AYyxkapZUmpkM8POnH+JYFCOE6cVBL2csY1SCv+3whQgl3Id3lkEriJP7HUpo1uvEG+gxy+mmiuxdfPZ7N/Vp6LvUSjRPEq1dJ27Lhy/Guww1aYNz1hD2MN3nblo=
+	t=1784441078; cv=none; b=saxNwXIM0srbVUiSK8oS4nkTYLcqORG6z7qmdTcYbzE+P5s8Hm9RZUptDaQyfy4jru6hcR2XdEK5q2kwTZkbZUVJIhCxNFREj+cohjH6VWInchZ2dI0bhW0VJ3bWXuA10byGbVEQfKw7eYlmZftw8zt6bIv5nlWDDc/+mmI1lEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784440689; c=relaxed/simple;
-	bh=wUHT9nEK6Yu905UR13NLzU7eNlfBtmgIe5XQ8r4E6kY=;
+	s=arc-20240116; t=1784441078; c=relaxed/simple;
+	bh=Q7fUbylysHiLAqaDx/gj/8IdFIu7/ZXhpkuMdLcEu/c=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PklNND1p9JNWjwEVQKDXIA8yl1fEiwKKfT1hFehi0RCHhxttZ7W6N3/eb5ul5yb5zUEc3GtQ765w9f6ArlHozJujPtRN1Bh5JCo6bBePBY3MATIaDcNnz1/Zmf7F7OHL3eKJEhLyzJ1Dd2HGkZ0pQHVhUKKRlCBgOcTYGcIZePQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KKduVpL3; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=TgXxe/8DP5OIBR41hoxMcdMn6Y+EmRaojGQrzpb1sCfjfT21MdjBaBSS31cscZQ7t4Yf27MlRckUSWZyDabfNq0W/dgLTSBztrm0BTcqAq8P7dwvNgeZycBXZE2E006w1DtRk41umjfqBKJlB/V9l/u5lzsxTLX1i/IYOJg+cys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gYy/GO54; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KKduVpL3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D49581F000E9;
-	Sun, 19 Jul 2026 05:58:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gYy/GO54"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82F751F000E9;
+	Sun, 19 Jul 2026 06:04:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784440687;
-	bh=p+fcCmVhgwWoUK/cGcXircaGZxNi64IdTofNZ1i1kH8=;
+	s=k20260515; t=1784441076;
+	bh=wMb/aZUyTzX5L2OPxIhU+V/uRFviMZPBJwx2dTgRBHQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KKduVpL3ujEzyGu4BSec6tIyMTACLbyw6CCxq8+rGKeTKk/p03+GYTQ9PDwn3xk9j
-	 fT45lT2wRQw3vOrgJkOLj5Pp+7kUsZJoiqIwAp4jnbOEUysuWLA5g1lb3U5YdPB4Nr
-	 EjoUf2P4/vc2jBH+94XvNveM/+1eNn5UXd6iJz8O385RFe3X89YzzP0fkPfB/Zvr7k
-	 sATUzl0dO5Hbjcwq93VVXzMEFKcu2rIy0AZ+1XNXF49Ih7VHBTu6PBqsVeys4ZLKyA
-	 kFAmJ/3J4bS51hVCfJ/tKbTM7weHcQum5KB0sxS9rSKkMXH+WJw7Kh/ZKcsQtutbBr
-	 E1cfsnrc9t7uA==
-Message-ID: <98848a59-6385-48d0-926f-3e78aea9a386@kernel.org>
-Date: Sun, 19 Jul 2026 07:58:01 +0200
+	b=gYy/GO548QjxuWCQbPaCkrzn3piSM9imW4a2TQiGOUxkyGHv+8c5AbKbK4F+3go0I
+	 qs1e1eUUbhM7uh3I5HRVoyqdeYNpoKBYxvWlTLDdGc756VXOznik3Olk7oKcGBPh+m
+	 n2IFDz84jlPy05sIsCxJcCb3AR/0kSJpDZkuf6+sgmHwt20ZrrOTJavZNe2Soj0ULx
+	 O335P+EDE0gNiXZJgJJCNbQHbRusP819CLSeb2CG8CzrJo+MpSLDcJgTXuYvPe7jKl
+	 iqXwII1kxrseYHGc2zIQERWzrDYwNjHhMwd9utBgCnPXvaO2wl97ti2d5xFkHL+I/Z
+	 XFch0GcrejQmQ==
+Message-ID: <733e4fd0-768a-4bed-ba22-a3bc2fc13def@kernel.org>
+Date: Sun, 19 Jul 2026 08:04:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,19 +35,19 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] regulator: dt-bindings: Add Silergy SYR82X allowed
- modes
-To: Victor Krawiec <victor.krawiec@arturia.com>,
- Mark Brown <broonie@kernel.org>
-Cc: lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260715155141.128601-1-victor.krawiec@arturia.com>
- <20260715155141.128601-2-victor.krawiec@arturia.com>
- <20260717-nostalgic-raptor-of-sunshine-1aba9a@quoll>
- <fd7d5b72-a400-435c-bbac-9e661d98e3c9@arturia.com>
- <94ce2136-3adc-40f5-946f-b56778f6343c@kernel.org>
- <38adfbda-2cdb-49bb-84d4-aae0a6258f68@sirena.org.uk>
- <c3977e59-951b-4d91-a775-6c96cb84e37c@arturia.com>
+Subject: Re: [PATCH net-next v2 1/2] dt-bindings: net: Add Maxio MAE0621A PHY
+To: Liu Changjie <liucj1228@outlook.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org
+Cc: Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Luo Jie <jie.luo@oss.qualcomm.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <MN0PR19MB609154F210DF84DCB29D3696ACC62@MN0PR19MB6091.namprd19.prod.outlook.com>
+ <MN0PR19MB6091F865EF7FE6AC1EE41C10ACC62@MN0PR19MB6091.namprd19.prod.outlook.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -93,42 +93,19 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <c3977e59-951b-4d91-a775-6c96cb84e37c@arturia.com>
+In-Reply-To: <MN0PR19MB6091F865EF7FE6AC1EE41C10ACC62@MN0PR19MB6091.namprd19.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17/07/2026 16:14, Victor Krawiec wrote:
+On 17/07/2026 05:44, Liu Changjie wrote:
+> Document the MAE0621A PHY ID and its optional 125 MHz CLKOUT
+> setting. Boards which do not provide the property retain the hardware
+> strap or bootloader configuration.
 > 
-> 
-> On 7/17/26 14:44, Mark Brown wrote:
->> On Fri, Jul 17, 2026 at 02:31:51PM +0200, Krzysztof Kozlowski wrote:
->>
->>> So you are adding constants for one device but used in the bindings and
->>> driver for other? Are they valid there?
->>
->> It's one of these devices that's got a bunch of clones from various
->> manufacturers with minor differences and share a driver.
-> 
-> I checked the datasheets and all devices share the same 2 modes which
-> are Auto-PFM and Forced PWM mode.
-> 
-> Since devices are all clones and share the same modes the binding part
-> can be generic. I plan to rename the header and its macros to use
-> FAN53555 name and add this property to the binding:
-> 
-> regulator-initial-mode:
->     enum:
->       [ 1, 2 ]
->     description:
->       Defined in
->       include/dt-bindings/regulator/fcs,fan53555-regulator.h
-> 
-> However the implementation I made in the driver is currently
-> restricted to SYR82X. I could make it generic but I don't have access
-> to the other devices to test it.
-> 
+> Only the 125 MHz setting is exposed because it is the only setting
+> exercised on hardware.
 
-Old name of header file is fine, but please explain this in commit msg.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
