@@ -1,102 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782B21A0728;
-	Sun, 19 Jul 2026 08:33:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2076B3368B5;
+	Sun, 19 Jul 2026 08:37:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784450001; cv=none; b=RYwPMPU4EH+L8MbIHLWiqgnfybeob4AHiMBKCXhiXsfyRTk2rCEL+TxL0Qwew7+FiEfF0YybJWq2GkQK+JCyBGheW/8ia11v+HgFS1fNrl1pajumSe3BTQBbT9nKRQQErVAqjwNWBADgZuuc5BZry4xqIsQakDNw7s9VP2C+MqY=
+	t=1784450277; cv=none; b=Vrbqvd9PFYm5iBMZeaIpUl1cwPHcmbw+r5AOo5wdrJivOIqKY+ieCPTp+j70JA75jjbcqsN8M/jtZLStu0JbbfpFfnWZPCBVY971HrV7UEiRxDRUrwIG6e8g5rymxYJ6OKdxnk+pQwz1eva74bgVajTjE+NEyCkluFIEbFQ276Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784450001; c=relaxed/simple;
-	bh=CRZtWa6jBA/63jxOBSpI2FCOiPczqcGnY+LBknpacnc=;
+	s=arc-20240116; t=1784450277; c=relaxed/simple;
+	bh=6A1AAWCG1HXME5VojPiVPd/SvTC7z3zlEgixnlAcm6Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pEOGzAtseiXzKxpCA8pTX26IC7Zmm57LgJf4PFoNCcOWPW7fhT6wOa59EhNQnnklwRY2vBeESdiiAM9sujRc3GEUIOXy6NPMZ7LLHU2iprDZ9ldpHCMH0OS+TXJm86EKQjXdzgWogR5Tp7b4lVLgjjbbQLs5OqkxHyWLYHJk4a0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KSVoK+f6; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=GmdiMVxU5Z/3C2OgJ8Rvg2/Jq04+zcWTSVYMpydV36EeaPYGJeH9FS1SIfWlc1aiFsXlzcudyzkGm5PqCI1SeCzqF9xK5neP3/MP3HSwCpP3iJobTSDuw/K+67IrhVdElXAsYfwgG0LnkLF+RFziyFBVhDpe1mb/Fj7K5AysYSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SH+I4UYp; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KSVoK+f6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D7771F000E9;
-	Sun, 19 Jul 2026 08:33:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784450000;
-	bh=szj1aY/omdqtH4EtEUFsZN2I0KbR/qyXhWFlR7oDZEE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KSVoK+f6OzellndR4jK9EG5F+WUwoJVbMM+88Lw5gHGI5n1EFYmsrTQOz/kLB0nic
-	 0PwQ0OO4XqXE74vAAs1/RXDkxPbz6N4Uo9WoKgUjpOxMkhXvu7RYlICSciJuUzheD7
-	 t1Irri9HJkdFH5pwcKY5VjsZxpsO+DuAuaFgPncji0ZclpmykIffkasZLrsW5yAn/B
-	 QVz9yUHimVZsgTAQ9UegrXl4R9GoxsGoPdNvTgc3Gzpn0btiDLdXKvHPXl39ENmrLy
-	 7HZ6tUpH0chCS4/Sfazj+pJh/BJK1pzhUOY6otb6u9jTuPAeBXBZWACAhVlN3mjXmn
-	 nXAJ6Gz+9GJtQ==
-Date: Sun, 19 Jul 2026 10:33:15 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gianluca Boiano <morf3089@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>, 
-	"Wang, Sen" <sen@ti.com>, linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: sound: add Texas Instruments TAS2557
-Message-ID: <20260719-furious-wine-tuna-f4acb8@quoll>
-References: <20260717233402.414326-1-morf3089@gmail.com>
- <20260717233402.414326-2-morf3089@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SH+I4UYp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784450276; x=1815986276;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6A1AAWCG1HXME5VojPiVPd/SvTC7z3zlEgixnlAcm6Q=;
+  b=SH+I4UYpudOFEMvcq5s9lYAIga5ByFNYb2QvXjiUZhUKD6FWvXfuKf6L
+   WeJ5638hodyClLcaG7XeOejVePLnVm6zb4c7qaRKIDpl7M6zwj3ni42q6
+   HbxvmySqG9SOgpL0FTbd5PZNUzVoGijjMIYF/eTjsOBZVfbRNN1AihFIM
+   T4JuYLq4B0fie9pk0A41b+zpMxcVeZDow61xzrWsrf9bp3pfonrGImzmR
+   CvW34/u4ciRV/tRZU9p1LHfpOoIhn/xvRhBUoFa8LLw/byFhiGH+gyhfX
+   hhdZTaPdaLjVIfyKWE/gOQhO5eVjS8Hq38KmWmPsOUR6jNflnlC8jMFPL
+   w==;
+X-CSE-ConnectionGUID: yku8rTHBTCeHTvmnbMI7Mw==
+X-CSE-MsgGUID: JeZNhq8GS4K2aIUqw+38+w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11850"; a="85262744"
+X-IronPort-AV: E=Sophos;i="6.25,172,1779174000"; 
+   d="scan'208";a="85262744"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jul 2026 01:37:55 -0700
+X-CSE-ConnectionGUID: MPlDAIe7Te2ViXWmZ77pGg==
+X-CSE-MsgGUID: c7dMYrhZSzG9mcavhyURVw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,172,1779174000"; 
+   d="scan'208";a="256610099"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.56])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jul 2026 01:37:51 -0700
+Date: Sun, 19 Jul 2026 11:37:49 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Xu Yang <xu.yang_2@nxp.com>, linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 3/3] device property: add test cases for
+ fwnode_for_each_child_node()
+Message-ID: <alyMt-ya5skHmhtx@ashevche-desk.local>
+References: <20260611203537.1786399-1-andriy.shevchenko@linux.intel.com>
+ <20260611203537.1786399-4-andriy.shevchenko@linux.intel.com>
+ <DK1RFV9AABBD.KP0VPMWKFYWM@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260717233402.414326-2-morf3089@gmail.com>
+In-Reply-To: <DK1RFV9AABBD.KP0VPMWKFYWM@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sat, Jul 18, 2026 at 01:33:59AM +0200, Gianluca Boiano wrote:
-> Document the TAS2557 mono Class-D smart amplifier with an integrated
-> DSP for speaker protection. The device is controlled over I2C and
-> receives audio over I2S/TDM (ASI). One node can describe either a
-> single mono device or, via a two-entry `reg`, a stereo pair sharing
-> one bus: the physical device at each `reg` index applies that half
-> (DEV_A/DEV_B) of a stereo-tuned firmware image, so no separate
-> channel-selection property is needed -- device order in `reg` is
-> the only configuration required, matching the convention already
-> used by ti,tas2781.yaml/ti,tas2563.yaml for the same TI firmware
-> toolchain. `ti,imon-slot-nos`/`ti,vmon-slot-nos` follow the same
-> per-index convention for the TDM sense-data slots. `reg` is capped
-> at two entries because the uCDSP firmware container only defines
-> mono or two-device (DEV_A/DEV_B) types -- there is no third slot to
-> extend into regardless of DT shape.
+On Sat, Jul 18, 2026 at 04:18:12PM +0200, Danilo Krummrich wrote:
+> On Thu Jun 11, 2026 at 10:31 PM CEST, Andy Shevchenko wrote:
+> >
+> > Add test cases for fwnode_for_each_child_node() API.
+> >
+> > Test command:
+> > $ ./tools/testing/kunit/kunit.py run property-entry
+> >
+> > Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
+> > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 > 
-> The on-chip DSP boots from a firmware image generated per speaker
-> design with the TI PurePath Console tuning tools; the optional
-> firmware-name property selects a board-specific image, shared by
-> every device in the group.
+> This patch broke the build [1], hence I dropped it from the queue (but kept the
+> first two patches of this series).
 > 
-> Addresses review from Krzysztof Kozlowski, who questioned a
-> per-node channel-selection property (an earlier ti,channel/
-> ti,audio-channel design) on the grounds that it doesn't scale and
-> isn't how other multi-device TI amplifiers in-tree solve the same
-> problem.
+> of_node_init() can't be used from modules, either it needs EXPORT_SYMBOL_GPL()
+> itself, or of_node_ktype needs to be exported for this kunit test to work.
 
-This paragraph does not look useful in commit log. This is part of
-changelog rather.
+Oh, thanks for pointing out.
 
-> 
-> Signed-off-by: Gianluca Boiano <morf3089@gmail.com>
-> ---
-> Changes in v3:
-> - single-node reg-array model (up to two devices), matching
->   ti,tas2781.yaml; drop ti,channel, derive DEV_A/DEV_B from reg order
-> - rename ti,imon-slot-no/ti,vmon-slot-no to the plural
->   ti,imon-slot-nos/ti,vmon-slot-nos arrays; firmware-name maxItems: 1
-> 
-> Changes in v2:
-> - add the four mandatory supplies to "required" (Wang Sen)
-> 
->  .../devicetree/bindings/sound/ti,tas2557.yaml | 174 ++++++++++++++++++
->  MAINTAINERS                                   |   1 +
->  2 files changed, 175 insertions(+)
+> [1] https://lore.kernel.org/all/202607181651.RnUuV8n6-lkp@intel.com/
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Best regards,
-Krzysztof
 
