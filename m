@@ -1,61 +1,63 @@
 Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C219296BA9
-	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 09:34:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618FF296BA9
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 09:34:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784453654; cv=none; b=OxsWwDtuN9p4+PZ51m9oLAwpHyQQ9+OtuyK5KXXNIUtRrSGQFSLILuyzKz3NMZedESGhU/CSPKDkTB8J7WAmJwQAVmPAxglClL8cY5ue/35fhfSyCz8yLzwFzfs3x/aCh9Av3M5Dc5Rtqz00amb0P5R30HE3D0R6OcDeZnahBZ8=
+	t=1784453659; cv=none; b=Tw95562BDFpIN6fw8kIRx+Kf782S86bgnnIf3BlcL7LYT2jCfAJArHMQ4dbzOyy1YbP1N7ilqWhGHsuLk5Cukca9X2QIxucdvJEqu2g7sz7uYmAEKhLylg8stfi9QlnXFNZzj5hrZdjaQ+vO3Qlz1UhT7cfpDaYxjGSuhedSJZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784453654; c=relaxed/simple;
-	bh=wxLFfyl6EjmWXKbM57wT5s6PAdPnSGQiTYDpgI8a6ds=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UcOQ56J3uRU+vD8Exdzkb2h9Z50jERtM/FngeowbDxz/79+hH2uNAthdk1PUZpoVsXukpKSfwhFqJMs3WQI15CJBskn9ct1RC0JpFRFq8E1C9MZ3+yBgbUnqR3KySqcmYWkS9k/5wZho8j6dVBzmIA+C2dzUCTdl5pPaUv8GDHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RvhQQcN5; arc=none smtp.client-ip=209.85.210.174
+	s=arc-20240116; t=1784453659; c=relaxed/simple;
+	bh=09PJK7FyMop3+ThvZevw9MOmAi18VAWw4VwXOzDbcio=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=J45QtXv1mHRsGz30VDOtOi05d13BtsHzcv4Ize+ZJBGxKHOeKDHw6KpEPho1TR/CQ8brB6jo4LuMITRvKXxo0rF5yxWxK0FjyULhFEBWF5Y9DLwEmFijWdSeYaEVl+ltdqptwTz+VOgg6k8Z/fgtgoaMRa0sJQTuNcHSzpmq3vE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MreVIFbr; arc=none smtp.client-ip=209.85.210.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RvhQQcN5"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8486672f03cso9175339b3a.0
-        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 02:34:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MreVIFbr"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8487088510aso9388628b3a.0
+        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 02:34:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784453653; x=1785058453; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Bd6rm/MQ9voPe9xoCY/Cv5zoP3z6FjXkkKLZydXX+cE=;
-        b=RvhQQcN52NK9w7zNc2/gVN5mNYPBTBlEZ9vqoI3ZvudMf9B1DlrVNLeUlql2LzpOul
-         xTZALljCZZlMz/Iy1uHFQzonArrv+BIPHNSojRpIoBm6HWozrt6cCGwXjeKHzNQaRuzL
-         ZKxTKop7CKTVBOY33n6+auDFgVfh1zPR7/m9VkHSegLXSgN9QL1sDEHAmJAglnFHnXi9
-         c2BThjzayvkeGDrYLmP2wKRTWyX3xt/YPIpQ6RwxWqrGBTfyBy0JhxJSpdjLHfA95/I3
-         GaYnhZ998kcPaj/s1e/xlJeLSKQkIUlgJleIsCyTw39lcMjyfyapkc0uY1wk1AgqDZkW
-         Wmgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784453653; x=1785058453;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1784453658; x=1785058458; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Bd6rm/MQ9voPe9xoCY/Cv5zoP3z6FjXkkKLZydXX+cE=;
-        b=JaA/gpcYhk55w79RRGiPFYk2/pvtY2y4PBkUiIjlnrn+hVfTq+OusTjg0iqyTkHUyZ
-         7ZGfgxm7ATu5hEfwpM9kjmLts5KJAfMHFhsfJNd33jDkzk83JzUaEtyjMXojc+8X392v
-         68J9V82aMeMGsGkyuPpjP5vn5NlVRVC0RJqm4pcJFUHGBJwIsSED09qTCdjS7uPARI7k
-         9bbFI/WngipmZx0MmUMXjMJg0c0IYEFScQJeZ5HakA7lQkEwqh4GE7CwDot/yDg2WXsD
-         jvKCHWsaqDM6XK1JkjRpvmY7r4eHI4Z0DtAyaL44LAXY4r793zR6r8dYhy9mexXnzPHd
-         p5xg==
-X-Forwarded-Encrypted: i=1; AHgh+RqteR7dUa44xxizmQNv6jet45SJLkpip+A7mCg9UEc2w7OsZGwLDG57y2J6wRjW91MV/LJii8kmnTkP@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywkl4BcJAs/1DlfQpjfXp/fwcZGsweguCcNAaIoysvRMeLtwTqS
-	41r78WaFD7hRy+ldC2wvljDzR+2uoy3L3kUKmCF+1kKrhtoew/lEU1Hh
-X-Gm-Gg: AfdE7cm67eoY+htcfFMUNuoWRcRMGChAEMvmjcLrW4YpFdS0YWet0vLOzUD6YHIErv0
-	vvD+bxQ9VQxtIECpmYwgC4wVFXxyS50r2228HsMU9efUP3OMMG8gddcopKZBx3qfLkH7H7NTfG+
-	c2svQ0AZ2oXdGC0NQAnfrnHF66RUYuN0LE5JShsED9YNGNUqvMwypJ60NYfheu0rBc3YBAD9M79
-	ozNt4mL+StvwV3JeagFL0fbLEhC03lvKCRbVhPklXbsi4By+mC5trsqxeSmC7aWdz6heuGsukE/
-	cY5i0W1mzX1Vf4IZxp/LAHaCvQAaoP/Xgy3xodnlGc2oV4hqVHiih8z1ai5bPARN+FsSKRdpWMT
-	4OIsXCjnX1+IEAcGPq9HGO9emm7jCz7jXeubeIIdtqkpoMbDdqLSbPrOgwV+axmkEbC4Nu6A0e5
-	63lZ72ksXhOeaUowboHunnwTAw9HyoQCrF
-X-Received: by 2002:a05:6a00:21d2:b0:84a:29a7:f650 with SMTP id d2e1a72fcca58-84c29093c61mr9083789b3a.0.1784453652823;
-        Sun, 19 Jul 2026 02:34:12 -0700 (PDT)
+        bh=CPBP+QpHeGYXcnpllis6xEmJf6ioNH1lXkoxfgOlON8=;
+        b=MreVIFbroHcu76YJhCRntfjPps/Bl2+ZxJE9DFdoQPG/eZbwekwuDZI48JEdp8NRPl
+         uOw5GkA7eBQmdZdNLkL9WJckkq+CSdux5vjKpyeBvKUiIzki1WcoqVSF1UaBjqzaygm1
+         3ArFx8k4x3lzJP8jQ2FdZx/85yd8hNt6Xv3q3JlTxS61D3Zutdxqv4z94iSWBgh4BWLp
+         Uoklchkv6Ul+kgDu/NMHPYgfahgGC4riePO9rLLdCPI4VYTktpZurLFPgLSl17BPhPHS
+         xVJ8Hq2Rn8e0knsvjsdiPqqxr0L8NFM8XiDix8KtkcPBSd8jZ18NKhV9Kmco8NF5LH0S
+         Mx0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784453658; x=1785058458;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CPBP+QpHeGYXcnpllis6xEmJf6ioNH1lXkoxfgOlON8=;
+        b=TIK37zz5/P6gBAmjfuVW5beSJ7ALcOSdj1yUAVUdeuaW9P8XvpEteL/RkEaZA6YbvB
+         WQ967e5BbbNg/BltoCMgqIaQVLAcrfQ55MR4MeWX4xloCFTSEOA6T+Z3poh9lIKzzrLM
+         JPyYEOpMyYlMdz5f+zBw8URIKv5YE/yuTPSIo25LTMBtc4SUN0qjyZ9eddp5Njduklu0
+         JGPBd5KZA9zFWD0i3uVlz2z/Xsy3EaLvHqbNA/s5uHFU89RIHLycvskgk0tZGKEOP+B5
+         gkk7iLGYwKIEvNjc5ClNe+sMtzLpmF7RvaceimR6lmiqfOjnUHHOtVpZZs63ZHKwfSIg
+         7wTw==
+X-Forwarded-Encrypted: i=1; AHgh+RrUqyiJiZOYgQ3CQ87LhSatBWNC90ereW9KQx8h95/12VPX/jRzPwM/ptsjrJVH3Jxnt4cEaCk2ng0j@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw7MAcSY/7fJKtD5/CzWm6leTZI8hs7EqvjRm1hJ8xncvU0lm4F
+	QHnd4MT10hZ9SC1NtK7nNxtFdFhiTIoH5h7f8wV/yjds9NYQKtLkwQ9P
+X-Gm-Gg: AfdE7cn4CBab1//bjbaBLfyGFcwrtIITzQVGNokA15AxENyeM5QgJ2K1kLCRmiNTcl9
+	VqsqLXxAvHwwz1iVOs5QJasnxV09dEX+a9aX8e/ESzBqpqnF8dzi3UDBEg2CHRpOgSLzE2Le5WC
+	I8PzrK+jxaoycD9GlPGVhStET9XXga++wyJxbyvkxcG81ALo7zcvBTu/xu/O1E+7iX87E+SVzD5
+	Ek4fdw0yjep1DsY1Fdulo66Up+53PZvBIYDWCHeCsWKGTiHcvx+2FZXoge5Ti48kg+zPJ4G67AS
+	3AJCforvgXz1hKXeHsAXXlsZTqmhN6rkbSA2WyD29YINeLneIuhsJcDFCxk2LlMP5P+XQ8SFdtv
+	SuCBcXFEJoVFUTrpZY2SWMuVWWekLvRxXIyez+ziTa51PvCy0TVFmrNFuuznA4tokF5jDRt7m6U
+	9td5/7bXTQpLSGZqZwF0VZgoEq4NohmyiG5K8HIhWrxcM=
+X-Received: by 2002:a05:6a00:3cce:b0:848:4d4f:d477 with SMTP id d2e1a72fcca58-84c29310889mr9580482b3a.18.1784453657671;
+        Sun, 19 Jul 2026 02:34:17 -0700 (PDT)
 Received: from nuvole ([2408:8456:3214:35e7:8e03:79a6:7390:9fc3])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c2adcaa0bsm4022342b3a.20.2026.07.19.02.34.07
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c2adcaa0bsm4022342b3a.20.2026.07.19.02.34.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Jul 2026 02:34:12 -0700 (PDT)
+        Sun, 19 Jul 2026 02:34:17 -0700 (PDT)
 From: Pengyu Luo <mitltlatltl@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
@@ -67,10 +69,12 @@ Cc: inux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	guf296@126.com,
 	Pengyu Luo <mitltlatltl@gmail.com>
-Subject: [PATCH 0/2] Introduce Lenovo Legion Y700 Gen4
-Date: Sun, 19 Jul 2026 17:32:24 +0800
-Message-ID: <20260719093226.197740-1-mitltlatltl@gmail.com>
+Subject: [PATCH 1/2] dt-bindings: arm: qcom: Document Lenovo Legion Y700 Gen4
+Date: Sun, 19 Jul 2026 17:32:25 +0800
+Message-ID: <20260719093226.197740-2-mitltlatltl@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260719093226.197740-1-mitltlatltl@gmail.com>
+References: <20260719093226.197740-1-mitltlatltl@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -79,22 +83,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add an initial devicetree for the Lenovo Legion Y700 Gen4, which is
-based on sm8750-qrd.
+Add compatible for the SM8750-based Lenovo Legion Y700 Gen4, using its
+codename, elden.
 
 Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
 ---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Pengyu Luo (2):
-  dt-bindings: arm: qcom: Document Lenovo Legion Y700 Gen4
-  arm64: dts: qcom: sm8750: Add Lenovo Legion Y700 Gen4
-
- .../devicetree/bindings/arm/qcom.yaml         |    1 +
- arch/arm64/boot/dts/qcom/Makefile             |    1 +
- .../boot/dts/qcom/sm8750-lenovo-elden.dts     | 1097 +++++++++++++++++
- 3 files changed, 1099 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
-
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index c7c9a9279684..e1ade271e712 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1160,6 +1160,7 @@ properties:
+ 
+       - items:
+           - enum:
++              - lenovo,elden
+               - qcom,sm8750-mtp
+               - qcom,sm8750-qrd
+           - const: qcom,sm8750
 -- 
 2.54.0
 
