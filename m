@@ -1,152 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ABB11DFFD;
-	Sun, 19 Jul 2026 17:04:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6FD31195C
+	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 17:09:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784480670; cv=none; b=sFlfM3REYefdg+nYlmjOsX4pQ8/kTOwSdbLEf4Lco+2EyIMpVfzuY4uZbE+CvVrnZyGzcCeChWcVT8XeGhNH3zGKr0J1Hp9cpiHzlkkDtF8cUjM+7BTbbrilmXZH03vOpQ7wt1TE20NwlDlQkBnwWzIDa3vtzTonOf7WKtxpLm0=
+	t=1784480978; cv=none; b=N/WPF+uxjvBosex/+1RefVr+CxcD+19zfIxKKDljygChxlPIK+CqRFVzHEUoqUv9JYP3ysOHqZjViELy0ARDGVZIc8C/MD1uM57uHZzM9PRm+2C2JecURe1oNGe8d1EBIMpg6tnIeAtIddYfgwX/37yYyMTK1TB4KS8DRPlcClU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784480670; c=relaxed/simple;
-	bh=YaCRL089uz9t2i3yChLNmo/oPh2OomvmZnHIfPzR9MA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a8/lTUGYhXpc/D0WpGtQ51RUGOye3C3UQmSDur8jWrLUjp6nqoXBULKDYTMCAsDIACCGCeD3Q8vLixOEJt93JLURKzidDvbJKcsT6grzCMbz/gMheG3VjC9GAz/oRIk7v34aYKOg8YCz78j1467GLP0COMbDoyShieCsYqJFrDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nakDi/pm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784480978; c=relaxed/simple;
+	bh=f4pphVnrJuEctVBoApuZMxUSP2uGR2bYd64+lht5yEQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=BHI+6LeFGdgtG/YD5amonvpCuFd2twmNLtl5kRVn4ia6lg6CfhM58lvKspitQMjMCJ5U6m80NiWeMETJTc0kQOZt3WD3u7DAZJfMInR/0gczI1yvtJIuG/6xf6xiMc8E6kT25ugttsG69jcBX0h4Gp2IFEXcAyESSRVSViMuSyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cUQmUzG/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nakDi/pm"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 209191F000E9;
-	Sun, 19 Jul 2026 17:04:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cUQmUzG/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D74661F000E9;
+	Sun, 19 Jul 2026 17:09:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784480668;
-	bh=RD+msHtsBCsXtSwjfZWla4x43tb8RQrRYPOOqSaKFpA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nakDi/pmxRiBaOcDQQg7V04Q8QC2Rcgh2a9V222lIsiqBACiI5Mcump2a5J7wnVwQ
-	 6flbTkVA4GdV98uBMRULcbc3hCpJT4yFvidb4CP2D9pnoBL3RMga24VnK99vZOnLIt
-	 Wzrz52+N4PBn0BniP6fiP2dzBcF52cEaDj1eR2bFCLN1ZC1WOcqyqYXimSyRiAuW6+
-	 0YkwHQ5OqDUJMiCDIbsE/YzTNwGUay31I+sFjoyiOJ8sfj9JSD4Vqzd8MyZ9sM+XEK
-	 8ZUhrOSux/5U9o+Tf9cFtDhZIMJB960t8QLb9RAXqP3jLpM8bo1lYQpxRcHGMs1CJD
-	 J+4GrWHOqVZBQ==
-Date: Sun, 19 Jul 2026 19:04:24 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chris Packham <chris.packham@alliedtelesis.co.nz>, Andrew Morton <akpm@linux-foundation.org>, 
-	"Darrick J. Wong" <djwong@us.ibm.com>, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
-Subject: Re: [PATCH v2 5/6] hwmon: (adt7470) Register as a PWM provider
-Message-ID: <al0CHPmBmvCd5DW0@monoceros>
-References: <20260717-adt7470_thermalzone-v2-0-a55147958fad@gmail.com>
- <20260717-adt7470_thermalzone-v2-5-a55147958fad@gmail.com>
+	s=k20260515; t=1784480977;
+	bh=cXTTAwf5GxyEp7CjqVbbco8mUlnvmpWUfYomKuNiVUs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cUQmUzG/jqeI9LL6SDLtF2bks/Ih/5lNVhIobAO253e3ZnjaLq0/jXXGbL1Zza/Wx
+	 La/X87X94KgV5TGWy12SdYOFU/JNlASmp2ktsZaeWtHN0dU3VFtEvVI9pcXaBE/00B
+	 dbLsX5ykTW/pDCxpUnXEj+lsOHRws2cpZG0dmYZROT97VPGl4+Ftz0w+geO51cDdSG
+	 g90i4WIknuDokatYapsURQaOJ7eWxS2SB0Liyu27y242yasiLBIU5vZ3VR7StS+6m6
+	 kUfbNZJJOJi7r7bvAW8IVlRYfx2Bk2ul4l84vd6Bvrfc+8fKLuWxuMBVN9DOFX2PqG
+	 8+p8MTiwT8b1A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] arm64: dts: qcom: sdm845-google: Enable PMI8998
+ camera flash LEDs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Heidelberg" <david@ixit.cz>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260719-pixel3-camera-v4-2-48cab1236852@ixit.cz>
+References: <20260719-pixel3-camera-v4-0-48cab1236852@ixit.cz>
+ <20260719-pixel3-camera-v4-2-48cab1236852@ixit.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 19 Jul 2026 17:09:36 +0000
+Message-Id: <20260719170936.D74661F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tqiwalbc6rf3gtwx"
-Content-Disposition: inline
-In-Reply-To: <20260717-adt7470_thermalzone-v2-5-a55147958fad@gmail.com>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Missing `function-enumerator` property causes LED sysfs name col=
+lision, leading to non-standard fallback naming.
+--
 
---tqiwalbc6rf3gtwx
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 5/6] hwmon: (adt7470) Register as a PWM provider
-MIME-Version: 1.0
+--- Patch [2]: [PATCH v4 2/2] arm64: dts: qcom: sdm845-google: Enable PMI89=
+98 camera flash LEDs ---
+commit b5868918114efddab825d07ade0f191b5b3123e1
+Author: David Heidelberg <david@ixit.cz>
 
-Hello,
+arm64: dts: qcom: sdm845-google: Enable PMI8998 camera flash LEDs
 
-On Fri, Jul 17, 2026 at 05:59:18PM -0300, Luiz Angelo Daros de Luca wrote:
-> @@ -864,6 +865,57 @@ static int adt7470_pwm_write(struct device *dev, u32=
- attr, int channel, long val
->  	return err;
->  }
-> =20
-> +static int adt7470_pwm_apply(struct pwm_chip *chip, struct pwm_device *p=
-wm,
-> +			     const struct pwm_state *state)
-> +{
-> +	struct adt7470_data *data =3D pwmchip_get_drvdata(chip);
-> +	unsigned int pwm_auto_reg_mask;
-> +	int err;
-> +	u8 val;
+This commit enables the PMI8998 flash LED block and describes two white
+flash LEDs used for the rear camera. The LEDs are configured in flash mode
+with hardware limits matching the original device configuration.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/ar=
+m64/boot/dts/qcom/sdm845-google-common.dtsi
+> --- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+
+[ ... ]
+
+> +&pmi8998_flash {
+> +	status =3D "okay";
 > +
-> +	if (pwm->hwpwm % 2)
-> +		pwm_auto_reg_mask =3D ADT7470_PWM2_AUTO_MASK;
-> +	else
-> +		pwm_auto_reg_mask =3D ADT7470_PWM1_AUTO_MASK;
+> +	/* upper part */
+> +	led-0 {
+> +		function =3D LED_FUNCTION_FLASH;
+> +		color =3D <LED_COLOR_ID_WHITE>;
+> +		led-sources =3D <1>;
+> +		led-max-microamp =3D <500000>;
+> +		flash-max-microamp =3D <1500000>;
+> +		flash-max-timeout-us =3D <1280000>;
+> +	};
 > +
-> +	if (state->enabled && state->period > 0)
-> +		val =3D DIV_ROUND_CLOSEST_ULL(state->duty_cycle * 255, state->period);
+> +	/* bottom part */
+> +	led-1 {
+> +		function =3D LED_FUNCTION_FLASH;
+> +		color =3D <LED_COLOR_ID_WHITE>;
 
-rounding a division using closest is wrong in the context of PWM.
+[Severity: Medium]
+Does this missing function-enumerator property cause a sysfs name
+collision?
 
-Also state->duty_cycle * 255 might overflow and you have to use the
-actual period in the calculation of val instead of the requested value.
+Since both led-0 and led-1 share the identical color (LED_COLOR_ID_WHITE)
+and function (LED_FUNCTION_FLASH), they both evaluate to the base name
+white:flash.
 
-> +	else
-> +		val =3D 0;
-> +
-> +	mutex_lock(&data->lock);
+Without a function-enumerator, the LED core's led_classdev_register_ext()
+detects a collision on the second LED and falls back to appending an
+underscore and a counter. This results in the sysfs nodes white:flash and
+white:flash_1 instead of the modern standard LED naming convention
+(white:flash-0 and white:flash-1) which user-space managers rely on for
+consistent hardware discovery.
 
-If you use guard(), the control flow simplifies and using goto becomes
-unnecessary.
+Could we add function-enumerator =3D <0>; to led-0 and
+function-enumerator =3D <1>; to led-1 to ensure standard naming?
 
-> +	if (data->pwm[pwm->hwpwm] =3D=3D val &&
-> +	    data->pwm_automatic[pwm->hwpwm] =3D=3D 0) {
-> +		mutex_unlock(&data->lock);
-> +		return 0;
-> +	}
-> +
-> +	/* Put the PWM channel in manual mode before updating it. */
-> +	err =3D regmap_update_bits(data->regmap,
-> +				 ADT7470_REG_PWM_CFG(pwm->hwpwm),
-> +				 pwm_auto_reg_mask, 0);
-> +	if (err < 0)
-> +		goto out;
-> +
-> +	data->pwm_automatic[pwm->hwpwm] =3D 0;
-> +
-> +	err =3D regmap_write(data->regmap,
-> +			   ADT7470_REG_PWM(pwm->hwpwm), val);
-> +	if (err < 0)
-> +		goto out;
-> +
-> +	data->pwm[pwm->hwpwm] =3D val;
-> +out:
-> +	mutex_unlock(&data->lock);
-> +
-> +	return err;
-> +}
-> +
-> +static const struct pwm_ops adt7470_pwm_ops =3D {
-> +	.apply =3D adt7470_pwm_apply,
-
-For new drivers please implement .round_waveform_tohw(),
-=2Eround_waveform_fromhw(), .write_waveform() and ideally so
-=2Eread_waveform().
-
+> +		led-sources =3D <2>;
+> +		led-max-microamp =3D <500000>;
+> +		flash-max-microamp =3D <1500000>;
+> +		flash-max-timeout-us =3D <1280000>;
+> +	};
 > +};
 
-Best regards
-Uwe
-
---tqiwalbc6rf3gtwx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpdA5UACgkQj4D7WH0S
-/k430Af+IAbgKHwB3wHiNuH68F/7F3iV8A3do+Oslwv7fyhg3Q2Lghx1h+cZafMr
-N/kmHskCaZrYPOgBG43e/4mBG2ffDQF8m2vQXFnfVHoYBX0SOgqtyqm9xj5Kz6T5
-DcUc+s5Jok+tgjvfbjRbiTY3qRqKCDYGIzF9cOJU3yHAsIPF33wPXmyUMqKFQ0nx
-dWLbbvS/RN0qPfsFBBp1OOPUDisEo+Ix7RavTFLj1dfqeBEYP6jjdJtX42SkMI+L
-ohOUO9t7r2vgGP3bv8flvlG7GTSDaE7A/NEzOHvsZbZlUcozX70l5zwt38vJjIg1
-GMDeGjayOEkAfiRyf0/PlFtl7WPGwg==
-=x6bT
------END PGP SIGNATURE-----
-
---tqiwalbc6rf3gtwx--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260719-pixel3-cam=
+era-v4-0-48cab1236852@ixit.cz?part=3D2
