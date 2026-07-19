@@ -1,264 +1,114 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MTA-07-3.privateemail.com (mta-07-3.privateemail.com [198.54.118.214])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03BA3126BF1
-	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 18:06:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94DA3347529;
+	Sun, 19 Jul 2026 18:11:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.118.214
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784484423; cv=none; b=EVIjsw+OUPu7RxjhPZXlKTsK1JtX7tX3gkaDUsbS5SRiBNnbHxe4VN1+RsNjXbsOdKWyK+dKsKVHNyALj7gy0RS2MECB7ZYyaLok5vzvHSoLZCmQrNTh/qNjwwgoH7b0trQwL6daHXjrETgyHvINHT4JOgNOtJJoUkBFLA2COTs=
+	t=1784484678; cv=none; b=BE4DJj0xNJDh5NhNy6ewsXmo4VmzA1aL8l4uCBZ6jHkc1fNXffF/etUnAXGS5AdUqVdwTAWkN2i6o/kqSDLYq2SQSSq2dD/mtCCT5b9Bj16cAO5I5wTPcB0V3wXKu0XQPRQh+AcdLG2ifpwyCPfGvQdiCupVe0Ch5N4ELCA8SEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784484423; c=relaxed/simple;
-	bh=nYPW8u6uyTHQUIxZwar3cGnwsnDzXk+4jRi9BdZG3ss=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=NKkML+/eS9IWY/Io3Fx75eQGYWfVciKFfbG0yYryAsNp9jqLYfH9e+u4Hbt3LycDlCA5cH8VnYmIXGTltaXJJA8EWZbRWva0CWVFehB5X4V7zGeOvWWetVEbFdyXiQtH+5i6MWScHn0MFOoGRNi+TMvHz/AsyoXHG6BfwFZyWrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hDY1bKg9; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hDY1bKg9"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cf49dc28ccso2785105ad.0
-        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 11:06:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784484419; x=1785089219; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=VXKjPNLcmAi6L9Skt9OWsTPDWKtQt0gc05f/bWe+W8E=;
-        b=hDY1bKg9zanKV+wENfMwwjOOu77EUyNCzoMTyzilMPisMWzbRdMmxsL2XNyUvqeQn1
-         UEOuQlIRFD95Fvu9rpkQcQWiPIgGk3BzUbIuVhE7vMFdlkVfJ6Rnw7Kb+pL8v1O/mGXR
-         ykvkF3ufSLLexzPcXliw07S8WvEMPwmSVTn+J7kqC5D64We+ECOogFpr+iOqpdaruE6I
-         xIh+KOgI4naDgdgMwHF+umEqrsiMEydrRPICA0UA+6p9ayK+vB0o2a5G0BK9nomu6Jmr
-         eUe2BvBTQ/+hIUVyFcVhCPKSApjQYsqlVbN81dxQvA9T1FPJ03I1wAXbQ6Tahf7nVJRl
-         Yd4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784484419; x=1785089219;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=VXKjPNLcmAi6L9Skt9OWsTPDWKtQt0gc05f/bWe+W8E=;
-        b=LCqV+caOZQB1Cm4xOS3kLt3/z3sf9vIEvV8pRSP4Vl1EFW3w381/VcNnmvAt7fa0PT
-         d7OFHmt6mhuXb63w+nXL/Lg6kD5QhvXw8H6Toq8xtYibGJ6UE23lf2G2KJetK6uXiIKu
-         5kbxpM6Maw3owSe3N0R29FzzmDw42Pi8XS+KwiXWBZRwPLziJfyBO/vf3HAkxeOC6E4P
-         cpIPry1wrU1zN3Je/3nHMXeI5G6Mj0QLDyb7ZpkivBLzKimdyVf9avRKq2qto0uvUJXv
-         0hQ4vgzJ2QS8uicT93wpxB93V8SFO1DX6o2AMsLYDKXpZkLjxTm+N0UvX2wwFEw78lHq
-         pNXw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp+V70YpWHR8VqNmGo51PxoYDgonC8I/IPv+0ri5azkWNt/RgVB4RPmXFjEcDxto2LA+cqXzY1A28mW@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx3ndjV1rIa3GdXqrBpz34OKeF2EBjf80yBouGgQORWl/SF3PiV
-	hDJX9ahFy5c0398tUCTFKC2E0S+4xvl7vwpZCvti+O/1GaJijkrXoRUX
-X-Gm-Gg: AfdE7cm55oNjNOtvXkefyuwlm6/FQyPcaZWVC2cB6C1HFDasFgqulPz1MSCVREYYBy3
-	55vHZPLE4a+yfOcnED9LTNttYbYOhlKE5XhLTYa0Fnsy5WdR2RUsvheEDgu/3awVTIOND4WvNYi
-	qh39hPH3niSAmFyQILjFekQoAIKgpdNmT8EaYIXJCeX+OLNY3niyqFF+gD6BFgIeAwtXVlPmLzY
-	YVa9SU9aQex3IEZ6V+b5pDZkezPoC/ZhhzcnFEBYcBR6Iizw/4hJK/HTyuicjFg2fgEylqg4u13
-	o3Vmd9Q/g70VX+TAtZW35suVRrXliFkeqt5FcflVqrICDtrO71VfdOC0pgWaWqKsvKG6wHP2mPV
-	vPdu8h+2UKZkyLiW2UhS+TBxUnqJNMTiOgwTNciGbGKRQJPodjOPIsKbJZHdYNTTdfWex2CiJjv
-	r0Q36AlhaYkZVTSEo=
-X-Received: by 2002:a17:90b:5683:b0:381:fa5:5217 with SMTP id 98e67ed59e1d1-38e4b5d7cbemr8569087a91.7.1784484418607;
-        Sun, 19 Jul 2026 11:06:58 -0700 (PDT)
-Received: from [172.28.140.252] ([2409:40c2:5429:66ef:148c:83c3:bdaf:6e79])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a20b037sm30175126eec.27.2026.07.19.11.06.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Jul 2026 11:06:57 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Sun, 19 Jul 2026 23:36:41 +0530
-Subject: [PATCH] dt-bindings: remoteproc: ti,wkup-m3: Convert to DT schema
+	s=arc-20240116; t=1784484678; c=relaxed/simple;
+	bh=Bul3j/OsqTw//nRoLthgWciTE7FwKi3LL1jaArRj4W8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JW0fwe2xtusYAxXOdbd5jEQA723VmGYaI1rWz/kDqaR4cHN/ELPJUowDqs5vVwt7Nl5Vnt4q1kW2SBx8Ge6ZxI6Ve57dSuqi4/DIdhpvwRWqG15Gn655ZfaoZ1O6k2JhnOUD8gEP7VSnRr82lJ4pa6NajNlvftYJH6rcnNYFNag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.118.214
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
+Received: from mail.privateemail.com (unknown [87.215.145.39])
+	by mta-07.privateemail.com (Postfix) with ESMTPA id 4h3BXT4njxz3hhTG;
+	Sun, 19 Jul 2026 14:10:49 -0400 (EDT)
+From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+To: David Heidelberg <david@ixit.cz>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2 2/2] nfc: s3fwrn5: support the S3NRN4V variant
+Date: Sun, 19 Jul 2026 20:09:38 +0200
+Message-ID: <20260719180938.43341-1-jorijnvdgraaf@catcrafts.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <5d26f3ae-1287-4440-bd38-96c9900f16ea@ixit.cz>
+References: <20260705190621.128257-1-jorijnvdgraaf@catcrafts.net> <20260705190621.128257-3-jorijnvdgraaf@catcrafts.net> <18c3e13f-88e4-458e-9f57-7aceeb1ce1d1@ixit.cz> <20260719142241.12640-1-jorijnvdgraaf@catcrafts.net> <5d26f3ae-1287-4440-bd38-96c9900f16ea@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260719-ti-wkup_m3-v1-1-848a95b401a5@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMWw5AMBBA0a3IfGvSkii2IiLVDoZ4pPVKxN4Vn
- +fj3gscWkIHeXCBxZ0czZOHCAPQnZpaZGS8IeJRwqXI2ErsGLalGmOGRmkpUsON1OCDxWJD5zc
- ryt9uq3vU63uA+34AR2VqN24AAAA=
-X-Change-ID: 20260719-ti-wkup_m3-edac718d0d7c
-To: Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Suman Anna <s-anna@ti.com>
-Cc: linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
- daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784484407; l=5646;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=nYPW8u6uyTHQUIxZwar3cGnwsnDzXk+4jRi9BdZG3ss=;
- b=QuOz4RhOhj777+xMDHSHDwYenPrrK9x2l/wVHW95ATDA2YgHvue3+fbTIXMEpO2DYGSW8LnvL
- lnFN60DauCZCq7yePcbfZUIzdemWm2rfEPQtwrMnYqptcRRwx7/t2TK
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+Content-Transfer-Encoding: 8bit
 
-Convert Texas Instruments Wakeup M3 Remote Processor from text to Dt
-schema. Add optional resets and reset-names property which was missing
-from legacy binding. make ti,hwmods deprecated as it no longer needed,
-it is kept to support older board files without ti,sysc.
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- .../bindings/remoteproc/ti,am3352-wkup-m3.yaml     | 89 ++++++++++++++++++++++
- .../bindings/remoteproc/wkup_m3_rproc.txt          | 52 -------------
- 2 files changed, 89 insertions(+), 52 deletions(-)
+Hello David,
 
-diff --git a/Documentation/devicetree/bindings/remoteproc/ti,am3352-wkup-m3.yaml b/Documentation/devicetree/bindings/remoteproc/ti,am3352-wkup-m3.yaml
-new file mode 100644
-index 000000000000..9e8a03acdec4
---- /dev/null
-+++ b/Documentation/devicetree/bindings/remoteproc/ti,am3352-wkup-m3.yaml
-@@ -0,0 +1,89 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/remoteproc/ti,am3352-wkup-m3.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI AM33xx/AM43xx Wakeup M3 Remote Processor
-+
-+maintainers:
-+  - Suman Anna <s-anna@ti.com>
-+  - Bhargav Joshi <j.bhargav.u@gmail.com>
-+
-+description:
-+  The TI AM33xx and AM43xx family of devices use a small Cortex M3 co-processor
-+  (commonly referred to as Wakeup M3 or CM3) to help with various low power
-+  tasks that cannot be controlled from the MPU. This CM3 processor requires a
-+  firmware binary to accomplish this. A wkup_m3 device node is used to
-+  represent the Wakeup M3 processor instance within the SoC. It is added as a
-+  child node of the parent interconnect bus (l4_wkup) through which it is
-+  accessible to the MPU.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,am3352-wkup-m3
-+      - ti,am4372-wkup-m3
-+
-+  reg:
-+    items:
-+      - description: Address range for UMEM
-+      - description: Address range for DMEM
-+
-+  reg-names:
-+    items:
-+      - const: umem
-+      - const: dmem
-+
-+  ti,pm-firmware:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description:
-+      Name of firmware file to be used for loading and booting the wkup_m3
-+      remote processor.
-+
-+  resets:
-+    maxItems: 1
-+
-+  reset-names:
-+    items:
-+      - const: rstctrl
-+
-+  ti,hwmods:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    deprecated: true
-+    description:
-+      Name of the hwmod associated with the wkupm3 device.
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - ti,pm-firmware
-+
-+dependencies:
-+  resets: [reset-names]
-+  reset-names: [resets]
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    target-module@0 {
-+        compatible = "ti,sysc-omap4", "ti,sysc";
-+        reg = <0x0 0x4>;
-+        reg-names = "rev";
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+        ranges = <0x00000000 0x00000000 0x4000>,
-+                 <0x00080000 0x00080000 0x2000>;
-+
-+        cpu@0 {
-+            compatible = "ti,am3352-wkup-m3";
-+            reg = <0x00000000 0x4000>,
-+                  <0x00080000 0x2000>;
-+            reg-names = "umem", "dmem";
-+            resets = <&prm_wkup 3>;
-+            reset-names = "rstctrl";
-+            ti,pm-firmware = "am335x-pm-firmware.elf";
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/remoteproc/wkup_m3_rproc.txt b/Documentation/devicetree/bindings/remoteproc/wkup_m3_rproc.txt
-deleted file mode 100644
-index 3a70073797eb..000000000000
---- a/Documentation/devicetree/bindings/remoteproc/wkup_m3_rproc.txt
-+++ /dev/null
-@@ -1,52 +0,0 @@
--TI Wakeup M3 Remoteproc Driver
--==============================
--
--The TI AM33xx and AM43xx family of devices use a small Cortex M3 co-processor
--(commonly referred to as Wakeup M3 or CM3) to help with various low power tasks
--that cannot be controlled from the MPU. This CM3 processor requires a firmware
--binary to accomplish this. The wkup_m3 remoteproc driver handles the loading of
--the firmware and booting of the CM3.
--
--Wkup M3 Device Node:
--====================
--A wkup_m3 device node is used to represent the Wakeup M3 processor instance
--within the SoC. It is added as a child node of the parent interconnect bus
--(l4_wkup) through which it is accessible to the MPU.
--
--Required properties:
----------------------
--- compatible:		Should be one of,
--				"ti,am3352-wkup-m3" for AM33xx SoCs
--				"ti,am4372-wkup-m3" for AM43xx SoCs
--- reg:			Should contain the address ranges for the two internal
--			memory regions, UMEM and DMEM. The parent node should
--			provide an appropriate ranges property for properly
--			translating these into bus addresses.
--- reg-names:		Contains the corresponding names for the two memory
--			regions. These should be named "umem" & "dmem".
--- ti,hwmods:		Name of the hwmod associated with the wkupm3 device.
--- ti,pm-firmware:	Name of firmware file to be used for loading and
--			booting the wkup_m3 remote processor.
--
--Example:
----------
--/* AM33xx */
--ocp {
--	 l4_wkup: l4_wkup@44c00000 {
--		compatible = "am335-l4-wkup", "simple-bus";
--		ranges = <0 0x44c00000 0x400000>;
--		#address-cells = <1>;
--		#size-cells = <1>;
--
--		wkup_m3: wkup_m3@100000 {
--			compatible = "ti,am3352-wkup-m3";
--			reg = <0x100000 0x4000>,
--			      <0x180000 0x2000>;
--			reg-names = "umem", "dmem";
--			ti,hwmods = "wkup_m3";
--			ti,pm-firmware = "am335x-pm-firmware.elf";
--		};
--	};
--
--	...
--};
+On 19/07/2026 16:56, David Heidelberg wrote:
+> now it makes more sense to me, feel free to name it as calibration
+> data.
 
----
-base-commit: c6859eed755df351a3978b33cb92365f9b3e8f06
-change-id: 20260719-ti-wkup_m3-edac718d0d7c
+Will do -- v3 will say "RF calibration data" in the commit message and
+comments.
 
-Best regards,
--- 
-Bhargav
+> I would suggest to introduce something as a calibration-variant (see
+> ath10k code).
+>
+> If I understand right, firmware location path could look like
+>
+> default path + driver vendor and model + device vendor and model +
+> revision
+>
+> /lib/firmware/ + Samsung/s3nrn4v/ + Fairphone/FP5/hwrevision.bin
 
+That layout makes sense to me. My inclination for v3:
+
+- request the files from a chip-scoped directory:
+  samsung/s3nrn4v/hwreg.bin + samsung/s3nrn4v/swreg.bin (the existing
+  parts' sec_s3fwrn5_rfreg.bin is untouched);
+
+- an optional samsung,calibration-variant string property (modelled
+  on ath10k's qcom,calibration-variant) that, when set, makes the
+  driver try a device-scoped location first, e.g.
+  samsung/s3nrn4v/fairphone-fp6/hwreg.bin, falling back to the bare
+  files above.
+
+The variant lookup can also be added compatibly later, once a second
+S3NRN4V design (or a diverging FP6 revision) actually appears -- so
+if you'd rather keep v3 minimal, I'd do only the directory move now
+and add the property when first needed. Either works for me.
+
+So far I have seen no evidence of per-revision or per-region variants
+on the FP6: the only difference I have identified between my two
+units' tables is the vendor software release (build-date stamps).
+But Fairphone would know better.
+
+> /cc Luca here, as he may know more about the different configuration
+> data shipped.
+
+Luca, two questions your way:
+
+- do FP6 hardware revisions (or regional SKUs) ship different NFC
+  hwreg/swreg tables, or is it one set per software release?
+
+- could Fairphone submit these tables to linux-firmware? I assume
+  the redistribution question sits with Fairphone/Samsung, and having
+  them there would make NFC work out of the box on mainline.
+
+> We should assume the configuration will be shipped with
+> linux-firmware at some point.
+
+Agreed -- that is exactly why I'd like to settle the path scheme now.
+
+v3 is otherwise ready, including the Fairphone 6 DT patch; rather
+than sending it right away as I said earlier today, I'll give this
+a few days for Luca's input and then send it.
+
+Thanks,
+Jorijn
