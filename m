@@ -1,93 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72A9F18A6DB
-	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 16:19:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 950DE277C96;
+	Sun, 19 Jul 2026 16:28:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784477956; cv=none; b=H3keOSTxiB0oE8/v+RyoY/BxCf1q3EGHNRkcXnIz/TcISe0BBC+45hR8nfM7+ltDG72a61lIyq43ZKIMZ0LxTj70Ass006jqZMKGhnaAgNiAItsXY/GYl+Y2VL7HPHM9N/KLHDo8i8VUlYCjQomVd2ku/4UviORJNo98qABX1QI=
+	t=1784478493; cv=none; b=cYovDXhqUZss8onHR8cT70Zj2z+QPVpVlWzXTNhqFjKmdl7q+fLC7oKyH07QJYFRC4dlloctHOl+0KDSYPP4j9Qob3bjt5SQkllgK31YAYm6CmiEACVVUJ/eWaAKjmop2CXYwVj1tv0kPh0tp0Av04FVo7gT1ZmI53GQ0w1MRJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784477956; c=relaxed/simple;
-	bh=cvKT2ikX2+sCR6IEeFGvzmpaA+oHv3y/SwsrziYO4LY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jnfsUGcPLWKZM9ZuXo9MwltTo9F9ZE1pc/ht02dF+EzgFQIJjDxwTGrD+ppKIxZ6wRmmmXBKmnM6vU+4G41w90ZERV6/PYBF1dEEifh9KdOBIq1pv9qcUst60vTxkgkA6jxQ61ES5KUxcjeGeaGJ4irgGqDUd/3n99NtsKQMtIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HTx6HEBh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784478493; c=relaxed/simple;
+	bh=JpnT8XJ88gwNmRa+be1SpaZwz6CtFhqsGTd20634HcM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jRE/GE9JS0Xs6oIFo/l1PGwJnkUFAj2Dt8H6YGHUufOwxSgLzLHkxOWHgYtyrLo0uZ59oE5YHZyKLENYSjYwaL6w6ZXOU/Xhm/UQ/xAK0tUt42/eE6cVbcQbMG5ykPbg1Q62XMiRRf3dLJ9MJYe7sfw6EhylhHVIMH63q07j8Gs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=lLogkn20; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HTx6HEBh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77CA01F000E9;
-	Sun, 19 Jul 2026 16:19:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784477954;
-	bh=xUVv45BkNIa3yFtliZt4xe192D4Qd03FSSpj9g5elyk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HTx6HEBhqFuEId+VyT031N4D1TiucDT6EXOQAYpRpkDioeXxMy0yGfPP8Jebet0CG
-	 +514m8XSMduwckLc4k6B2OiNeG0KrBcr7i6hKHPB0EVLJgvLQY1sEB4XRQ5v2df+Kf
-	 hzRFbFb/APX5hChgNSmrjN19VLrlbNKD6sIVdcvWOWkMuq0eJVWvdZEJvqM+lxGhXW
-	 OBvnkj8Ln8yOAQ7FIHK/s4ChEkaf+Ulv0gxrA2DHk1NLZplj6u37RLh5nsG4KHEaKS
-	 DOiG+Bjf9GqM279ZO3CpLDGwRtnpJpyK5NDa9QulDliwuIlSIzNW5PbjZzp24qzsAo
-	 on+y0Q1cr3WUw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: fix label of sys_led for
- nanopi-r4s
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vic B" <linux@vicb.net>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <alz112qGhm77liqi@vicb.net>
-References: <alz112qGhm77liqi@vicb.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 19 Jul 2026 16:19:13 +0000
-Message-Id: <20260719161914.77CA01F000E9@smtp.kernel.org>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="lLogkn20"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 0D61840E00DC;
+	Sun, 19 Jul 2026 16:28:08 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 4T2U3_ebaVXK; Sun, 19 Jul 2026 16:27:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1784478477; bh=Hx9MZWuvrI8H6YwL6rjDpa4a5eWn7GFznv0yhkfDzbQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lLogkn20oLMyh1aaezy+6dP+PKZ5SJiX/8CBwDovsCFQTgC5beOJ2V/jI4eOq2QaL
+	 73stYz/cXCXIoxotGLlU0OkYwkaSvsHpUq2mn8CB7uScKAwA+ufX6Ju+sw4hMtHuRQ
+	 G/lgDBRqv00PDWKpLtUZxMjWwxMK1UKD7pEOD9wtsQJQI9HRplezYfxyiCmzUKLBBr
+	 Xadpid++tDCFb+pHqkFvbqL2mz9iUHV1Mnzn9LDX+YiYq8qVFqAnRdPbeNppg2kUne
+	 U5DvhetgJCwmQhmmlIkent1Y4Xx9GSo0UnNSISmgIooeQL2rKZm0f50HOoD0XNi10x
+	 SWH/DPHzZk4FbQ1sYHf3ZHevjvFcnJ2K97uCN0eDAYffZUquKjBxxy9laaSWAfu/AX
+	 ZK5mQ6jQBAec+ShLG3DK5eGxo+awpLDyrB+om1QVDaYlDioFTH4elYjU86mPaT4IyV
+	 DRxbb60fF1wlfv+LHHU8JxufFiCHCtglxGdBzsOxETmfM+RwZ3S9Q40Dg4pliKJLs8
+	 5OY+9Hx5JtyDyTP9d2+ucRzo/zPwQuKhQcWaRiy0lr+2keZipWxPbxsZrBX2WpU2yv
+	 nRf0I7F1IPkGAJZtN+mO7Jr4SiPqyNgQJj+InuiuzIqyFmtS43HcDJW7o6jdjEo8Xm
+	 PPhfcNm7LM2/4ZbWTAYEy9JM=
+Received: from stx.tnic (unknown [12.110.208.163])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id C470740E00E6;
+	Sun, 19 Jul 2026 16:27:43 +0000 (UTC)
+Date: Sun, 19 Jul 2026 09:27:26 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Rama devi Veggalam <rama.devi.veggalam@amd.com>
+Cc: tony.luck@intel.com, michal.simek@amd.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org,
+	devicetree@vger.kernel.org, james.morse@arm.com, mchehab@kernel.org,
+	rric@kernel.org, git@amd.com
+Subject: Re: [PATCH v3 0/4] Add support for Versal Xilsem edac
+Message-ID: <20260719162726.GAalz67qebFiJ6E5rh@fat_crate.local>
+References: <20260624212545.2850787-1-rama.devi.veggalam@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260624212545.2850787-1-rama.devi.veggalam@amd.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The patch assigns a new value to the deprecated `label` property in=
-stead of modernizing the LED Device Tree binding to use `color` and `functi=
-on`.
---
+On Thu, Jun 25, 2026 at 02:55:41AM +0530, Rama devi Veggalam wrote:
+> Add sysfs interface for Xilsem scan operations initialize, start,
+> stop scan, error inject, read ECC, status and configuration values.
+> Handle correctable and uncorrectable xilsem error events.
 
---- Patch [1]: [PATCH] arm64: dts: rockchip: fix label of sys_led for nanop=
-i-r4s ---
-commit ceee1e0876cda2fa407388b630cd3de2ef149410
-Author: Vic B <linux@vicb.net>
+A lot of issues caught by Sashiko:
 
-arm64: dts: rockchip: fix label of sys_led for nanopi-r4s
+https://sashiko.dev/#/patchset/20260624212545.2850787-1-rama.devi.veggalam%40amd.com
 
-This commit corrects the system LED configuration for the NanoPi R4S by
-changing the label from red:power to green:sys. It aligns the device tree
-with the physical board schematics.
+they need to be addressed first, before adding anything new.
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-nanopi-r4s.dtsi b/arch/a=
-rm64/boot/dts/rockchip/rk3399-nanopi-r4s.dtsi
-> index 4274d1b6e80ae..6fbc76e2e679e 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3399-nanopi-r4s.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3399-nanopi-r4s.dtsi
-> @@ -31,7 +31,7 @@ lan_led: led-lan {
-> =20
->  		sys_led: led-sys {
->  			gpios =3D <&gpio0 RK_PB5 GPIO_ACTIVE_HIGH>;
-> -			label =3D "red:power";
-> +			label =3D "green:sys";
+Thx.
 
-[Severity: Low]
-Since the label property is deprecated in modern LED Device Tree bindings,
-would it be better to replace this with the color and function properties?
+-- 
+Regards/Gruss,
+    Boris.
 
-Modern user-space LED managers rely on standard sysfs directories named
-color:function. Defining the LED using the color and function properties
-would align the driver with current subsystem guidelines and prevent
-userspace from relying on the legacy label field to correctly identify
-the hardware role.
-
->  			default-state =3D "on";
->  		};
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/alz112qGhm77liqi@vi=
-cb.net?part=3D1
+https://people.kernel.org/tglx/notes-about-netiquette
