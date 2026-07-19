@@ -1,97 +1,152 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MTA-10-3.privateemail.com (mta-10-3.privateemail.com [198.54.127.62])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54AF339936B
-	for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 14:18:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 281BA390CB2;
+	Sun, 19 Jul 2026 14:23:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.62
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784470733; cv=none; b=pG9xeJMluycCpvDsml/aquSsTeOItkGVrfdocV326V/RYjnrd/vSS6g5/vdMvQgyDniYqXAhqdufNYK7DWo9HbRqXizHmeADULucnbbPVnHhnRaEgBIqzcbBWoi5yZvmaXrzS4vAHw9tp3Gyk283wMPJmkUPUWGivhBsE0LqeQc=
+	t=1784470993; cv=none; b=puUCCyWcXARiO3Un7eHoQn/bn6Skq2LWrlPmrPdKqxx+TjNdEsElOviNL5fT8Fw3bqP+aBt1kKT4PBOMVFfS6tGZnB1QKWFA0vw+e/tunI55jXZ2YmQNmZ/OlZgZofXY19+zG8EXQijatbXik9WJEoIZAThTtmt0gqA33/KOuwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784470733; c=relaxed/simple;
-	bh=MH1eckPMZzz2y/yUS5p3C7hdriX8ZbXO14RSpyisvCU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VryyAsgAsDsGfZz/v7+MmYucaOpxOT9jYMSon3i6KoNPQ0w0o40y0vwp9R+3OxNriBRUl2PPMYcbXdcbKd83nt0fGP4d0NjBr2TmyrI19juYGveHUi8bi1czWh2i6u82Octvy7YkSTn5N5b6i0iqo0sPjwub/j0YUeWxdggKkZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KPHNBZp6; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KPHNBZp6"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38e07ebd263so3895928a91.1
-        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 07:18:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784470725; x=1785075525; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=rlngx4eYA57A6MoNforZqa90xnpEvIJzU2ucYSS4JxA=;
-        b=KPHNBZp6Ih+XQDcv6T0tQ0dKpzYkyOffHGyQoUz2SMti4jAPTzPcCuf+S5wViM9myo
-         vQz6ij2xJKCzBR/JXSSKc8+WtHvSHJfHnTvUhHC2gFkGis8+6VzNoG2UAMonF2rrFcbD
-         G6WRJ7axOed9oTzUEi9Qc4Tw5QZPQcod+tMmSEZO46C5qc6Ky4snyfnNqn3m0IqnDTLw
-         LJYapzuU1SCznLM9/uiyW5L3EhDsF/OEA7qIZQ3kosz5f3inPyA9Tb4GVXOQkNaP2p1l
-         YOc2D1aChXGMGNjzEFhTwwvNo4Ya3ATs/kP9YAnYt7bdGOt3UDMmugS+JbxI6007PMbG
-         ItDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784470725; x=1785075525;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rlngx4eYA57A6MoNforZqa90xnpEvIJzU2ucYSS4JxA=;
-        b=muFkWpgmr9+BP5CZkTZzUttCsgtZjodMvxNonZYhTvyARM/1QIW22lsVFBigG6whWZ
-         LgQtqNFzstRyMNF9iFRzFqiHunNXHYda8GJwefQ3NZl/PCX3NkoeWNkXGQYskQELpLwh
-         r9n9S6WgZyvvdFsWwy/vpNLKf1AGOM3XI2G7Kio+Mhrdv3B+e4KH61NyxYznPFCXuOv1
-         IMl++u2e/eL55Ik8ylEEjtFfikl3G2jFEPRfrbU7i0EkeVq77ZS0w01Sof4k+gburJnb
-         bQwFBWflBPjw4PSd1McwfIMgRlQTiiimYf/A6Q81nlJChQjuInA6jNIJLoDRj2xRC0bj
-         8BQA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqu0/gk9YmLGC2H1R9sg8+5nIheAL97fugh9B9qXHAONe04iDFL/lpynk2Ewp62XmhJx8U6t2cWgv9o@vger.kernel.org
-X-Gm-Message-State: AOJu0YxqorsyQx0P1juRu44y2dSu9Iezcku85LN420YgiMw4Lg8cYCsb
-	cGOwjNqsdOE1jZZY2GaGR3y7H1SFtpRCUp9WEP8kPcRQthg0/Ea4pKn0
-X-Gm-Gg: AfdE7cmBC0ahKMujbohzNh8m7z+2cA2dvbjDj3LoTvAaKZOUFydAQLTa6lEJXb7OcvH
-	KEaToAkAp/uj9dMydpGpD4Ny2+iyk6RdwZMJWqKWRid4H2olkdJeFFtxT2eP2fsLmQSE9AbsUYO
-	iUBeNck5cBg7ah8r/JWFwavJQ3lwCFweXVAWkhAObeP2xEGwOTfH1jh252GmgfNJ8R2KmaGwqO6
-	5F18FLkgDN22GOtskBrzmSVbEgQ6vlLpJB7nEFFiN2rKeuJK7ylGsxzQNsNhwkLXBveLpQTplif
-	6Ihx0gaB6CymOKXUzjA4X05uI0qhyaau+JoyOFbV5q7bURBm2u+misjPSfGExAbh41cmYOCdzkg
-	A5Og/kTAoqis9sFuqJyy6eKOC8WIeC++MSGKO2/dDPVVxo94yaQgdMTVeiGD8a/KDlZUP3//Gk9
-	HqD6x85YnF2pU8txU=
-X-Received: by 2002:a17:90b:1c02:b0:38e:5e2:6dce with SMTP id 98e67ed59e1d1-38e4b57e964mr10388567a91.39.1784470725519;
-        Sun, 19 Jul 2026 07:18:45 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e4afcc067sm4147810a91.1.2026.07.19.07.18.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Jul 2026 07:18:44 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sun, 19 Jul 2026 07:18:44 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Zaixiang Xu <zaixiang.xu.dev@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 4/4] hwmon: (sht3x) Document support for GXCAS GXHT30
-Message-ID: <eaa54c0b-441d-4fec-a374-5f1d5523f5d2@roeck-us.net>
-References: <20260713074559.12196-1-zaixiang.xu.dev@gmail.com>
- <20260713074559.12196-5-zaixiang.xu.dev@gmail.com>
+	s=arc-20240116; t=1784470993; c=relaxed/simple;
+	bh=UexbzcizlZLoa0y8/PlTbgz2dI/u5nx5atqlkzE58cQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RX/2ka3o7vRUAe2N5EpkkFM1DMGIrp8G0j6XMreOck++infUx2TYT/B+LVnIud8gdwLpCU2UYTvZgY4ssrjAoqIhoIJdCbcwaSvNLof90u+r1yIyX/t8j67+Z6uPWaP3fRh0GTwjfwoeIuf/Bx2/Lr3gPwF1nY2avFiapiyWxEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.127.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
+Received: from mail.privateemail.com (K8S-PROD-WORKER-14 [87.215.145.39])
+	by mta-10.privateemail.com (Postfix) with ESMTPA id 4h35TN4Scvz3hhTC;
+	Sun, 19 Jul 2026 10:22:48 -0400 (EDT)
+From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+To: David Heidelberg <david@ixit.cz>,
+	Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Luca Weiss <luca.weiss@fairphone.com>
+Subject: Re: [PATCH net-next v2 2/2] nfc: s3fwrn5: support the S3NRN4V variant
+Date: Sun, 19 Jul 2026 16:22:41 +0200
+Message-ID: <20260719142241.12640-1-jorijnvdgraaf@catcrafts.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <18c3e13f-88e4-458e-9f57-7aceeb1ce1d1@ixit.cz>
+References: <20260705190621.128257-1-jorijnvdgraaf@catcrafts.net> <20260705190621.128257-3-jorijnvdgraaf@catcrafts.net> <18c3e13f-88e4-458e-9f57-7aceeb1ce1d1@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260713074559.12196-5-zaixiang.xu.dev@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 13, 2026 at 03:45:59PM +0800, Zaixiang Xu wrote:
-> The GXCAS GXHT30 is a humidity and temperature sensor that is a
-> drop-in replacement for and fully software compatible with the
-> Sensirion SHT30.
-> 
-> It is handled by the "sensirion,sht30" fallback compatible without
-> any driver changes; manual instantiation works with the existing
-> sht3x device name. Document the chip as supported.
-> 
-> Signed-off-by: Zaixiang Xu <zaixiang.xu.dev@gmail.com>
+Hello David,
 
-Applied.
+Thank you for the review!
 
-Thanks,
-Guenter
+On 19/07/2026 15:15, David Heidelberg wrote:
+> Please, send the "drop the of_match_ptr()/__maybe_unused annotations
+> from it." type of change as part of the series, but as a separate
+> commit before the new HW support introduction.
+
+Will do in v3.
+
+> Since you touch S3FWRN5_I2C_DRIVER_NAME, replace define
+> S3FWRN5_I2C_DRIVER_NAME occurenced with the "s3fwrn5_i2c" directly
+> before introducing the support (also separate commit)
+
+Will do, also in v3.
+
+> is S3NRN4V really a variant of S3FWRN5 or is it just S3NRN4V?
+
+It is a separate, later part, but from the same Samsung S.LSI NFC
+controller line this driver covers. Samsung's downstream stack drives
+that whole line with one kernel driver and one HAL: the HAL's product
+table lists the N5 (S3FWRN5) and N82 (S3FWRN82) generations next to
+RN4V (S3NRN4V) and others, dispatching on a product code reported by
+the chip's bootloader, and the parts share the I2C framing, the
+power-control GPIO scheme and the proprietary-NCI style of
+configuration. The generational differences (bootloader protocol,
+RF-register transport command, FW_CFG payload form) are exactly what
+this patch dispatches on -- the same way the driver already supports
+the S3FWRN82 next to the S3FWRN5.
+
+That said, "S3FWRN5-family" can indeed be read as "a variant of the
+S3FWRN5 chip", which it is not, so I'll reword it in v3 to something
+like "a later part of the same Samsung NFC controller line". The
+phrase also sits in the commit message of the already-acked binding
+patch; I'll tweak it there too (commit message only) and note it in
+the changelog.
+
+> While it's "register update" and function is named "configure_dual",
+> it's loading firmware.
+>
+> If it's not a firmware, but only configuration, it can reside inside
+> the driver, maybe LLM even be able to decode to understandable
+> sequence of registers and values.
+
+There are two separate things here: the chip's executable firmware
+(~180 KiB) ships in its flash and is not touched by this patch at all
+-- its download protocol is not implemented, which is why the
+download step is skipped. What is loaded here are only the two RF
+register tables (~3.5 KiB combined).
+
+Those tables are configuration by nature, but I don't think they can
+reside in the driver:
+
+- They are board-specific analog/RF tuning, not chip constants: the
+  values match a particular antenna/matching-network design, and the
+  vendor revises them across software releases (my two Fairphone 6
+  units shipped different builds of these files, with different
+  version stamps embedded). A different S3NRN4V board design would be
+  expected to ship its own tables. Per-device data loaded at runtime
+  is what request_firmware() is there for, much like Wi-Fi
+  board/calibration files. The tables ship in the device's vendor
+  image, which is where I extracted them from.
+
+- There is nothing to decode them against. The register map of these
+  controllers is not publicly documented, and even Samsung's own
+  (Apache-licensed) HAL treats the register content as opaque: the
+  only part of the image it interprets is a 16-byte metadata trailer
+  at its end (version stamps, used to decide whether an update is
+  needed at all, plus a region code), while the register content
+  itself is pushed to the chip untouched, in 252-byte sections.
+  Nothing in the stream or in the vendor stack identifies
+  address/value pairs one could transcribe, so "decoded" into the
+  driver this could only become a 3.5 KiB hex array in C, and we
+  would lose the ability to ship a newer table without rebuilding
+  the kernel.
+
+- It also mirrors what this driver already does for the parts it
+  supports: s3fwrn5_nci_rf_configure() loads the same class of table
+  (sec_s3fwrn5_rfreg.bin) with request_firmware() and pushes it via
+  the older START/SET/STOP_RFREG commands. The new function is the
+  same operation over the newer parts' transport command.
+
+If the naming reads confusingly I'm happy to rename the function or
+extend its comment to spell out the firmware-vs-register-table
+distinction.
+
+> For next revision of the patch, I'll likely still have some
+> additional feedback.
+
+Understood -- I'll send the v3 with all of the above shortly.
+
+> With next revision send also as last patch the device-tree entry for
+> the Fairphone 6, so we can also get additional testing from
+> developers/users.
+
+Will do -- v3 will carry the Fairphone 6 DT patch at the end of the
+series, marked as included for testing and presumably to be picked up
+via the Qualcomm DT tree once the driver side is settled; I'll Cc
+linux-arm-msm and the qcom maintainers on that patch.
+
+Thanks again,
+Jorijn
