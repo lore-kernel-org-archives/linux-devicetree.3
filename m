@@ -1,68 +1,68 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFDDB3A4F30
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 05:37:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95ADF3A9601
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 05:37:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784525845; cv=none; b=K0UDo1toNBGTcivk+rbU3FtLQA3YCVL2LbPvHH8zIe4hvphs5QCtgEDV/HD3VYHbEqvByTvVDaGKW7ttzHnC0GfWtl52o0/5haHEiIH4+egUzY7CEAlSLZ1aPwYCxvg+ciCTIqr3eZSSn0Il6eiUXKxu16c03NIGf6MyTz4h7m8=
+	t=1784525846; cv=none; b=ajFA59dVO3Fh1AvCxT/Upah/8q2rUZx020YYfpiXvlq453e0p5fWjNWTP/lwAIt7ySgZy8hlvbb6TsVudDCKcTbxusO5bBUe6SvuMyPn+hqWf3uGVLJrFV2nLou/O2w9SU808eP/1KXQYQETzBqTJyaBIDMakTZbjdyNV8/nB2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784525845; c=relaxed/simple;
-	bh=UIJA8tptL+r22YrLQm5pE5mPfFlj4ABDgWrCfL7IYR0=;
+	s=arc-20240116; t=1784525846; c=relaxed/simple;
+	bh=1b+RIXFU3fcXw2OgBmeRaWAU24/RS4EriQduWZYbIkM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SyZbqI8WsLKip3+EPBVgUjxe+4FKLLfIqwIBqGpnI77M/t5DBM+ZG3QvcQQYROQ9HGjtGRlNUbPOBNsVBH4WxZ4ydfAP6+ZPejafHVVEzGWRDRSZrY4dW35Mq9oiDZCkkUYGgpX+ZT45AuIrM12cVhmADNpYHw1bXeScghMIiec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HO909w+C; arc=none smtp.client-ip=209.85.214.177
+	 In-Reply-To:To:Cc; b=R+gZPe0LyJNJlV8lhLtxiImK1ItX5piTYUU88QDXb8kfuTY6KsEohmCH7uuOXiKKTnoDO1RE5A0PXzhGiNKIlukYVwEjIYez9AqQThuZVoYEC8KWxZ1PpcDg8/giRT4R1jiB7l8MLkph0oTyhDOKBfEuJ5GtIBGLp2TpHr50OuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JI+S76+g; arc=none smtp.client-ip=209.85.214.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HO909w+C"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2caea3f742bso116984415ad.0
-        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 22:37:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JI+S76+g"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cad4170e8eso131245515ad.3
+        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 22:37:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784525843; x=1785130643; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784525845; x=1785130645; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pBC9wGN5WcqQqnbJA19I3YxiEUTegSJ8uL/Ced5d0n8=;
-        b=HO909w+CrObituGzsAqKs8DA8tAjuzgyTz3+u9JkeRFYCnyE8T9Gxgr63rvqhKUvDK
-         YPUBD4/2KbaIYtX6AyyTHzjjkXUe9yygXms/CZO15WoPLLLCZnOQFAtvLPlQA4lfsZu4
-         35C54LGEBkIVqqI+ijCi9jGsmvd5crNU02yf1Yz2QH0UxrI8H2sb028zgcJrIxUPf2hM
-         s70GyMVm76RcPPRK9FnUsPrzjAR7FTIzWQTKmeXwnO2LOsS4vODR0+maW6RFCcwermB6
-         epqgWG0e7ujqmFaoad4loI0Se7DoqSHfwev87h3BPKFTxm+r7cEBYS1JRvDGH3fenOF7
-         i+bQ==
+        bh=i2XnjXP0mGqBGKY9hDxzognSDdDCZFFQuON2AmUxnRU=;
+        b=JI+S76+gEqkVEJG5oCFwLgbisIpz4Lt9QtnbjcqDpgJXueWoZ0lG1fKDU20ANUaXmR
+         2dX+bihZL7DMNJXKivb+P7bhkEJRRPglIh7kOodhNT4rveC6j0Ikxpjy/sXIAHDgDkXG
+         CQCLuRnUhLUxUD4LgC03RI2UtNm0AAJbEm4t3pUhFnLx/tM4csHrSnqTjwp96RxMh93X
+         feM0LcEvSONLzWwaJoMAlVl+OVBbch7KIpU/57P2/9VKMwwtFGyWnNVb3hC/um8tZ+gr
+         w+aKaB4Cd+EFC3B5ktL+tTwZtywfUQuqePTIA5d4cESr5qpaokz7reQHvYPwxFN5LLhx
+         F6XQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784525843; x=1785130643;
+        d=1e100.net; s=20251104; t=1784525845; x=1785130645;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pBC9wGN5WcqQqnbJA19I3YxiEUTegSJ8uL/Ced5d0n8=;
-        b=eQE2uKZZo5J5AP41gzhGWRoDNSXhE3A/qK8WjSJ+g8fCNbP4aE4NrRHoGzXzdlyL6+
-         u1CwWHZ1vgCjs/QAn1Op3uCOuhPdmMZizUZ3JbyC9pxE/P4FV17nRSB87J/YXGIcZCaP
-         Y4vuJeiGdYnS1hWy3hAK7WAxNl28phE9flRMlAIbrmvbdhzlQ/sAJqzHpujn8hLE7vob
-         bUwbj02fiegFaJkpW1UUhqmg0KDmlRsshk6ETN9/ED8lcyrGmT+qKw1ZJuNLKtu9ghac
-         tXVtHzl59eG8S7ng2kPWSWGmfV+dKIa+KLd/2CqyyCZ7hb7bwc/dNyO09SGerkOak1zL
-         SJ+w==
-X-Gm-Message-State: AOJu0YxMTg7x94LqKmBShiYiEVi33NR2U7OhOhTzLKTGIAFXOGmU89Q6
-	RG22gLbSKicQLeihqq3oGUQTfkx89FFF97X5sB0JYjH21YtxApPppJfB
-X-Gm-Gg: AfdE7cnKzF9TOD3J4tNX9v1iyKpPTWnr4b2FlOir0sazKwQPXKAyp86tmH/1tx9h6uj
-	v4UBNWYQnONkqTMn4xnz4PaRq/Am2w+Yi5OWBP8YVUkAEQlQnO8K8tKVx7bMobWBoW4VPu35qN+
-	fhSOhW4tYc6eXILqulXHTu4+WrzRuzabwQbXQP3ZKhl6V4zY1/kbUw7m0JQ/5EJZ7/fxC2ng5x0
-	clVLesW0gIWVLlkkuNowdI+PMSIEhwUBt9oCeq0tykWXHVktZylvXTCnvq4FC4K+pTQlCDEwb8D
-	IjVm94gVTg9loF76KfXYXaPyRW78lI+KSiJlg1Of6w71AdPdQeweMsquR3TXdSqyiXNUKiQWziC
-	7SwH9rBAmqpoxD58cjJpoAGJGxGfopUZqfSo/CINs2juAuAZHuiHVkF/XOPUUpDM+tnKox5lQ3/
-	Mpey4uomuXY0vxE5HPV75rDLSiyvd0nhxWJCEbe0l4oc0XsAglQqhj7gFwqD5fHQz6Obx8WEKfQ
-	QUA
-X-Received: by 2002:a17:903:19c5:b0:2c0:db23:4c4 with SMTP id d9443c01a7336-2cf348f88abmr148382425ad.16.1784525843148;
-        Sun, 19 Jul 2026 22:37:23 -0700 (PDT)
+        bh=i2XnjXP0mGqBGKY9hDxzognSDdDCZFFQuON2AmUxnRU=;
+        b=Idbw1trJiqDqSHJuzRrNw0DCjjlFmI3sTzDXa/MulLtrpiwrUqaI/lp+t+LjVdM0iZ
+         bz7cY8IQMtgYuHPFOWiqvVavUOy9wNiMy42ncE41doTH2XEpKuq3rpub6VUTGnJtpGED
+         muyAhxPAbm/BF6HgM5b4aU4YSlVE0TeX/DXe7szpwshW/ftqq/0dzqPmxFd/6N4wZVvu
+         AMc5G/IiMKRP8Jtk+8rgdld3BnxEb5OK2cYUoIgVEHuCm1mFBzVfhmoB8EPnwUDM7YUU
+         RU7I7hcZ/dSrW29tFEBRKb5bi7NAXEMdX56m8rg+1lbX4DhmHa9OW3DeR+BFaEHe1BoC
+         FB0g==
+X-Gm-Message-State: AOJu0YxzPIrkqfMnz5202363jcFdhfPKvm1VDdr3EgjOAifsVXUzkQix
+	Xqpj64nRcXdS87PvQ93aArSiFK1Sdvb3aVP2Rn9TDJG8rB8n06cP5qEy
+X-Gm-Gg: AfdE7clGY1Ix568Ovj+n32zjjPhxd7SPaz3hMJ7+y+etCH0sJN7CQ56qGluLDaVlDkx
+	ar+1gVJ4nl+LArYKdOT6vokmiRfluNn8i+7+P0RoabJcD1Jw7CuL/S+mdqMUB9x0zlrMMkbkkq7
+	jQkxwpzl4rDDR9d9OveZdWwTYDjyu3OeR+inH6oyaKoZqr7ibyUZ7UVQYb1ILQJ2dkWTd33gAiW
+	TCevld1Htog8g0RE3JOpXRwSTwR0ngiq0A2WGFQMqrquct0vdD5zuZfetX+O9cmWwUs5kgOOI0G
+	NePYDgUjPgNM9/Yvw2fhrREhzmNdwR3YQ58f6KScGjFaCl8MWFkEUcZVq3k3C/cQrKITelRU21k
+	cESAQpVJB3AmxdJK37xapa4u9TWl9mSJ9viBWobcDFPJO5cq+j2av5TA0GpyDltoT9e8BREhQkW
+	Zmto5E61azQe9ArKc/n50q4liNEqUwoE2OjQ2rmsiTRk5PuDQdUQ65FXp9S77Z61pcPMkGmEUFO
+	Sis
+X-Received: by 2002:a17:902:cec4:b0:2cc:6329:b7ba with SMTP id d9443c01a7336-2cf34857697mr130158805ad.16.1784525844860;
+        Sun, 19 Jul 2026 22:37:24 -0700 (PDT)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:345f:e51b:3d0c:4546])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a20cfe3sm34224663eec.30.2026.07.19.22.37.21
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a20cfe3sm34224663eec.30.2026.07.19.22.37.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Jul 2026 22:37:21 -0700 (PDT)
+        Sun, 19 Jul 2026 22:37:23 -0700 (PDT)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Sun, 19 Jul 2026 22:37:16 -0700
-Subject: [PATCH v2 1/3] powerpc/dts: mpc5121: Move GPIO controller
- properties to SoC dtsi
+Date: Sun, 19 Jul 2026 22:37:17 -0700
+Subject: [PATCH v2 2/3] powerpc/dts: pdm360ng: Convert ADS7845 touchscreen
+ to DT bindings
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260719-ads7846-pdm360ng-v2-1-1198bd108502@gmail.com>
+Message-Id: <20260719-ads7846-pdm360ng-v2-2-1198bd108502@gmail.com>
 References: <20260719-ads7846-pdm360ng-v2-0-1198bd108502@gmail.com>
 In-Reply-To: <20260719-ads7846-pdm360ng-v2-0-1198bd108502@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -83,64 +83,56 @@ Cc: devicetree@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16-dev-b242f
 
-Define gpio@1100 with label gpio_pic as a GPIO controller and
-interrupt controller directly in mpc5121.dtsi so all MPC5121 boards
-inherit the correct controller capabilities.
+The PDM360NG board is equipped with an ADS7845 touchscreen controller.
+Previously, pdm360ng.dts used "ti,ads7846" as a placeholder and relied
+on platform data in pdm360ng.c to override the model to 7845.
 
-Remove the redundant local controller property declaration block from
-ac14xx.dts.
+Update the ts@0 touchscreen node in pdm360ng.dts to use the correct
+"ti,ads7845" compatible string along with pendown-gpio (using
+GPIO_ACTIVE_LOW) and interrupt-parent properties referencing gpio_pic.
+
+Note that changing the compatible string to "ti,ads7845" causes the
+legacy platform data notifier in pdm360ng.c to skip injecting platform
+data, allowing ads7846 to parse DT properties natively. Although
+pdm360ng_penirq_init() in pdm360ng.c still runs on boot prior to removing
+pdm360ng.c, its direct GPIO register writes are harmless because the
+gpio-mpc8xxx driver resets and re-unmasks pin 25 on demand when the
+ads7846 driver requests its interrupt.
 
 Assisted-by: Antigravity:gemini-3.5-flash
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- arch/powerpc/boot/dts/ac14xx.dts   | 13 -------------
- arch/powerpc/boot/dts/mpc5121.dtsi |  6 +++++-
- 2 files changed, 5 insertions(+), 14 deletions(-)
+ arch/powerpc/boot/dts/pdm360ng.dts | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/arch/powerpc/boot/dts/ac14xx.dts b/arch/powerpc/boot/dts/ac14xx.dts
-index 5d8877e1f4ad..05fcf08df1ca 100644
---- a/arch/powerpc/boot/dts/ac14xx.dts
-+++ b/arch/powerpc/boot/dts/ac14xx.dts
-@@ -148,19 +148,6 @@ clock@f00 {
- 			compatible = "fsl,mpc5121rev2-clock", "fsl,mpc5121-clock";
+diff --git a/arch/powerpc/boot/dts/pdm360ng.dts b/arch/powerpc/boot/dts/pdm360ng.dts
+index 67c3b9db75d7..05e93ca294ee 100644
+--- a/arch/powerpc/boot/dts/pdm360ng.dts
++++ b/arch/powerpc/boot/dts/pdm360ng.dts
+@@ -9,6 +9,7 @@
+  * Copyright 2008 Freescale Semiconductor Inc.
+  */
+ 
++#include <dt-bindings/gpio/gpio.h>
+ #include "mpc5121.dtsi"
+ 
+ / {
+@@ -176,11 +177,12 @@ psc@11900 {
+ 
+ 			/* ADS7845 touch screen controller */
+ 			ts@0 {
+-				compatible = "ti,ads7846";
++				compatible = "ti,ads7845";
+ 				reg = <0x0>;
+ 				spi-max-frequency = <3000000>;
+-				/* pen irq is GPIO25 */
+-				interrupts = <78 0x8>;
++				interrupt-parent = <&gpio_pic>;
++				interrupts = <25 0x8>;
++				pendown-gpio = <&gpio_pic 25 GPIO_ACTIVE_LOW>;
+ 			};
  		};
  
--		/*
--		 * GPIO PIC:
--		 * interrupts cell = <pin nr, sense>
--		 * sense == 8: Level, low assertion
--		 * sense == 2: Edge, high-to-low change
--		 */
--		gpio_pic: gpio@1100 {
--			gpio-controller;
--			#gpio-cells = <2>;
--			interrupt-controller;
--			#interrupt-cells = <2>;
--		};
--
- 		sdhc@1500 {
- 			cd-gpios = <&gpio_pic 23 0>;	/* card detect */
- 			wp-gpios = <&gpio_pic 24 0>;	/* write protect */
-diff --git a/arch/powerpc/boot/dts/mpc5121.dtsi b/arch/powerpc/boot/dts/mpc5121.dtsi
-index a278fb7b9e71..9c5dacb94b92 100644
---- a/arch/powerpc/boot/dts/mpc5121.dtsi
-+++ b/arch/powerpc/boot/dts/mpc5121.dtsi
-@@ -146,10 +146,14 @@ pmc@1000 {
- 			interrupts = <83 0x8>;
- 		};
- 
--		gpio@1100 {
-+		gpio_pic: gpio@1100 {
- 			compatible = "fsl,mpc5121-gpio";
- 			reg = <0x1100 0x100>;
- 			interrupts = <78 0x8>;
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
- 		};
- 
- 		can@1300 {
 
 -- 
 2.55.0.229.g6434b31f56-goog
