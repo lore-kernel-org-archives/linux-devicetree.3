@@ -1,106 +1,161 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B06233AD8F
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 11:22:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F37A33B6D0;
+	Mon, 20 Jul 2026 11:23:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784546555; cv=none; b=C+jIaDIkJpYLgH89J6vuNWxvDwieeSi4pgB0cYP8/85vl3B6NBFlTEbrrTOE0V1fWmal1TQcyMc2bQhZ/N7YNWMixtYkz8BVfSu7LaE844Pg+cYE3e/d4QA9QfHzX4rja97cTrjYq7vk4B6WAdlKFG2oohp7pemmpxGYvKn8/Zs=
+	t=1784546596; cv=none; b=seVOk02xkIcNeeOq991rgBUxPGlIRbfpl1munYH4+7wfNPIjk5OtFCrdCoI6W1KBgCExN3+p2reXdKsw11CikkhiFwIXJ+BmRqj4z4gYuBaQOfW3hEBzWgLCAgMzbWRI02HUQANlnTqm+Oc+VpUsYxuT4oonS+mZhAh62illIu4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784546555; c=relaxed/simple;
-	bh=ii+c/XC1wIyapAGI32bLvL17q5p0lsBx3AIZibKmLis=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=D1SOVkhUgZ449mMIYXGOx+X6mt/UQopQ03Q48TuV+Z1N+8NH7Hk7r+kaN0OSi4/CpZlwhWKyznQVJhQeu0geXBjDP7dv26axzIEN7/gi/wJUZXBUlLSe1oBj5aRdJKTNiUlxu/TV4Zd8GwgyzeHyZk9UFGfTDYhiKwHzdlUxjX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lPPc8/2z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784546596; c=relaxed/simple;
+	bh=oYH1UWv4eBuTf8gp/Chf9rss8aJNv0or7XfrIoUTeYk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KmLjVDJHqn8+/1hY1csJTxrdQxSf1Zo0x3ieYtRBAaWUZgnbBAxsW8DA6I+k9VSe27bbW8iGeuZfso7jT1f6sVXrRjBqO7oZxIUqVGqpQU+YlT3nQHGmndZYo4l4+w+feD/icptPXE0pXRNHgF0vUc5aJGR8lisG45svrVWjyu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iz8W+HLA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lPPc8/2z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 166E01F000E9;
-	Mon, 20 Jul 2026 11:22:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iz8W+HLA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAA991F000E9;
+	Mon, 20 Jul 2026 11:23:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784546554;
-	bh=LDOPuwwlxoXFoeHVGEIk9vysslyFX5D0VzSO1nqD1zw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lPPc8/2z/qVWYXZX42xA+Dq/36hM2LDGuLeNkhHcFwenbLaOm9+QwdB9z9wpjAUH7
-	 LJs9RSh50okv3NmROoJJU0i0+VEGM7qBEBPoDKTlf+Kgl93rILeI9lwQl0p9BWbbVC
-	 ocExV9F+AIfiOpcE3QjW/sZ0d3ixdgFhEBPxbfhWc/dO4nXdxWk44FUBszmnhOGrtX
-	 yB+nA4+wqcPmRc/gEqHLBElQoETCQJcGvmKDKj1RvW5WWom5qqH6t/a0VAMdXtrIN7
-	 zSIbnw008vQ0S99VUzosLSRrbTpj9/+MZOUieXa+97XQISoA2IIZ/HUbJK1ZNVRDgk
-	 4x2Z0x0P/qHVw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] iio: adc: ade9000: add support for ADE9078
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Antoniu Miclaus" <antoniu.miclaus@analog.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260720110754.7674-4-antoniu.miclaus@analog.com>
-References: <20260720110754.7674-1-antoniu.miclaus@analog.com>
- <20260720110754.7674-4-antoniu.miclaus@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 11:22:32 +0000
-Message-Id: <20260720112233.166E01F000E9@smtp.kernel.org>
+	s=k20260515; t=1784546595;
+	bh=d3xVK9YMrUjVB7REq1T+TRl9bzVEeUEnV0J6SaPCm8U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Iz8W+HLAWCJ4bghTZP1THbxM0UQQIHKCUmYXoLG5G7ynOYVIJxEutNCnsm1FmQE53
+	 ky0gwJQzBzRx/c+BZkAv1kZRCfN+HnETIt9oneWLozvcfoIUJc9WnfxQbMrThMkCCH
+	 lUQ00c2c8aobetivIjWBuoLdb+U9q7+ZRedCFF1FY3+WhdCvdDHR7WYTX6mykula6S
+	 Q1aQduXZqYoBTDoPAwndsTCl0DwZCiccVzZLoG8i/qHgS+yFaTsFekyDfrrYMNrMdT
+	 52xMpuTLeV54CnrppZwVhQMHmIPdPMCRQ9fh6ApCbo70W7a+1KuYpaux7vNNmOWb78
+	 6i+YIvpXVdJbg==
+Date: Mon, 20 Jul 2026 16:53:12 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Wesley Cheng <quic_wcheng@quicinc.com>,
+	Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 2/4] dt-bindings: phy: qcs615-qmp-usb3dp: Add support
+ for Shikra SoC
+Message-ID: <al4FICuDRLYdPE_8@vaman>
+References: <20260712-usb-shikra-phy-v6-v6-0-1b3e51bf1541@oss.qualcomm.com>
+ <20260712-usb-shikra-phy-v6-v6-2-1b3e51bf1541@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260712-usb-shikra-phy-v6-v6-2-1b3e51bf1541@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 12-07-26, 20:58, Krishna Kurapati wrote:
 
-Pre-existing issues:
-- [High] Duplicate and overlapping `scan_index` values assigned to phase B =
-and C channels break the IIO buffer subsystem.
---
+Krzysztof okay with this..?
 
---- Patch [3]: [PATCH 3/4] iio: adc: ade9000: add support for ADE9078 ---
-commit b9467a190f2a74b5ff3993276ef11d90860fe13b
-Author: Antoniu Miclaus <antoniu.miclaus@analog.com>
+> Declare the USB-C QMP PHY present on the Qualcomm Shikra SoC. Shikra uses
+> 3 resets to be programmed before initialising the phy. As per the hardware
+> documentation, the third reset is PHY_PRIM_SP0_BCR, hence naming it "phy".
+> 
+> Also, add remote endpoints and orientation switch support for getting
+> Type-C orientation information.
+> 
+> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+> ---
+>  .../bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml   | 49 +++++++++++++++++++++-
+>  1 file changed, 48 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml
+> index efb465c71c1b..98397006fa62 100644
+> --- a/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml
+> +++ b/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml
+> @@ -18,6 +18,7 @@ properties:
+>    compatible:
+>      enum:
+>        - qcom,qcs615-qmp-usb3-dp-phy
+> +      - qcom,shikra-qmp-usb3-dp-phy
+>  
+>    reg:
+>      maxItems: 1
+> @@ -33,12 +34,15 @@ properties:
+>        - const: pipe
+>  
+>    resets:
+> -    maxItems: 2
+> +    minItems: 2
+> +    maxItems: 3
+>  
+>    reset-names:
+> +    minItems: 2
+>      items:
+>        - const: phy_phy
+>        - const: dp_phy
+> +      - const: phy
+>  
+>    vdda-phy-supply: true
+>  
+> @@ -63,6 +67,22 @@ properties:
+>            - description: offset of the PHY mode register
+>      description: Clamp and PHY mode register present in the TCSR
+>  
+> +  orientation-switch:
+> +    description:
+> +      Flag the PHY as possible handler of USB Type-C orientation switching
+> +    type: boolean
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: Output endpoint of the PHY
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: Incoming endpoint from the USB controller
+> +
+>  required:
+>    - compatible
+>    - reg
+> @@ -78,6 +98,33 @@ required:
+>  
+>  additionalProperties: false
+>  
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,shikra-qmp-usb3-dp-phy
+> +    then:
+> +      properties:
+> +        resets:
+> +          minItems: 3
+> +        reset-names:
+> +          minItems: 3
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,qcs615-qmp-usb3-dp-phy
+> +    then:
+> +      properties:
+> +        resets:
+> +          maxItems: 2
+> +        reset-names:
+> +          maxItems: 2
+> +
+>  examples:
+>    - |
+>      #include <dt-bindings/clock/qcom,qcs615-gcc.h>
+> 
+> -- 
+> 2.34.1
 
-iio: adc: ade9000: add support for ADE9078
-
-This commit adds support for the ADE9078 polyphase energy metering device,
-which is register-compatible with the ADE9000 but lacks dip/swell detection.
-It introduces a dedicated channel table to omit those events and adds match=
-ing
-chip_info for the full-scale codes.
-
-> diff --git a/drivers/iio/adc/ade9000.c b/drivers/iio/adc/ade9000.c
-> index 52ad87ef05d0c..0d5aa26f6667b 100644
-> --- a/drivers/iio/adc/ade9000.c
-> +++ b/drivers/iio/adc/ade9000.c
-[ ... ]
-> +#define ADE9000_DECLARE_CHANNELS(_name, altvoltage_rms)			      \
-> +	static const struct iio_chan_spec _name[] =3D {			      \
-> +		/* Phase A channels */					      \
-> +		ADE9000_CURRENT_CHANNEL(ADE9000_PHASE_A_NR),		      \
-> +		ADE9000_VOLTAGE_CHANNEL(ADE9000_PHASE_A_NR),		      \
-[ ... ]
-> +		/* Phase B channels */					      \
-> +		ADE9000_CURRENT_CHANNEL(ADE9000_PHASE_B_NR),		      \
-> +		ADE9000_VOLTAGE_CHANNEL(ADE9000_PHASE_B_NR),		      \
-
-[Severity: High]
-This is a pre-existing issue, but does this channel declaration cause the
-driver probe to fail during IIO device registration?
-
-Looking at the channel macros in drivers/iio/adc/ade9000.c:
-
-ADE9000_CURRENT_CHANNEL(num) sets .scan_index =3D num
-ADE9000_VOLTAGE_CHANNEL(num) sets .scan_index =3D num + 1
-
-With ADE9000_PHASE_A_NR (0) and ADE9000_PHASE_B_NR (1), Phase A's voltage
-channel gets scan_index 1, which perfectly collides with Phase B's current
-channel (also scan_index 1).
-
-Since ade9000_probe() calls devm_iio_kfifo_buffer_setup(), the
-INDIO_BUFFER_SOFTWARE mode flag is set. When devm_iio_device_register() is
-called, the IIO core invokes iio_check_unique_scan_index(), detects the
-duplicate scan_index, and unconditionally returns -EINVAL.
-
-It looks like ade9000_waveform_buffer_config() expects Phase B Current to
-map to BIT(2), so shouldn't these macros use num * 2 and num * 2 + 1
-instead?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720110754.7674=
--1-antoniu.miclaus@analog.com?part=3D3
+-- 
+~Vinod
