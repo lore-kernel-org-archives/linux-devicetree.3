@@ -1,68 +1,68 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44FAE3B71B1
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 07:03:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26543B71C2
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 07:03:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784531003; cv=none; b=sXrvGFAlYJpxz44rC/giet+Nvj02vWp068noAStV/vXwV/aYzWIGSdcsLKiVlsc5HvVXxVPevttenGeBXZ4iS+l+q4izfmF8tau+kni0ETPpqEwe5DgzWtAEBNcWldTbv8NNEa9awg4Ae7ML1l31OwRBl39OovjPniGIFmiRA5E=
+	t=1784531004; cv=none; b=Ftgi3TgsEyFSYFbcSq8u5FQXQopneBj8RmcbcuBxc8L+MZgTbqjHinTEMdR8o+Rnr8h0xw9e6bSu7ica7WF6xFqMm+Pqzetwo09tQhaxZgfLmZIj3vdywCSRyteehosvdqbmpy4A7CBL6ge0TATooi0ou09jxoYG+w9Hi/W7AMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784531003; c=relaxed/simple;
-	bh=ukiUyExq0XnTaCqoO00vJRBVYD+CBNPsreTEPosjgA8=;
+	s=arc-20240116; t=1784531004; c=relaxed/simple;
+	bh=MDFjA3RgAEvCtdRyXnAbVMy3S7sJXL7lribMJJ6+tBE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Yn6aG7Vw2JAuA4miAGqblkW5mspp2PP51wuA5cyrC5bdNPqdVFHdeajHuzbmkxZT7UmOwZ6QXslU2ODMBfIFmH1yWvL+C7FxZIYqhCN7wyS7KNMJFCh1Wx0g0Sv1ksTuYiXpwcy81gf9BTFz2ekYDl3Td4fxpBgVyQDxA9Yj2uI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=FrzAGAu9; arc=none smtp.client-ip=209.85.214.177
+	 In-Reply-To:To:Cc; b=pvZBq8FFhexN5sam55vPFAccYSm2PcLjkJDWAem/y2Wp+KvKyI0tkn5W1DHJi+hh1cVruO4LR7A4ZYs0VfSlM75UHYh4R5Eo9oKUh+9irOetbrsjYBdqSLY0cR8JOpTi+DqR1FfKcywhWHb7HcMkMvwFhDrd4G0yC/Ql1kZ9H14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=aKwr+pic; arc=none smtp.client-ip=209.85.216.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="FrzAGAu9"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2cace91f112so98743125ad.0
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 00:03:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="aKwr+pic"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3811f512167so9650675a91.3
+        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 00:03:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1784531001; x=1785135801; darn=vger.kernel.org;
+        d=nexthop.ai; s=google; t=1784531002; x=1785135802; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=l3pCI8QzdNtZEY1wJy1ziEltENbQOXThfdEHc5FunM0=;
-        b=FrzAGAu9NqVdnNmW6KufJQcoeElVkzTz0lxV4TySd7Chccu7zufDtq+bmIUwYTD17y
-         s7okRgJspqtJDMMlsWrx1lOreGLYU6uiI3aDstcqCLqDiJxNCAe5Z12rhnYdPbHCrQEf
-         l9R2NHg6VHDuVc5qfTFFqZg1WsVF4oPrWWGHJo5UlA3Wbd2dvNOBtaAj5OBAsf+OrXKn
-         1MyHAti6k8bX5z5VeU8eUb5rXbUK4C2aU6cOM+IAmUxV+UTpCVvpGhykOS5KQH9qxBnt
-         zMtbUqltwBWQ6xeFzevsijUgVtKmVUyQb9inE+VqoOXw43FuG8GKy/5AJf80gjiBZlza
-         qHuQ==
+        bh=pX5vXL9Rltp502Am/rntkBhNRyHxfpxR6XXxdG/Nl84=;
+        b=aKwr+picSxIJU1ehb88vHUxFKJRjm4pw/9A/Zf20fbskTTWukPZKul9wUwZzg+qu9w
+         bHG058XnDm6tS8e6NnEEDtHLZx55bp0nOOC0YmHSkbcKpYzwom5/wh2DShmhnRKNgt6m
+         Vx8h5IC66Q0pAYTBSlLo8YlfDkApmNc4CzXhblTD4SiEFS7UvpEfsWDHFkSX63SkX0lH
+         HMUrQ4u/iqiBEtcvkHHpMaH59nfI0JGKTJ08tzCJv8toAUkoEkKqXgqoLd+3HP+irAnc
+         cT5dlT+w8A7UaIuFJUQRCbrZIJMTvjOYIwA78Yi70LGBMzPEtgyHXbh4fj2P1rkRX3yn
+         BOpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784531001; x=1785135801;
+        d=1e100.net; s=20251104; t=1784531002; x=1785135802;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=l3pCI8QzdNtZEY1wJy1ziEltENbQOXThfdEHc5FunM0=;
-        b=Ko3+2gHoIDBQ/2WL8eiN7Tz8DnChszZ1j57NdZ3IiWKXzpdbnAal2mfkL2dTf8p35l
-         W7n5mhyMyPOa8BXnOt0Bt6hd5mXf61fJ9ed7z3fqOL/shkiv5WVFvVWOuQbCBBHaPSpd
-         /U6THVHaToNPKuvvVczWqrEG8vLDvSAnwTN4gwC7076RPHqY3/KSV71o2BKnZoABKVEP
-         bwFakKI86yVbH5JAZ0g29a6J+MSsvh7348NnIHf1Cc7NB9DeK60knuzV27qz5FIN8EZm
-         G4K2bJhLi/DOnvS++RZeEi93dnbByi+Ar9GWZILRhUI53u/Rp1jBFCQN/vyIYpMMDff8
-         flHg==
-X-Gm-Message-State: AOJu0YyEKQxDW0auYB8aB0hNWF97XhkyvxKZkcOuJd0NWN8a8mthJ1JQ
-	D9sCZ9xTpabzLnT4T0csP5ZB76GeIIbUd+KFEb52VT8ebfs37slCkyRLpilFlIe6vJJzdNA/AAJ
-	aMxu3ckY=
-X-Gm-Gg: AR+sD13kmi7CCJS3/s4tUsCqw9zdE8RXiylRVIqa9RrneyqkAKPTDBKwGwUfFy5oK/i
-	z2ykQ0tXyYmFXFN7EPC4yfb2gsj6g6perO3UeTIpJYY+AVWX9VpwQUjynvy1T8Hz5b8n014NFHh
-	lFEWEctczwIvQDMM/ppoG27rxvgcJdmDKi4+InNEIMAB4VgSiPCdiPiksM82BLK2xpQq46BeQSv
-	I6Tlz8eHDha4Cy2ClJgP0okRnsomYNPDnc0N1cXp0pSVGzx//8X+o+TlU8uj2SYagV7tfjaA5TX
-	r6n7N4iVIkWQVKLLNphMoiF5vcmGeFZ2kM4gb3dfVFiylwX18Bvzo0/0iA8vi3IH9GkeCfvQL4N
-	Ki/wTdoO2kQB5eo4mH9a78+xgq5neW2Z2OeAqG5n09HvVdwFNBlWG20OxXokBQ5PBVJ0zmnpI05
-	KcTSIaAFTYG4OL/CU=
-X-Received: by 2002:a17:90b:3942:b0:387:e0bb:57ff with SMTP id 98e67ed59e1d1-38e4b5d99a6mr13188088a91.38.1784531001215;
-        Mon, 20 Jul 2026 00:03:21 -0700 (PDT)
+        bh=pX5vXL9Rltp502Am/rntkBhNRyHxfpxR6XXxdG/Nl84=;
+        b=QL2f9mcM+pzA9Vf4nfsB9SmrjUh7n42Hfd+mZNqWDPKjLA31Wfwdagzpcz7Nvye3IC
+         Baa7zvQnQT4m+T+BGPtX/8h7KCALNVCiZoKtE5llgFPYg2MXVb2J9RXPe9rrHvYgWbmf
+         gH7f/35uEGOcBBC/0GOacE5w1E42ecjR1ptnRR+pzNg2jiCqgEb0fxNUPXkTykG+9DKf
+         jyw+jjBzH+yYAgJ0TJuTp5l0zlV8Kh6F07TqhFP0T62TgdFs/w5ZNBdDtp/enw/GUee3
+         e7qms0MSIkXlcPir1N6qlUJa4p9lEb59QMgavERPs+jvsNn29Tv1baEjEjsLZfWbUHLy
+         TShQ==
+X-Gm-Message-State: AOJu0YxLipDn8jm1pHLaHVEAxWgsOrfSPeq1SUXI07a+4t5qYR+nZ3/2
+	mmuxKRGE/opKWI/YdnS9IEgIqN0xSu7eU/nbC07J5a64aHNTFxcZXFRzuya3WAP9sv3S4fMZKb2
+	HynHiv5g=
+X-Gm-Gg: AfdE7cm1FvTqD8v8J2jpfbWAyj0A6ns74i4VunEFqhLmi1FJWomtK1P9thaN9D9tXk0
+	Ki7HwBqmg/CsOnoVVrC1AmxrPDkvBbe27Fee9TH2cxIHI8G51rkStpXzANIpqSqQpZLWuWG06/i
+	O8ecBWH+raGYs+/Ww5o2gJk9ezguW5zEd3zlGK3mLZCQ7Ywux4kso0h79+bN93FtMmboEn2QYVy
+	CswRGvEzG/bla5v56Mp2TyZO9dW1QAitsY5lqqZxaq6iU4COswx+a34dRa6Zk+RPGQ+fpYHKHga
+	UABTBq2YS3tjg19HTHJqZO8iuzOOpIggspxoEh778U6izj9puxG9uLYodCnDZfd9IfKlr59wLHF
+	T4G3+pPvit/9K1CMKbrUhBKa/6ZzaFVj9skv7mf6uLRhN6isIeaIlsNjqtLNXxOC8TjJZ2QxZaO
+	EvaHLk
+X-Received: by 2002:a17:90b:4a08:b0:380:9157:d6c with SMTP id 98e67ed59e1d1-38e4b41043cmr14246640a91.10.1784531002261;
+        Mon, 20 Jul 2026 00:03:22 -0700 (PDT)
 Received: from [127.0.0.2] ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e60cc2ad5sm463052a91.4.2026.07.20.00.03.20
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e60cc2ad5sm463052a91.4.2026.07.20.00.03.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 00:03:20 -0700 (PDT)
+        Mon, 20 Jul 2026 00:03:21 -0700 (PDT)
 From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Date: Mon, 20 Jul 2026 00:02:52 -0700
-Subject: [PATCH RFC 3/4] of/overlay: rewrite /aliases path values to
- live-tree paths
+Date: Mon, 20 Jul 2026 00:02:53 -0700
+Subject: [PATCH RFC 4/4] of: unittest: cover /aliases updates from overlay
+ apply/revert
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,72 +70,165 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260720-nh-of-alias-overlay-v1-3-f1e5d9889b30@nexthop.ai>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260720-nh-of-alias-overlay-v1-4-f1e5d9889b30@nexthop.ai>
 References: <20260720-nh-of-alias-overlay-v1-0-f1e5d9889b30@nexthop.ai>
 In-Reply-To: <20260720-nh-of-alias-overlay-v1-0-f1e5d9889b30@nexthop.ai>
 To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Abdurrahman Hussain <abdurrahman@nexthop.ai>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784530997; l=2365;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784530997; l=4807;
  i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
- bh=ukiUyExq0XnTaCqoO00vJRBVYD+CBNPsreTEPosjgA8=;
- b=Lx6z57+d2jdA1VGsy6etjNt16LDdRIrsalsiQOtAlkxNeFaVYZaPIxW2DlipW0MzzQCf8kQ37
- zUQKvREMdxtBD7Qs5Xw5MnulyxyWljFwOplN9J+oc9cWto6Gj+T2EIq
+ bh=MDFjA3RgAEvCtdRyXnAbVMy3S7sJXL7lribMJJ6+tBE=;
+ b=1uRt+NYgSdsZklwmrfdumPXYE/QBEyqERaPzRKFHEZQtMC3xI1dM47vV3H8GishS+GzYzTxCP
+ qF4b4W4H8RbAl930bpY2FBF9kQzZ3pdQJHlygIXRSBygbhdgVFkhAfA
 X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
  pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-/aliases entries added by an overlay reference labeled nodes inside
-the overlay via '&label' in the .dtso. dtc renders those references
-as string paths at compile time, but the paths encode the overlay's
-internal fragment layout (e.g. "/fragment@1/__overlay__/fpga@0/i2c@40000")
-rather than the location where the node will live after apply.
+Add overlay_alias.dtso, which declares `testcase-alias99 = ...` under
+/aliases via the &{/aliases} shorthand, and an of_unittest_overlay_alias()
+runner that:
 
-Currently only /__symbols__ has its property values rewritten from
-overlay-internal paths to live-tree paths by dup_and_fixup_symbol_prop().
-/aliases values fall through the plain __of_prop_dup() path and are
-copied byte-for-byte, so of_find_node_by_path() on such a value returns
-NULL, of_alias_get_id() reports -ENODEV — and the reconfig notifier
-added earlier in this series sees uninterpretable paths and can't
-populate aliases_lookup for overlay-declared aliases.
+  1. asserts of_alias_get_id(target, "testcase-alias") is -ENODEV
+     before the overlay is applied,
+  2. applies the overlay and asserts the same call now returns 99,
+  3. removes the overlay and asserts we're back to -ENODEV.
 
-The values in /aliases follow the same textual convention as
-/__symbols__, so we can reuse the existing rewriter. Detect the
-/aliases target node and route its properties through
-dup_and_fixup_symbol_prop() as well. Fall back to a raw dup when the
-value is not a rewritable fragment path (legacy string aliases like
-"ttyS0" that some out-of-tree code writes verbatim).
+Exercises all three functional patches earlier in this series
+together: patch 1's reconfig notifier is what mutates aliases_lookup
+on apply/revert, patch 2 is what lets target-path="/aliases" resolve
+to the DT root when target_base is non-NULL, and patch 3 is what
+rewrites the fragment-internal path in the alias value so
+of_find_node_by_path() finds the live-tree target. Any one of the
+three missing turns the middle assertion (get_id -> 99) into
+-ENODEV.
 
 Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 ---
- drivers/of/overlay.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/of/unittest-data/Makefile           |  2 ++
+ drivers/of/unittest-data/overlay_alias.dtso |  9 +++++
+ drivers/of/unittest.c                       | 51 +++++++++++++++++++++++++++++
+ 3 files changed, 62 insertions(+)
 
-diff --git a/drivers/of/overlay.c b/drivers/of/overlay.c
-index 654a70d5cb07..338786cef17a 100644
---- a/drivers/of/overlay.c
-+++ b/drivers/of/overlay.c
-@@ -350,6 +350,19 @@ static int add_changeset_property(struct overlay_changeset *ovcs,
- 		if (prop)
- 			return -EINVAL;
- 		new_prop = dup_and_fixup_symbol_prop(ovcs, overlay_prop);
-+	} else if (target->np->parent &&
-+		   of_node_is_root(target->np->parent) &&
-+		   of_node_name_eq(target->np, "aliases")) {
-+		/*
-+		 * /aliases property values are string paths in the same
-+		 * "/fragment@N/__overlay__/..." form as /__symbols__.
-+		 * Rewrite them to live-tree paths so of_alias_get_id() can
-+		 * resolve them; fall back to a raw dup for non-fragment
-+		 * values (e.g. legacy string aliases like "ttyS0").
-+		 */
-+		new_prop = dup_and_fixup_symbol_prop(ovcs, overlay_prop);
-+		if (!new_prop)
-+			new_prop = __of_prop_dup(overlay_prop, GFP_KERNEL);
- 	} else {
- 		new_prop = __of_prop_dup(overlay_prop, GFP_KERNEL);
- 	}
+diff --git a/drivers/of/unittest-data/Makefile b/drivers/of/unittest-data/Makefile
+index 01a966e39f23..0a8bd9a74283 100644
+--- a/drivers/of/unittest-data/Makefile
++++ b/drivers/of/unittest-data/Makefile
+@@ -22,6 +22,7 @@ obj-$(CONFIG_OF_OVERLAY) += overlay.dtbo.o \
+ 			    overlay_18.dtbo.o \
+ 			    overlay_19.dtbo.o \
+ 			    overlay_20.dtbo.o \
++			    overlay_alias.dtbo.o \
+ 			    overlay_bad_add_dup_node.dtbo.o \
+ 			    overlay_bad_add_dup_prop.dtbo.o \
+ 			    overlay_bad_phandle.dtbo.o \
+@@ -87,6 +88,7 @@ apply_static_overlay_1 := overlay_0.dtbo \
+ 			  overlay_18.dtbo \
+ 			  overlay_19.dtbo \
+ 			  overlay_20.dtbo \
++			  overlay_alias.dtbo \
+ 			  overlay_gpio_01.dtbo \
+ 			  overlay_gpio_02a.dtbo \
+ 			  overlay_gpio_02b.dtbo \
+diff --git a/drivers/of/unittest-data/overlay_alias.dtso b/drivers/of/unittest-data/overlay_alias.dtso
+new file mode 100644
+index 000000000000..32532c80505a
+--- /dev/null
++++ b/drivers/of/unittest-data/overlay_alias.dtso
+@@ -0,0 +1,9 @@
++// SPDX-License-Identifier: GPL-2.0
++/dts-v1/;
++/plugin/;
++
++/* overlay_alias - declare an alias inside an overlay */
++
++&{/aliases} {
++	testcase-alias99 = "/testcase-data/overlay-node/test-bus/test-unittest100";
++};
+diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
+index e255f54f4d76..a9f4a0bb3087 100644
+--- a/drivers/of/unittest.c
++++ b/drivers/of/unittest.c
+@@ -3475,6 +3475,53 @@ static struct notifier_block of_nb = {
+ 	.notifier_call = of_notify,
+ };
+ 
++static void __init of_unittest_overlay_alias(void)
++{
++	const char *path = "/testcase-data/overlay-node/test-bus/test-unittest100";
++	struct device_node *np;
++	int ovcs_id = 0;
++	int id, ret;
++
++	np = of_find_node_by_path(path);
++	if (!np) {
++		unittest(0, "could not find %s for alias test\n", path);
++		return;
++	}
++
++	id = of_alias_get_id(np, "testcase-alias");
++	if (id != -ENODEV) {
++		unittest(0,
++			 "of_alias_get_id() = %d before overlay, expected -ENODEV\n",
++			 id);
++		goto out;
++	}
++
++	ret = overlay_data_apply("overlay_alias", &ovcs_id);
++	if (!ret) {
++		unittest(0, "overlay_alias apply failed\n");
++		goto out;
++	}
++
++	id = of_alias_get_id(np, "testcase-alias");
++	unittest(id == 99,
++		 "of_alias_get_id() = %d after overlay apply, expected 99\n", id);
++
++	ret = of_overlay_remove(&ovcs_id);
++	if (ret) {
++		unittest(0, "overlay_alias remove failed, ret = %d\n", ret);
++		goto out;
++	}
++
++	id = of_alias_get_id(np, "testcase-alias");
++	unittest(id == -ENODEV,
++		 "of_alias_get_id() = %d after overlay remove, expected -ENODEV\n",
++		 id);
++
++	unittest(1, "overlay alias test passed\n");
++out:
++	of_node_put(np);
++}
++
+ static void __init of_unittest_overlay_notify(void)
+ {
+ 	int ovcs_id;
+@@ -3649,6 +3696,8 @@ static void __init of_unittest_overlay(void)
+ 
+ 	of_unittest_overlay_gpio();
+ 
++	of_unittest_overlay_alias();
++
+ 	of_unittest_remove_tracked_overlays();
+ 
+ 	of_unittest_overlay_notify();
+@@ -3848,6 +3897,7 @@ OVERLAY_INFO_EXTERN(overlay_17);
+ OVERLAY_INFO_EXTERN(overlay_18);
+ OVERLAY_INFO_EXTERN(overlay_19);
+ OVERLAY_INFO_EXTERN(overlay_20);
++OVERLAY_INFO_EXTERN(overlay_alias);
+ OVERLAY_INFO_EXTERN(overlay_gpio_01);
+ OVERLAY_INFO_EXTERN(overlay_gpio_02a);
+ OVERLAY_INFO_EXTERN(overlay_gpio_02b);
+@@ -3885,6 +3935,7 @@ static struct overlay_info overlays[] = {
+ 	OVERLAY_INFO(overlay_18, 0, 0),
+ 	OVERLAY_INFO(overlay_19, 0, 0),
+ 	OVERLAY_INFO(overlay_20, 0, 0),
++	OVERLAY_INFO(overlay_alias, 0, 0),
+ 	OVERLAY_INFO(overlay_gpio_01, 0, 0),
+ 	OVERLAY_INFO(overlay_gpio_02a, 0, 0),
+ 	OVERLAY_INFO(overlay_gpio_02b, 0, 0),
 
 -- 
 2.54.0
