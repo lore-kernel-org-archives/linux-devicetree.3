@@ -1,186 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 824353A5E94
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 10:02:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D75C39901A;
+	Mon, 20 Jul 2026 10:03:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784541734; cv=none; b=OX7n3MB85zLjQdYMPWNneNsq2jfS+fQ0R+USCX5R+qSpqtVProSAryDsLQ1hK8HrTMRpBCHsFUj6z+5HPiR/ZyW+qugX+X1CvqDelMRE8MXgLWJsHTrE7PV7WufK9fgsDXVGGL56Xgi4z6umThdWYW2+spBh68UM3LjgK+CwmCw=
+	t=1784541791; cv=none; b=otCWggRazjSnBx/JCxbhGU5coL6M3ahMViKjJYrCP8HXWqE1tfFBPVR9om0wRHtyx8eAcqAZ3mt37/DIHerPNcbmAkelCK2wV2APaTMYYtwpv5lG41oHl2sBGh4mLw5QkW31+GQj7vlJJfuNN+dKULWx6wmFEwmdYRK8rDmb20I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784541734; c=relaxed/simple;
-	bh=+IFSh05M42lIM++y2Y3y3NUEtHucSyQR8BDoCOxuuvg=;
+	s=arc-20240116; t=1784541791; c=relaxed/simple;
+	bh=LkdU1Mw/5rdchHYGG7IywEREJQb7y4hcnOztcgx4eYg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MK77WEQO32+o4ehmAxuqrxFOf0yRTbJaaw+BhVlLRbAR8Z8tcvlXyozxqu17FCm/AfOZvW+Afq1Hs35MePPBfOCO4LSCfRfwn/acQOJ4gNUWF8u2fr8iivQI2Cd248AG/soLhFnODGgD5bkZmHqtKqnjC0qQ0EG0zz0+e50dlgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VEFCbfDw; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ime8Vn5o0jsZqWUqicUge8zRkZtSqH9f6ciNBlvIX41WD4QInHXw88HmhpgNhsJGBRW6G41rlqnEtSlcBCghRL7w2w/YIQTRDTWqyGR5f3zbaTU9QZEP0Ar8IS5moAYxeXM3R2kf9TZ7WejAlOXBAcGgt0oyo1aRb00l/oqbyx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RWJ1KAV7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VEFCbfDw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEF1D1F000E9;
-	Mon, 20 Jul 2026 10:02:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RWJ1KAV7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CE111F000E9;
+	Mon, 20 Jul 2026 10:03:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784541733;
-	bh=4g3v/zCHIAnNF+7CiLnMccVa/KP0n77HdKYSkbWNKm4=;
+	s=k20260515; t=1784541789;
+	bh=UjP4CVdj662nikU25TY7QceLNwWw+ty5RjShlgFy2Xc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VEFCbfDwxn94e1oRfbjJ5vlnFz+JbhkI8IvHv1tUdCyY7JjjNsGICfm4mpA8yLf+s
-	 +F7ZLEKBmvvfNKVqYypxQNmiZ5SNZthym9LpZOWUJ+usuBkK/FPLJdJaqbIyaVl3CL
-	 1d4uiFQC7f5WSC+JpEEkLhmD/xYyrs1W2UzuDvFRGMVi5OC0rXgE6EO1Y5lEzQOItT
-	 m7Ayi6n2FGdS44Kt5Wy8sebtnc2T7xr34SvzNLvcqGklfIqhJ8iNZmfecphil+G8AH
-	 2gRAirkd7XlvB3+kcSVRBldDxy3Hfb+pEIM3AZ5a29l6t1XXGDxikjcNDwTgR/+R76
-	 eLInsv5ySFcIQ==
+	b=RWJ1KAV7/Y9fF8ghxQTYtvtymGBWoktxHko1kyW9Tn5K6GZ0teyhTNyXYQnD/kVte
+	 FeuEJqhgykELbE4HjHT0+BruZVGxpkV9zFUuIgcn8EbgpMFSvWP3rTEgg57taG2BiN
+	 yKehKLZiXyn7ei14w0kBLqi+S6CCMHSyNTyscrRQdQFS670kzI3INE+pH/FkTvCTkg
+	 xZapFBEbfx/tl6L6nSf4bssb2oS572Bg7QjCZCjvKmZq/HY9G2r62mZWFYlnbK8AWp
+	 yvVAVMTHLJ703lpkQPG4pYXZuqC1dhYf4I/eFtRhG3BWafbIUkjj8Gyn/1EvQ1o86p
+	 Bv6iX9tDzwZ6Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/3] pwm: rp1: Add RP1 PWM controller driver
+Subject: Re: [PATCH 1/4] dt-bindings: sound: fsl,imx-asrc: update port
+ binding to support multiple pairs
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andrea della Porta" <andrea.porta@suse.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <a83d65b2d91865eb722337c547c94dce175e6086.1784539788.git.andrea.porta@suse.com>
-References: <cover.1784539788.git.andrea.porta@suse.com>
- <a83d65b2d91865eb722337c547c94dce175e6086.1784539788.git.andrea.porta@suse.com>
+To: shengjiu.wang@oss.nxp.com
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, robh@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260720095450.1618747-2-shengjiu.wang@oss.nxp.com>
+References: <20260720095450.1618747-1-shengjiu.wang@oss.nxp.com>
+ <20260720095450.1618747-2-shengjiu.wang@oss.nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 10:02:12 +0000
-Message-Id: <20260720100212.BEF1D1F000E9@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 10:03:09 +0000
+Message-Id: <20260720100309.6CE111F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Missing `.remove` callback leads to Use-After-Free in the PWM and =
-Syscon cores and leaks clock resources on driver unbind.
-- [High] Register context loss on suspend/resume silently breaks PWM output.
-- [High] Unclamped hardware duty ticks lead to integer underflow in the PWM=
- core for normal polarity.
+- [Low] The newly added example causes `make dt_binding_check` to fail due =
+to a device tree node merge conflict.
 --
 
---- Patch [2]: [PATCH v7 2/3] pwm: rp1: Add RP1 PWM controller driver ---
-commit 0c98703d857577902e57d25b42a3d46dfbde5795
-Author: Naushir Patuck <naush@raspberrypi.com>
+--- Patch [1]: [PATCH 1/4] dt-bindings: sound: fsl,imx-asrc: update port bi=
+nding to support multiple pairs ---
+commit 45674653b1eb8f9efa969b217b62dc494801eaf3
+Author: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-pwm: rp1: Add RP1 PWM controller driver
+dt-bindings: sound: fsl,imx-asrc: update port binding to support multiple p=
+airs
 
-The Raspberry Pi RP1 southbridge features an embedded PWM controller with
-4 output channels, alongside an RPM interface to read the fan speed on the
-Raspberry Pi 5. Add the supporting driver.
+The i.MX ASRC hardware supports up to three conversion pairs. This commit
+updates the binding to add a ports container that enumerates three named
+sub-ports, while deprecating the old single port property and ensuring
+both cannot be used simultaneously.
 
-> diff --git a/drivers/pwm/pwm-rp1.c b/drivers/pwm/pwm-rp1.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/pwm/pwm-rp1.c
-
-[ ... ]
-
-> +static int rp1_pwm_round_waveform_fromhw(struct pwm_chip *chip,
-> +					 struct pwm_device *pwm,
-> +					 const void *_wfhw,
-> +					 struct pwm_waveform *wf)
-> +{
-> +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
-> +	const struct rp1_pwm_waveform *wfhw =3D _wfhw;
-> +	u64 clk_rate =3D rp1->clk_rate;
-> +	u64 ticks;
-> +
-> +	*wf =3D (struct pwm_waveform){ };
-> +
-> +	if (!wfhw->enabled)
-> +		return 0;
-> +
-> +	wf->period_length_ns =3D DIV_ROUND_UP_ULL(((u64)wfhw->period_ticks + 1)=
- * NSEC_PER_SEC,
-> +						clk_rate);
-> +
-> +	if (!wfhw->inverted_polarity) {
-> +		wf->duty_length_ns =3D DIV_ROUND_UP_ULL((u64)wfhw->duty_ticks * NSEC_P=
-ER_SEC,
-> +						      (u32)clk_rate);
-> +	} else {
-
-[Severity: High]
-Does the normal polarity case need to clamp the duty ticks similar to the
-inverted polarity case?
-
-If the bootloader configures a continuous-high state where the raw hardware
-duty ticks exceed the period ticks + 1, this path calculates a duty_length_=
-ns
-that is strictly greater than the period_length_ns.
-
-When the PWM core subsequently reads this initial state, pwm_wf2state()
-handles duty > period by treating it as an inverted polarity and calculating
-duty_cycle =3D period - duty_length_ns. This subtraction can silently
-underflow, causing the core to interpret the hardware state as having a bad=
-ly
-corrupted duty cycle.
-
-> +		if (wfhw->duty_ticks > (u64)wfhw->period_ticks + 1) {
-> +			/* 100% duty cycle case */
-> +			ticks =3D 0;
-> +		} else {
+> diff --git a/Documentation/devicetree/bindings/sound/fsl,imx-asrc.yaml b/=
+Documentation/devicetree/bindings/sound/fsl,imx-asrc.yaml
+> index 608defc93c1e9..18d252722aa8e 100644
+> --- a/Documentation/devicetree/bindings/sound/fsl,imx-asrc.yaml
+> +++ b/Documentation/devicetree/bindings/sound/fsl,imx-asrc.yaml
 
 [ ... ]
 
-> +static int rp1_pwm_write_waveform(struct pwm_chip *chip,
-> +				  struct pwm_device *pwm,
-> +				  const void *_wfhw)
-> +{
-> +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
-> +	const struct rp1_pwm_waveform *wfhw =3D _wfhw;
-> +	u32 value, ctrl;
+> @@ -188,3 +212,57 @@ examples:
+>              };
+>         };
+>      };
 > +
-> +	/* set polarity */
-> +	regmap_read(rp1->regmap, RP1_PWM_CHAN_CTRL(pwm->hwpwm), &value);
-> +	if (!wfhw->inverted_polarity)
-> +		value &=3D ~RP1_PWM_CHAN_CTRL_POLARITY;
-> +	else
-> +		value |=3D RP1_PWM_CHAN_CTRL_POLARITY;
-> +	regmap_write(rp1->regmap, RP1_PWM_CHAN_CTRL(pwm->hwpwm), value);
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/clock/imx6qdl-clock.h>
+> +    asrc1: asrc@2034000 {
 
-[Severity: High]
-Could the PWM controller lose its hardware configuration after a system
-suspend and resume?
+[Severity: Low]
+Does this identical node name and unit address cause a node merge conflict
+during make dt_binding_check?
 
-During rp1_pwm_request(), the channel control register is initialized with
-essential bits like RP1_PWM_CHAN_CTRL_DEFAULT, which includes the
-MODE_TE_MS and FIFO_POP_MASK configurations.
+The dt-extract-example tool processes the examples array by concatenating a=
+ll
+items into a single device tree root node. Because this new example uses the
+exact same node name and unit address (asrc@2034000) as the preceding examp=
+le,
+the Device Tree Compiler merges them together.
 
-If the hardware loses power during suspend, the registers reset. On resume,
-when a consumer re-applies its state, this regmap_read() will read the wiped
-hardware register. The driver will then update only the polarity bit and
-write it back, failing to restore the required operational mode bits that
-were initialized during the request phase.
+The resulting merged asrc@2034000 node ends up containing both the port
+property from the first example and the ports property from this second
+example.=20
 
-> +
-> +	/* early exit if disabled */
+This violates the newly added schema constraint preventing port and ports
+from both being required at the same time, which causes validation to fail.
 
-[ ... ]
+Could a different unit address be used for this second example to prevent
+the nodes from being merged?
 
-> +static struct platform_driver rp1_pwm_driver =3D {
-> +	.probe =3D rp1_pwm_probe,
-> +	/*
-> +	 * .remove is not needed because this driver cannot be removed/unbound
-> +	 * cause it relies on syscon which cannot be removed
-> +	 */
-> +	.driver =3D {
-> +		.name =3D "rp1-pwm",
-
-[Severity: High]
-Is it safe to omit the remove callback here?
-
-Even with suppress_bind_attrs set on the driver, if the parent RP1 PCIe
-device is removed, reset, or unbound via sysfs, it will forcibly unbind all
-child devices.
-
-Without a remove callback to run cleanup, pwmchip_remove() is never called
-and the clock is left enabled. Because the backing memory is devm-managed,
-the devres subsystem will eventually free the pwm_chip and regmap memory.
-This can leave dangling pointers in the core pwm_chips IDR and the global
-syscon_list, which could result in a use-after-free.
-
-> +		.of_match_table =3D rp1_pwm_of_match,
-> +		.pm =3D pm_ptr(&rp1_pwm_pm_ops),
-> +		.suppress_bind_attrs =3D true,
-> +	},
-> +};
+> +        compatible =3D "fsl,imx53-asrc";
+> +        reg =3D <0x02034000 0x4000>;
+> +        interrupts =3D <0 50 IRQ_TYPE_LEVEL_HIGH>;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784539788.gi=
-t.andrea.porta@suse.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720095450.1618=
+747-1-shengjiu.wang@oss.nxp.com?part=3D1
