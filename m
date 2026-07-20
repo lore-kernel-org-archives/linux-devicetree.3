@@ -1,127 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8CC3F8223
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 11:40:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 072EB3537D0;
+	Mon, 20 Jul 2026 11:41:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784547661; cv=none; b=Osv0uk2ZrO7SMzbxrFYw/MsRZoLEmwBURhfa49HDGranGkuIZQjoZXJLKGDSo+HguULTdfz+qcfExYWubpc5Qlb0V88dStpZznsa6sSOYUG/wKqV5hMYfpKVv7YASmuPsKZbI6xxx46fst8yHWdKdk0JwGfh9LE7rksUrVkosME=
+	t=1784547679; cv=none; b=GVlyQy9iQuIhrsnUj+ok4aWGkyGRVWkR1eH0PloCbzi93/paBSo28UqG961h6Z9kf1uU0Smdcdd8QpQY+vI4y2cNqI7mFun//fsP8sIeebQ7MEolqmIcYBqKeqc+B/oAahNIBAVIVoXENEPCgvrLrF52MhZxvI3Hd520UoCT7J0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784547661; c=relaxed/simple;
-	bh=WIsExSunSU5HpQ+t/i2zPWF/diMGNOUgEX9IwvBoV44=;
+	s=arc-20240116; t=1784547679; c=relaxed/simple;
+	bh=+sE86A1JmBIk3TLzHviuN6VKlUUkzvCSYo24T7G/3tI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FPZ++RHA87Ze3B3HBGLoUclZsW9p+pVvkYLMsPR5w2HI9NP1fetKLLAbcAXPb6FgX/N/bk3FzeobWggNEwu78HItvw/6Wry263sHjMg/PHkyPrAYws/1umM4xXd+K3aole0UH7nJ+fGcmSJ0z8v6nK+2NX/+YdGs3M+UVzT654M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bFKkYoly; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Qjt7YFkzjnYgL70Jwqk93Bsmk7yOYZEASHEw1/IXWxO/xWZgkL52cj2Gjmw7NxmLK5PCZl1AugZLrMeIQ91aP+LPVpXlxP6yQ/j1isqVhM3FCFceAsEqPJPauCrjHYjhTveg5Sk6LQFJg8T7wuKwTmHMgJ6tiIVJggX8O0C9gJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/xlF9M8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bFKkYoly"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4929E1F00A3A;
-	Mon, 20 Jul 2026 11:40:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/xlF9M8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 295081F00A3E;
+	Mon, 20 Jul 2026 11:41:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784547659;
-	bh=z3HO+KooX10b9GMJI/eG63mFen4CM8ySUsfhMBKAVho=;
+	s=k20260515; t=1784547675;
+	bh=vMxmsDFkaDi84bNrmHAUIWOgXegHAb7SFrIiJqs6gNw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bFKkYolyUOw6HtzOxyEY4LAHSigJZ7Zaj/5Aj639HUSwmL1jCCmVrfJXE2s5UkwBK
-	 8EyBMBCT9z4SDCQhNL/Emx7jeS0e2PQAc8uGn7zUseuPtXK1DqSuIQGkXt1wC2F8jN
-	 vy2cyGGJ2xheV/W0rlNXdA+CLa+qIt/sbiI1yu4+ZNhuvjFO/ePL6d1oeDQl9kzxeo
-	 AxwJsVxtBc0H2VRMN6vr3iqlDkQL5DoE2FFrs/5xSSuxJgF8U0OG4SiUEKZjODBTeO
-	 w3nDV8fUDiJdC2cGmUIyZhBZBkASnN4ufmdGUiOaL1asPJg/Ot2luiH9CXGKiblkwz
-	 KQoXel54LUFLQ==
+	b=B/xlF9M86LaB0/Rciksnq7vTFKlmNZF9Y1clS5s4hyBNJTcQMc9/CBQjtrkF5Wu2m
+	 1Ehh+0VkSN8FpuMXmss8BSk4ehnds9b4VdRByBNOEVDsa08hxngQqpuog0eHmOhFnQ
+	 gjnf1XoREgH7S0HCGIHqooOeLJZOIUtKWUs7peLdpg02UQXA/I16AqZM8nBhLQMuUa
+	 zS5JZY9F8pToem563vniVeVoBG8H6LEl42wU2lMa0hzNCEEwvzYZzc/YcxgYJ/Xy+4
+	 hlpDQ7iqERTCaoi7+A+msOJxAXE/LEQNfZzkq9N1ZweRqqnqj6UwC9Ufzuvl5YYJwf
+	 k3QN9XX3Rs8MA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/5] dt-bindings: mfd: x-powers,axp152: Document
- AXP318W
+Subject: Re: [PATCH v7 05/10] arm64: dts: qcom: shikra: Add CDSP, LPAICP,
+ MPSS remoteproc PAS nodes
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jerome Brunet" <jbrunet@baylibre.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260720-axp318-regulator-v5-3-a1afa7ee24f9@baylibre.com>
-References: <20260720-axp318-regulator-v5-0-a1afa7ee24f9@baylibre.com>
- <20260720-axp318-regulator-v5-3-a1afa7ee24f9@baylibre.com>
+To: "Komal Bajaj" <komal.bajaj@oss.qualcomm.com>
+Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, vkoul@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260720-shikra-dt-m1-v7-5-7dc99100c6dd@oss.qualcomm.com>
+References: <20260720-shikra-dt-m1-v7-0-7dc99100c6dd@oss.qualcomm.com>
+ <20260720-shikra-dt-m1-v7-5-7dc99100c6dd@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 11:40:58 +0000
-Message-Id: <20260720114059.4929E1F00A3A@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 11:41:14 +0000
+Message-Id: <20260720114115.295081F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The driver statically assigns hard-coded `.id` values inside its `=
-mfd_cell` arrays and bypasses automatic ID allocation by passing `PLATFORM_=
-DEVID_NONE` to `mfd_add_devices()`, violating the MFD subsystem guidelines.
+- [Low] Incorrect IRQ type `IRQ_TYPE_NONE` specified for SMP2P interrupts i=
+n `remoteproc_lpaicp` node.
+- [Low] Semantic API Violation: Usage of RPMh macro `RPMHPD_CX` with an RPM=
+ SMD power controller (`rpmpd`).
 --
 
---- Patch [3]: [PATCH v5 3/5] dt-bindings: mfd: x-powers,axp152: Document A=
-XP318W ---
-commit 0c5a5d45e78382d3cb52bdfeed22ad1c54a031fd
-Author: Andre Przywara <andre.przywara@arm.com>
+--- Patch [5]: [PATCH v7 05/10] arm64: dts: qcom: shikra: Add CDSP, LPAICP,=
+ MPSS remoteproc PAS nodes ---
+commit 65c0930ecad74d3ed9ab1c696c97ce9cf5c374b0
+Author: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
 
-dt-bindings: mfd: x-powers,axp152: Document AXP318W
+arm64: dts: qcom: shikra: Add CDSP, LPAICP, MPSS remoteproc PAS nodes
+   =20
+Add nodes for remoteproc PAS loader for CDSP, LPAICP, MPSS subsystem.
 
-The X-Powers AXP318W is a PMIC used on some newer Allwinner devices.
-Among a large number of both DCDC and LDO regulators it features the usual
-ADC/IRQ/power key parts. Like other recent PMICs, it lacks the DC/DC conver=
-ter
-PWM frequency control register, that rate is fixed here.
+> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/q=
+com/shikra.dtsi
+> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
+[ ... ]
+> @@ -1813,6 +1813,170 @@ &clk_virt SLAVE_QUP_CORE_0 RPM_ALWAYS_TAG>,
+>  			};
+>  		};
+> =20
+> +		remoteproc_mpss: remoteproc@6080000 {
+> +			compatible =3D "qcom,shikra-mpss-pas";
+> +			reg =3D <0x0 0x06080000 0x0 0x100>;
+[ ... ]
+> +			power-domains =3D <&rpmpd RPMHPD_CX>;
 
-> diff --git a/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml b=
-/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml
-> index 45f015d63df16..38556c32417b3 100644
-> --- a/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml
+[Severity: Low]
+Is this using the correct power domain macro? The Shikra SoC uses an RPM SM=
+D=20
+power controller (rpmpd), not RPMh, so shouldn't this be RPMPD_VDDCX instea=
+d of
+RPMHPD_CX?
 
+> +
+> +			memory-region =3D <&mpss_wlan_mem>;
+[ ... ]
+> +		remoteproc_cdsp: remoteproc@b300000 {
+> +			compatible =3D "qcom,shikra-cdsp-pas";
+> +			reg =3D <0x0 0x0b300000 0x0 0x100000>;
+[ ... ]
+> +			power-domains =3D <&rpmpd RPMHPD_CX>;
+
+[Severity: Low]
+Similar to the remoteproc_mpss node, shouldn't this use RPMPD_VDDCX instead=
+ of
+the RPMh macro RPMHPD_CX?
+
+> +
+> +			memory-region =3D <&cdsp_mem>;
+[ ... ]
+> +		remoteproc_lpaicp: remoteproc@b800000 {
+> +			compatible =3D "qcom,shikra-lpaicp-pas";
+> +			reg =3D <0x0 0x0b800000 0x0 0x200000>;
+> +
+> +			interrupts-extended =3D <&intc GIC_SPI 257 IRQ_TYPE_EDGE_RISING 0>,
+> +					      <&lmcu_smp2p_in 0 IRQ_TYPE_NONE>,
+> +					      <&lmcu_smp2p_in 1 IRQ_TYPE_NONE>,
+> +					      <&lmcu_smp2p_in 2 IRQ_TYPE_NONE>,
+> +					      <&lmcu_smp2p_in 3 IRQ_TYPE_NONE>;
+
+[Severity: Low]
+Are these lmcu_smp2p_in interrupts correctly defined as IRQ_TYPE_NONE? The=
+=20
+hardware SMP2P interrupts are edge-triggered, so should these be specified =
+as=20
+IRQ_TYPE_EDGE_RISING instead?
+
+> +
+> +			interrupt-names =3D "wdog",
+> +					  "fatal",
+> +					  "ready",
+> +					  "handover",
+> +					  "stop-ack";
 [ ... ]
 
-> @@ -277,7 +303,7 @@ properties:
->            Defines the work frequency of DC-DC in kHz.
-> =20
->      patternProperties:
-> -      "^(([a-f])?ldo[0-9]|dcdc[0-7a-e]|ldo(_|-)io(0|1)|(dc1)?sw|rtc(_|-)=
-ldo|cpusldo|drivevbus|dc5ldo|boost)$":
-> +      "^(([a-f])?ldo[0-9]|dcdc[0-9a-e]|ldo(_|-)io(0|1)|(dc1)?sw|swout[1-=
-2]|rtc(_|-)ldo|cpusldo|drivevbus|dc5ldo|boost)$":
->          $ref: /schemas/regulator/regulator.yaml#
->          type: object
->          unevaluatedProperties: false
-
-[Severity: High]
-This is a pre-existing issue, but while reviewing these changes, I noticed
-a potential problem with how the driver handles cell IDs in
-drivers/mfd/axp20x.c.
-
-The mfd_cell array explicitly hardcodes the subdevice cell ID to 1:
-
-drivers/mfd/axp20x.c:axp313a_cells[] {
-    ...
-    MFD_CELL_BASIC("axp20x-regulator", NULL, NULL, 0, 1),
-    ...
-}
-
-The driver then forces the platform bus to consume these hard-coded cell IDs
-rather than generating safe dynamic IDs:
-
-drivers/mfd/axp20x.c:axp20x_device_probe() {
-    ...
-    ret =3D mfd_add_devices(axp20x->dev, PLATFORM_DEVID_NONE, axp20x->cells,
-                          axp20x->nr_cells, NULL, 0, NULL);
-    ...
-}
-
-Could this lead to device naming collisions in sysfs and driver load failur=
-es
-if multiple MFD instances of the same type are instantiated?
-
-If multiple PMICs sharing the same cell definitions are present, they might
-attempt to register subdevices with the same hardcoded name and ID.
-
-This would result in a fatal probe failure for the colliding subdevices.
-
-Should this code use PLATFORM_DEVID_AUTO instead of PLATFORM_DEVID_NONE to
-ensure automatic cell indexing?
-
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720-axp318-reg=
-ulator-v5-0-a1afa7ee24f9@baylibre.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720-shikra-dt-=
+m1-v7-0-7dc99100c6dd@oss.qualcomm.com?part=3D5
