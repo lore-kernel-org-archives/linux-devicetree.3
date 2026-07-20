@@ -1,122 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5DB92F8EB3;
-	Mon, 20 Jul 2026 11:15:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230B3328B61
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 11:16:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784546157; cv=none; b=SoiWzUK1ybP4KatFBPLCgaNto8IThx8717M+U+x3xFqiDMHZfodYvrXuAq295NS/R8j8RtDDfjbEVoFYQBlD+3kkiDi0HHeR+xf0/VamAgNJdG8P98olvwOIPb/IBNPYtt95pr+BDgnSg2b6xUyPlu/C45IpmXpiF73hIyKrHto=
+	t=1784546197; cv=none; b=kWqMXLOELxBBpNZeziFCgENL/+xRVtBv7RPJCznU0yQYA0sLQKCESOMUDlOmn/tk0KuYJrjndM4nZOR8Ezu1I26XqthLSLrSmWPypTlzYNdk1TQi5q5OBtd7HLD9qTW/D6cTziMLNNAtUxfrCMKzFxwAp7BqOL30qQpeYoD8R+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784546157; c=relaxed/simple;
-	bh=GZ3VB5I5eMMIydP29/PWeT1/RYr4dL61VhWBRzmh02I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XsVztbzMadO7x+2uiMMBI9YSRtEe7+266hwx+ONeIt9YO/7EctaPN6qDtgg5bI2DnaaLtUTwPNj6ebTyR2VLqVXiVjY12Zn5BIsddOk3DH/xCsBDBdqmK5fYv0CJ0A6o3tl9ETVL2BERNOhS4njAW9GyoYYcDy+3XskzoKbdOhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oem5/H7h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784546197; c=relaxed/simple;
+	bh=KKpGEM2Q2ahnlhZRCjuVm4C6cCy/9J3lXYuDjPR8lwE=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O5KohhaVGRq5Z4CpROpBRX8phQWWbkU8wX8Zb4nIVojgi2rQUObRueDdKq/HQ0Bu9j7gWCWN7X/JeWDOd0aT3z18xz8ImIqKGcsa8X8m/cuMnCHHgQmfS98ViCeCurcBJnmaTBLKFYZUfF8C1IsDfmkoK8ctlHxsIDV8Th5rVck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pcmFVnIG; arc=none smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oem5/H7h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59EC41F000E9;
-	Mon, 20 Jul 2026 11:15:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784546155;
-	bh=Ad6SwdNjmGQvzXrdo/oooGPabPjdb9xNcJcB2l6JIb4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Oem5/H7hM99C7OHyDAAedAHkHnjWWJGs5+T9MxBUJ4Rg1o3QUN9dQUS/gETm5dO0V
-	 3Ys+BKrBIdga9/tCtKdCqPCsqaxCm0r/QLAQ97kedPbK/DpBicpRIsTNseq6U0bHtj
-	 j5HRF5A0gRHWggRfP9W9DgCVnZCrajKuZ2aU0dbwtS95bJcONhqHvfAkQ9BL9puQW6
-	 HmCTWo0CdKX7DfwSUn57vhrfDB+ImPkBu/aQP5UFr3WrPp+b4bUy8mdBr3QdhUCvQh
-	 2Dle6fCwdlV6huW9LNYBSXGfZ11FJZNyyr8coWhvQ47eTIAx2bPpU2CNmu/DeVAtMb
-	 SNbvTxsUFY+Ow==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 09/10] arm64: dts: qcom: shikra: Enable WiFi/BT on
- SoMs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Komal Bajaj" <komal.bajaj@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, vkoul@kernel.org, dmaengine@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260720-shikra-dt-m1-v7-9-7dc99100c6dd@oss.qualcomm.com>
-References: <20260720-shikra-dt-m1-v7-0-7dc99100c6dd@oss.qualcomm.com>
- <20260720-shikra-dt-m1-v7-9-7dc99100c6dd@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 11:15:54 +0000
-Message-Id: <20260720111555.59EC41F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pcmFVnIG"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-698bf053053so10877273a12.3
+        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 04:16:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784546194; x=1785150994; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=L/TAxliFFrN6KsYtNRi3KVvWd5AD16fwMCELbbAclZk=;
+        b=pcmFVnIGKVKRm7V+AaM+frpQQH5EiPu+/in7djrE+FJJNuCXasEPSGHNx0PYVk6Ipv
+         lHpv9EEaMra27arZ78QJN1Kuj0elryMYg7pZm00zZXQiT94CptgMhtulzLFKg5I0cu1q
+         3w9P/0mhfj7CTv+n+ohwLvE+05HqtKaqON7Hj2ZQMP5OD6EhgwNkMTEFV5yqnMqeQeY1
+         1R+aVKSJhGU+NNSQiD1NOWM/pA9cxLk0vij/CTuVaU/aXOalW7vv8bobKZ9nqk8tw7DS
+         uGKh7uY8HJ+4T1jbUlaJmJ+AVntxX5W8Olcu8pJyogGm5DMnZ/15jrJbF+X3byBJGfTr
+         t+hA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784546194; x=1785150994;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L/TAxliFFrN6KsYtNRi3KVvWd5AD16fwMCELbbAclZk=;
+        b=kcDrjvtJpTGdg04njObMxmqwXm5Nm0RnfbT5dR1SNA1cmym7jMCkNav+O4QE+nDTY0
+         4mGsMWNRTnAwwpeu9aNwoS92kC60TyxZ8dRa2QjaskumoV6TRIxfNHOf/4/nnZbDh3Ih
+         R7CwqkIm7Jty/rRJ8bYckYwPvJQ79duUpmnhbs4ga3JCN8WaA3HUEb4w8hBejAfmh4g8
+         aIR70giDDcth1a2u3hX5iBVQU5Xs/MsTFj95vZ2DobJyzgXAmV/QxlW/CYWbtwMpAeJj
+         mcWkYH4ZgJU+rguNVQsOnI4zZ83VeKntfcUV9z2mkG59YC/alVcKDeKN6+TamBG3KdtJ
+         p/fg==
+X-Forwarded-Encrypted: i=1; AHgh+RoV47sINX4b6HqUFLQW6kDVXJbPSgEdtJvrtQOZW9y6mXCcXSMVe++a9FWMQh5RmErgIABQGbc7P68k@vger.kernel.org
+X-Gm-Message-State: AOJu0YwGc2gffQxOQxa+Hv2VQxiGsNxBTWvdsQyry7uyGoFISMvfnNps
+	wlsOXGzPcI/lXBg/SafzoqC5vK88pJLpB2W4omKjYYp8tg0llSYnRvPD
+X-Gm-Gg: AfdE7ckmNPZ3nO2XoiD66j4BJvJCiq77lXvnRgtGGH+VVUDb36cx3bAQ9UQdB6x6Ykq
+	+5J1TuUu0476Tgp9uDVcHTOA/Wi++UsnkOmqAQN3DPyasero+CtswQirFnQETo4ECYKRRzO861T
+	TE2kk7GEpU3gkE1VBNvENodeFJvWgz8p0t8mGzC7bW/QfkLIZ1InZef6gzMffxRzymKyrMHlcvY
+	5hED1Qlauyc1RJnOYqWDh9gV6Ye9YRSXd0B9ZivQmGCKTEC7/VD9Kt6G/JLgeRdlzQnBc/bqOAq
+	bQGkapOX4kTc+1dodfLdr+93umTziGaKaqYYOVRx52xGaV8kdTDaBWo1oyJggXU2XkarpuaMZWU
+	oFfAMqxgh5nksqSwDaMNwQYOMJ7YpiRACuzjq+U/yIaGjJZQT1QEZRkbBzj8W0/9nPbLeJQXxaC
+	b/YgQtEaL1iRCyd9D7FTmQeqBIRf1X5XQo5p0UQQCx1hZHoSHquGaKxoXPfDIA5fZXqJF6+s6P8
+	QHzQg==
+X-Received: by 2002:a05:6402:44da:b0:69a:af38:2fc0 with SMTP id 4fb4d7f45d1cf-69e652ddde8mr3935392a12.20.1784546194154;
+        Mon, 20 Jul 2026 04:16:34 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69e6fff71d7sm4443075a12.27.2026.07.20.04.16.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Jul 2026 04:16:33 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Date: Mon, 20 Jul 2026 12:16:29 +0100
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
+	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: Michael Auchter <michael.auchter@ni.com>, linux@analog.com, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH 3/4] iio: dac: ad5686: extend device support with new
+ parts
+Message-ID: <yt72xnzniqqiutxrmfbk474m6jelzfpzdc767emqiwomgxg3ez@mivshbbogi5o>
+References: <20260719-ad5686-extend-dev-support-v1-0-841ec75cf5d8@analog.com>
+ <20260719-ad5686-extend-dev-support-v1-3-841ec75cf5d8@analog.com>
+ <20260719224351.1af8aef9@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260719224351.1af8aef9@jic23-huawei>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] Incorrect voltage regulators are assigned to the WCN3988 PMU `=
-vddio-supply` and WiFi `vdd-0.8-cx-mx-supply` rails, leading to severe unde=
-r- and over-voltage risks.
---
+On 19/07/26 22:43, Jonathan Cameron wrote:
+> On Sun, 19 Jul 2026 10:51:59 +0100
+> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> 
+> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > 
+> > Add support for AD5313R, AD5317R, AD5674, AD5679, AD5687, AD5687R, AD5689,
+> > AD5689R to the AD5686 SPI driver. Also adding support for AD5316R, AD5675,
+> > AD5697R to the AD5696 I2C driver. AD5673R and AD5677R were missing from
+> > the of_match table.
+> 
+> Given I'm asking for a v2 anyway, please break out the missing of_match
+> table entries as a precursor.
 
---- Patch [9]: [PATCH v7 09/10] arm64: dts: qcom: shikra: Enable WiFi/BT on=
- SoMs ---
-commit 7b0dbc06276bce121a4707dc81431f18358503c8
-Author: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+checkpatch complains adding stuff to of_match table without having the entry in
+the dt-binding. I suppose the desired order for the changes would be:
 
-arm64: dts: qcom: shikra: Enable WiFi/BT on SoMs
+clean ups:
 
-Shikra SoM cards include WCN3988 WiFi/Bluetooth chip, with supplies provided
-by on-card PMICs. Enable both interfaces and provide the required supply and
-calibration data.
+- ad5696 dt-binding: adding support for the 'missing' entries.
+- ad5696-i2c: add missing of_match entries
+- Adjust reformat device list in file-comment headers and Kconfig
 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi b/arch/arm64/bo=
-ot/dts/qcom/shikra-cqm-som.dtsi
-> --- a/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi
+extend dev support:
 
-[ ... ]
+- ad5686 dt-binding changes (new devices)
+- ad5696 dt-binding changes (new devices)
+- create new chip info's and populated device tables
+- Add new devices to Kconfig option description
 
-> @@ -27,6 +31,42 @@ key-volume-up {
->  			linux,can-disable;
->  		};
->  	};
-> +
-> +	wcn3988-pmu {
-> +		compatible =3D "qcom,wcn3988-pmu";
-> +
-> +		pinctrl-0 =3D <&sw_ctrl_default>;
-> +		pinctrl-names =3D "default";
-> +
-> +		swctrl-gpios =3D <&tlmm 88 GPIO_ACTIVE_HIGH>;
-> +
-> +		vddio-supply =3D <&pm4125_l7>;
+Does it sound reasonable?
 
-[Severity: Critical]
-Does this code assign a 0.664V regulator to a 1.8V supply in wcn3988-pmu?
+-- 
+Kind regards,
 
-The WCN3988 PMU's vddio-supply expects 1.8V, but pm4125_l7 is typically 0.6=
-64V.
-Could this regression cause an undervoltage that prevents digital I/O
-communication?
-
-> +		vddxo-supply =3D <&pm4125_l13>;
-> +		vddrf-supply =3D <&pm4125_l10>;
-
-[ ... ]
-
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi b/arch/arm64/bo=
-ot/dts/qcom/shikra-iqs-som.dtsi
-> --- a/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi
-
-[ ... ]
-
-> +&wifi {
-> +	vdd-0.8-cx-mx-supply =3D <&pm8150_s4>;
-
-[Severity: Critical]
-Does this assignment cause an overvoltage regression in the wifi node?
-
-The vdd-0.8-cx-mx-supply requires ~0.8V, but pm8150_s4 has a 1.08V to 2.04V
-range (typically 1.8V), which could lead to hardware damage on the IQS SoM.
-
-> +	vdd-1.8-xo-supply =3D <&vreg_pmu_xo>;
-> +	vdd-1.3-rfa-supply =3D <&vreg_pmu_rf>;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720-shikra-dt-=
-m1-v7-0-7dc99100c6dd@oss.qualcomm.com?part=3D9
+Rodrigo Alencar
