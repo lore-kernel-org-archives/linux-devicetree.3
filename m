@@ -1,208 +1,92 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDEEB367290
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 11:27:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9393DC4AF
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 11:33:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784546862; cv=none; b=aE8+QlKmvnt2dUaitEx6caYJh95wWLqzvKUD6/SuZxTOIeCKT7a1vbNxzbf4unGqP63J3mlnHpnNwC81qQ/BwbUT5gpiF457LSEUj5aNj/DRqHrgJ5WfromuCCWcuv3JnTSZBvQi8/+uy9VfzEBgbfQWhBzXg8xcbrzWpfEaDlU=
+	t=1784547186; cv=none; b=lo9at6+lfpvYx5PKiFTiG4lS5/nEzb7U7bTZFjgOR2qqgGhizoSQN5RMwbR1fWuuDU6EvvKhCDNljOB67kYrJiP2TsmjzHcEnA/wBX9ejGiylUIe5fQEm+mClUwFITGKQp5kICY7RMAQf4puOGgNc9TKMn0ck/W6UC8Xip2smuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784546862; c=relaxed/simple;
-	bh=qI/gD3S/qEjfbGthvRe3SjVSZjglCA1htCHrVUZuZAI=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=trlepaAEp/PD/MfMt2JAj4x93lRjzmg+2tm2lGzFdaTcOiSvtcLMmNpFNbMVNixlnuXaZoG9pHr1xtlevXKsH1T9ttZpZDyNg0MShjbENWcb8tuTlWLvlfdJH9kulEm8o5cSPHJez9Hat1aq/P7J9F4bysof/DpXYxfSKOKmgw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hU+eO18w; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784547186; c=relaxed/simple;
+	bh=HeYIlAR8nWFagKNsyX5CZrsB5sOzO8ayCJ290pzyfLw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=tXuMiLefiPTqtEMCVuxNqsZKHyFoOOXKGXG0eRQ6azBtj0OseKVmQ5ZPXqjWdMKa1RS3UVguGYL1x8tUKbe9UaZNeJZlKxxekmXSbXhqvymB6/abmWvbT2NBS0QDGSPqfe+4bQ2U6h8NVFfaowCQ+sa958NLe7cP+bwC9tRpGSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RE0RkU3g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hU+eO18w"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4956242332dso4307995e9.2
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 04:27:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784546859; x=1785151659; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ut/zni2FSakEBKycZIcRJa3SE8OV8p37C4rVCye8Qx4=;
-        b=hU+eO18wd94d4svp3DO2RZI+4Ikvxy7JuhCV58sXvoln1sGYHq+sk6o7RUqRiZFg4g
-         tfTo8uK3+fn1QXbWXr/PMFRc21/N96mWtcD11ddBUtwJYhTxJWqmHPQFCz07KVggI1Bk
-         xTuaDA0ga1D9yb8hHy4muiXxvAdjcmOcJgPpjnBFyqBUpKOYc1N/F+lMgDPUBnN05sLp
-         deGQ3V1eNONzrIO+Jqa0IC8qxODpK3xruK4e3NTdiAlfINE4CPbHl9DiEWm/OjrX9nup
-         hPfkv/SfzBpB4FhhdhPUuvrW6kDmdJZPqSQYzbI7ui04fi7ONAhpJNUXpqVk8uAWLLDl
-         7Myw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784546859; x=1785151659;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ut/zni2FSakEBKycZIcRJa3SE8OV8p37C4rVCye8Qx4=;
-        b=LdIDy3aLlefdQ3M3+YPgv3JiExCYAKXZS2YTPKpcq2DF88I1JTlsbnX+kAsUYOV1XW
-         wNEui3j8j4YSKYBeJzou9wRohvnQU+WoLlfVyEP95V/t9q6jqBK0oPbIqgVPxnKyiseK
-         Nt6l5hIXKbnILkidjpijsXGGnlRztCgExH5L1AVrFWvpxnt4llDKtnJFocKJPqPU6SCG
-         Xab/WCP5zrRgp8k1xham3/O29xkqpRct1mJE2WfXEDyQ+VKFjwEgJH64sezB3ppETkS4
-         0tPd/BwV5pzigBNKziQqFVBEixPUJ7Awdygi7xqe/fLqsDmNGSTKedWHHkqs3PmMLh1O
-         /HqA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqbvil9GbAWi+mJWSpWgurbh62Yrlv/a1dlwIIekX6UnQksG58ZV6XZsevmbFdjefDz7EZN9s0DtmhC@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxpa90eLizITes5KsjIA1ZimLHKMRAvoWdSd/1AkrbfbLv9L8i1
-	Gw3ys8MOXv/RZ32WFwNbiOW74NYkaRUqUpRvPyekl2Lo3SyanWMtkn0E
-X-Gm-Gg: AfdE7cl7RAHJgfGetZ1JtxnKgcb3PxAy6yj52X+nZvM7Bi4ndeWu0fy2B5sJAiVx/rQ
-	KKJjg0q2vXctCrRTedaOvkUmisF9VZIJZBOGZuig+fBeZBZuamkmx0hgpaEZndW1CuF9sGHioQk
-	QlGSmAZ3+GrFrXfGAOVVzAZhj4ouIOET1AItBnxKI5tDimsw/ANiGbx/zame0Im3SmOazN31Ja8
-	DAH3HRvbWXG8lKU27zYgNKkRJPFZpPq2GolTdCzqdH0kxh4RBvKSaXFbxx8O6SRJeNpid/3jepL
-	hqrWfYF9lIpVBv2h9ASZ5LNfZU27fBfQlz/hfTsUfAzdZbHLDqYHPeGRY0+um8NAZ7D+kzBupPr
-	PgYkc+MHVTTVr5wNz3RqLIUanCxPGe3A9fXl0A7l+BzuAjtOxvTU6qToBeumxcSEIkDwLGmaVwz
-	ZnORRGiUWLx5HvJy5NCkYL9fsFecwOfUvfbMyD8adMBH+8UkNpAT5BSaxm0ggQt54hI0WfWYIAP
-	toeNw==
-X-Received: by 2002:a05:600c:48aa:b0:495:4589:cea6 with SMTP id 5b1f17b1804b1-4954a516530mr91898995e9.34.1784546858909;
-        Mon, 20 Jul 2026 04:27:38 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49549a3e2a9sm271951985e9.4.2026.07.20.04.27.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 04:27:38 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Date: Mon, 20 Jul 2026 12:27:34 +0100
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
-	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: Michael Auchter <michael.auchter@ni.com>, linux@analog.com, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH 4/4] iio: dac: ad5686: update device list and file header
- comments
-Message-ID: <nxybhlqzbyz5jpwzam6hh72rst37fqcekxhtt6gjqge4t5gh7e@gbbm3g2pklim>
-References: <20260719-ad5686-extend-dev-support-v1-0-841ec75cf5d8@analog.com>
- <20260719-ad5686-extend-dev-support-v1-4-841ec75cf5d8@analog.com>
- <20260719223035.0acb57d6@jic23-huawei>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RE0RkU3g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E2441F00A3D;
+	Mon, 20 Jul 2026 11:33:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784547184;
+	bh=9pt33Tbx73NBLnlrXn7GxdfHurZ9owVrinp7us5FXF8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RE0RkU3gMmn8/MYQG88+JXeHTbGGC65elfutvw17VfmaLv3KY32UaWNxqq0qGnJU0
+	 Fe4WvpMeJgIqoP5fE7s4wBPidfnFyVh+CJoCsexdVogg1n2+bMb/5/OMoDjZ33DBl9
+	 ielfoyZuro0hF0itoCJyRcs66ak7ZSY3trp8Ms69SREiyUoXsdCYbbZU/DdwCUfiJz
+	 Pj2e8vGh+GxcW3i7vgpuAlZisYg7symYf+Xtf2zjLmMN/zCZ0qLgpNRWf8tEu4B4C0
+	 ZxF7CTdaYPHLo9NNv5qnTN4W6nkFRQps/i/2PWWILgFvNjDO/pxAboeUq2Bv0NDqwd
+	 29Y+c109MxreA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 4/5] mfd: axp20x: Add support for AXP318W PMIC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jerome Brunet" <jbrunet@baylibre.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260720-axp318-regulator-v5-4-a1afa7ee24f9@baylibre.com>
+References: <20260720-axp318-regulator-v5-0-a1afa7ee24f9@baylibre.com>
+ <20260720-axp318-regulator-v5-4-a1afa7ee24f9@baylibre.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 20 Jul 2026 11:33:03 +0000
+Message-Id: <20260720113304.4E2441F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260719223035.0acb57d6@jic23-huawei>
 
-On 19/07/26 22:30, Jonathan Cameron wrote:
-> On Sun, 19 Jul 2026 10:52:00 +0100
-> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
-> 
-> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > 
-> > Update device list entries in Kconfig and remove device description from
-> > file headers. One can rely on the ID table(s) to check for supported
-> > devices. Adjust comment header accordingly and update Copyright notice in
-> > comment file headers with the current year.
-> > 
-> > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > ---
-> 
-> Main comments here are about the patch break up.  I think it needs
-> just enough modification for a v2 to be needed.
-> 
-> >  drivers/iio/dac/Kconfig      | 31 ++++++++++++++++++++++++-------
-> >  drivers/iio/dac/ad5686-spi.c |  7 ++-----
-> >  drivers/iio/dac/ad5686.c     |  4 ++--
-> >  drivers/iio/dac/ad5696-i2c.c |  6 ++----
-> >  4 files changed, 30 insertions(+), 18 deletions(-)
-> > 
-> > diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
-> > index d6d560c09e25..ba2065241af3 100644
-> > --- a/drivers/iio/dac/Kconfig
-> > +++ b/drivers/iio/dac/Kconfig
-> > @@ -251,9 +251,18 @@ config AD5686_SPI
-> >  	depends on SPI
-> >  	select AD5686
-> >  	help
-> > -	  Say yes here to build support for Analog Devices AD5672R, AD5674R,
-> > -	  AD5676, AD5676R, AD5679R, AD5684, AD5684R, AD5684R, AD5685R, AD5686,
-> > -	  AD5686R Voltage Output Digital to Analog Converter.
-> 
-> Given this is adding entrees that were in the previous patch, I'd have
-> preferred to see the more complex dance of a precursor patch before that
-> which did the reformat (and dropped the stuff form the c files)
-> 
-> That would then be followed the new stuff being added as part of the previous
-> patch.
-> 
-> Whilst the ends result is the same I think it is worth doing a v2 just
-> to clean that break down of patches up.
-> 
-> > +	  Say yes here to build support for Analog Devices Voltage Output
-> > +	  Digital to Analog Converters:
-> > +	  - Single-channel:
-> > +	    AD5310R, AD5681R, AD5682R, AD5683R, AD5683R
-> 
-> Eagle eyed Sashiko spotted last entry is a duplicate.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The MFD cell array `axp318_cells` hard-codes the MFD cell ID to 1 =
+instead of using `PLATFORM_DEVID_AUTO`, violating MFD subsystem guidelines.
+--
 
-Yeah, one of the entries should have been just AD5683...
+--- Patch [4]: [PATCH v5 4/5] mfd: axp20x: Add support for AXP318W PMIC ---
+commit 76c82c1e91d9894a1be9b93884198b1f956c4a6b
+Author: Andre Przywara <andre.przywara@arm.com>
 
-Also, that this AD5337R was missing, which I didnt add because I could not
-find documentation for this one. Maybe a device that does not exists or it
-was deprecated.
+mfd: axp20x: Add support for AXP318W PMIC
 
-> 
-> > +	  - Dual-channel:
-> > +	    AD5313R, AD5687, AD5687R, AD5689, AD5689R
-> > +	  - Quad-channel:
-> > +	    AD5317R, AD5684, AD5684R, AD5685R, AD5686, AD5686R
-> > +	  - 8-channel:
-> > +	    AD5672R, AD5676, AD5676R
-> > +	  - 16-channel:
-> > +	    AD5674, AD5674R, AD5679, AD5679R
-> >  
-> >  	  To compile this driver as a module, choose M here: the
-> >  	  module will be called ad5686.
-> > @@ -263,10 +272,18 @@ config AD5696_I2C
-> >  	depends on I2C
-> >  	select AD5686
-> >  	help
-> > -	  Say yes here to build support for Analog Devices AD5311R, AD5337,
-> > -	  AD5338R, AD5671R, AD5673R, AD5675R, AD5677R, AD5691R, AD5692R, AD5693,
-> > -	  AD5693R, AD5694, AD5694R, AD5695R, AD5696, and AD5696R Digital to
-> > -	  Analog converters.
-> > +	  Say yes here to build support for Analog Devices Voltage Output
-> > +	  Digital to Analog Converters:
-> > +	  - Single-channel:
-> > +	    AD5311R, AD5691R, AD5692R, AD5693, AD5693R
-> > +	  - Dual-channel:
-> > +	    AD5338R, AD5697R
-> > +	  - Quad-channel:
-> > +	    AD5316R, AD5694, AD5694R, AD5695R, AD5696, AD5696R
-> > +	  - 8-channel:
-> > +	    AD5671R, AD5675, AD5675R
-> > +	  - 16-channel:
-> > +	    AD5673R, AD5677R
-> >  
-> >  	  To compile this driver as a module, choose M here: the module will be
-> >  	  called ad5696.
-> > diff --git a/drivers/iio/dac/ad5686-spi.c b/drivers/iio/dac/ad5686-spi.c
-> > index 003541edb742..b4531b49cb22 100644
-> > --- a/drivers/iio/dac/ad5686-spi.c
-> > +++ b/drivers/iio/dac/ad5686-spi.c
-> > @@ -1,11 +1,8 @@
-> >  // SPDX-License-Identifier: GPL-2.0
-> >  /*
-> > - * AD5672R, AD5674R, AD5676, AD5676R, AD5679R,
-> > - * AD5681R, AD5682R, AD5683, AD5683R, AD5684,
-> > - * AD5684R, AD5685R, AD5686, AD5686R
-> > - * Digital to analog converters driver
-> > + * SPI driver for AD5686 and similar Digital to Analog Converters
-> >   *
-> > - * Copyright 2018 Analog Devices Inc.
-> > + * Copyright 2018-2026 Analog Devices Inc.
-> 
-> That definitely belongs in the patch that made a real change, not one
-> that is just messing with comments.
+This commit adds support for the X-Powers AXP318W PMIC to the axp20x driver.
+It describes the regmap and MFD bits, and exposes the regulator and interru=
+pt
+registers via I2C.
 
-Will drop this one. As I was touching the file headers I assumed it was fine
-to put this here, given that I ended up adding a lot of changes to these files
-lately.
+> diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
+> --- a/drivers/mfd/axp20x.c
+> +++ b/drivers/mfd/axp20x.c
 
--- 
-Kind regards,
+[ ... ]
 
-Rodrigo Alencar
+> @@ -1061,6 +1129,10 @@ static const struct mfd_cell axp313a_cells[] =3D {
+>  	MFD_CELL_RES("axp313a-pek", axp313a_pek_resources),
+>  };
+> =20
+> +static const struct mfd_cell axp318_cells[] =3D {
+> +	MFD_CELL_BASIC("axp20x-regulator", NULL, NULL, 0, 1),
+
+[Severity: High]
+Does this hard-coded MFD cell ID cause naming collisions in sysfs?
+
+Setting the cell ID to 1 instead of using PLATFORM_DEVID_AUTO can cause
+device registration to fail due to a name collision on axp20x-regulator.1
+if multiple MFDs defining the same cell name and ID are instantiated on the
+same system.
+
+> +};
+> +
+>  static const struct mfd_cell axp717_cells[] =3D {
+>  	MFD_CELL_NAME("axp20x-regulator"),
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720-axp318-reg=
+ulator-v5-0-a1afa7ee24f9@baylibre.com?part=3D4
