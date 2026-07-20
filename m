@@ -1,97 +1,106 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F5633B6D0;
-	Mon, 20 Jul 2026 11:21:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B06233AD8F
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 11:22:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784546478; cv=none; b=C2CXt7hjRVx2gH2WeV3AqknPjY0bd7zL4aJ/dpD/WKMOh4odGFTKKggnZK8QObuR4bwQwk0WWXKGneyywpb2Z83WlL+gP9Fg5UpO28yQLFyc4IxC7URTZdH9sm6VnSqpppaQKpC7juduRvZui7k8NfvyrOcpYeN3wgWPOaapsjM=
+	t=1784546555; cv=none; b=C+jIaDIkJpYLgH89J6vuNWxvDwieeSi4pgB0cYP8/85vl3B6NBFlTEbrrTOE0V1fWmal1TQcyMc2bQhZ/N7YNWMixtYkz8BVfSu7LaE844Pg+cYE3e/d4QA9QfHzX4rja97cTrjYq7vk4B6WAdlKFG2oohp7pemmpxGYvKn8/Zs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784546478; c=relaxed/simple;
-	bh=WcB6a6KFi1jWqA+UIj7rFwFiD9K0hDGwKmJB+k8ny0M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nwqlZ8nvJQH9WyyIaJR5MWol4DA8n0gQSnNW67UgP6Tby7nPORIIgIdEy1NmYmhrbLiGxEcK8ZE9ttRw/x8yNLXbhRc4EM0nQL95YJG7S1zdwoOeDyv2tH9mB3Lv4QixIpf1istdhIwrihIlHG8ckgqokbeyy0dpKaM7qlbyNSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=F3GabyI+; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1784546555; c=relaxed/simple;
+	bh=ii+c/XC1wIyapAGI32bLvL17q5p0lsBx3AIZibKmLis=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=D1SOVkhUgZ449mMIYXGOx+X6mt/UQopQ03Q48TuV+Z1N+8NH7Hk7r+kaN0OSi4/CpZlwhWKyznQVJhQeu0geXBjDP7dv26axzIEN7/gi/wJUZXBUlLSe1oBj5aRdJKTNiUlxu/TV4Zd8GwgyzeHyZk9UFGfTDYhiKwHzdlUxjX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lPPc8/2z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="F3GabyI+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784546477; x=1816082477;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=WcB6a6KFi1jWqA+UIj7rFwFiD9K0hDGwKmJB+k8ny0M=;
-  b=F3GabyI+0i+zp0E/kY+M3MpAPcl622eN31LpILWfcLrG8gv9JI1U3pED
-   Sk7RcQwSAQUGuWQH/ruWtF9MM0kFKGHtl46wSja6FAiINYdkODKpkD9KB
-   xnqtenU31i9Db0cj56vAtB/F0Se2rMIe1xEnMpej/9dGnuwaWMp3XF53U
-   xtdeR2etDKtZDIRfSQPoFOfdqfaUA0Q73Ym04z/OJbNv+HEw6Rd5qLuin
-   FATzGzduKz0h7Pe4fFBSFs/vddlQPz4UL5wYoMaenHLCxn3IKVdHrCOJA
-   tC+tE3bMRpHhpwbA06niiesmtcm1vA/XWbQOwO5fUsbuSxTEULGr6nXMA
-   A==;
-X-CSE-ConnectionGUID: cWF4Kw9IQWqr/EvsEOwqmg==
-X-CSE-MsgGUID: CKxybiLuQXSeWEjyytTJQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="84980841"
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; 
-   d="scan'208";a="84980841"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2026 04:21:16 -0700
-X-CSE-ConnectionGUID: bBUuGO/lRIy7bErs+B1Akw==
-X-CSE-MsgGUID: KCTQcCC9QaKRmHSmxJgqTQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; 
-   d="scan'208";a="255655805"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.175])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2026 04:21:13 -0700
-Date: Mon, 20 Jul 2026 14:21:11 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Xu Yang <xu.yang_2@oss.nxp.com>
-Cc: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
-	robh@kernel.org, saravanak@kernel.org,
-	bartosz.golaszewski@oss.qualcomm.com, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev
-Subject: Re: [PATCH v5 2/2] device property: add test cases for
- fwnode_for_each_child_node()
-Message-ID: <al4Ep9smi8lmgCzF@ashevche-desk.local>
-References: <20260720104730.1285552-1-xu.yang_2@oss.nxp.com>
- <20260720104730.1285552-2-xu.yang_2@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lPPc8/2z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 166E01F000E9;
+	Mon, 20 Jul 2026 11:22:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784546554;
+	bh=LDOPuwwlxoXFoeHVGEIk9vysslyFX5D0VzSO1nqD1zw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lPPc8/2z/qVWYXZX42xA+Dq/36hM2LDGuLeNkhHcFwenbLaOm9+QwdB9z9wpjAUH7
+	 LJs9RSh50okv3NmROoJJU0i0+VEGM7qBEBPoDKTlf+Kgl93rILeI9lwQl0p9BWbbVC
+	 ocExV9F+AIfiOpcE3QjW/sZ0d3ixdgFhEBPxbfhWc/dO4nXdxWk44FUBszmnhOGrtX
+	 yB+nA4+wqcPmRc/gEqHLBElQoETCQJcGvmKDKj1RvW5WWom5qqH6t/a0VAMdXtrIN7
+	 zSIbnw008vQ0S99VUzosLSRrbTpj9/+MZOUieXa+97XQISoA2IIZ/HUbJK1ZNVRDgk
+	 4x2Z0x0P/qHVw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/4] iio: adc: ade9000: add support for ADE9078
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Antoniu Miclaus" <antoniu.miclaus@analog.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260720110754.7674-4-antoniu.miclaus@analog.com>
+References: <20260720110754.7674-1-antoniu.miclaus@analog.com>
+ <20260720110754.7674-4-antoniu.miclaus@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 20 Jul 2026 11:22:32 +0000
+Message-Id: <20260720112233.166E01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260720104730.1285552-2-xu.yang_2@oss.nxp.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Jul 20, 2026 at 06:47:30PM +0800, Xu Yang wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-> Add test cases for fwnode_for_each_child_node() API.
+Pre-existing issues:
+- [High] Duplicate and overlapping `scan_index` values assigned to phase B =
+and C channels break the IIO buffer subsystem.
+--
 
-> Test command:
-> $ ./tools/testing/kunit/kunit.py run property-entry
+--- Patch [3]: [PATCH 3/4] iio: adc: ade9000: add support for ADE9078 ---
+commit b9467a190f2a74b5ff3993276ef11d90860fe13b
+Author: Antoniu Miclaus <antoniu.miclaus@analog.com>
 
+iio: adc: ade9000: add support for ADE9078
 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+This commit adds support for the ADE9078 polyphase energy metering device,
+which is register-compatible with the ADE9000 but lacks dip/swell detection.
+It introduces a dedicated channel table to omit those events and adds match=
+ing
+chip_info for the full-scale codes.
 
-Nope, I haven't Signed-off it here, it's your new submission where you are
-the author. I only made a few cosmetic changes, if you want to give a credit
-you can mention that in the comment block (SoB+Co-developed-by here seems
-like an overkill).
+> diff --git a/drivers/iio/adc/ade9000.c b/drivers/iio/adc/ade9000.c
+> index 52ad87ef05d0c..0d5aa26f6667b 100644
+> --- a/drivers/iio/adc/ade9000.c
+> +++ b/drivers/iio/adc/ade9000.c
+[ ... ]
+> +#define ADE9000_DECLARE_CHANNELS(_name, altvoltage_rms)			      \
+> +	static const struct iio_chan_spec _name[] =3D {			      \
+> +		/* Phase A channels */					      \
+> +		ADE9000_CURRENT_CHANNEL(ADE9000_PHASE_A_NR),		      \
+> +		ADE9000_VOLTAGE_CHANNEL(ADE9000_PHASE_A_NR),		      \
+[ ... ]
+> +		/* Phase B channels */					      \
+> +		ADE9000_CURRENT_CHANNEL(ADE9000_PHASE_B_NR),		      \
+> +		ADE9000_VOLTAGE_CHANNEL(ADE9000_PHASE_B_NR),		      \
 
-...
+[Severity: High]
+This is a pre-existing issue, but does this channel declaration cause the
+driver probe to fail during IIO device registration?
 
-You have a series of two patches but I haven't seen the cover letter.
-I use this script [1] that helps me not to forget this.
+Looking at the channel macros in drivers/iio/adc/ade9000.c:
 
-[1]: https://github.com/andy-shev/home-bin-tools/blob/master/ge2maintainer.sh
+ADE9000_CURRENT_CHANNEL(num) sets .scan_index =3D num
+ADE9000_VOLTAGE_CHANNEL(num) sets .scan_index =3D num + 1
 
--- 
-With Best Regards,
-Andy Shevchenko
+With ADE9000_PHASE_A_NR (0) and ADE9000_PHASE_B_NR (1), Phase A's voltage
+channel gets scan_index 1, which perfectly collides with Phase B's current
+channel (also scan_index 1).
 
+Since ade9000_probe() calls devm_iio_kfifo_buffer_setup(), the
+INDIO_BUFFER_SOFTWARE mode flag is set. When devm_iio_device_register() is
+called, the IIO core invokes iio_check_unique_scan_index(), detects the
+duplicate scan_index, and unconditionally returns -EINVAL.
 
+It looks like ade9000_waveform_buffer_config() expects Phase B Current to
+map to BIT(2), so shouldn't these macros use num * 2 and num * 2 + 1
+instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720110754.7674=
+-1-antoniu.miclaus@analog.com?part=3D3
