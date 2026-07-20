@@ -1,103 +1,194 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011052.outbound.protection.outlook.com [40.107.130.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54F93932F4;
-	Mon, 20 Jul 2026 06:31:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784529080; cv=none; b=r+SMC6xqNrsW0xS5eNciUJAlk6EAUDN3R/SvkcK+eYa1Us7r+fUo28ESsIaxHi8yCfqP/RSpCKkux9ilIhdx6ynRjod37jOwmRrbzrrQlm2TYd1mwJ2OMHIsoJAT8Cu8CWB1hpjN+xyc0+HFmAmalFIAEfLe/BJo9gvQbywLzJ4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784529080; c=relaxed/simple;
-	bh=1hDSMLgLyG4r7aDcrmuTyFVxz5iMDULMMz9gLYjmuFc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=okdV/FaK8D0NP5NXIEPQA8M47C/mtnXgtGxLaYNmypJ2PZaQ6aJwBIeZHiERulWQ3wXQRFLUe81qeSarg6Xf6+6VyaIQkucRXrKoaLl6PRJVK9mvv/QaOH9tXBw3GwLd3EOYoXvC64+520T5qU1DKXh60BUpxr2yL5whPg7IVvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AlndT2eg; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21FD22BEFFE;
+	Mon, 20 Jul 2026 06:39:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784529586; cv=fail; b=daMM+WwXkd1W3HEqwS6NnlpLgDc+R+kXN2+ZYndvMpIjxwWTT5Ta3FpKkD9QsNaBHCyQW8f5Py4obE/b+2oNcTsRNdWBn/DPOtdMQ0HuhNUeRSTPnJ2hzGo85+EN2NPU3EfynCOKW34Us4Lm7u6QYh7+CzRIvjM7esEmYlwuxLs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784529586; c=relaxed/simple;
+	bh=ZT0GeEB7cgcICP+2ToGy1Wq0c8T5/sZ0JfcCPYCPjdo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Xl8+t9FGteuHRuiysXfNc0W4z42NJbHvxanBMi5PcRH+G1XVL2tCQ/uiP/gJzgtqCnIt34bCDnQ3s8xjmHtb+8BrdbYSyXxWsHso4GxBMLkr4l+nrSBhrAaAkCSNd/1sepbSolV36BgTzJJfWqyR1RPwF0hjPvf+RzG2qtmdz1s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mt.com; spf=fail smtp.mailfrom=mt.com; dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b=MRaGlqAS; arc=fail smtp.client-ip=40.107.130.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mt.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=mt.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AlndT2eg"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 22181C2BCB8;
-	Mon, 20 Jul 2026 06:31:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784529080;
-	bh=1hDSMLgLyG4r7aDcrmuTyFVxz5iMDULMMz9gLYjmuFc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=AlndT2egxHJ8v0JIV4gTdyw6Y5BFSHHO/4f7RZISFcjUTloVFle7AC0qgcD13QZgh
-	 s5Ha+FQ1TIH02bgPIwW60Fkhcf4yG6a7H6Y8I7Js58EAYAPMvesgU96zN+e0k5kyqF
-	 Dx/M7lCWaQMVo4cCiOFcbMk9ZQuyNLvH/YJb14q6/47GksT3mSWyvawlREj48QzedT
-	 8HHQ8Q5mikW1PIYC61DiHDXD+HQYaaubHcrZsPrU8yhc86+xvMnXzRak+yA4sfL19r
-	 UMplhyah8Bd2Kd237TKmAvLAIJ3IfURsMuPjS0oN/VTeqRh51v/uqHy0msFSr+HW8i
-	 Qrfm0EVLuo0Aw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F2B92C44515;
-	Mon, 20 Jul 2026 06:31:19 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Mon, 20 Jul 2026 01:31:15 -0500
-Subject: [PATCH v2 1/2] dt-bindings: soc: tegra: pmc: Document Tegra210B01
+	dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b="MRaGlqAS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zI/Jw+nHVWN0+3Vt4VR2HvswM5w1GuoPTEuV7Xgu0Ko2J8u2RPMF9lNpAO0IpF/+1MSbg/TNhceyq1nsQGisVzIgeqjoJ4JHFVwdd6akgWBmy5RptJ4kfEbtudJxFZCxLIC/4Y03K6n67fnQqJjHhSZEprYcItCfomIhg+uIGr5PbYARs8w2IrFfRZUha/RpG3PQTRvPKEHTOd2fXxbvh6UVGxoNx/zX64XR0xMVYb49dEKVbSm+vd3eB5gemF4UlUubRGWHAX7ePK0uwhYZVN/w4Ik5AKbUtuvpvEusCa/5fYeMAdbwQ9lmDKIa3VPbUITODCifBnrs+YT6syp9kQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=etE78zVh+atILNGaMszs7d90nTFsmdc8WwUTw3wpek8=;
+ b=eKQPBzXbk39O2ezmEwvTP37JwdefXJWD/AbFaXpyzU3fN4OnqMsumR8Qfu8MtBuLAmjIfs2YrWK6uINzfSo5y7o5OP9Z2zROPpfIr/s0c5YWdMJOHEoSuQIPPIAlghNLmltwGKjoIKCYCyTC3/wf+GAjDokKN12oCa2dfI2lesBesOan5p9vEpVGPOkBdcP9D4xXsQ2zwhylopwzk/Cr8qfY3QWkAK7vQ2fUzFWji7Do4MnSyQDvIKeZ2c0wIzMFkjAE21NRC+eN9RTjrUUT/gcsfoSNCbMzzNvc3FzqB0rcTAj9E0j5KtHg9WBBaShiX4h52rhJbmQevWwwBwZGOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mt.com; dmarc=pass action=none header.from=mt.com; dkim=pass
+ header.d=mt.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mt.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=etE78zVh+atILNGaMszs7d90nTFsmdc8WwUTw3wpek8=;
+ b=MRaGlqAS9ZPYieobaSvgfnaJQsB3enLRtYRGId+lo2WrcoF5a2DDWDRGBAHzc2lpq1sJjff6TBOlP4Aj7KleYT97WlZRcitClsWLM7R6ST0U3L/VhWchMbSYosDGI6WNP/aA82g851dU7MizCBeicW46/ZA+d9Tp0JV0zlA9wgi3ReaCse/273a5uLJDy+Cu8aLzF2lCy7Znje2Q1yob5C2qn4pMpaUm2WvWDs9N9BZeOnzTCFO3FT8n7uXLp0d/V6yGcVw18yb9K84UVcOGI1g/44X76Z2qvpHh081I8zg4BLXFIMDM5R+AdXdlZuj2bbnvubON2Qq40y4DR0CIIA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mt.com;
+Received: from DB9PR03MB7180.eurprd03.prod.outlook.com (2603:10a6:10:22d::13)
+ by DB9PR03MB7404.eurprd03.prod.outlook.com (2603:10a6:10:222::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.16; Mon, 20 Jul
+ 2026 06:39:40 +0000
+Received: from DB9PR03MB7180.eurprd03.prod.outlook.com
+ ([fe80::6fd2:12a9:4423:8ddc]) by DB9PR03MB7180.eurprd03.prod.outlook.com
+ ([fe80::6fd2:12a9:4423:8ddc%6]) with mapi id 15.21.0223.015; Mon, 20 Jul 2026
+ 06:39:40 +0000
+Date: Mon, 20 Jul 2026 08:39:32 +0200
+From: Wojciech Dubowik <wojciech.dubowik@mt.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: linux-kernel@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 3/3] drm/bridge: ti-sn65dsi83: Add reversed lvds lanes
+ support
+Message-ID: <al3CpOXMCzgxil0G@mt.com>
+References: <20260717115002.308035-1-wojciech.dubowik@mt.com>
+ <20260717115002.308035-4-wojciech.dubowik@mt.com>
+ <178432135989.269908.12890193389587995172.b4-review@b4>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178432135989.269908.12890193389587995172.b4-review@b4>
+X-ClientProxiedBy: MI2PEPF00000B7D.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::410) To DB9PR03MB7180.eurprd03.prod.outlook.com
+ (2603:10a6:10:22d::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260720-t210b01-pmc-v2-1-ca5317f8507b@gmail.com>
-References: <20260720-t210b01-pmc-v2-0-ca5317f8507b@gmail.com>
-In-Reply-To: <20260720-t210b01-pmc-v2-0-ca5317f8507b@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Aaron Kling <webgeek1234@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784529079; l=1150;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=yw+m2fOBOYUMmvsIg1cUM1xOEdkHn5gdrf48UjW2H8k=;
- b=27TZwk3eilNkHuxizTrcGSCzkeKKTFvhxFV48HhzMR1bJ9B5+hw1tZZY8qi//lw1cRR+4dOCi
- Lg/chziQ9zPAL5pIqTUlpGW2nBcfmfDB3PHwZOw6OIefdPkSWu6LTT3
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
-Reply-To: webgeek1234@gmail.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR03MB7180:EE_|DB9PR03MB7404:EE_
+X-MS-Office365-Filtering-Correlation-Id: ff24fce7-3676-4eef-345d-08dee629ad30
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|52116014|376014|7416014|366016|1800799024|19092799006|4143699003|10067099003|56012099006|38350700014|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	EXg7Rkq4W7aL/rMX51Fr8JLHSCKWsWNJLZ1YJ+lRhTpfcsI10UAiaTUe8QxhcPPYSgR1JEhMAM35yXiweL4wpTn3TycYnuhoJswqKjAPJIVZTUFcCmdfffpKwe6ancdHkEz9H+Ce76NTYeY6mek5dTeNNnu3vkGwFVlIvH5dBfrNfaRaigB+BP6cR7+fcAvLavJK9jhLJYUo66MMi6+awf8U5DFyfkJ4OGFoYq/W+iIHcMYVknCOugK1RbKNMaRwUFahMiZtqoXUNWTIK9/sFdMagkDnFWJ+wzKAT3MPBtJSYc4fJ3I/V5Zx6Uhni7yorL/KUNHUIL9mZ1e8Nj/JD8NqqShZi7413Fw2K86hcugKoLgr713KzjARPeF9GDADb9w6cTO6PbCZ+Au9jS/Wk0ELgXCmBV+kFUyMQKA5lYyG0yAQxILb5rPQwa2Mp90OVGmRxyqH/jXtSvmFOcpbWYh/yA8hjmR1W8NLDO9J9UQ5VOIDO6FvZX9VG+xYCcgv4k7hp97XenwGlzxA6eQIDju4L4mwStgOndtJQc5oUq2Gxbp01qruRNvf6zJGTd6L5K42Xx/bOOgTfkIuolf27FKocneIPuVDPZLQ18/Fc/skxEk06P3RfGY8bF9y4c/GGEkSBWxlUjWLvIvWqseiWCBjAo+QRfLNxsJDk9jOVtc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR03MB7180.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(52116014)(376014)(7416014)(366016)(1800799024)(19092799006)(4143699003)(10067099003)(56012099006)(38350700014)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/JWlZqr4FPITWlVMoX7/cnimgrpy9cQDCRgqhYOCc+SuMT25IUwUhY6MZplb?=
+ =?us-ascii?Q?oEm1bgSV874JKWidfEiX5qIvM+wzsRq4ILhY1IubEqaYxtkMitNNMrPzN2p/?=
+ =?us-ascii?Q?jf8lPRN/1Vx+30ldNNN+I9KiDbzO71vfqZ7hw3CucbSvyTbKG6a2p0biyTpN?=
+ =?us-ascii?Q?g5uB2agepMYfWhYxbRwIsi9XkkCYDd9gZwm5uMU4RoJdnnSx2Rh2bPgisvBC?=
+ =?us-ascii?Q?09cx7fB6Y7Yuuw8ucrLFaRPuaQY03O0X96YzZBOZYu+a0uvZZR5cqD8fZg10?=
+ =?us-ascii?Q?inxAF5Uql85Gc8i1vn+AusDkyCQMbeT/uHS2liFGnkmpOKqvgpgXrsdP/QD9?=
+ =?us-ascii?Q?KbC62YzUGYZsqQSxFN3Nu811KgwwHEQUZ4fYQlj7cvJ5OY8djVgl0ffMn4OX?=
+ =?us-ascii?Q?eWgdvr5624xlScXTSZFNxnduJOVR/GKO5RHmhllUM9Ovf+Cr4jsOdbC3epJ+?=
+ =?us-ascii?Q?AVgZ/xhdFt78k3yhDauuDsnzrBDgvylojw/2Owb/JQrVoKndZgtMK6KHyJvR?=
+ =?us-ascii?Q?jBE7JQk5sUiHoV26JrYbgYYtdxf44xZ0TANyIFooJlUqJIU4Plfy3JmBxtHf?=
+ =?us-ascii?Q?/EqNgAy0VJJXMm+PqlFjQmh5dkvQW5SjsIkpOQVnby3dMwlid7Th/jUhwXFn?=
+ =?us-ascii?Q?53Y9OMDyr682y70zd4yvXVlLrR82BVXisjh235KYSUUh354lBxBii4ItMgrj?=
+ =?us-ascii?Q?0N/fVSsemx4dC9+o9VK0etkW9kFnSFbtnRW2ghQ5cd/hpThM15vZ87pa47rH?=
+ =?us-ascii?Q?IPaJewXTTRdP1SSeEoFtN7IF6XkUwKdzilms3AQDf6w4peeFAcKU8JfQTtGf?=
+ =?us-ascii?Q?pCklF5Jy6Z8X1lESGGxtYC6uuq1DzvKcTmAgelrFAIoBsNfDgZBFJL82Fary?=
+ =?us-ascii?Q?fT5x+9nZh4BZ/WNx6dyIE+hCeZn7Pzs5As+0xyzgoDyTVQy0wSGjPI5PAlhd?=
+ =?us-ascii?Q?QUjBa2EpovG8lzEAcykL1gLBJyRuzf6LowVBLyyvvGs64tmVF2COVLLAxh5q?=
+ =?us-ascii?Q?Slv2sKjZpj/615SIj9LARXgxHk5/jw0loyxdhtjnFdqcAcYUjj3xpqjz+Xkm?=
+ =?us-ascii?Q?mPGAHg9WgtEK2kTTOXDYcENVCWX3i3BuctYS9lIUnGLGsm1absObKgfGODTE?=
+ =?us-ascii?Q?uvANJANjaZ20+TmWVW+lirkxOujCBQhqDpAH1OSb5pGt3PsqiVVyPBRY3TlK?=
+ =?us-ascii?Q?GxmZFZvNLiKRNs13VCkrAVIXaAsHi5FCKqqnvCwTvZcneJak4bUvL85B1qEy?=
+ =?us-ascii?Q?WVR6KjSGyd2HiHmurbrjG7tWUehsctLriEIxAmBXVDtbmLIrmIb9XLTELK34?=
+ =?us-ascii?Q?50n8QCi09HN2Ql/RytTP5oL7gh5IpbDdXyCG+R/0BlFmUirgQSXa7k76pfom?=
+ =?us-ascii?Q?CcNGylonFzuV8la0QaN4onbQ1oBSu7HQPRcpV3kXNgUqqtdgLTtiKH7HMf9G?=
+ =?us-ascii?Q?Nv3PF8FWd9udupvbAdZHDjLC/tHZo932R8OWl547kPRFo/dd1/RYQBKCwq0q?=
+ =?us-ascii?Q?oSLKkYs189oqm9okJCCsIgpDJifh1GBGfyixdpwgRLUHvT0Q6jj12bnSYxfu?=
+ =?us-ascii?Q?94ER6gBi4Gc6IGFB4eQxIlJ8fQTSUlV8wdn9iMP/fNm/3E/dUh0MvSZaMKOw?=
+ =?us-ascii?Q?SJg05w8iYtIRkAGj/5lhHmQdCAYPxqf/7gq1fyr8VYCcMcjQqu2JfHPRujSe?=
+ =?us-ascii?Q?X3qcfys2RAAutKDnRJ1vVvVqgSTtMKLBu7o4nORWLh8r8wAAPFGuR4YQpc1S?=
+ =?us-ascii?Q?cEtTlrvgqQ=3D=3D?=
+X-OriginatorOrg: mt.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff24fce7-3676-4eef-345d-08dee629ad30
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7180.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 06:39:40.8237
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fb4c0aee-6cd2-482f-a1a5-717e7c02496b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 97kZOMQZdaF+B2FcyfFyHPkbI+/BLyIn5Xlay1cWn2NsAiBaqy22Rm7umz1l4zfCxbN4gRrGunLqMvE67f/O2g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB7404
 
-From: Aaron Kling <webgeek1234@gmail.com>
+On Fri, Jul 17, 2026 at 10:49:19PM +0200, Luca Ceresoli wrote:
+> On Fri, 17 Jul 2026 13:50:01 +0200, Wojciech Dubowik <wojciech.dubowik@mt.com> wrote:
 
-The PMC in Tegra210B01 is very similar to the one in the original
-Tegra210, but has a few powergate differences. Document this soc.
+Hello Luca,
 
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
----
- Documentation/devicetree/bindings/soc/tegra/nvidia,tegra20-pmc.yaml | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> Hello,
+> 
+> >
+> > diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> > index f8a786953526..df44df2e872a 100644
+> > --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> > +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> > @@ -845,6 +863,19 @@ static int sn65dsi83_parse_lvds_endpoint(struct sn65dsi83 *ctx, int channel)
+> >  	else
+> >  		return -EINVAL;
+> >  
+> > +	ret_data = of_property_read_u32_array(endpoint, "data-lanes", data_lanes,
+> > +			ARRAY_SIZE(data_lanes));
+> > +	if (!ret_data) {
+> > +		if (memcmp(data_lanes,
+> > +				supported_data_lane_mapping[LANE_MAPPING_REVERSE],
+> > +				ARRAY_SIZE(data_lanes)) == 0)
+> 
+> Did you have a look at this sashiko report? It seems valid:
+>  | sashiko-bot@kernel.org <sashiko-bot@kernel.org>:
+>  |
+>  | [Severity: Medium]
+>  | Does this code compare the entire array? memcmp() expects the length in
+>  | bytes, but ARRAY_SIZE(data_lanes) evaluates to 4 (the number of elements).
+>  |
+>  | Because data_lanes is an array of u32, checking only 4 bytes means only
+>  | the first element is compared. Should this be using sizeof(data_lanes)
+>  | instead?
+>  |
+>  | via: https://patch.msgid.link/20260717115630.C58A61F000E9@smtp.kernel.org
+> 
+> > +			ctx->lvds_reverse_lanes_conf[channel] = true;
+> > +		else if (memcmp(data_lanes,
+> > +			   supported_data_lane_mapping[LANE_MAPPING_NORMAL],
+> > +			   ARRAY_SIZE(data_lanes)) != 0)
+> 
 
-diff --git a/Documentation/devicetree/bindings/soc/tegra/nvidia,tegra20-pmc.yaml b/Documentation/devicetree/bindings/soc/tegra/nvidia,tegra20-pmc.yaml
-index f516960dbbefb..8ec36c49f9594 100644
---- a/Documentation/devicetree/bindings/soc/tegra/nvidia,tegra20-pmc.yaml
-+++ b/Documentation/devicetree/bindings/soc/tegra/nvidia,tegra20-pmc.yaml
-@@ -18,6 +18,7 @@ properties:
-       - nvidia,tegra114-pmc
-       - nvidia,tegra124-pmc
-       - nvidia,tegra210-pmc
-+      - nvidia,tegra210b01-pmc
- 
-   reg:
-     maxItems: 1
-@@ -346,7 +347,9 @@ allOf:
-       properties:
-         compatible:
-           contains:
--            const: nvidia,tegra210-pmc
-+            enum:
-+              - nvidia,tegra210-pmc
-+              - nvidia,tegra210b01-pmc
-     then:
-       properties:
-         pinmux:
+My stupid copy/paste error. I don't know how I have missed it. It has passed
+my basic testing as it compares only firs lane. I will fix it in v6.
 
--- 
-2.54.0
+Regards,
+Wojtek
 
 
+> Same here.
+> 
+> Otherwise looks good.
+> 
+> Luca
+> 
+> -- 
+> Luca Ceresoli, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
+> 
