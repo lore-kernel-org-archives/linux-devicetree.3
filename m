@@ -1,101 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F533B42F1;
-	Mon, 20 Jul 2026 20:51:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F247F449B1D
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 20:55:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784580719; cv=none; b=dL84tB9OnsnGLimsnn5aUGLypjg3DNhpNak5KImAGHf4IRs4hSuyRVC+/y5V2adY4FJoDwyfiS9KxcNiEzVDbXfiakY+EZNu125eVSLlPh3scNRO5gYmqoZwdJXRQuxnbzj8MVEqtXxLTwDv/FX1j5rIX3Y/e2CRYbAruiwe7ic=
+	t=1784580941; cv=none; b=NOHyL1QLDqyQZpLNAzBNmvD8Gw24lSIXom/UPtwLpqGuZ8OATa7PQ1OQae6+1pNYCftEks9j5qeyboO1Teo58UyeQbVhgYpobMqsmepU//+XpFT1f8W6IO02aUBirnzIFsk9BWBjUnS9E6NR+cTm9wxpNAiyRKEswxqJX41I9GE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784580719; c=relaxed/simple;
-	bh=YVAjCPfW1HADsghSNv3o3dR4lXdS8ywl5qsLH5Qud/o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UVrOnAYKS0pmZ++VsYRHo6tbjR1iHZFNNbaw9TN/3dG/8ZYRSb3MBGAtxQKRY3ctBwilkxbxkuMj09KpQgGSWJy6qjso62l9dhh/qLmndBb2LXsn09xNiqg915sXenIicl/9CMdNjvwMzUjeCVPSX5xA7UFg9LFg2EjltSumikY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ej2cpRqN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784580941; c=relaxed/simple;
+	bh=uKCzJh/GxJPz1koyJChv8ILgLR4j1JyYXF7foLgE0Is=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rjiXY+0gHWzo8XvpFNLIOia3e/VPnzU4GkA9UVlWogAGBEdFxLr608LUte1kEHdVArvlVvGAQujo3SD2eysWxfdlU8DX+H5UafWwioBX2BXUW+3ZLzF594ppCJqW9FmDckf8M3uJtW6Ao6jsteQ3tgE66koFwstc3Y8WplqbnjA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YkxHE9Kb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ej2cpRqN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50D021F000E9;
-	Mon, 20 Jul 2026 20:51:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YkxHE9Kb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52D4C1F000E9;
+	Mon, 20 Jul 2026 20:55:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784580718;
-	bh=2yJg51weIT28CMlw/ZYFklOUGBPvR+gUCZYGtpceot0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ej2cpRqNDgAQTUwlnK77zrEovh0WgNFunxcVxDImvCFml8eHrI/BbkxHWcMWLQGRT
-	 IGbf4okNcnMQPgFxqBxzEgnxjytDSutET/v1P2cNJD19Er5M++xFUkEY/gKhn95D99
-	 iHsxMvP/pQOe1gEEqhU2WvUE8P3Dc+Fz7eJTyBepLKfEyFfTL2j/6mQCSTmjLAlt/E
-	 R4W0Oac5gpjUMvTNknispzB/iOcdh0Ok2vfrswy2CQZ4+lAPS0wjLHTH9EmLCy6dKg
-	 VXjfzJrVV1EUQjJ+yT4470sOc+9HlNTonmZk+YUFFALXQeWxrdv/ZKfz3wyiS9xADy
-	 Nxye/L078z17g==
-Date: Mon, 20 Jul 2026 15:51:57 -0500
-From: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Saravana Kannan <saravanak@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Test User <test@example.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Daniel Golle <daniel@makrotopia.org>
-Subject: Re: [PATCH v5 0/7] dtc: dt-check-style: Improvement after using on
- DTS
-Message-ID: <20260720205157.GA4052473-robh@kernel.org>
-References: <20260709-dts-style-checker-v5-0-fcc147cb697d@oss.qualcomm.com>
+	s=k20260515; t=1784580939;
+	bh=qjy8YKfESnHflI5sWScZNy9xFkUSNC/RXF01jRbliXQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YkxHE9KbU83dWQTDg+pGCu4la6fvHoMDhLCXrtBXeOTxiSXEQr0rT7SmyX8xaOm34
+	 XXU0ZMYclFZKebUfy9RkcIPoEaHzb5hRXNxw5HWTffK9FZ4jvUshYeQF8V4jLs/XDy
+	 PMWtB+kDANkXW1fEwv8sXwODV2GcMgsQ+y1fPj0BqNPF3K6s3Ir5IW+PhXPi72LpuU
+	 HfuH/6Jz+i74IF99W3iNkRe8863sbb2+vJjIQmfU3bTveUhoZRUE2FX32SeBEJC6Pq
+	 hclA/6lamoPlMqHffCHYrNhi9Ar8+SG4DxHJ8nteR1R2BFWBA7HTkZbDVAd2WM9cAe
+	 jbiT356Ycervg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/3] dt-bindings: power: Add MediaTek MT6858 power
+ domain controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Nikolai Burov" <nikolai.burov@jolla.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260720-mt6858-pmdomain-v3-1-8966d8de93c8@jolla.com>
+References: <20260720-mt6858-pmdomain-v3-0-8966d8de93c8@jolla.com>
+ <20260720-mt6858-pmdomain-v3-1-8966d8de93c8@jolla.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 20 Jul 2026 20:55:38 +0000
+Message-Id: <20260720205539.52D4C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260709-dts-style-checker-v5-0-fcc147cb697d@oss.qualcomm.com>
 
-On Thu, Jul 09, 2026 at 07:41:28PM +0200, Krzysztof Kozlowski wrote:
-> Changes in v5:
-> 1. Patch #2, dtc: dt-check-style: Allow space-aligning indentation in
->    DTS:
->    Handle also line continuations for properties.
-> 2. Update docs, other minor style/docs comments from Sashiko
-> - Link to v4: https://patch.msgid.link/20260708-dts-style-checker-v4-0-c175e6401150@oss.qualcomm.com
-> 
-> Changes in v4:
-> 1. Drop patch:
->    "dtc: dt-check-style: Do not sort top-level nodes in DTS by unit address"
->    This needs more work.
-> 2. Patch #1: Rename rule tab-in-dts to tab-in-yaml
-> 3. Drop "memory@a0000000" in examples, because it messes with top-level
->    sorting.  Use a "cpus" node to test node and device_type property ordering.
-> 4. Add more test-cases: within existing commits and a new patch at the
->    end:
->    "dtc: dt-check-style: Add more DTS test cases"
-> 5. Handle #include and /include/ without trailing space
-> 
-> Link to v3: https://patch.msgid.link/20260706-dts-style-checker-v3-0-03ffacff9226@oss.qualcomm.com
-> 
-> Changes in v3:
-> 1. Patch #2: Use re.search
-> 2. Patch #2: Add dts-mixed-indent.dts test case
-> 3. Several new patches 3-7.
-> v2: https://lore.kernel.org/r/20260706102421.343639-4-krzysztof.kozlowski@oss.qualcomm.com/
-> 
-> Changes in v2:
-> 1. Patch #2: Rework idea.
-> 2. Adjust function doc/comment.
-> v1: https://lore.kernel.org/r/20260706071446.87669-2-krzysztof.kozlowski@oss.qualcomm.com/
-> 
-> (I was not using b4 for v1 and v2, so b4 diff might fail)
-> 
-> Best regards,
-> Krzysztof
-> 
-> ---
-> Krzysztof Kozlowski (7):
->       dtc: dt-check-style: Narrow disallowing of tab in DTS only to YAML
->       dtc: dt-check-style: Allow space-aligning indentation in DTS
->       dtc: dt-check-style: Rework handling YAML/DTS in rules
->       dtc: dt-check-style: Expect first device_type
->       dtc: dt-check-style: Handle properly DTC-style includes
->       dtc: dt-check-style: Print proper line number of indentation detection place
->       dtc: dt-check-style: Add more DTS test cases
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Relaxing the global maxItems for access-controllers weakens vali=
+dation for older SoCs, and the MT6858 block lacks min/max constraints.
+- [Medium] The parent SCPSYS compatible string for MT6858 is undocumented i=
+n the related MFD binding.
+--
 
-Applied. Send a follow-up if the sashiko report is valid.
+--- Patch [1]: [PATCH v3 1/3] dt-bindings: power: Add MediaTek MT6858 power=
+ domain controller ---
+commit 2af17e3001f2b4860c3cbd850866a2a03694b597
+Author: Nikolai Burov <nikolai.burov@jolla.com>
 
-Rob
+dt-bindings: power: Add MediaTek MT6858 power domain controller
+
+Add a new compatible and document bindings for the power domain
+controller of the MT6858 SoC.
+
+> diff --git a/Documentation/devicetree/bindings/power/mediatek,power-contr=
+oller.yaml b/Documentation/devicetree/bindings/power/mediatek,power-control=
+ler.yaml
+> index 070c6e5666dc0..d03e4a9251635 100644
+> --- a/Documentation/devicetree/bindings/power/mediatek,power-controller.y=
+aml
+> +++ b/Documentation/devicetree/bindings/power/mediatek,power-controller.y=
+aml
+> @@ -25,6 +25,7 @@ properties:
+>      enum:
+>        - mediatek,mt6735-power-controller
+>        - mediatek,mt6795-power-controller
+> +      - mediatek,mt6858-power-controller
+
+[Severity: Medium]
+Since this power controller is a child of the SCPSYS system controller,
+shouldn't the corresponding parent compatible string (e.g.
+mediatek,mt6858-scpsys) be added to the parent MFD binding as well?
+
+Without it, a complete Device Tree declaring the MT6858 SCPSYS parent node
+might fail schema validation when checked against
+Documentation/devicetree/bindings/mfd/mediatek,mt8195-scpsys.yaml.
+
+[ ... ]
+
+> @@ -56,7 +57,7 @@ properties:
+>        faults while enabling or disabling a power domain.
+>        For example, this may hold phandles to INFRACFG and SMI.
+>      minItems: 1
+> -    maxItems: 3
+> +    maxItems: 6
+
+[Severity: Medium]
+Does relaxing the global maxItems constraint unintentionally weaken schema
+validation for older hardware generations?
+
+Previous SoCs relied on this global maxItems: 3 because they lack their own
+specific if-then blocks for access-controllers. Now they will be permitted =
+to
+have up to 6 without triggering a validation error.
+
+[ ... ]
+
+> @@ -156,6 +158,23 @@ required:
+>    - compatible
+> =20
+>  allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - mediatek,mt6858-power-controller
+> +    then:
+> +      properties:
+> +        access-controllers:
+> +          items:
+> +            - description: handle to INFRACFG register block
+> +            - description: handle to IMG_SUB0 register block
+> +            - description: handle to CAM_SUB1 register block
+> +            - description: handle to CAM_SUB0 register block
+> +            - description: handle to IPE_SUB0 register block
+> +            - description: handle to VLPCFG register block
+
+[Severity: Medium]
+Does this block also need explicit minItems: 6 and maxItems: 6 constraints?
+
+Without them, JSON schema will fall back to the global minItems: 1, allowing
+incomplete MT6858 device tree nodes specifying fewer than 6 access controll=
+ers
+to bypass strict validation.
+
+> +
+>    - if:
+>        properties:
+>          compatible:
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720-mt6858-pmd=
+omain-v3-0-8966d8de93c8@jolla.com?part=3D1
