@@ -1,92 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B1A939901A;
-	Mon, 20 Jul 2026 10:03:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DA053D5235
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 10:03:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784541812; cv=none; b=dGhPa+N2OJOrAV2kRrxEzt4ABzZx/2z5Ui1du3yLYQ/b2JHtZox2gOJcWMPTHrn1GGjdaxKaQLZiQ24S9J7fhkaAwzwApnrX9V6FqxcFqcGQ5+XchetTTWunq+ySUstOhnuoLUFxrxc7Wmr7xLHh7/ZoVi453by1GOty3ylKfkM=
+	t=1784541836; cv=none; b=l5DXedr9hQIPy28Igsg5j/HNcAj+tBsYm62wketFm7v3+yQikGLpBB8tLQ7wynG5r+kVV8gpAPwd3GPRdkH2BrkG/eHjfYvur3nVntMz7oqr1zENBFr3Ij/kUrdwcyG2AIUuPVDUeALlf2/AB7ZW94+JJixo0tBNjRVCImFb0D0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784541812; c=relaxed/simple;
-	bh=SUqgHFkKO0otM9yI+YUomW64xWTx+HL33jVEFIAJXe4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ekjscTXzhCii89ddRT8CGh0iiL70XgHPvtqeeyEnUg4jeBSj1fYWlFyhs4lBPEanRbRX+GmIo8c3iB5UCVHTpfzM1+9ujlfebS0mmL93so2BT/ZwahtMWMsw86qXki7fVCBelakxaGPZKX5xcNv5+O0Xpf88/1hJhyQqg6lHXkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TnNJMP6/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784541836; c=relaxed/simple;
+	bh=DcGTdIxxHhbTs6sQAkxh/DkstHnpmsjXNhCqviZV2+o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jBifS6qklqu8iXX/D3ReuwveZ6cEiKBCkCW8Gm9/Acv+Epl8m8UIJYfDmYFy0KmuinHEA7QoX4bo/dnGvuITZqSRpvWED09rAF3fMBESm/VUrQh0eGpZq/Sk2m7Gn5aftvegXknHa6A6N3n5hjir5fimMVxTodprb+l3Thp3cXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arturia.com; spf=pass smtp.mailfrom=arturia.com; dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b=DA96k81v; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arturia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arturia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TnNJMP6/"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 25CF51F000E9;
-	Mon, 20 Jul 2026 10:03:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784541809;
-	bh=JGPa/uH4JwInJPPVmlE6Tl4biqGXrEgmLdXgjle6m9A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TnNJMP6/C6P6hNiqm/DmghD3koz96HOX7tp7/ch/exg7HfoLJhahwaBAhsSP2p4bn
-	 L03Ix2q9RWhSCMHFbSKi4ACv9bsdciSQjM6NloITdIFGF9R7dZWgN+h3koIhMUqaFk
-	 jRSB5pffj93R+UrhZTCd4pEpUKtyCjYeqH/c0JyPoWTWGtANdah0MMYwq9fS9Me+q5
-	 SYjiQpFuHdki2nMJJzUXwvQ1XIKsOOvx6TN6z8ihI+b3In5q0r9XIS4c5XeBVXj7pZ
-	 Gb5QTxXd4JbRekYz5efHfdHsKLolCFCMKg9LS3ziRSsUmThwy7tOvyFW5F/3puxND+
-	 aHVQ6k4YLW0zA==
-Date: Mon, 20 Jul 2026 12:03:26 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chris Packham <chris.packham@alliedtelesis.co.nz>, Andrew Morton <akpm@linux-foundation.org>, 
-	"Darrick J. Wong" <djwong@us.ibm.com>, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
-Subject: Re: [PATCH v2 1/6] dt-bindings: hwmon: add binding for adi,adt7470
-Message-ID: <al3yFHvlzQuIywEj@monoceros>
-References: <20260717-adt7470_thermalzone-v2-0-a55147958fad@gmail.com>
- <20260717-adt7470_thermalzone-v2-1-a55147958fad@gmail.com>
+	dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b="DA96k81v"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4955adb04e8so7371865e9.2
+        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 03:03:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=arturia.com; s=arturia; t=1784541832; x=1785146632; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MTEJaULwV6HR2VMaFDo690yCo3t+jlIFb3p4SA3HlcM=;
+        b=DA96k81vImZPSbfQQ3EUyM6QeMDIkiiY7ND7y4QFNE/PJcauww4lYF2k7vI7WLUJk9
+         C7JvsvYtaZuhuwI0cTIFm9pzwiHn1SP5KDN0rjDv6nVJYXznhGJ5SMrBIrnzl6wIae1x
+         bcg46htW9btTIxWzJHZmnayL/B0TBU9yQCmM7R8x+0Ew+2FPjq5BPH3KllXCxjp3LN3c
+         X8yxZD73q88/u7X192G2O1fCwGXPxglPtBGmsz4luKmfl4hWhAJMya1XLTo5r9umEXYX
+         H6NSE1De+y3sFQlLeqf94PyIHPd4mS3X+Hl70GLyNOQZa8Beyeggbp+Buv+NkI/s5fWz
+         Nj8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784541832; x=1785146632;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MTEJaULwV6HR2VMaFDo690yCo3t+jlIFb3p4SA3HlcM=;
+        b=pmfhJWTgjfnydsCfOUk8NY6najaXRmUcFeMQcEWaMxQnK3LDFYXVRY1hDwgTuZLVDR
+         PSWaz+PCsZaicWcVlkU2PrpnLKntxiYB/q9drvUU/jod/TafrOnuXfL3nrLqqEdxMdIa
+         uecOozX6Fi1ZC0wRbJdaxh9wDZe008xwpe+Nv8voFiCGVs2Xw6Yluw391t8Gqttj8OjD
+         Ro055LJC3GHl4//A0MJz1n9btN7lv1EBcQ04an2V7l2x33Kc6T4bOo2MGcb27MY60xJS
+         HibMKuMXJnRIECZZ43agfF1V16JKKv8aTR685zvxKyP5QiJpu+Ph36zY8YVrKjGTNnui
+         /3Gw==
+X-Forwarded-Encrypted: i=1; AHgh+RrSpry7+bRA2u1YYB01YyW/8wRr3xu+O9GNx0rHlwziivQUmNipj/2MZ3BoQc1k5qvSZOcAu/v6hdbU@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx7Jt+qBC4QqvbJHK95lNM+XJrRTKH1a0B9pnI3Y2rrNDoftytn
+	VT0XBuHtOLT0yeM2wp2X/kjn1oA12NYtVJtwh+YGNt89SKXfHHJPQCY/rutyPcuS9fU=
+X-Gm-Gg: AfdE7cn1uQoONmLbRfq/9di2m4hQU+WIq8En1OYKON6FTQbJ2vZ3tssi0zWVyna6GM2
+	fJ+hvvX4QZArfrmkO0dnrxBY2s777MINK+QEACJiv/HMPItBLSLY1YbkHDUdgae1bVAmotf7hZ0
+	kP8Tper98qOfCIFZ0izX+0vsEevg7uLgUbj0z6IDShGTKOfOq7rf0t+N++QxEOWWeqDIFwfY8Yw
+	7Cb0x2V/i23gwUCuttARwxzA4ny7fdPOFvzVbOLHPMgP6MF9fjfZv4Y0HngALXBzoP3aK9z2niW
+	/LDib/ihvdR4Oi7Jsyi+JaKv3CQV1EbFE1I/xec5QYqx/7sVd8paVK9QA639xz6hYJhaPps0m9H
+	eUBYs1/KZmm/70+gOQ5iQvdRMypM30F5QILxHcptZ5cp1ZWPOlYUla+3EyhuuqMib3z3nk+RSOJ
+	U/6nqRvOQAMCmrMwkR69tRzxkJ0KsV/J0fEFH3uGsZVjFOOktEzho=
+X-Received: by 2002:a05:600c:4fc9:b0:493:e974:41ac with SMTP id 5b1f17b1804b1-4954a3f3b28mr152405875e9.16.1784541831801;
+        Mon, 20 Jul 2026 03:03:51 -0700 (PDT)
+Received: from vkrawiec.arturia.team (226.142.197.77.rev.sfr.net. [77.197.142.226])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-495516c68fasm191854485e9.1.2026.07.20.03.03.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Jul 2026 03:03:51 -0700 (PDT)
+From: Victor Krawiec <victor.krawiec@arturia.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Victor Krawiec <victor.krawiec@arturia.com>
+Subject: [PATCH v2 0/4] Configure SYR82X regulator modes via device tree
+Date: Mon, 20 Jul 2026 12:03:32 +0200
+Message-ID: <20260720100336.62004-1-victor.krawiec@arturia.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="d734jrlis5p4zo7z"
-Content-Disposition: inline
-In-Reply-To: <20260717-adt7470_thermalzone-v2-1-a55147958fad@gmail.com>
+Content-Transfer-Encoding: 8bit
+
+SYR82X is a regulator that supports two modes of operation:
+- Auto-PFM: Allow automatic PFM during light load (default mode)
+- Forced PWM
+
+Some boards require to configure forced PWM mode from device tree to keep
+the supply ripple within acceptable limits under light load conditions.
+
+SYR82X is a clone of FAN53555 regulator and its configuration is handled by
+the fcs,fan53555 driver. All clones of FAN53555 regulator share the same two
+mode of operation (Auto-PFM / Forced PWM).
+
+However the implementation in the driver is currently restricted to SYR82X
+as it is the only tested hardware.
+---
+V1 -> V2:
+  - Add missing dt binding property description
+  - Naming changes since all clones handled by the fan53555 driver share
+    the same two modes
+      - dt binding header name changed from silergy,syr82x.h to 
+        fcs,fan53555-regulator.h
+      - dt binding header constants changed from SYR82X_* to FAN53555_* 
+      - fan53555_silergy_map_mode() changed to fan53555_map_mode()
+  - More detailed commit descriptions
+
+Victor Krawiec (4):
+  regulator: dt-bindings: Add fan53555 allowed modes
+  arm64: dts: rk3399-rock-4c-plus: Use device tree bindings constants
+    for SYR828 regulator initial mode
+  arm64: dts: rockchip: rk3399-hugsun-x99: Update SYR828 regulator
+    initial mode to use device tree bindings constants
+  regulator: fan53555: Add support for mode operations on Silergy
+    devices
+
+ .../bindings/regulator/fcs,fan53555.yaml      |  8 +++++
+ .../boot/dts/rockchip/rk3399-hugsun-x99.dts   |  3 +-
+ .../boot/dts/rockchip/rk3399-rock-4c-plus.dts |  3 +-
+ drivers/regulator/fan53555.c                  | 29 ++++++++++++++++++-
+ .../regulator/fcs,fan53555-regulator.h        | 20 +++++++++++++
+ 5 files changed, 60 insertions(+), 3 deletions(-)
+ create mode 100644 include/dt-bindings/regulator/fcs,fan53555-regulator.h
 
 
---d734jrlis5p4zo7z
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v2 1/6] dt-bindings: hwmon: add binding for adi,adt7470
-MIME-Version: 1.0
+base-commit: 62b9452f5fc4d007f1ea31cfdbb53a96d91e3c66
+-- 
+2.43.0
 
-Hello,
-
-On Fri, Jul 17, 2026 at 05:59:14PM -0300, Luiz Angelo Daros de Luca wrote:
-> +  "#pwm-cells":
-> +    const: 2
-> +    description: |
-> +      Number of cells in a PWM specifier.
-> +      - The first cell is the PWM channel (0 to 3).
-> +      - The second cell is the PWM period in nanoseconds.
-
-Please use #pwm-cells = <3> and $ref: pwm.yaml#
-
-(I'm not 100% the latter works for such a device that is a PWM and a
-hwmon, but I think it does.)
-
-Best regards
-Uwe
-
---d734jrlis5p4zo7z
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpd8mwACgkQj4D7WH0S
-/k5HOQgAuth6qs0eRQQVmzrA7KcnhGeXamCLUKP0U7bzLuxFxDPPycvrsB3fBi+L
-HURWDexyAUluUJAV5Y7PKtOrdaRn7J5fFtzixzY6Kn3HRI6UGYRb9m/b0JUt1LuC
-AW7+TSY5FaAhlLc+dab0++JSIDJfMt/3DvE8l+iQyPkfmfvV66idfQeHwgQz+DdI
-YFG8twG5otVYHsb5BsnzcmRvpfOllKpqWqPPDSkNFo6DPoPR3NsNRUs5Fbww/++B
-QAKxmpbD//ku6Wcy8AcGiHtC4aIOd5FlZvxJ+Ch9eJ0vXeETiTremots5tKKOrdH
-GZ1qrDG0WYgH0OR3H8Ck1ZoYYtAJAQ==
-=Ris2
------END PGP SIGNATURE-----
-
---d734jrlis5p4zo7z--
