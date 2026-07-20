@@ -1,139 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (ixit.cz [185.100.197.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BDD3F39F3
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 11:11:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4FB3F58F6;
+	Mon, 20 Jul 2026 11:13:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784545876; cv=none; b=H8qG03foVzO1ssrKV0+mwyQTIacwvYxCgdDFILCRMM1waV5FxuKkq72S8LMn0x1y0R1DvRbwl1/3pEkWQTRXwCDmPcaKKf2TEWZPoJ7+Q5RQkIDCgcPI0/Cb+uLWMDshFMEP45TTcRFNFWF0NuDWPMHKJgZy4DPGR5S54VRwuoY=
+	t=1784546000; cv=none; b=Z0JK7Log4PQv5fRxrl0kfDyzObrH7RZl7lLB2I2SIPj3KzigHeUfNYf36haUkz0icMAvZppMv17rKcxmFPNqOpibbKiyXKaV6Hm+g+Qc/JgENZKybWRIX3o22ZmLT36pgVTK9xb3FjwUcDzFC1UAyt/2Cq6xl0kLsU4wehzgvTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784545876; c=relaxed/simple;
-	bh=QiyVVbCylb8hAZjxIhgjieMzRnTXe5o+SDxLE17NUEM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ij/DHOU6bu9Ou5/QwPzgeCAp9SPYuNZA81wBoyz/QPkYnLP/RsI6Bkb0vEs6x5HnJN1T31tLEp5DAfctZ1Bi40ffVm7gEjNPJ4qHP1/PLD5kiQnmNWySY+f+74nELWl7qmj9zbr0KR+4GRQ+GVmS7u8FR0DX6ow3ErGmdnm7JT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tyqn9bEM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784546000; c=relaxed/simple;
+	bh=MwQTLRWaTm/hGyS2QKvajDkgqnw6QmFGAg14twq2YZA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JxSreDk2eFOlUmVXUF+2SI4HSDSBFRhBGhfqhrMrX0JwqdFwTtakfUfOPrGsPw2SWH1EDOm3K/dPETV8f7g8UG5b+5K1b2SQau7/OlKXmCFF8JNtTxArIDPYAe9D/poXU/W09EQdPwqSgxxIdGibC8QVxppMfX+KnZKA+8iG3N4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=uvvitmi+; arc=none smtp.client-ip=185.100.197.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tyqn9bEM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E2681F00A3A;
-	Mon, 20 Jul 2026 11:11:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784545875;
-	bh=UUH8X5BZgqpcJVb86Ch3E/oF03Ek4Tg6O1EQwPJkXI0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Tyqn9bEMZANEj7twNhzLCHcZEUAC+dSnKYLkgbUKwoHGUqav0uExjo5xZ98XV72QP
-	 J8l/Z+TJECES7Lgrox6x4qVQXHlXQmsI1IlUtzjzbRmOum7kfhtJPStXDie6ng/CS4
-	 QOx1Y9d/jLcg3nuM8NFTx0lz7GlelG5oHP+lr6kYbgKcyzsqOUxe2HhTAid9/CUBXR
-	 1rAkrtaVaXPjntc2VHHXCBE5tIYALDU4KcsuRAfhNpWO+WBXpQ3uGFWmnKMNHSJ3c9
-	 hWFO/iDgogMxS7b3uEA9ymWxOl7OdK/SGbR6fbJjogaAeN/3AiIg0vQRfTY0gXymBe
-	 fYZZXPt0IQl1w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/2] arm64: dts: qcom: sdm845-google: Add dual front
- IMX355 cameras
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Heidelberg" <david@ixit.cz>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260720-pixel3-camera-v6-1-afe419bef476@ixit.cz>
-References: <20260720-pixel3-camera-v6-0-afe419bef476@ixit.cz>
- <20260720-pixel3-camera-v6-1-afe419bef476@ixit.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 11:11:14 +0000
-Message-Id: <20260720111115.3E2681F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="uvvitmi+"
+Received: from [172.16.124.192] (ip-78-44-13-22.bb.vodafone.cz [78.44.13.22])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 4441653401F6;
+	Mon, 20 Jul 2026 13:13:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1784545994;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=9lPeEhuLj0zbxKiBWxhgd7Hmp78MgTf6WFYm05HZ4Ss=;
+	b=uvvitmi+BWUgHgiODRqmcS7EhkrIQopCBWpVxKgnj4ynxStCxjn6kFkgwA+b2IRtA90rSQ
+	SqWextFycvGoJUJ5mpXnI6jbPUF5Qby7R/RoGVegkgjn3I0gONuX2V3xLFZFSSbUyUNwbb
+	KgGPSGSaz1jip7X6Hw81rZUuaRS2DCg=
+Message-ID: <31a868a8-bfe1-4eec-9b0f-f137255c4491@ixit.cz>
+Date: Mon, 20 Jul 2026 13:13:13 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/2] arm64: dts: qcom: sdm845-google: Add dual front
+ IMX355 cameras
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Petr Hodina <petr.hodina@protonmail.com>,
+ Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org
+References: <20260720-pixel3-camera-v6-0-afe419bef476@ixit.cz>
+ <20260720-pixel3-camera-v6-1-afe419bef476@ixit.cz>
+ <a560a3f6-0bc7-4245-a5c2-b5d0f011e087@oss.qualcomm.com>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <a560a3f6-0bc7-4245-a5c2-b5d0f011e087@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Assigning the MCLK2 `pinctrl` to the `camss` node breaks the camer=
-a sensor probe due to decoupled runtime PM lifecycles.
-- [Medium] Incorrect CCI I2C sleep state modification overrides `&cci0_slee=
-p` instead of `&cci1_sleep`.
---
+[...]
+>> +		rotation = <270>;
+>> +		orientation = <0>;
+> 
+> https://lore.kernel.org/all/20260628-kbingham-orientation-v3-0-4ed92968aff8@ideasonboard.com/
+> 
+> Please use that for both cameras
 
---- Patch [1]: [PATCH v6 1/2] arm64: dts: qcom: sdm845-google: Add dual fro=
-nt IMX355 cameras ---
-commit c205a00f81a6553c73e74c2e70cc2c7b6bcef19f
-Author: David Heidelberg <david@ixit.cz>
+Oh, that's great! Finally instead of comments we have the defines :)
 
-arm64: dts: qcom: sdm845-google: Add dual front IMX355 cameras
+David
 
-This commit adds device tree nodes for the two front-facing Sony IMX355
-sensors on the Pixel 3. The sensors are connected via CSIPHY ports and
-controlled over CCI I2C1, sharing MCLK2.
+> 
+> Konrad
 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/ar=
-m64/boot/dts/qcom/sdm845-google-common.dtsi
-> --- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-[ ... ]
-> +&camss {
-> +	vdda-phy-supply =3D <&vreg_l1a_0p875>;
-> +	vdda-pll-supply =3D <&vreg_l26a_1p2>;
-> +
-> +	/*
-> +	 * MCLK2 (GPIO15) is shared between both front camera sensors.
-> +	 * The clock is generated by CAMCC, therefore the pin is
-> +	 * configured here rather than in individual sensor nodes.
-> +	 */
-> +	pinctrl-0 =3D <&cam_mclk2_default>;
-> +	pinctrl-1 =3D <&cam_mclk2_sleep>;
-> +	pinctrl-names =3D "default", "sleep";
+-- 
+David Heidelberg
 
-[Severity: High]
-Does putting the MCLK2 pinctrl states in the camss node break the sensor pr=
-obe?
-
-Because camss operates with decoupled asynchronous runtime PM, it will like=
-ly
-be suspended during the imx355 sensor probe. The PM core will put the pin i=
-nto
-the sleep state, which configures bias-pull-down.=20
-
-When the imx355 driver calls clk_prepare_enable(mclk) during I2C probe to r=
-ead
-its chip ID, the clock controller generates the clock, but the sleep state =
-on
-camss will prevent the clock signal from reaching the sensors, causing the
-probe to abort.
-
-> +
-> +	status =3D "okay";
-[ ... ]
-> +};
-> +
-> +&cci0_sleep {
-> +	/* bus has external pull-up */
-> +	/delete-property/ bias-pull-down;
-> +	bias-disable;
-> +};
-
-[Severity: Medium]
-Since the front cameras are added under the cci_i2c1 bus, should this be
-modifying &cci1_sleep instead of &cci0_sleep?
-
-This leaves the cci_i2c1 sleep state with its default bias-pull-down settin=
-g,
-which will fight the external pull-up and could drain the battery during
-sleep. It also incorrectly modifies cci_i2c0 which might affect other devic=
-es
-on that bus.
-
-> +
-> +&cci {
-> +	status =3D "okay";
-> +};
-> @@ -358,7 +443,63 @@ &cci {
->  &cci_i2c1 {
->  	/* actuator @0c */
-> =20
-> -	/* front camera, imx355 @1a */
-> +	front_cam: camera@10 {
-> +		compatible =3D "sony,imx355";
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720-pixel3-cam=
-era-v6-0-afe419bef476@ixit.cz?part=3D1
