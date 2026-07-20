@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F1B138C40C
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:58:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F32838C40C
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:58:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784555895; cv=none; b=L5F508RhNmpHatPWLeZOFZIPbKv3TOI9H0G7srd5ELqePEn2YoWhyzmqpsn5VV7ZEHB724e/lel/JOEDXy07uHvLOMaQ+6FjcN3sq/g8dqpZoflqUhcyoQCHt/7g3pOAKxca1hFfZ7aNNb9E8MuiTnvA51Tk/n/t7sCKvMjKa20=
+	t=1784555920; cv=none; b=PxfvQga5w+PHLSLYsxdwc28oHWKClLKXyO5qiXR1DGbvBbrwfZeG7f0Td9MGlsaGStKXlQF5gqNJEQL6pEozPpUi2KgLpqTtBPGhGU+cMce6pQjYf6MjhhKTJBO5PpKIm9To6oZ33SKU7cx6sxTzz0ElAs0Ty39HlD/AQCA0Hdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784555895; c=relaxed/simple;
-	bh=ykpHhjJJvpxScyMoI/YXobUziGfo61PcdPzHkIPyVgs=;
+	s=arc-20240116; t=1784555920; c=relaxed/simple;
+	bh=l01EaalwBjV9mO/psLI09v8pCO5slVGS9AOTc+QVn04=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IISBT2lKqEP8vo8qgQHTN8E+SMO6JrBvTsLK/12K+Ki6H+huUgmAZyDHZkdCZ7J2fgDXuTvMCOO2JsO/hZBNH++9pdkM296vyAix2w2Au+VAQPV0wGkl6Az6S3zzyTI4y5beWnWLSMzn6jzT77CYo971W1U9eNN29yctPiRswGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ouyBppb9; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=HKTPRJ3lj4x3wu63YAkKLxN/WaphiKSMh/sFu/lv8G60Z++xe2MfsJzRBY4Lgh4V/yUj7ie8Mxlet6BT1j5b5T0Uuyp3Eo72MJuC8S+fhl0U24CRNPNMRTcVb+Elj8gXG0YQFkTHU4fAuloNXegdjQKiPOPZhNadUWq+wMvln2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I3K963yt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ouyBppb9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EA771F00A3A;
-	Mon, 20 Jul 2026 13:58:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I3K963yt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94D9F1F000E9;
+	Mon, 20 Jul 2026 13:58:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784555893;
-	bh=x+Xb5Oi1bm6woSsV5aV94z5lZDnOhuBNfQFzUzi73Vo=;
+	s=k20260515; t=1784555919;
+	bh=niwP5T1zcgkdtuv5FMoRKeMqwieGzWbRQ8nHHW2X6gE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ouyBppb9Xg3K7UXFsuQmL/BFC5ff1eF4cf5ad7sDuImFt1H952ATVz3nAQ7OxJm5Z
-	 EQIfCzRORU1/TEgqbenLgLKzeTitKG1yQtH3GXW0uB0KmnKQTHglqb3F/ybP8NeZf8
-	 GK5oIolp+7RPU3hIrYV/8I3iAYnvLXL54DdRqx69VYbV7/wFUQPJVbeBFLHdnIqJgN
-	 nfXkMYMV/Sk9ers5ZcBVTsravXKzEgDJW/tuTtBdoVxJuGiG6DyqBpNkMGl6bOIN29
-	 JdzOZqyxgWlBrGId5EUyfrwrAGmOiG4Pn5S+Z9QlevSBv/HwpNr+c/5ha3pv25WI3A
-	 DSgB90F3aA2Zw==
+	b=I3K963ytrxnk1LwYfqln9aualhF4ToX3Tt3koOL8RMcV+N7lVv5OHS6itr5sAl609
+	 lLzkKZnARNPc9NZS2bbY1CezYlcKtoYE6wRBvTrm42NXPLO0M+h7mW+HPOVeBJMnnu
+	 W9srkbL3fXxWjo/MtN6bh/R3CyofhRcK17iTxEyHjyui+G5UCtoj5JbkYbX4cKG9oX
+	 8AJc7dKN1c/uKVgYBjTXg/fEOECkmFXuHacM38SrFNJw9E9CKhvcNMzCKqLaz9/5Lr
+	 GG76jLK+MEN51z54wJM0Qa6UlwQnAUq/POVxJMNCTJBN9VSE9/DDALSvO4hfp15MGg
+	 cenyuAafoEUQg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] iio: adc: ad4080: add support for AD4883
+Subject: Re: [PATCH v3 phy-next 5/8] soc: fsl: guts: make fsl_soc_data
+ available after fsl_guts_init()
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Antoniu Miclaus" <antoniu.miclaus@analog.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260720133707.103366-3-antoniu.miclaus@analog.com>
-References: <20260720133707.103366-1-antoniu.miclaus@analog.com>
- <20260720133707.103366-3-antoniu.miclaus@analog.com>
+To: "Vladimir Oltean" <vladimir.oltean@nxp.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, vkoul@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260720133642.136324-6-vladimir.oltean@nxp.com>
+References: <20260720133642.136324-1-vladimir.oltean@nxp.com>
+ <20260720133642.136324-6-vladimir.oltean@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 13:58:13 +0000
-Message-Id: <20260720135813.7EA771F00A3A@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 13:58:38 +0000
+Message-Id: <20260720135838.94D9F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,63 +47,75 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The `ad4080_get_scale` function calculates the fractional part of =
-the scale in micro units but returns `IIO_VAL_INT_PLUS_NANO`, causing the u=
-serspace scale value to be off by a factor of 1000.
+- [High] NULL pointer dereference in the error handling path of `fsl_guts_i=
+nit()`.
 --
 
---- Patch [2]: [PATCH 2/2] iio: adc: ad4080: add support for AD4883 ---
-commit 1f80e540484a260f71b5515f8af8d43748391d9e
-Author: Antoniu Miclaus <antoniu.miclaus@analog.com>
+--- Patch [5]: [PATCH v3 phy-next 5/8] soc: fsl: guts: make fsl_soc_data av=
+ailable after fsl_guts_init() ---
+commit d316b69e1c587b56ad6f914ddbd2e412490c8594
+Author: Vladimir Oltean <vladimir.oltean@nxp.com>
+soc: fsl: guts: make fsl_soc_data available after fsl_guts_init()
 
-iio: adc: ad4080: add support for AD4883
+This commit preserves the soc_data determined during fsl_guts_init() so it
+can be referenced later for RCW override methods. It updates the error
+handling paths to properly clean up the saved state if initialization fails.
 
-This commit adds support for the AD4883, a dual-channel, 16-bit, 40 MSPS
-SAR ADC. It shares the register map and SPI interface with the AD4080
-family and provides two independent ADC channels.
-
-> diff --git a/drivers/iio/adc/ad4080.c b/drivers/iio/adc/ad4080.c
-> index c7ecf6971be45..543728c7e88c0 100644
-> --- a/drivers/iio/adc/ad4080.c
-> +++ b/drivers/iio/adc/ad4080.c
+> diff --git a/drivers/soc/fsl/guts.c b/drivers/soc/fsl/guts.c
+> --- a/drivers/soc/fsl/guts.c
+> +++ b/drivers/soc/fsl/guts.c
+> @@ -231,10 +232,9 @@ static int __init fsl_guts_init(void)
+>  {
+> -	struct soc_device_attribute *soc_dev_attr;
+> +	struct soc_device_attribute *soc_dev_attr =3D NULL;
+>  	static struct soc_device *soc_dev;
 
 [ ... ]
 
-> @@ -646,6 +652,16 @@ static const struct ad4080_chip_info ad4880_chip_inf=
-o =3D {
->  	.lvds_cnv_clk_cnt_max =3D AD4080_LVDS_CNV_CLK_CNT_MAX,
->  };
+> @@ -243,12 +243,12 @@ static int __init fsl_guts_init(void)
+>  	np =3D of_find_matching_node_and_match(NULL, fsl_guts_of_match, &match);
+>  	if (!np)
+>  		return 0;
+> -	soc_data =3D match->data;
+> +	soc.data =3D match->data;
 > =20
-> +static const struct ad4080_chip_info ad4883_chip_info =3D {
-> +	.name =3D "ad4883",
-> +	.product_id =3D AD4883_CHIP_ID,
-> +	.scale_table =3D ad4080_scale_table,
+>  	soc.dcfg_ccsr =3D of_iomap(np, DCFG_CCSR);
+>  	if (!soc.dcfg_ccsr) {
+>  		of_node_put(np);
+> -		return -ENOMEM;
+> +		goto err_nomem;
+>  	}
 
 [Severity: High]
-This isn't a bug introduced by this patch, but looking at how the scale tab=
-le
-is used in ad4080_get_scale(), is there a mismatch in the units returned?
+If of_iomap() fails here, the code executes a goto to the error path while
+soc_dev_attr is still explicitly NULL.=20
 
-drivers/iio/adc/ad4080.c:ad4080_get_scale() {
-	...
-	tmp =3D (st->info->scale_table[0][0] * 1000000ULL) >>
-		    st->info->channels[0].scan_type.realbits;
-	*val =3D tmp / 1000000;
-	*val2 =3D tmp % 1000000;
+Down in the error cleanup path, the code unconditionally dereferences=20
+soc_dev_attr to retrieve its members:
 
-	return IIO_VAL_INT_PLUS_NANO;
-}
+> @@ -311,8 +311,11 @@ static int __init fsl_guts_init(void)
+>  	kfree(soc_dev_attr->revision);
+>  	kfree(soc_dev_attr->serial_number);
+>  	kfree(soc_dev_attr);
 
-Since the fractional part is calculated using modulo 1000000 (micro units)
-but returned as IIO_VAL_INT_PLUS_NANO, the IIO core will format it as a
-nano-scale value. Does this cause the scale exposed to userspace to be off
-by a factor of 1000?
+Will this trigger a NULL pointer dereference?
 
-Should this return IIO_VAL_INT_PLUS_MICRO instead, or calculate with
-1000000000ULL to match the NANO return type?
+While kfree() itself handles NULL pointers gracefully, evaluating
+soc_dev_attr->revision and soc_dev_attr->serial_number requires reading
+memory from the NULL soc_dev_attr pointer before passing the argument to
+kfree().
+
+> -	iounmap(soc.dcfg_ccsr);
+> -	soc.dcfg_ccsr =3D NULL;
+> +	if (soc.dcfg_ccsr) {
+> +		iounmap(soc.dcfg_ccsr);
+> +		soc.dcfg_ccsr =3D NULL;
+> +	}
+> +	soc.data =3D NULL;
+> =20
+>  	return ret;
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720133707.1033=
-66-1-antoniu.miclaus@analog.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720133642.1363=
+24-1-vladimir.oltean@nxp.com?part=3D5
