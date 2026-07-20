@@ -1,224 +1,212 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013030.outbound.protection.outlook.com [52.101.83.30])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C430B433BA2
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 15:07:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.30
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784560040; cv=fail; b=IWEgaRnpTzckn6g6WW+4jTHqviYqcyN3g6Mx2w8pYgIgSqlUv+Wm+zd/d0a1smCmkHOae1yk9IQ+nyAEnS/2Equgqu0+a9JOd7w2hC2i12D0Dh8GwtJpoO5JNQ7F/8NcaFwEutjucxZiMU8Vp6GkkWQFXO43Zqa81WU4KsrdkEk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784560040; c=relaxed/simple;
-	bh=2WWlj6j0QxzOU62ns1Ep81miChUgQE/DWaBNirTWhjY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=MGCHUeqsx0gE/b0dAeq710w0G69QIvDaXfKKR4HMvSmSVoysgvLUpfE27MtB3j85Go/Pu8WzBocmtBolwm5pAvulHvkIBUvW1EJNXXE29d3XDKlfNyO5zTtztGFDu+/l1m7icVjmHdG9xazcvjjg1Q9nWc/JCpYRPeyhWc5qEnQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=F+YVwzR+ reason="signature verification failed"; arc=fail smtp.client-ip=52.101.83.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8FB52D0602
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 15:19:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784560799; cv=none; b=g+9QybqhbiuVo0b8D987tw63hzcATjSh7g8NoTWqXUdMiJ8i3s3QtAVTB/wyuk/UpVy/Dd2pLkPgjF1jHpuX0lxRpdTzDS6PxsyXXQbRgOdT4E7OTOqAPmqiVARwjDbTHe/3TD/dWKtaaMPd/bmL3FMPNmrvXhfMFr/iz1pgm04=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784560799; c=relaxed/simple;
+	bh=1D1sKEa/Qff+Tb9URO3TIUV9ce1vUhdd8hBkVZX90rg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kmTvECuFMzipfui/KY300/Y95f/kZTXoI4J4oCMgyNqNUN7pfsDTM3dYwNjMDUqbUN+59ZlsmxJ7lx6QQqX4mIJp+9aq2nWt8gZWUJORsVbBDjJfVl97nmGzhzR5O6UQhduyiaxezIe/DijO7SIJrrtYO1IBWJxzamK2c/+i+90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=VK/ALKAX; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="F+YVwzR+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ag9YHzFkIw00GfJPQvJwmu1epF9xvZqXl4c0yFFgQee8dKnwLGWd4YagN1YpPPtT+S+GPM1XQ+k3UnHtiRa9nEf7Y7OE3/N8OD1K5Aq7iuffQUx5m1Gvdz1jOo8+yVmiqY4396FJ2CZiBiIppMfKGBVTt4Q/V/EU4twMDsr8MIBzObQoFyfGN/fW7FDWJs25SSuOeNFV0hEVI8/hsPGNE5XgiREXIfI4ym3odsd30z2y5RfWVAUB9jBru7yWsVwJ0r4UNydrC/ES3RIOy5P/pUgCOrGqmHwhun5rFxZL59PnJpfeOLlTDEEFaF74X4SO/+/hBLf8eaNR7a4ZxSpfVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mihWxY8hCC3E1/feUiP+NAgQY880mNytAOxKEvJ4Tg8=;
- b=f8b8xz8R/A2pA5LnLLzw5RkUUvDCJ9nDlEMb0ClHKGzypBWWRDjmKPlQfMevgYNViSNiG0kXeSZlhXHkJmPmPTpFP6U2DWhsdu+KYQaVfkd+BW7TIIVfynedePJxRS9mZNaXm1TOCrvyRHa5NupbsDnPXoGbta1fOLlXednpmanrqeixfI0BAj110G35v04Xnc8TpOwSmwhR48a9b4DVMsrqtdGPQi/QQpxaNZezV66KPCXCn325xkYMwpm5K8C1ODABk06PUKlncLPvEXEZTef6EMr+wx/KwNb6WYbzj6tlUNnIwcPc9Psg6eyAr/Oj8rySHeIkAsnMIw4pQJ0iXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mihWxY8hCC3E1/feUiP+NAgQY880mNytAOxKEvJ4Tg8=;
- b=F+YVwzR+3xt24lV4g0FA+eMYWgpb6ZyrmdL6UOT1l1+GlAnerPl+cq0tNvSEhJS+k4muve/REcMwKEfXjtPo8aBRbSwU0pGdUIhMEHET3qoHeRmrj5ZWdUMuLElwEfhXZf+EFewaLosGlWDchv1m+swcGG3TX1liK2Kq72BYhPW/qgh6MHsR+rfk+ZDX186ezETnY6WkDIFwZi8oMFlhLX7C9xdts6ZpZntYhpijUiDB9bSwgJm+M6QcuhSTBpiLoXeeCQYSpI5KbMdDUEfkAjAbcjh7QWbaP4ax4K5c3dz6Hdgr7tvpJDCkM9NmJrJD01qxfpATUbiCGFs6DHgGtg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI0PR04MB12352.eurprd04.prod.outlook.com (2603:10a6:800:322::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Mon, 20 Jul
- 2026 15:07:15 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0223.012; Mon, 20 Jul 2026
- 15:07:15 +0000
-Date: Mon, 20 Jul 2026 10:07:05 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Joseph Guo <qijian.guo@nxp.com>
-Cc: sashiko-reviews@lists.linux.dev, robh@kernel.org, Frank.Li@kernel.org,
-	conor+dt@kernel.org, imx@lists.linux.dev,
-	devicetree@vger.kernel.org
-Subject: Re: [EXT] Re: [PATCH 2/2] arm64: dts: freescale: add i.MX952 FRDM
- Board support device tree
-Message-ID: <al45mQ_okIqpkDW1@SMW015318>
-References: <20260720-imx952_frdm-v1-0-6d145eaaa5c4@nxp.com>
- <20260720-imx952_frdm-v1-2-6d145eaaa5c4@nxp.com>
- <20260720065549.C24301F000E9@smtp.kernel.org>
- <56975936-9db1-431d-91a5-c038dc16c196@nxp.com>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <56975936-9db1-431d-91a5-c038dc16c196@nxp.com>
-X-ClientProxiedBy: PH7PR10CA0019.namprd10.prod.outlook.com
- (2603:10b6:510:23d::27) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="VK/ALKAX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1784560795;
+	bh=1D1sKEa/Qff+Tb9URO3TIUV9ce1vUhdd8hBkVZX90rg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=VK/ALKAXQxOxYHh226uH+caIytyBVCaIOBA9zt/VVVEGDl9ExoSiOYFjrU4Af17Ou
+	 kkq5BwPsh9hCU8BO6wp7SwsaAmrMgXw6DogvJO1iiAL5WlIvr9Hflz0upeQWa1M8Bm
+	 jXdv96ZecpKVgT6VwO+8pkqQ9v1Hcu4usO2jp8UzQO4lw1fkdCLep4NKEgr3SIGRto
+	 5A2zkyD/aM7G+vC7HA/VnPirpqwpzHJYXo7IYftLbygheoFT4Xj+ZCGNaNXwtpS0sd
+	 RcdMCaA2pdkO+54xrtqi44pQkAIkulfG5L7GTO53+xlxOQze1A65RR0xVz4Pu+yf45
+	 RgbHse1py/Vxw==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7D2D817E07A2;
+	Mon, 20 Jul 2026 17:19:55 +0200 (CEST)
+Message-ID: <e41075b9-8999-48f4-9a61-56b85042b0c5@collabora.com>
+Date: Mon, 20 Jul 2026 17:19:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB12352:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d185fd8-e201-41a9-7259-08dee6709532
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|1800799024|376014|23010399003|366016|56012099006|11063799006|10067099003|4143699003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	o3vVjZeu+zdqqX+k6yj0+M4GgfTTFPIRUmPS029QiaHlHx+eEdI4MFRQHRu8BUNLm8+zTSsOY7AsDF6Iy5bduE+Y+QSHERtClRuoszumxNYBxvLDqpREA6xjPl80BTsXbCNpk0ED7D2FZpaQCjj0jZVdquxilvLJlYzE0f+EQDU8skbKYnbiOejaYoJYY4lb5wi0aGJe5ddXCCNnwPvqum8fV9GcQ3QPvMxhzl/yi31sSoLRKI+EOMn+bNNMQCenk+ApUuIUZq6842ojP3l0giVo6G3G0aHnc+w4U1Vz1rWe1LmxrN06Rcu43jiOa+p+xoamK43LLmcG72exIQ5lbP420GYqO0MgG5LojrwgwH8oHkd9RB6XnJQyA8XKInGtl0smzZvivcxC7P7rMPImJY1gESFtPa4T1Ux26zDT05RMBjxU+oYk5eywJKgRC7CiSuzs1jfIlDQ5GeboFB5grnq9tYiD553C/EMX9IFQiraMCoC9C24RKWB3BPgpNijd/e6A360cQO1QP62aJstZOkqf3klMXjHecCDnwJP14e62G64OPnDwvozS4z+H7b0ELRE8THSSQnppQJ/DCQHDK3xcrjW8FcKC8o5YJUTVEBI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(376014)(23010399003)(366016)(56012099006)(11063799006)(10067099003)(4143699003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?rpNvPUmj6haWgcTTEwwokJU75nNnvZjsl/2IULerZXJ9DfQADmqvdYKOAr?=
- =?iso-8859-1?Q?+XxGO/LEOeXwdrt/l/X12LYwthnLO91IpL+6eY+tq3CbMr2vBJdKazlXwD?=
- =?iso-8859-1?Q?CKsPpz9vM+uvAMlRijpkRyjDGLF5qyAoOaLgTV1hTap200EXyphyWSaCLB?=
- =?iso-8859-1?Q?FSWRgHgUeXrVhhpPL11OS7zCqViwdwX5vwf8Ka6BgFMQzpGl1IbD8oR6vQ?=
- =?iso-8859-1?Q?8Lm7Yfw9LUCu+hRND0QGlX/CdDxKheu2aQ0zrkXbzgwdU5j1na+QHSwzMs?=
- =?iso-8859-1?Q?ncTYM1CsoJzmDFsadL1bivLaV0/qKBmeLwm6SRgGfC4JDCRc5ai//kovNN?=
- =?iso-8859-1?Q?xHCK7mTKjWbxrb6+7tt8xC7Rvzrx5+VEYOk/D/L3DVmvkMPmKC71DzZJoT?=
- =?iso-8859-1?Q?orjZpoxPHCeMfK3VZsNILpL/3zpCQH2w1iWMuSgUUmsj4k+RDxMzLGezPS?=
- =?iso-8859-1?Q?yS+hxXoD284xa0sHRk+OSg/G8clYKLyL7JY9zPHuX3nwmNJefJM5fdYeyb?=
- =?iso-8859-1?Q?VERuBTSryL0iiDXWM8pTucYUsRd2gli+Neq1XG8gTvsIjUMA3R2Awv/UTq?=
- =?iso-8859-1?Q?pLBgki1Xmc4hoExWDOtTzB8nMnbD2z/8XMNdFCBcwCX8Ci3jxmYTRQtiFC?=
- =?iso-8859-1?Q?+xM9zu3GerC8K68opnKfkXbEeOzVXEC2lJIb2T9U8ZsikNqAQC18o69rNi?=
- =?iso-8859-1?Q?VQq3ufpFfJq2E57Gjpf1tE4vT51UQi/avjCG/Rrel4s7dGI6IkPdB3ziJe?=
- =?iso-8859-1?Q?1VcfxoYR+X0CCoStsV8JCQDJZMAEsEpyUzKpMLtUp13ILkJ0L1mv8ht7lJ?=
- =?iso-8859-1?Q?YHjXzX9UFkMw2Hu+xuVL5q9BvA3nsyRZOnJ6IqjliRAJJ5IOFRgQaBQGMu?=
- =?iso-8859-1?Q?jiknaq+dsNdeYw1OizkbhRSgQVPp/SOmv3hS8wIGARoFBsYdyxP98tDQl4?=
- =?iso-8859-1?Q?sPGWmg7V6vaGh3HvxfPGeDkye2/ENoXZgKRiVQpQlYrY9wCwhBz2DKfULp?=
- =?iso-8859-1?Q?c1qqQNBNEzm3IxlUjFZAqRumPSsNuAyMoCOssORmlH0VXGfBYz9bHoMaba?=
- =?iso-8859-1?Q?Lw2Ukgr04TJi+l2+NPmXJDXcbsElTKb/kgaoSb3z+WRUzG5ss0ZpFb3eW5?=
- =?iso-8859-1?Q?bPwBgMnakY6ItIKqGb/aK49wkdZb84PHJjpY8lo2X/iCaVIsabNcoO2a2i?=
- =?iso-8859-1?Q?gADYoNiV9mc4vjTZRGqtTeho4T3F2k8r5tKYGlg6D6O1qIEr9Jioshrbn/?=
- =?iso-8859-1?Q?fhLzjP4OomE+uL0lrw4FTN1jMn64uCwZx2ToPEo7hZxFqxFx+gOOO93RCA?=
- =?iso-8859-1?Q?1nBmK7gfFZjYQYRWIcFqNyC88yewKR5+kj6nKjSwukwOIdklW/ejdXWWlg?=
- =?iso-8859-1?Q?8r2cGkAZ4fDb2ii5cPeHJp9XNgnsvaOE2/xQW2af5NFsfE9CfItjectJ1Q?=
- =?iso-8859-1?Q?W87PabAQtDrSWSpTCOfgXQYFhGScMRTY11ViPTv8vAyiEQck7BMVJnSHAw?=
- =?iso-8859-1?Q?mEFBdNZ0dhlta1v/Hn6kjqFkRQCoX85WySfvdfAujMeA6xDHZQQ5Tyy9Sw?=
- =?iso-8859-1?Q?KaLlcJoAm3+U3ZYgPYadyaR4C67p//Ra8dGSrIlVVH8o8pUW263hC79zoP?=
- =?iso-8859-1?Q?1MqOX2Ma3gE73eu+nmAdRwE0TqXw2SFIzgJ7T9mdwbcSUSbuUpoLyhhved?=
- =?iso-8859-1?Q?sevhlhQoYJuI/9oIIkOBA6csfxnjh5JRnjSd0O9y9BobBD27LXfnV3Ecn7?=
- =?iso-8859-1?Q?SNchss/HnTtL8Sbz45A8LacDd/3/x5XayLoQQuoXP1HBGzBUtIr89jug+9?=
- =?iso-8859-1?Q?psmIkWeEIZGNBaOutTDS9EN1T0hwJkt6Yq9N+GN8KWI97uCi8/IM?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d185fd8-e201-41a9-7259-08dee6709532
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 15:07:14.9891
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gmZRCCdaS4vUnudXw3IHPzh4SVRI6l/FVM63wq/HIhK51UC80ShXZzCnPnvshPev9NnrtC7Hr5+v5O9QBkd7lr1zR57Fo3TU7JuraP2bWUxZ+cJv65dFgWL0jEELoWPJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB12352
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] phy: mediatek: Add support for PCI-Express Gen4
+ S-PHY
+To: sashiko-reviews@lists.linux.dev
+Cc: neil.armstrong@linaro.org, olteanv@gmail.com, devicetree@vger.kernel.org,
+ vkoul@kernel.org, linux-phy@lists.infradead.org, conor+dt@kernel.org,
+ robh@kernel.org
+References: <20260720135344.84183-1-angelogioacchino.delregno@collabora.com>
+ <20260720135344.84183-3-angelogioacchino.delregno@collabora.com>
+ <20260720141301.482441F00A3A@smtp.kernel.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260720141301.482441F00A3A@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jul 20, 2026 at 03:03:20PM +0800, Joseph Guo wrote:
-> On 7/20/2026 2:55 PM, sashiko-bot@kernel.org wrote:
-> > [You don't often get email from sashiko-bot@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> >
-> > Caution: This is an external email. Please take care when clicking links or opening attachments. When in doubt, report the message using the 'Report this email' button
-> >
-> >
-> > Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> > - [High] Shared GPIO requested exclusively by two CAN transceivers causes probe failure for the second transceiver.
-> > - [Low] Use of undocumented, downstream-only device tree property `fsl,cd-gpio-wakeup-disable`.
-> > --
-> >
-> > --- Patch [2]: [PATCH 2/2] arm64: dts: freescale: add i.MX952 FRDM Board support device tree ---
-> > commit 8bbcb28d08a05e0f4c57023333492b4e023f7caf
-> > Author: Joseph Guo <qijian.guo@nxp.com>
-> >
-> > arm64: dts: freescale: add i.MX952 FRDM Board support device tree
-> >
-> > Add basic device tree support for i.MX952 FRDM Board. The board-common hardware
-> > description is placed in imx952-frdm.dtsi so that it can be shared with future
-> > i.MX952-based FRDM derivative boards.
-> >
-> >> diff --git a/arch/arm64/boot/dts/freescale/imx952-frdm.dtsi b/arch/arm64/boot/dts/freescale/imx952-frdm.dtsi
-> >> new file mode 100644
-> >> index 0000000000000..b9ef6bec2bd5a
-> >> --- /dev/null
-> >> +++ b/arch/arm64/boot/dts/freescale/imx952-frdm.dtsi
-> >> @@ -0,0 +1,727 @@
-> > [ ... ]
-> >> +     flexcan2_phy: can-phy0 {
-> >> +             compatible = "nxp,tja1051";
-> >> +             #phy-cells = <0>;
-> >> +             max-bitrate = <8000000>;
-> >> +             silent-gpios = <&pcal6416 6 GPIO_ACTIVE_HIGH>;
-> >> +     };
-> >> +
-> >> +     flexcan3_phy: can-phy1 {
-> >> +             compatible = "nxp,tja1051";
-> >> +             #phy-cells = <0>;
-> >> +             max-bitrate = <8000000>;
-> >> +             silent-gpios = <&pcal6416 6 GPIO_ACTIVE_HIGH>;
-> >
-> > [Severity: High]
-> > Does this cause a probe failure for the second transceiver?
-> >
-> > The first PHY node successfully requests this GPIO line, taking exclusive
-> > ownership. Because the phy-can-transceiver driver uses standard exclusive
-> > requests (without GPIOD_FLAGS_BIT_NONEXCLUSIVE), the second request for the
-> > exact same GPIO line fails with -EBUSY.
-> >
-> > This prevents the flexcan3_phy and the flexcan3 controller from probing and
-> > functioning.
-> >
->
-> This two CAN PHY did share same pin as their silent-gpio on hardware.
-
-Hardware share gpio, but driver may not handle this case. Are you sure
-
-flexcan3_phy probed if can-phy0 already probed?
-
-Frank
-
->
-> The same design on i.MX95 15x15 FRDM. This should be fine.
->
-> Regards,
-> Joseph
->
-> >> +     };
-> > [ ... ]
-> >> +&usdhc2 {
-> >> +     bus-width = <4>;
-> >> +     cd-gpios = <&gpio3 0 GPIO_ACTIVE_LOW>;
-> >> +     pinctrl-0 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
-> >> +     pinctrl-1 = <&pinctrl_usdhc2_100mhz>, <&pinctrl_usdhc2_gpio>;
-> >> +     pinctrl-2 = <&pinctrl_usdhc2_200mhz>, <&pinctrl_usdhc2_gpio>;
-> >> +     pinctrl-3 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
-> >> +     pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
-> >> +     vmmc-supply = <&reg_usdhc2_vmmc>;
-> >> +     fsl,cd-gpio-wakeup-disable;
-> >
-> > [Severity: Low]
-> > Is this out-of-tree vendor property invalid in the upstream kernel?
-> >
-> > The property fsl,cd-gpio-wakeup-disable does not exist in any upstream device
-> > tree bindings (such as fsl-imx-esdhc.yaml) and is not handled by any driver
-> > code in the upstream Linux tree. This acts as dead code and will trigger
-> > `make dtbs_check` validation warnings.
-> >
-> >> +     status = "okay";
-> >> +};
-> >
-> > --
-> > Sashiko AI review · https://sashiko.dev/#/patchset/20260720-imx952_frdm-v1-0-6d145eaaa5c4@nxp.com?part=2
->
+On 7/20/26 16:13, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
+> - [High] Improper handling of missing or unsupported NVMEM calibration data causes spurious error logs and hard probe failures.
+> - [Medium] A valid calibration value of 0 is incorrectly treated as missing data, discarding all calibrations.
+> - [Low] The TX_IMPSEL registers are updated twice with identical values during initialization.
+> - [Low] Macros for AEQ_EGEQ_RATIO are defined but unused in favor of literal magic numbers.
 > --
-> Best Regards,
-> Joseph
+> 
+> --- Patch [2]: [PATCH v2 2/2] phy: mediatek: Add support for PCI-Express Gen4 S-PHY ---
+> commit d91c6c0718440c44adc7e6a83f5aeca706a6c3d5
+> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> Subject: phy: mediatek: Add support for PCI-Express Gen4 S-PHY
+> 
+> This patch adds support for the PCI-Express Gen4 S-PHY found in the latest
+> MediaTek SoCs, including MT8196 and MT8894.
+> 
+>> --- a/drivers/phy/mediatek/phy-mtk-pcie-sphy.c
+>> +++ b/drivers/phy/mediatek/phy-mtk-pcie-sphy.c
+> [ ... ]
+>> +#define PEXTP_DIG_LN_RX2_AEQ_EDGE_0			0x6004
+>> +#  define RG_XTP_LN_RX_AEQ_EGEQ_RATIO_GEN3		GENMASK(21, 16)
+>> +#  define RG_XTP_LN_RX_AEQ_EGEQ_RATIO_GEN4		GENMASK(29, 24)
+>> +#  define AEQ_EGEQ_RATIO_GEN3_TO_22			0x16
+>> +#  define AEQ_EGEQ_RATIO_GEN4_TO_22			0x16
+> [ ... ]
+>> +		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_RX2_AEQ_EDGE_0,
+>> +				     RG_XTP_LN_RX_AEQ_EGEQ_RATIO_GEN3, 22);
+>> +
+>> +		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_RX2_AEQ_EDGE_0,
+>> +				     RG_XTP_LN_RX_AEQ_EGEQ_RATIO_GEN4, 22);
+> 
+> [Severity: Low]
+> Is there a reason the literal 22 is used here instead of the
+> AEQ_EGEQ_RATIO_GEN3_TO_22 and AEQ_EGEQ_RATIO_GEN4_TO_22 macros defined
+> earlier?
+> 
+
+I forgot to remove those definitions. Will do for a v3 tomorrow.
+
+> [ ... ]
+>> +static void mtk_pcie_sphy_apply_calibration(struct mtk_pcie_sphy *pcie_sphy)
+>> +{
+> [ ... ]
+>> +		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_A0,
+>> +				     RG_XTP_LN_TX_IMPSEL_PMOS, cal->tx_impsel.pmos);
+>> +
+>> +		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_A0,
+>> +				     RG_XTP_LN_TX_IMPSEL_NMOS, cal->tx_impsel.nmos);
+>> +	}
+>> +}
+>> +
+> [ ... ]
+>> +static int mtk_pcie_sphy_init(struct phy *phy)
+>> +{
+> [ ... ]
+>> +	if (pcie_sphy->calibration.supported) {
+>> +		mtk_pcie_sphy_apply_calibration(pcie_sphy);
+>> +
+>> +		tx_impsel.pmos = pcie_sphy->calibration.tx_impsel.pmos;
+>> +		tx_impsel.nmos = pcie_sphy->calibration.tx_impsel.nmos;
+>> +	} else {
+>> +		/* Set P=10, N=9 to prevent EMI if no calibration present */
+>> +		tx_impsel.pmos = 10;
+>> +		tx_impsel.nmos = 9;
+>> +	}
+>> +
+>> +	/* Select TX Impedance on N and P MOSFETs */
+>> +	for (i = 0; i < pcie_sphy->num_lanes; i++) {
+>> +		void __iomem *sif_lane_base = pcie_sphy->sif_base + PEXTP_REG_LANE(i);
+>> +
+>> +		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_A0,
+>> +				     RG_XTP_LN_TX_IMPSEL_PMOS, tx_impsel.pmos);
+>> +
+>> +		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_A0,
+>> +				     RG_XTP_LN_TX_IMPSEL_NMOS, tx_impsel.nmos);
+>> +	}
+> 
+> [Severity: Low]
+> Are these register updates redundant?
+> 
+> When calibration is supported, mtk_pcie_sphy_apply_calibration() already
+> writes cal->tx_impsel.pmos and cal->tx_impsel.nmos to PEXTP_ANA_LN_TRX_A0.
+> 
+> Then this loop immediately overwrites the same registers with the exact same
+> values.
+> 
+
+Eh yes, fixed for v3.
+
+> [ ... ]
+>> +static int mtk_pcie_sphy_get_one_cal_para(struct device *dev, const char *name, u8 max_val)
+>> +{
+> [ ... ]
+>> +	ret = nvmem_cell_read_u8(dev, name, &tmp);
+>> +	if (ret == 0)
+>> +		buf = tmp;
+>> +	else
+>> +		ret = nvmem_cell_read_u16(dev, name, &buf);
+>> +
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret,
+>> +				     "Cannot get calibration data for %s\n", name);
+> 
+> [Severity: High]
+> Will this cause spurious error logs or fail the probe when calibration data is
+> missing or unsupported?
+> 
+> If the system does not have CONFIG_NVMEM enabled, nvmem_cell_read_u8() returns
+> -EOPNOTSUPP, which gets logged as an error here.
+> 
+> This error is then passed back up to mtk_pcie_sphy_get_calibration_data(),
+> where it is not caught. This will cause the entire driver probe to fail.
+> 
+> Similarly, if the cell is simply missing from the Device Tree, it returns
+> -ENOENT. This also triggers an error log via dev_err_probe(), even though
+> missing calibration data is explicitly documented as non-fatal and optional.
+> 
+>> +
+>> +	if (buf == 0) {
+>> +		dev_info(dev, "No calibration for %s. Using defaults\n", name);
+>> +		return -ENOENT;
+>> +	}
+> 
+> [Severity: Medium]
+> Is a value of 0 always indicative of missing calibration?
+> 
+> If a valid tuned calibration value is 0, this check will return -ENOENT and
+> cause mtk_pcie_sphy_get_calibration_data() to discard all calibrations entirely.
+> 
+> This also seems to prevent the quirk for cal-version == 0 from ever being
+> applied:
+> 
+
+Fixed for v3.
+
+> [ ... ]
+>> +static int mtk_pcie_sphy_get_calibration_data(struct mtk_pcie_sphy *pcie_sphy)
+>> +{
+> [ ... ]
+>> +	ret = mtk_pcie_sphy_get_one_cal_para(dev, "cal-version", 15);
+>> +	if (ret < 0)
+>> +		goto end;
+>> +	version = ret;
+>> +
+>> +	/* Quirk for eFuse calibration table versions 0 to 4 */
+>> +	if ((version <= MTK_PCIE_SPHY_CALIBRATION_LAST_QUIRK_VER) &&
+>> +	    cal->rx_leq_rl_ctle == 10) {
+> 
+> Because mtk_pcie_sphy_get_one_cal_para() returns -ENOENT when it reads a 0,
+> the version == 0 condition will never be reached.
+> 
+
+Fixed for v3.
