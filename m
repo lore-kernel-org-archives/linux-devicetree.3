@@ -1,212 +1,238 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C08241F7C3
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:02:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B1B31F9B0
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:05:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784552579; cv=none; b=FA0jMBygFTFp8VcaRZpof1be2tiMs4tz7OAcnoo/P7VHW3ZHpOID98URA7ox33j+xRR/glFYGy2JfZCpkgXgOYBRJ50h4DXVG8aygRymsPGPeUvZZ5FAjRJ8hOnFA9J/bxJn34PSTuGvOL8viIv6C2OXDfaUdd64iw/lytYWMM0=
+	t=1784552756; cv=none; b=GsbYGh5le/BhDBqFDFCK4b7rqxBF1jWY0SEyHgvP8JsPhl5AYA4x9HDRcCw0XOrLqROLw06fCtVX2rqYDLvmKz985IK1AV8AMyqD/vThb0IQrOrpQy50WrKqTxNncCC214n7A42JI1iAWz/T9MsuDr4ZTBBwR0Fj+iQ3dA3QcpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784552579; c=relaxed/simple;
-	bh=pdMOhpAd3QfySMj4+ujDj9MH9p+yknuq8LDoUIxcHYk=;
+	s=arc-20240116; t=1784552756; c=relaxed/simple;
+	bh=v0fWKcmmZaTBzmXsWIZR7+NS5yoy15MBy64/dQy39MA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gd7AmaFd9990Ak9rqniDuHZDzu71iHbtBZM+u0MhOCA5LHaKzh2FScix1Tku/mfLBwuh7cPJlIm/ofnafH8US7onijLyWLDeDOGBAZprrKCMXsqUDDRBAV/U4Kaz0fOoEb6YnpKQ8KxgCDVJ0aqZ7npRG0y8XaQ502rVFCuJaCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=W2JlFOGp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jvA7qygM; arc=none smtp.client-ip=205.220.168.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=fN58JARccHQv16znnZ9Fpw7TZhcVhkj7+hPWYzSJwxJBFjLV5i3GL0LfGan8jWuU/mgjunQMFbYC54ROibh7Qh69CTosrI0gFAjEWlqYF5l+YsFco9gWCihFCraiCXLGAM5JYtXIAH4/MuPTaIRKJJ9mgWXWTjTuF63MxI5YXBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=B0LlzcKn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HfrbdEZN; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="W2JlFOGp";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jvA7qygM"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66KAvRln3434614
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:02:57 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="B0LlzcKn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HfrbdEZN"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66KAvPPE2421522
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:05:54 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=CLMqfEhoGvytSHTj4WrRSh8V
-	HSOC2iqzFVkwRAui2sI=; b=W2JlFOGp1T20qkdiJF5EceSDoK5EweuOoSqFkTUU
-	NigyjENVzqsWkunwefd+tpEnZxGQ2Wj4wnCU50gjTVnMqb2A55X2/TTcFjFHtBqx
-	AOoxgOZJEMWe81N/OLwQMIV+ePx0AA7qxNz7vce9vXkOOUzrqyjxRH0YUVgi8599
-	nvoiXYJL/G6/WdcKpqMI2m0WNuF+KrxZatyd+Es84YoQnOB3/6gaWrRCViiLO8oe
-	2lpq0uhuvKdLB/IHM8iyMIduCIUPuR5EbxNZ7IlL47Tq8s7a/Z+fUfIjmiVO3HKv
-	VK+BkCpElLzGojdJ5sksynGv0NY8eV7QlIvOrQpSXgqJcQ==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fhfpg1c5j-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	B9lRDDD1vzpw5E/8CxKTqsEOwuxf/6n9OdNFo1Cm5mc=; b=B0LlzcKnPAUKR+UW
+	CfZO7kvccs9AOuQ0FuM4SZV9mejvKjCVupbx5NbXyrZNbrOXg5hWHnq63OAiJ9lG
+	dU9ePK3MwcRD7uEzXYWhWbyc6gDP4qFmhXb4qIGhDJUvnqSDXQI6fW7Olb2wrBBO
+	KExlDAfvnroX3kJ5rxANUnjiq217XUIweru7UHpX0xlTNY+D1B7170jVzm/GWTVv
+	0lufsBV41RO2EwK9eRCPNljwEy+teG1ZdG4a31O357IPK9ZCn77FgwwAR2R2Xl5/
+	vFPQww+oPkb3frID67ABzH25a8M8vebcZ0WrXcUgsAnlGR0q/HakdVCatkYbNY0r
+	OTcmSA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fhfvxhadm-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:02:57 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cab3e9cd922so5239776a12.0
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 06:02:57 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:05:54 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e632390d2so1323118685a.3
+        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 06:05:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784552577; x=1785157377; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CLMqfEhoGvytSHTj4WrRSh8VHSOC2iqzFVkwRAui2sI=;
-        b=jvA7qygMCFevUU0UBDRvrjuTEc5uUln0+eD+VvnQe24JPiWAEh6zbKI2sgpMS2ZSUj
-         wFo3BFgKHb6yMDKB4mcIh87G/PcIe1um8KDzJPtrnVa+GljwuG33+bksnJcW5HwBkcqQ
-         VDgD4dmxFBNHFkR241hXcQ0b6ytl40MnLwI8AhVDwcmvR+bEi71Lp5auAk8BXkjG1B4z
-         fKm7ErweX7RJUdkWY8NvelIeMGjLQHkmlQSd4a6PrsI8bDoV5RmoCzIiSBQEX8OJ/eFG
-         bPdZoBwTYW/FjjuoBl6Rcx9+Bib3dnHRFyyLpjX9JMmaIDtjAMBmsfgsLifJP8ZxHp/s
-         wcKg==
+        d=oss.qualcomm.com; s=google; t=1784552753; x=1785157553; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B9lRDDD1vzpw5E/8CxKTqsEOwuxf/6n9OdNFo1Cm5mc=;
+        b=HfrbdEZNktMpzRbsGPA3aglJu2U42YhwsEM5ux13YNtXj3e4j9xSUWvBvUxBZUaoYu
+         5wHYJ3SUnJFjlVUU9k9M83tNV6yb0fTOYORO7tqRNuaEvv/JrZHFbpjwEC2zxp8pvrkF
+         dHvUcQHJ5KJ6N/y1JEbzRcVFqknXxmc3jMf2ukE0YZ9FPAJCLyoJ/+qhM07WEUtqIGBa
+         xTn+L9dKshMrXUtx13ceXumb493rpLeMSl9mc1MG12CpakQnQlzzoy7gQ96xpkn8pLmZ
+         lFD+ANmwPBr/JBnpYPIXD3viIlfbHk4RlVEsHhawB4xDWJhM9UGLjeV1CyfhxRUPfUZP
+         uuJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784552577; x=1785157377;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CLMqfEhoGvytSHTj4WrRSh8VHSOC2iqzFVkwRAui2sI=;
-        b=S846obcamPD1k0GhSBIfL5xH2W7MjK8KVHkyAqEDfW/+u0icjdQZ8/loWcRIqLur46
-         t7WH3T3ijZmg+FB22buz5FDV8LvjERwJ9TMhnnYDkLWJWxVLhaxo2YPCCbgH7kPGXMgI
-         RlQo9sRK+DnpUAbNCoGZd/j63uvi4q85r3ZScM3EklqjSSPEbfMxul4E4r4LqrKeAryw
-         rx3oMQSF/Frp8eh/Ut62Lpk2+wWnkN4WFkq1aV5QRvpe8TWP+o3glvLoUznK6AXW9f0e
-         B6ehVkhQPj2YSQhCVgeADPH/U56IjPZ+wXxkZ7v49WJyFViDw4+j2N5R7r0Jp4fzQiYW
-         hrdw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp3uqDuGfrZI2p25AezH7OmZsuiD5Q3UY3Xmd3zTrb6f+4CH5v+0hhfbPP/j3bpQRcLQzE55V/ZXxju@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxa2EarRWCQ56NedJ4TOFaGUnob0n3WgW8QVE4pNOhx66oITwHG
-	ODzm6frlUgN39ySZ2PMD6sUSzmZAI8KrpN8PC2mBuyTAW5ZiG9hSMJD0sk6lzfWbDVgXnjrNTe0
-	J36DzImvpV/s8KGez8I0CgQqB2nbTL3bdrRBT8aajcJibM7WvOh1q5SUbAdysKao9
-X-Gm-Gg: AfdE7cnfEhYrX4yXZCHTuSM2ki9UGF/r21EMWs3b9MWpuhelTLcCgb0ZFzn8aePfe8S
-	AAJvmgin1YCPIYvhTztI/IbWz8H0g4PGkq7zbGb7GvQzbg39l0f+vrilRE85iaDxySlsDUCuqnk
-	h8pDst0qL0Nrfy7FpMbvSGpTZBk9N99fGkHj+C0LIA3l2m7mSHKl6tPy3XGclh7b9gQmyUZJQ+9
-	KzxFhqEN7HLPs2wB2D/1zZuzunHWe0YevUoyW+W+8xhJXV2hcC+RUfuw8sXPvVpoYsyKXl6ZuV4
-	TruXN3BvaS3Fc1Yav3xjpA+pG22+JkzK6EV007kP/5ErHS300aI52iUBOyFugBmN0ewYVIQEDYy
-	1nygzF4HUeFc41MT3rKWbQdcmhFMl3mXHXqDeo+mJW/Y=
-X-Received: by 2002:a05:6300:392:b0:3c3:d199:86cb with SMTP id adf61e73a8af0-3c3d1998bf4mr6719093637.31.1784552571738;
-        Mon, 20 Jul 2026 06:02:51 -0700 (PDT)
-X-Received: by 2002:a05:6300:392:b0:3c3:d199:86cb with SMTP id adf61e73a8af0-3c3d1998bf4mr6719039637.31.1784552571151;
-        Mon, 20 Jul 2026 06:02:51 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a1bb77csm40895117eec.18.2026.07.20.06.02.47
+        d=1e100.net; s=20251104; t=1784552753; x=1785157553;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=B9lRDDD1vzpw5E/8CxKTqsEOwuxf/6n9OdNFo1Cm5mc=;
+        b=Fiqj645dCPB/RQeRIkGFtwT55SI/xdAdrOefMUffi4hD467c/Xoaa/SVqYZMqFWXCh
+         VtBeQtlfBklGXhOt9MLShrTimONMVpvnadehKbAzec5tw2PS4+wPXItUoPP33s4wEO87
+         1oFnT50Rs0mGPgpSFbkylR7e5OoAAeNKiWTaJRPKjE9kWArtnEqf+QGx1MrKtP9yneCp
+         fU35xwe3LBTGP9Zbko6wAx9F1ZbLtpIn7Nl2zg17oZQpypF6+bKNm5dzO0k3yquQJ/bs
+         MMj5i9yBxRcAVdOE6ZSW/rEfELudZKa/T9LGj8cRjJxBC3MGbh6tnBz5R8miPsfXdi8E
+         3Osw==
+X-Forwarded-Encrypted: i=1; AHgh+RrFmXYtiC961c2ca7pkzjHY3qjvuzxT0LdaKGX3xoNvPhH1ZbQasMW9BxqTMaTBUF+Uy5QD1TM3qqyi@vger.kernel.org
+X-Gm-Message-State: AOJu0YxE06szJDVRKH9DowYneJXI+eXS8hVb0KVCXbhsymq87xI5kNRJ
+	JEIzJVmzm4dkjseExAZXs6eEAnwU1693dA7u8xlGu1M6duy1KtQjtkDB0FBD2khIS+hTKGwYs59
+	cPNInRoqo5kjgOPaeDtlTOrSqAWuMaYQxK4UXAky16kvFnin5okxW78FfnPlJKs3N
+X-Gm-Gg: AfdE7cl6J690E2tmmTS/HhK/MwUgJtO4Vclt2Awyc5jcZ70XCAL9wB+F68gSeDJMKr0
+	vqkGoQ7B1Q8gtUHfOvGzsegTZ6SBWMRKgYu2DrDuMDxFbjPtY4C93u7/U7tCMwTGxCPuUiljBTW
+	nvpwXoHyVjGNkfJlL0WaeMjJ+gCUtDPA4pHZ6L88jiitgCIVhy/oFr5uHsWLtjQH29vj0lrCBqc
+	zVPakEj/Jk0xaTWWYQuePc7NfeRlHxMNOlaAF2UOwUd5cZHPsU8mtf8pu50Dd+7PIKMLy/zzosX
+	xjh5o4eX9lZpj15y8Uh8Gz2KOfJdOPReHXltUZF76rDEmwF6Gn8KE3ZjQ3NN9Cz3+XRpeCs9G87
+	o4nLDfjGOD6f9yz/IXuBCQScig2RadypgLb4VFoAMbO9x4L9LoswGWS3bYp+qu5OuWm8jWrFPby
+	X5SotRHsYEUnxSkQ==
+X-Received: by 2002:a05:622a:1114:b0:517:577a:76f2 with SMTP id d75a77b69052e-5213f667ef7mr126686541cf.54.1784552753102;
+        Mon, 20 Jul 2026 06:05:53 -0700 (PDT)
+X-Received: by 2002:a05:622a:1114:b0:517:577a:76f2 with SMTP id d75a77b69052e-5213f667ef7mr126685821cf.54.1784552752353;
+        Mon, 20 Jul 2026 06:05:52 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b291d8a71esm2239425e87.1.2026.07.20.06.05.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 06:02:50 -0700 (PDT)
-Date: Mon, 20 Jul 2026 21:02:44 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
+        Mon, 20 Jul 2026 06:05:50 -0700 (PDT)
+Date: Mon, 20 Jul 2026 16:05:49 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Arpit Saini <arpit.saini@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Nabige Aala <nabige.aala@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
         Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v6 6/6] arm64: dts: qcom: Add device tree for Nord RRD
- board
-Message-ID: <al4cdNAV6JdnmucQ@QCOM-aGQu4IUr3Y>
-References: <20260716142605.2398433-1-shengchao.guo@oss.qualcomm.com>
- <20260716142605.2398433-7-shengchao.guo@oss.qualcomm.com>
- <b522c9b4-4944-4fb2-94f9-bd2553690901@oss.qualcomm.com>
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] arm64: dts: qcom: shikra-cqm-evk: Enable display
+ and add ili7807s panel
+Message-ID: <rq4echpblosddelpjmcms4ezynohrzfbr6axfjtonhd7ptn5mj@gj6ecmqv4ows>
+References: <20260706-shikra-dt-changes-v2-0-56fcd1659ea4@oss.qualcomm.com>
+ <20260706-shikra-dt-changes-v2-2-56fcd1659ea4@oss.qualcomm.com>
+ <8a3cc857-0b1c-4bd5-a5ce-a564823ca614@oss.qualcomm.com>
+ <ec5017a5-8af7-433c-a011-9ad7c6cd33b7@oss.qualcomm.com>
+ <6f8d8cf5-1e35-4d45-b2c1-6f36ac51ad4a@oss.qualcomm.com>
+ <h37rmadj4yallpbm3n4vehm2rcflocwen65jacg7kd3zmpo6hu@ohjpgawid6jf>
+ <4efaa8d7-56c8-4581-a161-51abb319bdcf@oss.qualcomm.com>
+ <fa5bf9e0-66ec-4506-a2fa-bf1d95adf9a6@oss.qualcomm.com>
+ <6c89ef9d-3551-4b92-904c-316dbcffcfbd@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <b522c9b4-4944-4fb2-94f9-bd2553690901@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIwMDE0NCBTYWx0ZWRfXx5iBO7XYaL0u
- ScRxA7uUDhGvjvmZ8UUAjCSn43+4lc+SAXCiw6hOS9GHS0JpU7zBa4JNFoSiBzSWCH108UOR9Ri
- 5zemKTfibwOw49etZ7tY2n02ZOJcQ2A=
-X-Proofpoint-GUID: F2LbNnX5G1kzN9fOD5lbHBvqREf8o3fR
-X-Proofpoint-ORIG-GUID: F2LbNnX5G1kzN9fOD5lbHBvqREf8o3fR
-X-Authority-Analysis: v=2.4 cv=c+6bhx9l c=1 sm=1 tr=0 ts=6a5e1c81 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=yiVUS2zsHPonJHfjLMYA:9 a=CjuIK1q_8ugA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDE0NCBTYWx0ZWRfX1KTF/mZvTZv9
- mrWqkSVTdOELUauAjcaL2MjKcNn+r8Cr9hOSdYfRxQpY/AM6KiU0n5NrcE9a58mioNIi6SrbB+4
- 1Rtrj+GelkUTqMejUOB0ef8S2iWC+tMIlIw0qOBfE5DIyoGg2yW57obtnj6m+AXygLld7k/p0Jr
- yFlT5ejxW/xPZE9UjMK3WFnau2JjjF/U2eltcNH3B3C4BUP/bE+DOh3UKKls/noNg6zKycNMBkj
- 6sZD3eU0GAGrNMoA19EZKoWtXHT3cWqffMlcAnQM2hAAe6zm6VRAmre9eSxsjn5wtBtqDoX4dO3
- B71a5Cl3BxZaAwryXt19D+KwP3sfw8Qu+A6jwxC7IxPSrM3uY9ll5ps0+HkmQhERV1vkhTevXiM
- sCxNUQnvHM1VEL1j9v3VAhmy2VWSvKn9VZ+E0W76/CCnuHtCgJ0LT8IbFKfx1LtDaEQceE9a9Cf
- buKsfo0pOXygTLIj4kA==
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6c89ef9d-3551-4b92-904c-316dbcffcfbd@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=HKLz0Itv c=1 sm=1 tr=0 ts=6a5e1d32 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=Xr-WBXzQFotaGLdkbuEA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIwMDE0NCBTYWx0ZWRfX0MlPopjlg8an
+ Z5p89eFPWd7Wg6PGP3QCgl/19qwc4mwp0X8SqdRMFLNRlV9zmffnBq9K/F2zn6+h3AiraVF+dx9
+ Md932Gy6iTJGWL6LROug1SM7Qksrhy0=
+X-Proofpoint-GUID: 3EQPwye6IQma_3L4MCA0jeKsnrH-zXkH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDE0NCBTYWx0ZWRfX6lUrh025JEyQ
+ ajIMLdKISOR8j6y0C8CO0V2GS3EQ+D7NxI7LQs3WPOAfotIXkMxGEU1Zeogo+hOWNHl0h+Unmot
+ YEVNb/D9p2CjFAb1xnAJL5aRa83YiN0OlP2+9R+ldYPnK+c6cHIAHFOXV7x0tTT2g1NqxHFZgcf
+ wNhbd3qlufgfp08ACmnp9S/MS8bgF7rJlWvMiteonbClLvTC+LDKnCXaPwH0pOitkICIcHtTMoN
+ IO8fIsP+DLW0Be4he/Yy6Ypkkwt9QT6Rp35irVzaKmqrSnyqvb3YLJvXdLeUPsNVUKKL4e0nqWD
+ jMCFtHo2/vJMNbLHhD4XSVy2sX98SUMFg1vc6319q/cTXZeFAKnjXJFzaQvgiFMlhsUl6nAd3BP
+ WjRC6bdvG+r6VT5dHAfEKHJjlvg2i5JiFZEN+RUksOkdjRxerhbTqOy1XzdtJdXBA4/WkGrg3IY
+ 50EKVCDHVW+FTvgyqtw==
+X-Proofpoint-ORIG-GUID: 3EQPwye6IQma_3L4MCA0jeKsnrH-zXkH
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-20_02,2026-07-20_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 bulkscore=0 priorityscore=1501 malwarescore=0
- impostorscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0 spamscore=0
+ adultscore=0 impostorscore=0 clxscore=1015 malwarescore=0 bulkscore=0
+ spamscore=0 lowpriorityscore=0 suspectscore=0 priorityscore=1501 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607200144
 
-On Thu, Jul 16, 2026 at 07:17:14PM +0200, Konrad Dybcio wrote:
-> On 7/16/26 4:26 PM, Shawn Guo wrote:
-> > Add initial device tree for the Qualcomm Dragonwing IQ10 RRD (Robotics
-> > Reference Design) board, which is built on Nord Embedded variant. Enable
-> > the debug UART, UFS storage, PMICs, I2C and SPI.
+On Mon, Jul 20, 2026 at 05:37:25PM +0530, Arpit Saini wrote:
+> Hi Konrad,
+> 
+> On 7/16/2026 11:21 PM, Konrad Dybcio wrote:
+> > On 7/14/26 9:21 AM, Arpit Saini wrote:
+> >> Hi Dmitry,Konrad
+> >>
+> >> On 7/10/2026 6:09 PM, Dmitry Baryshkov wrote:
+> >>> On Fri, Jul 10, 2026 at 05:28:04PM +0530, Arpit Saini wrote:
+> >>>> Hi Konrad,
+> >>>>
+> >>>> On 7/10/2026 2:31 PM, Arpit Saini wrote:
 > > 
-> > Co-developed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> > ---
+> > [...]
+> > 
+> >>>> Normally the backlight EN pin is controlled by a backlight driver.
+> >>>>
+> >>>> However, this panel uses MIPI DCS based backlight control with no
+> >>>>
+> >>>> separate backlight driver. Since there is no driver to assert gpio91,
+> >>>>
+> >>>> we control it via the panel's pinctrl default state..
+> >>>>
+> >>>> So this is platform specific pin , we need this to enable/disable
+> >>>>
+> >>>> the backlight.
+> >>>
+> >>> Handle it from the panel driver. Also please fix your editor to prevent
+> >>> it from inserting extra empty lines.
+> >>>
+> >>
+> >> Earlier I handled it through panel driver, but this GPIO is specific to our
+> >> Qualcomm Daughter Card, it is not going to the panel connector.
+> > 
+> > So is it an enable pin of a voltage regulator maybe? I'm having trouble
+> > understanding how this is all tied together, given the panel driver
+> > uses DCS commands to control the backlight status
+> > 
+> > Konrad
 > 
-> [...]
-> 
-> > +	/* PMIC A - Kobra_MM (PMM8650AU) - SID 0x0, Bus E0 */
-> 
-> This comment is very useful
-> 
-> > +	regulators-0 {
-> > +		compatible = "qcom,pmm8654au-rpmh-regulators";
-> > +		qcom,pmic-id = "A_E0";
-> > +
-> > +		/* LDO Regulators */
-> 
-> This is much less so
-> 
-> [...]
+> No, it is not a voltage regulator enable.
+> GPIO91 (WLED_P1_EN) is the enable pin of the WLED driver IC on the Qualcomm daughter card.
+> The WLED driver is a boost LED driver that powers the backlight LEDs.
+> The backlight control works in two parts:
 
-Indeed! Will drop.
+_that powers the backlight LEDs_.
 
-> > +		vreg_l7a_1p2: ldo7 {
-> > +			regulator-name = "vreg_l7a_1p2";
-> > +			regulator-min-microvolt = <1200000>;
-> > +			regulator-max-microvolt = <1200000>;
-> > +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> > +			regulator-always-on;
-> > +			regulator-boot-on;
-> > +			regulator-allow-set-load;
-> 
-> You made a lot of the regulators always-/boot-on - are you sure about
-> each one of them?
-
-As Bartosz replied, we will drop always-on/boot-on from vreg_l3e_1p8 and
-vreg_l2i_1p2 regulator.
-
-> > +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-> > +						   RPMH_REGULATOR_MODE_HPM>;
-> 
-> It's commonplace to restrict regulators to HPM only because not all of
-> the drivers that should be voting on desired load actually do it. Do
-> you have any intermittent failures, particularly around PHYs?
-
-We haven't seen failures like that. But to be on the side side, I would
-rather follow your suggest to restrict UFS PHY regulators to be HPM only.
+So it is a power supply.
 
 > 
-> [...]
+> 1. GPIO91 must be asserted to enable the WLED driver IC itself.
+> 2. The panel's CABC output (a PWM signal) is connected to the WLED driver's PWM input
+> and controls the actual brightness.
+> This CABC output is driven by the DCS set_display_brightness command sent from the panel driver.
 > 
+> So the DCS commands control brightness via the panel's PWM/CABC output,
+> but the WLED driver IC needs to be enabled first via GPIO91.
 > 
-> > +&i2c7 {
-> > +	clock-frequency = <400000>;
-> > +
-> > +	status = "okay";
+> Since GPIO91 is on the Qualcomm daughter card and not on the panel connector.
 > 
-> It's commonplace to add comments like:
+> Dmitry suggested , it is not appropriate to model it in the panel binding.
+> The current approach of asserting it via pinctrl default state in the board DTS keeps it board-specific.
 > 
-> /* Type-C controller @ 0x15 */
+> If you have a better suggestion for modelling this, I'm happy to follow your guidance.
+> 
+> SoC (ITP Baseband Card)
+>  ├── GPIO91 (WLED_P1_EN) ─────────────────────────────────────┐
+>  │                                                            │
+>  └── DSI ──────────────────────────────────────────────────┐  │
+>                                                            │  │
+> ┌──────────────────────────────────────────────────────────┼──┼──────────────────────────────────┐
+> │ Qualcomm Display Daughter Card                           │  │                                  │
+> │                                                          │  │                                  │
+> │  ┌─────────────────────────────────┐                     │  │   ┌──────────────────────┐       │
+> │  │  DLC DLC0697 Panel (ILI7807S)   │◄────────────────────┘  │   │  WLED Driver IC      │       │
+> │  │                                 │                        |   │                      │       │
+> │  │  DCS set_display_brightness()   │                        └──►│  EN                  │       │
+> │  │        │                        │                            │                      │       │
+> │  │        ▼                        │                            │                      │       │
+> │  │  CABC output ───────────────────┼───────────────────────────►│  PWM                 │       │
+> │  │                                 │                            │                      │       │
+> │  │                                 │                            │  LED outputs ────────┼──► Backlight LEDs
+> │  └─────────────────────────────────┘                            └──────────────────────┘       │
+> │                                                                                                │
+> └────────────────────────────────────────────────────────────────────────────────────────────────┘
 
-We would like to drop untested/unused I2C buses/devices instead.
+This is a nice diagram, but it shows backlight LEDs as something
+completely separate. Usually they are a part of the panel. Are they not
+in this case?
 
-> 
-> Otherwise this lgtm
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+I'd be more interested in a different representation of the information.
+What are the _actual_ panel inputs? Decribe those (and only those) in
+the panel bindings.
 
-Thank you, Konrad!
-
-Shawn
+-- 
+With best wishes
+Dmitry
