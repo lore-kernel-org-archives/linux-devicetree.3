@@ -1,101 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A693C1978
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 20:33:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91AF2449B09;
+	Mon, 20 Jul 2026 20:33:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784579592; cv=none; b=gQxPMfc4k/8d5L+EyyOs8IcvTko9EY75ruoq2SuJyDemkrhIkOKODolviYmkjQl6q9yn+wnwXAFrM+2XC6WAhsp5jmXqG+6FUekAXnmkZvxzd0WoVqNT52+FjssVP0so2RPq1JD9zM2yrOedyH6S189W/DsMY3IF4eUuQk9a7ic=
+	t=1784579617; cv=none; b=k41x+ytPW8UIAjY7fEBF7tCD4JL4ZQkMsiv8YOw/czstszluhNbdnhbbAN674O9Ap8yqf+XNMUzG3jON7ip5JNswBkSzHsXihQ9e8X6FRbwnQCIMPG5tNQcy7UaSwNJKqOd15h3GFT9niLfx50IcY9WEmImTRXx2CEIPdQaGMfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784579592; c=relaxed/simple;
-	bh=ozel5HI5ePj2wglzc+mHI2odfZ8EbN7aVMl+0qFR6r0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Yr1Ii0dV1nGTnG9Kp+AKxZTN/5Xa3fbe3yfDOcss5fklHPYYm4X9yh104ZT6kATj29uOF3Mw0ksMBuzLVUnPcD1D/Xb2bpvj/RSm4h6cZxYrnXuPs9Kql5lptYKgcC3x+LBB0oq8uFbVzNKMm3PsKG/rj5x+SfpEQZAE5PTHar0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RxDLMo+g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784579617; c=relaxed/simple;
+	bh=oDHGp2go1H7tN2DnDXFDItIQMtTVKJ3fQwPAuMiHgGU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UOxk3EWGlTqY6Eb519brba2k5FwsLXkdvxkixTRx0yW8uceot+Gpi/wOlRdwe0a3I7hr+4Ev7GiWTd3r4u14fynBMlOSXQ0nUBb/wf44W5V8oFP/34u8HOluQXSRu7iLPSVPtId/jFgrrZuWSzFt3WSNibyUEFSEL8uCnJ2Ta18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=hoOT0BdV; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RxDLMo+g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 145671F000E9;
-	Mon, 20 Jul 2026 20:33:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784579591;
-	bh=h3spzJZAMsTstqyxLc4PYRGtIyHZwy4+XperNFJK/gk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RxDLMo+g0zRFqOrk3s3wH/4JauMvjehh4QU7wlPJNsAlhOPqexXMTBK2JEqd0oNgj
-	 sccH48GBfS6lQn8XlFmL3N6aSAs+1Mu58oYTv25o8irA07HtKW1NX9gSh92jevKLGk
-	 g3jZJxZL1hdOxXDypQRL17ph5130lmXW5siVAbvBEgedN2gP/CcJ5EyG5cx6d6PvAB
-	 Ek2c07XI/rUHFBQHa0iB7Lym6PDnlgVfmVSC1Xxs1vpYjGVkrbCOrhR+uS4FtmNfSg
-	 EwdE0MajtmFQAgLuY6Cd1CLbFYwXMUc/gtngL/vajOwxRO+0oUlFPuc47wBPQmrLPi
-	 CAneDxzdkL/Rg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: extcon: ti,extcon-palmas: Convert to DT
- schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bhargav Joshi" <j.bhargav.u@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260721-ti-extcon-palmas-v1-1-cd4071f0b9d9@gmail.com>
-References: <20260721-ti-extcon-palmas-v1-1-cd4071f0b9d9@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 20:33:10 +0000
-Message-Id: <20260720203311.145671F000E9@smtp.kernel.org>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="hoOT0BdV"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 2C54E40E00E6;
+	Mon, 20 Jul 2026 20:33:33 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id VGIGm9ynH6ep; Mon, 20 Jul 2026 20:33:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1784579603; bh=hZl3fTHtLJ5//e+MljG2urE5lkwLT0MjNo/RuVoiEvw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hoOT0BdV5/erE+vXxP8xr9yr+pBk5Dg/L+1IB9vXIFy3s/33Al38UiJYVfuu9xFZT
+	 WpxMVBPL+BdGSmo612GAXNa6HocsN/EY6BAQykfsp4NKLVFC6p1Ur81WB1Ik5XqMiu
+	 tHMUk7t96aHfIkcVhS0wttTTIjZqy1677uXDH1d5aZgYdCOB3BOODY8ycCgWOVqGeE
+	 m9p1+5UN+6FD+fA/4Z6cSp0176Co63Q/j3rxeDy3JaoFLwx3Fdlzmwkbu3+3uBUFLV
+	 hZW/4edvDZL/9P6aepJtgre4IVcOYfLWFJEWp3rWpjr2gP4oXEgeKShNV7hoHboEkn
+	 L09MxGBpdXlc3u+zApPprZXPnsPHu+A4ELsKxz0qx3/DWubOs9kMdnNYgXyjC5UwtW
+	 1y5iqy4Iyz065Rj/26Xu4AFD65LHwG0ijR/EtiWNgwx1OXq0g27c/2XOimTOslFxCn
+	 2ePDupFtGsJWekWjuliv0HZZRd/iGduk18h70ulAbcmR4CSfZMwXUPJ9qQ7ud39ATK
+	 m7/oiZXZ+RyIV/6qgKIH8Aoq+qgmMZ96iZhWJcenkucGlEveUYsKrYqYUy+oWcS9nc
+	 re5ano4sux3sS6l8a2ACgSEvZMNbZMMQeXGWGoHZlQWXvMGYVRHwKny9O9KPemqznR
+	 tpbHQ/aqOF961KntuAiG/Psk=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::40])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 6631740E00DC;
+	Mon, 20 Jul 2026 20:33:12 +0000 (UTC)
+Date: Mon, 20 Jul 2026 13:33:09 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Dinh Nguyen <dinguyen@kernel.org>
+Cc: tony.luck@intel.com, rounakdas2025@gmail.com,
+	niravkumar.l.rabara@altera.com, linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 0/4] EDAC/altera: Add support for Agilex5 platform
+Message-ID: <20260720203309.GBal6GBexzEbw8DMPo@fat_crate.local>
+References: <20260720201425.1538771-1-dinguyen@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260720201425.1538771-1-dinguyen@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The device tree node name in the example uses an underscore (`palma=
-s_usb`), which violates standard DT naming conventions. It should use a hyp=
-hen (e.g., `palmas-usb` or a generic name like `usb-comparator`). This chan=
-ge introduces a `dtc` warning (`node_name_chars_strict`) during `make dt_bi=
-nding_check` that was not present in the original text binding.
---
+On Mon, Jul 20, 2026 at 03:14:21PM -0500, Dinh Nguyen wrote:
+> This series add preliminary EDAC support for the Agilex5 platform.
 
---- Patch [1]: [PATCH] dt-bindings: extcon: ti,extcon-palmas: Convert to DT=
- schema ---
-commit bda055e9092743c0cf88faae7d326b21581d09bb
-Author: Bhargav Joshi <j.bhargav.u@gmail.com>
+So I'll be looking at new features to this driver only after all existing
+Sashiko issues have been addressed.
 
-dt-bindings: extcon: ti,extcon-palmas: Convert to DT schema
-   =20
-This commit converts the Texas Instruments Palmas USB Comparator binding fr=
-om
-the legacy text format to a modern DT schema.
+Thx.
 
-> diff --git a/Documentation/devicetree/bindings/extcon/ti,extcon-palmas.ya=
-ml b/Documentation/devicetree/bindings/extcon/ti,extcon-palmas.yaml
-> new file mode 100644
-> index 0000000000000..0bcd8df79414a
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/extcon/ti,extcon-palmas.yaml
+-- 
+Regards/Gruss,
+    Boris.
 
-[ ... ]
-
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    palmas_usb {
-
-[Severity: Low]
-Is the underscore in this node name intentional?=20
-
-The original text binding used a hyphen (palmas-usb). Using an underscore
-violates standard device tree naming conventions and will trigger a dtc=20
-node_name_chars_strict warning during make dt_binding_check.
-
-Would it be better to stick with the original palmas-usb or use a generic
-node name like usb-comparator?
-
-> +        compatible =3D "ti,palmas-usb-vid";
-> +        ti,wakeup;
-> +        ti,enable-id-detection;
-> +        ti,enable-vbus-detection;
-> +        id-gpios =3D <&palmas_gpio 0 GPIO_ACTIVE_HIGH>;
-> +    };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-ti-extcon-=
-palmas-v1-1-cd4071f0b9d9@gmail.com?part=3D1
+https://people.kernel.org/tglx/notes-about-netiquette
