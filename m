@@ -1,107 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE37D3A962E
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 05:56:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB57B38E12B
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 06:01:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784527032; cv=none; b=iGJsDxaZxCXyT/g82cdQ4MeBxiVaiY7Iwy/FRHRTAnJCwDdE8JieDn+aQdFAn49CgEYag0ulPR4UCGHiiFiWBwa+TeMeSrnH2gg1AwnhxbwKeAyojQRUk1N1n9/031mUi9AtvNo5bVDSCMMOlR3D1SB3FB5b8yYi1Oo/bl2wFYY=
+	t=1784527288; cv=none; b=RinUoB7hleCgOOgyyBR1B06TO+u0eY9CCt+Zx+UP68VN+MjKHtQQ+UASb9sRGJKECpS2z7ymVt0f2LFvBUygSxbjUrUmMZ261P9584oiKxImen4gRMm4n8r6GEszY/7iUsaEuA/gcGv3pC7RqAv0ShBotP7E/OK7LM+G/ixOrIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784527032; c=relaxed/simple;
-	bh=aLrUsW8jwtHldeVGvhijtjTuceaprdhc8SG0g2SJfj0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MkXePlZO+qxcpArua9mp2GTb1CB1UgTgmp60qp9exnxcOiL/TRptoOlzSSLpqq1DWfZUoeZ622Wxtw97/sC3Ua0IMWruQ/9uCb5+F5F9SvyGYNhtE4CPmj8dm8bfoiSuR48tWOQjI9jJiSJ46KooWSLnkr3+nA5DltM42hQnfqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=COtdtWqH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784527288; c=relaxed/simple;
+	bh=wwnlxyM97g5gXcU7wg6PIobYqg7uUyC4T+tkEFb9WDE=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=K7nlovWRR6mSjQg/PYyoJk/xyeXGgy0uPighnDsowc+1WGPyxIogvy8bCZUBceabkuM3MUMhI2Cyj+CaAk9HiTF3fznWyyYvpyBMw46zHIdRAemRmV13s3i0Uo/sMq3huMzDNXIt32GdtTHz5edXH6KQBuyfvKMmduyQzTHboQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=l2NVX2Vu; arc=none smtp.client-ip=91.218.175.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="COtdtWqH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F33251F000E9;
-	Mon, 20 Jul 2026 05:56:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784527010;
-	bh=W9tiU12adFX523XM8iVYNqRGhS0TSBfdQ35YbyIFOqo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=COtdtWqHFYGKqw7pCmjWxegzhn/IyEG1oYl8oCoHdicobq6T8c5I/hv43nAoyLpNY
-	 h/xyklfUywUDbMIoprj5xvfqt9k9X00BTqhAnPvjaSNegc/YZ7XW6+jbhHROXaYsfj
-	 ZTcEWr/gPcO1rQiRknqZTu5RI+wEs/Iqx9Qe42enHFMgOJ+JwXtIedT1Py4nRTph7N
-	 cFZCHxL4J/MUV//5Q5oRiXe9r64EDAfZNyXHkD9hMaPXWhzTrBO/7E9gSEOR3wlqti
-	 LPSDo04T+EFl+ZXexagOVoTIVYxAIFdFrfATjs3Of606csyUpMvWJA9pJCXwS2Ohgh
-	 R3E1suGCUP1DA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] powerpc/dts: pdm360ng: Convert ADS7845
- touchscreen to DT bindings
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260719-ads7846-pdm360ng-v2-2-1198bd108502@gmail.com>
-References: <20260719-ads7846-pdm360ng-v2-0-1198bd108502@gmail.com>
- <20260719-ads7846-pdm360ng-v2-2-1198bd108502@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 05:56:49 +0000
-Message-Id: <20260720055649.F33251F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="l2NVX2Vu"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784527274;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZKDPGORur0xVtYmq0hXZ7pENIE/FDt/uYqyAGbmL6Xs=;
+	b=l2NVX2VuhhxptgreNBaTCt8CkV1ZQErCjdqTtpcV6nCxABk805WyeUS6xP7BazdoFT8SbM
+	kuton7auhyFPBjWWN97R2kjhwe5jor2vR7TVMdsNk2YFEmT/1Blolik5+qF55bfouKv4kb
+	EyKcRwL1K/FI7JQWcOHbgQjhv41Ari8=
+Date: Mon, 20 Jul 2026 06:01:08 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Siratul Islam" <siratul.islam@linux.dev>
+Message-ID: <e1fe5f3f8445bb104112ffddc592eea9a370c5e6@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH 2/2] iio: magnetometer: add support for QST QMC6308
+To: "Jonathan Cameron" <jonathan.cameron@oss.qualcomm.com>
+Cc: "Jorijn van der Graaf" <jorijnvdgraaf@catcrafts.net>, "David Lechner"
+ <dlechner@baylibre.com>, "=?utf-8?B?TnVubyBTw6E=?=" <nuno.sa@analog.com>,
+ "Andy Shevchenko" <andy@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Luca Weiss" <luca.weiss@fairphone.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260720020640.4bdde14e@jic23-huawei>
+References: <20260714202842.340293-1-jorijnvdgraaf@catcrafts.net>
+ <20260714202842.340293-3-jorijnvdgraaf@catcrafts.net>
+ <d7fffbeacc77c3135564f902c41f19a219ddce75.camel@linux.dev>
+ <20260716141837.83326-1-jorijnvdgraaf@catcrafts.net>
+ <ea6f4eaeb0535d607d77920515e9cb1739266624@linux.dev>
+ <20260720020640.4bdde14e@jic23-huawei>
+X-Migadu-Flow: FLOW_OUT
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+July 20, 2026 at 7:06 AM, "Jonathan Cameron" <jonathan.cameron@oss.qualco=
+mm.com> wrote:
 
-Pre-existing issues:
-- [High] Unchecked Error Return / Uninitialized Memory in ads7846_setup_spi=
-_msg
+
+>=20
+>=20On Thu, 16 Jul 2026 19:06:51 +0000
+> "Siratul Islam" <siratul.islam@linux.dev> wrote:
+>=20
+>=20>=20
+>=20> July 16, 2026 at 8:18 PM, "Jorijn van der Graaf" wrote:
+> >=20=20
+>=20>  ...
+> >  > +#define QMC6308_AUTOSUSPEND_DELAY_MS 500
+> >  > You can call it QMC6308_SLEEP_DELAY_MS to align with other values.
+> >  >=20
+>=20>  I'd prefer to keep AUTOSUSPEND here: it names the mechanism the va=
+lue
+> >  feeds (pm_runtime_set_autosuspend_delay()) and matches yamaha-yas530
+> >  and ak8974 in this directory.
+> >=20=20
+>=20>  I can find atleast 10 drivers in IIO that uses *_SLEEP_DELAY_MS po=
+stfix
+> >  for autosuspend delay value. So it's not a strong reason not to use =
+it.
+> >=20
+>=20This sort of thing tends to be author preference as both show up.
+> AUTOSUSPEND is clearer in purpose so if anything would be my slight
+> preference
+>=20
+AUTOSUSPEND=20is a bit more specific, but it's too long and doesn't align
+with other #defines. I was suggesting SLEEP because it would align perfec=
+tly
+with all the other defines and there are existing drivers that use SLEEP.
+> >=20
+...
+>=20
+
 --
-
---- Patch [2]: [PATCH v2 2/3] powerpc/dts: pdm360ng: Convert ADS7845 touchs=
-creen to DT bindings ---
-commit 06fbaa99ffa69ed22e692eeb23d6d33c9a3cdfdd
-Author: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-
-powerpc/dts: pdm360ng: Convert ADS7845 touchscreen to DT bindings
-
-This commit updates the pdm360ng device tree to use the correct "ti,ads7845"
-compatible string and native DT properties for the touchscreen. It removes =
-the
-reliance on legacy platform data injection for configuring the device.
-
-> diff --git a/arch/powerpc/boot/dts/pdm360ng.dts b/arch/powerpc/boot/dts/p=
-dm360ng.dts
-> index 67c3b9db75d76..05e93ca294ee3 100644
-> --- a/arch/powerpc/boot/dts/pdm360ng.dts
-> +++ b/arch/powerpc/boot/dts/pdm360ng.dts
-[ ... ]
-> @@ -176,11 +177,12 @@ psc@11900 {
-> =20
->  			/* ADS7845 touch screen controller */
->  			ts@0 {
-> -				compatible =3D "ti,ads7846";
-> +				compatible =3D "ti,ads7845";
-[ ... ]
-
-While reviewing the touchscreen configuration changes, I noticed a detail in
-the underlying driver's probe function:
-
-drivers/input/touchscreen/ads7846.c:ads7846_probe() {
-	...
-	ads7846_setup_spi_msg(ts, pdata);
-
-	ts->reg =3D devm_regulator_get(dev, "vcc");
-	...
-}
-
-[Severity: High]
-This is a pre-existing issue, but does this code ignore the return value of
-ads7846_setup_spi_msg()?
-
-If memory allocation inside ads7846_setup_spi_msg() fails, it returns
--ENOMEM, but spi_message_init() would be skipped.=20
-
-If probe continues and eventually calls ads7846_read_state(), it passes the
-uninitialized ts->msg array to spi_sync(). Because the transfers list head
-has NULL next and prev pointers in this scenario, could this result in an
-immediate NULL pointer dereference inside the SPI core?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260719-ads7846-pd=
-m360ng-v2-0-1198bd108502@gmail.com?part=3D2
+Best regards,
+Sirat
