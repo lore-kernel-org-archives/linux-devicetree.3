@@ -1,104 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15889475
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:53:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1EF42586C;
+	Mon, 20 Jul 2026 13:54:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784555617; cv=none; b=DU/CqbVjUyWwjgxQnsZT2NWJD3qewIeCaMdVJvQom1h7dInz175OIc5ht2hjzNNw+zrbDtc6+Fq+YUk8XZJ/2tiNvkO/A3cum5AoOvjMedw4dyF34+G2HNACViADmMe3li/U/VnTiJg4Nr06DIFkwkLB5X3cuIy9oTw4AVrsb34=
+	t=1784555659; cv=none; b=R3yRmCklNaJxe1bPd+qVXoiUhfOhTB3SKsMOdOSk4KB2GhFPk28gZMjdXGVXmLsoyWHUYYd4O2ZzOPJcm787BQc34VyTP0yYbsy5gnCCeyoYrqHAjM5yE8IuTWMlRc8PPP+tOb5mWLPHxjWp6knnBlqECNl56wrAZ8rR8ybeJwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784555617; c=relaxed/simple;
-	bh=li4r/tg4JMvrsuaKGLIE886SQt/s+ELqdNtju9gzeiM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IP94mxTpPJJhiBlDemPeHRAwjIAocZ+5puFFfSCwlLxiYsVkwQAZsXVMYV1RDDrKpfPRZMHhJadBlMlPhu4+fyPSMYX9yyadpKRY2AQgo5QoIg9bppi1VCOvMKPXBnDnXSlCu8H+pPeMyR+ji3IQVhki/igGyFP+DLu9PxT6N3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l2DQueFM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784555659; c=relaxed/simple;
+	bh=ib28vJDYiKmHcDyK/UpURzcfp8BRW36RPjln12pow78=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T/Q6xVoDRzP75UEe/XUbfB+OsxmCNhffAFHv/xzPsASbaKEJujS2Nkl8D5qBqwEd3sAlSOq0rsRlX4wSB77TMF++BPWLak4Cypi58HFqvyPtoHX3zHpJuw7R0kcnFdR+6SdcyZUiI0MCTqT9h7e50R+zjGQAmyiogRjGA6FU7mM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=J/Em3Klb; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l2DQueFM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2455F1F00A3A;
-	Mon, 20 Jul 2026 13:53:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784555616;
-	bh=+HRLJpWdJvMqicxywTFH8ps/eLO/SOD9TEHKB7F7MuA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=l2DQueFM64nnGq8VTlzn4eaxajnfGsjtT4JxMl4jBM0QEGXjovF8rZq2PFeTy5wIO
-	 uEu4BdntVm2DuutDWsKuc+k931Bp9Q+mIN0CfACo/a9k+cnU/F3rokeX0PWy5ybsFE
-	 gsdtXtx8pcYf2ciPbXWsKBUQdKtqDRRbl7BmbNHEL7F2+hthtMog/SodipqV23By4J
-	 T2TgI8JUASDsi/r9piCakGkkff7GUdbz2lHnCga2JL8ikNQJpCs0/1RzLqW6Zux/L2
-	 YNk9XlEzxucauJGLXwRxFFke2AqxykmaskxiOUlo+glogwQl2DJozu/cG2fv/FoXXS
-	 Isz16yMSyG3nQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 phy-next 4/8] soc: fsl: guts: make it easier to
- determine on which SoC we are running
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vladimir Oltean" <vladimir.oltean@nxp.com>
-Cc: olteanv@gmail.com, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260720133642.136324-5-vladimir.oltean@nxp.com>
-References: <20260720133642.136324-1-vladimir.oltean@nxp.com>
- <20260720133642.136324-5-vladimir.oltean@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 13:53:35 +0000
-Message-Id: <20260720135336.2455F1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="J/Em3Klb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1784555656;
+	bh=ib28vJDYiKmHcDyK/UpURzcfp8BRW36RPjln12pow78=;
+	h=From:To:Cc:Subject:Date:From;
+	b=J/Em3Klb1iVFK4yuQPbJePEhaSge583cobLXXAxfGmeoq4x26911sIgTnVLecHUy8
+	 6y2Iu1cMOsp3qyanETBz3oyBw0+DH9YUpmCycAidxJnyxzJ+DKAM/XW0ozaWnf+2mI
+	 ZxgFJfpjIYZqPCpwNkHis8/I/kJylvE0ljCbg/ZmeC8JNFIsbFAWdUpi7bev2YwoCy
+	 BU3yCpBqJsHelJtEFGaGhf/GEGKIo0ggnGvRsoBxHlOOh0sphuMIAvRYsClig6P2W4
+	 nR3Tdj87qLYPfyyhuNkdTNRh4CG7oQ4w1fli9KLE0Fzx8L2noxbOpAW4yIaI1bwNam
+	 cvOn2wEJzhCaQ==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9A82417E0910;
+	Mon, 20 Jul 2026 15:54:15 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: chunfeng.yun@mediatek.com
+Cc: vkoul@kernel.org,
+	neil.armstrong@linaro.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel@collabora.com
+Subject: [PATCH v2 0/2] PHY: Add MediaTek PCI-Express Gen4 S-PHY Driver
+Date: Mon, 20 Jul 2026 15:53:42 +0200
+Message-ID: <20260720135344.84183-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Dereferencing a NULL pointer on the `soc_dev_attr` allocation erro=
-r path in `fsl_guts_init()`.
---
+Changes in v2:
+ - Added items/description to reg in binding
+ - Added missing pm_runtime.h inclusion
+ - Moved pm_runtime_enable call to before registering PHY
+ - Fixed pmos/nmos variable size for 5 bits calibration values
+ - Fixed calibration for single-lane PCIe, as in, the ln1 rswn
+   calibration nvmem value is ignored in code if it's single
+   lane and will not return an error; this is due to the fact
+   that, effectively, single-lane may have a zero calibration
+   in tx-ln1-rswn which is fine, as that'd be anyway unused
+ - Changed calibration data errors to dev_err_probe and changed
+   the "no calibration for ..." message to dev_info instead
 
---- Patch [4]: [PATCH v3 phy-next 4/8] soc: fsl: guts: make it easier to de=
-termine on which SoC we are running ---
-commit 27fff30cda7c763b92c9fd890450416b6a304140
-Author: Ioana Ciornei <ioana.ciornei@nxp.com>
+This adds a driver for the PCI-Express Gen4 "S-PHY" found in the
+Genio MT8894, Kompanio MT8196, Dimensity MT6991 SoCs (which are
+all variants of the same chip).
 
-soc: fsl: guts: make it easier to determine on which SoC we are running
+This was successfully tested on MT8894 and MT8196.
 
-The guts driver will need to easily determine on which SoC it's running
-when it will need to perform RCW override at runtime. The guts driver
-knows this already because fsl_guts_init() reads the QorIQ/Layerscape
-architectural System Version Register (SVR), but it doesn't save this
-for later lookups.
+AngeloGioacchino Del Regno (2):
+  dt-bindings: phy: Document MT8196 MediaTek PCI-Express Gen4 S-PHY
+  phy: mediatek: Add support for PCI-Express Gen4 S-PHY
 
-> diff --git a/drivers/soc/fsl/guts.c b/drivers/soc/fsl/guts.c
-> index e1b3a054e681b..922560d987824 100644
-> --- a/drivers/soc/fsl/guts.c
-> +++ b/drivers/soc/fsl/guts.c
-[ ... ]
-> @@ -239,12 +274,12 @@ static int __init fsl_guts_init(void)
->  	if (!soc_dev_attr->family)
->  		goto err_nomem;
-> =20
-> -	soc_dev_attr->soc_id =3D kasprintf(GFP_KERNEL, "svr:0x%08x", svr);
-> +	soc_dev_attr->soc_id =3D kasprintf(GFP_KERNEL, "svr:0x%08x", soc.svr);
->  	if (!soc_dev_attr->soc_id)
->  		goto err_nomem;
+ .../phy/mediatek,mt8196-pcie-sphy.yaml        |  93 +++
+ drivers/phy/mediatek/Kconfig                  |   9 +
+ drivers/phy/mediatek/Makefile                 |   1 +
+ drivers/phy/mediatek/phy-mtk-pcie-sphy.c      | 561 ++++++++++++++++++
+ 4 files changed, 664 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/mediatek,mt8196-pcie-sphy.yaml
+ create mode 100644 drivers/phy/mediatek/phy-mtk-pcie-sphy.c
 
-[Severity: High]
-Does jumping to err_nomem when soc_dev_attr allocation fails cause a NULL
-pointer dereference?
+-- 
+2.55.0
 
-In an earlier commit in this series ("soc: fsl: guts: add a global structure
-to hold state"), the error path in fsl_guts_init() was modified to unmap
-soc.dcfg_ccsr, but it seems the cleanup assumes soc_dev_attr is valid:
-
-fsl_guts_init()
-	soc_dev_attr =3D kzalloc_obj(*soc_dev_attr);
-	if (!soc_dev_attr)
-		goto err_nomem;
-    ...
-err_nomem:
-	ret =3D -ENOMEM;
-err:
-	kfree(soc_dev_attr->family);
-
-If the dynamic allocation for soc_dev_attr fails, wouldn't we dereference
-the NULL pointer when freeing its members in the err block?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720133642.1363=
-24-1-vladimir.oltean@nxp.com?part=3D4
