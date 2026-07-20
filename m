@@ -1,139 +1,75 @@
-Received: from m101-out-mua-6.websupport.se (m101-out-mua-6.websupport.se [109.235.175.106])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC2D931714C;
-	Mon, 20 Jul 2026 16:47:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.235.175.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F262D8376;
+	Mon, 20 Jul 2026 16:50:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784566024; cv=none; b=tYjUoInTbGGGZaXgS/52DAfbp5Etv+91eQ9Az6/+S0kyYuJZ63CdUpX/o+E3BN81bzf/ve3xiCeFEF4IVhBmAVbBAADDcfhxqZXxb9LsCqGJ5u2ukFkFDKCwN87F1otd31UWJ3q/RYNnTAiVIgxVazYQbmBFdu0SAd3zPqZENu8=
+	t=1784566261; cv=none; b=YVqMTwQDdYDlKGbugn1C9cozPJ4cUchiVdX/UB+Z4BXG6ROsK8+YqkDH56dM8M3Lre9OUzX6nn23hOnPdK4v7yXA6rbB/dZPvsWrX0TNMnksljnjCRmwjQPdoQE/q0exIiNkhcqKF6lrdUtAQjmqHD3Auw7D9TNIb1ZWv2mGZ8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784566024; c=relaxed/simple;
-	bh=RTe5ej6XGwXH3vF2Gs/Z0SOnGtz92K2DY3izKnycdu0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=C78ehZ/2bJd4NaxiBDUjfPT0lUJ7ZtfBjpEw67S64pHwiJjlwPdjWlG7rg2h4+fqlutISfxsbYpiu97jw5jv83ap/7sncNZTe9qFl8BiFum82OeFbkj1yCIDQcZYo9bwBy3aPZP7ME78X4MNZqd3L2fZCgZa6og4gxty/tWfqI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=palvencia.se; spf=pass smtp.mailfrom=palvencia.se; dkim=pass (2048-bit key) header.d=palvencia.se header.i=@palvencia.se header.b=qZe0qHGW; arc=none smtp.client-ip=109.235.175.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=palvencia.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=palvencia.se
+	s=arc-20240116; t=1784566261; c=relaxed/simple;
+	bh=xiuXsT7XdacxTNIaCEPX2xle/BDBo7iIWuCIWqBwOMI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e7Zg31PYkkYRyWa/mzhTS7tAhbWVQBhGbqJ84ub5VLixFE4D5jrWJKySjvgs23NVrTzpxhr7gdwmPlFSDFuX1dxNH6ieX+AxFaPgh04Yau2dP8NmrqCNj0Z+GnQDZSBqRcNp7//zHTckkvknHw/dYPTimd728x3hE8fVNdTn54M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Wr4Rr3r/; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=palvencia.se header.i=@palvencia.se header.b="qZe0qHGW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=palvencia.se;
-	s=mail; t=1784566013;
-	bh=GqGKoMyp6zz7p6qJgkYxp+MeFclOmF1BYBbUzO+9Wew=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=qZe0qHGWs4+esPCeXr1DxDwgQJer5FJrOGGtofhjO+5oS/5IBi9TscKZY2BJzR4Tx
-	 X4eFZ05osU/ls1p8S92YKFLzJJ+1mPWz3f/0tlUlFnWd9EaDarvrhwQSc388PTj87A
-	 ytBBxbU7oleKD1jwSJ7s5tYD8ddL362Y03Aq/eiQT0uI9E1wbYCV+9/sNN9kSEEnX5
-	 rZbe5iX7pPtmecroYTTC2th1L58RvKYIuxwLS6sSX2Ev/4meU7LjQxtnXzqRvqiRkx
-	 i269TH1GcLEp6pYhwIhdwVp1FbY3j8ywaimyx+jl52yHdZc1WZ/+0J+AfUR+/ia3Jk
-	 QBXATdUXzD0Kw==
-Received: from m101-u6-ing.websupport.se (unknown [10.30.6.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
-	(No client certificate requested)
-	by m101-out-mua-6.websupport.se (Postfix) with ESMTPS id 4h3md92vTPzNBj;
-	Mon, 20 Jul 2026 18:46:53 +0200 (CEST)
-X-Authenticated-Sender: per@palvencia.se
-Authentication-Results: m101-u6-ing.websupport.se;
-	auth=pass smtp.auth=per@palvencia.se smtp.mailfrom=per@palvencia.se
-Received: from rpi (unknown [193.180.91.63])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: per@palvencia.se)
-	by m101-u6-ing.websupport.se (Postfix) with ESMTPSA id 4h3md76qsMzYWR;
-	Mon, 20 Jul 2026 18:46:51 +0200 (CEST)
-Date: Mon, 20 Jul 2026 18:46:24 +0200
-From: Per Larsson <per@palvencia.se>
-To: Chen-Yu Tsai <wens@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, "open
- list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, "moderated list:ARM/Allwinner sunXi SoC
- support" <linux-arm-kernel@lists.infradead.org>, "open list:ARM/Allwinner
- sunXi SoC support" <linux-sunxi@lists.linux.dev>, open list
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH RFC] arm64: dts: allwinner: a523: Add SPDIF to
- x96qproplus device
-Message-ID: <20260720184625.2609093d@rpi>
-In-Reply-To: <CAGb2v64rRipC9VV5QyHC0nR4rAho8q=wX0ngVVxRND3xMOnofA@mail.gmail.com>
-References: <20260719030927.2417-1-per@palvencia.se>
-	<CAGb2v64rRipC9VV5QyHC0nR4rAho8q=wX0ngVVxRND3xMOnofA@mail.gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Wr4Rr3r/"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 88FC64E40E75;
+	Mon, 20 Jul 2026 16:50:56 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 50A6260360;
+	Mon, 20 Jul 2026 16:50:56 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5208E11BD0382;
+	Mon, 20 Jul 2026 18:50:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1784566254; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=sjX+9x0hottSvvIBjAOtiqc812VcJKoGeEL9Lkzb2Wc=;
+	b=Wr4Rr3r/gj7+03fa3rdg1Ic99q24vYMoan6WwJP/OjkbaywQwGDpFG7KlkAq0LIjgCflnU
+	6OSOnKiFYG1DKm19zddJi9qOCG+n+RLcnezgOxElqTHLgSM7axBI81NaZc/LF97aE9KliK
+	D2Ok0qr1JD7GxegCq6sBRzA3VcO5CdDHOfpWOkTI3kZNPobNV8413+VynOdiAjW+cdRodw
+	ZGFVMN9I9IbOjEJ+O7X0848yjtI9zJErNqo5qOK+x2auQHRlGe7zls6iqGxYmKJTMT58tC
+	f9M/NGIOz99bd13Gjo/nqEn1oyZFeIh4SSSXoMEPaTJCgjhY8ccynvXcgat2AA==
+Date: Mon, 20 Jul 2026 18:50:47 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: git@amd.com, michal.simek@amd.com, Frank.Li@nxp.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, pgaj@cadence.com,
+	wsa+renesas@sang-engineering.com, tommaso.merciai.xr@bp.renesas.com,
+	arnd@arndb.de, quic_msavaliy@quicinc.com, Shyam-sundar.S-k@amd.com,
+	sakari.ailus@linux.intel.com, billy_tsai@aspeedtech.com,
+	kees@kernel.org, gustavoars@kernel.org,
+	jarkko.nikula@linux.intel.com, jorge.marques@analog.com,
+	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	Shubham Patil <shubhamsanjay.patil@amd.com>
+Cc: radhey.shyam.pandey@amd.com, srinivas.goud@amd.com,
+	shubhrajyoti.datta@amd.com
+Subject: Re: [PATCH v10 0/2] Add AMD I3C master controller driver and bindings
+Message-ID: <178456622175.94414.3329397906722546895.b4-ty@b4>
+References: <20260709064233.1451482-1-shubhamsanjay.patil@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Out-Spamd-Result: default: False [1.90 / 1000.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_COUNT_ZERO(0.00)[0];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	TAGGED_RCPT(0.00)[dt];
-	ARC_NA(0.00)[];
-	BAYES_HAM(0.00)[56.27%];
-	ASN(0.00)[asn:35790, ipnet:193.180.91.0/24, country:SE];
-	HAS_X_AS(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	TO_DN_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	LOCAL_OUTBOUND(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,gmail.com,sholland.org,vger.kernel.org,lists.infradead.org,lists.linux.dev]
-X-Rspamd-Action: no action
-X-Out-Rspamd-Queue-Id: 4h3md76qsMzYWR
-X-Out-Rspamd-Server: m101-rspamd-out-4
-X-purgate-type: clean
-X-purgate-Ad: Categorized by eleven eXpurgate (R) https://www.eleven.de
-X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
-X-purgate: clean
-X-purgate-size: 1329
-X-purgate-ID: 155908::1784566013-3D7071C6-706EAE78/0/0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260709064233.1451482-1-shubhamsanjay.patil@amd.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, 20 Jul 2026 22:59:57 +0800
-Chen-Yu Tsai <wens@kernel.org> wrote:
+On Thu, 09 Jul 2026 12:12:31 +0530, Shubham Patil wrote:
+> This patch series introduces support for the AMD I3C master controller,
+> including the device tree binding and driver implementation.
 
-> On Sun, Jul 19, 2026 at 11:10=E2=80=AFAM Per Larsson <per@palvencia.se> w=
-rote:
-> >
-> >
-> > Signed-off-by: Per Larsson <per@palvencia.se>
-> > ---
-> > Marking this as RFC for a few reasons
-> > 1. This is my first submission, hoping everything is properly
-> > organized. =20
->=20
-> This is pretty good. The commit message is also well written. I would
-> like to see the patch split into two patches though. The first adds
-> the pinmux (and you can mention in the commit message that a
-> subsequent patch will reference it). The second patch enables SPDIF
-> on the device you have.
->=20
-Ok, will split into two patches.
+Applied, thanks!
 
-> > 2. My testing setup is not the best: I get sound with this patch,
-> > but the pulseaudio daemon needs to be restarted far too often.
-> >    Hopefully it's just something on this minirootfs. Testing
-> > welcome. 3. Not sure where to get the hash for a fixes tag or if
-> > that's even OK =20
->=20
-> This is a new addition, not a fix, so no fixes tag is warranted.
->=20
-Understood.
+[1/2] dt-bindings: i3c: Add AMD I3C master controller support
+      https://git.kernel.org/i3c/c/56cffc20a329
+[2/2] i3c: master: Add driver for AMD AXI I3C master controller
+      https://git.kernel.org/i3c/c/7e05871da7ac
 
-Also saw that issue #2 in the list above was indeed because of issues in
-my rootfs and not because of anything related to the patch, so no more
-RFC-markings for next version.
->=20
-> Thanks
-> ChenYu
->=20
-> > ---
+Best regards,
