@@ -1,172 +1,139 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E181C3F44D3;
-	Mon, 20 Jul 2026 11:08:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BDD3F39F3
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 11:11:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784545736; cv=none; b=gfPANtxBVzE3k4+m8mEHHGnycliNlUvTjQ8BxGDvF+Bt42JyeaLJjc9Wi/inCbrZmYHorvK3uNjIHHfzy3amNR39EDHD05do3iQDJYngsSF1RzCfT+VwfLasjr0mHedBDRaF+w3I8zUsWc3GXbRj2AFL9AWRbHk7JfnpGLxxq1A=
+	t=1784545876; cv=none; b=H8qG03foVzO1ssrKV0+mwyQTIacwvYxCgdDFILCRMM1waV5FxuKkq72S8LMn0x1y0R1DvRbwl1/3pEkWQTRXwCDmPcaKKf2TEWZPoJ7+Q5RQkIDCgcPI0/Cb+uLWMDshFMEP45TTcRFNFWF0NuDWPMHKJgZy4DPGR5S54VRwuoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784545736; c=relaxed/simple;
-	bh=hWFe0ecnQcUQSMIYZD+mzmuzSF2Cw8zD7HT3rsKQcXU=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bzs8hvtjLMAlTevO/Gk8PQwCu36tYiWkrc0iLalc44NoxhRdxGigcx3IcQCkxp732WWARNSzb1lVBLUq8mfVvJO86L/5o7AhSR9JNz8gNvIpd0PxrWCDZ/p71byTzme1HA+twQz9/rxL/jB9kQwmcqkCA/ZNaIQX9Rg58JTfpQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=LIpkVI8F; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1784545876; c=relaxed/simple;
+	bh=QiyVVbCylb8hAZjxIhgjieMzRnTXe5o+SDxLE17NUEM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ij/DHOU6bu9Ou5/QwPzgeCAp9SPYuNZA81wBoyz/QPkYnLP/RsI6Bkb0vEs6x5HnJN1T31tLEp5DAfctZ1Bi40ffVm7gEjNPJ4qHP1/PLD5kiQnmNWySY+f+74nELWl7qmj9zbr0KR+4GRQ+GVmS7u8FR0DX6ow3ErGmdnm7JT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tyqn9bEM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="LIpkVI8F"
-Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66KB037Y1779716;
-	Mon, 20 Jul 2026 07:08:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=
-	content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=qdPT8
-	ZxebWPScerPBsarwdPl2SnE05MlhbpNzsiEUB4=; b=LIpkVI8F/RGzui6vDROr9
-	8nFfNpPFrOBO3ZIc821KaaUXh3Mop+fk8J/4JQcwOroAc51ieHLeWBUmDb6Fyrd9
-	yolXOFnvJ1rdW5kDfwlqZSdxvd33j3GDtxS6SYQ0IOFt9SYvyBoOiRTHLlKWxA1M
-	4fT8GSBWD5BXfyaIj7/T6DjwimaTbJqxBIGBbOnYJVq8rFUgLuQUY6RtwLfztpOZ
-	yfm0yu6XIAFcGb95215KnsFD4jFDiUXpBWEKvQXR9UXF6uC2WV0YKQU7V5xHZ3uG
-	ksgV9OUNR4HWwrm/OwkxdmGMsTjIZJhrYDPSBC4jHA71oLqTlBXh2ZSQ0SNFoveM
-	g==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4fgttgbrsh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 20 Jul 2026 07:08:48 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 66KB8lgd062909
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 20 Jul 2026 07:08:47 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Mon, 20 Jul
- 2026 07:08:47 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Mon, 20 Jul 2026 07:08:47 -0400
-Received: from HYB-b1tGeUj4GP1.ad.analog.com (HYB-b1tGeUj4GP1.ad.analog.com [10.48.65.186])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 66KB8HRL024360;
-	Mon, 20 Jul 2026 07:08:38 -0400
-From: Antoniu Miclaus <antoniu.miclaus@analog.com>
-To: Antoniu Miclaus <antoniu.miclaus@analog.com>,
-        =?UTF-8?q?Nuno=20S=C3=A1?=
-	<nuno.sa@analog.com>,
-        Michael Hennerich <Michael.Hennerich@analog.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        David Lechner <dlechner@baylibre.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah
- Khan <skhan@linuxfoundation.org>,
-        Marcelo Schmitt
-	<marcelo.schmitt@analog.com>,
-        Radu Sabau <radu.sabau@analog.com>,
-        Jorge
- Marques <jorge.marques@analog.com>,
-        Matti Vaittinen
-	<mazziesaccount@gmail.com>,
-        Jonathan Santos <Jonathan.Santos@analog.com>,
-        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-        <linux-iio@vger.kernel.org>, <linux@analog.com>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-doc@vger.kernel.org>
-Subject: [PATCH 4/4] docs: iio: ade9000: document ADE9078 support
-Date: Mon, 20 Jul 2026 14:07:47 +0300
-Message-ID: <20260720110754.7674-5-antoniu.miclaus@analog.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260720110754.7674-1-antoniu.miclaus@analog.com>
-References: <20260720110754.7674-1-antoniu.miclaus@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tyqn9bEM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E2681F00A3A;
+	Mon, 20 Jul 2026 11:11:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784545875;
+	bh=UUH8X5BZgqpcJVb86Ch3E/oF03Ek4Tg6O1EQwPJkXI0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Tyqn9bEMZANEj7twNhzLCHcZEUAC+dSnKYLkgbUKwoHGUqav0uExjo5xZ98XV72QP
+	 J8l/Z+TJECES7Lgrox6x4qVQXHlXQmsI1IlUtzjzbRmOum7kfhtJPStXDie6ng/CS4
+	 QOx1Y9d/jLcg3nuM8NFTx0lz7GlelG5oHP+lr6kYbgKcyzsqOUxe2HhTAid9/CUBXR
+	 1rAkrtaVaXPjntc2VHHXCBE5tIYALDU4KcsuRAfhNpWO+WBXpQ3uGFWmnKMNHSJ3c9
+	 hWFO/iDgogMxS7b3uEA9ymWxOl7OdK/SGbR6fbJjogaAeN/3AiIg0vQRfTY0gXymBe
+	 fYZZXPt0IQl1w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 1/2] arm64: dts: qcom: sdm845-google: Add dual front
+ IMX355 cameras
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Heidelberg" <david@ixit.cz>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260720-pixel3-camera-v6-1-afe419bef476@ixit.cz>
+References: <20260720-pixel3-camera-v6-0-afe419bef476@ixit.cz>
+ <20260720-pixel3-camera-v6-1-afe419bef476@ixit.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 20 Jul 2026 11:11:14 +0000
+Message-Id: <20260720111115.3E2681F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-ORIG-GUID: OduvDxZK793egffVO1Cc0si5fjo4khDi
-X-Authority-Analysis: v=2.4 cv=DagnbPtW c=1 sm=1 tr=0 ts=6a5e01c0 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=OmVn7CZJonkx5R5zMQLL:22 a=gAnH3GRIAAAA:8
- a=dVqSPRu-xMqTFQGYfZQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIwMDEyNCBTYWx0ZWRfX0+lr27AQn7g7
- novLIl9Ry0bMJZMVOOJ3Q50mmAjKPGxgMgQc4Mnz7HBtnPv/w6ECXlAjQ6Z02wBihV3BBcuHPe1
- jte+GC80DWnlVo2tU5gh7990whcg7qLhq/0CHPUyQEY7P5dImtBw
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDEyNCBTYWx0ZWRfX5Ze2mEmHU3My
- 1l2mYmV2Lvx2eeswhefPHua1bsCJZTOrRsLVVSM9eXLcqoXsytKNf/9J+aBnDJK8DFJAF70o1y5
- nQGzhMtCgev1+xAjaBVgFzA7Uw/hXJjQ7OP/80w8tmXMafZ0DQagh87t/wynzfORdX7tWHpSImP
- QUPNR7AAZnJiFLi7kqfUp/Vaby1S7+IEv7BYiBhWISS7i6UYpd+m4J6QSz1oprMPl7QXqeABlFF
- pWZsA4N/TqTlN0KE40sx+gQPCY7etvJGax3+EkrSTYn4GOsDXclnHoCiHsxybnJ2RcKx/DvUK6j
- WuC8g1OKrdfXL11L1cZ4y7uEtYfffXm6h4R/Vmf/yfP61/qY+nM5ydY/5doDd6lDiYYOHWDE0Ar
- mIzX5jOVv/t6LT62a178vzqQJlJFJMUFnG9w7PshChTUjgqXdu6IbIhx+TLEzS69e9PxLPyjBx6
- BkPuOPTJbrWG3ns4Wlw==
-X-Proofpoint-GUID: OduvDxZK793egffVO1Cc0si5fjo4khDi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-20_02,2026-07-20_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 clxscore=1015 suspectscore=0 bulkscore=0
- phishscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607200124
 
-Add the ADE9078 to the list of supported devices and note that the
-dip/swell voltage events are only available on the ADE9000.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Assigning the MCLK2 `pinctrl` to the `camss` node breaks the camer=
+a sensor probe due to decoupled runtime PM lifecycles.
+- [Medium] Incorrect CCI I2C sleep state modification overrides `&cci0_slee=
+p` instead of `&cci1_sleep`.
+--
 
-Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
----
- Documentation/iio/ade9000.rst | 28 +++++++++++++++++-----------
- 1 file changed, 17 insertions(+), 11 deletions(-)
+--- Patch [1]: [PATCH v6 1/2] arm64: dts: qcom: sdm845-google: Add dual fro=
+nt IMX355 cameras ---
+commit c205a00f81a6553c73e74c2e70cc2c7b6bcef19f
+Author: David Heidelberg <david@ixit.cz>
 
-diff --git a/Documentation/iio/ade9000.rst b/Documentation/iio/ade9000.rst
-index c9ff702a4251..72737b5ec59c 100644
---- a/Documentation/iio/ade9000.rst
-+++ b/Documentation/iio/ade9000.rst
-@@ -1,24 +1,30 @@
- .. SPDX-License-Identifier: GPL-2.0
- 
--===============
--ADE9000 driver
--===============
-+======================
-+ADE9000/ADE9078 driver
-+======================
- 
--This driver supports Analog Device's ADE9000 energy measurement IC on SPI bus.
-+This driver supports Analog Device's ADE9000 and ADE9078 energy measurement
-+ICs on SPI bus.
- 
- 1. Supported devices
- ====================
- 
- * `ADE9000 <https://www.analog.com/media/en/technical-documentation/data-sheets/ADE9000.pdf>`_
--
--The ADE9000 is a highly accurate, fully integrated, multiphase energy and power
--quality monitoring device. Superior analog performance and a digital signal
--processing (DSP) core enable accurate energy monitoring over a wide dynamic
--range. An integrated high end reference ensures low drift over temperature
--with a combined drift of less than ±25 ppm/°C maximum for the entire channel
--including a programmable gain amplifier (PGA) and an analog-to-digital
-+* `ADE9078 <https://www.analog.com/media/en/technical-documentation/data-sheets/ADE9078.pdf>`_
-+
-+The ADE9000 and ADE9078 are highly accurate, fully integrated, multiphase energy
-+and power quality monitoring devices. Superior analog performance and a digital
-+signal processing (DSP) core enable accurate energy monitoring over a wide
-+dynamic range. An integrated high end reference ensures low drift over
-+temperature with a combined drift of less than ±25 ppm/°C maximum for the entire
-+channel including a programmable gain amplifier (PGA) and an analog-to-digital
- converter (ADC).
- 
-+The ADE9078 does not provide the on-chip dip/swell (sag) detection available on
-+the ADE9000, so the RMS voltage swell/dip events described below are only
-+available on the ADE9000.
-+
- 2. Device attributes
- ====================
- 
--- 
-2.43.0
+arm64: dts: qcom: sdm845-google: Add dual front IMX355 cameras
 
+This commit adds device tree nodes for the two front-facing Sony IMX355
+sensors on the Pixel 3. The sensors are connected via CSIPHY ports and
+controlled over CCI I2C1, sharing MCLK2.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/ar=
+m64/boot/dts/qcom/sdm845-google-common.dtsi
+> --- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+[ ... ]
+> +&camss {
+> +	vdda-phy-supply =3D <&vreg_l1a_0p875>;
+> +	vdda-pll-supply =3D <&vreg_l26a_1p2>;
+> +
+> +	/*
+> +	 * MCLK2 (GPIO15) is shared between both front camera sensors.
+> +	 * The clock is generated by CAMCC, therefore the pin is
+> +	 * configured here rather than in individual sensor nodes.
+> +	 */
+> +	pinctrl-0 =3D <&cam_mclk2_default>;
+> +	pinctrl-1 =3D <&cam_mclk2_sleep>;
+> +	pinctrl-names =3D "default", "sleep";
+
+[Severity: High]
+Does putting the MCLK2 pinctrl states in the camss node break the sensor pr=
+obe?
+
+Because camss operates with decoupled asynchronous runtime PM, it will like=
+ly
+be suspended during the imx355 sensor probe. The PM core will put the pin i=
+nto
+the sleep state, which configures bias-pull-down.=20
+
+When the imx355 driver calls clk_prepare_enable(mclk) during I2C probe to r=
+ead
+its chip ID, the clock controller generates the clock, but the sleep state =
+on
+camss will prevent the clock signal from reaching the sensors, causing the
+probe to abort.
+
+> +
+> +	status =3D "okay";
+[ ... ]
+> +};
+> +
+> +&cci0_sleep {
+> +	/* bus has external pull-up */
+> +	/delete-property/ bias-pull-down;
+> +	bias-disable;
+> +};
+
+[Severity: Medium]
+Since the front cameras are added under the cci_i2c1 bus, should this be
+modifying &cci1_sleep instead of &cci0_sleep?
+
+This leaves the cci_i2c1 sleep state with its default bias-pull-down settin=
+g,
+which will fight the external pull-up and could drain the battery during
+sleep. It also incorrectly modifies cci_i2c0 which might affect other devic=
+es
+on that bus.
+
+> +
+> +&cci {
+> +	status =3D "okay";
+> +};
+> @@ -358,7 +443,63 @@ &cci {
+>  &cci_i2c1 {
+>  	/* actuator @0c */
+> =20
+> -	/* front camera, imx355 @1a */
+> +	front_cam: camera@10 {
+> +		compatible =3D "sony,imx355";
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720-pixel3-cam=
+era-v6-0-afe419bef476@ixit.cz?part=3D1
