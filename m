@@ -1,78 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AED23FC5BE;
-	Mon, 20 Jul 2026 11:43:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F4E740681E
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 11:53:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784547816; cv=none; b=hwpEWmNrOvVmjRHsE1TLX6jLOhq46d5gmBtvs4P8BABaKLhJPhH55Q6/4D5echjdt/C4RF0Bii90P4GecZHU1pmEhYsRB8c5BVumalLPSf/7leabiXVyM7Zzhu3Sny/YvXAROOf2LPBDIs/R7/YAJMgGRNZZ4GzxqKDjVEiQjRM=
+	t=1784548410; cv=none; b=RoGNOTe7BnTzd8eI4UDgG1B2I4jBXMT3JFjEnN+iTeZS79ZAlWvJp8s/zjL/ktnUVsZ7faR1r/ABxteSg+jqNF23JoZQFSpMkOHmVuynZcnhRbRGnm2G1QWI8titLcQ5ehhlg0hHFl7rAwR8ROFIk+b3kq6vHqpJND3E9DPJrFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784547816; c=relaxed/simple;
-	bh=IwVRI0D1/2PFt0UXc0hBGw9AKGyEtOMslogEvLAcVck=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=RlF96kvgPFMZ52P4+abzzt8g5G72DqIP3LNTjyHZnLjzBPPJZawPwEjUX0TXSiKHCqqCd73cXDSEHZ798lFxyO8Q+JlN4e/f821Uxnj7Dwlf/TQMaul2fH1lO10Vqfvn2dbJBXUcnYhvQFhwVqnCjxUpjv9UtKk0yQlFH4AW0AA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDrGf7Nz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784548410; c=relaxed/simple;
+	bh=FDG1DJqo8QRZku0I/aOsHn77dsoDKWFGvr2kfQNd0mg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rFz+hmSVX/v9WIdy22BfdImTZiouPHnbSRwdfNtzBtn/w7LWWGyDjtaqd/Rk+NyiV0EVqTDbUYtBAjrcUqvdocqXZ3b5uqnGjYMsfeW1s+DB9pLqi3od8qeU01DlRqB2SYpZHvhY2SmsI5/J1UwATTsLDUV23VYSjD6UkSWWY0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZxvQLnrS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDrGf7Nz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C8181F00A3E;
-	Mon, 20 Jul 2026 11:43:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZxvQLnrS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D0A31F000E9;
+	Mon, 20 Jul 2026 11:53:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784547815;
-	bh=kgEbuRaZ7fC8I4l3wHHvaMm3ff8vOKykqDqNHrxX4ow=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=BDrGf7NzG0L0sB92Cx3an0HY1ia4T3Hj7SKz4jZfVtUVZKNaE0lMcuzwpN3POvU+y
-	 QW/1xfdjtYXcXfpfoizjUartFQ5DITdV9VV4RzKBfW6+RmwdEqwpw19lk6lxTBjwpA
-	 OVdlzEOOHgbjPIbNgnUS3mBUcpmxuT5xpU1+zf17X/0Nu+Fp+2G7PS+MCjp7dXAOtw
-	 XQd3v8cy/BdrIgrYxKeL5S29+gSDF+Fzbmu0AGMofTzCfibJI4EUXSVlIbMfs+cN1N
-	 zpkR13ypArj3x2L/8tCe3SWBDgIB8mB2dJJUcYcuUNULhtOAtKNb2W1ofEqS7sRVU0
-	 qRLKSqctmGPHw==
-From: Vinod Koul <vkoul@kernel.org>
-To: chunfeng.yun@mediatek.com, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: neil.armstrong@linaro.org, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, chunkuang.hu@kernel.org, p.zabel@pengutronix.de, 
- matthias.bgg@gmail.com, justin.yeh@mediatek.com, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- kernel@collabora.com
-In-Reply-To: <20260713103805.23030-1-angelogioacchino.delregno@collabora.com>
-References: <20260713103805.23030-1-angelogioacchino.delregno@collabora.com>
-Subject: Re: [PATCH v3 0/2] PHY: Add support for MT8196 DSI PHY
-Message-Id: <178454780918.1388616.17680006872088012294.b4-ty@kernel.org>
-Date: Mon, 20 Jul 2026 17:13:29 +0530
+	s=k20260515; t=1784548409;
+	bh=7NFjs5higp4YziI5YE9tvz5ZIgoclRJT4UwVMMdNZKI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZxvQLnrSAQHPTePCJN7JNMGq3x+Yq6Asua/OcN5ou2pGyoEnQ4N/foex4wJNa277U
+	 B69D4sUd82C1nRtz3siGJ/gpcTcT02DHQIHefOLsq3TWSMivhe5GFhxmKcSC7u3N9P
+	 aHTX9D89LfhbSZ8vmfkPhRLSizzaBEUNBJVWv0dArFiG4WoPjjTGCz90P4NvgpOHF/
+	 j5EXUZrlJEXWROVQ78IikozyDwKOEcsL7AeNLBuOChEykQv0nxNTxJuA8OxZkFk85F
+	 6CP4yf3XdHqCQ1y03DuJH9q7rkC5CK1RVz/IWeps9eAnPlzfK2xYIrEm/SyFB8ki/n
+	 Sj2dZYgA+1NuA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v17 4/4] crypto: spacc - Add SPAcc Kconfig and Makefile
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pavitrakumar Managutte" <pavitrakumarm@vayavyalabs.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260720113740.64960-5-pavitrakumarm@vayavyalabs.com>
+References: <20260720113740.64960-1-pavitrakumarm@vayavyalabs.com>
+ <20260720113740.64960-5-pavitrakumarm@vayavyalabs.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 20 Jul 2026 11:53:28 +0000
+Message-Id: <20260720115329.3D0A31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13.0
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] CRYPTO_DEV_SPACC_HASH is defined as a tristate option but controls =
+a component of a composite module, leading to an undefined reference linker=
+ error when configured as 'm' while the main driver is 'y'.
+--
 
-On Mon, 13 Jul 2026 12:38:03 +0200, AngeloGioacchino Del Regno wrote:
-> Changes in v3:
->  - Actually sent the correct patch series (sorry, I had messed up v2)
->  - Added definitions for minimum and maximum PLL rates
-> 
-> Changes in v2:
->  - Added a few comments and fix scheduling while atomic issue in clk
->    enable ops by waiting with udelay() instead
->  - Removed one unnecessary delay after clk/pwr isolation disablement
-> 
-> [...]
+--- Patch [4]: [PATCH v17 4/4] crypto: spacc - Add SPAcc Kconfig and Makefi=
+le ---
+commit 6d5d2ec49262f31f1558921632e08b8a62362a2d
+Author: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
 
-Applied, thanks!
+crypto: spacc - Add SPAcc Kconfig and Makefile
 
-[1/2] dt-bindings: phy: mediatek,dsi-phy: Add support for MT8196
-      commit: 215cd5def8eca1c2aa7ca043483d96155a1c3ed6
-[2/2] phy: mediatek: Add support for MT8196 MIPI DSI PHY
-      commit: 2ec9c210c1f931389709aee403d28e4f32676385
+Add Makefile and Kconfig for SPAcc driver.
 
-Best regards,
--- 
-~Vinod
+> diff --git a/drivers/crypto/dwc-spacc/Kconfig b/drivers/crypto/dwc-spacc/=
+Kconfig
+> new file mode 100644
+> index 0000000000000..edc550562235e
+> --- /dev/null
+> +++ b/drivers/crypto/dwc-spacc/Kconfig
+> @@ -0,0 +1,83 @@
+[ ... ]
+> +if CRYPTO_DEV_SPACC
+> +
+> +config CRYPTO_DEV_SPACC_HASH
+> +	tristate "Enable HASH functionality"
 
+[Severity: Low]
+Will this cause a build failure if CONFIG_CRYPTO_DEV_SPACC=3Dy and
+CONFIG_CRYPTO_DEV_SPACC_HASH=3Dm?
 
+Since CRYPTO_DEV_SPACC_HASH is a tristate, it can be set to 'm' while the
+main driver is built-in ('y'). If that happens, Kbuild will add
+spacc_ahash.o to snps-spacc-m in the Makefile:
+
+    snps-spacc-$(CONFIG_CRYPTO_DEV_SPACC_HASH) +=3D spacc_ahash.o
+
+Because snps-spacc is built-in, Kbuild ignores the -m list, meaning
+spacc_ahash.o won't be linked into the final kernel image.=20
+
+However, IS_ENABLED(CONFIG_CRYPTO_DEV_SPACC_HASH) evaluates to true for 'm'=
+=20
+as well. This can lead to undefined reference errors when spacc_crypto_prob=
+e()
+tries to call spacc_probe_hashes() and spacc_unregister_hash_algs() in
+spacc_device.c.
+
+Should CRYPTO_DEV_SPACC_HASH be a bool instead to prevent this mismatch?
+
+> +	default CRYPTO_DEV_SPACC
+> +	select CRYPTO_HASH
+> +	select CRYPTO_SHA1
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720113740.6496=
+0-1-pavitrakumarm@vayavyalabs.com?part=3D4
