@@ -1,243 +1,121 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013012.outbound.protection.outlook.com [40.107.162.12])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C8D4195A0;
-	Mon, 20 Jul 2026 13:37:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784554632; cv=fail; b=ikExuAMCphcYUTzM+fyEZQWMSLNbrmc2BfzHBJ1r6qjj88ikh0DKTryhkkikHR7S5g9Q5huu9q188ZkUS0UfLqvdl6VBbkSL1GTiVcG2s0QqtovXPbt6B+Wj4686qI3n673J8/Gp+rhkhai07odWyUI9/6srKHhbHfCVaZuZIP4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784554632; c=relaxed/simple;
-	bh=fpc9hxP2OPM1Z/0gRN85PgXS7wD6hhE0pKc3H2Wlc3M=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ZmS8gtXhci6+07e2/gP3Q1MUiBYJ5dLLFVT3/KxhEKtfiAyzqxx+acI6zbzvXO4nVsi5z7UQJLNnADVbQJQWQsvFU6N67X9nn1MEMVNo48+DxhvVLliaM7WuYxAk83ilTqSuEimJgXLluyw2VoFxyiMYl7K2q71E9RetQSwvB9M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=PL5ma+2x; arc=fail smtp.client-ip=40.107.162.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FBED4252A6;
+	Mon, 20 Jul 2026 13:41:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784554895; cv=none; b=ucDdiT0sx65PbQ26iGvrTEPyF/rE/JQmAFQx1GwiDHHiqpeH3kWKqgRLjckhhXvs8jpO0xTJjyx99aUjpiYIjKKqA4i8n2SdJg9THyEww5XNkUMEToVEE41/IgmQht/whEbxny/8Mla2olHVIuGK7rjxn1mi9qOO5bnFYcpOP+Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784554895; c=relaxed/simple;
+	bh=TNi6iMC7hSghE6u709s5cowCWZoMXrVRVu8OYEQrc+0=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=B4Vd8Ba266FetjeCwvqYOt7FhDFdoiJhm71gs0uIlkc0oV9m/bnkIqwqm7GiUxUgCrvHwDlEAJKte0VnHex1q/xEAQfJ2dZvrUbdNe+YJnp16boh0UZX0aB2auH9GcIuXG3ooSY+IVXC3c86N7WZN15quihgakS1e01cLl5jgWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=e5Mjemh1; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="PL5ma+2x"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b9R/aWo49LawSMx6yqWcrsLkCmOVlVrjQtkhHkqBPpnCGZ2zoXfSufPJA84KQHC/rq9kIOQObgKnlAdRH96XHw2QzV9C37bVzYmfYBQdypEWSMUgA+UIhYodurkkSeOHdpdaopsRMjVjAMIbvRexfEQdKw43Y0lam1yL7r7SKAxvB8GgMc6ngnT4J+5u/WhvQl5nf9zMqA2o/d6hPlHiw8XSuzBnzxNA0J/TbjlE6drulcANBdUTsx/6A55/o+3k3hRK1qGyJMjRyGPCeF9BrRFz3iIxIvGBL+WMstTkt6VrgLbsY0wdIlsbUz/6wJN2mAKHkftGaN1OQtwy2u4yvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=czgduSDav/edvxpU/ItYxUu9iycZCPfau5aOpO5fZ2Q=;
- b=ivcgFOfWrncaYDOggJr6kZvM4Wcfs2cVJPHP9SykHQC3+Cq9l+ANwlWRHHMVmwJcyITPn2/MvJcAsVbO3+kgpV0aSHxx7t13gOGGOXbdciP5TsVkrskfTQ28qHyEEeZgfXj+rEl/+rwiRNN0nswNIbtBng6gDcZRu1J4rR11NWPRWPpuynZgixGmgJ4MpMgK4ro0YnLLrYcTeUWI+yF+mAFeOk8M9mrnVVHagyG9zFIBnHWbChDHMUNmaS7FqlifVt/Efqzuy8ZcDOzYN8mjy0rPzPmNuUMV12143RsDUkUIZSut1pUO/OYPo9nC/xNiEp4DksYy5KufZjQPUiSvZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=czgduSDav/edvxpU/ItYxUu9iycZCPfau5aOpO5fZ2Q=;
- b=PL5ma+2xPjwJAtbQz7eXn9aL/p7QJLGO5lfDsxkqZn750rx4N9CRcLwv+3NM1Ai8m4ZZdTMMbB5/tZwWVjPMS7gVPc4I9VcC0KnLIMzKlJkgOqGVHUlUwQ4Ks32RcEttWDuwxXA+4JXVQzWL8E8HEgB17mXV02auKQBp65jOO29IUwcLXBmZY4OLQBhIXM0mqTE7EdckZsUdkLt5oebFNZckH6OtG4owwa8PLDWClRZLNacMj15eSpJstlRZ0VEuePsZdA7TOHuoo/MkfVLQZopJKo47UgJCLUEne0FgWW/86hIcEbEqyF0E//ksRQvqzhNgJfVQBSdZf2UEneAZvQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
- by PR3PR04MB7259.eurprd04.prod.outlook.com (2603:10a6:102:8a::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Mon, 20 Jul
- 2026 13:37:07 +0000
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023%5]) with mapi id 15.21.0223.017; Mon, 20 Jul 2026
- 13:37:07 +0000
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: linux-phy@lists.infradead.org
-Cc: devicetree@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	Ioana Ciornei <ioana.ciornei@nxp.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Tanjeff Moos <tanjeff.moos@westermo.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Michael Walle <mwalle@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 phy-next 8/8] phy: lynx-10g: use RCW override procedure for dynamic protocol change
-Date: Mon, 20 Jul 2026 16:36:42 +0300
-Message-Id: <20260720133642.136324-9-vladimir.oltean@nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260720133642.136324-1-vladimir.oltean@nxp.com>
-References: <20260720133642.136324-1-vladimir.oltean@nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: AS4PR10CA0005.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:5dc::13) To AM0PR04MB6900.eurprd04.prod.outlook.com
- (2603:10a6:208:17d::10)
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="e5Mjemh1"
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66KAxiQg1900816;
+	Mon, 20 Jul 2026 09:41:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=
+	content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=t8hfAjiVA5tppmIOGDqmb5BX+BE
+	m+l/0qFeINKxeJ58=; b=e5Mjemh1vpuVQrFUe1hqtTHQJht/oHZYofZc41398Rx
+	v0T1NgYKdgiF4893h1P9QeH+NvQnIIzTKwbWbCOrqI409LU4Hp9J1gsvw6wgfBi9
+	ksExo89jGhk+PdNvdBWs96YGPjNEXOuBa6TWZOJxeG6bQl2WOPmFduCKdxAyo8+t
+	7rMIGDxUxpYDoaA8va/9fD/upWBvXoJSFxpvfyMOtllIYrGxzwDgWLahdgf9m5H0
+	DVBsiJnMp7FkH7eVSig3PjwY7DH+7LEZ/e9yZpbFJ70zgsUpV1rpZh0uZB2xl7Gb
+	rj3tHC1ye8n982OozD2BRW/ixs28e3tEz0FOnDMw8Gw==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4fg3axy4mk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 20 Jul 2026 09:41:18 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 66KDfHEu011947
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 20 Jul 2026 09:41:17 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Mon, 20 Jul
+ 2026 09:41:17 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Mon, 20 Jul 2026 09:41:17 -0400
+Received: from HYB-b1tGeUj4GP1.ad.analog.com (HYB-b1tGeUj4GP1.ad.analog.com [10.48.65.186])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 66KDf5qG018405;
+	Mon, 20 Jul 2026 09:41:07 -0400
+From: Antoniu Miclaus <antoniu.miclaus@analog.com>
+To: Lars-Peter Clausen <lars@metafoo.de>,
+        Michael Hennerich
+	<Michael.Hennerich@analog.com>,
+        Antoniu Miclaus <antoniu.miclaus@analog.com>,
+        Jonathan Cameron <jic23@kernel.org>,
+        Alexandru Ardelean
+	<alexandru.ardelean@analog.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof
+ Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, <linux-iio@vger.kernel.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH 0/2] iio: adc: ad4080: add support for AD4883
+Date: Mon, 20 Jul 2026 16:37:05 +0300
+Message-ID: <20260720133707.103366-1-antoniu.miclaus@analog.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|PR3PR04MB7259:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4c92c420-f528-463d-2085-08dee663fe38
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|366016|7416014|376014|1800799024|3023799007|56012099006|11063799006|10067099003|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	tvpzQS18WyIkk2NR5EmxGMQ4Qt1w5+sQrGQzV+Dh14xPLkCDFGeEFynqspWWEQnRNV3we/FQSfDmZ/NT6U0g8TD5n0S8pEMjpqgrBv9QS7Zk7j49DjYf3JjfC/tpalBppoG1u9qEmEEInXE28F0qZ8yQEKNnOwqBQwugJNj9PSRvVWnwPJNwAe31UGnNUyJpMsQOux9wFqkNLujqn/19n+OKjV3cVjgPuZZOGRitLz6zMvdVEvC1PPXvSnDMwED0HnAsobt+m5gdxK7tu3EQWgx7yApRDfL5hsN/7M6ElmEw8XRPdKRLKWnT2kSocj+AoAz1vnkbXXFasmp0AmaYKTBXMlkOog2LwwjroPQMmiqI5fLY5P2Y4dk2SS8ixTxdSOcVOfIHNAcNALWXilozQ2ZCnhNbcjhlVdjEoU6DRIGzh1DmjBik2wXfWHV4LWgq6p0N2cPIgkGwPVBsW0TgDIi9AKp2UsI34Dq6RpYArGeoOLaGqgMwk2xIX2YqY1KnPgxh3V8/glwn8GQM2Uw6obTeP40FOXQU5riEpqAR1qY1ccB2a2JQWw32esvpxT18tV1roFPfjk+17nk8F97zmKu5kJgnyaFhQ5mYA/ULiCul2bz7KGVyAJjTtl1lerhF1uHscpRbd7sjhhE8uOy7hOM5DoeRDfEtvlM/ttb8Kfw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(7416014)(376014)(1800799024)(3023799007)(56012099006)(11063799006)(10067099003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?aquV2TVtJPVEZgrAQVeiooWHiYiJxi/2HAMwzgpTtckoovoc2R5zTwta1fjw?=
- =?us-ascii?Q?uxmpV7PwizLr9EkitovLPORF5nKIE35QAOVaCfdyARAr1iFDOdryvX/9FCp3?=
- =?us-ascii?Q?1Z5w5PlShxnO/079DDud5WlB3qRHXazANPhPbHmoOAzv1uxwv9pKM8eHRcD1?=
- =?us-ascii?Q?repWzPBhvoe/2MHGArfxXCJ+mvuRGdvI1VdEtbPUU0zQa4kW0nDPT08PHYN6?=
- =?us-ascii?Q?PTfmStflEqtscNeVSoF/cSWAlOLvcBRHSrlo+p2FHoDo0tRXBKS357CywD/M?=
- =?us-ascii?Q?j5zy0DCJG/TeJ1XS4LXaJVvwFCbGgE9avxtrPoVO34liSxaaZzD+AGXyENq4?=
- =?us-ascii?Q?uS7rM1cXDV9mRGXLWTRdFhpm+iYKd9gMraS6qT0t/SZxcSxoqxIPsHy5SJ+4?=
- =?us-ascii?Q?8jcQrhm5YgPtjrnjR+88zaAHhj0ftZqZcsCq4GlcK/FmAjY/ZjIRqmERlJcL?=
- =?us-ascii?Q?FiWXkPsCZQhAViKHzIaCXM/pUFxkA/DDlvHOR9zXkQdN07figF3/7LQ7RkWB?=
- =?us-ascii?Q?Z6iqHnAgke1HLJ35btmDLN5DayLdf0mOPnuh7W/iWhRmm9r7o2Xq+Ikf/sL/?=
- =?us-ascii?Q?jgq9bYcehduBRx6iXCDxNDzpnelTXkeIKe2TZbGkbdUVczHEJc6y+JXVTghB?=
- =?us-ascii?Q?SJqeGXPecVoP8nb4SpvQRJ8R+JB5waVAy36LW8bNRv+DH1GVeGzdqyAYkW2y?=
- =?us-ascii?Q?+pPD6do3jMs5d11gI2aiacRs2dHmSCzdjCjNU33JHL+tKwBUwQNUI9/EqU0g?=
- =?us-ascii?Q?1ZG+PR9mSm1i3qY0ppvy5HCFuNnMqvTUHWl4595d909SE8+1grMJniCBOxtW?=
- =?us-ascii?Q?ceWNiBdiHLB7tEI60EzCOg0mcFAWCAH0VlgPsDwQoCINhFPRQ4sg+ulV3q5I?=
- =?us-ascii?Q?l9DuJkbwqeM7FtrQDl+fak8ABfNjpDMsUKy1aRu9V6r6sE4xL1Ha3X6u1c/L?=
- =?us-ascii?Q?5Lh8grAXZoloEcSd3bWAb3tz6sebEl7z2wNemFYp4E3Pn1rBTZ4Q3n8GwR/e?=
- =?us-ascii?Q?/bD/zy6yNBsYNdurizSBuZVSzY8NBeJlfAFlGjFL83olFUPerFkBwzMYIaWS?=
- =?us-ascii?Q?kwXIyXUAjjw2WU5C348PFW444kEmdCHfciTY1IhBRV35A18iqjV38mvBGgz0?=
- =?us-ascii?Q?OogY+Qu4EYFXia/CCBmBRmBldr/G+2IKwo80z24qXdOQgQWr4IIwXjJO4j0w?=
- =?us-ascii?Q?B3V35VLBlyk+wkQ+KcsB4/mNwJSRpMdQ3+NQFypjawyJps51TggANUj2+B8Q?=
- =?us-ascii?Q?VX5PYnXzBkiV2WLro8IuY8iy3KvxtMbtgvOuw3Pg3DG5QjIiPqcJ9Kne0g2b?=
- =?us-ascii?Q?pRipjvDMZGsSdyVPrrDwHR0utD57gSQhBfz6YM7mZ3QW5ty7knJ4i+pAFZ+N?=
- =?us-ascii?Q?I0Ch+ZJ+cwa6Y5sHVIsxDxf19aEpt3PPepq4/QCiEm2iWfVb7tWxtjVA3RcQ?=
- =?us-ascii?Q?6P4fTWALko3PB7j+y1fKVh3ylcsjXNsaDd7PWxl1/WVcFjZLCKKcWSW7fy7O?=
- =?us-ascii?Q?9pTLv7Yc5CBacSWqqEiAF+vDBJ/pww1P3VyAZyDKTsqWC+euWTs4SwNkn9PC?=
- =?us-ascii?Q?7JXIvj5LdbEHBJcaYq+B64BlFv5rM0EwvopzvJVo6EejFXrjEcZYYLHPWgJ4?=
- =?us-ascii?Q?nP2TzowAN3gf17GpJvojmnM7YOc/Hpo64B+CATZDxFfJgwz2KHtoomaWDBoN?=
- =?us-ascii?Q?p1FOIGPxZf610BTm6Y1IrDSSZiUGcCsa/eV4s2UGDPbuo7gDHUBtH4sJMofG?=
- =?us-ascii?Q?CXn/rQII0w=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4c92c420-f528-463d-2085-08dee663fe38
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 13:37:07.5548
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: itZZvVp/DxCnSiJh9c83/MeR1nbHtRw5HbnwwaQhipqBVL+bEEbd7fahXD9DTIkI148kdqop+gHioVUg/qXz2g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7259
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDE1MiBTYWx0ZWRfX0K85AB0a62bC
+ ZRMvj+EsJjA95JxvD02+Py63IFxMeUxAoJ7LeZF9oRJCnRBGdzBYSgpVETGWFgo6vn3cNxiMtaM
+ dSaQbQMYOG0zIqRDVrPMdP6trpoqHb9NMsGyps3LCFavj3U7bx/d4LWo51EaX4IIx9XFcT/XN7U
+ SRo6tjSyzkppKb1baDTvxjJ02ebsnPVz0KqHykhDgEX7BHUf0m8CzDNH6RJytIFWRLLzenFH6zV
+ i//SkEhwL4Pk3bAfqkDFa+5eezOE298jPYXI9fKFUCP3OsVwnM01LDP0gs9c2TiELwLIKaV6os5
+ dyQotlV2fFA/8k+gVqsFf80aZO3qbhr+xNjmsKCdVuWaaZP1Wv4ywU7LZufYUY9Fmd5LolaCArx
+ tD4CwYh/lKTn29jA5poWJ/scNZRW/HAn+/8hitWfhrYbsqoBS+FfHPf4iCxTJPE7z90f8sycV91
+ gYmry+U4OW9d1UlBEMQ==
+X-Authority-Analysis: v=2.4 cv=evjvCIpX c=1 sm=1 tr=0 ts=6a5e257e cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=uXIjobp8t2wMuQ0fPvqm:22 a=PKhA-qpQWIjb8puGQ6kA:9
+X-Proofpoint-GUID: Dqofu-hK3eHE0JkI806_MLttdBzvAwF7
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIwMDE1MiBTYWx0ZWRfXxDxgge6o5PQ+
+ nfxdGqAeAsDjQdfhnqHy/AEn+7uQNQUyW7rG1YLR6ShPcEw+pSEVd7Ap0q+EhroSwswhEpKEDLl
+ C9pBTnNg2br/nx7H15kbo4s6BKrA1RZVl5Vmesoh7hzyQFcffWxc
+X-Proofpoint-ORIG-GUID: Dqofu-hK3eHE0JkI806_MLttdBzvAwF7
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-20_02,2026-07-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 malwarescore=0
+ adultscore=0 priorityscore=1501 bulkscore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607200152
 
-Up until this patch, the only protocol change supported was between
-1000Base-X/SGMII and 2500Base-X. The others require an RCW override
-procedure which was lacking.
+Add support for the AD4883, a dual-channel, 16-bit, 40 MSPS SAR ADC in
+the AD4080 family. Like the AD4880, each of its two independent ADC
+channels has its own SPI configuration interface, so the part requires
+two chip selects and two io-backends.
 
-Since now the guts driver provides the means of applying this procedure,
-make use of it and remove any comment which mentioned the limitation.
+The first patch adds the devicetree binding compatible string; the
+second adds the driver support (chip ID, channel spec, chip info and
+device-table entries).
 
-Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
----
-v1->v3: none
----
- drivers/phy/freescale/Kconfig            |  1 +
- drivers/phy/freescale/phy-fsl-lynx-10g.c | 24 +++++++++++++++---------
- 2 files changed, 16 insertions(+), 9 deletions(-)
+Antoniu Miclaus (2):
+  dt-bindings: iio: adc: ad4080: add AD4883 support
+  iio: adc: ad4080: add support for AD4883
 
-diff --git a/drivers/phy/freescale/Kconfig b/drivers/phy/freescale/Kconfig
-index 5bf3864fbe64..d4e189fffbf8 100644
---- a/drivers/phy/freescale/Kconfig
-+++ b/drivers/phy/freescale/Kconfig
-@@ -58,6 +58,7 @@ config PHY_FSL_LYNX_10G
- 	tristate "Freescale Layerscape Lynx 10G SerDes PHY support"
- 	depends on OF
- 	depends on ARCH_LAYERSCAPE || COMPILE_TEST
-+	select FSL_GUTS
- 	select GENERIC_PHY
- 	select PHY_FSL_LYNX_CORE
- 	help
-diff --git a/drivers/phy/freescale/phy-fsl-lynx-10g.c b/drivers/phy/freescale/phy-fsl-lynx-10g.c
-index 38def160ef1a..5ece7889aed7 100644
---- a/drivers/phy/freescale/phy-fsl-lynx-10g.c
-+++ b/drivers/phy/freescale/phy-fsl-lynx-10g.c
-@@ -8,6 +8,7 @@
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/workqueue.h>
-+#include <linux/fsl/guts.h>
- 
- #include "phy-fsl-lynx-core.h"
- 
-@@ -446,6 +447,7 @@ static void lynx_10g_lane_read_configuration(struct lynx_lane *lane)
- 	}
- 
- 	lynx_10g_backup_pccr_val(lane);
-+	fsl_guts_lane_init(priv->info->index, lane->id, lane->mode);
- }
- 
- static int ls1028a_get_pccr(enum lynx_lane_mode lane_mode, int lane,
-@@ -1167,14 +1169,7 @@ static bool lynx_10g_lane_mode_needs_rcw_override(struct lynx_lane *lane,
- 
- 	/* Major protocol changes, which involve changing the PCS connection to
- 	 * the GMII MAC with the one to the XGMII MAC, require an RCW override
--	 * procedure to reconfigure an internal mux, as documented here:
--	 * https://lore.kernel.org/linux-phy/20230810102631.bvozjer3t67r67iy@skbuf/
--	 * This is SoC-specific, and not yet implemented in drivers/soc/fsl/guts.c.
--	 *
--	 * So the supported set of protocols depends on the initial lane mode.
--	 *
--	 * Minor protocol changes (SGMII <-> 1000Base-X <-> 2500Base-X or
--	 * 10GBase-R <-> USXGMII) are supported.
-+	 * procedure to reconfigure an internal mux.
- 	 */
- 	if ((lynx_lane_mode_uses_gmii_mac(curr) &&
- 	     lynx_lane_mode_uses_xgmii_mac(new)) ||
-@@ -1189,6 +1184,7 @@ static int lynx_10g_validate(struct phy *phy, enum phy_mode mode, int submode,
- 			     union phy_configure_opts *opts)
- {
- 	struct lynx_lane *lane = phy_get_drvdata(phy);
-+	struct lynx_priv *priv = lane->priv;
- 	enum lynx_lane_mode lane_mode;
- 	int err;
- 
-@@ -1197,7 +1193,8 @@ static int lynx_10g_validate(struct phy *phy, enum phy_mode mode, int submode,
- 		return err;
- 
- 	if (lynx_10g_lane_mode_needs_rcw_override(lane, lane_mode))
--		return -EINVAL;
-+		return fsl_guts_lane_validate(priv->info->index, lane->id,
-+					      lane_mode);
- 
- 	return 0;
- }
-@@ -1205,6 +1202,7 @@ static int lynx_10g_validate(struct phy *phy, enum phy_mode mode, int submode,
- static int lynx_10g_set_mode(struct phy *phy, enum phy_mode mode, int submode)
- {
- 	struct lynx_lane *lane = phy_get_drvdata(phy);
-+	struct lynx_priv *priv = lane->priv;
- 	bool powered_up = lane->powered_up;
- 	enum lynx_lane_mode lane_mode;
- 	int err;
-@@ -1225,6 +1223,13 @@ static int lynx_10g_set_mode(struct phy *phy, enum phy_mode mode, int submode)
- 	if (powered_up)
- 		lynx_10g_lane_halt(phy);
- 
-+	if (lynx_10g_lane_mode_needs_rcw_override(lane, lane_mode)) {
-+		err = fsl_guts_lane_set_mode(priv->info->index, lane->id,
-+					     lane_mode);
-+		if (err)
-+			goto out;
-+	}
-+
- 	err = lynx_10g_lane_disable_pcvt(lane, lane->mode);
- 	if (err)
- 		goto out;
-@@ -1314,6 +1319,7 @@ static struct platform_driver lynx_10g_driver = {
- };
- module_platform_driver(lynx_10g_driver);
- 
-+MODULE_IMPORT_NS("FSL_GUTS");
- MODULE_IMPORT_NS("PHY_FSL_LYNX");
- MODULE_AUTHOR("Ioana Ciornei <ioana.ciornei@nxp.com>");
- MODULE_AUTHOR("Vladimir Oltean <vladimir.oltean@nxp.com>");
+ .../bindings/iio/adc/adi,ad4080.yaml           |  2 ++
+ drivers/iio/adc/ad4080.c                       | 18 ++++++++++++++++++
+ 2 files changed, 20 insertions(+)
+
+
+base-commit: 7961435cd21903f761712cdf8fe3ed5ea24ebdc7
 -- 
-2.34.1
+2.43.0
 
