@@ -1,95 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F6A414A35
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 16:04:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E41C030F819;
+	Mon, 20 Jul 2026 16:07:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784563451; cv=none; b=LiBmlDbNGBRQhU1y6q5vXvCBr58q0PWOvphSyWvn1GNfuskxd0MjpITfWrPNmE+mnK4jrdmjjwx+GuCVzjeBQvm1t4FxjxhHEsrOr2sU/uLBBdm6pncwKMQURMUBvK+SlETEOd16MaE1svzqD7rJAdadF0hdRVjUmsDt+tCBSe4=
+	t=1784563629; cv=none; b=rjDTUnZA8LCkjAabaHjp9fPXgAZiNwA32lGnRx1Gno1ZoBkZUgBi8JhTgBW+hycMZnzB/d62JnktCReZXtWywLvXfabohm7ytvp+GvVEVQvxaY6oesLJ19CMg9MMMxIDtgozsCQtFSYG4+nihLiSLKuaM4a4huQvlCWi03A8IWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784563451; c=relaxed/simple;
-	bh=u3z+lHD5m7/qFz7kQW7VowSbBq/fycf2z0IDWgC6UQo=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GG7vvN+qFcSMxVJJyd3jTs7p3CIF559jhjhZVIcC9Ex+T+FTuAmy3tGuOmqJVv5Im/dMx1/WuFvoL+tK3PshboYBMWO/750T2uDLo0Ri4tfAsa2ldnoE4WsWMbg1IsBOlGf2/Wdt5lCZGJPVUOz6NliBQeSxLriQi71PnMJ+qZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TenWakaH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784563629; c=relaxed/simple;
+	bh=cDnkQdPIuOoFtVNYtxgiA3XD7U8fp+F1Z8/GP4AscrA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I1HF3tbQWw/kc2sqVcK7tiBLr0Kk5WjNM1LMulPZLfr4DknNwWxAIny8l1l5BLwU3EAD3NC4KkvFUgAdbBwqkrL1DnqPsLshWRC54Qdp+uNeeTPgvaCf2nY8kZ45sklzVF+T0B9owTOhqUmBecxOeT7/5Qg2+47hr2dXFVLuWno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=SfEVFH66; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TenWakaH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 434831F00A3F
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 16:04:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784563450;
-	bh=u3z+lHD5m7/qFz7kQW7VowSbBq/fycf2z0IDWgC6UQo=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=TenWakaHQXZLPErPCHKrQngLteyv7OcgYAF39bxdrthS9qyPHcpOmz9JkYH3TXhIZ
-	 MQUXGRdZLqrzMw0B5sFJPfcFl1aEeVQ0mfYeOcUTX+/481ul+MUzRTKLH921/A+IK5
-	 fzeSGLYHodmOfjhKmWA3iGsT/nQeAIEzLIp81VqZGGiee4oYClRQQDrrNPr/9W8vSe
-	 Glt49Gqm7Mo1S3ccasOxkX+tOUFUik+1QRKumGmFiQqcgzR5gB6p6GQb/Ok014p36e
-	 fHWy/zrWJrMbTl2scEir+PZn+VtieMbb5ROcy4C1yX36ehDKY7r4XLuHJf0NXYCaZa
-	 1OCTXY+DsXDbg==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5b2a4359d16so10693e87.3
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 09:04:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rpm9mI9DcGr8lWdDvmpW2+QlLDwkqKZHDvasxU0GIEZcuPyvstShDV62In8ocutV/Ky1BVevKFd3pkw@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzo/BtfonbilhqIUGX9raYaqdUWbjR1cSp2rw1pyR+L7EGU1Puw
-	USz3C7tWFwqdMoTC6HcGQ7Pl7rzVg4LLclU5e8UWjbewtVrG2BXmZT5TNHmlBaJOpLZpK8vGwIk
-	JT1tqDQKlCuJCXqFC7ELmyrM7CM8FM5FcN1zaWKhUsA==
-X-Received: by 2002:ac2:4ac5:0:b0:5b1:51f1:594f with SMTP id
- 2adb3069b0e04-5b28f9a58b4mr2058147e87.38.1784563448908; Mon, 20 Jul 2026
- 09:04:08 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 20 Jul 2026 09:04:07 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 20 Jul 2026 09:04:07 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <44ee60ff-c7f8-4ca7-ad65-7b610ad13d24@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="SfEVFH66"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 483571A10C3;
+	Mon, 20 Jul 2026 16:07:05 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 18F8360360;
+	Mon, 20 Jul 2026 16:07:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C6EC211BD3CC1;
+	Mon, 20 Jul 2026 18:07:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1784563624; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=utWdvu19UNZoxJGvC9DGJv7trvlZp6J4sIOyLrpLToc=;
+	b=SfEVFH66oqT+dpdZlYmxW8cXj8hCgnZvQ97i28dcV+BpRyTibFoFlF/Oc1X5s32eT+PHe7
+	kWk35LUlaNlwXb+BsJPoSV2izZ1wPTJ6HUES4TVmdVnreurls+o6M6gwdyLnwWVNP1Uh6s
+	wlFjUNlZTqmESIhVINyYXkDn/+v7sVGy8sjtpvEaC9mKh6jxQAfDIZTshLJO6HURGVZdCC
+	uMY+fUKdbDbU4BUFDGRhmEAClWdR+bQqydFPF32+osTDh3fls/Jpd5fl3bhNF/e5kYCZbL
+	okwjeC9X6VESZV5XsND/gpGsei34x1TKpx7vXoV/I7KUh461x/+MHObPyANCtA==
+Date: Mon, 20 Jul 2026 18:07:01 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Akhil R <akhilrajeev@nvidia.com>
+Cc: frank.li@oss.nxp.com, Frank.Li@kernel.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux-i3c@lists.infradead.org, robh@kernel.org,
+	sashiko-reviews@lists.linux.dev
+Subject: Re: [PATCH v5 04/12] i3c: master: Add support for devices using
+ SETAASA
+Message-ID: <202607201607012c70129a@mail.local>
+References: <aj0iG5xplWPWc6m_@SMW015318>
+ <20260703090855.1519255-1-akhilrajeev@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260720130511.493295-1-prasad.kumpatla@oss.qualcomm.com>
- <CAMRc=MfvfVvJ4anwY5WZUr5K8fSGkcvejah72fUDLc7ZC59jNw@mail.gmail.com> <44ee60ff-c7f8-4ca7-ad65-7b610ad13d24@kernel.org>
-Date: Mon, 20 Jul 2026 09:04:07 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Mf6tohNxQ40AAcx=MXb7ZQN2mj6j4LJ=4V4ZpQfPktS3w@mail.gmail.com>
-X-Gm-Features: AUfX_mxOVg1PhmmsBrl72jslVLexlQFkurPRt6iAzfj_5V2DjRA_XPcfkRV349s
-Message-ID: <CAMRc=Mf6tohNxQ40AAcx=MXb7ZQN2mj6j4LJ=4V4ZpQfPktS3w@mail.gmail.com>
-Subject: Re: [PATCH v4 0/4] ASoC: qcom and pinctrl: add LPASS LPR voting and
- Hawi LPASS LPI TLMM
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org, 
-	Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Srinivas Kandagatla <srini@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260703090855.1519255-1-akhilrajeev@nvidia.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, 20 Jul 2026 15:54:41 +0200, Krzysztof Kozlowski <krzk@kernel.org> said:
-> On 20/07/2026 15:42, Bartosz Golaszewski wrote:
->> On Mon, 20 Jul 2026 15:05:07 +0200, Prasad Kumpatla
->> <prasad.kumpatla@oss.qualcomm.com> said:
->>> This series adds support for LPASS low-power resource (LPR) voting
->>> through PRM and introduces LPASS LPI TLMM pinctrl support for newer
->>> platforms such as Hawi.
->>>
->>> On such platforms, LPASS requires LPR resource voting via PRM to keep
->>> the subsystem active. This is handled by adding a new clock ID and
->>> support for PARAM_ID_RSC_CPU_LPR in q6prm.
->>>
->>> Additionally, a new LPASS LPI TLMM block is introduced, requiring a
->>> dedicated DT binding and pinctrl driver.
->>
->> What is the merging strategy? Is an Ack from Mark required and the series
->> should go together through the pinctrl tree?
->
-> Why would an ack be needed? Cover letter is very explicit on that
-> through complete silence that there is no dependency (except that it is
-> not true) so why would you take ASoC bits?
->
+On 03/07/2026 09:08:55+0000, Akhil R wrote:
+> On Thu, 25 Jun 2026 07:42:03 -0500 Frank Li wrote:
+> > On Thu, Jun 25, 2026 at 09:38:15AM +0000, Akhil R wrote:
+> >> On Wed, 24 Jun 2026 13:57:46 -0400, Frank Li wrote:
+> >> ...
+> >> ...
+> >> >> [Severity: High]
+> >> >> Is it possible that sending the SETAASA broadcast before direct SETDASA
+> >> >> assignments breaks initialization for devices that natively support SETAASA
+> >> >> but are configured for SETDASA?
+> >> >>
+> >> >> According to the I3C specification, any device on the bus natively supporting
+> >> >> SETAASA will respond to this broadcast by adopting its static address as its
+> >> >> dynamic address.
+> >> >>
+> >> >> After this broadcast, the driver iterates through devices and attempts to
+> >> >> assign custom dynamic addresses via direct SETDASA commands:
+> >> >>
+> >> >> drivers/i3c/master.c:i3c_master_early_i3c_dev_add() {
+> >> >>     ...
+> >> >> 	ret = i3c_master_setdasa_locked(master, i3cdev->info.static_addr,
+> >> >> 					i3cdev->boardinfo->init_dyn_addr);
+> >> >>     ...
+> >> >> }
+> >> >>
+> >> >> Since the target device already adopted its dynamic address during the
+> >> >> SETAASA broadcast, it is no longer in the unassigned state and will NACK
+> >> >> the subsequent SETDASA command.
+> >> >
+> >> > Look like correct, but I am not sure if target will NACK SETDASA. Or should
+> >> > use SETNEWDA for SETAASA method.
+> >>
+> >> Yes, this looks valid for mixed device buses. I can move
+> >> i3c_master_setaasa_locked() after the SETDASA handling and before
+> >> i3c_master_do_daa() in the same function, so SETDASA-assigned devices will
+> >> ignore the later SETAASA broadcast. Does that sound good to you?
+> > 
+> > yes, try it to follow spec.
+> 
+> I just noticed that the specification says: if both bits 0 and 1 are set,
+> meaning both SETDASA and SETAASA are supported, the I3C Bus Controller should
+> use SETDASA first.
+> 
+> So moving i3c_master_setaasa_locked() after SETDASA handling follows the spec.
+> 
+> I will wait a few more days before sending v6, to see if there are any other
+> concerns.
 
-I don't think the cover letter is very explicit on there being no build-time
-dependencies, hence my question.
+No other concerns on my side.
 
-Bart
+> 
+> Best Regards,
+> Akhil
+> 
+> -- 
+> linux-i3c mailing list
+> linux-i3c@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-i3c
