@@ -1,70 +1,110 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from wp585.webpack.hosteurope.de (wp585.webpack.hosteurope.de [80.237.130.107])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0BE341CB42;
-	Mon, 20 Jul 2026 12:58:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45EE41C30E;
+	Mon, 20 Jul 2026 12:58:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.237.130.107
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784552284; cv=none; b=X5bdTFXnMweXp1RfQDzW1ttLUz7bLWZ1FDc4OgYh5sLyLMuaWZGPbSENWd9lB4B+9gPT2jtPRBLX0DQ2uAfVFiS7CwuJK5Fd4iP4+8pQrs6g9mgxGVUDrwrtlr1RpwtyPIob9ePAzVU9bX5s6Tp5ncWxYwUd/E+9AYHMXdGjPuI=
+	t=1784552316; cv=none; b=symQb6tHA8K9g99gwsI0+RsnZoKIPCTy4j7buTprko/mXKblm2iWfBePi0fl31f0jai0HQWhcCndf6CdWfTwIMSHiW+4ACyK82WJx03g6Iw7djARPsIlqLsDMOobMkR3sDy0gQH0qN44ibgltd5X+Hgp9AZmjkSOnPGmTmyUkbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784552284; c=relaxed/simple;
-	bh=pXwbG8g2ui3ZnNKrmpTi8SOGTs2VjdyKpZo2s1V1Tu4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=kEATfCyCvOkcL8lUDYuN01/Q2ufcQIYs5flwjdR05+hS+Fn7Ofw6kIe/5ULFHOX3Uts9qkPcM2giyd0RnTUcaQaEvY+ekIP3KBRnOayw24bDbHpAT0sVBmKTvLFaqzFGFy5vh06E+bzCHCEsNDMdbonbqnlqG7mHEar7G4CS0Ps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=kd/53mxy; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1784552316; c=relaxed/simple;
+	bh=ZT1jaqD1Iccb31fXdwSCF9w0Y9iQoL1OwEC509jWVdI=;
+	h=From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
+	 MIME-Version:Content-Type; b=bKEwYvQ+yz8rqqylkU755hoiRUshCpK/TZt9jPohUoL2nm5Or9h8SvHGX4M65DLxESXT/o8/n3crsSuO77f9g2KJmpp0xWlhWoy+YUSEksBiDgaoWBrjpbkAwVTbRYqNonTZ7gkWnFu0kFJvR80isxEiLJlMvh/BCQBEkBHwgss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loe-web.de; spf=pass smtp.mailfrom=loe-web.de; dkim=pass (2048-bit key) header.d=loe-web.de header.i=@loe-web.de header.b=UAxESYci; arc=none smtp.client-ip=80.237.130.107
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loe-web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loe-web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="kd/53mxy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1784552281;
-	bh=pXwbG8g2ui3ZnNKrmpTi8SOGTs2VjdyKpZo2s1V1Tu4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=kd/53mxygveWECGvoQk8w3hqEbj3MP4CoAy22jUj+vMtB6aLXXcZOvGSb91flcRQj
-	 tx3QduIDWI97BVjk7+R6WptXYqTyJsLeMfbTteiEqiaTH40GcwKUgeIoTGbQKhOgLd
-	 7LOi4LqV6sjwgqr7MOusvmSorHgetrKE5X1kBXBnPseujlKemKL1ho9dh+pLR2THz3
-	 XGhuiq6PvnZ1DmcRbGPk9yT7s3l3HVFPST2sx+UNsE/KRS4BTuKYUjhBWiKp/6zaax
-	 heL/QeLriNwO2tE6a1vna+8BiUPbLn1tVzlckNW8SAyIchyrR7Fl93JPyT357vC3mn
-	 Lfg/UvycIH17Q==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id C247F17E0CF1;
-	Mon, 20 Jul 2026 14:58:00 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: Matthias Brugger <matthias.bgg@gmail.com>, 
- Chen-Yu Tsai <wenst@chromium.org>
-Cc: linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260720092759.1831105-1-wenst@chromium.org>
-References: <20260720092759.1831105-1-wenst@chromium.org>
-Subject: Re: [PATCH] arm64: dts: mediatek: mt8192-asurada: Disable mmc1 on
- Spherion
-Message-Id: <178455228074.74351.3461241181620580397.b4-ty@b4>
-Date: Mon, 20 Jul 2026 14:58:00 +0200
+	dkim=pass (2048-bit key) header.d=loe-web.de header.i=@loe-web.de header.b="UAxESYci"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=loe-web.de;
+	s=he168698; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Date:Subject:In-Reply-To:References:Cc:To:From:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=ZT1jaqD1Iccb31fXdwSCF9w0Y9iQoL1OwEC509jWVdI=; t=1784552315; x=1784984315; 
+	b=UAxESYcibmxwD1J6Xi9RhQ+61X/5jZIv8DwP+Goo4wtUMQlPvQcEXAMGopBje82kpa51xdFcaKn
+	UD/Fhie3h1bWTf0ti4twVQ4n9eFZl7XmxjspbgatepY8p9QRH/l/j6H/we1BCLobWGPoglsqrRGjH
+	/7eSN4qEtq2WaMvrj2JkpCf2fUEsjS7r2FUen0+N/Rqu/PyMnLMYwJjr6Zg0BbfjIaHXsSt29tkht
+	BpbFUzi8jZe+ZWO6KB0iSlbTWFZoZzihA5Aq9Hf3axEchL4p4uHwJ2OcYbguzEYrg1AlZd1+dH9Hr
+	5MHiAbhIl55fpVNZ2dHZ1kjkgZtz6O2sqOjA==;
+Received: from host-213-179-158-197.customer.m-online.net ([213.179.158.197] helo=84JJL23); authenticated
+	by wp585.webpack.hosteurope.de running ExIM with esmtpsa (TLS1.2:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	id 1wlmzI-004nlt-2U;
+	Mon, 20 Jul 2026 14:20:48 +0200
+From: "Jakob Loe" <jakob@loe-web.de>
+To: "'Alibek Omarov'" <a1ba.omarov@gmail.com>,
+	"'Rok Markovic'" <rok@kanardia.eu>
+Cc: "'Heiko Stuebner'" <heiko@sntech.de>,
+	"'Sandy Huang'" <hjc@rock-chips.com>,
+	"'Andy Yan'" <andy.yan@rock-chips.com>,
+	"'Maarten Lankhorst'" <maarten.lankhorst@linux.intel.com>,
+	"'Maxime Ripard'" <mripard@kernel.org>,
+	"'Thomas Zimmermann'" <tzimmermann@suse.de>,
+	"'David Airlie'" <airlied@gmail.com>,
+	"'Simona Vetter'" <simona@ffwll.ch>,
+	"'Rob Herring'" <robh@kernel.org>,
+	"'Krzysztof Kozlowski'" <krzk+dt@kernel.org>,
+	"'Conor Dooley'" <conor+dt@kernel.org>,
+	<dri-devel@lists.freedesktop.org>,
+	<devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>,
+	<linux-rockchip@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20260717120005.2087386-1-rok@kanardia.eu> <20260717120005.2087386-4-rok@kanardia.eu> <CAKyg=SV2-81VFgr+Tq=-Si5EO-86MA+ZFoQ+DX1fEYdnnLYJng@mail.gmail.com>
+In-Reply-To: <CAKyg=SV2-81VFgr+Tq=-Si5EO-86MA+ZFoQ+DX1fEYdnnLYJng@mail.gmail.com>
+Subject: AW: [PATCH 3/4] drm/rockchip: lvds: add RK3568 support
+Date: Mon, 20 Jul 2026 14:20:48 +0200
+Message-ID: <000c01dd1842$32a0a580$97e1f080$@loe-web.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQFaHWtND3nIPg5aqhiCEj6HM4JNGQJz810+As1SicW3Uj7lQA==
+Content-Language: de
+X-bounce-key: webpack.hosteurope.de;jakob@loe-web.de;1784552315;68272804;
+X-HE-SMSGID: 1wlmzI-004nlt-2U
 
-On Mon, 20 Jul 2026 17:27:57 +0800, Chen-Yu Tsai wrote:
-> Spherion does not have an micro SD card slot.
-> 
-> Disable mmc1.
+Hello!=20
 
-Applied to v7.2-next/dts64, thanks!
+Nice to see this is still being used.
+I can confirm that this actually works and outputs fine LVDS on a =
+RK3566. Also reliably so far...
+Any questions, I will see what I can help.
 
-[1/1] arm64: dts: mediatek: mt8192-asurada: Disable mmc1 on Spherion
-      commit: 934cccd2c6795a20d04bd470ec7eb3151950fbfc
+All the best
+Jakob
 
-Cheers,
-Angelo
+
+-----Urspr=C3=BCngliche Nachricht-----
+Von: Alibek Omarov <a1ba.omarov@gmail.com>=20
+Gesendet: Montag, 20. Juli 2026 07:39
+An: Rok Markovic <rok@kanardia.eu>
+Cc: Heiko Stuebner <heiko@sntech.de>; Sandy Huang <hjc@rock-chips.com>; =
+Andy Yan <andy.yan@rock-chips.com>; Maarten Lankhorst =
+<maarten.lankhorst@linux.intel.com>; Maxime Ripard <mripard@kernel.org>; =
+Thomas Zimmermann <tzimmermann@suse.de>; David Airlie =
+<airlied@gmail.com>; Simona Vetter <simona@ffwll.ch>; Rob Herring =
+<robh@kernel.org>; Krzysztof Kozlowski <krzk+dt@kernel.org>; Conor =
+Dooley <conor+dt@kernel.org>; dri-devel@lists.freedesktop.org; =
+devicetree@vger.kernel.org; linux-arm-kernel@lists.infradead.org; =
+linux-rockchip@lists.infradead.org; linux-kernel@vger.kernel.org; Jakob =
+Loeschke <jakob@loe-web.de>
+Betreff: Re: [PATCH 3/4] drm/rockchip: lvds: add RK3568 support
+
+> Based on Alibek Omarov's earlier posting [1], with the changes below.
+
+Hi, I'm Alibek Omarov and thanks for picking up my patches. I didn't had =
+time to finish them and these days I don't work on hardware that uses =
+any of Rockchip SoCs. However, if I'm not wrong, it's still used in =
+production and I had report from Jakob Loeschke (added in CC) who =
+confirmed it worked in their setup as well.
+
+Thanks.
 
 
