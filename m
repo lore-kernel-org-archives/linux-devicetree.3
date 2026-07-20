@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C005E3CAA5F
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 20:39:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAE1D392838
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 20:40:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784579952; cv=none; b=MHj6omMz4XbbIdyVaQ93nW4vQY772ejBU0t5gOJNB5ezyIGS9GzGNG7e5VpNWHjrrL2KbanH1tcDAE7iwpXUWBt5Ig+GwEwZowiDIjFjsFmfyQZnUlLYIxaovf7NZFwh4xsoXan3aX1ss4Lt/8ogDmSu+K7Y1EqO8FqCAtghYeI=
+	t=1784580010; cv=none; b=r/nU8XqLJA8h9Y0hjiwOxx0dYV6EMNCP76d0HoqRF5q9ITC4BxQ4O2tYkCSs82ePzonLmsdqzhS/k3CIBHez8QcnYEBzR3W22cLvO8E65J6zfW0cYtf/KkcpJfCJTv+/m6DDwym3JJzBnu8GGEiKNcSG4eA1V7SEatVpBUGMKYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784579952; c=relaxed/simple;
-	bh=/8EINSfQhoZP3zz7+XvoO0aR0faVbSEhVivD2EKgbpw=;
+	s=arc-20240116; t=1784580010; c=relaxed/simple;
+	bh=39ne8Plk7UoVgaN9iVwCW9pkV2WpTSJO7YJZX56YtIE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rJtFpTDaxINqrf32hKVS/z+hVODI4k72MbYjtyrLtwtx2ixMLqWdKEn1+P4C4n2QVLFbQ1C9tTCqyiSRBk5g8EJxq+DJGPKhkYLIJd8k7ee5YEpShFZCM1tk7nzCGQjgB6YzQAlSMuvj2e2vKfdp8PsAfsB/jor1OH9sx7wJAss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=COpJNH+n; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=YKYr5ZdQWGTseTfyw+imkB6GEzGMKtWhIjRJ0rrqIldJq/U25+1uxuaP2IhYr4lh2QMs6pijQrF4JFFSYBHoKPWZoFRnh77gI4mC7MnrKJDS0mhTEW3haAR/XSwLBmuj6V0zN+mxtX3uXJHzatHQzodNgaO7oF8nMe1ppEuPZsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WneeTbiu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="COpJNH+n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 505011F000E9;
-	Mon, 20 Jul 2026 20:39:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WneeTbiu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3197C1F00A3A;
+	Mon, 20 Jul 2026 20:40:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784579950;
-	bh=WC8aYtuLrcT3JUVi+C12d2r1cCQUgmD2KV0AMEaXPDs=;
+	s=k20260515; t=1784580008;
+	bh=4Uuo6IdIh3JfZClIkA1elsTg14OklVqBQ5GPBXH99qs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=COpJNH+nYBBJHh1N7zRijw3XQirK0GAyy4XJ9rYXF6hEv6riEzmOnTPk5zoKb//j/
-	 xhk2S05wUGB15pxDjbrRoroeNO2rCx8+xmUJympZCqMUYbLSU3U2LuQmhGHUqMfSx2
-	 0OHV/LsLI2+0ie4rt84ytOCGlE92rJCj+htvlUFFsHON0T98dc/hY8llLCmQhj62/W
-	 aMAQ2eAfgeK28lM97ra+aI/Z3pZ06/ZAfhfayAst5G6W85A7uG0FXynUZGSmjauwbm
-	 xZ1ZpzWeLzrvetJdP6+Axhz4qxnySTQVZ4aCwcSBmHnOiosMzUDIz09snQwWGna7nz
-	 O2ExDaQEVCzRw==
+	b=WneeTbiuEA7Bvv6sLcNeJuLKa/BMQMHQ9e0kt/ZhaVvLFcIZYU/dRmh6Wfn8NFha/
+	 tuo5fTQUzmYUDVxJXhNVG+3D6oDT4zTLt+2zptADxrYwXfqXbMk3yuQTAER1EFgCzA
+	 wsSvEpnOJgQ9IjvovLAfoUShR2zqFN/asEQyOSQvgg/ThO0sXwuLzSqZzqrRCOX2rZ
+	 AtLywHUb6vwFzli/XqpOljEXTbjq8+/SR0tbcT7tJbwSjCVVF1uTCJue+altShcnU/
+	 PRzOCttX0tjOMopb9KkvLGkq7IPbWQZtpBBiOpc3rkA3Gvg3UL6iEFiWRPjoXBXb8t
+	 eWxMZVAmA3cSg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V18 8/9] iio: imu: inv_icm42607: Add Temp Support in
+Subject: Re: [PATCH V18 5/9] iio: imu: inv_icm42607: Add PM support for
  icm42607
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260720202343.70138-9-macroalpha82@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260720202343.70138-6-macroalpha82@gmail.com>
 References: <20260720202343.70138-1-macroalpha82@gmail.com>
- <20260720202343.70138-9-macroalpha82@gmail.com>
+ <20260720202343.70138-6-macroalpha82@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 20:39:09 +0000
-Message-Id: <20260720203910.505011F000E9@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 20:40:07 +0000
+Message-Id: <20260720204008.3197C1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,119 +47,99 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The temperature channel advertises IIO_CHAN_INFO_SAMP_FREQ but f=
-ails to handle it in its read_raw implementation, causing -EINVAL.
+- [Medium] Calling `pm_runtime_force_suspend()` in the `.remove()` callback=
+s causes an unbalanced runtime PM `disable_depth` due to conflict with `dev=
+m_pm_runtime_set_active_enabled()`, breaking power management on driver reb=
+ind.
 --
 
---- Patch [8]: [PATCH V18 8/9] iio: imu: inv_icm42607: Add Temp Support in =
-icm42607 ---
-commit d42e76e3efb32de0c89c91668f6d156c61cbf937
+--- Patch [5]: [PATCH V18 5/9] iio: imu: inv_icm42607: Add PM support for i=
+cm42607 ---
+commit ab55ef85474a1fe3f2d09669c982ebc220a804ca
 Author: Chris Morgan <macromorgan@hotmail.com>
 
-iio: imu: inv_icm42607: Add Temp Support in icm42607
-   =20
-Add functions for reading temperature sensor data.
+iio: imu: inv_icm42607: Add PM support for icm42607
 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/=
-iio/imu/inv_icm42607/inv_icm42607_accel.c
-> index ad1135d48902d..718a0201b6eda 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+Add power management support for the ICM42607 device driver.
+
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
+io/imu/inv_icm42607/inv_icm42607_core.c
+> index 6ec1d730017e2..c127ea0a94c4c 100644
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+
 [ ... ]
-> @@ -187,6 +190,8 @@ static int inv_icm42607_accel_read_raw(struct iio_dev=
- *indio_dev,
->  	switch (chan->type) {
->  	case IIO_ACCEL:
->  		break;
-> +	case IIO_TEMP:
-> +		return inv_icm42607_temp_read_raw(indio_dev, chan, val, val2, mask);
 
-[Severity: Medium]
-Will this early return bypass the IIO_CHAN_INFO_SAMP_FREQ handler located
-further down in inv_icm42607_accel_read_raw()?
-
-Since the temperature channel advertises IIO_CHAN_INFO_SAMP_FREQ in
-INV_ICM42607_TEMP_CHAN, this causes requests for the sampling frequency to
-return -EINVAL instead of the actual sampling frequency.
-
->  	default:
->  		return -EINVAL;
->  	}
-
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c b/drivers/i=
-io/imu/inv_icm42607/inv_icm42607_gyro.c
-> index 6af7b143e6a15..e7d5e552bb5cb 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
-[ ... ]
-> @@ -184,6 +187,8 @@ static int inv_icm42607_gyro_read_raw(struct iio_dev =
-*indio_dev,
->  	switch (chan->type) {
->  	case IIO_ANGL_VEL:
->  		break;
-> +	case IIO_TEMP:
-> +		return inv_icm42607_temp_read_raw(indio_dev, chan, val, val2, mask);
-
-[Severity: Medium]
-Similar to the accel implementation, does this early return intercept IIO_T=
-EMP
-and incorrectly skip the IIO_CHAN_INFO_SAMP_FREQ fallback?
-
->  	default:
->  		return -EINVAL;
->  	}
-
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c b/drivers/i=
-io/imu/inv_icm42607/inv_icm42607_temp.c
-> new file mode 100644
-> index 0000000000000..8681ef2b49e21
-> --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c
-[ ... ]
-> @@ -0,0 +1,98 @@
-[ ... ]
-> +int inv_icm42607_temp_read_raw(struct iio_dev *indio_dev,
-> +				struct iio_chan_spec const *chan,
-> +				int *val, int *val2, long mask)
-> +{
-> +	struct inv_icm42607_state *st =3D iio_device_get_drvdata(indio_dev);
-> +	s16 temp;
-> +	int ret;
+> @@ -275,10 +378,75 @@ int inv_icm42607_core_probe(struct regmap *regmap,
+>  	if (ret)
+>  		return ret;
+> =20
+> +	ret =3D devm_pm_runtime_set_active_enabled(dev);
+> +	if (ret)
+> +		return ret;
 > +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		ret =3D inv_icm42607_temp_read(st, &temp);
-> +		if (ret)
-> +			return ret;
-> +		*val =3D temp;
-> +		return IIO_VAL_INT;
-> +	/*
-> +	 * T=C2=B0C =3D (temp / 128) + 25
-> +	 * Tm=C2=B0C =3D 1000 * ((temp * 100 / 12800) + 25)
-> +	 * scale: 100000 / 12800 ~=3D 7.8125
-> +	 * offset: 3200
-> +	 */
-> +	case IIO_CHAN_INFO_SCALE:
-> +		*val =3D 7;
-> +		*val2 =3D 812500000;
-> +		return IIO_VAL_INT_PLUS_NANO;
-> +	case IIO_CHAN_INFO_OFFSET:
-> +		*val =3D 3200;
-> +		return IIO_VAL_INT;
-> +	default:
+> +	pm_runtime_set_autosuspend_delay(dev, INV_ICM42607_SUSPEND_DELAY_MS);
+> +	pm_runtime_use_autosuspend(dev);
+> +
+>  	return 0;
+>  }
+
+[ ... ]
+
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_i2c.c b/drivers/ii=
+o/imu/inv_icm42607/inv_icm42607_i2c.c
+> index f2b9067815b0e..04ad372917832 100644
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_i2c.c
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_i2c.c
+
+[ ... ]
+
+> @@ -56,6 +57,11 @@ static int inv_icm42607_probe(struct i2c_client *clien=
+t)
+>  	return inv_icm42607_core_probe(regmap, hw, inv_icm42607_i2c_bus_setup);
+>  }
+> =20
+> +static void inv_icm42607_i2c_remove(struct i2c_client *client)
+> +{
+> +	pm_runtime_force_suspend(&client->dev);
+> +}
 
 [Severity: Medium]
-Since this function handles the mask for IIO_TEMP, should it also handle
-IIO_CHAN_INFO_SAMP_FREQ?=20
+Does calling pm_runtime_force_suspend() here cause an unbalanced
+disable_depth counter?
 
-It currently falls through to the default -EINVAL case, causing in-kernel
-reads for the sampling frequency to fail, despite the temperature channel
-advertising it.
+Because devm_pm_runtime_set_active_enabled() is called during probe in
+inv_icm42607_core_probe(), devres will automatically call
+pm_runtime_disable() on device removal.
 
-> +		return -EINVAL;
-> +	}
+Since pm_runtime_force_suspend() also disables runtime PM internally,
+it seems this results in the disable_depth counter being incremented twice.
+If the driver is unbound and rebound later, will it fail to ever re-enable
+runtime PM because the disable depth remains strictly greater than zero?
+
+[ ... ]
+
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c b/drivers/ii=
+o/imu/inv_icm42607/inv_icm42607_spi.c
+> index eb04036a6712f..995393dce9429 100644
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c
+
+[ ... ]
+
+> @@ -65,6 +66,11 @@ static int inv_icm42607_probe(struct spi_device *spi)
+>  	return inv_icm42607_core_probe(regmap, hw, inv_icm42607_spi_bus_setup);
+>  }
+> =20
+> +static void inv_icm42607_spi_remove(struct spi_device *spi)
+> +{
+> +	pm_runtime_force_suspend(&spi->dev);
 > +}
+
+[Severity: Medium]
+Could this run into the same double-disable issue as the I2C remove function
+due to the devres pm_runtime_disable() action?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720202343.7013=
-8-1-macroalpha82@gmail.com?part=3D8
+8-1-macroalpha82@gmail.com?part=3D5
