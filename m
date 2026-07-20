@@ -1,238 +1,211 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012065.outbound.protection.outlook.com [52.101.66.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D731B1A8F84
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 02:10:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784513408; cv=none; b=UrhiJuX7ejMjNAEHSXWAYFOah6j5ouduio0L2QHJ29X3lsPyltK4BgCMaN7KUODtTXrA2d0Ve09XFHSMQaPzNGcWUVe5XNqP4LfCBVtbrHiGg8p9nGoF9U8K1M61SBJ1irxOydXPYELmw4nATBrEzok+TjFf7+Fq52qY60BkpCc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784513408; c=relaxed/simple;
-	bh=RqjlMxO012jgIiybeaAmg6bdFBZBp4O9uOyZB+siAzg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gl7VH1oBsyzP2UgU15Fm82gK/EmU3XBxV2Oe0LC2asOE5PpPMil/+PA7cN9QEVm78qDMPDq7R7tXTOJLt2wLja2LOziTve86EE2NOg1MKYlTDOniniuqbXzpscSl68Ulj4qXQDk2OHb+rOXEdPuDgJY+zsFxcOdd6sN1RLtnuC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aqj7rwPU; arc=none smtp.client-ip=209.85.210.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643A41A8F84;
+	Mon, 20 Jul 2026 02:10:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784513419; cv=fail; b=UnRWa/mQ0TJcmnF/xH/iZBhIf2D8LPBVSneJY+B6nf0WtE5Xar0+z+Hf+TGEVm351K7DXj7Euin9CRVR7c5kbLC310V4Lc5SerUFZzDb3zFwSYweOmqJ98f4vFUhK1sRA/t1u7LqKuIfP5PAqiQT8eKhFebq/k1NXfC96cxkfok=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784513419; c=relaxed/simple;
+	bh=XyP3beKTqKy7/tm4NGhKSSOYn9FOIhNtE617thQbnkU=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=C806ipuUUDWjO07/RTeqK5B0nfxC016kM1VKKwg0P3hUI2jBNuOtoIcy7U031uuZ0mOf2Vr0G6ur+uLa35AXyWcanUHmXpKBYnhSv1OEGfSsQgHiqV9aVijWbS5gTYmIZK8b78qjBpdvz8ypriyaANuPbHGt36TpPDtldBdGAaw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cn.bosch.com; spf=pass smtp.mailfrom=cn.bosch.com; dkim=pass (2048-bit key) header.d=cn.bosch.com header.i=@cn.bosch.com header.b=UyBYuORW; arc=fail smtp.client-ip=52.101.66.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cn.bosch.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cn.bosch.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aqj7rwPU"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-84a2dcede83so8533284b3a.3
-        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 19:10:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784513406; x=1785118206; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RHFbtn3XOKRqd2XipOab6cFjO5p+IVxTDVxSIoIbpSA=;
-        b=aqj7rwPU1LquiVppm00qfWcOVSzGdhnZQcRPZl2RbVkI7fQZXcZAU3Lq9WENIaIVdi
-         R/nupSKbk0/cXRuv2LoGMVkPrtL9k+izbjI+7O72bWSFgcHa2yzWY1dow4O+mYNDEDrX
-         goYHqWBLQDtxCXKhzimhecSAB/7IfnkgKN4hXhh61RmmUF8x9oyELH5so/SFZjo30QiW
-         0/IqCU4OzUq7bnZHC1DOeGg+wln9VpCh7LwM/2eNsf08EapmJlc7h3rQbIlxZW6rGn4d
-         bIfcaAa/1qF/3f/sFDaBij5N0Y265ysKCWLvq5to3Ez/DMyxtIYych2UZOTp4Yyf+i/K
-         nGiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784513406; x=1785118206;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=RHFbtn3XOKRqd2XipOab6cFjO5p+IVxTDVxSIoIbpSA=;
-        b=TbZ5/N1j+PIIVAwCbndPyb0RXplTVTgCMHVGU2RPvhUNQMxxSbEVpuWyXrUlQA8mnC
-         lpoKR5s839jWz0OUXqbdrd04Megxa+U7DsIRWFJeE9IQ7JKcPsjJt72omfgTSCuq8dxV
-         1gnMPOEQ+2qwJr5/B4Lxf+HE++s2uZ5azawGPsSmYHoqTqAHzmp0e0npIIhZyUp7PLhV
-         Wy4sf21QGyFulfPv10j/UT/DkY9BE1hns27/7plsi7HtzaMhjikwoYQudr4IJyqd2RbP
-         4UBSExaxc3086E/ZgjUKGroAXSjdlseG9Vw4PGVo2eRgYI4nMJL+QdI7PfdnuUqgLvd9
-         3I2w==
-X-Forwarded-Encrypted: i=1; AHgh+RonPfDlo1HLgRx/+Weani8K+l4YFRlqreaTLBjQLzfkVuHjPgG1yKbexRLeKTAHOhZtwFLbY7jQYz6n@vger.kernel.org
-X-Gm-Message-State: AOJu0YxZP46TaDM8K5amqKm35Yi0ynukfj+o0MFGL3r/DBp0NTzJQCD/
-	kw+KvWzUk7rvgqSAr4iALEGMohW5k/Amo7eOUPaWH2f/WMgceSu9W69q
-X-Gm-Gg: AfdE7cloW+xrDeljLCauC/bIY9RRKen7Ko0B/6i17jqR7E6PiVoQjdKwStPzdMuOOGi
-	YdMhbXH5DWFHWni1bosDLlCeuOsX5gKGRP5y8n7iI3ain9ifxd7b6hfv3KPjHjNGsG28iZIsQA7
-	73QzzS29eryRJJucalWMGsXzA8Jy/cW84Xs5ogUWSYXlv8x3E5LyfbnTcLsV26wAnBepbkvfbwc
-	5cgA5cbSS6Rbm8YFMh5x6dmt1ij1Y4W2OcBdBJS7pwkI0KO2Ao3kWhX3/qGZPcA+WRE07KIndPg
-	vTVJDWgNKPr+EN2eaty82oAwRD9Z+mDfb8BeGwN9l2isiR+LCmdsqO0MuvsyASkCvXBwCqzhCjN
-	KN5fwP+t+YTCtoPJe617aO5NH/fPT7n5btyYXMintrPg+uvUAi0g1GdLx7jIDoM1FfK98F6P68S
-	mR61Iu07MpUKJkcGXRcV/3c03x2Y6sN6uMs1+NnxaFMSQDBgj6SyQ=
-X-Received: by 2002:a05:6a21:7a96:b0:3b2:8685:1473 with SMTP id adf61e73a8af0-3c3ad5fda1emr12087662637.7.1784513406145;
-        Sun, 19 Jul 2026 19:10:06 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31429f9bcd9sm31370090eec.3.2026.07.19.19.10.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Jul 2026 19:10:05 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <2e93fb55-5055-4c54-8ea2-6ef59248c842@roeck-us.net>
-Date: Sun, 19 Jul 2026 19:10:04 -0700
+	dkim=pass (2048-bit key) header.d=cn.bosch.com header.i=@cn.bosch.com header.b="UyBYuORW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=x1oBf0IpiB1U0sClW86H5gqsWmrbDDgi/qcZCEd5swAFUF2Z9bV5QkG5XZOgj1o9QnuY+fKplilT2ukAGPhs9Xw/d26TknaRSTooclcC4+z4/2Zt/4D3gTkY/kgJ4r2bu50iip+D/54Ut1mR9/b5/IoUtPd6l6xR4pzCh4FtQklW4Dp0V/4eHSypNgTXydTnCLJYnPsFMVtySzIOTv2U4mO8R8FfDrKxQBoufxDYPrn9IKBNKTnQuZlONiBscFfH/qfP851oiME/D/LgrmYBfLkzuEw0YampJmX+AaDrQzIeswaW2sdsagrthmGTWAidANT3Dz8bVjtuPyrAKN+SKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XyP3beKTqKy7/tm4NGhKSSOYn9FOIhNtE617thQbnkU=;
+ b=wW82cp6NZnJ4V8lVPNQwEPVGUbDZ8G8cA5bUafktXP6NWUBgvsVe/DU4X2UFURhcZCQglRTk8Fkd2KrvWnyqt0puvbp2iWc1eBjdbPTxc2LthDDKAYuoYEJ8i8XnZbtg7gzYlY0BWD06tx0drUz1PPrgWNxBgDI0MRHNXj8ntp8Z4n5aBpVtHnorBPstlVKNgfDWiyLbDp5G/SIB3EXjjjKijb/MtRPkw/9xGYtCZuRuhSFSHtBivX0Ug/QsjXS3DgGWBaDLnmNCKa73Wlr/Y72f1BU0runnrXqU7TlTQsYgxIs8QgcNsei16WPwiYATP2KY3GpFG+Ynd1Ax62UHWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=cn.bosch.com; dmarc=pass action=none header.from=cn.bosch.com;
+ dkim=pass header.d=cn.bosch.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cn.bosch.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XyP3beKTqKy7/tm4NGhKSSOYn9FOIhNtE617thQbnkU=;
+ b=UyBYuORWgCOBjMPCrZkujyIRLA2JB0h8e6ww+y+fxrFa0xLVvpPB4dFT3OH+qCCd5pHDzScsB60Qf0TOH3gsqJWXXwkH7ctxRMiVkHt/u/QGXBKKhQJisytfexGKjPakda6my5YebY0oVg3wZ8O0o8C7rCWjctvEVtci5C2ZibWQQ8mPQrbyEQd0yC8SAuGjUc2j0wYXsYEJieYAm36OExeWa4qXB87wNJ3aiSDgoAlDLObtTFJQuJ4544f2khJaW2cGII9C119UrIP3GtRfQ6MIuiEfvUPnFlWr8frSxGbIJxrq3B9akh3KSdABF3Ad4DbGTRpwwspoyFxKrLV6vg==
+Received: from PAWPR10MB7415.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:2ee::8)
+ by DB4PR10MB6285.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:383::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.16; Mon, 20 Jul
+ 2026 02:10:09 +0000
+Received: from PAWPR10MB7415.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::fa9a:794b:21d4:ae9b]) by PAWPR10MB7415.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::fa9a:794b:21d4:ae9b%5]) with mapi id 15.21.0223.008; Mon, 20 Jul 2026
+ 02:10:09 +0000
+From: "CHENG Haoning (BCSC/ENG1)" <Haoning.CHENG@cn.bosch.com>
+To: Frieder Schrempf <frieder.schrempf@kontron.de>
+CC: "Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano
+	<daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>, Lukasz Luba
+	<lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Shawn Guo
+	<shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
+ Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+	"linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v8 3/3] thermal/drivers/imx: Add calibration offset
+ support
+Thread-Topic: [PATCH v8 3/3] thermal/drivers/imx: Add calibration offset
+ support
+Thread-Index: AQHdE3uQOwhGQ7gvREa8/JzAX/2zpLZuS2CAgAL3SOCABHAl0A==
+Date: Mon, 20 Jul 2026 02:10:09 +0000
+Message-ID:
+ <PAWPR10MB7415DE998EA3CCA639F14EF2C2C32@PAWPR10MB7415.EURPRD10.PROD.OUTLOOK.COM>
+References:
+ <20260714-b4-symana21-11221-imx-thermal-support-upstream-6-18-v8-0-d54d8690e16e@cn.bosch.com>
+ <20260714-b4-symana21-11221-imx-thermal-support-upstream-6-18-v8-3-d54d8690e16e@cn.bosch.com>
+ <5a000235-5e17-4d54-8bbe-42fda0b59db0@kontron.de>
+ <PAWPR10MB741520A95E4822E935A0B7C0C2C62@PAWPR10MB7415.EURPRD10.PROD.OUTLOOK.COM>
+In-Reply-To:
+ <PAWPR10MB741520A95E4822E935A0B7C0C2C62@PAWPR10MB7415.EURPRD10.PROD.OUTLOOK.COM>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+dlp-product: dlpe-windows
+dlp-version: 11.11.3.81
+dlp-reaction: no-action
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=cn.bosch.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAWPR10MB7415:EE_|DB4PR10MB6285:EE_
+x-ms-office365-filtering-correlation-id: 03119b5c-d9e6-4135-62cf-08dee604064f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|11063799006|4143699003|56012099006|10067099003|6133799003|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info:
+ 3kJ1emsaDpw/4M+G7TPcNCFquyBdEPJoXbsp6Qbn50YG9k6mcWDo+fdl6fK6YrswiTes9HBkggkBWL+uXFbfe0gy72zezh5sKo8xcue9E/7kwC+b4ZDwz8b/lL0SshULZM4eHXYXP1TppYmkF/dl3KRdExbJWdIg56S2jewYeQfa1/qcFVjSI/MjHMN7ejmts1D41mR7FtierQY2Sbx/miVA/qHdHwiAleU/Cuwew/awP376BEbqbrf1Je1tDGAJx4Qk63w8oO6ZWcYa6+Seo/UN8U7w70kQ52+Y9AYMLTYKB9SYEpDl69yfDUwlGR7AVovktlWmsHUr87pVFl5kDb/BvHt0vhSxdMP6yKpbC6thvk1JCHZbAHszuroojumrBUiiQPn75vk12E8AeKxjWTyipPiRjGlG+ODFpQ5t/fw+8cdqVv2JRfO9jb7+gcko3r2vN0m6sifLVSpsA2EkH14gb/JZsw6qmcD66WPVl39wy5i7GbLufHQTJR2ijT9qE9hexsupkry632xrusoWNofKKkH2Uqb7cqSNdOjDCRpH3zk67AWE6Ww2Aopu09cfNY6WtabDBnJ5zJIHrAaspequuO4qBuNl6RFFEEt8IVye8eFcPj5Sy7Qz2RXsKEvSBJWaGklEGWNOsC7EZsh5/lth1Fp7O92neProjh5ymf8iUd0LUQbYH0IhR1fQyByk0pJxMdP3c4JZNdXDHX1KspAcn2b7uM6IEivalPSAEfA=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAWPR10MB7415.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(11063799006)(4143699003)(56012099006)(10067099003)(6133799003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?o3OdH4hCEhmv1qhVPehSBgRTfuGCpX6F1T4qB1hKvpou8QybS4SP/6FpYCmC?=
+ =?us-ascii?Q?6MMLKIq0j9C3v+1L+pYuSvYngwvkTnKTOZtVrbG24/ojNYzcvyg1mKNmah4X?=
+ =?us-ascii?Q?DNJh4e2+hsk7VsrN+qrjzn3BtJ0PJruU3uwEK8WOVIEuQWpDfhmSKnX5jTTZ?=
+ =?us-ascii?Q?ho5Ng73rFEk/EbC03K+3yW5xXmXqn8xOap/yEULIK3Xsur+P+00pBasCiLBL?=
+ =?us-ascii?Q?8j6oCo7EKdQF9KRkN3/5RqvU31EUkPZxUYdB+t3xoKdzQWHTmhACBrtqxsri?=
+ =?us-ascii?Q?Lfabl7xDr6IEt6LKxpsF4GWKqYeaaor6tyFePn8PZdIlo5ymV3IHnvJYLxJy?=
+ =?us-ascii?Q?8K5FaVezJDoko+9PQ6PcmZs6OFebU0hfi0IMZp0cbEWV9oEw1YEI6MXFYZ4o?=
+ =?us-ascii?Q?RFZatxiMymZbC7b9jpmoPuMkplo7DxudxoMoLKUTAh+7qcnB9fg1H5rGBxIM?=
+ =?us-ascii?Q?ZSeXDmqKKa8D92d62MF1+7owE+OBSmXW6TXyFcyhr2JsJJ5Se61cFY0Mquhv?=
+ =?us-ascii?Q?ouYpPdTrYHgWJ9txHTR2RlT4FWrsGMTs5ybAgdJSFxAp38DBTlgfqKhaGEi4?=
+ =?us-ascii?Q?PnHdy40pH9u9i0hE63L/sKqXYkQnt2/ViKYK699XwKhslBJ7oTYjPJPw6eVH?=
+ =?us-ascii?Q?Idj8rZyzv01tl7cm8PYF4vydcmXPLsWQ2t6I1IhKizzvlw28/XqOhAOqZ3DM?=
+ =?us-ascii?Q?tKUmWOzBKlYHrRlBeJRYrzPDIQW9GCaNwYTsIDgHUdFFQy8kRvhiWWdLtzbx?=
+ =?us-ascii?Q?CFrqh6k7nv70yTfiDq+rci2lIK4lGDiBHM2TTQVWGVZK+sCWVzU6HEfkGzDq?=
+ =?us-ascii?Q?kFg4uvZGz+iw5LdXsW3QRfjieEERQ9w5Mcn0Xi8l1/tVitqtx0+MZNSMIfOn?=
+ =?us-ascii?Q?EkFea2AbBrWNVJK2lQ1RDmo3ao6Jigr798KZhBlEEUj/xQsB315KczQICqTt?=
+ =?us-ascii?Q?MSHMa6ewfVu4rucSgnlbf1TsnpxsbDw2E50xb6XA48B+8kSMPbgHlru0opVM?=
+ =?us-ascii?Q?50Z9QqWwCJnypDHwX5LKqczz2+FoG5yjdbqSvylDkhzBwsI5RHhsTIeLkcGg?=
+ =?us-ascii?Q?5RQFUIuHdySpc7Zp8LyADWDTjuA1nSdUZdWHK7TOk0MjZCcosQJr0zdT+Qp9?=
+ =?us-ascii?Q?1/zNGpuqjwJMuWp9Gky6RufChgjv14uO/L0rfvMMaTrUUeyPgLYsPKhETtui?=
+ =?us-ascii?Q?AMTM1Rh60GP8T6gRKEQm77chz9et4BkjYEayJoRXTTXzXFt8bGIwInJ3IsRt?=
+ =?us-ascii?Q?S0sKxmQ6i2ZUpnVrBSwUMx0XsnW5aHWC8dN/w2WLXEfDd9j8X3+WwmjIAqi9?=
+ =?us-ascii?Q?jwb+Aa3TlolMY+pUsBRqE4g9ek/pJGy42SfY6WoiPGxufCgPYUBBixGzcLyE?=
+ =?us-ascii?Q?Ghs3UNeIdh+2d8Ci8Gs14nIADw8dMlSX8cIGugP/DqIiTgyu8noMo1EdWMPP?=
+ =?us-ascii?Q?jFqmojwKSBOsVkHk4p0/979B5M2NWHb3yJ10kezP/PAiS74aCvDi0Zjm4nzg?=
+ =?us-ascii?Q?KmmfNDbNTK9N9hJQ0ueiRAhXsH1WZmxc5IZeDq9/9lBNrwKF+AkUShFn+o0W?=
+ =?us-ascii?Q?Jp8+lBMc1bvREBhx1uvdblUnP0IAiKFcYFyW4QlNrTu+CDJ10k7WGjbFG+1w?=
+ =?us-ascii?Q?/YEbvnO3Sw/D80a27Lwjx2JTI0ZB6asiGrUmKv4aJDKW/Wp4SsQZpxBljNx+?=
+ =?us-ascii?Q?D1hTnEwHkbQ8G26XkDNwAuTs0ZtpZd+gNOVNqIYXhwps6k15?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] hwmon: (pmbus/max20830): add VOUT feedback
- resistor scaling support
-To: "Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>,
- "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
-Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "robh@kernel.org" <robh@kernel.org>
-References: <20260706-dev-max20830c-v2-0-37761e89bb5f@analog.com>
- <20260706-dev-max20830c-v2-3-37761e89bb5f@analog.com>
- <20260706022155.C5B251F000E9@smtp.kernel.org>
- <PH0PR03MB6351F16AE2D15684260D2930F1C32@PH0PR03MB6351.namprd03.prod.outlook.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
- RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
- nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
- 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
- gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
- IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
- kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
- VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
- jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
- BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
- ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
- CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
- oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
- VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
- 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
- onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
- DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
- rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
- WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
- qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
- 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
- qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
- 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
- pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
- J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
- pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
- 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
- ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
- I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
- nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
- HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
- JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
- H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
- njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
- dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
- j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
- scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
- zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
- RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
- F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
- FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <PH0PR03MB6351F16AE2D15684260D2930F1C32@PH0PR03MB6351.namprd03.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: cn.bosch.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAWPR10MB7415.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 03119b5c-d9e6-4135-62cf-08dee604064f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jul 2026 02:10:09.3088
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 0ae51e19-07c8-4e4b-bb6d-648ee58410f4
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FGLUKlXUdMJiscDCwUKOWWmjlC3ZEe5FEpzX0n+bxPeObQfTc9OWa1fSqZSdyoDUja0UrHWStwUAY48/o1XqmQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR10MB6285
 
-On 7/19/26 18:58, Torreno, Alexis Czezar wrote:
->>> +
->>> +/*
->>> + * Driver currently only supports READ_VOUT for monitoring that needs
->>> +scaling to
->>> + * convert from feedback voltage to actual output voltage.
->>> + *
->>> + * vout_actual = vout_fb × (1 + RFB1/RFB2)
->>> + *
->>> + * VOUT_COMMAND and VOUT_MAX are currently not in use, but work with
->>> +feedback
->>> + * voltage. If regulator support is added, VOUT_COMMAND values would
->>> +need
->>> + * to be adjusted accordingly.
->>> + */
->>> +static int max20830_read_word_data(struct i2c_client *client, int page,
->>> +				   int phase, int reg)
->>> +{
->>> +	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
->>> +	const struct max20830_data *data = container_of(info, struct
->> max20830_data, info);
->>> +	int ret;
->>> +
->>> +	switch (reg) {
->>> +	case PMBUS_READ_VOUT:
->>> +		ret = pmbus_read_word_data(client, page, phase, reg);
->>> +		if (ret < 0)
->>> +			return ret;
->>> +
->>> +		/* Apply voltage divider scaling if resistors are non-zero */
->>> +		if (data->vout_rfb1 && data->vout_rfb2)
->>> +			ret = DIV_ROUND_CLOSEST_ULL((u64)ret * (data-
->>> vout_rfb1 +
->>> +						    data->vout_rfb2), data-
->>> vout_rfb2);
->>> +		return ret;
->>
->> [Severity: High]
->> Does this returned value need bounds checking?
->>
->> If a large resistor divider is used, the scaled PMBus word calculated here can
->> exceed 0xFFFF. The generic PMBus core function pmbus_reg2data_linear() will
->> cast this returned value to a u16, silently wrapping the value modulo
->> 65536 and resulting in wildly incorrect telemetry (e.g., reporting 2V instead of
->> 12V).
->>
->> Should this be clamped using clamp_val(ret, 0, 0xffff)?
->>
-> 
-> Good Call, will clamp this as suggested.
-> 
->>> +	default:
->>> +		return -ENODATA;
->>> +	}
->>> +}
->>
->> [Severity: High]
->> Will returning -ENODATA bypass software scaling for VOUT limit attributes?
->>
->> The driver sets PMBUS_HAVE_VOUT below, which exposes hardware VOUT
->> limits (like inX_max or inX_lcrit). Because only PMBUS_READ_VOUT is
->> intercepted here, the core will read those limits unscaled from the hardware.
->>
-> 
-> Not applicable - no limit registers exist or are exposed.
-> 
->>> +
->>>   static struct pmbus_driver_info max20830_info = {
->>>   	.pages = 1,
->>>   	.format[PSC_VOLTAGE_IN] = linear,
->>> @@ -24,13 +64,25 @@ static struct pmbus_driver_info max20830_info = {
->>>   		PMBUS_HAVE_TEMP |
->>>   		PMBUS_HAVE_STATUS_VOUT | PMBUS_HAVE_STATUS_IOUT |
->>>   		PMBUS_HAVE_STATUS_INPUT | PMBUS_HAVE_STATUS_TEMP,
->>> +	.read_word_data = max20830_read_word_data,
->>
->> [Severity: High]
->> Does this struct also need a .write_word_data callback?
->>
->> Since PMBUS_HAVE_VOUT is enabled, user writes to limit attributes will fall
->> through to the PMBus core, which writes the scaled PMBus word directly into
->> the hardware's limit register. Because the hardware expects limits in the
->> unscaled feedback voltage range, the written value will be completely out of
->> bounds.
->>
-> 
-> Not applicable. No writable VOUT registers are exposed. MAX20830 has no
-> limit registers to write to. also regulator support is not implemented.
-> 
+On 2026-07-17 06:23:44+00:00, CHENG Haoning (BCSC/ENG1) wrote:
+> On Wed, Jul 15, 2026 at 11:06:07AM +0200, Frieder Schrempf wrote:
+>
+> > On 14.07.26 12:28, Haoning CHENG via B4 Relay wrote:
+> >
+> > Sorry to chime in so late. I just want to understand what this
+> > calibration offset is about. Why would there be a need of a
+> > board-specific offset? The sensor is in the SoC and if you add a
+> > board-specific offset, you no longer measure the SoC core temperature,
+> > right?
+> >
+> > How would you determine the offset in the first place? How would I know
+> > what fsl,temp-calibration-offset-millicelsius should be set to? I could
+> > put a sensor on the SoC case and use the delta as offset, but then I
+> > would just account for the thermal resistance of the casing and not
+> > measure the SoC core temperature anymore, right?
+>
+> Hi Frieder,
+>
+> Thanks for pointing this out. Your understanding is correct: after
+> applying the offset, the reported value no longer represents the raw
+> SoC die or junction temperature.
+>
+> For this board, the required "SoC temperature" is the package-surface
+> temperature. The offset was derived by comparing the TEMPMON reading
+> against a calibrated external sensor placed near the SoC package
+> surface under steady-state thermal conditions, and is used to
+> approximate the package-surface temperature from the internal TEMPMON
+> reading.
+>
+> The Linux thermal framework does not require a thermal zone to use a
+> specific temperature reference. It only requires the reported
+> temperature and trip points to use the same temperature domain.
+>
+> In this driver, the offset is added in get_temp() and subtracted in
+> set_alarm() and set_panic() when programming the hardware thresholds.
+> This keeps the reported temperature and trip points in the same
+> package-surface temperature domain. Doing this in the driver is
+> necessary because the hardware alarm thresholds must also be offset-
+> corrected; applying the offset only in userspace would cause the
+> TEMPMON IRQ to fire at the wrong die temperature.
+>
+> I agree that "calibration offset" is misleading, since this does not
+> calibrate TEMPMON to a more accurate junction temperature. In the next
+> revision, the commit messages and DT binding have been updated to
+> describe this as a board-specific conversion offset from the internal
+> sensor reading to an estimated package-surface temperature.
+>
+> Thanks,
+> Haoning
+Hi Frieder,
 
-Please add a comment to the code explaining this (if you dod not do that already),
-to remind patch authors that there is additional work to do if regulator support
-is added.
+I need to correct my previous reply. After further discussion with our hard=
+ware team, the offset does NOT convert die temperature to package-surface t=
+emperature.
+
+Their thermal characterization shows that the raw TEMPMON sensor reading it=
+self deviates from the theoretical junction temperature - this deviation ex=
+ists even at the die level, before any board or package influence. The offs=
+et corrects the sensor reading toward the actual junction temperature, so i=
+t is a genuine sensor calibration.
+
+Board-level effects may contribute additionally, but they are not the prima=
+ry reason for this feature. I apologize for the confusion - my earlier desc=
+ription was inaccurate. The v10 series reflects this corrected understandin=
+g.
 
 Thanks,
-Guenter
-
->> --
->> Sashiko AI review ·
->> https://urldefense.com/v3/__https://sashiko.dev/*/patchset/20260706-dev-
->> max20830c-v2-0-
->> 37761e89bb5f@analog.com?part=3__;Iw!!A3Ni8CS0y2Y!9BBLoE4ditcREIvsDD7
->> _VDDKjsS7XgrV0udXIgvBZeCRChzDWWsu7TY8ybr5VBPG4VQlLnDS6EQmu6fhfLx
->> CpKUl28ZSE04$
-
+Haoning
