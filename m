@@ -1,108 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D56A3ED107;
-	Mon, 20 Jul 2026 11:01:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7237A3EFFC8;
+	Mon, 20 Jul 2026 11:02:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784545307; cv=none; b=oT0NGxdW7hokgZ0dpq/c7kqhm6M0YwMppiQxqt1HH4u35+RwUZrQ+XR2c2oNXvQQtIH/VltybJ3NtFO0bwVhGtnMrj3Kt2cCs4ljrISuTlKs730N9WZXJv+VizkFc4SwJZFxoyms66YJDoQVkPc2QvVk1p8ueAb6X5FDwqvTJiY=
+	t=1784545361; cv=none; b=JgaJ0nGxE0OSlmL4WHXCte2HASlEM0mpHJAX2+WW0K14LOeKbvryXYKk2EktdFAIXxH9RKtPMudwCJl728m+8e8yyvRajrmSt4eZf9/BAB3GQsRqnlJQn8iSTNv8mD3hQoB0/eI3KNMD3N1lPd2yO9EZXxpEH899Ixrk6RyNzDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784545307; c=relaxed/simple;
-	bh=Bb2eOimN0qbf0ShF5lAH/1mIjn73434I1oSjqoq7mJE=;
+	s=arc-20240116; t=1784545361; c=relaxed/simple;
+	bh=xCN1mk1FMy4KfCd0OITCSdYAljjG4eZ/dbWYz1AjSGg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fSw/NC8crlASadbLHv3o4t0d+UPwCMj7igxEBqKaigD1+ORv42vsUEWB64PPh61uQoXSTLoHb1udJ7kRzeBMsIBirXJSD9ki3xOhJ9NCu0XeuMwvfcItybl13wGJZqA87irQKPS9+UibJE16W4wr74wtZr45HfRGORMdwPbuWWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CuFUaVuV; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=DGRYjTju2BWphwfb2A4Dstk4ZLCcmvtNUxiIfCKrcLSz4Jfxn45yHs5sqafhx4Xweb70jtV2rDGtUWyesG9o+c+Y6zcxWDqoORxUTacEZQMTo0Wr8zSrLnY0rP+WXcylNS50+AjDcEFRJkOW7HHju4wdunobEJAkXsotQ85iHzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mWR2Ih8Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CuFUaVuV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EBE81F00A3A;
-	Mon, 20 Jul 2026 11:01:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mWR2Ih8Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 080CF1F000E9;
+	Mon, 20 Jul 2026 11:02:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784545305;
-	bh=rpV+YwvvEQwqUzlenE5ehpa/Bk8xihrQ1s5VjGvxwYM=;
+	s=k20260515; t=1784545360;
+	bh=8eOs/ngiXJv2wHNupc+79ZWEgSRrZ9y/U9NPug89TSk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CuFUaVuVP44UNh6Tj5pofltFQH3O2IRdCXepOw0lllBKR3UO8EEdEpzFIbHd48t/U
-	 PoH+e0Eio1wyCtW6WzV59uK7YBc7W8BW9/YSSpLx7vhJqxyGSvHYfC92BbItZg742G
-	 V8ACWMhVfQGUhdnxCewDALu0VncLv+c18gljwpNpiVKi/3nl0zwOMQL/kcDFCAWqwq
-	 cBq2zX8C/4lKDl8EiyZHEb8xi709oCUO/Tp15J1iUdPU44qEYAPN8foF/2nJiWdIDR
-	 lom0mG3tVM2S0W4taMN271UEwTUIxsHVz5uNuWFkYpBiJDGR4gPYQ1F2qcX6DvnCfG
-	 i6MHc6+/m4Z+Q==
+	b=mWR2Ih8ZJV5N8vRyAdkWjgUfufR7D90Xy/75Su/DmtldoS0u/XVjJ3TcfY99MkJ+c
+	 d7uu6tv+jO24bFaSSpqtjP/6DzOypqoeuZbmG4nlluIzp1JHjhpIC4bIMne/CaM09E
+	 3UFHK9OKjIzJXTrW0HukMYI8U3UVI2wz2bj65aMZ25Bba4MhjxY4Jexnrji0mNiLrY
+	 hmT8PNhn+EzprFeN8sZ7hccywK+1whDo6ndPs3gsL1s3tTyKQy54ZjJcKKbRV37DMH
+	 yexvYk5rjKTjXPW2hVFwtX1wiEyoR7X24seNGk8/A7x8UWMA/HkCS9BzZiFca/eieW
+	 WD0Xqpy4bSK5w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 06/10] arm64: dts: qcom: shikra: Enable CDSP, LPAICP
- and MPSS on EVK boards
+Subject: Re: [PATCH v5 2/2] device property: add test cases for
+ fwnode_for_each_child_node()
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Komal Bajaj" <komal.bajaj@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org
-In-Reply-To: <20260720-shikra-dt-m1-v7-6-7dc99100c6dd@oss.qualcomm.com>
-References: <20260720-shikra-dt-m1-v7-0-7dc99100c6dd@oss.qualcomm.com>
- <20260720-shikra-dt-m1-v7-6-7dc99100c6dd@oss.qualcomm.com>
+To: "Xu Yang" <xu.yang_2@oss.nxp.com>
+Cc: Frank.Li@kernel.org, robh@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260720104730.1285552-2-xu.yang_2@oss.nxp.com>
+References: <20260720104730.1285552-1-xu.yang_2@oss.nxp.com>
+ <20260720104730.1285552-2-xu.yang_2@oss.nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 11:01:44 +0000
-Message-Id: <20260720110145.8EBE81F00A3A@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 11:02:39 +0000
+Message-Id: <20260720110240.080CF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Incorrect firmware path specified for the MPSS remote processor =
-in `shikra-iqs-evk.dts`, using the `cqs` directory instead of `iqs`.
+
+New issues:
+- [Medium] The KUnit test fails to use `kunit_add_action()` for global stat=
+e cleanup, permanently leaking software nodes on test aborts.
+
+Pre-existing issues:
+- [High] The newly added tests expose pre-existing infinite loop and double=
+-put bugs in `fwnode_get_next_child_node()` when transitioning between prim=
+ary OF nodes and secondary SW nodes.
 --
 
---- Patch [6]: [PATCH v7 06/10] arm64: dts: qcom: shikra: Enable CDSP, LPAI=
-CP and MPSS on EVK boards ---
-commit 63fe4aa2fa39f5559ca6adcfb17f05ea60b9924b
-Author: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+--- Patch [2]: [PATCH v5 2/2] device property: add test cases for fwnode_fo=
+r_each_child_node() ---
+commit 6f128f7ffab2a2787ad6820b967d94a17fcbcbc2
+Author: Xu Yang <xu.yang_2@nxp.com>
+device property: add test cases for fwnode_for_each_child_node()
 
-arm64: dts: qcom: shikra: Enable CDSP, LPAICP and MPSS on EVK boards
+Add test cases for fwnode_for_each_child_node() API.
 
-This commit enables CDSP, LPAICP, and MPSS for the Qualcomm Shikra CQM,
-CQS, and IQS EVK boards by adding the appropriate remoteproc nodes and
-firmware paths.
-
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts b/arch/arm64/boo=
-t/dts/qcom/shikra-iqs-evk.dts
-> index 3003a47bd7594..727809430fd15 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-
+> diff --git a/drivers/base/test/property-entry-test.c b/drivers/base/test/=
+property-entry-test.c
+> index a8657eb06f94e..a3d1caf28cc7d 100644
+> --- a/drivers/base/test/property-entry-test.c
+> +++ b/drivers/base/test/property-entry-test.c
 [ ... ]
-
-> @@ -23,6 +23,25 @@ chosen {
->  	};
->  };
-> =20
-> +&remoteproc_cdsp {
-> +	firmware-name =3D "qcom/shikra/cdsp.mbn";
+> @@ -489,6 +491,139 @@ static void pe_test_reference(struct kunit *test)
+[ ... ]
+> +	/* 2. Test SW node child iteration */
 > +
-> +	status =3D "okay";
-> +};
+> +	error =3D software_node_register_node_group(group);
+> +	KUNIT_ASSERT_EQ(test, error, 0);
 > +
-> +&remoteproc_lpaicp {
-> +	firmware-name =3D "qcom/shikra/lpaicp.mbn",
-> +			"qcom/shikra/lpaicp_dtb.mbn";
+> +	sw_node =3D software_node_fwnode(&node);
 > +
-> +	status =3D "okay";
-> +};
-> +
-> +&remoteproc_mpss {
-> +	firmware-name =3D "qcom/shikra/cqs/qdsp6sw.mbn";
+> +	i =3D 0;
+> +	num =3D ARRAY_SIZE(sw_child_array);
+> +	fwnode_for_each_child_node(sw_node, child) {
+> +		KUNIT_ASSERT_LT(test, i, num);
 
 [Severity: Medium]
-Should this firmware path use iqs instead of cqs?
+If KUNIT_ASSERT_LT() fails, it will immediately abort the test execution.
+Does this bypass the manual software_node_unregister_node_group() call at
+the end of the function?
 
-Since this node is in the shikra-iqs-evk.dts file, using the cqs directory
-looks like a copy-paste error that might cause the modem remoteproc to fail
-to load the correct firmware for the IQS board.
+To prevent leaking the software nodes and causing sysfs conflicts on
+subsequent test runs, should kunit_add_action() be used to register the
+cleanup immediately after registration?
 
+> +		KUNIT_EXPECT_STREQ(test, sw_child_array[i++], fwnode_get_name(child));
+> +	}
+> +	KUNIT_EXPECT_PTR_EQ(test, child, NULL);
 > +
-> +	status =3D "okay";
-> +};
+> +	/* 3. Test OF (primary) + SW (secondary) node child iteration */
 > +
->  &sdhc_1 {
+> +	of_node->secondary =3D sw_node;
+> +	sw_node->secondary =3D ERR_PTR(-ENODEV);
+> +
+> +	i =3D 0;
+> +	num =3D ARRAY_SIZE(of_sw_child_array);
+> +	fwnode_for_each_child_node(of_node, child) {
+> +		KUNIT_ASSERT_LT(test, i, num);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but these new tests appear to
+expose a pre-existing infinite loop and double-put bug in the core fwnode
+iterator.
+
+When fwnode_for_each_child_node() transitions from primary OF children to
+secondary SW children, of_fwnode_get_next_child_node() drops the reference
+on the last OF child and returns NULL. The core iterator then passes this
+same child pointer to the secondary node's iterator:
+
+drivers/base/property.c:fwnode_get_next_child_node() {
+    ...
+    next =3D fwnode_call_ptr_op(fwnode, get_next_child_node, child);
+    if (next)
+        return next;
+    return fwnode_call_ptr_op(fwnode->secondary, get_next_child_node, child=
+);
+}
+
+Does this cause the secondary iterator (software_node_get_next_child) to
+unconditionally drop the reference a second time?
+
+Furthermore, when iterating over the secondary children, the returned SW no=
+de
+is eventually passed back to the primary iterator. Since to_of_node()
+evaluates to NULL for SW nodes, of_get_next_available_child() restarts from
+the first OF child:
+
+drivers/of/property.c:of_fwnode_get_next_child_node() {
+    ...
+    return of_fwnode_handle(of_get_next_available_child(to_of_node(fwnode),
+                                                        to_of_node(child)));
+}
+
+Will this restart cause an infinite loop in the test runner when testing
+mixed primary and secondary firmware nodes?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720-shikra-dt-=
-m1-v7-0-7dc99100c6dd@oss.qualcomm.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720104730.1285=
+552-1-xu.yang_2@oss.nxp.com?part=3D2
