@@ -1,93 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD6E3ACA42;
-	Mon, 20 Jul 2026 06:10:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 033FA3AB5DE;
+	Mon, 20 Jul 2026 06:11:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784527856; cv=none; b=fXoRKK+7Pk0gAS3o9aJUoKV9DkN/1CgzwwAgTwt+/mh9UOfBOm9D5iqDD8drT9G/IhOaibZQLjNkg+IzkBpkPVPSHDJb/Qi0AyZFYoTDzoJrnCrtkFZlH8CHB3orhoayL4SmuVAuZ3C23/8GWpwV8xVBC8Wuf1HPTT0OaUa+lwU=
+	t=1784527901; cv=none; b=Ce7Mycd9X2T/dlStWo9Y09B9zQoHj+er4axrrn4umI5xjRq8QABBHiLvjIHvvUaxAm/I930Jr1b6LJ8TRWPM9Ko8+F/kaXQZ2j6AR6GfJFXHu0hGmipsT9mAu3xS1vQHH3UCxFh8cCadoLsEbNwZ3ZX/QO0T0JljSK37Ch4KfU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784527856; c=relaxed/simple;
-	bh=H4SAhF7VUo7u1LxDOpPD56os1KWxbeGpeP0AW7Wd850=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xd0Y6UMl7cHFiK4bZJggvBuZf3FEw9WmBkjsI1uRwvG2z9/yYrAARbO1QKXAL18D3GUFq7wHGsAOepn94RID6idECUqYYMZEFut9hbDFmrxjs3Wb/+2nvqlNoesadbG13pvNarKldNWUwH6NR37QjVBUYPfh+bmNsudXdjiDHnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CGE5K/q7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784527901; c=relaxed/simple;
+	bh=nddUh71/jRwa/UXDvqBYtRW1MFlYZFpFcKMhDNVQGKo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F7D4U0N+ranWFnlZiVQzvy7Nm11vD0hT1Oi9g1sKvWtGyUda91yOOj1OSJYm6UfSJW+kKrlctHr9rfrpLxZoxQ5GkPthMkD3xWpRebYfLhDWqKMn/wFAP9eVkqVtlhr+XgiUArNDMKs86si+mTavlKMpVUdX9KVB4PwQPsAfV+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QzQ24ZdF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CGE5K/q7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AB411F000E9;
-	Mon, 20 Jul 2026 06:10:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QzQ24ZdF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE1591F000E9;
+	Mon, 20 Jul 2026 06:11:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784527845;
-	bh=V5eTTzERtM2s1SmY9yq6I4KJKoS1ghT2lt8nAkrxXS8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CGE5K/q7PY49cKwbG3R0P0wVR8L7JhHrDVFH9hCHbeLWyIQwEcDouRZu8RR3bSFzw
-	 1D/icMwk0/tLPnCfwckatt0MTNa1772Gebt4y5ZmbNLsTiMeWWf0oSz/HwhzplgU7/
-	 cVcS5/hbM47LMhrmfj8igNR8bSZcB3uPFlfL5sHP1l9SozOJfH81oR93Z3rMSmr+yw
-	 hOb0CDNMmeyi/xXgrBvRPkneD7m5HxxY47HuxdEk3VqG6wQ4pLe5Z9eSn3P6ioSt45
-	 W23Sj6ech8TOelwLnobBlMrfWCc83SLzhvZGK2MdbB3Dm/4dQP7nHIE7rgU/I/pd8Y
-	 +3+ai5WsxzIBg==
-Date: Mon, 20 Jul 2026 08:10:41 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Pratyush Meduri <pratyush.meduri@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: remoteproc: qcom,pas-common: allow
- up to 3 iommus
-Message-ID: <20260720-steadfast-swinging-shrimp-196ac6@quoll>
-References: <20260717095825.3962666-1-pratyush.meduri@oss.qualcomm.com>
- <20260717095825.3962666-2-pratyush.meduri@oss.qualcomm.com>
+	s=k20260515; t=1784527888;
+	bh=+L8ZrWlHQoiwwz0317QAIFI8wcLqSrpsdtpT4zc7ltE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QzQ24ZdFL4RqVi5yfwEBuvHAZMNu01OokqcKYcUew/4LYj5zY/pwusxXavc2U2U8s
+	 T1eVt/QqFc2rss0sQKEeD8LxGIPwu85L5dADV6aYB8t7Nt19RO91LtRp3sI9ah5Pye
+	 XItpmNbubjhjJFHPuTavftl/Gu5M2OOWIvKitRNdba9m49NCYH84YO0LPWwG+OwvVW
+	 /RxzuxNczJs3eyaUxQQud/hvL2D+6EIdVCUnph+i1deRxtUMEuEceOuuMo28bKxZqW
+	 5/kJcahKym4pjJ2y+IOp0T93uA4YPAYD+bed8X4RfhTkWp5ik+xqQPVY/+Gm/lNPNC
+	 5yOdyFmBw3rGA==
+Message-ID: <0ebb4162-f7db-4f4e-8603-f957c8f0ec3e@kernel.org>
+Date: Mon, 20 Jul 2026 08:11:22 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260717095825.3962666-2-pratyush.meduri@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/2] arm64: dts: qcom: lemans: enable audio ML offload
+ memory and SMMU mappings
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Pratyush Meduri <pratyush.meduri@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260716151854.3041914-1-pratyush.meduri@oss.qualcomm.com>
+ <20260716151854.3041914-2-pratyush.meduri@oss.qualcomm.com>
+ <e3dc38a8-b2a3-437a-819b-924ab13136c6@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <e3dc38a8-b2a3-437a-819b-924ab13136c6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jul 17, 2026 at 03:28:23PM +0530, Pratyush Meduri wrote:
-> The ADSP PAS on several Qualcomm SoCs (e.g. SA8775P/lemans, QCS8300,
-> Monaco) needs more than a single SMMU stream ID for the audio ML
-> (machine-learning) offload use case. In addition to the primary
-> ADSP stream ID, the DSP/SPF issues DMA transactions through extra
-> stream IDs that are not covered by the existing single-entry mapping.
+On 16/07/2026 18:24, Konrad Dybcio wrote:
+> On 7/16/26 5:18 PM, Pratyush Meduri wrote:
+>>  
+>>  &remoteproc_cdsp0 {
+>> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/qcom/lemans.dtsi
+>> index 3b0539e27b51..060565113784 100644
+>> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
+>> @@ -624,6 +624,14 @@ reserved-memory {
+>>  		#size-cells = <2>;
+>>  		ranges;
+>>  
+>> +		audio_cma_mem: qcom,audio-ml {
 > 
-> Relax the iommus constraint to allow between 1 and 3 entries so the
-> additional ML offload stream IDs can be described, fixing dtb_check
-> schema violations on device trees that add them.
+> Node names *must not* contain commas and should be generic
 
-What dtb_check violations? Do not reference non-existing warnings. If
-this is real, then place the warning here - and be sure we can actually
-reproduce it.
-
-> 
-> Signed-off-by: Pratyush Meduri <pratyush.meduri@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/remoteproc/qcom,pas-common.yaml        | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
-> index 11faf655f530..fb656bda8527 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
-> @@ -33,7 +33,8 @@ properties:
->      maxItems: 6
->  
->    iommus:
-> -    maxItems: 1
-> +    minItems: 1
-> +    maxItems: 3
-
-So now all devices have three streams as well? Or only these three? You
-said only newer, so why are you raising this also for sm8150?
-
-Beside, you need to list the items.
+That's a pure downstream code dump. Not acceptable really.
 
 Best regards,
 Krzysztof
-
