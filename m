@@ -1,129 +1,161 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4BBD42901F
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:51:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C183B1EE4
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:52:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784555479; cv=none; b=E9HqV2Rt7qpxutG0fFloTyva9/19WVScTbMaRc0bdAc4HTA+7Z9Sfzz7MAltdbF/k9VD3tsq2kcNCCQoD9Z4BlCEKrOLKwPjKNkhzOrGtvM+gfII7/Bx1Dz2X8wV0P8P/r4rb7AJxcdHrUlIKlOdv7y5v+vuvyfR1ULca0N2GXk=
+	t=1784555551; cv=none; b=fCAX3DTvFyfzBA4dyadMCw5znlomOPe7fzUY6Mqf9PnXk4g8AgOhPPgbjWLq2BaBK4SUbqACtoyhJkbrOUzGg0QHpQaQCoRNdUP1ijs00aMrugptJVGIqaBUyq9ueqLWAS7iiCKEysPJVOHA25gZC6NlE5oNCGn8o+S2ohnbfOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784555479; c=relaxed/simple;
-	bh=6WAaxWuoqk7AVbAmdMXch3lHbVYQfyk595hudD3KPMI=;
+	s=arc-20240116; t=1784555551; c=relaxed/simple;
+	bh=jtSzqE/wa2kGcr/fyqHGRp3dADrPe5kvCoCdn9M8Obw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=L5qut22Buq6ATEWYiSNzsrxQaf+Tz3rFQCO6r8bCkQOkIgpjjUCZEABQW/gVVHv0xUauwQiPXgPHFqZ8q0F1qqHEhu+e30VPdxRJLPw+Y3ypnCOH/J/o3gcP0Ggk2ZwT4/lMoC4Y50S1sXLUf1EUUdaSrENJjbB9MeYQxldDZ2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OuH4+4qU; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Labh+k6rx53+aTNmT5lcnM7e/6hSHwn/6XCLS4DkH/vgClDJAKM21RDytcanxz5vaIasf/KEdMllQ4FMxJhPba5C8m1oafYvdzkGgCxZy8QJMe/0onZK9TF2n6glYPm6Y0iw912YR+ha/KETDz+OOaol3AUj+cqtA25zFR5Z2v4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dDPE7SB8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OuH4+4qU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D11371F00A3A;
-	Mon, 20 Jul 2026 13:51:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dDPE7SB8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E11C1F000E9;
+	Mon, 20 Jul 2026 13:52:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784555478;
-	bh=vl+waiLUFsqAxuoKy0yDZe4zsC06ZCGSPLE90+2m3Ms=;
+	s=k20260515; t=1784555550;
+	bh=KTKo5pmij10EmZZxvPp/8hIFcb/RdzC7IC2oMs3tPRc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OuH4+4qUVug58PsSGMmX9JJKZ7706qUudKukR8ROex96Vp9/oJBPOFb+kEzNLUpnD
-	 HHbkygIEPN5q0QgtFPeXPKwmEfpjYy97IMLBrq12IAeJhebi5cueLZZFCTadwqr9Z6
-	 uaCQq+dLmqLPp120N8Uy73OkGB+n81/1SFI4OIDnU+hydf749xU8V5bArkR6cgX9bd
-	 CxCjUeASnTKrLyxkbavsR/qNNwtZNIX5P0vmrk4K+0U+8HQExyI6Rr3Bf2CP2rcwa0
-	 RwAauPkr80rHjyT4ki2SIXNp9JSbtgAQbq5nVfAjUOb/zMaIHF0aK/xjHqRyD2KwEc
-	 R8soWeEgKek4A==
+	b=dDPE7SB85AnuUAL/WxaRLDIPn0CmSdUFazc50Ub1m6vPq0iTaIO201QRu/4uO8vHY
+	 A/YZvhpylBc+C2CsTaYLFqOrH0UITqAL5webxUMMAPdW/2Xgew0lOkqQSrOnO+j3OO
+	 XXI4UmryuzyMSJNHHGbn2q3xZzPKZzxq2s81OuJfCJENduqonnqVrPGcvo5Vy8Ik0N
+	 9/Q/TYgsqZ2Y1TgjGk6clWRwBzmO0mkGOfVgwUSAQ37UMSavnSrsHk2Asg16z788t+
+	 FgUReF2ElgLMK2yd9OEvtzZK/0eiWAGGC2bgTUSjufkl2DdQAHj+o3vhsf3P+XB7uq
+	 PWA1rQANWRJpg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 phy-next 3/8] soc: fsl: guts: add a central
- fsl_guts_read() function
+Subject: Re: [PATCH v16 02/12] media: mediatek: jpeg: fix jpeg buffer
+ payload size setting
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vladimir Oltean" <vladimir.oltean@nxp.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, vkoul@kernel.org
-In-Reply-To: <20260720133642.136324-4-vladimir.oltean@nxp.com>
-References: <20260720133642.136324-1-vladimir.oltean@nxp.com>
- <20260720133642.136324-4-vladimir.oltean@nxp.com>
+To: "Kyrie Wu" <kyrie.wu@mediatek.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260720133432.1042046-3-kyrie.wu@mediatek.com>
+References: <20260720133432.1042046-1-kyrie.wu@mediatek.com>
+ <20260720133432.1042046-3-kyrie.wu@mediatek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 13:51:17 +0000
-Message-Id: <20260720135117.D11371F00A3A@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 13:52:29 +0000
+Message-Id: <20260720135230.5E11C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Dereferencing NULL pointer 'soc_dev_attr' on the error path if its=
- memory allocation fails.
+
+New issues:
+- [Low] Use of uppercase MIN() macro for variable arguments bypasses kernel=
+ type checking.
+
+Pre-existing issues:
+- [Critical] Premature `v4l2_m2m_job_finish` in worker threads breaks `stop=
+_streaming` synchronization, leading to Use-After-Free of `ctx` and DMA int=
+o freed memory.
 --
 
---- Patch [3]: [PATCH v3 phy-next 3/8] soc: fsl: guts: add a central fsl_gu=
-ts_read() function ---
-commit cc1312c02ab5c2cd3fed5e2907608e44453c7816
-Author: Ioana Ciornei <ioana.ciornei@nxp.com>
+--- Patch [2]: [PATCH v16 02/12] media: mediatek: jpeg: fix jpeg buffer pay=
+load size setting ---
+commit b1d3acc23e7ae23715523f548df3f13e353a48e9
+Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-soc: fsl: guts: add a central fsl_guts_read() function
+media: mediatek: jpeg: fix jpeg buffer payload size setting
 
-This commit adds a central fsl_guts_read() function that handles reading
-DCFG registers based on the already determined endianness. This avoids
-duplicating the if-else endianness checks across the driver.
+For multi-core jpegdec, if one core gets resolution change event,
+the payload size, representing the size of Y/C data, needs to change.
+But others are decoding at the same time and it can not be changed
+immediately, which results in the payload size not matching the real
+buffer length.
+The payload size must be less than the real buffer length to avoid
+warning logs.
 
-> diff --git a/drivers/soc/fsl/guts.c b/drivers/soc/fsl/guts.c
-> index a2b4c477b064b..e1b3a054e681b 100644
-> --- a/drivers/soc/fsl/guts.c
-> +++ b/drivers/soc/fsl/guts.c
-> @@ -111,6 +111,14 @@ static struct fsl_soc_guts {
->  	bool little_endian;
->  } soc;
-> =20
-> +static unsigned int fsl_guts_read(const void __iomem *reg)
-> +{
-> +	if (soc.little_endian)
-> +		return ioread32(reg);
-> +
-> +	return ioread32be(reg);
-> +}
-> +
->  static const struct fsl_soc_die_attr *fsl_soc_die_match(
->  	u32 svr, const struct fsl_soc_die_attr *matches)
->  {
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
+rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> index 41c4cf8dc2626..34135706a4ac3 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
 
 [ ... ]
 
-> @@ -209,10 +217,7 @@ static int __init fsl_guts_init(void)
+> @@ -710,12 +711,20 @@ static int mtk_jpeg_buf_prepare(struct vb2_buffer *=
+vb)
+> =20
+>  	for (i =3D 0; i < q_data->fmt->colplanes; i++) {
+>  		plane_fmt =3D q_data->pix_mp.plane_fmt[i];
+> +		max_size =3D plane_fmt.sizeimage;
+> +
+>  		if (ctx->enable_exif &&
+> -		    q_data->fmt->fourcc =3D=3D V4L2_PIX_FMT_JPEG)
+> -			vb2_set_plane_payload(vb, i, plane_fmt.sizeimage +
+> -					      MTK_JPEG_MAX_EXIF_SIZE);
+> -		else
+> -			vb2_set_plane_payload(vb, i,  plane_fmt.sizeimage);
+> +			q_data->fmt->fourcc =3D=3D V4L2_PIX_FMT_JPEG) {
+> +			max_size +=3D MTK_JPEG_MAX_EXIF_SIZE;
+> +
+> +			vb2_set_plane_payload(vb, i,
+> +					      MIN(vb->planes[i].length,
+> +						  max_size));
+
+[Severity: Low]
+Is it appropriate to use the uppercase MIN() macro here?=20
+
+The MIN() macro in linux/minmax.h is generally intended for obvious constan=
+ts
+because it skips type checking.
+
+Could this bypass type safety between size_t (max_size) and unsigned int
+(length)?=20
+
+Would it be better to use min() with a cast, or min_t(size_t, ...) instead?
+
+> +		} else {
+> +			vb2_set_plane_payload(vb, i,
+> +					      MIN(plane_fmt.sizeimage,
+> +						  vb->planes[i].length));
+
+[Severity: Low]
+Does this also have the same type checking concern with the MIN() macro as
+mentioned above?
+
+> +		}
 >  	}
 > =20
->  	soc.little_endian =3D of_property_read_bool(np, "little-endian");
-> -	if (soc.little_endian)
-> -		svr =3D ioread32(&soc.dcfg_ccsr->svr);
-> -	else
-> -		svr =3D ioread32be(&soc.dcfg_ccsr->svr);
-> +	svr =3D fsl_guts_read(&soc.dcfg_ccsr->svr);
->  	of_node_put(np);
-> =20
->  	/* Register soc device */
+>  	return 0;
 
-[Severity: High]
-Does this code trigger a NULL pointer dereference on the error path if memo=
-ry
-allocation for soc_dev_attr fails?
+[Severity: Critical]
+While reviewing this patch, I noticed a separate issue in the worker thread=
+s.
+This isn't a bug introduced by this patch, but it appears that premature job
+finishing could lead to a Use-After-Free.
 
-In fsl_guts_init(), if the kzalloc_obj() allocation for soc_dev_attr fails
-just below this block, the code jumps to err_nomem and falls through to the
-err label:
+In mtk_jpegdec_worker():
 
-fsl_guts_init() {
+    mtk_jpeg_dec_start(comp_jpeg[hw_id]->reg_base);
+    v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
+
+If the worker calls v4l2_m2m_job_finish() and removes buffers from V4L2
+context tracking while the hardware is still processing them asynchronously,
+could an unprivileged user closing the file descriptor trigger a release?
+
+If mtk_jpeg_release() is called, it frees the context:
+
+    kfree(ctx);
+
+Then when the hardware interrupt fires later in mtk_jpegdec_hw_irq_handler(=
+):
+
+    ctx =3D jpeg->hw_param.curr_ctx;
     ...
-	soc_dev_attr =3D kzalloc_obj(*soc_dev_attr);
-	if (!soc_dev_attr)
-		goto err_nomem;
-    ...
-err_nomem:
-	ret =3D -ENOMEM;
-err:
-	kfree(soc_dev_attr->family);
-	kfree(soc_dev_attr->soc_id);
-    ...
-}
+    pm_runtime_put(ctx->jpeg->dev);
 
-Since soc_dev_attr is NULL when taking this path, won't calling
-kfree(soc_dev_attr->family) dereference the NULL pointer during device
-initialization?
+Doesn't this result in the interrupt handler unconditionally accessing the
+freed 'ctx' pointer and invoking V4L2 completion on freed buffers?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720133642.1363=
-24-1-vladimir.oltean@nxp.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720133432.1042=
+046-1-kyrie.wu@mediatek.com?part=3D2
