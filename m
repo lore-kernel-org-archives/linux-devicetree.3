@@ -1,128 +1,218 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E50449B08
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 20:21:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40AB87261A
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 20:21:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784578907; cv=none; b=nFviO3ph5qNRUO0GI7wxI8H9+1/eZCJtI8tf6fMviPhWGRqB5m0gGqfglqL14WkVe+untr+fJ65MrEWeNZXpXsVOH9MVh5jBzq/24FlLXrBOfdiUwGtqiJRS0HpdSRFOdrgzuPiJXzH6i65Phxwvom+GvNLrYG4xnKX1SXkGisk=
+	t=1784578918; cv=none; b=jsr3ljCrfmdzs7U8HHe+hh7IwslrN2erq2PHzkWr31JpQgLfOrsZOrze9br5ucHzMxKpnU3A1dRS37dPu/mGzzipSYUuUAlP6fzMIeziHdrtGZ9Yn+enhbWN9EKiTaG+IqjDUJ0A8bNIiX4F/OONYrGOhX5oE/LRgp+XYrDBKzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784578907; c=relaxed/simple;
-	bh=LVmrhbL3r1BnZ5cl8dD4aTdJAQb4DP9acmemfd53GjE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Jdph8mnM3qsTNBAau729vwiucPIzX2TcrAg9B+2sMO24hWcb0a1BYgMbc6fxk5p/a3hflIBGU2xxj0N360fAltLo4txF1c0K3HF2hIsNQgH4fKpSLze90dAysgy7bizGYSVZHhOY0dza1PuPw/Du+yl9kTj+t3rCDrQw4GsqI8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kvFFXgH8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784578918; c=relaxed/simple;
+	bh=vmUrKTPBU6nt9jPoKRj/PiVKcoqjTlTY+KxAS6ATr1U=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ekrG28CArrxBUFhLXnixmmn+XzmCOyN7E+I5QBoc7DRuvmJ+QOYeVZ1QbsNptR8fYnjrKk0uokROKdLhxHi0dGn9rnI6q/j0SsMQ3B+cYhjff1WZli+wxIZDvqQuuWc1sfPV/MUJyBC3iIVy03mdG7z8rPy/opIPInoioOCltak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B/R9sqTK; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kvFFXgH8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E2461F000E9;
-	Mon, 20 Jul 2026 20:21:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784578904;
-	bh=qjRn2KeLR2dAbVvg5Tg77KOLPWdkkGtbauHFWuamIII=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kvFFXgH8lc5k71z6r3Be9hmW+W0GCOileJDRu9/WEU+x9dLe1K1CudVjHvd7Foi+W
-	 751+BvrrH5i93/OuU8K2QOfA7RH0LDRcX+HR3Y3LbScswA735E8zlM4mgfE4NmauDz
-	 IcVuOpubz+RQKtN9IsXUG0zZiWNz2Czp/5v/lc/c9xY/OkJJRd9p5oWjrEJ/XpD0yg
-	 IL9Q1cJva63Gau0PdsJBJX1PV6Nl/kw/3UBZsxVHA6o14tF5C5KBtIr0a6BaucegkO
-	 D2ddBTScP8pVUQOv94Z099e1tz41kR1IHP4GDdMs6rcYeQYxgNqlqwYH9NNI53A+jG
-	 2rYvEJFpizwsw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: edac: altera: agilex5: document new
- edac support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dinh Nguyen" <dinguyen@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260720201425.1538771-2-dinguyen@kernel.org>
-References: <20260720201425.1538771-1-dinguyen@kernel.org>
- <20260720201425.1538771-2-dinguyen@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 20:21:43 +0000
-Message-Id: <20260720202144.4E2461F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B/R9sqTK"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cad68425a7so15327155ad.1
+        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:21:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784578917; x=1785183717; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vqJNSi15UrA4wLzOqGzyPM5qOphazLu22MmYeBqoRz0=;
+        b=B/R9sqTKfrXiE6iAHcp+Vzsx6quW8PGMI2XUfSjytsNY7YzmOt/+PNv18KCeSQFU14
+         jcN7mMafViWqXvSf+56mfMGjnogRKpuCO+DL8oiRFfOE+mSNWbXPk/mG/RDb+3AbqSwU
+         +JhPBrXb+LBVLM2QnV45l+hNmHMGEMilBODh5YEFU8hBC46Vui35ba/WwTrIq9xzJBDZ
+         sqOHNpBF0iNrQqqyNFVFFGOA/tGeHV4csYQAO3SN6L043MYSvmD52Cw2gYkSee5DlYY+
+         55L474a8gI+oSi3AZmRjQSY3ntn5bxtq4JgA+qqKVXZfrmFwDluPkzclmj9tFwfYnoxp
+         i0Hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784578917; x=1785183717;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=vqJNSi15UrA4wLzOqGzyPM5qOphazLu22MmYeBqoRz0=;
+        b=r/d99BgjaCU+2qw7fbcI6r1hZCq2B/U1TYbInx26upwDD5bcVZxpkvOzAlb5GoeiGy
+         xO+AyoE5NGQXBCdNt7sXXFzTw4tPiY4/TIY00A5B8IAHP88hiyVJirAAVKlbwECBCQQI
+         VcVx4hX8nHNrQh6Cafz6tdqXE2WisN59yunP30LJvJsx6FIrlF85ZHsqVntfw6e5ke7S
+         g09KFLKLzVyIOI/B4T9ebf4A7eOoqg9uPkxtR0BtMonGgpdju7yJKGvRtI6gkqMj/nrB
+         9TIxbVc45f3QXLynUCZwFgQVGoEaqJVQzAD0GGL5nCewpJE74rk14vTNvBziid1WaUaA
+         fESg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr9OCg/w9DTDOLG7ACxuCo8kOA6knMGtROgn0685E8Pn6rUFNBraHMepyuuTRJ4tseo0iLjUByqFCwF@vger.kernel.org
+X-Gm-Message-State: AOJu0YwoQXuoZZakLclwdV3JzbHglHSWlD+ZK08chToOFCJPIsMIXP9G
+	TQanO9DeicaY55m7QlMjL6e8MNn9gHC4cy2bdTbR0jfzTR5LnrRkeiUq
+X-Gm-Gg: AR+sD10JcfjOzMAPPkkS4rJwQldFZ0mljzBRU/P7F8WPI7odeWhbinyL32wKXdzkOad
+	GChIqpu98aNoKF2HxjCTsl/yuiEKnk4sm/YfVzyWxkhRjRmk5nJ6oOPLU/xAwp7aCQR1rOHRUjC
+	KlpYvTq7JNI54KrXWDjvkfcnxp7zdO+wKNNa+fxiRMBp7fY9rjSBArPH1J6lc4zbm+Lo0nW8sdy
+	A8WP+Fx0ZtljnKwnHkBMQZG++9izlir1REpUa5fY7vVtO58JONgA02vXQsNMleBklNCWUE4Qlno
+	8h5Fzt4gALalzpT/tAcOIf4qxAET8NktAkpL310g58eFdwHpqeveeachnt4uQOoQrKWyUJsvBlp
+	1Dq4pKSGwI61ay5I9GpW7CzUUxbKUV3WCYnavTcLMjUg+DlmIDbSzpoACQkZj7bmi98vnotZIYI
+	0rFedaakp2OA6/dhY=
+X-Received: by 2002:a17:903:26cd:b0:2ca:d803:5c8f with SMTP id d9443c01a7336-2cf8036007bmr3450515ad.1.1784578916505;
+        Mon, 20 Jul 2026 13:21:56 -0700 (PDT)
+Received: from [172.28.140.252] ([2409:40c2:542f:3834:f0b5:cc78:ed81:5198])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a210571sm40497048eec.31.2026.07.20.13.21.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Jul 2026 13:21:55 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Tue, 21 Jul 2026 01:51:39 +0530
+Subject: [PATCH] dt-bindings: extcon: ti,extcon-palmas: Convert to DT
+ schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260721-ti-extcon-palmas-v1-1-cd4071f0b9d9@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqDMBBG4VeRWXdAU1DaVyld5PJrR2yUTCyC+
+ O6m7fJbnLOTIgmU7tVOCR9RmWNBc6nIv2wcwBKKydSmrTvTcBbGlv0cebHT2yobAOFm2xDclUq
+ 2JPSy/ZaP59+6uhE+fz90HCdZHXazdAAAAA==
+X-Change-ID: 20260721-ti-extcon-palmas-2eeed9a6ddb3
+To: MyungJoo Ham <myungjoo.ham@samsung.com>, 
+ Chanwoo Choi <cw00.choi@samsung.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Roger Quadros <rogerq@ti.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
+ simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784578906; l=3542;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=vmUrKTPBU6nt9jPoKRj/PiVKcoqjTlTY+KxAS6ATr1U=;
+ b=bNpi0tis58f0Y7MJeKrX+25BbawWQK4//myu9/8E/WvoqXyw6UHXDBIVogU8kv6UI+KhOVksf
+ WEruqhVy3WODH46bqnckMwm2yNWV/JcJef3SqiuVzuZgZtdE32LcX9P
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Removing `maxItems: 2` from the global `interrupts` property to =
-allow up to 7 items relaxes constraints for older hardware generations, all=
-owing them to improperly specify up to 7 interrupts and bypass schema valid=
-ation.
-- [Medium] The `interrupt-names` property is introduced for the new `altr,s=
-ocfpga-agilex5-ecc-manager` variant, but it is not conditionally enforced a=
-s a required property for Agilex5.
---
+Convert Texas Instruments Palmas USB Comparator from legacy text to DT
+schema.
 
---- Patch [1]: [PATCH 1/4] dt-bindings: edac: altera: agilex5: document new=
- edac support ---
-commit d266055949125966c496511b166440e55892f101
-Author: Dinh Nguyen <dinguyen@kernel.org>
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+ .../devicetree/bindings/extcon/extcon-palmas.txt   | 22 -------
+ .../bindings/extcon/ti,extcon-palmas.yaml          | 74 ++++++++++++++++++++++
+ 2 files changed, 74 insertions(+), 22 deletions(-)
 
-dt-bindings: edac: altera: agilex5: document new edac support
+diff --git a/Documentation/devicetree/bindings/extcon/extcon-palmas.txt b/Documentation/devicetree/bindings/extcon/extcon-palmas.txt
+deleted file mode 100644
+index f61d5af44a27..000000000000
+--- a/Documentation/devicetree/bindings/extcon/extcon-palmas.txt
++++ /dev/null
+@@ -1,22 +0,0 @@
+-EXTCON FOR PALMAS/TWL CHIPS
+-
+-PALMAS USB COMPARATOR
+-Required Properties:
+- - compatible: should contain one of:
+-   * "ti,palmas-usb-vid".
+-   * "ti,twl6035-usb-vid".
+-   * "ti,palmas-usb" (DEPRECATED - use "ti,palmas-usb-vid").
+-   * "ti,twl6035-usb" (DEPRECATED - use "ti,twl6035-usb-vid").
+-
+-Optional Properties:
+- - ti,wakeup : To enable the wakeup comparator in probe
+- - ti,enable-id-detection: Perform ID detection. If id-gpio is specified
+-		it performs id-detection using GPIO else using OTG core.
+- - ti,enable-vbus-detection: Perform VBUS detection.
+- - id-gpio: gpio for GPIO ID detection. See gpio binding.
+- - debounce-delay-ms: debounce delay for GPIO ID pin in milliseconds.
+-
+-palmas-usb {
+-       compatible = "ti,twl6035-usb", "ti,palmas-usb";
+-       ti,wakeup;
+-};
+diff --git a/Documentation/devicetree/bindings/extcon/ti,extcon-palmas.yaml b/Documentation/devicetree/bindings/extcon/ti,extcon-palmas.yaml
+new file mode 100644
+index 000000000000..0bcd8df79414
+--- /dev/null
++++ b/Documentation/devicetree/bindings/extcon/ti,extcon-palmas.yaml
+@@ -0,0 +1,74 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/extcon/ti,extcon-palmas.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments PALMAS USB COMPARATOR
++
++maintainers:
++  - Roger Quadros <rogerq@ti.com>
++  - Bhargav Joshi <j.bhargav.u@gmail.com>
++
++properties:
++  compatible:
++    oneOf:
++      - enum:
++          - ti,palmas-usb-vid
++          - ti,twl6035-usb-vid
++      - enum:
++          - ti,palmas-usb
++          - ti,twl6035-usb
++        deprecated: true
++
++  ti,wakeup:
++    type: boolean
++    description:
++      To enable the wakeup comparator in probe.
++
++  ti,enable-id-detection:
++    type: boolean
++    description:
++      Perform ID detection. If id-gpios is specified it performs ID detection
++      using GPIO, otherwise using the OTG core.
++
++  ti,enable-vbus-detection:
++    type: boolean
++    description:
++      Perform VBUS detection.
++
++  id-gpios:
++    maxItems: 1
++
++  id-gpio:
++    maxItems: 1
++    deprecated: true
++
++  vbus-gpios:
++    maxItems: 1
++
++  vbus-gpio:
++    maxItems: 1
++    deprecated: true
++
++  debounce-delay-ms:
++    description:
++      Debounce delay for GPIO ID pin in milliseconds.
++    default: 20
++
++required:
++  - compatible
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    palmas_usb {
++        compatible = "ti,palmas-usb-vid";
++        ti,wakeup;
++        ti,enable-id-detection;
++        ti,enable-vbus-detection;
++        id-gpios = <&palmas_gpio 0 GPIO_ACTIVE_HIGH>;
++    };
 
-This commit adds EDAC support for Agilex5 peripherals, including SDM QSPI,
-CRAM SEU, and IO96B. It updates the device tree bindings to include the new
-compatible string and expands the interrupts and interrupt-names properties
-to accommodate up to 7 interrupts for the new hardware variant.
+---
+base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
+change-id: 20260721-ti-extcon-palmas-2eeed9a6ddb3
 
-> diff --git a/Documentation/devicetree/bindings/edac/altr,socfpga-ecc-mana=
-ger.yaml b/Documentation/devicetree/bindings/edac/altr,socfpga-ecc-manager.=
-yaml
-> index 136e8fccd429a..2ccb0f2163185 100644
-> --- a/Documentation/devicetree/bindings/edac/altr,socfpga-ecc-manager.yaml
-> +++ b/Documentation/devicetree/bindings/edac/altr,socfpga-ecc-manager.yaml
+Best regards,
+-- 
+Bhargav
 
-[ ... ]
-
-> @@ -33,7 +36,25 @@ properties:
-> =20
->    interrupts:
->      minItems: 1
-> -    maxItems: 2
-> +    items:
-> +      - description: Global single-bit error
-> +      - description: Global double-bit error
-> +      - description: IO96B0 DRAM controller error
-> +      - description: IO96B1 DRAM controller error
-> +      - description: SDM QSPI single-bit error
-> +      - description: SDM QSPI double-bit error
-> +      - description: SDM single-event
-
-[Severity: Medium]
-Does removing the maxItems: 2 constraint here allow older hardware generati=
-ons
-(like S10 or A10) to mistakenly define up to 7 interrupts and silently pass
-schema validation?
-
-Should the binding use an allOf / if-then block to enforce maxItems: 2
-specifically for the older compatibles?
-
-> +
-> +  interrupt-names:
-> +    minItems: 1
-> +    items:
-> +      - const: global_sbe
-> +      - const: global_dbe
-> +      - const: io96b0
-> +      - const: io96b1
-> +      - const: sdm_qspi_sbe
-> +      - const: sdm_qspi_dbe
-> +      - const: sdm_seu
-
-[Severity: Medium]
-Will this allow device trees for Agilex5 to silently pass schema validation
-even if they omit the interrupt-names entirely?
-
-Should there be a conditional block enforcing interrupt-names as a required
-property specifically for the altr,socfpga-agilex5-ecc-manager variant?
-
-> =20
->    interrupt-controller: true
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720201425.1538=
-771-1-dinguyen@kernel.org?part=3D1
