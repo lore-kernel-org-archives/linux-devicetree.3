@@ -1,100 +1,423 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 200D83B42EC
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 09:50:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC392DF138
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 09:50:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784541029; cv=none; b=XcACidxywCXZznchsv71tVtUbLClWmrW1ZS2QelALrTWljm48lTLxsh1ADpd+DqOB0eP5CvC3l8LwXv7IjZZLtMZfwj4eIPySfQOjtM5XGW94IkzIR9+cE0VutW7zglj8pNQFcDvUOwa4xpj3oulEiF2Z4lmOaGmSpYxQeV0QEQ=
+	t=1784541034; cv=none; b=oGGxop7L+y/Mv5xd+Ll3FA8GE20yQmyZ6oq+aZTzBVMvXodY6zOQrrIlZ4SaikQ/S7iDTizQyLVYlhTN6XdreuvAOQ7d13m29LvXXHnQQokk78GPZaMvX6TKgIBl0UIjzBS+6zJ3oEdcE20sDItnZ9ByYjrqqydkYRsiiROi4ZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784541029; c=relaxed/simple;
-	bh=j5KLpXH97QTJPsuyNs9IWcF7D50RB5BsLv8p84nqzoE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=d6go4hCHbb/Sm+vl+teCcTxGotLJCYOuPcb1aYd6B1erU6GZwNZ6EiVsfsMavSV2b9gxaSuG4gzk3UxscE2d1MNjm7xKPxGKgPsg79c3k8XOowxiK7KhoLeet/6pcrQh9f/XBPvotKHMHRvNokoncMkE4rVoqJk75gmjXW2J5DQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=btTAHEJB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784541034; c=relaxed/simple;
+	bh=3wb/m7boaK0Z4aP4uHYd8FtOO4bd0mGuEqMQQ01huoE=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=NdC0eTBpR8BWlheL9XduT6I5F/DaBa1GCAqyLQogTFOcqzTpUmD50DQXEswLi3CDa9X0JovBsw4iJmTC/H1BUZLIilFW+NnSR2eWHb8g3+jLgHN6FRb97ZsLh5t0nPrStHpy2OrVMdJ+AjJ39oCE9CPka1AyB2ozm3EmcUB8DUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=WHqlGUa9; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="btTAHEJB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B76CC1F000E9;
-	Mon, 20 Jul 2026 09:50:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784541028;
-	bh=gcbk7oq7YQ7lY797Yc/1yMaXGRT5y3yWZ95vMphyE8Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=btTAHEJButMU0LJN+BcXT+o1U+sNg6wYrJZZ1HWunMkMCkuVdvBt3vzhlckOZoi1B
-	 oH6z0oRPBb0WZku38YI2H3XsdlQHgLtlWo6fcV1nCNSyq4iMrPL9vW4Kg1UtUnb9T+
-	 lf1rbSRI6vsBRV3xjfli3XqwgKeNDGbk9/frCegA8jeVaoixX9VAKaphR0kqExuV8R
-	 Xn4vvf1wCOM6KlMAkdGPMm1QCO8vdBb+QnrsOaIjB5j7JHdGh9cIBeBu78TmhYb8F1
-	 KGH6uDBe772zKuF690rMh6mrfWmgTSJGkqoYzjC24EolnA+CeeSzp30J5rFYLdVR81
-	 M1ktwnbH4Kj0g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/3] dt-bindings: pwm: Add Raspberry Pi RP1 PWM
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andrea della Porta" <andrea.porta@suse.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <67d51a7210f0d7410dbe34e3d93813db1fecd622.1784539788.git.andrea.porta@suse.com>
-References: <cover.1784539788.git.andrea.porta@suse.com>
- <67d51a7210f0d7410dbe34e3d93813db1fecd622.1784539788.git.andrea.porta@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 09:50:27 +0000
-Message-Id: <20260720095027.B76CC1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="WHqlGUa9"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-493b966dd74so41355785e9.3
+        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 02:50:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1784541031; x=1785145831; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IIa10kjK7k62650qEPM+pb25tTfI1IsAlblFJPFGKz8=;
+        b=WHqlGUa9vTCSr1w++0K6+TilrpFt3NJ8Q1WcIRl47nrhJXjUhtmxvjF1MmMXFtWRwd
+         MMyMV3sScVyqwcnMb7k/pQUr+AQr+VUrbZYr15ykKvi2VHB6wuM7STXUT3bzRlWyQN3w
+         RgTZbaumWM9nFv9x0flirq/Vl5vUkoSblPT4Gmje3s6RASvhhULJcuQ0IP1sJydOVowe
+         qBMYkCarg06qL646nzrVDR8e0l0koZkTULDCboyCl5O2oiMYJ1pfg0BqPmsnnoflFwOD
+         afTRg/RfqtetWps8KMoYMf8vfDui3ldCfdkjKHNjfCZRmDc6ryOFUUNN4L6xNjpJzxVW
+         SoMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784541031; x=1785145831;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IIa10kjK7k62650qEPM+pb25tTfI1IsAlblFJPFGKz8=;
+        b=lvTYs3LKqpIu7U4FlQHuhs71noPNyw341hmNVgEcyf2W0Pj5aSvUYCv5aX9i41dkz/
+         PgPQfku6ZYVzkklj8670nBF3/VXE4T0ZtsXLA14SSIfgiuhIdn2UQyG3WFlrMLvgGnMG
+         e8ceZQK3URIpUZFDwJucjQQ3J/PF4vHNPiHTHLB9P0Gp3n1M+kIWXIe2RzjtHnUbdtjM
+         EVip6SQ+qnReOQVV3eyaHIzuAuYdw/GfWuRsXvRDQPRMmRbzeJ6VhiVFIYfPoUanWQ9O
+         ktpAoaP3nUh7abM35pj548Y9eDOEZK4M1YQcLkRQQ1FfTy+rZoGzDQlDXAfGagcGLOo9
+         KnzA==
+X-Gm-Message-State: AOJu0YyvZ/wgkTuBTQEPlRDb7fF03RltwAJwA5U7G/MSnN8028Vwqx7L
+	JEVGY6GDlgy4AZmcgdghUXfzW+i4imQ6gBjAt/J3qtZ0uGBYwlwMN60YqCAo4dDzXyA=
+X-Gm-Gg: AfdE7cnXaoEcd/Lnv204KmBINFuoYVU642CmZeE3lRrEusPi3FNgQs0HDAZP91b7X6M
+	YteyxmtzmVb7oq62dm0u5mt1y/m22gm1NRHcT6gt1sAJzZsdTvTtEpbfhUf64uvNV4C6fkNpJNM
+	mXNI5I/E02ZlBnyq9HYdCgQSBbIRXN7NbwCjZnwmkaAtL/79crmwt419NZG3Ot96yiIAMoB85dA
+	KEkC35PMKzphcn+RTfmeL3EwHrotrFdslS4Uax8KXyq6rMsfFLyidhkIOQiofamvqA7m+U4W6uh
+	lKGMzAcE5wRMJEkhj1lHrizjX1Uu00I3oRwnaFgDbSw/AwFPuCj2EIRvhSAvkmc9ikboaj02Ykm
+	6SOXzFJPV2uWLM3tz9HYIbQBt5TIJjuAeu+DUgWSNCxiSIheMy0YdZRukiHFZlCdk1vRuXX+PGU
+	kZy15aMWWi3wONyroooQFPt7s56x7ZzxTEQTE5JJ8BCPMpGvKeJif6X4fekQ==
+X-Received: by 2002:a05:600c:4453:b0:495:4f62:1ff7 with SMTP id 5b1f17b1804b1-4954f622066mr104588265e9.17.1784541030866;
+        Mon, 20 Jul 2026 02:50:30 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:6048:6804:bc89:a6b1? ([2a01:e0a:106d:1080:6048:6804:bc89:a6b1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49558cb8433sm77876815e9.2.2026.07.20.02.50.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 20 Jul 2026 02:50:30 -0700 (PDT)
+Message-ID: <5a42cd49-e884-4a2f-8ffb-017828c556d7@linaro.org>
+Date: Mon, 20 Jul 2026 11:50:29 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 3/3] arm64: dts: amlogic: a9: Add reset controller
+ support
+To: xianwei.zhao@amlogic.com, Philipp Zabel <p.zabel@pengutronix.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260714-a9-reset-v2-0-8df09b2f437c@amlogic.com>
+ <20260714-a9-reset-v2-3-8df09b2f437c@amlogic.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260714-a9-reset-v2-3-8df09b2f437c@amlogic.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The binding description states the device acts as a syscon provi=
-der for shared registers, but the schema prohibits the use of the "syscon" =
-compatible string.
---
-
---- Patch [1]: [PATCH v7 1/3] dt-bindings: pwm: Add Raspberry Pi RP1 PWM co=
-ntroller ---
-commit 06ebdbe78362ab02ea5e88d503ad7c179855b48a
-Author: Naushir Patuck <naush@raspberrypi.com>
-
-dt-bindings: pwm: Add Raspberry Pi RP1 PWM controller
-
-This commit adds the devicetree binding documentation for the PWM controller
-found in the Raspberry Pi RP1 chipset.
-
-> diff --git a/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.ya=
-ml b/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
+On 7/14/26 04:33, Xianwei Zhao via B4 Relay wrote:
+> From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+> 
+> Add reset controller descriptions for the Amlogic A9 SoC and include the
+> corresponding reset IDs header.
+> 
+> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+> ---
+>   arch/arm64/boot/dts/amlogic/amlogic-a9-reset.h | 247 +++++++++++++++++++++++++
+>   arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi    |  14 ++
+>   2 files changed, 261 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a9-reset.h b/arch/arm64/boot/dts/amlogic/amlogic-a9-reset.h
 > new file mode 100644
+> index 000000000000..55fcaa54cd56
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
-> @@ -0,0 +1,66 @@
-
-[ ... ]
-
-> +description: |
-> +  The PWM peripheral is a flexible waveform generator with a
-> +  variety of operational modes. It has the following features:
-> +   - four independent output channels
-> +   - 32-bit counter widths
-> +   - Seven output generation modes
-> +   - Optional per-channel output inversion
-> +   - Optional duty-cycle data FIFO with DMA support
-> +   - Optional sigma-delta noise shaping engine
-> +  Serves as a fan speed provider to other nodes for a PWM-connected
-> +  fan using shared registers (syscon).
+> +++ b/arch/arm64/boot/dts/amlogic/amlogic-a9-reset.h
+> @@ -0,0 +1,247 @@
+> +/* SPDX-License-Identifier: (GPL-2.0+ OR MIT) */
+> +/*
+> + * Copyright (c) 2026 Amlogic, Inc. All rights reserved.
+> + * Author: Zelong Dong <zelong.dong@amlogic.com>
+> + *
+> + */
 > +
-> +properties:
-> +  compatible:
-> +    const: raspberrypi,rp1-pwm
+> +#ifndef _DT_BINDINGS_AMLOGIC_MESON_A9_RESET_H
+> +#define _DT_BINDINGS_AMLOGIC_MESON_A9_RESET_H
+> +
+> +/* AO RESET0 */
+> +#define AO_RESET_APB				0
+> +#define AO_RESET_RTC				1
+> +#define AO_RESET_BRG_NIC_RTC			2
+> +#define AO_RESET_AO2EE				3
+> +#define AO_RESET_BRG_NIC_EE			4
+> +#define AO_RESET_WATCHDOG			5
+> +#define AO_RESET_I3C				6
+> +#define AO_RESET_PWR				7
+> +#define AO_RESET_PWM_A				8
+> +#define AO_RESET_PWM_B				9
+> +#define AO_RESET_PWM_C				10
+> +#define AO_RESET_PWM_D				11
+> +#define AO_RESET_PWM_E				12
+> +#define AO_RESET_PWM_F				13
+> +#define AO_RESET_PWM_G				14
+> +#define AO_RESET_I2C_M_A			15
+> +#define AO_RESET_I2C_M_B			16
+> +#define AO_RESET_I2C_M_C			17
+> +#define AO_RESET_I2C_M_D			18
+> +#define AO_RESET_IR				19
+> +#define AO_RESET_UART_B				20
+> +#define AO_RESET_UART_C				21
+> +#define AO_RESET_UART_D				22
+> +#define AO_RESET_SPISG				23
+> +#define AO_RESET_SED				24
+> +#define AO_RESET_CEC				25
+> +#define AO_RESET_AOCPU				26
+> +#define AO_RESET_AOCPU_POR			27
+> +#define AO_RESET_AOCPU_CORE			28
+> +#define AO_RESET_SRAM				29
+> +#define AO_RESET_CAPU				30
+> +#define AO_RESET_UART_E				31
+> +
+> +/* RESET0 */
+> +#define RESET_ETH_1G				0
+> +#define RESET_ISP				1
+> +#define RESET_U3DRD_USB3PHY_APB			2
+> +#define RESET_U3DRD_USB3PHY			3
+> +#define RESET_U3DRD_USB2PHY			4
+> +#define RESET_U3DRD				5
+> +#define RESET_U3DRD_COMB			6
+> +#define RESET_U3DRD_USB2PHY_APB			7
+> +#define RESET_DP_PHY_APB			8
+> +#define RESET_DP_PHY				9
+> +#define RESET_DPTX_1P4				10
+> +#define RESET_DPTX_1P4_APB			11
+> +#define RESET_EDPTX_1P4				12
+> +#define RESET_USB2DRD_PHY_APB			13
+> +#define RESET_U2DRD_COMB			14
+> +#define RESET_U2DRD				15
+> +#define RESET_HDMI20_AES			16
+> +#define RESET_HDMITX_CBUS_APB			17
+> +#define RESET_BRG_VCBUS_DEC			18
+> +#define RESET_VCBUS				19
+> +#define RESET_VID_PLL_DIV			20
+> +#define RESET_VDI6				21
+> +#define RESET_HDMITXPHY				22
+> +#define RESET_VID_LOCK				23
+> +#define RESET_VENC_2				24
+> +#define RESET_VDAC				25
+> +#define RESET_VENC_1				26
+> +#define RESET_VENC_0				27
+> +#define RESET_RDMA				28
+> +#define RESET_HDMITX				29
+> +#define RESET_VIU				30
+> +#define RESET_VENC				31
+> +
+> +/* RESET1 */
+> +#define RESET_AUDIO				32
+> +#define RESET_MALI_CBUS_APB			33
+> +#define RESET_MALI				34
+> +#define RESET_PCIE_B_PHY			35
+> +#define RESET_PCIE_B_POR			36
+> +#define RESET_DOS_CBUS_APB			37
+> +#define RESET_DOS				38
+> +#define RESET_MALI_SYS				39
+> +#define RESET_CC				40
+> +#define RESET_DSP_A_DEBUG			41
+> +#define RESET_PCIE_A_PHY_APB			42
+> +#define RESET_PCIE_A_PIPE			43
+> +#define RESET_PCIE_A_POR			44
+> +#define RESET_PCIE_A_PHY			45
+> +#define RESET_PCIE_A_MAC_APB			46
+> +#define RESET_AMFC_APB				47
+> +#define RESET_ETH				48
+> +/*						49 */
+> +#define RESET_MALI_MBIST			50
+> +#define RESET_ETH_1G_AXI			51
+> +#define RESET_VICP				52
+> +#define RESET_DEWARP				53
+> +#define RESET_GE2D				54
+> +#define RESET_VGE				55
+> +#define RESET_PCIE_A_0				56
+> +#define RESET_PCIE_A_1				57
+> +#define RESET_PCIE_A_2				58
+> +#define RESET_PCIE_A_3				59
+> +#define RESET_PCIE_A_4				60
+> +#define RESET_PCIE_A_5				61
+> +#define RESET_PCIE_A_6				62
+> +#define RESET_PCIE_A_7				63
+> +
+> +/* RESET2 */
+> +#define RESET_AM2AXI				64
+> +#define RESET_DSP_A				65
+> +#define RESET_MIPI_DSI_PHY			66
+> +#define RESET_TS_PLL				67
+> +#define RESET_TS_A55				68
+> +#define RESET_ETH_AXI				69
+> +#define RESET_TS_CORE				70
+> +#define RESET_MIPI_DSI1_PHY			71
+> +#define RESET_SMART_CARD			72
+> +#define RESET_SPISG				73
+> +#define RESET_TS_DOS				74
+> +#define RESET_U2DRD_USB2PHY			75
+> +#define RESET_PIO				76
+> +#define RESET_U2H_COMB				77
+> +#define RESET_U2H				78
+> +#define RESET_USB2H_PHY_APB			79
+> +#define RESET_MSR_CLK				80
+> +/*						81 */
+> +#define RESET_AUX_DIG				82
+> +/*						83 */
+> +#define RESET_U2H_USB2PHY			84
+> +#define RESET_U3HSG_PCIE_PIPE			85
+> +#define RESET_AMFC				86
+> +#define RESET_U3HSG_PCIE_PHY_APB		87
+> +#define RESET_U3HSG_PCIE_PHY			88
+> +#define RESET_PP_DMA				89
+> +#define RESET_I3C				90
+> +#define RESET_WATCHDOG				91
+> +#define RESET_PP_WRAPPER			92
+> +#define RESET_MIPI_DSI_HOST			93
+> +#define RESET_DSI_PLL_DIV			94
+> +#define RESET_MIPI_DSI_B_HOST			95
+> +
+> +/* RESET3 */
+> +/*						96 */
+> +#define RESET_HDMIRX_WRAP_APB			97
+> +#define RESET_HDMIRX				98
+> +#define RESET_PCIE_B_0				99
+> +#define RESET_PCIE_B_1				100
+> +#define RESET_PCIE_B_2				101
+> +#define RESET_PCIE_B_3				102
+> +#define RESET_PCIE_B_4				103
+> +#define RESET_PCIE_B_5				104
+> +#define RESET_PCIE_B_6				105
+> +#define RESET_PCIE_B_7				106
+> +#define RESET_PCIE_B_PIPE			107
+> +#define RESET_PCIE_B_MAC_APB			108
+> +#define RESET_NNA_TO_VGA_PIPE			109
+> +#define RESET_CVE				110
+> +#define RESET_GLOBAL_TIMER			111
+> +#define RESET_COMBO_DPHY_PCLK			112
+> +#define RESET_COMBO_DPHY			113
+> +/*						114 - 118 */
+> +#define RESET_U3PHY30_APB			119
+> +#define RESET_U3PHY30				120
+> +#define RESET_HSG				121
+> +#define RESET_U3HSG_HSG				122
+> +#define RESET_U3DRDB				123
+> +#define RESET_U3DRDB_APB			124
+> +#define RESET_U3PHY20_APB			125
+> +#define RESET_U3PHY20				126
+> +#define RESET_A55_ACE				127
+> +
+> +/* RESET4 */
+> +#define RESET_CAN_0				128
+> +#define RESET_CAN_1				129
+> +#define RESET_TAHOE_CORE			130
+> +#define RESET_TAHOE				131
+> +#define RESET_TAHOE_APB				132
+> +#define RESET_TAHOE_SYS				133
+> +/*						134 - 135 */
+> +#define RESET_PWM_I				136
+> +#define RESET_PWM_J				137
+> +#define RESET_UART_A				138
+> +/*						139 - 143 */
+> +#define RESET_MALI_AVBCD			144
+> +#define RESET_MALI_AVBCD_APB			145
+> +#define RESET_MALI_MCR_TOP			146
+> +#define RESET_I2C_M_E				147
+> +#define RESET_I2C_M_F				148
+> +#define RESET_I2C_M_G				149
+> +#define RESET_I2C_M_H				150
+> +#define RESET_I2C_M_I				151
+> +#define RESET_SD_EMMC_A				152
+> +#define RESET_SD_EMMC_B				153
+> +#define RESET_SD_EMMC_C				154
+> +#define RESET_UART_F				155
+> +#define RESET_PWM_N				156
+> +#define RESET_PWM_M				157
+> +#define RESET_PWM_L				158
+> +#define RESET_PWM_K				159
+> +
+> +/* RESET5 */
+> +#define RESET_BRG_ISP_PIPE			160
+> +#define RESET_BRG_HEVCF_DMC_PIPE		161
+> +#define RESET_BRG_HEVCB_PIPE			162
+> +#define RESET_BRG_EMMC_PIPE			163
+> +#define RESET_BRG_VGE_PIPE			164
+> +#define RESET_BRG_DMC_VPU1_PIPE			165
+> +#define RESET_BRG_DMC_VPU0_PIPE			166
+> +#define RESET_BRG_NNA_PIPE			167
+> +#define RESET_BRG_NNA_SRAM_PIPE			168
+> +#define RESET_BRG_U2DRDA_PIPE			169
+> +#define RESET_BRG_U3DRDA_PIPE			170
+> +/*						171 - 173 */
+> +#define RESET_BRG_NIC_AOSYS			174
+> +#define RESET_BRG_NIC_AMFC			175
+> +#define RESET_BRG_NIC_GIC			176
+> +#define RESET_BRG_SRAM_NIC_NNA			177
+> +#define RESET_BRG_SRAM_NIC_MAIN			178
+> +#define RESET_BRG_SRAM_NIC_ALL			179
+> +#define RESET_BRG_NIC_SOC_BRG			180
+> +#define RESET_BRG_NIC_GPV			181
+> +#define RESET_BRG_NIC_AO			182
+> +#define RESET_BRG_NIC_EMMC			183
+> +#define RESET_BRG_NIC_DSP_A			184
+> +#define RESET_BRG_NIC_SDIO_B			185
+> +#define RESET_BRG_NIC_SDIO_A			186
+> +#define RESET_BRG_NIC_VAP_B			187
+> +#define RESET_BRG_NIC_DSU			188
+> +#define RESET_BRG_NIC_CLK81			189
+> +#define RESET_BRG_NIC_MAIN			190
+> +#define RESET_BRG_NIC_ALL			191
+> +
+> +/* RESET6 */
+> +/*						192 - 216 */
+> +#define RESET_BRG_PP_CLK			217
+> +#define RESET_BRG_PP_NIC_CLK81			218
+> +/*						219 - 220 */
+> +#define RESET_BRG_PERIPH_APB_SYNC		221
+> +#define RESET_BRG_VPU_APB_SYNC			222
+> +#define RESET_BRG_DSP_A_PIPE			223
+> +
+> +#endif
+> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
+> index b0e0fadeed82..fedde52c2e89 100644
+> --- a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
+> +++ b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
+> @@ -7,6 +7,7 @@
+>   #include <dt-bindings/interrupt-controller/arm-gic.h>
+>   #include <dt-bindings/gpio/gpio.h>
+>   #include <dt-bindings/pinctrl/amlogic,pinctrl.h>
+> +#include "amlogic-a9-reset.h"
+>   
+>   / {
+>   	interrupt-parent = <&gic>;
+> @@ -105,6 +106,13 @@ apb: bus@fe000000 {
+>   			#size-cells = <2>;
+>   			ranges = <0x0 0x0 0x0 0xfe000000 0x0 0x480000>;
+>   
+> +			reset: reset-controller@2000 {
+> +				compatible = "amlogic,a9-reset",
+> +					     "amlogic,t7-reset";
+> +				reg = <0x0 0x2000 0x0 0x98>;
+> +				#reset-cells = <1>;
+> +			};
+> +
+>   			periphs_pinctrl: pinctrl@4000 {
+>   				compatible = "amlogic,pinctrl-a9";
+>   				#address-cells = <2>;
+> @@ -204,6 +212,12 @@ aobus: bus@ffa00000 {
+>   			#size-cells = <2>;
+>   			ranges = <0x0 0x0 0x0 0xffa00000 0x0 0x100000>;
+>   
+> +			ao_reset: reset-controller@2000 {
+> +				compatible = "amlogic,a9-ao-reset";
+> +				reg = <0x0 0x2000 0x0 0xc>;
+> +				#reset-cells = <1>;
+> +			};
+> +
+>   			aobus_pinctrl: pinctrl@4000 {
+>   				compatible = "amlogic,pinctrl-a9";
+>   				#address-cells = <2>;
+> 
 
-[Severity: Medium]
-The description states this device acts as a syscon provider for shared
-registers, but the compatible property is restricted to a single string.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Will device tree validation fail if a user includes the "syscon" string=20
-normally required for standard kernel syscon lookup APIs alongside the
-"raspberrypi,rp1-pwm" compatible string?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784539788.gi=
-t.andrea.porta@suse.com?part=3D1
+Thanks,
+Neil
