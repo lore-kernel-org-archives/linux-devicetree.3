@@ -1,115 +1,226 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF311A9F91
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 07:22:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72083BF69C;
+	Mon, 20 Jul 2026 07:29:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784532157; cv=none; b=L806s6mPron/7fQn98yB69uPUAToNHT0V2IQrIlhS1ZuXbA0vVEA/pHVy9/seWcctuYEPMZPNwZIB6I921mrJG//74VARQvm4qcuQBR10rs713yPQ27nWD0jG9Z0NpafkjeSIClhL7jGjIQgDX68aEKt/cVadMJ73tqADoKUymE=
+	t=1784532596; cv=none; b=VPYPSbu8iL4Z7Jc8kvwJEMP8+Ysq32NP9oaIOX9OtvRTW/DvDjGzBYhSZbXXh9MPAGb4VErOTtlmgOaZ4lcjihtqm/yaZuovg1TkK6VE1QOhTG9JuKnVLVCTB+62T4SxQiuqyr9rUxEwqxx0myQjAGXNOHDVHTqxwWYld2RO9ds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784532157; c=relaxed/simple;
-	bh=vDMk1wbG7BpjO3r0gVy/Hpmtm/NTf4pFWtYcM8bSSl0=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=si97jqDAm+B+TlzSr93H7v/OBMdNJUpmL6Lhpmy5EENqKA+094yspq6Kq8CljldeFrwZ8o87c6TfsjhNghrTqNBghK0ZSJuU+/QfJ+avbHSzp7xWEzyfpPsbopHFT5BbtrzyEiAsvYn1t+4KwCiAqteblQP498dRnRpo08PyYgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o5qGY2I1; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o5qGY2I1"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38deea72eebso7682466a91.1
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 00:22:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784532151; x=1785136951; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=BreNlZNT5ZTae8ushLrJu7lRuJzqIG3wpbhbbx2mYvM=;
-        b=o5qGY2I19m2AGEHvxtvMezd1ggzokInkuupggNTiuaD9mS4QNzL2JP0m4kOebJvFdS
-         ckcUr00/Fx9+ZgH9Cm7IORWJbtDR97iyu0hkSEi/1OD5r+E6xAhEsj4UGMEk5E4syUW/
-         hPBs0zGik5XFLlMOH9TeNcWEaTXqMRhu1UhPgMlOsJRHfUACvy2x4QKLP+/48hoQ6y0e
-         fYbyNlK0+JEp1b2P5a2HFSaScWMACtrI7ewKnJYiaOqd2IP4f1Y6t7p2sFTdA/gpZ8kd
-         LcKzjLXVbdEKk8MyDHfk7YxdcChMuRsl+w8oT3JMCzy5fSLhQ5BBSD6AhPFygV6MEFX+
-         Le0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784532151; x=1785136951;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BreNlZNT5ZTae8ushLrJu7lRuJzqIG3wpbhbbx2mYvM=;
-        b=iCMgprsv7CP9k3UJGO9fZHF/a2yxJKQTfAQNm8jAnX1fF8IHdLr0wdWR1F51sTwmGN
-         beNbpZraoKRcnMW4v3LL6GgQuGc1w/2lcJNQOIkx4QTHoqlIch1W2tf3fjQkTSGi7yk5
-         ZTFi4B6v06W1y776aO5IiRV0I2XDmG3ux3ckJjmryqDLdGPbsA/vB9be4MmuQZKQBo1h
-         KCLqVV3/fzULDAFO8PG0QABNFmccZDBODPqmZdpUJOoxMaoa1XAz0S0Pkz28EGz7qv+a
-         8NV4K/U2XDuA9Y6tpycm70JGquH+gy38yXOMcvKJKGZk5/Ik+PAZXJtuQqHe+H3h/qgX
-         JrKQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrcptJbqjYX7Cz9mBq6V1mTXtxiUV3QuYW/7XwSQJrtc5k30YOFHA5SRbveaGefnRF6bxGFZtA3on7J@vger.kernel.org
-X-Gm-Message-State: AOJu0YygOxDOwG+9Jh9RY62omsyJtwhLSJ2g9mlnhzqq7vX3wdagEP2l
-	H3DdDiKv5S7lFQDgu1cg/BDy4s34bTbMEuH0i5u53o3A7bjJVqazJ1yY
-X-Gm-Gg: AfdE7ckO8qDGBis4dIgDJZ6+uCAVbe4ZIXmebsVZOppzRiKmmmurknFvt4RgxVDMc/2
-	yKeDIG/KPL7Fe2EWWFfIMqEmIyu7TK2QnUkZCTScKKl0uaSNDG9ZOakKxnasONVRXQGuGnu3msz
-	Kn7ZXjemKGF8X1UqPkh3WgKYIxrDhZXa3j5tGqfp0T/wYRm1q4NG+CRlEyDYWYG5CJC4lY+L2tB
-	tp2vrc4LBFV58MyAWCP65rm5wefPGRvpHB+ci/Tz0cQP9+4Sd3fI9qWlT1lP16i+2BaVX6mV2On
-	Jrfh6QH3wZ9uqeGlHx9fvI9JXmoRskAQWs9THSnjS3ShvAtql6tdlkJPfwpkO+hn8ZDOp/8cMiy
-	sb3cN4VC0yFO/V8umvY4J77G9g4CQ2gdwEVF7jWSu3aMvdYghd/ZHd1YbRxa3gahG5T6ZEL2NR1
-	FxxMzhIBwgZ2Nc9CJFXWA39Bx07Ga1
-X-Received: by 2002:a17:90b:5288:b0:38e:3542:212 with SMTP id 98e67ed59e1d1-38e4b4462f1mr13603782a91.13.1784532151069;
-        Mon, 20 Jul 2026 00:22:31 -0700 (PDT)
-Received: from [10.0.0.29] ([2601:647:4000:5070::51d7])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e4afcc067sm5153318a91.1.2026.07.20.00.22.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 00:22:30 -0700 (PDT)
+	s=arc-20240116; t=1784532596; c=relaxed/simple;
+	bh=uuFR3hQTvgVy6PNb8PItg3yE2m9rP8k0PtC8tl5fFUc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MIOHpc8rEzTbgaXrFGHZJvgJbR8/qlHhlIhRwS77pRvJx24nxwHljBHwi133htW+gCndGrF3qvxwGng9Nk+rNPQ9f/9JNAg5VWP0+blHMJ9T6X90IVB1FSEWHB/Cg8NMokfPtFWCYZnVoo05aWjHlKZP5PugOqS/KDvB2+AutsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 194F0201E75;
+	Mon, 20 Jul 2026 09:20:21 +0200 (CEST)
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wliIX-000MrJ-04;
+	Mon, 20 Jul 2026 09:20:21 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wliIW-0000000049o-3wO4;
+	Mon, 20 Jul 2026 09:20:20 +0200
+Message-ID: <0d0c7befafd2e60b8887245f4e60a504704014dc.camel@pengutronix.de>
+Subject: Re: [PATCH v10 3/4] reset: cix: add sky1 audss auxiliary reset
+ driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: joakim.zhang@cixtech.com, mturquette@baylibre.com, sboyd@kernel.org, 
+	bmasney@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: cix-kernel-upstream@cixtech.com, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Date: Mon, 20 Jul 2026 09:20:20 +0200
+In-Reply-To: <20260720051505.1252774-4-joakim.zhang@cixtech.com>
+References: <20260720051505.1252774-1-joakim.zhang@cixtech.com>
+	 <20260720051505.1252774-4-joakim.zhang@cixtech.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v8 18/22] RISC-V: perf: Add Qemu virt machine events
-From: Charlie Jenkins <thecharlesjenkins@gmail.com>
-To: Atish Patra <atish.patra@linux.dev>
-Cc: Jiri Olsa <jolsa@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh@kernel.org>, 
- Anup Patel <anup@brainfault.org>, Namhyung Kim <namhyung@kernel.org>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Ian Rogers <irogers@google.com>, 
- Will Deacon <will@kernel.org>, James Clark <james.clark@linaro.org>, 
- linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, Conor Dooley <conor@kernel.org>
-In-Reply-To: <20260701-counter_delegation-v8-18-7909f863a645@meta.com>
-References: <20260701-counter_delegation-v8-0-7909f863a645@meta.com>
- <20260701-counter_delegation-v8-18-7909f863a645@meta.com>
-Date: Mon, 20 Jul 2026 00:21:59 -0700
-Message-Id: <178453211941.543975.9634559400279652785.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784532124; l=763;
- i=thecharlesjenkins@gmail.com; s=20260605; h=from:subject:message-id;
- bh=vDMk1wbG7BpjO3r0gVy/Hpmtm/NTf4pFWtYcM8bSSl0=;
- b=dmChx5rGUuDAMnuQtfGv9m5CW9Vq2JsgbQMCPFYlQwlS3eI3VeyPYIFdDGrGWQEMegLQ9tc8z
- K8oWm1FcKBQCC0SbvGetMGFrcPiKGQMa9ah+iJXURfEGhOJ6+spv4/0
-X-Developer-Key: i=thecharlesjenkins@gmail.com; a=ed25519;
- pk=ajnnRQ98PIdwKp4HeMkq9U32okYbnh6Zb4G3o5XXvkg=
 
-On Wed, 01 Jul 2026 01:47:06 -0700, Atish Patra <atish.patra@linux.dev> wrote:
-> Qemu virt machine supports a very minimal set of legacy perf events.
-> Add them to the vendor table so that users can use them when
-> counter delegation is enabled.
-> 
-> Qemu is identified by its marchid. Older Qemu reports all-zero
-> mvendorid/marchid/mimpid, while newer Qemu reports the marchid 0x2a (42)
-> allocated to it in the RISC-V ISA manual [1]. Register the events for
-> both ids so they are available across Qemu versions.
-> 
-> [1] https://github.com/riscv/riscv-isa-manual/blob/main/marchid.md
+On Mo, 2026-07-20 at 13:15 +0800, joakim.zhang@cixtech.com wrote:
+> From: Joakim Zhang <joakim.zhang@cixtech.com>
+>=20
+> Add an auxiliary reset controller driver for the AUDSS CRU. Sixteen
+> software reset lines for audio subsystem peripherals are controlled
+> through one register in the CRU register map.
+>=20
+> The driver is created by the AUDSS clock platform driver and registers
+> the reset controller on the CRU device node.
+>=20
+> Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
+> ---
+>  drivers/reset/Kconfig            |  13 +++
+>  drivers/reset/Makefile           |   1 +
+>  drivers/reset/reset-sky1-audss.c | 137 +++++++++++++++++++++++++++++++
+>  3 files changed, 151 insertions(+)
+>  create mode 100644 drivers/reset/reset-sky1-audss.c
+>=20
+> diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
+> index d009eb0849a3..b19e719f2abe 100644
+> --- a/drivers/reset/Kconfig
+> +++ b/drivers/reset/Kconfig
+> @@ -300,6 +300,19 @@ config RESET_SKY1
+>  	help
+>  	  This enables the reset controller for Cix Sky1.
+> =20
+> +config RESET_SKY1_AUDSS
+> +	tristate "Cix Sky1 Audio Subsystem reset controller"
+> +	depends on ARCH_CIX || COMPILE_TEST
+> +	select AUXILIARY_BUS
+> +	default CLK_SKY1_AUDSS
+> +	help
+> +	  Support for block-level software reset lines in the Cix Sky1
+> +	  Audio Subsystem (AUDSS) Clock and Reset Unit. Sixteen reset
+> +	  outputs for audio peripherals are controlled through the CRU
+> +	  register map. The driver binds as an auxiliary device from
+> +	  the AUDSS clock driver. Say M or Y here if you want to build
+> +	  this driver.
+> +
+>  config RESET_SOCFPGA
+>  	bool "SoCFPGA Reset Driver" if COMPILE_TEST && (!ARM || !ARCH_INTEL_SOC=
+FPGA)
+>  	default ARM && ARCH_INTEL_SOCFPGA
+> diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
+> index 3e52569bd276..e81407ea3e29 100644
+> --- a/drivers/reset/Makefile
+> +++ b/drivers/reset/Makefile
+> @@ -39,6 +39,7 @@ obj-$(CONFIG_RESET_RZV2H_USB2PHY) +=3D reset-rzv2h-usb2=
+phy.o
+>  obj-$(CONFIG_RESET_SCMI) +=3D reset-scmi.o
+>  obj-$(CONFIG_RESET_SIMPLE) +=3D reset-simple.o
+>  obj-$(CONFIG_RESET_SKY1) +=3D reset-sky1.o
+> +obj-$(CONFIG_RESET_SKY1_AUDSS) +=3D reset-sky1-audss.o
+>  obj-$(CONFIG_RESET_SOCFPGA) +=3D reset-socfpga.o
+>  obj-$(CONFIG_RESET_SUNPLUS) +=3D reset-sunplus.o
+>  obj-$(CONFIG_RESET_SUNXI) +=3D reset-sunxi.o
+> diff --git a/drivers/reset/reset-sky1-audss.c b/drivers/reset/reset-sky1-=
+audss.c
+> new file mode 100644
+> index 000000000000..d31d80e1251a
+> --- /dev/null
+> +++ b/drivers/reset/reset-sky1-audss.c
+> @@ -0,0 +1,137 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Cix Sky1 Audio Subsystem reset controller driver
+> + *
+> + * Copyright 2026 Cix Technology Group Co., Ltd.
+> + */
+> +
+> +#include <dt-bindings/reset/cix,sky1-audss-cru.h>
+> +
+> +#include <linux/auxiliary_bus.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
 
-Thanks for doing this.
+What is this used for?
 
-Reviewed-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
-Tested-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
+> +#include <linux/regmap.h>
+> +#include <linux/reset-controller.h>
+> +
+> +#define SKY1_RESET_SLEEP_MIN_US		50
+> +#define SKY1_RESET_SLEEP_MAX_US		100
 
--- 
-- Charlie
+Is this delay compatible with all possible modules being reset?
 
+Are min and max from a spec or is this just some safe value?
+Maybe you could only define the _MIN_US and use fsleep() below.
+
+> +
+> +#define AUDSS_SW_RST			0x78
+> +
+> +struct sky1_audss_reset_map {
+> +	unsigned int offset;
+> +	unsigned int mask;
+> +};
+> +
+> +struct sky1_audss_reset {
+> +	struct reset_controller_dev rcdev;
+> +	struct regmap *regmap;
+> +	const struct sky1_audss_reset_map *map;
+> +};
+> +
+> +static const struct sky1_audss_reset_map sky1_audss_reset_map[] =3D {
+> +	[AUDSS_I2S0_SW_RST]   =3D { AUDSS_SW_RST, BIT(0) },
+> +	[AUDSS_I2S1_SW_RST]   =3D { AUDSS_SW_RST, BIT(1) },
+> +	[AUDSS_I2S2_SW_RST]   =3D { AUDSS_SW_RST, BIT(2) },
+> +	[AUDSS_I2S3_SW_RST]   =3D { AUDSS_SW_RST, BIT(3) },
+> +	[AUDSS_I2S4_SW_RST]   =3D { AUDSS_SW_RST, BIT(4) },
+> +	[AUDSS_I2S5_SW_RST]   =3D { AUDSS_SW_RST, BIT(5) },
+> +	[AUDSS_I2S6_SW_RST]   =3D { AUDSS_SW_RST, BIT(6) },
+> +	[AUDSS_I2S7_SW_RST]   =3D { AUDSS_SW_RST, BIT(7) },
+> +	[AUDSS_I2S8_SW_RST]   =3D { AUDSS_SW_RST, BIT(8) },
+> +	[AUDSS_I2S9_SW_RST]   =3D { AUDSS_SW_RST, BIT(9) },
+> +	[AUDSS_WDT_SW_RST]    =3D { AUDSS_SW_RST, BIT(10) },
+> +	[AUDSS_TIMER_SW_RST]  =3D { AUDSS_SW_RST, BIT(11) },
+> +	[AUDSS_MB0_SW_RST]    =3D { AUDSS_SW_RST, BIT(12) },
+> +	[AUDSS_MB1_SW_RST]    =3D { AUDSS_SW_RST, BIT(13) },
+> +	[AUDSS_HDA_SW_RST]    =3D { AUDSS_SW_RST, BIT(14) },
+> +	[AUDSS_DMAC_SW_RST]   =3D { AUDSS_SW_RST, BIT(15) },
+> +};
+> +
+> +static struct sky1_audss_reset *to_sky1_audss_reset(struct reset_control=
+ler_dev *rcdev)
+> +{
+> +	return container_of(rcdev, struct sky1_audss_reset, rcdev);
+> +}
+> +
+> +static int sky1_audss_reset_set(struct reset_controller_dev *rcdev,
+> +				unsigned long id, bool assert)
+> +{
+> +	struct sky1_audss_reset *priv =3D to_sky1_audss_reset(rcdev);
+> +	const struct sky1_audss_reset_map *signal =3D &priv->map[id];
+> +	unsigned int value =3D assert ? 0 : signal->mask;
+> +
+> +	return regmap_update_bits(priv->regmap, signal->offset, signal->mask, v=
+alue);
+
+Consider using regmap_assign_bits() instead.
+
+> +}
+> +
+> +static int sky1_audss_reset_assert(struct reset_controller_dev *rcdev,
+> +				   unsigned long id)
+> +{
+> +	int ret;
+> +
+> +	ret =3D sky1_audss_reset_set(rcdev, id, true);
+> +	if (ret)
+> +		return ret;
+> +
+> +	usleep_range(SKY1_RESET_SLEEP_MIN_US, SKY1_RESET_SLEEP_MAX_US);
+> +	return 0;
+> +}
+> +
+> +static int sky1_audss_reset_deassert(struct reset_controller_dev *rcdev,
+> +				     unsigned long id)
+> +{
+> +	int ret;
+> +
+> +	ret =3D sky1_audss_reset_set(rcdev, id, false);
+> +	if (ret)
+> +		return ret;
+> +
+> +	usleep_range(SKY1_RESET_SLEEP_MIN_US, SKY1_RESET_SLEEP_MAX_US);
+
+This is the same in both assert and deassert. You could move it into
+the helper function.
+
+regards
+Philipp
