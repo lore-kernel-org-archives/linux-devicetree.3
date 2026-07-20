@@ -1,112 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D75C39901A;
-	Mon, 20 Jul 2026 10:03:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B1A939901A;
+	Mon, 20 Jul 2026 10:03:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784541791; cv=none; b=otCWggRazjSnBx/JCxbhGU5coL6M3ahMViKjJYrCP8HXWqE1tfFBPVR9om0wRHtyx8eAcqAZ3mt37/DIHerPNcbmAkelCK2wV2APaTMYYtwpv5lG41oHl2sBGh4mLw5QkW31+GQj7vlJJfuNN+dKULWx6wmFEwmdYRK8rDmb20I=
+	t=1784541812; cv=none; b=dGhPa+N2OJOrAV2kRrxEzt4ABzZx/2z5Ui1du3yLYQ/b2JHtZox2gOJcWMPTHrn1GGjdaxKaQLZiQ24S9J7fhkaAwzwApnrX9V6FqxcFqcGQ5+XchetTTWunq+ySUstOhnuoLUFxrxc7Wmr7xLHh7/ZoVi453by1GOty3ylKfkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784541791; c=relaxed/simple;
-	bh=LkdU1Mw/5rdchHYGG7IywEREJQb7y4hcnOztcgx4eYg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ime8Vn5o0jsZqWUqicUge8zRkZtSqH9f6ciNBlvIX41WD4QInHXw88HmhpgNhsJGBRW6G41rlqnEtSlcBCghRL7w2w/YIQTRDTWqyGR5f3zbaTU9QZEP0Ar8IS5moAYxeXM3R2kf9TZ7WejAlOXBAcGgt0oyo1aRb00l/oqbyx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RWJ1KAV7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784541812; c=relaxed/simple;
+	bh=SUqgHFkKO0otM9yI+YUomW64xWTx+HL33jVEFIAJXe4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ekjscTXzhCii89ddRT8CGh0iiL70XgHPvtqeeyEnUg4jeBSj1fYWlFyhs4lBPEanRbRX+GmIo8c3iB5UCVHTpfzM1+9ujlfebS0mmL93so2BT/ZwahtMWMsw86qXki7fVCBelakxaGPZKX5xcNv5+O0Xpf88/1hJhyQqg6lHXkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TnNJMP6/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RWJ1KAV7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CE111F000E9;
-	Mon, 20 Jul 2026 10:03:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TnNJMP6/"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 25CF51F000E9;
+	Mon, 20 Jul 2026 10:03:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784541789;
-	bh=UjP4CVdj662nikU25TY7QceLNwWw+ty5RjShlgFy2Xc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RWJ1KAV7/Y9fF8ghxQTYtvtymGBWoktxHko1kyW9Tn5K6GZ0teyhTNyXYQnD/kVte
-	 FeuEJqhgykELbE4HjHT0+BruZVGxpkV9zFUuIgcn8EbgpMFSvWP3rTEgg57taG2BiN
-	 yKehKLZiXyn7ei14w0kBLqi+S6CCMHSyNTyscrRQdQFS670kzI3INE+pH/FkTvCTkg
-	 xZapFBEbfx/tl6L6nSf4bssb2oS572Bg7QjCZCjvKmZq/HY9G2r62mZWFYlnbK8AWp
-	 yvVAVMTHLJ703lpkQPG4pYXZuqC1dhYf4I/eFtRhG3BWafbIUkjj8Gyn/1EvQ1o86p
-	 Bv6iX9tDzwZ6Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: sound: fsl,imx-asrc: update port
- binding to support multiple pairs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: shengjiu.wang@oss.nxp.com
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, robh@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260720095450.1618747-2-shengjiu.wang@oss.nxp.com>
-References: <20260720095450.1618747-1-shengjiu.wang@oss.nxp.com>
- <20260720095450.1618747-2-shengjiu.wang@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 10:03:09 +0000
-Message-Id: <20260720100309.6CE111F000E9@smtp.kernel.org>
+	s=k20260515; t=1784541809;
+	bh=JGPa/uH4JwInJPPVmlE6Tl4biqGXrEgmLdXgjle6m9A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TnNJMP6/C6P6hNiqm/DmghD3koz96HOX7tp7/ch/exg7HfoLJhahwaBAhsSP2p4bn
+	 L03Ix2q9RWhSCMHFbSKi4ACv9bsdciSQjM6NloITdIFGF9R7dZWgN+h3koIhMUqaFk
+	 jRSB5pffj93R+UrhZTCd4pEpUKtyCjYeqH/c0JyPoWTWGtANdah0MMYwq9fS9Me+q5
+	 SYjiQpFuHdki2nMJJzUXwvQ1XIKsOOvx6TN6z8ihI+b3In5q0r9XIS4c5XeBVXj7pZ
+	 Gb5QTxXd4JbRekYz5efHfdHsKLolCFCMKg9LS3ziRSsUmThwy7tOvyFW5F/3puxND+
+	 aHVQ6k4YLW0zA==
+Date: Mon, 20 Jul 2026 12:03:26 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chris Packham <chris.packham@alliedtelesis.co.nz>, Andrew Morton <akpm@linux-foundation.org>, 
+	"Darrick J. Wong" <djwong@us.ibm.com>, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
+Subject: Re: [PATCH v2 1/6] dt-bindings: hwmon: add binding for adi,adt7470
+Message-ID: <al3yFHvlzQuIywEj@monoceros>
+References: <20260717-adt7470_thermalzone-v2-0-a55147958fad@gmail.com>
+ <20260717-adt7470_thermalzone-v2-1-a55147958fad@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="d734jrlis5p4zo7z"
+Content-Disposition: inline
+In-Reply-To: <20260717-adt7470_thermalzone-v2-1-a55147958fad@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The newly added example causes `make dt_binding_check` to fail due =
-to a device tree node merge conflict.
---
 
---- Patch [1]: [PATCH 1/4] dt-bindings: sound: fsl,imx-asrc: update port bi=
-nding to support multiple pairs ---
-commit 45674653b1eb8f9efa969b217b62dc494801eaf3
-Author: Shengjiu Wang <shengjiu.wang@nxp.com>
+--d734jrlis5p4zo7z
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v2 1/6] dt-bindings: hwmon: add binding for adi,adt7470
+MIME-Version: 1.0
 
-dt-bindings: sound: fsl,imx-asrc: update port binding to support multiple p=
-airs
+Hello,
 
-The i.MX ASRC hardware supports up to three conversion pairs. This commit
-updates the binding to add a ports container that enumerates three named
-sub-ports, while deprecating the old single port property and ensuring
-both cannot be used simultaneously.
+On Fri, Jul 17, 2026 at 05:59:14PM -0300, Luiz Angelo Daros de Luca wrote:
+> +  "#pwm-cells":
+> +    const: 2
+> +    description: |
+> +      Number of cells in a PWM specifier.
+> +      - The first cell is the PWM channel (0 to 3).
+> +      - The second cell is the PWM period in nanoseconds.
 
-> diff --git a/Documentation/devicetree/bindings/sound/fsl,imx-asrc.yaml b/=
-Documentation/devicetree/bindings/sound/fsl,imx-asrc.yaml
-> index 608defc93c1e9..18d252722aa8e 100644
-> --- a/Documentation/devicetree/bindings/sound/fsl,imx-asrc.yaml
-> +++ b/Documentation/devicetree/bindings/sound/fsl,imx-asrc.yaml
+Please use #pwm-cells = <3> and $ref: pwm.yaml#
 
-[ ... ]
+(I'm not 100% the latter works for such a device that is a PWM and a
+hwmon, but I think it does.)
 
-> @@ -188,3 +212,57 @@ examples:
->              };
->         };
->      };
-> +
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    #include <dt-bindings/clock/imx6qdl-clock.h>
-> +    asrc1: asrc@2034000 {
+Best regards
+Uwe
 
-[Severity: Low]
-Does this identical node name and unit address cause a node merge conflict
-during make dt_binding_check?
+--d734jrlis5p4zo7z
+Content-Type: application/pgp-signature; name="signature.asc"
 
-The dt-extract-example tool processes the examples array by concatenating a=
-ll
-items into a single device tree root node. Because this new example uses the
-exact same node name and unit address (asrc@2034000) as the preceding examp=
-le,
-the Device Tree Compiler merges them together.
+-----BEGIN PGP SIGNATURE-----
 
-The resulting merged asrc@2034000 node ends up containing both the port
-property from the first example and the ports property from this second
-example.=20
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpd8mwACgkQj4D7WH0S
+/k5HOQgAuth6qs0eRQQVmzrA7KcnhGeXamCLUKP0U7bzLuxFxDPPycvrsB3fBi+L
+HURWDexyAUluUJAV5Y7PKtOrdaRn7J5fFtzixzY6Kn3HRI6UGYRb9m/b0JUt1LuC
+AW7+TSY5FaAhlLc+dab0++JSIDJfMt/3DvE8l+iQyPkfmfvV66idfQeHwgQz+DdI
+YFG8twG5otVYHsb5BsnzcmRvpfOllKpqWqPPDSkNFo6DPoPR3NsNRUs5Fbww/++B
+QAKxmpbD//ku6Wcy8AcGiHtC4aIOd5FlZvxJ+Ch9eJ0vXeETiTremots5tKKOrdH
+GZ1qrDG0WYgH0OR3H8Ck1ZoYYtAJAQ==
+=Ris2
+-----END PGP SIGNATURE-----
 
-This violates the newly added schema constraint preventing port and ports
-from both being required at the same time, which causes validation to fail.
-
-Could a different unit address be used for this second example to prevent
-the nodes from being merged?
-
-> +        compatible =3D "fsl,imx53-asrc";
-> +        reg =3D <0x02034000 0x4000>;
-> +        interrupts =3D <0 50 IRQ_TYPE_LEVEL_HIGH>;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720095450.1618=
-747-1-shengjiu.wang@oss.nxp.com?part=3D1
+--d734jrlis5p4zo7z--
