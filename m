@@ -1,198 +1,228 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18A4D433E74
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 14:42:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A494442CB09;
+	Mon, 20 Jul 2026 14:44:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784558525; cv=none; b=qQTeB4ug71KIU1OLl+Cd1lr4UtCkaDswGtyMYS+FcoUudy+z0Yz1s4ir41TF4mIP2uWRRTAbQwlE7KMCjsUxGdAfRqKZGr5mJsjiyVUc208zyKDhYwIqQDgFtWdlGfbVixczPpkxRILHBnv4R1u6cyY1VddGOmtkVNpx0SKlFxo=
+	t=1784558670; cv=none; b=t+Pags6CAfhzLwNoYBLrXyqo4wh264OnYV0TdbvezvHpUSMgYgvAZW8ogZmy4+yMFtT7JrVVXFNEztdEZv0R7OsFnwaC/Bh6w5OHz7o14uXJw/EfbWQVz4zPMuxQNuOr4kbCKIhBGGCm9miWgLX9Xmoms9yz53Ptk7bkuuNuBdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784558525; c=relaxed/simple;
-	bh=bID2FSRrvzZ/HOE6eJxJfAYUzIhLUTI61YUfrj7oEg8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uGHEmlwtpIsNTEMPAtE9xMsC6NYxzKfInvoQHKZkNv6rlI4rrobT+c8ecuk+4Zd4g+vsVfJ7WQ9VuODtdTprmDLe5kun8oi+e9SgLaPtOThYHOrwESW3ZqsAMM4JCvNlcrhKwe6tr6VM0CL56tTciPyU2BCa3nhPzwdJcOsqhPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=guJskifD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OtFDA70w; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784558670; c=relaxed/simple;
+	bh=a3VOGkH58Jx/h25Gt0mMTXhlHl4dYcPEWnFqKN7VmFw=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=U5jm0rK5HkD8Lii13UxTjxYnqlP5B4IYure3gFd7zQCjL5esMP5U0uq0XI2/UA5tCDSbkm686RfEb/rBmeenMs3Nh5Tft+XPMnH6l/fdIShSaV7hqywVRNhDLwMU4TFpv2Mm1UlSn2jSDM3zMafSzwxLAYwR6fjQKqSX4AKIXas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=i0REGxk5; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="guJskifD";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OtFDA70w"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66KDqtKP2852686
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 14:41:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2BLpJJYIssKHWV80rmLOSVdZoUsiqPhLQXr2/gGzEvo=; b=guJskifDDR2Z1q3c
-	7aEtzxRzBofasED68rgt1tMhjFdEoEj5jAmWxrwsC+KdRr6FRCCQf82A3I36Ng8s
-	eSwRECIMDOJ9otlOKE9g68m3hKLA9NSSNgHeJGWsliqfheRZERAueTDamhIp5yZb
-	xGxsScQvmOcuFKU8aLE4Q/FxbFFhAOVjmK5qgG/77o8QUlxlBkNb8tn9REWRj/JS
-	UAzwCc/3vC43cxNQKgVoAIyFeUkoJswZ8Ye+PTS6OSv/NMMDctgZh1nxdROfDQMy
-	mypGLgZ9JRnp+ujkV4Yqh9jWeHTJ+DeMuSJ5gX8Xf85bojW9iqCggeuzWnjISAU+
-	yTLJhA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fhhgys5y0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 14:41:56 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c9d953b71so11418541cf.0
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 07:41:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784558516; x=1785163316; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2BLpJJYIssKHWV80rmLOSVdZoUsiqPhLQXr2/gGzEvo=;
-        b=OtFDA70wqXVa+euq8yfdDofrG6KjphdrcZnIawQt633EnZC8M9y04jiJNSQKUUTPsk
-         8coJpvKGD/meFOlZpC6BV/eInc5sPzdwecq30FYsurwfa80tBZ28UBRS4frL8SL3oqEa
-         6ziTyRhnnh481fgozp+ZSl3GM/aLYqI9s6YG5Ihaa89tWlKMaPuWAst7PkyEQEFmfWEp
-         0NxpWi7RGXu9qvYSXgJDC1M/SbJlPjFQOIXq+hEMCpVbPOqKZnDFEZiBCYuNJIQ7ntnG
-         Xn7Qhxx90vuboKSmDShM7sekO6adgkru2SbWzl3lRFdg79XWK5VVfWFVgRGeGfj634ng
-         3PAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784558516; x=1785163316;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2BLpJJYIssKHWV80rmLOSVdZoUsiqPhLQXr2/gGzEvo=;
-        b=FeAPAUYnpQO7Uu6xccw8SwxqRWIZTwuL6eLRR6K2xwocP7DIgkl3Wx9BKFHVs4xW4U
-         w19uRXNaZFMp1qBB+MIio7ArTUtRCs5XI+w4LFPg3/yiXMUp+YJJFMTgK+whHEtMZsJz
-         +EWQs8ENczR1fq8R/RvftASvs6htASeIDxO/gXOdIqfBM9D5Bk+sl6K4q5sh1lYGr5ei
-         0MJ1qRqkmXpwWjuMSjB+c1X2dy0gEu+Fia78a8oIOWE9wrM6Mj61RP6jl7wCKBeStKtf
-         m4wshLvG+CJBwfd6hJBe/nVB1w0G0CO5WuNf78balDvr6CweAotIPhtaBi8K8cH9g6tD
-         pwoQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rr4qzes3YKV2G0r9aqxK7U4zHMWUvvzELOp5wOTrCPEMUOfhiiizTFYRJaI5riUHWe+Ek66qY059q5N@vger.kernel.org
-X-Gm-Message-State: AOJu0YwsPppTAba3Njt1WsASzxlFeulMWJx3MNc3u3z9EmYFWrjzy2fv
-	KhfP/fg67F+kELU9iHqMqSCCZKEuF0GrEeNsnB67Ww5cbn3JfA/lEPkdAvOULIE/ueY8qvdKRXc
-	sK2A68sW+9yKHuEIKqZEed7b6ofKrgFoU1L3LkUBGk/XTqN+lXUulpWH3KoWK188K
-X-Gm-Gg: AfdE7cmQuB31F+Pfw0SDBiblQOCKXu82xL1PIGk+A9RZdXn6Xw98zAC6EkHNjcS/nyw
-	WxXdDvJwI+7xPqfXfupsEr9bPrhuG0nRUP/qeSQ6DLKW5osY97bUyk+PCDDUBtuAxxQso5Tj4Zj
-	CK3NQEs5BYw5gSOEA3EvcgI8zruhXf0bnVNVQtpxTPfIKfBC6WRc1XdsO3d14OHqTf2EmrrrMSB
-	Sr3P3BIZOVQy8jKO6OIsUcQayGgZaIF0N0gXQ1UzwBqeLzhFxKMOA9U6LJkYTgtxM8GY2X/AaF1
-	13+DO+vnxi+XYBS5XIkiAQGYhAX2dbBAlF7CBepactuUO9Vr+ZpvHtonqUYnRhX6IGcPbJApat+
-	C2NxOjBEOY1jMnRLGLHGud+tq
-X-Received: by 2002:ac8:5d8e:0:b0:51a:8c9b:6494 with SMTP id d75a77b69052e-525fb957e1cmr8865141cf.11.1784558515472;
-        Mon, 20 Jul 2026 07:41:55 -0700 (PDT)
-X-Received: by 2002:ac8:5d8e:0:b0:51a:8c9b:6494 with SMTP id d75a77b69052e-525fb957e1cmr8864731cf.11.1784558514897;
-        Mon, 20 Jul 2026 07:41:54 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1734b1918asm466578066b.43.2026.07.20.07.41.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Jul 2026 07:41:54 -0700 (PDT)
-Message-ID: <a0e78c2b-0ff6-4018-9a64-229e7f68c0ca@oss.qualcomm.com>
-Date: Mon, 20 Jul 2026 16:41:51 +0200
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="i0REGxk5"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:25d4:fa24:78d1:31:7a56])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 40DBE270;
+	Mon, 20 Jul 2026 16:43:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784558607;
+	bh=a3VOGkH58Jx/h25Gt0mMTXhlHl4dYcPEWnFqKN7VmFw=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=i0REGxk5dgSn9rFm+wkulm2Yqg/IdEkUeEjuHVtT06xd4U31u4S3kJ/sF4NDSsbkp
+	 CQMbQcWT2sSEi5s2k+6GnB9XfehsWbndRuRn9zusHl42eGNC09yHWsHEvGFyW+pNJk
+	 mHBZZJm8to2FVW5H9rltXt4kutnjjBjhl5jcAKjA=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] dt-bindings: phy: qcom,qmp-usb3-dp: Extend X1E
- description for USB4
-To: Konrad Dybcio <konradybcio@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        usb4-upstream@oss.qualcomm.com,
-        Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>,
-        Mika Westerberg <westeri@kernel.org>, Sven Peter <sven@kernel.org>
-References: <20260518-topic-usb4phy-v1-0-71d827c49dca@oss.qualcomm.com>
- <20260518-topic-usb4phy-v1-1-71d827c49dca@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260518-topic-usb4phy-v1-1-71d827c49dca@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIwMDE2MyBTYWx0ZWRfX9xbmXHO78uqo
- kYpRiD6j0iZXNm6XAFy/Bx4tYwn8I4UqMuF3ZZtMkQ0jioZfkZZHOzwjLxFT5zrE11wh83SXvQ4
- JxSfLD4aTlAK5MS834hz1EjqmQmyvYY=
-X-Authority-Analysis: v=2.4 cv=LK9WhpW9 c=1 sm=1 tr=0 ts=6a5e33b4 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=u94BZUI0yVsv4lWrxd4A:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: SfBLIEMWv4k2kC6I1TgHTTmg3iq61U5o
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDE2MyBTYWx0ZWRfXwZPUkzK9DG3h
- 3GK0m5FkGVi3CQ9eRtlJyPe4koqeykiiaDbI8Yny2Wi1pxsXkz8RJJvvWTxjoZFBwWqETmlxj0l
- IflLDleC2Zxt1OAGQtDmE+ys+Mtr4alcW8/9M1dE2JOrBzZcOm2eh4sKjwO2Q0JD9M4oZMRdN67
- eHIZWMfiRooEl3j0gE/oAaK1GYuSl/GXquzg53044mkX6neWIaRTbV1R+jCRnbijFc6t0a21Gh5
- K93KW6Weabu1AN4FKNUVjR95tNIpQfybqOlUd7UKS2FYArhbRbkx3VJtBV3pbb91IZ4aMsKrmQm
- B9PIN9sRYgQP/71zVl7GqemDEpYYZZ7HJyANPtYqdtcHdsrC6pMXakZTnhAp0y2uF+T6t6yC/Hn
- pm6n0BMrhbYL3CpJ0TZd2Js/FQL04cvLl6/FzB2v48iiIV6crMr1CrMw2Glqnp3uNUuy5o8RkhV
- B0lfTY4R1B3nzFSWTfw==
-X-Proofpoint-GUID: SfBLIEMWv4k2kC6I1TgHTTmg3iq61U5o
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-20_03,2026-07-20_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 phishscore=0 clxscore=1015 malwarescore=0
- suspectscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607200163
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CAPY8ntAf9TjgW-E6WeJuMdsHy8pV8-CvqQJriWEFpgLB-brD5A@mail.gmail.com>
+References: <20260312150437.1091195-1-eagle.alexander923@gmail.com> <20260312150437.1091195-3-eagle.alexander923@gmail.com> <CAPY8ntAf9TjgW-E6WeJuMdsHy8pV8-CvqQJriWEFpgLB-brD5A@mail.gmail.com>
+Subject: Re: [PATCH 2/2] media: i2c: Add driver for Sony IMX662 sensor
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Hans Verkuil <hverkuil@kernel.org>, Hans de Goede <hansg@kernel.org>, Tetsuya Nomura <tetsuya.nomura@soho-enterprise.com>, Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+To: Alexander Shiyan <eagle.alexander923@gmail.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Mon, 20 Jul 2026 20:14:21 +0530
+Message-ID: <178455866124.1426769.18237320419273419942@freya>
+User-Agent: alot/0.13.dev35+g4a69c46ca
 
-On 5/18/26 12:29 PM, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> Some instances of the QMP combo PHY (called USB43DP) feature a third
-> functional sub-block, responsible for USB4/Thunderbolt 3 communication.
-> 
-> Compared to the today's state of the binding, one more clock (P2RR2P -
-> PHY-to-Router, Router-to-PHY) needs to be enabled for the PHY to be
-> able to switch to USB4 mode. Allow that for X1E.
-> 
-> Also, add a bindings define to let consumers access it.
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> ---
+Hi Dave, Alexander,
 
-It's been a while and I see Vinod is picking up patches.
-Krzysztof, could you please take a look at this binding change?
+Quoting Dave Stevenson (2026-03-13 01:20:15)
+> Hi Alexander
+>=20
+> On Thu, 12 Mar 2026 at 15:11, Alexander Shiyan
+> <eagle.alexander923@gmail.com> wrote:
+> >
+> > This patch adds a V4L2 subdevice driver for the Sony IMX662 CMOS image
+> > sensor. The sensor has a native resolution of 1936x1100 (effective
+> > 1920x1080) and can achieve up to 90 frames per second depending on
+> > the configuration. The driver supports:
+> > - MIPI CSI-2 with 2 or 4 data lanes.
+> > - RAW10 and RAW12 formats (both colour and monochrome).
+> > - Controls: exposure, analogue gain, horizontal/vertical blanking,
+> >   horizontal/vertical flip, brightness.
+> > - A placeholder V4L2_CID_HDR_SENSOR_MODE control for future Clear HDR
+> >   support (the actual HDR modes are not yet implemented).
+> > - Runtime PM.
+> > - Cropping via the selection API.
+> > - Multiple link frequencies selectable via device tree.
+> >
+> > Tested on ARM64 Rockchip RK3568 platform with a 24 MHz external clock
+> > and various link frequencies.
+>=20
+> Interesting timing as I've been looking at IMX662 too, but on a Raspberry=
+ Pi.
+> FWIW my driver is at
+> https://github.com/6by9/linux/blob/rpi-6.12.y-imx662/drivers/media/i2c/im=
+x662.c
+>=20
 
-Konrad
+I saw libcamera patches for IMX676, does the below branch have the latest
+driver you plan to post as v2?
 
->  .../devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml         | 3 ++-
->  include/dt-bindings/phy/phy-qcom-qmp.h                                 | 1 +
->  2 files changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
-> index 3d537b7f9985..eba4bee474fb 100644
-> --- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
-> +++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
-> @@ -52,7 +52,7 @@ properties:
->        - const: ref
->        - const: com_aux
->        - const: usb3_pipe
-> -      - const: cfg_ahb
-> +      - enum: [ p2rr2p_pipe, cfg_ahb ]
->  
->    power-domains:
->      maxItems: 1
-> @@ -186,6 +186,7 @@ allOf:
->            enum:
->              - qcom,sc7180-qmp-usb3-dp-phy
->              - qcom,sdm845-qmp-usb3-dp-phy
-> +            - qcom,x1e80100-qmp-usb3-dp-phy
->      then:
->        properties:
->          clocks:
-> diff --git a/include/dt-bindings/phy/phy-qcom-qmp.h b/include/dt-bindings/phy/phy-qcom-qmp.h
-> index 6b43ea9e0051..1c3ce0c02b0c 100644
-> --- a/include/dt-bindings/phy/phy-qcom-qmp.h
-> +++ b/include/dt-bindings/phy/phy-qcom-qmp.h
-> @@ -16,6 +16,7 @@
->  /* QMP USB4-USB3-DP PHYs */
->  #define QMP_USB43DP_USB3_PHY		0
->  #define QMP_USB43DP_DP_PHY		1
-> +#define QMP_USB43DP_USB4_PHY		2
->  
->  /* QMP PCIE PHYs */
->  #define QMP_PCIE_PIPE_CLK		0
-> 
+https://github.com/6by9/linux/blob/rpi-6.18.y-imx662-mainline-clean/drivers=
+/media/i2c/imx662.c=20
+
+> Comments are based on brief testing and reading of the code. This is
+> not a full review.
+>=20
+> > Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
+
+[...]
+
+> > +static int imx662_set_selection(struct v4l2_subdev *sd,
+> > +                               struct v4l2_subdev_state *sd_state,
+> > +                               struct v4l2_subdev_selection *sel)
+> > +{
+
+Can we keep cropping and binning out of the initial driver, and implement
+it using the common raw sensor model directly?
+
+I did it for IMX678 [1] on Sakari's suggestion [2]. The two sensors are
+quite similar, so I'm happy to help in whatever way I can on getting this
+working with the new model too :-)
+
+[1]: https://lore.kernel.org/all/20260703-imx678-meta-v1-0-7c4924a0df05@ide=
+asonboard.com/
+[2]: https://lore.kernel.org/all/ag7oq5jO5G0rwvzb@kekkonen.localdomain/
+
+Thanks,
+    Jai
+
+> > +       struct imx662 *imx662 =3D to_imx662(sd);
+> > +       struct v4l2_rect rect =3D sel->r;
+> > +       struct v4l2_rect *try_crop;
+> > +       struct v4l2_mbus_framefmt *try_fmt;
+> > +       u32 max_left, max_top;
+> > +
+> > +       if (sel->target !=3D V4L2_SEL_TGT_CROP)
+> > +               return -EINVAL;
+> > +
+> > +       max_left =3D IMX662_PIXEL_ARRAY_LEFT + IMX662_PIXEL_ARRAY_WIDTH=
+ -
+> > +                  IMX662_MIN_CROP_WIDTH;
+> > +       max_top =3D IMX662_PIXEL_ARRAY_TOP + IMX662_PIXEL_ARRAY_HEIGHT -
+> > +                 IMX662_MIN_CROP_HEIGHT;
+> > +
+> > +       rect.left =3D clamp_t(u32, rect.left, IMX662_PIXEL_ARRAY_LEFT, =
+max_left);
+> > +       rect.top =3D clamp_t(u32, rect.top, IMX662_PIXEL_ARRAY_TOP, max=
+_top);
+> > +
+> > +       rect.width =3D
+> > +               clamp_t(u32,
+> > +                       round_down(rect.width, IMX662_CROP_WIDTH_STEP),
+> > +                       IMX662_MIN_CROP_WIDTH, IMX662_PIXEL_ARRAY_WIDTH=
+);
+> > +       rect.height =3D
+> > +               clamp_t(u32,
+> > +                       round_down(rect.height, IMX662_CROP_HEIGHT_STEP=
+),
+> > +                       IMX662_MIN_CROP_HEIGHT, IMX662_PIXEL_ARRAY_HEIG=
+HT);
+> > +
+> > +       if (rect.left + rect.width - 1 >
+> > +           IMX662_PIXEL_ARRAY_LEFT + IMX662_PIXEL_ARRAY_WIDTH - 1)
+> > +               rect.left =3D
+> > +                       IMX662_PIXEL_ARRAY_LEFT + IMX662_PIXEL_ARRAY_WI=
+DTH -
+> > +                       rect.width;
+> > +       if (rect.top + rect.height - 1 >
+> > +           IMX662_PIXEL_ARRAY_TOP + IMX662_PIXEL_ARRAY_HEIGHT - 1)
+> > +               rect.top =3D
+> > +                       IMX662_PIXEL_ARRAY_TOP + IMX662_PIXEL_ARRAY_HEI=
+GHT -
+> > +                       rect.height;
+> > +
+> > +       if (sel->flags & V4L2_SEL_FLAG_GE) {
+> > +               if (rect.width < sel->r.width) {
+> > +                       u32 new_width =3D rect.width + IMX662_CROP_WIDT=
+H_STEP;
+> > +
+> > +                       if (new_width <=3D IMX662_PIXEL_ARRAY_WIDTH)
+> > +                               rect.width =3D new_width;
+> > +               }
+> > +               if (rect.height < sel->r.height) {
+> > +                       u32 new_height =3D rect.height + IMX662_CROP_HE=
+IGHT_STEP;
+> > +
+> > +                       if (new_height <=3D IMX662_PIXEL_ARRAY_HEIGHT)
+> > +                               rect.height =3D new_height;
+> > +               }
+> > +       }
+> > +
+> > +       if (sel->flags & V4L2_SEL_FLAG_LE) {
+> > +               if (rect.width > sel->r.width &&
+> > +                   rect.width >=3D IMX662_MIN_CROP_WIDTH +
+> > +                                 IMX662_CROP_WIDTH_STEP)
+> > +                       rect.width -=3D IMX662_CROP_WIDTH_STEP;
+> > +               if (rect.height > sel->r.height &&
+> > +                   rect.height >=3D IMX662_MIN_CROP_HEIGHT +
+> > +                                  IMX662_CROP_HEIGHT_STEP)
+> > +                       rect.height -=3D IMX662_CROP_HEIGHT_STEP;
+> > +       }
+> > +
+> > +       if (rect.width < IMX662_MIN_CROP_WIDTH ||
+> > +           rect.height < IMX662_MIN_CROP_HEIGHT)
+> > +               return -EINVAL;
+> > +
+> > +       if (sel->which =3D=3D V4L2_SUBDEV_FORMAT_TRY) {
+> > +               try_crop =3D v4l2_subdev_state_get_crop(sd_state, sel->=
+pad);
+> > +               *try_crop =3D rect;
+> > +
+> > +               try_fmt =3D v4l2_subdev_state_get_format(sd_state, sel-=
+>pad);
+> > +               if (try_fmt) {
+> > +                       try_fmt->width =3D rect.width;
+> > +                       try_fmt->height =3D rect.height;
+> > +               }
+> > +       } else {
+> > +               if (imx662->streaming)
+> > +                       return -EBUSY;
+> > +
+> > +               if (imx662->crop.left =3D=3D rect.left &&
+> > +                   imx662->crop.top =3D=3D rect.top &&
+> > +                   imx662->crop.width =3D=3D rect.width &&
+> > +                   imx662->crop.height =3D=3D rect.height) {
+> > +                       sel->r =3D rect;
+> > +                       return 0;
+> > +               }
+> > +
+> > +               imx662->crop =3D rect;
+> > +
+> > +               try_fmt =3D v4l2_subdev_state_get_format(sd_state, sel-=
+>pad);
+> > +               if (try_fmt) {
+> > +                       try_fmt->width =3D rect.width;
+> > +                       try_fmt->height =3D rect.height;
+> > +               }
+> > +
+> > +               imx662_set_framing_limits(imx662);
+> > +       }
+> > +
+> > +       sel->r =3D rect;
+> > +
+> > +       return 0;
+> > +}
+
+[...]
