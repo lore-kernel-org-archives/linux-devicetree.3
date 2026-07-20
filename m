@@ -1,366 +1,148 @@
-Received: from mail-m19731111.qiye.163.com (mail-m19731111.qiye.163.com [220.197.31.111])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B0529BD87;
-	Mon, 20 Jul 2026 02:29:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1270A5FDA7;
+	Mon, 20 Jul 2026 02:30:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784514590; cv=none; b=rBAyGDGm4LET6xNk94BYtiqJJoOkGkKx4ceZKa4GndFTEdOj9zFDZa8U/axYSrg6svKFKrnIj8paTCFcsg+DZEhWVbVXYex8xvDwRbHopNjb3m6k5gUQtcqlTO7rsW5FxMGxEHM2ztK7BDq1icImj/pEVN0YdrISLE/FUzTznaE=
+	t=1784514611; cv=none; b=tuNG6gf+BE/ccSQQG6QyhyqJZFlA6hQQFbX33fr9C5jVxbX8Vw5dfMU5VLeQKyTV/kPiayVl83s73LXbbHuoy+3oiLX0PjvxM685oEUw5OFe59mc57CYBkiDgsplqG9m0XpEMM6NgaK9m6I8fwkWZ+AsLDq3uiyqopBZUQBmE/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784514590; c=relaxed/simple;
-	bh=NLTUVuglGvDIdsVf6ozHFVkViAimcbBSbyNytZebk90=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jfPSRpilF5yQ6upD/Z085g1p0M5KJI0/Cc2PT456Au8qX6dAo3NS7iOp6Zq7QKHJOQcMXewd6BC4t+lE1c3FClje9UpbMPBPP8jJYLRFmdHJg029vRJmI9EsPwFbSR1UQgcsIO83o4tuG3PGxGPO0xf2J7kO8zff+Pf4JSrSmuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=fGaSFrmt; arc=none smtp.client-ip=220.197.31.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1784514611; c=relaxed/simple;
+	bh=sya+iu+BO8ag8PsFzPpJU1+OV6SIdvGJx+s+L2QzvS0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=tg8Cq5IfJtYI3534LnYaQ34b1TnkssrR/DbkzZtpWdyWkpE8hTLQzogAZB/U5GFDnYMvfatc0pCz1LluliVO2ZwmZ+822mhuL+nGdJ6F0ql55FugHPvYa3F1OVm1W6SS/QZHBADoy/2WbfrKx3DwTvfnzsJhKT1ZgI44HbiyS7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XqtD21b+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="fGaSFrmt"
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 46c36dd28;
-	Mon, 20 Jul 2026 09:54:10 +0800 (GMT+08:00)
-Message-ID: <9219738d-c3f2-4034-b88f-84335f77fbad@rock-chips.com>
-Date: Mon, 20 Jul 2026 09:54:08 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XqtD21b+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 404A31F000E9;
+	Mon, 20 Jul 2026 02:30:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784514609;
+	bh=FYDWGowRhI+kcWX02s+8sXeatK6lNdfYycqLuH4WLsg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XqtD21b+VuCl1FaSBwzn8V7I4NxPFNSaudgiQ+QidyldtIH+8ouhmcp1OdD1aBuen
+	 FNyApKB8f4Uj9lUZke7zQ2HOmLxPt2JvEen7zraHE3wnd5+87/Q2Xjb3paLqYiH6Su
+	 Mu4jRl2k//SaQD/i5kCkgUN3M8pYnvmKW44IlHEQc65F9OlJXRyvNU9gEDU7mjplt8
+	 tOcr1UKzjgDYDoQqAU5vh/sjW+w8vfmeVAUiUG2x82+A8Dek1YGtl9C6VUn0FCM0gD
+	 cTw1+BNwTVtuGY2MCrsfIVdYsDVMuS/4eY1EBIzKIhVSCiDG7wmdmmR5AEu2CO4DNR
+	 t2W+K7bxCDy+w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 3/3] thermal/drivers/imx: Add calibration offset
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Haoning CHENG" <Haoning.CHENG@cn.bosch.com>
+Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260720-b4-symana21-11221-imx-thermal-support-upstream-6-18-v10-3-f8c3dcd9a57e@cn.bosch.com>
+References: <20260720-b4-symana21-11221-imx-thermal-support-upstream-6-18-v10-0-f8c3dcd9a57e@cn.bosch.com>
+ <20260720-b4-symana21-11221-imx-thermal-support-upstream-6-18-v10-3-f8c3dcd9a57e@cn.bosch.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 20 Jul 2026 02:30:08 +0000
+Message-Id: <20260720023009.404A31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] drm/rockchip: lvds: add RK3568 support
-To: Rok Markovic <rok@kanardia.eu>, Heiko Stuebner <heiko@sntech.de>,
- Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Alibek Omarov <a1ba.omarov@gmail.com>
-References: <20260717120005.2087386-1-rok@kanardia.eu>
- <20260717120005.2087386-4-rok@kanardia.eu>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20260717120005.2087386-4-rok@kanardia.eu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9f7d3b0eee03a7kunmae00338f1d2cb8
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHUxOVkxNTEpNQxhMTBpIH1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=fGaSFrmtAq9Zm9i+EivkmOIz/2NPZ3/XxwjUasJmYxVkitxTDhUlAixtqWleZGVJiu+YIMuz90INFCceAj/VK7GI8tjQS6V6JZwTA2CFwYE6SDD3oxGJ+jl0DAjwZ4gvGyBUiBm9tAkmidSLNru0eGF1yxpueblRJs1RyW9sBdQ=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=0ZU4UPHBu/3uY02SJQ9uBBNkmVWDmaewVSFdHdw5PBw=;
-	h=date:mime-version:subject:message-id:from;
 
-Hello Rok,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Thank you for your patch. Please see the comment below:
+Pre-existing issues:
+- [Critical] Alarm IRQ can fire after thermal zone is unregistered, causing=
+ a Use-After-Free.
+--
 
-On 7/17/2026 8:00 PM, Rok Markovic wrote:
-> The RK3568 LVDS transmitter has no register block of its own. It is
-> driven entirely through the GRF and re-uses the MIPI DSI0 D-PHY in
-> PHY_MODE_LVDS, which phy-rockchip-inno-dsidphy already supports.
-> 
-> Based on Alibek Omarov's earlier posting [1], with the changes below.
-> 
-> Power the D-PHY from the encoder enable path rather than from probe.
-> phy_power_on() runs the phy driver's whole LVDS bring-up: PLL and
-> bandgap power-on, a settle, PLL mode select, then a reset pulse of the
-> serializer and the lane enables. None of that is safe at probe time -
-> the GRF has not yet switched the block to LVDS mode (LVDS0_MODE_EN is
-> set from rk3568_lvds_poweron(), i.e. the enable path) and the VOP is
-> not driving dclk. The serializer is clocked from dclk and latches its
-> state coming out of that reset, so it comes up dead and stays dead.
-> The failure is silent: every register in the phy, the GRF and the VOP
-> reads back exactly as on a working system while the lanes sit at
-> common mode and never toggle.
->
+--- Patch [3]: [PATCH v10 3/3] thermal/drivers/imx: Add calibration offset =
+support ---
+commit bb0e3bef4010d2e2be1d5402d29e194aaf49548f
+Author: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
 
-Could you please confirm this? Based on my earlier tests, after PHY
-poweron, re-disabling and re-enabling the GRF did not reproduce the
-issue you described.
+thermal/drivers/imx: Add calibration offset support
 
-> Program RK3568_LVDS0_DCLK_INV_SEL from the CRTC state's bus_flags so
-> the panel's declared pixelclk-active is honoured on the LVDS block as
-> well as on the VOP pin polarity. Both have to agree with the edge the
-> panel samples on.
-> 
-> Re-assert RK3568_LVDS0_P2S_EN in rk3568_lvds_poweron().
-> rk3568_lvds_poweroff() clears MODE_EN and P2S_EN together, so setting
-> P2S_EN once at probe would leave the parallel-to-serial converter off
-> after the first disable/enable cycle.
-> 
-> Use regmap_write() rather than regmap_update_bits() for the GRF. These
-> registers are write-masked - the upper 16 bits select which of the
-> lower 16 a write may change - so there is nothing to preserve and no
-> reason to read first. Passing a FIELD_PREP_WM16() value as both the
-> mask and the value of an update_bits() applies the masking twice and
-> only works by accident.
-> 
-> Between the two, nothing needs programming at probe at all: the GRF is
-> written entirely from the enable path, so px30_lvds_probe() is left
-> alone rather than being refactored into a shared phy helper.
-> 
-> [1] https://lore.kernel.org/all/20230119184807.171132-1-a1ba.omarov@gmail.com/
-> 
-> Co-developed-by: Alibek Omarov <a1ba.omarov@gmail.com>
-> Signed-off-by: Alibek Omarov <a1ba.omarov@gmail.com>
-> Signed-off-by: Rok Markovic <rok@kanardia.eu>
-> Assisted-by: Claude:claude-opus-4-8
-> ---
->  drivers/gpu/drm/rockchip/rockchip_lvds.c | 161 +++++++++++++++++++++++
->  drivers/gpu/drm/rockchip/rockchip_lvds.h |  10 ++
->  2 files changed, 171 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.c b/drivers/gpu/drm/rockchip/rockchip_lvds.c
-> index 95fa0a9..f45d04a 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_lvds.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_lvds.c
-> @@ -435,6 +435,133 @@ static void px30_lvds_encoder_disable(struct drm_encoder *encoder)
->  	drm_panel_unprepare(lvds->panel);
->  }
->  
-> +static int rk3568_lvds_poweron(struct rockchip_lvds *lvds)
-> +{
-> +	int ret;
+The TEMPMON sensor reading may deviate from the theoretical SoC junction
+temperature. This commit adds support for an optional DT property to apply a
+calibration offset to the temperature readings. The offset is used when set=
+ting
+alarm/panic thresholds and reading the current temperature.
+
+> diff --git a/drivers/thermal/imx_thermal.c b/drivers/thermal/imx_thermal.c
+> index 168069a16e930..87ae2e40cc6fe 100644
+> --- a/drivers/thermal/imx_thermal.c
+> +++ b/drivers/thermal/imx_thermal.c
+
+[ ... ]
+
+> @@ -635,6 +643,25 @@ static int imx_thermal_probe(struct platform_device =
+*pdev)
+> =20
+>  	platform_set_drvdata(pdev, data);
+> =20
+> +	if (of_property_present(dev->of_node,
+> +				"fsl,temp-calibration-offset-millicelsius")) {
+> +		ret =3D of_property_read_s32(dev->of_node,
+> +					   "fsl,temp-calibration-offset-millicelsius",
+> +					   &data->calibration_offset);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to read calibration offset\n");
 > +
-> +	ret = clk_enable(lvds->pclk);
-> +	if (ret < 0) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to enable lvds pclk %d\n", ret);
-> +		return ret;
+> +		if (data->calibration_offset < IMX_TEMP_CALIB_OFFSET_MIN ||
+> +		    data->calibration_offset > IMX_TEMP_CALIB_OFFSET_MAX)
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "calibration offset %d millicelsius out of range\n",
+> +					     data->calibration_offset);
+> +
+> +		dev_dbg(dev, "calibration offset: %d millicelsius\n",
+> +			data->calibration_offset);
 > +	}
 > +
-> +	ret = pm_runtime_get_sync(lvds->dev);
-> +	if (ret < 0) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to get pm runtime: %d\n", ret);
-> +		clk_disable(lvds->pclk);
-> +		return ret;
-> +	}
-> +
-> +	/*
-> +	 * Enable LVDS mode and the parallel-to-serial converter. These are
-> +	 * write-masked registers, so a plain write only touches the bits named
-> +	 * here; there is nothing to preserve and no need to read first.
-> +	 */
+>  	if (of_property_present(dev->of_node, "nvmem-cells")) {
+>  		ret =3D imx_init_from_nvmem_cells(pdev);
+>  		if (ret)
 
-I think this comment is redundant. We all know this is a common design
-on Rockchip platform, right? :)
+[Severity: Critical]
+This isn't a bug introduced by this patch, but while reviewing the probe
+routine, I noticed a use-after-free issue related to how the alarm IRQ is
+managed.
 
-> +	return regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
-> +			    RK3568_LVDS0_MODE_EN(1) |
-> +			    RK3568_LVDS0_P2S_EN(1));
-> +}
-> +
-> +static void rk3568_lvds_poweroff(struct rockchip_lvds *lvds)
-> +{
-> +	regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
-> +		     RK3568_LVDS0_MODE_EN(0) | RK3568_LVDS0_P2S_EN(0));
-> +
-> +	pm_runtime_put(lvds->dev);
-> +	clk_disable(lvds->pclk);
-> +}
-> +
-> +static int rk3568_lvds_grf_config(struct drm_encoder *encoder,
-> +				  struct drm_display_mode *mode)
-> +{
-> +	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
-> +	struct rockchip_crtc_state *s =
-> +		to_rockchip_crtc_state(encoder->crtc->state);
-> +	bool negedge = !!(s->bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE);
-> +
-> +	if (lvds->output != DISPLAY_OUTPUT_LVDS) {
-> +		DRM_DEV_ERROR(lvds->dev, "Unsupported display output %d\n",
-> +			      lvds->output);
-> +		return -EINVAL;
-> +	}
-> +
-> +	/*
-> +	 * The LVDS block has its own dclk inversion select, separate from the
-> +	 * VOP's pin polarity. Both have to agree with what the panel samples on.
-> +	 */
-> +	regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
-> +		     RK3568_LVDS0_DCLK_INV_SEL(negedge));
-> +
-> +	/* Set format */
-> +	return regmap_write(lvds->grf, RK3568_GRF_VO_CON0,
-> +			    RK3568_LVDS0_SELECT(lvds->format) |
-> +			    RK3568_LVDS0_MSBSEL(1));
-> +}
+Can an interrupt fire after the thermal zone has been unregistered?
 
-I think rk3568_lvds_poweron() and rk3568_lvds_grf_config() can be merged
-to reduce extra register operations. 
+The alarm IRQ is requested with devres in probe:
 
-> +
-> +static void rk3568_lvds_encoder_enable(struct drm_encoder *encoder)
-> +{
-> +	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
-> +	struct drm_display_mode *mode = &encoder->crtc->state->adjusted_mode;
-> +	int ret;
-> +
-> +	drm_panel_prepare(lvds->panel);
-> +
-> +	ret = rk3568_lvds_poweron(lvds);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to power on LVDS: %d\n", ret);
-> +		drm_panel_unprepare(lvds->panel);
-> +		return;
-> +	}
-> +
-> +	ret = rk3568_lvds_grf_config(encoder, mode);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to configure LVDS: %d\n", ret);
-> +		drm_panel_unprepare(lvds->panel);
-> +		return;
-> +	}
-> +
-> +	/*
-> +	 * Only now bring the D-PHY up. phy_power_on() runs the whole
-> +	 * inno_dsidphy_lvds_mode_enable() sequence - PLL and bandgap power-on,
-> +	 * a settle, PLL mode select, then a reset pulse of the serializer and
-> +	 * the lane enables. All of that has to happen with the block already
-> +	 * switched to LVDS mode in the GRF (above) and with the VOP's dclk
-> +	 * running, because the serializer is clocked from dclk and latches its
-> +	 * state out of that reset.
-> +	 *
-> +	 * Doing it at probe instead - as this driver used to - resets and
-> +	 * enables the serializer against a block that is not in LVDS mode yet
-> +	 * and has no input clock. Every register then reads back correct while
-> +	 * the lanes sit at common mode forever. Rockchip's BSP orders it this
-> +	 * way (GRF writes, then phy_set_mode + phy_power_on).
-> +	 */
+drivers/thermal/imx_thermal.c:imx_thermal_probe() {
+    ...
+    ret =3D devm_request_threaded_irq(dev, data->irq,
+			imx_thermal_alarm_irq, imx_thermal_alarm_irq_thread,
+			0, "imx_thermal", data);
+    ...
+}
 
-I think this comment is redundant. These are internal details of
-phy_set_mode() and don't need to be explained here. Also, the
-ordering requirements are quite common. You can describe them in the
-commit message.
+Because it is a devm-managed resource, it is not freed until after
+imx_thermal_remove() completes. However, the remove path manually unregiste=
+rs
+and frees the thermal zone:
 
-> +	ret = phy_set_mode(lvds->dphy, PHY_MODE_LVDS);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to set phy mode: %d\n", ret);
-> +		drm_panel_unprepare(lvds->panel);
-> +		return;
-> +	}
-> +
-> +	ret = phy_power_on(lvds->dphy);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to power on phy: %d\n", ret);
-> +		drm_panel_unprepare(lvds->panel);
-> +		return;
-> +	}
-> +
-> +	drm_panel_enable(lvds->panel);
-> +}
-> +
-> +static void rk3568_lvds_encoder_disable(struct drm_encoder *encoder)
-> +{
-> +	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
-> +
-> +	drm_panel_disable(lvds->panel);
-> +	phy_power_off(lvds->dphy);
-> +	rk3568_lvds_poweroff(lvds);
-> +	drm_panel_unprepare(lvds->panel);
-> +}
-> +
->  static const
->  struct drm_encoder_helper_funcs rk3288_lvds_encoder_helper_funcs = {
->  	.enable = rk3288_lvds_encoder_enable,
-> @@ -449,6 +576,13 @@ struct drm_encoder_helper_funcs px30_lvds_encoder_helper_funcs = {
->  	.atomic_check = rockchip_lvds_encoder_atomic_check,
->  };
->  
-> +static const
-> +struct drm_encoder_helper_funcs rk3568_lvds_encoder_helper_funcs = {
-> +	.enable = rk3568_lvds_encoder_enable,
-> +	.disable = rk3568_lvds_encoder_disable,
-> +	.atomic_check = rockchip_lvds_encoder_atomic_check,
-> +};
-> +
->  static int rk3288_lvds_probe(struct platform_device *pdev,
->  			     struct rockchip_lvds *lvds)
->  {
-> @@ -512,6 +646,22 @@ static int px30_lvds_probe(struct platform_device *pdev,
->  	return phy_power_on(lvds->dphy);
->  }
->  
-> +static int rk3568_lvds_probe(struct platform_device *pdev,
-> +			     struct rockchip_lvds *lvds)
-> +{
-> +	/*
-> +	 * Grab and init the phy, but do NOT power it on here - that is done in
-> +	 * rk3568_lvds_encoder_enable() once the GRF is in LVDS mode and dclk is
-> +	 * running. See the comment there. The GRF is not touched at probe
-> +	 * either: every bit of it is programmed from the enable path.
-> +	 */
+drivers/thermal/imx_thermal.c:imx_thermal_remove() {
+    ...
+    thermal_zone_device_unregister(data->tz);
+    ...
+}
 
-Please see the comments above.
+If an administrative module unload or device unbind is triggered while the
+SoC is hot, could an interrupt fire during or immediately after the unregis=
+ter
+call? If so, would the still-active IRQ thread dereference the freed data->=
+tz
+pointer?
 
-> +	lvds->dphy = devm_phy_get(&pdev->dev, "dphy");
-> +	if (IS_ERR(lvds->dphy))
-> +		return PTR_ERR(lvds->dphy);
-> +
-> +	return phy_init(lvds->dphy);
-> +}
-> +
->  static const struct rockchip_lvds_soc_data rk3288_lvds_data = {
->  	.probe = rk3288_lvds_probe,
->  	.helper_funcs = &rk3288_lvds_encoder_helper_funcs,
-> @@ -522,6 +672,11 @@ static const struct rockchip_lvds_soc_data px30_lvds_data = {
->  	.helper_funcs = &px30_lvds_encoder_helper_funcs,
->  };
->  
-> +static const struct rockchip_lvds_soc_data rk3568_lvds_data = {
-> +	.probe = rk3568_lvds_probe,
-> +	.helper_funcs = &rk3568_lvds_encoder_helper_funcs,
-> +};
-> +
->  static const struct of_device_id rockchip_lvds_dt_ids[] = {
->  	{
->  		.compatible = "rockchip,rk3288-lvds",
-> @@ -531,6 +686,10 @@ static const struct of_device_id rockchip_lvds_dt_ids[] = {
->  		.compatible = "rockchip,px30-lvds",
->  		.data = &px30_lvds_data
->  	},
-> +	{
-> +		.compatible = "rockchip,rk3568-lvds",
-> +		.data = &rk3568_lvds_data
-> +	},
->  	{}
->  };
->  MODULE_DEVICE_TABLE(of, rockchip_lvds_dt_ids);
-> @@ -601,6 +760,8 @@ static int rockchip_lvds_bind(struct device *dev, struct device *master,
->  	encoder = &lvds->encoder.encoder;
->  	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev,
->  							     dev->of_node);
-> +	rockchip_drm_encoder_set_crtc_endpoint_id(&lvds->encoder,
-> +						  dev->of_node, 0, 0);
->  
->  	ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_LVDS);
->  	if (ret < 0) {
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.h b/drivers/gpu/drm/rockchip/rockchip_lvds.h
-> index 2d92447..93d3415 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_lvds.h
-> +++ b/drivers/gpu/drm/rockchip/rockchip_lvds.h
-> @@ -121,4 +121,14 @@
->  #define   PX30_LVDS_P2S_EN(val)			FIELD_PREP_WM16(BIT(6), (val))
->  #define   PX30_LVDS_VOP_SEL(val)		FIELD_PREP_WM16(BIT(1), (val))
->  
-> +#define RK3568_GRF_VO_CON0			0x0360
-> +#define   RK3568_LVDS0_SELECT(val)		FIELD_PREP_WM16(GENMASK(5, 4), (val))
-> +#define   RK3568_LVDS0_MSBSEL(val)		FIELD_PREP_WM16(BIT(3), (val))
-> +
-> +#define RK3568_GRF_VO_CON2			0x0368
-> +#define   RK3568_LVDS0_DCLK_INV_SEL(val)	FIELD_PREP_WM16(BIT(9), (val))
-> +#define   RK3568_LVDS0_DCLK_DIV2_SEL(val)	FIELD_PREP_WM16(BIT(8), (val))
-> +#define   RK3568_LVDS0_MODE_EN(val)		FIELD_PREP_WM16(BIT(1), (val))
-> +#define   RK3568_LVDS0_P2S_EN(val)		FIELD_PREP_WM16(BIT(0), (val))
-> +
->  #endif /* _ROCKCHIP_LVDS_ */
+drivers/thermal/imx_thermal.c:imx_thermal_alarm_irq_thread() {
+    ...
+    thermal_zone_device_update(data->tz, THERMAL_EVENT_UNSPECIFIED);
+    ...
+}
 
--- 
-Best, 
-Chaoyi
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720-b4-symana2=
+1-11221-imx-thermal-support-upstream-6-18-v10-0-f8c3dcd9a57e@cn.bosch.com?p=
+art=3D3
