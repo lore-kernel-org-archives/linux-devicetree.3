@@ -1,166 +1,223 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC2823DB33C
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 10:04:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6415E361DD2;
+	Mon, 20 Jul 2026 10:05:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784541843; cv=none; b=sEH3xj35iEscrcNdZaUBKPosycFLs2TgZXZVhm3WbnikHE7+fsQD4zK8h8jFjqAZBDWUCHJKzWtqJBlTUjLGWNE9WIeTr1xYmJ28n9sbLMRDfI7xLTiHyr0Yy3hn+YslsGMtccL7tpoOp+mrnPWQ/i7hprXyNxLG5XiQ3m7Eoac=
+	t=1784541905; cv=none; b=EgSREAs4bmtSA/YUqXkjF78zHHCx1R3cknWHXsEq6g4r/AYUdRKGqasajsYNO92kvb1W7812jVlTMKYkuDv4iFBVqDlsjy/ALkiiHTw1jz3v9epsDbwDXGuTBKTE6kdLnmh9ZGr7HIbwsyrjI6cQQwa0w+h6G0UpHbPiaaSkcgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784541843; c=relaxed/simple;
-	bh=XTMjyn+ORwg/a7Efs4utC9VvgtsOY6Ae6mRbx+tRPr8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kunGPvYANj15zNMd8haJEXaMyCr2c7QyK/EHXTD4/ccpli+1UA7RCDC/qKKvsZuOzC13Hw4dli5q09McP+1ZigqWRbs8+YEahaQUgJcACCX7CHRY5/phPw0VOnJFWRduunyZOAYI2P6ct3lImUDCy6LmFYQ693bzEoMUBDIdRUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arturia.com; spf=pass smtp.mailfrom=arturia.com; dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b=ffz99+R2; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arturia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arturia.com
+	s=arc-20240116; t=1784541905; c=relaxed/simple;
+	bh=Zu/7dSHrla+bStWCRDGgPF2u9CVr5YjC7FmZYlWBZLQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=PUyjBqb1g/ELNsfHHpOyUAkGHfICbbYrHtgqSUyop0vaUz9g0u8btKN19hpSEFRFRfGmewBdyyJtpyUVoRx2J2WvlcnRPozfojRgi/2Y/DXGu+0n/2ddLtyelH/mtxFbftBfmvHcUNRvoGxhDRAX8+9YwnetdPeTlZZrb2XNKQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=RtEntWqA; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b="ffz99+R2"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so69069515e9.1
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 03:04:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arturia.com; s=arturia; t=1784541838; x=1785146638; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZeewQmM2+FoXz3FOSyBPMuplKaD/0MTIgbyaZFmgtY8=;
-        b=ffz99+R2zw3Pls1mxEsSqFUtKCRa+GTAq17+7m7CsUHxtkYmxr+q1I3S83ARNc62RZ
-         H8VuKfRiem1I/DNfmW5HuzHHfjb01+AXTmU+zTB7ZxpKnbeqYHSQDCGvj8aV/z6LTjsl
-         +bZHGjGOpAF4H/rlxwFNRwB1HjYDfmFMZ1jhPgdD8IIPib6fwEM1wIG5CPlrCsOwUMd9
-         IVYFvYvqS0hX24WeH+pEzA7gbg8ohB39IXBlcHFBKACptAAys/EcRnrlvsWtTzZMKv7r
-         kbcExgDeUjj2nHerYvvSJJvBVkQR31kd1uAofwWX2WxIu8QP0XqdCjQYiFiQLFBcO/pl
-         Q7fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784541838; x=1785146638;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZeewQmM2+FoXz3FOSyBPMuplKaD/0MTIgbyaZFmgtY8=;
-        b=eW3E5YJFmxmjgEa6Bov02K2F2LV87OJWreH6s63gKERB2SqgUg3Ur7aR9BTOENItXs
-         /lExo8QuVUu4R390zSqdzgWZtG/YDtSGUmqapHVj0gRvOWNsdXoWJ/u5T2RuRZ1/d4or
-         BEinGpq+RzQ+Mnh0dx9vieVBoUnkMobzrxxQNgqVr+ujcgR/35J9RjpcmuTmgZJ5g1k9
-         HiE9FSlmozZqNUO2gv/tqXOS9GnhK6+vcs21fG8MOV/VRl8fY5Be9awRjgb8miXEsbB+
-         F7hNqdz0+eKTKhtDD8Dq1a0jtQeaXSMq+jUQ6Ments6zT2GWGRMMf6J+WfCMRLCp8XWk
-         90TQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqHMX+FJV4sY7qD1o8acPofSVoOcYKY0+Orf6lC5ypMPDUA1H4LWtolhRk6yVnBPPSNQlrTyOcqoKMp@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzk2IQ0FfR+dKbitlcDH+B5SLYMQs5Ig4QqHWwwAHRJO48IJ84J
-	tM6WY1cio5itWZuPN/W5nuGuY5hbctLoZR1efgChj8OhEk/RQ+VpEmOOQNyOZOLgqps=
-X-Gm-Gg: AfdE7ckhUbrxD+WT6UrPCk4Lg4c1a4/CmHbqMrsRjJchhKM7rbdbPX0+3meGUo/EFeo
-	7bgmIZpgcOVD6h47Mmx3mhLDduXKYIUvn+d/LstmIC5Pmg8wrCAdIgEoaGHVrgDpWNhCP4MG1xz
-	P06K5AK7gS2h+PtlHXVJdeD9FN7flJgrDJJyEwCiTfwwYQqIePr2CUPLMwrHBEWzo2EohUlsJ4u
-	IrkaS2N8OAwuATFIwYBrrR1P24DSeZity3fn91klSYZeSSHU2Ai/0JYVmuiNqq7AZvbuvGkDOYc
-	RMeJe2tcAoN2kd05D89AIb1n+seAyDz7YNkYAzud2pP6h6F88vLsIVKFmF3FFPk4uakJ+Z5CAmp
-	h908O28RNcUV9POOuubcxrGPeKs4Fs/tDE37UdJf7BXMx+rFds+7pPkrrQthYwj3bumb4Ez1UkV
-	x0XJjJ2+7VgF5UQjITLiWFTp/kNmVRqj2CvwGQ7mbBsqfx8pjw8yI=
-X-Received: by 2002:a05:600c:1d1d:b0:492:40a1:1e16 with SMTP id 5b1f17b1804b1-4954a3d0d86mr135834695e9.8.1784541836998;
-        Mon, 20 Jul 2026 03:03:56 -0700 (PDT)
-Received: from vkrawiec.arturia.team (226.142.197.77.rev.sfr.net. [77.197.142.226])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-495516c68fasm191854485e9.1.2026.07.20.03.03.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 03:03:56 -0700 (PDT)
-From: Victor Krawiec <victor.krawiec@arturia.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Victor Krawiec <victor.krawiec@arturia.com>
-Subject: [PATCH v2 4/4] regulator: fan53555: Add support for mode operations on Silergy devices
-Date: Mon, 20 Jul 2026 12:03:36 +0200
-Message-ID: <20260720100336.62004-5-victor.krawiec@arturia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260720100336.62004-1-victor.krawiec@arturia.com>
-References: <20260720100336.62004-1-victor.krawiec@arturia.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="RtEntWqA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1784541895;
+	bh=Zu/7dSHrla+bStWCRDGgPF2u9CVr5YjC7FmZYlWBZLQ=;
+	h=From:Subject:Date:To:Cc:From;
+	b=RtEntWqAoj8z5pcYjXLYHP4t1ca7c9czzv1Xj9kOtiT7oDKZPpobJg20hX/660sIW
+	 dX7y+CaE7LuaOs9pDi8d5q+UcoXi80xxTHm0ikFc5D4LblhGmdd56mGOACgFlnMWda
+	 CAxtrEGN6J5DrFoRSCSrOe4k1iuMYoEEHCHDzy36oJW7d+X6WMcLmdxg22cLqH2TA1
+	 eJBEcFttFAgBt8gOvLDsEImJ6r/aM/EATC/p+LR0/fZZiRfzK2ZEqOn0gIuRVvtOtG
+	 4+44+ETCMbKIZnoH7y/85N3EvRVGN3imHW9knHIFx3fjhi+6QuE3+M8YlIVviprOa4
+	 7kPaEKCHw7Fxw==
+Received: from yukiji.home (unknown [100.64.0.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laeyraud)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4D6D517E0D7E;
+	Mon, 20 Jul 2026 12:04:54 +0200 (CEST)
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Subject: [PATCH v3 00/18] MT8189: Add support for system and base clock
+ controllers
+Date: Mon, 20 Jul 2026 12:04:10 +0200
+Message-Id: <20260720-mt8189-clocks-system-base-v3-0-8e6d99ab3ad2@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Oyw7CIBBFf6Vh7Rigta+V/2FcTOmgxLYoYKMx/
+ XeRbowLl3cm59z7Yp6cIc/a7MUczcYbO8WQbzKmzjidCEwfM5NclrzMOYyhFnUDarDq4sE/faA
+ ROvQEFa9EQYXWEpFF/upIm0dyH45rdnS7x4qwHlnClB1HE9psokeAVFOJin2As/HBumfaNotEr
+ H8u/syYBXCQHS9qTYQ7jntlhwE763Abu5J5lt+25p9NfmyNLHvM+65U+te2LMsbrHt9bEUBAAA
+ =
+X-Change-ID: 20260630-mt8189-clocks-system-base-70714e4ff2aa
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Chun-Jie Chen <chun-jie.chen@mediatek.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Edward-JW Yang <edward-jw.yang@mediatek.com>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Chen-Yu Tsai <wenst@chromium.org>
+Cc: kernel@collabora.com, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ netdev@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>, 
+ Irving-CH Lin <irving-ch.lin@mediatek.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784541894; l=7554;
+ i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
+ bh=Zu/7dSHrla+bStWCRDGgPF2u9CVr5YjC7FmZYlWBZLQ=;
+ b=egKlIbjn99W+paFNQPXWR6ihZvgsONX/RDiOEl7zkTzSPbjvVBFCHld4oGKfNWmJ7z6hOXZDQ
+ mb+z4EtLcY8Cd7dhoiJrbSdRxPyAEJzWse93Ay4ib3hK6b+QAghh/Mq
+X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
+ pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-Make the PWM mode configurable from devicetree. Some boards require forced
-PWM mode to keep the supply ripple within acceptable limits under light
-load conditions
+This series is a continuation by AngeloGioacchino Del Regno and I of a
+previous series ([1]), that adds the clock controller support for
+the Mediatek MT8189 SoC and its variants (MT8371, MT8391).  
 
-Support is restricted to Silergy manufacturer as it is the only one
-currently tested.
+The first major changes is the split of the series in two:
+- one for all basic clock controllers including system ones (this
+series)
+- one for the multimedia and graphics related clock controllers (to be
+send in the future)
 
-Signed-off-by: Victor Krawiec <victor.krawiec@arturia.com>
+We chose to separate the multimedia clock drivers from the base system
+ones, as there is currently an unsolvable inter-dependency between the
+power domains and multimedia clocks; the power domains need a
+dual-stage bring-up, where only a part of the multimedia clocks are
+accessible in the first power domain powerup stage, and the rest when
+the second stage (SRAM enablement) is done.
+The current workarounds for this issue, such as removing the is_enabled
+operation from the impacted clock controllers clk_ops table or
+let the multimedia power domain always on, were quickly discarded
+for upstream.
+
+The second major change is the dt-bindings patch ([2]) that got heavily
+reworked, not only because of the split choice. We took the opportunity
+to regroup in the MT8186 clock and system clock dt-bindings the
+description of several other Mediatek SoC (MT8188, MT8192 and MT8195)
+and add in them the MT8189 new ones.
+The rationale is to ease maintainability and have common files for
+several currently supported SoC or new future ones, that have the same
+kind of clock controller design.
+
+Finally the pending remarks from peer reviews on the v6 revision of [1]
+were also taken into account and new fixes and cleanups were also
+added.
+
+A more detailed changelog between [1] and this series:
+- Removed multimedia and graphics related clock controllers code and
+  definitions from series
+- Added new dt-bindings patches to factorise existing MT8188, MT8192
+  and MT8195 in MT8186 clock dt-bindings
+- Heavily modified the MT8189 dt-bindings to add new compatibles 
+  in MT8186 clock dt-bindings
+- Created a new dt-bindings include for the MT8189 reset controller
+  definitions (include/dt-bindings/reset/mediatek,mt8189-resets.h)
+- Removed unnecessary `syscon` compatible fallback from MT8189 base
+  clock controllers
+- Added missing 'mediatek,mt8189-fhctl' compatible declaration in
+  dt-bindings
+- Modified Kconfig to COMMON_CLK_MT8189 be tristate (and not bool) to 
+  allow all MT8189 clock controller drivers to be built as modules (it
+  was partial) 
+- Fix pll unregisters in clk_mt8189_apmixed_probe error case
+- Reparent several clocks to correct 26M references in clk-mt8189-bus.c,
+  clk-mt8189-topckgen.c and clk-mt8189-vlpckgen.c
+- Removed CLK_SET_RATE_NO_REPARENT flag from mfg_sel_mfgpll
+- Rename TOPCKGEN_fmipi_csi_up26m clock to fmipi_csi_up26m to remove caps usage
+- Implemented reset controllers in clk-mt8189-ufs.c
+- Updated all file headers to update copyrights and add all authors
+- Added all co-developed-by trailers
+
+The series is based on linux-next tree (tag: next-20260717) and has
+been tested on Mediatek Genio 520-EVK (MT8371) and 720-EVK (MT8391) boards
+with board hardware enablement patch series ([3]).
+
+[1]: https://lore.kernel.org/linux-mediatek/20260309120512.3624804-1-irving-ch.lin@mediatek.com/
+[2]: https://lore.kernel.org/linux-mediatek/20260309120512.3624804-2-irving-ch.lin@mediatek.com/
+[3]: https://lore.kernel.org/linux-mediatek/20260701-add-mediatek-genio-520-720-evk-v2-0-19d5da4ef984@collabora.com/
+
 ---
- drivers/regulator/fan53555.c | 29 ++++++++++++++++++++++++++++-
- 1 file changed, 28 insertions(+), 1 deletion(-)
+Changes in v3:
+- Rebased on next-20260717 tag
+- Add Fixes tags to patches 1, 2 and 3
+- Reworded patch 8 subject and description messages
+- Updated Reviewed-by and Acked-by trailers
+- Link to v2: https://lore.kernel.org/r/20260709-mt8189-clocks-system-base-v2-0-2926da3db6cf@collabora.com
 
-diff --git a/drivers/regulator/fan53555.c b/drivers/regulator/fan53555.c
-index c282236959b1..85f46874eb49 100644
---- a/drivers/regulator/fan53555.c
-+++ b/drivers/regulator/fan53555.c
-@@ -21,6 +21,7 @@
- #include <linux/regulator/machine.h>
- #include <linux/regulator/of_regulator.h>
- #include <linux/slab.h>
-+#include <dt-bindings/regulator/fcs,fan53555-regulator.h>
- 
- /* Voltage setting */
- #define FAN53555_VSEL0		0x00
-@@ -389,6 +390,18 @@ static int rk8602_voltages_setup_rockchip(struct fan53555_device_info *di)
- 	return 0;
- }
- 
-+static inline unsigned int fan53555_map_mode(unsigned int mode)
-+{
-+	switch (mode) {
-+	case FAN53555_REGULATOR_MODE_FORCE_PWM:
-+		return REGULATOR_MODE_FAST;
-+	case FAN53555_REGULATOR_MODE_AUTO:
-+		return REGULATOR_MODE_NORMAL;
-+	default:
-+		return REGULATOR_MODE_INVALID;
-+	}
-+}
-+
- static int fan53555_voltages_setup_silergy(struct fan53555_device_info *di)
- {
- 	/* Init voltage range and step */
-@@ -586,6 +599,17 @@ static int fan53555_device_setup(struct fan53555_device_info *di,
- 	return ret;
- }
- 
-+static void fan53555_device_mode_map_setup(struct fan53555_device_info *di)
-+{
-+	switch (di->vendor) {
-+	case FAN53555_VENDOR_SILERGY:
-+		di->desc.of_map_mode = fan53555_map_mode;
-+		break;
-+	default:
-+		break;
-+	}
-+}
-+
- static int fan53555_regulator_register(struct fan53555_device_info *di,
- 			struct regulator_config *config)
- {
-@@ -686,6 +710,10 @@ static int fan53555_regulator_probe(struct i2c_client *client)
- 	if (!di)
- 		return -ENOMEM;
- 
-+	di->vendor = (uintptr_t)i2c_get_match_data(client);
-+
-+	fan53555_device_mode_map_setup(di);
-+
- 	pdata = dev_get_platdata(&client->dev);
- 	if (!pdata)
- 		pdata = fan53555_parse_dt(&client->dev, np, &di->desc);
-@@ -695,7 +723,6 @@ static int fan53555_regulator_probe(struct i2c_client *client)
- 				     "Platform data not found!\n");
- 
- 	di->regulator = pdata->regulator;
--	di->vendor = (uintptr_t)i2c_get_match_data(client);
- 	if (!dev_fwnode(&client->dev)) {
- 		/* if no ramp constraint set, get the pdata ramp_delay */
- 		if (!di->regulator->constraints.ramp_delay) {
+Changes in v2:
+- Rebased on next-20260708 tag
+- Added patch 1,2 and 3 to make the #clock-cells a required property in
+  MT8186, MT8192 and MT8195 clock controller dt-bindings
+- Patch 5:
+  - Removed conditional blocks to check clock-cells property presence
+    for MT8188 clock controller compatible
+  - Reworded commit message to remove the note (no more applicable)
+  - Fixed incorrect property value in else block for #reset-cells
+    property check.
+_ Removed from patch 9 conditional blocks to check clock-cells property
+  presence for MT8189 clock controller compatible
+- Fixed missing MODULE_DEVICE_TABLE in patches 10, 11 and 12.
+- Added devicetree series link in cover letter
+- Link to v1: https://lore.kernel.org/r/20260701-mt8189-clocks-system-base-v1-0-2b048feea50a@collabora.com
+
+---
+Louis-Alexis Eyraud (18):
+      dt-bindings: clock: mediatek: Make '#clock-cells' required for MT8186
+      dt-bindings: clock: mediatek: Make '#clock-cells' required for MT8192
+      dt-bindings: clock: mediatek: Make '#clock-cells' required for MT8195
+      dt-bindings: clock: mediatek: reorder MT8186 compatibles
+      dt-bindings: clock: mediatek: regroup MT8188 dt-bindings into MT8186
+      dt-bindings: clock: mediatek: regroup MT8192 dt-bindings into MT8186
+      dt-bindings: clock: mediatek: regroup MT8195 dt-bindings into MT8186
+      dt-bindings: clock: mediatek: Add MT8189 system/base clocks and resets
+      clk: mediatek: Add MT8189 apmixedsys clock support
+      clk: mediatek: Add MT8189 topckgen clock support
+      clk: mediatek: Add MT8189 vlpckgen clock support
+      clk: mediatek: Add MT8189 vlpcfg clock support
+      clk: mediatek: Add MT8189 bus clock support
+      clk: mediatek: Add MT8189 dbgao clock support
+      clk: mediatek: Add MT8189 dvfsrc clock support
+      clk: mediatek: Add MT8189 i2c clock support
+      clk: mediatek: Add MT8189 scp clock support
+      clk: mediatek: Add MT8189 ufs clock support
+
+ .../bindings/clock/mediatek,mt8186-clock.yaml      |  128 ++-
+ .../bindings/clock/mediatek,mt8186-fhctl.yaml      |    1 +
+ .../bindings/clock/mediatek,mt8186-sys-clock.yaml  |   24 +-
+ .../bindings/clock/mediatek,mt8188-clock.yaml      |   93 --
+ .../bindings/clock/mediatek,mt8188-sys-clock.yaml  |   58 --
+ .../bindings/clock/mediatek,mt8192-clock.yaml      |  191 ----
+ .../bindings/clock/mediatek,mt8192-sys-clock.yaml  |   68 --
+ .../bindings/clock/mediatek,mt8195-clock.yaml      |  238 -----
+ .../bindings/clock/mediatek,mt8195-sys-clock.yaml  |   76 --
+ drivers/clk/mediatek/Kconfig                       |   79 ++
+ drivers/clk/mediatek/Makefile                      |    8 +
+ drivers/clk/mediatek/clk-mt8189-apmixedsys.c       |  196 ++++
+ drivers/clk/mediatek/clk-mt8189-bus.c              |  200 ++++
+ drivers/clk/mediatek/clk-mt8189-dbgao.c            |   98 ++
+ drivers/clk/mediatek/clk-mt8189-dvfsrc.c           |   58 ++
+ drivers/clk/mediatek/clk-mt8189-iic.c              |  122 +++
+ drivers/clk/mediatek/clk-mt8189-scp.c              |   77 ++
+ drivers/clk/mediatek/clk-mt8189-topckgen.c         | 1025 ++++++++++++++++++++
+ drivers/clk/mediatek/clk-mt8189-ufs.c              |  133 +++
+ drivers/clk/mediatek/clk-mt8189-vlpcfg.c           |  116 +++
+ drivers/clk/mediatek/clk-mt8189-vlpckgen.c         |  285 ++++++
+ include/dt-bindings/clock/mediatek,mt8189-clk.h    |  433 +++++++++
+ include/dt-bindings/reset/mediatek,mt8189-resets.h |   17 +
+ 23 files changed, 2988 insertions(+), 736 deletions(-)
+---
+base-commit: a8a4d142e22da4ab51e4e5f7061db87dbafe1c00
+change-id: 20260630-mt8189-clocks-system-base-70714e4ff2aa
+
+Best regards,
 -- 
-2.43.0
+Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
