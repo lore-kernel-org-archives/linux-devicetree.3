@@ -1,64 +1,64 @@
 Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA0A23B7756
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 07:22:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BEB3B42F9
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 07:22:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784532142; cv=none; b=DFH2tj3xrdfcAxVnRBysMABRe5JwzEHd0TWX5JR98m7Tq4Rpqmqh2G+RhSdFuZlXfUqrPRDdeB+QVyt1LaJ+qn3t5D5wqlwWf8Sjjug+5wf4XyydFtkWRkd/cfVMx633toU7W8H5KY3Mk2IbQEbfDulcSkGiVkz0dEAQ74Bkn2g=
+	t=1784532145; cv=none; b=tlxem4PoqHm2BSZfkNHNV85dAFExAJHa9PxVVeiZTQvKCpM/7+f8iGHAZE+8ttIkgNjMX4eUlCxh+M/1ExuDrLi5fw4nJ08tGwzleslhDg2W5oMrmPI9e/qRCn7DbWWB77CxmjuYYQV6GhZ3imuf8AElZVq3DG7EWGyRd3A3yYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784532142; c=relaxed/simple;
-	bh=SzuQlKgKf+dbOdbZYvKV9a605QJD2/wh9qiTBlKZleE=;
+	s=arc-20240116; t=1784532145; c=relaxed/simple;
+	bh=SBkUBV3inMBinSlE2EXReUKlgUw2jSOCC8j8xgqt8Ys=;
 	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=l5qJ1qKCjJgCGXB6SsT+966DqqWeoBbahs/i1CQnmQVwOyK/ELc1TSpNUBhfxOm/VnEsHP02QB5+bVJPQ3hSv9dssr42vBlM5yDt8A+T8a270IFHi5CDt7nqHWrnoZIoxxlgUjQ6Y92jdyBJEB/42nUM5IEjtl8iV9Ma10XDC6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZCXGHH6s; arc=none smtp.client-ip=209.85.216.50
+	 References:Date:Message-Id; b=Y8Q7ayZX5r9Zim7yWYcz53DZdON18EfSB2Hk7qDGjfpvv5xmUJvWgeyCv5KJQM2oGGQ7QYqcoEdE3/9ZW1ltd3md7yqtcZk4MAXYqClbn15bIKHidTsYmY6bczFB50boPsW2+u6p7boHnvaVcRGqbjL0Z96O9AswfUXYdS2ikUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aZrHjZbP; arc=none smtp.client-ip=209.85.216.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZCXGHH6s"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38e07ebd263so4130054a91.1
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 00:22:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aZrHjZbP"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-381b831d535so7487831a91.0
+        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 00:22:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784532137; x=1785136937; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784532141; x=1785136941; darn=vger.kernel.org;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=6h8UJegFSpbzqcCoxFyjFcJzeX3Wy4pDkK5e8kjwbRc=;
-        b=ZCXGHH6sm2zbxuqpc+s4l0VOm1yWzbaTSw/YYbbYvJNZSRicX6HwM7rzvvpdaHnKbZ
-         AHu00I2wYOv7ALaMZroT3P5Px2LzVQ/cpiJk057GlBc+wr26wBufEmhZy4EiE6iOsn7P
-         s8Pj29BCwnkJFvMmG2sBWK1F8pJw9WMnl/u3MdA5N7rrrK5kb/SOaXnvTS1LtdWxsDx1
-         hrGw1xTSjFo2VMMiwmGbuh0eKrGYP61kaYGlHhvmu4UT+O976gCtcHC6GA8qve1zeQxY
-         sQMJM+9Qc9UpbrDif8LZB5QonBlS3uTSN/kPSPZyvxftcAeLT0RNTy8CrDTn8pIVRyX1
-         frHg==
+        bh=dFLZdi7jBgOetxqkL5F8Xn6PniUl5aE+NCedsWROBE0=;
+        b=aZrHjZbPdv/VbkHCa5hfhxSGMi4r8XrPLGKwhEFcCI5k1+/oS47EViGwomNBH7mTSm
+         XhgL89VJHRIlYStd0+vvLksA3mtuaGO98UZcG1SQz06EDDJDiq1TYwLVKiNGQ7D0zc80
+         uY62lJY5XbY6lSur2z3MATWX1V70z++Jgx5z5fSsRPUZS2KCg40hRHo/oEpn5myE2cm3
+         5DwD6tLyw/GDE+x3kzY8Q7ZcWcYn80DExOLq/+J58Ax6nt63aY4UyIj0FnxFf53qfYMT
+         cq8StcaruMAMTfTifUcHsiGZjNyp7PEaM2aIeBCFXFICWsM6EPWNGmoCqz8A/PpaEL1H
+         Q4Og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784532137; x=1785136937;
+        d=1e100.net; s=20251104; t=1784532141; x=1785136941;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6h8UJegFSpbzqcCoxFyjFcJzeX3Wy4pDkK5e8kjwbRc=;
-        b=CCChBzyd03feGU34sznQHNrBxqmg565wt9XLoBYg3pcctBWEFRLFypB/O+IkH+W2L+
-         AR8oOt2qrTZKcb1UW4dtzOu2wTlDE45hOFRjl+N/T7RilYIeDkt3Pbho69tnriXsyHM8
-         rEidryUM1qh1e6/6t84/p8xfmRYfzDJTaXl3muQSvbEcdraNHcNTO73XwemYD2FvRzUx
-         mXLMg3QPMyaOSkNdYXb/1ZTG19YNoPnbsyQlwoQitgikTUtz0TDJprkgaVzQFKpiJsCD
-         Ijy60jsvy8Jkc+TNUxg9eLgz0vf7/sZPb/3FFT04LCVSQ8QdDWvLr504v98x8maJMwfk
-         VYDg==
-X-Forwarded-Encrypted: i=1; AHgh+RqeHReo/t0ce0Zs44I5ztyC7WrS/9ORxjj8saq2qxnWvTFJPdbYpAoo6XX4lPqfm3BPo1AhNGE5fQFm@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx/cag/PZylYvV5Jcr1JnyeM54DSg6nY4xnwd52hkXXYt+G+U9J
-	X93cdpiv6582sUox7X7xWl4b41+VKcy8PqjEyLXlM9p7UPAjpPcuCtuE
-X-Gm-Gg: AfdE7ckqX48AdnVk+Wgorq6Vahd5buroY9bxCRB3olz5yaL6Pqu2L08l4ne+82q4b/l
-	AxUTo4fT+WHMNOZ/yYEZmQYKpVwnpNvrlR+fY24zUNQJCacqQg9o9iO2b9dTD/VvZXnLEgdl/HC
-	5IJKZGStHMVvgtyRnTOIoM5BLXdLNT2yrCfI47kz+drNJQVlLuv62j/e8r9UJsnvuYR0ix1nb5V
-	XRYxyEgXyVg2BlApMdKwOBF/xeXpV1QJOplS99GirWIrtdfhalo39ZFKlqhQd91pRlCe4L38j+E
-	IU5OtIHZCBVquplRWDHAnM3xE4Md/3eyu8x2Kd7u/6ibqyOovFZt4WdB6Vv237WZIvnARRxLhSc
-	1UuRpflKTDXIbIm5HrGYvmoBp73B5yGsQotj/hwJWS67z1q2BN8oG3mxgNtPYygwvuqMLCAkjxF
-	ob0oS74N+04N29nTw+wOuw24FDN0XF
-X-Received: by 2002:a17:90b:5605:b0:385:d033:d9f1 with SMTP id 98e67ed59e1d1-38e4b5058c3mr14013135a91.28.1784532136729;
-        Mon, 20 Jul 2026 00:22:16 -0700 (PDT)
+        bh=dFLZdi7jBgOetxqkL5F8Xn6PniUl5aE+NCedsWROBE0=;
+        b=CwDFDxZ2H9jxzEYlh0EXr+D0iPo8GIfnqsx49vsxZwbi0e0QUh0BGjg+QoMNfM4dV2
+         kj7XZISQIM5/eNWYd7oWGY+0qbZr3RlyJkrt2N4xFaX639CvAfN3J5z594yTx02KwOz4
+         ZULbr6VoIQntj+v7lwVTwkfinfaJWuG8150ltvIuOHwatec+33DrDpNg0OkoxCJwyrSz
+         ttdz4C8mXRAZVQyBdux9ggdhkCjkkde+lwyJV/WqwEZ2bWniu5ei7uByYq0cK8T2wYlT
+         o+h0IjAnoUdWH4duDcRzJxW781lqlBPhUFMH8DejSKoqr7SpbgK0vb7RS06dLVLT6XtQ
+         uQSA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr35PfOuo/vTvp/qvwH5w4tJgpW6DTpMZXgBWJR3r9NwBckaOkUN0Oxr30ildl9hBs1uqq/CYs6ohS0@vger.kernel.org
+X-Gm-Message-State: AOJu0YykWk5qMfaIk+troBB6gJ7Hx25M0Z1R2MvxatgsAPw2m+RgYei0
+	AXBeOGSsVEW8gmSuXf+rbn40Rh5UhYPXcIvGSOXnwGx5xN6W2mUMZiQv
+X-Gm-Gg: AR+sD13tEIRbdxgm/VYtUdWbkg1exHRJM8TBJClxFDQVTlIjq7BvgoQf0Lp2Sh0px+v
+	uS+DBgA+zCvwmT26WnEvuelQtEr4zx9tOloculK6L3qYvbZIrRd2x73GSY0hvbojzmAnqgx1Z7q
+	QNLuUSwTgESAG7hMeFlJlQtzWQaKbXqbgx4dOcFUuktlejDseZx3YkvXXSQ0np9arkwr3M5N3F+
+	AJmQKoCZRBxG0rov+Y+OTashEFy4ZKNVcFOT/mrPMgHR8c/zSsPFDfv1AjhjNUBbyZORoI2A1fB
+	dF0rsXBnidnSN8B/4a9Lwh57T+wyGGcfh2fUok0tRa4Kcberp8cS+ryg5l8WE5TrmaAN34tTIEr
+	zFjie1ZOucTne+DFVAlnYdF/JgboSfKRz88FMPAHXxsr2pGzwc6Qe4rGjYZUPXfKC1XLeX5NALt
+	Nl4NlLQpUvayEcp9tfuowcW4JlbcIQ
+X-Received: by 2002:a17:90b:224e:b0:38e:7f52:c8c1 with SMTP id 98e67ed59e1d1-38e7f52c9e2mr3426881a91.28.1784532140841;
+        Mon, 20 Jul 2026 00:22:20 -0700 (PDT)
 Received: from [10.0.0.29] ([2601:647:4000:5070::51d7])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e4afcc067sm5153318a91.1.2026.07.20.00.22.14
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e4afcc067sm5153318a91.1.2026.07.20.00.22.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 00:22:16 -0700 (PDT)
+        Mon, 20 Jul 2026 00:22:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -67,7 +67,8 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v8 08/22] RISC-V: Add Sscfg extension CSR definition
+Subject: Re: [PATCH v8 12/22] RISC-V: perf: Modify the counter discovery
+ mechanism
 From: Charlie Jenkins <thecharlesjenkins@gmail.com>
 To: Atish Patra <atish.patra@linux.dev>
 Cc: Jiri Olsa <jolsa@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
@@ -79,33 +80,42 @@ Cc: Jiri Olsa <jolsa@kernel.org>, Paul Walmsley <pjw@kernel.org>,
  linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-perf-users@vger.kernel.org, Conor Dooley <conor@kernel.org>
-In-Reply-To: <20260701-counter_delegation-v8-8-7909f863a645@meta.com>
+In-Reply-To: <20260701-counter_delegation-v8-12-7909f863a645@meta.com>
 References: <20260701-counter_delegation-v8-0-7909f863a645@meta.com>
- <20260701-counter_delegation-v8-8-7909f863a645@meta.com>
+ <20260701-counter_delegation-v8-12-7909f863a645@meta.com>
 Date: Mon, 20 Jul 2026 00:21:59 -0700
-Message-Id: <178453211936.543975.6345698898378707454.b4-review@b4>
+Message-Id: <178453211938.543975.7016109597042850635.b4-review@b4>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784532124; l=635;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784532124; l=1181;
  i=thecharlesjenkins@gmail.com; s=20260605; h=from:subject:message-id;
- bh=SzuQlKgKf+dbOdbZYvKV9a605QJD2/wh9qiTBlKZleE=;
- b=ugqoqQ9cmaF8JmbcwtjHFRt8KirwYYADAEAYU1QR3dSM8OO/c3BahtvSrl6cdO7FCzsfCm3Vf
- 9NMihisQ3erB93I8FusSXEt1xutLF2NmPmGrBqXQG+Qpo45AYM3E74H
+ bh=SBkUBV3inMBinSlE2EXReUKlgUw2jSOCC8j8xgqt8Ys=;
+ b=kTziE623vXoAa+JDEunw6f10OBNK2smh4OC+4caPgYt5rsl1d/L9P/MzNiS/0bUGjTtCy0tKZ
+ nYPopmmArSXADJnnKy4KEiAAwcwHjgpz6bWgMPJYTo3ZdyCSTOe1n8J
 X-Developer-Key: i=thecharlesjenkins@gmail.com; a=ed25519;
  pk=ajnnRQ98PIdwKp4HeMkq9U32okYbnh6Zb4G3o5XXvkg=
 
-On Wed, 01 Jul 2026 01:46:56 -0700, Atish Patra <atish.patra@linux.dev> wrote:
-> This adds the scountinhibit CSR definition and S-mode accessible hpmevent
-> bits defined by smcdeleg/ssccfg. scountinhibit allows S-mode to start/stop
-> counters directly from S-mode without invoking SBI calls to M-mode. It is
-> also used to figure out the counters delegated to S-mode by the M-mode as
-> well.
-> 
-> Signed-off-by: Kaiwen Xue <kaiwenx@rivosinc.com>
+On Wed, 01 Jul 2026 01:47:00 -0700, Atish Patra <atish.patra@linux.dev> wrote:
+> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
+> index 74d934238821..c20f1e33c65d 100644
+> --- a/drivers/perf/riscv_pmu_sbi.c
+> +++ b/drivers/perf/riscv_pmu_sbi.c
+> @@ -1599,13 +1658,23 @@ static int __init rvpmu_devinit(void)
+> [ ... skip 15 lines ... ]
+> +	 * in S-mode via Supervisor Counter delegation.
+> +	 */
+> +	if (riscv_isa_extension_available(NULL, SSCCFG) &&
+> +	    riscv_isa_extension_available(NULL, SMCDELEG) &&
+> +	    riscv_isa_extension_available(NULL, SSCSRIND))
+> +		static_branch_enable(&riscv_pmu_cdeleg_available);
 
-Does this need to be signed off by you?
-
-Reviewed-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
-Tested-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
+This needs to not only check that smcdeleg is supported in linux, but
+also that it is supported in the SBI implementation correct? Trying to
+boot this on OpenSBI before 6bb6b61c27eb ("lib: sbi: Add support for smcsrind and
+smcdeleg") will fail on an illegal instruction in
+rvpmu_deleg_find_ctrs() while trying to access the scountinhibit csr in
+the patch "RISC-V: perf: Implement supervisor counter delegation
+support". The proper mstateen bits need to be set for this to work
+without crashing.
 
 -- 
 - Charlie
