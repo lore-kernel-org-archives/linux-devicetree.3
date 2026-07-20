@@ -1,68 +1,67 @@
 Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 401842E1EE0
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 12:41:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1AD73D88E5
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 12:41:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784551262; cv=none; b=Ytfe04ydibFlvIC01+EziK5Qk5oX4+/nS0S47oIMBSn6+QvjhWeDKjpujlqAJsLrBRbU8He3Ay9Rl4/QkgsykD+fuy3WzlAhsN9tslywHHBUVo9AFh1uvaWnERf+ZvSGudalKxtRjPm9hc9x9zPqYD0sxnF1kb41/TKZ9GlzpaY=
+	t=1784551276; cv=none; b=SDWIVuWQpc/O4vALAkuvqEoVNWnVAijPHOZUyv43KzYD110N9FHalNp/LHlxvpH3eH8GDsj5rWNWbu8JXN9plyQHufB6XAAWJqLTD4MQCn7KGpcBkFOyI3E4NxUy0bUObzwNztA0yw95Ru6XUJWwT1QdB/doyjIIGtfSI1WcS5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784551262; c=relaxed/simple;
-	bh=A0XOoK0wvH1PQBH5QB2x7RfD1TV9PusheSC6v7PTO6k=;
+	s=arc-20240116; t=1784551276; c=relaxed/simple;
+	bh=PWsVTE4zfjuPyquwLzEQm0v8wFKexjhAFUj8M+cNOWU=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=YaCQdtU1qMnAHofwCVUe++APA3p3UBhYViepPCV0G/TNyr9W6fGEY8v/LXRwhJEFMet4W2ETZM4jLi5Xaw38Q1JjrHnjzPpaSnQbkgppSfsCPnGfrLjRVdFRVuibtgI6lWY0HDDd/VpwEo9PLFYh6X6wipesz4fvyKggsm3QfIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=KDL/gZz7; arc=none smtp.client-ip=209.85.128.42
+	 In-Reply-To:Content-Type; b=DCocli+q3Md2vr8AB5edJ+N+ISOO4101ZBVbH+mgLG7yktVCTjcq8CSif9NdVQnG6+aucwjOHegGAlAbgowW3wveLmZZRLm5HlTd39gZW/NgedPHvl+9TveCUtLB/rV7bJKzAr0Rytbsyj6lbVb+HxeF5+P8cJBnLYUVrsKKOOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=AWuZ5q+Q; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="KDL/gZz7"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49550ec592cso8462805e9.0
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 05:41:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="AWuZ5q+Q"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4954afac04bso25804745e9.0
+        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 05:41:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784551259; x=1785156059; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1784551273; x=1785156073; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9RLppTCvwfs6eki4J5o77QyN9i8+Bne6Cqvn0sJNVGI=;
-        b=KDL/gZz7wUR5vWQBhv+icqcyE8gNpO4aoDsoqByQzJKxYe2T65Q9PX9972jVxiQ7Rl
-         /pPcoDHi7vQP9vpwkauwlLod+PoAeRCJfJ+v8qmnMcL5EvpLkyetPF6pCOZrwlSQFjam
-         XIJ/KwyzAOF+aDj/EHXKmF1MH0nenE4GgCep7A6zyNfnlCw5Id7hSeXe2yhxCe1mYrY4
-         TwVDIwYKsLyieRnmKsAvJ+pa7kG4H3Nndx//ys+1n35iAQrf2UL+oWfrcQPneT/rHuZr
-         KGCbb2pUhv4JnEwg+FQ78hS1DXgz8xL+KwuW9d1YhzESgacScM2MCGzrqcicDA84C7uJ
-         z0UQ==
+        bh=02PeqF3rbp1hsOzW2e5ny6E3Yj+EmyQ/4DKajWJOxPY=;
+        b=AWuZ5q+Qlu/4PZdA0Uteo2ar+N9Fk+kwwJ/6qYwS7Zd3gPy8UX1z3s4JVUuFehldvj
+         YizqAhXCo2/xTCZLUIX0HVfFVIylAYvLfnteQzUCpTP/n6KoKa1QyVk6ECyoWrISIZxa
+         Oz4RexENrjooiDln0++FcbB1AX2PmvQf3oQcQITQicZBeYVo+sc2bFWIx1NH89U40Xkv
+         Jjnx8dOt16FAP5L3CFn3X2TkNyPghwn2KgZjDV0pKntkt3sp3s06a7Fll21UucRt6215
+         13NhE0KFXmFIaC9lzAv3cBvNvBchMnyFfJpkB1uV39yJeUYGRO6quCqiTekgHNgmgDHx
+         jKXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784551259; x=1785156059;
+        d=1e100.net; s=20251104; t=1784551273; x=1785156073;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9RLppTCvwfs6eki4J5o77QyN9i8+Bne6Cqvn0sJNVGI=;
-        b=oA1O/5pUlaA+mzed+hahAilnj2DWhzWb8rk56Ulrw6VPolNm5tSdH03nOwlbM4SN21
-         uSE3dfe6DjhHi3Gs10QsphVisgARXRfDqhlvyFd/vyriOUF36ovQCMsmY3WuzlKx0h+e
-         OeDKoLyzkuZTgrnkUMnvVvE1nz5zExIOWSfHWcBn3/72+lVYt4LQp+VYPBiMFgH5FtE8
-         aPBx2gkIsep823de7rUa8uGQEH8gBqI8e3T1lqLz7O5/XxcEZg3RGom2oPY6ispo+vpY
-         WyjftoVV2OVomz3HYm2Z0SxljjaO7SOIub6BP7h5PZVlz1qrqz9KSuxw4W8z5wnAkScO
-         4KUw==
-X-Forwarded-Encrypted: i=1; AHgh+RqyzSz+4vDS8qheRRdvr4XZnAMIW4fKa1tqhCcGLM5/BwR9I9zTepg6eiHmXUqyQdQ/VzcD9BD+3fyd@vger.kernel.org
-X-Gm-Message-State: AOJu0YxDnPrEmCoUlVJkbPyiFuQEQ2la+Sx14rNehHwh6JmkkTfhItiJ
-	AvywShegCOajy/YZNnd9SKzib4m72YX+r8wt8FCV4+RRE9+Z6U++M7vhqG/Z0631UT/pcXNNiIC
-	DP3Lq8BE=
-X-Gm-Gg: AfdE7cmjRh7aawx+lMDyLlP6q/NIaygdaD6M4ua9UXOkJrX8WEXaAETW1tnyfOB5yAi
-	qB+8IqKqTCzZ18OWBV6x1yqSnlfpltfDWY3BSxZFDGoxGtNm9Oh5ULbPpdoMzuohvW/tefg4r0Z
-	Vo9hR2B6rNNeQfaXgVtI5O0yWY2l+9pJ9aWIIzfW+MLYlvqVP6aHt6j3mw85sWv/1T7b+ANE0yW
-	W2pn/cuOgl6V2hF8pFcZrF7Zny+yoT1doOKAt8y0U3hi99oHDmafz7YV8pkYxt+Fqr0KZvvYlLj
-	Q8zKWbzFxmld6VrQTM503lJ6uWpIb0HKDuFiTJ94lByUPmP4+ItnzPM8veZcFi4viFZVb0jHczV
-	KB8xI41UF7Tm/MntmbezTKJqB7feVXVmdBJO56NxLrdEngjqs/PiCLCUKS592tZ8TyR6I4ec8an
-	pAylM7AWtCDna/HKe66oyQCBog3Opaj9XI1qWR07FDhsSIxKPBp3EeCGbb2A==
-X-Received: by 2002:a05:600c:b8a:b0:48f:e230:29f5 with SMTP id 5b1f17b1804b1-4954a33dc55mr148751995e9.16.1784551259402;
-        Mon, 20 Jul 2026 05:40:59 -0700 (PDT)
+        bh=02PeqF3rbp1hsOzW2e5ny6E3Yj+EmyQ/4DKajWJOxPY=;
+        b=eKLM5HtNb0L+3TJrfP6wi59j0HTD0JAK1wMZ9f7Ekw4Qyz57PMNXnbdpwBw4VVLTlo
+         VOMx06F/2boT5n8ZnhEDqjiCh+7wrmhinrezVFnpbuXhscXRe4sUQrZ4hi+D1cM9oVN2
+         s8TFdOZSoVHnhcW3QQxGiDAuKkOggTYlCi2DKv40C3vOc8TdkLfxAs7FRNnUAZJOHwKD
+         XHCj7E8XjOmWFUmg+wnqHHavOMV4bvYsjziF63LajD5qD0d+z4kvFgxY9yZ19o1Hnn5G
+         +oLlwG/pUexeZPm536BB7zA6cB/nOQHt4qqhe54Qf5ViAl88U7ibmAVy5BFkmyRu+YQZ
+         eF5w==
+X-Forwarded-Encrypted: i=1; AHgh+RpztY8YB0nlUwsNI4smw+fb2e+EAQ23yRcR1U3HubaVWSg5FF275AA2PzmnArmIBNumFYRtLb837anK@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKjQbLfRWQZ4ojKtzlAuaUZ4BBskevwPuAHUdtVhqAiOxGEPjI
+	W6y1wBCnXmzptoIEMcCOsr65TWqGu0CvJVN1xygEpXSuzBobmWxpBHvMfuxHn7nN1X4=
+X-Gm-Gg: AfdE7ckFIg6NOBAsiHGOJ6/+6HxJqQP6s/sxDhW+mjJgEkt7veQ5Qo8YxPgXZvLnc3+
+	wl4WoFJCh0Ga0ISfHP4yl2U1BUC6bv0U20mLHKPHZSSYo/o9KYZxwC+ddXy/1oULSRK8v/cbFH4
+	i/IY+J2QdnmLpm3dvN3rC47dm1UEL5/Eh00/w9lLlkfdgzX/4xBSsvBufqfOOyH2EFO2xFU9254
+	uHDbuJOekNN7agFCUzjUQEZrUjoGV29HzX7yoyPUf6UOdXriD8ma+dl1h3ElsnDWZ9oBBYfmpIL
+	Hf2WBoa3QxZzZOdXeuwON2S+tqdsAGVXlPYmvFdvTOEYjh+H7qsAhhihceCbAm/NDnfST+ukZey
+	sRxnHfPJAcggFiWwP491TfjIvJD46KkNz+HxsTmERfwKoHTEIudlI06j+lCf3A0kZf7Km9yLB7l
+	fH8MOMvzPQZibdarohGYGtq6ylTD8wPHf3o2UHEhySGnSMTLDWZyGoGikkH+Me5vUNexq5
+X-Received: by 2002:a05:600c:6a0b:b0:493:c453:6002 with SMTP id 5b1f17b1804b1-4954a516453mr90764735e9.35.1784551272978;
+        Mon, 20 Jul 2026 05:41:12 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:544a:2852:f257:ebc5? ([2a01:e0a:106d:1080:544a:2852:f257:ebc5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-495499a5847sm201100115e9.2.2026.07.20.05.40.58
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49549a36312sm300850935e9.2.2026.07.20.05.41.11
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Jul 2026 05:40:59 -0700 (PDT)
-Message-ID: <39c805d0-0435-4c27-980b-97a7c2850b87@linaro.org>
-Date: Mon, 20 Jul 2026 14:40:58 +0200
+        Mon, 20 Jul 2026 05:41:12 -0700 (PDT)
+Message-ID: <7b7e6b86-e14f-4d84-89b8-73e689c00ab6@linaro.org>
+Date: Mon, 20 Jul 2026 14:41:11 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +71,8 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 1/5] drm: panel: jd9365da: Enable LPM mode
+Subject: Re: [PATCH 2/5] drm: panel: jd9365da: Add prepare_prev_first flag to
+ drm_panel
 To: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>,
  Jagan Teki <jagan@edgeble.ai>, Jessica Zhang <jesszhan0024@gmail.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
@@ -87,7 +87,7 @@ Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>,
  Felix Boucher <felix.boucher@savoirfairelinux.com>,
  Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
 References: <20260708213500.1867092-1-marc-olivier.champagne@savoirfairelinux.com>
- <20260708213500.1867092-2-marc-olivier.champagne@savoirfairelinux.com>
+ <20260708213500.1867092-3-marc-olivier.champagne@savoirfairelinux.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -114,34 +114,34 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260708213500.1867092-2-marc-olivier.champagne@savoirfairelinux.com>
+In-Reply-To: <20260708213500.1867092-3-marc-olivier.champagne@savoirfairelinux.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 7/8/26 23:34, Marc-Olivier Champagne wrote:
-> The JD9365DA-H3 uses DSI LPM for command transmissions, make sure
-> this is configured correctly in the DSI mode flags.
+> The DSI host must be enabled for the panel to be initialized in
+> prepare(). Set the prepare_prev_first flag to guarantee this.
+> This fixes the panel operation on Renesas RZ/G2LC SoC DSI host.
 > 
 > Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
 > Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
 > ---
->   drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
+>   drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c | 2 ++
+>   1 file changed, 2 insertions(+)
 > 
 > diff --git a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-> index f6b04de1182e..1ef0c937863a 100644
+> index 1ef0c937863a..a79dc8f8d5af 100644
 > --- a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
 > +++ b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-> @@ -2950,7 +2950,8 @@ static int jadard_dsi_probe(struct mipi_dsi_device *dsi)
->   	else
->   		dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
->   				  MIPI_DSI_MODE_VIDEO_BURST |
-> -				  MIPI_DSI_MODE_NO_EOT_PACKET;
-> +				  MIPI_DSI_MODE_NO_EOT_PACKET |
-> +				  MIPI_DSI_MODE_LPM;
+> @@ -2993,6 +2993,8 @@ static int jadard_dsi_probe(struct mipi_dsi_device *dsi)
+>   		return dev_err_probe(&dsi->dev, PTR_ERR(jadard->vccio),
+>   				"failed to get vccio regulator\n");
 >   
->   	dsi->format = desc->format;
->   	dsi->lanes = desc->lanes;
+> +	jadard->panel.prepare_prev_first = true;
+> +
+>   	ret = of_drm_get_panel_orientation(dev->of_node, &jadard->orientation);
+>   	if (ret < 0)
+>   		return dev_err_probe(dev, ret, "failed to get orientation\n");
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
