@@ -1,218 +1,201 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40AB87261A
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 20:21:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5360A3B9D80
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 20:25:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784578918; cv=none; b=jsr3ljCrfmdzs7U8HHe+hh7IwslrN2erq2PHzkWr31JpQgLfOrsZOrze9br5ucHzMxKpnU3A1dRS37dPu/mGzzipSYUuUAlP6fzMIeziHdrtGZ9Yn+enhbWN9EKiTaG+IqjDUJ0A8bNIiX4F/OONYrGOhX5oE/LRgp+XYrDBKzM=
+	t=1784579154; cv=none; b=mXEirBEzebQISKQmBDPmiOinZ1s/ud05zcVad32G+iV3gDBquUGa2ewNNiTHJIajRRZ3MZ+SYLmnF8goa8O7ul8TbyA7U4KlsnadM27Xe4R0gY0q+GduP3PZw5rMiXcoRQOGvcIsrAaYoQWiQZFH/U29qE7uUd8Avv69eJjaU04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784578918; c=relaxed/simple;
-	bh=vmUrKTPBU6nt9jPoKRj/PiVKcoqjTlTY+KxAS6ATr1U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ekrG28CArrxBUFhLXnixmmn+XzmCOyN7E+I5QBoc7DRuvmJ+QOYeVZ1QbsNptR8fYnjrKk0uokROKdLhxHi0dGn9rnI6q/j0SsMQ3B+cYhjff1WZli+wxIZDvqQuuWc1sfPV/MUJyBC3iIVy03mdG7z8rPy/opIPInoioOCltak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B/R9sqTK; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784579154; c=relaxed/simple;
+	bh=dZ191QvS+S/wkP2b884ccleXW1D4GmK1BS0zVkjQ68Q=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iwdTANydSPvDnRd834f+zE73MUC6hCvI1NkXDfJqImskNzit9Y1nfTv7bz51+nhgbsfCkOPf0fAlv8PmjZm0igbunapLgJS/dalf4b5lpb20059huYwby6ZCqlWBSvg5lnwlRP9McZ9yJBufyqVTTID94f/avc9gvtBwqipbgNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HZGxIL1A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B/R9sqTK"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cad68425a7so15327155ad.1
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:21:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784578917; x=1785183717; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=vqJNSi15UrA4wLzOqGzyPM5qOphazLu22MmYeBqoRz0=;
-        b=B/R9sqTKfrXiE6iAHcp+Vzsx6quW8PGMI2XUfSjytsNY7YzmOt/+PNv18KCeSQFU14
-         jcN7mMafViWqXvSf+56mfMGjnogRKpuCO+DL8oiRFfOE+mSNWbXPk/mG/RDb+3AbqSwU
-         +JhPBrXb+LBVLM2QnV45l+hNmHMGEMilBODh5YEFU8hBC46Vui35ba/WwTrIq9xzJBDZ
-         sqOHNpBF0iNrQqqyNFVFFGOA/tGeHV4csYQAO3SN6L043MYSvmD52Cw2gYkSee5DlYY+
-         55L474a8gI+oSi3AZmRjQSY3ntn5bxtq4JgA+qqKVXZfrmFwDluPkzclmj9tFwfYnoxp
-         i0Hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784578917; x=1785183717;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=vqJNSi15UrA4wLzOqGzyPM5qOphazLu22MmYeBqoRz0=;
-        b=r/d99BgjaCU+2qw7fbcI6r1hZCq2B/U1TYbInx26upwDD5bcVZxpkvOzAlb5GoeiGy
-         xO+AyoE5NGQXBCdNt7sXXFzTw4tPiY4/TIY00A5B8IAHP88hiyVJirAAVKlbwECBCQQI
-         VcVx4hX8nHNrQh6Cafz6tdqXE2WisN59yunP30LJvJsx6FIrlF85ZHsqVntfw6e5ke7S
-         g09KFLKLzVyIOI/B4T9ebf4A7eOoqg9uPkxtR0BtMonGgpdju7yJKGvRtI6gkqMj/nrB
-         9TIxbVc45f3QXLynUCZwFgQVGoEaqJVQzAD0GGL5nCewpJE74rk14vTNvBziid1WaUaA
-         fESg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr9OCg/w9DTDOLG7ACxuCo8kOA6knMGtROgn0685E8Pn6rUFNBraHMepyuuTRJ4tseo0iLjUByqFCwF@vger.kernel.org
-X-Gm-Message-State: AOJu0YwoQXuoZZakLclwdV3JzbHglHSWlD+ZK08chToOFCJPIsMIXP9G
-	TQanO9DeicaY55m7QlMjL6e8MNn9gHC4cy2bdTbR0jfzTR5LnrRkeiUq
-X-Gm-Gg: AR+sD10JcfjOzMAPPkkS4rJwQldFZ0mljzBRU/P7F8WPI7odeWhbinyL32wKXdzkOad
-	GChIqpu98aNoKF2HxjCTsl/yuiEKnk4sm/YfVzyWxkhRjRmk5nJ6oOPLU/xAwp7aCQR1rOHRUjC
-	KlpYvTq7JNI54KrXWDjvkfcnxp7zdO+wKNNa+fxiRMBp7fY9rjSBArPH1J6lc4zbm+Lo0nW8sdy
-	A8WP+Fx0ZtljnKwnHkBMQZG++9izlir1REpUa5fY7vVtO58JONgA02vXQsNMleBklNCWUE4Qlno
-	8h5Fzt4gALalzpT/tAcOIf4qxAET8NktAkpL310g58eFdwHpqeveeachnt4uQOoQrKWyUJsvBlp
-	1Dq4pKSGwI61ay5I9GpW7CzUUxbKUV3WCYnavTcLMjUg+DlmIDbSzpoACQkZj7bmi98vnotZIYI
-	0rFedaakp2OA6/dhY=
-X-Received: by 2002:a17:903:26cd:b0:2ca:d803:5c8f with SMTP id d9443c01a7336-2cf8036007bmr3450515ad.1.1784578916505;
-        Mon, 20 Jul 2026 13:21:56 -0700 (PDT)
-Received: from [172.28.140.252] ([2409:40c2:542f:3834:f0b5:cc78:ed81:5198])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a210571sm40497048eec.31.2026.07.20.13.21.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 13:21:55 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Tue, 21 Jul 2026 01:51:39 +0530
-Subject: [PATCH] dt-bindings: extcon: ti,extcon-palmas: Convert to DT
- schema
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HZGxIL1A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94CEB1F000E9;
+	Mon, 20 Jul 2026 20:25:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784579152;
+	bh=PZBQL4meCnOASBcC8eZ5VljtLmPX0/CtqcPRmbo7y4A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HZGxIL1AjUD9v9CkFlN+ilkGp9YyVmU/lfw4TLTdTC6DyEWgXf9yA2GnvP10NhBFS
+	 37UFtEXXY+5ro8bYItErR953SxWnvOvgHaqNPPh3AoFpJnmr5lJ0WKggtu44mAVTho
+	 D+y8V4V3UzP0+BfeCsXBYzUY/Nrp6j6Gx5z3tlZZMc/2aC4LxLYUcpzbxxe9TvLycD
+	 wEUZjFURf/EdaKOwzPF9fcc5Y760e8Vu9W+tdw6r7L/tFvfPWEJybMvR2TMLVnkANn
+	 skDg2aqqIFmTvLwr9bI4JJ95fenWLmL+krYTBi2ffSi9vThf/Ln5Ujo6kYwr+R4HyD
+	 HNlReS/g4fNOw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/4] EDAC/altera: Add support for Agilex5 ECC manager
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dinh Nguyen" <dinguyen@kernel.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260720201425.1538771-4-dinguyen@kernel.org>
+References: <20260720201425.1538771-1-dinguyen@kernel.org>
+ <20260720201425.1538771-4-dinguyen@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 20 Jul 2026 20:25:52 +0000
+Message-Id: <20260720202552.94CEB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-ti-extcon-palmas-v1-1-cd4071f0b9d9@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqDMBBG4VeRWXdAU1DaVyld5PJrR2yUTCyC+
- O6m7fJbnLOTIgmU7tVOCR9RmWNBc6nIv2wcwBKKydSmrTvTcBbGlv0cebHT2yobAOFm2xDclUq
- 2JPSy/ZaP59+6uhE+fz90HCdZHXazdAAAAA==
-X-Change-ID: 20260721-ti-extcon-palmas-2eeed9a6ddb3
-To: MyungJoo Ham <myungjoo.ham@samsung.com>, 
- Chanwoo Choi <cw00.choi@samsung.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Roger Quadros <rogerq@ti.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
- simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784578906; l=3542;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=vmUrKTPBU6nt9jPoKRj/PiVKcoqjTlTY+KxAS6ATr1U=;
- b=bNpi0tis58f0Y7MJeKrX+25BbawWQK4//myu9/8E/WvoqXyw6UHXDBIVogU8kv6UI+KhOVksf
- WEruqhVy3WODH46bqnckMwm2yNWV/JcJef3SqiuVzuZgZtdE32LcX9P
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Convert Texas Instruments Palmas USB Comparator from legacy text to DT
-schema.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- .../devicetree/bindings/extcon/extcon-palmas.txt   | 22 -------
- .../bindings/extcon/ti,extcon-palmas.yaml          | 74 ++++++++++++++++++++++
- 2 files changed, 74 insertions(+), 22 deletions(-)
+New issues:
+- [High] A flawed if/else chain causes Agilex5 to incorrectly fall through =
+to legacy A10 logic if the optional `global_dbe` interrupt is missing, lead=
+ing to probe failure or interrupt hijacking, and prevents registration of t=
+he intended panic notifier fallback.
 
-diff --git a/Documentation/devicetree/bindings/extcon/extcon-palmas.txt b/Documentation/devicetree/bindings/extcon/extcon-palmas.txt
-deleted file mode 100644
-index f61d5af44a27..000000000000
---- a/Documentation/devicetree/bindings/extcon/extcon-palmas.txt
-+++ /dev/null
-@@ -1,22 +0,0 @@
--EXTCON FOR PALMAS/TWL CHIPS
--
--PALMAS USB COMPARATOR
--Required Properties:
-- - compatible: should contain one of:
--   * "ti,palmas-usb-vid".
--   * "ti,twl6035-usb-vid".
--   * "ti,palmas-usb" (DEPRECATED - use "ti,palmas-usb-vid").
--   * "ti,twl6035-usb" (DEPRECATED - use "ti,twl6035-usb-vid").
--
--Optional Properties:
-- - ti,wakeup : To enable the wakeup comparator in probe
-- - ti,enable-id-detection: Perform ID detection. If id-gpio is specified
--		it performs id-detection using GPIO else using OTG core.
-- - ti,enable-vbus-detection: Perform VBUS detection.
-- - id-gpio: gpio for GPIO ID detection. See gpio binding.
-- - debounce-delay-ms: debounce delay for GPIO ID pin in milliseconds.
--
--palmas-usb {
--       compatible = "ti,twl6035-usb", "ti,palmas-usb";
--       ti,wakeup;
--};
-diff --git a/Documentation/devicetree/bindings/extcon/ti,extcon-palmas.yaml b/Documentation/devicetree/bindings/extcon/ti,extcon-palmas.yaml
-new file mode 100644
-index 000000000000..0bcd8df79414
---- /dev/null
-+++ b/Documentation/devicetree/bindings/extcon/ti,extcon-palmas.yaml
-@@ -0,0 +1,74 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/extcon/ti,extcon-palmas.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments PALMAS USB COMPARATOR
-+
-+maintainers:
-+  - Roger Quadros <rogerq@ti.com>
-+  - Bhargav Joshi <j.bhargav.u@gmail.com>
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - enum:
-+          - ti,palmas-usb-vid
-+          - ti,twl6035-usb-vid
-+      - enum:
-+          - ti,palmas-usb
-+          - ti,twl6035-usb
-+        deprecated: true
-+
-+  ti,wakeup:
-+    type: boolean
-+    description:
-+      To enable the wakeup comparator in probe.
-+
-+  ti,enable-id-detection:
-+    type: boolean
-+    description:
-+      Perform ID detection. If id-gpios is specified it performs ID detection
-+      using GPIO, otherwise using the OTG core.
-+
-+  ti,enable-vbus-detection:
-+    type: boolean
-+    description:
-+      Perform VBUS detection.
-+
-+  id-gpios:
-+    maxItems: 1
-+
-+  id-gpio:
-+    maxItems: 1
-+    deprecated: true
-+
-+  vbus-gpios:
-+    maxItems: 1
-+
-+  vbus-gpio:
-+    maxItems: 1
-+    deprecated: true
-+
-+  debounce-delay-ms:
-+    description:
-+      Debounce delay for GPIO ID pin in milliseconds.
-+    default: 20
-+
-+required:
-+  - compatible
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    palmas_usb {
-+        compatible = "ti,palmas-usb-vid";
-+        ti,wakeup;
-+        ti,enable-id-detection;
-+        ti,enable-vbus-detection;
-+        id-gpios = <&palmas_gpio 0 GPIO_ACTIVE_HIGH>;
-+    };
+Pre-existing issues:
+- [High] Probe error paths fail to unregister the IRQ domain and chained ha=
+ndlers, leading to Resource Leaks and Use-After-Free.
+- [High] The platform driver lacks a .remove callback, causing severe Use-A=
+fter-Frees on module unbind.
+--
 
----
-base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
-change-id: 20260721-ti-extcon-palmas-2eeed9a6ddb3
+--- Patch [3]: [PATCH 3/4] EDAC/altera: Add support for Agilex5 ECC manager=
+ ---
+commit fe27bbb114924237edb349c2779f0fc2899da926
+Author: Dinh Nguyen <dinguyen@kernel.org>
 
-Best regards,
--- 
-Bhargav
+EDAC/altera: Add support for Agilex5 ECC manager
 
+This commit adds support for the Agilex5 ECC manager to the Arria10 EDAC
+driver. It introduces parsing for up to seven named interrupts, routing the
+mandatory global_sbe and optional global_dbe through the chained interrupt
+handler.
+
+> diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
+> index e833869236914..13abce089ef1c 100644
+> --- a/drivers/edac/altera_edac.c
+> +++ b/drivers/edac/altera_edac.c
+[ ... ]
+> @@ -2145,14 +2197,31 @@ static int altr_edac_a10_probe(struct platform_de=
+vice *pdev)
+>  		return -ENOMEM;
+>  	}
+> =20
+> -	edac->sb_irq =3D platform_get_irq(pdev, 0);
+> -	if (edac->sb_irq < 0)
+> -		return edac->sb_irq;
+> +	if (edac->flag =3D=3D SOCFPGA_AGILEX5) {
+> +		rc =3D altr_agilex5_get_named_irqs(pdev, edac);
+> +		if (rc)
+> +			return rc;
+
+[Severity: High]
+This is a pre-existing issue, but if altr_agilex5_get_named_irqs() returns
+an error like -EPROBE_DEFER, does this return path leak the IRQ domain
+created earlier in altr_edac_a10_probe()?
+
+Because edac is allocated with devres, the memory will be freed, but the
+IRQ domain might remain registered and point to the freed edac structure.
+
+Could this lead to a use-after-free if the IRQ subsystem attempts to access
+the domain's host_data?
+
+> +
+> +		edac->sb_irq =3D edac->agilex5_irqs[ALTR_AGILEX5_IRQ_GLOBAL_SBE];
+> +	} else {
+> +		edac->sb_irq =3D platform_get_irq(pdev, 0);
+> +		if (edac->sb_irq < 0)
+> +			return edac->sb_irq;
+> +	}
+> =20
+>  	irq_set_chained_handler_and_data(edac->sb_irq,
+>  					 altr_edac_a10_irq_handler,
+>  					 edac);
+> =20
+> +	/*
+> +	 * Unlike Stratix10/Agilex7 (which deliver uncorrectable errors as
+> +	 * Asynchronous SError), Agilex5 routes the global double-bit error
+> +	 * through a dedicated SPI ("global_dbe"). Hook it into the same
+> +	 * chained handler so the existing sb_irq/db_irq demux in
+> +	 * altr_edac_a10_irq_handler() routes DBE events through the manager's
+> +	 * IRQ domain. The panic notifier below is still registered as a
+> +	 * fall-back for any DBEs that escape to SError.
+> +	 */
+>  	if (edac->flag =3D=3D SOCFPGA_S10) {
+
+[Severity: High]
+The comment above states the panic notifier is registered as a fallback
+for Agilex5. However, this check only matches SOCFPGA_S10. Does this mean
+the panic notifier is inadvertently skipped for Agilex5 devices?
+
+>  		int dberror, err_addr;
+> =20
+[ ... ]
+> @@ -2175,6 +2244,12 @@ static int altr_edac_a10_probe(struct platform_dev=
+ice *pdev)
+>  			regmap_write(edac->ecc_mgr_map,
+>  				     S10_SYSMGR_UE_ADDR_OFST, 0);
+>  		}
+> +	} else if (edac->flag =3D=3D SOCFPGA_AGILEX5 &&
+> +		   edac->agilex5_irqs[ALTR_AGILEX5_IRQ_GLOBAL_DBE] >=3D 0) {
+> +		edac->db_irq =3D edac->agilex5_irqs[ALTR_AGILEX5_IRQ_GLOBAL_DBE];
+> +		irq_set_chained_handler_and_data(edac->db_irq,
+> +						 altr_edac_a10_irq_handler,
+> +						 edac);
+>  	} else {
+>  		edac->db_irq =3D platform_get_irq(pdev, 1);
+>  		if (edac->db_irq < 0)
+>  			return edac->db_irq;
+
+[Severity: High]
+If an Agilex5 device omits the optional GLOBAL_DBE interrupt, will it
+incorrectly fall through to this else branch?
+
+This would cause it to call platform_get_irq(pdev, 1). If the device has
+other optional interrupts, this might incorrectly hijack one of them (like
+io96b0) as the chained DBE handler. If it doesn't have other interrupts,
+it might fail and abort the probe with -ENXIO.
+
+Also, this is a pre-existing issue, but if platform_get_irq(pdev, 1) fails,
+does returning an error here leave the sb_irq chained handler dangling?
+
+Since it was registered earlier in altr_edac_a10_probe(), it could cause a
+use-after-free when the interrupt fires and dereferences the devres-freed
+edac pointer.
+
+[ ... ]
+> @@ -2206,6 +2281,8 @@ static const struct of_device_id altr_edac_a10_of_m=
+atch[] =3D {
+>  	{ .compatible =3D "altr,socfpga-a10-ecc-manager" },
+>  	{ .compatible =3D "altr,socfpga-s10-ecc-manager",
+>  	  .data =3D (void *)SOCFPGA_S10 },
+> +	{ .compatible =3D "altr,socfpga-agilex5-ecc-manager",
+> +	  .data =3D (void *)SOCFPGA_AGILEX5 },
+>  	{},
+>  };
+>  MODULE_DEVICE_TABLE(of, altr_edac_a10_of_match);
+
+[Severity: High]
+This is a pre-existing issue, but does the platform driver lack a .remove
+callback?
+
+drivers/edac/altera_edac.c:
+static struct platform_driver altr_edac_a10_driver =3D {
+        .probe =3D  altr_edac_a10_probe,
+        .driver =3D {
+                .name =3D "socfpga_a10_ecc_manager",
+                .of_match_table =3D altr_edac_a10_of_match,
+        },
+};
+
+If the driver is unbound via sysfs, devres will automatically free the
+edac struct and unmap MMIO regions. However, the chained IRQ handlers,
+IRQ domain, and panic notifier remain registered.
+
+Could this cause a use-after-free if a hardware interrupt or kernel panic
+occurs after the module is unbound?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720201425.1538=
+771-1-dinguyen@kernel.org?part=3D3
