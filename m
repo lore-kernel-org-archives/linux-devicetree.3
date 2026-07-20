@@ -1,150 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15D33B4EBF
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 20:12:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2D33B9608;
+	Mon, 20 Jul 2026 20:14:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784578357; cv=none; b=iJM4TLtMS3UtWmgE/TyybiEJQL+4k7j4ctQIvgCmtTLf+os5BOtH0UQUNU+gM7GMF0NcmzceCsg62sLwluNJs1TxsZVdZUR526+GFLlSqSZBAR7N6spx0aKRwPlcSRGUJcWZ5olb3SIULWaRnwL/7UYGeAdcmP0f4CWzj1uvN1E=
+	t=1784578478; cv=none; b=jFUEKW7sYvyoAt8o2/EHVTxpg/ZCcZccm9M7Gv6c78zG3zleZI3wOmLmyQMGyjcubJR1Uo2fCkMV2GC5h4q+cOhokbAGhIVsHRfy1O2outpp805owNUsSlThcp/1MBhLJTQySt2M1n/P6LbAO0iTP5tLKRKXkGWdbaMfO+K+lFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784578357; c=relaxed/simple;
-	bh=oT+qyKGguvYTXbU2o3MxwZ9h8G7lSXD9PAN6Vz3yPhw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pZNWtDmjYXsPLr4n4vagtO46Q13uG+xsvuow/Mb6WCni1NKSx4TykztKkm25fsZL97CTD836dZGzizNXaN+x7CKBiCIJgA3S3BGCDu6Zy+lZDVyD+TgycaVUEMcyeIIvf9DUFr7eHIh6uGv/x8NOG111ibFkjyYFf5LIHvkzAF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OSn4fjg6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784578478; c=relaxed/simple;
+	bh=+4lRpCtaMwXv9gmdUjvFDskwhwHT3tAMrxScmaMLG4c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LZEnl8znxqL/3vmIOEuy/P+7JWV0GXcxGOOdsPT69Xqmq8QdlEF/qWZCEagjlWJMCCaIoCYkWDe2meqEyt1z0/Cl6I2J8xK0OEYV2ezQgc/lWScgZsJiH75bFGUnTOGa2yTczz2F6chjznxHnOFKYuoYSDeW2z+88FINlmA0wGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EcLzKADU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OSn4fjg6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA9011F00ACA
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 20:12:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EcLzKADU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 390A61F000E9;
+	Mon, 20 Jul 2026 20:14:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784578350;
-	bh=W/4OZVYAEidoIzb/vZk4OlyR1a69x3STJrX0+eOpz+g=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OSn4fjg6OWV3UNqvAqTdoJ7TLyB4FGH+1Z2wB2JEh9Yd8oc/5Ii6P4A7m+BnBg0tG
-	 YBVKsaQ0qb+RElkwoEJIRf00uCVoaktY9T/QP9qW6VRBTnoBdEEcnT+/zywru/UCxz
-	 xhOYUoJC0SDhvE9v9IJQMQY6n9S8wxY/sZX4eU1Ny1ARlvdbdXhCmKuwY7RyfSYpjP
-	 Vwz3OaGbN6rOywbAMoSFBGsKBXVcQHoWp8XSsayEDSPWvPrDrYm81WLv40KET77dLm
-	 OLSvRKv70ZTx68293Eod4p6xBeEtb4x6dmiD0RRXzfyFdC3pPag9qEEghIn9wo8RTw
-	 VU3E2bx1jjc8Q==
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c15dd4b9132so1703955666b.1
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:12:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqNTZrYF+sMMUhTF2eZEDlloKOlAFa+l/VK5NdM5WB+zhRRK+F+TUL+vq5OVxAieq9lKjaMgV4PP80u@vger.kernel.org
-X-Gm-Message-State: AOJu0YyCbV+quw+IPbSaBqw1giaPPr8JSUvINA7gvFoBi6ZwT8F9P4+d
-	OkQtCmr0tctVmn9EiNmzZ1S3+HqbMkPx4E1unVCGBwqEiO4hnYC2pAyNd6KqeLKnZjGbYRD7CoN
-	k+iTG+i+MRtsssHVSaTK5eC62Z+3jmg==
-X-Received: by 2002:a17:907:9623:b0:c15:f65a:43a8 with SMTP id
- a640c23a62f3a-c16b4571a28mr675113466b.12.1784578348579; Mon, 20 Jul 2026
- 13:12:28 -0700 (PDT)
+	s=k20260515; t=1784578476;
+	bh=RX33iONCBkis0ZYpnQozWvsrJrEikkre/fo0G1Ps2RE=;
+	h=From:To:Cc:Subject:Date;
+	b=EcLzKADUZUbEPNDXIjwgtrprqtMO2RnxRTs5Y8Znge7L+UnKkiQALgoGyFx4qD7h6
+	 KqhHYPqA+UTHx1KUv6GHCPg59w4Pwu7Tj1z9tj3m2dwnQZVqHccLofnBfZ4nBM9Cia
+	 oBBTqM0rO9d0WiBtwtinJi5NpG0Chht9z1qGAXRAQVRp2zgkxp+bjM7xedbmQBPmnQ
+	 1adHA918d7oFi93zNeFNLsHMJoj1SGj1lmACXvKNeIeZsqea39N7K7ZC3eeLkc7sgj
+	 51vMMEqh24wW1fuPVR95uh3L4yMvolqTzecol5FzWOIURTvBtP9dRfTh8wOHxZ6nOn
+	 6JDG6pzf7CiBA==
+From: Dinh Nguyen <dinguyen@kernel.org>
+To: bp@alien8.de,
+	tony.luck@intel.com
+Cc: dinguyen@kernel.org,
+	rounakdas2025@gmail.com,
+	niravkumar.l.rabara@altera.com,
+	linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH 0/4] EDAC/altera: Add support for Agilex5 platform
+Date: Mon, 20 Jul 2026 15:14:21 -0500
+Message-ID: <20260720201425.1538771-1-dinguyen@kernel.org>
+X-Mailer: git-send-email 2.42.0.411.g813d9a9188
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260720184040.9870-2-krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260720184040.9870-2-krzysztof.kozlowski@oss.qualcomm.com>
-From: Rob Herring <robh@kernel.org>
-Date: Mon, 20 Jul 2026 15:12:17 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqKkxVTVE=o-uar=JEVvqw9NhBAQcBrJ0ukf+RBXCwFZJA@mail.gmail.com>
-X-Gm-Features: AUfX_mwgZbPYorhmNWUblQ-rJjYQoMokZ0OMEFyO8O_QkQHXpRAwW7QY0ciSWZE
-Message-ID: <CAL_JsqKkxVTVE=o-uar=JEVvqw9NhBAQcBrJ0ukf+RBXCwFZJA@mail.gmail.com>
-Subject: Re: [PATCH v3] docs: dt: maintainer: Add Devicetree and OF maintainer
- profile document
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, devicetree@vger.kernel.org, 
-	workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Saravana Kannan <saravanak@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 20, 2026 at 1:40=E2=80=AFPM Krzysztof Kozlowski
-<krzysztof.kozlowski@oss.qualcomm.com> wrote:
->
-> Document how Devicetree and Open Firmware maintainers handle their
-> subsystem, especially focusing on two caveats:
->
-> Devicetree subsystem handles patches with a minor difference comparing
-> to other subsystems: while DT maintainers pick up OF code, they only
-> provide review of DT bindings without applying these.
->
-> All three DT bindings maintainers rely currently on Patchwork and due to
-> enormous amount of emails per day, regardless how much DT maintainers
-> try, they cannot read all the emails.
->
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Saravana Kannan <saravanak@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->
-> ---
->
-> I expect patch to be picked up by Rob, after review.
->
-> Changes in v3:
-> 1. Add also F: entry
->
-> Changes in v2:
-> 1. Correct typos and trailing white spaces.
-> 2. Fix order of P: after C: in maintainers.
-> ---
->  .../process/maintainer-devicetree.rst         | 70 +++++++++++++++++++
->  MAINTAINERS                                   |  3 +
->  2 files changed, 73 insertions(+)
->  create mode 100644 Documentation/process/maintainer-devicetree.rst
->
-> diff --git a/Documentation/process/maintainer-devicetree.rst b/Documentat=
-ion/process/maintainer-devicetree.rst
-> new file mode 100644
-> index 000000000000..d8ffe752bf5d
-> --- /dev/null
-> +++ b/Documentation/process/maintainer-devicetree.rst
-> @@ -0,0 +1,70 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +Devicetree and Open Firmware Subsystem
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +Other Process Documents
-> +-----------------------
-> +
-> +Please see the documents in Documentation/devicetree/bindings/ for infor=
-mation
-> +on how to write proper Devicetree bindings and how to submit patches.
-> +
-> +Patch Review and Handling
-> +-------------------------
-> +
-> +Patches handled by Devicetree maintainers are processed differently depe=
-nding
-> +on the patch type:
-> +
-> +1. Core OF driver code, e.g. drivers/of/:
-> +   patches are reviewed and applied by DT maintainers.
-> +
-> +2. Devicetree bindings:
-> +   patches are reviewed by DT maintainers but, except in certain cases, =
-should
-> +   be applied by subsystem maintainers.  See also *For kernel maintainer=
-s* in
-> +   Documentation/devicetree/bindings/submitting-patches.rst.
+This series add preliminary EDAC support for the Agilex5 platform. The
+EDAC module on the Agilex5 is a bit different from the previous Arria10
+and Stratix10 platforms in that it has the full 7 interrupts.
 
-I would reword:
+global_sbe    - aggregate single-bit error (chained, drives IRQ domain)
+global_dbe    - aggregate double-bit error (chained; DBE is no longer
+                delivered exclusively through Asynchronous SError)
+io96b0        - IO96B0 DRAM controller ECC
+io96b1        - IO96B1 DRAM controller ECC
+sdm_qspi_sbe  - SDM QSPI single-bit error
+sdm_qspi_dbe  - SDM QSPI double-bit error
+sdm_seu       - SDM single-event-upset
 
-patches are reviewed by DT maintainers, but should be applied by
-subsystem maintainers except in certain cases.
+patch 1/4 : dt-bindings: edac: altera: agilex5: document new edac support
+Introduce a new dt binding "altr,socfpga-agilex5-ecc-manager" that is
+specific to the Agilex5 platform. Document the 7 interrupts.
 
-> +
-> +3. DTS and drivers:
-> +   DT maintainers might provide comments, but review is generally not ex=
-pected.
+Patch 2/4 : EDAC/altera: use flag to differentiate 64-bit platforms
+Use match data to provide a method to differentiate different platforms.
 
-For DTS, we expect to pass schema checks or at least not add new warnings.
+Patch 3/4 : EDAC/altera: Add support for Agilex5 ECC manager
+Modifies the Altera EDAC driver to support the Agilex5 platform.
 
-I can address these 2 when applying.
+Patch 4/4 : arm64: dts: socfpga: agilex5: add support for the ECC manager
+Populates the base Agilex5 DTSI wit the EDAC IP.
 
-Rob
+
+Dinh Nguyen (4):
+  dt-bindings: edac: altera: agilex5: document new edac support
+  EDAC/altera: use flag to differentiate 64-bit platforms
+  EDAC/altera: Add support for Agilex5 ECC manager
+  arm64: dts: socfpga: agilex5: add support for the ECC manager
+
+ .../edac/altr,socfpga-ecc-manager.yaml        |  23 +++-
+ .../arm64/boot/dts/intel/socfpga_agilex5.dtsi |  68 ++++++++++++
+ drivers/edac/altera_edac.c                    | 100 ++++++++++++++++--
+ drivers/edac/altera_edac.h                    |  34 +++++-
+ 4 files changed, 212 insertions(+), 13 deletions(-)
+
+-- 
+2.42.0.411.g813d9a9188
+
