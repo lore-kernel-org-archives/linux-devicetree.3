@@ -1,66 +1,68 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 114CA3B440E
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 07:03:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1453B6348
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 07:03:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784531001; cv=none; b=Nb77LHIPkvVnUIIcTq9lpImSSOSKVjWmt8mx76Dm4I6055siO1+P4NZbufot0lQCcD79Wh8uomRPhM5xcLyuvlfX70Mp0SEzcgqiYnE0Ql1Qv10ztJO+Bp0t/33FyE+H0gBVYK2TUTFusGCpGiHF8LgWbNPpBR785nqimuOlEwM=
+	t=1784531002; cv=none; b=BdAXQ0UO9BG2AIcTXRawbb37Xpi5zOlHF48/IwtQJxa1oL9H76X7crPRxN+iis0kYfJaHSmJookJlXpigxt9UDwVVLJjxfwRHhGzlDngkBPyGTPqOKq05RkNPf+Tiz/syloko4uyq1o4oGgY0UiYt8+TtdP1JbShV38f3uoVwVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784531001; c=relaxed/simple;
-	bh=dB+Br3KZMLKw1gh1AZW7OoM38ATCJuhb7hLCWJ1x4pQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qi0lBWSeOGysyIsSiTWVWzFVcVKMWmudYzAAE7O6l34KVRxGwFu0qilVvHbHZKNtdE/jALmmiNJKIXw6TeQ4TK9jLVW1MEj8WjUsmNjOHCUHP7XfWy0NwUTYPnvCiGM9ppCH+1Rx7XfxAsVzz05dJShNqvUXDn2Hertv+1QbKVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=YQnB+k0m; arc=none smtp.client-ip=209.85.216.47
+	s=arc-20240116; t=1784531002; c=relaxed/simple;
+	bh=R6tBpLfkSYlFbeXQtoe6ybjEQWYkSemCib35gwY2h1U=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=PVrT9xaW3N/V/UYXoiiTwhQFEufpd/fpx5HmpWe29WREQQow7jIDSSl6ffIws3YCvYb9A3nwIKFEsA8Gceac2nG0EsS3o2mhzqJxhP0x0oZB9iJVWYl1vsl0FfBUVyys67+MtopclXa6oLUiBP0PjGwCbKyvs3V17KtthW3LjQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=clzU1yRn; arc=none smtp.client-ip=209.85.216.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="YQnB+k0m"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38e071ed6aeso5936095a91.0
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 00:03:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="clzU1yRn"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38a0c7e841fso7422636a91.2
+        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 00:03:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1784530998; x=1785135798; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=QqDmnVyu5NzHROdGFRMLIVlOTZRX3xeZ1j4XDccFCoQ=;
-        b=YQnB+k0msXLuT5jfH7MUroP435jAJPrrDq4R4XkXX7kmhKCJmT1N6Aa9NIyJmEv4tv
-         Sd0r15sgRa9xEC1VuHe/eyp3C1cW0dXkDPHNusjfe+JyMDie+/YnuFrCXQMEjHVNk786
-         b0m7y+ytEBTdCbFZhQXtYeRKJGrDaWuDU09yPyIVpCu5tPJwE2QZGZ2U+7oIhvU+MZAm
-         q9j0rGOkbX0lLoUuBoAhdsZ4IRR9jHlxy8mhl/jy4HfppDotLIK4vUXOexzL4+Kaszau
-         Iq2p0FjPI7eTzK7xY9nHv08Pk1POtFuvyNsdNabQXtd+mSJoI5pFXiwjEKCQ6vrZGcpy
-         Jpgg==
+        d=nexthop.ai; s=google; t=1784531000; x=1785135800; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Jb3SzunVzCrAW1kpVHD7vkFwItBmsZgciNXBopwYDGc=;
+        b=clzU1yRniYhUJ6RtlG4JaeeE5wD57r6dTaYJZHMmZyUmdijQtdxQ1FFPglYfEb7pKn
+         UeUe1MeIuAxoquYQdcM+GkfzCvMU5nWl3RkzrSdhTau+S+T5aHz/O+Xj/ueXkv9VB8r4
+         1JAaZjJ6RIcKD581p+z6IsBWNpv2rsly8NaSCbYXDWU4mSsh0NVuB16Yd/mWEeQk0EV7
+         +uysH5kOTcvFUgsOjI+4Oh8oDFgqXe3pZSi5i8GHtx+VIWyrMGDEpXVwQlu3zpVRXu/d
+         pLcNv3qMomgyfYn9/8XC39PMzn3ZFjxEWwHvehpzavtwzxobt6k1qnfKGOe/fZzIrs3H
+         YrTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784530998; x=1785135798;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=QqDmnVyu5NzHROdGFRMLIVlOTZRX3xeZ1j4XDccFCoQ=;
-        b=LXBwhTLFxgxWPjZ54GiF4+ev7J7MR7dcjqrZU5P/FnAJI3EwsF4Jhb13rnEnvw462Z
-         owMW8vjLaMDHdeI4WzE62xPx61w9fBfO9Iy8oymW7yvsZ58tVBkhjvYxxSYUbGMijuVC
-         dWS/Vt9PrLrcJ7OavfQQZaYd+vzG+6CmPdfwti3oV5PCcZFem+KPOIaIz8q+k3ISbplt
-         /XfTsXORx8+M1dHnvCkYfRU6B+e+XD3mjLHTn3arsfYSB+MRLao3kr6ZwFYMpFvmw7iC
-         M66/hIpYAnxk/zqH3ksx5v1r5rgKnsiAIbKb3ByX75iqLc/1wW0wDOs7u9HBDiZ/bHt7
-         fpfQ==
-X-Gm-Message-State: AOJu0Yy9mDgFmhrUfMyPNDvmHuFutDB1fuJqjdoKwnSx3jkCKciEIiRm
-	OqaU3ljnhLiZdboLRE88YYKK779bzUjjcUocdYut5j7j0xW1uQ3zQNwFYPauHcp2RFVr456iqKd
-	GuxG0GnM=
-X-Gm-Gg: AfdE7clNPorXoWvZjZuoujOtykbaTLSsbVtct/N0+wp+pLQSOglYL0ygnL4hsuCTcf0
-	zCK1pePjQoH/TeCAqbJ4VvZRUFP5HauWU/Vn2jRo+7ZsKvQYENiOD84HKlNiHai9D1ndDTvKhFf
-	kQGCncbnd5EFTVemDeufzZ2avbU1EOVy17Fvdhv6riG6WZW7yOBKVpmvsgpeUJ88nKVJ42jU+uw
-	drNb99h5jKuM1zsWlVMSbTHRZieVNvFqfa3cuYxVHtSA/Yg/EYU6zf/Q1ggqgIEKYN/5XQCpH5M
-	XTBbUZeZ3UpGe/vIURKj3NqJ5/5ZZGsRFZlgi6t4DF0gq8e+bosHy6HI1NQxu1MYeBfgmG19D+E
-	fUz0BlWPJQsbwNXjyifZccYCMrZmy+517GTy9dJR6gkRsJbqaaOKjgijCDKdpqdzNLXxX6ixaI4
-	eTCz22
-X-Received: by 2002:a17:90b:2f0c:b0:37f:c69d:ce69 with SMTP id 98e67ed59e1d1-38e4b447dfcmr14118332a91.10.1784530998162;
-        Mon, 20 Jul 2026 00:03:18 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784531000; x=1785135800;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Jb3SzunVzCrAW1kpVHD7vkFwItBmsZgciNXBopwYDGc=;
+        b=gXAgm61aiR+3xpQ6QV/9e4Gb0oXu1TElGCa+S0DGnN83/rBMe7RxmexqaxTe6GJGmG
+         OSzNg1Ejzet76KZq0wOXCOnceqMMWKf3RugLn7eD6j6PaXwKYuI0KC1SzOgWFI0BvzA4
+         SzAv1S/yR23HmttBw4TEWSxijWAbY1KYRODlgjHruWpZ19xlh+ctR8hExM/Zj7gyYzQj
+         jZ0RFpl7zyJEK3DqN3fhIwsHK4KXtyQgkHseQBzMiqpH9TY6FEBPzDzpDGToRwmd93pG
+         cbXIwQIaRdZiEtStk3r10E3Wy0pY2i2267DE+pQtM0mKGlpxmCywPep/hV09vBCSjE0I
+         SFKw==
+X-Gm-Message-State: AOJu0Yy+CgcxnpIvIH2Msx/5osqld965YSpO84LItQmtb3wYKB7AYdkX
+	Prci8ejPuh51VIuxNOdVmtytpww0na+o33Qd3mdEsGZxkstaXhsUSoQCaWdYjwrTZ9hQiqOdpWg
+	djal5gVo=
+X-Gm-Gg: AR+sD126B93l6YMyvSfNldsu7qWIYbXVJVGAYDZfL3cArvrcGtQQkQvYGC89XAAw8ks
+	F9IEJSmeHzdrB0RvR2OgRj4wRIm09rTcgKZa5Ku9uG1iWIKay7YECmgIP4Ifq5KK2FIDYFFYuWq
+	QU5ADDhQhc50UmWHlMb3o28D26TeENA8RHCDRJJCSLOBKzOlY+Wg53ljLWTJoqCH7vGjRokuw3b
+	+fWRZPgHYu9OgkaIxoXcrUZ6aR47n+8VsWVTpdzJU1JSRAeUxfc1GHUjdkpeugY01vr3vGGefLh
+	zSBWH5Sw940VZdPGrMBkzlURYRLeAIkTtRJeQTzIkKtGtr9ntAvJg3B7VJQtfxO0+jyoPx5hiwy
+	cl6BULvugk/IDawyQ8m1pyfmZkkyR70NHlGxilIWUEF0mt5b4mSOV3gpKCWpn+tSHIlesDZPaAi
+	QqmsoHVKZ39n93uh4=
+X-Received: by 2002:a17:90b:442e:b0:38e:5701:644a with SMTP id 98e67ed59e1d1-38e570170d9mr7802747a91.27.1784531000271;
+        Mon, 20 Jul 2026 00:03:20 -0700 (PDT)
 Received: from [127.0.0.2] ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e60cc2ad5sm463052a91.4.2026.07.20.00.03.17
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e60cc2ad5sm463052a91.4.2026.07.20.00.03.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 00:03:17 -0700 (PDT)
+        Mon, 20 Jul 2026 00:03:19 -0700 (PDT)
 From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Subject: [PATCH RFC 0/4] of: teach overlay code to keep /aliases in sync
-Date: Mon, 20 Jul 2026 00:02:49 -0700
-Message-Id: <20260720-nh-of-alias-overlay-v1-0-f1e5d9889b30@nexthop.ai>
+Date: Mon, 20 Jul 2026 00:02:51 -0700
+Subject: [PATCH RFC 2/4] of/overlay: look up absolute target-paths
+ absolutely
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,148 +71,98 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQrCMBAFf6Xs2YUk0IheBT/Aq3hI21e7UhLJa
- mkp/XejHmdgZiVFFigdq5UyJlFJsYDdVdQOId7B0hUmZ5w3e3vgOHDqOYwSlNOEPIaFPWqYrvb
- OuoZK+czoZf5dr3Q5n+j2l/puHmhf3x9t2wf32PvJfAAAAA==
-X-Change-ID: 20260719-nh-of-alias-overlay-6e5e0d56212b
+Message-Id: <20260720-nh-of-alias-overlay-v1-2-f1e5d9889b30@nexthop.ai>
+References: <20260720-nh-of-alias-overlay-v1-0-f1e5d9889b30@nexthop.ai>
+In-Reply-To: <20260720-nh-of-alias-overlay-v1-0-f1e5d9889b30@nexthop.ai>
 To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Abdurrahman Hussain <abdurrahman@nexthop.ai>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784530997; l=6201;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784530997; l=3039;
  i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
- bh=dB+Br3KZMLKw1gh1AZW7OoM38ATCJuhb7hLCWJ1x4pQ=;
- b=Z7iZYlq5MaeEgFzCDP1jt0lsNuvHEZU3ghaQvsqOCpI/8wEbzIL9oYFs2mOjhoJJc3LiMWJvm
- aJ0Nb3u17hRCor4fkuR0WTR+GubUkJaj6DRkw7D0IgNqvDKlPzfvkaV
+ bh=R6tBpLfkSYlFbeXQtoe6ybjEQWYkSemCib35gwY2h1U=;
+ b=TXgPnutlRoNe0Wge8odd/KK0fuVD2uAR0WfDoS6ArpQ035gAW51sflvkhAFsNWcKhhMyL6i8n
+ 0ZwMaNU6wZfCYJLakp7ZO/1psakX+WO2MNId8kmjZxsuiURfTE1nDKN
 X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
  pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-/aliases entries added by a device-tree overlay are stored in the live
-tree but never enter the global aliases_lookup list that of_alias_scan()
-builds at boot. As a result, of_alias_get_id() returns -ENODEV for
-aliases declared inside overlays, and any driver that relies on
-alias-based numbering (i2c-xiic, spi, tty, mmc, ...) silently loses its
-pinned id and falls back to auto-assignment.
+When of_overlay_fdt_apply() is called with a non-NULL target base,
+find_target() currently concatenates the base's full path with every
+fragment's target-path via "%pOF%s" — so target-path="" resolves to
+the base itself (the intended common case), but target-path="/foo"
+resolves to "<base>/foo" (never the DT root) and target-path="/" to
+"<base>/" (never a valid node at all).
 
-The gap has been public since 2015 [1] and reproduces trivially: apply
-an overlay that declares e.g. `i2c99 = &foo;`, ask
-of_alias_get_id(foo, "i2c") -> -ENODEV. Bootlin's ELCE 2025 talk on
-PCI DT overlays [2] enumerates "i2c muxes" as one of the subsystems
-broken by dynamic overlays; alias pinning is the underlying cause.
+That makes it impossible for a two-fragment overlay to modify one
+subtree under the base and one node at the DT root — a shape that
+arises naturally when a PCI-attached device wants to declare its
+peripherals under dev_of_node(&pdev->dev) AND add /aliases entries
+so alias-aware drivers (i2c-xiic, spi, tty, ...) can pin bus numbers.
 
-The core fix (patch 1) is a reconfig notifier that mirrors /aliases
-property changes into aliases_lookup. Two smaller overlay-code fixes
-(patches 2 and 3) fall out of the same use case: without them, the
-notifier alone can't actually resolve overlay-declared aliases.
-
-Prior art
----------
-
-Geert Uytterhoeven posted a 3-patch RFC in June 2015 [1] with the same
-alias-tracking design shape. Grant Likely reviewed positively; merge
-was gated on missing unittests and an object-lifetime concern the
-author self-flagged, and the series was never reposted as non-RFC. Ten
-years later, drivers/of/overlay.c still contains zero references to
-aliases, of_alias_scan, or aliases_lookup.
-
-Series contents
----------------
-
-Patch 1 adds a reconfig notifier that mirrors /aliases property
-changes into aliases_lookup. It also refactors of_alias_scan()'s
-per-property body into a helper of_alias_create() shared by the
-boot-time scan and the runtime notifier. A one-bit `owned` flag on
-struct alias_prop distinguishes kmalloc'd (overlay-time) entries from
-memblock-backed (boot-time) ones so the remove path can't kfree the
-wrong storage — addressing the lifetime concern that stopped Geert in
-2015. The notifier keys off structural properties of the target node
-(name + root-parent) rather than the of_aliases global, so overlays
-that create /aliases from scratch on a system without a boot-time
-aliases node are covered too.
-
-Patch 2 fixes find_target() so an overlay applied with a non-NULL
-target base can still reach the DT root via target-path="/foo". The
-current code unconditionally concatenates base + target-path via
-"%pOF%s", so target-path="/aliases" resolves to "<base>/aliases" and
-target-path="/" produces "<base>/" (never a valid node). After this
-patch, an empty target-path continues to mean "the target base
-itself" — preserving the shape used by drivers/misc/lan966x_pci.c,
-the only in-tree caller of of_overlay_fdt_apply() that passes a
-non-NULL base — while any non-empty target-path is looked up
-absolutely.
-
-Patch 3 rewrites /aliases property values from the overlay's internal
-fragment path ("/fragment@N/__overlay__/...") to the live-tree path
-that the node will occupy after apply. The overlay code already does
-this for /__symbols__ via dup_and_fixup_symbol_prop(); /aliases uses
-the same textual convention and can reuse the same helper. Without
-this, patch 1's notifier receives paths that never resolve in the
-live tree, so of_alias_get_id() still returns -ENODEV.
-
-Patch 4 adds a unittest — overlay_alias.dtso plus
-of_unittest_overlay_alias() — that applies an overlay declaring
-`testcase-alias99` under /aliases and asserts of_alias_get_id() flips
-from -ENODEV to 99 across the apply, and back to -ENODEV across the
-revert.
-
-Open items — feedback wanted before v1
---------------------------------------
-
-Locking. of_alias_get_id() traverses aliases_lookup without a lock,
-which was safe when the list was populated once at boot. Runtime
-add/remove requires synchronization; this series does NOT yet add
-any. Options:
-
-  (a) protect aliases_lookup with a spinlock (simple, sheds the
-      lockless-lookup contract);
-  (b) convert to list_head_rcu + synchronize_rcu on remove (keeps
-      lookup lockless, more churn);
-  (c) piggyback on of_mutex — but of_alias_get_id() is called from
-      driver probe context, so grabbing of_mutex there risks lock
-      inversion.
-
-Currently leaning (b); happy to be talked out of it.
-
-Verification
-------------
-
-Series was applied to v7.2-rc3 and boot-tested on an x86 platform
-with two PCI-attached Xilinx FPGAs whose i2c-xiic controllers come
-from driver-embedded DT overlays. Before this series, i2c bus
-numbers auto-assigned regardless of what /aliases said and shifted
-across boots depending on which FPGA won the probe race. After: 89
-adapters, `/dev/i2c-N` numbering matches the overlay aliases exactly
-and is stable across reboots, `sensors` reads live telemetry through
-mux channels, and dmesg is free of WARN/BUG/Oops. Patch 4's unittest
-passes.
-
-[1] https://lore.kernel.org/lkml/1435675876-2159-1-git-send-email-geert+renesas@glider.be/
-    Geert Uytterhoeven, "[PATCH/RFC 0/3] of/overlay: Update aliases
-    when added or removed", 2015-06-30.
-[2] Hervé Codina, "Using Device Tree Overlays to Support Complex PCI
-    Devices in Linux", ELCE 2025.
-    https://bootlin.com/pub/conferences/2025/elce/codina-pcie-dt-overlay.pdf
+Treat target-path as absolute whenever it is non-empty. An empty
+target-path continues to mean "the target base itself", preserving
+the existing shape used by drivers/misc/lan966x_pci.c and its dtso
+(the only in-tree of_overlay_fdt_apply() caller today that passes a
+non-NULL base).
 
 Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 ---
-Abdurrahman Hussain (4):
-      of: incrementally update /aliases lookup on reconfig notifications
-      of/overlay: look up absolute target-paths absolutely
-      of/overlay: rewrite /aliases path values to live-tree paths
-      of: unittest: cover /aliases updates from overlay apply/revert
+ drivers/of/overlay.c | 34 ++++++++++++++++------------------
+ 1 file changed, 16 insertions(+), 18 deletions(-)
 
- drivers/of/base.c                           | 184 ++++++++++++++++++++++------
- drivers/of/of_private.h                     |   7 ++
- drivers/of/overlay.c                        |  47 ++++---
- drivers/of/unittest-data/Makefile           |   2 +
- drivers/of/unittest-data/overlay_alias.dtso |   9 ++
- drivers/of/unittest.c                       |  51 ++++++++
- 6 files changed, 246 insertions(+), 54 deletions(-)
----
-base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
-change-id: 20260719-nh-of-alias-overlay-6e5e0d56212b
+diff --git a/drivers/of/overlay.c b/drivers/of/overlay.c
+index 08d5351746be..654a70d5cb07 100644
+--- a/drivers/of/overlay.c
++++ b/drivers/of/overlay.c
+@@ -693,7 +693,6 @@ static struct device_node *find_target(const struct device_node *info_node,
+ 				       const struct device_node *target_base)
+ {
+ 	struct device_node *node;
+-	char *target_path;
+ 	const char *path;
+ 	u32 val;
+ 	int ret;
+@@ -709,23 +708,22 @@ static struct device_node *find_target(const struct device_node *info_node,
+ 
+ 	ret = of_property_read_string(info_node, "target-path", &path);
+ 	if (!ret) {
+-		if (target_base) {
+-			target_path = kasprintf(GFP_KERNEL, "%pOF%s", target_base, path);
+-			if (!target_path)
+-				return NULL;
+-			node = of_find_node_by_path(target_path);
+-			if (!node) {
+-				pr_err("find target, node: %pOF, path '%s' not found\n",
+-				       info_node, target_path);
+-			}
+-			kfree(target_path);
+-		} else {
+-			node =  of_find_node_by_path(path);
+-			if (!node) {
+-				pr_err("find target, node: %pOF, path '%s' not found\n",
+-				       info_node, path);
+-			}
+-		}
++		/*
++		 * With a non-NULL @target_base, an empty target-path means
++		 * "the target base itself" — this is the common
++		 * of_overlay_fdt_apply(..., base) form used by e.g. the
++		 * LAN966x PCI overlay. Any other target-path is looked up
++		 * absolutely, so overlays that also need to reach the DT
++		 * root (e.g. to add /aliases entries alongside a base-
++		 * relative fragment) can do so with target-path="/aliases".
++		 */
++		if (target_base && path[0] == '\0')
++			return of_node_get((struct device_node *)target_base);
++
++		node = of_find_node_by_path(path);
++		if (!node)
++			pr_err("find target, node: %pOF, path '%s' not found\n",
++			       info_node, path);
+ 		return node;
+ 	}
+ 
 
-Best regards,
---  
-Abdurrahman Hussain <abdurrahman@nexthop.ai>
+-- 
+2.54.0
 
