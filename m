@@ -1,118 +1,119 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 115BE21A42D
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 23:16:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8AFA255F2C;
+	Mon, 20 Jul 2026 23:52:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784589417; cv=none; b=ZIZxobQTKIFpVJmTlS/maRp9e4Tm8JRoPdLViRkXDUQ9XwlwL22dT5mIk3H3uS4bwhgjjJwzA/KPJIrst6YlbRC8nPeCH1yLBjj2jrEJnBRORLIzXuMzwFyPWW8yYfou1XLi9zEjILRpkbEkAVGuUUXl11CA0SlBP9zuPjeK3Nc=
+	t=1784591524; cv=none; b=tDfHHhDG0TFiHD4gnRftBiCEzsab6P8/8YfBiF5qjr0jT+qwIxf0T1zxW8p+Dmq+U9GieZ5BCEeI2PKLWY+9HYobueI/hxlkPi0Xj4O4Ltg2WLMOB41yoUwBNMNg5XQpodfmWp9U+VUAs6ljosLwvj6x1iAkQYd8NQhJc0O4KN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784589417; c=relaxed/simple;
-	bh=9Yj9ZWRDrdzmRKYdoAn+kCtmpfgcX9zHdJicsV+ghV4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=o2mGPsdjcyUyvsMqWkqkBxHqxMbMPVtfWIcYutuL94qGeNh6/ANCKy88yYBN5Oviy2VGH/H2Tbpld+XowUGVSGiaKET/viHfW4WslZOdjf1mcuiOUlD6oMMsQAuJFIs2y90yN1xeeo3GL79lCuaZkq6swRqy2mzBNaha3iUlvRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=hLxtapdA; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1784591524; c=relaxed/simple;
+	bh=CkrRlCIrfvheexTh5cz3w4CkRVZ0XtKDJ4/5Eq7/uV4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Fm8lBEJJ552oi9MO1Cfku/a8tqL0C++XkAryl6lUwAkviIW55yhMuwuT7qhuHGO7ma/B8zB2tZU5KdjLI5iZyywHqtk9/1isXaUsRmmqM457IVkB3eyXFk1lVBTvEIih332gkrnTCxzjVpHVDjqgLnM62COcroTe6qxrdjrfNfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WP7753De; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="hLxtapdA"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C2939143D;
-	Mon, 20 Jul 2026 16:16:48 -0700 (PDT)
-Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8B4C73F66F;
-	Mon, 20 Jul 2026 16:16:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1784589412; bh=9Yj9ZWRDrdzmRKYdoAn+kCtmpfgcX9zHdJicsV+ghV4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=hLxtapdAHP7mT+Bg5vDVV0WBmUf5Ux2fUMCgjeX//8C0DujVq8phw929NWTkvAbgC
-	 UPDE8GW+WX3FHUNAAQ26CVAnXvIwQEU4aaqL/6MIQa9O9FRJy5EGmKhfFVs4Vn0bpa
-	 WKCQ/a9TIGOWsjXayXNIuZ7DONGv1FPn3mHPgJ3g=
-Date: Tue, 21 Jul 2026 01:13:05 +0200
-From: Andre Przywara <andre.przywara@arm.com>
-To: sashiko-bot@kernel.org
-Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org,
- devicetree@vger.kernel.org, robh@kernel.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH] arm64: dts: allwinner: a523: x96qpro+: overvolting eMMC
-Message-ID: <20260721011305.5167d19e@ryzen.lan>
-In-Reply-To: <20260720215035.ED2D51F000E9@smtp.kernel.org>
-References: <20260720213832.3763-1-andre.przywara@arm.com>
-	<20260720215035.ED2D51F000E9@smtp.kernel.org>
-Organization: Arm Ltd.
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WP7753De"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4B721F000E9;
+	Mon, 20 Jul 2026 23:52:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784591523;
+	bh=un0HAXYDHaLg43irNjzxBpMC77LeLjvYUBSeZ989yPg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WP7753DeRuEIDXgLjEOLnPEizjxGMvhE5CHcfqnsPwdXqWxCmF86VsTRUw3nh/xwt
+	 j6NIh3TjZINDoE7YkV3H1l/h4Un1CF6VAIGV2MIg2dGRjRyw6oRSKDSCIEh+YGvF2y
+	 gzy1mKikJJpNW9h1hFzWrxdh5QdAgAfFs66o5ARPCvkIBN+8X3g8MmHthBMxmAqXYr
+	 tJUOvmDz8NeBq9R/gUz4R5WradvvTOoAuTeEQRky0uq8HMuaNP52QuP1vgb5+NQo4x
+	 Oghn9h0tIT0ibG767aTesdSLkqobMb150KINw8OJs5EB52T0L6J+F8mVIle+LyxhNS
+	 1pItL7WSABIRA==
+From: Jakub Kicinski <kuba@kernel.org>
+To: joey@tinyisr.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	netdev@vger.kernel.org,
+	horms@kernel.org,
+	pabeni@redhat.com,
+	edumazet@google.com,
+	davem@davemloft.net,
+	olteanv@gmail.com,
+	andrew@lunn.ch,
+	devicetree@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	arinc.unal@arinc9.com,
+	Landen.Chao@mediatek.com,
+	dqfext@gmail.com,
+	sean.wang@mediatek.com,
+	daniel@makrotopia.org
+Subject: Re: [PATCH net-next v6 4/4] net: dsa: initial support for MT7628 embedded switch
+Date: Mon, 20 Jul 2026 16:52:01 -0700
+Message-ID: <20260720235201.466172-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260704105659.140970-5-joey@tinyisr.com>
+References: <20260704105659.140970-5-joey@tinyisr.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 20 Jul 2026 21:50:35 +0000
-sashiko-bot@kernel.org wrote:
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+---
+net: dsa: initial support for MT7628 embedded switch
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] Bumping the eMMC IO regulator (`reg_cldo1`) to 1.9V inadvertently misconfigures the SoC's IO bank (Port C) into 3.3V power mode instead of 1.8V mode, creating a logic threshold mismatch.
+This patch adds a DSA driver for the MT7628 embedded switch, which has
+five 100Mbps user ports and a 1Gbps CPU port. tag_8021q is used to
+isolate ports via the switch's 16-entry VLAN table, with the double tag
+feature enabled to simulate VLAN-unaware behaviour.
 
-Huh, that's interesting, but might actually point to the real root
-cause: it seems like the meaning of the bits in the withstand register
-is inverted on the A523: 0 encodes 1.8V, a 1 encodes 3.3V. But that's
-the opposite of the H6 definition, which we use in the kernel for the
-A523 as well. Which means they were wrongly programmed before, but now
-the wrong voltage selection turns out to trigger the really correct
-setting.
+> diff --git a/drivers/net/dsa/mt7628.c b/drivers/net/dsa/mt7628.c
+> new file mode 100644
+> index 000000000000..eccdb05fce9b
+> --- /dev/null
+> +++ b/drivers/net/dsa/mt7628.c
 
-So I will try playing around with those registers instead.
+[ ... ]
 
-Cheers,
-Andre.
+> +static const struct dsa_switch_ops mt7628_switch_ops = {
+> +	.get_tag_protocol = mt7628_get_tag_proto,
+> +	.setup = mt7628_setup,
+> +	.teardown = mt7628_teardown,
+> +	.port_enable = mt7628_port_enable,
+> +	.port_disable = mt7628_port_disable,
+> +	.phylink_get_caps = mt7628_phylink_get_caps,
+> +	.tag_8021q_vlan_add = mt7628_dsa_8021q_vlan_add,
+> +	.tag_8021q_vlan_del = mt7628_dsa_8021q_vlan_del,
+> +};
 
+[Medium]
+How is a user expected to place two of the user ports into a Linux bridge?
 
-> --
-> 
-> --- Patch [1]: [PATCH] arm64: dts: allwinner: a523: x96qpro+: overvolting eMMC ---
-> commit e4c261c388d6e406babdf0d56ac61d104d537230
-> Author: Andre Przywara <andre.przywara@arm.com>
-> Date:   Mon Jul 20 21:38:32 2026 +0000
-> 
-> arm64: dts: allwinner: a523: x96qpro+: overvolting eMMC
-> 
-> This commit changes the eMMC IO regulator voltage on PortC from 1.8V to 1.9V
-> for the X96QPro+ device. The goal is to improve eMMC stability and performance
-> without drastically limiting the clock frequency.
-> 
-> > diff --git a/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts b/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts
-> > --- a/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts
-> > +++ b/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts
-> [ ... ]
-> > @@ -194,8 +194,8 @@ reg_bldo4: bldo4 {
-> >  
-> >  			reg_cldo1: cldo1 {
-> >  				regulator-always-on;
-> > -				regulator-min-microvolt = <1800000>;
-> > -				regulator-max-microvolt = <1800000>;
-> > +				regulator-min-microvolt = <1900000>;
-> > +				regulator-max-microvolt = <1900000>;
-> 
-> [Severity: High]
-> Does bumping this regulator to 1.9V inadvertently force the SoC's IO bank
-> (Port C) into 3.3V power mode?
-> 
-> Looking at sunxi_pinctrl_set_io_bias_cfg() in
-> drivers/pinctrl/sunxi/pinctrl-sunxi.c, the driver uses a strict check when
-> evaluating the voltage:
-> 
->     case BIAS_VOLTAGE_PIO_POW_MODE_SEL:
->         val = uV <= 1800000 ? 1 : 0;
-> 
-> Since 1900000 is greater than 1800000, this evaluates to 0 and clears the
-> PIO_POW_MOD_SEL register bit, incorrectly configuring the IO bank for 3.3V
-> mode while being powered at 1.9V.
-> 
-> Could this mismatch alter input receiver thresholds and drive strengths,
-> potentially causing signal integrity issues or long-term hardware
-> degradation?
-> 
-> >  				regulator-name = "vcc-codec-sd";
-> >  			};
-> 
+The ops table does not implement port_bridge_join or port_bridge_leave,
+so dsa_switch_bridge_join() in net/dsa/switch.c returns -EOPNOTSUPP:
 
+    if (!ds->ops->port_bridge_join)
+        return -EOPNOTSUPP;
+
+That makes ip link set swpN master brX fail for every user port, which
+seems to contradict the commit message:
+
+    The switch hardware has a very limited 16 entry VLAN table.
+    Configuring VLANs is the only way to control switch forwarding.
+    Currently 6 entries are used by tag_8021q to isolate the ports.
+
+Without a port_bridge_join hook, dsa_tag_8021q_bridge_join() is never
+invoked, so there is no path to migrate a port's tag_8021q VID from its
+standalone VID to a bridge VID.
+
+Would wiring the tag_8021q helpers directly, similar to what
+vitesse-vsc73xx-core.c does, be sufficient here:
+
+    .port_bridge_join = dsa_tag_8021q_bridge_join,
+    .port_bridge_leave = dsa_tag_8021q_bridge_leave,
+
+Related bridge-lifecycle callbacks such as port_stp_state_set,
+port_pre_bridge_flags, port_bridge_flags and port_fast_age also appear
+to be absent, is that intentional for this initial submission?
