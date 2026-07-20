@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B9D226CFE
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 01:26:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3201B1DA23
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 01:26:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784510764; cv=none; b=t6mcDSADXV/u+ZQmJfDp54sfgS/ye+ZZmfin6FMVKDhDkZ862eTg1pQj0P4c4Ygz6Y0VGuLUdNS7uSDwjHrETkHSLzESiKk1JMEwbHypgEcS9Rvy52+ez8wiMujwFSZyezpqP9hq8Y6XV4AFnxeQqw5B0XMRhKoOaCOmXOUokRg=
+	t=1784510813; cv=none; b=YHA9ZHZ6XZBJhVAngmHfspP9MWWy1djiNJCCoupNnkbUy7tibfuk73WzqG5h5qQ8hjfBKjiq+pTPIzJe2KBTLOYxd02SjQclTwqUeQOPk74/GNh+yT8RkHx6OHvY7sK8R+VyJf0uU+J484j5Xl4S0Z4l7djU0SsnD0dnY0lSgfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784510764; c=relaxed/simple;
-	bh=Mnydbi3uAHKvPeeWaJGjfxlY8Txt35RYVnwYbuO40Xo=;
+	s=arc-20240116; t=1784510813; c=relaxed/simple;
+	bh=XTq+SQN9ITzxvHXFUzXS1ScboasspbyaAssi4k62B50=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nHVZOQFij0FkOMMLRMvQiVZCh64Ym3SsFsiB18tsgtwocrMkA3F21jcBP1OYozTs411ceKue/GDCmmsZ1WNI8659Kqy1GQxkLoJIfSDvPKd9S/sLZZbKMnvG3a5jYTs783yqTgtYJedeMeS0BJ510ua4fLdcX1Fl2GFJq5DUdaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gNoTGlOE; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=uW3RAf2Gw+aarNoE3kQT+0/LXwGXxo4Er36yDNkgEiOgdXrDhW2dvtcexdrDljKMjxCsTF0/0gwCR4lZ2O559yC/RHJ4xuFEp2i7BX6/d2/wgtXreE7gDJ8x3gn7730aQIA+uVAe9Gi7nBaV5iJwi/YKTYVH3ONliToyuMNGvaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oJtpuH9s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gNoTGlOE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFC041F00A3A;
-	Mon, 20 Jul 2026 01:26:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oJtpuH9s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82D0C1F000E9;
+	Mon, 20 Jul 2026 01:26:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784510763;
-	bh=8lR17PS+Su8iOHaA3iQrEy5VgOMzAQMSv3w+U50wEfo=;
+	s=k20260515; t=1784510811;
+	bh=XznSamwdGo73CC+77845LBbvDQOwV9BNBGOVTxGT7zI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gNoTGlOEcxuieLRgArLhEcNJl0gOUGkQNx64onWWtEna8aV9bvd9bwBrT4k9AO+MA
-	 Buunxi9VxqQAD7LX7frJ4FKEy+qRY7jWMBFmMPnSwE8a6K/LfD6kfZ9TrdULZkZ0H1
-	 1p0bShqxkXr9FvnXQttMF+Y1HXmzKnBFhQ/j+IybWImb4/okh4SbzzTLs33vqm1i7n
-	 Uf/E6uO6eptnomDXwdD+EBCMBWRe4sFmQ2/pk8/V/6mnYcutDqg6q/eoNPPQ6/RSq9
-	 dzk9aPzkNeUzbwcp6pXcl9CAmGAIyQ1jQrY0IWrmvmZyAeDSPPJdeKqG+zsNs0wJZP
-	 ULYuj75xRCvHQ==
+	b=oJtpuH9sruh67IzPKvkDEECv3zqKbW8nsu5C9WmW4Xzih6I2wzn8ZIWFj2KJWofyQ
+	 WKlZiwXv7wgr+i3lh1JMCxU84hNJQIQTw/Zsl2AkhjjM/8BBEZaHOGghBAN+M+zAvo
+	 IWGu/OtZyktxwHdauHjdcm/lpvmVub8sXWeDIXgwb40WBcJ+PCkIsoqQwbpC75PArv
+	 pclSTOsyi+Cy53plT+8UPNl0cVsJ3g+Nplvf/k9RClAWDMLdS1qIoG3O6BTzvFE7f5
+	 8aQ2w5HKEvQuMYssihBwy9SRBWL+bdTQzqUCwhfYXzLmyzL3H5lnrq/XzWFX706IuZ
+	 n0VPMjjJJ9tEQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY
- driver
+Subject: Re: [PATCH v2 1/4] power: supply: Add registration init callback
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?QnJ5YW4gTydEb25vZ2h1ZQ==?= <bryan.odonoghue@linaro.org>
-Cc: media-ci@linuxtv.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org, vkoul@kernel.org, olteanv@gmail.com, robh@kernel.org, linux-phy@lists.infradead.org, conor+dt@kernel.org
-In-Reply-To: <20260720-x1e-csi2-phy-v13-2-160c31958863@linaro.org>
-References: <20260720-x1e-csi2-phy-v13-0-160c31958863@linaro.org>
- <20260720-x1e-csi2-phy-v13-2-160c31958863@linaro.org>
+To: "Vincent Cloutier" <vincent.cloutier@icloud.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260720011144.1280219-2-vincent.cloutier@icloud.com>
+References: <20260720011144.1280219-1-vincent.cloutier@icloud.com>
+ <20260720011144.1280219-2-vincent.cloutier@icloud.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 01:26:02 +0000
-Message-Id: <20260720012602.DFC041F00A3A@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 01:26:51 +0000
+Message-Id: <20260720012651.82D0C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,102 +46,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Valid calculated settle_cnt of 0 is treated as an error
-- [Medium] Polarity configuration overwrites the entire CTRL9 register inst=
-ead of using read-modify-write
+
+New issues:
+- [High] Driver hardware resources tied to the parent device will outlive p=
+sy on registration failure, causing dangling pointers.
+
+Pre-existing issues:
+- [High] Missing cancel_work_sync(&psy->changed_work) on the __power_supply=
+_register error path leads to a Use-After-Free if changed_work is queued.
 --
 
---- Patch [2]: [PATCH v13 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY dr=
-iver ---
-commit 1d21f0b236808ec690ca4bbd5ac6190e2c2c873b
-Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Subject: phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+--- Patch [1]: [PATCH v2 1/4] power: supply: Add registration init callback=
+ ---
+commit 7157b5979312471cbd162dd14b7a0dbf059d5a5a
+Author: Vincent Cloutier <vincent@cloutier.co>
 
-Add a new MIPI CSI2 driver in DPHY mode initially. The entire set of
-existing CAMSS CSI PHY init sequences are imported in order to save time
-and effort in later patches.
+power: supply: Add registration init callback
+   =20
+Some battery drivers need to consume monitored-battery data before their
+power_supply is visible. That lets them prepare hardware configuration from
+parsed battery information without racing userspace exposure.
 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c b/drivers=
-/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-[ ... ]
-> +static int phy_qcom_mipi_csi2_lanes_enable(struct mipi_csi2phy_device *c=
-si2phy,
-> +					   struct mipi_csi2phy_stream_cfg *cfg)
-> +{
-> +	const struct mipi_csi2phy_device_regs *regs =3D csi2phy_dev_to_regs(csi=
-2phy);
-> +	struct mipi_csi2phy_lanes_cfg *lane_cfg =3D &cfg->lane_cfg;
-> +	u8 settle_cnt;
-> +	u8 val;
-> +	int i;
-> +
-> +	if (cfg->link_freq <=3D 0)
-> +		return -EINVAL;
-> +
-> +	settle_cnt =3D phy_qcom_mipi_csi2_settle_cnt_calc(cfg->link_freq, csi2p=
-hy->timer_clk_rate);
-> +	if (!settle_cnt)
-> +		return -ENODEV;
+> diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power/sup=
+ply/power_supply_core.c
+> --- a/drivers/power/supply/power_supply_core.c
+> +++ b/drivers/power/supply/power_supply_core.c
+> @@ -1624,6 +1624,14 @@ __power_supply_register(struct device *parent,
+>  	init_rwsem(&psy->extensions_sem);
+>  	INIT_LIST_HEAD(&psy->extensions);
+> =20
+> +	if (desc->init) {
+> +		rc =3D desc->init(psy);
 
 [Severity: High]
-Should a return value of 0 from phy_qcom_mipi_csi2_settle_cnt_calc() be
-considered valid?
+If a driver implements desc->init() to configure hardware interrupts or
+timers that receive the psy pointer as their context, how are those resourc=
+es
+cleaned up if a subsequent step like device_add() fails?
 
-If the timing parameters yield exactly 6 for t_hs_settle_ps / timer_period_=
-ps,
-the calculation evaluates to 0. This then causes the lane enable sequence to
-fail here with -ENODEV.
+Because there is no desc->exit() or similar teardown callback, the driver
+has no hook to synchronously stop its asynchronous resources before the core
+subsystem frees psy via put_device() on the error path. If an interrupt
+fires before the driver's probe error handling runs, will it dereference the
+freed psy pointer?
 
-Could phy_qcom_mipi_csi2_settle_cnt_calc() return a negative error code for
-invalid timings instead of overloading 0 as an error value?
+[Severity: High]
+This isn't a bug introduced by this patch, but this change might make it
+reachable. If a driver's desc->init() triggers an interrupt that legitimate=
+ly
+calls power_supply_changed(psy), it queues psy->changed_work.
 
-> +
-> +	/*
-> +	 * CSI_COMMON_CTRL5 is a physical lane power-up bitmap:
-> +	 * - Bits [0,2,4,6] =E2=86=92 D-PHY data lanes(LN0, LN2, LN4, LN6)
-> +	 * - Bits [1,3,5] =E2=86=92 C-PHY trio lanes(LN1, LN3, LN5)
-> +	 * - Bit [7] =E2=86=92 D-PHY clock lane(LNCK) dedicated clock enable
-> +	 */
-> +	val =3D BIT(lane_cfg->clk.pos);
-> +	for (i =3D 0; i < cfg->num_data_lanes; i++)
-> +		val |=3D BIT(lane_cfg->data[i].pos * 2);
-> +
-> +	writel(val, csi2phy->base +
-> +	       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, 5));
-> +
-> +	/* Lane configuration for polarity @ CSIPHY-base + CTRL9 */
-> +	for (i =3D 0; i < cfg->num_data_lanes; i++) {
-> +		if (lane_cfg->data[i].pol) {
-> +			u8 pos =3D lane_cfg->data[i].pos;
-> +
-> +			writel(BIT(2), csi2phy->base + CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(pos * =
-2));
+If a subsequent registration step such as device_add() fails,
+__power_supply_register() jumps to the error path and unconditionally frees
+psy:
 
-[Severity: Medium]
-Does this writel() unintentionally clobber other bits in the
-CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n register?
+__power_supply_register() {
+    ...
+    device_add_failed:
+    check_supplies_failed:
+    dev_set_name_failed:
+        put_device(dev);
+        return ERR_PTR(rc);
+}
 
-A direct write of BIT(2) will zero out all other bits in the register. Shou=
-ld
-this be a read-modify-write sequence to preserve hardware defaults or
-calibrations?
+The error path doesn't cancel psy->changed_work. When the workqueue executes
+the pending work, will it access the freed psy memory? Could a
+cancel_work_sync(&psy->changed_work) be added to the error path?
 
-Additionally, if polarity configuration is disabled, the register is not
-written at all, which might leave it in an inconsistent state if it was
-previously modified.
-
-> +		}
+> +		if (WARN_ON_ONCE(rc > 0))
+> +			rc =3D -EINVAL;
+> +		if (rc)
+> +			goto check_supplies_failed;
 > +	}
 > +
-> +	if (lane_cfg->clk.pol)
-> +		writel(BIT(2), csi2phy->base + CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(lane_cf=
-g->clk.pos));
-> +
-> +	val =3D CSIPHY_3PH_CMN_CSI_COMMON_CTRL6_COMMON_PWRDN_B;
+>  	rc =3D device_add(dev);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720-x1e-csi2-p=
-hy-v13-0-160c31958863@linaro.org?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720011144.1280=
+219-1-vincent.cloutier@icloud.com?part=3D1
