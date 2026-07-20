@@ -1,107 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967D54252AB;
-	Mon, 20 Jul 2026 13:19:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B746B406261;
+	Mon, 20 Jul 2026 13:27:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784553589; cv=none; b=QyO+IkcKTYVOHI0aVXV9VZEyn4MvLqNmo0vnbvBqzRyElQM24zGCbJl3L2kYRo1ISEB+0CMTfyERC6vprBqcDa6uFIlr/jWh/zfN8F+tdyePrReFOteL7YdnL/qk2zDE4RNIa2NScU+0CUsyk4Bd2saLTVYTvPhqshSHhitt/Ug=
+	t=1784554036; cv=none; b=JaNQnk2+dAgRSD4148R3SAMAVBHzQe/TMCbVa377+4dcXjIUnI5vUgt3P3OW44g/s84J56aU/YwP5NEEEZczfOtXjtCup0q5QRBb4YoP16R5FURtP17tT0YAfYGesSL94WChfgHrqwi/LeMcLkbAssJfoKSF+fDqlAUHao1HWV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784553589; c=relaxed/simple;
-	bh=RS3A4nuEP3HMeGSV8yRT+qbaALrugi0tf7bndZ8rj5E=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=sE90isKMHCGKnd00JyDBBkSinG/kACFiB495p18RLw+ePHs1jYrhuIYNftWYNvQOPodGXulK0IafVVGQMNMJfU3T4R+uEUrPI+8DYjGIzgW9TUEfRKbDMep8cMN/I05gXyzgwbFPPEi6kfcIciQm4Y9/cFynumzBz/VN+Dsigvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RJAEyx0I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784554036; c=relaxed/simple;
+	bh=5miUtceH7EkaTGDhqxpZugrO4o05sy5fiYaqxmWb1w0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=m3L3GmZDeUXsIP7mbORHiuyCqHX10V0kQ1ItTMliQ2ZlvwTa/d8bXW4E5NPceONOmHXNujv3d5gdJ+3T43/LPIFbQyvOxjE+mi8BLB0EXolVzxVj4oepZFCjGh8gtzNgqYkrfs/v0Wvj/cYI7pdZuUiczrOk1t7GRUppqch5x8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=HQM0sKz+; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RJAEyx0I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD9DA1F000E9;
-	Mon, 20 Jul 2026 13:19:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784553588;
-	bh=t1wj9rO2IFSB7dG85CS2DKBofK1j0YFHepGvJf5rT3s=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=RJAEyx0I65vZuDBLMieKBOi12vn9+6zyKx/1/QpyNKNAfaL90p3fOTtVlDgIaSgKW
-	 FRcmTK2DYvf4VdaTUbSqF9IRMS0W3V5v2B+pdHdNKfTpxICm7IGrd50c2ps88de78x
-	 BPcB2YQov6UAxvlmqicxETfj081fvhZ+8e4ZrIvTTKnQic6yvtPN6h5RgTnBLbAFJR
-	 obYpr1ftUO4qsLFljILczGiY6bU7PD/2fPQJLQHg56afr977K0rsoYBespY/Txr890
-	 zhuUDddfSecAsEr3yauRQZtEGRU7csuFPtsBFJvKSlKrAPQgcW8kRnsAiw5KHv00mA
-	 GZ4PoTFmqiuDA==
-From: Mark Brown <broonie@kernel.org>
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com, 
- claudiu.beznea@tuxon.dev, tudor.ambarus@linaro.org, 
- linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- daniel.machon@microchip.com, Robert Marko <robert.marko@sartura.hr>
-Cc: luka.perkov@sartura.hr
-In-Reply-To: <20260709112006.390742-1-robert.marko@sartura.hr>
-References: <20260709112006.390742-1-robert.marko@sartura.hr>
-Subject: Re: (subset) [PATCH v2 0/5] spi: atmel-quadspi: add support for
- LAN969x
-Message-Id: <178449573326.33801.6246293549401710520.b4-ty@b4>
-Date: Sun, 19 Jul 2026 22:15:33 +0100
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="HQM0sKz+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1784554032;
+	bh=5miUtceH7EkaTGDhqxpZugrO4o05sy5fiYaqxmWb1w0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=HQM0sKz+XYpSU/sZ6EC7nF8oDHXBiRNCpZPABC56U5ilYJAZ47sxxMfXIDdksNKWh
+	 hJXV1ZE7O978ptTBR5m8cyRYOzbx8UuWKkNuTWN5w00XBTYyPwu7kQz93w4m4nQO2h
+	 EnzCvTA1xDpsC/RMv9J+as/7B6LSWNuI4Jb6lZJTjtbpQ/q4E7VM3bc7KihwRTPq/J
+	 2OmBXxvjGO7dlDLujPv3Lgym9YDi9IvvBUMs5cmAKP1CVDWfkva6B2MfM/ctdX14wh
+	 k20kEZNcXkZqZLnqjuMFxBdGCkO4A+1C6oaelbY0qBuh27UCYxmQWBoDjxge+I/iOU
+	 wn6o1504mPnjg==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 43D3C17E003B;
+	Mon, 20 Jul 2026 15:27:12 +0200 (CEST)
+Message-ID: <4fa4fb82-2118-4ddf-9b8c-510b58835b5f@collabora.com>
+Date: Mon, 20 Jul 2026 15:27:11 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: soc: mediatek: pwrap: Add compatible for
+ MT6589 SoC
+To: Akari Tsuyukusa <akkun11.open@gmail.com>, Sen Chu <sen.chu@mediatek.com>,
+ Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>,
+ Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Flora Fu <flora.fu@mediatek.com>, Alexandre Mergnat <amergnat@baylibre.com>
+Cc: "open list:MEDIATEK BOARD LEVEL SHUTDOWN DRIVERS"
+ <linux-pm@vger.kernel.org>,
+ "open list:MULTIFUNCTION DEVICES (MFD)" <mfd@lists.linux.dev>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ "open list:ARM/Mediatek SoC support" <linux-kernel@vger.kernel.org>,
+ "moderated list:ARM/Mediatek SoC support"
+ <linux-arm-kernel@lists.infradead.org>,
+ "moderated list:ARM/Mediatek SoC support"
+ <linux-mediatek@lists.infradead.org>
+References: <20260716171733.300885-1-akkun11.open@gmail.com>
+ <20260716171733.300885-2-akkun11.open@gmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260716171733.300885-2-akkun11.open@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1648; i=broonie@kernel.org;
- h=from:subject:message-id; bh=RS3A4nuEP3HMeGSV8yRT+qbaALrugi0tf7bndZ8rj5E=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqXiBwa279Sq/RYQDqepDpqicloWUrSZH8jqeiC
- zIt9NkMUK+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCal4gcAAKCRAk1otyXVSH
- 0EMyB/wOwEJ29FLnLGCz/y439VZjhPyOPJ5TedoETV4llxTFgGYVB/ttvrO2+0SQvtZKsauW1eB
- CNZI3Kiqp+fD8A550M4dAkVUPAtPkKx6ycObK7/Zpehilm3Is7RR8XKJflpPmsOCmvo9xgFgsB7
- 6j2QkBVKqdxCkUx5W+qxdYymSCcmmB+yddxYtcm/ylOU4uGG2mixZr3jbF57/bSo9ta6i8UiZa+
- pwNA939LR0MD9HsHlLDMyTk13wryluffarhR8ePLsnwzvTdkXG+lkcHu4cc1lSomXGtwnTqFMxJ
- 2wVIlharDEtJzlu3orV3fdBSVrNmpGg9HWmwwZDh030sG45V
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, 09 Jul 2026 13:19:06 +0200, Robert Marko wrote:
-> spi: atmel-quadspi: add support for LAN969x
+On 7/16/26 19:17, Akari Tsuyukusa wrote:
+> Add compatible string for MediaTek MT6589 PWRAP.
+> Also update the description since MT6589 has pwrap bridge.
 > 
-> This series adds QSPI support for the Microchip LAN969x which has two QSPI
-> controllers based on SAMA7G5.
+> Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
+> ---
+>   .../devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml     | 5 +++--
+>   1 file changed, 3 insertions(+), 2 deletions(-)
 > 
-> It requires pad calibration, supports DMA, and supports 100 MHz operation.
-> 
-> [...]
+> diff --git a/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml b/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
+> index e7c4a3984c60..a487ed39e6cb 100644
+> --- a/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
+> +++ b/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
+> @@ -19,8 +19,8 @@ description:
+>   
+>     IP Pairing
+>   
+> -  On MT8135 the pins of some SoC internal peripherals can be on the PMIC.
+> -  The signals of these pins are routed over the SPI bus using the pwrap
+> +  On MT6589 and MT8135, the pins of some SoC internal peripherals can be on the
 
-Applied to
+Soon, this will become
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.3
+"On MT6589, MT8135, MT1234, MT3456, MT...." :-)
 
-Thanks!
+So, perhaps, it's a better idea if we say:
 
-[1/5] dt-bindings: spi: Document LAN969x QSPI
-      https://git.kernel.org/broonie/spi/c/f718ea6cb3f3
-[2/5] spi: atmel-quadspi: add controller init callback
-      https://git.kernel.org/broonie/spi/c/cbbd5a945e85
-[3/5] spi: atmel-quadspi: use init callback for gclk variants
-      https://git.kernel.org/broonie/spi/c/b881f1d8d1df
-[4/5] spi: atmel-quadspi: add LAN969x QSPI support
-      https://git.kernel.org/broonie/spi/c/a3e4130b6ef9
+"In some SoCs, some of the internal peripherals may be accessible only
+through the PMIC.
+The signals of these pins are routed (blahblah)"
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Cheers,
+Angelo
 
