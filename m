@@ -1,285 +1,183 @@
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 248D93998A4
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 03:58:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784519900; cv=pass; b=cZsh6PKJWHuBn+Rf056Z3NTOs9qKIOdrdz06buPqebZr6llACt4DitkU9GdGIXEZJssYx/ekYzJOTXxSP4Fp5a3WIMyh2wsCDlIuqUh3lF5mEwwEAMHdHsfHCvCyUb34L3WFMKYyhkHz52FQ2shi1mSbjtogByZAfqdzXwAU/TU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784519900; c=relaxed/simple;
-	bh=dxh3xd7dwLFCm9HEMceZqX5OiKkpL2P9khsPdjNvBTM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=j/J00+VwADb2J6sgqD2LFDaVkLV7MVcsXtwMvaKyLW3otKl+Mm32eg06+MSJRSvobMPuPs77fqQ8FCfufSmbpiyDTc+8eo9PkBriNDRnEw+ffxiqsHdm7SyT5gFjteY2fmaqqhwo0cLDqsFG/KoezSq/ndNpp9Od4eEI71ZAeSw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=fTlCFaSe; arc=pass smtp.client-ip=209.85.128.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C74D9823DD
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 04:20:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784521237; cv=none; b=sDpHJDudX0Pn5P7xTaSsgIHVR5JtmNYAgqgnwgghMG4ZXByCsUWrqIjR+8lQVfHSxVE+pbc0sKgWnGJrn6pi2QcdStrS4ggsIer5JcznWh+KXLXEiuPBl+vNoifVKJis8xbhc0xj88+zCV/ajpdzB4pN0V0MieI9fF441pH+Vyk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784521237; c=relaxed/simple;
+	bh=E4JHbghLLembw2CZb8ehSnFDHUhSgViIfXEj7mbvCgw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gCMvbVVpcse1vOEZaZU8VcwdKsbNUVE2T/e0K0UYkL9RNTFxdNeqjCKCDYkcHGc3nyGwAoNCJNQWCpBYpmus3g2vM+p2S5vk/eJoec+mFBUWGBEO7vMYYHezQs5HS23SpuDKG7rTOHWUJqXUNWgFxCaGBOqx83KMBjiXBfVx5dw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DV2sj50M; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XkUfqx8S; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="fTlCFaSe"
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-81ecf499af9so61981027b3.1
-        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 20:58:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784519896; cv=none;
-        d=google.com; s=arc-20260327;
-        b=s/bdQUwsmPIDJhwyoLSEX+yK7LAtp+nwbUNGxb6vtTdeqhh0bHQPVfjcW0GZ3v3qrB
-         qhAtgUpqv5fSA2alu+oqcpBFhqIvhsggy7otTQspN2bIuzT3K5GQSoKECiT3/H6XDPpq
-         Dfsr+tNyOSVB67Iq+VOf9LFF9/+9hqv4WFq9LQatYAmNPnKEmnAEEktt672hj0Xjhhxt
-         cw+m8T4pap+NfrFuIjR3mILjrBIFhR06wTC3UegD1ZXt5N44TscQiXVZu7nYmdfGpLsB
-         Lr9vjsi/Ey1qySFbqjxRBWmhH/qEPgGl/fjJahyq9VQp8LwJ9VjmTX3ESOWFyNiNKXtJ
-         58cA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KafO/WcSs8IZV3ceugHPjvBD3hWgrTgFOQhWZ7ZmXh4=;
-        fh=IOxWbakFlduNgPDF+ZuKuCr73kyFUEuQ3kWZF3IR5+I=;
-        b=SpyzbcdRzRFJq4Cd8Dr82N3sl/FtbABQADQRRwKDwicT6rrCdmPt9RAOU9aa2DkUjf
-         +DTjGLMMnyHxKhQ2+PVYpzVaW6wd4r5LU9kj35zH8lAZqb3zAvmR2O5flj1dSN7xVxjE
-         vm9DPKfGdPUIKtYidcNZflGOlAISRtKTnIDah8c1/uvUSffOM62rnJkLRmjtBM+7Gjlm
-         r5tR8o0hMjoTLCMpWOpE6Yp+JMIo4fjoUf6VQuBcVnTYRMi5DBrn8NCmXKjK5qIrRjU9
-         GoX307I1cIPQAabBlGSq6IBVNRrzN/gTk4yY6IGPV5UOtt/ezrRTg+FYudKZW6rUxMzZ
-         9wgQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DV2sj50M";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XkUfqx8S"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66JNvNC1649802
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 04:20:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=RolAIABIrjyeU8IO7LwXCMI5
+	qSMBP9towxnHjWGWVr4=; b=DV2sj50M6CbjX5AiK1zlBa/ceRAgJALFxh4efaug
+	uFysC1JWUhHILHGTcIw8ZNuVGble8atrLL/dVZoeKdGhDlSoQ7fjpNXGc6e6A1QS
+	9heKErjzjfT1+IHM6+zVMg9RObw0trmTqLt7sPxesvWifvKTdj1uiKe17wl9wGEt
+	XTC5fTwbOJ00qkbLvsifIxHOwyGdBedo0z6A7IiiPifbnjKHZgxnX5fuz7YzcWrD
+	yQLbEr88O/gzOq6vUTVYOm9Z8jYaF2XbWdCLXrrEzoFZPO3hDr+Z0mfH6omz+WkY
+	h8DZfFmL0ZdCEFDkWZXOSS2ydJj23XdxumiDsGK16ng/zQ==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2bvv9fx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 04:20:34 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-381250979d5so6957566a91.0
+        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 21:20:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1784519896; x=1785124696; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1784521234; x=1785126034; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=KafO/WcSs8IZV3ceugHPjvBD3hWgrTgFOQhWZ7ZmXh4=;
-        b=fTlCFaSeAkor14ydvSw4Yw2CK+2KuzKU9Lbzpap5vOku2wakAkzZ1Dq+qDPo8kF+0Y
-         iBeVccvLrYbjXbW7cDW23StbbfnvoXZfAeIxRxEYVtTbOvU1bi8RDebm2BlcgBJkU1Au
-         A9UX04eRwE+i9iw7MXfbPuGc8vg1XicqV162Y=
+        bh=RolAIABIrjyeU8IO7LwXCMI5qSMBP9towxnHjWGWVr4=;
+        b=XkUfqx8SKOkWcOxKSJd4vUVvolVfUvuHPprBNi2ruXFzfbrNVeJcOf3kyldLKSkdiP
+         87xpzd4gVaF4x3G5Q7PO4i/hXKU6th4r91br9Zb+d28cWPYOy85VgBgvd9s7DzRyiGU2
+         5B23yv5DQwFOz4+UglkhrYNRkioN4gAvx6cLfwl2VwgkhLuk1yFj6wWMfEpjeugwsH8O
+         NHplJDAP6MqSeLq3+/tLCZ33oHdjF3cZcuEYdaxGsqBgPwdz2el9kyVDHLq8osRoKDli
+         TFTJ1g+ysK2KPaTkBkAFdeCsH6K+e2bG19sBfMrQzZiPWgbRXfrBgydCzpu7r2gxpTtL
+         KQPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784519896; x=1785124696;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1784521234; x=1785126034;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KafO/WcSs8IZV3ceugHPjvBD3hWgrTgFOQhWZ7ZmXh4=;
-        b=ArCuuJssq9m9U8/pgqheS+hrWHPWYitO2VV7BoPBXV6+sXx9LjCcE+/2ds+OGXCgn0
-         /G6vMvIng51IB3T8CubdMh39WVUxx8rUObTYPArpq69gyOyPL8AIPMQix42kaL440fXh
-         ijTS7vnHk56xR0dNrclHe1U7l3GF2iTDmh4OYgbkbVQ4Pj6y+au5WWu0Smw/F+rubQ5D
-         daasdcdRjvP6ejkbspL0rrb8eA/M75OU3C90fVFEYeiOBfo2kNtfl3uxgYfxRTE7IBBG
-         x9I9bjB4z0dbrKDBF0sf39kri17DsvAUeq1lN0FqOP3Qg2MPtSXue1y/SiCyo6rGQMaE
-         zs3A==
-X-Forwarded-Encrypted: i=1; AHgh+Ro/9eMCgOJQxHxziJQ/ZBqeLN3fut6sQFuSrhHJCDMEnUD+YDmoieZUyeU1opxKMjVzFyf9IiWF5zfV@vger.kernel.org
-X-Gm-Message-State: AOJu0YzoMyLXDsnfrClV24re0S0BXT1phZlct32Ie2NN6R5gy1XDfksq
-	s6LpEHV2PnFlaPnhySWwZZcB0+g8Udact6skZdIaVfUnydd+pNYCkA2O37OEVPbmFVbfm/FMMVh
-	0KSyhZO7brSv/Dvv9jw2mLL/tvQFFKap8SSZvwCme
-X-Gm-Gg: AR+sD12NzZXNrTWH62VjAjNZU/3/XOIZgrfS63YQcU0c5Q5irTkMESzSB13zDfV0ADj
-	L3BjeTrslxRN8bDgxm/0Xu0iJQfT9Gr8L/qXAJiz0WH4IXR4RLWGFQQeF5GD+J/iVhprHmBkjeb
-	rTnlA1W8vFId2lFTCtlxv3PTyZeO8+LL9Orsehb/EX1+O891VjkdHBbyTBpbBXLpfhQkHIJQwk9
-	jHW7AtG8vQIJcSJx+7cE5NeYkoc+yyggoZms1U2ri/1vod2sV36q/yA7BpUiz3NtoyeJd3mLeiu
-	f2k1PFUVFsMXfSvM
-X-Received: by 2002:a05:690c:4d07:b0:81e:c898:bc51 with SMTP id
- 00721157ae682-81ef26df344mr34874147b3.70.1784519895100; Sun, 19 Jul 2026
- 20:58:15 -0700 (PDT)
+        bh=RolAIABIrjyeU8IO7LwXCMI5qSMBP9towxnHjWGWVr4=;
+        b=WL6XOw6i4LgVUJisvfcYHk1s6d19wfqtaEpa0bHNN8nnYbX40GtkthaRJe8i+Sasce
+         KvrdQhvTBg0bHemmaXpFEzINSRDMbg59cg6BeKe65CvDhPl7p0QT361wcNTQxTrZbQWm
+         AYNnPtjRNAqgf5S8s1ZObtmYCx5qJkTOgmbQ7+FoKVks9f+JE8L9+tN5S6O0bBSmLpJE
+         zeB4lVpK5rwNWWajPbdz8vqTKtMYFRVPZQmPShuxDJNT+MAg3wNuZbNR5rXBrDVBD+Id
+         uWAwU1oZMXbt0OX2kKchK7Oy7BB3QenDyqhXwjV/kQs51zs4GDCu7GQrohF9hfLEy7gy
+         I7sg==
+X-Forwarded-Encrypted: i=1; AHgh+Roml9wPX2AJuESzcSx0m6UfK+Loz94iot+iJCb7DKloB5E2BDhPQnTqmX5swpYeM10CjlM4jaZcWjz4@vger.kernel.org
+X-Gm-Message-State: AOJu0YyBgkerESOpXE+wF8f3Rm3zFjZnoSGbpQFUts+wqmCsmghbQ5oW
+	+lagJmQK58pm1FgqR8luIXG+HsZcNb3RB8a5bxTfq+wsETkeyLV1BqUqGQggel+VBChgWefi1H8
+	C6RW6gwrM5JX+Q8rF9Nz/usyjSePV7/sseIPkdqPcffTJHH7mcxjA3OnZZrcfvKSf
+X-Gm-Gg: AfdE7clQkZXLpHQUDX3apUsGMHebvhuCmpsxtwMYHz2QZSJs8i+OHXT8UK7DWI5AMb2
+	umf7AFbio8GVHbYhfFUlXropcOmsgmHkuU+MI6/ZcS0B7/8EOk2hAv8sWebGzlFaV+qwfNSUNKw
+	jfboeoY+hR8q2CKn6N6tLgH0lB4F6kVhYfjepv1SPXr008E2y+46hcdChvUhq8A8ustqmwDg71m
+	+4BXFHm31Gh01oFAkzbI1yIxDB/VG6jNwwi4ST8kZLcH6ZsviOT4FxpEvDW0lCWouVEgDJsd5tx
+	x2LppV8MQPodOF/NmV4Ym/M+Heh/5UUUwAnGnnTq648OG4C3Iui2A/JtjktnXVE8bJrhyeU1i8i
+	WoBVkkvKEvr/hQe8byYb60mbs7NeMEtQLpKy0XFFUUNk=
+X-Received: by 2002:a17:90b:4cc3:b0:36b:77b9:5c8c with SMTP id 98e67ed59e1d1-38e4b43ce07mr13525052a91.17.1784521234292;
+        Sun, 19 Jul 2026 21:20:34 -0700 (PDT)
+X-Received: by 2002:a17:90b:4cc3:b0:36b:77b9:5c8c with SMTP id 98e67ed59e1d1-38e4b43ce07mr13525025a91.17.1784521233811;
+        Sun, 19 Jul 2026 21:20:33 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13ce29c2dcdsm27488878c88.1.2026.07.19.21.20.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 19 Jul 2026 21:20:33 -0700 (PDT)
+Date: Mon, 20 Jul 2026 12:20:28 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 5/6] arm64: dts: qcom: Add device tree for Nord Ride
+ board
+Message-ID: <al2iDH2b_YxdHfLO@QCOM-aGQu4IUr3Y>
+References: <20260716142605.2398433-1-shengchao.guo@oss.qualcomm.com>
+ <20260716142605.2398433-6-shengchao.guo@oss.qualcomm.com>
+ <90769e77-c311-4a4f-be37-09065e217f55@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260715085348.3457359-1-wenst@chromium.org> <20260715085348.3457359-3-wenst@chromium.org>
- <20260715090944.2B4441F000E9@smtp.kernel.org> <CAGXv+5Ffsrc9r6d_RrgL1mBW1Zmt1RxCrMCjaD7vuF3+EaeAqw@mail.gmail.com>
- <allHTc-bJrPwDA0b@ashevche-desk.local> <CAGXv+5HS3neb=8EW0FT2-tP-dhPFqQ+q8YRS8Gy_XBic4z4Mug@mail.gmail.com>
- <alpZVUEOidfGMpfD@ashevche-desk.local>
-In-Reply-To: <alpZVUEOidfGMpfD@ashevche-desk.local>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Mon, 20 Jul 2026 11:58:04 +0800
-X-Gm-Features: AUfX_mxLin0OT--5qibPct2dJsaS8LrcUeIhX0neP8aGKP71f2cGpT0RUhWh8_s
-Message-ID: <CAGXv+5FoXBfc6GOEnEhhnRcNTJp6bazLS1ZJEUEiZWfc=EZy2g@mail.gmail.com>
-Subject: Re: [PATCH v5 02/16] device property: Add fwnode_graph_get_next_port_endpoint()
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org, 
-	driver-core@lists.linux.dev, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <90769e77-c311-4a4f-be37-09065e217f55@oss.qualcomm.com>
+X-Proofpoint-GUID: 1KACd_M7Fxemlj4J8bzLCFlNDfUCYzva
+X-Authority-Analysis: v=2.4 cv=EcH4hvmC c=1 sm=1 tr=0 ts=6a5da212 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=fVJQK2QLqq40QL6N-J4A:9 a=CjuIK1q_8ugA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDA0NCBTYWx0ZWRfXxLOMHKmxspfS
+ J55JYJ4R895SnppV0JPt1R78HAq0CuJVX7cIcEyMzAn8KChY1pxETB8oBoxN6BwvemkKT4+BE1j
+ YEtzVO9n7nLVf4uqmhrYrTae6SACnawHVuFSL+kO6gtcKv336d3Qa/eMJkR2N3KG9KWwVcDBQPU
+ uoiptz7fGemdbD0yJMDKQgjaSD+xjHjausVw0wsKzkDD9wk9A+J2Swd0dtMAwVRVDco3+kxXyXY
+ TA6kEtJTzaBn/eRoLG8kHMypsz+771j7nPXiVtFOJ6pa0r2bvaeOmWs+OyAzlBP9L7KKI56b66A
+ VAko/szZ/i8czPLxQjMerWk2Y642STx5X0rIkvxGF17YGVUC6gKT0y+JoUgx1fARlmZjgZyixdI
+ zMaftoqisI96Gcx0mgQNgpkdYgNNZS1nSCs3ETc7iUwTGXmroKlLu7T0ArZMAbMU2i/u5kfQEJy
+ lG5/53JRrvu2bR4yC5Q==
+X-Proofpoint-ORIG-GUID: 1KACd_M7Fxemlj4J8bzLCFlNDfUCYzva
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIwMDA0NCBTYWx0ZWRfXwJ2e3OWqtp3E
+ m9KJ5bWbgD8EoioUsrZ0eAHnXrUC50XygX2byQnhsLdmbYcztLkN+KgpdvgMBFBg/qPdi4cDT7j
+ yEYWA68eNaHQmmwz/BAsRqjA6O59Hug=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-19_08,2026-07-17_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 bulkscore=0 clxscore=1015 impostorscore=0
+ phishscore=0 adultscore=0 malwarescore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607200044
 
-On Sat, Jul 18, 2026 at 12:33=E2=80=AFAM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> On Fri, Jul 17, 2026 at 07:05:56PM +0800, Chen-Yu Tsai wrote:
-> > On Fri, Jul 17, 2026 at 5:04=E2=80=AFAM Andy Shevchenko
-> > <andriy.shevchenko@linux.intel.com> wrote:
-> > > On Thu, Jul 16, 2026 at 04:52:27PM +0800, Chen-Yu Tsai wrote:
-> > > > On Wed, Jul 15, 2026 at 5:09=E2=80=AFPM <sashiko-bot@kernel.org> wr=
-ote:
->
-> ...
->
-> > > > > > +struct fwnode_handle *fwnode_graph_get_next_port_endpoint(cons=
-t struct fwnode_handle *port,
-> > > > > > +                                                       struct =
-fwnode_handle *prev)
-> > > > > > +{
-> > > > > > +     do {
-> > > > > > +             prev =3D fwnode_get_next_child_node(port, prev);
-> > > > >
-> > > > > [Severity: High]
-> > > > > This is a pre-existing issue, but iterating over endpoints using
-> > > > > fwnode_get_next_child_node() can cause an infinite loop and a use=
--after-free
-> > > > > if a device has secondary fwnodes attached.
-> > > > >
-> > > > > If a device port has both primary children and a secondary fwnode=
-, the primary
-> > > > > ops finish and drop the reference to the last primary child, retu=
-rning NULL.
-> > > > > Then, fwnode_get_next_child_node() incorrectly passes this same d=
-ropped child
-> > > > > pointer to the secondary ops:
-> > > > >
-> > > > > drivers/base/property.c:fwnode_get_next_child_node() {
-> > > > >         /* Try to find a child in primary fwnode */
-> > > > >         next =3D fwnode_call_ptr_op(fwnode, get_next_child_node, =
-child);
-> > > > >         if (next)
-> > > > >                 return next;
-> > > > >
-> > > > >         /* When no more children in primary, continue with second=
-ary */
-> > > > >         return fwnode_call_ptr_op(fwnode->secondary, get_next_chi=
-ld_node, child);
-> > > > > }
-> > > > >
-> > > > > This can result in a double-put. Furthermore, when traversing sec=
-ondary
-> > > > > children, the primary ops don't recognize the software node, trea=
-t it as NULL,
-> > > > > and return the first primary child again, creating an infinite lo=
-op.
-> > >
-> > > Yeah, it has to be implemented in a way how fwnode_graph_get_next_end=
-point() is done.
-> >
-> > If your patch series addresses the issue, I guess we can consider it
-> > covered? Sashiko labeled this a pre-existing.
->
-> I noticed that it addresses only main get_next case, but get_next_availab=
-le is
-> still with the same issue. It's not that critical, we don't use much that=
- API,
-> but still will be good to fix at some point.
->
-> > > > > [Severity: Medium]
-> > > > > Does this fail to unconditionally put the prev reference if the p=
-rovided port
-> > > > > is invalid?
-> > > > >
-> > > > > If a caller passes a valid prev node but port is NULL or an error=
- pointer,
-> > > > > fwnode_get_next_child_node() returns early without dropping prev:
-> > > > >
-> > > > > drivers/base/property.c:fwnode_get_next_child_node() {
-> > > > >         struct fwnode_handle *next;
-> > > > >
-> > > > >         if (IS_ERR_OR_NULL(fwnode))
-> > > > >                 return NULL;
-> > > > >     ...
-> > > > > }
-> > > > >
-> > > > > Could this lead to a reference count leak, violating the document=
-ed API
-> > > > > contract that prev is unconditionally put?
-> > > >
-> > > > This seems like what the other fwnode_get_next_*() functions are do=
-ing.
-> > > > I'd say this is a pre-existing issue as well.
-> > >
-> > > See this series (not yet applied, you even have chance to review it!)=
-:
-> > > 20260611203537.1786399-1-andriy.shevchenko@linux.intel.com
-> >
-> > I believe that series addresses the first issue, not this one, even
-> > though it partially mitigates it.
-> >
-> > The contract says "puts a reference to @prev unconditionally." What it
-> > doesn't say is that it requires @node to be valid, i.e. the function
-> > is a no-op if node =3D=3D NULL.
-> >
-> > "node !=3D NULL" being an implicit requirement seems to be the norm for
-> > the fwnode_* and of_* APIs. It's not explicitly spelled out and Sashiko
-> > lacks the context for it.
-> >
-> > I'm not sure this should be changed within this patch. It would end up
-> > as a mismatch between the various functions and possibly lead to more
-> > confusion.
->
-> How does node become invalid after that patch?
+On Thu, Jul 16, 2026 at 07:14:56PM +0200, Konrad Dybcio wrote:
+> On 7/16/26 4:26 PM, Shawn Guo wrote:
+> > From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+> > 
+> > Add initial device tree for the Qualcomm SA8797P Ride reference board,
+> > which is built on Nord GearVM variant.
+> > 
+> >  - Configure UART15 as the primary console and UART4 as the secondary
+> >    serial port
+> >  - Enable UFS storage support
+> >  - Define thermal zones for PMIC dies, UFS, and two SDRAM sensors,
+> >    all sourced from SCMI sensor protocol on channel 23
+> > 
+> > Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> > ---
+> 
+> [...]
+> 
+> > +&scmi3 {
+> > +	status = "okay";
+> > +};
+> > +
+> > +&scmi11 {
+> > +	status = "okay";
+> > +};
+> > +
+> > +&scmi15 {
+> > +	status = "okay";
+> > +};
+> > +
+> > +&scmi23 {
+> > +	status = "okay";
+> > +};
+> 
+> Why only these ones? Can all of the SCMI servers be enabled?
 
-Sashiko is arguing that the kernel-doc says "reference to @prev is _always_
-put". But if you look at all the *_get_next_*() functions, they all just
-return directly if @node is NULL.
+These are the ones that have actual/enabled client/consumer devices,
+e.g. scmi3 for ufs, scmi11 for uart, scmi23 for thermal sensors.
 
-I'm saying that this is implicit across the full API, and adding text
-explaining it in just one of the functions creates a discrepancy. I can
-add a patch before this to clarify the existing documentation, and change
-the text in this patch as well, to make Sashiko happy.
+We can enable all the SCMI servers, but I'm afraid that cause kernel
+to map shared memory and issue SMC calls to discover protocols (like
+power domains, DVFS, resets) that have no consumers, which might waste
+a small amount of memory and boot time.
 
-Does that make sense?
+scmi15 currently doesn't have any enabled consumers, so I will drop it
+for now.
 
-> > > > > > +             if (fwnode_name_eq(prev, "endpoint"))
-> > > > >
-> > > > > [Severity: High]
-> > > > > Does hardcoding this string match break the fwnode graph abstract=
-ion for
-> > > > > non-DeviceTree platforms?
-> > > > >
-> > > > > By strictly matching the "endpoint" prefix, this bypasses the pro=
-vider-specific
-> > > > > fwnode_operations, which could silently ignore valid ACPI and sof=
-tware node
-> > > > > endpoints that don't follow this exact naming scheme. Shouldn't t=
-his rely on
-> > > > > the backend-specific graph_get_next_endpoint operations instead?
-> > > >
-> > > > From drivers/acpi/property.c it seems that ACPI graphs follow the s=
-ame
-> > > > structure. I don't have visibility into ACPI implementations though=
-.
-> > >
-> > > Sashiko might be right. ACPI has device and data nodes, for device no=
-des the
-> > > name will be FourCC, so never longer than 4 characters. For data node=
-s, it
-> > > takes their names, which are arbitrary strings and seems should follo=
-w the given
-> > > schema. You need Sakari Ailus to review this patch.
-> >
-> > OK. Will add Sakari in the next version.
->
-> Hmm... This is interesting. For any fwnode API changes you should add the
-> respective reviewers. Do you use tools or doing that manually? You should=
- use
-> tools. I know that `b4` is capable of doing that, but I use a script [1] =
-I
-> wrote a few years ago.
-
-Actually Sakari is already in the list of recipients.
-
-I'm running get_maintainers.pl on all the files I changed, which is not
-the formatted patches, but I don't think that affects the output much.
-It's a bit less automated, but I sometimes trim the recipient list
-slightly as I know they probably won't look at it.
-
-> > > > We also have the following in include/linux/fwnode.h:
-> > > >
-> > > > #define SWNODE_GRAPH_PORT_NAME_FMT              "port@%u"
-> > > > #define SWNODE_GRAPH_ENDPOINT_NAME_FMT          "endpoint@%u"
-> > > >
-> > > > So this should not be a problem.
-> > > >
-> > > > > > +                     break;
-> > > > > > +     } while (prev);
-> > > > > > +
-> > > > > > +     return prev;
-> > > > > > +}
->
-> [1]: https://github.com/andy-shev/home-bin-tools/blob/master/ge2maintaine=
-r.sh
-
-Thanks for sharing!
-
-
-ChenYu
+Shawn
