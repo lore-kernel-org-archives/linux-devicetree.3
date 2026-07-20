@@ -1,54 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853C14071E4;
-	Mon, 20 Jul 2026 17:21:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA123EBF02;
+	Mon, 20 Jul 2026 17:21:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784568077; cv=none; b=XZRZUiStogCilblOLSMVwiih9hpSfakV7h0H+HnpMv44RaatzGzeEF/syO30GoYPh1AJfBmzPqpM6S5s1qjKQaUnT7GnXltqG3LCS2ZkH4LmhrzIe9yiMAFf72sWNcExiWcawpHr58LWqA4zQeAhB9c6mKzrM8aSBQn1y7J4Z9o=
+	t=1784568079; cv=none; b=cfOGLe7EqbKTKm5T0/lpz/Wr1zKfbqrrzywBN/8uI7sKOI+uoIOS8o4GUCiokxRpY18EWrX4yxk/fHlp+9dA7xbFT/3DmVDmdkClUMdZoy7dulmvUZuBaxIkCRTZw23ZqeFTpbQd0Lsx+7Dvi/u8XLHMesEVz6IKhlb7lymKoSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784568077; c=relaxed/simple;
-	bh=NpjqvR5iMF/T4h2ZSD8K8PW5WBE2D1Rl8R41msRGgqE=;
+	s=arc-20240116; t=1784568079; c=relaxed/simple;
+	bh=vXeRsH60umyCWYIZCGYJrFhLrwa7jM3anYzovnM+Nk8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KSJqMH+g0xoE7z7Ovootdcr3zsEV1t+xiPSUFO0HlrDjL6031VMlo0ArvN+3t+iAXWoS/UY2cjJhhwQTNw594kn1ABI0wnBThnSd3v2a0JMTDOprqLmUDYIdoNIdsobPfLA0gxZinMRvUzPZldAPq4wn7xpwc8y/7Uhp6ZvTDVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xwy6zCvA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=nWEO3Ue8ID1RTu+UywAB6tf+Yu19Dmy7ekA/XM0HSVHS/I1rAlcpj7bbf7P0LD4FTBR5mo93WJDoaWx0YGHwMPyXt0RBscnAbsC12trYzaV/J9L37g1s4PsHUD6uJ7idPRXRW9QItUHR1eX0OI/99Bw3ZL7LaksJW6GzvpBezaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YA4lql/j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xwy6zCvA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE1B81F00A3A;
-	Mon, 20 Jul 2026 17:21:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YA4lql/j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD0F91F00A3E;
+	Mon, 20 Jul 2026 17:21:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784568072;
-	bh=SGtCH7mIfcIM/1qkGvsi7yUip9RKdC9Pt1BJ37nWdi0=;
+	s=k20260515; t=1784568074;
+	bh=PigT22x052A5tMJwLUuXnSXh1jupbSv9Bsju33V7X5E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Xwy6zCvAdzF6J8grXogsrMzsaWmXIez9yS5g4drrlnLnPac46jcwZSMgZ5ovV+gW4
-	 W7RFBKW1bHYMyw9JvnrGfFdZ4ntkGH7hyggVHYte4njYCfx9MjXaM8IiGs7aw1ccHx
-	 /C2F6XI20CdWl//Lva7bcka9f5UUnSNHjy62EZ2k43yNrgS7l5jY8wSCYsmKhB5uUz
-	 UHbXmsEvMxJbpwjWm1yRZnHLlN8gEKi5Kiwn8JtgDHQJlAHzGJ3F4qvsBYIkcn/ZMc
-	 AQLkcLWDzL041Z3APtb4gX/Uu1sEYgfQ6ud59D+Qsd1VULv/wS177yt3jYYWVmq567
-	 j1VFONlsm3hLw==
+	b=YA4lql/jckHAm2em8GLtfH9gflk/KGKG1pLLXzPtlJWqMoyF9wYtryaDwY8Hors1J
+	 EA9qmtMYzsflW5s1/v3/i8TD4W6ubE+FYBNq248ctMTk8PjFf2rAkGiqeQEjCUVfQq
+	 CUFF26uZc77ncBEyVGk2nsI4UDkLplTpAXj8BbmZ+v6Hxe0pN36s5vncOK8Yt+gXqK
+	 4E4bTWUjXha6mrYoQyL1culAeNhJa0Qt0GHCWR+naAVJDSOZvjlafCU7FHzxXvJZPe
+	 dwCe5o/V049feZiSdmDxvYZ8xeNYmcFOvAm3SrPcpkg2DlRgYlCFQIKpb4ysVjOCLg
+	 Rg+A0Kbyvg7bg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Harshal Dev <harshal.dev@oss.qualcomm.com>
-Cc: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
+	Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
+	Jie Gan <jie.gan@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v2 0/2] Add TRNG support for Glymur SoC
-Date: Mon, 20 Jul 2026 12:21:01 -0500
-Message-ID: <178456806282.1732507.17127203162851359741.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: glymur: enable ETR and CTCU devices
+Date: Mon, 20 Jul 2026 12:21:03 -0500
+Message-ID: <178456806276.1732507.2336611309821811382.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260424-glymur_trng_enablement-v2-0-0603cbe68440@oss.qualcomm.com>
-References: <20260424-glymur_trng_enablement-v2-0-0603cbe68440@oss.qualcomm.com>
+In-Reply-To: <20260714-add-ctcu-etr-for-glymur-v1-1-791de63c0713@oss.qualcomm.com>
+References: <20260714-add-ctcu-etr-for-glymur-v1-1-791de63c0713@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -59,15 +52,17 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 24 Apr 2026 14:05:06 +0530, Harshal Dev wrote:
-> Document and add the device-tree node to enable TRNG for Glymur SoC.
+On Tue, 14 Jul 2026 14:50:58 +0800, Jie Gan wrote:
+> Embedded Trace Router(ETR) is working as a DDR memory sink to collect
+> tracing data from source device and the CTCU device serves as the
+> control unit for the ETR device.
 > 
 > 
 
 Applied, thanks!
 
-[2/2] arm64: dts: qcom: glymur: add TRNG node
-      commit: 5d7ebb1f36ad8a51f4e60819a8c5bddf04a8d1a2
+[1/1] arm64: dts: qcom: glymur: enable ETR and CTCU devices
+      commit: 394b63a2bbf2d1e98d411ee5ec52d68f66bbf984
 
 Best regards,
 -- 
