@@ -1,95 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42FE53ACA4B;
-	Mon, 20 Jul 2026 06:28:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B4A282F35;
+	Mon, 20 Jul 2026 06:28:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784528900; cv=none; b=GUsQZ0suAA9JVwkcaMcTDFDyDdpb71Hlr8W5fSknYy34+eeqivZqR0hkN0ozszdC0Ot6jAqRHeFIoz6edHkuFSE3kADryUUkicAO0cpI5HQhnc5M4KA+RfREyRMj+vxPqCmOVYXzELg6qNuRtiKvZTXUqPmGBlCsOIRN4EskbOg=
+	t=1784528941; cv=none; b=mI5BRcfD7drCAIEcJkXyYs16jrCyzkWjKt0oteZ95HPCb/tRTbqbHGb4Knfjf+bk7NQ2PfEvJA/UttTkKkGzjG+r4oF261we943OP/mXQ4BJXNPUDsF9cTV5uTM6AJDf3CPEh2K/HkTEtKqChFSuJ/Fybd9TlHqwOGgPA8NJQFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784528900; c=relaxed/simple;
-	bh=iNplZIAwmtZ5oRKqbuZSgYhaeSlRcCEPrUbQ15YlT4E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KdGHmpWzKhASHmZ8jdKg1cedKb1hJdcZ6ZfrCMZF8EnrOm8zSfPb8TEX7rSWYqyQkMYr+pSAsMTL5up3P/iLYKicaYmgb7VrktRltgX2piT+UDX+nFQcxcbMu2MVcac/4KMZyUhGKs+0reVRNiiMsfxo1ERgk9yG/pD8Uv7PAiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GGjqX56g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784528941; c=relaxed/simple;
+	bh=QRB6AUGP0AnYvZvzS5EUCMy0TQx51aB+5NxigtrLZ4c=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=N9lQaAemhkvFBBO4aZEDjngRinXuPm6dSv2BRu14adxaoBIcyxL6Wh5FSVOhOJ8v2S6Wrug6sWhz0PiTCrOCUM20j2/oAxJr6XdkRv6it2ztkCwO5Ey2yeF9E6fUuWENa2/KVkbGmMlNxQDjcxFHJNXQ20NUHu6mL02tsqTETiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=ecGkTEpK; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GGjqX56g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 123151F000E9;
-	Mon, 20 Jul 2026 06:28:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784528897;
-	bh=sBtofq2dwkDOIwnJJ36YEL5yOid3HxsrtC6tPY9ePh0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GGjqX56gFt9uwd2dt4cVR/k7XySW2WBd9udKR8W3xIL1ky6nSbWz0V8GHIpN91XgV
-	 OzcGvlX9xOigMAQwBHsaF1A7WPpsfNZNko9bbpnKh2C1U/GYoxlHHGz+m99SRzrxGs
-	 sfsJfTTWO+kfE/7sBhXzKZYW2zMQie10IDIZxHdFrI7Nk4JEpvcaITvoBhAwTFAnTA
-	 IwyAnfiZ5UE5v2+LI/38FHatY5xBg/ftbOnBbzumCUpT7ubz1Q06F/akkxKJ4v5df2
-	 Dd8cp9LaXPHiYHR3gf0GOEugQKadtuV7NAA/Z8rC3EHrIArJ+hJWguhOWXWp2ebioK
-	 WDyQlHxwYCAVg==
-Date: Mon, 20 Jul 2026 08:28:13 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org, 
-	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 4/7] dt-bindings: reset: Add reset controller
- constants for mt8167
-Message-ID: <20260720-authentic-gleeful-asp-20bebd@quoll>
-References: <20260717163959.714561-1-l.scorcia@gmail.com>
- <20260717163959.714561-5-l.scorcia@gmail.com>
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="ecGkTEpK"
+X-UUID: 47111620840411f1b1788b6acf885367-20260720
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=XLBl84SAb+/sFEUEVdMtuOLokzwDCeQJfG1uziCXYEo=;
+	b=ecGkTEpKdDNtvU/Yb0Y/qV8zw34Q7S4JjhOBxX98mIpxlUiKttPNIrLExtGE6dk9Nlyw9QmMqoocMGFPCvP/M9bEMCuB3nqVsNfYBy+fMXrJvR1QHxDwYOEWl1WH3bNmAEQy3chKhF1ZhafnHwe44sCF1Nr6U2S8c2RRBUy6X9o=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.18,REQID:59754411-5618-40e4-903f-7247ec40b214,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:8a735a6,CLOUDID:3744793f-46cf-453a-bd84-ad9fc7cb0e8c,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
+	0|99|100|102|156,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,
+	COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 47111620840411f1b1788b6acf885367-20260720
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by mailgw01.mediatek.com
+	(envelope-from <jianhua.lin@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 148603672; Mon, 20 Jul 2026 14:28:53 +0800
+Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
+ mtkmbs13n2.mediatek.inc (172.21.101.108) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Mon, 20 Jul 2026 14:28:51 +0800
+Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
+ mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Mon, 20 Jul 2026 14:28:51 +0800
+From: Jianhua Lin <jianhua.lin@mediatek.com>
+To: <nicolas@ndufresne.ca>, <mchehab@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <matthias.bgg@gmail.com>,
+	<angelogioacchino.delregno@collabora.com>
+CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-media@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-mediatek@lists.infradead.org>,
+	<Project_Global_Chrome_Upstream_Group@mediatek.com>,
+	<sirius.wang@mediatek.com>, <vince-wl.liu@mediatek.com>,
+	<jh.hsu@mediatek.com>, Jianhua Lin <jianhua.lin@mediatek.com>
+Subject: [PATCH v10 1/3] dt-bindings: media: mediatek-jpeg-decoder: add MT8189 compatible string
+Date: Mon, 20 Jul 2026 14:28:27 +0800
+Message-ID: <20260720062829.7343-2-jianhua.lin@mediatek.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20260720062829.7343-1-jianhua.lin@mediatek.com>
+References: <20260720062829.7343-1-jianhua.lin@mediatek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260717163959.714561-5-l.scorcia@gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Fri, Jul 17, 2026 at 06:39:15PM +0200, Luca Leonardo Scorcia wrote:
-> Add the various bits that identify watchdog and mmsys resets. IDs for
-> mmsys resets restart from zero as they are used in a different device.
-> 
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-> ---
->  .../reset/mediatek,mt8167-resets.h            | 53 +++++++++++++++++++
+Add the compatible string for the JPEG decoder block found in the
+MediaTek MT8189 SoC.
 
-I do not see any user of this ABI nor explanation why you are doing it.
+Compared to previous generation ICs, the MT8189 JPEG decoder requires
+34-bit IOVA address space support and only needs a single clock
+("jpgdec") instead of two. Therefore, it is added as a standalone
+compatible string without falling back to older SoCs.
 
->  1 file changed, 53 insertions(+)
->  create mode 100644 include/dt-bindings/reset/mediatek,mt8167-resets.h
-> 
-> diff --git a/include/dt-bindings/reset/mediatek,mt8167-resets.h b/include/dt-bindings/reset/mediatek,mt8167-resets.h
-> new file mode 100644
-> index 000000000000..85d2d0e99c68
-> --- /dev/null
-> +++ b/include/dt-bindings/reset/mediatek,mt8167-resets.h
-> @@ -0,0 +1,53 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause) */
-> +#ifndef _DT_BINDINGS_RESET_CONTROLLER_MT8167
-> +#define _DT_BINDINGS_RESET_CONTROLLER_MT8167
-> +
-> +/* TOPRGU resets, these are actual bits in the register */
-> +#define MT8167_TOPRGU_DDRPHY_FLASH_RST		0
-> +#define MT8167_TOPRGU_AUD_PAD_RST		1
-> +#define MT8167_TOPRGU_MM_RST			2
-> +#define MT8167_TOPRGU_MFG_RST			3
-> +#define MT8167_TOPRGU_MDSYS_RST			4
-> +#define MT8167_TOPRGU_CONN_RST			5
-> +#define MT8167_TOPRGU_PAD2CAM_DIG_MIPI_RX_RST	6
-> +#define MT8167_TOPRGU_DIG_MIPI_TX_RST		7
-> +#define MT8167_TOPRGU_SPI_PAD_MACRO_RST		8
-> +/* bit 9 is reserved, unused according to data sheet */
+Update the binding schema to include the new compatible string and add
+an `allOf` block with conditional checks. This enforces the single clock
+requirement for MT8189 while preserving the two-clock requirement
+("jpgdec-smi", "jpgdec") for older SoCs.
 
-NAK, how driver can reserve something? Fix your driver.
+Signed-off-by: Jianhua Lin <jianhua.lin@mediatek.com>
+---
+ .../bindings/media/mediatek-jpeg-decoder.yaml | 50 ++++++++++++++++---
+ 1 file changed, 42 insertions(+), 8 deletions(-)
 
-This is ABI for Linux driver.
-
-Best regards,
-Krzysztof
+diff --git a/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml b/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
+index a4aacd3eb189..654360c19c48 100644
+--- a/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
++++ b/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
+@@ -15,10 +15,10 @@ description: |-
+ properties:
+   compatible:
+     oneOf:
+-      - items:
+-          - enum:
+-              - mediatek,mt8173-jpgdec
+-              - mediatek,mt2701-jpgdec
++      - enum:
++          - mediatek,mt2701-jpgdec
++          - mediatek,mt8173-jpgdec
++          - mediatek,mt8189-jpgdec
+       - items:
+           - enum:
+               - mediatek,mt7623-jpgdec
+@@ -32,13 +32,16 @@ properties:
+     maxItems: 1
+ 
+   clocks:
++    minItems: 1
+     maxItems: 2
+-    minItems: 2
+ 
+   clock-names:
+-    items:
+-      - const: jpgdec-smi
+-      - const: jpgdec
++    oneOf:
++      - items:
++          - const: jpgdec
++      - items:
++          - const: jpgdec-smi
++          - const: jpgdec
+ 
+   power-domains:
+     maxItems: 1
+@@ -51,6 +54,15 @@ properties:
+       Documentation/devicetree/bindings/iommu/mediatek,iommu.yaml for details.
+       Ports are according to the HW.
+ 
++  mediatek,larb:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: |
++      A phandle to the local arbiter (SMI LARB) node. This explicitly
++      describes the hardware topology where the JPEG block is connected
++      to a dedicated SMI LARB for memory bandwidth arbitration. It is
++      required to accurately represent the hardware connection independently
++      of the IOMMU.
++
+ required:
+   - compatible
+   - reg
+@@ -60,6 +72,28 @@ required:
+   - power-domains
+   - iommus
+ 
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: mediatek,mt8189-jpgdec
++    then:
++      properties:
++        clocks:
++          maxItems: 1
++        clock-names:
++          maxItems: 1
++      required:
++        - mediatek,larb
++    else:
++      properties:
++        clocks:
++          minItems: 2
++        clock-names:
++          minItems: 2
++        mediatek,larb: false
++
+ additionalProperties: false
+ 
+ examples:
+-- 
+2.45.2
 
