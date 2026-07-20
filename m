@@ -1,226 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D9A8248F57
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 14:03:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E6141611D
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 14:05:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784556182; cv=none; b=kR35hfXBKSC5Lb/MfhE1jqX7bRKlBtHVYsuhxDlotWA5iMYyBS7NJtPv5Lrjie+fOqloJ7tGWY7Fn42Kq9J9Srzd9DRKEjC7oOZfNWgXj28umwgdkvTfemtYxfVgzivnoFBV9Oib1S3/IBiIcl3M6hMoUexSnNc4yfpIt+FDPzo=
+	t=1784556315; cv=none; b=m/22NnKbqT2zmY4oT06q+SX5CDqD2mIiN6S+pngnZGatqaNLjH37JUXBoOxlza8rUYsBUd12s9jbPhMBxmXe+vp3KcCLnLLEvx7Oe606/cY3enB6+t2O2hXW/MVXW+qO5P/xAashSNdlkbx8/KSzpDTgOsKdoq2Af+rhlGS9xrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784556182; c=relaxed/simple;
-	bh=wy4/FM2u53+EWmLwYLSsf3e9ZOiNshqhCPq2dGA+2tQ=;
+	s=arc-20240116; t=1784556315; c=relaxed/simple;
+	bh=GRMNfKdybdP8CoHn8b0TD1c+ftxgemvcqKNQRuWriOg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ERtVo1PRBM/uO7oqSuxyK7couGW8IsdwegLXhlRt3rcKesy+QH3vlgPl5k1LB4vrtlwsNUcQ6sISojIziJlR3j4cTd2B+UGRYbzs6rSsIcHbpt6NXaPm4BOoVAX4cIV8e3Zot66hR9cTVbT9PFN9X+TZa4fubOoSA4TQElCYVDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j6J3iN+2; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=tAnFUPsIBFJ4aQxr01ai/rxxOvEFHzwRtMxsT8T58lwOF7mTNbpy3UbllTlkxWOgPghaua8OQcaTiV/d4oYOY/wAIAWy8spPnzjPIz2PNZ6Jj0Dx18N1jmekG2FQWtSclUzno7IwpGmup3wvZhKeXl/9Qj9xyMeVGkI5JmzAT3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GWGOMO6U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j6J3iN+2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0EE91F000E9;
-	Mon, 20 Jul 2026 14:03:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GWGOMO6U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED06C1F000E9;
+	Mon, 20 Jul 2026 14:05:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784556181;
-	bh=uDxczAFgtDx8GHVIRwwdNo8oNbF7C9V6n1YBLbwhP3o=;
+	s=k20260515; t=1784556311;
+	bh=xOb/Mq/AzjWXweiUThVYjbC5FPxp8pFXjlDkFB8yfqQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=j6J3iN+2k/9ZOr8tEi7dd6Lf+gyJ32LCFnctGYD/1GqszICWSxBTSrCVHdZhAhAl6
-	 LBqdsZSicBSdPXi5TDZhxq/Pfx1QXb6sV6gq8B8Zv1+bAUqInt6bifWJIimaa9Hf76
-	 zrjHtpnbjZ2ugovbTA1WhM4AdsLOV5uPtdYHjt+ywoxpiDQaVTzGI4RRmqGwadXyRa
-	 1NGZ06up3s2Ew8tKjPdeNxqFoJdwELOKb28IKqFhEMUgAvRZQcTXOTocErV3B99daa
-	 oTYJMfE/qPICx1ym+NUz6Nj6GCYkw6xpyekvmqF17RryI0chjbV7aSReR+AgZXED+5
-	 zTurtGUN2Iy+A==
+	b=GWGOMO6U2GSPZwHSqE8cE8u9Udigw/vW9JlFUCrLL0qh2HetSnrCvrUlc1U8NVXrn
+	 MoG6+wnkn4TqAfZntCDnAbAyoBK2L8PfSAIyqppQ/0a+tvgNTSp2RgxJnRGawGdA7p
+	 XCL+ZjseG9h5buWUFguSgEyrLLtJqdR0R+1ZkcwjgfQhBVCSlIa84kXtAQc6iZsMcu
+	 09R25tgNYyGRrsAN2at1HGJV0EMyQ1SDJbOkEvjQTLjH2r84PXc1tRmVdGxFFFE4s5
+	 ZV8IexzA36t4Ubv9o1SSnvrcILyv0iaBiYumTRRRO289WxugRv3RrFiwop8ej7IF3w
+	 10UnphYoUtO+A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 phy-next 7/8] soc: fsl: guts: implement the RCW
- override procedure
+Subject: Re: [PATCH v16 06/12] media: mediatek: jpeg: fix buffer state
+ update timing
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vladimir Oltean" <vladimir.oltean@nxp.com>
-Cc: neil.armstrong@linaro.org, olteanv@gmail.com, linux-phy@lists.infradead.org, vkoul@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260720133642.136324-8-vladimir.oltean@nxp.com>
-References: <20260720133642.136324-1-vladimir.oltean@nxp.com>
- <20260720133642.136324-8-vladimir.oltean@nxp.com>
+To: "Kyrie Wu" <kyrie.wu@mediatek.com>
+Cc: robh@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260720133432.1042046-7-kyrie.wu@mediatek.com>
+References: <20260720133432.1042046-1-kyrie.wu@mediatek.com>
+ <20260720133432.1042046-7-kyrie.wu@mediatek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 14:03:00 +0000
-Message-Id: <20260720140300.A0EE91F000E9@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 14:05:10 +0000
+Message-Id: <20260720140510.ED06C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 New issues:
-- [High] SerDes block index validation incorrectly uses `>=3D` instead of `=
->`, rejecting the highest valid SerDes index and breaking configuration.
-- [High] SoC-specific GENMASK macros execute undefined behavior via negativ=
-e shifts when `lane >=3D 4`.
-- [High] Bulk RCW override initialization clobbers active configurations on=
- uninitialized lanes.
-- [Medium] Non-atomic read-modify-write on shared state causes lost lane in=
-itializations.
-- [Medium] Extremely short 1 microsecond timeout for hardware register stat=
-e reflection causes spurious failures.
+- [High] Moving destination buffer state initialization after scheduling th=
+e timeout worker introduces a race condition causing list corruption and a =
+kernel oops.
 
 Pre-existing issues:
-- [High] Dereferencing `soc_dev_attr` on the error path causes a kernel pan=
-ic.
+- [High] The hardware timeout workers are scheduled before hardware start a=
+nd completely lack lock synchronization, causing data races, hardware bus f=
+aults, and use-after-free vulnerabilities.
+- [High] The encoder worker permanently leaks a Runtime PM usage reference =
+when `pm_runtime_get_sync()` fails.
 --
 
---- Patch [7]: [PATCH v3 phy-next 7/8] soc: fsl: guts: implement the RCW ov=
-erride procedure ---
-commit a1f1c62bf1e452bc97a7f348215d8401bd095833
-Author: Ioana Ciornei <ioana.ciornei@nxp.com>
-soc: fsl: guts: implement the RCW override procedure
+--- Patch [6]: [PATCH v16 06/12] media: mediatek: jpeg: fix buffer state up=
+date timing ---
+commit adfbbc474f76db07fc27613935d0bb09341844c6
+Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-This commit adds support for the RCW override procedure to enable runtime
-reconfiguration of SerDes lane protocols through the DCFG DCSR space.
-It exports functions to notify boot time modes, validate protocol changes,
-and execute the RCW procedure on specific SoCs.
+media: mediatek: jpeg: fix buffer state update timing
 
-> diff --git a/drivers/soc/fsl/guts.c b/drivers/soc/fsl/guts.c
-> index b9973ca3a440d..4d49d1b953007 100644
-> --- a/drivers/soc/fsl/guts.c
-> +++ b/drivers/soc/fsl/guts.c
+Update the destination buffer state only after the decoder has selected
+a hardware core and resumed its runtime PM state successfully. This avoids
+assigning frame tracking data to buffers that will be returned early, such
+as when a source resolution change is detected.
+
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
+rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> index a5a1f6126af73..e152ebae0f219 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
 [ ... ]
-> @@ -210,6 +210,13 @@ static int fsl_guts_rcw_rmw(int offset, u32 val, u32=
- mask)
->  {
->  	u32 rcwcr, rcwsr =3D fsl_guts_read(&soc.dcfg_ccsr->rcwsr[offset]);
+> @@ -1773,6 +1767,9 @@ static void mtk_jpegdec_worker(struct work_struct *=
+work)
+>  			      msecs_to_jiffies(MTK_JPEG_HW_TIMEOUT_MSEC));
 > =20
->  	rcwcr =3D rcwsr & ~mask;
->  	rcwcr |=3D val;
->  	fsl_guts_write(&soc.dcfg_dcsr->rcwcr[offset], rcwcr);
-> =20
->  	/* Updates to RCWCR should be visible back in RCWSR */
->  	return read_poll_timeout_atomic(fsl_guts_read, rcwsr, rcwsr =3D=3D rcwc=
-r,
->  					0, RCW_TIMEOUT_US, false,
->  					&soc.dcfg_ccsr->rcwsr[offset]);
->  }
-
-[Severity: Medium]
-Is a 1 microsecond timeout sufficient for cross-domain hardware reflections?
-
-The atomic polling loop strictly uses RCW_TIMEOUT_US set to 1, which might =
-be
-too brief for the hardware to propagate the state across clock domains. This
-could lead to spurious -ETIMEDOUT failures when configuring SerDes lane mod=
-es.
-
-[ ... ]
-> +static int
-> +fsl_guts_serdes_get_rcw_override(int serdes_idx, int lane,
-> +				 enum lynx_lane_mode lane_mode,
-> +				 struct fsl_soc_serdes_rcw_override *override)
-> +{
-> +	const struct fsl_soc_data *soc_data =3D soc.data;
-> +
-> +	if (!soc_data)
-> +		return -ENODEV;
-> +
-> +	if (serdes_idx >=3D soc_data->num_serdes || serdes_idx <=3D 0)
-> +		return -ERANGE;
+>  	spin_lock_irqsave(&comp_jpeg[hw_id]->hw_lock, flags);
+> +	jpeg_dst_buf =3D mtk_jpeg_vb2_to_srcbuf(&dst_buf->vb2_buf);
+> +	jpeg_dst_buf->curr_ctx =3D ctx;
+> +	jpeg_dst_buf->frame_num =3D ctx->total_frame_num;
 
 [Severity: High]
-Does this bounds check incorrectly reject the highest valid SerDes index?
+Does moving this initialization after schedule_delayed_work() create a race
+condition that can corrupt the destination done queue?
 
-If soc_data->num_serdes is 2, a client driver attempting to initialize
-serdes_idx 2 will trigger this return path because 2 >=3D 2 evaluates to tr=
-ue.
-Should this use > instead of >=3D to allow configuring the last SerDes bloc=
-k?
+If the worker thread is preempted right after calling schedule_delayed_work=
+(),
+the timeout worker (mtk_jpegdec_timeout_work) can fire early before
+jpeg_dst_buf->frame_num is initialized.
 
-> +
-> +	if (lane >=3D MAX_NUM_LANES || lane < 0)
-> +		return -ERANGE;
+The timeout worker will pass this uninitialized buffer to mtk_jpegdec_put_b=
+uf(),
+which adds it to ctx->dst_done_queue. Because frame_num is uninitialized,
+it won't match ctx->last_done_frame_num and the buffer gets stranded in the
+queue.
+
+When the worker thread resumes, it initializes frame_num and starts the
+hardware. Upon hardware completion, the IRQ handler will call
+mtk_jpegdec_put_buf() again and execute list_add_tail() on the exact same
+buffer, corrupting the linked list.
 
 [Severity: High]
-Can this loose bounds check lead to undefined behavior in the SoC-specific
-macros?
+This isn't a bug introduced by this patch, but could this delayed work
+scheduling cause hardware bus faults or memory corruption?
 
-MAX_NUM_LANES is 8, but macros like LS1088A_RCWSR30_SRDS_PRTCL_S2_LNn
-assume a maximum of 4 lanes:
+The timeout worker is armed before the hardware lock is acquired and the
+hardware is started. Since the timeout workers (both mtk_jpegdec_timeout_wo=
+rk
+and mtk_jpegenc_timeout_work) do not acquire hw_lock, if the main worker is
+preempted right after scheduling the work, the timeout worker can fire
+concurrently.
 
-GENMASK(3 + 4 * (3 - (lane)), 4 * (3 - (lane)))
+It will reset the device, complete the buffers to userspace, and call
+pm_runtime_put() to potentially power off the device. When the main worker
+resumes, it will write to powered-off registers (causing a bus fault), and
+instruct the hardware to DMA into buffers that userspace may have already
+freed or reused.
 
-If a PHY driver requests a lane index of 4 or higher on LS1088A, this macro
-evaluates to GENMASK(-1, -4), which causes negative bitwise shifts.
-
-[ ... ]
-> +int fsl_guts_lane_init(int serdes_idx, int lane, enum lynx_lane_mode lan=
-e_mode)
-> +{
-> +	int err;
-> +
-> +	err =3D fsl_guts_lane_validate(serdes_idx, lane, lane_mode);
-> +	if (err)
-> +		return err;
-> +
-> +	soc.lane_mode[serdes_idx - 1][lane] =3D lane_mode;
-> +	soc.lanes_initialized[serdes_idx - 1] |=3D BIT(lane);
-
-[Severity: Medium]
-Could concurrent PHY probes cause lost lane initialization status here?
-
-This performs a non-atomic read-modify-write on the shared global state arr=
-ay
-without holding a lock. If two PHY instances on the same SerDes controller
-probe asynchronously, one update to soc.lanes_initialized might overwrite t=
+[Severity: High]
+This is a pre-existing issue, but is there a Runtime PM reference leak in t=
 he
-other.
+encoder worker's failure path?
 
-[ ... ]
-> +static int ls2088a_serdes_init_rcwcr(int serdes_idx)
-> +{
-> +	int i, err;
-> +	u32 reg;
-[ ... ]
-> +	/* We need to configure the initial state of all lanes for
-> +	 * the SerDes block #1
-> +	 */
-> +	for_each_set_bit(i, &soc.lanes_initialized[serdes_idx - 1], MAX_NUM_LAN=
-ES)
-> +		if (lynx_lane_mode_uses_xgmii_mac(soc.lane_mode[serdes_idx - 1][i]))
-> +			reg |=3D LS2088A_RCWSR30_SRDS_CLK_SEL_XGMII_Ln_S1(i);
-> +
-> +	err =3D fsl_guts_rcw_rmw(29, reg,
-> +			       LS2088A_RCWSR30_SRDS_CLK_EN_SEL_XGMII_S1 |
-> +			       LS2088A_RCWSR30_SRDS_CLK_SEL_MSK);
+In mtk_jpegenc_worker() (not modified in this diff), pm_runtime_get_sync()
+increments the device's PM usage counter even if it returns an error. If the
+resume operation fails, the code branches to the enc_end error path and
+returns without calling pm_runtime_put_noidle(). This leaves the usage
+counter elevated and permanently prevents the device from suspending again.
 
-[Severity: High]
-Does this bulk RCW override initialization clobber active configurations on
-uninitialized lanes?
-
-If a client driver for lane A calls fsl_guts_lane_set_mode() before sibling
-lane B has initialized, this read-modify-write uses a mask spanning all
-lanes (LS2088A_RCWSR30_SRDS_CLK_SEL_MSK). This forcefully writes zeroes
-to lane B's configuration because it relies purely on the software state
-in soc.lanes_initialized, potentially discarding its bootloader-configured
-active state.
-
-[ ... ]
->  static int __init fsl_guts_init(void)
->  {
->  	struct soc_device_attribute *soc_dev_attr =3D NULL;
-[ ... ]
->  err_nomem:
->  	ret =3D -ENOMEM;
->  err:
->  	kfree(soc_dev_attr->family);
->  	kfree(soc_dev_attr->soc_id);
->  	kfree(soc_dev_attr->revision);
->  	kfree(soc_dev_attr->serial_number);
->  	kfree(soc_dev_attr);
-
-[Severity: High]
-This is a pre-existing issue, but can dereferencing soc_dev_attr here cause
-a kernel panic on the error path?
-
-If earlier initialization steps fail, such as of_iomap() failing and jumping
-to err_nomem before soc_dev_attr is allocated, soc_dev_attr will remain NUL=
-L.
-The unconditional access to member variables like soc_dev_attr->family will
-result in a NULL pointer dereference.
+>  	ctx->total_frame_num++;
+>  	mtk_jpeg_dec_reset(comp_jpeg[hw_id]->reg_base);
+>  	mtk_jpeg_dec_set_config(comp_jpeg[hw_id]->reg_base,
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720133642.1363=
-24-1-vladimir.oltean@nxp.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720133432.1042=
+046-1-kyrie.wu@mediatek.com?part=3D6
