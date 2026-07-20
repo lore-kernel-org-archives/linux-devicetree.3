@@ -1,85 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F95423A72
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:42:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12D423BBFCA;
+	Mon, 20 Jul 2026 13:44:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784554933; cv=none; b=Y7JACWZR9YtntkAL6B6puMb3fQzVsyMs6GwmCaXrPDcTllDkyrOPZXXwHLbKFAPykX53lNmCzunx9ANX6bfKxWEIvBJPDJG1EwRLWyqKybCaiA715SQbFp5ZECFoOSag3TtkncLgub5GGGWpEUsMV4Ud8U6uRh7JYRDiATZoZkE=
+	t=1784555052; cv=none; b=CdFUqL3YQqtIftMHDo34ZBxXQd8/UmP9gSXyqaRFOvy2WC0S5m7qeN0xHO8RnMa3z1LZQRjVRguG5WMyZSZzg582UHRw1bDqq+aVwj20XjWtZeJ6v7tzolCBc4X5U69BlF6F4Ttar6/xUGWPIuau/MHxSrh3ZvgV9Ypru0HqmRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784554933; c=relaxed/simple;
-	bh=AufKo+x9e+YTdFLLkWDq/9s35hno6ztNd/WNA1wwc3M=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h7fm0MM0oB9fc6E6KozcpbYY62CLbNV88NjOzgZuSZocGgDAoSoTkKej9J6Fpo8Lzd6dHsIxzyTWBHWVwWsAOFcn+luCe92nd/i92mfWE9l5TyhznHt4AAoh4uEnp+3QB0yDMgb4Ytgzk/gaZKQEHUr7L4ePCu251/MCaeVYyes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=krAYSCer; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784555052; c=relaxed/simple;
+	bh=XGFixbbiOwAdsy2ypm135i5ZaCOaXMSILoIypCiila4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XXlzED/S58n/X+kd0qTqPGqlQPBkuTBNLCuHa9RQlddDCiCA5LQHiEA32ZlB2KUAymc1bwaREHGLuTI2vuDfEfd2D0BoK18h8MEg4E2Ymf5iUbyHeAJ0BACC/WB/zDxvHLL1L7Lc/58aB73OpnkJ5mvZbCDCZKs1QgYPMZxPkCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=niFFJuBc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="krAYSCer"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DA9B1F00ADE
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:42:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="niFFJuBc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 246881F000E9;
+	Mon, 20 Jul 2026 13:44:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784554930;
-	bh=AufKo+x9e+YTdFLLkWDq/9s35hno6ztNd/WNA1wwc3M=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=krAYSCerPbAECToptJptyTSvTQt7Kqimf8k+M4PHZeg6rRF79l5bokUGb5Bm5N0A8
-	 G+9sSA6KjlEz4F7A1BXsYQJ/RXnqf1kUsNeAqhCZnbfS7cCJHACJdeoBBip6HMlvED
-	 uHGd3QwRKS/e61Ck1rt4R3Dag+/GXhyeBFARYWJ2yEXuANbNUSB5gkjF+KWLvkfFNB
-	 cGRJ403bqJjvtVE+j7FG3oCkLdqEcATk47NMOQZc/myax3lbpFx7BEvMduC8b8UK21
-	 rHNp7EiK/d0IjT5BABx0nbBaJ4Afs8PjeCpHanZWmtx0oXz7QyrSS/pVpLwfzYPDl+
-	 UtaSQw5TblhNw==
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b015532f7bso9960896e87.0
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 06:42:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpC1JpfC3VpJftamf9dPNUUXg02y7MwK0ELtJK2Hmz+Liemf09Zohpsf/SNDZBQdG/guxay38NTZc1T@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx8lM4cKW/DkLu2VFjE2E6GkK2/PDTM8Mm2mWUJw9K4enabaO8v
-	xn90gz1jUUtEc8NitVWZQyD4XdJjZD5Qn+3yoO3MSbFFddST2GPKZ2Pe8im2Pqixgfw9vf/MBOT
-	648ICxwekG+qvyggdGcNtvistDDzCsF+4rngLROXgUQ==
-X-Received: by 2002:a05:6512:696:b0:5b2:9f9c:4634 with SMTP id
- 2adb3069b0e04-5b29f9c46c3mr777376e87.45.1784554928648; Mon, 20 Jul 2026
- 06:42:08 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 20 Jul 2026 06:42:07 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 20 Jul 2026 06:42:07 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260720130511.493295-1-prasad.kumpatla@oss.qualcomm.com>
+	s=k20260515; t=1784555045;
+	bh=XqnGblZcW91SjoViuXqdn+jXGJtHKiqqNpxT/GvQwoc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=niFFJuBcFkiY0WKRIGo1cievzXRhwq02wDRO0m6vpBZo63FxLaNhzWbcjmbd/OPnY
+	 uYl7Qx/ITXxt87j5bisFsyHnTa17ijUOreG34WHyBHY2TTQnWKq46/0RUzZJ0JcDfp
+	 ZWq3WLt3UeGUaFBy7zhQ7DP+jyZ4R8hsp04I+SoY0k94avc1g7j+XDfhueQdjol77l
+	 V36WEPmWmYa0FGXu2XzIwuC5HSsuWGAcOJ8liAWlmMbcRVlfEJOAo6Lvlxx616Y5iG
+	 P6Azu6lA/En7xcRsmtAhXGLwY3YGPw3Y2hBKucGpZ7MJdYk+UI4Za52UNvNxXxHKGB
+	 LardEKhki0d3Q==
+Date: Mon, 20 Jul 2026 08:44:04 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Aaron Kling <webgeek1234@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	linux-tegra@vger.kernel.org, Jonathan Hunter <jonathanh@nvidia.com>,
+	devicetree@vger.kernel.org,
+	Thierry Reding <thierry.reding@gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: soc: tegra: pmc: Document Tegra210B01
+Message-ID: <178455504398.2730679.2251788276313602337.robh@kernel.org>
+References: <20260720-t210b01-pmc-v2-0-ca5317f8507b@gmail.com>
+ <20260720-t210b01-pmc-v2-1-ca5317f8507b@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260720130511.493295-1-prasad.kumpatla@oss.qualcomm.com>
-Date: Mon, 20 Jul 2026 06:42:07 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MfvfVvJ4anwY5WZUr5K8fSGkcvejah72fUDLc7ZC59jNw@mail.gmail.com>
-X-Gm-Features: AUfX_mzkKRJxqWtXztybEccZih4vaheradj3-Hfi7e4EOBdahV046NLAZZdxguU
-Message-ID: <CAMRc=MfvfVvJ4anwY5WZUr5K8fSGkcvejah72fUDLc7ZC59jNw@mail.gmail.com>
-Subject: Re: [PATCH v4 0/4] ASoC: qcom and pinctrl: add LPASS LPR voting and
- Hawi LPASS LPI TLMM
-To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
-	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org, 
-	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Srinivas Kandagatla <srini@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260720-t210b01-pmc-v2-1-ca5317f8507b@gmail.com>
 
-On Mon, 20 Jul 2026 15:05:07 +0200, Prasad Kumpatla
-<prasad.kumpatla@oss.qualcomm.com> said:
-> This series adds support for LPASS low-power resource (LPR) voting
-> through PRM and introduces LPASS LPI TLMM pinctrl support for newer
-> platforms such as Hawi.
->
-> On such platforms, LPASS requires LPR resource voting via PRM to keep
-> the subsystem active. This is handled by adding a new clock ID and
-> support for PARAM_ID_RSC_CPU_LPR in q6prm.
->
-> Additionally, a new LPASS LPI TLMM block is introduced, requiring a
-> dedicated DT binding and pinctrl driver.
 
-What is the merging strategy? Is an Ack from Mark required and the series
-should go together through the pinctrl tree?
+On Mon, 20 Jul 2026 01:31:15 -0500, Aaron Kling wrote:
+> The PMC in Tegra210B01 is very similar to the one in the original
+> Tegra210, but has a few powergate differences. Document this soc.
+> 
+> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/soc/tegra/nvidia,tegra20-pmc.yaml | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
 
-Bart
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+
