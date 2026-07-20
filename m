@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5C554774
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 01:32:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF081A9B58
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 01:36:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784511148; cv=none; b=L+TCniXe7B9W4Mt5RPqibnawknyfu5JC5qgVubQczdkREhsY4X19FoAjXGPNgT6incZhh8ua4uLft6J5QQaZzo60K6nytlNd5hdDwHgAWdjNgG8vpFM7F77LvTyOC+6QVei0FqjS0GQiuTFAtx2LoDhw98j5rvwL6xT36pedqlE=
+	t=1784511368; cv=none; b=kCQE3b1Zudz00QoSqqDjiYRj0DCHB5aA0MVamQCkb12eYNhIO1K45xhNo3Vg991fCXXIizAn/Nr7bkR+oVn2QxAbW+2yp9IdXqFPPl1ixo3j70z+IWtPLsp8hqOecf5GyPMIiSgoI2uXQ8mAmPY5iQ5/6sYlAZVjajru8qYpOw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784511148; c=relaxed/simple;
-	bh=lxDHjvugangZDz51SN9HZQP/vnGlxLkcvijT9H6qSSI=;
+	s=arc-20240116; t=1784511368; c=relaxed/simple;
+	bh=8tVgG8Ljm4iXJycnj2tCmSTYyfXPari79gt7MbcyaJ4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CkX3n+Xj4j1VH78SRFNvT0hzHAtJPJBT4seH+YDzuDze5xnaA6T/P937SxQbqJkbVfA+/hZH8zTw6UQgOqdlPraftSX7JHwLm28CsyVWaewVZt/r9JdmUIwUW5ZfSYhEKf7RphE3HkXsif+qwiXq0L+7MV1tCLhCfQ6ZKUA/lvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ohE8tn5x; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=JZr3bcGfm0+StKM/FhghFlG268LfLPi/Sf2WWS7lIJbgo0pvYYRhLVZPUp1YOdCWnRAJc4gtblk/aY1E2uMmCrc2HrRANL94vBJWNCOT3GbwrHAonqFHaGQF1bbJpil11leRlwSafitNmloNxPjsfZiXoDTxk5GZOkynn87FaN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OPow5cpb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ohE8tn5x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C01C1F000E9;
-	Mon, 20 Jul 2026 01:32:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OPow5cpb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 913181F000E9;
+	Mon, 20 Jul 2026 01:36:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784511145;
-	bh=4q+juEEtHcQmqFu6oYt5fDojk4ucVMyseQzdvGXWRSM=;
+	s=k20260515; t=1784511366;
+	bh=AJog1Oeb5slh52QVCq2+kjHYfSQ4iKJGTOAZ/gHSU6M=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ohE8tn5xYhP0GDYDrLHHVYef2tufBMUa5F7B1gVUquM2OCEGpTjSwmkbxlWaJFCtS
-	 o30A9Aho0WjHRblFwxguuxAh4sxj+2y/QZuyTXArzee0FUw2VSc6BtR/B1wLlSWR60
-	 0wpcpAzRVUSQ+7aCEbEYolQfk2lel7xMtIsKso3daZQ6W9D2VXW8I0PA79qvdQ8Lpa
-	 L/S4vnWY6zuxz6pzmBKWqE9+n6GFvIhA6RN0RXiBodOiy+rseI2zLbU5LI0Ab6F/vJ
-	 dNbgrVmo3U7UWatH0exSJZjTO99xEMnM5ubAV9lIsEs9921CFufYHYrklg7mtP/nv2
-	 vVwWtZqVnMD9g==
+	b=OPow5cpbLf8mObCSPO8Jj/Ct3THr29oVr9HPTOALokHBLYuKZzURCiRfGyB1GEzjf
+	 D3zdqbS6OVHT/VG/DU47YEf6YtQJePdUPPSIcV6hjfGN1Y8lDamkclRBj11A8FQVSN
+	 Z79ctwIkJ2H+yt/Lr6qX+m/HSn2GPhBBKwzbPPsfauq/GKsjBcaLSArUl8vauFq1fA
+	 6CplLkFuPFe08h3I2I9axSLTntWb4wLA0wCKIdlvW4OqZsdHvHe4IvMMPLy3iKEvbO
+	 HeHS0/EAtYbX0yNAEdH8Ai7r6LYXu2OStCNd9IdXVi5ZJBBbZzxBxz8/LGLKB6g8xB
+	 nMsef1cFlWINQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 07/14] media: mediatek: vcodec: send share memory
- address to vcp
+Subject: Re: [PATCH v6 09/14] media: mediatek: vcodec: add decoder
+ compatible to support mt8196
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kyrie Wu" <kyrie.wu@mediatek.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, robh@kernel.org
-In-Reply-To: <20260720012056.1026551-8-kyrie.wu@mediatek.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
+In-Reply-To: <20260720012056.1026551-10-kyrie.wu@mediatek.com>
 References: <20260720012056.1026551-1-kyrie.wu@mediatek.com>
- <20260720012056.1026551-8-kyrie.wu@mediatek.com>
+ <20260720012056.1026551-10-kyrie.wu@mediatek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 01:32:24 +0000
-Message-Id: <20260720013225.5C01C1F000E9@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 01:36:06 +0000
+Message-Id: <20260720013606.913181F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,67 +47,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Unconditional increase in firmware IPC message size may break ba=
-ckwards compatibility with older SCP/VPU firmware.
+- [High] The newly added MT8196 chip was added to the `mtk_vcodec_dec_chip_=
+name` enum, but its V4L2 capability limits were not updated in the stateles=
+s decoder's control setup, causing the driver to advertise artificially lim=
+ited fallback capabilities to userspace.
 --
 
---- Patch [7]: [PATCH v6 07/14] media: mediatek: vcodec: send share memory =
-address to vcp ---
-commit 84b64e642819aa5202009e5076e47823645bcbc0
+--- Patch [9]: [PATCH v6 09/14] media: mediatek: vcodec: add decoder compat=
+ible to support mt8196 ---
+commit 33685e9d98f41bca9dad07f1a7aa64db22f658cd
 Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-media: mediatek: vcodec: send share memory address to vcp
+media: mediatek: vcodec: add decoder compatible to support mt8196
 
-This commit updates the AP to VPU initialization message by adding a shared
-memory address field. It is used specifically for the VCP architecture where
-shared memory is allocated in the kernel rather than reserved in the VPU.
+MT8196 is lat single core architecture. Support its compatible and
+use `mtk_lat_sig_core_pdata` to initialize platform data.
 
-> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec_ipi_msg.=
-h b/drivers/media/platform/mediatek/vcodec/decoder/vdec_ipi_msg.h
-> index 47070be2a9914..097561a1efdcf 100644
-> --- a/drivers/media/platform/mediatek/vcodec/decoder/vdec_ipi_msg.h
-> +++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec_ipi_msg.h
+> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_de=
+c_drv.h b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv=
+.h
+> index 15e437323af5a..53d1708b012b7 100644
+> --- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
+> +++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
+> @@ -29,6 +29,7 @@ enum mtk_vcodec_dec_chip_name {
+>  	MTK_VDEC_MT8188 =3D 8188,
+>  	MTK_VDEC_MT8192 =3D 8192,
+>  	MTK_VDEC_MT8195 =3D 8195,
+> +	MTK_VDEC_MT8196 =3D 8196,
 
-[ ... ]
+[Severity: High]
+Does adding this new chip name without updating the stateless decoder's
+control limits restrict the MT8196 capabilities to their lowest defaults?
 
->  struct vdec_ap_ipi_init {
->  	uint32_t msg_id;
->  	u32 codec_type;
->  	uint64_t ap_inst_addr;
-> +	u64 shared_iova;
+For example, in drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_d=
+ec_stateless.c:
+
+mtk_vcodec_dec_fill_h265_profile() {
+	switch (ctx->dev->chip_name) {
+	case MTK_VDEC_MT8188:
+	case MTK_VDEC_MT8195:
+		cfg->max =3D V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_10;
+		break;
+	default:
+		cfg->max =3D V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_STILL_PICTURE;
+		break;
+	}
+}
+
+Will this cause the HEVC max profile for MT8196 to fall to the default
+MAIN_STILL_PICTURE limit, preventing standard Main profile and 10-bit decod=
+ing?
+
+A similar fallback to defaults seems to occur for MT8196 in:
+- mtk_vcodec_dec_fill_h265_level() (limits HEVC level to 4 instead of 5.1/5=
+.2)
+- mtk_vcodec_dec_fill_vp9_profile() (limits VP9 to Profile 1)
+- mtk_vcodec_dec_fill_h264_level() (limits H.264 to Level 4.1)
+
+Should the MT8196 chip be added to the capability limit setups for the stat=
+eless
+decoder controls?
+
 >  };
-
-[ ... ]
-
-> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec_vpu_if.c=
- b/drivers/media/platform/mediatek/vcodec/decoder/vdec_vpu_if.c
-> index cdb673e6b4770..3a10b32be0945 100644
-> --- a/drivers/media/platform/mediatek/vcodec/decoder/vdec_vpu_if.c
-> +++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec_vpu_if.c
-> @@ -236,6 +236,8 @@ int vpu_dec_init(struct vdec_vpu_inst *vpu)
->  	msg.msg_id =3D AP_IPIMSG_DEC_INIT;
->  	msg.ap_inst_addr =3D (unsigned long)vpu;
->  	msg.codec_type =3D vpu->codec_type;
-> +	if (mtk_vcodec_fw_get_type(vpu->ctx->dev->fw_handler) =3D=3D VCP)
-> +		msg.shared_iova =3D vpu->ctx->dev->fw_handler->vcp->iova_addr;
-> =20
->  	mtk_vdec_debug(vpu->ctx, "vdec_inst=3D%p", vpu);
-
-[Severity: Medium]
-Does this unconditional size increase break backwards compatibility with ol=
-der
-SCP/VPU firmware?
-
-By adding shared_iova to struct vdec_ap_ipi_init, the struct size increases
-from 16 bytes to 24 bytes. Directly after this diff hunk in vpu_dec_init(),
-the message is sent to the firmware using the full sizeof(msg):
-
-err =3D vcodec_vpu_send_msg(vpu, (void *)&msg, sizeof(msg));
-
-If older firmware expects a strictly sized 16-byte initialization message,
-could sending 24 bytes unconditionally cause the initialization to fail and
-render the video decoder unusable on existing non-VCP devices?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720012056.1026=
-551-1-kyrie.wu@mediatek.com?part=3D7
+551-1-kyrie.wu@mediatek.com?part=3D9
