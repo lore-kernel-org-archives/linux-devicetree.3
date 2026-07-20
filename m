@@ -1,252 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A3A97404E
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 05:33:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E704738E8CA
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 05:37:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784525615; cv=none; b=XnMtEdZcPALQLv/0j+rnd+QmkA+1zQIWEM6fU5w2Ide5kOTBTfligmk1ELqM3qFCMLZliUNlKYVMcnqqrNDsE09yjbVuWhQpbTqb+wFIVS3JfbGoaABzrShd63p7nZfmRmWc++QM84xEGKL+WDtmlbBOJC2LwJiyu2amvv9PMQU=
+	t=1784525843; cv=none; b=nzBcCxpLKoqXf5PI7N1DJ11ZM/sLIicdkAhsAAvKi/MsdD8C9fLiTfWr71vFliwDiRboY4ImBxz5m+6/Zti9VSQQsep2qsdo8rNmYVO23yXuYmkrFBPMKWTwytFLpxFtuXa4T/umQ7Cn8AmbNTRdZPf3XspxHbiDH7mLuiH7rZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784525615; c=relaxed/simple;
-	bh=JJGCVEw/coCLtlDRpJuKb1MNV2lZDTXpa91/5SJApYM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ax2oqFTeSmnN1k5w3sFmNi1wFQqMBJ37Buc06XcT8icgfjdm4MhTOMsTCZI8HeV1ZgVJunpuKmexCg6ANe/9m2Uz7a2oNVBdRNP8qSkOQiDWc3t6/xZFsHckN8TXeaZFEWqEuqKsNyYoOXxdRhS1ujEZjRTAv6yBqWiFdmH7MfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bmXLmRr3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784525843; c=relaxed/simple;
+	bh=0aJDId9vo3SAfdsSfHDD0XI9HKsmUImAI1ehztnPxG8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ltCPYP+u+UW+p2IuYC6QutQBx6M1JM8XDKAhy9/ufPNS3TR7UFOJYlg7ANYz0cgd7wGuhwetmgL/PwDlkNC/qUEuOsiP/4NnXw8xW0fnZokzYBKvaBHjqaam9CcjBb+CcQXp/dq3pSASDF1lrbKSqBhRGc5lgCnFqfxplmJFiK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rgH6FCVC; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bmXLmRr3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E26781F000E9;
-	Mon, 20 Jul 2026 05:33:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784525614;
-	bh=R3/9sqXazvsnXxiZH+itc4NIgujSl3RxSMfXzAUn+nc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bmXLmRr3K23NLBLAGPx6r8x7F49eEldaLWfndTiTbmb9DltB0Y37KBdZ3Pd4IfMvi
-	 AsdkyqbJIqilPl9URnf90Mn+wxfXvA5HV6K1aL0Kfq/WvuZVOYmaer0y6Q+4ngy/pv
-	 NKqc42kvFJnXGH+RP6ZYKGRcrTzKSxHHsquGgWH3mErZ8KEJ/5ff1GgrENBavHGUBu
-	 rUhoWd0DmIYvzEJov5MEDPK+zV2M4EhFh6NpdQ0K1lww2CLzQFDOiIAlefoMaXC92C
-	 T4jC5O4uJFtROrZSPPEts4gnXlRtAWJziQ2PQfYldzFQhsMEwc9j5S+BpNrnYQPtxD
-	 yfDY3i7DcynFQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 2/4] clk: cix: add sky1 audss clock controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: joakim.zhang@cixtech.com
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260720051505.1252774-3-joakim.zhang@cixtech.com>
-References: <20260720051505.1252774-1-joakim.zhang@cixtech.com>
- <20260720051505.1252774-3-joakim.zhang@cixtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 05:33:33 +0000
-Message-Id: <20260720053333.E26781F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rgH6FCVC"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-c9e0b89e228so4072202a12.1
+        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 22:37:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784525841; x=1785130641; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=R8dZOeWZ4QzXx1G8tKCpK6OKK6m4eWHKLk5KGtNIMNU=;
+        b=rgH6FCVCa8vXkskoY/B8a0//Vh+BLqsgA3Qbu5dm600Dp1CtUOeBl5rNOcCupNehsO
+         N7BW9jdJtrhiZWVhLNKQbJ2xBwKPn2ZeNh6ix1ZR2KivcsthZPvaRYMtyBgGmXOoyL+V
+         UMv9NHKeReCDKDt+NHLPjW0Ij40+hwPB+hplJDPEFvF9UDeq+AflVw8FGjcEr1G679QG
+         uIZKsSHham1Oaan+xg0j8LtP3syu6o9tzLpEozZX6DK8jMKh8iTiuDk2GrZf64jVjn6o
+         D8gdSnVvH8Dmk/MCUb4DGzXaYvJKGV9rJVWUmcROUELgC946aSum/yp4p4yn3wf4Hi1T
+         ExqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784525841; x=1785130641;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=R8dZOeWZ4QzXx1G8tKCpK6OKK6m4eWHKLk5KGtNIMNU=;
+        b=i4VdhZAnayPHQEadgiYTV8DhVQ1XLSF7/lJww0tmETmk+ajvueQ2Q+WB82dKBBapbZ
+         16o49HgDl5v+G2LBDtWeSEDnu3VRNNTXdRij0Fe/yz0P+IAc+FFQzkTyrcc45qdrOwnU
+         Xdol4DNOGhsVk+9DtrrjWRDz4JtSlikTwUXJ8qfalJioXexw0MrlYm74N84YYPs7u29d
+         IFomG/1XjlNKoFTEc+SNexNYY/5R7zgVD/Fec7gEknUgYq0cAiGMTRFyvDABWki6jmQ+
+         YeVjCUUIRP7wIaVp0KlXTo378D8Oxka5EnQQTvRZADq7zeKVQYxWx8AeZwyqV7JGCKb7
+         F7nQ==
+X-Gm-Message-State: AOJu0YwCNP9rxRfqErBbYcxoe4Bb3Usv+SmryltD7lFWNgfdcFSs/Vo+
+	dJkwiHiI2o/TGw96ChIa0TUwU6MTtK1jFPR61WdRRf/EfDJTqGP+lS8S
+X-Gm-Gg: AfdE7ck4/quosT0zSeygx3fjwLIpjkW7AukAEy6YyRQBoz8BBI2zJ5f+97/BCPWVerv
+	g/A+gjKT2Z8enboFCD0p1KsyZufnzVmNTCqQL2l9dNTtWet8lZO6MMSJNmfpCu6S3tL/gNmA2AR
+	T05h/2djaH9l+RC+bVhgofIlzu+f6UhmgKFOA+EX2j35xMJAynVc9yozlpnOuOeMFV9W1aHgT27
+	FYypsTG8Er904wh3q1uhD/zaR0cXR5K96wBQINDBZMxUyx31yMXcjEwcdpMOG89XsBpBNd8JDPc
+	YQVsgkxYcNRoniwlN5Q/0XtJa2kJZj641kgSN5Y4Evq+onQaJFrxWRamcFYbwy2gbzUmisxUgVv
+	Hv7kEcM7jY+qaelJZLTKkwXUzus45Eu5oBWo1U3d386GSUNzqnKiMcPP7Fc5vNw23M88CN8LUd/
+	MWoWo0lA8+NsuRQggYAmKte74pqo1BRhb57uHwfErT5GkLZZNWpjT6gKlu1Kh2lFfJMQ==
+X-Received: by 2002:a05:6a21:7a46:b0:3bf:6237:4d49 with SMTP id adf61e73a8af0-3c3ad7aa051mr14685620637.23.1784525841254;
+        Sun, 19 Jul 2026 22:37:21 -0700 (PDT)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:345f:e51b:3d0c:4546])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a20cfe3sm34224663eec.30.2026.07.19.22.37.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 19 Jul 2026 22:37:19 -0700 (PDT)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Subject: [PATCH v2 0/3] powerpc: 512x: Convert ADS7845 touchscreen on
+ PDM360NG to device tree
+Date: Sun, 19 Jul 2026 22:37:15 -0700
+Message-Id: <20260719-ads7846-pdm360ng-v2-0-1198bd108502@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAu0XWoC/2WNwQ6CMBAFf4Xs2Zq2CK2c/A/DobZbWCOFtEg0h
+ H8XMJ48TjJv3gwJI2GCKpsh4kSJ+rCCPGRgWxMaZORWBsllyZVQzLik9Klkg+vykoeGoVXozl5
+ JryWssyGip9eevNZfTs/bHe24dTajpTT28b1/TmLzfnn9n58E48znQntdWGcKdWk6Q4+j7Tuol
+ 2X5AAvNLP3CAAAA
+X-Change-ID: 20260717-ads7846-pdm360ng-ec7ed9f72f82
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Cc: devicetree@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16-dev-b242f
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] Clock operations access MMIO registers without ensuring the device=
- is runtime-resumed, leading to bus faults or synchronous external aborts.
-- [High] The driver saves device-specific hardware register context into a =
-globally shared static array during runtime suspend, corrupting state for m=
-ultiple instances.
-- [High] Unbalanced runtime PM disable depth causes PM to permanently break=
- after driver unbind and rebind.
-- [High] Incorrect modeling of shared hardware gates and dividers as indepe=
-ndent composite clocks.
-- [Medium] Runtime PM usage counter is permanently leaked if `devm_add_acti=
-on_or_reset` fails during probe.
-- [Medium] Missing clock disable and reset assert on probe failure or unbin=
-d when CONFIG_PM is disabled.
-- [Medium] Missing mux tables for I2S clocks causes incorrect hardware mux =
-selection.
---
+The reason for this series is to remove support for platform data in the
+ads7846 touchscreen driver, as pdm360ng is the last user of legacy
+platform data in the kernel for this driver.
 
---- Patch [2]: [PATCH v10 2/4] clk: cix: add sky1 audss clock controller ---
-commit c9de82467e7defa872d02a168dbab2226c7260e8
-Author: Joakim Zhang <joakim.zhang@cixtech.com>
-Subject: clk: cix: add sky1 audss clock controller
+This series converts the ADS7845 touchscreen on the PDM360NG board to use
+Device Tree bindings instead of legacy platform data callbacks:
 
-Add a platform driver for the Cix Sky1 AUDSS CRU. The driver maps
-the CRU registers and registers mux, divider and gate clocks for
-DSP, SRAM, HDA, DMAC, I2S, mailbox, watchdog and timer blocks.
+- Move GPIO controller capabilities into mpc5121.dtsi so all MPC5121
+  boards inherit proper controller definitions, and remove redundant
+  local declarations from ac14xx.dts
 
-> diff --git a/drivers/clk/cix/clk-sky1-audss.c b/drivers/clk/cix/clk-sky1-=
-audss.c
-> new file mode 100644
-> index 0000000000000..23095217b7c24
-> --- /dev/null
-> +++ b/drivers/clk/cix/clk-sky1-audss.c
-> @@ -0,0 +1,1211 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +// Copyright 2026 Cix Technology Group Co., Ltd.
+- Update pdm360ng.dts to use "ti,ads7845" with pendown-gpio and
+  interrupt-parent referencing gpio_pic
 
-[ ... ]
+- Add "ifm,pdm360ng" to mpc512x_generic.c and delete obsolete
+  pdm360ng.c.
 
-> +static u32 sky1_reg_save[][2] =3D {
-> +	{ INFO_HIFI0,  0 },
-> +	{ INFO_CLK_GATE,  0 },
-> +	{ INFO_CLK_DIV, 0 },
-> +	{ INFO_CLK_MUX, 0 },
-> +	{ INFO_MCLK, 0 },
-> +};
+This change has been discussed in '24 but I just got around to
+implementing this:
 
-[Severity: High]
-Can this cause data corruption if multiple instances of this driver are bou=
-nd?
+https://lore.kernel.org/r/ZoNHLjmSvCN12vU5@google.com/
 
-The array is statically allocated and globally shared, but the
-sky1_audss_clk_runtime_suspend() callback writes device-specific register
-state directly into it. If two instances suspend, won't they overwrite each
-other's saved state?
+Note that this should compile but I have not tried this on real
+hardware.
 
-[ ... ]
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+Changes in v2:
+- Set pendown-gpio to GPIO_ACTIVE_LOW in pdm360ng.dts to match the
+  active-low hardware pen-down signal
+- Expanded commit description of patch 2 explaining why early boot setup
+  in pdm360ng_penirq_init() is harmless prior to patch 3
+- Removed Anatolij Gustschin since I got a bounce telling he's no longer
+  with DENX
+- Link to v1: https://lore.kernel.org/r/20260718-ads7846-pdm360ng-v1-0-f318f85cda57@gmail.com
 
-> +static const struct composite_clk_cfg sky1_audss_clks[] =3D {
-> +	/* dsp */
-> +	CFG(CLK_DSP_CLK,
+---
+Dmitry Torokhov (3):
+      powerpc/dts: mpc5121: Move GPIO controller properties to SoC dtsi
+      powerpc/dts: pdm360ng: Convert ADS7845 touchscreen to DT bindings
+      powerpc/512x: Remove pdm360ng platform setup in favor of mpc512x_generic
 
-[ ... ]
+ arch/powerpc/boot/dts/ac14xx.dts              |  13 ---
+ arch/powerpc/boot/dts/mpc5121.dtsi            |   6 +-
+ arch/powerpc/boot/dts/pdm360ng.dts            |   8 +-
+ arch/powerpc/platforms/512x/Kconfig           |   3 +-
+ arch/powerpc/platforms/512x/Makefile          |   1 -
+ arch/powerpc/platforms/512x/mpc512x_generic.c |   1 +
+ arch/powerpc/platforms/512x/pdm360ng.c        | 126 --------------------------
+ 7 files changed, 13 insertions(+), 145 deletions(-)
+---
+base-commit: 8e9685d3c41c35dd1b37df70d854137abcb2fbac
+change-id: 20260717-ads7846-pdm360ng-ec7ed9f72f82
 
-> +	/* hda */
-> +	CFG(CLK_HDA_SYS,
-> +	    "audss_hda_sys",
-> +	    hda_sys_parent,
-> +	    NULL,
-> +	    -1, 0, 0, 0,
-> +	    INFO_CLK_DIV, 0, 2, 0,
-> +	    INFO_CLK_GATE, 14, 0,
-> +	    0),
-> +	CFG(CLK_HDA_HDA,
-> +	    "audss_hda_hda",
-> +	    hda_hda_parent,
-> +	    NULL,
-> +	    -1, 0, 0, 0,
-> +	    -1, 0, 0, 0,
-> +	    INFO_CLK_GATE, 14, 0,
-> +	    0),
+Thanks.
 
-[Severity: High]
-Will this lead to clock state desynchronization?
+-- 
+Dmitry
 
-It looks like CLK_HDA_SYS and CLK_HDA_HDA are modeled as independent clocks
-in CCF but share the exact same hardware gate bit (14). Furthermore, 17
-different clocks in this array share the exact same hardware divider bits
-(INFO_CLK_DIV, shift 0, width 2).
-
-If CCF manages these independently, won't disabling one clock silently
-clear the hardware gate for all others sharing it, breaking active
-consumers?
-
-[ ... ]
-
-> +	CFG(CLK_I2S0,
-> +	    "audss_i2s0",
-> +	    i2s0_parents,
-> +	    NULL,
-> +	    INFO_CLK_MUX, 0, 2, 0,
-> +	    INFO_CLK_DIV, 2, 2, 0,
-> +	    INFO_CLK_GATE, 0, 0,
-> +	    0),
-
-[Severity: Medium]
-Will this cause incorrect hardware mux selection for the I2S clocks?
-
-CLK_I2S3 and CLK_I2S4 correctly use a mux table (i2s3_mux_table) to map the
-second parent (audio_clk2) to hardware value 2. However, the other eight
-I2S clocks pass NULL for their mux tables.
-
-If CCF defaults to writing the 1-based index (value 1) instead of 2 for
-these clocks, won't this result in an invalid or unintended clock selection?
-
-[ ... ]
-
-> +static unsigned long sky1_audss_clk_divider_recalc_rate(struct clk_hw *h=
-w,
-> +							unsigned long parent_rate)
-> +{
-> +	struct clk_divider *divider =3D to_clk_divider(hw);
-> +	struct sky1_clk_divider *sky1_div =3D to_sky1_clk_divider(divider);
-> +	unsigned int val;
-> +
-> +	regmap_read(sky1_div->regmap, sky1_div->offset, &val);
-
-[Severity: High]
-Could this trigger a synchronous external abort (bus fault) if the device is
-runtime suspended?
-
-The driver exports atomic clock operations (such as recalc_rate and
-is_enabled) that directly read and write MMIO registers using regmap.
-Because the device is allowed to runtime suspend, which asserts the NOC res=
-et
-and disables base clocks, won't any MMIO access during this state cause a
-fault?
-
-Userspace reading /sys/kernel/debug/clk/clk_summary could potentially
-trigger this. Do we need to ensure the device is runtime-resumed before
-accessing these registers?
-
-[ ... ]
-
-> +static void sky1_audss_clk_rpm_cleanup(void *data)
-> +{
-> +	struct device *dev =3D data;
-> +
-> +	if (!pm_runtime_status_suspended(dev))
-> +		pm_runtime_force_suspend(dev);
-> +
-> +	pm_runtime_disable(dev);
-> +}
-
-[Severity: Medium]
-Will hardware clocks remain enabled and reset deasserted forever if the
-driver is unbound on a system with CONFIG_PM disabled?
-
-pm_runtime_force_suspend() expands to a no-op when CONFIG_PM is disabled,
-which means the sky1_audss_clk_runtime_suspend() callback won't execute to
-revert the initialization done in probe.
-
-[Severity: High]
-Does this also cause an unbalanced runtime PM disable depth?
-
-pm_runtime_force_suspend() already calls pm_runtime_disable() internally
-to preserve state. By calling pm_runtime_disable(dev) again immediately
-after, the disable depth is incremented twice.
-
-If the driver is unbound and rebound, probe() will only decrement it once,
-leaving disable_depth > 0. Won't this permanently break power management
-for this device?
-
-[ ... ]
-
-> +static int sky1_audss_clk_probe(struct platform_device *pdev)
-> +{
-> +	const struct sky1_audss_clks_devtype_data *devtype_data;
-
-[ ... ]
-
-> +	pm_runtime_get_noresume(dev);
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-> +
-> +	/*
-> +	 * Register cleanup action before clocks/provider (released last under =
-LIFO).
-> +	 */
-> +	ret =3D devm_add_action_or_reset(dev, sky1_audss_clk_rpm_cleanup, dev);
-> +	if (ret)
-> +		return ret;
-
-[Severity: Medium]
-Does this leak the runtime PM usage counter if devm_add_action_or_reset()
-fails?
-
-The usage counter is incremented by pm_runtime_get_noresume(), but if we
-return directly on failure here, it doesn't look like the cleanup action
-runs or decrements it. Does this permanently prevent the device from
-suspending if it is later bound?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720051505.1252=
-774-1-joakim.zhang@cixtech.com?part=3D2
