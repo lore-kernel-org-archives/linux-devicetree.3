@@ -1,64 +1,64 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66F11A9F91
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 07:22:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90F33B7B70
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 07:22:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784532135; cv=none; b=uTi7+zetq1xYSQ0GXylXNVU4yrL8LahZ3laODZFhgDDtUqXPK3dsAqp5FPnn8TzDxUlnNxAs7n2tjRhPpMcmXXA9f6yYFpRLj3jDW3ZNLayLF21oko7BBlVS41yvKBfXcybHIe4ilG/2VNFu+DRaDTc7e/GfwOjNqG2CpZW0gL8=
+	t=1784532137; cv=none; b=UskIbV5WU49RMPLu3SKMmWUe3Jan36kpznaugIPe/uCvIARj31D7bo4gzBcAit9uL09O+2aN0I+hC/2uSAlXh+2hdXfLFk+1T3PPnze25wzNxgA1ra1cKQkhcIaGaragpyZRzgL37TfDznWF8Xb+DFA35ItpxMx0663x0NtwLts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784532135; c=relaxed/simple;
-	bh=DaF1WA85q36ajkUp2wWjzs8vEjfcfgQEKe7dAK+cruo=;
+	s=arc-20240116; t=1784532137; c=relaxed/simple;
+	bh=WLNuylhDoT/T1nhVqbXxx0oK9SVpgxKx6NkmkPvsdCI=;
 	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=AJ7h4ZGm8HftiyEmN3sktrm1m6e23OBaZwk+VIQAHtcYhKbmTdzsXKUWmq7R2riA4V0y2l50zHwYi6ehdzr29CGKW7oZ21AMq9Zqdz7h7EaLe+0CbxuM6RFiP6EY6iunY/OlNJvJV+x38/eQ/hAnsCJ397Woa9geKZ6FyVdspWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c8ya+zOI; arc=none smtp.client-ip=209.85.216.46
+	 References:Date:Message-Id; b=cryHM89gokaunFQdcFK546YXyIhKik7qEUXQ5dX7fIM5vQr5WGjQpEnv5q9c3/H3omj+JK9KSw4hoXjYtyPskfikIS2iPsOqkSj8nLCCtF4HAh99CDwrH+CkUkHdwe5e4yfKebEXR6E3cpsOxUEDkCSaykl/2413/5x9rBlPhag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M0VTaK3p; arc=none smtp.client-ip=209.85.216.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c8ya+zOI"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38e347638adso4853689a91.0
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 00:22:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M0VTaK3p"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38125cebfdaso7410150a91.1
+        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 00:22:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784532130; x=1785136930; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784532132; x=1785136932; darn=vger.kernel.org;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=T1rQiWC4b1Qi8oqfTxdLB8xh9GtA5nvI8VX0/xhDq6k=;
-        b=c8ya+zOIEKjFGbDfM7wiYgIpuMb5c0Ou9CrW5QZKkr56wvyRScRxoKFke/+62MAtNS
-         R5gxQJ4bvwOhwHaexwAv91lu8SAiEhkEaa/tg8yOfKYMpjrN2V1ahgQHkkXzHBshluxv
-         206HCpDUU4lJRvTvavnFlbMRtaX0nbSUD/7pKgFMt/0uk+Gr9KLAl9sltcuUUq9Nj5Xg
-         b4LKmWPnSrpmh9+ncvbCeetVbwqMN62S0gZqYvVCTo3T7HY/tb9+G/JoReTBGNGB58tV
-         lzFVqQ/2TVClLtYCqpcEUSSqVq3FaBBJMtPGmtjwtysHVG7Q0TosEbfv8lfk15xceUgJ
-         v2jQ==
+        bh=VOacMlllEAiItNG+TLG1ZIDGtvtY1fzk11Q/F1WHU44=;
+        b=M0VTaK3pc953NSA527OcsiY8dPWjJjGBfobxDGht4SucD1iVha9gRX9z6Rv+uvjB7Q
+         SVuTd/vINkjIiGpYjYPWpw0TFAVWSGjewgxSumRFnImfFZZMc6R660DHWa79DDhcFaOj
+         xGGZBaO/ND6VSgbH1L3tQ5NEVr8AodKeJ63ua1x8UBDQuOVVxJwiWayP/bcJqs2wQhGp
+         ku/q7LwMLpPyrFF5KQcwTdh/1Svi893tgsATmC6OGHIto4iFHtjmuL3Ux87/gBdiTqAj
+         N2TiyGx/P1b/ojgS4LWV3SINCKMxSETCpGQVO3LRkwjKzYi6QSVvSGHRruomzMuujBhc
+         OIWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784532130; x=1785136930;
+        d=1e100.net; s=20251104; t=1784532132; x=1785136932;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=T1rQiWC4b1Qi8oqfTxdLB8xh9GtA5nvI8VX0/xhDq6k=;
-        b=GLdZvSiaUsuZPHm4rzZzm8ozzckQNa0jv1W4wHopsHACficNPOIKV4qeT2uIM4juny
-         yEKKCaKa6t630xSMw4CfjS0lgdnOugDH7zCVP9BFU4lhhF5PfvAzJzPyrpqNAChkzhmT
-         UgimiZfhnLatRkho01Z1ou+bLgji7c27utQx/krXs808ALZ7vUPougFrrLXBiOpzkqE9
-         BGS+1iMTg3GPhpUlIEOGXBK+jYUdBbX1x6uKZpfVL0f8c32dolTu6QJvx5LCYi5mr2LT
-         bwsGwFcwLlc+7zkOKyBhgSTCpZAtX6FKY8NlHh9yrJ7fwFj12rKjd7WBmlG4Aeo10NPr
-         ZGbA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro6BFWdUKuxAOdP5GD2ZH8RhT3b1rifSMWbx2ltBTwvvmStJM+rLUAHMHIFVs6CzuceCGI8vBi70mf4@vger.kernel.org
-X-Gm-Message-State: AOJu0YwPxb2qyD3NGBMwk2GfS09B6nb+Z0YuSDWpwBcTgD0PBlSTkmxV
-	VBd4Iz+P6sJ8LL7JMDIp9CeHh6wDaZNK4t5Q49nDaqzxJcvA5UUXHM50
-X-Gm-Gg: AfdE7ckA+pAOBzpftwl0AZCS99aCz0qqQrNxHRa0fZyobULG35p11JFAWvFwYjzoPZi
-	NP9ETZ8zTql1oObpBIxbInFa1EfM7el818hNwtmNOM0Thw3cTrc02ITKhRyV8uS6ZT8E9R0D/5K
-	GcEfoeeDfSK45twTMxQin7Xth/juQS0e6OPDlSFCWMKf4lp+eIVqZDqoy8nwyhTKJ4Tr/Pwpgzj
-	+YFXv7Hi2yrsLAPGU1oAQb0TFhMUHqXexMwCjGiR3swOfY2t7w4zNORTFNOd4nY4o1Y4RNzLRn5
-	Dxh5XCLg3OInFpCaPcQA3XMZrBf/J3b5XAPegTLHitX6KZvf8APE3j/JqL+QIKofiGhF+ZeLq4l
-	g6VIO0cziKqhJONwcKDZ+lVwPBZUIeyuZ/aRUN/J1A4srjqAI5wP39bbhKATNAUsfee/AegGYKt
-	tsxmaVYtUVldEe5S3xsbuSwOoKHCgQmgnHTjIJX7g=
-X-Received: by 2002:a17:90b:2691:b0:387:df8f:1408 with SMTP id 98e67ed59e1d1-38e4b5ad2a9mr14741701a91.41.1784532130478;
-        Mon, 20 Jul 2026 00:22:10 -0700 (PDT)
+        bh=VOacMlllEAiItNG+TLG1ZIDGtvtY1fzk11Q/F1WHU44=;
+        b=LNy7tlBVfH0+3HTo92rUbsQJMwznwRt/a8WUEcKhzhs3ifs6B1RrasRgsQZXcCmbrc
+         bz+dKDMMm4t6Mnhtr+Cv2X8x+/gsS+f0VymKFqBJYWhmBb3aeB6pI6ZZ52Vx1v3AYY2Y
+         0CTyQuy1D4khxUxvjLv0ttOPXD5hJQU011dYlrjLG6+LCPWFmsHYtg7qYV+TJl4FqaSw
+         5gNBUQ6VTFzIlGoJ5UGTb9UR3/4rFDFj8+6Cph00vE6jS62eWuKTibzofSMo0emT3a3w
+         TuXf/ZHhsx3qXADFkR3UHQPkJRCl6qai95sUMUwEdMsc3RuA7YA9OM0BC4cDsIHfP6F6
+         5xFg==
+X-Forwarded-Encrypted: i=1; AHgh+RpJPsADEnGgbAys1erv+EgHISY0mO9gCe1qSp/rwECu7x8MId+r76FZkMia8Ax8vx6ZwXDdVnEn3E/Y@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz701iOYhr1JeWxoxu3M8+GKmEv4OMLnXh9LMLJu8J1UJGrXiAn
+	KbZVSvuy8qrQSyXfl63Gn3nz5ieoJWBhHAmDbOeYPN38Qj9BC3i1MgCJ
+X-Gm-Gg: AfdE7ckiaoNr57vvApO491YBe69UONtYrfLMe/76iTj1vtrHkzv96zSNVJolY/WEI/u
+	kQnMbA5dCPOEm8grpHN3JcvFknc4k7bgy/aqVmghJH2Yun8oJhbdjBk0FPetGf0k7TSkXP59OY4
+	KZgptpXjFuei9U31+xX/godlWIK4LoRfgXJMrKHsrECSxbHzl5zo2SHXefKE/M619hp6dMEU0z0
+	X5UzDOzV/1yb9ylkb2ST+dmjZIxgVjdZhFZ3Eds2r1fUvL5W5ZHpedbZf0QZo6c969bLNrsEoEx
+	0HvzILgEymgzqujqXJFtPtIOSNosj68swuLjefg9V7pmobI0c+dYUQCpBCvldoZ+vz1ovAntWd3
+	vyBijX91jypDHXquLaSDA6Lh70ceV5S43Eu/UKV6zJ00+LzIz51JFBwfz3XIR79j8q8ze23O1t9
+	6ocDE1ag0apKfU+QJ5xQjR7Pp6KpiO
+X-Received: by 2002:a17:90b:2f0c:b0:38e:49c0:75a7 with SMTP id 98e67ed59e1d1-38e4b431074mr14088269a91.8.1784532132492;
+        Mon, 20 Jul 2026 00:22:12 -0700 (PDT)
 Received: from [10.0.0.29] ([2601:647:4000:5070::51d7])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e4afcc067sm5153318a91.1.2026.07.20.00.22.08
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e4afcc067sm5153318a91.1.2026.07.20.00.22.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 00:22:09 -0700 (PDT)
+        Mon, 20 Jul 2026 00:22:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -67,8 +67,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v8 03/22] RISC-V: Add Sxcsrind ISA extension definition
- and parsing
+Subject: Re: [PATCH v8 05/22] RISC-V: Define indirect CSR access helpers
 From: Charlie Jenkins <thecharlesjenkins@gmail.com>
 To: Atish Patra <atish.patra@linux.dev>
 Cc: Jiri Olsa <jolsa@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
@@ -80,25 +79,23 @@ Cc: Jiri Olsa <jolsa@kernel.org>, Paul Walmsley <pjw@kernel.org>,
  linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-perf-users@vger.kernel.org, Conor Dooley <conor@kernel.org>
-In-Reply-To: <20260701-counter_delegation-v8-3-7909f863a645@meta.com>
+In-Reply-To: <20260701-counter_delegation-v8-5-7909f863a645@meta.com>
 References: <20260701-counter_delegation-v8-0-7909f863a645@meta.com>
- <20260701-counter_delegation-v8-3-7909f863a645@meta.com>
+ <20260701-counter_delegation-v8-5-7909f863a645@meta.com>
 Date: Mon, 20 Jul 2026 00:21:59 -0700
-Message-Id: <178453211934.543975.9634665501136926362.b4-review@b4>
+Message-Id: <178453211935.543975.13003104709969920617.b4-review@b4>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784532124; l=387;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784532124; l=337;
  i=thecharlesjenkins@gmail.com; s=20260605; h=from:subject:message-id;
- bh=DaF1WA85q36ajkUp2wWjzs8vEjfcfgQEKe7dAK+cruo=;
- b=RXEmXx3bUlqTR60e37EoLeCgujoBbcJb1A9/syNgqmenEp+jMQ5zhL3lYU2n1ecg3AztUmOp0
- 223x7CuCQiDBG4mckQKZidh3U7VcQ7UofEjiHekyrNNXCwnACr4Cm4W
+ bh=WLNuylhDoT/T1nhVqbXxx0oK9SVpgxKx6NkmkPvsdCI=;
+ b=2xcWmRRAqDjGQXqwGbJnB+31tbqeAGCjzKohhI1vIvF8YponJ3EW8uJz4jNw+WI3VgGyavSGl
+ gtdiuG9MO6vCHj8LYZ52PlJfVOl0LaepzbRROI9Qgxlnq4ieSx45ld+
 X-Developer-Key: i=thecharlesjenkins@gmail.com; a=ed25519;
  pk=ajnnRQ98PIdwKp4HeMkq9U32okYbnh6Zb4G3o5XXvkg=
 
-On Wed, 01 Jul 2026 01:46:51 -0700, Atish Patra <atish.patra@linux.dev> wrote:
-> The S[m|s]csrind extension extends the indirect CSR access mechanism
-> defined in Smaia/Ssaia extensions.
-> 
-> This patch just enables the definition and parsing.
+On Wed, 01 Jul 2026 01:46:53 -0700, Atish Patra <atish.patra@linux.dev> wrote:
+> The indirect CSR requires multiple instructions to read/write CSR.
+> Add a few helper functions for ease of usage.
 
 Reviewed-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
 Tested-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
