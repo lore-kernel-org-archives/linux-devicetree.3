@@ -1,40 +1,67 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B543412C0D;
-	Mon, 20 Jul 2026 13:11:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A1D421EFD
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:11:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784553074; cv=none; b=ZJJco/Pc3C4YX2uJ+K8sM/nGz3E+LE33PM2fRNBvu+1kCqyHEQ66pyq9Lh5KsHddAR1O+N+CG6SzJqcgX/PCS9Aa8+wYM1L3+Jb+HTDCVH5KXidnogWThd34AInMhqp7jCFfzQbsVSrCMDI6qq8BoyZXZqD1915Xka6TNmjt9a0=
+	t=1784553078; cv=none; b=UWkHfpOC5lSqY2pQNZh54vZV8Us9p9Zv+Mel9R7Ehq9DHdBtG8iWQBpKk6reRTR/6U5BxjTqeo1Ux+JneywB1pGjfhDQNOiZIp031pjAKY7BqjU+heAU0mMiyaXLCGMV6YLJYFAKJ9MLhzdY9p1PtaDmvNHp2xSoc7E589gqd58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784553074; c=relaxed/simple;
-	bh=9KyVBD8Wk5cUPrXz3Wk18pJ4qJEyElw/o8p4FCDFnx8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EHApNW4rQ2R1ylni5ggQ2i/SUpKLPPPk9P/uKehEVW9b5E2ur4Onl91UTZxf7b2I35hgXRLZfE2hpZUlXCMk5894/7t1LP/NARHJwBOKfeJWtgW01lVQfMvZuFXUe9YBVMHmINpiW59uW/6cNUWAutGUJRwDWA4d9UYw2/4+SpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=JJ8cOPvr; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1784553078; c=relaxed/simple;
+	bh=uoeu93HakWgBrhzBJQhJ5TugRzR8Pbd2rBTqG7Vapo8=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=LYnZna6PKDhhFex97O8siAKUZtGuw8KSQkari/9mc9APcZz4O1VXg/WrSFN3+9CFU/a6wU7oDiZzz+EYIixR5MZHqCu6D+QKGSYnYlgDPTIOI7tytU+rN7qQ6bIpeM53j63WgQsuUhgsBxJLtJOkOZwyIxLD5LyknAFIwwKmPHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=eBMHby+X; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="JJ8cOPvr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1784553070;
-	bh=9KyVBD8Wk5cUPrXz3Wk18pJ4qJEyElw/o8p4FCDFnx8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=JJ8cOPvrzp2Uoh7WBuKlVDJBLMCESDfmTRE6efMLydtMO4Rb8knKVQBA3wGk7NujV
-	 aLI5yU6wehgjLX+hYGB6SGWPuqIK5hLWma1g8AXCToUJwvKCGnJ1x0omgTt4sNyStz
-	 mSBgbIfkgBLF4KqSVQACXYpYqVon09iqRpcUr6e5fiyjkQmIFOiC2rOs8HRwAXwR0R
-	 Rxzhsi+jiFtGoS+osbrEjNHXES9WvHF1b9qw54gc3K+L+VNsdUVG2Wqibk75xE3IGo
-	 avAtKJmCEztGMcQrLv9PKUNCTgjQ4b18Jr7M/p2grmILTKPxsrXjlPLjAjMdWbWVzO
-	 2R4EXf/jRTUIA==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2ED9517E0D87;
-	Mon, 20 Jul 2026 15:11:10 +0200 (CEST)
-Message-ID: <486a32c0-d940-47f9-8675-4e10a87ce38a@collabora.com>
-Date: Mon, 20 Jul 2026 15:11:09 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="eBMHby+X"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49548aebcd8so19246335e9.3
+        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 06:11:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1784553074; x=1785157874; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rV+LNIyGmfFfld3C1G4vTQmnT9Gt4YURlSasWtdKilk=;
+        b=eBMHby+XXk8hGhe/fdKQlerALFDZernO8I4gai+l/pzHADHP0ip+wtp4sMLS6rKjF/
+         EfbqH65EAEMKn+it+w9EHQqM9qDToN6E46a6Ic3EIRTAGGSudvV1VfQLNCvSFTJ52CvH
+         5kbHwj3fSTO76mtDiBCfdN6kHTUSSrhWom7jdV7A/7DzCmUxlXtSIJc42UF4laoi8ihP
+         M+ELlm2cYYrKCRdXut2P04303pXylldvOMKqFo+RI9cVW31rBJiczilNEFg/nNhjRM4M
+         dmgG9zMztRw0CERDDbiYGAinLqIAB9D5ic8RX3m3rbzd5KU+p8nk31AzCzcwSkV1uSCh
+         txvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784553074; x=1785157874;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rV+LNIyGmfFfld3C1G4vTQmnT9Gt4YURlSasWtdKilk=;
+        b=J43f1//VPavNW+6K1RoXzrZCByba7Pkup3oc8fxLvyIVSBuZJ6XhW9E47ae33t7qOv
+         Wvv/L071SMdU4pHBzjKjV2S50YoAebLqOXsacBB5LhMesnUtISxVgxRxioIMwQGVzisy
+         4bVvTqYLz+hdGJywsGq2hdoAAnH6NvUWNf28t1h7uvTOT3pYm6SRkAIHGgZjjSwQ4J0J
+         w5Qsojrvg5YAECmzE06n9+5K36mNKsyxD8fxfK2y+bW2n32tjiAt8PVJTmtT8ZMGfVaj
+         3DQtNPSmUWMQ/yf/bkydiz58fkkzN2pOBz3NNYkT9NEKerAZooxSg4dc2OwkE1kwS3Cl
+         8mUg==
+X-Forwarded-Encrypted: i=1; AHgh+RrO0b2JaxSVic6K/c/ezqdox11XckanTd5Ir4k2pPdoDTG0E2mnfZd7aFZS6NtA9O1UQKBnf4LkaoW5@vger.kernel.org
+X-Gm-Message-State: AOJu0Yydb4lcwcBCD0EQXRJQscgiJ4v9W+tYdTs2Buxps9KnKeoos6+U
+	i0hChxsTrErdjYFbBlu8iEIjO0ut2ddp4fpUvmIm10oXlYkaRO2T+L4qeFY2Rqtk2jo=
+X-Gm-Gg: AfdE7ckbwslV9HeZnRTqy2SiWinQQuuDVDg/86T3dZP7y5iS7WxP7w7GbR38Pb1kH7k
+	QvPCvTQbvZmJQ1AjNSgOye4MKKxcsypxMKR6usTYiRwCgCXJm8gWf1rRqh/uViGWHUGHEQGN6N1
+	G3z9w+J/WeAdwmPrIbeap34H2KYsT8TyiuVPfCk+fdM2hN6h+NcW1GewSEKDhvLqvBAUuCKr59T
+	pf+9K7ldDQaj5++bIzDc1aEvzIjG7vLxfcn/E3VQH/8t+bemyLoy8KnCR9RcjuIGUkf3ik+PgeU
+	JJNl7vgYZc8I3rLSteR8G0YUN9OwV+YnPjdKZ//n9+/XSgtFOtIWfg8WWoJz8b190aXFME6YamV
+	1HbJQeSB5VlqtMDZM2HDNrEX2BeGuW305hflkkpPsn/KUNpzlk99Q21dp/anj7qzuhQTPTLcJYv
+	K51c4LA+C6Rwrz7ujgaB9/17LiCD5KUE5RnBwuZ8YLA1JWdSR5rsWRSU63S0S95XCu5VCb
+X-Received: by 2002:a05:600c:a0a:b0:493:ee2b:c876 with SMTP id 5b1f17b1804b1-4954a41302fmr152466995e9.35.1784553074304;
+        Mon, 20 Jul 2026 06:11:14 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:544a:2852:f257:ebc5? ([2a01:e0a:106d:1080:544a:2852:f257:ebc5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49549a3e2a9sm278436215e9.4.2026.07.20.06.11.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 20 Jul 2026 06:11:13 -0700 (PDT)
+Message-ID: <27e0e8d1-2e53-4378-877f-4172e131f7fd@linaro.org>
+Date: Mon, 20 Jul 2026 15:11:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -42,70 +69,331 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/7] dt-bindings: reset: Add MT6589 toprgu reset IDs
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org,
- Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
- <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-watchdog@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260717163959.714561-1-l.scorcia@gmail.com>
- <20260717163959.714561-2-l.scorcia@gmail.com>
- <20260720-gabby-strategic-goose-b61c4e@quoll>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260720-gabby-strategic-goose-b61c4e@quoll>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 5/5] drm: panel: jd9365da: Add DCLTek 300250 9.35in
+ display
+To: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>,
+ Jagan Teki <jagan@edgeble.ai>, Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Jerome Oufella <jerome.oufella@savoirfairelinux.com>,
+ Felix Boucher <felix.boucher@savoirfairelinux.com>,
+ Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
+References: <20260708213500.1867092-1-marc-olivier.champagne@savoirfairelinux.com>
+ <20260708213500.1867092-6-marc-olivier.champagne@savoirfairelinux.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260708213500.1867092-6-marc-olivier.champagne@savoirfairelinux.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 7/20/26 08:25, Krzysztof Kozlowski wrote:
-> On Fri, Jul 17, 2026 at 06:39:12PM +0200, Luca Leonardo Scorcia wrote:
->> Add reset constants for the 12 MT6589 toprgu resets.
+On 7/8/26 23:35, Marc-Olivier Champagne wrote:
+> The DCLTek dt300250 is a LCD panel using the jd9365da controller.
+> Add the panel to the driver.
 > 
+> Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+> Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
+> ---
+>   .../gpu/drm/panel/panel-jadard-jd9365da-h3.c  | 246 ++++++++++++++++++
+>   1 file changed, 246 insertions(+)
 > 
-> This is not a single-patch patchset. Seven patches.
-> 
-> So one posting per 24h, so we actually have a possibility to review it.
-> 
+> diff --git a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
+> index a79dc8f8d5af..970c64d6054d 100644
+> --- a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
+> +++ b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
+> @@ -2931,6 +2931,248 @@ static const struct jadard_panel_desc waveshare_10_1_inch_b_desc = {
+>   		MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS,
+>   };
+>   
+> +static int dcltek_dt300250_init_cmds(struct jadard *jadard)
+> +{
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = jadard->dsi };
+> +
+> +	jd9365da_switch_page(&dsi_ctx, 0x00);
+> +	jadard_enable_standard_cmds(&dsi_ctx);
+> +
+> +	jd9365da_switch_page(&dsi_ctx, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x00, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x01, 0x2B);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x03, 0x10);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x04, 0x2B);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0C, 0x74);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x17, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x18, 0xCF);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x19, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1A, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1B, 0xCF);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1C, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x24, 0xFE);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x37, 0x09);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x38, 0x04);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x39, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3A, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3C, 0x5C);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3D, 0xFF);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3E, 0xFF);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3F, 0x7F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x40, 0x02);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x41, 0xC8);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x42, 0x66);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x43, 0x10);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x44, 0x0F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x45, 0x28);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x55, 0x02);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x57, 0x8D);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x59, 0x0A);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5A, 0x29);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5B, 0x1A);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5D, 0x7F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5E, 0x65);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5F, 0x53);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x60, 0x45);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x61, 0x3E);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x62, 0x30);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x63, 0x33);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x64, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x65, 0x3B);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x66, 0x3C);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x67, 0x3F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x68, 0x5D);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x69, 0x49);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6A, 0x4D);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6B, 0x3D);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6C, 0x37);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6D, 0x28);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6E, 0x15);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6F, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x70, 0x7F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x71, 0x65);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x72, 0x53);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x73, 0x45);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x74, 0x3E);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x75, 0x30);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x76, 0x33);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x77, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x78, 0x3B);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x79, 0x3C);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7A, 0x3F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7B, 0x5D);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7C, 0x49);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7D, 0x4D);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7E, 0x3D);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7F, 0x44);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x80, 0x28);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x81, 0x15);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x82, 0x00);
+> +
+> +	jd9365da_switch_page(&dsi_ctx, 0x02);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x00, 0x41);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x01, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x02, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x03, 0x4B);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x04, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x05, 0x5C);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x06, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x07, 0x49);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x08, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x09, 0x5A);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0A, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0B, 0x47);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0C, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0D, 0x4F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0E, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0F, 0x45);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x10, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x11, 0x4D);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x12, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x13, 0x5E);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x14, 0x51);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x15, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x16, 0x40);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x17, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x18, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x19, 0x4A);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1A, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1B, 0x5B);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1C, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1D, 0x48);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1E, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1F, 0x59);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x20, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x21, 0x46);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x22, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x23, 0x4E);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x24, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x25, 0x44);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x26, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x27, 0x4C);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x28, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x29, 0x5E);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2A, 0x50);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2B, 0x5F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2C, 0x10);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2D, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2E, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2F, 0x0C);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x30, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x31, 0x04);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x32, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x33, 0x0E);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x34, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x35, 0x06);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x36, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x37, 0x19);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x38, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x39, 0x08);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3A, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3B, 0x1B);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3C, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3D, 0x0A);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3E, 0x1E);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3F, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x40, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x41, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x42, 0x11);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x43, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x44, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x45, 0x0D);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x46, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x47, 0x05);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x48, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x49, 0x0F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4A, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4B, 0x07);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4C, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4D, 0x1A);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4E, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4F, 0x09);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x50, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x51, 0x1C);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x52, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x53, 0x0B);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x54, 0x1E);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x55, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x56, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x57, 0x1F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x58, 0x40);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5B, 0x10);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5C, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5D, 0x70);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5E, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5F, 0x02);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x60, 0x70);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x61, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x62, 0x02);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x63, 0x06);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x64, 0x4A);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x65, 0x56);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x66, 0x4F);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x67, 0xF7);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x68, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x69, 0x06);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6A, 0x4A);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6B, 0x10);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6C, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6D, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6E, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6F, 0x88);
+> +
+> +	jd9365da_switch_page(&dsi_ctx, 0x04);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x00, 0x0E);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x02, 0xB3);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x09, 0x60);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0e, 0x4A);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x37, 0x58);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2b, 0x0F);
+> +
+> +	jd9365da_switch_page(&dsi_ctx, 0x05);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x15, 0x34);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x16, 0x76);
+> +
+> +	jd9365da_switch_page(&dsi_ctx, 0x00);
+> +
+> +	mipi_dsi_msleep(&dsi_ctx, 120);
+> +
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> +
+> +	mipi_dsi_msleep(&dsi_ctx, 120);
+> +
+> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> +
+> +	mipi_dsi_msleep(&dsi_ctx, 20);
+> +
+> +	mipi_dsi_dcs_set_tear_on_multi(&dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+> +
+> +static const struct jadard_panel_desc dcltek_dt300250_desc = {
+> +	.mode_4ln = &(const struct drm_display_mode) {
+> +		.clock		= (600 + 48 + 32 + 80) * (1600 + 18 + 6 + 23) * 60 / 1000,
+> +
+> +		.hdisplay	= 600,
+> +		.hsync_start	= 600 + 48,
+> +		.hsync_end	= 600 + 48 + 32,
+> +		.htotal		= 600 + 48 + 32 + 80,
+> +
+> +		.vdisplay	= 1600,
+> +		.vsync_start	= 1600 + 18,
+> +		.vsync_end	= 1600 + 18 + 6,
+> +		.vtotal		= 1600 + 18 + 6 + 23,
+> +
+> +		.width_mm	= 83,
+> +		.height_mm	= 221,
+> +		.type		= DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
+> +	},
+> +	.lanes = 4,
+> +	.format = MIPI_DSI_FMT_RGB888,
+> +	.init = dcltek_dt300250_init_cmds,
+> +};
+> +
+>   static int jadard_dsi_probe(struct mipi_dsi_device *dsi)
+>   {
+>   	struct device *dev = &dsi->dev;
+> @@ -3039,6 +3281,10 @@ static const struct of_device_id jadard_of_match[] = {
+>   		.compatible = "chongzhou,cz101b4001",
+>   		.data = &cz101b4001_desc
+>   	},
+> +	{
+> +		.compatible = "dcltek,dt300250",
+> +		.data = &dcltek_dt300250_desc
+> +	},
+>   	{
+>   		.compatible = "kingdisplay,kd101ne3-40ti",
+>   		.data = &kingdisplay_kd101ne3_40ti_desc
 
-krzk, that's because Sashiko provides reviews instantly, and people just go and
-fix things to make it easier on us maintainers to provide reviews (and avoiding
-to see the same Sashiko complaints from us).
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-That said, this gets into personal preference territory, and I'm not trying to
-start any conversation about that specifically...
-
->>
->> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
->> ---
->>   .../reset/mediatek,mt6589-resets.h            | 24 +++++++++++++++++++
->>   1 file changed, 24 insertions(+)
->>   create mode 100644 include/dt-bindings/reset/mediatek,mt6589-resets.h
->>
->> diff --git a/include/dt-bindings/reset/mediatek,mt6589-resets.h b/include/dt-bindings/reset/mediatek,mt6589-resets.h
->> new file mode 100644
->> index 000000000000..ee08c39df513
->> --- /dev/null
->> +++ b/include/dt-bindings/reset/mediatek,mt6589-resets.h
-> 
-> 
-> Why is this header being added outside of patch documenting compatible?
-> You have entire commit msg to say something useful instead of repeating
-> the subject.
-
-Because he wrote it all in the cover letter... which is something that gets
-read right now, but gets lost once the commits are picked - so all context and
-explaining are completely lost.
-
-Luca, that's why krzk is complaining :-)
-
-Just write the information in each commit's description, so that it doesn't get
-lost, and so that the next one trying to understand what went on with the toprgu
-can just read it there. :-)
-
-Cheers,
-Angelo
+Thanks,
+Neil
