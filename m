@@ -1,29 +1,30 @@
-Received: from outbound.ci.icloud.com (ci-2001f-snip4-11.eps.apple.com [57.103.91.93])
+Received: from outbound.ci.icloud.com (ci-2001j-snip4-1.eps.apple.com [57.103.91.94])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 043787262E
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 01:12:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.91.93
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4E8214813
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 01:12:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.91.94
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784509933; cv=none; b=RVp/85lUu2MorAhJmmT/OdYwayLwUDGeqqcg07/OD259YkXVw0ggecnBe0FeZx7KqpxgiID+XZ55iqaaOtNrDMh+aSq3BFhWaJHqnoKfYZPdomCQsXslFETZgtpP3VryocTt5T7BViraA3862efutlydT07hDtxKHuqakLPRAKM=
+	t=1784509934; cv=none; b=eiFbqK4YcTpsMZuwfIcZ9MwJifTuKD+CV7/t/lr09nEvhZX7VXEyg8g3R+KjoMgGUUxbBsvlTLKuW0Vv7D5Ky93+9PN2KBgZyp6F1R/XjJgd7G0xyfdFMvo6xAPP7C2nOwOk9sKIq90s+BUZNasFCWVgd5WVwjGAhpWofayHvDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784509933; c=relaxed/simple;
-	bh=QTUHH17IM8SB/hPnUVPJzAlUyKmx49FL0ablGPEnzws=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kjbm82hLMbeSscmgcyQMrwjFaFfpK5+8oBaSBFMWEw/fAcPG24HwoCCYNSDZzRMROl6xYUblKFY7sItDWPJM7FIit79FyqT8FTQAiDo0WA+cmC9HeO+SiyXJMupuXTe9OkHkDg6OCTVOMRAoJD/pDI22pH9ZXvWgISk/Dfzl5Nk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=kkCSduQ+; arc=none smtp.client-ip=57.103.91.93
+	s=arc-20240116; t=1784509934; c=relaxed/simple;
+	bh=zYPDk0dFuqI3SWYSbwOOATjyNJP19NdKD/Zid6+2nB0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RbuE14N20zoGHhigAPN5Zda/Zl4+KOfCdCZfrsHeHpZBcs0YxnYMiz3F5M2OambGci+Bo8V64XfQhAmS27VK8NN0pKSpnWK9Gsma70wagtrw8XIyv6pLE7yasKoFXpUm+Zp2UcTjcZgaXCoFdG4yuEEjUp6scexmNA1Tqsr9vuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=cqpDaYjv; arc=none smtp.client-ip=57.103.91.94
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="kkCSduQ+"
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="cqpDaYjv"
 Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-central-1k-60-percent-1 (Postfix) with ESMTPS id 4953A180013E;
-	Mon, 20 Jul 2026 01:12:08 +0000 (UTC)
-X-ICL-RepId: 019f7d14-9328-7a13-95f9-98d494ea7b4b
-X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhPAEMGXAVeC1YBXwFLVxQEDloDVA5cBBcbXwJCH1sVSzhaDlsERxQXG1wAFw1WTVAbXwJCDxwTVhUTH1RWA0IZEFYBWFZdBU0aXBhZDxwTUFZaDlsERxQXG1wAFxtGAgQjAl8ARQJeCVYBMBcPVk1QG18CQg8cE1YVEwBeDw9MC0gBWwdcAEAJSQJcA18cQQtAA18GUh9BFA5aA1QOXAQXG18CQh9bFUs4Wg5bBEcUFxtcAAlLRglJHQ4EVAddBV0=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1784509930; x=1787101930; bh=YtuRh7FwzlvGfUMEnusH5ua3lj8sw28CCBRzLHmwjsU=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=kkCSduQ+EfJQ11XJ/DRDGxyQ+OWDZ8eJUQlVpGaBip4n+zYA1i2qboTu9y1QxJLkzCWvdWRxJJJLqEeG1XB5LIqVHETPDETqNELJ4YNUihvRc+8T7lt8oniUURnkA6dfnf0nE9hiz24BpWS3HsEP4rC9i2fRXLTbRdRRLLBClrrVkZLiODtU5F9TZuH2Z9mzA2uEr2nxNhG1WWUWxbffpM9Z1+V8XO2FexJijjTZufmFj0eU4Qfnfe48MmiSgq6oalKpaCJxk1GTAx6dkOO83b8CuSEqX7Vw4pjIOM9EJJ+cy9fTk030CjsuSrjYLT3cSTCi1NUjz9Sjc4QP4qKrqQ==
+	by p00-icloudmta-asmtp-us-central-1k-60-percent-1 (Postfix) with ESMTPS id 0D32618002CC;
+	Mon, 20 Jul 2026 01:12:09 +0000 (UTC)
+X-ICL-RepId: 019f7d14-9a06-7b45-aae5-f5db25592786
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQhPAEMGXAVeC1YBXwFLVxQEDloDVA5cBBcbXwJCH1sVSzhaDlsERxQXG1wAFw1WTVAbXwJCDxwTVhUTH1RWA0IZEFYBWFZdBU0aXBhZDxwTUFZaDlsERxQXG1wAFxtGAgQjAl8ARQJeCVYBMBcPVk1QG18CQg8cE1YVEwBeDw9MC0gBWwdcAEAJSQJcA18cQQtAA18GUh9EFA5aA1QOXAQXG18CQh9bFUs4Wg5bBEcUFxtcAAlLRglJHQ4EVAddBV0=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1784509931; x=1787101931; bh=xVEkIySqC2w1VTBoBLzRmkBJvvkPdFwntWG87jLmjgU=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=cqpDaYjveEny/nal9+HhdXALvV7qV0pSegsO1UCkt8h17nAEjSZdQbAFKk95IAgMKE0vnXyT778gA0iE4iqbdYtk7LtQVU5jGtnexdOWGrXKzfvb0EkTSoln9LWxTwjNvvN/R7UKSfOIZEGlISwxI1i5sBVleiJIa0p1dTjRWTlhWB09MUaYWeq/ay6kY4yWLL7EwFzQ07HORcsf2QDBR++E2vVgSVp7skCd+p2D0wJZtBXzTSsGi1v0oDghMh64xy9Ntqec402/yxaOG461v1c+xpVUFQRUzIWokMyedtejxuinSd+ci/c3xBgXw2IIFRZrHSkeu57L1hbn9zhlBw==
 Received: from bigre.localdomain (unknown [17.57.156.36])
-	by p00-icloudmta-asmtp-us-central-1k-60-percent-1 (Postfix) with ESMTPSA id 34B0C18000EF;
-	Mon, 20 Jul 2026 01:12:07 +0000 (UTC)
+	by p00-icloudmta-asmtp-us-central-1k-60-percent-1 (Postfix) with ESMTPSA id 2562918000D0;
+	Mon, 20 Jul 2026 01:12:09 +0000 (UTC)
 From: Vincent Cloutier <vincent.cloutier@icloud.com>
 To: Sebastian Reichel <sre@kernel.org>
 Cc: Hans de Goede <hansg@kernel.org>,
@@ -37,10 +38,12 @@ Cc: Hans de Goede <hansg@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Vincent Cloutier <vincent@cloutier.co>
-Subject: [PATCH v2 0/4] power: supply: initialize MAX17055 from battery info
-Date: Sun, 19 Jul 2026 21:11:36 -0400
-Message-ID: <20260720011144.1280219-1-vincent.cloutier@icloud.com>
+Subject: [PATCH v2 3/4] power: supply: max17042_battery: Honor MAX17055 charge voltage
+Date: Sun, 19 Jul 2026 21:11:39 -0400
+Message-ID: <20260720011144.1280219-4-vincent.cloutier@icloud.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260720011144.1280219-1-vincent.cloutier@icloud.com>
+References: <20260720011144.1280219-1-vincent.cloutier@icloud.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,90 +51,146 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: HH5EhCp4UJEkWnJLSaMY570pr95lCmnk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDAwOSBTYWx0ZWRfX7ZquFG6db8CI
- /x12C948SCjWNVUYhe7bq5BX2vdcMTSXybZ//x+NXHDxxhyy1EIiZjwEHjRDB0oyvFMhvFmRGBI
- thwaFj9Xx6Dvnzap+IULwFUdUobODMKDHWoH/iYu9sWfB1HVfG4QQV3dMz9kb1ImStkXf8BECKr
- bkFnSZd2L761yc5riUeeqp5vjIc0gU93cejhsHOFJdcQ5TYsBFKmxXco9PkUrM9MvM0XSq5lx/d
- 7iNYkg+O56rNu2wF93y0ZCzxzWqxbs7kkCWc5LSAghTFn7BwZMCfj6NKUD2Hfwqk1M+wICp1dCP
- BbBEeLok2IEW7a8fiVB
-X-Proofpoint-ORIG-GUID: HH5EhCp4UJEkWnJLSaMY570pr95lCmnk
+X-Proofpoint-GUID: LyABjPkAQbRT5k4bFAlS2Odj95fr4lDy
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDAwOSBTYWx0ZWRfXyKUSy7wT73BT
+ PVkVRz+qGnKaEwveD04JO6Jxu1s1HSTwSqlZVPaJdTCUoXBKixjUb0iIdffaEzAdjVGIG5OZdDQ
+ xkDNftWM0siGgnXSCTNAs38k9o4PbBoiUS1SYO9WDDuEsve92Hzxieb7rxUuQiw/D2hukGV6Zd2
+ oV6mo10NIBk+Uli+QhjvM1lzf3/BaacYABZA9Pd8Xo6P/DVa8eWt90vwYacd5xHCk/Sp2lS67Ep
+ Er8O0JG/h8ZdPPS9yT7+ucJwznTeWwaAXO6/RFX2Z4gyEnXxyh4z0CeCcVNrefGdvb1bpoBmRsq
+ Ky+Ws2m72EsBYjytNVK
+X-Proofpoint-ORIG-GUID: LyABjPkAQbRT5k4bFAlS2Odj95fr4lDy
 
 From: Vincent Cloutier <vincent@cloutier.co>
 
-Hi,
+MAX17055 ModelCfg.VChg selects the charge-voltage range used by EZ Config.
+Consume voltage-max-design-microvolt from monitored-battery and set VChg
+only when the value is strictly greater than 4.275 V. Reject an explicit
+zero voltage and preserve the register when the property is absent.
 
-This is the remaining unmerged tail of the MAX17042/MAX17055 v1 series.
-Six v1 patches are upstream, and the v1 cleanup patch is covered by
-699f0f71ac98. This revision retains the requested registration callback
-architecture and strengthens the MAX17055 POR sequence.
+Update only the VChg bit and verify its read-back so unrelated ModelCfg
+fields remain intact. Treat a VChg-only override as an accumulator change:
+read effective DesignCap and dQAcc, derive and verify the matching dPAcc,
+then request model refresh. This keeps voltage-only firmware descriptions
+coherent with the selected charge-voltage range.
 
-The power-supply callback runs after the core parses monitored-battery but
-before device_add(). This lets the driver validate and prepare DesignCap,
-IChgTerm, dQAcc, and VChg without another firmware parser or a
-power_supply_config handoff. dPAcc is derived later from register
-read-back.
-
-The MAX17055 path waits for FSTAT.DNR, saves HibCfg, exits hibernate,
-writes each stable battery register once, and verifies it after 1 ms.
-SoftWakeup is written directly, and Refresh is requested once before
-polling. The driver derives dPAcc from read-back DesignCap, dQAcc, and
-ModelCfg values, restores HibCfg, and clears POR only after the complete
-sequence succeeds.
-
-Driver-backed properties remain unavailable while initialization is
-incomplete. An interrupted transaction restores hibernate and retries
-every 10 seconds without depending on POR still being set, so a transient
-startup error does not become permanent.
-
-VChg remains a masked ModelCfg update. A voltage-only override reads
-effective DesignCap and dQAcc and refreshes dPAcc for the selected voltage
-range. Zero is rejected. Exactly 4.275 V selects the low range; only values
-above 4.275 V set VChg. An absent property preserves firmware's setting.
-
+Assisted-by: OpenCode:gpt-5.6-sol
+Signed-off-by: Vincent Cloutier <vincent@cloutier.co>
 ---
+ drivers/power/supply/max17042_battery.c | 42 +++++++++++++++++++++++--
+ 1 file changed, 39 insertions(+), 3 deletions(-)
 
-Changes since v1:
-
-- send only the unmerged battery-info and VChg work
-- split the power-supply core and MAX17055 driver changes
-- use the requested registration init callback
-- wait for FSTAT.DNR before programming POR values
-- save, exit, and restore hibernate around MAX17055 EZ Config
-- write stable registers once, wait 1 ms, and verify their read-back
-- issue each command once and poll ModelCfg.Refresh
-- derive dPAcc from register read-back values
-- retry interrupted initialization periodically without a POR recheck
-- keep properties unavailable until initialization completes
-- recalculate dPAcc for a VChg-only override and reject zero voltage
-- allow monitored-battery in the MAX17042 family binding
-- drop the Librem 5 battery description because its user-replaceable pack
-  cannot be identified reliably from the board revision
-
-The series was also folded into a Librem 5r4 kernel and tested after a full
-battery-removal gauge POR using a local battery description. Status.POR and
-FSTAT.DNR cleared, HibCfg was restored, and ModelCfg.Refresh cleared. The
-driver programmed dQAcc=0x002b and dPAcc=0x054b; the live dQAcc had moved to
-0x002a after initialization. The other raw values and sysfs properties
-matched the expected 4.2 V EZ Config result, with no MAX17055 initialization
-errors.
-
-v1: https://lore.kernel.org/all/20260406205759.493288-1-vincent.cloutier@icloud.com/
-
-Vincent Cloutier (4):
-  power: supply: Add registration init callback
-  power: supply: max17042_battery: Initialize MAX17055 from battery info
-  power: supply: max17042_battery: Honor MAX17055 charge voltage
-  dt-bindings: power: supply: max17042: Allow monitored-battery
-
- .../bindings/power/supply/maxim,max17042.yaml |   2 +
- drivers/power/supply/max17042_battery.c       | 373 ++++++++++++++++--
- drivers/power/supply/power_supply_core.c      |   8 +
- include/linux/power/max17042_battery.h        |   2 +
- include/linux/power_supply.h                  |   8 +
- 5 files changed, 361 insertions(+), 32 deletions(-)
-
-
-base-commit: f2ec6312bf711369561bdcb22f8a63c0b118c479
+diff --git a/drivers/power/supply/max17042_battery.c b/drivers/power/supply/max17042_battery.c
+index b25bf26135e0..0f6bf6d4c031 100644
+--- a/drivers/power/supply/max17042_battery.c
++++ b/drivers/power/supply/max17042_battery.c
+@@ -66,6 +66,7 @@
+ #define MAX17055_DPACC_FACTOR		44138
+ #define MAX17055_DPACC_VCHG_FACTOR	51200
+ #define MAX17055_FSTAT_DNR_BIT		BIT(0)
++#define MAX17055_VCHG_THRESHOLD_UV	4275000
+ #define MAX17055_DNR_POLL_US		10000
+ #define MAX17055_DNR_TIMEOUT_US		2000000
+ #define MAX17055_INIT_RETRY_DELAY_MS	10000
+@@ -83,6 +84,7 @@ struct max17042_chip {
+ 	int    task_period;
+ 	bool   enable_current_sense;
+ 	bool   enable_por_init;
++	bool   enable_vchg_override;
+ 	bool   init_complete;
+ 	bool   hib_restore_pending;
+ 	u16    hib_cfg;
+@@ -879,7 +881,8 @@ static inline void max17042_override_por_values(struct max17042_chip *chip)
+ 		max17042_override_por(map, MAX17047_V_empty, config->vempty);
+ 	}
+ 
+-	if (chip->chip_type == MAXIM_DEVICE_TYPE_MAX17055)
++	if (chip->chip_type == MAXIM_DEVICE_TYPE_MAX17055 &&
++	    !chip->enable_vchg_override)
+ 		max17042_override_por(map, MAX17055_ModelCfg, config->model_cfg);
+ }
+ 
+@@ -914,7 +917,19 @@ static int max17055_override_battery_values(struct max17042_chip *chip)
+ 			return ret;
+ 	}
+ 
+-	if (!config->design_cap && !config->dqacc)
++	if (chip->enable_vchg_override) {
++		ret = regmap_update_bits(map, MAX17055_ModelCfg,
++					 MAX17055_MODELCFG_VCHG_BIT,
++					 config->model_cfg &
++					 MAX17055_MODELCFG_VCHG_BIT);
++		if (ret)
++			return ret;
++
++		usleep_range(1000, 2000);
++	}
++
++	if (!config->design_cap && !config->dqacc &&
++	    !chip->enable_vchg_override)
+ 		return 0;
+ 
+ 	ret = regmap_read(map, MAX17042_DesignCap, &design_cap);
+@@ -928,6 +943,10 @@ static int max17055_override_battery_values(struct max17042_chip *chip)
+ 	ret = regmap_read(map, MAX17055_ModelCfg, &model_cfg);
+ 	if (ret)
+ 		return ret;
++	if (chip->enable_vchg_override &&
++	    (model_cfg & MAX17055_MODELCFG_VCHG_BIT) !=
++	    (config->model_cfg & MAX17055_MODELCFG_VCHG_BIT))
++		return -EIO;
+ 
+ 	if (!design_cap || !dqacc)
+ 		return -ERANGE;
+@@ -1248,9 +1267,11 @@ static int max17042_apply_battery_properties(struct max17042_chip *chip,
+ 	struct device *dev = chip->dev;
+ 	bool have_design_cap;
+ 	bool have_ichgt_term;
++	bool have_vchg;
+ 	u16 design_cap = 0;
+ 	u16 ichgt_term = 0;
+ 	u16 dqacc = 0;
++	u16 model_cfg = 0;
+ 	u64 data64;
+ 
+ 	if (!info || chip->chip_type != MAXIM_DEVICE_TYPE_MAX17055)
+@@ -1260,7 +1281,8 @@ static int max17042_apply_battery_properties(struct max17042_chip *chip,
+ 		info->charge_full_design_uah >= 0;
+ 	have_ichgt_term = chip->enable_current_sense &&
+ 		info->charge_term_current_ua >= 0;
+-	if (!have_design_cap && !have_ichgt_term)
++	have_vchg = info->voltage_max_design_uv >= 0;
++	if (!have_design_cap && !have_ichgt_term && !have_vchg)
+ 		return 0;
+ 
+ 	if (have_design_cap) {
+@@ -1301,6 +1323,15 @@ static int max17042_apply_battery_properties(struct max17042_chip *chip,
+ 		ichgt_term = (u16)data64;
+ 	}
+ 
++	if (have_vchg) {
++		if (!info->voltage_max_design_uv)
++			return dev_err_probe(dev, -EINVAL,
++					     "battery design voltage must be positive\n");
++
++		if (info->voltage_max_design_uv > MAX17055_VCHG_THRESHOLD_UV)
++			model_cfg = MAX17055_MODELCFG_VCHG_BIT;
++	}
++
+ 	config = chip->config_data;
+ 	if (!config) {
+ 		config = devm_kzalloc(dev, sizeof(*config), GFP_KERNEL);
+@@ -1314,6 +1345,11 @@ static int max17042_apply_battery_properties(struct max17042_chip *chip,
+ 	}
+ 	if (have_ichgt_term)
+ 		config->ichgt_term = ichgt_term;
++	if (have_vchg) {
++		config->model_cfg &= ~MAX17055_MODELCFG_VCHG_BIT;
++		config->model_cfg |= model_cfg;
++		chip->enable_vchg_override = true;
++	}
+ 
+ 	chip->config_data = config;
+ 	chip->enable_por_init = true;
 -- 
 2.55.0
+
