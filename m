@@ -1,145 +1,215 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5FA42BC2C
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 14:13:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8497042BC33
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 14:13:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784556806; cv=none; b=sh/UT4mxLFppZoOIfJWGwNbbCgExL39c/V6wJZd5Pbajk7kpxG7oCr8yjoX8MRzD+3HyLAc8FrYRU3DTFasx5Us918+ZSkFj8uHOuKTSLEkEy2O49kP0klMLMlyHUUWR72b+2vyArPa47g1YmgbAboBfvhcDmHK0SxgoBRPnYF0=
+	t=1784556812; cv=none; b=KNXj+dCGXCg3Q2fGAeyMErglGBCIzyKzbjYmkOiU2649UGCGOnVReXm63OJp9+JI8fjYZbrSjzEZDVEreypDvsYcgTLIPxTth5z9TrwOqP2HUUAcwj1PvIr/zzplx5ORWSoCSTwqsfeYkGHW6zeYgVvGvT+rlOCACAehDPde+FE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784556806; c=relaxed/simple;
-	bh=u2FKiiVbd6VN5sFs3ZrqO/a5eyrOOLGF/DnSY38Lj6k=;
+	s=arc-20240116; t=1784556812; c=relaxed/simple;
+	bh=f5Y3zzljY+0C2tpGNx0DAYYJPtfef3VPn3gFSB3HV1E=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tQ4peHojVkvATHhZtQURgQFRVMM182xq3i+3B6E2uwkN0t/GJIM7C/YIBLaloYyL5vPQeZL12jn5CJJs4QQUPuz3vPSRUm9N0cUuKAk5eqhDYlQgtAuLCg/uJdmCO75FIwlrQ080SN/Ibnin8pgOiDobRvofl3/P9NCUJb531Fc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aqOsEVG0; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=bg/uLcznhO2SVr2N49mDKbd4YrgFzxxMYMVMy8yrjZZ1agK291WUnqLoMRTfwOwGWP0ODWcsucpsSoQXiYKyLVI64NdM7g8y1NwrMMBzy8/bF4i+t5lpHP2psogxT1t38hHKhDZmZgHriI1JkuyVG6n2Kd+pk/ioPi7/s6dUUlA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qk98KQNp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aqOsEVG0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 124A31F000E9;
-	Mon, 20 Jul 2026 14:13:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qk98KQNp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D78D41F000E9;
+	Mon, 20 Jul 2026 14:13:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784556805;
-	bh=GJucfKN46+sx2daqg/m0Y5Hzkr3stADaj+ArtzVeFko=;
+	s=k20260515; t=1784556811;
+	bh=AnN4ONjTk/96bde/qY95y7LOG4PsgYOTCIggHWUdRlg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aqOsEVG08J2syFm/MDVx4r8jf4HsN6/PO4Sk5CSGuKvGhXo4d/p9FtRuCpjfI/IqT
-	 /iSviJaoP2DXEY4+SK7Iqxqe+nGt1H0QYXvbY8kULHKy5F37ILj1TPxsPE83xObZ7l
-	 TDnKuEldxH3rtPycQ9W0IuH+HjUkoHtWJ+twYlF5BxhkSWK0nG5udzs5Kuxp5gGnLB
-	 cRB/JhUwzIJIdkIHK1KX3efLT7yA5tcd9WS8xjwdrw5bC4kDFZxe7QEWOym2+XoZUU
-	 zetkSjvE3pmUCoafLK7LmvcCKwx4ONgnPGS/0g3+yMaxmirlfqrG3KIDxYwPnyXaMM
-	 MNsQOxfoFIrcQ==
+	b=Qk98KQNpKlLuhlNu0dp6vrDNgDIBA8gAl1RhQ2zhszc1nKtcrRoXeIjnYjdgVXi+1
+	 R2pN8nkHNcQcO9o0g9AL7PaVWkQkkyWiSPNwna5t+TATuYcYO0Bx09DGBm44Iumius
+	 tTNYhdRCvIUgaVyHHFHAoLMdRBE7ja5mAcWVzP+EkQF6WWO9az76692flmfdfPtYM9
+	 INXv5hpnIRqo78JhQswHN4ilsJ+8goQ8wU7FS9KlRF8D3wFAfn4LYD/k1exGA298Yn
+	 SpYtVqDLkMryMkihWeQK1aLMg9R1ISnH3oJyQJift+Z/9MwpFu2w7jdvWmBqY4oi1Q
+	 eVSYdzMZZi7uA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 phy-next 8/8] phy: lynx-10g: use RCW override
- procedure for dynamic protocol change
+Subject: Re: [PATCH v16 08/12] media: mediatek: jpeg: fix remove buffer
+ removal timing for multi-core
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vladimir Oltean" <vladimir.oltean@nxp.com>
-Cc: robh@kernel.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, vkoul@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20260720133642.136324-9-vladimir.oltean@nxp.com>
-References: <20260720133642.136324-1-vladimir.oltean@nxp.com>
- <20260720133642.136324-9-vladimir.oltean@nxp.com>
+To: "Kyrie Wu" <kyrie.wu@mediatek.com>
+Cc: media-ci@linuxtv.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260720133432.1042046-9-kyrie.wu@mediatek.com>
+References: <20260720133432.1042046-1-kyrie.wu@mediatek.com>
+ <20260720133432.1042046-9-kyrie.wu@mediatek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 14:13:24 +0000
-Message-Id: <20260720141325.124A31F000E9@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 14:13:30 +0000
+Message-Id: <20260720141330.D78D41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
 
+New issues:
+- [High] List corruption and race condition due to delayed buffer removal f=
+rom the V4L2 M2M ready queues.
+
 Pre-existing issues:
-- [High] An off-by-one error in the bounds check for `serdes_idx` within `f=
-sl_guts_serdes_get_rcw_override` incorrectly rejects the final SerDes block=
- on the SoC.
-- [High] Uninitialized lanes on `ls2088a` SerDes1 have their XGMII clock se=
-lection bits blindly overwritten to GMII during RCW initialization.
+- [High] Potential Use-After-Free due to scheduling timeout work before acq=
+uiring hardware locks.
+- [High] Lack of synchronization between the hardware IRQ handler and job t=
+imeout worker leads to double completion.
+- [High] Use-After-Free of `mtk_jpeg_ctx` during file descriptor release.
+- [High] Unkillable deadlock in `stop_streaming` when buffers are queued bu=
+t M2M job is not started.
 --
 
---- Patch [8]: [PATCH v3 phy-next 8/8] phy: lynx-10g: use RCW override proc=
-edure for dynamic protocol change ---
-commit 7e0651dd0ae8f0fcd028d4877a54ccdb1dcfef2d
-Author: Vladimir Oltean <vladimir.oltean@nxp.com>
+--- Patch [8]: [PATCH v16 08/12] media: mediatek: jpeg: fix remove buffer r=
+emoval timing for multi-core ---
+commit ddec7ab7308507663bea72ead9e975996dce1888
+Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-phy: lynx-10g: use RCW override procedure for dynamic protocol change
+media: mediatek: jpeg: fix remove buffer removal timing for multi-core
 
-Up until this patch, the only protocol change supported was between
-1000Base-X/SGMII and 2500Base-X. The others require an RCW override
-procedure which was lacking.
+This commit moves the calls to v4l2_m2m_src_buf_remove() and
+v4l2_m2m_dst_buf_remove() inside the spinlock-protected scope in the jpeg
+encoder and decoder workers. This is intended to ensure buffers are properly
+synchronized before removal from their queues to avoid buffer loss.
 
-Since now the guts driver provides the means of applying this procedure,
-make use of it and remove any comment which mentioned the limitation.
-
-> diff --git a/drivers/phy/freescale/phy-fsl-lynx-10g.c b/drivers/phy/frees=
-cale/phy-fsl-lynx-10g.c
-> index 38def160ef1aa..5ece7889aed7b 100644
-> --- a/drivers/phy/freescale/phy-fsl-lynx-10g.c
-> +++ b/drivers/phy/freescale/phy-fsl-lynx-10g.c
-[ ... ]
-> @@ -1225,6 +1223,13 @@ static int lynx_10g_set_mode(struct phy *phy, enum=
- phy_mode mode, int submode)
->  	if (powered_up)
->  		lynx_10g_lane_halt(phy);
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
+rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> @@ -1654,9 +1654,6 @@ static void mtk_jpegenc_worker(struct work_struct *=
+work)
+>  		goto enc_end;
+>  	}
 > =20
-> +	if (lynx_10g_lane_mode_needs_rcw_override(lane, lane_mode)) {
-> +		err =3D fsl_guts_lane_set_mode(priv->info->index, lane->id,
-> +					     lane_mode);
+> -	v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
+> -	v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
+> -
+>  	schedule_delayed_work(&comp_jpeg[hw_id]->job_timeout_work,
+>  			      msecs_to_jiffies(MTK_JPEG_HW_TIMEOUT_MSEC));
+> =20
+>  	spin_lock_irqsave(&comp_jpeg[hw_id]->hw_lock, flags);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does the underlying RCW over=
-ride
-procedure contain an off-by-one error that rejects the final SerDes block?
+This is a pre-existing issue, but does scheduling the timeout work before
+acquiring hw_lock risk a use-after-free?
 
-When this calls into fsl_guts_lane_set_mode(), it eventually hits a bounds
-check in fsl_guts_serdes_get_rcw_override():
+If the worker thread is preempted for more than the timeout duration just
+after calling schedule_delayed_work(), the timeout work could execute,
+reset the hardware, and return the buffers to userspace via
+v4l2_m2m_buf_done().
 
-drivers/soc/fsl/guts.c:fsl_guts_serdes_get_rcw_override() {
+Userspace might then free or reuse these buffers. When this worker thread
+eventually resumes, it would blindly configure the hardware with the
+invalidated buffer pointers and start the hardware operation, which could
+lead to memory corruption. This appears to affect both mtk_jpegenc_worker()
+and mtk_jpegdec_worker().
+
+> @@ -1674,6 +1671,8 @@ static void mtk_jpegenc_worker(struct work_struct *=
+work)
+>  			     &src_buf->vb2_buf);
+>  	mtk_jpeg_set_enc_params(ctx, comp_jpeg[hw_id]->reg_base);
+>  	mtk_jpeg_enc_start(comp_jpeg[hw_id]->reg_base);
+> +	v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
+> +	v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
+
+[Severity: High]
+Can this lead to list corruption if the hardware finishes very quickly?
+
+Because v4l2_m2m_src_buf_remove() and v4l2_m2m_dst_buf_remove() are called
+after mtk_jpeg_enc_start(), the hardware can raise an interrupt before the
+buffers are removed from the ready queue.
+
+Since the IRQ handler does not acquire hw_lock, it can run concurrently on
+another CPU and transition the buffer to userspace via v4l2_m2m_buf_done().
+If userspace quickly dequeues and requeues the buffer, list_add_tail() will
+be invoked to insert it back into the ready queue.
+
+Because this worker thread has not yet removed the original list node,
+could this corrupt the doubly-linked lists? I notice this order is used in
+mtk_jpegenc_worker(), but mtk_jpegdec_worker() correctly calls the remove
+functions before starting the hardware.
+
+>  	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
+
+[Severity: High]
+This is a pre-existing issue, but does calling v4l2_m2m_job_finish()
+synchronously here open a window for a use-after-free of the context?
+
+If userspace closes the file descriptor while an encode or decode job is
+running, mtk_jpeg_release() invokes v4l2_m2m_ctx_release(), which tries
+to wait for running jobs by checking the TRANS_RUNNING flag.
+
+Since v4l2_m2m_job_finish() is called immediately after starting the
+hardware, the flag is cleared before the hardware actually finishes. This
+causes mtk_jpeg_release() to proceed without waiting and free the context.
+
+When the hardware interrupt eventually fires, the IRQ handler dereferences
+the freed context:
+
+mtk_jpegenc_hw_irq_handler()
+    mtk_jpegenc_put_buf()
+        ctx =3D jpeg->hw_param.curr_ctx;
+        spin_lock_irqsave(&ctx->done_queue_lock, flags);
+       =20
+Can this lead to memory corruption when the lock is accessed on the freed
+context?
+
+[ ... ]
+
+While reviewing this patch, I noticed a few other pre-existing issues in
+related code.
+
+[Severity: High]
+This is a pre-existing issue, but is there a race condition between the
+hardware IRQ handler and the job timeout worker?
+
+In mtk_jpeg_enc_hw.c, the IRQ handler uses the asynchronous
+cancel_delayed_work():
+
+mtk_jpegenc_hw_irq_handler() {
     ...
-    if (serdes_idx >=3D soc_data->num_serdes || serdes_idx <=3D 0)
-        return -ERANGE;
+    cancel_delayed_work(&jpeg->job_timeout_work);
+   =20
+    ctx =3D jpeg->hw_param.curr_ctx;
     ...
 }
 
-Since serdes_idx is 1-based, and this uses >=3D instead of >, won't this
-completely fail to apply the dynamic protocol change for any interface on
-the last SerDes block (e.g. index 2 on SoCs with 2 SerDes blocks)?
+If the hardware interrupt fires at the exact moment the timeout worker
+begins executing, cancel_delayed_work() returns false and does not wait.
+Because neither the IRQ handler nor the timeout worker acquires hw_lock,
+both will execute concurrently.
+
+Both paths will read the same buffer pointers from hw_param and invoke
+v4l2_m2m_buf_done(), which could result in a double completion of the V4L2
+buffers and a double increment of the hw_rdy atomic counter.
 
 [Severity: High]
-This is a pre-existing issue, but does initializing the SerDes RCW
-inadvertently corrupt unmanaged lanes on LS2088A?
+This is a pre-existing issue, but can mtk_jpeg_enc_stop_streaming()
+deadlock if buffers are queued but the M2M job is not started?
 
-When fsl_guts_lane_set_mode() is called for the first time on an LS2088A So=
-C,
-it triggers ls2088a_serdes_init_rcwcr() to build a new state for the RCW
-utilizing soc.lanes_initialized:
+In mtk_jpeg_core.c:mtk_jpeg_enc_stop_streaming():
 
-drivers/soc/fsl/guts.c:ls2088a_serdes_init_rcwcr() {
-    ...
-    for_each_set_bit(i, &soc.lanes_initialized[serdes_idx - 1], MAX_NUM_LAN=
-ES)
-        if (lynx_lane_mode_uses_xgmii_mac(soc.lane_mode[serdes_idx - 1][i]))
-            reg |=3D LS2088A_RCWSR30_SRDS_CLK_SEL_XGMII_Ln_S1(i);
+    if (jpeg->variant->multi_core)
+        vb2_wait_for_all_buffers(q);
 
-    err =3D fsl_guts_rcw_rmw(29, reg,
-                   LS2088A_RCWSR30_SRDS_CLK_EN_SEL_XGMII_S1 |
-                   LS2088A_RCWSR30_SRDS_CLK_SEL_MSK);
-    ...
-}
+    while ((vb =3D mtk_jpeg_buf_remove(ctx, q->type)))
+        v4l2_m2m_buf_done(vb, VB2_BUF_STATE_ERROR);
 
-Because the blanket mask LS2088A_RCWSR30_SRDS_CLK_SEL_MSK clears the bits
-for all 8 lanes but only restores them for explicitly managed lanes, won't
-unmanaged lanes (such as those used by DPDK or alternative firmware) have
-their hardware protocol selection forced to 0 (GMII), potentially breaking
-network connectivity?
+If userspace queues buffers on only one queue (e.g., OUTPUT but not
+CAPTURE), the V4L2 mem2mem core places the buffers in the driver's ready
+queue but does not schedule the job.
 
-> +		if (err)
-> +			goto out;
-> +	}
-> +
->  	err =3D lynx_10g_lane_disable_pcvt(lane, lane->mode);
->  	if (err)
->  		goto out;
+If userspace then calls STREAMOFF, the wait loop precedes the cleanup
+loop. vb2_wait_for_all_buffers() will block waiting for the driver to
+return all buffers, but the code that returns the buffers is located after
+the wait call.
+
+Could this cause the process calling STREAMOFF to block forever in
+uninterruptible sleep? The same logic appears to be present in
+mtk_jpeg_dec_stop_streaming() as well.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720133642.1363=
-24-1-vladimir.oltean@nxp.com?part=3D8
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720133432.1042=
+046-1-kyrie.wu@mediatek.com?part=3D8
