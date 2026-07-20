@@ -1,230 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC153B1EEE
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:59:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CE334DCE0
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 14:00:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784555973; cv=none; b=R/ZazVmYpfe6VlI3VAQrUchQBmpsAe8j/QAPUQaA+aoMIZ3RUFrAjT/aNzECFQElkdrimFLQMMyXLBfUrgxupl6LpROCJnjRd861QF3ROgoiKG9ENN+JujYg8w8NGzCxRNS3JMaJROV2QlMPJOaK3JFQfv6zzBII/nVAhvIAOg8=
+	t=1784556034; cv=none; b=UrDHxiWruTRn5OQccXabZ5Ix+lbEVx5HLk8hreNluWQoIl9Ke4WgjLZkST2tuZlqdASQ7t2pwEzmS2hNw+jY9O8IBsK7Y6QN1wRMHsTvKv8LFQ3a+q/UvBAoi/1R4wa5cPTnuCFzF8ro3VlMDMxFfp27Yvra3Sce3x2c3pux3Yg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784555973; c=relaxed/simple;
-	bh=KwDMRkvVRaFVAsfdH5AKh1fuHgcvOoJ7R8ea5KiVyj8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kD/3c6UWLrEJfb/Jr7bCu5bZYwfZghingZQ3YEnlSI28gbzLBYG+gSCLLwp8TUsutzVyhK/mUZiJbWAx4RE/K3Wa97jT7wH85uDwYLNKdOJq/r3dT233aFT8qiX8KhEks2wn0XUnPzZvn8vqI7aGXnQKYJNl4Ml73S20inV+hMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CMu/UfpW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784556034; c=relaxed/simple;
+	bh=ibO8HrzFGnu/FbI+Jv85vcjMmuwSEhYP9jqINubWEak=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Bl2o4wapqslDmdrKJgU74++gek2tZbd/BbCC9a89CHJBcPRJcZjYXu1+vxJBFU5ZD7JWFI+SQTLmtqAEB3X3wSiZXmT4/vRexNtGW5KGn8wTZAWBIlL8ks9Ww9Xjzzs1txXA3k3ksQLWtqUPGpmAiaAjNJH4lQu1Eoa60dO6TkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NN4xQ3Ez; arc=none smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CMu/UfpW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB8571F000E9;
-	Mon, 20 Jul 2026 13:59:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784555972;
-	bh=SLW6StDB7zUlFdexu0vAPjVI0ZuRvIUOC7vTK6rPTlA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CMu/UfpWHRfE08rkoOD0sqkaP9ZfDeKlNF6l1CVEZ12nhheYSdAFPVQkYE5U35Rfr
-	 F73FTKVd8/f0iHzqb+3LTyZ362U4qeD/cXZG5CsjQYf1CKilCUEf8w23+xhoMh14QK
-	 q7N7N42R7zQpe6mhA4dsqo7jsySrmF103qsqz3cifLi2MyD77Dorxrj+onNehVh1FQ
-	 +TU+CAdBmm2CAF8ibIcklMB+Ld+cIN0wkQKqQbMQWMm8SV0f3K+0Ei9PXSXLKDnnaA
-	 N4WAwMB/hixIijw2m0F5gWblU3GbriPyAOjQEnm0ZuiNbP+xJnSkQ+Ea3b15Zzxv9F
-	 lZX3OLwv4cx4w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 03/12] media: mediatek: jpeg: fix buffer structure
- size and layout
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyrie Wu" <kyrie.wu@mediatek.com>
-Cc: devicetree@vger.kernel.org, media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260720133432.1042046-4-kyrie.wu@mediatek.com>
-References: <20260720133432.1042046-1-kyrie.wu@mediatek.com>
- <20260720133432.1042046-4-kyrie.wu@mediatek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 13:59:31 +0000
-Message-Id: <20260720135931.CB8571F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NN4xQ3Ez"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c16794450aeso673356266b.2
+        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 07:00:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784556030; x=1785160830; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7XWyfB00Rok/PjZ5UHAUkTiQrGyYkPnkRtIuDzoxupg=;
+        b=NN4xQ3EzJUcEDIBjZYig4zs/xtggJJFuRxCFip4KzMpyhYCtOwL+BbH7hYqM5mKTHE
+         s7yLQzp6MzAWSL5bKPu2137t+KeLT6kwBKqMLlo+TWRpk/L7zCrrkILwJAGeZrSza1gV
+         wBelRJ9HhOaNnE6kxWgMpumc/gvwynV1VIWj7qjoJPzrohfP7/56hL/uJsiTIbkJedHo
+         ELJ4l11ffh4SVZgTfXm1Ni+0g4pKSfWMENy3drnty1eJeYgGi1aAfzHo4+i1/bg+oH8r
+         lqoxXb7Z2tFmH8BgUGjEY3lQ1k+1lZLBTX9vqzxroyjwsrVi0XOtmTP4hQ2HvKuVTW8i
+         ulhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784556030; x=1785160830;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7XWyfB00Rok/PjZ5UHAUkTiQrGyYkPnkRtIuDzoxupg=;
+        b=CPhifOz10Zrz+WD2kS/jq2XbzKbaoGygVMBk61dGt577gBzjqFgWUF/5/jN5bOiSdA
+         mjWH7f8wnqdDtOFlto/o6LhD1vWxbOFS38u7V7CcYkJiBK1KvCq1EAjGxEQErnhHjf8S
+         /XZ0rsnY4/WON99kfsk3I6dEQAf8cLJ8YPELh9cLY4Vn+sFn9kJagX8LSbxOiG8eBUMz
+         Zu1JL3Xf0oYU3sdp+0lOs9VHXX3hPf2blKNzowhZMo3gewi/8Q/8bQNklYP+YyAhBiis
+         ZqObj7bLizUDhhw9k2cvq4mGn3j+woisnMxBO/7+nCBGVnFkrLC9EWuWngJ9QqQs+KpL
+         Q5vQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqCAAm6hpkbazf8NRUnm3wdx0nPEMLxAP+NzdDM70JHyXd8VN+kwj5yKZSyaouSuAaleQVYHRC4ZVNA@vger.kernel.org
+X-Gm-Message-State: AOJu0YwBWibYwKPD5GgRrKG8Jrh14cQgEk8PcjAL7wK/Wwa/MrUUC2j5
+	JRDxpdU8+GVo6cSL79lxzSoHT0yhHtswrbjueDrastj7Co1cTvzVIeHF
+X-Gm-Gg: AfdE7cnBVqKGeF7iUhs2bctgo0qAWDD7LQRIhEhZVY2VkmOw9Q6XEsZPZmBhzr3PabX
+	S34xUJUANqXiPk4quFU36RsljvIlZ2Yxf6gQWBrdEC8Z4CuRZdHJbgD+iQuJGJMcuTWYEQEQzni
+	3MnWCKXlZC5IKjWaxr8/KIqEPsc8jVweDnd7Rpus8au1UMfn1AUeIoTbHDys+I3CGbkdDE8KLdj
+	/0XqDL8bnEubakNXmTnlfoBM2RaFUAiWY7SikJMTSGrtC7ZSyuB18YmThncb8AfSiVTvLGPiGEX
+	YoLuQQst2wdxkt7RsoGYChoFTH1kkVF+We6ULwEkmRO7JnT5s5U4CxZCdNkzA6rPWInmdMEw9oR
+	SmC/FnpIeYwhGuhDdaQWEy/P8dEEpC5U1r+fxfEdTuJ7b1D4ARdU3umQQosQCjlg8WEAFpPatuc
+	5dwlu1bJ4mBmyDNwlUJZWGr44WxmzBDno+tx5PUbfse2Yk7vDgmYXmJQP75Bn03An9gUdryOI=
+X-Received: by 2002:a17:907:3e98:b0:c12:4cb8:a826 with SMTP id a640c23a62f3a-c16b457b1abmr614064366b.6.1784556029502;
+        Mon, 20 Jul 2026 07:00:29 -0700 (PDT)
+Received: from [172.24.138.145] (dynamic-176-002-111-253.176.2.pool.telefonica.de. [176.2.111.253])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c17009ae00asm464388366b.7.2026.07.20.07.00.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 20 Jul 2026 07:00:28 -0700 (PDT)
+Message-ID: <9dd16bb5-7a30-4024-88a7-4a4bf47c35e8@gmail.com>
+Date: Mon, 20 Jul 2026 16:00:26 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-
-Pre-existing issues:
-- [High] Closing the device while a multi-core encoding/decoding job is run=
-ning leads to Use-After-Free of the context and vb2 buffers in the interrup=
-t handler.
-- [High] Orphaned vb2 buffers in `dst_done_queue` are leaked on STREAMOFF.
-- [High] Failure to cancel `job_timeout_work` in driver remove causes Use-A=
-fter-Free.
-- [High] Flawed reorder queue iteration in `mtk_jpegenc_put_buf` leads to s=
-tranded buffers and application hangs when hardware completes frames out of=
- order.
-- [Medium] The custom buffer structure `mtk_jpeg_src_buf` manually replicat=
-es the fields of `struct v4l2_m2m_buffer` instead of embedding it, which is=
- an architectural anti-pattern and risks future memory corruption.
---
-
---- Patch [3]: [PATCH v16 03/12] media: mediatek: jpeg: fix buffer structur=
-e size and layout ---
-commit 4b1c7af5910f25b2a11680a53e22df54bd4fcacd
-Author: Kyrie Wu <kyrie.wu@mediatek.com>
-
-    media: mediatek: jpeg: fix buffer structure size and layout
-   =20
-    Updates the buf_struct_size in the JPEG driver to use the correct
-    structure mtk_jpeg_src_buf instead of v4l2_m2m_buffer, ensuring
-    proper handling of source buffers. The previous buffer size led to
-    mismatches and potential issues during video buffer handling.
-   =20
-    Moves frame_num in the mtk_jpeg_src_buf structure to align with
-    other members appropriately. The first field of the driver-specific
-    buffer structure must be the subsystem-specificstruct
-    (vb2_v4l2_buffer in the case of V4L2).
-   =20
-    Fixes: 5fb1c2361e56 ("mtk-jpegenc: add jpeg encode worker interface")
-    Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
-    Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
-> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
-rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> index 34135706a4ac3..7856a556ce68e 100644
-> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> @@ -1092,7 +1092,7 @@ static int mtk_jpeg_queue_init(void *priv, struct v=
-b2_queue *src_vq,
->  	dst_vq->type =3D V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
->  	dst_vq->io_modes =3D VB2_DMABUF | VB2_MMAP;
->  	dst_vq->drv_priv =3D ctx;
-> -	dst_vq->buf_struct_size =3D sizeof(struct v4l2_m2m_buffer);
-> +	dst_vq->buf_struct_size =3D sizeof(struct mtk_jpeg_src_buf);
->  	dst_vq->ops =3D jpeg->variant->qops;
->  	dst_vq->mem_ops =3D &vb2_dma_contig_memops;
->  	dst_vq->timestamp_flags =3D V4L2_BUF_FLAG_TIMESTAMP_COPY;
-> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h b/drive=
-rs/media/platform/mediatek/jpeg/mtk_jpeg_core.h
-> index 6be5cf30dea1b..148fd41759b75 100644
-> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h
-> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h
-> @@ -85,10 +85,10 @@ struct mtk_jpeg_variant {
->  };
-> =20
->  struct mtk_jpeg_src_buf {
-> -	u32 frame_num;
->  	struct vb2_v4l2_buffer b;
->  	struct list_head list;
->  	u32 bs_size;
-> +	u32 frame_num;
->  	struct mtk_jpeg_dec_param dec_param;
-> =20
->  	struct mtk_jpeg_ctx *curr_ctx;
->  };
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but is it safe to manually
-replicate the fields of struct v4l2_m2m_buffer here instead of embedding it
-directly?
-
-Since v4l2_m2m_buf_queue casts mtk_jpeg_src_buf to v4l2_m2m_buffer, if
-upstream modifies struct v4l2_m2m_buffer (for example, by adding a new
-field), this implicit structural casting could cause v4l2_m2m_buf_queue to
-access invalid memory and lead to silent kernel heap corruption.
-
-There are also a few pre-existing regressions in this driver that I noticed
-while reviewing the code.
-
-[Severity: High]
-This is a pre-existing issue, but does closing the device while a multi-core
-encoding or decoding job is running lead to a use-after-free?
-
-In drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c:mtk_jpegenc_worker(=
-):
-
-	mtk_jpeg_set_enc_params(ctx, comp_jpeg[hw_id]->reg_base);
-	mtk_jpeg_enc_start(comp_jpeg[hw_id]->reg_base);
-	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
-
-The worker prematurely calls v4l2_m2m_job_finish() and clears the job runni=
-ng
-state while the hardware is still running. If the user closes the device fd,
-mtk_jpeg_release() will not wait for hardware completion and will immediate=
-ly
-free the context and queues.
-
-When the hardware interrupt fires later:
-
-drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c:mtk_jpegenc_hw_irq_h=
-andler():
-
-	ctx =3D jpeg->hw_param.curr_ctx;
-	src_buf =3D jpeg->hw_param.src_buffer;
-
-The interrupt handler dereferences the context and buffers which may have
-already been freed. Could this cause memory corruption?
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Janani Sunil <jananisunil.dev@gmail.com>
+Subject: Re: [PATCH 1/6] dt-bindings: iio: adc: Add AD7768
+To: David Lechner <dlechner@baylibre.com>,
+ Janani Sunil <janani.sunil@analog.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Olivier Moysan <olivier.moysan@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-doc@vger.kernel.org
+References: <20260709-ad7768-driver-v1-0-44e1194fd96a@analog.com>
+ <20260709-ad7768-driver-v1-1-44e1194fd96a@analog.com>
+ <36df7c4f-82ea-4ed5-a4f9-3a29c75dc99a@baylibre.com>
+Content-Language: en-US
+In-Reply-To: <36df7c4f-82ea-4ed5-a4f9-3a29c75dc99a@baylibre.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-[Severity: High]
-This is a pre-existing issue, but can orphaned vb2 buffers leak when
-streaming is stopped?
+On 7/9/26 17:43, David Lechner wrote:
+> On 7/9/26 3:50 AM, Janani Sunil wrote:
+>> Devicetree Bindings for AD7768-4 (4 channel) and AD7768 (8 channel)
+>> simultaneous sampling ADC
+>>
+>> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+>> ---
+>>   
+>>
+>> +
+>> +  adi,power-mode:
+>> +    $ref: /schemas/types.yaml#/definitions/string
+>> +    enum:
+>> +      - low
+>> +      - median
+>> +      - fast
+>> +    description:
+>> +      Power mode selection.
+> Unless there are pins that control this, it seems like it should be
+> left up to the driver to decide how to set this.
+>
+> In this case, it looks like the power mode also influences sample rate
+> which is normally something controlled at runtime.
 
-Looking at mtk_jpeg_enc_stop_streaming() in mtk_jpeg_core.c:
+Hi David,
 
-	while ((vb =3D mtk_jpeg_buf_remove(ctx, q->type)))
-		v4l2_m2m_buf_done(vb, VB2_BUF_STATE_ERROR);
+The reason we'd like to retain power mode control is that certain ODRs 
+are supported across all three power modes (low/median/fast), and the 
+RMS noise and power consumption differ significantly between them at the 
+same ODR.
 
-The function retrieves buffers from the active v4l2_m2m queues but appears =
-to
-fail to flush the ctx->dst_done_queue. If hardware operations complete out =
-of
-order, buffers wait in ctx->dst_done_queue. Does stopping the stream abandon
-these pending buffers and cause a leak?
+The higher the power mode, the better the noise performance, but power 
+consumption nearly doubles for every ~3 dB improvement in dynamic range. 
+Silently selecting one power mode in the driver would remove a 
+meaningful hardware tradeoff from the user.
 
+We'd like to propose the following instead:
+- Remove adi,power-mode from the DT as suggested.
+- Expose power mode as a per-device sysfs attribute.
+- in_voltage<N>_sampling_frequency_available dynamically reflects only 
+the ODRs valid for the currently selected power mode.
 
-[Severity: High]
-This is a pre-existing issue, but does the driver teardown logic fail to
-cancel the delayed timeout work?
+This keeps the DT clean while still giving the user explicit control 
+over the noise versus power trade off. Would this approach be acceptable?
 
-In drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c:mtk_jpeg_remove():
-
-static void mtk_jpeg_remove(struct platform_device *pdev)
-{
-	struct mtk_jpeg_dev *jpeg =3D platform_get_drvdata(pdev);
-
-	pm_runtime_disable(&pdev->dev);
-        ...
-
-The driver initializes a delayed work task (jpeg->job_timeout_work) to hand=
-le
-hardware timeouts, but mtk_jpeg_remove() does not appear to call
-cancel_delayed_work_sync(). If the driver is unbound while a job is timing
-out, could the delayed work fire after the device structures are freed and
-cause a use-after-free?
+Thanks,
+Jan
 
 
-[Severity: High]
-This is a pre-existing issue, but does the queue iteration logic in
-mtk_jpegenc_put_buf() fail to restart its scan, leaving buffers stranded?
-
-In drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c:mtk_jpegenc_put_b=
-uf():
-
-	while (!list_empty(&ctx->dst_done_queue) &&
-	       (pos !=3D &ctx->dst_done_queue)) {
-		list_for_each_prev_safe(pos, temp_entry, &ctx->dst_done_queue) {
-                    ...
-                }
-        }
-
-When frames complete out of order (e.g., 8, 9, 7), the outer while loop che=
-cks
-pos !=3D &ctx->dst_done_queue. However, list_for_each_prev_safe() always
-terminates with pos pointing to the list head. Since there is no break insi=
-de
-the outer loop, the outer condition evaluates to false immediately after one
-pass, failing to restart the scan.
-
-Could this leave frames indefinitely stranded in the queue, causing the
-application to hang? This same pattern also appears in the decoder side in
-mtk_jpegdec_put_buf() in mtk_jpeg_dec_hw.c.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720133432.1042=
-046-1-kyrie.wu@mediatek.com?part=3D3
