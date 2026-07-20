@@ -1,672 +1,477 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C127430C17D;
-	Mon, 20 Jul 2026 15:27:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B34F388E42;
+	Mon, 20 Jul 2026 15:35:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784561228; cv=none; b=B5VrQ13id9oc+CJWiTMlZ/zUv5+NimmKUuWOf6zxnz24IBX+hITFIEJcsFQOK6bslbtz5Z3oW0akFVzHlZ8WCRqp6Ny/rXR7wyNNsbp4iNFTioUqVZ8ocEk9DWD++olJFV7Ut8Gs4fZNMemSsWjThW7MRQphMKGYLsjQZcQmOM8=
+	t=1784561761; cv=none; b=NO/slYBY973oFzQiLWXlOQUBRDng02voVPXZFXgsKYUEVmBZ5UEzUX9WJtZ4ymQtT8zmk79XxaeHBm+VeDphZZAhGv/5ahBaNr/Dy0dD/eNb/ptv3vWagU37jUHoZ/KqDI4OE768xg0Bo4WLoqvGYKSVoBgNNWFWeN1xR4UGvSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784561228; c=relaxed/simple;
-	bh=1KOt3EPkfVcD7fEwW/UGXJCSH90r0vo715z5FP7Uuvw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pzTlNQAgEqCP3S/Ero8DEkezacbqUaf5SxegYAIz+ksuinAhNVhKxNqpVS7ZDvI4bKVAhZVfSkLOdWWDNRMthNUhrDs11fhyq4rlUDFK5Ga4vFGDQAe6W/510WVsIeJiPHSpA1k+O1SxdRk8w0Br5RKIJfGCPtOEr4QmEGGyOhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=GSsPwqJC; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1784561761; c=relaxed/simple;
+	bh=HzozHSiIqOVgYsoYwuzietJUVM3v7XOEgA5+ryBKhiY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W5jLivFZ9aShtb84Vzynf0Qnyb+2F4eEYI1bbQd+XfuKcjNfjwSp0iA4mcquTjHBaUEDGwGRcvb9kniwoyPTlbOU+c9dFf/56e7TdpNNtfdPgEOoz+VASvg51CLBvAFWmC7dyyWkAFYhPbE9qXlPDMimX9KUP+e9H1aHPeBNdeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NCSPhkym; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="GSsPwqJC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1784561224;
-	bh=1KOt3EPkfVcD7fEwW/UGXJCSH90r0vo715z5FP7Uuvw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=GSsPwqJCKLT5JS2O7WJztGm3kXS7fqXaK0CpMeIqHWzWwUTKhus0tnu6/rM8nb/rQ
-	 7hJUx1tLc4bZsy/7bOGaGk+jxLapgzRLS/XPp2S+oG6yqeQ2txldi50565KNTRkMMB
-	 V+TIOldHhGlHZxlG7GkjWeTcKHwNtWZbqMCvgWDjG7HFCj4RVIkQREmqkd5wtdodaT
-	 VzLmHSf0AIduS4XfjCI0AjUg4JBoeZ0IuX9nmtrrJ+11N0liWNEn4gDsbaqab6ti0w
-	 gzJviAU+lXaOtDyBk6WvOqQ63ePbCKDAeNqdPlxVy2zCmkc+WQ1PFQaGhaMih9Ihhw
-	 xOMX8RK/enK7w==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id A16C717E080C;
-	Mon, 20 Jul 2026 17:27:03 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: chunfeng.yun@mediatek.com
-Cc: vkoul@kernel.org,
-	neil.armstrong@linaro.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NCSPhkym"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 277F51F000E9;
+	Mon, 20 Jul 2026 15:35:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784561750;
+	bh=VB3hSs3IM1kNjFNQVKVjcNLxy/gsZs2wcShzQpskPaM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NCSPhkymZIyD1HmeYXvYKO2XxeTKj4zamgwTuj43z1DRAlUnXnm5nuv3j7eKF4EQs
+	 +rQDzU8ergDSkSWTw1JY8GUxO/V8aNFK/GDLA6XDtdvaqDsGjtv43O2qoU3DvgVMM6
+	 gfDAMcn19SLJhvbK1R0R+H5CXGMgLIPd4hIgZRb+SGd28SxtURQ+HMuYBQ6T4Nt2GT
+	 RL0XOQlgyRRfnTykZ/cW9ElFVWIy1u8M3gLU9m6GSo7jWybUrRzER/5W8HkA2uyDBk
+	 WAOflpelUFoAAp28Pu9D6uhbYERsVOf3nLAtfffHGLzVyNrd1b/0TzwbiMD4PYI/Ok
+	 tCo/UMnBnt9aA==
+Date: Mon, 20 Jul 2026 17:35:48 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kernel@collabora.com
-Subject: [PATCH v3 2/2] phy: mediatek: Add support for PCI-Express Gen4 S-PHY
-Date: Mon, 20 Jul 2026 17:26:54 +0200
-Message-ID: <20260720152654.92216-3-angelogioacchino.delregno@collabora.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260720152654.92216-1-angelogioacchino.delregno@collabora.com>
-References: <20260720152654.92216-1-angelogioacchino.delregno@collabora.com>
+	Maxime Chevallier <maxime.chevallier@bootlin.com>
+Subject: Re: [PATCH net-next v9 12/12] net: airoha: add phylink support
+Message-ID: <al5AVLxWRhnpGzJ1@lore-desk>
+References: <20260717065448.1498335-1-ansuelsmth@gmail.com>
+ <20260717065448.1498335-13-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="t3fO2M3wqEE3d+IM"
+Content-Disposition: inline
+In-Reply-To: <20260717065448.1498335-13-ansuelsmth@gmail.com>
 
-Add support for the PCI-Express Gen4 S-PHY found in the latest
-MediaTek SoCs, including MT8196, MT8894 and similar.
+--t3fO2M3wqEE3d+IM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- drivers/phy/mediatek/Kconfig             |   9 +
- drivers/phy/mediatek/Makefile            |   1 +
- drivers/phy/mediatek/phy-mtk-pcie-sphy.c | 556 +++++++++++++++++++++++
- 3 files changed, 566 insertions(+)
- create mode 100644 drivers/phy/mediatek/phy-mtk-pcie-sphy.c
+> Add phylink support for each GDM port. For GDM1 add the internal interface
+> mode as the only supported mode. For GDM2/3/4 add the required
+> configuration of the PCS to make the external PHY or attached SFP cage
+> work.
+>=20
+> These needs to be defined in the GDM port node using the pcs-handle
+> property.
+>=20
+> Update and provide a .get/set_link_ksettings function that use phylink
+> for ethtool OPs now that we fully support phylink.
+>=20
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  drivers/net/ethernet/airoha/Kconfig       |   1 +
+>  drivers/net/ethernet/airoha/airoha_eth.c  | 194 +++++++++++++++++++++-
+>  drivers/net/ethernet/airoha/airoha_eth.h  |   7 +-
+>  drivers/net/ethernet/airoha/airoha_regs.h |  12 ++
+>  4 files changed, 207 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/drivers/net/ethernet/airoha/Kconfig b/drivers/net/ethernet/a=
+iroha/Kconfig
+> index 1f6640a15fc9..789906516bf8 100644
+> --- a/drivers/net/ethernet/airoha/Kconfig
+> +++ b/drivers/net/ethernet/airoha/Kconfig
+> @@ -20,6 +20,7 @@ config NET_AIROHA
+>  	depends on NET_DSA || !NET_DSA
+>  	select NET_AIROHA_NPU
+>  	select PAGE_POOL
+> +	select PHYLINK
+>  	help
+>  	  This driver supports the gigabit ethernet MACs in the
+>  	  Airoha SoC family.
+> diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ether=
+net/airoha/airoha_eth.c
+> index 59001fd4b6f7..ed1ac032f337 100644
+> --- a/drivers/net/ethernet/airoha/airoha_eth.c
+> +++ b/drivers/net/ethernet/airoha/airoha_eth.c
+> @@ -8,6 +8,7 @@
+>  #include <linux/of_reserved_mem.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/tcp.h>
+> +#include <linux/pcs/pcs.h>
+>  #include <linux/u64_stats_sync.h>
+>  #include <net/dst_metadata.h>
+>  #include <net/page_pool/helpers.h>
+> @@ -1837,7 +1838,7 @@ static void airoha_update_hw_stats(struct airoha_gd=
+m_dev *dev)
+>  	struct airoha_gdm_port *port =3D dev->port;
+>  	int i;
+> =20
+> -	spin_lock(&port->stats_lock);
+> +	spin_lock(&port->lock);
 
-diff --git a/drivers/phy/mediatek/Kconfig b/drivers/phy/mediatek/Kconfig
-index ba6461350951..77236f3084c8 100644
---- a/drivers/phy/mediatek/Kconfig
-+++ b/drivers/phy/mediatek/Kconfig
-@@ -13,6 +13,15 @@ config PHY_MTK_PCIE
- 	  callback for PCIe GEN3 port, it supports software efuse
- 	  initialization.
- 
-+config PHY_MTK_PCIE_SPHY
-+	tristate "MediaTek PCIe S-PHY Driver"
-+	depends on ARCH_MEDIATEK || COMPILE_TEST
-+	depends on OF
-+	select GENERIC_PHY
-+	help
-+	  Say 'Y' here to add support for MediaTek PCIe S-PHY driver for
-+	  PCI-Express Gen4 controllers as found in MT6991, MT8196 and others.
-+
- config PHY_MTK_XFI_TPHY
- 	tristate "MediaTek 10GE SerDes XFI T-PHY driver"
- 	depends on ARCH_MEDIATEK || COMPILE_TEST
-diff --git a/drivers/phy/mediatek/Makefile b/drivers/phy/mediatek/Makefile
-index ed0da708759b..7e984c7cfea3 100644
---- a/drivers/phy/mediatek/Makefile
-+++ b/drivers/phy/mediatek/Makefile
-@@ -5,6 +5,7 @@
- 
- obj-$(CONFIG_PHY_MTK_DP)		+= phy-mtk-dp.o
- obj-$(CONFIG_PHY_MTK_PCIE)		+= phy-mtk-pcie.o
-+obj-$(CONFIG_PHY_MTK_PCIE_SPHY)		+= phy-mtk-pcie-sphy.o
- obj-$(CONFIG_PHY_MTK_TPHY)		+= phy-mtk-tphy.o
- obj-$(CONFIG_PHY_MTK_UFS)		+= phy-mtk-ufs.o
- obj-$(CONFIG_PHY_MTK_XSPHY)		+= phy-mtk-xsphy.o
-diff --git a/drivers/phy/mediatek/phy-mtk-pcie-sphy.c b/drivers/phy/mediatek/phy-mtk-pcie-sphy.c
-new file mode 100644
-index 000000000000..853aafa18259
---- /dev/null
-+++ b/drivers/phy/mediatek/phy-mtk-pcie-sphy.c
-@@ -0,0 +1,556 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2022 MediaTek Inc.
-+ * Copyright (c) 2026 Collabora Ltd.
-+ *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/module.h>
-+#include <linux/nvmem-consumer.h>
-+#include <linux/of.h>
-+#include <linux/phy/phy.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/slab.h>
-+
-+#include "phy-mtk-io.h"
-+
-+/* PHY System Interface (SIF) registers */
-+#define PEXTP_DIG_GLB_TOP				0x20
-+#  define RG_XTP_BYPASS_PIPE_RST_RC			BIT(17)
-+#define PEXTP_DIG_GLB_CKBG0				0x30
-+#  define RG_XTP_CKBG_XTAL_STABLE_TIME_SEL		GENMASK(25, 16)
-+#define PEXTP_DIG_GLB_TPLL_CTL0				0x38
-+#  define RG_XTP_TPLL_SET_STABLE_TIME_SEL		GENMASK(7, 2)
-+#  define RG_XTP_TPLL_PWE_ON_STABLE_TIME_SEL		GENMASK(9, 8)
-+#define PEXTP_DIG_GLB_CLKREQ_CTL			0x50
-+#  define RG_XTP_CKM_EN_L1S0				BIT(13)
-+#  define RG_XTP_CKM_EN_L1S1				BIT(14)
-+#define PEXTP_DIG_GLB_TPLL_CTL2				0xf4
-+#  define RG_XTP_TPLL_ISO_EN_STABLE_TIME_SEL		GENMASK(13, 12)
-+
-+/* PHY System Interface Digital registers */
-+#define PEXTP_DIG_LN_TRX_PIPE_IF_17			0x30e8
-+#  define RG_XTP_LN_RX_LF_CTLE_CSEL_GEN4		GENMASK(14, 12)
-+#define PEXTP_DIG_LN_RX_F0				0x50f0
-+#  define RG_XTP_LN_RX_GEN1_CTLE1_CSEL			GENMASK(3, 0)
-+#  define RG_XTP_LN_RX_GEN2_CTLE1_CSEL			GENMASK(7, 4)
-+#  define RG_XTP_LN_RX_GEN3_CTLE1_CSEL			GENMASK(11, 8)
-+#  define RG_XTP_LN_RX_GEN4_CTLE1_CSEL			GENMASK(15, 12)
-+#define PEXTP_DIG_LN_RX2_AEQ_EDGE_0			0x6004
-+#  define RG_XTP_LN_RX_AEQ_EGEQ_RATIO_GEN3		GENMASK(21, 16)
-+#  define RG_XTP_LN_RX_AEQ_EGEQ_RATIO_GEN4		GENMASK(29, 24)
-+
-+/* PHY System Interface Analog registers */
-+#define PEXTP_ANA_GLB_TPLL1_RSVD			0x902c
-+#  define RG_XTP_GLB_TPLL1_P_PATH_GAIN			GENMASK(2, 0)
-+#define PEXTP_ANA_GLB_BIAS_0				0x9060
-+#  define RG_XTP_GLB_BIAS_INTR_CTRL			GENMASK(5, 0)
-+#define PEXTP_ANA_GLB_BIAS_1				0x90c0
-+#  define RG_XTP_GLB_BIAS_V2V_VTRIM			GENMASK(9, 6)
-+#define PEXTP_ANA_LN_TRX_0C				0xa00c
-+#  define RG_XTP_LN_TX_RSWN_IMPSEL			GENMASK(20, 16)
-+#define PEXTP_ANA_LN_TRX_34				0xa034
-+#  define RG_XTP_LN_RX_FE				BIT(15)
-+#define PEXTP_ANA_LN_TRX_6C				0xa06c
-+#  define RG_XTP_LN_RX_AEQ_CTLE_ERR_TYPE		GENMASK(14, 13)
-+#   define AEQ_CTLE_SEARCH_ERR_TYPE_H1P5		0
-+#   define AEQ_CTLE_SEARCH_ERR_TYPE_H1P5_H2P5		1
-+#   define AEQ_CTLE_SEARCH_ERR_TYPE_P1P5_H2P5_H3P5	2
-+#define PEXTP_ANA_LN_TRX_A0				0xa0a0
-+#  define RG_XTP_LN_TX_IMPSEL_PMOS			GENMASK(4, 0)
-+#  define RG_XTP_LN_TX_IMPSEL_NMOS			GENMASK(11, 7)
-+#  define RG_XTP_LN_RX_IMPSEL				GENMASK(15, 12)
-+#define PEXTP_ANA_LN_TRX_A8				0xa0a8
-+#  define RG_XTP_LN_RX_LEQ_RL_CTLE_CAL			GENMASK(6, 2)
-+#  define RG_XTP_LN_RX_LEQ_RL_VGA_CAL			GENMASK(11, 7)
-+#  define RG_XTP_LN_RX_LEQ_RL_DFE_CAL			GENMASK(23, 19)
-+#define PEXTP_DIG_LN_TX_LC_TABLE_RSWN_4			0xb004
-+#define PEXTP_DIG_LN_TX_LC_TABLE_RSWN_8			0xb008
-+#define PEXTP_DIG_LN_TX_LC_TABLE_RSWN_C			0xb00c
-+#define PEXTP_DIG_LN_TX_LC_TABLE_RSWN_10		0xb010
-+#define PEXTP_DIG_LN_TX_LC_TABLE_RSWN_14		0xb014
-+#define PEXTP_DIG_LN_TX_LC_TABLE_RSWN_18		0xb018
-+#  define RG_XTP_LN_TX_LC_PRESET_MGx_Px_CM1		GENMASK(5, 0)
-+#  define RG_XTP_LN_TX_LC_PRESET_MGx_Px_C0		GENMASK(13, 8)
-+#  define RG_XTP_LN_TX_LC_PRESET_MGx_Px_CP1		GENMASK(21, 16)
-+#define PEXTP_REG_LANE(x)				((x) * 0x100)
-+
-+/* PHY Clock Management (CKM) registers */
-+#define XTP_CKM_FORCE_6					0x38
-+#  define RG_CKM_BIAS_WAIT_PRD_US			GENMASK(21, 16)
-+#define XTP_CKM_REG_SPLL_FBKDIV_5			0xd4
-+#  define RG_CKM_CKTX_IMPSEL_PMOS			GENMASK(19, 16)
-+#  define RG_CKM_CKTX_IMPSEL_NMOS			GENMASK(23, 20)
-+#  define RG_CKM_CKTX_IMPSEL_SW				GENMASK(27, 24)
-+
-+/* Calibration data from eFuses */
-+#define MTK_PCIE_SPHY_CALIBRATION_MAX_DATA_LANES	2
-+#define MTK_PCIE_SPHY_CALIBRATION_LAST_QUIRK_VER	4
-+
-+/**
-+ * struct mtk_pcie_sphy_imp_sel - Impedance Selection parameters
-+ * @pmos: Impedance selection for P-Channel MOSFET
-+ * @nmos: Impedance selection for N-Channel MOSFET
-+ */
-+struct mtk_pcie_sphy_imp_sel {
-+	u8 pmos;
-+	u8 nmos;
-+};
-+
-+/**
-+ * struct mtk_pcie_sphy_efuse - eFuse calibration data for S-PHY
-+ * @int_r_ctrl:     Internal resistor selection of TX Bias Current
-+ * @xtp_vtrim:      XTP Bias V2V voltage calibration
-+ * @cktx_impsel:    SPLL CKTX Impedance Selection (P and N MOSFET)
-+ * @cktx_r_mid:     SPLL CKTX Intermediate Transition Impedance (Rmid)
-+ * @rx_leq_rl_ctle: RX Front-End Return Loss Continuous Time Linear Equalization value
-+ * @rx_leq_rl_vga:  RX Front-End Return Loss Variable Gain Amplifier value
-+ * @rx_leq_rl_dfe:  RX Front-End Return Loss Decision Feedback Equalization value
-+ * @rx_impsel:      RX Impedance Selection
-+ * @tx_impsel:      TX Impedance Selection (P and N MOSFET)
-+ * @tx_rswn_impsel: TX RSWn (Switch Resistance) impedance selection
-+ * @supported:      eFuse calibration data is supported
-+ */
-+struct mtk_pcie_sphy_efuse {
-+	u8 int_r_ctrl;
-+	u8 xtp_vtrim;
-+	struct mtk_pcie_sphy_imp_sel cktx_impsel;
-+	u8 cktx_r_mid;
-+	u8 rx_leq_rl_ctle;
-+	u8 rx_leq_rl_vga;
-+	u8 rx_leq_rl_dfe;
-+	u8 rx_impsel;
-+	struct mtk_pcie_sphy_imp_sel tx_impsel;
-+	u8 tx_rswn_impsel[MTK_PCIE_SPHY_CALIBRATION_MAX_DATA_LANES];
-+	bool supported;
-+};
-+
-+/**
-+ * struct mtk_pcie_sphy - PCI-Express S-PHY driver main structure
-+ * @dev:         Pointer to device structure
-+ * @phy:         Pointer to generic phy structure
-+ * @sif_base:    IO mapped register base address of system interface
-+ * @ckm_base:    IO mapped register base address of clock management interface
-+ * @num_lanes:   Number of lanes
-+ * @calibration: eFuse calibration data for S-PHY
-+ */
-+struct mtk_pcie_sphy {
-+	struct device *dev;
-+	struct phy *phy;
-+	void __iomem *sif_base;
-+	void __iomem *ckm_base;
-+	u8 num_lanes;
-+	struct mtk_pcie_sphy_efuse calibration;
-+};
-+
-+static void mtk_pcie_sphy_apply_calibration(struct mtk_pcie_sphy *pcie_sphy)
-+{
-+	struct mtk_pcie_sphy_efuse *cal = &pcie_sphy->calibration;
-+	int i;
-+
-+	mtk_phy_update_field(pcie_sphy->sif_base + PEXTP_ANA_GLB_BIAS_0,
-+			     RG_XTP_GLB_BIAS_INTR_CTRL, cal->int_r_ctrl);
-+
-+	mtk_phy_update_field(pcie_sphy->sif_base + PEXTP_ANA_GLB_BIAS_1,
-+			     RG_XTP_GLB_BIAS_V2V_VTRIM, cal->xtp_vtrim);
-+
-+	mtk_phy_update_field(pcie_sphy->ckm_base + XTP_CKM_REG_SPLL_FBKDIV_5,
-+			     RG_CKM_CKTX_IMPSEL_PMOS, cal->cktx_impsel.pmos);
-+
-+	mtk_phy_update_field(pcie_sphy->ckm_base + XTP_CKM_REG_SPLL_FBKDIV_5,
-+			     RG_CKM_CKTX_IMPSEL_NMOS, cal->cktx_impsel.nmos);
-+
-+	mtk_phy_update_field(pcie_sphy->ckm_base + XTP_CKM_REG_SPLL_FBKDIV_5,
-+			     RG_CKM_CKTX_IMPSEL_SW, cal->cktx_r_mid);
-+
-+	for (i = 0; i < pcie_sphy->num_lanes; i++) {
-+		void __iomem *sif_lane_base = pcie_sphy->sif_base + PEXTP_REG_LANE(i);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_0C,
-+				     RG_XTP_LN_TX_RSWN_IMPSEL, cal->tx_rswn_impsel[i]);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_A8,
-+				     RG_XTP_LN_RX_LEQ_RL_CTLE_CAL, cal->rx_leq_rl_ctle);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_A8,
-+				     RG_XTP_LN_RX_LEQ_RL_VGA_CAL, cal->rx_leq_rl_vga);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_A8,
-+				     RG_XTP_LN_RX_LEQ_RL_DFE_CAL, cal->rx_leq_rl_dfe);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_A0,
-+				     RG_XTP_LN_RX_IMPSEL, cal->rx_impsel);
-+	}
-+}
-+
-+/**
-+ * mtk_pcie_sphy_init() - Initialize the PCI-Express S-PHY
-+ * @phy: the phy to be initialized
-+ *
-+ * The hardware settings will be reset during suspend, it should be
-+ * reinitialized when the consumer calls phy_init() again on resume.
-+ */
-+static int mtk_pcie_sphy_init(struct phy *phy)
-+{
-+	struct mtk_pcie_sphy *pcie_sphy = phy_get_drvdata(phy);
-+	struct mtk_pcie_sphy_imp_sel tx_impsel;
-+	int i;
-+
-+	/* Set CKM Bias wait time to 4 microseconds */
-+	mtk_phy_update_field(pcie_sphy->ckm_base + XTP_CKM_FORCE_6,
-+			     RG_CKM_BIAS_WAIT_PRD_US, 4);
-+
-+	/* TPLL needs 63 ref_ck ticks to stabilize when setting frequency */
-+	mtk_phy_update_field(pcie_sphy->sif_base + PEXTP_DIG_GLB_TPLL_CTL0,
-+			     RG_XTP_TPLL_SET_STABLE_TIME_SEL, 63);
-+
-+	/* TPLL needs 3 ref_ck ticks to stabilize when powering on... */
-+	mtk_phy_update_field(pcie_sphy->sif_base + PEXTP_DIG_GLB_TPLL_CTL0,
-+			     RG_XTP_TPLL_PWE_ON_STABLE_TIME_SEL, 3);
-+
-+	/* ...and the same goes for setting isolation */
-+	mtk_phy_update_field(pcie_sphy->sif_base + PEXTP_DIG_GLB_TPLL_CTL2,
-+			     RG_XTP_TPLL_ISO_EN_STABLE_TIME_SEL, 3);
-+
-+	/* XTAL doesn't need any stabilization time */
-+	mtk_phy_update_field(pcie_sphy->sif_base + PEXTP_DIG_GLB_CKBG0,
-+			     RG_XTP_CKBG_XTAL_STABLE_TIME_SEL, 0);
-+
-+	/* Keep pextp_ckm enabled when in L1SS_L1S1 state */
-+	mtk_phy_clear_bits(pcie_sphy->sif_base + PEXTP_DIG_GLB_CLKREQ_CTL, RG_XTP_CKM_EN_L1S1);
-+
-+	/* Set PIPE to reset TPLL */
-+	mtk_phy_clear_bits(pcie_sphy->sif_base + PEXTP_DIG_GLB_TOP, RG_XTP_BYPASS_PIPE_RST_RC);
-+
-+	/* Set TPLL P-Path gain compensation to 1 */
-+	mtk_phy_update_field(pcie_sphy->sif_base + PEXTP_ANA_GLB_TPLL1_RSVD,
-+			     RG_XTP_GLB_TPLL1_P_PATH_GAIN, 1);
-+
-+	for (i = 0; i < pcie_sphy->num_lanes; i++) {
-+		void __iomem *sif_lane_base = pcie_sphy->sif_base + PEXTP_REG_LANE(i);
-+
-+		/* Set RX Lane AEQ CTRL-E Search Error type to h1.5 + h2.5 */
-+		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_6C,
-+				     RG_XTP_LN_RX_AEQ_CTLE_ERR_TYPE,
-+				     AEQ_CTLE_SEARCH_ERR_TYPE_H1P5_H2P5);
-+
-+		mtk_phy_set_bits(sif_lane_base + PEXTP_ANA_LN_TRX_34, RG_XTP_LN_RX_FE);
-+
-+		/* TRX: Select CTLE1 for RX Lane AutoEQ CTRL-E Setting on Gen4 */
-+		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TRX_PIPE_IF_17,
-+				     RG_XTP_LN_RX_LF_CTLE_CSEL_GEN4, 1);
-+
-+		/* Set RX Lane AutoEQ CTRL-E for PCI-Express Gen1 to Gen 4 */
-+		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_RX_F0,
-+				     RG_XTP_LN_RX_GEN1_CTLE1_CSEL, 13);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_RX_F0,
-+				     RG_XTP_LN_RX_GEN2_CTLE1_CSEL, 13);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_RX_F0,
-+				     RG_XTP_LN_RX_GEN3_CTLE1_CSEL, 13);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_RX_F0,
-+				     RG_XTP_LN_RX_GEN4_CTLE1_CSEL, 0);
-+
-+		/* Set RX Lane AutoEQ's Edge EQ Ratio to 22 * 0.0625 = 1.375 */
-+		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_RX2_AEQ_EDGE_0,
-+				     RG_XTP_LN_RX_AEQ_EGEQ_RATIO_GEN3, 22);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_RX2_AEQ_EDGE_0,
-+				     RG_XTP_LN_RX_AEQ_EGEQ_RATIO_GEN4, 22);
-+
-+		/* Setup Digital lane TX Link Characteristics Table */
-+		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_4,
-+				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_C0, 10);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_4,
-+				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_CP1, 2);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_8,
-+				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_C0, 11);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_8,
-+				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_CP1, 1);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_C,
-+				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_C0, 12);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_10,
-+				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_C0, 13);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_10,
-+				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_CM1, 1);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_14,
-+				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_C0, 11);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_14,
-+				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_CM1, 1);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_18,
-+				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_C0, 10);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_18,
-+				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_CM1, 2);
-+	}
-+
-+	if (pcie_sphy->calibration.supported) {
-+		mtk_pcie_sphy_apply_calibration(pcie_sphy);
-+
-+		tx_impsel.pmos = pcie_sphy->calibration.tx_impsel.pmos;
-+		tx_impsel.nmos = pcie_sphy->calibration.tx_impsel.nmos;
-+	} else {
-+		/* Set P=10, N=9 to prevent EMI if no calibration present */
-+		tx_impsel.pmos = 10;
-+		tx_impsel.nmos = 9;
-+	}
-+
-+	/* Select TX Impedance on N and P MOSFETs */
-+	for (i = 0; i < pcie_sphy->num_lanes; i++) {
-+		void __iomem *sif_lane_base = pcie_sphy->sif_base + PEXTP_REG_LANE(i);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_A0,
-+				     RG_XTP_LN_TX_IMPSEL_PMOS, tx_impsel.pmos);
-+
-+		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_A0,
-+				     RG_XTP_LN_TX_IMPSEL_NMOS, tx_impsel.nmos);
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct phy_ops mtk_pcie_sphy_ops = {
-+	.init	= mtk_pcie_sphy_init,
-+	.owner	= THIS_MODULE,
-+};
-+
-+static int mtk_pcie_sphy_get_one_cal_para(struct device *dev, const char *name, u8 max_val)
-+{
-+	u16 buf;
-+	u8 tmp;
-+	int ret;
-+
-+	/*
-+	 * All of the calibrations are always max 8 bits long, but some may
-+	 * be split between two different 8-bits cells: handle this corner
-+	 * case by retrying reading as u16.
-+	 */
-+	ret = nvmem_cell_read_u8(dev, name, &tmp);
-+	if (ret == 0)
-+		buf = tmp;
-+	else
-+		ret = nvmem_cell_read_u16(dev, name, &buf);
-+
-+	if (ret == -ENOENT) {
-+		dev_info(dev, "No calibration for %s. Using defaults\n", name);
-+		return -ENOENT;
-+	} else if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Cannot get calibration data for %s\n", name);
-+
-+	if (buf > max_val)
-+		return dev_err_probe(dev, -ERANGE,
-+				     "Bad value %u retrieved for %s.\n", buf, name);
-+
-+	return buf;
-+}
-+
-+static int mtk_pcie_sphy_get_calibration_data(struct mtk_pcie_sphy *pcie_sphy)
-+{
-+	struct mtk_pcie_sphy_efuse *cal = &pcie_sphy->calibration;
-+	struct device *dev = pcie_sphy->dev;
-+	u8 version;
-+	int ret;
-+
-+	if (pcie_sphy->num_lanes > MTK_PCIE_SPHY_CALIBRATION_MAX_DATA_LANES) {
-+		dev_info(dev, "Skipping PHY calibration for more than %u lanes.\n",
-+			 MTK_PCIE_SPHY_CALIBRATION_MAX_DATA_LANES);
-+		ret = -EOPNOTSUPP;
-+		goto end;
-+	}
-+
-+	ret = mtk_pcie_sphy_get_one_cal_para(dev, "int-r",
-+					     FIELD_MAX(RG_XTP_GLB_BIAS_INTR_CTRL));
-+	if (ret < 0)
-+		goto end;
-+	cal->int_r_ctrl = ret;
-+
-+	ret = mtk_pcie_sphy_get_one_cal_para(dev, "xtp-vtrim",
-+					     FIELD_MAX(RG_XTP_GLB_BIAS_V2V_VTRIM));
-+	if (ret < 0)
-+		goto end;
-+	cal->xtp_vtrim = ret;
-+
-+	ret = mtk_pcie_sphy_get_one_cal_para(dev, "cktx-pmos",
-+					     FIELD_MAX(RG_CKM_CKTX_IMPSEL_PMOS));
-+	if (ret < 0)
-+		goto end;
-+	cal->cktx_impsel.pmos = ret;
-+
-+	ret = mtk_pcie_sphy_get_one_cal_para(dev, "cktx-nmos",
-+					     FIELD_MAX(RG_CKM_CKTX_IMPSEL_NMOS));
-+	if (ret < 0)
-+		goto end;
-+	cal->cktx_impsel.nmos = ret;
-+
-+	ret = mtk_pcie_sphy_get_one_cal_para(dev, "cktx-r-mid",
-+					     FIELD_MAX(RG_CKM_CKTX_IMPSEL_SW));
-+	if (ret < 0)
-+		goto end;
-+	cal->cktx_r_mid = ret;
-+
-+	ret = mtk_pcie_sphy_get_one_cal_para(dev, "rxfe-lanes-rl-ctle",
-+					     FIELD_MAX(RG_XTP_LN_RX_LEQ_RL_CTLE_CAL));
-+	if (ret < 0)
-+		goto end;
-+	cal->rx_leq_rl_ctle = ret;
-+
-+	ret = mtk_pcie_sphy_get_one_cal_para(dev, "rxfe-lanes-rl-vga",
-+					     FIELD_MAX(RG_XTP_LN_RX_LEQ_RL_VGA_CAL));
-+	if (ret < 0)
-+		goto end;
-+	cal->rx_leq_rl_vga = ret;
-+
-+	ret = mtk_pcie_sphy_get_one_cal_para(dev, "rxfe-lanes-rl-dfe",
-+					     FIELD_MAX(RG_XTP_LN_RX_LEQ_RL_DFE_CAL));
-+	if (ret < 0)
-+		goto end;
-+	cal->rx_leq_rl_dfe = ret;
-+
-+	ret = mtk_pcie_sphy_get_one_cal_para(dev, "rx-lanes-imp",
-+					     FIELD_MAX(RG_XTP_LN_RX_IMPSEL));
-+	if (ret < 0)
-+		goto end;
-+	cal->rx_impsel = ret;
-+
-+	ret = mtk_pcie_sphy_get_one_cal_para(dev, "tx-lanes-pmos",
-+					     FIELD_MAX(RG_XTP_LN_TX_IMPSEL_PMOS));
-+	if (ret < 0)
-+		goto end;
-+	cal->tx_impsel.pmos = ret;
-+
-+	ret = mtk_pcie_sphy_get_one_cal_para(dev, "tx-lanes-nmos",
-+					     FIELD_MAX(RG_XTP_LN_TX_IMPSEL_NMOS));
-+	if (ret < 0)
-+		goto end;
-+	cal->tx_impsel.nmos = ret;
-+
-+	ret = mtk_pcie_sphy_get_one_cal_para(dev, "tx-ln0-rswn",
-+					     FIELD_MAX(RG_XTP_LN_TX_RSWN_IMPSEL));
-+	if (ret < 0)
-+		goto end;
-+	cal->tx_rswn_impsel[0] = ret;
-+
-+	if (pcie_sphy->num_lanes == 2) {
-+		ret = mtk_pcie_sphy_get_one_cal_para(dev, "tx-ln1-rswn",
-+						     FIELD_MAX(RG_XTP_LN_TX_RSWN_IMPSEL));
-+		if (ret < 0)
-+			goto end;
-+		cal->tx_rswn_impsel[1] = ret;
-+	}
-+
-+	ret = mtk_pcie_sphy_get_one_cal_para(dev, "cal-version", 15);
-+	if (ret < 0)
-+		goto end;
-+	version = ret;
-+
-+	/* Quirk for eFuse calibration table versions 0 to 4 */
-+	if ((version <= MTK_PCIE_SPHY_CALIBRATION_LAST_QUIRK_VER) &&
-+	    cal->rx_leq_rl_ctle == 10) {
-+		cal->rx_leq_rl_vga = cal->rx_leq_rl_ctle;
-+		cal->rx_leq_rl_dfe = cal->rx_leq_rl_ctle;
-+	}
-+
-+end:
-+	if (ret < 0) {
-+		/*
-+		 * If any of the calibration values is missing, or if there is
-+		 * no calibration at all in the eFuses, this is not a problem,
-+		 * as the PHY doesn't require one to actually work.
-+		 */
-+		if (ret == -ENOENT || ret == -EOPNOTSUPP) {
-+			cal->supported = false;
-+			return 0;
-+		}
-+		return ret;
-+	};
-+	cal->supported = true;
-+
-+	return 0;
-+}
-+
-+static int mtk_pcie_sphy_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct phy_provider *provider;
-+	struct mtk_pcie_sphy *pcie_sphy;
-+	u32 num_lanes;
-+	int ret;
-+
-+	pcie_sphy = devm_kzalloc(dev, sizeof(*pcie_sphy), GFP_KERNEL);
-+	if (!pcie_sphy)
-+		return -ENOMEM;
-+
-+	pcie_sphy->sif_base = devm_platform_ioremap_resource_byname(pdev, "sif");
-+	if (IS_ERR(pcie_sphy->sif_base))
-+		return dev_err_probe(dev, PTR_ERR(pcie_sphy->sif_base),
-+				     "Failed to map phy-sif base\n");
-+
-+	pcie_sphy->ckm_base = devm_platform_ioremap_resource_byname(pdev, "ckm");
-+	if (IS_ERR(pcie_sphy->ckm_base))
-+		return dev_err_probe(dev, PTR_ERR(pcie_sphy->ckm_base),
-+				     "Failed to map phy-ckm base\n");
-+
-+	pcie_sphy->phy = devm_phy_create(dev, dev->of_node, &mtk_pcie_sphy_ops);
-+	if (IS_ERR(pcie_sphy->phy))
-+		return dev_err_probe(dev, PTR_ERR(pcie_sphy->phy),
-+				     "Failed to create PCIe phy\n");
-+
-+	ret = of_property_read_u32(dev->of_node, "num-lanes", &num_lanes);
-+	if (ret)
-+		num_lanes = 1;
-+	else if (num_lanes > 4)
-+		return dev_err_probe(dev, -EINVAL, "Invalid number of lanes.\n");
-+
-+	pcie_sphy->num_lanes = num_lanes;
-+	pcie_sphy->dev = dev;
-+
-+	ret = mtk_pcie_sphy_get_calibration_data(pcie_sphy);
-+	if (ret)
-+		return ret;
-+
-+	phy_set_drvdata(pcie_sphy->phy, pcie_sphy);
-+
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return ret;
-+
-+	provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
-+	if (IS_ERR(provider))
-+		return dev_err_probe(dev, PTR_ERR(provider),
-+				     "Could not register PCI-Express S-PHY\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id mtk_pcie_sphy_of_match[] = {
-+	{ .compatible = "mediatek,mt8196-pcie-sphy" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, mtk_pcie_sphy_of_match);
-+
-+static struct platform_driver mtk_pcie_sphy_driver = {
-+	.probe	= mtk_pcie_sphy_probe,
-+	.driver	= {
-+		.name = "mtk-pcie-sphy",
-+		.of_match_table = mtk_pcie_sphy_of_match,
-+	},
-+};
-+module_platform_driver(mtk_pcie_sphy_driver);
-+
-+MODULE_DESCRIPTION("MediaTek PCIe SPHY driver");
-+MODULE_AUTHOR("AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>");
-+MODULE_LICENSE("GPL");
--- 
-2.55.0
+Hi Christian,
 
+as pointed out in a previous email, I do not like the approach of reusing t=
+his
+spin_lock for airoha_mac_link_up(). Can we use rtl_lock() (when necessary) =
+as
+pointed out before?
+
+Regards,
+Lorenzo
+
+> =20
+>  	for (i =3D 0; i < ARRAY_SIZE(port->devs); i++) {
+>  		if (port->devs[i])
+> @@ -1848,7 +1849,7 @@ static void airoha_update_hw_stats(struct airoha_gd=
+m_dev *dev)
+>  	airoha_fe_set(dev->eth, REG_FE_GDM_MIB_CLEAR(port->id),
+>  		      FE_GDM_MIB_RX_CLEAR_MASK | FE_GDM_MIB_TX_CLEAR_MASK);
+> =20
+> -	spin_unlock(&port->stats_lock);
+> +	spin_unlock(&port->lock);
+>  }
+> =20
+>  static void airoha_dev_set_xmit_frame_size(struct net_device *netdev)
+> @@ -1870,6 +1871,14 @@ static int airoha_dev_open(struct net_device *netd=
+ev)
+>  	u32 pse_port =3D FE_PSE_PORT_PPE1;
+>  	int err;
+> =20
+> +	err =3D phylink_of_phy_connect(dev->phylink, netdev->dev.of_node, 0);
+> +	if (err) {
+> +		netdev_err(netdev, "could not attach PHY: %d\n", err);
+> +		return err;
+> +	}
+> +
+> +	phylink_start(dev->phylink);
+> +
+>  	netif_tx_start_all_queues(netdev);
+>  	err =3D airoha_set_vip_for_gdm_port(dev, true);
+>  	if (err)
+> @@ -1909,6 +1918,10 @@ static int airoha_dev_stop(struct net_device *netd=
+ev)
+>  		airoha_set_gdm_port_fwd_cfg(qdma->eth,
+>  					    REG_GDM_FWD_CFG(port->id),
+>  					    FE_PSE_PORT_DROP);
+> +
+> +	phylink_stop(dev->phylink);
+> +	phylink_disconnect_phy(dev->phylink);
+> +
+>  	return 0;
+>  }
+> =20
+> @@ -2389,6 +2402,24 @@ airoha_ethtool_get_rmon_stats(struct net_device *n=
+etdev,
+>  	} while (u64_stats_fetch_retry(&dev->stats.syncp, start));
+>  }
+> =20
+> +static int
+> +airoha_ethtool_get_link_ksettings(struct net_device *netdev,
+> +				  struct ethtool_link_ksettings *cmd)
+> +{
+> +	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> +
+> +	return phylink_ethtool_ksettings_get(dev->phylink, cmd);
+> +}
+> +
+> +static int
+> +airoha_ethtool_set_link_ksettings(struct net_device *netdev,
+> +				  const struct ethtool_link_ksettings *cmd)
+> +{
+> +	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> +
+> +	return phylink_ethtool_ksettings_set(dev->phylink, cmd);
+> +}
+> +
+>  static int airoha_qdma_set_chan_tx_sched(struct net_device *netdev,
+>  					 int channel, enum tx_sched_mode mode,
+>  					 const u16 *weights, u8 n_weights)
+> @@ -3120,7 +3151,8 @@ static const struct ethtool_ops airoha_ethtool_ops =
+=3D {
+>  	.get_drvinfo		=3D airoha_ethtool_get_drvinfo,
+>  	.get_eth_mac_stats      =3D airoha_ethtool_get_mac_stats,
+>  	.get_rmon_stats		=3D airoha_ethtool_get_rmon_stats,
+> -	.get_link_ksettings	=3D phy_ethtool_get_link_ksettings,
+> +	.get_link_ksettings	=3D airoha_ethtool_get_link_ksettings,
+> +	.set_link_ksettings	=3D airoha_ethtool_set_link_ksettings,
+>  	.get_link		=3D ethtool_op_get_link,
+>  };
+> =20
+> @@ -3176,6 +3208,155 @@ bool airoha_is_valid_gdm_dev(struct airoha_eth *e=
+th,
+>  	return false;
+>  }
+> =20
+> +/* Nothing to do in MAC, everything is handled in PCS */
+> +static void airoha_mac_config(struct phylink_config *config, unsigned in=
+t mode,
+> +			      const struct phylink_link_state *state)
+> +{
+> +}
+> +
+> +static void airoha_mac_link_up(struct phylink_config *config, struct phy=
+_device *phy,
+> +			       unsigned int mode, phy_interface_t interface,
+> +			       int speed, int duplex, bool tx_pause, bool rx_pause)
+> +{
+> +	struct airoha_gdm_dev *dev =3D container_of(config, struct airoha_gdm_d=
+ev,
+> +						  phylink_config);
+> +	struct airoha_gdm_port *port =3D dev->port;
+> +	struct airoha_eth *eth =3D dev->eth;
+> +	u32 frag_size_tx, frag_size_rx;
+> +	u32 mask, val;
+> +
+> +	/* TX/RX frag is configured only for GDM4 */
+> +	if (port->id !=3D AIROHA_GDM4_IDX)
+> +		return;
+> +
+> +	switch (speed) {
+> +	case SPEED_10000:
+> +	case SPEED_5000:
+> +		frag_size_tx =3D 8;
+> +		frag_size_rx =3D 8;
+> +		break;
+> +	case SPEED_2500:
+> +		frag_size_tx =3D 2;
+> +		frag_size_rx =3D 1;
+> +		break;
+> +	default:
+> +		frag_size_tx =3D 1;
+> +		frag_size_rx =3D 0;
+> +	}
+> +
+> +	spin_lock(&port->lock);
+> +
+> +	/* Configure TX/RX frag based on speed */
+> +	if (dev->nbq =3D=3D 1) {
+> +		mask =3D GDM4_SGMII1_TX_FRAG_SIZE_MASK;
+> +		val =3D FIELD_PREP(GDM4_SGMII1_TX_FRAG_SIZE_MASK,
+> +				 frag_size_tx);
+> +	}  else {
+> +		mask =3D GDM4_SGMII0_TX_FRAG_SIZE_MASK;
+> +		val =3D FIELD_PREP(GDM4_SGMII0_TX_FRAG_SIZE_MASK,
+> +				 frag_size_tx);
+> +	}
+> +	airoha_fe_rmw(eth, REG_FE_GDM4_TMBI_FRAG, mask, val);
+> +
+> +	if (dev->nbq =3D=3D 1) {
+> +		mask =3D GDM4_SGMII1_RX_FRAG_SIZE_MASK;
+> +		val =3D FIELD_PREP(GDM4_SGMII1_RX_FRAG_SIZE_MASK,
+> +				 frag_size_rx);
+> +	} else {
+> +		mask =3D GDM4_SGMII0_RX_FRAG_SIZE_MASK;
+> +		val =3D FIELD_PREP(GDM4_SGMII0_RX_FRAG_SIZE_MASK,
+> +				 frag_size_rx);
+> +	}
+> +	airoha_fe_rmw(eth, REG_FE_GDM4_RMBI_FRAG, mask, val);
+> +
+> +	spin_unlock(&port->lock);
+> +}
+> +
+> +/* Nothing to do in MAC, everything is handled in PCS */
+> +static void airoha_mac_link_down(struct phylink_config *config, unsigned=
+ int mode,
+> +				 phy_interface_t interface)
+> +{
+> +}
+> +
+> +static const struct phylink_mac_ops airoha_phylink_ops =3D {
+> +	.mac_config =3D airoha_mac_config,
+> +	.mac_link_up =3D airoha_mac_link_up,
+> +	.mac_link_down =3D airoha_mac_link_down,
+> +};
+> +
+> +static int airoha_fill_available_pcs(struct phylink_config *config,
+> +				     struct phylink_pcs **available_pcs,
+> +				     unsigned int num_possible_pcs)
+> +{
+> +	struct device *dev =3D config->dev;
+> +
+> +	return fwnode_phylink_pcs_parse(dev_fwnode(dev), available_pcs,
+> +					num_possible_pcs);
+> +}
+> +
+> +static int airoha_setup_phylink(struct net_device *netdev)
+> +{
+> +	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> +	struct device_node *np =3D netdev->dev.of_node;
+> +	struct airoha_gdm_port *port =3D dev->port;
+> +	struct phylink_config *config;
+> +	phy_interface_t phy_mode;
+> +	struct phylink *phylink;
+> +	int err;
+> +
+> +	err =3D of_get_phy_mode(np, &phy_mode);
+> +	if (err) {
+> +		dev_err(&netdev->dev, "incorrect phy-mode\n");
+> +		return err;
+> +	}
+> +
+> +	config =3D &dev->phylink_config;
+> +	config->dev =3D &netdev->dev;
+> +	config->type =3D PHYLINK_NETDEV;
+> +
+> +	/*
+> +	 * GDM1 only supports internal for Embedded Switch
+> +	 * and doesn't require a PCS.
+> +	 */
+> +	if (port->id =3D=3D AIROHA_GDM1_IDX) {
+> +		config->mac_capabilities =3D MAC_ASYM_PAUSE | MAC_SYM_PAUSE |
+> +					   MAC_10000FD;
+> +
+> +		__set_bit(PHY_INTERFACE_MODE_INTERNAL,
+> +			  config->supported_interfaces);
+> +	} else {
+> +		config->mac_capabilities =3D MAC_ASYM_PAUSE | MAC_SYM_PAUSE |
+> +					   MAC_10 | MAC_100 | MAC_1000 |
+> +					   MAC_2500FD | MAC_5000FD | MAC_10000FD;
+> +
+> +		config->num_possible_pcs =3D fwnode_phylink_pcs_count(dev_fwnode(confi=
+g->dev));
+> +		config->fill_available_pcs =3D airoha_fill_available_pcs;
+> +
+> +		__set_bit(PHY_INTERFACE_MODE_SGMII,
+> +			  config->supported_interfaces);
+> +		__set_bit(PHY_INTERFACE_MODE_1000BASEX,
+> +			  config->supported_interfaces);
+> +		__set_bit(PHY_INTERFACE_MODE_2500BASEX,
+> +			  config->supported_interfaces);
+> +		__set_bit(PHY_INTERFACE_MODE_10GBASER,
+> +			  config->supported_interfaces);
+> +		__set_bit(PHY_INTERFACE_MODE_USXGMII,
+> +			  config->supported_interfaces);
+> +
+> +		phy_interface_copy(config->pcs_interfaces,
+> +				   config->supported_interfaces);
+> +	}
+> +
+> +	phylink =3D phylink_create(config, of_fwnode_handle(np),
+> +				 phy_mode, &airoha_phylink_ops);
+> +	if (IS_ERR(phylink))
+> +		return PTR_ERR(phylink);
+> +
+> +	dev->phylink =3D phylink;
+> +
+> +	return 0;
+> +}
+> +
+>  static int airoha_alloc_gdm_device(struct airoha_eth *eth,
+>  				   struct airoha_gdm_port *port,
+>  				   int nbq, struct device_node *np)
+> @@ -3239,7 +3420,7 @@ static int airoha_alloc_gdm_device(struct airoha_et=
+h *eth,
+>  	dev->nbq =3D nbq;
+>  	port->devs[index] =3D dev;
+> =20
+> -	return 0;
+> +	return airoha_setup_phylink(netdev);
+>  }
+> =20
+>  static int airoha_alloc_gdm_port(struct airoha_eth *eth,
+> @@ -3274,7 +3455,7 @@ static int airoha_alloc_gdm_port(struct airoha_eth =
+*eth,
+>  		return -ENOMEM;
+> =20
+>  	port->id =3D id;
+> -	spin_lock_init(&port->stats_lock);
+> +	spin_lock_init(&port->lock);
+>  	eth->ports[p] =3D port;
+> =20
+>  	err =3D airoha_metadata_dst_alloc(port);
+> @@ -3471,6 +3652,8 @@ static int airoha_probe(struct platform_device *pde=
+v)
+>  			netdev =3D netdev_from_priv(dev);
+>  			if (netdev->reg_state =3D=3D NETREG_REGISTERED)
+>  				unregister_netdev(netdev);
+> +			if (dev->phylink)
+> +				phylink_destroy(dev->phylink);
+>  			of_node_put(netdev->dev.of_node);
+>  		}
+>  		airoha_metadata_dst_free(port);
+> @@ -3509,6 +3692,7 @@ static void airoha_remove(struct platform_device *p=
+dev)
+> =20
+>  			netdev =3D netdev_from_priv(dev);
+>  			unregister_netdev(netdev);
+> +			phylink_destroy(dev->phylink);
+>  			of_node_put(netdev->dev.of_node);
+>  		}
+>  		airoha_metadata_dst_free(port);
+> diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/ether=
+net/airoha/airoha_eth.h
+> index f6d01a8e8da1..b49fc5304b3a 100644
+> --- a/drivers/net/ethernet/airoha/airoha_eth.h
+> +++ b/drivers/net/ethernet/airoha/airoha_eth.h
+> @@ -561,6 +561,9 @@ struct airoha_gdm_dev {
+>  	int nbq;
+> =20
+>  	struct airoha_hw_stats stats;
+> +
+> +	struct phylink *phylink;
+> +	struct phylink_config phylink_config;
+>  };
+> =20
+>  struct airoha_gdm_port {
+> @@ -568,8 +571,8 @@ struct airoha_gdm_port {
+>  	int id;
+>  	int users;
+> =20
+> -	/* protect concurrent hw_stats accesses */
+> -	spinlock_t stats_lock;
+> +	/* protect concurrent hw_stats and frag register accesses */
+> +	spinlock_t lock;
+> =20
+>  	struct metadata_dst *dsa_meta[AIROHA_MAX_DSA_PORTS];
+>  };
+> diff --git a/drivers/net/ethernet/airoha/airoha_regs.h b/drivers/net/ethe=
+rnet/airoha/airoha_regs.h
+> index 6fed63d013b4..8df02f51211c 100644
+> --- a/drivers/net/ethernet/airoha/airoha_regs.h
+> +++ b/drivers/net/ethernet/airoha/airoha_regs.h
+> @@ -357,6 +357,18 @@
+>  #define IP_FRAGMENT_PORT_MASK		GENMASK(8, 5)
+>  #define IP_FRAGMENT_NBQ_MASK		GENMASK(4, 0)
+> =20
+> +#define REG_FE_GDM4_TMBI_FRAG		0x2028
+> +#define GDM4_SGMII1_TX_WEIGHT_MASK	GENMASK(31, 26)
+> +#define GDM4_SGMII1_TX_FRAG_SIZE_MASK	GENMASK(25, 16)
+> +#define GDM4_SGMII0_TX_WEIGHT_MASK	GENMASK(15, 10)
+> +#define GDM4_SGMII0_TX_FRAG_SIZE_MASK	GENMASK(9, 0)
+> +
+> +#define REG_FE_GDM4_RMBI_FRAG		0x202c
+> +#define GDM4_SGMII1_RX_WEIGHT_MASK	GENMASK(31, 26)
+> +#define GDM4_SGMII1_RX_FRAG_SIZE_MASK	GENMASK(25, 16)
+> +#define GDM4_SGMII0_RX_WEIGHT_MASK	GENMASK(15, 10)
+> +#define GDM4_SGMII0_RX_FRAG_SIZE_MASK	GENMASK(9, 0)
+> +
+>  #define REG_MC_VLAN_EN			0x2100
+>  #define MC_VLAN_EN_MASK			BIT(0)
+> =20
+> --=20
+> 2.53.0
+>=20
+
+--t3fO2M3wqEE3d+IM
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCal5AVAAKCRA6cBh0uS2t
+rHsqAP9ESZRRfa+r2Y1vfJpHdUqnA90AdRiYIarQTTJtea9AqgEA/i7Yzvlpb9RO
+FuH3PVWNhM7fi/J6pbVJwpuXH93BaQk=
+=f+O+
+-----END PGP SIGNATURE-----
+
+--t3fO2M3wqEE3d+IM--
