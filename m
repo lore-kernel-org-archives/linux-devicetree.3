@@ -1,66 +1,68 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E704738E8CA
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 05:37:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFDDB3A4F30
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 05:37:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784525843; cv=none; b=nzBcCxpLKoqXf5PI7N1DJ11ZM/sLIicdkAhsAAvKi/MsdD8C9fLiTfWr71vFliwDiRboY4ImBxz5m+6/Zti9VSQQsep2qsdo8rNmYVO23yXuYmkrFBPMKWTwytFLpxFtuXa4T/umQ7Cn8AmbNTRdZPf3XspxHbiDH7mLuiH7rZc=
+	t=1784525845; cv=none; b=K0UDo1toNBGTcivk+rbU3FtLQA3YCVL2LbPvHH8zIe4hvphs5QCtgEDV/HD3VYHbEqvByTvVDaGKW7ttzHnC0GfWtl52o0/5haHEiIH4+egUzY7CEAlSLZ1aPwYCxvg+ciCTIqr3eZSSn0Il6eiUXKxu16c03NIGf6MyTz4h7m8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784525843; c=relaxed/simple;
-	bh=0aJDId9vo3SAfdsSfHDD0XI9HKsmUImAI1ehztnPxG8=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ltCPYP+u+UW+p2IuYC6QutQBx6M1JM8XDKAhy9/ufPNS3TR7UFOJYlg7ANYz0cgd7wGuhwetmgL/PwDlkNC/qUEuOsiP/4NnXw8xW0fnZokzYBKvaBHjqaam9CcjBb+CcQXp/dq3pSASDF1lrbKSqBhRGc5lgCnFqfxplmJFiK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rgH6FCVC; arc=none smtp.client-ip=209.85.215.179
+	s=arc-20240116; t=1784525845; c=relaxed/simple;
+	bh=UIJA8tptL+r22YrLQm5pE5mPfFlj4ABDgWrCfL7IYR0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=SyZbqI8WsLKip3+EPBVgUjxe+4FKLLfIqwIBqGpnI77M/t5DBM+ZG3QvcQQYROQ9HGjtGRlNUbPOBNsVBH4WxZ4ydfAP6+ZPejafHVVEzGWRDRSZrY4dW35Mq9oiDZCkkUYGgpX+ZT45AuIrM12cVhmADNpYHw1bXeScghMIiec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HO909w+C; arc=none smtp.client-ip=209.85.214.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rgH6FCVC"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-c9e0b89e228so4072202a12.1
-        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 22:37:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HO909w+C"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2caea3f742bso116984415ad.0
+        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 22:37:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784525841; x=1785130641; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=R8dZOeWZ4QzXx1G8tKCpK6OKK6m4eWHKLk5KGtNIMNU=;
-        b=rgH6FCVCa8vXkskoY/B8a0//Vh+BLqsgA3Qbu5dm600Dp1CtUOeBl5rNOcCupNehsO
-         N7BW9jdJtrhiZWVhLNKQbJ2xBwKPn2ZeNh6ix1ZR2KivcsthZPvaRYMtyBgGmXOoyL+V
-         UMv9NHKeReCDKDt+NHLPjW0Ij40+hwPB+hplJDPEFvF9UDeq+AflVw8FGjcEr1G679QG
-         uIZKsSHham1Oaan+xg0j8LtP3syu6o9tzLpEozZX6DK8jMKh8iTiuDk2GrZf64jVjn6o
-         D8gdSnVvH8Dmk/MCUb4DGzXaYvJKGV9rJVWUmcROUELgC946aSum/yp4p4yn3wf4Hi1T
-         ExqQ==
+        d=gmail.com; s=20251104; t=1784525843; x=1785130643; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pBC9wGN5WcqQqnbJA19I3YxiEUTegSJ8uL/Ced5d0n8=;
+        b=HO909w+CrObituGzsAqKs8DA8tAjuzgyTz3+u9JkeRFYCnyE8T9Gxgr63rvqhKUvDK
+         YPUBD4/2KbaIYtX6AyyTHzjjkXUe9yygXms/CZO15WoPLLLCZnOQFAtvLPlQA4lfsZu4
+         35C54LGEBkIVqqI+ijCi9jGsmvd5crNU02yf1Yz2QH0UxrI8H2sb028zgcJrIxUPf2hM
+         s70GyMVm76RcPPRK9FnUsPrzjAR7FTIzWQTKmeXwnO2LOsS4vODR0+maW6RFCcwermB6
+         epqgWG0e7ujqmFaoad4loI0Se7DoqSHfwev87h3BPKFTxm+r7cEBYS1JRvDGH3fenOF7
+         i+bQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784525841; x=1785130641;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=R8dZOeWZ4QzXx1G8tKCpK6OKK6m4eWHKLk5KGtNIMNU=;
-        b=i4VdhZAnayPHQEadgiYTV8DhVQ1XLSF7/lJww0tmETmk+ajvueQ2Q+WB82dKBBapbZ
-         16o49HgDl5v+G2LBDtWeSEDnu3VRNNTXdRij0Fe/yz0P+IAc+FFQzkTyrcc45qdrOwnU
-         Xdol4DNOGhsVk+9DtrrjWRDz4JtSlikTwUXJ8qfalJioXexw0MrlYm74N84YYPs7u29d
-         IFomG/1XjlNKoFTEc+SNexNYY/5R7zgVD/Fec7gEknUgYq0cAiGMTRFyvDABWki6jmQ+
-         YeVjCUUIRP7wIaVp0KlXTo378D8Oxka5EnQQTvRZADq7zeKVQYxWx8AeZwyqV7JGCKb7
-         F7nQ==
-X-Gm-Message-State: AOJu0YwCNP9rxRfqErBbYcxoe4Bb3Usv+SmryltD7lFWNgfdcFSs/Vo+
-	dJkwiHiI2o/TGw96ChIa0TUwU6MTtK1jFPR61WdRRf/EfDJTqGP+lS8S
-X-Gm-Gg: AfdE7ck4/quosT0zSeygx3fjwLIpjkW7AukAEy6YyRQBoz8BBI2zJ5f+97/BCPWVerv
-	g/A+gjKT2Z8enboFCD0p1KsyZufnzVmNTCqQL2l9dNTtWet8lZO6MMSJNmfpCu6S3tL/gNmA2AR
-	T05h/2djaH9l+RC+bVhgofIlzu+f6UhmgKFOA+EX2j35xMJAynVc9yozlpnOuOeMFV9W1aHgT27
-	FYypsTG8Er904wh3q1uhD/zaR0cXR5K96wBQINDBZMxUyx31yMXcjEwcdpMOG89XsBpBNd8JDPc
-	YQVsgkxYcNRoniwlN5Q/0XtJa2kJZj641kgSN5Y4Evq+onQaJFrxWRamcFYbwy2gbzUmisxUgVv
-	Hv7kEcM7jY+qaelJZLTKkwXUzus45Eu5oBWo1U3d386GSUNzqnKiMcPP7Fc5vNw23M88CN8LUd/
-	MWoWo0lA8+NsuRQggYAmKte74pqo1BRhb57uHwfErT5GkLZZNWpjT6gKlu1Kh2lFfJMQ==
-X-Received: by 2002:a05:6a21:7a46:b0:3bf:6237:4d49 with SMTP id adf61e73a8af0-3c3ad7aa051mr14685620637.23.1784525841254;
-        Sun, 19 Jul 2026 22:37:21 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784525843; x=1785130643;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pBC9wGN5WcqQqnbJA19I3YxiEUTegSJ8uL/Ced5d0n8=;
+        b=eQE2uKZZo5J5AP41gzhGWRoDNSXhE3A/qK8WjSJ+g8fCNbP4aE4NrRHoGzXzdlyL6+
+         u1CwWHZ1vgCjs/QAn1Op3uCOuhPdmMZizUZ3JbyC9pxE/P4FV17nRSB87J/YXGIcZCaP
+         Y4vuJeiGdYnS1hWy3hAK7WAxNl28phE9flRMlAIbrmvbdhzlQ/sAJqzHpujn8hLE7vob
+         bUwbj02fiegFaJkpW1UUhqmg0KDmlRsshk6ETN9/ED8lcyrGmT+qKw1ZJuNLKtu9ghac
+         tXVtHzl59eG8S7ng2kPWSWGmfV+dKIa+KLd/2CqyyCZ7hb7bwc/dNyO09SGerkOak1zL
+         SJ+w==
+X-Gm-Message-State: AOJu0YxMTg7x94LqKmBShiYiEVi33NR2U7OhOhTzLKTGIAFXOGmU89Q6
+	RG22gLbSKicQLeihqq3oGUQTfkx89FFF97X5sB0JYjH21YtxApPppJfB
+X-Gm-Gg: AfdE7cnKzF9TOD3J4tNX9v1iyKpPTWnr4b2FlOir0sazKwQPXKAyp86tmH/1tx9h6uj
+	v4UBNWYQnONkqTMn4xnz4PaRq/Am2w+Yi5OWBP8YVUkAEQlQnO8K8tKVx7bMobWBoW4VPu35qN+
+	fhSOhW4tYc6eXILqulXHTu4+WrzRuzabwQbXQP3ZKhl6V4zY1/kbUw7m0JQ/5EJZ7/fxC2ng5x0
+	clVLesW0gIWVLlkkuNowdI+PMSIEhwUBt9oCeq0tykWXHVktZylvXTCnvq4FC4K+pTQlCDEwb8D
+	IjVm94gVTg9loF76KfXYXaPyRW78lI+KSiJlg1Of6w71AdPdQeweMsquR3TXdSqyiXNUKiQWziC
+	7SwH9rBAmqpoxD58cjJpoAGJGxGfopUZqfSo/CINs2juAuAZHuiHVkF/XOPUUpDM+tnKox5lQ3/
+	Mpey4uomuXY0vxE5HPV75rDLSiyvd0nhxWJCEbe0l4oc0XsAglQqhj7gFwqD5fHQz6Obx8WEKfQ
+	QUA
+X-Received: by 2002:a17:903:19c5:b0:2c0:db23:4c4 with SMTP id d9443c01a7336-2cf348f88abmr148382425ad.16.1784525843148;
+        Sun, 19 Jul 2026 22:37:23 -0700 (PDT)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:345f:e51b:3d0c:4546])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a20cfe3sm34224663eec.30.2026.07.19.22.37.18
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a20cfe3sm34224663eec.30.2026.07.19.22.37.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Jul 2026 22:37:19 -0700 (PDT)
+        Sun, 19 Jul 2026 22:37:21 -0700 (PDT)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Subject: [PATCH v2 0/3] powerpc: 512x: Convert ADS7845 touchscreen on
- PDM360NG to device tree
-Date: Sun, 19 Jul 2026 22:37:15 -0700
-Message-Id: <20260719-ads7846-pdm360ng-v2-0-1198bd108502@gmail.com>
+Date: Sun, 19 Jul 2026 22:37:16 -0700
+Subject: [PATCH v2 1/3] powerpc/dts: mpc5121: Move GPIO controller
+ properties to SoC dtsi
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,11 +71,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAu0XWoC/2WNwQ6CMBAFf4Xs2Zq2CK2c/A/DobZbWCOFtEg0h
- H8XMJ48TjJv3gwJI2GCKpsh4kSJ+rCCPGRgWxMaZORWBsllyZVQzLik9Klkg+vykoeGoVXozl5
- JryWssyGip9eevNZfTs/bHe24dTajpTT28b1/TmLzfnn9n58E48znQntdWGcKdWk6Q4+j7Tuol
- 2X5AAvNLP3CAAAA
-X-Change-ID: 20260717-ads7846-pdm360ng-ec7ed9f72f82
+Message-Id: <20260719-ads7846-pdm360ng-v2-1-1198bd108502@gmail.com>
+References: <20260719-ads7846-pdm360ng-v2-0-1198bd108502@gmail.com>
+In-Reply-To: <20260719-ads7846-pdm360ng-v2-0-1198bd108502@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
  Madhavan Srinivasan <maddy@linux.ibm.com>, 
@@ -83,62 +83,65 @@ Cc: devicetree@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16-dev-b242f
 
-The reason for this series is to remove support for platform data in the
-ads7846 touchscreen driver, as pdm360ng is the last user of legacy
-platform data in the kernel for this driver.
+Define gpio@1100 with label gpio_pic as a GPIO controller and
+interrupt controller directly in mpc5121.dtsi so all MPC5121 boards
+inherit the correct controller capabilities.
 
-This series converts the ADS7845 touchscreen on the PDM360NG board to use
-Device Tree bindings instead of legacy platform data callbacks:
+Remove the redundant local controller property declaration block from
+ac14xx.dts.
 
-- Move GPIO controller capabilities into mpc5121.dtsi so all MPC5121
-  boards inherit proper controller definitions, and remove redundant
-  local declarations from ac14xx.dts
-
-- Update pdm360ng.dts to use "ti,ads7845" with pendown-gpio and
-  interrupt-parent referencing gpio_pic
-
-- Add "ifm,pdm360ng" to mpc512x_generic.c and delete obsolete
-  pdm360ng.c.
-
-This change has been discussed in '24 but I just got around to
-implementing this:
-
-https://lore.kernel.org/r/ZoNHLjmSvCN12vU5@google.com/
-
-Note that this should compile but I have not tried this on real
-hardware.
-
+Assisted-by: Antigravity:gemini-3.5-flash
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
-Changes in v2:
-- Set pendown-gpio to GPIO_ACTIVE_LOW in pdm360ng.dts to match the
-  active-low hardware pen-down signal
-- Expanded commit description of patch 2 explaining why early boot setup
-  in pdm360ng_penirq_init() is harmless prior to patch 3
-- Removed Anatolij Gustschin since I got a bounce telling he's no longer
-  with DENX
-- Link to v1: https://lore.kernel.org/r/20260718-ads7846-pdm360ng-v1-0-f318f85cda57@gmail.com
+ arch/powerpc/boot/dts/ac14xx.dts   | 13 -------------
+ arch/powerpc/boot/dts/mpc5121.dtsi |  6 +++++-
+ 2 files changed, 5 insertions(+), 14 deletions(-)
 
----
-Dmitry Torokhov (3):
-      powerpc/dts: mpc5121: Move GPIO controller properties to SoC dtsi
-      powerpc/dts: pdm360ng: Convert ADS7845 touchscreen to DT bindings
-      powerpc/512x: Remove pdm360ng platform setup in favor of mpc512x_generic
-
- arch/powerpc/boot/dts/ac14xx.dts              |  13 ---
- arch/powerpc/boot/dts/mpc5121.dtsi            |   6 +-
- arch/powerpc/boot/dts/pdm360ng.dts            |   8 +-
- arch/powerpc/platforms/512x/Kconfig           |   3 +-
- arch/powerpc/platforms/512x/Makefile          |   1 -
- arch/powerpc/platforms/512x/mpc512x_generic.c |   1 +
- arch/powerpc/platforms/512x/pdm360ng.c        | 126 --------------------------
- 7 files changed, 13 insertions(+), 145 deletions(-)
----
-base-commit: 8e9685d3c41c35dd1b37df70d854137abcb2fbac
-change-id: 20260717-ads7846-pdm360ng-ec7ed9f72f82
-
-Thanks.
+diff --git a/arch/powerpc/boot/dts/ac14xx.dts b/arch/powerpc/boot/dts/ac14xx.dts
+index 5d8877e1f4ad..05fcf08df1ca 100644
+--- a/arch/powerpc/boot/dts/ac14xx.dts
++++ b/arch/powerpc/boot/dts/ac14xx.dts
+@@ -148,19 +148,6 @@ clock@f00 {
+ 			compatible = "fsl,mpc5121rev2-clock", "fsl,mpc5121-clock";
+ 		};
+ 
+-		/*
+-		 * GPIO PIC:
+-		 * interrupts cell = <pin nr, sense>
+-		 * sense == 8: Level, low assertion
+-		 * sense == 2: Edge, high-to-low change
+-		 */
+-		gpio_pic: gpio@1100 {
+-			gpio-controller;
+-			#gpio-cells = <2>;
+-			interrupt-controller;
+-			#interrupt-cells = <2>;
+-		};
+-
+ 		sdhc@1500 {
+ 			cd-gpios = <&gpio_pic 23 0>;	/* card detect */
+ 			wp-gpios = <&gpio_pic 24 0>;	/* write protect */
+diff --git a/arch/powerpc/boot/dts/mpc5121.dtsi b/arch/powerpc/boot/dts/mpc5121.dtsi
+index a278fb7b9e71..9c5dacb94b92 100644
+--- a/arch/powerpc/boot/dts/mpc5121.dtsi
++++ b/arch/powerpc/boot/dts/mpc5121.dtsi
+@@ -146,10 +146,14 @@ pmc@1000 {
+ 			interrupts = <83 0x8>;
+ 		};
+ 
+-		gpio@1100 {
++		gpio_pic: gpio@1100 {
+ 			compatible = "fsl,mpc5121-gpio";
+ 			reg = <0x1100 0x100>;
+ 			interrupts = <78 0x8>;
++			gpio-controller;
++			#gpio-cells = <2>;
++			interrupt-controller;
++			#interrupt-cells = <2>;
+ 		};
+ 
+ 		can@1300 {
 
 -- 
-Dmitry
+2.55.0.229.g6434b31f56-goog
 
