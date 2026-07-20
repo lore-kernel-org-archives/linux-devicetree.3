@@ -1,81 +1,46 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230B3328B61
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 11:16:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B42432938D;
+	Mon, 20 Jul 2026 11:18:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784546197; cv=none; b=kWqMXLOELxBBpNZeziFCgENL/+xRVtBv7RPJCznU0yQYA0sLQKCESOMUDlOmn/tk0KuYJrjndM4nZOR8Ezu1I26XqthLSLrSmWPypTlzYNdk1TQi5q5OBtd7HLD9qTW/D6cTziMLNNAtUxfrCMKzFxwAp7BqOL30qQpeYoD8R+w=
+	t=1784546336; cv=none; b=WS3vqgX5fGUA6Cc1YXFpx/lIzSSOx+zwFgTIDmjalRjf7BjKE74eZF7sXig5mh+MnS3eGE5ewd2p7ZqpYipOH2ognxzCAIkCKauqbpeheIMUw5QnliFkeRebtedEAFdWZkIsrw6/JULvDk25+VhwQ3Ce799byJ6v3Jk2UiQeMjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784546197; c=relaxed/simple;
-	bh=KKpGEM2Q2ahnlhZRCjuVm4C6cCy/9J3lXYuDjPR8lwE=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O5KohhaVGRq5Z4CpROpBRX8phQWWbkU8wX8Zb4nIVojgi2rQUObRueDdKq/HQ0Bu9j7gWCWN7X/JeWDOd0aT3z18xz8ImIqKGcsa8X8m/cuMnCHHgQmfS98ViCeCurcBJnmaTBLKFYZUfF8C1IsDfmkoK8ctlHxsIDV8Th5rVck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pcmFVnIG; arc=none smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784546336; c=relaxed/simple;
+	bh=omgW2WCvrvNpEtlBb7FPgRtXWMLH0K/ZqZUoNyBOrVE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mnu+biJNVIS1D7Te2bPRLnva4m2reVor1mfsNaAzrvxH5xhHeTh0EZ+QhH7gvrYckOFOVSJ0B8A8f5KjUslG8q+UJaMw9pZyqvpAglpQ/TjzvTKo/Jp0dtbX4BuNgSTdCwOUobvprvqSx7pFgQrsZCQwtNgdkftNdV3/xUeCukY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MA/rrSUA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pcmFVnIG"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-698bf053053so10877273a12.3
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 04:16:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784546194; x=1785150994; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=L/TAxliFFrN6KsYtNRi3KVvWd5AD16fwMCELbbAclZk=;
-        b=pcmFVnIGKVKRm7V+AaM+frpQQH5EiPu+/in7djrE+FJJNuCXasEPSGHNx0PYVk6Ipv
-         lHpv9EEaMra27arZ78QJN1Kuj0elryMYg7pZm00zZXQiT94CptgMhtulzLFKg5I0cu1q
-         3w9P/0mhfj7CTv+n+ohwLvE+05HqtKaqON7Hj2ZQMP5OD6EhgwNkMTEFV5yqnMqeQeY1
-         1R+aVKSJhGU+NNSQiD1NOWM/pA9cxLk0vij/CTuVaU/aXOalW7vv8bobKZ9nqk8tw7DS
-         uGKh7uY8HJ+4T1jbUlaJmJ+AVntxX5W8Olcu8pJyogGm5DMnZ/15jrJbF+X3byBJGfTr
-         t+hA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784546194; x=1785150994;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=L/TAxliFFrN6KsYtNRi3KVvWd5AD16fwMCELbbAclZk=;
-        b=kcDrjvtJpTGdg04njObMxmqwXm5Nm0RnfbT5dR1SNA1cmym7jMCkNav+O4QE+nDTY0
-         4mGsMWNRTnAwwpeu9aNwoS92kC60TyxZ8dRa2QjaskumoV6TRIxfNHOf/4/nnZbDh3Ih
-         R7CwqkIm7Jty/rRJ8bYckYwPvJQ79duUpmnhbs4ga3JCN8WaA3HUEb4w8hBejAfmh4g8
-         aIR70giDDcth1a2u3hX5iBVQU5Xs/MsTFj95vZ2DobJyzgXAmV/QxlW/CYWbtwMpAeJj
-         mcWkYH4ZgJU+rguNVQsOnI4zZ83VeKntfcUV9z2mkG59YC/alVcKDeKN6+TamBG3KdtJ
-         p/fg==
-X-Forwarded-Encrypted: i=1; AHgh+RoV47sINX4b6HqUFLQW6kDVXJbPSgEdtJvrtQOZW9y6mXCcXSMVe++a9FWMQh5RmErgIABQGbc7P68k@vger.kernel.org
-X-Gm-Message-State: AOJu0YwGc2gffQxOQxa+Hv2VQxiGsNxBTWvdsQyry7uyGoFISMvfnNps
-	wlsOXGzPcI/lXBg/SafzoqC5vK88pJLpB2W4omKjYYp8tg0llSYnRvPD
-X-Gm-Gg: AfdE7ckmNPZ3nO2XoiD66j4BJvJCiq77lXvnRgtGGH+VVUDb36cx3bAQ9UQdB6x6Ykq
-	+5J1TuUu0476Tgp9uDVcHTOA/Wi++UsnkOmqAQN3DPyasero+CtswQirFnQETo4ECYKRRzO861T
-	TE2kk7GEpU3gkE1VBNvENodeFJvWgz8p0t8mGzC7bW/QfkLIZ1InZef6gzMffxRzymKyrMHlcvY
-	5hED1Qlauyc1RJnOYqWDh9gV6Ye9YRSXd0B9ZivQmGCKTEC7/VD9Kt6G/JLgeRdlzQnBc/bqOAq
-	bQGkapOX4kTc+1dodfLdr+93umTziGaKaqYYOVRx52xGaV8kdTDaBWo1oyJggXU2XkarpuaMZWU
-	oFfAMqxgh5nksqSwDaMNwQYOMJ7YpiRACuzjq+U/yIaGjJZQT1QEZRkbBzj8W0/9nPbLeJQXxaC
-	b/YgQtEaL1iRCyd9D7FTmQeqBIRf1X5XQo5p0UQQCx1hZHoSHquGaKxoXPfDIA5fZXqJF6+s6P8
-	QHzQg==
-X-Received: by 2002:a05:6402:44da:b0:69a:af38:2fc0 with SMTP id 4fb4d7f45d1cf-69e652ddde8mr3935392a12.20.1784546194154;
-        Mon, 20 Jul 2026 04:16:34 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69e6fff71d7sm4443075a12.27.2026.07.20.04.16.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 04:16:33 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Date: Mon, 20 Jul 2026 12:16:29 +0100
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
-	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: Michael Auchter <michael.auchter@ni.com>, linux@analog.com, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH 3/4] iio: dac: ad5686: extend device support with new
- parts
-Message-ID: <yt72xnzniqqiutxrmfbk474m6jelzfpzdc767emqiwomgxg3ez@mivshbbogi5o>
-References: <20260719-ad5686-extend-dev-support-v1-0-841ec75cf5d8@analog.com>
- <20260719-ad5686-extend-dev-support-v1-3-841ec75cf5d8@analog.com>
- <20260719224351.1af8aef9@jic23-huawei>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MA/rrSUA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B7AB1F00A3A;
+	Mon, 20 Jul 2026 11:18:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784546335;
+	bh=90brq7N9vx8ptaQkJpj+PtsxJmmOQz7QVrLbmyRHcuw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MA/rrSUAWwAcrQ34lRzEZITPZ3Fj34E37mtOEtKsHcL6tq7m/GWhp4KhVVAaDv/zz
+	 xk8+Oj/r8wiUms/3smMZCE+e+Dx462s42IA5q05D6GKGtfLwmhuCJl9bATItSEeIXC
+	 git3ErfsEvQXeQFSTol8m8nrNdSQvlfIbOGzxhRldM4cgvMHK5bvRjn9Knrsena38W
+	 gRzM70TckBngDn/pMP6MGn5twxnZF3T7KTOe4tktrPce3AejwOEWELNIBZgCzOhHgp
+	 WkLYEspzL7duqmZmq0UUhNg1vDn+l71CDxZDNMcXkEcj3bC+fVCzK/orJz/J3q4f0j
+	 FZdSRaZZ8bAoQ==
+Date: Mon, 20 Jul 2026 16:48:51 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Ronak Raheja <ronak.raheja@oss.qualcomm.com>, krzk+dt@kernel.org,
+	conor+dt@kernel.org, robh@kernel.org, neil.armstrong@linaro.org,
+	gregkh@linuxfoundation.org, dmitry.baryshkov@oss.qualcomm.com,
+	konrad.dybcio@oss.qualcomm.com, abel.vesa@oss.qualcomm.com,
+	wesley.cheng@oss.qualcomm.com, krzysztof.kozlowski@oss.qualcomm.com,
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/4] phy: qcom: Introduce USB support for Hawi
+Message-ID: <al4EG1FMrI0z1D7z@vaman>
+References: <20260508213234.4643-1-ronak.raheja@oss.qualcomm.com>
+ <chf57j2dkhhjzigpguldadfld5utepa4sxwbo7fjxk5nq37bhp@yci5agzh46ly>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -84,41 +49,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260719224351.1af8aef9@jic23-huawei>
+In-Reply-To: <chf57j2dkhhjzigpguldadfld5utepa4sxwbo7fjxk5nq37bhp@yci5agzh46ly>
 
-On 19/07/26 22:43, Jonathan Cameron wrote:
-> On Sun, 19 Jul 2026 10:51:59 +0100
-> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
-> 
-> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+On 13-07-26, 13:12, Manivannan Sadhasivam wrote:
+> On Fri, May 08, 2026 at 02:32:30PM -0700, Ronak Raheja wrote:
+> > This series adds USB PHY support for the Hawi SoC. It documents the
+> > QMP USB3-DP combo PHY and M31 eUSB2 PHY bindings, adds the Hawi
+> > compatible to the DWC3 USB binding, and adds the PHY initialization
+> > sequences to the qmp-combo driver.
 > > 
-> > Add support for AD5313R, AD5317R, AD5674, AD5679, AD5687, AD5687R, AD5689,
-> > AD5689R to the AD5686 SPI driver. Also adding support for AD5316R, AD5675,
-> > AD5697R to the AD5696 I2C driver. AD5673R and AD5677R were missing from
-> > the of_match table.
 > 
-> Given I'm asking for a v2 anyway, please break out the missing of_match
-> table entries as a precursor.
+> Vinod, does this series look good to you?
 
-checkpatch complains adding stuff to of_match table without having the entry in
-the dt-binding. I suppose the desired order for the changes would be:
-
-clean ups:
-
-- ad5696 dt-binding: adding support for the 'missing' entries.
-- ad5696-i2c: add missing of_match entries
-- Adjust reformat device list in file-comment headers and Kconfig
-
-extend dev support:
-
-- ad5686 dt-binding changes (new devices)
-- ad5696 dt-binding changes (new devices)
-- create new chip info's and populated device tables
-- Add new devices to Kconfig option description
-
-Does it sound reasonable?
+It doesnt apply for me, can you folks rebase and resend
 
 -- 
-Kind regards,
-
-Rodrigo Alencar
+~Vinod
