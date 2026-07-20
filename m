@@ -1,159 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056AA259CB9
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 01:50:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1375143F08E;
+	Mon, 20 Jul 2026 01:55:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784512219; cv=none; b=Mmkpfow04IwnWgsJnSQfMAT2ZmAQ864n2uoWHD0y0NCxwCCzXIb0ny6JLo8W+n3Dg8yTvg6L4UFWUououzWHESxbdzXg011NbHdenZEfXp3TsDXY1Uen4U6x8y2zJfWAMTVy775WbpJQ7bimcRBRAL9SDhjHXO9wWtPZKRdLkh0=
+	t=1784512518; cv=none; b=FW97Ld1gmqaV5OZRaPBWvGqokLZnytmukFb02KE8LerHzpU8CGzws/91iSI1HHc5q1ivqB8r3k4eYN/CYwSamuFTuZAyKwapxfmcoGWZRdXT+oPIymEeyRmSqMymRNT5csqoN21do2QvZmlsrkYSHfCBUaCsq2XzUej9/TxSC+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784512219; c=relaxed/simple;
-	bh=fvhoaVjoiRxjuGmofNyEupxOphWz/LJzOJ5HZrjpMS0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CJUahVd07rE+CYSHKLqIWPb+ORIYK/KbFnxdWsO33p+pmfV3rEyHcod98F8kcjPuAHQmvxgbi6jxGugmWJbKnhr1AAQAaz5q2uthUun2B8TjFkTzzJT6e/AVZApKQyg9yyPf4m3ydSsDOMzajfereYC44A4BCJTjyoyY7Md05Pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AetlnDAX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784512518; c=relaxed/simple;
+	bh=Xb29uNU2XZsPhe9bg1OWDVHOrSr1L98u98F74cgEUwQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=BIBW35Qft9It9Vre+bQNW+OJF/a4IDCc03G7U21bW0aHEdMB+CEz1zd1QZNh0wwO/ng9ASjLethb2sut3cPCK9/xMCmvF09tqs5k3dcRdUzSFm6ix4wUGJ9r/d8NIWvxwU6Ama6GXUEM0K7haE4T7YT/BGWOCUSTRsxYo1g5Q9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=apjqbCa0; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=hOGeZAZk; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AetlnDAX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49ED21F000E9;
-	Mon, 20 Jul 2026 01:50:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784512217;
-	bh=cxHqoJmrNBpAHlK/IztSiEf5nAw34xU/IM2jTIaLGHM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AetlnDAXB3s0bEz20J1QN5M7EubV7gLD2JH5Z7Ji9qK2RWFPN3h3bQfV8aRLHaUc7
-	 4bSRnm5QRs3HcVH2pxl0pKdM/NKMsBWSU7ar6Gr3XRO2oxmH1KH9XWNbhDvCpFoeNf
-	 U6UEiZ0qUcyWZ1qLQ94G1XoopsjPEl6l7IuiaFyfikt4Tp7bvagvRlo4MEMbmdKdnV
-	 gcdBSGtkpgZXq86mxRR8/8LoU4c4Azekfj8Qt1YQ5E6w60ZJiYmC2YwejTJXJ5XPjY
-	 B15inYYQ0ZXsb2V+DNs3nxvFIb82TfLaldwKlCUhHOSpDfuY0irt+3hv2wbHqlVUG/
-	 M4DuxKHcHTOkg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 14/14] media: mediatek: decoder: support av1 extend
- vsi
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyrie Wu" <kyrie.wu@mediatek.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260720012056.1026551-15-kyrie.wu@mediatek.com>
-References: <20260720012056.1026551-1-kyrie.wu@mediatek.com>
- <20260720012056.1026551-15-kyrie.wu@mediatek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 01:50:16 +0000
-Message-Id: <20260720015017.49ED21F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="apjqbCa0";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="hOGeZAZk"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4h3NrK1Lx9zMlFf;
+	Mon, 20 Jul 2026 03:55:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1784512513;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=yyO7p+74bbeYVSKJrWpJ70ESCwZS0XJxbtUZ29wAJLU=;
+	b=apjqbCa0jxBziXFnpRGV8h0zNz6/evpbz+5y5Gkg8TX2CjNPr38LP3HRMcKWI0rRq5EcHz
+	u33kHG1OSnCJ7yhqatvciyOgH1K9kKj2PPbA4v+UEQ2g2BgiBJyYSvcG2rbUnOymqKkh3w
+	XCj78Jpe5FbdO07p0XFYIdWECHLD5GBl7rrXTJJJNw/6zndes9k4+Wmz/hg2Hl6aY2f1mp
+	PTNInD0r60YCvE1GoAjHACucDdruLxINWVYLMiRx9hnmkoO+6kezfIfhiWx4W2oh5tXeIb
+	VUjF1bL8wAwBjsnNyVfMoX9V+xXnz94lhqfwFOe8W6R6BvXxLVObT8sWkEI57w==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1784512511;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=yyO7p+74bbeYVSKJrWpJ70ESCwZS0XJxbtUZ29wAJLU=;
+	b=hOGeZAZkLNGeY7k5SLHX4hCUWQA6KEuE0cbKUjFuO3YPuzu9DgKKh3zCcrkBYjZ8cTWtGn
+	gzZ7zJPDaUmqdBm1gg3Dtfpejmj6zZuqhSLpP+YOmxPZj6mdG6/dbGavFSxiPb5PA0pWiI
+	XUDNGXw612GRxCWRVWpObxu0fIPOehqrbuBdxQSox+7w1Ko9PvNwiLVB8N5jnrsjvzwRDa
+	ffiCdwh8hQTCoVmRXfPZsRLfR4DwmVLcFpihUV2Mrv2yW253nnwjMfSde5UuxNExDF7CtP
+	i4A69LtSU1iL4qrkOMQBmecepVPqOCprolLvVxYxP10csVyspxMrLnjzzk0qRA==
+To: linux-pci@vger.kernel.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Koichiro Den <den@valinux.co.jp>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH] dt-bindings: PCI: rcar-gen4-pci-host: Document optional msi-parent
+Date: Mon, 20 Jul 2026 03:54:41 +0200
+Message-ID: <20260720015505.314957-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 52bbf083aa738f1cddd
+X-MBO-RS-META: mj4a71upqbrsneboo33mpx59w784p1kb
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+The R-Car Gen4 PCIe controller can optionally use GIC ITS as an
+MSI controller. This configuration is described in DT by setting
+msi-parent DT property in the PCIe controller node. Document this
+configuration.
 
-New issues:
-- [Critical] Buffer overflow into firmware shared memory due to uncondition=
-al sizeof() in vdec_av1_slice_vsi_to_remote()
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Koichiro Den <den@valinux.co.jp>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pci@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+ Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Pre-existing issues:
-- [High] Use-After-Free (UAF) due to lockless access to dynamic V4L2 contro=
-l array in vdec_av1_slice_setup_tile_group()
---
+diff --git a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
+index bb3f843c59d91..64f456c6a75a1 100644
+--- a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
++++ b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
+@@ -66,6 +66,9 @@ properties:
+   max-link-speed:
+     maximum: 4
+ 
++  msi-parent:
++    maxItems: 1
++
+   num-lanes:
+     maximum: 4
+ 
+-- 
+2.53.0
 
---- Patch [14]: [PATCH v6 14/14] media: mediatek: decoder: support av1 exte=
-nd vsi ---
-commit ed7b2651547150bfaed8f1355f43d152991a7bc1
-Author: Kyrie Wu <kyrie.wu@mediatek.com>
-
-media: mediatek: decoder: support av1 extend vsi
-
-This commit introduces support for AV1 extend VSI architecture in the
-Mediatek decoder. It adds tile group information to the VPU shared memory
-structure for extended architectures.
-
-> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1=
-_req_lat_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av=
-1_req_lat_if.c
-> index 14639098fd463..1ef561dae18c7 100644
-> --- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
-t_if.c
-> +++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
-t_if.c
-[ ... ]
-> @@ -641,6 +644,8 @@ struct vdec_av1_slice_fb {
->   * @frame:		current frame info
->   * @state:		status after decode done
->   * @cur_lst_tile_id:	tile id for large scale
-> + * @tile_group:	tile group info
-> + * @reserved:		reserved
->   */
->  struct vdec_av1_slice_vsi {
->  	/* lat */
-> @@ -665,6 +670,8 @@ struct vdec_av1_slice_vsi {
->  	struct vdec_av1_slice_frame frame;
->  	struct vdec_av1_slice_state state;
->  	u32 cur_lst_tile_id;
-> +	struct vdec_av1_slice_tile_group tile_group;
-> +	unsigned int reserved[4];
->  };
-
-[Severity: Critical]
-Does the addition of this large struct cause a buffer overflow on
-non-extended architectures?
-
-The firmware allocates only 3408 bytes (AV1_NON_EXT_VSI_SIZE) for this
-memory mapping on non-extended architectures. However, since
-vdec_av1_slice_vsi_to_remote() unconditionally copies the entire struct
-using sizeof(*vsi), won't this write out-of-bounds data into the adjacent
-VPU shared memory?
-
-[ ... ]
-> @@ -1402,17 +1409,29 @@ static void vdec_av1_slice_setup_uh(struct vdec_a=
-v1_slice_instance *instance,
->  	vdec_av1_slice_setup_tile(frame, &ctrl_fh->tile_info);
->  }
-> =20
-> +static
-> +struct vdec_av1_slice_tile_group *vdec_av1_get_tile_group(struct vdec_av=
-1_slice_instance *instance,
-> +							  struct vdec_av1_slice_vsi *vsi)
-> +{
-> +	if (IS_VDEC_SUPPORT_EXT(instance->ctx->dev->dec_capability))
-> +		return &vsi->tile_group;
-> +	else
-> +		return &instance->tile_group;
-> +}
-> +
->  static int vdec_av1_slice_setup_tile_group(struct vdec_av1_slice_instanc=
-e *instance,
->  					   struct vdec_av1_slice_vsi *vsi)
->  {
->  	struct v4l2_ctrl_av1_tile_group_entry *ctrl_tge;
-> -	struct vdec_av1_slice_tile_group *tile_group =3D &instance->tile_group;
-> +	struct vdec_av1_slice_tile_group *tile_group;
->  	struct vdec_av1_slice_uncompressed_header *uh =3D &vsi->frame.uh;
->  	struct vdec_av1_slice_tile *tile =3D &uh->tile;
->  	struct v4l2_ctrl *ctrl;
->  	u32 tge_size;
->  	int i;
-> =20
-> +	tile_group =3D vdec_av1_get_tile_group(instance, vsi);
-> +
->  	ctrl =3D v4l2_ctrl_find(&instance->ctx->ctrl_hdl, V4L2_CID_STATELESS_AV=
-1_TILE_GROUP_ENTRY);
->  	if (!ctrl)
->  		return -EINVAL;
-
-[Severity: High]
-This is a pre-existing issue, but does this function access the dynamically
-allocated V4L2 control payload locklessly?
-
-vdec_av1_slice_setup_tile_group() fetches the control and later accesses
-ctrl->p_cur.p without holding the control handler lock (ctrl_hdl->lock).
-Since this executes in a workqueue, could a concurrent VIDIOC_S_EXT_CTRLS
-ioctl cause the V4L2 core to reallocate the array and free the old memory?
-
-This would result in a use-after-free read of the old array payload, potent=
-ially
-tricking the hardware into performing out-of-bounds DMA.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720012056.1026=
-551-1-kyrie.wu@mediatek.com?part=3D14
