@@ -1,66 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2B33D45C3;
-	Mon, 20 Jul 2026 09:26:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF6D3D3CE4
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 09:28:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784539581; cv=none; b=b58GRz2zkaIvzbSen7qfHy+91mlFBTnCGCYNnmFyUHoEAOcYFzgr4i+3vpSVXDEGU8IF/6ckF6Jjt5nUL75hxc0EppLG+D9kIJsrI6uojzRnRaGEXy+pZQ/B3XagNSqZMoSvohCt79D7knwI6hBI0D6yCok4STclBSwY3f8lan4=
+	t=1784539701; cv=none; b=TMtPbj9RdE2ZmYf9Ez20WkNX8FbaVONCH+ZejPNbc5XsKCDp7+mVTYPLGxmWiNA6SfHgzSUPfHxsJWUsumnjE3HwXh7RJ7aTOBnIJauMSLug5lVorgZ3wAg2mhl+vjOYvZ2F5LnAKBu97VR4bdFYOuKcFpX4fG/d/0GfCIhmUAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784539581; c=relaxed/simple;
-	bh=JXks02qoIOvp/lrU+nsg/E65QdRy8lBiUdgEo8oHmDw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Vx4W2e7yPhxAGQf7hGULZXFdzHBZUlWnmogVndj/v75Lbg8No3rDL/yapUQ5GdBmIRVWOr2a7WDHa6l7tOaM64OqCYM0WLrkRV17a/CXehXzmcFAUX6W8rDJKmMV5QwpVC5617oajwi9WnwWAZ5xqk8g80z8zJvmAraDfaoc4x4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oz27oyJm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784539701; c=relaxed/simple;
+	bh=/V9sJvZndpmsRScAh3cP0r3sgrdNqn6XjSrUe4fCf2w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CoiSbOk/SOO21HLUW0lzTQwetACZgeXfe2do2E1YvX2mHpdXBnXBMUgV11axF01kefAvS12lFktNJxarUkC9yoE7RWDF5D7XDN1kugOMPJNiwgIQzyJs1w4F3UmnQzPVpV8TrD1psp3CeR8ysTeiYnI5YJ9Ria/sHXrU7J5s7KE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=EEZWUTwg; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oz27oyJm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B05C51F000E9;
-	Mon, 20 Jul 2026 09:26:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784539580;
-	bh=JXks02qoIOvp/lrU+nsg/E65QdRy8lBiUdgEo8oHmDw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oz27oyJmQCIqmrA7/EKXeCzfmsDXCZsPcdJDjGiqBNYWMFzDSiJaGXdsI2Ecn+Ofl
-	 ikBx4DUkScJXdWC/cw69V6VAhaQskkO4KJ0nV3DuG8WyXTyLPdJzQo/DPrEgwwpXGE
-	 fHqcHQ1xr70fKw8hSABTMkf7RhEsmPQvWKNgHKkkoTGxQiULh+DPw8uJUnV55Nzr4S
-	 ug/VWrorYP+V7xvAWqgZKJmkBx5ue70xN7nSdigEBaXbEVYYVxL+AVQp53T4muVSiK
-	 Dbt5rEuKvHmbtj3/FaVAfaMQS6bFpxFSJgMzT9D+JxlqSBFW8UaOsNahShIKQE60ur
-	 bAI/1/Vj0rJvg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND] dt-bindings: PCI: mediatek-gen3: Allow
- memory-region for restricted DMA buffer
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chen-Yu Tsai" <wenst@chromium.org>
-Cc: devicetree@vger.kernel.org, linux-pci@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260720092116.1823562-1-wenst@chromium.org>
-References: <20260720092116.1823562-1-wenst@chromium.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 09:26:19 +0000
-Message-Id: <20260720092619.B05C51F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="EEZWUTwg"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so5084047a91.0
+        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 02:28:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1784539699; x=1785144499; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KdohSLCmhYYN5xFaerOht1QxlaqSBPNXnoi96FiAJc0=;
+        b=EEZWUTwgOs1s8bt8GtU86QmpeCTd4x2QAE+ODeOE0LehfaaLvDq3cawndKcDs2a5iG
+         dZsFodb+taR5lNmtkOA/mfmQhZiiQ2w2z2+DCxKQ2mGWhVnGvzTqPslj0KVOuBKSs97O
+         azUIsSYKsy/bKKNHdJBC2oYjOeTNNfBTJ9Ias=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784539699; x=1785144499;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KdohSLCmhYYN5xFaerOht1QxlaqSBPNXnoi96FiAJc0=;
+        b=LzUtva17aNCm8jQas3zonb2E8WdOaBMt0RHIa1ck+okjLQKY6sOUgwYCOfgTmj1dNi
+         MOZLyfZFuppuCFZxZStKnlAe8dlyX69cUivgSQgBwD1xOPXfAY7e1OsphPkN/6PcRwdm
+         Dc2qYYOaNnfvuIE5WFRUYkpORJbSK+yGgQn1VT99yO9lk9hfV3SDTH5QOSFXBygVw5tq
+         ETiDGQEWrNGyI5UsJ7uie5NdADrDiJCapnfbWbGF1PG0ac2EYBqnaRgrVYhNT069LPYf
+         B9bdsCriWaHIDBwybeH3QIIV2zutkV0flNq6dR32dqva9/MytBwqD6CPFuYuhZ4Xa7Dc
+         x+4w==
+X-Forwarded-Encrypted: i=1; AHgh+RrwXaTfOxjlG7lubLqa0Wmuc5Or+B0uwF2ZDmKJgUMzy9ljx/ipDecqpEW6IJ/V0KzOo/s4XHTG1V4p@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy1PDbK0QZGIY0Jze4w6mZtgYljgAIJIGCTddRTKF8TCx2BsXKy
+	TZgGScAWE9ag0l1TLI6xKi+rPeBTtwuC1dt4yqINAJ8IXAPuEd6bqL+5e7UumR5hyQ==
+X-Gm-Gg: AfdE7cmHnSRcJ7+gj2VTe1ncv9kuHZsH0bUU2joZatGCyrP9cls8OwRZWVZhJcXJb+2
+	ZoNREMzURA3mFt5uXsyasMjoEGMHrdueetTrofzeqof0Sj0HX4kxyecTmcOfvVvzFY5nI8X9T2H
+	5Y5j5otvZWag1+MHbMAkl8g1TsIbdF5BFgKbd7yvCX470K2MRgmGivLoQawXhu74aYDsDP6Iu3k
+	2rETRN3XA7u2RnoYRl84JDXqAUPOD9K8d/TTeCO4WhRnXHobeMfyp/ud0mSDWGDUTrcyQnrdAdI
+	mYBx5Ka30VlqpBRasIGG2igL7iHvvnFTvr5EcsdUMx2S+Msv8V8/+i+Xnl+FEjRqw5nn2n0384N
+	Tqj+RZ9vSdtE+Dc/8qTOkS6erPeTluxEWaJx98niLU7oO1XgFowkcMe3UzT8dd2kVYpCgONLllF
+	BVq1uvyeTcQaz1JEo6FGL8gGy2mxjsl4PORa7LZIsBSN6jrUGkpgIXXLWUW5I=
+X-Received: by 2002:a17:90a:e18d:b0:387:e0db:bc29 with SMTP id 98e67ed59e1d1-38e4b57ee17mr15411812a91.41.1784539699255;
+        Mon, 20 Jul 2026 02:28:19 -0700 (PDT)
+Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:3916:f048:32c3:931f])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e39de7875sm7342610a91.2.2026.07.20.02.28.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Jul 2026 02:28:18 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	linux-mediatek@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: mediatek: mt8192-asurada: Disable mmc1 on Spherion
+Date: Mon, 20 Jul 2026 17:27:57 +0800
+Message-ID: <20260720092759.1831105-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-> On some SoCs without an IOMMU behind the PCIe controller, the PCIe
-> controller memory access could be limited to a small region by the
-> firmware configuring a memory protection unit. This memory region
-> must be assigned to the PCIe controller so that the OS knows to
-> use that region. Otherwise PCIe devices would not work properly.
->=20
-> Allow the memory-region property with one item pointing to a
-> restricted DMA buffer.
->=20
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collab=
-ora.com>
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+Spherion does not have an micro SD card slot.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Disable mmc1.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720092116.1823=
-562-1-wenst@chromium.org?part=3D1
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+ arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts b/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
+index c02edba73eaf..0b976b09d47f 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
++++ b/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
+@@ -64,6 +64,10 @@ &rt5682 {
+ 	VBAT-supply = <&pp3300_ldo_z>;
+ };
+ 
++&mmc1 {
++	status = "disabled";
++};
++
+ &sound {
+ 	compatible = "mediatek,mt8192_mt6359_rt1015p_rt5682";
+ 
+-- 
+2.55.0.229.g6434b31f56-goog
 
