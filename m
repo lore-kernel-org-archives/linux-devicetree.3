@@ -1,174 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 140D54086A
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 02:03:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E9494086A;
+	Mon, 20 Jul 2026 02:05:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784513033; cv=none; b=N1Wfnx1mfaBWCt6hhgtasegqHM89x1e7X1oJBX70dV/UCgiAyWHtkKFmCoh3cqNzG5Y5ePhpNglc+6kMxp0UeAbi2xB4hT65irJ+HvAhkVlP3waFOpJ4KNi/pwysJUBm+1Saa1tFA+oXbKvKlc+33mFxBFDR8tppGXtl9KcSIXs=
+	t=1784513126; cv=none; b=HkRK6NJdZhLnpu0j6AELk9+pC28Jj2ISCXqvNnxnNNvGXjZDtJIRNuvGamEC6rDHAwZVU5HaPZccJ63mnPsHZOWZUWUEtNDOWGsjh4oMWjM3eQ+laSLhjaxzpSvKUJOxZH0c3HdhH8GrRphCkYgcJFMSu+FEpk+Rs6phYAc+GcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784513033; c=relaxed/simple;
-	bh=wRhTowLXgy2DeS+AfmkWHjPR/geu91zNYXQHiORSyl0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HuRnad0+Hndzq9f7OyhyNMNEgFBm1aq37twOetBpqp39SaDOz5DdMZg43bqJAWTvH2GO7htcu4ZU6iH8qPW7ZDhc7BSq3+9wOZ7qsSAllbuQ1AC4MM7ohGl6mONTeVnZhyun8T4K2PV/PB3+4y7UKq4dC1nDntf88KwPWOt+MR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fwC3XPeZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784513126; c=relaxed/simple;
+	bh=pFC47DayzC+JGwJZXJ+7rOJ2s3loP5SyLyJGtdzO+Ew=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=GroGaGMvVi3r6tafGuppEGmqKipKfJjTX72Bw6ggcom4Bs+TUUjw5Dh2VRFwQ2f4u58/yGSbLzicXoLueeALyvjsemuHzN0+oPyDAz7KrkrcMFDLf4Tr4GjylLet3NP68HUmBn+czAKTX4abjwWX+LW6D+StP8DTA1bCgVWjW5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=st0/9kXv; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=CEirCOiR; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fwC3XPeZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAE4B1F000E9;
-	Mon, 20 Jul 2026 02:03:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784513031;
-	bh=N92jAev2uub2tvEQ9gk46jAGAfSYdi+2hKIu4vzXuww=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fwC3XPeZs7Ei8MxSzklmWZXciIYw5gB8GiKcPdhghg226yW1esRz5rVO0TKvlvryy
-	 9aame66H79Xxbw1Xbhg8C7nMn+BNVAtYDjFsEDigz4oCXod+MZo5tPIQpE8VVvqWx4
-	 bxpplBleSKwZJFgNQWFi7UrpVUMpwbMcODSd7+ss70vPIOxYFkGwvLYX3VXC61xrMC
-	 fqpCeI9BQlpWVE9pUucbRl51WnSfzs6V9z//+3WIif+MpoekRN7vWkqt9BfoRx3FnB
-	 xrhGZorWHHh2JKrKOuLaSclbm/xOq7R2jAq2Gs9oMyEy41kL91M7brKlctkSDdCIiH
-	 mdnfpVlFFJ12Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 12/14] media: mediatek: vcodec: clean xpc status
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyrie Wu" <kyrie.wu@mediatek.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260720012056.1026551-13-kyrie.wu@mediatek.com>
-References: <20260720012056.1026551-1-kyrie.wu@mediatek.com>
- <20260720012056.1026551-13-kyrie.wu@mediatek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 02:03:50 +0000
-Message-Id: <20260720020350.BAE4B1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="st0/9kXv";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="CEirCOiR"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4h3P3w0Xqyz8tb0;
+	Mon, 20 Jul 2026 04:05:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1784513116;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=pBFPDhfbMVzzPNbWBevrf7/zXDorPPcmxjaeaIlINUY=;
+	b=st0/9kXvIVRDTChuoC/XwrchUyzyjTpgm2ypBg6i0TwxeJZlch8y7/vk7+gIGlvTMn5HSj
+	zm2qwhaIqbSPsS5tI+LBbPI8Xkjq/zyT+yfJul4MdItDhQQH47UQEYx6rwc5utmMGNxPNt
+	vrNAh54kxneLkZawBanuoT3O9lAm3JigTc5AadhWIO42JRab6vYu2M0kpO+3475xuuyJ9w
+	ZVS5Jwypgup5Mqpmr7PQn5VPVTztcCAFEPwp/lrNIwEnkSse9RMGIV6InL8v1iEDSPlMty
+	uVEu6amJQ8vaOTloButQS/+z/SYBWdo9LB630ibyS8JhBalSKp0sPecAdy5Cew==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=CEirCOiR;
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1784513114;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=pBFPDhfbMVzzPNbWBevrf7/zXDorPPcmxjaeaIlINUY=;
+	b=CEirCOiR8pHJGNtgQKWVeKrzGW6tjs3veGDJtpcmou4Y1mTFa1VlIOkZKqQe/9KRtYqvQx
+	EV4ZWZH+gWGvnzJYRV/Tu01IynwbQZg8VUs8bh+2KFi4xZdCEXGO4wONiv7NBMbuVU2uK9
+	xYhzFJ2Be9jaFEHjDK114g0u/hHWw5BvZehH8taKjs0YtkfBLmOmIWDeRPLTk6ipBFymYF
+	Mi/0pSI58pv35o/ZT6pHhNp9bzNPtmhB3wWU1oWDiast1aNjNzxPhTYE/14D0BOGDWrvy1
+	SAinz7C363Cpr+SQ33D48N5aeMqw6RviAutbI2sc0I0pC6TaE9AnCxF2yBtZLw==
+To: linux-pci@vger.kernel.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v2 0/5] PCI: dwc: rcar-gen4: Add support for R-Car X5H PCIe4
+Date: Mon, 20 Jul 2026 04:02:28 +0200
+Message-ID: <20260720020505.315335-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 148305522c3c7b053a5
+X-MBO-RS-META: tuyagn19cdusyezbfr9f19zu45ooop5n
+X-Rspamd-Queue-Id: 4h3P3w0Xqyz8tb0
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+Add support for R8A78000 (R-Car X5H) PCIe4.
 
-New issues:
-- [Low] Enum type mismatch when indexing parent device's register array.
+This driver previously supported R-Car Gen4 S4/V4H/V4M. PCIe features
+of R-Car X5H PCIe4 are almost all the same, except for different PHY
+which has its own driver, slightly different initialization code and
+the DMA is no longer eDMA but HDMA.
 
-Pre-existing issues:
-- [High] Null pointer dereference on spurious hardware interrupts.
-- [High] Use-after-free and dirty state on probe error path.
-- [High] Unconditional NULL pointer dereference in the hardware IRQ handler=
- on platforms using syscon for VDECSYS.
---
+Endpoint mode is currently not implemented for R-Car Gen5 PCIe4.
 
---- Patch [12]: [PATCH v6 12/14] media: mediatek: vcodec: clean xpc status =
+Marek Vasut (5):
+  dt-bindings: PCI: rcar-gen4-pci-host: Add R-Car X5H PCIe4 compatible
+  PCI: dwc: rcar-gen4: Rework rcar_gen4_pcie_drvdata
+    .additional_common_init into .init
+  PCI: dwc: rcar-gen4: Split .start_link into ltssm_control and
+    speed_control
+  PCI: dwc: rcar-gen4: Handle PERST via reset subsystem
+  PCI: dwc: rcar-gen4: Add support for R-Car X5H PCIe4
+
+ .../bindings/pci/rcar-gen4-pci-host.yaml      |  74 ++++--
+ drivers/pci/controller/dwc/pcie-rcar-gen4.c   | 237 +++++++++++++++---
+ 2 files changed, 252 insertions(+), 59 deletions(-)
+
 ---
-commit ff6c78cd026b1536229c06cdffd12b2498c8aeb9
-Author: Kyrie Wu <kyrie.wu@mediatek.com>
+Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pci@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
 
-media: mediatek: vcodec: clean xpc status
+-- 
+2.53.0
 
-The driver need to clean xpc status when receive decoder hardware
-interrupt for mt8196 platform.
-
-> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_de=
-c_hw.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.c
-> index 881d5de41e050..46ac3e41c401c 100644
-> --- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.c
-> +++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.c
-> @@ -88,6 +116,8 @@ static irqreturn_t mtk_vdec_hw_irq_handler(int irq, vo=
-id *priv)
-
-[Severity: High]
-This is a pre-existing issue, but does mtk_vdec_hw_irq_handler() in
-mtk_vcodec_dec_hw.c properly handle spurious interrupts where
-mtk_vcodec_get_curr_ctx() returns NULL?
-
-If there is no active context when the interrupt fires, ctx will be NULL.
-The handler subsequently passes this NULL context to mtk_v4l2_vdec_err(),
-which dereferences ctx->dev directly:
-
-mtk_vdec_hw_irq_handler() {
-    ...
-    ctx =3D mtk_vcodec_get_curr_ctx(dev->main_dev, dev->hw_idx);
-
-    /* check if HW active or not */
-    cg_status =3D readl(dev->reg_base[VDEC_HW_SYS] + VDEC_HW_ACTIVE_ADDR);
-    if (cg_status & VDEC_HW_ACTIVE_MASK) {
-        mtk_v4l2_vdec_err(ctx, "vdec active is not 0x0 (0x%08x)", cg_status=
-);
-        return IRQ_HANDLED;
-    }
-    ...
-}
-
-Could this trigger a kernel panic on spurious interrupts?
-
-[Severity: High]
-This is also a pre-existing issue, but will dev->reg_base[VDEC_HW_SYS] be
-NULL in mtk_vdec_hw_irq_handler() on platforms using syscon for VDECSYS
-(like MT8195 and MT8196)?
-
-On platforms utilizing the mediatek,vdecsys syscon, main_dev->reg_base[0] is
-left NULL. The subdevice probe copies this NULL pointer to the subdevice.
-When an interrupt fires, the handler performs an unconditional readl() from
-this NULL address in the snippet shown above, instead of using the
-vdecsys_regmap fallback.
-
-Could this cause an unconditional panic when an interrupt fires on affected
-platforms?
-
->  	writel(dec_done_status | VDEC_IRQ_CFG, vdec_misc_addr);
->  	writel(dec_done_status & ~VDEC_IRQ_CLR, vdec_misc_addr);
-> =20
-> +	mtk_vdec_hw_clean_xpc(dev);
-> +
->  	wake_up_dec_ctx(ctx, MTK_INST_IRQ_RECEIVED, dev->hw_idx);
-> =20
->  	mtk_v4l2_vdec_dbg(3, ctx, "wake up ctx %d, dec_done_status=3D%x",
-
-[ ... ]
-
-> @@ -166,6 +196,7 @@ static int mtk_vdec_hw_probe(struct platform_device *=
-pdev)
->  	subdev_dev->hw_idx =3D hw_idx;
->  	subdev_dev->main_dev =3D main_dev;
->  	subdev_dev->reg_base[VDEC_HW_SYS] =3D main_dev->reg_base[VDEC_HW_SYS];
-> +	subdev_dev->reg_base[VDEC_HW_XPC] =3D main_dev->reg_base[VDEC_HW_MISC];
-
-[Severity: Low]
-Is mtk_vdec_hw_probe() indexing the main_dev->reg_base array with the
-correct enum?
-
-It looks like it is using VDEC_HW_MISC (from enum mtk_vdec_hw_reg_idx)
-instead of the expected VDEC_MISC (from enum mtk_hw_reg_idx). While they
-both currently evaluate to 1, could this cause out-of-bounds access or
-incorrect address mappings if the enums drift?
-
->  	set_bit(subdev_dev->hw_idx, main_dev->subdev_bitmap);
-> =20
->  	if (IS_SUPPORT_VDEC_HW_IRQ(hw_idx)) {
-
-[Severity: High]
-This is a pre-existing issue, but does the mtk_vdec_hw_probe() error path
-leave dangling pointers in the parent device?
-
-If mtk_vdec_hw_init_irq() fails here, mtk_vdec_hw_probe() returns an error:
-
-mtk_vdec_hw_probe() {
-    ...
-    if (IS_SUPPORT_VDEC_HW_IRQ(hw_idx)) {
-        ret =3D mtk_vdec_hw_init_irq(subdev_dev);
-        if (ret)
-            return ret;
-    }
-    ...
-}
-
-Since subdev_dev was allocated with devres, it will be automatically freed.
-However, the parent (main_dev) will retain the freed pointer in
-main_dev->subdev_dev[hw_idx] and the bit in main_dev->subdev_bitmap remains
-set.
-
-Could this lead to a use-after-free if another component iterates over the
-subdevices?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720012056.1026=
-551-1-kyrie.wu@mediatek.com?part=3D12
