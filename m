@@ -1,152 +1,244 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F028E406281;
-	Mon, 20 Jul 2026 12:08:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347E33D75CD
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 12:09:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784549330; cv=none; b=Zm8xS55fEBHblhb4LNWpyz1JE+W34Gzu6GaXEcOcBSq6kSYdYo0RLEH/HjhW/Pt2WZDiBV47JDc+OnISqFqLsRfA8lho9TwwC+PoHtLOtoChwRi8nXxr0QdnXDjv3quB8iyw/u8ejgCBV/bmycq1sf3A0gFWBnub9BhLBrg2JcU=
+	t=1784549348; cv=none; b=gEmZ41JXPGn10PCIAYBHbJApddRL5caf02f3t++oesbWMK0s0vKq14rc2rOr7CJMIqvKUcBI4XqJN4CBMZCzFfZxUTgnDICiHvNYnRlMKe6EzYwnY+4DE8tIDvkiyM8VUMJwipvT0JNFEAfe7WjjcDv79dYxFflYylUZWiwuda4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784549330; c=relaxed/simple;
-	bh=XuN1ZHDosv8zSjFIBBK37p0R1UvJY5wqIYvpZy1jn24=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pYqsjNhXo+yN/Ptx/VgT7GCcfNKVmL2qz9A3ICgnQxGsM/4HSauzyhkLrdIPF6ifZPLxukJfMKszRXodwDjHSUxEXiCtYdflbRUO8ljjSMhrSLDV4ch6jJJj4dh6+n5kLIPwtqirl3Ha/ic8E6Z+Ju/K3rxsSCGT/+EOZOTCK/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Cm9qtiie; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1784549348; c=relaxed/simple;
+	bh=ire6thNKu2KOeyF27/nVdcfsRBQ+2E6CRpTt7bxIhiY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LbbpRcNizXTuL7OhTJb11fJglUaNLNxLC+XLl/ZzqU56XGDoV3ZN3xyzr73CjdST6UY/5HJSEcI0phhaISQbXqee0DW+ZNMt6Ko4sgIrsAMz/69JbLwn3fLj8ksvLGtDKd8dPIlj7/F2uZ+4p/QWkXwxA6uWPm5nZ06L6G74R98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b7UAotpM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Cm9qtiie"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 256D62B;
-	Mon, 20 Jul 2026 05:08:40 -0700 (PDT)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AA9A33F99C;
-	Mon, 20 Jul 2026 05:08:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1784549324; bh=XuN1ZHDosv8zSjFIBBK37p0R1UvJY5wqIYvpZy1jn24=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Cm9qtiieufgIrsldPhEK9QZHMdTr/fgejcGBub1Axz+JF6VoIbtAcvRvhN5Y3CFTW
-	 Afw2wtsK9LNMFVRokWOxMcB4lnZYvy204m0qwXbVZYKljR28n3jbTVa9czP4OeBwzA
-	 A6BywJWlhmM98Nwt3sQG6EJlzF+C/xyazPfwt9uM=
-Message-ID: <d7f4fae1-faa9-4504-8c2e-cbc58d8a42fe@arm.com>
-Date: Mon, 20 Jul 2026 14:08:42 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b7UAotpM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 496EE1F00A3A;
+	Mon, 20 Jul 2026 12:09:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784549345;
+	bh=PgCyVWtYeb+SiOXNuExWtmQBSC4x6PKpRg0QGIWcLYc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=b7UAotpMCO8hsP9npN521uUuPzbyh/h8wfk3RvC79/q9EQOOQ2q4G2hWWVTtZoX3e
+	 vMyvVPn4q5c4B2LWBdo4itq+k/pB63dM6kiI5qhQLtGJ045uvXQMPwV3rYitq2ulii
+	 eCVueLfby78KsW+2EaCXh1o8/NDfEGuvUdksX3NOoBlCBxAqWjIdgVNlYPxGS7kzwY
+	 f+CCdgaaZm2pYt0hJkm6dy6MxLtm5rXrRt2fjFewyHNR9BIticQ+su3o6bk827PsJN
+	 E/8tP8rk0I4/EQw0Z6JNy2NWAEor6B9+KPzkTGeah8AYap1Ye21MRubt6QLOw+e4vD
+	 j3CHr1ubAFQsA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v17 2/4] crypto: spacc - Add SPAcc ahash support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pavitrakumar Managutte" <pavitrakumarm@vayavyalabs.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260720113740.64960-3-pavitrakumarm@vayavyalabs.com>
+References: <20260720113740.64960-1-pavitrakumarm@vayavyalabs.com>
+ <20260720113740.64960-3-pavitrakumarm@vayavyalabs.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 20 Jul 2026 12:09:04 +0000
+Message-Id: <20260720120905.496EE1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/8] Arm Live Firmware Activation (LFA) support
-To: =?UTF-8?Q?Michal_Such=C3=A1nek?= <msuchanek@suse.de>
-Cc: Mark Rutland <mark.rutland@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Sudeep Holla <sudeep.holla@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- vsethi@nvidia.com, Salman Nabi <salman.nabi@arm.com>,
- Rob Herring <robh@kernel.org>, linux-kernel@vger.kernel.org,
- Varun Wadekar <vwadekar@nvidia.com>,
- Trilok Soni <trilokkumar.soni@oss.qualcomm.com>, devicetree@vger.kernel.org,
- Nirmoy Das <nirmoyd@nvidia.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-arm-kernel@lists.infradead.org
-References: <20260706134455.132091-1-andre.przywara@arm.com>
- <alUMGCJzVG6U3Ggm@kunlun.suse.cz> <alYjFwi0dnld-wP3@kunlun.suse.cz>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <alYjFwi0dnld-wP3@kunlun.suse.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-Hi Michal,
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] Race condition and ring buffer corruption in `spacc_process_jb` du=
+e to unsafe reloading of the tail pointer.
+- [High] Use-After-Free of algorithm structures during `spacc_unregister_ha=
+sh_algs`.
+- [High] Device teardown sequence in `spacc_crypto_remove()` causes deadloc=
+k, hangs, and DMA Use-After-Free.
+- [High] DDT DMA descriptors are written in CPU endianness, causing memory =
+corruption on big-endian architectures.
+- [High] The `SPACC_AADCOPY_FLAG` multiplexing causes hash requests of 2GB =
+or more to be silently truncated.
+- [Low] Mixing goto-based error handling with guard() cleanup in the same f=
+unction.
+--
 
-thanks for having a look and for testing!
+--- Patch [2]: [PATCH v17 2/4] crypto: spacc - Add SPAcc ahash support ---
+commit 21597ca0ff89c5c87f4b74d99d92b89fb2a1eac7
+Author: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
 
-On 7/14/26 13:52, Michal Suchánek wrote:
-> On Mon, Jul 13, 2026 at 06:02:35PM +0200, Michal Suchánek wrote:
->> On Mon, Jul 06, 2026 at 03:44:40PM +0200, Andre Przywara wrote:
->>> Hi all,
->>>
->>> this is version 3 of the Live Firmware Activation kernel support. The
->>> device part of the code now relies on Aneesh's SMCCC bus patches[1],
->>> which solves some problems rather nicely. I also added the formerly
->>> missing sysfs ABI documentation. Based on v7.2-rc1, plus the first
->>> two patches from Aneesh's series. More detailed changelog below.
->>> ==============================
->>>
->>> This series implements the kernel side support of the Arm Live
->>> Firmware Activation (LFA) specification [2]. LFA enables the activation
->>> of updated firmware components without requiring a system reboot,
->>> reducing downtime and allowing quicker deployment of critical bug fixes
->>> in environments such as data centers and hyperscale systems.
->>> It requires explicit firmware support, both via an agent running in EL3
->>> (for instance in TF-A, already merged), but also in the firmware
->>> component to be activated. TF-RMM recently merged support for this.
->>>
->>> Unlike the usual firmware update process (which may use tools like
->>> fwupd), LFA focuses solely on the activation of an already updated
->>> firmware component, called "pending activation" in LFA lingo. This works
->>> by signalling the LFA agent (part of the EL3 runtime firmware) via an
->>> SMC call, which then does the heavy lifting of the live update, in
->>> cooperation with the to-be-updated firmware component.
->>>
->>> Key features of the driver:
->>> * Detects LFA support in system firmware (EL3).
->>> * Lists all firmware components that support live activation, identified
->>>    by their GUID.
->>> * Exposes component attributes (e.g., activation capability, and
->>>    activation pending) via sysfs under /sys/firmware/lfa/<GUID>/.
->>> * Provides interfaces to:
->>>    - Trigger activation of an updated firmware component.
->>>    - Cancel an ongoing activation if required.
->>> A more detailed list of features can be found in patch 2/8.
->>> Based on v7.2-rc1.
->>>
->>> This work is conceptually similar to Intel’s Platform Firmware Runtime
->>> Update and telemetry (PFRUT) [3] and TDX module updates [4], but
->>> targets Arm platforms. The driver has been used to successfully activate
->>> a Realm Management Monitor (RMM) firmware image in a controlled test
->>> environment. RMM is analogous to Intel’s TDX module.
->>>
->>> There is effort on similar work from the OCP [5]. Future work may
->>> include integration with utilities like fwupd to automatically select
->>> the appropriate driver, based on platform architecture, for Live/Runtime
->>> firmware updates.
->>>
->>> Please have a look, test and comment!
->>
->> Hello,
->>
->> booting a kernel with v2 of this patchset applied the module does not
->> get autoloaded. Loading it manually I get
->>
->> [ 1972.957282] [   T5195] Arm LFA: Live Firmware Activation: detected v1.0
->> [ 1972.958620] [   T5195] Arm LFA: registered LFA ACPI notification
->>
->> Is this expected?
->>
->> I would expect the driver to load automatically.
->>
->> I do not see anything in the v3 changelog obviously addressing
->> autoloading but changing to using a bus might affect that.
->>
->> I will try to update to v3 later.
-> 
-> Hello,
-> 
-> updating to v3 of the patchset resolves the problem.
+crypto: spacc - Add SPAcc ahash support
 
-Yes, that was indeed a change that came for free with changing the 
-probing method to be now SMCCC bus based. As Krzysztof rightfully 
-mentioned before, the driver was always probing, then bailing out if the 
-service was not available, which is not the way it should work under the 
-driver model. As a side effect, there wasn't really any discovery or 
-auto-loading mechanism. With the new SMCCC bus this should now all be 
-solved.
+This commit adds ahash support to the SPAcc driver. It implements various
+hash algorithms including CMAC, XCBC, MD5, and SHA variants, along with
+crypto engine integration, hardware descriptor management, and device
+teardown sequences.
 
-Thanks for testing!
-Cheers,
-Andre
+> diff --git a/drivers/crypto/dwc-spacc/spacc_ahash.c b/drivers/crypto/dwc-=
+spacc/spacc_ahash.c
+> --- /dev/null
+> +++ b/drivers/crypto/dwc-spacc/spacc_ahash.c
+> @@ -311,10 +311,10 @@ static int spacc_hash_do_one_request(struct crypto_=
+engine *engine, void *areq)
+> [ ... ]
+> +	{
+> +		guard(mutex)(&tctx->lock);
+> +
+> +		if (tctx->handle < 0 || !tctx->ctx_valid) {
+> [ ... ]
+> +			tctx->handle =3D spacc_open(&priv->spacc,
+> +					CRYPTO_MODE_NULL, salg->mode->id,
+> +					-1, 0, spacc_digest_cb, reqtfm);
+> +			if (tctx->handle < 0) {
+> +				dev_dbg(salg->dev,
+> +					"context open failed, fallback\n");
+> +				goto fallback;
 
-> The driver is now autoloaded.
-> 
-> Thanks
-> 
-> Michal
+[Severity: Low]
+Does this code violate the cleanup subsystem technical guidelines?
 
+The guidelines explicitly prohibit mixing goto-based error handling and
+guard() declarations in the same function to prevent confusing ownership
+semantics. Here, the goto fallback jumps out of a block protected by
+guard(mutex)(&tctx->lock).
+
+> [ ... ]
+> +	}
+> +	rc =3D spacc_packet_enqueue_ddt(&priv->spacc, ctx->acb.new_handle,
+> +			&ctx->src, &ctx->dst, req->nbytes,
+> +			0, req->nbytes, 0, 0, 0);
+
+[Severity: High]
+Could this cause silent truncation for hash requests of 2GB or larger?
+
+In spacc_hash_do_one_request(), req->nbytes is passed as pre_aad_sz
+to spacc_packet_enqueue_ddt_ex(). This creates an issue when multiplexing
+large lengths with control flags in the lower layers.
+
+> @@ -978,5 +978,5 @@ int spacc_unregister_hash_algs(struct spacc_priv *pri=
+v)
+> [ ... ]
+> +	list_for_each_entry_safe(salg, tmp, &priv->hash_alg_list, list) {
+> +		crypto_engine_unregister_ahash(&salg->alg.hash);
+> +		list_del(&salg->list);
+> +	}
+
+[Severity: High]
+Could this lead to a use-after-free during module unload?
+
+When crypto_engine_unregister_ahash() is called on salg->alg.hash, it
+drops the final reference to the algorithm, triggering the asynchronous
+destructor spacc_hash_alg_destroy() which calls kfree(salg). The
+immediate next line executes list_del(&salg->list), dereferencing the
+freed salg pointer.
+
+> diff --git a/drivers/crypto/dwc-spacc/spacc_core.c b/drivers/crypto/dwc-s=
+pacc/spacc_core.c
+> --- /dev/null
+> +++ b/drivers/crypto/dwc-spacc/spacc_core.c
+> @@ -1286,7 +1286,7 @@ int spacc_packet_enqueue_ddt_ex(struct spacc_device=
+ *spacc, int use_jb,
+> [ ... ]
+> +	if (pre_aad_sz & SPACC_AADCOPY_FLAG) {
+> +		job->ctrl  |=3D SPACC_CTRL_MASK(SPACC_CTRL_AAD_COPY);
+> +		pre_aad_sz &=3D ~(SPACC_AADCOPY_FLAG);
+> +	} else
+> +		job->ctrl  &=3D ~SPACC_CTRL_MASK(SPACC_CTRL_AAD_COPY);
+> +
+> +	job->pre_aad_sz  =3D pre_aad_sz;
+
+[Severity: High]
+Is the SPACC_AADCOPY_FLAG multiplexing safe for large hash requests?
+
+If req->nbytes from ahash requests is greater than or equal to 0x80000000
+(2GB), the driver interprets the MSB as the SPACC_AADCOPY_FLAG here. It
+strips the MSB from the length, silently truncating the requested hash leng=
+th,
+and sets the hardware control flag instead of processing the full buffer.
+
+> diff --git a/drivers/crypto/dwc-spacc/spacc_device.c b/drivers/crypto/dwc=
+-spacc/spacc_device.c
+> --- /dev/null
+> +++ b/drivers/crypto/dwc-spacc/spacc_device.c
+> @@ -185,8 +185,8 @@ static void spacc_crypto_remove(struct platform_devic=
+e *pdev)
+> [ ... ]
+> +	spacc_irq_glbl_disable(&priv->spacc);
+> +	spacc_unregister_algs(priv);
+> +
+> +	if (priv->engine)
+> +		crypto_engine_exit(priv->engine);
+
+[Severity: High]
+Is the teardown sequence ordered correctly?
+
+During driver removal, spacc_irq_glbl_disable() turns off hardware IRQs. Ne=
+xt,
+spacc_unregister_algs() destroys the DMA hash_pool. Then crypto_engine_exit=
+()
+tries to stop the engine, waiting up to 10 seconds for engine->busy to clea=
+r.
+
+Because IRQs are disabled, inflight requests can never finish. The engine
+fails to stop, leaks its worker thread, and the hardware can perform DMA
+writes into the destroyed pool, resulting in a use-after-free.
+
+> diff --git a/drivers/crypto/dwc-spacc/spacc_hal.c b/drivers/crypto/dwc-sp=
+acc/spacc_hal.c
+> --- /dev/null
+> +++ b/drivers/crypto/dwc-spacc/spacc_hal.c
+> @@ -251,8 +251,8 @@ int pdu_ddt_add(struct device *dev, struct pdu_ddt *d=
+dt, dma_addr_t phys,
+> [ ... ]
+> +	if (ddt->idx =3D=3D ddt->limit)
+> +		return -EINVAL;
+> +
+> +	ddt->virt[ddt->idx * 2 + 0] =3D (uint32_t)phys;
+> +	ddt->virt[ddt->idx * 2 + 1] =3D size;
+> +	ddt->virt[ddt->idx * 2 + 2] =3D 0;
+> +	ddt->virt[ddt->idx * 2 + 3] =3D 0;
+
+[Severity: High]
+Does this code handle endianness correctly for the DMA descriptors?
+
+The SPAcc hardware uses a little-endian DMA bus interface, but the code
+writes the phys address and size parameters directly to ddt->virt
+without a cpu_to_le32() conversion. On big-endian architectures, this
+results in byteswapped addresses and lengths being read by the hardware,
+leading to out-of-bounds DMA accesses and memory corruption.
+
+> diff --git a/drivers/crypto/dwc-spacc/spacc_manager.c b/drivers/crypto/dw=
+c-spacc/spacc_manager.c
+> --- /dev/null
+> +++ b/drivers/crypto/dwc-spacc/spacc_manager.c
+> @@ -350,10 +350,10 @@ int spacc_process_jb(struct spacc_device *spacc, un=
+signed long *lock_flag)
+> [ ... ]
+> +					spin_unlock_irqrestore(&spacc->lock,
+> +							       *lock_flag);
+> +					job->cb(spacc, job->cbdata);
+> +					spin_lock_irqsave(&spacc->lock,
+> +							  *lock_flag);
+> +					tail =3D spacc->jb_tail;
+> +				} else if (!spacc->autodetect) {
+> +					job->job_done =3D 1;
+> +					wake_up_interruptible(&job->waitq);
+> +				}
+> +			}
+> +		}
+> +
+> +		tail++;
+> +		if (tail =3D=3D SPACC_MAX_JOB_BUFFERS)
+> +			tail =3D 0;
+> +
+> +		spacc->jb_tail =3D tail;
+
+[Severity: High]
+Can this sequence cause a race condition and corrupt the ring buffer?
+
+In spacc_process_jb(), the lock is dropped to call job->cb. If another
+thread queues a new job and processes it, advancing spacc->jb_tail, the
+first thread will wake up, reload the newly advanced jb_tail into tail,
+and unconditionally increment it here. This skips the unprocessed job at
+the new tail index and corrupts the buffer state.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720113740.6496=
+0-1-pavitrakumarm@vayavyalabs.com?part=3D2
