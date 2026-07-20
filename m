@@ -1,322 +1,238 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B7A423EA94;
-	Mon, 20 Jul 2026 02:05:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D731B1A8F84
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 02:10:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784513136; cv=none; b=sWK7db1DZGjmM2z+kSu2/ZeunNGnod7BNNWRskcgiW516wxx7jqkmthwOjJ9wySJcnncFxUXCZ9ploSGB/4UCG+MLOzByQwl2rCLp2hnzvNVK7k72bkKa3eRCMXGW/i/UjxTKRTyhs8bLmh3SseVofqL6VhDSQfwGNbHpwkJXQE=
+	t=1784513408; cv=none; b=UrhiJuX7ejMjNAEHSXWAYFOah6j5ouduio0L2QHJ29X3lsPyltK4BgCMaN7KUODtTXrA2d0Ve09XFHSMQaPzNGcWUVe5XNqP4LfCBVtbrHiGg8p9nGoF9U8K1M61SBJ1irxOydXPYELmw4nATBrEzok+TjFf7+Fq52qY60BkpCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784513136; c=relaxed/simple;
-	bh=Gaus4yxUBGQcgPzhIdTlzmQUwBvyN+qVB13MfGlRwt0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KguwPJf+/6jX5AQ3hmwjAtif6QRZWq/dTKcib3RR98kWoGr15AAfaUGksZinItGBrRzjaL3bWRW0U6t/vTvGAX7A9KAPSOJxtPbxBQ0twtAZB16h9aqLnOKfVx+3+a/F1RZkBxgLvHnfZQKDzjVyuN9ZfdHhIaNtmhWKKfERRx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=AbDpAQVH; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=e9zL0CZC; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1784513408; c=relaxed/simple;
+	bh=RqjlMxO012jgIiybeaAmg6bdFBZBp4O9uOyZB+siAzg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gl7VH1oBsyzP2UgU15Fm82gK/EmU3XBxV2Oe0LC2asOE5PpPMil/+PA7cN9QEVm78qDMPDq7R7tXTOJLt2wLja2LOziTve86EE2NOg1MKYlTDOniniuqbXzpscSl68Ulj4qXQDk2OHb+rOXEdPuDgJY+zsFxcOdd6sN1RLtnuC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aqj7rwPU; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="AbDpAQVH";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="e9zL0CZC"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4h3P4C32x5zKn31;
-	Mon, 20 Jul 2026 04:05:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1784513131;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M0FmG2kmaql9hnKmKKlfzRx38uaj2SHRPGIAXj+elyM=;
-	b=AbDpAQVHSAWPue3llu3lY7sNlljimRl0A2ZVzr86KvZX9duWWNiBVVuYajgwFSojo5Sw1t
-	BbISvErMsb5SvPvyyM2tnQutZtKJknIOZsQneOd/+fz1PziF0P2kUf50t3hCx3wT80Nu0B
-	zoVqTd1Vf+791vY64cXOv5Pe3BnobY15x8GmzhPupMj7MDXBExW2gZsAqP5SdD4PsWU4gp
-	md83rnGBS3Xs9W7Tvg9Efc/hmnjGdnXJqLm73d/k4LuQzfri4Fe3l6HeDvrVNwT+a8272V
-	N6b5Oh1Px7JyW5TC5XZxeSUF3oVCrqS+rguw2Yv1t9/epfpuscoqIZDOOsqhMA==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=e9zL0CZC;
-	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1784513129;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M0FmG2kmaql9hnKmKKlfzRx38uaj2SHRPGIAXj+elyM=;
-	b=e9zL0CZCi1zXEQHINt9tmR2PonVkss0Qvh26QCvJAo+rgsB1/sjBHkLoRZRRzQW112QzHU
-	tYKGOEsaTLgeW2a4Wvp0/dcHPjpFUaNAx87lI67ueswesPZ6LVfAbBalU7L4KLzUys08AC
-	hzmQFKoF77FGmNVPzhKNDj1OGjN7VX4iX3NlILiMnalfJxPGTwJdWEAAC1xwGSv4JFsx6q
-	qCTUCr6epMZZdfC02HRighyrlGoUaqK7S9N90K6BHExXQJqIbhKzq/Td+u2kC0LOGMfwOv
-	hh5Cdj5c/h9Fs4noiGBrF2Ug2rbKW9k97BuHqOLYNS0qZbdF0zmgtoKQLLkcHg==
-To: linux-pci@vger.kernel.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v2 5/5] PCI: dwc: rcar-gen4: Add support for R-Car X5H PCIe4
-Date: Mon, 20 Jul 2026 04:02:33 +0200
-Message-ID: <20260720020505.315335-6-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260720020505.315335-1-marek.vasut+renesas@mailbox.org>
-References: <20260720020505.315335-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aqj7rwPU"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-84a2dcede83so8533284b3a.3
+        for <devicetree@vger.kernel.org>; Sun, 19 Jul 2026 19:10:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784513406; x=1785118206; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RHFbtn3XOKRqd2XipOab6cFjO5p+IVxTDVxSIoIbpSA=;
+        b=aqj7rwPU1LquiVppm00qfWcOVSzGdhnZQcRPZl2RbVkI7fQZXcZAU3Lq9WENIaIVdi
+         R/nupSKbk0/cXRuv2LoGMVkPrtL9k+izbjI+7O72bWSFgcHa2yzWY1dow4O+mYNDEDrX
+         goYHqWBLQDtxCXKhzimhecSAB/7IfnkgKN4hXhh61RmmUF8x9oyELH5so/SFZjo30QiW
+         0/IqCU4OzUq7bnZHC1DOeGg+wln9VpCh7LwM/2eNsf08EapmJlc7h3rQbIlxZW6rGn4d
+         bIfcaAa/1qF/3f/sFDaBij5N0Y265ysKCWLvq5to3Ez/DMyxtIYych2UZOTp4Yyf+i/K
+         nGiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784513406; x=1785118206;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RHFbtn3XOKRqd2XipOab6cFjO5p+IVxTDVxSIoIbpSA=;
+        b=TbZ5/N1j+PIIVAwCbndPyb0RXplTVTgCMHVGU2RPvhUNQMxxSbEVpuWyXrUlQA8mnC
+         lpoKR5s839jWz0OUXqbdrd04Megxa+U7DsIRWFJeE9IQ7JKcPsjJt72omfgTSCuq8dxV
+         1gnMPOEQ+2qwJr5/B4Lxf+HE++s2uZ5azawGPsSmYHoqTqAHzmp0e0npIIhZyUp7PLhV
+         Wy4sf21QGyFulfPv10j/UT/DkY9BE1hns27/7plsi7HtzaMhjikwoYQudr4IJyqd2RbP
+         4UBSExaxc3086E/ZgjUKGroAXSjdlseG9Vw4PGVo2eRgYI4nMJL+QdI7PfdnuUqgLvd9
+         3I2w==
+X-Forwarded-Encrypted: i=1; AHgh+RonPfDlo1HLgRx/+Weani8K+l4YFRlqreaTLBjQLzfkVuHjPgG1yKbexRLeKTAHOhZtwFLbY7jQYz6n@vger.kernel.org
+X-Gm-Message-State: AOJu0YxZP46TaDM8K5amqKm35Yi0ynukfj+o0MFGL3r/DBp0NTzJQCD/
+	kw+KvWzUk7rvgqSAr4iALEGMohW5k/Amo7eOUPaWH2f/WMgceSu9W69q
+X-Gm-Gg: AfdE7cloW+xrDeljLCauC/bIY9RRKen7Ko0B/6i17jqR7E6PiVoQjdKwStPzdMuOOGi
+	YdMhbXH5DWFHWni1bosDLlCeuOsX5gKGRP5y8n7iI3ain9ifxd7b6hfv3KPjHjNGsG28iZIsQA7
+	73QzzS29eryRJJucalWMGsXzA8Jy/cW84Xs5ogUWSYXlv8x3E5LyfbnTcLsV26wAnBepbkvfbwc
+	5cgA5cbSS6Rbm8YFMh5x6dmt1ij1Y4W2OcBdBJS7pwkI0KO2Ao3kWhX3/qGZPcA+WRE07KIndPg
+	vTVJDWgNKPr+EN2eaty82oAwRD9Z+mDfb8BeGwN9l2isiR+LCmdsqO0MuvsyASkCvXBwCqzhCjN
+	KN5fwP+t+YTCtoPJe617aO5NH/fPT7n5btyYXMintrPg+uvUAi0g1GdLx7jIDoM1FfK98F6P68S
+	mR61Iu07MpUKJkcGXRcV/3c03x2Y6sN6uMs1+NnxaFMSQDBgj6SyQ=
+X-Received: by 2002:a05:6a21:7a96:b0:3b2:8685:1473 with SMTP id adf61e73a8af0-3c3ad5fda1emr12087662637.7.1784513406145;
+        Sun, 19 Jul 2026 19:10:06 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31429f9bcd9sm31370090eec.3.2026.07.19.19.10.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 19 Jul 2026 19:10:05 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <2e93fb55-5055-4c54-8ea2-6ef59248c842@roeck-us.net>
+Date: Sun, 19 Jul 2026 19:10:04 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/5] hwmon: (pmbus/max20830): add VOUT feedback
+ resistor scaling support
+To: "Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>,
+ "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
+Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "robh@kernel.org" <robh@kernel.org>
+References: <20260706-dev-max20830c-v2-0-37761e89bb5f@analog.com>
+ <20260706-dev-max20830c-v2-3-37761e89bb5f@analog.com>
+ <20260706022155.C5B251F000E9@smtp.kernel.org>
+ <PH0PR03MB6351F16AE2D15684260D2930F1C32@PH0PR03MB6351.namprd03.prod.outlook.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <PH0PR03MB6351F16AE2D15684260D2930F1C32@PH0PR03MB6351.namprd03.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 18909668765b58c831e
-X-MBO-RS-META: obnr95ab6mi3xyr6mf1s83nxwr6z1c5h
-X-Rspamd-Queue-Id: 4h3P4C32x5zKn31
 
-Add support for R8A78000 (R-Car X5H) PCIe4.
+On 7/19/26 18:58, Torreno, Alexis Czezar wrote:
+>>> +
+>>> +/*
+>>> + * Driver currently only supports READ_VOUT for monitoring that needs
+>>> +scaling to
+>>> + * convert from feedback voltage to actual output voltage.
+>>> + *
+>>> + * vout_actual = vout_fb × (1 + RFB1/RFB2)
+>>> + *
+>>> + * VOUT_COMMAND and VOUT_MAX are currently not in use, but work with
+>>> +feedback
+>>> + * voltage. If regulator support is added, VOUT_COMMAND values would
+>>> +need
+>>> + * to be adjusted accordingly.
+>>> + */
+>>> +static int max20830_read_word_data(struct i2c_client *client, int page,
+>>> +				   int phase, int reg)
+>>> +{
+>>> +	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
+>>> +	const struct max20830_data *data = container_of(info, struct
+>> max20830_data, info);
+>>> +	int ret;
+>>> +
+>>> +	switch (reg) {
+>>> +	case PMBUS_READ_VOUT:
+>>> +		ret = pmbus_read_word_data(client, page, phase, reg);
+>>> +		if (ret < 0)
+>>> +			return ret;
+>>> +
+>>> +		/* Apply voltage divider scaling if resistors are non-zero */
+>>> +		if (data->vout_rfb1 && data->vout_rfb2)
+>>> +			ret = DIV_ROUND_CLOSEST_ULL((u64)ret * (data-
+>>> vout_rfb1 +
+>>> +						    data->vout_rfb2), data-
+>>> vout_rfb2);
+>>> +		return ret;
+>>
+>> [Severity: High]
+>> Does this returned value need bounds checking?
+>>
+>> If a large resistor divider is used, the scaled PMBus word calculated here can
+>> exceed 0xFFFF. The generic PMBus core function pmbus_reg2data_linear() will
+>> cast this returned value to a u16, silently wrapping the value modulo
+>> 65536 and resulting in wildly incorrect telemetry (e.g., reporting 2V instead of
+>> 12V).
+>>
+>> Should this be clamped using clamp_val(ret, 0, 0xffff)?
+>>
+> 
+> Good Call, will clamp this as suggested.
+> 
+>>> +	default:
+>>> +		return -ENODATA;
+>>> +	}
+>>> +}
+>>
+>> [Severity: High]
+>> Will returning -ENODATA bypass software scaling for VOUT limit attributes?
+>>
+>> The driver sets PMBUS_HAVE_VOUT below, which exposes hardware VOUT
+>> limits (like inX_max or inX_lcrit). Because only PMBUS_READ_VOUT is
+>> intercepted here, the core will read those limits unscaled from the hardware.
+>>
+> 
+> Not applicable - no limit registers exist or are exposed.
+> 
+>>> +
+>>>   static struct pmbus_driver_info max20830_info = {
+>>>   	.pages = 1,
+>>>   	.format[PSC_VOLTAGE_IN] = linear,
+>>> @@ -24,13 +64,25 @@ static struct pmbus_driver_info max20830_info = {
+>>>   		PMBUS_HAVE_TEMP |
+>>>   		PMBUS_HAVE_STATUS_VOUT | PMBUS_HAVE_STATUS_IOUT |
+>>>   		PMBUS_HAVE_STATUS_INPUT | PMBUS_HAVE_STATUS_TEMP,
+>>> +	.read_word_data = max20830_read_word_data,
+>>
+>> [Severity: High]
+>> Does this struct also need a .write_word_data callback?
+>>
+>> Since PMBUS_HAVE_VOUT is enabled, user writes to limit attributes will fall
+>> through to the PMBus core, which writes the scaled PMBus word directly into
+>> the hardware's limit register. Because the hardware expects limits in the
+>> unscaled feedback voltage range, the written value will be completely out of
+>> bounds.
+>>
+> 
+> Not applicable. No writable VOUT registers are exposed. MAX20830 has no
+> limit registers to write to. also regulator support is not implemented.
+> 
 
-This driver previously supported R-Car Gen4 S4/V4H/V4M. PCIe features
-of R-Car X5H PCIe4 are almost all the same.
+Please add a comment to the code explaining this (if you dod not do that already),
+to remind patch authors that there is additional work to do if regulator support
+is added.
 
-The controller initialization sequence is slightly different and is
-factored out into controller specific callbacks, in a manner similar
-to previous R-Car Gen4 handling.
+Thanks,
+Guenter
 
-The controller does have a PHY attached to it, but the PHY is operated
-by a separate PHY driver, the PHY driver instance binding is handled
-in rcar_gen4_pcie_get_resources() and controlled in the aforementioned
-controller specific callbacks.
-
-The controller driver is deliberately using "renesas,rcar-gen5-pcie4"
-DT compatible string to discern R-Car X5H PCIe4 controller supported
-by this driver, from R-Car X5H PCIe6 controller which will most likely
-use a separate driver.
-
-The R-Car X5H PCIe4 controller embeds HDMA instead of EDMA embedded
-in the R-Car Gen4 PCIe controller, "dw-edma" driver supports both
-DMA variants.
-
-Endpoint mode is currently not implemented for R-Car Gen5 PCIe4.
-
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
----
-Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-pci@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org
----
-V2: No change
----
- drivers/pci/controller/dwc/pcie-rcar-gen4.c | 115 +++++++++++++++++++-
- 1 file changed, 113 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-index 2ee8b344ec541..f403e11c884a4 100644
---- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-+++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-@@ -19,6 +19,7 @@
- #include <linux/of_address.h>
- #include <linux/of_irq.h>
- #include <linux/pci.h>
-+#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/reset.h>
-@@ -36,6 +37,7 @@
- 
- /* MSI Capability */
- #define MSICAP0			0x0050
-+#define MSICAP0_MMESCAP_MASK	GENMASK(19, 17)
- #define MSICAP0_MSIE		BIT(16)
- 
- /* PCIe Interrupt Status 0 */
-@@ -74,6 +76,11 @@
- #define PCIEPWRMNGCTRL		0x0070
- #define APP_CLK_REQ_N		BIT(11)
- #define APP_CLK_PM_EN		BIT(10)
-+#define APP_READY_ENTR_L23	BIT(6)
-+#define APP_REQ_ENTR_L1		BIT(5)
-+
-+/* PCI Express capability */
-+#define EXPCAP(x)		(0x0070 + (x))
- 
- #define RCAR_NUM_SPEED_CHANGE_RETRIES	10
- #define RCAR_MAX_LINK_SPEED		4
-@@ -97,6 +104,7 @@ struct rcar_gen4_pcie {
- 	struct dw_pcie dw;
- 	void __iomem *base;
- 	void __iomem *phy_base;
-+	struct phy *phy;
- 	struct platform_device *pdev;
- 	struct reset_control *perst;
- 	const struct rcar_gen4_pcie_drvdata *drvdata;
-@@ -169,6 +177,35 @@ static int rcar_gen4_pcie_speed_control(struct rcar_gen4_pcie *rcar)
- 	return 0;
- }
- 
-+static int rcar_gen5_pcie_speed_control(struct rcar_gen4_pcie *rcar)
-+{
-+	struct dw_pcie *dw = &rcar->dw;
-+	u32 lnkcap = dw_pcie_readl_dbi(dw, EXPCAP(PCI_EXP_LNKCAP));
-+	u32 lnksta = dw_pcie_readw_dbi(dw, EXPCAP(PCI_EXP_LNKSTA));
-+	u32 val, retries;
-+
-+	if ((lnksta & PCI_EXP_LNKSTA_CLS) == (lnkcap & PCI_EXP_LNKCAP_SLS))
-+		return 0;
-+
-+	/* Retrain link */
-+	val = dw_pcie_readl_dbi(dw, EXPCAP(PCI_EXP_LNKCTL));
-+	val |= PCI_EXP_LNKCTL_RL;
-+	dw_pcie_writel_dbi(dw, EXPCAP(PCI_EXP_LNKCTL), val);
-+
-+	/* Wait for link retrain */
-+	for (retries = 0; retries <= 10; retries++) {
-+		lnksta = dw_pcie_readw_dbi(dw, EXPCAP(PCI_EXP_LNKSTA));
-+
-+		/* Check retrain flag */
-+		if (!(lnksta & PCI_EXP_LNKSTA_LT))
-+			break;
-+
-+		usleep_range(1000, 1100);
-+	}
-+
-+	return 0;
-+}
-+
- /*
-  * Enable LTSSM of this controller and manually initiate the speed change.
-  * Always return 0.
-@@ -284,6 +321,44 @@ static int rcar_gen4_v4h_v4m_pcie_init(struct rcar_gen4_pcie *rcar)
- 	return 0;
- }
- 
-+static int rcar_gen5_pcie_init(struct rcar_gen4_pcie *rcar)
-+{
-+	struct dw_pcie *dw = &rcar->dw;
-+	int ret;
-+	u32 val;
-+
-+	/* R-Car Gen4 and Gen5 common initialization. */
-+	ret = rcar_gen4_pcie_common_init(rcar);
-+	if (ret)
-+		return ret;
-+
-+	/* R-Car Gen5 specific additional initialization. */
-+	ret = phy_init(rcar->phy);
-+	if (ret)
-+		return ret;
-+
-+	dw_pcie_dbi_ro_wr_en(dw);
-+
-+	val = dw_pcie_readl_dbi(dw, PCIE_PORT_LANE_SKEW);
-+	val &= ~PORT_LANE_SKEW_INSERT_MASK;
-+	if (dw->num_lanes < 8)
-+		val |= BIT(6);
-+	dw_pcie_writel_dbi(dw, PCIE_PORT_LANE_SKEW, val);
-+
-+	val = dw_pcie_readl_dbi(dw, MSICAP0);
-+	FIELD_MODIFY(MSICAP0_MMESCAP_MASK, &val, 4);
-+	dw_pcie_writel_dbi(dw, MSICAP0, val);
-+
-+	dw_pcie_dbi_ro_wr_dis(dw);
-+
-+	val = readl(rcar->base + PCIEPWRMNGCTRL);
-+	val |= APP_CLK_REQ_N | APP_CLK_PM_EN |
-+	       APP_READY_ENTR_L23 | APP_REQ_ENTR_L1;
-+	writel(val, rcar->base + PCIEPWRMNGCTRL);
-+
-+	return 0;
-+}
-+
- static void rcar_gen4_pcie_common_deinit(struct rcar_gen4_pcie *rcar)
- {
- 	struct dw_pcie *dw = &rcar->dw;
-@@ -321,8 +396,11 @@ static int rcar_gen4_pcie_get_resources(struct rcar_gen4_pcie *rcar)
- 	struct device_node *root_port;
- 
- 	rcar->phy_base = devm_platform_ioremap_resource_byname(rcar->pdev, "phy");
--	if (IS_ERR(rcar->phy_base))
--		return PTR_ERR(rcar->phy_base);
-+	if (IS_ERR(rcar->phy_base)) {
-+		rcar->phy = devm_phy_get(dev, NULL);
-+		if (IS_ERR(rcar->phy))
-+			return PTR_ERR(rcar->phy);
-+	}
- 
- 	root_port = of_get_next_available_child(dev->of_node, NULL);
- 	rcar->perst = of_reset_control_get_optional_exclusive(root_port, "perst");
-@@ -743,6 +821,28 @@ static int r8a779f0_pcie_ltssm_control(struct rcar_gen4_pcie *rcar, bool enable)
- 	return 0;
- }
- 
-+static int rcar_gen5_pcie_ltssm_control(struct rcar_gen4_pcie *rcar, bool enable)
-+{
-+	u32 val;
-+
-+	val = readl(rcar->base + PCIERSTCTRL1);
-+	if (enable) {
-+		val |= APP_LTSSM_ENABLE;
-+		val &= ~APP_HOLD_PHY_RST;
-+	} else {
-+		val &= ~APP_LTSSM_ENABLE;
-+		val |= APP_HOLD_PHY_RST;
-+	}
-+	writel(val, rcar->base + PCIERSTCTRL1);
-+
-+	if (enable)
-+		phy_power_on(rcar->phy);
-+	else
-+		phy_power_off(rcar->phy);
-+
-+	return 0;
-+}
-+
- static void rcar_gen4_pcie_phy_reg_update_bits(struct rcar_gen4_pcie *rcar,
- 					       u32 offset, u32 mask, u32 val)
- {
-@@ -921,6 +1021,13 @@ static struct rcar_gen4_pcie_drvdata drvdata_rcar_gen4_pcie_ep = {
- 	.mode = DW_PCIE_EP_TYPE,
- };
- 
-+static struct rcar_gen4_pcie_drvdata drvdata_rcar_gen5_pcie = {
-+	.init = rcar_gen5_pcie_init,
-+	.ltssm_control = rcar_gen5_pcie_ltssm_control,
-+	.speed_control = rcar_gen5_pcie_speed_control,
-+	.mode = DW_PCIE_RC_TYPE,
-+};
-+
- static const struct of_device_id rcar_gen4_pcie_of_match[] = {
- 	{
- 		.compatible = "renesas,r8a779f0-pcie",
-@@ -938,6 +1045,10 @@ static const struct of_device_id rcar_gen4_pcie_of_match[] = {
- 		.compatible = "renesas,rcar-gen4-pcie-ep",
- 		.data = &drvdata_rcar_gen4_pcie_ep,
- 	},
-+	{
-+		.compatible = "renesas,rcar-gen5-pcie4",
-+		.data = &drvdata_rcar_gen5_pcie,
-+	},
- 	{},
- };
- MODULE_DEVICE_TABLE(of, rcar_gen4_pcie_of_match);
--- 
-2.53.0
+>> --
+>> Sashiko AI review ·
+>> https://urldefense.com/v3/__https://sashiko.dev/*/patchset/20260706-dev-
+>> max20830c-v2-0-
+>> 37761e89bb5f@analog.com?part=3__;Iw!!A3Ni8CS0y2Y!9BBLoE4ditcREIvsDD7
+>> _VDDKjsS7XgrV0udXIgvBZeCRChzDWWsu7TY8ybr5VBPG4VQlLnDS6EQmu6fhfLx
+>> CpKUl28ZSE04$
 
