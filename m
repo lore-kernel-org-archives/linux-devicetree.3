@@ -1,228 +1,379 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 702C938B7D2;
-	Mon, 20 Jul 2026 03:15:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CD5029D265
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 03:17:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784517338; cv=none; b=qLPr963KAYO7XTp3wjSS2NLONmPpiXBJjcXzVTYFJgrvwwWu8OGnjJg9dnvRV4dJIowGNHxYcWB9jPVsD8MBJJGRNFsDI/FWm8zaLh0HYv+uL+KSP3aJ+WAOP9aGXbKUTEZ2NjNRQOeAV5UFmdNQGHmgBka5SvwbBOWhh2p1cf4=
+	t=1784517435; cv=none; b=b7uRv44CUBqWM2lwmaKw6Tt2LtwFH0kS9ata1KN6+FPq4Vu74cCzvnc+HwZqXZjVxKBpsBwVTxsK09eSt93ti+E1cZpp4LtYzND1DSchhv6cGMBPpLl9/hA5NB3N5nkvQNgZGHLgTNQUoIZIF239iD/qYRx+v6CHbLZnGZFPrX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784517338; c=relaxed/simple;
-	bh=kjaX/N0J4k0Qbohi7pWb4Cr7bmClXL3maWg6hpb687s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=LZL+zpnZh/9WjGTsMqN5PuImWPF8ayYB2+9UXxCSE3YKii1eehtuUHRryyz8TVYZxt5lp4dJG3n8zeqv4dLbd8vBYiUcKyEWWQQpp+AtTulbKKiIsgMVUKEfumXrEIJG7k/3XfAVhnK/mq1ny+pL4fY8crtV+kVnYVjo8OJYEOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=CMGuRU9e; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1784517435; c=relaxed/simple;
+	bh=gwCU0VoO1GeBgmwXA9p2EHvHcbVYse9oq7dPfVgM35M=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=mjIg4/oO5TI607G4ji8E42e4VcdcB/7aFoDJyzZEogwTozWVEEWA6h22W2xgW9z625JSImpB6WjZielEbA5heLJd6amnLi8FkwFRhbBLWlg/VRFHoDcYETA/s+/O3wT9wEte2oN8WUm+zqWeejL0pUOKmIh4R0zkrsGperhGo1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ONf8n0GH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="CMGuRU9e"
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66JNuXt1585674;
-	Sun, 19 Jul 2026 23:15:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=4O+b1
-	VwYUV1PO6NJvto3kojMjTuzIsGRocbBXHVeaQU=; b=CMGuRU9eF13D2wszJIFa9
-	6TQTdbPjL9/GFxJhp+Zg6UOhzIUuOeZ0lzE/7jJPSih0n83Yj4KhVPsHmDUYWyDN
-	6tY3bj7QP7lNUDtB/VoOUxlAZIFiBD5IjBVvr1pkIhMHhkSrJcIT5D7h83x68Aqd
-	kZ1xphnqkDbDWcc4y17zn6Mm912g7YBXydyrSWxMMWa6vik0apGaxy/XDwpAapd2
-	B8SmVX9jeGaEupAYQlhOFiSaIhshm8XZTdPwnCaZYerj49xOBQv267inn93+rG8J
-	tM5gLQetjMTx7ZOD6hB4oVNOzju9ATrozX7prMQgXxUZPma5W/frU1/y8IUOcZQz
-	w==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4fg3axw2jn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 19 Jul 2026 23:15:23 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 66K3FMDE054399
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sun, 19 Jul 2026 23:15:22 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Sun, 19 Jul
- 2026 23:15:21 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Sun, 19 Jul 2026 23:15:21 -0400
-Received: from ATORRENO-L02.ad.analog.com ([10.66.6.192])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 66K3EoFW021622;
-	Sun, 19 Jul 2026 23:15:15 -0400
-From: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-Date: Mon, 20 Jul 2026 11:14:45 +0800
-Subject: [PATCH v3 4/4] hwmon: (pmbus/max20830): add support for max20830c
- and max20840c
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ONf8n0GH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92CAF1F000E9;
+	Mon, 20 Jul 2026 03:17:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784517433;
+	bh=OT55CyK1R4JRkvozk45jraydzia0UjWWQ4v8QmPNIAE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ONf8n0GHUBVJWPpseTAuC8KFlO++o9Zh4ETdtYDOFAmuuE7ofJfotwua4jomRwZsw
+	 /oAT9YhP32udzPUTUiwi3gC0pn9oyPb4b9UDHU7KeMkjaGvT6NCKkRDSPpoZZG1ozJ
+	 WxV9b+RTD+YAqT0cA920yMTTWO9+4fz7c9dPQrMkdkxjgTpoRfQPkseTXWXeD73fxs
+	 j3YsZpU1Dl8sp1ilk4nCZsyV3g4VL/4qBLogxo/mIyTWY1Y7XnD5aLu/1mNhYNFPRb
+	 6N6MzzO480S25WRO0Vdh2HwDcoupNO49Iwp/v4EW/IPOs7ZUZhwvPaL1bSIho0jq7C
+	 uxUav1CgeEdsg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/3] i2c: ma35d1: Add Nuvoton MA35D1 I2C driver
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Zi-Yu Chen" <zychennvt@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260720030616.1067660-3-zychennvt@gmail.com>
+References: <20260720030616.1067660-1-zychennvt@gmail.com>
+ <20260720030616.1067660-3-zychennvt@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 20 Jul 2026 03:17:13 +0000
+Message-Id: <20260720031713.92CAF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260720-dev-max20830c-v3-4-9d06d27d6da3@analog.com>
-References: <20260720-dev-max20830c-v3-0-9d06d27d6da3@analog.com>
-In-Reply-To: <20260720-dev-max20830c-v3-0-9d06d27d6da3@analog.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>
-CC: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        Alexis Czezar
- Torreno <alexisczezar.torreno@analog.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784517290; l=4454;
- i=alexisczezar.torreno@analog.com; s=20250213; h=from:subject:message-id;
- bh=kjaX/N0J4k0Qbohi7pWb4Cr7bmClXL3maWg6hpb687s=;
- b=O9fz88Q8aKFOA7jeYbYWr2pQd8cH86BnLZg0lQAJui5Q1m8CofY2DqzXhTxCfKEM3dlA01MEX
- n0kh38oOXfBC6fHFji5elpskY3lN7tgK1agTe9d+qqVrxVHJUmk3i3Q
-X-Developer-Key: i=alexisczezar.torreno@analog.com; a=ed25519;
- pk=XpXmJnRjnsKdDil6YpOlj9+44S+XYXVFnxvkbmaZ+10=
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDAzMyBTYWx0ZWRfX1P6FbUcglEcg
- ve2/YzBw+UviMtJKqUy3gd3xLfabV7W4ql6utwxZGgCbyXlLURmGaUCwKztqssnDTeX3OOAy9oD
- LnogWisvPcNr0clFt6aVyazFT2Tm0K+iYNmgsMhpm0yxvWZrm40AT5eekW6TrUMsROhY/rH4uTT
- ubfeGm7UHGESoYww5Wqsxv9Gs0Lhkw1V5D0IJnDUyNpuE074bRFEdlEMLCTNv3F2o3tDzvK0br7
- vJ3N8niqAzEjCltwwoFoYzYwjlfGNCtDDhe8HfI962v2hOejVbwrvaOBvIB1p4vEwGadThgdVDS
- JXd8IQuc6a39Tkwh5QLvhZdhd5EgcC2nYYignNtD4SVzKR+UfuTCFqRyTefUdo4Xxe3bYWGDn7Y
- tfM7s8TmLV+jjozT0zF9sb3Z5ZfBYsoSmjd6D3pto5SeBzfoxD5ABXbFJ7kPrMZl5m5PZAadMyf
- VuvL6UTsOsFIDLBlRTQ==
-X-Authority-Analysis: v=2.4 cv=evjvCIpX c=1 sm=1 tr=0 ts=6a5d92cb cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8
- a=v52DSUhV1VzBc46Xrp8A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: MJ3Azoo2mojZv7tJ_xVVBN1kWd9GsQUH
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIwMDAzMyBTYWx0ZWRfX35H8/J9DaN7h
- Hqx733w7ULYaTC7TtkDv+RA78ymYYdMVZLVNSCCXp8hzY/ZRLF0D+EdPC5w4Qu+mSiAZ9cccJae
- AMg51uFpE6j3hTcNfp/57NqAmlVZlHCNwyVBkXG91Ughoo2qZL8q
-X-Proofpoint-ORIG-GUID: MJ3Azoo2mojZv7tJ_xVVBN1kWd9GsQUH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-19_08,2026-07-17_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 malwarescore=0
- adultscore=0 priorityscore=1501 bulkscore=0 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607200033
 
-Add support for MAX20830C and MAX20840 step-down DC-DC switching
-regulator with PMBus interface. MAX20830C is a different packaging
-for MAX20830, and MAX20840C supports 40A regulation compared to
-MAX20830 that is only 30A.
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [High] Lack of synchronization between the I2C transfer timeout path and =
+the controller interrupt handler leads to Use-After-Free and data corruptio=
+n.
+- [High] Lockless target unregistration and unconditional dereferences of `=
+i2c->target` crash the kernel on stray target interrupts.
+- [High] Zero-length message transfers (`num =3D=3D 0`) cause an immediate =
+false-success return while leaving hardware running, leading to out-of-boun=
+ds memory access.
+- [High] Hardware reset error path fails to restore the Interrupt Enable bi=
+t, permanently wedging the I2C controller.
+- [High] Writing `MA35_CTL_SI_AA` at the end of a master transfer silently =
+clears and drops pending target mode interrupts.
+- [High] The IRQ handler accesses hardware registers without verifying the =
+device PM state, risking an external abort on wake.
+- [High] The driver relies exclusively on PM runtime to enable its clock bu=
+t lacks a Kconfig dependency on `CONFIG_PM`.
+--
 
-Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
----
- Documentation/hwmon/max20830.rst | 27 ++++++++++++++++++++++-----
- drivers/hwmon/pmbus/max20830.c   | 27 ++++++++++++++-------------
- 2 files changed, 36 insertions(+), 18 deletions(-)
+--- Patch [2]: [PATCH v6 2/3] i2c: ma35d1: Add Nuvoton MA35D1 I2C driver su=
+pport ---
+commit ed59c57642f41c98381c1bf982fdec793de595c9
+Author: Zi-Yu Chen <zychennvt@gmail.com>
 
-diff --git a/Documentation/hwmon/max20830.rst b/Documentation/hwmon/max20830.rst
-index 936e409dcc5c0898dde27d782308d4a7e1357e73..b850f3b6e40d1f1d0cec944be40af02265aced59 100644
---- a/Documentation/hwmon/max20830.rst
-+++ b/Documentation/hwmon/max20830.rst
-@@ -13,6 +13,22 @@ Supported chips:
- 
-     Datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/max20830.pdf
- 
-+  * Analog Devices MAX20830C
-+
-+    Prefix: 'max20830c'
-+
-+    Addresses scanned: -
-+
-+    Datasheet:
-+
-+  * Analog Devices MAX20840C
-+
-+    Prefix: 'max20840c'
-+
-+    Addresses scanned: -
-+
-+    Datasheet:
-+
- Author:
- 
-   - Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-@@ -21,12 +37,13 @@ Author:
- Description
- -----------
- 
--This driver supports hardware monitoring for Analog Devices MAX20830
--Step-Down Switching Regulator with PMBus Interface.
-+This driver supports hardware monitoring for Analog Devices MAX20830, MAX20830C
-+and MAX20840C. These are Step-Down Switching Regulator with PMBus Interface.
- 
--The MAX20830 is a 2.7V to 16V, 30A fully integrated step-down DC-DC switching
--regulator. Through the PMBus interface, the device can monitor input/output
--voltages, output current and temperature.
-+MAX20830, and MAX20830C are 2.7V to 16V, 30A fully integrated step-down DC-DC
-+switching regulators. MAX20840C is similar but can reach 40A. Through the PMBus
-+interface, these devices can monitor input/output voltages, output current and
-+temperature.
- 
- The driver is a client driver to the core PMBus driver. Please see
- Documentation/hwmon/pmbus.rst for details on PMBus client drivers.
-diff --git a/drivers/hwmon/pmbus/max20830.c b/drivers/hwmon/pmbus/max20830.c
-index 7a5e67bd33c0a8b84511d138ac5f5f48334a0a45..73fe59685cf157cc27c1011ad9cc045486bbeab0 100644
---- a/drivers/hwmon/pmbus/max20830.c
-+++ b/drivers/hwmon/pmbus/max20830.c
-@@ -98,13 +98,12 @@ static int max20830_probe(struct i2c_client *client)
- 	 * which do not support SMBus block reads.
- 	 */
- 	if (i2c_check_functionality(client->adapter, I2C_FUNC_SMBUS_READ_BLOCK_DATA)) {
--		/* Reads 9 Data bytes from MAX20830 */
- 		ret = i2c_smbus_read_block_data(client, PMBUS_IC_DEVICE_ID, buf);
- 		if (ret < 0)
- 			return dev_err_probe(&client->dev, ret,
- 					     "Failed to read IC_DEVICE_ID\n");
- 	} else {
--		/* Reads 1 length byte + 9 Data bytes from MAX20830 */
-+		/* Reads 1 length byte + data bytes */
- 		ret = i2c_smbus_read_i2c_block_data(client, PMBUS_IC_DEVICE_ID,
- 						    MAX20830_IC_DEVICE_ID_LENGTH + 1,
- 						    buf);
-@@ -120,26 +119,28 @@ static int max20830_probe(struct i2c_client *client)
- 		ret = ret - 1;
- 	}
- 
--	/*
--	 * MAX20830 IC_DEVICE_ID sends string data "MAX20830\0".
--	 * Return value should at least be 9 bytes of data.
--	 */
-+	/* Verify we read the expected number of bytes */
- 	if (ret < MAX20830_IC_DEVICE_ID_LENGTH)
- 		return dev_err_probe(&client->dev, -ENODEV,
--				     "IC_DEVICE_ID too short: expected at least 9 bytes, got %d\n",
--				     ret);
-+				     "IC_DEVICE_ID too short: expected %d bytes, got %d\n",
-+				     MAX20830_IC_DEVICE_ID_LENGTH, ret);
-+
-+	/* Null-terminate the string */
-+	buf[ret] = '\0';
- 
--	/* 9 bytes of data, buf[0]-buf[7] = "MAX20830", buf[8] = '\0' */
--	buf[MAX20830_IC_DEVICE_ID_LENGTH - 1] = '\0';
--	if (strncmp(buf, "MAX20830", MAX20830_IC_DEVICE_ID_LENGTH - 1))
-+	/* Verify the device ID matches what we expect */
-+	if ((strcmp(buf, "MAX20830") && strcmp(buf, "MAX20830C") &&
-+	    strcmp(buf, "MAX20840C")))
- 		return dev_err_probe(&client->dev, -ENODEV,
--				     "Unsupported device: '%s'\n", buf);
-+				     "Unsupported device: '%*pE'\n", ret, buf);
- 
- 	return pmbus_do_probe(client, &data->info);
- }
- 
- static const struct i2c_device_id max20830_id[] = {
--	{"max20830"},
-+	{ "max20830" },
-+	{ "max20830c" },
-+	{ "max20840c" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, max20830_id);
+i2c: ma35d1: Add Nuvoton MA35D1 I2C driver support
 
--- 
-2.34.1
+Add I2C support for Nuvoton MA35D1 SoC.
+The controller supports standard, fast and fast-plus modes,
+and provides controller/target functionality.
 
+> diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
+> index d354569942803..e6c8f17130dbb 100644
+> --- a/drivers/i2c/busses/Kconfig
+> +++ b/drivers/i2c/busses/Kconfig
+> @@ -1602,4 +1602,17 @@ config I2C_VIRTIO
+>            This driver can also be built as a module. If so, the module
+>            will be called i2c-virtio.
+> =20
+> +config I2C_MA35D1
+> +	tristate "Nuvoton MA35D1 I2C driver"
+> +	depends on ARCH_MA35 || COMPILE_TEST
+
+[Severity: High]
+Does this code need a depends on PM or a fallback for when CONFIG_PM is
+disabled?
+
+The driver relies exclusively on PM runtime in ma35d1_i2c_runtime_resume() =
+to
+enable its clock via clk_enable(). If the kernel is built without CONFIG_PM,
+the pm_runtime_resume_and_get() calls succeed immediately without invoking
+the callback, leaving the clock disabled and potentially causing hardware
+faults on register access.
+
+> +	select I2C_SLAVE
+> +	help
+
+[ ... ]
+
+> diff --git a/drivers/i2c/busses/i2c-ma35d1.c b/drivers/i2c/busses/i2c-ma3=
+5d1.c
+> new file mode 100644
+> index 0000000000000..4ac49b1b22e00
+> --- /dev/null
+> +++ b/drivers/i2c/busses/i2c-ma35d1.c
+> @@ -0,0 +1,780 @@
+
+[ ... ]
+
+> +static void ma35d1_i2c_reset(struct ma35d1_i2c *i2c)
+> +{
+> +	unsigned int clkdiv, slvaddr;
+> +
+> +	clkdiv =3D readl(i2c->regs + MA35_CLKDIV);
+> +	slvaddr =3D readl(i2c->regs + MA35_ADDR0);
+> +
+> +	reset_control_assert(i2c->rst);
+> +	usleep_range(10, 20);
+> +	reset_control_deassert(i2c->rst);
+> +
+> +	writel(clkdiv, (i2c->regs + MA35_CLKDIV));
+> +	ma35d1_i2c_write_ctl(i2c, MA35_CTL_I2CEN);
+
+[Severity: High]
+Does this code inadvertently leave interrupts disabled after a hardware res=
+et?
+
+When a transfer times out, ma35d1_i2c_reset() asserts hardware reset and
+restores MA35_CLKDIV and MA35_CTL_I2CEN, but it fails to restore the
+MA35_CTL_INTEN (Interrupt Enable) bit.
+
+Because the device is already runtime active due to the autosuspend delay,
+subsequent transfers will skip ma35d1_i2c_runtime_resume() (where INTEN is
+normally set), causing all subsequent operations to time out permanently
+and wedging the bus.
+
+> +
+> +	if (i2c->target)
+> +		writel(slvaddr, i2c->regs + MA35_ADDR0);
+> +}
+
+[ ... ]
+
+> +/* Check if this is the last message in the set */
+> +static inline bool is_last_msg(struct ma35d1_i2c *i2c)
+> +{
+> +	return i2c->msg_idx >=3D (i2c->msg_num - 1);
+
+[Severity: High]
+Can this calculation underflow when i2c->msg_num is 0?
+
+The I2C core permits probing with 0 messages (such as from i2cdetect).
+If msg_num is 0, the calculation 0 - 1 evaluates to UINT_MAX. This causes
+the check to fail incorrectly and can lead to reading beyond the end of the
+empty array during hardware interrupts.
+
+> +}
+> +
+> +/* Check if this is the last byte in the current message */
+
+[ ... ]
+
+> +static void ma35d1_i2c_irq_target_trx(struct ma35d1_i2c *i2c,
+> +				      unsigned long i2c_status)
+> +{
+> +	unsigned char byte;
+> +
+> +	switch (i2c_status) {
+> +	case MA35_S_RECE_ARB_LOST:
+> +		/*
+> +		 * Arbitration lost during SLA+R/W (Address) phase.
+> +		 * The hardware automatically switches to Target mode as our
+> +		 * own slave address was detected.
+> +		 */
+> +		i2c->err =3D -EAGAIN;
+> +		ma35d1_i2c_controller_complete(i2c);
+> +		i2c_slave_event(i2c->target, I2C_SLAVE_WRITE_REQUESTED, &byte);
+
+[Severity: High]
+Can i2c->target be NULL when it is passed to i2c_slave_event() here?
+
+If a target event arrives when no target is registered, or if a race occurs
+during unregistration, passing a NULL i2c->target pointer unconditionally
+will cause a kernel panic when i2c_slave_event() dereferences it.
+
+> +		break;
+> +
+> +	case MA35_S_RECE_ADDR_ACK:
+
+[ ... ]
+
+> +static void ma35d1_i2c_irq_controller_trx(struct ma35d1_i2c *i2c,
+> +					  unsigned long i2c_status)
+> +{
+> +	unsigned char byte;
+> +
+> +	/* Ensuring messages are absolutely valid in Controller mode. */
+> +	if (unlikely(!i2c->msg)) {
+> +		dev_err(i2c->dev, "Spurious controller interrupt (status: 0x%02lx)\n",=
+ i2c_status);
+> +		ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI);
+> +		return;
+> +	}
+> +
+> +	switch (i2c_status) {
+
+[ ... ]
+
+> +	case MA35_M_RECE_DATA_ACK:
+> +	case MA35_M_RECE_DATA_NACK:
+> +		/* DATA has been received and ACK/NACK has been received */
+> +		byte =3D readb(i2c->regs + MA35_DAT);
+> +		i2c->msg->buf[i2c->msg_ptr++] =3D byte;
+
+[Severity: High]
+Can this access to i2c->msg->buf race with the timeout teardown path?
+
+If a transfer times out, ma35d1_i2c_doxfer() locklessly sets i2c->msg =3D N=
+ULL
+and returns, after which the caller usually frees the msgs array.=20
+
+If a delayed or spurious hardware interrupt fires concurrently on another C=
+PU,
+this function checks !i2c->msg at the start, but accesses i2c->msg->buf
+locklessly later here. If the pointer was cleared or the array was freed
+in between, this will result in a NULL pointer dereference or use-after-fre=
+e.
+
+> +
+> +		if (is_last_byte(i2c)) {
+
+[ ... ]
+
+> +static irqreturn_t ma35d1_i2c_irq(int irqno, void *dev_id)
+> +{
+> +	struct ma35d1_i2c *i2c =3D dev_id;
+> +	unsigned long status;
+> +
+> +	status =3D readl(i2c->regs + MA35_STATUS0);
+
+[Severity: High]
+Is it safe to access hardware registers here without verifying if the device
+PM state is active?
+
+When i2c->target is enabled, the driver enables IRQ wakeup in
+ma35d1_i2c_suspend(). If a target event wakes the system from sleep, the
+IRQ handler can execute early during the resume phase, before the device's
+own pm_runtime or system resume has enabled the peripheral clock.
+
+Accessing the registers while the clock is disabled triggers an external
+bus abort. Using pm_runtime_get_if_active() before accessing registers would
+prevent this.
+
+> +
+> +	if (status =3D=3D MA35_BUS_ERROR) {
+> +		dev_err(i2c->dev, "Bus error during transfer\n");
+> +		ma35d1_i2c_stop(i2c, -EIO);
+> +		goto out;
+> +	}
+
+[ ... ]
+
+> +static int ma35d1_i2c_doxfer(struct ma35d1_i2c *i2c, struct i2c_msg *msg=
+s,
+> +			     int num)
+> +{
+> +	unsigned long timeout;
+> +	unsigned int val;
+> +	int ret, err;
+> +
+> +	i2c->msg =3D msgs;
+> +	i2c->msg_num =3D num;
+> +	i2c->msg_ptr =3D 0;
+> +	i2c->msg_idx =3D 0;
+> +	i2c->err =3D 0;
+> +
+> +	ma35d1_i2c_write_ctl(i2c, MA35_CTL_STA_SI);
+> +
+> +	timeout =3D wait_event_timeout(i2c->wait, i2c->msg_num =3D=3D 0, HZ * 5=
+);
+
+[Severity: High]
+Does this code inadvertently return success immediately for zero-length
+messages?
+
+The I2C core can send zero-length messages (num =3D=3D 0). If msgs_num is
+initially 0, this wait_event_timeout() condition evaluates to true
+immediately before the hardware executes the START condition.=20
+
+The function will return successfully and the caller may destroy the msgs
+array while the hardware is still running.
+
+> +	ret =3D i2c->msg_idx;
+> +
+> +	if (timeout =3D=3D 0) {
+> +		dev_dbg(i2c->dev, "xfer timeout\n");
+> +		i2c->msg =3D NULL;
+
+[Severity: High]
+Can clearing i2c->msg locklessly here cause a data race?
+
+As noted above, if a delayed interrupt fires concurrently on another CPU,
+setting this to NULL locklessly can cause the interrupt handler to access
+freed memory or dereference a NULL pointer.
+
+> +		ret =3D -ETIMEDOUT;
+> +		goto reset;
+> +	}
+> +
+> +	err =3D readl_poll_timeout(i2c->regs + MA35_CTL0, val,
+
+[ ... ]
+
+> +static int ma35d1_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msg=
+s,
+> +			   int num)
+> +{
+> +	struct ma35d1_i2c *i2c =3D i2c_get_adapdata(adap);
+> +	int ret;
+> +
+> +	ret =3D pm_runtime_resume_and_get(i2c->dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D ma35d1_i2c_doxfer(i2c, msgs, num);
+> +
+> +	if (i2c->target)
+> +		ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI_AA);
+
+[Severity: High]
+Does writing MA35_CTL_SI_AA clear and drop pending target mode interrupts?
+
+MA35_CTL_SI_AA includes the MA35_CTL_SI bit. Since I2C controllers often
+use a Write-1-To-Clear model for the SI (Interrupt) bit, writing this
+blindly acknowledges and clears any I2C target interrupt that might have
+just arrived on the bus. This drops the event and stalls the external
+master waiting for a response.
+
+> +	pm_runtime_put_autosuspend(i2c->dev);
+> +
+> +	return ret;
+> +}
+> +
+
+[ ... ]
+
+> +static int ma35d1_unreg_target(struct i2c_client *target)
+> +{
+> +	struct ma35d1_i2c *i2c =3D i2c_get_adapdata(target->adapter);
+> +	int ret;
+> +
+> +	if (!i2c->target)
+> +		return -EINVAL;
+> +
+> +	writel(0, i2c->regs + MA35_ADDR0);
+> +	ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI);
+> +	i2c->target =3D NULL;
+
+[Severity: High]
+Can clearing i2c->target locklessly race with an executing target IRQ handl=
+er?
+
+The target pointer is cleared here without holding a lock or using
+synchronize_irq(). An actively executing target IRQ handler on another CPU
+could crash when it attempts to use the pointer.
+
+> +
+> +	ret =3D pm_runtime_put_sync(i2c->dev);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720030616.1067=
+660-1-zychennvt@gmail.com?part=3D2
