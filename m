@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D7E42A163
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:50:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4BBD42901F
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 13:51:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784555451; cv=none; b=EKwkxmmOGYipLgXKjriwLlqJ25UTcyLZpl6Fg3tbMc6ElGT93hBOodnNGxFd3a+d3qnNOWP5in/q+/i5yCKDBJikb5jNe2SGazxOTGddtLek/QTZvVyFw7OMi0BWXKguBuCnuU7yMmpEAt5e3s9K4qPv0ki866X8FctwM5Vt9vA=
+	t=1784555479; cv=none; b=E9HqV2Rt7qpxutG0fFloTyva9/19WVScTbMaRc0bdAc4HTA+7Z9Sfzz7MAltdbF/k9VD3tsq2kcNCCQoD9Z4BlCEKrOLKwPjKNkhzOrGtvM+gfII7/Bx1Dz2X8wV0P8P/r4rb7AJxcdHrUlIKlOdv7y5v+vuvyfR1ULca0N2GXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784555451; c=relaxed/simple;
-	bh=3IxvsioRmv+3OdR5XIyOOeJFoNg3baeSlmiEDlcbqfw=;
+	s=arc-20240116; t=1784555479; c=relaxed/simple;
+	bh=6WAaxWuoqk7AVbAmdMXch3lHbVYQfyk595hudD3KPMI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=g/8uTfFqeAscRTVdncOc3K+IBfnSNtmZY1wqsw6vVXiFf3sc3EboPqpCjQsWW8aebOGUFZkZ2d1P5eaOyvNYoHbufT/jjv/NPivFtseR4Nswx6Yl7GcUZbzyDMSkFf90m8gn31f91727nloxE2ftF1SuUNvxNX+Ynb+B/uzzHuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XfzrXA0U; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=L5qut22Buq6ATEWYiSNzsrxQaf+Tz3rFQCO6r8bCkQOkIgpjjUCZEABQW/gVVHv0xUauwQiPXgPHFqZ8q0F1qqHEhu+e30VPdxRJLPw+Y3ypnCOH/J/o3gcP0Ggk2ZwT4/lMoC4Y50S1sXLUf1EUUdaSrENJjbB9MeYQxldDZ2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OuH4+4qU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XfzrXA0U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AC231F00A3D;
-	Mon, 20 Jul 2026 13:50:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OuH4+4qU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D11371F00A3A;
+	Mon, 20 Jul 2026 13:51:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784555450;
-	bh=3LZZtVBf3O7ViI6J6aSZ990U+CiLLnApCg/TB1MuF84=;
+	s=k20260515; t=1784555478;
+	bh=vl+waiLUFsqAxuoKy0yDZe4zsC06ZCGSPLE90+2m3Ms=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XfzrXA0Uh4pBIVD24bVbLQhHPudmydfr+aNCVbVxo6LV6s9+oU1jslQSru0a225Ld
-	 r3xgVUh3d1yl/f7GUBAueX5te/1lgDMeQ6u9nyW71noHEpnwwje8BY6p56rLKgmRZi
-	 YKe6HIuADwGjOXv/IabCbPTsXIAtUxceiylHPSNuaELYEZIh+gnSm2yYkOI/MlkUiG
-	 rULIsIXJoM8M/SN79elEqI25mTDMSivWbDQxcfOFjc9AOQMqBj4C3e92Jj2m9K/jiO
-	 ThQbhaUUlFuY+F/Pf8ggBAS1xu8DjuO68yCVcKBZY+tt0xYyADta7kVGaWviOn/tE7
-	 TtcW34mnhohHQ==
+	b=OuH4+4qUVug58PsSGMmX9JJKZ7706qUudKukR8ROex96Vp9/oJBPOFb+kEzNLUpnD
+	 HHbkygIEPN5q0QgtFPeXPKwmEfpjYy97IMLBrq12IAeJhebi5cueLZZFCTadwqr9Z6
+	 uaCQq+dLmqLPp120N8Uy73OkGB+n81/1SFI4OIDnU+hydf749xU8V5bArkR6cgX9bd
+	 CxCjUeASnTKrLyxkbavsR/qNNwtZNIX5P0vmrk4K+0U+8HQExyI6Rr3Bf2CP2rcwa0
+	 RwAauPkr80rHjyT4ki2SIXNp9JSbtgAQbq5nVfAjUOb/zMaIHF0aK/xjHqRyD2KwEc
+	 R8soWeEgKek4A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 phy-next 2/8] soc: fsl: guts: add a global structure
- to hold state
+Subject: Re: [PATCH v3 phy-next 3/8] soc: fsl: guts: add a central
+ fsl_guts_read() function
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vladimir Oltean" <vladimir.oltean@nxp.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, linux-phy@lists.infradead.org
-In-Reply-To: <20260720133642.136324-3-vladimir.oltean@nxp.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, vkoul@kernel.org
+In-Reply-To: <20260720133642.136324-4-vladimir.oltean@nxp.com>
 References: <20260720133642.136324-1-vladimir.oltean@nxp.com>
- <20260720133642.136324-3-vladimir.oltean@nxp.com>
+ <20260720133642.136324-4-vladimir.oltean@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 13:50:49 +0000
-Message-Id: <20260720135049.8AC231F00A3D@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 13:51:17 +0000
+Message-Id: <20260720135117.D11371F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,50 +47,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Dereferencing a NULL pointer during error cleanup if the initial a=
-llocation of `soc_dev_attr` fails.
+- [High] Dereferencing NULL pointer 'soc_dev_attr' on the error path if its=
+ memory allocation fails.
 --
 
---- Patch [2]: [PATCH v3 phy-next 2/8] soc: fsl: guts: add a global structu=
-re to hold state ---
-commit dce21fc9192bcf2ec7c5c2e9639e43b7a6c53c57
+--- Patch [3]: [PATCH v3 phy-next 3/8] soc: fsl: guts: add a central fsl_gu=
+ts_read() function ---
+commit cc1312c02ab5c2cd3fed5e2907608e44453c7816
 Author: Ioana Ciornei <ioana.ciornei@nxp.com>
 
-soc: fsl: guts: add a global structure to hold state
+soc: fsl: guts: add a central fsl_guts_read() function
 
-This commit introduces the fsl_soc_guts global structure to hold the DCFG C=
-CSR
-mapping and endianness state. It maps the memory once at initialization so =
-it
-can be reused during runtime operations instead of repeatedly mapping and
-unmapping the space.
+This commit adds a central fsl_guts_read() function that handles reading
+DCFG registers based on the already determined endianness. This avoids
+duplicating the if-else endianness checks across the driver.
 
 > diff --git a/drivers/soc/fsl/guts.c b/drivers/soc/fsl/guts.c
-> index f87ee47c15035..a2b4c477b064b 100644
+> index a2b4c477b064b..e1b3a054e681b 100644
 > --- a/drivers/soc/fsl/guts.c
 > +++ b/drivers/soc/fsl/guts.c
+> @@ -111,6 +111,14 @@ static struct fsl_soc_guts {
+>  	bool little_endian;
+>  } soc;
+> =20
+> +static unsigned int fsl_guts_read(const void __iomem *reg)
+> +{
+> +	if (soc.little_endian)
+> +		return ioread32(reg);
+> +
+> +	return ioread32be(reg);
+> +}
+> +
+>  static const struct fsl_soc_die_attr *fsl_soc_die_match(
+>  	u32 svr, const struct fsl_soc_die_attr *matches)
+>  {
+
 [ ... ]
-> @@ -199,24 +202,23 @@ static int __init fsl_guts_init(void)
-[ ... ]
+
+> @@ -209,10 +217,7 @@ static int __init fsl_guts_init(void)
+>  	}
+> =20
+>  	soc.little_endian =3D of_property_read_bool(np, "little-endian");
+> -	if (soc.little_endian)
+> -		svr =3D ioread32(&soc.dcfg_ccsr->svr);
+> -	else
+> -		svr =3D ioread32be(&soc.dcfg_ccsr->svr);
+> +	svr =3D fsl_guts_read(&soc.dcfg_ccsr->svr);
+>  	of_node_put(np);
+> =20
 >  	/* Register soc device */
->  	soc_dev_attr =3D kzalloc_obj(*soc_dev_attr);
->  	if (!soc_dev_attr)
-> -		return -ENOMEM;
-> +		goto err_nomem;
 
 [Severity: High]
-Will jumping to err_nomem cause a NULL pointer dereference?
+Does this code trigger a NULL pointer dereference on the error path if memo=
+ry
+allocation for soc_dev_attr fails?
 
-If the allocation of soc_dev_attr fails, the code now jumps to the error
-handling path which dereferences soc_dev_attr to free its members:
+In fsl_guts_init(), if the kzalloc_obj() allocation for soc_dev_attr fails
+just below this block, the code jumps to err_nomem and falls through to the
+err label:
 
-> @@ -269,6 +271,8 @@ static int __init fsl_guts_init(void)
->  	kfree(soc_dev_attr->revision);
->  	kfree(soc_dev_attr->serial_number);
+fsl_guts_init() {
+    ...
+	soc_dev_attr =3D kzalloc_obj(*soc_dev_attr);
+	if (!soc_dev_attr)
+		goto err_nomem;
+    ...
+err_nomem:
+	ret =3D -ENOMEM;
+err:
+	kfree(soc_dev_attr->family);
+	kfree(soc_dev_attr->soc_id);
+    ...
+}
 
-Since soc_dev_attr is NULL when this allocation fails, won't evaluating
-soc_dev_attr->revision and other members result in a kernel panic?
+Since soc_dev_attr is NULL when taking this path, won't calling
+kfree(soc_dev_attr->family) dereference the NULL pointer during device
+initialization?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720133642.1363=
-24-1-vladimir.oltean@nxp.com?part=3D2
+24-1-vladimir.oltean@nxp.com?part=3D3
