@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E0539934B
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 07:43:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F94A3C945B
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 07:45:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784533417; cv=none; b=kNwCj+c5dgotuzKifyYv897K72+fOc+R7qIJ4dQxpYg6XSbjsusPsQuUGvRni8vd9Fjse5LI5166LCZ4QWehdHUrkbK75vdN2qw+9fWqUpfBRPqEQJUieJIoG0Bg7nt6/fy17UZcX/cHHu/5+p58XzdHs96/ZYltPqv7t9NOUY0=
+	t=1784533532; cv=none; b=qnWP3PJ5yPGmZSc6U83T/zWBoJ4EkRVaa3VEJtxSSivPi4S1Uog4Qv/qKNaJtCO/h6rHz7d3RD9YB4bATwodT50L9F3pkxW7I2D8hPa493CNv86ZkfPeMaPua3WOpvrLfiGC5SAOg0zcCrBTIhbc/h+MDijdhBzsBz1SzuzLOug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784533417; c=relaxed/simple;
-	bh=ZyN+sy1SalzdpOzo0iwNDubc1ysxjgttasOmwInoZOI=;
+	s=arc-20240116; t=1784533532; c=relaxed/simple;
+	bh=ySFRq6JXWx7i7ehuWqaOx0R7fr539J5ByVyyh25R8GA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BoXRqfIPPGbJ5YxPyMoB7CNEP1ho9yK1Ia0n+WbcSCA/Ogh0cG7Pxt5zxNfNpK8o9nKtO7srpUkHKx0z2xkaqi/jGMZjB/NVnDIGfRa/OAGbtIdaFSDg4GlBHHOcV7SXNhIAYMj2W53FhPoKsSSulXAKs54JC9uefRpkSHoeFZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hGepy3gO; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Tof59dY5xVNCiacN8j0Eyn/ZFY9e474VcrRvoT+L1VQYr/oPAUpKjQjJhUrMmadDQViBTWoRuie/sB+unnU/afHDnw+fzHYtkp6/Uu3SCv1AiJpujwlKpsifUw4KHeDHAZ/zWlg+kkOjAbj59h/bRuKX6JZRfu72IqCZ0MtpXWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cI052l6z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hGepy3gO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F18B1F000E9;
-	Mon, 20 Jul 2026 07:43:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cI052l6z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCC3B1F000E9;
+	Mon, 20 Jul 2026 07:45:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784533408;
-	bh=gmm3vhVK/eoXr8/4cb+GWd9+j4TO3tlIDB0ZHWDbv6Q=;
+	s=k20260515; t=1784533531;
+	bh=GoLnLkAa0zJ93vJ2+fU9G2aU/GZC8+94HfmZFqFh5os=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hGepy3gONjYzxxJnTulCmOlHOEqSCnrTKWsBbq/Iit0tdqVekQe7e63zxqvl6tzv+
-	 rfH5Os1kBlC9UVnKSd+jW0fXBqoaE/ImQAmL6MaiN6oP/b31pvM8NgzpXaWrBstRX0
-	 UuZYPKFnNL0DqP6hgewKICbmInNuSBxZ98jIZ1v7oZfIEwUGjDj2B7kfqq60MyQfXX
-	 zQ2W3WgLFMn0PI/+XGwy1H55upTPh4vGoSeBcUbFamJKlvFeh7eg8DmTzyvVis2lMH
-	 gt7FOrNnVpmLfLA0XBGKndiJYfx413CviNOjvDbD6qfj2qJuuc3BF5YM6+FbcH52Uo
-	 rqiF+gd6BIAhQ==
+	b=cI052l6zUMYzJD9JNUwnrgZ67cmqYka2Q9J/yn3Z9t3SJCb+6Q0XUV6ltIk9q3YOt
+	 y2CFj9ImtMvmcPV069auTACrSjdPOlZnMJd8Irs5HhQV6eWkPVAF2fIhasdiKrEFF7
+	 e6vb4x3OyWCl6HEwDhCft2IkhP0aKXkD7nmexRQv3IHrzlE08vI9dQ7H2QD2jYJ30n
+	 TU6YeXxkbVjdgB7HCjlPsBrgS0xWq4WqTRIAI6REXqb/6OFM9rQNhMI1Kj8YvMLq2z
+	 5pGWhNuZa86EIghlZAsjX8Z14qHFSzRHGveGDF/cGORfCs4rwwuQJktx2RoOhonOVh
+	 XXuEbOo2n6Uvw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: i3c: dw: Document missing optional
- core reset
+Subject: Re: [PATCH v2 2/2] i3c: master: dw: Drop redundant core reset name
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Shubham Patil" <shubhamsanjay.patil@amd.com>
-Cc: linux-i3c@lists.infradead.org, robh@kernel.org, Frank.Li@kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260720073510.1869623-2-shubhamsanjay.patil@amd.com>
+Cc: linux-i3c@lists.infradead.org, devicetree@vger.kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>, conor+dt@kernel.org, robh@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260720073510.1869623-3-shubhamsanjay.patil@amd.com>
 References: <20260720073510.1869623-1-shubhamsanjay.patil@amd.com>
- <20260720073510.1869623-2-shubhamsanjay.patil@amd.com>
+ <20260720073510.1869623-3-shubhamsanjay.patil@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 07:43:27 +0000
-Message-Id: <20260720074328.1F18B1F000E9@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 07:45:30 +0000
+Message-Id: <20260720074530.DCC3B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,59 +47,75 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The binding schema adds the `resets` property but intentionally om=
-its `reset-names`. The driver strictly requires `reset-names =3D "core_rst"=
-` to find the reset control, causing it to silently ignore the reset.
+
+Pre-existing issues:
+- [Medium] Missing device wakeup in the remove path causes unbalanced devre=
+s cleanup (double clock disable and double reset assert) if the device is i=
+n runtime suspend.
 --
 
---- Patch [1]: [PATCH v2 1/2] dt-bindings: i3c: dw: Document missing option=
-al core reset ---
-commit 673b06088a9b59875d717db2c9afb56295ac87a9
+--- Patch [2]: [PATCH v2 2/2] i3c: master: dw: Drop redundant core reset na=
+me ---
+commit 6e023481fe0a3988544e2173709b9f994efee394
 Author: Shubham Patil <shubhamsanjay.patil@amd.com>
 
-dt-bindings: i3c: dw: Document missing optional core reset
+i3c: master: dw: Drop redundant core reset name
 
-This commit documents an optional core reset property for the DesignWare I3C
-master IP. It adds the resets property with a maxItems of 1 to the schema
-but explicitly drops the reset-name property.
+The DesignWare I3C master has a single reset line, so a dedicated
+reset name is redundant. Look up the reset by index by passing NULL
+instead of the "core_rst" name.
 
-> diff --git a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yam=
-l b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
-> index e803457d3f554..dc7ee38001d6d 100644
-> --- a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
-> +++ b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
-> @@ -38,6 +38,9 @@ properties:
->    interrupts:
->      maxItems: 1
+> diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i=
+3c-master.c
+> index 2f8c0c4683e06..488fb455d3cc8 100644
+> --- a/drivers/i3c/master/dw-i3c-master.c
+> +++ b/drivers/i3c/master/dw-i3c-master.c
+> @@ -1584,7 +1584,7 @@ int dw_i3c_common_probe(struct dw_i3c_master *maste=
+r,
+>  		return PTR_ERR(master->pclk);
 > =20
-> +  resets:
-> +    maxItems: 1
-> +
+>  	master->core_rst =3D devm_reset_control_get_optional_exclusive_deassert=
+ed(&pdev->dev,
+> -										"core_rst");
+> +										NULL);
 
-[Severity: High]
-Since this schema intentionally omits reset-names, device trees cannot
-provide it without breaking schema validation.
+[Severity: Medium]
+This is a pre-existing issue, but touching this devm allocation raises a
+question about how devres cleans up during driver unbind.
 
-However, doesn't the driver explicitly rely on reset-names to find this
-reset control?
+Since devm_reset_control_get_optional_exclusive_deasserted() and the earlier
+devm_clk_get_enabled() register devres actions to assert resets and disable
+clocks, does dw_i3c_common_remove() need to wake the device before teardown?
 
-Looking at dw_i3c_common_probe() in drivers/i3c/master/dw-i3c-master.c:
+If the device is runtime suspended during driver unbind,
+dw_i3c_master_runtime_suspend() has already disabled clocks and asserted the
+reset. Because dw_i3c_common_remove() does not call pm_runtime_get_sync() to
+resume the device:
 
-	master->core_rst =3D devm_reset_control_get_optional_exclusive_deasserted(
-					&pdev->dev, "core_rst");
+void dw_i3c_common_remove(struct dw_i3c_master *master)
+{
+	i3c_master_unregister(&master->base);
 
-Because this searches for the "core_rst" string in the reset-names
-property, won't it fail to find the reset and silently return NULL
-without the property being defined in the device tree?
+	/* Balance pm_runtime_get_noresume() from probe() */
+	if (master->quirks & DW_I3C_DISABLE_RUNTIME_PM_QUIRK)
+		pm_runtime_put_noidle(master->dev);
 
-This would turn all subsequent reset operations into no-ops. Should
-reset-names be added back to the binding to match the driver's
-expectations?
+	pm_runtime_disable(master->dev);
+	pm_runtime_set_suspended(master->dev);
+	pm_runtime_dont_use_autosuspend(master->dev);
+}
 
->    power-domains:
->      maxItems: 1
+The automatic devres cleanup will attempt to disable already-disabled clocks
+and assert an already-asserted reset, which could trigger a noisy WARN from
+the Common Clock Framework.
+
+Could this double-cleanup be avoided by resuming the device before disabling
+runtime PM in dw_i3c_common_remove()?
+
+>  	if (IS_ERR(master->core_rst))
+>  		return PTR_ERR(master->core_rst);
 >
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720073510.1869=
-623-1-shubhamsanjay.patil@amd.com?part=3D1
+623-1-shubhamsanjay.patil@amd.com?part=3D2
