@@ -1,99 +1,92 @@
-Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB57B38E12B
-	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 06:01:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A30BC38D407;
+	Mon, 20 Jul 2026 06:05:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784527288; cv=none; b=RinUoB7hleCgOOgyyBR1B06TO+u0eY9CCt+Zx+UP68VN+MjKHtQQ+UASb9sRGJKECpS2z7ymVt0f2LFvBUygSxbjUrUmMZ261P9584oiKxImen4gRMm4n8r6GEszY/7iUsaEuA/gcGv3pC7RqAv0ShBotP7E/OK7LM+G/ixOrIE=
+	t=1784527559; cv=none; b=V+ypI1f6+wfqf5vHLeMAc8PYDdyYJpc5aX8m7gtpjdxFF8MjkfotSQj7ErY+mMrUVUZwYQ833XxByIhPVLd3DyP6rfa9XpROIAo1BTq1RXE/5/wWmnulYaufzr3R094gsSlHlqOzY+NYEc1OcqQE620bO4bCaSxpP+ykLcyw6yA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784527288; c=relaxed/simple;
-	bh=wwnlxyM97g5gXcU7wg6PIobYqg7uUyC4T+tkEFb9WDE=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=K7nlovWRR6mSjQg/PYyoJk/xyeXGgy0uPighnDsowc+1WGPyxIogvy8bCZUBceabkuM3MUMhI2Cyj+CaAk9HiTF3fznWyyYvpyBMw46zHIdRAemRmV13s3i0Uo/sMq3huMzDNXIt32GdtTHz5edXH6KQBuyfvKMmduyQzTHboQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=l2NVX2Vu; arc=none smtp.client-ip=91.218.175.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784527559; c=relaxed/simple;
+	bh=Gv+9Jx0g9dhANdxesKIU4cXZo12aLzCoEIlpStBMIos=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WvamdXz9fiQI/dKPOo+nmS8YBFasyXMonuckmomzOsLmExk6YMvdsVluzpc4Fcvp/ZlxbB7lEC9YWLZTdIY4MqEsaKgG/1z8EXzCGxyS/nfeA4pB5vbaQKkVCQwC9E0Qnp0M0rMR2yfEKOo57jvY/Gg5NQBH+ZKCj7v2PdIjBWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e7D7u13k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="l2NVX2Vu"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e7D7u13k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82A8E1F000E9;
+	Mon, 20 Jul 2026 06:05:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784527551;
+	bh=XJ27NF5mECz+3CgTj2zpeWRieXtQbm3hXE1VmWAZHXw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e7D7u13kECFetN8Izj+Rcn/rbnQG7q63xIVDEa3daZ8SA4jfAWStwp4dxY98P66GK
+	 rWL9OkDaoReq4Njv5zpmiAX5sqAg41YD4DAsOorAfnb3L3uDapvkqm1hAIVU/tNJQP
+	 JUP+1O5ixM5y31G5dE4dqsm29OC0oH4tEafaEQcaLGmpl7TtXfS+uy4UuD8e2HTtpC
+	 SRMhpxIi7znvhUJR/ZzzVhpnWZlzfl+4oQqYa0/3VgwFYny2T4ZO5VlLh+/Z0EnOK8
+	 rWvU0hhRuffggv77ph/JgVf3A0yUk/JDKoQmxdul01sNJQZ5ZFHtOJLvHYV3UhrPy2
+	 2vlF4bPjgMDkA==
+Date: Mon, 20 Jul 2026 08:05:47 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nikolai Burov <nikolai.burov@jolla.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Matthias Brugger <mbrugger@suse.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, linux-pm@vger.kernel.org, 
+	Nikolai Burov <nikolai.burov+review@abscue.de>
+Subject: Re: [PATCH v2 1/3] dt-bindings: power: Add MediaTek MT6858 power
+ domain controller
+Message-ID: <20260720-vigorous-groovy-cassowary-9912d9@quoll>
+References: <20260715-mt6858-pmdomain-v2-0-6293e87fc093@jolla.com>
+ <20260715-mt6858-pmdomain-v2-1-6293e87fc093@jolla.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784527274;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZKDPGORur0xVtYmq0hXZ7pENIE/FDt/uYqyAGbmL6Xs=;
-	b=l2NVX2VuhhxptgreNBaTCt8CkV1ZQErCjdqTtpcV6nCxABk805WyeUS6xP7BazdoFT8SbM
-	kuton7auhyFPBjWWN97R2kjhwe5jor2vR7TVMdsNk2YFEmT/1Blolik5+qF55bfouKv4kb
-	EyKcRwL1K/FI7JQWcOHbgQjhv41Ari8=
-Date: Mon, 20 Jul 2026 06:01:08 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: "Siratul Islam" <siratul.islam@linux.dev>
-Message-ID: <e1fe5f3f8445bb104112ffddc592eea9a370c5e6@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH 2/2] iio: magnetometer: add support for QST QMC6308
-To: "Jonathan Cameron" <jonathan.cameron@oss.qualcomm.com>
-Cc: "Jorijn van der Graaf" <jorijnvdgraaf@catcrafts.net>, "David Lechner"
- <dlechner@baylibre.com>, "=?utf-8?B?TnVubyBTw6E=?=" <nuno.sa@analog.com>,
- "Andy Shevchenko" <andy@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Luca Weiss" <luca.weiss@fairphone.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260720020640.4bdde14e@jic23-huawei>
-References: <20260714202842.340293-1-jorijnvdgraaf@catcrafts.net>
- <20260714202842.340293-3-jorijnvdgraaf@catcrafts.net>
- <d7fffbeacc77c3135564f902c41f19a219ddce75.camel@linux.dev>
- <20260716141837.83326-1-jorijnvdgraaf@catcrafts.net>
- <ea6f4eaeb0535d607d77920515e9cb1739266624@linux.dev>
- <20260720020640.4bdde14e@jic23-huawei>
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260715-mt6858-pmdomain-v2-1-6293e87fc093@jolla.com>
 
-July 20, 2026 at 7:06 AM, "Jonathan Cameron" <jonathan.cameron@oss.qualco=
-mm.com> wrote:
+On Wed, Jul 15, 2026 at 04:54:05PM +0300, Nikolai Burov wrote:
+> Add a new compatible and document bindings for the power domain
+> controller of the MT6858 SoC.
+> 
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
+To provide review, please open and read the entire file.
 
->=20
->=20On Thu, 16 Jul 2026 19:06:51 +0000
-> "Siratul Islam" <siratul.islam@linux.dev> wrote:
->=20
->=20>=20
->=20> July 16, 2026 at 8:18 PM, "Jorijn van der Graaf" wrote:
-> >=20=20
->=20>  ...
-> >  > +#define QMC6308_AUTOSUSPEND_DELAY_MS 500
-> >  > You can call it QMC6308_SLEEP_DELAY_MS to align with other values.
-> >  >=20
->=20>  I'd prefer to keep AUTOSUSPEND here: it names the mechanism the va=
-lue
-> >  feeds (pm_runtime_set_autosuspend_delay()) and matches yamaha-yas530
-> >  and ak8974 in this directory.
-> >=20=20
->=20>  I can find atleast 10 drivers in IIO that uses *_SLEEP_DELAY_MS po=
-stfix
-> >  for autosuspend delay value. So it's not a strong reason not to use =
-it.
-> >=20
->=20This sort of thing tends to be author preference as both show up.
-> AUTOSUSPEND is clearer in purpose so if anything would be my slight
-> preference
->=20
-AUTOSUSPEND=20is a bit more specific, but it's too long and doesn't align
-with other #defines. I was suggesting SLEEP because it would align perfec=
-tly
-with all the other defines and there are existing drivers that use SLEEP.
-> >=20
-...
->=20
+> Signed-off-by: Nikolai Burov <nikolai.burov@jolla.com>
+> ---
+>  .../bindings/power/mediatek,power-controller.yaml  | 21 +++++++++++++++++++-
+>  include/dt-bindings/power/mediatek,mt6858-power.h  | 23 ++++++++++++++++++++++
+>  2 files changed, 43 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/power/mediatek,power-controller.yaml b/Documentation/devicetree/bindings/power/mediatek,power-controller.yaml
+> index 070c6e5666dc..d03e4a925163 100644
+> --- a/Documentation/devicetree/bindings/power/mediatek,power-controller.yaml
+> +++ b/Documentation/devicetree/bindings/power/mediatek,power-controller.yaml
+> @@ -25,6 +25,7 @@ properties:
+>      enum:
+>        - mediatek,mt6735-power-controller
+>        - mediatek,mt6795-power-controller
+> +      - mediatek,mt6858-power-controller
+>        - mediatek,mt6893-power-controller
+>        - mediatek,mt8167-power-controller
+>        - mediatek,mt8173-power-controller
+> @@ -56,7 +57,7 @@ properties:
+>        faults while enabling or disabling a power domain.
+>        For example, this may hold phandles to INFRACFG and SMI.
+>      minItems: 1
+> -    maxItems: 3
+> +    maxItems: 6
 
---
+And the rest? Why does this device have flexible number of access
+controllers?
+
 Best regards,
-Sirat
+Krzysztof
+
