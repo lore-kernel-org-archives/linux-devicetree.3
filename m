@@ -1,1107 +1,1037 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013014.outbound.protection.outlook.com [52.101.72.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C14A03D79F9;
-	Mon, 20 Jul 2026 09:56:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 312F33DB30A
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 09:56:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.53
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784541407; cv=fail; b=GlHbyYMABObx1oF9V0wZ+cP6gzvTip2wPs4UVlQDzBs4Rzd4BLBULJVBL5tHUwLjI7HHK+QwoXWPlB4Tt3VbLdkoXDDsvwQgnd+LFVkOXOPoD5BNUBwQwFvOUtz1Ow3xRYQ4iRiUG4fawL0KAE2FRtvOP+DXVbvdJK/10HANL84=
+	t=1784541414; cv=pass; b=NkGfPWP2GgVXtI2naRsljkTa8wB0j5+ZuO+eJZxeTGBxlq/74tUEDYkrJk/GRjbi+njVPZGscQEB1fsMtEZZpN3YQ+f9nJ+b1UM2mmqrSngnrmW3PhBSAXiqBXOeOb4imG88EhQGl2vZ2LbdFQ17WkaJAqWG4uKuLQajiXiQcDc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784541407; c=relaxed/simple;
-	bh=3uyi6xKif8YtPzU3P2bovQXDQfSoEEFuoJOyI1wX0zE=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=oc9VTQ6O2ZZHn1P0yq1VvoaModa+Yw/gWMjovjekhye4JoDqHHgvugluxDHBVM925XCweOSLKO99iSCL7mJqmHIMp483XzPhicd9sK6ddc6zJSXjxQp/JfFaPPnFxJ6AXSQeANFQYNhXwdvufpz4w53D1nt2AaCG2C/uE5O9FbE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=dpYUA17D; arc=fail smtp.client-ip=52.101.72.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1784541414; c=relaxed/simple;
+	bh=Rf2CcF1fMAjQQ07JUkzEG3ekSQ2NZ5TvGoZ+ll/pCF4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tSzwuDjLfF7Azwjph2eUu+nZvdLoGLoYiFPvNR+FPKUNuBMK+Tezb+N/N5OTysrGIo2EYAtE/BSw5B9xIerN3rPq0p4LURNxMVAFpLu3fbprOL3ARjW6mP4ztE4GHIQ2+mwNQGyvm2iY8PA+kIL6v42uzCWYsDVVkF2vso0YMuw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=busVx7hB; arc=pass smtp.client-ip=209.85.160.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="dpYUA17D"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RmRGY8UL7R5+PTPiDcFOjy8PoBB/WaLBU3TjMNRUCEx8ZCuiWh0iVFuPj2YAmT1+I4DYGSGxGcOJdb0GJYzPy8tJv36qTWKKW/3vLOZVJJB8rDEQaKfve8DEFdaMnWazGtsfwWajWuXB0mu6sCJ4hR00sxEShhacHCoXDNWJWhTEMAJmyEq4W2pJjju90os+adYlW7Uc844I+yuxwQILrQryKs2ZvQdqh5YF123+bvRVYivCuayoas4U6XxLAmgZYPuwXylowwtp9IC1CQinHAoExBKOCIN9xFcEur4g/pqvM7nXtno2vxAZdNmJWqsry3cXjUhcg9xcaRlI7F5hMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8GYvlYhyLa9QNRcnLsoUTnqqctvBGdjnt8/Ow3tVYJs=;
- b=Fu1Pzr9F+NPENM38u9fPeTJevY9GoFQnGVsnlk5hUZcPm6EYy8Vyr8GR1Ng2ADeEoFAgUDRTPKLgnEdfxYYn87WV7QqT9EfXwWCZaMH0KmL43pTAUxN10ik1MHsDFDlRgFzxdZHJywU10hoo1adc/aYTtJfhd9Vxm1Z5PI99LY0YKyO29yCaJ+YGt85Ceam7RPB4DCVQVGK0HR5Sur29UqbwC87eGtMxlHICZAm1zEFknLh4Nv3ZTO+AZy7ZQt4c7ncKUqtQ1GxECN+5rJjPFWMuu95dAUpahnZidJCRstQyVCteYQITcmHKPYBZpeG7z4P0TCbRoVDOwf+e52q28w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8GYvlYhyLa9QNRcnLsoUTnqqctvBGdjnt8/Ow3tVYJs=;
- b=dpYUA17DOLjW36mXnHL+WswZVreTibwGKWey/Z5bb6qTPqZLofIccEkTb4U9wkJJmkIfsWSHrzATYvFz4Aw69d99G9sK8I6jd282S+tosUyFGtoqGHExchSZE7biDiQXlvKN7Oclfy7oMlZIhCn7Z2ts8DE2FAhynI87mEXb/wY6TltkVPaqeb1Ch4r/dVMUX+ZVmdOdJr5eqXTOeqBu3EZ+tq3Gs4aujmGsrYs+H6Mu6DQSRiF0eJaPpe8xHJLv1IMBtSO4/RYfbrqCK6MXzv0yy+FboJ5lEr/ZcU8nZlD1Tn4RbOU+Ku8T60KSl7QVMH6BOAUBvKyyjkaQ6zWqmw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV1PR04MB11513.eurprd04.prod.outlook.com (2603:10a6:150:284::9)
- by AM8PR04MB7425.eurprd04.prod.outlook.com (2603:10a6:20b:1d6::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Mon, 20 Jul
- 2026 09:56:28 +0000
-Received: from GV1PR04MB11513.eurprd04.prod.outlook.com
- ([fe80::29e0:98a1:4577:2cc7]) by GV1PR04MB11513.eurprd04.prod.outlook.com
- ([fe80::29e0:98a1:4577:2cc7%3]) with mapi id 15.21.0223.017; Mon, 20 Jul 2026
- 09:56:28 +0000
-From: guoniu.zhou@oss.nxp.com
-Date: Mon, 20 Jul 2026 17:59:48 +0800
-Subject: [PATCH v13 3/3] media: nxp: Add i.MX95 CSI pixel formatter v4l2
- driver
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260720-csi_formatter-v13-3-4dc9a80e4cfd@oss.nxp.com>
-References: <20260720-csi_formatter-v13-0-4dc9a80e4cfd@oss.nxp.com>
-In-Reply-To: <20260720-csi_formatter-v13-0-4dc9a80e4cfd@oss.nxp.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Frank Li <frank.li@nxp.com>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Bryan O'Donoghue <bod@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Peng Fan <peng.fan@nxp.com>, Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>
-Cc: imx@lists.linux.dev, linux-media@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- Guoniu Zhou <guoniu.zhou@nxp.com>, Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784541587; l=30198;
- i=guoniu.zhou@oss.nxp.com; s=20250815; h=from:subject:message-id;
- bh=3/kwvmtkKniHarIGWqSFPxFlcYidvLv+qYcWh07fC5M=;
- b=j8gU0gmxOnJ+V9DmBiBhAwdwGZvsw+p6P1vKFWgvwbhib0ddneQX7b5wae8CCxcsdJiOdhILq
- NVf2Clj2wBNAz42qwbskCDt5er2DxsL8U9wN5vadnDWRnEkpj3rnHLp
-X-Developer-Key: i=guoniu.zhou@oss.nxp.com; a=ed25519;
- pk=MM+/XICg5S78/gs+f9wtGP6yIvkyjTdZwfaxXeu5rlo=
-X-ClientProxiedBy: SI2P153CA0002.APCP153.PROD.OUTLOOK.COM
- (2603:1096:4:140::16) To GV1PR04MB11513.eurprd04.prod.outlook.com
- (2603:10a6:150:284::9)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="busVx7hB"
+Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-4472500e25fso4527529fac.1
+        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 02:56:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784541402; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HtHFrsP1nNPzVn6v3ua0L6pLWSH1xQQqLUQBi7K103/+CPl4S1Yuk6ulSSEgbaCkjc
+         zuJGuFeS9YfsJHgDyQJBAV7TlxVSD4PXSLfL2JfDfTDPmZ5dcwiHlA/HcaJGUEdhET7H
+         2EC0LswxHAh8Oie5AipdiREZ4v451t7eRj2W0uparBuh6FYyIKj5Sun3uQPOCpu0C/qo
+         E7wEkiJuE7nn86eXWQlMJsAE5yxlAGC2pLuNBqw7AZMjwK6dEjY6K4laLlN+959GMv2j
+         w+hifLF73rcLA521KFtjnVpV4y1yxkv6AN3cwEZQ97G0AhLqrzTt8y5PlwBzdlP7/MEL
+         FL5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/QfTROmE3YHgh/f/zRXTqcomrYygUunYx3Oxz5bmMoA=;
+        fh=uUpu+lzs6wLKaxoZaxYWg8g+PHQA/03vMMOh0/6y6O8=;
+        b=iB3bwHE0X8I//ARhzKn2KwnNLgGauN09m1Nr/sLR0L3iTA5h7P7zEKepng/RGRKKht
+         VFnGgeopbn70VYz1dxPtVtbPh+LMWdUpElnEw+HrIF1MH5dtVudCjlG9MwW0lm7ktVfc
+         Sbl+/bh9lGRv6CTX2cziKLR5PVE+jdJXU7PsFlR1NzPvoND+f+S5DNFqw0VlBaOqYqIg
+         yAqm51R76SpHyUZSTasTVqcG3aQwwDJUJGnJT/zLq7yDgakcmT+yO3NtpF1pRy+NdnlB
+         lqdOpC0aEgqIBeCeYLFCfSCdchw3SJVTZ0StdmjLtkTZQtmgKNghFwI2RYBn3q6qNw7K
+         4yOQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1784541402; x=1785146202; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/QfTROmE3YHgh/f/zRXTqcomrYygUunYx3Oxz5bmMoA=;
+        b=busVx7hBfdzVICmWhLscHvQmtG50bLJi+FriRbtA3I8JJKuJt3NJGiiiZTPXyR+Wx5
+         +ReXnEb1NgzRJUaLnERfNpEmabnFtZ6W1bW79xhaWe1kByc9iU4NcgWodgJaaumiBogX
+         sSfKUVOa7NeF0dETh57unuzM6LuFCVn6UU4DwZVldXT5dEe/7M3g/gZjj/XTFB5j+qye
+         nBNGdZNaQ2NH8gAfq2ro7kJn2vXpO3qLaOnPMXiA84C3gmNLxOgKAwiqhUJiWzV1F2r9
+         nZOKWiBbWKxEhNC+Z4bQlNmd9mhnkH5SRYoZhIKD2rSj5GyxW5HqBbLj11fAsfrw3Fgp
+         zV5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784541402; x=1785146202;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/QfTROmE3YHgh/f/zRXTqcomrYygUunYx3Oxz5bmMoA=;
+        b=cbUC5Apw+zkF+drDrpNXpLYGrrKSVbEVf99QbPvbR2ARID912sloN1cJ7NqOwYUBc2
+         jI0H1KFNaBr8QrOmgMxtt/G0786fXL8Sb11q23K+IRZ++9PcNw0WZylaw0fmMg2VkZqq
+         oIKrqSfo5yya+7Vgq863lARemG0XH7i2svoZCYzQcb6s4tE4nA/vDkUNNaQOLI/5y6/+
+         +6OOr/61tC6422FNZBXC6y5LAS4Qo2ESuP/pMlWkvgLbriaPRRpuSMDM7Z/RcfbnUNIF
+         icIt8+tFxZiWsfAB0Y1mDUx4fAYLnVoarFzUuDXPD6UUIDT/8cVDruxQ9jEkKMGHze0G
+         xCLA==
+X-Forwarded-Encrypted: i=1; AHgh+RpQYst2psMuqdB0J+6aTQ3MsFlXDjUW6O+QuLp54HON66JIZkSJi7VRctw0P6FvjFpj2ttRQsl9DLhM@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzw6DluEhxkxhWn3PxE0iVG89xSTwvuFN3SNsr+/i6ueKd3kcDE
+	qNg1bta9Z4UwEzn4lLeZZZk3Epp+e08BqfFu6Q+vsW3mYiszYRPFmGAwBUsqwoKnAIfSEBGXvYS
+	NRPQqgYpflNcy6Eix204r1YFqr4IB+aO6EumUbPbJzQ==
+X-Gm-Gg: AfdE7cltT2IMh3jRIk8DTbviV1wyhWR3U4GZuZsBgcP/YkZ5iYK1US5rEdcDdWSV1XR
+	fZKGO6+YCmWfn5hvOnWGkvbshMKhM6EMOIukNuy2wGAKTqdSMGqunWJHA1i6ORJoBNpK8cHS0KO
+	MPSqfGCsrvBMfcHgc5kFEXGx9EEev5D14++04AfrNjWm4QlZwsFrp134DMGPDXQt32FZQ8XuQEv
+	D/Oru9HwYZNbO2Po842UtIp8H9i09udJFFCNvCcyYYOxJVv8sqh5a3ocOtZ3+nS
+X-Received: by 2002:a05:687c:408f:b0:456:f395:ab9b with SMTP id
+ 586e51a60fabf-456f395cb69mr1979470fac.32.1784541401865; Mon, 20 Jul 2026
+ 02:56:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV1PR04MB11513:EE_|AM8PR04MB7425:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1254d139-edd4-4894-4249-08dee6452b09
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|366016|23010399003|1800799024|19092799006|7416014|376014|10067099003|6133799003|3023799007|56012099006|11063799006|921020|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
- V+eo75F1gKBdhFVo0T5UUjI2/qrIFwd1YtGWv3f7FtiZU2oFQKZWj0lY7ogUaFRU/QTYqp+rlGGudJftlAKMrOcSx9le/68ZASXK9kDj4lnQ0VwYAs2ALsOIOMcKxE5ZBLiFPqBQfh9mU+PJEaa2xCIjp/rabMcYoGRTUk6fOJphJLs9R/TcjbNHC4t1cUFjqwCxl/E+zm42L9NutUmuLrfBy1WDjmahDA3iaXzUae5m4Vj1kfIQDQEoiezcMvXvpAOMS4BeQOjGniLWsK1zIkbut+iN2gwjcgzTL71I8Agd1Nl73DOsn/I/ere142gx319Krhke7Wvs7ctZSoNECwdr4+SI0YdRNAUnl20o3PFkq2fgpEd+poH7FWp3zbPMM7gPqRzrFCfCVxIkhaPfWHCNcjEDYbOCuHtEIKJXXvGQ8Z6hg01nQWx/XLAThT0d1iZDv8wUHVY6iD8u5vXZ2RvDRLmtKhPAokyskFJU35j6JZnT/ycWOoGq2LG3VNhJEKP9xdrrIRvdYUjY9UOHYQ4CST3FX7Woioj3/eKb9UbtESPLOTYy+4vpH4vrzeidr6mdTZLEhDIbNvXdaOriJvv0lO6QLai2EtqzIFBesIMnJaDNFZgCCiEwrWyaMmYGD0+NeW5ifAZCjZdNgCcLEuh8fvCW6DOThYSuuErD13x4LuIGGCbIMhVUoZ9p4DtfOD99vSATK9Pf0Qzv2uEakQ==
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR04MB11513.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(19092799006)(7416014)(376014)(10067099003)(6133799003)(3023799007)(56012099006)(11063799006)(921020)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?NG0ybmovR2c4bTZiUFl5Y3JnRngxd1NUOUJ0RXMyaTdFWUtXLzVLejhJMVVF?=
- =?utf-8?B?cmdFbnlOMjlKY0c4SkR4MGtqcWlOcWFBSmF6bDJBN09LY05PenJXUGZWeU9O?=
- =?utf-8?B?NVc0K0FiUG5PdmJtYXVRUUFXcVlJNmlxTWZUa2VpOEQzaXFRSkJ3eWJGQ1p4?=
- =?utf-8?B?L1BZODJCOVdUMkJXSXdseFVDbS9seGZIUFVWOGNCVUwrR01QTkZRdFc0S2Za?=
- =?utf-8?B?S1ZuQnRobWFCMHYrOExYN3NFT1JCM3FaYUUwTHc0aUlncGJUOHhPVGsvMHhs?=
- =?utf-8?B?d1U3aXJpa001QmNpMG45VmZzb0hKTWcyS0tRQ2hOYWkvQlZtcGhPbUd4VEIx?=
- =?utf-8?B?MjBGMzZBMXhQK2RYRUh4QVhWRFdGNkxrQUJVcWRBSndIM0dDQXZQTDJucHhv?=
- =?utf-8?B?eGJ1OVhPQlV4Y2NTU3V0RGVMWFkyR0JEcWZDWld2ZkNEeC9uWGU0OTlEWmg0?=
- =?utf-8?B?RWlDekJBV2s4TFRQQmJnaWZQcElVMXNLdVZ5ZWdNZE1ldjBwSjROU0R5aFdG?=
- =?utf-8?B?MGVWblY0MklkNTlsMmhDVlpUNFVkUm1CSk81NXZaaEdEeXBCQ1JnNVZicWk2?=
- =?utf-8?B?aWN4UVVqUUZBbTgwQkJJWFhrTXZ4TW9wUWp1WkJXbGZFUHRRc0FmMEN2UkxG?=
- =?utf-8?B?Tk1ZVWkxaWg5dS8zOGVkMkZTVUtYMDUxWjU5Z0FEamI3dzdkUXVTYWxhT3c5?=
- =?utf-8?B?ZTBvVVJmeUpSNzVhWDFlSFR4SHdPazMvZ2tjTDRMNHZIZkRzbmZ6eFRobVBV?=
- =?utf-8?B?VjdMaDlrTWpyRkVXMmxZUDJBTmxtK0psYm9VUlJWeVhMbG04dTk5bE5ETlMw?=
- =?utf-8?B?eWh1Z1BLL2Y3blYxTmc4dEhRUFBvdzZ3YW1zcXVMWU03ZFdITXVCbGszWDlF?=
- =?utf-8?B?cFh3eVpOdzRyRG1meGRlZGthVUk4ZHdkMWh2b0VJUlh2VVFJMkd6a0Nncmpy?=
- =?utf-8?B?aDJGMzgxcHRkN3c3aDlua3BYZmV5L0ZNWjNuWXhvVkl2WjdHek92UmNHMDBN?=
- =?utf-8?B?U2RjOGNxb1J6ak84VUM2YWpMcHZxWTM1cy9UOU0rTTAvRE03aDFRYnhUR3R3?=
- =?utf-8?B?ZThsbVhLellZek1HTVVrYk11dGE3VjU2VU9KL2FabVdsN2EvZjd1UEREQ1Uz?=
- =?utf-8?B?am5teFpoUDEzeTk3cElsS1JEby9GZ0U2VEhCRnE5elE3b3RLNnBSQW5aMUdk?=
- =?utf-8?B?ViswL21taEhsQzlDRDBORUhLeDhvekR2M3EwMm10aFlGZWY1elZxK0ZrNFhD?=
- =?utf-8?B?ZHpMYnIxaDZtS0tvZmZOcklPKzJiTnpRS1BrZGhEeEtHKzRuMU1UMzhjaFYv?=
- =?utf-8?B?bTBvbnI1SHQxcmlla1YzbUVHT3dQeHYvWE9QclNZMXo5RWllMkE2R3V1dU1G?=
- =?utf-8?B?NzAyUUwyR3NGcmJtbEs3R2xOVXAxMVAwK2F4aTIydTJiUlIyNHFmR2tmNTdN?=
- =?utf-8?B?ZERJUTQxZENxY3UwUnMwYzF1V2JCa2ZGN2IyMzdJUzZNN2NydGUybkY1dVB3?=
- =?utf-8?B?aHhIN3NRcUNmc3FNQkltcFhyMmdqNDFmcnF6QjFKZURhQ3pUN3pLVUVHRloz?=
- =?utf-8?B?V0hUQzBiV1VFYTc4SUFleDlab3ZjTlRkT3VWNHpHcmU1OXZVZGRRM1JmQTd3?=
- =?utf-8?B?M3FpSjlSTHZYUGJ1OTBIVThERVFnSCt4K2NrOWFzSHUzRGJ3S3ltZzA0ZXNN?=
- =?utf-8?B?d0MzUmhXbGxoZFJOZTdFQ1lqaGRSeTNJN2ZHNUdzN1ZnYkJkTHcwK0pLZWg1?=
- =?utf-8?B?Wm5jWnd3Z3JaazUydU9ZQjZnZmJtUmEzaTFWNmd0cWZYZE9vQm9ZdHV4Mkhk?=
- =?utf-8?B?TENmTkx3djBhMm1KbkJER1h4VVY0TWNaRlp2a0MvSWtkVEpKRldwRkgwNEFY?=
- =?utf-8?B?OHZHUmFlTTNsOWt4R3ppN0l0K2l6N0c3REgzdkY0bWQ0QTlqTi9iV0RIWWxQ?=
- =?utf-8?B?VW1rTkt3Um00emxBWXdwRytqS3I5S3RQcXFnUmd6bDlWdURydWIvVjR0cFdn?=
- =?utf-8?B?UDFPQ3RxaGV1OW9vOFlVNWl1Z25uY01DTExjYXBqQ2c5bUt6QmhLTDFlUEVU?=
- =?utf-8?B?dkl1T0tVVFBUdHNtMFhYMkowZDFyVVJydlMyZ2lBc21uVEVvVU1TcmtQMllF?=
- =?utf-8?B?YUlCeXRsQkFxQ2FrMzQvWFpzQ3NNZHhTZlFaS3ZPV2F4K2FSNmRiRHBIVytr?=
- =?utf-8?B?bUZuUDZIRkl3UUJidTBRdFhNTlBGSUw1RGJKWENWTC9PZFJ5YVF5OVFmSm53?=
- =?utf-8?B?ZmJyOGJyanc3SzNFUGhMTFVORnhkSHZ1UXVTeS9HcllwZWZIdDhrZ0VlUzVK?=
- =?utf-8?B?K3dJdjcxdGoyRlBXc0tDQ3ZyTlVFYVNXaXVwY3dUR0pZQ0k0am9iVXNMUXM0?=
- =?utf-8?Q?wqVFIGer6S2zNWo4vn6iIyUdnT6y14iI6gmpY?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1254d139-edd4-4894-4249-08dee6452b09
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR04MB11513.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 09:56:28.7148
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1K9zKKsBeTJdUc6Xq4PsnDvp1kJ1+8e7LDwuAAt3aBrYqo23D/jZyucZjo13llhzNv9aGmhD/RCOYxV5lUoBK4yLTQn3rjrHrurUpXH7im1L+fUnzFRaIKID2UMu47or
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7425
+References: <20260714-dfustini-atl-sc-cbqri-dt-v5-0-b0ae7e9c932e@kernel.org> <20260714-dfustini-atl-sc-cbqri-dt-v5-4-b0ae7e9c932e@kernel.org>
+In-Reply-To: <20260714-dfustini-atl-sc-cbqri-dt-v5-4-b0ae7e9c932e@kernel.org>
+From: yunhui cui <cuiyunhui@bytedance.com>
+Date: Mon, 20 Jul 2026 17:56:29 +0800
+X-Gm-Features: AUfX_myBhFNJsP3T11LGHzTrMgNDl9z_qFK00JOYqBRt3k_qXEBMb8-8FmZd97E
+Message-ID: <CAEEQ3w=kVgMnQ8mu=X+d3xYbANT6dNfv7w71BUwmYxP6qcUhgg@mail.gmail.com>
+Subject: Re: [External] [PATCH v5 4/8] riscv_cbqri: Add capacity controller
+ probe and allocation device ops
+To: Drew Fustini <fustini@kernel.org>
+Cc: Adrien Ricciardi <aricciardi@baylibre.com>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Atish Kumar Patra <atishp@rivosinc.com>, Atish Patra <atish.patra@linux.dev>, 
+	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>, Borislav Petkov <bp@alien8.de>, 
+	Chen Pei <cp0613@linux.alibaba.com>, Conor Dooley <conor.dooley@microchip.com>, 
+	Conor Dooley <conor+dt@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>, 
+	Gong Shuai <gong.shuai@sanechips.com.cn>, Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn, 
+	James Morse <james.morse@arm.com>, =?UTF-8?Q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn, 
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Paul Walmsley <pjw@kernel.org>, Peter Newman <peternewman@google.com>, 
+	=?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>, 
+	Reinette Chatre <reinette.chatre@intel.com>, Rob Herring <robh@kernel.org>, 
+	Samuel Holland <samuel.holland@sifive.com>, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Tony Luck <tony.luck@intel.com>, 
+	Vasudevan Srinivasan <vasu@rivosinc.com>, Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>, 
+	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, x86@kernel.org, devicetree@vger.kernel.org, 
+	linux-rt-devel@lists.linux.dev, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Guoniu Zhou <guoniu.zhou@nxp.com>
+Hi Drew,
 
-The CSI pixel formatter is a module found on i.MX95 used to reformat
-packet info, pixel and non-pixel data from CSI-2 host controller to
-match Pixel Link(PL) definition.
+On Wed, Jul 15, 2026 at 8:24=E2=80=AFAM Drew Fustini <fustini@kernel.org> w=
+rote:
+>
+> Add support for the RISC-V CBQRI capacity controller. A platform driver
+> passes a cbqri_controller_info descriptor together with the cache level
+> to riscv_cbqri_register_cc_dt(), which probes the controller and adds it
+> to the controller list.
+>
+> Assisted-by: Claude:claude-opus-4-8
+> Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> Signed-off-by: Drew Fustini <fustini@kernel.org>
+> ---
+>  MAINTAINERS                      |   3 +
+>  drivers/resctrl/Kconfig          |  13 +
+>  drivers/resctrl/Makefile         |   3 +
+>  drivers/resctrl/cbqri_devices.c  | 563 +++++++++++++++++++++++++++++++++=
+++++++
+>  drivers/resctrl/cbqri_internal.h | 122 +++++++++
+>  include/linux/riscv_cbqri.h      |  45 ++++
+>  6 files changed, 749 insertions(+)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index a0a4b41f02c5..064a6ae2823e 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -23365,6 +23365,9 @@ L:      linux-riscv@lists.infradead.org
+>  S:     Supported
+>  F:     arch/riscv/include/asm/qos.h
+>  F:     arch/riscv/kernel/qos.c
+> +F:     drivers/resctrl/cbqri_devices.c
+> +F:     drivers/resctrl/cbqri_internal.h
+> +F:     include/linux/riscv_cbqri.h
+>
+>  RISC-V RPMI AND MPXY DRIVERS
+>  M:     Rahul Pathak <rahul@summations.net>
+> diff --git a/drivers/resctrl/Kconfig b/drivers/resctrl/Kconfig
+> index 672abea3b03c..92b9c82cf9f3 100644
+> --- a/drivers/resctrl/Kconfig
+> +++ b/drivers/resctrl/Kconfig
+> @@ -29,3 +29,16 @@ config ARM64_MPAM_RESCTRL_FS
+>         default y if ARM64_MPAM_DRIVER && RESCTRL_FS
+>         select RESCTRL_RMID_DEPENDS_ON_CLOSID
+>         select RESCTRL_ASSIGN_FIXED
+> +
+> +menuconfig RISCV_CBQRI
+> +       bool "RISC-V CBQRI support"
+> +       depends on RISCV && RISCV_ISA_SSQOSID
+> +       help
+> +         Capacity and Bandwidth QoS Register Interface (CBQRI) support f=
+or
+> +         RISC-V cache QoS resources. CBQRI exposes cache capacity
+> +         allocation through the resctrl filesystem at /sys/fs/resctrl wh=
+en
+> +         RESCTRL_FS is also enabled.
+> +
+> +if RISCV_CBQRI
+> +
+> +endif
 
-Add data formatting support.
+Should this empty if/endif block go in patch [8/8] instead?
 
-Signed-off-by: Guoniu Zhou <guoniu.zhou@nxp.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
----
-Changes in v13:
-- Replace pr_warn_once() with dev_warn() in csi_formatter_get_index_by_dt()
-  to provide device context and warn on every occurrence (Loic)
-- Add WARN_ON() check for csi_formatter_find_format() return value in
-  start/stop_stream functions to catch unexpected NULL (Loic)
-- Use regmap_set_bits()/regmap_clear_bits() instead of read-modify-write
-  pattern and remove unused csi_formatter_read/write helper functions (Loic)
-- Add Reviewed-by tag from Frank Li
+> diff --git a/drivers/resctrl/Makefile b/drivers/resctrl/Makefile
+> index 4f6d0e81f9b8..4d8a2c4b5627 100644
+> --- a/drivers/resctrl/Makefile
+> +++ b/drivers/resctrl/Makefile
+> @@ -3,3 +3,6 @@ mpam-y                                          +=3D mpam=
+_devices.o
+>  mpam-$(CONFIG_ARM64_MPAM_RESCTRL_FS)           +=3D mpam_resctrl.o
+>
+>  ccflags-$(CONFIG_ARM64_MPAM_DRIVER_DEBUG)      +=3D -DDEBUG
+> +
+> +obj-$(CONFIG_RISCV_CBQRI)                      +=3D cbqri.o
+> +cbqri-y                                                +=3D cbqri_device=
+s.o
+> diff --git a/drivers/resctrl/cbqri_devices.c b/drivers/resctrl/cbqri_devi=
+ces.c
+> new file mode 100644
+> index 000000000000..3e1df660920e
+> --- /dev/null
+> +++ b/drivers/resctrl/cbqri_devices.c
+> @@ -0,0 +1,563 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +
+> +#define pr_fmt(fmt) "%s:%s: " fmt, KBUILD_MODNAME, __func__
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/riscv_cbqri.h>
+> +#include <linux/err.h>
+> +#include <linux/io.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/ioport.h>
+> +#include <linux/list.h>
+> +#include <linux/mutex.h>
+> +#include <linux/printk.h>
+> +#include <linux/slab.h>
+> +#include <linux/types.h>
+> +
+> +#include <asm/csr.h>
+> +
+> +#include "cbqri_internal.h"
+> +
+> +LIST_HEAD(cbqri_controllers);
+> +
+> +/*
+> + * Serializes cbqri_controllers mutations against a concurrent insert un=
+der
+> + * asynchronous driver probing, and against the boot-time walk in the re=
+sctrl
+> + * glue. Runtime cpuhp walks happen after registration has settled.
+> + */
+> +DEFINE_MUTEX(cbqri_controllers_lock);
+> +
+> +/*
+> + * CBQRI registers are 64-bit, but the spec only guarantees single-copy
+> + * atomicity for naturally aligned 4-byte accesses. Read the two halves =
+and
+> + * reconstruct, so the driver does not rely on native 64-bit MMIO.
+> + *
+> + * The halves are not sampled atomically, but a tear is harmless. The fi=
+elds
+> + * that change while an operation runs, BUSY (bit 39) and STATUS (bits
+> + * 38:32), are in the high half and read by the single high readl(). The=
+ low
+> + * half (OP/AT/RCID) is software-written and constant for the operation.
+> + */
+> +static u64 cbqri_readq(void __iomem *addr)
+> +{
+> +       u32 lo =3D readl(addr);
+> +       u32 hi =3D readl(addr + 4);
+> +
+> +       return (u64)hi << 32 | lo;
+> +}
+> +
+> +/* Set capacity block mask (cc_block_mask) */
+> +static void cbqri_set_cbm(struct cbqri_controller *ctrl, u64 cbm)
+> +{
+> +       /*
+> +        * cbqri_probe_cc() rejects ncblks > 32, so the mask fits the low=
+ word.
+> +        * Per CBQRI 3.5 the cc_block_mask bits above NCBLKS are read-onl=
+y zero,
+> +        * so the upper word needs no write.
+> +        */
+> +       writel(lower_32_bits(cbm), ctrl->base + CBQRI_CC_BLOCK_MASK_OFF);
+> +}
+> +
+> +/*
+> + * Clear cc_cunits so a CONFIG_LIMIT on a CUNITS-capable controller impo=
+ses no
+> + * capacity-unit limit. resctrl models only the block mask. On controlle=
+rs
+> + * with cc_capabilities.CUNITS =3D=3D 0 the register is read-only zero, =
+so there is
+> + * nothing to do.
+> + */
+> +static void cbqri_clear_cunits(struct cbqri_controller *ctrl)
+> +{
+> +       if (ctrl->cc.cunits) {
+> +               writel(0, ctrl->base + CBQRI_CC_CUNITS_OFF);
+> +               writel(0, ctrl->base + CBQRI_CC_CUNITS_OFF + 4);
+> +       }
+> +}
+> +
+> +static int cbqri_wait_busy_flag(struct cbqri_controller *ctrl, int reg_o=
+ffset,
+> +                               u64 *regp)
+> +{
+> +       u64 reg;
+> +       int ret;
+> +
+> +       /*
+> +        * Sleeping poll: caller holds ctrl->lock as a sleeping mutex, so
+> +        * 10us/1ms is safe under PREEMPT_RT.
+> +        */
+> +       ret =3D read_poll_timeout(cbqri_readq, reg,
+> +                               !FIELD_GET(CBQRI_CONTROL_REGISTERS_BUSY_M=
+ASK, reg),
+> +                               10, 1000, false, ctrl->base + reg_offset)=
+;
+> +       if (ret)
+> +               return ret;
+> +       if (regp)
+> +               *regp =3D reg;
+> +       return 0;
+> +}
+> +
+> +/*
+> + * Perform capacity allocation control operation on capacity controller.
+> + * Caller must hold ctrl->lock.
+> + */
+> +static int cbqri_cc_alloc_op(struct cbqri_controller *ctrl, int operatio=
+n,
+> +                            int rcid, u32 at)
+> +{
+> +       int reg_offset =3D CBQRI_CC_ALLOC_CTL_OFF;
+> +       int status;
+> +       u64 reg;
+> +
+> +       lockdep_assert_held(&ctrl->lock);
+> +
+> +       if (cbqri_wait_busy_flag(ctrl, reg_offset, &reg) < 0) {
+> +               pr_err_ratelimited("BUSY timeout before starting operatio=
+n\n");
+> +               return -EIO;
+> +       }
+> +       FIELD_MODIFY(CBQRI_CONTROL_REGISTERS_OP_MASK, &reg, operation);
+> +       FIELD_MODIFY(CBQRI_CONTROL_REGISTERS_RCID_MASK, &reg, rcid);
+> +
+> +       /*
+> +        * CBQRI Table 1: AT 0=3DData, 1=3DCode. Program AT on controller=
+s
+> +        * that report supports_alloc_at_code. On controllers that don't,
+> +        * AT is reserved-zero and the op acts on both halves.
+> +        */
+> +       reg &=3D ~CBQRI_CONTROL_REGISTERS_AT_MASK;
+> +       if (ctrl->cc.supports_alloc_at_code)
+> +               reg |=3D FIELD_PREP(CBQRI_CONTROL_REGISTERS_AT_MASK, at);
+> +
+> +       writel(lower_32_bits(reg), ctrl->base + reg_offset);
+> +
+> +       if (cbqri_wait_busy_flag(ctrl, reg_offset, &reg) < 0) {
+> +               pr_err_ratelimited("BUSY timeout during operation\n");
+> +               return -EIO;
+> +       }
+> +
+> +       status =3D FIELD_GET(CBQRI_CONTROL_REGISTERS_STATUS_MASK, reg);
+> +       if (status !=3D CBQRI_CC_ALLOC_CTL_STATUS_SUCCESS) {
+> +               pr_err_ratelimited("operation %d failed: status=3D%d\n", =
+operation, status);
+> +               return -EIO;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+> +/*
+> + * Apply a capacity block mask and verify via CONFIG_LIMIT + READ_LIMIT.
+> + *
+> + * AT-capable controllers with CDP off need a second CONFIG_LIMIT on the
+> + * other AT half (the spec encodes AT only as 0=3DData / 1=3DCode, there=
+ is
+> + * no "both halves" value). CDP-on issues separate per-type writes from
+> + * resctrl, so a single CONFIG_LIMIT per call is correct.
+> + */
+> +int cbqri_apply_cache_config(struct cbqri_controller *ctrl, u32 closid,
+> +                            const struct cbqri_cc_config *cfg)
+> +{
+> +       bool need_at_mirror;
+> +       u64 saved_cbm =3D 0;
+> +       int err =3D 0;
+> +       u64 reg;
+> +
+> +       mutex_lock(&ctrl->lock);
+> +
+> +       need_at_mirror =3D ctrl->cc.supports_alloc_at_code && !cfg->cdp_e=
+nabled;
+> +
+> +       /*
+> +        * Capture the cfg->at half CBM before any write so a partial
+> +        * AT-mirror failure can revert and keep the two halves consisten=
+t.
+> +        * Pre-clear cc_block_mask so a silent firmware no-op (status
+> +        * SUCCESS but staging not updated) shows as a zero readback
+> +        * rather than carrying stale data from a prior op.
+> +        */
+> +       if (need_at_mirror) {
+> +               cbqri_set_cbm(ctrl, 0);
+> +               err =3D cbqri_cc_alloc_op(ctrl, CBQRI_CC_ALLOC_CTL_OP_REA=
+D_LIMIT,
+> +                                       closid, cfg->at);
+> +               if (err < 0)
+> +                       goto out;
+> +               saved_cbm =3D cbqri_readq(ctrl->base + CBQRI_CC_BLOCK_MAS=
+K_OFF);
+> +       }
+> +
+> +       /* Set capacity block mask (cc_block_mask) */
+> +       cbqri_set_cbm(ctrl, cfg->cbm);
+> +       cbqri_clear_cunits(ctrl);
+> +
+> +       /* Capacity config limit operation for the AT half implied by cfg=
+->at */
+> +       err =3D cbqri_cc_alloc_op(ctrl, CBQRI_CC_ALLOC_CTL_OP_CONFIG_LIMI=
+T,
+> +                               closid, cfg->at);
+> +       if (err < 0)
+> +               goto out;
+> +
+> +       /*
+> +        * CDP-off mirror: on AT-capable controllers, also program the
+> +        * other AT half with the same mask so the two halves stay in syn=
+c.
+> +        */
+> +       if (need_at_mirror) {
+> +               u32 other =3D (cfg->at =3D=3D CBQRI_CONTROL_REGISTERS_AT_=
+CODE) ?
+> +                           CBQRI_CONTROL_REGISTERS_AT_DATA :
+> +                           CBQRI_CONTROL_REGISTERS_AT_CODE;
+> +
+> +               cbqri_set_cbm(ctrl, cfg->cbm);
+> +               cbqri_clear_cunits(ctrl);
+> +               err =3D cbqri_cc_alloc_op(ctrl,
+> +                                       CBQRI_CC_ALLOC_CTL_OP_CONFIG_LIMI=
+T,
+> +                                       closid, other);
+> +               if (err < 0) {
+> +                       int rerr;
+> +
+> +                       /*
+> +                        * Best-effort revert of the cfg->at half so the =
+two
+> +                        * halves stay in sync. A schemata read sees only=
+ one
+> +                        * half, so silent divergence would otherwise rep=
+ort
+> +                        * the new value as if the write had succeeded.
+> +                        */
+> +                       cbqri_set_cbm(ctrl, saved_cbm);
+> +                       cbqri_clear_cunits(ctrl);
+> +                       rerr =3D cbqri_cc_alloc_op(ctrl,
+> +                                                CBQRI_CC_ALLOC_CTL_OP_CO=
+NFIG_LIMIT,
+> +                                                closid, cfg->at);
+> +                       if (rerr < 0)
+> +                               pr_err_ratelimited("AT-mirror revert fail=
+ed (err=3D%d), AT halves diverged\n",
+> +                                                  rerr);
+> +                       goto out;
+> +               }
+> +       }
+> +
+> +       /* Clear cc_block_mask before read limit to verify op works */
+> +       cbqri_set_cbm(ctrl, 0);
+> +
+> +       /* Perform a capacity read limit operation to verify blockmask */
+> +       err =3D cbqri_cc_alloc_op(ctrl, CBQRI_CC_ALLOC_CTL_OP_READ_LIMIT,
+> +                               closid, cfg->at);
+> +       if (err < 0)
+> +               goto out;
+> +
+> +       /*
+> +        * Read capacity blockmask and narrow to u32 to match resctrl's C=
+BM
+> +        * width. cbqri_probe_cc() rejects ncblks > 32 so the upper bits =
+are
+> +        * reserved zero.
+> +        */
+> +       reg =3D cbqri_readq(ctrl->base + CBQRI_CC_BLOCK_MASK_OFF);
+> +       if (lower_32_bits(reg) !=3D cfg->cbm) {
+> +               pr_err_ratelimited("CBM verify mismatch (reg=3D%llx !=3D =
+cbm=3D%llx)\n",
+> +                                  reg, cfg->cbm);
+> +               err =3D -EIO;
+> +       }
+> +
+> +out:
+> +       mutex_unlock(&ctrl->lock);
+> +       return err;
+> +}
+> +
+> +/*
+> + * Read the configured CBM for closid on the at half via READ_LIMIT.
+> + * Pre-clears cc_block_mask before the op so a silent firmware no-op
+> + * (status SUCCESS but staging not updated) is detectable in cbm_out.
+> + */
+> +int cbqri_read_cache_config(struct cbqri_controller *ctrl, u32 closid,
+> +                           u32 at, u32 *cbm_out)
+> +{
+> +       int err;
+> +
+> +       mutex_lock(&ctrl->lock);
+> +       cbqri_set_cbm(ctrl, 0);
+> +       err =3D cbqri_cc_alloc_op(ctrl, CBQRI_CC_ALLOC_CTL_OP_READ_LIMIT,=
+ closid, at);
+> +       if (err =3D=3D 0) {
+> +               /*
+> +                * resctrl exposes the CBM as a u32 and cbqri_probe_cc() =
+rejects
+> +                * ncblks > 32, so the mask fits the low 32-bit word of t=
+he
+> +                * cc_block_mask register.
+> +                */
+> +               *cbm_out =3D readl(ctrl->base + CBQRI_CC_BLOCK_MASK_OFF);
+> +       }
+> +       mutex_unlock(&ctrl->lock);
+> +       return err;
+> +}
+> +
+> +static int cbqri_probe_feature(struct cbqri_controller *ctrl, int reg_of=
+fset,
+> +                              int operation, int *status, bool *access_t=
+ype_supported)
+> +{
+> +       const u64 active_mask =3D CBQRI_CONTROL_REGISTERS_OP_MASK |
+> +                               CBQRI_CONTROL_REGISTERS_AT_MASK |
+> +                               CBQRI_CONTROL_REGISTERS_RCID_MASK;
+> +       u64 reg, saved_reg;
+> +       int at;
+> +
+> +       /*
+> +        * Default the output to false so the status=3D=3D0 (feature not
+> +        * implemented) path returns a deterministic value to the caller
+> +        * rather than leaving an uninitialized bool.
+> +        */
+> +       *access_type_supported =3D false;
+> +
+> +       /* Keep the initial register value to preserve the WPRI fields */
+> +       reg =3D cbqri_readq(ctrl->base + reg_offset);
+> +       saved_reg =3D reg;
+> +
+> +       /* Drain any in-flight firmware op before issuing our own write. =
+*/
+> +       if (cbqri_wait_busy_flag(ctrl, reg_offset, &saved_reg) < 0) {
+> +               pr_err("BUSY timeout before probe operation\n");
+> +               return -EIO;
+> +       }
+> +
+> +       /*
+> +        * Execute the requested operation with all active fields
+> +        * (OP/AT/RCID) zeroed except OP itself. Every bit not in
+> +        * active_mask is WPRI and gets carried over from saved_reg.
+> +        */
+> +       reg =3D (saved_reg & ~active_mask) |
+> +             FIELD_PREP(CBQRI_CONTROL_REGISTERS_OP_MASK, operation);
+> +       writel(lower_32_bits(reg), ctrl->base + reg_offset);
+> +       if (cbqri_wait_busy_flag(ctrl, reg_offset, &reg) < 0) {
+> +               pr_err_ratelimited("BUSY timeout during operation\n");
+> +               return -EIO;
+> +       }
+> +
+> +       /* Get the operation status */
+> +       *status =3D FIELD_GET(CBQRI_CONTROL_REGISTERS_STATUS_MASK, reg);
+> +
+> +       /*
+> +        * Check for the AT support if the register is implemented
+> +        * (if not, the status value will remain 0)
+> +        */
+> +       if (*status !=3D 0) {
+> +               /*
+> +                * Re-issue operation with AT=3DCODE so the controller
+> +                * latches AT=3DCODE on supported hardware (or resets it =
+to 0
+> +                * on hardware that doesn't). OP must be a defined CBQRI =
+op
+> +                * here. OP=3D0 is a no-op and would silently disable CDP=
+.
+> +                */
+> +               reg =3D (saved_reg & ~active_mask) |
+> +                     FIELD_PREP(CBQRI_CONTROL_REGISTERS_OP_MASK, operati=
+on) |
+> +                     FIELD_PREP(CBQRI_CONTROL_REGISTERS_AT_MASK,
+> +                                CBQRI_CONTROL_REGISTERS_AT_CODE);
+> +               writel(lower_32_bits(reg), ctrl->base + reg_offset);
+> +               if (cbqri_wait_busy_flag(ctrl, reg_offset, &reg) < 0) {
+> +                       pr_err("BUSY timeout setting AT field\n");
+> +                       return -EIO;
+> +               }
+> +
+> +               /*
+> +                * If the AT field value has been reset to zero,
+> +                * then the AT support is not present
+> +                */
+> +               at =3D FIELD_GET(CBQRI_CONTROL_REGISTERS_AT_MASK, reg);
+> +               if (at =3D=3D CBQRI_CONTROL_REGISTERS_AT_CODE)
+> +                       *access_type_supported =3D true;
+> +       }
+> +
+> +       /*
+> +        * Restore the original register value.
+> +        * Clear OP to avoid re-triggering the probe op.
+> +        */
+> +       saved_reg &=3D ~CBQRI_CONTROL_REGISTERS_OP_MASK;
+> +       writel(lower_32_bits(saved_reg), ctrl->base + reg_offset);
+> +       if (cbqri_wait_busy_flag(ctrl, reg_offset, NULL) < 0) {
+> +               pr_err("BUSY timeout restoring register value\n");
+> +               return -EIO;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+> +static int cbqri_probe_cc(struct cbqri_controller *ctrl)
+> +{
+> +       int err, status;
+> +       int ver_major, ver_minor;
+> +       u64 reg;
+> +
+> +       reg =3D cbqri_readq(ctrl->base + CBQRI_CC_CAPABILITIES_OFF);
+> +       if (reg =3D=3D 0)
+> +               return -ENODEV;
+> +
+> +       ver_minor =3D FIELD_GET(CBQRI_CC_CAPABILITIES_VER_MINOR_MASK, reg=
+);
+> +       ver_major =3D FIELD_GET(CBQRI_CC_CAPABILITIES_VER_MAJOR_MASK, reg=
+);
+> +       ctrl->cc.ncblks =3D FIELD_GET(CBQRI_CC_CAPABILITIES_NCBLKS_MASK, =
+reg);
+> +
+> +       pr_debug("version=3D%d.%d ncblks=3D%d cache_level=3D%d\n",
+> +                ver_major, ver_minor,
+> +                ctrl->cc.ncblks, ctrl->cache.cache_level);
+> +
+> +       /*
+> +        * NCBLKS =3D=3D 0 would divide-by-zero in the schemata math whil=
+e
+> +        * ctrl->lock is held.
+> +        */
+> +       if (!ctrl->cc.ncblks) {
+> +               pr_warn("CC at %pa has 0 capacity blocks, skipping\n",
+> +                       &ctrl->addr);
+> +               return -ENODEV;
+> +       }
+> +
+> +       if (ctrl->cc.ncblks > 32) {
+> +               pr_warn("CC at %pa has ncblks=3D%u > 32 (resctrl CBM is u=
+32), skipping\n",
+> +                       &ctrl->addr, ctrl->cc.ncblks);
+> +               return -ENODEV;
+> +       }
+> +
+> +       /*
+> +        * On a CUNITS-capable controller, CONFIG_LIMIT also consumes cc_=
+cunits,
+> +        * whose reset value is unspecified. The driver clears it to 0 (n=
+o limit)
+> +        * on every CONFIG_LIMIT, so cc_cunits at 0x28 must be within the=
+ mapping.
+> +        */
+> +       ctrl->cc.cunits =3D FIELD_GET(CBQRI_CC_CAPABILITIES_CUNITS_MASK, =
+reg);
+> +       if (ctrl->cc.cunits && ctrl->size < CBQRI_CC_CUNITS_OFF + 8) {
+> +               pr_warn("CC at %pa supports CUNITS but maps only %pa, ski=
+pping\n",
+> +                       &ctrl->addr, &ctrl->size);
+> +               return -ENODEV;
+> +       }
+> +
+> +       /* Probe allocation features */
+> +       err =3D cbqri_probe_feature(ctrl, CBQRI_CC_ALLOC_CTL_OFF,
+> +                                 CBQRI_CC_ALLOC_CTL_OP_READ_LIMIT,
+> +                                 &status, &ctrl->cc.supports_alloc_at_co=
+de);
+> +       if (err)
+> +               return err;
+> +
+> +       if (status =3D=3D CBQRI_CC_ALLOC_CTL_STATUS_SUCCESS)
+> +               ctrl->alloc_capable =3D true;
+> +
+> +       return 0;
+> +}
+> +
+> +static int cbqri_probe_controller(struct cbqri_controller *ctrl)
+> +{
+> +       int err;
+> +
+> +       pr_debug("controller info: type=3D%d addr=3D%pa size=3D%pa max-rc=
+id=3D%u\n",
+> +                ctrl->type, &ctrl->addr, &ctrl->size, ctrl->rcid_count);
+> +
+> +       if (!ctrl->addr) {
+> +               pr_warn("controller has invalid addr=3D0x0, skipping\n");
+> +               return -EINVAL;
+> +       }
+> +
+> +       if (ctrl->size < CBQRI_CTRL_MIN_REG_SPAN) {
+> +               pr_warn("controller at %pa: size %pa < minimum 0x%x, skip=
+ping\n",
+> +                       &ctrl->addr, &ctrl->size, CBQRI_CTRL_MIN_REG_SPAN=
+);
+> +               return -EINVAL;
+> +       }
+> +
+> +       if (!request_mem_region(ctrl->addr, ctrl->size, "cbqri_controller=
+")) {
+> +               pr_err("request_mem_region failed for %pa\n", &ctrl->addr=
+);
+> +               return -EBUSY;
+> +       }
+> +
+> +       ctrl->base =3D ioremap(ctrl->addr, ctrl->size);
+> +       if (!ctrl->base) {
+> +               pr_err("ioremap failed for %pa\n", &ctrl->addr);
+> +               err =3D -ENOMEM;
+> +               goto err_release;
+> +       }
+> +
+> +       switch (ctrl->type) {
+> +       case CBQRI_CONTROLLER_TYPE_CAPACITY:
+> +               err =3D cbqri_probe_cc(ctrl);
+> +               break;
+> +       default:
+> +               pr_err("unknown controller type %d\n", ctrl->type);
+> +               err =3D -ENODEV;
+> +               break;
+> +       }
+> +
+> +       if (err)
+> +               goto err_iounmap;
+> +
+> +       return 0;
+> +
+> +err_iounmap:
+> +       iounmap(ctrl->base);
+> +       ctrl->base =3D NULL;
+> +err_release:
+> +       release_mem_region(ctrl->addr, ctrl->size);
+> +       return err;
+> +}
+> +
+> +void cbqri_controller_destroy(struct cbqri_controller *ctrl)
+> +{
+> +       /*
+> +        * cbqri_probe_controller() clears ctrl->base on its error paths =
+and
+> +        * releases the mem region itself, so reach into both only when
+> +        * destroy is rolling back a successful probe.
+> +        */
+> +       if (ctrl->base) {
+> +               iounmap(ctrl->base);
+> +               release_mem_region(ctrl->addr, ctrl->size);
+> +       }
+> +       kfree(ctrl);
+> +}
+> +
+> +/**
+> + * riscv_cbqri_register_cc_dt() - register a DT-described capacity contr=
+oller
+> + * @info:        registration descriptor. info->cache_id is used as the
+> + *               resctrl domain id. info->type must be CAPACITY.
+> + * @cache_level: cache level (2 or 3) the controller backs, mapped to th=
+e
+> + *               resctrl L2/L3 resource by the resctrl glue.
+> + *
+> + * The cache level and id (info->cache_id) are supplied directly by the
+> + * caller, which resolves them from cacheinfo. Domain membership is reso=
+lved
+> + * per CPU at hotplug, so no cpu mask is stored. There is no firmware ta=
+ble
+> + * to resolve any of this from.
+> + *
+> + * Return: 0 on success, or a negative errno on failure.
+> + */
+> +int riscv_cbqri_register_cc_dt(const struct cbqri_controller_info *info,
+> +                              u32 cache_level)
+> +{
+> +       struct cbqri_controller *ctrl;
+> +       int err;
+> +
+> +       if (!info->addr) {
+> +               pr_warn("skipping controller with invalid addr=3D0x0\n");
+> +               return -EINVAL;
+> +       }
+> +
+> +       if (info->type !=3D CBQRI_CONTROLLER_TYPE_CAPACITY) {
+> +               pr_warn("register_cc_dt called with non-capacity type %u\=
+n",
+> +                       info->type);
+> +               return -EINVAL;
+> +       }
+> +
+> +       ctrl =3D kzalloc(sizeof(*ctrl), GFP_KERNEL);
+> +       if (!ctrl)
+> +               return -ENOMEM;
+> +
+> +       mutex_init(&ctrl->lock);
+> +
+> +       ctrl->addr =3D info->addr;
+> +       ctrl->size =3D info->size;
+> +       ctrl->type =3D info->type;
+> +       ctrl->rcid_count =3D info->rcid_count;
+> +
+> +       /*
+> +        * SRMCFG encodes RCID in 12 bits. Reject an out-of-range count r=
+ather
+> +        * than silently truncating in every FIELD_PREP(SRMCFG_RCID_MASK,=
+ closid)
+> +        * on the schedule-in fast path.
+> +        */
+> +       if (ctrl->rcid_count > FIELD_MAX(SRMCFG_RCID_MASK) + 1) {
+> +               pr_warn("CC at %pa has RCID count %u beyond the 12-bit SR=
+MCFG field, skipping\n",
+> +                       &ctrl->addr, ctrl->rcid_count);
+> +               cbqri_controller_destroy(ctrl);
+> +               return -EINVAL;
+> +       }
+> +
+> +       ctrl->cache.cache_id =3D info->cache_id;
+> +       ctrl->cache.cache_level =3D cache_level;
+> +
+> +       err =3D cbqri_probe_controller(ctrl);
+> +       if (err) {
+> +               cbqri_controller_destroy(ctrl);
+> +               return err;
+> +       }
+> +
+> +       /*
+> +        * Allocation capability comes from the capabilities register pro=
+bed
+> +        * above, not from device tree. rcid_count only bounds the RCID r=
+ange,
+> +        * so a controller the hardware reports as alloc-capable but desc=
+ribed
+> +        * with no RCID count cannot be driven. Reject that inconsistency=
+. A
+> +        * monitoring-only controller (not alloc_capable) needs no RCID c=
+ount.
+> +        */
+> +       if (ctrl->alloc_capable && !ctrl->rcid_count) {
+> +               pr_warn("CC at %pa is alloc-capable but has no RCID count=
+, skipping\n",
+> +                       &ctrl->addr);
+> +               cbqri_controller_destroy(ctrl);
+> +               return -EINVAL;
+> +       }
+> +
+> +       guard(mutex)(&cbqri_controllers_lock);
+> +       list_add_tail(&ctrl->list, &cbqri_controllers);
+> +       return 0;
+> +}
+> diff --git a/drivers/resctrl/cbqri_internal.h b/drivers/resctrl/cbqri_int=
+ernal.h
+> new file mode 100644
+> index 000000000000..77429f39f874
+> --- /dev/null
+> +++ b/drivers/resctrl/cbqri_internal.h
+> @@ -0,0 +1,122 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef _DRIVERS_RESCTRL_CBQRI_INTERNAL_H
+> +#define _DRIVERS_RESCTRL_CBQRI_INTERNAL_H
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/riscv_cbqri.h>
+> +#include <linux/list.h>
+> +#include <linux/mutex.h>
+> +#include <linux/types.h>
+> +
+> +/* Capacity Controller (CC) MMIO register offsets. */
+> +#define CBQRI_CC_CAPABILITIES_OFF 0
+> +#define CBQRI_CC_ALLOC_CTL_OFF   24
+> +#define CBQRI_CC_BLOCK_MASK_OFF  32
+> +
+> +/*
+> + * Per CBQRI 3.5 the block-mask width BMW is the smallest multiple of 64=
+ bits
+> + * that holds NCBLKS, so cc_cunits sits at 32 + BMW/8 bytes. This consta=
+nt is
+> + * valid only while NCBLKS <=3D 64. cbqri_probe_cc() rejects ncblks > 32=
+ before
+> + * it reads cc_capabilities.CUNITS, forcing BMW to 64 bits, one 8-byte b=
+lock
+> + * mask, and cc_cunits at 0x28. Raising that cap above 64 would require
+> + * computing 32 + roundup(ncblks, 64) / 8 instead of a constant.
+> + */
+> +#define CBQRI_CC_CUNITS_OFF      40
+> +
+> +/*
+> + * Highest base register offset (cc_block_mask at 0x20) plus its 8-byte =
+width.
+> + * cbqri_probe_controller() rejects smaller mappings. cc_cunits at 0x28 =
+is
+> + * optional and only required when cc_capabilities.CUNITS is set, which
+> + * cbqri_probe_cc() checks against the mapping size separately.
+> + */
+> +#define CBQRI_CTRL_MIN_REG_SPAN  0x28u
+> +
+> +#define CBQRI_CC_CAPABILITIES_VER_MINOR_MASK  GENMASK_ULL(3, 0)
+> +#define CBQRI_CC_CAPABILITIES_VER_MAJOR_MASK  GENMASK_ULL(7, 4)
+> +#define CBQRI_CC_CAPABILITIES_NCBLKS_MASK     GENMASK_ULL(23, 8)
+> +#define CBQRI_CC_CAPABILITIES_CUNITS_MASK     BIT_ULL(25)
+> +
+> +/*
+> + * CC control registers are 64-bit, but the CBQRI spec only guarantees
+> + * single-copy atomicity for naturally aligned 4-byte accesses. They are=
+ read
+> + * as two 32-bit halves (cbqri_readq) reconstructed into a u64 for field
+> + * extraction, and written via the low 32-bit half, so the driver does n=
+ot
+> + * depend on native 64-bit MMIO. Keep every field mask GENMASK_ULL so
+> + * FIELD_MODIFY() or ~mask on the reconstructed u64 never zero-extends a
+> + * 32-bit mask and clobbers STATUS/BUSY/WPRI in bits 63:32.
+> + */
+> +#define CBQRI_CONTROL_REGISTERS_OP_MASK      GENMASK_ULL(4, 0)
+> +#define CBQRI_CONTROL_REGISTERS_AT_MASK      GENMASK_ULL(7, 5)
+> +/* AT field values (CBQRI Table 1): data vs code half for CDP */
+> +#define CBQRI_CONTROL_REGISTERS_AT_DATA      0
+> +#define CBQRI_CONTROL_REGISTERS_AT_CODE      1
+> +#define CBQRI_CONTROL_REGISTERS_RCID_MASK    GENMASK_ULL(19, 8)
+> +#define CBQRI_CONTROL_REGISTERS_STATUS_MASK  GENMASK_ULL(38, 32)
+> +#define CBQRI_CONTROL_REGISTERS_BUSY_MASK    GENMASK_ULL(39, 39)
+> +
+> +#define CBQRI_CC_ALLOC_CTL_OP_CONFIG_LIMIT 1
+> +#define CBQRI_CC_ALLOC_CTL_OP_READ_LIMIT   2
+> +#define CBQRI_CC_ALLOC_CTL_STATUS_SUCCESS  1
+> +
+> +/* Capacity Controller hardware capabilities */
+> +struct riscv_cbqri_capacity_caps {
+> +       u16 ncblks;
+> +       bool supports_alloc_at_code;
+> +       /* cc_capabilities.CUNITS: controller enforces a capacity-unit li=
+mit */
+> +       bool cunits;
+> +};
+> +
+> +/**
+> + * struct cbqri_cc_config - desired capacity allocation state for one rc=
+id
+> + * @cbm:         capacity block mask
+> + * @at:          AT half the @cbm applies to (CBQRI_CONTROL_REGISTERS_AT=
+_DATA
+> + *               or CBQRI_CONTROL_REGISTERS_AT_CODE)
+> + * @cdp_enabled: when false and the controller supports AT, mirror @cbm
+> + *               into the other AT half so both stay in sync
+> + */
+> +struct cbqri_cc_config {
+> +       u64  cbm;
+> +       u32  at;
+> +       bool cdp_enabled;
+> +};
+> +
+> +struct cbqri_controller {
+> +       void __iomem *base;
+> +       /*
+> +        * Serializes the write-then-poll-busy MMIO sequences on this
+> +        * controller. Each CBQRI op may busy-wait up to 1 ms on slow
+> +        * firmware, so use a sleeping mutex to keep preemption enabled.
+> +        * All resctrl-arch entry points run in process context.
+> +        */
+> +       struct mutex lock;
+> +
+> +       struct riscv_cbqri_capacity_caps cc;
+> +
+> +       bool alloc_capable;
+> +
+> +       phys_addr_t addr;
+> +       phys_addr_t size;
+> +       enum cbqri_controller_type type;
+> +       u32 rcid_count;
+> +
+> +       struct list_head list;
+> +
+> +       struct cache_controller {
+> +               u32 cache_level;
+> +               /* Cache id used as the resctrl domain id */
+> +               u32 cache_id;
+> +       } cache;
+> +};
+> +
+> +extern struct list_head cbqri_controllers;
+> +extern struct mutex cbqri_controllers_lock;
+> +
+> +void cbqri_controller_destroy(struct cbqri_controller *ctrl);
+> +
+> +int cbqri_apply_cache_config(struct cbqri_controller *ctrl, u32 closid,
+> +                            const struct cbqri_cc_config *cfg);
+> +
+> +int cbqri_read_cache_config(struct cbqri_controller *ctrl, u32 closid,
+> +                           u32 at, u32 *cbm_out);
+> +
+> +#endif /* _DRIVERS_RESCTRL_CBQRI_INTERNAL_H */
+> diff --git a/include/linux/riscv_cbqri.h b/include/linux/riscv_cbqri.h
+> new file mode 100644
+> index 000000000000..e6b3febbed89
+> --- /dev/null
+> +++ b/include/linux/riscv_cbqri.h
+> @@ -0,0 +1,45 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Public registration API for the RISC-V Capacity and Bandwidth QoS
+> + * Register Interface (CBQRI) core. Discovery layers (device tree
+> + * platform drivers) call riscv_cbqri_register_cc_dt() to hand a capacit=
+y
+> + * controller descriptor to the core, which owns all subsequent state.
+> + */
+> +#ifndef _LINUX_RISCV_CBQRI_H
+> +#define _LINUX_RISCV_CBQRI_H
+> +
+> +#include <linux/types.h>
+> +
+> +enum cbqri_controller_type {
+> +       CBQRI_CONTROLLER_TYPE_CAPACITY,
+> +};
+> +
+> +/**
+> + * struct cbqri_controller_info - registration descriptor
+> + * @addr:        MMIO base address of the controller's register interfac=
+e
+> + * @size:        size of the MMIO region
+> + * @type:        controller type (capacity)
+> + * @rcid_count:  number of supported RCIDs
+> + * @cache_id:    cache id used as the resctrl domain id
+> + */
+> +struct cbqri_controller_info {
+> +       phys_addr_t                     addr;
+> +       phys_addr_t                     size;
+> +       enum cbqri_controller_type      type;
+> +       u32                             rcid_count;
+> +       u32                             cache_id;
+> +};
+> +
+> +#if IS_ENABLED(CONFIG_RISCV_CBQRI)
+> +int riscv_cbqri_register_cc_dt(const struct cbqri_controller_info *info,
+> +                              u32 cache_level);
+> +#else
+> +static inline int
+> +riscv_cbqri_register_cc_dt(const struct cbqri_controller_info *info,
+> +                          u32 cache_level)
+> +{
+> +       return -ENODEV;
+> +}
+> +#endif
+> +
+> +#endif /* _LINUX_RISCV_CBQRI_H */
+>
+> --
+> 2.43.0
+>
 
-Changes in v12:
-- Fix stream ID handling: iterate routing table instead of assuming
-  stream ID equals loop index (0-7)
-- Remove stream_to_vc[] array: derive VC from routing table and frame
-  descriptor on each start/stop operation
-- Remove V4L2_SUBDEV_FL_HAS_EVENTS flag since driver does not generate events
-- Support stream IDs 0-63 by using BIT_ULL() for stream masks
-- Add get_frame_desc call in stop_stream with proper error handling
-- Add csi_formatter_read() helper function for register reads
-- Use read-modify-write for CSI_VC_PIXEL_DATA_TYPE register to support
-  multiplexed streams sharing the same virtual channel
-- Use route->sink_pad instead of hardcoded CSI_FORMATTER_PAD_SINK
-- Write back coerced format in set_fmt before propagating to source stream
-- Drop Frank's Reviewed-by tag due to significant changes, requesting re-review
-
-Changes in v10:
-- Use u8 for vc in csi_formatter_get_vc() and drop vc < 0 check
-- Add MFD_SYSCON dependency to Kconfig
-- Fix stream/VC mapping potential mismatch in start/stop_stream functions
-
-Changes in v8:
-- Remove fmt field and look up format from subdev state instead
-- Unify function and structure naming to use csi_formatter_ prefix
-- Remove misleading alignment comment from set_fmt function
-- Optimize get_frame_desc to call once per start_stream
-- Replace V4L2_FRAME_DESC_ENTRY_MAX with CSI_FORMATTER_VC_NUM in loops
-- Remove redundant debug message in enable_streams
-- Use MEDIA_PAD_FL_MUST_CONNECT flag instead of manual link check
-- Fix typo: Formater -> Formatter in Kconfig help text
-- Improve grammar in data type index mapping comment
-
-Changes in v7:
-- Update references from imx9 to imx95 for consistency with dt-bindings
-- Enable PM runtime before async registration
-
-Changes in v6:
-- Remove unused header includes
-- Unify macro naming: VCx/VCX -> VC and parameter x -> vc
-- Remove unused format field from csi_formatter struct
-- Use compact initialization for formats array
-- Make find_csi_format() return NULL instead of default format
-- Use unsigned int for array index in find_csi_format()
-- Add err_ prefix to error handling labels
-- Add v4l2_subdev_cleanup() and reorder cleanup sequence
-- Update enable_streams debug output format
-- Rename VC_MAX to VC_NUM and fix boundary check
-- Update CSI formatter Kconfig description
-- Use v4l2_subdev_get_frame_desc_passthrough() helper
-- Fix error paths in async registration and probe
-- Add mutex to protect enabled_streams
-- Switch to devm_pm_runtime_enable()
-- Remove redundant num_routes check in set_routing
-- Optimize get_index_by_dt() and add warning for unsupported type
-- csi_formatter_start/stop_stream: Process all streams in mask
----
- MAINTAINERS                                      |   8 +
- drivers/media/platform/nxp/Kconfig               |  15 +
- drivers/media/platform/nxp/Makefile              |   1 +
- drivers/media/platform/nxp/imx95-csi-formatter.c | 808 +++++++++++++++++++++++
- 4 files changed, 832 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index efbf808063e5..05009228b162 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19275,6 +19275,14 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/media/nxp,imx8-jpeg.yaml
- F:	drivers/media/platform/nxp/imx-jpeg
- 
-+NXP i.MX 95 CSI PIXEL FORMATTER V4L2 DRIVER
-+M:	Guoniu Zhou <guoniu.zhou@nxp.com>
-+L:	imx@lists.linux.dev
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/fsl,imx95-csi-formatter.yaml
-+F:	drivers/media/platform/nxp/imx95-csi-formatter.c
-+
- NXP i.MX CLOCK DRIVERS
- M:	Abel Vesa <abelvesa@kernel.org>
- R:	Peng Fan <peng.fan@nxp.com>
-diff --git a/drivers/media/platform/nxp/Kconfig b/drivers/media/platform/nxp/Kconfig
-index 40e3436669e2..8f49908b0022 100644
---- a/drivers/media/platform/nxp/Kconfig
-+++ b/drivers/media/platform/nxp/Kconfig
-@@ -28,6 +28,21 @@ config VIDEO_IMX8MQ_MIPI_CSI2
- 	  Video4Linux2 driver for the MIPI CSI-2 receiver found on the i.MX8MQ
- 	  SoC.
- 
-+config VIDEO_IMX95_CSI_FORMATTER
-+	tristate "NXP i.MX95 CSI Pixel Formatter driver"
-+	depends on ARCH_MXC || COMPILE_TEST
-+	depends on MFD_SYSCON
-+	depends on VIDEO_DEV
-+	select MEDIA_CONTROLLER
-+	select V4L2_FWNODE
-+	select VIDEO_V4L2_SUBDEV_API
-+	help
-+	  This driver provides support for the CSI Pixel Formatter found on
-+	  i.MX95 series SoCs. This module unpacks the pixels received from the
-+	  CSI-2 interface and reformats them to meet pixel link requirements.
-+
-+	  Say Y here to enable CSI Pixel Formatter module for i.MX95 SoC.
-+
- config VIDEO_IMX_MIPI_CSIS
- 	tristate "NXP MIPI CSI-2 CSIS receiver found on i.MX7 and i.MX8 models"
- 	depends on ARCH_MXC || COMPILE_TEST
-diff --git a/drivers/media/platform/nxp/Makefile b/drivers/media/platform/nxp/Makefile
-index 4d90eb713652..6410115d870e 100644
---- a/drivers/media/platform/nxp/Makefile
-+++ b/drivers/media/platform/nxp/Makefile
-@@ -6,6 +6,7 @@ obj-y += imx8-isi/
- 
- obj-$(CONFIG_VIDEO_IMX7_CSI) += imx7-media-csi.o
- obj-$(CONFIG_VIDEO_IMX8MQ_MIPI_CSI2) += imx8mq-mipi-csi2.o
-+obj-$(CONFIG_VIDEO_IMX95_CSI_FORMATTER) += imx95-csi-formatter.o
- obj-$(CONFIG_VIDEO_IMX_MIPI_CSIS) += imx-mipi-csis.o
- obj-$(CONFIG_VIDEO_IMX_PXP) += imx-pxp.o
- obj-$(CONFIG_VIDEO_MX2_EMMAPRP) += mx2_emmaprp.o
-diff --git a/drivers/media/platform/nxp/imx95-csi-formatter.c b/drivers/media/platform/nxp/imx95-csi-formatter.c
-new file mode 100644
-index 000000000000..b0e8e753e94a
---- /dev/null
-+++ b/drivers/media/platform/nxp/imx95-csi-formatter.c
-@@ -0,0 +1,808 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright 2025 NXP
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+
-+#include <media/mipi-csi2.h>
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-event.h>
-+#include <media/v4l2-fwnode.h>
-+#include <media/v4l2-mc.h>
-+#include <media/v4l2-subdev.h>
-+
-+/* CSI Pixel Formatter registers map */
-+
-+#define CSI_VC_INTERLACED_LINE_CNT(vc)		(0x00 + (vc) * 0x04)
-+#define INTERLACED_ODD_LINE_CNT_SET(x)		FIELD_PREP(GENMASK(13, 0), (x))
-+#define INTERLACED_EVEN_LINE_CNT_SET(x)		FIELD_PREP(GENMASK(29, 16), (x))
-+
-+#define CSI_VC_INTERLACED_CTRL			0x20
-+
-+#define CSI_VC_INTERLACED_ERR			0x24
-+#define CSI_VC_ERR_MASK				GENMASK(7, 0)
-+#define CSI_VC_ERR(vc)				BIT((vc))
-+
-+#define CSI_VC_YUV420_FIRST_LINE_EVEN		0x28
-+#define YUV420_FIRST_LINE_EVEN(vc)		BIT((vc))
-+
-+#define CSI_RAW32_CTRL				0x30
-+#define CSI_VC_RAW32_MODE(vc)			BIT((vc))
-+#define CSI_VC_RAW32_SWAP_MODE(vc)		BIT((vc) + 8)
-+
-+#define CSI_STREAM_FENCING_CTRL			0x34
-+#define CSI_VC_STREAM_FENCING(vc)		BIT((vc))
-+#define CSI_VC_STREAM_FENCING_RST(vc)		BIT((vc) + 8)
-+
-+#define CSI_STREAM_FENCING_STS			0x38
-+#define CSI_STREAM_FENCING_STS_MASK		GENMASK(7, 0)
-+
-+#define CSI_VC_NON_PIXEL_DATA_TYPE(vc)		(0x40 + (vc) * 0x04)
-+
-+#define CSI_VC_PIXEL_DATA_CTRL(vc)		(0x60 + (vc) * 0x04)
-+#define NEW_VC(vc)				FIELD_PREP(GENMASK(3, 1), vc)
-+#define REROUTE_VC_ENABLE			BIT(0)
-+
-+#define CSI_VC_ROUTE_PIXEL_DATA_TYPE(vc)	(0x80 + (vc) * 0x04)
-+
-+#define CSI_VC_NON_PIXEL_DATA_CTRL(vc)		(0xa0 + (vc) * 0x04)
-+
-+#define CSI_VC_PIXEL_DATA_TYPE(vc)		(0xc0 + (vc) * 0x04)
-+
-+#define CSI_VC_PIXEL_DATA_TYPE_ERR(vc)		(0xe0 + (vc) * 0x04)
-+
-+#define CSI_FORMATTER_PAD_SINK			0
-+#define CSI_FORMATTER_PAD_SOURCE		1
-+#define CSI_FORMATTER_PAD_NUM			2
-+
-+#define CSI_FORMATTER_VC_NUM			8 /* Number of virtual channels */
-+
-+struct csi_formatter_pix_format {
-+	u32 code;
-+	u32 data_type;
-+};
-+
-+struct csi_formatter {
-+	struct device *dev;
-+	struct regmap *regs;
-+	struct clk *clk;
-+
-+	struct v4l2_subdev sd;
-+	struct v4l2_subdev *csi_sd;
-+	struct v4l2_async_notifier notifier;
-+	struct media_pad pads[CSI_FORMATTER_PAD_NUM];
-+
-+	u32 remote_pad;
-+	u32 reg_offset;
-+
-+	/* Protects enabled_streams */
-+	struct mutex lock;
-+	u64 enabled_streams;
-+};
-+
-+struct csi_formatter_dt_index {
-+	u8 dtype;
-+	u8 index;
-+};
-+
-+/*
-+ * The index corresponds to the bit index in the register that enables
-+ * the data type of pixel data transported by the Formatter.
-+ */
-+static const struct csi_formatter_dt_index formatter_dt_to_index_map[] = {
-+	{ .dtype = MIPI_CSI2_DT_YUV420_8B,        .index = 0 },
-+	{ .dtype = MIPI_CSI2_DT_YUV420_8B_LEGACY, .index = 2 },
-+	{ .dtype = MIPI_CSI2_DT_YUV422_8B,        .index = 6 },
-+	{ .dtype = MIPI_CSI2_DT_RGB444,		  .index = 8 },
-+	{ .dtype = MIPI_CSI2_DT_RGB555,           .index = 9 },
-+	{ .dtype = MIPI_CSI2_DT_RGB565,           .index = 10 },
-+	{ .dtype = MIPI_CSI2_DT_RGB666,           .index = 11 },
-+	{ .dtype = MIPI_CSI2_DT_RGB888,           .index = 12 },
-+	{ .dtype = MIPI_CSI2_DT_RAW6,             .index = 16 },
-+	{ .dtype = MIPI_CSI2_DT_RAW7,             .index = 17 },
-+	{ .dtype = MIPI_CSI2_DT_RAW8,             .index = 18 },
-+	{ .dtype = MIPI_CSI2_DT_RAW10,            .index = 19 },
-+	{ .dtype = MIPI_CSI2_DT_RAW12,            .index = 20 },
-+	{ .dtype = MIPI_CSI2_DT_RAW14,            .index = 21 },
-+	{ .dtype = MIPI_CSI2_DT_RAW16,            .index = 22 },
-+};
-+
-+static const struct csi_formatter_pix_format formats[] = {
-+	/* YUV formats */
-+	{ MEDIA_BUS_FMT_UYVY8_1X16,	MIPI_CSI2_DT_YUV422_8B },
-+	/* RGB formats */
-+	{ MEDIA_BUS_FMT_RGB565_1X16,	MIPI_CSI2_DT_RGB565 },
-+	{ MEDIA_BUS_FMT_RGB888_1X24,	MIPI_CSI2_DT_RGB888 },
-+	/* RAW (Bayer and greyscale) formats */
-+	{ MEDIA_BUS_FMT_SBGGR8_1X8,	MIPI_CSI2_DT_RAW8 },
-+	{ MEDIA_BUS_FMT_SGBRG8_1X8,	MIPI_CSI2_DT_RAW8 },
-+	{ MEDIA_BUS_FMT_SGRBG8_1X8,	MIPI_CSI2_DT_RAW8 },
-+	{ MEDIA_BUS_FMT_SRGGB8_1X8,	MIPI_CSI2_DT_RAW8 },
-+	{ MEDIA_BUS_FMT_Y8_1X8,		MIPI_CSI2_DT_RAW8 },
-+	{ MEDIA_BUS_FMT_SBGGR10_1X10,	MIPI_CSI2_DT_RAW10 },
-+	{ MEDIA_BUS_FMT_SGBRG10_1X10,	MIPI_CSI2_DT_RAW10 },
-+	{ MEDIA_BUS_FMT_SGRBG10_1X10,	MIPI_CSI2_DT_RAW10 },
-+	{ MEDIA_BUS_FMT_SRGGB10_1X10,	MIPI_CSI2_DT_RAW10 },
-+	{ MEDIA_BUS_FMT_Y10_1X10,	MIPI_CSI2_DT_RAW10 },
-+	{ MEDIA_BUS_FMT_SBGGR12_1X12,	MIPI_CSI2_DT_RAW12 },
-+	{ MEDIA_BUS_FMT_SGBRG12_1X12,	MIPI_CSI2_DT_RAW12 },
-+	{ MEDIA_BUS_FMT_SGRBG12_1X12,	MIPI_CSI2_DT_RAW12 },
-+	{ MEDIA_BUS_FMT_SRGGB12_1X12,	MIPI_CSI2_DT_RAW12 },
-+	{ MEDIA_BUS_FMT_Y12_1X12,	MIPI_CSI2_DT_RAW12 },
-+	{ MEDIA_BUS_FMT_SBGGR14_1X14,	MIPI_CSI2_DT_RAW14 },
-+	{ MEDIA_BUS_FMT_SGBRG14_1X14,	MIPI_CSI2_DT_RAW14 },
-+	{ MEDIA_BUS_FMT_SGRBG14_1X14,	MIPI_CSI2_DT_RAW14 },
-+	{ MEDIA_BUS_FMT_SRGGB14_1X14,	MIPI_CSI2_DT_RAW14 },
-+	{ MEDIA_BUS_FMT_SBGGR16_1X16,	MIPI_CSI2_DT_RAW16 },
-+	{ MEDIA_BUS_FMT_SGBRG16_1X16,	MIPI_CSI2_DT_RAW16 },
-+	{ MEDIA_BUS_FMT_SGRBG16_1X16,	MIPI_CSI2_DT_RAW16 },
-+	{ MEDIA_BUS_FMT_SRGGB16_1X16,	MIPI_CSI2_DT_RAW16 },
-+};
-+
-+static const struct v4l2_mbus_framefmt formatter_default_fmt = {
-+	.code = MEDIA_BUS_FMT_UYVY8_1X16,
-+	.width = 1920U,
-+	.height = 1080U,
-+	.field = V4L2_FIELD_NONE,
-+	.colorspace = V4L2_COLORSPACE_SMPTE170M,
-+	.xfer_func = V4L2_MAP_XFER_FUNC_DEFAULT(V4L2_COLORSPACE_SMPTE170M),
-+	.ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(V4L2_COLORSPACE_SMPTE170M),
-+	.quantization = V4L2_QUANTIZATION_LIM_RANGE,
-+};
-+
-+static const struct csi_formatter_pix_format *csi_formatter_find_format(u32 code)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(formats); i++)
-+		if (code == formats[i].code)
-+			return &formats[i];
-+
-+	return NULL;
-+}
-+
-+/* -----------------------------------------------------------------------------
-+ * V4L2 subdev operations
-+ */
-+
-+static inline struct csi_formatter *sd_to_formatter(struct v4l2_subdev *sdev)
-+{
-+	return container_of(sdev, struct csi_formatter, sd);
-+}
-+
-+static int __csi_formatter_subdev_set_routing(struct v4l2_subdev *sd,
-+					      struct v4l2_subdev_state *state,
-+					      struct v4l2_subdev_krouting *routing)
-+{
-+	int ret;
-+
-+	ret = v4l2_subdev_routing_validate(sd, routing,
-+					   V4L2_SUBDEV_ROUTING_ONLY_1_TO_1);
-+	if (ret)
-+		return ret;
-+
-+	return v4l2_subdev_set_routing_with_fmt(sd, state, routing,
-+						&formatter_default_fmt);
-+}
-+
-+static int csi_formatter_subdev_init_state(struct v4l2_subdev *sd,
-+					   struct v4l2_subdev_state *sd_state)
-+{
-+	struct v4l2_subdev_route routes[] = {
-+		{
-+			.sink_pad = CSI_FORMATTER_PAD_SINK,
-+			.sink_stream = 0,
-+			.source_pad = CSI_FORMATTER_PAD_SOURCE,
-+			.source_stream = 0,
-+			.flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE,
-+		},
-+	};
-+
-+	struct v4l2_subdev_krouting routing = {
-+		.num_routes = ARRAY_SIZE(routes),
-+		.routes = routes,
-+	};
-+
-+	return __csi_formatter_subdev_set_routing(sd, sd_state, &routing);
-+}
-+
-+static int csi_formatter_subdev_enum_mbus_code(struct v4l2_subdev *sd,
-+					       struct v4l2_subdev_state *sd_state,
-+					       struct v4l2_subdev_mbus_code_enum *code)
-+{
-+	if (code->pad == CSI_FORMATTER_PAD_SOURCE) {
-+		struct v4l2_mbus_framefmt *fmt;
-+
-+		if (code->index > 0)
-+			return -EINVAL;
-+
-+		fmt = v4l2_subdev_state_get_format(sd_state, code->pad,
-+						   code->stream);
-+		code->code = fmt->code;
-+		return 0;
-+	}
-+
-+	if (code->index >= ARRAY_SIZE(formats))
-+		return -EINVAL;
-+
-+	code->code = formats[code->index].code;
-+
-+	return 0;
-+}
-+
-+static int csi_formatter_subdev_set_fmt(struct v4l2_subdev *sd,
-+					struct v4l2_subdev_state *sd_state,
-+					struct v4l2_subdev_format *sdformat)
-+{
-+	struct csi_formatter_pix_format const *format;
-+	struct v4l2_mbus_framefmt *fmt;
-+
-+	if (sdformat->pad == CSI_FORMATTER_PAD_SOURCE)
-+		return v4l2_subdev_get_fmt(sd, sd_state, sdformat);
-+
-+	format = csi_formatter_find_format(sdformat->format.code);
-+	if (!format)
-+		format = &formats[0];
-+
-+	v4l_bound_align_image(&sdformat->format.width, 1, 0xffff, 2,
-+			      &sdformat->format.height, 1, 0xffff, 0, 0);
-+
-+	fmt = v4l2_subdev_state_get_format(sd_state, sdformat->pad,
-+					   sdformat->stream);
-+	*fmt = sdformat->format;
-+
-+	/* Set default code if user set an invalid value */
-+	fmt->code = format->code;
-+	sdformat->format = *fmt;
-+
-+	/* Propagate the format from sink stream to source stream */
-+	fmt = v4l2_subdev_state_get_opposite_stream_format(sd_state, sdformat->pad,
-+							   sdformat->stream);
-+	if (!fmt)
-+		return -EINVAL;
-+
-+	*fmt = sdformat->format;
-+
-+	return 0;
-+}
-+
-+static int csi_formatter_subdev_set_routing(struct v4l2_subdev *sd,
-+					    struct v4l2_subdev_state *state,
-+					    enum v4l2_subdev_format_whence which,
-+					    struct v4l2_subdev_krouting *routing)
-+{
-+	if (which == V4L2_SUBDEV_FORMAT_ACTIVE &&
-+	    media_entity_is_streaming(&sd->entity))
-+		return -EBUSY;
-+
-+	return __csi_formatter_subdev_set_routing(sd, state, routing);
-+}
-+
-+static u8 csi_formatter_get_index_by_dt(struct csi_formatter *formatter,
-+					u8 data_type)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(formatter_dt_to_index_map); ++i) {
-+		const struct csi_formatter_dt_index *entry =
-+			&formatter_dt_to_index_map[i];
-+
-+		if (data_type == entry->dtype)
-+			return entry->index;
-+	}
-+
-+	dev_warn(formatter->dev, "Unsupported data type 0x%x, using default\n",
-+		 data_type);
-+
-+	return formatter_dt_to_index_map[0].index;
-+}
-+
-+static int csi_formatter_get_vc(struct csi_formatter *formatter,
-+				struct v4l2_mbus_frame_desc *fd,
-+				unsigned int stream)
-+{
-+	struct v4l2_mbus_frame_desc_entry *entry = NULL;
-+	unsigned int i;
-+	u8 vc;
-+
-+	for (i = 0; i < fd->num_entries; ++i) {
-+		if (fd->entry[i].stream == stream) {
-+			entry = &fd->entry[i];
-+			break;
-+		}
-+	}
-+
-+	if (!entry) {
-+		dev_err(formatter->dev,
-+			"No frame desc entry for stream %u\n", stream);
-+		return -EPIPE;
-+	}
-+
-+	vc = entry->bus.csi2.vc;
-+
-+	if (vc >= CSI_FORMATTER_VC_NUM) {
-+		dev_err(formatter->dev, "Invalid virtual channel %u\n", vc);
-+		return -EINVAL;
-+	}
-+
-+	return vc;
-+}
-+
-+static void csi_formatter_stop_stream(struct csi_formatter *formatter,
-+				      struct v4l2_subdev_state *state,
-+				      u64 stream_mask)
-+{
-+	const struct csi_formatter_pix_format *pix_fmt;
-+	struct v4l2_mbus_frame_desc fd = {};
-+	struct v4l2_subdev_route *route;
-+	struct v4l2_mbus_framefmt *fmt;
-+	unsigned int reg;
-+	unsigned int mask;
-+	int vc;
-+	int ret;
-+
-+	ret = v4l2_subdev_call(formatter->csi_sd, pad, get_frame_desc,
-+			       formatter->remote_pad, &fd);
-+	if (ret < 0 && ret != -ENOIOCTLCMD) {
-+		dev_err(formatter->dev, "Failed to get frame desc: %d\n", ret);
-+		return;
-+	}
-+
-+	for_each_active_route(&state->routing, route) {
-+		if (route->source_pad != CSI_FORMATTER_PAD_SOURCE)
-+			continue;
-+
-+		if (!(stream_mask & BIT_ULL(route->source_stream)))
-+			continue;
-+
-+		if (ret == -ENOIOCTLCMD) {
-+			/*
-+			 * Source doesn't implement get_frame_desc, use
-+			 * default VC 0
-+			 */
-+			vc = 0;
-+		} else {
-+			vc = csi_formatter_get_vc(formatter, &fd,
-+						  route->sink_stream);
-+			if (vc < 0)
-+				continue;
-+		}
-+
-+		fmt = v4l2_subdev_state_get_format(state, route->sink_pad,
-+						   route->sink_stream);
-+
-+		pix_fmt = csi_formatter_find_format(fmt->code);
-+		if (WARN_ON(!pix_fmt))
-+			continue;
-+
-+		reg = CSI_VC_PIXEL_DATA_TYPE(vc) + formatter->reg_offset;
-+		mask = BIT(csi_formatter_get_index_by_dt(formatter,
-+							 pix_fmt->data_type));
-+
-+		/* Clear the data type bit to disable this VC */
-+		regmap_clear_bits(formatter->regs, reg, mask);
-+	}
-+}
-+
-+static int csi_formatter_start_stream(struct csi_formatter *formatter,
-+				      struct v4l2_subdev_state *state,
-+				      u64 stream_mask)
-+{
-+	const struct csi_formatter_pix_format *pix_fmt;
-+	struct v4l2_subdev_route *route;
-+	struct v4l2_mbus_framefmt *fmt;
-+	struct v4l2_mbus_frame_desc fd = {};
-+	u64 configured_streams = 0;
-+	unsigned int reg;
-+	unsigned int mask;
-+	int vc;
-+	int ret;
-+
-+	ret = v4l2_subdev_call(formatter->csi_sd, pad, get_frame_desc,
-+			       formatter->remote_pad, &fd);
-+	if (ret < 0 && ret != -ENOIOCTLCMD) {
-+		dev_err(formatter->dev, "Failed to get frame desc: %d\n", ret);
-+		return ret;
-+	}
-+
-+	for_each_active_route(&state->routing, route) {
-+		if (route->source_pad != CSI_FORMATTER_PAD_SOURCE)
-+			continue;
-+
-+		if (!(stream_mask & BIT_ULL(route->source_stream)))
-+			continue;
-+
-+		if (ret == -ENOIOCTLCMD) {
-+			/*
-+			 * Source doesn't implement get_frame_desc, use
-+			 * default VC 0
-+			 */
-+			vc = 0;
-+		} else {
-+			vc = csi_formatter_get_vc(formatter, &fd,
-+						  route->sink_stream);
-+			if (vc < 0) {
-+				ret = vc;
-+				goto err_cleanup;
-+			}
-+		}
-+
-+		fmt = v4l2_subdev_state_get_format(state, route->sink_pad,
-+						   route->sink_stream);
-+
-+		pix_fmt = csi_formatter_find_format(fmt->code);
-+		if (WARN_ON(!pix_fmt)) {
-+			ret = -EINVAL;
-+			goto err_cleanup;
-+		}
-+
-+		reg = CSI_VC_PIXEL_DATA_TYPE(vc) + formatter->reg_offset;
-+		mask = BIT(csi_formatter_get_index_by_dt(formatter,
-+							 pix_fmt->data_type));
-+
-+		/* Set the data type bit to enable this VC */
-+		regmap_set_bits(formatter->regs, reg, mask);
-+
-+		configured_streams |= BIT_ULL(route->source_stream);
-+	}
-+
-+	return 0;
-+
-+err_cleanup:
-+	csi_formatter_stop_stream(formatter, state, configured_streams);
-+	return ret;
-+}
-+
-+static int csi_formatter_subdev_enable_streams(struct v4l2_subdev *sd,
-+					       struct v4l2_subdev_state *state,
-+					       u32 pad, u64 streams_mask)
-+{
-+	struct csi_formatter *formatter = sd_to_formatter(sd);
-+	struct device *dev = formatter->dev;
-+	u64 sink_streams;
-+	int ret;
-+
-+	sink_streams = v4l2_subdev_state_xlate_streams(state,
-+						       CSI_FORMATTER_PAD_SOURCE,
-+						       CSI_FORMATTER_PAD_SINK,
-+						       &streams_mask);
-+	if (!sink_streams || !streams_mask)
-+		return -EINVAL;
-+
-+	guard(mutex)(&formatter->lock);
-+
-+	if (!formatter->enabled_streams) {
-+		ret = pm_runtime_resume_and_get(formatter->dev);
-+		if (ret < 0) {
-+			dev_err(dev, "Failed to resume runtime PM: %d\n", ret);
-+			return ret;
-+		}
-+	}
-+
-+	ret = csi_formatter_start_stream(formatter, state, streams_mask);
-+	if (ret)
-+		goto err_runtime_put;
-+
-+	ret = v4l2_subdev_enable_streams(formatter->csi_sd,
-+					 formatter->remote_pad,
-+					 sink_streams);
-+	if (ret)
-+		goto err_stop_stream;
-+
-+	formatter->enabled_streams |= streams_mask;
-+
-+	return 0;
-+
-+err_stop_stream:
-+	csi_formatter_stop_stream(formatter, state, streams_mask);
-+err_runtime_put:
-+	if (!formatter->enabled_streams)
-+		pm_runtime_put(formatter->dev);
-+	return ret;
-+}
-+
-+static int csi_formatter_subdev_disable_streams(struct v4l2_subdev *sd,
-+						struct v4l2_subdev_state *state,
-+						u32 pad, u64 streams_mask)
-+{
-+	struct csi_formatter *formatter = sd_to_formatter(sd);
-+	u64 sink_streams;
-+	int ret;
-+
-+	sink_streams = v4l2_subdev_state_xlate_streams(state,
-+						       CSI_FORMATTER_PAD_SOURCE,
-+						       CSI_FORMATTER_PAD_SINK,
-+						       &streams_mask);
-+	if (!sink_streams || !streams_mask)
-+		return -EINVAL;
-+
-+	guard(mutex)(&formatter->lock);
-+
-+	ret = v4l2_subdev_disable_streams(formatter->csi_sd, formatter->remote_pad,
-+					  sink_streams);
-+	if (ret)
-+		dev_err(formatter->dev, "Failed to disable streams: %d\n", ret);
-+
-+	csi_formatter_stop_stream(formatter, state, streams_mask);
-+
-+	formatter->enabled_streams &= ~streams_mask;
-+
-+	if (!formatter->enabled_streams)
-+		pm_runtime_put(formatter->dev);
-+
-+	return ret;
-+}
-+
-+static const struct v4l2_subdev_pad_ops formatter_subdev_pad_ops = {
-+	.enum_mbus_code		= csi_formatter_subdev_enum_mbus_code,
-+	.get_fmt		= v4l2_subdev_get_fmt,
-+	.set_fmt		= csi_formatter_subdev_set_fmt,
-+	.get_frame_desc		= v4l2_subdev_get_frame_desc_passthrough,
-+	.set_routing		= csi_formatter_subdev_set_routing,
-+	.enable_streams		= csi_formatter_subdev_enable_streams,
-+	.disable_streams	= csi_formatter_subdev_disable_streams,
-+};
-+
-+static const struct v4l2_subdev_ops formatter_subdev_ops = {
-+	.pad = &formatter_subdev_pad_ops,
-+};
-+
-+static const struct v4l2_subdev_internal_ops formatter_internal_ops = {
-+	.init_state = csi_formatter_subdev_init_state,
-+};
-+
-+/* -----------------------------------------------------------------------------
-+ * Media entity operations
-+ */
-+
-+static const struct media_entity_operations formatter_entity_ops = {
-+	.link_validate	= v4l2_subdev_link_validate,
-+	.get_fwnode_pad = v4l2_subdev_get_fwnode_pad_1_to_1,
-+};
-+
-+static int csi_formatter_subdev_init(struct csi_formatter *formatter)
-+{
-+	struct v4l2_subdev *sd = &formatter->sd;
-+	int ret;
-+
-+	v4l2_subdev_init(sd, &formatter_subdev_ops);
-+
-+	snprintf(sd->name, sizeof(sd->name), "%s", dev_name(formatter->dev));
-+	sd->internal_ops = &formatter_internal_ops;
-+
-+	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE |
-+		     V4L2_SUBDEV_FL_STREAMS;
-+	sd->entity.function = MEDIA_ENT_F_PROC_VIDEO_PIXEL_FORMATTER;
-+	sd->entity.ops = &formatter_entity_ops;
-+	sd->dev = formatter->dev;
-+
-+	formatter->pads[CSI_FORMATTER_PAD_SINK].flags = MEDIA_PAD_FL_SINK
-+						      | MEDIA_PAD_FL_MUST_CONNECT;
-+	formatter->pads[CSI_FORMATTER_PAD_SOURCE].flags = MEDIA_PAD_FL_SOURCE;
-+
-+	ret = media_entity_pads_init(&sd->entity, CSI_FORMATTER_PAD_NUM,
-+				     formatter->pads);
-+	if (ret) {
-+		dev_err(formatter->dev, "Failed to init pads\n");
-+		return ret;
-+	}
-+
-+	ret = v4l2_subdev_init_finalize(sd);
-+	if (ret)
-+		media_entity_cleanup(&sd->entity);
-+
-+	return ret;
-+}
-+
-+static inline struct csi_formatter *
-+notifier_to_csi_formatter(struct v4l2_async_notifier *n)
-+{
-+	return container_of(n, struct csi_formatter, notifier);
-+}
-+
-+static int csi_formatter_notify_bound(struct v4l2_async_notifier *notifier,
-+				      struct v4l2_subdev *sd,
-+				      struct v4l2_async_connection *asc)
-+{
-+	const unsigned int link_flags = MEDIA_LNK_FL_IMMUTABLE
-+				      | MEDIA_LNK_FL_ENABLED;
-+	struct csi_formatter *formatter = notifier_to_csi_formatter(notifier);
-+	struct v4l2_subdev *sdev = &formatter->sd;
-+	struct media_pad *sink = &sdev->entity.pads[CSI_FORMATTER_PAD_SINK];
-+	struct media_pad *remote_pad;
-+	int ret;
-+
-+	formatter->csi_sd = sd;
-+
-+	dev_dbg(formatter->dev, "Bound subdev: %s pad\n", sd->name);
-+
-+	ret = v4l2_create_fwnode_links_to_pad(sd, sink, link_flags);
-+	if (ret < 0)
-+		return ret;
-+
-+	remote_pad = media_pad_remote_pad_first(sink);
-+	if (!remote_pad) {
-+		dev_err(formatter->dev, "Pipe not setup correctly\n");
-+		return -EPIPE;
-+	}
-+	formatter->remote_pad = remote_pad->index;
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_async_notifier_operations formatter_notify_ops = {
-+	.bound = csi_formatter_notify_bound,
-+};
-+
-+static int csi_formatter_async_register(struct csi_formatter *formatter)
-+{
-+	struct device *dev = formatter->dev;
-+	struct v4l2_async_connection *asc;
-+	int ret;
-+
-+	struct fwnode_handle *ep __free(fwnode_handle) =
-+		fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0,
-+						FWNODE_GRAPH_ENDPOINT_NEXT);
-+	if (!ep)
-+		return -ENOTCONN;
-+
-+	v4l2_async_subdev_nf_init(&formatter->notifier, &formatter->sd);
-+
-+	asc = v4l2_async_nf_add_fwnode_remote(&formatter->notifier, ep,
-+					      struct v4l2_async_connection);
-+	if (IS_ERR(asc)) {
-+		ret = PTR_ERR(asc);
-+		goto err_cleanup_notifier;
-+	}
-+
-+	formatter->notifier.ops = &formatter_notify_ops;
-+
-+	ret = v4l2_async_nf_register(&formatter->notifier);
-+	if (ret)
-+		goto err_cleanup_notifier;
-+
-+	ret = v4l2_async_register_subdev(&formatter->sd);
-+	if (ret)
-+		goto err_unregister_notifier;
-+
-+	return 0;
-+
-+err_unregister_notifier:
-+	v4l2_async_nf_unregister(&formatter->notifier);
-+err_cleanup_notifier:
-+	v4l2_async_nf_cleanup(&formatter->notifier);
-+	return ret;
-+}
-+
-+static void csi_formatter_async_unregister(struct csi_formatter *formatter)
-+{
-+	v4l2_async_unregister_subdev(&formatter->sd);
-+	v4l2_async_nf_unregister(&formatter->notifier);
-+	v4l2_async_nf_cleanup(&formatter->notifier);
-+}
-+
-+/* -----------------------------------------------------------------------------
-+ * Suspend/resume
-+ */
-+
-+static int csi_formatter_runtime_suspend(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct csi_formatter *formatter = sd_to_formatter(sd);
-+
-+	clk_disable_unprepare(formatter->clk);
-+
-+	return 0;
-+}
-+
-+static int csi_formatter_runtime_resume(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct csi_formatter *formatter = sd_to_formatter(sd);
-+
-+	return clk_prepare_enable(formatter->clk);
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(csi_formatter_pm_ops,
-+				 csi_formatter_runtime_suspend,
-+				 csi_formatter_runtime_resume, NULL);
-+
-+static int csi_formatter_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct csi_formatter *formatter;
-+	u32 val;
-+	int ret;
-+
-+	formatter = devm_kzalloc(dev, sizeof(*formatter), GFP_KERNEL);
-+	if (!formatter)
-+		return -ENOMEM;
-+
-+	formatter->dev = dev;
-+
-+	ret = devm_mutex_init(dev, &formatter->lock);
-+	if (ret)
-+		return ret;
-+
-+	formatter->regs = syscon_node_to_regmap(dev->parent->of_node);
-+	if (IS_ERR(formatter->regs))
-+		return dev_err_probe(dev, PTR_ERR(formatter->regs),
-+				     "Failed to get csi formatter regmap\n");
-+
-+	ret = of_property_read_u32(dev->of_node, "reg", &val);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to get csi formatter reg property\n");
-+
-+	formatter->reg_offset = val;
-+
-+	formatter->clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(formatter->clk))
-+		return dev_err_probe(dev, PTR_ERR(formatter->clk),
-+				     "Failed to get pixel clock\n");
-+
-+	ret = csi_formatter_subdev_init(formatter);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "Failed to initialize formatter subdev\n");
-+
-+	platform_set_drvdata(pdev, &formatter->sd);
-+
-+	/* Enable runtime PM. */
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		goto err_cleanup_subdev;
-+
-+	ret = csi_formatter_async_register(formatter);
-+	if (ret < 0) {
-+		dev_err_probe(dev, ret, "Failed to register async subdevice\n");
-+		goto err_cleanup_subdev;
-+	}
-+
-+	return 0;
-+
-+err_cleanup_subdev:
-+	v4l2_subdev_cleanup(&formatter->sd);
-+	media_entity_cleanup(&formatter->sd.entity);
-+	return ret;
-+}
-+
-+static void csi_formatter_remove(struct platform_device *pdev)
-+{
-+	struct v4l2_subdev *sd = platform_get_drvdata(pdev);
-+	struct csi_formatter *formatter = sd_to_formatter(sd);
-+
-+	csi_formatter_async_unregister(formatter);
-+
-+	v4l2_subdev_cleanup(&formatter->sd);
-+	media_entity_cleanup(&formatter->sd.entity);
-+}
-+
-+static const struct of_device_id csi_formatter_of_match[] = {
-+	{ .compatible = "fsl,imx95-csi-formatter" },
-+	{ /* sentinel */ },
-+};
-+MODULE_DEVICE_TABLE(of, csi_formatter_of_match);
-+
-+static struct platform_driver csi_formatter_device_driver = {
-+	.driver = {
-+		.name           = "csi-pixel-formatter",
-+		.of_match_table = csi_formatter_of_match,
-+		.pm             = pm_ptr(&csi_formatter_pm_ops),
-+	},
-+	.probe  = csi_formatter_probe,
-+	.remove = csi_formatter_remove,
-+};
-+
-+module_platform_driver(csi_formatter_device_driver);
-+
-+MODULE_AUTHOR("NXP Semiconductor, Inc.");
-+MODULE_DESCRIPTION("NXP i.MX95 CSI Pixel Formatter driver");
-+MODULE_LICENSE("GPL");
-
--- 
-2.34.1
-
+Thanks,
+Yunhui
