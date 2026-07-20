@@ -1,46 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F37A33B6D0;
-	Mon, 20 Jul 2026 11:23:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDEEB367290
+	for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 11:27:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784546596; cv=none; b=seVOk02xkIcNeeOq991rgBUxPGlIRbfpl1munYH4+7wfNPIjk5OtFCrdCoI6W1KBgCExN3+p2reXdKsw11CikkhiFwIXJ+BmRqj4z4gYuBaQOfW3hEBzWgLCAgMzbWRI02HUQANlnTqm+Oc+VpUsYxuT4oonS+mZhAh62illIu4=
+	t=1784546862; cv=none; b=aE8+QlKmvnt2dUaitEx6caYJh95wWLqzvKUD6/SuZxTOIeCKT7a1vbNxzbf4unGqP63J3mlnHpnNwC81qQ/BwbUT5gpiF457LSEUj5aNj/DRqHrgJ5WfromuCCWcuv3JnTSZBvQi8/+uy9VfzEBgbfQWhBzXg8xcbrzWpfEaDlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784546596; c=relaxed/simple;
-	bh=oYH1UWv4eBuTf8gp/Chf9rss8aJNv0or7XfrIoUTeYk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KmLjVDJHqn8+/1hY1csJTxrdQxSf1Zo0x3ieYtRBAaWUZgnbBAxsW8DA6I+k9VSe27bbW8iGeuZfso7jT1f6sVXrRjBqO7oZxIUqVGqpQU+YlT3nQHGmndZYo4l4+w+feD/icptPXE0pXRNHgF0vUc5aJGR8lisG45svrVWjyu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iz8W+HLA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784546862; c=relaxed/simple;
+	bh=qI/gD3S/qEjfbGthvRe3SjVSZjglCA1htCHrVUZuZAI=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=trlepaAEp/PD/MfMt2JAj4x93lRjzmg+2tm2lGzFdaTcOiSvtcLMmNpFNbMVNixlnuXaZoG9pHr1xtlevXKsH1T9ttZpZDyNg0MShjbENWcb8tuTlWLvlfdJH9kulEm8o5cSPHJez9Hat1aq/P7J9F4bysof/DpXYxfSKOKmgw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hU+eO18w; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iz8W+HLA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAA991F000E9;
-	Mon, 20 Jul 2026 11:23:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784546595;
-	bh=d3xVK9YMrUjVB7REq1T+TRl9bzVEeUEnV0J6SaPCm8U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Iz8W+HLAWCJ4bghTZP1THbxM0UQQIHKCUmYXoLG5G7ynOYVIJxEutNCnsm1FmQE53
-	 ky0gwJQzBzRx/c+BZkAv1kZRCfN+HnETIt9oneWLozvcfoIUJc9WnfxQbMrThMkCCH
-	 lUQ00c2c8aobetivIjWBuoLdb+U9q7+ZRedCFF1FY3+WhdCvdDHR7WYTX6mykula6S
-	 Q1aQduXZqYoBTDoPAwndsTCl0DwZCiccVzZLoG8i/qHgS+yFaTsFekyDfrrYMNrMdT
-	 52xMpuTLeV54CnrppZwVhQMHmIPdPMCRQ9fh6ApCbo70W7a+1KuYpaux7vNNmOWb78
-	 6i+YIvpXVdJbg==
-Date: Mon, 20 Jul 2026 16:53:12 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Wesley Cheng <quic_wcheng@quicinc.com>,
-	Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 2/4] dt-bindings: phy: qcs615-qmp-usb3dp: Add support
- for Shikra SoC
-Message-ID: <al4FICuDRLYdPE_8@vaman>
-References: <20260712-usb-shikra-phy-v6-v6-0-1b3e51bf1541@oss.qualcomm.com>
- <20260712-usb-shikra-phy-v6-v6-2-1b3e51bf1541@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hU+eO18w"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4956242332dso4307995e9.2
+        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 04:27:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784546859; x=1785151659; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ut/zni2FSakEBKycZIcRJa3SE8OV8p37C4rVCye8Qx4=;
+        b=hU+eO18wd94d4svp3DO2RZI+4Ikvxy7JuhCV58sXvoln1sGYHq+sk6o7RUqRiZFg4g
+         tfTo8uK3+fn1QXbWXr/PMFRc21/N96mWtcD11ddBUtwJYhTxJWqmHPQFCz07KVggI1Bk
+         xTuaDA0ga1D9yb8hHy4muiXxvAdjcmOcJgPpjnBFyqBUpKOYc1N/F+lMgDPUBnN05sLp
+         deGQ3V1eNONzrIO+Jqa0IC8qxODpK3xruK4e3NTdiAlfINE4CPbHl9DiEWm/OjrX9nup
+         hPfkv/SfzBpB4FhhdhPUuvrW6kDmdJZPqSQYzbI7ui04fi7ONAhpJNUXpqVk8uAWLLDl
+         7Myw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784546859; x=1785151659;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ut/zni2FSakEBKycZIcRJa3SE8OV8p37C4rVCye8Qx4=;
+        b=LdIDy3aLlefdQ3M3+YPgv3JiExCYAKXZS2YTPKpcq2DF88I1JTlsbnX+kAsUYOV1XW
+         wNEui3j8j4YSKYBeJzou9wRohvnQU+WoLlfVyEP95V/t9q6jqBK0oPbIqgVPxnKyiseK
+         Nt6l5hIXKbnILkidjpijsXGGnlRztCgExH5L1AVrFWvpxnt4llDKtnJFocKJPqPU6SCG
+         Xab/WCP5zrRgp8k1xham3/O29xkqpRct1mJE2WfXEDyQ+VKFjwEgJH64sezB3ppETkS4
+         0tPd/BwV5pzigBNKziQqFVBEixPUJ7Awdygi7xqe/fLqsDmNGSTKedWHHkqs3PmMLh1O
+         /HqA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqbvil9GbAWi+mJWSpWgurbh62Yrlv/a1dlwIIekX6UnQksG58ZV6XZsevmbFdjefDz7EZN9s0DtmhC@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxpa90eLizITes5KsjIA1ZimLHKMRAvoWdSd/1AkrbfbLv9L8i1
+	Gw3ys8MOXv/RZ32WFwNbiOW74NYkaRUqUpRvPyekl2Lo3SyanWMtkn0E
+X-Gm-Gg: AfdE7cl7RAHJgfGetZ1JtxnKgcb3PxAy6yj52X+nZvM7Bi4ndeWu0fy2B5sJAiVx/rQ
+	KKJjg0q2vXctCrRTedaOvkUmisF9VZIJZBOGZuig+fBeZBZuamkmx0hgpaEZndW1CuF9sGHioQk
+	QlGSmAZ3+GrFrXfGAOVVzAZhj4ouIOET1AItBnxKI5tDimsw/ANiGbx/zame0Im3SmOazN31Ja8
+	DAH3HRvbWXG8lKU27zYgNKkRJPFZpPq2GolTdCzqdH0kxh4RBvKSaXFbxx8O6SRJeNpid/3jepL
+	hqrWfYF9lIpVBv2h9ASZ5LNfZU27fBfQlz/hfTsUfAzdZbHLDqYHPeGRY0+um8NAZ7D+kzBupPr
+	PgYkc+MHVTTVr5wNz3RqLIUanCxPGe3A9fXl0A7l+BzuAjtOxvTU6qToBeumxcSEIkDwLGmaVwz
+	ZnORRGiUWLx5HvJy5NCkYL9fsFecwOfUvfbMyD8adMBH+8UkNpAT5BSaxm0ggQt54hI0WfWYIAP
+	toeNw==
+X-Received: by 2002:a05:600c:48aa:b0:495:4589:cea6 with SMTP id 5b1f17b1804b1-4954a516530mr91898995e9.34.1784546858909;
+        Mon, 20 Jul 2026 04:27:38 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49549a3e2a9sm271951985e9.4.2026.07.20.04.27.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Jul 2026 04:27:38 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Date: Mon, 20 Jul 2026 12:27:34 +0100
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
+	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: Michael Auchter <michael.auchter@ni.com>, linux@analog.com, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH 4/4] iio: dac: ad5686: update device list and file header
+ comments
+Message-ID: <nxybhlqzbyz5jpwzam6hh72rst37fqcekxhtt6gjqge4t5gh7e@gbbm3g2pklim>
+References: <20260719-ad5686-extend-dev-support-v1-0-841ec75cf5d8@analog.com>
+ <20260719-ad5686-extend-dev-support-v1-4-841ec75cf5d8@analog.com>
+ <20260719223035.0acb57d6@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,113 +84,125 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260712-usb-shikra-phy-v6-v6-2-1b3e51bf1541@oss.qualcomm.com>
+In-Reply-To: <20260719223035.0acb57d6@jic23-huawei>
 
-On 12-07-26, 20:58, Krishna Kurapati wrote:
+On 19/07/26 22:30, Jonathan Cameron wrote:
+> On Sun, 19 Jul 2026 10:52:00 +0100
+> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> 
+> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > 
+> > Update device list entries in Kconfig and remove device description from
+> > file headers. One can rely on the ID table(s) to check for supported
+> > devices. Adjust comment header accordingly and update Copyright notice in
+> > comment file headers with the current year.
+> > 
+> > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > ---
+> 
+> Main comments here are about the patch break up.  I think it needs
+> just enough modification for a v2 to be needed.
+> 
+> >  drivers/iio/dac/Kconfig      | 31 ++++++++++++++++++++++++-------
+> >  drivers/iio/dac/ad5686-spi.c |  7 ++-----
+> >  drivers/iio/dac/ad5686.c     |  4 ++--
+> >  drivers/iio/dac/ad5696-i2c.c |  6 ++----
+> >  4 files changed, 30 insertions(+), 18 deletions(-)
+> > 
+> > diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
+> > index d6d560c09e25..ba2065241af3 100644
+> > --- a/drivers/iio/dac/Kconfig
+> > +++ b/drivers/iio/dac/Kconfig
+> > @@ -251,9 +251,18 @@ config AD5686_SPI
+> >  	depends on SPI
+> >  	select AD5686
+> >  	help
+> > -	  Say yes here to build support for Analog Devices AD5672R, AD5674R,
+> > -	  AD5676, AD5676R, AD5679R, AD5684, AD5684R, AD5684R, AD5685R, AD5686,
+> > -	  AD5686R Voltage Output Digital to Analog Converter.
+> 
+> Given this is adding entrees that were in the previous patch, I'd have
+> preferred to see the more complex dance of a precursor patch before that
+> which did the reformat (and dropped the stuff form the c files)
+> 
+> That would then be followed the new stuff being added as part of the previous
+> patch.
+> 
+> Whilst the ends result is the same I think it is worth doing a v2 just
+> to clean that break down of patches up.
+> 
+> > +	  Say yes here to build support for Analog Devices Voltage Output
+> > +	  Digital to Analog Converters:
+> > +	  - Single-channel:
+> > +	    AD5310R, AD5681R, AD5682R, AD5683R, AD5683R
+> 
+> Eagle eyed Sashiko spotted last entry is a duplicate.
 
-Krzysztof okay with this..?
+Yeah, one of the entries should have been just AD5683...
 
-> Declare the USB-C QMP PHY present on the Qualcomm Shikra SoC. Shikra uses
-> 3 resets to be programmed before initialising the phy. As per the hardware
-> documentation, the third reset is PHY_PRIM_SP0_BCR, hence naming it "phy".
+Also, that this AD5337R was missing, which I didnt add because I could not
+find documentation for this one. Maybe a device that does not exists or it
+was deprecated.
+
 > 
-> Also, add remote endpoints and orientation switch support for getting
-> Type-C orientation information.
+> > +	  - Dual-channel:
+> > +	    AD5313R, AD5687, AD5687R, AD5689, AD5689R
+> > +	  - Quad-channel:
+> > +	    AD5317R, AD5684, AD5684R, AD5685R, AD5686, AD5686R
+> > +	  - 8-channel:
+> > +	    AD5672R, AD5676, AD5676R
+> > +	  - 16-channel:
+> > +	    AD5674, AD5674R, AD5679, AD5679R
+> >  
+> >  	  To compile this driver as a module, choose M here: the
+> >  	  module will be called ad5686.
+> > @@ -263,10 +272,18 @@ config AD5696_I2C
+> >  	depends on I2C
+> >  	select AD5686
+> >  	help
+> > -	  Say yes here to build support for Analog Devices AD5311R, AD5337,
+> > -	  AD5338R, AD5671R, AD5673R, AD5675R, AD5677R, AD5691R, AD5692R, AD5693,
+> > -	  AD5693R, AD5694, AD5694R, AD5695R, AD5696, and AD5696R Digital to
+> > -	  Analog converters.
+> > +	  Say yes here to build support for Analog Devices Voltage Output
+> > +	  Digital to Analog Converters:
+> > +	  - Single-channel:
+> > +	    AD5311R, AD5691R, AD5692R, AD5693, AD5693R
+> > +	  - Dual-channel:
+> > +	    AD5338R, AD5697R
+> > +	  - Quad-channel:
+> > +	    AD5316R, AD5694, AD5694R, AD5695R, AD5696, AD5696R
+> > +	  - 8-channel:
+> > +	    AD5671R, AD5675, AD5675R
+> > +	  - 16-channel:
+> > +	    AD5673R, AD5677R
+> >  
+> >  	  To compile this driver as a module, choose M here: the module will be
+> >  	  called ad5696.
+> > diff --git a/drivers/iio/dac/ad5686-spi.c b/drivers/iio/dac/ad5686-spi.c
+> > index 003541edb742..b4531b49cb22 100644
+> > --- a/drivers/iio/dac/ad5686-spi.c
+> > +++ b/drivers/iio/dac/ad5686-spi.c
+> > @@ -1,11 +1,8 @@
+> >  // SPDX-License-Identifier: GPL-2.0
+> >  /*
+> > - * AD5672R, AD5674R, AD5676, AD5676R, AD5679R,
+> > - * AD5681R, AD5682R, AD5683, AD5683R, AD5684,
+> > - * AD5684R, AD5685R, AD5686, AD5686R
+> > - * Digital to analog converters driver
+> > + * SPI driver for AD5686 and similar Digital to Analog Converters
+> >   *
+> > - * Copyright 2018 Analog Devices Inc.
+> > + * Copyright 2018-2026 Analog Devices Inc.
 > 
-> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-> ---
->  .../bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml   | 49 +++++++++++++++++++++-
->  1 file changed, 48 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml
-> index efb465c71c1b..98397006fa62 100644
-> --- a/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml
-> +++ b/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml
-> @@ -18,6 +18,7 @@ properties:
->    compatible:
->      enum:
->        - qcom,qcs615-qmp-usb3-dp-phy
-> +      - qcom,shikra-qmp-usb3-dp-phy
->  
->    reg:
->      maxItems: 1
-> @@ -33,12 +34,15 @@ properties:
->        - const: pipe
->  
->    resets:
-> -    maxItems: 2
-> +    minItems: 2
-> +    maxItems: 3
->  
->    reset-names:
-> +    minItems: 2
->      items:
->        - const: phy_phy
->        - const: dp_phy
-> +      - const: phy
->  
->    vdda-phy-supply: true
->  
-> @@ -63,6 +67,22 @@ properties:
->            - description: offset of the PHY mode register
->      description: Clamp and PHY mode register present in the TCSR
->  
-> +  orientation-switch:
-> +    description:
-> +      Flag the PHY as possible handler of USB Type-C orientation switching
-> +    type: boolean
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: Output endpoint of the PHY
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: Incoming endpoint from the USB controller
-> +
->  required:
->    - compatible
->    - reg
-> @@ -78,6 +98,33 @@ required:
->  
->  additionalProperties: false
->  
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,shikra-qmp-usb3-dp-phy
-> +    then:
-> +      properties:
-> +        resets:
-> +          minItems: 3
-> +        reset-names:
-> +          minItems: 3
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,qcs615-qmp-usb3-dp-phy
-> +    then:
-> +      properties:
-> +        resets:
-> +          maxItems: 2
-> +        reset-names:
-> +          maxItems: 2
-> +
->  examples:
->    - |
->      #include <dt-bindings/clock/qcom,qcs615-gcc.h>
-> 
-> -- 
-> 2.34.1
+> That definitely belongs in the patch that made a real change, not one
+> that is just messing with comments.
+
+Will drop this one. As I was touching the file headers I assumed it was fine
+to put this here, given that I ended up adding a lot of changes to these files
+lately.
 
 -- 
-~Vinod
+Kind regards,
+
+Rodrigo Alencar
