@@ -1,90 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCDD46EC6F
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 18:33:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C6846DFE0;
+	Tue, 21 Jul 2026 18:36:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784658839; cv=none; b=IOvRgcprUb70raLzwy5keAMCclPD9RdyN/E60OhA9OAiLTVYpbdGbCCVb1m+2JXK+coXxsBlQcDg8wLaCqNFpMyDFB29dr19CEAKbm8exznlZ2xOf6qgSyE6Wudm25iEiDSBTn1SrSzcZ0VxqnphH7PM3E/zKOgPwjtXlWQWogM=
+	t=1784658988; cv=none; b=TvSH46oEpH0tHDYvKmGinjtzpyqoOu3YUcXR7cjMio0AhSSyvyzk23q+nXHEfZF4pdiXAB9IRNSQD61Frm0rEMJH5JRsHiHJSNORioyaoH8YdCI545z4gs0i1y9NMtQUA0uymoDzUMmhpYT6x6jxOcHTU7gfnfCErj7g5x8STw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784658839; c=relaxed/simple;
-	bh=m/+TcfdW+wLbKhE09ROF2KTLQpZXzWKNQ/qrYNmhITg=;
+	s=arc-20240116; t=1784658988; c=relaxed/simple;
+	bh=OJEnCoxSXbE/CPB8QaRhl6jgcmUt6jl2rwT+ASZn+7g=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=F+YQidiW2cdbWMS5jW6Ppkp49S2BE6vhMbYoeBT8MXx1BVYf3lQ8Lpsvs+Qe5LQ1GDEV1/FYoXFilbkBxRNr+clFpCkz+LYmQf2uXGkvQ1L6rPssHEKXkBaWpah7twmIMIYQcgZZ6eant7PZVPZdmZqt9NddvmfSS5KPgi4xWU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZFyrEA8S; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ol5RSxwe+AAk9Kdf9UgGerzaf7TqQd4CIEMNH9pWf2/s7LsaAv4BSJMMdo/vMSd7HLRjhUhVbi+LeNFUhx1oOsZlDhy+Q5grz718sNv7HK+yYlUDpnkFH/oSUbYF2Ki4XOJOdBterGSudNsvIsB1WTqmhtlljZG21Ajp1E1ElKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T+bt3LsT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZFyrEA8S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67E151F00A3D;
-	Tue, 21 Jul 2026 18:33:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T+bt3LsT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFD1A1F00A3A;
+	Tue, 21 Jul 2026 18:36:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784658838;
-	bh=kQTV41r4SiXc/h3Eldc7ITZccFLiVMmdpkjr/pCl+34=;
+	s=k20260515; t=1784658987;
+	bh=OJEnCoxSXbE/CPB8QaRhl6jgcmUt6jl2rwT+ASZn+7g=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZFyrEA8S3b2uVif8fTnUEIcfFMeyZqXj18H/XhLpfG4DdU1NON7fNIJLgbEcS6SMx
-	 +MCQmDkreJ/0PmT2PuuDqS7Jl7qC3/ZfE/l7wu8wEbMv8WcHIEhiD4CAQyeIPnpTd9
-	 fnk8tDGjf6VuFqmsRfYtEv3GgS5fP7YT5IfYgOqP0Jp4govAnQQvkRqWAseMMwzvzQ
-	 4N5pgBwX8zTy/kaDoN0Omree9WlSBi5Ws9CPdgwtA6YoPNprxbYBbjZvOrjehjJbzB
-	 T6UIt4nuVMSm2De5kuF6j+ClpdBf5gAsNIcwyow8QYvFdWLYAAU62GzS8oHyQl8OY5
-	 JnlM7/YkTfejw==
+	b=T+bt3LsTwkVVeUGYRM0PLvJWvrijXuCe7zV45e7yTOirhp7r0DobaIYvz3alxGJ8P
+	 /ABXz6aBw4ggbZZ+vH3JMdy+CL52F1aB/GIFttq+Dpdc0id+6qVpG6H/Ft+sp8TSk0
+	 alJgm/RjIizFZZljQvCCUaltGXlE0hSbNAmjC0gc/axUCVGsrcF1TJsY6JnSTwMuDQ
+	 hPvJRK2QtmWSvM0pI0PVuiIN1YxViBVqSKBNVA6iEkFFM0sNutVm+xpVX5ZaJcq8Jl
+	 GEsIm6TWgLpYrIorPXD5GuBRmHk8KRVlbSLvTMDcflCZcO0PVPETslCl8qRf0jMOIe
+	 tEpHHkobhRCdQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: iio: dac: add support for mcp47a1
+Subject: Re: [PATCH v2 01/10] dt-bindings: hwmon: Describe Qualcomm BCL
+ hardware
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joshua Crofts" <joshua.crofts1@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260721-mcp47a1-add-support-v1-1-da045a2567e3@gmail.com>
-References: <20260721-mcp47a1-add-support-v1-0-da045a2567e3@gmail.com>
- <20260721-mcp47a1-add-support-v1-1-da045a2567e3@gmail.com>
+To: "Manaf Meethalavalappu Pallikunhi" <manaf.pallikunhi@oss.qualcomm.com>
+Cc: robh@kernel.org, linux-hwmon@vger.kernel.org, lee@kernel.org, devicetree@vger.kernel.org, mfd@lists.linux.dev, conor+dt@kernel.org
+In-Reply-To: <20260722-qcom-bcl-hwmon-v2-1-febe2805e17b@oss.qualcomm.com>
+References: <20260722-qcom-bcl-hwmon-v2-0-febe2805e17b@oss.qualcomm.com>
+ <20260722-qcom-bcl-hwmon-v2-1-febe2805e17b@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 18:33:58 +0000
-Message-Id: <20260721183358.67E151F00A3D@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 18:36:26 +0000
+Message-Id: <20260721183626.DFD1A1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The binding incorrectly requires `vref-supply`, but the MCP47A1 =
-likely does not have a dedicated VREF pin.
---
+> Qualcomm SPMI PMIC BCL (Battery Current Limiting) is a safety feature
+> that monitors battery or system voltage and current to alert system
+> for overcurrent or undervoltage conditions.
+>=20
+> It provides:
+> - Real-time voltage and current monitoring
+> - Configurable thresholds per channel
+> - Hardware interrupts when thresholds are violated
+>=20
+> Add a DeviceTree binding to describe the BCL on Qualcomm's PMICs.
+>=20
+> Add sensor type to SPMI device list for BCL device.
+>=20
+> Signed-off-by: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qua=
+lcomm.com>
 
---- Patch [1]: [PATCH 1/2] dt-bindings: iio: dac: add support for mcp47a1 -=
---
-commit d1dc3c2e573f4f52e69aabeb608ccb23acd5a123
-Author: Joshua Crofts <joshua.crofts1@gmail.com>
-
-dt-bindings: iio: dac: add support for mcp47a1
-
-This commit introduces the device tree bindings and MAINTAINERS entry for
-the Microchip MCP47A1, a 6-bit volatile digital-to-analog converter.
-
-> diff --git a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.=
-yaml b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
-> new file mode 100644
-> index 0000000000000..3322fca03b3a7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
-[ ... ]
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vref-supply
-
-[Severity: Medium]
-Does the MCP47A1 actually have a dedicated VREF pin? Standard Microchip I2C
-DACs in this class (such as the 6-pin MCP4725) typically use VDD as their
-voltage reference.
-
-If there is no physical VREF pin on this hardware, requiring vref-supply
-here forces device tree authors to define dummy regulators in their
-device trees just to pass schema validation.
-
-> +  - vdd-supply
-> +
-> +additionalProperties: false
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-mcp47a1-ad=
-d-support-v1-0-da045a2567e3@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-qcom-bcl-h=
+wmon-v2-0-febe2805e17b@oss.qualcomm.com?part=3D1
+
