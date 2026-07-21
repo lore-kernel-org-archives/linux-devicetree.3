@@ -1,221 +1,112 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF623290B7;
-	Tue, 21 Jul 2026 06:14:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784614455; cv=fail; b=YU1P3WL6tRxQifQ7IupStpBctsb3dYhlJ6UnIH72Wb4uwDg2DKvs6k2q49ywvrIqoqIJkKW9++NWG6XqFk1ANcdZOm0rVM+Jgty9MAp0b+z+iFP8r9mjzK3CnBDZpVcbUGe06yDyIsQJdX6RVmq9AbepgwsvTeGRdIzPD7XG960=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784614455; c=relaxed/simple;
-	bh=lb2bymNlfH/Gagcvr5UBytdGa54nLn/x2J9En2669p0=;
-	h=From:To:CC:In-Reply-To:References:Subject:Message-ID:Date:
-	 MIME-Version:Content-Type; b=hzlE8qHsZ5IvRumf6m6S1B4bSn+slj721Dqb+aJ7HW4aYKwD/4nx+XhzTovcGpxk0ejKSSjppkzTCnO8V3wt2xFgAEFgnQvubC0Vc7EXanQh9tnmW7aFsHiJYOk9rpIJqSdkFMT77XJpbNjofaKhbw/Vt80fM6N2+0B9bLdLHL4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=iQ+jq0ro; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=uWPYsK+n; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC572C3257;
+	Tue, 21 Jul 2026 06:16:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784614564; cv=none; b=com3jzCwk914UjoUXncI+pVDYuYR/Mp+TIXwarjt1uIG2lJUZy5iiKtTXzZ7eCkE4E5HuPXcp2B+Wm7h1JYUGH8bXpYlMZ269La+GrZ0fb/z0Gs4CcAm/u+FHgQS2W5C/gtL8642AOQ7m2AwPVcpd51TmAjEnOU+A5TQpPV8CP0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784614564; c=relaxed/simple;
+	bh=1XM0x75Le21UyetgjmPgNvWMRlIPQ+HSnhgCXGSni/o=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=Q0d3T/GsqqtSQCXpkAGfxDAPzRfSD/JLHSq/NsoS3RzG2I99Rzv0PY7Nt5VjJ2A7xFzj+jfm50TEqnd6pXAnKATlY0+1MuiAQ7u9POdpnGNhJ5+aeVqI4rNc/vGV209/j5BB2f1y8E1uc4eoU7vy8GhLqz7BoktoSOu3vQOu1JI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Tmplprcw; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="iQ+jq0ro";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="uWPYsK+n"
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66L65aZg3420325;
-	Tue, 21 Jul 2026 01:14:04 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=239TG1Rzm3EBPL0ypesZlNY1dJdKy7b6ptNNd6Swg
-	Tw=; b=iQ+jq0roEhJFOrMIkovRKWSLbobn5Cr1NODoTuuCAyEIqNKM8ogM4817Y
-	KF9rkBG2il4BdTrkoUJIDT17wkzPsXNGmS2jI6HNqyG0RA6Yxl8GjH7W9ha6RZ28
-	+I4kzV9RJ8gpqtmJ4uDqJN003Ow/61hY2VjZPWMfs8Q3H2w+oZEDU5cX0YLB7+7Y
-	BdfPlkzTle2Q1TPkURp+AWCmx5h4fK8VtH+r3PkOGuZqTh7OqC2Ywr/odTe2oFPe
-	82dYwnvbHE0hZf7aVZ7P39sWOssWY564Lt/3PgW4LFsyZpeudfRASmLpPizv4XmG
-	2oc2gnRaYfBGLSz//w7y73ser1kcA==
-Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11012067.outbound.protection.outlook.com [52.101.53.67])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4fhk19drs8-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 21 Jul 2026 01:14:04 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iBEXggeywLb5mNlZL1a7978woZ3Dk0FIEqoYJZ2+jkXtQzdeutqBkakwmnFEDdtS6U97y24ZmF20kR6g3s8CIyHbCGXxPup8vyRPXNypfYuJr3z4961IKm4o1ZiCIq8F+GiMWNXSOZ3E4GJ2ZBRtbdLOBzO+8amAxlSCvfxDCESvIOup1I5rBiVl24j32rDu5mKSVRL7NK8YrBQMV7ARGZs8NcQPIeMoEB6rU/BFGKFmXzHZs510u0XBwjU7wLlUaHP/3+ObpgpgP3oigJ+zIrdtNAJPH5qFAimb/tASSDEP5PRPx224RLBvmbI6EUe6SEiJWwpWTq2dYnIKAg5AZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=239TG1Rzm3EBPL0ypesZlNY1dJdKy7b6ptNNd6SwgTw=;
- b=eMkbDyKyzuYK5+zOPtlNwvq1lwUcktrAIiyIigu2hdd0dawfOyikmZ/PfWarTNA+MCOAdsr/zxxK3dKoiW9l4Jq5st3MEsaO3MT6f/yEjo7dksYbMba1bloDViJtoD+mVxt+sfs/mxzORP9b+J8Nj2t7YV8SuxW2Vfm6oyPNw0KE6/OjSKcqMdJyPgzEHmJTEDREJWgotSo+zSj+5e5I17PK/ioeXAQlcI9dmF1mXzikcKTZz5QU/c+cxJHLmK1gUXEqToXbnsx7oEC2gVyxpeytqKSoSixC7g6THwLrJYYIFGtbL1Mrz0ZphRm0q9kSauWT6XfOQ+jHvyGm4yoHJA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=toradex.com smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=239TG1Rzm3EBPL0ypesZlNY1dJdKy7b6ptNNd6SwgTw=;
- b=uWPYsK+nU3yncvCvfc2nC7mGF3cJMDXNApkmKt3+YfZcHOGd0SPTG32GVIfllvgVMsxo91CWAUe0wFtGMxXnLMI8vZVPxoofxpjYHuucI2O7pY7nnEiFGyEAzk4hIz1k36Qa5n7lQp1MR5x8SGKiZHOEaoqBLuxS2kwOqRtqHP8=
-Received: from PH0PR07CA0117.namprd07.prod.outlook.com (2603:10b6:510:4::32)
- by SJ0PR10MB4718.namprd10.prod.outlook.com (2603:10b6:a03:2dd::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Tue, 21 Jul
- 2026 06:14:01 +0000
-Received: from MW1PEPF0001615B.namprd21.prod.outlook.com
- (2603:10b6:510:4:cafe::af) by PH0PR07CA0117.outlook.office365.com
- (2603:10b6:510:4::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Tue,
- 21 Jul 2026 06:14:01 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- MW1PEPF0001615B.mail.protection.outlook.com (10.167.249.86) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.0 via Frontend Transport; Tue, 21 Jul 2026 06:14:01 +0000
-Received: from DLEE209.ent.ti.com (157.170.170.98) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 21 Jul
- 2026 01:14:00 -0500
-Received: from DLEE203.ent.ti.com (157.170.170.78) by DLEE209.ent.ti.com
- (157.170.170.98) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 21 Jul
- 2026 01:14:00 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE203.ent.ti.com
- (157.170.170.78) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Tue, 21 Jul 2026 01:14:00 -0500
-Received: from [127.0.1.1] (uda0132425.dhcp.ti.com [10.24.50.130])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66L6Dujr036940;
-	Tue, 21 Jul 2026 01:13:57 -0500
-From: Vignesh Raghavendra <vigneshr@ti.com>
-To: Nishanth Menon <nm@ti.com>, Tero Kristo <kristo@kernel.org>,
-        Rob Herring
-	<robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>, Vitor Soares <ivitro@gmail.com>
-CC: Vitor Soares <vitor.soares@toradex.com>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-In-Reply-To: <20260602115123.1324474-9-ivitro@gmail.com>
-References: <20260602115123.1324474-9-ivitro@gmail.com>
-Subject: Re: [PATCH v2 0/7] arm64: dts: ti: k3-am69-aquila: Add display and
- peripheral overlays
-Message-ID: <178461426052.886571.5412276648888584537.b4-ty@b4>
-Date: Tue, 21 Jul 2026 11:41:00 +0530
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Tmplprcw"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:25d4:fa24:78d1:31:7a56])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 62513517;
+	Tue, 21 Jul 2026 08:14:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784614495;
+	bh=1XM0x75Le21UyetgjmPgNvWMRlIPQ+HSnhgCXGSni/o=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=TmplprcwNpFLPY83KxlkX9sZhQsWqq86kBsJB3Ga7lMx86Rwnt2EY0WYE50tBSwnn
+	 GDY6eA/tRicc9AKwH3E38RPqLiafZfr2HpwB1KG7GbuV7XPS0ssJhQkabU4FaiFbVO
+	 9KeOxPBxT9gs3KS6BUMqhkCxeQYJ9cTfj7Q4NtK4=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW1PEPF0001615B:EE_|SJ0PR10MB4718:EE_
-X-MS-Office365-Filtering-Correlation-Id: 792767ee-a527-4c1a-d64c-08dee6ef4203
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|376014|1800799024|36860700016|13003099007|18002099003|22082099003|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	aujyo8eFe5d0nYxCatdZsGprdpO04U28pm4KwnJXS1nVwsr5zN1J9E8VzZYUiFxvfdKDae+IR+fI5+Fp/c0hRlyylv/46lGPjD3RZVR+RfOrTYW9gxsA7ygxdL8EGSN+M+BHNete6C6VfTTmmucqHId3o4iWVdgfCok1Lq2yxUv4j4BUSlIbO24g6/3/ik3bjsp2ft+UOckypSeSl9eI6cO/FhJ+u5T9ownfck3kVbcI1lOzELnxrXLvvL6W9Bpy+yBCUJ6yBuHDrq3ayw3q0ewYkZA0CmKxcXOwcqDT34g1hmD232qKjeKV9w3SQtUQu/mu89T4KK7gz0Jp3DOuc7gyvWdwiAJZCJYr7QxEHpA2rxZqQ28jFaXcXif10IhBg+ojuK4EFU+7rVI7Nc4TCp/OmOW+c7RNUk/sueZiPUc7mjTmH64Vub2d7eW5j2D9L1mx7JIB3hUt6ww3QlqwURjcv+KZnyn1StgTUUosr3xESPIZOj/coQ6L+1+UA/xTnV6pbmTsf4uXQqTS/OP32ecApJfgsnQNooAu33ctYNYPzvJwCSBjviQ177VqJGy1qfPic71Ud8UIG5Q8SewmzCNAVpl8X6fI9I0ndirMmXdxFlM0TREubHIcu1l5tpr5CRBvB5FUVFatBuOEm3Hl0bpIzvnli/Jv2Kkto9fNgF05JAEXqQxCKqYRYeE8Mt3ViGpoItFd8ISNYlasLy5whg==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(376014)(1800799024)(36860700016)(13003099007)(18002099003)(22082099003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	WTviBTqrh5rW6hh8+do5VgIKglrHdt7C5mtEWz/Yse/FVNyIdb7jl4hyaVbFBRdUMIaPa3QrMFfJiTC7feOvNkXY1vkpjikEeXHgr0qNm6z2Uk2JCKllbV9ReJngj6dnqB7/+/f+rzLb2DNyzQo7fozWFmB2HPhXVn3vO5mZAao7CgVmw6A21EhMifZ+vSUEM8j2nIRf9O7YlCcUwW/mYnfRtbSRRqi4Nu2rxki1R25mnGkqa5AKRkqWiNKibLfZ4y+Dr4j5dNoKaJ7hdVf/EPDbid5Gvm15ODNk2QGSzlFLUZxGSdGL2fjvEuEjj90PD36/TMhqGXIWwmxtdyJQEJzN/t2k7ZhB36cDBbAtRQQ1H7hzfyQd9L1ecnFQHkaBrnKrdq6YJ9sDyFtJJo/UDoF5wd7kBgN1YGGZ/a7poqhM5R9aQWK+JmNsDfjwvjX6
-X-Exchange-RoutingPolicyChecked:
-	f3wOK1259tuSrDe3bl43dxRzFiSPpCIQa8ReZD+F6hPB5VhiEwjQDdO+ocTZF2qs+643O/vJearcUIvimGLEw8XaCE0SXBLi4FvSKsutOaELd55uI/u9Y0vlp6hLDNE2mEN0rWEJb0jDEJoLKsqxDUVSJbdSFkqPQb7KaqHjJtOjlaD7LHXNed5qzCVSQcsOPwmhpq6z4aN5QMdHOWy37BDiU48k4xxVh/bNCOjCAyq5qnk12vhpAfEhuMbhhwvaZOe0lVpsLMU8Frp/jfi1uJJsiCTD7UZxuQjS7nD9pLJtM975TvrHnAlatku6FASDyAoz5BGLVjA+pw+wsRw8gg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 06:14:01.0980
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 792767ee-a527-4c1a-d64c-08dee6ef4203
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MW1PEPF0001615B.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB4718
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDA2MyBTYWx0ZWRfX3xqvS0uSTHY5
- cbJyhuD5iEH4FOkhUSkAJfMtO3/Q4iPK5cvY2XpiOr/fRqx27WY2LDYTEpKLVSYsrHThPJR+2jG
- EG0/opPJxheq8XBl8y7r04Na4cb+YxNNrLIJQ0DZc9PSMuWXxUa9TsjbpbUqoJ+GN2R2dfs1dzB
- vDDvL/MtA56S+I+PoIuZV+TAxLbLFVAe83FWpQ8jPSE/5XX+dHFd0vhSMaJ62eWrwdWOductXXS
- 7rFwMuk0ag08a3QdX+AYiSqrcpXVbFIFJBTYPG8W75d0o4Qn68IUnIKuIHA2s9QeDCsuJ2CUxIv
- jKN96y8CA+4BGC/3lU2/MwLuYx+bSSm8eQk6yyPoMAjMG8hQfSxtOkSSxPmTKTo9NKWpWBjkEb4
- rlyBUPUdvTf8TA6ECQeEe4FBlZeNo1GU6LHivpjsLMmzRK0V6NEezTaGY32Hnpx8cE2PRkVFw89
- XT/H+fQOwM4dkRs+B2A==
-X-Authority-Analysis: v=2.4 cv=I4pVgtgg c=1 sm=1 tr=0 ts=6a5f0e2c cx=c_pps
- a=2WPJyM168hjBdVADO68ohQ==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22 a=VwQbUJbxAAAA:8
- a=m8ToADvmAAAA:8 a=Ms95HSm5-DtX0BCDy7MA:9 a=QEXdDO2ut3YA:10
- a=kCrBFHLFDAq2jDEeoMj9:22
-X-Proofpoint-ORIG-GUID: D8xTYhxbn6vaFj7bWiR4s1Fhy7YJZsAZ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDA2MyBTYWx0ZWRfX1ROMbgNbuWaM
- qG5PSck86gGFyVM4Fijys7eIGtXFliUnF8kicC5V4eTv5VM1vXKgEa843OiSGYC4xA6v3hR372T
- YUQNNsMA5UnWFHoBrRgXEA0yiYENLpY=
-X-Proofpoint-GUID: D8xTYhxbn6vaFj7bWiR4s1Fhy7YJZsAZ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-20_06,2026-07-20_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 priorityscore=1501 impostorscore=0 phishscore=0
- clxscore=1015 malwarescore=0 lowpriorityscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210063
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <al4JOfnFAi9SdG5j@kekkonen.localdomain>
+References: <20260715-imx708-v1-0-1f36f54e14d4@ideasonboard.com> <20260715-imx708-v1-2-1f36f54e14d4@ideasonboard.com> <al4JOfnFAi9SdG5j@kekkonen.localdomain>
+Subject: Re: [PATCH 2/2] media: i2c: Add a driver for Sony IMX708
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Naushir Patuck <naush@raspberrypi.com>, David Plowman <david.plowman@raspberrypi.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, Nick Hollinghurst <nick.hollinghurst@raspberrypi.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Date: Tue, 21 Jul 2026 11:45:48 +0530
+Message-ID: <178461454891.1426769.359380342802390638@freya>
+User-Agent: alot/0.13.dev35+g4a69c46ca
 
-Hi Vitor Soares,
+Hi Sakari,
 
-On Tue, 02 Jun 2026 12:51:23 +0100, Vitor Soares wrote:
-> arm64: dts: ti: k3-am69-aquila: Add display and peripheral overlays
-> 
-> From: Vitor Soares <vitor.soares@toradex.com>
-> 
-> This series adds device tree overlays for the Toradex Aquila AM69
-> platform. The overlays cover display adapters, DSI displays, and OV5640
-> CSI camera modules available through the Toradex accessory ecosystem.
-> 
-> [...]
+Quoting Sakari Ailus (2026-07-20 17:10:41)
+> Hi Jai,
+>=20
+> Thanks for the set.
+>=20
+> On Wed, Jul 15, 2026 at 11:01:29PM +0530, Jai Luthra wrote:
+> > Sony IMX708 is an 11.9 Megapixel CMOS sensor with a 16:9 aspect ratio.
+> > It is a quad-bayer sensor with support for remosaicing the output to
+> > a normal 2x2 bayer pattern.
+> >=20
+> > This basic driver adds supports for capturing the full active-area of
+> > 4608x2592, up to 14.35fps. The following features are supported by the
+> > driver:
+> > - MIPI RAW10 output
+> > - Fixed quad-bayer correction
+> > - Multiple link frequencies (different IOP_PLL_MPY)
+> > - VBLANK control for flexible frame-rate
+> > - Analogue gain and exposure control
+> > - Extremely long exposure time with LONG_EXP_SHIFT
+> > - Test pattern support
+>=20
+> How close is this sensor actually to CCS? A lot of the registers look like
+> they're CCS registers while there are some MSRs set programmatically by t=
+he
+> driver, too.
+>=20
 
-I have applied the following to branch ti-k3-dts-next on [1].
-Thank you!
+My bad, I completely missed to check CCS. I don't think this sensor is
+advertised as CCS-compatible, but the register scheme is quite consistent.
 
-[1/7] arm64: dts: ti: k3-am69-aquila: Add Toradex DSI to HDMI Adapter
-      commit: 9199488ead533541b8720d340c3887f33902e650
-[2/7] arm64: dts: ti: k3-am69-aquila: Add DSI to LVDS adapter with 10.1" display
-      commit: c428a42a0caea3b6c17e460ba32dedb707f264f6
-[3/7] arm64: dts: ti: k3-am69-aquila: Add Toradex Capacitive Touch Display 10.1" DSI with adapter
-      commit: e1df722d2b56101ec8f54ab99f3edccce631d2ea
-[4/7] arm64: dts: ti: k3-am69-aquila: Add Toradex Capacitive Touch Display 7" DSI with adapter
-      commit: 8490a1d1918dbe2e571649ed0d62244367867278
-[5/7] arm64: dts: ti: k3-am69-aquila: Add Toradex Capacitive Touch Display 10.1" DSI
-      commit: b1bd0652f6fef8821128dce05aac70c5066ef7eb
-[6/7] arm64: dts: ti: k3-am69-aquila: Add Toradex Capacitive Touch Display 7" DSI
-      commit: 9adea5f8411d447d386315297886e323764f7c28
-[7/7] arm64: dts: ti: k3-am69-aquila: Add Toradex OV5640 CSI cameras
-      commit: c43c1b16c61cba5020424acdff38d5816a1e0801
+The big feature differences I could find are:
+1. Long exposure shift means we can't write to FRAME_LENGTH_LINES without
+   handling the shift.
+2. Quad-bayer remosaic and correction
+3. PDAF gain programming
+4. Non-continuous clock
+5. Using V4L2_CID_NOTIFY_GAINS for blue/red balance
+6. 4 regulators with different names from the 3 regulators in CCS
+7. Datasheet mandates only a handful of LINE_LENGTH values instead of
+   free-configuration
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent up the chain during
-the next merge window (or sooner if it is a relevant bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Some of these are purely MSRs, but others seem to be incompatible with the
+base CCS model, so I don't immediately see a clean way to handle it through
+the CCS driver, especially the frame timing registers.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+I don't have the full documentation for this sensor so I'll try to query
+the read-only CCS identity and limit registers and dump their output.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+I'll also try to use the existing CCS helpers for PLL programing, input
+clock rate, and other trivial features before posting a v2. I think a
+library of CCS helpers would in general be much more versatile than trying
+to hammer everything into a single driver, but I don't know enough yet to
+be sure.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/ti/linux.git
---
-Vignesh
+Any pointers are much appreciated :-)
 
 
+> --=20
+> Kind regards,
+>=20
+> Sakari Ailus
+
+Thanks,
+    Jai
