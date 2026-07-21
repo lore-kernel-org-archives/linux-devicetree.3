@@ -1,178 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 427153783D4
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 13:59:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A423749E5
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 14:04:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784642373; cv=none; b=aXzF2r+SY9jXE96fRvIpjQd/OJT4Wb157QcOWMDj6y4PUKuuLVdcsBgRH/VTuRwbZqju566pyBRIXfLi8CTudd6Atw+JlmypK3yLDskwNCsKnAFHdq4e6vw/vy/zdis9uxoNpugsJPlewkBIfRUg92sNzc8ZNY1bgQiqprja9zk=
+	t=1784642645; cv=none; b=of9ovwHC62qJoy1Gz6tnbtTvIyNlFmOhKeM8VlPXaYQpAowcDDS+qyGniwNV42XAuebD+1L6bfQiPr4OVoATQE/uib488EKgKB30BXt8BYZ7AOBexZWew9Y8yHd1dyBf/d1p2LyvUrhsCmt/QFIAU27CxRetX4rwgc6oZiU1vbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784642373; c=relaxed/simple;
-	bh=Tzq/vrvnRRrxr6ANFTfoWCgLcTTvncwyWNqAq7FNs+M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=izzs695ZtGX2QsRBcvZKK3xbZYoz4xzpMf0JtP63nrTt/WKsU1J07cZkG/+B/76zi+YYCZaLP9e70LE6hBSnz8XRI2RYbGBGHhyuJw/VKCpm6CAtTSKvBlLBiUkSGU582GXJ9xOo68R/p5T9z4xb1E/ETS35AtqBBaNAl24eIG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K11jSMua; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784642645; c=relaxed/simple;
+	bh=UyBUYX9DZ6L6MFcOSRrtbu2XLKzzwKunaJnE34oH/jA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=VaExaF5pyfumbcuAnotC1YeSqfmKHheww9Dq2Xqco7T4wV2WCYftCjYfbvhVHF3YlYkNgnonGmpYHAcs9sBIvGVVhGHp0dz/JGoNxOceUjDhe6R7ZhuIndqnaOJLdVcm+QHmEKu6nDPPmAmmgJ16KIt09liX/Ih2ddJuuggbLgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ePLWsiLp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K11jSMua"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A0151F00AC4
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 13:59:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ePLWsiLp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D94C1F00A3A;
+	Tue, 21 Jul 2026 14:04:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784642372;
-	bh=1xkuaLNf9L6gC+nrjHGpqnJIB6rDY+L5voYQo7bRBek=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=K11jSMuaPDPI0kkRhM4cYd3VtHOuDKJARLxCmdhRhJsABBbocbXiQs03D+ImZgWed
-	 rpY2YoV564F4TBfUMGTzzOlDwl5BZSDAuyn6cSQlG9UCCgqYdmxq6+wUOsHKsw9lmz
-	 heToLLc1zaBfLDwBbG4zJQmUMvO/rjoWC8+/XYCk298GPKSBmUzexmNE3YjbZlPz8J
-	 UzEViwCM9Dtr0GhzC23Jg3jCZUs4AxNjOJHH8dEYYYPH4ZELuhRpJOYmy2pV4Q5ND4
-	 XeMBgfPXZNnQaBC4ew3ledjK3t1pWaH4nPd2i0yYgM4DCMd5F5eE7LUCESFuaimwfh
-	 r0Epdz08MSMZw==
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-39b3931e259so100319311fa.2
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 06:59:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rp9nqa4hZyNIdha9HgK/WL4twhDuzyO9IH31DfHRbNMNU0IOIJLEYpwyokvMWGvvMNT/kciHjwuF/0j@vger.kernel.org
-X-Gm-Message-State: AOJu0YwljsZ3W+YeIDTPw9SCmqdAfU8uXh4SlCw6t2xf+WOuwE70tdWK
-	IUaNcXbEsIjOX6p2Ifj0LqiS+7qHsCQNnRj4V5/kfqM5mUUPVAJtW3khBJWgWtZim7lnk5uEksf
-	8hxXQfz7++yaJcygsNZm+/aggJ6lUSo0=
-X-Received: by 2002:a2e:a592:0:b0:39e:e845:7f23 with SMTP id
- 38308e7fff4ca-39ee84581efmr10859501fa.16.1784642370582; Tue, 21 Jul 2026
- 06:59:30 -0700 (PDT)
+	s=k20260515; t=1784642644;
+	bh=mV82Jldzs81dcYlb0cxz2vVTzGMgk1hl+l83VYFQYTk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ePLWsiLpnjbPI2jJYKNNfWTs1FnEp+BiO/Ch2ubXMwVjr4XZE3CXNr7tcKBXoEmfE
+	 jhc4npXrxhoppRypNYOoHcj8L/YMzSP9dbSw7x/KjVtFBiXsEAibssCyqRRt6jUvJC
+	 /2WLEMXyiF6HFHJiKU0QowBUbwAe5i8MZRy01MpY8u40XZlV8tXyPirwtXteZuWwAm
+	 7r74NGB97vKyzAn4scslj3EceLlNZG1YCyKybgsG+IlrRND+cPb94uj/z+72Jp0CQ2
+	 hqUqlpKvgDObdjRIpwzHRH/wqUQ3Ft5XzO5mykGtdPlJWwYIt5ovLJjZp3jtPJOCc5
+	 RO7vmp4n86X5Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] iio: magnetometer: add support for QST QMC6308
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jorijn van der Graaf" <jorijnvdgraaf@catcrafts.net>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260721134843.7484-3-jorijnvdgraaf@catcrafts.net>
+References: <20260721134843.7484-1-jorijnvdgraaf@catcrafts.net>
+ <20260721134843.7484-3-jorijnvdgraaf@catcrafts.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 14:04:03 +0000
+Message-Id: <20260721140404.1D94C1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260704171411.1413349-1-iuncuim@gmail.com> <20260704171411.1413349-6-iuncuim@gmail.com>
-In-Reply-To: <20260704171411.1413349-6-iuncuim@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Tue, 21 Jul 2026 21:59:16 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67PMYwFBV8gMbd6U2BU8ivZfAzUq50ttLG2UkdfKEwdMA@mail.gmail.com>
-X-Gm-Features: AUfX_mx_UbqtUhBgjig7P-YMGQlk22gK-yhaDfUZjTvwjqcflr721OIjYgv26EI
-Message-ID: <CAGb2v67PMYwFBV8gMbd6U2BU8ivZfAzUq50ttLG2UkdfKEwdMA@mail.gmail.com>
-Subject: Re: [PATCH v5 5/5] arm64: dts: allwinner: sun55i: add thermal sensors
-To: Mikhail Kalashnikov <iuncuim@gmail.com>
-Cc: Vasily Khoruzhick <anarsoul@gmail.com>, Yangtao Li <tiny.windzz@gmail.com>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, Jul 5, 2026 at 1:16=E2=80=AFAM Mikhail Kalashnikov <iuncuim@gmail.c=
-om> wrote:
->
-> The A523 processor has two temperature controllers, THS0 and THS1.
-> THS0 has only one temperature sensor, which is located in the DRAM
-> controller.
->
-> THS1 does have 3 sensors:
-> ths1_0 - "big" cores
-> ths1_1 - "little" cores
-> ths1_2 - gpu
->
-> Add the thermal sensor configuration and the thermal zones.
-> Trips temperature, polling-delay and sustainable-power parameters are
-> derived from the manufacturer's BSP.
->
-> Signed-off-by: Mikhail Kalashnikov <iuncuim@gmail.com>
-> ---
->  .../arm64/boot/dts/allwinner/sun55i-a523.dtsi | 160 ++++++++++++++++++
->  1 file changed, 160 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/=
-boot/dts/allwinner/sun55i-a523.dtsi
-> index ca6a16807..2ed00e7a7 100644
-> --- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-> +++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Potential hardware initialization race condition during soft res=
+et deassertion.
+--
 
-[...]
+--- Patch [2]: [PATCH v2 2/2] iio: magnetometer: add support for QST QMC630=
+8 ---
+commit 50ae109e19c53c095dd871b420a64fb846f258d5
+Author: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
 
-> @@ -355,6 +364,32 @@ gpadc: adc@2009000 {
->                         status =3D "disabled";
->                 };
->
-> +               ths1: thermal-sensor@2009400 {
-> +                       compatible =3D "allwinner,sun55i-a523-ths1";
-> +                       reg =3D <0x02009400 0x400>;
-> +                       interrupts =3D <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>;
-> +                       clocks =3D <&ccu CLK_BUS_THS>, <&ccu CLK_GPADC1>;
-> +                       clock-names =3D "bus", "mod";
-> +                       resets =3D <&ccu RST_BUS_THS>;
-> +                       nvmem-cells =3D <&ths_calibration0>, <&ths_calibr=
-ation1>;
-> +                       nvmem-cell-names =3D "calibration",
-> +                                    "calibration-second-part";
+iio: magnetometer: add support for QST QMC6308
 
-Just put them on one line. We can go up to 100 characters wide.
+This commit adds support for the QST QMC6308 3-axis anisotropic
+magnetoresistive magnetometer on I2C. It implements raw readings, output
+data rate, field range, filter oversampling ratio, mount matrix, and
+runtime PM.
 
-> +                       #thermal-sensor-cells =3D <1>;
-> +               };
+> diff --git a/drivers/iio/magnetometer/qmc6308.c b/drivers/iio/magnetomete=
+r/qmc6308.c
+> new file mode 100644
+> index 0000000000000..7d4df846bbc54
+> --- /dev/null
+> +++ b/drivers/iio/magnetometer/qmc6308.c
+[ ... ]
+> +static int qmc6308_init(struct qmc6308_data *data)
+> +{
+[ ... ]
+> +	/* The SOFT_RST bit is not auto-cleared and must be written back 0 */
+> +	ret =3D regmap_write(map, QMC6308_REG_CTRL2, QMC6308_SOFT_RST);
+> +	if (ret)
+> +		return ret;
 > +
-> +               ths0: thermal-sensor@200a000 {
-> +                       compatible =3D "allwinner,sun55i-a523-ths0";
-> +                       reg =3D <0x0200a000 0x400>;
-> +                       interrupts =3D <GIC_SPI 39 IRQ_TYPE_LEVEL_HIGH>;
-> +                       clocks =3D <&ccu CLK_BUS_THS>, <&ccu CLK_GPADC0>;
-> +                       clock-names =3D "bus", "mod";
-> +                       resets =3D <&ccu RST_BUS_THS>;
-> +                       nvmem-cells =3D <&ths_calibration0>, <&ths_calibr=
-ation1>;
-> +                       nvmem-cell-names =3D "calibration",
-> +                                    "calibration-second-part";
-
-Same here.
-
-> +                       #thermal-sensor-cells =3D <0>;
-> +               };
+> +	/*
+> +	 * The datasheet gives no soft-reset completion figure; reuse the
+> +	 * power-on time as a conservative bound.
+> +	 */
+> +	fsleep(QMC6308_POR_US);
 > +
->                 wdt: watchdog@2050000 {
->                         compatible =3D "allwinner,sun55i-a523-wdt";
->                         reg =3D <0x2050000 0x20>;
-> @@ -586,6 +621,14 @@ sid: efuse@3006000 {
->                         reg =3D <0x03006000 0x1000>;
->                         #address-cells =3D <1>;
->                         #size-cells =3D <1>;
+> +	data->range =3D QMC6308_RNG_30G;
+> +	data->odr =3D QMC6308_ODR_50HZ;
+> +	data->osr =3D QMC6308_OSR1_8;
 > +
-> +                       ths_calibration0: ths-calibration0@38 {
-> +                               reg =3D <0x38 0x8>;
-> +                       };
+> +	ret =3D regmap_write(map, QMC6308_REG_CTRL2,
+> +			   FIELD_PREP(QMC6308_SET_RESET_MASK,
+> +				      QMC6308_SET_RESET_ON) |
+> +			   FIELD_PREP(QMC6308_RNG_MASK, data->range));
+> +	if (ret)
+> +		return ret;
 > +
-> +                       ths_calibration1: ths-calibration1@44 {
-> +                               reg =3D <0x44 0x8>;
-> +                       };
->                 };
->
->                 gic: interrupt-controller@3400000 {
-> @@ -1102,4 +1145,121 @@ npu: npu@7122000 {
->                         power-domains =3D <&ppu PD_NPU>;
->                 };
->         };
-> +
-> +       thermal-zones {
-> +               cpu0_thermal: cpu0-thermal {
+> +	/* OSR2 (second-stage filter) set to its power-on default of 0 */
+> +	return regmap_write(map, QMC6308_REG_CTRL1,
 
-There is no reference to this or the other labels for the thermal zones.
-Please drop them.
+[Severity: Medium]
+If the soft reset logic is level-sensitive and holds the chip in reset while
+the bit is 1, the initialization occurs only after the bit is cleared to 0 =
+by
+the second write to QMC6308_REG_CTRL2.
 
-[...]
+Can the hardware reliably accept this immediate subsequent write to
+QMC6308_REG_CTRL1 without any delay, or does it need time to initialize aft=
+er
+the reset is deasserted?
 
-> +               gpu-thermal {
-> +                       polling-delay-passive =3D <100>;
-> +                       polling-delay =3D <1000>;
-> +                       thermal-sensors =3D <&ths1 2>;
-> +                       sustainable-power =3D <2400>;
-> +
-> +                       gpu-trips {
+> +			    FIELD_PREP(QMC6308_MODE_MASK,
+> +				       QMC6308_MODE_NORMAL) |
+> +			    FIELD_PREP(QMC6308_ODR_MASK, data->odr) |
+> +			    FIELD_PREP(QMC6308_OSR1_MASK, data->osr) |
+> +			    FIELD_PREP(QMC6308_OSR2_MASK, 0));
+> +}
 
-As mentioned by Sashiko, the trips container node must be named "trips".
-This is also required by the thermal zone binding.
-
-[...]
-
-
-Thanks
-ChenYu
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721134843.7484=
+-1-jorijnvdgraaf@catcrafts.net?part=3D2
