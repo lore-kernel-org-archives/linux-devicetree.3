@@ -1,108 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 700347E105
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 12:45:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0C72AE7A;
+	Tue, 21 Jul 2026 12:45:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784637923; cv=none; b=eicjE5d3JaYjf+ee4khuOEAJCggDGHoVDbD0UfDeaTN25IxbemY5f1mO2ZXBxWY14mNGDyzw63I8WTx1qKcBq5HfnHyuKwxmuIauNBXd6AYx1/JbXDwehU1SRsjHwhP0hr9NCHRkd27XZE5AUTnpjj7nznaaYhRf5yhcf5wSj70=
+	t=1784637929; cv=none; b=KSVAQe5df1HSa2lAcVMcTX6ruS+zsY1LUrsfs7N+tpl5ggo4ro68V9Ou5Eg91N1UKEMaKqG7FhiIOUPjwrAWjstI11LOTXqP8ouY+fsRl2zYERXDd8hUzpMRZJNdGRYdc7xcy+t/V6JLmrxW0rrdZytf8SImRymsITb0TooSOqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784637923; c=relaxed/simple;
-	bh=aRtleE4sx9mAOjZKmWbVQ4cbXecc5eKdQcnDqZzssTs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sC1fpxye39RwfKxTDM4oj4fXSQQ3mK9n5v8yiUXOfmaBfXbTnICW1Ew4cwfD6rywLX4OHWYfHGJn+xtjapzzMEY0a/Wx1Hipg4LaQMs4IvL4l2Zt6DUO2KapuRZBmWs5Us7yjiYdCkK3vJgMozmDy+qru3k88l3htgw3T9kObEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lQVmme1b; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784637929; c=relaxed/simple;
+	bh=sYGTdCtHue4hVyyVo0086JB/pB8jOKzdgc8M2ZiBRt4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IY4bx0NwE98s90M5MdKanO1uCq7XLzQNwqwibsatNNs7/6bKEU+ePI+AH/qc19sIkKBJ6NgKDFBpXuS6yLVFE37g+FUdS67UzeiKEvI+iiGw1TpJVvN4X59ydZlHh98FTkNjGAYnvHcxM/Zov0zlktRK1jXzWRaHqCC4W5g6QSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=UfyeBY73; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lQVmme1b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D90621F000E9;
-	Tue, 21 Jul 2026 12:45:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784637922;
-	bh=prfFGeGl6/ywmmndyJnXEIBxTQnpndrvIJkXrsYh5Xo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lQVmme1b5GgZ9sPZVj4iHGebM9CPVW+U4/6RPy4hOe+yTsFX3Hkzr41A1YUqWAAel
-	 27A2XeJBBSEdDCbh/Rasn1WLiZE2LkhhFN4pFy7n+AcCqGJB6yfaiyF5Xj3fagMzOn
-	 fuXZ+1dkKkW/HM7Ig2RyuXvvfh9SlL5nlxAJtBzXZZ05kwLZcXYkR/r93FJ3TD31c4
-	 TM3DVn4WJvk1zVWrrIeJ1bLwpJKWgR4axCCM69dK4LpO5DBBbiHvHwp3trObx6gFJW
-	 0owv4pTmo+0Jy/Efxf+x1TafITl+hDJf+uwI6x8ycdvcj/ebDNF7ImN6a3bMGTwyai
-	 YFR8eB0h6Elbg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/2] arm64: dts: qcom: sdm845-google: Add dual front
- IMX355 cameras
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Heidelberg" <david@ixit.cz>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260721-pixel3-camera-v7-1-82d323c6c5d2@ixit.cz>
-References: <20260721-pixel3-camera-v7-0-82d323c6c5d2@ixit.cz>
- <20260721-pixel3-camera-v7-1-82d323c6c5d2@ixit.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 12:45:20 +0000
-Message-Id: <20260721124521.D90621F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="UfyeBY73"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=py+kVer8y1a6uREwhTLMnOPCYBBt4/ypQx/1Dyh8NlE=; b=UfyeBY73vzy27dJizTWAlgzPRe
+	H76y57MW8rPT1PXVIHVsVh2LiNjbOSl4Tnh+TOkxX0IJvCFkmfuWhzNQ4oBRWVYLKGwRDi73fLIwk
+	hNOm10pnsbKCwhYYw8kSjJg/4vjzgBRRfimQUp+RHZTaBI/5DjBce9eK4DN+XwUvNd3oF71UBYBO3
+	a/b1USPQb7VUe6UKvx7db/8IvQhZwvqietnBfjgnOV7Eq8hZxZUdM58dvPTXptQr/G0FakLIc9KBe
+	KZh+7IRIof2CmikmMqdt/1h3C+8/A6tmEIbtyV382lMlJvlb2pKu/l8q0GeoRwYFoYtp8FpCABulP
+	3QBMho9w==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Simon Glass <sjg@chromium.org>, Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+ Jonas Karlman <jonas@kwiboo.se>, Conor Dooley <conor+dt@kernel.org>,
+ linux-gpio@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ Bartosz Golaszewski <brgl@kernel.org>, linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH v2 1/3] dt-bindings: gpio: rockchip,gpio-bank: Add rockchip,grf
+ property
+Date: Tue, 21 Jul 2026 14:45:16 +0200
+Message-ID: <3352010.NnENhoQgcM@diego>
+In-Reply-To: <20260721-ambrosial-raccoon-of-glee-6219dd@quoll>
+References:
+ <20260714192535.2082729-1-sjg@chromium.org>
+ <20260714132531.v2.1.d04a89a3849323a0dcee2c701cba43adbb0523b2@changeid>
+ <20260721-ambrosial-raccoon-of-glee-6219dd@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Mismatched Pinctrl Sleep State: `&cci0_sleep` overridden instead=
- of `&cci1_sleep`
---
+Am Dienstag, 21. Juli 2026, 10:13:38 Mitteleurop=C3=A4ische Sommerzeit schr=
+ieb Krzysztof Kozlowski:
+> On Tue, Jul 14, 2026 at 01:25:29PM -0600, Simon Glass wrote:
+> > Some Rockchip SoCs, such as the RV1106, give each GPIO bank its own
+> > IO control (IOC) register block rather than grouping the registers of
+> > all banks into a shared GRF region. Add an optional rockchip,grf
+> > property to the gpio-bank binding so that each bank node can reference
+> > the syscon for its own IOC block.
+> >=20
+> > Signed-off-by: Simon Glass <sjg@chromium.org>
+> > ---
+> >=20
+> > Changes in v2:
+> > - Add new patch for the per-bank IOC reference
+> >=20
+> >  .../devicetree/bindings/gpio/rockchip,gpio-bank.yaml       | 7 +++++++
+> >  1 file changed, 7 insertions(+)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/gpio/rockchip,gpio-bank.=
+yaml b/Documentation/devicetree/bindings/gpio/rockchip,gpio-bank.yaml
+> > index bdd83f42615c..774e9c7de606 100644
+> > --- a/Documentation/devicetree/bindings/gpio/rockchip,gpio-bank.yaml
+> > +++ b/Documentation/devicetree/bindings/gpio/rockchip,gpio-bank.yaml
+> > @@ -44,6 +44,13 @@ properties:
+> >    power-domains:
+> >      maxItems: 1
+> > =20
+> > +  rockchip,grf:
+> > +    $ref: /schemas/types.yaml#/definitions/phandle
+> > +    description:
+> > +      The phandle of the syscon node managing the IO control registers
+> > +      of this bank, on SoCs such as the RV1106 where each GPIO bank has
+> > +      its own IOC block.
+>=20
+> I do not see usage of it in patchset linked in cover letter with DTS.
+>=20
+> I have doubts that whil having one GRF region you have GPIO banks
+> pointing to different GRF regions.
+>=20
+> It's possible if you would have multiple GRFs, but you do not. You have
+> one GRF, right?
 
---- Patch [1]: [PATCH v7 1/2] arm64: dts: qcom: sdm845-google: Add dual fro=
-nt IMX355 cameras ---
-commit 6f3cf4398dc835a329292905a7fe098ccc06dc9c
-Author: David Heidelberg <david@ixit.cz>
+per my reply to the grf binding patch, Rockchip invented yet another way
+to describe their pin-config - in completely separate blocks strewn accross
+the whole io-space this time.
 
-arm64: dts: qcom: sdm845-google: Add dual front IMX355 cameras
+So describing the associated pinconfig grf per bank, does sound pretty
+nice for that problem.
 
-This patch adds support for the dual front IMX355 cameras on the Pixel 3.
-The cameras are connected via CSIPHY ports 1 and 2, and are controlled over
-the CCI I2C1 bus.
+In the early beginning Rockchip had one really big GRF for all of those
+settings bits - which included the iomux settings.
+Later on they moved _parts_ of that to another big GRF that still wasn't
+dedicated to pin-config.
+Recently pin-config got its own GRF - for all pins
+And now it seems we're at one GRF per pinbank ;-) .
 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/ar=
-m64/boot/dts/qcom/sdm845-google-common.dtsi
-> index 9368fd6b87515..c8a28133fb38d 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+When I asked some years ago - when there even was usbphy control in here
+(and those regs+bits also moved all the time), the _paraphrased_ answer
+was "because hardware-designers find it nicer" ;-) .
 
-[ ... ]
 
-> +&cci0_sleep {
-> +	/* bus has external pull-up */
-> +	/delete-property/ bias-pull-down;
-> +	bias-disable;
-> +};
+Heiko
 
-[Severity: Medium]
-Is it intentional to modify the sleep state for &cci0_sleep here?
 
-The new front cameras are added to the &cci_i2c1 bus below, which depends on
-&cci1_sleep for its suspend state. Modifying &cci0_sleep means &cci1_sleep=
-=20
-will retain its default bias-pull-down configuration.
-
-During suspend, the SoC will actively pull down the &cci_i2c1 pins, which
-will fight the external pull-up resistors on that bus and cause continuous
-leakage current and battery drain.
-
-Should this remove the bias-pull-down property on &cci1_sleep instead?
-
-> +
->  &cci {
->  	status =3D "okay";
->  };
-> @@ -358,7 +444,63 @@ &cci {
->  &cci_i2c1 {
->  	/* actuator @0c */
-> =20
-> -	/* front camera, imx355 @1a */
-> +	front_cam: camera@10 {
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-pixel3-cam=
-era-v7-0-82d323c6c5d2@ixit.cz?part=3D1
