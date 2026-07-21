@@ -1,96 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA78F36A34E;
-	Tue, 21 Jul 2026 11:12:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB9D2331ED2;
+	Tue, 21 Jul 2026 11:15:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784632377; cv=none; b=rw6vzjWnY33Jrwm4I8GytYDPVNPwly80N3Nsg1gAZDkXQM58WZJI8gC9GSSDEJjoNGfz12P0kbr1VSBj1e+Pig1S+2sfh5WZie5laZEm72gZ84D9UBFNXtxUyQ4tYyGsBB9vm59H66LCGoavVg6yTlVr8qVScT06B7Xd0EvgfjU=
+	t=1784632559; cv=none; b=DKFC/PNtOq5E+iIdpTGBj9hEd+oI3cS0L2hB2Z7uAfyLk4uNfEFIxA1ZFvL0tA4PWzlhUxL8HJ39Yt7VagUd4LOkckm0V2uFNHlE7aDYkJLCNfRLZ3zTBiFAZVGt9whe6ljCRyNeDVu8Eh8vUwpC1asd4EXYtta4TH2WcasIfEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784632377; c=relaxed/simple;
-	bh=mxwd2aB2/Sy3num+t0tGdUNpoMk21B3BKSEdMEtgiEQ=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
-	 References:In-Reply-To; b=hCbLetiCDZZhU8L7bhY1qDB8r3zJqCOEcGeml0E8MoL3684J54Kt9SoiJGEfW9u76r24a2tIMLHlOZv5rfNXO/DMua9wfH1F738LG1xMwdICJWjgId1d17/584qTtsU4gwT7w+mJURRn9e7DmUPq+FbTA+oPG8GlfvwoxequKtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fIBzKYva; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784632559; c=relaxed/simple;
+	bh=mDMdjmbsTHoxpPjSaD0xztlbfRfXObPl0Lg8XsjVXoM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M4l3qwBmJylFJpjym8XxbF4rLQszPxT8EjQI09YvZyqhjY78YgJhRd7twASXZ4YlBEdLL/QrJbUhBesMohgrtSLs0QNb1AG31H8m5cEIDRo09z/7WeV7Q2qJUuxEvWEngHsyYmAP/5GYAcaYzUiPA3gyQ4XEnrzDbeY7IKwA0G0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dLciMTus; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fIBzKYva"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id DC92D1F000E9;
-	Tue, 21 Jul 2026 11:12:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784632376;
-	bh=mxwd2aB2/Sy3num+t0tGdUNpoMk21B3BKSEdMEtgiEQ=;
-	h=Date:Subject:Cc:From:To:References:In-Reply-To;
-	b=fIBzKYvafM1Bc2GeXqNv33ETryQzd83nU4QUWWJ5JDjTU3X4mHztz9ApkHrxB+niE
-	 HgbM7pOXBz219d/Pf+dTa5HCsJzefF5wxLKRAihdQcIT8jvlI59UuWYvu3rxNNS2w5
-	 iJoHGz+iQnMdrN2UBACMBN7vwvg/x88wUCJ4ZDlGBv7iAqlBGGePrhA8NJN039yFkx
-	 t2IZAovn4bz5aWhEjeBhsvIeZR5jAZU5YAxpUCWEBcE9poe3bzGGqvwMKkIJc84omn
-	 Nxvh1Lhwdf6VCcWGeKIykDOWNEa5KNltwoHgqUCBWqKNrJ6M+te8eD/7/grkZq22R2
-	 sRmsP+yUel/9A==
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dLciMTus"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784632557; x=1816168557;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=mDMdjmbsTHoxpPjSaD0xztlbfRfXObPl0Lg8XsjVXoM=;
+  b=dLciMTus8ohTj6oLtOqoG+VmS02rbOK32STcV0uBS6IgfMbF3hqdKRvC
+   lO1K4GcnJGTzoZvuiPLeEMS7YWRtNpcPE7I7SV+FV0+3IKbSCjbWgsQp0
+   /aBDDwhV5fWSuMbbZUBU9XjQW5rgwGHzH0hXskmpDrIz/8wXaE256Av+R
+   odJh3S8W8SlACc0GBA0rm6hQeFLcLI9dJuGaEulj6Rq0EtpfJqn8m69nx
+   LcdmtEPGjaZtGmmR6pMvmFxWkd38TvzEetjBWyyKnN+fbRhvEt7mONRb5
+   1ghMrkwBacEFlmuLdUo9sudu5Gw7sjkqxZab8Il3vrdUb0IUXDHYkrDDL
+   A==;
+X-CSE-ConnectionGUID: FQxWoVGXSQGaAYsF1M8lLA==
+X-CSE-MsgGUID: h1k6kh3iTi6EM5oTkGIU8g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11852"; a="95824967"
+X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
+   d="scan'208";a="95824967"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 04:15:31 -0700
+X-CSE-ConnectionGUID: lZUPYFCGQ7aQwgPbsM3Qgw==
+X-CSE-MsgGUID: gCEiDRldQw+OPusZ6h91+Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
+   d="scan'208";a="255947233"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.67])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 04:15:26 -0700
+Date: Tue, 21 Jul 2026 14:15:22 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Xu Yang <xu.yang_2@oss.nxp.com>
+Cc: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
+	robh@kernel.org, saravanak@kernel.org,
+	bartosz.golaszewski@oss.qualcomm.com, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev
+Subject: Re: [PATCH v6 0/2] device property: add test cases for
+ fwnode_for_each_child_node()
+Message-ID: <al9UykqJCXLPbwJL@ashevche-desk.local>
+References: <20260721105448.2109894-1-xu.yang_2@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=ab797b970cb1ccfb3d1ed84bb9c19a1fb24835b66e0e80a735c859388d87;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Tue, 21 Jul 2026 13:12:52 +0200
-Message-Id: <DK47DLQCZVFI.2GL81VG910N1J@kernel.org>
-Subject: Re: [PATCH v5 3/7] mtd: spi-nor: sfdp: expose the SFDP as a
- read-only NVMEM device
-Cc: <pratyush@kernel.org>, <takahiro.kuwano@infineon.com>,
- <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <srini@kernel.org>, <Nicolas.Ferre@microchip.com>,
- <alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
- <linux@armlinux.org.uk>, <richardcochran@gmail.com>, <linusw@kernel.org>,
- <arnd@arndb.de>, <linux-mtd@lists.infradead.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <netdev@vger.kernel.org>
-From: "Michael Walle" <mwalle@kernel.org>
-To: <Manikandan.M@microchip.com>
-X-Mailer: aerc 0.20.0
-References: <20260721052859.171341-1-manikandan.m@microchip.com>
- <20260721052859.171341-4-manikandan.m@microchip.com>
- <DK42262TYFG1.NZKF4VGZGSRM@kernel.org>
- <c921d021-b6c3-4d91-89ca-0e3c41169e81@microchip.com>
-In-Reply-To: <c921d021-b6c3-4d91-89ca-0e3c41169e81@microchip.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260721105448.2109894-1-xu.yang_2@oss.nxp.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
---ab797b970cb1ccfb3d1ed84bb9c19a1fb24835b66e0e80a735c859388d87
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+On Tue, Jul 21, 2026 at 06:54:46PM +0800, Xu Yang wrote:
 
-Hi,
+> This patchset will fix lkp reported issue when adding test cases for
+> fwnode_for_each_child_node().
+> 
+>   ERROR: modpost: "of_node_ktype"
+>     [drivers/base/test/property-entry-test.ko] undefined!
 
-On Tue Jul 21, 2026 at 12:17 PM CEST, Manikandan.M wrote:
->> Or rather NVEMEM_DEVID_NONE? There will ever be just one SFDP nvmem
->> device.
->>=20
->> How does the sysfs path looks like?
-> Currently the sysfs looks like:
->
-> /sys/bus/nvmem/devices/sfdp0
->
-> I kept AUTO so that the bare "sfdp" name would clash on a board(if any)=
-=20
-> with a second flash exposing a "jedec,sfdp" node.
+Why v6? Where is changelog?
+No need to resend this time, reply with missing information added.
 
-Ah ok. I thought it would have something with spi0,0 in it's path.
-So yeah, there could of course be multiple flashes with SFDP.
+> Xu Yang (2):
+>   of: kobj: export of_node_ktype for use by modules
+>   device property: add test cases for fwnode_for_each_child_node()
 
--michael
+-- 
+With Best Regards,
+Andy Shevchenko
 
---ab797b970cb1ccfb3d1ed84bb9c19a1fb24835b66e0e80a735c859388d87
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
-
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCal9UNBIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/hhTQF+KZoFG4/icFLa+LRtgnRP2iyB/1wM4IpR
-ZTM2zKxAVZxOaUG+3GTVHda/yUa1WcR6AX4oRgKid0SEZGVzAaONi7xZxyo28lL1
-zsopOz7ovlyRsOxy5atv1KquEEQCsyUY3Ug=
-=rxYz
------END PGP SIGNATURE-----
-
---ab797b970cb1ccfb3d1ed84bb9c19a1fb24835b66e0e80a735c859388d87--
