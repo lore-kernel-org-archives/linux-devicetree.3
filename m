@@ -1,190 +1,219 @@
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04DED3A874B
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 05:31:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E03E72E0B5C;
+	Tue, 21 Jul 2026 05:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784611887; cv=pass; b=uUcA14voAC402Zyet7YyWivmbyyOSmUH6a0AiZXf9ZZTbi6t2wbFmpfB6f4LYyE3HHCW2corsJH3rLRayC3mfMUZyxX+V0lBWHdciOdX9ZGGM2BoM9jqLmXCyWguVGRX7Eage4KL8Z8hxyyEV4znTCl4t+b4APHknbloTONDpv8=
+	t=1784612897; cv=fail; b=ZGS717kuvROxEQoWuOgCbgowhq0cKYm3XjUE/SVHpVuCRdpSj8QbV/wEQmNFiqGQ4QfE4bEIqbihbdjbHX1rDRwh5sChpdqF5H+2XeyydaJ61uEhpgxgMqBapvcjDedcPuncC151r0eMDlu4qeL8oxTyd/ZhHAE1R2ErfAAYJ2k=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784611887; c=relaxed/simple;
-	bh=2TB196GaR66SwyFsnNzabKS/+vodO/WvG61qZe4uFOY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QCFpURM9Uda7WmsxtiYWUkRWfkx9cBO2a6SpwC3mBlylOxftAGCcIxELfU9w7+YJy2Q0MmKcTOlu6UTn5LcIfJzLU/f2Uqs6JdIJUXrKw0fbCjRqTSuTdZ4ABGxtyJSnWSh/IgCYxhZGVVXp4g8tzoUFeTW41NY3GUeh79vvv1k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UVx17kWp; arc=pass smtp.client-ip=74.125.224.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784612897; c=relaxed/simple;
+	bh=sf7i17xZgsegKlt6hFkn/BVLp5ZoCoA3SM/o+SXRqJ4=;
+	h=From:To:CC:In-Reply-To:References:Subject:Message-ID:Date:
+	 MIME-Version:Content-Type; b=JCjZCWYhDc96E6O24X/rtdYJDGWSrkG9SbJT33i+WRxU4uJQoaWPBRisTW92Z8pAyPq0E+vcMMpz5v90wC9HclIqbq0P8+/tIqFhYqq7O8xh2pThuPTpqRmWNe79l+mSn8bosA0oFWD/boi6xf4LWRtip9ORLCIs6gI9Ap6AIyg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=FLlUOWoV; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=JQI5oT6y; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UVx17kWp"
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-6646fd19d8cso1288841d50.2
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 22:31:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784611885; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bcStRu1ZAcgFTC1mlqgMQQlVEyuLZzdg6aeoo2NJTCIFT3Liimuvj0ytDMaD8emuDr
-         KWbWR9HOs6yPsN94Yi2TSEZXENcEWUgJtv1jT8PhGUhT6MCnjB5vhanL/N9q6BVUnXJO
-         GTUrCb4TFRvFztfbsyeK+jQDAtANcm8oahFbDPOAflrHmKE/ldy8YFS98hywIqhErSLS
-         OJe7jwQIq0pGYe/lVsXyvwGTVD8Ry1WVZ8YWWhkpeCxh6peJMVN8R7Dmf/UDryIfi4GS
-         uoZ2nxGBU6ZK+q1pCUqq5wuAl6m0t5kb4/C75oc0r7PUAVLu45O5awEkNOya3m8P+Y0c
-         7lJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2TB196GaR66SwyFsnNzabKS/+vodO/WvG61qZe4uFOY=;
-        fh=pvDdtbXrd9kOnFScRmdjyRDNa082J8y2p44mFWXadhU=;
-        b=g3lLPmqhtz4AtdyrG0+j+/87w6ANl3uigTezwu+SI1uZy4kzftTwKhCgGgJfTa78fr
-         Idesk8sN3hdhOfv8CSuan7bsfO+4TmwCJseROAdOEXQk9c42OnHamaTe8r5BwrsLgnVF
-         dx3sYS48F07f7jYzKhNlrAskfWfmgwD8ZkvfbSKYZCuu/t6oAOUOHZFfJ6y8diEnkyCX
-         bf2fCPeZHuXbuat5kC4w7gYKcZcYcS1+IZ/xU0UYDVUOSUfoOGPMohq1JIN2giQ8eGz0
-         ikKOYZEYQ/4k7EnutmjVhAvOJr8rXCev42r5yXbky1rloeWwKbTe7kCf9Vo4J+NWpLTi
-         77Aw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784611885; x=1785216685; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2TB196GaR66SwyFsnNzabKS/+vodO/WvG61qZe4uFOY=;
-        b=UVx17kWprd1A0hwIg/+8+jMQ1y/KJW3JNnrpqXE+igyI5bz/PdmD8FSq5/2lM3qHrQ
-         ihyGGh619Z7iPulsibOexOm52HKXUo92rYKw44x5oK2rT8Sga47gZn2FfcJCfu0hQzjq
-         9/GcTRBTLQxdEO36/kiMmhVbX3vVBVhSxOA01/rhEuzrOXIQ4vXW1vekyLZ6IK5XAPry
-         Xme/DzIpHVaMgTguh5r6G9CoJ4DQzMa5baMfvxWoSsOwxUeY2/0yT+2FmxMXqd+Di3Kk
-         IgXZzmMm0owmeenjMtWnnqAKB3EmrsYkuTlE8y0Iw2KAEOYpKgOCwx0JkprQu9L5kR4W
-         xdqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784611885; x=1785216685;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2TB196GaR66SwyFsnNzabKS/+vodO/WvG61qZe4uFOY=;
-        b=IaX66XKNjOZ6wEqGh90X4UakOAQktPXIbuvuRvPmySq5P1ZZ8csq+KxFaUSDrUv+/R
-         nJgLFdyFWDFOSIwRSX6Uvb3zEHpQYnkwbvOcSPbRA7rGScYDW+qhy2X654SwHnkSWIW1
-         gAP1T1XSMBM0pP+5plBYSfKq8bRaTBH+K8saIH0G9VK/3vTNb+TJUlSEWDVVE9Kqib/9
-         48pC16Upe5Jk1lmcjClMQ86EkqdmDD3pgxU3sRYfFoPQ7kaRVQj+9SOuOfE1bzHn+Daa
-         oU300K9hj7vVrsADaI1nPKcwZSHdAOYMT1ME/jqI8VdZtiYwT8JcPylIH23TJl08GD8/
-         PG5g==
-X-Forwarded-Encrypted: i=1; AHgh+Rri96Lz/PP+U+M3ASWLEn+NxlnWe33Pn58QQBvONx1WhlRyUYIJz10+1YFCNjwt2VJg9CjHy1ZTBsjx@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw0iYJDSmjzYc4pXnBII+grM/NPTM/iyBNri3HTeOJ6pLU0HP9f
-	uizeJPGcPg9O58TrdhmtTNsxHUm0RVU9DsghAh/AsXRNVW0jHUQUaxUWEQPBb8RjfNgUfH7yoaC
-	xj5ty858GFBedUPb40QCB3FWdvOEndPk=
-X-Gm-Gg: AR+sD12QB8EY5nZAn7uIWgNCwQTdsSwgiSKeWR+7M0HGOVWRFVR6TUrCyJIahD8beVR
-	2EFVY2UzN8qVwv59qsOf3zWA+YE3Iboh+3zuczPmUHBdNydrEOL9gCLQ0IAo2WDORGRBKnCr9xD
-	X5tUq3sU6PmShzo3wrtmo+pJ1D8c23/dsQklQn/0eqp0Vx3Earkz3iQYTDnOaVbcXoaPdXyOQLF
-	Qap1IpHdFIaRo5Q7T+BcHY6E1z6RQ5qgEVmGhyyvPqP4P4AJhDO7FFTNrqp6cb3Zjv4TwHI/mO7
-	WkpdCmqxS1iAmt6aa/3+
-X-Received: by 2002:a05:690e:e26:b0:664:ae68:33d7 with SMTP id
- 956f58d0204a3-6683bdaf398mr3367592d50.9.1784611884801; Mon, 20 Jul 2026
- 22:31:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="FLlUOWoV";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="JQI5oT6y"
+Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66KNCNkG3427410;
+	Tue, 21 Jul 2026 00:48:02 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=dNCAa3atBJP/c1k9o0upgbXd2qjcIMXl10UMaLZyb
+	Ik=; b=FLlUOWoV7lPwHmVeme2a1iC7GyuZswva0+tUtZ0NXATsaUNN0PKVUggyS
+	jiR9kkmST/dDrvJaJLgkeDtYQPEnhpH1xbvz8FeDjEdeEwX5wiztZvYHXv0yzJHw
+	HY2vbZW/pSGddPqax/lCXI0GHxb8UigfsIAaR9V1xTOWf9Venjq2+5O3a0QuRYsZ
+	j/UrQyKZQTD/xT1Y29RKn5ImRGjzxmH5ILKT1a41q1cdWleWg7ytHKORFWNhDD1d
+	wQ4b+rPhww+R1iIzwX6hDdsJm4P4RvRdQl5Ok2eNjf0eGOWl7OdHDhuWweTskdb8
+	3zgAOGYO1ql2J14/Gd/3nz8OZofRw==
+Received: from cy7pr03cu001.outbound.protection.outlook.com (mail-westcentralusazon11010003.outbound.protection.outlook.com [40.93.198.3])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4fhjnjwsrk-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 21 Jul 2026 00:48:01 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hM2A+VPOkfZEWxCH6dUfh8zxtEJ71CFkhxTfTPRBLiZoW4Zr9AhaApqW5PGqQ4GEv2T7jLb6DEKAe69fur4xh2yJsRN/JlFfSb73O+0wXWktwF476jc0qT5azEo5GEyYyjD0zmCF69AvlxAbk/MnYc6qntClHhTgU9SxIdXc7TFacR+qJSjvMQusi0PMai2fscoCA3I1tGQPQ1ZOacHBG1C134cuG7/nvMFrwyWFsZ7qGqhR+hy4TIp4UxbJeWY/F+gHPp+ffcwZjjm+Px1JYYAeoFi6355ocsn1r6NU5mdyMPtPABTqBVVOCcUKyLEqWV/MWsDjg4GGsXnaANgS9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dNCAa3atBJP/c1k9o0upgbXd2qjcIMXl10UMaLZybIk=;
+ b=eROqWpi02tAQg8TOnh2mnXJ/R2cG3ozkDugPXd9S7azOjSq2TBbdmGB862Eiehf8dMiADzw2nVfNf7vfPYs7F/3h6mGSMP9YHn4uOX1qmBwTqHniPQUl3y2lngPkjDSg1KCQjwdBTic9vBdhl3+pxusp17f361RgWHT7p1o/i5CjJu/iQ0fyYqL0xNO3wvcprcYtgQ+v3EJGeMBD54J+9vgU1XJhOcJ0tFXarJI+Vm8o0koZRLMNjoyW2vVXArOwSi+K9axmaWLXF3fVEq6eAlGBhLoYlQc1aK5TlrfvhKD0b4fyCz3gKwyRVwHIy0dGv/lZKv2KfzYR8JaOQBR+JQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=kernel.org smtp.mailfrom=ti.com; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dNCAa3atBJP/c1k9o0upgbXd2qjcIMXl10UMaLZybIk=;
+ b=JQI5oT6yJ1ELcKhFQypUF+JQ1n844txD9zCqovBwVWHbtoGY/2hOU2alQ4ay/xHzoppSBS37deiCqwxVfsaaVtr7udPx86ZKyPCatSSnOWJynq+5uIsCjTmQ6Wh9yXROkLKlEWXmTkqrPPToQwZIVQu9nupYbhX4bhZaJ1wNOco=
+Received: from CH2PR11CA0013.namprd11.prod.outlook.com (2603:10b6:610:54::23)
+ by SJ5PPF831D4660D.namprd10.prod.outlook.com (2603:10b6:a0f:fc02::7af) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Tue, 21 Jul
+ 2026 05:47:58 +0000
+Received: from DS2PEPF00003446.namprd04.prod.outlook.com
+ (2603:10b6:610:54:cafe::52) by CH2PR11CA0013.outlook.office365.com
+ (2603:10b6:610:54::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.18 via Frontend Transport; Tue,
+ 21 Jul 2026 05:47:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ DS2PEPF00003446.mail.protection.outlook.com (10.167.17.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.5 via Frontend Transport; Tue, 21 Jul 2026 05:47:57 +0000
+Received: from DFLE211.ent.ti.com (10.64.6.69) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 21 Jul
+ 2026 00:47:25 -0500
+Received: from DFLE208.ent.ti.com (10.64.6.66) by DFLE211.ent.ti.com
+ (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 21 Jul
+ 2026 00:47:25 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE208.ent.ti.com
+ (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Tue, 21 Jul 2026 00:47:25 -0500
+Received: from [127.0.1.1] (uda0132425.dhcp.ti.com [10.24.50.130])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66L5lKim4177767;
+	Tue, 21 Jul 2026 00:47:21 -0500
+From: Vignesh Raghavendra <vigneshr@ti.com>
+To: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>,
+        Stefano Radaelli
+	<stefano.radaelli21@gmail.com>
+CC: <pierluigi.p@variscite.com>, <matthias.p@variscite.com>,
+        Stefano Radaelli
+	<stefano.r@variscite.com>,
+        Nishanth Menon <nm@ti.com>, Tero Kristo
+	<kristo@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski
+	<krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Kees Cook
+	<kees@kernel.org>,
+        Tony Luck <tony.luck@intel.com>,
+        "Guilherme G. Piccoli"
+	<gpiccoli@igalia.com>
+In-Reply-To: <cover.1783864932.git.stefano.r@variscite.com>
+References: <cover.1783864932.git.stefano.r@variscite.com>
+Subject: Re: [PATCH v4 0/3] Add support for Variscite VAR-SOM-AM62 and
+ Symphony board
+Message-ID: <178461283127.873002.18029849637908561186.b4-ty@b4>
+Date: Tue, 21 Jul 2026 11:17:11 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260718085728.6797-1-royalnet026@gmail.com> <20260718085728.6797-3-royalnet026@gmail.com>
- <25922edc-4ff1-4d28-9a64-2c28b2b690cb@collabora.com> <CAEWPSH70FecQRuGtA=S8+_CnLY5sMyf1j57Uwzwv54zceS1HZg@mail.gmail.com>
- <b8d63f61-b73e-412e-8119-ced1afdd4551@collabora.com>
-In-Reply-To: <b8d63f61-b73e-412e-8119-ced1afdd4551@collabora.com>
-From: Igor Paunovic <royalnet026@gmail.com>
-Date: Tue, 21 Jul 2026 07:31:13 +0200
-X-Gm-Features: AUfX_mxmfnzPqEwa71ax-VO-JiPM0c52nSKLc5Ko0WZ2ScXDIi8A0Y6FL5e5p2A
-Message-ID: <CAEWPSH5j3tYNb1JKRGwa00PVnYAgCKS+B-Qz07D8Z7TJea5cMw@mail.gmail.com>
-Subject: Re: [PATCH v3 2/4] media: synopsys: hdmirx: add HDMI audio capture support
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Sebastian Reichel <sebastian.reichel@collabora.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	kernel@collabora.com, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003446:EE_|SJ5PPF831D4660D:EE_
+X-MS-Office365-Filtering-Correlation-Id: 43d92c93-e3fa-4900-19ac-08dee6eb9dd6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|7416014|376014|36860700016|23010399003|18002099003|22082099003|13003099007|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	k2FFxYCBxhkGO8mdafblaolH8R9AaxXyfo9mA4U3YkZ2xIRrXE/uEtFD3ftYW/Hn+yWc1dEAD7DACdOaJefFFFM9+TA6fyycOX8SDgd3ViZsmo0Ne3FfjXYEDN+HnQYIkMyWJ7yuE2B3wYRWnF2qhNcHU3zHoDouS2/1Mti6Sx/Ua/uRNmtDJDFSGm7NpuoumybgpwoYl0FpTUe9TDBvI3bKcHKROFt3/qQ8wngcqNxjx9qySKh0Kf8PNG9rATtslLy/1uWsbFO63n25TZ9pchFwA3DMplPNkkw33DkkSQa+qgwgsn7WrgW4OEiRyo+kQEcwi+SjuVGzEi/jjeqzlbYXh9nRZJ0vySEhE9x4DRGTQJb3WKpr6CmCL27vKWMyyIFfrL/TkjIkWOXQ3t78Rbk995XCr/Lfe/7+4SBsmPxHQN8iwAQ4KhwLz59JoA1VA6JLX27Th3el4SaoMiUDRuZ5GlIM9ee5GVMONllMC/1UEss/f/zSTXakLsm/BqIaRMrUAlk+sCdRVRBySS5dlC7ni5ZBffHBegkcob9aFIVqAMGghqUY7hynswBriKoSJP8RHCVrYZcErQuVB2K5FCkoXalkyhfVInmnt+uKRLNnmsjwjwuHX7KFOHstXSLBaZyMLwl0Iy6WewuQ2g60UKObkDO6Qc04G7+aOOeqwTm273mBqLYExFepynxKS7dIzuc6X3xUyO2ix9oQShWkkw==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(7416014)(376014)(36860700016)(23010399003)(18002099003)(22082099003)(13003099007)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	d8H2NVrGNvFqt146SCuIGd0612AW5SRsTcSb+jOSKIvde18Rb2y59B+NczLcNPcWgG3HQKOJQixWqTHPWHV1oUUs5ufb7ZR667zswKnJ2VPKeLeH6j//Cb/FnyrwkGIk+pg24jF1LcHhBEHiaxLwzshcSyCFbaksZmZrQiBbXG1q1x7Ht/wRNMzxz4A+mwQ3sj/vuqocsQacwMgPP8ns3vLzdyL12ntdLSxetvSVBeKsTCCCzYzLevfqKaLT2BKaCMKpM36Xc8L5Q01WZMrmDMheJnU9BYwK1TlBimlxFzHNZiKQioj9Q8J85oXNYUzVYvyGd9FVexqiyEQmRq9Eqqk0z5UXADKYqyYeYYs3+39KpQfXrC2SpK9k+XkfiWppYTLsfHWJNXjhbcgJivQTejJqv52yif7YANK9CJ8N2HUCW9JYOOz2069kdC4995kK
+X-Exchange-RoutingPolicyChecked:
+	YUKff2UZ9S/cRBm2ec4TXQ2YIztKzpS2DDAPImarOrUR3dnJVzqObRfKPkmRJjXRsxqlAytnvN9mEV8VPo+vGKq6lQTmzlwNPL7kWqtTG1RIfuqDbJoOpK2Y1UN5BWWFNgCl6sVX145I16l/BXgRcafRr+r5fVAke0Y4jLAf1+tif3qTbo4BTl8v8y59PwbyxKDFzG657c7rcNvo1+R+7xZsb5xPr0EfpVmJWZU83Rrlf3FsBXv4BgRcdcQMPMW8UPOxy9AVxbF0r4I3NHM2ePa3XqjMpJghTK0F2zj+KTGsdhsvGd0oGYFBnKCgKaHTEwaghF3DK80eJ16oddi6CQ==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 05:47:57.1872
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43d92c93-e3fa-4900-19ac-08dee6eb9dd6
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF00003446.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF831D4660D
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDA1NyBTYWx0ZWRfXzRV/uBfkjTB2
+ 55lX3SkuazG2x9kN7DGAPyH91XdhOOTKZbJPH4LDfHH6OtK1Nm+7ruA/dAE8zcEGYpHtRZWHhDl
+ KzIJox7WlXMZcuF9PH6FYvQg6YOQ5GI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDA1NyBTYWx0ZWRfX6KSnde1SHRBs
+ ubAhD91xFbHfN+60nYwx3BBI/pwXgszwz0gVe41n9NBNsnOQJ2NDyqtw6weXfIed0DcjkEEfBcU
+ bQbMfTjHHQLS5TVHdKZmTMeuuCWCHVA4I09bI2ZoMbspz5Ciso0iQNe/fBjOSSj6hy73YjquJOj
+ tUSNX6fsK+aG0rWw9omL1Qr5EuSrYrlGCp/dtIjdZEzrryP3ioRY98yCO1pAMIzthsNhgvsRPwG
+ JwL+LAkX0Or2kDIS2745Fmal7iNOM+zLGr5BxoCUOLdHHMKXmK+wjScja5bgSN6YZgNV42UTyFM
+ ZiMnLaDz8vqp6qplgNjHetS2SE+2YroVrz5uEUfc/uZ2/GZA2xrC9mcmrYJOrNqglzO5gbkf2Ry
+ w2MoGrlrq/9HU+rrfwHVcMGZQRjt3OBbZWFVe4wTR27WKirjh6uDiF5HjVYQQC7EfkJMoZmymTS
+ kgJs7iC8Kb/YkE5ZBHQ==
+X-Authority-Analysis: v=2.4 cv=N6wZ0W9B c=1 sm=1 tr=0 ts=6a5f0811 cx=c_pps
+ a=u8Zh/y5cvmLMdp3U04oolg==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8 a=o1kACPpZKAZCWsj7fAYA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: IYZqSnRt4d5Z63W8hWlkPQP6SyxwyP6j
+X-Proofpoint-ORIG-GUID: IYZqSnRt4d5Z63W8hWlkPQP6SyxwyP6j
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-20_06,2026-07-20_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 spamscore=0 adultscore=0 phishscore=0
+ suspectscore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1011
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210057
 
-Hi Dmitry,
+Hi Stefano Radaelli,
 
-> Re-arming will be best option if it works properly.
+On Sun, 12 Jul 2026 16:04:47 +0200, Stefano Radaelli wrote:
+> Add support for Variscite VAR-SOM-AM62 and Symphony board
+> 
+> The series includes:
+> - Device tree bindings documentation
+> - SOM device tree with common peripherals
+> - Symphony carrier board device tree with board-specific features
+> 
+> [...]
 
-Went back to it and made it work properly -- with one honest caveat
-at the end.
+I have applied the following to branch ti-k3-dts-next on [1].
+Thank you!
 
-Plain cancel/re-arm could not have been enough as previously
-written: hdmirx_resume() fully resets the controller via
-reset_control_bulk_assert/deassert in hdmirx_enable(), wiping the
-audio configuration (I2S_EN, AUDIO_ENABLE, FIFO thresholds), and
-the worker's error path never re-programs those -- it only resyncs
-the clock rate and reinits the FIFO. So v4 does:
+[1/3] dt-bindings: arm: ti: Add bindings for Variscite VAR-SOM-AM62
+      commit: 8571d1e223a5d220aba7e323b4de36d7341ee37e
+[2/3] arm64: dts: ti: Add support for Variscite VAR-SOM-AM62
+      commit: 5f865bbef8e5a91780064b847365d755845bc974
+[3/3] arm64: dts: ti: var-som-am62: Add support for Variscite Symphony Board
+      commit: 5fde9c21c671ff501523d55138b4f5eeb577b97e
 
-- suspend: cancel_delayed_work_sync() on the audio worker before
-the clocks are gated (audio_streaming stays set);
-- resume: if a capture stream is active, re-program the whole
-audio path (clock from the last known sample rate, FIFO
-thresholds, I2S_EN, AUDIO_ENABLE) and re-arm the worker.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent up the chain during
+the next merge window (or sooner if it is a relevant bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-The programming is factored out of hw_params() into a shared
-hdmirx_audio_setup() helper so resume and hw_params cannot drift.
-I also checked that nothing in the post-resume hotplug re-init path
-(plugout/plugin/submodule_init/controller_init) touches the audio
-bits, so the restore survives the replug dance resume triggers.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Measured on the Orange Pi 5 Plus (pm_test=3Ddevices, i.e. full device
-suspend/resume callbacks, active capture stream with live audio
-through the whole cycle): on resume the capture simply continues --
-audio was flowing again the moment the display came back, no
-userspace intervention, clean dmesg, no oops in any of the ~6
-cycles exercised tonight.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-The caveat: a *second* suspend/resume cycle in the same boot leaves
-the audio datapath silent (the I2S slave sees no bit clock, so
-capture reads time out) even though the resume restore re-programs
-everything, and a fresh stream open does not recover it -- only a
-reboot does. Notably this happens with plain no-stream suspend
-cycles as well, so it is not caused by (and would not be prevented
-by) either the re-arm or the -EBUSY approach -- it looks like more
-controller state lost on repeated reset that neither hw_params nor
-resume currently covers, likely the same warm-up state machine I
-described in the v3 testing note (audio needing a video STREAMON
-after a replug). I am instrumenting the register state next to
-root-cause it; I'd treat it as a follow-up rather than a v4
-blocker, but happy to hear if you see it differently -- and curious
-whether the 5B shows the same second-cycle behavior.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-v4 follows with the re-arm plus the dts and binding changes already
-mentioned.
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/ti/linux.git
+--
+Vignesh
 
-One more small thing the audio bit exposes, for a possible
-follow-up: hdmirx_cec_update_bits() is a non-atomic RMW (the read
-and the write each take rst_lock separately), and with audio added
-there are now two writers of GLOBAL_SWENABLE, so a CEC adapter
-enable racing an audio enable/disable could in theory lose the
-other side's bit. Mainline today has a single writer, so it is not
-a bug there. Can send a small patch making it atomic if you think
-it is worth it.
 
-Best regards,
-Igor
-
-On Mon, Jul 20, 2026 at 4:37=E2=80=AFPM Dmitry Osipenko
-<dmitry.osipenko@collabora.com> wrote:
->
-> On 7/20/26 15:30, Igor Paunovic wrote:
-> > Hi Dmitry,
-> >
-> > Great to hear it works on the 5B -- thanks for testing!
-> >
-> > Agreed on the -EBUSY guard, done in my tree exactly as you wrote it.
-> > It also supersedes the suspend cancel/re-arm I had queued from the
-> > bot review: with suspend refused while audio_streaming is set, the
-> > worker can never be armed at suspend time, so those hunks are
-> > dropped.
-> >
-> > v4 follows shortly with this plus Sebastian's dts restructuring
-> > (shared disabled-by-default card in rk3588-extra.dtsi, renamed to
-> > "RK3588 HDMI-IN") and Krzysztof's binding comments (dai-common.yaml
-> > reference + unevaluatedProperties).
->
-> Re-arming will be best option if it works properly.
->
-> --
-> Best regards,
-> Dmitry
