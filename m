@@ -1,126 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C0A44E02C
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:05:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8120A44C645;
+	Tue, 21 Jul 2026 10:06:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784628336; cv=none; b=jgpcO7/CSR6BMLtTJyfedNN5k/sNm2PGfMQqGrRSyu+4zbAB1Z6Kq5ZcTVvGOACULFAbmSOJq2+9erMlWlCPhtxJs+hbjauhSY4JsvFJ6OUaF2OdhZPcre4foVyj3BzZepNZ4z4bG2+XKX6RJej32dXuwd+pm76FVq91e2nZOHk=
+	t=1784628383; cv=none; b=iGyRymYXmsUlcApeMLjRmFI96eP7KZa852AKREPVci1vzFNg3/jnB/WiEnmYx13JlbJlXVMP5BPEYLVXJqeVDgueCrzp5b95edHywG4KDCCpL0OH7MSiZLNonrhnza0JSBJjU+SYNJBFzyJDbSkFJLl3+NWQ0j4y0OqurqhqJ3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784628336; c=relaxed/simple;
-	bh=EfqonCMf2vHOldAItQBU+QJk7JZ/RZ62003/mz2u5gA=;
+	s=arc-20240116; t=1784628383; c=relaxed/simple;
+	bh=e9emev741HJIAfX6L1IduIcEjovm3kd229dSSsYBV3A=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=s6jrMNow2ShLzMXvugwuPBoDbcbYxWlBOyLgLjBNxEznFUXrN2Kn9SDVrnFKZ/aKkcVFlS+7kS+eGSrHrZxGnDCczjHqlXV398AgNd5PUXey6x9+9xNWnHUQKLBQCkKAPIcH7Gac4QkDrWGLnYKBrg1jeKZVPKkpGHIJ5ro8U/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CXg9ZSbz; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=YV6vvbWYaPchn7BlhP3H1PYNIBCY5N8xTSuuB2hainsAlgvlKFPa5kN1zuj1qJJtwZVZL25/Ik7SLm1oZXtffDom9nbmWZ5irbJiYBdxe3NcVi0pzTlr4MLOTRYuPcgcGPZutXsDRCGgwUl8gN3T2dhq5GiRiyWrlZN/6fOVgfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M6MGWuIA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CXg9ZSbz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B9DD1F00A3A;
-	Tue, 21 Jul 2026 10:05:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M6MGWuIA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB5EB1F000E9;
+	Tue, 21 Jul 2026 10:06:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784628335;
-	bh=dV5QoTRwhjHyRYz1G+SJp2x+eWKK8db3uIxcnt1HVIk=;
+	s=k20260515; t=1784628382;
+	bh=avpWQ8YTk8yIcRdLCTyrYBkMvLFsO+SMTcSwNcsIGxw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CXg9ZSbzZgomCejLWE6rRWQwLUb4VwRjc6Y47cwkbMNw2G0t5uqDBTUuHHNuIWlcH
-	 rGhLPtNPp5pFuix5lGoRshZHjEBk0xgjgkpmjn+7S2gXyea/meDm/wVPQYUmlfbdda
-	 NE+qND6N0eNmKF7rvGw3/9KsQBbAmRgrpDGPX9SHHoiRvfJNyUi3OYt+jcS0steuOt
-	 8zZQgwKi4FeGTJA2hcoR3L4MOKaV6rqCAMvpEKLY/1gswongmnwiIyIbX9IkhzFowa
-	 qwWTYrHqjWNI6XyvljWDG/6Gnhyt4wXWZNHyeLc85rENth04B9jHY3OeUb8HkyBnOj
-	 zGeZ/GBz04diA==
+	b=M6MGWuIAxIVH9A7qt35+B5NDeCJg8dy8UwKTVMbw9fUe6rLBj4kwYWoZvo5DK5EBp
+	 Wbo4O8FDSHh4NZIrtqCfKdD3UFABYtQ96JwMgd/LedJ0PLqa8dLV9+P3PILJAo1e8T
+	 I+cwCPtOvdfetWRsNTw+7dOZ/olFWgX4iIPt+WgYJcMjRQC0mjDPgPom6GUOPTGxPU
+	 cn65r9+Q1sZ8g8yPMC9CyrBDo2tJms7QUm9AmetZe2IIQaggi8HnbmtCpuCP5BAX/2
+	 saSwj+OrsWhvVcLGIEWSJkS42hk+HT/JmlNZ/LLEl3Yg03eDpmd5LfsjObkSoVVz1i
+	 pIFxEmszEgNqw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 18/18] clk: mediatek: Add MT8189 ufs clock support
+Subject: Re: [PATCH v7 1/6] dt-bindings: leds: leds-cpcap: convert to DT
+ schema
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260720-mt8189-clocks-system-base-v3-18-8e6d99ab3ad2@collabora.com>
-References: <20260720-mt8189-clocks-system-base-v3-0-8e6d99ab3ad2@collabora.com>
- <20260720-mt8189-clocks-system-base-v3-18-8e6d99ab3ad2@collabora.com>
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: lee@kernel.org, devicetree@vger.kernel.org, dmitry.torokhov@gmail.com, conor+dt@kernel.org, linux-leds@vger.kernel.org, linux-input@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260721095654.429346-2-clamor95@gmail.com>
+References: <20260721095654.429346-1-clamor95@gmail.com>
+ <20260721095654.429346-2-clamor95@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 10:05:34 +0000
-Message-Id: <20260721100535.3B9DD1F00A3A@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 10:06:21 +0000
+Message-Id: <20260721100621.EB5EB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Missing `of_clk_del_provider()` in the probe error path leads to a=
- Use-After-Free on `clk_data`.
+- [Low] The commit message description following the subsystem prefix is no=
+t capitalized.
+- [Low] The newly added YAML binding points to a non-existent MFD schema, a=
+nd the parent MFD binding still points to the deleted text file.
+- [Low] The YAML binding conversion omitted the `examples` block.
 --
 
---- Patch [18]: [PATCH v3 18/18] clk: mediatek: Add MT8189 ufs clock suppor=
-t ---
-commit 3f4a4ae78ea13a3a95925571f6bdf7f9cc1c1ea8
-Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+--- Patch [1]: [PATCH v7 1/6] dt-bindings: leds: leds-cpcap: convert to DT =
+schema ---
+commit 42a8d75469150373ffb675f9ae6fccd8e3d482d6
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-clk: mediatek: Add MT8189 ufs clock support
+dt-bindings: leds: leds-cpcap: convert to DT schema
 
-Add support for the MT8189 ufs clock controller, which provides clock gate
-control for Universal Flash Storage.
+Convert LEDs devicetree bindings for the Motorola CPCAP MFD from TXT to
+YAML format. This patch does not change any functionality; the bindings
+remain the same.
 
-> diff --git a/drivers/clk/mediatek/clk-mt8189-ufs.c b/drivers/clk/mediatek=
-/clk-mt8189-ufs.c
+> dt-bindings: leds: leds-cpcap: convert to DT schema
+
+[Severity: Low]
+This isn't a bug, but should the description following the subsystem prefix
+be capitalized? The LED subsystem conventions typically expect a capitalized
+description, such as "Convert to DT schema".
+
+> diff --git a/Documentation/devicetree/bindings/leds/motorola,cpcap-leds.y=
+aml b/Documentation/devicetree/bindings/leds/motorola,cpcap-leds.yaml
 > new file mode 100644
-> index 0000000000000..85afab04420f8
+> index 0000000000000..c8e7b88a05ccf
 > --- /dev/null
-> +++ b/drivers/clk/mediatek/clk-mt8189-ufs.c
+> +++ b/Documentation/devicetree/bindings/leds/motorola,cpcap-leds.yaml
 
 [ ... ]
 
-> +static const struct of_device_id of_match_clk_mt8189_ufs[] =3D {
-> +	{ .compatible =3D "mediatek,mt8189-ufscfg-ao", .data =3D &ufscfg_ao_reg=
-_mcd },
-> +	{ .compatible =3D "mediatek,mt8189-ufscfg-pdn", .data =3D &ufscfg_pdn_r=
-eg_mcd },
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, of_match_clk_mt8189_ufs);
+> +description:
+> +  This module is part of the Motorola CPCAP MFD device. For more details
+> +  see Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml. LEDs are
+> +  represented as sub-nodes of the PMIC node on the device tree.
+
+[Severity: Low]
+Does motorola,cpcap.yaml exist yet? It looks like this references a
+non-existent MFD schema. Additionally, the parent MFD binding in
+Documentation/devicetree/bindings/mfd/motorola-cpcap.txt wasn't updated
+to reflect the deletion of the old leds-cpcap.txt file.
+
+[ ... ]
+
+> +required:
+> +  - compatible
+> +  - label
+> +  - vdd-supply
 > +
-> +static struct platform_driver clk_mt8189_ufs_drv =3D {
-> +	.probe =3D mtk_clk_simple_probe,
+> +unevaluatedProperties: false
+> +
+> +...
 
-[Severity: High]
-This is a pre-existing issue, but by using mtk_clk_simple_probe() with a
-reset descriptor (ufscfg_ao_rst_desc and ufscfg_pdn_rst_desc), this driver
-exposes a missing cleanup step in the error handling path.
+[Severity: Low]
+Should this YAML file include an examples block? The YAML conversion
+drops the original usage example from the .txt file.=20
 
-If mtk_register_reset_controller_with_dev() fails inside
-__mtk_clk_simple_probe(), it jumps to the unregister_clks label:
-
-drivers/clk/mediatek/clk-mtk.c:__mtk_clk_simple_probe() {
-    ...
-        r =3D mtk_register_reset_controller_with_dev(&pdev->dev,
-                                                   mcd->rst_desc);
-        if (r)
-                goto unregister_clks;
-    ...
-unregister_clks:
-        if (mcd->clks)
-                mtk_clk_unregister_gates(mcd->clks, mcd->num_clks, clk_data=
-);
-free_data:
-        mtk_free_clk_data(clk_data);
-        return r;
-}
-
-Since of_clk_add_hw_provider() was called earlier in the probe sequence,
-jumping to unregister_clks frees the clk_data structure without calling
-of_clk_del_provider().
-
-Could this leave a dangling pointer in the OF clock provider list, resulting
-in a use-after-free on subsequent clock lookups?
-
-> +	.remove =3D mtk_clk_simple_remove,
-> +	.driver =3D {
-> +		.name =3D "clk-mt8189-ufs",
-> +		.of_match_table =3D of_match_clk_mt8189_ufs,
-> +	},
-> +};
+Running dt_binding_check on standalone schemas that lack an examples section
+can result in warnings or incomplete schema validation.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720-mt8189-clo=
-cks-system-base-v3-0-8e6d99ab3ad2@collabora.com?part=3D18
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721095654.4293=
+46-1-clamor95@gmail.com?part=3D1
