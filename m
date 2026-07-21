@@ -1,106 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC93B248F57
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:58:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E054546C4A2;
+	Tue, 21 Jul 2026 16:00:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784649512; cv=none; b=hlhXyApZDroUz6D+ueXn82jiFEcSY9A0HzzpbLdSEFRfN8EQvysd02JTXApmTdwupOaKv3rGYmt2sb0i+v3yGuG+uVQfcstrZHjsteilz9m2KN/rB0C9k7Y7jwfhawRQlyEh5Xw76vOfvZxMCY+bXngfPiLvo++k2jzJHPlydA8=
+	t=1784649655; cv=none; b=fIzYCefYwgpTnUO+OOF4t+m/bcxZ3cH6wiuBY1YE53vMBgLv2BEk27YxsLoFz0YwDzM7VqYVPm0jHu0T1ZVnFOP24S2Sf3foV0WRtaMaGhbphJB+juNhgOYQINjyscqThWCW4o0HKkScmk/Js9oFe4ppHHHKOlbbMl5Y/rGDGWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784649512; c=relaxed/simple;
-	bh=IlQmJXM/kA8wPeMSZd3K7W41FiUJ9KzxafeRFzG8Aco=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Q5esbgElrAmbGclBoRm1XdVr/dWBLqMyzFCEfmgHrkjOkh6jZS32FV8IlMDLYWlDnTlrfKbzgvlHo0uXAOL1NDkr6IszDgO016i9aBKkOo4xw4RipdlZlzowMQEsZPjESomzG8Lbl6vtnxjwX06L6dt/WRiQFt9njZq4BuOr4m8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=he0gcl2H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784649655; c=relaxed/simple;
+	bh=BNwyse+60RJq6uhperqWzkTFcBln9g9zfu8ozODcda0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=L7KYXb6GUXPOU49m0tTo8d/XyU4hmF/cdATkdk/s8C4qqECgDwMPg6IbtFE4BV/su7YgspPYgytzJ55XzaGWBrzFcLGEn9nTGMiNhJM5LgxPj6DQ4M7OS3IGbCM8GhD51TopuFq6rMRSI4k+XcaJPjnVX0tqyWh7M5jeZKwvEvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=B7UzbRpR; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="he0gcl2H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 741EC1F000E9;
-	Tue, 21 Jul 2026 15:58:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784649510;
-	bh=u1vnwDZRnP9Bve2ng31V5FchF9YvYw64jNmYYMOrWC4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=he0gcl2H6vE5dJyqjN4XLQGdBfYzZpbqDV0ibWyC1CdS+iuCNBNZ0yqk0A2wZRfNQ
-	 aLyYZcaGFzdhZ3RTJilWQBUyPX/QDO6HVm9+dfmIgxgh8FsZub43zyAVzY49JADbHj
-	 owhNyt5sKtOHi5QTs2/SBg1O3Z5WFMqT2Pq1D1N7+LyNb0IK4I5WSMG/8AKwyuJJ/O
-	 CjvNuNFx6inaLR5g2mHfW/HnpvRvEvE/eHASB5uRP4VFBd3BmU/wv8LUToO7Hs0ZTk
-	 KWKg+h5ajqN56AMIkgZM0Czni56OUI80hoHegQTzIIoCdBVi4rU9ZyfBUEcINNoRI3
-	 ISudZGJdpQnOA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/4] dt-bindings: arm: qcom-soc: Validate nodes with
- fallbacks
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260721-dt-bindings-qcom-soc-naming-v3-3-8f275c9d3412@oss.qualcomm.com>
-References: <20260721-dt-bindings-qcom-soc-naming-v3-0-8f275c9d3412@oss.qualcomm.com>
- <20260721-dt-bindings-qcom-soc-naming-v3-3-8f275c9d3412@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 15:58:29 +0000
-Message-Id: <20260721155830.741EC1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="B7UzbRpR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Al
+	PjXXYnuptVW+9MAyCQFbnaY3++kpZowa2OjPiijz4=; b=B7UzbRpRzFCnrndvIp
+	jI6QbtEEhINDZW0sdf0bqEcCiF8Q+SGCvpzugqfqBJXCGKZ3eQgTASDN6/+hX8jl
+	LiWt6KGHFgFYF6NkpUpc5ZvPe+MpC5ut/A7vnbPs5wN/SsHZOgQNhBpOfy8H1PWK
+	Ck0a/DY+93v4mqAI7OZItuCl8=
+Received: from hie (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wDHXTmLl19qeRJ0Jw--.49584S2;
+	Wed, 22 Jul 2026 00:00:12 +0800 (CST)
+From: Tianyuan Jiang <code_0002@163.com>
+To: krzk@kernel.org
+Cc: konrad.dybcio@oss.qualcomm.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andersson@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tianyuan Jiang <code_0002@163.com>
+Subject: Re: [PATCH v2] arm64: dts: qcom: sm8550: add xiaomi pad 6s pro (sheng) dts
+Date: Wed, 22 Jul 2026 00:00:09 +0800
+Message-ID: <20260721160009.535-1-code_0002@163.com>
+X-Mailer: git-send-email 2.54.0.windows.1
+In-Reply-To: <20260721142147.1618-1-code_0002@163.com>
+References: 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDHXTmLl19qeRJ0Jw--.49584S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Ar47tryUtFW5Zr45WF18uFg_yoW8uF1Dpa
+	yF93sxZFs3J3WSyrykXr48Xr4F9wn3JFWUtr15W34rZan8GF1Iy3s7KFs8ZFnrJ3saqa13
+	ta1jgFykJan7AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEsXosUUUUU=
+X-CM-SenderInfo: 5frgvsaqqqjqqrwthudrp/xtbC7wx7Fmpfl4xDogAA3B
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The commit modifies a regex pattern despite the commit message e=
-xplicitly claiming no patterns were changed.
---
+Hi Krzysztof,
 
---- Patch [3]: [PATCH v3 3/4] dt-bindings: arm: qcom-soc: Validate nodes wi=
-th fallbacks ---
-commit 5d9830a03b3532641c37f4db55bf3e194063f0c9
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+I sincerely apologise for the rapid version spam (v2-v6 in one hour).
+That was completely wrong and I understand your frustration. It happened
+because of a misconfiguration in my automated workflow -- I was trying
+to fix issues iteratively but each fix triggered a new send without
+proper review. This will not happen again.
 
-dt-bindings: arm: qcom-soc: Validate nodes with fallbacks
+Here is the checkpatch.pl --strict output on the latest DTS (v6 fixes
+applied):
 
-The schema checking for expected naming patterns for SoC IP block nodes
-was incomplete and was checking only nodes with single compatible. This
-commit changes select to contains so that nodes having at least one matching
-compatible will be evaluated.
+  total: 0 errors, 81 warnings, 0 checks, 1769 lines checked
 
->     These two above are the only functional changes in this commit and the
->     rest of the diff is indentation change.  None of the patterns are
->     changed (neither in "Preferred naming style" group nor in "Legacy
->     namings"), none of the compatibles are affected.
+The 81 warnings are all "DT compatible string appears un-documented".
+Most are false positives because I'm on Windows without grep, so
+checkpatch cannot search the bindings directory. Compatibles like
+qcom,sm8550, regulator-fixed, gpio-keys, usb-c-connector etc. are
+properly documented in the tree. In a normal Linux environment with grep
+available, I expect the count to drop significantly.
 
-[Severity: Medium]
-The commit message states that none of the patterns are changed, but the
-diff below shows the regex pattern for the codenames variant was modified to
-end with "-.+$" instead of "-.*$".
+Changes since v2 (based on review feedback from Konrad and others):
+- Removed all output-low/output-high from TLMM pinctrl (Konrad)
+- Reordered root-level nodes alphabetically (Konrad)
+- pinctrl-n placed before pinctrl-names file-wide (Konrad)
+- cs35l43 reset: GPIO_ACTIVE_LOW | GPIO_OPEN_DRAIN (Konrad)
+- firmware-name paths: qcom/sm8550/xiaomi-sheng/ (Konrad)
+- ktz8866a: add kinetic,ktz8866 fallback compatible
+- assigned-clocks added to mdss_dsi1
+- Removed msm-id, board-id, Xiaomi-specific comments
+- Removed udmabuf bootargs (confirmed not in use)
+- Fixed node sorting, alignment, and comment style
+- Fixed From/Signed-off-by to use real name: Tianyuan Jiang
+- Line length fixed (mbhc-buttons-vthreshold-microvolt)
 
-Is this pattern change intended despite the commit message?
+Regarding the undocumented DT compatibles (fpc,fpc1020, gt9764, ps5169,
+novatek,nt36532e, etc.), I am preparing separate bindings patches for
+each and plan to submit them as a series. Would it be acceptable to you
+to land the DTS first with these as follow-up patches, or do you prefer
+all bindings to be merged before the DTS?
 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom-soc.yaml b/Docume=
-ntation/devicetree/bindings/arm/qcom-soc.yaml
-> index dbc7877ee30e2..e72502f8df2c7 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom-soc.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom-soc.yaml
-[ ... ]
->  properties:
->    compatible:
-> -    oneOf:
-> -      # Preferred naming style for compatibles of SoC components:
-> -      - pattern: "^qcom,(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm=
-|x1[ep])[0-9]+(pro)?-.*$"
-> -      - pattern: "^qcom,sar[0-9]+[a-z]?-.*$"
-> -      - pattern: "^qcom,(sa|sc)8[0-9]+[a-z][a-z]?-.*$"
-> -      - pattern: "^qcom,(eliza|kaanapali|glymur|hawi|mahua|maili|milos|n=
-ord|shikra)-.*$"
-> +    contains:
-> +      anyOf:
-> +        # Preferred naming style for compatibles of SoC components:
-> +        - pattern: "^qcom,(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|=
-sm|x1[ep])[0-9]+(pro)?-.*$"
-> +        - pattern: "^qcom,sar[0-9]+[a-z]?-.*$"
-> +        - pattern: "^qcom,(sa|sc)8[0-9]+[a-z][a-z]?-.*$"
-> +        - pattern: "^qcom,(eliza|kaanapali|glymur|hawi|mahua|maili|milos=
-|nord|shikra)-.+$"
+I will send one clean v7 once we align on the approach. No more version
+spam. Thank you for your patience.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-dt-binding=
-s-qcom-soc-naming-v3-0-8f275c9d3412@oss.qualcomm.com?part=3D3
+Regards,
+Tianyuan Jiang
+
