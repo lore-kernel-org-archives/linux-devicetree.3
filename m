@@ -1,150 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D08A42D763
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:05:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17BCB446BE5
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:05:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784628335; cv=none; b=C8oTIpyFO/vDFXN77/ltqFPGidMTssTeljYz++Ch8cv/IWCe6T/Nk9MaYbRw+VX2zQlitsxOi6zWNRnjU4VYl0DFmNRwRsiV5nGYpphe+wYcg4yE7iTLWUaxEt7oBmWCXYApwlWgxWaLPfle7R9WgCFYepj0yNTx7vrYvSkoScg=
+	t=1784628335; cv=none; b=hPDQUz0df3ic6NpVGa04qF8eBJ9W5L0LpfY5y5ENlcu2ht9MlLj9K+CW7NPlxdn1wpIFz4jZ73aRZMFsIjuJKUdUTkwJ9zNDh0CeDQaer1HfBj2P2TImwh/CQb7vIaqMd70nsPpZG1bpK38xkFkGLRAJaOeYaTjYS4OCK0BIP+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784628335; c=relaxed/simple;
-	bh=vjuoKIB6AfAq21FQUvELJo+Md4tC9N1nLZY/BNAVMiQ=;
+	bh=McTNTaMWS4dE4aIFg2rbmyMU0p5zKr7gVPF9i8jsLcM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eZtvp9TfLgAuJWAiPQO88DS/bRdAcIYQ7PxTA+3+zmOeovioVcHpTaIRFb/lMATLVCJuorZfvZOM3NipfJ7Hmfvl/Ust0gzD8yc9Vo4klKmh0aDk6BGYFyZ1a5/tYXkGOGQ2pbBGfUuh1YfSzKowWnqq5vCiHjHKCQFd/GNi4UE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q/y6BzUM; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=vCTP238O9IJx1B7aHTt1HUHxUGt6LbnymGjoyj6sMPTThbe0bV5lmzNHq9GmNsS8CNtE9+zJNzxQF61LZQJ27Oe7uVTj2Keom3MIm0PsHyTIO0sMt6UPVuEes14IzHzB5xVkDerKFit3anSPq6dRg5HZTh/KLLrrY+hedwtAcf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JvaScd6g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q/y6BzUM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0F461F00A3A;
-	Tue, 21 Jul 2026 10:05:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JvaScd6g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A41AB1F000E9;
+	Tue, 21 Jul 2026 10:05:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1784628333;
-	bh=ee2bE2LqEuuH7uDRXrxkXrcY/EsWPc4GNFc2JYuG9TQ=;
+	bh=W7+uOwvsuHR2k3Sxv+cfKRBZWqhdf1EhNoeFtK0t/wA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Q/y6BzUMJxOCBk6eumMHcroyBzciArM3X3+ZS/ngwR6fzSKF1ZV56CVXgXGyWJ/AY
-	 FgOq0ESk+fsxkNgN1CCZPbiwX2w4619v+/CEM24907xKGBu0IQIirRmSXgN3/p2njD
-	 5Jial9Szhv86AotKRf9SAunllCIMnovmENA1zomj29x2SNmo4V1j6p3CZClptt8j0F
-	 ZrtwgMcePlPjZDq7q0Opp/z+ptCw+SV97SpNisIuGueViZjts6dTFrWcyD98AvVipX
-	 wC7nHqWts5FebljzigmbuhzspQc3gUCi2i99tiZ6QDs1U+gCEH/SCv65R0CtaNq/PN
-	 9zt/usP3mAE9Q==
+	b=JvaScd6g/F7wUO87uw5/V8DTUhqne+hj6zmG7fl9GzEP9pNXf2L9zkZruHZWfxyi2
+	 aWVIk1zNAv64lUlAL9usejp4sAe8cr2mKGng0t8dKMwOrHV/2mOjHLwFztEppPfun4
+	 x6nnZquNeXlR5kiOakjplzisyELl9xFF1nfUYLSzkD4O5K5wfCYFe2BlkD+LSMie1u
+	 ygxpRTWOUpndKp63f8R2ubFqQwHgPEELWdV3Ovfdtg5Onr++ObHlhneO29FHKc974C
+	 1neadrfgwFC/ajtnkxX1SBdp06WTMGtlY8NvkdXmwYprZoMA2uGQWlGaYwkgPTJsy0
+	 i/LsfOACQc8MQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 10/18] clk: mediatek: Add MT8189 topckgen clock
- support
+Subject: Re: [PATCH v3 13/18] clk: mediatek: Add MT8189 bus clock support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260720-mt8189-clocks-system-base-v3-10-8e6d99ab3ad2@collabora.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260720-mt8189-clocks-system-base-v3-13-8e6d99ab3ad2@collabora.com>
 References: <20260720-mt8189-clocks-system-base-v3-0-8e6d99ab3ad2@collabora.com>
- <20260720-mt8189-clocks-system-base-v3-10-8e6d99ab3ad2@collabora.com>
+ <20260720-mt8189-clocks-system-base-v3-13-8e6d99ab3ad2@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 10:05:31 +0000
-Message-Id: <20260721100532.E0F461F00A3A@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 10:05:33 +0000
+Message-Id: <20260721100533.A41AB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Teardown asymmetry between manually managed clocks and the devm-ma=
-naged clock notifier leads to a Use-After-Free of the clock struct on probe=
- failure or driver removal.
-- [Medium] Integer post-dividers (e.g., _d16, _d4_d8) are incorrectly defin=
-ed with arbitrary fractional factors (e.g., 61/973, 92/1473, 43/1375) inste=
-ad of exact integer division ratios (1/16, 1/32).
+
+Pre-existing issues:
+- [High] In `__mtk_clk_simple_probe()`, failing to register a reset control=
+ler leaks the clock provider, leading to a Use-After-Free.
 --
 
---- Patch [10]: [PATCH v3 10/18] clk: mediatek: Add MT8189 topckgen clock s=
-upport ---
-commit c5b259302a4ef0f8df16da71e98a2848bcf8992d
+--- Patch [13]: [PATCH v3 13/18] clk: mediatek: Add MT8189 bus clock suppor=
+t ---
+commit d3c19cc0c5f63d9545bd23ef786acfaedbc92bed
 Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Subject: clk: mediatek: Add MT8189 topckgen clock support
 
-Add support for the MT8189 topckgen clock controller, which provides
-muxes and dividers for clock selection in other IP blocks.
+clk: mediatek: Add MT8189 bus clock support
+   =20
+Add support for the MT8189 bus clock controller, which provides clock gate
+control for infra/peri IPs.
 
-> diff --git a/drivers/clk/mediatek/clk-mt8189-topckgen.c b/drivers/clk/med=
-iatek/clk-mt8189-topckgen.c
+> diff --git a/drivers/clk/mediatek/clk-mt8189-bus.c b/drivers/clk/mediatek=
+/clk-mt8189-bus.c
 > new file mode 100644
-> index 0000000000000..2473b617e9d62
+> index 0000000000000..494f25e85d11c
 > --- /dev/null
-> +++ b/drivers/clk/mediatek/clk-mt8189-topckgen.c
-> @@ -0,0 +1,1025 @@
+> +++ b/drivers/clk/mediatek/clk-mt8189-bus.c
+
 [ ... ]
-> +static const struct mtk_fixed_factor top_divs[] =3D {
-> +	FACTOR(CLK_TOP_MAINPLL_D3, "mainpll_d3", "mainpll", 1, 3),
-> +	FACTOR(CLK_TOP_MAINPLL_D4, "mainpll_d4", "mainpll", 1, 4),
-> +	FACTOR(CLK_TOP_MAINPLL_D4_D2, "mainpll_d4_d2", "mainpll", 1, 8),
-> +	FACTOR(CLK_TOP_MAINPLL_D4_D4, "mainpll_d4_d4", "mainpll", 1, 16),
-> +	FACTOR(CLK_TOP_MAINPLL_D4_D8, "mainpll_d4_d8", "mainpll", 43, 1375),
 
-[Severity: Medium]
-Does this intentionally use an arbitrary fractional factor (43/1375) instead
-of the standard integer post-divider ratio (1/32)?
-
-While this might arrive at a specific exact frequency for a static parent r=
-ate,
-could this break dynamic frequency scaling? If the mainpll frequency change=
-s,
-applying this fraction instead of an exact 1/32 digital division ratio could
-cause the clock framework to calculate incorrect output rates.
-
-I also notice this pattern on other dividers below, such as
-CLK_TOP_TVDPLL1_D16 (92/1473) and CLK_TOP_OSC_D16 (61/973).
-
-> +	FACTOR(CLK_TOP_MAINPLL_D5, "mainpll_d5", "mainpll", 1, 5),
-[ ... ]
-> +/* Register mux notifier for MFG mux */
-> +static int clk_mt8189_reg_mfg_mux_notifier(struct device *dev,
-> +					   struct clk *clk)
-> +{
-> +	struct mtk_mux_nb *mfg_mux_nb;
+> +static const struct of_device_id of_match_clk_mt8189_bus[] =3D {
+> +	{ .compatible =3D "mediatek,mt8189-infra-ao", .data =3D &ifrao_mcd },
+> +	{ .compatible =3D "mediatek,mt8189-peri-ao", .data =3D &perao_mcd },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, of_match_clk_mt8189_bus);
 > +
-> +	mfg_mux_nb =3D devm_kzalloc(dev, sizeof(*mfg_mux_nb), GFP_KERNEL);
-> +	if (!mfg_mux_nb)
-> +		return -ENOMEM;
-> +
-> +	mfg_mux_nb->ops =3D &mtk_mux_clr_set_upd_ops;
-> +	mfg_mux_nb->bypass_index =3D 0; /* Bypass to CLK_TOP_MFG_REF_SEL */
-> +
-> +	return devm_mtk_clk_mux_notifier_register(dev, clk, mfg_mux_nb);
+> +static struct platform_driver clk_mt8189_bus_drv =3D {
+> +	.probe =3D mtk_clk_simple_probe,
 
 [Severity: High]
-Can this teardown asymmetry cause a use-after-free of the clk struct on
-probe failure or driver removal?
+This is a pre-existing issue, but since this new driver uses
+mtk_clk_simple_probe(), it might be affected by an error handling bug in
+the shared probe code.
 
-This registers the notifier using devm_mtk_clk_mux_notifier_register(), whi=
-ch
-queues up a devres cleanup action to automatically call
-clk_notifier_unregister().=20
+Does the error path in drivers/clk/mediatek/clk-mtk.c:__mtk_clk_simple_prob=
+e()
+miss deregistering the OF clock provider when reset controller registration
+fails?
 
-However, if probe fails or the driver is removed, mtk_clk_simple_probe()
-and mtk_clk_simple_remove() explicitly unregister the clocks. This calls
-mtk_clk_unregister_muxes() -> clk_hw_unregister() -> clk_unregister(),
-which frees the struct clk pointer.
+drivers/clk/mediatek/clk-mtk.c:__mtk_clk_simple_probe() {
+    ...
+			r =3D mtk_register_reset_controller_with_dev(&pdev->dev,
+							   mcd->rst_desc);
+			if (r)
+				goto unregister_clks;
+    ...
+}
 
-By the time the devres actions are executed and clk_notifier_unregister() is
-called, the struct clk pointer is already freed, leading to a dereference of
-the freed pointer when modifying its notifier_count.
+If mtk_register_reset_controller_with_dev() fails (e.g., due to memory
+allocation failure), the code jumps to the unregister_clks label and frees
+the clk_data structure without calling of_clk_del_provider().
 
-> +}
-> +
-> +static const struct mtk_clk_desc topck_desc =3D {
-> +	.factor_clks =3D top_divs,
-> +	.num_factor_clks =3D ARRAY_SIZE(top_divs),
-> +	.mux_clks =3D top_muxes,
-> +	.num_mux_clks =3D ARRAY_SIZE(top_muxes),
-> +	.composite_clks =3D top_composites,
-> +	.num_composite_clks =3D ARRAY_SIZE(top_composites),
-> +	.clks =3D top_clks,
-> +	.num_clks =3D ARRAY_SIZE(top_clks),
-> +	.clk_notifier_func =3D clk_mt8189_reg_mfg_mux_notifier,
-> +	.mfg_clk_idx =3D CLK_TOP_MFG_SEL_MFGPLL,
-> +	.clk_lock =3D &mt8189_clk_lock,
+Could this lead to a use-after-free if a subsequent clock lookup dereferenc=
+es
+the freed clk_data memory?
+
+> +	.remove =3D mtk_clk_simple_remove,
+> +	.driver =3D {
+> +		.name =3D "clk-mt8189-bus",
+> +		.of_match_table =3D of_match_clk_mt8189_bus,
+> +	},
 > +};
-[ ... ]
+> +module_platform_driver(clk_mt8189_bus_drv);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720-mt8189-clo=
-cks-system-base-v3-0-8e6d99ab3ad2@collabora.com?part=3D10
+cks-system-base-v3-0-8e6d99ab3ad2@collabora.com?part=3D13
