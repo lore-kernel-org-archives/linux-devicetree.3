@@ -1,137 +1,162 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11020102.outbound.protection.outlook.com [52.101.85.102])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BCD33FF8AC
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 02:13:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2AFC399892;
+	Tue, 21 Jul 2026 02:37:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.102
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784599986; cv=pass; b=Ybpsb3fkaz/6Mr5SY1LdEiT6chpkgnZyCbn7pjE8WZdwsumorXRG5J31TUEUZkwrQNM/QMqgLyD8G7oRVoXTB4YyeSdCU2aewP0+HzeMrtZdH7F2zPoRaoVEdKPIyepn9FXeX903wTAKgReK9JvhOX0Zi1Mulw0qPyC3XsFOok0=
+	t=1784601481; cv=fail; b=ozEhm7GU1mHtYhwR5uTpvV2Sfi/m04gV+p6Hzg0XHEDhtc9diA12CfQCTwGrMEGoapkyzKyYYlNwpChv1qbHRhMwLYezCx3CDyeSjPm0oIhOGvEPhqeuwMWZTUn43lz8EmmjLnzB3rQqyvWzdoMRXkRUscKi660+a/UEkkBgJak=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784599986; c=relaxed/simple;
-	bh=Ks4hlPwjiSSqgNz3Ei+KPrG/m6doz7SbHxytNQOm61g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pKQYge6t94EF0tqgYFSwGn1w6OIt+tiwUr51dLagtb4LErDLUnHL3gHNYko+zC8pCo6snB4FTCFIoK8fonIjoXabfhtKaNJPm4VaIAcMjzq/13qcemBMM2RXY5VG24OTy0CLNGd7F8C+iFcQ6TmDsFEZD8v4G0SEO/3tzCRtW/U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hZLPxgzY; arc=pass smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784601481; c=relaxed/simple;
+	bh=ySIXdPdhME2HlNOfC00RoONp3xUI333VTobZPsvO+RI=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ig7Wx63VySE0w3y2YhyBJgxD1/OkPawXIEczsHjk4yh6JoO0Q3yuTQra16D7ofTsg5DxTrzDNqRpJYQy33atOGBiNSjb14f+rN1lKuUD/gSSmrsJLw+FROAwLHUO+abdddwRzl4yil0lLRgMONv6gQyisLsYAqJ35pQ9t+ftT2A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=RJAe26gj; arc=fail smtp.client-ip=52.101.85.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hZLPxgzY"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c167aa9500dso783080866b.3
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 19:13:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784599983; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EOsXcnYPfftdLMH0b2BiqmUnVBx3FNIaz9RZSbN9tDMA59C5zznprcu8pHmqGji3DD
-         Ri6y5T/AjEnMoZI7OFHzOzGJxl1T3ObrKsfUfaokYDISsIXfsCP+L2fPIyHABR/HCFNM
-         d/0c51ASp0UIBQLXohsi7Kk7tUbYyBbGFChVjNoC101G6oDEDLUF7jNl7KG4IyY9mkw/
-         FNb2mWhr9tawSX8U1AoxxXAlpFaddqOB4cH9Bzu6qrmhyZXuMoO54k7vEyfckjt/CSZ1
-         oBFzedfWtDRKZToNBc4rVMXAmH3lqQh9dcIYBW/HBCxqQICjEx/ZM8Q3ycKtXMRk/l3p
-         jKPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=Kod/uxXV0+IwWSdU1EXXNkwfBulsiSvEkeGxFmls+yM=;
-        fh=bJq2wFhKd/pqjKie4KLosBe525TcSrhRKlb3e/HSi7k=;
-        b=o3SO6gk4QNF5bcmgNghZZj0Tf1QXekUwsvHEErLN72Lg/W2b03bP7y71LuFdq37fDc
-         OSgkATpOfUgyk36fofsblxNR5yJij3C8GAOvOhbZYq8QBcLd4qWu2N70mJIvXG2JNwnh
-         guHLmr1xvnoDozSKUFfKItRDjxribAUFPsK7QXI3ucQBGQW2sdroZ3WlwbvUM1nZb419
-         gPKtMI9Efa+4dK2rAZUA6gaP/aoVpKnjK7Lp2dnkllBYos9BGBF2ipLb4Vb4TkEOIIhY
-         lhxeevxN8jIxke4RqNeZsLg4HqMEKsqVRhl2URoLa4Y4FKrKQ804o1NAEeSJCE1XObhU
-         astw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784599983; x=1785204783; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Kod/uxXV0+IwWSdU1EXXNkwfBulsiSvEkeGxFmls+yM=;
-        b=hZLPxgzYAY10fGqW7FAPnvqZTmPAZjzeZoiDPT5m8bIvk3AsHKGZarLV4vz5RrNWs5
-         zoIj+uHLuf25n69oZ8YLcfIIxmrL1Dr38yzy8dgPE/b8RtfC18PWfLL72tcJphOA+lSP
-         Uu4ULlWicgxAeVMzAQ/NlEfQKVkvhWrB+lQgdtGt60y43fKliA12IQyht/O6UsGIFJrJ
-         lCM+T6GCsRWy6NIGDRyIClyUSsZ1HFOR99oLNoGxhEilX1CZDdHnWflv5Qwb1omykbc9
-         1PAUMPJ6NLKgRScMvAiByJ7pWco94gLs+4nZ/ZXMFi/3fIgB9jGvW4zz0uhMbyjxw1HJ
-         tOng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784599983; x=1785204783;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Kod/uxXV0+IwWSdU1EXXNkwfBulsiSvEkeGxFmls+yM=;
-        b=KxPbiHSGEcIWX01X17l3EjaOtXY2AFEzqDR+wkQ88AsZzBRDXHVj+cwHWpEW37dGrf
-         znoczIfWGLi2fZIKxn5wJeTA+bK5uSTnwR1Gk++KTnWtmogOWDC4Pe1f9JfXl3fndauA
-         E9NT/fHQMeZ/nzGfH0bezBkBGiXhCuVI4N/fx/YRSj/HDwV/eBIxnKSt5nCaCs/tD65p
-         D2G8kyBjk5/ezofeo1SrXnZby5bSizaCFQBS7z/4Dt+GnKiKuu4M5j/9YbynXV8ZmzCI
-         CZAIYkQRrFLTYErInZlgpBIco9birsU0hf+fFTKwGIx67iewSb1iBJzu5iFO46b29/Ip
-         Azkg==
-X-Forwarded-Encrypted: i=1; AHgh+RrO637uoEPWZSOVSGF7AwISXLsBEQBiTW/Ocl0lAoznvnqf7UNR/HSSyY5P5HD/OS+p+YioThfBQoDO@vger.kernel.org
-X-Gm-Message-State: AOJu0YyIREweqaEB9f3pvrMbRiliDBDoOIomGtxpogP4sqRDIjKwK6Ad
-	CeofNnpKgU9G3VIDoMzoEzfOcA0kEAbVOEwPRtOo1mo4L43BbMg7/VRXYsdk41Fey9t/WXKlhoa
-	UCADuLK+KaoJfUdqF7n/Caw0PBMuxQlw=
-X-Gm-Gg: AfdE7cmD9eGPllUhexCvLxl9IKRLDIKU7LacW0/34M4CH1+Y5fEj6oZoDEVNn35iEzw
-	4S230jCwJ+R8oYP2PzEjL4Jrdm6rqtsf/44B3PHyg663X0k+IBOFLXV0ZfXZfNBtYHkRg5TioIT
-	sv+7n/B2BkFk6b2Qf2JxU0VnCKyF1vQ+rF1WcpHw4MKT5Jxz3c7qDaHRbGZ+sVrG2oiXCkpAEl2
-	OM2vBpGL6bnXWoakUuCKE7dUk2Ynd9gk+UPo6CtBpC41tE991mKYSwW/qaU52Ritei/GUcRGj6l
-	e+Hp+dLCugBdH9Ysnvo=
-X-Received: by 2002:a17:906:9f84:b0:c15:ee0d:9a32 with SMTP id
- a640c23a62f3a-c16b46c2d56mr670202466b.21.1784599982941; Mon, 20 Jul 2026
- 19:13:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="RJAe26gj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rkyvhp4aodVNbV3+1zMCeVbqgYQWo095Ddgo44f++RuaDgmLTmD4BJ++of/NEFMawrU4jTakkxd5Jgb3KiIj/MND6/VUo0atB8Y4HI1gYKY0MYRFpruz1QpI1VEYeC6UdhRvPuyVWbhkags8EsjPY/cH1tvk98yWGl/f6OhZM5m63+jsQzx2icFpK02A+lEMiF+qAzPbkuFggaNXkB8yTTnn1MC7toe9rrfGHJDgUIKlJuWbRlOmOu77H/kvn8jAuppPXyRgrI77pnR2BojilA468PxIJiQZteFZCNhyLmlluBKvzXPff5VKhcCcImPIGwX5tjDfuKKqaO98lAfdFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ySIXdPdhME2HlNOfC00RoONp3xUI333VTobZPsvO+RI=;
+ b=yM1Chp0cP9QuQYb/76eejZHknp9SGHJxQUk7PM8Tjab1pOM2c4mvYLGTCuWDu+pt2aJ/gAPPJJT+XavgMRrG2wUSseRIXxz4P1WW1Eskg2V5e81mODrCC+WaRoFJy6MgjTXHbiTwyh9X5WBWaA1A1L55RzYxecratOU6oNtuInSNzo2bFttvmP3w9y7yHa5G+I6ywVRXQAHp7cnuI2KQaWqMzRZ7ISvc9Sm56QyB4liPucocA9aNpD35p99PtON5GyIYlgNBV13heHQCPalUoRxlaE08jme/hLSUgxF6TOGU5tWE/IWE+6N39iwUrKb9vqAiyyKgezTd/GAxWVD0Yw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
+ dkim=pass header.d=axiado.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ySIXdPdhME2HlNOfC00RoONp3xUI333VTobZPsvO+RI=;
+ b=RJAe26gjjN4s4jkJIMXSU2aqtvku44d2rFcujJ0+SiN8X5HyG3PAHgAox/W90DflB1zxK82vyimpoiYTu+bICVehmkIGFr2GJxSxXKyi4Tn/gaAqLyjiob2AP73XiHP27/pF1jcXM4bqoDTV9HvPpjpiCwFgl7JLDUVU+Vvnr8RSnkDb20jpAqDZsLpxPvzOmElimZIi1zaHvMdyc93YkmtZcFo7viMMXrfn+3kufPO31d8XjnE8u5Iq2+17YEM+gcJOIRH8d8y1Pc+y1y8cHvNqWrWOeXLmuQEqa1p3ntFJw2nFdvVOww9Ho1C38adlT8DBM5xHYXW9Engfo5Tzbg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received: from BL1PPF1B62FD55C.namprd18.prod.outlook.com
+ (2603:10b6:20f:fc04::d8c) by MW3PR18MB3628.namprd18.prod.outlook.com
+ (2603:10b6:303:55::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Tue, 21 Jul
+ 2026 02:37:56 +0000
+Received: from BL1PPF1B62FD55C.namprd18.prod.outlook.com
+ ([fe80::8726:2e55:848b:39e]) by BL1PPF1B62FD55C.namprd18.prod.outlook.com
+ ([fe80::8726:2e55:848b:39e%5]) with mapi id 15.21.0245.009; Tue, 21 Jul 2026
+ 02:37:56 +0000
+Message-ID: <4f2bfd4a-e696-4a53-9380-eb225e53338a@axiado.com>
+Date: Tue, 21 Jul 2026 10:37:48 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 6/8] dt-bindings: spi: dw-apb-ssi: add Axiado AX3005
+ SPI variant
+To: Mark Brown <broonie@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Jan Kotas <jank@cadence.com>, Michal Simek <michal.simek@amd.com>,
+ Andi Shyti <andi.shyti@kernel.org>, =?UTF-8?Q?Przemys=C5=82aw_Gaj?=
+ <pgaj@cadence.com>, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Frank Li <Frank.Li@nxp.com>, Boris Brezillon <bbrezillon@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Mathias Nyman <mathias.nyman@intel.com>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-i2c@vger.kernel.org, linux-i3c@lists.infradead.org,
+ linux-serial@vger.kernel.org, linux-spi@vger.kernel.org,
+ linux-usb@vger.kernel.org
+References: <20260716-upstream-axiado-ax3005-upstream-v3-0-c429095143ec@axiado.com>
+ <20260716-upstream-axiado-ax3005-upstream-v3-6-c429095143ec@axiado.com>
+ <6d69cfd0-5f3b-4324-8d64-b4695cbb3e92@sirena.org.uk>
+Content-Language: en-US
+From: Swark Yang <syang@axiado.com>
+In-Reply-To: <6d69cfd0-5f3b-4324-8d64-b4695cbb3e92@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TP0P295CA0047.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:910:3::13) To BL1PPF1B62FD55C.namprd18.prod.outlook.com
+ (2603:10b6:20f:fc04::d8c)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260717-adt7470_thermalzone-v2-0-a55147958fad@gmail.com>
- <20260717-adt7470_thermalzone-v2-1-a55147958fad@gmail.com>
- <20260720-placid-fanatic-shrimp-d2bcd2@quoll> <a8fba49c-bb72-4b3b-b598-4972304e0b4c@roeck-us.net>
-In-Reply-To: <a8fba49c-bb72-4b3b-b598-4972304e0b4c@roeck-us.net>
-From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Date: Mon, 20 Jul 2026 23:12:49 -0300
-X-Gm-Features: AUfX_myLShn4fOD2j01TxsjJLkkvEv0DLVF494Hq8Z0mAimraTmy0Vm02ScO--c
-Message-ID: <CAJq09z6qQnKXgBnQKCey4u47hsJTjpYXPDvDZj76sXHZuj2emQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/6] dt-bindings: hwmon: add binding for adi,adt7470
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chris Packham <chris.packham@alliedtelesis.co.nz>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Darrick J. Wong" <djwong@us.ibm.com>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PPF1B62FD55C:EE_|MW3PR18MB3628:EE_
+X-MS-Office365-Filtering-Correlation-Id: d6a58521-ec1c-48fc-b595-08dee6d11240
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|56012099006|4143699003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	w6hRFJc0nmQSFEbeaSvFlUhhYwsraoOmit/rYZw0S1Z+OEsvg7t+/LJPjAk042vtOU4uoYeNATyORr8PseK6jvLvtAWjpaJKh3kvPNeCXS2SvvhRYU3HDABKbPSDQqkr+kpUx7O6VvDkqZ12OEe7+s6tXJdzqQbmx037TysGZUJpsl3lSij6h4WvSrqaBpNKCasayJKFMGxXtpMCn5oNXeeKDaNl+wYN/aPMw19yQYmlVfb9nhmCgb5H1AfFVZkdhV1pzFD+9WAtzVKmUlBpl25e9FFTtayj/eQAzw10QO1nM86g/Zm4FQHRmfFc9v5FYWhGQ90z3lJsF/vxk6WRdawXjsq9jUy6bx7EhZmidFccoBi4XRuF6mgzBo2QtWKY53fUlZuid7ogHZUIRmkhRk2C9YIr7MA20M8oOq/z8zlehMvXihctMWRFepQrFfn7D/PNkMLGqiSvWIoULk59j/s8DVmsm5vD6SDaV9oHk8zIvtJOAiJ30eQV+/R53DjTzR53dVWOI6o7Z4+OxNt1FWnX2891zhUqAUFwJTUHhOZLLJLZjGaKVQ5UBCvS++F9BbRjsaMvPfdTT3zeVxzNJIzz33HP+RzFjRp2c8kZItgOJuLTm6zZQsAzCXrdQA/Ygy+1IPYAG5lcmJcZPDVeNV5IpvT+gdy0F+xN8/Do/7s=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PPF1B62FD55C.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a0xsUnp0cnUxa0llQzRZdXViTThpNThBVGpYMCsvNUltZGJvUmZZcFo5WXlW?=
+ =?utf-8?B?c2I1S3Y3TWlFTUx1OGxZcHlWRG5YU05rVWRJR25NbU1HYWpBUE4vWi9tSEdl?=
+ =?utf-8?B?Q1FFUDUwU2hCaEdOY0VUaS9NSkZIYnQ4Y3BoTENYd3J4OEw2UWpxazVVNkdU?=
+ =?utf-8?B?Skh0V2pZdjJuWW01bFRnZmpHRFFXazZtdTFnQjdDWXVCTEdjN1RScitHdDMz?=
+ =?utf-8?B?MnhTVDZkYXdWM2ptRlRueUtOWStYendMaTNhaStUNmkvbkpQQ0djL2VxbEow?=
+ =?utf-8?B?ci9xUjh0RmNRRnlCYlo1djg5RVVxRWR6b1FIbkRVNllLd1c2bGdSa084ZXNz?=
+ =?utf-8?B?M0xKNTN1amplUVB0bkJBaUk0Wi8wWDBzK3FKSysvVVhUbXpuNXlzR0d4Q0w5?=
+ =?utf-8?B?cEZjczc2MzQySitPZWpNY2dVbzJ1M2xzeDV2aXBDZnpVenhBajVFdEM4eXZw?=
+ =?utf-8?B?RlVuaGhWTmlRS3NvSzBRS2lBNS9PNU4zelNycmd4TUlZbG5VN1ExSWs5MmdB?=
+ =?utf-8?B?REhSV2JPTHZjYXRQN0tGNVJ1YW40Q2luWVJmcTRqVS9NU3YzU3puQ2FtR055?=
+ =?utf-8?B?S2Z2SkRaeHZRMHZkT1BlR2loY2RlQkFZZ2FLR2lTcnkvclJIRncrTGJYMVZ4?=
+ =?utf-8?B?eURKK3JEYTlvRlFBbG05ekFSM0gwTll4T2kyRmc5OWlqclJlU1VKcUs3QW1V?=
+ =?utf-8?B?NlRPZFlJdncxVzh5M1ZmazBGdUgvaE9DMVgrcEJTU1JvQXZibGRjamllQ3RJ?=
+ =?utf-8?B?WldwRnRidG9OZWpGanQzZ0lXY1FoVFJBbGZURVdIN3JBY1hoUFcyOUtzRW13?=
+ =?utf-8?B?OGZwRVVFaEFPUHF6K3NRUWFDN1NIeC9lZXY4MlpIZXdFSE1MbnloZVI1VVJv?=
+ =?utf-8?B?cnRaZG1kNDZpbFBKV29HYnFrWkdFZ0xLUVNRRkUrZ2JTaFUvTzBEaWs4ay9k?=
+ =?utf-8?B?WkV3bWkwYUQvamJ1R2h6eUV0VjQxUGhzejI4amh3S0N3S3BieWp1QytkV1JR?=
+ =?utf-8?B?bDBRTTdCc0JTNFRicWFXNTRrd052TnRPRU1pL2EydWovRU1pdXgzWTZMcWxw?=
+ =?utf-8?B?LzFFdVh5SmVpSFM5dytoeGhzRmlNZnl3cWZXSitkVys3RDNFT3NVK0pnblNX?=
+ =?utf-8?B?ZlBmTXAxR1F4VDF1Vzh0Z2h3aS9Ua3h0SWZ4ZE9GZ1g3NXE4eW5lZ2FMT2xP?=
+ =?utf-8?B?MGllK2lFalpQTGVvVzRrMDlEOEU5Mks5bTBiWmRlNDkwVk9PeGg5TndpSXdr?=
+ =?utf-8?B?b256VHJQZDZYZ0JLUUM0NlZjSFZNT3JlRDdGS1ZxWjYvazJyUkJNckZnR1FQ?=
+ =?utf-8?B?d2RHWFdVdWllTzA1dXQ5M1ExcjFhdS9yRjBiQzJPVFBOSVlNOFp0anU0bXFM?=
+ =?utf-8?B?bkhYVEdPY09PZHJRbGdheERtTjRGWGt3czZZM0lKYkQyb2RjcHlKTWhhTDdz?=
+ =?utf-8?B?YTdmT2dGSER6WWpibFdlUTROY2dZUk5jRDZrTUhmVkh5VUpSUGs4dUQrVERK?=
+ =?utf-8?B?WTJWZjg3bFAxMlovU1o1RGZpQjRWVDFaemhtLzVQU2F5VWhxNUk2dFRkYW4r?=
+ =?utf-8?B?dUF0cW1sczNONVh4Ulg3YnhuZnNmeWdTc3hwT1JyWnlHbEx5eDBZblhMN2VJ?=
+ =?utf-8?B?VENOQVhTdmZqSkNsZUE3SmJaY1dUUzZHRWFtdXZaRTQ0a2k1ZFhIcWllN1hX?=
+ =?utf-8?B?c0c2bC9qT1A2WjN4STR0R2t4dFpxTmlXaFJsWnBoY0JYRE5qb1pHS2tzZmFy?=
+ =?utf-8?B?UFJXSGYxeTJqdDNGajR1WjFxTzFHT0tkeVo5M3E2QTJ2N3YxT0NoYVAxQmI3?=
+ =?utf-8?B?L0FoclNxREh4OCtZNG1RUUM5UUd3Y3p6RXE3R3g4Sk9SMk82K3hlSGY5UCs3?=
+ =?utf-8?B?Y2lzekViajlBTjZuc0p3aUVnYllTTDRTWkNlNkFKWGR6QmdOc0U0U2pzM042?=
+ =?utf-8?B?OURFOCs5RXJDclUwMmxzanR4MHhtNzFhOXdOMEh5KzgxZFIzbjFTc1JTSE9P?=
+ =?utf-8?B?YWNMZm45VE1NL25JQzJRMnlwYzBoZXdDSVFoWUNqL2QvQzlpR1NlQ3BaaGV4?=
+ =?utf-8?B?VEF3UjlPb20zcWdjSEhkODZRRW5CMnI3TzZUNmx2VXduU3o3ZGhmR2FKNUNV?=
+ =?utf-8?B?Q3RtajBXSUpUdGxEYTR1SUtWU3NHL1F0bmpPUm8wWWZEcEhNSW1zVW4rZlVZ?=
+ =?utf-8?B?NkVraTFjOS9VaHBPSmtaUUpmOG5yL2JBeWYyS2RhQnVJeDlVdWxic3lWWVNV?=
+ =?utf-8?B?OHVOd3dtYzMxNWxkRVRmdmF6eEdsOGJnRFRwbm1yd0NoM0ROYjlmTlpoblhl?=
+ =?utf-8?B?Y2cwOGVwaWdkUzIwNjA5UldHeTgwSG50bURkY3p6M2FRTlhvT1lvQT09?=
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6a58521-ec1c-48fc-b595-08dee6d11240
+X-MS-Exchange-CrossTenant-AuthSource: BL1PPF1B62FD55C.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 02:37:56.6359
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Zz69a/mBd8z9UxEoYvxjkC4nSrwB5sD8VfjPFvEmr0BNX46HWYdIilMGBwGCbc1Js6tyRZpPTOQaPx2mATSCLw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR18MB3628
 
->  From the datasheet: "The ADT74701 controller is a multichannel
-> temperature sensor and PWM fan controller and fan speed monitor".
->
-> It is a fan controller which happens to use pwm signals to control
-> fan speeds. It is not a PWM controller, and its pwm outputs are not
-> intended to be used for anything but controlling fan speeds.
->
-> Technically it is _possible_ to use the pwm outputs to control
-> something else. But that does not mean that chip is a pwm controller.
-> It is still a fan controller. I don't mind modeling outputs as
-> non-fan-control pwm channels if that is what they are used for,
-> but that must be clearly distinguished in both the driver code
-> and the bindings.
+On 7/17/2026 8:02 PM, Mark Brown wrote:
+> If there is no need for things to be part of a multi-subsystem series
+> (eg, dependencies) it's normally better to send each subsystem
+> separately.
 
-Hi Guenter,
+Hi Mark,
 
-You are absolutely right. The datasheet explicitly defines the ADT7470
-as a "PWM fan controller and fan speed monitor," and its internal
-features (like tachometer inputs and thermal acoustic enhancement) are
-heavily tailored for fan control. I agree that calling it a generic
-PWM controller is technically inaccurate. I will revert the change and
-describe it as a PWM Fan Controller, provided everyone is on board
-with that.
+Got it. I will split the series and send the SPI binding separately
+in the next iteration.
 
-Initially, I modeled the driver purely as a cooling device. However,
-following Sashiko-dev's suggestion in a previous review, I converted
-it to expose PWM channels so it could be used with the generic pwm-fan
-driver (which indeed makes the code cleaner). My primary experience is
-with DSA switches, so hwmon is a new area for me.
+Quick question on the versioning: should I send the newly split SPI
+patch as a fresh v1, or continue with v4 to align with the rest of
+the SoC series?
 
-Whatever you and the DT maintainers agree on, I will gladly adjust for v3.
+Best Regards,
+Swark
 
-Best regards,
-
-Luiz
