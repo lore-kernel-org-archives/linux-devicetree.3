@@ -1,62 +1,62 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F6C47CC73
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:11:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331CE47CC85
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:11:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784628673; cv=none; b=GyhpgJosW7vrreKSYkRAxPjnIcnFm3A5IVDVZV3FRpSCbZMb2zJ1o1R6r8YYeKVsvFu9CMZ7bkBsbKXZSnHIPXfF/t/TkJpxGCsIif6e+cb/0SHsagtMD8IU7fRoVweU84cX23JMUT4Jo4EysCVY0y3ov8eWuT25yQaetG2KpPA=
+	t=1784628674; cv=none; b=Zs04JdpIcAL+0aoICq5yIgU4gtx6gKeGdNjTYlFnI9ph4dxgRQzab2+ce+04oXlQ0Uhbdc0eNjpb43rLqqzXw7QYCCgTkY42D4lpQxqx3P8MQmh7jY3CC0Gydz1wbzBWO1QVEHwi//32nKAqamdvd6mlWNktEpaNj6nKoDHSO6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784628673; c=relaxed/simple;
-	bh=usrp+FjtSQZcl8J2j5C1lL1KI7lHh7LNpR3MIeGSSIE=;
+	s=arc-20240116; t=1784628674; c=relaxed/simple;
+	bh=TUmjXw2M4oeu88E4T00FZuITV/yEcOpyuEC0IVB64Cw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S8EapcS6wziVj8ypMrEhKgfwSzsoPRu3xW4tYS50qi8ytcTsNzs9I0VEDHccY+AyCWR5uSJ6M+sDPx7YuntCUuEczlHLUp3mqWV8UcOveMp0jco1e8pclehZ5ssF52VKGmSdeamAlPEMNeB2c5hsao7Aufk5Xyn0oOd7feaOC00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jQT8v1vn; arc=none smtp.client-ip=209.85.128.46
+	 MIME-Version; b=bUsUDxROEnCXQ38sBXbTQ+1HKWYElKeiFatBbOI3eqo9i6b8nlvaA8jyJhKsVrXNHr5OfubcMLkYGn0eMPkCT9FIfueHOG4OqoC5eyjZiA49rIGisGDwC2DfQWEWWIgHJQDsjgq+jF4QND5zW1UwIbOVwDM3F5ZeTLVBgzOmMMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FHbD6DTb; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jQT8v1vn"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-495590ba856so19820805e9.2
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 03:11:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FHbD6DTb"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49553515a8bso31798065e9.1
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 03:11:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784628669; x=1785233469; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784628670; x=1785233470; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/m4WPR04y0hiYiGJWdv07CkxY0CSTEb3AZvblsAiZL4=;
-        b=jQT8v1vnV1Vels5NltXo3vWI6eNumVnWFY0VfT2BAx3u+Pn36C0fE5HKwsSgtkiVA5
-         UKhNUFjFn3WCBUZmpV4i+kkYxoFs2VmLkbtimY9juIX06BSIBYhpKY4P6fKAEyIARdMb
-         tCEhuXyl453eqW9I/VZPhK2JxcLbm2jeW/gtU0gcwZkUn4sje01ltd+MuC5OihhVFzs8
-         Xxo0B5zdsoDkBEvzCjd+DM5sBL74cFuGSdw5isXRzcXbsbUcaJN/pWW09riwDH3gcu1W
-         u04i+4cHWjHmNuNMUA+BHOIhoerjLIZio5xT0lbp+DKzvHzcGCkTYK4qE81O311GY72R
-         d4zA==
+        bh=103K+HDBGo173ka6xLJ87zAEncnD5tT5dDYUjcQ8I/s=;
+        b=FHbD6DTbyIBQiFS8HUcvNehDITQCI3mFTow3teJjPZ+ch3VibWGWrbw728CSrgUz9G
+         bfUuAJpatFW7j5n6ceZBL6w1y4nOGiY2bFpjqHDpjL+lLN/njmkwIo2nfAOpOwQT8jmA
+         iyUtw/lEJ+nwnBL0+PE7mPXqfYFX+uYqCw5oyP4zpLqQSUc9NxUveY6MQzOoyQ7LT7/f
+         Lpr7J0cmWj800ERFUVrCVR7Nvm821jREqK9qwh7UFPH4x/21NFtJvS6gUX0uDxdPd9yO
+         1Hz/+V5yLBAiRynz8HgeVaU7D5UXGfhWcpO+t5RrlUSkrytlOYG+id3Eg14wzXegMEt7
+         1aEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784628669; x=1785233469;
+        d=1e100.net; s=20251104; t=1784628670; x=1785233470;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/m4WPR04y0hiYiGJWdv07CkxY0CSTEb3AZvblsAiZL4=;
-        b=IATwUsLOItJGHEuYSR3kejduvW6m1N7ELaeKBVteqfeYrONB75iKv7MbQllUSWK+fq
-         vcySSuBvkLYAZAt9nb6VsXQzrB2STpwF5K13ThGhM/VkCCROm8glIKuWOAghVN7tQyuh
-         5IC5p2UnxL1g27854OFSzZ/5gM+3ZIr4R59NFM1e0pTbSqdXzdddWYmOcRSZH5vfn+uA
-         Bopgx5NrrgLgC7b+ylRVAFyvafbmmQz95686Fjj3nlS2e7W3tAOUNMfhLdxEeJb/ials
-         ORw+7wod50fJoPHvl0dcZ8hOMHtcvoW1UkYGqjnxVGcC/fQbpVGG/AuTf0vQKVPHqHyN
-         KwHQ==
-X-Gm-Message-State: AOJu0YxpmdZXhxsY7y1mGseDTDRoFN2pKMhUNrNpQHJkEhe/M+uam2ml
-	opCUrSiVNt/b8AohVJ1+LIAArNfYvrMPNmuuBijQfoSvj3718i49OeGY
-X-Gm-Gg: AfdE7cnVAR0xuGs8m3FY/pglvv4HJ39yPM0Epibp7h3kWvLhcXq6d8GOPbxJvlymz7m
-	1841WUJDnVdXUCeI8wi8sid8RuadNLeHSBKjsvkr8AysWRBbb0XNFn/l+uZEGdIq4VJH5Cae/u7
-	rboGodnaaZoodOHtRnOzvc9OPsxznGofMmcTb+5I5dh67sFYJW2rf/e+vGg6ErYbbDKoVSjipHu
-	+xXqqXAC5BcnCC0MGj83bRduvV0qGd2EmPOtesx5rAiw0Q1EACnnaddjPiFeVa2ZDmeZipM8BsC
-	TEzW0NYgPUANc6mk0AD64ty1gsPoiMEUB+9B7+m/vg5OGGeygQaqi8svghjntp65JzWEO0mvP+R
-	W/AQSwQikPlrXiCvfMck8FaostLzZLBOTpnzOVPgydb9EAWH5XVvK2PKN/LSitMdoe04+x/Z4aM
-	Gm8jcny0czlfeOOSZrOKmmd7k=
-X-Received: by 2002:a05:600c:6d82:b0:490:b8c0:d470 with SMTP id 5b1f17b1804b1-4954a405ea3mr143177785e9.19.1784628668927;
-        Tue, 21 Jul 2026 03:11:08 -0700 (PDT)
+        bh=103K+HDBGo173ka6xLJ87zAEncnD5tT5dDYUjcQ8I/s=;
+        b=AZuxbYMlilNWOhg7OJrq+Ki8n7XQ3ErCkFnGw8ARwxIqCNaIaiKm9a7WN1pc4pEWlk
+         KN8PxixoWo/VtgVuz+XoSqyZTLas3c45A66yrFAblddJbgxA8Mm+WeDjIyG7M0OUdKET
+         dskVcw4lHhSkAVrf8PuLsZ2roF6Yo+QDSS0MzJlg/u/vROZsgdmku6CGBes47Q2Bro0C
+         hHkQHtahJmxrzuZ+Iq2mv6rqscM+JUsGzRTl15MGWrHGC0eg5r1rbe09ifIGrD3LIIBB
+         4AATXB4JZ3UEH6D8svhNaQdhpmzEJ5uWFkeSNhZfZDy86JrKOalWHGBNs7qha8oqjKA2
+         rMNA==
+X-Gm-Message-State: AOJu0YxP1te7/Kz7AXMlja//pE8FujatotE4Nzg9MHblONb4mPtfGPJS
+	hM8A/bVO5j/mDV9tTV+Fy6QplYO/UDvSxVpHx6+owtBS19NcPLDzkWpN
+X-Gm-Gg: AfdE7cnfYUcpQ5g6YVqp+0pcP/LiGbrREIBlB8eTLyyYcl1bsnENgx8HgzAL3ScanLg
+	yQs8uLx32xPVkWE1olJydK7btAhjI9/v/vLMZs730mx9ug6i38isKqTpcDivBbyTPPBeCrd92/p
+	RGI2y8ktqG0valgLoFrTC79Fa59mrliG30WV92BE+0uj1EnIcZeT3smudlHZM/10PPQhbQ28CFa
+	6HU6SQwjBffcuqW5PIRjpP8l7HHnTmitFRms5ovQXRrxJ076JODG+ZPDdtLQk1uVLJp6stfB9eA
+	SK7uPH4JyWhzue2TiezphtZ+d8na9lUjuzeadOSkvea5VNIXxUK2GIZweiDYbqw7n+7mnv1nKl+
+	0pDuWxVegILHojSqjeEKNXjRAIoZ5XmZUIz2bdv34lB8sLxTtjc86xypVnVOX0knwoKKoW9BVAf
+	/t+vtIEdX/YaAXp9wCeqC68JI=
+X-Received: by 2002:a05:600c:4e94:b0:495:522f:d994 with SMTP id 5b1f17b1804b1-495522fda7amr148264315e9.0.1784628670304;
+        Tue, 21 Jul 2026 03:11:10 -0700 (PDT)
 Received: from xeon ([188.163.112.51])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956547319dsm57127085e9.5.2026.07.21.03.11.07
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956547319dsm57127085e9.5.2026.07.21.03.11.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 03:11:08 -0700 (PDT)
+        Tue, 21 Jul 2026 03:11:09 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -67,9 +67,9 @@ To: Rob Herring <robh@kernel.org>,
 Cc: devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 01/10] ARM: tegra: tf701t: Configure CPU DFLL clock node
-Date: Tue, 21 Jul 2026 13:10:50 +0300
-Message-ID: <20260721101059.451699-2-clamor95@gmail.com>
+Subject: [PATCH v2 02/10] ARM: tegra: tf701t: Add core-supply to PMC node
+Date: Tue, 21 Jul 2026 13:10:51 +0300
+Message-ID: <20260721101059.451699-3-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260721101059.451699-1-clamor95@gmail.com>
 References: <20260721101059.451699-1-clamor95@gmail.com>
@@ -81,32 +81,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Enable DFLL for ASUS TF701T since it is now supported by Tegra114.
+Add required core supply to Tegra PMC node.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-index f02e2cf65fe82..5358cdb6efc10 100644
+index 5358cdb6efc10..55e9256e80f33 100644
 --- a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
 +++ b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-@@ -1621,6 +1621,14 @@ i2s@70080600 {
- 		};
- 	};
+@@ -1599,6 +1599,7 @@ pmc@7000e400 {
+ 		nvidia,core-pwr-off-time = <2000>;
+ 		nvidia,core-power-req-active-high;
+ 		nvidia,sys-clock-req-active-high;
++		core-supply = <&vdd_core>;
  
-+	/* CPU DFLL clock */
-+	clock@70110000 {
-+		status = "okay";
-+		nvidia,sample-rate = <11500>;
-+		nvidia,i2c-fs-rate = <400000>;
-+		vdd-cpu-supply = <&vdd_cpu>;
-+	};
-+
- 	brcm_wifi_pwrseq: pwrseq-wifi {
- 		compatible = "mmc-pwrseq-simple";
- 
+ 		/* Clear DEV_ON bit in DEV_CTRL register of TPS65913 PMIC  */
+ 		i2c-thermtrip {
 -- 
 2.53.0
 
