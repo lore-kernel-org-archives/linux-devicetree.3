@@ -1,155 +1,170 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B984C9575
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:10:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784646612; cv=none; b=SOfk45lETiXwvzXlUiBqWvIULA0iaSGdmalE42Og9IYwA+thW3Y45uvoKb2a4CXxzE5mDExf1iFOYXVciAmABzAcUfgYl8RjsdrMiqsJrfi9Qu0eBSVU+O0e/Thml/P3TS+wq5IlMIVgTvCqB4mf7QFdpBGuomdK2bCEjA57eKM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784646612; c=relaxed/simple;
-	bh=osUi5ANQSKW6zxpnFDg4GdYDSPknTXsQi77Jpa5yPUU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dJCLIY0StPy4v4ZUwCyOE4q8t3pOZxtL/wQ0+3jnrlg/vSIC58nxuMQ974lvsIDr68pNOc76MnBIp7d4BOxrMK1QFL7hu+1JS86p0Qh9Lic6HCJovAM0dPA83M6cAFDjANfswz7oxdJVPToYN+Hoz0bRrfCFkp019LzRX6ktZA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aSpA5Fa8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=auSu1+Ck; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D86F24C9557;
+	Tue, 21 Jul 2026 15:13:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784646825; cv=pass; b=cg+vgUuFW0p5k/sMk0CNzEWXm4Olz3cdga9CTTP9hEtfzzdMeXkhS8KOPhrHuLPOxfC9vAc67BcSFxaovapSacAZX82cxRW3zD9YG1s3wXKBKPD4QuBLRF7zSoqf3Y7QpKw31HMqrudTz1Eu1OF9SieWYr6e21ujnWssvXVvq9g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784646825; c=relaxed/simple;
+	bh=PLhDuV4leWZYv051ntLQL9j0/Iqnuzjksgw1Dz9iThs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C5r5WwHBPG4tddqUpbk9d1c+e9W7qwJpjRst5dti4Oxih+xfTP5XSA7feXSHrLwrzZYbyto92Kwkqun/IrwzPxwgF0evZa6R95IzW0iAwxgUsYyVFnXa3i9rIsz3E4VzBwfS35cZOQtOb6/9B397rIa20s+7mrVojkkI/6bFZB4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=BIfTiq/Q; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aSpA5Fa8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="auSu1+Ck"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66LDfpYs2071467
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:10:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	15+AHTyLjpbpDshovEjtdc1p7nuqFsEDH8IjDdAKdfw=; b=aSpA5Fa8Al4wGSHo
-	6i3Jcfqt6ps1SZqAz3aRiHcGX17EpL/D3euvYMUPF70+Qaw8ZI2h/Ropbrks0fiD
-	2sjH85bNY9w+RJS9BYWSf+sL0+918bsbdh/D+4/Cvvo0/bfOmrOlFHXBQvlGggNU
-	QjCyOOHdeITwIsVxaGWJMmGp2mMwN3q3D7CwniDCqBMLIfgNSaiJ+tOIkz0ZAZnk
-	RRDod5MT4zIxQJWWoJZH4F1876OFKdpOCm2ttrJTws8AbadiuyB62A6ZEITRdBX8
-	lgpy2nnqyc8e0AjtH8I8SmdwjjLomSGMr5lV6j4x2nnW+HMWeXJsF6EeO7/mz7km
-	jy+ObA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj6r3hdk5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:10:10 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c1c7f135bso167236471cf.0
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 08:10:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784646609; x=1785251409; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=15+AHTyLjpbpDshovEjtdc1p7nuqFsEDH8IjDdAKdfw=;
-        b=auSu1+Ck641h887TA4W69hnuoG6AfX0P13YgHT7AEpFlfJZVyfZM3nU4wr7RqkFfPx
-         /Yfs77qKQgXi4v/SAXuvEnnsoNELI6WAl/QV5S8yrBF4SNOa5ahplVqKqSpkAtx+SLdy
-         4QGTMBjrzKWiK0QsP5a+yvmLX+y1XW7sYdt+8MyALK1wpw66F4qadxh53vC2nmaZPQEt
-         Evu70Yz2lRSOUDn0hOGdfuwPjnPBFZYl1XUL7PnjO/KDz/vs02wxuEP9ATuK4HJE8orL
-         H/M0EZr9zvrZZ2BODWMbbl0jLS/UOOMycxdK+f7QwIde8J1txuws9XPJCCmFysiCB7FG
-         KMJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784646609; x=1785251409;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=15+AHTyLjpbpDshovEjtdc1p7nuqFsEDH8IjDdAKdfw=;
-        b=iR5bVgdVEPidANPuyGJeNTwwUXrHyYXlNNnYO4Hg3nticHqP47LJnmG3UImPpHZ9vo
-         byFlLjq6pRYiqatQrXsOWCKZzEQRs9/DNDzGYhpC24cnEKQfuYCqFjPfjbEGBPSH4D8V
-         He3YT79oofQdPdIga6GRpf7SNMhVG4KFrqz8RmuqJ/0X9YyN0LLkEcTid6FJQ8pe8uzH
-         mYD2shffsUloRjs3XL2KxoNYnRjBJrovY0sxuUhHHnevaZjHBpqIlQZ/HWlD0Sv7H5oU
-         g7ssl37JiHD69+E4aRtV1decjDEd/vQOAEOaTit1bNV4ZNTt0LOPk0t88AwrC2aF6U77
-         bmjQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrKi/ey7DTTzu5qJqVuz1bbQZ7VO9TTkCiWzSJrYsqNaPtbicmeYmL70dsYc6axsp7frAvTqMvbX9lk@vger.kernel.org
-X-Gm-Message-State: AOJu0YxvEyYdh91ECq1dpirRq//+2PhIGwxi2vlS2lpBYhlx2K06Z+wC
-	mD7bKsi8yCj8XIkmhQWoEXkNR2BhkvKSXYzmg7ywJNOHX6cPJzFEsJ9k12YIyeM/PRBQ12sQphS
-	hb0jIpHZUiEy9NvfTo7/ONrJxP3MurjBauzVX3x0R+ydI3/aDsLLvEqZLAZj3YJdG
-X-Gm-Gg: AfdE7clpab0zt7F7BQ/+pHKHUXSQtjh1NWZ0aru5gphjs+uJudlQ3fJURZ9SoQXdNfr
-	+m69zOB4b8NhAWnpyBVjpk7LKgF8L9HMiW7QoY4Ij17fQOaL+opLVKyl6aMl/MzW9NGaqJVJOl0
-	VPsZjSNJrIt9TizUNiF7vyIPa2vM8aadKRvsY8E1nOxaG+3VT7UTKvanXR1AOU7jv0FjzLQfV5x
-	daDAb6QeHbJ/mX7ecfaG79P8HfXrM0gNLGq/dkY/UT9G/ljj8Zujsyfh4gFgrAmnJ4lxZiHRjW8
-	unhOAowKKreDccAwJk1hD5JW82RgTBn5zDEU0jPpVDdt1Y5vLOfmX8xtw9RAM4qNIpJ3/nmT5Fn
-	h65wQJRXmbQm607kl0M8me9p8uOJQuQ==
-X-Received: by 2002:a05:622a:578c:b0:527:8770:8a51 with SMTP id d75a77b69052e-52787708be8mr5190561cf.47.1784646608667;
-        Tue, 21 Jul 2026 08:10:08 -0700 (PDT)
-X-Received: by 2002:a05:622a:578c:b0:527:8770:8a51 with SMTP id d75a77b69052e-52787708be8mr5189951cf.47.1784646607824;
-        Tue, 21 Jul 2026 08:10:07 -0700 (PDT)
-Received: from [192.168.1.110] ([178.197.223.174])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49564011868sm88085495e9.3.2026.07.21.08.10.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jul 2026 08:10:07 -0700 (PDT)
-Message-ID: <8fa3cdf1-dba5-41ad-9b1e-dc5f77bdc284@oss.qualcomm.com>
-Date: Tue, 21 Jul 2026 17:10:04 +0200
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="BIfTiq/Q"
+ARC-Seal: i=1; a=rsa-sha256; t=1784646804; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Gf5OjuRAT5zbqoYF3jN4tuCWVwcP81yBTx+3H0U3gUbBQUFLKYt1vwaNkCH7j60DqVjA7bryGH0uTa6iK29FaA3t3NUHWzZulueKbMqnv8giQHtYeL7u1Q06lCnKAKyb482MFJ6XeFqOUCHaJbZ4AHGEtC/b+zuPbq5Y2OkVBTo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784646804; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Y836RDygiFaggeJaLzpXSO6oiC8XFkafbWfePgMLBZA=; 
+	b=ndEsefTWEmt+D+gO2M1E0XgteopkYS07v/RuSZwbW4SdddDsIKm1qw+Y2tSE6UH7BbmiPsJFaLgjJqVxefo8rkft2IPeE5E9/ZsRA64XAlgpW90gwCG8tRk2ZO7HzmOXvBQa/c5QVuKaIlozVDcm6r56HtFgO6JZV6JZojPwkv8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784646804;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=Y836RDygiFaggeJaLzpXSO6oiC8XFkafbWfePgMLBZA=;
+	b=BIfTiq/QQXfqb3DXP4fmhplQMOesc6RoouD+aBlBcllNiFOo+OUSjTNm+NTcUVGD
+	Xt02vBEPgtk0pGQV6yLmkTPeGKqP2XPRV0SjEgHV8lOqO0kmgVc+xyfm8t1iTAYSbTL
+	U0fJh1IFKU0njFxh+UjiIa7929cnisOg9INcsHuY=
+Received: by mx.zohomail.com with SMTPS id 1784646803126404.39697867473046;
+	Tue, 21 Jul 2026 08:13:23 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 738FB180765; Tue, 21 Jul 2026 17:13:18 +0200 (CEST)
+Date: Tue, 21 Jul 2026 17:13:18 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Igor Paunovic <royalnet026@gmail.com>
+Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, kernel@collabora.com, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/4] dt-bindings: media: snps,dw-hdmi-rx: add
+ #sound-dai-cells
+Message-ID: <al-MajLSsTj0oPe5@venus>
+References: <20260721064115.64809-1-royalnet026@gmail.com>
+ <20260721064115.64809-2-royalnet026@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: eliza: Add fallback compatible for
- ADSP remoteproc
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Luca Weiss <luca.weiss@fairphone.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260721-dts-qcom-eliza-fix-adsp-binding-v1-0-3a0b03af2ec7@oss.qualcomm.com>
- <20260721-dts-qcom-eliza-fix-adsp-binding-v1-2-3a0b03af2ec7@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260721-dts-qcom-eliza-fix-adsp-binding-v1-2-3a0b03af2ec7@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDE2MCBTYWx0ZWRfXwR3WaPquF6ex
- uA98u9bo0fUX5nn+3zCBdfnQNRgviUKTAckMjcA81FRoZRgtL9Alq/+uSbGau5nad+/LC7W9ihZ
- tFhefCQQVEj20Y7HeisgV02tE0Z5RJ1DU19vEXnDUXrfEUba3PAYjoHjDz/nVlbil/UebqNfdn9
- Dqh3Jci/sEORK6BnTIf6WjI5uNHFgO+b+GUTZuCX0W7kMCCEWXqc2o/Ktj5EzHELEcrN7xyovde
- 6UfL/nJRs/Hvh4EqhqveJZLwrLy+xuY/GfLAnU+049OwLnj7AaxeXiSnGgjs7zKfhGDKt8tDyax
- mKw3D3EHkrXasAMajFQxIQ6nCO8usxkSzsO8GsLtPWUoY9vNEoP3/fMs+kK8BtUs5IaH1hJsXG6
- ikSMs8KMO9n1phJrJDK5ds5U4xRtZJ5+fHL3bAuV7DCmfaJkAXNQD8/YVODeeeRg/TtBmf26UBZ
- m4vSH07+wcAQ7m/FJHw==
-X-Proofpoint-ORIG-GUID: 5DtNNdRzXGjEryOLGc7_TLWF-n68q5bJ
-X-Proofpoint-GUID: 5DtNNdRzXGjEryOLGc7_TLWF-n68q5bJ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDE2MCBTYWx0ZWRfX4TIrt4N5IgEj
- gtpof73iAAa7Im22/wLKwgeF+v3kIu+U9a+Tmce7uD84TFyeqs5ABrLOzdUg9r//92QDCJEr5kG
- 0OfMxANXNIJ8sUSoc/LKMv2G+48H978=
-X-Authority-Analysis: v=2.4 cv=SIRykuvH c=1 sm=1 tr=0 ts=6a5f8bd2 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=N6niishs+lR9UBL1FN3Qrw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=pKSKXMcIEd6FydBdNeAA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-21_03,2026-07-20_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 spamscore=0 phishscore=0 clxscore=1015
- suspectscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210160
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ve2dgbtcld52yk2j"
+Content-Disposition: inline
+In-Reply-To: <20260721064115.64809-2-royalnet026@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/284.638.57
+X-ZohoMailClient: External
 
-On 21/07/2026 13:35, Abel Vesa wrote:
-> The ADSP found on Eliza SoC is actually fully compatible with the ones
-> from SM8750 class. So add the SM8550 compatible as fallback, just like
-> the rest from the SM8750 class SoCs.
-> 
-> Fixes: 88ddafb01ec0 ("arm64: dts: qcom: eliza: Describe the ADSP and USB related nodes")
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+
+--ve2dgbtcld52yk2j
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 1/4] dt-bindings: media: snps,dw-hdmi-rx: add
+ #sound-dai-cells
+MIME-Version: 1.0
+
+Hi,
+
+On Tue, Jul 21, 2026 at 08:41:12AM +0200, Igor Paunovic wrote:
+> The HDMI RX controller can expose the audio embedded in the incoming
+> HDMI stream as an ALSA capture device. Document the #sound-dai-cells
+> property so that a sound card can reference the HDMI RX audio DAI.
+>=20
+> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
 > ---
->  arch/arm64/boot/dts/qcom/eliza.dtsi | 2 +-
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-Best regards,
-Krzysztof
+-- Sebastian
+
+> Changes in v4 (both suggested by Krzysztof Kozlowski):
+> - reference dai-common.yaml and switch additionalProperties to
+>   unevaluatedProperties: false
+> - drop the consumer comment from the binding example
+>=20
+> Changes in v3:
+> - no changes
+>=20
+> Changes in v2 (all suggested by Sebastian Reichel):
+> - reworded the commit message to describe the hardware
+> - property description now documents the DAI indexes (0 =3D I2S,
+>   1 =3D S/PDIF)
+> - moved the consumer reference into the binding example
+>  .../devicetree/bindings/media/snps,dw-hdmi-rx.yaml  | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml=
+ b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
+> index b7f6c87..b80660d 100644
+> --- a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
+> +++ b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
+> @@ -78,6 +78,13 @@ properties:
+>        The phandle of the syscon node for the Video Output GRF register
+>        to enable EDID transfer through SDAIN and SCLIN.
+> =20
+> +  "#sound-dai-cells":
+> +    const: 1
+> +    description:
+> +      The HDMI RX controller has two digital audio interfaces, one for
+> +      I2S and one for S/PDIF. The DAI cell selects the interface, 0 for
+> +      I2S and 1 for S/PDIF.
+> +
+>  required:
+>    - compatible
+>    - reg
+> @@ -90,7 +97,10 @@ required:
+>    - pinctrl-0
+>    - hpd-gpios
+> =20
+> -additionalProperties: false
+> +allOf:
+> +  - $ref: /schemas/sound/dai-common.yaml#
+> +
+> +unevaluatedProperties: false
+> =20
+>  examples:
+>    - |
+> @@ -129,4 +139,5 @@ examples:
+>        pinctrl-0 =3D <&hdmim1_rx_cec &hdmim1_rx_hpdin &hdmim1_rx_scl &hdm=
+im1_rx_sda &hdmirx_5v_detection>;
+>        pinctrl-names =3D "default";
+>        hpd-gpios =3D <&gpio1 22 GPIO_ACTIVE_LOW>;
+> +      #sound-dai-cells =3D <1>;
+>      };
+> --=20
+> 2.53.0
+>=20
+
+--ve2dgbtcld52yk2j
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpfjIYACgkQ2O7X88g7
++pr9WxAAog6hBJL0wrUW73CpAnMhQTt2RG9L/d0ZV2n4AAUhrpSoVViOx3hG+4yi
+QPgxdXhRi8BcWwqcFoRLb09M/DtN/zy9jwsjFJhuxNsms2O5YfAOqhPfAjs6IQKX
+T47J/zF7LF0lWx3cj5D9O4frZGc70Fz12IfiGAuvaOl2/O7jpCvea1M0TUAyGhpX
+s1+YUUC3k5jba0SK4k1JrW9gjNRH4NYnPmr0y9m1vfYFhowTV3784hxlQBuOk6np
+YlQsqrtQYBx9+43NSxEan8TIKsUSjyWslaEX3Y5rOh66s5vMjBDMPcDHzdGBYzFC
+iwtTBOFQEsvVXkwtW+CtolUccp1uS2UcGs5OTLrBLZvT3sre8Q8hLdJQbEQG2/sg
+BdWwhtboHSJ0L5Sp7kvjqPZ8amMayZPzbIXupFhczn3MlugeO4leBYKgEpldhvEH
+Sne3GbyPwJinZzUnjQFKw0Rn4LqewhygbJ7gCZRPyWpstdWXC6GLU35VrL71X0LD
+Z7XORHVhYlf7ggHhvHy3N7Yb0MUQjRYnafmIBU2lFyo5KWk8c3E0bkeAtJCstano
+5RIRmTR7De8XqIBdu/6UOFKfOOzg4pd2qbcFrauKX0sisQmEz7LIsLE3Q+6HhEZP
+aw2yfZ9Ao40znmb84p3XD6uKq7KU1yf580xj47v+YLxBpjMAFSw=
+=ml4u
+-----END PGP SIGNATURE-----
+
+--ve2dgbtcld52yk2j--
