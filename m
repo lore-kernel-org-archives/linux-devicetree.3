@@ -1,97 +1,96 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3AD3C81AD
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 23:20:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 768373AF643
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 23:33:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784676039; cv=none; b=JJj8/h40Jb3PTyckA3JxoeQ15kgSfBjJtfk6/dxSkrDJ184haZWoM9CO/HL1QBRHjuB3pyt5Yzcjv148UAQkQ4D84+n+bj0PvyiLhG1YNXxmj/uhf3VO9xkPiNJpXbIod9hvSuP/q7v/K87QRaEftjlAQfSSyEXJ602AqJKNTMM=
+	t=1784676835; cv=none; b=YAfudupUCx7R7dfvfdgPpjXYchNf1j8qWq8+UXCOC2XLjyrWlafC8K8Jx1cwgScoXyZsPm5Qs4mdZjqGAjmFd55y5dUSn1Zx7sbWbwErC/3qotcjhl14ZV2efFYzR+Ll4gaVBorzITaMurx53DgcJhTI6HKPlFb1adTz7QfxFto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784676039; c=relaxed/simple;
-	bh=55PZ1dRQ+QBAYnTCFWdNn3YYw3nMqxbVavpQigkSyKM=;
+	s=arc-20240116; t=1784676835; c=relaxed/simple;
+	bh=jmHkekrqCTRVBjNf/RdIQ8U8/EnKEcv18sVhKF2efiA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QKUv6S5hTOq4vJ5eXcw3DdoIhWPnJPoQSuD7jxOPSITJ7R8VmnYIZ1bdbX9gwJJjVFM9Cmikq4ZjholLOMkwlV30LOH5SOi1NXsrctzDqruerDXEKKzSAfmWiCd+j1g7tgxW5KxI/zi0MVY7ktwgJKjsn0+/j+RcSXwjcJLSsXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=b3Q8TgQX; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ezkaf0XJ; arc=none smtp.client-ip=170.10.133.124
+	 Content-Type:Content-Disposition:In-Reply-To; b=NwGzIIFBZoWP7/KxmcIXR8Bd1kQ+A/KJpDFx2c7fDv0liUGXhurhe5rwS9Cmeluu8Jis9MgBXVbWlsKUJxNo3OHGyN79pwvT7XgmfW/+6/S55yDSEg/2eS4JqFruR4eBrxOjvFfeyE2FoG/MxDvQUF7IQQYOq8Iq2nfl6biMDYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Dp9chIdO; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=QZitEJ9A; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="b3Q8TgQX";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ezkaf0XJ"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Dp9chIdO";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="QZitEJ9A"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784676036;
+	s=mimecast20190719; t=1784676832;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ZBvF4sHXwwFEFaVeA6IZnlYB/+c+MHkK63AEWgH6t/g=;
-	b=b3Q8TgQXKmX5YGc5NU1eav9/m1SfuKo+NDp8LpkJOHCO73SuvyRmzEsFr/70VzGFCK4WPR
-	K454fDz9z2Fjt7b4IKWNIkcvCO0Nwq6DtUgNKf1eoKBqw3jgnhE2t6t49F03xVnOgoI5SF
-	k+673HpKErforf1F5FJ4Qcv5NZ/t24Q=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=auMz2LN5tHJag03mf+TQgvTRqEM9EzBNH8krKUgiijs=;
+	b=Dp9chIdOXIML/8DmN4j62mf/5irX2HDKruX9LU7TNq2jsp7H8bDrk65vEWbBqfehDLBTwe
+	t83ihASJ3hFCAj75H8k0pCtcrPr9tvQ+iXbRc3Nye7vbgHiwYoSi19V2MtpzBgrnTkWpy6
+	DIhck4i2Asi8m4RLSadG8hukqXgPsoM=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-48-vnfUiMkyN9OnHwdJytxRkQ-1; Tue, 21 Jul 2026 19:20:35 -0400
-X-MC-Unique: vnfUiMkyN9OnHwdJytxRkQ-1
-X-Mimecast-MFC-AGG-ID: vnfUiMkyN9OnHwdJytxRkQ_1784676035
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8efad04d884so171782776d6.0
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 16:20:35 -0700 (PDT)
+ us-mta-294-BZF6ANjrN7CnKlDvgvLe2A-1; Tue, 21 Jul 2026 19:33:50 -0400
+X-MC-Unique: BZF6ANjrN7CnKlDvgvLe2A-1
+X-Mimecast-MFC-AGG-ID: BZF6ANjrN7CnKlDvgvLe2A_1784676830
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e820609d9so1530385185a.2
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 16:33:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1784676035; x=1785280835; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1784676830; x=1785281630; darn=vger.kernel.org;
         h=user-agent:in-reply-to:content-disposition:content-type
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=ZBvF4sHXwwFEFaVeA6IZnlYB/+c+MHkK63AEWgH6t/g=;
-        b=Ezkaf0XJl2O+trTwCzZVkpwUGQZf421eI6L3Gcc+TXuE2owBVUy4aU7RUwrlIj/s99
-         c+fn8gzp+/f5Pl4DTc4sDRagxo8ltc43XW14u5q7Kjf9MFomixKxmRcPXFwHYyf8TXHK
-         Bs6AWlSBTrZJpJE4o7ExexluquElgxgVedjmxwx6/8nON3qewvYGxvlIhIZP7/cV2C5B
-         Rn97XhEWYeNCiKQGtkPBlfXsku+70Cr+okyTbOasmbI0+ad0qWr5WC3Aw3I6V69L8Z6P
-         MO1q9J4SkMRAze+wGsLcQ2+yH9oiVtE4jLvZkoXsUKtXHY9y5o0cc2/sEaCXhhTEUQ6l
-         5llA==
+        bh=auMz2LN5tHJag03mf+TQgvTRqEM9EzBNH8krKUgiijs=;
+        b=QZitEJ9AkmeHCOdJBF46fe7TVyISpvljb87/rFdOUmzzDzxXr0ClnrR9HawRfHEzLU
+         fcN7PBGOtk1rvlZuC/JyXpQ3xWHD75FXdadzrQIjmo0HX1z5zdWeOo+3U+QWrkQ0bCbp
+         F7/YfsSRTeqDkvMRLNxkTbAOn8mqwn/PEyk7ZCqXUUdZcGgXGU/R0NW9mZP24EP0riWN
+         9TGwrK1UX2ZZQNGIkNY8NFYirjZdHoBJFQ9JEqHEMwJ1NBnGPf2AIf+9zYZjdNLzpx0b
+         iKfMGCf6WbQ8SiOTtIJPgOJEUvUtA9Bb0m5gF96JZ5Yj5GJyDEeOWXXdWrsCShR3Patp
+         ZgaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784676035; x=1785280835;
+        d=1e100.net; s=20251104; t=1784676830; x=1785281630;
         h=user-agent:in-reply-to:content-disposition:content-type
          :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZBvF4sHXwwFEFaVeA6IZnlYB/+c+MHkK63AEWgH6t/g=;
-        b=X2dBGn+y5wvKlaqx97XixxdyLPS2JPUuK/m0+QN89Te1oBjyb18oItt6PctW8CJzzy
-         Qmz6vz0IWT9RWnGYJy1i1PgnRW3hSB3cwwME/JOmpeUIKiF3DwZwq4rEgzn3MFsxksmy
-         yu5Fu6ra7S3NuPcU/n/9C65QLIph/2sBzUVu08FkELrjc0xnWlB6H0ssMH8ke066AuCf
-         acnbYxFPQCJFufB8cBStlSIZcrNW40dJTnKt/jEiBtZo8WD4FdW2uMStB1KB9KpFz4d9
-         gYbHAkDaFYTlLVAktzszZli/clGIxKI5/R3naLcrssQoYXG0ln/NFLHFmLBkVz4ud7BE
-         Ov3A==
-X-Forwarded-Encrypted: i=1; AHgh+Rra2Moap8ZQHAbJBSkHM1wtBUQPmo/5VKPxOxGasJpTFgkbDVT72NvN/UCrYPFHy7aKooYI5eJOU/ia@vger.kernel.org
-X-Gm-Message-State: AOJu0YwKxZgmywTlZ1Y3V1fSlb5Ark8cU6Dw5egZBk2wzJ/BDFXEYlfh
-	Trqb0DwpeNST4vKzqmodT9AhxLv0hXfezdMLcC2Cr4qqxTWMWmnrPaC5LyiOjqE7Jv2XN04DaYS
-	ZSMQW4Y/5AgC8Qb5y5Wn281fdZnwZoUJUPvXl7pUQUJUg+KZHSpxP8EgYe6f3IEI=
-X-Gm-Gg: AR+sD12nz/rcXb2tflLB6gjlFGLx3k2Gd4Gu4I4cADa9XpWASfOHvGVBAzExscS0mEA
-	EmEGqtUbAamnPb0lPiUApzEgLlhiRkQ0c/TGoxYniWJ5gES0oCPrt7e8vOjB1bdCdQx6LSjmmAJ
-	D5fDzEBMU/Bp2clA/09NiFOzCC/QC0tm+/QCiLKdkxVIenXy23bsOFcnsmbdLDj2W7o0QFZicWF
-	zJD5jaPe4dZKrH6Oz2aUSG2hZo9NH1C5zOFSv7APWuvE1rD4y38cZordKRIttwMYU60aYVXJwiB
-	b6hYtVmh1onzZ7D2ilF93C1oi68HSQS5Pc6XISxXep1H/vZFluf3gfP/9IrcKdIuNLT6/KlXg6G
-	Y2Ub5S+bPRgUkF1bXjIM/mvyJcyNcGy70XV8=
-X-Received: by 2002:a05:6214:20e9:b0:8ed:29f2:32ea with SMTP id 6a1803df08f44-907783bee71mr224973256d6.48.1784676034703;
-        Tue, 21 Jul 2026 16:20:34 -0700 (PDT)
-X-Received: by 2002:a05:6214:20e9:b0:8ed:29f2:32ea with SMTP id 6a1803df08f44-907783bee71mr224972896d6.48.1784676034224;
-        Tue, 21 Jul 2026 16:20:34 -0700 (PDT)
+        bh=auMz2LN5tHJag03mf+TQgvTRqEM9EzBNH8krKUgiijs=;
+        b=sqovaTo9reeIHHOjOUrhUC3WJWVthqkCdtAozaz6CIhSBDAi/NLeVvTlvfN/EeLxvP
+         sHUH2M+1D4G/MW92eQWEQ+9yH6PQd9KcJT1hyAmkKAd2tew6PJ4rmisPcRssFpI+2Rov
+         jjG4Ka9KRUaD5POszMq+Jy/MiQo679UTYu8p1f+X5TnJ9tWHnbM8jWEJg4jHwSQPBYLo
+         wdDRFeNmIG7L6NXEE8mX8ChozvrpIOm6BWrexd7HgV7RJfEaRbKtY65vIZgOpnNCyacJ
+         bo+Efb7Z5s3QBc5WZWEC9dNNQ2g6Hj7KBnoIB2OV92m9CuMjG2G/2vhblio1Ngi+Pj91
+         3z2Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqoPgNm+8vf82ML5czei5Wuh8HmvGBeicjP+NTT7+MRi03UIaZXcKLH6Uue37r7B0uWuxXMXiN0U6iw@vger.kernel.org
+X-Gm-Message-State: AOJu0YzcOoK1gQjVjUltoihMh4sXCOUQhWaxKSI6+/c47oaCDQbGxPzd
+	qGd1MEB9l3a9rW96CVdRHL3hJGAXdgti7+JxeQk7sebWOH7IhMjg3fIATtcTQV4pSsy+DxCC+lI
+	QmvXX8C0t35kz59oh86pq7TcIFTM0BqBbZgugegQC+1E6qSd3cJmQZcni9FVpKG4=
+X-Gm-Gg: AR+sD11XjyU6/PjsE/D30P/+EKU/L26zEeAMvR/QIn4Wo+hoTKMCEsUzKNTnM2CuqNC
+	vKVwkbKHr2J6OIZ0ViYtB4SpsejDc4K2SIiuYkktsVHMVbyXXBfYeHXLB6DmuaHAg3GprTOQiPv
+	3UxCurTfSeO+RCS46EC1rTBhOwkiG9JlJysZF26EdpYLGkCsd6pH2aCvXIkNIJaOT5jf2fQZPZH
+	cmNI0HSPmQtdKr6pfKMkvp4DpOrNzaCDF1cU8h1ezzK4B/fL0iRb+Uco2qzmF7MBGY9QCs2o2X0
+	0z1GAptCj4rz2SpaUmhk20KIaWhg7QrJCqmDiFXW+wmzcXGx2KHAuEpqKxCljAE6KHm2Qlx3SaM
+	x9r7h7amYm9H2ri999yg73uoh9eI6ZlEZ3dE=
+X-Received: by 2002:a05:620a:1711:b0:916:1a02:1965 with SMTP id af79cd13be357-930b41b1a22mr2261451785a.50.1784676830148;
+        Tue, 21 Jul 2026 16:33:50 -0700 (PDT)
+X-Received: by 2002:a05:620a:1711:b0:916:1a02:1965 with SMTP id af79cd13be357-930b41b1a22mr2261448185a.50.1784676829600;
+        Tue, 21 Jul 2026 16:33:49 -0700 (PDT)
 Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907ba9e13d1sm7307666d6.28.2026.07.21.16.20.32
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-930f6a88b88sm15993885a.42.2026.07.21.16.33.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 16:20:33 -0700 (PDT)
-Date: Tue, 21 Jul 2026 19:20:30 -0400
+        Tue, 21 Jul 2026 16:33:48 -0700 (PDT)
+Date: Tue, 21 Jul 2026 19:33:46 -0400
 From: Brian Masney <bmasney@redhat.com>
-To: Simon Glass <sjg@chromium.org>
-Cc: Heiko Stuebner <heiko@sntech.de>, Fabio Estevam <festevam@nabladev.com>,
-	devicetree@vger.kernel.org, Jonas Karlman <jonas@kwiboo.se>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	Jeffy Chen <jeffy.chen@rock-chips.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, huang lin <hl@rock-chips.com>,
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] clk: rockchip: Add clock controller for the RV1106
-Message-ID: <al_-vioCVeQxVo-f@redhat.com>
-References: <20260714193656.2196447-1-sjg@chromium.org>
- <20260714193656.2196447-3-sjg@chromium.org>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de,
+	cylee12@realtek.com, afaerber@suse.com, jyanchou@realtek.com,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com,
+	cy.huang@realtek.com, stanley_chang@realtek.com
+Subject: Re: [PATCH v10 04/11] clk: realtek: Introduce a common probe()
+Message-ID: <amAB2rr8UxY7QsCn@redhat.com>
+References: <20260713155630.3054636-1-eleanor.lin@realtek.com>
+ <20260713155630.3054636-5-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -100,75 +99,232 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260714193656.2196447-3-sjg@chromium.org>
+In-Reply-To: <20260713155630.3054636-5-eleanor.lin@realtek.com>
 User-Agent: Mutt/2.4.0 (2026-06-19)
 
-Hi Simon,
-
-On Tue, Jul 14, 2026 at 01:36:39PM -0600, Simon Glass wrote:
-> +static void __init rv1106_clk_init(struct device_node *np)
+On Mon, Jul 13, 2026 at 11:56:23PM +0800, Yu-Chun Lin wrote:
+> From: Cheng-Yu Lee <cylee12@realtek.com>
+> 
+> Add rtk_clk_probe() to set up the shared regmap, register clock hardware,
+> and add the clock provider.
+> 
+> Additionally, if the "#reset-cells" property is present in the device tree,
+> it creates and registers an auxiliary device using the provided aux_name.
+> This allows the dedicated reset driver to bind to this device, enabling
+> both clock and reset drivers to share the same regmap.
+> 
+> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> ---
+> Changes in v10:
+> Add 'aux_name' to 'struct rtk_clk_desc'
+> ---
+>  MAINTAINERS                          |  1 +
+>  drivers/clk/Kconfig                  |  1 +
+>  drivers/clk/Makefile                 |  1 +
+>  drivers/clk/realtek/Kconfig          | 30 ++++++++++++
+>  drivers/clk/realtek/Makefile         |  4 ++
+>  drivers/clk/realtek/clk-rtk-common.c | 70 ++++++++++++++++++++++++++++
+>  drivers/clk/realtek/clk-rtk-common.h | 37 +++++++++++++++
+>  7 files changed, 144 insertions(+)
+>  create mode 100644 drivers/clk/realtek/Kconfig
+>  create mode 100644 drivers/clk/realtek/Makefile
+>  create mode 100644 drivers/clk/realtek/clk-rtk-common.c
+>  create mode 100644 drivers/clk/realtek/clk-rtk-common.h
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 02b34a53b258..1fffb1fc5de1 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -22742,6 +22742,7 @@ L:	devicetree@vger.kernel.org
+>  L:	linux-clk@vger.kernel.org
+>  S:	Supported
+>  F:	Documentation/devicetree/bindings/clock/realtek*
+> +F:	drivers/clk/realtek/*
+>  F:	drivers/reset/realtek/*
+>  F:	include/dt-bindings/clock/realtek*
+>  F:	include/dt-bindings/reset/realtek*
+> diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
+> index 1717ce75a907..97ad817457db 100644
+> --- a/drivers/clk/Kconfig
+> +++ b/drivers/clk/Kconfig
+> @@ -525,6 +525,7 @@ source "drivers/clk/nuvoton/Kconfig"
+>  source "drivers/clk/pistachio/Kconfig"
+>  source "drivers/clk/qcom/Kconfig"
+>  source "drivers/clk/ralink/Kconfig"
+> +source "drivers/clk/realtek/Kconfig"
+>  source "drivers/clk/renesas/Kconfig"
+>  source "drivers/clk/rockchip/Kconfig"
+>  source "drivers/clk/samsung/Kconfig"
+> diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
+> index cc108a75a900..b1aa373e9f84 100644
+> --- a/drivers/clk/Makefile
+> +++ b/drivers/clk/Makefile
+> @@ -141,6 +141,7 @@ obj-$(CONFIG_COMMON_CLK_PISTACHIO)	+= pistachio/
+>  obj-$(CONFIG_COMMON_CLK_PXA)		+= pxa/
+>  obj-$(CONFIG_COMMON_CLK_QCOM)		+= qcom/
+>  obj-y					+= ralink/
+> +obj-$(CONFIG_COMMON_CLK_REALTEK)	+= realtek/
+>  obj-y					+= renesas/
+>  obj-$(CONFIG_COMMON_CLK_ROCKCHIP)	+= rockchip/
+>  obj-$(CONFIG_COMMON_CLK_SAMSUNG)	+= samsung/
+> diff --git a/drivers/clk/realtek/Kconfig b/drivers/clk/realtek/Kconfig
+> new file mode 100644
+> index 000000000000..ed97531e321d
+> --- /dev/null
+> +++ b/drivers/clk/realtek/Kconfig
+> @@ -0,0 +1,30 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +config COMMON_CLK_REALTEK
+> +	tristate "Clock driver for Realtek SoCs"
+> +	depends on ARCH_REALTEK || COMPILE_TEST
+> +	default ARCH_REALTEK
+> +	help
+> +	  Enable the common clock framework infrastructure for Realtek
+> +	  system-on-chip platforms.
+> +
+> +	  This provides the base support required by individual Realtek
+> +	  clock controller drivers to expose clocks to peripheral devices.
+> +
+> +	  If you have a Realtek-based platform, say Y.
+> +
+> +if COMMON_CLK_REALTEK
+> +
+> +config RTK_CLK_COMMON
+> +	tristate "Realtek Clock Common"
+> +	depends on RESET_CONTROLLER
+> +	select AUXILIARY_BUS
+> +	select MFD_SYSCON
+> +	select RESET_RTK_COMMON
+> +	help
+> +	  Common helper code shared by Realtek clock controller drivers.
+> +
+> +	  This provides utility functions and data structures used by
+> +	  multiple Realtek clock implementations, and include integration
+> +	  with reset controllers where required.
+> +
+> +endif
+> diff --git a/drivers/clk/realtek/Makefile b/drivers/clk/realtek/Makefile
+> new file mode 100644
+> index 000000000000..13000ed4ba11
+> --- /dev/null
+> +++ b/drivers/clk/realtek/Makefile
+> @@ -0,0 +1,4 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +obj-$(CONFIG_RTK_CLK_COMMON) += clk-rtk.o
+> +
+> +clk-rtk-y += clk-rtk-common.o
+> diff --git a/drivers/clk/realtek/clk-rtk-common.c b/drivers/clk/realtek/clk-rtk-common.c
+> new file mode 100644
+> index 000000000000..cea7d94313da
+> --- /dev/null
+> +++ b/drivers/clk/realtek/clk-rtk-common.c
+> @@ -0,0 +1,70 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2019-2026 Realtek Semiconductor Corporation
+> + * Author: Cheng-Yu Lee <cylee12@realtek.com>
+> + */
+> +
+> +#include <linux/auxiliary_bus.h>
+> +#include <linux/device.h>
+> +#include <linux/export.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include "clk-rtk-common.h"
+> +
+> +static int rtk_reset_controller_register(struct device *dev, const char *aux_name,
+> +					 struct regmap *map)
 > +{
-> +	struct rockchip_clk_provider *ctx;
-> +	unsigned long clk_nr;
-> +	void __iomem *reg_base;
-> +	int ret;
+> +	struct auxiliary_device *adev;
 > +
-> +	clk_nr = rockchip_clk_find_max_clk_id(rv1106_clk_branches,
-> +					      ARRAY_SIZE(rv1106_clk_branches)) + 1;
-> +	clk_nr = max(clk_nr,
-> +		     rockchip_clk_find_max_clk_id(rv1106_grf_clk_branches,
-> +					ARRAY_SIZE(rv1106_grf_clk_branches)) + 1);
-> +	reg_base = of_iomap(np, 0);
-> +	if (!reg_base) {
-> +		pr_err("%s: could not map cru region\n", __func__);
-> +		return;
+> +	if (!of_property_present(dev->of_node, "#reset-cells"))
+> +		return 0;
+> +
+> +	if (!aux_name) {
+> +		dev_err(dev, "DTS requires reset controller, but aux_name is missing\n");
+> +		return -EINVAL;
 > +	}
 > +
-> +	ctx = rockchip_clk_init(np, reg_base, clk_nr);
-> +	if (IS_ERR(ctx)) {
-> +		pr_err("%s: rockchip clk init failed\n", __func__);
-> +		iounmap(reg_base);
-> +		return;
-> +	}
+> +	adev = devm_auxiliary_device_create(dev, aux_name, (void *)map);
 > +
-> +	rv1106_pvtpll_init(ctx);
+> +	if (!adev)
+
+Remove extra newline
+
+> +		return -ENOMEM;
 > +
-> +	rockchip_clk_register_plls(ctx, rv1106_pll_clks,
-> +				   ARRAY_SIZE(rv1106_pll_clks),
-> +				   RV1106_GRF_SOC_STATUS0);
-> +
-> +	rockchip_clk_register_armclk(ctx, ARMCLK, "armclk",
-> +				     mux_armclk_p, ARRAY_SIZE(mux_armclk_p),
-> +				     &rv1106_cpuclk_data, rv1106_cpuclk_rates,
-> +				     ARRAY_SIZE(rv1106_cpuclk_rates));
-> +
-> +	rockchip_clk_register_branches(ctx, rv1106_clk_branches,
-> +				       ARRAY_SIZE(rv1106_clk_branches));
-> +
-> +	/*
-> +	 * The MMC drive and sample phase clocks have their control
-> +	 * registers in the GRF region, so they can only be provided when
-> +	 * the rockchip,grf property points at a valid syscon.
-> +	 */
-> +	if (!IS_ERR(ctx->grf)) {
-> +		ret = rockchip_clk_add_grf(ctx, ctx->grf, grf_type_sys);
-> +		if (ret)
-> +			pr_err("%s: failed to add grf: %d\n", __func__, ret);
-> +		else
-> +			rockchip_clk_register_branches(ctx,
-> +					rv1106_grf_clk_branches,
-> +					ARRAY_SIZE(rv1106_grf_clk_branches));
-> +	}
-> +
-> +	rockchip_register_restart_notifier(ctx, RV1106_GLB_SRST_FST, NULL);
-> +
-> +	rockchip_clk_of_add_provider(np, ctx);
+> +	return 0;
 > +}
 > +
-> +CLK_OF_DECLARE(rv1106_cru, "rockchip,rv1106-cru", rv1106_clk_init);
+> +int rtk_clk_probe(struct platform_device *pdev, const struct rtk_clk_desc *desc)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct regmap *regmap;
+> +	int i, ret;
+> +
+> +	regmap = device_node_to_regmap(dev->of_node);
+> +	if (IS_ERR(regmap))
+> +		return dev_err_probe(dev, PTR_ERR(regmap), "failed to get regmap\n");
+> +
+> +	for (i = 0; i < desc->num_clks; i++)
+> +		desc->clks[i]->regmap = regmap;
+> +
+> +	for (i = 0; i < desc->clk_data->num; i++) {
+> +		struct clk_hw *hw = desc->clk_data->hws[i];
+> +
+> +		if (!hw)
 
-Can this be registered as a platform driver similar to
-drivers/clk/rockchip/clk-rk3528.c ?
+Remove extra newline.
+
+> +			continue;
+> +
+> +		ret = devm_clk_hw_register(dev, hw);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "failed to register hw of clk%d\n", i);
+> +	}
+> +
+> +	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get,
+> +					  desc->clk_data);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to add clock provider\n");
+> +
+> +	return rtk_reset_controller_register(dev, desc->aux_name, regmap);
+> +}
+> +EXPORT_SYMBOL_NS_GPL(rtk_clk_probe, "REALTEK_CLK");
+> +
+> +MODULE_DESCRIPTION("Realtek clock infrastructure");
+> +MODULE_LICENSE("GPL");
+> diff --git a/drivers/clk/realtek/clk-rtk-common.h b/drivers/clk/realtek/clk-rtk-common.h
+> new file mode 100644
+> index 000000000000..d2aee7f421b4
+> --- /dev/null
+> +++ b/drivers/clk/realtek/clk-rtk-common.h
+> @@ -0,0 +1,37 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (C) 2016-2026 Realtek Semiconductor Corporation
+> + * Author: Cheng-Yu Lee <cylee12@realtek.com>
+> + */
+> +
+> +#ifndef __CLK_REALTEK_COMMON_H
+> +#define __CLK_REALTEK_COMMON_H
+> +
+> +#include <linux/clk-provider.h>
+> +
+> +#define __clk_regmap_hw(_p) ((_p)->hw)
+> +
+> +struct device;
+> +struct platform_device;
+> +struct regmap;
+> +
+> +struct clk_regmap {
+
+Please rename this to clk_rtk_regmap. drivers/clk/qcom/clk-regmap.h
+already has this name, and they won't collide, but it makes things like
+grep less ambiguous with a unique name.
 
 Brian
 
