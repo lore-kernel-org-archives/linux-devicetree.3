@@ -1,475 +1,341 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C81446838
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 12:10:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C093B48AE04;
+	Tue, 21 Jul 2026 12:11:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784635862; cv=none; b=TOXNEuoV+Gdj/6B1N+ns/hWZG7LB+uMStnuZYxQAUbt+RzezwMY0xBu5G6Os1kn3LiqXGsgklCFbGyUE6aBPuCc3kECtkJsU+fVeWLT7qRaz/HdajnrfARMGGaNFI1P0pxVbLfUTuFA/OGsbfwCi/LqqFsPgUus7i+guFHHysBo=
+	t=1784635919; cv=none; b=GJzgMa+hLWYbtaP758Jf2SrUYrPoJDDtZfoqPXpX6eURaEPf69c1h1Azi/l36xBcjmS1TgPM1WnisXRknHL0SPc4/Pva2Sz6/ulu2y5OJqEd5ZtKRnW70aXqjxejwixd9n+KfRsITeOuCI7pokZnUKiAH1ZAwhw32o3xhPk+dbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784635862; c=relaxed/simple;
-	bh=Ok4h5MuNFbiAwGJVEMYjwsqgAPQuUHpRhxZV08QwcGA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=klEJHkd52XlktvQObQV2k8eh0LRxmcGskhs+X2IOMBFbpTLSofBau1OZdHEThWEC5m5vgcwC2qCO+MpMHQqsvWki/qtVjsRys/EPwHHOS04ST6YucRzRdN6uJZeyXq0TPUFWaGuGLJFW4fgQC5QgTzqVtCLVbKtLz2RRFlfgpfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lppMKQzf; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1784635919; c=relaxed/simple;
+	bh=+zHZ5PzmKghukeL8+eHAp5DwJnZO9BWn/3DAJ9VXlpg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=KI9EbNsnNzn5aXTCDtVZeSwRG0np/f7yEQFM32+p9w7SqPQScOmFWzWEWg8EjIC9qUOEw24VdEAWjg9UAwCXpS/Yo1W5Rm1JuKLMDOkJLKLBe4ol47ji3epvtqtowoa3tmp0tLSXwRtil1cAbAWLxSDOa22LkDxZOqpJjhOuO1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Jv4X/mtn; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lppMKQzf"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49553515a8bso33238485e9.1
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 05:10:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784635858; x=1785240658; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=W/Sbmym013BRx32n0veQZDCRWz7mq/KeTTSGYGX5YmA=;
-        b=lppMKQzf7nCdM2+2jI2mMfbWVYbjISP1awD8BO7C1e1kp6whF93sCN0CiZn9yTtAfS
-         WQWoKvpM4G02q106S+iyRfTZdXrDm61CpBA05HH7tEI1jrDtxLXFnQt0NxXMPK3GboQy
-         cIJn8Gyo2C19x462ed7dr7r7YOWMVIOpNysZHRTVha9YKGSzCcxB2NSobzOwidMgZlKp
-         cr5IT+4eRYKOw3zEjDfd5pR9WOJiR3k9qVFXGeGyV82PhycMM96pSeyL6YlsBNHznFhM
-         sYVHHXwpL58uakrZGzOk5ZrDVnSsSlHEMLqDz9T0l68hhJfvUITWN4TLUfECeRLui5Gl
-         uIQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784635858; x=1785240658;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=W/Sbmym013BRx32n0veQZDCRWz7mq/KeTTSGYGX5YmA=;
-        b=GvMhnBPJ+FF/6x5UkUbKomw2XSA+rbqzWb1A/orGOvVwlzYqFHvN0yKvrfWiiXG8zM
-         O+bAlLEcR4aRUp9X/u4G8wCXecoLmtCHyuPJAxQkMK3HcI5ioLMqoIXGnvEVCe7j2PqF
-         8X619iCSF7XxVBHl10cfqukFQx2LXq3SznluGuCwToxfRdct55YJQDeF1Lt5SL9DvFHe
-         1DMXf8OW+YqVM9OmTteYzD6RKo+dWQL44kCt5m/oWCIESZPUYd8Wb4YQNGDTRTJXHo5C
-         VPsYOkfnuwOt6emFYoJ7dXZ8APw8tbi+6GV1uhGwV0gf8OHg9/agYQAiVpKKjsTEtYr/
-         Dlvg==
-X-Forwarded-Encrypted: i=1; AHgh+RrEiLyZfUHOY2KJB3lPZuSkaoEiN2FdknA4Tm8eAbXcefkiMQZFmYRUn4GLeCBVB1caTCIv3U4kOWUN@vger.kernel.org
-X-Gm-Message-State: AOJu0YxhvqxI5zZEpWaKJOPea/BJ7ig+x66XyQzcLbt0WncR6BEgOeI/
-	k+DMmQD6aPCGTY8JB4tUqH1fPfC4JKSR5eAMOkeT12k9NZWTBNN8YQq18vwmMZVeYGY=
-X-Gm-Gg: AfdE7clEoIFxwuEoJqE+jZlk1jlQ2U4qngX6dFjtwzTN/hiOzwA7DRAwqTK39GBw2yB
-	BaQsIXZN57fBFnqPj1L8/tg3XzIoNiWqV7pWsVljvHNwrzKZy3JIatIXOYmSw5Uao5eLhUlzR/m
-	rOLwblmab7ctTDVWQO04a7KhHYCIIf7/HAdAk8kWF8lTi8/EW7xbutBYO4lNEc94usLD7x+j44e
-	HmFrbr+JzauO5k7KSR9BMIaVN5vHsNLQhuvmtB7GLPJX5HCEZAnxJcgq9ZvqN6hEGmum1kOFvwh
-	ZcTeSU+7esUW2sds7Q4UNOc1lya+sR3c2xfn8EOSwCX8UtoNewiWaUmVVaWoliZXwyXR0Q5GRFg
-	D2HTzafQ7KhFqcRmrtIyYkETeZ3lmIRCxodK0CkkFtpAodTjH5VXaTrk0KVC143Kzgc/G0BXH5h
-	9Y1pW4ZTEEQyePcLkqCCyznCg=
-X-Received: by 2002:a05:600c:474e:b0:493:915b:dc4a with SMTP id 5b1f17b1804b1-4954a3d005amr234955265e9.8.1784635857513;
-        Tue, 21 Jul 2026 05:10:57 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63ed2314sm2598866f8f.23.2026.07.21.05.10.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 05:10:57 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Tue, 21 Jul 2026 14:10:55 +0200
-Subject: [PATCH v4] arm64: dts: qcom: sm8650-ayaneo-pocket-s2: add display
- nodes
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Jv4X/mtn"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 1D3731A1135;
+	Tue, 21 Jul 2026 12:11:54 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id DCFED60368;
+	Tue, 21 Jul 2026 12:11:53 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DE78611BD2234;
+	Tue, 21 Jul 2026 14:11:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1784635912; h=from:subject:date:message-id:to:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=T1tYZTvpzDvMK4rw9RmHIPrKZF4dWTXEwTZdv2ZLscA=;
+	b=Jv4X/mtnG7ibsnjwuVog6xUsw2C2LLw8vMlCYMtddRjJxKg5d/8X4erodSaK6ZBPsUE51t
+	oZA9WjaUHsPcC7xPM4imRle0MBbvRL2bUSSO+gCXF53DJfX7z544eH6bfa5MWjwJ/6zjAh
+	5jz9TNSNbc9tXtraR3ZXCvRimlavknv/j4g0iaBfsYhorhnxoWLQ5+81McFN6IdXmVzLSq
+	ka0nTCmfwP9q2lyxQpJtep/zEIkZ3zvTPZFlkzgs8ZypzDW3efnxxC3EgQ0QjhdyNz6bmL
+	FReKKqSb0bfp5VZcmt/FB0ExnV+xJZVktmpEuwAAQ6U45hT1iEG57yekwVU2cQ==
+Message-ID: <d9ffe027-c3de-4b96-949b-8e9dd4e53dd1@bootlin.com>
+Date: Tue, 21 Jul 2026 14:11:46 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v9 06/12] net: Document PCS subsystem
+To: Christian Marangi <ansuelsmth@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Heiner Kallweit
+ <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
+References: <20260717065448.1498335-1-ansuelsmth@gmail.com>
+ <20260717065448.1498335-7-ansuelsmth@gmail.com>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20260717065448.1498335-7-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-topic-sm8650-ayaneo-pocket-s2-display-dt-v4-1-68e5fa9056ad@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAM5hX2oC/53RyW6DMBAG4FdBPnciL3iBU9+j6gHsIXEbMLUJK
- op49zqkUlr1kvQ40uj7ZzmThNFjInVxJhFnn3wYclE+FcQemmGP4F2uCadc0ZIbmMLoLaTeKEm
- hWZoBA4zBvuMEiYPzaTw2C7gJpKjaVlfYalqRzI0RO/+5Rb28Xut0at/QThf/uyPixynPMF3bb
- iPUxZ0DpH0vDC3BaFV2OZ/n/HqW5Oc+92OL1tKAoIYh6o4hl/+2ohIlqwA1L5VG7lra1bO5WG2
- TEGzoez/Vxax3jFzOc/BpCnHZHjOz7RqP/2BmwKDrmOCWUke1ej76oYlhF+J+S5n5TZacPyDzL
- FvnyvxelA37K4ubrOkjssgyKofKOCG6qv0lr+v6BYcx5yu0AgAA
-X-Change-ID: 20260428-topic-sm8650-ayaneo-pocket-s2-display-dt-539bb79eb709
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- KancyJoe <kancy2333@outlook.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9061;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=FMsEnrQ3z5NlomYAxrBGjapuokcLtKDDbhPD0JF8nnU=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqX2HQMq/FDT0yjjFaU1rFZ6+cLqgrxaSjJYz3AMzB
- wobgeVqJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCal9h0AAKCRB33NvayMhJ0ZHeD/
- wLFPnCYQEyh5rlhGa29tjNcQEXOpaHZL/0MvVXsX/Du1h0DHGbqoInaF1QmEcHOMd6sHzueB3xs9Zt
- kuRIaXVAKIxt6YcDxvNmeY6jmWGODCTLHu/wVgmvn4NcpYPWheKR1+lfzioOgEaAHYH9QX0YmRwzAE
- SjZNtSCjvqkAInVPV2qRZUotijayyl/MruTpvdTWkMIvh8wnxlx03/Xr7CbC6PpAzjRlrvytRgz+Cv
- 5FalkkNQuKkIJrIIdw0J8NeLQ7ChSphjOC4Yy+G14SQsDNq3L+FuWDT0zp/YehD/AAbYOH0bYOGE56
- C5XwVWZDA/PAFjDX1hiHx6dNuuEwEWsuICZMCXnqE/frdEYi+beJVQzMfZ1xtoD58pWyuBU3QAoJnb
- nvIEWoyvX+72nkpCSuhOGkodSHRZlp99XVVQ3GXD6GAf/O4Sfgve6J5bCEACjMkqRkqKXkNh8plejP
- C0d0085Mj/48BrZkQ4exrzYXwYjsKAZoJDT6xWFqZS76xupAPqUiJ12Y2YYgddvmIALlnixdZLEOqC
- qKj55p20BBqlFzZxBTRQxW2oZRGM/HnVqVcYMnLKD/vA2fXNAWCfXqffgNvNOuZZDgGNNXT2D65j0u
- A/dq9l9Gr/Ft8LNzTwrvWZp5z1qveZhxoTFrSd6rnZ5s1SLHA/cZ1kGi6OcQ==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: KancyJoe <kancy2333@outlook.com>
 
-Add nodes for the dual DSI panel, the SGM3804 regulator, the
-SY7758 backlight controller, the touch controller, and enable
-the GPU to enable full display support.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: KancyJoe <kancy2333@outlook.com>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
-Depends on follwing bindings, all applied into linux-next:
-- https://lore.kernel.org/all/20260522-topic-sm8650-ayaneo-pocket-s2-r63419-v7-1-16edddda9951@linaro.org/
-- https://lore.kernel.org/all/20260521-topic-sm8650-ayaneo-pocket-s2-sy7758-v4-1-73c732615e4a@linaro.org/
-- https://lore.kernel.org/all/20260522-topic-sm8650-ayaneo-pocket-s2-sgm3804-v5-1-bd6b1c300ecc@linaro.org/
----
-Changes in v4:
-- Reordered regulator & mdss nodes
-- Moved zap shared firmware into separate node
-- Link to v3: https://patch.msgid.link/20260702-topic-sm8650-ayaneo-pocket-s2-display-dt-v3-1-e6de68d33f9b@linaro.org
+On 7/17/26 08:54, Christian Marangi wrote:
+> Add extensive documentation of the new PCS subsystem and the fwnode
+> implementation with producer/consumer API.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  Documentation/networking/index.rst |   1 +
+>  Documentation/networking/pcs.rst   | 229 +++++++++++++++++++++++++++++
+>  2 files changed, 230 insertions(+)
+>  create mode 100644 Documentation/networking/pcs.rst
+> 
+> diff --git a/Documentation/networking/index.rst b/Documentation/networking/index.rst
+> index 44a422ad3b05..3fce8f6ac089 100644
+> --- a/Documentation/networking/index.rst
+> +++ b/Documentation/networking/index.rst
+> @@ -28,6 +28,7 @@ Contents:
+>     net_failover
+>     page_pool
+>     phy
+> +   pcs
+>     sfp-phylink
+>     alias
+>     bridge
+> diff --git a/Documentation/networking/pcs.rst b/Documentation/networking/pcs.rst
+> new file mode 100644
+> index 000000000000..98592cdee3ef
+> --- /dev/null
+> +++ b/Documentation/networking/pcs.rst
+> @@ -0,0 +1,229 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+> +=============
+> +PCS Subsystem
+> +=============
+> +
+> +The PCS (Physical Coding Sublayer) subsystem handles the registration and lookup
+> +of PCS devices. These devices contain the upper sublayers of the Ethernet
+> +physical layer, generally handling framing, scrambling, and encoding tasks. PCS
+> +devices may also include PMA (Physical Medium Attachment) components. PCS
+> +devices transfer data between the Link-layer MAC device, and the rest of the
+> +physical layer, typically via a serdes. The output of the serdes may be
+> +connected more-or-less directly to the medium when using fiber-optic or
+> +backplane connections (1000BASE-SX, 1000BASE-KX, etc). It may also communicate
+> +with a separate PHY (such as over SGMII) which handles the connection to the
+> +medium (such as 1000BASE-T).
+> +
+> +Remark on usage of .mac_select_pcs and fw_node PCS
+> +--------------------------------------------------
+> +
+> +There are generally two ways to look up a PCS device.
+> +
+> +1. MAC OP struct .mac_select_pcs (considered legacy)
+> +2. firmware node (fwnode) PCS entirely handled by phylink
+> +
+> +Implementation 1 leaves the entire handling of the PCS to the MAC
+> +driver with the selection of the PCS driven by .mac_select_pcs.
+> +Custom implementations are required if the PCS is external to the MAC
+> +and needs to be handled by a separate driver.
+> +
+> +This implementation is considered legacy and it's suggested to
+> +switch to the new fwnode PCS.
 
-Changes in v3:
-- renamed backlight label and node as "backlight"
-- reordered pinctrl properties
-- added regulator-boot-on to display regulators
-- Link to v2: https://patch.msgid.link/20260522-topic-sm8650-ayaneo-pocket-s2-display-dt-v2-1-cdd4b70e5a16@linaro.org
+The .mac_select_pcs can be deprecated, with the .fill_available_pcs()
+mecanism available, we can keep PCS implems inside the MAC driver when
+it makes sense, no ?
 
-Changes in v2:
-- Update for bindings changes
-- Remove empty line
-- Link to v1: https://patch.msgid.link/20260428-topic-sm8650-ayaneo-pocket-s2-display-dt-v1-1-ff132c00d076@linaro.org
----
- .../boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts      | 244 +++++++++++++++++++++
- 1 file changed, 244 insertions(+)
+If PCSs aren't described in firmware (i.e. DT), we have to use .fill_available_pcs()
+without using the fwnode API if I get your code right.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts b/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
-index 0dc994f4e48d..035efeacc7db 100644
---- a/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
-@@ -325,6 +325,23 @@ platform {
- 		};
- 	};
- 
-+	sy7758_vdd33_reg: sy7758-vdd33-regulator {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "sy7758_vdd33";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-boot-on;
-+
-+		gpios = <&tlmm 163 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		vin-supply = <&vph_pwr>;
-+
-+		pinctrl-0 = <&sy7758_vdd33>;
-+		pinctrl-names = "default";
-+	};
-+
- 	vph_pwr: vph-pwr-regulator {
- 		compatible = "regulator-fixed";
- 
-@@ -986,6 +1003,10 @@ gpu7_active: trip-active {
- 	};
- };
- 
-+&gpu {
-+	status = "okay";
-+};
-+
- &i2c3 {
- 	clock-frequency = <100000>;
- 
-@@ -1016,6 +1037,30 @@ wcd_usbss_sbu_mux: endpoint {
- 	};
- };
- 
-+&i2c4 {
-+	clock-frequency = <400000>;
-+
-+	status = "okay";
-+
-+	touchscreen@5d {
-+		compatible = "goodix,gt911";
-+		reg = <0x5d>;
-+
-+		interrupt-parent = <&tlmm>;
-+		interrupts = <162 IRQ_TYPE_EDGE_FALLING>;
-+
-+		reset-gpios = <&tlmm 161 GPIO_ACTIVE_HIGH>;
-+		VDDIO-supply = <&vreg_l14b_3p2>;
-+		AVDD28-supply = <&vreg_l14b_3p2>;
-+
-+		touchscreen-size-x = <1440>;
-+		touchscreen-size-y = <2560>;
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&ts_reset_default>, <&ts_irq_default>;
-+	};
-+};
-+
- &i2c6 {
- 	clock-frequency = <100000>;
- 
-@@ -1053,6 +1098,51 @@ redriver_ss_in: endpoint {
- 	};
- };
- 
-+&i2c9 {
-+	status = "okay";
-+
-+	/* Screen power */
-+	regulator@3e {
-+		compatible = "sgmicro,sgm3804";
-+		reg = <0x3e>;
-+
-+		pinctrl-0 = <&sgm3804_default>;
-+		pinctrl-names = "default";
-+
-+		vin-supply = <&vph_pwr>;
-+
-+		sgm3804_pos: pos {
-+			regulator-name = "panel-avdd-pos";
-+			regulator-min-microvolt = <5200000>;
-+			regulator-max-microvolt = <5200000>;
-+			regulator-active-discharge = <1>;
-+			regulator-boot-on;
-+			enable-gpios = <&tlmm 59 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		sgm3804_neg: neg {
-+			regulator-name = "panel-avdd-neg";
-+			regulator-min-microvolt = <5200000>;
-+			regulator-max-microvolt = <5200000>;
-+			regulator-active-discharge = <1>;
-+			regulator-boot-on;
-+			enable-gpios = <&tlmm 58 GPIO_ACTIVE_HIGH>;
-+		};
-+	};
-+
-+	/* Backlight */
-+	backlight: backlight@2e {
-+		compatible = "silergy,sy7758";
-+		reg = <0x2e>;
-+
-+		pinctrl-0 = <&sy7758_default>;
-+		pinctrl-names = "default";
-+
-+		vdd-supply = <&sy7758_vdd33_reg>;
-+		enable-gpios = <&tlmm 164 GPIO_ACTIVE_HIGH>;
-+	};
-+};
-+
- &iris {
- 	status = "okay";
- };
-@@ -1073,6 +1163,93 @@ &mdss_dp0_out {
- 	status = "okay";
- };
- 
-+&mdss_dsi0 {
-+	vdda-supply = <&vreg_l3i_1p2>;
-+
-+	qcom,master-dsi;
-+	qcom,dual-dsi-mode;
-+	qcom,sync-dual-dsi;
-+
-+	status = "okay";
-+
-+	panel@0 {
-+		status = "okay";
-+		compatible = "ayaneo,wt0630-2k", "renesas,r63419";
-+		reg = <0>;
-+
-+		pinctrl-0 = <&disp0_reset_n_active>;
-+		pinctrl-1 = <&disp0_reset_n_suspend>;
-+		pinctrl-names = "default", "sleep";
-+
-+		vddio-supply = <&vreg_l12b_1p8>;
-+		vdd-supply = <&vreg_l11b_1p2>;
-+		vsp-supply = <&sgm3804_pos>;
-+		vsn-supply = <&sgm3804_neg>;
-+		vci-supply = <&vreg_l13b_3p0>;
-+
-+		backlight = <&backlight>;
-+
-+		reset-gpios = <&tlmm 133 GPIO_ACTIVE_LOW>;
-+
-+		rotation = <90>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				panel0_in_0: endpoint {
-+					remote-endpoint = <&mdss_dsi0_out>;
-+				};
-+			};
-+
-+			port@1{
-+				reg = <1>;
-+				panel0_in_1: endpoint {
-+					remote-endpoint = <&mdss_dsi1_out>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&mdss_dsi0_out {
-+	remote-endpoint = <&panel0_in_0>;
-+
-+	data-lanes = <0 1 2 3>;
-+};
-+
-+&mdss_dsi0_phy {
-+	vdds-supply = <&vreg_l1i_0p88>;
-+
-+	status = "okay";
-+};
-+
-+&mdss_dsi1 {
-+	vdda-supply = <&vreg_l3i_1p2>;
-+
-+	assigned-clock-parents = <&mdss_dsi0_phy DSI_BYTE_PLL_CLK>,
-+				 <&mdss_dsi0_phy DSI_PIXEL_PLL_CLK>;
-+
-+	qcom,dual-dsi-mode;
-+	qcom,sync-dual-dsi;
-+
-+	status = "okay";
-+};
-+
-+&mdss_dsi1_out {
-+	remote-endpoint = <&panel0_in_1>;
-+
-+	data-lanes = <0 1 2 3>;
-+};
-+
-+&mdss_dsi1_phy {
-+	vdds-supply = <&vreg_l1i_0p88>;
-+
-+	status = "okay";
-+};
-+
- &pcie0 {
- 	wake-gpios = <&tlmm 96 GPIO_ACTIVE_HIGH>;
- 	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
-@@ -1390,6 +1567,20 @@ sw-ctrl-pins {
- 		};
- 	};
- 
-+	disp0_reset_n_active: disp0-reset-n-active-state {
-+		pins = "gpio133";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-disable;
-+	};
-+
-+	disp0_reset_n_suspend: disp0-reset-n-suspend-state {
-+		pins = "gpio133";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+
- 	fan_pwr_pins: fan-pwr-state {
- 		pins = "gpio125";
- 		function = "gpio";
-@@ -1411,6 +1602,20 @@ fan_int: fan-int-state {
- 		bias-pull-up;
- 	};
- 
-+	mdp_vsync_active: mdp-vsync-active-state {
-+		pins = "gpio86";
-+		function = "mdp_vsync";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+
-+	mdp_vsync_suspend: mdp-vsync-suspend-state {
-+		pins = "gpio86";
-+		function = "mdp_vsync";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+
- 	upd720201_avdd33: upd720201-avdd33-state {
- 		pins = "gpio123";
- 		function = "gpio";
-@@ -1440,6 +1645,13 @@ gamepad_pwr_en: gamepad-pwr-en-active-state {
- 		output-high;
- 	};
- 
-+	sgm3804_default: sgm3804-default-state {
-+		pins = "gpio58", "gpio59";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-disable;
-+	};
-+
- 	spkr_23_sd_n_active: spkr-23-sd-n-active-state {
- 		pins = "gpio77";
- 		function = "gpio";
-@@ -1454,6 +1666,34 @@ spkr_01_sd_n_active: spkr-01-sd-n-active-state {
- 		bias-disable;
- 	};
- 
-+	sy7758_default: sy7758-default-state {
-+		pins = "gpio164";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	sy7758_vdd33: sy7758-vdd33-state {
-+		pins = "gpio163";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	ts_irq_default: ts-irq-active-state {
-+		pins = "gpio162";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-disable;
-+	};
-+
-+	ts_reset_default: ts-reset-active-state {
-+		pins = "gpio161";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-pull-down;
-+	};
-+
- 	wcd_default: wcd-reset-n-active-state {
- 		pins = "gpio107";
- 		function = "gpio";
-@@ -1549,3 +1789,7 @@ &usb_dp_qmpphy_out {
- &xo_board {
- 	clock-frequency = <76800000>;
- };
-+
-+&gpu_zap_shader {
-+	firmware-name = "qcom/sm8650/ayaneo/ps2/gen70900_zap.mbn";
-+};
+The 'legacy' part is the only remark I have, the rest is all good :)
 
----
-base-commit: b3f94b2b3f3e51ab880a51fc6510e1dafba654ed
-change-id: 20260428-topic-sm8650-ayaneo-pocket-s2-display-dt-539bb79eb709
-prerequisite-change-id: 20260428-topic-sm8650-ayaneo-pocket-s2-sgm3804-8764fbb72eb7:v5
-prerequisite-patch-id: 901a0948e1afbb03ff78a063d4f66c17665588ef
-prerequisite-patch-id: 5ca959a92d05c86ae7a77400d5c4c9bb8bb214f4
-prerequisite-change-id: 20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-3081ee7f1e25:v5
-prerequisite-patch-id: dd1c5acff71bcfe0730472051c0a5c7c339e2116
-prerequisite-patch-id: 30e1bf23756ac7de0e29e4c30e7c9737366cf856
-prerequisite-change-id: 20260428-topic-sm8650-ayaneo-pocket-s2-r63419-e72467e2db0f:v8
-prerequisite-patch-id: 53130195c1df5886a953f3eb1ffea6e5b32257ec
-prerequisite-patch-id: 016545217702b15d67b3ac48392c2978fc04b000
+Maxime
 
-Best regards,
---  
-Neil Armstrong <neil.armstrong@linaro.org>
+> +
+> +Looking up PCS Devices (fwnode implementation)
+> +-----------------------------------------------
+> +
+> +The lookup of a PCS device follows the common producer/consumer implementation
+> +used by similar subsystems with a ``#pcs-cells`` on the producer and a
+> +``pcs-handle`` property on the consumer::
+> +
+> +    pcs: pcs {
+> +        // ...
+> +        #pcs-cells = <0>;
+> +    };
+> +
+> +    ethernet-controller {
+> +        // ...
+> +        pcs-handle = <&pcs>;
+> +    };
+> +
+> +On :c:func:`phylink_create`, phylink will use the ``num_possible_pcs``
+> +value and ``fill_available_pcs`` helper function in
+> +:c:struct:`phylink_config` to compose the list of available PCS that can be
+> +used for the phylink instance.
+> +
+> +Phylink will then internally handle the selection of the correct PCS for
+> +the requested interface mode based on the interface modes configured in
+> +``pcs_interfaces`` in :c:struct:`phylink_config` struct and
+> +``supported_interfaces`` in :c:struct:`phylink_pcs` struct.
+> +
+> +A PCS is considered eligible when the requested interface mode is present
+> +in both ``pcs_interfaces`` in :c:struct:`phylink_config` struct and
+> +``supported_interfaces`` in :c:struct:`phylink_pcs` struct.
+> +
+> +``supported_interfaces`` describes all interface modes supported by the MAC,
+> +whereas ``pcs_interfaces`` identifies the subset that require PCS selection.
+> +
+> +For the special implementation where the PCS is internal or part of the MAC
+> +and a dedicated driver is not needed, it's possible to leave the implementation
+> +of the PCS to the MAC driver and just implement the ``num_possible_pcs``
+> +value and ``fill_available_pcs`` helper  function in
+> +:c:struct:`phylink_config` referencing the local :c:struct:`phylink_pcs`
+> +struct allocated from the MAC driver.
+> +
+> +Using PCS Devices
+> +-----------------
+> +
+> +It's mandatory to either implement the ``mac_select_pcs`` callback
+> +of :c:struct:`phylink_mac_ops` or ``num_possible_pcs`` and ``fill_available_pcs``
+> +of :c:struct:`phylink_config` to use a PCS for a MAC.
+> +
+> +The fwnode implementation exposes simple helpers to parse the PCS from
+> +the fwnode :c:func:`fwnode_phylink_pcs_count` and
+> +:c:func:`fwnode_phylink_pcs_parse`. The :c:func:`fwnode_phylink_pcs_count` helper
+> +takes the fwnode where the ``pcs-handle`` should be parsed and return the
+> +number of PCS entries described in the fwnode.
+> +The :c:func:`fwnode_phylink_pcs_parse` helper takes three arguments,
+> +the fwnode where the ``pcs-handle`` should be parsed, an allocated array
+> +of :c:struct:`phylink_pcs` pointer where to put the parsed PCS from the fwnode
+> +and the maximum number of PCS to parse.
+> +Contrary to :c:func:`fwnode_phylink_pcs_count`, :c:func:`fwnode_phylink_pcs_parse`
+> +helper fills the allocated array with ONLY the available PCS and return the
+> +number of available PCS found. PCS that returns -ENODEV will be skipped and
+> +won't be inserted in the allocated array.
+> +
+> +A phylink instance may use multiple PCS devices. The maximum number is reported
+> +through ``num_possible_pcs``.
+> +
+> +It's mandatory to specify for what interface a PCS is needed. This can be done
+> +by filling the ``pcs_interfaces`` in :c:struct:`phylink_config` struct.
+> +If the requested interface mode is not present in this bitmask, phylink does
+> +not search for a PCS for  that specific mode. (example MAC doesn't need a PCS
+> +for SGMII but require one for USXGMII)
+> +
+> +With the use of the :c:func:`fwnode_phylink_pcs_parse` a common implementation
+> +is the following::
+> +
+> +   static int mac_fill_available_pcs(struct phylink_config *config,
+> +   				                      struct phylink_pcs **available_pcs,
+> +					                      unsigned int num_possible_pcs)
+> +   {
+> +   	struct device *dev = config->dev;
+> +
+> +   	return fwnode_phylink_pcs_parse(dev_fwnode(dev), available_pcs,
+> +						                    num_possible_pcs);
+> +   }
+> +
+> +   static int mac_setup_phylink(struct net_device *netdev)
+> +   {
+> +      struct phylink_config *config;
+> +
+> +      // ...
+> +
+> +      config->dev = &netdev->dev;
+> +
+> +      // ...
+> +
+> +      // Parse possible PCS and fill num_possible_pcs.
+> +      config->num_possible_pcs = fwnode_phylink_pcs_count(dev_fwnode(&netdev->dev));
+> +      config->fill_available_pcs = mac_fill_available_pcs;
+> +
+> +      __set_bit(PHY_INTERFACE_MODE_INTERNAL, config->supported_interfaces);
+> +      __set_bit(PHY_INTERFACE_MODE_SGMII, config->supported_interfaces);
+> +      __set_bit(PHY_INTERFACE_MODE_1000BASEX, config->supported_interfaces);
+> +      __set_bit(PHY_INTERFACE_MODE_USXGMII, config->supported_interfaces);
+> +
+> +      // PCS required only for USXGMII
+> +      __set_bit(PHY_INTERFACE_MODE_USXGMII, config->pcs_interfaces);
+> +
+> +      phylink = phylink_create(config, //...
+> +
+> +It's worth to mention that it's phylink code that takes care of allocating
+> +the array of :c:struct:`phylink_pcs` pointer for ``fill_available_pcs``
+> +callback based on the value set in ``num_possible_pcs`` for
+> +:c:struct:`phylink_config` struct.
+> +
+> +The ``fill_available_pcs`` callback must not write more than
+> +``num_possible_pcs`` entries. The third argument may be used to validate
+> +that there is enough space to fill all the available PCS in the passed array
+> +of :c:struct:`phylink_pcs` pointer.
+> +
+> +The ``fill_available_pcs`` callback is called only on :c:func:`phylink_create`
+> +and is used only to compose the initial available PCS list. Ownership of PCS
+> +is held by phylink and :c:func:`phylink_release_pcs` should be used to release
+> +them.
+> +
+> +Writing PCS Drivers
+> +-------------------
+> +
+> +To write a PCS driver, first implement :c:struct:`phylink_pcs_ops`. Then,
+> +register your PCS in your probe function using :c:func:`fwnode_pcs_add_provider`.
+> +The :c:func:`fwnode_pcs_add_provider` takes three arguments, the fwnode where
+> +the PCS provider should be registered to, a get function to return the requested
+> +PCS based on ``#pcs-cells`` and a pointer to reference private data for the get
+> +function.
+> +
+> +The PCS will then be registered to a global list of PCS provider that the
+> +PCS fwnode implementation will use to parse it.
+> +
+> +For the simple case where the PCS driver expose a single PCS,
+> +:c:func:`fwnode_pcs_simple_get` can be used as the get function.
+> +
+> +You must call :c:func:`fwnode_pcs_del_provider` from your remove function and
+> +release the PCS from any phylink instance under RTNL lock with
+> +:c:func:`phylink_release_pcs`::
+> +
+> +   fwnode_pcs_del_provider(dev_fwnode(&pdev->dev));
+> +
+> +	rtnl_lock();
+> +
+> +	for (i = 0; i < data->num_port; i++) {
+> +		struct pcs_port *port = &priv->ports[i];
+> +
+> +		phylink_release_pcs(&port->pcs);
+> +	}
+> +
+> +	rtnl_unlock();
+> +
+> +Late PCS registration handling
+> +------------------------------
+> +
+> +It's possible that a PCS becomes available after the MAC finished probing.
+> +Contrary to the usual producer/consumer implementation, when a PCS is not
+> +registered and can't be found, the fwnode parser helper returns ``-ENODEV``
+> +instead of ``-EPROBE_DEFER``.
+> +
+> +This is to prevent race condition with particular devices that register
+> +MAC and PCS with USB or PCIe and require the MAC to be registered before
+> +the PCS.
+> +
+> +The phylink logic correctly handle this special case and keep the phylink
+> +instance in a fail condition.
+> +
+> +The PCS fwnode implementation provides a notifier to which each phylink
+> +instance with a non-empty ``pcs_interfaces`` in :c:type:`phylink_config`
+> +registers. When a new PCS provider is registered, the notifier is called
+> +triggering the :c:func:`pcs_provider_notify` function.
+> +
+> +Function :c:func:`pcs_provider_notify` will check if the just added PCS
+> +should be used by the phylink instance. If it should be used then,
+> +it's added to the internal list of available PCS and a phylink major
+> +config is forced.
+> +
+> +If a phylink instance was in a failure state, with the just added PCS
+> +now part of the available PCS internal phylink list, provided all other
+> +conditions are satisfied, the configuration is retried and the failure
+> +condition is cleared.
+> +
+> +API Reference
+> +-------------
+> +
+> +.. kernel-doc:: include/linux/phylink.h
+> +   :identifiers: phylink_pcs
+> +
+> +.. kernel-doc:: include/linux/pcs/pcs.h
+> +   :internal:
+> +
+> +.. kernel-doc:: include/linux/pcs/pcs-provider.h
+> +   :internal:
 
