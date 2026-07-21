@@ -1,315 +1,151 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF353D34B1
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 05:26:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A373403E1;
+	Tue, 21 Jul 2026 05:29:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784611590; cv=none; b=DfNsVabX9THdbdW+lsOOW5hIHkdIbNwwWRb3OzQB4EPqDfxu3UAL46RS/QpeIaQ6wcxDOebnD3h0oZ8PcPtrS0g/g/mUOqOAzFAyAjwOXNXwrqWMDpCRy7q4WyF+pJl18lPVEcZIk4O6uGWz7+lHeeDDcSOJSPrLx0x0jmIFKig=
+	t=1784611768; cv=none; b=Lfxq3bL2b7O4R3NrStHAKVjLrUCxac5p+Aj3nX/YVOmpJhdMjvEa6BhYa5EPcE9gGKjC7JcTwkfyDe791QG7CpXXXeQyUcxi5dZBUJxu1QfI93MJDV0RKzPhXdhw6aPn+xr8CvoG36SVcwkgRZpSE40NdrqNY9fT0u/GpQ9++oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784611590; c=relaxed/simple;
-	bh=LANuCJkB6nXzMBBjiSyLvoxsquUOuL54/jiE6FqHLOI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gwFdim2YU2lrzV74g9xfYaLnSB4TAG1Fc2uAWojFyXW0DsV38GEMUJBou5hENUDswQwhDrc8+Rnb3ySn3bA+AxfjbiUPsdK2s3ax71A/p5y1Uk82LwoAy51ICQlcgJH798KfxAg52sMTTAzNgopcSkxzC/LReXFTSBfUXzH9hgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XexN0C7L; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PlWAvdtE; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784611768; c=relaxed/simple;
+	bh=eJMieyDV3EZzwKIlHI9vHv7je1D8dJwnhudfFu9FrzE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gyH+J96rHwgfoBNHdXTw9bhmRMzOUniggYazh6+TuUSFspWXBBo/KY6EtyqxsUfqSlw5WVUEgmClP+WNAFl47CwMJJVohPGy4sbDGuDNYW+7SXyjBGCn76/Ulc2d4LibCoGDmjdSlneW4uqxrcnQ8G7c7775POmx8kWr+FaDow8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=o0kJ2tuI; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XexN0C7L";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PlWAvdtE"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66L3xoca568563
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 05:26:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Uto5B3n0eGCHOA43nYgEYRfaslRQmvbRDMXREj3vbCE=; b=XexN0C7Lrij6xWQV
-	MbbvwH6jE8ckCVIjfwyVPt/k3+AetSZ3YOWR7N9K9W6M/3x1GfVdZIoaVpRv8aoP
-	qUc0RqD1X8SFypXFqJyAHrm66PNvvIMZU3I3ZAEzNYi5e7ELiZEEDtANq705JSjT
-	GnuUrL/WwXccJmP92qwwstypoG6SujTnv2wL/FKe3a5ghvLlUxpSP6ydaGyt8DMP
-	BfK5xp1hBE2hmnmzwbbhOExWBaOBMeshlWbUc9OKgyTcHmkgzKbmFG8Lh13SjIQH
-	Nqm6/bVnURd+onH3b+BSl3E9rJ0jwF3smL/tJvgjm9H4ku0kU9j1dasxR04e8ELx
-	Wa+qBw==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj1bvr8t8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 05:26:27 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8487ed7f7beso7528669b3a.0
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 22:26:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784611587; x=1785216387; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Uto5B3n0eGCHOA43nYgEYRfaslRQmvbRDMXREj3vbCE=;
-        b=PlWAvdtEZayOS2Uz3cQQQw/pYmCFHl1OmMkrxX87w1vHGQlWDvDf99rMOjZqoeFree
-         H9e9H8pIn7CH2y/yOtngnCjnVryVplmzLPxjvaCzJBhNz0PvhPIEoNjAm8txwFyoNRIA
-         3GuEQf1DPdmXAI4au6ek8TsM7ITzog+mgAhiK5j9dwu724O1KbXFY/Z5ihia76Q965Zs
-         vk4vlUUISaoP3dCV8DB0E2StV96neaBmFcTvVBtI9PaR2o4EzY1drPBFLT5WcBWxgZy3
-         Y5eGAARkXAu6zz4jghQcg55Xso4663cccdBMWH9k8pRR3Tj8KAPbISovU887llMDMfMY
-         AP1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784611587; x=1785216387;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Uto5B3n0eGCHOA43nYgEYRfaslRQmvbRDMXREj3vbCE=;
-        b=bGQMGKuxuz7komeaJ+E2t5RkCYkgW7sqA0cq4XZK/5ZkiRGypStmpKE5Ha62RWBt6E
-         UvgQ+kXoL7LYWAjj9nUYFPX2asKJgGXztdXNFuRR/kbtJnmGsMvwPrvpg+8Tfbr6MgRf
-         Xyz79GkDc2w7m/IK6kDm9kk7MjbZJsaLImYtshgcOzlY5h3BWyGFYrtbVSUlwOeHAMiJ
-         iOfDvHgoKs5LOQg4f73Fox2msNccbFNls2vSyVxMlv3rpmqgK1iHY+mf5T97xC6WTrMD
-         B8wR4x01BUWF3ZqvdvToAAct01s7ZQ1CNrW56vg/ACJzPx998Pr8AO7LL8Whx900x1/j
-         YoBA==
-X-Forwarded-Encrypted: i=1; AHgh+RqXkA2iQiSWHgDf8exMHwWJ1gRHPTUg4kobB5i9nviQRFduOmjQNmpIjsYa1GMB7iZT/OJaMmrTYcLq@vger.kernel.org
-X-Gm-Message-State: AOJu0YxAgNKP7jmP3kM5FoRFjrlw/wdRQeoMtEeT1MHC12MlEpvxq19/
-	Cz0WYXS8T9nf1ei71SVi7g3oBxd3uppSrvg4nB19UZ/r8L/697yJhNXns4hTHj/868KDFph+9xV
-	cC/ow3Dgk5VuwyOfgaGkS1WFwKw2dVPzEn3uuv7/fRQatzn+8ifKMVVy6EfFeM0v0
-X-Gm-Gg: AR+sD119/TPq18sU7XiPu/KGmf93mofWeI/Z6kVJBv7v0B0P8hPxuhgmCEuHrOk8fyq
-	RP3k/tJ2EKO5mvrSocgA0aO4BoJfJOW9lGy9041cF1dxMaL6jrdGQ14uAViXjH3QEYZ4J+s4ad/
-	SraOLiF3+6h2XCOKt21qAejHuMkBeJdUbjT2kfz1xtZEE7Dr/s9bAWhVAjeCb1lcKST0gEgONqy
-	d6wC4o5F28riwNbVYZhAX7paW0QeAA4bC4X8n7Ko2MTv4qlKZQYKp52EOYQ6IZkX8Gn6pL4ZLUO
-	xPMKUgAeJPoaQYSlCQnZw3AXJA0sKgCntmS6EilenHpNLZY2xyFGPHcy+rHa+AlTTyo48dAf9Ms
-	PgOjiI3cVS0guUP5+FIg3omHsddkiurKw
-X-Received: by 2002:a05:6a00:3e26:b0:848:2f74:d8da with SMTP id d2e1a72fcca58-84c294c870bmr15377103b3a.75.1784611586680;
-        Mon, 20 Jul 2026 22:26:26 -0700 (PDT)
-X-Received: by 2002:a05:6a00:3e26:b0:848:2f74:d8da with SMTP id d2e1a72fcca58-84c294c870bmr15377086b3a.75.1784611586174;
-        Mon, 20 Jul 2026 22:26:26 -0700 (PDT)
-Received: from [10.218.35.45] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c2af6e401sm6649207b3a.48.2026.07.20.22.26.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Jul 2026 22:26:25 -0700 (PDT)
-Message-ID: <76288f31-57ea-4a42-ad50-8504d8eccfa0@oss.qualcomm.com>
-Date: Tue, 21 Jul 2026 10:56:20 +0530
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="o0kJ2tuI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1784611769; x=1816147769;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=eJMieyDV3EZzwKIlHI9vHv7je1D8dJwnhudfFu9FrzE=;
+  b=o0kJ2tuIvEp+YjvLcCQaj/3HxP83WcqqYdE7QAXK/Lo96C3nCmgGbtEJ
+   HfhMhnOblQHN0ipcw2skq0ug+reaHznu6E7fECc/ChtC/iQ2l6oLX8mXi
+   6Ero3WoDAZvNfbImUlEX+deYlieHeQ6/ARIn9ZSnf1YbEc7GR/BPYJlyf
+   G2d9aiDZgJZjd9c38eee7sc07D9vLfOhq61oOE3IKPMVVW8ZLWVZ4myvl
+   e+ZHRqdKSvVo9aREO7t/O4Pb4wCJUlxUwaxuVycUtZuxOrm7zrtNWpU0u
+   CpKytgmdACuQd5qaHgbFc2RppKof9eLRXg7hfZOJNBBULovJ8C36CjF2X
+   Q==;
+X-CSE-ConnectionGUID: Mxsn5rdUR4CIeUZSSNpL3Q==
+X-CSE-MsgGUID: Zzt9BG4zTIiQHT9bve7zfA==
+X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
+   d="scan'208";a="292305099"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2026 22:29:23 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.43; Mon, 20 Jul 2026 22:29:19 -0700
+Received: from che-ll-i67131.microchip.com (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Mon, 20 Jul 2026 22:29:11 -0700
+From: Manikandan Muralidharan <manikandan.m@microchip.com>
+To: <pratyush@kernel.org>, <mwalle@kernel.org>,
+	<takahiro.kuwano@infineon.com>, <miquel.raynal@bootlin.com>,
+	<richard@nod.at>, <vigneshr@ti.com>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <srini@kernel.org>, <nicolas.ferre@microchip.com>,
+	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
+	<linux@armlinux.org.uk>, <richardcochran@gmail.com>, <linusw@kernel.org>,
+	<arnd@arndb.de>, <michael@walle.cc>, <linux-mtd@lists.infradead.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <netdev@vger.kernel.org>
+CC: Manikandan Muralidharan <manikandan.m@microchip.com>
+Subject: [PATCH v5 0/7] Read MAC address from SST vendor specific SFDP region
+Date: Tue, 21 Jul 2026 10:58:52 +0530
+Message-ID: <20260721052859.171341-1-manikandan.m@microchip.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: eliza-evk: Add PCIe1 with TC9563
- PCIe switch
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pci@vger.kernel.org, linux-pm@vger.kernel.org
-References: <20260708-eliza_evk-v2-0-c599246ceba1@oss.qualcomm.com>
- <20260708-eliza_evk-v2-2-c599246ceba1@oss.qualcomm.com>
- <n4s25nftmn3ginddls4u3tpzabkgiotwzh4kws5s4jfppup36s@ccbfrrrqxihq>
-Content-Language: en-US
-From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-In-Reply-To: <n4s25nftmn3ginddls4u3tpzabkgiotwzh4kws5s4jfppup36s@ccbfrrrqxihq>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: hYSKsu11DUvy23I36_GySSoz3903_2Jr
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDA1MyBTYWx0ZWRfX4N38eG3iqivV
- FxVFEhNXVjDeWwWP374hyco5iGyxgk9Vr5478E2xovdf4YKzOCAutrvBY1UCP5MlG7cpO27jbET
- NeUYYYIugYdqCrLpdwrCpaZDoVzw9Aw=
-X-Proofpoint-GUID: hYSKsu11DUvy23I36_GySSoz3903_2Jr
-X-Authority-Analysis: v=2.4 cv=Sb7HsPRu c=1 sm=1 tr=0 ts=6a5f0303 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=WptVsyCosi7Mub_EgEwA:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDA1MyBTYWx0ZWRfX9pXBQmG0FHY/
- Bo8XsRoCYXinU7axiKJ9ksgJRzcRT8rCbYyaqQVIFT/niLrnyxVT0E9fJ1xmXfAbhKIeVYTXHYM
- kOxEPfV5iRyjb1o5SNvHmPy0cZ9VsWg5JJHUcYPWNqSnNA5N5cQ8wxPfaA7HbhlaQGDMSn/wpbA
- 0/XGDdZGIshXZYbIFeUOZN17LAsQ3GeZpWNj4r2oDVUAlEWIJ5tYrlk0jsaFH/2cnnxK6SV9Jfx
- ndrKCnnj91XAhj2heyXNu5KhSZWctLAbynkV6lhfh7nzhq1HyWUk127M1yC2ua1qvEDnOzT3qhP
- S6tFdAoCFNPJy33zg1e6WqtpsE/ZdT4qmVCffv/5Mn+xnu6ugmOxNr5jddenOc1oty3qkZOttGn
- gq5tnI9URPRhKKm70cyJE8Ncy9Uu/1TvixEyAsFSBE7QPicC/5cnXXDxlfbWAyTUcoZQnSuL3bq
- cD1F3dLGgbE+UQcA8Fw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-20_06,2026-07-20_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015
- lowpriorityscore=0 impostorscore=0 adultscore=0 phishscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607210053
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+
+Some Microchip/SST QSPI flashes (e.g. the SST26VF064BEUI) are factory
+programmed with globally unique, write-protected EUI-48 and EUI-64
+identifiers stored in a vendor-specific SFDP parameter table. On boards
+that have no on-board EEPROM (sama5d27_wlsom1, sama5d29 curiosity,
+sam9x75 curiosity) this is a reliable source for an Ethernet MAC address,
+instead of relying on a U-Boot-provided or random address.
+
+This v5 reworks the approach into a generic NVMEM framework with no vendor
+code in the SPI NOR core:
+ - The SPI NOR core now exposes the entire SFDP as a generic read-only
+   NVMEM device, rooted at a new "sfdp" child node of the flash.
+ - A new NVMEM layout driver (drivers/nvmem/layouts/) locates the
+   Microchip vendor parameter table at runtime and presents the EUI-48 as
+   a "mac-address" cell.
+ - Arbitrary parameters can be read with a standard fixed-layout
+   (known offset) or with an nvmem-layout parser (location discovered at runtime).
+
+Changes in v5:
+ - 1/7 and 5/7 - Add R-b tags
+ - 3/7- Rework the comments, function name and commit message.Check all the nodes
+        (for_each_available_child) for the right compatible "jedec,sfdp" instead
+		of node name.
+
+Changes in v4:
+ - Rework per v3 review: remove the vendor-specific SFDP handling from the
+   SPI NOR core; expose the whole SFDP as a generic read-only NVMEM device
+   and move the EUI extraction into an nvmem-layout driver.
+ - Introduce a new nvmem-layout driver to discover the vendor-table location
+   at runtime; no offset hardcoded in the device tree.
+ - Describe the SFDP via a dedicated "sfdp" subnode (compatible
+   "jedec,sfdp"), which also resolves the v3 dtbs_check "Unevaluated
+   properties ('nvmem-layout')" warning.
+ - Reverse the stored EUI bytes into canonical MAC order.
+ - Enable the layout in sama5_defconfig.
+
+ Changes in v3:
+ - 2/3 - add support to update the QSPI partition into 'fixed-partition'
+   binding in sama5d27_wlsom1
+ - 3/3 - add nvmem-layout in qspi node for EUI48 MAC Address and nvmem cell
+   properties for macb node in sama5d27_wlsom1
+
+Changes in v2:
+ - 1/3 - parse the SST vendor table, read and store the addresses
+  into a resource - managed space. Register the addresses
+  into NVMEM framework
+ - 2/3 - add support to update the QSPI partition into 'fixed-partition'
+  binding
+
+v4: https://lore.kernel.org/linux-devicetree/20260630092406.150587-1-manikandan.m@microchip.com/
+
+Manikandan Muralidharan (7):
+  dt-bindings: mtd: jedec,spi-nor: allow the SFDP to be exposed via
+    NVMEM
+  dt-bindings: nvmem: layouts: add Microchip/SST SFDP EUI layout
+  mtd: spi-nor: sfdp: expose the SFDP as a read-only NVMEM device
+  nvmem: layouts: add Microchip/SST SFDP EUI layout driver
+  ARM: dts: microchip: sama5d27_wlsom1: use fixed-partitions for QSPI
+    flash
+  ARM: dts: microchip: sama5d27_wlsom1: read MAC address from QSPI SFDP
+  ARM: configs: sama5: enable Microchip/SST SFDP EUI NVMEM layout
+
+ .../bindings/mtd/jedec,spi-nor.yaml           |  18 ++
+ .../layouts/microchip,sst26vf-sfdp-eui.yaml   |  60 ++++++
+ .../bindings/nvmem/layouts/nvmem-layout.yaml  |   1 +
+ MAINTAINERS                                   |   6 +
+ .../dts/microchip/at91-sama5d27_wlsom1.dtsi   |  61 +++---
+ .../dts/microchip/at91-sama5d27_wlsom1_ek.dts |   2 +
+ arch/arm/configs/sama5_defconfig              |   1 +
+ drivers/mtd/spi-nor/core.c                    |   8 +
+ drivers/mtd/spi-nor/core.h                    |   1 +
+ drivers/mtd/spi-nor/sfdp.c                    |  86 +++++++++
+ drivers/nvmem/layouts/Kconfig                 |  10 +
+ drivers/nvmem/layouts/Makefile                |   1 +
+ drivers/nvmem/layouts/sst26vf-sfdp-eui.c      | 182 ++++++++++++++++++
+ 13 files changed, 415 insertions(+), 22 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/nvmem/layouts/microchip,sst26vf-sfdp-eui.yaml
+ create mode 100644 drivers/nvmem/layouts/sst26vf-sfdp-eui.c
 
 
-
-On 7/9/2026 6:37 PM, Manivannan Sadhasivam wrote:
-> On Wed, Jul 08, 2026 at 11:47:17AM +0530, Krishna Chaitanya Chundru wrote:
->> The Eliza EVK board connects PCIe1 (8GT/s x2) to a Toshiba TC9563
->> PCIe switch. Enable PCIe1 and its QMP PHY nodes.
->>
->> TC9563 uses I2C (at address 0x77 on I2C4) for its management interface.
->>
->> Override the base iommu-map with the expanded set covering all the
->> switch's downstream ports (0x1400-0x1408 SID range).
->>
->> The TC9563 RESX# and PERST# are OR-ed internally to assert reset on the
->> switch. Use TC9563 RESX# pin via a TLMM GPIO and skip wiring PERST#
->> from the PCIe controller.
->>
->> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
->> ---
->>  arch/arm64/boot/dts/qcom/eliza-evk.dtsi | 112 ++++++++++++++++++++++++++++++++
->>  arch/arm64/boot/dts/qcom/eliza.dtsi     |   1 +
->>  2 files changed, 113 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
->> index 6d76715ccffb..e099b7c8c371 100644
->> --- a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
->> @@ -12,6 +12,26 @@ chosen {
->>  		stdout-path = "serial0:115200n8";
->>  	};
->>  
->> +	vreg_0p9: regulator-0v9 {
->> +		compatible = "regulator-fixed";
->> +		regulator-name = "VREG_0P9";
->> +
->> +		regulator-min-microvolt = <900000>;
->> +		regulator-max-microvolt = <900000>;
->> +		regulator-always-on;
->> +		regulator-boot-on;
->> +	};
->> +
->> +	vreg_1p8: regulator-1v8 {
->> +		compatible = "regulator-fixed";
->> +		regulator-name = "VREG_1P8";
->> +
->> +		regulator-min-microvolt = <1800000>;
->> +		regulator-max-microvolt = <1800000>;
->> +		regulator-always-on;
->> +		regulator-boot-on;
->> +	};
->> +
->>  	vreg_pcie_m_3p3: regulator-3p3 {
->>  		compatible = "regulator-fixed";
->>  
->> @@ -99,6 +119,98 @@ pcieport0_ep: endpoint {
->>  	};
->>  };
->>  
->> +&pcie1 {
->> +	iommu-map = <0x0 &apps_smmu 0x1400 0x1>,
->> +		    <0x100 &apps_smmu 0x1401 0x1>,
->> +		    <0x208 &apps_smmu 0x1402 0x1>,
->> +		    <0x210 &apps_smmu 0x1403 0x1>,
->> +		    <0x218 &apps_smmu 0x1404 0x1>,
->> +		    <0x300 &apps_smmu 0x1405 0x1>,
->> +		    <0x400 &apps_smmu 0x1406 0x1>,
->> +		    <0x500 &apps_smmu 0x1407 0x1>,
->> +		    <0x501 &apps_smmu 0x1408 0x1>;
->> +
->> +	status = "okay";
->> +};
->> +
->> +&pcie1_phy {
->> +	vdda-phy-supply = <&vreg_l1k>;
->> +	vdda-pll-supply = <&vreg_l3k>;
->> +
->> +	status = "okay";
->> +};
->> +
->> +&pcie1port0 {
->> +	wake-gpios = <&tlmm 53 GPIO_ACTIVE_LOW>;
-> No reset-gpios?
-RESX & PERST are ORed in this platform, as we can declare at only
-one place we declared it in the tc9563 node as resx-gpios
-
-- Krishna Chaitanya.
-> - Mani
->
->> +
->> +	tc9563: pcie@0,0 {
->> +		compatible = "pci1179,0623";
->> +		reg = <0x10000 0x0 0x0 0x0 0x0>;
->> +		#address-cells = <3>;
->> +		#size-cells = <2>;
->> +
->> +		device_type = "pci";
->> +		ranges;
->> +		bus-range = <0x2 0xff>;
->> +
->> +		vddc-supply = <&vreg_0p9>;
->> +		vdd18-supply = <&vreg_1p8>;
->> +		vdd09-supply = <&vreg_0p9>;
->> +		vddio1-supply = <&vreg_1p8>;
->> +		vddio2-supply = <&vreg_1p8>;
->> +		vddio18-supply = <&vreg_1p8>;
->> +
->> +		i2c-parent = <&i2c4 0x77>;
->> +
->> +		resx-gpios = <&tlmm 54 GPIO_ACTIVE_LOW>;
->> +
->> +		pcie@1,0 {
->> +			reg = <0x20800 0x0 0x0 0x0 0x0>;
->> +			#address-cells = <3>;
->> +			#size-cells = <2>;
->> +
->> +			device_type = "pci";
->> +			ranges;
->> +			bus-range = <0x3 0xff>;
->> +		};
->> +
->> +		pcie@2,0 {
->> +			reg = <0x21000 0x0 0x0 0x0 0x0>;
->> +			#address-cells = <3>;
->> +			#size-cells = <2>;
->> +
->> +			device_type = "pci";
->> +			ranges;
->> +			bus-range = <0x4 0xff>;
->> +		};
->> +
->> +		pcie@3,0 {
->> +			reg = <0x21800 0x0 0x0 0x0 0x0>;
->> +			#address-cells = <3>;
->> +			#size-cells = <2>;
->> +			device_type = "pci";
->> +			ranges;
->> +			bus-range = <0x5 0xff>;
->> +
->> +			pci@0,0 {
->> +				reg = <0x50000 0x0 0x0 0x0 0x0>;
->> +				#address-cells = <3>;
->> +				#size-cells = <2>;
->> +				device_type = "pci";
->> +				ranges;
->> +			};
->> +
->> +			pci@0,1 {
->> +				reg = <0x50100 0x0 0x0 0x0 0x0>;
->> +				#address-cells = <3>;
->> +				#size-cells = <2>;
->> +				device_type = "pci";
->> +				ranges;
->> +			};
->> +		};
->> +	};
->> +};
->> +
->>  &uart13 {
->>  	compatible = "qcom,geni-debug-uart";
->>  
->> diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qcom/eliza.dtsi
->> index cce65e18f979..363cabc5f55c 100644
->> --- a/arch/arm64/boot/dts/qcom/eliza.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
->> @@ -2102,6 +2102,7 @@ opp-16000000-3 {
->>  
->>  			};
->>  			pcie1port0: pcie@0 {
->> +				compatible = "pciclass,0604";
->>  				device_type = "pci";
->>  				reg = <0x0 0x0 0x0 0x0 0x0>;
->>  				bus-range = <0x01 0xff>;
->>
->> -- 
->> 2.34.1
->>
+base-commit: b95f03f04d475aa6719d15a636ddf32222d55657
+-- 
+2.43.0
 
