@@ -1,90 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B7F7446059;
-	Tue, 21 Jul 2026 08:16:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E84F3445AC3;
+	Tue, 21 Jul 2026 08:16:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784621810; cv=none; b=uEuM3pNGwGykGug9x18ohq2sIOHethIgP/B8u8eHBYNeoN3gbrNndRvARJ55d1fvjDrEaB2eXK6zGVUiEd9t4DpAR4SBqoqEokGOo7rOhQ6Ym80tKGSkR7874wdZsp1RvcsZi6poZRm+57SBHKT0e77KwNz9j5YAv7V3Xjoh/fg=
+	t=1784621827; cv=none; b=csJD2ByKwitlt8cAsCjEZOdaLWrTrth3uXD5/XoOEkPgfXX+fk87WhrjDbJka+N2jtS9OFkZvMjXvrsaAjvbsIY204kCEu4fLdcWB6T/opfHN4BTeQJJv/wU9js4+GYt1jmZLp+2gr6ASuJJD3gNGtd/fEPo97Y8WLs4p6JP9yg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784621810; c=relaxed/simple;
-	bh=zIljJK0NIVqKkOsBsfQz7AGCIjNAzQ59PvsGp26XoJA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JNqT+YzGGyAf5QCiqU5PvNU1EGZwEO9gdZmiyEB6xzuwWnnh5UredCl/CLCtToZ8dutJsAPrj8M4sw+1IUtF1O7ZN4ZI7UcEwam022AbQNMZqaMLU1wR/amOoQ4l/jthNJU/vLJCubnheyvdYkMHdiqqg5J1Q5u1HEZdHHikic4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sdvp391W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784621827; c=relaxed/simple;
+	bh=Mxh5rA6eMZ5HaHlazAu8CfBn2aYMqbfmWNRyDwwJNjs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=eqR0EPJ9fqB1vNdXnHGzzF9MuWjkzbaYHaImQtjmfZWT/eERL7KeWCcGjIgMC+J9seE7/NiJDeNAaGA3QC0YcTRsRn1d9qHSk5u4yg0WIUfFQDNF4WrRMaVsj3a85cdFZqMqrTo34eaVDvn/GloX/oBb4iDWaineMfgXBfiVrE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=KM7Qc+2Y; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sdvp391W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02FCA1F000E9;
-	Tue, 21 Jul 2026 08:16:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784621797;
-	bh=1sP7MrBG9kB7jM6qGOj+XgMqABnnG1TCj8gJkGQNSks=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Sdvp391WLQldmXz+4YPdhsdbstRVrkVPeGU4lOTAB3d0VMsb/C7bFoA6YCgZllI9q
-	 KdkYZAanur3GvyruRTwGsgIUoHS05j3XqlRzuiLpWTQdGyGEcqQWTKYtY9j0R7dPYW
-	 i4FwpeQV/Eohyark05xX3eNRA7lui9dNGb1q5hS3YAKoVGx6ZOKkc9ctmRtTQdbQ4F
-	 XyziqUrN2pWIR5jckDoGGXcg8szYmzkU+ct6ypRPc0hlkfN9fueeBHRW2lL018xbnM
-	 8v5qnOFpHX2kbgEPuJ3eEE9YtngEgKEN6YFNRPXu8Qzmimk4o1kJFoWP6sgU7BBasp
-	 nDapi9ohxjaIw==
-Date: Tue, 21 Jul 2026 10:16:33 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Simon Glass <sjg@chromium.org>
-Cc: Heiko Stuebner <heiko@sntech.de>, 
-	Fabio Estevam <festevam@nabladev.com>, devicetree@vger.kernel.org, Jonas Karlman <jonas@kwiboo.se>, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	Bartosz Golaszewski <brgl@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jeffy Chen <jeffy.chen@rock-chips.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Michael Riesch <michael.riesch@collabora.com>, Rob Herring <robh@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
-	Yao Zi <ziyao@disroot.org>, huang lin <hl@rock-chips.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/6] dt-bindings: soc: rockchip: grf: Add RV1106
- compatibles
-Message-ID: <20260721-didactic-tan-dodo-112ffc@quoll>
-References: <20260714193656.2196447-1-sjg@chromium.org>
- <20260714193656.2196447-4-sjg@chromium.org>
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="KM7Qc+2Y"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=+N5FscJywt+YqGXuLUzhGm/vFoyaAsakSzYz7zyBkkM=; b=KM7Qc+2Y2fY88mqpbZfgd0x/Fa
+	4ANU8+fOSVPxZjDuMSNs9aa98/gE33fw2FPd3YM41lZh/OjooCfxZl3z70Knyv6Vl5LfwSt4cGWgH
+	Ebu6Fu+WfG9kociLblneNsXzqxSvnkf/z84A87nq61i7h7OlaLFxcZHpidTV5dkhgQSUNT4f+aXP8
+	4LIzmq+jpZ0Y0LztV+0t+yUb8aqgfUzDEdv/qi9SrQ4OPmxqV4fxbyTLtNeIJvrdexVe3r41hpefw
+	JDtyWqAC3GQD81Re3RNmsnWpj2fSICN9klBadgPQEJLV5PP+vj6K2vTPaLcOQUkMSkEnwO7KiesWe
+	G+7A5UIA==;
+Received: from sslproxy03.your-server.de ([88.198.220.132])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wm5D8-000OWD-1X;
+	Tue, 21 Jul 2026 09:48:18 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy03.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wm5D7-000OyO-1Y;
+	Tue, 21 Jul 2026 09:48:18 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Xu Yang <xu.yang_2@nxp.com>, Frank Li <Frank.Li@nxp.com>,
+ Frank.Li@oss.nxp.com
+Subject:
+ Re: [PATCH 1/2] arm64: dts: imx8qm-ss-conn: add usbotg3 iommu information
+Date: Tue, 21 Jul 2026 09:48:16 +0200
+Message-ID: <2844770.mvXUDI8C0e@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <20260720-qm_smmu-v1-1-3689fbd8b516@nxp.com>
+References:
+ <20260720-qm_smmu-v1-0-3689fbd8b516@nxp.com>
+ <20260720-qm_smmu-v1-1-3689fbd8b516@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260714193656.2196447-4-sjg@chromium.org>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28067/Tue Jul 21 08:23:56 2026)
 
-On Tue, Jul 14, 2026 at 01:36:40PM -0600, Simon Glass wrote:
-> Add the compatibles for the general register files of the Rockchip
-> RV1106: the main GRF, and the per-bank GPIO IOC blocks used by the pin
-> controller.
-> 
-> Signed-off-by: Simon Glass <sjg@chromium.org>
+Hi Frank,
+
+Am Montag, 20. Juli 2026, 23:10:33 CEST schrieb Frank.Li@oss.nxp.com:
+> From: Frank Li <Frank.Li@nxp.com>
+>=20
+> Add usbotg3 iommu information.
+>=20
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 > ---
-> 
-> Changes in v2:
-> - Drop the grf-cru clock-controller child and use the syscon-only
->   group for the main GRF, since the CRU now provides the MMC phase
->   clocks
-> - Use a single gpio-ioc compatible for the per-bank IOC blocks in
->   place of the ioc and pmuioc regions
-> 
->  Documentation/devicetree/bindings/soc/rockchip/grf.yaml | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-> index 2cc43742b8e3..fd9235ac1334 100644
-> --- a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-> +++ b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-> @@ -64,6 +64,8 @@ properties:
->                - rockchip,rk3588-vo1-grf
->                - rockchip,rk3588-vop-grf
->                - rockchip,rv1103b-ioc
-> +              - rockchip,rv1106-gpio-ioc
+>  arch/arm64/boot/dts/freescale/imx8qm-ss-conn.dtsi | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/arch/arm64/boot/dts/freescale/imx8qm-ss-conn.dtsi b/arch/arm=
+64/boot/dts/freescale/imx8qm-ss-conn.dtsi
+> index ccf9f510e0f88..1370a571153a5 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8qm-ss-conn.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8qm-ss-conn.dtsi
+> @@ -32,3 +32,7 @@ &usdhc3 {
+>  	compatible =3D "fsl,imx8qm-usdhc", "fsl,imx8qxp-usdhc", "fsl,imx7d-usdh=
+c";
+>  	iommus =3D <&smmu 0x11 0x7f80>;
+>  };
+> +
+> +&usbotg3_cdns3 {
+> +	iommus =3D <&smmu 0x4 0x7f80>;
 
-And this also answers my previous email (pinctrl/gpio bank): you have
-one GPIO IOC, not multiple ones, although commit msg tells different
-story. Confusing. The compatible here defines register layout (see
-writing bindings - it is explicitly documented there) so do you have one
-device or multiple with the same register layout?
+Where in the RM can you get these values?
 
-Best regards,
-Krzysztof
+Thanks and best regards,
+Alexander
+
+> +};
+>=20
+>=20
+
+
+=2D-=20
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
+
 
