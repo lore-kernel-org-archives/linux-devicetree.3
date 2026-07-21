@@ -1,204 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2527B4D90C0
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:14:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784646854; cv=none; b=uCNVSXgqWCWSG6d6B1JA4p+xUAhXpbJ8TLNkGeA6d9I8GlQUpPNvj/RSdtde+qzxE/inHGnjtA1LX/g4w5CyWftQVcoM16g8F1y4Kn5T8nR4xwh9vtRORaZGy+rQyVBDmjPbspZv8Gr4AVk9ABp6Pt8pZs43d5u0WWZcw3iKM8s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784646854; c=relaxed/simple;
-	bh=BGKQRLr/NyUSozzGysxHZCmHHIvI78X6TSJmv+S9Yyg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UN4lBd/k5dZBGDyxhRgmPcB25e1DI2aaJYMPFvJanDel7pn8lbiZUz2XpQaxk398osmE45vooVKGrgSb4xMUGdD0JOzMTvbJvZqkvYw2MZ+CoPJYIBVhY+oXuo8mKMGxeFdY3+xCROxXmc84VJfgbT8SKzluRJkBMvWhX1LfBbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QZEfxMog; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D9894D98FC;
+	Tue, 21 Jul 2026 15:15:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784646927; cv=pass; b=R3q6E0WRA8Pt05in8yWi6odEujfh5f0ZixEgxd9ZataH3n1f5s/keHI+riclvJXiMWzFMMueOw4oqOl895GmatFx0AyU62AX0tJj6xMLLqAfsvRErElr26pLoCEKykz9a1t4sRWEf4AUtMDsFH6Ygo10z1Itm+RuKVb67c6Bv3w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784646927; c=relaxed/simple;
+	bh=ETzqqR3X/WZ5qERWLgLEx7zSVM0/qbeiDGTqT07iscM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mxzpyI99p9GuglKbRKBYR17CZ+O+apnlD7f/qzoBcg7iPDjJSg8dXp3N7PAAuuzim0zcP7DhLmhv3q8DLb/wxwMHeL+1/LA7edJfJb5FlKp4kv5asv/CvmdxU+r/AfJn6Tqf/2uBLMJID8Ho123VHCNxeHYqRx2DhM1nbO//Q44=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=XgYrilH0; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QZEfxMog"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 882471F00A3E;
-	Tue, 21 Jul 2026 15:14:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784646852;
-	bh=T3dgHVHmxu4dH/rfO105IWjU/FYlpJdJhFzPE4XgAjk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QZEfxMogKYN5gAO3ITQd11aWJFSh0jnwDU9rDcswq+FjA7OcEBsriUNkl0Rtpriqp
-	 jpG/mSvnOo2K/fP9WYUoyAYLrr0/tnHLl/PAIN9QOHEvrmIuHk5HQxmNy6/A1LE8jx
-	 ymHVnCkaLoYiLjIpzN+J/YYfEpSKnD3GafV8BpGkEAti2cIIlSlujnMD/3/TtOVAnu
-	 SfaqOLIw4kSRPJQJBRpmG3qDX4pz8/fuUiPI2sfjvpZwAAhXxqPs8BFVagryd7XURX
-	 9vVXTGWPpm1T1/a4lCWLXn4hyNRO8CXmQ4o2GQpSZdYiePpX5e7cYpGIB0AL6Rz6Vm
-	 UVGiJd7jU0O5Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4] arm64: dts: qcom: sm8550: add Xiaomi Pad 6S Pro
- (sheng)
-Reply-To: sashiko-reviews@lists.linux.dev
-To: code_0002@163.com
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260721145822.1278-1-code_0002@163.com>
-References: <20260721144557.1455-1-code_0002@163.com>
- <20260721145822.1278-1-code_0002@163.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 15:14:12 +0000
-Message-Id: <20260721151412.882471F00A3E@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="XgYrilH0"
+ARC-Seal: i=1; a=rsa-sha256; t=1784646910; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=DVQQFaeaXJsErpXSmalKDRjp1wKLGpoTBMShl9q+/nye75MohNH2vJacaVILCqfr1zGO+0MfGqIXw3HyFytabBbyIBIfEvhPtXB8BhNR0R0WrrrrGOzIDpzKU5Rg5k0kQl0dolSQGGPBimFH35/1rw8MYMWSkDPApOGl8TLQ7f0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784646910; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Am4FBLquimoXLofVW39R5TXiLDXR3ax8a+vHWlboXD8=; 
+	b=GVdE9TgLfuxGwU5xYXs662IyQhf7y0C0Ae7WeaIAjeBq6SXSjxPlOsA8smbmhsQyE0lMK0S7xq1XetyGwwIV+EBWKpt0yEg0HRBtw+Y7TCKAcepXEb3WYiCMLxfTp77OFUDXAReixhD5o4KM05H95U+FTch55sOUeTCexXn+obo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784646910;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=Am4FBLquimoXLofVW39R5TXiLDXR3ax8a+vHWlboXD8=;
+	b=XgYrilH0DhdO3/Apsdp2g/O94Wepv5AWFeY2GH3ivNF+yasnIYsV//q+IhhMT5bx
+	/VuyhjGZlNp5DxV6ZYRpypl4J4TMBoW80UMpoKqPhX1ABTrnP+fba/GkG4uoDMCOOwH
+	j5W1bQ4IdMOz3i2CfGUc3RL5OwfJTkzKWm0hLVhQ=
+Received: by mx.zohomail.com with SMTPS id 178464690796118.531816677270967;
+	Tue, 21 Jul 2026 08:15:07 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 04A7C180765; Tue, 21 Jul 2026 17:15:04 +0200 (CEST)
+Date: Tue, 21 Jul 2026 17:15:03 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Igor Paunovic <royalnet026@gmail.com>
+Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, kernel@collabora.com, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 4/4] arm64: dts: rockchip: enable HDMI RX audio
+ capture on Orange Pi 5 Plus
+Message-ID: <al-M4gZ4cZwpEF_H@venus>
+References: <20260721064115.64809-1-royalnet026@gmail.com>
+ <20260721064115.64809-5-royalnet026@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="iv6yyu46n7brq5vz"
+Content-Disposition: inline
+In-Reply-To: <20260721064115.64809-5-royalnet026@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/284.638.57
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] Adding GPIO_OPEN_DRAIN to shared reset-gpios does not bypass the g=
-piolib exclusive request check, causing subsequent codec probes to fail wit=
-h -EBUSY.
-- [High] The reset-gpios for cs35l43 codecs use GPIO_ACTIVE_HIGH, which inv=
-erts the required active-low reset polarity.
-- [High] Invalid compatible string `kinetic,ktz8866a` prevents the backligh=
-t driver from probing.
-- [High] Missing pinctrl configurations for critical interrupt and reset GP=
-IOs, which may leave inputs floating.
-- [Medium] The commit violates the kernel's Developer Certificate of Origin=
- (DCO) and Submitting Patches guidelines regarding identity and chain of cu=
-stody.
-- [Medium] The `output-high` properties were incorrectly applied to hardwar=
-e-muxed pins in `i2s1_default` and were not removed as claimed in the chang=
-elog.
---
 
---- Patch [1]: [PATCH v4] arm64: dts: qcom: sm8550: add Xiaomi Pad 6S Pro (=
-sheng) ---
-commit 67dc6a3d188573154b653dea21a66bad2811a5b2
-Author: map220v <map220v300@gmail.com>
+--iv6yyu46n7brq5vz
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 4/4] arm64: dts: rockchip: enable HDMI RX audio
+ capture on Orange Pi 5 Plus
+MIME-Version: 1.0
 
-arm64: dts: qcom: sm8550: add Xiaomi Pad 6S Pro (sheng)
+Hi,
 
-Add device tree for Xiaomi Pad 6S Pro (sheng) based on SM8550.
+On Tue, Jul 21, 2026 at 08:41:15AM +0200, Igor Paunovic wrote:
+> Enable the shared HDMI RX sound card and the i2s7_8ch interface it
+> uses. Together with the audio capture support in the snps_hdmirx
+> driver this exposes a capture-only ALSA card fed by the HDMI input.
+>=20
+> Tested on the Orange Pi 5 Plus with multiple HDMI sources: capture
+> follows the source sample rate and stays in sync via the FIFO-level
+> clock tracking in the driver.
+>=20
+> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+> ---
 
-> Author: map220v <map220v300@gmail.com>
-[ ... ]
-> Signed-off-by: code002-2 <hiez832670@gmail.com>
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-[Severity: Medium]
-Do these identities meet the kernel's Developer Certificate of Origin (DCO)
-requirements? Both the Author and the Signed-off-by tags appear to use
-pseudonyms.
+-- Sebastian
 
-Furthermore, the Author's identity is missing from the Signed-off-by chain,
-which breaks the custody tracking.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sm8550-xiaomi-sheng.dts b/arch/arm6=
-4/boot/dts/qcom/sm8550-xiaomi-sheng.dts
-> new file mode 100644
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm8550-xiaomi-sheng.dts
-[ ... ]
-> +&i2c1 {
+> Changes in v4:
+> - only enable the shared hdmi_receiver_sound card and i2s7_8ch, now
+>   that the card definition lives in rk3588-extra.dtsi (Sebastian
+>   Reichel)
+>=20
+> New in v3.
+>  arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>=20
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/ar=
+ch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+> index 9950d11..9f9a303 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+> @@ -171,6 +171,10 @@
+>  	status =3D "okay";
+>  };
+> =20
+> +&hdmi_receiver_sound {
 > +	status =3D "okay";
+> +};
 > +
-> +	backlight: backlight@11 {
-> +		compatible =3D "kinetic,ktz8866a";
-
-[Severity: High]
-Does the upstream Kinetic KTZ8866 backlight driver recognize the 'a' suffix?
-
-The driver in drivers/video/backlight/ktz8866.c and its bindings seem to on=
-ly
-support "kinetic,ktz8866". Without a fallback, could this silently fail to
-probe and leave the display unlit?
-
-[ ... ]
-> +&i2c5 {
-> +	clock-frequency =3D <1000000>;
+>  &hdptxphy0 {
+>  	status =3D "okay";
+>  };
+> @@ -247,6 +251,10 @@
+>  	status =3D "okay";
+>  };
+> =20
+> +&i2s7_8ch {
 > +	status =3D "okay";
+> +};
 > +
-> +	cs35l43_trl: cs35l43@40 {
-> +		compatible =3D "cirrus,cs35l43";
-> +		reg =3D <0x40>;
-> +		interrupt-parent =3D <&tlmm>;
-> +		interrupts =3D <98 IRQ_TYPE_LEVEL_LOW>;
-> +		reset-gpios =3D <&tlmm 90 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+>  &led_blue_gpio {
+>  	gpios =3D <&gpio3 RK_PA6 GPIO_ACTIVE_HIGH>;
+>  	status =3D "okay";
+> --=20
+> 2.53.0
+>=20
 
-[Severity: High]
-Does adding GPIO_OPEN_DRAIN bypass the gpiolib exclusive request check?
+--iv6yyu46n7brq5vz
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Since all six cs35l43 codec nodes share this exact reset GPIO, gpiolib will
-likely return -EBUSY for all subsequent codec probes after the first one
-succeeds.
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: High]
-Also, does (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN) invert the intended active-=
-low
-reset polarity?
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpfjPcACgkQ2O7X88g7
++pqFLRAAkmIPl5/P8Z94H28WY+soiwfSEDNsLAiSGJlJVS8FgREkVhPImsKSVjR3
+4o3c4JrrBdq9xWtsdrGrMq3CpCGJ1DJo9OtHO0XMVMWs9d9ubkjM0ob/usXXhjxU
+OAzf5GLrUiNsMj8w149tKjXpYF1whrUVPN6ZXmhRpcKkzlsGPhFiD766yx//N0ty
+yeh8uFvXqYA5IrRy0G3ZOnUl9bxnqJ/DumiW414ps5KGfdkx51psOGE7y5L//MhS
+MhDrmU1MzPRNzo+GUaVahydIG8WA5LHI52fTRSeausAuuuzrgKlIyQWCnjAPxA5X
+9MiD4rdNpUZRjPiddyT1AiezcSqHtL4e6KcRhnRjuMDne/32jNsBZnCfSeCdpk3A
+5dWp60RnpVzYYGp93F7BRe25Urj3ik5HVmGVMUkSJ4bwSVP2RWSX+GiPTjlAe2IK
+x63SwNOF++ZZSXd0VX2tP2mm1Ih2LvD5NI0R2Az8pzfmpwPST2UfgSvVfOfp7mMI
+HSUOh6hFH8XlAg2rz8Ny4u25SzmyCa6wQbf6t9n1Fzoeam47sfuEcH9BaexoX/B4
+RcU4y9M5N3ZmsQf0z2rhP6fkyFv/ifDrl7wMrCnScB0wtKoBluIt3wzJ+zKFn3z4
+8pudmmYwXa7d6tb+SfCxNtEh7SbqGZWhHZmJtYy6V9uJdbBQk7w=
+=d36M
+-----END PGP SIGNATURE-----
 
-By specifying GPIO_ACTIVE_HIGH, gpiolib will translate a driver's logical 0
-into a physical LOW, which might hold the codecs in reset permanently.
-
-[ ... ]
-> +&spi4 {
-> +	status =3D "okay";
-> +
-> +	touchscreen@0 {
-> +		compatible =3D "novatek,NVT-ts-spi";
-> +		reg =3D <0>;
-> +
-> +		spi-max-frequency =3D <19200000>;
-> +		novatek,irq-gpio =3D <&tlmm 25 GPIO_ACTIVE_LOW>;
-
-[Severity: High]
-Is a pinctrl configuration missing for this interrupt pin?
-
-The device tree relies on interrupt pins like gpio25 for the touchscreen,
-gpio62 for the MCU, codec interrupts, and the shared reset pin gpio90, but
-fails to define and attach pinctrl states for them.
-
-Leaving interrupt pins floating without explicit biases risks spurious
-interrupt storms, and unconfigured outputs risk failing to reset hardware
-correctly.
-
-[ ... ]
-> +	i2s1_default: i2s1-default-state {
-> +		sck-pins {
-> +			pins =3D "gpio121";
-> +			function =3D "i2s1_sck";
-> +			drive-strength =3D <8>;
-> +			bias-disable;
-> +			output-high;
-> +		};
-> +
-> +		data0-pins {
-> +			pins =3D "gpio122";
-> +			function =3D "i2s1_data0";
-> +			drive-strength =3D <8>;
-> +			bias-disable;
-> +		};
-> +
-> +		ws-pins {
-> +			pins =3D "gpio123";
-> +			function =3D "i2s1_ws";
-> +			drive-strength =3D <8>;
-> +			bias-disable;
-> +			output-high;
-> +		};
-> +
-> +		data1-pins {
-> +			pins =3D "gpio124";
-> +			function =3D "i2s1_data1";
-> +			drive-strength =3D <8>;
-> +			bias-disable;
-> +			output-high;
-> +		};
-> +	};
-
-[Severity: Medium]
-Are these output-high properties correctly applied to hardware-muxed pins?
-
-In Qualcomm pinctrl, static output states should typically only be configur=
-ed
-when function =3D "gpio". Applying output-high to hardware-driven pins can
-conflict with the hardware controller block.
-
-The commit message also mentions removing output-low/output-high from TLMM
-pinctrls, but they appear to still be present here.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721145822.1278=
--1-code_0002@163.com?part=3D1
+--iv6yyu46n7brq5vz--
