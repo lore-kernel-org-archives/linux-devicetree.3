@@ -1,88 +1,88 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D696740912B
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 06:29:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03CA22AD2E
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 06:29:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784615383; cv=none; b=YM34iaP7SuxHiKeErZw1LeOl90G9tHNRBvHBE5cs4TOAZfb3b2EBDoOZNmS6WYZZld405Igr+rq1LsxxV4jDQeaEEuLVOqPY4kayE0TgmPN/frhLnLFBx+yTPwh2KVG/yq6xFH7OKdQOPTFtpVsaQ25FhbEgYA7M4snRLHrRf8w=
+	t=1784615390; cv=none; b=J3wKYgE9aMYqHJMlmNteUpifhrgPazZ+3qCuPoVApR4wXMNC9kQ3+x+GN9nn7/lsQPwFPijknJi6Zx8POVU9RdB638bR+Of+Eb5jvdpm4tUaDufOB3AQe6MPFJFejNYv7VR5mhsH8b98rzYbNTZ9mCFgntJahoMoEt7kP8Oknjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784615383; c=relaxed/simple;
-	bh=h1RranJv2jI2LM6kKtghCftRiHqPNe2hX70tj3R37IA=;
+	s=arc-20240116; t=1784615390; c=relaxed/simple;
+	bh=GONTJSYcNvJs7QEMLgaR+oUX4qDBOmqUBB2BocJpUds=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Co5BXSUSp25Tzx67d8nIyQpdznldqFH8sKqNxNwH+J6WYGR8A1PlbEo4FMBtt6QuId9S7oD+wMlc/Qn5sWuX/oCQH+W/KLLAk7x+marmrAkEkoDFqi8GPTqnvoFXXlh6WFPhkVOYSAte23co2BQ1eaFV+L6KYwNn5zz2xU7K1ZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MPRQF3Cg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WDFbBRKc; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=U2PwITqKu498cf1JUP7NubNcPNRRf+rQqk0e3vBOAGguRtsy5DHpwjUjhIUe/3nQUi3UVplpR0VOwyn/LW5Bh46kgQ5VnPYUt+Mj5Ei58MkQbPL2JyuHu6NIM4VVedkoXlwrepuWtTN89O9TJqHMDtCdkf+dZlUwtpIB8R49szw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GxGbqdaZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iAC43HDy; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MPRQF3Cg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WDFbBRKc"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66L46Ctl037774
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 06:29:41 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GxGbqdaZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iAC43HDy"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66L2nMAC043573
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 06:29:48 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	sUJU52E8gQzRrANsqemYRxfZIyv/3tHDVZxDRAiAzhc=; b=MPRQF3CgHgPfeTBK
-	L3qVSTOV5TVpv2zu2jLnnrdgbwAHVI8DHSPe56gMvIjldRPtPp5refa6g2dhWUm5
-	aC36FS5NK36VR/vyqsZvqiR6IrvW6AUHlCxeXB+y0TgfV/QspRlg90l3eaTVcdPr
-	yNeTFyR/ath3X7elTzO9Q8oHmxiTeA1j4u6aLHmfeAhVdUQz3wtWGBuEaNFjQ/vH
-	3odWsQLnVmFZhBdx5v4FVqtxUKa+aqvquynwTQCOD6XT3he9edrF3lzDhGY7t2+Z
-	iuPQXkicPV2J5Jk0swItLiOR95druDoLvpOQGfNPXoYp7MWRT4mrs2LmFtnxViwc
-	rrtbvQ==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj1es0gqr-1
+	2cDFJuefHfzoEFQ+pZuZu+bCX06c3eux2xACecFGf1A=; b=GxGbqdaZ/olVd+em
+	7zZlkM/L3gam7eL4iXvXk5ztYsycsw+NCwPM8Ta3BQgsqKLsO7hWJpCkMNV8ld7i
+	7ApX3NBSnkOilXfYSfUc4wJziHRwKo3b1434j94LC3Ly/eaGt52WQyI/FH/yYrbY
+	Gcb0LmyIpvQ5GYg+hWULDT7OGIcdyidvVCJdCGgf4XFogrUULi4NZneMH2Q0Vo+z
+	/pVSBmXC+JesHFa88OCLoVLOQL8dMrvzOvjtTO0pbwhPqOEgg3AbVZEOWAJim2nT
+	GTIeS52CHBvtHxhYKbFh7arGK+cQGcQFvA69qSA3PoNBif7Z3M9vx/RJwZ5Xa5N5
+	5M+v9w==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj0as0tcb-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 06:29:41 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2c7f385887bso268235795ad.0
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 23:29:41 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 06:29:48 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ccb6f6a3f4so84379335ad.1
+        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 23:29:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784615380; x=1785220180; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1784615388; x=1785220188; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sUJU52E8gQzRrANsqemYRxfZIyv/3tHDVZxDRAiAzhc=;
-        b=WDFbBRKcptKo956nHBt9hnbhb1UkZ9hRqZmN7OqE5LCLS84aNV+ra4hd0bfaYaWJqZ
-         JaEiZslGskSN/HFhsWovJ32cyOw8b38ksFWtDqf9nZhi8yF0h+84oNkHvZB58A/S0Wmy
-         GzLGZg4QYPzOCNgTtWN1a6j0VSOBkNMu4dol21VlYHSzkzx2F3cL0x6lyu91LyiPEg1E
-         K78BxhzYoSMwZLuQf4yXqaAuzZ2aCC3cR//6FrBwWRWwvJIjYnM12ta8PFWpdy0uZiQM
-         7taN1QC5RdKMEXeYpU6nMpDn0VeCk56hxp3hR/l/Bt1I3Ylyk/7hnrfHzP8PyOGTa7p6
-         aRTw==
+        bh=2cDFJuefHfzoEFQ+pZuZu+bCX06c3eux2xACecFGf1A=;
+        b=iAC43HDyVE0+7Xfmy87VJGKYVNP8fAIY5HUIelRYT29ZeNfSlGM+4ez9JYgv1bz+Qn
+         9AlbGrjvyC1fW2O7o9izv68XIEQgqXV7GZ0qIUhhLdT9ON7W7gjeixLFjKafZgdJgVqb
+         TUA17lhrKZ1COydSYXxOm6xz41ezAI0zhZk6uiUMryjW+OuBCo4Tkg+GT4U33VjyKcDk
+         YhVrlNJft69kjCtuVsVmxDvWknX/LTMONUAYk4nZEcK5CC4OXG6b2abZnmyiHP3bu3fU
+         aSyI4HDRhpAXpEAl6MRDeutzvIFFcJdIJJclPdRndBoSW9GRooCDT7ZwAXyi2m0dY4dO
+         LJSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784615380; x=1785220180;
+        d=1e100.net; s=20251104; t=1784615388; x=1785220188;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sUJU52E8gQzRrANsqemYRxfZIyv/3tHDVZxDRAiAzhc=;
-        b=qBbeBw85fwG4W0g2hTJ5yF2gwBhxOy/sY4tEADuFStoLq6hqSNJYkT3+Z5KI8Q2y7d
-         XIGSUnHD+US8ICF8U0l1Cg/zvNDcjme6qOsjPBFFX1/1b+lMl89ITxmvrSVXeYmLG5jT
-         DrvlnecFo5AO/YrZbHZhG4MyJernhvuJMFdx2O/H/xWvy9HnWng8U90UJFAFBE7oKjZf
-         GT+SZNvpc1y1sZI2ouda+rT3hVEEQmG2gqL7amLcdIkUg1UArt2mHCQBlanWR3ZGa9ue
-         Fd46XWiswH4H2v8qCTelNm/C+MVVsdr8ZekzbTiAVLkZRhI4Wwqxk1Ws+ET4loDnzQGv
-         6oGA==
-X-Forwarded-Encrypted: i=1; AHgh+RrCqajbkIfid5tGjMCWTcMg7LVfNHxsal0YDGSt20yNv77LQ71A8ZtGsB8a81MVLlzdHtXwFR1CaWBr@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw/vljEWMslypwfGioBc9J4hm2FiyKWwVSrhx6yhtqPP9U+uCgp
-	/2MrBfmMl81jWnlWSkBFTRBnGsvuhvO4TNwoUjiFeQ8xkkNBUZbE54d9KJeVZWefJ9nHlzeDWzL
-	DTQuFtYCPUcLKfUBiISusCNcUZCTmNNbzaT9ACDhtPhenZlmituaNdAj+6RCzS96P
-X-Gm-Gg: AR+sD10ZdlpuPg9yRApX1fu8dyNIYar18sKv80OsPdtp75Mhczj4UOzeRCTMYwP1cqm
-	n35F4hBXR2Xe8V2XHPDE5xZgHqNzJbC5t5nPJPsn7BFydW2OpMBMLfhq/bdc6lG1fL7BI0LzN5E
-	z4JcrdF8ejvjGaJAm5Kt4EYVyvDQyTwP9dYDmTXaRuAoc0iUujt/NgMj3IGVOlM+XKNxmw3acMr
-	LgsE9kGhTkMB0nKLL+OAZT9mfev+uZpr8DprH+6RJmmdMzo+nJr2rETAUWKLiHs4YbMjw68TVO6
-	L9ysfTN2PpbD5KawDMOcoppwU+5n45KSwl7rbBDk6jmKK8rlM2+0JgvO5MyaVt8NsPeeuqDeMab
-	iHXSgn2OyfD+S4CQoPUzQOH1mk7hVaA==
-X-Received: by 2002:a17:903:244b:b0:2cf:7c95:953 with SMTP id d9443c01a7336-2cf7c950a5dmr38620745ad.47.1784615380481;
-        Mon, 20 Jul 2026 23:29:40 -0700 (PDT)
-X-Received: by 2002:a17:903:244b:b0:2cf:7c95:953 with SMTP id d9443c01a7336-2cf7c950a5dmr38620345ad.47.1784615379989;
-        Mon, 20 Jul 2026 23:29:39 -0700 (PDT)
+        bh=2cDFJuefHfzoEFQ+pZuZu+bCX06c3eux2xACecFGf1A=;
+        b=lTruDXqlSw+FX+T2BBgc1Fv1ydvYhdbyXv9G8KqZnV3BqTqQfkXVpOkEwN2cE4HZV6
+         uXPOtNTELRpKK3QCt22x6hsw30wpc8w5/Ljrq+LS29uhFaSA/MNKwqBcvVqejqNN49Bt
+         XX0b/HjkzJO8uxMiNXPBrQ9bgFQVwW8scc+0VjjwPRIxOPwECeM97KLevTb94SHmpB7g
+         u5waeBIpjKWqT2ZZxNuHhvuTuca2NAdT0rZVWbVrj/QpSIHnkM1rrf2ABX7LzcAREOqh
+         khm++2gggoYHq4LxIK8/YKjkOK1PJoamDaKJOaY2tqTI5mgFrVsBnfVoFpzHug4qvsga
+         UgcQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr+uGpNoC4hoO1HaMp2WgKpJs3eFyc2bJa51gl4R3PzkshRMlVcD6mEK1wS5cVxMGCfkVR3B4q3S7E3@vger.kernel.org
+X-Gm-Message-State: AOJu0YwYhlNLECXS1+XpUVe9MuIPIhUH3fnSxXpuwI8hKCUNDfsgWMjr
+	pDCUQPl6mpwZOwmKxnvfSkMztOrj7k71dyS2PDtSoV2G/WK2l/MSeGjquLSkbBpjM2ffZzypAWG
+	Qs4MdSBjhK2QAyOw7AfpJ2UpBaxFRND4nf/B2m4g4eqeLOCPmaHxu6hJ9O5IzCHEs
+X-Gm-Gg: AR+sD12dYkYwXn9/08vz5QekEbNN/FmTeNxbIc7YjJBXoIkWc9ofWBA1lnphibHwcpe
+	iCHLUrcEt21VyQyI9r1KS6x1FbASAU70uuGxCzl3aMfLbHqL3rfPKxj2YmHSyaQPpBa25dAOEoI
+	MSYmfaa+BH4zUYD+lN2mQFt4871Y126C0XTgjnPbAx23xOvVO4SnHFBpbIfR3yBqimVCGDgIgpU
+	cpUOf4pHbBwKXw9I/UXAsIU3VotXGkHdE9jfhP1XbHU6FrOnB70G2r/OdUQfhE61+jmENvqa1cK
+	HQX1U44HWIMavtcRmnGXm4zAbOfiGRqlXXI4UmHAz01NI3k4lo1NI8ewELduybCwxCKEXpGR/G8
+	hsuI8lnRLe9wfMNI8nqdJwLQE4ujdcQ==
+X-Received: by 2002:a17:902:dace:b0:2ca:c847:8e41 with SMTP id d9443c01a7336-2cf349776aemr186656695ad.11.1784615387484;
+        Mon, 20 Jul 2026 23:29:47 -0700 (PDT)
+X-Received: by 2002:a17:902:dace:b0:2ca:c847:8e41 with SMTP id d9443c01a7336-2cf349776aemr186656425ad.11.1784615387041;
+        Mon, 20 Jul 2026 23:29:47 -0700 (PDT)
 Received: from hu-gkohli-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf347a1201sm69376505ad.81.2026.07.20.23.29.33
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf347a1201sm69376505ad.81.2026.07.20.23.29.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 23:29:39 -0700 (PDT)
+        Mon, 20 Jul 2026 23:29:46 -0700 (PDT)
 From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-Date: Tue, 21 Jul 2026 11:59:00 +0530
-Subject: [PATCH v5 3/9] remoteproc: qcom: pas: add support for TMD thermal
- cooling devices
+Date: Tue, 21 Jul 2026 11:59:01 +0530
+Subject: [PATCH v5 4/9] remoteproc: qcom_q6v5_pas: enable QMI TMD cooling
+ support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-b4-qmi-tmd-v5-3-99620e07f505@oss.qualcomm.com>
+Message-Id: <20260721-b4-qmi-tmd-v5-4-99620e07f505@oss.qualcomm.com>
 References: <20260721-b4-qmi-tmd-v5-0-99620e07f505@oss.qualcomm.com>
 In-Reply-To: <20260721-b4-qmi-tmd-v5-0-99620e07f505@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -115,226 +115,150 @@ Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
         linux-pm@vger.kernel.org, linux-hardening@vger.kernel.org,
         manaf.pallikunhi@oss.qualcomm.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784615351; l=5141;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784615351; l=3908;
  i=gaurav.kohli@oss.qualcomm.com; s=20260302; h=from:subject:message-id;
- bh=h1RranJv2jI2LM6kKtghCftRiHqPNe2hX70tj3R37IA=;
- b=X71gCf3J0yi/xq63/3gkPZz6xEby0/VxuJ4IHbaBHttSnwN/I4FGP12pkIRby2cN7j1jsMyO2
- Z8y8pHQ071SBO/DVL3G1i2YcQ+zYBMLtKKfsiIdCRM2cznTrSTz11xq
+ bh=GONTJSYcNvJs7QEMLgaR+oUX4qDBOmqUBB2BocJpUds=;
+ b=BwrCwaSCqBPUWGlnTL2wsEEb+Jau6H/89XXTF3ADd5CjoiwlARMFX7VspHoYS97DU8RHHTXSR
+ dqTcROa0xcgBm6MNvhG5KHElrRJHgOTVv1vnuU2fICDU1zNKzKcB4n5
 X-Developer-Key: i=gaurav.kohli@oss.qualcomm.com; a=ed25519;
  pk=IdNsqe8rWsF6dbpGHfwPEH9zM0nbOdRH72HxUT9qPak=
-X-Authority-Analysis: v=2.4 cv=SPZykuvH c=1 sm=1 tr=0 ts=6a5f11d5 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDA2NSBTYWx0ZWRfX+uhdaZfwq9u9
+ 8bMjL+kjJq4q4mrJ2qyhExwHFu3+79fPzRTsuQauD47XiURD4Ip1dIgGSGT0KjYeXHOtuc4wQnu
+ LmyX/Iuux7Lv6kBKCXBVLHrTzQMfyQBx7r86kGwsxZaVaRyueqcYKm09F1jemsJky4Gfzqce9eK
+ E4cDsgZE7beLWaI1ytxWUVgn3xGmdaOYFdwcwOSSTdZn0VTfcIArWH/ArrrJaJziL1jnZ+xCJ1g
+ P034T+H6cevJq+UcOTbIAp96Uy9Iw1W40wJKGTUU7bMuFB6B34DGJ/+rDWI77k1ZANYFrxTVW0G
+ uqkoFAug2roJqGWiiKXlKbOVlZSfvLfLHqzKUukxTDRTbdlkpM6y/SN6+2qFBZRzfq2KZlUq0PQ
+ Tp7UlXVHemn4ZmLv47eflooEdYq1dHS93QUqN0Vdy9QtimttmDdjIdtW/ijEKIoQPw+4Z7Tax93
+ bQqNUSdQ+kno/HzWk6w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDA2NSBTYWx0ZWRfX/3FPv7xb6/Dm
+ UnUZKnNpFqShdwPq2ziiWBoo/0rhhYt61GdbONZsuoejnl3noig4MtmPEyc21aOFOiO4LxRKSTp
+ RGoW9A5pdE1rZg8ZkwGfDbW82mnzd5g=
+X-Authority-Analysis: v=2.4 cv=DoFmPm/+ c=1 sm=1 tr=0 ts=6a5f11dc cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=JsyU97BMdJ6RvXteW0AA:9 a=+jEqtf1s3R9VXZ0wqowq2kgwd+I=:19
- a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-GUID: gXcss4w5HgsMHHo5Vzlmc4iZ5wlPKnWJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDA2NSBTYWx0ZWRfX60fpSS/uCWRY
- 7PN7rfp3LgiiCqxQr8zS1JWNB11ZqfooOuRy3okPYplbtZHH2yFe6o2qcuWJpUfRM/emjORV26J
- JT9mso6/7wUcqPDB5sPUtWHGrDx+tEnmLOu9sRlVHkgZyvG2MqvHWzM8X75DYWPJS5M8Py6Qo1b
- QVoKGZYTDl/61SQ0BV2g0F4IUU74GOszZwURVWPgT5/TPKwJtHyJAUNXbv8X4YuyKnJu9V9hF2I
- CQXldCgXFHg6itUZBXGNAOmVxulTyLibVrLavYAVX4hNJrclixkkdDru8Ut77y45ECaLK0SZtt0
- KdeDzxmwY5xEpJUDMms2A2H7XAqj8bj3OqCo4OI6xPBGpEnsFiMyD+qB2E8MI6bGaz2pQy2acYM
- V8rxABxJX1MQnUtavEca7EczALUwwcjKiOBlBxyr2OfM3K7YlgDdTtzKiUtERKG7IZHGCY1XE00
- o0oN7rzzKizex6DnMoQ==
-X-Proofpoint-ORIG-GUID: gXcss4w5HgsMHHo5Vzlmc4iZ5wlPKnWJ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDA2NSBTYWx0ZWRfX454jYER2Zlwr
- iz7CMGZ2Lwq92u8lOVDsynr/D5gVcu5P9BnXaLLKSaK8siMaf7rPkGlaRNwMdxPUGpeChhcNMPE
- yjlmr5kKbTdmgyH+lA4siFF4Y7B6n1Q=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=j6jQExit_mXiN_RbaP8A:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-GUID: CZBLoAiowCCEDpgMDxGQtnq-7ZqBj4ge
+X-Proofpoint-ORIG-GUID: CZBLoAiowCCEDpgMDxGQtnq-7ZqBj4ge
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-20_06,2026-07-20_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 bulkscore=0 phishscore=0 lowpriorityscore=0
- spamscore=0 clxscore=1015 suspectscore=0 malwarescore=0 impostorscore=0
+ adultscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015 phishscore=0
+ suspectscore=0 impostorscore=0 bulkscore=0 priorityscore=1501 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210065
 
-Register Thermal Mitigation Devices (TMDs) for PAS-managed remote
-processors to enable thermal throttling through QMI.
+Enable Thermal Mitigation Device (TMD) support for PAS-managed CDSP and
+modem remote processors on platforms that expose the QMI TMD service.
 
-This allows the thermal framework to request mitigation when remote
-subsystems such as modem and CDSP contribute to thermal pressure.
+This adds per-platform TMD configuration in qcom_q6v5_pas for:
+- Hamoa (X1E80100) CDSP
+- Kodiak CDSP and modem
+- Lemans (SA8775P) CDSP
+- Talos CDSP
+- Monaco CDSP
 
+For each remoteproc, the configured TMD QMI instance ID is used to bind to
+the TMD service running on that subsystem (e.g. CDSP: 0x43, modem: 0x0).
+The driver then uses the corresponding TMD endpoint names ("cdsp_sw",
+"pa", "modem") for cooling-device registration.
+
+QMI TMD identifies mitigation endpoints by name, while DT thermal bindings
+reference cooling devices by id. This change provides the mapping
+between DT cooling indices and QMI TMD names, allowing remoteproc nodes
+with #cooling-cells to act as cooling devices in the thermal framework.
+
+With this in place, thermal policies can request mitigation from CDSP and
+modem subsystems via QMI under thermal pressure.
+
+Reviewed-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
 Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
 ---
- drivers/remoteproc/Kconfig         |  1 +
- drivers/remoteproc/qcom_q6v5_pas.c | 90 +++++++++++++++++++++++++++++++++++++-
- 2 files changed, 90 insertions(+), 1 deletion(-)
+ drivers/remoteproc/qcom_q6v5_pas.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
-index 65befdbfa5f7..f7c02edf395f 100644
---- a/drivers/remoteproc/Kconfig
-+++ b/drivers/remoteproc/Kconfig
-@@ -229,6 +229,7 @@ config QCOM_Q6V5_PAS
- 	select QCOM_PIL_INFO
- 	select QCOM_MDT_LOADER
- 	select QCOM_Q6V5_COMMON
-+	select QCOM_QMI_TMD
- 	select QCOM_RPROC_COMMON
- 	select QCOM_SCM
- 	select QCOM_PAS
 diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-index 25599d728208..dc5be2c030cf 100644
+index dc5be2c030cf..b7fb4326ada8 100644
 --- a/drivers/remoteproc/qcom_q6v5_pas.c
 +++ b/drivers/remoteproc/qcom_q6v5_pas.c
-@@ -5,6 +5,7 @@
-  * Copyright (C) 2016 Linaro Ltd
-  * Copyright (C) 2014 Sony Mobile Communications AB
-  * Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-  */
- 
- #include <linux/clk.h>
-@@ -26,8 +27,10 @@
- #include <linux/regulator/consumer.h>
- #include <linux/remoteproc.h>
- #include <linux/soc/qcom/mdt_loader.h>
-+#include <linux/soc/qcom/qmi_tmd.h>
- #include <linux/soc/qcom/smem.h>
- #include <linux/soc/qcom/smem_state.h>
-+#include <dt-bindings/thermal/qcom,qmi-tmd.h>
- 
- #include "qcom_common.h"
- #include "qcom_pil_info.h"
-@@ -38,6 +41,16 @@
- 
- #define MAX_ASSIGN_COUNT 3
- 
-+/**
-+ * struct tmd_name - TMD device name to cooling-device index mapping
-+ * @name: TMD device name
-+ * @id: Cooling-device index used as #cooling-cells cell 0 in DT
-+ */
-+struct tmd_name {
-+	const char *name;
-+	int id;
-+};
-+
- struct qcom_pas_data {
- 	int crash_reason_smem;
- 	const char *firmware_name;
-@@ -58,6 +71,10 @@ struct qcom_pas_data {
- 	int ssctl_id;
- 	unsigned int smem_host_id;
- 
-+	unsigned int tmd_instance_id;
-+	const struct tmd_name *tmd_name;
-+	int num_tmd;
-+
- 	int region_assign_idx;
- 	int region_assign_count;
- 	bool region_assign_shared;
-@@ -122,6 +139,8 @@ struct qcom_pas {
- 
- 	struct qcom_pas_context *pas_ctx;
- 	struct qcom_pas_context *dtb_pas_ctx;
-+
-+	struct qmi_tmd_client *tmd_inst;
- };
- 
- static void qcom_pas_segment_dump(struct rproc *rproc,
-@@ -798,6 +817,64 @@ static void qcom_pas_unassign_memory_region(struct qcom_pas *pas)
- 	}
+@@ -1061,6 +1061,15 @@ static void qcom_pas_remove(struct platform_device *pdev)
+ 	device_init_wakeup(pas->dev, false);
  }
  
-+static int qcom_pas_setup_tmd(struct qcom_pas *pas, const struct qcom_pas_data *desc)
-+{
-+	struct qmi_tmd_client *tmd_inst;
-+	const struct tmd_name *tmd;
-+	const char **tmd_names;
-+	int i, ret;
++static const struct tmd_name cdsp_tmd_name[] = {
++	{ .name = "cdsp_sw", .id = QCOM_TMD_CDSP_SW },
++};
 +
-+	if (!device_property_present(pas->dev, "#cooling-cells"))
-+		return 0;
++static const struct tmd_name modem_tmd_name[] = {
++	{ .name = "pa", .id = QCOM_TMD_PA },
++	{ .name = "modem", .id = QCOM_TMD_MODEM },
++};
 +
-+	if (!desc->tmd_name || desc->num_tmd == 0)
-+		return 0;
-+
-+	tmd_names = devm_kcalloc(pas->dev, desc->num_tmd,
-+				 sizeof(*tmd_names), GFP_KERNEL);
-+	if (!tmd_names)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < desc->num_tmd; i++) {
-+		tmd = &desc->tmd_name[i];
-+
-+		if (tmd->id < 0 || tmd->id >= desc->num_tmd) {
-+			dev_err(pas->dev, "Invalid TMD id %d for '%s'\n",
-+				tmd->id, tmd->name);
-+			return -EINVAL;
-+		}
-+
-+		if (tmd_names[tmd->id]) {
-+			dev_err(pas->dev, "Duplicate TMD id %d for '%s'\n",
-+				tmd->id, tmd->name);
-+			return -EINVAL;
-+		}
-+
-+		tmd_names[tmd->id] = tmd->name;
-+	}
-+
-+	for (i = 0; i < desc->num_tmd; i++) {
-+		if (!tmd_names[i]) {
-+			dev_err(pas->dev, "Missing TMD mapping for id %d\n", i);
-+			return -EINVAL;
-+		}
-+	}
-+
-+	tmd_inst = qmi_tmd_init(pas->dev, desc->tmd_instance_id, tmd_names,
-+				desc->num_tmd);
-+	if (IS_ERR(tmd_inst)) {
-+		ret = PTR_ERR(tmd_inst);
-+		if (ret == -ENODEV)
-+			return 0;
-+
-+		return ret;
-+	}
-+
-+	pas->tmd_inst = tmd_inst;
-+
-+	return 0;
-+}
-+
- static int qcom_pas_probe(struct platform_device *pdev)
- {
- 	const struct qcom_pas_data *desc;
-@@ -925,16 +1002,24 @@ static int qcom_pas_probe(struct platform_device *pdev)
- 	if (desc->early_boot)
- 		pas->rproc->state = RPROC_DETACHED;
+ static const struct qcom_pas_data adsp_resource_init = {
+ 	.crash_reason_smem = 423,
+ 	.firmware_name = "adsp.mdt",
+@@ -1218,6 +1227,9 @@ static const struct qcom_pas_data sa8775p_cdsp0_resource = {
+ 	.ssr_name = "cdsp",
+ 	.sysmon_name = "cdsp",
+ 	.ssctl_id = 0x17,
++	.tmd_instance_id = 0x43,
++	.tmd_name = cdsp_tmd_name,
++	.num_tmd = ARRAY_SIZE(cdsp_tmd_name),
+ };
  
--	ret = rproc_add(rproc);
-+	ret = qcom_pas_setup_tmd(pas, desc);
- 	if (ret)
- 		goto remove_ssr_sysmon;
+ static const struct qcom_pas_data sa8775p_cdsp1_resource = {
+@@ -1236,6 +1248,9 @@ static const struct qcom_pas_data sa8775p_cdsp1_resource = {
+ 	.ssr_name = "cdsp1",
+ 	.sysmon_name = "cdsp1",
+ 	.ssctl_id = 0x20,
++	.tmd_instance_id = 0x44,
++	.tmd_name = cdsp_tmd_name,
++	.num_tmd = ARRAY_SIZE(cdsp_tmd_name),
+ };
  
-+	ret = rproc_add(rproc);
-+	if (ret)
-+		goto remove_setup_tmd;
-+
- 	node = of_get_compatible_child(pdev->dev.of_node, "qcom,bam-dmux");
- 	pas->bam_dmux = of_platform_device_create(node, NULL, &pdev->dev);
- 	of_node_put(node);
+ static const struct qcom_pas_data sdm845_cdsp_resource_init = {
+@@ -1263,6 +1278,9 @@ static const struct qcom_pas_data sm6350_cdsp_resource = {
+ 	.ssr_name = "cdsp",
+ 	.sysmon_name = "cdsp",
+ 	.ssctl_id = 0x17,
++	.tmd_instance_id = 0x43,
++	.tmd_name = cdsp_tmd_name,
++	.num_tmd = ARRAY_SIZE(cdsp_tmd_name),
+ };
  
- 	return 0;
+ static const struct qcom_pas_data sm8150_cdsp_resource = {
+@@ -1278,6 +1296,9 @@ static const struct qcom_pas_data sm8150_cdsp_resource = {
+ 	.ssr_name = "cdsp",
+ 	.sysmon_name = "cdsp",
+ 	.ssctl_id = 0x17,
++	.tmd_instance_id = 0x43,
++	.tmd_name = cdsp_tmd_name,
++	.num_tmd = ARRAY_SIZE(cdsp_tmd_name),
+ };
  
-+remove_setup_tmd:
-+	if (pas->tmd_inst)
-+		qmi_tmd_exit(pas->tmd_inst);
-+
- remove_ssr_sysmon:
- 	qcom_remove_ssr_subdev(rproc, &pas->ssr_subdev);
- 	qcom_remove_sysmon_subdev(pas->sysmon);
-@@ -960,6 +1045,9 @@ static void qcom_pas_remove(struct platform_device *pdev)
- 	if (pas->bam_dmux)
- 		of_platform_device_destroy(&pas->bam_dmux->dev, NULL);
+ static const struct qcom_pas_data sm8250_cdsp_resource = {
+@@ -1362,6 +1383,9 @@ static const struct qcom_pas_data x1e80100_cdsp_resource = {
+ 	.ssr_name = "cdsp",
+ 	.sysmon_name = "cdsp",
+ 	.ssctl_id = 0x17,
++	.tmd_instance_id = 0x43,
++	.tmd_name = cdsp_tmd_name,
++	.num_tmd = ARRAY_SIZE(cdsp_tmd_name),
+ };
  
-+	if (pas->tmd_inst)
-+		qmi_tmd_exit(pas->tmd_inst);
-+
- 	rproc_del(pas->rproc);
+ static const struct qcom_pas_data sm8350_cdsp_resource = {
+@@ -1430,6 +1454,9 @@ static const struct qcom_pas_data mpss_resource_init = {
+ 	.ssr_name = "mpss",
+ 	.sysmon_name = "modem",
+ 	.ssctl_id = 0x12,
++	.tmd_instance_id = 0x0,
++	.tmd_name = modem_tmd_name,
++	.num_tmd = ARRAY_SIZE(modem_tmd_name),
+ };
  
- 	qcom_q6v5_deinit(&pas->q6v5);
+ static const struct qcom_pas_data sc8180x_mpss_resource = {
 
 -- 
 2.34.1
