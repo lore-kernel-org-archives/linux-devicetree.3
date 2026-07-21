@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E5D3BE174;
-	Tue, 21 Jul 2026 08:39:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E82C82D0C97;
+	Tue, 21 Jul 2026 08:40:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784623171; cv=none; b=O6S0TUqaQshJpBuL/nC5iizq1GmFWjTu558j/++nlNEYTCJVMVoYCqHg9jI+gLARjhAqYi2NZp6vUo+BxDjxd3iGzwuLAtSPBwHqxa1B6TDPn7rQobKWS9y8q5TIycDHaKTHvP1pC0c8/0F7EbMJTEvju2Vr1O7G+HwF/KDBXPo=
+	t=1784623203; cv=none; b=ERbki10Hj73/2/RVrw07GvMFotxq/e7JbnD/fvr5g4vcngRu+zlgRXbZ/+3JONN5uE28d9J8bNxIG4jEdt4s4QF11vaU13N/Qv7XVjGQHVOdBzxdglP+GAgcgWif8g9KzjjVMIj1SLdnJT6G/t4pMdYORtXMWlJorJVXvkgI/iM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784623171; c=relaxed/simple;
-	bh=vs7X5KVMiMB/h8Amb6vl0N2IcEMv68EHmpw3YAh/9OU=;
+	s=arc-20240116; t=1784623203; c=relaxed/simple;
+	bh=giJghYfgzOB1kZ6qYxRi35CnSGHWV646a4lBIuwCyzY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DfX0Ufp+En4wKMw+q3KdIGiOz7Bu/8qfh80I7bOnBxOpqXlgjPnskhArvuVQmCTo+vdqGoGefwQqTP9qU/WvhrllNzzsMSJYS1Z9nE7XEC2nZm6HDlR3gOCPuZpkfdbfCetYO2D7ApoGGLcbTis3k5/trZsYFAWRNMRDTgeNfvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fBmq5BjT; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=LAYJvlIYyS6gg4jAUrOFNdIBf03jFvFZVji9+cKgCDQ+z0nClWuspZoGGfw02ULlEK3AFoL9B7B3nEJjWkstu2yT3LOW9eeEK6FbEqUlBFH1gUuFc+yim/o1pwoHMfFDnTXk5HklcgsNi+nC9d7H4CTebWvAJlKljhwIcZq+ugM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DITnFVpm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fBmq5BjT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B97B21F000E9;
-	Tue, 21 Jul 2026 08:39:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DITnFVpm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FD251F000E9;
+	Tue, 21 Jul 2026 08:39:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784623170;
-	bh=5HTJquXKLXFWm98r++JdU6mg7Z8DNGITnaUvnSU8kr0=;
+	s=k20260515; t=1784623201;
+	bh=kdDx3HFCZNyJVfiOOgxEopORMXpJ8VCcLRNrz0In514=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fBmq5BjTJPsN3SQnbfqlUN1phWjplo59E+GGHlE55U1PLLUNaUyDP/nrCNbg4G11V
-	 bnfKAU+EgzbhwXVpiTN3fgE2rumOvbZ+NJFlJ1ECBvGO0o+v/LSTpH0aU7Pb9ASxsi
-	 ykPo8Uzm2cvIq9SOkNBTvsII7NSFO4RLT2T/dsIx/86mZ1KXiAIKQQ88wo57xNRJ4c
-	 +8maZp9uWwpA+8oFT0bOrO26N+eV+5WX+eobfVc61FMfCUSIcqpTVs6IIjmpi/2+Bm
-	 3490dl92j6cCbkAxC5WO0r2fVWiiDJ/5uaCqyfwWEKKnzATBM/us4IGpeWLOJ3Z9Me
-	 PQCVXFqtusiwg==
-Message-ID: <92179b39-a6fb-4210-b41b-424f128c1b05@kernel.org>
-Date: Tue, 21 Jul 2026 10:39:24 +0200
+	b=DITnFVpmh1SZL6JUyy0cvFK5l/juzq3knVUyy/m8Qpi5mUI3PmUF7aUxlxsRcmMBr
+	 V3W9+1aqhF9YiewNrlhYGu/G8Li9ZhoG7AhrCUnzhdRqmptn04XD7W1uNFle5QuVUP
+	 eQ5OhGnt6sP/iQwIdJBZPw2rsP+d12tuwuvajELKDnDA3gSRkG/edsus1XAD+nqaBy
+	 GRMrPL1avfUS+kYaxdwkw7XMbAUXpPqRsbDuRNcgIcVd0+eQfetzzJn+o7I3ESzF5z
+	 Uyb6xmUm/N8dYozBsQrv0bM8kHSng8t0i4GNd3SNa6C2oqmWpyxXcKEaJ+Q5F+rd23
+	 QK3ZSQSg2Dpzw==
+Message-ID: <cb13e0c4-ee6b-4e42-a2de-bb96463edf28@kernel.org>
+Date: Tue, 21 Jul 2026 10:39:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,13 +35,16 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1] dt-bindings: mmc: sdhci-msm: Document the Maili
- compatible
-To: Nitin Rawat <nitin.rawat@oss.qualcomm.com>, krzk+dt@kernel.org,
- robh@kernel.org, ulfh@kernel.org, conor+dt@kernel.org, andersson@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-mmc@vger.kernel.org
-References: <20260720215645.1464901-1-nitin.rawat@oss.qualcomm.com>
+Subject: Re: [PATCH] dt-bindings: remoteproc: qcom,sm8550-pas: Add Hawi and
+ Maili MPSS compatible
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260713093237.691117-1-mukesh.ojha@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -87,19 +90,24 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260720215645.1464901-1-nitin.rawat@oss.qualcomm.com>
+In-Reply-To: <20260713093237.691117-1-mukesh.ojha@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20/07/2026 23:56, Nitin Rawat wrote:
-> Document the compatible for SDHCI on Qualcomm Maili SoC.
+On 13/07/2026 11:32, Mukesh Ojha wrote:
+> Document compatible string for the MPSS Peripheral Authentication
+> Service on the Hawi and Maili SoCs. The Hawi and Maili MPSS is
+> compatible with the SM8650 MPSS (six interrupts, CX and MSS power
+> domains, memory region).
 > 
-> Signed-off-by: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 > ---
+>  .../devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml     | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
 
-
-Please postpone posting anything from Maili, because there is no DTS
-available and previous Kaanapali, Glymur, Maili and Hawi postings
+Please postpone posting anything for Hawi or Maili, because there is no
+DTS available and previous Kaanapali, Glymur, Maili and Hawi postings
 without DTS came with easy to spot issues if DTS was available.
 Contributor did not spot them even though they had DTS internally. I
 cannot spot them, because DTS is not available to me easily.
