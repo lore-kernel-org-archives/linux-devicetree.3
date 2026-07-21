@@ -1,212 +1,205 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 545E146D566
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 17:56:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C79472F69
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 17:56:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784656581; cv=none; b=P0Nq7ujgKmGNfOO7MAmb6NdkVsTPf8BYWXoyNMEQEy3mYF8rSEEGVuxhG/aMUF3P6VmEHnvI2Dt5RYPqg6fnzO59Tt5YYJTPg2Rr/mHvJPaq7Cclx50EpmEbr9dHUZ1gjcfv8H7ZKOq2LRIV7I+u/JMLN97K8HU2wuAvKX3Be88=
+	t=1784656601; cv=none; b=YREpsgITzna3YSTvx19CN8VoYoVYVZYysg+ca9Mdh1E81ndd3tuVxcFei8aQBUiJvHpbBVG7OJDs7nsIaCTvJeGgeukWufJ5dUED2yqgUibtWwYtsYjWY3b1PvZl2U4orfF4WBWDje57yaewauKP8gU1JxdILP6DrfpctU5WUZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784656581; c=relaxed/simple;
-	bh=nAYdB1BXpU18ExENVnsjLrICrFCWoYpEKbTg0eDMBp8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FhA5noRmKu8Mzjt5xduZPIpbD/PJ7Vn2v10mciq3jO0EwRc5KxRm6ylMN0CRoy2I0tyZ2qS3rlPB6s1dhg+SuNq0PhGWh7AQm4S01xkSSXkVuIzxqjXZJzcCITiFMjm6TV3Luldy5lckapRPJubemJ54h4uGLD/9Ca+E57w6njI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dPjRcGln; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=i7RrHVPX; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784656601; c=relaxed/simple;
+	bh=swtbcGBx+Z+G69KWlolz+miL/y+ERWs5cFjryaMB2Uk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uL1r0qBaDgJS7RNPK/soRPj9EcScPk8kinac+Yagtu+/2zvSvAwvirbptVID+/DCxNXmPuUHK/IdBfZw9UBWLCjNQbN6AkuGoXmViX9bU7S7kGDIi0h7MfTW4FBdEqyc0LRA8kFrj/Zq7L4YQXqmq7KQQ8TKl8sU18JQRMvn+qM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FXNrTPi7; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dPjRcGln";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i7RrHVPX"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66LHPYs22115803
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 17:56:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=uVfHG4Z6VlHbFGnD1uElHp/y
-	AsA55AKlMuQsS+gV6dg=; b=dPjRcGlnb55AYDNgk7ShwyZR5b/k6sBWSu+IQMxP
-	fdZ8wjguW41y+F9zzM77ZeqMVxz4xgLtjTr1LEkhssr7rj6Uc2ZHcoD3rAjcP4yw
-	jLQyRv6RRigXDvkxsLPn5OpnUKjQel6Uhkd7MqPhCEL9DTIsxAerKHf7GMngrY8d
-	+4mOgqQTxesTRX18cBXtmSedsp5EoXRA4MPbvFEiZooZJL5kZcEbHT9cCeZchkiv
-	y+DriIvYPknU6npQ6N6GkmTk4rYBHlEfBpD/4GkssR9yDVE07cZETy016/spa0Jg
-	v1Lzf20kwfOL8vmPi27bqPqrzIzqEbn2x0hjzE5aqqzpDw==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjd5e04w5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 17:56:19 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c1d7886cdso122510321cf.1
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:56:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FXNrTPi7"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2cc7e86e7aeso90483495ad.2
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:56:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784656578; x=1785261378; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uVfHG4Z6VlHbFGnD1uElHp/yAsA55AKlMuQsS+gV6dg=;
-        b=i7RrHVPXj0s+viI1vWYjHD5TO3n8HQNZAlQ+tV0yYCFgj6cH2JJburYESsjfhUwmvk
-         fa72YfaIaNZ48XTjjyYJ0RP0hPHJAbYAtDmFYDx2o41+tNlgvq9pXpls2YDIwJx8vELK
-         Orrv+qMb2+OmyXLePFpGkug6BzCcBsaxnnrFRUEPc8SobYnK6TCFvrebOx0IF3UCFBSd
-         y0EXf9as0x5bRSU5Xmw5UN9G+u7NXWF5QxnepJKGVWeeXYrFQ9ZmwxUffJqiHHw6rHC3
-         ma4SP7s1iYuSs57jkAM6biCEpO+/Ah1Y8yYp4b6B5pSCPFNo8oGay71fTAtXRNMtROBB
-         heHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784656578; x=1785261378;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1784656599; x=1785261399; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uVfHG4Z6VlHbFGnD1uElHp/yAsA55AKlMuQsS+gV6dg=;
-        b=CyeEdq8021dOeH+6RiiSD2u3QvcX+IlD5oRLrZvrCFhPrCg00E6pvsLo3OnGVrq4No
-         tcDSpaGCYJevX4oKBmNeLVjlaj5PRTrWxvY7M7IsyMhY2c5Nt9rhggcRzEnWySjf3tXj
-         IqHEW33Srr+24L3dJqkvMvAdGbp5twmllkTfq/E9XwXX+6jJxBEI42To8ZqosIaPnmWk
-         XZllHR+E5OhKON1+WmimmYd2SD4GaKwDVycpPLo7Og73f1Dmh2AwyQJ/N7zqdr+geukw
-         IYoPxa/cfLjrrbbyw4cFC5fNyLdUPNkx/SEZdADvGM+m1p8MoWgSyYn7CDS8R5R4JTUP
-         xj6A==
-X-Forwarded-Encrypted: i=1; AHgh+Rr/a8yrNBC4iM/pXv2D5xCUPpCQFd/TBtNX7DZ+ygTXilDclF/eirHJNSCatW9RVx0iWjT2Uw92Jr+z@vger.kernel.org
-X-Gm-Message-State: AOJu0YwyeoztFZD/fwAfKnqiPcfM2DsZ/6dJ0tCfS7n2dU2Dde2GeDjz
-	od5T5hJZ7Uwj1lrgkJY+XgVCMzO7hL4jmyLB3qgXZ2QynC/UFYTNjbqX5321Ij/jW/OaLq6UMsR
-	jMNM/bBIaSpSOWnOkEIkj9vOLV71NiOmx83NKDZnWSy06ROARwyfZAQZzJb0Fycb7
-X-Gm-Gg: AfdE7clAdMZJmx0FdYt1ROCGpHZEP2rq0iVANubr9JTVlH3uwXSE+3+mC6KMwOUMZOA
-	Dwj5CZaCUFl2uGssC7oom1xe5pCM2b+nhAUEZh67JF8fWNIfM72AZq/CzcBbQVwUCHYlnBBl8SV
-	u7ywBKsHJUCBL/a5GcsMHCc+W42gzRpTbgpi2srrRM8KGyw9drPFsikaHcUdX+4pcUHmqUJbK4b
-	Q40ow/sRk3PDNs8tNVhRUqtpuGW2NJfaxFThQMMkLWiKxF94LfA4IHn9U0vFRK6NZCctAKrMKah
-	1lFxs9JJVV1Bw0scT6VwlbTV1hrHnNsbx2chdWp5o4rq37Er2P5HSq7tLWv/dSyvrgaG1YOaIsK
-	/gxP2RsJ/qSatt3wKV60oM9L8p3qKqUwsCzb3iSPzfgtDIduJWLgEKq53WeJO0Bct/D08Odmx1v
-	xQfZ17y2H0UX82qw==
-X-Received: by 2002:a05:622a:2295:b0:517:b68a:8d84 with SMTP id d75a77b69052e-5213c8e0efemr188591711cf.56.1784656578423;
-        Tue, 21 Jul 2026 10:56:18 -0700 (PDT)
-X-Received: by 2002:a05:622a:2295:b0:517:b68a:8d84 with SMTP id d75a77b69052e-5213c8e0efemr188590221cf.56.1784656576518;
-        Tue, 21 Jul 2026 10:56:16 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2a9e49195sm52580e87.70.2026.07.21.10.56.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 10:56:15 -0700 (PDT)
-Date: Tue, 21 Jul 2026 20:56:13 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: jens.glathe@oldschoolsolutions.biz
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, stable@vger.kernel.org,
-        "Dr. David Alan Gilbert" <dave@treblig.org>
-Subject: Re: [PATCH 0/5] usb: typec: ps883x: fixes for older Thunderbolt 4 /
- USB4 docks
-Message-ID: <rmckncb6oimniwd6venptbzaidxh4v6ffhbkebztqcuxg67ixy@u3bi5tclfon7>
-References: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
+        bh=EibvRmzRwEGHkazysuYtnr7BudsAqWjL7jIqkEVJ+pw=;
+        b=FXNrTPi7YkEFm6cw4CWrdRH1G1qNIxVVsYiDX4FATg6cXrAXNMTt10HfrTk3CRH3xI
+         pZINymbtBnkB7+otQ9sIJHJ8Jjn1JsJH3vbJzgrESuhaeEjEFvYz8uA5H8QJWdns/WOf
+         P+mI3gQPPPNc6H291kk94zQbt7Cwo+plJcjAteY/55PNbHm1xvI3ksGjwbJGZwd5UgT/
+         AmSORVtPa9saP4RmHeDyW8FF+qDteM43zrABpHzhsNcFFd1wHaYm4mMcZZlN2zSNDBnt
+         xDuSJ+AIJI833RPRysiVSG8kr2OxaE07FE2+48in46wBBW2pO3Fn9lVJ28rY7byL9xE2
+         /g6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784656599; x=1785261399;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=EibvRmzRwEGHkazysuYtnr7BudsAqWjL7jIqkEVJ+pw=;
+        b=KcLHUhVxQxSUAVPDk3MG52BbVRwswx3kzCPQLozgqWtzBOoheK63xvyY0tPQsU7z3R
+         fd2qUWuAHpDafcVAc5xdMgf62logNNQ5xg6L7UsPoYVVkBLltTtuseRALyiqi13rgiU0
+         0WbQMGj6KJLOs5t1L5zdilOQIqn70hOylLpzQSxn/ipHm2Xu4YVenCWWRYVP805ODhFH
+         geFF+r0dIsB5DEASjDu60E5J/vJ4mymA0+abz8sgQMw+40K7LuWf5Z9aMjkUL3HlSSpT
+         QN07R+YU7dAi13NetHPHAEZuFDpb79dZwfKJRAs4IctXinhlFC9Dv+FNgdqMzTmw06mX
+         RYlw==
+X-Forwarded-Encrypted: i=1; AHgh+RpZDG3SoR2bTH3w3ry7A8qd5/5b949W4CULswqVXzfLqQQfuKYuYMJf0HJOdIcbjnftYFsrY/oBBXOU@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz4LGf2ki36OdmcQvD6TwcNLg5mUDYzK5ID9HcfRB0g9DFraZK9
+	rQQnnVtZglwomr9TtTUjUjWhXUc9Zbic1/ETH21WQoMoqFQKERDfHumLnU75oQ==
+X-Gm-Gg: AR+sD134WxCYWj8D+RbHYUncl9ix0YBfH0qYd/FKbgiZEsmNXfHvIV9i2Q4fIS2G7Zv
+	zIYN+adfK+p3vta/XK/70x84VYmaUjqSOscR9Ur9DIsKyBnhbrcYozlYVUoXjkrVr15sbLe5LDj
+	VaDQU0IPguaawngVlooM1qYKGed2a8laOor7Wu4cK3vymOINDwr4OXFE6GcIuYkHZwu4CofGJUR
+	aJL73IrnlZy3Yo1ofo8kSm9sXK7HSONOsl4QHL900vISxdJX1H4YiCR0uRbGLqqf9fKwE+6rAyQ
+	CrTYk0SEM1E6emH3LfDt1YNbwwTIrBz5cqg/lN7xszMSfiEFTbkYGIC20HqB6b8M0mkL5tuAK/K
+	3xbUawpSGNcavHJmcYiAkR6yuXWJYMDOtYqT+FHtKiGvpKG4BtiOTzj82TwQ9hMLsVvukCzpgd+
+	y//dH7l7ndknI20DYUOXmmxBksq8TxUrqTINgyBjXvt26XW91Ej1+S04pYebhkbA==
+X-Received: by 2002:a17:902:d486:b0:2c8:2808:3ec9 with SMTP id d9443c01a7336-2cf3487e320mr208898165ad.12.1784656598500;
+        Tue, 21 Jul 2026 10:56:38 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8f362e00sm828255ad.71.2026.07.21.10.56.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 21 Jul 2026 10:56:37 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <673be23a-2a84-43b7-9be7-a661cf0e7935@roeck-us.net>
+Date: Tue, 21 Jul 2026 10:56:36 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
-X-Proofpoint-GUID: sBG5BVAQ2THndsi8mQqkmyNHx7VD9576
-X-Authority-Analysis: v=2.4 cv=CbE4Irrl c=1 sm=1 tr=0 ts=6a5fb2c3 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=gxl3bz0cAAAA:8
- a=ub-gN-1gDvpdvdnh1gUA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
- a=kiRiLd-pWN9FGgpmzFdl:22
-X-Proofpoint-ORIG-GUID: sBG5BVAQ2THndsi8mQqkmyNHx7VD9576
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDE4OCBTYWx0ZWRfX2CN/A0INkbih
- PienpBaDL7+/6Hl0xg85970Fo9FUGpaHAGfh3juuMfkJtLLYqnoG/G7dEsCxRTXvO5IwD4zXs/7
- eXmy7ZtHKgzZ/SkuF+Y4NVrY2G7rlS5Mrh+rF1LBZTSGXQ2quXwn6d6bwDpnDMUwbuO35mKle+w
- kT7W8U+GJ+2B69qsXV1NZCcF+1WzLbLvCUmFIjnewZdwD8envgktErXA6+1wu3ksZS2XtM2wK7t
- 674HDx6T14A7R+4JxHDX1Fa6w++/WB+oua1eLp9jyFNn4oa05EKhXrDnXcqUe69dCRSUDK4Fd4a
- jv82qRcsgszs4dS6pwVFY0p+Umxhab91OSpt5LegKe77bWhpUdwKnXvsxrO9KTmK5d5x8QvPX0V
- jLovQGCY3/F0DSnEKCl6wezERTyfZFefZEYaiylETv4J6xrA+7Km7ra8iaevJXxyCMXxZxjQTu3
- TQmqMyp1tpysl+urWng==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDE4OCBTYWx0ZWRfX0xiIJWg+Tho5
- WFKT31/UElOMplqwYgYe6knPWSM2yNojN4BuhGaETNLVHT4mgsaVzJWheroCU+sTHqnA+9HFZgs
- ldIWk6g1IiOjR11AhZB+VuNwBXZHwdk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-21_03,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 suspectscore=0 clxscore=1015 spamscore=0
- malwarescore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607210188
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] dt-bindings: vendor-prefixes: Add Sensylink
+To: Conor Dooley <conor@kernel.org>, Troy Mitchell <troy.mitchell@linux.dev>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev, linux-doc@vger.kernel.org
+References: <20260721-ctl2301-v2-0-ef5fb342872a@linux.dev>
+ <20260721-ctl2301-v2-1-ef5fb342872a@linux.dev>
+ <20260721-dill-dab-df15585090d2@spud>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
+ RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
+ nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
+ 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
+ gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
+ IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
+ kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
+ VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
+ jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
+ BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
+ ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
+ CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
+ oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
+ VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
+ 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
+ onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
+ DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
+ rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
+ WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
+ qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
+ 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
+ qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
+ 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
+ pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
+ J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
+ pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
+ 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
+ ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
+ I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
+ nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
+ HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
+ JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
+ H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
+ njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
+ dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
+ j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
+ scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
+ zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
+ RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
+ F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
+ FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260721-dill-dab-df15585090d2@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sat, Jul 18, 2026 at 07:06:28PM +0200, Jens Glathe via B4 Relay wrote:
-> On Qualcomm X1E80100 platforms (e.g. Lenovo ThinkPad T14s Gen 6)
-> using the Parade PS883x retimer, connecting USB4-capable docks such
-> as the Lenovo 40B0 via a regular Type-C cable (which forces the dock
-> into Type-C fallback mode) often results in working USB but no
-> DisplayPort output.
-
-Just for my understanding, here you mean a Type-C cable with all 4 lanes
-and the SBU lines?
-
+On 7/21/26 08:49, Conor Dooley wrote:
+> On Tue, Jul 21, 2026 at 02:48:27AM -0700, Troy Mitchell wrote:
+>> Add the vendor prefix for Sensylink Microelectronics.
+>>
+>> Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+>> ---
+>>   Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+>>   1 file changed, 2 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+>> index 396044f368e7..22d0d26f1bbd 100644
+>> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+>> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+>> @@ -1467,6 +1467,8 @@ patternProperties:
+>>       description: Sensirion AG
+>>     "^sensortek,.*":
+>>       description: Sensortek Technology Corporation
+>> +  "^sensylink,.*":
+>> +    description: Sensylink Microelectronics Technology Co., Ltd.
 > 
-> This series addresses the issue with two main changes:
+> Googling the company to see what their website is, I seem to see a
+> different name for the company: Shanghai Sensylink Microelectronics Inc.
+> Their website has that with the Shanghai dropped.
 > 
-> - Add a new optional DT property "parade,disable-usb4". When present,
->   the PS883x driver rejects USB4 mode (-EOPNOTSUPP). This forces the
->   Type-C stack to fall back to USB3 + DP Alt Mode, which works
->   reliably with the 40B0.
-> 
-> - Refactor DP altmode handling to also support the legacy
->   TYPEC_DP_STATE_F request (deprecated since DP Alt Mode 1.0b) sent by
->   the 40B0 and other docks (e.g. SSK SC220).
-> 
-> - Add a short delay after writing configuration registers, which
->   improves hotplug reliability.
-> 
-> This is a temporary workaround until full USB4 DP tunneling support is
-> available in the X1E USB4 controller and qmp-combo PHY stack.
-> 
-> Note: The DT patch adds the new property to all currently upstream
-> boards using the PS883x retimer (15 files). Happy to split it on v2
-> if requested.
-> 
-> As an additional observation, the same dock with type-c cable works well
-> on Thinkpad X13s, Thinkbook 16 G7 QOY, Ideapad 5 14Q8X9, but doesn't need
-> the ps883x changes (naturally). 
-> 
-> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> ---
-> Jens Glathe (5):
->       dt-bindings: usb: parade,ps8830: Add parade,disable-usb4 property
->       usb: typec: ps883x: Return -EOPNOTSUPP for USB4 when parade,disable-usb4 is set
->       usb: typec: mux: ps883x: refactor DP altmode handling and support TYPEC_DP_STATE_F
->       usb: typec: mux: ps883x: add a delay after writing config regs
->       arm64: dts: qcom: x1: disable ps883x USB4 capability
-> 
->  .../devicetree/bindings/usb/parade,ps8830.yaml     |  6 +++
->  arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts         |  4 ++
->  .../qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts  |  2 +
->  arch/arm64/boot/dts/qcom/purwa-iot-evk.dts         |  6 +++
->  arch/arm64/boot/dts/qcom/x1-asus-vivobook-s15.dtsi |  4 ++
->  arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi  |  4 ++
->  arch/arm64/boot/dts/qcom/x1-crd.dtsi               |  6 +++
->  arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi        |  4 ++
->  arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi   |  2 +
->  arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi  |  4 ++
->  arch/arm64/boot/dts/qcom/x1e001de-devkit.dts       |  6 +++
->  .../dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi    |  4 ++
->  .../boot/dts/qcom/x1e80100-dell-xps13-9345.dts     |  4 ++
->  .../boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts  |  6 +++
->  .../dts/qcom/x1e80100-medion-sprchrgd-14-s1.dts    |  2 +
->  .../boot/dts/qcom/x1e80100-microsoft-romulus.dtsi  |  4 ++
->  drivers/usb/typec/mux/ps883x.c                     | 47 +++++++++++++++-------
->  17 files changed, 100 insertions(+), 15 deletions(-)
-> ---
-> base-commit: 0718283ab28bc3907e10b61a6b4be6fefa1cbb2f
-> change-id: 20260718-ps883x-disable-usb4-19b0fc13b5ab
-> 
-> Best regards,
-> -- 
-> Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> 
+> Also, probably the commit message should contain
+> Link: https://en.sensylink.com/
 > 
 
--- 
-With best wishes
-Dmitry
+Asking Google search: "Why the two names ? Did they rename themselves at some point ?"
+
+Response:
+
+Understanding the Name Structure
+
+1. English Legal Name vs. Marketing Abbreviation
+
+Sensylink Microelectronics Technology Co., Ltd.:
+This is the literal translation of their full, formal registered corporate name
+used for international trade, customs, and legal documentation.
+
+Sensylink Microelectronics Inc.:
+This is a simplified, Westernized abbreviation used on their official
+English website and marketing materials for cleaner global branding.
+
+2. The Native Chinese Name
+
+上海申矽凌微电子科技股份有限公司 (Shanghai Shenxiling Microelectronics Technology
+Co., Ltd.): This is the company's sole, official legal name registered with
+the Chinese government.
+
+"Sensylink" is a portmanteau created specifically for international markets,
+blending "Sensing" (their core technology) and "Link" (their interface and
+connectivity products).
+
+Prodding further, asking if the previous response was complete, it tells
+me that there was a name change:
+
+According to Chinese corporate registry data (via Tianyancha and Qcc),
+they did change their official Chinese legal name:
+
+Old Name: 上海申矽凌微电子科技有限公司 (Shanghai Sensylink Microelectronics Technology
+Co., Ltd.)
+
+New Name: 上海申矽凌微电子科技股份有限公司 (Shanghai Sensylink Microelectronics Technology
+Co., Ltd. by Shares / Joint-Stock Company)
+
+I don't know if Linux has a policy about Legal vs. Marketing names. Personally
+I don't have an opinion. Your call, really.
+
+Guenter
+
