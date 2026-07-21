@@ -1,87 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E973C7E16;
-	Tue, 21 Jul 2026 09:57:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 325BB44D01E
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 09:57:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784627826; cv=none; b=gnAHKt+wZRvzOg3n9Bh1kaAqg8b7jw9K+YEgSspVwwRTKqgSdzgLiaqTBdHGA1MtKevwgTpeCp5LpT6lo5wY3pD7IOGomlHg8BwWHT8DaoFV+lz9mka1nb6VdAsL/jiDR2QgI/bHtnQZ/KevVCBSqq9lEu8HS9e6Jra67gQqNDQ=
+	t=1784627829; cv=none; b=UWu/gIHXcLcWfmss+jw76WK//d0Nm7jCV4yysgQPBE6MEFlYe4Rq1otnidaAsCOKOIy/+ar76bwUqvX6nxieFByulmwQ+4nvol3j8YFgEgK+i8NR9RLRPE0zPVUYETnSMokmbGPK1XSb4uxlHhGLXbpni5oB0g/ZSsEXuijqrN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784627826; c=relaxed/simple;
-	bh=8Lmm5PKbHaWnDsX95k0AYEcYrOnjFkdCUo7v2IAI7fw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=erzu43FXl17rOTQgdd73z9hBzDEZqpZNrnyqgdPs/EsrMArS+TdpOlBl6Pob5uLSTRT8r1PnUWh8VSRfCLYMM6qhlN6B6DHtDWYMFm1oJHL2zMh94LZE0pr7bHSdwVZ2jG6aqZRgn6/ncM/srcLPQ6B4a4ItRiJ0x4Y/ytGjyy0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KDTY5z84; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784627829; c=relaxed/simple;
+	bh=zZG0SwXpBaudvhL8T1nanzDcag2V5GkwhlyQJoKbJVc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iBNZBFtG8TvIv9I98uiqYva4T0jDrERi6vtbYo12JMf5vC3+VI481MtO8jcQ6gMDqcp6OBXSbDmWHIxUpuFp2a3uxb7xNcDpBKHxze0+yU7c1mhhjykrDyQSQqc2n9cBGjsqaJ5D+cH/W8GFh9G7LwRZQwf5baoJg0u8T/+Il9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JUj44CDh; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KDTY5z84"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9B361F000E9;
-	Tue, 21 Jul 2026 09:57:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784627825;
-	bh=//HbIyDGZv7/WClipYtvJYh6LOk4MoA2hEF/UMx/Fac=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KDTY5z84W/SgP7VhxujtOUyJkLZgGUKgR9KezSi0IJ1EmMV5x+GRtt+YNLwicQVMR
-	 MG4DDZ7Qj1oUwRUh/o/ZTF+sc8ychpZtknCBx5h13/P8/J3ZVhK63zroYBYCxWcsfI
-	 bu2WcplavFKPaKJeZPNtVaYjvWUify1UTzDxSw32mTRNgr/VRGF5jI04vyl9rY6q/l
-	 7wj2fLDM8H2qflFcgptBFH0Rl0luM6MxOn625O1F2r4WvloV6s4SIGPkFmqKpai+6I
-	 Wtb6TKOMX6KKr0JMCAzJwDXJv7Yd61wNgN8LSlYgoMcVC6u7R5GZoWMxjHKqHNvScz
-	 o3oySV4g3sXAQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/6] dt-bindings: hwmon: Add Sensylink CTF2301
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Troy Mitchell" <troy.mitchell@linux.dev>
-Cc: robh@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260721-ctl2301-v2-3-ef5fb342872a@linux.dev>
-References: <20260721-ctl2301-v2-0-ef5fb342872a@linux.dev>
- <20260721-ctl2301-v2-3-ef5fb342872a@linux.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 09:57:04 +0000
-Message-Id: <20260721095704.E9B361F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JUj44CDh"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-495590ba856so19699835e9.2
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 02:57:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784627826; x=1785232626; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+cGDwZcLwL8KiYreb24CUFPP8K2PTwnHJJuWk44wG5c=;
+        b=JUj44CDhuKTiTTOJyxA8aHtxzT7D2WFNmg3NJbUoYfVWToRui8LJVoz0Nw6nMJ6fzN
+         BsAsmquaf9zbq8S82IEC+1xqCALMRnkVdqzeJ32gwa3jFZicjUY2UEKpWWbwL6TU8JDF
+         uLTnRjVTIf7YYP+QjRYjQf1prWwk7WpRrDmKTzSDxJA4yeROAfV9k4Vtu1q33tALDMXD
+         l4mTYHu0VhF4pW4EjFJ9Wk4rVKO46Gd74vknnl0S2SpQyDvkIfX7OYK2dp2jb874t4Sr
+         cSgP/Zl2YKLJpIS+UvZc00wABo5nf018NmcdAwvBnzehHjAlxkI/E/7s1rW3tCH7AyuC
+         evew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784627826; x=1785232626;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+cGDwZcLwL8KiYreb24CUFPP8K2PTwnHJJuWk44wG5c=;
+        b=a00j96q6LVA5UqBRzxNafWXFdYp44ECcxDzyWmxO9MY02B0gZN13mn/xp146namUrd
+         WhACgGNqdlaZIDjVWz4XgCtwyt+Pic67oECi4rDgQ3MonfjrDckFJKkXXrTemQSesve1
+         NTSdgqn5Kf/Konzi0dMRiVJWxfsN/r5kmBVqaIpeWufSd+V+D1rLB7+52dKAd3efgSDj
+         OQm+MVElXSDuFU+J5dhRk/TnAutMeLOAIl9cIHaxX8RdHS8AJil1x5bSP/UgwlKzs/cE
+         UnpLHHC3d3YxTAGWf8yW0NNN+Fdjw5GRMT1PCRFusYBftEUS5ya0P5C20nyn9PjmRMK/
+         q9nA==
+X-Forwarded-Encrypted: i=1; AHgh+RpvBzHbM5Ap40/NeiIsH/pEEvI/buUcjRoakO6sCnGqm0/U3sdWZKAi/ziy1NpnUN4Bl4RKN6TYV7eP@vger.kernel.org
+X-Gm-Message-State: AOJu0YyTKv1b5Tr/fAmwkLC+2A8HzqwRKpJKE4aomzy6ViIpCIwPt69k
+	AWqC41LpNR+u8NH9CLhT4kkVB0DuV2fWVRCvEg4VeKiD12jkz1sMtCuL
+X-Gm-Gg: AfdE7clAc4rH4jpMWg1vkQk2VJ0qHOidB7yFx/ye8tzKZvYfeZwNzgOM9UB+LrIyLhy
+	3G+MTuHlv2L3SfxBm80ecGwqUiAeuVwsIiddrh2BHvWySX8lJB+l8KrT7zlqaf40THQG9yuQmMl
+	8AVT3dVYEst5QCj+Dbd0Wt5cNRoIVG2nr+qr1CzEsHFA5p8mG0B6+UqIaUGB94ilmBUSjq81PaW
+	ydZOuhprUjJk4ApIT9H2DgqfLy2Scem5N7S7qbhjiNg5PLOD1DjHLwMrw5MCvsnUxvB7rvnj3z/
+	JmeUlYCiguVaKOUIKuhYXZ4UeLtgHOBlB2EcrRdDKa09QwL8wG4nyolnT5oazgnCjPIA4jugzFC
+	gu+7Q2yP2jBYavJtRXihKe6jm3/7/0ELD0QgqnIjJWYI4YEhF//iUKfJCxT6BtNfKnQi8l4s14l
+	C7yh+A7OYz3kYZ8b/qbJ11R7I=
+X-Received: by 2002:a05:600c:4fca:b0:495:4e1d:82df with SMTP id 5b1f17b1804b1-4954e1d843cmr165855415e9.10.1784627826040;
+        Tue, 21 Jul 2026 02:57:06 -0700 (PDT)
+Received: from xeon ([188.163.112.51])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4954995b78dsm227476185e9.0.2026.07.21.02.57.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Jul 2026 02:57:05 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-leds@vger.kernel.org
+Subject: [PATCH v7 0/6] mfd: cpcap: convert documentation to schema and add Mot board support
+Date: Tue, 21 Jul 2026 12:56:47 +0300
+Message-ID: <20260721095654.429346-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `sensylink,ctf2301` compatible string is added to a flat `en=
-um` instead of allowing a fallback, preventing the device from using existi=
-ng driver support.
---
+The initial goal was only to add support for the CPCAP used in the Mot
+Tegra20 board; however, since the documentation was already partially
+converted, I decided to complete the conversion to schema too.
 
---- Patch [3]: [PATCH v2 3/6] dt-bindings: hwmon: Add Sensylink CTF2301 ---
-commit 2d1df9d4d4d9fa27f7828b7715766842a51c0154
-Author: Troy Mitchell <troy.mitchell@linux.dev>
-Subject: dt-bindings: hwmon: Add Sensylink CTF2301
+The CPCAP regulator, leds, rtc, pwrbutton and core files were converted
+from TXT to YAML while preserving the original structure. Mot board
+compatibility was added to the regulator and core schema. Since these
+were one-line patches, they were not separated into dedicated commits;
+however, the commit message notes this for both cases.
 
-This commit adds the Sensylink CTF2301 temperature sensor and fan controller
-to the LM63 family binding. It updates the device tree schema to accept the
-new compatible string.
+Finally, the CPCAP MFD was slightly refactored to improve support for
+multiple subcell compositions.
 
-> diff --git a/Documentation/devicetree/bindings/hwmon/national,lm63.yaml b=
-/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
-> index 92b0094ff3034..4a1ffebfdbef6 100644
-> --- a/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
-> +++ b/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
-[ ... ]
-> @@ -23,6 +24,7 @@ properties:
->        - national,lm63
->        - national,lm64
->        - national,lm96163
-> +      - sensylink,ctf2301
+---
+Changes in v2:
+- fixed code style
+- rtc conversion was picked, so patch dropped
+- added audio ports description into mfd schema
+- splitted schema conversion and compatible addition
+- minor style improvements and typo fixes
 
-[Severity: Medium]
-Since the commit message mentions this device follows the LM63 register
-model, should this compatible string allow a fallback to "national,lm63"
-instead of being added to this flat enum?
+Changes in v3:
+- added regulator node names list into pattern
+- filled spi_device_id with driver data
+- ADC patches were picked, so changes dropped
 
-Without a fallback, and since no driver update is included to add the new
-ID, could this cause a regression where the existing Linux driver fails to
-match and probe the device when a device tree specifies only
-"sensylink,ctf2301"?
+Changes in v4:
+- dropped regulator patches (applied)
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-ctl2301-v2=
--0-ef5fb342872a@linux.dev?part=3D3
+Changes in v5:
+- switched to MFD_CELL_* macros
+- switched to use determinator of model
+- switched to spi_get_device_match_data
+
+Changes in v6:
+- removed address-cells and size-cells from main node
+- changed macros formatting and OF matches
+- factored out common devices and made device addition staged
+- dropped cpcap->variant check for 0
+- EINVAL > ENODEV in variant checking switch
+
+Changes in v7:
+- adjusted spi_device_id entries (name/driver_data)
+---
+
+Svyatoslav Ryhel (6):
+  dt-bindings: leds: leds-cpcap: convert to DT schema
+  dt-bindings: input: cpcap-pwrbutton: convert to DT schema
+  dt-bindings: mfd: motorola-cpcap: convert to DT schema
+  dt-bindings: mfd: motorola-cpcap: document Mapphone and Mot CPCAP
+  mfd: motorola-cpcap: diverge configuration per-board
+  mfd: motorola-cpcap: add support for Mot CPCAP composition
+
+ .../bindings/input/cpcap-pwrbutton.txt        |  20 -
+ .../input/motorola,cpcap-pwrbutton.yaml       |  32 ++
+ .../devicetree/bindings/leds/leds-cpcap.txt   |  29 --
+ .../bindings/leds/motorola,cpcap-leds.yaml    |  42 ++
+ .../bindings/mfd/motorola,cpcap.yaml          | 408 ++++++++++++++++++
+ .../bindings/mfd/motorola-cpcap.txt           |  78 ----
+ drivers/mfd/motorola-cpcap.c                  | 143 +++---
+ include/linux/mfd/motorola-cpcap.h            |   7 +
+ 8 files changed, 571 insertions(+), 188 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/input/cpcap-pwrbutton.txt
+ create mode 100644 Documentation/devicetree/bindings/input/motorola,cpcap-pwrbutton.yaml
+ delete mode 100644 Documentation/devicetree/bindings/leds/leds-cpcap.txt
+ create mode 100644 Documentation/devicetree/bindings/leds/motorola,cpcap-leds.yaml
+ create mode 100644 Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml
+ delete mode 100644 Documentation/devicetree/bindings/mfd/motorola-cpcap.txt
+
+-- 
+2.53.0
+
