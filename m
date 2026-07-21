@@ -1,87 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from MTA-11-3.privateemail.com (mta-11-3.privateemail.com [198.54.122.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E092B3F5BFA;
-	Tue, 21 Jul 2026 17:11:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77BE03EF644;
+	Tue, 21 Jul 2026 17:17:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.122.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784653909; cv=none; b=uT0U35yzCgkQvqr/Ek5C4qXVImL9K+a7etRJhysKhEO4kgPZ2Ss2KmyGr06K7OCQXfG3Dv/jTMACdOr3aNburTEnIluzBDvKBwPHv3fOwbAJ4R0r3RuEEq3A4Kr2U/spzD8S94393ye1SooYmhMaEViMq7jTeFaMyC/4x7LNoCQ=
+	t=1784654236; cv=none; b=tJxEpyhUG2K9sRetMyZwdh9R/NWCIO+zAEPqbKgB7TtaEGt0cp1qVkjN8AkzYJUpXIPG6Pbu3PbwVTiLonvMO7YJMJiOamLFXx0TGeGSv4GDHWdo191/0C4wPT4RQRlcbq0bow42pbiSfRoF2fMwg1fY4y0aYpDvld0Mscen74U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784653909; c=relaxed/simple;
-	bh=X1c/Lb+tOc+6ODsxWQDx3n+PICEupS3nb20cc9I9yxY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FlOwPBgsP4uq/Z2G91APZmOYqIcpmXlFwO2WbelZ7BKYmmJ7UXLJqIZHDHl5CbolJ3wYKwg2FgEal34E+aEDfHxpdS7EHC8NVkB7Rleoo1P/a96KIJtD0yrEc02rdRJoL1w3/KGJLTPUevXCC+HGF0SDTXdHAhcOR89uFd4FtuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lvbZhnCn; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lvbZhnCn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9FEF1F00A3F;
-	Tue, 21 Jul 2026 17:11:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784653907;
-	bh=x7VhFCb1HrwokNNBUufWsSIcj9FWRlMftq1UG+a9VJI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=lvbZhnCn6HuCpINlMe79ncNpboqvAcbIYSX9IaN4lo1iwD6bNSlnfoOIUkMnNisPL
-	 I/UnXO+iNwl5kbGewj9CiYvhuqPCWgVolRIYuSGTxRdFn/VLtnIQoAR4VdSrcEL9yC
-	 59+J6lmWiP88qvCIOYOslu9cIgIXVEEvgeoNAaPJN6LtzuOyabzwPX1KfrqK7TeUNr
-	 MoFdHTeDh8ZLQp7IBomFAc17fRO4alQLoHP4xQ7CdV6eQZ7/6yLuP4UdwpcgM4bK38
-	 hM/JLQvsql144aHQbzu7MxuzLW0dKz9GZXaPPTqja271pRo5JJjLOzPVXYrm/3CCrk
-	 932EVIT2a1AWQ==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Tue, 21 Jul 2026 19:11:28 +0200
-Subject: [PATCH 3/3] firmware: qcom: scm: Allow QSEECOM on Asus Zenbook A16
- (UX3607OA)
+	s=arc-20240116; t=1784654236; c=relaxed/simple;
+	bh=koROrrEYQO1XRYreueMzUi9aq45sqTe1/heBsm5ssHQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=O+7nsipx2Xq80rvzvdrsnWy+pjLWA4OoeVQzTSh9fTuKmEd0Ynwh4TW8n2n2khrB+s09FT1AruF9VqUx37KpXRSBidy60zDFBDoYEJQ+SkkonL2npMc2cN1kEZImicDTXh6DdU8GZRt6uzkSAVUfdqoRBDyg6VMkIfPgzUokXtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.122.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
+Received: from mail.privateemail.com (K8S-PROD-WORKER-15 [87.215.145.39])
+	by mta-11.privateemail.com (Postfix) with ESMTPA id 4h4PFP3B5mz3hhTr;
+	Tue, 21 Jul 2026 13:16:57 -0400 (EDT)
+From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+To: Conor Dooley <conor@kernel.org>,
+	Jean-Baptiste Maneyrol <Jean-Baptiste.Maneyrol@tdk.com>
+Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chris Morgan <macromorgan@hotmail.com>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: imu: icm42600: add icm42630
+Date: Tue, 21 Jul 2026 19:16:47 +0200
+Message-ID: <20260721171647.26128-1-jorijnvdgraaf@catcrafts.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721-lethargic-purge-e3cfb3c50677@spud>
+References: <20260720173411.82979-1-jorijnvdgraaf@catcrafts.net> <20260720173411.82979-2-jorijnvdgraaf@catcrafts.net> <20260721-lethargic-purge-e3cfb3c50677@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-topic-a16_submission-v1-3-8ea213130d05@oss.qualcomm.com>
-References: <20260721-topic-a16_submission-v1-0-8ea213130d05@oss.qualcomm.com>
-In-Reply-To: <20260721-topic-a16_submission-v1-0-8ea213130d05@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784653895; l=981;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=nBan+J4DGQRSz8p6kj9fFVu4zolOtUagim0rNl39qGc=;
- b=ahLA996G6Jc6d5AyF8omxzVMLsmk3sITrnZkOAUexjWooyf+WFdItOtZqo8r9Iz9TnF8Xmwb7
- JCA6P4UTV//AiSkkZbib80w4b3MljFluwdHM/9VXNJ/k0IeJ9CnRhCi
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Content-Transfer-Encoding: 8bit
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Tue, Jul 21, 2026 at 05:01:26PM +0100, Conor Dooley wrote:
+> On Mon, Jul 20, 2026 at 07:34:10PM +0200, Jorijn van der Graaf wrote:
+> > The TDK InvenSense ICM-42630 is a 6-axis IMU of the ICM-42600 family,
+> > found e.g. in the Fairphone 6. Document its compatible.
+> >
+> > A fallback compatible to a sibling is not usable: the part reports its
+> > own WHOAMI register value, which software validates against the
+> > compatible.
+>
+> Why does software do this? If the whoami is the only difference, the
+> software should stop checking it.
 
-In line with other Glymur-based machines, the Asus Zenbook A16
-(UX3607OA) exposes EFI variables through the "uefisecapp".
+Whether the whoami is the only difference is exactly what I cannot
+establish: the part has no public datasheet. What I can establish is
+driver-visible: the unmodified driver has been tested to drive it
+correctly, and Jean-Baptiste confirmed the chip is "similar" to the
+ICM-42631 and "can be supported by inv_icm42600 driver without any
+modification". That is short of knowing the parts are identical (the
+family has precedent for real differences behind the same register
+layout: ICM-42686, different full-scale ranges), so I did not want
+to claim full compatibility with a sibling.
 
-Add it to the QSEECOM allowlist to enable this access.
+As for the check: it is not mine - inv_icm42600 has returned -ENODEV
+on a whoami mismatch since its 2020 introduction (and per-part config
+does differ within the family, see above). Since every released
+kernel enforces it, a fallback would not probe on any kernel already
+out there regardless of what we change now; and even if the check
+were relaxed, a fallback-matched part would bind with icm42631 as
+its ABI-visible name - so the dedicated compatible is needed either
+way. Whether the check should become a warning is
+Jean-Baptiste's call, as a behavior change for all parts the driver
+supports; I did not want to gate a trivial ID addition on it, but am
+happy to send that as a follow-up if wanted.
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- drivers/firmware/qcom/qcom_scm.c | 1 +
- 1 file changed, 1 insertion(+)
+The commit message led with the driver check where the real reason
+is the identity uncertainty above; I will reword that in a v2 if one
+is needed.
 
-diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
-index f35f2ee39130..9ec79b445481 100644
---- a/drivers/firmware/qcom/qcom_scm.c
-+++ b/drivers/firmware/qcom/qcom_scm.c
-@@ -2304,6 +2304,7 @@ static const struct of_device_id qcom_scm_qseecom_allowlist[] __maybe_unused = {
- 	{ .compatible = "asus,vivobook-s15-x1p4" },
- 	{ .compatible = "asus,zenbook-a14-ux3407qa" },
- 	{ .compatible = "asus,zenbook-a14-ux3407ra" },
-+	{ .compatible = "asus,zenbook-a16-ux3607oa" },
- 	{ .compatible = "dell,inspiron-14-plus-7441" },
- 	{ .compatible = "dell,latitude-7455" },
- 	{ .compatible = "dell,xps13-9345" },
-
--- 
-2.55.0
-
+Thanks,
+Jorijn
