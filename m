@@ -1,172 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3575431A4A;
-	Tue, 21 Jul 2026 07:10:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504BE4302F5
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 07:10:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784617824; cv=none; b=X8wal9FjqxKqGuqS4ZlW2Gyder0NOKQlDZD8Lo05t43KmW3mMfoSbFkUYJ+cht92oAmEMfySrBT1VelN1qcBFRZ7+cr2p0jAd+v/nxr2FMoaNQFLoqVBKeZ+AHtgcNlcuyItvsuQH1vDuCieQZS/SBmNPMjfIzuVaE7eKVqJ5As=
+	t=1784617852; cv=none; b=BRgMoJArBseqNlBN+pwW29/8h6s/3l8gxfqHnf5RqH2FmIgKXvKGlIgzxc6plBvxUuDYA6/EGdmdREr8Gh5zUIMRBnc4oRUWg0til+szMz1nNBksnHn/F7SgK8VahHwkyyIIMH699gChE/jBK0qc9sLYcW8G0PkSJoPI3cQoMFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784617824; c=relaxed/simple;
-	bh=ycEHmlBmFlbGg/OD7w/JY18OEOVeBzV8qNCEV33lyrk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HkZsgYlNaYGXlqzv6W9oaM0cl1CPpRxRiiqkWhVBlGV+ldMlNE6fQhe1gUIxypzb5j4wCRgHDDOd5GE5MNU0g8HmyeiZfJUmM1qnW4szmZKBCuS8WTmaV9IM7YKpcKcBn89UWnorgSpHraIDAv2KaKhhLbmunewb5IbSrZoRkVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XZZxP4Uk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784617852; c=relaxed/simple;
+	bh=RzL7iBN9rVaFfVRgxdMYmEYj2/SjNilUxS1ygkczUx0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JoaYSCm1TqLcsc0J0F3MN+I7X2ZCRApIGoeH8RDU5A0XSwtP2tIThz2cjZZeo8sa+QjkXRVK4vIG1heL5GpFCOMlmcuidTsQVvhW4Y5i7rNM3QsFxvR/qjhgF314FNO1aQFaQ86HyzPXnp9xnnVBhuzPtxyMZDTs1hWzbU7sbsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZeRtvPao; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XZZxP4Uk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68B0C1F000E9;
-	Tue, 21 Jul 2026 07:10:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZeRtvPao"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A90D51F00A3F;
+	Tue, 21 Jul 2026 07:10:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784617822;
-	bh=yIGkGQ7+1uRZgNjM7NPhwIGZ9Ea2jPnWaCNwrejgXGo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XZZxP4Uk2KpocxVT5WQeb7P6/6RwAU//TxsAAvPCKDW8p9sLMlzCsus1uHBe67BRK
-	 XbwBoSILF5O8xZqJLLlqnDSRG8AHoRheGxG2c15xPhrB2YJc977dtg7ivTpgD2iyur
-	 I4GlBW3Sw/fd/eNq2RPpxmhzzm0ekxsl1K2SWkpe3dqcqHS1vOZWbB77lzNL8ex9CZ
-	 EJbtvqc/YIU/CYble/WdX/HxtIPhlrZ0VdabXey60jui3BYD8aPTlo1Oen0+pz0gaL
-	 3BkNyXpFubzuzsjNvmSx592ow5Wdf+uYX0/G/W4p3rajnXwvQ68zXZwrp/qDmpkwic
-	 /rFP5zDDbeSdg==
-Date: Tue, 21 Jul 2026 09:10:18 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Nina_Kuo@novatek.com.tw
-Cc: andi.shyti@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, ben_huang@novatek.com.tw, toby_chui@novatek.com.tw, 
-	shihpei_hsu@novatek.com.tw
-Subject: Re: [PATCH v3 2/3] dt-bindings: i2c: Add Novatek NT726xx SoC I2C
- controller
-Message-ID: <20260721-notorious-flexible-uakari-ba8e0c@quoll>
-References: <20260715073503.147552-1-Nina_Kuo@novatek.com.tw>
- <20260715073521.147610-1-Nina_Kuo@novatek.com.tw>
+	s=k20260515; t=1784617851;
+	bh=rWp6Diwpki/YKaSHpfNGVEPYrfTL3ZvISS/iONmoB6Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZeRtvPaotQxiADF4D59Me2SS8doURC+l4FT3hrw5xrj4UdlRdqYa62bekqbCEiVNZ
+	 zic0HsX6QW9THRPWw8R37fcGOUTzag2DUAvSapU5QLTaIByf38h2qLZEOf7R3cfZr8
+	 wUFfpITWkATi68Ox9XDbJQ04JsC9Ej1E+oh1+JXrkrT0S9Js0nAd8ZG5OAGPjxwJ/m
+	 YHgEMw2DLybjpjjCFSsYDjwB5+FTqx4G1psbM5IfPZk/jwSJBGriSDB2yC0JiF7qCM
+	 w/8f81bCJ4UGrOW5pLw1HK/7WxF8LmYJz6iCmnlciu/185WJwIRQTrYC8vdfTsmntH
+	 GwfBVfMMdltGg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 03/16] power: sequencing: Add pwrseq_power_is_on()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chen-Yu Tsai" <wenst@chromium.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260721065413.2306137-4-wenst@chromium.org>
+References: <20260721065413.2306137-1-wenst@chromium.org>
+ <20260721065413.2306137-4-wenst@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 07:10:49 +0000
+Message-Id: <20260721071050.A90D51F00A3F@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260715073521.147610-1-Nina_Kuo@novatek.com.tw>
 
-On Wed, Jul 15, 2026 at 03:35:21PM +0800, Nina_Kuo@novatek.com.tw wrote:
-> From: Ben Huang <Ben_Huang@novatek.com.tw>
-> 
-> Add device tree documentation for Novatek NT726xx SoC I2C controller.
-> 
-> Signed-off-by: Ben Huang <Ben_Huang@novatek.com.tw>
-> Signed-off-by: Nina Kuo <Nina_Kuo@novatek.com.tw>
-> ---
->  .../bindings/i2c/novatek,nt726xx-i2c.yaml     | 74 +++++++++++++++++++
->  1 file changed, 74 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.yaml b/Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.yaml
-> new file mode 100644
-> index 000000000000..866589c5ae51
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.yaml
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Filename must match compatible.
+Pre-existing issues:
+- [High] Failing to set the device name during pwrseq registration causes a=
+ NULL pointer dereference and uninitialized mutex destruction during cleanu=
+p.
+--
 
-> @@ -0,0 +1,74 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/i2c/novatek,nt726xx-i2c.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +maintainers:
-> +  - Ben Huang <ben_huang@novatek.com.tw>
-> +  - Jason JJ Wu <jason_jj_wu@novatek.com.tw>
+--- Patch [3]: [PATCH v6 03/16] power: sequencing: Add pwrseq_power_is_on()=
+ ---
+commit b1f1d35d0af2f22f0f4ab1e71697d11c020da9d0
+Author: Chen-Yu Tsai <wenst@chromium.org>
 
-Why are you changing the order of entries in the schema file? Do not
-come with own style. Please read and follow writing-bindings and
-example-schema.
+power: sequencing: Add pwrseq_power_is_on()
 
-> +
-> +title: Novatek NT726xx Series SoC I2C master controller
+The power sequencing consumer API already does power on state tracking
+internally. Expose the state to consumers through pwrseq_power_is_on()
+so that they don't have to reimplement it locally.
 
-So 726xx or 72600? Confusing.
+> diff --git a/drivers/power/sequencing/core.c b/drivers/power/sequencing/c=
+ore.c
+> index 02f42da915985..72b96d36920e5 100644
+> --- a/drivers/power/sequencing/core.c
+> +++ b/drivers/power/sequencing/core.c
 
-> +
-> +allOf:
-> +  - $ref: /schemas/i2c/i2c-controller.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: novatek,nt72600-i2c
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clock-frequency:
-> +    default: 100000
-> +    enum: [ 100000, 400000 ]
-> +
-> +  novatek,hwmods:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description: Name of each i2c pin, must be named with "i2cX". (X is
-> +                 an integer starting from 0, must be unique)
+[ ... ]
 
-I do not understand the purpose of this property. How in one string can
-you name each pin? And why would even need to name each pin - why would
-that be a board setup? Pins have FIXED names.
+[Severity: High]
+This isn't a bug introduced by this patch, but while reviewing this file
+I noticed a potential issue in the error path of pwrseq_device_register().
 
-Drop property.
+If dev_set_name() fails, we jump to err_put_pwrseq which drops the
+reference and triggers pwrseq_release():
 
-> +
-> +  novatek,stbc-controllable:
-> +    type: boolean
-> +    description: Set if this i2c master, named as `stbc-i2c`, is
-> +      controllable by stbc (Standby controller, actually is an 8051
-> +      micro-processor) on Novatek NT726xx SoCs.
-> +      For these `stbc-i2c`s, the driven clock is only 12 MHz and the
-> +      authentication to stbc must be executed before controlling the
-> +      registers.
+drivers/power/sequencing/core.c:pwrseq_device_register() {
+	...
+	ret =3D dev_set_name(&pwrseq->dev, "pwrseq.%d", pwrseq->id);
+	if (ret)
+		goto err_put_pwrseq;
 
-Compatible implies that, drop.
+	pwrseq->owner =3D config->owner ?: THIS_MODULE;
+	pwrseq->match =3D config->match;
 
-> +
-> +    default: 0
+	init_rwsem(&pwrseq->rw_lock);
+	mutex_init(&pwrseq->state_lock);
+	INIT_LIST_HEAD(&pwrseq->targets);
+	...
+}
 
-Don't vibe code stuff.
+At this point, pwrseq->targets and pwrseq->state_lock have not been
+initialized yet and remain zeroed from allocation.
 
+In the cleanup path:
 
+drivers/power/sequencing/core.c:pwrseq_release() {
+	...
+	list_for_each_entry_safe(target, pos, &pwrseq->targets, list) {
+		list_del(&target->list);
+		pwrseq_target_free(target);
+	}
 
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - novatek,hwmods
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c0: i2c@10000000 {
+	mutex_destroy(&pwrseq->state_lock);
+	...
+}
 
-Drop label
+Can iterating over the uninitialized pwrseq->targets list cause a NULL
+pointer dereference crash here?
 
-> +      compatible = "novatek,nt72600-i2c";
-> +      reg = <0x0 0x10000000 0x0 0x100>;
-> +      interrupts = <0 67 4>;
+Because INIT_LIST_HEAD hasn't been called, the list pointers are still NULL,
+which would cause list_for_each_entry_safe() to dereference NULL when it tr=
+ies
+to access the next element.
 
-Use proper defines.
+Also, it looks like this would attempt to destroy an uninitialized mutex.
 
-> +      clock-frequency = <400000>;
-> +      novatek,hwmods = "i2c0";
-> +      #address-cells = <2>;
-> +      #size-cells = <2>;
-> +    };
-> +
-> +    stbc-i2c1: i2c@20000000 {
+Could the initialization of the list and mutex be moved before the
+dev_set_name() call to prevent this?
 
-Drop example, almost the same, so pretty pointless.
-
-Best regards,
-Krzysztof
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721065413.2306=
+137-1-wenst@chromium.org?part=3D3
