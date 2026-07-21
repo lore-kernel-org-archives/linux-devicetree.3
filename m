@@ -1,137 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D4235C6B3
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 21:48:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5358A3B9950
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 21:49:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784670524; cv=none; b=uvnmG64Uk2kYiIFAS/bCvfhq9KzuX/orGooKcpmoFCgQ6jOmHPPLOn0tqg+IJ7xjZ+/yk1N2wGBpkNT530sZfzZMgkeWG+Nn2KEXvUTS/boXz+vp2CVFTZa6RaA7nAOVhSXig2OaHYqfY40KdQBBakpVaqE2SgcmHFGxz6locgY=
+	t=1784670552; cv=none; b=fQn5Z5GuwUytLJ0sDU3+8596PXeOTd1TbOj8fohRfiAa5MMzxgFc4gXrPg9vcoZerOL1mvHqU91a7brPrybfelJ4ceORgxs12gHXKhyCMYjRU66MCpdkJV8nzk/upjMBvjlMOpERbpJtE4Z3VNicvw3P3SdN+wD6VuzyC44QsqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784670524; c=relaxed/simple;
-	bh=onz/BlE3oe/RdcPYsBj42gIKSQ0jD91b288D/O5xJJI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bFCmLj3gIVeJoMCaLCk0iwF39pPd9+Jk3XLvi7lIxahGwoCl3MZ2WRVQ+M767NJ7ecuS2T0OsZ1kv3LUftaPKpjiyPqe+rUm8y6B+Ot7sDyX1ChbMDBw1vCNKikLycUvEVohLpwvVtgs2vQj3CR9NbAaIG8WiJIv+zcu0xrIVek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Imy0L8xy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784670552; c=relaxed/simple;
+	bh=TTzIq7jSHz4AYC3VS6WS9o/imjClM0fmeZAsDYpYJjI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=u3oQqlpLkqtc5oZhWN7bs7wtuIKH6g/UW5TmHHJVw2z3+Lu36ekidsOSGygwuQ3Lx2DpVuHAZfFtZkwTRbu59EBFJYSFtPl3NU6nEOSiqymNFH9BSe8th3TM9XCPSdCdNOBSBB7icnoeGF0SQaj/uUuRwOlHUDgBc4v+0jc7GOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=w8zX/jVc; arc=none smtp.client-ip=209.85.208.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Imy0L8xy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC8881F000E9;
-	Tue, 21 Jul 2026 21:48:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784670523;
-	bh=T0OMMmkwzWbfbUST8+qimocoMOhzAQvkQpSoT2B3jyM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Imy0L8xyzZy23Vf13Q5z+kpEdy69n+NwbNjIEFpkwvLGXZd0i3mJkl/84BFbVpWBz
-	 SdRpyXv6YxGaC1JfFb+g+QjjNYuy9vhw7pR+oNHS/UZ7EUR2vWVUeKy8+rQysUuJiU
-	 mH/8gjUTjKSvRGMXZs6Gar9GrCnIYtX8QhI7U/Ts3XPrFkyurLmd8DS5ll8EgERL4M
-	 xxW7pCmYiiQPuT8xcpX127rGIaJgLGvA9/zxjqrp7+E8y42eHVTyfy2aaB+qmzc6eJ
-	 gBmnRcZ9doLwnh7zulbk+GZZIz/VXgSAX4swONlCNDFmQjRc1ZqFFBfEIKtPqkaZGA
-	 +0LJPRVfDpuaw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/4] of: incrementally update /aliases lookup on
- reconfig notifications
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260721-nh-of-alias-overlay-v3-1-7001028fe2f5@nexthop.ai>
-References: <20260721-nh-of-alias-overlay-v3-0-7001028fe2f5@nexthop.ai>
- <20260721-nh-of-alias-overlay-v3-1-7001028fe2f5@nexthop.ai>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 21:48:42 +0000
-Message-Id: <20260721214842.CC8881F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="w8zX/jVc"
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-39db55d6e0bso5250071fa.0
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 14:49:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1784670547; x=1785275347; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jJPK6WsZUoetFgU5n/OkwtbmgnvsORPlU3I309PYPVI=;
+        b=w8zX/jVcYOsrNLylISxexZgTzz4BgtYLaxx3RvOHCcxYn78k9z8hktLW6j9OEuP9+j
+         pvKQf1xO1bZY7YipSQDsXY7OyMwVo5TZtXxPnDWpkCPNFETw3QLma8/ks1A05l2EPJmE
+         4SqyQ2rohv1TItbKjLyRTADyFiwGpXVrhSeClBuZvviW38Vt/ZgrDUwFNtNfDx4882fP
+         dgLwEft5u4sgWoBTQczdoRx6qSwPIjWhiM8DjB/UMCKsZB7g97mi3/+uLunsATgce7tC
+         yZ64h4e4rN/009s6kPGcbR3+iW/7CaHFy6SPaRWWGeAQjos+9qJDmz7pxJLS7plusTbP
+         vb2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784670547; x=1785275347;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jJPK6WsZUoetFgU5n/OkwtbmgnvsORPlU3I309PYPVI=;
+        b=bZ9lcrIrRT8mRLEH9piLQCDw6MklqMmQzIWK+Cc6rpbgD3E5uLP9h0FJZBrZEmnZmV
+         G1iEl6TdC5l+M+Xza29IYX5eusjzC9/eHGPOp93GBE7Rl0RCg4DQ3sfFwc/qkEcl+0qb
+         4eobvtbHZfgGvvg1S7YKM/YbG8lN1f/1YCbzi6yAK+xDi3xVS02kuiyhK5+r/eCQUqr2
+         ytfP/o6kv5xlOy1bvxff7svNdW5M+7NH0ngVTllpElNOebmT9SRFw+nMfDwhofQVQOZd
+         hYOoV2GbBauJdXICPwiAXQDpYXMEtkuOa538qV7OWD2cpargo5/6QDAUZnvC4uceFneW
+         QbgQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrTtqREndDI781UjgzKdPDkcVSNqcrhdgLOnNbAGCg1Ajtxa4HDRXXbHoiAF3hvIKQi7WHgRLrD+Npe@vger.kernel.org
+X-Gm-Message-State: AOJu0YwDLaBdQwXxcSKht3XzHV0y3o5AvNzAJ+cv6R3IqZWwDGMil9T8
+	GHHmGXBKt3h1tOrqez7FMgjkbXU4bN5vN74lrjEj6moK6KxVjSZ4bvduMo44xwnCm/c=
+X-Gm-Gg: AR+sD12Nt6porDmAbyGm4fBG5bdd1fYUCl+CevuspvzZsmLiePjrJCCejUSghAntipy
+	2FZq1fuyfH4eIo3093gWrMwF77uFiPt0AVnWs8vqTObDAf2UfFTaMs4sy2VbaSJ2Cs1JwNmJ4QL
+	jF3gc10aOwk9VOJt8jhhABTtqz0g0g7NFaZ3W0wwS7mMxZ2rNBc1ja/h4fSijIiINtc5Vbd3HBF
+	nHrm3jIPzvS+3t6/ky/yQBKq/rXAW7sGdp/MbcC0jaagAeyLuRpr5C/UHY6XQWhHse4aUCBfnLc
+	nURw4yNRjqTBiV+6UnK5v3ZQPE4zejWu2U2JoH7Ojy4FFC/+df9/fV5MEAlovMud89ETfsxV6wf
+	AgOoFimHiab07GPN0xxLPWVoFiA52MMzqsEY6JGi0q2CTanUAf0hUGZOvEbm5dZzren2uUJE+0u
+	wN0Q4Mqm5UVn4jVkWTBYdDV9eNeYBVxEFEIlYkna8M0wBBk/oUCdNomdly
+X-Received: by 2002:a2e:be28:0:b0:39c:6e71:8332 with SMTP id 38308e7fff4ca-39eeb6a2bf5mr5917561fa.1.1784670547167;
+        Tue, 21 Jul 2026 14:49:07 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39ef6d558d5sm1317761fa.30.2026.07.21.14.49.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 21 Jul 2026 14:49:06 -0700 (PDT)
+Message-ID: <b974f1be-b802-40a3-a54c-f7e3c8fbbece@linaro.org>
+Date: Wed, 22 Jul 2026 00:49:05 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
+ schema
+To: Frank Li <Frank.li@oss.nxp.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I
+ <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Bryan O'Donoghue <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260720-x1e-csi2-phy-v13-0-160c31958863@linaro.org>
+ <20260720-x1e-csi2-phy-v13-1-160c31958863@linaro.org>
+ <al_BEUNJOrqVPQWw@lizhi-Precision-Tower-5810>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <al_BEUNJOrqVPQWw@lizhi-Precision-Tower-5810>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The deliberate memory leak of the `/aliases` node reference during=
- `OF_RECONFIG_DETACH_NODE` breaks overlay revert and causes an unbounded me=
-mory leak.
---
+Hi Frank.
 
---- Patch [1]: [PATCH v3 1/4] of: incrementally update /aliases lookup on r=
-econfig notifications ---
-commit a185916382b462aafe7d63399b28b61ce3a88e5b
-Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+On 7/21/26 21:57, Frank Li wrote:
+> On Mon, Jul 20, 2026 at 02:11:34AM +0100, Bryan O'Donoghue wrote:
+>> Add a base schema for the MIPI CSI2 PHYs on Qualcomm SoCs. This PHY
+>> supports both DPHY and CPHY operation. A special mode of DPHY operation -
+>> called variously split-mode or combo-mode also allows for two sensors to be
+>> connected to one PHY.
+>>
+>> The submitted binding here describes the DPHY modes of operation only. CPHY
+>> is left to future work.
+>>
+>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+>> ---
+>>   .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 195 +++++++++++++++++++++
+>>   1 file changed, 195 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+>> new file mode 100644
+>> index 0000000000000..880fe602945cb
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+>> @@ -0,0 +1,195 @@
+>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm X1E80100 SoC CSI2 PHY
+>> +
+>> +maintainers:
+>> +  - Bryan O'Donoghue <bod@kernel.org>
+>> +
+>> +description:
+>> +  Qualcomm MIPI CSI2 C-PHY/D-PHY combination PHY. Connects MIPI CSI2 sensors
+>> +  to Qualcomm's Camera CSI Decoder. The PHY supports both C-PHY and D-PHY
+>> +  modes.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: qcom,x1e80100-csi2-phy
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  "#phy-cells":
+>> +    const: 1
+>> +    description:
+>> +      The single cell specifies the PHY operating mode.
+>> +
+>> +  clocks:
+>> +    maxItems: 3
+>> +
+>> +  clock-names:
+>> +    items:
+>> +      - const: core
+>> +      - const: timer
+>> +      - const: ahb
+>> +
+>> +  interrupts:
+>> +    maxItems: 1
+>> +
+>> +  operating-points-v2: true
+>> +
+>> +  opp-table:
+>> +    type: object
+>> +
+>> +  power-domains:
+>> +    items:
+>> +      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
+>> +      - description: MMCX voltage rail
+>> +      - description: MXC or MXA voltage rail
+>> +
+>> +  power-domain-names:
+>> +    items:
+>> +      - const: top
+>> +      - const: mmcx
+>> +      - const: mx
+>> +
+>> +  vdda-0p9-supply:
+>> +    description: Phandle to a 0.9V regulator supply to a PHY.
+>> +
+>> +  vdda-1p2-supply:
+>> +    description: Phandle to 1.2V regulator supply to a PHY.
+>> +
+>> +  ports:
+>> +    $ref: /schemas/graph.yaml#/properties/ports
+>> +
+>> +    properties:
+>> +      port@0:
+>> +        $ref: /schemas/graph.yaml#/$defs/port-base
+>> +        description:
+>> +          Sensor input. Always present. A single sensor is described by a
+>> +          single endpoint with one to four data lanes. DPHY split mode,
+>> +          where two independent sensors share the same PHY, is described
+>> +          by two endpoints; endpoint@0 with exactly two data-lanes and
+>> +          endpoint@1 with exactly one data-lane.
+> 
+> Sorry, jump in so late. I have questions about this design
+> 
+> why not model each lane as sperated phys.
+> 
+> csi1 {
+> 	...
+> 	phys = <&phy 0>, <&phy 1>; // use lane 0 and 1, connect sensor 1
+> };
+> 
+> csi2 {
+> 	...
+> 	phys = <&phy 2>; // use lan 2, connect sensor 2.
+> };
+> 
 
-of: incrementally update /aliases lookup on reconfig notifications
+Such design has a number of flaws and in general it looks overly
+complicated. From the beginning it's unclear how to distinguish
+a clock lane from a data lane, how to specify lane frequencies etc.
 
-This commit adds an OF reconfig notifier to dynamically update the
-/aliases lookup list when nodes or properties change. It handles both
-direct devicetree modifications and overlay apply/revert paths, protecting
-access to the list with a dedicated aliases_mutex.
-
-Link: https://lore.kernel.org/lkml/1435675876-2159-1-git-send-email-geert+r=
-enesas@glider.be/ [1]
-Link: https://lore.kernel.org/lkml/20150630172131.D4E6CC4041A@trevor.secret=
-lab.ca/ [2]
-Link: https://lore.kernel.org/lkml/1435675876-2159-2-git-send-email-geert+r=
-enesas@glider.be/ [3]
-Link: https://lore.kernel.org/lkml/1435675876-2159-3-git-send-email-geert+r=
-enesas@glider.be/ [4]
-Link: https://lore.kernel.org/lkml/1435675876-2159-4-git-send-email-geert+r=
-enesas@glider.be/ [5]
-
-> diff --git a/drivers/of/base.c b/drivers/of/base.c
-> index 6e7a42dedad3f..4e34c65a8f9f0 100644
-> --- a/drivers/of/base.c
-> +++ b/drivers/of/base.c
-
-[ ... ]
-
-> +static int of_aliases_reconfig_notifier(struct notifier_block *nb,
-> +					unsigned long action, void *arg)
-> +{
-> +	struct of_reconfig_data *rd =3D arg;
-> +
-> +	/* of_aliases may still be NULL when an overlay creates the node */
-> +	if (!rd->dn || !rd->dn->parent ||
-> +	    !of_node_is_root(rd->dn->parent) ||
-> +	    !of_node_name_eq(rd->dn, "aliases"))
-> +		return NOTIFY_DONE;
-> +
-> +	mutex_lock(&aliases_mutex);
-> +	switch (action) {
-> +	case OF_RECONFIG_ATTACH_NODE:
-> +		if (!of_aliases)
-> +			of_aliases =3D of_node_get(rd->dn);
-> +		break;
-> +	case OF_RECONFIG_DETACH_NODE:
-> +		of_aliases_forget_all();
-> +		/* keep the ATTACH reference: lockless readers may hold the node */
-> +		if (of_aliases =3D=3D rd->dn)
-> +			of_aliases =3D NULL;
-
-[Severity: High]
-Does skipping of_node_put() here cause a memory leak of the device node
-and its properties when reverting overlays?
-
-During the ATTACH_NODE notification, the notifier takes a reference on the
-node using of_node_get(). When the overlay is later reverted, the DETACH_NO=
-DE
-handler clears the pointer but intentionally omits of_node_put().
-
-When the overlay changeset is subsequently destroyed,
-__of_changeset_entry_destroy() checks the node's reference count. Because t=
-his
-notifier leaked a reference, the count remains elevated.=20
-
-This elevated count causes the destruction process to print a memory leak e=
-rror
-and skip setting the OF_OVERLAY_FREE_CSET flag.
-
-Consequently, of_node_release() will refuse to free the node's memory, leak=
-ing
-the node on every overlay apply/revert cycle.
-
-> +		break;
-> +	case OF_RECONFIG_ADD_PROPERTY:
-> +		of_alias_create(rd->prop, alias_alloc, true);
-> +		break;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-nh-of-alia=
-s-overlay-v3-0-7001028fe2f5@nexthop.ai?part=3D1
+-- 
+Best wishes,
+Vladimir
