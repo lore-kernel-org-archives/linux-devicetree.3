@@ -1,158 +1,160 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71762F8EAD;
-	Tue, 21 Jul 2026 10:45:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD0352594B9;
+	Tue, 21 Jul 2026 10:47:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784630761; cv=none; b=StQvNnPQGzOaTm3smQ4p9EjsQhxZmW/h8ZwyyvrL2HCdmurlPE0bdtjkYLPxHZZPQ47qhk6olNSygzCOuU97EyweMB6oScyL/rKHrTSEvPyjrSq6VhpuuPf0p7C5rvhC5BE9MvjQj3B1fYnDmc4WG2tQWKnBkCLjxkft3KbZ3cg=
+	t=1784630860; cv=none; b=LlDWMJUdZglq7d15mhWLTozYIAjIR9ku9Ck5Pu3lyNy5BXFaGGJVn5/4715uAk/JWuvtqSuTDWCFYcIGaisTj+N6XlkEgBkEWRNof1BMriPxNtG+kxIYiUE04FyjeJ/9JYqbISC77ssElbhOuAJqf18ykVPUWxj5OJWGNiMIdnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784630761; c=relaxed/simple;
-	bh=XiJ52Ro979Sd9I4QKn9c0heyv42apiPL9gmEGpxd7/E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cjZwLS/eJAFu4p/zDH0E22jYeWC/udU/j52oFzkESkSdMwyIIlZW498S2vzKgCpTQEgqMlN1o5v9BuZ5M3WOC3PtjmBtybnCCSVwJQIVk7+VL6UmQZ6DcyDmAz4tivJ4eqVVeg+ifry51D1JYlfL+D+5OW0aravOdXAziKe0Itg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IuTAUrua; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1784630860; c=relaxed/simple;
+	bh=xzTM85RZtCEKJwBEdK41aziqAPtrKDr6GMJmPd65zLM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=W/gg/LS6O5m00mrf6Su6kG+MyD28/z6qqNp0xZfkFHeper15SN1QKyv6I0/+eQOmMjogVvD+yhaQEVkfkGTKixxMROky8fpsWz+532Mj2GytAbJLhfVfWO3UUycF/lA2XZiL7fExFXM8sc9kGhUkt4GfTNSBMW3oAaD8CrKVQ3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D9hKYERx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IuTAUrua"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784630752; x=1816166752;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=XiJ52Ro979Sd9I4QKn9c0heyv42apiPL9gmEGpxd7/E=;
-  b=IuTAUruaZNEX8Wd1kWAbnjrgzbbv9nXHl90AjvJFcYzKkmnDifXtuoRh
-   MMXfL6rSoC17cv63z17RGTHd03e6AvStxvj4VW3qYS2pHjiyeElQt37qT
-   xqE6auF/qIHx3COQqdnEfF7KOeSWDW5RESgylYyizkbMliksBhdkjt1cI
-   epXUxZl9bISvtm6WC1tV2IFOlT5mwO02z2kLCayqLr/UVTJnYkq3KnkBM
-   4IuxNKXf9ZQgXi5jFg9Xi9bevRDewmmmIu6CoIXLRe4qcU2J97ZJ8+7Rd
-   Q98fqywLm4HL5IJwJ/tSre0gMrhG5Wy/gWEZgU91DdVw/1ZH5Wil0d2/h
-   w==;
-X-CSE-ConnectionGUID: eovB+DC1TTGBFFj5ew5bKg==
-X-CSE-MsgGUID: qUrereYGSnSZakPd86MFew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11852"; a="85425829"
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="85425829"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 03:45:46 -0700
-X-CSE-ConnectionGUID: BRMn8gthTUOZpen0KK6RBg==
-X-CSE-MsgGUID: 1+3gm2alRWmzcCIucRJVkA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="281001141"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa002.fm.intel.com with ESMTP; 21 Jul 2026 03:45:43 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 0120C95; Tue, 21 Jul 2026 12:45:41 +0200 (CEST)
-Date: Tue, 21 Jul 2026 13:45:40 +0300
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: jens.glathe@oldschoolsolutions.biz
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, stable@vger.kernel.org,
-	"Dr. David Alan Gilbert" <dave@treblig.org>
-Subject: Re: [PATCH 3/5] usb: typec: mux: ps883x: refactor DP altmode
- handling and support TYPEC_DP_STATE_F
-Message-ID: <al9N1GncsKvVU9tZ@kuha>
-References: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
- <20260718-ps883x-disable-usb4-v1-3-cec86d0b909e@oldschoolsolutions.biz>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D9hKYERx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BB821F00ADB;
+	Tue, 21 Jul 2026 10:47:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784630841;
+	bh=qiRn/EoXowNAFUb+/CMEqlELTbv2z1ktp+4yNterQHM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=D9hKYERxh9kQflnAdZPElpi7jsICi86hlzf3cfplZI4XcE1rILPch2S3QV4TSZS1+
+	 1Ndu5FI4yNrgfwjJdWPpnJcIjA9ZFl/IBVLk4BmYgkQi4oXyAzryvFGDPAyJmSzc+i
+	 T4st8JebReZDHffEST00qO2m2XD0zAmc4okz/sJZmAuKT5RNcbfWPg5ZrRqBRYEDEM
+	 ycEHsQwe9cCxpmxsqij2RgtSuihaH2TNwhT13tPOnlfss4WkosYLhwpJfY8SXxA0Et
+	 xgsTNdqmY1EFfYfZyfMjmVssD7Ee7lwFGz2rspepdog9wNqK1mTuXusFB5GB7914Bx
+	 k0MOyyevsAIpg==
+Message-ID: <c236cf94-a775-4158-88db-9a337c7fa862@kernel.org>
+Date: Tue, 21 Jul 2026 11:47:15 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260718-ps883x-disable-usb4-v1-3-cec86d0b909e@oldschoolsolutions.biz>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
+ schema
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
+ <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260720-x1e-csi2-phy-v13-0-160c31958863@linaro.org>
+ <20260720-x1e-csi2-phy-v13-1-160c31958863@linaro.org>
+ <LyWJAb2qKsAFTMHNJUce9VqoqbkFKUQanb6z8ziA63RYZ1P9jj1XpA83uGPvz9m4QnWvEjJFK8dGD_8EtioHVQ==@protonmail.internalid>
+ <0da6d314-bfa9-493a-bcc6-8c3b75751d0c@linaro.org>
+ <88ae6662-cb85-4e3a-bbb5-1b536348df34@kernel.org>
+ <_t1jiMTX3iIXhUkTDz0Cbh_uZhdUK_Y8vlIwxt1VNRbuKuRnpVCWabal-b4AuFrVaKrDnQSFOWtDn6-VCbS3DA==@protonmail.internalid>
+ <345ca98e-09f6-4965-87bb-e64dac096498@linaro.org>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <345ca98e-09f6-4965-87bb-e64dac096498@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Jul 18, 2026 at 07:06:31PM +0200, Jens Glathe via B4 Relay wrote:
-> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+On 21/07/2026 10:56, Vladimir Zapolskiy wrote:
+> On 7/21/26 12:39, Bryan O'Donoghue wrote:
+>> On 21/07/2026 09:17, Vladimir Zapolskiy wrote:
+>>>> +  "#phy-cells":
+>>>> +    const: 1
+>>>> +    description:
+>>>> +      The single cell specifies the PHY operating mode.
+>>> This has been reported before, #phy-cells shall be 0, the operation
+>>> mode is selected by bus-type of endpoints as it is described in
+>>> video-interfaces.yaml
+>>>
+>>> Two competing values are redundant and it opens a door to a wrong
+>>> hardware description, the technical discussion has not been started yet.
+>> So as I said before, I'm following Rob Herring's input on this and
+>> Krzysztof has given RB for this binding. At this stage, I don't see
+>> scope to change it.
+>>
+>> Adding endpoints was already a compromise to address your feedback,
+>> which I hoped would bring you on board with the design.
+> That's my comment dated March 27, 2026, and it says moving phy type
+> from phy cell to the endpoint property excludes the need to set any
+> phy cells:
 > 
-> Several docks, including the Lenovo 40B0 and SSK SC220, still send the
-> legacy TYPEC_DP_STATE_F mode request (deprecated since DisplayPort Alt
-> Mode spec version 1.0b). Treat it as USB3 + DP altmode (same as
-> TYPEC_DP_STATE_D) so that DP altmode works correctly, especially on
-> the 40B0 in Type-C fallback mode.
+> https://lore.kernel.org/linux-arm-msm/e37ce438-12c7-462d- 
+> b2bc-1351be62b806@linaro.org/
 > 
-> Extract the state handling into ps883x_apply_dp_altmode() (modelled
-> after qmp-combo-phy) for consistency.
+> The technical comment is left unresponded so far since then.
 > 
-> Assisted-by: Grok(xAI):4.3
-> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+> Since there is no expected phy cells to get on consumer's side, and
+> since there is another link between CSIPHY and CSID described in
+> video-interfaces.yaml, any kind of dependency of this IP on phy can
+> be just removed, which serves the purpose of hardware description
+> simplification.
 
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Rob's v1 feedback was consumer-decides-mode via the cell; Krzysztof has
+R-b'd the binding with cells=1.
 
-> ---
->  drivers/usb/typec/mux/ps883x.c | 35 ++++++++++++++++++++---------------
->  1 file changed, 20 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/mux/ps883x.c b/drivers/usb/typec/mux/ps883x.c
-> index 3fa26ce01a9c9..3533d4f363286 100644
-> --- a/drivers/usb/typec/mux/ps883x.c
-> +++ b/drivers/usb/typec/mux/ps883x.c
-> @@ -188,6 +188,25 @@ static int ps883x_configure(struct ps883x_retimer *retimer, int cfg0,
->  	return 0;
->  }
->  
-> +static void ps883x_apply_dp_altmode(int *cfg0, int *cfg1, int dp_state)
-> +{
-> +	*cfg1 |= CONN_STATUS_1_DP_CONNECTED | CONN_STATUS_1_DP_HPD_LEVEL;
-> +
-> +	switch (dp_state) {
-> +	case TYPEC_DP_STATE_D:
-> +	case TYPEC_DP_STATE_F:
-> +		*cfg0 |= CONN_STATUS_0_USB_3_1_CONNECTED;
-> +		fallthrough;
-> +	case TYPEC_DP_STATE_C:
-> +	case TYPEC_DP_STATE_E:
-> +		*cfg1 |= CONN_STATUS_1_DP_SINK_REQUESTED |
-> +			 CONN_STATUS_1_DP_PIN_ASSIGNMENT_C_D;
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +}
-> +
->  static int ps883x_set(struct ps883x_retimer *retimer, struct typec_retimer_state *state)
->  {
->  	struct typec_thunderbolt_data *tb_data;
-> @@ -203,24 +222,10 @@ static int ps883x_set(struct ps883x_retimer *retimer, struct typec_retimer_state
->  	if (state->alt) {
->  		switch (state->alt->svid) {
->  		case USB_TYPEC_DP_SID:
-> -			cfg1 |= CONN_STATUS_1_DP_CONNECTED |
-> -				CONN_STATUS_1_DP_HPD_LEVEL;
-> -
-> -			switch (state->mode)  {
-> -			case TYPEC_DP_STATE_D:
-> -				cfg0 |= CONN_STATUS_0_USB_3_1_CONNECTED;
-> -				fallthrough;
-> -			case TYPEC_DP_STATE_C:
-> -				cfg1 |= CONN_STATUS_1_DP_SINK_REQUESTED |
-> -					CONN_STATUS_1_DP_PIN_ASSIGNMENT_C_D;
-> -				break;
-> -			default: /* MODE_E */
-> -				break;
-> -			}
-> +			ps883x_apply_dp_altmode(&cfg0, &cfg1, state->mode);
->  			break;
->  		case USB_TYPEC_TBT_SID:
->  			tb_data = state->data;
-> -
->  			/* Unconditional */
->  			cfg2 |= CONN_STATUS_2_TBT_CONNECTED;
->  
-> 
-> -- 
-> 2.53.0
-> 
+I'm happy to lock down this binding as-is on that basis.
 
--- 
-heikki
+Are you arguing about phy-cells or are you actually arguing the entire
+instantiation of Qualcomm MIPI CSI2 as a standalone generic driver in 
+drivers/phy ? Its not the same debate at all.
+
+As the CAMSS maintainer, I'm fully against adding more inline monolithic 
+CSIPHY init sequences. That could be represented as a separate 
+linux-media driver but, then that implies that _all_ upstream CSIPHY 
+drivers in drivers/phy are wrong, and I just don't accept that.
+
+The bindings have DT maintainer RB, and the driver has Qcom engineer 
+tested-by, review-by.
+
+Vinod, Kishon - Again, I'd request this merges as-is.
+
+---
+bod
