@@ -1,240 +1,174 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010066.outbound.protection.outlook.com [52.101.69.66])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26424582D3;
-	Tue, 21 Jul 2026 23:16:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.66
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784675798; cv=fail; b=lv7jDCajrj89wYE0uFYVSYmEnq0XNVJuYvdzbHL/w2tqgQ06KbQJ6+Gb2Wau5AJ1io7wD7CNTlou/V7MIGluLDQy5yScAZrdBKr11B1P8Qc/3AW3c4nGiA1/8ymA6+mzzDWRgjqeJpEWNJQ7s1gi+j/sPnH+i6HiTUsH8/bFMMk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784675798; c=relaxed/simple;
-	bh=2+dBt5aSpj6+L/O9TWwTfJMERyx2Qr8+EDloehEb2ZU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=sZWMYn/5O91eynYxdnLwvhhLRyWcOpUtH9rpUQRHNk+zrExybJ9cmBoiQiFLcC2n1ETJ8nkQ3QN+2C5DiUkQLtBE3Bmjpy6+5cz54ztiOLM+gY2T+vG025KPCDdPqzOJwI/5aLxInPzipz1q9sUw4sp8creXLM2Zi964uQ5Bvm0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Wa0DZdNY; arc=fail smtp.client-ip=52.101.69.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3AD3C81AD
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 23:20:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784676039; cv=none; b=JJj8/h40Jb3PTyckA3JxoeQ15kgSfBjJtfk6/dxSkrDJ184haZWoM9CO/HL1QBRHjuB3pyt5Yzcjv148UAQkQ4D84+n+bj0PvyiLhG1YNXxmj/uhf3VO9xkPiNJpXbIod9hvSuP/q7v/K87QRaEftjlAQfSSyEXJ602AqJKNTMM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784676039; c=relaxed/simple;
+	bh=55PZ1dRQ+QBAYnTCFWdNn3YYw3nMqxbVavpQigkSyKM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QKUv6S5hTOq4vJ5eXcw3DdoIhWPnJPoQSuD7jxOPSITJ7R8VmnYIZ1bdbX9gwJJjVFM9Cmikq4ZjholLOMkwlV30LOH5SOi1NXsrctzDqruerDXEKKzSAfmWiCd+j1g7tgxW5KxI/zi0MVY7ktwgJKjsn0+/j+RcSXwjcJLSsXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=b3Q8TgQX; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ezkaf0XJ; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Wa0DZdNY"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Us+24GC928WdNCXUD4SvHet17DEQQJFa4bP/TsDFZV7wB/Crvu7OWq3fqrqYZRLrfuhGlLM70/dXTkfCoOLLtv2I62l8PeTjjmlKj4bwlNCwfJlIzYpqFZ0EwLAFlX52HtriQAG6vkgQxJaaa78KCczGehdxQjFnerDoyoCuGOsIzJAhFQwzR48wpPXwrovHfm5fMdNZJM9DOBlRl6E06CxUQqDQfVnOWC1NBWHgcLuEQV/dEBa4O/XVMoHv8LdPqJci4XcH/GDN736FpBbpTFE9LrtzW2oJYUO46Iyrte+5nXEOYi0nIsS73qMLVCqnpoTt4zwS7wZbvYJCPyOqHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tkO96bpp4Fik/CoANpI5arj9Vn7TGtDhXpFGdR+H+k8=;
- b=NCeWx662uSwVDG1Br4sfAdep7gCWOxKKr7gOG3SDaqKxru4+tmW9lq/00dPDYk6PvXs6AhR/lQ2cd0Ob9kv/b+T5DR8xZw0e3fxRPscPhhls+K0CUeVLb3i8aMeYWpWnzE+uhTLJKE8g8scNaXQSjfuEQfGVYCtY1gvVndRYRyrPHRwY5jmLWUx3x0033h4jubNAuXpex+W4aZP2TG//NIuUPaIDfmfbHOMfk2OJ3jQ2xurfuaIq3Fc2Emox/NbKYoIo3RwvSiK7itP/dAUC/MMeqDA7knuJSqAUfTbi6GJazWBYdMxjpIQyrfcqKjDAam8dHcnT9gUmB08lLJw+cA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tkO96bpp4Fik/CoANpI5arj9Vn7TGtDhXpFGdR+H+k8=;
- b=Wa0DZdNYvOWZrWCRffiuaNvApS6yPBLvM6SEpWZUbhcoS+bolPX5TwdDpieGvXPnN5T+cM4gh+JzHjm0W9OofmkzbqgR0V6F+RT7ECXhaAnc3/ZS0TVZUxZqQT0m3FGb1pbRBMdEDRVAK4WZjAlLmvhp10MWwxsdxEakN9/6eermV83krnNyrbSAeT67ZOBPR0S6d30Aa8mqwbKqCegZh5US+rFpnE3/HiGP+PLja68amJ7do8lhfpMB/ox0kBRQiIrCBA+r8xLFyFXxrFgbd50XwmW2EPP1MukDp4XB7dhuMSb2BYj55muVOG3wzQ3094GsvQrpbIoMcyR33+WBEQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
- by VI0PR04MB11817.eurprd04.prod.outlook.com (2603:10a6:800:2ec::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Tue, 21 Jul
- 2026 23:16:29 +0000
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023%5]) with mapi id 15.21.0245.009; Tue, 21 Jul 2026
- 23:16:28 +0000
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: linux-phy@lists.infradead.org
-Cc: devicetree@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="b3Q8TgQX";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ezkaf0XJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784676036;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZBvF4sHXwwFEFaVeA6IZnlYB/+c+MHkK63AEWgH6t/g=;
+	b=b3Q8TgQXKmX5YGc5NU1eav9/m1SfuKo+NDp8LpkJOHCO73SuvyRmzEsFr/70VzGFCK4WPR
+	K454fDz9z2Fjt7b4IKWNIkcvCO0Nwq6DtUgNKf1eoKBqw3jgnhE2t6t49F03xVnOgoI5SF
+	k+673HpKErforf1F5FJ4Qcv5NZ/t24Q=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-48-vnfUiMkyN9OnHwdJytxRkQ-1; Tue, 21 Jul 2026 19:20:35 -0400
+X-MC-Unique: vnfUiMkyN9OnHwdJytxRkQ-1
+X-Mimecast-MFC-AGG-ID: vnfUiMkyN9OnHwdJytxRkQ_1784676035
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8efad04d884so171782776d6.0
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 16:20:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1784676035; x=1785280835; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ZBvF4sHXwwFEFaVeA6IZnlYB/+c+MHkK63AEWgH6t/g=;
+        b=Ezkaf0XJl2O+trTwCzZVkpwUGQZf421eI6L3Gcc+TXuE2owBVUy4aU7RUwrlIj/s99
+         c+fn8gzp+/f5Pl4DTc4sDRagxo8ltc43XW14u5q7Kjf9MFomixKxmRcPXFwHYyf8TXHK
+         Bs6AWlSBTrZJpJE4o7ExexluquElgxgVedjmxwx6/8nON3qewvYGxvlIhIZP7/cV2C5B
+         Rn97XhEWYeNCiKQGtkPBlfXsku+70Cr+okyTbOasmbI0+ad0qWr5WC3Aw3I6V69L8Z6P
+         MO1q9J4SkMRAze+wGsLcQ2+yH9oiVtE4jLvZkoXsUKtXHY9y5o0cc2/sEaCXhhTEUQ6l
+         5llA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784676035; x=1785280835;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZBvF4sHXwwFEFaVeA6IZnlYB/+c+MHkK63AEWgH6t/g=;
+        b=X2dBGn+y5wvKlaqx97XixxdyLPS2JPUuK/m0+QN89Te1oBjyb18oItt6PctW8CJzzy
+         Qmz6vz0IWT9RWnGYJy1i1PgnRW3hSB3cwwME/JOmpeUIKiF3DwZwq4rEgzn3MFsxksmy
+         yu5Fu6ra7S3NuPcU/n/9C65QLIph/2sBzUVu08FkELrjc0xnWlB6H0ssMH8ke066AuCf
+         acnbYxFPQCJFufB8cBStlSIZcrNW40dJTnKt/jEiBtZo8WD4FdW2uMStB1KB9KpFz4d9
+         gYbHAkDaFYTlLVAktzszZli/clGIxKI5/R3naLcrssQoYXG0ln/NFLHFmLBkVz4ud7BE
+         Ov3A==
+X-Forwarded-Encrypted: i=1; AHgh+Rra2Moap8ZQHAbJBSkHM1wtBUQPmo/5VKPxOxGasJpTFgkbDVT72NvN/UCrYPFHy7aKooYI5eJOU/ia@vger.kernel.org
+X-Gm-Message-State: AOJu0YwKxZgmywTlZ1Y3V1fSlb5Ark8cU6Dw5egZBk2wzJ/BDFXEYlfh
+	Trqb0DwpeNST4vKzqmodT9AhxLv0hXfezdMLcC2Cr4qqxTWMWmnrPaC5LyiOjqE7Jv2XN04DaYS
+	ZSMQW4Y/5AgC8Qb5y5Wn281fdZnwZoUJUPvXl7pUQUJUg+KZHSpxP8EgYe6f3IEI=
+X-Gm-Gg: AR+sD12nz/rcXb2tflLB6gjlFGLx3k2Gd4Gu4I4cADa9XpWASfOHvGVBAzExscS0mEA
+	EmEGqtUbAamnPb0lPiUApzEgLlhiRkQ0c/TGoxYniWJ5gES0oCPrt7e8vOjB1bdCdQx6LSjmmAJ
+	D5fDzEBMU/Bp2clA/09NiFOzCC/QC0tm+/QCiLKdkxVIenXy23bsOFcnsmbdLDj2W7o0QFZicWF
+	zJD5jaPe4dZKrH6Oz2aUSG2hZo9NH1C5zOFSv7APWuvE1rD4y38cZordKRIttwMYU60aYVXJwiB
+	b6hYtVmh1onzZ7D2ilF93C1oi68HSQS5Pc6XISxXep1H/vZFluf3gfP/9IrcKdIuNLT6/KlXg6G
+	Y2Ub5S+bPRgUkF1bXjIM/mvyJcyNcGy70XV8=
+X-Received: by 2002:a05:6214:20e9:b0:8ed:29f2:32ea with SMTP id 6a1803df08f44-907783bee71mr224973256d6.48.1784676034703;
+        Tue, 21 Jul 2026 16:20:34 -0700 (PDT)
+X-Received: by 2002:a05:6214:20e9:b0:8ed:29f2:32ea with SMTP id 6a1803df08f44-907783bee71mr224972896d6.48.1784676034224;
+        Tue, 21 Jul 2026 16:20:34 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907ba9e13d1sm7307666d6.28.2026.07.21.16.20.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Jul 2026 16:20:33 -0700 (PDT)
+Date: Tue, 21 Jul 2026 19:20:30 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Simon Glass <sjg@chromium.org>
+Cc: Heiko Stuebner <heiko@sntech.de>, Fabio Estevam <festevam@nabladev.com>,
+	devicetree@vger.kernel.org, Jonas Karlman <jonas@kwiboo.se>,
 	linux-arm-kernel@lists.infradead.org,
-	Ioana Ciornei <ioana.ciornei@nxp.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Tanjeff Moos <tanjeff.moos@westermo.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Michael Walle <mwalle@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 phy-next 9/9] phy: lynx-10g: use RCW override procedure for dynamic protocol change
-Date: Wed, 22 Jul 2026 02:16:03 +0300
-Message-Id: <20260721231603.67865-10-vladimir.oltean@nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260721231603.67865-1-vladimir.oltean@nxp.com>
-References: <20260721231603.67865-1-vladimir.oltean@nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: AM0PR02CA0111.eurprd02.prod.outlook.com
- (2603:10a6:20b:28c::8) To AM0PR04MB6900.eurprd04.prod.outlook.com
- (2603:10a6:208:17d::10)
+	linux-rockchip@lists.infradead.org,
+	Jeffy Chen <jeffy.chen@rock-chips.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, huang lin <hl@rock-chips.com>,
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/6] clk: rockchip: Add clock controller for the RV1106
+Message-ID: <al_-vioCVeQxVo-f@redhat.com>
+References: <20260714193656.2196447-1-sjg@chromium.org>
+ <20260714193656.2196447-3-sjg@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|VI0PR04MB11817:EE_
-X-MS-Office365-Filtering-Correlation-Id: edc8883a-5920-4d3b-2331-08dee77e1807
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|19092799006|1800799024|366016|6133799003|11063799006|10067099003|56012099006|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	TLRUI6u2a8z4OtQdZb+2gM4rCFE0gKIbbvaXOYWRhVVCQpiEhwnnCIGPMoJE6eWemdijfpB3t4oZjQO4l5D+qD7QM6KfaMUCxxOR/uQGbqLNZVywDa4rYrNNrDNv4fOB4PNWqc2wCuxg1WCjwHTpWiDT7EB2HZGzpjmt6luqDOr/Aelw2deSjA1vkbB/Rwczr1hcNsZX0l3PDsWUxJdE7GoJ0MyzaBQZugIDuMGBaLsA5XF7hy+ADFAKLbr9sQzT21aqMqM3dbDhJ3q/i5ERXhQRCq/9KPscC+stI6sZT314tY6RUzb2i0sSYIU6k+XHkcRhQPemuoqWM+QDjvROGMjC8wiSedGmw3NM+Cx3wFPSrAggLmJ322Jb02AKGz548YtsDWrTB3SykS1fAIFb5xIv+utWFUpOB37dCwcAOhaZDnvu19JysgICTi6qmDRDY0oyQKy4Wh004jGJbnHVe4Lfs72r1jit4J7iAlXq1D8vHWMhYe0VNi5TKJMequT3hRE6GFyT6WJeptN+jIt+n3EYlC1XnHPBOQ5YHDSg9Lgk+lcKCy43W2PBvTr9hy6vmf5CGFQsuQsiELlzG7TzxQ+3f0bzVN9+FxNkSkWVwBuord4eDpf9oEWG4w+Qz7aNYvhp1wgQC+Td3D3lkhzO69kYU/DC7fars6kPo6kZ86k=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(19092799006)(1800799024)(366016)(6133799003)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?BH/YldC4ChvA2qJwOTGfTTb4dLYUuUmiGjF6qfl2JATSD5+WpgjbDNtbiBtD?=
- =?us-ascii?Q?x4Bb/W5hHcAjzp+M/pzvsUEfVcCm/hvmDnFVrFuc6R/Bzu+i4gpQLJs3BtKL?=
- =?us-ascii?Q?9U3O0o1gH4yktr9DDIPQrPgXlhmDxViYXSuoYPYBPQEb2EjeOTq9wwMP4mOS?=
- =?us-ascii?Q?gi6m6kxEWfvjXldYfhomIQoHcYGIbAG1oPOYeGndmJkf/JkTDqXohfX31I98?=
- =?us-ascii?Q?qNoSKyWP3wtzUmc1nK6jSF+L0ZE4b3c6wocKQ69TIyW03Pi5+psQ3OwLTBK7?=
- =?us-ascii?Q?OJS80kTsyuQkcQUaU4ndWY6zR+3iR0X+MLblHFM2xuuPFlC9rXwrLf/Q+1EW?=
- =?us-ascii?Q?YjJM4W7hOsnVHg/FGm35UIdVCxzA622xcYf/oUo533zTa3RXmhBTOE2F6spz?=
- =?us-ascii?Q?qw9adBzLlu1yGtG1x/z7Vg6CGAZ0SrE/7cDTXCMDaMUVqh89WMoD8hIv31YU?=
- =?us-ascii?Q?3iRAdGh3LSv25bhE7hpLx0yNygOOiOfCc48SS1qj7GEqq9uP/eQHBY6LCGtg?=
- =?us-ascii?Q?/YqdC1ikwemc9EZ25PaCn/dWdYDXbSTF2yrqujsuXUEWiI9K3QOA+c6g+zH0?=
- =?us-ascii?Q?Dzw4iBivZ/9l7ZuRv3qaSPq+nWrUzLByQbezcYyveKtd5w2SVI1IBmGEF0NQ?=
- =?us-ascii?Q?J3W0LH//eJ0t/D996VhVwK4YcW/G2NtIZZ5SMPPo3evhUPj4xfkWqbMjh74h?=
- =?us-ascii?Q?Cj2A9DE6oAs075Id+cwrIx6zWjG7LN9mddcTE+WuAl7JPKBDc9ckPrzy8gv6?=
- =?us-ascii?Q?+jXy5QthA2NwMS1qBXbw8qCbfEaReEQ+pLOKbNNP+1qHcD7kbKvjFPkVRstQ?=
- =?us-ascii?Q?Sgv2Rr0zRrvl13sn1tbG/o9APMuSXF5OrMGpgJYLuQD93SdlFsb3yK4aACCA?=
- =?us-ascii?Q?1vITyHN5dPx0cIifcm/lHqJ1fpPeDCmH1TzMCoTl/Jh679J/yhWmYQkXDsxT?=
- =?us-ascii?Q?Q0wola1e884MHK4+vhLJYVqjWtvJokPTMSSp9pOJXbk3HgGu4KFyH3myz9/5?=
- =?us-ascii?Q?0oPIP1jF5RNFR4tCR4jCmyiYIYceWte/+TbkGOAuSY5ir98wyPeC4OMyYhR0?=
- =?us-ascii?Q?rjbNamxCyH4otY8PuLx6P8XRamo8O4l13dwMaZtDiLp4bHuUR3qr46hTnx8c?=
- =?us-ascii?Q?XytIXLL08J7By00Te07ElEmA0DLYSqZtYdt37wUC7HA3gPEY/FYwqrsoR6I4?=
- =?us-ascii?Q?TD675j/NzyKWCYHkaEMeAqIwXjyIkAigEIeur6bpstK7ewCHPvwpbFxbI/nt?=
- =?us-ascii?Q?r/DHKBLuTnJ2LhhdkzW4OCRsFQ9N5/bYxrUpKrFSi+yZ4m3SV5haYWE3EsVi?=
- =?us-ascii?Q?Y67HIofYzYp6875z/yHiwVHRk3KxOaLjo0M43PvA9liYmzdlKtwVxjvoOjks?=
- =?us-ascii?Q?F2sOlEF8o7mU7KE/3Fp57ldpfB5az4RDUsjkxlz2uzRn/juDDn7L4hJC8ll4?=
- =?us-ascii?Q?dbkA6NjSvKPcTFfkNofiNwjJYzFxKQBCZPiZK1c7qy59f1TyK9TFOASmfLgz?=
- =?us-ascii?Q?zPQFMv587aaunNQqqFVyAPTEGTk7reeULra6vry+yryD03p9joUY256LMfFB?=
- =?us-ascii?Q?zeBZ7nTMqJclOnvb52FvW/bPAl9ZtB3yvnNLWcIQiwn/JAGDNwT+5MneAVOc?=
- =?us-ascii?Q?5jF1v2SGqGnTN7XddsuZ0slZjZMt0uUpnZpJRHfYu1lTsy38fIokHQwKjIMm?=
- =?us-ascii?Q?Wbn+0smwRlaroP4nq3hnEpoVP3eNs3c0lzIGJWmR2lp6YGF6Av3e3b/AO2Db?=
- =?us-ascii?Q?MpoRK75Pbw=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: edc8883a-5920-4d3b-2331-08dee77e1807
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 23:16:28.9077
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fF1AQNwwD1Fex3v3QPQxq3hwjnthGpN8RF2tIujEnOzg69IDcTzEjFWN40MGuABouzO1Z1xPJ177v/NVKAs1JQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB11817
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260714193656.2196447-3-sjg@chromium.org>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-Up until this patch, the only protocol change supported was between
-1000Base-X/SGMII and 2500Base-X. The others require an RCW override
-procedure which was lacking.
+Hi Simon,
 
-Since now the guts driver provides the means of applying this procedure,
-make use of it and remove any comment which mentioned the limitation.
+On Tue, Jul 14, 2026 at 01:36:39PM -0600, Simon Glass wrote:
+> +static void __init rv1106_clk_init(struct device_node *np)
+> +{
+> +	struct rockchip_clk_provider *ctx;
+> +	unsigned long clk_nr;
+> +	void __iomem *reg_base;
+> +	int ret;
+> +
+> +	clk_nr = rockchip_clk_find_max_clk_id(rv1106_clk_branches,
+> +					      ARRAY_SIZE(rv1106_clk_branches)) + 1;
+> +	clk_nr = max(clk_nr,
+> +		     rockchip_clk_find_max_clk_id(rv1106_grf_clk_branches,
+> +					ARRAY_SIZE(rv1106_grf_clk_branches)) + 1);
+> +	reg_base = of_iomap(np, 0);
+> +	if (!reg_base) {
+> +		pr_err("%s: could not map cru region\n", __func__);
+> +		return;
+> +	}
+> +
+> +	ctx = rockchip_clk_init(np, reg_base, clk_nr);
+> +	if (IS_ERR(ctx)) {
+> +		pr_err("%s: rockchip clk init failed\n", __func__);
+> +		iounmap(reg_base);
+> +		return;
+> +	}
+> +
+> +	rv1106_pvtpll_init(ctx);
+> +
+> +	rockchip_clk_register_plls(ctx, rv1106_pll_clks,
+> +				   ARRAY_SIZE(rv1106_pll_clks),
+> +				   RV1106_GRF_SOC_STATUS0);
+> +
+> +	rockchip_clk_register_armclk(ctx, ARMCLK, "armclk",
+> +				     mux_armclk_p, ARRAY_SIZE(mux_armclk_p),
+> +				     &rv1106_cpuclk_data, rv1106_cpuclk_rates,
+> +				     ARRAY_SIZE(rv1106_cpuclk_rates));
+> +
+> +	rockchip_clk_register_branches(ctx, rv1106_clk_branches,
+> +				       ARRAY_SIZE(rv1106_clk_branches));
+> +
+> +	/*
+> +	 * The MMC drive and sample phase clocks have their control
+> +	 * registers in the GRF region, so they can only be provided when
+> +	 * the rockchip,grf property points at a valid syscon.
+> +	 */
+> +	if (!IS_ERR(ctx->grf)) {
+> +		ret = rockchip_clk_add_grf(ctx, ctx->grf, grf_type_sys);
+> +		if (ret)
+> +			pr_err("%s: failed to add grf: %d\n", __func__, ret);
+> +		else
+> +			rockchip_clk_register_branches(ctx,
+> +					rv1106_grf_clk_branches,
+> +					ARRAY_SIZE(rv1106_grf_clk_branches));
+> +	}
+> +
+> +	rockchip_register_restart_notifier(ctx, RV1106_GLB_SRST_FST, NULL);
+> +
+> +	rockchip_clk_of_add_provider(np, ctx);
+> +}
+> +
+> +CLK_OF_DECLARE(rv1106_cru, "rockchip,rv1106-cru", rv1106_clk_init);
 
-Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
----
-v3->v4:
-- drop the lynx_10g_lane_read_configuration() -> fsl_guts_lane_init()
-  call. The guts driver now uses a self-contained procedure to figure
-  out initial SerDes protocols by decoding RCWSR29 on LS2088A, rather
-  than relying on the SerDes driver to tell it.
-v1->v3: none
----
- drivers/phy/freescale/Kconfig            |  1 +
- drivers/phy/freescale/phy-fsl-lynx-10g.c | 23 ++++++++++++++---------
- 2 files changed, 15 insertions(+), 9 deletions(-)
+Can this be registered as a platform driver similar to
+drivers/clk/rockchip/clk-rk3528.c ?
 
-diff --git a/drivers/phy/freescale/Kconfig b/drivers/phy/freescale/Kconfig
-index 5bf3864fbe64..d4e189fffbf8 100644
---- a/drivers/phy/freescale/Kconfig
-+++ b/drivers/phy/freescale/Kconfig
-@@ -58,6 +58,7 @@ config PHY_FSL_LYNX_10G
- 	tristate "Freescale Layerscape Lynx 10G SerDes PHY support"
- 	depends on OF
- 	depends on ARCH_LAYERSCAPE || COMPILE_TEST
-+	select FSL_GUTS
- 	select GENERIC_PHY
- 	select PHY_FSL_LYNX_CORE
- 	help
-diff --git a/drivers/phy/freescale/phy-fsl-lynx-10g.c b/drivers/phy/freescale/phy-fsl-lynx-10g.c
-index 38def160ef1a..60c85d08c33e 100644
---- a/drivers/phy/freescale/phy-fsl-lynx-10g.c
-+++ b/drivers/phy/freescale/phy-fsl-lynx-10g.c
-@@ -8,6 +8,7 @@
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/workqueue.h>
-+#include <linux/fsl/guts.h>
- 
- #include "phy-fsl-lynx-core.h"
- 
-@@ -1167,14 +1168,7 @@ static bool lynx_10g_lane_mode_needs_rcw_override(struct lynx_lane *lane,
- 
- 	/* Major protocol changes, which involve changing the PCS connection to
- 	 * the GMII MAC with the one to the XGMII MAC, require an RCW override
--	 * procedure to reconfigure an internal mux, as documented here:
--	 * https://lore.kernel.org/linux-phy/20230810102631.bvozjer3t67r67iy@skbuf/
--	 * This is SoC-specific, and not yet implemented in drivers/soc/fsl/guts.c.
--	 *
--	 * So the supported set of protocols depends on the initial lane mode.
--	 *
--	 * Minor protocol changes (SGMII <-> 1000Base-X <-> 2500Base-X or
--	 * 10GBase-R <-> USXGMII) are supported.
-+	 * procedure to reconfigure an internal mux.
- 	 */
- 	if ((lynx_lane_mode_uses_gmii_mac(curr) &&
- 	     lynx_lane_mode_uses_xgmii_mac(new)) ||
-@@ -1189,6 +1183,7 @@ static int lynx_10g_validate(struct phy *phy, enum phy_mode mode, int submode,
- 			     union phy_configure_opts *opts)
- {
- 	struct lynx_lane *lane = phy_get_drvdata(phy);
-+	struct lynx_priv *priv = lane->priv;
- 	enum lynx_lane_mode lane_mode;
- 	int err;
- 
-@@ -1197,7 +1192,8 @@ static int lynx_10g_validate(struct phy *phy, enum phy_mode mode, int submode,
- 		return err;
- 
- 	if (lynx_10g_lane_mode_needs_rcw_override(lane, lane_mode))
--		return -EINVAL;
-+		return fsl_guts_lane_validate(priv->info->index, lane->id,
-+					      lane_mode);
- 
- 	return 0;
- }
-@@ -1205,6 +1201,7 @@ static int lynx_10g_validate(struct phy *phy, enum phy_mode mode, int submode,
- static int lynx_10g_set_mode(struct phy *phy, enum phy_mode mode, int submode)
- {
- 	struct lynx_lane *lane = phy_get_drvdata(phy);
-+	struct lynx_priv *priv = lane->priv;
- 	bool powered_up = lane->powered_up;
- 	enum lynx_lane_mode lane_mode;
- 	int err;
-@@ -1225,6 +1222,13 @@ static int lynx_10g_set_mode(struct phy *phy, enum phy_mode mode, int submode)
- 	if (powered_up)
- 		lynx_10g_lane_halt(phy);
- 
-+	if (lynx_10g_lane_mode_needs_rcw_override(lane, lane_mode)) {
-+		err = fsl_guts_lane_set_mode(priv->info->index, lane->id,
-+					     lane_mode);
-+		if (err)
-+			goto out;
-+	}
-+
- 	err = lynx_10g_lane_disable_pcvt(lane, lane->mode);
- 	if (err)
- 		goto out;
-@@ -1314,6 +1318,7 @@ static struct platform_driver lynx_10g_driver = {
- };
- module_platform_driver(lynx_10g_driver);
- 
-+MODULE_IMPORT_NS("FSL_GUTS");
- MODULE_IMPORT_NS("PHY_FSL_LYNX");
- MODULE_AUTHOR("Ioana Ciornei <ioana.ciornei@nxp.com>");
- MODULE_AUTHOR("Vladimir Oltean <vladimir.oltean@nxp.com>");
--- 
-2.34.1
+Brian
 
