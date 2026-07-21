@@ -1,269 +1,177 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2495439908
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 21:36:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE0C43C06B
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 21:36:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784669805; cv=none; b=Q3Um0OyyerL5P78Pq75oqeWVgYxAuYiqzyk0fC1zKwyaczvhBxxrIMHjEsTL8IOw1A07A7fSlidu25Bzg/eqSm8D3OfOeGEImnbKEbkjGYLGvk6xnT+7wLfkDRNYrQKokTHRty9KCbIjGEtQReqBAD+QBhAg1PP8f8bMDyyBI8c=
+	t=1784669807; cv=none; b=TYgHcTLHaOkE3AWKZhBeeCIez0ICFw3hj02G3Ieof0iiMkc0/qFQCSxOYo8crWZ2dqyaSvLtCqanD6UWgepqy3vAh5m3aHRvHXOeOqJJl1rfKODSwnAgK0b1IuJa2G6X9gOZZHCtd4EuFrmAjrwVKLipIuheX2yKG2a4/td87mc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784669805; c=relaxed/simple;
-	bh=1AqJjptPNcOHrmiu5mm4MU1/41U1adLcnSyOVe44xgU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=K5eteWHztYJ354kA4o9fCMYOJkAjJYFvo0UEly8RIVTH6S656fJ8xhc3AdtlC+vTAJNJvmvgY5sJpTSX1ktuM1sUSkPJioMVbSgNGK5yyxPdWZDxnOGB6xHfIOqcDtv4cxwxJGa2xpMqU8zEzf/1dFOhaj+bp24ACuriej7MKbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=KQxAo9PL; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	s=arc-20240116; t=1784669807; c=relaxed/simple;
+	bh=MbWqe6bXdTaNhcRMp8/P8P0e4PGmzjyTB3oXCskCo3Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b0tzrfr9xl5Axquf67PmZTzKUHzPdiUBCUs+Yf9bynrxTpMiNy/Bng/p6NVJ1mnDdDtC9GSLPKMbhfHWqsFAVZNvVZg/ENtwru798M+DyU1+eXKUIccx6gmeMe1gHwK8r3/DG/JZKpFjZFfn2kQzgmRXw26DTwEkyqhwmhiEgwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KiUhRAkQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DUoMIq1B; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="KQxAo9PL"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38e58034d05so3926826a91.2
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 14:36:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KiUhRAkQ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DUoMIq1B"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66LKmEdO2952774
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 21:36:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=kdUfC3m+cF4huKdjq9M3++q9
+	hJ+h/hEoqjpBu0Ou9HM=; b=KiUhRAkQ6RqNiK9Q5u3mohRllIL1XG7ATvBtV2Qi
+	KLI3Q8iGekUtgRkgYknhXNTsRKin5LnesKo4xJMOyggysG1jR2vfOCV8DXv2uRbB
+	1LLetQ2XQpLyNG8oNbEeEniBmb65EsQr6PwOCkXd/5NXVq1l6GRD92PKbKb+ga2A
+	z8IxPYf2vBVjExb7WRw41xrF8eIqXWhk7lkHGsSLz68I1b3dvtSKSfCpAwqapO7h
+	9rwLZTm4HGn4vH+i3oN1dUIjB/uwiW9B7XpoAuFVrbUoyI3kkDnd1wH62o8LrijS
+	ylxIyXVqLifV3c8uviW2bWj9Kfdx1zpRwA02Wtr4EXhuDA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjd6d901b-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 21:36:44 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c1d30035dso150386681cf.2
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 14:36:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1784669801; x=1785274601; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=i1QYvxskec5dUTJ/7WHomj96AzPse0SLdtLdUj/bCfI=;
-        b=KQxAo9PLKPjmF1zedD6L+LXZa+Qbpbr4fS59h1xaH/QrFA6QjsSItZzyKr1JMqgQ5c
-         UqEDbbmNxRWLVq7zIdZTChGBeSd4etA1ja9WcvelSfzOu+uERlTlWvK1jmXzjWOsTy3K
-         AY8FYWHHd33j+Q1tvnizjelKVNRe12yjuUyka+2/swf5jPOV2OqNa6Qbq1gu15XR1x3v
-         h/o+R/FKxYEfRQPDh0q8yIFeSJ+cEJRJWEOhok4XmJyGCS10nKkU4/1HPV6ZOb5bjG4z
-         FAsChs7/toS2B4W0rjcZepWbXqcEEiKJR/mJTDO2uNblRTw/IWR7RVN6Ed3M3zfK5xgs
-         2/8Q==
+        d=oss.qualcomm.com; s=google; t=1784669803; x=1785274603; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kdUfC3m+cF4huKdjq9M3++q9hJ+h/hEoqjpBu0Ou9HM=;
+        b=DUoMIq1BwmGVt9e+6EbkaWrxsy6KmaHP+dTk8mzj2S3qKwx+25MEQLvIz0VW5sEloM
+         Eakses4ArCuVwGIyO5Emy2AYsIu4RvDorI3TA/kMSHeMFnAKyIA0iei1atdN9gi/fomf
+         wqcviITDes6n0Q2yH3NciKBCkboVa66N3Ci2ddu+YGHy6cqy7QHFB1+hbKkUh8O1BngN
+         iAFxRSqhseydVveRING6+UCKiy4+ioablNztPJacpUC07Th3BIszmq4OBn4iAZ5Ql4dy
+         YkMMqIa25GHs/5Dz9rZ5JhNZM0q37bNVg24g9MnyIj0n/eHdOfHAqie8aen9ff9+euHg
+         ETZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784669801; x=1785274601;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1784669803; x=1785274603;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=i1QYvxskec5dUTJ/7WHomj96AzPse0SLdtLdUj/bCfI=;
-        b=VIxoJjqHg4gYTply311q/lWeytNjaPtIMJncWfVwszkw0ZT5rrY775xin39DPWAp1G
-         YaCiWmqZ/L/2nveTzQyC0v35LF8T2UG1N2mqntaiRM+iOOPalxef5evVMXpCZCEEsI9Q
-         D+GAOIzZ53IWPqYZ00wIOGHEyOuwf7k1Z8lUqJhTxjjqcwdgPU6ZSSGENGiCmw0G+/BU
-         ZuJjGTN5ky8cNt1m/u+8pY6yg/7lxZEkgh2siFyCzkw7I3LX6gGbLkAKbEU9GcGe1pFQ
-         2GtmfpiMxXgAyMJyMv9sflcIQsE+aQnbt3Z26VEbtxBbLBaY+5nGyxBkBEltNxq75dea
-         99bg==
-X-Gm-Message-State: AOJu0Yz9RgqjCdCn6PGSiLALVjImTgTVoNwhKbj7DXMiX2iXXPpABO/B
-	va4B0Ohjmxd0IFQFcFG53JzDoKR5/15GssL+Eryt3fkZXOEdtHt4G+29RamS5OTVK2kD4fU6gVP
-	q9Ib62XE=
-X-Gm-Gg: AR+sD1317v6M9LaD9LJeLyCrco4dcOFdJKvXn8zkhWCoamZWMGNIb/d7y8QilYn5Yhf
-	6U0qcLyl9eS1hM/qbmjK3e+dMNav/rmEDjCjjscw0ZdgNWsZNhtrOXL+ThROf7Z8lonCmsFNfQF
-	A/dFF7VPfUDaUmlWR4wFkV+AxtR9gulGvBW80oxGn2caL9t94cUfiA0TB/VuvXx3WwhgQCDIQQo
-	brNbrAq9hVQ3S9ToKRNAfXsTMmgT6XU/A8KYDqdOJIeIaARHdfUsgVoaZTKrpgs/uL2l+h/5p5E
-	MMuFzf+le0rITMXgmL/ziU2d34mU8QH6qHum1ZxgNcoQCcJ5b6v6ENrJFvLG49P1/W3X+A12NGb
-	TnYwshdB2Yatbw1MJ0v3ojGEwUmA36Bw9tdNY3nJiz995lsaeDvW0ZaNtXyQzei3ceFiYqj0c2b
-	ArIV8x2h2HsWu8xKs=
-X-Received: by 2002:a17:90b:3d86:b0:387:e0bb:57f7 with SMTP id 98e67ed59e1d1-38e4b59b913mr20726866a91.40.1784669801396;
-        Tue, 21 Jul 2026 14:36:41 -0700 (PDT)
-Received: from [127.0.0.2] ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13ce2cbb6e8sm40706521c88.9.2026.07.21.14.36.40
+        bh=kdUfC3m+cF4huKdjq9M3++q9hJ+h/hEoqjpBu0Ou9HM=;
+        b=mdIjneBwelYyE/9MHd24Ud2jprjmHnhxfF4qQGcPSqEQIAso0wFTkZdO6juaoICoR5
+         NOHgoF+xN07AHhpLQXM+eZYy4lClSXnKiM5KXS3GHa9Fwj2yzWP89AsyOTM8Lc3IDzqp
+         YgPbmUyYUxr2GTOrTXUiTbWMFpq7BtEv9btH1GByeeju0W46opIfne8GcE/oU6fOUQXo
+         jnbG/bV0tZdmsSqyGyI+xV2Rb/L2mh0YXwnJxBlCesHOXN26GibXDRgEWzYcNbMv0qHv
+         KzgCZXzt+Kj5/0CMQEnDQx7n0M1+mIXzeeEB4n324RrjuKKaenKxCnvGsLSHBKknBibQ
+         i2Rg==
+X-Forwarded-Encrypted: i=1; AHgh+RosnQGVKcqVhyv4OZ1KAaf/UkBNkqDNs5mEuaML6Px4EX+MgCZhtEQHkLKX5k8RGZg7mHR41QUJUe0W@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw8JvDHlQyLgw/D1ap8see7qDnfefUk1se3eQDlJ79Ge3WaEXX4
+	Usq8cV/T9f1EUK5TxNZP7+rOSxYBF1Yx6L3Ir35lgxkXaYMlXCsr9n6FOLRSFZF66u+6FLUjAfw
+	LhcFb4A0fhnRmhg6oDvYie6kvmZpnUee5+c2dx/YWhFwS3eNH/DrN87SkRMRK6Ll+
+X-Gm-Gg: AfdE7ckEXnlsm84XCDgHihL+tZ7aq9SmSx8ZXtW1vztE7th8xDw0YNfCP8GaqgXOAl7
+	ctWbKSBrJgItrh0DkpJF1dOVLOsEWRjHjYikBy/KFWYoAbBq/ToAd9DRTKNqYFUE1v1khbJnJex
+	sXH0WluF4tCcWL2jPinvLaTDlLaJnrvs6DSBilzxwp1KKu5hSILkRlKMn33KcXD8xRmEdjV9TZ6
+	IQwhOSOcOSKoisoMeu2h8H+GDbwwn5BigGnAXEwCjs6egA+K/rSNhvAMJTzaosi7vsoRtQuNAE+
+	MaEEiduluIkfcL8MDL9J/QjrkjTV9YZY3PCrMtiblyHeNn+qW2Oz9supQbSnC3nUG0XiVv6wkbk
+	E/6tcCTrdSiA21SG4HwxmA4/06I79hc8niDLH5lB57ABHq44pDAvZfc2KwR/HOSoreoogvDeuzg
+	+soyb6VSpmo6G5Sg==
+X-Received: by 2002:a05:622a:991:b0:51c:640:231f with SMTP id d75a77b69052e-5213daa1d60mr208723381cf.45.1784669803431;
+        Tue, 21 Jul 2026 14:36:43 -0700 (PDT)
+X-Received: by 2002:a05:622a:991:b0:51c:640:231f with SMTP id d75a77b69052e-5213daa1d60mr208723121cf.45.1784669803016;
+        Tue, 21 Jul 2026 14:36:43 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2a9b9f0e9sm133207e87.26.2026.07.21.14.36.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Tue, 21 Jul 2026 14:36:40 -0700 (PDT)
-From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Date: Tue, 21 Jul 2026 14:36:35 -0700
-Subject: [PATCH v3 4/4] of: unittest: cover /aliases updates from overlay
- apply/revert
+Date: Wed, 22 Jul 2026 00:36:38 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/4] arm64: dts: qcom: Add support for usb nodes on
+ Shikra
+Message-ID: <kjfcyicif5sfshtvj2vvpdzrb7vsl5bfdoxjakxvzam6lv7rwo@3z7smt2ccof6>
+References: <20260721-usb-shikra-dt-v4-v4-0-2e7a092d7f27@oss.qualcomm.com>
+ <20260721-usb-shikra-dt-v4-v4-1-2e7a092d7f27@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-nh-of-alias-overlay-v3-4-7001028fe2f5@nexthop.ai>
-References: <20260721-nh-of-alias-overlay-v3-0-7001028fe2f5@nexthop.ai>
-In-Reply-To: <20260721-nh-of-alias-overlay-v3-0-7001028fe2f5@nexthop.ai>
-To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Abdurrahman Hussain <abdurrahman@nexthop.ai>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784669796; l=5750;
- i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
- bh=1AqJjptPNcOHrmiu5mm4MU1/41U1adLcnSyOVe44xgU=;
- b=CMHl+rx19XqZuiL5AqerXimikQ7tM4bbdwc6PkQdi4w3SDk8XAfgaekB9V3vdrDJt4T7L7mry
- 2Ap9CZ7Gk9fB4msYsUMv76hJ20jZXWJccHGsD2cR5wbR4CtrVUeN1jZ
-X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
- pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260721-usb-shikra-dt-v4-v4-1-2e7a092d7f27@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDIyMyBTYWx0ZWRfX907wNsrzTc8U
+ tq/HWTSzwzl3RRJBjCF89V60mIW76OuOGpiTvG0WMUSvJidhkX4q7dMjeB5QjK3vgo/mI6xO2P4
+ vcHRvDMjqTwOw03vLs5UwJXsP/nY9yM=
+X-Authority-Analysis: v=2.4 cv=Ipsutr/g c=1 sm=1 tr=0 ts=6a5fe66c cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=fBlaasEt7hYsZSY5PqQA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDIyMyBTYWx0ZWRfX8CKh3wj/Kkub
+ vT2GLCJbwDQ79H+vbUbDBSMCG2joFp24ukvJ7ksXJkv8+EcVs/MSQfA3usCLZW5BLq/5wsYdKem
+ pfK4U9tUMto4QgKd8X//VxLS8lBGhLj6o2DRLwtGQknM3Qf1UiB3GygrB8le/i4B8ZpZlxyzwY/
+ QEa/WCAmLGDr5gmcHEK8GTqWALvy0fEb8upU+dBp3LQebXO5vVQnFP5HP3KrgSn31L52EgRjZQs
+ QsyrutLMKaExgAWTfWB1IkFlpgTosiCcOrlmXjVA2Q75k+D0nloxi3JSeYBis68Oj15nyeuVKtl
+ FtljXsXdAJ45Vb9eVF8PiumYZRXrVCMAV7A8EyAww5YURpeNedUTdy4PL6O/Y+zc9pAMdGSQ7uu
+ 7B4ROfjnah9q98JvSdYTmS+Z8Fab+kjj6n2z+u3FlPPLfHRcGUUmdNSBv7t3pmTQ9tAyex0PKRz
+ zrfdHsC48MoX55lKdBw==
+X-Proofpoint-GUID: wmsDbty2R08tIP3Om5O_u8pEPcMroqeF
+X-Proofpoint-ORIG-GUID: wmsDbty2R08tIP3Om5O_u8pEPcMroqeF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-21_04,2026-07-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 spamscore=0 phishscore=0 bulkscore=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 adultscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607210223
 
-Add overlay_alias.dtso plus of_unittest_overlay_alias() to cover the
-"aliases inside an overlay" flow end-to-end.
+On Tue, Jul 21, 2026 at 03:23:45PM +0530, Krishna Kurapati wrote:
+> Add support for both USB controllers and their respective phys on Shikra.
+> 
+> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/shikra.dtsi | 221 +++++++++++++++++++++++++++++++++++
+>  1 file changed, 221 insertions(+)
+> 
+> +
+> +		usb_qmpphy: phy@1615000 {
 
-The overlay has two fragments:
+Should be before usb_2_hsphy: phy@1617000.
 
-  fragment@0: target-path="" grafts a labeled node under target_base.
-  fragment@1: target-path="/aliases" adds `testcase-alias99 =
-              &<label>` at DT-root /aliases.
+> +			compatible = "qcom,shikra-qmp-usb3-dp-phy";
+> +			reg = <0x0 0x01615000 0x0 0x2000>;
+> +
+> @@ -493,6 +573,11 @@ qusb2_hstx_trim_1: hstx-trim@25b {
+>  				bits = <1 4>;
+>  			};
+>  
+> +			qusb2_hstx_trim_2: hstx-trim@25a {
 
-The runner applies the overlay with a non-NULL target_base via
-of_overlay_fdt_apply() directly (rather than the overlay_data_apply()
-wrapper, which always passes NULL), then asserts of_alias_get_id() on
-the grafted node returns 99 across apply and -ENODEV across revert.
+Before 25b
 
-Exercises all three functional patches earlier in this series
-together:
+> +				reg = <0x25a 0x1>;
+> +				bits = <4 4>;
+> +			};
+> +
+>  			gpu_speed_bin: gpu-speed-bin@2006 {
+>  				reg = <0x2006 0x2>;
+>  				bits = <5 8>;
+> @@ -640,6 +725,142 @@ &clk_virt SLAVE_QUP_CORE_0 RPM_ALWAYS_TAG>,
+>  			};
+>  		};
+>  
+> +		usb_2: usb@4c00000 {
+> +			compatible = "qcom,shikra-dwc3", "qcom,snps-dwc3";
+> +			reg = <0x0 0x04c00000 0x0 0xfc100>;
 
-  * the reconfig notifier is what mutates aliases_lookup on
-    apply/revert;
-  * find_target()'s absolute-target-path handling is what lets
-    fragment@1's target-path="/aliases" reach the DT root when
-    target_base is non-NULL;
-  * dup_and_fixup_symbol_prop()'s /aliases branch is what rewrites
-    the fragment-internal alias value ("&<label>" -> fragment path)
-    into the live-tree path that of_find_node_by_path() can resolve.
+Here and in usb_1, missing interconnects.
 
-Any one of the three missing turns the middle assertion (get_id -> 99)
-into -ENODEV.
-
-The overlay is not added to the fdtoverlay static build test:
-fdtoverlay has no target-base concept, so fragment@0's empty
-target-path (meaning "the target base itself" at run time) cannot be
-resolved statically.
-
-Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
----
- drivers/of/unittest-data/Makefile           |  5 +++
- drivers/of/unittest-data/overlay_alias.dtso | 25 +++++++++++
- drivers/of/unittest.c                       | 64 +++++++++++++++++++++++++++++
- 3 files changed, 94 insertions(+)
-
-diff --git a/drivers/of/unittest-data/Makefile b/drivers/of/unittest-data/Makefile
-index 01a966e39f23..fdfec5a7923b 100644
---- a/drivers/of/unittest-data/Makefile
-+++ b/drivers/of/unittest-data/Makefile
-@@ -22,6 +22,7 @@ obj-$(CONFIG_OF_OVERLAY) += overlay.dtbo.o \
- 			    overlay_18.dtbo.o \
- 			    overlay_19.dtbo.o \
- 			    overlay_20.dtbo.o \
-+			    overlay_alias.dtbo.o \
- 			    overlay_bad_add_dup_node.dtbo.o \
- 			    overlay_bad_add_dup_prop.dtbo.o \
- 			    overlay_bad_phandle.dtbo.o \
-@@ -66,6 +67,10 @@ DTC_FLAGS_testcases += -Wno-interrupts_property \
- #			  overlay_bad_add_dup_prop.dtbo \
- #			  overlay_bad_phandle.dtbo \
- #			  overlay_bad_symbol.dtbo \
-+#
-+# overlay_alias.dtbo needs a run-time target base for its empty target-path;
-+# fdtoverlay has no equivalent, so it is also not included:
-+#			  overlay_alias.dtbo \
- 
- apply_static_overlay_1 := overlay_0.dtbo \
- 			  overlay_1.dtbo \
-diff --git a/drivers/of/unittest-data/overlay_alias.dtso b/drivers/of/unittest-data/overlay_alias.dtso
-new file mode 100644
-index 000000000000..17e02d1940f6
---- /dev/null
-+++ b/drivers/of/unittest-data/overlay_alias.dtso
-@@ -0,0 +1,25 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/dts-v1/;
-+/plugin/;
-+
-+/*
-+ * overlay_alias - declare an /aliases entry that points, via label, at a
-+ * node grafted under the run-time target base (empty target-path).
-+ */
-+
-+/ {
-+	fragment@0 {
-+		target-path = "";
-+		__overlay__ {
-+			testcase_target: alias-target {
-+			};
-+		};
-+	};
-+
-+	fragment@1 {
-+		target-path = "/aliases";
-+		__overlay__ {
-+			testcase-alias99 = &testcase_target;
-+		};
-+	};
-+};
-diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-index e255f54f4d76..308daadf22c8 100644
---- a/drivers/of/unittest.c
-+++ b/drivers/of/unittest.c
-@@ -3475,6 +3475,68 @@ static struct notifier_block of_nb = {
- 	.notifier_call = of_notify,
- };
- 
-+/* created by cmd_wrap_S_dtbo in scripts/Makefile.dtbs */
-+extern uint8_t __dtbo_overlay_alias_begin[];
-+extern uint8_t __dtbo_overlay_alias_end[];
-+
-+static void __init of_unittest_overlay_alias(void)
-+{
-+	const char *base_path =
-+		"/testcase-data/overlay-node/test-bus/test-unittest100";
-+	const char *target_path =
-+		"/testcase-data/overlay-node/test-bus/test-unittest100/alias-target";
-+	u32 size = __dtbo_overlay_alias_end - __dtbo_overlay_alias_begin;
-+	struct device_node *base, *target = NULL;
-+	int ovcs_id = 0;
-+	int id, ret;
-+
-+	base = of_find_node_by_path(base_path);
-+	if (!base) {
-+		unittest(0, "could not find alias target base %s\n", base_path);
-+		return;
-+	}
-+
-+	ret = of_overlay_fdt_apply(__dtbo_overlay_alias_begin, size,
-+				   &ovcs_id, base);
-+	if (ret < 0) {
-+		unittest(0, "overlay_alias apply failed, ret = %d\n", ret);
-+		if (ovcs_id)
-+			of_overlay_remove(&ovcs_id);
-+		goto out_put_base;
-+	}
-+
-+	/* hold a ref across the revert for the post-remove check */
-+	target = of_find_node_by_path(target_path);
-+	if (!target) {
-+		unittest(0, "could not find grafted target %s\n", target_path);
-+		goto out_remove;
-+	}
-+
-+	id = of_alias_get_id(target, "testcase-alias");
-+	unittest(id == 99,
-+		 "of_alias_get_id() = %d after overlay apply, expected 99\n",
-+		 id);
-+
-+out_remove:
-+	ret = of_overlay_remove(&ovcs_id);
-+	if (ret) {
-+		unittest(0, "overlay_alias remove failed, ret = %d\n", ret);
-+		of_node_put(target);
-+		goto out_put_base;
-+	}
-+
-+	if (target) {
-+		id = of_alias_get_id(target, "testcase-alias");
-+		unittest(id == -ENODEV,
-+			 "of_alias_get_id() = %d after overlay remove, expected -ENODEV\n",
-+			 id);
-+		of_node_put(target);
-+	}
-+
-+out_put_base:
-+	of_node_put(base);
-+}
-+
- static void __init of_unittest_overlay_notify(void)
- {
- 	int ovcs_id;
-@@ -3649,6 +3711,8 @@ static void __init of_unittest_overlay(void)
- 
- 	of_unittest_overlay_gpio();
- 
-+	of_unittest_overlay_alias();
-+
- 	of_unittest_remove_tracked_overlays();
- 
- 	of_unittest_overlay_notify();
+> +
 
 -- 
-2.54.0
-
+With best wishes
+Dmitry
