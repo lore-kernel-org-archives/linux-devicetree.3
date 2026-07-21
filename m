@@ -1,73 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F13613C276E;
-	Tue, 21 Jul 2026 09:10:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6EF3C5836
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 09:12:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784625015; cv=none; b=Zf714eUuu3FoRX37wMJTvOztRKo8QTln8McuRsK0fB76eek9lgHC7XgyLbHp8dRWuIprnwEZS/ABZbN0XHREQwkcR8C888ZJ+t9qN4ataK+LQm5atoLaJj9PF4DFnm1P38iGbIncxVk7hvhaAU7z3mItE2oYRPdr2PkpS5vUZgU=
+	t=1784625123; cv=none; b=k+xkGDxLVErPsYUpbxShtL4c7GcSKygKZD7391jjSvuHTfXH2aDDBMHCFeyR1GhBXpzVum8f1eAygbrSxh3lVnAnCb5+PJIrbcacT0Dtn88TnXDOkQtK4DknRSMhGaqnr+HS/zSOWf+kJ+P63UTAHSiVuVYrxvh19YMw9vVzz1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784625015; c=relaxed/simple;
-	bh=AbX9/eVGYTA9gnhJFhwpe0A+BboR507V+aHmSmq0LaQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=feZjSF5LWsShj8RQKvDtHK6Sk90xgtTaQxQKVWNa5GDcYaNebwRLPkrXwjwJyXfAcDBWfyxopK5Sc/keQ5C/Bp3wnfeIsE0IrTcE3mGjrlHbL9gEnSYyi8pjexTeVC/F78OtJIhjwGW8+eU977ejTQKgdDP7qxK12Iy8wPbLj/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U6ed3PP5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784625123; c=relaxed/simple;
+	bh=owGjS9GEb6JZAL9yeS9UGk88aYVHU6W0zz47VKrfioU=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SrBJSotmJOIAAWJWALwBfTiuQuoWsaJK/qqSTrPnRO9oLpCvCntG6ZcTk/+1GH9AbbYqdNVilkIaOPkeGjbhk+nPhwhxDzpILdOEAgRT5++9Kt/1NJchFNYWPxEamsQ6oSKfE83J54Imo7z7RkoZhjYNG3GJIJbehPeSGZrc2/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VjkePxP5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U6ed3PP5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA43E1F00A3D;
-	Tue, 21 Jul 2026 09:10:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VjkePxP5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D20F1F00A3D
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 09:12:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784625013;
-	bh=rL8bJ3cQ/amc8AmRZ/N2VC1IHADA2+B2SMDij5EJ2I8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=U6ed3PP59epEPdEhUb/EaIRcl/KQ+j0hgeAqhkELeubZpRnCIFALsy/j4+2lXaWq9
-	 Qe6yCCYR6l65J5p7lrOw6XotWP25aA8YXi5uNGyfnZl211nmBHt+I3XFYb427SI0YT
-	 aMfnHK+lNztgKs/2ej8+6jp4yHSUE4+nKMHbcy9TfqVxW6OX66os7/wT9WGw6tIA6W
-	 tLisG9siZrLruvSwB3sH/yBUuMavfdFH8MOM3dom7+yfeTvHhWbi5uEF6Ecg1J6H1c
-	 3RETI4emu6k+cVdeNXydGjHz+Yvji3Htx1CMkDV9XIPDxsyZsiMHTzcHyjPB2KT+az
-	 vndoxL7h1QVag==
-Date: Tue, 21 Jul 2026 11:10:10 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Wesley Cheng <quic_wcheng@quicinc.com>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: phy: qcom,m31-eusb2-phy: Document M31
- eUSB2 PHY for Maili
-Message-ID: <20260721-small-rat-of-competence-32d994@quoll>
-References: <20260713-maili-usb-phy-v1-0-3285da11f148@oss.qualcomm.com>
- <20260713-maili-usb-phy-v1-1-3285da11f148@oss.qualcomm.com>
+	s=k20260515; t=1784625121;
+	bh=owGjS9GEb6JZAL9yeS9UGk88aYVHU6W0zz47VKrfioU=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=VjkePxP5k8UElf+ViKYNSxg1uYNg/Hdcd3ujIW2TjUCeznOdBUmHq1ERkv7nrgmri
+	 HED7uyzteTCOhycKb9d05HnAARvg6H+PLABiIpeqqtRDjzHS5LhO8c4bHS74dRegC8
+	 iDrk0IRA55UjEGSVEuY7JXWTNllt7uIp0gfGdb7gDodSxQ201UiAxMkDocQrW51BYc
+	 3EdMGPW2RNW13qqCOMv+fsIszctTBh9ruv3AOhDhKUT+NUwWtDaTT1V1piFoBjAgKy
+	 d/uScRUCDJDeZiQXLRaFiUIYPGtPTu7NIOuDgRENeoHRvTRjubAU18u8RdlheGas/m
+	 CyWUcX99eBeBQ==
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-39c953950dfso83816411fa.1
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 02:12:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpD+Kj87/ZCWtlWCVtTojxvNCnVftfp3aKqffraHI7tVrHP7/tJ5+iCmwSLSsOi6qxvbGc2i3MNv6Fz@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy0+C8WcbsMStTyRFvkPuhf28mPpSr/gEjXdSoPGDWgWoic1twP
+	paqHnRvR+MkJsJC2qvrwftcWDYCLFcwv129MU3rD33dDjHCP5L9epyZSbHfTeHhrar2ZgVNrfJM
+	ZzauqEGu8f36hpdd6kThGBjXw8ghP/4xQarTRMqVNsA==
+X-Received: by 2002:a2e:be27:0:b0:39e:a64f:d7a9 with SMTP id
+ 38308e7fff4ca-39eb274e864mr35869361fa.2.1784625119589; Tue, 21 Jul 2026
+ 02:11:59 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 21 Jul 2026 02:11:57 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 21 Jul 2026 02:11:57 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <0337442c-0278-48e7-9a69-9f11d7325f1f@axiado.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260713-maili-usb-phy-v1-1-3285da11f148@oss.qualcomm.com>
+References: <20260716-upstream-axiado-ax3005-upstream-v3-0-c429095143ec@axiado.com>
+ <20260716-upstream-axiado-ax3005-upstream-v3-2-c429095143ec@axiado.com>
+ <20260717-prudent-indefinable-labradoodle-fcaa9e@quoll> <0337442c-0278-48e7-9a69-9f11d7325f1f@axiado.com>
+Date: Tue, 21 Jul 2026 02:11:57 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MdfUXBAm54RyCQXiPMxCp9pLR5mPfM5hnC6_X6O9UhyTg@mail.gmail.com>
+X-Gm-Features: AUfX_mwH0TpNMo9EZd0P-t0js313q4iPqh8W5BqP6DPj-e4tX6QwH3FcJB6hj2U
+Message-ID: <CAMRc=MdfUXBAm54RyCQXiPMxCp9pLR5mPfM5hnC6_X6O9UhyTg@mail.gmail.com>
+Subject: Re: [PATCH v3 2/8] dt-bindings: gpio: cdns: add Axiado AX3005 GPIO variant
+To: Swark Yang <syang@axiado.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Jan Kotas <jank@cadence.com>, 
+	Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>, 
+	=?UTF-8?Q?Przemys=C5=82aw_Gaj?= <pgaj@cadence.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>, 
+	Boris Brezillon <bbrezillon@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, Mark Brown <broonie@kernel.org>, 
+	Mathias Nyman <mathias.nyman@intel.com>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	linux-i3c@lists.infradead.org, linux-serial@vger.kernel.org, 
+	linux-spi@vger.kernel.org, linux-usb@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Jul 13, 2026 at 06:38:28PM +0530, Krishna Kurapati wrote:
-> Document the M31 eUSB2 PHY for Maili which handles the USB2 path. Use
-> fallback to indicate the compatibility of the M31 eUSB2 PHY on Maili
-> with that on the SM8750.
-> 
-> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/phy/qcom,m31-eusb2-phy.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
+On Tue, 21 Jul 2026 05:35:42 +0200, Swark Yang <syang@axiado.com> said:
+> On 7/17/2026 4:33 PM, Krzysztof Kozlowski wrote:
+>>
+>> This should stay enum which would also make your diff easier to read.
+>>
+>> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>>
+>> Best regards,
+>> Krzysztof
+>>
+>
+> Hi Krzysztof,
+>
+> Agreed on the enum, and thanks for the tags.
+>
+> Since Bartosz already applied this to the GPIO tree, should I send an
+> incremental patch to fix the formatting, or is it fine as-is?
+>
 
-Please kindly postpone posting anything for Hawi or Maili, because there
-is no DTS user available and previous Kaanapali, Glymur, Maili and Hawi
-postings without DTS came with somehow easy to spot issues if DTS was
-available. Contributor did not spot them even though they had DTS
-internally. OTOH, I cannot spot them, because DTS is not available to me
-easily. I raised this internally hoping it can be somehow solved (if
-Qualcomm wants to post bindings without any users).
+Feel free to send a separate follow-up patch.
 
-Best regards,
-Krzysztof
-
+Bart
