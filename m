@@ -1,80 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from MTA-10-3.privateemail.com (mta-10-3.privateemail.com [198.54.127.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E5E373C10;
-	Tue, 21 Jul 2026 13:48:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E796436AB6B;
+	Tue, 21 Jul 2026 13:49:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.62
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784641731; cv=none; b=jIZqHQskaUMEkJqTtT0pIFmbdB3BVdDZUQ6yfsB1u5OUbYT3TOJiDgim4XZXTtkUQFtUtBAy/NCSQjpfZsDz67Q5zY/vMVOM/ISPshHgegNWj51TsIFITHCYAlr3XyyJJiljqOFmIh9ITn1qZlR8hCiJDlXVd/jX4+WYCsr1+kE=
+	t=1784641765; cv=none; b=guLsnVDbaFQuSovpaZIEQYvTbrGO7lgdyQW/3OVaXNuB/5qeNGtuC2W+WFX//g22gw2zVP5evtwejkq/1hDOh4PLDPi2vBhj9Q0j0yR2Gx2suT06Es5xruNvH0XjACjqWewBWFWzBD3hOEn7sbHtjpxWt9wBjm4iWPvHY3ho+5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784641731; c=relaxed/simple;
-	bh=R8hKUjFFf72sKXv72NrwNGcuwLtyG57LBbOo2mCIalA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Lw0n6pfqDdA/dyYudCaMZavhmUqpx/WpzCFHKQnXsNYL5oLdZlJPcjx+5maUeBzm4JwZ+e5OZSAX2Zh0Moa1R5SpOB6CdlZ3WeG5Sx0PMcJd9sPqqa3dIcE38xMNjhdxC0zC2ftAL/YuBePGFaXagQV1EUZUEf+UJPwSOYVlT9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S//f9M6F; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S//f9M6F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59BAD1F000E9;
-	Tue, 21 Jul 2026 13:48:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784641730;
-	bh=WyhWbNjeIszRI66cGBfypyk1T0TvSihAQzn41Wbu1ic=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S//f9M6F8N8uEpKU3adINPzSiA/cCJNb5s8Yxz7w9zSihNmP5OhScFrEc3OpP06z9
-	 y9Rrl57+T62WurLNAqZ6+QMScKYAxoW4qeTFMweYMYf3btrV4vMbjvWe6v5j/9A+au
-	 xcl2jLkgs/2oxfwv6xxRlJiqi4TEEB6wfezS3lZkGBkJu6LF+bbFSY6Q+hVvddbqXV
-	 HHz4RgcIwF9PsEf64sqlNhIOzf0d3nwv5JourkQopUURsmnm2i999H+zePVigkdqcL
-	 rjBtDLJxB1DAdr5uv3EkPM0Aa06bA1uRFB73Cj7vfcBk7qDotLGD8oKlKh024d5yEt
-	 zJWU/ZHr9lPwA==
-Date: Tue, 21 Jul 2026 08:48:49 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Eduard Bostina <egbostina@gmail.com>
-Cc: Andreas Kemnade <andreas@kemnade.info>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	s=arc-20240116; t=1784641765; c=relaxed/simple;
+	bh=tlxtPUyBz/219nhVHCcACjoI28fWxT+wZ3ASmm3lPWc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nFBjmAZtCz6Drlo2dr1ie49z/+NxdXZqGSPAWyBSqy93xmnWc6+N1bRN9yVp/YK2tarwS3l5xhHsuAovAp+Xt9N1HtQYWlR3e7RqG6Qji4ACMSHMTaH46mB7RuUlahSfAgFvR54Zd7NXXjiFwtVAt29M9ylFn2DdIIVunPGU5uU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.127.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
+Received: from mail.privateemail.com (K8S-PROD-WORKER-13 [87.215.145.39])
+	by mta-10.privateemail.com (Postfix) with ESMTPA id 4h4JdS0PhBz3hhTr;
+	Tue, 21 Jul 2026 09:48:59 -0400 (EDT)
+From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-kernel@vger.kernel.org, Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Tony Lindgren <tony@atomide.com>, linux-omap@vger.kernel.org,
-	daniel.baluta@nxp.com, goledhruva@gmail.com, m-chawdhry@ti.com,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-input@vger.kernel.org, Kevin Hilman <khilman@baylibre.com>,
-	simona.toaca@nxp.com, Roger Quadros <rogerq@kernel.org>
-Subject: Re: [PATCH v2 1/2] dt-bindings: input: Convert TI Keypad Controller
- to DT schema
-Message-ID: <178464172918.3437827.17141697525937347844.robh@kernel.org>
-References: <20260719133730.3551691-1-egbostina@gmail.com>
- <20260719133730.3551691-2-egbostina@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Siratul Islam <siratul.islam@linux.dev>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] iio: magnetometer: add support for QST QMC6308
+Date: Tue, 21 Jul 2026 15:48:41 +0200
+Message-ID: <20260721134843.7484-1-jorijnvdgraaf@catcrafts.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260719133730.3551691-2-egbostina@gmail.com>
+Content-Transfer-Encoding: 8bit
+
+This adds a driver and DT binding for the QST QMC6308, a 3-axis
+anisotropic magnetoresistive (AMR) magnetometer found e.g. in the
+Fairphone 6. The series is based on iio/togreg.
+
+The chip is a sibling of the QMC5883L but is not register compatible
+with it, so this is a separate driver; its structure intentionally
+follows qmc5883l.c. Reads are polled from the chip's periodic
+measurement mode, with runtime PM dropping the chip into its suspend
+mode between uses.
+
+The binding stays a separate file rather than being folded into
+qstcorp,qmc5883l.yaml: as discussed with Siratul in the v1 thread, the
+two schemas share only compatible/reg/vdd-supply, and Jonathan leaned
+towards keeping the files separate given that small overlap. If the DT
+maintainers prefer the combined shape I'm happy to rework it that way.
+Adding mount-matrix to qstcorp,qmc5883l.yaml, also raised in that
+discussion, is a natural follow-up patch either way.
+
+Tested on a Fairphone 6 (bit-banged i2c-gpio bus) using a
+byte-identical backport on that device's 7.1-based kernel; on this
+base the driver is build-verified (arm64, W=1 clean). v2 testing
+re-covered raw reads, every ODR/oversampling/scale setting (the same
+ambient field reads consistently across all four ranges), the
+stale-sample discard on range changes, and runtime PM, including that
+the chip autosuspends after probe without the v1 usage-counter
+dance and that configuration writes land while suspended. The FP6
+board DTS will be submitted separately through the qcom tree once
+this lands.
+
+Per-patch changelogs are in the individual patches.
+
+v1: https://lore.kernel.org/20260714202842.340293-1-jorijnvdgraaf@catcrafts.net
+
+Jorijn van der Graaf (2):
+  dt-bindings: iio: magnetometer: add QST QMC6308
+  iio: magnetometer: add support for QST QMC6308
+
+ .../iio/magnetometer/qstcorp,qmc6308.yaml     |  47 ++
+ MAINTAINERS                                   |   7 +
+ drivers/iio/magnetometer/Kconfig              |  11 +
+ drivers/iio/magnetometer/Makefile             |   1 +
+ drivers/iio/magnetometer/qmc6308.c            | 602 ++++++++++++++++++
+ 5 files changed, 668 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/magnetometer/qstcorp,qmc6308.yaml
+ create mode 100644 drivers/iio/magnetometer/qmc6308.c
 
 
-On Sun, 19 Jul 2026 13:37:29 +0000, Eduard Bostina wrote:
-> Convert the Texas Instruments Keypad Controller bindings
-> to DT schema.
-> 
-> During the conversion, the following updates were made:
-> - Corrected the documented property 'linux,keypad-no-autorepeat'
->   to 'linux,input-no-autorepeat'. The old text binding documented
->   the property incorrectly. The standard input subsystem property is
->   'linux,input-no-autorepeat', which is actively used in device
->   trees and parsed by the kernel.
-> - Added the 'reg-names' property ("mpu"), which was omitted from
->   the original text binding but is actively used in device trees.
-> 
-> Signed-off-by: Eduard Bostina <egbostina@gmail.com>
-> ---
->  .../devicetree/bindings/input/omap-keypad.txt | 28 ---------
->  .../bindings/input/ti,omap4-keypad.yaml       | 63 +++++++++++++++++++
->  2 files changed, 63 insertions(+), 28 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/input/omap-keypad.txt
->  create mode 100644 Documentation/devicetree/bindings/input/ti,omap4-keypad.yaml
-> 
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+base-commit: 036d96ceec6d966339aea34d034420991e24cfac
+-- 
+2.55.0
 
