@@ -1,124 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A3C39C00E
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 14:23:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 227CC367B73
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 14:25:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784643831; cv=none; b=K/HTz8sSWr2/hkU8t0LAe5RgqrN0YTV1z0wX6zJRFpYD3iBC/D0WgMb1kLqCJiAsNSokxr3Lg+EBpHv6n3//8dZklyM39VFHJtlOXJz8nFd8aR10X5JbaRfXzJMyVY/mJuzRGfaEA+0u2aAkr6lrnhYG6CvoCHj9oyvoiuqa4W0=
+	t=1784643935; cv=none; b=APCKsb+SJyahAk210vmXosTeAt/vA7P0UaXdKIdzWJbanjXmyaLmaOZu+/J6gUM7jj6W+yBkFFNcPp/YT14ykkDvNSMBjR1m44DuTupdqyjUnU21rJ978RnNVsvP9kgpi+SbHpCE9q7DNuy4urSVo/XnI0B5dYd1pY/t/l9N7c4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784643831; c=relaxed/simple;
-	bh=YbE3FIEf16hP8H+mbp4mAxHDf1jtRYXry1/q9zHuyWA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sEXr4P1KoEK/7QpTMgziBUC2gbTN7JMFtmbbFY9zoZisI8cKwhbLQFkTeGqtixjwTdhiYlTAL8DN40ne4GIxIHKEkhiIWgCZ5EjQylx3j/cdtk7zdWp6+Aa+2e4myRIyihrTc3gt3ZFsRrDSIjHOjpL9oUrSMOy4ILl/KgS6Ti0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M5SmH4BX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784643935; c=relaxed/simple;
+	bh=xs2UYKKEhjbgwdogz7s2BJIrBhN2Q+n5OA3hsXThI0k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rmf76u+krbc46OytXR9KfKhy4AQZXagGcRmt5kUxy+sZ2dupRNMs4/rxr7I+RanDmPd964u9AcME1dHPVDzKjfm+HArZBT792JO0lIuwHbG3v4GBmG3Cew6hcdid2ZZQu9YCFUjyhGUhy1jcxXKYUustECfbchmP/U9k7pNAzsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B0i/p1OY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M5SmH4BX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 365931F00A3E
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 14:23:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B0i/p1OY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A7151F000E9;
+	Tue, 21 Jul 2026 14:25:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784643829;
-	bh=W872MX1aaB+YZmKQrLunW/vuC3RmxtdDHd9xnW6ge+I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=M5SmH4BXlce5RIkeR7JLaR+DYcExoVzvJZxY15mNd/86gVy+IIZEAbVLqrabl/fae
-	 dRHYHv0Rzwi/98UDdgLJ4BuqS1gyLzWIzptNDaFWK+Lqr4tQOvzEORiwGWoq9w42ON
-	 aLwhIFaccqMXjGqR+CeG2FDMEYGEJnC7OUawXHKrMFVq10lNdvdJB29+clOYAM/eWG
-	 HRxRXKMzncodK3Y/9VB2d14OTWMgXo5Noi6XuOoAa9VT77n5QlUeLZTQuwymB2aIwH
-	 sGfx9HEIW5GZ81KEJESowJn5MqU21Cc8ceB7Wq+0oZnNNhMx7cNaW7QJXIXuDNN12u
-	 XFcTxv8DBL0fQ==
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c16794450aeso821152766b.2
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 07:23:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpERaArzH3/JGrCvy+dwr/SK+j2MkWQARUjwazNe+QVgdPbM5WeRSksbacZrWLhXlvzYIJp7uKLTZ52@vger.kernel.org
-X-Gm-Message-State: AOJu0YwIeAKK5eoSkdqZCT85DDhy5iGS6wAi21cG9V5Hfm2nK4eAfcPH
-	UYowxgGtq7Wy+PGFYyGwejIPm1wdS6Ix8MuQ6IXURTu++qp7rucUfzz8fSq140b8ibAiNSFXlFn
-	XVVTOj1QOSY8J/c0WfEfABB5+KCNkqw==
-X-Received: by 2002:a17:907:741:b0:c12:1dd4:13ea with SMTP id
- a640c23a62f3a-c16b4765b7amr761810866b.30.1784643827828; Tue, 21 Jul 2026
- 07:23:47 -0700 (PDT)
+	s=k20260515; t=1784643933;
+	bh=UANdPwovPJlkrUTfWdevvycG6o9KJWanIDnSSIqGpFo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=B0i/p1OYryXJTs7/MEF5okuM7OJuXJwJ7+0PI7bhPu/hN8rQhW/RNL3PRXoh00s1Z
+	 OPfdECPXxCNx0iNBGB270+pgKHmUABK5GVyC8f0lUZ6s50WSMCw7X6m4tMmJiytD4H
+	 hFf0y3BkpKzKAFPIyS5InzqUh676a+N+o4fK9KhXGamcMJzsRDYSp8L9Gs9lCa4sG6
+	 LDVF7zSlN4CxUfGwRZEMlvxH8zN0ZpQwKA++RLbkP2c6whEai0l4viPgUvJIDC9M02
+	 diepFJ7TPmyBQsJWWC1YoHikJ1M4lTYUnhcECh4alZ/qsh7H62Gf+2s7oGJ8OXd3WQ
+	 0m8undl35JvUg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/2] dt-bindings: media: i2c: Add mira220 image
+ sensor
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jacopo Mondi" <jacopo.mondi@ideasonboard.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260721-mira220-v5-1-533b0ad1065e@ideasonboard.com>
+References: <20260721-mira220-v5-0-533b0ad1065e@ideasonboard.com>
+ <20260721-mira220-v5-1-533b0ad1065e@ideasonboard.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 14:25:33 +0000
+Message-Id: <20260721142533.7A7151F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260701175330.1645927-1-ninadnaik07@gmail.com>
- <20260701180553.473121F000E9@smtp.kernel.org> <20260716173939.GB534222-robh@kernel.org>
- <2f1795b5-cab3-4241-b3f8-532a7fc4df9b@gmail.com>
-In-Reply-To: <2f1795b5-cab3-4241-b3f8-532a7fc4df9b@gmail.com>
-From: Rob Herring <robh@kernel.org>
-Date: Tue, 21 Jul 2026 09:23:35 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqJEbkPU2oYB2p0vBsq=XdzkXurdDUzZdJDOM=MpENLbYQ@mail.gmail.com>
-X-Gm-Features: AUfX_mxEjh-9RPB6Ab6fyhpFd_zD5BN0wQFo33UhJrt5AZbs4HA5Micyu-a_32A
-Message-ID: <CAL_JsqJEbkPU2oYB2p0vBsq=XdzkXurdDUzZdJDOM=MpENLbYQ@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: leds: lacie,ns2-leds: Convert to DT schema
-To: Ninad Naik <ninadnaik07@gmail.com>
-Cc: sashiko-reviews@lists.linux.dev, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, lee@kernel.org, conor+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, Jul 18, 2026 at 3:15=E2=80=AFAM Ninad Naik <ninadnaik07@gmail.com> =
-wrote:
->
->
-> On 16/07/26 11:09 pm, Rob Herring wrote:
-> > On Wed, Jul 01, 2026 at 06:05:52PM +0000,sashiko-bot@kernel.org wrote:
-> >> Thank you for your contribution! Sashiko AI review found 1 potential i=
-ssue(s) to consider:
-> >> - [Low] The schema conversion incorrectly restricts LED child node nam=
-es to `^led(-[0-9a-z]+)?$`, which breaks `dtbs_check` validation for all ex=
-isting upstream device trees using this binding.
-> >> --
-> >>
-> >> commit 6c59295f22b17d02a2b26847db54458f820fa4f3
-> >> Author: Ninad Naik<ninadnaik07@gmail.com>
-> >>
-> >> dt-bindings: leds: lacie,ns2-leds: Convert to DT schema
-> >>
-> >> Convert lacie,ns2-leds to DT schema.
-> >>
-> >>> diff --git a/Documentation/devicetree/bindings/leds/lacie,ns2-leds.ya=
-ml b/Documentation/devicetree/bindings/leds/lacie,ns2-leds.yaml
-> >>> new file mode 100644
-> >>> index 0000000000000..679a618906d80
-> >>> --- /dev/null
-> >>> +++ b/Documentation/devicetree/bindings/leds/lacie,ns2-leds.yaml
-> >>> @@ -0,0 +1,87 @@
-> >> [ ... ]
-> >>> +properties:
-> >>> +  compatible:
-> >>> +    const: lacie,ns2-leds
-> >>> +
-> >>> +patternProperties:
-> >>> +  "^led(-[0-9a-z]+)?$":
-> >> [Severity: Low]
-> >> Will this restrictive regex cause existing device trees to fail dtbs_c=
-heck?
-> >>
-> >> The old text binding example used a child node named blue-sata, which =
-does
-> >> not match this pattern. Since additionalProperties is set to false bel=
-ow,
-> >> nodes in existing device trees that don't start with led will be rejec=
-ted
-> >> during validation.
-> >>
-> >> Should this regex be relaxed to allow existing node names, or should t=
-hose
-> >> device tree files be updated alongside this conversion?
-> > While yes we prefer what you did, it's perhaps not worth changing these
-> > old .dts files to match the preference.
-> >
-> > Rob
->
-> I understand this. Should I relax the regex to allow any pattern so that
-> the existing as well
->
-> as new DTS files could be properly validated?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The schema uses `additionalProperties: false` at the top level a=
+longside an `$ref` to `video-interface-devices.yaml` in an `allOf` block, w=
+hich incorrectly rejects inherited standard properties.
+--
 
-I doubt there will be new DTS files here, so you could just list the
-node names in use. Or to just allow anything, you can do:
+--- Patch [1]: [PATCH v5 1/2] dt-bindings: media: i2c: Add mira220 image se=
+nsor ---
+commit 4fdfbcc612e9cd0371486dfa12391a33292c795a
+Author: Philippe Baetens <philippebaetens@gmail.com>
 
-additionalProperties:
-  type: object
-  ...
+dt-bindings: media: i2c: Add mira220 image sensor
+
+This commit adds device tree bindings for the AMSOSRAM Mira220 2.2 MP NIR
+enhanced global shutter image sensor. It defines the required properties,
+supplies, and video output port configuration for the device.
+
+> diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml=
+ b/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml
+> new file mode 100644
+> index 0000000000000..294211da8f2a1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml
+> @@ -0,0 +1,101 @@
+[ ... ]
+> +allOf:
+> +  - $ref: /schemas/media/video-interface-devices.yaml#
+> +
+> +properties:
+[ ... ]
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - vdig-supply
+> +  - vana-supply
+> +  - vddl-supply
+> +  - port
+> +
+> +additionalProperties: false
+
+[Severity: Medium]
+Since the schema includes a reference to video-interface-devices.yaml in the
+allOf block, should this be unevaluatedProperties: false instead?
+
+Using additionalProperties: false at the top level only checks the properti=
+es
+defined locally in the current schema block. It ignores everything included=
+ via
+the allOf reference, which means valid device tree properties inherited from
+the standard video-interface-devices.yaml schema (such as rotation or
+orientation) will fail dt_binding_check validation.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-mira220-v5=
+-0-533b0ad1065e@ideasonboard.com?part=3D1
