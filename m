@@ -1,115 +1,203 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A750C3469F6
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:15:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8833DB64B;
+	Tue, 21 Jul 2026 10:15:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784628916; cv=none; b=EVofjVQdIt6VSOYcx5iyGIkonZpBngYI2APrZDCPGFYcIMf94056DbU1zp5IZuvn3pIE8R6FDDv66P0ZcIm4iRnvjD6WLgNl4gFHSY+RnIif/FsaMnZMalgjKQO3NmsDzd6vwHHxMGuvAwe9PXdRfMBP+h/ilqU3LvsZiVU/Tzk=
+	t=1784628928; cv=none; b=oQP+R9NK7ANhdUMhiVC7GIT08VvuLrAKIfw/vwqUTOwpZtuaumbhsKzkujacrDd0l4nsKlY/ggDaI51B3LNA3LQ8MGeM4YXHViejVwX5lNMq5jTIpZT+ybgxQSxyZDW1oYgNjgpDUxxslWKJrxzDSVcVNM3kHBR41P9J+t4BPeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784628916; c=relaxed/simple;
-	bh=aZMqD/cj1sT9PpgUH9U4gEAsomtzSvutYVuVHHY2QdY=;
+	s=arc-20240116; t=1784628928; c=relaxed/simple;
+	bh=VcxtAUHxNdBbgZdA0jG6Cw4bzoGSA/cuxKBpvU0kt04=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZsS0ABuufC6mb51RUrAeBg8qXW6Ky5e13hvN7WikgLZEJ8QINAG8+UcaWWBDGAPRbn5+qRhIZ04e9Bd2BoS/Fx1nKT/OHZvZr0KJ657OFnz1rIRQuYoAzLjQ7d9J9e8NaYqqb4vWg9db+OOnx28ZcTBc9vdVG7b1dPQUyUVXBLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jHSe9kc0; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=IYnRYY1XZMFvuKSkFFCAKHv7jGswkbUhR4xFiyc7eRqkr2w0eYflYI+YqtbZWy1o+HyA0gL170r5a70CJXTzdfiltqjc2FzsnuisuT6qLwuVgMx1f6GnF8WMqOd2GyA8u61QN6Wtel0HuLMcKgLDj4b1Rt6689j+107VsVB1Af0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h9M4oW0C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jHSe9kc0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AC311F000E9;
-	Tue, 21 Jul 2026 10:15:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h9M4oW0C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2C5C1F000E9;
+	Tue, 21 Jul 2026 10:15:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784628915;
-	bh=aDORCqBtsuArRSzTjDZzkw9qQE3ZioDrD4yTuN7D5AM=;
+	s=k20260515; t=1784628927;
+	bh=Ozlre7lFK+XdiHcz8ARIiALsGWVozgG1epJC3exQsmU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jHSe9kc06rBj55sV1+jn42PEfw7m1XlsgcRqbnplnssXKtUv/WIG0QXOsGlVR9i8e
-	 ggLNa4YAaq8w+jRIRxEGmBTloLNW/obijiHykA17tInlH85ESK4baaA3hRS8Tcd0Vb
-	 rJ62e80+BTuyeuJ1crOmBEcqXBk14oRxEpkxY4N1Xpzhz2Go1iWAOJzj5U0meD3cM1
-	 VPb+Btm5/n0F1XccPcRWv8fFgyN6JlHbtWe6GGNooBIu6pZ1buvXYXciXqVCarURxs
-	 8yRmhBAMyQXBOv1M2ndOjqCgXwMy3YG1fcl2PdyXeZEixHZD1aBBa1f2oqOQHL4N4o
-	 7zv1UTNSf4pYQ==
+	b=h9M4oW0CPK2da9f7MHEjkBY5BWelwPVKDJrecwb1hlpzDw8qfjjYRtYDS8tt62dKr
+	 l5U4P6GhrP+5mYhKCg/MtghAtH3PLZPuv6CWy9t90kw8wJ67eS8qT2f0aXRR4XY8Kx
+	 XaNZEQFlxkXpA02tG7UDIZhKOCKRktYF3KsjZPeAAISMyT8lo/XlcI0fdu5QJnFptG
+	 XaBbB0Lo/gowLbqLHGadF74cJbq+0BjxtdXz8s+DWbYnUBQ/JUFndCvEZo308E4dx2
+	 4xXROzU/SptCuiNuqufUMFChapd1BapMiULl3+azt6ySBFgMvaXjMAQOwHn8k+ojWV
+	 NoqnEfghCASEg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 2/2 RESEND] ARM: tegra: Add device-tree for Motorola
- Atrix 4G and Droid X2
+Subject: Re: [PATCH v7 3/6] dt-bindings: mfd: motorola-cpcap: convert to DT
+ schema
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260721100245.444623-3-clamor95@gmail.com>
-References: <20260721100245.444623-1-clamor95@gmail.com>
- <20260721100245.444623-3-clamor95@gmail.com>
+Cc: linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-leds@vger.kernel.org, dmitry.torokhov@gmail.com, lee@kernel.org
+In-Reply-To: <20260721095654.429346-4-clamor95@gmail.com>
+References: <20260721095654.429346-1-clamor95@gmail.com>
+ <20260721095654.429346-4-clamor95@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 10:15:14 +0000
-Message-Id: <20260721101515.4AC311F000E9@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 10:15:26 +0000
+Message-Id: <20260721101526.D2C5C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [Medium] Two separate GPIO switches map to the same absolute switch code =
-(`SW_DOCK`) in the same `gpio-keys` device, causing erratic state clobberin=
-g.
+- [Medium] YAML schema omits `#address-cells` and `#size-cells` properties =
+for the root node, causing validation failures for existing device trees.
+- [Medium] Schema strictly expects the power button node to be named `key-p=
+ower`, breaking validation for the legacy `button` node.
+- [Medium] The `audio-codec` schema expects a `ports` wrapper, breaking val=
+idation for legacy direct `port@0` definitions.
+- [Low] The `spi-cs-high` property was dropped from the schema's `required`=
+ list.
+- [Low] Commit message description is not capitalized, violating MFD subsys=
+tem guidelines.
 --
 
---- Patch [2]: [PATCH v1 2/2 RESEND] ARM: tegra: Add device-tree for Motoro=
-la Atrix 4G and Droid X2 ---
-commit efb4cc03675fda13ada4c5318a7f54d006cf5b05
+--- Patch [3]: [PATCH v7 3/6] dt-bindings: mfd: motorola-cpcap: convert to =
+DT schema ---
+commit 4de37a9bd5e5179740a9f015e1900ab235da93ae
 Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-ARM: tegra: Add device-tree for Motorola Atrix 4G and Droid X2
+dt-bindings: mfd: motorola-cpcap: convert to DT schema
+   =20
+Convert devicetree bindings for the Motorola CPCAP MFD from TXT to YAML.
 
-This commit adds device-trees for the Motorola Atrix 4G and Droid X2,
-which are NVIDIA Tegra20-based smartphones.
+> dt-bindings: mfd: motorola-cpcap: convert to DT schema
 
-> diff --git a/arch/arm/boot/dts/nvidia/tegra20-motorola-daytona.dts b/arch=
-/arm/boot/dts/nvidia/tegra20-motorola-daytona.dts
+[Severity: Low]
+This isn't a bug, but the MFD subsystem guidelines require the description
+after the subsystem prefix to be capitalized. Should "convert" be "Convert"?
+
+> diff --git a/Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml b/=
+Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml
 > new file mode 100644
+> index 0000000000000..76705ea56805a
 > --- /dev/null
-> +++ b/arch/arm/boot/dts/nvidia/tegra20-motorola-daytona.dts
+> +++ b/Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml
+> @@ -0,0 +1,403 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/mfd/motorola,cpcap.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Motorola CPCAP PMIC MFD
+> +
+> +maintainers:
+> +  - Svyatoslav Ryhel <clamor95@gmail.com>
+> +
+> +allOf:
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: motorola,cpcap
+> +      - const: st,6556002
+
+[Severity: Medium]
+Does omitting #address-cells and #size-cells from the properties block
+break validation for existing device trees?
+
+Because this schema sets additionalProperties: false, running make dtbs_che=
+ck
+against existing in-tree device trees (like
+arch/arm/boot/dts/ti/omap/motorola-cpcap-mapphone.dtsi, which uses
+#address-cells =3D <1> and #size-cells =3D <0> on the pmic@0 node) will fal=
+sely
+report validation errors.
 
 [ ... ]
 
-> +	extcon-keys {
-> +		compatible =3D "gpio-keys";
+> +  audio-codec:
+> +    type: object
+> +    additionalProperties: false
 > +
-> +		switch-dock-hall-sensor-north {
-> +			label =3D "Dock Hall sensor (north)";
-> +			gpios =3D <&gpio TEGRA_GPIO(S, 2) GPIO_ACTIVE_LOW>;
-> +			linux,input-type =3D <EV_SW>;
-> +			linux,code =3D <SW_DOCK>;
-> +			debounce-interval =3D <500>;
-> +			wakeup-event-action =3D <EV_ACT_ASSERTED>;
-> +			wakeup-source;
-> +		};
+> +    properties:
+> +      interrupts:
+> +        items:
+> +          - description: headset detect interrupt
+> +          - description: microphone bias 2 detect interrupt
 > +
-> +		switch-dock-hall-sensor-south {
-> +			label =3D "Dock Hall sensor (south)";
-> +			gpios =3D <&gpio TEGRA_GPIO(S, 0) GPIO_ACTIVE_LOW>;
-> +			linux,input-type =3D <EV_SW>;
-> +			linux,code =3D <SW_DOCK>;
+> +      interrupt-names:
+> +        items:
+> +          - const: hs
+> +          - const: mb2
+> +
+> +      "#sound-dai-cells":
+> +        const: 1
+> +
+> +      VAUDIO-supply:
+> +        description:
+> +          Codec power supply, usually VAUDIO regulator of CPCAP.
+> +
+> +      ports:
 
 [Severity: Medium]
-Both switch-dock-hall-sensor-north and switch-dock-hall-sensor-south map
-to the same SW_DOCK code within a single gpio-keys device.
+Will this strict ports wrapper requirement cause validation failures for
+legacy device trees?
 
-Since the gpio-keys driver creates a single input device for the extcon-keys
-node and iterates sequentially over all defined buttons to report their
-current state at boot and resume, won't the south sensor state overwrite
-the north sensor state before input_sync() is called?
+Existing device trees place port@0 directly inside the audio-codec node:
 
-If the device is docked in a way that activates the north sensor but not
-the south sensor, it seems this could result in an incorrect undocked state
-being reported. At runtime, could changes in one sensor also incorrectly
-clobber the shared SW_DOCK state, such as an undocked event being emitted
-if the south sensor drops while the north sensor remains active?
+arch/arm/boot/dts/ti/omap/motorola-cpcap-mapphone.dtsi:
+    cpcap_audio: audio-codec {
+        ...
+        port@0 {
+            cpcap_audio_codec0: endpoint { ... };
+        };
+    };
 
-> +			debounce-interval =3D <500>;
-> +			wakeup-event-action =3D <EV_ACT_ASSERTED>;
-> +			wakeup-source;
-> +		};
-> +	};
+With additionalProperties: false set on the audio-codec node, dtbs_check
+will flag these direct ports as illegal properties.
+
+[ ... ]
+
+> +  charger:
+> +    $ref: /schemas/power/supply/cpcap-charger.yaml#
+> +
+> +  key-power:
+> +    $ref: /schemas/input/motorola,cpcap-pwrbutton.yaml#
+
+[Severity: Medium]
+Does hardcoding the node name as key-power break validation for the legacy
+button node?
+
+Existing device trees use the button node name:
+
+arch/arm/boot/dts/ti/omap/motorola-cpcap-mapphone.dtsi:
+    power_button: button {
+        compatible =3D "motorola,cpcap-pwrbutton";
+        ...
+    };
+
+Since this schema enforces the exact name key-power, make dtbs_check
+will flag the existing button node as an invalid property.
+
+[ ... ]
+
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - interrupt-controller
+> +  - "#interrupt-cells"
+> +  - spi-max-frequency
+
+[Severity: Low]
+Is it intentional to drop spi-cs-high from this list?
+
+The legacy text binding explicitly documented spi-cs-high as a required
+property, which reflects the hardware's active-high chip select requirement.
+Omitting it here relaxes the constraint and might allow inaccurate device t=
+rees
+to pass validation.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721100245.4446=
-23-1-clamor95@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721095654.4293=
+46-1-clamor95@gmail.com?part=3D3
