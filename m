@@ -1,62 +1,62 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB46A47ECDD
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:11:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8A7947ECFA
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:11:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784628679; cv=none; b=RYDYZ5NRM6D2q03iRYHsln2q/2fOH7TWcYSF0LPKLn9L+PJbSqCIvzAmkgLkxyezrU4wBnpqCBdb97JVMN4H0+Xclb18uKc6OcIJBqhNGhRpbxOGHjuUS8euaGv27l6Gi4eH6Dc40S9HVK3TQNfOYIo7pdp7I4rOTFaZAeVIuFI=
+	t=1784628680; cv=none; b=ltdJl+Tze4x0chuN0Wkh3KiS5B9mTYduwRU4qcqk5eDIwPEPey50EtSTge4DcDQuwIRz6WAVxQ95cttdc7ayMMHriR901hRv1Nua7VRmG0KIvVk/tR5FQkD9rDmR0Gn58C/VTvkQn8J5BzRG+lJZjsdFhSfhSXn4Z9WjxsPBZTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784628679; c=relaxed/simple;
-	bh=iVZoJ194oEUw2xc4OjPA4NuTSMMc1ZrgAkb07TkG/K4=;
+	s=arc-20240116; t=1784628680; c=relaxed/simple;
+	bh=AZr7Hy5Dvd4AJYPHEuGqOYmHE9eiYyIjHiAZBGllOuY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NpJcYkJAyGwaxLLmuE+oZZIFJSf/RqnS9YPs5jKh23i4xkP05PrSk3lh5OOi8nhCSXtjBBFw4/GvkgcAktUYbR8H7gmcAWcBl940mqYszq1Hw7z/9fkz74mQ93ldCsT7WRcc9D1MA1b/6PptsGuCAa8QwqJQXJcKsxiboTGmqWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gN1ppR9I; arc=none smtp.client-ip=209.85.128.52
+	 MIME-Version; b=d5+uUMI7MQt9SSFSAPFdMlm941NyDbc8h2WPMYPLouhXDfgo2sJ3pufZYf+xaQzB+Jwkdro38jlmmKC1tj8/QOIY9eYknJtWgXj+pt/bYObw5gDrJHFcLYMIu9v/idJm1Y8EYCNtx5oD+k0AxkjQgQkRWopl1etNBwtiMbbQN8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PE7H3Qsl; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gN1ppR9I"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so84924025e9.0
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 03:11:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PE7H3Qsl"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4955158f26aso18258645e9.3
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 03:11:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784628675; x=1785233475; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784628676; x=1785233476; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YO6b60GQ3bsYe+qXNMrvYgPe+I4qfLlasxD+4tqSZmI=;
-        b=gN1ppR9IPHgtL2McfSJ+3GKE5T7sM6OzatpUvDUYuKVFaOdvVH4Jcy8Jxs76Q1IA8l
-         fM6+QipcesWwt2sm98AeJnGNPhulyFb8IpHZFAnt+vDBlU7DleBvvCaZ8nuC82u4s2ei
-         6yp6OZwtt9J8TALJeT0DNnFh4smTsAD1EGLrkDXyDqfCYXz5tdAheTqMYbxA2NAqibvb
-         Q9tEDb6SJMRvpfpZkuVHJVaL8Kg8eUCX8kP2oKE7cAgvz9AblOMb5fQpqwfAIqZV4i8X
-         I6VNVXs4/Pv45sGYXbuXLw/wOEOzw0muXlDO8bTd7myvW0til/aOAsp/M9UiPeTwlGTs
-         NxcA==
+        bh=OAgwoWwkIIG1Kj8iDE9VCQiJWOl9R1aqW+zmWKY/Vtc=;
+        b=PE7H3QslC90xmxaBzAtuFrFiaOj52v9bZTsyB074HGLSpJzg2q2+0nz0/su86nMbZY
+         vrvLxkmZUB8yP99+8gT2Gtl27G1e2dwBvQxMgGmf+Hh1DVx5sSJvN+Laa+7GL4b1QjYQ
+         ITfm+VYaYAC8QzRudghJ0kzIkyW1wWl2WafHX2UX7K75/tNbVqtQChtxX91m4mf/SevI
+         +0UU3xbTxGf3akKDXL6fezS663B/vJ0SAUKNBfxY0oX8suIg1mJA9pbg8PlfeQCzaGET
+         P8sZS5BW6eyCjR96mGzMWx0cbJUbl9jA+6yVtt2FshrDoC2Df4h5b1bnPLCnzXecxfYZ
+         9/aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784628675; x=1785233475;
+        d=1e100.net; s=20251104; t=1784628676; x=1785233476;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YO6b60GQ3bsYe+qXNMrvYgPe+I4qfLlasxD+4tqSZmI=;
-        b=pBtD3yN3lXlg88WmMS72U46suMIvAlZUAzQEFtnTscu/DCtNQzlTg56Hr1RfOClDSl
-         UNPYfLbaVwy45zr9DCx11chFOomjB7X3nCUp81Vbft0mFH2KTNZkG2AdIPyZvKgmqMdk
-         1Zwd4ux0I7EZZmrxsndoDcIzadMBGWTJaSjGPAioNLR+0g8eWhut5jkPyo3ERRA3q8To
-         Fj5DKBcJ8V3zYbSyzw386K7HErDYzXrsmso/wfJNgp0DuMlIP9XC5NhrQWbYurNKUC57
-         XAvNuM3iwm8ioG9BPtoytiVIelTyeHv4XE+zQYE6sPk8Iech8Ap+6Vvu0lOJF36GKpo7
-         hrJQ==
-X-Gm-Message-State: AOJu0YzTBI24USImWGbUnnmCJXqUAAInwdyOKPhd+XzvFKpn97m+0rHn
-	mJF6i05rMiPrcgU2m7eoB30Bjcx06dKr+RAZAQAIx+LFtryvvXWlRYzp
-X-Gm-Gg: AfdE7cl7agyU7kZZvMimwPHzy+bPQQotTr5jN1uA3vHulMmyz8kdcTV6wx3yS63ai6p
-	UnZjVrAgdDvpMB9ITumIthXXhAg9lYqplemHmJbLHBVSadwJNLxAkUEJD3+P8tlMMxFhMzDx2+d
-	WNoafguGLeA5hD/dv1y+kyq9ZE54/K7jAOFFGRa1ESejL1a37dNAa8hJxaL6E7kNsZ0nbdRgXvc
-	7BLTqk7dZ5+GCjmfqkI6jZQrcF29FVvzDOtb9BYAH4Zn4+3kBFMiApwdomCapetlL6A2GpMPwDT
-	CARTthEeQWuXhOox6wt2DAEuFjXgSoVaSdMPfzUD3tQWPZpX8rKyDYJHW/uRTN1YgmpAkxJXOel
-	kRM7SOcI+ky1ZHhUQGf4hx5OLXkHISX3SPnErCjBB3ontFViTOkNSZrZkkreldr7XGq1U+LaYQh
-	6p5gJ9M5JWczv7As8K3ojxL+U=
-X-Received: by 2002:a05:600c:4708:b0:495:518a:d95a with SMTP id 5b1f17b1804b1-495518adb95mr164895505e9.29.1784628674630;
-        Tue, 21 Jul 2026 03:11:14 -0700 (PDT)
+        bh=OAgwoWwkIIG1Kj8iDE9VCQiJWOl9R1aqW+zmWKY/Vtc=;
+        b=VqBSZJiHIshyjATcpGay1v9SsJ8TwT6wDMC38aFlH1Hd1bIA80yUrF1DLnrQWi7JDG
+         9AJiSLBukCwjEgJEG5H1fH4j/SP3uBqivOtZfQkVOuMtEXsMxZxeRxYh9W6avdgzmCtQ
+         TZ1Iaq97aUv2D8zyTs0kxIpIJ4CyXil7bdwAf2alhgsf7ykD/2Mtec+Y/tMLQOG+a1pQ
+         NeIfCfc/YT7MfW93hk9DYhrQBzi+QZ+yCNCTgF7KV7TMUipI27nIWBKcRB2BVTbGef76
+         aa1WAeX6zdmAh0df6dGo56LMMgBCP2UJk+1sdQi6ddUIGeE2l/JTt9v8HGp7j29s2ZKh
+         KJ0A==
+X-Gm-Message-State: AOJu0YzDsqYReHgDpitzXqxDZvxRtNAdFqq2ahAdZhyNVcZ+G1KGRSgS
+	KC30lawX7f8XYxKXjx8HBiuqAXbCxL+fk/0bnWM97eXYzhzlkP1k3y4nec+i8Q==
+X-Gm-Gg: AfdE7cldZE8+EAZ3Bi4qAcf7ANBb/j33XHs7Z2NuMmf0I+hD0jZD4FcJ12K7DRhyWnv
+	JJIFof1l9ojr0qdhTtfE4McZu5o7iPaZ2oqu9BjB7LVpKWEHT6spFTVsUrDMbmU/LHxZx+wd1wj
+	TLfInlFblUoanYaUWEKhhmr4UU0vVi1X43J1bMzm+T9vKMvDMWoDNm2CbMoMJKtspN8X+4bDbH8
+	mPIyKGFffCO5uJaPc7yFOBcRSK+DlhT5RoiyUvrCJVPkmnAOoOdnuc8/9x2GcxDVTDyzxgnqj8W
+	iFh0mhRO0R789xjakk3a0i6N+qQDdzJCtpwdl2rFTGK7IMGt8Lhhngg4uQUcJ1PuJJkXMNu1Q9k
+	tn5F1zIozX7ypDb8teKnVio+QdASCuGGqkMOcgUDioscuhLBEbNOHka2aGEDHgpKpway9fdsl1k
+	fyc26gf8X3Ovd1+0LMmDfvPdgriV60tYwfOw==
+X-Received: by 2002:a05:600c:6287:b0:493:e79e:da63 with SMTP id 5b1f17b1804b1-4954a51319dmr200118385e9.34.1784628675953;
+        Tue, 21 Jul 2026 03:11:15 -0700 (PDT)
 Received: from xeon ([188.163.112.51])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956547319dsm57127085e9.5.2026.07.21.03.11.13
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956547319dsm57127085e9.5.2026.07.21.03.11.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 03:11:14 -0700 (PDT)
+        Tue, 21 Jul 2026 03:11:15 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -67,9 +67,9 @@ To: Rob Herring <robh@kernel.org>,
 Cc: devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 05/10] ARM: tegra: tf701t: Add thermal zones for nct1008 sensor
-Date: Tue, 21 Jul 2026 13:10:54 +0300
-Message-ID: <20260721101059.451699-6-clamor95@gmail.com>
+Subject: [PATCH v2 06/10] ARM: tegra: tf701t: Tune MMC devices
+Date: Tue, 21 Jul 2026 13:10:55 +0300
+Message-ID: <20260721101059.451699-7-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260721101059.451699-1-clamor95@gmail.com>
 References: <20260721101059.451699-1-clamor95@gmail.com>
@@ -81,113 +81,112 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ASUS TF701T has an additional thermal sensor for more accurate readings.
-Add thermal zones for this sensor.
+Add SDR104 mode to WiFi SDIO and uSD device nodes, remove mmc-ddr-1_8v
+which is eMMC specific and improve their power sequences. The uSD card
+refuses to work reliably with fixed regulator and 1.8V IO supply. Adjust
+configuration to mimic setup proposed by the vendor in the downstream
+kernel. Add HS200 mode support to the eMMC sdmmc device node.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- .../boot/dts/nvidia/tegra114-asus-tf701t.dts  | 83 +++++++++++++++++++
- 1 file changed, 83 insertions(+)
+ .../boot/dts/nvidia/tegra114-asus-tf701t.dts  | 35 +++++++------------
+ 1 file changed, 13 insertions(+), 22 deletions(-)
 
 diff --git a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-index a27d3c4f2c63c..83f8dd84d28a2 100644
+index 83f8dd84d28a2..3de5c84d5f009 100644
 --- a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
 +++ b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-@@ -4,6 +4,7 @@
+@@ -1645,9 +1645,9 @@ ldo8 {
  
- #include <dt-bindings/input/gpio-keys.h>
- #include <dt-bindings/input/input.h>
-+#include <dt-bindings/thermal/thermal.h>
+ 					vddio_usd: ldo9 {
+ 						regulator-name = "vddio_usd";
+-						/* min voltage of 1.8v is not stable */
+-						regulator-min-microvolt = <2900000>;
++						regulator-min-microvolt = <1800000>;
+ 						regulator-max-microvolt = <2900000>;
++						regulator-boot-on;
+ 					};
  
- #include "tegra114.dtsi"
+ 					avdd_hdmi: ldoln {
+@@ -2350,9 +2350,9 @@ brcm_wifi_pwrseq: pwrseq-wifi {
+ 		clocks = <&tegra_pmc TEGRA_PMC_CLK_BLINK>;
+ 		clock-names = "ext_clock";
  
-@@ -2682,4 +2683,86 @@ vdd_1v8_touch: regulator-touch-vio {
- 		enable-active-high;
- 		vin-supply = <&vdd_3v3_sys>;
+-		reset-gpios = <&gpio TEGRA_GPIO(X, 7) GPIO_ACTIVE_LOW>;
+-		post-power-on-delay-ms = <300>;
+-		power-off-delay-us = <300>;
++		reset-gpios = <&gpio TEGRA_GPIO(CC, 5) GPIO_ACTIVE_LOW>;
++		post-power-on-delay-ms = <100>;
++		power-off-delay-us = <100>;
  	};
+ 
+ 	/* WiFi */
+@@ -2372,9 +2372,7 @@ mmc@78000000 {
+ 		non-removable;
+ 
+ 		sd-uhs-ddr50;
+-		mmc-ddr-1_8v;
+-
+-		power-gpios = <&gpio TEGRA_GPIO(CC, 5) GPIO_ACTIVE_HIGH>;
++		sd-uhs-sdr104;
+ 
+ 		nvidia,default-tap = <0x2>;
+ 		nvidia,default-trim = <0x2>;
+@@ -2396,14 +2394,18 @@ wifi@1 {
+ 	/* MicroSD card */
+ 	mmc@78000400 {
+ 		status = "okay";
+-
+ 		bus-width = <4>;
 +
-+	thermal-zones {
-+		/*
-+		 * NCT72 has two sensors:
-+		 *
-+		 *	0: internal that monitors ambient/skin temperature
-+		 *	1: external that is connected to the CPU's diode
-+		 *
-+		 * Ideally we should use userspace thermal governor,
-+		 * but it's a much more complex solution. The "skin"
-+		 * zone exists as a simpler solution which prevents
-+		 * Transformer from getting too hot from a user's
-+		 * tactile perspective. The CPU zone is intended to
-+		 * protect silicon from damage.
-+		 */
+ 		cd-gpios = <&gpio TEGRA_GPIO(V, 2) GPIO_ACTIVE_LOW>;
++		power-gpios = <&gpio TEGRA_GPIO(K, 1) GPIO_ACTIVE_HIGH>;
 +
-+		nct72-skin-thermal {
-+			polling-delay-passive = <1000>; /* milliseconds */
-+			polling-delay = <5000>; /* milliseconds */
-+
-+			thermal-sensors = <&temp_sensor 0>;
-+
-+			trips {
-+				skin_alert_trip: skin-alert {
-+					/* throttle at 57C until temperature drops to 56.5C */
-+					temperature = <57000>;
-+					hysteresis = <500>;
-+					type = "passive";
-+				};
-+
-+				skin-crit {
-+					/* shut down at 65C */
-+					temperature = <65000>;
-+					hysteresis = <2000>;
-+					type = "critical";
-+				};
-+			};
-+
-+			cooling-maps {
-+				map-skin {
-+					trip = <&skin_alert_trip>;
-+					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+		};
-+
-+		nct72-cpu-thermal {
-+			polling-delay-passive = <1000>; /* milliseconds */
-+			polling-delay = <5000>; /* milliseconds */
-+
-+			thermal-sensors = <&temp_sensor 1>;
-+
-+			trips {
-+				cpu_alert_trip: cpu-alert {
-+					/* throttle at 75C until temperature drops to 74.5C */
-+					temperature = <75000>;
-+					hysteresis = <500>;
-+					type = "passive";
-+				};
-+
-+				cpu-crit {
-+					/* shut down at 105C */
-+					temperature = <105000>;
-+					hysteresis = <2000>;
-+					type = "critical";
-+				};
-+			};
-+
-+			cooling-maps {
-+				map-cpu {
-+					trip = <&cpu_alert_trip>;
-+					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+		};
-+	};
- };
++		sd-uhs-ddr50;
++		sd-uhs-sdr104;
+ 
+ 		nvidia,default-tap = <0x3>;
+ 		nvidia,default-trim = <0x3>;
+ 
+-		vmmc-supply = <&vdd_2v9_usd>;
++		vmmc-supply = <&vcore_emmc>;
+ 		vqmmc-supply = <&vddio_usd>;
+ 	};
+ 
+@@ -2414,6 +2416,7 @@ mmc@78000600 {
+ 
+ 		non-removable;
+ 		mmc-ddr-1_8v;
++		mmc-hs200-1_8v;
+ 
+ 		vmmc-supply = <&vcore_emmc>;
+ 		vqmmc-supply = <&vdd_1v8_vio>;
+@@ -2608,17 +2611,6 @@ hdmi_5v0_sys: regulator-hdmi {
+ 		vin-supply = <&vdd_smps10_out2>;
+ 	};
+ 
+-	vdd_2v9_usd: regulator-vdd-usd {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vdd_sd_slot";
+-		regulator-min-microvolt = <2900000>;
+-		regulator-max-microvolt = <2900000>;
+-		regulator-boot-on;
+-		gpio = <&gpio TEGRA_GPIO(K, 1) GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-		vin-supply = <&vcore_emmc>;
+-	};
+-
+ 	vdd_1v8_cam: regulator-cam-vio {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vdd_1v8_cam";
+@@ -2655,7 +2647,6 @@ vdd_3v3_com: regulator-com {
+ 		regulator-name = "vdd_3v3_com";
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+-		regulator-always-on;
+ 		regulator-boot-on;
+ 		gpio = <&gpio TEGRA_GPIO(U, 1) GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
 -- 
 2.53.0
 
