@@ -1,106 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F56E46C4D0;
-	Tue, 21 Jul 2026 15:52:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5307146AA8A
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:52:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784649136; cv=none; b=Ba1IkNvBbX5nUt2U2sz7wkW6J/72Q6wtjCLMqgugs/PT3e0CUaEYsxVCTg+ymWZa9k0R4N6E9G/EQSh/m+MsGBteWDjVMj//6yK3Yzd2b7ZZvsIGPLMLIR3VUAnMIHjnm7NJNmmgxU5485sZGyIx5v2cdgX9d1cnEmj+AwdzUbc=
+	t=1784649145; cv=none; b=apOVuLRgpQSd2IkyG4SWokgEeycr2/BtPwfBZSvmG3oLBL2lncIdpMYcfwbbc2cbZZ7keL61xMfKcaCpSl1taOZV2e7uMwqGR597vXPb2dlKf0QVSQxYMUUVt6IwJ+hUXKXrmywOEmCFColnfMefcnxqGR96D3KXFOaL5/hpu6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784649136; c=relaxed/simple;
-	bh=WaqO+0Sd6OBxbgkZaZdirty+9SuMRBYzygP2XymE0xU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S9DOVhDnV31YU+TLC3KLmaSpO8sg2dXQa/47SLeZrvCQMWW0E3EIZ7VqatZ3ZGgLZn5/iP6O7DzLRtrhs3VZdU/cw3KatFYt4HTZhYkntlCdNBmyxtSrOf52QJYlIEiZH7vSS6t7k1FQBIrh09puTk7In9AieNr95p+Qc0Vl/IE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nH4WNPHm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784649145; c=relaxed/simple;
+	bh=9FGwusiwV53XmCQO1pqB9Mf1arDSGAA3riX7DLa7I1k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=hV24/Mt2vaLiaBBbC8gdVzMimst5hNkr7MV4huskiH9AV2jq0t8uKytTyFqLZbTpbweQ6EmL2Oe4P371rw/1EjQOf3jpuqO9rogdCPGB0/2Nn5JFu9xWkSL3cJDz0Dyo33tSIYpCKu4/RtASXnN7Gmotq4fE+iCNX5dUebJJjzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N+gjAmT+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nH4WNPHm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 931741F00A3A;
-	Tue, 21 Jul 2026 15:52:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N+gjAmT+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B1ED1F000E9;
+	Tue, 21 Jul 2026 15:52:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784649135;
-	bh=64doCOkg+HqChPkn3H1nVLM/h0aZW7xzC2i+AdH3pSw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nH4WNPHmovzsbaB3LEqCejbf+3qePDZpiEEE0UccyUJqlvgXMN5MJlGKPFzgF+otD
-	 ubdVvpEXrZs+kVBBFaLeno1pAg8hVdNpi63wOgQlgogXFgsU0LxQu4+5MBgPJ/YXTU
-	 3hqaNSN4SfwO3PKDylg6mxiSLYH9ocTP6AJxZu5qj9ELW54PcGFsGWfkGjke+CxeNR
-	 YHS+m1jJ677TYOMk8GA7q+THhh2TuEt2XuU+7oNbow+nwCt/axCfITSvG3XothHB3D
-	 ZVhAzb6xHxFV8lPBcPlhCeBBMHL1fFxV2QhEE2GARr1z4g3+PxeKI8cDTOsZAayyxB
-	 ZupFYRmJl71mg==
-Date: Tue, 21 Jul 2026 16:52:10 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Kim Seer Paller <kimseer.paller@analog.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux@analog.com,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] dt-bindings: iio: dac: add adi,ad5710r.yaml
-Message-ID: <20260721-clustered-jolliness-30d70a2acc49@spud>
-References: <20260721-iio-ad5710r-upstream-v2-0-324949dc72da@analog.com>
- <20260721-iio-ad5710r-upstream-v2-2-324949dc72da@analog.com>
+	s=k20260515; t=1784649143;
+	bh=c3mMG2mldbFyKdBcEWLx8VKcayMsl4mwJVrMG6w6JVQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=N+gjAmT++x6hvsd1m8mljhXdLclxYWrvG7pzU0PczXcFNBHzUFsyEb+ND+rtvzmuQ
+	 V5FA0WLy51zGqACHxYJYFh5yd2rF3fayCXtPKjuSvEzy62mJczs/QnfjrlDlyt1/CV
+	 AH17c0v9Qp0FVwB51u8g8Aqnfs86ZJM7EAfT+0zXm+Mwf5LvvugXVmTcncpS2IHw6q
+	 iy/3oqzzNdxpkzvAA6uiMWCmnFfjIwfwaBNJEb/vucL3K7OAS41b2g6MBhoMAUNrMc
+	 YDvGTjcz20UI3N6Y0gUGSl+pb70BeJ2l6Cu5ZBedRC8TnFxPbT6dba+VUW5j6nk5m7
+	 Kby/igqbmkofA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6] arm64: dts: qcom: sm8550: add Xiaomi Pad 6S Pro
+ (sheng)
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Tianyuan Jiang" <code_0002@163.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260721153444.423-1-code_0002@163.com>
+References: <20260721142147.1618-1-code_0002@163.com>
+ <20260721153444.423-1-code_0002@163.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 15:52:23 +0000
+Message-Id: <20260721155223.9B1ED1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="0I7ziWDQvqA7a73S"
-Content-Disposition: inline
-In-Reply-To: <20260721-iio-ad5710r-upstream-v2-2-324949dc72da@analog.com>
 
---0I7ziWDQvqA7a73S
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] The device tree heavily relies on undocumented downstream compat=
+ibles that lack mainline drivers or bindings.
+- [Medium] Missing Developer Certificate of Origin (DCO) Sign-off promised =
+in the changelog.
+- [Low] Unidiomatic deletion and redefinition of a pinctrl node.
+--
 
-On Tue, Jul 21, 2026 at 04:47:11PM +0800, Kim Seer Paller wrote:
-> Add device tree bindings for the Analog Devices AD5710R/AD5711R
-> 8-channel 12-/16-bit Configurable IDAC/VDAC.
+--- Patch [1]: [PATCH v6] arm64: dts: qcom: sm8550: add Xiaomi Pad 6S Pro (=
+sheng) ---
+commit 0ac17b1bf2e0cc5382a800a4519a79a941821b31
+Author: Tianyuan Jiang <hiez832670@gmail.com>
+
+arm64: dts: qcom: sm8550: add Xiaomi Pad 6S Pro (sheng)
+
+Add device tree for Xiaomi Pad 6S Pro (sheng) based on SM8550.
+
+>     Signed-off-by: Tianyuan Jiang <code_0002@163.com>
 >=20
-> Signed-off-by: Kim Seer Paller <kimseer.paller@analog.com>
 > ---
->  .../devicetree/bindings/iio/dac/adi,ad5710r.yaml   | 143 +++++++++++++++=
-++++++
+> v6: address Sashiko AI review on v4
+> - Fix cs35l43 reset-gpios polarity: use GPIO_ACTIVE_LOW
+> - Add "kinetic,ktz8866" fallback compatible for backlight
+> - Add map220v Signed-off-by (DCO chain fix)
 
-> +patternProperties:
-> +  "^channel@[0-7]$":
-> +    $ref: /schemas/iio/dac/dac.yaml#
-> +    type: object
-> +    description:
-> +      Represents the external channels which are connected to the DAC.
+[Severity: Medium]
+The changelog mentions adding a Signed-off-by tag for map220v to address a
+DCO chain issue, but it appears to be missing from the commit trailers.
+Should the original author's sign-off be included in the commit message?
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm8550-xiaomi-sheng.dts b/arch/arm6=
+4/boot/dts/qcom/sm8550-xiaomi-sheng.dts
+> new file mode 100644
+> index 0000000000000..fa24b1c1b4e65
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sm8550-xiaomi-sheng.dts
+> @@ -0,0 +1,1761 @@
+
+[ ... ]
+
+> +/delete-node/ &hyp_ext_tags_mem;
+> +/delete-node/ &hyp_ext_reserved_mem;
 > +
-> +    properties:
-> +      reg:
-> +        description: Channel number
-> +        items:
-> +          minimum: 0
-> +          maximum: 7
+> +/delete-node/ &qup_i2c8_data_clk;
 > +
-> +      adi,ch-func:
-> +        description:
-> +          Channel output type. Use CH_FUNC_VOLTAGE_OUTPUT for voltage
-> +          output or CH_FUNC_CURRENT_OUTPUT for current output.
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [1, 2]
+> +/delete-node/ &qup_i2c9_data_clk;
 
-Please make this property a string.
+[Severity: Low]
+Is there a specific reason to delete these pinctrl nodes at the root level
+and manually redefine them later in the file? It is usually more idiomatic
+in device trees to override the properties directly using a reference
+(for example, &qup_i2c8_data_clk { ... }) instead of fully deleting and
+redefining them.
 
---0I7ziWDQvqA7a73S
-Content-Type: application/pgp-signature; name=signature.asc
+[ ... ]
 
------BEGIN PGP SIGNATURE-----
+> +&i2c5 {
+> +	clock-frequency =3D <1000000>;
+> +	status =3D "okay";
+> +
+> +	cs35l43_trl: cs35l43@40 {
+> +		compatible =3D "cirrus,cs35l43";
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCal+VqgAKCRB4tDGHoIJi
-0in9AP95r/C1M8EaGZVwIe1PvHCkbd9PTmHZTrzC9JfHVhM5aAD/WL3zIRFXi2Jm
-/E5Et8q/OGs5u/iR2tim377Jt4kJkQA=
-=6URQ
------END PGP SIGNATURE-----
+[Severity: Medium]
+Does this compatible string have a corresponding upstream binding or driver?
+Using undocumented downstream compatibles, along with several others in this
+patch (such as nanosic,wn8030-sheng, novatek,nt36532e, and fpc,fpc1020),
+causes validation failures with dtbs_check since their custom properties
+are not defined in any schema.
 
---0I7ziWDQvqA7a73S--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721153444.423-=
+1-code_0002@163.com?part=3D1
