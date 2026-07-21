@@ -1,123 +1,347 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B631427A04
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 06:54:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13DA42A144
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 06:54:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784616857; cv=none; b=TeuJgx1UwtYDmk1YOsXMRkJW9bf1TsiHJs/2xR2/6NfBRFznkyW2QNGewRoQSL4zZ8bG7TcoJhZLLmvfj+IUqNSbaklIcIPITHyzYPC5jmjSvSgUn5CWCblg4yyBY+eaOaJyclWqCp+MNmSIUHwMUbEh+VIWwL54FHjtvIjZ42o=
+	t=1784616881; cv=none; b=RHxxamP1BkJytPf0zZKrAMlyz7C+GnOSOBDc0vF8En4yligdPe13f+rh66YcIXa/ISIGZF+EeVFPq6JxmtLWaWobY9czHYmNeR6l+t29Z1ZSa/6f6yZoSZiP3y1lXqyAJpa16BIcNwp3vn8Rr1Es3bpY1nZQBqNtMY5k3KBbkOg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784616857; c=relaxed/simple;
-	bh=EaczP8vHkcmD2CnZKKlr51IjBWJs8uYaLtHVfFy6Ht0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Gjz8OeNt8YADWzTw+Z7LxeebwRCGuqQFT9hG+gOk2OZtnD799HyUJsRBc00c1idFK/b3dx6WPUs/53zfRHy7QHm5WT8aPZ+gBPa+QMLfmCzDzij/Q94JwzfcVMb0JAFHmWVTpK8uTAsioRgbTQIhtUwicxRqS2K1uRwzFzmO3Zk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gsbiyarU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784616881; c=relaxed/simple;
+	bh=PToHMXgBpKzwUPxeBRood5u/R51xiyLXcBcg4n3JenA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jCe2QaNy+V4kQ9gk1/Xxbfxl1DL5EszM1ZIVmnZf3ZHE/jjg/SpPoNSatv1Nt9Asb6kbIJuCbYK9xFQp0/K58fb2r8xUj396mUYD46g4yEhNjN9ON7c2MWFHZOViAYW9k42+dP7zt937FVr1P7hCMEbbOwiG0s+H/Eg8Ll/+oA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=D0VyF5oO; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gsbiyarU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B67001F000E9;
-	Tue, 21 Jul 2026 06:54:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784616856;
-	bh=e9BvuIW/CU/AgFCRKhHvm8riXZ/ScehEjRSlzBhPlUA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gsbiyarU9oKKnNP9Ti6yxHUHVFl/lY3nQ5caE2GTBJJOcCXr9ww39HMm+EgK2XtAO
-	 qn28KuaJhUYWsyF0v7XRoIPiTzGGj7hqYL/wdDMBoYCLecIbZ7GRkZkPeobepEbiQx
-	 DpRM2IEB38UT+9AwHwYxUu44vYzQmXHsMI8tILECTslVoJI7/5HMzCntLlTjCOEnbT
-	 KV7HhIXNd6xCy6x8dpinfFquOB7WUApXuhPmDPXMKSfEYmio/Hca+8bHYIrNN69Dij
-	 HB1X2c/eP+M17WxrymSuy/XN1cwwomHOxVzH0pv17x9TgK2Pt2ZcZyR7L7+1QuQM8T
-	 vLtXLhdlgaVmw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/4] arm64: dts: rockchip: add HDMI RX audio on
- RK3588
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Igor Paunovic" <royalnet026@gmail.com>
-Cc: media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260721064115.64809-4-royalnet026@gmail.com>
-References: <20260721064115.64809-1-royalnet026@gmail.com>
- <20260721064115.64809-4-royalnet026@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 06:54:15 +0000
-Message-Id: <20260721065415.B67001F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="D0VyF5oO"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38dcbade417so9127814a91.1
+        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 23:54:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1784616877; x=1785221677; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HrCRYsjG1PY5HEKfUZZYaPumYrlP5M/lr9+oAdeb1rE=;
+        b=D0VyF5oObmo3XUAIPKTE+CiHOYSUWmvk/jkOa61miFZTA5ZMLc9b74WxGmpZNBsxtZ
+         R/XLTwh/k9R140JwcHnjwhqLkAtJ9IpU5MtSqb3nftJ91CP7H9/UVQa2SsXh3NXovJM/
+         yDIX0yfaNZxABCDDaM/LDHnZQn8XJqHSK/xZg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784616877; x=1785221677;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HrCRYsjG1PY5HEKfUZZYaPumYrlP5M/lr9+oAdeb1rE=;
+        b=iom7TO60OwWGTVV0BNZAWnHA26+1e/J78l+9ys5ChqHGt0l4+ys56TQMVh7OPrDwSr
+         RDpeRn0jWnxvY+td15UYV/35l6NJvUFTxD3sGBhVGLeOAN/42ABZlUk6h2Ied70/ydmf
+         WkMYuUb4t58Rwvbg2Mr5fv41ZZZW/iqyN8ntygIcxlXfM/bIfih8NgB5l67IDwm6sMfx
+         4Q8yhcHrP0pc8/s/697+cY8rdb/a7gaTOPemlaxWDznXhunF58kppLBAJ5Oguy38wRvA
+         V/6slI5J2OeZNpqA3/DV/r6HMLTpaOxZUFuRJTnOi9EqobeGwxf1YNBymH16RPoyEQXe
+         iMoQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rqje8QKeU3Y56618DrIkVbcK41NfWj9w4Pl8xv7qeFF5ogCwsj8mYd8dCt8A8vr6wnzf4Z24jLTdbEB@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7ypAwktCmhK5/KaaoOYpQecBSoNy/+r11AamO7cP8Dl+jGe8J
+	ghLsmqDqtlfwfdLGUjcF3k2bFRB7GH+J46IsMJWyWwl/1WXzcWy70UN1wwqfWNzPzA==
+X-Gm-Gg: AR+sD13R4ynmqGKf2YJYznCd+lCOM2CWv49sBYQBusH2swVmBJcfxVGxzavQgyBQ9+q
+	PQUqjE/zr52eIjrzVX9UiHWymldZ4AhE6Ub7y8qKKfefre8DG7KDlbnCJkru2Wqgx8d1vHWCJHU
+	MXtGwAtOXsmt2dvcG2e4AHpxXMyyDmHIm2ZDqrCshYoM5zqAVTUaKAvQqPUvhshxcRR86syxoDc
+	LeebzMtkMNoTLzz0uGA0QjKWod1/gTDKqdzS4WJyoaOaQHy0Y1Eor+ZclWN9WhaI6Ott8PQNAlW
+	EnaDANvap1EB4L8zLShEjmizAMAUI92UCP90YEa8DQOlA9trAigcmJDy2/4t13z4ExTomXoFAC7
+	SimGls1i/OAuUec1p8VzkFjh+18Qk4Rwg2X0F0C0qNfh1E34xIOhU/abDYF86O/5Tm/ZhEQ79IY
+	x0ZR6/rF28qz11U8DRaxipmfgmv59QCHta04+lOyrwY1lMvxM9vowQbK7OrNg=
+X-Received: by 2002:a17:902:ef08:b0:2ca:5970:732d with SMTP id d9443c01a7336-2cf349d0276mr182047795ad.41.1784616876890;
+        Mon, 20 Jul 2026 23:54:36 -0700 (PDT)
+Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:3916:f048:32c3:931f])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf3448ee77sm69716005ad.4.2026.07.20.23.54.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Jul 2026 23:54:36 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>
+Subject: [PATCH v6 00/16] arm64: mediatek: Add M.2 E-key slot on Chromebooks
+Date: Tue, 21 Jul 2026 14:53:55 +0800
+Message-ID: <20260721065413.2306137-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Hi everyone,
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the DAPM widget =
-for the HDMI RX capture source is incorrectly defined as an OUTPUT widget, =
-breaking the DAPM graph for the capture path.
---
+This is v6 of my attempt at integrating the power sequencing API into
+the USB core to support the USB connection on M.2 E-key slots. M.2
+E-key was enabled in v7.1-rc1 with just PCIe and UART supported [1].
+Hopefully this is the last revision. However the pwrseq patches haven't
+been reviewed yet, and the fwnode patches need a review from the fwnode
+owners.
 
---- Patch [3]: [PATCH v4 3/4] arm64: dts: rockchip: add HDMI RX audio on RK=
-3588 ---
-commit e5a9a8ba89a4a45c730c1b44e28e899087346b1f
-Author: Igor Paunovic <royalnet026@gmail.com>
+As for Sashiko's comment about fwnode_get_next_*() not putting the
+reference to @prev when @node is NULL, I plan to update the kernel-doc
+for all the functions in a separate patch later.
 
-arm64: dts: rockchip: add HDMI RX audio on RK3588
+Changes since v5:
+- Patch 1 (device property: Add fwnode_graph_get_port_by_id())
+  - Dropped left-over declaration in header (Sashiko)
+- Patch 3 (power: sequencing: Add pwrseq_power_is_on())
+  - Reverted back to returning -EINVAL if descriptor is NULL (Andy /
+    Bartosz)
+- Patch 6 (usb: hub: Associate port@ fwnode with USB port device)
+  - Added extra |struct fwnode_handle *| local variables to shorten lines (Andy)
+  - Added comment about passing fwnode_graph_get_port_by_id() return value 
+    directly to device_set_node() (Andy)
+- Patch 10 ((usb hub pwrseq integration)
+  - Only assign port_dev->pwrseq if successfully retrieved pwrseq
+    descriptor (Andy)
+  - Dropped the pwrseq error pointer check in the release function
+    (Andy)
+  - Added check for port->pwrseq != NULL before calling
+    pwrseq_is_power_on() (API change from patch 3)
 
-This commit exposes the HDMI RX controller's digital audio interfaces by
-adding the #sound-dai-cells property. It also adds a shared
-simple-audio-card routing the receiver I2S DAI to i2s7_8ch, mirroring
-existing HDMI TX sound cards.
+Changes since v4:
+- Added flags parameter to fwnode_graph_get_port_by_id() so users can
+  specify whether incomplete ports are returned or not (Sashiko)
+- Made pwrseq_power_is_on() return 1 if descriptor is NULL, i.e. if
+  the descriptor is optional, matching the other pwrseq consumer APIs
+- Added patch to swap out conditional set_bit()/clear_bit() with
+  assign_bit() (split out from "usb: hub: Power on connected M.2 E-key
+  connectors with power sequencing API") (Andy)
+- Call fwnode_graph_get_port_by_id() with FWNODE_GRAPH_DEVICE_DISABLED
+  so that even incomplete ports can be connected (Sashiko)
+- Dropped unused |hdev| variable from usb_hub_remove_port_device()
+  (Greg / Sashiko)
+- Dropped 'extern' from usb_port_is_power_on() header declaration (Andy)
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi b/arch/arm64/=
-boot/dts/rockchip/rk3588-extra.dtsi
-> index a2640014ee042..e0dce15643997 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
+- Patch 10 (usb hub pwrseq integration)
+  - Rewrote usb_port_is_power_on() to better express intent and
+    restrictions of pwrseq API (Andy)
+  - Switched to dev_fwnode() in port_pwrseq_is_supported() (Andy)
+  - Added blank line separating normal variable declarations and __free()
+    type declarations (Andy)
+  - Split out assign_bit() rewrite (Andy)
+  - Moved pwrseq_put() to release function to avoid UAF (Sashiko)
+  - Added back pwrseq_power_off() call in usb_hub_remove_port_device();
+    otherwise power off could be delayed to object release
+  - Don't clear hub->ports[port1 - 1] in main error path;
+    by that time the port device is registered and sysfs attributes are
+    available to userspace (Sashiko)
 
-[ ... ]
+- Dropped blank line between __free() variable declaration and
+  subsequent use of the variable in conditional (Andy)
+- Added patch to split Bluetooth pwrseq units (Wei)
+- Link to v4:
+  https://lore.kernel.org/all/20260709095726.704448-1-wenst@chromium.org/
 
-> @@ -23,6 +23,23 @@ simple-audio-card,cpu {
->  		};
->  	};
-> =20
-> +	hdmi_receiver_sound: hdmi-receiver-sound {
-> +		compatible =3D "simple-audio-card";
-> +		simple-audio-card,format =3D "i2s";
-> +		simple-audio-card,name =3D "RK3588 HDMI-IN";
-> +		simple-audio-card,bitclock-master =3D <&hdmiin_codec>;
-> +		simple-audio-card,frame-master =3D <&hdmiin_codec>;
-> +		status =3D "disabled";
-> +
-> +		hdmiin_codec: simple-audio-card,codec {
-> +			sound-dai =3D <&hdmi_receiver 0>;
-> +		};
+Changes since v3:
+- Added missing stub function for !POWER_SEQUENCING (patch 3) (Sashiko)
+- Added missing fwnode_handle_put() (patch 5) (Sashiko)
+- Added new patch to move |struct usb_port| related declarations to
+  separate header (patch 6) (Andy)
+- Patch 9 (usb hub pwrseq integration)
+  - Adapted to move of usb_port_is_power_on() to port.c and port.h
+  - Simplified usb_hub_set_port_pwrseq() (Andy)
+  - Renamed usb_hub_set_port_pwrseq()'s "set" parameter to "on"
+  - Dropped usb_hub_restore_port_pwrseq() (use usb_hub_set_port_pwrseq()
+    with inverted argument)
+  - Fixed off-by-one access in hub_is_port_power_switchable() (Sashiko)
+  - Assign retval from dev_err_probe() instead of the other way around (Andy)
+  - Clear hub->ports[port1 - 1] in USB port error and remove paths to
+    avoid other threads from accidental UAF while the USB hub device is
+    being unwound (Sashiko)
+  - Short-circuit out of helpers if !IS_ENABLED(CONFIG_POWER_SEQUENCING)
+    to avoid errors from stub functions (Sashiko)
+- Drop redundant device node validity check; device_match_of_node()
+  does it internally (patch 11) (Andy)
+- Link to v3:
+  https://lore.kernel.org/all/20260703110317.1283411-1-wenst@chromium.org/
 
-[Severity: High]
-This isn't a bug introduced by this patch, but will this HDMI RX capture
-path work correctly with DAPM given how the underlying codec is currently
-defined?
+Major changes since v2:
+- Removed changes for MT8192 Asurada family: one of the device is
+  shipped with RTL8822CE-VR, which is PCIe + UART and needs more work.
+- Removed changes for USB A ports: VBUS one the type A ports on
+  Chromebooks are not directly controllable from the OS and VBUS is
+  modeled as always on. As such the changes I made don't actually
+  change how the system works.
+- Added new pwrseq_power_is_on() function
+- Make new pwrseq integration effectively OF only by not assigning the
+  port fwnode if the hub's fwnode is an ACPI node
+- Added patch to convert remaining instances of directly setting/clearing
+  USB_PORT_FEAT_POWER to usb_hub_set_port_power()
+- Power sequencing state removed again in favor of state tracking by
+  pwrseq subsystem
+- Power sequencing descriptor again separately requested for HS and SS
+  ports
+- Dropped pwrseq_power_off() call before pwrseq_put(); the latter calls
+  the former implicitly if the power state was left on
+- Squashed DT binding revert and addition into one patch
+- Link to v2:
+  https://lore.kernel.org/all/20260610084053.2059858-1-wenst@chromium.org/
 
-Looking at the hdmi-codec driver used for this receiver:
 
-sound/soc/codecs/hdmi-codec.c:hdmi_widgets[] {
-    ...
-    SND_SOC_DAPM_OUTPUT("RX"),
-    ...
-}
+Major changes since v1:
+- No longer adding the "index" parameter the power sequencing API
+- Switched from OF graph to fwnode graph APIs
+- Tie "port@" node to usb_port device, and use this device as consumer
+  to acquire power sequencing descriptor
+- Power sequencing descriptor now only tied to USB 2.0 port to avoid
+  double reference
+- Power sequencing state tracking added
+- Link to v1
+  https://lore.kernel.org/all/20260515090149.3169406-1-wenst@chromium.org/
 
-The DAPM widget for the HDMI RX capture source is incorrectly defined as an
-OUTPUT (sink) instead of an INPUT (source).
+The series is based on next-20260720.
 
-When a capture stream starts, DAPM walks backward from the active CPU DAI
-sink to find a source, but terminates at "RX" without finding an EP_SOURCE.
-Does this prevent DAPM-managed components on the capture path (such as SoC
-FIFOs, regulators, or clock supplies) from powering on, causing silent
-failures during capture?
 
-> +
-> +		simple-audio-card,cpu {
-> +			sound-dai =3D <&i2s7_8ch>;
-> +		};
-> +	};
+Patch 1 and 2 add new fwnode graph helpers. These are used by the patch
+5 and 8, respectively.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721064115.6480=
-9-1-royalnet026@gmail.com?part=3D3
+Patch 3 adds a new pwrseq_power_is_on() for a power sequencer consumer
+to query the current request state. Note that this is not the _actual_
+state.
+
+Patch 4 swaps out the existing conditional set_bit()/clear_bit() with
+assign_bit(), which does the same thing.
+
+Patch 5 reworks the USB hub driver to return the actual error code from
+hub_configure() in hub_probe(). This is needed in the next patch to
+correctly return -EPROBE_DEFER returned by pwrseq_get() in patch 9.
+
+Patch 6 makes the USB port device associated with a "port@" fwnode if
+available. This depends on patch 1.
+
+Patch 7 moves some |struct usb_port| related stuff from hub.c and hub.h
+to port.c and port.h. No actual code or functionality is changed.
+
+Patch 8 changes usb_port_is_power_on() so that |struct usb_port*| is
+passed in instead of |struct usb_hub*|. This patch does not change any
+functionality.
+
+Patch 9 changes some USB hub port power control code that directly
+toggles USB_PORT_FEAT_POWER to use usb_hub_set_port_power().
+
+Patch 10 lets the USB hub driver look for power sequencers for each port.
+Currently this only works for M.2 E-key connections, but it could be
+extended to cover other cases. It should also make port reset via turning
+off the port VBUS work, even when VBUS is not directly controlled by the
+hub. This depends on patch 2 and 3 for the new helpers.
+
+Patch 11 reverts an incorrectly modeled OF graph connection for the
+MediaTek XHCI controller and adds a proper representation.
+
+Patch 12 adds matching pwrseq consumer by "port@" node to the M.2 slot
+driver. This is only used for the USB target, but there is no attempt
+to differentiate the connection type. The driver simply tries matching
+the "port@" node first, then falling back to the port parent or device's
+node.
+
+Patch 13 reworks the power sequencing targets for the E-key connector in
+the pcie-m2 driver to add targets for USB and SDIO. The former is used
+later on in this series.
+
+Patch 14 splits the Bluetooth power sequencing unit so that the USB and
+serdev consumers can separately toggle the actual state of W_DISABLE#2.
+This patch is purposefully not squashed into the previous one to provide
+a clear target for discussions.
+
+Patches 15 and 16 enable the M.2 E-key slots (or slot-like integration)
+found on MT8195 and MT8188 MediaTek-based Chromebooks. 
+
+
+This series unfortunately spans multiple trees. The way I see it:
+
+  - Patches 1 and 2 go through the driver core, and an immutable tag is
+    provided to be merged together with the USB patches.
+
+  - Patch 3 has an ack from Bartosz, and goes through the USB tree. But
+    Bartosz also wants an immutable branch/tag to have a copy in the
+    pwrseq tree.
+
+  - Patches 4 through 10 (all the USB related ones) go through the USB
+    tree, along with the dependencies above.
+
+  - Patches 11 and 12 go through the power sequencing tree.
+
+  - Patches 13 and 14 (device tree only) go through the soc tree via the
+    mediatek tree.
+
+Some of us discussed v1 at Embedded Recipes, and I believe Bartosz, Mani
+and I agree on this approach. The debate is likely going to be on
+whether this should be integrated into the USB core or not. I believe it
+should, so that the power sequencing timing is tied to the USB port
+being brought up. I do have a fallback option of just enabling the USB
+power sequencing target inside the M.2 slot driver if a valid OF graph
+connection is seen. But this is less desired for the reason given above.
+
+Please have a look and share your thoughts.
+
+
+Thanks
+ChenYu
+
+
+[1] https://lore.kernel.org/all/20260326-pci-m2-e-v7-0-43324a7866e6@oss.qualcomm.com/
+
+Chen-Yu Tsai (16):
+  device property: Add fwnode_graph_get_port_by_id()
+  device property: Add fwnode_graph_get_next_port_endpoint()
+  power: sequencing: Add pwrseq_power_is_on()
+  usb: hub: Use assign_bit() in usb_hub_set_port_power()
+  usb: hub: Return actual error from hub_configure() in hub_probe()
+  usb: hub: Associate port@ fwnode with USB port device
+  usb: core: Move struct usb_port and related APIs to port.h
+  usb: hub: Pass |struct usb_port*| to usb_port_is_power_on()
+  usb: hub: Use usb_hub_set_port_power() to control port power
+    everywhere
+  usb: hub: Power on connected M.2 E-key connectors with power
+    sequencing API
+  dt-bindings: usb: mediatek,mtk-xhci: Switch to ports for USB
+    connections
+  power: sequencing: pcie-m2: support matching on remote "port" node
+  power: sequencing: pcie-m2: Add usb and sdio targets for E-key
+    connector
+  power: sequencing: pcie-m2: Split Bluetooth unit based on interface
+  arm64: dts: mediatek: mt8195-cherry: Add M.2 E-key slot
+  arm64: dts: mediatek: mt8188-geralt: Add WiFi/BT as M.2 E-key slot
+
+ .../bindings/usb/mediatek,mtk-xhci.yaml       |  17 ++-
+ .../boot/dts/mediatek/mt8188-geralt.dtsi      |  92 +++++++++++++++-
+ .../boot/dts/mediatek/mt8195-cherry.dtsi      |  73 ++++++++++++-
+ drivers/base/property.c                       |  54 ++++++++++
+ drivers/power/sequencing/core.c               |  18 ++++
+ drivers/power/sequencing/pwrseq-pcie-m2.c     |  64 ++++++++---
+ drivers/usb/Kconfig                           |   1 +
+ drivers/usb/core/hub.c                        |  72 ++++++-------
+ drivers/usb/core/hub.h                        |  56 ++--------
+ drivers/usb/core/port.c                       | 100 +++++++++++++++++-
+ drivers/usb/core/port.h                       |  68 ++++++++++++
+ include/linux/property.h                      |   4 +
+ include/linux/pwrseq/consumer.h               |   6 ++
+ 13 files changed, 513 insertions(+), 112 deletions(-)
+ create mode 100644 drivers/usb/core/port.h
+
+-- 
+2.55.0.229.g6434b31f56-goog
+
