@@ -1,60 +1,60 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F9B643802A
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 07:54:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35B14398FE
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 07:54:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784620472; cv=none; b=C16n/AZvcj6soIaUfNqZoDTPH4lMwIuQza8vmb0/f66LpuHGmKUwzS4hX+7mhXjanNJKmls2JeN5JO8dA6PaSnS6F5tZk6FXuofrK7IOee57pBfQGwhzpcC9QUFep1xBxOxghjCfDntIefVR0RBXT74nln8ERmtXr9UTdyCBbaQ=
+	t=1784620474; cv=none; b=TxfC9QCv3SLuaHK6mXZYmAxTDho5KmeE+44j6+XqAk+9qcit6ddG1rFdhfAF6tOzZ1GcyaJLTsvYfNWOSYvpJzfkpSxlac+z+nR30Y4boXoDvDHjBkkGN9Tg+L7EIx6bNyJOR5efQflXKsporJ6EmvJ5+YdFjkoja9lldiouHRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784620472; c=relaxed/simple;
-	bh=27P+kO3E7rZQANAahmL4oW3JH5FufBpKYuQgwu7HS8w=;
+	s=arc-20240116; t=1784620474; c=relaxed/simple;
+	bh=YmTP+U2Zeto/TOo03rVHUOI/jAzel7OhJkJFnUSba3o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dpAaK/PW3ZWjabTZEDTyb27i6kKuyghmQp8YPu9sgmddTwYJ/VU8nMjGdfugvAxGBIwmd+Zuet+KQkdW6c2ZDce3NS4sYqfFKtuQ1BOrBuVaSqQnxicQsuZ7NW86WWsxeMVwbVS0qnaJmiYpkC8y7e23sIka0RwyKf+YLLZxPwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ElZ+0RDB; arc=none smtp.client-ip=209.85.214.172
+	 MIME-Version; b=ZWCrU7CERYG6phfZuDadqWbM561TJHeSgesCSRbMCpF5MgnGs5qL5kYGlDUyHUMp71ESPlbrKhbIqlktb6cIR1bwQe2obf/+RpIEdcrqyjHvYTbX1U2EzEk6SjwE8DRce6bOtScakCKAjkx9BUXTmqfFNP0Hfepa3ab8XVLfHB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=MDS+uyY5; arc=none smtp.client-ip=209.85.214.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ElZ+0RDB"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cacb8416a1so75662025ad.1
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 00:54:29 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="MDS+uyY5"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ceaf8a1265so108677915ad.2
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 00:54:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1784620469; x=1785225269; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1784620472; x=1785225272; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mpTQ+x9JRSQEI1YUOvflUoQb8hjimFA84CnTWedUkpQ=;
-        b=ElZ+0RDBacwKpPFwIIhI5VknHD0gb05C592rQtcqcctQFFwCNilZZJQtN+6kCigGOd
-         OpNOz4TME4z3M3Ndf2zMyb/3/QdIWloDL/Lc8xLJdN4srHp/gZWQ9BLTlgLPvG4RhhJY
-         AKlg0PHcQTTJ8GUcN1lDVhNOl8I2Qc4j7pdNA=
+        bh=XcG83pWDuxaLzQNicOj1pF1B6XObkyNl+NSmg3vDNXs=;
+        b=MDS+uyY5XftEq1uR5cmUwi+v84CjXBTLfiNC5c4T6NnSUEn9MKKbUZ1A0oRCTswDLk
+         LD/qdSPlEXGvimFxAAxA+uOxm16hqD77zcGariCV+CO4GtfaGGAO4W7vhbvdI+bPdujO
+         5O5OXmaKy4H5KWnYju83Q/13kyZXHSw5Czfc0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784620469; x=1785225269;
+        d=1e100.net; s=20251104; t=1784620472; x=1785225272;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mpTQ+x9JRSQEI1YUOvflUoQb8hjimFA84CnTWedUkpQ=;
-        b=p79feP6IczwmIXBIIai2e4lLUKzyxE6HH+7HjSSBE7j/5aZmwq08d2dByRlNc6YiWY
-         rZvEO9/4jIpckiFMRaxEN7XeKYoZxAVye2WzlEaD85G75Ee+g5jobV8UNfQiVb7GyM8p
-         v2PXGnB+iysBabs7DdKieg1wW+xDU2u6yucgHp5lqeucnuR9JB0CZpRac3F7X1dMxRdY
-         Vj3MdZ4fhRiBySY0KmGFnxGfxpsOIZ0a3LWcpn/62YmF+ujzE70OxSIku0S74yuvg8v5
-         G2OLLfxGtgliTw4oLIm1TcyPQr6QGPaxLMjUXBLExKTuqFgm/JYVUTvLpWgvW5ZTsawS
-         Is6A==
-X-Forwarded-Encrypted: i=1; AHgh+RoFg6GxBRciqhBBatoC4CiJhUm16JjIOgR6qhHfhhFQ+bC1SwBUqTUSjM71Yr3iLdTY/k/1BDt1+gAI@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywv97AcjVkz7CZsCPPiUn+gfRwciGoAezj1QfoM0Y8oRm5a1Ml1
-	Peg+9O0WB/WHMNRI6rec/OgQU6CEw5Hsfg/OI7fX5yxa81M4dodVkJZvsi90wxASIA==
-X-Gm-Gg: AR+sD11h77kmez6cIM+l2oqaBdJfS/RExruISr76FKZh3HLmIj2nsDMZclo+oOViXfu
-	YKmJJYHsp9e06evHygZPC5P8OeQMOksHXLifla3+Q/zLlwP3OAuODiik8HIyFZSH0EEpDvTOUl8
-	+eup+Zkp8uPHVpx1v2iFDW9aC1/f0ZzPMcspP0yUhIMDBWbZUXKWypa8EJg9KvcHeg5OYhveA0u
-	I801yh/HDZmqEPW/EJrD9SCMAy4+P1VFm1ZMzzQsN7EGelbn22EnBgSgKOT40O2pnoo2qRs0Nlz
-	jXakEHjnfeGYT4q9MPeUm79DHhsBrz3PwFS2qIKejUmI6btRVfMpQ9ghyQprmjQv/S+fbPYxehK
-	ivoMx7gUuDrRdIHJ6MBS4Dc3fjqhxKadqJ8b6SLqW5nx3+60Oh7BBXVYdT0tnnt+ZMZG0q75V9+
-	XThBY9MmChuXUGllGAk1SoqnM5Bafj3zGTQgIi8sIaShcnaDUnECHIpBMlDt0=
-X-Received: by 2002:a17:902:ce84:b0:2ce:d957:59c4 with SMTP id d9443c01a7336-2cf348369cfmr185433115ad.6.1784620468826;
-        Tue, 21 Jul 2026 00:54:28 -0700 (PDT)
+        bh=XcG83pWDuxaLzQNicOj1pF1B6XObkyNl+NSmg3vDNXs=;
+        b=rkwbE7G801TJz4ggkYwvQe03VhdJM7kJ6THRW77SyqiWuyZUQiEUwNrN8qcxLnz6Eg
+         rgbNy4jsKalCvnB7tcG42jBEVP2FpsUhbtoDa+PS7fg+k6yayPI8e/u50Qq1q8GjWcCQ
+         BobCiZa3LAVUxblgsB2dgRtkKlcORTusIxgCDuPUY3dydj62XgJ5L62BJFcyl2ObOOMp
+         M82jpGdUfFQ3Fh0a02BS+6dhzBPpV4ATH/G6vw+7L/e0zzH3TsHqoF3JKzKhPQk/+jzH
+         xQKFsCk0QW7pRq+ZDC+vuXzrXByRQZhlP7Mryw+TDO9P5caRCUEeL120alaXN+35GYEp
+         Qw1g==
+X-Forwarded-Encrypted: i=1; AHgh+RrvWz6rSEKr+3X6FGidbfW175crdybCCF5ZGpu3d3dsYemP4OWbjwPtPBHCKf9KAqfbP+foZJgj/sE4@vger.kernel.org
+X-Gm-Message-State: AOJu0YxA7LbJA3r2jw/EcSwoAM3TGPpakfViuanPMzyv+QM1b/Z+nGeT
+	bHuDeqw3jNkWaGVf1KtFZ4cFu5nRqcPVujpF8Leftf9hzMvcyrMsXxB8c5jNPFnHDQ==
+X-Gm-Gg: AR+sD102MTsaX++3FaJ6bDkkLHzu6nJJkiGIRP03dsukzcjVa18cquxHZXO984wSq2F
+	0s5W6WFwWTrbeK7M8wKe1F6gBq3urMFcI/aNEBLo/gWFQMjVMugX4c7j2UPXOiYCwJECxOxbQ0k
+	qbSw7kGpLqcz46tHWsAgAv1PTx52QrNUbgQqhd/NNr3o8wzvFgOvaTDSISo41UCttIZersbxMtk
+	mnGgnOXzNyGynebYYfWWZwMdwVtsHi1znA4fWZBGGsazIJf2/BaeBt66t8ImyOrD5sQSDebxZsQ
+	v7yVMVePOSXP813KzIJeHKsLV/MkQr2z42TNA+81fu8I2quv+GJTFCsOF6U2t40kn0a2oF0blHe
+	HuSX8YBwhmIlQRmuernF5lgzwkuHreCszv9l8PSuMYCALcHNKdF0i1CQT+WflSe2PlHNzZRXiJC
+	qSOmQMk+ZNdXYHBbuxNqty4mBXb15z33kT9Y5WPq2dRijiO19zWvw+FUvSUJ75xou///SO4Q==
+X-Received: by 2002:a17:903:2b06:b0:2cf:8363:5ab7 with SMTP id d9443c01a7336-2cf83635d95mr15956285ad.26.1784620472296;
+        Tue, 21 Jul 2026 00:54:32 -0700 (PDT)
 Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:3916:f048:32c3:931f])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf3448f705sm70724175ad.15.2026.07.21.00.54.25
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf3448f705sm70724175ad.15.2026.07.21.00.54.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 00:54:28 -0700 (PDT)
+        Tue, 21 Jul 2026 00:54:31 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
@@ -71,10 +71,11 @@ Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	chrome-platform@lists.linux.dev,
 	linux-input@vger.kernel.org,
 	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 8/9] arm64: dts: mediatek: mt8173-elm-hana: Unmark trackpad supply as always-on
-Date: Tue, 21 Jul 2026 15:52:22 +0800
-Message-ID: <20260721075226.2347933-9-wenst@chromium.org>
+	linux-kernel@vger.kernel.org,
+	stable+noautosel@kernel.org
+Subject: [PATCH v3 9/9] arm64: dts: mediatek: mt8192-asurada-spherion: Add Synaptics trackpad's supply
+Date: Tue, 21 Jul 2026 15:52:23 +0800
+Message-ID: <20260721075226.2347933-10-wenst@chromium.org>
 X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
 In-Reply-To: <20260721075226.2347933-1-wenst@chromium.org>
 References: <20260721075226.2347933-1-wenst@chromium.org>
@@ -86,58 +87,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Up until now, the MT8173 elm/hana device tree has set the dedicated
-regulator supplying the trackpad as always-on, simply because the Elan
-driver was missing proper delays. As a result the delay for the
-Synaptics trackpad was also omitted, as it was not strictly required
-under such a model and delayed the availability of the trackpad to the
-user.
+The Synaptics trackpad, like the Elan trackpad option, is fed from the
+system 3.3V power rail. Add it to the trackpad device node.
 
-The Elan driver recently gained proper delays after power up, with
-opportunistic skipping of the delay when the regulator was originally
-on. The I2C HID driver gained similar opportunistic delay skipping.
-So has the I2C OF component prober library.
+Also add the correct post-power-on delay, even though in practice it is
+not required. The Synaptics trackpad requires 100ms after power-on (or
+deasserting the reset, whichever comes later) to fully initialize. The
+power is always on and the reset pin is not routed out, so the
+implementation could try skipping the delay.
 
-Now fix the device tree to have the regulator not be always on, and
-let the I2C HID device have the correct post-power-on delay time.
-
+Cc: <stable+noautosel@kernel.org> # Without driver changes only lengthens probe time
+Fixes: 925ebc0cd55c ("arm64: dts: mt8192-asurada-spherion: Add Synaptics trackpad support")
 Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 ---
- arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dtsi | 8 +-------
- arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi      | 1 -
- 2 files changed, 1 insertion(+), 8 deletions(-)
+I think this shouldn't be backported, as backporting it without the
+driver enhancements just delays the trackpad probing with no real
+gains.
+---
+ arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dtsi b/arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dtsi
-index 1004eb8ea52c..b9e311fcd9a0 100644
---- a/arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dtsi
-@@ -62,13 +62,7 @@ trackpad2: trackpad@2c {
- 		pinctrl-0 = <&trackpad_irq>;
- 		reg = <0x2c>;
- 		hid-descr-addr = <0x0020>;
--		/*
--		 * The trackpad needs a post-power-on delay of 100ms,
--		 * but at time of writing, the power supply for it on
--		 * this board is always on. The delay is therefore not
--		 * added to avoid impacting the readiness of the
--		 * trackpad.
--		 */
-+		post-power-on-delay-ms = <100>;
- 		vdd-supply = <&mt6397_vgp6_reg>;
+diff --git a/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts b/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
+index 68caf4c58cfe..8adbfc307fca 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
++++ b/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
+@@ -94,6 +94,8 @@ trackpad@2c {
+ 		hid-descr-addr = <0x20>;
+ 		interrupts-extended = <&pio 15 IRQ_TYPE_LEVEL_LOW>;
  		wakeup-source;
++		vdd-supply = <&pp3300_u>;
++		post-power-on-delay-ms = <100>;
  		status = "fail-needs-probe";
-diff --git a/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi b/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
-index a0573bc359fb..6b9f47f515c7 100644
---- a/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
-@@ -1093,7 +1093,6 @@ mt6397_vgp6_reg: ldo_vgp6 {
- 				regulator-min-microvolt = <3300000>;
- 				regulator-max-microvolt = <3300000>;
- 				regulator-enable-ramp-delay = <218>;
--				regulator-always-on;
- 			};
- 
- 			mt6397_vibr_reg: ldo_vibr {
+ 	};
+ };
 -- 
 2.55.0.229.g6434b31f56-goog
 
