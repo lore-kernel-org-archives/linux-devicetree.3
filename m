@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C8236C5BF
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 11:01:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64443446C7;
+	Tue, 21 Jul 2026 11:03:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784631718; cv=none; b=fIaYdc4YMwlEqal6rdvDBXRYyioGmCyqrc60UNqndnVLqapDbUHF/mBRXnuIXrALcQkM9++docYvSCP/DcTAWhOAV/8QDvA+yILCYLo6Cer6qoEAjDWvaCD0gUr6AuliOeDl8cc7BcVuOkYC90Iy0liTjgi9/+ShdTaCsZ7dT3A=
+	t=1784631839; cv=none; b=Xv6UCHXiKZKMqQBpksyy2kC+elapIX2KW0B2aBIB2PTCeKkYQAdIooyiOL5g58f2vc7Y2RqDSPRqWgjB6C7Zfkzg6XKa6MlgTeYlDt+zy9bhurNKk1WM8Kms5udn8o3HEqV6f25/Ee5FLD+ajas5eVV9HLf85ywmaFJh6hlRZEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784631718; c=relaxed/simple;
-	bh=sRlPGhCGHHTt4ov7hJXszEIQ0whp3tLjXniHjKa2HDY=;
+	s=arc-20240116; t=1784631839; c=relaxed/simple;
+	bh=C1rlkpUTrT8vdptyu+2BfFrmkLFVcsCOXELYYhBuc7o=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ByiCRSUmSMC2ifXd66EI4Ym0GJXf5CJBg9CPkbrWSyIvYFCBijyimHKma681TvyJG9mYtba/IlxgKeLpMrFa2KNjQKPAG5IROy44yTFWhDPDblq9EPzd0CtzWFt1Hsb6Z9H8PtLg1YKjqKQ06Up0v+ysSVnHKMdjlthd6tIjbjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ATEZFg46; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=T61bBHzUf5g9UtjhdhMPMWS9eTpl03ZQxKk+XZnAEvt+N6Zd5zWYzgANeudQNXNRCDePB2m2dpFNK0pktQXqdFCeND4iaCI/cJ5vpyvuAY56LoLJ/bcL83vUmkXGP1lfRQmSaZUcetSad411TXDYktFkGfai6aF9zQeYkxNLdPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PsueS3/T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ATEZFg46"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A4931F000E9;
-	Tue, 21 Jul 2026 11:01:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PsueS3/T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 168A71F000E9;
+	Tue, 21 Jul 2026 11:03:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784631715;
-	bh=vVo+TXP7WBPmc4uXcO18aptbPG1X9XazNyN9D6FBBok=;
+	s=k20260515; t=1784631838;
+	bh=CSjdpYNSmsbl8k8uDlJ10euMOBf5L5uZNJn+8JFl3k4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ATEZFg46Qob0s7Imdg22VAKsweOpurpmeycjEdgvALOFLd3JtHZnqLzu7y58srTSY
-	 +XwG+SpqK/LShK+g+5blWgtptRWiLV4O9thNBNLgSspgMmgRDx7AEDOSDqcr3lfWLQ
-	 aaAtmeHGcgbYsCXiipmqWUEH60ECjYQxEcc6AiHv0QjVDCEGWr9RZFToEFAZqzT+aE
-	 pbiA6YBWKTRzZL525PsFKWK9c31xd6x5RNygjIgUIZ4Bb4RivciCX5yiup0J0OIki/
-	 T4ujtLrmWzPRGfkeCeklkqvIPtRPswJqS31qP1/9VvOSQnpDmyCG/9vA0GcCnEpkie
-	 bYEzDpBO+NhlA==
+	b=PsueS3/TNsMpqTu480rNm6YkIc7R0T8zU4ycpISmaqSHsdlCm02IEFaoZMSNsT+9F
+	 qxpU86xWUFj7aptTqeMGpWSUB0ztxjBUgTznbGS0cd81SScQ0HZH3w3WNk0lmXlI7Y
+	 bSIIOIFsJevKQxw0qavZ9kkTMVz5y9mcbOArimLggRcsuSGKoCipEkhfV8QPfajP1+
+	 PuF50FZ/KkH9ChnF/QmWsl9XrtrFDel9EkeQTYXnCa/KOOCKsr3I8aEZTeHDyZ4kkr
+	 H7Qde5MRWYRjTbSPtk0XpZw2V3cQeZk8v9iLxNjoa5c2yfrdOwqpeYJh6/2bwk33z4
+	 52oITyDV0onDg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: thermal: mediatek: Make resets
- optional for MT8196
+Subject: Re: [PATCH v6 1/2] of: kobj: export of_node_ktype for use by
+ modules
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260721105230.101906-2-angelogioacchino.delregno@collabora.com>
-References: <20260721105230.101906-1-angelogioacchino.delregno@collabora.com>
- <20260721105230.101906-2-angelogioacchino.delregno@collabora.com>
+To: "Xu Yang" <xu.yang_2@oss.nxp.com>
+Cc: imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260721105448.2109894-2-xu.yang_2@oss.nxp.com>
+References: <20260721105448.2109894-1-xu.yang_2@oss.nxp.com>
+ <20260721105448.2109894-2-xu.yang_2@oss.nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 11:01:54 +0000
-Message-Id: <20260721110155.4A4931F000E9@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 11:03:57 +0000
+Message-Id: <20260721110358.168A71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,72 +47,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Driver-Binding Mismatch: The `lvts_thermal` driver unconditionally=
- requires the `resets` property, which causes probe failure if omitted on M=
-T8196.
+- [Medium] The patch misdiagnoses the root cause of the linkage error and i=
+ntroduces a new modpost namespace error, while leaving non-KUnit modules vu=
+lnerable.
 --
 
---- Patch [1]: [PATCH v2 1/2] dt-bindings: thermal: mediatek: Make resets o=
-ptional for MT8196 ---
-commit 8c88985c870e0f500a0c1636d7b632cee772d3c6
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+--- Patch [1]: [PATCH v6 1/2] of: kobj: export of_node_ktype for use by mod=
+ules ---
+commit b369d1afd3eb881423af86a559a0aec84ce01a01
+Author: Xu Yang <xu.yang_2@nxp.com>
 
-dt-bindings: thermal: mediatek: Make resets optional for MT8196
+of: kobj: export of_node_ktype for use by modules
 
-This commit updates the device tree binding for mediatek,lvts-thermal to
-make the resets property optional for the MT8196 AP and MCU platforms.
-This prevents hardware resets that could result in thermal protect
-shutdowns or permanent system slowdowns.
+This commit attempts to fix a modpost build error where of_node_ktype is
+undefined in the KUnit property-entry test by exporting the symbol via
+EXPORT_SYMBOL_IF_KUNIT.
 
-> diff --git a/Documentation/devicetree/bindings/thermal/mediatek,lvts-ther=
-mal.yaml b/Documentation/devicetree/bindings/thermal/mediatek,lvts-thermal.=
-yaml
-> index 9752351306703..29f431fcdcd5f 100644
-> --- a/Documentation/devicetree/bindings/thermal/mediatek,lvts-thermal.yaml
-> +++ b/Documentation/devicetree/bindings/thermal/mediatek,lvts-thermal.yaml
-> @@ -94,12 +94,23 @@ allOf:
->          nvmem-cell-names:
->            minItems: 2
-> =20
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          not:
-> +            contains:
-> +              enum:
-> +                - mediatek,mt8196-lvts-ap
-> +                - mediatek,mt8196-lvts-mcu
-> +    then:
-> +      required:
-> +        - resets
-> +
->  required:
->    - compatible
->    - reg
->    - interrupts
->    - clocks
-> -  - resets
+Link: https://lore.kernel.org/oe-kbuild-all/202607181651.RnUuV8n6-lkp@intel=
+.com/
 
-[Severity: High]
-Will omitting the resets property cause a probe regression?
+> diff --git a/drivers/of/kobj.c b/drivers/of/kobj.c
+> index 1bb61a2c33994..081b8fa38603f 100644
+> --- a/drivers/of/kobj.c
+> +++ b/drivers/of/kobj.c
 
-Looking at lvts_probe() in drivers/thermal/mediatek/lvts_thermal.c, the dri=
-ver
-unconditionally requires the reset control:
+[ ... ]
 
-	lvts_td->reset =3D devm_reset_control_get_by_index(dev, 0);
-	if (IS_ERR(lvts_td->reset))
-		return dev_err_probe(dev, PTR_ERR(lvts_td->reset), "Failed to get reset c=
-ontrol\n");
+> @@ -27,6 +28,7 @@ static void of_node_release(struct kobject *kobj)
+>  const struct kobj_type of_node_ktype =3D {
+>  	.release =3D of_node_release,
+>  };
+> +EXPORT_SYMBOL_IF_KUNIT(of_node_ktype);
 
-If the property is omitted to conform to this new schema on MT8196 boards,
-devm_reset_control_get_by_index() returns ERR_PTR(-ENOENT) and the driver
-aborts probing.
+[Severity: Medium]
+Does this export actually resolve the build failure, or does it replace the
+undefined symbol error with a modpost namespace error?
 
-Should the driver be updated to use devm_reset_control_get_optional_exclusi=
-ve()
-or similar to match this binding change?
+Since the property-entry test module likely lacks a corresponding
+MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING"), the build might still fail
+with an error indicating that the module uses a symbol from the
+EXPORTED_FOR_KUNIT_TESTING namespace but does not import it.
+
+Additionally, is the root cause actually the static inline of_node_init()
+function in include/linux/of.h?
+
+include/linux/of.h:of_node_init() {
+#if defined(CONFIG_OF_KOBJ)
+    kobject_init(&node->kobj, &of_node_ktype);
+#endif
+    fwnode_init(&node->fwnode, &of_fwnode_ops);
+}
+
+If non-KUnit modules include include/linux/of.h and are built with compiler
+flags that emit out-of-line copies of unused static inline functions (such
+as under KASAN or with keep-inline-functions), won't they still encounter
+the undefined symbol error since of_node_ktype is only exported for KUnit?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721105230.1019=
-06-1-angelogioacchino.delregno@collabora.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721105448.2109=
+894-1-xu.yang_2@oss.nxp.com?part=3D1
