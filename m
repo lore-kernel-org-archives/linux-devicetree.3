@@ -1,191 +1,201 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60DB32BE7DD;
-	Tue, 21 Jul 2026 05:06:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784610390; cv=none; b=mCxM3wO/2yxGjlk3JbDqE1CEGbsiHMfJhGp1975zmcjZexVuok8xmIhi6Q2c6fKLZxVaiWd+f/MnLXSlb535r+mImuunGfzlX3xEKlZ0PoXJPRzrPcix2zw4nOBs0TtEhHYy8ckgL+fcbaFPfcNwXPFwpnYNhyxHxVI8FI/s0U4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784610390; c=relaxed/simple;
-	bh=+SlVsu0byqwlv39VNd7MB8KOit5jVOQ59RbCUIDpmyo=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=qDjzKIbvuJ8XhXyLLYw/jkKW4LrBTsDBiO+PYqTqxicZfUo+RnAzdOC+Q4UkHmdXetBpeQK0Y3uqkd4TKmbbWNMT2EZcrLfkJ7S7cMymqS9PnwuM9MWfmrIQLenL9TRrwNA4D/NYekvupOU4q1zxuq7LA1DRcshhTy/q6FXzGF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tVU010Of; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F4D02D5923;
+	Tue, 21 Jul 2026 05:08:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784610519; cv=fail; b=HJ/AE+lpvaiVb/sQaWLjVXrbAMQ8JXmTtrk8a8wTUk98i+DVLRIEAL3mmD5CVKL7eyK302c1Js1zelQyEdMYw7+k8Pbqr6HPtmVsUF7k9mihSEYaf/5oTmUkRx6NUTuH6HAOAV42X97W15v0mH6HZhFPE1NDi0x/F+Ir32gbWIk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784610519; c=relaxed/simple;
+	bh=INWjWDo/7qFfcwhZHC3FyV8oGjqkGNIm5k1NxzNAjUM=;
+	h=From:To:CC:In-Reply-To:References:Subject:Message-ID:Date:
+	 MIME-Version:Content-Type; b=d4zxEynELfPywZhaIscIHo+X+Wcw1ZgSW9ny3fJypNpBTSZ6QeHPHZa5GdzOl/BTVn/99CTuwsI8oCNAgHyczIinAyCBMkn9qXlxo0fKdQajrfA8TUxQcr5K3F7NX3FO/2oiunksbd/zO+OZ3+d5Xhg8o0bh2xhvMhu/r2lq1Bc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=GQhOco5H; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=j/Q8yAOX; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tVU010Of"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:25d4:fa24:78d1:31:7a56])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E8B92593;
-	Tue, 21 Jul 2026 07:05:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784610327;
-	bh=+SlVsu0byqwlv39VNd7MB8KOit5jVOQ59RbCUIDpmyo=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=tVU010Of+FyyRQjoH0R2LmJDQwP9nG0+23lEmIUvev3kXCxi3Hec0m1XMRe6WEdYR
-	 x+bifmLBu3dagzLJLUP1J8lEyVzURNhEE8zdIs1281hq8Uve0eML4fxfbYQfP2OVHz
-	 Z0rQ5LtE7zHRUmbkd/dn1J9PsqQQpdGKdM5oWSj8=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="GQhOco5H";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="j/Q8yAOX"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 66L2ff3N3857726;
+	Tue, 21 Jul 2026 00:08:24 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=m6g7HvbqEwH+3mGJefUuDbmttsOXFpjb2xDOqx79G
+	nQ=; b=GQhOco5Hv5nepUJ8jwLgrGFa5N3NXSKBrVwq9j062wngJk4opc51uthJV
+	W47wDa/zIW42k76bw5duPNqvAdPrJKJUYsH34TwjLGnIVG3+gmxBEZ+5BK4QJpsb
+	6Bdpg3sH2YHtrmlwYWKAqgpiKM1jfq6FJOyEA6h6tnZ2ohFUaA2o9HnxUWXxVh7J
+	B2scZWGrFRVB4+/VDueme7LM7SYtxy3ezaZ4ieR6rLXg8dlYYEX5CPMJ9NW8zOMi
+	0O+w974lEDezFvpb/PvbbKHflYNoBmfrWv6PnP93g7ekGiHDZ4kGPOQ1OirrMfqB
+	LF7F691v9ej5bQbJ8Is/F9n8EWJjA==
+Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11012003.outbound.protection.outlook.com [52.101.53.3])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4fj077gjb5-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 21 Jul 2026 00:08:24 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TObB+tPKKROWJgdBQTN6hMpGgnNAHYRHSt6zw0nmoHxW4msto4Wd3SC4FTs0+OTYZsCDvqOW9/msnjxma4TF9jrQiB5F11MDaMgYwiqAsSivRSilZNqB8zZBBFOA5/fAiValnCB6VHRF+2lF9CFwPBt9GJf3lJ8b85Ysky/kDkqegwHe8dQWOS+zZHcP+dU44T9tQsUrFoZPa4qSBexCFpuEkwYQLjshdLV8IsBTmUUGbMRIzya1rVFMlwP1U28OF9E5xW+a/fRbX7QZ+bwXQLzc0y7EXqEOPS+rjR/p+BBYPgVJkUHTRayyrxr10Pft0CAL/YGej/43Mv9lPTifGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=m6g7HvbqEwH+3mGJefUuDbmttsOXFpjb2xDOqx79GnQ=;
+ b=VC5PHl8+H4iM08Hjwv4NJF8DSZYE9+QukEmiJhfKFyMzahXep/hCuvrbM6jGiSZAI9mYcRO3KtgCQhFY55ozTnQfrcltU2CkqfgGgRtAHHoFF10l9R6rPOQ9RSrcB178X3MXTEdSv2zIjIs8EK6jWL2XnADAppPkxK68slSqEhiaukG85tOt/5UUbAjHNDoD5tJqvqTIlQ9RHN5yEKE7bBaFo4968pPXs104hO1ytzgn9rpN6i8npTTW7Z1yuUQugxWZif/cdFrr45oKxN2Dl9dRASgwkwDVFeeqSv1nZoE9BiGUxPr6U0VNwIAADaqpe5z4EsyudBUFjnIOgYXHnw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=dolcini.it smtp.mailfrom=ti.com; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=m6g7HvbqEwH+3mGJefUuDbmttsOXFpjb2xDOqx79GnQ=;
+ b=j/Q8yAOXC/LbQDNaYdfbsiAB9X5015XYVqMEi+mhCOiKEtK/7eHr9VK8oI0500TgbhDf7vi/FYHiJqqR73GW63nVV1cy7GLX9MwUjbkj+I8A9xtLD4wo7IfHtOBZrnfdsLm1BE3xRJEGddgumdSSfZNVp+tCXYfasDlfD73ddkc=
+Received: from IA1P220CA0023.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:464::7)
+ by CY8PR10MB6538.namprd10.prod.outlook.com (2603:10b6:930:5a::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Tue, 21 Jul
+ 2026 05:08:18 +0000
+Received: from BL02EPF0001A101.namprd05.prod.outlook.com
+ (2603:10b6:208:464:cafe::a2) by IA1P220CA0023.outlook.office365.com
+ (2603:10b6:208:464::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Tue,
+ 21 Jul 2026 05:08:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ BL02EPF0001A101.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.5 via Frontend Transport; Tue, 21 Jul 2026 05:08:17 +0000
+Received: from DFLE214.ent.ti.com (10.64.6.72) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 21 Jul
+ 2026 00:08:06 -0500
+Received: from DFLE201.ent.ti.com (10.64.6.59) by DFLE214.ent.ti.com
+ (10.64.6.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 21 Jul
+ 2026 00:08:05 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE201.ent.ti.com
+ (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Tue, 21 Jul 2026 00:08:05 -0500
+Received: from [127.0.1.1] (uda0132425.dhcp.ti.com [10.24.50.130])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66L582q7524876;
+	Tue, 21 Jul 2026 00:08:02 -0500
+From: Vignesh Raghavendra <vigneshr@ti.com>
+To: Nishanth Menon <nm@ti.com>, Tero Kristo <kristo@kernel.org>,
+        Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>,
+        Francesco Dolcini <francesco@dolcini.it>
+CC: Francesco Dolcini <francesco.dolcini@toradex.com>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+In-Reply-To: <20260715055446.31139-1-francesco@dolcini.it>
+References: <20260715055446.31139-1-francesco@dolcini.it>
+Subject: Re: (subset) [PATCH v2] arm64: dts: ti: k3-am62-verdin: Add RPi
+ Touch Display 2 7-inch
+Message-ID: <178460998969.873002.13457104811182482283.b4-ty@b4>
+Date: Tue, 21 Jul 2026 10:29:49 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <CAPY8ntCvB9ij=rMwwBmBDfe_gWQboX9Xbt0ZB6WPVyFvc2CLZw@mail.gmail.com>
-References: <20260312150437.1091195-1-eagle.alexander923@gmail.com> <20260312150437.1091195-3-eagle.alexander923@gmail.com> <CAPY8ntAf9TjgW-E6WeJuMdsHy8pV8-CvqQJriWEFpgLB-brD5A@mail.gmail.com> <178455866124.1426769.18237320419273419942@freya> <CAPY8ntCvB9ij=rMwwBmBDfe_gWQboX9Xbt0ZB6WPVyFvc2CLZw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] media: i2c: Add driver for Sony IMX662 sensor
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Hans Verkuil <hverkuil@kernel.org>, Hans de Goede <hansg@kernel.org>, Tetsuya Nomura <tetsuya.nomura@soho-enterprise.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 21 Jul 2026 10:36:21 +0530
-Message-ID: <178461038136.1426769.8068222330738680407@freya>
-User-Agent: alot/0.13.dev35+g4a69c46ca
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A101:EE_|CY8PR10MB6538:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2d11aeb6-0493-412b-b90e-08dee6e61345
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|82310400026|376014|23010399003|18002099003|22082099003|56012099006|13003099007|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	ZLI/1MMyay9gCwiaRbEZIo3XB+s2g2i2C2+V3yekFl2QxvyEBjjOBpXDHzShoKCNfxL1xAa0yx/mvGsWicHmX62C+WG7GPStGqePh5DSdr4AtdniCuLdErbmrb5fesKu+/6W/P/UjGQj4Y+MB2smjAh4LfR69sAqJzpc+6PRJorEk30zL106VP2yXIidVJOQ6upV/cZ0lBbWZ2WnU2yNQUeu0ohkGJjVTlO/3YRxLudvwctM7xs2K3USAoo4BNO3wFPcsr3Dk2MebCWWV9cRyeAxmT2OYNROl3g5Eya7dX3Xes/Y6CfAcEfk0vMQDRVeRCkkvFJLRhfCRLVz0KNQx8DZN0xxoXCUJLHK9+HjIaN1qOIwMEv93qkf+2+epYJhc19REb3aKjjRn8DZUkKdolQNjzwy0Rq033MsPWIGS7GO23urqNSsgar+5TWlzCps1DwKOxgTyBHxkP4nMyOuJuGbrHg8a0nLplYvszWGYI0x6vX0rLBAdtIDDZJCKVlJABGwE8q2g6PPHCG3NLFLYXt6tmprl3JIsWjym7dtdL7wcPzVOj+r345OSPvri1OHb4nJO8DjDYlQ4/20UYAoYg44ADS5nCwG8xkYz1pKW+lVrBHWs1QULNHYTpgf1gv6u3Jsx5xvOnxuzh+osCr1OcireVUFi+2NlqtyZYUSGnyYtBPIMIAXdmwOrbHMVmMpoa8QZE4etUrLJWC1H06uBg==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(23010399003)(18002099003)(22082099003)(56012099006)(13003099007)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	LQUnrNqJTEmERAGMC6xc9TmchX4kAJYXE4NJH485HBTVx9yV39M1UWLYZFNxqI0tdmSYC5m3fm/B4nowBSyM7vY19BMs20Cq/Ncf6LbMLf0F6cVSl6xh1cunUN4XtnjPT0b0Zd0Sevki1M34RSVnvPyMappS7D3GdSFFpNJ9UW8htad50m83hQ8WLPKSDs1IR7BL+kfD+0IN5MsfN9k1Wq/4nhsjVILXPVopkb7GEOuIoC1C7FYOvmtY6qeM0X1fxSLFmVkoj554oeYPMy+BFGbWSbwUB6CAzQ7xg+/UbdxSLpgUX2Jxv98CAS8BCQb8GYROWJ08LgMblosE0sbdla2gxmTJxk+g4aR+1JkzqcSLHPFqJHMO6e37jW5flqJi9T/aBjek59qR4QS45MYqVpGCHwXYr6FA9Knshk3JIBqL280DqQfrdhiXSWrhCwDL
+X-Exchange-RoutingPolicyChecked:
+	lokdwlPhEk3How5jCEceD3o83YXkB8VUSnsZNhLYtslKhTjfNrR2cV2rvEXpKC2g4w5XozjaPfNLRubIen4MuvuCrxpBvXefqJF09hG+K2uR6HGyDmtIh41YFW/84amK713COxrHT9Vb9hh7gJL07B3bL2rbRKQtuo5kwX1V3AnTlakKZ0UbLimPCsURPozZf81wOALFC1Tb4bFKIfr1LNI6p63QfFgyDL0w9/Z2qi1W5Xv98EaER+UYaagFG/+VIjabk2ZOigq4JXAfpcKYZBMcbV3VyLZj90d4c82mM7DleB1l4hBTSVKD2BU/tM+Ksqo+rmo6+PLYRbQO8npImg==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 05:08:17.2236
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d11aeb6-0493-412b-b90e-08dee6e61345
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0001A101.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR10MB6538
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDA1MCBTYWx0ZWRfXwi+0yXLazuDx
+ jiWRLyo7h8oxk9zE0aBYAEqu646u3zCLAUuVhM1bxYQJKAbJJ/pHy6fXGl3j52Lj0nAPJsx+GRZ
+ fPdX/QBFDBgebo2twyC2ZCTfIjUAF+wGTSyl3T/6+zUVwjpG7wt+gxZZaCL2cevQHsHmZwbzYKL
+ y3x9b+xkbxJovPjvWjjISlnB8S8HaIDogVbTcdzkbR1Lij6i0qQu068oY4pEEjSbQYpVtA0QNb5
+ zsiAyHT1O7d7Boe3UJUm8WKR9h01/lLR3T4TuHJWy/4CjoYdqzzPT+s6Z4VTV/qg2HIVKKQb/44
+ 7kmOahRiKiWQxjCBOlAfoSS86W5SN8b5dm7opkc2lHzxogOUQyxqFtx5NxGXrjQOPfFNe2FDAjy
+ oNpUgOK0rdo1tTSGsFvixepLZXMdKTPcMtRECFoa7Y8+M0T3RC/v2aobsXTmE8Eo90HOiHksSfR
+ vV+uoXNq47/0u4GSNcQ==
+X-Proofpoint-ORIG-GUID: 3dF9sXzHkUBIyQ_sA0gnn0oLB5jKwY0S
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDA1MCBTYWx0ZWRfX7ybbW/TCSgah
+ OB5BWfKVSn8MDAOaAUlAk1a8aZ4WAwBhQFgNq1N5tm71BrGYwFOO88te9tiGEm/qavpfGH6YKyY
+ xbxKUFraPXiWxBApAXEAITjg7uDKM2s=
+X-Authority-Analysis: v=2.4 cv=KabidwYD c=1 sm=1 tr=0 ts=6a5efec8 cx=c_pps
+ a=eZaJmiuXqmfvnt2b4sL4XQ==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=gO1vWkAQAl3rybz1DQOp:22 a=VwQbUJbxAAAA:8 a=o1kACPpZKAZCWsj7fAYA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: 3dF9sXzHkUBIyQ_sA0gnn0oLB5jKwY0S
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-20_06,2026-07-20_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 phishscore=0 lowpriorityscore=0 adultscore=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210050
 
-Hi Dave,
+Hi Francesco Dolcini,
 
-Quoting Dave Stevenson (2026-07-20 23:09:34)
-> Hi Jai
->=20
-> On Mon, 20 Jul 2026 at 15:44, Jai Luthra <jai.luthra@ideasonboard.com> wr=
-ote:
-> >
-> > Hi Dave, Alexander,
-> >
-> > Quoting Dave Stevenson (2026-03-13 01:20:15)
-> > > Hi Alexander
-> > >
-> > > On Thu, 12 Mar 2026 at 15:11, Alexander Shiyan
-> > > <eagle.alexander923@gmail.com> wrote:
-> > > >
-> > > > This patch adds a V4L2 subdevice driver for the Sony IMX662 CMOS im=
-age
-> > > > sensor. The sensor has a native resolution of 1936x1100 (effective
-> > > > 1920x1080) and can achieve up to 90 frames per second depending on
-> > > > the configuration. The driver supports:
-> > > > - MIPI CSI-2 with 2 or 4 data lanes.
-> > > > - RAW10 and RAW12 formats (both colour and monochrome).
-> > > > - Controls: exposure, analogue gain, horizontal/vertical blanking,
-> > > >   horizontal/vertical flip, brightness.
-> > > > - A placeholder V4L2_CID_HDR_SENSOR_MODE control for future Clear H=
-DR
-> > > >   support (the actual HDR modes are not yet implemented).
-> > > > - Runtime PM.
-> > > > - Cropping via the selection API.
-> > > > - Multiple link frequencies selectable via device tree.
-> > > >
-> > > > Tested on ARM64 Rockchip RK3568 platform with a 24 MHz external clo=
-ck
-> > > > and various link frequencies.
-> > >
-> > > Interesting timing as I've been looking at IMX662 too, but on a Raspb=
-erry Pi.
-> > > FWIW my driver is at
-> > > https://github.com/6by9/linux/blob/rpi-6.12.y-imx662/drivers/media/i2=
-c/imx662.c
-> > >
-> >
-> > I saw libcamera patches for IMX676,
->=20
-> IMX676? I assume that's a typo.
->=20
+On Wed, 15 Jul 2026 07:54:45 +0200, Francesco Dolcini wrote:
+> arm64: dts: ti: k3-am62-verdin: Add RPi Touch Display 2 7-inch
 
-Oops, yes I meant IMX662. Names are hard.
+I have applied the following to branch ti-k3-dts-next on [1].
+Thank you!
 
-> > does the below branch have the latest
-> > driver you plan to post as v2?
-> >
-> > https://github.com/6by9/linux/blob/rpi-6.18.y-imx662-mainline-clean/dri=
-vers/media/i2c/imx662.c
->=20
-> That's a downstream Pi tree. My mainline branch is
-> https://github.com/6by9/linux/tree/mainline_imx662 and is basically
-> the patches I intend to send.
+[1/1] arm64: dts: ti: k3-am62-verdin: Add RPi Touch Display 2 7-inch
+      commit: d55f26485cd17f34bb4d5c0acb32a199e235628e
 
-Thank you.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent up the chain during
+the next merge window (or sooner if it is a relevant bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-> There is one niggle to resolve first in imx662_ctrls_init. There is
-> currently a catch-22 in setting up the state vs initialising the
-> blanking and exposure ranges as they refer to each other. I need to
-> come back and look at that one.
->=20
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-I remember I faced something similar in IMX678 and ended up doing that
-calculation explicity while initializing the blanking/exposure controls,
-without reusing the set_framing_limits() function that is called on
-resolution updates.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-> > > Comments are based on brief testing and reading of the code. This is
-> > > not a full review.
-> > >
-> > > > Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
-> >
-> > [...]
-> >
-> > > > +static int imx662_set_selection(struct v4l2_subdev *sd,
-> > > > +                               struct v4l2_subdev_state *sd_state,
-> > > > +                               struct v4l2_subdev_selection *sel)
-> > > > +{
-> >
-> > Can we keep cropping and binning out of the initial driver,
->=20
-> There is no binning currently implemented in this driver, only cropping.
->=20
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-Okay, that might make things easier to port to the new model.
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/ti/linux.git
+--
+Vignesh
 
-> > and implement
-> > it using the common raw sensor model directly?
-> >
-> > I did it for IMX678 [1] on Sakari's suggestion [2]. The two sensors are
-> > quite similar, so I'm happy to help in whatever way I can on getting th=
-is
-> > working with the new model too :-)
->=20
-> Is this effectively saying that linux-media is closed to sensor
-> drivers not adopting the common raw sensor model, even though AIUI
-> that isn't ready yet? I can accept that for a period, but how long is
-> it reasonable for that to be the case? A year?
-> With all due respect to those involved, the series has been around so
-> long in various guises that it's a case of I'll believe it when I see
-> it merged.
->=20
-> There are already a number of sensor drivers in the tree that support
-> set_selection (imx296 being the main one I care about). Presumably
-> there is a plan for how to migrate those to work with the common
-> sensor model without regression for existing users. Is there a reason
-> that plan isn't also valid for imx662 and imx678?
->=20
 
-Yes we can migrate in a way to support both the old and new models
-depending upon the client capability flags, Sakari has done that for
-IMX219. But it gets a bit cumbersome in the driver, especially for handling
-binning through the new controls while supporting it through some other way
-in old model.
-
-Given you don't plan to add binning support, I think it shouldn't be as
-complicated. The selection rectangle for analogue crop will move to the
-internal image pad from the source pad if the client has the
-COMMON_RAW_SENSOR capability.
-
-> I would offer to review the common raw sensor patches, but as so much
-> of it is core framework stuff and so is outside my area of knowledge.
-> I guess I can do the same as your imx678 branch and give it a go for a
-> Tested-by, but that feels fairly limited in scope.
-> Have you got a libcamera branch that supports the new model for imx678?
->=20
-
-I looked into it briefly, here's a branch with bare minimum support to get
-libcamera streaming with the new model:
-https://github.com/jailuthra/libcamera/tree/raw-sensors
-
-It doesn't support crop/binning yet.
-
-> Thanks
->   Dave
->=20
-
-Thanks,
-Jai
