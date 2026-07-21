@@ -1,124 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81CF93BB13A
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 09:00:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75D034DB4A;
+	Tue, 21 Jul 2026 09:00:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784624452; cv=none; b=obuyOLsYCwG1b6HQ1+TiXfdtLhXI7t1oBR3Lk3cnDEpFphx3NbH0pnUWe9DHF4HAKXtcQmWRdPeCDjyzpV890POpm/IDzE2AEHqCL2ulxfXXFMTLTst//z1mVt5XCX9Ui291Qe4jnLVkck2/5pjSa7QsA2pLMhlgJtrIbvKCph4=
+	t=1784624455; cv=none; b=KT0IvQ5UwP0SJ2cKIO+bWMgV1h5XhgYtTzvR5NrSEwummTtRfCrm5PGfxSGTsHGdHme6aYvfTeaXyh+mWfFPBcxCMMud+Zm9PCkGHunifsImuTnhzaA60VkJ5u9SdSa9OFqdrIxe3xhNSR66YXvUTOgN89guGLk8c89e0hQRjUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784624452; c=relaxed/simple;
-	bh=G7OVymGAZ68fOsyVudMfDfVQ6j5IKcZYslwyklzHBKM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oBXnj5tZMlOjPNbmFg0B8zlFkqkn+FGYNH9BPA3AtrWttQgJVxkzw4QugLfXnR5KYGGhEQy3AJUIdwxvX7dW6N9JaO9aibU2TmgeZoVqvRNC/yCh/e+c38zvsnOBpmZo+kkq9sJAE7fQ1W7wgYhFFijauCJVt1+GZWgVKKq4n3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HQZdsiW6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784624455; c=relaxed/simple;
+	bh=Ce3TgVnFtM9NuJ9xl91qVQ2BBavQQ218Ymd+/A6JliQ=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=Q4ZaSblRcXaoWel6+VU7yuUeqZobY8o/z7vaCSRY2OQ2mgzebBvGU/4GqaeRxUjWwC34wJ87H30aBLtfZFdQsLO/JPztVtJSZJNj22WHUFcFjgO+pkY7Mk2247GFlIX8TwJZiG2SmE0Woi1gHP7N80m/0YRS15CHDrbe/YBIdEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZkdLiIqu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HQZdsiW6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B2831F000E9;
-	Tue, 21 Jul 2026 09:00:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZkdLiIqu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 500DF1F00A3A;
+	Tue, 21 Jul 2026 09:00:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784624451;
-	bh=h21z0qT/BkkREP5771hwXWAwAbvEvcrzEyYIvC7bzW8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HQZdsiW6NZ9WetovW9NtOp4nfumr5fBdIO3x6k9y1I9z+CW2qBNRlwqk6BXaUAFWy
-	 ZT9zHD9pbvfsjwIKi/3ecIeV/M0T+VUWplWSW/veYFahuZN29Lxxrt2qMza8KHxqfR
-	 vDEW4w981gT1xWaptD1Jgo6cv7Y5qFK7iFMk3RKR5iHGOg1F6CYdWWsrrF/IR1qeYi
-	 QSUAkHB+Sv19HM/O3FzBffT+Bg4sbz/IQ58n6H3lltIek0tJ6lZMt/pr6sbdqW7FWq
-	 ZeGP+/L3kaIwP2lRAEC/II1y6iy9P8aJV3T//ZuFuYXimZflRZXHwr4fh3TjExUeiQ
-	 R61PAU59Tepvw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/4] dt-bindings: iio: dac: add adi,ad5710r.yaml
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kim Seer Paller" <kimseer.paller@analog.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260721-iio-ad5710r-upstream-v2-2-324949dc72da@analog.com>
-References: <20260721-iio-ad5710r-upstream-v2-0-324949dc72da@analog.com>
- <20260721-iio-ad5710r-upstream-v2-2-324949dc72da@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 09:00:50 +0000
-Message-Id: <20260721090051.1B2831F000E9@smtp.kernel.org>
+	s=k20260515; t=1784624454;
+	bh=kT+Q8kRcBsmrQIxq+3cEUACSAv9IYbo+YgFCNmr8RMg=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=ZkdLiIqueP2AZ/FKt7r4mv1kyFPSyDr2vcZc0iRJsNHKcN+jexQ9Jy0RR+KpPz7RW
+	 lUb3LheAgAP6FFPydYQxdbZudvJdQY5PO37x1+2vE10+/LncOAtXc7Fr3xUficKAW2
+	 nVbrRdU4gWBFTSykugHpLL0fVPdWP2bRr6nMdJBlGxBnpbsWbpHma7HyvkyWxsjOSq
+	 1g50hYeFAB7LaSZDPleHPnDvZf4ITFwrpI8PYLUHF1UP6zFYtyw4+UgGout0t2D0QU
+	 Ev7GGrkMm7H5LdH5VTblhXPhV6nuT6oHxdVhqJo5uJUGRc6zvu+a8IRK2Z+DzIvid4
+	 3M4AxxM9AHdmQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56BC73924A44;
+	Tue, 21 Jul 2026 09:00:25 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v5 00/13] net: Add ADIN1140 support
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178462442388.169679.4872315897072342362.git-patchwork-notify@kernel.org>
+Date: Tue, 21 Jul 2026 09:00:23 +0000
+References: <20260708-adin1140-driver-v5-0-4aca7b51a58b@analog.com>
+In-Reply-To: <20260708-adin1140-driver-v5-0-4aca7b51a58b@analog.com>
+To: Ciprian Regus <ciprian.regus@analog.com>
+Cc: parthiban.veerasooran@microchip.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org, andrew@lunn.ch,
+ hkallweit1@gmail.com, linux@armlinux.org.uk, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ devicetree@vger.kernel.org, conor.dooley@microchip.com
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The `adi,range-double` property is defined as a global device pr=
-operty, artificially limiting the hardware's per-channel capabilities and c=
-onflicting with current output modes.
-- [Medium] The `reg` property inside `patternProperties` incorrectly uses `=
-items` to apply numeric constraints, rendering channel bounds checking comp=
-letely ineffective.
---
+Hello:
 
---- Patch [2]: [PATCH v2 2/4] dt-bindings: iio: dac: add adi,ad5710r.yaml -=
---
-commit fe69da2e77f6f1de3acc9e529bec6856901e4e98
-Author: Kim Seer Paller <kimseer.paller@analog.com>
+This series was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-dt-bindings: iio: dac: add adi,ad5710r.yaml
+On Wed, 08 Jul 2026 01:33:28 +0300 you wrote:
+> This series introduces support for the ADIN1140 (also called AD3306)
+> 10BASE-T1S single port MACPHY. The device integrates the MAC and PHY in
+> the same package. The communication with the host CPU is done through an
+> SPI interface, using the Open Alliance TC6 protocol for control and data
+> transactions. As a result, the oa_tc6 framework is used to implement
+> the communication with the device (register accesses and Ethernet frame
+> RX/TX).
+> 
+> [...]
 
-Add device tree bindings for the Analog Devices AD5710R/AD5711R
-8-channel 12-/16-bit Configurable IDAC/VDAC.
+Here is the summary with links:
+  - [net-next,v5,01/13] dt-bindings: net: Add ADIN1140
+    https://git.kernel.org/netdev/net-next/c/2aa955bc52e9
+  - [net-next,v5,02/13] net: ethernet: oa_tc6: Handle the OA TC6 SPI protected mode
+    https://git.kernel.org/netdev/net-next/c/7d0e4c4b8c85
+  - [net-next,v5,03/13] net: ethernet: oa_tc6: add OA_TC6_BROKEN_PHY quirk flag
+    https://git.kernel.org/netdev/net-next/c/1d030cdd52ee
+  - [net-next,v5,04/13] net: ethernet: oa_tc6: Export the C45 access functions
+    https://git.kernel.org/netdev/net-next/c/87ac7ea2153c
+  - [net-next,v5,05/13] net: ethernet: oa_tc6: Export standard defined registers
+    https://git.kernel.org/netdev/net-next/c/9210d402bdf5
+  - [net-next,v5,06/13] net: ethernet: oa_tc6: Add the OA_TC6_ prefix to standard registers
+    https://git.kernel.org/netdev/net-next/c/31bc75f17c1f
+  - [net-next,v5,07/13] net: ethernet: oa_tc6: Add read_mms/write_mms register access functions
+    https://git.kernel.org/netdev/net-next/c/6ad250179486
+  - [net-next,v5,08/13] net: ethernet: oa_tc6: Use the read_mms/write_mms functions for C45
+    https://git.kernel.org/netdev/net-next/c/92ec8d69ddb0
+  - [net-next,v5,09/13] net: ethernet: oa_tc6: Add new register address defines
+    https://git.kernel.org/netdev/net-next/c/638b41f770ad
+  - [net-next,v5,10/13] net: phy: add generic helpers for direct C45 MMD access
+    https://git.kernel.org/netdev/net-next/c/aa63217916e1
+  - [net-next,v5,11/13] net: phy: microchip-t1s: use generic C45 MMD access helpers
+    https://git.kernel.org/netdev/net-next/c/85032df227f9
+  - [net-next,v5,12/13] net: phy: Add support for the ADIN1140 PHY
+    https://git.kernel.org/netdev/net-next/c/0feaf415b782
+  - [net-next,v5,13/13] net: ethernet: adi: Add a driver for the ADIN1140 MACPHY
+    https://git.kernel.org/netdev/net-next/c/20e69e671070
 
-> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5710r.yaml b=
-/Documentation/devicetree/bindings/iio/dac/adi,ad5710r.yaml
-> new file mode 100644
-> index 0000000000000..17c1bf0092421
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5710r.yaml
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-[ ... ]
 
-> +  adi,range-double:
-> +    description:
-> +      Configure the output range for all channels. If the property is pr=
-esent,
-> +      the output will range from 0V to 2Vref. If the property is not pre=
-sent,
-> +      the output will range from 0V to Vref.
-> +    type: boolean
-
-[Severity: Medium]
-Since the description notes that each channel can be independently configur=
-ed
-as either a voltage or current output, should this property be placed inside
-the channel patternProperties block instead?=20
-
-Defining it globally seems to restrict configuring the output range on a
-per-channel basis, and might also semantically conflict with channels
-configured for current output.
-
-> +
-> +patternProperties:
-> +  "^channel@[0-7]$":
-> +    $ref: /schemas/iio/dac/dac.yaml#
-> +    type: object
-> +    description:
-> +      Represents the external channels which are connected to the DAC.
-> +
-> +    properties:
-> +      reg:
-> +        description: Channel number
-> +        items:
-> +          minimum: 0
-> +          maximum: 7
-
-[Severity: Medium]
-Does placing minimum and maximum inside an items dictionary correctly apply
-the constraints?=20
-
-In dt-schema, the reg property is mapped to a matrix. Wrapping the constrai=
-nts
-in items applies them to the tuple array instead of the scalar integers,
-causing schema validation to ignore them and silently accept out-of-bounds
-channel numbers.=20
-
-Could these bounds be placed directly under the reg property?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-iio-ad5710=
-r-upstream-v2-0-324949dc72da@analog.com?part=3D2
