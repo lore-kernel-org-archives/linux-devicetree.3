@@ -1,116 +1,123 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8693B71A0
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 21:45:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7286234B1A6
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 21:46:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784670334; cv=none; b=auMG5SO6ulUVxY8iEx9jkVUtwsNp0HjwQa6o9KajD3cQ4a/6Sfx221lezBn6r+cEPKtFOyNRTT8T9C3zV60CQbaXwEi87Y33p9qOTNxfOi3o9Ci+rdsGQG+lC2w2SPu7c2AL21lu2u26GPBZlziqDYODgcAM/jW+X4nwvLT+GRg=
+	t=1784670392; cv=none; b=fW1Vr+u7Wl32jGw3nCH/x31fWcASelUkSW37sh/j13evol4L6yR8gl7nbElIZPg3E/ZObwU8PkR+qBfiBW/HzKI7Z7xFfWzd1pfLUJP0f001i/ywwl3ncspViTZLiLUoxb873hqeNEgwtQQPRKX6jY7CZQYuunRlrXKOcVR0Fqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784670334; c=relaxed/simple;
-	bh=qzXYqaNZ8YacH0+RDZBrFejwkYxrl4euPf9hs7+Yt8I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XNE2Qcm6cr/RZRDPGCh3mrdGLWoSdtdNvH0yj+dpSRILAf02w41AniCXExTvhf9foFnJh+EQ+kUfcvbMpRM5hi0ff1OpEYQUJjJf/vHCE+Jq7srCy+Lagybuqi6TkXZ9L3vIeoY5oMzNrPVQkdeVaqwuqueCBscHlORa+k7FTek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BHn9bceJ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=gh6E+EKD; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1784670392; c=relaxed/simple;
+	bh=x7AlrBh2KH2cVx8D+eoSZL0k5fFHITp6GUwnbsXiNtY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=S5g/XLoK8Mcf1ca5xUgk/10sli4dZ+kK/rtuD+8QdyypRp8dpS2+uYp5jmEQFoUJnzcXGLpldHip+0gWmv7qBWX4VZBMRrjcN4+HGm9GGLVW8f7ofEymwb+8CDD2+pANSs4UndMSJaxsw7C+wPA5yi72l8MO84PHdTW4kKxAkes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q02MQYca; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BHn9bceJ";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="gh6E+EKD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784670331;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4/knV+I82RYJmpNZoc5ZNNpDHi7DOzo99Z4+2yaDWXU=;
-	b=BHn9bceJGEymtvMBxoOp/rvTRNsiLxKw83XWj4BgM942qa/Impb6XllZLwbVpDvxj8vJw7
-	HcULS+zhipRX3FKO4uywkSYz5Ro/K4wify9w4tjY5QvAqE+duX4TPJ3sNHM4TjpLE9WROW
-	eTaOyxuExofiDnZUpXXvoSwgMX4pRRI=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-313-fUb69I1TMLOnAUdJi-xdGQ-1; Tue, 21 Jul 2026 17:45:30 -0400
-X-MC-Unique: fUb69I1TMLOnAUdJi-xdGQ-1
-X-Mimecast-MFC-AGG-ID: fUb69I1TMLOnAUdJi-xdGQ_1784670330
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c20762d21so116316541cf.0
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 14:45:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1784670329; x=1785275129; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=4/knV+I82RYJmpNZoc5ZNNpDHi7DOzo99Z4+2yaDWXU=;
-        b=gh6E+EKDOkf+X515twa7YNj2UI2cH5SNSGFn8a2jmZbaImwjQnt3lRXl1IKyvY0MHu
-         cNCTth8wzx6SiCxSe2afPuvJRpRBvFBxtoznT8pWHnzLcpeiut51xC74yvF5szB+X1LH
-         fq3O0naFqDcCBYS/er2+e265dIcvKig6QRmyDyvdgt9WZX2prddhslSYNbdoHy3HIiQN
-         ZXIc8gldcBJ8aSkLdSv0r3H/PcJk86yInWLdiPAaOpxEEZdOSG47YTKP+CsReUPELrnL
-         KssZRWTeJphHwxjNCc2m7YXT5iOBkKDbPuI+Zq9zAikXPhwwYak9pPCQwa9NaNdS9hhI
-         ayZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784670329; x=1785275129;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4/knV+I82RYJmpNZoc5ZNNpDHi7DOzo99Z4+2yaDWXU=;
-        b=ASEouWUFiYj0HJipwGrl9L7lzvQHw8/Ybt84+pPyBUNk/cdTMz39PmNivkA88rygxs
-         b9c5q9LeQ0xA9GNZ+4rh1oIk7Ftf+AYff6bSAxZcaO+YoyOiNIYpW4ENL/cN1MiOlPta
-         osH9ozu5DXvOlyzep4TEi02nXsdr3m5O2An97SRlMWk+Ivd22tMwuLSybuT30fQKIHsd
-         Fc//FqLqh81ayxpeVpMCLaxATCxeMnKNzx8CVQLwEsogz/P6sZvj/ADqnXqtEbZt5Wz1
-         /mEBr4gkASNnSL1WRyR0uPq+9enTSPJ2o2rc5+VJilvaKjLnC2cBwUzgjmVSXTxTG5DW
-         ZENA==
-X-Forwarded-Encrypted: i=1; AHgh+RrnFbGlwj1ON/iICOYgc8RGdHzDwqFKXtGv0CX6uSge8N77B8b6DdYY9QvsCNczf5NU47kUj6FTNB3F@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz6pVcHn24yX3adA5mYu7QWbYr1A5BtbrgU8KY6lXucOJlfdO0E
-	S9ZbCKxYQpliL0syn4e5YU5EIudswL9LXVT3P6rJx21nP30LdtXEA88Sjzyb+/VkXKEc7TtgTpj
-	hg9oklk5PZ6x52Mg+NcGk2EbEyMNLEZ0Ot0C26YCLfzkbcGumk4uy4BqVa0vRSaitW1sxfsg=
-X-Gm-Gg: AfdE7ckeEgXScDRIlri4HmLrcfzAVf2l9WSgIvVWnTiU0pzNteSJgGOrtInWsoeK5VW
-	CVSxuuolTfaORI3oGGSTJIyOECmSbQc6n7zxdBDNrL2rYMlrGiNf2/+rI/6noHJDjllx33rnvKW
-	hysckiSFbTjm0t+NWEo3pjJ84qYPxwCqYkrfUTpXEksmK4gnUqF79O1rFBZqnv851SPYGpJJZwb
-	NxyNml3iPDDnTyCEpcob3gsT8MefgdLxwKwJa+Vn4k9dyJS7P0kh6pIyEIohiaH4OzAc9OTkFVw
-	lElurrbQwqLAQ3/KLiWdyWwHB+AWnLWeuA+iw5mQsgY97Li12JYYrmVS2fvFDTE/kzRjFobGIfN
-	sDf9xYx+IjMcKVc3uucS48AzRYF+1P0BNLio=
-X-Received: by 2002:a05:622a:17cd:b0:51c:7b12:1209 with SMTP id d75a77b69052e-5213f6687b5mr187303321cf.87.1784670329639;
-        Tue, 21 Jul 2026 14:45:29 -0700 (PDT)
-X-Received: by 2002:a05:622a:17cd:b0:51c:7b12:1209 with SMTP id d75a77b69052e-5213f6687b5mr187303001cf.87.1784670329212;
-        Tue, 21 Jul 2026 14:45:29 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907ba9e13d1sm5679306d6.28.2026.07.21.14.45.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 14:45:28 -0700 (PDT)
-Date: Tue, 21 Jul 2026 17:45:26 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: wangjia@ultrarisc.com
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 3/3] clk: ultrarisc: Add DP1000 clock driver
-Message-ID: <al_odvEwqk2f3h0w@redhat.com>
-References: <20260720-ultrarisc-clock-v4-0-fe639d63bbac@ultrarisc.com>
- <20260720-ultrarisc-clock-v4-3-fe639d63bbac@ultrarisc.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q02MQYca"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE0EA1F00A3A;
+	Tue, 21 Jul 2026 21:46:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784670391;
+	bh=R2RMdsLWpv94+pqRA2smAP2Ja8Alf8mUdqx4KfgHchA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Q02MQYcabSWOINRd7cnOxNxjwpslO3l32HE3cGOz4w9OIE6rXvOafL1CN124NAbDp
+	 8B6UXdMtQHTGYAlX9tjSud0JeWL1FfgSPgtBAgP7i4EYuz9riOujH99Rse7sx7iBy4
+	 Ei1BWHEZzk3MnesLawxdGz3qbzzA65fQvW79nGeewnlDzZAgy9ZIjK89HS0KVzp4T2
+	 CiIQ8tt7lgD4Xl7zR970Pjr0tMIK8WJ2UMDFXLTgVsPPYYFnOu1MyzSeIBh0DLKS9h
+	 r2OjnFs4TygsU8I7p9EGThaHxGiwbby/gLeyr2WtPFzGCBmyLA8mxKIyjgTnySYEmx
+	 9W7kILHgWRTMA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/4] of: unittest: cover /aliases updates from
+ overlay apply/revert
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260721-nh-of-alias-overlay-v3-4-7001028fe2f5@nexthop.ai>
+References: <20260721-nh-of-alias-overlay-v3-0-7001028fe2f5@nexthop.ai>
+ <20260721-nh-of-alias-overlay-v3-4-7001028fe2f5@nexthop.ai>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 21:46:30 +0000
+Message-Id: <20260721214630.EE0EA1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260720-ultrarisc-clock-v4-3-fe639d63bbac@ultrarisc.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
 
-On Mon, Jul 20, 2026 at 08:38:06AM +0800, Jia Wang via B4 Relay wrote:
-> From: Jia Wang <wangjia@ultrarisc.com>
-> 
-> Add a clock driver for the UltraRISC DP1000 SoC.
-> 
-> The clock tree is driven by a SYSPLL and provides fixed-factor clocks for
-> the subsystem and PCIe, divider-based root clocks for GMAC and the UART,
-> I2C, and SPI blocks, and per-instance gate clocks for UART0-3, I2C0-3,
-> and SPI0-1.
-> 
-> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Holding a device node reference across `of_overlay_remove()` cau=
+ses a memory leak and unexpected kernel error logs.
+--
 
-Reviewed-by: Brian Masney <bmasney@redhat.com>
+--- Patch [4]: [PATCH v3 4/4] of: unittest: cover /aliases updates from ove=
+rlay apply/revert ---
+commit 4a0912943dbf2d4f5c928768a852d7834811ba59
+Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
+of: unittest: cover /aliases updates from overlay apply/revert
+
+This commit adds an overlay test to ensure /aliases updates work correctly
+across apply and revert when the overlay grafts a node with an alias.
+
+> diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
+> --- a/drivers/of/unittest.c
+> +++ b/drivers/of/unittest.c
+
+[ ... ]
+
+> +static void __init of_unittest_overlay_alias(void)
+> +{
+
+[ ... ]
+
+> +	/* hold a ref across the revert for the post-remove check */
+> +	target =3D of_find_node_by_path(target_path);
+> +	if (!target) {
+> +		unittest(0, "could not find grafted target %s\n", target_path);
+> +		goto out_remove;
+> +	}
+> +
+> +	id =3D of_alias_get_id(target, "testcase-alias");
+> +	unittest(id =3D=3D 99,
+> +		 "of_alias_get_id() =3D %d after overlay apply, expected 99\n",
+> +		 id);
+> +
+> +out_remove:
+> +	ret =3D of_overlay_remove(&ovcs_id);
+
+[Severity: Medium]
+Does holding this device node reference across of_overlay_remove() cause a
+memory leak and unexpected kernel error logs?
+
+When the reference to the target node is held, __of_changeset_entry_destroy=
+()
+observes a refcount greater than 1, which triggers an "ERROR: memory leak"
+log and skips the OF_OVERLAY_FREE_CSET flag.
+
+Subsequently, when of_node_put(target) drops the refcount down to 0,
+of_node_release() logs another memory leak error and returns without freeing
+the node memory.
+
+> +	if (ret) {
+> +		unittest(0, "overlay_alias remove failed, ret =3D %d\n", ret);
+> +		of_node_put(target);
+> +		goto out_put_base;
+> +	}
+> +
+> +	if (target) {
+> +		id =3D of_alias_get_id(target, "testcase-alias");
+> +		unittest(id =3D=3D -ENODEV,
+> +			 "of_alias_get_id() =3D %d after overlay remove, expected -ENODEV\n",
+> +			 id);
+> +		of_node_put(target);
+> +	}
+> +
+> +out_put_base:
+> +	of_node_put(base);
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-nh-of-alia=
+s-overlay-v3-0-7001028fe2f5@nexthop.ai?part=3D4
