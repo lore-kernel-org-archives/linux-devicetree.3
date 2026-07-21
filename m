@@ -1,459 +1,95 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A71283C9D
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 12:49:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F312D9EDB;
+	Tue, 21 Jul 2026 12:50:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784638143; cv=none; b=m05JS3zhbp6COnfI2zL7S0/xXeuiPqplYDMtk+oWfcfjRBM9/iYwPjcOsryo0QFrpgAYxGiZ+TlCCpxUYaPGitvuKyCWcOdHhqAR6dNFsA8LgQ51ImLwG3hI+ex8d2yuME3ygYI9tbQWlaiS6Bvk/MsJjwtSOGIY7l+8uTjle/U=
+	t=1784638239; cv=none; b=LY+03FkYGrEe1yl9U0rPe1glx48nA5XOWwpMkC3MJozTacrE8jbVcXWz0x3S/LHcfYK3kLBLd4Eg6LKvub2kFC9u2DjgGYeDgr0MNblmkeztkaQGrlfWvs4jyzV4lF6rpiLrgX8aMDUlg9EcdyvEV/ZyXVOcag6RUxOOJAQ1rAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784638143; c=relaxed/simple;
-	bh=U7HA9z1+k46clwJJPu8Z+uz9L279gRK1Zr2lzRLsEz0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a36osA8PEkDFGlaYYQZHuol/rsWk3tWllqKYPp4KNJAZQ/X5u4lrmG4K+l6JegUB3Pa7EV23arVMJbdTXY9U+lagcRnYcry7Y+q62ANRBKc+W7+7TeWHZvH55/quNVhYO8ugaTNzfW0XT+sjbTMgFTNISGYXdiwmDkQDy5gFJA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EKBm/+U8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=esgS2KZd; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EKBm/+U8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="esgS2KZd"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66LARPvQ1482233
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 12:49:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	oR2huL0V5JGejGGvcJlqifpoLwmTifg5Q2IjfL5u2kk=; b=EKBm/+U8PD5Z5AGg
-	YzvjnAMBJq1hu3ScDdGMloMvw/terP/e94VjlsGk2RnPibtgn9qkcznlC6POejCd
-	5RAIhuHMuTi7+hfh9NgPqxN+BXDmav7h2uEnbFwUeuJ89N/Gx5WHnkU4WrJnwVg0
-	Cc9oPiZlTJcYBAOAaKoptZNRIKKlSA8bM/y7EIup1a1S+3AAucu+kSmG5mN1cwFj
-	bGtNv/whd0OQvSBZ3lj6fCxGR4p86nmDXcaoOwLC5iblTzVpHoXjytKp4t85mPWz
-	7eJjKyY0lxRfa3h8W8JAEoW1IbH2L1VAT1TGgXVNhfgFQdzS3ZImOqtuPS7SYbpk
-	xWnjPQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fhvqnbddg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 12:49:01 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92ef13b61bcso1953043485a.1
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 05:49:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784638140; x=1785242940; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oR2huL0V5JGejGGvcJlqifpoLwmTifg5Q2IjfL5u2kk=;
-        b=esgS2KZdCANDnTWGCcUqhrEpOs5lS0BK5sF2/qkp2WCe+q34X2QORYi075bqCfj2L3
-         xenmbb78cRPQbJP6rjw1z5bvyYdPGVgqu/l85igZuW+eJp5kBOJcb1+BvbbZHBaJFV5A
-         QDFLt9ANR8Vf7/gX4ZF9L87xF+oyZQYpiD0X0RQG7ViYrtZQzVMopw2E+/cJ/o73PYBm
-         VVrOG8XsePXxugDzsIg2Vl/6bPCKuMaL6IhmSkg2oBtdzu0/X3Z2kLDNXjZwv0XvDOPa
-         hkSQl7u0nrZ0wWRgc9qiYR0VXkPUfIJF6/PRhcfinbS+BoHgW+0IZ9IBwErOgNhniYKa
-         zJQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784638140; x=1785242940;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oR2huL0V5JGejGGvcJlqifpoLwmTifg5Q2IjfL5u2kk=;
-        b=OUHHaRixOjAhfTxtu4rJ31ozyYvVdNr/vUjdeT9oM7LUOV/+QnMZBTWwRKUdH3RNsA
-         SokbtUiVyRctXwKu76yjoJOTgpleP7wm+yK4gphjrmErhvtEghfFpIznaxQGicCgDyz9
-         Oa22jb1nauPt1x7xw1XZeufs/RZW6e7nrZT+UgKgwJxN+ZdqOlmaKFmoW3ImAhqbcAdC
-         4jcWfz83/WgLCFZRp9eTSU1VA7ueDqZEYW0lp2aHLziWdTMkBLQeXj/s3sYVt0j7x7kK
-         RmBCKt7vlEVe1QU7KWy885C1wVdWgmkeh7zmdGrE8tAUKg+DJMIxSAFw7ovDAaA/l/u3
-         ZWcA==
-X-Forwarded-Encrypted: i=1; AHgh+Rr35y6K4BXVfI8DGvSOQLMVlBJ7onJPEBUFxeSwhlILS9EVejIGMyxFKy+JjxSxPSOEIUgzi13XMfP2@vger.kernel.org
-X-Gm-Message-State: AOJu0YxwC86jGCepS70V8uh8E29iTR5u6H/6eAwQIGwm+eoy1KSHULow
-	/o5JCTVq+LwkHhq4tszb89D7qRnlB96VpQmWr3bBdzSySaYeqIuf1SMqHCeM4oAJAXE21o2xoG6
-	jPbZkUh+8SBvKQpVU2W1jx9W/BI3a66C04AasL131bfMwD4idL0+iAGb5WH60bODC
-X-Gm-Gg: AfdE7cm1aq6X0qjoS9n8JYQ1g5ljMy5yKKvlWUFjcFgVIs6usvGbCL//K1BPSQIbh8m
-	cae0ARpGBCrTg4Vi2BWFgbejKYC+nYIYZTRbXO8wBcMHJbLMmysoMeaiGkOwtMbPgEHen8e7mHl
-	ON+saV42k3K7T4XFAI4GKNWe8G2Nl37mrB/shFLa6ny1whZosaPV+UQrc1PQQ3GxkLr3XPF0CCb
-	iEr0FA17IDMskH+7o9qoSV5uGqSdE1pHxrdC0OyGIO8SjyVpy5NFd8uzLrGdnku8IO1Xm+BT6HV
-	fOKzTlgMebjgssiMo3qIL+kGBwTFNj9PtjoBOZeQHoarMaNd09ud6EXleCBxWEq5rdhx08TiNB6
-	Kp0PDmO5iX9LqnMLmFnSMvcaNyYYAtALNTDE=
-X-Received: by 2002:a05:620a:230f:20b0:92b:6805:91b4 with SMTP id af79cd13be357-930b431ca0emr1359562585a.60.1784638140188;
-        Tue, 21 Jul 2026 05:49:00 -0700 (PDT)
-X-Received: by 2002:a05:620a:230f:20b0:92b:6805:91b4 with SMTP id af79cd13be357-930b431ca0emr1359556785a.60.1784638139417;
-        Tue, 21 Jul 2026 05:48:59 -0700 (PDT)
-Received: from [10.219.57.229] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-930b52fb150sm1113767785a.19.2026.07.21.05.48.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jul 2026 05:48:58 -0700 (PDT)
-Message-ID: <c7f5d4cf-07ee-4716-bb8d-83bcd0b2f8d0@oss.qualcomm.com>
-Date: Tue, 21 Jul 2026 18:18:46 +0530
+	s=arc-20240116; t=1784638239; c=relaxed/simple;
+	bh=BwwIV+5r/65HpKpyxSowPtoXfYNPnuISEkkQrDHI6NE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=dgVXSFJnXjg/xvZcY3URk7YZC4HvMCBZNTNr2IZXdjoPwuLcSBAbVY3V7rTOKkJ0fEWXHngRke+bAxCcKX63t2yZgo8WT304N8exUn+3asGuMTmumsXS7r+lnOL6FHmJ2XTr0q6f7FgYRmCmlUqjc+fUYaWWSYv6PmPMhMjzHJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 8A0AA2017D4;
+	Tue, 21 Jul 2026 14:50:33 +0200 (CEST)
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wm9vd-000ZdV-1Y;
+	Tue, 21 Jul 2026 14:50:33 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wm9vd-00000000Cjb-1cAJ;
+	Tue, 21 Jul 2026 14:50:33 +0200
+Message-ID: <08d7d89c6b373365555571d29a97b132aeb4fc0a.camel@pengutronix.de>
+Subject: Re: [PATCH v12 1/4] dt-bindings: pwm: dwc: Document optional resets
+ property
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: dongxuyang@eswincomputing.com, ukleinek@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, ben-linux@fluff.org, 
+	ben.dooks@codethink.co.uk, linux-pwm@vger.kernel.org,
+ devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ daniel.lezcano@kernel.org, tglx@kernel.org
+Cc: ningyu@eswincomputing.com, linmin@eswincomputing.com, 
+	xuxiang@eswincomputing.com, wangguosheng@eswincomputing.com, 
+	pinkesh.vaghela@einfochips.com, Conor Dooley <conor.dooley@microchip.com>
+Date: Tue, 21 Jul 2026 14:50:33 +0200
+In-Reply-To: <20260721120833.1192-1-dongxuyang@eswincomputing.com>
+References: <20260721120757.1134-1-dongxuyang@eswincomputing.com>
+	 <20260721120833.1192-1-dongxuyang@eswincomputing.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v23 08/13] mfd: core: Add firmware-node support to MFD
- cells
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        devicetree@vger.kernel.org,
-        Florian Fainelli
- <florian.fainelli@broadcom.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Andre Draszik <andre.draszik@linaro.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-        mfd@lists.linux.dev, Srinivas Kandagatla <srini@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Sebastian Reichel <sre@kernel.org>,
-        Mark Rutland <mark.rutland@arm.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Christian Loehle <christian.loehle@arm.com>,
-        Ulf Hansson <ulfh@kernel.org>, Lee Jones <lee@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
-        Andy Yan <andy.yan@rock-chips.com>,
-        Matthias Brugger
- <matthias.bgg@gmail.com>,
-        John Stultz <john.stultz@linaro.org>,
-        Moritz Fischer <moritz.fischer@ettus.com>,
-        Sudeep Holla <sudeep.holla@kernel.org>
-References: <20260714-arm-psci-system_reset2-vendor-reboots-v23-0-e7453c548c21@oss.qualcomm.com>
- <20260714-arm-psci-system_reset2-vendor-reboots-v23-8-e7453c548c21@oss.qualcomm.com>
- <CAMRc=McxoC6711rmXmPb9t21bBsTeBMJ3ieZ1XhyTqMLaMS-4Q@mail.gmail.com>
-Content-Language: en-US
-From: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-In-Reply-To: <CAMRc=McxoC6711rmXmPb9t21bBsTeBMJ3ieZ1XhyTqMLaMS-4Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDEzNSBTYWx0ZWRfX66V28wwp8Gfp
- xxiks0Xmrc1y7/cEZ2mQL6qHeacVuL7R5J5+xGUDjHIHMv6SjGQMgz/q1Y7JeyuNRCtG34ttpWl
- KQ0EQXZRtTpi3ZhANpI6HFUh68kp57KwMMhCnkeg5H3xL+po05uiR1z5XBCyEtkT9mXEDCgjhJO
- z2PyojlqaPJGalpgoEJHTHJBZ3eu7xt+g6D6Rf4E6dzvCNeGxMs6FyZeHcxLY3Ww8vxBTHMBooi
- R5T5e6r+vaYPYqTMb3ItKwWNMtffBymUJK0l5a+ooaKCpZlGz19FrxaU2bRdYWqzj7RfFb96zZF
- Rm7U0clhy9D4VFjAQwfZNYeNxOMk4sxW2xAj4iIv2Uk50NjYUJ6OJCRibhOxJm+T14PbzK0yENi
- bBacJ2jLAfqoMpe0Q8WF5ARqqhAez1UfOtgu5O7s3aXfot1XvZET3LqqLGWgcL35uilJOVgnU/C
- pNZdqbHZWhLUcZhYWmQ==
-X-Proofpoint-ORIG-GUID: iHdEWOlw5QssVec5vcHzM7BC7tWHaS3k
-X-Proofpoint-GUID: iHdEWOlw5QssVec5vcHzM7BC7tWHaS3k
-X-Authority-Analysis: v=2.4 cv=M5F97Sws c=1 sm=1 tr=0 ts=6a5f6abd cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=EQpnHehRo6XFvJL-JpUA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDEzNSBTYWx0ZWRfX+6Hr+Ur5JG2P
- 05e5IXWez8PJj7L7B6KopGSyfFakzwxh9QzJJgqcPMpQszHX3s8GIxH7F3GsiAwYoOdL4zM/u9P
- vc7lgXYVIXB+hckKs2Qf9yI5ZPXwwis=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-21_01,2026-07-20_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
- priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0 phishscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607210135
 
+On Di, 2026-07-21 at 20:08 +0800, dongxuyang@eswincomputing.com wrote:
+> From: Xuyang Dong <dongxuyang@eswincomputing.com>
+>=20
+> The DesignWare PWM IP has two active-low reset inputs: presetn resets
+> the register interface logic in the pclk (bus) domain, and
+> timer_N_resetn resets the counter/timer logic in the timer_N_clk
+> domain. The existing snps,dw-apb-timers-pwm2 binding does not
+> describe either of these lines.
+>=20
+> Add the resets property and describe the function of each reset to
+> support future use of resets.
+>=20
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Xuyang Dong <dongxuyang@eswincomputing.com>
+> ---
+>  .../devicetree/bindings/pwm/snps,dw-apb-timers-pwm2.yaml     | 5 +++++
+>  1 file changed, 5 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm=
+2.yaml b/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm2.yaml
+> index 7523a89a1773..213fdaef25d9 100644
+> --- a/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm2.yaml
+> +++ b/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm2.yaml
+> @@ -43,6 +43,11 @@ properties:
+>        - const: bus
+>        - const: timer
+> =20
+> +  resets:
+> +    items:
+> +      - description: Interface bus (presetn) reset
+> +      - description: PWM timer logic (timer_N_resetn) reset
+> +
 
+I suggest adding a reset-names property. Without that the descriptions
+are useless, as driver code will not be able to control the resets
+individually.
 
-On 21-07-2026 14:59, Bartosz Golaszewski wrote:
-> On Tue, 14 Jul 2026 19:16:36 +0200, Shivendra Pratap
-> <shivendra.pratap@oss.qualcomm.com> said:
->> MFD core has no way to register a child device using an explicit firmware
->> node. This prevents drivers from registering child nodes when those nodes
->> do not define a compatible string. One such example is the PSCI
->> "reboot-mode" node, which omits a compatible string as it describes
->> boot-states provided by the underlying firmware.
->>
->> Extend struct mfd_cell with a named firmware-node field to identify a
->> child node under the MFD parent. The node is added to the MFD child
->> device during registration when none is assigned by device tree, ACPI,
->> or software matching.
->>
->> Suggested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
->> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
->> ---
->>   drivers/mfd/mfd-core.c   | 142 ++++++++++++++++++++++++++++++++++++++++-------
->>   include/linux/mfd/core.h |  10 ++++
->>   2 files changed, 131 insertions(+), 21 deletions(-)
->>
->> diff --git a/drivers/mfd/mfd-core.c b/drivers/mfd/mfd-core.c
->> index 7aa32b90cf1e..ba9682ead2ca 100644
->> --- a/drivers/mfd/mfd-core.c
->> +++ b/drivers/mfd/mfd-core.c
->> @@ -10,6 +10,7 @@
->>   #include <linux/kernel.h>
->>   #include <linux/platform_device.h>
->>   #include <linux/acpi.h>
->> +#include <linux/fwnode.h>
->>   #include <linux/list.h>
->>   #include <linux/property.h>
->>   #include <linux/mfd/core.h>
->> @@ -22,6 +23,7 @@
->>   #include <linux/regulator/consumer.h>
->>
->>   static LIST_HEAD(mfd_of_node_list);
->> +static LIST_HEAD(mfd_named_fwnode_list);
->>   static DEFINE_MUTEX(mfd_of_node_mutex);
->>
->>   struct mfd_of_node_entry {
->> @@ -30,10 +32,91 @@ struct mfd_of_node_entry {
->>   	struct device_node *np;
->>   };
->>
->> +struct mfd_named_fwnode_entry {
->> +	struct list_head list;
->> +	struct device *dev;
->> +	struct fwnode_handle *fwnode;
->> +};
->> +
->>   static const struct device_type mfd_dev_type = {
->>   	.name	= "mfd_device",
->>   };
->>
->> +static int mfd_claim_named_fwnode(struct platform_device *pdev,
->> +				  struct fwnode_handle *fwnode)
->> +{
->> +	struct mfd_named_fwnode_entry *entry, *iter;
->> +
->> +	entry = kzalloc_obj(*entry, GFP_KERNEL);
->> +	if (!entry)
->> +		return -ENOMEM;
->> +
->> +	entry->dev = &pdev->dev;
->> +	entry->fwnode = fwnode_handle_get(fwnode);
->> +
->> +	scoped_guard(mutex, &mfd_of_node_mutex) {
->> +		list_for_each_entry(iter, &mfd_named_fwnode_list, list)
->> +			if (iter->fwnode == fwnode) {
->> +				fwnode_handle_put(entry->fwnode);
->> +				kfree(entry);
->> +				return -EAGAIN;
->> +			}
->> +
->> +		list_add_tail(&entry->list, &mfd_named_fwnode_list);
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +/*
->> + * Temporary MFD-local cleanup for named non-OF child fwnodes.
->> + * Remove/rework this when platform core starts owning and dropping
->> + * dev->fwnode references for these devices.
->> + */
->> +static void mfd_release_named_fwnode(struct platform_device *pdev)
->> +{
->> +	struct mfd_named_fwnode_entry *entry, *tmp;
->> +
->> +	scoped_guard(mutex, &mfd_of_node_mutex) {
->> +		list_for_each_entry_safe(entry, tmp, &mfd_named_fwnode_list, list)
->> +			if (entry->dev == &pdev->dev) {
->> +				if (dev_fwnode(&pdev->dev) == entry->fwnode)
->> +					device_set_node(&pdev->dev, NULL);
->> +				fwnode_handle_put(entry->fwnode);
->> +				list_del(&entry->list);
->> +				kfree(entry);
->> +			}
->> +	}
->> +}
->> +
->> +static int mfd_claim_of_node_to_dev(struct platform_device *pdev,
->> +				    struct device_node *np)
->> +{
->> +	struct mfd_of_node_entry *of_entry, *iter;
->> +
->> +	of_entry = kzalloc_obj(*of_entry, GFP_KERNEL);
->> +	if (!of_entry)
->> +		return -ENOMEM;
->> +
->> +	of_entry->dev = &pdev->dev;
->> +	of_entry->np = of_node_get(np);
->> +
->> +	/* Skip if OF node has previously been allocated to a device */
->> +	scoped_guard(mutex, &mfd_of_node_mutex) {
->> +		list_for_each_entry(iter, &mfd_of_node_list, list)
->> +			if (iter->np == np) {
->> +				of_node_put(of_entry->np);
->> +				kfree(of_entry);
->> +				return -EAGAIN;
->> +			}
->> +
->> +		list_add_tail(&of_entry->list, &mfd_of_node_list);
->> +	}
->> +
->> +	device_set_node(&pdev->dev, of_fwnode_handle(np));
->> +	return 0;
->> +}
->> +
->>   #if IS_ENABLED(CONFIG_ACPI)
->>   struct match_ids_walk_data {
->>   	struct acpi_device_id *ids;
->> @@ -111,19 +194,11 @@ static int mfd_match_of_node_to_dev(struct platform_device *pdev,
->>   				    struct device_node *np,
->>   				    const struct mfd_cell *cell)
->>   {
->> -	struct mfd_of_node_entry *of_entry;
->>   	u64 of_node_addr;
->>
->> -	/* Skip if OF node has previously been allocated to a device */
->> -	scoped_guard(mutex, &mfd_of_node_mutex) {
->> -		list_for_each_entry(of_entry, &mfd_of_node_list, list)
->> -			if (of_entry->np == np)
->> -				return -EAGAIN;
->> -	}
->> -
->>   	if (!cell->use_of_reg)
->>   		/* No of_reg defined - allocate first free compatible match */
->> -		goto allocate_of_node;
->> +		return mfd_claim_of_node_to_dev(pdev, np);
->>
->>   	/* We only care about each node's first defined address */
->>   	if (of_property_read_reg(np, 0, &of_node_addr, NULL))
->> @@ -134,18 +209,7 @@ static int mfd_match_of_node_to_dev(struct platform_device *pdev,
->>   		/* No match */
->>   		return -EAGAIN;
->>
->> -allocate_of_node:
->> -	of_entry = kzalloc(sizeof(*of_entry), GFP_KERNEL);
->> -	if (!of_entry)
->> -		return -ENOMEM;
->> -
->> -	of_entry->dev = &pdev->dev;
->> -	of_entry->np = of_node_get(np);
->> -	scoped_guard(mutex, &mfd_of_node_mutex)
->> -		list_add_tail(&of_entry->list, &mfd_of_node_list);
->> -
->> -	device_set_node(&pdev->dev, of_fwnode_handle(np));
->> -	return 0;
->> +	return mfd_claim_of_node_to_dev(pdev, np);
->>   }
->>
->>   static int mfd_add_device(struct device *parent, int id,
->> @@ -156,6 +220,7 @@ static int mfd_add_device(struct device *parent, int id,
->>   	struct resource *res;
->>   	struct platform_device *pdev;
->>   	struct mfd_of_node_entry *of_entry, *tmp;
->> +	struct fwnode_handle *fwnode;
->>   	bool disabled = false;
->>   	int ret = -ENOMEM;
->>   	int platform_id;
->> @@ -224,6 +289,37 @@ static int mfd_add_device(struct device *parent, int id,
->>
->>   	mfd_acpi_add_device(cell, pdev);
->>
->> +	/* named_fwnode is a fallback only when no OF/ACPI match and no swnode */
->> +	if (!pdev->dev.fwnode && !cell->swnode && cell->named_fwnode) {
-> 
-> Use dev_fwnode() instead of pdev->dev.fwnode.
-
-sure will update. thanks.
-
-> 
->> +		struct device_node *named_np;
->> +
->> +		fwnode = device_get_named_child_node(parent, cell->named_fwnode);
->> +		if (!fwnode) {
->> +			ret = -ENODEV;
->> +			goto fail_alias;
->> +		}
->> +
->> +		named_np = to_of_node(fwnode);
->> +		if (named_np) {
->> +			ret = mfd_claim_of_node_to_dev(pdev, named_np);
->> +			fwnode_handle_put(fwnode);
->> +			if (ret == -EAGAIN)
->> +				ret = -EBUSY;
->> +			if (ret)
->> +				goto fail_alias;
->> +		} else {
->> +			ret = mfd_claim_named_fwnode(pdev, fwnode);
->> +			if (ret) {
->> +				fwnode_handle_put(fwnode);
->> +				if (ret == -EAGAIN)
->> +					ret = -EBUSY;
->> +				goto fail_alias;
->> +			}
->> +			device_set_node(&pdev->dev, fwnode);
->> +			fwnode_handle_put(fwnode);
->> +		}
-> 
-> What is the reason to have this split into OF and fwnode functions? I don't
-> really see why you would need to do it twice, isn't fwnode sufficient for the
-> OF node case too?
-
-We do a duplicate check here before adding the named_fwnode and split it 
-for two reasons:
-1. of_node list pre-exists. We add a new list of fwnode. of_node based 
-duplicate check go wrong, if its checked with the fwnode list.
-2. of_node need to go to its respective list as fwnode list, release 
-path, is different for us.
-
-> 
->> +	}
->> +
->>   	if (cell->pdata_size) {
->>   		ret = platform_device_add_data(pdev,
->>   					cell->platform_data, cell->pdata_size);
->> @@ -295,6 +391,7 @@ static int mfd_add_device(struct device *parent, int id,
->>   	if (cell->swnode)
->>   		device_remove_software_node(&pdev->dev);
->>   fail_of_entry:
->> +	mfd_release_named_fwnode(pdev);
->>   	scoped_guard(mutex, &mfd_of_node_mutex) {
->>   		list_for_each_entry_safe(of_entry, tmp, &mfd_of_node_list, list)
->>   			if (of_entry->dev == &pdev->dev) {
->> @@ -382,7 +479,10 @@ static int mfd_remove_devices_fn(struct device *dev, void *data)
->>   	regulator_bulk_unregister_supply_alias(dev, cell->parent_supplies,
->>   					       cell->num_parent_supplies);
->>
->> +	get_device(&pdev->dev);
->>   	platform_device_unregister(pdev);
->> +	mfd_release_named_fwnode(pdev);
->> +	put_device(&pdev->dev);
->>   	return 0;
->>   }
->>
->> diff --git a/include/linux/mfd/core.h b/include/linux/mfd/core.h
->> index faeea7abd688..8daa83dd31ea 100644
->> --- a/include/linux/mfd/core.h
->> +++ b/include/linux/mfd/core.h
->> @@ -80,6 +80,16 @@ struct mfd_cell {
->>
->>   	/* Software node for the device. */
->>   	const struct software_node *swnode;
->> +	/*
->> +	 * Name of a child firmware node under the MFD parent device.
->> +	 *
->> +	 * Used only as a fallback when no firmware node is assigned to MFD
->> +	 * child and no software node is provided.
->> +	 *
->> +	 * For Device Tree parents, lookup is by base node name only
->> +	 * (the part before '@'). Unit-addresses are not matched.
->> +	 */
-> 
-> Side note: struct mfd_cell could really use a proper kernel doc but that's out
-> of scope of this series.
-> 
->> +	const char *named_fwnode;
->>
->>   	/*
->>   	 * Device Tree compatible string
->>
->> --
->> 2.34.1
->>
->>
-> 
-> Bartosz
-
-thanks,
-Shivendra
+regards
+Philipp
