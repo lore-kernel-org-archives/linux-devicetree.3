@@ -1,110 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CEF746A5FD
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:47:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C34946D55F
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:49:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784648866; cv=none; b=ANUk4g1m8iHV1rdDi0Ru0lXixP9pDt5DnEdlm3C0+/FJCLXYlpDU/JL+27YcGrO2bg3GsTgYQZmdoprEAmM7qWEoZKmQPXi9Qac+xWfhbs2znpa5GU1NbdieQYzgl1mS6kfkvLcnN0uyKFGJUv285HChoqypmaNcvvxl0IbgdNg=
+	t=1784648984; cv=none; b=mXfsd2br/bigYyntSW5PaE6skZgJcxXRsYiNtFRmPxvlIZMsw0hGS/q+mCMKWuNTSwg8nu+4QGzJATsnwLd6EVRNGFsClaF0+H6te7GoZ/wbuzwlcw5P4qQOk68/8tnfWHosMftScztB57f4ANsO0F6t6S1OrRhjnj7WxvmysDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784648866; c=relaxed/simple;
-	bh=PPLeAVq2xPUeKRYUAATDABjGZe6Hlwz5c4cw9H4zd3Y=;
+	s=arc-20240116; t=1784648984; c=relaxed/simple;
+	bh=V6HnFvhryftn/FLKlNyf++VUH4fBiHPjr2xajt32Dys=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ikumjiwd/UsdIdfKD3G2V0dycr/A1JNdikgSVH2VhD+KV0ZMLPKlZ1lXC4OC3orrdddW4i7JVLlRKPWx7+55Z331s7m5IiMEIytr45BLGoiM1MRkFV267se2UTpHCRwQEJO6U6Bgq+unDP4Gl8LPOOyTkCJz25TZxQoZbbRGaEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gX5Way/g; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=gDIy/jbu9TrmlFYsUl6w34UBUBKvyk0WIlHzfvAcDUT/fIrpecu021CcWbtdGGmRSFzQaYfl2V8NbXmlA1BQoR5DeKR+DXQ3oTLv9WHCdEcMk9qm70TVAfC8631YEN7pvXg0Jsr7+L2Ur9zw6t+pFGFVEV5ZDju1nHbDdBo/b44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z3PKf5S8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gX5Way/g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 057F01F000E9;
-	Tue, 21 Jul 2026 15:47:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z3PKf5S8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD441F000E9;
+	Tue, 21 Jul 2026 15:49:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784648865;
-	bh=pOPlFtp3nnDgQyJKKLlNzsuYFmCYtXpNFkz7b0ipxBQ=;
+	s=k20260515; t=1784648983;
+	bh=xH80VBxXN+35CSeL87lgIz5/nnxbdZK5I+K3FUKz6JU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gX5Way/gvRWHqLsqUR4qGqS2dKr2bzL3s97grG8NlhtgK12XUPa2IejX/DDv3EeMs
-	 89nHm6gQ8I3OjGpXwDSRohpgQXWySLjbeaeV0W1gSVP2dZr5B7Bw1W11hn4zh6Liap
-	 OgGhkmvlE+PUF5XlImUXBpUCjayjXC4t4zAqJht/UffJVVMBtUIB3DVHhimHphM3xQ
-	 DY9TlRQhlsGcw0fg9xDcwjO01t4sqgoyGf/Oy1dtuJY0ymLppmUZSXYp8ZFvytCMai
-	 Clm2cAFhhOMSuk9gEDlKhl3AXA4OjNyOql6Dpimri6nBonJ30qkTP5cyhUF6u6ZguJ
-	 m3omCbBJgfiNQ==
+	b=Z3PKf5S8W9izoT9yrlloplOEKTlYqmXqfRfKxsdws1efudJ8/jWr06T0wLim4Acf8
+	 rart1UUkgWuQR/vvUBaKHG3KS2J2S1oFOutp/UYG3bzQ2Rn3Fujqx6dUq7QVrcSuSm
+	 krz+Z9MYH5NJyKRG4A9aksBJ9NRT+kbMz08sG/MDCdF5wvRF8Guj/m2O4tN0KOiW4o
+	 oicqC2kXW2MzV8aCfvqgLEBJ2gOKxTi8o+VF+WycfwCNYk9eL962M5S2G+KzDNfUx3
+	 xXciVfaeoCic4PT119eZz5pJQR+95QQRm+yDVfNSX5TZSmCKtRvbE9MLHKDPa8qBfX
+	 t+e3q+vTuXLlg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 5/5] arm64: dts: qcom: sm8650-hdk: add SPMI ADC
+Subject: Re: [PATCH v6 2/5] arm64: dts: qcom: sm8550-qrd: add SPMI ADC
  channels and thermal nodes
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Neil Armstrong" <neil.armstrong@linaro.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260721-topic-sm8x50-adc5-gen3-v6-5-a507f4a1e537@linaro.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260721-topic-sm8x50-adc5-gen3-v6-2-a507f4a1e537@linaro.org>
 References: <20260721-topic-sm8x50-adc5-gen3-v6-0-a507f4a1e537@linaro.org>
- <20260721-topic-sm8x50-adc5-gen3-v6-5-a507f4a1e537@linaro.org>
+ <20260721-topic-sm8x50-adc5-gen3-v6-2-a507f4a1e537@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 15:47:44 +0000
-Message-Id: <20260721154745.057F01F000E9@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 15:49:42 +0000
+Message-Id: <20260721154942.DCD441F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The Device Tree unit-address for the PM8550VE ADC channel node does=
- not match its evaluated 'reg' property value, triggering a dtc warning.
-- [Low] The patch series relies on an uncommitted header file ('qcom-adc5-g=
-en3.h'), resulting in a build failure.
+- [Low] Missing device tree header `qcom-adc5-gen3.h` and undefined paramet=
+erized macros cause DT build failures.
 --
 
---- Patch [5]: [PATCH v6 5/5] arm64: dts: qcom: sm8650-hdk: add SPMI ADC ch=
+--- Patch [2]: [PATCH v6 2/5] arm64: dts: qcom: sm8550-qrd: add SPMI ADC ch=
 annels and thermal nodes ---
-commit 0f6771497277cdb9e2028ce4ba0b81d340cf6283
+commit 10ac856253ee6a9bfd1b29cd5e0fd011493eaf4e
 Author: Neil Armstrong <neil.armstrong@linaro.org>
 
-arm64: dts: qcom: sm8650-hdk: add SPMI ADC channels and thermal nodes
+arm64: dts: qcom: sm8550-qrd: add SPMI ADC channels and thermal nodes
 
-Add the SPMI ADC channels on the PMK8550 SPMI5 ADC3 for the
-other PMICS on the system.
+Add the SPMI ADC channels on the PMK8550 SPMI5 ADC3 for the other PMICS on
+the system. The thermal nodes are sorted by the sensor channel to be cohere=
+nt
+with the system thermal nodes ordering.
 
-The thermal nodes are sorted by the sensor channel to be
-coherent with the system thermal nodes ordering.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts b/arch/arm64/boot/dt=
-s/qcom/sm8650-hdk.dts
-> index eabc828c05b4c..2d6be57a2a80a 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
-
+> diff --git a/arch/arm64/boot/dts/qcom/sm8550-qrd.dts b/arch/arm64/boot/dt=
+s/qcom/sm8550-qrd.dts
+> index 2fb2e0be5e4c6..f0cee98df35de 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
 [ ... ]
-
-> +&pm8550_temp_alarm {
-> +	io-channels =3D <&pmk8550_vadc ADC5_GEN3_DIE_TEMP(1)>;
+> @@ -205,6 +205,92 @@ platform {
+>  		};
+>  	};
+> =20
+> +	thermal-zones {
+> +		skin-thermal {
+> +			thermal-sensors =3D <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
 
 [Severity: Low]
-Is there a missing header dependency for this patch series?
+Does this device tree compile cleanly? It looks like the macro=20
+ADC5_GEN3_AMUX1_THM_100K_PU(1) is parameterized, but the necessary header
+(qcom-adc5-gen3.h) doesn't appear to be included or added in this series.
 
-It looks like ADC5_GEN3_DIE_TEMP() is being used as a function-like macro
-here, which appears to rely on a qcom-adc5-gen3.h header that might not be
-included in this series. Does this cause a build failure during dtbs
-compilation?
-
-> +	io-channel-names =3D "thermal";
-> +};
+Without the proper header definition, existing parameterless macros might
+cause this to expand into invalid syntax like 0x44(1) during the device
+tree compilation phase.
 
 [ ... ]
-
-> +	/* PM8550VE Channel nodes */
-> +	channel@503 {
-> +		reg =3D <ADC5_GEN3_DIE_TEMP(PMK8550VE_SID)>;
+> +	channel@144 {
+> +		reg =3D <ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
 
 [Severity: Low]
-Does this unit-address match the evaluated register address?
+Another instance of the parameterized macro usage here. Is there a missing
+patch in this series that adds the qcom-adc5-gen3.h header and macro
+definitions?
 
-Assuming PMK8550VE_SID is 8, ADC5_GEN3_DIE_TEMP(PMK8550VE_SID) would likely
-evaluate to 0x803. If so, should the node name be updated to channel@803 to
-match the reg property and avoid a Device Tree compiler warning?
-
-> +		label =3D "pm8550ve_die_temp";
-> +		qcom,pre-scaling =3D <1 1>;
-> +	};
+> +		label =3D "pm8550_msm_therm";
+> +		qcom,ratiometric;
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-topic-sm8x=
-50-adc5-gen3-v6-0-a507f4a1e537@linaro.org?part=3D5
+50-adc5-gen3-v6-0-a507f4a1e537@linaro.org?part=3D2
