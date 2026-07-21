@@ -1,156 +1,171 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D9894D98FC;
-	Tue, 21 Jul 2026 15:15:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784646927; cv=pass; b=R3q6E0WRA8Pt05in8yWi6odEujfh5f0ZixEgxd9ZataH3n1f5s/keHI+riclvJXiMWzFMMueOw4oqOl895GmatFx0AyU62AX0tJj6xMLLqAfsvRErElr26pLoCEKykz9a1t4sRWEf4AUtMDsFH6Ygo10z1Itm+RuKVb67c6Bv3w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784646927; c=relaxed/simple;
-	bh=ETzqqR3X/WZ5qERWLgLEx7zSVM0/qbeiDGTqT07iscM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mxzpyI99p9GuglKbRKBYR17CZ+O+apnlD7f/qzoBcg7iPDjJSg8dXp3N7PAAuuzim0zcP7DhLmhv3q8DLb/wxwMHeL+1/LA7edJfJb5FlKp4kv5asv/CvmdxU+r/AfJn6Tqf/2uBLMJID8Ho123VHCNxeHYqRx2DhM1nbO//Q44=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=XgYrilH0; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 227694D9917
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:17:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784647058; cv=none; b=mNCqgwVKbQ8p9wv0UmYMVyqAZ3GFuKZVV0EJgDrav3yYS5oGZlD6u5fZP3kzIIMpUWZ/0CUIDXcbDuOVnK/JcoQ8jT39+0CDh1NgSG4nJWg3kucsLPNu9VXdzk72TfV/CwQJXXsOjG8x/cUktYqyOUSb05hKNyatmXNo3vrUT6U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784647058; c=relaxed/simple;
+	bh=ksWxH9dUqIa6ktvuJDFiOH4WRFGsOUuRVYTVhbOHxOc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ObSNnKl/DW1tcljRDGC9XOJw2Pw/pzKy+8QhKSFFVTOxv87TVvhAf9jLTqNr9A8ZAbUVNo18mMJqU0yDQxPiG6g5BjQHbQXUS3/u5JTE8DLvB51INaI5N/NC6Isd0NcXfl8sXl9o3XXVWHke33D4axNGXB5AZJgO0WCmWFgW2To=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OctVMXLX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=L3mnwK2z; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="XgYrilH0"
-ARC-Seal: i=1; a=rsa-sha256; t=1784646910; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=DVQQFaeaXJsErpXSmalKDRjp1wKLGpoTBMShl9q+/nye75MohNH2vJacaVILCqfr1zGO+0MfGqIXw3HyFytabBbyIBIfEvhPtXB8BhNR0R0WrrrrGOzIDpzKU5Rg5k0kQl0dolSQGGPBimFH35/1rw8MYMWSkDPApOGl8TLQ7f0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1784646910; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Am4FBLquimoXLofVW39R5TXiLDXR3ax8a+vHWlboXD8=; 
-	b=GVdE9TgLfuxGwU5xYXs662IyQhf7y0C0Ae7WeaIAjeBq6SXSjxPlOsA8smbmhsQyE0lMK0S7xq1XetyGwwIV+EBWKpt0yEg0HRBtw+Y7TCKAcepXEb3WYiCMLxfTp77OFUDXAReixhD5o4KM05H95U+FTch55sOUeTCexXn+obo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784646910;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=Am4FBLquimoXLofVW39R5TXiLDXR3ax8a+vHWlboXD8=;
-	b=XgYrilH0DhdO3/Apsdp2g/O94Wepv5AWFeY2GH3ivNF+yasnIYsV//q+IhhMT5bx
-	/VuyhjGZlNp5DxV6ZYRpypl4J4TMBoW80UMpoKqPhX1ABTrnP+fba/GkG4uoDMCOOwH
-	j5W1bQ4IdMOz3i2CfGUc3RL5OwfJTkzKWm0hLVhQ=
-Received: by mx.zohomail.com with SMTPS id 178464690796118.531816677270967;
-	Tue, 21 Jul 2026 08:15:07 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 04A7C180765; Tue, 21 Jul 2026 17:15:04 +0200 (CEST)
-Date: Tue, 21 Jul 2026 17:15:03 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Igor Paunovic <royalnet026@gmail.com>
-Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, kernel@collabora.com, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 4/4] arm64: dts: rockchip: enable HDMI RX audio
- capture on Orange Pi 5 Plus
-Message-ID: <al-M4gZ4cZwpEF_H@venus>
-References: <20260721064115.64809-1-royalnet026@gmail.com>
- <20260721064115.64809-5-royalnet026@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OctVMXLX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L3mnwK2z"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66LDg6Hv2962868
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:17:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	7woIbGwwNWVT9Bze5l43N6LKy7ienkQG9HWQJ/0XQwY=; b=OctVMXLXfyGj4XbF
+	zgdbuyGx3v5fwEoaeFMMZnkI5ggcponb1oOZ2Zk51h8xyJkKvgKpKFSB72GSDeyU
+	vSnMU4xQ7ZulRRiFSNm3IkJYBPQjpcNCtpi8aqiGeC9s7t7XyamUXlo8Y5IO75X+
+	s3YmZQPC8M7uOs7Q9nSH5nXV6IkmQB1QA/ClYmqXFQb3avVrXD4BQZIYFClRRsVl
+	w/Ptj9FeG9SnsEKdwo7rIMaQRDKXiaAl+Yk3UTVhLlJY/F/WPzMXsiafytZPNZHT
+	xiZ9r7fEU4bF4zWSGWQb1DQuvvqLFouRdoFPqonqo9NQ46+nSj/jYyBAqtpBHyKK
+	TMynmg==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj6nssge2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:17:36 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5bfc08e95ebso551364e0c.1
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 08:17:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784647055; x=1785251855; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7woIbGwwNWVT9Bze5l43N6LKy7ienkQG9HWQJ/0XQwY=;
+        b=L3mnwK2zJiNXbG+0Hc4Rij1uLqispRruX/giOGX6qO1XDE82xAawmYpD7d9jYOEbZb
+         jyIyodGP07S48OvHOCj8i/Cpd4j72fZtcFAqJnORoe/KHMw+818ySIGvuDvRPssrz8BR
+         zqacyoNeyklx/n/vJN6BVp9Jiy+ZLW7pBdu18NfldmMakWZFPLFN84WNw+mo36GZomC3
+         /qj+Q7ba2ZogCMKz5gpGbyM0/c7cxPHZlETV92LxAdZmsivNOVjFJknJRC4cqH1D6G2Y
+         Wfh93ht7U3osX5jI3KN0rU4ENzuKmJGFu0ccA4UhaOyjOvj5j9S4DF3dj1O6oeenbdBe
+         yT2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784647055; x=1785251855;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7woIbGwwNWVT9Bze5l43N6LKy7ienkQG9HWQJ/0XQwY=;
+        b=kfima+40t9n7brvMD6k33vxSqOsEHm18s3JALCUSR317Gp8/7tQv1HOxXLM0fcbdLb
+         LEO74SPvbv0jtw4V2kiU0PkBbtyH8YNT15+ogLerFM8QH6DBkpwqbQ/hy9MhYl1zt2q/
+         mPbgslYMeFJtFlAwnbLu3EBzDlD11aMqn0PlOFSofHKzfqHmQ8b3UTfI9SI6qZBFRJGu
+         jmVzdonvJljM6Or1WnfA95g1Jlx2mcMqlN76CcHd38RWf7OJp/kpTYJHh/Wwa9vuCb0z
+         dhdBdegDJBkqoTUKsK+UJiPOvizJTLn+nhf4wXq61KQ96iy9i/QTCyvhbG8wNIdY7EIi
+         ec1A==
+X-Forwarded-Encrypted: i=1; AHgh+Rrk67r+B0njRZhCKOeTqscHf4ndFoewl+nSEdm6GapUsRtb8yzXBYESOzkzUQ4XlspqdF1XEq+psYMa@vger.kernel.org
+X-Gm-Message-State: AOJu0YySsXJ1ZjOUb3LfVU+ejuONPUUF3BMvGKhD0KgVIIhtzuCU34Cm
+	2rKDA0Z7FXvCrAtNg45Z8hBoDtxGjgd0w9zlDKKohR5W6VF2uO1VZISymtVqbGN1UpEIe84ALfN
+	nSJSNbEAHiIZc9F3gUw45arJl9D32Wz/scNgRxntJfNzDXXu5VtKEWlAGyFD/OFkG
+X-Gm-Gg: AR+sD12GNRyvPx/m7u99YGLU3VOWsYqojLQmBJRZJqfsmXPOBHeN+PanDBuv4JIxfPV
+	IefoCMXbfXcbOW6a3Cj3q9tEyJ3//tIXvOPAUX73c5fkZaB+3yi8L6L/iKzKVPdTiFmf9rsZgmZ
+	80QMkbLZBrAj+42PPgh1P/qCeP2uzYHeMqq1FGJu5uv/zTArFFeEycbTi3r0cdhqkfuiY/5/EnS
+	2AxsMBQugFAr3wt6dCQl5qKfJPZNDIm/NXgbMkPk47I+wuzWdiWZrRbx01j/9+9dDk9ETzPug7z
+	RW9M+oHnXcTeY2AzjHqx6FuvaeyMHV2Qd1K9qJ0r8+4UWeOttDylrwbOnogqo+47Z0rJv7edEnV
+	gj44PQmmtKsNrS541vreVCKUf
+X-Received: by 2002:a05:6102:5a90:b0:739:64ad:bf4e with SMTP id ada2fe7eead31-74abc8ce888mr601174137.7.1784647055381;
+        Tue, 21 Jul 2026 08:17:35 -0700 (PDT)
+X-Received: by 2002:a05:6102:5a90:b0:739:64ad:bf4e with SMTP id ada2fe7eead31-74abc8ce888mr601148137.7.1784647054939;
+        Tue, 21 Jul 2026 08:17:34 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69f345b1b18sm8455a12.2.2026.07.21.08.17.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 21 Jul 2026 08:17:32 -0700 (PDT)
+Message-ID: <c293d9c7-bdb7-4303-80c8-404228c434d7@oss.qualcomm.com>
+Date: Tue, 21 Jul 2026 17:17:28 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="iv6yyu46n7brq5vz"
-Content-Disposition: inline
-In-Reply-To: <20260721064115.64809-5-royalnet026@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/284.638.57
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/6] arm64: dts: qcom: qcs6490-rubikpi3: Add audio
+ support
+To: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+Cc: andersson@kernel.org, broonie@kernel.org, conor+dt@kernel.org,
+        devicetree@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com,
+        drake@endlessm.com, katsuhiro@katsuster.net, konradybcio@kernel.org,
+        krzk+dt@kernel.org, lgirdwood@gmail.com, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
+        matteomartelli3@gmail.com, mohammad.rafi.shaik@oss.qualcomm.com,
+        neil.armstrong@linaro.org, perex@perex.cz, robh@kernel.org,
+        rosh@debian.org, srini@kernel.org, tiwai@suse.com,
+        zhoubinbin@loongson.cn
+References: <43944722-3eeb-4e02-b3a6-6251d5fc78af@oss.qualcomm.com>
+ <20260718094147.413795-1-hongyang.zhao@thundersoft.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260718094147.413795-1-hongyang.zhao@thundersoft.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: rBQxVL3xD_1JMUQT4s9t_sghCljUpqDf
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDE2MiBTYWx0ZWRfX0FfND4E/ciMf
+ vsAujziR5/NCgquPd+ECSgeAHS6IeSfRxcbhJAIud17nYDYvIUg4mu4UcXPbE1cvx6FSGqwwP+S
+ cQhWNMNvMaGvfE1xHx2/lBoMFkeI2xs=
+X-Authority-Analysis: v=2.4 cv=ZJjnX37b c=1 sm=1 tr=0 ts=6a5f8d90 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=1V3AF8-yWdl-s1szD1IA:9 a=QEXdDO2ut3YA:10 a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-ORIG-GUID: rBQxVL3xD_1JMUQT4s9t_sghCljUpqDf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDE2MiBTYWx0ZWRfX/8b65/wQxv84
+ DIqZ3/+U5MbVbayLSNzD84XF3KWPYmxPc+v4KuZgnJoePMpzbb5liC+fvqiqMYzDXvDj1k9sbtr
+ M/8DqfQl7VPTT7AjOKP/M1KZl/arDu3j+G37u5rruB2Muu6LhtOKyxK0QncSCLTm1t7shR9LZ0t
+ fxnz5aOoXkv/geUXfHiCPdXPQUBofVWBbvCD2jLsJrcXP4Vv8wArFRdBrrBXtycNEb23X0y6MlB
+ 2n+1JwOlxSLlBiduNRqyxKPmqnykSM7IS0ewrnUMSxcl23LrWracqroO6nTA9FFs/YRp979bCES
+ 5mOYqVYzD8sLJ44MdMVkHUIEupe6HCE6Xle+hG44WvlzCFsEZbzAhScEXSTVtBXD/+y/EE1j3wQ
+ Qpd4Qj+0Ws8uhhDoXqviUAIBavbk+U8bCnPtzlAYgMBj7JV4YIpkRpzG/7KpvGaKYXvcllZ2TF+
+ 9d3KvgsjeUssptV7R0Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-21_03,2026-07-20_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 priorityscore=1501 suspectscore=0 impostorscore=0
+ malwarescore=0 spamscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210162
 
+On 7/18/26 11:41 AM, Hongyang Zhao wrote:
+> On 7/15/26 4:02 PM, Hongyang Zhao wrote:
+>>> RubikPi 3 uses the AudioReach firmware path for its external audio
+>>> interfaces. The primary MI2S interface connects to an ES8316 codec for
+>>> headset playback and capture, while the quaternary MI2S interface feeds
+>>> the LT9611 HDMI bridge.
+>>
+>> [...]
+>>
+>>> +	vreg_es8316_3v3: regulator-es8316-3v3 {
+>>> +		compatible = "regulator-fixed";
+>>> +
+>>> +		regulator-name = "vreg_es8316_3v3";
+>>> +		regulator-min-microvolt = <3300000>;
+>>> +		regulator-max-microvolt = <3300000>;
+>>> +
+>>> +		gpio = <&tlmm 117 GPIO_ACTIVE_HIGH>;
+>>> +		enable-active-high;
+>>> +
+>>> +		pinctrl-0 = <&es8316_power_on>;
+>>> +		pinctrl-names = "default";
+>>> +
+>>> +		regulator-always-on;
+>>> +		regulator-boot-on;
+>>
+>> Does it need to be always-on? Is it really on at boot time?
+> 
+> I think the regulator-always-on constraint is currently required.
+> GPIO117 controls the power switch for the ES8316, but the existing
+> ES8316 binding and driver do not model regulator supplies.
 
---iv6yyu46n7brq5vz
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 4/4] arm64: dts: rockchip: enable HDMI RX audio
- capture on Orange Pi 5 Plus
-MIME-Version: 1.0
+Please fix that first.
 
-Hi,
-
-On Tue, Jul 21, 2026 at 08:41:15AM +0200, Igor Paunovic wrote:
-> Enable the shared HDMI RX sound card and the i2s7_8ch interface it
-> uses. Together with the audio capture support in the snps_hdmirx
-> driver this exposes a capture-only ALSA card fed by the HDMI input.
->=20
-> Tested on the Orange Pi 5 Plus with multiple HDMI sources: capture
-> follows the source sample rate and stays in sync via the FIFO-level
-> clock tracking in the driver.
->=20
-> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-> ---
-
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
--- Sebastian
-
-> Changes in v4:
-> - only enable the shared hdmi_receiver_sound card and i2s7_8ch, now
->   that the card definition lives in rk3588-extra.dtsi (Sebastian
->   Reichel)
->=20
-> New in v3.
->  arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts | 8 ++++++++
->  1 file changed, 8 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/ar=
-ch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-> index 9950d11..9f9a303 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-> @@ -171,6 +171,10 @@
->  	status =3D "okay";
->  };
-> =20
-> +&hdmi_receiver_sound {
-> +	status =3D "okay";
-> +};
-> +
->  &hdptxphy0 {
->  	status =3D "okay";
->  };
-> @@ -247,6 +251,10 @@
->  	status =3D "okay";
->  };
-> =20
-> +&i2s7_8ch {
-> +	status =3D "okay";
-> +};
-> +
->  &led_blue_gpio {
->  	gpios =3D <&gpio3 RK_PA6 GPIO_ACTIVE_HIGH>;
->  	status =3D "okay";
-> --=20
-> 2.53.0
->=20
-
---iv6yyu46n7brq5vz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpfjPcACgkQ2O7X88g7
-+pqFLRAAkmIPl5/P8Z94H28WY+soiwfSEDNsLAiSGJlJVS8FgREkVhPImsKSVjR3
-4o3c4JrrBdq9xWtsdrGrMq3CpCGJ1DJo9OtHO0XMVMWs9d9ubkjM0ob/usXXhjxU
-OAzf5GLrUiNsMj8w149tKjXpYF1whrUVPN6ZXmhRpcKkzlsGPhFiD766yx//N0ty
-yeh8uFvXqYA5IrRy0G3ZOnUl9bxnqJ/DumiW414ps5KGfdkx51psOGE7y5L//MhS
-MhDrmU1MzPRNzo+GUaVahydIG8WA5LHI52fTRSeausAuuuzrgKlIyQWCnjAPxA5X
-9MiD4rdNpUZRjPiddyT1AiezcSqHtL4e6KcRhnRjuMDne/32jNsBZnCfSeCdpk3A
-5dWp60RnpVzYYGp93F7BRe25Urj3ik5HVmGVMUkSJ4bwSVP2RWSX+GiPTjlAe2IK
-x63SwNOF++ZZSXd0VX2tP2mm1Ih2LvD5NI0R2Az8pzfmpwPST2UfgSvVfOfp7mMI
-HSUOh6hFH8XlAg2rz8Ny4u25SzmyCa6wQbf6t9n1Fzoeam47sfuEcH9BaexoX/B4
-RcU4y9M5N3ZmsQf0z2rhP6fkyFv/ifDrl7wMrCnScB0wtKoBluIt3wzJ+zKFn3z4
-8pudmmYwXa7d6tb+SfCxNtEh7SbqGZWhHZmJtYy6V9uJdbBQk7w=
-=d36M
------END PGP SIGNATURE-----
-
---iv6yyu46n7brq5vz--
+Konrad
