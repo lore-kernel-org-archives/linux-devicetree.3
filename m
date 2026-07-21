@@ -1,171 +1,227 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 227694D9917
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:17:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E600E4E379C
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:21:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784647058; cv=none; b=mNCqgwVKbQ8p9wv0UmYMVyqAZ3GFuKZVV0EJgDrav3yYS5oGZlD6u5fZP3kzIIMpUWZ/0CUIDXcbDuOVnK/JcoQ8jT39+0CDh1NgSG4nJWg3kucsLPNu9VXdzk72TfV/CwQJXXsOjG8x/cUktYqyOUSb05hKNyatmXNo3vrUT6U=
+	t=1784647282; cv=none; b=ITE80gxY6xnKcg6XiR0Rfz5ox+hGwvGl4DJ9tlhYezsWP07e+nG0LetZaIrTr/3S6ie8fGP8brOOOUVgqvq7F7rQEB1hSvzV13rPNVdfXcwxqj3oi4MDdX/D4NB+Wmcha9UHZjnvL25zU+egjgmcRzslQbIe5EDJAeTiMjq+IwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784647058; c=relaxed/simple;
-	bh=ksWxH9dUqIa6ktvuJDFiOH4WRFGsOUuRVYTVhbOHxOc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ObSNnKl/DW1tcljRDGC9XOJw2Pw/pzKy+8QhKSFFVTOxv87TVvhAf9jLTqNr9A8ZAbUVNo18mMJqU0yDQxPiG6g5BjQHbQXUS3/u5JTE8DLvB51INaI5N/NC6Isd0NcXfl8sXl9o3XXVWHke33D4axNGXB5AZJgO0WCmWFgW2To=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OctVMXLX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=L3mnwK2z; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784647282; c=relaxed/simple;
+	bh=bzktRmn0nU4asdpfpvG3bhybYFgulxg7coHQIjXcIs4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LFaI5EwfpZX2SG6zyMJP0yV7YVg3wj1iWXbbeDXuTcBHSL3joWdRZJpvu+1kAiEleP+S3baW+z0XfWC8Y5LiXTrcGGx+Lj8wHGVVinhIWg+NYhVZYjuQutDPCxbpO7LqyARKpAx6PeBxXJYP8neHMkby9j0mWjIBh0R94IgAGHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CXjdMcTt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OctVMXLX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L3mnwK2z"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66LDg6Hv2962868
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:17:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7woIbGwwNWVT9Bze5l43N6LKy7ienkQG9HWQJ/0XQwY=; b=OctVMXLXfyGj4XbF
-	zgdbuyGx3v5fwEoaeFMMZnkI5ggcponb1oOZ2Zk51h8xyJkKvgKpKFSB72GSDeyU
-	vSnMU4xQ7ZulRRiFSNm3IkJYBPQjpcNCtpi8aqiGeC9s7t7XyamUXlo8Y5IO75X+
-	s3YmZQPC8M7uOs7Q9nSH5nXV6IkmQB1QA/ClYmqXFQb3avVrXD4BQZIYFClRRsVl
-	w/Ptj9FeG9SnsEKdwo7rIMaQRDKXiaAl+Yk3UTVhLlJY/F/WPzMXsiafytZPNZHT
-	xiZ9r7fEU4bF4zWSGWQb1DQuvvqLFouRdoFPqonqo9NQ46+nSj/jYyBAqtpBHyKK
-	TMynmg==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj6nssge2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:17:36 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5bfc08e95ebso551364e0c.1
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 08:17:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784647055; x=1785251855; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7woIbGwwNWVT9Bze5l43N6LKy7ienkQG9HWQJ/0XQwY=;
-        b=L3mnwK2zJiNXbG+0Hc4Rij1uLqispRruX/giOGX6qO1XDE82xAawmYpD7d9jYOEbZb
-         jyIyodGP07S48OvHOCj8i/Cpd4j72fZtcFAqJnORoe/KHMw+818ySIGvuDvRPssrz8BR
-         zqacyoNeyklx/n/vJN6BVp9Jiy+ZLW7pBdu18NfldmMakWZFPLFN84WNw+mo36GZomC3
-         /qj+Q7ba2ZogCMKz5gpGbyM0/c7cxPHZlETV92LxAdZmsivNOVjFJknJRC4cqH1D6G2Y
-         Wfh93ht7U3osX5jI3KN0rU4ENzuKmJGFu0ccA4UhaOyjOvj5j9S4DF3dj1O6oeenbdBe
-         yT2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784647055; x=1785251855;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7woIbGwwNWVT9Bze5l43N6LKy7ienkQG9HWQJ/0XQwY=;
-        b=kfima+40t9n7brvMD6k33vxSqOsEHm18s3JALCUSR317Gp8/7tQv1HOxXLM0fcbdLb
-         LEO74SPvbv0jtw4V2kiU0PkBbtyH8YNT15+ogLerFM8QH6DBkpwqbQ/hy9MhYl1zt2q/
-         mPbgslYMeFJtFlAwnbLu3EBzDlD11aMqn0PlOFSofHKzfqHmQ8b3UTfI9SI6qZBFRJGu
-         jmVzdonvJljM6Or1WnfA95g1Jlx2mcMqlN76CcHd38RWf7OJp/kpTYJHh/Wwa9vuCb0z
-         dhdBdegDJBkqoTUKsK+UJiPOvizJTLn+nhf4wXq61KQ96iy9i/QTCyvhbG8wNIdY7EIi
-         ec1A==
-X-Forwarded-Encrypted: i=1; AHgh+Rrk67r+B0njRZhCKOeTqscHf4ndFoewl+nSEdm6GapUsRtb8yzXBYESOzkzUQ4XlspqdF1XEq+psYMa@vger.kernel.org
-X-Gm-Message-State: AOJu0YySsXJ1ZjOUb3LfVU+ejuONPUUF3BMvGKhD0KgVIIhtzuCU34Cm
-	2rKDA0Z7FXvCrAtNg45Z8hBoDtxGjgd0w9zlDKKohR5W6VF2uO1VZISymtVqbGN1UpEIe84ALfN
-	nSJSNbEAHiIZc9F3gUw45arJl9D32Wz/scNgRxntJfNzDXXu5VtKEWlAGyFD/OFkG
-X-Gm-Gg: AR+sD12GNRyvPx/m7u99YGLU3VOWsYqojLQmBJRZJqfsmXPOBHeN+PanDBuv4JIxfPV
-	IefoCMXbfXcbOW6a3Cj3q9tEyJ3//tIXvOPAUX73c5fkZaB+3yi8L6L/iKzKVPdTiFmf9rsZgmZ
-	80QMkbLZBrAj+42PPgh1P/qCeP2uzYHeMqq1FGJu5uv/zTArFFeEycbTi3r0cdhqkfuiY/5/EnS
-	2AxsMBQugFAr3wt6dCQl5qKfJPZNDIm/NXgbMkPk47I+wuzWdiWZrRbx01j/9+9dDk9ETzPug7z
-	RW9M+oHnXcTeY2AzjHqx6FuvaeyMHV2Qd1K9qJ0r8+4UWeOttDylrwbOnogqo+47Z0rJv7edEnV
-	gj44PQmmtKsNrS541vreVCKUf
-X-Received: by 2002:a05:6102:5a90:b0:739:64ad:bf4e with SMTP id ada2fe7eead31-74abc8ce888mr601174137.7.1784647055381;
-        Tue, 21 Jul 2026 08:17:35 -0700 (PDT)
-X-Received: by 2002:a05:6102:5a90:b0:739:64ad:bf4e with SMTP id ada2fe7eead31-74abc8ce888mr601148137.7.1784647054939;
-        Tue, 21 Jul 2026 08:17:34 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69f345b1b18sm8455a12.2.2026.07.21.08.17.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jul 2026 08:17:32 -0700 (PDT)
-Message-ID: <c293d9c7-bdb7-4303-80c8-404228c434d7@oss.qualcomm.com>
-Date: Tue, 21 Jul 2026 17:17:28 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CXjdMcTt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A8801F00A3E;
+	Tue, 21 Jul 2026 15:21:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784647280;
+	bh=reRgFh6MVAp/7exhM5dZH+YG5LzW9472oGrYZOvbMrY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CXjdMcTtO236wz9OhAdiWSxsAq/QX23GraM2npRXK8jhzKQKLBkK7ndkq40KECWxW
+	 U/QcfF841PuiGGv2S1deIjPa8mHRTTHVVwoFEIRWF4SDM7i1fDs9yIs+M9JDZE29Zt
+	 rfNlA0TarFrLjP4I3EFcOAo/Chjljjf1+v3Q5ztHFvrXsWYsXa187WpImWfVKo5pUS
+	 zRVfGYyv30pMi2he11+wW8PD7Z7k0z8HgbooBGjMzG7k1NcJniX9ia0KLx8Rj600HF
+	 uV5J5tjUZ0lUA+T7Z2YnFFZ4cr4EWj0pU5hNmloVUO0rlg43A7aukrGum4ODkLy5EQ
+	 PY5rQftj12fZg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5] arm64: dts: qcom: sm8550: add Xiaomi Pad 6S Pro
+ (sheng)
+Reply-To: sashiko-reviews@lists.linux.dev
+To: code_0002@163.com
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260721150740.300-1-code_0002@163.com>
+References: <20260721145822.1278-1-code_0002@163.com>
+ <20260721150740.300-1-code_0002@163.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 15:21:19 +0000
+Message-Id: <20260721152120.4A8801F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/6] arm64: dts: qcom: qcs6490-rubikpi3: Add audio
- support
-To: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-Cc: andersson@kernel.org, broonie@kernel.org, conor+dt@kernel.org,
-        devicetree@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com,
-        drake@endlessm.com, katsuhiro@katsuster.net, konradybcio@kernel.org,
-        krzk+dt@kernel.org, lgirdwood@gmail.com, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
-        matteomartelli3@gmail.com, mohammad.rafi.shaik@oss.qualcomm.com,
-        neil.armstrong@linaro.org, perex@perex.cz, robh@kernel.org,
-        rosh@debian.org, srini@kernel.org, tiwai@suse.com,
-        zhoubinbin@loongson.cn
-References: <43944722-3eeb-4e02-b3a6-6251d5fc78af@oss.qualcomm.com>
- <20260718094147.413795-1-hongyang.zhao@thundersoft.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260718094147.413795-1-hongyang.zhao@thundersoft.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: rBQxVL3xD_1JMUQT4s9t_sghCljUpqDf
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDE2MiBTYWx0ZWRfX0FfND4E/ciMf
- vsAujziR5/NCgquPd+ECSgeAHS6IeSfRxcbhJAIud17nYDYvIUg4mu4UcXPbE1cvx6FSGqwwP+S
- cQhWNMNvMaGvfE1xHx2/lBoMFkeI2xs=
-X-Authority-Analysis: v=2.4 cv=ZJjnX37b c=1 sm=1 tr=0 ts=6a5f8d90 cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=1V3AF8-yWdl-s1szD1IA:9 a=QEXdDO2ut3YA:10 a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-ORIG-GUID: rBQxVL3xD_1JMUQT4s9t_sghCljUpqDf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDE2MiBTYWx0ZWRfX/8b65/wQxv84
- DIqZ3/+U5MbVbayLSNzD84XF3KWPYmxPc+v4KuZgnJoePMpzbb5liC+fvqiqMYzDXvDj1k9sbtr
- M/8DqfQl7VPTT7AjOKP/M1KZl/arDu3j+G37u5rruB2Muu6LhtOKyxK0QncSCLTm1t7shR9LZ0t
- fxnz5aOoXkv/geUXfHiCPdXPQUBofVWBbvCD2jLsJrcXP4Vv8wArFRdBrrBXtycNEb23X0y6MlB
- 2n+1JwOlxSLlBiduNRqyxKPmqnykSM7IS0ewrnUMSxcl23LrWracqroO6nTA9FFs/YRp979bCES
- 5mOYqVYzD8sLJ44MdMVkHUIEupe6HCE6Xle+hG44WvlzCFsEZbzAhScEXSTVtBXD/+y/EE1j3wQ
- Qpd4Qj+0Ws8uhhDoXqviUAIBavbk+U8bCnPtzlAYgMBj7JV4YIpkRpzG/7KpvGaKYXvcllZ2TF+
- 9d3KvgsjeUssptV7R0Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-21_03,2026-07-20_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 priorityscore=1501 suspectscore=0 impostorscore=0
- malwarescore=0 spamscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210162
 
-On 7/18/26 11:41 AM, Hongyang Zhao wrote:
-> On 7/15/26 4:02 PM, Hongyang Zhao wrote:
->>> RubikPi 3 uses the AudioReach firmware path for its external audio
->>> interfaces. The primary MI2S interface connects to an ES8316 codec for
->>> headset playback and capture, while the quaternary MI2S interface feeds
->>> the LT9611 HDMI bridge.
->>
->> [...]
->>
->>> +	vreg_es8316_3v3: regulator-es8316-3v3 {
->>> +		compatible = "regulator-fixed";
->>> +
->>> +		regulator-name = "vreg_es8316_3v3";
->>> +		regulator-min-microvolt = <3300000>;
->>> +		regulator-max-microvolt = <3300000>;
->>> +
->>> +		gpio = <&tlmm 117 GPIO_ACTIVE_HIGH>;
->>> +		enable-active-high;
->>> +
->>> +		pinctrl-0 = <&es8316_power_on>;
->>> +		pinctrl-names = "default";
->>> +
->>> +		regulator-always-on;
->>> +		regulator-boot-on;
->>
->> Does it need to be always-on? Is it really on at boot time?
-> 
-> I think the regulator-always-on constraint is currently required.
-> GPIO117 controls the power switch for the ES8316, but the existing
-> ES8316 binding and driver do not model regulator supplies.
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] Invalid clock reparenting for dual DSI synchronization.
+- [High] Using `GPIO_OPEN_DRAIN` does not bypass gpiolib's exclusive access=
+ check for shared reset lines.
+- [High] Severe overvoltage risk by configuring a 0.7V-named regulator to 1=
+.9V.
+- [Medium] Asymmetric speaker assignment breaks stereo audio routing.
+- [Medium] Unnecessary memory allocation for non-existent modem RMTFS.
+- [Low] Use of undocumented and downstream DT bindings.
+--
 
-Please fix that first.
+--- Patch [1]: [PATCH v5] arm64: dts: qcom: sm8550: add Xiaomi Pad 6S Pro (=
+sheng) ---
+commit 84985aa6cc3ea47e6961c9fece55de9d4418b9fc
+Author: map220v <map220v300@gmail.com>
 
-Konrad
+arm64: dts: qcom: sm8550: add Xiaomi Pad 6S Pro (sheng)
+
+Add device tree for Xiaomi Pad 6S Pro (sheng) based on SM8550.
+
+> v4: address Sashiko AI review comments
+> - Add GPIO_OPEN_DRAIN to shared cs35l43 reset-gpios to avoid -EBUSY
+
+[Severity: High]
+Will this still result in -EBUSY errors for 5 out of the 6 speaker
+amplifiers?=20
+
+Adding GPIO_OPEN_DRAIN is an electrical configuration and does not instruct
+gpiolib to bypass exclusive access checks.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm8550-xiaomi-sheng.dts b/arch/arm6=
+4/boot/dts/qcom/sm8550-xiaomi-sheng.dts
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sm8550-xiaomi-sheng.dts
+[ ... ]
+> +	reserved-memory {
+[ ... ]
+> +		rmtfs_mem: rmtfs-region@ccd00000 {
+> +			compatible =3D "qcom,rmtfs-mem";
+> +			reg =3D <0x0 0xccd00000 0x0 0x280000>;
+> +			no-map;
+> +
+> +			qcom,client-id =3D <1>;
+> +		};
+
+[Severity: Medium]
+Is this reserved memory region necessary?=20
+
+The commit message notes the device lacks a modem, but this node allocates
+memory for client-id 1, which strictly maps to the MPSS remote file system
+client.
+
+[ ... ]
+> +	regulators-5 {
+> +		compatible =3D "qcom,pm8550vs-rpmh-regulators";
+[ ... ]
+> +		vreg_s3g_0p7: smps3 {
+> +			regulator-name =3D "vreg_s3g_0p7";
+> +			regulator-min-microvolt =3D <600000>;
+> +			regulator-max-microvolt =3D <1900000>; //2004000
+
+[Severity: High]
+Could this create an overvoltage risk for other hardware relying on a 0.7V
+rail?=20
+
+The regulator node name implies a nominally 0.7V rail, but it allows up to
+1.9V. If this is a dedicated 1.8V rail, should the node be renamed to
+reflect the hardware reality and prevent unsafe reuse?
+
+> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+[ ... ]
+> +&i2c5 {
+> +	clock-frequency =3D <1000000>;
+> +	status =3D "okay";
+> +
+> +	cs35l43_trl: cs35l43@40 {
+> +		compatible =3D "cirrus,cs35l43";
+> +		reg =3D <0x40>;
+> +		interrupt-parent =3D <&tlmm>;
+> +		interrupts =3D <98 IRQ_TYPE_LEVEL_LOW>;
+> +		reset-gpios =3D <&tlmm 90 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+
+[Severity: High]
+Does this properly bypass gpiolib's exclusive access check for shared
+reset lines?=20
+
+Setting GPIO_OPEN_DRAIN alone does not bypass exclusive access, so devices
+probing after the first one might still receive -EBUSY.
+
+> +		#sound-dai-cells =3D <0>;
+[ ... ]
+> +&i2c8 {
+> +	clock-frequency =3D <1000000>;
+> +	status =3D "okay";
+> +
+> +	cs35l43_blh: cs35l43@40 {
+> +		compatible =3D "cirrus,cs35l43";
+> +		reg =3D <0x40>;
+> +		interrupt-parent =3D <&tlmm>;
+> +		interrupts =3D <8 IRQ_TYPE_LEVEL_LOW>;
+> +		reset-gpios =3D <&tlmm 90 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+> +		#sound-dai-cells =3D <0>;
+> +		sound-name-prefix =3D "BLH";
+> +		cirrus,dsp-part-name =3D "blh-cs35l43";
+
+[Severity: Medium]
+Does this asymmetric speaker assignment break stereo audio routing?=20
+
+There are left-side tweeter nodes defined (TLH and BLH) but no right-side
+high speakers, which seems to create an asymmetric 4-left / 2-right topolog=
+y.
+
+> +		cirrus,vpbr-thld =3D <8>;
+[ ... ]
+> +&mdss_dsi0 {
+> +	vdda-supply =3D <&vreg_l3e_1p2>;
+> +	qcom,dual-dsi-mode;
+> +	qcom,sync-dual-dsi;
+> +	qcom,master-dsi;
+> +	status =3D "okay";
+> +
+> +	display_panel: panel@0 {
+> +		compatible =3D "xiaomi,sheng-nt36532e", "novatek,nt36532e";
+> +		reg =3D <0>;
+> +
+> +		pinctrl-0 =3D <&sde_dsi_active>;
+> +		pinctrl-1 =3D <&sde_dsi_suspend>;
+> +		pinctrl-names =3D "default", "sleep";
+> +
+> +		vddio-supply =3D <&vreg_s3g_0p7>;
+
+[Severity: High]
+Is it safe to assign a nominally 0.7V regulator to the display panel's
+vddio-supply here? This usage forces the voltage to the higher 1.9V limit.
+
+> +		avdd-supply =3D <&bl_vddpos_5p8>;
+[ ... ]
+> +&mdss_dsi1 {
+> +	vdda-supply =3D <&vreg_l3e_1p2>;
+> +	qcom,dual-dsi-mode;
+> +	qcom,sync-dual-dsi;
+> +	/* DSI1 is slave, so use DSI0 clocks */
+> +	assigned-clocks =3D <&mdss_dsi1_phy 0>, <&mdss_dsi1_phy 1>;
+> +	assigned-clock-parents =3D <&mdss_dsi0_phy 0>, <&mdss_dsi0_phy 1>;
+
+[Severity: High]
+Will this clock reparenting fail during probe and break dual display
+initialization?=20
+
+DSI PHY PLL output clocks are fixed to their local PLLs and do not have
+configurable parents. Shouldn't the consumer dispcc clocks be parented to
+the master PHY's outputs to properly sync dual DSI?
+
+> +	status =3D "okay";
+> +};
+[ ... ]
+> +&spi4 {
+> +	status =3D "okay";
+> +
+> +	touchscreen@0 {
+> +		compatible =3D "novatek,NVT-ts-spi";
+> +		reg =3D <0>;
+> +
+> +		spi-max-frequency =3D <19200000>;
+> +		novatek,irq-gpio =3D <&tlmm 25 GPIO_ACTIVE_LOW>;
+
+[Severity: Low]
+Will these undocumented downstream compatibles and properties fail dtbs_che=
+ck
+and prevent standard upstream drivers from binding?
+
+> +
+> +		panel =3D <&display_panel>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721150740.300-=
+1-code_0002@163.com?part=3D1
