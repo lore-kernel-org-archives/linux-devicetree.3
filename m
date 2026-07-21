@@ -1,86 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D27B431A4A;
-	Tue, 21 Jul 2026 07:11:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A16242EEB8
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 07:11:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784617865; cv=none; b=Hp87cfXQp+8u4SHUGGWq8JkYNL5shF8tsEPYPko9uu9FMPIosD8EotS51OeqOiUOuYKhWTpGDCuljjMK6sY4aTPGMqzjKUPdQSFKvdQCVSX2etMXURGQWzIqLqxsXIB912hsj86veRMBN4hxRCVPTcRaUZpDiP17yDQMyIaLv2A=
+	t=1784617889; cv=none; b=tcTc7nnfXxXdCZXKu068oReHKWpWkuuR6ysNLfw/ytR+w2rb7/nfXy+ChHG3UP7pcPKsyOuSXlxOBmzGv9lg0bk+unnynaeTw3kAnOPZfXWbZjkTfN6SIa1owSj3uGAvkRU5HWaIEr4SAWogzlMnCyYkR0lB2B049vrp0jctgok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784617865; c=relaxed/simple;
-	bh=tahfME5BV/Ewlw6r/fATGJoi1Kg8DCjhCZZugLGcFrM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b1sr614SEPaifoerCszDkoiXawebqw/9XU5t2T3ESd++XtwgJjbluhywrPH+LTx7yOz1i5pRzt+8SvFCP4B0EiSw7yiNjOsvIrJwOqzeAUa7nhwdPcIz7FOmgKyKGNuHDoUbhvoX7NSq3EtoBKgsuTUjeuozylZrGb1IVXpKJB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YoUZ7jYF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784617889; c=relaxed/simple;
+	bh=Vgx42rr4Dwljdh4CJZ8ofHe4yB0lwJcZrZubNlvmSA0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=pgkr8KIzNjJAMFe+A9yBlWOpx4Fa1anRyj65tgHpQCmqxK2d7HuYTIoWzP+xbcN80VFL7TuAvcKAUJVd1+FVBZge2QBsDfI0r0pIAkFnM6BiHwNsE6QzwwctlSLi5beFbjc60/TW1W2kc839cyZUVnV2PMyBrUiBg2QKLvIIYDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zbsqo7tD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YoUZ7jYF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3BF31F000E9;
-	Tue, 21 Jul 2026 07:11:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zbsqo7tD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CC461F000E9;
+	Tue, 21 Jul 2026 07:11:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784617864;
-	bh=xqjPSCZHcwkdkGGutjPyOoZ2XfWL478wvsrVESd055I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YoUZ7jYF1vrWypjRXMouBThTVWJD2IhxRDiYvSzgpD5G3ExpURmvzU/nzCpRxfLyx
-	 bTcnbuVgepZQ+5rmzruaUNhp8D6mO0w/p9//vRsmAAIsqK0dFuMK9IOX6jKeOLIiDh
-	 c28G44bZ9+LYeUzy2t9fxJ4fEWDn2SaCKA7iI63EJS+PKe3CA2citObmVPKNNqTsS2
-	 SYRYY+vwGzhnabxtkxwjaAEDpIBIwFkF8ZAoemodaK5N42NZiivjrAcnEnWJ+z67B8
-	 2251Drzrr2nQ5HgE8nb+5h7m7aqIceNW2o/Qp8vXZR6ZLCaHMKtz5rmd5GoSJZz6Mo
-	 s28hIw+7gnSLg==
-Date: Tue, 21 Jul 2026 09:11:00 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Nina_Kuo@novatek.com.tw
-Cc: andi.shyti@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, ben_huang@novatek.com.tw, toby_chui@novatek.com.tw, 
-	shihpei_hsu@novatek.com.tw
-Subject: Re: [PATCH v3 1/3] MAINTAINERS: Add entry for Novatek NT726xx SoC
- I2C controller driver
-Message-ID: <20260721-comical-dragon-of-competition-f1b6da@quoll>
-References: <20260715073443.147490-1-Nina_Kuo@novatek.com.tw>
- <20260715073503.147552-1-Nina_Kuo@novatek.com.tw>
+	s=k20260515; t=1784617887;
+	bh=EwJ1HtXH0OjhlZEWheuSe/MxuM/c7gssElVKwv3Y/1I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Zbsqo7tD6XtN6NeXrrBQ5rsg4DQZK82oZnWjxW7xHA5r81WtzwyCmVM09YhB7ibkN
+	 VJCDXd10AXZ4/ikOa33spCK1lH8fEThsgEcVR4/sBHbKV5yZEUwsegNN6JFFOzLoTX
+	 Hbk5sZU/BMqnpGb9f3Viwis3sVC09l/S2W7sQPuaOLXMtwPpLjkh2NPZsZ3g3qqwlC
+	 meVwbqQ1JtJA1CmehywTcofJL+jcGyEZLZxd75Sa0nwLht3vd/RDhONfBcCstGyvRE
+	 t53LvK6J1vzmFdJ7GJw/QVwAgJ8PrWtUedwwiWUVwcVYLGoiReQalN9PHE541+nGaS
+	 xA+dMSxr/8W/Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 14/16] power: sequencing: pcie-m2: Split Bluetooth
+ unit based on interface
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chen-Yu Tsai" <wenst@chromium.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260721065413.2306137-15-wenst@chromium.org>
+References: <20260721065413.2306137-1-wenst@chromium.org>
+ <20260721065413.2306137-15-wenst@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 07:11:26 +0000
+Message-Id: <20260721071127.3CC461F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260715073503.147552-1-Nina_Kuo@novatek.com.tw>
 
-On Wed, Jul 15, 2026 at 03:35:03PM +0800, Nina_Kuo@novatek.com.tw wrote:
-> From: Ben Huang <Ben_Huang@novatek.com.tw>
-> 
-> Add entry for maintenance of Novatek NT726xx SoC I2C controller driver.
-> 
-> Signed-off-by: Ben Huang <Ben_Huang@novatek.com.tw>
-> Signed-off-by: Nina Kuo <Nina_Kuo@novatek.com.tw>
-> ---
->  MAINTAINERS | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 806bd2d80d15..15df47f9e81f 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -19234,6 +19234,13 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/nolibc/linux-nolibc.git
->  F:	tools/include/nolibc/
->  F:	tools/testing/selftests/nolibc/
->  
-> +NOVATEK NT726XX I2C CONTROLLER DRIVER
-> +M:	Ben Huang <ben_huang@novatek.com.tw>
-> +L:	linux-i2c@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.yaml
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-There is no such file.
+Pre-existing issues:
+- [High] Uninitialized `list_head` causes a NULL pointer dereference in `li=
+st_del` when cleaning up a power sequencer unit during a failed initializat=
+ion.
+--
 
-> +F:	drivers/i2c/busses/i2c-nt726xx.c
+--- Patch [14]: [PATCH v6 14/16] power: sequencing: pcie-m2: Split Bluetoot=
+h unit based on interface ---
+commit f51366c358868b77076fdd6f12a8c7c1273f47d4
+Author: Chen-Yu Tsai <wenst@chromium.org>
 
-Neither this one.
+power: sequencing: pcie-m2: Split Bluetooth unit based on interface
 
-Apply this patch (important: this patch!) and check yourself.
+Some UART / serdev based Bluetooth drivers need to be able to reset the
+hardware during initialization or recovery. This is not possible with
+the current power sequencing API if a unit is shared between USB and
+UART interfaces.
 
-Best regards,
-Krzysztof
+> diff --git a/drivers/power/sequencing/pwrseq-pcie-m2.c b/drivers/power/se=
+quencing/pwrseq-pcie-m2.c
+> index 8ae55e87db74c..b713682a01ec4 100644
+> --- a/drivers/power/sequencing/pwrseq-pcie-m2.c
+> +++ b/drivers/power/sequencing/pwrseq-pcie-m2.c
 
+[ ... ]
+
+[Severity: High]
+This is a pre-existing issue, but could this error path lead to a NULL poin=
+ter
+dereference?
+
+In drivers/power/sequencing/core.c:pwrseq_unit_setup():
+
+	unit =3D pwrseq_unit_new(data);
+	if (!unit)
+		return ERR_PTR(-ENOMEM);
+
+	if (data->deps) {
+		ret =3D pwrseq_unit_setup_deps(data->deps, &unit->deps,
+					     unit_list, processed_units);
+		if (ret) {
+			pwrseq_unit_put(unit);
+			return ERR_PTR(ret);
+		}
+	}
+
+If pwrseq_unit_setup_deps() fails, pwrseq_unit_put() is called, which
+invokes pwrseq_unit_release():
+
+static void pwrseq_unit_release(struct kref *ref)
+{
+	struct pwrseq_unit *unit =3D container_of(ref, struct pwrseq_unit, ref);
+
+	pwrseq_unit_free_deps(&unit->deps);
+	list_del(&unit->list);
+	kfree_const(unit->name);
+	kfree(unit);
+}
+
+Since unit was just allocated and unit->list has not been initialized with
+INIT_LIST_HEAD() or added to any list yet (it is zero-initialized from
+kzalloc), won't the unconditional call to list_del(&unit->list) dereference
+the uninitialized prev/next pointers and cause a panic?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721065413.2306=
+137-1-wenst@chromium.org?part=3D14
