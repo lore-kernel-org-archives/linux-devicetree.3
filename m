@@ -1,104 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C34946D55F
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:49:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 962FC46A5FB;
+	Tue, 21 Jul 2026 15:49:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784648984; cv=none; b=mXfsd2br/bigYyntSW5PaE6skZgJcxXRsYiNtFRmPxvlIZMsw0hGS/q+mCMKWuNTSwg8nu+4QGzJATsnwLd6EVRNGFsClaF0+H6te7GoZ/wbuzwlcw5P4qQOk68/8tnfWHosMftScztB57f4ANsO0F6t6S1OrRhjnj7WxvmysDs=
+	t=1784648994; cv=none; b=hwD7pJt6zvoVHyI/B1aVbNfKbdowFTfqARhj+g1dewyU6GvYtR7MYmVi4OTT23vey0DKHOYGKRycV9G2KYp3l6xQ9j0DWntgY0uSnCygfinAIBBmpp+kqphpHGcxKX0TxdenYX2DH7Mf1B3tZR5VFMzw1jdPxDREQIqP7lsTLws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784648984; c=relaxed/simple;
-	bh=V6HnFvhryftn/FLKlNyf++VUH4fBiHPjr2xajt32Dys=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gDIy/jbu9TrmlFYsUl6w34UBUBKvyk0WIlHzfvAcDUT/fIrpecu021CcWbtdGGmRSFzQaYfl2V8NbXmlA1BQoR5DeKR+DXQ3oTLv9WHCdEcMk9qm70TVAfC8631YEN7pvXg0Jsr7+L2Ur9zw6t+pFGFVEV5ZDju1nHbDdBo/b44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z3PKf5S8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784648994; c=relaxed/simple;
+	bh=1FXmH1dz6CehON59P66DLoxdnGoJcr/J/S4LqeeBDCs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Q0i+wxi/pOb1IS8KEbfb/v4aD0awHz8Nx1L5xquyq75k8ahSw65Kkb+o9uUhJ8hYFkb0p0uAobh6+FZo44A+IhRawkWa3dYLC9kN12FrKTcNVNSyNeIqdDk/Dm/eCR1q762asBSGyhR9W4NnjOW3D93x7YIErfNHHxOfjAI9mAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lwjp08oB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z3PKf5S8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD441F000E9;
-	Tue, 21 Jul 2026 15:49:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lwjp08oB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20D611F00A3A;
+	Tue, 21 Jul 2026 15:49:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784648983;
-	bh=xH80VBxXN+35CSeL87lgIz5/nnxbdZK5I+K3FUKz6JU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Z3PKf5S8W9izoT9yrlloplOEKTlYqmXqfRfKxsdws1efudJ8/jWr06T0wLim4Acf8
-	 rart1UUkgWuQR/vvUBaKHG3KS2J2S1oFOutp/UYG3bzQ2Rn3Fujqx6dUq7QVrcSuSm
-	 krz+Z9MYH5NJyKRG4A9aksBJ9NRT+kbMz08sG/MDCdF5wvRF8Guj/m2O4tN0KOiW4o
-	 oicqC2kXW2MzV8aCfvqgLEBJ2gOKxTi8o+VF+WycfwCNYk9eL962M5S2G+KzDNfUx3
-	 xXciVfaeoCic4PT119eZz5pJQR+95QQRm+yDVfNSX5TZSmCKtRvbE9MLHKDPa8qBfX
-	 t+e3q+vTuXLlg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/5] arm64: dts: qcom: sm8550-qrd: add SPMI ADC
- channels and thermal nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neil Armstrong" <neil.armstrong@linaro.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260721-topic-sm8x50-adc5-gen3-v6-2-a507f4a1e537@linaro.org>
-References: <20260721-topic-sm8x50-adc5-gen3-v6-0-a507f4a1e537@linaro.org>
- <20260721-topic-sm8x50-adc5-gen3-v6-2-a507f4a1e537@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 15:49:42 +0000
-Message-Id: <20260721154942.DCD441F000E9@smtp.kernel.org>
+	s=k20260515; t=1784648993;
+	bh=iNKKMfd2qGosuONW6vQOFUvocvWbDP1gm7vIlrl2QBQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lwjp08oBJsYYjgpvLKt4LE1icTycwWsgd1B401Rjl1TJknSR33XVyovNEk5KbM2qy
+	 ihTj4IxuzccCKQJ7+h1S6JQiXqnjTxGi4PRSNgQyLOfPJ0wZpC4R8yyNR/bUqgn3fd
+	 M3W/ndnXpUKf2O5kL3AtRCLWRr5Wjy291N/1DkvRUc5hIhCWBeT9Uf0gRZc2I7WTa/
+	 0glO1lIPCrsUUCNcbmU2WbDEHxtBuAjXy/CLJd0hGhtCsLa9V5U40xt+fWqca9WsHJ
+	 IsAPtWwSAT2gxSMDmmm+bC2t1Ck63aYmiHNAtXP2mPPq5VivAMtjLHd/tZx15xR3qo
+	 0ilm4K/Oeso9A==
+Date: Tue, 21 Jul 2026 16:49:48 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Troy Mitchell <troy.mitchell@linux.dev>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 1/6] dt-bindings: vendor-prefixes: Add Sensylink
+Message-ID: <20260721-dill-dab-df15585090d2@spud>
+References: <20260721-ctl2301-v2-0-ef5fb342872a@linux.dev>
+ <20260721-ctl2301-v2-1-ef5fb342872a@linux.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="DW7VXcYUmFQ8ylSM"
+Content-Disposition: inline
+In-Reply-To: <20260721-ctl2301-v2-1-ef5fb342872a@linux.dev>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Missing device tree header `qcom-adc5-gen3.h` and undefined paramet=
-erized macros cause DT build failures.
---
+--DW7VXcYUmFQ8ylSM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
---- Patch [2]: [PATCH v6 2/5] arm64: dts: qcom: sm8550-qrd: add SPMI ADC ch=
-annels and thermal nodes ---
-commit 10ac856253ee6a9bfd1b29cd5e0fd011493eaf4e
-Author: Neil Armstrong <neil.armstrong@linaro.org>
+On Tue, Jul 21, 2026 at 02:48:27AM -0700, Troy Mitchell wrote:
+> Add the vendor prefix for Sensylink Microelectronics.
+>=20
+> Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+> ---
+>  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
+umentation/devicetree/bindings/vendor-prefixes.yaml
+> index 396044f368e7..22d0d26f1bbd 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -1467,6 +1467,8 @@ patternProperties:
+>      description: Sensirion AG
+>    "^sensortek,.*":
+>      description: Sensortek Technology Corporation
+> +  "^sensylink,.*":
+> +    description: Sensylink Microelectronics Technology Co., Ltd.
 
-arm64: dts: qcom: sm8550-qrd: add SPMI ADC channels and thermal nodes
+Googling the company to see what their website is, I seem to see a
+different name for the company: Shanghai Sensylink Microelectronics Inc.
+Their website has that with the Shanghai dropped.
 
-Add the SPMI ADC channels on the PMK8550 SPMI5 ADC3 for the other PMICS on
-the system. The thermal nodes are sorted by the sensor channel to be cohere=
-nt
-with the system thermal nodes ordering.
+Also, probably the commit message should contain
+Link: https://en.sensylink.com/
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8550-qrd.dts b/arch/arm64/boot/dt=
-s/qcom/sm8550-qrd.dts
-> index 2fb2e0be5e4c6..f0cee98df35de 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
-[ ... ]
-> @@ -205,6 +205,92 @@ platform {
->  		};
->  	};
-> =20
-> +	thermal-zones {
-> +		skin-thermal {
-> +			thermal-sensors =3D <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
+pw-bot: changes-requested
 
-[Severity: Low]
-Does this device tree compile cleanly? It looks like the macro=20
-ADC5_GEN3_AMUX1_THM_100K_PU(1) is parameterized, but the necessary header
-(qcom-adc5-gen3.h) doesn't appear to be included or added in this series.
+Thanks,
+Conor.
 
-Without the proper header definition, existing parameterless macros might
-cause this to expand into invalid syntax like 0x44(1) during the device
-tree compilation phase.
+>    "^sercomm,.*":
+>      description: Sercomm (Suzhou) Corporation
+>    "^sff,.*":
+>=20
+> --=20
+> 2.55.0
+>=20
 
-[ ... ]
-> +	channel@144 {
-> +		reg =3D <ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
+--DW7VXcYUmFQ8ylSM
+Content-Type: application/pgp-signature; name=signature.asc
 
-[Severity: Low]
-Another instance of the parameterized macro usage here. Is there a missing
-patch in this series that adds the qcom-adc5-gen3.h header and macro
-definitions?
+-----BEGIN PGP SIGNATURE-----
 
-> +		label =3D "pm8550_msm_therm";
-> +		qcom,ratiometric;
-[ ... ]
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCal+VHAAKCRB4tDGHoIJi
+0sX2AP4oo3z9DROVtk1PKea0erVM6Ksfz8ObAp2ab2TndL/oVAD+MZjpOMyvH3M0
+gvY2tGnXvqqP3J4jicrK7OmfAVU3cgc=
+=KjUj
+-----END PGP SIGNATURE-----
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-topic-sm8x=
-50-adc5-gen3-v6-0-a507f4a1e537@linaro.org?part=3D2
+--DW7VXcYUmFQ8ylSM--
