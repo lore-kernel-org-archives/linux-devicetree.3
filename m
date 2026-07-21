@@ -1,105 +1,109 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2569343B3C6
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 23:04:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06FD443AB7
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 23:08:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784675065; cv=none; b=H+haqldU/mHICi5ur2qpEzNd9Sy/9jdY+PXOLwHBzLbd/AewXjXxhnnYIa43TRBWrFRamTC7+rviXz1psTW2ivEUL/3S0PZP2EALuG64cp0MBqELRp1iiLaj1jyFmuZEM0NmGZ5xYBZSlJc1Jp1rfmFmCmi75zFHDFRXMnty3WM=
+	t=1784675296; cv=none; b=uyjbJ/y1mYK8V/0ycplV+cH5kksVPFOSfbzLYGkcjxCm776RUNhMaBpW1Gxd6P+aK2Do1vDBhZqOfXUDiF7Cu8m5N55vAxUFkdW2qq+QrVCD1TSPkYXMHiGvsSgINsCofRdz6GAzH+iTJU3fBYjgprfrAnmE1lESoZKr4VScKWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784675065; c=relaxed/simple;
-	bh=xgOxOMovpA25BbgSbz35rwS0VQ0yjeoylBXXLZfEkck=;
+	s=arc-20240116; t=1784675296; c=relaxed/simple;
+	bh=AjVmgb5dpkXwkLAlM81RmTRbpQgON2OMo1Cl/Fp+PZw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ccl1wPlwwPapCJXesqo0xcDi0kXZ2rVMuAcjrYlH98u1g8QW7bvSJ8oKnwSOdHq9tK7Lp9782qGK+48BWm9tD8rmPlBbF6kVeg8ES/HxDfiP5kKD8H9PQRTgsFQpDvdRHOrRfzbHWrRFwwU8WFHkkQnNVZc4hXMUCGILRr7Q4cI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FnjSBgfA; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=f6IvSn/D; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=MiCPs4sgYsXWrpOh4KrpQXgllNX2EZUj4Ci0hT9UvdTg4neP9USsczE/mZDFEY1FxUfXTihuBxF0olh+eQclpnfZ7CrgxYXt765oUTpwTyAJdqBh9F0az71vhOnxDvYONwCABqMlptHB584WdbYZIog+I2ZCyi0aSYlfpR96jmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CZV3eTzf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KYH8LOpM; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FnjSBgfA";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="f6IvSn/D"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784675062;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z9jxxoNk0Zci913QIrLSshdt2n65M0x+d9IlMGmwHh4=;
-	b=FnjSBgfAWd47cgN+YbhAGxu2OgFGLRDnsB20R3l2D6/+M03T0bj3CgDHDJAV+8SZFbxhHm
-	j9BzVLeIWBH5tH6fOlcN4XOkrPQr+2wxWGiqqNWqwEyxKl52yHzEc7NDTcLp39oUHlxWg7
-	RxIn765VgodpXmZHk+GramAxR+g+M9E=
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-581-pwcGlFRbNoCxJhhe2zd4zg-1; Tue, 21 Jul 2026 19:04:20 -0400
-X-MC-Unique: pwcGlFRbNoCxJhhe2zd4zg-1
-X-Mimecast-MFC-AGG-ID: pwcGlFRbNoCxJhhe2zd4zg_1784675060
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c21c01cf3so187737411cf.2
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 16:04:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CZV3eTzf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KYH8LOpM"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66LMZn6r3171965
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 23:08:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=n5cdHVeRZQBU9Z5oQofdHpE5
+	IuH2kEHktkm28d0TIgU=; b=CZV3eTzfGpBc+FjGpzetpbsvVQfA4jVGmlADzmk1
+	ctAn+C/266n1P43t7lKy5rw1grG6wuwt1WnAEUK+yYdd5gkjUpPtgF7s8zSTdWIE
+	J8yMczyVmOhFEU7lztnBaIlGB4s3XCUiubDteXFHFayqe5TesdwS2VT1zHeNCEcJ
+	fqrZN27gUybCaRQWbbWImcU7OpAb6GsnLawP9hrvIZhBkDp9sBC061d2T1aZKGXx
+	aqYVt25227Nl2tT1Vt1b1RUA2wX8RYvTY+v6nnEQaLk1DIi/9OD1IPpehHhnsaRW
+	8u8GAN7o/GQJmTrEGsOnkmfMafRGxxoiCF7/sv1J/84c1A==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj9bsagu9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 23:08:03 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c1c7f135bso176833871cf.0
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 16:08:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1784675060; x=1785279860; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=z9jxxoNk0Zci913QIrLSshdt2n65M0x+d9IlMGmwHh4=;
-        b=f6IvSn/D+R+eg/nK/xBdXFNTy52hDpsHHUCWr7Ueq5xmBR0PGn0dyykgtaGMEEl207
-         VSyd/e2BpQoXHShxhGdy7kWdxyBXZJa8OlNrln0pN6E2dKJz+JnItmfNi440NeBPeron
-         eRx5TYxrYVyb8oV18rSsLVImP0q49Oj1zItZ6vZKYhA2YnFtjRGV8Uw+iRNO2z0LSANg
-         9eh+uhGAbNO32zThJUyeoygSA+Nr95NFcdaxVREDqWQO0HMRMejP61co+aoXjdnp6CGe
-         g0yl0ZfXBEkUrCkJHzFOF7Wfcd/fSJ0cZCCtHia+GybhnFbxhzYLsNL+x8Khp2ybuiIW
-         UViw==
+        d=oss.qualcomm.com; s=google; t=1784675282; x=1785280082; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=n5cdHVeRZQBU9Z5oQofdHpE5IuH2kEHktkm28d0TIgU=;
+        b=KYH8LOpMjqm1S5GJWHoMWSJ6QPMX2tEecX75M6calfPeY5o1CuADMRd3JlimIFdyO3
+         OKWOh7yM/FknFMT9FuRwpsp0P4ZH62v+9xmB1AMriJNv0wwBEd81f4FuGZHfZkqjEadj
+         BMqQtYGG5dw0B9Zfb/DXqS9nz2yJm92IkzHPmICEstaboQvnyr8kMomp/EHUzNXyaLma
+         iAvk9abW9bkfh0rEHi7G+Bg/HnNnVeHCalsdhCuB34sFp3LeUpuZZtOQ9elJ4Zt19b5I
+         Zgg4e0W6a4al3mRvvFAaj8H+7uU9QtYAG1CdgsHAQav7FY3UNEJSm3Xz3gd/CSN1Ksrd
+         SGlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784675060; x=1785279860;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1784675282; x=1785280082;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=z9jxxoNk0Zci913QIrLSshdt2n65M0x+d9IlMGmwHh4=;
-        b=sxV43NhGf2Foj06TdGYBOCeijkgYSp17eOzPwpJmSk6VULPmFwBUDLyWI1f8I0crt4
-         gkhD7jqpOIyCivzVQwsSvJlffwczk5fQ2YEQNnjGgcSn651i71m5T0EiAquO4TgqCvpO
-         T5vPXAvz64w0K6JoYQ3NLvxP//5Lk0+U7SGO0FkQcP//jRcYL92p0w7kdzQxhLlndKSR
-         nBKLybJ+Z7jU0iuJ+OXB66Rp5wiMcNE9zfSN6gGg0ydPWIjK4fW9nwmdeFB7s78yHR95
-         orXTrm8Wn7uhkajqABV0nvEqTRI2sY+RPf5IwTz68k3dSDs4FpdkLhgrh0DirnOqKQGI
-         JEJQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoeLvxrJKTI9615nWw1P9dnYwRvpDpwfv9XaYBTG4pmzVgh+L0G0BhMTgHxzHc0PusgbGIamVfkP57c@vger.kernel.org
-X-Gm-Message-State: AOJu0YwlAzj1YkAYtyHVMOoOc+IgY2SNmIHmMYv3VjOsmKD9Jih27Mo+
-	30UQ/Xoz7lKxEW2VJa8Y5mAIAkqqSN4dT6s4AwdIxTYlpY8g0m+R5b4e5WgpJjuBgC4w3TixAF/
-	B5xi3m8cbcDfaptl3wmyG4WTE/7ljmPQEILsMmZRoXpxySLAG/qCSIXrIf7wPE/c=
-X-Gm-Gg: AR+sD12oFK6uNm4m9zFzmHFbYRCowoqVxY8odLSq356RxwZT3t4QngF5j42HSBE1pDz
-	ghROT6zS8WdFbs0iUZHgkgD4a//N1IUDsU03e0LqQd3h9JMYQmxCwmwvzTTcRQveJeioziRY3Rg
-	CJhzV7c3bgx7+AfIBxyZwAhKMMtM8/COEYomtH6fRn5wmduMb+u1MfR6fYtrQhYkANUVhMolU4b
-	oFd5pLFwqCmV7XOFasgCaXKX77i7iBDYxH5kePNinSTC7MQRiMvtl0NPiqAMPT3fTd4wppB04PB
-	vq/dAtikfBxxHslYF1ClzXrjQh8Bq9WU7k8o2UXAZzDDHK/OIsOHQdv0tqmlSowVCkVPb3boyDn
-	XnLVa5kWVSwi4LjgSIo6CTGQdmOtH00W6TXE=
-X-Received: by 2002:a05:6214:2301:b0:8ce:ca7d:b099 with SMTP id 6a1803df08f44-9077832dd19mr216149176d6.18.1784675059740;
-        Tue, 21 Jul 2026 16:04:19 -0700 (PDT)
-X-Received: by 2002:a05:6214:2301:b0:8ce:ca7d:b099 with SMTP id 6a1803df08f44-9077832dd19mr216148766d6.18.1784675059293;
-        Tue, 21 Jul 2026 16:04:19 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907ba9e13d1sm7062316d6.28.2026.07.21.16.04.17
+        bh=n5cdHVeRZQBU9Z5oQofdHpE5IuH2kEHktkm28d0TIgU=;
+        b=hzQuk3yEk2AiF0lOHRLpHrwyDTBdsIrCIQTmaXnqXO2HgNPmmnoDDjZnR1kOhxfXd/
+         xohHluq8RKGBR5ZgN5EkjhW/zyT1+70+oyye+7MFQumT6kf2fIMz1bJajIq571u6AOV+
+         yXT42EJofcjp9NLC9VFrX7xigps+PzgTAMKKZ9U9LYpWP/G444nzHluvEQ9lKZHBfbzM
+         g/Eu3gM0GDzg2wNueUN7xLzPgHSzxh2bBGu1Y3TEg1CKOD7VTv597m+qJdJG/ZMpwAnK
+         nhJCTsWc7zZ2rpjuwAmXyxQZimL1J6nJ0UNrR6uqobqeyj9RUs5Big4csSqjBPFUL9gv
+         L1Jg==
+X-Forwarded-Encrypted: i=1; AHgh+RrEd5cViGBx6oREiKBB/w7SYBVDtqy+7H7rbmYj746R2IUSHjdu7+k760xCY4swY6l0i6eSaJFjl1e4@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzi7p6JO1tdNk3XX9XQq8TQTiBIjwyrqIyNQRf30G8QtD8Ia2iE
+	6x5TMqAa/U8iRt0hMhy/dPEsfxDEDXC/ZSwbRCRBRNalrILx0rQsyerxiWUhRn2JGXDr0bbxoEE
+	i/RfVOpZIr0k79fS+d0Z1Ci7pKYGeVJ0Wd0h95TsKTrpnEeFhJprMLU+H3LcVnxUv
+X-Gm-Gg: AfdE7cmwxhNGkzQVNjyU1maxtSqmwOhdk7BsuRTCuZW+yYRIRtxqMQyD92QLs2eOv6X
+	Sv0Tzhy4qWzyAUXWV8bX/wRcJeROeY3DGL5Cst3IhAoHhi4ZqrhP+7AUfnQ+wnaGEHsIf1UMZPU
+	aXhcMBW/qmgiT+2agUa2yht83+X/EwCHgROALD625N6IM8oW3QXjGgSM7dI0BB+cIfuhmxBNTPi
+	YBXonlWeNB5Fpk+xtAG72PTle7P6guwXdbRqxbTJ8WmDOd9UxxJjcSZnTE1kcLUDE2ngdry6HpB
+	lxgvqKLUSTsZUj+FrPvMhW70EhuPbXuRkAzqQwoE59vdQ0l9m1Bx/uuHx6mZT4jkKulh5vZ7raR
+	nt40vqfQK6IiRdiYiKr5v+Bssobl5zHcJsMr3g+bYsKJ65wtWm5jRss1KIDmPT95tz99pZgxkZQ
+	UQ3AcMZMf6K10SjA==
+X-Received: by 2002:ac8:7f83:0:b0:51b:ef2c:7bf0 with SMTP id d75a77b69052e-5213dc987c4mr182726061cf.35.1784675282211;
+        Tue, 21 Jul 2026 16:08:02 -0700 (PDT)
+X-Received: by 2002:ac8:7f83:0:b0:51b:ef2c:7bf0 with SMTP id d75a77b69052e-5213dc987c4mr182725591cf.35.1784675281717;
+        Tue, 21 Jul 2026 16:08:01 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2a9d302e3sm153944e87.51.2026.07.21.16.08.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 16:04:18 -0700 (PDT)
-Date: Tue, 21 Jul 2026 19:04:16 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Chun-Jie Chen <chun-jie.chen@mediatek.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Edward-JW Yang <edward-jw.yang@mediatek.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Chen-Yu Tsai <wenst@chromium.org>, kernel@collabora.com,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
-	Irving-CH Lin <irving-ch.lin@mediatek.com>
-Subject: Re: [PATCH v3 09/18] clk: mediatek: Add MT8189 apmixedsys clock
- support
-Message-ID: <al_68GlP01W0US0x@redhat.com>
-References: <20260720-mt8189-clocks-system-base-v3-0-8e6d99ab3ad2@collabora.com>
- <20260720-mt8189-clocks-system-base-v3-9-8e6d99ab3ad2@collabora.com>
+        Tue, 21 Jul 2026 16:08:00 -0700 (PDT)
+Date: Wed, 22 Jul 2026 02:07:58 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-hardening@vger.kernel.org, manaf.pallikunhi@oss.qualcomm.com
+Subject: Re: [PATCH v5 3/9] remoteproc: qcom: pas: add support for TMD
+ thermal cooling devices
+Message-ID: <vxmb3padun4hydx3g7r7gecpeawoslc7djpaaxjl3o5bq5n5ip@nf5djjaelfy3>
+References: <20260721-b4-qmi-tmd-v5-0-99620e07f505@oss.qualcomm.com>
+ <20260721-b4-qmi-tmd-v5-3-99620e07f505@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -108,224 +112,241 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260720-mt8189-clocks-system-base-v3-9-8e6d99ab3ad2@collabora.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+In-Reply-To: <20260721-b4-qmi-tmd-v5-3-99620e07f505@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: SsShpRX_0YNUh-0-IRP65nqzEAnjjDGs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDIzOCBTYWx0ZWRfX4rGjvDexi+OH
+ pLQXQpGrHcoQbqElhVqCS7bb6X9LReVYVorVABgr+wIcyGGrcAs4QKV8jWuV2nbgrUsdw9l1pxW
+ eLs/2brsgJlXd3Vh0SKv/VVnpGfCioSbwwtJB9qzYGMZNQcMdbssyg/d7MSeE4XLwOEWziBfOWo
+ EtPzT/wHd7Sk0eCxlb4fS63jbEwGtYy9HahQLSxcX+qbtXRDEcsRxMFwDPAphY1lN7V2FoY4A1X
+ yZ3J0PIgBGnceXzsGeWjYfO1P32Db8EtgynXEcosEt0ircuudNOXrLDky/g/AX0s0rgIY6ggDj/
+ 2gdEp0dlZALdh8neIHN+Y+2xFRkr+a5wi46JqWQGvfBzGCst2byYuMlvug5KZ4vF7PX8addVW2o
+ bOqbJLiYj9utCyyZpcIfE8nCX0whxlI1HrRsByurdmcefKXn5AHqtpckqPjOrtNgdWHr+1FpYTv
+ X+YvdJ4y1xZxNr30RjQ==
+X-Proofpoint-GUID: SsShpRX_0YNUh-0-IRP65nqzEAnjjDGs
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDIzOCBTYWx0ZWRfX4B2MiSxK2dlt
+ k6X/PEr13EC3/Rj4XLGks6A/ek/jP+VfkaxfutwuLzsKFguIwWSRRdhx8HAGMy2ZP34q7IMu3Jw
+ /z3y3LuVpp4aW1arHRdNm5fuiQzXntk=
+X-Authority-Analysis: v=2.4 cv=QK1YgALL c=1 sm=1 tr=0 ts=6a5ffbd3 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=ggDtmrkCBDuQzhDCrNgA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-21_04,2026-07-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 phishscore=0 impostorscore=0 bulkscore=0
+ suspectscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210238
 
-Hi Louis-Alexis,
-
-On Mon, Jul 20, 2026 at 12:04:19PM +0200, Louis-Alexis Eyraud wrote:
-> Add support for the MT8189 apmixedsys clock controller, which provides
-> PLLs generated from SoC 26m.
+On Tue, Jul 21, 2026 at 11:59:00AM +0530, Gaurav Kohli wrote:
+> Register Thermal Mitigation Devices (TMDs) for PAS-managed remote
+> processors to enable thermal throttling through QMI.
 > 
-> Co-developed-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
-> Signed-off-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
-> Co-developed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+> This allows the thermal framework to request mitigation when remote
+> subsystems such as modem and CDSP contribute to thermal pressure.
+> 
+> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
 > ---
->  drivers/clk/mediatek/Kconfig                 |  13 ++
->  drivers/clk/mediatek/Makefile                |   1 +
->  drivers/clk/mediatek/clk-mt8189-apmixedsys.c | 196 +++++++++++++++++++++++++++
->  3 files changed, 210 insertions(+)
+>  drivers/remoteproc/Kconfig         |  1 +
+>  drivers/remoteproc/qcom_q6v5_pas.c | 90 +++++++++++++++++++++++++++++++++++++-
+>  2 files changed, 90 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/clk/mediatek/Kconfig b/drivers/clk/mediatek/Kconfig
-> index 2c09fd729bab..f67dfb6cd019 100644
-> --- a/drivers/clk/mediatek/Kconfig
-> +++ b/drivers/clk/mediatek/Kconfig
-> @@ -815,6 +815,19 @@ config COMMON_CLK_MT8188_WPESYS
->  	help
->  	  This driver supports MediaTek MT8188 Warp Engine clocks.
+> diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
+> index 65befdbfa5f7..f7c02edf395f 100644
+> --- a/drivers/remoteproc/Kconfig
+> +++ b/drivers/remoteproc/Kconfig
+> @@ -229,6 +229,7 @@ config QCOM_Q6V5_PAS
+>  	select QCOM_PIL_INFO
+>  	select QCOM_MDT_LOADER
+>  	select QCOM_Q6V5_COMMON
+> +	select QCOM_QMI_TMD
+
+Sashiko warned here about the missing NET dependencies.
+
+>  	select QCOM_RPROC_COMMON
+>  	select QCOM_SCM
+>  	select QCOM_PAS
+> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+> index 25599d728208..dc5be2c030cf 100644
+> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+> @@ -5,6 +5,7 @@
+>   * Copyright (C) 2016 Linaro Ltd
+>   * Copyright (C) 2014 Sony Mobile Communications AB
+>   * Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+>   */
 >  
-> +config COMMON_CLK_MT8189
-> +	tristate "Clock driver for MediaTek MT8189"
-> +	depends on ARM64 || COMPILE_TEST
-> +	select COMMON_CLK_MEDIATEK
-> +	select COMMON_CLK_MEDIATEK_FHCTL
-> +	default ARCH_MEDIATEK
-> +	help
-> +	  Enable this option to support the clock management for MediaTek MT8189 SoC. This
-> +	  includes handling of all primary clock functions and features specific to the MT8189
-> +	  platform. Enabling this driver ensures that the system's clock functionality aligns
-> +	  with the MediaTek MT8189 hardware capabilities, providing efficient management of
-> +	  clock speeds and power consumption.
-> +
->  config COMMON_CLK_MT8192
->  	tristate "Clock driver for MediaTek MT8192"
->  	depends on ARM64 || COMPILE_TEST
-> diff --git a/drivers/clk/mediatek/Makefile b/drivers/clk/mediatek/Makefile
-> index d8736a060dbd..66577ccb9b93 100644
-> --- a/drivers/clk/mediatek/Makefile
-> +++ b/drivers/clk/mediatek/Makefile
-> @@ -123,6 +123,7 @@ obj-$(CONFIG_COMMON_CLK_MT8188_VDOSYS) += clk-mt8188-vdo0.o clk-mt8188-vdo1.o
->  obj-$(CONFIG_COMMON_CLK_MT8188_VENCSYS) += clk-mt8188-venc.o
->  obj-$(CONFIG_COMMON_CLK_MT8188_VPPSYS) += clk-mt8188-vpp0.o clk-mt8188-vpp1.o
->  obj-$(CONFIG_COMMON_CLK_MT8188_WPESYS) += clk-mt8188-wpe.o
-> +obj-$(CONFIG_COMMON_CLK_MT8189) += clk-mt8189-apmixedsys.o
->  obj-$(CONFIG_COMMON_CLK_MT8192) += clk-mt8192-apmixedsys.o clk-mt8192.o
->  obj-$(CONFIG_COMMON_CLK_MT8192_AUDSYS) += clk-mt8192-aud.o
->  obj-$(CONFIG_COMMON_CLK_MT8192_CAMSYS) += clk-mt8192-cam.o
-> diff --git a/drivers/clk/mediatek/clk-mt8189-apmixedsys.c b/drivers/clk/mediatek/clk-mt8189-apmixedsys.c
-> new file mode 100644
-> index 000000000000..0657a50c30d9
-> --- /dev/null
-> +++ b/drivers/clk/mediatek/clk-mt8189-apmixedsys.c
-> @@ -0,0 +1,196 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2025-2026 MediaTek Inc.
-> + *                    Qiqi Wang <qiqi.wang@mediatek.com>
-> + *                    Irving-CH Lin <irving-ch.lin@mediatek.com>
-> + * Copyright (C) 2026 Collabora Ltd.
-> + *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> + *                    Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+>  #include <linux/clk.h>
+> @@ -26,8 +27,10 @@
+>  #include <linux/regulator/consumer.h>
+>  #include <linux/remoteproc.h>
+>  #include <linux/soc/qcom/mdt_loader.h>
+> +#include <linux/soc/qcom/qmi_tmd.h>
+>  #include <linux/soc/qcom/smem.h>
+>  #include <linux/soc/qcom/smem_state.h>
+> +#include <dt-bindings/thermal/qcom,qmi-tmd.h>
+>  
+>  #include "qcom_common.h"
+>  #include "qcom_pil_info.h"
+> @@ -38,6 +41,16 @@
+>  
+>  #define MAX_ASSIGN_COUNT 3
+>  
+> +/**
+> + * struct tmd_name - TMD device name to cooling-device index mapping
+> + * @name: TMD device name
+> + * @id: Cooling-device index used as #cooling-cells cell 0 in DT
 > + */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/delay.h>
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_address.h>
-> +#include <linux/of_device.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/slab.h>
-
-The list of includes here seems excessive, especially compared to the
-later files in this series.
-
-> +
-> +#include "clk-fhctl.h"
-> +#include "clk-mtk.h"
-> +#include "clk-pll.h"
-> +
-> +#include <dt-bindings/clock/mediatek,mt8189-clk.h>
-> +
-> +#define MT8189_PLL_FMAX		(3800UL * MHZ)
-> +#define MT8189_PLL_FMIN		(1500UL * MHZ)
-> +#define MT8189_PLLEN_OFS	0x70
-> +#define MT8189_INTEGER_BITS	8
-> +
-> +#define PLL_SETCLR(_id, _name, _reg, _en_setclr_bit,		\
-> +			_rstb_setclr_bit, _flags, _pd_reg,	\
-> +			_pd_shift, _tuner_reg, _tuner_en_reg,	\
-> +			_tuner_en_bit, _pcw_reg, _pcw_shift,	\
-> +			_pcwbits) {				\
-> +		.id = _id,					\
-> +		.name = _name,					\
-> +		.en_reg = MT8189_PLLEN_OFS,			\
-> +		.reg = _reg,					\
-> +		.pll_en_bit = _en_setclr_bit,			\
-> +		.rst_bar_mask = BIT(_rstb_setclr_bit),		\
-> +		.flags = _flags,				\
-> +		.fmax = MT8189_PLL_FMAX,			\
-> +		.fmin = MT8189_PLL_FMIN,			\
-> +		.pd_reg = _pd_reg,				\
-> +		.pd_shift = _pd_shift,				\
-> +		.tuner_reg = _tuner_reg,			\
-> +		.tuner_en_reg = _tuner_en_reg,			\
-> +		.tuner_en_bit = _tuner_en_bit,			\
-> +		.pcw_reg = _pcw_reg,				\
-> +		.pcw_shift = _pcw_shift,			\
-> +		.pcwbits = _pcwbits,				\
-> +		.pcwibits = MT8189_INTEGER_BITS,		\
-> +	}
-
-There is no .ops set. mtk_clk_register_pll() in drivers/clk/mediatek/clk-pll.c
-will use mtk_pll_ops when no ops is set. mtk_pll_prepare() reads/writes
-pll->pwr_addr.
-
-> +
-> +static const struct mtk_pll_data apmixed_plls[] = {
-> +	PLL_SETCLR(CLK_APMIXED_ARMPLL_LL, "armpll-ll", 0x204, 18,
-> +		   0, PLL_AO, 0x208, 24, 0, 0, 0, 0x208, 0, 22),
-> +	PLL_SETCLR(CLK_APMIXED_ARMPLL_BL, "armpll-bl", 0x214, 17,
-> +		   0, PLL_AO, 0x218, 24, 0, 0, 0, 0x218, 0, 22),
-> +	PLL_SETCLR(CLK_APMIXED_CCIPLL, "ccipll", 0x224, 16,
-> +		   0, PLL_AO, 0x228, 24, 0, 0, 0, 0x228, 0, 22),
-> +	PLL_SETCLR(CLK_APMIXED_MAINPLL, "mainpll", 0x304, 15,
-> +		   23, HAVE_RST_BAR | PLL_AO,
-> +		   0x308, 24, 0, 0, 0, 0x308, 0, 22),
-> +	PLL_SETCLR(CLK_APMIXED_UNIVPLL, "univpll", 0x314, 14,
-> +		   23, HAVE_RST_BAR, 0x318, 24, 0, 0, 0, 0x318, 0, 22),
-> +	PLL_SETCLR(CLK_APMIXED_MMPLL, "mmpll", 0x324, 13,
-> +		   23, HAVE_RST_BAR, 0x328, 24, 0, 0, 0, 0x328, 0, 22),
-> +	PLL_SETCLR(CLK_APMIXED_MFGPLL, "mfgpll", 0x504, 7,
-> +		   0, 0, 0x508, 24, 0, 0, 0, 0x508, 0, 22),
-> +	PLL_SETCLR(CLK_APMIXED_APLL1, "apll1", 0x404, 11,
-> +		   0, 0, 0x408, 24, 0x040, 0x00c, 0, 0x40c, 0, 32),
-> +	PLL_SETCLR(CLK_APMIXED_APLL2, "apll2", 0x418, 10,
-> +		   0, 0, 0x41c, 24, 0x044, 0x00c, 1, 0x420, 0, 32),
-> +	PLL_SETCLR(CLK_APMIXED_EMIPLL, "emipll", 0x334, 12,
-> +		   0, PLL_AO, 0x338, 24, 0, 0, 0, 0x338, 0, 22),
-> +	PLL_SETCLR(CLK_APMIXED_APUPLL2, "apupll2", 0x614, 2,
-> +		   0, 0, 0x618, 24, 0, 0, 0, 0x618, 0, 22),
-> +	PLL_SETCLR(CLK_APMIXED_APUPLL, "apupll", 0x604, 3,
-> +		   0, 0, 0x608, 24, 0, 0, 0, 0x608, 0, 22),
-> +	PLL_SETCLR(CLK_APMIXED_TVDPLL1, "tvdpll1", 0x42c, 9,
-> +		   0, 0, 0x430, 24, 0, 0, 0, 0x430, 0, 22),
-> +	PLL_SETCLR(CLK_APMIXED_TVDPLL2, "tvdpll2", 0x43c, 8,
-> +		   0, 0, 0x440, 24, 0, 0, 0, 0x440, 0, 22),
-> +	PLL_SETCLR(CLK_APMIXED_ETHPLL, "ethpll", 0x514, 6,
-> +		   0, 0, 0x518, 24, 0, 0, 0, 0x518, 0, 22),
-> +	PLL_SETCLR(CLK_APMIXED_MSDCPLL, "msdcpll", 0x524, 5,
-> +		   0, 0, 0x528, 24, 0, 0, 0, 0x528, 0, 22),
-> +	PLL_SETCLR(CLK_APMIXED_UFSPLL, "ufspll", 0x534, 4,
-> +		   0, 0, 0x538, 24, 0, 0, 0, 0x538, 0, 22),
+> +struct tmd_name {
+> +	const char *name;
+> +	int id;
 > +};
 > +
-> +#define FH(_pllid, _fhid, _offset) {				\
-> +		.data = {					\
-> +			.pll_id = _pllid,			\
-> +			.fh_id = _fhid,				\
-> +			.fh_ver = FHCTL_PLLFH_V2,		\
-> +			.fhx_offset = _offset,			\
-> +			.dds_mask = GENMASK(21, 0),		\
-> +			.slope0_value = 0x6003c97,		\
-> +			.slope1_value = 0x6003c97,		\
-> +			.sfstrx_en = BIT(2),			\
-> +			.frddsx_en = BIT(1),			\
-> +			.fhctlx_en = BIT(0),			\
-> +			.tgl_org = BIT(31),			\
-> +			.dvfs_tri = BIT(31),			\
-> +			.pcwchg = BIT(31),			\
-> +			.dt_val = 0x0,				\
-> +			.df_val = 0x9,				\
-> +			.updnlmt_shft = 16,			\
-> +			.msk_frddsx_dys = GENMASK(23, 20),	\
-> +			.msk_frddsx_dts = GENMASK(19, 16),	\
-> +		},						\
-> +	}
+>  struct qcom_pas_data {
+>  	int crash_reason_smem;
+>  	const char *firmware_name;
+> @@ -58,6 +71,10 @@ struct qcom_pas_data {
+>  	int ssctl_id;
+>  	unsigned int smem_host_id;
+>  
+> +	unsigned int tmd_instance_id;
+> +	const struct tmd_name *tmd_name;
+> +	int num_tmd;
 > +
-> +static struct mtk_pllfh_data pllfhs[] = {
-> +	FH(CLK_APMIXED_ARMPLL_LL, 0, 0x003C),
-> +	FH(CLK_APMIXED_ARMPLL_BL, 1, 0x0050),
-> +	FH(CLK_APMIXED_CCIPLL, 2, 0x0064),
-> +	FH(CLK_APMIXED_MAINPLL, 3, 0x0078),
-> +	FH(CLK_APMIXED_MMPLL, 4, 0x008C),
-> +	FH(CLK_APMIXED_MFGPLL, 5, 0x00A0),
-> +	FH(CLK_APMIXED_EMIPLL, 6, 0x00B4),
-> +	FH(CLK_APMIXED_TVDPLL1, 7, 0x00C8),
-> +	FH(CLK_APMIXED_TVDPLL2, 8, 0x00DC),
-> +	FH(CLK_APMIXED_MSDCPLL, 9, 0x00F0),
-> +	FH(CLK_APMIXED_UFSPLL, 10, 0x0104),
-> +	FH(CLK_APMIXED_APUPLL, 11, 0x0118),
-> +	FH(CLK_APMIXED_APUPLL2, 12, 0x012c),
-> +};
+>  	int region_assign_idx;
+>  	int region_assign_count;
+>  	bool region_assign_shared;
+> @@ -122,6 +139,8 @@ struct qcom_pas {
+>  
+>  	struct qcom_pas_context *pas_ctx;
+>  	struct qcom_pas_context *dtb_pas_ctx;
 > +
-> +static const struct of_device_id of_match_clk_mt8189_apmixed[] = {
-> +	{ .compatible = "mediatek,mt8189-apmixedsys" },
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, of_match_clk_mt8189_apmixed);
-> +
-> +static int clk_mt8189_apmixed_probe(struct platform_device *pdev)
+> +	struct qmi_tmd_client *tmd_inst;
+>  };
+>  
+>  static void qcom_pas_segment_dump(struct rproc *rproc,
+> @@ -798,6 +817,64 @@ static void qcom_pas_unassign_memory_region(struct qcom_pas *pas)
+>  	}
+>  }
+>  
+> +static int qcom_pas_setup_tmd(struct qcom_pas *pas, const struct qcom_pas_data *desc)
 > +{
-> +	int r;
-> +	struct clk_hw_onecell_data *clk_data;
-> +	struct device_node *node = pdev->dev.of_node;
-> +	const u8 *fhctl_node = "mediatek,mt8189-fhctl";
+> +	struct qmi_tmd_client *tmd_inst;
+> +	const struct tmd_name *tmd;
+> +	const char **tmd_names;
+> +	int i, ret;
+> +
+> +	if (!device_property_present(pas->dev, "#cooling-cells"))
+> +		return 0;
+> +
+> +	if (!desc->tmd_name || desc->num_tmd == 0)
+> +		return 0;
+> +
+> +	tmd_names = devm_kcalloc(pas->dev, desc->num_tmd,
+> +				 sizeof(*tmd_names), GFP_KERNEL);
+> +	if (!tmd_names)
+> +		return -ENOMEM;
+> +
+> +	for (i = 0; i < desc->num_tmd; i++) {
+> +		tmd = &desc->tmd_name[i];
+> +
+> +		if (tmd->id < 0 || tmd->id >= desc->num_tmd) {
 
-Reverse Christmas tree.
+The < 0 check is totally redundant.
 
-Brian
+For the second check, currently the driver will set num_tmd to
+ARRAY_SIZE(desc->tmds), which makes second part either redundant or
+invalid. I assume that here you want to compare to some maximum TMD
+number to be supported rather than a fixed ARRAY_SIZE().
 
+> +			dev_err(pas->dev, "Invalid TMD id %d for '%s'\n",
+> +				tmd->id, tmd->name);
+> +			return -EINVAL;
+> +		}
+> +
+> +		if (tmd_names[tmd->id]) {
+> +			dev_err(pas->dev, "Duplicate TMD id %d for '%s'\n",
+> +				tmd->id, tmd->name);
+> +			return -EINVAL;
+> +		}
+> +
+> +		tmd_names[tmd->id] = tmd->name;
+> +	}
+> +
+> +	for (i = 0; i < desc->num_tmd; i++) {
+> +		if (!tmd_names[i]) {
+> +			dev_err(pas->dev, "Missing TMD mapping for id %d\n", i);
+> +			return -EINVAL;
+> +		}
+> +	}
+> +
+> +	tmd_inst = qmi_tmd_init(pas->dev, desc->tmd_instance_id, tmd_names,
+> +				desc->num_tmd);
+
+And this makes it even more strange. Can there be holes in the
+tmd_names? Can platform omit some of the TMDs? Assumingly yes, this
+is not correct (nor is devm_kcalloc).
+
+> +	if (IS_ERR(tmd_inst)) {
+> +		ret = PTR_ERR(tmd_inst);
+> +		if (ret == -ENODEV)
+> +			return 0;
+> +
+> +		return ret;
+> +	}
+> +
+> +	pas->tmd_inst = tmd_inst;
+> +
+> +	return 0;
+> +}
+> +
+>  static int qcom_pas_probe(struct platform_device *pdev)
+>  {
+>  	const struct qcom_pas_data *desc;
+> @@ -925,16 +1002,24 @@ static int qcom_pas_probe(struct platform_device *pdev)
+>  	if (desc->early_boot)
+>  		pas->rproc->state = RPROC_DETACHED;
+>  
+> -	ret = rproc_add(rproc);
+> +	ret = qcom_pas_setup_tmd(pas, desc);
+>  	if (ret)
+>  		goto remove_ssr_sysmon;
+>  
+> +	ret = rproc_add(rproc);
+> +	if (ret)
+> +		goto remove_setup_tmd;
+> +
+>  	node = of_get_compatible_child(pdev->dev.of_node, "qcom,bam-dmux");
+>  	pas->bam_dmux = of_platform_device_create(node, NULL, &pdev->dev);
+>  	of_node_put(node);
+>  
+>  	return 0;
+>  
+> +remove_setup_tmd:
+> +	if (pas->tmd_inst)
+> +		qmi_tmd_exit(pas->tmd_inst);
+> +
+>  remove_ssr_sysmon:
+>  	qcom_remove_ssr_subdev(rproc, &pas->ssr_subdev);
+>  	qcom_remove_sysmon_subdev(pas->sysmon);
+> @@ -960,6 +1045,9 @@ static void qcom_pas_remove(struct platform_device *pdev)
+>  	if (pas->bam_dmux)
+>  		of_platform_device_destroy(&pas->bam_dmux->dev, NULL);
+>  
+> +	if (pas->tmd_inst)
+> +		qmi_tmd_exit(pas->tmd_inst);
+> +
+>  	rproc_del(pas->rproc);
+>  
+>  	qcom_q6v5_deinit(&pas->q6v5);
+> 
+> -- 
+> 2.34.1
+> 
+
+-- 
+With best wishes
+Dmitry
