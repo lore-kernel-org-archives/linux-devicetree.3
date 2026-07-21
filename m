@@ -1,254 +1,152 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2683B4446FA
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 23:35:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC163AF643
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 23:38:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784676932; cv=none; b=I9sZQNYAIzNLXBMfqBwGDN2XokGwjUGjcJvANGGgstrcy2LpfHycTMve15LwnGhQFN0ARx8vSM1twLC/Wmij0upvl1W+mfBM9j5i30at+7g+esjIB/dtmudVporCa+WTEQuDAVlPpL3VsoHTlc+FuxuKcTxk0whaPtnIwggPTw0=
+	t=1784677136; cv=none; b=IZc3lItGi/y6TIKks1/7pPBf/zIq8iMBX8BIAinT7sGPCXkH4qsboblTkIVvRZhSMcAOVkkE2BtAwW6QhNuM7SZosmH7y2twxyU/vxpftyladpFmookrJckNnd7MFkEaQDT+Nw9ne64wfwxmkGeSeJ2/WM/iqLSTD6ZRdgjVOs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784676932; c=relaxed/simple;
-	bh=4pgycAz8dHsjrElWNtLLwG9xn8sGYdGkxoKcBO7/0Mw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jG6natj/OOvx3CSr5OVrwIPDtppDe9s4bB61ZJErhUXareX52rLgE4np/IBUMpp217R3kF/7IyExRm3dOL9pQaKVsdgiz5ksrVDEM9SrfVTQIK7IwqtDGzH1uLzQLrGLPPA7EEBFeDq3H8oJ42FIWr6YMitPamiKZpnGdgmr6QU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DKyClgGp; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784677136; c=relaxed/simple;
+	bh=CkGazRlSLBpgXuYuVKGSoZ0MS3eO0M9AdmbY/AcqW1E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=r0WsYw/T7cDRApI9dNU0vhogHHGfJfztRJPLTSSfkiWSmaZpwDRkOWSSsgfCrLlujvPffr8VilspHJhZeJMb8hl6XmSkX9L5C1Uhgg9VFN/De6zUI4xg3OfRR/7cE5Hlbi3j/Ky3MsYwuTQtQ4Pt+VYinMMGYqsKlvhmE8zR5c8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=N7C4itpO; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=cF3w0/t2; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DKyClgGp"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2cf30af983aso8869545ad.3
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 16:35:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="N7C4itpO";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="cF3w0/t2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784677133;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kilXo1oxIH6hK33OgqJOAGTQt22AcFxstIL18rwWXUU=;
+	b=N7C4itpO/cz3lHO9Uv7JwO88EypU1UWxrQdpJaiGDmXw4Kh9iXgIMVD0ZY4KrEsq1scaP0
+	L/ph6Ees8Umwy35DvIHbBKKzJ7HQkc1YnZ6XxLzZoVl9cB0bp9nkBZoIxAisBlBZKms0Fi
+	qUoeinupHzxQFh3YOiNw2//+k+PwGTE=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-94-xcEyuiz2NAeU6hiSLfaSJA-1; Tue, 21 Jul 2026 19:38:50 -0400
+X-MC-Unique: xcEyuiz2NAeU6hiSLfaSJA-1
+X-Mimecast-MFC-AGG-ID: xcEyuiz2NAeU6hiSLfaSJA_1784677130
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e695a3b28so1160054085a.1
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 16:38:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784676930; x=1785281730; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SJgBeOO3ejSAAenm/fnjt2f8BccFZ7Q+isSN8vs0qFY=;
-        b=DKyClgGpXakS9qqwLhsGH7s3SFpKEwSP4hcoSKmBzU3zrV7uGxdGCd9x3Bz2IcN+b7
-         uTL6B7XDdv/KzKNfSwXxH6cgugFVZTSWA9cAi+1FWDHsOvXwBNpbZoJGVcxA0Bpqztrw
-         757T+n3zxC4QEzQ0DdgXVZQsa8OTqa3ZC8dyUJFTJKehIhK7RzIQcOZzAUPKIqMXNaCh
-         GnNiqcGYIdlJZNssR1ZqgFyFKxnD27AkhAWC2fQ/DzrbRA2+821qXhD8TC91nfASX2Gq
-         R1DJy86+g3ZTxKN76Kblc+O2k+bQr7nNWzbk/GjhuTPdekaTUQfq/iG+iTP31+oMrMPO
-         bmoQ==
+        d=redhat.com; s=google; t=1784677130; x=1785281930; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=kilXo1oxIH6hK33OgqJOAGTQt22AcFxstIL18rwWXUU=;
+        b=cF3w0/t2fQgE2DytEk5lleCSW9y8g9kpJssjZby5evuzBzW66zBeGYdkyndlNI42BD
+         f4ZYG80jCCN6Vul/si71+KHFwXjnuAZcfJrFG5/lNxxl3j2YOevGSaL2c9QmoFKPHjiC
+         26dCY7ZH2Aw1RrqMm348XE/ERIM+ASY6+lT4arV5cUpf33fwwJLD8xDKtcyiQddyk/qN
+         77pyrpaany9MVfLTW6GdLCaGS9G2ufUCzEZRjkRuAK9LUST4uIjd0ZwWK26z3KygA2pt
+         ln0kQ4aohiXDV2Cv3hlXmCY0+CYpcrMKywBCTmpzJHUmOUFC6F48bs9aztlL0dN93ytE
+         uWHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784676930; x=1785281730;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SJgBeOO3ejSAAenm/fnjt2f8BccFZ7Q+isSN8vs0qFY=;
-        b=GmdVNGcaXKCvY3blEbilGn9d4PqeR0Kv6Bc0VQadcYNIfqtfDwAVsAa2SbPNzxdMsf
-         jfrDb+sAZyN+1G8+tfG8CVp1/MT300R/uO/GhMldPjUdEhK/1xE0MdTi98EXEEq23K6n
-         7ONLnLXw9R0grKpCzlm7haJ0rI6bE/EsBXLFYVwCXJqMIEruBs25IcthvVKIRATdn8pk
-         U0ScSdDbSfxMrCUPEtomCwtBcb3YDjYE5ipQ19CXr/Tz04U8eULB70ZNgLWg6iLK2oHB
-         dzoAN6eLdjjC24iC62d5THKIwO54LK6IbeWyJ3s2VfrMoF+QnV/BeFXnC7+oxZaqobQl
-         9gcg==
-X-Forwarded-Encrypted: i=1; AHgh+RpDApitncr51gK8y2XgNYfnY/JCUarkoyjbt72QY9+Lsl7bq4ViJGfK/SENDq00Xt+NJYisbFMq/7jm@vger.kernel.org
-X-Gm-Message-State: AOJu0YwSsvkTUc8smhP60ee0BtvceNsXykyK9p4EJXuTymxgLN0ikR+M
-	vUTJNa3spmo08uJr95k5SA5/7g2/KYeC0xbNuavgVpeepzkO/4bSHKDf
-X-Gm-Gg: AR+sD13mmODKF2C2xakTgUl5Ps2A20/sUInzaHwJyKzFZYa2QF18SDTtNHPp2N4pUbN
-	/OyIsHMLOTspl7BI1lccF2OrX1UJukOinBIHUHo4oXTgPXx6KNDvT/uRwMOxW4GgYb2UXAeliEG
-	O0qMJev09b0dTGjjhUJsJJbGeLrcqSvT7z/0bWuHN0BkoBmJwuq6u+Mp+jlfxrI4hIIzwe/OI2P
-	B/n7SeHq4oMFaGGacjLgMs/ZFMoETYwOk5OrEP2MlqFexojgs0r4cYeFxPONazZZcHmMy+HRwoq
-	ajviKOcsnVT2TuUNp6GUTKX7gPFZNOfDE8eFNAr69Yh0wIrQfvsVcARsGlL6WkxCyyyHZeJFLh/
-	YZo8Mbwzk90xl3u6yi3mEUUEAFBJ0x5pJljhd5if+nsuy5VyHDt54yYCvtiqR8QrLz+qieecaGp
-	fFhDblre2pculu90C//5ZPuUfQPihz4qLeIvB0Beeta8Je6xw0a6qkbs5KL7hzfeIqxNXA3UCF0
-	eG0rDCuvt0+Qw7JHkAesCUN6XJH7gO/IlFAmPW0
-X-Received: by 2002:a05:6a21:e0a6:b0:3bf:b84a:f3d8 with SMTP id adf61e73a8af0-3c42bd60404mr928427637.0.1784676930438;
-        Tue, 21 Jul 2026 16:35:30 -0700 (PDT)
-Received: from chenyou.R15NEW (112-104-169-66.adsl.dynamic.seed.net.tw. [112.104.169.66])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbb8f0ebfcesm245353a12.11.2026.07.21.16.35.24
+        d=1e100.net; s=20251104; t=1784677130; x=1785281930;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kilXo1oxIH6hK33OgqJOAGTQt22AcFxstIL18rwWXUU=;
+        b=Cqxh2U9oJ41wQu32JH2+pPIHoo7TfX3wrvRe8ybrOLM5CESO04U31zZtbcnx3MuXAe
+         CGcawfCK+4YXM+X1xtfXArzR2rls1y3qwqQcZtFuxHehvZy6X5xZM8Wxk8C+vKsajAmd
+         v2rv3laRWnFVQnhdy8tweWIkOeNcZHsDZa/PflXMF02mw8ZC91xggGP8g4XQKd+brEDm
+         9XIXTb7pBgJjsDAgH0EaUwFUfPnVlaRjrJUmR287NuAqr4YaMRBaVgbrYEcig5V5K1T+
+         qHvw07wpSCeqtuFnW7uWil+ja7w2PqiwRxMjNNnJqmq+yKrhNhRjufvSZmhUKdx4RRbB
+         o0ew==
+X-Forwarded-Encrypted: i=1; AHgh+Rp1lwDYGDEjgW+LofIPcI36v3i7enYbqZr3taRQKlKYXDhyrw5YtddTqILq9UnfTaYmvio+Hqy/T0w9@vger.kernel.org
+X-Gm-Message-State: AOJu0YzzsdUad5wMRCeqYaEvNYaGJDH9Z2Kwltk5Ef6Bd9OTPIYtuTy3
+	LH/s4MDkhhusSf4zwX5YB94MWXkZUgIkxGyFn/UCZlMsSNM6CVUkfTPYq1nwvlopHFk/zqOvMB7
+	nYZu4i86kx+S3fEaTgN65yZtEyFC4LgZEgyUVMe2CGHMgU5QBzv48C+RnUXeKoFU=
+X-Gm-Gg: AR+sD11mNOry9/FRRZQaHagH3Q//UKKfR1hbMSNdbXAQ/rEP8vZacxjqxsg3j4IUDwK
+	Pl2X8DjbyVjdoW4r2AwViUltehAwmax0yNAMQ2/ACNgpTiLcB4RatePIvnd6mGER1ke60LSl0WV
+	lyRmEkOoUIGlYfHq8V1I87d+xF0LKW/MMb5QTDMeC1JGrUtx9g94tcbR14XBAGYSoUDmGC6PqQV
+	hAaGxsSWfB9fCsgE0n6GaU6JgOdCUQjgu7Ql8xvVGDre0fkK1GZ0Kq7oet3ne6/UYocDRMrCCiJ
+	RlnnQL9lJX9m3vx4pdykwTePeuBLiPDhm1XNE5W2MORcrxekNlCBTFsZOU6a+3BaencbxdJEqRV
+	oW7B49BG3AG8jNbNVbuAkep2uJJBZRs4MjMo=
+X-Received: by 2002:a05:620a:a489:b0:92e:c0ac:aeb6 with SMTP id af79cd13be357-930f302196dmr161608085a.40.1784677130006;
+        Tue, 21 Jul 2026 16:38:50 -0700 (PDT)
+X-Received: by 2002:a05:620a:a489:b0:92e:c0ac:aeb6 with SMTP id af79cd13be357-930f302196dmr161607085a.40.1784677129543;
+        Tue, 21 Jul 2026 16:38:49 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-930f68a9c76sm20047685a.13.2026.07.21.16.38.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 16:35:28 -0700 (PDT)
-From: Chen-Yu Yeh <chenyou910331@gmail.com>
-To: chen.wang@linux.dev,
-	inochiama@gmail.com
-Cc: Chen-Yu Yeh <chenyou910331@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Nutty Liu <liujingqi@lanxincomputing.com>,
-	Han Gao <rabenda.cn@gmail.com>,
-	Longbin Li <looong.bin@gmail.com>,
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-riscv@lists.infradead.org (open list:RISC-V ARCHITECTURE),
-	sophgo@lists.linux.dev (open list:SOPHGO DEVICETREES and DRIVERS),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v4 3/3] riscv: dts: sophgo: Add Milk-V Duo 256M board support
-Date: Wed, 22 Jul 2026 07:34:44 +0800
-Message-ID: <20260721233452.112204-4-chenyou910331@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260721233452.112204-1-chenyou910331@gmail.com>
-References: <20260721233452.112204-1-chenyou910331@gmail.com>
+        Tue, 21 Jul 2026 16:38:48 -0700 (PDT)
+Date: Tue, 21 Jul 2026 19:38:46 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de,
+	cylee12@realtek.com, afaerber@suse.com, jyanchou@realtek.com,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com,
+	cy.huang@realtek.com, stanley_chang@realtek.com
+Subject: Re: [PATCH v10 08/11] clk: realtek: Add support for MMC-tuned PLL
+ clocks
+Message-ID: <amADBr_DnBeGh2jg@redhat.com>
+References: <20260713155630.3054636-1-eleanor.lin@realtek.com>
+ <20260713155630.3054636-9-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260713155630.3054636-9-eleanor.lin@realtek.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-The Milk-V Duo 256M is a small form factor development board based on
-the Sophgo SG2002 SoC.
+On Mon, Jul 13, 2026 at 11:56:27PM +0800, Yu-Chun Lin wrote:
+> From: Cheng-Yu Lee <cylee12@realtek.com>
+> 
+> Add clk_pll_mmc_ops for enable/disable, prepare, rate control, and status
+> operations on MMC PLL clocks.
+> 
+> Also add clk_pll_mmc_phase_ops to support phase get/set operations.
+> 
+> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+> Co-developed-by: Jyan Chou <jyanchou@realtek.com>
+> Signed-off-by: Jyan Chou <jyanchou@realtek.com>
+> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> ---
+> Changes in v10:
+> - None.
+> ---
+>  MAINTAINERS                       |   8 +
+>  drivers/clk/realtek/Kconfig       |   3 +
+>  drivers/clk/realtek/Makefile      |   2 +
+>  drivers/clk/realtek/clk-pll-mmc.c | 430 ++++++++++++++++++++++++++++++
+>  drivers/clk/realtek/clk-pll.h     |  13 +
+>  5 files changed, 456 insertions(+)
+>  create mode 100644 drivers/clk/realtek/clk-pll-mmc.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 1fffb1fc5de1..0c8b98ecc4a5 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -22747,6 +22747,14 @@ F:	drivers/reset/realtek/*
+>  F:	include/dt-bindings/clock/realtek*
+>  F:	include/dt-bindings/reset/realtek*
+>  
+> +REALTEK SOC PLL CLOCK FOR MMC SUPPORT
+> +M:	Cheng-Yu Lee <cylee12@realtek.com>
+> +M:	Jyan Chou <jyanchou@realtek.com>
+> +M:	Yu-Chun Lin <eleanor.lin@realtek.com>
+> +L:	linux-clk@vger.kernel.org
+> +S:	Supported
+> +F:	drivers/clk/realtek/clk-pll-mmc.c
 
-This patch adds basic device tree support for the board, including:
-- UART console
-- SD/MMC controller
-- USB host
-- Onboard blue status LED (connected to PWR_GPIO[2] / porte 2)
+2 of the 3 names listed here are under the new realtek entry added by
+this series. I'm not sure how common this is but it seems overly
+granular.
 
-Tested on actual Milk-V Duo 256M hardware, verified boot to shell and
-heartbeat LED functionality.
-
-Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
----
- arch/riscv/boot/dts/sophgo/Makefile           |   1 +
- .../boot/dts/sophgo/sg2002-milkv-duo256m.dts  | 121 ++++++++++++++++++
- 2 files changed, 122 insertions(+)
- create mode 100644 arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
-
-diff --git a/arch/riscv/boot/dts/sophgo/Makefile b/arch/riscv/boot/dts/sophgo/Makefile
-index 6f65526d4193..1ff69cf7f178 100644
---- a/arch/riscv/boot/dts/sophgo/Makefile
-+++ b/arch/riscv/boot/dts/sophgo/Makefile
-@@ -2,6 +2,7 @@
- dtb-$(CONFIG_ARCH_SOPHGO) += cv1800b-milkv-duo.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += cv1812h-huashan-pi.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += sg2002-licheerv-nano-b.dtb
-+dtb-$(CONFIG_ARCH_SOPHGO) += sg2002-milkv-duo256m.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += sg2042-milkv-pioneer.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += sg2042-evb-v1.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += sg2042-evb-v2.dtb
-diff --git a/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts b/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
-new file mode 100644
-index 000000000000..21ef6ed9f0d2
---- /dev/null
-+++ b/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
-@@ -0,0 +1,121 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (C) 2023 Jisheng Zhang <jszhang@kernel.org>
-+ * Copyright (C) 2026 Chen-Yu Yeh <chenyou910331@gmail.com>
-+ */
-+
-+/dts-v1/;
-+
-+#include "sg2002.dtsi"
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/leds/common.h>
-+
-+/ {
-+	model = "Milk-V Duo 256M";
-+	compatible = "milkv,duo256m", "sophgo,sg2002";
-+
-+	aliases {
-+		serial0 = &uart0;
-+		serial1 = &uart1;
-+		serial2 = &uart2;
-+		serial3 = &uart3;
-+		serial4 = &uart4;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		led-0 {
-+			gpios = <&porte 2 GPIO_ACTIVE_HIGH>;
-+			color = <LED_COLOR_ID_BLUE>;
-+			function = LED_FUNCTION_STATUS;
-+			linux,default-trigger = "heartbeat";
-+		};
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		coprocessor_rtos: region@83f40000 {
-+			reg = <0x83f40000 0xc0000>;
-+			no-map;
-+		};
-+	};
-+};
-+
-+&osc {
-+	clock-frequency = <25000000>;
-+};
-+
-+&pinctrl {
-+	uart0_cfg: uart0-cfg {
-+		uart0-pins {
-+			pinmux = <PINMUX(PIN_UART0_TX, 0)>,
-+				 <PINMUX(PIN_UART0_RX, 0)>;
-+			bias-pull-up;
-+			drive-strength-microamp = <10800>;
-+			power-source = <3300>;
-+		};
-+	};
-+
-+	sdhci0_cfg: sdhci0-cfg {
-+		sdhci0-clk-pins {
-+			pinmux = <PINMUX(PIN_SD0_CLK, 0)>;
-+			bias-pull-up;
-+			drive-strength-microamp = <16100>;
-+			power-source = <3300>;
-+		};
-+
-+		sdhci0-cmd-pins {
-+			pinmux = <PINMUX(PIN_SD0_CMD, 0)>;
-+			bias-pull-up;
-+			drive-strength-microamp = <10800>;
-+			power-source = <3300>;
-+		};
-+
-+		sdhci0-data-pins {
-+			pinmux = <PINMUX(PIN_SD0_D0, 0)>,
-+				 <PINMUX(PIN_SD0_D1, 0)>,
-+				 <PINMUX(PIN_SD0_D2, 0)>,
-+				 <PINMUX(PIN_SD0_D3, 0)>;
-+			bias-pull-up;
-+			drive-strength-microamp = <10800>;
-+			power-source = <3300>;
-+		};
-+
-+		sdhci0-cd-pins {
-+			pinmux = <PINMUX(PIN_SD0_CD, 0)>;
-+			bias-pull-up;
-+			drive-strength-microamp = <10800>;
-+			power-source = <3300>;
-+		};
-+	};
-+};
-+
-+&sdhci0 {
-+	pinctrl-0 = <&sdhci0_cfg>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+	bus-width = <4>;
-+	no-1-8-v;
-+	no-mmc;
-+	no-sdio;
-+	disable-wp;
-+};
-+
-+&uart0 {
-+	pinctrl-0 = <&uart0_cfg>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
-+
-+&usb {
-+	dr_mode = "host";
-+	status = "okay";
-+};
--- 
-2.43.0
+Brian
 
