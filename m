@@ -1,308 +1,114 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D20C44607E
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 09:32:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14ABF3B47CD
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 09:32:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784626357; cv=none; b=pUl3B+11WM5c6TJ4sMJcwShe5l/0O79CglOFHKoMIIg34cfJVLFeCSvH1sKmd5OOboHWoSaylVdB634a0nxIkCCv91wWIkwejQnpgi7VR1CfOljfeC/3GYgrHAwwc707Gq516eojNTooQMLrRG4K1m08CwGLK7H9AGSTM4FV8cE=
+	t=1784626373; cv=none; b=tLo679F00SvMLidmDRmGMLZCy2AqZ5qWcpVi5FqSz72+cLyQc5BXCLpVqsER4d8jIFNGVuGA7L+fOMrigFCIruxodXvPSKqvQpUiSSb0bMKRGL5jVn+KfZwOcbeGVw4pVcAD3wkwdxq5p/ieDelG+WMH9a/kWoJs/ZggQ0P7uPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784626357; c=relaxed/simple;
-	bh=k+frQNT9gSOjezLDJP/F4RiMfKqWKyQxc25TjbQ2p+Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QXpTdpjqsIvRsRLG9JjtxSfaNHJ/8I9UxT28vUoOQyQrBQGHESHMKHwPXERlC1Zx9tUYJNrc/MpSH/8miEyky8/67Pt/aX/jTfZwFh8ps29iYtT79bhbHaOhQBVe1zKerdExkMxsjxsARdrYuBSrr6vV/fc1RIZwixyZn/C9Ho0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f8L6dLv9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=P3HnnsY9; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784626373; c=relaxed/simple;
+	bh=z3fEFjQfy/SiWoExGGmgYIFwkaEQEksKjDUu3iQnjRc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nv9o2k4C37gjnwu4DvLVoxDkye2B+I4EswcbRE6pSnRfQuwDu3qhyoSJtA04+ExkaaY4IJHyyOXCs1t1l9YtQzuqwvXq6KItnFbwgvmkY0tUQEuRQvq0WMCQk3MjKTpsuC0+d0z9iOLjuMb1RE+CL7o2/S2XJfVqSvceIN1m0R8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dCQxO4bM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f8L6dLv9";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="P3HnnsY9"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66L6Zw734106910
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 09:32:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	nAwcIcDmw3iO32nZvjxYUJMQqhgi6ttqovILEJyu0Ig=; b=f8L6dLv92R+gcx/c
-	vGzOcLRaz5d89wji+LdoredEc6rlnrB/e73Nc9yPDbFgymM4PDu0SgHJ+icNMqUR
-	ljYLVO0/PM9yhDTnkrW26L4G3R9T5EpGQBXKMU+DmVdqkbkBJFpqXvr1CQ3bKISY
-	9+yFr3aXoZPLtT/E3bWtrRmtos8S6ShKCSDNaKhT1PFq/hBngkAvTrTMQuEQsFWI
-	muFcdD3bOVtZI25UdB/XO+Gr93h7z1mwsxzlNKaMPv0CbrDIXl5hR4QjGTklypUw
-	VBXPNOK8XW8yyAENImJXxe0YwG1LusQBP9mgtcVY8XwBcKIOL9FRdyAw7O6KL6Do
-	xKhXBA==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fhvqnagsq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 09:32:33 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cbb20f82a0eso1095032a12.0
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 02:32:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784626353; x=1785231153; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nAwcIcDmw3iO32nZvjxYUJMQqhgi6ttqovILEJyu0Ig=;
-        b=P3HnnsY93eSB9KfbJNpQu5qO6oC7vg1P3gqDcBObz5Rmq11P3AFQlVNuFPeUfiw6DI
-         vzvHUzWR+rj749SLDfoUwPueMiAY5yLGVaNnxtyxI8n7cMbOEoKSpIc5UX7mBdhRM33X
-         LupaFzh5p8Ix0qlu33LVRDj943Z5Up8vC5DYYhm4yDU7ZqCCamG7kmMMhmJoGEaLzYLG
-         QEgs/cGrtB3ONtyajy1609bkb6UU5xEHl7LM7RT1n1Ce346Mu+8snHnYBF43fz3zR52B
-         bqY8CON4CCnlArFWYJ8nzGvXHnhOuxBMdcZGJT7mQaN6kHCNFZxtLU14exrAv+A9mcco
-         dgnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784626353; x=1785231153;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nAwcIcDmw3iO32nZvjxYUJMQqhgi6ttqovILEJyu0Ig=;
-        b=UKXv5pZgcfBuW32fKX0MN5PutOUjHTNOu+Jsg7WLlsTqu9J33hpYC8f/5LQW/A+Yh2
-         0aWc5QxzKdP5EWTUWIJ6SSYlXAlUzlQTTSwNIztiIWWvU4KV4c9nMNv+0vMIyk4ivzfK
-         01dfJWbuEZXnX51xXmM01H2/jM4z/2ONIytj6s+joXbgew4tWhFaDZZY933sLUa7eWaK
-         7DkTSdhU8VEpcDExAsVVifG1cjrfUMNsOv36nkRvWGLJatQGmLNhAzoloYW60mszW6bk
-         zRwTFu6kFG7krCbxB058dRgJcWJdY5Q2Z0OA/7773qOr5zdMM0aer24QyEf8TBECAjVI
-         9XuQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro4FXag4X7LhbaM56yW6Hd9n8UthxVJJap1yHLU5beuzsoXzUyXb5gTfZak6iVq8J8q5NnbzZIlqIk7@vger.kernel.org
-X-Gm-Message-State: AOJu0YwOnDAeNgnTzas93tCTbGwKXm+E3wy60+hR/0KIp8R0Pg9GqXdG
-	TB4z/gSX7yAEi4HRI3M0g2kX4uSPmLn/z3UjVeAyRiRRpc+97PCDTsdB0h1feCxhKT/PpZRkDDc
-	gBfDSxpRtF9WYHLyvnlu1YPAY7aRAS7IWkMzHo1jkFrrQXwHz9jNOl/eSm2D5Yqi3cgM4LopR
-X-Gm-Gg: AfdE7cmwcWsES/Kw4e/eULiGOtAxLeJXo/7sBnAnVAUsHmB2USoDPwMw7gh6Tx7bXEk
-	lXc6PMCp9TBfhpulbOEhCwVEwtTW1DWurJjw2bWhf4g4wOBNYJb10w9K/2X6HTe5VMJlRqMJDrd
-	T2pjKMmMxDE5KsBiTeTltom5OfkRpoklsEcYc7EW2XIzQeHD/afPDZfK0R7p3AGuC0rzY4DsuI3
-	+YDMxzkClQbX839bmwFsvIhNGLRaqaS9NZqcPlEyaPGQw2dv3XJwKHvU7TVTHp/O7GNbXT21EsT
-	1lqRcxdVSbwDXwU+kqf54q2ebARH9cfzZOWhb31LixeDUdaQTQDk9OeJsfoqOomAtohcdpvcdxq
-	9g1mKMcguClLXmHBXa1q6V5QjHyQnpVViirQ=
-X-Received: by 2002:a05:6a20:7a9d:b0:3c3:b5db:cd07 with SMTP id adf61e73a8af0-3c3b5dbce30mr13522095637.15.1784626353289;
-        Tue, 21 Jul 2026 02:32:33 -0700 (PDT)
-X-Received: by 2002:a05:6a20:7a9d:b0:3c3:b5db:cd07 with SMTP id adf61e73a8af0-3c3b5dbce30mr13522068637.15.1784626352810;
-        Tue, 21 Jul 2026 02:32:32 -0700 (PDT)
-Received: from hu-krichai-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a1bb8a4sm49420949eec.14.2026.07.21.02.32.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 02:32:32 -0700 (PDT)
-From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Date: Tue, 21 Jul 2026 15:02:04 +0530
-Subject: [PATCH v3 3/3] arm64: dts: qcom: eliza-evk: Add PCIe1 with TC9563
- PCIe switch
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dCQxO4bM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB4CC1F000E9;
+	Tue, 21 Jul 2026 09:32:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784626372;
+	bh=5Ed3SRoxiexCfxuOWUv29kH7d7Q+JlFc+fzG+kRdnzg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dCQxO4bM5rcGQntAzrg/SHKWKcE97YjTJHr/FWkt1xjLQMfl2IS6/jNtAibThNPB7
+	 C6ZgS+s8YJHQfzM6+MNCD9gITnXbawMnZEVgK91VTjNoyINWwfbqGVMGg5PHYU/bWs
+	 2f0fXh2682t+ar4UBUOt6Tv+zJgm8GetVhFXFGtLUSbKLGEU7cp/+uSSUS1Kzq+N/7
+	 +G4qSQoc1476EBtkBCRNsO+ewFl5kiMYnSH77sD8k6EaoZX6Prg05LfD/9kSBcZlJB
+	 +w94P0+2c3MpjCXXCb4ggZQSQECgg6pGPJIV7yIZfkxx0n04O8lTnvmgow0PmIWdyg
+	 7zhRjx9xZ/6aw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: crypto: qcom,inline-crypto-engine: Add
+ x1e80100 support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wenjia Zhang" <wenjia.zhang@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260721-devtool-v1-1-ade633accb41@oss.qualcomm.com>
+References: <20260721-devtool-v1-0-ade633accb41@oss.qualcomm.com>
+ <20260721-devtool-v1-1-ade633accb41@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 09:32:51 +0000
+Message-Id: <20260721093251.AB4CC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-eliza_evk-v3-3-92b10038f13d@oss.qualcomm.com>
-References: <20260721-eliza_evk-v3-0-92b10038f13d@oss.qualcomm.com>
-In-Reply-To: <20260721-eliza_evk-v3-0-92b10038f13d@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
-        linux-pm@vger.kernel.org,
-        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784626334; l=4157;
- i=krishna.chundru@oss.qualcomm.com; s=20230907; h=from:subject:message-id;
- bh=k+frQNT9gSOjezLDJP/F4RiMfKqWKyQxc25TjbQ2p+Y=;
- b=tX24YS4xWCm2YudzuvZz+9L+TaNDRK9PmGVMeHUk/1qKUeoTWqm9iT2PDwiK3EcHnMcEyQDOx
- u7eXxXZAvgwDvJdc2zacBhVoUtpEUwCcJBP/Vfr3N06jbvbC2OpDtwJ
-X-Developer-Key: i=krishna.chundru@oss.qualcomm.com; a=ed25519;
- pk=10CL2pdAKFyzyOHbfSWHCD0X0my7CXxj8gJScmn1FAg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDEwMCBTYWx0ZWRfX1LUcNBc+Jngc
- tn/AAkjlV44M562i0inhCCvQGYEQ16zM8hxlaV/H4POYbk6X60izNXGH5eIoCck1jzQsXE6WKFS
- uyB2/QZ1h/gMV98SFdK88Q48QN8UY93IiPYOmd97uPAcX/YvYcSQz0ZrynUJQ6sAZLBm7MD4aHG
- cJm+Gff1+D8EQbNrZzn+6QQ0boK8Wbk7Vive39qE/BJip0s3aqrbX5wCrs4zNe/76j2yHTRxbCq
- hrZByr2Xc1osjrobFg6Iuuuf96KaYVvVJBkMjt05MLA84tjfVF/6EiX/zS2AJTwF4WDcREJD4wz
- XybimKAdYLf6su5bL9yfy5QcGl3RUP11NFkaRsI8Cci9hz4MV12IS8gTZLhBGzyrJ3K9wTgaPSv
- Kh6gIZltW9jc+TjnRykY3ziI3MHC+TIGlH61KLe0nte2pCo6ZOSEHC3puvWO/w7LK+akCPEc50c
- GpXLkqLOnKQpe6PX0AQ==
-X-Proofpoint-ORIG-GUID: J9xxS96U0XPcndUGLYmxYntaSLccX0zc
-X-Proofpoint-GUID: J9xxS96U0XPcndUGLYmxYntaSLccX0zc
-X-Authority-Analysis: v=2.4 cv=M5F97Sws c=1 sm=1 tr=0 ts=6a5f3cb2 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=qQkGquXN9PvF_GGjQ98A:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDEwMCBTYWx0ZWRfX+GOtSL3cKOlq
- 9bCc+fMG3jeJB5jkwjRJw9/74zOdhuFysl/nHtXHrhkKpkW5zvYNTnbN5JUOg+xLzrpPc5J1QqS
- ExB1wGMFsnYpXpjg8E8GGG1AZUQer70=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-20_06,2026-07-20_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
- priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0 phishscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607210100
 
-The Eliza EVK board connects PCIe1 (8GT/s x2) to a Toshiba TC9563
-PCIe switch. Enable PCIe1 and its QMP PHY nodes.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `qcom,x1e80100-inline-crypto-engine` compatible string was o=
+mitted from the `allOf` conditional block that enforces required properties=
+ (`power-domains` and `clock-names`).
+--
 
-TC9563 uses I2C (at address 0x77 on I2C4) for its management interface.
+--- Patch [1]: [PATCH 1/2] dt-bindings: crypto: qcom,inline-crypto-engine: =
+Add x1e80100 support ---
+commit cfe29b614f97bbb01610fe15e88b3fd50c7177bb
+Author: Wenjia Zhang <wenjia.zhang@oss.qualcomm.com>
 
-Override the base iommu-map with the expanded set covering all the
-switch's downstream ports (0x1400-0x1408 SID range).
+dt-bindings: crypto: qcom,inline-crypto-engine: Add x1e80100 support
+   =20
+Add the compatible string for the Qualcomm X1E80100 SoC,
+which is used on the Hamoa IoT EVK board.
 
-The TC9563 RESX# and PERST# are OR-ed internally to assert reset on the
-switch. Use TC9563 RESX# pin via a TLMM GPIO and skip wiring PERST#
-from the PCIe controller.
+> diff --git a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-=
+engine.yaml b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-e=
+ngine.yaml
+> index db895c50e2d25..29c9a1ff638c5 100644
+> --- a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.=
+yaml
+> +++ b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.=
+yaml
+> @@ -25,6 +25,7 @@ properties:
+>            - qcom,sm8550-inline-crypto-engine
+>            - qcom,sm8650-inline-crypto-engine
+>            - qcom,sm8750-inline-crypto-engine
+> +          - qcom,x1e80100-inline-crypto-engine
 
-Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/eliza-evk.dtsi | 113 ++++++++++++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/eliza.dtsi     |   1 +
- 2 files changed, 114 insertions(+)
+[Severity: Medium]
+Does this cause a regression in schema validation by omitting the new
+compatible string from the conditional block?
 
-diff --git a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
-index 6d76715ccffb..fb44e7a349a5 100644
---- a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
-+++ b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
-@@ -12,6 +12,26 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	vreg_0p9: regulator-0v9 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_0P9";
-+
-+		regulator-min-microvolt = <900000>;
-+		regulator-max-microvolt = <900000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vreg_1p8: regulator-1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_1P8";
-+
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
- 	vreg_pcie_m_3p3: regulator-3p3 {
- 		compatible = "regulator-fixed";
- 
-@@ -99,6 +119,99 @@ pcieport0_ep: endpoint {
- 	};
- };
- 
-+&pcie1 {
-+	iommu-map = <0x0 &apps_smmu 0x1400 0x1>,
-+		    <0x100 &apps_smmu 0x1401 0x1>,
-+		    <0x208 &apps_smmu 0x1402 0x1>,
-+		    <0x210 &apps_smmu 0x1403 0x1>,
-+		    <0x218 &apps_smmu 0x1404 0x1>,
-+		    <0x300 &apps_smmu 0x1405 0x1>,
-+		    <0x400 &apps_smmu 0x1406 0x1>,
-+		    <0x500 &apps_smmu 0x1407 0x1>,
-+		    <0x501 &apps_smmu 0x1408 0x1>;
-+
-+	status = "okay";
-+};
-+
-+&pcie1_phy {
-+	vdda-phy-supply = <&vreg_l1k>;
-+	vdda-pll-supply = <&vreg_l3k>;
-+
-+	status = "okay";
-+};
-+
-+&pcie1port0 {
-+	wake-gpios = <&tlmm 53 GPIO_ACTIVE_LOW>;
-+	/* Same GPIO is used for both PERST# and resx-gpio */
-+
-+	tc9563: pcie@0,0 {
-+		compatible = "pci1179,0623";
-+		reg = <0x10000 0x0 0x0 0x0 0x0>;
-+		#address-cells = <3>;
-+		#size-cells = <2>;
-+
-+		device_type = "pci";
-+		ranges;
-+		bus-range = <0x2 0xff>;
-+
-+		vddc-supply = <&vreg_0p9>;
-+		vdd18-supply = <&vreg_1p8>;
-+		vdd09-supply = <&vreg_0p9>;
-+		vddio1-supply = <&vreg_1p8>;
-+		vddio2-supply = <&vreg_1p8>;
-+		vddio18-supply = <&vreg_1p8>;
-+
-+		i2c-parent = <&i2c4 0x77>;
-+
-+		resx-gpios = <&tlmm 54 GPIO_ACTIVE_LOW>;
-+
-+		pcie@1,0 {
-+			reg = <0x20800 0x0 0x0 0x0 0x0>;
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+
-+			device_type = "pci";
-+			ranges;
-+			bus-range = <0x3 0xff>;
-+		};
-+
-+		pcie@2,0 {
-+			reg = <0x21000 0x0 0x0 0x0 0x0>;
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+
-+			device_type = "pci";
-+			ranges;
-+			bus-range = <0x4 0xff>;
-+		};
-+
-+		pcie@3,0 {
-+			reg = <0x21800 0x0 0x0 0x0 0x0>;
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+			device_type = "pci";
-+			ranges;
-+			bus-range = <0x5 0xff>;
-+
-+			pci@0,0 {
-+				reg = <0x50000 0x0 0x0 0x0 0x0>;
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				device_type = "pci";
-+				ranges;
-+			};
-+
-+			pci@0,1 {
-+				reg = <0x50100 0x0 0x0 0x0 0x0>;
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				device_type = "pci";
-+				ranges;
-+			};
-+		};
-+	};
-+};
-+
- &uart13 {
- 	compatible = "qcom,geni-debug-uart";
- 
-diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qcom/eliza.dtsi
-index 59b3cf7f168d..cdf5decfef48 100644
---- a/arch/arm64/boot/dts/qcom/eliza.dtsi
-+++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
-@@ -2103,6 +2103,7 @@ opp-16000000-3 {
- 
- 			};
- 			pcie1port0: pcie@0 {
-+				compatible = "pciclass,0604";
- 				device_type = "pci";
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
+Looking further down in qcom,inline-crypto-engine.yaml, there is an allOf
+block that enforces power-domains and clock-names:
 
--- 
-2.34.1
+Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml:all=
+Of:
+  - if:
+      properties:
+        compatible:
+          contains:
+            enum:
+              - qcom,eliza-inline-crypto-engine
+              - qcom,milos-inline-crypto-engine
 
+    then:
+      required:
+        - power-domains
+        - clock-names
+
+Omitting the new qcom,x1e80100-inline-crypto-engine compatible string from
+this block allows incomplete device tree nodes missing power domains or
+interface clocks to pass schema validation.
+
+Could we add the new compatible string to this enum if it shares the same
+hardware constraints?
+
+>        - const: qcom,inline-crypto-engine
+> =20
+>    reg:
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-devtool-v1=
+-0-ade633accb41@oss.qualcomm.com?part=3D1
