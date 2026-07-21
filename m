@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5307146AA8A
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:52:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F11E46A609
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:54:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784649145; cv=none; b=apOVuLRgpQSd2IkyG4SWokgEeycr2/BtPwfBZSvmG3oLBL2lncIdpMYcfwbbc2cbZZ7keL61xMfKcaCpSl1taOZV2e7uMwqGR597vXPb2dlKf0QVSQxYMUUVt6IwJ+hUXKXrmywOEmCFColnfMefcnxqGR96D3KXFOaL5/hpu6k=
+	t=1784649277; cv=none; b=HzRR5hlFwDHRInqKLqRz+H2wVHTewbwBu0yqXzENW7jAw4bSHohHHeSKnPslMb7rbHeayve9UfbzFK9PObQWeYXEnMetNPNf9QBAhSkw5dqhViM0MuzSNhPJ25Qm9MPlDCdUwRquK2CzhnOaZi5efXyZH0De2yMKVwuU7riHnpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784649145; c=relaxed/simple;
-	bh=9FGwusiwV53XmCQO1pqB9Mf1arDSGAA3riX7DLa7I1k=;
+	s=arc-20240116; t=1784649277; c=relaxed/simple;
+	bh=IGGgkTc8ZWNR2qEXD/C2QZbTEoWCnel0xNEaWe8oyes=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hV24/Mt2vaLiaBBbC8gdVzMimst5hNkr7MV4huskiH9AV2jq0t8uKytTyFqLZbTpbweQ6EmL2Oe4P371rw/1EjQOf3jpuqO9rogdCPGB0/2Nn5JFu9xWkSL3cJDz0Dyo33tSIYpCKu4/RtASXnN7Gmotq4fE+iCNX5dUebJJjzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N+gjAmT+; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=gvoqRb5thGS5O2ykBqaJQvInA3sXOM+G53U7LtPnjiQBPIPpVXVvaZLVQJPxpvYf2SDvUCYpzd8jMorQMSMXSOhCHirpRVIGnJX1/LxVheE3x7hmosDde0qbwSEmMBlporzkVzbcoLZGFXYTH7hRQd3DB21Uv5yivRpD3hImJUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NL9sU2bB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N+gjAmT+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B1ED1F000E9;
-	Tue, 21 Jul 2026 15:52:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NL9sU2bB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C011B1F00A3A;
+	Tue, 21 Jul 2026 15:54:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784649143;
-	bh=c3mMG2mldbFyKdBcEWLx8VKcayMsl4mwJVrMG6w6JVQ=;
+	s=k20260515; t=1784649276;
+	bh=0lMaBNV7PQDHEVU84xJSK8vEhjsQvj8JWaGrMKTbfq0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=N+gjAmT++x6hvsd1m8mljhXdLclxYWrvG7pzU0PczXcFNBHzUFsyEb+ND+rtvzmuQ
-	 V5FA0WLy51zGqACHxYJYFh5yd2rF3fayCXtPKjuSvEzy62mJczs/QnfjrlDlyt1/CV
-	 AH17c0v9Qp0FVwB51u8g8Aqnfs86ZJM7EAfT+0zXm+Mwf5LvvugXVmTcncpS2IHw6q
-	 iy/3oqzzNdxpkzvAA6uiMWCmnFfjIwfwaBNJEb/vucL3K7OAS41b2g6MBhoMAUNrMc
-	 YDvGTjcz20UI3N6Y0gUGSl+pb70BeJ2l6Cu5ZBedRC8TnFxPbT6dba+VUW5j6nk5m7
-	 Kby/igqbmkofA==
+	b=NL9sU2bBfzPHg/0z09fouPJ44Ih0CHyPgBIRPEFQ8LOOstXV1yXyoy91wbNq7WkJN
+	 fo7+cHTqCVDYwG3DYtM7/60LFCb5DoAnDWRYsqxamgYfL5WFOYubOnWJf4cNuyA92v
+	 gAfSfTsJD80gupPYxQtFeM2qKp47Wbe5OIxj0dIgdzkt+c1Ko4QXcXxqls9cICU2h2
+	 NKwVJdZWh0n+AllYc9A2eWEQud+3Jr2eFjBmWiw3UrxZBAMADhuqkf0JeMAyu6KRSe
+	 npO3DMpwT7m95EqTKhfcUA94etzHkXFX1smE33+fsfUiezZa9jitMg56MU6BsX/F22
+	 FC8WsFBiCER2A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6] arm64: dts: qcom: sm8550: add Xiaomi Pad 6S Pro
- (sheng)
+Subject: Re: [PATCH v6 4/5] arm64: dts: qcom: sm8650-qrd: add SPMI ADC
+ channels and thermal nodes
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tianyuan Jiang" <code_0002@163.com>
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260721153444.423-1-code_0002@163.com>
-References: <20260721142147.1618-1-code_0002@163.com>
- <20260721153444.423-1-code_0002@163.com>
+In-Reply-To: <20260721-topic-sm8x50-adc5-gen3-v6-4-a507f4a1e537@linaro.org>
+References: <20260721-topic-sm8x50-adc5-gen3-v6-0-a507f4a1e537@linaro.org>
+ <20260721-topic-sm8x50-adc5-gen3-v6-4-a507f4a1e537@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 15:52:23 +0000
-Message-Id: <20260721155223.9B1ED1F000E9@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 15:54:35 +0000
+Message-Id: <20260721155435.C011B1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,75 +47,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] The device tree heavily relies on undocumented downstream compat=
-ibles that lack mainline drivers or bindings.
-- [Medium] Missing Developer Certificate of Origin (DCO) Sign-off promised =
-in the changelog.
-- [Low] Unidiomatic deletion and redefinition of a pinctrl node.
+- [High] Unrealistic and physically dangerous 125=C2=B0C thermal trip point=
+s for external surfaces.
+- [Low] Missing DT bindings header causes build failure.
+- [Low] Device tree unit address mismatch for pm8550ve PMIC temperature cha=
+nnel.
 --
 
---- Patch [1]: [PATCH v6] arm64: dts: qcom: sm8550: add Xiaomi Pad 6S Pro (=
-sheng) ---
-commit 0ac17b1bf2e0cc5382a800a4519a79a941821b31
-Author: Tianyuan Jiang <hiez832670@gmail.com>
+--- Patch [4]: [PATCH v6 4/5] arm64: dts: qcom: sm8650-qrd: add SPMI ADC ch=
+annels and thermal nodes ---
+commit e319ddcc0f55ac8e62e9354e1059c060573915eb
+Author: Neil Armstrong <neil.armstrong@linaro.org>
 
-arm64: dts: qcom: sm8550: add Xiaomi Pad 6S Pro (sheng)
+arm64: dts: qcom: sm8650-qrd: add SPMI ADC channels and thermal nodes
 
-Add device tree for Xiaomi Pad 6S Pro (sheng) based on SM8550.
+Add the SPMI ADC channels on the PMK8550 SPMI5 ADC3 for the
+other PMICS on the system.
 
->     Signed-off-by: Tianyuan Jiang <code_0002@163.com>
->=20
-> ---
-> v6: address Sashiko AI review on v4
-> - Fix cs35l43 reset-gpios polarity: use GPIO_ACTIVE_LOW
-> - Add "kinetic,ktz8866" fallback compatible for backlight
-> - Add map220v Signed-off-by (DCO chain fix)
+The thermal nodes are sorted by the sensor channel to be
+coherent with the system thermal nodes ordering.
 
-[Severity: Medium]
-The changelog mentions adding a Signed-off-by tag for map220v to address a
-DCO chain issue, but it appears to be missing from the commit trailers.
-Should the original author's sign-off be included in the commit message?
+> diff --git a/arch/arm64/boot/dts/qcom/sm8650-qrd.dts b/arch/arm64/boot/dt=
+s/qcom/sm8650-qrd.dts
+> index a3982ae229290..809c9efb23385 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8650-qrd.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm8650-qrd.dts
+> @@ -158,6 +158,92 @@ platform {
+>  		};
+>  	};
+> =20
+> +	thermal-zones {
+> +		skin-thermal {
+> +			thermal-sensors =3D <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
+> +
+> +			trips {
+> +				trip-point0 {
+> +					temperature =3D <125000>;
+> +					hysteresis =3D <1000>;
+> +					type =3D "passive";
+> +				};
+> +			};
+> +		};
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8550-xiaomi-sheng.dts b/arch/arm6=
-4/boot/dts/qcom/sm8550-xiaomi-sheng.dts
-> new file mode 100644
-> index 0000000000000..fa24b1c1b4e65
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm8550-xiaomi-sheng.dts
-> @@ -0,0 +1,1761 @@
+[Severity: High]
+Is a passive trip point of 125=C2=B0C realistic for skin-thermal and the ot=
+her
+external surface zones? This temperature seems extremely high for an extern=
+al
+surface and might prevent the OS from mitigating heat before causing hardwa=
+re
+damage or burns.
 
 [ ... ]
 
-> +/delete-node/ &hyp_ext_tags_mem;
-> +/delete-node/ &hyp_ext_reserved_mem;
-> +
-> +/delete-node/ &qup_i2c8_data_clk;
-> +
-> +/delete-node/ &qup_i2c9_data_clk;
+> +&pm8550ve_temp_alarm {
+> +	io-channels =3D <&pmk8550_vadc ADC5_GEN3_DIE_TEMP(PMK8550VE_SID)>;
 
 [Severity: Low]
-Is there a specific reason to delete these pinctrl nodes at the root level
-and manually redefine them later in the file? It is usually more idiomatic
-in device trees to override the properties directly using a reference
-(for example, &qup_i2c8_data_clk { ... }) instead of fully deleting and
-redefining them.
+Does this rely on a missing header file? It looks like the macros
+ADC5_GEN3_DIE_TEMP and PMK8550VE_SID are not defined in this patch or the
+current tree, which might cause a build failure when compiling the device
+tree.
+
+> +	io-channel-names =3D "thermal";
+> +};
 
 [ ... ]
 
-> +&i2c5 {
-> +	clock-frequency =3D <1000000>;
-> +	status =3D "okay";
-> +
-> +	cs35l43_trl: cs35l43@40 {
-> +		compatible =3D "cirrus,cs35l43";
+> +&pmk8550_vadc {
+> +	/* PM8550 Channel nodes */
 
-[Severity: Medium]
-Does this compatible string have a corresponding upstream binding or driver?
-Using undocumented downstream compatibles, along with several others in this
-patch (such as nanosic,wn8030-sheng, novatek,nt36532e, and fpc,fpc1020),
-causes validation failures with dtbs_check since their custom properties
-are not defined in any schema.
+[ ... ]
+
+> +	/* PM8550VE Channel nodes */
+> +	channel@503 {
+> +		reg =3D <ADC5_GEN3_DIE_TEMP(PMK8550VE_SID)>;
+
+[Severity: Low]
+If PMK8550VE_SID is defined as 8 on this board, will this evaluate to a reg
+property of 0x803? If so, should the node be named channel@803 to match the
+unit address and avoid dtc warnings?
+
+> +		label =3D "pm8550ve_die_temp";
+> +		qcom,pre-scaling =3D <1 1>;
+> +	};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721153444.423-=
-1-code_0002@163.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-topic-sm8x=
+50-adc5-gen3-v6-0-a507f4a1e537@linaro.org?part=3D4
