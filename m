@@ -1,62 +1,62 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 720F0480341
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:11:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAEC480359
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:11:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784628683; cv=none; b=NynVwMVVj+KZNaX3qm0Ket4qffO1vboPsELGusTNb5mEQGSDVj+CjHUshtRymD97XPDpbm+g2bUrz/GC3ypO0jP9qQoEced9AeYNuu3Wuya3sz0yyQbY+KDlQHmA1OeDrZtHS+d8TsfIn/DJLmuv0kXPhOEhinEM26pJoL5sFHM=
+	t=1784628684; cv=none; b=Sc64ii1WzPckYg9dvBAg7J+lWR/b4kRbupw9FZ5hBQhmTD/qHy2YVrfyhG5j41Rr9XhKZLHXHdryk4jq5RGWyovTxMUYrZvgCrRJgbLhS002hNeXZZ+rowTODoBEcVQJfC6+5C522bGczozycHd+A7Yy7Jai+580S6Rz+2jHAXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784628683; c=relaxed/simple;
-	bh=A6l+WAt/iV+zJkzc8AbsZF5IIolZynYw+uY6h48QsEg=;
+	s=arc-20240116; t=1784628684; c=relaxed/simple;
+	bh=U69SQbyV+ssf8xjwsV4lwLr4kMLmiOJVFI6WxgPKEdc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HOSXkYRiFiynS7avjwtgwBwkfFcvOwObRvx3gI8ATnpehhRwyRf0a5ydXVLJwf1/4LB+nR+/Cz3cbx2FXMVu6qXU9SWCCOdvFcwh2hEiJZFd/qM0bWjhkbutuGeG7O+5xmKzwqNL6r+hvpJ5fUFCas7ErL/ceuX7quNfo1rDkkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YabLRbEu; arc=none smtp.client-ip=209.85.128.54
+	 MIME-Version; b=DTSlQOQYZWvBVf91fqlSlBfYjtMImNx6GKaoDFPhhpyyTplCciQr1c7cDtmH0s2AVjA838+fledP8oZlfKBnAG7pJOwWIx9ADkUav/oJgNqjZHrDTA83xi/su8G2Nubc9yKVi4aoO+wU8P7v/lQfPweu3Us10Xm4fu23Qy5ud3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ks22+TfY; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YabLRbEu"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4954dff6536so24588285e9.0
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 03:11:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ks22+TfY"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4955158f26aso18259145e9.3
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 03:11:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784628678; x=1785233478; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784628680; x=1785233480; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WyQq8J9mZvpdXLAlP3nVs/VYUqZVy26W3Uq5hIZpY2Q=;
-        b=YabLRbEuJxdboNUyeZUQFEok1QI2uc2ogbGomL2AEpxkVhB9Az/8UIfHbPE1lqwBui
-         BM2Pp6sBS/rVt1QC7bX1r3yZB0At6ljeGObuRu1G95otZvewNNby7UO2kMXqStFqmz8A
-         QQoHvZLnU41eY30Ox7s3Kv4coFkFAjwnv4oBrKIoQxT5aThk6NtIW2YKbvCn8ht4Utag
-         3YTfnMOaHOzB1CeJDUw7XgYcEjdZjGCIurDi/pPvC3nTbTqZX9KkEPyoHuSCKAI6usON
-         jsmWLtLslp2lLZQUz6a4BfUFJ66goupJNrbeqtcHh2Qmovqmdt51Cxgp7dfnHVSuwsYQ
-         82bw==
+        bh=qy12RKts9D31/bxnU65LpuTKsVkQz9PKxgavdVWUciQ=;
+        b=Ks22+TfY23zLOXm96eKOV1wFRwvKnUEsmps4Az3glpbiEElH1OkE7x0TNPoRtFHBqw
+         sRfoh4yyZ9ezRJXvap6mgMnCyYHGklrVz9k+9PqtaQby6vuibC3u+zgcXWxJobzIKfve
+         c0OfsKNXFo+74ymuv8MttJgpFRyZ7PT6wRFy1D3nD58t4I70+gToqnzwhjQ+8ubNJIXI
+         /hsnYniXJYN1t01gTyP0Q20iK6z03NHSUhCS0N6v13VsBgEPR7bcxRD2A6hWthZSQM2S
+         9etvYmi0iqa2Ns1i28fWpNUS2Osh1h6GqP4B5f71PvE3wXWd1fp/uvh6+IGy0Ja/K80u
+         h+xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784628678; x=1785233478;
+        d=1e100.net; s=20251104; t=1784628680; x=1785233480;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WyQq8J9mZvpdXLAlP3nVs/VYUqZVy26W3Uq5hIZpY2Q=;
-        b=X/6ATejLCiH6MzxaR1hpx1cW0uU/F/gdmVYFpRYu3MQf2oV+PiFt1mvpplTEuSB0Vm
-         hyIqfxiBLLugCx4sqmD88pyq31+M4HGa636Dp242c9wrpk4Nl7Q1/NIIDcNTJzQSqmSE
-         SyPoGBBHbb8dkS2SAk/nsP9yx/b/H1BBYFD52IXmEZn21z6dlN+ajJuyOlFTdssWFswM
-         I30w9J6kfp+FmVg6qM7KkX+0lsmPNhAHSCFH5rJWUa13w9PQKkZNCRZjUhnEmR4ferSU
-         cmDPamefenWqLPvYeUURwlj+V445w5EXb8nECKsUF+WdV1sJcSQYUd/lmM8rKVqHQ19u
-         kc+w==
-X-Gm-Message-State: AOJu0YwnjduiHtQdDYh7baVbqaFuDxGVkALUh+OgXH3eixndlerNBUW6
-	9XJfdTcOculjCNZW04z1sb8oKy/bDMf++a7i+p60k/Zs0SWumIT33yss
-X-Gm-Gg: AfdE7cnZNtvTRdwcUngS9lN7O8i09jgFkGG6xpKcJjeevf4alVc9uDmNHRpOU1nxwD7
-	I3jzFbz+wOHRzLwn1SLoZtngJVfgZV8YnvNfIR6nowavhkV5A3K6tq/ayUYb6wNiW2Bt0ZzejUF
-	dkFfaqNYb00mmJ3zskBHilUxMasc6+Mwry6DIFmVywRjvKTThXpk9lOMwtiaVOtCbwJmoDgie4V
-	OtlekAKokMrx4sOMnDDV3hZ+agDAOq9yAm65KoZVb4QaEvFBxhiDQOGsRfzqdA2+RyQ4rcOuh8+
-	vNoq32QZDollq4TW8SdpcqVGYbcLjY6jBqNZwpxrtH7aSOu/ROJY+9PS6rJ8W9nSg9fJLypSIpb
-	Kg7vJQjzOr1VIQPAtanQJJFRUSEkI2T5nfwHJhJ/4et2o8EdteZIZ4iLv3p7dKRunp7VEB+4lL/
-	0UEX34PzGwvgsp4lP2N+qh418=
-X-Received: by 2002:a05:600c:3587:b0:493:bb0:3b43 with SMTP id 5b1f17b1804b1-4954a3d06d9mr190116565e9.2.1784628678459;
-        Tue, 21 Jul 2026 03:11:18 -0700 (PDT)
+        bh=qy12RKts9D31/bxnU65LpuTKsVkQz9PKxgavdVWUciQ=;
+        b=eyZmFUJ62znVitibfi2RdetNhdRw1diqjxkjU25TK7LwjQzOqRxgugrN2yYIDct1k/
+         pabeh7F3ap6+2PsOUhfNaWQ5DPynYst1agdfU6q8Btv7tctCCMMD2gEQMtcIjDiHOv+q
+         +8iC5o0eh3kqqh0v9ZDd+9E5VsIhDiHf3lJI61N/LlUV2xvHLk+HEeNsU0aLBRVsd4f7
+         Ur6WNFFcFJdoDMG7vVAkvFiCgZ8MExvGsCv3O2Rr4XOtfcO3/IO7SiWaL47x8rXhCAvw
+         uz1pISTCGps/lO2o5N6KBeFK4B0DyRLUW6SRObwOe7bMqslZ/gRTd2XWkeLEpCgfc+tc
+         Qoag==
+X-Gm-Message-State: AOJu0Yztrv4R9pGdAOEeoHtxVN/oXdUcRjLAT/zqW174plRUc0r9IQMV
+	MAj1aGdNgOqCH40NjovWSaXqYYaPp1dh4PoeJmUT9xpYoz1Xs6B0Ro43
+X-Gm-Gg: AfdE7cnxsHPpd6Hy7NW0iz9ZAkENW9fSrnNjAjchM1ZH/DxzXPrp73RR9vvoh3qSYxa
+	mH4oDMJtLAjmTbROnn/eDn5b4FEIEJYUdnAv74n0N8svo0NLtGF8zdPMCgxu7IBNoXxaoI+WOz3
+	zyuqdmMEDw4+UrK+bg8w5QgKaWA9WTpvoBh/MCJdKkjiG1/P8z8uKAnDRmDzAI6fRlb19oeHh/T
+	cAWigHrBra7tpmuN8RMRN9D2uQyGz/Croi3fY0RUrP+bKUR3fBmJBbUBZSQxe6ejEiqYQf6Sqvz
+	CLbvypVNmZIX7NAMjRZPuZD20uCaVmG/l9qACHUPuAwfGLDTg79EhtmwMnINS/JTULJ2ResgFvO
+	Rev4Xpkll2zcFXE2pGQ5OB3fNa3bobRfTFvMylgj6XBSVercECaaav5hsfDXBdag1LgwV4MFjhM
+	b26UdcmYa6O3d1RB9Ou3eY0+Y=
+X-Received: by 2002:a05:600d:6447:10b0:495:63f5:7a4f with SMTP id 5b1f17b1804b1-49563f57a9amr46059765e9.33.1784628679879;
+        Tue, 21 Jul 2026 03:11:19 -0700 (PDT)
 Received: from xeon ([188.163.112.51])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956547319dsm57127085e9.5.2026.07.21.03.11.17
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956547319dsm57127085e9.5.2026.07.21.03.11.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 03:11:17 -0700 (PDT)
+        Tue, 21 Jul 2026 03:11:19 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -67,9 +67,9 @@ To: Rob Herring <robh@kernel.org>,
 Cc: devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 08/10] ARM: tegra: tf701t: Complete power sensor node
-Date: Tue, 21 Jul 2026 13:10:57 +0300
-Message-ID: <20260721101059.451699-9-clamor95@gmail.com>
+Subject: [PATCH v2 09/10] ARM: tegra: tf701t: Configure UART-B line used for GPS
+Date: Tue, 21 Jul 2026 13:10:58 +0300
+Message-ID: <20260721101059.451699-10-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260721101059.451699-1-clamor95@gmail.com>
 References: <20260721101059.451699-1-clamor95@gmail.com>
@@ -81,25 +81,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add missing vs-supply and io-channel-cells.
+Set UART-B line to use hsuart since it has GPS device linked to it.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts | 3 +++
- 1 file changed, 3 insertions(+)
+ arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-index b71a02b3fd86f..32d55c18c7446 100644
+index 32d55c18c7446..0d182fa5c1af2 100644
 --- a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
 +++ b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-@@ -1391,6 +1391,9 @@ power-sensor@44 {
- 			reg = <0x44>;
+@@ -1283,6 +1283,11 @@ drive-gma {
+ 	};
  
- 			shunt-resistor = <5000>;
+ 	serial@70006040 {
++		compatible = "nvidia,tegra114-hsuart", "nvidia,tegra30-hsuart";
++		reset-names = "serial";
++		/delete-property/ reg-shift;
++		status = "okay";
 +
-+			vs-supply = <&vdd_3v3_sys>;
-+			#io-channel-cells = <1>;
- 		};
+ 		/* GPS */
  	};
  
 -- 
