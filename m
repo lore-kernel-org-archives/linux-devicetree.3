@@ -1,101 +1,128 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8DAB3BE178;
-	Tue, 21 Jul 2026 09:36:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFC8446067;
+	Tue, 21 Jul 2026 09:39:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784626573; cv=none; b=d3tZLdvzO9Db53x9id/y5MEaELsG6LQPF+dAyNMW5lsdu87xLBEKmKB2gt53eLy0R1l0cDiJqhWZzNmmAbUy4oOQYz8aXe/1SeLjVGUNKj4bEbA07uFyypI98BWaTlS2omN+DEF+0XZpn9O2/hJzaKzi84FirzJkDSzIcW/kVF8=
+	t=1784626790; cv=none; b=rp6rJJCUATJSk3dqwlIELh9r0DM/sJpzR2BsF+RMXFhLAuZKAakOwz/iCB1srJ6WwQ+A1EWTJDyNsmRiiMYDNRJYu10iasUuTZ7Tzrht9DIkFKH/5QmADbw604l/Ba3BMFq/quFTuITyJt7VumnvEGsuJ9APoYtpxFgqvJagwQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784626573; c=relaxed/simple;
-	bh=Xpk6nBGx4YSj3+IOhsXotNwgCzl1plDcg6x+tyDKlbg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fXG0ix1rT7rCVqdrgZKdFWCNBuFFep7TfbI2z9/fZpfUCZ2I9jFCs/FCE9xpDs7JmuIvFDgzXlgjJpd71SuuqFlk+d89M/XwGW49njBiB0ZZ+zQ2O6jvh0ECWj0XwbL2fXIGJmQ6B6EPKeotXIovKQlgU618dM7XB5t+lY9Kmow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=AI3np4m1; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1784626790; c=relaxed/simple;
+	bh=XflQy95e8cNNemT7ytMKf7ecaAMNNOu1Mj/fB0ThcEE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=vFk37e41t0OVSFgZwngvLfzdKXIDtsDwXaSOkLotsmbtPbzECTbN4r9Ru1FUjkw47B0GFVlpKSDe+gz4QYwH6RAFL9L1zyVT8gZolPm42M1UEGzClJc1CRyYmAWTu97OFNKlChCGdgtYXgm7bi1Lh22786rXR58H8W86jd4jbkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K2JBDLA6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="AI3np4m1"
-Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net [178.82.120.96])
-	by mail11.truemail.it (Postfix) with ESMTPA id C96472061E;
-	Tue, 21 Jul 2026 11:36:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1784626562;
-	bh=LkbTUzJ7Xgd7EcsbWW/V1SykEOd0nQdvevXT30R5Sls=; h=From:To:Subject;
-	b=AI3np4m1E64keLXTufUzfthcPErhnjJFYusJRMeMCRhbwgxM3yQt9ljj2GHGr0Cuh
-	 c1QhN+XiWip8PQXJKyZzBbCTNGeAr3h7gp4sxwF9ZT8zL7yKLUcNOUcZGSxl8AHIlg
-	 h2+2od8AllziKPWeMiRmQd5xyDpTrWeX7Q4GvMs66w3CbyfUqIrJP+8hm5IdtX4xAB
-	 lcjMJpMaOA5X4dRLGkMLGNagLWc/Hq8HsEu2b8vGCNn+hgkKzBQkEnMG9tCFC2ztsV
-	 SWDvaSb6YGCctjBcN2PIlbUd1GRylT0Kny1N63wu0TVFPX6Db8Mq8CHgpndRxhMMp7
-	 3WQlXLfCapMOw==
-Date: Tue, 21 Jul 2026 11:35:57 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Marco Felsch <m.felsch@pengutronix.de>
-Cc: Francesco Dolcini <francesco@dolcini.it>, Marek Vasut <marex@denx.de>,
-	Stefan Agner <stefan@agner.ch>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, imx@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v1 2/4] drm: mxsfb: Allow optional LCDIF interface format
- override
-Message-ID: <20260721093557.GA61843@francesco-nb>
-References: <20260717121847.488148-1-francesco@dolcini.it>
- <20260717121847.488148-3-francesco@dolcini.it>
- <bfhx5yyyyqxa6aty4ybdmwp7t7q6kyh5jacotlugf6cyhohmwt@ygi7jioxbyt4>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K2JBDLA6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5D891F000E9;
+	Tue, 21 Jul 2026 09:39:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784626789;
+	bh=PB+sYtmsK8dGbWcYBotVfznEugU2FksyYiBk06t1/6k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=K2JBDLA6q3l6avHlmmkZqu1WPMmwG9dx1lDw/UZXFemENfA+JSJ5Nb6tPTVdgO5Gp
+	 FF1V27urYEUTj688GjHn8hk3Cwl+0v+o4U2H3Jtw9fSezOnDdzoJHTczkeLeICDG0W
+	 +/SinBZLU/JK6b4mau0c4bjGAmHWWAaZDJmdh9AwDbPPtpi8gAOiIIzFbvaHDhSEDU
+	 8Qf4ZeA2qvFCUAFqCVEmGMuYW0zJ1SIbe3x02tv97ovs1NzeXclS83VA/4mQZwIyp7
+	 AO0ZUa6Z0hhzTVxvg8NwOy3nayDNovw0cEX+ne+U0JuOcrEDIJeL4p0wqIMJDGSf7P
+	 6fiKNfjk5Aeeg==
+Message-ID: <88ae6662-cb85-4e3a-bbb5-1b536348df34@kernel.org>
+Date: Tue, 21 Jul 2026 10:39:43 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bfhx5yyyyqxa6aty4ybdmwp7t7q6kyh5jacotlugf6cyhohmwt@ygi7jioxbyt4>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
+ schema
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
+ <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260720-x1e-csi2-phy-v13-0-160c31958863@linaro.org>
+ <20260720-x1e-csi2-phy-v13-1-160c31958863@linaro.org>
+ <LyWJAb2qKsAFTMHNJUce9VqoqbkFKUQanb6z8ziA63RYZ1P9jj1XpA83uGPvz9m4QnWvEjJFK8dGD_8EtioHVQ==@protonmail.internalid>
+ <0da6d314-bfa9-493a-bcc6-8c3b75751d0c@linaro.org>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <0da6d314-bfa9-493a-bcc6-8c3b75751d0c@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello Marco,
-
-On Tue, Jul 21, 2026 at 10:52:37AM +0200, Marco Felsch wrote:
-> On 26-07-17, Francesco Dolcini wrote:
-> > From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > 
-> > LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
-> > format reported by the downstream panel or bridge describes the display
-> > input, but it does not describe how the LCDIF data pins are physically
-> > wired on the board.
-> > 
-> > These can differ. For example, a 16-bit LCDIF bus can be connected to a
-> > 24-bit display by wiring the available color bits to the corresponding
-> > display inputs. In that case, using the display's 24-bit format to
-> > configure LCDIF selects the wrong data-bus mode and changes the assignment
-> > of color bits on the LCD_DATA pins.
-> > 
-> > Read the optional interface-pix-fmt property from the LCDIF node and use
-> > it to select the media bus format used to configure LCDIF. This allows
-> > the LCDIF bus mode to describe the physical interface independently of
-> > the downstream display format.
-> > 
-> > When the optional property is absent, continue using the format reported
-> > by the downstream display device, preserving the existing behavior.
-> > 
-> > This follows the same approach already implemented in
-> > drivers/gpu/drm/imx/ipuv3/parallel-display.c.
+On 21/07/2026 09:17, Vladimir Zapolskiy wrote:
+>> +  "#phy-cells":
+>> +    const: 1
+>> +    description:
+>> +      The single cell specifies the PHY operating mode.
+> This has been reported before, #phy-cells shall be 0, the operation
+> mode is selected by bus-type of endpoints as it is described in
+> video-interfaces.yaml
 > 
-> According the driver comment, this is a legacy property. If you just
-> want to limit the physical bus width you could use the common of-graph
-> endpoint bus-width property.
+> Two competing values are redundant and it opens a door to a wrong
+> hardware description, the technical discussion has not been started yet.
 
-Yes, I will change to that. Thanks for the feedback.
+So as I said before, I'm following Rob Herring's input on this and 
+Krzysztof has given RB for this binding. At this stage, I don't see 
+scope to change it.
 
-Francesco
+Adding endpoints was already a compromise to address your feedback, 
+which I hoped would bring you on board with the design.
 
+There are several SoC bindings as well as new CPHY features which are 
+gated on these changes.
+
+Vinod, Kishon I'd request to merge the changes as-is.
+
+---
+bod
