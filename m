@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE7E646D083;
-	Tue, 21 Jul 2026 17:52:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D96E46D0B2;
+	Tue, 21 Jul 2026 17:52:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784656361; cv=none; b=KogYY32PGrmbfSt9MB8C0Xas2emhWZLBXz36hJMJnq0nRRe1cnSomKaVPl8t7RWdwjnZQ0s3MRrR+LOM8Hrd6xyxRjxXLkflp4Oh+opmjDRez3riHsK8M80HmaqCuz+/SROQ7tfCa91sZ8rbAT8pAzTwgZRjM9dkVq2rs6A6M+E=
+	t=1784656361; cv=none; b=c3ApHG9KPK9ZuIcsuanR1lg9pN+/pnJUQmLIxkrtLuzVRa3iSgNeM6BNadWNYnsB2wS+3RjGy9GbrAHc+cQ2tfdsGfVcIrpmx6FVqY4Y+lSNEJkQ2ctlwy6L1gY6QsJksa88pnz6OhvmP64mFY9I2JCx2ZatbE7FO/0wFVdLy64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784656361; c=relaxed/simple;
-	bh=yqpVLOEejS7yByY/WZUm/x4WfYEFQ2/hVy7t4pQcRKc=;
+	bh=F4BrRjFviO71BqTa0/M+DJMgwptFTQA7fNEwqLzoieE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hj+JVW2PbSygF3tIqkKNInjDO3WkbVR8wPuXq/BhoOKlGSY4+J/J+TBC1DwBrfrcmQA4zc1fOiZpkSNllvBS4BySu8cxAM/OAp/oIs/pSMWtj/jOlHX63EWJ+HPxN6CD1uGK1JZW7Vd/Cc9nmdMDUhq8+ajyPfRoKrjyiX+L7bA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Pt+YCKQD; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=T4iCWj8dF5+lqKY7auoGrjWgN7cWobuvR5kW89Z5Tvy+y+LM/ob9JLuTvO/4o6IfwKRg+zWjO2k26ZZov0M54jT8j3qPrLCJ19yjGoKqYEpsciHTjp27fakC/ApLNdCRYW1lhKgS/79CJE0iwLY9KI29AEiisFpU6CWqbj3kulA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=XMfaaq0D; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Pt+YCKQD"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="XMfaaq0D"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1784656358;
-	bh=yqpVLOEejS7yByY/WZUm/x4WfYEFQ2/hVy7t4pQcRKc=;
+	bh=F4BrRjFviO71BqTa0/M+DJMgwptFTQA7fNEwqLzoieE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Pt+YCKQDFuazV2YP/mISTPWvqodVtSR3syjtxb/5rmN7rRM1FUQ9M2SBYYP8meOgr
-	 bP5cT8PcAdwiHBpHBCT/eX1G9FAZm81qwKD1QKYMkxnwtFJHy6GcaXCidZ22BDMNGd
-	 RWb3byBDvmEq7Z0tedti66OZxEmScA630rtyCydLUJ7m6FH7wsv1joMFB94n4GURSM
-	 /ZtNDwTvmymMXOa6mxS0ZWJlCj5+3jK0YOhQWwN0Ohm0w1JxtsycgrUl0faRZi5awB
-	 dATMXfezosn8g6/KEotYjHs52PNn9/A/pv6hEKc9sFLOhYLu6OvYIf3ykGCANm3UXQ
-	 uPkNNfkCEX31g==
+	b=XMfaaq0DZkW0JTJElZ6n/tBjEjfcrYdDTEx38afJX/DvZrhqB8amk2d4Ry/11FVJS
+	 4xdtrpDcfbiziG84bOh5xMcL9eF4wLHtYdhrNV3rBFO9/Pv7tbtPYdYfTPxeHdlrzI
+	 Gc1+874ps7gdLuye7AhA63n97WPtA6GfSLbDdXA+H1bVCyE62qZQ1DpeJ6qzin7sOS
+	 2uvSLMNGKvIcRhb9cPq7sLWce8D+H/uAhtwoeyv7aVltj4gEP7L46+kyjJBV8FrMY0
+	 L7C/c22PQ/3Z0I0daQ7Eqf3y70RMNstIEBNb5836/Gc5bp1HWK/60VMpN9zHCOpiye
+	 u/8DVElLgWo7Q==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E0BEC17E0909;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id E499017E1078;
 	Tue, 21 Jul 2026 19:52:37 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 95960480028; Tue, 21 Jul 2026 19:52:37 +0200 (CEST)
+	id 9819048002F; Tue, 21 Jul 2026 19:52:37 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 21 Jul 2026 19:52:31 +0200
-Subject: [PATCH v4 01/10] drm/bridge: synopsys: dw-dp: Fix incorrect
- resource lifetimes in bind callback
+Date: Tue, 21 Jul 2026 19:52:33 +0200
+Subject: [PATCH v4 03/10] drm/bridge: synopsys: dw-dp: Add follow-up bridge
+ support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-synopsys-dw-dp-improvements-v4-1-f0f4a4ede712@collabora.com>
+Message-Id: <20260721-synopsys-dw-dp-improvements-v4-3-f0f4a4ede712@collabora.com>
 References: <20260721-synopsys-dw-dp-improvements-v4-0-f0f4a4ede712@collabora.com>
 In-Reply-To: <20260721-synopsys-dw-dp-improvements-v4-0-f0f4a4ede712@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -72,325 +72,114 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9360;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2769;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=yqpVLOEejS7yByY/WZUm/x4WfYEFQ2/hVy7t4pQcRKc=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpfseU9XxfDfQ/wHCKHTMPVKMxmMETcyld1v
- ljF5/WOYqa8Q4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqX7HlAAoJENju1/PI
- O/qaIcQQAJHNIo3E8159QSmospxKXv9RinRzXEipAwiGBFbT47n3jb/k38wLBV3h7lrkH55yMJV
- l2VeH7f/680/NXZiI9cmCeedvQeEShND8FxY9wY/q8uoimCLvYvENXw3BLyBrXhJKDrLmVmwPIb
- ZDHljT2l4Q00vz7diRzJGw6DBzK8Gm9rLw6ROkx/yQhB03Y1I5KBfW5Gm3EC8zc2QLfzp4BdETe
- zqZMSfUbTdtLnA06W54Y3WimHbjYKi5qDl4E0Mths/U8XQaThhG6hN4u/6mDFg3A8boRTKmhC7B
- Gc7ebmIcYHclEQlamMsGteqFUOUR3NZx+/Q0CAE8dfeLLdiV6AYMrWtle3EnsEluB3hHChv3F6y
- TQe1U3qNc4Hox0jYZ3Y09EKpVkmbMo6IW8r3TxQkTXGfyErpbQIYJuW4/o0xR1Vu0+urrdKMFeC
- BZObxSAGXITDDaqf/tVFIdQU2AIWkHteklc0bXRFU7J08XNG4fUtm1zIv+k4wmnUOEnZwdEydJR
- 3pkGlmuGD/TkmaJXOe8Vof50UkZpi7tIIwSy8ZlnX8CMAxCfRi1xXcKvuOxaNgPqjugtcSnI4pJ
- XiZePN5DrPWR5WkO08NreczSBsnrAK5U0cikw+TpVH/hjrIjCyzcByngsNkeOrDPzXOEJpuCtJk
- ULttGCfo1LPkLdBedP5AnAA==
+ bh=F4BrRjFviO71BqTa0/M+DJMgwptFTQA7fNEwqLzoieE=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpfseXu2xeAkd/HPdm6crAbguEIl46uzZE6g
+ +dqFbJRl5j/04kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqX7HlAAoJENju1/PI
+ O/qaj8UP/3zFA7fAGLscxeldf6FxsgEdelxSp3mitYjuztqDM2nrIS1b8vowQZfijZQRqS/d7n5
+ I1FSjp6KJ78TdXd21w65YUewsjM5nXdMP8+kGC+cfVwZwRxrBHzZk0g7zlBEoj3cX317qLz0rsI
+ CcVwI9Wd54NpH275UFvlm7yLyUarQbvlTR2zl4K+TiDK8gLwhKuyvDLGLJOfz4ePZhmB+SW5riw
+ PU8viG/InMtGjrG5ucU7MDFG2jbGg5Z0gvPTSB8bFHs2sbjezjvHg9HoZBZ9z/QDN3g5PtimPKk
+ Fgw2HnXPlqJn2/2Up7lgApcj2zhCP70Yx3h81Zd5xOSiTC6zIOWDoHiYfJmQzzT3BXOlc5HpGwl
+ qdf8pGzHQcg6TDQGHKxLaBjjb+y4Fu7fwlzZLHhzPaIHIWmIA0PUlXGnQvyPBuSt+wGiEUehlfj
+ CxTlrKwjsXCdChFcpKI8VLsFy4a12ZSJa0vSq+DnsamQ27iIA933rfzBDqYdBCjBv8pxuFRuidO
+ miV//IbSLyp0KXNVhtfXriOHWCqE7ekMogZ07MbnRv3DOmIkMGLTuuyRxVFsin0Gn7DLV7Dz7LK
+ 19M1+wNbXMQZXDUAPcUS4iny7vGr0zJh6JWasYrUDLj+BcsiebmVrIv1QUpEoWNkNNuqyzjpLv5
+ 8TjC08JHri+hdrpsv2d816g==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Currently the Synopsys DesignWare DP controller driver's bind function
-requests lots of resources using device managed functions. These are
-free'd on driver removal instead of at unbind time. Fix this discrepancy
-by introducing a new probe helper function and moving over most of the
-early resource acquisitions.
+Add support to use USB-C connectors with the DP altmode helper code on
+devicetree based platforms. To get this working there must be a DRM
+bridge chain from the DisplayPort controller to the USB-C connector.
+E.g. on Rockchip RK3576:
+
+root@rk3576 # cat /sys/kernel/debug/dri/0/encoder-0/bridges
+bridge[0]: dw_dp_bridge_funcs
+        refcount: 7
+        type: [10] DP
+        OF: /soc/dp@27e40000:rockchip,rk3576-dp
+        ops: [0x47] detect edid hpd
+bridge[1]: drm_aux_bridge_funcs
+        refcount: 4
+        type: [0] Unknown
+        OF: /soc/phy@2b010000:rockchip,rk3576-usbdp-phy
+        ops: [0x0]
+bridge[2]: drm_aux_hpd_bridge_funcs
+        refcount: 5
+        type: [10] DP
+        OF: /soc/i2c@2ac50000/typec-portc@22/connector:usb-c-connector
+        ops: [0x4] hpd
+
+It's fine to fatally error out when there is no follow-up bridge
+as the Rockchip Designware Displayport controller is the only
+user of the bridge helper and has the port marked as required
+in its binding.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c   | 128 +++++++++++++++---------------
- drivers/gpu/drm/rockchip/dw_dp-rockchip.c |  53 ++++++++-----
- include/drm/bridge/dw_dp.h                |   5 +-
- 3 files changed, 99 insertions(+), 87 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 3445c82e6f50..368e1f85e625 100644
+index aca6816febe6..0e8ecd73a000 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1954,20 +1954,72 @@ static const struct regmap_config dw_dp_regmap_config = {
- 	.rd_table = &dw_dp_readable_table,
- };
- 
--static void dw_dp_phy_exit(void *data)
-+int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
- {
--	struct dw_dp *dp = data;
-+	struct device *dev = dp->dev;
-+	struct drm_bridge *bridge;
-+	int ret;
-+
-+	bridge = &dp->bridge;
-+	bridge->of_node = dev->of_node;
-+	bridge->ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_HPD;
-+	bridge->type = DRM_MODE_CONNECTOR_DisplayPort;
-+	bridge->ycbcr_420_allowed = true;
-+
-+	drm_bridge_add(bridge);
-+
-+	dp->aux.dev = dev;
-+	dp->aux.drm_dev = encoder->dev;
-+	dp->aux.name = dev_name(dev);
-+	dp->aux.transfer = dw_dp_aux_transfer;
-+	ret = drm_dp_aux_register(&dp->aux);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "Aux register failed\n");
-+		goto unregister_bridge;
-+	}
-+
-+	ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "Failed to attach bridge\n");
-+		goto unregister_aux;
-+	}
-+
-+	dw_dp_init_hw(dp);
- 
-+	ret = phy_init(dp->phy);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "phy init failed\n");
-+		goto unregister_aux;
-+	}
-+
-+	enable_irq(dp->irq);
-+
-+	return 0;
-+
-+unregister_aux:
-+	drm_dp_aux_unregister(&dp->aux);
-+
-+unregister_bridge:
-+	drm_bridge_remove(bridge);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(dw_dp_bind);
-+
-+void dw_dp_unbind(struct dw_dp *dp)
-+{
-+	disable_irq(dp->irq);
- 	phy_exit(dp->phy);
-+	drm_dp_aux_unregister(&dp->aux);
-+	drm_bridge_remove(&dp->bridge);
- }
-+EXPORT_SYMBOL_GPL(dw_dp_unbind);
- 
--struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
--			 const struct dw_dp_plat_data *plat_data)
-+struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_data *plat_data)
- {
--	struct platform_device *pdev = to_platform_device(dev);
--	struct dw_dp *dp;
--	struct drm_bridge *bridge;
-+	struct device *dev = &pdev->dev;
- 	void __iomem *res;
-+	struct dw_dp *dp;
- 	int ret;
- 
- 	dp = devm_drm_bridge_alloc(dev, struct dw_dp, bridge, &dw_dp_bridge_funcs);
-@@ -1976,9 +2028,8 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
- 
- 	dp->dev = dev;
- 	dp->pixel_mode = plat_data->pixel_mode;
--
- 	dp->plat_data.max_link_rate = plat_data->max_link_rate;
--	bridge = &dp->bridge;
-+
- 	mutex_init(&dp->irq_lock);
- 	INIT_WORK(&dp->hpd_work, dw_dp_hpd_work);
- 	init_completion(&dp->complete);
-@@ -2035,69 +2086,20 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
- 		return ERR_CAST(dp->rstc);
- 	}
- 
--	bridge->of_node = dev->of_node;
--	bridge->ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_HPD;
--	bridge->type = DRM_MODE_CONNECTOR_DisplayPort;
--	bridge->ycbcr_420_allowed = true;
--
--	ret = devm_drm_bridge_add(dev, bridge);
--	if (ret)
--		return ERR_PTR(ret);
--
--	dp->aux.dev = dev;
--	dp->aux.drm_dev = encoder->dev;
--	dp->aux.name = dev_name(dev);
--	dp->aux.transfer = dw_dp_aux_transfer;
--	ret = drm_dp_aux_register(&dp->aux);
--	if (ret) {
--		dev_err_probe(dev, ret, "Aux register failed\n");
--		return ERR_PTR(ret);
--	}
--
--	ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
--	if (ret) {
--		dev_err_probe(dev, ret, "Failed to attach bridge\n");
--		goto unregister_aux;
--	}
--
--	dw_dp_init_hw(dp);
--
--	ret = phy_init(dp->phy);
--	if (ret) {
--		dev_err_probe(dev, ret, "phy init failed\n");
--		goto unregister_aux;
--	}
--
--	ret = devm_add_action_or_reset(dev, dw_dp_phy_exit, dp);
--	if (ret)
--		goto unregister_aux;
--
- 	dp->irq = platform_get_irq(pdev, 0);
--	if (dp->irq < 0) {
--		ret = dp->irq;
--		goto unregister_aux;
--	}
-+	if (dp->irq < 0)
-+		return ERR_PTR(dp->irq);
- 
- 	ret = devm_request_threaded_irq(dev, dp->irq, NULL, dw_dp_irq,
--					IRQF_ONESHOT, dev_name(dev), dp);
-+					IRQF_ONESHOT | IRQF_NO_AUTOEN, dev_name(dev), dp);
- 	if (ret) {
- 		dev_err_probe(dev, ret, "failed to request irq\n");
--		goto unregister_aux;
-+		return ERR_PTR(ret);
- 	}
- 
- 	return dp;
--
--unregister_aux:
--	drm_dp_aux_unregister(&dp->aux);
--	return ERR_PTR(ret);
- }
--EXPORT_SYMBOL_GPL(dw_dp_bind);
--
--void dw_dp_unbind(struct dw_dp *dp)
--{
--	drm_dp_aux_unregister(&dp->aux);
--}
--EXPORT_SYMBOL_GPL(dw_dp_unbind);
-+EXPORT_SYMBOL_GPL(dw_dp_probe);
- 
- MODULE_AUTHOR("Andy Yan <andyshrk@163.com>");
- MODULE_DESCRIPTION("DW DP Core Library");
-diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-index b23efb153c9e..005938dc66c9 100644
---- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-@@ -26,7 +26,7 @@
- struct rockchip_dw_dp {
- 	struct dw_dp *base;
- 	struct device *dev;
--	struct rockchip_encoder encoder;
-+	struct rockchip_encoder *encoder;
- };
- 
- static int dw_dp_encoder_atomic_check(struct drm_encoder *encoder,
-@@ -73,37 +73,28 @@ static const struct drm_encoder_helper_funcs dw_dp_encoder_helper_funcs = {
- 
- static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *data)
- {
--	struct platform_device *pdev = to_platform_device(dev);
--	const struct dw_dp_plat_data *plat_data;
-+	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
- 	struct drm_device *drm_dev = data;
--	struct rockchip_dw_dp *dp;
- 	struct drm_encoder *encoder;
- 	struct drm_connector *connector;
- 	int ret;
- 
--	dp = drmm_kzalloc(drm_dev, sizeof(*dp), GFP_KERNEL);
--	if (!dp)
-+	dp->encoder = drmm_kzalloc(drm_dev, sizeof(*dp->encoder), GFP_KERNEL);
-+	if (!dp->encoder)
- 		return -ENOMEM;
- 
--	dp->dev = dev;
--	platform_set_drvdata(pdev, dp);
--
--	plat_data = of_device_get_match_data(dev);
--	if (!plat_data)
--		return -ENODEV;
--
--	encoder = &dp->encoder.encoder;
-+	encoder = &dp->encoder->encoder;
- 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev, dev->of_node);
--	rockchip_drm_encoder_set_crtc_endpoint_id(&dp->encoder, dev->of_node, 0, 0);
-+	rockchip_drm_encoder_set_crtc_endpoint_id(dp->encoder, dev->of_node, 0, 0);
- 
- 	ret = drmm_encoder_init(drm_dev, encoder, NULL, DRM_MODE_ENCODER_TMDS, NULL);
- 	if (ret)
- 		return ret;
- 	drm_encoder_helper_add(encoder, &dw_dp_encoder_helper_funcs);
- 
--	dp->base = dw_dp_bind(dev, encoder, plat_data);
--	if (IS_ERR(dp->base))
--		return PTR_ERR(dp->base);
-+	ret = dw_dp_bind(dp->base, encoder);
-+	if (ret)
-+		return ret;
- 
- 	connector = drm_bridge_connector_init(drm_dev, encoder);
- 	if (IS_ERR(connector)) {
-@@ -128,12 +119,30 @@ static const struct component_ops dw_dp_rockchip_component_ops = {
- 	.unbind = dw_dp_rockchip_unbind,
- };
- 
--static int dw_dp_probe(struct platform_device *pdev)
-+static int dw_dp_rockchip_probe(struct platform_device *pdev)
- {
-+	const struct dw_dp_plat_data *plat_data;
-+	struct device *dev = &pdev->dev;
-+	struct rockchip_dw_dp *dp;
-+
-+	plat_data = of_device_get_match_data(dev);
-+	if (!plat_data)
-+		return -ENODEV;
-+
-+	dp = devm_kzalloc(dev, sizeof(*dp), GFP_KERNEL);
-+	if (!dp)
-+		return -ENOMEM;
-+	platform_set_drvdata(pdev, dp);
-+	dp->dev = dev;
-+
-+	dp->base = dw_dp_probe(pdev, plat_data);
-+	if (IS_ERR(dp->base))
-+		return PTR_ERR(dp->base);
-+
- 	return component_add(&pdev->dev, &dw_dp_rockchip_component_ops);
- }
- 
--static void dw_dp_remove(struct platform_device *pdev)
-+static void dw_dp_rockchip_remove(struct platform_device *pdev)
- {
- 	component_del(&pdev->dev, &dw_dp_rockchip_component_ops);
- }
-@@ -161,8 +170,8 @@ static const struct of_device_id dw_dp_of_match[] = {
- MODULE_DEVICE_TABLE(of, dw_dp_of_match);
- 
- struct platform_driver dw_dp_driver = {
--	.probe	= dw_dp_probe,
--	.remove = dw_dp_remove,
-+	.probe	= dw_dp_rockchip_probe,
-+	.remove = dw_dp_rockchip_remove,
- 	.driver = {
- 		.name = "dw-dp",
- 		.of_match_table = dw_dp_of_match,
-diff --git a/include/drm/bridge/dw_dp.h b/include/drm/bridge/dw_dp.h
-index 22105c3e8e4d..a82412a9e769 100644
---- a/include/drm/bridge/dw_dp.h
-+++ b/include/drm/bridge/dw_dp.h
-@@ -22,7 +22,8 @@ struct dw_dp_plat_data {
+@@ -329,6 +329,8 @@ struct dw_dp {
+ 	struct dw_dp_plat_data plat_data;
  	u8 pixel_mode;
+ 
++	struct drm_bridge *next_bridge;
++
+ 	DECLARE_BITMAP(sdp_reg_bank, SDP_REG_BANK_SIZE);
  };
  
--struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
--			 const struct dw_dp_plat_data *plat_data);
-+int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder);
- void dw_dp_unbind(struct dw_dp *dp);
+@@ -1988,18 +1990,35 @@ int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
+ 		goto unregister_aux;
+ 	}
+ 
++	dp->next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 1, 0);
++	if (IS_ERR(dp->next_bridge)) {
++		ret = PTR_ERR(dp->next_bridge);
++		dev_err_probe(dev, ret, "failed to get follow-up bridge.\n");
++		goto unregister_aux;
++	}
 +
-+struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_data *plat_data);
- #endif /* __DW_DP__ */
++	ret = drm_bridge_attach(encoder, dp->next_bridge, bridge,
++				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
++	if (ret) {
++		dev_err_probe(dev, ret, "Failed to attach next bridge\n");
++		goto put_next_bridge;
++	}
++
+ 	dw_dp_init_hw(dp);
+ 
+ 	ret = phy_init(dp->phy);
+ 	if (ret) {
+ 		dev_err_probe(dev, ret, "phy init failed\n");
+-		goto unregister_aux;
++		goto put_next_bridge;
+ 	}
+ 
+ 	enable_irq(dp->irq);
+ 
+ 	return 0;
+ 
++put_next_bridge:
++	drm_bridge_put(dp->next_bridge);
++
+ unregister_aux:
+ 	drm_dp_aux_unregister(&dp->aux);
+ 
+@@ -2014,6 +2033,7 @@ void dw_dp_unbind(struct dw_dp *dp)
+ {
+ 	disable_irq(dp->irq);
+ 	phy_exit(dp->phy);
++	drm_bridge_put(dp->next_bridge);
+ 	drm_dp_aux_unregister(&dp->aux);
+ 	drm_bridge_remove(&dp->bridge);
+ }
 
 -- 
 2.53.0
