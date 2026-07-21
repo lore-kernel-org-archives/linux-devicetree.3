@@ -1,87 +1,38 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A69340E8D6
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 06:30:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3271340A954;
+	Tue, 21 Jul 2026 06:32:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784615426; cv=none; b=rUdG2CBdyl2L0hqo/WC4rIA/l0w98JNgnwt3d0XROD65JZQK96KMsrSM16nT3z5x4TaQxgRX0sG0VEQUrjlpVjt91SGmpOlyEbdtvT/8HI0yI/oVi2HYmFwS6rQ5dB4e5G5go+PMhVGl74WUpdcwbD2+rOeF9C6OR+fcI3MApcc=
+	t=1784615540; cv=none; b=P39zqZsAVqKzUBe20wOKZmMu7iI76C2lVZLI7ByxaQxfMmyUSaqCvgjLFUXu23em+RdcYXEQwmGiqaa8SVnOmEbY50Q58GhmzrWax+7fSwA2SY4Zqzjw5Jrzd3U2ytCBgnZ9JrNHKQUZA4M8pm6LSms2L78gZ50mH49RMcScGDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784615426; c=relaxed/simple;
-	bh=BdOGIxXE1ok1M7rUKEyOuOmZ0r5JcuZo3GwQBeFxMcs=;
+	s=arc-20240116; t=1784615540; c=relaxed/simple;
+	bh=djNa8zI+u5Ox5aDuvoSshnOWOub2uit+DxUU1JSjt9c=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ckpve6NYA9SpLfyNUjYtHVU3NJWZrQv4hJDIpyEHNw8xeOkmpDtEwNSmSxxr8Ik8A4aWC14PAnp8j2H/u6QHArBJTA5ZskKycQwzLGG6fe5275sIoKoogaWG3fuMjjsx/jQjVEPB/sw7YcU/xxdi3zHMeysn52lgriBYUJjLRUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KoMdMCyY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZjdC2xLg; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:To:Cc; b=dDJdn4U74OInf2uo5wZPNztn4bzBlO+gS77PxvhXtaAcUPvHTJrDiRlBpG1af98Ys8300jNHz3c01ctvaN5UzO+4ZW+n153AlO1OkQzG3WZddyGxITBYTkEVnUueKuXgx0CpNzoAByc8XENo0b80nP1z8VFBa108s559xv1h47A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DE1xiplU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KoMdMCyY";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZjdC2xLg"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66L6T9HE4151354
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 06:30:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Eeo9wzBCTc2KKAgmnmcaGHN5cU9PGYzocvT1y4OmbYk=; b=KoMdMCyYP41MKpaO
-	WK8XO2sKNowMi0eXQy20wwDkjKUhY8yiGb1juyHsH0wM4J29uHl+NMCNfielVSp+
-	FjHXq+FMK71J9fHCZCIeLHG4v8K0hLXfR+FXr/8pLfVYMJ4M04OR4afHTTcQPkx2
-	zppDQyunaf6ScOqmjTMzGT9E0OUzPcPhvOVU5FP+362TPKRZvBvr3GLmuQ0SovX8
-	ZhgjO7b/trnRB6zli4cJrDYor90SOw8D0xIuezercdo2vEgO30lqz5LIub3s8bfC
-	j4/tb6jhLlsH0CJG6b4kTDDj+L5GFkrGhm1kuTZT4xNV2YZAqcDPoSlhXACDs+ga
-	nVVNaw==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fhqff2w0u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 06:30:24 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ccafc5e82cso101296855ad.3
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 23:30:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784615423; x=1785220223; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Eeo9wzBCTc2KKAgmnmcaGHN5cU9PGYzocvT1y4OmbYk=;
-        b=ZjdC2xLg84vbToBh71l9JWzceqoOI2CiQccDPLcCMaUObQohHyCRguSR1GZ4tWojRD
-         blvt7dGtEaEav0J1bRQqo1Dv22xtNRgBeTsW3MNuML2vWchrMbmq+b3gabesE69U3gbZ
-         9o+ZuiqEMr0jhszMTtw1HDxOrrcajHIXNQJ1+SqJQFKh7UdUoUMW9pZZOfsfni9d1Cp4
-         TtO0GDrYJAq0zQgoq39m1IzX1Dk2g/6pfxpY4kjucFGEIZvSZvrdoNAY8b92RmGZZXLg
-         TAwOanZDYLCu/DaSwAEk/TRt3eA/vRGKLDtfCDrC3+Jwwk3XNkRFFnZWqU+3lckaxMq4
-         Sdqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784615423; x=1785220223;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Eeo9wzBCTc2KKAgmnmcaGHN5cU9PGYzocvT1y4OmbYk=;
-        b=S35pLiVajhlyEhgxMRgfwg/GKVCja3EDmMKIQU9S215Lg/G85cRP8d8bVB7NdFbihe
-         DRAiHa3GsfQVD1HXNT8z879FvSYoHHkmEeodK34iAycgRJEOADaSYSXI7WE380XoQzsV
-         iXWEVeaNZzGMaGFsHFUuWK6Wm3iZpE+U+CDTnB52j9AsZteXHXE9AB4++EYYkAG+EZw6
-         oBT8e50cEym0FMe6e6f0M+JqkUFT327LcHZ41B02xu6gTAnD5wC9KtQfC6R1twl5f/oK
-         gXBHsJZOT1QM5KRQefSZje/ylXmc7D8ko/rJdc30NfCNMwDUqRBhBbE5mczapX6Z0M/C
-         o2vw==
-X-Forwarded-Encrypted: i=1; AHgh+RqBHuUSlgn8hwc5aZwAMSQEwSystjjqJM9aUmKjVmqO+5BabwMgT3GYvMCIg0o2Zk2cMVbSj/l3GkSs@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkvkJpYgODzyeHO40UlbtNQ8EiahI8yMSFe9HRg+EiFy19+i1M
-	VJOKD9OSibVk3xF/X2oK7lt0eUJt+koHBF1MyZDT7RPWbaSrvTakuaVyNE169Ek2Kb+zb6hbCYU
-	6hE/tgr7a5enC/XBYPSyc7Kd4sQv9USQli3csdikIquM2JpE/qtVGTwPceMp6Uadi
-X-Gm-Gg: AR+sD13tmEfLo8Y5/e2dztkh2Dx8U9SmV48jdyNAi2pxrWB4aRlZL+yeYV9NmHrwBq8
-	yE+ULdo/SXa+7KdUljx4PQ8BpJ/e88bGrC164aj43t40euzHsOBaV14IIXoNysNBlJmuDA2lVtq
-	3k5UIePjXKq+OASMRgLpUkq5s4M2eNqbfzpsBdnzVRrHl+/JYqOjUfKBx9lnsTz+XKtSzNGk6Kq
-	1/h7CGKF31Tg7nNzXMQwyjOhtJH3BtnDfPnzp3hlO6X7tJ1N0wHJF2CYEYia5NIqnJc6OeaADDp
-	kzpqno67NYHqR+sbgh3FBtMfZMQSAxKncltGIgBzWM66d3/Bi021dmxAPwsvEW4yUIokF/gh8J7
-	2tWgkjZHXZxSK17oziNCKN6P3CfOnoA==
-X-Received: by 2002:a17:902:f681:b0:2ca:3e3f:4956 with SMTP id d9443c01a7336-2cf34a35445mr184691395ad.44.1784615422950;
-        Mon, 20 Jul 2026 23:30:22 -0700 (PDT)
-X-Received: by 2002:a17:902:f681:b0:2ca:3e3f:4956 with SMTP id d9443c01a7336-2cf34a35445mr184690785ad.44.1784615422474;
-        Mon, 20 Jul 2026 23:30:22 -0700 (PDT)
-Received: from hu-gkohli-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf347a1201sm69376505ad.81.2026.07.20.23.30.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 23:30:21 -0700 (PDT)
-From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-Date: Tue, 21 Jul 2026 11:59:06 +0530
-Subject: [PATCH v5 9/9] arm64: dts: qcom: hamoa: Enable CDSP cooling
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DE1xiplU"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id EBC5DC2BCFF;
+	Tue, 21 Jul 2026 06:32:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784615540;
+	bh=djNa8zI+u5Ox5aDuvoSshnOWOub2uit+DxUU1JSjt9c=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=DE1xiplU0bFJQ5qynkyBwlcD1qc51XFJpmGn7b8nqOe74JEULhqvLA3FwwSfWlh82
+	 NZzpArBpng0UtwhhRWz1Tu3rnEZhvc1A8Sba1VHB2wBNO19vd7IRAljMolIQBQAsAT
+	 RajFv6UNU9Aev94+Xs0vbuQ9uLTYiC/N0XDcOTS2o9w3aHWATOMPVk4jG8I621WVRc
+	 MZq2tGqKIArzuXkCWaZ5RXqMC555qcAJTYTXKjCx3lR49XC6Akl/Teux+/fe8oln41
+	 UExFtgfC7ddH4wxQ9buZo8EnS9W29m0fOBN5Fx7edjKLi3kXYPU6+Oe2+gIa6ZaKkE
+	 dx641yN75V50g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D7FE7C4452B;
+	Tue, 21 Jul 2026 06:32:19 +0000 (UTC)
+From: Andy Chung via B4 Relay <devnull+Andy.Chung.amd.com@kernel.org>
+Date: Tue, 21 Jul 2026 14:31:34 +0800
+Subject: [PATCH v3 3/4] hwmon: (kb9002) Add driver for Kandou KB9002
+ retimer
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,276 +40,575 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260721-b4-qmi-tmd-v5-9-99620e07f505@oss.qualcomm.com>
-References: <20260721-b4-qmi-tmd-v5-0-99620e07f505@oss.qualcomm.com>
-In-Reply-To: <20260721-b4-qmi-tmd-v5-0-99620e07f505@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
-        Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-hardening@vger.kernel.org,
-        manaf.pallikunhi@oss.qualcomm.com,
-        Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784615351; l=4746;
- i=gaurav.kohli@oss.qualcomm.com; s=20260302; h=from:subject:message-id;
- bh=M1kNcKjXMHABpQwGFH7f4z1gi75XzuHKDuRCrq5y1KA=;
- b=zWznmChXwH1a+Xy7CXqvwB+2v/B4Jsj/DTEzvL/4/G8fijhQpVOkLGUcQfVbc7hDqK5MGpe24
- xDrl1l1OhnfCtcjZOhoJnblsDq6uaT+dVjZoffokDQX/OX8wuHrGEke
-X-Developer-Key: i=gaurav.kohli@oss.qualcomm.com; a=ed25519;
- pk=IdNsqe8rWsF6dbpGHfwPEH9zM0nbOdRH72HxUT9qPak=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDA2NSBTYWx0ZWRfX76dcuE5XuRf7
- 8NNV8LkB3qQbVbgUc2GlIrDO7kkm70czinKpP3H6du6jAYaPWMbNceDVl6NoP5Ki248T7uRzIJ7
- DOaP6qwSvKT0E78iLBcPny4cU4VG3es=
-X-Proofpoint-GUID: fijeM3-LmFMFYbLBWpLlsEB39xHykKQB
-X-Authority-Analysis: v=2.4 cv=FJErAeos c=1 sm=1 tr=0 ts=6a5f1200 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=ND7YSEQ52W-Uskv0B9cA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDA2NSBTYWx0ZWRfX1gW0RdqZuxHE
- ih13grBARtei4HF7Ve3+JVhUHP1ei8nCyzoIA6yvvo29YsyVhnXMy0pCkkLisguNXrEy/ezzge9
- iyrfwkfsqKbCf7Bk9p45IXOVGXH9JU829TPJYY5Sv4cfg66/1U0Cx3IlF+HYxqf7ctcAtVWSY8C
- lVIBxE2YyArO82dD/valsl+BR7NGfnQ/oI34zSSKRfp7lBAn0cbMUhpa2o/YjsCo46sDaZ+if3u
- ofLQvvcYEY+TKhYLdcJxC2G69fV0zFpg9a/e4P+g9ByfozKcqxG8U/OwCgpnKCVcKR0p5X0luyU
- julkIUBwq4Tc/B+Prf/Pw3ylnmnQrk6ZOE8/Jk2tQmNXQBqHDjxEZyv5zNaz3Tc3QY9MqSB0bUZ
- p4mSUB/1pudslEQgUJfmxfIvzCm77BtfkgbzNZKyzL1C5i4KgJ79HJ4QwJuNwYXr9gb472gMnO4
- ckGk5Q+YzkZOkFIxoRA==
-X-Proofpoint-ORIG-GUID: fijeM3-LmFMFYbLBWpLlsEB39xHykKQB
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-20_06,2026-07-20_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 spamscore=0 suspectscore=0 bulkscore=0
- clxscore=1015 malwarescore=0 priorityscore=1501 adultscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210065
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260721-kb9002-upstream-v3-3-70563922be8d@amd.com>
+References: <20260721-kb9002-upstream-v3-0-70563922be8d@amd.com>
+In-Reply-To: <20260721-kb9002-upstream-v3-0-70563922be8d@amd.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andy Chung <andy.chung@amd.com>, 
+ Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Andy Chung <Andy.Chung@amd.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784615506; l=15663;
+ i=Andy.Chung@amd.com; s=20260327; h=from:subject:message-id;
+ bh=hri8TQLbDKk7Z2MLGEJWWYW9jPuqkDRix7c0fWjqutM=;
+ b=KkrL9oZZQrfpExLtnRxNGLny2MFepWB7SBkAa1Uh+sv1E66tb7ZcJKJbQzDAJFDRwanMRI/wA
+ N0IMQj9PkPwAO59gH6ZNfoB/jQum/Yf2MX1Ug5Rh9+nxyYypD5OpjfK
+X-Developer-Key: i=Andy.Chung@amd.com; a=ed25519;
+ pk=X2gaHRnhU2q5hvMjkC6xmIcC03vKNvHY9CQRdsj9ecM=
+X-Endpoint-Received: by B4 Relay for Andy.Chung@amd.com/20260327 with
+ auth_id=696
+X-Original-From: Andy Chung <Andy.Chung@amd.com>
+Reply-To: Andy.Chung@amd.com
 
-From: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
+From: Andy Chung <Andy.Chung@amd.com>
 
-Unlike the CPU, the CDSP does not throttle its speed automatically
-when it reaches high temperatures in hamoa.
+The Kandou KB9002 is an 8-lane PCIe 5.0 retimer that exposes an SMBus
+target with mandatory PEC. Add a hwmon driver reporting the firmware
+aggregated maximum die temperature as temp1_input, with the firmware
+version and boot status under debugfs.
 
-Set up CDSP cooling for both instances by throttling the cdsp, when
-it reaches 95°C.
-
-Add polling-delay-passive so the governor periodically evaluates
-the zone during passive cooling and steps up cooling levels when
-temperature stabilizes below the next trip.
-
-Signed-off-by: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
+Signed-off-by: Andy Chung <Andy.Chung@amd.com>
 ---
- arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts | 32 +++++++++++++++
- arch/arm64/boot/dts/qcom/hamoa.dtsi        | 63 ++++++++++++++++++++++++++++++
- 2 files changed, 95 insertions(+)
+ MAINTAINERS            |   8 +
+ drivers/hwmon/Kconfig  |  11 ++
+ drivers/hwmon/Makefile |   1 +
+ drivers/hwmon/kb9002.c | 469 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 489 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
-index 9fa86bb6438e..a146be1cb5fb 100644
---- a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
-@@ -1684,4 +1684,36 @@ trip-point0 {
- 			};
- 		};
- 	};
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 9b4b1575bdbd..1d80ac2660e2 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -13931,6 +13931,14 @@ S:	Maintained
+ F:	Documentation/hwmon/k8temp.rst
+ F:	drivers/hwmon/k8temp.c
+ 
++KANDOU KB9002 PCIE RETIMER HWMON DRIVER
++M:	Andy Chung <andy.chung@amd.com>
++L:	linux-hwmon@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/hwmon/kandou,kb9002.yaml
++F:	Documentation/hwmon/kb9002.rst
++F:	drivers/hwmon/kb9002.c
 +
-+	nsp0-thermal {
-+		trips {
-+			trip-point1 {
-+				temperature = <105000>;
-+			};
-+		};
+ KASAN
+ M:	Andrey Ryabinin <ryabinin.a.a@gmail.com>
+ R:	Alexander Potapenko <glider@google.com>
+diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
+index 08c29685126a..300329773e87 100644
+--- a/drivers/hwmon/Kconfig
++++ b/drivers/hwmon/Kconfig
+@@ -335,6 +335,17 @@ config SENSORS_K10TEMP
+ 	  This driver can also be built as a module. If so, the module
+ 	  will be called k10temp.
+ 
++config SENSORS_KB9002
++	tristate "Kandou KB9002 PCIe retimer"
++	depends on I2C
++	help
++	  If you say yes here you get support for the integrated
++	  temperature sensor and firmware version readout on Kandou
++	  KB9002 PCIe 5.0 retimers, accessed over SMBus.
++
++	  This driver can also be built as a module. If so, the module
++	  will be called kb9002.
++
+ config SENSORS_KBATT
+ 	tristate "KEBA battery controller support"
+ 	depends on KEBA_CP500
+diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
+index 63809eeec2f4..0cad7e21634c 100644
+--- a/drivers/hwmon/Makefile
++++ b/drivers/hwmon/Makefile
+@@ -113,6 +113,7 @@ obj-$(CONFIG_SENSORS_IT87)	+= it87.o
+ obj-$(CONFIG_SENSORS_JC42)	+= jc42.o
+ obj-$(CONFIG_SENSORS_K8TEMP)	+= k8temp.o
+ obj-$(CONFIG_SENSORS_K10TEMP)	+= k10temp.o
++obj-$(CONFIG_SENSORS_KB9002)	+= kb9002.o
+ obj-$(CONFIG_SENSORS_KBATT)	+= kbatt.o
+ obj-$(CONFIG_SENSORS_KFAN)	+= kfan.o
+ obj-$(CONFIG_SENSORS_LAN966X)	+= lan966x-hwmon.o
+diff --git a/drivers/hwmon/kb9002.c b/drivers/hwmon/kb9002.c
+new file mode 100644
+index 000000000000..61a6e522e770
+--- /dev/null
++++ b/drivers/hwmon/kb9002.c
+@@ -0,0 +1,469 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Kandou KB9002 PCIe 5.0 retimer hwmon driver.
++ *
++ * The retimer exposes a system management bus (SMBus 3.0 with PEC)
++ * target for firmware-managed status registers. This driver assumes
++ * the chip is strapped to SMBus mode and exports the aggregated
++ * maximum die temperature as hwmon temp1_input (millidegrees Celsius)
++ * plus the firmware version and boot status under debugfs.
++ *
++ * Datasheet: Kandou KB9002 PCIe retimer (KA-015171-PD).
++ */
++
++#include <linux/bitfield.h>
++#include <linux/bitops.h>
++#include <linux/cleanup.h>
++#include <linux/debugfs.h>
++#include <linux/err.h>
++#include <linux/hwmon.h>
++#include <linux/i2c.h>
++#include <linux/iopoll.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/seq_file.h>
++#include <linux/types.h>
++#include <linux/unaligned.h>
++
++#define KB9002_DEV_NAME			"kb9002"
++
++/*
++ * SMBus read command codes. Each read is a two-phase PEC-protected
++ * transaction: prime writes the target address, data reads it back with
++ * the register contents. FW reads use a 16-bit address, HW reads 32-bit.
++ */
++#define KB9002_CC_FW_READ_PRIME		0x82
++#define KB9002_CC_FW_READ_DATA		0x81
++#define KB9002_CC_HW_READ_PRIME		0x8a
++#define KB9002_CC_HW_READ_DATA		0x89
++
++/* Firmware register offsets (16-bit). */
++#define KB9002_FW_REG_VID		0x0004
++#define KB9002_FW_REG_FW_VERSION	0x0500
++#define KB9002_FW_REG_TEMP_MAXIMUM	0x0550
++
++#define KB9002_VID_MASK			GENMASK(31, 16)
++#define KB9002_VID_KANDOU		0x1e6f
++
++/* Firmware boot status: 0xe8 in the top byte means init completed OK. */
++#define KB9002_HW_REG_FW_BOOT_STATUS	0xe0090008
++#define KB9002_FW_BOOT_STATUS_OK_MSB	0xe8
++
++/*
++ * Hardware registers reached over raw I2C (32-bit addressing). The
++ * host-interface bit selects SMBus (set) vs raw-I2C target; parts
++ * strapped to raw I2C need it set before SMBus access works.
++ */
++#define KB9002_HW_REG_REVID		0x00480004
++#define KB9002_HW_REG_HOST_IF		0x00480008
++#define KB9002_HOST_IF_SMBUS		BIT(1)
++
++#define KB9002_REVID_MASK		GENMASK(7, 0)
++#define KB9002_REVID_B0			0x10
++#define KB9002_REVID_B1			0x11
++
++/* Retries to drain a stray leading 0xff from the raw-I2C FIFO. */
++#define KB9002_REVID_READ_RETRIES	16
++
++/* Temperature: 32-bit Q16.16 absolute Kelvin. */
++#define KB9002_TEMP_FRAC_BITS		16
++#define KB9002_ABS_ZERO_MILLI_C		(-273150)
++
++/* Firmware takes up to ~2s to respond after a host-interface change. */
++#define KB9002_FW_READY_POLL_US		(25 * USEC_PER_MSEC)
++#define KB9002_FW_READY_TIMEOUT_US	(2 * USEC_PER_SEC)
++
++struct kb9002_data {
++	struct i2c_client *client;
++	struct device *hwmon_dev;
++};
++
++/* Raw-I2C read: write the 32-bit BE address, then read 4 BE data bytes. */
++static int kb9002_i2c_read(struct i2c_client *client, u32 reg, u32 *val)
++{
++	u8 addr[4];
++	u8 rbuf[4];
++	struct i2c_msg msgs[2] = {
++		{
++			.addr = client->addr,
++			.flags = 0,
++			.len = sizeof(addr),
++			.buf = addr,
++		},
++		{
++			.addr = client->addr,
++			.flags = I2C_M_RD,
++			.len = sizeof(rbuf),
++			.buf = rbuf,
++		},
 +	};
++	int ret;
 +
-+	nsp1-thermal {
-+		trips {
-+			trip-point1 {
-+				temperature = <105000>;
-+			};
-+		};
++	put_unaligned_be32(reg, addr);
++
++	ret = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
++	if (ret < 0)
++		return ret;
++	if (ret != ARRAY_SIZE(msgs))
++		return -EIO;
++
++	*val = get_unaligned_be32(rbuf);
++	return 0;
++}
++
++/* Raw-I2C write: 4 BE address bytes followed by 4 BE data bytes. */
++static int kb9002_i2c_write(struct i2c_client *client, u32 reg, u32 val)
++{
++	u8 buf[8];
++	struct i2c_msg msg = {
++		.addr = client->addr,
++		.flags = 0,
++		.len = sizeof(buf),
++		.buf = buf,
 +	};
++	int ret;
 +
-+	nsp2-thermal {
-+		trips {
-+			trip-point1 {
-+				temperature = <105000>;
-+			};
-+		};
-+	};
++	put_unaligned_be32(reg, &buf[0]);
++	put_unaligned_be32(val, &buf[4]);
 +
-+	nsp3-thermal {
-+		trips {
-+			trip-point1 {
-+				temperature = <105000>;
-+			};
-+		};
-+	};
- };
-diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-index 09527dcf9576..a1f7c46f6c27 100644
---- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
-+++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-@@ -23,6 +23,7 @@
- #include <dt-bindings/soc/qcom,gpr.h>
- #include <dt-bindings/soc/qcom,rpmh-rsc.h>
- #include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
-+#include <dt-bindings/thermal/qcom,qmi-tmd.h>
- #include <dt-bindings/thermal/thermal.h>
- 
- / {
-@@ -8971,6 +8972,8 @@ remoteproc_cdsp: remoteproc@32300000 {
- 
- 			status = "disabled";
- 
-+			#cooling-cells = <3>;
++	ret = i2c_transfer(client->adapter, &msg, 1);
++	if (ret < 0)
++		return ret;
++	if (ret != 1)
++		return -EIO;
 +
- 			glink-edge {
- 				interrupts-extended = <&ipcc IPCC_CLIENT_CDSP
- 							     IPCC_MPROC_SIGNAL_GLINK_QMP
-@@ -9558,6 +9561,7 @@ aoss0-critical {
- 		};
- 
- 		thermal_nsp0: nsp0-thermal {
-+			polling-delay-passive = <200>;
- 			thermal-sensors = <&tsens3 1>;
- 
- 			trips {
-@@ -9567,15 +9571,30 @@ trip-point0 {
- 					type = "hot";
- 				};
- 
-+				nsp0_alert0: trip-point1 {
-+					temperature = <95000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
++	return 0;
++}
 +
- 				nsp0-critical {
- 					temperature = <115000>;
- 					hysteresis = <1000>;
- 					type = "critical";
- 				};
- 			};
++/*
++ * Read the silicon revision ID. A fresh FIFO may start with a stray
++ * 0xff that shifts the result, so drain one byte between retries until
++ * the top byte is no longer 0xff.
++ */
++static int kb9002_read_revid(struct i2c_client *client, u32 *revid)
++{
++	u8 dummy;
++	int ret;
++	int i;
 +
-+			cooling-maps {
-+				map0 {
-+					trip = <&nsp0_alert0>;
-+					cooling-device = <&remoteproc_cdsp QCOM_TMD_CDSP_SW
-+							 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
- 		};
- 
- 		thermal_nsp1: nsp1-thermal {
-+			polling-delay-passive = <200>;
- 			thermal-sensors = <&tsens3 2>;
- 
- 			trips {
-@@ -9585,15 +9604,30 @@ trip-point0 {
- 					type = "hot";
- 				};
- 
-+				nsp1_alert0: trip-point1 {
-+					temperature = <95000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
++	for (i = 0; i < KB9002_REVID_READ_RETRIES; i++) {
++		ret = kb9002_i2c_read(client, KB9002_HW_REG_REVID, revid);
++		if (ret)
++			return ret;
++		if ((*revid >> 24) != 0xff)
++			return 0;
++		/* Drain one byte from the chip to re-align the I2C FIFO. */
++		i2c_master_recv(client, &dummy, 1);
++	}
 +
- 				nsp1-critical {
- 					temperature = <115000>;
- 					hysteresis = <1000>;
- 					type = "critical";
- 				};
- 			};
++	return -EIO;
++}
 +
-+			cooling-maps {
-+				map0 {
-+					trip = <&nsp1_alert0>;
-+					cooling-device = <&remoteproc_cdsp QCOM_TMD_CDSP_SW
-+							 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
- 		};
- 
- 		thermal_nsp2: nsp2-thermal {
-+			polling-delay-passive = <200>;
- 			thermal-sensors = <&tsens3 3>;
- 
- 			trips {
-@@ -9603,15 +9637,30 @@ trip-point0 {
- 					type = "hot";
- 				};
- 
-+				nsp2_alert0: trip-point1 {
-+					temperature = <95000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
++/*
++ * Read a 32-bit firmware register over SMBus: block-write the 16-bit LE
++ * address, then block-read the echoed address plus 4 LE data bytes.
++ */
++static int kb9002_fw_read(struct kb9002_data *data, u16 reg, u32 *val)
++{
++	struct i2c_client *client = data->client;
++	u8 addr[2];
++	u8 rbuf[I2C_SMBUS_BLOCK_MAX];
++	int ret;
 +
- 				nsp2-critical {
- 					temperature = <115000>;
- 					hysteresis = <1000>;
- 					type = "critical";
- 				};
- 			};
++	put_unaligned_le16(reg, addr);
 +
-+			cooling-maps {
-+				map0 {
-+					trip = <&nsp2_alert0>;
-+					cooling-device = <&remoteproc_cdsp QCOM_TMD_CDSP_SW
-+							 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
- 		};
- 
- 		thermal_nsp3: nsp3-thermal {
-+			polling-delay-passive = <200>;
- 			thermal-sensors = <&tsens3 4>;
- 
- 			trips {
-@@ -9621,12 +9670,26 @@ trip-point0 {
- 					type = "hot";
- 				};
- 
-+				nsp3_alert0: trip-point1 {
-+					temperature = <95000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
++	ret = i2c_smbus_write_block_data(client, KB9002_CC_FW_READ_PRIME,
++					 sizeof(addr), addr);
++	if (ret < 0)
++		return ret;
 +
- 				nsp3-critical {
- 					temperature = <115000>;
- 					hysteresis = <1000>;
- 					type = "critical";
- 				};
- 			};
++	ret = i2c_smbus_read_block_data(client, KB9002_CC_FW_READ_DATA, rbuf);
++	if (ret < 0)
++		return ret;
++	if (ret < (int)(sizeof(addr) + sizeof(*val)))
++		return -EIO;
 +
-+			cooling-maps {
-+				map0 {
-+					trip = <&nsp3_alert0>;
-+					cooling-device = <&remoteproc_cdsp QCOM_TMD_CDSP_SW
-+							 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
- 		};
- 
- 		thermal_gpuss_0: gpuss-0-thermal {
++	*val = get_unaligned_le32(&rbuf[sizeof(addr)]);
++	return 0;
++}
++
++/* Like kb9002_fw_read but for a hardware register (32-bit LE address). */
++static int kb9002_smbus_hw_read(struct kb9002_data *data, u32 reg, u32 *val)
++{
++	struct i2c_client *client = data->client;
++	u8 addr[4];
++	u8 rbuf[I2C_SMBUS_BLOCK_MAX];
++	int ret;
++
++	put_unaligned_le32(reg, addr);
++
++	ret = i2c_smbus_write_block_data(client, KB9002_CC_HW_READ_PRIME,
++					 sizeof(addr), addr);
++	if (ret < 0)
++		return ret;
++
++	ret = i2c_smbus_read_block_data(client, KB9002_CC_HW_READ_DATA, rbuf);
++	if (ret < 0)
++		return ret;
++	if (ret < (int)(sizeof(addr) + sizeof(*val)))
++		return -EIO;
++
++	*val = get_unaligned_le32(&rbuf[sizeof(addr)]);
++	return 0;
++}
++
++/*
++ * Switch the host interface from raw-I2C to SMBus and wait for firmware
++ * to come back up. Called only when SMBus access failed in probe, i.e.
++ * the chip is strapped to raw-I2C mode. Confirms the revision, sets the
++ * SMBus-mode bit, then polls until firmware responds again.
++ */
++static int kb9002_enable_smbus_target(struct kb9002_data *data)
++{
++	struct i2c_client *client = data->client;
++	u32 revid;
++	u32 val;
++	int op_ret;
++	int ret;
++
++	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
++		return dev_err_probe(&client->dev, -ENODEV,
++				     "raw I2C required to switch to SMBus mode\n");
++
++	ret = kb9002_read_revid(client, &revid);
++	if (ret)
++		return dev_err_probe(&client->dev, ret,
++				     "revision ID read failed\n");
++
++	switch (FIELD_GET(KB9002_REVID_MASK, revid)) {
++	case KB9002_REVID_B0:
++	case KB9002_REVID_B1:
++		break;
++	default:
++		return dev_err_probe(&client->dev, -ENODEV,
++				     "unsupported revision ID 0x%08x\n", revid);
++	}
++
++	ret = kb9002_i2c_read(client, KB9002_HW_REG_HOST_IF, &val);
++	if (ret)
++		return dev_err_probe(&client->dev, ret,
++				     "host interface read failed\n");
++
++	val |= KB9002_HOST_IF_SMBUS;
++
++	ret = kb9002_i2c_write(client, KB9002_HW_REG_HOST_IF, val);
++	if (ret)
++		return dev_err_probe(&client->dev, ret,
++				     "host interface write failed\n");
++
++	/* Wait until firmware re-initialisation completes. */
++	ret = read_poll_timeout(kb9002_fw_read, op_ret, op_ret == 0,
++				KB9002_FW_READY_POLL_US,
++				KB9002_FW_READY_TIMEOUT_US, true,
++				data, KB9002_FW_REG_VID, &val);
++	if (ret)
++		return dev_err_probe(&client->dev, ret,
++				     "firmware not responding over SMBus\n");
++
++	return 0;
++}
++
++/* Convert Q16.16 absolute Kelvin to millidegrees Celsius. */
++static long kb9002_temp_to_milli_c(u32 raw)
++{
++	s64 milli_k = ((s64)raw * 1000) >> KB9002_TEMP_FRAC_BITS;
++
++	return (long)milli_k + KB9002_ABS_ZERO_MILLI_C;
++}
++
++static int kb9002_read_temp(struct kb9002_data *data, long *val)
++{
++	u32 raw;
++	int ret;
++
++	ret = kb9002_fw_read(data, KB9002_FW_REG_TEMP_MAXIMUM, &raw);
++	if (ret)
++		return ret;
++
++	*val = kb9002_temp_to_milli_c(raw);
++	return 0;
++}
++
++static umode_t kb9002_is_visible(const void *drvdata,
++				 enum hwmon_sensor_types type,
++				 u32 attr, int channel)
++{
++	if (type == hwmon_temp &&
++	    (attr == hwmon_temp_input || attr == hwmon_temp_label))
++		return 0444;
++	return 0;
++}
++
++static int kb9002_read(struct device *dev, enum hwmon_sensor_types type,
++		       u32 attr, int channel, long *val)
++{
++	struct kb9002_data *data = dev_get_drvdata(dev);
++
++	if (type == hwmon_temp && attr == hwmon_temp_input)
++		return kb9002_read_temp(data, val);
++
++	return -EOPNOTSUPP;
++}
++
++static int kb9002_read_string(struct device *dev, enum hwmon_sensor_types type,
++			      u32 attr, int channel, const char **str)
++{
++	if (type == hwmon_temp && attr == hwmon_temp_label) {
++		*str = KB9002_DEV_NAME;
++		return 0;
++	}
++	return -EOPNOTSUPP;
++}
++
++static const struct hwmon_ops kb9002_hwmon_ops = {
++	.is_visible = kb9002_is_visible,
++	.read = kb9002_read,
++	.read_string = kb9002_read_string,
++};
++
++static const struct hwmon_channel_info * const kb9002_hwmon_info[] = {
++	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT | HWMON_T_LABEL),
++	NULL,
++};
++
++static const struct hwmon_chip_info kb9002_chip_info = {
++	.ops = &kb9002_hwmon_ops,
++	.info = kb9002_hwmon_info,
++};
++
++static int kb9002_fw_version_show(struct seq_file *s, void *unused)
++{
++	struct kb9002_data *data = s->private;
++	u32 ver;
++	int ret;
++
++	guard(hwmon_lock)(data->hwmon_dev);
++
++	ret = kb9002_fw_read(data, KB9002_FW_REG_FW_VERSION, &ver);
++	if (ret)
++		return ret;
++
++	seq_printf(s, "%u.%02u.%02u.%u\n",
++		   (ver >> 24) & 0xff, (ver >> 16) & 0xff,
++		   (ver >>  8) & 0xff, (ver >>  0) & 0xff);
++	return 0;
++}
++DEFINE_SHOW_ATTRIBUTE(kb9002_fw_version);
++
++static int kb9002_fw_load_status_show(struct seq_file *s, void *unused)
++{
++	struct kb9002_data *data = s->private;
++	u32 status;
++	int ret;
++
++	guard(hwmon_lock)(data->hwmon_dev);
++
++	ret = kb9002_smbus_hw_read(data, KB9002_HW_REG_FW_BOOT_STATUS, &status);
++	if (ret)
++		return ret;
++
++	seq_printf(s, "%s\n",
++		   (status >> 24) == KB9002_FW_BOOT_STATUS_OK_MSB ?
++		   "normal" : "abnormal");
++	return 0;
++}
++DEFINE_SHOW_ATTRIBUTE(kb9002_fw_load_status);
++
++static void kb9002_debugfs_init(struct kb9002_data *data)
++{
++	struct dentry *dir = data->client->debugfs;
++
++	debugfs_create_file("fw_ver", 0444, dir, data,
++			    &kb9002_fw_version_fops);
++	debugfs_create_file("fw_load_status", 0444, dir, data,
++			    &kb9002_fw_load_status_fops);
++}
++
++static int kb9002_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct kb9002_data *data;
++	struct device *hwmon_dev;
++	u32 vid;
++	int ret;
++
++	if (!i2c_check_functionality(client->adapter,
++				     I2C_FUNC_SMBUS_BLOCK_DATA |
++				     I2C_FUNC_SMBUS_PEC))
++		return -ENODEV;
++
++	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
++	if (!data)
++		return -ENOMEM;
++
++	data->client = client;
++
++	/* All firmware register accesses are PEC-protected. */
++	client->flags |= I2C_CLIENT_PEC;
++
++	i2c_set_clientdata(client, data);
++
++	/*
++	 * Try SMBus first. If the chip is strapped to raw-I2C mode it
++	 * will not respond to SMBus framing, so fall back to switching
++	 * the host interface over raw I2C and retry.
++	 */
++	ret = kb9002_fw_read(data, KB9002_FW_REG_VID, &vid);
++	if (ret) {
++		dev_dbg(dev, "SMBus probe failed (%d), trying raw-I2C host-interface switch\n",
++			ret);
++		ret = kb9002_enable_smbus_target(data);
++		if (ret)
++			return ret;
++		ret = kb9002_fw_read(data, KB9002_FW_REG_VID, &vid);
++		if (ret)
++			return dev_err_probe(dev, ret,
++					     "VID read failed after host-interface switch\n");
++	}
++	if (FIELD_GET(KB9002_VID_MASK, vid) != KB9002_VID_KANDOU)
++		return dev_err_probe(dev, -ENODEV,
++				     "unexpected VID 0x%08x\n", vid);
++
++	hwmon_dev = devm_hwmon_device_register_with_info(dev, KB9002_DEV_NAME,
++							 data,
++							 &kb9002_chip_info,
++							 NULL);
++	if (IS_ERR(hwmon_dev))
++		return PTR_ERR(hwmon_dev);
++
++	data->hwmon_dev = hwmon_dev;
++	kb9002_debugfs_init(data);
++	return 0;
++}
++
++static const struct i2c_device_id kb9002_id[] = {
++	{ .name = KB9002_DEV_NAME },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, kb9002_id);
++
++static const struct of_device_id kb9002_of_match[] = {
++	{ .compatible = "kandou,kb9002" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, kb9002_of_match);
++
++static struct i2c_driver kb9002_driver = {
++	.driver = {
++		.name = KB9002_DEV_NAME,
++		.of_match_table = kb9002_of_match,
++	},
++	.probe = kb9002_probe,
++	.id_table = kb9002_id,
++};
++module_i2c_driver(kb9002_driver);
++
++MODULE_AUTHOR("Andy Chung <andy.chung@amd.com>");
++MODULE_DESCRIPTION("Kandou KB9002 PCIe retimer hwmon driver");
++MODULE_LICENSE("GPL");
 
 -- 
 2.34.1
+
 
