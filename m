@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244A32D5436;
-	Tue, 21 Jul 2026 14:55:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83124C8FF7;
+	Tue, 21 Jul 2026 14:58:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784645736; cv=none; b=WS0D/ffKD229Ap1u0/NtM54UPpvC0A9MqQHixNhUucrwB9iub/AdH26bXnEclpBIqDymTxCRbLFe40TL3AnmqhUHz4C7qg9mHkiswA36pblxpu0rqvCt5Cu3jyfnJaB4KE+uyZ7ZKNPVmarcll9Xi/RdsuM42Drho4Pz5gMABt4=
+	t=1784645933; cv=none; b=Fb6Xgx/N60RxExwfkfcS3eN2rjMiSpyxA9oyjq5MUvd21eyTXEt82viuHUoa72YQpJJuoz6H/2eL7pfZWoP3MyAUkXasbLSJbh47cVipy5zRQHy5+ZapWEycfpXiWEJ/RR/E80QIL5l1zFm269nvIXaQ0vc2OLPnXEQwQBW0Kdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784645736; c=relaxed/simple;
+	s=arc-20240116; t=1784645933; c=relaxed/simple;
 	bh=crclgJAO8541tKOA+BSPYtKCsNdaRKOVMB+1bvYEIX8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EnxEpicsFJ7mTZIeJzW8gqA7Hr/fZiWxViT256C6sQMJtVdB5o0h13qVl5pCvBdRtBPrXvjiFcpmBOSDFkbstr2x4V91jyB86dzlurJPZEmLwpRq9iWmV50AgsU5agjBUWUhw6EaeH/tdxMNekzFerSqvWVw8qcw6Bvwz8rOy7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AUSgAhpx; arc=none smtp.client-ip=117.135.210.2
+	 MIME-Version; b=IVa2IEcf+Wuf2DfsygPO9jon13IpqAK4IJAJ9Kaj2tPPbfE3EB/I2IukHaXz3TKXOQWhBdsdx4jZCwwowSPNVSkdiMe9yw5ZHP1X+tKwssNXm2ZDY5RYOBllvXxsD8XToNJm9itG/Zzmx31lgT2nMEBJrbDUDxQnaAXoh6hVdl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=m/XiULn0; arc=none smtp.client-ip=220.197.31.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AUSgAhpx"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="m/XiULn0"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
 	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=LF
-	M0tFLY87HCv4HlgKmhJWdTJQq/Rdu92HA8adok6mk=; b=AUSgAhpxmd+66pU7rZ
-	Zbko8wcNMQCOGXFVf02oYeZmR84EwF4YbzMGgPWo7lNNMWKglQ4L+rW/msGsUU5P
-	32GfJ3SaAsKYxUvGxmCoM4oG0MoRT9J9q7OmuhN8A2TskHy8sUvgRv94fsEspbQr
-	GgPC533OQNJsScIw7vtkzWNho=
+	M0tFLY87HCv4HlgKmhJWdTJQq/Rdu92HA8adok6mk=; b=m/XiULn0mL5y473vzc
+	QAvIphe0T/BT2RA62/YHJvHChAeqkxa7/9BtLY1K+H9srudnLyIU6waiYLtQvpBB
+	mE8QS8urYjhi88jhcMOSNeSJA0JwNbi/FQce3YybKjkVbDx1rTKmNhqzUv5qJb4h
+	V4E8ev1kN5yWWB1bqgd7KgzF8=
 Received: from hie (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgC3kvk_iF9quvy7Hg--.31354S2;
-	Tue, 21 Jul 2026 22:54:56 +0800 (CST)
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wDX9WcQiV9q9y48KQ--.57161S2;
+	Tue, 21 Jul 2026 22:58:25 +0800 (CST)
 From: code_0002@163.com
 To: konrad.dybcio@oss.qualcomm.com,
 	andersson@kernel.org
@@ -35,11 +35,11 @@ Cc: linux-arm-msm@vger.kernel.org,
 	map220v <map220v300@gmail.com>,
 	code002-2 <hiez832670@gmail.com>
 Subject: [PATCH v4] arm64: dts: qcom: sm8550: add Xiaomi Pad 6S Pro (sheng)
-Date: Tue, 21 Jul 2026 22:54:52 +0800
-Message-ID: <20260721145452.1996-1-code_0002@163.com>
+Date: Tue, 21 Jul 2026 22:58:21 +0800
+Message-ID: <20260721145822.1278-1-code_0002@163.com>
 X-Mailer: git-send-email 2.54.0.windows.1
-In-Reply-To: <v3的message-id>
-References: <v3的message-id>
+In-Reply-To: <20260721144557.1455-1-code_0002@163.com>
+References: <20260721144557.1455-1-code_0002@163.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,12 +47,12 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgC3kvk_iF9quvy7Hg--.31354S2
+X-CM-TRANSID:_____wDX9WcQiV9q9y48KQ--.57161S2
 X-Coremail-Antispam: 1Uf129KBjvAXoWDXryUKFW8CFy8Wr1rAr4ruFg_yoWrAr13Ao
 	Z2vrWFvFZ5ua4rGr1kXrWDC3Z7WrW8Xa9IkFs0gF1rWF4rAa4akan0k3W7WF12qr45Kryk
 	X34Fva45C347Ca95n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUjOz3UUUUU
-X-CM-SenderInfo: 5frgvsaqqqjqqrwthudrp/xtbCzQCkP2pfiEC8zAAA3b
+	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUUEfoUUUUU
+X-CM-SenderInfo: 5frgvsaqqqjqqrwthudrp/xtbCzhHYc2pfiRGZ0gAA3S
 
 From: map220v <map220v300@gmail.com>
 
