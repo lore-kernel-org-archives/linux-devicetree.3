@@ -1,171 +1,246 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010066.outbound.protection.outlook.com [52.101.69.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37E8445AC2
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 23:13:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784675604; cv=none; b=pNbQ2BEEDd1FlJB/T4M+JG438qNFpMum63I9SU9VSphxwlF+jbnhn1alK/lBPaVw2xPqcJlk8mEu9iv6xasyTq8+HqZB//uroIOZOwhaZ5a/cecE6Ds25EWV+poIoKmdJxUCZUHkmVKhsVkociWZAoaHsoM/z/fD1fE5dRiJvGY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784675604; c=relaxed/simple;
-	bh=DhHpn1dG9h+QAznsjBCgS7U6iCDto2DAUPjhpFCQdkc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oewMoBFSLQOa8KRC7Pu7tpELUwbhV4uhkboPvXqbomjMi1bBDed84BtjUK6o34ECmCLBohGg4n1Ux8AER8TFKMnCJaraWPqdBGABiu0J55P7mMOHgq1xwthHBcSFmrImtd2vDP8QUf4rO+vr8jHF1LssVOxRXCeAf0hJAvhB1IY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GteNjTA+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KpgN+J8i; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F0834DCE4;
+	Tue, 21 Jul 2026 23:16:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.66
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784675780; cv=fail; b=WU8y4SJ9Ucf6TSGi8xp93EiM2xJ3hcJMVrC2t79rGzWJvLHkKRgf98kw/I7SoJyJyZrdRpn4ftHwjH4/zQGHfhLYQk/FygiGAhesOXbA0cNvEHHN+ZKR8DlZzIzMkIOBacHEEScZGSxBhNGcbjYoOAUbqYza/34J844FwZdAoi4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784675780; c=relaxed/simple;
+	bh=Qh1wOGhl1PtzK6U72cKHlrHZ+QE7LDEPRcAIzvCinwQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=D3JfwxymoRKc79uF7rGIZ/d9kUi7G/3/SYdWHmY2kIpeJ8r7W2aupczYR1qlhOK8fza2MEggOX9BuVvEcb77rJbUMr7dGgTQfbibuUXgqX6N0bbh+5FUtxw+kkcq8kyrJVMdaCGgjgyJGegj9rtvtgmju4irQzYTmvFmaRXBk7Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=HRhAVSHn; arc=fail smtp.client-ip=52.101.69.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GteNjTA+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KpgN+J8i"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66LMZRg52910895
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 23:13:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	AIcAbhd/wTobiEPktqGtOTKTTR1SSJ5H2T2pJNnaoGE=; b=GteNjTA+gWdA9P7R
-	w332AUsjtosaLwSa2KjDB0t4pN4hBI0w2+DRnnW1y56mh87hIkQM+gGo68SMfsrD
-	XMsOzKGNnTT0P1jwSp04YvKMCcxQUCej2PfH3shWRuFJL4j1GMRIJJGe5uizhxOH
-	06ck79BRZnJsoz24Nip1EzW4Pvk8lNuvpow/ns/UUMU/+/AwZK3ikC1EPfXH820Q
-	BV4gICQ0ockJ4zMSjdKW3jX92NxzLVi1T23aUxpmBPG8V6MUbbCyCyworCKscjZO
-	yQDYRf0gC3tJ9mi0+n2+HYZO1S15Kv6+xpHOWt3F6NaZgaFX1pNnQvfqQ9PXGUlI
-	P8Ku+Q==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj9c42gmn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 23:13:17 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c01ff996dso95823741cf.2
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 16:13:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784675596; x=1785280396; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AIcAbhd/wTobiEPktqGtOTKTTR1SSJ5H2T2pJNnaoGE=;
-        b=KpgN+J8i1dd8Ai2xI36Fgfg7TNqK4hjVbWumbwoPIbzcy/AGrbgmhD5Ivdujn9MVYF
-         sqPq682wPFrGWpxImP/1HcEKwtn06iNqir9YS7eC5J2kdYEkdcSLWUZKMQTe0WAxcmlb
-         3JhbRvovr9Y4eC78u5wPGoP/sabzjixRRKOD0podnJ3AtTxx/yjxH2R1cGGUSbGn175U
-         Atr1g3ATh6JNZ+3YdG+OITncg3BwxHRd14maPjP2jQA1AaUYxPWL45JrnWFgkJ67zVyP
-         +kgwXTaxDbBukHc4BLNgnuz1CqFLRV3TGshXIDXKYC8h1y4onwTm2icEHQm/pciE0RYo
-         GF+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784675596; x=1785280396;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AIcAbhd/wTobiEPktqGtOTKTTR1SSJ5H2T2pJNnaoGE=;
-        b=G/9qYMqAQytIhhMMs7vRifUiEggNAw7fIbrYUzIaXCKgnUuutUuDGj+R0DYcA20s+1
-         LMEM2UXj2AmhoJiCvnwwjQCwja6KunNnXLHLa1ncGk7K2MOu84ykHOoL+kM1quFuqW7A
-         9ML3MyhgVa/lCsQWT2mH9iANEgERpGVExdgIxBtdSmlJmMEc+qFCItGFpTelDH+tilDs
-         Maei3yD5Lfe4OmuJVzVlf/4q1X/1Q4qjkBSU+85Oo+TmsVMqZk0jh5C7RJnFJ1YOz0q3
-         udMuP4K5RQY0EAX/5qCZz3AFh2zD0wh/Lsgz+mYasFVbr8OQvUdoFSv2Q5qTsgCwSOOS
-         8dDw==
-X-Forwarded-Encrypted: i=1; AHgh+RqZQ7pGUdxxoky344NwlT7DiRMwhbV0BL0/Grs3wdHxkq1lTmp12M8VkR9uWzYALMXLFtL9mjJX1rTy@vger.kernel.org
-X-Gm-Message-State: AOJu0YwrXkPGPS0tcSMdCwGZdwmEkdaPrJKNdxqBqKZbEvFG7rGC0PWh
-	xMJGYrmfP8GeTDnWun7f0QQx/VUbgFLbr+9b+MqPFnwHoru+YGAls0FY+wD9VC1DP7H28NntrNf
-	BjYV19WANxGp1ulNNfxBr5DLB5IdRBoYSILpk3PS2KZb3WewCTC0DlnsoG/ac/i3+
-X-Gm-Gg: AR+sD1276H6LUyeY1ZY/+WGyJaSsHNXS0wLf430Ai7n5wVwx3lGGsbSL7hR+eQm+b5H
-	1VF8hrDwqKrWBDlf0+P3CLoJ/yXpIUTViDQ3PK73HhvMa1c6D0+MJYTBg+crhMkjZq3TEZJ805q
-	ZmRBV4DLSINAUSGlAFjYDeLQMwidaRCWXJ4dJN3oenqSWsKsi4H/UTdaBzExWbP+MhR6BqKIF6q
-	oJLkesthuSizAz0U6McYspvPb8m9OKWHuNjbkH/Stf6ZjtHG7p07A8aZ0yQXfrreBl5gwLaT+dr
-	FVhzWbI6KZE9V+3RvwwSq/qqXsSSd6CaXz4syh9cTz5OvwU2p8RL15M7PUx8vgd1xWZKlccPzZO
-	SfEty4MgEOt50OVZ1r+lxIuPjn5UoaB5wEc5MNacg0MUl4seei3nUmcbBv6JAHEDYyYIDtsCnWs
-	weavjfb9zNxb+4lg==
-X-Received: by 2002:a05:622a:a13:b0:527:f19c:734d with SMTP id d75a77b69052e-527f19c876cmr6418641cf.7.1784675596404;
-        Tue, 21 Jul 2026 16:13:16 -0700 (PDT)
-X-Received: by 2002:a05:622a:a13:b0:527:f19c:734d with SMTP id d75a77b69052e-527f19c876cmr6418361cf.7.1784675595889;
-        Tue, 21 Jul 2026 16:13:15 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2a9f4d42esm148526e87.79.2026.07.21.16.13.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 16:13:14 -0700 (PDT)
-Date: Wed, 22 Jul 2026 02:13:11 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-hardening@vger.kernel.org, manaf.pallikunhi@oss.qualcomm.com,
-        Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
-Subject: Re: [PATCH v5 9/9] arm64: dts: qcom: hamoa: Enable CDSP cooling
-Message-ID: <ymw5womsjuri3okfwmrhlqp42kgio6t7btikarfiolm74fkmjc@brekx7lckr5v>
-References: <20260721-b4-qmi-tmd-v5-0-99620e07f505@oss.qualcomm.com>
- <20260721-b4-qmi-tmd-v5-9-99620e07f505@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="HRhAVSHn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l5gwybVSUOdERTZiOQJy9A/R4KIi7N+WzBx/TVLYhTkM3wYGIAcp2jRSE2WtxIsgrUC+Ql8mYFyQ+Jwt7d+nklpRnnmYpM402zKbU9rfKGkg6qqMbPyMoVEc1nWcp5b3RqP/D4ABN94B0WAP02Erm5jc1W2aHXo3rhumcew/cj79Uf/VkowW2EYITdfLPoI8j51mbMijrH2t9uQE8jl3UvpdNmdAxgeqcCgI5x6fps/PMRVo4tQmR1Xi88ZYreKU5tMlKG9v5Mv1xNomhzJUh9JSoTA8nu6dRQ5Yw7XCcYGiYWG7XDGLny78ig188WOQs5SfvVE6pn9mxe0xFpdMEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=D+dy2LCpY1cXSyUlnbm+ofF3kWY9ivvko5g07pydvew=;
+ b=pLtKN0nscW1HODUR2G+4CUDPTsiBCovaGyY1DssS2V4uzsWf1B6AwDnDm44jFgDcN7w08Ej9E5TCHjEF9iI+raJPO18ABqksBjfiPVKG+HTJ5CIlSajBGhe6RAB1SXUYBGeOGdLYG1IStBsFL/VhVTRsVsPdbp/8XlJahtvN1jMEnFMx4UwSSpC2S7ql3clM3KnwFLaYt3B8gO3S9DkAwukWr4mqfcl0d0sDKw3uLvEcnyHM5H31+otNKgma9gV8LIMxVA3XnaxjT4VfWvzyNGIHSJoJk1rWkZSYEh6OmBYs9FCM/+rD0biPU+szH0F2bWcZcFQMeFBfcBSxJLIRrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=D+dy2LCpY1cXSyUlnbm+ofF3kWY9ivvko5g07pydvew=;
+ b=HRhAVSHntKFgBOUhYzmPzjV2QEJx0RSo8kVSPgJXUv10zMvc/Sk06p4V2QCCyOK1f5RGGhb8Rejqheb0KJnFbUr8tqoEQBXZ1uh3GR2BVWM/UFmjUx6FrEbDvekcXk+z8+ngNEOxarO/agbcA4FmqSDrXv8lUAnkia6Z8SSw/yVXxWKxqvOzSPQqeVTltcVMU1e7Dje074TDYFCq2ynMMUfiuH8StF7Xu5TI6brfDFdCvUMfp1AIBNWyFjA78XdEHQC0DRIWgmOBhHYI7gHCTOo845PkP5N4sTPhJpmPVaSGe7X34Jh9U8YoN3cO/vBQLYmUBV2Psx3PDC/Ee3L2sg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
+ by VI0PR04MB11817.eurprd04.prod.outlook.com (2603:10a6:800:2ec::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Tue, 21 Jul
+ 2026 23:16:13 +0000
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023%5]) with mapi id 15.21.0245.009; Tue, 21 Jul 2026
+ 23:16:13 +0000
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: linux-phy@lists.infradead.org
+Cc: devicetree@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	Ioana Ciornei <ioana.ciornei@nxp.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Tanjeff Moos <tanjeff.moos@westermo.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>
+Subject: [PATCH v4 phy-next 0/9] RCW override for 10G Lynx dynamic protocol reconfiguration
+Date: Wed, 22 Jul 2026 02:15:54 +0300
+Message-Id: <20260721231603.67865-1-vladimir.oltean@nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: AS4P190CA0021.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d0::6) To AM0PR04MB6900.eurprd04.prod.outlook.com
+ (2603:10a6:208:17d::10)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260721-b4-qmi-tmd-v5-9-99620e07f505@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=I4JVgtgg c=1 sm=1 tr=0 ts=6a5ffd0d cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=_nN_CDt7C_a4776dohAA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-ORIG-GUID: Ma1kd_n6a6QrSrUqt-3CuEm4nUM1r6ma
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDIzOSBTYWx0ZWRfX3yCAgooOHFRC
- HzfWX18Oe0ikaZyyum3Nd80XufP3TNLjdZSS99G+vWsN8aKkF+PTxYMM7KwlhRwv15WRJ2tQsqC
- bb3l3xll4nEVfGKGoTqzONPeXtrMKfvOgtqLK1wlK/OYSj0zyjBRCkGEyU/Y/Vlsi5zMRINitYE
- LDWDBD2mD9/LAbiSfN4YSb6b+zGGd5TNcaz15LjiF0HDrrTx91qdiIC1w0teSeMbtV5Di4wf66A
- dX3TKJAUK2Yo1Hm6/c+nRSGZkuhzLqHplMY7ItIbp0wQaKNUWjj5Xq6LgosJtFt5AP15vgsrb55
- SM1CnkyMWxkQuV0/86u2DbVzjjCLXnsu0a9v4avazUf0pep4ucayy3x3qcQktc7qVJyNoQLwqcX
- 4CAL29pfxxQXCr+I8P2KWrAuCrPurWgAmHwxBYOE+isxh3ySteXC5/wAipWu6AAuwABdaLo/uuS
- rLMh3ulwKriZ1RUrZDQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDIzOSBTYWx0ZWRfXyiorGf9d5nID
- XVYzXfrUfydcGd73TlP82z1pqC0ByKQ+gBt893ZBkFua/HZzUpwvde11N9xghxAB5/FS/7mhFQg
- AO0dejmMzxPxVv12Br/p/I/xF+WzIn4=
-X-Proofpoint-GUID: Ma1kd_n6a6QrSrUqt-3CuEm4nUM1r6ma
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-21_04,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0
- priorityscore=1501 phishscore=0 bulkscore=0 suspectscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210239
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|VI0PR04MB11817:EE_
+X-MS-Office365-Filtering-Correlation-Id: ef634280-b85f-4dfe-c15a-08dee77e0ec1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|19092799006|1800799024|366016|6133799003|11063799006|10067099003|56012099006|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	Q/r9LfrwwZyC/CiQY42zCAqUIfJgFAwxgVP7Vt2eV+mzJ5UQi4sMXO0v/waVFQyW2H6nx4M14hH1YLkJO6BctV3mMkwLR1ch8BlC9AdBiB31rP5V7yqa0Ip/SiNUXuhGcUsPRFEp6CKgk4QB7QhCwKuIN5mfmGdZ50/BcsDVBH2c0Zv+qv+LsFS8ir6k4pDhtfrkjJg6hZ+eqMiBvxQZyLaNf5OtF0aYvDLphzheqINy1CpTF6uh0rLc3o6YxXDCJtyuG2wp2Iy4W3IqW2XTACAUMA48IvwAYTh1LpvNwiE0JoleArqN9GDmKUidSlqd2jOrNLJCXGLJAz94EqZGIcEDHdmZI0ukk7iYeBNaqvHWmCUMDbtPlN7OAt6ofy2IQVLMs8CO9PN1z25SoeHdG6LmeXvTVl0kcdRSNTwYBXHWI2sFUq/jcdqppVpQedEJY+8AaWbYFK87flhxWBcFOb1aW257D1dXf5eCqkLTs8Qwu9TLfBxsrsIC4XPHOoPKYDPXi018n+n55rlskD734NZmaU0QCgbYPb2HBjgPPWVYJl3kK2pAuu35L4fT3tJDF6g10fSMtAipK5BvhZNMY4Yuyl1/PLcx50TL/3fVmR6qoB66g435pFQvan+gagZq3HzQckn9RCAFiie+ccoJ9j7FHErVHvuWuf6VEv587yw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(19092799006)(1800799024)(366016)(6133799003)(11063799006)(10067099003)(56012099006)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+5+feLVrzwlI/0Y/zBGoljiSiDgVc8eKfZsUqxbKZRk1EoyXHk0oL5ATMOoX?=
+ =?us-ascii?Q?xxNS4mIb1fWY+s0fS/FowAThmOA2dGNBfaDYcFQahB8cOTaJ65r86Wg7j/+F?=
+ =?us-ascii?Q?JLEtKA7y/6eTVTrxbXVYLsE/z2A7mh0zjUlf1Dj0bGeNgQs+Dh+o4jN8+Dgn?=
+ =?us-ascii?Q?haho3A6qBsAVRK8dZnRF2RUfT5niBGMS1iNUxdXMZbuBxDAr5034yTbSJ697?=
+ =?us-ascii?Q?qf+VtkCxLYy8Lx67XTPjAuddaO8yVOkrvHztzKd52knIqksV8wpYQW/O4hhu?=
+ =?us-ascii?Q?5vKPgpltQEI52xBp2Z1zVd/T7emj5/f9sTuUOudlVNRHjbI7q5GmEeurmVdy?=
+ =?us-ascii?Q?C0OxSQimlWXjkshdvFMwn/APEcqPtELuv15xTWtpQ+ucJuzHs2S0dhRN0sBh?=
+ =?us-ascii?Q?2nkBhw6UstgnlkdKMaONRszORRbzD+Ur4llbQuY1AD9QNJHNZfEhyQ16Fb5m?=
+ =?us-ascii?Q?xlVnckDZqUanDhQNrcEY+bZkjt/jdfD5Dj6nP+btbNCPyR9C+RW4cQ75UV3U?=
+ =?us-ascii?Q?frcJ9zKzg273xub1TQ44Q5zMoAKBnfZEJ55cT6dgRgxSzHcQKm33J02T7oA0?=
+ =?us-ascii?Q?gpv89hYq+xhCdLnQWTrgXs2QkXNuI9Fq/HPv3OKLP2MWQ29kxXZzvkPoEnWn?=
+ =?us-ascii?Q?fs+J7I85DnHMHFDfaP4mAhQ4MgfV6GiyAa2nUUZV0C4VzKyU1vZtEoZDwJ3P?=
+ =?us-ascii?Q?DnObyO85KhGc1J3Ag4v0YyKop2j3ah/PdhqjD3bMLrG3vdqQPs5RUy4M4t8K?=
+ =?us-ascii?Q?gHc0W14XiZYXut4GvDTKpiYJzg4xTkj2xr7J6jvCT/TGnx7rqCD6kYShLCD3?=
+ =?us-ascii?Q?UGKsWftjX7neLSKtboOmHoc36L1EEA0HAyGX4Zx7ypfyLo+SUBD/wvmwuWSZ?=
+ =?us-ascii?Q?iX8ShkEKHQniN/3xZ+MEK3oNxrGH+tk+SclBgUTVhfz1A4G2gCm/H0CAzCuX?=
+ =?us-ascii?Q?0ayhy8ZJiTwyLfjnZs7Aru+mcAkx6MH67YRejVgpwIJ35ESdVXmL082xaMbl?=
+ =?us-ascii?Q?tzh/eQjEbZfsFW7yA3JuqtPmW8XFOwepemUx9sHG81Sk4JWQ5omj+NmzzDmz?=
+ =?us-ascii?Q?D2oXQUdbVv3T/qhXLrd4MbWRUFAilYFfEq5xC2Lt/ij4m5MhNyb6jU3ZKpEL?=
+ =?us-ascii?Q?BvmvSfowLuwBJXZR6A+E/PssFR3A7jFoL/3OyHbRJob+b1yjWyGy5zgl+/Fy?=
+ =?us-ascii?Q?DFyGiUIU0E0wT7jSO6jVjQSUqQgtkHLBR6DKkA1n8yAtx7tMH3De/aaGBy34?=
+ =?us-ascii?Q?YzZQKr9qJCBiwIqwNUXymWUlZv98O2XPpNDstCY0nIlunfDdRgnYgzw+Uaep?=
+ =?us-ascii?Q?iSY2tfWvFwnY+DldfLSlH5gAKl97+kjxGkDE5qA4j5O5MKuJFCplx1MB/8WB?=
+ =?us-ascii?Q?b+pJKlgovluzO1TqrOelU6ku0ek/PI/uJObsHdFd1kHgHGND/eg9sZKGwShd?=
+ =?us-ascii?Q?0wXkFmMuxlcyXaUofJGUWL1a6uoY/Tb4ALI+TPUieJzukAqB41C4dJyAF5/R?=
+ =?us-ascii?Q?Gw2wymVU+NaQ9SIQfqy4YmMIthEv1O+7qp+KLKpxuDaAYkK1fIJEcPa6/VDr?=
+ =?us-ascii?Q?ZeuyJOzjuPmKvDVl0UOnlLOHHOq/HpXXTBlAPFqVReWrNsYmsomQ/jqkw5Cr?=
+ =?us-ascii?Q?8cL3dVm/0dXla3tSTEHz9ePbWINSDeGzvQEd8ZVUIANJgdinQW4L2F0BHM7P?=
+ =?us-ascii?Q?128OeSFFRuF9CeDqbAeZu9JE6Vm81K7f9BWrt0fwplXpW0voo431VhAe3aQQ?=
+ =?us-ascii?Q?Hq61OSHkPA=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef634280-b85f-4dfe-c15a-08dee77e0ec1
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 23:16:13.4173
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZK18PlktwgCok4aFma7D5DVAT6xBbhTYrozQzxbivrdl5xabPtgrj3JT8qXyR3cNZlx0bwB3xnMLDuH90hLkIg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB11817
 
-On Tue, Jul 21, 2026 at 11:59:06AM +0530, Gaurav Kohli wrote:
-> From: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
-> 
-> Unlike the CPU, the CDSP does not throttle its speed automatically
-> when it reaches high temperatures in hamoa.
-> 
-> Set up CDSP cooling for both instances by throttling the cdsp, when
-> it reaches 95°C.
-> 
-> Add polling-delay-passive so the governor periodically evaluates
-> the zone during passive cooling and steps up cooling levels when
-> temperature stabilizes below the next trip.
-> 
-> Signed-off-by: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts | 32 +++++++++++++++
->  arch/arm64/boot/dts/qcom/hamoa.dtsi        | 63 ++++++++++++++++++++++++++++++
->  2 files changed, 95 insertions(+)
-> 
+Previous set "New Generic PHY driver for Lynx 10G SerDes":
+https://lore.kernel.org/linux-phy/20260610151952.2141019-1-vladimir.oltean@nxp.com/
+introduced the 10G Lynx SerDes driver with a reduced functionality set.
+Namely, only minor protocol changes are supported (1GbE <-> 2.5GbE).
+The major protocol changes need a procedure named RCW override,
+explained in more detail in commits 6/8 and 7/8.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+This series adds kernel and device tree binding support for RCW
+override, completing the SerDes PHY driver functionality.
 
+Two components are involved:
+- drivers/soc/fsl/guts.c (binding is fsl,layerscape-dcfg.yaml) - Device
+  Configuration Unit, this is API provider for the SerDes driver to
+  request RCW override depending on SoC
+- drivers/phy/freescale/phy-fsl-lynx-10g.c - SerDes PHY driver, this is
+  API consumer
+
+The guts driver probes on DCFG blocks from multiple Freescale SoC
+generations:
+- MPC85xx, BSC and QorIQ (PowerPC) are all covered by the
+  Documentation/devicetree/bindings/soc/fsl/guts.txt schema
+- Layerscape (Arm) is covered by
+  Documentation/devicetree/bindings/soc/fsl/fsl,layerscape-dcfg.yaml
+
+It is ultimately the same hardware block, just that (from what I can
+tell) the Layerscape nodes are also compatible with syscon, and PowerPC
+aren't.
+
+RCW override has only been validated on select Layerscape SoCs, so
+converting guts.txt to a PowerPC schema is out of scope for this
+series - we don't even touch that (just in case it gets asked).
+
+Using syscon to map the DCFG_DCSR register block in the Lynx SerDes
+driver instead of creating this guts <-> lynx API was considered, but
+because the RCW procedure is SoC-specific, it was ruled out for
+polluting the SerDes driver. The guts driver is all about SoC awareness
+anyway, and it offers some abstraction of all the gory details.
+
+Changes since v3:
+- new patch (1/9) to improve the fsl_guts_init() error path. The entire
+  patch set is adapted to use the new convention.
+- patch 8/9: avoid accessing an invalid soc.rcwcr_lock if
+  fsl_guts_lane_set_mode() would be called too early
+- patch 8/9: fix serdes block and lane count bounds
+- patch 8/9 and 9/9: reimplement LS2088A RCW override in a way that is
+  self-contained within the guts driver (based on reading and decoding
+  RCWSR29[SRDS_PRTCL_S1]). Only a subset of SRDS_PRTCL_S1 values is
+  supported for RCW override, due to availabilty of hardware to test on
+  my side. Notably, protocols with XAUI and QSGMII are deliberately
+  omitted from the SerDes table because only testing can show whether
+  these protocols require RCWSR30_SRDS_CLK_SEL set to GMII or XGMII.
+  This new method completely replaces fsl_guts_lane_init(), and has the
+  advantage of also figuring out the initial protocol of unmanaged lanes,
+  thereby not breaking them on RCW overrides.
+
+v3 at:
+https://lore.kernel.org/linux-phy/20260720133642.136324-1-vladimir.oltean@nxp.com/
+
+Changes since v2:
+- fix error handling in fsl_guts_init() and make sure that all newly
+  introduced RCW override API functions fail if fsl_guts_init() failed.
+- replace __bf_shf() use with __ffs()
+- use read_poll_timeout_atomic() in fsl_guts_rcw_rmw() to clarify that
+  DCFG_DCSR writes are supposed to reflect back in DCFG_CCSR
+- only operate on lanes on which fsl_guts_lane_init() was called in
+  ls2088a_serdes_init_rcwcr()
+- put parentheses around (lane) in LS1088A_RCWSR29_SRDS_PRTCL_S1_LNn()
+  and LS1088A_RCWSR30_SRDS_PRTCL_S2_LNn() macro expressions
+
+v2 at:
+https://lore.kernel.org/linux-phy/20260612210859.266759-8-vladimir.oltean@nxp.com/
+
+Changes since v1:
+- add Conor's review tag on 6/8
+- update email addresses of DT maintainers
+- drop DT maintainers from explicit CC on patch 7/8
+- keep devicetree@vger.kernel.org CCed on entire series
+- include missing <linux/bitfield.h> in patch 7/8
+- namespace SRDS_PRTCL values for LS1046A and LS1088A, even if they are
+  the same. For LS1028A (not covered here) they are not.
+- prefix SRDS_CLK_SEL_{GMII,XGMII} with LS2088A_
+- reorder alphanumerically (LS1046A should come before LS1088A)
+
+Change logs also in individual patches.
+
+v1 at:
+https://lore.kernel.org/linux-phy/20260611193940.44416-1-vladimir.oltean@nxp.com/
+
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+
+Ioana Ciornei (4):
+  soc: fsl: guts: use a macro to encode the DCFG CCSR space
+  soc: fsl: guts: add a global structure to hold state
+  soc: fsl: guts: add a central fsl_guts_read() function
+  soc: fsl: guts: make it easier to determine on which SoC we are
+    running
+
+Vladimir Oltean (5):
+  soc: fsl: guts: perform fsl_guts_init() error teardown in reverse
+    order of setup
+  soc: fsl: guts: make fsl_soc_data available after fsl_guts_init()
+  dt-bindings: fsl: layerscape-dcfg: define DCFG_DCSR region
+  soc: fsl: guts: implement the RCW override procedure
+  phy: lynx-10g: use RCW override procedure for dynamic protocol change
+
+ .../bindings/soc/fsl/fsl,layerscape-dcfg.yaml |  15 +-
+ drivers/phy/freescale/Kconfig                 |   1 +
+ drivers/phy/freescale/phy-fsl-lynx-10g.c      |  23 +-
+ drivers/soc/fsl/guts.c                        | 528 ++++++++++++++++--
+ include/linux/fsl/guts.h                      |  18 +-
+ 5 files changed, 532 insertions(+), 53 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.34.1
+
