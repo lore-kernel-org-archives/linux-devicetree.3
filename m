@@ -1,79 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23A8A46AA94;
-	Tue, 21 Jul 2026 15:39:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E92046AA71
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:40:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784648395; cv=none; b=b3MjiiHzs+JaRhzC+WvYvTTJJyyYUEo0aCv37Jdtp1A2LPX9u9HeNNAhqgvESrEnDY0OW3DJpMSPLvLa8VbaOTEBw31cDINewj9RsmKmlfYu/7jhckvFziqsn+y4x20k/1X6wbnkLX3mOpYUURpEoXAQ69VM6UwuyP442nqVh1k=
+	t=1784648409; cv=none; b=sCmSIOU9H2GuXyEaSL7LslrnON33UgsjTThxgfO8FJOYz0Qtu+dSrMsjM0+wPdjYKvUAYxQnx+mBrGr+wGCd2314HpznTqtWEWviMU5Bx+73CLnjlTi1b+bD2bbLp0VhkfownP9esaRVX7o7RIEEU0QvRIA/cnSTbFvcaJ4epCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784648395; c=relaxed/simple;
-	bh=41hq+9axVE1hmuBkU5OfbqB+YBzt9qMiLQgpKmcKMW8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fblZW0ZeaiD0ojMeaZB9PT+7tLMfQGbG2BO+tfBl4SU+b4oYvAcRtu+uslqLGDaqMAC0VVyLoOZwLdkfDSoyhIxlIpCxb08tykTl/jaF6JlOVYcxrG4tTyQCRvZoSr2T/2nrm4rMW3M8a+Qw5PjI4KwlAXlaygigsHyR8QNZP6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hQnIe3r/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784648409; c=relaxed/simple;
+	bh=XG2i2yvhAIujrLoviqewBco8HMj8kggr94b3Mp6Wmqo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dlcFYOa8x+/vMM+iHYrJnngwgkmTkSUdtcASI3nt2d2xhQ5N7MtPIURyyKpF/E1pzM70lGFAlMZ9L7rezj2gAHOfJ/DY97ZFb/5RVgbEO4QaD/WMn4JrS6Y/YnTcocQy71d1o/dGELT9dcRKrvX1YYMoao2v7qwDVzQpf1ND8aM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nRYxkaoM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hQnIe3r/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40DB21F000E9;
-	Tue, 21 Jul 2026 15:39:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nRYxkaoM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C7321F00A3A;
+	Tue, 21 Jul 2026 15:40:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784648393;
-	bh=41hq+9axVE1hmuBkU5OfbqB+YBzt9qMiLQgpKmcKMW8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hQnIe3r/MwxYOrpphq4ERSK7cjE10T3Z4xT8FHrOplKSlWpx4g2hDnt1/aR5AYoNm
-	 2AMdj+WpmrKoAiQBodBpD58GROWpFPK/YmlMd97xKT3xJmTtELot90UVl1hM3ZONxi
-	 DIKcAU9cYg8uhpsNIi2NM1k4ZrcdJFRMzoItfVUsdI51ci+v6twFHrPADA4whBak+l
-	 HY2HA9uOyTKNM179i0KuE/CzsgUaSCL7pfpnYjtwszidTUmb8fS5IqHpNtvxVeeqEY
-	 YKQpBL6g+nkHEwNfR+zcfE1z8Smy/nKa8NeU5VqvMl8Kmp0kvReSJa1vVxKiWsyxAY
-	 trlCZfyj2JH1Q==
-Date: Tue, 21 Jul 2026 16:39:48 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Binbin Zhou <zhoubinbin@loongson.cn>
-Cc: Binbin Zhou <zhoubb.aaron@gmail.com>,
-	Huacai Chen <chenhuacai@loongson.cn>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-	Yinbo Zhu <zhuyinbo@loongson.cn>,
-	zhanghongchen <zhanghongchen@loongson.cn>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
-	mfd@lists.linux.dev
-Subject: Re: [PATCH v2 3/4] dt-bindings: thermal: loongson,ls2k-thermal: Add
- compatible for Loongson-2K0300
-Message-ID: <20260721-broadly-unlikable-9b71a062b2d0@spud>
-References: <cover.1784619512.git.zhoubinbin@loongson.cn>
- <a87ca6afc11399dbc8c5d99d979aa6ed815b8542.1784619512.git.zhoubinbin@loongson.cn>
+	s=k20260515; t=1784648408;
+	bh=mjkNKqm71emq6pKvK/lBW/rVFPR1FhmW+TORw7+mysk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nRYxkaoMD810KXS6sShFA1yVuuMpTmMRC4vNN8OwVLNWA89gL5QaCenfQx9V+cmGW
+	 kQ1Tkpa+2r4xVQzofJH3bZFhBmzwZrckj7/f8YiXsC1wyRpiXNidiVPtX/2lFB/smu
+	 vkUPtmOJI0sWCHVUE9dbPa26BFOs8FtQOD0U3bgFeTSdMlusk8Jis2Ou6jbiPGVqjb
+	 WuNtMfcEUa9vUYz9//Nq4oWdzJIXyGvMSbBQfeCiuCJ2izfEhTWgCOphwJ2D34ZH/T
+	 85oQv9EFqvxFmwoy8FcAJu41aAxfrViVHKZJWZQmCqXTSITGMtVaMIgSFJd/EHh5NL
+	 2diXn5tbK3kjQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 1/5] arm64: dts: qcom: pmk8550: add VADC node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260721-topic-sm8x50-adc5-gen3-v6-1-a507f4a1e537@linaro.org>
+References: <20260721-topic-sm8x50-adc5-gen3-v6-0-a507f4a1e537@linaro.org>
+ <20260721-topic-sm8x50-adc5-gen3-v6-1-a507f4a1e537@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 15:40:07 +0000
+Message-Id: <20260721154008.0C7321F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rhyr2B3oFZFLBThF"
-Content-Disposition: inline
-In-Reply-To: <a87ca6afc11399dbc8c5d99d979aa6ed815b8542.1784619512.git.zhoubinbin@loongson.cn>
 
---rhyr2B3oFZFLBThF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The patch includes a non-existent header file `"qcom-adc5-gen3.h"` =
+and uses undefined function-like macros for device tree node registers, whi=
+ch causes a fatal syntax error during device tree compilation.
+--
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+--- Patch [1]: [PATCH v6 1/5] arm64: dts: qcom: pmk8550: add VADC node ---
+commit 0e03aa4d4f8680856bf95a8ea645ca19c313f79d
+Author: Neil Armstrong <neil.armstrong@linaro.org>
 
---rhyr2B3oFZFLBThF
-Content-Type: application/pgp-signature; name=signature.asc
+arm64: dts: qcom: pmk8550: add VADC node
 
------BEGIN PGP SIGNATURE-----
+This commit adds the VADC node and initial ADC channels for the pmk8550
+device tree.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCal+SxAAKCRB4tDGHoIJi
-0hnvAP4snOXjjBg1vE8ro3sHX2VwzoR2CEvUV7rftT9gZqb6YgEAyZ7O7xUvLm+6
-NM9cN3rN37tiwdn3KVe4h5P2udJGsgc=
-=s9Oz
------END PGP SIGNATURE-----
+> diff --git a/arch/arm64/boot/dts/qcom/pmk8550.dtsi b/arch/arm64/boot/dts/=
+qcom/pmk8550.dtsi
+> --- a/arch/arm64/boot/dts/qcom/pmk8550.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/pmk8550.dtsi
+> @@ -7,6 +7,7 @@
+>  #include <dt-bindings/input/linux-event-codes.h>
+>  #include <dt-bindings/interrupt-controller/irq.h>
+>  #include <dt-bindings/spmi/spmi.h>
+> +#include "qcom-adc5-gen3.h"
 
---rhyr2B3oFZFLBThF--
+[Severity: Low]
+Is the qcom-adc5-gen3.h header missing from the tree? Including a file that
+does not exist will cause a compilation error.
+
+[ ... ]
+
+> +		pmk8550_vadc: adc@9000 {
+> +			compatible =3D "qcom,spmi-adc5-gen3";
+> +			reg =3D <0x9000>, <0x9100>;
+> +			interrupts-extended =3D <&spmi_bus 0x0 0x90 0x1 IRQ_TYPE_EDGE_RISING>,
+> +					      <&spmi_bus 0x0 0x91 0x1 IRQ_TYPE_EDGE_RISING>;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			#io-channel-cells =3D <1>;
+> +			#thermal-sensor-cells =3D <1>;
+> +
+> +			channel@0 {
+> +				reg =3D <ADC5_GEN3_REF_GND(0)>;
+
+[Severity: Low]
+Since the header is missing, will the preprocessor fail to expand the
+ADC5_GEN3_REF_GND macro? This unexpanded text causes a syntax error when the
+device tree compiler expects an integer value.
+
+> +				label =3D "pmk8550_offset_ref";
+> +				qcom,pre-scaling =3D <1 1>;
+> +			};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-topic-sm8x=
+50-adc5-gen3-v6-0-a507f4a1e537@linaro.org?part=3D1
