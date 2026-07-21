@@ -1,106 +1,126 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BABB3446C7;
-	Tue, 21 Jul 2026 11:18:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 545CD39E178
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 11:20:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784632706; cv=none; b=Klu6w5l0lh9z2dn6pXDgCa/N0N4uGv4ptWsPaM+bVIgeWgl/Wv5atwp8ULZPcLuefg6q/ULbwW1Cq7kaXqkVvEzTI1Q7/31upSBV94HG0y3SxmsLev/r1bKACNsdgtrcG8npcLvVGg1OQ/mWQP0wNSPv68FH5hnYrzYMGbYyOcs=
+	t=1784632827; cv=none; b=WDFJFVj4s2Nh9DDgP7BmiKpDm0ImNNjskaZEZxf909mqDvi0cyjoTg4yE2/kYi/E+/YYB7N9T6sXXnXSzA8X1K4aypTg5uwwQ6kuIG/sQyPGlfAkihlbvCbY843r0di+qlK/4Rtd2zx1wqFcjzcAU/VMil88x39LOEyDE4LLqyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784632706; c=relaxed/simple;
-	bh=GqqMUXlNcrBAUOZxLFnrcDutk6U0N7ltLOyLmRiAQTQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RmTO0D8DvQaoPNOdkIAIW0pw1Y/NXMeHzTUQhIjCc4uaLsn9wUJuDFYa5iBc67Tl3LjpzCCvwaC84zzs2wnvrM69wXKmiTYPbalC0Ro/lH8hjlBY9/isPuUGwPJze5jqE+dJWCTPA/dsLx5hkEpIWCBTPUXHytGZlLZs+n8ojQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OgrMMIcb; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1784632827; c=relaxed/simple;
+	bh=Kj6Sq/dewmHjeSaoGuBiJwWTo9WUVoBNljxhaERKTq4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=McSEeIWUHat1/6wCePiCS8Yy0HJU9qUos+Cn51HY0bn2pYOIDqQEdXXKM1mio0Xdwxvqr27MI3Js8bAB5m1tkylwhQFdWzeN/Luh/9HQAYPEsgPTiHMuOWHENfcV+J645Tt42PpPTKQWEbdmO9Bu4YD6Rjtx2bDtSoGJpqdabx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=CGCptJZI; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OgrMMIcb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784632705; x=1816168705;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=GqqMUXlNcrBAUOZxLFnrcDutk6U0N7ltLOyLmRiAQTQ=;
-  b=OgrMMIcbeL9titJKGcvqD0Sz//HYzx7Ao+5p7Ep+lbCFZkZvVOyUPsuw
-   C0bME9qx09knY3wUH+Y4DqiqtO8wI2Id6GcXZUwfqOctcsYRobR7yo4hB
-   VctCMe3yLuQO1SYt78TvmGS1xkDDzXDOceGoD1o2KKdEaa54kXlTgjn/0
-   mv7OKY56wpEE7+rc/dbHfbe6RkagHvVI+K87rhHVkuOGE0qwwwrpQHs25
-   C6MWHRxSa6zAI1FmHK89LSilmOqA3oyHB7K+U8bzmEGr1Gw/410G4nyqc
-   tgzbzNJ8Wj0gteV8GeUVBXJ6/kFef/IuSLwd982GE1j+GXXg99Mhy/c2A
-   w==;
-X-CSE-ConnectionGUID: DdJhcXUvRZa2h38sQIJkSw==
-X-CSE-MsgGUID: MDCBDULEQEycMJW1b8GLuw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11852"; a="85172065"
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="85172065"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 04:18:25 -0700
-X-CSE-ConnectionGUID: 9Fi6F/ZhRvivX/jcwhUkTQ==
-X-CSE-MsgGUID: fTAULmApS5W6WVPIHC9noA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="287772019"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.67])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 04:18:22 -0700
-Date: Tue, 21 Jul 2026 14:18:20 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Xu Yang <xu.yang_2@oss.nxp.com>
-Cc: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
-	robh@kernel.org, saravanak@kernel.org,
-	bartosz.golaszewski@oss.qualcomm.com, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev
-Subject: Re: [PATCH v6 1/2] of: kobj: export of_node_ktype for use by modules
-Message-ID: <al9VfFqH_1-Rl4s4@ashevche-desk.local>
-References: <20260721105448.2109894-1-xu.yang_2@oss.nxp.com>
- <20260721105448.2109894-2-xu.yang_2@oss.nxp.com>
- <al9VA_v8tcvS1hY1@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="CGCptJZI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1784632824;
+	bh=Kj6Sq/dewmHjeSaoGuBiJwWTo9WUVoBNljxhaERKTq4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=CGCptJZIikrxmB+WcrsSwRJHP2tGNQQgrGR1lwhQQ1Y9D/90Vns7R8T32kePm4ZHX
+	 LbdBDnPLKoNr59r+g9NyZXN0okpcTeJsTgOAbSyX09uSynj566BCENmbs7WWXeCp4k
+	 l4JfuuxmxT7s2PaoxtJNaD4Je8s3R3PfPbpejOR4AmcjuML26to++roZ6PkRRDSWZz
+	 DeB7+rvuvF9e60+pdX9LnZEjjXrIlWOrhvf12Gn6CzBsOnF6uSrGpnDt7G+9kKarVS
+	 9TBC2b7F3wfWDYUum04synTqvmbLJycXC6bz6B3707OQjNAcb0eRDjQ+l5YkjG7sFR
+	 x6CI26VEKqJKA==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5D6F817E0857;
+	Tue, 21 Jul 2026 13:20:24 +0200 (CEST)
+Message-ID: <92727d47-cb26-4ce1-85c4-daebb9c2149d@collabora.com>
+Date: Tue, 21 Jul 2026 13:20:24 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <al9VA_v8tcvS1hY1@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: thermal: mediatek: Make resets
+ optional for MT8196
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+References: <20260721105230.101906-1-angelogioacchino.delregno@collabora.com>
+ <20260721105230.101906-2-angelogioacchino.delregno@collabora.com>
+ <20260721110155.4A4931F000E9@smtp.kernel.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260721110155.4A4931F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jul 21, 2026 at 02:16:24PM +0300, Andy Shevchenko wrote:
-> On Tue, Jul 21, 2026 at 06:54:47PM +0800, Xu Yang wrote:
+On 7/21/26 13:01, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] Driver-Binding Mismatch: The `lvts_thermal` driver unconditionally requires the `resets` property, which causes probe failure if omitted on MT8196.
+
+No, that's not true.
+
+> --
 > 
-> > of_node_init() is a static inline that references of_node_ktype when
-> > CONFIG_OF_KOBJ=y. Any module that calls of_node_init() will therefore
-> > have an unresolved reference to of_node_ktype at load time, because
-> > the symbol is defined in drivers/of/kobj.c but was never exported.
-> > 
-> > This causes a modpost build error when CONFIG_OF_KOBJ=y and
-> > CONFIG_DRIVER_PE_KUNIT_TEST=m:
-> > 
-> >   ERROR: modpost: "of_node_ktype"
-> >   [drivers/base/test/property-entry-test.ko] undefined!
-> > 
-> > Add EXPORT_SYMBOL_IF_KUNIT(of_node_ktype) so that modules such as the
-> > KUnit property-entry test can call of_node_init() without hitting this
-> > linker error.
-
-Acked-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-
-...
-
-> >  #include <linux/of.h>
-> >  #include <linux/slab.h>
+> --- Patch [1]: [PATCH v2 1/2] dt-bindings: thermal: mediatek: Make resets optional for MT8196 ---
+> commit 8c88985c870e0f500a0c1636d7b632cee772d3c6
+> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 > 
-> + blank line.
+> dt-bindings: thermal: mediatek: Make resets optional for MT8196
 > 
-> > +#include <kunit/visibility.h>
-> >  
-> >  #include "of_private.h"
+> This commit updates the device tree binding for mediatek,lvts-thermal to
+> make the resets property optional for the MT8196 AP and MCU platforms.
+> This prevents hardware resets that could result in thermal protect
+> shutdowns or permanent system slowdowns.
+> 
+>> diff --git a/Documentation/devicetree/bindings/thermal/mediatek,lvts-thermal.yaml b/Documentation/devicetree/bindings/thermal/mediatek,lvts-thermal.yaml
+>> index 9752351306703..29f431fcdcd5f 100644
+>> --- a/Documentation/devicetree/bindings/thermal/mediatek,lvts-thermal.yaml
+>> +++ b/Documentation/devicetree/bindings/thermal/mediatek,lvts-thermal.yaml
+>> @@ -94,12 +94,23 @@ allOf:
+>>           nvmem-cell-names:
+>>             minItems: 2
+>>   
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          not:
+>> +            contains:
+>> +              enum:
+>> +                - mediatek,mt8196-lvts-ap
+>> +                - mediatek,mt8196-lvts-mcu
+>> +    then:
+>> +      required:
+>> +        - resets
+>> +
+>>   required:
+>>     - compatible
+>>     - reg
+>>     - interrupts
+>>     - clocks
+>> -  - resets
+> 
+> [Severity: High]
+> Will omitting the resets property cause a probe regression?
+> 
+> Looking at lvts_probe() in drivers/thermal/mediatek/lvts_thermal.c, the driver
+> unconditionally requires the reset control:
+> 
+> 	lvts_td->reset = devm_reset_control_get_by_index(dev, 0);
 
--- 
-With Best Regards,
-Andy Shevchenko
 
+The driver uses devm_reset_control_get_optional_exclusive() in commit 2.
 
+This is a false positive.
+
+> 	if (IS_ERR(lvts_td->reset))
+> 		return dev_err_probe(dev, PTR_ERR(lvts_td->reset), "Failed to get reset control\n");
+> 
+> If the property is omitted to conform to this new schema on MT8196 boards,
+> devm_reset_control_get_by_index() returns ERR_PTR(-ENOENT) and the driver
+> aborts probing.
+> 
+> Should the driver be updated to use devm_reset_control_get_optional_exclusive()
+> or similar to match this binding change?
+> 
