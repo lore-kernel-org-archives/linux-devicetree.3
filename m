@@ -1,250 +1,159 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010064.outbound.protection.outlook.com [52.101.193.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D3B3BAD88;
-	Tue, 21 Jul 2026 10:17:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.64
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784629049; cv=fail; b=CtXWJiJmj+yIUNNjT3NXZMCbrkRGsHq4HqoROB2wdv9Wewbw3CTvKDEM9W57zxbX3Oo/+vIbETLFySlLMZTvT2A8uk53BGsT5JPP/J1sIPRDn1/BGK5HHefeSoxFQVVytWbiBgcBqu3Ajmudvs5kr5HUHC2wwduho6TxDIJI7nE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784629049; c=relaxed/simple;
-	bh=BPTl3QDhAUaUXmqliUUWunI7uAiyVehigoAcbiwLKEo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=YOGf85Gx7Fxzt/yd4mQCTc2u9eK/EcsXntsJJkDuyz5Ll0rw5rq3r6ClN1Z1bqywNyTX8qwMaOYwFn/CFpgSxLGtAX1qrzDFDGeFVk8lTBe1fD87+4fExFWmla734XM93Z2sETDAXndwqdsgc7+19r6mDQonBOtM7LvNx7B0TeA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=UYRE/vX4; arc=fail smtp.client-ip=52.101.193.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 332A547DD59
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:17:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784629070; cv=none; b=BE+lmQcnls3MEf0HQYZGvWvVaK108sNHubUZ3Fpo3QFhHCAsd1bD12rbuPn4qA0wi2ZorBBADnTuUKwHT7lpASNNIGpyErwX2409rn4hPMTO7lsCBJrNg33yk9aIKFT1WeAJp37a/Y/Pq/GjqqgqOxBGsBD2AUPS1P4UuOUnOOA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784629070; c=relaxed/simple;
+	bh=4L+Snyn/wLEFjlqYUN27CU4KrGVShe99HLvKNBAmlDs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iXP85ryIH8n+Bp0asaMsq2N8sUYzoe8BQMnrN1+kVB2MwQC4gNa/rvEbA9A9XhHKAhoTH2FX9OGcA5KG9cUJD9ql7/DIkuABoZZc/x7mFJQzwcd98QB50bpoH89+g8A6vS66faKG/hOXUFYF5EvyqtDjQeLn0Keeh+BkNXsQnMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dZu5z9PD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="UYRE/vX4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G09MtIFO9jTYox3FtpnpGGfSRcwOO83jE5hDBxnrPjWVyP9r1bVVBAv6luxZcv4qmQEaJ5VEkeYZgStk0k5WuOmBOyyewWmz7Qa8djICkYhfEsCM2X/5JbtoGeOGTk3TXIbArnXqxmpvgS+VLM9DSutV1FVrLzhIIo4I2RYa+xT2ydgWTm1psaZch6c4PfGpDkWIKXcPIYIv0JnPMhfe4FgotWU+GqN+e75RFIWcUlmUExxl1e6pTUUH8rw4hH7NYL0MULE1dQTgF1WXcQIo1lXYA7MwCdAAfLuxhlO7dY9YEkHyhkM4s8O72ihtWovzDhkeVAYtlAl942rxX4k9dg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BPTl3QDhAUaUXmqliUUWunI7uAiyVehigoAcbiwLKEo=;
- b=V9XNQWIfENiRirpYYScyi/ELancyu/ED37eKcJM7x7uc/PCUOVl7ajoRhU1YXyHjC/GqVjRvavXKs5i0XPYE+edUVyg1oxMR+0QVKrv9YcxPRMHXZ/uJGx4E/SVEtLBglIv9/RCBHEzIcq5DzZ/WUb8pZmEJmmZMRxG6T4UeeDCXpXv/tK1KL2h0wZX8XnEtZJO3ImJzfXD0VFeTvrApGxnnFD5f5J4EStflf+TxsGxoT+lU/CC6u6MnrOQ2YxpJWhdpfX9zlmgn/Npv+alUWQfRGYCEQie03PmkewAEmKKxSW+gwxfx3pPSu0JPhMhK1p1T+dRUrU7Fd5qsE+DTMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microchip.com; dmarc=pass action=none
- header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BPTl3QDhAUaUXmqliUUWunI7uAiyVehigoAcbiwLKEo=;
- b=UYRE/vX4dKBcc/kY0lSakb6j0XX9zLrcPunM0/oX40F1/02k7JsXpQA5QxU2QzRvBonu8dUps3kaNMiZGXJ5sxelC9E3f3ntFddzlp/udkiBo+oxufzbB2MX43Fe9J4Pt2YCDbj+idSKZBrwuPJlFvamNOX3mE66D+ulzGzl/VYeJ9h2SHPmZ8+l1FSe1302HZ+bTbZnakQ6zYqKrn0Nn57Md5PANv4UjLeaodLJx/x44rXd+NrkNDcgzIrqMVW6TGn2+Kps8/31K1yP1IhXGwO93Y0Tzp0pJSaLQtaXDmPejmM/g587nS8FqFXtbGRg1iUxkruxYevy0YogzOPkLA==
-Received: from DM3PPF9623118BD.namprd11.prod.outlook.com
- (2603:10b6:f:fc00::f3a) by DS0PR11MB6520.namprd11.prod.outlook.com
- (2603:10b6:8:d0::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Tue, 21 Jul
- 2026 10:17:22 +0000
-Received: from DM3PPF9623118BD.namprd11.prod.outlook.com
- ([fe80::2fa5:b8c0:f483:22e]) by DM3PPF9623118BD.namprd11.prod.outlook.com
- ([fe80::2fa5:b8c0:f483:22e%5]) with mapi id 15.21.0223.011; Tue, 21 Jul 2026
- 10:17:21 +0000
-From: <Manikandan.M@microchip.com>
-To: <mwalle@kernel.org>
-CC: <pratyush@kernel.org>, <takahiro.kuwano@infineon.com>,
-	<miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
-	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<srini@kernel.org>, <Nicolas.Ferre@microchip.com>,
-	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
-	<linux@armlinux.org.uk>, <richardcochran@gmail.com>, <linusw@kernel.org>,
-	<arnd@arndb.de>, <linux-mtd@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <netdev@vger.kernel.org>
-Subject: Re: [PATCH v5 3/7] mtd: spi-nor: sfdp: expose the SFDP as a read-only
- NVMEM device
-Thread-Topic: [PATCH v5 3/7] mtd: spi-nor: sfdp: expose the SFDP as a
- read-only NVMEM device
-Thread-Index: AQHdGNH6W/JjL8NI2ku7431FrmE4R7Z3jD4AgAA2WYA=
-Date: Tue, 21 Jul 2026 10:17:21 +0000
-Message-ID: <c921d021-b6c3-4d91-89ca-0e3c41169e81@microchip.com>
-References: <20260721052859.171341-1-manikandan.m@microchip.com>
- <20260721052859.171341-4-manikandan.m@microchip.com>
- <DK42262TYFG1.NZKF4VGZGSRM@kernel.org>
-In-Reply-To: <DK42262TYFG1.NZKF4VGZGSRM@kernel.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microchip.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM3PPF9623118BD:EE_|DS0PR11MB6520:EE_
-x-ms-office365-filtering-correlation-id: 4fbaa634-b93c-4300-a6f5-08dee71140b1
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|11063799006|5023799004|56012099006|4143699003|10067099003|6133799003|3023799007|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info:
- N//bZYwBswBtng4lx0BCQKo3Ky4LYXOQJ0Us1qs05antRFAGYXXoUHdUzLoyUsUb9kEM0qDrTSSCC/RBrgiHjafSlRWTtfh1B97bfhuwo/86KDkEBO9MqnLcGkFy1NYX0SdkrPxm8olNLPmyqQ2U/pP1jub6zoegAm+/w5ZHGc683fgB2VnJtpXqaKhX3dbdgqNEOH/hF3k8UpI1ktjSeFhrmqU+3FdkaEjIpNfO1aKNKLSDPwijoGt86tt1ZePaTEuIcpKB8CF9vSYWZIS7acDoZy6ZUeIIdwi5FrXnJTSXmMM/nxjYylkI89mKJAj2MtDZiuTatwVGO2S/l7q/RMydbzqwHa65VCy+Cy2ClpflNwnqtiEj5sTO+XBMUFV6pQOB0gHoX0sFF+kSeszwf+xhvhg1l4XA2o+Gb9fyv6K7PukiwqT0b7eBuy4cknR74BCYqdIvHT6DJW7htacuhK4x7bHCm+rUxpNxn8K3iJsFL4cffIcONFNFdS1Db8gWU/1LFhaKUK5YOZtF1YKp/GXZEyzdNXISIVA60v+k/Z2NYlwSNoz9QjQentkTpmf7iA/aXOReSgJr8zPxI1SwDt5AILduWUaz1A1erPwaG7GxbST8HdRnbUZwK3m7Gz9OXcj0LB/0Lgy54mO6007rgEzCPQ9+n3jrmPC3G3yfDv9UQLh2+SUGrjzPd0IKfG8iEeyBPxl49Tl1mayc0cggov1arp4hVy4srM38YRgMTqk=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PPF9623118BD.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(11063799006)(5023799004)(56012099006)(4143699003)(10067099003)(6133799003)(3023799007)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?M0dUWDJDbTQ5WmFjUENNT1JQRXhTZXhDNnZxaXpsWmp4cDJoK0NGWi9oTXpF?=
- =?utf-8?B?ckY0R3lEdkRCNzhQSTFaT2d2WE5CY0RuUERTbnBmNmpNRElzTjlrVzJqdGhl?=
- =?utf-8?B?bW1kaFhsWm5rdS90UmFHRmc2L2xQZEhPaFp5enc1c2szTzVFS1hNWmxERExY?=
- =?utf-8?B?V3dHQmdkeGlSOW5zZUdwcWNEWElxTG9MTkxRMzkwY0ZsZ0RodmluVDNvcXJI?=
- =?utf-8?B?elVoNCtHcUVZRzJkL0ovcDlYWGRXelQ3LzhwSXlXeXZMRk1Kby9WNXFPSFN0?=
- =?utf-8?B?SnpXbTlWRzFzek5iVTk2Smp3Z1paaE9rNUsvVXptMTQ0c3JiaWN6dGZnc3JW?=
- =?utf-8?B?SUgyNTMzc2lnak5qTVFHQXAvYlE3SzF1L2RDcVExRis3akFBZFViNy81VEZG?=
- =?utf-8?B?YmlCcWhoWTZXeGcrRkdJVmpYQWF1V3I5aDZtbGZZRWgrMGdBOGFnOXUrMTZY?=
- =?utf-8?B?LzZ1RUFBVThTb3RSUS9BTDRXbzVNRHNsbTdOWUFjME1wZmhjRjdWZC93cklD?=
- =?utf-8?B?MGJSSGJPZ0JZSzdLUVZnOE1CRFV5S2VKZTZlN0NLeUJ1VFE0RWF0SUQ3Sisw?=
- =?utf-8?B?aWJzWGpadUZ2S2kvemdRMXZvNVNtZk41MEwxbW1PREVyTk9BdUlwWmZuT3Jq?=
- =?utf-8?B?Q3FpSjdQT2hFUEk5cWgyMTNHZTVnb0VRSWRJNkxFM3M1bXp6SjIwQVdmc01B?=
- =?utf-8?B?cEJMSFU0THEwbTBybGVBSEhobEo4cTlpSnRHUlNOZ0h2VllHVmJPZElzSER6?=
- =?utf-8?B?YUlKc0p1WE9HNGJSTXQ3Z1lwTDYvOGxXZWJuMVRjQm1UQjZsZWFjMWZnQnEw?=
- =?utf-8?B?QlZwMEtOQmZQVTRZMHFCZHU3ZndMaFhTYk5HWlNCR0JPQ2hGRU9sdVBvaXlx?=
- =?utf-8?B?TjVEem1HdEdFOWdGYkRDbXptRlVIREpqNXNYdGg0WnVvRWZxcVFmc2hETm9i?=
- =?utf-8?B?TkVJeWt3SXFKVDM4YmpaRnY3WEFBTUxJek02cCttREtSRStLRHZnNkJvVjZm?=
- =?utf-8?B?Yld0SHZvVTZaUzlsY3BBYmlGcmVLc00zZXdTMC9ncEhxRVRxS3BPd0UvZHVj?=
- =?utf-8?B?dm1weVlrdEtsQmd2R3FYcTliVnFweTM0Nll4SVFCUVNDM1VZVkFtQkFvd2R1?=
- =?utf-8?B?aWh1VGRhYkU4Vzh6a1RUdVh5bXJjUGlFbE4vM21tNlJoS0EyQUMrUEJFeGFQ?=
- =?utf-8?B?RnFlQXZ3bWswR1BSWFZSd3ZEcG5uQTdsVjVsYmJObWtqd0JzR3V4M3VwbnVn?=
- =?utf-8?B?TkxZZHkyVEhuemRTYmk4bXZ0akJkL3VzRWxRNkVWVVhaMENiZUYvZFU4MUFF?=
- =?utf-8?B?N1MrSGRqOHQ3Y1QxM1dRTUJoRGp4MzRiVkJ2eVNxWUFPS2lpYnFpSEloRlVV?=
- =?utf-8?B?Y2E4TkE5NVJWelFNVjR6ZGZTK21MYTJsYmhnRkdhRmliVWpRZ2s1aFdTWGNs?=
- =?utf-8?B?allXS1RKU2RBbVFBTVpyZVdwaDNhRVNDeGN3dXRDQUI5QWtLdlAzLzFVSnIz?=
- =?utf-8?B?dkpsQzh0bUFCZjVqWG9lSzBrbU94S2R6ZW5jdllXM0QwalpaWElVYnlhUUFw?=
- =?utf-8?B?NzBBb0NHeTFhZ3piZWxCa2VpV3NXK1Y4VEQzejhoVGVqQkZhYzIyakFaeWNZ?=
- =?utf-8?B?b2JiU0hZSmVJSXZIUHg3TzlUWEQ2YjlpVDlFTnEwQUdvL3NzZElsMVVuSURx?=
- =?utf-8?B?WWNwNXhpQmhWbjdzSG1qUkdhWW1nSUxWb2Rvd2pwRE5XRUF5Q29oazJVOVVo?=
- =?utf-8?B?VFFRYWpGRHQ2Qytia2hvMWhoY2RWZDIzRlgwVXFzMVZrc2h0S2x3UTd4MzBa?=
- =?utf-8?B?RnFzVnVRUkIrY0k2U0h3RVh1S2RUd0ptRnR3dFFraDF1cm53RkF2S2c2cW42?=
- =?utf-8?B?eTFQcTlHdThwbmk1VEhXc1RLWWs2dmdpN0lYRG8wQkx4N2hSVDUxQWRCR2FJ?=
- =?utf-8?B?T3hEclJHTkV3b0ZObjJxODFZRncxaVJaT3hqRGxlL2lUR2JkeHRkNVNUb0dT?=
- =?utf-8?B?d2JGdkEzazc5ZGxCNjhxVG1wV2JiWUF5ZmM3bkdTdWFWSXpWcCs3Und0MGQy?=
- =?utf-8?B?Wnpyc3JFZnlxSDN4SWJFeDZUTVcwbkVMei81NHN2eWdjTW5hek5zY2pISmNx?=
- =?utf-8?B?ZnJmY240cnRpeXFCaWQ2ZjhMMDZsZTJNVjUycjRRejMrMmV2Mk9ZYXdOZWNh?=
- =?utf-8?B?RUVHTXF3dmxrV2NQekp5UEZqY2FFS3FBZVE0clo2bWNGMmtRZ09MRXV3dlUw?=
- =?utf-8?B?ZGpHdUdrT3FNMnZpNndTeFl1QXZHNWQrMmpaT21wREY2VUdmU1ZMQWtZTzFM?=
- =?utf-8?B?WnJnNG5sU0x6UkowVUdRMlk2cXZJdFpNdFE1eXZ3T2tTdDhMNytWZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <B5446CBA07A23B4A9949916C5A58E8B6@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dZu5z9PD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F46A1F000E9;
+	Tue, 21 Jul 2026 10:17:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784629068;
+	bh=7uh7ycJz3qoaN1oRs2HNFIfJUTl2v/Jsyyv5bBG+G1M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dZu5z9PDfdBHIoTnynuFqtWRJ+M4qZ+mlBsQX4UrVTmUwbigck2rGwC37y9m5VoM8
+	 OHvBqcy4ITu9ock7ev6CszZ+SjdEMz28vOx/Zhfct+r9j8JeNYpb2FUdessC2l6Hao
+	 wYC0QjjmTJIXMyrWPiauU3pDoNlb+l4rhKG5CS0Vmf3L03Ue/1WFLyVCG9neg5ENW0
+	 devhRvJd0GCEvrfTadoZ8gwd/4eFSS469thxvP0eOvRjKZt6Ap0LJtWo6ok3p0G+hA
+	 uXRP5ENFRxCj6TDA8ZP+JroJW0tfZxsOxABz206clQ4AEL3eWDN/HLxuaHu36331zX
+	 8EV12XZ+YpfnA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/4] arm64: dts: qcom: Add support for usb nodes on
+ Shikra
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krishna Kurapati" <krishna.kurapati@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260721-usb-shikra-dt-v4-v4-1-2e7a092d7f27@oss.qualcomm.com>
+References: <20260721-usb-shikra-dt-v4-v4-0-2e7a092d7f27@oss.qualcomm.com>
+ <20260721-usb-shikra-dt-v4-v4-1-2e7a092d7f27@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 10:17:48 +0000
+Message-Id: <20260721101748.7F46A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-OriginatorOrg: microchip.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM3PPF9623118BD.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4fbaa634-b93c-4300-a6f5-08dee71140b1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jul 2026 10:17:21.8539
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: K4z5v/mORcR2zFYw/EI2WTd+YqDTe+65JJgbAWvh6tFtNKG5fK9a9a1BJ9HoFG0NZs6lCJADRtte5XSRM89brofJmLU0yPwSLq6t2mZpXp8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB6520
 
-SGkgTWljaGFlbCwNCg0KT24gNy8yMS8yNiAxMjozMiBQTSwgTWljaGFlbCBXYWxsZSB3cm90ZToN
-Cj4gT24gVHVlIEp1bCAyMSwgMjAyNiBhdCA3OjI4IEFNIENFU1QsIE1hbmlrYW5kYW4gTXVyYWxp
-ZGhhcmFuIHdyb3RlOg0KPj4gVGhlIFNQSSBOT1IgY29yZSBhbHJlYWR5IHJlYWRzIHRoZSBTRkRQ
-IHRhYmxlcyBkdXJpbmcgZW51bWVyYXRpb24gYW5kDQo+PiBjYWNoZXMgdGhlbSBpbiBub3ItPnNm
-ZHAtPmR3b3JkcyAoc2VlIHNwaV9ub3JfcGFyc2Vfc2ZkcCgpKS4gUmUtZXhwb3NlDQo+PiB0aGF0
-IGNhY2hlZCBkYXRhIGFzIGEgcmVhZC1vbmx5IE5WTUVNIGRldmljZSwgaW4gb24tZmxhc2ggYnl0
-ZSBvcmRlciwNCj4+IHJvb3RlZCBhdCB0aGUgZmxhc2gncyBTRkRQIGNoaWxkIG5vZGUgKGNvbXBh
-dGlibGUgImplZGVjLHNmZHAiKS4NCj4+DQo+PiBUaGlzIGxldHMgTlZNRU0gY2VsbHMgcmVmZXJl
-bmNlIGFueSBTRkRQIGRhdGE6IGEgZml4ZWQtbGF5b3V0IGZvcg0KPj4gcGFyYW1ldGVycyBhdCBh
-IGtub3duIG9mZnNldCwgb3IgYW4gbnZtZW0tbGF5b3V0IHBhcnNlciBmb3IgdmVuZG9yIGRhdGEN
-Cj4+IHdob3NlIGxvY2F0aW9uIG11c3QgYmUgZGlzY292ZXJlZCBhdCBydW50aW1lLlRoZSBkZXZp
-Y2UgaXMgb25seSByZWdpc3RlcmVkDQo+PiB3aGVuIGFuICJzZmRwIiBub2RlIGlzIHByZXNlbnQg
-aW4gdGhlIGRldmljZSB0cmVlLg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IE1hbmlrYW5kYW4gTXVy
-YWxpZGhhcmFuIDxtYW5pa2FuZGFuLm1AbWljcm9jaGlwLmNvbT4NCj4+IC0tLQ0KPj4gICBkcml2
-ZXJzL210ZC9zcGktbm9yL2NvcmUuYyB8ICA4ICsrKysNCj4+ICAgZHJpdmVycy9tdGQvc3BpLW5v
-ci9jb3JlLmggfCAgMSArDQo+PiAgIGRyaXZlcnMvbXRkL3NwaS1ub3Ivc2ZkcC5jIHwgODYgKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysNCj4+ICAgMyBmaWxlcyBjaGFuZ2Vk
-LCA5NSBpbnNlcnRpb25zKCspDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbXRkL3NwaS1u
-b3IvY29yZS5jIGIvZHJpdmVycy9tdGQvc3BpLW5vci9jb3JlLmMNCj4+IGluZGV4IGNjZjQzOTZj
-ZGNkMC4uYjgzM2Q4ZWMyZDY1IDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9tdGQvc3BpLW5vci9j
-b3JlLmMNCj4+ICsrKyBiL2RyaXZlcnMvbXRkL3NwaS1ub3IvY29yZS5jDQo+PiBAQCAtMzIwNCw2
-ICszMjA0LDE0IEBAIHN0YXRpYyBpbnQgc3BpX25vcl9pbml0X3BhcmFtcyhzdHJ1Y3Qgc3BpX25v
-ciAqbm9yKQ0KPj4gICAJCXNwaV9ub3JfaW5pdF9wYXJhbXNfZGVwcmVjYXRlZChub3IpOw0KPj4g
-ICAJfQ0KPj4gICANCj4+ICsJLyoNCj4+ICsJICogRXhwb3NlIHRoZSBTRkRQIHRhYmxlIGFzIGFu
-IE5WTUVNIGRldmljZSBvbmx5IHdoZW4NCj4+ICsJICogdGhlIGZsYXNoIGFjdHVhbGx5IHByb3Zp
-ZGVzIG9uZQ0KPj4gKwkgKi8NCj4+ICsJcmV0ID0gc3BpX25vcl9yZWdpc3Rlcl9zZmRwX252bWVt
-KG5vcik7DQo+PiArCWlmIChyZXQpDQo+PiArCQlyZXR1cm4gcmV0Ow0KPj4gKw0KPj4gICAJcmV0
-ID0gc3BpX25vcl9sYXRlX2luaXRfcGFyYW1zKG5vcik7DQo+PiAgIAlpZiAocmV0KQ0KPj4gICAJ
-CXJldHVybiByZXQ7DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tdGQvc3BpLW5vci9jb3JlLmgg
-Yi9kcml2ZXJzL210ZC9zcGktbm9yL2NvcmUuaA0KPj4gaW5kZXggYmEyZDFhODYyYzlkLi4wYTY0
-ODQyOThjNWMgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL210ZC9zcGktbm9yL2NvcmUuaA0KPj4g
-KysrIGIvZHJpdmVycy9tdGQvc3BpLW5vci9jb3JlLmgNCj4+IEBAIC02OTgsNiArNjk4LDcgQEAg
-aW50IHNwaV9ub3JfY29udHJvbGxlcl9vcHNfd3JpdGVfcmVnKHN0cnVjdCBzcGlfbm9yICpub3Is
-IHU4IG9wY29kZSwNCj4+ICAgDQo+PiAgIGludCBzcGlfbm9yX2NoZWNrX3NmZHBfc2lnbmF0dXJl
-KHN0cnVjdCBzcGlfbm9yICpub3IpOw0KPj4gICBpbnQgc3BpX25vcl9wYXJzZV9zZmRwKHN0cnVj
-dCBzcGlfbm9yICpub3IpOw0KPj4gK2ludCBzcGlfbm9yX3JlZ2lzdGVyX3NmZHBfbnZtZW0oc3Ry
-dWN0IHNwaV9ub3IgKm5vcik7DQo+IA0KPiBUaGF0J3MgcHJvYmFibHkgbm90IG5lZWRlZCBpZi4u
-DQo+IA0KPj4gICBzdGF0aWMgaW5saW5lIHN0cnVjdCBzcGlfbm9yICptdGRfdG9fc3BpX25vcihz
-dHJ1Y3QgbXRkX2luZm8gKm10ZCkNCj4+ICAgew0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbXRk
-L3NwaS1ub3Ivc2ZkcC5jIGIvZHJpdmVycy9tdGQvc3BpLW5vci9zZmRwLmMNCj4+IGluZGV4IDQ2
-MDA5ODNjYjU3OS4uNzA0Nzk5ZmU5MmFlIDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9tdGQvc3Bp
-LW5vci9zZmRwLmMNCj4+ICsrKyBiL2RyaXZlcnMvbXRkL3NwaS1ub3Ivc2ZkcC5jDQo+PiBAQCAt
-Niw2ICs2LDggQEANCj4+ICAgDQo+PiAgICNpbmNsdWRlIDxsaW51eC9iaXRmaWVsZC5oPg0KPj4g
-ICAjaW5jbHVkZSA8bGludXgvbXRkL3NwaS1ub3IuaD4NCj4+ICsjaW5jbHVkZSA8bGludXgvbnZt
-ZW0tcHJvdmlkZXIuaD4NCj4+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4NCj4+ICAgI2luY2x1ZGUg
-PGxpbnV4L3NsYWIuaD4NCj4+ICAgI2luY2x1ZGUgPGxpbnV4L3NvcnQuaD4NCj4+ICAgDQo+PiBA
-QCAtMTYxMiwzICsxNjE0LDg3IEBAIGludCBzcGlfbm9yX3BhcnNlX3NmZHAoc3RydWN0IHNwaV9u
-b3IgKm5vcikNCj4+ICAgCWtmcmVlKHBhcmFtX2hlYWRlcnMpOw0KPj4gICAJcmV0dXJuIGVycjsN
-Cj4+ICAgfQ0KPj4gKw0KPj4gK3N0YXRpYyBpbnQgc3BpX25vcl9zZmRwX3JlZ19yZWFkKHZvaWQg
-KnByaXYsIHVuc2lnbmVkIGludCBvZmZzZXQsDQo+PiArCQkJCSB2b2lkICp2YWwsIHNpemVfdCBi
-eXRlcykNCj4+ICt7DQo+PiArCXN0cnVjdCBzcGlfbm9yICpub3IgPSBwcml2Ow0KPj4gKwlzdHJ1
-Y3Qgc2ZkcCAqc2ZkcCA9IG5vci0+c2ZkcDsNCj4+ICsJc2l6ZV90IHNmZHBfc2l6ZSA9IHNmZHAt
-Pm51bV9kd29yZHMgKiBzaXplb2YoKnNmZHAtPmR3b3Jkcyk7DQo+PiArDQo+PiArCWlmIChvZmZz
-ZXQgPj0gc2ZkcF9zaXplIHx8IGJ5dGVzID4gc2ZkcF9zaXplIC0gb2Zmc2V0KQ0KPj4gKwkJcmV0
-dXJuIC1FSU5WQUw7DQo+PiArDQo+PiArCS8qIFRoZSBjYWNoZWQgU0ZEUCBpcyBrZXB0IGluIG9u
-LWZsYXNoIChsaXR0bGUtZW5kaWFuKSBieXRlIG9yZGVyLiAqLw0KPj4gKwltZW1jcHkodmFsLCAo
-dTggKilzZmRwLT5kd29yZHMgKyBvZmZzZXQsIGJ5dGVzKTsNCj4+ICsNCj4+ICsJcmV0dXJuIDA7
-DQo+PiArfQ0KPj4gKw0KPj4gK3N0YXRpYyB2b2lkIHNwaV9ub3Jfc2ZkcF9udm1lbV9wdXRfbnAo
-dm9pZCAqZGF0YSkNCj4+ICt7DQo+PiArCW9mX25vZGVfcHV0KGRhdGEpOw0KPj4gK30NCj4+ICsN
-Cj4+ICsvKioNCj4+ICsgKiBzcGlfbm9yX3JlZ2lzdGVyX3NmZHBfbnZtZW0oKSAtIGV4cG9zZSB0
-aGUgU0ZEUCBhcyBhIHJlYWQtb25seSBOVk1FTSBkZXZpY2UNCj4+ICsgKiBAbm9yOglwb2ludGVy
-IHRvIGEgJ3N0cnVjdCBzcGlfbm9yJw0KPj4gKyAqDQo+PiArICogRXhwb3NlIHRoZSB3aG9sZSBT
-RkRQLCBpbiBvbi1mbGFzaCBieXRlIG9yZGVyLCBhcyBhIHJlYWQtb25seSBOVk1FTSBkZXZpY2UN
-Cj4+ICsgKiByb290ZWQgYXQgdGhlIGZsYXNoJ3MgU0ZEUCBjaGlsZCBub2RlIChjb21wYXRpYmxl
-ICJqZWRlYyxzZmRwIikuIFRoaXMgbGV0cw0KPj4gKyAqIGdlbmVyaWMgKGZpeGVkLWxheW91dCkg
-b3IgdmVuZG9yIChudm1lbS1sYXlvdXQpIGNlbGxzIHJlZmVyZW5jZSBhbnkgU0ZEUA0KPj4gKyAq
-IGRhdGEuIFRoZSBkZXZpY2UgaXMgb25seSByZWdpc3RlcmVkIHdoZW4gYSBjaGlsZCBub2RlIHdp
-dGggdGhlICJqZWRlYyxzZmRwIg0KPj4gKyAqIGNvbXBhdGlibGUgaXMgZGVzY3JpYmVkIGluIHRo
-ZSBkZXZpY2UgdHJlZS4NCj4+ICsgKg0KPj4gKyAqIFJldHVybjogMCBvbiBzdWNjZXNzIG9yIGlm
-IHRoZXJlIGlzIG5vdGhpbmcgdG8gZG8sIC1lcnJubyBvdGhlcndpc2UuDQo+PiArICovDQo+PiAr
-aW50IHNwaV9ub3JfcmVnaXN0ZXJfc2ZkcF9udm1lbShzdHJ1Y3Qgc3BpX25vciAqbm9yKQ0KPiAN
-Cj4gLi4geW91IG1vdmUgYWxsIHRoaXMgaW50byB0aGUgY29yZSwgYXMgdGhlIHNmZHAuYyBpcyBq
-dXN0IGZvcg0KPiBwYXJzaW5nIHRoZSB0YWJsZXMuDQo+IA0KPj4gK3sNCj4+ICsJc3RydWN0IGRl
-dmljZSAqZGV2ID0gbm9yLT5kZXY7DQo+PiArCXN0cnVjdCBudm1lbV9jb25maWcgY29uZmlnID0g
-eyB9Ow0KPj4gKwlzdHJ1Y3QgbnZtZW1fZGV2aWNlICpudm1lbTsNCj4+ICsJc3RydWN0IGRldmlj
-ZV9ub2RlICpucDsNCj4+ICsJaW50IHJldDsNCj4+ICsNCj4+ICsJaWYgKCFub3ItPnNmZHApDQo+
-PiArCQlyZXR1cm4gMDsNCj4+ICsNCj4+ICsJZm9yX2VhY2hfYXZhaWxhYmxlX2NoaWxkX29mX25v
-ZGUoZGV2X29mX25vZGUoZGV2KSwgbnApDQo+PiArCQlpZiAob2ZfZGV2aWNlX2lzX2NvbXBhdGli
-bGUobnAsICJqZWRlYyxzZmRwIikpDQo+PiArCQkJYnJlYWs7DQo+IA0KPiBUaGVyZSBpcyBhbHJl
-YWR5IG9mX2dldF9jb21wYXRpYmxlX2NoaWxkKCkgZG9pbmcgZXhhY3RseSB0aGlzLg0KPiANCj4+
-ICsJaWYgKCFucCkNCj4+ICsJCXJldHVybiAwOw0KPj4gKw0KPj4gKwkvKg0KPj4gKwkgKiBSZWdp
-c3RlciB0aGUgcHV0IGJlZm9yZSBkZXZtX252bWVtX3JlZ2lzdGVyKCkgc28gaXQgcnVucyBsYXN0
-IG9uDQo+PiArCSAqIGRldGFjaCwgYWZ0ZXIgdGhlIE5WTUVNIGRldmljZSB0aGF0IHVzZXMgdGhl
-IG5vZGUgaXMgZ29uZS4NCj4+ICsJICovDQo+PiArCXJldCA9IGRldm1fYWRkX2FjdGlvbl9vcl9y
-ZXNldChkZXYsIHNwaV9ub3Jfc2ZkcF9udm1lbV9wdXRfbnAsIG5wKTsNCj4+ICsJaWYgKHJldCkN
-Cj4+ICsJCXJldHVybiByZXQ7DQo+PiArDQo+PiArCWNvbmZpZy5kZXYgPSBkZXY7DQo+PiArCWNv
-bmZpZy5vZl9ub2RlID0gbnA7DQo+PiArCWNvbmZpZy5uYW1lID0gInNmZHAiOw0KPj4gKwljb25m
-aWcuaWQgPSBOVk1FTV9ERVZJRF9BVVRPOw0KPiANCj4gT3IgcmF0aGVyIE5WRU1FTV9ERVZJRF9O
-T05FPyBUaGVyZSB3aWxsIGV2ZXIgYmUganVzdCBvbmUgU0ZEUCBudm1lbQ0KPiBkZXZpY2UuDQo+
-IA0KPiBIb3cgZG9lcyB0aGUgc3lzZnMgcGF0aCBsb29rcyBsaWtlPw0KQ3VycmVudGx5IHRoZSBz
-eXNmcyBsb29rcyBsaWtlOg0KDQovc3lzL2J1cy9udm1lbS9kZXZpY2VzL3NmZHAwDQoNCkkga2Vw
-dCBBVVRPIHNvIHRoYXQgdGhlIGJhcmUgInNmZHAiIG5hbWUgd291bGQgY2xhc2ggb24gYSBib2Fy
-ZChpZiBhbnkpIA0Kd2l0aCBhIHNlY29uZCBmbGFzaCBleHBvc2luZyBhICJqZWRlYyxzZmRwIiBu
-b2RlLg0KDQo+IA0KPiAtbWljaGFlbA0KPiANCj4+ICsJY29uZmlnLm93bmVyID0gVEhJU19NT0RV
-TEU7DQo+PiArCWNvbmZpZy5yZWFkX29ubHkgPSB0cnVlOw0KPj4gKwljb25maWcud29yZF9zaXpl
-ID0gMTsNCj4+ICsJY29uZmlnLnN0cmlkZSA9IDE7DQo+PiArCWNvbmZpZy5zaXplID0gKGludCko
-bm9yLT5zZmRwLT5udW1fZHdvcmRzICogc2l6ZW9mKCpub3ItPnNmZHAtPmR3b3JkcykpOw0KPj4g
-Kwljb25maWcucmVnX3JlYWQgPSBzcGlfbm9yX3NmZHBfcmVnX3JlYWQ7DQo+PiArCWNvbmZpZy5w
-cml2ID0gbm9yOw0KPj4gKw0KPj4gKwludm1lbSA9IGRldm1fbnZtZW1fcmVnaXN0ZXIoZGV2LCAm
-Y29uZmlnKTsNCj4+ICsJaWYgKElTX0VSUihudm1lbSkpIHsNCj4+ICsJCS8qIE5WTUVNIHN1cHBv
-cnQgaXMgb3B0aW9uYWwuICovDQo+PiArCQlpZiAoUFRSX0VSUihudm1lbSkgPT0gLUVPUE5PVFNV
-UFApDQo+PiArCQkJcmV0dXJuIDA7DQo+PiArCQlyZXR1cm4gZGV2X2Vycl9wcm9iZShkZXYsIFBU
-Ul9FUlIobnZtZW0pLA0KPj4gKwkJCQkgICAgICJmYWlsZWQgdG8gcmVnaXN0ZXIgU0ZEUCBOVk1F
-TSBkZXZpY2VcbiIpOw0KPj4gKwl9DQo+PiArDQo+PiArCWRldl9kYmcoZGV2LCAiZXhwb3NlZCAl
-ZC1ieXRlIFNGRFAgYXMgYW4gTlZNRU0gZGV2aWNlXG4iLCBjb25maWcuc2l6ZSk7DQo+PiArDQo+
-PiArCXJldHVybiAwOw0KPj4gK30NCg0KDQotLSANClRoYW5rcyBhbmQgUmVnYXJkcywNCk1hbmlr
-YW5kYW4gTS4NCg==
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Missing `interconnects` property in USB DWC3 nodes
+- [Low] Device tree nodes are not sorted by unit address
+--
+
+--- Patch [1]: [PATCH v4 1/4] arm64: dts: qcom: Add support for usb nodes o=
+n Shikra ---
+commit 9fc8f1d9119cfd32b07a66f8220c54e03c7caa27
+Author: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+
+arm64: dts: qcom: Add support for usb nodes on Shikra
+
+Add support for both USB controllers and their respective phys on Shikra.
+
+> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/q=
+com/shikra.dtsi
+> index 4e5bc9e17c8ed..7f5d584fc17ba 100644
+> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
+
+[ ... ]
+
+> @@ -442,6 +443,85 @@ gcc: clock-controller@1400000 {
+>  			#power-domain-cells =3D <1>;
+>  		};
+> =20
+> +		usb_1_hsphy: phy@1613000 {
+> +			compatible =3D "qcom,shikra-qusb2-phy";
+> +			reg =3D <0x0 0x01613000 0x0 0x180>;
+
+[ ... ]
+
+> +		usb_2_hsphy: phy@1617000 {
+> +			compatible =3D "qcom,shikra-qusb2-phy";
+> +			reg =3D <0x0 0x01617000 0x0 0x180>;
+> +
+> +			clocks =3D <&gcc GCC_AHB2PHY_USB_CLK>,
+> +				 <&rpmcc RPM_SMD_XO_CLK_SRC>;
+> +			clock-names =3D "cfg_ahb", "ref";
+> +
+> +			resets =3D <&gcc GCC_QUSB2PHY_SEC_BCR>;
+> +			nvmem-cells =3D <&qusb2_hstx_trim_2>;
+> +			#phy-cells =3D <0>;
+> +
+> +			status =3D "disabled";
+> +		};
+> +
+> +		usb_qmpphy: phy@1615000 {
+> +			compatible =3D "qcom,shikra-qmp-usb3-dp-phy";
+> +			reg =3D <0x0 0x01615000 0x0 0x2000>;
+
+[Severity: Low]
+This isn't a bug, but are these nodes sorted correctly by unit address?
+
+The usb_2_hsphy node at 1617000 is placed before the usb_qmpphy node at
+1615000, which doesn't follow the convention to sort sibling nodes
+alphanumerically by their unit address.
+
+[ ... ]
+
+> @@ -493,6 +573,11 @@ qusb2_hstx_trim_1: hstx-trim@25b {
+>  				bits =3D <1 4>;
+>  			};
+> =20
+> +			qusb2_hstx_trim_2: hstx-trim@25a {
+> +				reg =3D <0x25a 0x1>;
+> +				bits =3D <4 4>;
+> +			};
+
+[Severity: Low]
+This isn't a bug, but should hstx-trim@25a be placed before hstx-trim@25b
+to maintain alphanumeric sorting by unit address?
+
+[ ... ]
+
+> @@ -640,6 +725,142 @@ &clk_virt SLAVE_QUP_CORE_0 RPM_ALWAYS_TAG>,
+>  			};
+>  		};
+> =20
+> +		usb_2: usb@4c00000 {
+> +			compatible =3D "qcom,shikra-dwc3", "qcom,snps-dwc3";
+> +			reg =3D <0x0 0x04c00000 0x0 0xfc100>;
+
+[Severity: High]
+Does this node need an interconnects property?
+
+Without interconnects specified, the DWC3 core driver won't vote for
+bandwidth. If other consumers drop their votes, the system NoC might thrott=
+le
+or gate the path, potentially causing USB DMA transfer stalls, device
+disconnects, or system freezes.
+
+Since of_icc_get returns NULL when the property is missing, the driver
+will silently skip voting without showing probe errors.
+
+[ ... ]
+
+> +		usb_1: usb@4e00000 {
+> +			compatible =3D "qcom,shikra-dwc3", "qcom,snps-dwc3";
+> +			reg =3D <0x0 0x04e00000 0x0 0xfc100>;
+
+[Severity: High]
+Is the interconnects property missing here as well?
+
+Similar to the usb_2 node, omitting interconnects might expose the hardware
+to starvation if the system NoC throttles or gates the path when other
+devices become idle.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-usb-shikra=
+-dt-v4-v4-0-2e7a092d7f27@oss.qualcomm.com?part=3D1
