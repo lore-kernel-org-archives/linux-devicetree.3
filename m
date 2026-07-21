@@ -1,69 +1,70 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A9A640587A
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 18:24:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91958415F2B
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 18:24:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784658285; cv=none; b=O3mAEupUAP48BzedEZiE4nsgnoDrjdsf+gVNUa8Po/sOuGBDK5s7WQZuH1FIHz+FftnpxUoR3b6sYs4n/qtJFqN/ShUUdlK0WMnh+KlzFQBKQb15CFL13Gs2sQAGNAEY0M52hm1GXy7QQ/QgQJNu2OqSLM7fznBgt1X7axxrUos=
+	t=1784658286; cv=none; b=jP+ORcyegzed5Rn3vEDhXqpi4oIbNoEQ0wEYwFUtv0wq2omMm93aZDXsj0gURTArpXmnrI/DfCZGhgqQit2btZEOJnYEl68mbMbdfDvfFzGLpzw7Hjx6a1EAsMytGTal53lF1dBUJyDUVK1Kd35eXe5W1o91M+8Qv6jPTtUuchw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784658285; c=relaxed/simple;
-	bh=vLiYXQMunhQUXt43pguNpMz7eu5LQxGsP/wx5H0+Rl8=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=W3YyZgBlvAKRvsokwYE4XFGhV2faFpJiUvvUnr0CfNNOMtM9Bl7AeTo2TOm/h/75NxcRiowk83N9Lp9WlWb+c022oULpYmWce+hMlvv/ujDHMqjgV/OKRCyFFyC+YzDLu2zUAuiWTpnWQMK0usvp2WN/p1kCbAfKwAd2Il43Q8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bEzBX44C; arc=none smtp.client-ip=209.85.221.47
+	s=arc-20240116; t=1784658286; c=relaxed/simple;
+	bh=DAsAkRrlrjB+LjOM1hc9zi+WIM7VFhwalTrcnp+qYgQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Gdr5eHrw3wAE8ZD37NFoOOoXKJmmqLuyUvcorqCk0wCqHstUmUrVrMdm0SKPkmOWtI2Bshr3fAYxdJwLvdw5DN1lYMGqU2CdbUKdEIv9/cDbF/XKdqJG0YCLVg9zjxPCQWYB1edRsczTjVUx3bk5W4BdLrRmtdFm6yFw30231tA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WHWxDExS; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bEzBX44C"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-472326ca506so9001255f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 11:24:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WHWxDExS"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-493b966dd74so51045975e9.3
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 11:24:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784658281; x=1785263081; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Hh0MQTlP1Z8TfVOfqEcGY4B0iK9G2tVmrKphyfkwPB8=;
-        b=bEzBX44CeWZ85iopJRg1EPTJNz+5kGeMVxr9HnYITose7QTXlTqc9bWB+xDEt+zZ71
-         oycCH3nWAEWW1Vx9QwMh1+71DoRD09VXAxj7LdWPFM8GBmGfZ7dQbf3Y4cbZ2m3vs+f+
-         87btSOSzeWesG7asrw2zcW2CG4OmTcYATSM6h0zicPCykvybzUV4CgaWAihdEspL3oW3
-         7MYpoIa9GOJLTu4/f6CPnSmU3GEThZuZJ1PMgt2JqiZ8ijIUQxfs+DFcBwRpv1RJlg5i
-         tiwBNOa2PdLY7efGIb0i6P0y4ptPLVuQIqpcFFv58/i5dxrsYkcfD8t46bl54RmnFYCL
-         2dEQ==
+        d=gmail.com; s=20251104; t=1784658283; x=1785263083; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6h1vgoNij8ASaqzGn9OonNwFVqwllRJ2VF0KwZtNt30=;
+        b=WHWxDExSzm73kAY5nc8HSrCMVg8ZOab8YdgnlfASl4yYX6NDo97qFyrWyfFAemJGTr
+         smddeM+tBspYHYaJI6gmjG1qxDqJH5SQgMIaIylT11573Oi7Cz+QDX1hmmiMj0aKadCA
+         rF7jWI4BG7YJFsrZcst6bA4b/BWEQ/kk7FOzEsKvXSzH/5AsRCvwmSL8AEJ9YXzItjvp
+         s9nU357KeR1UVqJ4cMBT4610ISQ7a6dnmnnOycx6k/IzogxNNZMYYk9oECNdixSVNhgm
+         SczcfuOTlQ/OUUiNkQ1dBNIGhiW4VTjgV5UxIpJMtJTs6iNkMSxQCba44DrPQ3WUYsLX
+         rz9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784658281; x=1785263081;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Hh0MQTlP1Z8TfVOfqEcGY4B0iK9G2tVmrKphyfkwPB8=;
-        b=EKz+Yxv1h/O80iju2JqwVQ14bnadk4qTM1/ZdHaXZ0cjV5Szd+XnY3ieFKEv6CauvE
-         yyhxiXM2GBlprQt+JfVJTBKBPRWBqgKy15qsQSW+eQlfJy5BQ6pFklQOgs7aautKYyvg
-         456yuaP+CSGaMdQemeE6Ij4yYl5YxxVX/kFqEddIdPhKrma1+Cqd3qrkD3yP7JkNas0Y
-         +aJWAvmOmVN7P3dZTxWsVrYBXt9CtMxX2OXq6jFMZa80mBaQ2WZ1qgZ5EKFQ3ENaeD5c
-         ZEz9Wj9IdHW+PTsm0zeUyEgMq//g5PKhTVUT3hZ1KNcUwL7FvTSQT598jd3EZxWGNs4s
-         CSEw==
-X-Forwarded-Encrypted: i=1; AHgh+Rprp6nNEa2JWH5i9RDMRyKUgmhwqKctZF35oE9jTm1LqWIt1j8nVQujIhPa6ddLYpoZ7JvJLOxrq/T0@vger.kernel.org
-X-Gm-Message-State: AOJu0YzXfUL/KHueTan2l7qal8jdIoi3j30F5DlRBXMsrQTZ1z2DcKzg
-	TElAN/VQSaPgOVsKTYSeolczCLBrNVx0E8EGrOwGG6T7hfzPpxVCgoVS
-X-Gm-Gg: AR+sD13uyNmcy85bAV4KXysFU2Pzu5Z8oO/x43qFgfco4cXLj+DfQCkkgo9oRfZEFWl
-	nuGeusVK5l0+I11suVMPvSUZCW5Svu9fc7FUQ+C9L1seGQTIOVWvSJV0ZA7h8s+5Z99LyTxfuw8
-	UTdV07yFZ+uiRh9XYLzdainBoW9/FTTttHHN8K4ioGCFY/6YjDqm6p3rGIQY3WMuxt05rfEAiVL
-	LIKnZyjKCyWfgrX4TIuj0QhSgYSJ06I87h/fny6zeqwWEaAVV/74mKEoAc+PNcI3wynJkVjkUJ7
-	0k2vHkBJQqoIQSO/eJwRb998gqU5DxFX7RRJ0A29NsA9LhEk/gI97FlSGBRhqxrhzojeO83SuF9
-	7dcee5MhgmVZtwpTMBsxJaDwKUEkf9eKqZpC7PQqYltU3LbJmv1/72RA7whuBvne8dEPNAPOwzu
-	XZXQM0m1HDltNOXZhpHDP3xoVaElW3cPvZCWGJwpTip7/I2DNU5dMNC4rGCie8j+BCCdvvLk7EW
-	wqI+sbX3ZGBBVXdIqwRi1CdZ5zDpYDSJ9OZgqJdj1mzjLsbtUVWK+lu9IzPDEY9G6MvPwr2zj3S
-	y5HWRlJsKcusBXMM7klQlcFMA1N6nop7RSOUYmH29IpJonqiSN3qjIcAbFuxy7ABXb7cLRyuTrD
-	8ZNpmATcGcU5Qz9jVHu1NwiAkgg==
-X-Received: by 2002:a05:6000:4b1d:b0:462:ce05:c5e4 with SMTP id ffacd0b85a97d-47f62326d48mr25931401f8f.37.1784658281089;
-        Tue, 21 Jul 2026 11:24:41 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784658283; x=1785263083;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6h1vgoNij8ASaqzGn9OonNwFVqwllRJ2VF0KwZtNt30=;
+        b=N5w2Ko+bnnR3ugvlLElDbQeFYyocxY6i8ZVaGgBDOdjwNoYuRvQy625d5jsizq9816
+         Vo8iKAkDHQWmbAS2wM3HMF/aggn4hBjWdVETCInxVWUCH4mIv7SzR3DN0rUfkpdd1nTw
+         oUvpo1YuHErWKaggDxDBumt2ckW9CVLYqj98sUWhgNQiEPFoUdii7mAS30DOCoxNE/jt
+         1sT+8fEIKxKt6mAdrZzxtJvBBsyvm0cu9Ty5St5VLTirPNDtNOvff8aHawjB3Fyk0x0T
+         8MIq1vd8HQzcPJjMyf2UAuxc8FgURSvpESeM7oOMYfHA7+Iihipa++CTzbcT/5wXAlNB
+         E8mA==
+X-Forwarded-Encrypted: i=1; AHgh+RoWYB1RHAD9qQGIa5ZNdMAF5+1HI7AHEnjwp01uHFlSccCjXeV92vODIKCDLo93swlNmgkSi8GQHMKQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzkEib1FQgqCbrIG/znWa14mJuOSmnve9xIfZSfhjCsQTeGZFmm
+	QmDi8kAof7PJ/Jo50T7objjaL2hyNvZVfUZ4ROxs+9DsYujpr+IRdceAvlaoAw==
+X-Gm-Gg: AfdE7cmxU+y5XbnGjoVGqXcBdyBvPeOspMfSQ0Cs0gUeeRZRZbd9lZysGGf6Ng5vl3B
+	uaV9jG01sKmhMYDxoc4ZyD4LhklFp0HSKinXV60YZJtkC8Fz7WHQxUW1Palnd++ZKZ3GlMj1MRu
+	gN5enQ6igBUQqn7SROsArVY8EIE9XOOf3lnasNEE2n9A2U8QuVyFQMqPkIFlwhXh0uaQhM6sHCR
+	jQHsXbXhhR22qgneMvTA1PUVZ2jM+faZ42mkrclq/Nop0T+vxxs8+2jSVt0XMG+EFmdgZIZKY0f
+	Zyw8tnMKLYDd8PZh+I51RsPl7nrf9Sk9mf2JZI4DjpGYbTd1hgHbsD0ktM/JTFSpRzEd/oKmk/E
+	+RG5prg4BsvWYBvdN9D+u1s1KGONDW+DOfu2b/XI7GF4TxbiCfxOZ3FqxNyLqjzkEz6efucPc6K
+	jSdKemkmY+RGpuf1AFltS/vwlJzn+5IKRtTI0mNIYM8qiDdpxFAvHScziZzWKjCfTP6UOVuIVVh
+	8CAAm+y52TXCzOBRGYhB4t4JGJLGXoPFWbgXvHsxIMLWA4iuBYgkrVKiUNvfIlbUf5vrqT+I2GX
+	i4GZ7fjwkm8xF/byT6c6JPNkpsvyfAEmMWiMeCBuNzYdF4HJkByx8TjzyPKWT7vc50tpRDADRF4
+	qTRtKkN5CZWc8YRU=
+X-Received: by 2002:a05:600c:1d1e:b0:493:b6ee:fcb7 with SMTP id 5b1f17b1804b1-4954a3f39ffmr209579125e9.14.1784658282775;
+        Tue, 21 Jul 2026 11:24:42 -0700 (PDT)
 Received: from [192.168.1.187] (ip-86-49-244-181.bb.vodafone.cz. [86.49.244.181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63eddd1csm40835081f8f.29.2026.07.21.11.24.40
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63eddd1csm40835081f8f.29.2026.07.21.11.24.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 11:24:40 -0700 (PDT)
+        Tue, 21 Jul 2026 11:24:42 -0700 (PDT)
 From: Joshua Crofts <joshua.crofts1@gmail.com>
-Subject: [PATCH 0/2] iio: dac: mcp47a1: add support for new device
-Date: Tue, 21 Jul 2026 20:24:37 +0200
-Message-Id: <20260721-mcp47a1-add-support-v1-0-da045a2567e3@gmail.com>
+Date: Tue, 21 Jul 2026 20:24:39 +0200
+Subject: [PATCH 2/2] iio: dac: mcp47a1: add support for new device
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,10 +73,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MPQqAMAxA4atIZgOm/uJVxCHYVDOopVURxLtbH
- L/hvQeiBJUIffZAkEuj7lsC5RlMC2+zoNpkMIVpipYI18lXLROytRhP7/dwYMmOTNU5KrmGVPo
- gTu//Oozv+wFbZzOCZQAAAA==
-X-Change-ID: 20260711-mcp47a1-add-support-3af1248f13a5
+Message-Id: <20260721-mcp47a1-add-support-v1-2-da045a2567e3@gmail.com>
+References: <20260721-mcp47a1-add-support-v1-0-da045a2567e3@gmail.com>
+In-Reply-To: <20260721-mcp47a1-add-support-v1-0-da045a2567e3@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
  David Lechner <dlechner@baylibre.com>, 
  =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
@@ -85,52 +85,271 @@ To: Jonathan Cameron <jic23@kernel.org>,
 Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Joshua Crofts <joshua.crofts1@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784658280; l=1591;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784658280; l=7331;
  i=joshua.crofts1@gmail.com; s=20260530; h=from:subject:message-id;
- bh=vLiYXQMunhQUXt43pguNpMz7eu5LQxGsP/wx5H0+Rl8=;
- b=Ne6gdv8oZksUl0mkhNWe49WW5pDjBvwiCOTS7rxG8wQs8QxMlzqjAsVj4IyIjHujznW1q1B2e
- 3UNqBdX3aHJCvpXQMnhQccvjqXQ/D8JT28Zn85xWEKVl+v+QuS+h1RS
+ bh=DAsAkRrlrjB+LjOM1hc9zi+WIM7VFhwalTrcnp+qYgQ=;
+ b=rg7LCJjs3WYqnvTRZbGWbpuzWuXCuFPMBOxlvzHl70WuOt/TBUviI8b29HN6djik++z2nz7uI
+ RdhAYvFRiK+AJG9gzJsxEGgK3JvrikUPoluKsnTDMr3+0vSSsKPuHWY
 X-Developer-Key: i=joshua.crofts1@gmail.com; a=ed25519;
  pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
 
-This patch series adds support for the MCP47A1 DAC.
-
-The Microchip MCP47A1 is a volatile 6-bit Digital-to-Analog converter
-which communicates via I2C. It is a low-power, low-cost DAC commonly
-used in embedded systems.
-
-Reasons for adding a new driver:
-- Existing Microchip DACs use a more complicated set of commands
-  whereas the MCP47A1 communicates via SMBus using only one command.
-- The closest Microchip DAC already in the tree - the MCP4725 - uses
-  an EEPROM while the MCP47A1 is volatile, meaning that altering
-  the driver of the former would worsen the code flow.
-- The MCP47A1 maps cleanly to a standard regmap.
-
-The driver was tested on a Raspberry Pi 4 using a breakout board with
-the MCP47A1.
-
-The datasheet can be viewed here:
-https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/25154A.pdf
+The Microchip MCP47A1 is a 6-bit volatile Digital-to-Analog converted
+which communicates via I2C.
 
 Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
 ---
-Joshua Crofts (2):
-      dt-bindings: iio: dac: add support for mcp47a1
-      iio: dac: mcp47a1: add support for new device
+ MAINTAINERS               |   1 +
+ drivers/iio/dac/Kconfig   |  11 +++
+ drivers/iio/dac/Makefile  |   1 +
+ drivers/iio/dac/mcp47a1.c | 193 ++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 206 insertions(+)
 
- .../bindings/iio/dac/microchip,mcp47a1.yaml        |  56 ++++++
- MAINTAINERS                                        |   7 +
- drivers/iio/dac/Kconfig                            |  11 ++
- drivers/iio/dac/Makefile                           |   1 +
- drivers/iio/dac/mcp47a1.c                          | 193 +++++++++++++++++++++
- 5 files changed, 268 insertions(+)
----
-base-commit: 036d96ceec6d966339aea34d034420991e24cfac
-change-id: 20260711-mcp47a1-add-support-3af1248f13a5
+diff --git a/MAINTAINERS b/MAINTAINERS
+index b44693593b94..9b124bbdd6ff 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -17704,6 +17704,7 @@ M:	Joshua Crofts <joshua.crofts1@gmail.com>
+ L:	linux-iio@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
++F:	drivers/iio/dac/mcp47a1.c
+ 
+ MICROCHIP MCP9982 TEMPERATURE DRIVER
+ M:	Victor Duicu <victor.duicu@microchip.com>
+diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
+index 17529509da9d..a7f5711e9c3b 100644
+--- a/drivers/iio/dac/Kconfig
++++ b/drivers/iio/dac/Kconfig
+@@ -563,6 +563,17 @@ config MCP4728
+ 	  To compile this driver as a module, choose M here: the module
+ 	  will be called mcp4728.
+ 
++config MCP47A1
++	tristate "MCP47A1 DAC driver"
++	depends on I2C
++	select REGMAP_I2C
++	help
++	  Say Y here if you want to build a driver for the Microchip
++	  MCP47A1 digital-to-analog converter with an I2C interface.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called mcp47a1.
++
+ config MCP47FEB02
+ 	tristate "MCP47F(E/V)B01/02/04/08/11/12/14/18/21/22/24/28 DAC driver"
+ 	depends on I2C
+diff --git a/drivers/iio/dac/Makefile b/drivers/iio/dac/Makefile
+index 5d20d37e44ce..992f8930f95c 100644
+--- a/drivers/iio/dac/Makefile
++++ b/drivers/iio/dac/Makefile
+@@ -55,6 +55,7 @@ obj-$(CONFIG_MAX5821) += max5821.o
+ obj-$(CONFIG_MCF54415_DAC) += mcf54415_dac.o
+ obj-$(CONFIG_MCP4725) += mcp4725.o
+ obj-$(CONFIG_MCP4728) += mcp4728.o
++obj-$(CONFIG_MCP47A1) += mcp47a1.o
+ obj-$(CONFIG_MCP47FEB02) += mcp47feb02.o
+ obj-$(CONFIG_MCP4821) += mcp4821.o
+ obj-$(CONFIG_MCP4922) += mcp4922.o
+diff --git a/drivers/iio/dac/mcp47a1.c b/drivers/iio/dac/mcp47a1.c
+new file mode 100644
+index 000000000000..251c2281634f
+--- /dev/null
++++ b/drivers/iio/dac/mcp47a1.c
+@@ -0,0 +1,193 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Microchip MCP47A1 DAC driver
++ *
++ * Copyright (c) 2026 Joshua Crofts <joshua.crofts1@gmail.com>
++ *
++ * Datasheet: https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/25154A.pdf
++ */
++
++#include <linux/array_size.h>
++#include <linux/err.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/regmap.h>
++#include <linux/regulator/consumer.h>
++#include <linux/types.h>
++#include <linux/units.h>
++
++#include <linux/iio/iio.h>
++
++#define MCP47A1_REG_MAX		0x40
++#define MCP47A1_CMD_CODE	0x00
++#define MCP47A1_MAX_STEPS	64
++
++struct mcp47a1_data {
++	struct regmap *regmap;
++	int vref_mv;
++};
++
++static const int mcp47a1_raw_avail[] = { 0, 1, MCP47A1_MAX_STEPS };
++
++static const struct regmap_config mcp47a1_regmap_config = {
++	.name = "mcp47a1",
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = MCP47A1_CMD_CODE,
++};
++
++static const struct iio_chan_spec mcp47a1_channels[] = {
++	{
++		.type = IIO_VOLTAGE,
++		.indexed = 1,
++		.output = 1,
++		.channel = 0,
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
++		.info_mask_separate_available = BIT(IIO_CHAN_INFO_RAW),
++		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),
++	},
++};
++
++static int mcp47a1_write(struct iio_dev *indio_dev,
++			 struct iio_chan_spec const *chan,
++			 int val, int val2, long mask)
++{
++	struct mcp47a1_data *data = iio_priv(indio_dev);
++
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW:
++		if (val < 0 || val > MCP47A1_REG_MAX)
++			return -EINVAL;
++
++		return regmap_write(data->regmap, MCP47A1_CMD_CODE, val);
++	default:
++		return -EINVAL;
++	}
++}
++
++static int mcp47a1_read(struct iio_dev *indio_dev,
++			struct iio_chan_spec const *chan,
++			int *val, int *val2, long mask)
++{
++	struct mcp47a1_data *data = iio_priv(indio_dev);
++	int reg_val;
++	int ret;
++
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW:
++		ret = regmap_read(data->regmap, MCP47A1_CMD_CODE, &reg_val);
++		if (ret)
++			return ret;
++
++		*val = reg_val;
++
++		return IIO_VAL_INT;
++	case IIO_CHAN_INFO_SCALE:
++		*val = data->vref_mv;
++		*val2 = MCP47A1_MAX_STEPS;
++
++		return IIO_VAL_FRACTIONAL;
++	default:
++		return -EINVAL;
++	}
++}
++
++static int mcp47a1_read_avail(struct iio_dev *indio_dev,
++			      struct iio_chan_spec const *chan,
++			      const int **vals, int *type, int *length,
++			      long mask)
++{
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW:
++		*vals = mcp47a1_raw_avail;
++		*type = IIO_VAL_INT;
++		return IIO_AVAIL_RANGE;
++	default:
++		return -EINVAL;
++	}
++}
++
++static const struct iio_info mcp47a1_info = {
++	.write_raw = mcp47a1_write,
++	.read_raw = mcp47a1_read,
++	.read_avail = mcp47a1_read_avail,
++};
++
++static int mcp47a1_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct mcp47a1_data *data;
++	struct iio_dev *indio_dev;
++	int reg_val;
++	int ret;
++
++	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
++	if (!indio_dev)
++		return -ENOMEM;
++
++	data = iio_priv(indio_dev);
++	i2c_set_clientdata(client, indio_dev);
++
++	data->regmap = devm_regmap_init_i2c(client, &mcp47a1_regmap_config);
++	if (IS_ERR(data->regmap))
++		return dev_err_probe(dev, PTR_ERR(data->regmap),
++				     "Failed to initialize regmap\n");
++
++	ret = devm_regulator_get_enable(dev, "vdd");
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to enable regulator\n");
++
++	ret = devm_regulator_get_enable_read_voltage(dev, "vref");
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "Failed to read vref\n");
++
++	data->vref_mv = ret / MILLI;
++
++	/*
++	 * This is a volatile DAC which doesn't have an ID register, instead
++	 * the value register is set to 0x20 every Power-on-Reset (table 4-1).
++	 * Any other read value at startup could indicate that the device is
++	 * damaged etc.
++	 */
++	ret = regmap_read(data->regmap, MCP47A1_CMD_CODE, &reg_val);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "Failed to read register on startup\n");
++
++	if (reg_val != 0x20)
++		dev_info(dev, "Read value 0x%02x at startup\n", reg_val);
++
++	indio_dev->name = "mcp47a1";
++	indio_dev->modes = INDIO_DIRECT_MODE;
++	indio_dev->info = &mcp47a1_info;
++	indio_dev->channels = mcp47a1_channels;
++	indio_dev->num_channels = ARRAY_SIZE(mcp47a1_channels);
++
++	return devm_iio_device_register(dev, indio_dev);
++}
++
++static const struct of_device_id mcp47a1_of_match[] = {
++	{ .compatible = "microchip,mcp47a1" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, mcp47a1_of_match);
++
++static const struct i2c_device_id mcp47a1_id[] = {
++	{ .name = "mcp47a1" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, mcp47a1_id);
++
++static struct i2c_driver mcp47a1_driver = {
++	.driver = {
++		.name = "mcp47a1",
++		.of_match_table = mcp47a1_of_match,
++	},
++	.probe = mcp47a1_probe,
++	.id_table = mcp47a1_id,
++};
++module_i2c_driver(mcp47a1_driver);
++
++MODULE_AUTHOR("Joshua Crofts <joshua.crofts1@gmail.com>");
++MODULE_DESCRIPTION("MCP47A1 DAC");
++MODULE_LICENSE("GPL");
 
-Best regards,
 -- 
-Kind regards,
-Joshua Crofts
+2.55.0
 
