@@ -1,62 +1,62 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331CE47CC85
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:11:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F02647DFB0
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:11:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784628674; cv=none; b=Zs04JdpIcAL+0aoICq5yIgU4gtx6gKeGdNjTYlFnI9ph4dxgRQzab2+ce+04oXlQ0Uhbdc0eNjpb43rLqqzXw7QYCCgTkY42D4lpQxqx3P8MQmh7jY3CC0Gydz1wbzBWO1QVEHwi//32nKAqamdvd6mlWNktEpaNj6nKoDHSO6I=
+	t=1784628677; cv=none; b=RmJ6cF0Tmqq7g2p1n7+6LR3tJ7kSZhYUIq4ruYMJi3YrS+BPFDGIqNRajYIXLBYEuBSJVDpZtjm288DlVIeQ9VNvS/lXe9OWeFrHWhkhkCqpcXjvGmgUWT24LK/YZAExmA2KPuGosZVK0FqZ9kvvxm7hvg8xERudauu0CuOlVGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784628674; c=relaxed/simple;
-	bh=TUmjXw2M4oeu88E4T00FZuITV/yEcOpyuEC0IVB64Cw=;
+	s=arc-20240116; t=1784628677; c=relaxed/simple;
+	bh=YR8yZO2uKjwN0dfJLiLfLLNLdB1TBEL7rV/MLtZyw6w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bUsUDxROEnCXQ38sBXbTQ+1HKWYElKeiFatBbOI3eqo9i6b8nlvaA8jyJhKsVrXNHr5OfubcMLkYGn0eMPkCT9FIfueHOG4OqoC5eyjZiA49rIGisGDwC2DfQWEWWIgHJQDsjgq+jF4QND5zW1UwIbOVwDM3F5ZeTLVBgzOmMMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FHbD6DTb; arc=none smtp.client-ip=209.85.128.54
+	 MIME-Version; b=hNmXAsO/oyeldFiC3iogOJeeZEn8o5vnOAsKYbP9YvI4vZCrK+LdRDxhOQa+4KGcijQIiEqlUdZes4IKoycPeZW+LdGXCEe5MJ3z39pQdXtY6uZsjKn163wVD/6Tzay944xx6KQElpNG+uGWH5jX087QGdOmebXo2YFVg+e675I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TAZWXi1p; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FHbD6DTb"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49553515a8bso31798065e9.1
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 03:11:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TAZWXi1p"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4954df200ddso22577255e9.0
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 03:11:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784628670; x=1785233470; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784628673; x=1785233473; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=103K+HDBGo173ka6xLJ87zAEncnD5tT5dDYUjcQ8I/s=;
-        b=FHbD6DTbyIBQiFS8HUcvNehDITQCI3mFTow3teJjPZ+ch3VibWGWrbw728CSrgUz9G
-         bfUuAJpatFW7j5n6ceZBL6w1y4nOGiY2bFpjqHDpjL+lLN/njmkwIo2nfAOpOwQT8jmA
-         iyUtw/lEJ+nwnBL0+PE7mPXqfYFX+uYqCw5oyP4zpLqQSUc9NxUveY6MQzOoyQ7LT7/f
-         Lpr7J0cmWj800ERFUVrCVR7Nvm821jREqK9qwh7UFPH4x/21NFtJvS6gUX0uDxdPd9yO
-         1Hz/+V5yLBAiRynz8HgeVaU7D5UXGfhWcpO+t5RrlUSkrytlOYG+id3Eg14wzXegMEt7
-         1aEw==
+        bh=acge6orfwT1o0ryUQhfNkS8hbYdA0DXxX0OZ/V75lAI=;
+        b=TAZWXi1pUiHtqsAxO0wY5Otsxqo5S5cAdCZ/WYHorzciYW23xHR7/hM2n+JZoOcC5F
+         1SIxFcAk2HobAlARyNFg1ERYyGLBDyIUTSTMiKun8YRJmsey9LZ7PSiXnlk1Q3J9y6JA
+         QKZuyhKU5w0D9eGrLRkoCyE3BkUoRd3Z/oHkazGsWvcFkjk8PQGoLsTrL+iNkNnGGMcm
+         08pfIaexZx65deLEvVuK5nUdKzOo42Aebq9Ql71sfHPl0HTXDTGC+QkN8RutxOZ4XXoR
+         s+bagWd2BBwql4FWRX6OCfPACRCuKQC/OBCoOco2YFDhiPE/d0DR9XduhBxRfkekU6r4
+         OBLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784628670; x=1785233470;
+        d=1e100.net; s=20251104; t=1784628673; x=1785233473;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=103K+HDBGo173ka6xLJ87zAEncnD5tT5dDYUjcQ8I/s=;
-        b=AZuxbYMlilNWOhg7OJrq+Ki8n7XQ3ErCkFnGw8ARwxIqCNaIaiKm9a7WN1pc4pEWlk
-         KN8PxixoWo/VtgVuz+XoSqyZTLas3c45A66yrFAblddJbgxA8Mm+WeDjIyG7M0OUdKET
-         dskVcw4lHhSkAVrf8PuLsZ2roF6Yo+QDSS0MzJlg/u/vROZsgdmku6CGBes47Q2Bro0C
-         hHkQHtahJmxrzuZ+Iq2mv6rqscM+JUsGzRTl15MGWrHGC0eg5r1rbe09ifIGrD3LIIBB
-         4AATXB4JZ3UEH6D8svhNaQdhpmzEJ5uWFkeSNhZfZDy86JrKOalWHGBNs7qha8oqjKA2
-         rMNA==
-X-Gm-Message-State: AOJu0YxP1te7/Kz7AXMlja//pE8FujatotE4Nzg9MHblONb4mPtfGPJS
-	hM8A/bVO5j/mDV9tTV+Fy6QplYO/UDvSxVpHx6+owtBS19NcPLDzkWpN
-X-Gm-Gg: AfdE7cnfYUcpQ5g6YVqp+0pcP/LiGbrREIBlB8eTLyyYcl1bsnENgx8HgzAL3ScanLg
-	yQs8uLx32xPVkWE1olJydK7btAhjI9/v/vLMZs730mx9ug6i38isKqTpcDivBbyTPPBeCrd92/p
-	RGI2y8ktqG0valgLoFrTC79Fa59mrliG30WV92BE+0uj1EnIcZeT3smudlHZM/10PPQhbQ28CFa
-	6HU6SQwjBffcuqW5PIRjpP8l7HHnTmitFRms5ovQXRrxJ076JODG+ZPDdtLQk1uVLJp6stfB9eA
-	SK7uPH4JyWhzue2TiezphtZ+d8na9lUjuzeadOSkvea5VNIXxUK2GIZweiDYbqw7n+7mnv1nKl+
-	0pDuWxVegILHojSqjeEKNXjRAIoZ5XmZUIz2bdv34lB8sLxTtjc86xypVnVOX0knwoKKoW9BVAf
-	/t+vtIEdX/YaAXp9wCeqC68JI=
-X-Received: by 2002:a05:600c:4e94:b0:495:522f:d994 with SMTP id 5b1f17b1804b1-495522fda7amr148264315e9.0.1784628670304;
-        Tue, 21 Jul 2026 03:11:10 -0700 (PDT)
+        bh=acge6orfwT1o0ryUQhfNkS8hbYdA0DXxX0OZ/V75lAI=;
+        b=kZcB0lRAFmO8rw7p4olvDAnxxredfSIZ6f/fFuAlJDUKwjn4R2Qw5RuVbVnRxnfoU7
+         G5BSgu65dizGDZjcBgZWGb0TeGLpckHUQUx1s4M72NeXnftlllDd0afrONBU0krad+DX
+         4tXRPJer1WC189X7slL9b2BHvb1SmHZmrC1v0bt+KffPwUhGJRX01mRUSSQPeGHq+A75
+         vd8sESHGqXJkm2uGepp5BnLwZDTP8w4KhOHUc3Y/azZm+bMkbreA00wKnlyLYzbbrOQ8
+         yLAzL/E++m3OUWK8PUURtioFrwwriMhAuV1XmYq5658bpdF9qqpghICWsr+oImHje3XT
+         KIpQ==
+X-Gm-Message-State: AOJu0YyenLz3BY9ZdcC6ZDloF0+u+LdadcYqPCM5NMLiNj2bWJLahyzE
+	iSeZjJciVTy5oiz8X9UHZqZCxjesNunMctYh2TLNEYTMBzFe3ZWRM86ef4FhOA==
+X-Gm-Gg: AfdE7cnZTNpH6JDH919V4ka6BwOtbp29p19WYRmu7pf+YwLDnNNgN92kh13/wfj+gPn
+	fITn04BwHvB4QnFSv6egRA2quVo8Y1dTyHjrkHC8+X+1Nb5rBe2+XF15XNftub7rs6sBrBG4g0j
+	EMPXhD14GI+RO0+LeOuznYFitajQQa0J0+p5k022J62fOyPjVLNnYq6ysxvwalqlwdYgSk+7zbG
+	S+bcRGSQtd0SjPmbfVHW9rg1yMwsZyyj1CRrirzW5c/Odu4qwqDKq0+xcCk4Kws1W6kZknKZiUk
+	FlHIG1EDxASEv7BiW9XllIgVWM+QXpBxUm2+ZTkWeNYbkwRnIzcy1H8p5aprj7AktB7QzHm8M9G
+	aIxggTigNKmNGm/2DDqJhzFOoAxMyKJ3WnCYgqkL5vvfcob9Kbo9f11ng/xhjnXTh2Fwma3VElx
+	7ifiDoX8eY++3v6hzq/sBYaT0=
+X-Received: by 2002:a05:600c:4ed4:b0:493:aa0a:45ad with SMTP id 5b1f17b1804b1-4954a3ec5f7mr197781115e9.2.1784628673188;
+        Tue, 21 Jul 2026 03:11:13 -0700 (PDT)
 Received: from xeon ([188.163.112.51])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956547319dsm57127085e9.5.2026.07.21.03.11.09
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956547319dsm57127085e9.5.2026.07.21.03.11.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 03:11:09 -0700 (PDT)
+        Tue, 21 Jul 2026 03:11:12 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -67,9 +67,9 @@ To: Rob Herring <robh@kernel.org>,
 Cc: devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 02/10] ARM: tegra: tf701t: Add core-supply to PMC node
-Date: Tue, 21 Jul 2026 13:10:51 +0300
-Message-ID: <20260721101059.451699-3-clamor95@gmail.com>
+Subject: [PATCH v2 04/10] ARM: tegra: tf701t: Remove pin_ prefix from PMIC pinmux
+Date: Tue, 21 Jul 2026 13:10:53 +0300
+Message-ID: <20260721101059.451699-5-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260721101059.451699-1-clamor95@gmail.com>
 References: <20260721101059.451699-1-clamor95@gmail.com>
@@ -81,25 +81,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add required core supply to Tegra PMC node.
+Schema discourages using "_" in node names. Since pin names in palmas
+pinmux is not an ABI, remove all "pin_" prefixes from names.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts | 1 +
- 1 file changed, 1 insertion(+)
+ .../boot/dts/nvidia/tegra114-asus-tf701t.dts  | 20 +++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
 diff --git a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-index 5358cdb6efc10..55e9256e80f33 100644
+index 00eeedf3ef7a5..a27d3c4f2c63c 100644
 --- a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
 +++ b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-@@ -1599,6 +1599,7 @@ pmc@7000e400 {
- 		nvidia,core-pwr-off-time = <2000>;
- 		nvidia,core-power-req-active-high;
- 		nvidia,sys-clock-req-active-high;
-+		core-supply = <&vdd_core>;
+@@ -1462,52 +1462,52 @@ pinmux {
+ 				pinctrl-0 = <&palmas_default>;
  
- 		/* Clear DEV_ON bit in DEV_CTRL register of TPS65913 PMIC  */
- 		i2c-thermtrip {
+ 				palmas_default: pinmux {
+-					pin_gpio0 {
++					gpio0 {
+ 						pins = "gpio0";
+ 						function = "gpio";
+ 					};
+ 
+-					pin_gpio1 {
++					gpio1 {
+ 						pins = "gpio1";
+ 						function = "gpio";
+ 					};
+ 
+-					pin_gpio2 {
++					gpio2 {
+ 						pins = "gpio2";
+ 						function = "gpio";
+ 					};
+ 
+-					pin_gpio3 {
++					gpio3 {
+ 						pins = "gpio3";
+ 						function = "gpio";
+ 					};
+ 
+-					pin_gpio4 {
++					gpio4 {
+ 						pins = "gpio4";
+ 						function = "gpio";
+ 					};
+ 
+-					pin_gpio5 {
++					gpio5 {
+ 						pins = "gpio5";
+ 						function = "gpio";
+ 					};
+ 
+-					pin_gpio6 {
++					gpio6 {
+ 						pins = "gpio6";
+ 						function = "gpio";
+ 					};
+ 
+-					pin_gpio7 {
++					gpio7 {
+ 						pins = "gpio7";
+ 						function = "gpio";
+ 					};
+ 
+-					pin_powergood {
++					powergood {
+ 						pins = "powergood";
+ 						function = "powergood";
+ 					};
+ 
+-					pin_vac {
++					vac {
+ 						pins = "vac";
+ 						function = "vac";
+ 					};
 -- 
 2.53.0
 
