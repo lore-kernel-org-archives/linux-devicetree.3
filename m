@@ -1,65 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 418653C10B1;
-	Tue, 21 Jul 2026 08:54:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B095B3976A7
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 08:57:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784624055; cv=none; b=ozI5GtRURPLnmmyynA7YS9Z5xAcJKunk7kUFoeZLkwBkq/Cajq6n3R3rjr7rKkmwRr+IT10rqjU/pcLHmvjyrrm4Zbkd7WsdJbqHPImHORSq+dKUBy7Y2np2aZLvuoK/RJueEa4/9kG2bAiSiQzocPi04aF58zbUiZku+XNHisg=
+	t=1784624232; cv=none; b=oEEQN911CLFiLy+RCF87lgu8Zp/BeDhv+L31UnhWftUmpyzrkPg9lFmYa+IwVjR0PPwQqGR5KvuQSFp+ffX60cVHCT/3f1KdIMaY+OdlMKwDT6jGANic2jjGubI0Sq1cQRjCzWFPgZQqG7MnU/Aiw2FICgrH/7mN/usE4gLeado=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784624055; c=relaxed/simple;
-	bh=ogdtKDULKivB+pd10MS+cA9ThlYxgoCbhvBxXtoBxhs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dfFIvAx8GNHOQP5AbuVg5ueTdRhEzI1mMFdHRK3s8UAnZI9yR64oFsgABghGeJ0Nrd8EJRlPuqOspcgUCPsMhuHspOl46ZwJ386Oqv5+Z01FIvuqYLquxpR4vZ1opoJiU8a1RrTa6bXs5+pG8ZwD1Tr8uV1JU8HwVgqgqYIf/Dg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RgKReqT8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784624232; c=relaxed/simple;
+	bh=+qkmkTQNRlPIUkzZP/KyLzVeOaUgF09jbIYWDEKpmSo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MzLuSNal5g6eeSrK2MfpolkDvdblXzCFFi9redBLg91WQ0d8F/drW0j5eMNjiHYizsJvVCElFmWLjhDHsYoEWgaN5T00lIf33/B4H3aomhpR5FHXoFlkSxaPHESobxnTasXhMX/TCwyLMoVVW6LMaIf0kzbp1FA7IjmyxxaRw3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RxGLE/Ij; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RgKReqT8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 723F31F000E9;
-	Tue, 21 Jul 2026 08:54:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RxGLE/Ij"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B1391F000E9;
+	Tue, 21 Jul 2026 08:57:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784624051;
-	bh=QF1yjCwSE6ADGuG48vym8l388SJcmoB7CoDUZDSwGcE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RgKReqT84My5hFok/HIjqth5uFLHqNuLadgyLUsCyXGq/1fAtPZgantSeLWXJhO1l
-	 RIHlkzPg467XrjM77+ABXK6Yp+AW1nrV3SPNW6jX+Izcghv+SrOOEvBrLvCxyn5sA7
-	 gunqvtyGkH1NsvooBzaZIdhPqmLwzH6BlgsjEcQmQRgo8F83gD8LHO1Nt8hcOREXxv
-	 nqtoyunHfkXr2xeWtDj6hS7jtDfkdOdOhXelynAzfkvWzng9C4/qIP3PuZMGJ40lx5
-	 +KuTKAZrf9nDfaXUhkLCOvMZxP+2OI/s46VVg/ZgxkPXktzpQhCwPei8GREfc/cD0A
-	 EbPZYBNEqJHJw==
-Date: Tue, 21 Jul 2026 10:54:07 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: remoteproc: qcom,sm8550-pas: Document
- Nord ADSP
-Message-ID: <20260721-sepia-kraken-of-authority-a5ff1b@quoll>
-References: <20260709085149.4072181-1-shengchao.guo@oss.qualcomm.com>
- <20260709085149.4072181-3-shengchao.guo@oss.qualcomm.com>
+	s=k20260515; t=1784624231;
+	bh=I7Y8gLsHAD27XDgGL+BPNeUYxYJ6K437OMDfWWEcXxA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RxGLE/IjaQqB3KKP/lw0JamICaee1rejpVBJ6yW3Tq8nJnsX/1uxDEuXxm/mImII8
+	 uOyj+s2NcD8WqL+RrH0Bm2QA2D4qcO3dGZfZaAeiyNZV9RuehzwPagWI5dhuDmbJEP
+	 1Au5Sz8yvMd/6Ve4GsdhhjsyqkE2E2zKVrGSH3cyIVpoc6CRHrAhjKovm6Fwr27puv
+	 DT62GZCtXbim6iR34lmZBKxPKgadJoVkoTC1l2Mggdj5xNfdwFvIxyrbRE6u1fkOo+
+	 0uQM/b1m/0trL/QKWw/0WzlyCRcHQIqBhLqCLriy5iJatIMCDTclohdpWv7je+YEjs
+	 9ouu/uOq9lMtQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: remoteproc: qcom,sm8550-pas: Add
+ power-domains constraints for Glymur and Kaanapali
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260721084742.59571-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260721084742.59571-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 08:57:10 +0000
+Message-Id: <20260721085711.1B1391F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260709085149.4072181-3-shengchao.guo@oss.qualcomm.com>
 
-On Thu, Jul 09, 2026 at 04:51:48PM +0800, Shawn Guo wrote:
-> Document ADSP (HPASS DSP) for Nord SoC.
-> 
-> The Nord ADSP use CX and MX power domains, so add a new conditional
-> block to enforce the correct power-domain-names for it.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The patch inconsistently adds `qcom,glymur-adsp-pas` and `qcom,kaan=
+apali-adsp-pas` to the `power-domains` conditional blocks while omitting `q=
+com,hawi-adsp-pas` and `qcom,sm8750-adsp-pas`, and these explicit additions=
+ are entirely redundant.
+--
 
-Then this does not fit here and you should rather find other binding
-which fits your device. The entire point of splitting the binding was to
-avoid 20-if-then-cases because they are unmaintainable.
+--- Patch [1]: [PATCH] dt-bindings: remoteproc: qcom,sm8550-pas: Add power-=
+domains constraints for Glymur and Kaanapali ---
+commit 1990ca2fa6cf5b0b41c6756a9acb5db216ada304
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+dt-bindings: remoteproc: qcom,sm8550-pas: Add power-domains constraints for=
+ Glymur and Kaanapali
 
-Best regards,
-Krzysztof
+This commit explicitly adds the Glymur and Kaanapali ADSP and CDSP variants=
+ to
+the power-domains conditional blocks in the schema.
 
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas=
+.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> index 9f30a38152a38..9c1368de3c758 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> @@ -200,6 +200,8 @@ allOf:
+>          compatible:
+>            contains:
+>              enum:
+> +              - qcom,glymur-adsp-pas
+> +              - qcom,kaanapali-adsp-pas
+[Severity: Low]
+This isn't a bug, but since these SoC variants require the fallback compati=
+ble
+qcom,sm8550-adsp-pas in their compatible array, doesn't the contains: enum:
+condition intrinsically match the fallback string?
+
+Adding explicit matches for qcom,glymur-adsp-pas and qcom,kaanapali-adsp-pas
+appears redundant, and leaves out other variants like qcom,hawi-adsp-pas
+and qcom,sm8750-adsp-pas. Does this bloat the schema unnecessarily?
+
+>                - qcom,sm8550-adsp-pas
+>                - qcom,sm8650-adsp-pas
+>                - qcom,x1e80100-adsp-pas
+
+[ ... ]
+
+> @@ -237,6 +239,8 @@ allOf:
+>          compatible:
+>            contains:
+>              enum:
+> +              - qcom,glymur-cdsp-pas
+> +              - qcom,kaanapali-cdsp-pas
+[Severity: Low]
+Similarly for the CDSP block, does explicitly listing these variants create
+redundancy and inconsistency since the contains: enum: clause already match=
+es
+the required fallback strings?
+
+>                - qcom,sm8550-cdsp-pas
+>                - qcom,sm8650-cdsp-pas
+>                - qcom,x1e80100-cdsp-pas
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721084742.5957=
+1-2-krzysztof.kozlowski@oss.qualcomm.com?part=3D1
