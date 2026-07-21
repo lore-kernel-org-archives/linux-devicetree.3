@@ -1,65 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E21683C1F57
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 09:08:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C6CF2DB780
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 09:09:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784624933; cv=none; b=AR0oODFfipH3g73NWPWmr3Jil1cg76uVrdtixhgqlS9TENNWac+g3kTKN90SgatXILs9LxMPJeyrOZJ2f9e/X3fyopGj11jS93HoBY21yQ7H/9E5r3lwCEjBIZWB+Q8RzNuGDtyC3nTUVXHoeIVzvLARpJkIn8PFZbaKYYPZTmQ=
+	t=1784624952; cv=none; b=c6f2eSZvjsot1xJSDdNfMbV7hNtwiDJTwKeNgSmKcaWRWKbGMX2BhFTgic3vxF+ri9jcznoQMJNYfWsCx4G6Lrnj7jAC3q22V1NyVu2woS9QK3wjulyDWpfJOaj314f94gHmNoDXnV/sSk8AABdqY80Uhm/SewuOzzZAaROEbSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784624933; c=relaxed/simple;
-	bh=LWQhAMESFWDYUhOqi0N4NltBuuvLqrOk9w5ZbaPhgTs=;
+	s=arc-20240116; t=1784624952; c=relaxed/simple;
+	bh=jJAWY5I+EE7ypsQMmGeF7ePDs3+5/nc9dm1EvLwWSd8=;
 	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gQ+zsZ8fi6bO5tV/MGbwPDhgjHJ8e/TKcAP/D5OFwG/V5/lEw8d9jJfmNSllmsjuVV28/hzxuBO0XWjNGdgNQpxaKZeR0BkvE7KsAvz0HaFTl3xlKFp/gmhTrlT300tD42RwwhRY3YE0hs5IGmWoWUsKpbzchjmhKNfrbVTpY+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e2rKA2Qo; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=ejuEAgBCLmST1hy/LUDQNPYIXm6k93htQfXCb5BqgIX6SH1wGfFo605FTI9JR8qXZCw7Hm82lxo9nb+pQt2h2+6RYc7krIuadi99yZN/k8rCX2w6r2TVaSLRF/L4kuTVKWOk1QKtDNSMS9rOlNDAolWmY4GdA9MdS/AlPjplX+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=foJLZx2I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e2rKA2Qo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17C791F01561
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 09:08:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="foJLZx2I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4952F1F00AC4
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 09:09:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784624930;
-	bh=3xqu6DOCRis3ts8JU1eK1hQauNPqKuaV4g+S3+L3WS0=;
+	s=k20260515; t=1784624951;
+	bh=jJAWY5I+EE7ypsQMmGeF7ePDs3+5/nc9dm1EvLwWSd8=;
 	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=e2rKA2QoRAl6qUhMs9hQ1Eem9usUIBCUP4Q+OaZ3u0if2/XZI9Lioxy0NBFyDPryy
-	 S8S5SeBLBgooqyplAkD00YNDXDjVV+kqgYF2g6JJ+ha+i2RCLuhpwfV3XAeBSd1O4s
-	 Wj69Gm1/Wspw95I89hylmpns/qCqzELkR7ali+NjMd9pFZVuih/FtDIx7FM8NSfDNx
-	 CvCxQDoIXGcegrKfYENKCPGlVIVdYtx6oNm2uYMuQ1r19juAwtZMVopvj1P7F3aZB5
-	 hvGRxrcmxIt7Lf8kVkizYLhw+9XVTVP0ATFPuzHD+p6CxSpaXideDHYmVvzmyrzD/W
-	 dDjs7PUlOlGAg==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5aeba09900bso5761275e87.2
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 02:08:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpjiynhGtY0zG66xRKB8OXpjAkpFqtHOxvbLJ8GrXt9xr13BG+9GonoOJqGwojlIh/UzfyRAb49E2Oi@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw0sfdwKx9QLjY9vqACzqFs4mMOBWiZLQdNVnGarb71kt/0Q3Tr
-	QsZtdLVaJbbGOBQpvNRdmWmleqpUiWtUYYts/BillaefjZDRJ/PYw+26XJ2CFZircg0XojU11Zw
-	IalwC0+3WIJpCvRBptwjFTx6hXM2SGvCy4CenWVVuLQ==
-X-Received: by 2002:a05:6512:239e:b0:5ad:58c8:5de8 with SMTP id
- 2adb3069b0e04-5b28f854e5amr3537391e87.1.1784624928719; Tue, 21 Jul 2026
- 02:08:48 -0700 (PDT)
+	b=foJLZx2IuPGexbJUlKxQfk3MNY2hO2lFMjD0RSceNM8RULTHr4+o/wqsxvk6DIN9y
+	 5EMoJIi9qFWUvo6eCQ3RU2QKmGxty1nssDEOUVW0NBDgP0tEZqitllWU92bL+ol5j+
+	 jg/daGT6XERjIfctGw1bMlNIDh9Mc/4sNP7F+qXWBlV2hVazImQqf1PsZwSGzOT9rh
+	 09JLrururGcpRhAvU5e5XfPEjErnhW3JGm8U+MLPaNPzh/BcSiyUYXbB+gHnLbQsKQ
+	 553dfAT1SWrjh3e506iY1pDNGi53cfxNlXn9WsG6QFJR4zwbN7BHj5beils/2Cvioj
+	 x4nQMUNJBKHuQ==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5aeba09900bso5761496e87.2
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 02:09:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrDfx9hay2+AZncE1T18PYea0xS8z3u3QoK438HaS6ImH11ol1T5BYEM7QYbu/Vh8WkLwPFhfP25aaT@vger.kernel.org
+X-Gm-Message-State: AOJu0YwJDfsHnjX7W1lkXhS0GOkAZQebWpCgCCr/pgLdvlOC1tV/AY7+
+	o45jwyjb3UqQRbdnZSI7mht6hZniHm3drPaDQqkLXmdRHxE5liw6G2ZAihW1UFZrIjoP3xMONXE
+	jnKiskltI3Dd8L/qL/YwL/BPey1DrGJz5pU6bg+ArlQ==
+X-Received: by 2002:a05:6512:8054:b0:5b0:d25:fa6b with SMTP id
+ 2adb3069b0e04-5b28f9aa2acmr2799921e87.33.1784624950061; Tue, 21 Jul 2026
+ 02:09:10 -0700 (PDT)
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 21 Jul 2026 09:08:45 +0000
+ HTTPREST; Tue, 21 Jul 2026 09:09:09 +0000
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 21 Jul 2026 09:08:45 +0000
+ HTTPREST; Tue, 21 Jul 2026 09:09:09 +0000
 From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260721065413.2306137-4-wenst@chromium.org>
+In-Reply-To: <20260721065413.2306137-17-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260721065413.2306137-1-wenst@chromium.org> <20260721065413.2306137-4-wenst@chromium.org>
-Date: Tue, 21 Jul 2026 09:08:45 +0000
-X-Gmail-Original-Message-ID: <CAMRc=McsCRBxXMj0xC8H0cgdZZ=Z9_4u_DS9b2z0pLE0=gZr+g@mail.gmail.com>
-X-Gm-Features: AUfX_mzwzLN239CObNW1gLp59KRlXCiikBTT40SGbitpk5WIVatni_t3viiU0PQ
-Message-ID: <CAMRc=McsCRBxXMj0xC8H0cgdZZ=Z9_4u_DS9b2z0pLE0=gZr+g@mail.gmail.com>
-Subject: Re: [PATCH v6 03/16] power: sequencing: Add pwrseq_power_is_on()
+References: <20260721065413.2306137-1-wenst@chromium.org> <20260721065413.2306137-17-wenst@chromium.org>
+Date: Tue, 21 Jul 2026 09:09:09 +0000
+X-Gmail-Original-Message-ID: <CAMRc=Mfv7P74+cpvmHaF=aSYLO=RtFbxenJHMrCjgOMoHuLvQQ@mail.gmail.com>
+X-Gm-Features: AUfX_myi0Upu0FA2vAaH9dLIsivFKjcILpMP1JD9Wz9GpUGoO5swX9n-_RCCXGU
+Message-ID: <CAMRc=Mfv7P74+cpvmHaF=aSYLO=RtFbxenJHMrCjgOMoHuLvQQ@mail.gmail.com>
+Subject: Re: [PATCH v6 16/16] arm64: dts: mediatek: mt8188-geralt: Add WiFi/BT
+ as M.2 E-key slot
 To: Chen-Yu Tsai <wenst@chromium.org>
 Cc: linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
 	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org, 
 	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org, 
 	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
 	Manivannan Sadhasivam <mani@kernel.org>, Alan Stern <stern@rowland.harvard.edu>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
 	Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
 	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Daniel Scally <djrscally@gmail.com>, 
 	Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
@@ -70,80 +70,25 @@ Cc: linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 21 Jul 2026 08:53:58 +0200, Chen-Yu Tsai <wenst@chromium.org> said:
-> The power sequencing consumer API already does power on state tracking
-> internally. Expose the state to consumers through pwrseq_power_is_on()
-> so that they don't have to reimplement it locally.
+On Tue, 21 Jul 2026 08:54:11 +0200, Chen-Yu Tsai <wenst@chromium.org> said:
+> The MT8188 Geralt design features a chip-on-board WiFi/BT solution. This
+> is a M.2 E-key WiFi/BT board layout directly inserted into the mainboard
+> design. The connections to the rest of the board are almost the same as
+> if it were a separate M.2 card. The only addition is the PMU_EN pin on
+> the chip; on M.2 cards this would be tied to the primary power source.
 >
-> Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Model the chip-on-board WiFi/BT solution as a M.2 E-key slot with PCIe,
+> USB and auxiliary signals. The PMU_EN pin, which enables the internal
+> power controls and regulators, is modeled as a regulator fed by the
+> pp3300_wlan regulator. Since power sequencing is now correctly modeled
+> using the M.2 E-key slot, drop the "regulator-always-on" property one
+> pp3300_wlan regulator. Also drop the comment in xhci2 saying "MT7921's
+> power is controlled by PCIe".
+>
+> Also drop the voltage range on the pp3300_wlan regulator. This
+> "regulator" is just a load switch and does not provide any regulation.
+>
 > Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 > ---
-> Changes since v5:
-> - Reverted back to returning -EINVAL if descriptor is NULL
->
-> Changes since v4:
-> - Make pwrseq_power_is_on() return 1 if descriptor is NULL, i.e. if
->   the descriptor is optional, matching the other pwrseq consumer APIs
->
-> Changes since v3:
-> - Added missing stub function for !POWER_SEQUENCING
->
-> Changes since v2:
-> - New patch
->
-> Needs to go in with "usb: hub: Power on connected M.2 E-key connectors"
-> as it is a build time dependency. Bartosz wants the change on an
-> immutable branch to pull into the pwrseq tree.
-> ---
->  drivers/power/sequencing/core.c | 18 ++++++++++++++++++
->  include/linux/pwrseq/consumer.h |  6 ++++++
->  2 files changed, 24 insertions(+)
->
-> diff --git a/drivers/power/sequencing/core.c b/drivers/power/sequencing/core.c
-> index 02f42da91598..72b96d36920e 100644
-> --- a/drivers/power/sequencing/core.c
-> +++ b/drivers/power/sequencing/core.c
-> @@ -968,6 +968,24 @@ int pwrseq_power_off(struct pwrseq_desc *desc)
->  }
->  EXPORT_SYMBOL_GPL(pwrseq_power_off);
->
-> +/**
-> + * pwrseq_power_is_on() - Queries the last requested state of the power sequencer.
-> + * @desc: Descriptor referencing the power sequencer.
-> + *
-> + * This returns the last requested state of the power sequencer.
-> + *
-> + * Returns:
-> + * On success, 1 for on and 0 for off; negative error number on failure.
-> + */
-> +int pwrseq_power_is_on(struct pwrseq_desc *desc)
-> +{
-> +	if (!desc)
-> +		return -EINVAL;
-> +
-> +	return desc->powered_on;
-> +}
-> +EXPORT_SYMBOL_GPL(pwrseq_power_is_on);
-> +
 
-Didn't we agree on introducing an enum to make it future-proof for when we
-also pull in pwrseq_is_controllable() from Loic?
-
-I think this should work like so:
-
-enum {
-	PWRSEQ_STATE_UNKNOWN,
-	PWRSEQ_STATE_ON,
-	PWRSEQ_STATE_OFF,
-};
-
-int pwrseq_get_state(struct pwrseq_desc *desc)
-{
-	/* Only once this is upstream. */
-	if (!pwrseq_is_controllable(desc))
-		return PWRSEQ_STATE_UNKNOWN;
-
-	return desc->powred_on ? PWRSEQ_STATE_ON : PWRSEQ_STATE_OFF;
-}
-
-Bart
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
