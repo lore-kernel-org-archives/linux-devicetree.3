@@ -1,396 +1,270 @@
-Received: from mail-m1973191.qiye.163.com (mail-m1973191.qiye.163.com [220.197.31.91])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A6693C0611;
-	Tue, 21 Jul 2026 08:53:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.91
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 133BE3C10A3;
+	Tue, 21 Jul 2026 08:53:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784624018; cv=none; b=TtE1ef2Kgm7A48kO/V9KIyYKbHGdp+7YmtZOwAyaLQo5Xbr969sel13I8h+L/60k1xF1DMdY29IoXftEkcaJ9UNE+BpwMiA6Jr/5ixVbp48cWMlzoUgzcAa4CylZApTdLvnLE7kdjPWIeD6d9mTKDTLdeSVdRGZva9XLnmFgZGk=
+	t=1784624038; cv=none; b=qMUc+y6cGiGKw901nq3KqH2lGXzWXxZT9YVmNOPrMHdDOl+mL8W601u+NPmxrAEDo9/Z3MyPf1UGzNpu9yQR54RV4fwGXdPJtmOjWprmyKtlKYRFNQYi2v3COPia1CmA2pr71tBofHiWdZuOkWoZD2lZlvDAIZhx1p89oeB29bM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784624018; c=relaxed/simple;
-	bh=DV1Raz91rn5HXrIab7W5Lr5VJI6/SG5ksIc29n3cY6w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gtma8+I2Y3cb3du6pNit0BEKw/f8bKM6V403QJiCUkK7kU/9NA353xq5mWByTW93x4cXpzTaDeuVs9WWjn99z9DUNTtKeG0PCcsB+lq8e+XXzeUACuNJraDbFfO3YBbkyPtPxlQbJREL7/Jb+ttHi86NAiSyYRNEoSIf7kHK1/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=XjRzXw7M; arc=none smtp.client-ip=220.197.31.91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1784624038; c=relaxed/simple;
+	bh=rXAsUqNSvPDuCc4XV3sEvulkZJfRRyh+bJOO2YxzXyQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MgjHoqiyixgSXHnzc3F64UlXJGdsu/braFXcDCYnaNxL77zAd4sNCBgFjhEQ+Mheg63uE1XuevXJPh7/FktokyaJwD/OInCtHJGBAcapEWzWz2ayhODQh1iY5SJ3d2Ui4+1Nl9n9o32/xUOib2xYW/yUlX2m4/3AW8/EBxLrHNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iCkLcZpb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="XjRzXw7M"
-Received: from [172.16.12.90] (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 46fd7cbde;
-	Tue, 21 Jul 2026 16:48:10 +0800 (GMT+08:00)
-Message-ID: <e2eb4217-e4d3-4650-915c-e36f4355168e@rock-chips.com>
-Date: Tue, 21 Jul 2026 16:48:09 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iCkLcZpb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A1A01F00A3A;
+	Tue, 21 Jul 2026 08:53:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784624035;
+	bh=5Nd7DEZoZ9V/FJ71vGjZePMLAhA8T3U93I18TutCEMo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iCkLcZpb3bLUKVAWAgERxE/M2vqM0N97RSZ+hCpMj641yq1CiwNl4yrXMsITU94nZ
+	 /x305Ws8wILjOoQeM5pM+ZoqYXu/2C9KI8jDzTIPTcEZJL4EGKUD8NBOqcq9/fphyc
+	 /JUp7mi2pZpmUQN9mTA8Sv3UjGVATdUEHb+jOo93slBReHLYBef7d0SpQWL3jVrhxj
+	 mCJEXqAohku9T7R9rd6nwaLOMamx93rnk2CipUFFTAtvg9/D25cbQxaQ0G2MbiNAWA
+	 VUyARdn1SJy3XMWM+EDXOGK4G4xm1UNNeYHhEthGXuB0FDUO1jBrPVNGZjJuWDyiP/
+	 IkCmaO20R6ehA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 3/3] media: nxp: Add i.MX95 CSI pixel formatter v4l2
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: guoniu.zhou@oss.nxp.com
+Cc: Frank.Li@kernel.org, robh@kernel.org, imx@lists.linux.dev, media-ci@linuxtv.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260721-csi_formatter-v14-3-ca239fbb441f@oss.nxp.com>
+References: <20260721-csi_formatter-v14-0-ca239fbb441f@oss.nxp.com>
+ <20260721-csi_formatter-v14-3-ca239fbb441f@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 08:53:54 +0000
+Message-Id: <20260721085355.3A1A01F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] drm/rockchip: lvds: add RK3568 support
-To: =?UTF-8?Q?Rok_Markovi=C4=8D?= <rok@kanardia.eu>
-Cc: Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- Alibek Omarov <a1ba.omarov@gmail.com>
-References: <20260717120005.2087386-1-rok@kanardia.eu>
- <20260717120005.2087386-4-rok@kanardia.eu>
- <9219738d-c3f2-4034-b88f-84335f77fbad@rock-chips.com>
- <3a5685992b5e335f2ebf50ee740b8a36@kanardia.eu>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <3a5685992b5e335f2ebf50ee740b8a36@kanardia.eu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9f83dc72e703a7kunmfe88d93e2be2a2
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQksdSVYeSEpOT0hISE
-	wZTUpWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
-	tIVUpLSEpKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=XjRzXw7MwJLm9McXvDow27Pg+1obxCpoSzcZkszDWvMrRG59L4CLwFNojND9xtfzan/5I4qO/VcDyFQjxXH6wV6a58h/64teTRyFuMcY32miB7ZlEia7cOEjFXZWFvRCI7WnDEf7LXw8hAL178AwXaEA1vOEcsq/XQmxBTGuEmU=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=VbdYabY6304wmkQVRhzKWa2oeZwqHMjq8WamtfsNPII=;
-	h=date:mime-version:subject:message-id:from;
 
-On 7/21/2026 4:31 PM, Rok Markovič wrote:
-> 20.7.2026 3:54, je Chaoyi Chen napisal
->> Hello Rok,
->>
->> Thank you for your patch. Please see the comment below:
->>
->> On 7/17/2026 8:00 PM, Rok Markovic wrote:
->>> The RK3568 LVDS transmitter has no register block of its own. It is
->>> driven entirely through the GRF and re-uses the MIPI DSI0 D-PHY in
->>> PHY_MODE_LVDS, which phy-rockchip-inno-dsidphy already supports.
->>>
->>> Based on Alibek Omarov's earlier posting [1], with the changes below.
->>>
->>> Power the D-PHY from the encoder enable path rather than from probe.
->>> phy_power_on() runs the phy driver's whole LVDS bring-up: PLL and
->>> bandgap power-on, a settle, PLL mode select, then a reset pulse of the
->>> serializer and the lane enables. None of that is safe at probe time -
->>> the GRF has not yet switched the block to LVDS mode (LVDS0_MODE_EN is
->>> set from rk3568_lvds_poweron(), i.e. the enable path) and the VOP is
->>> not driving dclk. The serializer is clocked from dclk and latches its
->>> state coming out of that reset, so it comes up dead and stays dead.
->>> The failure is silent: every register in the phy, the GRF and the VOP
->>> reads back exactly as on a working system while the lanes sit at
->>> common mode and never toggle.
->>>
->>
->> Could you please confirm this? Based on my earlier tests, after PHY
->> poweron, re-disabling and re-enabling the GRF did not reproduce the
->> issue you described.
-> 
-> I can confirm that this is not working but I testedwith writing registers
-> manually with devmem and I could make something wrong.
-> 
-> Should I leave it this way or should I move this back to probe and try to
-> make it work in enable by some trick (disabel/enable GRF)?
-> 
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [High] Missing NULL pointer check for v4l2_subdev_state_get_opposite_stre=
+am_format().
+- [High] Potential NULL pointer dereference when accessing the index of the=
+ remote pad.
+- [High] Use-After-Free (UAF) due to missing .unbind callback for the remot=
+e subdevice.
+- [Medium] Runtime PM autosuspend is bypassed due to incorrect put API usag=
+e.
+- [Medium] Hardware streams are left active if getting the frame descriptor=
+ fails during stop.
+- [Low] Mixing goto-based error handling and __free() resource cleanup.
+- [Low] Out-of-bounds bitwise shift when route->source_stream is greater th=
+an or equal to 64.
+--
 
-Just out of curiosity. I think it's fine as it is now :)
+--- Patch [3]: [PATCH v14 3/3] media: nxp: Add i.MX95 CSI pixel formatter v=
+4l2 driver ---
+commit 0950cb0319055988838660ff8ee3c761b6925d73
+Author: Guoniu Zhou <guoniu.zhou@nxp.com>
 
+media: nxp: Add i.MX95 CSI pixel formatter v4l2 driver
 
->>
->>> Program RK3568_LVDS0_DCLK_INV_SEL from the CRTC state's bus_flags so
->>> the panel's declared pixelclk-active is honoured on the LVDS block as
->>> well as on the VOP pin polarity. Both have to agree with the edge the
->>> panel samples on.
->>>
->>> Re-assert RK3568_LVDS0_P2S_EN in rk3568_lvds_poweron().
->>> rk3568_lvds_poweroff() clears MODE_EN and P2S_EN together, so setting
->>> P2S_EN once at probe would leave the parallel-to-serial converter off
->>> after the first disable/enable cycle.
->>>
->>> Use regmap_write() rather than regmap_update_bits() for the GRF. These
->>> registers are write-masked - the upper 16 bits select which of the
->>> lower 16 a write may change - so there is nothing to preserve and no
->>> reason to read first. Passing a FIELD_PREP_WM16() value as both the
->>> mask and the value of an update_bits() applies the masking twice and
->>> only works by accident.
->>>
->>> Between the two, nothing needs programming at probe at all: the GRF is
->>> written entirely from the enable path, so px30_lvds_probe() is left
->>> alone rather than being refactored into a shared phy helper.
->>>
->>> [1] https://lore.kernel.org/all/20230119184807.171132-1-a1ba.omarov@gmail.com/
->>>
->>> Co-developed-by: Alibek Omarov <a1ba.omarov@gmail.com>
->>> Signed-off-by: Alibek Omarov <a1ba.omarov@gmail.com>
->>> Signed-off-by: Rok Markovic <rok@kanardia.eu>
->>> Assisted-by: Claude:claude-opus-4-8
->>> ---
->>>  drivers/gpu/drm/rockchip/rockchip_lvds.c | 161 +++++++++++++++++++++++
->>>  drivers/gpu/drm/rockchip/rockchip_lvds.h |  10 ++
->>>  2 files changed, 171 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.c b/drivers/gpu/drm/rockchip/rockchip_lvds.c
->>> index 95fa0a9..f45d04a 100644
->>> --- a/drivers/gpu/drm/rockchip/rockchip_lvds.c
->>> +++ b/drivers/gpu/drm/rockchip/rockchip_lvds.c
->>> @@ -435,6 +435,133 @@ static void px30_lvds_encoder_disable(struct drm_encoder *encoder)
->>>      drm_panel_unprepare(lvds->panel);
->>>  }
->>>
->>> +static int rk3568_lvds_poweron(struct rockchip_lvds *lvds)
->>> +{
->>> +    int ret;
->>> +
->>> +    ret = clk_enable(lvds->pclk);
->>> +    if (ret < 0) {
->>> +        DRM_DEV_ERROR(lvds->dev, "failed to enable lvds pclk %d\n", ret);
->>> +        return ret;
->>> +    }
->>> +
->>> +    ret = pm_runtime_get_sync(lvds->dev);
->>> +    if (ret < 0) {
->>> +        DRM_DEV_ERROR(lvds->dev, "failed to get pm runtime: %d\n", ret);
->>> +        clk_disable(lvds->pclk);
->>> +        return ret;
->>> +    }
->>> +
->>> +    /*
->>> +     * Enable LVDS mode and the parallel-to-serial converter. These are
->>> +     * write-masked registers, so a plain write only touches the bits named
->>> +     * here; there is nothing to preserve and no need to read first.
->>> +     */
->>
->> I think this comment is redundant. We all know this is a common design
->> on Rockchip platform, right? :)
->>
-> 
-> Done
-> 
->>> +    return regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
->>> +                RK3568_LVDS0_MODE_EN(1) |
->>> +                RK3568_LVDS0_P2S_EN(1));
->>> +}
->>> +
->>> +static void rk3568_lvds_poweroff(struct rockchip_lvds *lvds)
->>> +{
->>> +    regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
->>> +             RK3568_LVDS0_MODE_EN(0) | RK3568_LVDS0_P2S_EN(0));
->>> +
->>> +    pm_runtime_put(lvds->dev);
->>> +    clk_disable(lvds->pclk);
->>> +}
->>> +
->>> +static int rk3568_lvds_grf_config(struct drm_encoder *encoder,
->>> +                  struct drm_display_mode *mode)
->>> +{
->>> +    struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
->>> +    struct rockchip_crtc_state *s =
->>> +        to_rockchip_crtc_state(encoder->crtc->state);
->>> +    bool negedge = !!(s->bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE);
->>> +
->>> +    if (lvds->output != DISPLAY_OUTPUT_LVDS) {
->>> +        DRM_DEV_ERROR(lvds->dev, "Unsupported display output %d\n",
->>> +                  lvds->output);
->>> +        return -EINVAL;
->>> +    }
->>> +
->>> +    /*
->>> +     * The LVDS block has its own dclk inversion select, separate from the
->>> +     * VOP's pin polarity. Both have to agree with what the panel samples on.
->>> +     */
->>> +    regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
->>> +             RK3568_LVDS0_DCLK_INV_SEL(negedge));
->>> +
->>> +    /* Set format */
->>> +    return regmap_write(lvds->grf, RK3568_GRF_VO_CON0,
->>> +                RK3568_LVDS0_SELECT(lvds->format) |
->>> +                RK3568_LVDS0_MSBSEL(1));
->>> +}
->>
->> I think rk3568_lvds_poweron() and rk3568_lvds_grf_config() can be merged
->> to reduce extra register operations.
-> 
-> Done
-> 
->>> +
->>> +static void rk3568_lvds_encoder_enable(struct drm_encoder *encoder)
->>> +{
->>> +    struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
->>> +    struct drm_display_mode *mode = &encoder->crtc->state->adjusted_mode;
->>> +    int ret;
->>> +
->>> +    drm_panel_prepare(lvds->panel);
->>> +
->>> +    ret = rk3568_lvds_poweron(lvds);
->>> +    if (ret) {
->>> +        DRM_DEV_ERROR(lvds->dev, "failed to power on LVDS: %d\n", ret);
->>> +        drm_panel_unprepare(lvds->panel);
->>> +        return;
->>> +    }
->>> +
->>> +    ret = rk3568_lvds_grf_config(encoder, mode);
->>> +    if (ret) {
->>> +        DRM_DEV_ERROR(lvds->dev, "failed to configure LVDS: %d\n", ret);
->>> +        drm_panel_unprepare(lvds->panel);
->>> +        return;
->>> +    }
->>> +
->>> +    /*
->>> +     * Only now bring the D-PHY up. phy_power_on() runs the whole
->>> +     * inno_dsidphy_lvds_mode_enable() sequence - PLL and bandgap power-on,
->>> +     * a settle, PLL mode select, then a reset pulse of the serializer and
->>> +     * the lane enables. All of that has to happen with the block already
->>> +     * switched to LVDS mode in the GRF (above) and with the VOP's dclk
->>> +     * running, because the serializer is clocked from dclk and latches its
->>> +     * state out of that reset.
->>> +     *
->>> +     * Doing it at probe instead - as this driver used to - resets and
->>> +     * enables the serializer against a block that is not in LVDS mode yet
->>> +     * and has no input clock. Every register then reads back correct while
->>> +     * the lanes sit at common mode forever. Rockchip's BSP orders it this
->>> +     * way (GRF writes, then phy_set_mode + phy_power_on).
->>> +     */
->>
->> I think this comment is redundant. These are internal details of
->> phy_set_mode() and don't need to be explained here. Also, the
->> ordering requirements are quite common. You can describe them in the
->> commit message.
->>
-> 
-> Done
-> 
->>> +    ret = phy_set_mode(lvds->dphy, PHY_MODE_LVDS);
->>> +    if (ret) {
->>> +        DRM_DEV_ERROR(lvds->dev, "failed to set phy mode: %d\n", ret);
->>> +        drm_panel_unprepare(lvds->panel);
->>> +        return;
->>> +    }
->>> +
->>> +    ret = phy_power_on(lvds->dphy);
->>> +    if (ret) {
->>> +        DRM_DEV_ERROR(lvds->dev, "failed to power on phy: %d\n", ret);
->>> +        drm_panel_unprepare(lvds->panel);
->>> +        return;
->>> +    }
->>> +
->>> +    drm_panel_enable(lvds->panel);
->>> +}
->>> +
->>> +static void rk3568_lvds_encoder_disable(struct drm_encoder *encoder)
->>> +{
->>> +    struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
->>> +
->>> +    drm_panel_disable(lvds->panel);
->>> +    phy_power_off(lvds->dphy);
->>> +    rk3568_lvds_poweroff(lvds);
->>> +    drm_panel_unprepare(lvds->panel);
->>> +}
->>> +
->>>  static const
->>>  struct drm_encoder_helper_funcs rk3288_lvds_encoder_helper_funcs = {
->>>      .enable = rk3288_lvds_encoder_enable,
->>> @@ -449,6 +576,13 @@ struct drm_encoder_helper_funcs px30_lvds_encoder_helper_funcs = {
->>>      .atomic_check = rockchip_lvds_encoder_atomic_check,
->>>  };
->>>
->>> +static const
->>> +struct drm_encoder_helper_funcs rk3568_lvds_encoder_helper_funcs = {
->>> +    .enable = rk3568_lvds_encoder_enable,
->>> +    .disable = rk3568_lvds_encoder_disable,
->>> +    .atomic_check = rockchip_lvds_encoder_atomic_check,
->>> +};
->>> +
->>>  static int rk3288_lvds_probe(struct platform_device *pdev,
->>>                   struct rockchip_lvds *lvds)
->>>  {
->>> @@ -512,6 +646,22 @@ static int px30_lvds_probe(struct platform_device *pdev,
->>>      return phy_power_on(lvds->dphy);
->>>  }
->>>
->>> +static int rk3568_lvds_probe(struct platform_device *pdev,
->>> +                 struct rockchip_lvds *lvds)
->>> +{
->>> +    /*
->>> +     * Grab and init the phy, but do NOT power it on here - that is done in
->>> +     * rk3568_lvds_encoder_enable() once the GRF is in LVDS mode and dclk is
->>> +     * running. See the comment there. The GRF is not touched at probe
->>> +     * either: every bit of it is programmed from the enable path.
->>> +     */
->>
->> Please see the comments above.
-> 
-> Done
-> 
->>
->>> +    lvds->dphy = devm_phy_get(&pdev->dev, "dphy");
->>> +    if (IS_ERR(lvds->dphy))
->>> +        return PTR_ERR(lvds->dphy);
->>> +
->>> +    return phy_init(lvds->dphy);
->>> +}
->>> +
->>>  static const struct rockchip_lvds_soc_data rk3288_lvds_data = {
->>>      .probe = rk3288_lvds_probe,
->>>      .helper_funcs = &rk3288_lvds_encoder_helper_funcs,
->>> @@ -522,6 +672,11 @@ static const struct rockchip_lvds_soc_data px30_lvds_data = {
->>>      .helper_funcs = &px30_lvds_encoder_helper_funcs,
->>>  };
->>>
->>> +static const struct rockchip_lvds_soc_data rk3568_lvds_data = {
->>> +    .probe = rk3568_lvds_probe,
->>> +    .helper_funcs = &rk3568_lvds_encoder_helper_funcs,
->>> +};
->>> +
->>>  static const struct of_device_id rockchip_lvds_dt_ids[] = {
->>>      {
->>>          .compatible = "rockchip,rk3288-lvds",
->>> @@ -531,6 +686,10 @@ static const struct of_device_id rockchip_lvds_dt_ids[] = {
->>>          .compatible = "rockchip,px30-lvds",
->>>          .data = &px30_lvds_data
->>>      },
->>> +    {
->>> +        .compatible = "rockchip,rk3568-lvds",
->>> +        .data = &rk3568_lvds_data
->>> +    },
->>>      {}
->>>  };
->>>  MODULE_DEVICE_TABLE(of, rockchip_lvds_dt_ids);
->>> @@ -601,6 +760,8 @@ static int rockchip_lvds_bind(struct device *dev, struct device *master,
->>>      encoder = &lvds->encoder.encoder;
->>>      encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev,
->>>                                   dev->of_node);
->>> +    rockchip_drm_encoder_set_crtc_endpoint_id(&lvds->encoder,
->>> +                          dev->of_node, 0, 0);
->>>
->>>      ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_LVDS);
->>>      if (ret < 0) {
->>> diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.h b/drivers/gpu/drm/rockchip/rockchip_lvds.h
->>> index 2d92447..93d3415 100644
->>> --- a/drivers/gpu/drm/rockchip/rockchip_lvds.h
->>> +++ b/drivers/gpu/drm/rockchip/rockchip_lvds.h
->>> @@ -121,4 +121,14 @@
->>>  #define   PX30_LVDS_P2S_EN(val)            FIELD_PREP_WM16(BIT(6), (val))
->>>  #define   PX30_LVDS_VOP_SEL(val)        FIELD_PREP_WM16(BIT(1), (val))
->>>
->>> +#define RK3568_GRF_VO_CON0            0x0360
->>> +#define   RK3568_LVDS0_SELECT(val)        FIELD_PREP_WM16(GENMASK(5, 4), (val))
->>> +#define   RK3568_LVDS0_MSBSEL(val)        FIELD_PREP_WM16(BIT(3), (val))
->>> +
->>> +#define RK3568_GRF_VO_CON2            0x0368
->>> +#define   RK3568_LVDS0_DCLK_INV_SEL(val)    FIELD_PREP_WM16(BIT(9), (val))
->>> +#define   RK3568_LVDS0_DCLK_DIV2_SEL(val)    FIELD_PREP_WM16(BIT(8), (val))
->>> +#define   RK3568_LVDS0_MODE_EN(val)        FIELD_PREP_WM16(BIT(1), (val))
->>> +#define   RK3568_LVDS0_P2S_EN(val)        FIELD_PREP_WM16(BIT(0), (val))
->>> +
->>>  #endif /* _ROCKCHIP_LVDS_ */
-> 
-> 
+The CSI pixel formatter is a module found on i.MX95 used to reformat
+packet info, pixel and non-pixel data from CSI-2 host controller to
+match Pixel Link(PL) definition.
 
--- 
-Best, 
-Chaoyi
+> diff --git a/drivers/media/platform/nxp/imx95-csi-formatter.c b/drivers/m=
+edia/platform/nxp/imx95-csi-formatter.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/media/platform/nxp/imx95-csi-formatter.c
 
+[ ... ]
+
+> +static int csi_formatter_subdev_set_fmt(struct v4l2_subdev *sd,
+> +					struct v4l2_subdev_state *sd_state,
+> +					struct v4l2_subdev_format *format)
+> +{
+
+[ ... ]
+
+> +	/* Propagate the format from sink stream to source stream */
+> +	fmt =3D v4l2_subdev_state_get_opposite_stream_format(sd_state, format->=
+pad,
+> +							   format->stream);
+> +	*fmt =3D format->format;
+
+[Severity: High]
+If userspace configures the routing to disable or omit the route for a spec=
+ific
+sink stream, could v4l2_subdev_state_get_opposite_stream_format() return NU=
+LL
+here and cause a dereference?
+
+[ ... ]
+
+> +static void csi_formatter_stop_stream(struct csi_formatter *formatter,
+> +				      struct v4l2_subdev_state *state,
+> +				      u64 stream_mask)
+> +{
+
+[ ... ]
+
+> +	ret =3D v4l2_subdev_call(formatter->remote_sd, pad, get_frame_desc,
+> +			       formatter->remote_pad, &fd);
+> +	if (ret < 0 && ret !=3D -ENOIOCTLCMD) {
+> +		dev_err(formatter->dev, "Failed to get frame desc: %d\n", ret);
+> +		return;
+> +	}
+
+[Severity: Medium]
+If the remote subdevice's get_frame_desc callback returns an error, does
+this early return bypass the register clearing phase? Since the driver
+continues the teardown process, this might leave the hardware streams activ=
+e.
+
+> +
+> +	if (ret =3D=3D -ENOIOCTLCMD) {
+> +		fd.type =3D V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
+> +		fd.num_entries =3D 1;
+> +	}
+> +
+> +	for_each_active_route(&state->routing, route) {
+> +		if (!(stream_mask & BIT_ULL(route->source_stream)))
+> +			continue;
+
+[Severity: Low]
+If userspace configures route->source_stream to a value greater than 63,
+does this trigger an out-of-bounds bitwise shift?
+
+[ ... ]
+
+> +static int csi_formatter_start_stream(struct csi_formatter *formatter,
+> +				      struct v4l2_subdev_state *state,
+> +				      u64 stream_mask)
+> +{
+
+[ ... ]
+
+> +	for_each_active_route(&state->routing, route) {
+> +		if (!(stream_mask & BIT_ULL(route->source_stream)))
+> +			continue;
+
+[Severity: Low]
+Does this also run into an out-of-bounds shift if route->source_stream
+exceeds 63?
+
+[ ... ]
+
+> +static int csi_formatter_subdev_enable_streams(struct v4l2_subdev *sd,
+> +					       struct v4l2_subdev_state *state,
+> +					       u32 pad, u64 streams_mask)
+> +{
+
+[ ... ]
+
+> +	ret =3D v4l2_subdev_enable_streams(formatter->remote_sd,
+> +					 formatter->remote_pad,
+> +					 sink_streams);
+
+[Severity: High]
+Without an .unbind callback to clear formatter->remote_sd when the remote
+subdevice is removed, could this result in a use-after-free if the remote
+module is unloaded and we later try to enable streams?
+
+[ ... ]
+
+> +err_runtime_put:
+> +	if (!formatter->enabled_streams)
+> +		pm_runtime_put(formatter->dev);
+> +	return ret;
+> +}
+
+[Severity: Medium]
+Does dropping the PM reference here without calling pm_runtime_mark_last_bu=
+sy()
+bypass the 1000ms autosuspend delay, causing the device to suspend instantl=
+y?
+
+> +
+> +static int csi_formatter_subdev_disable_streams(struct v4l2_subdev *sd,
+> +						struct v4l2_subdev_state *state,
+> +						u32 pad, u64 streams_mask)
+> +{
+
+[ ... ]
+
+> +	if (!formatter->enabled_streams)
+> +		pm_runtime_put(formatter->dev);
+> +
+> +	return ret;
+> +}
+
+[Severity: Medium]
+Similarly, does this pm_runtime_put() also skip marking the device busy,
+missing the autosuspend delay?
+
+[ ... ]
+
+> +static int csi_formatter_notify_bound(struct v4l2_async_notifier *notifi=
+er,
+> +				      struct v4l2_subdev *sd,
+> +				      struct v4l2_async_connection *asc)
+> +{
+
+[ ... ]
+
+> +	ret =3D v4l2_create_fwnode_links_to_pad(sd, sink, link_flags);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	formatter->remote_pad =3D media_pad_remote_pad_first(sink)->index;
+
+[Severity: High]
+If v4l2_create_fwnode_links_to_pad() returns 0 but hasn't actually created
+any links (for example, due to a malformed device tree), could
+media_pad_remote_pad_first(sink) return NULL and cause a crash here?
+
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct v4l2_async_notifier_operations formatter_notify_ops =
+=3D {
+> +	.bound =3D csi_formatter_notify_bound,
+> +};
+
+[Severity: High]
+Is this missing an .unbind callback to clean up formatter->remote_sd when t=
+he
+remote subdevice is unregistered?
+
+> +
+> +static int csi_formatter_async_register(struct csi_formatter *formatter)
+> +{
+> +	struct device *dev =3D formatter->dev;
+> +	struct v4l2_async_connection *asc;
+> +	int ret;
+> +
+> +	struct fwnode_handle *ep __free(fwnode_handle) =3D
+> +		fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0,
+> +						FWNODE_GRAPH_ENDPOINT_NEXT);
+
+[ ... ]
+
+> +err_unregister_notifier:
+> +	v4l2_async_nf_unregister(&formatter->notifier);
+> +err_cleanup_notifier:
+> +	v4l2_async_nf_cleanup(&formatter->notifier);
+> +	return ret;
+> +}
+
+[Severity: Low]
+Is it safe to mix the __free() cleanup attribute for the fwnode_handle with
+traditional goto-based error handling in this function? The cleanup
+guidelines recommend converting all resources to scope-based cleanup or
+none at all to avoid future double-free issues.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-csi_format=
+ter-v14-0-ca239fbb441f@oss.nxp.com?part=3D3
