@@ -1,89 +1,129 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0863B3B8124;
-	Tue, 21 Jul 2026 20:49:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0529D3B9927;
+	Tue, 21 Jul 2026 20:57:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784666969; cv=none; b=XJO8ksoeNTdhhidzr2hkqkfgHwuJbmYih8seZsuMazY04xaNs9pCSFV2C11XeYvenwMDeSGZjFT37gMdeDe/Zcv1Koa8mwrubUVLTXbyYbgwsGnqJT1bP8HXRhDG4jdqsMxT8WlwMCqfhErgMm1WyXhiMBIWKdAYQZYSIbBADGg=
+	t=1784667432; cv=none; b=nCpRm94qPhEuUZc9awQ0OUCZovC6GWeW3gUnm/tObNtLSMwNb2SjTQeHkNU18w6OOgF8Rn8pvQVUGBQw41wXKWnmr4CmISHNhb9XQbbKlYutRNfDR4pLP2aMNjyxXkiCxLk/sY+gbgB+thSDEzvG0ZqAGCVNRFrZ/Z6zxH2s2o4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784666969; c=relaxed/simple;
-	bh=uM+1RWNODL3+RMwEZJ5X+vbum4O3e32itlLt7w58ir4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lnSAaaYiuCBo3Ng12TMuaOtAA8Zpwn4NNP/TtF8YV2quNKirhwAUy/8lg8Gi/zXRBTLvVIEbfuJWLUdRnYKoLAF7Jo3uTzJmgm36ZqKcwqS5uY+lB6RG9lNyvaGrsSDK66RKJPj+7PgU33nAVXWYbp06Eh3iENav9FcJegkXAnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=F4YZvzeM; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1784667432; c=relaxed/simple;
+	bh=rEmvptwwycHrDAt5g/+obYqQ/GbT9+fFBg541n0cUos=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=tAvp6xF7Br019wZWPVXL0xRDX21zzutzk+OkCYr9T2IBcd6C/5e0V6tKihZ119Dtka3uaXeUCSTDM+WzWdnlOqDeDqvKHdXjyHmQYd9m0v/UHMWPemeq82Y3oLf4r0WZnczItQgKUOBzz+CoO4U94uCDrt5BXN2Qq1fVZY6cVvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kgzyZEc5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="F4YZvzeM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784666967; x=1816202967;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=uM+1RWNODL3+RMwEZJ5X+vbum4O3e32itlLt7w58ir4=;
-  b=F4YZvzeMeJt/VXlURWS46ZtxPo7xWdpvzcqHxeZ9trK/dQHlrIzlsEF5
-   osUoWiMazoI68VrWeRZ0U0Kv8VyaJul/cw+wrba76y/Mm+G4v/TB7U6aM
-   xcZZyrmHUAZbwFVYa70eLaXs/wHm/JCQ7U1j/FSx2qlrpX+4fKObYvfxU
-   Ndun2oIh+MfIfwZQsTRdzcmOQC54oQOncO9PQvZTDasHXRq0MDYKH1zTN
-   2C30Z8zIUKKGPNgnwtnoijEzxcv94ngXdleIxPf2h3rsvygHJ9X4ns3M7
-   IJ/B+y9ot3/Q44Wp2oxXFrTKiiKo9uPRNuZCpg/U0dVXiu8wKgBgU7pBp
-   A==;
-X-CSE-ConnectionGUID: ichBVfT/RCKw+ARV1So0JA==
-X-CSE-MsgGUID: YV/1TF88S/Oj+RNEp22mhQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11853"; a="95651258"
-X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; 
-   d="scan'208";a="95651258"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 13:49:27 -0700
-X-CSE-ConnectionGUID: zXVluy4DRvSjigBCDlZ9ZA==
-X-CSE-MsgGUID: ioEIDDwHRmK86GzfbSwwpw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; 
-   d="scan'208";a="258539153"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.67])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 13:49:23 -0700
-Date: Tue, 21 Jul 2026 23:49:21 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Siratul Islam <siratul.islam@linux.dev>
-Cc: Song Qiang <songqiang1304521@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH] iio: update email for Siratul Islam
-Message-ID: <al_bUWguna_K1n7X@ashevche-desk.local>
-References: <20260721150314.24545-1-siratul.islam@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kgzyZEc5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 870621F00A3A;
+	Tue, 21 Jul 2026 20:57:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784667430;
+	bh=5iTRyeVhmKxkfcwXPXSEswzFXavdCXnKvbahr9kf13g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kgzyZEc5/vSuFAPsKnXszl9Tn1w2sIjW9LPMhl4c0IE1tunug704ejC6aPXdGHfjv
+	 r6grPxRtjeQsowhn1QMMIF3D/5tfhfkLzYuGnaHTApG1LF810e7i3gnmDUU8NUKeZt
+	 kGdfTArq7Vzh4VSSJd5hKVsMASF4NksZ4l+dFYc3r6oCqTJKdUaePbDGfsFGTLUmyV
+	 bTRKBGhP+OkVkC1Ty92EBoFNk6LGwVjvpfppOKb0dFwN6Hbnm+BoLiXu8ngrIinDSG
+	 4FcW9H8nmFhhX8+jJTPZ8jGuQDUWjrcj+dsd2Mq8T3eNlnaCpBPpl09KAGMn/KXW4G
+	 NIbrx1t/ZLOXA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v15 2/5] dt-bindings: remoteproc: imx_rproc: Add "rpmsg"
+ subnode support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shenwei Wang" <shenwei.wang@oss.nxp.com>
+Cc: robh@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260721204704.400781-3-shenwei.wang@oss.nxp.com>
+References: <20260721204704.400781-1-shenwei.wang@oss.nxp.com>
+ <20260721204704.400781-3-shenwei.wang@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 20:57:10 +0000
+Message-Id: <20260721205710.870621F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260721150314.24545-1-siratul.islam@linux.dev>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Jul 21, 2026 at 09:03:08PM +0600, Siratul Islam wrote:
-> Change personal email to the Linux specific one,
-> to have a single and focused point of interaction.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The schema restrictively hardcodes the RPMSG channel subnode nam=
+e to 'rpmsg-io', contradicting the documented design that allows dynamic ch=
+annel names.
+--
 
-...
+--- Patch [2]: [PATCH v15 2/5] dt-bindings: remoteproc: imx_rproc: Add "rpm=
+sg" subnode support ---
+commit 51724f4669935a1840ef5386c2737af63f1a9066
+Author: Shenwei Wang <shenwei.wang@nxp.com>
 
->  .mailmap                                                      | 1 +
->  .../devicetree/bindings/iio/proximity/st,vl53l0x.yaml         | 2 +-
->  MAINTAINERS                                                   | 2 +-
->  drivers/iio/proximity/vl53l1x-i2c.c                           | 4 ++--
+dt-bindings: remoteproc: imx_rproc: Add "rpmsg" subnode support
 
-Shouldn't DT patch be separated?
+This commit adds an "rpmsg" container node under imx_rproc to manage a group
+of RPMSG channel devices. Each subnode within "rpmsg" represents an individ=
+ual
+RPMSG channel and is intended to be named dynamically based on the channel =
+name
+defined by the remote processor.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> diff --git a/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.y=
+aml b/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
+> index c18f71b648890..b9b559b186aff 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
+[ ... ]
+> @@ -88,6 +88,34 @@ properties:
+>        This property is to specify the resource id of the remote processo=
+r in SoC
+>        which supports SCFW
+> =20
+> +  rpmsg:
+> +    type: object
+> +    additionalProperties: false
+> +    description:
+> +      Represents the RPMSG bus between Linux and the remote system. Cont=
+ains
+> +      a group of RPMSG channel devices running on the bus.
+> +
+> +    properties:
+> +      rpmsg-io:
+> +        type: object
+> +        additionalProperties: false
 
+[Severity: Medium]
+The commit message mentions that the name of each subnode corresponds to the
+channel name as defined by the remote processor. Does this hardcoded proper=
+ty
+block the use of dynamic channel names?
 
+Because the "rpmsg" node sets "additionalProperties: false", any device tree
+node defining an RPMSG channel with a name other than exactly "rpmsg-io" wi=
+ll
+fail schema validation. Should this be defined using "patternProperties" or
+by allowing additional properties for the container node so arbitrary remote
+processor channel names are permitted?
+
+> +        properties:
+> +          '#address-cells':
+> +            const: 1
+> +
+> +          '#size-cells':
+> +            const: 0
+> +
+> +        patternProperties:
+> +          "^gpio@[0-9a-f]+$":
+> +            type: object
+> +            $ref: /schemas/gpio/gpio-rpmsg.yaml#
+> +            unevaluatedProperties: false
+> +
+> +        required:
+> +          - '#address-cells'
+> +          - '#size-cells'
+> +
+>  required:
+>    - compatible
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721204704.4007=
+81-1-shenwei.wang@oss.nxp.com?part=3D2
