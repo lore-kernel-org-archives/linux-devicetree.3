@@ -1,117 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE20421F18;
-	Tue, 21 Jul 2026 06:49:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A383368BD;
+	Tue, 21 Jul 2026 06:50:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784616558; cv=none; b=bsmttyeOeYrT3/II70y7I27pNnjp09b0PPfswEZLD7cE64QIkfKKmv4w/8p074/jDjRSNRBgFx76ZdVuyco4OBxsKKS7rAB+Zs+GRBkNb/QVfH7nR98ljHwIc2exRq5Nx1FtNdFizwoTKP4XA4yoCM7tTEGoyqx58h4oCBEB1Kk=
+	t=1784616627; cv=none; b=oKUhqBO03OgFfSl7yVirqfCo6gE+OPYM3P//o1CszwAokRQxStf562cah51XEVh9c5WIH3dzCR6OpX/4eyT6K7i5NmOKmKnqOMlTDYAuZCsSl0gifRcC3i5B/3sVJ9kHqWwp2Du1HxWhHpZLIbtAU6l1oSALnAf/K9Of3uBfwLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784616558; c=relaxed/simple;
-	bh=ACyZ6iiFUyxvht5IcX4Plkq7g5oD6YglvpTMqADr3WY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Mhh48VmLd+bSuYkq9GnYwylk4Gs3Dgq8K5I1jtYmAvRSAfD4xIbVhmVVon5MDAU7PH/cbVsOBRXMgBa7M1U2PpfyZcmAuA51E/LeeARfDuDmrrWjYlMjPHvlMLBFuD2PUL6NYGLiwbhNhTqqAV+LMp1iHzsu6QILsLD4qx8Jpdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UQY7Sw+t; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784616627; c=relaxed/simple;
+	bh=zeIWo/F7Lyteeu4uHDZXjgOl0PfAA/GJNtBIiawg0pc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rvzIrGZHJQj9Rga2x3ZBhJ59PQYmswn22LUPl4+yc81bL5MZCVQ6wdFA5m1/c8MYn8A00mV1baijxXshO/JMoVmmxFJIZJIedv2DamjqgMNcQBzv/oxW+bTYA8GD9DM4YgIbBvuJUGMg+Q1tR9NBWyBowMqrh8pBCjiZ+HyIkS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eV2HCaNc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UQY7Sw+t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B725F1F000E9;
-	Tue, 21 Jul 2026 06:49:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eV2HCaNc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 028431F00A3A;
+	Tue, 21 Jul 2026 06:50:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784616557;
-	bh=7fvqVpYjM4uGVeylRl1rZ6/tMsvtUYkVQ9XEAWhuWyQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UQY7Sw+t3JnWt+NGsZN9Og1+PC931PHYzy8yEOhpS8lteE904E6prTu5xU1cAAdNR
-	 rXhhIblECUpJJIx3esJWgjS+6XWd95bb97cUyTEINZK/Qb1Og7EH0szQXnJaljWtsb
-	 HVCykn3kGNCjfA43rhuT8R39aKFHQsfj5H3v45fDzgdwEu7Y2dEoLztifdPpVP3LPW
-	 VoLwETwacpRa/By1mG5RYK2zQEptT9ux9zfECpEh/5+ZLYjzUFZPoYpm8ORbyO7tYI
-	 tg/GTfL0JCSyCdmXqkFavctsO5YFJ8HJts8ogOg3lwJIromu5K6iQ0xe++4ySiRJz5
-	 FJ4NMBxvkP5zQ==
-Date: Tue, 21 Jul 2026 08:49:13 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, robh@kernel.org
-Subject: Re: [PATCH v6 1/3] ASoC: dt-bindings: qcom,q6apm-lpass-dais:
- Document DAI subnode
-Message-ID: <20260721-blond-tortoise-of-authority-ab3dca@quoll>
-References: <20260720160226.1026440-1-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260720160226.1026440-2-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260720161033.5277A1F000E9@smtp.kernel.org>
- <2efd7e96-d0ea-478d-bfc8-bf7380ff8982@oss.qualcomm.com>
+	s=k20260515; t=1784616626;
+	bh=zeIWo/F7Lyteeu4uHDZXjgOl0PfAA/GJNtBIiawg0pc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eV2HCaNcHKhxyckUObzNQYa+gDoIbi89plR3icJVxvmT7u1zaiOmSYFg80RZnFEq5
+	 aEupp5Lt+/+lurDOLQdJmvCNRKea00vd5Ff7VaRSP+ddJSlnBmqmmPfX6up3cXYnJN
+	 H7WrF+dAbO9HBFKRYq3ieE67WWDKn/ddJ3B70VZWmqVrF4f2qK+NuC1rkz9uvDaFbz
+	 3eTvmY3sC/sF2I+Ur03YrbyoPpVeoGklDsd7apXAVsT5+nMnLpo3SykF2V7CFlSD0h
+	 5gX6O9BLKLjf90abCuF7Lvfrah4n2oPDh54htANkQhQogw/1eLQsfxukiuUDBQQTkI
+	 WQJTTrNwNvXNA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/4] dt-bindings: hwmon: Add Kandou KB9002
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Andy Chung" <Andy.Chung@amd.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org
+In-Reply-To: <20260721-kb9002-upstream-v3-2-70563922be8d@amd.com>
+References: <20260721-kb9002-upstream-v3-0-70563922be8d@amd.com>
+ <20260721-kb9002-upstream-v3-2-70563922be8d@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 06:50:25 +0000
+Message-Id: <20260721065026.028431F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <2efd7e96-d0ea-478d-bfc8-bf7380ff8982@oss.qualcomm.com>
 
-On Mon, Jul 20, 2026 at 10:02:39PM +0530, Mohammad Rafi Shaik wrote:
-> 
-> 
-> On 7/20/2026 9:40 PM, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> > - [Medium] Contradictory array lengths and definitions between `clocks` and `clock-names`, making valid hardware clock combinations fail validation.
-> > --
-> > 
-> > --- Patch [1]: [PATCH v6 1/3] ASoC: dt-bindings: qcom,q6apm-lpass-dais: Document DAI subnode ---
-> > commit cca2bfa9278ee0dba4fe02f999f9bda9ec6f258f
-> > Author: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-> > ASoC: dt-bindings: qcom,q6apm-lpass-dais: Document DAI subnode
-> > 
-> > This commit extends the qcom,q6apm-lpass-dais device tree binding to explicitly
-> > describe Digital Audio Interface (DAI) child nodes. It adds address and size
-> > cells to allow multiple DAI instances and defines a pattern to document per-DAI
-> > properties like interface IDs and clocks.
-> > 
-> > > diff --git a/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml b/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml
-> > > --- a/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml
-> > > +++ b/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml
-> > [ ... ]
-> > > +      clocks:
-> > > +        minItems: 1
-> > > +        items:
-> > > +          - description: MI2S bit clock
-> > > +          - description: MI2S external bit clock
-> > > +          - description: MI2S master clock
-> > > +
-> > > +      clock-names:
-> > > +        minItems: 1
-> > > +        items:
-> > > +          - enum: [bclk, eclk, mclk]
-> > > +          - const: mclk
-> > 
-> > [Severity: Medium]
-> > Will this cause device tree validation to fail for valid hardware clock
-> > combinations?
-> > 
-> > The clocks list defines 3 items, but clock-names defines only 2 items.
-> > Because dt-schema limits arrays to the size of the items list when defined
-> > in this way, providing 3 clocks in a device tree will trigger a "too long"
-> > array error for clock-names.
-> > 
-> > Additionally, do the array index descriptions mismatch? The clocks array
-> > defines index 1 as the external bit clock, but clock-names index 1 strictly
-> > requires "mclk". This would prevent configuring "bclk" and "eclk" together
-> > if "mclk" is not present.
-> 
-> 
-> The sashiko review assumes that bclk and eclk may be used together.
-> 
-> However, the hardware supports either bclk or eclk, optionally with mclk. A
-> bclk + eclk configuration is not valid hardware usage,so the reported issue
-> is not applicable to the valid clock configurations.
+> From: Andy Chung <Andy.Chung@amd.com>
+>=20
+> Add device tree bindings for the Kandou KB9002 PCIe 5.0 retimer, an
+> SMBus target that exposes an aggregated die temperature.
+>=20
+> Signed-off-by: Andy Chung <Andy.Chung@amd.com>
 
-But you wrote that eclk ALWAYS follows bclk! Look!
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-+        items:
-+          - description: MI2S bit clock
-+          - description: MI2S external bit clock
-
-What is the meaning of this?
-
-Best regards,
-Krzysztof
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-kb9002-ups=
+tream-v3-0-70563922be8d@amd.com?part=3D2
 
