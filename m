@@ -1,1316 +1,1051 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8075480342;
-	Tue, 21 Jul 2026 10:27:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC9A48097C;
+	Tue, 21 Jul 2026 10:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784629642; cv=none; b=WOT+SUk9mbnAlgLDwsqeH/gEJja+uyng2T7M0v7rTtGmQkXynde7iCtgBHHmlTXr25fNSdfEiMcIYVABKXSdjzj5nb/F0T1sVSnkLSdSpucGEHtR3yEHf/76GoDGJEDiZQIUPSEbHPxLzN/cclaoUUQKMuOUgGpwKfAbEqHc8aQ=
+	t=1784629648; cv=none; b=DU0gCNQvBHgwRqno3VIKk9EUxcSTRsH4ZJQhr7coPgktstnqS9QaGJkkISK6LLuzC5A0uYF9Wog9JbN6nosC/hZERZ12iK27jkCeNB3Wbp6edAo2fN5Ik2J0EqOXyi0TPsIhV9t0gmjCABGcwiyBObfLEn/gSYc4t5zXWWOEP6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784629642; c=relaxed/simple;
-	bh=HMOU6A/c3kOw1PrqIyXoVZMeAqTKUWE0C7TNkqCK7EQ=;
+	s=arc-20240116; t=1784629648; c=relaxed/simple;
+	bh=WFALDH5GINKUXN3O0vtIu54A48lUgoYl9nWt1RrnrAo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WhbodZUaeSjrQ6sDzJnKdsrObG8lXVbSXCuoqsB5S0i6ld3ZucSyjWixsHKOmCFmwBIpUkY9CBhzWhbs78+AiBVT8s8M6GkbLNyCgXrCxrrfd14bWQ0aqZGVOjrpAWpPktjqK5n9qbTWyELW++208aUvxVSjWrwtRAmPtdoezb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b0s2x/c2; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=DQQHymg87UXYctBxcPeUcLMv1/KhaJAK8B6KFFifYI43Hb9kshJs5OkLeskBySm9bhftvfLjJF5pbZUuoOLH4qogx4eQQ5LLIO5hLkMs8cTS2s35X80Y0EjpdC8ACLlrKnYNze7CBBfd8h+4jJu3FJJMvGgweWRzpthZfdjmg0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=hTDrsnG0; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b0s2x/c2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784629640; x=1816165640;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=HMOU6A/c3kOw1PrqIyXoVZMeAqTKUWE0C7TNkqCK7EQ=;
-  b=b0s2x/c2hEeUkPQgDM52An46qUPG65xELGQK2i0hkTRzK7/8Q99PrV6+
-   hYGb9OGLCUMNXIl0eetCGlBLq4cIwXpv1DunuA4WktgO+vqjPRROHrM6i
-   ozxrRAasyjOiAUrXZEDOOS7Loaympy24Q9OAvB36LIWKVxb/Y8TJNNx7s
-   sKyWcCnP/kpOonNYKQKA0qsbWdbpUZM4f9L6Xz0VAQPG71y1gz75cjyp8
-   rC2kzxPnMEMJsi7cW5I2/uUmA3T3TziZ/QZwQT2viVEoTTZwU4yLXIIgw
-   expt07Jr4SORdHD75zKMrXg3ncMoEk41MH2xB4PK6OxMs0Fd7p1iJV0js
-   w==;
-X-CSE-ConnectionGUID: f5RhuTrlRwCma7aYz55JRg==
-X-CSE-MsgGUID: JyPZfrS7Sc2T3A0jH1xcPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11852"; a="85424207"
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="85424207"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 03:27:19 -0700
-X-CSE-ConnectionGUID: 5caZlWW2Qi+675Wx5TzAMA==
-X-CSE-MsgGUID: 3Yu9rMkaQmuXdbmAm2mwsw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="254321819"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa007.fm.intel.com with ESMTP; 21 Jul 2026 03:27:16 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id EEC8595; Tue, 21 Jul 2026 12:27:14 +0200 (CEST)
-Date: Tue, 21 Jul 2026 13:27:13 +0300
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Hongyang Zhao <hongyang.zhao@163.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="hTDrsnG0"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5A242C1;
+	Tue, 21 Jul 2026 12:26:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784629582;
+	bh=WFALDH5GINKUXN3O0vtIu54A48lUgoYl9nWt1RrnrAo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hTDrsnG0fNWbxs9mhD03wr+wC5CSM7tv0t814WpjPWVD8FOQLc3wCQW9S3KOSHx7L
+	 SSVb/fHrvXhMD48PI0sLqjkNjiS50iyLaGkr1hm8iwRQ4OP9ahVkhHp1HndYSZKEG1
+	 YJsd4ctXpjZapdX+0VWtfbhnd8lnJLjcMYM3OAm0=
+Date: Tue, 21 Jul 2026 13:27:20 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: guoniu.zhou@oss.nxp.com
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Roger Shimizu <rosh@debian.org>,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] usb: typec: Add Hynetek HUSB320 Type-C controller
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <frank.li@nxp.com>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Bryan O'Donoghue <bod@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+	Peng Fan <peng.fan@nxp.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, imx@lists.linux.dev,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, Guoniu Zhou <guoniu.zhou@nxp.com>
+Subject: Re: [PATCH v14 3/3] media: nxp: Add i.MX95 CSI pixel formatter v4l2
  driver
-Message-ID: <al9JgXV0nOo33_-j@kuha>
-References: <20260720-husb320-v1-0-4a1e259d7dc8@163.com>
- <20260720-husb320-v1-2-4a1e259d7dc8@163.com>
+Message-ID: <20260721102720.GA489921@killaraus.ideasonboard.com>
+References: <20260721-csi_formatter-v14-0-ca239fbb441f@oss.nxp.com>
+ <20260721-csi_formatter-v14-3-ca239fbb441f@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260720-husb320-v1-2-4a1e259d7dc8@163.com>
+In-Reply-To: <20260721-csi_formatter-v14-3-ca239fbb441f@oss.nxp.com>
 
-On Mon, Jul 20, 2026 at 04:17:12PM +0800, Hongyang Zhao wrote:
-> The HUSB320 is an autonomous Configuration Channel controller which
-> supports fixed source or sink operation and dual-role ports without USB
-> Power Delivery.
+On Tue, Jul 21, 2026 at 04:40:23PM +0800, guoniu.zhou@oss.nxp.com wrote:
+> From: Guoniu Zhou <guoniu.zhou@nxp.com>
 > 
-> Add a Type-C class driver for attach and detach detection, orientation
-> and Rp current reporting, platform VBUS control, USB role switching,
-> Try.SRC and Try.SNK, and audio and debug accessories.
+> The CSI pixel formatter is a module found on i.MX95 used to reformat
+> packet info, pixel and non-pixel data from CSI-2 host controller to
+> match Pixel Link(PL) definition.
 > 
-> Signed-off-by: Hongyang Zhao <hongyang.zhao@163.com>
-
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-
+> Add data formatting support.
+> 
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@nxp.com>
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 > ---
->  drivers/usb/typec/Kconfig   |   12 +
->  drivers/usb/typec/Makefile  |    1 +
->  drivers/usb/typec/husb320.c | 1177 +++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 1190 insertions(+)
+> Changes in v14:
+> - Use select MFD_SYSCON instead of depends on MFD_SYSCON (Laurent)
+> - Remove unused v4l2-ctrls.h and v4l2-event.h includes (Laurent)
+> - Rename csi_sd to remote_sd and group with remote_pad (Laurent)
+> - Move reg_offset after clk to group generic resources (Laurent)
+> - Remove mutex lock as enable/disable_streams hold state lock (Laurent)
+> - Rename formatter_dt_to_index_map to csi_formatter_dt_to_index_map (Laurent)
+> - Rename formats to csi_formatter_formats (Laurent)
+> - Declare loop variables in for-loop and add braces (Laurent)
+> - Simplify set_fmt, rename sdformat to format, drop NULL check (Laurent)
+> - Set field to V4L2_FIELD_NONE as interlaced not yet supported (Laurent)
+> - Add streaming check in set_fmt to match set_routing (Laurent)
+> - Add WARN_ON for unsupported data type as it indicates driver bug (Laurent)
+> - Return -EPIPE instead of -EINVAL for invalid VC (Laurent)
+> - Refactor ENOIOCTLCMD handling and remove redundant pad check (Laurent)
+> - Use strscpy instead of snprintf for sd->name (Laurent)
+> - Remove redundant dev_dbg in notify_bound (Laurent)
+> - Simplify remote_pad assignment and drop NULL check (Laurent)
+> - Read reg property directly into formatter->reg_offset (Laurent)
+> - Store formatter pointer in drvdata to avoid sd_to_formatter calls (Laurent)
+> - Enable runtime PM autosuspend with 1s delay (Laurent)
+> - Use PM clock framework instead of manual clock handling (Loic)
+> - Add Reviewed-by tag from Loic Poulain
 > 
-> diff --git a/drivers/usb/typec/Kconfig b/drivers/usb/typec/Kconfig
-> index 2f80c2792dbd..22ef8bacacf7 100644
-> --- a/drivers/usb/typec/Kconfig
-> +++ b/drivers/usb/typec/Kconfig
-> @@ -88,6 +88,18 @@ config TYPEC_HD3SS3220
->  	  If you choose to build this driver as a dynamically linked module, the
->  	  module will be called hd3ss3220.ko.
+> Changes in v13:
+> - Replace pr_warn_once() with dev_warn() in csi_formatter_get_index_by_dt()
+>   to provide device context and warn on every occurrence (Loic)
+> - Add WARN_ON() check for csi_formatter_find_format() return value in
+>   start/stop_stream functions to catch unexpected NULL (Loic)
+> - Use regmap_set_bits()/regmap_clear_bits() instead of read-modify-write
+>   pattern and remove unused csi_formatter_read/write helper functions (Loic)
+> - Add Reviewed-by tag from Frank Li
+> 
+> Changes in v12:
+> - Fix stream ID handling: iterate routing table instead of assuming
+>   stream ID equals loop index (0-7)
+> - Remove stream_to_vc[] array: derive VC from routing table and frame
+>   descriptor on each start/stop operation
+> - Remove V4L2_SUBDEV_FL_HAS_EVENTS flag since driver does not generate events
+> - Support stream IDs 0-63 by using BIT_ULL() for stream masks
+> - Add get_frame_desc call in stop_stream with proper error handling
+> - Add csi_formatter_read() helper function for register reads
+> - Use read-modify-write for CSI_VC_PIXEL_DATA_TYPE register to support
+>   multiplexed streams sharing the same virtual channel
+> - Use route->sink_pad instead of hardcoded CSI_FORMATTER_PAD_SINK
+> - Write back coerced format in set_fmt before propagating to source stream
+> - Drop Frank's Reviewed-by tag due to significant changes, requesting re-review
+> 
+> Changes in v10:
+> - Use u8 for vc in csi_formatter_get_vc() and drop vc < 0 check
+> - Add MFD_SYSCON dependency to Kconfig
+> - Fix stream/VC mapping potential mismatch in start_stop_stream functions
+> 
+> Changes in v8:
+> - Remove fmt field and look up format from subdev state instead
+> - Unify function and structure naming to use csi_formatter_ prefix
+> - Remove misleading alignment comment from set_fmt function
+> - Optimize get_frame_desc to call once per start_stream
+> - Replace V4L2_FRAME_DESC_ENTRY_MAX with CSI_FORMATTER_VC_NUM in loops
+> - Remove redundant debug message in enable_streams
+> - Use MEDIA_PAD_FL_MUST_CONNECT flag instead of manual link check
+> - Fix typo: Formater -> Formatter in Kconfig help text
+> - Improve grammar in data type index mapping comment
+> 
+> Changes in v7:
+> - Update references from imx9 to imx95 for consistency with dt-bindings
+> - Enable PM runtime before async registration
+> 
+> Changes in v6:
+> - Remove unused header includes
+> - Unify macro naming: VCx/VCX -> VC and parameter x -> vc
+> - Remove unused format field from csi_formatter struct
+> - Use compact initialization for formats array
+> - Make find_csi_format() return NULL instead of default format
+> - Use unsigned int for array index in find_csi_format()
+> - Add err_ prefix to error handling labels
+> - Add v4l2_subdev_cleanup() and reorder cleanup sequence
+> - Update enable_streams debug output format
+> - Rename VC_MAX to VC_NUM and fix boundary check
+> - Update CSI formatter Kconfig description
+> - Use v4l2_subdev_get_frame_desc_passthrough() helper
+> - Fix error paths in async registration and probe
+> - Add mutex to protect enabled_streams
+> - Switch to devm_pm_runtime_enable()
+> - Remove redundant num_routes check in set_routing
+> - Optimize get_index_by_dt() and add warning for unsupported type
+> - csi_formatter_start/stop_stream: Process all streams in mask
+> ---
+>  MAINTAINERS                                      |   8 +
+>  drivers/media/platform/nxp/Kconfig               |  16 +
+>  drivers/media/platform/nxp/Makefile              |   1 +
+>  drivers/media/platform/nxp/imx95-csi-formatter.c | 751 +++++++++++++++++++++++
+>  4 files changed, 776 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index efbf808063e5..05009228b162 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -19275,6 +19275,14 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/media/nxp,imx8-jpeg.yaml
+>  F:	drivers/media/platform/nxp/imx-jpeg
 >  
-> +config TYPEC_HUSB320
-> +	tristate "Hynetek HUSB320 Type-C controller driver"
-> +	depends on I2C
-> +	depends on USB_ROLE_SWITCH || !USB_ROLE_SWITCH
-> +	select REGMAP_I2C
+> +NXP i.MX 95 CSI PIXEL FORMATTER V4L2 DRIVER
+> +M:	Guoniu Zhou <guoniu.zhou@nxp.com>
+> +L:	imx@lists.linux.dev
+> +L:	linux-media@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/media/fsl,imx95-csi-formatter.yaml
+> +F:	drivers/media/platform/nxp/imx95-csi-formatter.c
+> +
+>  NXP i.MX CLOCK DRIVERS
+>  M:	Abel Vesa <abelvesa@kernel.org>
+>  R:	Peng Fan <peng.fan@nxp.com>
+> diff --git a/drivers/media/platform/nxp/Kconfig b/drivers/media/platform/nxp/Kconfig
+> index 40e3436669e2..e714bdaf65c9 100644
+> --- a/drivers/media/platform/nxp/Kconfig
+> +++ b/drivers/media/platform/nxp/Kconfig
+> @@ -28,6 +28,22 @@ config VIDEO_IMX8MQ_MIPI_CSI2
+>  	  Video4Linux2 driver for the MIPI CSI-2 receiver found on the i.MX8MQ
+>  	  SoC.
+>  
+> +config VIDEO_IMX95_CSI_FORMATTER
+> +	tristate "NXP i.MX95 CSI Pixel Formatter driver"
+> +	depends on ARCH_MXC || COMPILE_TEST
+> +	depends on VIDEO_DEV
+> +	select MEDIA_CONTROLLER
+> +	select MFD_SYSCON
+> +	select PM_CLK
+> +	select V4L2_FWNODE
+> +	select VIDEO_V4L2_SUBDEV_API
 > +	help
-> +	  Say Y or M here if your system has a Hynetek HUSB320 autonomous
-> +	  USB Type-C controller.
+> +	  This driver provides support for the CSI Pixel Formatter found on
+> +	  i.MX95 series SoCs. This module unpacks the pixels received from the
+> +	  CSI-2 interface and reformats them to meet pixel link requirements.
 > +
-> +	  If you choose to build this driver as a dynamically linked module, the
-> +	  module will be called husb320.ko.
+> +	  Say Y here to enable CSI Pixel Formatter module for i.MX95 SoC.
 > +
->  config TYPEC_STUSB160X
->  	tristate "STMicroelectronics STUSB160x Type-C controller driver"
->  	depends on USB_ROLE_SWITCH || !USB_ROLE_SWITCH
-> diff --git a/drivers/usb/typec/Makefile b/drivers/usb/typec/Makefile
-> index 8a6a1c663eb6..1b61c34d6e66 100644
-> --- a/drivers/usb/typec/Makefile
-> +++ b/drivers/usb/typec/Makefile
-> @@ -8,6 +8,7 @@ obj-$(CONFIG_TYPEC_UCSI)	+= ucsi/
->  obj-$(CONFIG_TYPEC_TPS6598X)	+= tipd/
->  obj-$(CONFIG_TYPEC_ANX7411)	+= anx7411.o
->  obj-$(CONFIG_TYPEC_HD3SS3220)	+= hd3ss3220.o
-> +obj-$(CONFIG_TYPEC_HUSB320)	+= husb320.o
->  obj-$(CONFIG_TYPEC_STUSB160X) 	+= stusb160x.o
->  obj-$(CONFIG_TYPEC_RT1719)	+= rt1719.o
->  obj-$(CONFIG_TYPEC_WUSB3801)	+= wusb3801.o
-> diff --git a/drivers/usb/typec/husb320.c b/drivers/usb/typec/husb320.c
+>  config VIDEO_IMX_MIPI_CSIS
+>  	tristate "NXP MIPI CSI-2 CSIS receiver found on i.MX7 and i.MX8 models"
+>  	depends on ARCH_MXC || COMPILE_TEST
+> diff --git a/drivers/media/platform/nxp/Makefile b/drivers/media/platform/nxp/Makefile
+> index 4d90eb713652..6410115d870e 100644
+> --- a/drivers/media/platform/nxp/Makefile
+> +++ b/drivers/media/platform/nxp/Makefile
+> @@ -6,6 +6,7 @@ obj-y += imx8-isi/
+>  
+>  obj-$(CONFIG_VIDEO_IMX7_CSI) += imx7-media-csi.o
+>  obj-$(CONFIG_VIDEO_IMX8MQ_MIPI_CSI2) += imx8mq-mipi-csi2.o
+> +obj-$(CONFIG_VIDEO_IMX95_CSI_FORMATTER) += imx95-csi-formatter.o
+>  obj-$(CONFIG_VIDEO_IMX_MIPI_CSIS) += imx-mipi-csis.o
+>  obj-$(CONFIG_VIDEO_IMX_PXP) += imx-pxp.o
+>  obj-$(CONFIG_VIDEO_MX2_EMMAPRP) += mx2_emmaprp.o
+> diff --git a/drivers/media/platform/nxp/imx95-csi-formatter.c b/drivers/media/platform/nxp/imx95-csi-formatter.c
 > new file mode 100644
-> index 000000000000..fd9f949d9b52
+> index 000000000000..7ccb3eee3a5e
 > --- /dev/null
-> +++ b/drivers/usb/typec/husb320.c
-> @@ -0,0 +1,1177 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
+> +++ b/drivers/media/platform/nxp/imx95-csi-formatter.c
+> @@ -0,0 +1,751 @@
+> +// SPDX-License-Identifier: GPL-2.0
 > +/*
-> + * Hynetek HUSB320 USB Type-C controller driver
-> + *
-> + * Copyright (C) 2026 Hongyang Zhao <hongyang.zhao@163.com>
+> + * Copyright 2025 NXP
 > + */
 > +
-> +#include <linux/bitfield.h>
-> +#include <linux/delay.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/i2c.h>
-> +#include <linux/interrupt.h>
+> +#include <linux/bits.h>
+> +#include <linux/mfd/syscon.h>
 > +#include <linux/module.h>
-> +#include <linux/mutex.h>
 > +#include <linux/of.h>
-> +#include <linux/property.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm_clock.h>
+> +#include <linux/pm_runtime.h>
 > +#include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/usb/role.h>
-> +#include <linux/usb/typec.h>
-> +#include <linux/usb/typec_altmode.h>
 > +
-> +#define HUSB320_REG_DEVICE_ID		0x01
-> +#define HUSB320_REG_DEVICE_TYPE		0x02
-> +#define HUSB320_REG_PORT_ROLE		0x03
-> +#define HUSB320_REG_CONTROL		0x04
-> +#define HUSB320_REG_CONTROL1		0x05
-> +#define HUSB320_REG_MANUAL		0x09
-> +#define HUSB320_REG_RESET		0x0a
-> +#define HUSB320_REG_MASK			0x0e
-> +#define HUSB320_REG_MASK1		0x0f
-> +#define HUSB320_REG_STATUS		0x11
-> +#define HUSB320_REG_TYPE			0x13
-> +#define HUSB320_REG_INTERRUPT		0x14
-> +#define HUSB320_REG_INTERRUPT1		0x15
+> +#include <media/mipi-csi2.h>
+> +#include <media/v4l2-fwnode.h>
+> +#include <media/v4l2-mc.h>
+> +#include <media/v4l2-subdev.h>
 > +
-> +#define HUSB320_DEVICE_ID_VERSION	GENMASK(7, 4)
-> +#define HUSB320_DEVICE_ID_REVISION	GENMASK(3, 0)
-> +#define HUSB320_DEVICE_ID_VERSION_1	1
-> +#define HUSB320_DEVICE_TYPE		0x03
+> +/* CSI Pixel Formatter registers map */
 > +
-> +#define HUSB320_PORT_ROLE_TRY		GENMASK(5, 4)
-> +#define HUSB320_PORT_ROLE_MODE		GENMASK(2, 0)
-> +#define HUSB320_PORT_ROLE_SOURCE		BIT(0)
-> +#define HUSB320_PORT_ROLE_SINK		BIT(1)
-> +#define HUSB320_PORT_ROLE_DRP		BIT(2)
-> +#define HUSB320_TRY_NONE			0
-> +#define HUSB320_TRY_SINK			1
-> +#define HUSB320_TRY_SOURCE		2
+> +#define CSI_VC_INTERLACED_LINE_CNT(vc)		(0x00 + (vc) * 0x04)
+> +#define INTERLACED_ODD_LINE_CNT_SET(x)		FIELD_PREP(GENMASK(13, 0), (x))
+> +#define INTERLACED_EVEN_LINE_CNT_SET(x)		FIELD_PREP(GENMASK(29, 16), (x))
 > +
-> +#define HUSB320_CONTROL_HOST_CURRENT	GENMASK(2, 1)
-> +#define HUSB320_CONTROL_INT_MASK		BIT(0)
-> +#define HUSB320_HOST_CURRENT_DEFAULT	1
-> +#define HUSB320_HOST_CURRENT_1_5A	2
-> +#define HUSB320_HOST_CURRENT_3_0A	3
+> +#define CSI_VC_INTERLACED_CTRL			0x20
 > +
-> +#define HUSB320_CONTROL1_ENABLE		BIT(3)
+> +#define CSI_VC_INTERLACED_ERR			0x24
+> +#define CSI_VC_ERR_MASK				GENMASK(7, 0)
+> +#define CSI_VC_ERR(vc)				BIT((vc))
 > +
-> +#define HUSB320_MANUAL_ERROR_RECOVERY	BIT(0)
+> +#define CSI_VC_YUV420_FIRST_LINE_EVEN		0x28
+> +#define YUV420_FIRST_LINE_EVEN(vc)		BIT((vc))
 > +
-> +#define HUSB320_RESET_SW			BIT(0)
+> +#define CSI_RAW32_CTRL				0x30
+> +#define CSI_VC_RAW32_MODE(vc)			BIT((vc))
+> +#define CSI_VC_RAW32_SWAP_MODE(vc)		BIT((vc) + 8)
 > +
-> +/* The datasheet defines the fault mask, but reserves the matching IRQ bit. */
-> +#define HUSB320_MASK_FAULT		BIT(5)
-> +#define HUSB320_MASK_AUTOSINK		BIT(3)
-> +#define HUSB320_MASK1_FORCE		GENMASK(2, 1)
+> +#define CSI_STREAM_FENCING_CTRL			0x34
+> +#define CSI_VC_STREAM_FENCING(vc)		BIT((vc))
+> +#define CSI_VC_STREAM_FENCING_RST(vc)		BIT((vc) + 8)
 > +
-> +#define HUSB320_STATUS_ORIENTATION	GENMASK(5, 4)
-> +#define HUSB320_STATUS_ORIENTATION_CC1	1
-> +#define HUSB320_STATUS_ORIENTATION_CC2	2
-> +#define HUSB320_STATUS_CURRENT		GENMASK(2, 1)
-> +#define HUSB320_STATUS_ATTACHED		BIT(0)
+> +#define CSI_STREAM_FENCING_STS			0x38
+> +#define CSI_STREAM_FENCING_STS_MASK		GENMASK(7, 0)
 > +
-> +#define HUSB320_TYPE_DEBUG_SOURCE	BIT(6)
-> +#define HUSB320_TYPE_DEBUG_SINK		BIT(5)
-> +#define HUSB320_TYPE_SINK		BIT(4)
-> +#define HUSB320_TYPE_SOURCE		BIT(3)
-> +#define HUSB320_TYPE_AUDIO_VBUS		BIT(1)
-> +#define HUSB320_TYPE_AUDIO		BIT(0)
+> +#define CSI_VC_NON_PIXEL_DATA_TYPE(vc)		(0x40 + (vc) * 0x04)
 > +
-> +#define HUSB320_INT_ORIENTATION		BIT(6)
-> +#define HUSB320_INT_VBUS_CHANGE		BIT(4)
-> +#define HUSB320_INT_AUTOSINK		BIT(3)
-> +#define HUSB320_INT_CURRENT_CHANGE	BIT(2)
-> +#define HUSB320_INT_DETACH		BIT(1)
-> +#define HUSB320_INT_ATTACH		BIT(0)
-> +#define HUSB320_INT_VALID		(HUSB320_INT_ORIENTATION | \
-> +					 HUSB320_INT_VBUS_CHANGE | \
-> +					 HUSB320_INT_AUTOSINK | \
-> +					 HUSB320_INT_CURRENT_CHANGE | \
-> +					 HUSB320_INT_DETACH | \
-> +					 HUSB320_INT_ATTACH)
-> +#define HUSB320_INT1_VALID		GENMASK(2, 1)
+> +#define CSI_VC_PIXEL_DATA_CTRL(vc)		(0x60 + (vc) * 0x04)
+> +#define NEW_VC(vc)				FIELD_PREP(GENMASK(3, 1), vc)
+> +#define REROUTE_VC_ENABLE			BIT(0)
 > +
-> +enum husb320_state {
-> +	HUSB320_STATE_UNATTACHED,
-> +	HUSB320_STATE_SOURCE,
-> +	HUSB320_STATE_SINK,
-> +	HUSB320_STATE_DEBUG_SOURCE,
-> +	HUSB320_STATE_DEBUG_SINK,
-> +	HUSB320_STATE_AUDIO,
+> +#define CSI_VC_ROUTE_PIXEL_DATA_TYPE(vc)	(0x80 + (vc) * 0x04)
+> +
+> +#define CSI_VC_NON_PIXEL_DATA_CTRL(vc)		(0xa0 + (vc) * 0x04)
+> +
+> +#define CSI_VC_PIXEL_DATA_TYPE(vc)		(0xc0 + (vc) * 0x04)
+> +
+> +#define CSI_VC_PIXEL_DATA_TYPE_ERR(vc)		(0xe0 + (vc) * 0x04)
+> +
+> +#define CSI_FORMATTER_PAD_SINK			0
+> +#define CSI_FORMATTER_PAD_SOURCE		1
+> +#define CSI_FORMATTER_PAD_NUM			2
+> +
+> +#define CSI_FORMATTER_VC_NUM			8 /* Number of virtual channels */
+> +
+> +struct csi_formatter_pix_format {
+> +	u32 code;
+> +	u32 data_type;
 > +};
 > +
-> +struct husb320 {
+> +struct csi_formatter {
 > +	struct device *dev;
-> +	struct regmap *regmap;
-> +	struct gpio_desc *enable_gpio;
-> +	struct regulator *vbus;
-> +	struct usb_role_switch *role_sw;
-> +	struct typec_capability cap;
-> +	struct typec_port *port;
-> +	struct typec_partner *partner;
-> +	struct fwnode_handle *connector;
-> +	/* Serializes controller access and Type-C state updates. */
-> +	struct mutex lock;
-> +	enum typec_port_type port_type;
-> +	enum typec_role preferred_role;
-> +	enum typec_pwr_opmode source_opmode;
-> +	enum husb320_state state;
-> +	enum usb_role usb_role;
-> +	int connector_mode;
-> +	bool has_data;
-> +	bool mode_valid;
-> +	bool shutting_down;
-> +	bool state_valid;
-> +	bool vbus_on;
+> +	struct regmap *regs;
+> +	u32 reg_offset;
+> +
+> +	struct v4l2_subdev sd;
+> +	struct v4l2_async_notifier notifier;
+> +	struct media_pad pads[CSI_FORMATTER_PAD_NUM];
+> +
+> +	struct v4l2_subdev *remote_sd;
+> +	u32 remote_pad;
+> +
+> +	u64 enabled_streams;
 > +};
 > +
-> +static const struct regmap_config husb320_regmap_config = {
-> +	.reg_bits = 8,
-> +	.val_bits = 8,
-> +	.max_register = HUSB320_REG_INTERRUPT1,
+> +struct csi_formatter_dt_index {
+> +	u8 dtype;
+> +	u8 index;
 > +};
 > +
-> +static enum typec_role husb320_default_power_role(struct husb320 *husb)
-> +{
-> +	switch (husb->port_type) {
-> +	case TYPEC_PORT_SRC:
-> +		return TYPEC_SOURCE;
-> +	case TYPEC_PORT_SNK:
-> +		return TYPEC_SINK;
-> +	case TYPEC_PORT_DRP:
-> +	default:
-> +		if (husb->preferred_role == TYPEC_SOURCE)
-> +			return TYPEC_SOURCE;
+> +/*
+> + * The index corresponds to the bit index in the register that enables
+> + * the data type of pixel data transported by the Formatter.
+> + */
+> +static const struct csi_formatter_dt_index csi_formatter_dt_to_index_map[] = {
+> +	{ .dtype = MIPI_CSI2_DT_YUV420_8B,        .index = 0 },
+> +	{ .dtype = MIPI_CSI2_DT_YUV420_8B_LEGACY, .index = 2 },
+> +	{ .dtype = MIPI_CSI2_DT_YUV422_8B,        .index = 6 },
+> +	{ .dtype = MIPI_CSI2_DT_RGB444,		  .index = 8 },
+> +	{ .dtype = MIPI_CSI2_DT_RGB555,           .index = 9 },
+> +	{ .dtype = MIPI_CSI2_DT_RGB565,           .index = 10 },
+> +	{ .dtype = MIPI_CSI2_DT_RGB666,           .index = 11 },
+> +	{ .dtype = MIPI_CSI2_DT_RGB888,           .index = 12 },
+> +	{ .dtype = MIPI_CSI2_DT_RAW6,             .index = 16 },
+> +	{ .dtype = MIPI_CSI2_DT_RAW7,             .index = 17 },
+> +	{ .dtype = MIPI_CSI2_DT_RAW8,             .index = 18 },
+> +	{ .dtype = MIPI_CSI2_DT_RAW10,            .index = 19 },
+> +	{ .dtype = MIPI_CSI2_DT_RAW12,            .index = 20 },
+> +	{ .dtype = MIPI_CSI2_DT_RAW14,            .index = 21 },
+> +	{ .dtype = MIPI_CSI2_DT_RAW16,            .index = 22 },
+> +};
 > +
-> +		return TYPEC_SINK;
+> +static const struct csi_formatter_pix_format csi_formatter_formats[] = {
+> +	/* YUV formats */
+> +	{ MEDIA_BUS_FMT_UYVY8_1X16,	MIPI_CSI2_DT_YUV422_8B },
+> +	/* RGB formats */
+> +	{ MEDIA_BUS_FMT_RGB565_1X16,	MIPI_CSI2_DT_RGB565 },
+> +	{ MEDIA_BUS_FMT_RGB888_1X24,	MIPI_CSI2_DT_RGB888 },
+> +	/* RAW (Bayer and greyscale) formats */
+> +	{ MEDIA_BUS_FMT_SBGGR8_1X8,	MIPI_CSI2_DT_RAW8 },
+> +	{ MEDIA_BUS_FMT_SGBRG8_1X8,	MIPI_CSI2_DT_RAW8 },
+> +	{ MEDIA_BUS_FMT_SGRBG8_1X8,	MIPI_CSI2_DT_RAW8 },
+> +	{ MEDIA_BUS_FMT_SRGGB8_1X8,	MIPI_CSI2_DT_RAW8 },
+> +	{ MEDIA_BUS_FMT_Y8_1X8,		MIPI_CSI2_DT_RAW8 },
+> +	{ MEDIA_BUS_FMT_SBGGR10_1X10,	MIPI_CSI2_DT_RAW10 },
+> +	{ MEDIA_BUS_FMT_SGBRG10_1X10,	MIPI_CSI2_DT_RAW10 },
+> +	{ MEDIA_BUS_FMT_SGRBG10_1X10,	MIPI_CSI2_DT_RAW10 },
+> +	{ MEDIA_BUS_FMT_SRGGB10_1X10,	MIPI_CSI2_DT_RAW10 },
+> +	{ MEDIA_BUS_FMT_Y10_1X10,	MIPI_CSI2_DT_RAW10 },
+> +	{ MEDIA_BUS_FMT_SBGGR12_1X12,	MIPI_CSI2_DT_RAW12 },
+> +	{ MEDIA_BUS_FMT_SGBRG12_1X12,	MIPI_CSI2_DT_RAW12 },
+> +	{ MEDIA_BUS_FMT_SGRBG12_1X12,	MIPI_CSI2_DT_RAW12 },
+> +	{ MEDIA_BUS_FMT_SRGGB12_1X12,	MIPI_CSI2_DT_RAW12 },
+> +	{ MEDIA_BUS_FMT_Y12_1X12,	MIPI_CSI2_DT_RAW12 },
+> +	{ MEDIA_BUS_FMT_SBGGR14_1X14,	MIPI_CSI2_DT_RAW14 },
+> +	{ MEDIA_BUS_FMT_SGBRG14_1X14,	MIPI_CSI2_DT_RAW14 },
+> +	{ MEDIA_BUS_FMT_SGRBG14_1X14,	MIPI_CSI2_DT_RAW14 },
+> +	{ MEDIA_BUS_FMT_SRGGB14_1X14,	MIPI_CSI2_DT_RAW14 },
+> +	{ MEDIA_BUS_FMT_SBGGR16_1X16,	MIPI_CSI2_DT_RAW16 },
+> +	{ MEDIA_BUS_FMT_SGBRG16_1X16,	MIPI_CSI2_DT_RAW16 },
+> +	{ MEDIA_BUS_FMT_SGRBG16_1X16,	MIPI_CSI2_DT_RAW16 },
+> +	{ MEDIA_BUS_FMT_SRGGB16_1X16,	MIPI_CSI2_DT_RAW16 },
+> +};
+> +
+> +static const struct v4l2_mbus_framefmt formatter_default_fmt = {
+> +	.code = MEDIA_BUS_FMT_UYVY8_1X16,
+> +	.width = 1920U,
+> +	.height = 1080U,
+> +	.field = V4L2_FIELD_NONE,
+> +	.colorspace = V4L2_COLORSPACE_SMPTE170M,
+> +	.xfer_func = V4L2_MAP_XFER_FUNC_DEFAULT(V4L2_COLORSPACE_SMPTE170M),
+> +	.ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(V4L2_COLORSPACE_SMPTE170M),
+> +	.quantization = V4L2_QUANTIZATION_LIM_RANGE,
+> +};
+> +
+> +static const struct csi_formatter_pix_format *csi_formatter_find_format(u32 code)
+> +{
+> +	for (unsigned int i = 0; i < ARRAY_SIZE(csi_formatter_formats); i++) {
+> +		if (code == csi_formatter_formats[i].code)
+> +			return &csi_formatter_formats[i];
 > +	}
+> +
+> +	return NULL;
 > +}
 > +
-> +static enum typec_data_role husb320_default_data_role(struct husb320 *husb)
+> +/* -----------------------------------------------------------------------------
+> + * V4L2 subdev operations
+> + */
+> +
+> +static inline struct csi_formatter *sd_to_formatter(struct v4l2_subdev *sdev)
 > +{
-> +	switch (husb->cap.data) {
-> +	case TYPEC_PORT_DFP:
-> +		return TYPEC_HOST;
-> +	case TYPEC_PORT_UFP:
-> +		return TYPEC_DEVICE;
-> +	case TYPEC_PORT_DRD:
-> +	default:
-> +		return husb320_default_power_role(husb) == TYPEC_SOURCE ?
-> +			TYPEC_HOST : TYPEC_DEVICE;
-> +	}
+> +	return container_of(sdev, struct csi_formatter, sd);
 > +}
 > +
-> +static void husb320_set_unattached_roles(struct husb320 *husb)
-> +{
-> +	enum typec_role power_role = husb320_default_power_role(husb);
-> +
-> +	typec_set_pwr_role(husb->port, power_role);
-> +	if (husb->has_data)
-> +		typec_set_data_role(husb->port,
-> +				    husb320_default_data_role(husb));
-> +	typec_set_pwr_opmode(husb->port,
-> +			     power_role == TYPEC_SOURCE ?
-> +			     husb->source_opmode : TYPEC_PWR_MODE_USB);
-> +}
-> +
-> +static int husb320_set_vbus(struct husb320 *husb, bool enable)
+> +static int __csi_formatter_subdev_set_routing(struct v4l2_subdev *sd,
+> +					      struct v4l2_subdev_state *state,
+> +					      struct v4l2_subdev_krouting *routing)
 > +{
 > +	int ret;
 > +
-> +	if (!husb->vbus || husb->vbus_on == enable)
-> +		return 0;
-> +
-> +	if (enable)
-> +		ret = regulator_enable(husb->vbus);
-> +	else
-> +		ret = regulator_disable(husb->vbus);
+> +	ret = v4l2_subdev_routing_validate(sd, routing,
+> +					   V4L2_SUBDEV_ROUTING_ONLY_1_TO_1);
 > +	if (ret)
 > +		return ret;
 > +
-> +	husb->vbus_on = enable;
-> +
-> +	return 0;
+> +	return v4l2_subdev_set_routing_with_fmt(sd, state, routing,
+> +						&formatter_default_fmt);
 > +}
 > +
-> +static int husb320_set_mode(struct husb320 *husb, int mode)
+> +static int csi_formatter_subdev_init_state(struct v4l2_subdev *sd,
+> +					   struct v4l2_subdev_state *sd_state)
 > +{
-> +	int ret;
-> +
-> +	if (husb->mode_valid && husb->connector_mode == mode)
-> +		return 0;
-> +
-> +	ret = typec_set_mode(husb->port, mode);
-> +	if (ret)
-> +		return ret;
-> +
-> +	husb->connector_mode = mode;
-> +	husb->mode_valid = true;
-> +
-> +	return 0;
-> +}
-> +
-> +static void husb320_unregister_partner(struct husb320 *husb)
-> +{
-> +	if (!husb->partner)
-> +		return;
-> +
-> +	typec_unregister_partner(husb->partner);
-> +	husb->partner = NULL;
-> +}
-> +
-> +static int husb320_register_partner(struct husb320 *husb,
-> +				    enum typec_accessory accessory)
-> +{
-> +	struct typec_partner_desc desc = {
-> +		.accessory = accessory,
-> +		.usb_pd = false,
+> +	struct v4l2_subdev_route routes[] = {
+> +		{
+> +			.sink_pad = CSI_FORMATTER_PAD_SINK,
+> +			.sink_stream = 0,
+> +			.source_pad = CSI_FORMATTER_PAD_SOURCE,
+> +			.source_stream = 0,
+> +			.flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE,
+> +		},
 > +	};
 > +
-> +	if (husb->partner)
+> +	struct v4l2_subdev_krouting routing = {
+> +		.num_routes = ARRAY_SIZE(routes),
+> +		.routes = routes,
+> +	};
+> +
+> +	return __csi_formatter_subdev_set_routing(sd, sd_state, &routing);
+> +}
+> +
+> +static int csi_formatter_subdev_enum_mbus_code(struct v4l2_subdev *sd,
+> +					       struct v4l2_subdev_state *sd_state,
+> +					       struct v4l2_subdev_mbus_code_enum *code)
+> +{
+> +	if (code->pad == CSI_FORMATTER_PAD_SOURCE) {
+> +		struct v4l2_mbus_framefmt *fmt;
+> +
+> +		if (code->index > 0)
+> +			return -EINVAL;
+> +
+> +		fmt = v4l2_subdev_state_get_format(sd_state, code->pad,
+> +						   code->stream);
+> +		code->code = fmt->code;
 > +		return 0;
-> +
-> +	husb->partner = typec_register_partner(husb->port, &desc);
-> +	if (IS_ERR(husb->partner)) {
-> +		int ret = PTR_ERR(husb->partner);
-> +
-> +		husb->partner = NULL;
-> +		return ret;
 > +	}
 > +
-> +	return 0;
-> +}
-> +
-> +static int husb320_disconnect(struct husb320 *husb)
-> +{
-> +	int err = 0;
-> +	int ret;
-> +
-> +	ret = husb320_set_vbus(husb, false);
-> +	if (ret)
-> +		err = ret;
-> +
-> +	ret = usb_role_switch_set_role(husb->role_sw, USB_ROLE_NONE);
-> +	if (ret) {
-> +		if (!err)
-> +			err = ret;
-> +	} else {
-> +		husb->usb_role = USB_ROLE_NONE;
-> +	}
-> +
-> +	ret = husb320_set_mode(husb, TYPEC_STATE_SAFE);
-> +	if (ret && !err)
-> +		err = ret;
-> +
-> +	husb320_unregister_partner(husb);
-> +
-> +	if (typec_get_orientation(husb->port) != TYPEC_ORIENTATION_NONE) {
-> +		ret = typec_set_orientation(husb->port, TYPEC_ORIENTATION_NONE);
-> +		if (ret && !err)
-> +			err = ret;
-> +	}
-> +
-> +	husb320_set_unattached_roles(husb);
-> +
-> +	husb->state = HUSB320_STATE_UNATTACHED;
-> +	husb->state_valid = !err;
-> +
-> +	return err;
-> +}
-> +
-> +static int husb320_hw_disable(struct husb320 *husb);
-> +
-> +static void husb320_error_recovery(struct husb320 *husb)
-> +{
-> +	int cleanup_ret;
-> +	int disable_ret;
-> +	int recovery_ret;
-> +
-> +	cleanup_ret = husb320_disconnect(husb);
-> +	recovery_ret = regmap_write(husb->regmap, HUSB320_REG_MANUAL,
-> +				    HUSB320_MANUAL_ERROR_RECOVERY);
-> +	if (cleanup_ret)
-> +		dev_err_ratelimited(husb->dev,
-> +				    "failed to clean up port: %d\n", cleanup_ret);
-> +	if (recovery_ret)
-> +		dev_err_ratelimited(husb->dev,
-> +				    "failed to start error recovery: %d\n",
-> +				    recovery_ret);
-> +
-> +	if (!cleanup_ret && !recovery_ret)
-> +		return;
-> +
-> +	husb->shutting_down = true;
-> +	disable_ret = husb320_hw_disable(husb);
-> +	if (disable_ret)
-> +		dev_err_ratelimited(husb->dev,
-> +				    "failed to disable controller: %d\n",
-> +				    disable_ret);
-> +}
-> +
-> +static enum typec_pwr_opmode husb320_sink_opmode(unsigned int status)
-> +{
-> +	switch (FIELD_GET(HUSB320_STATUS_CURRENT, status)) {
-> +	case 2:
-> +		return TYPEC_PWR_MODE_1_5A;
-> +	case 3:
-> +		return TYPEC_PWR_MODE_3_0A;
-> +	case 0:
-> +	case 1:
-> +	default:
-> +		return TYPEC_PWR_MODE_USB;
-> +	}
-> +}
-> +
-> +static enum typec_role husb320_state_power_role(enum husb320_state state)
-> +{
-> +	switch (state) {
-> +	case HUSB320_STATE_SOURCE:
-> +	case HUSB320_STATE_DEBUG_SOURCE:
-> +	case HUSB320_STATE_AUDIO:
-> +		return TYPEC_SOURCE;
-> +	case HUSB320_STATE_SINK:
-> +	case HUSB320_STATE_DEBUG_SINK:
-> +	case HUSB320_STATE_UNATTACHED:
-> +	default:
-> +		return TYPEC_SINK;
-> +	}
-> +}
-> +
-> +static enum typec_accessory husb320_state_accessory(enum husb320_state state)
-> +{
-> +	switch (state) {
-> +	case HUSB320_STATE_DEBUG_SOURCE:
-> +	case HUSB320_STATE_DEBUG_SINK:
-> +		return TYPEC_ACCESSORY_DEBUG;
-> +	case HUSB320_STATE_AUDIO:
-> +		return TYPEC_ACCESSORY_AUDIO;
-> +	default:
-> +		return TYPEC_ACCESSORY_NONE;
-> +	}
-> +}
-> +
-> +static enum usb_role husb320_state_usb_role(struct husb320 *husb,
-> +					    enum husb320_state state)
-> +{
-> +	if (!husb->has_data)
-> +		return USB_ROLE_NONE;
-> +
-> +	if ((state == HUSB320_STATE_SOURCE ||
-> +	     state == HUSB320_STATE_DEBUG_SOURCE) &&
-> +	    husb->cap.data != TYPEC_PORT_UFP)
-> +		return USB_ROLE_HOST;
-> +
-> +	if ((state == HUSB320_STATE_SINK ||
-> +	     state == HUSB320_STATE_DEBUG_SINK) &&
-> +	    husb->cap.data != TYPEC_PORT_DFP)
-> +		return USB_ROLE_DEVICE;
-> +
-> +	return USB_ROLE_NONE;
-> +}
-> +
-> +static int husb320_state_mode(enum husb320_state state)
-> +{
-> +	switch (state) {
-> +	case HUSB320_STATE_DEBUG_SOURCE:
-> +	case HUSB320_STATE_DEBUG_SINK:
-> +		return TYPEC_MODE_DEBUG;
-> +	case HUSB320_STATE_AUDIO:
-> +		return TYPEC_MODE_AUDIO;
-> +	case HUSB320_STATE_SOURCE:
-> +	case HUSB320_STATE_SINK:
-> +		return TYPEC_STATE_USB;
-> +	case HUSB320_STATE_UNATTACHED:
-> +	default:
-> +		return TYPEC_STATE_SAFE;
-> +	}
-> +}
-> +
-> +static int husb320_apply_state(struct husb320 *husb,
-> +			       enum husb320_state state,
-> +			       enum typec_orientation orientation,
-> +			       unsigned int status)
-> +{
-> +	enum typec_accessory accessory = husb320_state_accessory(state);
-> +	enum usb_role usb_role = husb320_state_usb_role(husb, state);
-> +	enum typec_pwr_opmode opmode;
-> +	enum typec_role power_role;
-> +	int ret;
-> +
-> +	if (state == HUSB320_STATE_UNATTACHED && husb->state_valid &&
-> +	    husb->state == HUSB320_STATE_UNATTACHED && !husb->partner &&
-> +	    !husb->vbus_on &&
-> +	    husb->usb_role == USB_ROLE_NONE)
-> +		return 0;
-> +
-> +	if (state == HUSB320_STATE_UNATTACHED)
-> +		return husb320_disconnect(husb);
-> +
-> +	if (state != husb->state &&
-> +	    (!husb->state_valid ||
-> +	     husb->state != HUSB320_STATE_UNATTACHED)) {
-> +		ret = husb320_disconnect(husb);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	if (typec_get_orientation(husb->port) != orientation) {
-> +		ret = typec_set_orientation(husb->port, orientation);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	/* Accessory states do not request the platform VBUS supply. */
-> +	ret = husb320_set_vbus(husb, state == HUSB320_STATE_SOURCE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (usb_role != husb->usb_role) {
-> +		ret = usb_role_switch_set_role(husb->role_sw, usb_role);
-> +		if (ret)
-> +			return ret;
-> +		husb->usb_role = usb_role;
-> +	}
-> +
-> +	ret = husb320_set_mode(husb, husb320_state_mode(state));
-> +	if (ret)
-> +		return ret;
-> +
-> +	power_role = husb320_state_power_role(state);
-> +	opmode = state == HUSB320_STATE_SINK ?
-> +		husb320_sink_opmode(status) :
-> +		(power_role == TYPEC_SOURCE ? husb->source_opmode :
-> +		 TYPEC_PWR_MODE_USB);
-> +
-> +	if (usb_role == USB_ROLE_HOST)
-> +		typec_set_data_role(husb->port, TYPEC_HOST);
-> +	else if (usb_role == USB_ROLE_DEVICE)
-> +		typec_set_data_role(husb->port, TYPEC_DEVICE);
-> +	typec_set_pwr_role(husb->port, power_role);
-> +	typec_set_pwr_opmode(husb->port, opmode);
-> +
-> +	ret = husb320_register_partner(husb, accessory);
-> +	if (ret) {
-> +		husb->state_valid = false;
-> +		dev_err_ratelimited(husb->dev,
-> +				    "failed to register partner: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	husb->state = state;
-> +	husb->state_valid = true;
-> +
-> +	return 0;
-> +}
-> +
-> +static enum typec_orientation husb320_get_orientation(unsigned int status)
-> +{
-> +	switch (FIELD_GET(HUSB320_STATUS_ORIENTATION, status)) {
-> +	case HUSB320_STATUS_ORIENTATION_CC1:
-> +		return TYPEC_ORIENTATION_NORMAL;
-> +	case HUSB320_STATUS_ORIENTATION_CC2:
-> +		return TYPEC_ORIENTATION_REVERSE;
-> +	default:
-> +		return TYPEC_ORIENTATION_NONE;
-> +	}
-> +}
-> +
-> +static enum husb320_state husb320_get_state(unsigned int status,
-> +					    unsigned int type)
-> +{
-> +	if (!(status & HUSB320_STATUS_ATTACHED))
-> +		return HUSB320_STATE_UNATTACHED;
-> +
-> +	if (type & HUSB320_TYPE_DEBUG_SOURCE)
-> +		return HUSB320_STATE_DEBUG_SOURCE;
-> +	if (type & HUSB320_TYPE_DEBUG_SINK)
-> +		return HUSB320_STATE_DEBUG_SINK;
-> +	if (type & HUSB320_TYPE_SINK)
-> +		return HUSB320_STATE_SINK;
-> +	if (type & HUSB320_TYPE_SOURCE)
-> +		return HUSB320_STATE_SOURCE;
-> +	if (type & (HUSB320_TYPE_AUDIO_VBUS | HUSB320_TYPE_AUDIO))
-> +		return HUSB320_STATE_AUDIO;
-> +
-> +	return HUSB320_STATE_UNATTACHED;
-> +}
-> +
-> +static int husb320_update_state(struct husb320 *husb)
-> +{
-> +	enum typec_orientation orientation;
-> +	enum husb320_state state;
-> +	unsigned int status;
-> +	unsigned int type;
-> +	int ret;
-> +
-> +	ret = regmap_read(husb->regmap, HUSB320_REG_STATUS, &status);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_read(husb->regmap, HUSB320_REG_TYPE, &type);
-> +	if (ret)
-> +		return ret;
-> +
-> +	state = husb320_get_state(status, type);
-> +	orientation = state == HUSB320_STATE_UNATTACHED ?
-> +		TYPEC_ORIENTATION_NONE : husb320_get_orientation(status);
-> +
-> +	ret = husb320_apply_state(husb, state, orientation, status);
-> +	if (!ret)
-> +		dev_dbg(husb->dev, "status=%#x type=%#x state=%u\n",
-> +			status, type, state);
-> +
-> +	return ret;
-> +}
-> +
-> +static irqreturn_t husb320_irq_thread(int irq, void *data)
-> +{
-> +	struct husb320 *husb = data;
-> +	unsigned int interrupt;
-> +	unsigned int interrupt1;
-> +	int disable_ret;
-> +	int ret;
-> +
-> +	mutex_lock(&husb->lock);
-> +	if (husb->shutting_down) {
-> +		disable_irq_nosync(irq);
-> +		mutex_unlock(&husb->lock);
-> +		return IRQ_HANDLED;
-> +	}
-> +
-> +	ret = regmap_read(husb->regmap, HUSB320_REG_INTERRUPT, &interrupt);
-> +	if (ret)
-> +		goto err;
-> +
-> +	ret = regmap_read(husb->regmap, HUSB320_REG_INTERRUPT1, &interrupt1);
-> +	if (ret)
-> +		goto err;
-> +
-> +	interrupt &= HUSB320_INT_VALID;
-> +	interrupt1 &= HUSB320_INT1_VALID;
-> +	if (!interrupt && !interrupt1) {
-> +		mutex_unlock(&husb->lock);
-> +		return IRQ_NONE;
-> +	}
-> +
-> +	if (interrupt) {
-> +		ret = regmap_write(husb->regmap, HUSB320_REG_INTERRUPT,
-> +				   interrupt);
-> +		if (ret)
-> +			goto err;
-> +	}
-> +
-> +	if (interrupt1) {
-> +		ret = regmap_write(husb->regmap, HUSB320_REG_INTERRUPT1,
-> +				   interrupt1);
-> +		if (ret)
-> +			goto err;
-> +	}
-> +
-> +	if (interrupt & HUSB320_INT_DETACH) {
-> +		ret = husb320_disconnect(husb);
-> +		if (ret)
-> +			dev_err_ratelimited(husb->dev,
-> +					    "failed to disconnect port: %d\n",
-> +					    ret);
-> +	}
-> +
-> +	ret = husb320_update_state(husb);
-> +	if (ret) {
-> +		dev_err_ratelimited(husb->dev,
-> +				    "failed to update port state: %d\n", ret);
-> +		husb320_error_recovery(husb);
-> +	}
-> +
-> +	mutex_unlock(&husb->lock);
-> +
-> +	return IRQ_HANDLED;
-> +
-> +err:
-> +	dev_err_ratelimited(husb->dev, "failed to service interrupt: %d\n",
-> +			    ret);
-> +	husb->shutting_down = true;
-> +	husb320_error_recovery(husb);
-> +	disable_ret = husb320_hw_disable(husb);
-> +	if (disable_ret)
-> +		dev_err_ratelimited(husb->dev,
-> +				    "failed to disable controller: %d\n",
-> +				    disable_ret);
-> +	disable_irq_nosync(irq);
-> +	mutex_unlock(&husb->lock);
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static unsigned int husb320_port_role(enum typec_port_type type)
-> +{
-> +	switch (type) {
-> +	case TYPEC_PORT_SRC:
-> +		return HUSB320_PORT_ROLE_SOURCE;
-> +	case TYPEC_PORT_SNK:
-> +		return HUSB320_PORT_ROLE_SINK;
-> +	case TYPEC_PORT_DRP:
-> +	default:
-> +		return HUSB320_PORT_ROLE_DRP;
-> +	}
-> +}
-> +
-> +static unsigned int husb320_try_role(int role)
-> +{
-> +	switch (role) {
-> +	case TYPEC_SINK:
-> +		return HUSB320_TRY_SINK;
-> +	case TYPEC_SOURCE:
-> +		return HUSB320_TRY_SOURCE;
-> +	case TYPEC_NO_PREFERRED_ROLE:
-> +	default:
-> +		return HUSB320_TRY_NONE;
-> +	}
-> +}
-> +
-> +static int husb320_port_type_set(struct typec_port *port,
-> +				 enum typec_port_type type)
-> +{
-> +	struct husb320 *husb = typec_get_drvdata(port);
-> +	unsigned int port_role;
-> +	int ret;
-> +
-> +	mutex_lock(&husb->lock);
-> +	if (husb->shutting_down) {
-> +		ret = -ESHUTDOWN;
-> +		goto out_unlock;
-> +	}
-> +
-> +	port_role = husb320_port_role(type);
-> +	if (type == TYPEC_PORT_DRP)
-> +		port_role |= FIELD_PREP(HUSB320_PORT_ROLE_TRY,
-> +					 husb320_try_role(husb->preferred_role));
-> +
-> +	ret = husb320_disconnect(husb);
-> +	if (ret) {
-> +		husb320_error_recovery(husb);
-> +		goto out_unlock;
-> +	}
-> +
-> +	ret = regmap_update_bits(husb->regmap, HUSB320_REG_PORT_ROLE,
-> +				 HUSB320_PORT_ROLE_TRY |
-> +				 HUSB320_PORT_ROLE_MODE,
-> +				 port_role);
-> +	if (ret) {
-> +		husb320_error_recovery(husb);
-> +		goto out_unlock;
-> +	}
-> +
-> +	husb->port_type = type;
-> +	husb320_set_unattached_roles(husb);
-> +out_unlock:
-> +	mutex_unlock(&husb->lock);
-> +
-> +	return ret;
-> +}
-> +
-> +static int husb320_try_role_set(struct typec_port *port, int role)
-> +{
-> +	struct husb320 *husb = typec_get_drvdata(port);
-> +	int ret;
-> +
-> +	mutex_lock(&husb->lock);
-> +	if (husb->shutting_down) {
-> +		ret = -ESHUTDOWN;
-> +		goto out_unlock;
-> +	}
-> +
-> +	if (husb->port_type == TYPEC_PORT_DRP)
-> +		ret = regmap_update_bits(husb->regmap, HUSB320_REG_PORT_ROLE,
-> +					 HUSB320_PORT_ROLE_TRY,
-> +					 FIELD_PREP(HUSB320_PORT_ROLE_TRY,
-> +						    husb320_try_role(role)));
-> +	else
-> +		ret = 0;
-> +	if (!ret)
-> +		husb->preferred_role = role;
-> +out_unlock:
-> +	mutex_unlock(&husb->lock);
-> +
-> +	return ret;
-> +}
-> +
-> +static const struct typec_operations husb320_typec_ops = {
-> +	.port_type_set = husb320_port_type_set,
-> +	.try_role = husb320_try_role_set,
-> +};
-> +
-> +static unsigned int husb320_host_current(enum typec_pwr_opmode opmode)
-> +{
-> +	switch (opmode) {
-> +	case TYPEC_PWR_MODE_1_5A:
-> +		return HUSB320_HOST_CURRENT_1_5A;
-> +	case TYPEC_PWR_MODE_3_0A:
-> +		return HUSB320_HOST_CURRENT_3_0A;
-> +	case TYPEC_PWR_MODE_USB:
-> +	default:
-> +		return HUSB320_HOST_CURRENT_DEFAULT;
-> +	}
-> +}
-> +
-> +static int husb320_hw_init(struct husb320 *husb)
-> +{
-> +	unsigned int port_role;
-> +	unsigned int control;
-> +	int ret;
-> +
-> +	ret = regmap_update_bits(husb->regmap, HUSB320_REG_RESET,
-> +				 HUSB320_RESET_SW, HUSB320_RESET_SW);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Wait for stable status and I2C access after the soft reset. */
-> +	msleep(100);
-> +
-> +	control = HUSB320_CONTROL_INT_MASK |
-> +		  FIELD_PREP(HUSB320_CONTROL_HOST_CURRENT,
-> +			     husb320_host_current(husb->source_opmode));
-> +	ret = regmap_update_bits(husb->regmap, HUSB320_REG_CONTROL,
-> +				 HUSB320_CONTROL_INT_MASK |
-> +				 HUSB320_CONTROL_HOST_CURRENT,
-> +				 control);
-> +	if (ret)
-> +		return ret;
-> +
-> +	port_role = husb320_port_role(husb->port_type);
-> +	if (husb->port_type == TYPEC_PORT_DRP)
-> +		port_role |= FIELD_PREP(HUSB320_PORT_ROLE_TRY,
-> +					 husb320_try_role(husb->preferred_role));
-> +	ret = regmap_update_bits(husb->regmap, HUSB320_REG_PORT_ROLE,
-> +				 HUSB320_PORT_ROLE_TRY |
-> +				 HUSB320_PORT_ROLE_MODE,
-> +				 port_role);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(husb->regmap, HUSB320_REG_MASK,
-> +			   HUSB320_MASK_FAULT | HUSB320_MASK_AUTOSINK);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(husb->regmap, HUSB320_REG_MASK1,
-> +			   HUSB320_MASK1_FORCE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_update_bits(husb->regmap, HUSB320_REG_CONTROL1,
-> +				 HUSB320_CONTROL1_ENABLE,
-> +				 HUSB320_CONTROL1_ENABLE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(husb->regmap, HUSB320_REG_INTERRUPT,
-> +			   HUSB320_INT_VALID);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_write(husb->regmap, HUSB320_REG_INTERRUPT1,
-> +			    HUSB320_INT1_VALID);
-> +}
-> +
-> +static int husb320_hw_disable(struct husb320 *husb)
-> +{
-> +	int err = 0;
-> +	int ret;
-> +
-> +	ret = regmap_update_bits(husb->regmap, HUSB320_REG_CONTROL,
-> +				 HUSB320_CONTROL_INT_MASK,
-> +				 HUSB320_CONTROL_INT_MASK);
-> +	if (ret)
-> +		err = ret;
-> +
-> +	ret = regmap_update_bits(husb->regmap, HUSB320_REG_CONTROL1,
-> +				 HUSB320_CONTROL1_ENABLE, 0);
-> +	if (ret && !err)
-> +		err = ret;
-> +
-> +	return err;
-> +}
-> +
-> +static int husb320_set_sink_mode(struct husb320 *husb)
-> +{
-> +	int ret;
-> +
-> +	ret = regmap_update_bits(husb->regmap, HUSB320_REG_CONTROL,
-> +				 HUSB320_CONTROL_INT_MASK,
-> +				 HUSB320_CONTROL_INT_MASK);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_update_bits(husb->regmap, HUSB320_REG_PORT_ROLE,
-> +				 HUSB320_PORT_ROLE_TRY |
-> +				 HUSB320_PORT_ROLE_MODE,
-> +				 HUSB320_PORT_ROLE_SINK);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_update_bits(husb->regmap, HUSB320_REG_CONTROL1,
-> +				  HUSB320_CONTROL1_ENABLE,
-> +				  HUSB320_CONTROL1_ENABLE);
-> +}
-> +
-> +static int husb320_parse_connector(struct husb320 *husb)
-> +{
-> +	const char *opmode;
-> +	int ret;
-> +
-> +	husb->connector = device_get_named_child_node(husb->dev, "connector");
-> +	if (!husb->connector)
-> +		return -ENODEV;
-> +
-> +	/* The connector is parsed as a fwnode and is not populated as a device. */
-> +	fw_devlink_purge_absent_suppliers(husb->connector);
-> +
-> +	ret = typec_get_fw_cap(&husb->cap, husb->connector);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = fwnode_property_read_string(husb->connector,
-> +					  "typec-power-opmode", &opmode);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = typec_find_pwr_opmode(opmode);
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret == TYPEC_PWR_MODE_PD)
+> +	if (code->index >= ARRAY_SIZE(csi_formatter_formats))
 > +		return -EINVAL;
 > +
-> +	husb->source_opmode = ret;
-> +	husb->has_data = fwnode_property_present(husb->connector, "data-role");
-> +	if (husb->has_data &&
-> +	    ((husb->cap.type == TYPEC_PORT_SRC &&
-> +	      husb->cap.data != TYPEC_PORT_DFP) ||
-> +	     (husb->cap.type == TYPEC_PORT_SNK &&
-> +	      husb->cap.data != TYPEC_PORT_UFP) ||
-> +	     (husb->cap.type == TYPEC_PORT_DRP &&
-> +	      husb->cap.data != TYPEC_PORT_DRD))) {
-> +		return dev_err_probe(husb->dev, -EINVAL,
-> +				     "power and data roles do not match\n");
-> +	} else if (!husb->has_data) {
-> +		if (husb->cap.type == TYPEC_PORT_SNK)
-> +			husb->cap.data = TYPEC_PORT_UFP;
-> +		else if (husb->cap.type == TYPEC_PORT_DRP)
-> +			husb->cap.data = TYPEC_PORT_DRD;
-> +	}
-> +
-> +	husb->cap.revision = USB_TYPEC_REV_2_0;
-> +	husb->cap.accessory[0] = TYPEC_ACCESSORY_AUDIO;
-> +	husb->cap.accessory[1] = TYPEC_ACCESSORY_DEBUG;
-> +	husb->cap.orientation_aware = true;
-> +	husb->cap.driver_data = husb;
-> +	husb->cap.ops = &husb320_typec_ops;
-> +	husb->port_type = husb->cap.type;
-> +	husb->preferred_role = husb->cap.prefer_role;
+> +	code->code = csi_formatter_formats[code->index].code;
 > +
 > +	return 0;
 > +}
 > +
-> +static int husb320_get_role_switch(struct husb320 *husb)
+> +static int csi_formatter_subdev_set_fmt(struct v4l2_subdev *sd,
+> +					struct v4l2_subdev_state *sd_state,
+> +					struct v4l2_subdev_format *format)
 > +{
+> +	struct v4l2_mbus_framefmt *fmt;
+> +
+> +	if (format->which == V4L2_SUBDEV_FORMAT_ACTIVE &&
+> +	    media_entity_is_streaming(&sd->entity))
+> +		return -EBUSY;
+> +
+> +	if (format->pad == CSI_FORMATTER_PAD_SOURCE)
+> +		return v4l2_subdev_get_fmt(sd, sd_state, format);
+> +
+> +	if (!csi_formatter_find_format(format->format.code))
+> +		format->format.code = csi_formatter_formats[0].code;
+> +
+> +	v4l_bound_align_image(&format->format.width, 1, 0xffff, 2,
+> +			      &format->format.height, 1, 0xffff, 0, 0);
+> +
+> +	/* TODO: Add interlaced format support */
+> +	format->format.field = V4L2_FIELD_NONE;
+> +
+> +	fmt = v4l2_subdev_state_get_format(sd_state, format->pad,
+> +					   format->stream);
+> +	*fmt = format->format;
+> +
+> +	/* Propagate the format from sink stream to source stream */
+> +	fmt = v4l2_subdev_state_get_opposite_stream_format(sd_state, format->pad,
+> +							   format->stream);
+> +	*fmt = format->format;
+> +
+> +	return 0;
+> +}
+> +
+> +static int csi_formatter_subdev_set_routing(struct v4l2_subdev *sd,
+> +					    struct v4l2_subdev_state *state,
+> +					    enum v4l2_subdev_format_whence which,
+> +					    struct v4l2_subdev_krouting *routing)
+> +{
+> +	if (which == V4L2_SUBDEV_FORMAT_ACTIVE &&
+> +	    media_entity_is_streaming(&sd->entity))
+> +		return -EBUSY;
+> +
+> +	return __csi_formatter_subdev_set_routing(sd, state, routing);
+> +}
+> +
+> +static u8 csi_formatter_get_index_by_dt(struct csi_formatter *formatter,
+> +					u8 data_type)
+> +{
+> +	for (unsigned int i = 0; i < ARRAY_SIZE(csi_formatter_dt_to_index_map); ++i) {
+> +		const struct csi_formatter_dt_index *entry =
+> +			&csi_formatter_dt_to_index_map[i];
+> +
+> +		if (data_type == entry->dtype)
+> +			return entry->index;
+> +	}
+> +
+> +	dev_warn(formatter->dev, "Unsupported data type 0x%x, using default\n",
+> +		 data_type);
+> +	WARN_ON(1);
+
+	dev_WARN(formatter->dev, "Unsupported data type 0x%x, using default\n",
+		 data_type);
+
+> +
+> +	return csi_formatter_dt_to_index_map[0].index;
+> +}
+> +
+> +static int csi_formatter_get_vc(struct csi_formatter *formatter,
+> +				struct v4l2_mbus_frame_desc *fd,
+> +				unsigned int stream)
+> +{
+> +	struct v4l2_mbus_frame_desc_entry *entry = NULL;
+> +	u8 vc;
+> +
+> +	for (unsigned int i = 0; i < fd->num_entries; ++i) {
+> +		if (fd->entry[i].stream == stream) {
+> +			entry = &fd->entry[i];
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (!entry) {
+> +		dev_err(formatter->dev,
+> +			"No frame desc entry for stream %u\n", stream);
+> +		return -EPIPE;
+> +	}
+> +
+> +	vc = entry->bus.csi2.vc;
+> +
+> +	if (vc >= CSI_FORMATTER_VC_NUM) {
+> +		dev_err(formatter->dev, "Invalid virtual channel %u\n", vc);
+> +		return -EPIPE;
+> +	}
+> +
+> +	return vc;
+> +}
+> +
+> +static void csi_formatter_stop_stream(struct csi_formatter *formatter,
+> +				      struct v4l2_subdev_state *state,
+> +				      u64 stream_mask)
+> +{
+> +	const struct csi_formatter_pix_format *pix_fmt;
+> +	struct v4l2_mbus_frame_desc fd = {};
+> +	struct v4l2_subdev_route *route;
+> +	struct v4l2_mbus_framefmt *fmt;
+> +	unsigned int reg;
+> +	unsigned int mask;
+> +	int vc;
 > +	int ret;
 > +
-> +	if (!husb->has_data)
-> +		return 0;
-> +
-> +	husb->role_sw = fwnode_usb_role_switch_get(husb->connector);
-> +	if (IS_ERR(husb->role_sw)) {
-> +		ret = PTR_ERR(husb->role_sw);
-> +		husb->role_sw = NULL;
-> +		if (ret == -ENODEV && husb->cap.data != TYPEC_PORT_DRD)
-> +			return 0;
-> +
-> +		return dev_err_probe(husb->dev, ret,
-> +				     "failed to get USB role switch\n");
+> +	ret = v4l2_subdev_call(formatter->remote_sd, pad, get_frame_desc,
+> +			       formatter->remote_pad, &fd);
+> +	if (ret < 0 && ret != -ENOIOCTLCMD) {
+> +		dev_err(formatter->dev, "Failed to get frame desc: %d\n", ret);
+> +		return;
 > +	}
 > +
-> +	if (!husb->role_sw && husb->cap.data == TYPEC_PORT_DRD)
-> +		return dev_err_probe(husb->dev, -ENODEV,
-> +				     "USB data role has no role switch\n");
-> +
-> +	return 0;
-> +}
-> +
-> +static int husb320_get_vbus(struct husb320 *husb)
-> +{
-> +	struct device_node *node = to_of_node(husb->connector);
-> +
-> +	if (node)
-> +		husb->vbus = devm_of_regulator_get_optional(husb->dev, node, "vbus");
-> +	else
-> +		husb->vbus = devm_regulator_get_optional(husb->dev, "vbus");
-> +
-> +	if (IS_ERR(husb->vbus)) {
-> +		int ret = PTR_ERR(husb->vbus);
-> +
-> +		husb->vbus = NULL;
-> +		if (ret != -ENODEV)
-> +			return dev_err_probe(husb->dev, ret,
-> +					     "failed to get VBUS supply\n");
+> +	if (ret == -ENOIOCTLCMD) {
+> +		fd.type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
+> +		fd.num_entries = 1;
 > +	}
 > +
-> +	if (husb->cap.type != TYPEC_PORT_SNK && !husb->vbus)
-> +		return dev_err_probe(husb->dev, -ENODEV,
-> +				     "source-capable port requires VBUS supply\n");
+
+I was oing to write that you can copy here the comment from
+csi_formatter_start_stream(), but then realized we can split this to a
+helper:
+
+static int csi_formatter_get_frame_desc(struct csi_formatter *formatter,
+				        struct v4l2_mbus_frame_desc *fd)
+{
+	int ret;
+
+	ret = v4l2_subdev_call(formatter->remote_sd, pad, get_frame_desc,
+			       formatter->remote_pad, fd);
+	if (ret < 0 && ret != -ENOIOCTLCMD) {
+		dev_err(formatter->dev, "Failed to get frame desc: %d\n", ret);
+		return ret;
+	}
+
+	/*
+	 * If the source doesn't implement .get_frame_desc(), assume a single
+	 * stream on VC 0. fd is zero-initialized, only set the fields that have
+	 * a non-zero value.
+	 */
+	if (ret == -ENOIOCTLCMD) {
+		fd->type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
+		fd->num_entries = 1;
+	}
+
+	return 0:
+}
+
+and in this function,
+
+	ret = csi_formatter_get_frame_desc(formatter, &fd);
+	if (ret)
+		return ret;
+
+Same in csi_formatter_start_stream().
+
+> +	for_each_active_route(&state->routing, route) {
+> +		if (!(stream_mask & BIT_ULL(route->source_stream)))
+> +			continue;
 > +
-> +	return 0;
+> +		vc = csi_formatter_get_vc(formatter, &fd, route->sink_stream);
+> +		if (vc < 0)
+> +			continue;
+> +
+> +		fmt = v4l2_subdev_state_get_format(state, route->sink_pad,
+> +						   route->sink_stream);
+> +
+> +		pix_fmt = csi_formatter_find_format(fmt->code);
+> +		if (WARN_ON(!pix_fmt))
+> +			continue;
+> +
+> +		reg = CSI_VC_PIXEL_DATA_TYPE(vc) + formatter->reg_offset;
+> +		mask = BIT(csi_formatter_get_index_by_dt(formatter,
+> +							 pix_fmt->data_type));
+> +
+> +		/* Clear the data type bit to disable this VC */
+> +		regmap_clear_bits(formatter->regs, reg, mask);
+> +	}
 > +}
 > +
-> +static void husb320_disable(void *data)
+> +static int csi_formatter_start_stream(struct csi_formatter *formatter,
+> +				      struct v4l2_subdev_state *state,
+> +				      u64 stream_mask)
 > +{
-> +	struct husb320 *husb = data;
-> +
-> +	gpiod_set_value_cansleep(husb->enable_gpio, 0);
-> +}
-> +
-> +static int husb320_power_on(struct husb320 *husb)
-> +{
-> +	bool needs_delay = false;
+> +	const struct csi_formatter_pix_format *pix_fmt;
+> +	struct v4l2_subdev_route *route;
+> +	struct v4l2_mbus_framefmt *fmt;
+> +	struct v4l2_mbus_frame_desc fd = {};
+> +	u64 configured_streams = 0;
+> +	unsigned int reg;
+> +	unsigned int mask;
+> +	int vc;
 > +	int ret;
 > +
-> +	ret = devm_regulator_get_enable_optional(husb->dev, "vdd");
-> +	if (ret == -ENODEV) {
-> +		ret = 0;
-> +	} else if (ret) {
-> +		return dev_err_probe(husb->dev, ret,
-> +				     "failed to enable VDD supply\n");
-> +	} else {
-> +		needs_delay = true;
+> +	ret = v4l2_subdev_call(formatter->remote_sd, pad, get_frame_desc,
+> +			       formatter->remote_pad, &fd);
+> +	if (ret < 0 && ret != -ENOIOCTLCMD) {
+> +		dev_err(formatter->dev, "Failed to get frame desc: %d\n", ret);
+> +		return ret;
 > +	}
 > +
-> +	husb->enable_gpio = devm_gpiod_get_optional(husb->dev, "enable",
-> +						    GPIOD_OUT_HIGH);
-> +	if (IS_ERR(husb->enable_gpio))
-> +		return dev_err_probe(husb->dev, PTR_ERR(husb->enable_gpio),
-> +				     "failed to enable controller\n");
+> +	/*
+> +	 * If the source doesn't implement .get_frame_desc(), assume a single
+> +	 * stream on VC 0. fd is zero-initialized, only set the fields that have
+> +	 * a non-zero value.
+> +	 */
+> +	if (ret == -ENOIOCTLCMD) {
+> +		fd.type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
+> +		fd.num_entries = 1;
+> +	}
 > +
-> +	if (husb->enable_gpio) {
-> +		ret = devm_add_action_or_reset(husb->dev, husb320_disable, husb);
-> +		if (ret)
+> +	for_each_active_route(&state->routing, route) {
+> +		if (!(stream_mask & BIT_ULL(route->source_stream)))
+> +			continue;
+> +
+> +		vc = csi_formatter_get_vc(formatter, &fd, route->sink_stream);
+> +		if (vc < 0) {
+> +			ret = vc;
+> +			goto err_cleanup;
+> +		}
+> +
+> +		fmt = v4l2_subdev_state_get_format(state, route->sink_pad,
+> +						   route->sink_stream);
+> +
+> +		pix_fmt = csi_formatter_find_format(fmt->code);
+> +		if (WARN_ON(!pix_fmt)) {
+> +			ret = -EINVAL;
+> +			goto err_cleanup;
+> +		}
+> +
+> +		reg = CSI_VC_PIXEL_DATA_TYPE(vc) + formatter->reg_offset;
+> +		mask = BIT(csi_formatter_get_index_by_dt(formatter,
+> +							 pix_fmt->data_type));
+> +
+> +		/* Set the data type bit to enable this VC */
+> +		regmap_set_bits(formatter->regs, reg, mask);
+> +
+> +		configured_streams |= BIT_ULL(route->source_stream);
+> +	}
+> +
+> +	return 0;
+> +
+> +err_cleanup:
+> +	csi_formatter_stop_stream(formatter, state, configured_streams);
+> +	return ret;
+> +}
+> +
+> +static int csi_formatter_subdev_enable_streams(struct v4l2_subdev *sd,
+> +					       struct v4l2_subdev_state *state,
+> +					       u32 pad, u64 streams_mask)
+> +{
+> +	struct csi_formatter *formatter = sd_to_formatter(sd);
+> +	struct device *dev = formatter->dev;
+> +	u64 sink_streams;
+> +	int ret;
+> +
+> +	sink_streams = v4l2_subdev_state_xlate_streams(state,
+> +						       CSI_FORMATTER_PAD_SOURCE,
+> +						       CSI_FORMATTER_PAD_SINK,
+> +						       &streams_mask);
+> +	if (!sink_streams || !streams_mask)
+> +		return -EINVAL;
+> +
+> +	if (!formatter->enabled_streams) {
+> +		ret = pm_runtime_resume_and_get(formatter->dev);
+> +		if (ret < 0) {
+> +			dev_err(dev, "Failed to resume runtime PM: %d\n", ret);
 > +			return ret;
-> +		needs_delay = true;
+> +		}
 > +	}
 > +
-> +	/* Wait for the controller to become I2C-accessible after power-on. */
-> +	if (needs_delay)
-> +		msleep(100);
+> +	ret = csi_formatter_start_stream(formatter, state, streams_mask);
+> +	if (ret)
+> +		goto err_runtime_put;
+> +
+> +	ret = v4l2_subdev_enable_streams(formatter->remote_sd,
+> +					 formatter->remote_pad,
+> +					 sink_streams);
+> +	if (ret)
+> +		goto err_stop_stream;
+> +
+> +	formatter->enabled_streams |= streams_mask;
 > +
 > +	return 0;
+> +
+> +err_stop_stream:
+> +	csi_formatter_stop_stream(formatter, state, streams_mask);
+> +err_runtime_put:
+> +	if (!formatter->enabled_streams)
+> +		pm_runtime_put(formatter->dev);
+
+Don't you need pm_runtime_put_autosuspend() now that you've enabled
+autosuspend ?
+
+> +	return ret;
 > +}
 > +
-> +static int husb320_check_device(struct husb320 *husb)
+> +static int csi_formatter_subdev_disable_streams(struct v4l2_subdev *sd,
+> +						struct v4l2_subdev_state *state,
+> +						u32 pad, u64 streams_mask)
 > +{
-> +	unsigned int device_id;
-> +	unsigned int device_type;
+> +	struct csi_formatter *formatter = sd_to_formatter(sd);
+> +	u64 sink_streams;
 > +	int ret;
 > +
-> +	ret = regmap_read(husb->regmap, HUSB320_REG_DEVICE_ID, &device_id);
+> +	sink_streams = v4l2_subdev_state_xlate_streams(state,
+> +						       CSI_FORMATTER_PAD_SOURCE,
+> +						       CSI_FORMATTER_PAD_SINK,
+> +						       &streams_mask);
+> +	if (!sink_streams || !streams_mask)
+> +		return -EINVAL;
+> +
+> +	ret = v4l2_subdev_disable_streams(formatter->remote_sd, formatter->remote_pad,
+> +					  sink_streams);
 > +	if (ret)
-> +		return dev_err_probe(husb->dev, ret,
-> +				     "failed to read device ID\n");
+> +		dev_err(formatter->dev, "Failed to disable streams: %d\n", ret);
 > +
-> +	ret = regmap_read(husb->regmap, HUSB320_REG_DEVICE_TYPE, &device_type);
-> +	if (ret)
-> +		return dev_err_probe(husb->dev, ret,
-> +				     "failed to read device type\n");
+> +	csi_formatter_stop_stream(formatter, state, streams_mask);
 > +
-> +	if (FIELD_GET(HUSB320_DEVICE_ID_VERSION, device_id) !=
-> +			HUSB320_DEVICE_ID_VERSION_1 ||
-> +	    device_type != HUSB320_DEVICE_TYPE)
-> +		return dev_err_probe(husb->dev, -ENODEV,
-> +				     "unsupported device ID %#x type %#x\n",
-> +				     device_id, device_type);
+> +	formatter->enabled_streams &= ~streams_mask;
 > +
-> +	dev_dbg(husb->dev, "version %lu revision %lu\n",
-> +		FIELD_GET(HUSB320_DEVICE_ID_VERSION, device_id),
-> +		FIELD_GET(HUSB320_DEVICE_ID_REVISION, device_id));
-> +
-> +	return 0;
-> +}
-> +
-> +static int husb320_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct husb320 *husb;
-> +	int ret;
-> +
-> +	husb = devm_kzalloc(dev, sizeof(*husb), GFP_KERNEL);
-> +	if (!husb)
-> +		return -ENOMEM;
-> +
-> +	husb->dev = dev;
-> +	husb->state = HUSB320_STATE_UNATTACHED;
-> +	husb->usb_role = USB_ROLE_NONE;
-> +	mutex_init(&husb->lock);
-> +	i2c_set_clientdata(client, husb);
-> +
-> +	ret = husb320_power_on(husb);
-> +	if (ret)
-> +		return ret;
-> +
-> +	husb->regmap = devm_regmap_init_i2c(client, &husb320_regmap_config);
-> +	if (IS_ERR(husb->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(husb->regmap),
-> +				     "failed to initialize regmap\n");
-> +
-> +	ret = husb320_check_device(husb);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (client->irq <= 0)
-> +		return dev_err_probe(dev, client->irq ?: -EINVAL,
-> +				     "missing interrupt\n");
-> +
-> +	ret = husb320_parse_connector(husb);
-> +	if (ret)
-> +		goto err_put_connector;
-> +
-> +	ret = husb320_get_role_switch(husb);
-> +	if (ret)
-> +		goto err_put_connector;
-> +
-> +	ret = husb320_get_vbus(husb);
-> +	if (ret)
-> +		goto err_put_role;
-> +
-> +	ret = husb320_hw_init(husb);
-> +	if (ret)
-> +		goto err_hw_disable;
-> +
-> +	husb->port = typec_register_port(dev, &husb->cap);
-> +	if (IS_ERR(husb->port)) {
-> +		ret = PTR_ERR(husb->port);
-> +		goto err_hw_disable;
-> +	}
-> +
-> +	ret = devm_request_threaded_irq(dev, client->irq, NULL,
-> +					husb320_irq_thread, IRQF_ONESHOT,
-> +					dev_name(dev), husb);
-> +	if (ret)
-> +		goto err_unregister_port;
-> +
-> +	mutex_lock(&husb->lock);
-> +	ret = husb320_update_state(husb);
-> +	mutex_unlock(&husb->lock);
-> +	if (ret)
-> +		goto err_free_irq;
-> +
-> +	ret = regmap_update_bits(husb->regmap, HUSB320_REG_CONTROL,
-> +				 HUSB320_CONTROL_INT_MASK, 0);
-> +	if (ret)
-> +		goto err_free_irq;
-> +
-> +	return 0;
-> +
-> +err_free_irq:
-> +	mutex_lock(&husb->lock);
-> +	husb->shutting_down = true;
-> +	mutex_unlock(&husb->lock);
-> +	devm_free_irq(dev, client->irq, husb);
-> +err_unregister_port:
-> +	mutex_lock(&husb->lock);
-> +	husb->shutting_down = true;
-> +	husb320_disconnect(husb);
-> +	mutex_unlock(&husb->lock);
-> +	typec_unregister_port(husb->port);
-> +err_hw_disable:
-> +	husb320_hw_disable(husb);
-> +err_put_role:
-> +	usb_role_switch_put(husb->role_sw);
-> +err_put_connector:
-> +	fwnode_handle_put(husb->connector);
+> +	if (!formatter->enabled_streams)
+> +		pm_runtime_put(formatter->dev);
+
+Same here.
+
 > +
 > +	return ret;
 > +}
 > +
-> +static void husb320_remove(struct i2c_client *client)
+> +static const struct v4l2_subdev_pad_ops formatter_subdev_pad_ops = {
+> +	.enum_mbus_code		= csi_formatter_subdev_enum_mbus_code,
+> +	.get_fmt		= v4l2_subdev_get_fmt,
+> +	.set_fmt		= csi_formatter_subdev_set_fmt,
+> +	.get_frame_desc		= v4l2_subdev_get_frame_desc_passthrough,
+> +	.set_routing		= csi_formatter_subdev_set_routing,
+> +	.enable_streams		= csi_formatter_subdev_enable_streams,
+> +	.disable_streams	= csi_formatter_subdev_disable_streams,
+> +};
+> +
+> +static const struct v4l2_subdev_ops formatter_subdev_ops = {
+> +	.pad = &formatter_subdev_pad_ops,
+> +};
+> +
+> +static const struct v4l2_subdev_internal_ops formatter_internal_ops = {
+> +	.init_state = csi_formatter_subdev_init_state,
+> +};
+> +
+> +/* -----------------------------------------------------------------------------
+> + * Media entity operations
+> + */
+> +
+> +static const struct media_entity_operations formatter_entity_ops = {
+> +	.link_validate	= v4l2_subdev_link_validate,
+> +	.get_fwnode_pad = v4l2_subdev_get_fwnode_pad_1_to_1,
+> +};
+> +
+> +static int csi_formatter_subdev_init(struct csi_formatter *formatter)
 > +{
-> +	struct husb320 *husb = i2c_get_clientdata(client);
+> +	struct v4l2_subdev *sd = &formatter->sd;
 > +	int ret;
 > +
-> +	mutex_lock(&husb->lock);
-> +	husb->shutting_down = true;
-> +	ret = regmap_update_bits(husb->regmap, HUSB320_REG_CONTROL,
-> +				 HUSB320_CONTROL_INT_MASK,
-> +				 HUSB320_CONTROL_INT_MASK);
-> +	mutex_unlock(&husb->lock);
-> +	if (ret)
-> +		dev_err(husb->dev, "failed to mask interrupts: %d\n", ret);
+> +	v4l2_subdev_init(sd, &formatter_subdev_ops);
 > +
-> +	devm_free_irq(husb->dev, client->irq, husb);
+> +	strscpy(sd->name, dev_name(formatter->dev), sizeof(sd->name));
+> +	sd->internal_ops = &formatter_internal_ops;
 > +
-> +	mutex_lock(&husb->lock);
-> +	ret = husb320_disconnect(husb);
-> +	if (ret)
-> +		dev_err(husb->dev, "failed to disconnect port: %d\n", ret);
-> +	ret = husb320_hw_disable(husb);
-> +	if (ret)
-> +		dev_err(husb->dev, "failed to disable controller: %d\n", ret);
-> +	mutex_unlock(&husb->lock);
+> +	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE |
+> +		     V4L2_SUBDEV_FL_STREAMS;
+> +	sd->entity.function = MEDIA_ENT_F_PROC_VIDEO_PIXEL_FORMATTER;
+> +	sd->entity.ops = &formatter_entity_ops;
+> +	sd->dev = formatter->dev;
 > +
-> +	typec_unregister_port(husb->port);
-> +	usb_role_switch_put(husb->role_sw);
-> +	fwnode_handle_put(husb->connector);
-> +}
+> +	formatter->pads[CSI_FORMATTER_PAD_SINK].flags = MEDIA_PAD_FL_SINK
+> +						      | MEDIA_PAD_FL_MUST_CONNECT;
+> +	formatter->pads[CSI_FORMATTER_PAD_SOURCE].flags = MEDIA_PAD_FL_SOURCE;
 > +
-> +static void husb320_shutdown(struct i2c_client *client)
-> +{
-> +	struct husb320 *husb = i2c_get_clientdata(client);
-> +	int ret;
-> +
-> +	mutex_lock(&husb->lock);
-> +	husb->shutting_down = true;
-> +	ret = regmap_update_bits(husb->regmap, HUSB320_REG_CONTROL,
-> +				 HUSB320_CONTROL_INT_MASK,
-> +				 HUSB320_CONTROL_INT_MASK);
-> +	mutex_unlock(&husb->lock);
-> +	if (ret)
-> +		dev_err(husb->dev, "failed to mask interrupts: %d\n", ret);
-> +
-> +	disable_irq(client->irq);
-> +
-> +	mutex_lock(&husb->lock);
-> +	ret = husb320_disconnect(husb);
+> +	ret = media_entity_pads_init(&sd->entity, CSI_FORMATTER_PAD_NUM,
+> +				     formatter->pads);
 > +	if (ret) {
-> +		dev_err(husb->dev, "failed to disconnect port: %d\n", ret);
-> +	} else if (husb->cap.type != TYPEC_PORT_SRC) {
-> +		ret = husb320_set_sink_mode(husb);
-> +		if (!ret)
-> +			goto out_unlock;
-> +
-> +		dev_err(husb->dev, "failed to configure shutdown mode: %d\n", ret);
+> +		dev_err(formatter->dev, "Failed to init pads\n");
+> +		return ret;
 > +	}
 > +
-> +	ret = husb320_hw_disable(husb);
+> +	ret = v4l2_subdev_init_finalize(sd);
 > +	if (ret)
-> +		dev_err(husb->dev, "failed to disable controller: %d\n", ret);
+> +		media_entity_cleanup(&sd->entity);
 > +
-> +out_unlock:
-> +	mutex_unlock(&husb->lock);
+> +	return ret;
 > +}
 > +
-> +static const struct of_device_id husb320_of_match[] = {
-> +	{ .compatible = "hynetek,husb320" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, husb320_of_match);
+> +static inline struct csi_formatter *
+> +notifier_to_csi_formatter(struct v4l2_async_notifier *n)
+> +{
+> +	return container_of(n, struct csi_formatter, notifier);
+> +}
 > +
-> +static struct i2c_driver husb320_driver = {
+> +static int csi_formatter_notify_bound(struct v4l2_async_notifier *notifier,
+> +				      struct v4l2_subdev *sd,
+> +				      struct v4l2_async_connection *asc)
+> +{
+> +	const unsigned int link_flags = MEDIA_LNK_FL_IMMUTABLE
+> +				      | MEDIA_LNK_FL_ENABLED;
+> +	struct csi_formatter *formatter = notifier_to_csi_formatter(notifier);
+> +	struct v4l2_subdev *sdev = &formatter->sd;
+> +	struct media_pad *sink = &sdev->entity.pads[CSI_FORMATTER_PAD_SINK];
+> +	int ret;
+> +
+> +	formatter->remote_sd = sd;
+> +
+> +	ret = v4l2_create_fwnode_links_to_pad(sd, sink, link_flags);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	formatter->remote_pad = media_pad_remote_pad_first(sink)->index;
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct v4l2_async_notifier_operations formatter_notify_ops = {
+> +	.bound = csi_formatter_notify_bound,
+> +};
+> +
+> +static int csi_formatter_async_register(struct csi_formatter *formatter)
+> +{
+> +	struct device *dev = formatter->dev;
+> +	struct v4l2_async_connection *asc;
+> +	int ret;
+> +
+> +	struct fwnode_handle *ep __free(fwnode_handle) =
+> +		fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0,
+> +						FWNODE_GRAPH_ENDPOINT_NEXT);
+> +	if (!ep)
+> +		return -ENOTCONN;
+> +
+> +	v4l2_async_subdev_nf_init(&formatter->notifier, &formatter->sd);
+> +
+> +	asc = v4l2_async_nf_add_fwnode_remote(&formatter->notifier, ep,
+> +					      struct v4l2_async_connection);
+> +	if (IS_ERR(asc)) {
+> +		ret = PTR_ERR(asc);
+> +		goto err_cleanup_notifier;
+> +	}
+> +
+> +	formatter->notifier.ops = &formatter_notify_ops;
+> +
+> +	ret = v4l2_async_nf_register(&formatter->notifier);
+> +	if (ret)
+> +		goto err_cleanup_notifier;
+> +
+> +	ret = v4l2_async_register_subdev(&formatter->sd);
+> +	if (ret)
+> +		goto err_unregister_notifier;
+> +
+> +	return 0;
+> +
+> +err_unregister_notifier:
+> +	v4l2_async_nf_unregister(&formatter->notifier);
+> +err_cleanup_notifier:
+> +	v4l2_async_nf_cleanup(&formatter->notifier);
+> +	return ret;
+> +}
+> +
+> +static void csi_formatter_async_unregister(struct csi_formatter *formatter)
+> +{
+> +	v4l2_async_unregister_subdev(&formatter->sd);
+> +	v4l2_async_nf_unregister(&formatter->notifier);
+> +	v4l2_async_nf_cleanup(&formatter->notifier);
+> +}
+> +
+> +static DEFINE_RUNTIME_DEV_PM_OPS(csi_formatter_pm_ops,
+> +				 pm_clk_suspend, pm_clk_resume, NULL);
+> +
+> +static int csi_formatter_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct csi_formatter *formatter;
+> +	int ret;
+> +
+> +	formatter = devm_kzalloc(dev, sizeof(*formatter), GFP_KERNEL);
+> +	if (!formatter)
+> +		return -ENOMEM;
+> +
+> +	formatter->dev = dev;
+> +
+> +	formatter->regs = syscon_node_to_regmap(dev->parent->of_node);
+> +	if (IS_ERR(formatter->regs))
+> +		return dev_err_probe(dev, PTR_ERR(formatter->regs),
+> +				     "Failed to get csi formatter regmap\n");
+> +
+> +	ret = of_property_read_u32(dev->of_node, "reg", &formatter->reg_offset);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to get csi formatter reg property\n");
+> +
+> +	ret = devm_pm_clk_create(dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = of_pm_clk_add_clks(dev);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to add clocks\n");
+> +
+> +	ret = csi_formatter_subdev_init(formatter);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to initialize formatter subdev\n");
+> +
+> +	platform_set_drvdata(pdev, formatter);
+> +
+> +	/* Enable runtime PM with autosuspend. */
+> +	pm_runtime_set_autosuspend_delay(dev, 1000);
+> +	pm_runtime_use_autosuspend(dev);
+> +	ret = devm_pm_runtime_enable(dev);
+> +	if (ret)
+
+If the devm_pm_runtime_enable() call fails, autosuspend will remain
+enabled. You need a
+
+		pm_runtime_dont_use_autosuspend(dev);
+
+here. The call is not needed in the err_cleanup_subdev error path or in
+remove() as the cleanup action registered when devm_pm_runtime_enable()
+completes successfully disables autosuspend.
+
+With those small issues fixed,
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
+> +		goto err_cleanup_subdev;
+> +
+> +	ret = csi_formatter_async_register(formatter);
+> +	if (ret < 0) {
+> +		dev_err_probe(dev, ret, "Failed to register async subdevice\n");
+> +		goto err_cleanup_subdev;
+> +	}
+> +
+> +	return 0;
+> +
+> +err_cleanup_subdev:
+> +	v4l2_subdev_cleanup(&formatter->sd);
+> +	media_entity_cleanup(&formatter->sd.entity);
+> +	return ret;
+> +}
+> +
+> +static void csi_formatter_remove(struct platform_device *pdev)
+> +{
+> +	struct csi_formatter *formatter = platform_get_drvdata(pdev);
+> +
+> +	csi_formatter_async_unregister(formatter);
+> +
+> +	v4l2_subdev_cleanup(&formatter->sd);
+> +	media_entity_cleanup(&formatter->sd.entity);
+> +}
+> +
+> +static const struct of_device_id csi_formatter_of_match[] = {
+> +	{ .compatible = "fsl,imx95-csi-formatter" },
+> +	{ /* sentinel */ },
+> +};
+> +MODULE_DEVICE_TABLE(of, csi_formatter_of_match);
+> +
+> +static struct platform_driver csi_formatter_device_driver = {
 > +	.driver = {
-> +		.name = "husb320",
-> +		.of_match_table = husb320_of_match,
+> +		.name           = "csi-pixel-formatter",
+> +		.of_match_table = csi_formatter_of_match,
+> +		.pm             = pm_ptr(&csi_formatter_pm_ops),
 > +	},
-> +	.probe = husb320_probe,
-> +	.remove = husb320_remove,
-> +	.shutdown = husb320_shutdown,
+> +	.probe  = csi_formatter_probe,
+> +	.remove = csi_formatter_remove,
 > +};
-> +module_i2c_driver(husb320_driver);
 > +
-> +MODULE_AUTHOR("Hongyang Zhao <hongyang.zhao@163.com>");
-> +MODULE_DESCRIPTION("Hynetek HUSB320 USB Type-C controller driver");
+> +module_platform_driver(csi_formatter_device_driver);
+> +
+> +MODULE_AUTHOR("NXP Semiconductor, Inc.");
+> +MODULE_DESCRIPTION("NXP i.MX95 CSI Pixel Formatter driver");
 > +MODULE_LICENSE("GPL");
-> 
-> -- 
-> 2.43.0
 
 -- 
-heikki
+Regards,
+
+Laurent Pinchart
