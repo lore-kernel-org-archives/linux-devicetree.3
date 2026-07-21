@@ -1,164 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 474DA40D59C;
-	Tue, 21 Jul 2026 06:32:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3CA408618
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 06:33:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784615540; cv=none; b=A9Ho8Cb/C7KwI09HURDyoKzsTl0bw1XMgmtYBP73h+lk5UFV0eXnCxYd7D19TXtgCHFQ0Sm8Jd4Mwn8JASkPwySi82rVdj3ClXPrdinj3j3+yqXfrqVoias/5TxL9WeWfWuL1dS52ASTn7+cjjJIYgZhDjj0e6TFc9sJRuxpejI=
+	t=1784615625; cv=none; b=ReYTBVvYfSp8/DmIuX9cQxbVgxa+r45BBiO3e3xxkey/cpI0v63kh1wCd71tz/XzJeVtSYo743BMpCbNpNJHEmtvTLfkuSLw6rkplPrss0hsBNbT6lHZgG2Eq6trI+14ILCpdrQn07svzE023R5j3mOL71stdONnQ0cb47Oya/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784615540; c=relaxed/simple;
-	bh=12v4kLfM0t53W8e1jIm92V7bHObkh5Z/3ph0XkzStPQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pZzZbVCO0dKX1HeO9d3QBaRaVFYnf44sRRqaWiprF3rWkwiyvmVp4/J4p3bNLUxoeIuN9J0UzrY54jUH0QkrNVz4Wexm/gjMRunP1O28f2onLMo6TpGgOIvBZ34gVm3gMMXFZEK6NUBW/0EYzX0nXKZVU/OiaXQ4rI9gMao1K2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=t7nR6CcA; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1784615625; c=relaxed/simple;
+	bh=R2cus8mzMVCi/bdgSb+aiL/ck0VF5LQSm2QuMh4EdSA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=BgL3M0lCLAPwWmvn0dF/NvQ2Y30d5geu0iYzSUBlziWcScerxbJNUzbtQTO2OfFP88j4jWE6KNaN8+FEemRx4jYOLWn0Wrc43uQXvip0pebeLWbeTltfd2Z+ta1LvQVzIqcH9z/pY0pMKgXKmj6F5NzkH62gm2W02b9bVPETdfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RyxqWQDH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="t7nR6CcA"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1FB3DC2BCF6;
-	Tue, 21 Jul 2026 06:32:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784615540;
-	bh=12v4kLfM0t53W8e1jIm92V7bHObkh5Z/3ph0XkzStPQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=t7nR6CcABguEn/mo2SKJ9P0HMz+reCn0luUZbnLNTDrKgw9UEdT034Pwi6UZnuZqr
-	 iH7A1aaS6lVxyKUdurwiTN2hmOrpFHnrWRpJQ9zZp9TOXAPfowUzBZ9wARdXsiJH12
-	 C4d6AzQWDDXqyiUGNjEDw5J9+yyo5CixVl02SuDoIuNpn4/FgJX4CwDzKqdgDLOBde
-	 gdGwnbVxXqRPomD56tZG3GANE9TsZaPBLrtDPkXsyOxGCFiDeZMvfYLnnugrgP3azJ
-	 HLw91TTM/y7UrRejlp0pJ6O4yGLeFaN7b/kBZEiHzgBDmvrsyThflMIjh7+tfCFdJs
-	 iDpvmlY5rFXXg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 05055C4451C;
-	Tue, 21 Jul 2026 06:32:20 +0000 (UTC)
-From: Andy Chung via B4 Relay <devnull+Andy.Chung.amd.com@kernel.org>
-Date: Tue, 21 Jul 2026 14:31:35 +0800
-Subject: [PATCH v3 4/4] hwmon: (kb9002) Add documentation
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RyxqWQDH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C6561F00A3A;
+	Tue, 21 Jul 2026 06:33:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784615623;
+	bh=3DRdl0Tjthb/W1wXvG4iHU/LnJT40of05T4c4nX21hk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RyxqWQDH26eo2hqqMDKi/FgWZQKRVW2o2ByUyPwNnOXRx9HZedjpaDgdt4W8POA1x
+	 2X8CaVkgLGf9NUs09mzptUsEru93QLg5Pgp63gkoAPjHtipVgMZwwbqbvlDcEFpmMt
+	 OLOFy7GFl7sZdnHEjXSATbfBrSsFOsPS70aKY8z+dwnd2MJaL4+nJLAlVlE3bkmSQH
+	 WrlfVMUG/j8RavqiQWx6/3WrdBi6covZkITOUwRD1z25C3kPqN6L99PZzVnu23bBsd
+	 HpJbdLt84XqTX0ng67w7bC6PpsLN6bih+2pQGko2Hwz0iMUgaLCp845RcpKvoK/rzh
+	 AZXMxz32v6nxQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/2] pwm: Add Nuvoton MA35D1 PWM controller support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chi-Wen Weng" <cwweng.linux@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260721062308.536947-3-cwweng.linux@gmail.com>
+References: <20260721062308.536947-1-cwweng.linux@gmail.com>
+ <20260721062308.536947-3-cwweng.linux@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 06:33:43 +0000
+Message-Id: <20260721063343.9C6561F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-kb9002-upstream-v3-4-70563922be8d@amd.com>
-References: <20260721-kb9002-upstream-v3-0-70563922be8d@amd.com>
-In-Reply-To: <20260721-kb9002-upstream-v3-0-70563922be8d@amd.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andy Chung <andy.chung@amd.com>, 
- Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, 
- Andy Chung <Andy.Chung@amd.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784615506; l=3142;
- i=Andy.Chung@amd.com; s=20260327; h=from:subject:message-id;
- bh=N49+QrvixV76oNVim+qejmy5UhGOUcqywymzDOcJACo=;
- b=1Dj1xNwHpAcp8U5UVGZqMXmFPbyiqkW9jO+2TeXGHiYOnhsr0b2ApGYW6FBTtjceONUz8fR01
- EEUvPoYQHmACn98EwNBuDZwHiO4Bi/4HVj1ux/aivrwC+KGqq6h3meT
-X-Developer-Key: i=Andy.Chung@amd.com; a=ed25519;
- pk=X2gaHRnhU2q5hvMjkC6xmIcC03vKNvHY9CQRdsj9ecM=
-X-Endpoint-Received: by B4 Relay for Andy.Chung@amd.com/20260327 with
- auth_id=696
-X-Original-From: Andy Chung <Andy.Chung@amd.com>
-Reply-To: Andy.Chung@amd.com
 
-From: Andy Chung <Andy.Chung@amd.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The apply callback returns early when !state->enabled, dropping =
+updates to polarity, period, and duty_cycle.
+--
 
-Document the sysfs and debugfs interfaces of the Kandou KB9002 hwmon
-driver.
+--- Patch [2]: [PATCH v5 2/2] pwm: Add Nuvoton MA35D1 PWM controller suppor=
+t ---
+commit cacbb01a99a86c07f6c67c4f1ef4d561c3481e94
+Author: Chi-Wen Weng <cwweng@nuvoton.com>
 
-Signed-off-by: Andy Chung <Andy.Chung@amd.com>
----
- Documentation/hwmon/index.rst  |  1 +
- Documentation/hwmon/kb9002.rst | 65 ++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 66 insertions(+)
+pwm: Add Nuvoton MA35D1 PWM controller support
 
-diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-index 226789376217..9dc796d087dc 100644
---- a/Documentation/hwmon/index.rst
-+++ b/Documentation/hwmon/index.rst
-@@ -112,6 +112,7 @@ Hardware Monitoring Kernel Drivers
-    jc42
-    k10temp
-    k8temp
-+   kb9002
-    kbatt
-    kfan
-    lan966x
-diff --git a/Documentation/hwmon/kb9002.rst b/Documentation/hwmon/kb9002.rst
-new file mode 100644
-index 000000000000..e6d8d9c78923
---- /dev/null
-+++ b/Documentation/hwmon/kb9002.rst
-@@ -0,0 +1,65 @@
-+.. SPDX-License-Identifier: GPL-2.0-or-later
-+
-+Kernel driver kb9002
-+====================
-+
-+Supported chips:
-+
-+  * Kandou KB9002
-+
-+    Prefix: 'kb9002'
-+
-+    Addresses scanned: -
-+
-+    Datasheet: KA-015171-PD (available from Kandou under NDA)
-+
-+Author: Andy Chung <andy.chung@amd.com>
-+
-+Description
-+-----------
-+
-+The Kandou KB9002 is an 8-lane PCIe 5.0 retimer with an integrated
-+microcontroller. It exposes an SMBus 3.0 target (with mandatory PEC)
-+on its sideband interface. The internal firmware aggregates per-lane
-+die temperatures and publishes the maximum value through a 16-bit
-+addressed register window.
-+
-+This driver reports that aggregated maximum as the only hwmon
-+temperature channel. The running firmware version and the firmware
-+boot status are exposed under debugfs.
-+
-+sysfs interface
-+---------------
-+
-+==================  ===============================================
-+temp1_input         Aggregated maximum die temperature across all
-+                    active lanes (millidegrees Celsius).
-+temp1_label         Always "kb9002".
-+==================  ===============================================
-+
-+debugfs interface
-+-----------------
-+
-+Files live in the per-client debugfs directory created by the I2C
-+core: ``/sys/kernel/debug/i2c/i2c-<bus>/<bus>-<addr>/``.
-+
-+==================  ===============================================
-+fw_ver              Running firmware version in
-+                    "major.minor.patch.suffix" format. Read-only.
-+fw_load_status      Firmware boot status: "normal" once firmware has
-+                    finished initialising, "abnormal" otherwise.
-+                    Read-only.
-+==================  ===============================================
-+
-+Notes
-+-----
-+
-+The driver requires ``I2C_FUNC_SMBUS_BLOCK_DATA``,
-+``I2C_FUNC_SMBUS_PEC`` and ``I2C_FUNC_I2C`` from the host adapter. The
-+last is needed only during probe for the host-interface mode switch;
-+runtime accesses use SMBus block transactions exclusively.
-+
-+The retimer's SMBus address is configurable on three strap pins and
-+ranges from 0x20 to 0x27. The address is selected through device tree
-+(or i2c board info) the same way as any other I2C device; the driver
-+does not auto-detect.
+Adds a PWM framework driver for the Nuvoton MA35D1 EPWM controller.
+The driver supports 6 PWM channels, utilizing up-counting, auto-reload,
+and independent output modes.
 
--- 
-2.34.1
+> diff --git a/drivers/pwm/pwm-ma35d1.c b/drivers/pwm/pwm-ma35d1.c
+> new file mode 100644
+> index 0000000000000..4073cb72054a2
+> --- /dev/null
+> +++ b/drivers/pwm/pwm-ma35d1.c
 
+[ ... ]
 
+> +static int nuvoton_pwm_apply(struct pwm_chip *chip, struct pwm_device *p=
+wm,
+> +			     const struct pwm_state *state)
+> +{
+> +	struct nuvoton_pwm *nvtpwm =3D nuvoton_pwm_from_chip(chip);
+> +	unsigned int ch =3D pwm->hwpwm;
+> +	u64 duty_cycles, period_cycles;
+> +	u64 divisor;
+> +	u32 cmpdat, period, prescale;
+> +	int ret;
+> +
+> +	if (!state->enabled) {
+> +		nuvoton_pwm_rmw(nvtpwm, MA35D1_REG_PWM_POEN,
+> +				MA35D1_PWM_POEN_EN(ch), 0);
+> +		nuvoton_pwm_rmw(nvtpwm, MA35D1_REG_PWM_CNTEN,
+> +				MA35D1_PWM_CNTEN_EN(ch), 0);
+> +
+> +		return 0;
+> +	}
+
+[Severity: Medium]
+Does this early return violate the PWM framework API contract by failing to
+apply the full requested state?
+
+If a consumer calls pwm_apply_state() with state->enabled =3D false but inc=
+ludes
+updated polarity, period, or duty_cycle parameters, those changes appear to
+be silently dropped because of this early return.
+
+Since nuvoton_pwm_get_state() reads the configuration directly from hardware
+registers, wouldn't subsequent state reads return stale values and desynchr=
+onize
+the PWM core's cached state from the actual hardware configuration?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721062308.5369=
+47-1-cwweng.linux@gmail.com?part=3D2
