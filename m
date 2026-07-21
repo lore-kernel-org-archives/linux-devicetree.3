@@ -1,235 +1,115 @@
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F0137FF49
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 11:30:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E5E37F748;
+	Tue, 21 Jul 2026 11:34:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784633406; cv=none; b=HsPhr36TQEjwdZilRFZ32RaRemm5HkOXsb6LcNpTJDqgDa8ptg6Ip9qC4Oe21j/Na33+RfNEr29ns5PSnm1pNQo/IBJuJEAemrLF7LI9yUjOB95fzWUAG/tZnlg+fE3/3W/MHrUirTj5UUcVjgaF4dXO/5ROZ0lD40CjLDeQxtk=
+	t=1784633657; cv=none; b=CR67z7nDb+sOCsqNJaB6pe4E9XKx+LCIsUXnNl1544m+PTUGwpqYuaviXeynPxCB9arJciHYDh2BoS99KeAaEOjLo6leiESN3QNFShuiJmqtmWTEoEAWAH4GVmlIZNv1LfDw9/87GJb5iE7/I9ZKyFqcfeV1FiMO10xby28FaLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784633406; c=relaxed/simple;
-	bh=ai6jPq8Wtn1ummFuqvNnpq2EI6Wg3aANfgCXYu780eY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NJXIaN9rNxgjOYNaA/yKfrRMOaAOLGE1g5r/YBpU5LuiYIPLTA2D4V2Qv9twLQBD58whFlJuAKJZ+I3CEaqiN8dUtdII+6j5sAIaNz0k6HagHUHqMQJhqiGh+qRHVe0QGXsujQJwGe1yY2FjF2ktOAtacNrJuQaNo2YpQnApuQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=rvUZdufz; arc=none smtp.client-ip=209.85.167.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1784633657; c=relaxed/simple;
+	bh=U7ethrPjro+nIvxVbVI4DNqf/NwFyZOadItqvfnFUts=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Vy8w3kdjTOeW97hl9V7T2p/Y3BiWzs/o7WIDyr3bfAN1hp0nhHLIsKmvoR0edW/LxCfLnubyd+cv7kd1osFB+RyboblIdLBpP3W+SXh5anWjI/5cTfMwD15S5/D9T/T5Gyp6gBth65WEqh9EJWC5pwxI1pVs2dZdsNEO7C6+BVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PCXqL6Ma; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="rvUZdufz"
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5aeb99bc721so1215058e87.1
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 04:30:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784633403; x=1785238203; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=hJp9wJTddQB51y4t9E/fwU9/+8UJoIvDaCNcWbFBtuY=;
-        b=rvUZdufzCnuIgu2LMg6/u+UjJEBnKy8jo+JLIDwBkpq2iVyYp2lTqW5pK23pIC3TUw
-         tzZ41ues4oy71bdW+urIcdLSY5dIAnAC1bs9Q6VPGy6qb6eOcdMCtsV05loOSe8VwYNq
-         xOgpx14f2M/rvoIiaiLb46KqratKjAalUAHJFCmB5Y+kshJc3wZfuxmv0j9/heD4DlfJ
-         uOXmOCaZaSJmZN0N0UD2RFId06gWdE/enk0L/HYrdqzZO14udzrn2S+qsYA1YUzfU7jK
-         FZmYPUcPApBSwdYYTlZ0Izey8a1F7bTukBlqq7O1nq8yaYz+4FcNc4w3s2oMumi7d3+6
-         VXfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784633403; x=1785238203;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hJp9wJTddQB51y4t9E/fwU9/+8UJoIvDaCNcWbFBtuY=;
-        b=hhoQOeSccA1rtid5cMj2EXhNkj1r1evXdHOFcIMxuVUYApo+lWAi+mnVs/7OZb4LDL
-         50PZvMZSh/pu7ekesfbMhR2NWI+wBMmGbWorU4n/LzIJkqfLJUGcmbgEHjW95bWzlaMc
-         uJarWssgxOgYQxZhFqhY7Vefeyru0iP/OVT0IGWOafMRNjGHguUXJLttA0irdFqrBFba
-         IZ6yxTDCXGEOS8lx0mpB1J3JLs0h/N23M7bbITPx3oAFq53ezVTFEMO9x/kAA1//rz9W
-         +PsgLIoVMxIWa9EAJoASuzn2ccXM1Pgdai2kTtywhETca9FcQfc+wpOGvRQIGNwNDY2r
-         AEaw==
-X-Forwarded-Encrypted: i=1; AHgh+RpAQoxWUyf8YfVfecIUI9PTnWygaTD4ly6nSb11U7/XUffvrznCyzMKbS+q8TaqlRkWcc/FPXWfWtJM@vger.kernel.org
-X-Gm-Message-State: AOJu0YxoCWYdFOBlUZxoRr7UkQ2tGqi84y9bWPZAfS2/cUDH/l5wJhLd
-	j+dKwUmFNSuixjX/o9/3KtAuv7yu/ejYy0eAIAFFx7pyEGED6A/r7uKqswEsoqffVcE=
-X-Gm-Gg: AR+sD11HzwzXyoj8sz0t8hXgsxOCPP4l5Zr+gaGdSCFHpvVofviRKaJa16YHxiA3ybh
-	I4HzAMbH+9ysY4c9JHkxk52hZP/FJ39U8MQszdJnEYBcE5No3JPrz6Rf6x8Mu/cGboBEBeW5IFO
-	gkFYRauEJts2CKbsdmy1LO1RPlzv9SqvEQOA0HFzwS+7sAZEnW9o5rlhS+fWpCsrYZb2FbDhhgN
-	1cUfrXGwYZJaMrmGXjTw6dZ6a9BoNRtBOkKeyF3PorHvVLXKhJl5KXb3uQGQtPgHse3Hggev2tE
-	xxsDX6XWSmBvI8z5Dws2wUHngQpAF5ghFvzLqHBLf1Fk9j/SWQvKMevVtY9HRctdRXNFgaEYCfB
-	u95hifOcTESiiULud49DOA/LkN0z9st4coFSyNMxNwp9CG2SKOpElTHfeB7GBHktI0b5ybksJGT
-	Wyz5NwxQZQHzaZdcm0J4VVeGx+GkLk2XU3zsuGBZxXQCL10bOe1xWf+XERNqgQKobylEo=
-X-Received: by 2002:a05:6512:39c1:b0:5b0:2ba4:542d with SMTP id 2adb3069b0e04-5b2a4a79881mr367879e87.3.1784633402587;
-        Tue, 21 Jul 2026 04:30:02 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b291d0fdd6sm2868216e87.0.2026.07.21.04.30.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jul 2026 04:30:02 -0700 (PDT)
-Message-ID: <ce8538e1-3755-461c-b699-87d570436122@linaro.org>
-Date: Tue, 21 Jul 2026 14:30:01 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PCXqL6Ma"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 655C01F000E9;
+	Tue, 21 Jul 2026 11:34:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784633648;
+	bh=PArcXuGcxVkYbHbZ0JDAmL4nZr7XyevIyRu/GP8HdQk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PCXqL6MafXzNC1VPH8DkyClaoNyl35lEe6/++vtT6LqpyJGu0Napu9U2OpYQIssT8
+	 iQcovEHdwpAd0TZF+ESJ7wvd5HPNicTJyrZKcIUP5B97LlezwCasyN7eRrUkZXtq5+
+	 HKiWkpjixo5DWAWS91zj+QY2UW1RPYEdWSpyDOntt7f8z3aYpifKzQcZ5bZW+A1G9k
+	 r10izde39OCpsLYvJyMjnO+JrFM2L6F7Fi+mcEFBRSRd8cFaEzQJJsrBhIgW1gF3o4
+	 2CnIiO93wuUCjSp02XDtl315jvE9bVkkgWT2nlw5mrZFZDmV3Y6GNwmtpcDYDsbUex
+	 i/IXExfRcO5SQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/4] dt-bindings: input: Convert TI TPS65217 power
+ button to DT schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Eduard Bostina" <egbostina@gmail.com>
+Cc: conor+dt@kernel.org, linux-input@vger.kernel.org, linux-leds@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org, lee@kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <20260721112133.70382-4-egbostina@gmail.com>
+References: <20260721112133.70382-1-egbostina@gmail.com>
+ <20260721112133.70382-4-egbostina@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 11:34:07 +0000
+Message-Id: <20260721113408.655C01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260720-x1e-csi2-phy-v13-0-160c31958863@linaro.org>
- <20260720-x1e-csi2-phy-v13-2-160c31958863@linaro.org>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <20260720-x1e-csi2-phy-v13-2-160c31958863@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 7/20/26 04:11, Bryan O'Donoghue wrote:
-> Add a new MIPI CSI2 driver in DPHY mode initially. The entire set of
-> existing CAMSS CSI PHY init sequences are imported in order to save time
-> and effort in later patches.
-> 
-> The following devices are supported in this drop:
-> "qcom,x1e80100-csi2-phy"
-> 
-> In-line with other PHY drivers the process node is included in the name.
-> Data-lane and clock lane positioning and polarity selection via newly
-> amended struct phy_configure_opts_mipi_dphy{} is supported.
-> 
-> The Qualcomm 3PH class of PHYs can do both DPHY and CPHY mode. For now only
-> DPHY is supported.
-> 
-> In porting some of the logic over from camss-csiphy*.c to here its also
-> possible to rationalise some of the code.
-> 
-> In particular use of regulator_bulk and clk_bulk as well as dropping the
-> seemingly useless and unused interrupt handler.
-> 
-> The PHY sequences and a lot of the logic that goes with them are well
-> proven in CAMSS and mature so the main thing to watch out for here is how
-> to get the right sequencing of regulators, clocks and register-writes.
-> 
-> The register init sequence table is imported verbatim from the existing
-> CAMSS csiphy driver. A follow-up series will rework the table to extract
-> the repetitive per-lane pattern into a loop.
-> 
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-<snip>
+Pre-existing issues:
+- [High] Missing NULL check on `dev_get_regmap` can lead to a kernel panic =
+in the IRQ handler.
+- [High] The driver incorrectly masks `platform_get_irq()` error codes with=
+ `-EINVAL`, breaking probe deferral.
+--
 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h b/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
+--- Patch [3]: [PATCH v3 3/4] dt-bindings: input: Convert TI TPS65217 power=
+ button to DT schema ---
+commit 7ffa82f06e0d099b257abd8ec45ed224af6ff3c6
+Author: Eduard Bostina <egbostina@gmail.com>
+
+dt-bindings: input: Convert TI TPS65217 power button to DT schema
+
+Convert the Texas Instruments TPS65217 and TPS65218 Power Button
+bindings to DT schema.
+
+drivers/input/misc/tps65218-pwrbutton.c:tps6521x_pb_probe() {
+        ...
+        pwr->regmap =3D dev_get_regmap(dev->parent, NULL);
+        ...
+}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this code need to check
+if pwr->regmap is NULL?
+
+If dev_get_regmap() returns NULL due to an incomplete device tree, it seems
+this could lead to a kernel panic during an interrupt when tps6521x_pb_irq()
+dereferences it:
+
+drivers/input/misc/tps65218-pwrbutton.c:tps6521x_pb_irq() {
+        ...
+        error =3D regmap_read(pwr->regmap, tps_data->reg_status, &reg);
+        ...
+}
+
+
+drivers/input/misc/tps65218-pwrbutton.c:tps6521x_pb_probe() {
+        ...
+        irq =3D platform_get_irq(pdev, 0);
+        if (irq < 0)
+                return -EINVAL;
+        ...
+}
+
+[Severity: High]
+This is also a pre-existing issue, but does masking the return value of
+platform_get_irq() break probe deferral?
+
+If platform_get_irq() returns -EPROBE_DEFER, converting the error to -EINVAL
+prevents the driver core from handling the deferral and retrying later.
+
+> diff --git a/Documentation/devicetree/bindings/input/ti,tps65217-pwrbutto=
+n.yaml b/Documentation/devicetree/bindings/input/ti,tps65217-pwrbutton.yaml
 > new file mode 100644
-> index 0000000000000..7e55ae0073704
+> index 0000000000000..3526d8b045fd2
 > --- /dev/null
-> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
-> @@ -0,0 +1,97 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + *
-> + * Qualcomm MIPI CSI2 CPHY/DPHY driver
-> + *
-> + * Copyright (C) 2025 Linaro Ltd.
-> + */
-> +#ifndef __PHY_QCOM_MIPI_CSI2_H__
-> +#define __PHY_QCOM_MIPI_CSI2_H__
-> +
-> +#include <linux/phy/phy.h>
-> +
-> +#define CSI2_MAX_DATA_LANES	4
-> +#define CSI2_DEFAULT_CLK_LANE	7
+> +++ b/Documentation/devicetree/bindings/input/ti,tps65217-pwrbutton.yaml
 
-There is no 7 lanes on CSIPHY, this value is bogus, also it was reported
-previously.
+[ ... ]
 
-The 'data-lanes' handling is broken in this version of the driver, since
-it does not follow the description from included video-interfaces.yaml.
-
-> +
-> +struct mipi_csi2phy_lane {
-> +	u8 pos;
-> +	u8 pol;
-> +};
-> +
-> +struct mipi_csi2phy_lanes_cfg {
-> +	struct mipi_csi2phy_lane data[CSI2_MAX_DATA_LANES];
-> +	struct mipi_csi2phy_lane clk;
-> +};
-> +
-> +struct mipi_csi2phy_stream_cfg {
-> +	s64 link_freq;
-> +	u8 num_data_lanes;
-> +	struct mipi_csi2phy_lanes_cfg lane_cfg;
-> +};
-> +
-> +struct mipi_csi2phy_device;
-> +
-> +struct mipi_csi2phy_hw_ops {
-> +	void (*hw_version_read)(struct mipi_csi2phy_device *csi2phy_dev);
-> +	void (*reset)(struct mipi_csi2phy_device *csi2phy_dev);
-> +	int (*lanes_enable)(struct mipi_csi2phy_device *csi2phy_dev,
-> +			    struct mipi_csi2phy_stream_cfg *cfg);
-> +	void (*lanes_disable)(struct mipi_csi2phy_device *csi2phy_dev,
-> +			      struct mipi_csi2phy_stream_cfg *cfg);
-> +};
-> +
-> +struct mipi_csi2phy_lane_regs {
-> +	const s32 reg_addr;
-> +	const s32 reg_data;
-> +	const u32 delay_us;
-> +	const u32 param_type;
-> +};
-> +
-> +struct mipi_csi2phy_device_regs {
-> +	const struct mipi_csi2phy_lane_regs *init_seq;
-> +	const int lane_array_size;
-> +	const u32 common_regs_offset;
-> +};
-> +
-> +struct mipi_csi2_genpd {
-> +	const char *name;
-> +	bool scaled;
-> +};
-> +
-> +struct mipi_csi2phy_soc_cfg {
-> +	const struct mipi_csi2phy_hw_ops *ops;
-> +	const struct mipi_csi2phy_device_regs reg_info;
-> +
-> +	const char ** const supply_names;
-> +	const unsigned int num_supplies;
-> +
-> +	const char ** const clk_names;
-> +	const unsigned int num_clk;
-> +
-> +	const struct mipi_csi2_genpd *genpds;
-> +	const unsigned int num_genpds;
-> +};
-> +
-> +struct mipi_csi2phy_device {
-> +	struct device *dev;
-> +	u8 phy_mode;
-> +
-> +	struct phy *phy;
-> +	void __iomem *base;
-> +
-> +	struct clk_bulk_data *clks;
-> +	struct clk *timer_clk;
-> +	u32 timer_clk_rate;
-> +
-> +	struct regulator_bulk_data *supplies;
-> +	struct dev_pm_domain_list *pd_list;
-> +
-> +	const struct mipi_csi2phy_soc_cfg *soc_cfg;
-> +	struct mipi_csi2phy_stream_cfg stream_cfg;
-> +
-> +	u32 hw_version;
-> +};
-> +
-> +extern const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_4nm_x1e;
-> +
-> +#endif /* __PHY_QCOM_MIPI_CSI2_H__ */
-> 
-
--- 
-Best wishes,
-Vladimir
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721112133.7038=
+2-1-egbostina@gmail.com?part=3D3
