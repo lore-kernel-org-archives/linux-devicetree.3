@@ -1,196 +1,507 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011007.outbound.protection.outlook.com [40.107.130.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A34DC466B4E;
-	Tue, 21 Jul 2026 10:09:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784628592; cv=fail; b=nljXTp2U5UmAsm7J+4OxjvpVK29LrCYvtYNf4xfktAAcvi6PEFyOm1qyIQCEUgBI+3gRNIb9FKDLYyltrMVfY3zUBG/0rJgrMorM/sEk4c6hloghbMpZ02F2StPG6PrRs5Ye/gLRN+Whumyi3JPBMGdEUUfBbOrLyYqjNsSczUw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784628592; c=relaxed/simple;
-	bh=Sz+6U8VxnUG6WFpiY02CVpNLT3h0Q2c6Kc9ih26wWWw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=aA7VDpCgQqcDkeiJGnj/ROPPX1BSx/hmm9tqU/fOykE3w2Yes9LlFnB657mBIqT7E6Wpt3sKytQoI0d1C4atYXZNo6VElfY+HIX5d0NeNtKt7ClPOFMhl5WsT5SFBKLjYMNgj6Jcxfe7qRCKjNWfjlLvmi/c2RicH6sW2Uiz4Ps=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=XkigFZUo; arc=fail smtp.client-ip=40.107.130.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58BD64534B7;
+	Tue, 21 Jul 2026 10:10:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784628634; cv=none; b=ga9+fTQ/JiYC8S69aIDQuu5cRr526FRwrp0K14VTqNe5j7yxCpJf0aekgtgBEOZIV2MNN4vMNDHWviMeG0AQzP7mUksTcCNliVI0SXX4kBXhnPJ6fQoqz+MFLDyiT+n9Qp1llD2BwZSuKdRNgVJJFtdhQryzPcaK9Y9Ce85GcPA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784628634; c=relaxed/simple;
+	bh=YX7WrwxCQ6uvPTsLXu+iHgzHgSqYUbb9egO3prVgNbA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A3DrVPonW8NtCs7CKUc2TcAFek1Jt6vTyHKIumhAV8LMhZfQFLxUstRTUcNlAu0kXXqHoZcSn1hlWQVSmEEDaGSHh13vZr8udX7Z7dodsCy70IpFnjrJSHV7B0qfPKVA8JkEG+tZ7+2NPP7x0gPb3EzeP0zJz2RV5oeogx0KZAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UMzX5sZK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="XkigFZUo"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=p+UlD6N2WYf7f90cLv7hkzwoQfu0/DkLy2qu7M4D+hUSmXM9bp5To/SsZvcZ8HNNcY7jG8pGlB3yPbF1RgZ7hZ+xqJL3wQIlsDjRj6tFo5gvu1rPI+eiVfQShAxSniAl+2kh7FREGBYUQqymmKk+2urqWOemY+0b0J98i8nglRsK8+J0IhXTPrJZQdh1JLohKwy6xOLVdLFwsk1gESPm4YwqndAPKqPeqkyJtEDBYpFL8cxfGG0LJRyjbOO0/a7DGNRg3FKYFLnimQr3cfbOtjHs8jgio7E/1Vxye42FGHPa1Amk4JkMyVWSpIdKa2bwxmsMlNGmc0PugQbULA9TDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xPCb5PthHM3LqOJip35JQf0oqFD311vI4NOd6mTiqco=;
- b=cq5wzgo94drQv4gHm8vfJ2tURMLUpOeTrCzjt6NL8eWH8eNJtZpPTGCNif2MJ73AxX3cnD64zyvzVAtZoV6zsnq9OWilSNd8i4mYjG/6xA/iJnShvLrEG6TFu+N3Bo+27sL61xXi4Fur7WOQ/wpj5O6+y4nFjTie2gBEHIe6iXMP6TB+ZD/513uP1How+g/0YDcTmC0YRiWGV/zo9qJVp5NLTzPzxH0vSCB4NLVumpCcCGpb4/N2XxXsIE0toHJ7k5dDMSsMsGtoShFuJJE9mff4IKlwd904eyJFsNnzjq75qML+zSu/OLztw8y7sCst7T+RJaUjwvMyjbbHQ2oRnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xPCb5PthHM3LqOJip35JQf0oqFD311vI4NOd6mTiqco=;
- b=XkigFZUoknBn+W2ZjFSnxeiecnnEOs25sD9pW8HCxzxXZAsuIWWcdXN9DpAiFRDqw7jyQhH6y2rwc/v2pwhym0CuLrP6KDImPrZ3H7tX202Use0S2W0JdLk20GaCmDFmoyt/Iy7+GHC3hj5opORwCb7TcFHiVl80a3S8b18e+8QoUldYwclEsr9JCkaaqxVvlUkBfC2JWlrlXoeeGW0InXF4T5r6N9wqHG2WcG79iDg98onhHxfi9CnOT/EmhLCSy7+cZVp57utOkiXEuz1JdtTcnWhUCVq9K6KZ78dgS/lwwmpNdKEyi6ydRf9m+Y22cBdE+JRa0pS44mmNhAKNNg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from DB8PR04MB6858.eurprd04.prod.outlook.com (2603:10a6:10:113::9)
- by VE1PR04MB7278.eurprd04.prod.outlook.com (2603:10a6:800:1b1::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Tue, 21 Jul
- 2026 10:09:45 +0000
-Received: from DB8PR04MB6858.eurprd04.prod.outlook.com
- ([fe80::bc6f:5fd7:462:d0b5]) by DB8PR04MB6858.eurprd04.prod.outlook.com
- ([fe80::bc6f:5fd7:462:d0b5%4]) with mapi id 15.21.0223.015; Tue, 21 Jul 2026
- 10:09:45 +0000
-From: Zhipeng.wang_1@oss.nxp.com
-To: robh@kernel.org,
-	saravanak@kernel.org,
-	ulfh@kernel.org,
-	Frank.Li@nxp.com,
-	s.hauer@pengutronix.de
-Cc: kernel@pengutronix.de,
-	festevam@gmail.com,
-	peng.fan@nxp.com,
-	jindong.yue@nxp.com,
-	xuegang.liu@nxp.com,
-	devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] pmdomain: imx: scu-pd: allow building as a module
-Date: Tue, 21 Jul 2026 19:09:17 +0900
-Message-Id: <20260721100917.230923-3-Zhipeng.wang_1@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260721100917.230923-1-Zhipeng.wang_1@oss.nxp.com>
-References: <20260721100917.230923-1-Zhipeng.wang_1@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI1PR02CA0042.apcprd02.prod.outlook.com
- (2603:1096:4:1f6::17) To DB8PR04MB6858.eurprd04.prod.outlook.com
- (2603:10a6:10:113::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UMzX5sZK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C8171F00A3F;
+	Tue, 21 Jul 2026 10:10:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784628626;
+	bh=bFpA8mGHRTE8JTXE+qz4bQYtYnCWzIRNd4TREiK6hjo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UMzX5sZK6PYDDfd9Og4lDRpgMFFNMXmFHVnUx+34JwuLQI9WDTjDMlpbkEUrRmBBp
+	 zeyzXAWyeJl204aw9gALvKJ6A92+uhAqs4dl6PnoOb/OGFX3NcgYQqZNfSozFM059y
+	 QGDRMyA1jBLwTOYsWbOG5eGkk+pm1BqRDI6GBrakpmP/eR3kkptfEEfpr08S/bQ3iR
+	 LWBQuL/QoIGjTs8hZ+Twh2JkE4z8jYG8YyKCCpQ6xIuav5Uv/cutUT6YSWJ/55m4yg
+	 PINC1FWgHu8LHsioLDySGgfPQYGDfrIsz7fPN9AgK/uDbx6uFzJO//iRQdUdNJSjht
+	 gCsZ9+gU9D06A==
+Date: Tue, 21 Jul 2026 12:10:23 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>
+Subject: Re: [PATCH net-next v9 12/12] net: airoha: add phylink support
+Message-ID: <al9Fj-dbbhnKUQMo@lore-desk>
+References: <20260717065448.1498335-1-ansuelsmth@gmail.com>
+ <20260717065448.1498335-13-ansuelsmth@gmail.com>
+ <al5AVLxWRhnpGzJ1@lore-desk>
+ <6a5e421d.9099b29d.2f0302.1cf4@mx.google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB8PR04MB6858:EE_|VE1PR04MB7278:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3506dfec-a408-4e83-1112-08dee7103069
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|19092799006|23010399003|366016|22082099003|18002099003|10067099003|6133799003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	oWlDq5V9KakDvYELWrbcJcmONJcNzCi9bzh2xrHIog5/+jXwvaJoOOFCc6j9EhPXwjfcAKf8g/O4yrNxkWMFPsBdPF0ynzp+E0zzd6BeSg05jamgx8uCqU/epcvaWCn6TdTxy5ibDhxHrlgUzgFFJ6b+XDEdel1KXGgW45m996rFIHWc9THJPxlJz1doybDCEoKpb70Ou7LcP10I5v8xNnhllmN9Njq8rmz1lD/IBrn4SARaOrxQ87Bfs1N1l0SVwW3QZDzYTrRVNnMJ++EywU8SzhCGR4w2tceuDY2jB1YxPF4KYHLkm5IiZtts9TF1gDw5GZvQ4feT7UUx4wel63tKz8l3y1/1+AbqgK+zvMoDu9TQXGtzo5Dy2EVgDXkW/b9W40L/sT353LXaZ7jTWi4wH7aBButmq2xcUtvi5glx9BKAvYO93h+pLRjJFyWifac2LWnF1gpmJ1xQfrBfjjQIKNeTaHrKa9Zh7M0Icu/Lhq/QfJwsw17adz2kR5hPcG8qRyqUgPsKlhhdWGdEWTrP9tXbIqpoIxbmCwbh2xBIxUUKbWPUHrBsvalt13N+J2BeKKnVaGetIf41hNnopOTKj7+E5poVl7FbUH4ju2cj1nxgxP4x3xnP3dpA0tG93Y3XgV3ftOnd9mmEtHbllz6X5m6Xl+wRQnkVca5NoUc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR04MB6858.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(19092799006)(23010399003)(366016)(22082099003)(18002099003)(10067099003)(6133799003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Lo6yl6RWiyeO5jlekvDaqmzsdNsDgscsOKn0OXKi/RTs4xWrNwFWVMnu8NVl?=
- =?us-ascii?Q?vejW7UDB+MswIoCCFfWPMgehlJQmK2wyc6RcWIZtVaZMN+0NpPdE5KO4JjwY?=
- =?us-ascii?Q?l1jKL9VcU07b8Wm1wpKIvNik6zD9q+kHBisp2DEOXozPAdv+CLRaRMKZUhRz?=
- =?us-ascii?Q?XqpMwW+HOsLFzaMK3uB2qGdZyerTVhNLCRk6iFuY06Ubb56gmKvSwnC1Qk08?=
- =?us-ascii?Q?CMXIwYkrGS+0WIcCC2VOph6TmVT8/HIi6GS2KGj13lX0Faatk+AoDZqm53XS?=
- =?us-ascii?Q?MXuj2NwLwDasVEjnIZGw9vja5BLUpwPbKfbdPQArKsYkdXqeFKCbOGrixaQa?=
- =?us-ascii?Q?pHnDtYIbJVVytKaqiLltkIYQmasptE/5VmUEiwyRNHMcLUjuWwPqXZLfSbus?=
- =?us-ascii?Q?fEaw1v7TMQv/qTeq5SIjEUtTnUuMJJM2s8mrJymudkDygEuDLv0+KLOpLY9N?=
- =?us-ascii?Q?nXB1BYWC7IhCNHQeNZ964e6LBrGmhNgBl5Xb22XYWatIAEFfQ3VunZMr6gx+?=
- =?us-ascii?Q?Cu1mdCdJ558PY+B+UWNY6isjpY1bSCQ2JLObinDLl0Gbyraq7q4N5AmLhzPW?=
- =?us-ascii?Q?W8gjxVDygyG/4vagtFicSKANU5iqJ/X8+SsDQQq3kRRAlPhTuVC5XG3IZzUE?=
- =?us-ascii?Q?Lvx1A7oAQ0O7YH/PRZeY+5lM6WWHLPgIoFmBK2cx//yLuD2Sx9mVLr+BUj46?=
- =?us-ascii?Q?3Rbol6FBbSrNrtNCSBJ7//J+fGkW5MQT5yyzmTTcm5FUWpGUf4sAIIm4bu/B?=
- =?us-ascii?Q?kSa8vlddgGvClRA4i4xVe/X+gu8FI2QJlQfMQYEAl+UouPKoQW807NtMfcdB?=
- =?us-ascii?Q?kUwsS5ROXXOAW71dDS3nIxEppo398V2QzImfs8EM3xmlbL4szGtf5w1fWMcj?=
- =?us-ascii?Q?Ey29UYNLmaa0uc2knScSaT52wPyEOHDuNTDVKoYK6ecOUqHDnuLWGQCbr8U/?=
- =?us-ascii?Q?ZHtD5Rj3I8vbeJ/qC4GQ+++q3DccsFuNO27gNXSkMYN3jSGE3UKnnRp2s17H?=
- =?us-ascii?Q?gY2yqIC0irgUGMMDP+4WaFWTA3AmyOwTHKFSmAj2IxTNueFkuSeBxz+WJOYZ?=
- =?us-ascii?Q?D3OLvEb/ED5awwUFgGGnOp3VOPhiaaIL5fhzuCkV9Cxx2Ek2BPtHhbKSOyT7?=
- =?us-ascii?Q?78YQzneIcOi78KwBRT4xr2pGPRWHTDaxHVbR4g5NH47RoMSigL74bC+69qTr?=
- =?us-ascii?Q?/ZKhi88bUS11Q5c2YnsMXGsabLJJta3JvR4wtJHAMIXmGUkqYa52meg/E6Wx?=
- =?us-ascii?Q?eUtIfLr3FnotTWYcC5VOO6b4IbzqlcN1y8IfaC2WzO0+VtwVlAvrJEAvOk5Z?=
- =?us-ascii?Q?8qsL7lLVpo5TekNHvEaKvwU7oVZBFCWZjwhV4yGDw+f6FWvDT5hx3ZhA8KAY?=
- =?us-ascii?Q?GvlZqwnnoDnEg0kIfjaYZay25NwLlmJA27Z/h/qJRbnRXOyn9PIv+U9c7AsI?=
- =?us-ascii?Q?eb6+E2kMou/7cF6zzlW69n9Gm95lf4JHS7a6kNGls2+xZLaBTF68xABioBGr?=
- =?us-ascii?Q?ODPuXP+ex3z8ZOJHBXLJlDKLsodWvjfYrtiOKo8y9dwXSnXdUpCRZ4jMtP2N?=
- =?us-ascii?Q?2Jn1Iq3RxdNdCxmkI0nexRdydofIQXDxYd1+6cQRIAu1JYOsTNYTsTX52R3m?=
- =?us-ascii?Q?1z3Sz5q73ha/AOSkk+A36tALQdy+s95l1AF24FV//FtFkcMK/qMsM1P7pmDK?=
- =?us-ascii?Q?VUqjlbIw8yJc9+YwkXwTyWlbVrDTqZhUhxLIaFo4dvIbCJpTocwzuFnDDFg5?=
- =?us-ascii?Q?n3nDPFhafg0UzGQDdnF3XskWtU39O8w3x9bSyz29iMxM307pzolg?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3506dfec-a408-4e83-1112-08dee7103069
-X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB6858.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 10:09:45.2083
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: n21vcMP3eCAPxsuVPmfaKV7QCl2lbZQrQ21TsPZIBseMySLLP0vh+T6kJPVDCzuiml82LXv5myIwba4n6f2w/X0Z5Y+ImyYbhClHCm5UfvjRJhO5aPK3mrVDG1KfQFs/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7278
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ld12OxyQIEnfIjS2"
+Content-Disposition: inline
+In-Reply-To: <6a5e421d.9099b29d.2f0302.1cf4@mx.google.com>
 
-From: Zhipeng Wang <zhipeng.wang_1@nxp.com>
+--ld12OxyQIEnfIjS2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Convert CONFIG_IMX_SCU_PD from bool to tristate to allow building as a
-loadable module. This is needed on Android devices using the Generic
-Kernel Image (GKI), where SoC-specific drivers must be built as modules
-rather than built into the core kernel image.
+> On Mon, Jul 20, 2026 at 05:35:48PM +0200, Lorenzo Bianconi wrote:
+> > > Add phylink support for each GDM port. For GDM1 add the internal inte=
+rface
+> > > mode as the only supported mode. For GDM2/3/4 add the required
+> > > configuration of the PCS to make the external PHY or attached SFP cage
+> > > work.
+> > >=20
+> > > These needs to be defined in the GDM port node using the pcs-handle
+> > > property.
+> > >=20
+> > > Update and provide a .get/set_link_ksettings function that use phylink
+> > > for ethtool OPs now that we fully support phylink.
+> > >=20
+> > > Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> > > ---
+> > >  drivers/net/ethernet/airoha/Kconfig       |   1 +
+> > >  drivers/net/ethernet/airoha/airoha_eth.c  | 194 ++++++++++++++++++++=
++-
+> > >  drivers/net/ethernet/airoha/airoha_eth.h  |   7 +-
+> > >  drivers/net/ethernet/airoha/airoha_regs.h |  12 ++
+> > >  4 files changed, 207 insertions(+), 7 deletions(-)
+> > >=20
+> > > diff --git a/drivers/net/ethernet/airoha/Kconfig b/drivers/net/ethern=
+et/airoha/Kconfig
+> > > index 1f6640a15fc9..789906516bf8 100644
+> > > --- a/drivers/net/ethernet/airoha/Kconfig
+> > > +++ b/drivers/net/ethernet/airoha/Kconfig
+> > > @@ -20,6 +20,7 @@ config NET_AIROHA
+> > >  	depends on NET_DSA || !NET_DSA
+> > >  	select NET_AIROHA_NPU
+> > >  	select PAGE_POOL
+> > > +	select PHYLINK
+> > >  	help
+> > >  	  This driver supports the gigabit ethernet MACs in the
+> > >  	  Airoha SoC family.
+> > > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/e=
+thernet/airoha/airoha_eth.c
+> > > index 59001fd4b6f7..ed1ac032f337 100644
+> > > --- a/drivers/net/ethernet/airoha/airoha_eth.c
+> > > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
+> > > @@ -8,6 +8,7 @@
+> > >  #include <linux/of_reserved_mem.h>
+> > >  #include <linux/platform_device.h>
+> > >  #include <linux/tcp.h>
+> > > +#include <linux/pcs/pcs.h>
+> > >  #include <linux/u64_stats_sync.h>
+> > >  #include <net/dst_metadata.h>
+> > >  #include <net/page_pool/helpers.h>
+> > > @@ -1837,7 +1838,7 @@ static void airoha_update_hw_stats(struct airoh=
+a_gdm_dev *dev)
+> > >  	struct airoha_gdm_port *port =3D dev->port;
+> > >  	int i;
+> > > =20
+> > > -	spin_lock(&port->stats_lock);
+> > > +	spin_lock(&port->lock);
+> >=20
+> > Hi Christian,
+> >=20
+> > as pointed out in a previous email, I do not like the approach of reusi=
+ng this
+> > spin_lock for airoha_mac_link_up(). Can we use rtl_lock() (when necessa=
+ry) as
+> > pointed out before?
+> >=20
+>=20
+> For context, quoting from the previous series, the suggestion is to use
+> rtnl_is_locked() and then lock accordingly but I didn't find other usage =
+of
+> that in other driver (aside from core net) and I don't like the use of
+> is_locked. I can already see the BOT saying that in the timeframe of
+> is_locked and writing the register another interface goes up causing a
+> race.
 
-For i.MX8Q devices running Android with a GKI kernel, the SCU power
-domain driver must be loadable. Without tristate support, power domains
-cannot be properly initialized, preventing these systems from
-functioning under GKI.
+Can you please explain what is the problem of using rtnl_is_locked()?
 
-Add MODULE_DEVICE_TABLE() for OF-based module autoloading. When built
-as a module, use module_platform_driver(); when built-in, retain
-builtin_platform_driver() to preserve the existing initialization
-ordering.
+>=20
+> Guess I will add a simple mutex for this case and the other.
 
-Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
----
- drivers/pmdomain/imx/Kconfig  | 2 +-
- drivers/pmdomain/imx/scu-pd.c | 6 ++++++
- 2 files changed, 7 insertions(+), 1 deletion(-)
+I do not have a strong opinion on it. I guess it is ok if you are
+planning to use it for future usage, otherwise I guess it is fine
+to rely on rtnl lock.
 
-diff --git a/drivers/pmdomain/imx/Kconfig b/drivers/pmdomain/imx/Kconfig
-index 00203615c65e..472e9dec6bd4 100644
---- a/drivers/pmdomain/imx/Kconfig
-+++ b/drivers/pmdomain/imx/Kconfig
-@@ -21,7 +21,7 @@ config IMX9_BLK_CTRL
- 	depends on PM_GENERIC_DOMAINS
- 
- config IMX_SCU_PD
--	bool "IMX SCU Power Domain driver"
-+	tristate "IMX SCU Power Domain driver"
- 	depends on IMX_SCU
- 	help
- 	  The System Controller Firmware (SCFW) based power domain driver.
-diff --git a/drivers/pmdomain/imx/scu-pd.c b/drivers/pmdomain/imx/scu-pd.c
-index 3ec33667a308..21c7e2505087 100644
---- a/drivers/pmdomain/imx/scu-pd.c
-+++ b/drivers/pmdomain/imx/scu-pd.c
-@@ -531,6 +531,7 @@ static const struct of_device_id imx_sc_pd_match[] = {
- 	{ .compatible = "fsl,scu-pd", &imx8qxp_scu_pd},
- 	{ /* sentinel */ }
- };
-+MODULE_DEVICE_TABLE(of, imx_sc_pd_match);
- 
- static struct platform_driver imx_sc_pd_driver = {
- 	.driver = {
-@@ -540,7 +541,12 @@ static struct platform_driver imx_sc_pd_driver = {
- 	},
- 	.probe = imx_sc_pd_probe,
- };
-+
-+#ifdef MODULE
-+module_platform_driver(imx_sc_pd_driver);
-+#else
- builtin_platform_driver(imx_sc_pd_driver);
-+#endif
- 
- MODULE_AUTHOR("Dong Aisheng <aisheng.dong@nxp.com>");
- MODULE_DESCRIPTION("IMX SCU Power Domain driver");
--- 
-2.34.1
+Regards,
+Lorenzo
 
+>=20
+> > > =20
+> > >  	for (i =3D 0; i < ARRAY_SIZE(port->devs); i++) {
+> > >  		if (port->devs[i])
+> > > @@ -1848,7 +1849,7 @@ static void airoha_update_hw_stats(struct airoh=
+a_gdm_dev *dev)
+> > >  	airoha_fe_set(dev->eth, REG_FE_GDM_MIB_CLEAR(port->id),
+> > >  		      FE_GDM_MIB_RX_CLEAR_MASK | FE_GDM_MIB_TX_CLEAR_MASK);
+> > > =20
+> > > -	spin_unlock(&port->stats_lock);
+> > > +	spin_unlock(&port->lock);
+> > >  }
+> > > =20
+> > >  static void airoha_dev_set_xmit_frame_size(struct net_device *netdev)
+> > > @@ -1870,6 +1871,14 @@ static int airoha_dev_open(struct net_device *=
+netdev)
+> > >  	u32 pse_port =3D FE_PSE_PORT_PPE1;
+> > >  	int err;
+> > > =20
+> > > +	err =3D phylink_of_phy_connect(dev->phylink, netdev->dev.of_node, 0=
+);
+> > > +	if (err) {
+> > > +		netdev_err(netdev, "could not attach PHY: %d\n", err);
+> > > +		return err;
+> > > +	}
+> > > +
+> > > +	phylink_start(dev->phylink);
+> > > +
+> > >  	netif_tx_start_all_queues(netdev);
+> > >  	err =3D airoha_set_vip_for_gdm_port(dev, true);
+> > >  	if (err)
+> > > @@ -1909,6 +1918,10 @@ static int airoha_dev_stop(struct net_device *=
+netdev)
+> > >  		airoha_set_gdm_port_fwd_cfg(qdma->eth,
+> > >  					    REG_GDM_FWD_CFG(port->id),
+> > >  					    FE_PSE_PORT_DROP);
+> > > +
+> > > +	phylink_stop(dev->phylink);
+> > > +	phylink_disconnect_phy(dev->phylink);
+> > > +
+> > >  	return 0;
+> > >  }
+> > > =20
+> > > @@ -2389,6 +2402,24 @@ airoha_ethtool_get_rmon_stats(struct net_devic=
+e *netdev,
+> > >  	} while (u64_stats_fetch_retry(&dev->stats.syncp, start));
+> > >  }
+> > > =20
+> > > +static int
+> > > +airoha_ethtool_get_link_ksettings(struct net_device *netdev,
+> > > +				  struct ethtool_link_ksettings *cmd)
+> > > +{
+> > > +	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> > > +
+> > > +	return phylink_ethtool_ksettings_get(dev->phylink, cmd);
+> > > +}
+> > > +
+> > > +static int
+> > > +airoha_ethtool_set_link_ksettings(struct net_device *netdev,
+> > > +				  const struct ethtool_link_ksettings *cmd)
+> > > +{
+> > > +	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> > > +
+> > > +	return phylink_ethtool_ksettings_set(dev->phylink, cmd);
+> > > +}
+> > > +
+> > >  static int airoha_qdma_set_chan_tx_sched(struct net_device *netdev,
+> > >  					 int channel, enum tx_sched_mode mode,
+> > >  					 const u16 *weights, u8 n_weights)
+> > > @@ -3120,7 +3151,8 @@ static const struct ethtool_ops airoha_ethtool_=
+ops =3D {
+> > >  	.get_drvinfo		=3D airoha_ethtool_get_drvinfo,
+> > >  	.get_eth_mac_stats      =3D airoha_ethtool_get_mac_stats,
+> > >  	.get_rmon_stats		=3D airoha_ethtool_get_rmon_stats,
+> > > -	.get_link_ksettings	=3D phy_ethtool_get_link_ksettings,
+> > > +	.get_link_ksettings	=3D airoha_ethtool_get_link_ksettings,
+> > > +	.set_link_ksettings	=3D airoha_ethtool_set_link_ksettings,
+> > >  	.get_link		=3D ethtool_op_get_link,
+> > >  };
+> > > =20
+> > > @@ -3176,6 +3208,155 @@ bool airoha_is_valid_gdm_dev(struct airoha_et=
+h *eth,
+> > >  	return false;
+> > >  }
+> > > =20
+> > > +/* Nothing to do in MAC, everything is handled in PCS */
+> > > +static void airoha_mac_config(struct phylink_config *config, unsigne=
+d int mode,
+> > > +			      const struct phylink_link_state *state)
+> > > +{
+> > > +}
+> > > +
+> > > +static void airoha_mac_link_up(struct phylink_config *config, struct=
+ phy_device *phy,
+> > > +			       unsigned int mode, phy_interface_t interface,
+> > > +			       int speed, int duplex, bool tx_pause, bool rx_pause)
+> > > +{
+> > > +	struct airoha_gdm_dev *dev =3D container_of(config, struct airoha_g=
+dm_dev,
+> > > +						  phylink_config);
+> > > +	struct airoha_gdm_port *port =3D dev->port;
+> > > +	struct airoha_eth *eth =3D dev->eth;
+> > > +	u32 frag_size_tx, frag_size_rx;
+> > > +	u32 mask, val;
+> > > +
+> > > +	/* TX/RX frag is configured only for GDM4 */
+> > > +	if (port->id !=3D AIROHA_GDM4_IDX)
+> > > +		return;
+> > > +
+> > > +	switch (speed) {
+> > > +	case SPEED_10000:
+> > > +	case SPEED_5000:
+> > > +		frag_size_tx =3D 8;
+> > > +		frag_size_rx =3D 8;
+> > > +		break;
+> > > +	case SPEED_2500:
+> > > +		frag_size_tx =3D 2;
+> > > +		frag_size_rx =3D 1;
+> > > +		break;
+> > > +	default:
+> > > +		frag_size_tx =3D 1;
+> > > +		frag_size_rx =3D 0;
+> > > +	}
+> > > +
+> > > +	spin_lock(&port->lock);
+> > > +
+> > > +	/* Configure TX/RX frag based on speed */
+> > > +	if (dev->nbq =3D=3D 1) {
+> > > +		mask =3D GDM4_SGMII1_TX_FRAG_SIZE_MASK;
+> > > +		val =3D FIELD_PREP(GDM4_SGMII1_TX_FRAG_SIZE_MASK,
+> > > +				 frag_size_tx);
+> > > +	}  else {
+> > > +		mask =3D GDM4_SGMII0_TX_FRAG_SIZE_MASK;
+> > > +		val =3D FIELD_PREP(GDM4_SGMII0_TX_FRAG_SIZE_MASK,
+> > > +				 frag_size_tx);
+> > > +	}
+> > > +	airoha_fe_rmw(eth, REG_FE_GDM4_TMBI_FRAG, mask, val);
+> > > +
+> > > +	if (dev->nbq =3D=3D 1) {
+> > > +		mask =3D GDM4_SGMII1_RX_FRAG_SIZE_MASK;
+> > > +		val =3D FIELD_PREP(GDM4_SGMII1_RX_FRAG_SIZE_MASK,
+> > > +				 frag_size_rx);
+> > > +	} else {
+> > > +		mask =3D GDM4_SGMII0_RX_FRAG_SIZE_MASK;
+> > > +		val =3D FIELD_PREP(GDM4_SGMII0_RX_FRAG_SIZE_MASK,
+> > > +				 frag_size_rx);
+> > > +	}
+> > > +	airoha_fe_rmw(eth, REG_FE_GDM4_RMBI_FRAG, mask, val);
+> > > +
+> > > +	spin_unlock(&port->lock);
+> > > +}
+> > > +
+> > > +/* Nothing to do in MAC, everything is handled in PCS */
+> > > +static void airoha_mac_link_down(struct phylink_config *config, unsi=
+gned int mode,
+> > > +				 phy_interface_t interface)
+> > > +{
+> > > +}
+> > > +
+> > > +static const struct phylink_mac_ops airoha_phylink_ops =3D {
+> > > +	.mac_config =3D airoha_mac_config,
+> > > +	.mac_link_up =3D airoha_mac_link_up,
+> > > +	.mac_link_down =3D airoha_mac_link_down,
+> > > +};
+> > > +
+> > > +static int airoha_fill_available_pcs(struct phylink_config *config,
+> > > +				     struct phylink_pcs **available_pcs,
+> > > +				     unsigned int num_possible_pcs)
+> > > +{
+> > > +	struct device *dev =3D config->dev;
+> > > +
+> > > +	return fwnode_phylink_pcs_parse(dev_fwnode(dev), available_pcs,
+> > > +					num_possible_pcs);
+> > > +}
+> > > +
+> > > +static int airoha_setup_phylink(struct net_device *netdev)
+> > > +{
+> > > +	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> > > +	struct device_node *np =3D netdev->dev.of_node;
+> > > +	struct airoha_gdm_port *port =3D dev->port;
+> > > +	struct phylink_config *config;
+> > > +	phy_interface_t phy_mode;
+> > > +	struct phylink *phylink;
+> > > +	int err;
+> > > +
+> > > +	err =3D of_get_phy_mode(np, &phy_mode);
+> > > +	if (err) {
+> > > +		dev_err(&netdev->dev, "incorrect phy-mode\n");
+> > > +		return err;
+> > > +	}
+> > > +
+> > > +	config =3D &dev->phylink_config;
+> > > +	config->dev =3D &netdev->dev;
+> > > +	config->type =3D PHYLINK_NETDEV;
+> > > +
+> > > +	/*
+> > > +	 * GDM1 only supports internal for Embedded Switch
+> > > +	 * and doesn't require a PCS.
+> > > +	 */
+> > > +	if (port->id =3D=3D AIROHA_GDM1_IDX) {
+> > > +		config->mac_capabilities =3D MAC_ASYM_PAUSE | MAC_SYM_PAUSE |
+> > > +					   MAC_10000FD;
+> > > +
+> > > +		__set_bit(PHY_INTERFACE_MODE_INTERNAL,
+> > > +			  config->supported_interfaces);
+> > > +	} else {
+> > > +		config->mac_capabilities =3D MAC_ASYM_PAUSE | MAC_SYM_PAUSE |
+> > > +					   MAC_10 | MAC_100 | MAC_1000 |
+> > > +					   MAC_2500FD | MAC_5000FD | MAC_10000FD;
+> > > +
+> > > +		config->num_possible_pcs =3D fwnode_phylink_pcs_count(dev_fwnode(c=
+onfig->dev));
+> > > +		config->fill_available_pcs =3D airoha_fill_available_pcs;
+> > > +
+> > > +		__set_bit(PHY_INTERFACE_MODE_SGMII,
+> > > +			  config->supported_interfaces);
+> > > +		__set_bit(PHY_INTERFACE_MODE_1000BASEX,
+> > > +			  config->supported_interfaces);
+> > > +		__set_bit(PHY_INTERFACE_MODE_2500BASEX,
+> > > +			  config->supported_interfaces);
+> > > +		__set_bit(PHY_INTERFACE_MODE_10GBASER,
+> > > +			  config->supported_interfaces);
+> > > +		__set_bit(PHY_INTERFACE_MODE_USXGMII,
+> > > +			  config->supported_interfaces);
+> > > +
+> > > +		phy_interface_copy(config->pcs_interfaces,
+> > > +				   config->supported_interfaces);
+> > > +	}
+> > > +
+> > > +	phylink =3D phylink_create(config, of_fwnode_handle(np),
+> > > +				 phy_mode, &airoha_phylink_ops);
+> > > +	if (IS_ERR(phylink))
+> > > +		return PTR_ERR(phylink);
+> > > +
+> > > +	dev->phylink =3D phylink;
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +
+> > >  static int airoha_alloc_gdm_device(struct airoha_eth *eth,
+> > >  				   struct airoha_gdm_port *port,
+> > >  				   int nbq, struct device_node *np)
+> > > @@ -3239,7 +3420,7 @@ static int airoha_alloc_gdm_device(struct airoh=
+a_eth *eth,
+> > >  	dev->nbq =3D nbq;
+> > >  	port->devs[index] =3D dev;
+> > > =20
+> > > -	return 0;
+> > > +	return airoha_setup_phylink(netdev);
+> > >  }
+> > > =20
+> > >  static int airoha_alloc_gdm_port(struct airoha_eth *eth,
+> > > @@ -3274,7 +3455,7 @@ static int airoha_alloc_gdm_port(struct airoha_=
+eth *eth,
+> > >  		return -ENOMEM;
+> > > =20
+> > >  	port->id =3D id;
+> > > -	spin_lock_init(&port->stats_lock);
+> > > +	spin_lock_init(&port->lock);
+> > >  	eth->ports[p] =3D port;
+> > > =20
+> > >  	err =3D airoha_metadata_dst_alloc(port);
+> > > @@ -3471,6 +3652,8 @@ static int airoha_probe(struct platform_device =
+*pdev)
+> > >  			netdev =3D netdev_from_priv(dev);
+> > >  			if (netdev->reg_state =3D=3D NETREG_REGISTERED)
+> > >  				unregister_netdev(netdev);
+> > > +			if (dev->phylink)
+> > > +				phylink_destroy(dev->phylink);
+> > >  			of_node_put(netdev->dev.of_node);
+> > >  		}
+> > >  		airoha_metadata_dst_free(port);
+> > > @@ -3509,6 +3692,7 @@ static void airoha_remove(struct platform_devic=
+e *pdev)
+> > > =20
+> > >  			netdev =3D netdev_from_priv(dev);
+> > >  			unregister_netdev(netdev);
+> > > +			phylink_destroy(dev->phylink);
+> > >  			of_node_put(netdev->dev.of_node);
+> > >  		}
+> > >  		airoha_metadata_dst_free(port);
+> > > diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/e=
+thernet/airoha/airoha_eth.h
+> > > index f6d01a8e8da1..b49fc5304b3a 100644
+> > > --- a/drivers/net/ethernet/airoha/airoha_eth.h
+> > > +++ b/drivers/net/ethernet/airoha/airoha_eth.h
+> > > @@ -561,6 +561,9 @@ struct airoha_gdm_dev {
+> > >  	int nbq;
+> > > =20
+> > >  	struct airoha_hw_stats stats;
+> > > +
+> > > +	struct phylink *phylink;
+> > > +	struct phylink_config phylink_config;
+> > >  };
+> > > =20
+> > >  struct airoha_gdm_port {
+> > > @@ -568,8 +571,8 @@ struct airoha_gdm_port {
+> > >  	int id;
+> > >  	int users;
+> > > =20
+> > > -	/* protect concurrent hw_stats accesses */
+> > > -	spinlock_t stats_lock;
+> > > +	/* protect concurrent hw_stats and frag register accesses */
+> > > +	spinlock_t lock;
+> > > =20
+> > >  	struct metadata_dst *dsa_meta[AIROHA_MAX_DSA_PORTS];
+> > >  };
+> > > diff --git a/drivers/net/ethernet/airoha/airoha_regs.h b/drivers/net/=
+ethernet/airoha/airoha_regs.h
+> > > index 6fed63d013b4..8df02f51211c 100644
+> > > --- a/drivers/net/ethernet/airoha/airoha_regs.h
+> > > +++ b/drivers/net/ethernet/airoha/airoha_regs.h
+> > > @@ -357,6 +357,18 @@
+> > >  #define IP_FRAGMENT_PORT_MASK		GENMASK(8, 5)
+> > >  #define IP_FRAGMENT_NBQ_MASK		GENMASK(4, 0)
+> > > =20
+> > > +#define REG_FE_GDM4_TMBI_FRAG		0x2028
+> > > +#define GDM4_SGMII1_TX_WEIGHT_MASK	GENMASK(31, 26)
+> > > +#define GDM4_SGMII1_TX_FRAG_SIZE_MASK	GENMASK(25, 16)
+> > > +#define GDM4_SGMII0_TX_WEIGHT_MASK	GENMASK(15, 10)
+> > > +#define GDM4_SGMII0_TX_FRAG_SIZE_MASK	GENMASK(9, 0)
+> > > +
+> > > +#define REG_FE_GDM4_RMBI_FRAG		0x202c
+> > > +#define GDM4_SGMII1_RX_WEIGHT_MASK	GENMASK(31, 26)
+> > > +#define GDM4_SGMII1_RX_FRAG_SIZE_MASK	GENMASK(25, 16)
+> > > +#define GDM4_SGMII0_RX_WEIGHT_MASK	GENMASK(15, 10)
+> > > +#define GDM4_SGMII0_RX_FRAG_SIZE_MASK	GENMASK(9, 0)
+> > > +
+> > >  #define REG_MC_VLAN_EN			0x2100
+> > >  #define MC_VLAN_EN_MASK			BIT(0)
+> > > =20
+> > > --=20
+> > > 2.53.0
+> > >=20
+>=20
+>=20
+>=20
+> --=20
+> 	Ansuel
+
+--ld12OxyQIEnfIjS2
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCal9FjwAKCRA6cBh0uS2t
+rPMWAP4yZE/0HKGgCARs9gAmYeuT1goEWpj4ZOlp0SGn2kJd1wD+NMg4Am4T/3D6
+Lzwg+yVHms4HuZdFX60BhZ3ZvptKbAw=
+=VNTa
+-----END PGP SIGNATURE-----
+
+--ld12OxyQIEnfIjS2--
