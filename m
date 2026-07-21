@@ -1,88 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 921313BAD91;
-	Tue, 21 Jul 2026 08:29:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 831B03B5318;
+	Tue, 21 Jul 2026 08:30:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784622560; cv=none; b=hUyxc36bQhydaLXW/nKGCam/avmAxTAjcrTn3/iuqQ30K0yGjkIijcxSKM46oEZYjBiEyieWVQZ0tzUUWe0jTJBXBV3fRbLXhe7/E1WcosgsXevEj8cQENpsHdq5eU+qbYeKUlosNtycEpx0rDYISpJtJShjYQP7sppl1EWTFb4=
+	t=1784622612; cv=none; b=j+4XYn+2ahBlTGiqJ1RN3ZM8ZfgzUouw5dBDoAk85EFrAv9bvMVQdVoL/WyprIxq4lBW3QMtqHywbib62YQ9MX2YRZ9j9MuwQkAGMUXhmECsxfmYwT/uLcJ+aepDzYvIZNVSxxfn1derZbFggEMDYaiYmPmNtE9cU2P7ryBwKXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784622560; c=relaxed/simple;
-	bh=Vpr6bInh4lQG/vsdVaBzInydhjr80ttsRagIfQrEgOU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sxujGY5TQLLArGfDoxxOnFkLwtSpLJNB28p7/oJe9V3A4XLZqHMdyeUXmMmCQJ5H4vA1qiEn2ePmzUkEOVAc/FGnUbGUBpN0M625MgqlY1/b+Mmsnub6tHqPadZ5ongEXCq9LshjDb21v7cUXFTHZmLijDldKwoorPYu4r5xvZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bLYkrgMD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784622612; c=relaxed/simple;
+	bh=DxNIKm8bLWAW8LKD1H0iz+gpSp6UFtaOuDodGegDPR8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=n8zOikQDJ2bzDu2wIkI9K0LCQApr6bDZeRU9BZzDPuqxwCiCgAncNyoToRyxerQqz2CARk/IzjZzmr+Ve+7BqKN+xpW6SWKNZJJksBS6UCFCVhtdb3vemEPydaTyOFIzi++iw8mhpBWqHfCVnNYi11GeugO8DTyFrBpLmyf3WFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=uDmgPIa3; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bLYkrgMD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44BC81F000E9;
-	Tue, 21 Jul 2026 08:29:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784622559;
-	bh=olhnfUr+93QNkwZaLeRjU8ORsjwziiQ+pfdaAeIyJgU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bLYkrgMDvlkzdNlemOJ/KOvxxbOICzXT8bOyPXkKgM16FNExmpSe1fBnXIJqM+hXF
-	 oWK3kIIJQ7FhRvGjBgwrqnA21RoybZP1le4R2nnxq46m7SVawPsAaUEgfQERJ7umWh
-	 p4nRzCKjjug9bO9l0MECamyB2vg7iIvpnqxQVDl+Pj+RjRAvDNXbFup26QgqUApvX4
-	 i67qmIsl7fN8VXcxuFW9gFTBXcUKXurdLoZwj7/RNsnSMoLmZgXsxKnDRvIVX4wivx
-	 4SukBLvIuiw9vlALaPSOR6AR9VKldojTY92ZJjmhzLpsikQv2N6m0EhV535dL12jQT
-	 yAD0CLBM/YoKw==
-Date: Tue, 21 Jul 2026 10:29:15 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Victor Krawiec <victor.krawiec@arturia.com>
-Cc: lgirdwood@gmail.com, broonie@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] regulator: dt-bindings: Add fan53555 allowed modes
-Message-ID: <20260721-modest-miraculous-cormorant-f5fa7f@quoll>
-References: <20260720100336.62004-1-victor.krawiec@arturia.com>
- <20260720100336.62004-2-victor.krawiec@arturia.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="uDmgPIa3"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 7957E4E40E98;
+	Tue, 21 Jul 2026 08:30:06 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3C31860368;
+	Tue, 21 Jul 2026 08:30:06 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1F47A11BD1290;
+	Tue, 21 Jul 2026 10:30:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1784622605; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=XRzxxs//+IBSkR9M7GepoCQ0geVUsXiXtarl9/rGVAk=;
+	b=uDmgPIa3i7K+ctjpdZdVUXWH5uPmIeaIBjU5VSm+E9E7xxWTOpNaavqAQWO6I4+EQ3+vnU
+	CXLymmEgJt0hRuBxr/Rs//WLruud4IEye0QQ1lZxvQztuejXlVPk80AOS2TUeMT3tjeg7z
+	mhfRHYiHxvEARsyaE/AAu3vYX4g/vAamirxhjv4z5MIIQSOdpNcqDQrqDDBV+ezREuWmWZ
+	Ia2Z2y/EWn7FkVQV9Gj6lcGA1tDFQFRVoLQ+fqvOixvNgFK/netKzsoEq7ERBEA301kExH
+	itfhXFnWmOCh+pWpKlSNa0SaQq8vYsikmmLvzhSFzrVujHBhOr+CbDA1Z0K46A==
+From: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Pascal Eberhard <pascal.eberhard@se.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: [PATCH v4 0/4] timers: Add support for RZ/N1 SoCs timers
+Date: Tue, 21 Jul 2026 10:29:46 +0200
+Message-ID: <20260721082952.215691-1-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260720100336.62004-2-victor.krawiec@arturia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Jul 20, 2026 at 12:03:33PM +0200, Victor Krawiec wrote:
-> Fairchild FAN53555 and its clone from Rockchip, Silergy and TCS support
-> two modes of operation:
-> - Auto-PFM: Allow automatic PFM during light load (default mode)
-> - Forced PWM
-> 
-> Some boards require forced PWM mode to keep the supply ripple within
-> acceptable limits under light load conditions.
-> 
-> Regulator mode indexes are starting from 1 to keep backward compatibility
-> with existing device trees
-> 
-> Signed-off-by: Victor Krawiec <victor.krawiec@arturia.com>
+The Renesas RZ/N1 SoCs family has two timers block controller
+available.
 
-SoB here...
+Each controller is charge of 8 timers (six 16-bit timers + two 32-bit
+timers).
 
-> 
-> Documentation/devicetree/bindings/regulator/fcs,fan53555.yaml #	new file:
-> include/dt-bindings/regulator/fcs,fan53555-regulator.h #
-> arch/arm64/boot/dts/rockchip/rk3399-drumfreak.dts #
-> arch/arm64/boot/simple-boot.img #	arch/arm64/boot/simple-kernel.img #
-> arch/arm64/configs/drumfreak_defconfig #
-> scripts/arturia_simple_boot_image.sh #
+Each timer has its own interrupt, its own prescaler that can be used to
+device the clock by 25 (timers block are fed with a 25 MHz clock) and
+all timers can work in either one-shot or periodic mode.
 
-Looks random paste/mistake...
-
-> 
-> Signed-off-by: Victor Krawiec <victor.krawiec@arturia.com>
-
-but also here SoB.
-
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
+This series adds support for those timers blocks.
 
 Best regards,
-Krzysztof
+Hervé
+
+Changes v3 -> v4
+  v3: https://lore.kernel.org/all/20260717095552.767475-1-herve.codina@bootlin.com/
+
+  Patches 1, 3 and 4:
+   No changes.
+
+  Patch 2:
+   Took into account Shashiko's feedback
+    - Remove CLOCK_SOURCE_SUSPEND_NONSTOP flag
+    - Fix CPU ids checks against number of 32-bit timers (avoid
+      out-of-bound accesses)
+    - Enable IRQ in CPU hotpluig startup function
+    - Add CPU hotplug teardown function and disable IRQ in this
+      function.
+    - Adapt probe() to avoid IRQ handled by CPU hotplug startup/teardown
+      been enabled by default.
+
+Changes v2 -> v3
+  v2: https://lore.kernel.org/all/20260429115054.158160-1-herve.codina@bootlin.com/
+
+  Rebase on top of v7.2-rc1.
+
+  Patch 1, 3 and 4:
+    - Add 'Reviewed-by: Geert Uytterhoeven'
+
+  Patch 2:
+    - Fix typos in commit log.
+    - Split Kconfig 'depends on' in 2 lines.
+    - Fix indentation, space and alignment in code.
+    - Fix dev_err_probe() conversion format.
+    - Introduce rzn1_timer_setup_timers() and rzn1_timer_register_clkevt()
+      to avoid code duplication in rzn1_timer_probe_{first,other}()
+    - Add '.suppress_bind_attrs = true'.
+
+Changes v1 -> v2
+  v1: https://lore.kernel.org/all/20260331152616.197031-1-herve.codina@bootlin.com/
+
+  Rebase on top of v7.1-rc1.
+
+  Patch 1:
+    - Drop minItems related to interrupts property
+    - Add 'Reviewed-by: Krzysztof Kozlowski'
+
+  Patches 2, 3 and 4:
+    No changes
+
+Herve Codina (Schneider Electric) (4):
+  dt-bindings: timer: Add the Renesas RZ/N1 timer
+  clocksource/drivers: Add support for the Renesas RZ/N1 timers
+  ARM: dts: r9a06g032: Add support for timers
+  MAINTAINERS: Add the Renesas RZ/N1 timers driver entry
+
+ .../bindings/timer/renesas,rzn1-timer.yaml    |  74 +++
+ MAINTAINERS                                   |   7 +
+ arch/arm/boot/dts/renesas/r9a06g032.dtsi      |  34 ++
+ drivers/clocksource/Kconfig                   |  11 +
+ drivers/clocksource/Makefile                  |   1 +
+ drivers/clocksource/timer-rzn1.c              | 487 ++++++++++++++++++
+ 6 files changed, 614 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml
+ create mode 100644 drivers/clocksource/timer-rzn1.c
+
+-- 
+2.55.0
 
