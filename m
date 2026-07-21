@@ -1,165 +1,172 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3ECD3451A9
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 07:09:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3575431A4A;
+	Tue, 21 Jul 2026 07:10:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784617758; cv=none; b=cbW3zHRb1MmQCumE0Bs2f1MwaO+jtaRQzPDkhzhcx+ffHrZy3IBbhoKu3nQjbjMp8eaEMwjp6F5wLHEiaRctudLAWnb/pgqH1NB0r4rbMN+dHptrfwf6dyFJ+UKzmSEK04jDT+eM+4lOhly0WO34h07hcVklqAr+oYzBta/efi4=
+	t=1784617824; cv=none; b=X8wal9FjqxKqGuqS4ZlW2Gyder0NOKQlDZD8Lo05t43KmW3mMfoSbFkUYJ+cht92oAmEMfySrBT1VelN1qcBFRZ7+cr2p0jAd+v/nxr2FMoaNQFLoqVBKeZ+AHtgcNlcuyItvsuQH1vDuCieQZS/SBmNPMjfIzuVaE7eKVqJ5As=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784617758; c=relaxed/simple;
-	bh=w6JHpq+EbDTXo6crsQQ5rpZt1yuEA0VvJ9HuLusYyCw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rnPb3VJEs1Ok5+gyDNE9oGJAgvnW608C/l6vp72imEAyfOR8DL6nnBkSnR83NW/fIUcyZ1s8Fenqu6JuD4hLmUqovAflDteB9vCsIW7b0erhtTVBh4ILNuPzyKSp/6+o3ZZgJIV7xqmes6m9bWTqOAhGgDOYnz2Zvl7O+WJ95fE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QuKUAHR7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784617824; c=relaxed/simple;
+	bh=ycEHmlBmFlbGg/OD7w/JY18OEOVeBzV8qNCEV33lyrk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HkZsgYlNaYGXlqzv6W9oaM0cl1CPpRxRiiqkWhVBlGV+ldMlNE6fQhe1gUIxypzb5j4wCRgHDDOd5GE5MNU0g8HmyeiZfJUmM1qnW4szmZKBCuS8WTmaV9IM7YKpcKcBn89UWnorgSpHraIDAv2KaKhhLbmunewb5IbSrZoRkVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XZZxP4Uk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QuKUAHR7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CFEA1F000E9;
-	Tue, 21 Jul 2026 07:09:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XZZxP4Uk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68B0C1F000E9;
+	Tue, 21 Jul 2026 07:10:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784617757;
-	bh=qVeM3/gyu0IHjsfUdce5Lbi6jaEDPLNhwWHAWMk8KTQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QuKUAHR7w+JfClbLpBI1Yh8DpJBZ9W7atRmb99jWB6rPbkZx5FgWsDApZfL+Po6E8
-	 Mid93Qo7GfsXXC8zpC+RkbKpEeF2iEAWKT5fczGcixXC3vuykAQngMSKvPSfkUCEXi
-	 ffk/ksEG8clJX1pjuzrqBUnxuU857kfdF5OpseeVXyqatNJ+04PwIWmATimu1JyrAW
-	 kttpPktL+lzj5qDFLH/gU/dkJU3uCVRurdI3cPmloTFvHcUEk3x4R3LDhDVtL/AjNg
-	 wdifcGG3cmw/VJldjh8qHLascQ4UzZsA8HIihW04rXY3jh0HaD8frj3mTuuvMyi40E
-	 ElzPSKgo8YgtQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 02/16] device property: Add
- fwnode_graph_get_next_port_endpoint()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chen-Yu Tsai" <wenst@chromium.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260721065413.2306137-3-wenst@chromium.org>
-References: <20260721065413.2306137-1-wenst@chromium.org>
- <20260721065413.2306137-3-wenst@chromium.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 07:09:16 +0000
-Message-Id: <20260721070917.0CFEA1F000E9@smtp.kernel.org>
+	s=k20260515; t=1784617822;
+	bh=yIGkGQ7+1uRZgNjM7NPhwIGZ9Ea2jPnWaCNwrejgXGo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XZZxP4Uk2KpocxVT5WQeb7P6/6RwAU//TxsAAvPCKDW8p9sLMlzCsus1uHBe67BRK
+	 XbwBoSILF5O8xZqJLLlqnDSRG8AHoRheGxG2c15xPhrB2YJc977dtg7ivTpgD2iyur
+	 I4GlBW3Sw/fd/eNq2RPpxmhzzm0ekxsl1K2SWkpe3dqcqHS1vOZWbB77lzNL8ex9CZ
+	 EJbtvqc/YIU/CYble/WdX/HxtIPhlrZ0VdabXey60jui3BYD8aPTlo1Oen0+pz0gaL
+	 3BkNyXpFubzuzsjNvmSx592ow5Wdf+uYX0/G/W4p3rajnXwvQ68zXZwrp/qDmpkwic
+	 /rFP5zDDbeSdg==
+Date: Tue, 21 Jul 2026 09:10:18 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nina_Kuo@novatek.com.tw
+Cc: andi.shyti@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, ben_huang@novatek.com.tw, toby_chui@novatek.com.tw, 
+	shihpei_hsu@novatek.com.tw
+Subject: Re: [PATCH v3 2/3] dt-bindings: i2c: Add Novatek NT726xx SoC I2C
+ controller
+Message-ID: <20260721-notorious-flexible-uakari-ba8e0c@quoll>
+References: <20260715073503.147552-1-Nina_Kuo@novatek.com.tw>
+ <20260715073521.147610-1-Nina_Kuo@novatek.com.tw>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260715073521.147610-1-Nina_Kuo@novatek.com.tw>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Wed, Jul 15, 2026 at 03:35:21PM +0800, Nina_Kuo@novatek.com.tw wrote:
+> From: Ben Huang <Ben_Huang@novatek.com.tw>
+> 
+> Add device tree documentation for Novatek NT726xx SoC I2C controller.
+> 
+> Signed-off-by: Ben Huang <Ben_Huang@novatek.com.tw>
+> Signed-off-by: Nina Kuo <Nina_Kuo@novatek.com.tw>
+> ---
+>  .../bindings/i2c/novatek,nt726xx-i2c.yaml     | 74 +++++++++++++++++++
+>  1 file changed, 74 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.yaml b/Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.yaml
+> new file mode 100644
+> index 000000000000..866589c5ae51
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.yaml
 
-New issues:
-- [High] Hardcoded OF naming conventions break ACPI graph node endpoint ide=
-ntification.
-- [Medium] `fwnode_graph_get_next_port_endpoint()` leaks the `prev` referen=
-ce when called with a `NULL` `port`, violating its own docstring contract.
+Filename must match compatible.
 
-Pre-existing issues:
-- [High] `fwnode_get_next_child_node()` causes a double-free, use-after-fre=
-e, and an infinite loop when iterating over a node with both primary and se=
-condary fwnodes.
---
-
---- Patch [2]: [PATCH v6 02/16] device property: Add fwnode_graph_get_next_=
-port_endpoint() ---
-commit 0b043b08c9a4c2f484d73d298735da40162c82f7
-Author: Chen-Yu Tsai <wenst@chromium.org>
-
-device property: Add fwnode_graph_get_next_port_endpoint()
-
-This commit introduces a helper to get the next endpoint under a given
-"port" firmware node. It checks if the child node name matches "endpoint"
-and continues until it finds a match or exhausts all children.
-
-> diff --git a/drivers/base/property.c b/drivers/base/property.c
-> index 0bd45f8b01c14..62c6221d65d05 100644
-> --- a/drivers/base/property.c
-> +++ b/drivers/base/property.c
-
-[ ... ]
-
-> @@ -1099,6 +1099,31 @@ int fwnode_irq_get_byname(const struct fwnode_hand=
-le *fwnode, const char *name)
->  }
->  EXPORT_SYMBOL(fwnode_irq_get_byname);
-> =20
-> +/**
-> + * fwnode_graph_get_next_port_endpoint - Get next endpoint firmware node=
- in port
-> + * @port: Pointer to the target port firmware node
-> + * @prev: Previous endpoint node or %NULL to get the first
-> + *
-> + * The caller is responsible for calling fwnode_handle_put() on the retu=
-rned
-> + * fwnode pointer. Note that this function also puts a reference to @prev
-> + * unconditionally.
-> + *
-> + * Return: an endpoint firmware node pointer or %NULL if no more endpoin=
-ts
-> + * are available.
-> + */
-> +struct fwnode_handle *fwnode_graph_get_next_port_endpoint(const struct f=
-wnode_handle *port,
-> +							  struct fwnode_handle *prev)
-> +{
-> +	do {
-> +		prev =3D fwnode_get_next_child_node(port, prev);
-
-[Severity: Medium]
-Will this leak the prev reference if port is NULL?
-
-The docstring states this function puts a reference to prev unconditionally.
-However, if port is NULL, fwnode_get_next_child_node() returns NULL without
-putting prev. The loop then terminates, returning NULL and silently
-overwriting the original prev reference, resulting in a leak.
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can the call to
-fwnode_get_next_child_node() cause a double-free and a potential infinite
-loop if the port node has both primary and secondary fwnodes?
-
-Looking at fwnode_get_next_child_node(), if child is the last child of the
-primary fwnode, fwnode_call_ptr_op() drops the reference and returns NULL.
-The function then falls through and passes the already-freed child pointer
-to the secondary backend:
-
-fwnode_get_next_child_node() {
-    ...
-	next =3D fwnode_call_ptr_op(fwnode, get_next_child_node, child);
-	if (next)
-		return next;
-
-	/* When no more children in primary, continue with secondary */
-	return fwnode_call_ptr_op(fwnode->secondary, get_next_child_node, child);
-}
-
-If the secondary backend is a software node, it unconditionally puts the
-child again, causing a double-free. Furthermore, if it returns a valid
-secondary child, the next iteration passes it back to the primary backend
-which evaluates it to NULL, looping back to the first primary child.
-
-> +		if (fwnode_name_eq(prev, "endpoint"))
-
-[Severity: High]
-Is it safe to hardcode the "endpoint" string match here for all firmware
-types, such as ACPI?
-
-While this works for Device Tree, ACPI evaluates endpoints differently using
-is_acpi_graph_node(), which allows endpoints to be identified by an
-"endpoint" property or a "reg" property with an "endpoint@" prefix,
-regardless of the literal node name.
-
-By relying strictly on fwnode_name_eq(), this generic helper bypasses
-the backend abstractions and might fail for ACPI endpoints that use
-property-based identification or lack a 'reg' property.
-
-> +			break;
-> +	} while (prev);
+> @@ -0,0 +1,74 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/i2c/novatek,nt726xx-i2c.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	return prev;
-> +}
-> +EXPORT_SYMBOL_GPL(fwnode_graph_get_next_port_endpoint);
+> +maintainers:
+> +  - Ben Huang <ben_huang@novatek.com.tw>
+> +  - Jason JJ Wu <jason_jj_wu@novatek.com.tw>
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721065413.2306=
-137-1-wenst@chromium.org?part=3D2
+Why are you changing the order of entries in the schema file? Do not
+come with own style. Please read and follow writing-bindings and
+example-schema.
+
+> +
+> +title: Novatek NT726xx Series SoC I2C master controller
+
+So 726xx or 72600? Confusing.
+
+> +
+> +allOf:
+> +  - $ref: /schemas/i2c/i2c-controller.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: novatek,nt72600-i2c
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clock-frequency:
+> +    default: 100000
+> +    enum: [ 100000, 400000 ]
+> +
+> +  novatek,hwmods:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description: Name of each i2c pin, must be named with "i2cX". (X is
+> +                 an integer starting from 0, must be unique)
+
+I do not understand the purpose of this property. How in one string can
+you name each pin? And why would even need to name each pin - why would
+that be a board setup? Pins have FIXED names.
+
+Drop property.
+
+> +
+> +  novatek,stbc-controllable:
+> +    type: boolean
+> +    description: Set if this i2c master, named as `stbc-i2c`, is
+> +      controllable by stbc (Standby controller, actually is an 8051
+> +      micro-processor) on Novatek NT726xx SoCs.
+> +      For these `stbc-i2c`s, the driven clock is only 12 MHz and the
+> +      authentication to stbc must be executed before controlling the
+> +      registers.
+
+Compatible implies that, drop.
+
+> +
+> +    default: 0
+
+Don't vibe code stuff.
+
+
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - novatek,hwmods
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    i2c0: i2c@10000000 {
+
+Drop label
+
+> +      compatible = "novatek,nt72600-i2c";
+> +      reg = <0x0 0x10000000 0x0 0x100>;
+> +      interrupts = <0 67 4>;
+
+Use proper defines.
+
+> +      clock-frequency = <400000>;
+> +      novatek,hwmods = "i2c0";
+> +      #address-cells = <2>;
+> +      #size-cells = <2>;
+> +    };
+> +
+> +    stbc-i2c1: i2c@20000000 {
+
+Drop example, almost the same, so pretty pointless.
+
+Best regards,
+Krzysztof
+
