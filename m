@@ -1,121 +1,270 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6113B38B14C
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 18:25:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F50415F38
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 18:25:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784658318; cv=none; b=Af63lhAQpWLUQ49z4TO+Q5cK/iTge0VcYAXuCR/Ebq6CtgP9ZvFmFrh+BncZwDdIiMmONDEw8x85smztgC9n5TXtm8RdfkQzHpWxFAdm1dp/C4CPm6uhP9aAuzu2XL6qBDJS2vjRynpHi+8Z5dqLI3+162dhHwoZ7hUziqSCUVM=
+	t=1784658324; cv=none; b=ZYL5QXRzrVFwF/3Iy3Etz0PXp7kOIojqMpYAQvkNtQG39eoLEHo9croK0/AFsFKPIlUXjGU8tENqLJQENVupIxx/a1J9o0K6fm8s9wnUUAsvCCruOgjiOxl9Z6hj9OpXssXKoCFLEfYveo8piT6Voc/9df2kPZvZwuftqxpcPmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784658318; c=relaxed/simple;
-	bh=NQZSTPXfadmEpAfxokXnJuMz8QjMMpk78l0xtZc6VTc=;
+	s=arc-20240116; t=1784658324; c=relaxed/simple;
+	bh=7thD8YXP9DZagFIyIfEYyqFOKdr+Lf5Rg8q3d+1ijug=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bRP+3mxIVhORa1W0SYIAtRHDi6mcC7U7B9IwN/NiuYCdv8VyOg21o77ccuWSmRqwMk5nCvoUZj5XlngVVLDh1/zMt4f/LHFR/J6In4IFOaoNk3AB6wENY1L9BH2MVsUVTZPJBsk9gj9uBbMb/cJZdHQocJntXwO7/TAQ4gtafmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bJez3G4h; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=IepAbFFtFO9ILglvsP4WGrZQlkxKqm1RxCvs4UztU57EXk8ooYetQlsm+MI0DXfjJ9jaIlS+CZ9jWhgXr1VHrhg4sRgg7L9xBHT2ydXvJM5/S7XU4VFtqJs9zf7pvP3rWuvUW0kxiSYApnJeeOf6kDEbuFHxK05piiLZh12dt1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OZ54J1Hc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bJez3G4h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB3F21F00A3A;
-	Tue, 21 Jul 2026 18:25:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OZ54J1Hc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3ABC1F00A3A;
+	Tue, 21 Jul 2026 18:25:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784658317;
-	bh=dkElu3+MMyKqqrmpRaS0dT6/e/xT9Y7BOafJ7Xg7T+o=;
+	s=k20260515; t=1784658322;
+	bh=wkGzB3ShbAvWISg4sxHNeQcUOniW1HkCmjm4pleFNSw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bJez3G4hQF76vEoJ/ekscxX+IIuio3g5bEcb4J3W+snna0nrc5k5Gu3N7WaAbLfSm
-	 bw+hAeV7bEzYQ8XwkqQjySeR5eouwMMAANu7El356e7LcCUl/qjxrPPRpQEuCc2abi
-	 ZoS3OvvGyZnkugfHHwGqwP4nz50EocdWF+gxu4Xdr3PO2JZ0dImPuS7Z3X2RsxlE0F
-	 /MIgYyWqQ06ZbKT7xWvOFTmReRi/XMAnTCBqii6Sj9Q0cY0AiNfObAVeXNJm3LzBZ1
-	 2o8lC3pmv1dYcSBXrpfJzGT6uOyC1pyaZhZCHHOYgupUU8httg9doRui1Ah4bYQ8f/
-	 h3T+5oo84c2Fw==
+	b=OZ54J1HcZ4GJT3dOk8VrzpjyAnVku2UgdPnSOKiHmblLfw1377PbG6eVtpYLtRShW
+	 4yWWbtT1EI/uRPjYWj1QgiKLpvr50UwZfZIC2905UY7OdzEqES9324x5z+3FoQVYCR
+	 +MjPlh8/A0FGBX4tTR26hUc1iXQrZVReLorvUqlYeD9+8KgEBUDu7pWCrHqDffn7+z
+	 pB2hJPyGwnlnDBDZbquTCUekOAu+h1I6i2DM169TdMN7b9Bkb52gj7XuUf2oUQu1Ui
+	 4krKOoc/sOKmPHUXs6Wf8Vio2xrRvUbSkGmCr+svj/GJ/lDGQBON1zyk0TjbgeXmTW
+	 /jrLQUwfpB/KA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] ASoC: qcom: remove ipq806x Storm machine driver
+Subject: Re: [PATCH v4 10/10] drm/bridge: synopsys: dw-dp: Add audio support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260721-drop-sound-storm-v1-1-23ae4a689ffe@oss.qualcomm.com>
-References: <20260721-drop-sound-storm-v1-0-23ae4a689ffe@oss.qualcomm.com>
- <20260721-drop-sound-storm-v1-1-23ae4a689ffe@oss.qualcomm.com>
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260721-synopsys-dw-dp-improvements-v4-10-f0f4a4ede712@collabora.com>
+References: <20260721-synopsys-dw-dp-improvements-v4-0-f0f4a4ede712@collabora.com>
+ <20260721-synopsys-dw-dp-improvements-v4-10-f0f4a4ede712@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 18:25:16 +0000
-Message-Id: <20260721182516.AB3F21F00A3A@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 18:25:22 +0000
+Message-Id: <20260721182522.A3ABC1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [Medium] Removing SND_SOC_STORM leaves SND_SOC_LPASS_IPQ806X without any =
-selectors, rendering the IPQ806X LPASS CPU driver completely unbuildable an=
-d unreachable.
-- [Low] The device tree binding documentation for the removed google,storm-=
-audio driver was left behind.
+- [High] Audio infoframe preparation permanently leaks an SDP register bank=
+ slot on every call, leading to exhaustion of slots and duplicated Audio In=
+foFrames.
+- [Medium] The return value of `clk_prepare_enable(dp->i2s_clk)` is not ass=
+igned to `ret`, rendering the subsequent error check dead code and ignoring=
+ failures.
+- [Medium] TOCTOU race condition in `dw_dp_send_sdp` for SDP register bank =
+allocation when called concurrently from audio and display contexts.
+- [Medium] A 32-bit audio sample width will be silently truncated to 0 when=
+ configured in the hardware register via FIELD_PREP.
+- [Medium] Incomplete channel count support blocks valid ALSA streams from =
+playing.
 --
 
---- Patch [1]: [PATCH 1/2] ASoC: qcom: remove ipq806x Storm machine driver =
----
-commit 76b009b0b947fd2197dab876d7f10fb5105c7935
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+--- Patch [10]: [PATCH v4 10/10] drm/bridge: synopsys: dw-dp: Add audio sup=
+port ---
+commit 9935aa2c50aed1038e27452a987227adb8e93b00
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-ASoC: qcom: remove ipq806x Storm machine driver
+drm/bridge: synopsys: dw-dp: Add audio support
 
-The Storm board machine driver targets Google's IPQ806x-based Storm
-reference board. This driver is removed together with its Kconfig
-entry and Makefile rule since it has no upstream device tree and no
-active users.
+Implement audio support for the Synopsys DesignWare DisplayPort
+controller.
 
-> diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-> index e6e24f3b99222..68e3146bf2307 100644
-> --- a/sound/soc/qcom/Kconfig
-> +++ b/sound/soc/qcom/Kconfig
-> @@ -47,15 +47,6 @@ config SND_SOC_LPASS_SC7280
->  	select SND_SOC_LPASS_HDMI
->  	select SND_SOC_LPASS_CDC_DMA
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index 636b9e1052978..8d6a52135e54d 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+
+[ ... ]
+
+> @@ -1846,6 +1871,195 @@ static void dw_dp_bridge_oob_notify(struct drm_br=
+idge *bridge,
+>  		dev_err_once(dp->dev, "Missing platform handler for OOB HPD handling\n=
+");
+>  }
 > =20
-> -config SND_SOC_STORM
-> -	tristate "ASoC I2S support for Storm boards"
-> -	depends on GPIOLIB
-> -	select SND_SOC_LPASS_IPQ806X
+> +static int dw_dp_audio_infoframe_send(struct dw_dp *dp)
+> +{
+> +	struct hdmi_audio_infoframe frame;
+> +	struct dw_dp_sdp sdp;
+> +	int ret;
+> +
+> +	ret =3D hdmi_audio_infoframe_init(&frame);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	frame.coding_type =3D HDMI_AUDIO_CODING_TYPE_STREAM;
+> +	frame.sample_frequency =3D HDMI_AUDIO_SAMPLE_FREQUENCY_STREAM;
+> +	frame.sample_size =3D HDMI_AUDIO_SAMPLE_SIZE_STREAM;
+> +	frame.channels =3D dp->audio_channels;
+> +
+> +	ret =3D hdmi_audio_infoframe_pack_for_dp(&frame, &sdp.base, DW_DP_SDP_V=
+ERSION);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	sdp.flags =3D DW_DP_SDP_VERTICAL_INTERVAL;
+> +
+> +	return dw_dp_send_sdp(dp, &sdp);
 
 [Severity: Medium]
-Does removing SND_SOC_STORM leave SND_SOC_LPASS_IPQ806X without any selecto=
-rs?
+Is there a race condition when allocating SDP register bank slots?=20
 
-SND_SOC_LPASS_IPQ806X lacks a prompt in Kconfig, so without any selectors it
-cannot be enabled manually or by COMPILE_TEST. This leaves the IPQ806X LPASS
-CPU driver (sound/soc/qcom/lpass-ipq806x.c) and its Makefile entry as
-unbuildable dead code.
+When dw_dp_audio_infoframe_send() is called, it routes to dw_dp_send_sdp()=
+=20
+which performs a non-atomic bitmap allocation on the shared dp->sdp_reg_ban=
+k=20
+state:
 
-Should SND_SOC_LPASS_IPQ806X and lpass-ipq806x.c be cleaned up in this patc=
-h as
-well?
+    nr =3D find_first_zero_bit(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
+    if (nr < SDP_REG_BANK_SIZE)
+        set_bit(nr, dp->sdp_reg_bank);
+
+If a DRM atomic commit and an ALSA stream start execute concurrently on=20
+different CPUs, could they allocate the same SDP slot and corrupt the=20
+hardware configuration?
+
+> +}
+> +
+> +static int dw_dp_audio_startup(struct drm_bridge *bridge,
+> +			       struct drm_connector *connector)
+> +{
+> +	struct dw_dp *dp =3D bridge_to_dp(bridge);
+> +
+> +	dev_dbg(dp->dev, "audio startup\n");
+> +
+> +	return pm_runtime_resume_and_get(dp->dev);
+> +}
+> +
+> +static void dw_dp_audio_unprepare(struct drm_bridge *bridge,
+> +				  struct drm_connector *connector)
+> +{
+> +	struct dw_dp *dp =3D bridge_to_dp(bridge);
+> +
+> +	/* Disable all audio streams */
+> +	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1, AUDIO_DATA_IN_EN,
+> +			   FIELD_PREP(AUDIO_DATA_IN_EN, 0));
+
+[Severity: High]
+Does dw_dp_audio_unprepare() miss freeing the SDP register bank slot=20
+allocated during audio prepare?=20
+
+When dw_dp_audio_infoframe_send() calls dw_dp_send_sdp(), a slot in=20
+dp->sdp_reg_bank is allocated and the corresponding EN_VERTICAL_SDP=20
+hardware bits are set.=20
+
+Since the cleanup path here doesn't clear that bit or disable the hardware=
+=20
+bits, won't repeatedly starting and stopping an ALSA stream exhaust all 16=
+=20
+hardware slots and permanently break audio infoframe updates with -EBUSY?
+
+> +
+> +	if (dp->audio_interface =3D=3D DW_DP_AUDIO_SPDIF)
+> +		clk_disable_unprepare(dp->spdif_clk);
 
 [ ... ]
 
-> diff --git a/sound/soc/qcom/storm.c b/sound/soc/qcom/storm.c
-> deleted file mode 100644
-> index 1e0eda8c24c4e..0000000000000
-> --- a/sound/soc/qcom/storm.c
-> +++ /dev/null
+> +static int dw_dp_audio_prepare(struct drm_bridge *bridge,
+> +			       struct drm_connector *connector,
+> +			       struct hdmi_codec_daifmt *daifmt,
+> +			       struct hdmi_codec_params *params)
+> +{
+> +	struct dw_dp *dp =3D bridge_to_dp(bridge);
+> +	u8 audio_data_in_en, supported_audio_interfaces;
+> +	enum dw_dp_audio_interface audio_interface;
+> +	u32 cfg1;
+> +	int ret;
+> +
+> +	/*
+> +	 * prepare might be called multiple times, so release the clocks
+> +	 * from previous calls to keep the calls in balance.
+> +	 */
+> +	if (dp->audio_interface !=3D DW_DP_AUDIO_UNUSED)
+> +		dw_dp_audio_unprepare(bridge, connector);
+> +
+> +	dp->audio_channels =3D params->cea.channels;
+> +	switch (params->cea.channels) {
+> +	case 1:
+> +	case 2:
+> +		audio_data_in_en =3D AUDIO_DATA_IN_EN_CHANNEL12;
+> +		break;
+> +	case 8:
+> +		audio_data_in_en =3D AUDIO_DATA_IN_EN_CHANNEL12 |
+> +				   AUDIO_DATA_IN_EN_CHANNEL34 |
+> +				   AUDIO_DATA_IN_EN_CHANNEL56 |
+> +				   AUDIO_DATA_IN_EN_CHANNEL78;
+> +		break;
+> +	default:
+> +		dev_err(dp->dev, "invalid audio channels %d\n", dp->audio_channels);
+> +		return -EINVAL;
+> +	}
+
+[Severity: Medium]
+Does this switch statement need to handle 4 and 6 channel audio streams?=20
+
+Since the bridge advertises support for up to 8 channels via=20
+hdmi_audio_max_i2s_playback_channels =3D 8, the ALSA framework might=20
+negotiate 4.0 or 5.1 surround sound configurations.=20
+
+It seems these valid channel counts would be rejected here with -EINVAL,=20
+blocking their playback.
+
+> +
+> +	switch (daifmt->fmt) {
 
 [ ... ]
 
-> -#ifdef CONFIG_OF
-> -static const struct of_device_id storm_device_id[]  =3D {
-> -	{ .compatible =3D "google,storm-audio" },
-> -	{},
-> -};
+> +	ret =3D clk_prepare_enable(dp->spdif_clk);
+> +	if (ret)
+> +		return ret;
+> +
+> +	clk_prepare_enable(dp->i2s_clk);
+> +	if (ret) {
 
-[Severity: Low]
-Does the device tree binding documentation for "google,storm-audio" still e=
-xist
-in the tree?
+[Severity: Medium]
+Does this ignore the return value of clk_prepare_enable() for the I2S clock=
+?=20
 
-Removing this compatible string might leave behind obsolete binding
-documentation, such as Documentation/devicetree/bindings/sound/storm.txt.
-Should the corresponding binding file be removed alongside the driver?
+Since the result isn't assigned to ret, the subsequent error check appears=
+=20
+to be evaluating the return value from the previous spdif_clk enable call=20
+(which is already known to be 0).=20
+
+If the I2S clock fails to enable, it looks like this will silently proceed=
+=20
+with an unclocked interface and cause an unbalanced clock state when=20
+dw_dp_audio_unprepare() is called.
+
+> +		clk_disable_unprepare(dp->spdif_clk);
+> +		return ret;
+> +	}
+> +
+> +	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1,
+> +			   AUDIO_DATA_IN_EN | NUM_CHANNELS | AUDIO_DATA_WIDTH |
+> +			   AUDIO_INF_SELECT | HBR_MODE_ENABLE,
+> +			   FIELD_PREP(AUDIO_DATA_IN_EN, audio_data_in_en) |
+> +			   FIELD_PREP(NUM_CHANNELS, dp->audio_channels - 1) |
+> +			   FIELD_PREP(AUDIO_DATA_WIDTH, params->sample_width) |
+
+[Severity: Medium]
+Can a 32-bit audio sample width get silently truncated here?=20
+
+The AUDIO_DATA_WIDTH mask is defined as GENMASK(9, 5) which is 5 bits wide.=
+=20
+If userspace negotiates a 32-bit audio stream (which is allowed by default)=
+,=20
+the value 32 (binary 100000, 6 bits) will be truncated to 0 by FIELD_PREP,=
+=20
+potentially misconfiguring the hardware.
+
+> +			   FIELD_PREP(AUDIO_INF_SELECT, audio_interface) |
+> +			   FIELD_PREP(HBR_MODE_ENABLE, 0));
+> +
+
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-drop-sound=
--storm-v1-0-23ae4a689ffe@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-synopsys-d=
+w-dp-improvements-v4-0-f0f4a4ede712@collabora.com?part=3D10
