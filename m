@@ -1,108 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64443446C7;
-	Tue, 21 Jul 2026 11:03:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C20C37BE75
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 11:04:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784631839; cv=none; b=Xv6UCHXiKZKMqQBpksyy2kC+elapIX2KW0B2aBIB2PTCeKkYQAdIooyiOL5g58f2vc7Y2RqDSPRqWgjB6C7Zfkzg6XKa6MlgTeYlDt+zy9bhurNKk1WM8Kms5udn8o3HEqV6f25/Ee5FLD+ajas5eVV9HLf85ywmaFJh6hlRZEU=
+	t=1784631858; cv=none; b=CAGQK1Cc+RO24QydTTQ/c6PF8/1XljY6rWa8o0ML/1CaWzefRxgKusr36eu2ZllU5irnZwrZX2SKDyui2lU2mNtvfUsn4LTD/mmsRev4magkW3Fq6vODlkqd/0SsxqW+ZokQIxFQadNfg0LZi5U2MNdASC1k0NvTjUdYVjtPjew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784631839; c=relaxed/simple;
-	bh=C1rlkpUTrT8vdptyu+2BfFrmkLFVcsCOXELYYhBuc7o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=T61bBHzUf5g9UtjhdhMPMWS9eTpl03ZQxKk+XZnAEvt+N6Zd5zWYzgANeudQNXNRCDePB2m2dpFNK0pktQXqdFCeND4iaCI/cJ5vpyvuAY56LoLJ/bcL83vUmkXGP1lfRQmSaZUcetSad411TXDYktFkGfai6aF9zQeYkxNLdPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PsueS3/T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784631858; c=relaxed/simple;
+	bh=ZreoL/eVPuxj1oFb8/Qv2Bu+o3zQrHOp7wcZG/PkziY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hwhjRIPgBvz1aKByiwvR1E9GUxkt/A7QCihF/xz6h2w6ZlSVnm9joiTmIZwAnpFenmcyNVWa53dvY9k6wX4VoEg1t+pZh2QDDbdyRBtqTukA0JgWBmHsphOpE/Ewl09R4HTH3BGCK3oZU5bsWQojpkqlCHwCMQ37iiGa0z9tDzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZnFdL0nd; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PsueS3/T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 168A71F000E9;
-	Tue, 21 Jul 2026 11:03:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784631838;
-	bh=CSjdpYNSmsbl8k8uDlJ10euMOBf5L5uZNJn+8JFl3k4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PsueS3/TNsMpqTu480rNm6YkIc7R0T8zU4ycpISmaqSHsdlCm02IEFaoZMSNsT+9F
-	 qxpU86xWUFj7aptTqeMGpWSUB0ztxjBUgTznbGS0cd81SScQ0HZH3w3WNk0lmXlI7Y
-	 bSIIOIFsJevKQxw0qavZ9kkTMVz5y9mcbOArimLggRcsuSGKoCipEkhfV8QPfajP1+
-	 PuF50FZ/KkH9ChnF/QmWsl9XrtrFDel9EkeQTYXnCa/KOOCKsr3I8aEZTeHDyZ4kkr
-	 H7Qde5MRWYRjTbSPtk0XpZw2V3cQeZk8v9iLxNjoa5c2yfrdOwqpeYJh6/2bwk33z4
-	 52oITyDV0onDg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/2] of: kobj: export of_node_ktype for use by
- modules
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xu Yang" <xu.yang_2@oss.nxp.com>
-Cc: imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260721105448.2109894-2-xu.yang_2@oss.nxp.com>
-References: <20260721105448.2109894-1-xu.yang_2@oss.nxp.com>
- <20260721105448.2109894-2-xu.yang_2@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 11:03:57 +0000
-Message-Id: <20260721110358.168A71F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZnFdL0nd"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ccf2360620so70976935ad.3
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 04:04:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784631856; x=1785236656; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=XNgGUgLDxikpwQAtd9a8q8cPJ0Sn1o/cujVuEUBlzWc=;
+        b=ZnFdL0ndLaroyRcARF7F3P7PrjvYBKN1FctvNjf2RUfZN9Llnm6W9M12NWJYqBpwlk
+         kcqJ9dSwTXjnd58bqF3FPoqbQ68n/cZdEbqDnWDR9KdzpLhDwzdqUvUF1FcGTAbs/Z+W
+         1OwdizRu1yQ2zXRa/YSHfJeRTkd/pQBoZMuhpIBEAVnnJsGO8Uxnkna4bpudUWgN2+W+
+         VOUelKiS6TYPcFOH4byqbTmTicpjpw0Qr0G1lcdX8HxHPP/0gdecHGNhQMUp1GXF1Hsc
+         09tnY5NWJ3KHf7z+BPigytNXxuqmDqHaRjp2mj915ZLBT0rfj3dXMb+eEUYt0r+ZL++k
+         VvMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784631856; x=1785236656;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=XNgGUgLDxikpwQAtd9a8q8cPJ0Sn1o/cujVuEUBlzWc=;
+        b=RmogH3/usKRV8q6lb5h/pMB4FAIYrCG64OWNQlHqi5fEIiBg0ZdnYX0PNToQikEtKT
+         YvvEEjt8c+nvTa91Oz0mGcc0w3if7W4OW/6lmyyAzid6xwPNjtZqcdSbhqQUIVIsW+cK
+         nzQbh4c+1TL93cjfmBK8gC3fAqF9DGQ3VlncLN7HhSmsWZE8yQT/bRzpWklaBWOzK/AA
+         SCMt9qzFKKSvYiVrVKUxEbo792kttp7CHz1ACGN2DAzOlHTyKGwyFs1t/gY5QpEZBJsh
+         95/RnlvpfCQ/3GO77qWkppndQ6KpGHvP97pwZm3SlDXQPDYY6wBB9QyzYCTkmMFVA7OI
+         FrOA==
+X-Gm-Message-State: AOJu0YxTC2eSyxigpRo18XHECnzwNeu0GfmzAO2OIAbTJSrjO+A722Mh
+	kPMHdsb/DCDZodMehZUuY2S5jh37Q1b2SpLqmXEbMRfRBMf0lMuHNahK
+X-Gm-Gg: AR+sD12bppvB5oPTzycHYgzQ/f4tO3HolC3CMBvgEkkErroY/rnsgyL3uRT5l/OkDij
+	SUbYzN931POwzdEbvejhbJy+0KbYBBj1AUvzRHJmhn2Obgd3xYrenVioOFejbN3v7ATjmuoULq/
+	0CrAkhE3puJe8OgfEL+kZAPqHrImPCsYuegV5guYqk8JZI8mlWClDxznp3RuRBCG/xEMucQCh3d
+	ulYKRfv+X4JxaaqVkO20Xg97lOS4vavG51D6frTcIOdqoN07DIO0wLEUMRc068B65u+KVL0qI9K
+	OyLGZzgEqU4nQ4bt/PFwINF8T7EeeTEbK824uAfQZTIlGyH7fO0KJrxArdj9ucn6MjqWVZis8in
+	StK1vBiI7Ks2XAXcCaiC0fe4ksMfOJYCZzFZeMzC+W50gJvU0mmZH5hOETBtCVvA2tl9LY1kem5
+	rridOogEo+HxFTZdhPH7q5U6aTsU1oK9lJF7Fm8t+F47Th
+X-Received: by 2002:a17:902:fc8e:b0:2cc:ed57:c7c with SMTP id d9443c01a7336-2cf349cc532mr198004405ad.32.1784631855821;
+        Tue, 21 Jul 2026 04:04:15 -0700 (PDT)
+Received: from [10.10.15.228] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf3474d305sm72786705ad.72.2026.07.21.04.04.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Jul 2026 04:04:15 -0700 (PDT)
+From: Potin Lai <potin.lai.pt@gmail.com>
+Date: Tue, 21 Jul 2026 19:01:59 +0800
+Subject: [PATCH] ARM: dts: aspeed: sanmiguel: Fix FIO IOEXP interrupt pin
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260721-upstream-sanmiguel-fix-fio-ioexp-intr-v1-1-8245ae0ca590@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAKZRX2oC/yWNywrCMBBFf6XM2oEkvoq/Ii7SOK0jNgkziRRK/
+ 92oi7s4cDlnBSVhUrh0Kwi9WTnFBnbXQXj4OBHyvTE4407m7CzWrEXIz6g+zjxVeuHIS1tCTrR
+ k5FgE7dj3JviDPe4HaK4s1F6/zvX2Z63Dk0L5ymHbPs7MizKJAAAA
+X-Change-ID: 20260721-upstream-sanmiguel-fix-fio-ioexp-intr-1f880ca4153b
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Patrick Williams <patrick@stwcx.xyz>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ Cosmo Chou <cosmo.chou@quantatw.com>, Mike Hsieh <Mike_Hsieh@quantatw.com>, 
+ Mik Lin <Mik.Lin@quantatw.com>, Potin Lai <potin.lai@quantatw.com>, 
+ Potin Lai <potin.lai.pt@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784631851; l=1256;
+ i=potin.lai.pt@gmail.com; s=20260522; h=from:subject:message-id;
+ bh=ZreoL/eVPuxj1oFb8/Qv2Bu+o3zQrHOp7wcZG/PkziY=;
+ b=ojdm2efXwuf3QR3Gotk4btNOvBBhEIendW+qye+msS8NzhLD/ZFY6O23pbkZ1cIBBArxCA358
+ 7PntNXICI09CwO2hXZ8mKVYo8qzOH5Y2iXsiLLMWF5Wy7Tx7oAEFEO5
+X-Developer-Key: i=potin.lai.pt@gmail.com; a=ed25519;
+ pk=j3/nMxzz1ZPpp1revghyZ8IqOnwi6RWfuxXN2XrNMRE=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The patch misdiagnoses the root cause of the linkage error and i=
-ntroduces a new modpost namespace error, while leaving non-KUnit modules vu=
-lnerable.
---
+The interrupt properties for fio_ioexp (pca9555 on i2c14) were incorrectly
+configured to gpio1 with ASPEED_GPIO(B, 6).
 
---- Patch [1]: [PATCH v6 1/2] of: kobj: export of_node_ktype for use by mod=
-ules ---
-commit b369d1afd3eb881423af86a559a0aec84ce01a01
-Author: Xu Yang <xu.yang_2@nxp.com>
+Update the interrupt-parent to gpio0 and the interrupt pin to
+ASPEED_GPIO(C, 6) according to the hardware specification.
 
-of: kobj: export of_node_ktype for use by modules
+Signed-off-by: Potin Lai <potin.lai.pt@gmail.com>
+---
+ arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-This commit attempts to fix a modpost build error where of_node_ktype is
-undefined in the KUnit property-entry test by exporting the symbol via
-EXPORT_SYMBOL_IF_KUNIT.
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts
+index d7ed497d7227..cb07c3615279 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts
+@@ -578,8 +578,8 @@ fio_ioexp: gpio@20 {
+ 		reg = <0x20>;
+ 		gpio-controller;
+ 		#gpio-cells = <2>;
+-		interrupt-parent = <&gpio1>;
+-		interrupts = <ASPEED_GPIO(B, 6) IRQ_TYPE_LEVEL_LOW>;
++		interrupt-parent = <&gpio0>;
++		interrupts = <ASPEED_GPIO(C, 6) IRQ_TYPE_LEVEL_LOW>;
+ 
+ 		gpio-line-names =
+ 			"", "", "", "",
 
-Link: https://lore.kernel.org/oe-kbuild-all/202607181651.RnUuV8n6-lkp@intel=
-.com/
+---
+base-commit: adcf44809e1da6f462927203b008e4cdb2ee1b34
+change-id: 20260721-upstream-sanmiguel-fix-fio-ioexp-intr-1f880ca4153b
 
-> diff --git a/drivers/of/kobj.c b/drivers/of/kobj.c
-> index 1bb61a2c33994..081b8fa38603f 100644
-> --- a/drivers/of/kobj.c
-> +++ b/drivers/of/kobj.c
+Best regards,
+--  
+Potin Lai <potin.lai.pt@gmail.com>
 
-[ ... ]
-
-> @@ -27,6 +28,7 @@ static void of_node_release(struct kobject *kobj)
->  const struct kobj_type of_node_ktype =3D {
->  	.release =3D of_node_release,
->  };
-> +EXPORT_SYMBOL_IF_KUNIT(of_node_ktype);
-
-[Severity: Medium]
-Does this export actually resolve the build failure, or does it replace the
-undefined symbol error with a modpost namespace error?
-
-Since the property-entry test module likely lacks a corresponding
-MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING"), the build might still fail
-with an error indicating that the module uses a symbol from the
-EXPORTED_FOR_KUNIT_TESTING namespace but does not import it.
-
-Additionally, is the root cause actually the static inline of_node_init()
-function in include/linux/of.h?
-
-include/linux/of.h:of_node_init() {
-#if defined(CONFIG_OF_KOBJ)
-    kobject_init(&node->kobj, &of_node_ktype);
-#endif
-    fwnode_init(&node->fwnode, &of_fwnode_ops);
-}
-
-If non-KUnit modules include include/linux/of.h and are built with compiler
-flags that emit out-of-line copies of unused static inline functions (such
-as under KASAN or with keep-inline-functions), won't they still encounter
-the undefined symbol error since of_node_ktype is only exported for KUnit?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721105448.2109=
-894-1-xu.yang_2@oss.nxp.com?part=3D1
