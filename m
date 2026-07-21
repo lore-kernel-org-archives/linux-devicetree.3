@@ -1,187 +1,104 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 564F82E7657;
-	Tue, 21 Jul 2026 12:28:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B53BB31715F;
+	Tue, 21 Jul 2026 12:30:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784636908; cv=none; b=p+zcBMlot0MRyWgHTnJf9vrdcENStqRJor4lRgKvgwE8+yuHiHn8gq0kguLb7eDqLH0nYJF2oEVJbOwwlHdria/2b8kmE7y5IVZGbhVwxohFWC8tXTFiKPiTM/mkg4+GoyuBZXnZiw6KQ319bFy1Mn65rHqC6jXf8xzrYcHVBi4=
+	t=1784637003; cv=none; b=WzD9AaVz68jCLq+su7jqeijBAbwyjY3DrOaWnKUijDH5UblFjQSYXemtD+SpOG/idCttMvFKwd8nr3Oc/IRdZ6tJIJJjxQQ0N9u5NZ/ygR5lxqKCOb6TKQ5yn0yit5eZIXSCCmbkoLTlMjnpgokrluIchf41CYjb/svzd/sbWU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784636908; c=relaxed/simple;
-	bh=Wd+NI9g3AwUxj0OBN9t9+FYpGLUq06mSwyBr/C6/8n8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=AUO3fzT7zI17aUub8pnsq0vJbHlx5b4v0wTVFWUIDUjIzHooBCuBnbBZ0Hh/9caKXwDrpsVU1k66cWcum80deCGFZdjuIveT0ZBGgMP6XpIOgkvvdfZG1nHeLH1WgGFnyHXMOmypWhQeuy3C8h3fgghUYkTwG4ovfJcKs3iuPDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.101])
-	by gateway (Coremail) with SMTP id _____8Dx8+npZV9qj6EFAA--.12747S3;
-	Tue, 21 Jul 2026 20:28:25 +0800 (CST)
-Received: from loongson-pc.loongson.cn (unknown [10.20.42.101])
-	by front1 (Coremail) with SMTP id qMiowJBxWsThZV9qTfwTAA--.6622S4;
-	Tue, 21 Jul 2026 20:28:24 +0800 (CST)
-From: Hongliang Wang <wanghongliang@loongson.cn>
-To: Hongliang Wang <wanghongliang@loongson.cn>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v8 2/2] i2c: ls2x: Add clocks property parsing and adjust bus speed
-Date: Tue, 21 Jul 2026 20:26:04 +0800
-Message-Id: <20260721122604.12717-3-wanghongliang@loongson.cn>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20260721122604.12717-1-wanghongliang@loongson.cn>
-References: <20260721122604.12717-1-wanghongliang@loongson.cn>
+	s=arc-20240116; t=1784637003; c=relaxed/simple;
+	bh=fBhX6zMTQMmj5dMAVxVqR1NW2I4TSYUjyYUYMbZ/UDs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=q5f+Sp2gXnCPCxsK8jV5WQKvoBlx8JcXyhqM6PkpW1/7OW9w5VGhYw4C1F5J5FvenHfHoOxna89tAqZCgNiO5TqXuXfnHuZhVomLA9c0XY80w8mfqaY6GgYC38Xw7ROU/pcmFJuiFTUha3GuVaKsIf4VoxnmJaGO8jdRFngK+6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dGlWwK1e; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dGlWwK1e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 889C91F000E9;
+	Tue, 21 Jul 2026 12:30:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784637002;
+	bh=TIxJ/MYUTmDzABhR3HKhQmIMrkdxe6Ake+nRjJFaDFQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dGlWwK1eDubF/JYMHVeG0wRzCV+aE8kZ0IEdCWplWC+L80F7+XtmuFm2+gIPefNQC
+	 UgkBFBlBknGNshEDO73jbkV44nPDsqRN8N3UYVgKuXyZIDrHNFI7PwWffPU9cXjHCJ
+	 KjS4c+RYpWePUZ4b1JuA50bIO5Rkw56hXBWZEz2X8wy1eBE40u2xKZP7wa+6FDLEQO
+	 xkAQNR+1HEvzgrRIHUiF/8ruAIDWvzrbl9d7SayTFOOXxttauCHS8eRRmGv7/gaUPG
+	 QD7lzz8S14WnNbTmxLlrewUWwXPnKTn7fItt8yHbZz0I1yxRTIHwvbMLxxcgOa8rqR
+	 oCiYCEhgZJh3Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/4] dt-bindings: mfd: syscon: Allow syscon
+ compatible for Loongson-2K0300 chip id
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Binbin Zhou" <zhoubinbin@loongson.cn>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, lee@kernel.org, mfd@lists.linux.dev, robh@kernel.org
+In-Reply-To: <bab36775095bb85827676b2db917e6cb9527b325.1784619512.git.zhoubinbin@loongson.cn>
+References: <cover.1784619512.git.zhoubinbin@loongson.cn>
+ <bab36775095bb85827676b2db917e6cb9527b325.1784619512.git.zhoubinbin@loongson.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 12:30:01 +0000
+Message-Id: <20260721123001.889C91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJBxWsThZV9qTfwTAA--.6622S4
-X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxCr15KF15uw15Xw1DCr4DGFX_yoWrXw1Dpa
-	n8CF95Gr4qgF42grsxt3W8ZFyayws5Jay8GFy7Kw1xW3Z3Arn8X3WftFnIvF4v9F97WayD
-	XayDWrsxCFWjvrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBSb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E
-	14v26r4UJVWxJr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
-	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
-	6r1q6rW5McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
-	Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Y
-	z7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x
-	8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE
-	2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42
-	xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF
-	7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUxhiSDUUUU
 
-The i2c-ls2x driver supports dts and acpi parameter passing.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The compatible string added in the patch contains a typographica=
+l error ('cphipid' instead of 'chipid').
+--
 
-In dts, uses clock framework, by parsing clocks property to
-get i2c bus reference clock, and define the div of reference
-clock by device data.
+--- Patch [2]: [PATCH v2 2/4] dt-bindings: mfd: syscon: Allow syscon compat=
+ible for Loongson-2K0300 chip id ---
+commit 5db600cb90f648eab2d8d155fce1a1ef7e8cd50e
+Author: Binbin Zhou <zhoubinbin@loongson.cn>
 
-In acpi, by passing clocks property to describe i2c bus reference
-clock and clock-div property to describe the div of reference clock.
+dt-bindings: mfd: syscon: Allow syscon compatible for Loongson-2K0300 chip =
+id
 
-Based on i2c bus reference clock(clock_a), i2c bus speed(clock_s)
-and div, calculate the prcescale of i2c divider register. The
-calculation formula is
+The Loongson-2K0300 SoC exposes its chip ID registers through a syscon
+interface. This commit adds a specific compatible string to the syscon
+bindings list so it can be referenced by a phandle.
 
-prcescale = (clock_a*10)/(div*clock_s)-1
+> diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Document=
+ation/devicetree/bindings/mfd/syscon.yaml
+> index e228670880631..c5b2e28f6cedd 100644
+> --- a/Documentation/devicetree/bindings/mfd/syscon.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
+> @@ -76,6 +76,7 @@ select:
+>            - hpe,gxp-sysreg
+>            - loongson,ls1b-syscon
+>            - loongson,ls1c-syscon
+> +          - loongson,ls2k0300-cphipid-syscon
 
-Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
----
- drivers/i2c/busses/i2c-ls2x.c | 40 ++++++++++++++++++++++++++++++++---
- 1 file changed, 37 insertions(+), 3 deletions(-)
+[Severity: Medium]
+Is this spelling correct? The commit message mentions the compatible string
+should be "loongson,ls2k0300-chipid-syscon", but this adds "cphipid" instea=
+d.
+Will this cause schema validation to fail for device trees using the correc=
+tly
+spelled chipid string?
 
-diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.c
-index b475dd27b7af..25f8301ae14f 100644
---- a/drivers/i2c/busses/i2c-ls2x.c
-+++ b/drivers/i2c/busses/i2c-ls2x.c
-@@ -12,6 +12,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-+#include <linux/clk.h>
- #include <linux/completion.h>
- #include <linux/device.h>
- #include <linux/iopoll.h>
-@@ -63,11 +64,19 @@
- /* The default bus frequency, which is an empirical value */
- #define LS2X_I2C_FREQ_STD	(33 * HZ_PER_KHZ)
- 
-+/* The div of i2c reference clock on LS2K0500/2K1000/2K2000 */
-+#define LS2X_I2C_2K_CLOCK_DIV	40
-+
-+/* The div of i2c reference clock on LS7A1000/7A2000 */
-+#define LS2X_I2C_7A_CLOCK_DIV	50
-+
- struct ls2x_i2c_priv {
- 	struct i2c_adapter	adapter;
- 	void __iomem		*base;
- 	struct i2c_timings	i2c_t;
- 	struct completion	cmd_complete;
-+	unsigned int		div;
-+	unsigned int		pclk;
- };
- 
- /*
-@@ -107,12 +116,13 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
- 	else
- 		t->bus_freq_hz = LS2X_I2C_FREQ_STD;
- 
-+	val = (priv->pclk * 10) / (priv->div * t->bus_freq_hz) - 1;
-+
- 	/*
- 	 * According to the chip manual, we can only access the registers as bytes,
- 	 * otherwise the high bits will be truncated.
- 	 * So set the I2C frequency with a sequential writeb() instead of writew().
- 	 */
--	val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
- 	writeb(FIELD_GET(GENMASK(7, 0), val), priv->base + I2C_LS2X_PRER_LO);
- 	writeb(FIELD_GET(GENMASK(15, 8), val), priv->base + I2C_LS2X_PRER_HI);
- }
-@@ -287,6 +297,7 @@ static const struct i2c_algorithm ls2x_i2c_algo = {
- static int ls2x_i2c_probe(struct platform_device *pdev)
- {
- 	int ret, irq;
-+	struct clk *clk;
- 	struct i2c_adapter *adap;
- 	struct ls2x_i2c_priv *priv;
- 	struct device *dev = &pdev->dev;
-@@ -304,6 +315,29 @@ static int ls2x_i2c_probe(struct platform_device *pdev)
- 	if (irq < 0)
- 		return irq;
- 
-+	if (dev_of_node(dev)) {
-+		clk = devm_clk_get_optional_enabled(dev, NULL);
-+		if (IS_ERR(clk))
-+			return PTR_ERR(clk);
-+		if (clk)
-+			priv->pclk = clk_get_rate(clk);
-+		else
-+			priv->pclk = LS2X_I2C_PCLK_FREQ;
-+
-+		priv->div = (unsigned long)device_get_match_data(dev);
-+		if (!priv->div)
-+			priv->div = LS2X_I2C_2K_CLOCK_DIV;
-+	} else {
-+		/* clocks and clock-div are only ACPI properties. */
-+		ret = device_property_read_u32(dev, "clocks", &priv->pclk);
-+		if (ret)
-+			priv->pclk = LS2X_I2C_PCLK_FREQ;
-+
-+		ret = device_property_read_u32(dev, "clock-div", &priv->div);
-+		if (ret || !priv->div)
-+			priv->div = LS2X_I2C_7A_CLOCK_DIV;
-+	}
-+
- 	/* Add the i2c adapter */
- 	adap = &priv->adapter;
- 	adap->retries = 5;
-@@ -349,8 +383,8 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ls2x_i2c_pm_ops,
- 				 ls2x_i2c_suspend, ls2x_i2c_resume, NULL);
- 
- static const struct of_device_id ls2x_i2c_id_table[] = {
--	{ .compatible = "loongson,ls2k-i2c" },
--	{ .compatible = "loongson,ls7a-i2c" },
-+	{ .compatible = "loongson,ls2k-i2c", .data = (void *)LS2X_I2C_2K_CLOCK_DIV, },
-+	{ .compatible = "loongson,ls7a-i2c", .data = (void *)LS2X_I2C_7A_CLOCK_DIV, },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, ls2x_i2c_id_table);
--- 
-2.47.2
+>            - lsi,axxia-syscon
+>            - marvell,armada-3700-cpu-misc
+>            - marvell,armada-3700-nb-pm
+[ ... ]
+> @@ -189,6 +190,7 @@ properties:
+>                - hpe,gxp-sysreg
+>                - loongson,ls1b-syscon
+>                - loongson,ls1c-syscon
+> +              - loongson,ls2k0300-cphipid-syscon
 
+[Severity: Medium]
+Does this also contain the same "cphipid" typo as the select block above?
+
+>                - lsi,axxia-syscon
+>                - marvell,armada-3700-cpu-misc
+>                - marvell,armada-3700-nb-pm
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784619512.gi=
+t.zhoubinbin@loongson.cn?part=3D2
