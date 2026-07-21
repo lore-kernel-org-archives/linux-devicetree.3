@@ -1,109 +1,115 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 389AF47B425
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:11:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A750C3469F6
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:15:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784628686; cv=none; b=cFoz5QkuLmieXYq3ht0Tdy3wjnMjou5T4pFGZgE0XMPEC/vTADQVmBLIZN/z321bN0OFSoxSj9tWEYJ2gcjyxsQ4JqOlQqLWTydknM431UnjKdWt7oByRRIe7r3ltK0rQIoIrru5EMcr2JUpukVOxz/WHbVfUbt6oDXCpHdOy5c=
+	t=1784628916; cv=none; b=EVofjVQdIt6VSOYcx5iyGIkonZpBngYI2APrZDCPGFYcIMf94056DbU1zp5IZuvn3pIE8R6FDDv66P0ZcIm4iRnvjD6WLgNl4gFHSY+RnIif/FsaMnZMalgjKQO3NmsDzd6vwHHxMGuvAwe9PXdRfMBP+h/ilqU3LvsZiVU/Tzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784628686; c=relaxed/simple;
-	bh=gXNJqaf+zTctXL5WLgdpGYeFG2qxNG2Vh2hV85r/k1Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IB6837v/4b92uWQlH2AfNmikFbAQUtCnjjHWLf+5wtYbVFn2tApxNsBMTcivIsL4DTXQgD7AVFAGAZY0anu+VxzF5HEAnlTTbJwJTwzRnfbFgG99JPdevWqi5Qay4HWs1tvLjqZVHlGccvKPPesInZADLeHzCcoz/RcZgXiovnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=svj53zPm; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784628916; c=relaxed/simple;
+	bh=aZMqD/cj1sT9PpgUH9U4gEAsomtzSvutYVuVHHY2QdY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZsS0ABuufC6mb51RUrAeBg8qXW6Ky5e13hvN7WikgLZEJ8QINAG8+UcaWWBDGAPRbn5+qRhIZ04e9Bd2BoS/Fx1nKT/OHZvZr0KJ657OFnz1rIRQuYoAzLjQ7d9J9e8NaYqqb4vWg9db+OOnx28ZcTBc9vdVG7b1dPQUyUVXBLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jHSe9kc0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="svj53zPm"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49550ec592cso14027915e9.0
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 03:11:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784628681; x=1785233481; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GL48HhqEqA89OWX1SNNRwvNWdwLXSktQBg9CSPlO8sc=;
-        b=svj53zPmGgsQQomAM3SKz6UktBhgsIGXco8OB9gm3mNaz6nHxY40tQ4guxNVLTpfQe
-         H0lTG50dg3E32tm8/migoqNTnthSUTkzMfyFMBPvKL1xd8ox3XaXEiIIBhsL2lOzEGGX
-         ty1dmNwyXK8Pt7v7pgIv08r2ReTQcWJFs6IlfjQqukmMG+eEyb1R6SYVnk8eW/H1mfJH
-         9VzXYOYQAGOj8lIX2MdOyWzpdGQRsDRjEwAxnDRLSUt6mvfHgoe8RLi3EYO5hvvKlDBP
-         w2UtU/DWmqJJ+7dJDXkdlvzbedwhAkh25lx1PyHT9edwH8el8J+wA5llqtcIUUdDuKpd
-         TqTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784628681; x=1785233481;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GL48HhqEqA89OWX1SNNRwvNWdwLXSktQBg9CSPlO8sc=;
-        b=XVNT9QSQtnEwid9mswMgbWNnLzz+7lcP2rxCqiLhefsNjhDnLCK83UeGmf+fbw9EV9
-         jqjI1NbRCW/bLF+u26aO4i3GCWQLwaksaRUQkuoPbS0YyiVimjEgtKAyTky4ytKUqWP7
-         qKoD/6/iTJDHh1o9cCvou/zcK94ic6OREJ/J6mHQagIkAfoaPqoXcTSNaU4icm+hyKEA
-         1FstJRlu8R8Fp0Sr5W+oxhBr8mJh9dDXfU/HTBePzpUsXSGbo4Xg3z7+s0QzLctSijSq
-         EyXi5SwQWfB6tcwKxaBZrWsn2+oJmk572vgUkbOqbxu+YGcM4zKH6yLWiHpCubsFeOZ8
-         LjDQ==
-X-Gm-Message-State: AOJu0YxZNNkvrADnpP2LcHsU4Qx4I5/7nxIIObZqWN96wCUHyKrWWf3r
-	8O1QvCo3DxwAuJQHRh3SEzh3J0cQDG+OwiU0cSYoOtqG2G7LtuMgkOJp
-X-Gm-Gg: AfdE7ckej2jpwGTHw+iOphGVGZ/ubMZrs1m93z12Cqrr7pGeuqZXKIE38dYgEETZ5tt
-	c1wonEqRk5hsuLHlNWHNfoenoHq/ZWrgU307H9mRvcTOA58QaRte0xCpxwfZh9tSWw6htaNsWfQ
-	otjiuQYYOBB/5y0V2Ljly4zhTysKVyL6wFxZOp0oWFnhIHyazrIYg6SVrp7vD4rOKisRkOm24Rd
-	FG3NUrXKVt8Krh2iq0F8LLq3+KFa/2+1xkD9WHu1fnCBILnE4TmE/XOhOD+JHD87Kw5+3et1rSu
-	rNZRDbRX8sGiUCbimoQcV0jWLn3DX19RqyJdQZyS8aw/LgM2VBKIcKAolEHi3eTL/GxrqXJlSXM
-	pquqP+Vo2A7pbBMXDaqzJYJYJTwBrcLtVOyCbzcNk/B25QT6JtQj7CS60M3gtI3l8ZBL6ROFa3L
-	Aaj3jxwDdn8F5Y7tHhNv5ZDdg=
-X-Received: by 2002:a05:600c:3b0a:b0:495:6022:5a23 with SMTP id 5b1f17b1804b1-49560319f6dmr71655465e9.19.1784628681221;
-        Tue, 21 Jul 2026 03:11:21 -0700 (PDT)
-Received: from xeon ([188.163.112.51])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956547319dsm57127085e9.5.2026.07.21.03.11.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 03:11:20 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 10/10] ARM: tegra: tf701t: Add chosen node
-Date: Tue, 21 Jul 2026 13:10:59 +0300
-Message-ID: <20260721101059.451699-11-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260721101059.451699-1-clamor95@gmail.com>
-References: <20260721101059.451699-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jHSe9kc0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AC311F000E9;
+	Tue, 21 Jul 2026 10:15:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784628915;
+	bh=aDORCqBtsuArRSzTjDZzkw9qQE3ZioDrD4yTuN7D5AM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jHSe9kc06rBj55sV1+jn42PEfw7m1XlsgcRqbnplnssXKtUv/WIG0QXOsGlVR9i8e
+	 ggLNa4YAaq8w+jRIRxEGmBTloLNW/obijiHykA17tInlH85ESK4baaA3hRS8Tcd0Vb
+	 rJ62e80+BTuyeuJ1crOmBEcqXBk14oRxEpkxY4N1Xpzhz2Go1iWAOJzj5U0meD3cM1
+	 VPb+Btm5/n0F1XccPcRWv8fFgyN6JlHbtWe6GGNooBIu6pZ1buvXYXciXqVCarURxs
+	 8yRmhBAMyQXBOv1M2ndOjqCgXwMy3YG1fcl2PdyXeZEixHZD1aBBa1f2oqOQHL4N4o
+	 7zv1UTNSf4pYQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 2/2 RESEND] ARM: tegra: Add device-tree for Motorola
+ Atrix 4G and Droid X2
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260721100245.444623-3-clamor95@gmail.com>
+References: <20260721100245.444623-1-clamor95@gmail.com>
+ <20260721100245.444623-3-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 10:15:14 +0000
+Message-Id: <20260721101515.4AC311F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add chosen node since some bootloaders may require it and add stdout link
-to UART-D to simplify getting kernel log via console.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Two separate GPIO switches map to the same absolute switch code =
+(`SW_DOCK`) in the same `gpio-keys` device, causing erratic state clobberin=
+g.
+--
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts | 4 ++++
- 1 file changed, 4 insertions(+)
+--- Patch [2]: [PATCH v1 2/2 RESEND] ARM: tegra: Add device-tree for Motoro=
+la Atrix 4G and Droid X2 ---
+commit efb4cc03675fda13ada4c5318a7f54d006cf5b05
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-diff --git a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-index 0d182fa5c1af2..1b9839a855610 100644
---- a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-+++ b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-@@ -26,6 +26,10 @@ aliases {
- 		serial2 = &uartb; /* GPS */
- 	};
- 
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
- 	firmware {
- 		trusted-foundations {
- 			compatible = "tlm,trusted-foundations";
--- 
-2.53.0
+ARM: tegra: Add device-tree for Motorola Atrix 4G and Droid X2
 
+This commit adds device-trees for the Motorola Atrix 4G and Droid X2,
+which are NVIDIA Tegra20-based smartphones.
+
+> diff --git a/arch/arm/boot/dts/nvidia/tegra20-motorola-daytona.dts b/arch=
+/arm/boot/dts/nvidia/tegra20-motorola-daytona.dts
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nvidia/tegra20-motorola-daytona.dts
+
+[ ... ]
+
+> +	extcon-keys {
+> +		compatible =3D "gpio-keys";
+> +
+> +		switch-dock-hall-sensor-north {
+> +			label =3D "Dock Hall sensor (north)";
+> +			gpios =3D <&gpio TEGRA_GPIO(S, 2) GPIO_ACTIVE_LOW>;
+> +			linux,input-type =3D <EV_SW>;
+> +			linux,code =3D <SW_DOCK>;
+> +			debounce-interval =3D <500>;
+> +			wakeup-event-action =3D <EV_ACT_ASSERTED>;
+> +			wakeup-source;
+> +		};
+> +
+> +		switch-dock-hall-sensor-south {
+> +			label =3D "Dock Hall sensor (south)";
+> +			gpios =3D <&gpio TEGRA_GPIO(S, 0) GPIO_ACTIVE_LOW>;
+> +			linux,input-type =3D <EV_SW>;
+> +			linux,code =3D <SW_DOCK>;
+
+[Severity: Medium]
+Both switch-dock-hall-sensor-north and switch-dock-hall-sensor-south map
+to the same SW_DOCK code within a single gpio-keys device.
+
+Since the gpio-keys driver creates a single input device for the extcon-keys
+node and iterates sequentially over all defined buttons to report their
+current state at boot and resume, won't the south sensor state overwrite
+the north sensor state before input_sync() is called?
+
+If the device is docked in a way that activates the north sensor but not
+the south sensor, it seems this could result in an incorrect undocked state
+being reported. At runtime, could changes in one sensor also incorrectly
+clobber the shared SW_DOCK state, such as an undocked event being emitted
+if the south sensor drops while the north sensor remains active?
+
+> +			debounce-interval =3D <500>;
+> +			wakeup-event-action =3D <EV_ACT_ASSERTED>;
+> +			wakeup-source;
+> +		};
+> +	};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721100245.4446=
+23-1-clamor95@gmail.com?part=3D2
