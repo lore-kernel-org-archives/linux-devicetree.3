@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BABB647AF4B;
-	Tue, 21 Jul 2026 10:20:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07A4A47F2DB;
+	Tue, 21 Jul 2026 10:20:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784629229; cv=none; b=aroenodU254fYYevAZY2ex6bufE00l8EmCXJP26F0wES1RrFJNnXM2CgdjtBJX14XN5tBl7+RbdRibxCmtt/hqCYSGhmwuJgMzwc48YhRBeAJ4iqkKdpR/0CzxRbXjBEBkrvQYjzQid3lak0oem0+UYdeWEUJTHfR+MQmNlvLT4=
+	t=1784629231; cv=none; b=PC+sMnoF3itJMr6PTxZBlZok1/vXWGYEZmA/1BY0c6VswhSMv8rO86FjeRr8suzJuised0KYgrjDkEHnWGfq7NxSK0J4j/dW2A3nZ2rmL1vvD9m1E/Ht3HBienj96bDnqBgl797lVtZoZIg62R3RpCSJ2WrulHa2a+6K/f6i2l8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784629229; c=relaxed/simple;
-	bh=zABv5SVKnVc43C7bfG3bzVfENvmmaY7u+VCbEYT+X5s=;
+	s=arc-20240116; t=1784629231; c=relaxed/simple;
+	bh=9xYzo2wXLpH4q80LvLyIcebPf6OZAp/Ra7z71XtJcXM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IBEvMwaGMXkveBO4SghMo3b9zqBYSORUd6H1bPmTmH1PcI+K8LpzXFMz83MqZPxPtTakDia33Gj9IAvlm/Rrot4z/UbqNI6V/mEqSedcd6dwpOTz/NLUj2FxLoRq+2XxE0POmLz7smfpnTDVWw67QJgjjdyEq2H16OZpoMsubzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fb+1sjK5; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=jZooMYjkRdaZiuyDRHMulxPPFLXam2XLDrvXOGDlaalvARDPPgoVZZO8wvgZY3RHgKFV0LfDWjtIaz4FP4ivBgjrhMC2HEJ2AsGPaf/F10mnGadnfuDOFFcY8u8NVUFfO2/q5CUFmUzsFf/dZMlf4UixBZt1S/JOUkJWGdeNEf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AsZaVQhZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fb+1sjK5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 115851F000E9;
-	Tue, 21 Jul 2026 10:20:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AsZaVQhZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E82A1F00A3A;
+	Tue, 21 Jul 2026 10:20:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784629228;
-	bh=zABv5SVKnVc43C7bfG3bzVfENvmmaY7u+VCbEYT+X5s=;
+	s=k20260515; t=1784629229;
+	bh=8dVy9R9LQshtl+4XNKnIBADxLLhcmOFZwX5qes4XMx8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Fb+1sjK5tcSDq0Z4iRcMvouIwjTRh+aq+G4WIZ8pfgJQM2NgLgQ/1bKiyayE4NhPI
-	 HWirQTsWl7RNzflPxtKiDcIgQuYMo33xHfBUf6KwnBbWfgURmh1a8eK49ASbw+ZL3s
-	 6auZUaLAwvxCP1IJjXUlj1s6seUievQvg2ig/muHKhD8HVYtZi+V9cWDYJj30iJIfs
-	 QRigVjAdri4c4HmKLKKJJ8/QThGRXl/++oKBj+zDPSslfk2u+mlqHMjFkxkO7iDWks
-	 3XJiP/F9a+D3Ewc0x9jzaH60QS0a2UYp8NbmM/iqP39QcDjFkmKAcvn5Ttg3LwGhme
-	 tDN3CX8WOJvPA==
+	b=AsZaVQhZ/dEDXbQ2fUO+Ry0glV9bAd4iiSYgqQPlrwHTBkQcrwYFLYtD6ajF/ixIY
+	 dZMUoO0nuwPVKwqROOVltPEH6bQoxFrQW0rr/nU/fHDUm/wqWLagHq5x6C+peg4/md
+	 WOggVUCOZP4eZd9arztdsoXrNI1Dg8owlecSEKVvAtXoHBzYYiyohDSqadl1wc+A8I
+	 MgGv+dHPlIimVZa+CcJ2XRRo3jfNyg+vqaS6NRw15zwWOHKQodHMVAQGAYRGV040eO
+	 tWyY2BqsFG5rI2TzpmgK3U+xXt5SM1R59zNMoq6UPG/UPfC70/eP4chVbzQrKFeDeO
+	 YAjvbOv+B7w9A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 6/6] mfd: motorola-cpcap: add support for Mot CPCAP
- composition
+Subject: Re: [PATCH 2/2] pmdomain: imx: scu-pd: allow building as a module
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: lee@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-input@vger.kernel.org, dmitry.torokhov@gmail.com, linux-leds@vger.kernel.org
-In-Reply-To: <20260721095654.429346-7-clamor95@gmail.com>
-References: <20260721095654.429346-1-clamor95@gmail.com>
- <20260721095654.429346-7-clamor95@gmail.com>
+To: Zhipeng.wang_1@oss.nxp.com
+Cc: conor+dt@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260721100917.230923-3-Zhipeng.wang_1@oss.nxp.com>
+References: <20260721100917.230923-1-Zhipeng.wang_1@oss.nxp.com>
+ <20260721100917.230923-3-Zhipeng.wang_1@oss.nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 10:20:27 +0000
-Message-Id: <20260721102028.115851F000E9@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 10:20:28 +0000
+Message-Id: <20260721102029.0E82A1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,28 +46,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The commit message description is not capitalized, violating MFD su=
-bsystem guidelines.
+- [Critical] The driver lacks a `.remove` callback, leading to a critical u=
+se-after-free vulnerability upon module unloading.
 --
 
---- Patch [6]: [PATCH v7 6/6] mfd: motorola-cpcap: add support for Mot CPCA=
-P composition ---
-commit 8d174ab85721459a22732636e016f27b79a8d93b
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+--- Patch [2]: [PATCH 2/2] pmdomain: imx: scu-pd: allow building as a modul=
+e ---
+commit 9ee376c56f6aaa5ab08fdfa655c63a9fb45c2d0e
+Author: Zhipeng Wang <zhipeng.wang_1@nxp.com>
 
-mfd: motorola-cpcap: add support for Mot CPCAP composition
+pmdomain: imx: scu-pd: allow building as a module
 
-This commit adds an MFD subdevice composition used in Tegra20 based Mot
-boards (Motorola Atrix 4G and Droid X2).
+This commit converts the IMX_SCU_PD configuration from a boolean to a
+tristate to allow building the driver as a module. It also conditionally
+registers the driver using module_platform_driver() to support dynamic
+loading and unloading.
 
-> mfd: motorola-cpcap: add support for Mot CPCAP composition
+> diff --git a/drivers/pmdomain/imx/scu-pd.c b/drivers/pmdomain/imx/scu-pd.c
+> --- a/drivers/pmdomain/imx/scu-pd.c
+> +++ b/drivers/pmdomain/imx/scu-pd.c
+[ ... ]
+> @@ -540,7 +541,12 @@ static struct platform_driver imx_sc_pd_driver =3D {
+>  	},
+>  	.probe =3D imx_sc_pd_probe,
+>  };
 
-[Severity: Low]
-This isn't a bug, but should the description after the subsystem prefix be
-capitalized? The MFD subsystem guidelines mandate capitalizing the descript=
-ion
-after the prefix (e.g., "mfd: motorola-cpcap: Add support...").
+[Severity: Critical]
+By converting this driver to a loadable module, it can now be unloaded, but
+there is no .remove callback registered here to clean up the PM domains.
+
+When the module is unloaded, devres will automatically free the memory allo=
+cated
+for the power domains and provider data.
+
+However, since pm_genpd_remove() and of_genpd_del_provider() are never call=
+ed,
+won't the generic PM domain core retain dangling pointers to the devres-fre=
+ed
+memory in its global lists?
+
+Could this lead to a use-after-free if the PM domain core subsequently acce=
+sses
+these freed structures?
+
+> +
+> +#ifdef MODULE
+> +module_platform_driver(imx_sc_pd_driver);
+> +#else
+>  builtin_platform_driver(imx_sc_pd_driver);
+> +#endif
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721095654.4293=
-46-1-clamor95@gmail.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721100917.2309=
+23-1-Zhipeng.wang_1@oss.nxp.com?part=3D2
