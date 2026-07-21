@@ -1,280 +1,331 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B8243B6FD
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 23:02:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2569343B3C6
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 23:04:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784674962; cv=none; b=J+1yldM8MAVSKysMEd7YID+Yz9Pu058hmyyah6lVThCCiRC585GghicfaSeVfX7D7FTWXZvnd0c7FO3z6A94lC67kA3t26ESheSEejUZi+bzQuK6+6HElRwzYN+9htitABI2K5+Z6fkeroHlWUhmICYxpXEn1QALgqd3AFPkMQg=
+	t=1784675065; cv=none; b=H+haqldU/mHICi5ur2qpEzNd9Sy/9jdY+PXOLwHBzLbd/AewXjXxhnnYIa43TRBWrFRamTC7+rviXz1psTW2ivEUL/3S0PZP2EALuG64cp0MBqELRp1iiLaj1jyFmuZEM0NmGZ5xYBZSlJc1Jp1rfmFmCmi75zFHDFRXMnty3WM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784674962; c=relaxed/simple;
-	bh=+q9SqglFxsF7E/f+oK+IdbC4W/RZaxGV62zp1jJm0U0=;
+	s=arc-20240116; t=1784675065; c=relaxed/simple;
+	bh=xgOxOMovpA25BbgSbz35rwS0VQ0yjeoylBXXLZfEkck=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nngxv5QZ1e8Ti/NKKYT8UvMvNkpQqv8AP7hdj/JMl9LgUPGn3wCMx6byVqnmfSdj548Tm9ShelhZs46cO4So7L6buoxffjvavA685bqeJZ/3qnWEyuq2KCdNuW4EuN+C+52BLverfMrqUgxFoVyy71/QhtT+9hPeocPB13oCZTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NAZSj899; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d45LighI; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ccl1wPlwwPapCJXesqo0xcDi0kXZ2rVMuAcjrYlH98u1g8QW7bvSJ8oKnwSOdHq9tK7Lp9782qGK+48BWm9tD8rmPlBbF6kVeg8ES/HxDfiP5kKD8H9PQRTgsFQpDvdRHOrRfzbHWrRFwwU8WFHkkQnNVZc4hXMUCGILRr7Q4cI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FnjSBgfA; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=f6IvSn/D; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NAZSj899";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d45LighI"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66LMZpow2934988
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 23:02:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	BVAVqrht2Onqrp5MZWV10fOY+/SgFVFdWpN2lE8H3C8=; b=NAZSj899a4Kt3OpS
-	jH80OLf9QjeO2W/lAngczPHrwL+c+Zt/gbU/wioEi2mqCimSfuK/ydiZbseIrZwo
-	vM5yFokraMct5OzVPPfNogcYwNRRlkVVxH9eUM8DATjd5NO1WWqwL+9R5jM9LXGc
-	EKrHpv/xWifDCqTt3nixdl6mWBWCfgxRTDsLrsttkkotjTp0TlDCrOnrxWZQcH8+
-	scTWOweYqfTLRyM774jrqxxGQ9W4dQvL1aDbyRhizcGIXjcqGDmzjd+xB855jbKK
-	MtfYqCR/bDkpCkcKLsORpLnoyIrOEFHasFOVMoAsAsWpBNJvwb+hXlFkzonxge9Y
-	3k4Clw==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj9aeakgn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 23:02:39 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-9772e18c186so942016241.1
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 16:02:39 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FnjSBgfA";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="f6IvSn/D"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784675062;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=z9jxxoNk0Zci913QIrLSshdt2n65M0x+d9IlMGmwHh4=;
+	b=FnjSBgfAWd47cgN+YbhAGxu2OgFGLRDnsB20R3l2D6/+M03T0bj3CgDHDJAV+8SZFbxhHm
+	j9BzVLeIWBH5tH6fOlcN4XOkrPQr+2wxWGiqqNWqwEyxKl52yHzEc7NDTcLp39oUHlxWg7
+	RxIn765VgodpXmZHk+GramAxR+g+M9E=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-581-pwcGlFRbNoCxJhhe2zd4zg-1; Tue, 21 Jul 2026 19:04:20 -0400
+X-MC-Unique: pwcGlFRbNoCxJhhe2zd4zg-1
+X-Mimecast-MFC-AGG-ID: pwcGlFRbNoCxJhhe2zd4zg_1784675060
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c21c01cf3so187737411cf.2
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 16:04:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784674959; x=1785279759; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BVAVqrht2Onqrp5MZWV10fOY+/SgFVFdWpN2lE8H3C8=;
-        b=d45LighIslQnAJDrJgOJVGrqcdJE73Oi0JOMpLKdtoOO+/g92rKd14k7jD+wGf/+m3
-         qEViotuQamA6q23tCr4XdV5n5ncc49lnTFjvbyw1mWz3/m1WMgps1qAzEpzbFe0O7/+j
-         fzzjjmNzxEtKJKj7+D1zWxah6O1jH+Iw1y5oM6B+Z4HUDYPvdEKhudZs81AbnIMg10x1
-         DB6CYTMsxy/FwKK7aRpwiAciGJc1G+euBLGNa+dCRpbsOXnqQc0kzJ11RQ3pHkF97XVu
-         F3N9Y0kTG3NlKKz5R8tFDL9NvijlOTLUIgWMJOt0CjNwoZrXhlAA31skYYCiHQGVyYL0
-         8Xsg==
+        d=redhat.com; s=google; t=1784675060; x=1785279860; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=z9jxxoNk0Zci913QIrLSshdt2n65M0x+d9IlMGmwHh4=;
+        b=f6IvSn/D+R+eg/nK/xBdXFNTy52hDpsHHUCWr7Ueq5xmBR0PGn0dyykgtaGMEEl207
+         VSyd/e2BpQoXHShxhGdy7kWdxyBXZJa8OlNrln0pN6E2dKJz+JnItmfNi440NeBPeron
+         eRx5TYxrYVyb8oV18rSsLVImP0q49Oj1zItZ6vZKYhA2YnFtjRGV8Uw+iRNO2z0LSANg
+         9eh+uhGAbNO32zThJUyeoygSA+Nr95NFcdaxVREDqWQO0HMRMejP61co+aoXjdnp6CGe
+         g0yl0ZfXBEkUrCkJHzFOF7Wfcd/fSJ0cZCCtHia+GybhnFbxhzYLsNL+x8Khp2ybuiIW
+         UViw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784674959; x=1785279759;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=BVAVqrht2Onqrp5MZWV10fOY+/SgFVFdWpN2lE8H3C8=;
-        b=BEcNBUuvpJ2DJZsv18xewEovfSL0oToCiaIy4psf4hVxAG+YMDeoN2bHtKa7Y+EXr9
-         MAbiVpBZ3We4idBeApzC3Dyvx6XTFuhAs8kn+4r90BcJXBUloLtsT8H9ULtwPy9oVFTj
-         T5Ngblis/XztiaxjrSwNXzvDjNrN77W1r3VBeM9pedJ45wcPlIaOyFK8pT7cQNVX+sAe
-         hsWRdUdvrdlH+nXgjbmY8M9Ct/wQeUqkjmTP7nxNUZv1eHzZX0ahSiZjBW8NZJQ0zBb9
-         881JNG4lm65rZColNz5Ff1sFTUDmM7ZPIdaC3lU5MjLKuuQ9vCbDizcFsW39x6eOHL/N
-         s6Rw==
-X-Forwarded-Encrypted: i=1; AHgh+RoQGTt9PsAN2CE6W6gz+/s93uiUvduP7QMdcr1gMTOkUnJteeRWYN5+vVx++NBnUAfna3K8nubf9xjg@vger.kernel.org
-X-Gm-Message-State: AOJu0YwjPTy2aWllNHpF9rhfY1QvgddkHLWpyiDJIEjSGlFjYYO9jgAV
-	dNzqG8GHYDTiSye75B9MneTy2oVu2de0WPumWgbL8eQM0CmXOTkuHqW0DGf43mpRbuAYCiKELxk
-	96WLoimUBeFD8lmnePni0EqEyOEgVCVWfIJtZfTOrdMaWxow5+5c5ce38SkS0uSPC
-X-Gm-Gg: AR+sD106wyObYvM6C8VheXU7YYkMFOb3sFlXcnZlXyHUBuRiDRtPaRuGexn4cF4cRg9
-	vGVyieWJ1P9rmZzd/u6uRlDcgDwe5Vtg3FItXjUGJ14Nn68wilv4KvsR7VpfsFlKCL17y56Ecgn
-	mZYJmAxdMyhCjvqrl4YG+JdjVgYDiYGgV8LdIYwlZPVzxJMJAJjE1DO//NXcEENMYsKO5ApaEP9
-	Sqx7n6XJdw8nu79t0PmCONWCMcCSmJGmSK7bYeH18J93LXrSSaugGIDa5ncZlqGcmO4lGGT95Pe
-	kHAQz2dGWn25zHWnECSVL8Gn3KCQ29IXOcha1RzsCj0+HqeYf2wpVx+ENfcqmw5mtknDc2BLfyH
-	szba9e/r1j/cCcABQps7/YcVnE8h1KjThvrsCfWst/FY/PF9sD7llL+mnwzNyWj1Jc0Y4WMB1+h
-	AH8OiK/aIRnxSzwA==
-X-Received: by 2002:a05:6102:5788:b0:73e:9fae:584c with SMTP id ada2fe7eead31-7475368b91cmr6846582137.19.1784674958734;
-        Tue, 21 Jul 2026 16:02:38 -0700 (PDT)
-X-Received: by 2002:a05:6102:5788:b0:73e:9fae:584c with SMTP id ada2fe7eead31-7475368b91cmr6846495137.19.1784674956637;
-        Tue, 21 Jul 2026 16:02:36 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2a9d316cesm156768e87.53.2026.07.21.16.02.35
+        d=1e100.net; s=20251104; t=1784675060; x=1785279860;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z9jxxoNk0Zci913QIrLSshdt2n65M0x+d9IlMGmwHh4=;
+        b=sxV43NhGf2Foj06TdGYBOCeijkgYSp17eOzPwpJmSk6VULPmFwBUDLyWI1f8I0crt4
+         gkhD7jqpOIyCivzVQwsSvJlffwczk5fQ2YEQNnjGgcSn651i71m5T0EiAquO4TgqCvpO
+         T5vPXAvz64w0K6JoYQ3NLvxP//5Lk0+U7SGO0FkQcP//jRcYL92p0w7kdzQxhLlndKSR
+         nBKLybJ+Z7jU0iuJ+OXB66Rp5wiMcNE9zfSN6gGg0ydPWIjK4fW9nwmdeFB7s78yHR95
+         orXTrm8Wn7uhkajqABV0nvEqTRI2sY+RPf5IwTz68k3dSDs4FpdkLhgrh0DirnOqKQGI
+         JEJQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoeLvxrJKTI9615nWw1P9dnYwRvpDpwfv9XaYBTG4pmzVgh+L0G0BhMTgHxzHc0PusgbGIamVfkP57c@vger.kernel.org
+X-Gm-Message-State: AOJu0YwlAzj1YkAYtyHVMOoOc+IgY2SNmIHmMYv3VjOsmKD9Jih27Mo+
+	30UQ/Xoz7lKxEW2VJa8Y5mAIAkqqSN4dT6s4AwdIxTYlpY8g0m+R5b4e5WgpJjuBgC4w3TixAF/
+	B5xi3m8cbcDfaptl3wmyG4WTE/7ljmPQEILsMmZRoXpxySLAG/qCSIXrIf7wPE/c=
+X-Gm-Gg: AR+sD12oFK6uNm4m9zFzmHFbYRCowoqVxY8odLSq356RxwZT3t4QngF5j42HSBE1pDz
+	ghROT6zS8WdFbs0iUZHgkgD4a//N1IUDsU03e0LqQd3h9JMYQmxCwmwvzTTcRQveJeioziRY3Rg
+	CJhzV7c3bgx7+AfIBxyZwAhKMMtM8/COEYomtH6fRn5wmduMb+u1MfR6fYtrQhYkANUVhMolU4b
+	oFd5pLFwqCmV7XOFasgCaXKX77i7iBDYxH5kePNinSTC7MQRiMvtl0NPiqAMPT3fTd4wppB04PB
+	vq/dAtikfBxxHslYF1ClzXrjQh8Bq9WU7k8o2UXAZzDDHK/OIsOHQdv0tqmlSowVCkVPb3boyDn
+	XnLVa5kWVSwi4LjgSIo6CTGQdmOtH00W6TXE=
+X-Received: by 2002:a05:6214:2301:b0:8ce:ca7d:b099 with SMTP id 6a1803df08f44-9077832dd19mr216149176d6.18.1784675059740;
+        Tue, 21 Jul 2026 16:04:19 -0700 (PDT)
+X-Received: by 2002:a05:6214:2301:b0:8ce:ca7d:b099 with SMTP id 6a1803df08f44-9077832dd19mr216148766d6.18.1784675059293;
+        Tue, 21 Jul 2026 16:04:19 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907ba9e13d1sm7062316d6.28.2026.07.21.16.04.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 16:02:35 -0700 (PDT)
-Date: Wed, 22 Jul 2026 02:02:33 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-hardening@vger.kernel.org,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-Subject: Re: [PATCH v4 01/10] dt-bindings: firmware: qcom: tmd: add TMD
- device type constants
-Message-ID: <bn5ldgj4ehyj6nqpkn4thtm7basgww2b23dvpedy6eazcbcn6t@76ztskznun3e>
-References: <dv4n4ntnfvhouv23asgshgs7wcolkmqs7lbuni52maexo4s44x@4bqhf33x4fr6>
- <1aca8d60-8e39-4532-9095-a5260bba76ac@oss.qualcomm.com>
- <e7eho7ezujbrdzgumshapf2r7hu2jaujib7lvotrqvcj5er5ut@xpd6l2kgipqu>
- <9dc4b29e-e9fb-421a-b789-eb16a68ff915@oss.qualcomm.com>
- <2tu35aavp7sc2npni33ky5bve57idzy3bzp2pk7eh5lryq3r4v@gmm3dhayu4cf>
- <6f179f96-fdd1-4fa9-b26c-df7372eb6d20@oss.qualcomm.com>
- <tq3g6lpb2go4nen3ferx7kzs5g6sshc45ayfyvhjmc3rv3jv7p@fhixqlwbtooa>
- <54250163-678f-41e7-97d0-6596123367f1@oss.qualcomm.com>
- <d7dqqj3qctbqdani5frdwpooppo2sq5odru6s4hxoj6d42sihb@fad3nuhunazt>
- <3b9f1b3d-4c06-4006-82d5-d59ce2101070@oss.qualcomm.com>
+        Tue, 21 Jul 2026 16:04:18 -0700 (PDT)
+Date: Tue, 21 Jul 2026 19:04:16 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Chun-Jie Chen <chun-jie.chen@mediatek.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Edward-JW Yang <edward-jw.yang@mediatek.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Chen-Yu Tsai <wenst@chromium.org>, kernel@collabora.com,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
+	Irving-CH Lin <irving-ch.lin@mediatek.com>
+Subject: Re: [PATCH v3 09/18] clk: mediatek: Add MT8189 apmixedsys clock
+ support
+Message-ID: <al_68GlP01W0US0x@redhat.com>
+References: <20260720-mt8189-clocks-system-base-v3-0-8e6d99ab3ad2@collabora.com>
+ <20260720-mt8189-clocks-system-base-v3-9-8e6d99ab3ad2@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3b9f1b3d-4c06-4006-82d5-d59ce2101070@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: P6uBokzmE9vdX5WLEZlD0FKklTHyrG5K
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDIzOCBTYWx0ZWRfX043eC95lioCC
- KAYyv3N0Z/2z5ou3yP9jlC4Z8ByJ32EEexvV7W2zMVKM+xcc7irqyuXmRftpvAxBWejvlcNrG/j
- ITJGI4HpzCNKe7tPir7BZ/t2NAt+Do4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDIzOCBTYWx0ZWRfX4+b5KMCMRygz
- WjXgN4Kdj9VoR5FJGEGDsjFDG4JoJP+G69Oq78z4SKCgpPPN0IynMgN1+7kW1jKdDcXjqkJmJq2
- Kcc4+ifN7lhTi+2mRJ6RM7Uuv73K9z5rRVeAUpQ/7wvf56R7rz1AB3b+b/aUbDeOR9z1gIMSevC
- OHtO0JBlRyzZZRYI+WNvH+jcnIBCobHrOMJjgjJjdfuTSRLzr2G5sHME8PdKKg8jx0oWfzFpkcN
- vZBFuJrRLzTF45VRL3Bsu//s9f7/swRfTlCwYWqXdz8VeJRIB8dCHSKfx82KrVwSQRVc4PAAcoB
- wHuUFqe1IxI6ZYROPM23UH9JfeIDPNKp0veqSKhcwNX+QMHatDR2SFVsjUPk1Wm3vBSVMTSohXW
- NpVoyjA8h4GgKx2qFwHG6g/38TLHS8Siko77Oj5Imwof8oBJnrPJcMQf0fAhifVfbOx/zszsHFz
- zmFm09jsqppNGWK2vdQ==
-X-Proofpoint-GUID: P6uBokzmE9vdX5WLEZlD0FKklTHyrG5K
-X-Authority-Analysis: v=2.4 cv=Cr6PtH4D c=1 sm=1 tr=0 ts=6a5ffa8f cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=NEAV23lmAAAA:8
- a=EUspDBNiAAAA:8 a=SUYFn9tju61n4s2jINcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=TD8TdBvy0hsOASGTdmB-:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-21_04,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 adultscore=0 impostorscore=0
- lowpriorityscore=0 spamscore=0 phishscore=0 clxscore=1015 suspectscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607210238
+In-Reply-To: <20260720-mt8189-clocks-system-base-v3-9-8e6d99ab3ad2@collabora.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-On Thu, Jul 09, 2026 at 10:23:26AM +0200, Daniel Lezcano wrote:
-> 
-> 
-> Le 09/07/2026 à 09:58, Dmitry Baryshkov a écrit :
-> > On Thu, Jul 09, 2026 at 09:42:04AM +0200, Daniel Lezcano wrote:
-> > > 
-> > > 
-> > > Le 09/07/2026 à 09:37, Dmitry Baryshkov a écrit :
-> > > > On Thu, Jul 09, 2026 at 10:54:26AM +0530, Gaurav Kohli wrote:
-> > > > > 
-> > > > > 
-> > > > > On 7/8/2026 7:55 PM, Dmitry Baryshkov wrote:
-> > > > > > On Tue, Jul 07, 2026 at 03:55:13PM +0530, Gaurav Kohli wrote:
-> > > > > > > 
-> > > > > > > 
-> > > > > > > On 7/7/2026 1:04 AM, Dmitry Baryshkov wrote:
-> > > > > > > > On Mon, Jul 06, 2026 at 08:11:35PM +0200, Daniel Lezcano wrote:
-> > > > > > > > > On 7/6/26 19:47, Dmitry Baryshkov wrote:
-> > > > > > > > > > On Mon, Jul 06, 2026 at 07:03:18PM +0200, Daniel Lezcano wrote:
-> > > > > > > > > > > On 7/3/26 17:42, Dmitry Baryshkov wrote:
-> > > > > > > > > > > > On Fri, Jul 03, 2026 at 07:43:39PM +0530, Gaurav Kohli wrote:
-> > > > > > > > > > > > > 
-> > > > > > > > > > > > > 
-> > > > > > > > > > > > > On 7/3/2026 1:23 PM, Konrad Dybcio wrote:
-> > > > > > > > > > > > > > On 7/3/26 7:03 AM, Gaurav Kohli wrote:
-> > > > > > > > > > > > > > > Add Device Tree binding constants for Qualcomm Thermal Mitigation
-> > > > > > > > > > > > > > > Device (TMD) types used by remoteproc-backed thermal cooling devices.
-> > > > > > > > > > > > > > > 
-> > > > > > > > > > > > > > > Qualcomm remote processors expose thermal mitigation endpoints
-> > > > > > > > > > > > > > > through QMI. These endpoints can be registered with the thermal
-> > > > > > > > > > > > > > > framework via the `#cooling-cells` property on the remoteproc node.
-> > > > > > > > > > > > > > > 
-> > > > > > > > > > > > > > > The QMI TMD protocol identifies devices using string names (for example,
-> > > > > > > > > > > > > > > "pa", "modem", and "cdsp_sw"), while the DT cooling-device binding with
-> > > > > > > > > > > > > > > `#cooling-cells = <3>` requires numeric device id in the form:
-> > > > > > > > > > > > > > > 
-> > > > > > > > > > > > > > >          <&phandle device_id min_state max_state>
-> > > > > > > > > > > > > > > 
-> > > > > > > > > > > > > > > Define common TMD device index constants shared across currently
-> > > > > > > > > > > > > > > supported platforms. If a future target requires a different mapping,
-> > > > > > > > > > > > > > > additional target-specific constants can be introduced while preserving
-> > > > > > > > > > > > > > > existing DT ABI.
-> > > > > > > > > > > > > > > 
-> > > > > > > > > > > > > > > Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-> > > > > > > > > 
-> > > > > > > > > [ ... ]
-> > > > > > > > > 
-> > > > > > > > > > > > Why are you using only those TMD devices?
-> > > > > > > > > > > > 
-> > > > > > > > > > > > > More constants can be added as needed.
-> > > > > > > > > > > > 
-> > > > > > > > > > > > Kodiak is one of the supported platforms.
-> > > > > > > > > > > 
-> > > > > > > > > > > What would be the benefit of having more than thirteen cooling devices
-> > > > > > > > > > > declared in the thermal framework and having only a couple of them mapped in
-> > > > > > > > > > > a thermal zone ?
-> > > > > > > > > > > 
-> > > > > > > > > > > I agree there are more TMDs but if they are unused for the moment, why do we
-> > > > > > > > > > > need to add them ? Can we do that incrementally ?
-> > > > > > > > > > 
-> > > > > > > > > > That's what I am trying to understand: why the implementation uses only
-> > > > > > > > > > the selected two devices, if the modem on Kodiak supports others. How
-> > > > > > > > > > can we find out, which TMDs to use on other devices.
-> > > > > > > > > 
-> > > > > > > > > My understanding is that is an initial thermal setup. Gaurav will add them
-> > > > > > > > > step by step while setting up all the thermal zones instead of sending a big
-> > > > > > > > > patchset. And TBH, that will be much easier to review.
-> > > > > > > > 
-> > > > > > > > In such a case it should be noted in the commit message and/or cover
-> > > > > > > > letter.
-> > > > > > > 
-> > > > > > > Thanks for the review/guidance. Not all TMD endpoints are relevant for
-> > > > > > > kernel thermal zone binding — some like BCL and cold temperature are handled
-> > > > > > > from userspace when needed. The constants here cover only
-> > > > > > 
-> > > > > > What if there is no userspace? Or the userspace is different from what
-> > > > > > you expect? I doubt we have TMD-speaking userspace yet.
-> > > > > 
-> > > > > Thanks for mail, The TMD userspace implementation is available upstream at
-> > > > > https://github.com/qualcomm/qmi-framework.
-> > > > 
-> > > > Is it?
-> > > > 
-> > > > lumag@rohan:/tmp/qmi-framework$ git grep -i tmd
-> > > > lumag@rohan:/tmp/qmi-framework$
-> > > > 
-> > > > I found no traces of TMD there. Moreover, I don't see why QMI framework
-> > > > implementation would react to thermal events.
-> > > > 
-> > > > > > > what is needed for modem and CDSP thermal zones on the currently posted
-> > > > > > > targets.
-> > > > > > 
-> > > > > > Again, SLPI, ADSP?
-> > > > > 
-> > > > > Sorry, I should have said "generic subsystems" rather than listing specific
-> > > > > ones. SLPI and ADSP do not require active thermal mitigation on these
-> > > > > platforms.
-> > > > 
-> > > > Could you please provide details, then. What is cpuv_restriction_cold
-> > > > TMD?
-> > > 
-> > > It warms up the zone when the temperature is too cold
-> > 
-> > So, if we ever get back to supporting warming up, these TMDs would
-> > become relevant. Am I right?
-> Probably
-> 
-> Can we do some progress with these TMDs definition ?
-> 
-> Spending 95% of the effort to discuss 1% of the proposed changes, which is
-> always DT discussion, is quite frustrating :/
-> 
-> You want to add all defines for existing TMDs for all platforms ?
-> 
-> We are talking about numerical values right ? Why is it a problem to add
-> their define later ?
+Hi Louis-Alexis,
 
-I'm trying to solve a slightly different story. How does a developer,
-looking at the list of the TMDs supported on their platform can decide,
-which TMDs to add to the driver and which TMDs to ignore. Up to now I
-haven't heard, how it was decided that e.g. cdsp_hw is not a viable TMD?
-Or how a community developer working on SDM845 or SM8150 phones can
-decide, which modem TMDs to use?
+On Mon, Jul 20, 2026 at 12:04:19PM +0200, Louis-Alexis Eyraud wrote:
+> Add support for the MT8189 apmixedsys clock controller, which provides
+> PLLs generated from SoC 26m.
+> 
+> Co-developed-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
+> Signed-off-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
+> Co-developed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+> ---
+>  drivers/clk/mediatek/Kconfig                 |  13 ++
+>  drivers/clk/mediatek/Makefile                |   1 +
+>  drivers/clk/mediatek/clk-mt8189-apmixedsys.c | 196 +++++++++++++++++++++++++++
+>  3 files changed, 210 insertions(+)
+> 
+> diff --git a/drivers/clk/mediatek/Kconfig b/drivers/clk/mediatek/Kconfig
+> index 2c09fd729bab..f67dfb6cd019 100644
+> --- a/drivers/clk/mediatek/Kconfig
+> +++ b/drivers/clk/mediatek/Kconfig
+> @@ -815,6 +815,19 @@ config COMMON_CLK_MT8188_WPESYS
+>  	help
+>  	  This driver supports MediaTek MT8188 Warp Engine clocks.
+>  
+> +config COMMON_CLK_MT8189
+> +	tristate "Clock driver for MediaTek MT8189"
+> +	depends on ARM64 || COMPILE_TEST
+> +	select COMMON_CLK_MEDIATEK
+> +	select COMMON_CLK_MEDIATEK_FHCTL
+> +	default ARCH_MEDIATEK
+> +	help
+> +	  Enable this option to support the clock management for MediaTek MT8189 SoC. This
+> +	  includes handling of all primary clock functions and features specific to the MT8189
+> +	  platform. Enabling this driver ensures that the system's clock functionality aligns
+> +	  with the MediaTek MT8189 hardware capabilities, providing efficient management of
+> +	  clock speeds and power consumption.
+> +
+>  config COMMON_CLK_MT8192
+>  	tristate "Clock driver for MediaTek MT8192"
+>  	depends on ARM64 || COMPILE_TEST
+> diff --git a/drivers/clk/mediatek/Makefile b/drivers/clk/mediatek/Makefile
+> index d8736a060dbd..66577ccb9b93 100644
+> --- a/drivers/clk/mediatek/Makefile
+> +++ b/drivers/clk/mediatek/Makefile
+> @@ -123,6 +123,7 @@ obj-$(CONFIG_COMMON_CLK_MT8188_VDOSYS) += clk-mt8188-vdo0.o clk-mt8188-vdo1.o
+>  obj-$(CONFIG_COMMON_CLK_MT8188_VENCSYS) += clk-mt8188-venc.o
+>  obj-$(CONFIG_COMMON_CLK_MT8188_VPPSYS) += clk-mt8188-vpp0.o clk-mt8188-vpp1.o
+>  obj-$(CONFIG_COMMON_CLK_MT8188_WPESYS) += clk-mt8188-wpe.o
+> +obj-$(CONFIG_COMMON_CLK_MT8189) += clk-mt8189-apmixedsys.o
+>  obj-$(CONFIG_COMMON_CLK_MT8192) += clk-mt8192-apmixedsys.o clk-mt8192.o
+>  obj-$(CONFIG_COMMON_CLK_MT8192_AUDSYS) += clk-mt8192-aud.o
+>  obj-$(CONFIG_COMMON_CLK_MT8192_CAMSYS) += clk-mt8192-cam.o
+> diff --git a/drivers/clk/mediatek/clk-mt8189-apmixedsys.c b/drivers/clk/mediatek/clk-mt8189-apmixedsys.c
+> new file mode 100644
+> index 000000000000..0657a50c30d9
+> --- /dev/null
+> +++ b/drivers/clk/mediatek/clk-mt8189-apmixedsys.c
+> @@ -0,0 +1,196 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) 2025-2026 MediaTek Inc.
+> + *                    Qiqi Wang <qiqi.wang@mediatek.com>
+> + *                    Irving-CH Lin <irving-ch.lin@mediatek.com>
+> + * Copyright (C) 2026 Collabora Ltd.
+> + *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> + *                    Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+> + */
+> +
+> +#include <linux/clk.h>
+> +#include <linux/delay.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_address.h>
+> +#include <linux/of_device.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/slab.h>
 
--- 
-With best wishes
-Dmitry
+The list of includes here seems excessive, especially compared to the
+later files in this series.
+
+> +
+> +#include "clk-fhctl.h"
+> +#include "clk-mtk.h"
+> +#include "clk-pll.h"
+> +
+> +#include <dt-bindings/clock/mediatek,mt8189-clk.h>
+> +
+> +#define MT8189_PLL_FMAX		(3800UL * MHZ)
+> +#define MT8189_PLL_FMIN		(1500UL * MHZ)
+> +#define MT8189_PLLEN_OFS	0x70
+> +#define MT8189_INTEGER_BITS	8
+> +
+> +#define PLL_SETCLR(_id, _name, _reg, _en_setclr_bit,		\
+> +			_rstb_setclr_bit, _flags, _pd_reg,	\
+> +			_pd_shift, _tuner_reg, _tuner_en_reg,	\
+> +			_tuner_en_bit, _pcw_reg, _pcw_shift,	\
+> +			_pcwbits) {				\
+> +		.id = _id,					\
+> +		.name = _name,					\
+> +		.en_reg = MT8189_PLLEN_OFS,			\
+> +		.reg = _reg,					\
+> +		.pll_en_bit = _en_setclr_bit,			\
+> +		.rst_bar_mask = BIT(_rstb_setclr_bit),		\
+> +		.flags = _flags,				\
+> +		.fmax = MT8189_PLL_FMAX,			\
+> +		.fmin = MT8189_PLL_FMIN,			\
+> +		.pd_reg = _pd_reg,				\
+> +		.pd_shift = _pd_shift,				\
+> +		.tuner_reg = _tuner_reg,			\
+> +		.tuner_en_reg = _tuner_en_reg,			\
+> +		.tuner_en_bit = _tuner_en_bit,			\
+> +		.pcw_reg = _pcw_reg,				\
+> +		.pcw_shift = _pcw_shift,			\
+> +		.pcwbits = _pcwbits,				\
+> +		.pcwibits = MT8189_INTEGER_BITS,		\
+> +	}
+
+There is no .ops set. mtk_clk_register_pll() in drivers/clk/mediatek/clk-pll.c
+will use mtk_pll_ops when no ops is set. mtk_pll_prepare() reads/writes
+pll->pwr_addr.
+
+> +
+> +static const struct mtk_pll_data apmixed_plls[] = {
+> +	PLL_SETCLR(CLK_APMIXED_ARMPLL_LL, "armpll-ll", 0x204, 18,
+> +		   0, PLL_AO, 0x208, 24, 0, 0, 0, 0x208, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_ARMPLL_BL, "armpll-bl", 0x214, 17,
+> +		   0, PLL_AO, 0x218, 24, 0, 0, 0, 0x218, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_CCIPLL, "ccipll", 0x224, 16,
+> +		   0, PLL_AO, 0x228, 24, 0, 0, 0, 0x228, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_MAINPLL, "mainpll", 0x304, 15,
+> +		   23, HAVE_RST_BAR | PLL_AO,
+> +		   0x308, 24, 0, 0, 0, 0x308, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_UNIVPLL, "univpll", 0x314, 14,
+> +		   23, HAVE_RST_BAR, 0x318, 24, 0, 0, 0, 0x318, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_MMPLL, "mmpll", 0x324, 13,
+> +		   23, HAVE_RST_BAR, 0x328, 24, 0, 0, 0, 0x328, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_MFGPLL, "mfgpll", 0x504, 7,
+> +		   0, 0, 0x508, 24, 0, 0, 0, 0x508, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_APLL1, "apll1", 0x404, 11,
+> +		   0, 0, 0x408, 24, 0x040, 0x00c, 0, 0x40c, 0, 32),
+> +	PLL_SETCLR(CLK_APMIXED_APLL2, "apll2", 0x418, 10,
+> +		   0, 0, 0x41c, 24, 0x044, 0x00c, 1, 0x420, 0, 32),
+> +	PLL_SETCLR(CLK_APMIXED_EMIPLL, "emipll", 0x334, 12,
+> +		   0, PLL_AO, 0x338, 24, 0, 0, 0, 0x338, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_APUPLL2, "apupll2", 0x614, 2,
+> +		   0, 0, 0x618, 24, 0, 0, 0, 0x618, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_APUPLL, "apupll", 0x604, 3,
+> +		   0, 0, 0x608, 24, 0, 0, 0, 0x608, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_TVDPLL1, "tvdpll1", 0x42c, 9,
+> +		   0, 0, 0x430, 24, 0, 0, 0, 0x430, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_TVDPLL2, "tvdpll2", 0x43c, 8,
+> +		   0, 0, 0x440, 24, 0, 0, 0, 0x440, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_ETHPLL, "ethpll", 0x514, 6,
+> +		   0, 0, 0x518, 24, 0, 0, 0, 0x518, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_MSDCPLL, "msdcpll", 0x524, 5,
+> +		   0, 0, 0x528, 24, 0, 0, 0, 0x528, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_UFSPLL, "ufspll", 0x534, 4,
+> +		   0, 0, 0x538, 24, 0, 0, 0, 0x538, 0, 22),
+> +};
+> +
+> +#define FH(_pllid, _fhid, _offset) {				\
+> +		.data = {					\
+> +			.pll_id = _pllid,			\
+> +			.fh_id = _fhid,				\
+> +			.fh_ver = FHCTL_PLLFH_V2,		\
+> +			.fhx_offset = _offset,			\
+> +			.dds_mask = GENMASK(21, 0),		\
+> +			.slope0_value = 0x6003c97,		\
+> +			.slope1_value = 0x6003c97,		\
+> +			.sfstrx_en = BIT(2),			\
+> +			.frddsx_en = BIT(1),			\
+> +			.fhctlx_en = BIT(0),			\
+> +			.tgl_org = BIT(31),			\
+> +			.dvfs_tri = BIT(31),			\
+> +			.pcwchg = BIT(31),			\
+> +			.dt_val = 0x0,				\
+> +			.df_val = 0x9,				\
+> +			.updnlmt_shft = 16,			\
+> +			.msk_frddsx_dys = GENMASK(23, 20),	\
+> +			.msk_frddsx_dts = GENMASK(19, 16),	\
+> +		},						\
+> +	}
+> +
+> +static struct mtk_pllfh_data pllfhs[] = {
+> +	FH(CLK_APMIXED_ARMPLL_LL, 0, 0x003C),
+> +	FH(CLK_APMIXED_ARMPLL_BL, 1, 0x0050),
+> +	FH(CLK_APMIXED_CCIPLL, 2, 0x0064),
+> +	FH(CLK_APMIXED_MAINPLL, 3, 0x0078),
+> +	FH(CLK_APMIXED_MMPLL, 4, 0x008C),
+> +	FH(CLK_APMIXED_MFGPLL, 5, 0x00A0),
+> +	FH(CLK_APMIXED_EMIPLL, 6, 0x00B4),
+> +	FH(CLK_APMIXED_TVDPLL1, 7, 0x00C8),
+> +	FH(CLK_APMIXED_TVDPLL2, 8, 0x00DC),
+> +	FH(CLK_APMIXED_MSDCPLL, 9, 0x00F0),
+> +	FH(CLK_APMIXED_UFSPLL, 10, 0x0104),
+> +	FH(CLK_APMIXED_APUPLL, 11, 0x0118),
+> +	FH(CLK_APMIXED_APUPLL2, 12, 0x012c),
+> +};
+> +
+> +static const struct of_device_id of_match_clk_mt8189_apmixed[] = {
+> +	{ .compatible = "mediatek,mt8189-apmixedsys" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, of_match_clk_mt8189_apmixed);
+> +
+> +static int clk_mt8189_apmixed_probe(struct platform_device *pdev)
+> +{
+> +	int r;
+> +	struct clk_hw_onecell_data *clk_data;
+> +	struct device_node *node = pdev->dev.of_node;
+> +	const u8 *fhctl_node = "mediatek,mt8189-fhctl";
+
+Reverse Christmas tree.
+
+Brian
+
