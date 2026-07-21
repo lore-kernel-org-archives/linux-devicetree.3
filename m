@@ -1,125 +1,121 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35B14398FE
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 07:54:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7340843553A
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 08:00:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784620474; cv=none; b=TxfC9QCv3SLuaHK6mXZYmAxTDho5KmeE+44j6+XqAk+9qcit6ddG1rFdhfAF6tOzZ1GcyaJLTsvYfNWOSYvpJzfkpSxlac+z+nR30Y4boXoDvDHjBkkGN9Tg+L7EIx6bNyJOR5efQflXKsporJ6EmvJ5+YdFjkoja9lldiouHRs=
+	t=1784620839; cv=none; b=NTqueFu5S6tFxVSliq9FFOVLydGB/E2V9RpayNrjPK3Ui2SrbnD6N61L3UyUfTys3JSHjX0sFH9wIXewAVIzPu+6hm2zu4gmvBR64+64XU4EQolfA4Mdjvm8Hm/kqZyhsYJsQTrMfk/08R10TS4npgJ5CBnlGHaZXUkhVy6Cizw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784620474; c=relaxed/simple;
-	bh=YmTP+U2Zeto/TOo03rVHUOI/jAzel7OhJkJFnUSba3o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZWCrU7CERYG6phfZuDadqWbM561TJHeSgesCSRbMCpF5MgnGs5qL5kYGlDUyHUMp71ESPlbrKhbIqlktb6cIR1bwQe2obf/+RpIEdcrqyjHvYTbX1U2EzEk6SjwE8DRce6bOtScakCKAjkx9BUXTmqfFNP0Hfepa3ab8XVLfHB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=MDS+uyY5; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1784620839; c=relaxed/simple;
+	bh=J+hvT9djKWEh2KaPq8J1xxPp4lqSyqlDt6JIH48cZng=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Fgwzkg3V1p3xv6QQK3UrdYBly9EDUAIF/OAQWefiVpn1LCZicdFFb0MLXvdajvWHjUWzGYZV7Swin0s8WYiKafysy/30vZ1YVRTCCYz61pKCd4bkd2Us1JEi14zlWv0K+8i547WyOpB0ZRwJoDTZrZbdSIw8mxSrUgRZUTU4sLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=drzpj9hR; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="MDS+uyY5"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ceaf8a1265so108677915ad.2
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 00:54:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="drzpj9hR"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c1c24ec9525so29532966b.1
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 01:00:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1784620472; x=1785225272; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XcG83pWDuxaLzQNicOj1pF1B6XObkyNl+NSmg3vDNXs=;
-        b=MDS+uyY5XftEq1uR5cmUwi+v84CjXBTLfiNC5c4T6NnSUEn9MKKbUZ1A0oRCTswDLk
-         LD/qdSPlEXGvimFxAAxA+uOxm16hqD77zcGariCV+CO4GtfaGGAO4W7vhbvdI+bPdujO
-         5O5OXmaKy4H5KWnYju83Q/13kyZXHSw5Czfc0=
+        d=baylibre.com; s=google; t=1784620836; x=1785225636; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=VCTZhhsDkQDmv6W2lFgIQm5lul/8HcQoqcagpiQUCv4=;
+        b=drzpj9hR+8LgfzMcu73NhgEfjKzP3gl0tXN58zwGDOTdDGI3CxLqJaTF4N3LL7Ifaj
+         15rMR+OXIcBBlGGVrLYFeL7ujfVXfxGf8joJM7o8gSeEWxIeo7hvwXDQAzKL2eZdme7D
+         c/mVewkD/03KNDzioH4S0jOTLJXQpidMojI082tnDwCCDkbR32cAN+cSJTs+H4SqDKTW
+         R5pw9c74+ebRnU0b2DNEoIEtqbU9zJcx/e4TMQ9Vv5RYOxIe9wmrTrNA1wCW+V2KO5Yx
+         js9NoLoBv+Y9MYhQ4ypUXVN33qArSnwZbq45vUiNtRO1krAIaxIo+7vcnOmBB1wuczI7
+         ALsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784620472; x=1785225272;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XcG83pWDuxaLzQNicOj1pF1B6XObkyNl+NSmg3vDNXs=;
-        b=rkwbE7G801TJz4ggkYwvQe03VhdJM7kJ6THRW77SyqiWuyZUQiEUwNrN8qcxLnz6Eg
-         rgbNy4jsKalCvnB7tcG42jBEVP2FpsUhbtoDa+PS7fg+k6yayPI8e/u50Qq1q8GjWcCQ
-         BobCiZa3LAVUxblgsB2dgRtkKlcORTusIxgCDuPUY3dydj62XgJ5L62BJFcyl2ObOOMp
-         M82jpGdUfFQ3Fh0a02BS+6dhzBPpV4ATH/G6vw+7L/e0zzH3TsHqoF3JKzKhPQk/+jzH
-         xQKFsCk0QW7pRq+ZDC+vuXzrXByRQZhlP7Mryw+TDO9P5caRCUEeL120alaXN+35GYEp
-         Qw1g==
-X-Forwarded-Encrypted: i=1; AHgh+RrvWz6rSEKr+3X6FGidbfW175crdybCCF5ZGpu3d3dsYemP4OWbjwPtPBHCKf9KAqfbP+foZJgj/sE4@vger.kernel.org
-X-Gm-Message-State: AOJu0YxA7LbJA3r2jw/EcSwoAM3TGPpakfViuanPMzyv+QM1b/Z+nGeT
-	bHuDeqw3jNkWaGVf1KtFZ4cFu5nRqcPVujpF8Leftf9hzMvcyrMsXxB8c5jNPFnHDQ==
-X-Gm-Gg: AR+sD102MTsaX++3FaJ6bDkkLHzu6nJJkiGIRP03dsukzcjVa18cquxHZXO984wSq2F
-	0s5W6WFwWTrbeK7M8wKe1F6gBq3urMFcI/aNEBLo/gWFQMjVMugX4c7j2UPXOiYCwJECxOxbQ0k
-	qbSw7kGpLqcz46tHWsAgAv1PTx52QrNUbgQqhd/NNr3o8wzvFgOvaTDSISo41UCttIZersbxMtk
-	mnGgnOXzNyGynebYYfWWZwMdwVtsHi1znA4fWZBGGsazIJf2/BaeBt66t8ImyOrD5sQSDebxZsQ
-	v7yVMVePOSXP813KzIJeHKsLV/MkQr2z42TNA+81fu8I2quv+GJTFCsOF6U2t40kn0a2oF0blHe
-	HuSX8YBwhmIlQRmuernF5lgzwkuHreCszv9l8PSuMYCALcHNKdF0i1CQT+WflSe2PlHNzZRXiJC
-	qSOmQMk+ZNdXYHBbuxNqty4mBXb15z33kT9Y5WPq2dRijiO19zWvw+FUvSUJ75xou///SO4Q==
-X-Received: by 2002:a17:903:2b06:b0:2cf:8363:5ab7 with SMTP id d9443c01a7336-2cf83635d95mr15956285ad.26.1784620472296;
-        Tue, 21 Jul 2026 00:54:32 -0700 (PDT)
-Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:3916:f048:32c3:931f])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf3448f705sm70724175ad.15.2026.07.21.00.54.29
+        d=1e100.net; s=20251104; t=1784620836; x=1785225636;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=VCTZhhsDkQDmv6W2lFgIQm5lul/8HcQoqcagpiQUCv4=;
+        b=n4Gzfz7QSm+M9ErmBI/Cr2WIvnXz7nl9XBJ0K8K8KClMCuJD6/sixL5IUEF6FE/gjo
+         /aNbFFxPAyq+5WWLMKpKNeHQumi9PycCkBosqFSPGO2sw6M2APxhFuVEYTSfskE/CH2T
+         jllCGwSVk2eGuG49LzRnyz/ZDT0MQP0ktTMTLJM1G46mBK+/uHUpc52PC4SqeZ/gOGbN
+         fZ18Jh+kATWCzQaJdtEQlgS/3E3Dh3r+FV717QKNJhJtyOiJTiFcviOmrGXsjD4UGoI1
+         Qr8h91aXULp2cW9B9f9MRzJGyw0TLxD0zHW05m248nDyGqGI8aa04Lh8o9D4gOAxIQ4N
+         k2+g==
+X-Forwarded-Encrypted: i=1; AHgh+RrHib6XI6yXVgutXGZmjuUqeOhsZHN4oe0pn02ejavusiiYHBTbJumL6DqHoLVwrhzitYZIyhLHrKaE@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy1sXNktn9hdch+dZ1IgpOsz9uKW/7OyWuKX26gk+oGncs8Rm12
+	v3yidK0ZM5V9v/bPcLMTnOksBkjFlj8TvqxxUgQgTBodK6BoRe+iNhzDr271tJNV7Ds=
+X-Gm-Gg: AfdE7clqikFH6CEncrk16izx4PdzkOZgD94522L5HvS1cYlnFSjF1eOEe7nZ6WRIgkB
+	4MJLbKo3vzBuNFduc03dtVaFcHXqVNwFDiYLPrxriqw8wJDbX0CAFCgjVmU0uuhu8qUe+SbKWQS
+	kfEhINIkbTFr7XfcbvSt2C7H7v8qNQhZmmmTPUdf+/Gmb8Ra9wo/5S4OGQ1irIWkpANEHmLARvT
+	AUONHy428GYzDhlkY4xHcxrOlhiT4QrbhNj2FYERfUmdmVUJ9Q42JJr8PicRvU3z80IpjtYM2xY
+	g0GnAdJGrRasAvgza+Y6Un95n4cVhnNt2PW1ozBUdF14zyyL6fcpQTJ5asgE1RL20blJOcQ+c/U
+	jU74rlDdF9oqvvX+3Q9z/3jXK/G+QEFmN8SwP/5zi/rXDurv8nUv8T2TDqPuiAcl3x86GlClfU3
+	XFmlSGDi8KPp5DSAr0PMwm+rzAd278fnNHDvknU2n0tM0AG58px+/ZbKzaKlq9iLGzlBhfxw==
+X-Received: by 2002:a17:907:d09:b0:c15:e04e:aed4 with SMTP id a640c23a62f3a-c16b47e6906mr747823566b.42.1784620835539;
+        Tue, 21 Jul 2026 01:00:35 -0700 (PDT)
+Received: from [127.0.0.1] (host-87-0-90-136.retail.telecomitalia.it. [87.0.90.136])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1734b1918asm541895566b.43.2026.07.21.01.00.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 00:54:31 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Benson Leung <bleung@chromium.org>,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	linux-mediatek@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	chrome-platform@lists.linux.dev,
-	linux-input@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable+noautosel@kernel.org
-Subject: [PATCH v3 9/9] arm64: dts: mediatek: mt8192-asurada-spherion: Add Synaptics trackpad's supply
-Date: Tue, 21 Jul 2026 15:52:23 +0800
-Message-ID: <20260721075226.2347933-10-wenst@chromium.org>
-X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
-In-Reply-To: <20260721075226.2347933-1-wenst@chromium.org>
-References: <20260721075226.2347933-1-wenst@chromium.org>
+        Tue, 21 Jul 2026 01:00:35 -0700 (PDT)
+From: Carlo Caione <ccaione@baylibre.com>
+Date: Tue, 21 Jul 2026 10:00:28 +0200
+Subject: [PATCH] dt-bindings: usb: mtu3: Add MT8512
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260721-ccaione-upstream-mt8512-mtu3-binding-v1-1-2f229c39f121@baylibre.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNywqDMBBFf0Vm3YFMSjT0V0oXSRztFEwlDymI/
+ 960ri4HLufskDkJZ7h1OyTeJMs7NqBLB+Hp4swoY2PQSvdq0IQhuHZhrGsuid2CS7GGdJt6RS9
+ xlDijUdQbb4OlgaCp1sSTfP6Z++PkXP2LQ/m54Ti+6Uvzw4gAAAA=
+X-Change-ID: 20260721-ccaione-upstream-mt8512-mtu3-binding-50165b8c8171
+To: Chunfeng Yun <chunfeng.yun@mediatek.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, David Lechner <dlechner@baylibre.com>, 
+ Julien Stephan <jstephan@baylibre.com>, Carlo Caione <ccaione@baylibre.com>
+X-Mailer: b4 0.15.2
 
-The Synaptics trackpad, like the Elan trackpad option, is fed from the
-system 3.3V power rail. Add it to the trackpad device node.
+The MT8512 USB controller uses the standard MTU3 device MAC and IPPC
+register layout and is handled by the generic mediatek,mtu3 driver. Add
+the SoC-specific compatible so the controller can be described without a
+legacy split node.
 
-Also add the correct post-power-on delay, even though in practice it is
-not required. The Synaptics trackpad requires 100ms after power-on (or
-deasserting the reset, whichever comes later) to fully initialize. The
-power is always on and the reset pin is not routed out, so the
-implementation could try skipping the delay.
+For now the only user of this is on the U-Boot side but we want to keep
+bindings in sync.
 
-Cc: <stable+noautosel@kernel.org> # Without driver changes only lengthens probe time
-Fixes: 925ebc0cd55c ("arm64: dts: mt8192-asurada-spherion: Add Synaptics trackpad support")
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+Signed-off-by: Carlo Caione <ccaione@baylibre.com>
 ---
-I think this shouldn't be backported, as backporting it without the
-driver enhancements just delays the trackpad probing with no real
-gains.
----
- arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts b/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
-index 68caf4c58cfe..8adbfc307fca 100644
---- a/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
-+++ b/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
-@@ -94,6 +94,8 @@ trackpad@2c {
- 		hid-descr-addr = <0x20>;
- 		interrupts-extended = <&pio 15 IRQ_TYPE_LEVEL_LOW>;
- 		wakeup-source;
-+		vdd-supply = <&pp3300_u>;
-+		post-power-on-delay-ms = <100>;
- 		status = "fail-needs-probe";
- 	};
- };
--- 
-2.55.0.229.g6434b31f56-goog
+diff --git a/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml b/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml
+index 21fc6bbe954f..42da2c6dfba1 100644
+--- a/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml
++++ b/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml
+@@ -29,6 +29,7 @@ properties:
+           - mediatek,mt8192-mtu3
+           - mediatek,mt8195-mtu3
+           - mediatek,mt8365-mtu3
++          - mediatek,mt8512-mtu3
+       - const: mediatek,mtu3
+ 
+   reg:
+
+---
+base-commit: b95f03f04d475aa6719d15a636ddf32222d55657
+change-id: 20260721-ccaione-upstream-mt8512-mtu3-binding-50165b8c8171
+
+Best regards,
+--  
+Carlo Caione <ccaione@baylibre.com>
 
