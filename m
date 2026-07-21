@@ -1,212 +1,165 @@
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5358A3B9950
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 21:49:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8210435C6B3
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 21:52:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784670552; cv=none; b=fQn5Z5GuwUytLJ0sDU3+8596PXeOTd1TbOj8fohRfiAa5MMzxgFc4gXrPg9vcoZerOL1mvHqU91a7brPrybfelJ4ceORgxs12gHXKhyCMYjRU66MCpdkJV8nzk/upjMBvjlMOpERbpJtE4Z3VNicvw3P3SdN+wD6VuzyC44QsqU=
+	t=1784670742; cv=none; b=ZtoYUyea+6S2Fr+U44GLcGeXf0FVASzeMIkeiWPNSFHc2v4tVpzdrK2jt22K2kz3Rhhz6kQfuJSzFTxHRXIc7UtHS8avaUbXaVTxSYT/g26l106XBL+t0lgMwUtdBisEdEgke+4ru54XaRfOHci+uEqYuYpmc5U6eJGpNSXQdzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784670552; c=relaxed/simple;
-	bh=TTzIq7jSHz4AYC3VS6WS9o/imjClM0fmeZAsDYpYJjI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u3oQqlpLkqtc5oZhWN7bs7wtuIKH6g/UW5TmHHJVw2z3+Lu36ekidsOSGygwuQ3Lx2DpVuHAZfFtZkwTRbu59EBFJYSFtPl3NU6nEOSiqymNFH9BSe8th3TM9XCPSdCdNOBSBB7icnoeGF0SQaj/uUuRwOlHUDgBc4v+0jc7GOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=w8zX/jVc; arc=none smtp.client-ip=209.85.208.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1784670742; c=relaxed/simple;
+	bh=4sHSxF3WGQl4U3sZwsf91kxAMxQLOt45n3ZpvInDCKI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nsfRmUpqt7UvKQxR4IvNLXTMaz3F2jppx5AD1hS7VGwON7azZ6vYVRlVKgnPVHC8RYknI0tig6Xxe8OFIJqhi8f7D7pXATU1QZyeDrqOhOvM06yIQuJGXcXOPNxGPOWtWp+4qoa7LkNVyFDg/kQK4yscvEWAF16CE/DGY4ErtUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SEAeWxnk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="w8zX/jVc"
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-39db55d6e0bso5250071fa.0
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 14:49:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784670547; x=1785275347; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jJPK6WsZUoetFgU5n/OkwtbmgnvsORPlU3I309PYPVI=;
-        b=w8zX/jVcYOsrNLylISxexZgTzz4BgtYLaxx3RvOHCcxYn78k9z8hktLW6j9OEuP9+j
-         pvKQf1xO1bZY7YipSQDsXY7OyMwVo5TZtXxPnDWpkCPNFETw3QLma8/ks1A05l2EPJmE
-         4SqyQ2rohv1TItbKjLyRTADyFiwGpXVrhSeClBuZvviW38Vt/ZgrDUwFNtNfDx4882fP
-         dgLwEft5u4sgWoBTQczdoRx6qSwPIjWhiM8DjB/UMCKsZB7g97mi3/+uLunsATgce7tC
-         yZ64h4e4rN/009s6kPGcbR3+iW/7CaHFy6SPaRWWGeAQjos+9qJDmz7pxJLS7plusTbP
-         vb2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784670547; x=1785275347;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jJPK6WsZUoetFgU5n/OkwtbmgnvsORPlU3I309PYPVI=;
-        b=bZ9lcrIrRT8mRLEH9piLQCDw6MklqMmQzIWK+Cc6rpbgD3E5uLP9h0FJZBrZEmnZmV
-         G1iEl6TdC5l+M+Xza29IYX5eusjzC9/eHGPOp93GBE7Rl0RCg4DQ3sfFwc/qkEcl+0qb
-         4eobvtbHZfgGvvg1S7YKM/YbG8lN1f/1YCbzi6yAK+xDi3xVS02kuiyhK5+r/eCQUqr2
-         ytfP/o6kv5xlOy1bvxff7svNdW5M+7NH0ngVTllpElNOebmT9SRFw+nMfDwhofQVQOZd
-         hYOoV2GbBauJdXICPwiAXQDpYXMEtkuOa538qV7OWD2cpargo5/6QDAUZnvC4uceFneW
-         QbgQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrTtqREndDI781UjgzKdPDkcVSNqcrhdgLOnNbAGCg1Ajtxa4HDRXXbHoiAF3hvIKQi7WHgRLrD+Npe@vger.kernel.org
-X-Gm-Message-State: AOJu0YwDLaBdQwXxcSKht3XzHV0y3o5AvNzAJ+cv6R3IqZWwDGMil9T8
-	GHHmGXBKt3h1tOrqez7FMgjkbXU4bN5vN74lrjEj6moK6KxVjSZ4bvduMo44xwnCm/c=
-X-Gm-Gg: AR+sD12Nt6porDmAbyGm4fBG5bdd1fYUCl+CevuspvzZsmLiePjrJCCejUSghAntipy
-	2FZq1fuyfH4eIo3093gWrMwF77uFiPt0AVnWs8vqTObDAf2UfFTaMs4sy2VbaSJ2Cs1JwNmJ4QL
-	jF3gc10aOwk9VOJt8jhhABTtqz0g0g7NFaZ3W0wwS7mMxZ2rNBc1ja/h4fSijIiINtc5Vbd3HBF
-	nHrm3jIPzvS+3t6/ky/yQBKq/rXAW7sGdp/MbcC0jaagAeyLuRpr5C/UHY6XQWhHse4aUCBfnLc
-	nURw4yNRjqTBiV+6UnK5v3ZQPE4zejWu2U2JoH7Ojy4FFC/+df9/fV5MEAlovMud89ETfsxV6wf
-	AgOoFimHiab07GPN0xxLPWVoFiA52MMzqsEY6JGi0q2CTanUAf0hUGZOvEbm5dZzren2uUJE+0u
-	wN0Q4Mqm5UVn4jVkWTBYdDV9eNeYBVxEFEIlYkna8M0wBBk/oUCdNomdly
-X-Received: by 2002:a2e:be28:0:b0:39c:6e71:8332 with SMTP id 38308e7fff4ca-39eeb6a2bf5mr5917561fa.1.1784670547167;
-        Tue, 21 Jul 2026 14:49:07 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39ef6d558d5sm1317761fa.30.2026.07.21.14.49.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jul 2026 14:49:06 -0700 (PDT)
-Message-ID: <b974f1be-b802-40a3-a54c-f7e3c8fbbece@linaro.org>
-Date: Wed, 22 Jul 2026 00:49:05 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SEAeWxnk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2381E1F00A3D;
+	Tue, 21 Jul 2026 21:52:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784670741;
+	bh=Bgx/ZtUAjjrwk/tt5vbKkF3tKy8Ak/4IzQQ5PzqRb/4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=SEAeWxnkFfCCjOPLEa0yVfb7J/9k1a801ORAIIhFx+cEnDdexAjCTlispixbcrOCl
+	 Mz3eXYmrVe7p1htOptbcq26GdjhYA3ydlHScsag7gpaxNjYV+II0g2/9Y2aUHBaNGY
+	 4hxX1m//WWG0jOuST+H+jeIrB+OIAu2QqKC7g6E+/tmjWcbUee1oIekj9BNSsenFok
+	 7CXgFA1r3aC4iWvrZE4u87KBgUicfBXnHMfP1TN1Nnw61Auks8at2tQ5NHnn6C1/45
+	 LEUym6FEd2LOuyJgb/6tEcremDlcuwwkQN4IhIGHeA3jYxXtOlhWUwyt2/hfgOhsWh
+	 j7ya49GKN8FcA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/4] of/overlay: rewrite /aliases path values to
+ live-tree paths
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260721-nh-of-alias-overlay-v3-3-7001028fe2f5@nexthop.ai>
+References: <20260721-nh-of-alias-overlay-v3-0-7001028fe2f5@nexthop.ai>
+ <20260721-nh-of-alias-overlay-v3-3-7001028fe2f5@nexthop.ai>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 21:52:20 +0000
+Message-Id: <20260721215221.2381E1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
- schema
-To: Frank Li <Frank.li@oss.nxp.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I
- <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260720-x1e-csi2-phy-v13-0-160c31958863@linaro.org>
- <20260720-x1e-csi2-phy-v13-1-160c31958863@linaro.org>
- <al_BEUNJOrqVPQWw@lizhi-Precision-Tower-5810>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <al_BEUNJOrqVPQWw@lizhi-Precision-Tower-5810>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi Frank.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-On 7/21/26 21:57, Frank Li wrote:
-> On Mon, Jul 20, 2026 at 02:11:34AM +0100, Bryan O'Donoghue wrote:
->> Add a base schema for the MIPI CSI2 PHYs on Qualcomm SoCs. This PHY
->> supports both DPHY and CPHY operation. A special mode of DPHY operation -
->> called variously split-mode or combo-mode also allows for two sensors to be
->> connected to one PHY.
->>
->> The submitted binding here describes the DPHY modes of operation only. CPHY
->> is left to future work.
->>
->> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
->> ---
->>   .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 195 +++++++++++++++++++++
->>   1 file changed, 195 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
->> new file mode 100644
->> index 0000000000000..880fe602945cb
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
->> @@ -0,0 +1,195 @@
->> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Qualcomm X1E80100 SoC CSI2 PHY
->> +
->> +maintainers:
->> +  - Bryan O'Donoghue <bod@kernel.org>
->> +
->> +description:
->> +  Qualcomm MIPI CSI2 C-PHY/D-PHY combination PHY. Connects MIPI CSI2 sensors
->> +  to Qualcomm's Camera CSI Decoder. The PHY supports both C-PHY and D-PHY
->> +  modes.
->> +
->> +properties:
->> +  compatible:
->> +    const: qcom,x1e80100-csi2-phy
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  "#phy-cells":
->> +    const: 1
->> +    description:
->> +      The single cell specifies the PHY operating mode.
->> +
->> +  clocks:
->> +    maxItems: 3
->> +
->> +  clock-names:
->> +    items:
->> +      - const: core
->> +      - const: timer
->> +      - const: ahb
->> +
->> +  interrupts:
->> +    maxItems: 1
->> +
->> +  operating-points-v2: true
->> +
->> +  opp-table:
->> +    type: object
->> +
->> +  power-domains:
->> +    items:
->> +      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
->> +      - description: MMCX voltage rail
->> +      - description: MXC or MXA voltage rail
->> +
->> +  power-domain-names:
->> +    items:
->> +      - const: top
->> +      - const: mmcx
->> +      - const: mx
->> +
->> +  vdda-0p9-supply:
->> +    description: Phandle to a 0.9V regulator supply to a PHY.
->> +
->> +  vdda-1p2-supply:
->> +    description: Phandle to 1.2V regulator supply to a PHY.
->> +
->> +  ports:
->> +    $ref: /schemas/graph.yaml#/properties/ports
->> +
->> +    properties:
->> +      port@0:
->> +        $ref: /schemas/graph.yaml#/$defs/port-base
->> +        description:
->> +          Sensor input. Always present. A single sensor is described by a
->> +          single endpoint with one to four data lanes. DPHY split mode,
->> +          where two independent sensors share the same PHY, is described
->> +          by two endpoints; endpoint@0 with exactly two data-lanes and
->> +          endpoint@1 with exactly one data-lane.
-> 
-> Sorry, jump in so late. I have questions about this design
-> 
-> why not model each lane as sperated phys.
-> 
-> csi1 {
-> 	...
-> 	phys = <&phy 0>, <&phy 1>; // use lane 0 and 1, connect sensor 1
-> };
-> 
-> csi2 {
-> 	...
-> 	phys = <&phy 2>; // use lan 2, connect sensor 2.
-> };
-> 
+New issues:
+- [Medium] Pseudo-properties of newly created /aliases nodes are incorrectl=
+y validated as C string paths, breaking valid overlays.
 
-Such design has a number of flaws and in general it looks overly
-complicated. From the beginning it's unclear how to distinguish
-a clock lane from a data lane, how to specify lane frequencies etc.
+Pre-existing issues:
+- [High] Use-After-Free and Double Free in add_changeset_property error pat=
+h.
+- [Medium] Memory leak of duplicated device node on error path in add_chang=
+eset_node().
+--
 
--- 
-Best wishes,
-Vladimir
+--- Patch [3]: [PATCH v3 3/4] of/overlay: rewrite /aliases path values to l=
+ive-tree paths ---
+commit a80ad646f2d2ec17e2e79fd9043171b15218e86b
+Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+
+of/overlay: rewrite /aliases path values to live-tree paths
+
+This commit rewrites overlay-internal path strings for /aliases entries to
+live-tree paths, similar to /__symbols__. It ensures that /aliases values
+correctly reference nodes in the live tree.
+
+> diff --git a/drivers/of/overlay.c b/drivers/of/overlay.c
+> index b6545905cf67d..9f85278c577ac 100644
+> --- a/drivers/of/overlay.c
+> +++ b/drivers/of/overlay.c
+> @@ -350,6 +350,21 @@ static int add_changeset_property(struct overlay_cha=
+ngeset *ovcs,
+>  		if (prop)
+>  			return -EINVAL;
+>  		new_prop =3D dup_and_fixup_symbol_prop(ovcs, overlay_prop);
+> +	} else if (target->np->parent &&
+> +		   of_node_is_root(target->np->parent) &&
+> +		   of_node_name_eq(target->np, "aliases")) {
+> +		/* /aliases values are deref'd as C strings; reject malformed input */
+> +		if (!overlay_prop->value || overlay_prop->length < 2 ||
+> +		    strnlen(overlay_prop->value, overlay_prop->length) >=3D
+> +			overlay_prop->length)
+> +			return -EINVAL;
+
+[Severity: Medium]
+Does this code incorrectly reject pseudo-properties on newly created /alias=
+es
+nodes?
+
+Since the is_pseudo_property() filter at the top of add_changeset_property()
+only applies when target->in_livetree is true, pseudo-properties (like
+"phandle") on a newly created /aliases node will fall through to this logic.
+
+A "phandle" is a 32-bit integer, so it may lack a null byte. This causes
+strnlen() >=3D length to evaluate to true, falsely returning -EINVAL and ab=
+orting
+valid overlay applications.
+
+> +
+> +		/* rewrite overlay-internal paths to live-tree paths */
+> +		if (!strncmp(overlay_prop->value, "/fragment@",
+> +			     strlen("/fragment@")))
+> +			new_prop =3D dup_and_fixup_symbol_prop(ovcs, overlay_prop);
+> +		else
+> +			new_prop =3D __of_prop_dup(overlay_prop, GFP_KERNEL);
+>  	} else {
+>  		new_prop =3D __of_prop_dup(overlay_prop, GFP_KERNEL);
+>  	}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the error path in
+add_changeset_property() cause a use-after-free or double-free?
+
+If of_changeset_add_property() fails later in this function, we do this:
+
+drivers/of/overlay.c:add_changeset_property() {
+    ...
+	if (!prop) {
+		if (!target->in_livetree) {
+			new_prop->next =3D target->np->deadprops;
+			target->np->deadprops =3D new_prop;
+		}
+		ret =3D of_changeset_add_property(&ovcs->cset, target->np,
+						new_prop);
+	} else {
+    ...
+	if (ret)
+		__of_prop_free(new_prop);
+	return ret;
+}
+
+Since new_prop is freed but left linked in target->np->deadprops, won't
+of_node_release() later iterate over deadprops and double-free this same
+property?
+
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but does the error path in
+add_changeset_node() permanently leak the duplicated node tchild?
+
+When attaching a newly duplicated child node fails, the function returns
+immediately without freeing the node:
+
+drivers/of/overlay.c:add_changeset_node() {
+    ...
+	if (!tchild) {
+		tchild =3D __of_node_dup(NULL, node_kbasename);
+        ...
+		ret =3D of_changeset_attach_node(&ovcs->cset, tchild);
+		if (ret)
+			return ret;
+    ...
+}
+
+Should there be an of_node_put(tchild) before returning the error?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-nh-of-alia=
+s-overlay-v3-0-7001028fe2f5@nexthop.ai?part=3D3
