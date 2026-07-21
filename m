@@ -1,128 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504BE4302F5
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 07:10:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D27B431A4A;
+	Tue, 21 Jul 2026 07:11:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784617852; cv=none; b=BRgMoJArBseqNlBN+pwW29/8h6s/3l8gxfqHnf5RqH2FmIgKXvKGlIgzxc6plBvxUuDYA6/EGdmdREr8Gh5zUIMRBnc4oRUWg0til+szMz1nNBksnHn/F7SgK8VahHwkyyIIMH699gChE/jBK0qc9sLYcW8G0PkSJoPI3cQoMFY=
+	t=1784617865; cv=none; b=Hp87cfXQp+8u4SHUGGWq8JkYNL5shF8tsEPYPko9uu9FMPIosD8EotS51OeqOiUOuYKhWTpGDCuljjMK6sY4aTPGMqzjKUPdQSFKvdQCVSX2etMXURGQWzIqLqxsXIB912hsj86veRMBN4hxRCVPTcRaUZpDiP17yDQMyIaLv2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784617852; c=relaxed/simple;
-	bh=RzL7iBN9rVaFfVRgxdMYmEYj2/SjNilUxS1ygkczUx0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JoaYSCm1TqLcsc0J0F3MN+I7X2ZCRApIGoeH8RDU5A0XSwtP2tIThz2cjZZeo8sa+QjkXRVK4vIG1heL5GpFCOMlmcuidTsQVvhW4Y5i7rNM3QsFxvR/qjhgF314FNO1aQFaQ86HyzPXnp9xnnVBhuzPtxyMZDTs1hWzbU7sbsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZeRtvPao; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784617865; c=relaxed/simple;
+	bh=tahfME5BV/Ewlw6r/fATGJoi1Kg8DCjhCZZugLGcFrM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b1sr614SEPaifoerCszDkoiXawebqw/9XU5t2T3ESd++XtwgJjbluhywrPH+LTx7yOz1i5pRzt+8SvFCP4B0EiSw7yiNjOsvIrJwOqzeAUa7nhwdPcIz7FOmgKyKGNuHDoUbhvoX7NSq3EtoBKgsuTUjeuozylZrGb1IVXpKJB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YoUZ7jYF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZeRtvPao"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A90D51F00A3F;
-	Tue, 21 Jul 2026 07:10:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YoUZ7jYF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3BF31F000E9;
+	Tue, 21 Jul 2026 07:11:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784617851;
-	bh=rWp6Diwpki/YKaSHpfNGVEPYrfTL3ZvISS/iONmoB6Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZeRtvPaotQxiADF4D59Me2SS8doURC+l4FT3hrw5xrj4UdlRdqYa62bekqbCEiVNZ
-	 zic0HsX6QW9THRPWw8R37fcGOUTzag2DUAvSapU5QLTaIByf38h2qLZEOf7R3cfZr8
-	 wUFfpITWkATi68Ox9XDbJQ04JsC9Ej1E+oh1+JXrkrT0S9Js0nAd8ZG5OAGPjxwJ/m
-	 YHgEMw2DLybjpjjCFSsYDjwB5+FTqx4G1psbM5IfPZk/jwSJBGriSDB2yC0JiF7qCM
-	 w/8f81bCJ4UGrOW5pLw1HK/7WxF8LmYJz6iCmnlciu/185WJwIRQTrYC8vdfTsmntH
-	 GwfBVfMMdltGg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 03/16] power: sequencing: Add pwrseq_power_is_on()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chen-Yu Tsai" <wenst@chromium.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260721065413.2306137-4-wenst@chromium.org>
-References: <20260721065413.2306137-1-wenst@chromium.org>
- <20260721065413.2306137-4-wenst@chromium.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 07:10:49 +0000
-Message-Id: <20260721071050.A90D51F00A3F@smtp.kernel.org>
+	s=k20260515; t=1784617864;
+	bh=xqjPSCZHcwkdkGGutjPyOoZ2XfWL478wvsrVESd055I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YoUZ7jYF1vrWypjRXMouBThTVWJD2IhxRDiYvSzgpD5G3ExpURmvzU/nzCpRxfLyx
+	 bTcnbuVgepZQ+5rmzruaUNhp8D6mO0w/p9//vRsmAAIsqK0dFuMK9IOX6jKeOLIiDh
+	 c28G44bZ9+LYeUzy2t9fxJ4fEWDn2SaCKA7iI63EJS+PKe3CA2citObmVPKNNqTsS2
+	 SYRYY+vwGzhnabxtkxwjaAEDpIBIwFkF8ZAoemodaK5N42NZiivjrAcnEnWJ+z67B8
+	 2251Drzrr2nQ5HgE8nb+5h7m7aqIceNW2o/Qp8vXZR6ZLCaHMKtz5rmd5GoSJZz6Mo
+	 s28hIw+7gnSLg==
+Date: Tue, 21 Jul 2026 09:11:00 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nina_Kuo@novatek.com.tw
+Cc: andi.shyti@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, ben_huang@novatek.com.tw, toby_chui@novatek.com.tw, 
+	shihpei_hsu@novatek.com.tw
+Subject: Re: [PATCH v3 1/3] MAINTAINERS: Add entry for Novatek NT726xx SoC
+ I2C controller driver
+Message-ID: <20260721-comical-dragon-of-competition-f1b6da@quoll>
+References: <20260715073443.147490-1-Nina_Kuo@novatek.com.tw>
+ <20260715073503.147552-1-Nina_Kuo@novatek.com.tw>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260715073503.147552-1-Nina_Kuo@novatek.com.tw>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Wed, Jul 15, 2026 at 03:35:03PM +0800, Nina_Kuo@novatek.com.tw wrote:
+> From: Ben Huang <Ben_Huang@novatek.com.tw>
+> 
+> Add entry for maintenance of Novatek NT726xx SoC I2C controller driver.
+> 
+> Signed-off-by: Ben Huang <Ben_Huang@novatek.com.tw>
+> Signed-off-by: Nina Kuo <Nina_Kuo@novatek.com.tw>
+> ---
+>  MAINTAINERS | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 806bd2d80d15..15df47f9e81f 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -19234,6 +19234,13 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/nolibc/linux-nolibc.git
+>  F:	tools/include/nolibc/
+>  F:	tools/testing/selftests/nolibc/
+>  
+> +NOVATEK NT726XX I2C CONTROLLER DRIVER
+> +M:	Ben Huang <ben_huang@novatek.com.tw>
+> +L:	linux-i2c@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.yaml
 
-Pre-existing issues:
-- [High] Failing to set the device name during pwrseq registration causes a=
- NULL pointer dereference and uninitialized mutex destruction during cleanu=
-p.
---
+There is no such file.
 
---- Patch [3]: [PATCH v6 03/16] power: sequencing: Add pwrseq_power_is_on()=
- ---
-commit b1f1d35d0af2f22f0f4ab1e71697d11c020da9d0
-Author: Chen-Yu Tsai <wenst@chromium.org>
+> +F:	drivers/i2c/busses/i2c-nt726xx.c
 
-power: sequencing: Add pwrseq_power_is_on()
+Neither this one.
 
-The power sequencing consumer API already does power on state tracking
-internally. Expose the state to consumers through pwrseq_power_is_on()
-so that they don't have to reimplement it locally.
+Apply this patch (important: this patch!) and check yourself.
 
-> diff --git a/drivers/power/sequencing/core.c b/drivers/power/sequencing/c=
-ore.c
-> index 02f42da915985..72b96d36920e5 100644
-> --- a/drivers/power/sequencing/core.c
-> +++ b/drivers/power/sequencing/core.c
+Best regards,
+Krzysztof
 
-[ ... ]
-
-[Severity: High]
-This isn't a bug introduced by this patch, but while reviewing this file
-I noticed a potential issue in the error path of pwrseq_device_register().
-
-If dev_set_name() fails, we jump to err_put_pwrseq which drops the
-reference and triggers pwrseq_release():
-
-drivers/power/sequencing/core.c:pwrseq_device_register() {
-	...
-	ret =3D dev_set_name(&pwrseq->dev, "pwrseq.%d", pwrseq->id);
-	if (ret)
-		goto err_put_pwrseq;
-
-	pwrseq->owner =3D config->owner ?: THIS_MODULE;
-	pwrseq->match =3D config->match;
-
-	init_rwsem(&pwrseq->rw_lock);
-	mutex_init(&pwrseq->state_lock);
-	INIT_LIST_HEAD(&pwrseq->targets);
-	...
-}
-
-At this point, pwrseq->targets and pwrseq->state_lock have not been
-initialized yet and remain zeroed from allocation.
-
-In the cleanup path:
-
-drivers/power/sequencing/core.c:pwrseq_release() {
-	...
-	list_for_each_entry_safe(target, pos, &pwrseq->targets, list) {
-		list_del(&target->list);
-		pwrseq_target_free(target);
-	}
-
-	mutex_destroy(&pwrseq->state_lock);
-	...
-}
-
-Can iterating over the uninitialized pwrseq->targets list cause a NULL
-pointer dereference crash here?
-
-Because INIT_LIST_HEAD hasn't been called, the list pointers are still NULL,
-which would cause list_for_each_entry_safe() to dereference NULL when it tr=
-ies
-to access the next element.
-
-Also, it looks like this would attempt to destroy an uninitialized mutex.
-
-Could the initialization of the list and mutex be moved before the
-dev_set_name() call to prevent this?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721065413.2306=
-137-1-wenst@chromium.org?part=3D3
