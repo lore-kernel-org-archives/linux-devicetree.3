@@ -1,543 +1,786 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from MTA-10-3.privateemail.com (mta-10-3.privateemail.com [198.54.127.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7E86375AB2
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 13:49:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F399F376BFB;
+	Tue, 21 Jul 2026 13:49:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.62
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784641792; cv=none; b=SrfLOwm4sLVAHdVGsDuK2BeM8qu+NFZtVi2qlU1K2ZazfU6Hak4ymtdng9q/7yMVIn9Z9p7DgrWIpd8oADvyYznY8ckJOaW/dHF0K2X+OnJwEIXAfenFlely3g002CiNUtaQ11fBFpaiUpt4IOT0dt8v656Jx8IdJ7RisexTKmc=
+	t=1784641797; cv=none; b=Ksk8Fc4TY9zcQKXwR28CZS7rML6sqpsixZhg7+QW6yRT/+VpYKxs6gyvBNlZ/9pBBvi3dzE9Qg0sIkx0Eckfwg8xYF2yaWp2vI3jpVXvfbnBcd/nk2P7kCXYePWZxbIehuIVT7tivXCa7ASHsApYuvSJRfzb9hnDP4yfiwgPsNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784641792; c=relaxed/simple;
-	bh=wDxgpgB4cqvzORd2Ng0Z7chN1T6KmCCz8/zVtbDTCVU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QrzXMLdD4nPmbF9yRa8q1+Wz2bpnrn797xzjhLtC/hJwhldgUpMvKjBXury2QVWRaPgErZ7lgj5RlTATxhgbIHyocpnEw/KMDV6SsUn7cMO3I6kQCd5drRZJ2bIkR832wzOuQCQfOjIgoSZ9AXQ3XuNrSBhpoAPqUwbZuPnUlRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CKHA9LOw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UVXEpIzQ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CKHA9LOw";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UVXEpIzQ"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66LDfw7U1707182
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 13:49:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	4J+xoisba7u9XVXkc29nbVSk51yrBEFXVXFsqh8j5x0=; b=CKHA9LOw6QpmFIgO
-	wlkbEsxqO4uwWyN55jAFPMpmq375eaXSIxHhXA4YFgN02dbugCr5aImPoJYFQisL
-	VaeLOwit7MvZHSS/2QT9mFGR7L4ngD1M7HDYinX+Zi6zr7byyGhmVjvqXaOkhuWz
-	oBodb6CiY61unLh01GCUAFA2dY1KmOvs33ms7GLvpTHSQ3ZZ16Ho9P9zuAnWEYW2
-	Rk7I1Miko85hhUxRmA65l2OIP5NJMH2jy0jlOfGaXihlDDUh0+PRhRiZgHemktBy
-	kUxnVaILRODCaawgTE2aUWtNstuCJh99dW5GSDSaSe9GQ2dZyOs5uxDfvK/hzYwd
-	PL/otw==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj9ae872s-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 13:49:49 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb6ef846b33so2100285a12.1
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 06:49:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784641789; x=1785246589; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4J+xoisba7u9XVXkc29nbVSk51yrBEFXVXFsqh8j5x0=;
-        b=UVXEpIzQvNJae+t0+3bcKUC928r6c9QudKtWe4r6HuAAr7NoTjSU88YC1zvSmZpxO6
-         B+IZpobg6J0fCh701X6zaipTfb/C3CKbj/QL+dCe8znoKAFkl5xgh8I7a+GcKESdfSzL
-         SHlVPzlgEkG+3TTSFgmJjWqnLazQcVbp02yflb80rx2bC08zt6xCmrXd/JQnbEIT+ZwB
-         i3Bq3GEkud1T3bcpYbpDS6WrmK1gB/udzCtqtfS2n1K87mO2nvIMlMaM7slCuKXsPD92
-         rKFqHSQRFafvaKDjsBWNdhxBSiR9YDGUgkG6orVmJFAYB4rCS+WRWj0y3ZcfBKVpuniZ
-         mc9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784641789; x=1785246589;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4J+xoisba7u9XVXkc29nbVSk51yrBEFXVXFsqh8j5x0=;
-        b=qAljpEbgWJwXDhgur7/MAUXtJrUIN/pBIHJDNQdFVhzTJAmVsVcn/1eyeOxmdS3RRH
-         H1F99kZ9k9BG7f7sa0PF+kLehtSNkZAa9WsAAeCvhUwxa6zYSWpZY9DiFNf7mhJGEwd0
-         xB0vVljxgQqQYCShSrQ+DPFNNIx9+4vc78KeEd/mQDHStE2NM0TtC6AGW238DSxl6lAy
-         mD6jIP/Ib/EreB/78P8HPvNjIVnU+YBKZc9tvJFFyLOfT+2pZX13KxavPlLbUf1w8x5T
-         N5chQkxSjqsNoHwd/ZoSC9JL7fmuMaG88tNMrJNNeVxzDFm147u+gF6I+LNzL53CvYUR
-         0qoA==
-X-Forwarded-Encrypted: i=1; AHgh+RpFqgf8leko+yGRpCInce9e6MNyfrUTbj63gejW3PRotXXV4a1GQ05WPumNiyNmb+3x3PlCf1EjsTuD@vger.kernel.org
-X-Gm-Message-State: AOJu0YwpqivhJ9Ee6Anw7GQJV0vpTY5No+yMIxVacNAP1mg1bUOMBP/b
-	lLtzO62nFcO4IwNXekMVW6t9ueGMP4I+1Mny7bFumVmaP+pbNZRJYknFvHSyv8mlYbXbW7HGVDu
-	5f4/47A0eCEkSvROGakcAxWr990wdA5smF12+9wGH/7kxOKIyLF578OxFLMVXjKzq
-X-Gm-Gg: AfdE7ckZAg5CPs4Z7MP52QQ1gZYvQZnmdfgRxJWRZtF/ibt4lDVKLk4bZoevUAA2y87
-	5Rg5j+NskWt8XgwcID7RxVPFiGLdMkIwG5fIKSXUfozd9Jxh86m4qSad0RayIWPPvcCipmwoc6V
-	dJYMXAWkS41tBnS+r6ISMJ07Ni/oftJDQrODXHMxR6/f6RR3Sh7wAgeboIoZdwuaBPTkimdPgRv
-	lKwi/FH4BYkU6WseNKsYC+ZeVMypnqpvKSMh7r+JgZa/4+PQLV3ZaNiaI6ml2jWZb01TyAFGp9w
-	9em/2S11SZKClZvxTMLyzvyiiXFJV1KM7xciuw9+LOEynaYXEoUE7Rjhqo1lg8v6tFonzJI1EiH
-	k6V8pWGM1/imV0Qclr8SNerJ9tKWlPPF1
-X-Received: by 2002:a05:6a20:d52f:b0:398:76d4:c7e9 with SMTP id adf61e73a8af0-3c38dc13d10mr25501338637.35.1784641788371;
-        Tue, 21 Jul 2026 06:49:48 -0700 (PDT)
-X-Received: by 2002:a05:6a20:d52f:b0:398:76d4:c7e9 with SMTP id adf61e73a8af0-3c38dc13d10mr25501307637.35.1784641787769;
-        Tue, 21 Jul 2026 06:49:47 -0700 (PDT)
-Received: from [10.206.103.83] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a1bbda9sm47202871eec.19.2026.07.21.06.49.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jul 2026 06:49:47 -0700 (PDT)
-Message-ID: <8b26445a-6df5-4fcd-b17a-211120fe8301@oss.qualcomm.com>
-Date: Tue, 21 Jul 2026 19:19:39 +0530
+	s=arc-20240116; t=1784641797; c=relaxed/simple;
+	bh=pdRiKR0K8Sw6CvEwFVkM4DDynCdNz2Pox81y9BctUxY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=T4pHja46RzYTISLEyHFa6kSO2Ly0TsIrEPvhZzQGsljOeTPadleE/q1VDABRE6FZo263sjHOsj4soSdw4KNDMmxnOCxT5IUp+wdIS4McvPBj8qX92DnmjO4VhFWvFkjedCTIfj9reDLlzwqVLNSNhmKveWPRkwoktLh9M2N6WYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.127.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
+Received: from mail.privateemail.com (K8S-PROD-WORKER-13 [87.215.145.39])
+	by mta-10.privateemail.com (Postfix) with ESMTPA id 4h4Jf90tkYz3hhTD;
+	Tue, 21 Jul 2026 09:49:35 -0400 (EDT)
+From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Siratul Islam <siratul.islam@linux.dev>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 2/2] iio: magnetometer: add support for QST QMC6308
+Date: Tue, 21 Jul 2026 15:48:43 +0200
+Message-ID: <20260721134843.7484-3-jorijnvdgraaf@catcrafts.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721134843.7484-1-jorijnvdgraaf@catcrafts.net>
+References: <20260721134843.7484-1-jorijnvdgraaf@catcrafts.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 01/18] media: iris: Add Gen2 firmware autodetect and
- fallback
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-References: <20260709-iris-ar50lt-v7-0-76af9dd4d1f6@oss.qualcomm.com>
- <20260709-iris-ar50lt-v7-1-76af9dd4d1f6@oss.qualcomm.com>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <20260709-iris-ar50lt-v7-1-76af9dd4d1f6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: cDtZTIRON20kFdixZ6J1XgLUt1TmSchA
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDE0NSBTYWx0ZWRfX1vz4N9gbBfHh
- xBu4Xfj6fr8AcAZpRZLoXbnZsNVCjXSc2IfYa9/vnr5FDFGSyMHqVj+FWZUc7d17dlukTVrbcFp
- W6oxRFhUMQxXAJ6JqU4Z/1Qvdup/azs=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDE0NSBTYWx0ZWRfX6UdLlSQuUhBq
- 3F2ST6N56FO95J+cRTcdBbytqydQu1xbzhqLPcqg7z2EqzTTCYJOz90C0GImStc2hTMWFqA5xx+
- C65meQIQKxacbJThcZYdKche4+dQv2krn0yVswSxdaoHxlqGsFy31ey9vmg24MMuoeJJCc7IOFh
- CZVLbp6sTgxwE/6SgNdC+0t2xu6emXSr3UZTvah+stPajpOU0j+C8qM4YJ03vHy4yv+YkDrvUJJ
- hcMOLo9vULM7Am7li3H5xo7LqX1jexQbUAaTmAbNByU3idlEV2c3eMWeZySATABNcF0Gn7x/3h2
- mM8CLPNcxs6EDrnRac7HQoVxBJrUzZzZTiFfJxGExAMj7eYNc0VMaZ4MnMhUFH/057Wa02hXBxr
- cXAQxu8eJ8rSKrlEcozeXIxSdoGfqmZNsr1PA2v1uVf8c//J0lQgE4Jc9+nphZn6SDcINM93acE
- e1lWJF7MpA48xUskclA==
-X-Proofpoint-GUID: cDtZTIRON20kFdixZ6J1XgLUt1TmSchA
-X-Authority-Analysis: v=2.4 cv=Cr6PtH4D c=1 sm=1 tr=0 ts=6a5f78fd cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=GWEVztfZRELcCs27ssoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-21_03,2026-07-20_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 adultscore=0 impostorscore=0
- lowpriorityscore=0 spamscore=0 phishscore=0 clxscore=1015 suspectscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607210145
 
+The QST QMC6308 is a 3-axis anisotropic magnetoresistive (AMR)
+magnetometer on I2C, found e.g. in the Fairphone 6. Its register map
+is not compatible with the QMC5883L's, so add a separate driver rather
+than extending the QMC5883L driver.
 
+Support raw X/Y/Z reads, output data rate, field range, filter
+oversampling ratio, the mount matrix, and runtime PM.
 
-On 7/9/2026 7:11 PM, Dmitry Baryshkov wrote:
-> From: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-> 
-> Some Iris platforms support both Gen1 and Gen2 HFI firmware images.
-> Update the firmware loading logic to handle this generically by
-> preferring Gen2 when available, while safely falling back to Gen1
-> when required.
-> 
-> The firmware loading logic is updated with the following priority:
-> 1. Device Tree (`firmware-name`): If specified, load unconditionally.
-> 2. Gen2 default : If no DT override exists, select the Gen2 firmware
->     descriptor when present and attempt to load the corresponding
->     firmware image.
-> 3. Gen1 Fallback: If loading the Gen2 firmware fails and a Gen1
->     descriptor is available, retry with the Gen1 firmware image.
-> 
-> When a platform provides both Gen1 and Gen2 firmware descriptors and the
-> firmware is loaded via a DT override, the driver detects the
-> firmware generation at runtime before authentication by inspecting
-> the firmware data. The firmware is classified as Gen2 if the
-> QC_IMAGE_VERSION_STRING starts with "vfw" or matches the
-> "video-firmware.N.M" format with N >= 2.
-> 
-> If a Gen1 firmware image is detected in this case, the driver switches
-> to the Gen1 firmware descriptor and associated platform data so that
-> the correct HFI implementation is used.
-> 
-> This change makes firmware generation detection platform‑agnostic,
-> preserves DT overrides, prefers newer Gen2 firmware when available,
-> and maintains compatibility with platforms that only support Gen1.
-> 
-> Signed-off-by: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-> Co-developed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/iris/iris_core.c       |   2 +
->   drivers/media/platform/qcom/iris/iris_firmware.c   | 146 ++++++++++++++++++---
->   .../platform/qcom/iris/iris_platform_common.h      |   6 +-
->   .../media/platform/qcom/iris/iris_platform_vpu2.c  |  11 +-
->   .../media/platform/qcom/iris/iris_platform_vpu3x.c |  10 +-
->   drivers/media/platform/qcom/iris/iris_probe.c      |   4 -
->   drivers/media/platform/qcom/iris/iris_vidc.c       |   1 +
->   7 files changed, 147 insertions(+), 33 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/iris/iris_core.c b/drivers/media/platform/qcom/iris/iris_core.c
-> index 52bf56e517f9..6dbe18be5b49 100644
-> --- a/drivers/media/platform/qcom/iris/iris_core.c
-> +++ b/drivers/media/platform/qcom/iris/iris_core.c
-> @@ -6,6 +6,7 @@
->   #include <linux/pm_runtime.h>
->   
->   #include "iris_core.h"
-> +#include "iris_ctrls.h"
->   #include "iris_firmware.h"
->   #include "iris_state.h"
->   #include "iris_vpu_common.h"
-> @@ -79,6 +80,7 @@ int iris_core_init(struct iris_core *core)
->   		goto error_unload_fw;
->   
->   	core->iris_firmware_data->init_hfi_ops(core);
-> +	iris_session_init_caps(core);
->   
->   	ret = iris_hfi_core_init(core);
->   	if (ret)
-> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
-> index 1a476146d758..a3aa41aa1e66 100644
-> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
-> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
-> @@ -16,20 +16,138 @@
->   
->   #define MAX_FIRMWARE_NAME_SIZE	128
->   
-> -static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
-> +/* Detect Gen2 firmware by scanning the blob for:
-> + *   QC_IMAGE_VERSION_STRING=<version>
-> + * and then checking:
-> + *   - version starts with "vfw", OR
-> + *   - version matches "video-firmware.N.M" with N >= 2
-> + */
-> +
-> +static bool iris_detect_gen2_from_fwdata(const u8 *data, size_t size)
-> +{
-> +	static const char *marker = "QC_IMAGE_VERSION_STRING=";
-> +	const size_t mlen = strlen(marker);
-> +	static const char *vfw = "vfw";
-> +	const size_t vfwlen = strlen(vfw);
-> +	static const char *vf = "video-firmware.";
-> +	const size_t vflen = strlen(vf);
-> +
-> +	for (size_t i = 0; i + mlen < size; i++) {
-> +		const char *found;
-> +
-> +		if (memcmp(data + i, marker, mlen))
-> +			continue;
-> +
-> +		found = data + i + mlen;
-> +		size -= i + mlen;
-> +
-> +		/* vfw => Gen2 */
-> +		if (size > vfwlen && !memcmp(found, vfw, vfwlen))
-> +			return true;
-> +
-> +		if (size < vflen ||
-> +		    memcmp(found, vf, vflen))
-> +			return false;
-> +
-> +		found += vflen;
-> +		size -= vflen;
-> +
-> +		/*
-> +		 * video-firmware.1.x is Gen1.
-> +		 * video-firmware.2.x and video-firmware.10.x are Gen2.
-> +		 */
-> +		return size >= 2 &&
-> +			(*found >= '2' || (*found == '1' && found[1] != '.'));
-> +	}
-> +
-> +	return false;
-> +}
-> +
-> +static const struct firmware *iris_detect_firmware(struct iris_core *core,
-> +						   const char **fw_name)
-> +{
-> +	const struct iris_firmware_desc *desc;
-> +	const struct firmware *firmware;
-> +	bool has_both_gens;
-> +	int ret;
-> +
-> +	*fw_name = NULL;
-> +	ret = of_property_read_string_index(dev_of_node(core->dev), "firmware-name", 0, fw_name);
-> +
-> +	/*
-> +	 * A platform may support both Gen1 and Gen2 firmware; which one is used
-> +	 * depends on the firmware image installed on the system, not on the
-> +	 * hardware. That installed image does not change while the device is
-> +	 * bound, so detect the generation only once and reuse the chosen
-> +	 * descriptor on later core bring-ups (e.g. after a system error
-> +	 * recovery). Besides avoiding the redundant probing, this ensures
-> +	 * core->iris_firmware_desc and iris_firmware_data are published exactly
-> +	 * once, before any session exists, so the lockless readers in the ioctl
-> +	 * paths never observe a reassignment.
-> +	 */
-> +	if (core->iris_firmware_desc) {
-> +		if (ret)
-> +			*fw_name = core->iris_firmware_desc->fwname;
-> +		ret = request_firmware(&firmware, *fw_name, core->dev);
-> +		return ret ? ERR_PTR(ret) : firmware;
-> +	}
-> +
-> +	has_both_gens = core->iris_platform_data->firmware_desc_gen2 &&
-> +		core->iris_platform_data->firmware_desc_gen1;
-> +
-> +	if (core->iris_platform_data->firmware_desc_gen2)
-> +		desc = core->iris_platform_data->firmware_desc_gen2;
-> +	else if (core->iris_platform_data->firmware_desc_gen1)
-> +		desc = core->iris_platform_data->firmware_desc_gen1;
-> +	else
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	if (ret) {
-> +		/* No firmware-name in DT: select by probing Gen2 then Gen1. */
-> +		*fw_name = desc->fwname;
-> +		if (has_both_gens)
-> +			ret = firmware_request_nowarn(&firmware, *fw_name, core->dev);
-> +		else
-> +			ret = request_firmware(&firmware, *fw_name, core->dev);
-> +		if (ret && has_both_gens) {
-> +			desc = core->iris_platform_data->firmware_desc_gen1;
-> +			*fw_name = desc->fwname;
-> +			ret = request_firmware(&firmware, *fw_name, core->dev);
-> +		}
-> +		if (ret)
-> +			return ERR_PTR(ret);
-> +	} else {
-> +		/* firmware-name given: load it and detect its generation. */
-> +		ret = request_firmware(&firmware, *fw_name, core->dev);
-> +		if (ret)
-> +			return ERR_PTR(ret);
-> +
-> +		if (has_both_gens &&
-> +		    !iris_detect_gen2_from_fwdata((const u8 *)firmware->data, firmware->size)) {
-> +			dev_info(core->dev, "Gen1 FW detected in %s\n", *fw_name);
-> +			desc = core->iris_platform_data->firmware_desc_gen1;
-> +		}
-> +	}
-> +
-> +	/* Publish iris_firmware_data first, then iris_firmware_desc (the guard). */
-> +	core->iris_firmware_data = desc->firmware_data;
-> +	core->iris_firmware_desc = desc;
-> +
-> +	return firmware;
-> +}
-> +
-> +static int iris_load_fw_to_memory(struct iris_core *core)
->   {
->   	const struct firmware *firmware = NULL;
->   	struct device *dev = core->dev;
->   	struct resource res;
->   	phys_addr_t mem_phys;
-> +	const char *fw_name;
->   	size_t res_size;
->   	ssize_t fw_size;
->   	void *mem_virt;
->   	int ret;
->   
-> -	if (strlen(fw_name) >= MAX_FIRMWARE_NAME_SIZE - 4)
-> -		return -EINVAL;
-> -
+Run measurements in the chip's periodic "normal" mode paced by the
+DRDY flag rather than in its one-shot "single" mode: the datasheet
+specifies no conversion time that could bound a one-shot wait, while
+normal mode is paced by the specified output data rates, which also
+keeps the sampling_frequency ABI meaningful.
 
-#define MAX_FIRMWARE_NAME_SIZE can be dropped.
+Runtime PM puts the chip into its suspend mode after 500 ms without a
+reading, dropping supply current to a few microamps. The suspended
+chip retains its registers and keeps responding on I2C, so resuming
+only rewrites the mode field and discards one stale sample, and
+configuration changes apply even while suspended; VDD is left enabled
+across runtime suspend.
 
->   	ret = of_reserved_mem_region_to_resource(dev->of_node, 0, &res);
->   	if (ret)
->   		return ret;
-> @@ -37,9 +155,9 @@ static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
->   	mem_phys = res.start;
->   	res_size = resource_size(&res);
->   
-> -	ret = request_firmware(&firmware, fw_name, dev);
-> -	if (ret)
-> -		return ret;
-> +	firmware = iris_detect_firmware(core, &fw_name);
-> +	if (IS_ERR(firmware))
-> +		return PTR_ERR(firmware);
->   
->   	fw_size = qcom_mdt_get_size(firmware);
->   	if (fw_size < 0 || res_size < (size_t)fw_size) {
-> @@ -66,18 +184,12 @@ static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
->   int iris_fw_load(struct iris_core *core)
->   {
->   	const struct tz_cp_config *cp_config;
-> -	const char *fwpath = NULL;
->   	int i, ret;
->   
-> -	ret = of_property_read_string_index(core->dev->of_node, "firmware-name", 0,
-> -					    &fwpath);
-> -	if (ret)
-> -		fwpath = core->iris_firmware_desc->fwname;
-> -
-> -	ret = iris_load_fw_to_memory(core, fwpath);
-> +	ret = iris_load_fw_to_memory(core);
->   	if (ret) {
-> -		dev_err(core->dev, "firmware download failed\n");
-> -		return -ENOMEM;
-> +		dev_err(core->dev, "firmware download failed %d\n", ret);
-> +		return ret;
->   	}
->   
->   	ret = qcom_scm_pas_auth_and_reset(IRIS_PAS_ID);
-> @@ -99,7 +211,7 @@ int iris_fw_load(struct iris_core *core)
->   		}
->   	}
->   
-> -	return ret;
-> +	return 0;
->   }
->   
->   int iris_fw_unload(struct iris_core *core)
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> index c9256f2323dc..55a4fa356985 100644
-> --- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> @@ -289,11 +289,7 @@ struct iris_firmware_desc {
->   };
->   
->   struct iris_platform_data {
-> -	/*
-> -	 * XXX: replace with gen1 / gen2 pointers once we have platforms
-> -	 * supporting both firmware kinds.
-> -	 */
-> -	const struct iris_firmware_desc *firmware_desc;
-> +	const struct iris_firmware_desc *firmware_desc_gen1, *firmware_desc_gen2;
->   
->   	const struct vpu_ops *vpu_ops;
->   	const struct icc_info *icc_tbl;
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-> index 6e06a32822bb..961dce2e6aa9 100644
-> --- a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-> @@ -22,6 +22,12 @@ static const struct iris_firmware_desc iris_vpu20_p1_gen1_desc = {
->   	.fwname = "qcom/vpu/vpu20_p1.mbn",
->   };
->   
-> +static const struct iris_firmware_desc iris_vpu20_p1_gen2_s6_desc = {
-> +	.firmware_data = &iris_hfi_gen2_data,
-> +	.get_vpu_buffer_size = iris_vpu33_buf_size,
-> +	.fwname = "qcom/vpu/vpu20_p1_gen2_s6.mbn",
-> +};
-> +
->   static const struct iris_firmware_desc iris_vpu20_p4_gen1_desc = {
->   	.firmware_data = &iris_hfi_gen1_data,
->   	.get_vpu_buffer_size = iris_vpu_buf_size,
-> @@ -65,7 +71,8 @@ static const struct tz_cp_config tz_cp_config_vpu2[] = {
->   };
->   
->   const struct iris_platform_data sc7280_data = {
-> -	.firmware_desc = &iris_vpu20_p1_gen1_desc,
-> +	.firmware_desc_gen1 = &iris_vpu20_p1_gen1_desc,
-> +	.firmware_desc_gen2 = &iris_vpu20_p1_gen2_s6_desc,
->   	.vpu_ops = &iris_vpu2_ops,
->   	.icc_tbl = iris_icc_info_vpu2,
->   	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu2),
-> @@ -94,7 +101,7 @@ const struct iris_platform_data sc7280_data = {
->   };
->   
->   const struct iris_platform_data sm8250_data = {
-> -	.firmware_desc = &iris_vpu20_p4_gen1_desc,
-> +	.firmware_desc_gen1 = &iris_vpu20_p4_gen1_desc,
->   	.vpu_ops = &iris_vpu2_ops,
->   	.icc_tbl = iris_icc_info_vpu2,
->   	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu2),
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c b/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
-> index 2c63adbc5579..74626b35d9cb 100644
-> --- a/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
-> @@ -90,7 +90,7 @@ static const struct tz_cp_config tz_cp_config_vpu3[] = {
->    * - inst_caps to platform_inst_cap_qcs8300
->    */
->   const struct iris_platform_data qcs8300_data = {
-> -	.firmware_desc = &iris_vpu30_p4_s6_gen2_desc,
-> +	.firmware_desc_gen2 = &iris_vpu30_p4_s6_gen2_desc,
->   	.vpu_ops = &iris_vpu3_ops,
->   	.icc_tbl = iris_icc_info_vpu3x,
->   	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
-> @@ -119,7 +119,7 @@ const struct iris_platform_data qcs8300_data = {
->   };
->   
->   const struct iris_platform_data sm8550_data = {
-> -	.firmware_desc = &iris_vpu30_p4_gen2_desc,
-> +	.firmware_desc_gen2 = &iris_vpu30_p4_gen2_desc,
->   	.vpu_ops = &iris_vpu3_ops,
->   	.icc_tbl = iris_icc_info_vpu3x,
->   	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
-> @@ -154,7 +154,7 @@ const struct iris_platform_data sm8550_data = {
->    * - controller_rst_tbl to sm8650_controller_reset_table
->    */
->   const struct iris_platform_data sm8650_data = {
-> -	.firmware_desc = &iris_vpu33_p4_gen2_desc,
-> +	.firmware_desc_gen2 = &iris_vpu33_p4_gen2_desc,
->   	.vpu_ops = &iris_vpu33_ops,
->   	.icc_tbl = iris_icc_info_vpu3x,
->   	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
-> @@ -185,7 +185,7 @@ const struct iris_platform_data sm8650_data = {
->   };
->   
->   const struct iris_platform_data sm8750_data = {
-> -	.firmware_desc = &iris_vpu35_p4_gen2_desc,
-> +	.firmware_desc_gen2 = &iris_vpu35_p4_gen2_desc,
->   	.vpu_ops = &iris_vpu35_ops,
->   	.icc_tbl = iris_icc_info_vpu3x,
->   	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
-> @@ -220,7 +220,7 @@ const struct iris_platform_data sm8750_data = {
->    * - different num_vpp_pipe
->    */
->   const struct iris_platform_data x1p42100_data = {
-> -	.firmware_desc = &iris_vpu30_p1_gen2_desc,
-> +	.firmware_desc_gen2 = &iris_vpu30_p1_gen2_desc,
->   	.vpu_ops = &iris_vpu3_ops,
->   	.icc_tbl = iris_icc_info_vpu3x,
->   	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
-> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
-> index c2dcb50a2782..7fe31136df21 100644
-> --- a/drivers/media/platform/qcom/iris/iris_probe.c
-> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
-> @@ -251,8 +251,6 @@ static int iris_probe(struct platform_device *pdev)
->   		return core->irq;
->   
->   	core->iris_platform_data = of_device_get_match_data(core->dev);
-> -	core->iris_firmware_desc = core->iris_platform_data->firmware_desc;
-> -	core->iris_firmware_data = core->iris_firmware_desc->firmware_data;
->   
->   	core->ubwc_cfg = qcom_ubwc_config_get_data();
->   	if (IS_ERR(core->ubwc_cfg))
-> @@ -271,8 +269,6 @@ static int iris_probe(struct platform_device *pdev)
->   	if (ret)
->   		return ret;
->   
-> -	iris_session_init_caps(core);
-> -
->   	ret = v4l2_device_register(dev, &core->v4l2_dev);
->   	if (ret)
->   		return ret;
-> diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
-> index 14d63dc76c9b..33edbc5cab8f 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vidc.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vidc.c
-> @@ -9,6 +9,7 @@
->   #include <media/v4l2-mem2mem.h>
->   #include <media/videobuf2-dma-contig.h>
->   
-> +#include "iris_ctrls.h"
->   #include "iris_vidc.h"
->   #include "iris_instance.h"
->   #include "iris_vdec.h"
-> 
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+---
+v2:
+- Trim the commit message (Jonathan).
+- Switch the license to GPL-2.0-only: the dual license had been
+  carried over from qmc5883l.c, which this driver is modeled on,
+  without a reason of our own (Jonathan).
+- take_measurement(): use PM_RUNTIME_ACQUIRE_AUTOSUSPEND() plus
+  guard(mutex) and direct returns, removing the goto/cleanup.h mix
+  (Jonathan, Sashiko AI).
+- Print the power-on failure unconditionally; the transparent acquire
+  no longer returns -EACCES when runtime PM is disabled, so any
+  remaining error is a real resume failure (Jonathan).
+- Drop the pm_runtime_get_noresume()/pm_runtime_put_autosuspend()
+  pair in probe; the driver core idles the device after probe,
+  verified on hardware: the chip autosuspends after probing without a
+  read (Jonathan). This also removes the usage-count leak on the
+  devm_pm_runtime_enable() failure path (Sashiko AI).
+- On a runtime-resume status-read failure, put the chip back into
+  suspend mode. The stale-DRDY clear itself stays in resume - only
+  that path knows a suspend happened - and is now documented at the
+  measurement poll (Jonathan).
+- Write OSR2 explicitly to its power-on default in init, with a
+  comment; the define is no longer unused, and the commit message no
+  longer claims the field is left untouched (Jonathan, Sashiko AI,
+  Siratul).
+- Drop the mod_devicetable.h include (Uwe).
+- Split the POR_US comment: the define documents the power-on time
+  (datasheet Table 7); the conservative-bound-after-soft-reset
+  rationale moved to the call site (Siratul).
+- Reduce the mutex comment to what the mutex protects; the
+  DRDY-clears-on-status-read behaviour is documented at the poll
+  (Siratul).
+- Log and continue when the post-range-change discard read fails:
+  the range change took effect, so an error would mislead userspace.
+  If the bus recovers before the next read, one old-range sample can
+  slip through (Siratul).
+- Group the data->{range,odr,osr} default assignments (Siratul).
+- Drop the map local in take_measurement() (Siratul).
+- Check the pm_runtime_set_active() return in probe.
+- Soften the range-change discard comment: a conversion already in
+  flight can still complete at the old range, so the discard narrows
+  the stale-sample window rather than closing it.
+- Unchanged, per the v1 thread: the periodic normal-mode measurement
+  approach (rationale kept in the commit message), the
+  QMC6308_AUTOSUSPEND_DELAY_MS name, the designated-initializer value
+  tables with lookup loops, and the declaration order in
+  take_measurement().
 
-with that addressed, you may add
+v1: https://lore.kernel.org/20260714202842.340293-3-jorijnvdgraaf@catcrafts.net
 
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+ MAINTAINERS                        |   1 +
+ drivers/iio/magnetometer/Kconfig   |  11 +
+ drivers/iio/magnetometer/Makefile  |   1 +
+ drivers/iio/magnetometer/qmc6308.c | 602 +++++++++++++++++++++++++++++
+ 4 files changed, 615 insertions(+)
+ create mode 100644 drivers/iio/magnetometer/qmc6308.c
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 2315c94ad0e8..b1fce287b329 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22066,6 +22066,7 @@ M:	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+ L:	linux-iio@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/magnetometer/qstcorp,qmc6308.yaml
++F:	drivers/iio/magnetometer/qmc6308.c
+ 
+ QT1010 MEDIA DRIVER
+ L:	linux-media@vger.kernel.org
+diff --git a/drivers/iio/magnetometer/Kconfig b/drivers/iio/magnetometer/Kconfig
+index 2dee566ba703..d359003b248e 100644
+--- a/drivers/iio/magnetometer/Kconfig
++++ b/drivers/iio/magnetometer/Kconfig
+@@ -220,6 +220,17 @@ config QMC5883L
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called qmc5883l.
+ 
++config QMC6308
++	tristate "QST QMC6308 3-Axis Magnetic Sensor"
++	depends on I2C
++	select REGMAP_I2C
++	help
++	  Say Y here to add support for the QST QMC6308 3-Axis
++	  Magnetic Sensor.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called qmc6308.
++
+ config SENSORS_HMC5843
+ 	tristate
+ 	select IIO_BUFFER
+diff --git a/drivers/iio/magnetometer/Makefile b/drivers/iio/magnetometer/Makefile
+index b9478e6513e4..8f2205975c1b 100644
+--- a/drivers/iio/magnetometer/Makefile
++++ b/drivers/iio/magnetometer/Makefile
+@@ -28,6 +28,7 @@ obj-$(CONFIG_IIO_ST_MAGN_SPI_3AXIS) += st_magn_spi.o
+ obj-$(CONFIG_INFINEON_TLV493D)		+= tlv493d.o
+ 
+ obj-$(CONFIG_QMC5883L)			+= qmc5883l.o
++obj-$(CONFIG_QMC6308)			+= qmc6308.o
+ 
+ obj-$(CONFIG_SENSORS_HMC5843)		+= hmc5843_core.o
+ obj-$(CONFIG_SENSORS_HMC5843_I2C)	+= hmc5843_i2c.o
+diff --git a/drivers/iio/magnetometer/qmc6308.c b/drivers/iio/magnetometer/qmc6308.c
+new file mode 100644
+index 000000000000..7d4df846bbc5
+--- /dev/null
++++ b/drivers/iio/magnetometer/qmc6308.c
+@@ -0,0 +1,602 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Support for QST QMC6308 3-Axis Magnetic Sensor on I2C bus.
++ *
++ * Copyright (C) 2026 Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
++ *
++ * Datasheet available at
++ * <https://qstcorp.com/upload/pdf/202202/13-52-15%20QMC6308%20Datasheet%20Rev.%20F(1).pdf>
++ */
++
++#include <linux/array_size.h>
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/cleanup.h>
++#include <linux/delay.h>
++#include <linux/dev_printk.h>
++#include <linux/err.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/pm_runtime.h>
++#include <linux/regmap.h>
++#include <linux/regulator/consumer.h>
++#include <linux/time.h>
++#include <linux/types.h>
++
++#include <asm/byteorder.h>
++
++#include <linux/iio/iio.h>
++
++#define QMC6308_REG_ID		0x00
++#define QMC6308_REG_X_LSB	0x01
++#define QMC6308_REG_STATUS	0x09
++#define QMC6308_REG_CTRL1	0x0A
++#define QMC6308_REG_CTRL2	0x0B
++#define QMC6308_REG_CTRL3	0x0D
++#define QMC6308_REG_CTRL4	0x29
++
++#define QMC6308_CHIP_ID		0x80
++
++/* Control register 1 */
++#define QMC6308_MODE_MASK	GENMASK(1, 0)
++#define QMC6308_ODR_MASK	GENMASK(3, 2)
++#define QMC6308_OSR1_MASK	GENMASK(5, 4)
++#define QMC6308_OSR2_MASK	GENMASK(7, 6)
++
++#define QMC6308_MODE_SUSPEND	0x00
++#define QMC6308_MODE_NORMAL	0x01
++
++#define QMC6308_ODR_10HZ	0x00
++#define QMC6308_ODR_50HZ	0x01
++#define QMC6308_ODR_100HZ	0x02
++#define QMC6308_ODR_200HZ	0x03
++
++#define QMC6308_OSR1_8		0x00
++#define QMC6308_OSR1_4		0x01
++#define QMC6308_OSR1_2		0x02
++#define QMC6308_OSR1_1		0x03
++
++/* Control register 2 */
++#define QMC6308_SET_RESET_MASK	GENMASK(1, 0)
++#define QMC6308_RNG_MASK	GENMASK(3, 2)
++#define QMC6308_SELF_TEST	BIT(6)
++#define QMC6308_SOFT_RST	BIT(7)
++
++#define QMC6308_SET_RESET_ON	0x00
++
++#define QMC6308_RNG_30G		0x00
++#define QMC6308_RNG_12G		0x01
++#define QMC6308_RNG_8G		0x02
++#define QMC6308_RNG_2G		0x03
++
++/* Status register */
++#define QMC6308_STATUS_DRDY	BIT(0)
++#define QMC6308_STATUS_OVFL	BIT(1)
++
++/* Power-on completion time (datasheet Table 7) */
++#define QMC6308_POR_US		250
++
++#define QMC6308_AUTOSUSPEND_DELAY_MS	500
++
++struct qmc6308_data {
++	struct regmap *regmap;
++	/* Protect data->range/odr/osr and serialize measurements */
++	struct mutex mutex;
++	struct iio_mount_matrix orientation;
++	u8 range;
++	u8 odr;
++	u8 osr;
++};
++
++enum qmc6308_axis {
++	QMC6308_AXIS_X,
++	QMC6308_AXIS_Y,
++	QMC6308_AXIS_Z,
++};
++
++static const int qmc6308_odr_avail[] = {
++	[QMC6308_ODR_10HZ] = 10,
++	[QMC6308_ODR_50HZ] = 50,
++	[QMC6308_ODR_100HZ] = 100,
++	[QMC6308_ODR_200HZ] = 200,
++};
++
++static const int qmc6308_osr1_avail[] = {
++	[QMC6308_OSR1_8] = 8,
++	[QMC6308_OSR1_4] = 4,
++	[QMC6308_OSR1_2] = 2,
++	[QMC6308_OSR1_1] = 1,
++};
++
++/*
++ * Sensitivity is 1000/2500/3750/15000 LSB/Gauss for the
++ * +-30/12/8/2 Gauss ranges respectively.
++ */
++static const int qmc6308_scales[][2] = {
++	[QMC6308_RNG_30G] = { 0, 1000000 },
++	[QMC6308_RNG_12G] = { 0, 400000 },
++	[QMC6308_RNG_8G] = { 0, 266667 },
++	[QMC6308_RNG_2G] = { 0, 66667 },
++};
++
++static int qmc6308_set_mode(struct qmc6308_data *data, unsigned int mode)
++{
++	return regmap_update_bits(data->regmap, QMC6308_REG_CTRL1,
++				  QMC6308_MODE_MASK,
++				  FIELD_PREP(QMC6308_MODE_MASK, mode));
++}
++
++static int qmc6308_take_measurement(struct iio_dev *indio_dev, int index,
++				    int *val)
++{
++	struct qmc6308_data *data = iio_priv(indio_dev);
++	struct device *dev = regmap_get_device(data->regmap);
++	unsigned int status;
++	__le16 buf[3];
++	int ret;
++
++	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	if (ret) {
++		dev_err(dev, "Failed to power on (%d)\n", ret);
++		return ret;
++	}
++
++	guard(mutex)(&data->mutex);
++
++	/*
++	 * Reading the status register clears DRDY, which is why the poll
++	 * and the data read stay under one mutex hold. A runtime resume
++	 * clears DRDY too, so a sample converted before the last suspend
++	 * is never returned here.
++	 *
++	 * The timeout is 50ms of headroom over the slowest ODR (10Hz).
++	 */
++	ret = regmap_read_poll_timeout(data->regmap, QMC6308_REG_STATUS,
++				       status,
++				       (status & QMC6308_STATUS_DRDY),
++				       2 * USEC_PER_MSEC,
++				       150 * USEC_PER_MSEC);
++	if (ret)
++		return ret;
++
++	ret = regmap_bulk_read(data->regmap, QMC6308_REG_X_LSB, buf,
++			       sizeof(buf));
++	if (ret)
++		return ret;
++
++	if (status & QMC6308_STATUS_OVFL)
++		return -ERANGE;
++
++	*val = (s16)le16_to_cpu(buf[index]);
++
++	return 0;
++}
++
++static int qmc6308_read_raw(struct iio_dev *indio_dev,
++			    const struct iio_chan_spec *chan,
++			    int *val, int *val2, long mask)
++{
++	struct qmc6308_data *data = iio_priv(indio_dev);
++	int ret;
++
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW:
++		ret = qmc6308_take_measurement(indio_dev, chan->address, val);
++		if (ret)
++			return ret;
++		return IIO_VAL_INT;
++	case IIO_CHAN_INFO_SCALE: {
++		guard(mutex)(&data->mutex);
++
++		*val = qmc6308_scales[data->range][0];
++		*val2 = qmc6308_scales[data->range][1];
++
++		return IIO_VAL_INT_PLUS_NANO;
++	}
++	case IIO_CHAN_INFO_SAMP_FREQ: {
++		guard(mutex)(&data->mutex);
++
++		*val = qmc6308_odr_avail[data->odr];
++
++		return IIO_VAL_INT;
++	}
++	case IIO_CHAN_INFO_OVERSAMPLING_RATIO: {
++		guard(mutex)(&data->mutex);
++
++		*val = qmc6308_osr1_avail[data->osr];
++
++		return IIO_VAL_INT;
++	}
++	default:
++		return -EINVAL;
++	}
++}
++
++static int qmc6308_write_raw(struct iio_dev *indio_dev,
++			     const struct iio_chan_spec *chan,
++			     int val, int val2, long mask)
++{
++	struct qmc6308_data *data = iio_priv(indio_dev);
++	unsigned int status;
++	unsigned int i;
++	int ret;
++
++	switch (mask) {
++	case IIO_CHAN_INFO_SCALE: {
++		if (val != 0)
++			return -EINVAL;
++
++		for (i = 0; i < ARRAY_SIZE(qmc6308_scales); i++) {
++			if (val2 == qmc6308_scales[i][1])
++				break;
++		}
++		if (i == ARRAY_SIZE(qmc6308_scales))
++			return -EINVAL;
++
++		guard(mutex)(&data->mutex);
++
++		ret = regmap_update_bits(data->regmap, QMC6308_REG_CTRL2,
++					 QMC6308_RNG_MASK,
++					 FIELD_PREP(QMC6308_RNG_MASK, i));
++		if (ret)
++			return ret;
++
++		data->range = i;
++
++		/*
++		 * The data registers still hold (and DRDY still
++		 * advertises) a sample converted at the previous range;
++		 * discard it so that a read does not pair old-range data
++		 * with the new scale. A conversion already in flight may
++		 * still complete at the old range, so this narrows the
++		 * window rather than closing it. The range change itself
++		 * took effect, so only log a failure here: an error
++		 * would mislead userspace about an effective write.
++		 */
++		ret = regmap_read(data->regmap, QMC6308_REG_STATUS,
++				  &status);
++		if (ret)
++			dev_warn(regmap_get_device(data->regmap),
++				 "Failed to discard stale sample (%d)\n",
++				 ret);
++
++		return 0;
++	}
++	case IIO_CHAN_INFO_SAMP_FREQ: {
++		for (i = 0; i < ARRAY_SIZE(qmc6308_odr_avail); i++) {
++			if (val == qmc6308_odr_avail[i])
++				break;
++		}
++		if (i == ARRAY_SIZE(qmc6308_odr_avail))
++			return -EINVAL;
++
++		guard(mutex)(&data->mutex);
++
++		ret = regmap_update_bits(data->regmap, QMC6308_REG_CTRL1,
++					 QMC6308_ODR_MASK,
++					 FIELD_PREP(QMC6308_ODR_MASK, i));
++		if (ret)
++			return ret;
++
++		data->odr = i;
++
++		return 0;
++	}
++	case IIO_CHAN_INFO_OVERSAMPLING_RATIO: {
++		for (i = 0; i < ARRAY_SIZE(qmc6308_osr1_avail); i++) {
++			if (val == qmc6308_osr1_avail[i])
++				break;
++		}
++		if (i == ARRAY_SIZE(qmc6308_osr1_avail))
++			return -EINVAL;
++
++		guard(mutex)(&data->mutex);
++
++		ret = regmap_update_bits(data->regmap, QMC6308_REG_CTRL1,
++					 QMC6308_OSR1_MASK,
++					 FIELD_PREP(QMC6308_OSR1_MASK, i));
++		if (ret)
++			return ret;
++
++		data->osr = i;
++
++		return 0;
++	}
++	default:
++		return -EINVAL;
++	}
++}
++
++static int qmc6308_read_avail(struct iio_dev *indio_dev,
++			      struct iio_chan_spec const *chan,
++			      const int **vals, int *type, int *length,
++			      long mask)
++{
++	switch (mask) {
++	case IIO_CHAN_INFO_SAMP_FREQ:
++		*vals = qmc6308_odr_avail;
++		*type = IIO_VAL_INT;
++		*length = ARRAY_SIZE(qmc6308_odr_avail);
++		return IIO_AVAIL_LIST;
++	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
++		*vals = qmc6308_osr1_avail;
++		*type = IIO_VAL_INT;
++		*length = ARRAY_SIZE(qmc6308_osr1_avail);
++		return IIO_AVAIL_LIST;
++	case IIO_CHAN_INFO_SCALE:
++		*vals = (const int *)qmc6308_scales;
++		*type = IIO_VAL_INT_PLUS_NANO;
++		*length = ARRAY_SIZE(qmc6308_scales) * 2;
++		return IIO_AVAIL_LIST;
++	default:
++		return -EINVAL;
++	}
++}
++
++static int qmc6308_write_raw_get_fmt(struct iio_dev *indio_dev,
++				     struct iio_chan_spec const *chan,
++				     long mask)
++{
++	switch (mask) {
++	case IIO_CHAN_INFO_SCALE:
++		return IIO_VAL_INT_PLUS_NANO;
++	default:
++		return IIO_VAL_INT;
++	}
++}
++
++static const struct iio_mount_matrix *
++qmc6308_get_mount_matrix(const struct iio_dev *indio_dev,
++			 const struct iio_chan_spec *chan)
++{
++	struct qmc6308_data *data = iio_priv(indio_dev);
++
++	return &data->orientation;
++}
++
++static const struct iio_chan_spec_ext_info qmc6308_ext_info[] = {
++	IIO_MOUNT_MATRIX(IIO_SHARED_BY_DIR, qmc6308_get_mount_matrix),
++	{ }
++};
++
++static const struct iio_info qmc6308_info = {
++	.read_raw = qmc6308_read_raw,
++	.write_raw = qmc6308_write_raw,
++	.read_avail = qmc6308_read_avail,
++	.write_raw_get_fmt = qmc6308_write_raw_get_fmt,
++};
++
++static int qmc6308_init(struct qmc6308_data *data)
++{
++	struct regmap *map = data->regmap;
++	unsigned int reg;
++	int ret;
++
++	ret = regmap_read(map, QMC6308_REG_ID, &reg);
++	if (ret)
++		return ret;
++
++	/* Allow unknown IDs so that fallback compatibles work */
++	if (reg != QMC6308_CHIP_ID)
++		dev_warn(regmap_get_device(map),
++			 "Unknown chip id: 0x%02x, continuing\n", reg);
++
++	/* The SOFT_RST bit is not auto-cleared and must be written back 0 */
++	ret = regmap_write(map, QMC6308_REG_CTRL2, QMC6308_SOFT_RST);
++	if (ret)
++		return ret;
++
++	/*
++	 * The datasheet gives no soft-reset completion figure; reuse the
++	 * power-on time as a conservative bound.
++	 */
++	fsleep(QMC6308_POR_US);
++
++	data->range = QMC6308_RNG_30G;
++	data->odr = QMC6308_ODR_50HZ;
++	data->osr = QMC6308_OSR1_8;
++
++	ret = regmap_write(map, QMC6308_REG_CTRL2,
++			   FIELD_PREP(QMC6308_SET_RESET_MASK,
++				      QMC6308_SET_RESET_ON) |
++			   FIELD_PREP(QMC6308_RNG_MASK, data->range));
++	if (ret)
++		return ret;
++
++	/* OSR2 (second-stage filter) set to its power-on default of 0 */
++	return regmap_write(map, QMC6308_REG_CTRL1,
++			    FIELD_PREP(QMC6308_MODE_MASK,
++				       QMC6308_MODE_NORMAL) |
++			    FIELD_PREP(QMC6308_ODR_MASK, data->odr) |
++			    FIELD_PREP(QMC6308_OSR1_MASK, data->osr) |
++			    FIELD_PREP(QMC6308_OSR2_MASK, 0));
++}
++
++static void qmc6308_power_down_action(void *priv)
++{
++	struct qmc6308_data *data = priv;
++
++	if (!pm_runtime_status_suspended(regmap_get_device(data->regmap)))
++		qmc6308_set_mode(data, QMC6308_MODE_SUSPEND);
++}
++
++static bool qmc6308_volatile_reg(struct device *dev, unsigned int reg)
++{
++	return reg >= QMC6308_REG_X_LSB && reg <= QMC6308_REG_STATUS;
++}
++
++static bool qmc6308_writable_reg(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case QMC6308_REG_CTRL1:
++	case QMC6308_REG_CTRL2:
++	case QMC6308_REG_CTRL3:
++	case QMC6308_REG_CTRL4:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static const struct regmap_config qmc6308_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = QMC6308_REG_CTRL4,
++	.cache_type = REGCACHE_MAPLE,
++	.volatile_reg = qmc6308_volatile_reg,
++	.writeable_reg = qmc6308_writable_reg,
++};
++
++#define QMC6308_CHANNEL(_axis)                                 \
++	{                                                      \
++		.type = IIO_MAGN,                              \
++		.modified = 1,                                 \
++		.channel2 = IIO_MOD_##_axis,                   \
++		.address = QMC6308_AXIS_##_axis,               \
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),  \
++		.info_mask_shared_by_type =                    \
++			BIT(IIO_CHAN_INFO_SCALE) |             \
++			BIT(IIO_CHAN_INFO_SAMP_FREQ) |         \
++			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO), \
++		.info_mask_shared_by_type_available =          \
++			BIT(IIO_CHAN_INFO_SCALE) |             \
++			BIT(IIO_CHAN_INFO_SAMP_FREQ) |         \
++			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO), \
++		.ext_info = qmc6308_ext_info,                  \
++	}
++
++static const struct iio_chan_spec qmc6308_channels[] = {
++	QMC6308_CHANNEL(X),
++	QMC6308_CHANNEL(Y),
++	QMC6308_CHANNEL(Z),
++};
++
++static int qmc6308_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct qmc6308_data *data;
++	struct iio_dev *indio_dev;
++	struct regmap *map;
++	int ret;
++
++	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
++	if (!indio_dev)
++		return -ENOMEM;
++
++	i2c_set_clientdata(client, indio_dev);
++
++	map = devm_regmap_init_i2c(client, &qmc6308_regmap_config);
++	if (IS_ERR(map))
++		return dev_err_probe(dev, PTR_ERR(map),
++				     "regmap initialization failed\n");
++
++	ret = devm_regulator_get_enable(dev, "vdd");
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "Failed to enable VDD regulator\n");
++
++	fsleep(QMC6308_POR_US);
++
++	data = iio_priv(indio_dev);
++	data->regmap = map;
++
++	ret = devm_mutex_init(dev, &data->mutex);
++	if (ret)
++		return ret;
++
++	ret = iio_read_mount_matrix(dev, &data->orientation);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "Failed to read mount matrix\n");
++
++	indio_dev->name = "qmc6308";
++	indio_dev->info = &qmc6308_info;
++	indio_dev->channels = qmc6308_channels;
++	indio_dev->num_channels = ARRAY_SIZE(qmc6308_channels);
++	indio_dev->modes = INDIO_DIRECT_MODE;
++
++	ret = qmc6308_init(data);
++	if (ret)
++		return dev_err_probe(dev, ret, "qmc6308 init failed\n");
++
++	ret = pm_runtime_set_active(dev);
++	if (ret)
++		return ret;
++
++	ret = devm_add_action_or_reset(dev, qmc6308_power_down_action, data);
++	if (ret)
++		return ret;
++
++	pm_runtime_use_autosuspend(dev);
++	pm_runtime_set_autosuspend_delay(dev, QMC6308_AUTOSUSPEND_DELAY_MS);
++	ret = devm_pm_runtime_enable(dev);
++	if (ret)
++		return ret;
++
++	return devm_iio_device_register(dev, indio_dev);
++}
++
++static int qmc6308_runtime_suspend(struct device *dev)
++{
++	struct iio_dev *indio_dev = dev_get_drvdata(dev);
++	struct qmc6308_data *data = iio_priv(indio_dev);
++
++	return qmc6308_set_mode(data, QMC6308_MODE_SUSPEND);
++}
++
++static int qmc6308_runtime_resume(struct device *dev)
++{
++	struct iio_dev *indio_dev = dev_get_drvdata(dev);
++	struct qmc6308_data *data = iio_priv(indio_dev);
++	unsigned int status;
++	int ret;
++
++	ret = qmc6308_set_mode(data, QMC6308_MODE_NORMAL);
++	if (ret)
++		return ret;
++
++	/*
++	 * DRDY may still be set for a sample converted before the last
++	 * suspend; reading the status register clears it so the next
++	 * measurement waits for fresh data.
++	 */
++	ret = regmap_read(data->regmap, QMC6308_REG_STATUS, &status);
++	if (ret) {
++		/* Best effort to leave the chip in a consistent state */
++		qmc6308_set_mode(data, QMC6308_MODE_SUSPEND);
++	}
++
++	return ret;
++}
++
++static DEFINE_RUNTIME_DEV_PM_OPS(qmc6308_pm_ops, qmc6308_runtime_suspend,
++				 qmc6308_runtime_resume, NULL);
++
++static const struct of_device_id qmc6308_match[] = {
++	{ .compatible = "qstcorp,qmc6308" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, qmc6308_match);
++
++static const struct i2c_device_id qmc6308_id[] = {
++	{ .name = "qmc6308" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, qmc6308_id);
++
++static struct i2c_driver qmc6308_driver = {
++	.driver = {
++		.name = "qmc6308",
++		.of_match_table = qmc6308_match,
++		.pm = pm_ptr(&qmc6308_pm_ops),
++	},
++	.id_table = qmc6308_id,
++	.probe = qmc6308_probe,
++};
++module_i2c_driver(qmc6308_driver);
++
++MODULE_DESCRIPTION("QST QMC6308 3-Axis Magnetic Sensor driver");
++MODULE_AUTHOR("Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>");
++MODULE_LICENSE("GPL");
+-- 
+2.55.0
+
