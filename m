@@ -1,62 +1,63 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307183B3C05
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 09:59:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E49446C09
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 09:59:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784627992; cv=none; b=RxbnEc0nFbxXXCe1h80tSMtTKnGBBDCKCuMK6fQOlO/HX4RRylcyRUlKCFOY8tPJDMYRbPMqcDsdidg8np6gFGuzXfBS2vnVZlXe0TN2Q1HykkIzcKlAqMWcledfqGsn049Q3odQ3FdyJl4EoXBy4vu7dqeunnqcdKVqNWnmhYY=
+	t=1784627993; cv=none; b=YEX3Prxbvkw2bm/fXt9819gu6Dif/Mlm6h7f8hbnJYMsDB082tr5n+jatEf0F3ga+lePhsFmukMYPPbyPZx5HICXXbyyDBT8QKKlZCdHMHgMiFtMlsyNLR98fw8Y5Gf1UFfUbvdFp7jixTzOtxItL+vt28kcMPwgnHOHu1qcNLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784627992; c=relaxed/simple;
-	bh=AubZwRsDaLot5csF7dYq/1KvYpUc5OiagEGEhDhbY8I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=iQQBDxlqGr31ABeCM1UnGkIj1CTpem91za4AdClf6AhjFVl0IHuDp2jTuRhd2dn55K5hKYXt5BhWhnVgV3fa0WmySh1DvPuYsyqLtvQSx1o5Kc7nzgmCrUgajFLByTSS9vbh7JmnJadJFj2YklQLl76Yq/4zDDV6b2VLjrIj7nw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TtV0JGNw; arc=none smtp.client-ip=209.85.128.53
+	s=arc-20240116; t=1784627993; c=relaxed/simple;
+	bh=4hhsAxAJjA9CnHKxIGE5+DUar4FrPizlIRDXYPMfD4I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nSM2z4fR7A0vU8g5VX/7gZ5f9soiZU35hg+7pMdHxiE9srXL5w189awUh01CydWtzFAi2cpeL2oiv0NqJpDg5m5nhl9hrmyMidzfFB95RJt88xhlxgUl35ElDTFCDUibENjBfsFyrjdtQd15Sm+GXg4ONx5np0c8CjVe8WVg8lA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LQNraOng; arc=none smtp.client-ip=209.85.221.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TtV0JGNw"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4954f5e8020so14596545e9.2
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 02:59:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LQNraOng"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47df43bfb07so3012489f8f.1
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 02:59:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784627988; x=1785232788; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5bP7FEQ7k53ebpzWmJzqXUez3bdeDukLwJkEZmOrlD0=;
-        b=TtV0JGNwVLYzG9uLrxN5iw/+D/zu8WRJNwp9Ly+LXrrHNxamQKg0+xKgYn0T6dDVvq
-         2WnDoA4Cshmp3Zsf1wr3V7/yfuDe57il/mqLvD/dxz+ifuj3YKinzN12i6M/XWUfM9Wy
-         SD4ydFkul5kNl70+eG3DPzlJCQ2A7H5xeIU/GXT+Kmd66R2/jlZEA12RoiqNVdkJHtSW
-         Hc2dO2nDThBqyA7YORfC0IhSYqXJAhRIOOMHCrp1KmzGl6xyhWrD/SS5iygL83LlGdce
-         e883Sd0AWCdatR++zTePE7TrV6/ngmU+lP+pEQaUqgI633CXeNzRJAw1OudnesSyBguB
-         scJg==
+        d=gmail.com; s=20251104; t=1784627989; x=1785232789; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ge4jOwru2gdBik+03SVRNyiDvso3mpjCVgnlsYEIFrM=;
+        b=LQNraOngZes09ELhRxvcapcyEb8OUPktJff2L42ZeY22O5/NHADDF2l66NnV4sGZ1p
+         qJifLkCKqbFLOXO3iymCqAb7XpPO+YVxvx6OycMIw3k6BwR8cOkfCqDAcjKg3NpjhqwZ
+         ZQnxqjcgZPHJTV2rzezkVJOz27LUHnKIKoUZsPTXVpQxyye3ZeDgkkn6+bNp7EJ4Gjvi
+         xTg3kTnO++esAC+JRYMukC7ISjTdWoNmmmxfU+T2p0mhYxBr76eghxIdr66P8voFrmGP
+         ZAW3qHI5g9KTACr5g1MN6KpjJYM9Bw0km4ZmytgAMuuCauua4zVrlIOGHdgZw/xE189X
+         pGUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784627988; x=1785232788;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5bP7FEQ7k53ebpzWmJzqXUez3bdeDukLwJkEZmOrlD0=;
-        b=A1SJLtBR6pI2u8fu8Me4PYUBpURpxQMzh9yZ4AtvVfNns1ngvILh0bah40DFACYUE1
-         rpVGyvzDOG7j44BzeHmjcfBiBfI7JhzNvQKaMjSfLg7Fsnt4Ck2fTrOkAjtXAPn2842b
-         XWSkGVp/MEyksc1w/3EFcR70c8+DSN7jzb0rHgDyI/FhFfnB01i242X5U887iYhByZoq
-         LMDQYPFQe04IRsrsYG/0qFTh+PSRQXZnS3MsuZZd+hhEE9mrxqo4Xsn6h3kb9Lw5OyCU
-         iD3t0DrXsd7/zfp9YCPJiyIP5Xadb4ghUy9mRCm4UIKUH38UY4+FPkUEycrROdoRKgKb
-         c41w==
-X-Forwarded-Encrypted: i=1; AHgh+Ro+rH+ke/VhgbIZZiJCD5emBUHgslLwUM5ggtaisAlKT/kc3iVbHiEJIJpx8q8JWfjJl8nua3Rgzv/M@vger.kernel.org
-X-Gm-Message-State: AOJu0YyBTRrso1NXHSj7JfZWUla0CsTzmFP3to3cz3d8LO3No0L0cN0m
-	46AlsOCOjzFZyBsLZ5H5FTTPoJ4BOJExdmveOMhH4TDhVi7vGkDbjsoJ
-X-Gm-Gg: AfdE7clA3BBt9oaJ4YHB5UQ5JprAIxpI6Ea2mtwXNpiVfxFSlvI+PloFmOZIHzqYkt1
-	NA3nrgV93ym5VimMwvHOKRaizK4bayqtmFBN8m3Jce0QkPwBrWo4mc0NaDYEM6+E76HAEwnPzjW
-	t6RLRdtHkS2Zx7LraZfauN0ftK2K+OxKipJGn5vbnkZ9RqCxYhwph19OT5TQ05/DYA8Grpz6dOy
-	2atMtDrn5o0j2b9XlvG80uFj6B/yMMT4895ZxGn6RIs+oVUymtwujHBbNg4yRWGBsjCJuLY9dXb
-	a2p8bkmc8EF9zLQh65PkqLNxHENnUOq/MHnRMaOrvTmSUvfa87QsmfJfUC21laObFdZMoleiYE2
-	jNmDO4MVv/oPxurzBCzgKwqoAyj4opxx91Y9T6XFqyXkcfCfwdQ/WVAcV2YgQ/n7oGYBKMSxwf7
-	9AGop1fAuD98NsuhW17+2nU0vD1PkqtG6svg==
-X-Received: by 2002:a05:600c:3143:b0:492:7142:f46e with SMTP id 5b1f17b1804b1-4954a3d0cd7mr209723365e9.2.1784627988145;
-        Tue, 21 Jul 2026 02:59:48 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784627989; x=1785232789;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ge4jOwru2gdBik+03SVRNyiDvso3mpjCVgnlsYEIFrM=;
+        b=iKaM0eZXc9aD56vGiO/t3NeBzhlMs70mhfLRH1gG456IeaEEKkNHJog9D81o7Jvtcy
+         yP0aBYMsutBpOb4ONMM63y41UIFTzoR/5nulm7VJYo4u9wCh3DrNbVLN07dpYVD4okH+
+         KhwSg+JMtkc+NCbQeSQkhGVuh1Ta1l0wWcbBs4YoxgyoRKpPn2MxnmCZF6iHC/PKNoJ/
+         W1RDKjYCmfDHzviYGDWdlOCMpIW9nJGhNJ0FFTOwTo6Z0QKFqegXpXdLQwULkSkhAayl
+         9Zr9RcDbJB/FgGIdsrFVGqP8GqnqdqDWiksZClOykiwmGGo/K4F7esvLE92xLHKNGCq3
+         +G/g==
+X-Forwarded-Encrypted: i=1; AHgh+RodAAANtzYefKs4nP/ySJgOn2OQKJZHDwr11FfT/kJox04q7tFHMQOzYCbyON56jXXtU4CcUSnCr5xa@vger.kernel.org
+X-Gm-Message-State: AOJu0YzADmLhv+3ai8OiE3Zj9j34yaMC0fyrEFOUWe/RmzbFBiOHfwEk
+	YGKYhlfe28JkOpEs1c8GLXdDgbYINqwTl6S8rw07W+MT6AkuG/XcLi6a
+X-Gm-Gg: AR+sD114PO8PhKRHxrz7WKxaCtSkWm56jE8sX6Uf7gTCNlNXXMDucmIuzUxTZctU0LC
+	U4biq+bjhhzUJHHv7dTUgtu35E4nG/0h9gm0yoCu7ye7ieDeONPHj6My2Jo8kLsZflhCouGmnmQ
+	0vBrx/3lx4REuUk6LozBbuhbBPcchxBtLwyyNSct9zLCcY7p78lNvbyrYt1YEquR75qn3BU7tm6
+	8TvI6fnbcJ/LYuODhMyg2kIoXyoNsFruE85xWlJNoUISC4F8L0JT1hlr+6fWBlGGNdmyiluow3z
+	v3zqYnka/WUwS533pbC+GhNvd46vq1RSFsnsdWcJp8zAEm5ushUsJsgjeghFKR+9WvlJ6RsMViQ
+	xT/jderS+hzyvP9fiRq7ijah4S25OdlIq4CZuAebBGNDDDZtQaIjAHIK4PdfFOc37v9KipYHztb
+	0/MmsUbRcjtC4hBOyMgtVlFEY=
+X-Received: by 2002:a5d:64e3:0:b0:47f:70f3:451d with SMTP id ffacd0b85a97d-47f70f3455cmr12905125f8f.8.1784627989466;
+        Tue, 21 Jul 2026 02:59:49 -0700 (PDT)
 Received: from xeon ([188.163.112.51])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63e499c2sm35228691f8f.4.2026.07.21.02.59.46
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63e499c2sm35228691f8f.4.2026.07.21.02.59.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 02:59:47 -0700 (PDT)
+        Tue, 21 Jul 2026 02:59:48 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Jean Delvare <jdelvare@suse.com>,
 	Guenter Roeck <linux@roeck-us.net>,
@@ -67,52 +68,238 @@ To: Jean Delvare <jdelvare@suse.com>,
 Cc: linux-hwmon@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/3] hwmon: emc1403: Convert to use OF bindings and add regulator support
-Date: Tue, 21 Jul 2026 12:59:32 +0300
-Message-ID: <20260721095935.439174-1-clamor95@gmail.com>
+Subject: [PATCH v3 1/3] dt-bindings: hwmon: Document SMSC EMC1402/1403/1404/1428
+Date: Tue, 21 Jul 2026 12:59:33 +0300
+Message-ID: <20260721095935.439174-2-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260721095935.439174-1-clamor95@gmail.com>
+References: <20260721095935.439174-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Document, add OF and regulator support to EMC14XX thermal sensor family.
+Document the basic hardware layout of SMSC (now Microchip)
+EMC1402/1403/1404/1428 thermal sensors.
 
-Schema file was separated from LM90 since according to Guenter Roeck[1]
-these sensors are incompatible with LM90. Proposed schema has basic
-hardware description. All registers Guenter Roeck mentioned may be added
-later on, when/if driver would need to work with them. As for now driver
-successfully works as is.
-
-[1] https://lore.kernel.org/lkml/a0c5c1e8-9a36-4835-a5d9-7bafda79c36f@roeck-us.net/
-
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
-Changes in v2:
-- schema separated into a dedicated file
-- dropped chip id check
-- fixed match data casting
-- adjusted regulator name
-
-Changes in v3:
-- fixed number on channels for sensors in schema
----
-
-Jonas Schwöbel (1):
-  hwmon: (emc1403) Convert to use OF bindings
-
-Svyatoslav Ryhel (2):
-  dt-bindings: hwmon: Document SMSC EMC1402/1403/1404/1428
-  hwmon: (emc1403) Add regulator support
-
  .../bindings/hwmon/smsc,emc1403.yaml          | 203 ++++++++++++++++++
- drivers/hwmon/emc1403.c                       |  23 +-
- 2 files changed, 224 insertions(+), 2 deletions(-)
+ 1 file changed, 203 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/hwmon/smsc,emc1403.yaml
 
+diff --git a/Documentation/devicetree/bindings/hwmon/smsc,emc1403.yaml b/Documentation/devicetree/bindings/hwmon/smsc,emc1403.yaml
+new file mode 100644
+index 0000000000000..d7873a37c3295
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/smsc,emc1403.yaml
+@@ -0,0 +1,203 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/hwmon/smsc,emc1403.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: SMSC EMC1402/1403/1404/1428 thermal sensors
++
++maintainers:
++  - Svyatoslav Ryhel <clamor95@gmail.com>
++
++properties:
++  compatible:
++    oneOf:
++      - enum:
++          - smsc,emc1402
++          - smsc,emc1403
++          - smsc,emc1404
++          - smsc,emc1428
++
++      - items:
++          - enum:
++              - smsc,emc1412
++              - smsc,emc1422
++              - smsc,emc1442
++          - const: smsc,emc1402
++
++      - items:
++          - enum:
++              - smsc,emc1413
++              - smsc,emc1423
++          - const: smsc,emc1403
++
++      - items:
++          - enum:
++              - smsc,emc1414
++              - smsc,emc1424
++          - const: smsc,emc1404
++
++      - items:
++          - enum:
++              - smsc,emc1438
++          - const: smsc,emc1428
++
++  interrupts:
++    items:
++      - description: Sensors "ALERT" pin output.
++
++  reg:
++    maxItems: 1
++
++  "#thermal-sensor-cells":
++    const: 1
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++  vdd-supply: true
++
++required:
++  - compatible
++  - reg
++
++patternProperties:
++  "^channel@([0-7])$":
++    type: object
++    description: Represents channels of the device and their specific configuration.
++
++    properties:
++      reg:
++        description: The channel number. 0 is local channel, 1-7 are remote channels.
++        items:
++          minimum: 0
++          maximum: 7
++
++      label:
++        description: A descriptive name for this channel, like "ambient" or "psu".
++
++    required:
++      - reg
++
++    additionalProperties: false
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - smsc,emc1402
++    then:
++      patternProperties:
++        "^channel@([0-7])$":
++          properties:
++            reg:
++              items:
++                maximum: 1
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - smsc,emc1403
++    then:
++      patternProperties:
++        "^channel@([0-7])$":
++          properties:
++            reg:
++              items:
++                maximum: 2
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - smsc,emc1404
++    then:
++      patternProperties:
++        "^channel@([0-7])$":
++          properties:
++            reg:
++              items:
++                maximum: 3
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        sensor@4c {
++            compatible = "smsc,emc1412", "smsc,emc1402";
++            reg = <0x4c>;
++
++            interrupt-parent = <&gpio>;
++            interrupts = <4 IRQ_TYPE_LEVEL_LOW>;
++
++            vdd-supply = <&vdd_3v3_sys>;
++            #thermal-sensor-cells = <1>;
++        };
++    };
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        sensor@29 {
++            compatible = "smsc,emc1428";
++            reg = <0x29>;
++
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            channel@0 {
++                reg = <0x0>;
++                label = "local";
++            };
++
++            channel@1 {
++                reg = <0x1>;
++                label = "chan1";
++            };
++
++            channel@2 {
++                reg = <0x2>;
++                label = "chan2";
++            };
++
++            channel@3 {
++                reg = <0x3>;
++                label = "chan3";
++            };
++
++            channel@4 {
++                reg = <0x4>;
++                label = "chan4";
++            };
++
++            channel@5 {
++                reg = <0x5>;
++                label = "chan5";
++            };
++
++            channel@6 {
++                reg = <0x6>;
++                label = "chan6";
++            };
++
++            channel@7 {
++                reg = <0x7>;
++                label = "chan7";
++            };
++        };
++    };
 -- 
 2.53.0
 
