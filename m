@@ -1,175 +1,104 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B39B221FC6
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 12:36:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E8EB1EDA0F;
+	Tue, 21 Jul 2026 12:37:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784637417; cv=none; b=fo3DJuUQKK6OfcJ9Gsctr5H7nyRhkZGcruy5I8pnzK78+aSlpHz2g4FbyAhrSUCS9vPaDtQ3PrPXUu2eXz7Xgyie6zM2Vhn88kpF9to2buO+FGs4ggBivjtADyQVKVQZoTew2hrH+OUBO+AYUiVPcguPH3BX1+BeK/41yp6KzJ0=
+	t=1784637437; cv=none; b=Sk1vadky0V3zo3JKrUetKXqVjWbavDL6GzECYFQ4Gm3aAJ6faRWBk0TF+qiDjsXQb1j4B28qpo6rOnTSundD9S0rWh5BGQbLZswrgWKYXrER6E+3f0J3w/gQkrwoMpCi9oLISsYTB4gYYvJLzw9wnazKvWXlgB+TbLh0HLpmg1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784637417; c=relaxed/simple;
-	bh=bhNmXrhFvaKTam+ofBz10yzIZUgw6ydcn1p9PpA7Mu0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TOEqmyr50gcy2sH8d7FFZ+QmBAhNy8BaRfqDiUU4CzXWgB9YxFB8DfONvxsYyUMZvc8Y39yaTeUWyT3G7Jx+a8e2tFdlgDxG5wglDXPDNTigSE+qlAbpimtJetKwyWii4DQM6eyM6pao/TdwYqOuX7++ScdzdvivWj+nOtMjq/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eNsc/q7y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BXHYqb/j; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784637437; c=relaxed/simple;
+	bh=U4fj03Py4P0EnSAJIKgGip8KPplL7G7WTFxOCjzlgtU=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:MIME-Version; b=DbmdSYYS6RPAo15Suo7ZMaeCpIPrOaX+MSJVAHI40xk2XixJGuaQ+U/7potPwGDtxsYTLQbW0+ZuWhiWhTUdhhH6zrOloc+XkD/3ShXh2YLsPXwQnZr3mHsJKnAkYZReNnV+1HFDq5BTiJcy3QZCwWNi9AJHJV6XVtraYplISPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=ddw+IOn4; arc=none smtp.client-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eNsc/q7y";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BXHYqb/j"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66LARNck1499969
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 12:36:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	MVnqQ5mVLOQX3eA/++nkwkxnU4gvBABzd9RYvTIMudw=; b=eNsc/q7yNwt86RdA
-	y2eZdPs1hu8WWYKl2UqpJSju4uefKJLbW37RZgJq+KnXQibBPcJ0fOvg68eXAr+I
-	QLMsedQ4NV8u1fMZsRq9ZOm6/fepjVfdgTkvBhqYz1whho7VP39hhd5MW/VHaAEH
-	Appjf0c0eDB09LMZvvICSi/RdqLUydnjN3huq9PBAlJ5Xqqy6hLeoE0TSn1M53mg
-	i5Uhvairhd3t3/wNwSA7Yg6mds1vCJYBUEYc51t8GffhgeoqUSCSnqm+DqqPhT5g
-	qjqg7OYygcl9zhqsflTC6805iPb5TMEBTIjCbvokguOdtbm9L7BkesaYDJ20eZIw
-	ByC/VA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj1bvtaub-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 12:36:53 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c21be5bb4so33831861cf.0
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 05:36:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784637413; x=1785242213; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MVnqQ5mVLOQX3eA/++nkwkxnU4gvBABzd9RYvTIMudw=;
-        b=BXHYqb/jek7J7tVfwbPZ9xq9L8ZF1je53b/BJPprHl5RuUXqbaQEnMqWmfAu8m2VBA
-         cPJQJKJbWQURJ69BYc/7yJovcEr9wMXVcAT4Hy+4ITK8ZcfrNY4UpxMF969UXTawkHsj
-         NSmRz4I6UY+IKbTSyhrhNXkxw98GEssvdH5kEVe/ggROPrjETeKmexesh5P0wvlvOwPl
-         JziX9lq8lQji2L/nIUbrpOC98233QJYDRfG2Cyp7RynOsx9XGQJNyGfKlZdvvjoZPTiB
-         0f5wLgF1glSx2W0AOL4vcPVx5HOmF4LFLyiRHMlt/Tdn2IQ6/+91n+j3E0lvcb1mqg4f
-         Jh5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784637413; x=1785242213;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MVnqQ5mVLOQX3eA/++nkwkxnU4gvBABzd9RYvTIMudw=;
-        b=ZQZ+BzjKqiiSlNNNBLvXJYlYGqVbiaRNvAANEXGPHHG5teNb+Zi+fCgx2AHZSfkfLW
-         xx51aoYvXvX3pBqrFg6Z+w7QEIvkXPgCdqB6hRFdP5VtsOWTlUTcAaRQqGKemls8IhGl
-         YKeA3QFBFyWQ7AHMKc6SpJsjFTVkoC5AJNRlXSX/V9+m0EZvea/V76zdw1WGyAwYUxiA
-         MYucPmlvqLQsVXubwIvDTlU9R/5xOYM98mhAwatKavW0owGOggQuR4O3+IJlOhbM24Dm
-         hdAU2vNvqpbK/iqfMW5+brPUg/xfqE3OdytVbYsM9t3hlTy/PAl0gYpSItqLaAbjqGls
-         +rog==
-X-Forwarded-Encrypted: i=1; AHgh+RoEYYNbZKDy9YTnyd3+6DTMuJF36VAmQpTx2TQmxmUnmn19HgeA6G7xllIi7/ZljhZJ+KjNAX2MG1/Q@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyauwx8QOxE0wZjXyZbAAUUlFywfVDowcV9wawQc2/aeGlBlMD9
-	rkHeifaGWMCxXTcELhafphz1RXz85iQx5jrEFcKCRP6RnxCiDn8O1NmunYxuuq3ijqDQJwH9jEN
-	6jld+yvOi2E7C+xtOEN2Vnj7VYbs2/zoERhyW1sa7vNLO1GmlDquaYjyTGde1Pyyz
-X-Gm-Gg: AfdE7cmYCIjgsAJrPBVVGJb/1rvPKZy8rWjie78MGaNI03/KXpvvb6sXR7/0kuJntIJ
-	L7ezJkPngUd+GwQKwQ63wvYA2nNQ8T4Z3w395odUbFgH5xaRNfoLE+IMNjSHonKSCFGkiSahOxZ
-	XTScPxW9Ojk/qRhenRqHRnJpmSwqL31a3MmR7soZPvl0XTP3Y2xGItfyR9G0Dl94z0JCahkPmRG
-	CkxYEzMg0CRtnboBaIdoApYKGi7X9UZPYW86gs8rO3PfSPM7VTvP37cpZ0+m+ZDEI1bN1dwr2Ga
-	ZmyifGlRfyRKoiKQ6nyezdgeMKPlfQ+AaCi477xSibgE9qvsIWskkc8/MJPni3vMegyEVjlZ4tV
-	yNnKxleV2ms0Cy42iJrQ0Zn/y
-X-Received: by 2002:a05:622a:9dc:20b0:51c:223:3c57 with SMTP id d75a77b69052e-5213f375aedmr104331381cf.10.1784637413451;
-        Tue, 21 Jul 2026 05:36:53 -0700 (PDT)
-X-Received: by 2002:a05:622a:9dc:20b0:51c:223:3c57 with SMTP id d75a77b69052e-5213f375aedmr104331151cf.10.1784637413046;
-        Tue, 21 Jul 2026 05:36:53 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1705afecc3sm581269666b.24.2026.07.21.05.36.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jul 2026 05:36:51 -0700 (PDT)
-Message-ID: <a5d6f840-3849-464d-a540-634dc3ec81b7@oss.qualcomm.com>
-Date: Tue, 21 Jul 2026 14:36:49 +0200
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="ddw+IOn4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1784637419;
+	bh=Q3WVCZdvhuzyHyhwodqX72fDjFGew7fzT/sycGPfkAg=;
+	h=Date:Message-Id:Subject:From:To:MIME-Version;
+	b=ddw+IOn4Z1IxGNo827TTOcA+zo+Q+to9R0k3LDcjnGaUHh/cDeZIKYgyBCA42Ar4B
+	 8sXAufBFF8gOxzFRuFbFHlKcYFtKDrObT/WJjwTMJDaNoeucGmSbTztMG/HF1tJJNd
+	 fIRIAdt74fiza5NInm3MyPo7IijxG6dMTQPCXJTc=
+X-QQ-mid: zesmtpgz3t1784637417te9d389f1
+X-QQ-Originating-IP: njHsgAYR90QJ38EFUoM52TrKnqiRhrriBDg10lgkAhg=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 21 Jul 2026 20:36:55 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 6462590554883498070
+EX-QQ-RecipientCnt: 15
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 21 Jul 2026 05:36:54 -0700
+Message-Id: <DK495Y6IBTSP.B55YW3KSSPL2@linux.spacemit.com>
+Cc: <linux-clk@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>, "Krzysztof
+ Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>,
+ <devicetree@vger.kernel.org>, "Troy Mitchell"
+ <troy.mitchell@linux.spacemit.com>
+Subject: Re: [PATCH 1/3] dt-bindings: soc: spacemit: k3: add i2s_sysclk,
+ i2s_bclk_factor and i2s1_sysclk_src IDs
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: <sashiko-reviews@lists.linux.dev>, "Michael Turquette"
+ <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Brian
+ Masney" <bmasney@redhat.com>, "Yixun Lan" <dlan@kernel.org>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>
+In-Reply-To: <20260717073330.3CC8B1F000E9@smtp.kernel.org>
+References: <20260717-k3-clk-fix-i2s-v1-0-e95001a692ee@linux.spacemit.com>
+	<20260717-k3-clk-fix-i2s-v1-1-e95001a692ee@linux.spacemit.com>
+	<20260717073330.3CC8B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/2] arm64: dts: qcom: sdm845-google: Add dual front
- IMX355 cameras
-To: david@ixit.cz, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Petr Hodina <petr.hodina@protonmail.com>,
-        Richard Acayan <mailingradian@gmail.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260721-pixel3-camera-v7-0-82d323c6c5d2@ixit.cz>
- <20260721-pixel3-camera-v7-1-82d323c6c5d2@ixit.cz>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260721-pixel3-camera-v7-1-82d323c6c5d2@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: H9fT7OJ8Vm66AwvXRlRwvWT5PKL2HRWW
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDEzNCBTYWx0ZWRfX1xOSG25Qs0Ox
- waIb41Svd1o3Z8ZKY27aMYxBazhrcYrmFj1kMJVfwTPkDDRv7TzOpqusXnqXmb0sHug4fOGm6Sf
- QWy/8ywmJLugQkfspUfjHVuXpqcgVoQ=
-X-Proofpoint-GUID: H9fT7OJ8Vm66AwvXRlRwvWT5PKL2HRWW
-X-Authority-Analysis: v=2.4 cv=Sb7HsPRu c=1 sm=1 tr=0 ts=6a5f67e6 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=5ZtbFIxHr3uJdDL8FOUA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDEzNCBTYWx0ZWRfX7imbEPOYA91c
- 1WA28EmPCmwRSHqCUS0Ln7ZrdtxlsHdREUv7UaWJgVA3hnXn84edgLtKhEYCPEIHiQDuPVoZIAl
- 57RhzcgZ8EArUBIXKXOvbeTLMIYM05Q7OGgUpG8B+iSltn6nYTSfkpHwcAgSvM5TqtMcOH1FFdr
- XAfGQs83eVyhqsjXsaPXRYPKruvzR2Kvy15jsGdxYudr24xfRjmxbQPLs+rrWM4xCaylKNpZV9F
- 27+xMYu/+fxpAj3USRptCwulzazKUiHVmn8a6sOj52oTC/Au4GSCUXqgfTpvyCEa8J2evVCinAp
- cuq8sdmv8XhHFz+fAHzyn2mRqBSkN0BL3/aY5B3LnSQA9uxjQqhdx53beQlmRUnWywwuA0ztLvO
- MJYOFW/+Y/z6ukg+GNrYP9Ngt4uBzQ3gqDRLvBUd50v4KQaDlcFpngMJurRtUMxt0e+GGINp2ry
- 5BQA7OLrFFses5SpW0w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-21_01,2026-07-20_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015
- lowpriorityscore=0 impostorscore=0 adultscore=0 phishscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607210134
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: ObFHHlrAm4404UbD/nd2kVy19hy8HzuKctFHMY3TlPCPjWmoA/iZ7O31
+	piVS9BHD/aI0WPsvAE+q0ntZ2x0XfgsKnfOSV3Z/xfmEXsBkIy+ARqldXXbZfp3XQpQHoz+
+	n6x0DVD5JyZiZ4ua/qSyVG3KNs6pkNEwAd0suz+Nje8CGGpuMeMqynRrTzfxPez8X1Uqrza
+	fJTK44e3RaHm6JVC4gNCRZ12LUItlCuE50Wc6/CoApZyPqVXkJZ65eh70TUzX1WfA0SC5B6
+	VmXBWYjR+6WY+MNtYcAaLXHqOleCVeE0YbF83Cmw3r6i0Ak/I6+InVVsonke9Gf3+FGQ2Dn
+	Ow8dLjtTxONTGFxM16hGuqfD9Wk1Oz/JyTKY8x5BKPbCc+TYqdtmLi3X1eOUzXcDe67nC0k
+	/VImbbZNF6IBRXjRAENwH4OYmcFhsjoEOjo6t+N6cAAORUUOq0CVzC9PZGkHwKx7bWHsd6a
+	cOUFHcv2qwsyO4X8iEGofcO9KGVPhrTteMExZLpucP+GKlhFAbfTandGc+dUoT1u8SmjjE0
+	JnV9C0iicv2vWAvQNcmtOyJDrPC/lBzYO1cLog7USN+gACnxOhqEW6bDMwauBXV8/11yjw9
+	hzuiChp9d9Fw+xDM5olQ/b927b5Tdy8UQOn6hWCIZyzyg32xGm+ZYXZhYbTTcJGGsyg4/UL
+	Z0Vq6URyDaH5IWrjc2ka8GmPCJxQBSu2fkxKF3HQnZ510XZG1HoR8tkE9A1CHiLgM6nozzI
+	ml0U3gH904yVlHMOPrvBjSxlhSlaEH6a9VSDACi/c9F2M+f/HQdsosWJ8uGd/oT69Qa9BqA
+	RXzNg6JdrbMpILMs69rDqwSB4wksIPW+8txYBHRwwpvu9QrMnEAxAykOKAf8PUur+84cYPz
+	mSbWGLNdldlVwjy6P68BuQHEeoKcknRf8Vq4y1E2XC9LMduOD89wGE6gCD3CSbEEkBUBgFi
+	0E8FJJdbN4sb9tb7t20gSiTUbPJ8B02W7fuLoB4hf3NUqgvWBdnF8ZnuuH7EDfuF9HNhlLV
+	sNe1yeOwGkWvwcwxdRKDi5HCOK30KBTO+VCMWaPMPJhkxZuRG8qtITcpizcNM=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 
-On 7/21/26 2:33 PM, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
-> 
-> The Pixel 3 features two front-facing Sony IMX355 sensors with
-> different focal lengths (standard and wide-angle).
-> 
-> Sensors are connected via CSIPHY port 1 and 2 and controlled over CCI
-> I2C1, using MCLK2 as the clock source.
-> 
-> This enables support for the dual front camera configuration.
-> 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 172 ++++++++++++++++++++-
->  1 file changed, 171 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-> index 9368fd6b87515..c8a28133fb38d 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-> @@ -1,16 +1,18 @@
->  // SPDX-License-Identifier: GPL-2.0-only
->  
->  /dts-v1/;
->  
->  #include <dt-bindings/arm/qcom,ids.h>
->  #include <dt-bindings/dma/qcom-gpi.h>
->  #include <dt-bindings/input/linux-event-codes.h>
->  #include <dt-bindings/interrupt-controller/irq.h>
-> +#include <dt-bindings/media/video-interfaces.h>
-> +#include <dt-bindings/media/video-interface-devices.h>
+> CLK_MPMU_I2S1_SYSCLK keeps its existing ID (47) but will be repointed to
+> the real per-instance i2s1 clock in a subsequent patch. No in-tree user
+> references this ID so the semantic change is contained.
+>
+> [Severity: Medium]
+> Does the commit message reference the correct clock ID here?
+>
+> Looking at include/dt-bindings/clock/spacemit,k3-clocks.h, 47 is actually
+> assigned to a different clock:
+>
+> #define CLK_MPMU_I2S1_SYSCLK     34
+> ...
+> #define CLK_MPMU_I2S2_SYSCLK     47
+>
+> Could the commit message be updated to reflect the accurate existing ID for
+> CLK_MPMU_I2S1_SYSCLK?
 
-These should be flipped to be sorted.. if you smile very nicely,
-Bjorn could prob fix it up
+Good catch. CLK_MPMU_I2S1_SYSCLK has ID 34, while ID 47 belongs to
+CLK_MPMU_I2S2_SYSCLK. I will correct the commit message in the next
+version.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
+                                            - Troy
