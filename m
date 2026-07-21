@@ -1,96 +1,65 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 978373BCD3E;
-	Tue, 21 Jul 2026 08:30:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E7C3AE18D;
+	Tue, 21 Jul 2026 08:31:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784622620; cv=none; b=bLAlhPBsnJGnBqTrHrw16EpzFg2OiPJ2mSb836/ekW+Mig2ZZ91AOuFzD7tRII1fBKrz3x5IRTOmZ/CvHxg3+UX/0/Y105HPXv0LYFI3cNvHBGrxc9kRLXUglL9C++QqPB151GVI3GzqEGvH7otCcHK+OhQeCkNT6Ib9qlWdpMg=
+	t=1784622680; cv=none; b=CdpeL75fk/8HogOt37l4/bgJsp4whjxnrR8ZkxjmQwMvqtugYi3vZqNHsUXEUlfHUMf6Mmgu1ueh8R8zZaC6d3UX5hC2O0AAjNEF1dnFf7VbvDv4G4VUUVUaBh7Ngdb480zvx0UhVhPGxylcaoFz5hD9kr7TZ7sqxy/tyPyW2lY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784622620; c=relaxed/simple;
-	bh=53cQQbHnKYTUlIp1/Oe1lnHotiqeGBENPlrWHZNDVy4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VN4gafOpCLJhTh87HupWERr8xwHIpf/jlKnZIfk+IOXiMsvyYriWNoZh3CGik8ruWVXFxF0zwZWrsFN9QR4wIgG3WXBkCFDy2Ua1qoJisl7aELUpHAnYF6umWy09z7Plb9OqZp/a5KbPjfv4abGzWQ6/6EeXQB2hBR/5o8NfSYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=uf3nSZ1l; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1784622680; c=relaxed/simple;
+	bh=U0MuA4GDEeDELZUWCNkJqKt19jy22tTdM7e7AEUl3Ew=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TFNniy+mRFKDWZAVf9n6PvS+XmJNE+PwgbRD33nUsGanZgbcgj9HcQeSdEbBVRarp/quhpn6fikOHVA2GhfxFZ6EobbWyBg8x03F4hK5lqVRv9QwpQMggm/+SamYtFPJSVvm7Aeg3mcgCUmTvcT5vEzW9VnvZK0NZpU9pdHa3wM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kn0aAjB7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="uf3nSZ1l"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 6120B1A1131;
-	Tue, 21 Jul 2026 08:30:15 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 35F2260368;
-	Tue, 21 Jul 2026 08:30:15 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E24F211BD0D07;
-	Tue, 21 Jul 2026 10:30:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1784622614; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=m09xP2eVOvf/ABP75jSTVRTHgDA66h9ZeoreFZaMOj8=;
-	b=uf3nSZ1lOWLIWV8w2YLPOdAwB8A0PgEYngh2KtN1kWNwA5/WQmsE2J1r1w0FLlB1wXkKTA
-	ZIXSh3X0VwjHdKZlb2NeshGh8SdfyR16+t0Q6yTIWd9JOCpoCP4cw4PqUH+gqMi/KPnVH0
-	4yNWyvxWJ9LllfQz7B0kxfEoMyeepfLZh3bFVJrUsh3eWj4EJmHrQI58AmZqmbxwbvsfqi
-	SGJpTgtwyEGiCw+IVYzdtNa6XahG4PbADtAtxdbfIWEGQJ44lS+gl0yvA5/aSVsg/Wtxva
-	ONdsxfs4oc/rsfZ3NnQmIqXUSUZ6RPuKKTi+MK3DEMV28fVGUZMGeMcUUMKQBA==
-From: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Pascal Eberhard <pascal.eberhard@se.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: [PATCH v4 4/4] MAINTAINERS: Add the Renesas RZ/N1 timers driver entry
-Date: Tue, 21 Jul 2026 10:29:50 +0200
-Message-ID: <20260721082952.215691-5-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721082952.215691-1-herve.codina@bootlin.com>
-References: <20260721082952.215691-1-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kn0aAjB7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A8821F000E9;
+	Tue, 21 Jul 2026 08:31:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784622679;
+	bh=tt/a5l7nojCAhyhx8Y74MS70A+it8fEQA8LiYUPVWzI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kn0aAjB7BLrwFsWe6ESRUVG7atxt6wcnb5UeTYZjqqB1rw2RWJgCJFUBzduF26XTp
+	 HUVmsEs7/e0iDf9qA8EZD/PLX/40ggje3sH3ipO79eK2yd4OPeBDHeSQpql944cncz
+	 lwqEd+J8UjSiNhlcr5YKc/8aHOXHQMl5FpqazWAooX9KAF5Xd/cD+AbjE1CrMTqM3y
+	 mxBN0aDw5a9qASxHNrCu0nr3k/l9q4x1YTo9beMIchKxGQtahQ3UNrOItc9EveWw9R
+	 sDAgvyRzM+eb/VhKIfeUPEShjXF9owMc075YuTT4jIiQQi7n15qYMuo391W9xp1k9T
+	 6WSlthYQM4MVw==
+Date: Tue, 21 Jul 2026 10:31:15 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: soc: qcom,aoss-qmp: Document Nord AOSS
+ side channel
+Message-ID: <20260721-intrepid-umber-toucanet-bcff0c@quoll>
+References: <20260709085149.4072181-1-shengchao.guo@oss.qualcomm.com>
+ <20260709085149.4072181-2-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260709085149.4072181-2-shengchao.guo@oss.qualcomm.com>
 
-After contributing the driver, add myself as the maintainer for the
-Renesas RZ/N1 timers driver.
+On Thu, Jul 09, 2026 at 04:51:47PM +0800, Shawn Guo wrote:
+> Document Always-on Subsystem side channel on Qualcomm Nord SoC.
+> 
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/soc/qcom/qcom,aoss-qmp.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
----
- MAINTAINERS | 7 +++++++
- 1 file changed, 7 insertions(+)
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 15011f5752a9..17fd5f749344 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23025,6 +23025,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
- F:	drivers/rtc/rtc-rzn1.c
- 
-+RENESAS RZ/N1 TIMERS DRIVER
-+M:	Herve Codina <herve.codina@bootlin.com>
-+L:	linux-renesas-soc@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml
-+F:	drivers/clocksource/timer-rzn1.c
-+
- RENESAS RZ/N1 USBF CONTROLLER DRIVER
- M:	Herve Codina <herve.codina@bootlin.com>
- L:	linux-renesas-soc@vger.kernel.org
--- 
-2.55.0
+Best regards,
+Krzysztof
 
