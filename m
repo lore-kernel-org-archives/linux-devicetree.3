@@ -1,251 +1,95 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBA9A3BE178
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 08:42:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 662DE3B6BEB
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 08:43:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784623351; cv=none; b=ALzJOGdHeiajdX1iTe40lFTEZdaufehtqn0vdSH1JRcbPUdjgTQNiTxPHgEe7Udimet/qvFOZqij/xuTa5enez4xykpNWDf8qbV5hwi5ab8IiseeGY23FByQnbYm9R6IlPcV/hu4w/Il4xhM8pxYRNvK5G6V+RMKKBgG4AEIds0=
+	t=1784623417; cv=none; b=PSbdn2XoFS9zvJdS+ypLXOItHNuylNH9mBIs9x0+Nwa112kgF2rWCxvSetwnsb+nMF+hyorjOYb1/9tWxLlNzCq/bffB/eKVBAn7XW8k2yVg4otR5IxMrbAG1vIqxstUX9RHu3MpBxOl3428afHjoGtmFYfrLbF9VPPgVBnXajk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784623351; c=relaxed/simple;
-	bh=lKde3pt6Kpj/3hvdYp87BCZT1P8f9xGlS5sZvA4sZTo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uCzA4fNo+H9Y1Ld3lpK4n4mX2fP+su6xkY42L8s2h/STlpqbyqTfSz3w5M8MaI1NaKpt9eDTCHwdAI/3rNyfjV8c2OSFAM8DJCdLuYAlpQtCJUxNSnEzoLtVQVZbF+MGDUAlC5v1FwsXbgxvuwXbSHjTFaCnpDDn5oRXhXXW15I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=V4rCd6Zc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jmAeqRdi; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784623417; c=relaxed/simple;
+	bh=wLADHfD9DbJapxsEXOfoiiWWsWK9YR8DckQXdYRO0iM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=TKOYUqoqBaemqDwSW5clswdwuRf0LEfXaX6Sqwnj39vUJ+Gy4iHtyp56YOMVZBZtIRTUFvf0WPAK+EEXeff266U+H3vfLfDF0LT6VT1hEVp0w2jFkk0z7cKqafzu5MLC+kpIrTHg8RL0e88h9wb4VgZ82ZPovoZA8XOosp1XUXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZTXAu5/4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="V4rCd6Zc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jmAeqRdi"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66L44BVX534626
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 08:42:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Y5AkV8VLMfHRsyhaijYGLJK/vMYhOnODDI0bAEX0xF0=; b=V4rCd6Zcw28BraVQ
-	mbZyHP9leVqn/Z9FYaCzmPh2MHcD+xRurxnW9EOI0m5SpxRhbZZd6Ajd/yvxd5xj
-	c6x8N40G+UJNcrBQtInaMBk3qV6DUt0HkVhrlAa/lUBHAjBCbzSvY3VsV4S3RHL1
-	mEXXIeWyPr4vOVQ8SV9uRVNF8Rg5Np5IaYPNm3edf2vJPAzY0WIQW1rf8IzEKXBm
-	QxKSYAHU4MwViVUJ6VfN510q10HYM2XrIG1Wz+bCXOqV7YYfOXQ1i5py4xGEBBI8
-	PvqvpsKjyhuyRpBZRTZkQIQbpNjNxQ0ZN0+8ETIrorwiLRya6yyS0otgj4yrOtbq
-	lSbGhA==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj1duh6h9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 08:42:27 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cf27789c79so62079305ad.2
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 01:42:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784623347; x=1785228147; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y5AkV8VLMfHRsyhaijYGLJK/vMYhOnODDI0bAEX0xF0=;
-        b=jmAeqRdiADxAnkH1BlFyoKBNcqGeKbPoVaDaH4wF/gtH6js1tMiUWt3sGvf35MrC7S
-         Mzb1wHfUzx4fzzJpT29rpWWr1T0Dg8kPXHJbGJuyi6J/tvhqso1hsVeRDKFt1TGt4uQe
-         Fa+LkV66nbIQ2kyK0o/s7Bq5ZsAzCK+cz6abOb7KaitIP7KTY+lvrzH2JUGjkiNy/OXz
-         FOkh0QkiZU92+EUe7749Uz4ZDeCxBF8CyPg83j26ZmPYElBYtCpX/M5TldCYbeE7S7wU
-         qarLSOYgVn7jbg6FQAHGmHTsytwAXyaCbVlpes2ZBSeNVNoEhq7v4ZAvXAiWGvhI9C7Y
-         t5zg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784623347; x=1785228147;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y5AkV8VLMfHRsyhaijYGLJK/vMYhOnODDI0bAEX0xF0=;
-        b=gtTByVTE0t6+IvRW1bNVAjgej1x45ABbVBFphvvc61Rrb+Bto0NdAr0nLBp+fHzBqW
-         82y0Hq3pVMfFtPi+mlUYgK9/9kLPJYWWaKCC6zm41k8UvlD4af9ke8/Eyf0j+aRFET5G
-         DGHXBM50MPLe0ItClMrxjvKWv/1wdPlJBt0R0gjd49lbkKxz8zg3yewENJF7ObApUUg8
-         2kiHUk2nRFbf/mWrPmsMzNMxjTUnIwvCdZTbx8TKeGZtGCEDjnsD+kodIo+58TaP+9EY
-         noofBw02NkDBwzYCkWizcDANS6m+44kHe4EOGAtc9dHfHXftaMwKpydWerXpPHMpBHN8
-         Th0Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqiwfjjsRI8vi+hDoq9QUC85jRmQEMbUiYV2EOZnO10RbsjHrMd1vEWoC2tboCGnHa87XJkvHXPhpDr@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzu1VvF7nqxuKr+IRD4xJo5s1V8PfpfmxspHJjGHemPUsCenh7V
-	U7LfcKEQ1DxDlhkVcc77C9Os9OeQtZdzHt8Km3JJzrhgYD/baa9Q1RCcVa6rI+dscNTQjT4nRFO
-	X7/IJTgPCvHVl9e6L6/yaBwc+yZEslfZ05b+/a/oTYthLcRbb7pP4lfK4BYSVgpeT
-X-Gm-Gg: AfdE7clKYrEOBn4+RqZl9AnBdEm7Er0mVdSnfBhFdwxSVBfWeyavi2Ag2vWaxGo7kLH
-	B+vMgvKvEvKnM61UUVtg/XcffOjLpfJ4AtNc2PrCfqAHtVpN4+DuUoGnAfxfAoFMrNfRvjLnANM
-	ONjr1RG/NgyC3ql8R4nveSWZ+7v8sC2C3/ZiHwz4AzKILaKvAwt1mvlXMcgyaWSzAQ9foFVwnSz
-	BTbwsDfXOhXTUFkRhqMD8Tg6vTJMGau/eqYU954JMQbmFSI+Ci2Yg7ztg7yTl75lvKwEyzGSrJx
-	dEcgj7MEDjfHLf3j/d3VxWBsMqMUgshbGPTGlYZ5cP+/uFdkrsdXemlSOAAc3tfXlAcmRSbdIe6
-	HP8mr7uA3lxtTkjbYYpNJfNi/8RxM3myDFldzZnY=
-X-Received: by 2002:a05:6a21:48f:b0:3c1:817:7938 with SMTP id adf61e73a8af0-3c3ada3e378mr20031151637.67.1784623346475;
-        Tue, 21 Jul 2026 01:42:26 -0700 (PDT)
-X-Received: by 2002:a05:6a21:48f:b0:3c1:817:7938 with SMTP id adf61e73a8af0-3c3ada3e378mr20031113637.67.1784623346008;
-        Tue, 21 Jul 2026 01:42:26 -0700 (PDT)
-Received: from [10.218.21.154] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cb517ba73b4sm5722861a12.4.2026.07.21.01.42.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jul 2026 01:42:25 -0700 (PDT)
-Message-ID: <e2e50e30-6da2-45d9-b472-dae7d41d100d@oss.qualcomm.com>
-Date: Tue, 21 Jul 2026 14:12:20 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZTXAu5/4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 125971F00A3A;
+	Tue, 21 Jul 2026 08:43:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784623416;
+	bh=A2nRx+3FAdvcnStIR7pbdZjhj8iSgzF2v1VefPVxOdc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZTXAu5/42JU2tbPwqNHT0fcbTlG13g8/xU87F+Djj9acsR0kdQWp052tctJDL9EyB
+	 AVyjLGZSFQbJPmRHe8vrltXDAX6lJH8F6podqr6PEGkyL3vHrUQGX6qkZruG2WYT7f
+	 lM+cec0HXChUEmFKPyayWU/BV9SudU1dIlnRGJfH8Zad2YPDkCvoKnKYkehsPG/aWG
+	 TGsaYoTzVgLUMc6ogHiwIeyThE+5ZsUgmurgyXhWLfRZjFuIg9PQZx1kNDQC61KsED
+	 pp5SGU+yj01+ieWXmSopZwQlcrRUgsfmx6DIGxYMm/2P+67PG6ZW9w7/eOvr9f4fBr
+	 RNE0sBq2Mc3ZA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/3] arm64: dts: qcom: eliza: Describe the CDSP
+ remoteproc
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260721-dts-qcom-eliza-add-cdsp-v2-1-e1e52bfb3c12@oss.qualcomm.com>
+References: <20260721-dts-qcom-eliza-add-cdsp-v2-0-e1e52bfb3c12@oss.qualcomm.com>
+ <20260721-dts-qcom-eliza-add-cdsp-v2-1-e1e52bfb3c12@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 08:43:35 +0000
+Message-Id: <20260721084336.125971F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/3] ASoC: dt-bindings: qcom,q6apm-lpass-dais: Document
- DAI subnode
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-References: <20260720160226.1026440-1-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260720160226.1026440-2-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260721-fiery-sheep-of-piety-4fd04b@quoll>
- <67179d90-6201-462c-9004-9b4cfd114250@oss.qualcomm.com>
- <2d4513e2-7e14-49bc-8b70-6c07c9f99d6b@kernel.org>
-Content-Language: en-US
-From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-In-Reply-To: <2d4513e2-7e14-49bc-8b70-6c07c9f99d6b@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: t9MhmonlIBlFs5KNf-uiZaT3b54D8NZ6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDA5MSBTYWx0ZWRfXwzy2UGfnRXWE
- vkRrTMQiEOGfkOziXYHd0aqRZSdd6YFbfvXzS8jX+cFyLl0mBH+TrIU3O2FiKSB4X7L2WjsSE8t
- 3GfouhsUxbPzNJ7de4VwFL2jjOfLRZWFkAKAwF2DgtfU1exUmC7Cc3lsDlD9f/JsZ0N9EUa5p9A
- uo1oKDmKbtDImCpv+SKTx3M94bh8l9kyPxRUMkobOWoHGTpUzkmAr5RkkoomcAvBvYGpB6Av9xo
- qtDxwEhcC38CdOu1eLjln3jVokmDH/Ysmlc9SKpHG3N2PflqEu6Wme+z35AmiClstnqD9TyHWnx
- Z54rM973Uvev5/Q7dpArR5leabmTB31wJH5ldRXKiXsfqkVTSTXdzxOAaq4xTjSftpWGc2qVofR
- Gvs4JEC1Ym9j+KxIMXiIVqdPsIQ7ARxnecsA3e1uHpzM+fU6ygpmj9wviXYXDUpSGU+aw8jkTi2
- UFIfVlPoFQFxKDh0H5w==
-X-Authority-Analysis: v=2.4 cv=I9JVgtgg c=1 sm=1 tr=0 ts=6a5f30f3 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Wdb1h0LgAAAA:8 a=4BztS5KMpPGOG9ln_IAA:9
- a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22 a=j5gyrzqu0rbr1vhfHjzO:22
-X-Proofpoint-GUID: t9MhmonlIBlFs5KNf-uiZaT3b54D8NZ6
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDA5MSBTYWx0ZWRfX7D3lTt+ezANP
- 91CL3N+rOPQWfePppcev0pQgnpIMYFwDL+hdCHhvYRvpasMAdCAq4v6e8ENflBHweVQn3opBCx5
- pMwlDfJhE5tmGz8fCKG2vI6R/3qescU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-20_06,2026-07-20_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 spamscore=0 clxscore=1015 suspectscore=0
- lowpriorityscore=0 phishscore=0 priorityscore=1501 impostorscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607210091
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `remoteproc_cdsp` node lacks the `glink-edge` subnode requir=
+ed for inter-processor communication.
+--
 
+--- Patch [1]: [PATCH v2 1/3] arm64: dts: qcom: eliza: Describe the CDSP re=
+moteproc ---
+commit 0d8a8296d1e008af4feca584273c5028b5ea34a2
+Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
 
-On 7/21/2026 1:50 PM, Krzysztof Kozlowski wrote:
-> On 21/07/2026 10:14, Mohammad Rafi Shaik wrote:
->>
->>
->> On 7/21/2026 12:18 PM, Krzysztof Kozlowski wrote:
->>> On Mon, Jul 20, 2026 at 09:32:24PM +0530, Mohammad Rafi Shaik wrote:
->>>> +# Digital Audio Interfaces
->>>> +patternProperties:
->>>> +  '^dai@[0-9a-f]+$':
->>>> +    type: object
->>>> +    description:
->>>> +      Q6DSP Digital Audio Interfaces.
->>>> +
->>>> +    properties:
->>>> +      reg:
->>>> +        maxItems: 1
->>>> +        description:
->>>> +          Digital Audio Interface ID
->>>> +
->>>> +      clocks:
->>>> +        minItems: 1
->>>> +        items:
->>>> +          - description: MI2S bit clock
->>>> +          - description: MI2S external bit clock
->>>> +          - description: MI2S master clock
->>>> +
->>>> +      clock-names:
->>>> +        minItems: 1
->>>> +        items:
->>>> +          - enum: [bclk, eclk, mclk]
->>>> +          - const: mclk
->>>
->>> This does not match your clocks.
->>>
->>
->> will fix this.
->>
->> clocks descriptions are misleading because they imply an
->> ordered bclk + eclk configuration. I'll drop those descriptions.
->>
->> will keep only
->>
->> clocks:
->>      minItems: 1
->>      maxItems: 2
->>
->>> I gave you exact syntax to use, then in previous version you used
->>> something else. So I reminded. Again you used something else.
->>>
->>> If you decide not to use it, sure, your right but YOU CANNOT come with
->>> clearly invalid code as a substitute.
->>>
->>> NAK
->>
->> Suggested change:
->> https://lore.kernel.org/all/2b4448d0-81f8-410f-b849-0d957a2d2a17@kernel.org/#t
->> minItems: 1
->> items:
->>    - enum: [ bclk, eclk ]
->>    - const: eclk
->>    - const: mclk
->>
->> I tested the suggested schema, but it results in DT binding check failures.
->>
->> DT binding check errors with the suggested change
->> 1. Only mclk enabled
->> bedais: dai@10:clock-names:0: 'mclk' is not one of ['bclk', 'eclk']
->>
->> 2. bclk and mclk enabled
->> bedais:dai@10:clock-names:1: 'eclk' was expected
->>
->>
->> With the current version of this patch, I do not see any DT binding
->> check issues. I tested all supported clock combinations, and
->> dt_binding_check passes successfully in each case.
-> 
-> Your clocks told story that you have up to three clocks, so indeed if
-> you do not have three clocks then my syntax is not accurate.
-> 
-> Before we go further, where is upstream DTS using this?
+arm64: dts: qcom: eliza: Describe the CDSP remoteproc
 
-Currently, the Shikra DTS changes already present on the mailing list 
-include this patch as a dependency:
-https://lore.kernel.org/all/20260616201315.2565115-7-mohammad.rafi.shaik@oss.qualcomm.com/
+This commit introduces the CDSP remoteproc and its related SMP2P node.
+It provisions the device tree nodes, interrupts, clocks, and power
+domains necessary for the DSP.
 
-+&q6apmbedai {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	dai@40 {
-+		reg = <SECONDARY_TDM_RX_0>;
-+		clocks = <&q6prmcc LPASS_CLK_ID_AUD_INTF2_IBIT
-+				 LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
-+		clock-names = "bclk";
-+	};
-+};
+> diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qc=
+om/eliza.dtsi
+> --- a/arch/arm64/boot/dts/qcom/eliza.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
+[ ... ]
+> @@ -3737,6 +3761,46 @@ nsp_noc: interconnect@320c0000 {
+>  			qcom,bcm-voters =3D <&apps_bcm_voter>;
+>  			#interconnect-cells =3D <2>;
+>  		};
+> +
+> +		remoteproc_cdsp: remoteproc@32300000 {
+> +			compatible =3D "qcom,eliza-cdsp-pas";
+> +			reg =3D <0x0 0x32300000 0x0 0x10000>;
 
+[Severity: Medium]
+Does this node also need a glink-edge subnode?
 
-RubikPi3 DTS patch series uses both mclk and bclk:
-https://lore.kernel.org/all/20260715-rubikpi-next-20260605-v2-6-67601d7a8581@thundersoft.com/
+Without the glink-edge subnode and a fastrpc child, it appears the
+application processor might not be able to establish GLINK/IPCC message
+channels with the CDSP. Will this prevent the DSP from receiving
+workloads from the host when the node is eventually enabled?
 
-Thanks & regards,
-Rafi.
+> +
+> +			interrupts-extended =3D <&intc GIC_SPI 578 IRQ_TYPE_EDGE_RISING>,
+> +					      <&smp2p_cdsp_in 0 IRQ_TYPE_EDGE_RISING>,
+> +					      <&smp2p_cdsp_in 1 IRQ_TYPE_EDGE_RISING>,
+[ ... ]
 
-> 
-> Best regards,
-> Krzysztof
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-dts-qcom-e=
+liza-add-cdsp-v2-0-e1e52bfb3c12@oss.qualcomm.com?part=3D1
