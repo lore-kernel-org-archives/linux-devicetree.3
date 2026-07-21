@@ -1,177 +1,241 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD1346F4B0
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 17:33:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784655189; cv=none; b=rv1JqJZsRUY9l4mklRRs4PJa2jdkX3e2MRVtktyGa7cDHyZ2R81XeJ1gAKx9kp5hKhHTT29b/0wactMZbk9KBUDju2MlbOaw2eeqxtWI2+fzKzkNklfEy2FpDZ/RcVD6M3ufpPRaJaOqY1B+CliV/kGkyea/xQiapetzl9FOJsA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784655189; c=relaxed/simple;
-	bh=zD30EA8RlbclvL9YJ5yRBEJPZIL2Cuh8TMVY+3LX+dc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CqBb/+91hkA7br3JmZmJrDlzBVgGO2ZewRIN1NkS74PpsyhqnUSUdWbtQYJU8y2hyWB0JbqkTCH8YQoTgVwK+Nppz5jiMAk/0uSvGkH2aID2C/7h35cwm3+Bz88PWazw3o5krLGlVnOUPMakkjiq7VL0+j/i1UQVmcbmiuly65U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FCEaAWvd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NQxtuyDm; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C95DA326D44
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 17:42:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784655743; cv=pass; b=DJ7ZhF/pr6UVlCw6BZWyvbE/k5twvkbsQwyi3mSmGOO1Gac+xK0thZuRdHrjOw+Oj+ta9YZF1gTXfkYghJuxaZUz4ElWLFWcpq29viQHmnc9AITGCYlHIaOaYB9frq1soA5mP505gEtI5QIrirxLYEXOPEGxWGF3J7afMuNIReM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784655743; c=relaxed/simple;
+	bh=tK+bZLcsdQ8qnewhBYqhGihItfIiZUpVHQ0hH8OrxvE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GGPiYYO31XkVZXQAKvAX9fQaUdLRrxn5pe4D+nMxnYi/VAcHZNqjzCT8Iex7Biyq/ToBJPnLE6Cslro5qL8fekE744ueogDDAQ29kR0NMFoh4QyHCqR9DT4Yn9/fOt/tCxOiCMZk6B6wq5DbgIz3+CR99bATAKyka4ljD+qZwS8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X9YAV96j; arc=pass smtp.client-ip=209.85.208.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FCEaAWvd";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NQxtuyDm"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66LHPVJj2115734
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 17:33:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	4rOPeDp1gR6WFEaLqOQIi9Vwwi+NGwBjpXQJ2pPHGYE=; b=FCEaAWvdmqbxCxCA
-	G5jHmwr225NRMj4A6zJrNiCah2aeZT1gXDGfugpBaGB6P7732dEyBbfjRvLZY/3w
-	DEL+Q1zFKH4Y1lko9hhOd9HAfgqVyXNtS3W1HVE6uZt1zuwkzeeAzTTlBCymocrx
-	Vlsp857v4f2wcYTX6SwBFxNIqjMYo+YUo6UpGKF4HSzrnldOTdcmh1k/XKbgtSFB
-	5GtjHlZpeH6U6hiQZdcgmGkeXUKQAvyHwQGqDB/zA7oU1nYjzPoWdC6sG6rAosod
-	qAkRM8T4rby8HSLt/lGXIvfBPgqxvaVTyRMr3S4dTAyFdwe2hPYrPGPm6E1OtO2V
-	st40Cg==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjd5e018x-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 17:33:06 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-84865f326efso12112896b3a.0
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:33:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X9YAV96j"
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-39c8dbf4ef0so105228481fa.2
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:42:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784655740; cv=none;
+        d=google.com; s=arc-20260327;
+        b=auo2+2NHBx+axwN0BnNzXuw7BE4CHrC/YkMQwTDokECcxA9gnIZPfsig4O2tcDMWKC
+         FxCw4VoYVGi3ofUQuq7YZ2AHb5cZF91QEi2cyO5RBVteASfQfVbheXztCLJhyp3EgDUl
+         cBUH1i35gRctTOXKs8MTUawZi1GBKyOw8OARhuDhSrRIlluZTSroW8eRuT+3wMtDnJnK
+         nKjc0gWzad/wZ+NEDPQVXAlLI7hJog+ei6TU6xqQnK+8po2Q/UwviaWULH6P6HmIFYv/
+         eKTBXv1h4NcdpbyUamfe+G/m5YMoaR4aFC89g3rCVSixzEJs1DmDSn+JrBNEruDZgGNA
+         ZDQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wcHwhdeQPiyGFea8RRLYBEqK38jdeuTu3+dvRJn5SpA=;
+        fh=dyDdi3FX21Zw7NVVqBVo+/6/HY+B2tgT2Zo3O97Hbq8=;
+        b=Hth1V6kp7ujSN4kKjCZTEMHAytJuche1KUOlLaUaGieYACu+w2b0s8lDqbHxhaVCeZ
+         l7wIl/gWI9UbSbj4HvkQOJVxJl+ncizjtCsYakNRjAX5jJKKM1aZPFISlDz7nrTrTsmN
+         AaF1IzcuR7ixiE+gmlUv/6BIzCpgt/FlrafAKaQNiuyTARbZfvsYRLDm9xf/LvSryfVN
+         NgIJHx44RPgFKuQlVrcU2KIFKogWAFBoVmfJbawZsYInxg4hRchCepmh49o+lKTHS9K/
+         GxVhtojaMUbKmS7dn0znaJYbAifWykM15sAFos/EbqQop6MlqU6VD72biTdM+8kuobm6
+         NtLQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784655186; x=1785259986; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4rOPeDp1gR6WFEaLqOQIi9Vwwi+NGwBjpXQJ2pPHGYE=;
-        b=NQxtuyDmegCtKi5t6suxj3coxfOLNrdFIdne1Jf7I08xo0U6ehd2F8qQZIG1Cs0tCY
-         PnuF/B/gT8u7aO0HE+9CKcl/uWZADT7HmPfPY4g8j1HoazzwMIp0rartSOENDpVoiILi
-         9ICcWE2A0G2t2hOT06FLXoRRBX6msWsrqKyZrYivSTixBZ861XkySiJS5W5oV1vBL/RF
-         mvUSCnXM/r9dAMOfKeymXZx7/950tpiQEOnygdYJho1ctnHk2usbjNc/uxdjO2fo+4tA
-         tHROhHB5vt34k+x4r3xZw95xKzcaofJAeS6aFX+rU24Nkgai9JoLeWlj4wYUu1HT38cM
-         GC0w==
+        d=gmail.com; s=20251104; t=1784655740; x=1785260540; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wcHwhdeQPiyGFea8RRLYBEqK38jdeuTu3+dvRJn5SpA=;
+        b=X9YAV96jxo7lOWIxIPkChB0PAWO0eFKMwom+yz2BNuLbDNh1dcyqRfJ4BGljECqO5A
+         hbdEIBMdeFFJ9u88gvQMPSBTuLsQZJnoFDD1NqVuA/siVMfBeOVnBApbMt9bqLihjYQC
+         le5W6kHh18XGl4iXljz2pu0jC52tQbxLyHsz8HFPpE1u15QH4TAOscBWFdsBgnVj6K5y
+         hKCzkrYsTxd6a2REtjaJYRS50ciSMdj34QuXfbnW0tCYEx+LgxBmgW67OxhppOma4ga4
+         8GaDRSv3AtwYdDIBWbzP4BR/XsxH2onlGmLrr/Ql7A0F67GkYVTJOm9wfuoBeXsvu6uz
+         SyJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784655186; x=1785259986;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1784655740; x=1785260540;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4rOPeDp1gR6WFEaLqOQIi9Vwwi+NGwBjpXQJ2pPHGYE=;
-        b=ddQVgX02qbfcK8TeBwjxf/LhtkZfOYGGtBnHVVEdTq47jpcyl61RUYe1ES2Xeo7awI
-         iET4KLz1yjPt8v7cCCMxDsF6dnMAsay40zexuHclGH60MGNKpXoNPXwZjP92p7DaziCB
-         PEDznySlzpvh800bWhTOKq/nmTnqIQozzzDlaoLb94FkRyR0ZzxXvQLrVmk06ZrLubi4
-         32BwkVgEV2thsDTsXLJ4DIHPN+50QVWA1R+P1vUCJ2r/GYZJvfxBy5fDK/Y/x0Tmj9OE
-         wBjV9Cau5TSqquP1nWYnvMuafDRpMJcqLH4W+tV7e8C0uNM0C+g1pwxzIbkUEj3TNkYy
-         ebKA==
-X-Forwarded-Encrypted: i=1; AHgh+RrWDbqIhyCAP/ah0oL+Ilzs3pUbAtkvcKNM68OGu249e4CGpH7AWKP5hiZnnouax1WeXWxChvaSVB6N@vger.kernel.org
-X-Gm-Message-State: AOJu0YyAM2m//IHhwo6PP3ioYnzOwxbSXS6BDnciWfP8+yGfYqrUtUsw
-	VoZAaZIbpJLs0mM7LPxGwcYTWB4tkufLIY9TFCwrLgS5qj7HIOHoiz4YNn9bwxDE4fH3Moz1dl1
-	CXax6HrIQ8/U1RLgcs9kXj/B0Wl3oov+1NthOvQkLcFHjxZtC5GGdeOYQ4QFH4Nlj
-X-Gm-Gg: AR+sD11nMJtzp4jnkGtR3qnKLEjoOobKKL++SRUFfw78WlwkdRdfn4dPDG/4tv5IiH5
-	knVIT/jxch19GxCAzuQ/xzMWFFcFV7Z5LISQXNvMfQ2wt3EcvkrnDBZ03KBQ0R9iUnx4YZR8uMU
-	9c9nwa0fgn+2DmjUIEzSooXexPS0q+j8/L9englBmj5fo25H1SZul52kzP/qWtsZeZJ2nytgBRb
-	YHRQAZZcLXjurDhBhmSgFXMt3jg1kJ/PtblV/jeZIA4Ftb/LerJJtW4iqDxCkLoKabFOINrwqxs
-	eWb7A5gWb/MbeK3GMqOzLZkt7NYZMGTLzF7hZ1tqx/pJxzXyd8B3F0aKq5EZgqDO691bCTS/MD4
-	DKXLyob4PKgb3xaV/hP83x+ixykUIfTPCxuw=
-X-Received: by 2002:a05:6a20:2583:b0:3bf:5539:f8f with SMTP id adf61e73a8af0-3c3ad972d74mr18735753637.37.1784655185665;
-        Tue, 21 Jul 2026 10:33:05 -0700 (PDT)
-X-Received: by 2002:a05:6a20:2583:b0:3bf:5539:f8f with SMTP id adf61e73a8af0-3c3ad972d74mr18735713637.37.1784655185224;
-        Tue, 21 Jul 2026 10:33:05 -0700 (PDT)
-Received: from hu-vgarodia-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147e1bc886sm710881eec.26.2026.07.21.10.33.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 10:33:04 -0700 (PDT)
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Date: Tue, 21 Jul 2026 23:02:27 +0530
-Subject: [PATCH v4 3/3] arm64: dts: qcom: shikra-evk: Enable Iris core
+        bh=wcHwhdeQPiyGFea8RRLYBEqK38jdeuTu3+dvRJn5SpA=;
+        b=oWLcgkhlvjqJDAv2whECCUhjsARvuiPNuWJXhuGwJb/PqMwyodFQROJoKt52iGgpFy
+         ETSgVa0C9tpHtbCt168fitV0m7SzSBQ7XyajqOOPjIzBxKqa7FL98x8S7N+Ro8ydhJ3Z
+         SzDZL/l942n/Xo3QzPW77ReRxCEzW3Lg49dHLAPCQYKuiEnKbsEEKAwMSRRt90ce4Knj
+         aESbwW4HM5u/hjJ1p4Bu71oO/seCT3EPFbgUfxaJrKQP+3Q25vbvVMEdWo1LNvHRqzDS
+         HqVFaPOMr2TJbo9Vz5r5umZctPEjvULlVn7qWS221eNvKjezDqxev1mxqX55hgp2EoYq
+         2uQg==
+X-Forwarded-Encrypted: i=1; AHgh+Rop3G/gX+sX3Fqx+PcChkpJA7yJLmHfVLkMJaRednQPcAQP832c19dVfgQ3eX70KG+Pk9+alZNDtuij@vger.kernel.org
+X-Gm-Message-State: AOJu0YxfcqLQfBQwiEsQXx9Ij1sal3qOfTQM3xzqJg76DZqDf4kdqnrM
+	brBaGFZkDZ73DH584hklJJvJTMwIY2BVaEe8psPFiUZqCqQvE6Yyn4nIvPS0W8nGBvybxLY/hCb
+	1eKTNEMnSFL4mOPfEd5JE/vsiX5Q0tHI=
+X-Gm-Gg: AR+sD10aIoLnpoaSdBUuruquD1MJ1DYA+XrPN9Y3ZqYy/6XA6WrKXrgbWzO7QEFm6Eu
+	Gb4ATVI7mOz3y2tkWl79fx6zeINESHKioMljG+XuHQztGt2UWQVg2TnNsPMI855dR2jcCNvXoU4
+	XaqapK9S8kCNlP5ex7+NmiikneCzGCtJVjwDDUvD/vc3ochXblsMwLyNarD7+6ZAJqCFeVh+drK
+	qKuRVbLMcZhjV7jl0bD7aPCFPTF5tS5Pz8W+04nxOtiY3p3tZLak9QUqk5f1lU2lkMt9xhdTeeb
+	o0a6iF3JdZMu/TqViovJ/yIEcwW7pcoMLkegJrZSUQM/f7ltPD8ll9cD5w==
+X-Received: by 2002:a05:6512:b83:b0:5ae:b5bd:5e72 with SMTP id
+ 2adb3069b0e04-5b28fabb816mr4439164e87.59.1784655739596; Tue, 21 Jul 2026
+ 10:42:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-shikra_vpu-v4-3-6dc5a8999b73@oss.qualcomm.com>
-References: <20260721-shikra_vpu-v4-0-6dc5a8999b73@oss.qualcomm.com>
-In-Reply-To: <20260721-shikra_vpu-v4-0-6dc5a8999b73@oss.qualcomm.com>
-To: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784655163; l=900;
- i=vikash.garodia@oss.qualcomm.com; s=20241104; h=from:subject:message-id;
- bh=zD30EA8RlbclvL9YJ5yRBEJPZIL2Cuh8TMVY+3LX+dc=;
- b=u1JBDopBwxjem4sw1HBkEt6MYx+EfSBwZV59lka9bL7yubITsaPgGM5toPIkFNWG324j4adWo
- PQK4x7X1a2YBSe84EW0uop+2lS7A6ObCgq2DBuVFg6TRv+LWwTrA1D5
-X-Developer-Key: i=vikash.garodia@oss.qualcomm.com; a=ed25519;
- pk=LY9Eqp4KiHWxzGNKGHbwRFEJOfRCSzG/rxQNmvZvaKE=
-X-Proofpoint-GUID: 9K5Q6K6oaDghDakGs5Nt8JqJXeltv_Zc
-X-Authority-Analysis: v=2.4 cv=CbE4Irrl c=1 sm=1 tr=0 ts=6a5fad52 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=c0ntbg5kzuLjbw3eiskA:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-ORIG-GUID: 9K5Q6K6oaDghDakGs5Nt8JqJXeltv_Zc
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDE4NSBTYWx0ZWRfX4RJM8KVXIpog
- IAgCDk3No4VswMd0O9R9zhv0CBKS65sYjOKhKtf5GfiGHuUXAxpmXP8DUSMWyMBp6qg+6Q3W1fQ
- cv7Uai3SU5MBzcU7KeuEOWpyRqKOVEvMylenlHwbrKBqtW7CaqslonrhhrDT6XAdBSjt+YtXclR
- fP+XNJlOVqumCqiEKUFDusqxBU0B2bofLX5ABtYhLN5//D15O8fvCvl5L5aSqTCpewWnfVkCy0N
- tjMyV6wqZhBAx9vdwtFwu1eJuo9+4vBCpCLHG3pFxU+5lWywHJ8c/JBAaQ0wAxnr8bT7wagXykz
- tl2Iy9t53E8ItQbt3yK57yhNqIy8DoJ+iNDXiQNTv4O7QH/PpUqr5La/Wx8V5E9zQKU/mAgOfj0
- h1CZmxp5gTh6VRnJc+rG+m+8w3iGOAkTadsGWWMgYOuk7lR+W5LUkOEsPWLa1wxl5a7mUCNH8nG
- aAe+YURJ+9wzQIwwCgg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDE4NSBTYWx0ZWRfX/w6QehbOaWTu
- TOdQKw6A3eQnfcbzMqq8ep1O/Uzm7Swf/eYEcDrdubNHlL6lQgoYV8uhXruuggsozvHvPvg0Bmp
- pnrNEWD3JDyvKqt/DKsASYjrujImon4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-21_03,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 suspectscore=0 clxscore=1015 spamscore=0
- malwarescore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607210185
+References: <20260720-t210b01-pmc-v2-0-ca5317f8507b@gmail.com>
+ <20260720-t210b01-pmc-v2-2-ca5317f8507b@gmail.com> <rrmQkm06RD2JduKX6eSoDg@nvidia.com>
+In-Reply-To: <rrmQkm06RD2JduKX6eSoDg@nvidia.com>
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Tue, 21 Jul 2026 12:42:08 -0500
+X-Gm-Features: AUfX_myE-1nDG631FIG3IHwi8gO93TqS2Jbav418JH0CG_P0J3Xxa7JV1kei1m4
+Message-ID: <CALHNRZ9F5RkcdegeeOncTD-6eg6+25cGn0p+Rabboj5oTZ_=Yw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] soc/tegra: pmc: Add Tegra210B01 support
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Thierry Reding <thierry.reding@gmail.com>, 
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Azkali Manad <a.ffcc7@gmail.com>, 
+	Thomas Makin <halorocker89@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Enable video en/decoder on the Shikra EVK board.
+On Tue, Jul 21, 2026 at 2:22=E2=80=AFAM Mikko Perttunen <mperttunen@nvidia.=
+com> wrote:
+>
+> On Monday, July 20, 2026 3:31=E2=80=AFPM Aaron Kling via B4 Relay wrote:
+> > From: Azkali Manad <a.ffcc7@gmail.com>
+> >
+> > The PMC in Tegra210B01 is very similar to the one in the original
+> > Tegra210, but has a few powergate differences. Add support for this soc=
+.
+>
+> The tables are a bit difficult to compare directly, so maybe list the
+> differences between 210 and 210B01 in the commit message.
+>
+> >
+> > Signed-off-by: Azkali Manad <a.ffcc7@gmail.com>
+> > Co-developed-by: Thomas Makin <halorocker89@gmail.com>
+> > Signed-off-by: Thomas Makin <halorocker89@gmail.com>
+> > Co-developed-by: Aaron Kling <webgeek1234@gmail.com>
+> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> > ---
+> >  drivers/soc/tegra/pmc.c | 62 +++++++++++++++++++++++++++++++++++++++++=
+++++++++
+> >  1 file changed, 62 insertions(+)
+> >
+> > diff --git a/drivers/soc/tegra/pmc.c b/drivers/soc/tegra/pmc.c
+> > index f419a5395545f..48ae4ff3f00db 100644
+> > --- a/drivers/soc/tegra/pmc.c
+> > +++ b/drivers/soc/tegra/pmc.c
+> > @@ -3897,6 +3897,67 @@ static const struct tegra_pmc_soc tegra210_pmc_s=
+oc =3D {
+> >       .has_single_mmio_aperture =3D true,
+> >  };
+> >
+> > +static const char * const tegra210b01_powergates[] =3D {
+> > +     [TEGRA_POWERGATE_CPU] =3D "crail",
+> > +     [TEGRA_POWERGATE_3D] =3D "3d",
+> > +     [TEGRA_POWERGATE_PCIE] =3D "pcie",
+> > +     [TEGRA_POWERGATE_MPE] =3D "mpe",
+> > +     [TEGRA_POWERGATE_SATA] =3D "sata",
+>
+> T210B01 doesn't have SATA, so this can be removed.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/shikra-evk.dtsi | 6 ++++++
- 1 file changed, 6 insertions(+)
+Ack
 
-diff --git a/arch/arm64/boot/dts/qcom/shikra-evk.dtsi b/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
-index 6eb4184f76422d57766ba34647010c690646fdab..696df7c9a7e0f7c86955066e76df3d8fcb8bad1f 100644
---- a/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
-+++ b/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
-@@ -3,6 +3,12 @@
-  * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-  */
- 
-+&iris {
-+	firmware-name = "qcom/vpu/ar50lt_p1_gen2_s6.mbn";
-+
-+	status = "okay";
-+};
-+
- &qupv3_0 {
- 	firmware-name = "qcom/shikra/qupv3fw.elf";
- 
+> > +     [TEGRA_POWERGATE_CPU1] =3D "cpu1",
+> > +     [TEGRA_POWERGATE_CPU2] =3D "cpu2",
+> > +     [TEGRA_POWERGATE_CPU3] =3D "cpu3",
+> > +     [TEGRA_POWERGATE_CPU0] =3D "cpu0",
+> > +     [TEGRA_POWERGATE_C0NC] =3D "c0nc",
+> > +     [TEGRA_POWERGATE_SOR] =3D "sor",
+> > +     [TEGRA_POWERGATE_DIS] =3D "dis",
+> > +     [TEGRA_POWERGATE_DISB] =3D "disb",
+> > +     [TEGRA_POWERGATE_XUSBA] =3D "xusba",
+> > +     [TEGRA_POWERGATE_XUSBB] =3D "xusbb",
+> > +     [TEGRA_POWERGATE_XUSBC] =3D "xusbc",
+> > +     [TEGRA_POWERGATE_VIC] =3D "vic",
+> > +     [TEGRA_POWERGATE_IRAM] =3D "iram",
+> > +     [TEGRA_POWERGATE_NVDEC] =3D "nvdec",
+> > +     [TEGRA_POWERGATE_NVJPG] =3D "nvjpg",
+> > +     [TEGRA_POWERGATE_AUD] =3D "aud",
+> > +     [TEGRA_POWERGATE_DFD] =3D "dfd",
+> > +};
+> > +
+> > +static const struct tegra_pmc_soc tegra210b01_pmc_soc =3D {
+> > +     .supports_core_domain =3D false,
+> > +     .num_powergates =3D ARRAY_SIZE(tegra210b01_powergates),
+> > +     .powergates =3D tegra210b01_powergates,
+> > +     .num_cpu_powergates =3D ARRAY_SIZE(tegra210_cpu_powergates),
+> > +     .cpu_powergates =3D tegra210_cpu_powergates,
+> > +     .has_tsense_reset =3D true,
+> > +     .has_gpu_clamps =3D true,
+> > +     .needs_mbist_war =3D false,
+> > +     .has_io_pad_wren =3D false,
+>
+> Any particular reason to flip this to false? AFAICT it is still needed
+> to make PWR_DET_VAL writable as on T210.
+>
+> (The reset value is already (mostly) fine but seems prudent to write it
+> anyway)
 
--- 
-2.34.1
+Ah, it looks like I missed that d4f0c189945c74 inverted the value
+along with the rename. Will fix.
 
+> Thank you!
+> Mikko
+>
+> > +     .maybe_tz_only =3D true,
+> > +     .num_io_pads =3D ARRAY_SIZE(tegra210_io_pads),
+> > +     .io_pads =3D tegra210_io_pads,
+> > +     .num_io_pad_vctrls =3D ARRAY_SIZE(tegra210_io_pad_vctrls),
+> > +     .io_pad_vctrls =3D tegra210_io_pad_vctrls,
+> > +     .num_pin_descs =3D ARRAY_SIZE(tegra210_pin_descs),
+> > +     .pin_descs =3D tegra210_pin_descs,
+> > +     .regs =3D &tegra20_pmc_regs,
+> > +     .init =3D tegra20_pmc_init,
+> > +     .setup_irq_polarity =3D tegra20_pmc_setup_irq_polarity,
+> > +     .powergate_set =3D tegra114_powergate_set,
+> > +     .irq_set_wake =3D tegra210_pmc_irq_set_wake,
+> > +     .irq_set_type =3D tegra210_pmc_irq_set_type,
+> > +     .reset_sources =3D tegra210_reset_sources,
+> > +     .num_reset_sources =3D ARRAY_SIZE(tegra210_reset_sources),
+> > +     .reset_levels =3D NULL,
+> > +     .num_reset_levels =3D 0,
+> > +     .num_wake_events =3D ARRAY_SIZE(tegra210_wake_events),
+> > +     .wake_events =3D tegra210_wake_events,
+> > +     .pmc_clks_data =3D tegra_pmc_clks_data,
+> > +     .num_pmc_clks =3D ARRAY_SIZE(tegra_pmc_clks_data),
+> > +     .has_blink_output =3D true,
+> > +     .has_usb_sleepwalk =3D true,
+> > +     .has_single_mmio_aperture =3D true,
+> > +};
+> > +
+> >  static const struct tegra_io_pad_soc tegra186_io_pads[] =3D {
+> >       TEGRA_IO_PAD(TEGRA_IO_PAD_CSIA, 0, 0x74, 0x78, "csia"),
+> >       TEGRA_IO_PAD(TEGRA_IO_PAD_CSIB, 1, 0x74, 0x78, "csib"),
+> > @@ -4824,6 +4885,7 @@ static const struct of_device_id tegra_pmc_match[=
+] =3D {
+> >       { .compatible =3D "nvidia,tegra194-pmc", .data =3D &tegra194_pmc_=
+soc },
+> >       { .compatible =3D "nvidia,tegra186-pmc", .data =3D &tegra186_pmc_=
+soc },
+> >       { .compatible =3D "nvidia,tegra210-pmc", .data =3D &tegra210_pmc_=
+soc },
+> > +     { .compatible =3D "nvidia,tegra210b01-pmc", .data =3D &tegra210b0=
+1_pmc_soc },
+> >       { .compatible =3D "nvidia,tegra132-pmc", .data =3D &tegra124_pmc_=
+soc },
+> >       { .compatible =3D "nvidia,tegra124-pmc", .data =3D &tegra124_pmc_=
+soc },
+> >       { .compatible =3D "nvidia,tegra114-pmc", .data =3D &tegra114_pmc_=
+soc },
+> >
+> > --
+> > 2.54.0
+> >
+> >
+> >
+
+Aaron
