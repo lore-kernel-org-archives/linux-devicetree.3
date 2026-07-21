@@ -1,100 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7745415F3A
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 18:05:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BAE946D2D1
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 18:05:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784657121; cv=none; b=oeMvThYmwUTXpSLMm3zdvpqO+LhaB1x+Nug8p/jOpbRbqs7A3K1hw8bwk+PSneidte8hn6iZB17fqf1tGq0nh76JLsNALzPhKnmBwBxXmABZIeXBpB/xxV74Yo1aLrAUt9CBEt0cjzqRGPH+wOx/+ozgPc2WTMYrgrsxlsMNh5o=
+	t=1784657148; cv=none; b=Bk3ObuKhXib4jEKFwBmKLdsKfwuCJ01Ao7lwUAWNDJHGsOxtIzEt/eO3sj5L4xWUET1Vryfipm2b8VXg7SvEvC9I17uE9AzvlUqdEeU7x2eBQ+DY8zbOK6J0rNLanN45vBOp5u1k0FW45AcoRhs2Av7ogbJesiWLy5GoeOFJtMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784657121; c=relaxed/simple;
-	bh=Bda0p2XSZ4K2+EAN/BeolsgzR/xhAiP0P6Zgwms6yAQ=;
+	s=arc-20240116; t=1784657148; c=relaxed/simple;
+	bh=g8HopFZZ75QmhdA6DMkqi8tA1R9geiww2u70FwOWhAk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=A2w+gtCQ8mKk98ymG92oL9PzHqqKVDRAX7z042vgnYAcB5o8TFpy5qoIqwE+D7qspKTwiyN6M2V7PvzIx2knYY74hGT+u6wtl05jT9te7YwIYpG4aeS85Zj7PamXWiih75O0sic1YUpbUQKKUBI8yo18P9GdsDzdRYPymMSIIKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=STXXO0SY; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=s6gNi2ZReoYreqHFMPJJXeNTU7z3Zxn4AqOgykaPvkr994kCaili21p+X9i1DpoVnzw43epia6goFntAKyM62S+90c57V1WHRwO3CehOFsNqbk6/3otiqAvmUACVMw9gQgf7Imyi6oCgmSdKSwtEw8UZhLSWhFF3echooL5ZSL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GItmKjC5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="STXXO0SY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AD241F000E9;
-	Tue, 21 Jul 2026 18:05:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GItmKjC5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00C6C1F00A3A;
+	Tue, 21 Jul 2026 18:05:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784657120;
-	bh=5UAzDGzQS1lnjlNaUZ2HYViYIT+34AopckNgcDjyNTg=;
+	s=k20260515; t=1784657147;
+	bh=Ur1O1dH+i+Fdb9qTo9vP9daq7x7A/QUow6dus6AACuk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=STXXO0SYQwCUTrzxM+sOXZlOqVpANQ2atl9je4J7zcKyZFBVnZAyJDOJwzfDxlPNZ
-	 0XAdH81DK1vClIKlDZ8wxEoiKZF13HpLtd/adKBbdGaCpQ8RGkBcIFAzc6fo9J+JSh
-	 hlcoRG+dwUYaYCAeo28T8lDKNN4Ce8nyaqS60gK4kmUyXuAKRYdhrf1mIJEb6AC0Lv
-	 lYhReJyictQOYvsaE1BVEE/f24ldlIZy5itH2q1u0Vv7jJJKixmzWRk/+VwPAWxa37
-	 179ZZuKgqy4zLWR80nSu6MBVAW9TSA4eIgKKFbRyVH+PdOAj+jh844Nzq6oEQNQ74n
-	 IAf8WqVTVpV0Q==
+	b=GItmKjC5/6m2Kdy6MZMR2lnYhrw7X0Ua1huy3Qaypije7DnuYFyDInnAdslQ3detZ
+	 XjKF/bMPeUe4l80CRsA3SRd87bjAQG6O0Pe92DbmwIkMKCcrnizz0yMY98I68UGcWF
+	 EBkbPaXzq6O7Cdjgq/6+TMEHmpSVJYZXlN3eOasUcWXem+yjJFrPUbiDdHERSKORzj
+	 KZkjqdaT7MOnGQjB+CYwseAWYbH9oL4LD0O8EJ4qWAiNSuhbeqKlBHO72uPtb+O2XA
+	 rQxqLDebz+mi412u/vhOMHZA4V8lCiQ8880THI2i70A1GTH9nU4ORi4Mp8HWpW8pWC
+	 tI3Fj2yeaEuug==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 01/10] drm/bridge: synopsys: dw-dp: Fix incorrect
- resource lifetimes in bind callback
+Subject: Re: [PATCH v4 02/10] drm/bridge: synopsys: dw-dp: Support
+ MEDIA_BUS_FMT_FIXED
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-In-Reply-To: <20260721-synopsys-dw-dp-improvements-v4-1-f0f4a4ede712@collabora.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260721-synopsys-dw-dp-improvements-v4-2-f0f4a4ede712@collabora.com>
 References: <20260721-synopsys-dw-dp-improvements-v4-0-f0f4a4ede712@collabora.com>
- <20260721-synopsys-dw-dp-improvements-v4-1-f0f4a4ede712@collabora.com>
+ <20260721-synopsys-dw-dp-improvements-v4-2-f0f4a4ede712@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 18:05:19 +0000
-Message-Id: <20260721180520.1AD241F000E9@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 18:05:46 +0000
+Message-Id: <20260721180547.00C6C1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [Critical] Missing `cancel_work_sync(&dp->hpd_work)` during unbind allows=
- the workqueue to execute after the device is unbound and removed, leading =
-to a Use-After-Free.
+- [High] The bridge configures itself for RGB888 when MEDIA_BUS_FMT_FIXED i=
+s requested, but fails to propagate this requirement to the upstream encode=
+r during bus format negotiation.
+- [High] Forcing 24 bpp (RGB888) when MEDIA_BUS_FMT_FIXED is requested bypa=
+sses DP link bandwidth validation, allowing display modes that exceed the p=
+hysical link capacity.
 --
 
---- Patch [1]: [PATCH v4 01/10] drm/bridge: synopsys: dw-dp: Fix incorrect =
-resource lifetimes in bind callback ---
-commit ad3d9fe60dfef89b2bbe919cc696921df60e683f
+--- Patch [2]: [PATCH v4 02/10] drm/bridge: synopsys: dw-dp: Support MEDIA_=
+BUS_FMT_FIXED ---
+commit 98faee8d93ff4e450a6ec04ce4882b2871508172
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-drm/bridge: synopsys: dw-dp: Fix incorrect resource lifetimes in bind callb=
-ack
+drm/bridge: synopsys: dw-dp: Support MEDIA_BUS_FMT_FIXED
 
-This commit introduces a new probe helper function to acquire resources ear=
-ly
-rather than during the bind callback. This aligns resource allocation with
-device lifecycle instead of driver bind and unbind time.
+Add support for MEDIA_BUS_FMT_FIXED, which is requested when the downstream
+bridge does not implement atomic_get_output_bus_fmts(). This patch coerces
+MEDIA_BUS_FMT_FIXED to MEDIA_BUS_FMT_RGB888_1X24 in the atomic check phase.
 
 > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
 idge/synopsys/dw-dp.c
+> index 368e1f85e6253..aca6816febe67 100644
 > --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 > +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-[ ... ]
-> +void dw_dp_unbind(struct dw_dp *dp)
-> +{
-> +	disable_irq(dp->irq);
->  	phy_exit(dp->phy);
-> +	drm_dp_aux_unregister(&dp->aux);
-> +	drm_bridge_remove(&dp->bridge);
->  }
+> @@ -1538,7 +1539,10 @@ static int dw_dp_bridge_atomic_check(struct drm_br=
+idge *bridge,
+>  	state =3D to_dw_dp_bridge_state(bridge_state);
+>  	mode =3D &state->mode;
+> =20
+> -	fmt =3D dw_dp_get_output_format(bridge_state->output_bus_cfg.format);
+> +	if (out_bus_format =3D=3D MEDIA_BUS_FMT_FIXED)
+> +		out_bus_format =3D MEDIA_BUS_FMT_RGB888_1X24;
 
-[Severity: Critical]
-This is a pre-existing issue, but could this leave pending work items
-running after the device is unbound?
+[Severity: High]
+Will this coercion fail to propagate upstream?=20
 
-If an HPD interrupt fires right before or during dw_dp_unbind(), the
-interrupt handler schedules dp->hpd_work. While disable_irq() prevents
-new interrupts, it doesn't cancel already pending work.
+The dw-dp driver still uses the generic helper
+drm_atomic_helper_bridge_propagate_bus_fmt for its .atomic_get_input_bus_fm=
+ts
+hook. This helper propagates the originally requested MEDIA_BUS_FMT_FIXED
+format to the upstream encoder, rather than the locally overridden RGB888
+format.=20
 
-When the driver is subsequently removed and the devm-allocated dp structure
-is freed, the system workqueue could execute dw_dp_hpd_work() and trigger a
-use-after-free on the released memory.
+If MEDIA_BUS_FMT_FIXED is propagated to an upstream encoder (like Rockchip
+VOP), could it choose an incompatible default output format (like YUV422)
+since dw-dp operates strictly in RGB888? Should this driver implement a
+custom .atomic_get_input_bus_fmts hook to propagate MEDIA_BUS_FMT_RGB888_1X=
+24
+instead?
 
-Would it be appropriate to add cancel_work_sync(&dp->hpd_work) here during
-the teardown sequence?
+[Severity: High]
+Could forcing MEDIA_BUS_FMT_RGB888_1X24 (24 bpp) here bypass DP link
+bandwidth validation?=20
+
+When the downstream bridge lacks an .atomic_get_output_bus_fmts() hook, the
+DRM core skips the output format validation. Since dw_dp_bridge_mode_valid()
+only verifies bandwidth against a minimum possible bpp (e.g., 18 bpp), could
+we end up allowing display modes that physically fit at 18 bpp but exceed t=
+he
+DP link capacity at 24 bpp?=20
+
+Should this code call dw_dp_bandwidth_ok() after forcing the format to ensu=
+re
+the hardware link can actually support 24 bpp?
+
+> +
+> +	fmt =3D dw_dp_get_output_format(out_bus_format);
+>  	if (!fmt)
+>  		return -EINVAL;
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-synopsys-d=
-w-dp-improvements-v4-0-f0f4a4ede712@collabora.com?part=3D1
+w-dp-improvements-v4-0-f0f4a4ede712@collabora.com?part=3D2
