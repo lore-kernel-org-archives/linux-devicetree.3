@@ -1,84 +1,68 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6548F477999;
-	Tue, 21 Jul 2026 10:20:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 898A947D945;
+	Tue, 21 Jul 2026 10:21:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784629246; cv=none; b=SXUXhypxfzLJJj1+miyATZTA2EwdR+c15OIzw+EHumGUPmHnSZdNM5SS3ovp7AZmTgo2n2MJivrZwL3A2WwduGZcEgTYI9XyqjHW4RpT779dI7BvE++LbuO8ocKUsDNKN6ITXEZvtYkTOY2jydsn27RkV0e9WI8jpYNUCkFlGrQ=
+	t=1784629277; cv=none; b=VIXjp3Ho0X/2JiEeiYfe85fP0UqH61a1EQq8LkyxOW4EkaNyF5nT8jAX3e7gerMoNZ3jSdwiAgnt6T1iG4Sgi9PwhZrjJ4RtriIe0wIPEGVlgDlQpZTdTWSQPjp6XRNXkryf6ZZviyK+pYKTGEw70lpfLCeXz7WNYsFjhu+EEk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784629246; c=relaxed/simple;
-	bh=BuikVx7La/9chV7s1hxXnMG7wdWI9UN7BDknLSFwfoA=;
+	s=arc-20240116; t=1784629277; c=relaxed/simple;
+	bh=wzZYwpIL3SifrCqilZP1HCOddtLNrTnmM9JVAgy6jQc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Mv/nbyiL6NTp1VIr1PXwMMTEjZgfuEF8BFFH6tjt58cxADgo7Ny29vn+GuVHAVvJOYTfbTYfVGF8bZcW8dA234zizQuLF0gKLByb9nLHzqfQmMtsUjdeL6/dmgId2CjY6AgmJzavyczqsW+Ml7k2Cjdf5z8fgVwR76/O4TLnEeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=klVErddC; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=BS3WCTZRD3yDZ9slmGvnDjioKBLn0gXWcavavvTaKSKnfugVqckhBDtajU3L2Mmv9fDLbAK9zjNmsrnqfm1yAdZHMtwulPtgxtLiT9rikmWP7nccbzB7Z5Hp9eRgZZWA9icn2zLb0zJpvwYkodv+VjRe3LGZC2jInEFkLuwNATg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WglTvML/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="klVErddC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784629245; x=1816165245;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=BuikVx7La/9chV7s1hxXnMG7wdWI9UN7BDknLSFwfoA=;
-  b=klVErddC1PjfrsptqTnbGGK9EjiDmwDAb05TIdYDZRiBZkYwyDg9MLY0
-   BQBEf1/ioFsqq9FqOSUfaffkuZtgVc63uMMb2BLX3ZvkAbWsF9o0DtlZY
-   GQGl2y0F2ybfWuDQQQRteILaB1gg81v7c4OD9s3CNoe/AL+M/k7/QGLlS
-   VNVEM594NQWRk9Gdkb052X//OUtQ/U0KR9yZv0ZCpNwyN6Z05gZnb+r3k
-   ExYunKpNUrVCHBqofQejxbLI57vpVCGo8OTM2THW2lz2KSg7WCsLlg72C
-   iKCv6C+sukT2y63jihDYyluoA+HiVZENvXSvBKZqW/LFzKQXYoTuLVg2e
-   Q==;
-X-CSE-ConnectionGUID: QnUOiliQTHGYGRgPyY69TA==
-X-CSE-MsgGUID: oa9eloVISIyNf3qLVVKgmg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11852"; a="72760701"
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="72760701"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 03:20:44 -0700
-X-CSE-ConnectionGUID: emV8fJJ2RYaoLii1C2v5Wg==
-X-CSE-MsgGUID: 735o4J9fS5Kac9BFspqMGw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="257793437"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.67])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 03:20:41 -0700
-Date: Tue, 21 Jul 2026 13:20:38 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Benson Leung <bleung@chromium.org>,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	chrome-platform@lists.linux.dev, linux-input@vger.kernel.org,
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/9] Input: elan_i2c - sort include statements
-Message-ID: <al9H9rn7Y2qtIJ80@ashevche-desk.local>
-References: <20260721075226.2347933-1-wenst@chromium.org>
- <20260721075226.2347933-3-wenst@chromium.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WglTvML/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29E701F000E9;
+	Tue, 21 Jul 2026 10:21:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784629276;
+	bh=UJAxYGj1UaZbfMKDgzertleGyGlCpBFTuvsdrzbi9Hg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WglTvML/t+6jHLKVRM3tARAfn8ssx3mxBFNLXQkc+DaEc4T5ijdq+qrBtXvQaejfi
+	 nFOgFKE5LQPsnUqVMpiF8LTibcuxAJFQsppcOfcwyV/wiFyoZDwEewJNLMSakLMCBu
+	 siUC+uoLYNfpfFqbAyv9CJxHZ6J1affjQDtI6166/YK3McPI7RA9Yu/zJyi/u6q2+6
+	 UrgkiAuuQySSiDV9pPyiN5D/4qB6aIgsg35J0RVzYmCEZzxm2sHyqKh0TDoUBWQyuv
+	 bOgLMYw9Q7blISL1InJcyCWl07IhVn9kn+dYSda4TDDAUlyYsesNEJTq0GToyJKh3v
+	 PWHEFlWj4KYnQ==
+Date: Tue, 21 Jul 2026 12:21:12 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Pankaj Patil <pankaj.patil@oss.qualcomm.com>, 
+	Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/5] dt-bindings: arm: qcom: Document Kalambo SoC and
+ board
+Message-ID: <20260721-berserk-independent-weasel-e264dd@quoll>
+References: <20260718-b4-kalambo-crd-v1-0-a1069b5a2757@oss.qualcomm.com>
+ <20260718-b4-kalambo-crd-v1-1-a1069b5a2757@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260721075226.2347933-3-wenst@chromium.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260718-b4-kalambo-crd-v1-1-a1069b5a2757@oss.qualcomm.com>
 
-On Tue, Jul 21, 2026 at 03:52:16PM +0800, Chen-Yu Tsai wrote:
-> Sort the include statements before adding new ones in the next change.
+On Sat, Jul 18, 2026 at 05:06:21AM -0700, Gopikrishna Garmidi wrote:
+> Qualcomm Kalambo is a derivative of the Mahua SoC with CPU cluster 0
+> removed, leaving it with just cluster 1. Document the compatible strings
+> for the Kalambo SoC and the Compute Reference Device (CRD) board based
+> on it.
+> 
+> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+Krzysztof
 
