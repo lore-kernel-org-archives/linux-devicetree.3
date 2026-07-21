@@ -1,140 +1,1887 @@
-Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 454A7368264;
-	Tue, 21 Jul 2026 13:30:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.156
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A15261B92;
+	Tue, 21 Jul 2026 13:32:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784640657; cv=none; b=lIVLKjiYgeN55cAxSC36rkQR6BUZWQVgSyPDDb/7oC90FxUEDmYi3uFpetycWw0E/Bvk9a7A1P/x6kdEgIvS5EWyhod0W/Yk4j/nbCH6ZkRMs9aJgzcDUVrIP00TUCw19JvXIguC/L67CHdYYlhuEW49JbUxOhcMRYOqEsNZbYo=
+	t=1784640756; cv=none; b=uIvFo6tM4dA29Hyls5dM5k9D/eqvRnySkN7s/6OBbN9/7P//lRJh++L57gg6egTvlvJFVIkv/GInM2rggXEzkQo06Pulw6F0MJQ/k/F/BxZ03JolXKMRs+S6MwoTr7rYTWrTFX2NpqYyW/ry12VCGZfgh3EnxsPgtF3/QDAkWzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784640657; c=relaxed/simple;
-	bh=PpoJ8mSDeO5J500ag0sun37EeE6AvIqeZEsWDfHGEXw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=s4r2fmZBJZXLR+4MAedboJcXicGk+0wBHqnA4WChp+/tqSeY/6a6cJRbW0as768EVAvsnooxWPPz0oPIpKQEOhjJd2GNVcXJp7Z+bgQ10e7ju1XeYY5d4cMXkDCTCmtwRkk8DfrVVOOITA3B8CdvdUniwRykS+8/rUW6wSRAHMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=eYDWfoPQ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Y4bG8ymx; arc=none smtp.client-ip=103.168.172.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1784640756; c=relaxed/simple;
+	bh=LeYjpwUWWYb3ZAlBtSfHIJmwdlwpjnpJElKWStAK5lU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Alz4o2AYm/v64Qt17FCTyoz5GWTkL0m3WaGElqugw6eO9NIXjtdN6C5t55McVFSNPHXofSzPy1SnyX95X0scDfV/K7U3IbxozX/eVQL3Okxqw4dvwtpcxH1AOPg26X2+8qSCDlREeJeHJrzpR98FQDDk0g0u0JUdc3erMjmAxRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=P87y/N1o; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="eYDWfoPQ";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Y4bG8ymx"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 5B3641400159;
-	Tue, 21 Jul 2026 09:30:55 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Tue, 21 Jul 2026 09:30:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1784640655;
-	 x=1784727055; bh=sLmOrxWgSzKesbLl24YL8N9oK1UdIQD9gnT9tarZDw8=; b=
-	eYDWfoPQh9R3Kibc06J7RGhh/IoxSBUWqh0k8XX5EvTvsJEIXPe6sfqcrr7Par2/
-	JuzlX/O0d1p6Uu8eR2Vs0UtTSVuYmMW2j8RaLvTtIDxPiauWV+DL4tNrtj0NEIee
-	LManzSnd/0vu0i0nTqLyjhKY8rABBByBidBGYB2/sKZ1raevWuF2ZsEFkyId9LRI
-	OMzQ9QdYJB5a84rvC1cdkrzxoQkQheARzj4MBL92asGS2D3MuvAtbyVk3gpm8xr9
-	LOhcPlV3Nz7d5Qou4PjMCIM2NDCeHQ1l6xb2Ra3E6Rvtld/BuQ/wiIaMug3w7hmJ
-	4ChDP1tsyYrifzyJwvjE1Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1784640655; x=
-	1784727055; bh=sLmOrxWgSzKesbLl24YL8N9oK1UdIQD9gnT9tarZDw8=; b=Y
-	4bG8ymxUVuDF3gD/cpLCsBo6gce8jJ0Ch9Y1+kPP9pFdj+y86xRCnjC3WWDhxbnA
-	ssqCvs2vGpxJu/azdYNhM/JBzOzPUXjrhp+MGmUoh1zXQcxiUX2A1nS3phBLcKSW
-	DAvHPRXHByEDV6vR5KROgUgU8E/YDvQ1cjpwF4xUCeANYu9vXI3mfdOkARUCMK8i
-	En5EXfIMYuSoPzk+TA1RfLhjdqLlU61gZJ7IScz3hio/8zJS6Xb65Me2dlekEz+b
-	8oK0vpOSgSies6Cg01XzfaCJ51+Orge7FNS7Uhv34FQsXpCi7hPU/ILgP2wKd6My
-	bs5WGAsri8D1P6N8zJnnQ==
-X-ME-Sender: <xms:j3Rfah7j3P3DNvPorYjKrsAb7fhv-P58_wmS85i-Jsh6zGxJCEGbXQ>
-    <xme:j3RfarNxQ5wbTim4iqqG2JdQAPugB4TRnH68zeGny0oePbFwCjugabqhdgsN6cuUd
-    fHHOecyNpOovUcByHHw-Wws-Xfw7c6iwGd3ElpeQuU-OHOvKura1lk>
-X-ME-Received: <xmr:j3RfaqHd1-UBbKFJbjtbo7P7BxTdZvzI90MYvKO_j4NElD2L9DQNwD_0txMAN9ptM9njeefn45Y51b2DWXU5R5R9PNTZ5mw>
-X-ME-Proxy-Cause: dmFkZTErwjElEy8690l1ycSe3BvSXuBXSR0Jg1HpWthT0P2RPmGLUJJni6PIk9RkTYSob6
-    G91jjkTE2CSoFyKQK/b6DxQl0FA/SSSzTqZad3ZyC45OwiOumHjl/bWEJCM1isvpNRN/jY
-    dovoY0jrlxkD/9i41qhlwKYMplntd2LQWiwi8wfXVm/OuBrBhY7CIUnKIYxPi+ICcEuDS0
-    LsH4PxP7uCIBRudSa+aIYl2ComCj/meCak5H/XXeOTop2i9TSM1aGRDpjvPerYIIIAt5L/
-    qfqQ6FGW7FhxDVq1M28/hpcY1fdPyWUpeiDu1kuxoiJyffvHKnW9Wf11GZ+nZYOfDh89O3
-    ODCbG36c9UxPTzHxbfOqmPQxs6fGt3nWeyAJoPDgyBImRscLHb8OFHPkXh92PzuTDBymTC
-    SiCA7xWxX9keKHfh1qkeUtSTTWc9ihIAR/WPh9sMRQPf1kcoxjitABu1ra13fjlvti4TX5
-    ALzmZ1FfwC7nrj3YWXGSO6Pr28vjHP/xRUwt6rYp/bgsMZM0vgqvvU3eSH3zzjFix3rzR6
-    lDhXI2PjtHSn3P/yEyNFrbI9v+ctbCX7zmM/I2Gr0UmIpPF5DCvsCiIzePikUKL62vVwTd
-    YIC0OjeiWhUPpk0TVWoNRTvh/MGXtBuBz4Fc5QBHwYSwRS/JNr3Ga5nrvgPw
-X-ME-Proxy: <xmx:j3RfanTCuAUqzQT-yEbNUhtzm94D4XDERL_8eGH10qEPwJjhOrIH4w>
-    <xmx:j3RfaqSfMAwZ0KPeejr9zS9JVMHVgudvjM39q02KKOJ9TtsezFek2Q>
-    <xmx:j3Rfaqcp92U5wWrKVx4L51OQGFcXsZAmuGdu6DGnzIWi-kY_jsrb8Q>
-    <xmx:j3Rfaud4XL66cBQy8i2F17jF7wbZu575WOAuGZVpLHsiGq7zQIVaPg>
-    <xmx:j3Rfai4SYzkInyS4oyz2GM6lrlwE-2MWnidbqRI17ypbFJnl_Ry_IaMc>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 21 Jul 2026 09:30:54 -0400 (EDT)
-From: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"DavidS. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	linux-renesas-soc@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="P87y/N1o"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=u1
+	n58ZffFGaqzPXZZ4O4J9ibDT08kGv+1vJeyBzV268=; b=P87y/N1oV7SRcrLz7F
+	uMt/ftEpG7Wfcr4WN4+4EsLCgoFpbMYcvO+1Q1tU7dLQcNYkv0bWVkbLCRndwJNc
+	RMar7w6t64iqfikDiqpGVdyBUTiCVDL1bHv4cVXQz0TQSjtxa26AAMFpllK6n+qa
+	yhpbLR5x4vvv+1y1QkGKhst2I=
+Received: from hie (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3P0XXdF9qrdJXKg--.46730S2;
+	Tue, 21 Jul 2026 21:32:08 +0800 (CST)
+From: code_0002@163.com
+To: andersson@kernel.org
+Cc: konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Cc: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Subject: [PATCH net-next v5 3/3] arm64: dts: renesas: r8a779g0: Add gPTP node
-Date: Tue, 21 Jul 2026 15:29:36 +0200
-Message-ID: <20260721132936.1331318-4-niklas.soderlund+renesas@ragnatech.se>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721132936.1331318-1-niklas.soderlund+renesas@ragnatech.se>
-References: <20260721132936.1331318-1-niklas.soderlund+renesas@ragnatech.se>
+	map220v <map220v300@gmail.com>,
+	code002-2 <hiez832670@gmail.com>
+Subject: [PATCH] arm64: dts: qcom: sm8550: add Xiaomi Pad 6S Pro (sheng)
+Date: Tue, 21 Jul 2026 21:32:04 +0800
+Message-ID: <20260721133204.902-1-code_0002@163.com>
+X-Mailer: git-send-email 2.54.0.windows.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3P0XXdF9qrdJXKg--.46730S2
+X-Coremail-Antispam: 1Uf129KBjvAXoWDXr1UCr48Aw15Aw1xtr13Jwb_yoWrAryDGo
+	Z2vrWFvFZxua4rGr1kXrWDC3Z7WrW8Xa9IkFs0g3WrWF4rAa4akan0k3W7WF12qr45Kryk
+	Z34Fva45C347Ca95n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxU-l4iUUUUU
+X-CM-SenderInfo: 5frgvsaqqqjqqrwthudrp/xtbC8BjFYGpfdNj9OgAA3T
 
-The gPTP module is shared between the RAVB and RTSN Ethernet devices on
-the SoC.
+From: map220v <map220v300@gmail.com>
 
-Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+Add device tree for Xiaomi Pad 6S Pro (sheng) based on SM8550.
+
+Signed-off-by: code002-2 <hiez832670@gmail.com>
 ---
-* Changes since v2
-- Preserve sort order by unit-address.
+ arch/arm64/boot/dts/qcom/Makefile             |    1 +
+ .../boot/dts/qcom/sm8550-xiaomi-sheng.dts     | 1800 +++++++++++++++++
+ 2 files changed, 1801 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm8550-xiaomi-sheng.dts
 
-* Changes since v1
-- Rename node ptp.
----
- arch/arm64/boot/dts/renesas/r8a779g0.dtsi | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-index 82a7278836e5..b9b860ef7035 100644
---- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-@@ -589,6 +589,15 @@ tmu4: timer@ffc00000 {
- 			status = "disabled";
- 		};
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 6f33c4e2f..d8e485521 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -386,6 +386,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-mtp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-qrd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-samsung-q5q.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-sony-xperia-yodo-pdx234.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-xiaomi-sheng.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-ayaneo-pocket-s2.dtb
  
-+		gptp: ptp@e6449000 {
-+			compatible = "renesas,r8a779g0-gptp", "renesas,rcar-gen4-gptp";
-+			reg = <0 0xe6449000 0 0x500>;
-+			clocks = <&cpg CPG_MOD 2723>;
-+			power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
-+			resets = <&cpg 2723>;
-+			status = "disabled";
+ sm8650-hdk-display-card-dtbs	:= sm8650-hdk.dtb sm8650-hdk-display-card.dtbo
+diff --git a/arch/arm64/boot/dts/qcom/sm8550-xiaomi-sheng.dts b/arch/arm64/boot/dts/qcom/sm8550-xiaomi-sheng.dts
+new file mode 100644
+index 000000000..218cd84ee
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/sm8550-xiaomi-sheng.dts
+@@ -0,0 +1,1800 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) 2024, map220v <map220v300@gmail.com>
++ */
++
++/dts-v1/;
++
++#include <dt-bindings/arm/qcom,ids.h>
++#include <dt-bindings/leds/common.h>
++#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
++#include "sm8550.dtsi"
++#include "pm8010.dtsi"
++#include "pm8550.dtsi"
++#include "pm8550b.dtsi"
++#define PMK8550VE_SID 5
++#include "pm8550ve.dtsi"
++#include "pm8550vs.dtsi"
++#include "pmk8550.dtsi"
++
++/delete-node/ &rmtfs_mem;
++/delete-node/ &adspslpi_mem;
++/delete-node/ &xbl_dt_log_merged_mem;
++/delete-node/ &hwfence_shbuf;
++
++/*
++ * Free unused regions, these regions don't exist in downstream
++ * dts, and they aren't removed from DDR Memory Map by UEFI.
++ */
++/delete-node/ &hyp_tags_reserved_mem;
++/delete-node/ &cdsp_secure_heap_mem;
++/delete-node/ &trust_ui_vm_mem;
++/delete-node/ &trust_ui_vm_dump;
++/delete-node/ &trust_ui_vm_qrtr;
++/delete-node/ &trust_ui_vm_vblk0_ring;
++/delete-node/ &trust_ui_vm_vblk1_ring;
++/delete-node/ &trust_ui_vm_swiotlb;
++/delete-node/ &oem_vm_vblk0_ring;
++/delete-node/ &oem_vm_swiotlb;
++/delete-node/ &oem_vm_mem;
++/delete-node/ &hyp_ext_tags_mem;
++/delete-node/ &hyp_ext_reserved_mem;
++
++/* Xiaomi uses alternative gpio's for i2c8 */
++/delete-node/ &qup_i2c8_data_clk;
++
++/* Xiaomi change for Nanosic WN803x */
++/delete-node/ &qup_i2c9_data_clk;
++
++/* SM8550P doesn't have Modem DSP */
++/delete-node/ &mpss_dsm_mem;
++/delete-node/ &mpss_mem;
++/delete-node/ &q6_mpss_dtb_mem;
++/delete-node/ &remoteproc_mpss;
++
++/ {
++	model = "Xiaomi Pad 6S Pro 12.4";
++	compatible = "xiaomi,sheng", "qcom,sm8550";
++	chassis-type = "tablet";
++	qcom,msm-id = <536 0x20000>; /* SM8550P v2.0 */
++	qcom,board-id = <0x10008 0>;
++
++	aliases {
++		serial0 = &uart7;
++		serial1 = &uart14;
++	};
++
++	chosen {
++		/* Required for libcamera to allocate buffers when udmabuf is used. */
++		bootargs = "udmabuf.size_limit_mb=256";
++	};
++
++	fingerprint_fpc {
++		compatible = "fpc,fpc1020";
++		interrupt-parent = <&tlmm>;
++		interrupts = <40 0>;
++		fpc,gpio_rst = <&tlmm 41 GPIO_ACTIVE_HIGH>;
++		fpc,gpio_irq = <&tlmm 40 GPIO_ACTIVE_HIGH>;
++		irq-gpios = <&tlmm 40 GPIO_ACTIVE_HIGH>;
++		fp_vdd_vreg-supply = <&vreg_l9b_3p3>;
++
++		pinctrl-names = "fpc1020_reset_reset",
++				"fpc1020_reset_active",
++				"fpc1020_irq_active";
++		pinctrl-0 = <&fpc_reset_low>;
++		pinctrl-1 = <&fpc_reset_high>;
++		pinctrl-2 = <&fpc_irq_active>;
++	};
++
++	bl_vddpos_5p8: bl-vddpos-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "bl_vddpos_5p8";
++		regulator-min-microvolt = <5800000>;
++		regulator-max-microvolt = <5800000>;
++		regulator-enable-ramp-delay = <233>;
++		gpio = <&tlmm 30 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
++
++	bl_vddneg_5p8: bl-vddneg-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "bl_vddneg_5p8";
++		regulator-min-microvolt = <5800000>;
++		regulator-max-microvolt = <5800000>;
++		regulator-enable-ramp-delay = <233>;
++		gpio = <&tlmm 31 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++
++		pinctrl-0 = <&volume_up_n>, <&hall_sensor_default>;
++		pinctrl-names = "default";
++
++		key-volume-up {
++			label = "Volume Up";
++			linux,code = <KEY_VOLUMEUP>;
++			gpios = <&pm8550_gpios 6 GPIO_ACTIVE_LOW>;
++			debounce-interval = <15>;
++			linux,can-disable;
++			wakeup-source;
 +		};
 +
- 		tsn0: ethernet@e6460000 {
- 			compatible = "renesas,r8a779g0-ethertsn", "renesas,rcar-gen4-ethertsn";
- 			reg = <0 0xe6460000 0 0x7000>,
++		event-hall-sensor {
++			label = "Hall Effect Sensor";
++			gpios = <&tlmm 171 GPIO_ACTIVE_LOW>;
++			linux,input-type = <EV_SW>;
++			linux,code = <SW_LID>;
++			debounce-interval = <15>;
++			linux,can-disable;
++			wakeup-source;
++		};
++
++		event-tablet-mode {
++			label = "Tablet Mode Switch";
++			gpios = <&tlmm 172 GPIO_ACTIVE_LOW>;
++			linux,input-type = <EV_SW>;
++			linux,code = <SW_TABLET_MODE>;
++			debounce-interval = <15>;
++			linux,can-disable;
++			wakeup-source;
++		};
++	};
++
++	pmic-glink {
++		compatible = "xiaomi,sm8550-pmic-glink", "qcom,sm8550-pmic-glink", "qcom,pmic-glink";
++		#address-cells = <1>;
++		#size-cells = <0>;
++		orientation-gpios = <&tlmm 11 GPIO_ACTIVE_HIGH>;
++
++		connector@0 {
++			compatible = "usb-c-connector";
++			reg = <0>;
++			power-role = "dual";
++			data-role = "dual";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					pmic_glink_hs_in: endpoint {
++						remote-endpoint = <&usb_1_dwc3_hs>;
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					pmic_glink_ss_in: endpoint {
++						remote-endpoint = <&redriver_ss_out>;
++					};
++				};
++
++				port@2 {
++					reg = <2>;
++
++					pmic_glink_sbu: endpoint {
++						remote-endpoint = <&fsa4480_sbu_mux>;
++					};
++				};
++			};
++		};
++	};
++
++	reserved-memory {
++		xbl_ramdump_mem: xbl-ramdump-region@81200000 {
++			reg = <0 0x81200000 0 0x280000>;
++			no-map;
++		};
++
++		xbl_dt_log_mem: xbl-dt-log-region@81a00000 {
++			reg = <0 0x81a00000 0 0x40000>;
++			no-map;
++		};
++
++		aop_image_mem: aop-image-region@81c00000 {
++			reg = <0 0x81c00000 0 0x60000>;
++			no-map;
++		};
++
++		adspslpi_mem: adspslpi-region@9ea00000 {
++			reg = <0 0x9ea00000 0 0x4680000>;
++			no-map;
++		};
++
++		rmtfs_mem: rmtfs-region@ccd00000 {
++			compatible = "qcom,rmtfs-mem";
++			reg = <0x0 0xccd00000 0x0 0x280000>;
++			no-map;
++
++			qcom,client-id = <1>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
++		};
++
++		hwfence_shbuf: hwfence-shbuf-region@e6440000 {
++			reg = <0 0xe6440000 0 0x2dd000>;
++			no-map;
++		};
++
++		llcc_lpi_mem: llcc-lpi-region@ff800000 {
++			reg = <0 0xff800000 0 0x600000>;
++			no-map;
++		};
++
++		/* Required for libcamera to allocate buffers when cma is used. */
++		linux,cma {
++			compatible = "shared-dma-pool";
++			size = <0x0 0x30000000>;
++			reusable;
++			linux,cma-default;
++		};
++	};
++
++	sound {
++		compatible = "qcom,sm8550-sndcard", "qcom,sm8450-sndcard";
++		pinctrl-0 = <&i2s1_default>;
++		pinctrl-names = "default";
++
++		model = "Xiaomi-Pad6SPro";
++		audio-routing = "IN1_HPHL", "HPHL_OUT",
++				"IN2_HPHR", "HPHR_OUT",
++				"AMIC1", "MIC BIAS1",
++				"AMIC2", "MIC BIAS2",
++				"AMIC3", "MIC BIAS3",
++				"AMIC4", "MIC BIAS3",
++				"AMIC5", "MIC BIAS4",
++				"TX SWR_INPUT0", "ADC1_OUTPUT",
++				"TX SWR_INPUT1", "ADC2_OUTPUT",
++				"TX SWR_INPUT0", "ADC3_OUTPUT",
++				"TX SWR_INPUT1", "ADC4_OUTPUT";
++
++		secondary-i2s-dai-link {
++			link-name = "Secondary MI2S Playback";
++
++			cpu {
++				sound-dai = <&q6apmbedai SECONDARY_MI2S_RX>;
++			};
++
++			codec {
++				sound-dai = <&cs35l43_tll>, <&cs35l43_tlh>, <&cs35l43_trl>,
++							<&cs35l43_bll>, <&cs35l43_blh>, <&cs35l43_brl>;
++			};
++
++			platform {
++				sound-dai = <&q6apm>;
++			};
++		};
++
++		wcd-playback-dai-link {
++			link-name = "WCD Playback";
++
++			cpu {
++				sound-dai = <&q6apmbedai RX_CODEC_DMA_RX_0>;
++			};
++
++			codec {
++				sound-dai = <&wcd938x 0>, <&swr1 0>, <&lpass_rxmacro 0>;
++			};
++
++			platform {
++				sound-dai = <&q6apm>;
++			};
++		};
++
++		wcd-capture-dai-link {
++			link-name = "WCD Capture";
++
++			cpu {
++				sound-dai = <&q6apmbedai TX_CODEC_DMA_TX_3>;
++			};
++
++			codec {
++				sound-dai = <&wcd938x 1>, <&swr2 0>, <&lpass_txmacro 0>;
++			};
++
++			platform {
++				sound-dai = <&q6apm>;
++			};
++		};
++
++		displayport-dai-link {
++			link-name = "DisplayPort Playback";
++
++			cpu {
++				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_0>;
++			};
++
++			codec {
++				sound-dai = <&mdss_dp0>;
++			};
++
++			platform {
++				sound-dai = <&q6apm>;
++			};
++		};
++	};
++
++	vph_pwr: vph-pwr-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "vph_pwr";
++		regulator-min-microvolt = <3700000>;
++		regulator-max-microvolt = <3700000>;
++
++		regulator-always-on;
++		regulator-boot-on;
++	};
++
++	wcd938x: audio-codec {
++		compatible = "qcom,wcd9380-codec";
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&wcd_default>;
++
++		qcom,micbias1-microvolt = <2750000>;
++		qcom,micbias2-microvolt = <2750000>;
++		qcom,micbias3-microvolt = <2750000>;
++		qcom,micbias4-microvolt = <2750000>;
++		qcom,mbhc-buttons-vthreshold-microvolt = <75000 150000 237000 500000 500000 500000 500000 500000>;
++		qcom,mbhc-headset-vthreshold-microvolt = <1700000>;
++		qcom,mbhc-headphone-vthreshold-microvolt = <50000>;
++		qcom,rx-device = <&wcd_rx>;
++		qcom,tx-device = <&wcd_tx>;
++
++		reset-gpios = <&tlmm 108 GPIO_ACTIVE_LOW>;
++
++		vdd-buck-supply = <&vreg_l15b_1p8>;
++		vdd-rxtx-supply = <&vreg_l15b_1p8>;
++		vdd-io-supply = <&vreg_l15b_1p8>;
++		vdd-mic-bias-supply = <&vreg_bob1>;
++
++		#sound-dai-cells = <1>;
++	};
++
++	wcn7850-pmu {
++		compatible = "qcom,wcn7850-pmu";
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&wlan_en>, <&bt_default>, <&pmk8550_sleep_clk>;
++
++		wlan-enable-gpios = <&tlmm 80 GPIO_ACTIVE_HIGH>;
++		bt-enable-gpios = <&tlmm 81 GPIO_ACTIVE_HIGH>;
++
++		vdd-supply = <&vreg_s5g_0p8>;
++		vddio-supply = <&vreg_l15b_1p8>;
++		vddaon-supply = <&vreg_s2g_0p8>;
++		vdddig-supply = <&vreg_s4e_0p9>;
++		vddrfa1p2-supply = <&vreg_s4g_1p3>;
++		vddrfa1p8-supply = <&vreg_s6g_1p8>;
++
++		regulators {
++			vreg_pmu_rfa_cmn: ldo0 {
++				regulator-name = "vreg_pmu_rfa_cmn";
++			};
++
++			vreg_pmu_aon_0p59: ldo1 {
++				regulator-name = "vreg_pmu_aon_0p59";
++			};
++
++			vreg_pmu_wlcx_0p8: ldo2 {
++				regulator-name = "vreg_pmu_wlcx_0p8";
++			};
++
++			vreg_pmu_wlmx_0p85: ldo3 {
++				regulator-name = "vreg_pmu_wlmx_0p85";
++			};
++
++			vreg_pmu_btcmx_0p85: ldo4 {
++				regulator-name = "vreg_pmu_btcmx_0p85";
++			};
++
++			vreg_pmu_rfa_0p8: ldo5 {
++				regulator-name = "vreg_pmu_rfa_0p8";
++			};
++
++			vreg_pmu_rfa_1p2: ldo6 {
++				regulator-name = "vreg_pmu_rfa_1p2";
++			};
++
++			vreg_pmu_rfa_1p8: ldo7 {
++				regulator-name = "vreg_pmu_rfa_1p8";
++			};
++
++			vreg_pmu_pcie_0p9: ldo8 {
++				regulator-name = "vreg_pmu_pcie_0p9";
++			};
++
++			vreg_pmu_pcie_1p8: ldo9 {
++				regulator-name = "vreg_pmu_pcie_1p8";
++			};
++		};
++	};
++};
++
++&apps_rsc {
++	regulators-0 {
++		compatible = "qcom,pm8550-rpmh-regulators";
++		qcom,pmic-id = "b";
++
++		vdd-bob1-supply = <&vph_pwr>;
++		vdd-bob2-supply = <&vph_pwr>;
++		vdd-l1-l4-l10-supply = <&vreg_s6g_1p8>;
++		vdd-l2-l13-l14-supply = <&vreg_bob1>;
++		vdd-l3-supply = <&vreg_s4g_1p3>;
++		vdd-l5-l16-supply = <&vreg_bob1>;
++		vdd-l6-l7-supply = <&vreg_bob1>;
++		vdd-l8-l9-supply = <&vreg_bob1>;
++		vdd-l11-supply = <&vreg_s4g_1p3>;
++		vdd-l12-supply = <&vreg_s6g_1p8>;
++		vdd-l15-supply = <&vreg_s6g_1p8>;
++		vdd-l17-supply = <&vreg_bob2>;
++
++		vreg_bob1: bob1 {
++			regulator-name = "vreg_bob1";
++			regulator-min-microvolt = <3296000>;
++			regulator-max-microvolt = <3960000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		/* Xiaomi change for Camera Modules */
++		vreg_bob2: bob2 {
++			regulator-name = "vreg_bob2";
++			regulator-min-microvolt = <2704000>;
++			regulator-max-microvolt = <3296000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l1b_1p8: ldo1 {
++			regulator-name = "vreg_l1b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2b_3p0: ldo2 {
++			regulator-name = "vreg_l2b_3p0";
++			regulator-min-microvolt = <3008000>;
++			regulator-max-microvolt = <3008000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l4b_1p8: ldo4 {
++			regulator-name = "vreg_l4b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l5b_3p1: ldo5 {
++			regulator-name = "vreg_l5b_3p1";
++			regulator-min-microvolt = <3104000>;
++			regulator-max-microvolt = <3104000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		/* Xiaomi change for Nanosic WN803x */
++		vreg_l6b_1p8: ldo6 {
++			regulator-name = "vreg_l6b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		/* Xiaomi change for Camera Modules */
++		vreg_l7b_1p8: ldo7 {
++			regulator-name = "vreg_l7b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		/* Xiaomi change for Semtech SX9371 */
++		vreg_l8b_1p8: ldo8 {
++			regulator-name = "vreg_l8b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++			regulator-boot-on;
++		};
++
++		/* Xiaomi change for FPC1552 */
++		vreg_l9b_3p3: ldo9 {
++			regulator-name = "vreg_l9b_3p3";
++			regulator-min-microvolt = <3296000>;
++			regulator-max-microvolt = <3296000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l10b_1p8: ldo10 {
++			regulator-name = "vreg_l10b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l11b_1p2: ldo11 {
++			regulator-name = "vreg_l11b_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1504000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l12b_1p8: ldo12 {
++			regulator-name = "vreg_l12b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		/* Xiaomi change for Nanosic WN803x */
++		vreg_l13b_3p3: ldo13 {
++			regulator-name = "vreg_l13b_3p3";
++			regulator-min-microvolt = <3296000>;
++			regulator-max-microvolt = <3296000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l14b_3p2: ldo14 {
++			regulator-name = "vreg_l14b_3p2";
++			regulator-min-microvolt = <3200000>;
++			regulator-max-microvolt = <3200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l15b_1p8: ldo15 {
++			regulator-name = "vreg_l15b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l16b_2p8: ldo16 {
++			regulator-name = "vreg_l16b_2p8";
++			regulator-min-microvolt = <2800000>;
++			regulator-max-microvolt = <2800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l17b_2p5: ldo17 {
++			regulator-name = "vreg_l17b_2p5";
++			regulator-min-microvolt = <2504000>;
++			regulator-max-microvolt = <2504000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-1 {
++		compatible = "qcom,pm8550vs-rpmh-regulators";
++		qcom,pmic-id = "c";
++
++		vdd-l3-supply = <&vreg_s4e_0p9>;
++
++		vreg_l3c_0p91: ldo3 {
++			regulator-name = "vreg_l3c_0p9";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <912000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-2 {
++		compatible = "qcom,pm8550vs-rpmh-regulators";
++		qcom,pmic-id = "d";
++
++		vdd-l1-supply = <&vreg_s4e_0p9>;
++
++		vreg_l1d_0p88: ldo1 {
++			regulator-name = "vreg_l1d_0p88";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <920000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-3 {
++		compatible = "qcom,pm8550vs-rpmh-regulators";
++		qcom,pmic-id = "e";
++
++		vdd-l1-supply = <&vreg_s4e_0p9>;
++		vdd-l2-supply = <&vreg_s4e_0p9>;
++		vdd-l3-supply = <&vreg_s4g_1p3>;
++		vdd-s4-supply = <&vph_pwr>;
++		vdd-s5-supply = <&vph_pwr>;
++
++		vreg_s4e_0p9: smps4 {
++			regulator-name = "vreg_s4e_0p9";
++			regulator-min-microvolt = <904000>;
++			regulator-max-microvolt = <984000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_s5e_1p1: smps5 {
++			regulator-name = "vreg_s5e_1p1";
++			regulator-min-microvolt = <1080000>;
++			regulator-max-microvolt = <1120000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l1e_0p88: ldo1 {
++			regulator-name = "vreg_l1e_0p88";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <880000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2e_0p9: ldo2 {
++			regulator-name = "vreg_l2e_0p9";
++			regulator-min-microvolt = <904000>;
++			regulator-max-microvolt = <970000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3e_1p2: ldo3 {
++			regulator-name = "vreg_l3e_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-4 {
++		compatible = "qcom,pm8550ve-rpmh-regulators";
++		qcom,pmic-id = "f";
++
++		vdd-l1-supply = <&vreg_s4e_0p9>;
++		vdd-l2-supply = <&vreg_s4e_0p9>;
++		vdd-l3-supply = <&vreg_s4e_0p9>;
++		vdd-s4-supply = <&vph_pwr>;
++
++		vreg_s4f_0p5: smps4 {
++			regulator-name = "vreg_s4f_0p5";
++			regulator-min-microvolt = <500000>;
++			regulator-max-microvolt = <700000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l1f_0p9: ldo1 {
++			regulator-name = "vreg_l1f_0p9";
++			regulator-min-microvolt = <912000>;
++			regulator-max-microvolt = <912000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2f_0p88: ldo2 {
++			regulator-name = "vreg_l2f_0p88";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <912000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3f_0p91: ldo3 {
++			regulator-name = "vreg_l3f_0p91";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <912000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-5 {
++		compatible = "qcom,pm8550vs-rpmh-regulators";
++		qcom,pmic-id = "g";
++
++		vdd-l1-supply = <&vreg_s4g_1p3>;
++		vdd-l2-supply = <&vreg_s4g_1p3>;
++		vdd-l3-supply = <&vreg_s4g_1p3>;
++		vdd-s1-supply = <&vph_pwr>;
++		vdd-s2-supply = <&vph_pwr>;
++		vdd-s3-supply = <&vph_pwr>;
++		vdd-s4-supply = <&vph_pwr>;
++		vdd-s5-supply = <&vph_pwr>;
++		vdd-s6-supply = <&vph_pwr>;
++
++		vreg_s1g_1p2: smps1 {
++			regulator-name = "vreg_s1g_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1300000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_s2g_0p8: smps2 {
++			regulator-name = "vreg_s2g_0p8";
++			regulator-min-microvolt = <800000>;
++			regulator-max-microvolt = <1000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		/* Xiaomi change for Display Panel */
++		vreg_s3g_0p7: smps3 {
++			regulator-name = "vreg_s3g_0p7";
++			regulator-min-microvolt = <600000>;
++			regulator-max-microvolt = <1900000>; //2004000
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		/* Xiaomi change for Camera Modules */
++		vreg_s4g_1p3: smps4 {
++			regulator-name = "vreg_s4g_1p3";
++			regulator-min-microvolt = <1256000>;
++			regulator-max-microvolt = <1408000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_s5g_0p8: smps5 {
++			regulator-name = "vreg_s5g_0p8";
++			regulator-min-microvolt = <500000>;
++			regulator-max-microvolt = <1004000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_s6g_1p8: smps6 {
++			regulator-name = "vreg_s6g_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l1g_1p2: ldo1 {
++			regulator-name = "vreg_l1g_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2g_1p2: ldo2 {
++			regulator-name = "vreg_l2g_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3g_1p2: ldo3 {
++			regulator-name = "vreg_l3g_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-6 {
++		compatible = "qcom,pm8010-rpmh-regulators";
++		qcom,pmic-id = "m";
++
++		vdd-l1-l2-supply = <&vreg_s4g_1p3>;
++		vdd-l3-l4-supply = <&vreg_bob2>;
++		vdd-l5-supply = <&vreg_s6g_1p8>;
++		vdd-l6-supply = <&vreg_bob2>;
++		vdd-l7-supply = <&vreg_bob2>;
++
++		/* Xiaomi change for Camera Modules */
++		vreg_l1m_1p2: ldo1 {
++			regulator-name = "vreg_l1m_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		/* Xiaomi change for Camera Modules */
++		vreg_l2m_1p08: ldo2 {
++			regulator-name = "vreg_l2m_1p08";
++			regulator-min-microvolt = <1080000>;
++			regulator-max-microvolt = <1080000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3m_2p8: ldo3 {
++			regulator-name = "vreg_l3m_2p8";
++			regulator-min-microvolt = <2800000>;
++			regulator-max-microvolt = <2800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l4m_2p8: ldo4 {
++			regulator-name = "vreg_l4m_2p8";
++			regulator-min-microvolt = <2800000>;
++			regulator-max-microvolt = <2800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l5m_1p8: ldo5 {
++			regulator-name = "vreg_l5m_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		/* Xiaomi change for Camera Modules */
++		vreg_l6m_2p8: ldo6 {
++			regulator-name = "vreg_l6m_2p8";
++			regulator-min-microvolt = <2800000>;
++			regulator-max-microvolt = <2800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		/* Xiaomi change for Camera Modules */
++		vreg_l7m_2p85: ldo7 {
++			regulator-name = "vreg_l7m_2p85";
++			regulator-min-microvolt = <2856000>;
++			regulator-max-microvolt = <2856000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++};
++
++&camss {
++	vdda-phy-supply = <&vreg_l1e_0p88>;
++	vdda-pll-supply = <&vreg_l3e_1p2>;
++
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@1 {
++			reg = <1>;
++
++			csiphy1_ep: endpoint {
++				data-lanes = <0>;
++				remote-endpoint = <&ov02b1b_ep>;
++			};
++		};
++
++		port@3 {
++			reg = <3>;
++
++			csiphy3_ep: endpoint {
++				data-lanes = <0 1 2 3>;
++				remote-endpoint = <&s5kjn1_ep>;
++			};
++		};
++
++		port@4 {
++			reg = <4>;
++
++			csiphy4_ep: endpoint {
++				data-lanes = <0 1 2 3>;
++				remote-endpoint = <&ov32d40_ep>;
++			};
++		};
++	};
++};
++
++&cci0 {
++	status = "okay";
++};
++
++&cci0_i2c1 {
++	clock-frequency = <1000000>;
++
++	camera@10 {
++		compatible = "samsung,s5kjn1";
++		reg = <0x10>;
++
++		reset-gpios = <&tlmm 118 GPIO_ACTIVE_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&cam2_default>, <&cam_rear_reset_default>;
++
++		clocks = <&camcc CAM_CC_MCLK2_CLK>;
++
++		orientation = <1>;
++		rotation = <0>;
++
++		lens-focus = <&gt9764>;
++
++		vddio-supply = <&vreg_l4b_1p8>;
++		vddd-supply = <&vreg_l2m_1p08>;
++		vdda-supply = <&vreg_l4m_2p8>;
++
++		port {
++			s5kjn1_ep: endpoint {
++				data-lanes = <0 1 2 3>;
++				link-frequencies = /bits/ 64 <857600000>;
++				remote-endpoint = <&csiphy3_ep>;
++			};
++		};
++	};
++
++	gt9764: camera-lens@c {
++		compatible = "giantec,gt9764";
++		reg = <0x0c>;
++
++		vin-supply = <&vreg_l4b_1p8>;
++		vdd-supply = <&vreg_l7m_2p85>;
++		dongwoon,clock-presc = <0>;
++		dongwoon,aac-timing = <0x6a>;
++		dongwoon,initial-focus = <0x200>;
++		dongwoon,move-delay-us = <7000>;
++	};
++};
++
++&cci1 {
++	status = "okay";
++};
++
++&cci1_i2c0 {
++	clock-frequency = <400000>;
++
++	camera@3c {
++		compatible = "ovti,ov02b1b";
++		reg = <0x3c>;
++
++		reset-gpios = <&tlmm 117 GPIO_ACTIVE_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&cam1_default>, <&cam_depth_reset_default>;
++
++		clocks = <&camcc CAM_CC_MCLK1_CLK>;
++
++		orientation = <1>;
++		rotation = <0>;
++
++		vddio-supply = <&vreg_l10b_1p8>;
++		avdd-supply = <&vreg_l6m_2p8>;
++
++		port {
++			ov02b1b_ep: endpoint {
++				data-lanes = <0>;
++				link-frequencies = /bits/ 64 <332800000>;
++				remote-endpoint = <&csiphy1_ep>;
++			};
++		};
++	};
++};
++
++&cci1_i2c1 {
++	clock-frequency = <1000000>;
++
++	camera@10 {
++		compatible = "ovti,ov32d40";
++		reg = <0x10>;
++
++		reset-gpios = <&tlmm 120 GPIO_ACTIVE_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&cam4_default>, <&cam_front_reset_default>;
++
++		clocks = <&camcc CAM_CC_MCLK4_CLK>;
++
++		orientation = <0>;
++		rotation = <0>;
++
++		vddio-supply = <&vreg_l5m_1p8>;
++		dvdd-supply = <&vreg_l1m_1p2>;
++		avdd-supply = <&vreg_l3m_2p8>;
++
++		port {
++			ov32d40_ep: endpoint {
++				data-lanes = <0 1 2 3>;
++				link-frequencies = /bits/ 64 <842400000>;
++				remote-endpoint = <&csiphy4_ep>;
++			};
++		};
++	};
++};
++
++&ipa {
++	qcom,gsi-loader = "self";
++	memory-region = <&ipa_fw_mem>;
++	firmware-name = "qcom/sm8550/sheng/ipa_fws.mbn";
++	status = "okay";
++};
++
++&gpi_dma1 {
++	status = "okay";
++};
++
++&gpi_dma2 {
++	status = "okay";
++};
++
++&gpu {
++	status = "okay";
++};
++
++&gpu_zap_shader {
++	firmware-name = "qcom/sm8550/sheng/a740_zap.mbn";
++};
++
++&i2c0 {
++	clock-frequency = <400000>;
++	status = "okay";
++
++	typec-retimer@28 {
++		compatible = "parade,ps5169";
++		reg = <0x28>;
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&ps5169_reset_default>;
++
++		reset-gpios = <&tlmm 7 GPIO_ACTIVE_LOW>;
++
++		orientation-switch;
++		retimer-switch;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++
++				redriver_ss_out: endpoint {
++					remote-endpoint = <&pmic_glink_ss_in>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++
++				redriver_ss_in: endpoint {
++					data-lanes = <3 2 1 0>;
++					remote-endpoint = <&usb_dp_qmpphy_out>;
++				};
++			};
++		};
++	};
++};
++
++&i2c1 {
++	status = "okay";
++
++	backlight: backlight@11 {
++		compatible = "kinetic,ktz8866a";
++		reg = <0x11>;
++		vin-supply = <&vph_pwr>;
++		enable-gpios = <&tlmm 128 GPIO_ACTIVE_HIGH>;
++		current-num-sinks = <5>;
++		kinetic,current-ramp-delay-ms = <256>;
++		kinetic,led-enable-ramp-delay-ms = <8>;
++		kinetic,enable-lcd-bias;
++	};
++};
++
++&i2c5 {
++	clock-frequency = <1000000>;
++	status = "okay";
++
++	cs35l43_trl: cs35l43@40 {
++		compatible = "cirrus,cs35l43";
++		reg = <0x40>;
++		interrupt-parent = <&tlmm>;
++		interrupts = <98 IRQ_TYPE_LEVEL_LOW>;
++		reset-gpios = <&tlmm 90 GPIO_ACTIVE_HIGH>;
++		#sound-dai-cells = <0>;
++		sound-name-prefix = "TRL";
++		cirrus,dsp-part-name = "trl-cs35l43";
++		cirrus,vpbr-thld = <8>;
++		cirrus,vpbr-max-att = <3>;
++		cirrus,vpbr-atk-vol = <5>;
++		cirrus,vpbr-atk-rate = <0>;
++		cirrus,vpbr-wait = <0>;
++		cirrus,vpbr-rel-rate = <0>;
++		cirrus,vpbr-enable = <1>;
++		cirrus,gpio2-src-sel = <4>;
++		cirrus,asp-sdout-hiz = <3>;
++		cirrus,bst-ipk-ma = <4000>;
++	};
++
++	cs35l43_tlh: cs35l43@41 {
++		compatible = "cirrus,cs35l43";
++		reg = <0x41>;
++		interrupt-parent = <&tlmm>;
++		interrupts = <99 IRQ_TYPE_LEVEL_LOW>;
++		reset-gpios = <&tlmm 90 GPIO_ACTIVE_HIGH>;
++		#sound-dai-cells = <0>;
++		sound-name-prefix = "TLH";
++		cirrus,dsp-part-name = "tlh-cs35l43";
++		cirrus,vpbr-thld = <8>;
++		cirrus,vpbr-max-att = <3>;
++		cirrus,vpbr-atk-vol = <5>;
++		cirrus,vpbr-atk-rate = <0>;
++		cirrus,vpbr-wait = <0>;
++		cirrus,vpbr-rel-rate = <0>;
++		cirrus,vpbr-enable = <1>;
++		cirrus,gpio2-src-sel = <4>;
++		cirrus,asp-sdout-hiz = <3>;
++		cirrus,bst-ipk-ma = <4000>;
++	};
++
++	cs35l43_tll: cs35l43@42 {
++		compatible = "cirrus,cs35l43";
++		reg = <0x42>;
++		interrupt-parent = <&tlmm>;
++		interrupts = <119 IRQ_TYPE_LEVEL_LOW>;
++		reset-gpios = <&tlmm 90 GPIO_ACTIVE_HIGH>;
++		#sound-dai-cells = <0>;
++		sound-name-prefix = "TLL";
++		cirrus,dsp-part-name = "tll-cs35l43";
++		cirrus,vpbr-thld = <8>;
++		cirrus,vpbr-max-att = <3>;
++		cirrus,vpbr-atk-vol = <5>;
++		cirrus,vpbr-atk-rate = <0>;
++		cirrus,vpbr-wait = <0>;
++		cirrus,vpbr-rel-rate = <0>;
++		cirrus,vpbr-enable = <1>;
++		cirrus,gpio2-src-sel = <4>;
++		cirrus,asp-sdout-hiz = <3>;
++		cirrus,bst-ipk-ma = <4000>;
++	};
++};
++
++&i2c8 {
++	clock-frequency = <1000000>;
++	status = "okay";
++
++	cs35l43_blh: cs35l43@40 {
++		compatible = "cirrus,cs35l43";
++		reg = <0x40>;
++		interrupt-parent = <&tlmm>;
++		interrupts = <8 IRQ_TYPE_LEVEL_LOW>;
++		reset-gpios = <&tlmm 90 GPIO_ACTIVE_HIGH>;
++		#sound-dai-cells = <0>;
++		sound-name-prefix = "BLH";
++		cirrus,dsp-part-name = "blh-cs35l43";
++		cirrus,vpbr-thld = <8>;
++		cirrus,vpbr-max-att = <3>;
++		cirrus,vpbr-atk-vol = <5>;
++		cirrus,vpbr-atk-rate = <0>;
++		cirrus,vpbr-wait = <0>;
++		cirrus,vpbr-rel-rate = <0>;
++		cirrus,vpbr-enable = <1>;
++		cirrus,gpio2-src-sel = <4>;
++		cirrus,asp-sdout-hiz = <3>;
++		cirrus,bst-ipk-ma = <4000>;
++	};
++
++	cs35l43_bll: cs35l43@41 {
++		compatible = "cirrus,cs35l43";
++		reg = <0x41>;
++		interrupt-parent = <&tlmm>;
++		interrupts = <17 IRQ_TYPE_LEVEL_LOW>;
++		reset-gpios = <&tlmm 90 GPIO_ACTIVE_HIGH>;
++		#sound-dai-cells = <0>;
++		sound-name-prefix = "BLL";
++		cirrus,dsp-part-name = "bll-cs35l43";
++		cirrus,vpbr-thld = <8>;
++		cirrus,vpbr-max-att = <3>;
++		cirrus,vpbr-atk-vol = <5>;
++		cirrus,vpbr-atk-rate = <0>;
++		cirrus,vpbr-wait = <0>;
++		cirrus,vpbr-rel-rate = <0>;
++		cirrus,vpbr-enable = <1>;
++		cirrus,gpio2-src-sel = <4>;
++		cirrus,asp-sdout-hiz = <3>;
++		cirrus,bst-ipk-ma = <4000>;
++	};
++
++	cs35l43_brl: cs35l43@42 {
++		compatible = "cirrus,cs35l43";
++		reg = <0x42>;
++		interrupt-parent = <&tlmm>;
++		interrupts = <85 IRQ_TYPE_LEVEL_LOW>;
++		reset-gpios = <&tlmm 90 GPIO_ACTIVE_HIGH>;
++		#sound-dai-cells = <0>;
++		sound-name-prefix = "BRL";
++		cirrus,dsp-part-name = "brl-cs35l43";
++		cirrus,vpbr-thld = <8>;
++		cirrus,vpbr-max-att = <3>;
++		cirrus,vpbr-atk-vol = <5>;
++		cirrus,vpbr-atk-rate = <0>;
++		cirrus,vpbr-wait = <0>;
++		cirrus,vpbr-rel-rate = <0>;
++		cirrus,vpbr-enable = <1>;
++		cirrus,gpio2-src-sel = <4>;
++		cirrus,asp-sdout-hiz = <3>;
++		cirrus,bst-ipk-ma = <4000>;
++	};
++};
++
++&i2c9 {
++	status = "okay";
++
++	nanosic_mcu@4c {
++		compatible = "nanosic,wn8030-sheng";
++		reg = <0x4c>;
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&nanosic_mcu_default>;
++
++		interrupt-parent = <&tlmm>;
++		interrupts = <62 IRQ_TYPE_EDGE_RISING>;
++
++		reset-gpios = <&tlmm 58 GPIO_ACTIVE_LOW>;
++		sleep-gpios = <&tlmm 57 GPIO_ACTIVE_LOW>;
++		status-gpios = <&tlmm 56 GPIO_ACTIVE_HIGH>;
++
++		vddio-supply = <&vreg_l12b_1p8>;
++		dvdd-supply = <&vreg_l13b_3p3>;
++	};
++};
++
++&i2c_master_hub_0 {
++	status = "okay";
++};
++
++&i2c_hub_2 {
++	status = "okay";
++
++	backlight@11 {
++		compatible = "kinetic,ktz8866b";
++		reg = <0x11>;
++		vin-supply = <&vph_pwr>;
++		enable-gpios = <&tlmm 128 GPIO_ACTIVE_HIGH>;
++		current-num-sinks = <5>;
++		kinetic,current-ramp-delay-ms = <256>;
++		kinetic,led-enable-ramp-delay-ms = <8>;
++		kinetic,enable-lcd-bias;
++	};
++
++	typec-mux@42 {
++		compatible = "fcs,fsa4480";
++		reg = <0x42>;
++
++		vcc-supply = <&vreg_bob1>;
++
++		mode-switch;
++		orientation-switch;
++
++		port {
++			fsa4480_sbu_mux: endpoint {
++				remote-endpoint = <&pmic_glink_sbu>;
++			};
++		};
++	};
++};
++
++&iris {
++	status = "okay";
++
++	firmware-name = "qcom/sm8550/sheng/vpu30_4v.mbn";
++};
++
++&mdss {
++	status = "okay";
++};
++
++&mdss_dsi0 {
++	vdda-supply = <&vreg_l3e_1p2>;
++	qcom,dual-dsi-mode;
++	qcom,sync-dual-dsi;
++	qcom,master-dsi;
++	status = "okay";
++
++	display_panel: panel@0 {
++		compatible = "xiaomi,sheng-nt36532e", "novatek,nt36532e";
++		reg = <0>;
++
++		pinctrl-names = "default", "sleep";
++		pinctrl-0 = <&sde_dsi_active>;
++		pinctrl-1 = <&sde_dsi_suspend>;
++
++		vddio-supply = <&vreg_s3g_0p7>;
++		avdd-supply = <&bl_vddpos_5p8>;
++		avee-supply = <&bl_vddneg_5p8>;
++
++		reset-gpios = <&tlmm 133 GPIO_ACTIVE_LOW>;
++		backlight = <&backlight>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++
++				panel_in_0: endpoint {
++					remote-endpoint = <&mdss_dsi0_out>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++
++				panel_in_1: endpoint {
++					remote-endpoint = <&mdss_dsi1_out>;
++				};
++			};
++		};
++	};
++};
++
++&mdss_dsi0_out {
++	remote-endpoint = <&panel_in_0>;
++	data-lanes = <0 1 2 3>;
++};
++
++&mdss_dsi0_phy {
++	vdds-supply = <&vreg_l1e_0p88>;
++	status = "okay";
++};
++
++&mdss_dsi1 {
++	vdda-supply = <&vreg_l3e_1p2>;
++	qcom,dual-dsi-mode;
++	qcom,sync-dual-dsi;
++	/* DSI1 is slave, so use DSI0 clocks */
++	assigned-clock-parents = <&mdss_dsi0_phy 0>, <&mdss_dsi0_phy 1>;
++	status = "okay";
++};
++
++&mdss_dsi1_out {
++	remote-endpoint = <&panel_in_1>;
++	data-lanes = <0 1 2 3>;
++};
++
++&mdss_dsi1_phy {
++	vdds-supply = <&vreg_l1e_0p88>;
++	status = "okay";
++};
++
++&mdss_dp0 {
++	status = "okay";
++};
++
++&mdss_dp0_out {
++	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
++};
++
++&pcie0 {
++	wake-gpios = <&tlmm 96 GPIO_ACTIVE_HIGH>;
++	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie0_default_state>;
++
++	status = "okay";
++};
++
++&pcieport0 {
++	wifi@0 {
++		compatible = "pci17cb,1107";
++		reg = <0x10000 0x0 0x0 0x0 0x0>;
++
++		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
++		vddaon-supply = <&vreg_pmu_aon_0p59>;
++		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
++		vddwlmx-supply = <&vreg_pmu_wlmx_0p85>;
++		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
++		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
++		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
++		vddpcie0p9-supply = <&vreg_pmu_pcie_0p9>;
++		vddpcie1p8-supply = <&vreg_pmu_pcie_1p8>;
++	};
++};
++
++&pcie0_phy {
++	vdda-phy-supply = <&vreg_l1e_0p88>;
++	vdda-pll-supply = <&vreg_l3e_1p2>;
++
++	status = "okay";
++};
++
++&pm8010_n {
++	status = "disabled";
++};
++
++&pm8550_flash {
++	status = "okay";
++
++	led-0 {
++		function = LED_FUNCTION_FLASH;
++		color = <LED_COLOR_ID_WHITE>;
++		led-sources = <1>;
++		led-max-microamp = <400000>;
++		flash-max-microamp = <400000>;
++		flash-max-timeout-us = <300000>;
++		function-enumerator = <0>;
++	};
++};
++
++&pm8550_gpios {
++	volume_up_n: volume-up-n-state {
++		pins = "gpio6";
++		function = "normal";
++		power-source = <1>;
++		bias-pull-up;
++		input-enable;
++	};
++};
++
++&pm8550_pwm {
++	status = "okay";
++
++	multi-led {
++		color = <LED_COLOR_ID_RGB>;
++		function = LED_FUNCTION_STATUS;
++		max-brightness = <255>;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		led@1 {
++			reg = <1>;
++			color = <LED_COLOR_ID_RED>;
++		};
++
++		led@2 {
++			reg = <2>;
++			color = <LED_COLOR_ID_GREEN>;
++		};
++
++		led@3 {
++			reg = <3>;
++			color = <LED_COLOR_ID_BLUE>;
++		};
++	};
++};
++
++&pm8550b_eusb2_repeater {
++	vdd18-supply = <&vreg_l15b_1p8>;
++	vdd3-supply = <&vreg_l5b_3p1>;
++};
++
++&pm8550vs_c {
++	status = "okay";
++};
++
++&pm8550vs_d {
++	status = "okay";
++};
++
++&pm8550vs_e {
++	status = "okay";
++};
++
++&pm8550vs_g {
++	status = "okay";
++};
++
++&pon_pwrkey {
++	status = "okay";
++};
++
++&pon_resin {
++	linux,code = <KEY_VOLUMEDOWN>;
++
++	status = "okay";
++};
++
++&pmk8550_gpios {
++	pmk8550_sleep_clk: sleep-clk-state {
++		pins = "gpio3";
++		function = "func1";
++		input-disable;
++		output-enable;
++		bias-disable;
++		power-source = <0>;
++	};
++};
++
++&pmk8550_rtc {
++	nvmem-cells = <&rtc_offset>;
++	nvmem-cell-names = "offset";
++};
++
++&pmk8550_sdam_2 {
++	rtc_offset: rtc-offset@bc {
++		reg = <0xbc 0x4>;
++	};
++};
++
++&qupv3_id_0 {
++	status = "okay";
++};
++
++&qupv3_id_1 {
++	status = "okay";
++};
++
++&remoteproc_adsp {
++	firmware-name = "qcom/sm8550/sheng/adsp.mbn",
++			"qcom/sm8550/sheng/adsp_dtb.mbn";
++	status = "okay";
++};
++
++&remoteproc_cdsp {
++	firmware-name = "qcom/sm8550/sheng/cdsp.mbn",
++			"qcom/sm8550/sheng/cdsp_dtb.mbn";
++	status = "okay";
++};
++
++&sleep_clk {
++	clock-frequency = <32764>;
++};
++
++&spi4 {
++	status = "okay";
++
++	touchscreen@0 {
++		compatible = "novatek,NVT-ts-spi";
++		reg = <0>;
++
++		spi-max-frequency = <19200000>;
++		novatek,irq-gpio = <&tlmm 25 0x2001>;
++
++		panel = <&display_panel>;
++
++		firmware-name = "novatek/novatek_nt36532_n81a_fw_csot.bin";
++	};
++};
++
++&swr1 {
++	status = "okay";
++
++	/* WCD9380 RX */
++	wcd_rx: codec@0,4 {
++		compatible = "sdw20217010d00";
++		reg = <0 4>;
++		qcom,rx-port-mapping = <1 2 3 4 5>;
++	};
++};
++
++&swr2 {
++	status = "okay";
++
++	/* WCD9380 TX */
++	wcd_tx: codec@0,3 {
++		compatible = "sdw20217010d00";
++		reg = <0 3>;
++		qcom,tx-port-mapping = <2 2 3 4>;
++	};
++};
++
++&tlmm {
++	gpio-reserved-ranges = <36 4>;
++
++	fpc_reset_low: fpc-reset-low-state {
++		pins = "gpio41";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++		output-low;
++	};
++
++	fpc_reset_high: fpc-reset-high-state {
++		pins = "gpio41";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++		output-high;
++	};
++
++	fpc_irq_active: fpc-irq-active-state {
++		pins = "gpio40";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	sde_dsi_active: sde-dsi-active-state {
++		pins = "gpio133";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++	};
++
++	sde_dsi_suspend: sde-dsi-suspend-state {
++		pins = "gpio133";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	bt_default: bt-default-state {
++		bt-en-pins {
++			pins = "gpio81";
++			function = "gpio";
++			drive-strength = <16>;
++			bias-disable;
++		};
++
++		sw-ctrl-pins {
++			pins = "gpio82";
++			function = "gpio";
++			bias-pull-down;
++		};
++	};
++
++	wlan_en: wlan-en-state {
++		pins = "gpio80";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-pull-down;
++	};
++
++	qup_i2c8_data_clk: qup-i2c8-data-clk-state {
++		scl-pins {
++			pins = "gpio1";
++			function = "qup2_se0_l1_mirb";
++			drive-strength = <2>;
++			bias-pull-up = <2200>;
++		};
++
++		sda-pins {
++			pins = "gpio0";
++			function = "qup2_se0_l0_mirb";
++			drive-strength = <2>;
++			bias-pull-up = <2200>;
++		};
++	};
++
++	hall_sensor_default: hall-sensor-default-state {
++		pins = "gpio171", "gpio172";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-up;
++		input-enable;
++	};
++
++	wcd_default: wcd-reset-n-active-state {
++		pins = "gpio108";
++		function = "gpio";
++		drive-strength = <16>;
++		bias-disable;
++		output-low;
++	};
++
++	i2s1_default: i2s1-default-state {
++		sck-pins {
++			pins = "gpio121";
++			function = "i2s1_sck";
++			drive-strength = <8>;
++			bias-disable;
++			output-high;
++		};
++
++		data0-pins {
++			pins = "gpio122";
++			function = "i2s1_data0";
++			drive-strength = <8>;
++			bias-disable;
++		};
++
++		ws-pins {
++			pins = "gpio123";
++			function = "i2s1_ws";
++			drive-strength = <8>;
++			bias-disable;
++			output-high;
++		};
++
++		data1-pins {
++			pins = "gpio124";
++			function = "i2s1_data1";
++			drive-strength = <8>;
++			bias-disable;
++			output-high;
++		};
++	};
++
++	cam_rear_reset_default: cam-rear-reset-default-state {
++		pins = "gpio118";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	cam_depth_reset_default: cam-depth-reset-default-state {
++		pins = "gpio117";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	cam_front_reset_default: cam-front-reset-default-state {
++		pins = "gpio120";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	ps5169_reset_default: ps5169-reset-default-state {
++		pins = "gpio7";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-up;
++	};
++
++	qup_i2c9_data_clk: qup-i2c9-data-clk-state {
++		/* SDA, SCL */
++		pins = "gpio60", "gpio61";
++		function = "qup2_se1";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	nanosic_mcu_default: nanosic-mcu-default-state {
++		status-pins {
++			pins = "gpio56";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-disable;
++		};
++
++		sleep-pins {
++			pins = "gpio57";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-pull-down;
++		};
++
++		reset-pins {
++			pins = "gpio58";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-disable;
++		};
++	};
++};
++
++&uart14 {
++	status = "okay";
++
++	bluetooth {
++		compatible = "qcom,wcn7850-bt";
++
++		local-bd-address = [ 24 00 00 00 5a ad ];
++
++		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
++		vddaon-supply = <&vreg_pmu_aon_0p59>;
++		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
++		vddwlmx-supply = <&vreg_pmu_wlmx_0p85>;
++		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
++		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
++		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
++
++		max-speed = <3200000>;
++	};
++};
++
++&ufs_mem_hc {
++	reset-gpios = <&tlmm 210 GPIO_ACTIVE_LOW>;
++	vcc-supply = <&vreg_l17b_2p5>;
++	vcc-max-microamp = <1300000>;
++	vccq-supply = <&vreg_l1g_1p2>;
++	vccq-max-microamp = <1200000>;
++	vdd-hba-supply = <&vreg_l3g_1p2>;
++
++	status = "okay";
++};
++
++&ufs_mem_phy {
++	vdda-phy-supply = <&vreg_l1d_0p88>;
++	vdda-pll-supply = <&vreg_l3e_1p2>;
++
++	status = "okay";
++};
++
++&usb_1 {
++	status = "okay";
++};
++
++&usb_1_dwc3_hs {
++	remote-endpoint = <&pmic_glink_hs_in>;
++};
++
++&usb_1_hsphy {
++	vdd-supply = <&vreg_l1e_0p88>;
++	vdda12-supply = <&vreg_l3e_1p2>;
++
++	phys = <&pm8550b_eusb2_repeater>;
++
++	status = "okay";
++};
++
++&usb_dp_qmpphy {
++	vdda-phy-supply = <&vreg_l3e_1p2>;
++	vdda-pll-supply = <&vreg_l3f_0p91>;
++
++	status = "okay";
++};
++
++&usb_dp_qmpphy_out {
++	remote-endpoint = <&redriver_ss_in>;
++};
++
++&xo_board {
++	clock-frequency = <76800000>;
++};
 -- 
-2.55.0
+2.54.0.windows.1
 
