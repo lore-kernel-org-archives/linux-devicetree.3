@@ -1,139 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3FEA390CBF
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 08:58:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81CF93BB13A
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 09:00:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784624307; cv=none; b=Ui3ylueLkOyAioAVXYLWdnBcc1JBDaKbHs7hlM8ixTqIRdBxlajhaVN1Dg8yBLTYzsiTdejA9qCmrZEHtTaRSrQ8PO7gWIIAu6mrJy/mYUpFO9X/XN+iX7XkD3scfgZ2ukub7VtjWdjL8oc6z3BWkCniBJzBb6ZccYSeUtLU/L4=
+	t=1784624452; cv=none; b=obuyOLsYCwG1b6HQ1+TiXfdtLhXI7t1oBR3Lk3cnDEpFphx3NbH0pnUWe9DHF4HAKXtcQmWRdPeCDjyzpV890POpm/IDzE2AEHqCL2ulxfXXFMTLTst//z1mVt5XCX9Ui291Qe4jnLVkck2/5pjSa7QsA2pLMhlgJtrIbvKCph4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784624307; c=relaxed/simple;
-	bh=dTTBGwz6Bs1fjY1vD7aVdAsQs5DyIH3258w06q05eEY=;
+	s=arc-20240116; t=1784624452; c=relaxed/simple;
+	bh=G7OVymGAZ68fOsyVudMfDfVQ6j5IKcZYslwyklzHBKM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JBIljrxCm7jj3A7Dy9OMadIXcMvW9uk3GfJ3WX8SVP81iWetPr/kMWv+A0yk/ZP1IYcdelRIj+HTKKQ4U0U5N26r8XqWFQe0eCjkJG/pxc/S4oK/qUiK4mJXSvgCo0eq2qU6ywKpoO4pquXxDBlzkD0w8up7Zu5nEbpDGGzCVEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PexKYz2t; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=oBXnj5tZMlOjPNbmFg0B8zlFkqkn+FGYNH9BPA3AtrWttQgJVxkzw4QugLfXnR5KYGGhEQy3AJUIdwxvX7dW6N9JaO9aibU2TmgeZoVqvRNC/yCh/e+c38zvsnOBpmZo+kkq9sJAE7fQ1W7wgYhFFijauCJVt1+GZWgVKKq4n3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HQZdsiW6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PexKYz2t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7803D1F000E9;
-	Tue, 21 Jul 2026 08:58:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HQZdsiW6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B2831F000E9;
+	Tue, 21 Jul 2026 09:00:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784624306;
-	bh=J/C8+whpT+MQfq1YbnY85ts2y26nYGviYRktOT5QA50=;
+	s=k20260515; t=1784624451;
+	bh=h21z0qT/BkkREP5771hwXWAwAbvEvcrzEyYIvC7bzW8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PexKYz2thy6yFOUPR+8I7oXNxSioHrAakD4MoViuTacL/Gs8Hk2fwwruz848O2Gq0
-	 CfR1WHRckZB6FMUS1C2TDCbwk0P3dZp/SQTqmlypvUCZJAYwrSUVpBWMrC3/nrnOa8
-	 pbpz/vOmLd2MKVZXyPx9cbFmb9TIrMlfJ4Yuev01Dx8H8J11xg67YB9aV5ePsvE3P2
-	 rHQGiQaHDYOUwMcrrRaStRYKmwyZQ2M/OVGdBc6jCNYcDXgmG49Mu0Qv/2Kky6T6IG
-	 Y0q4JUbRh3TPVqHEd/nnWl9vqkl+1MZjFZXHAqGpJQNelCHf2rzyo6Hm49flYsueEs
-	 i9vGSQ954ag+g==
+	b=HQZdsiW6NZ9WetovW9NtOp4nfumr5fBdIO3x6k9y1I9z+CW2qBNRlwqk6BXaUAFWy
+	 ZT9zHD9pbvfsjwIKi/3ecIeV/M0T+VUWplWSW/veYFahuZN29Lxxrt2qMza8KHxqfR
+	 vDEW4w981gT1xWaptD1Jgo6cv7Y5qFK7iFMk3RKR5iHGOg1F6CYdWWsrrF/IR1qeYi
+	 QSUAkHB+Sv19HM/O3FzBffT+Bg4sbz/IQ58n6H3lltIek0tJ6lZMt/pr6sbdqW7FWq
+	 ZeGP+/L3kaIwP2lRAEC/II1y6iy9P8aJV3T//ZuFuYXimZflRZXHwr4fh3TjExUeiQ
+	 R61PAU59Tepvw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/4] iio: dac: ad3530r: add support for
- AD5710R/AD5711R
+Subject: Re: [PATCH v2 2/4] dt-bindings: iio: dac: add adi,ad5710r.yaml
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kim Seer Paller" <kimseer.paller@analog.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260721-iio-ad5710r-upstream-v2-4-324949dc72da@analog.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260721-iio-ad5710r-upstream-v2-2-324949dc72da@analog.com>
 References: <20260721-iio-ad5710r-upstream-v2-0-324949dc72da@analog.com>
- <20260721-iio-ad5710r-upstream-v2-4-324949dc72da@analog.com>
+ <20260721-iio-ad5710r-upstream-v2-2-324949dc72da@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 08:58:26 +0000
-Message-Id: <20260721085826.7803D1F000E9@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 09:00:50 +0000
+Message-Id: <20260721090051.1B2831F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] The `powerdown_mode` sysfs attribute is exposed with write permissi=
-ons despite being read-only, causing write attempts to fail unconditionally=
- with `-EINVAL`.
+- [Medium] The `adi,range-double` property is defined as a global device pr=
+operty, artificially limiting the hardware's per-channel capabilities and c=
+onflicting with current output modes.
+- [Medium] The `reg` property inside `patternProperties` incorrectly uses `=
+items` to apply numeric constraints, rendering channel bounds checking comp=
+letely ineffective.
 --
 
---- Patch [4]: [PATCH v2 4/4] iio: dac: ad3530r: add support for AD5710R/AD=
-5711R ---
-commit 3c7f6e84bbb3d2178089f97875a1f7dc3599d417
+--- Patch [2]: [PATCH v2 2/4] dt-bindings: iio: dac: add adi,ad5710r.yaml -=
+--
+commit fe69da2e77f6f1de3acc9e529bec6856901e4e98
 Author: Kim Seer Paller <kimseer.paller@analog.com>
 
-iio: dac: ad3530r: add support for AD5710R/AD5711R
+dt-bindings: iio: dac: add adi,ad5710r.yaml
 
-This patch adds support for the AD5710R/AD5711R 8-channel configurable=20
-IDAC/VDAC parts. The new devices are folded into the ad3530r driver as=20
-they share the same register map and access model.
+Add device tree bindings for the Analog Devices AD5710R/AD5711R
+8-channel 12-/16-bit Configurable IDAC/VDAC.
 
-> diff --git a/drivers/iio/dac/ad3530r.c b/drivers/iio/dac/ad3530r.c
-> index 97483534f8c33..935b3a832d8e9 100644
-> --- a/drivers/iio/dac/ad3530r.c
-> +++ b/drivers/iio/dac/ad3530r.c
-
-[ ... ]
-
-> @@ -194,6 +210,26 @@ static const struct iio_enum ad3532r_powerdown_mode_=
-enum =3D {
->  	.set =3D ad3530r_set_powerdown_mode,
->  };
-> =20
-> +static int ad5710r_get_powerdown_mode(struct iio_dev *indio_dev,
-> +				      const struct iio_chan_spec *chan)
-> +{
-> +	struct ad3530r_state *st =3D iio_priv(indio_dev);
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	ret =3D regmap_read(st->regmap, AD5710R_CHN_VMODE_EN, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return !(val & AD5710R_CHN_VMODE_EN_BIT(chan->channel));
-> +}
-> +
-> +static const struct iio_enum ad5710r_powerdown_mode_enum =3D {
-> +	.items =3D ad5710r_powerdown_modes,
-> +	.num_items =3D ARRAY_SIZE(ad5710r_powerdown_modes),
-> +	.get =3D ad5710r_get_powerdown_mode,
-> +};
-> +
+> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5710r.yaml b=
+/Documentation/devicetree/bindings/iio/dac/adi,ad5710r.yaml
+> new file mode 100644
+> index 0000000000000..17c1bf0092421
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5710r.yaml
 
 [ ... ]
 
-> @@ -419,6 +506,17 @@ static const struct iio_chan_spec_ext_info ad3532r_e=
-xt_info[] =3D {
->  	{ }
->  };
-> =20
-> +static const struct iio_chan_spec_ext_info ad5710r_ext_info[] =3D {
-> +	{
-> +		.name =3D "powerdown",
-> +		.shared =3D IIO_SEPARATE,
-> +		.read =3D ad5710r_get_dac_powerdown,
-> +		.write =3D ad5710r_set_dac_powerdown,
-> +	},
-> +	IIO_ENUM("powerdown_mode", IIO_SEPARATE, &ad5710r_powerdown_mode_enum),
+> +  adi,range-double:
+> +    description:
+> +      Configure the output range for all channels. If the property is pr=
+esent,
+> +      the output will range from 0V to 2Vref. If the property is not pre=
+sent,
+> +      the output will range from 0V to Vref.
+> +    type: boolean
 
-[Severity: Low]
-Does using the IIO_ENUM macro here incorrectly expose the attribute as writ=
-able?
+[Severity: Medium]
+Since the description notes that each channel can be independently configur=
+ed
+as either a voltage or current output, should this property be placed inside
+the channel patternProperties block instead?=20
 
-Since ad5710r_powerdown_mode_enum lacks a .set callback, any writes to the
-powerdown_mode sysfs attribute will fail unconditionally with -EINVAL.=20
+Defining it globally seems to restrict configuring the output range on a
+per-channel basis, and might also semantically conflict with channels
+configured for current output.
 
-However, the IIO_ENUM macro automatically assigns iio_enum_write to the .wr=
-ite=20
-callback, which grants write permissions in sysfs. Should this attribute be=
-=20
-manually defined in the ext_info array without a .write callback to properl=
-y=20
-enforce read-only semantics at the VFS layer?
-
-> +	{ }
-> +};
 > +
->  #define AD3530R_CHAN(_chan, _ext_info)				\
->  {								\
->  	.type =3D IIO_VOLTAGE,					\
+> +patternProperties:
+> +  "^channel@[0-7]$":
+> +    $ref: /schemas/iio/dac/dac.yaml#
+> +    type: object
+> +    description:
+> +      Represents the external channels which are connected to the DAC.
+> +
+> +    properties:
+> +      reg:
+> +        description: Channel number
+> +        items:
+> +          minimum: 0
+> +          maximum: 7
+
+[Severity: Medium]
+Does placing minimum and maximum inside an items dictionary correctly apply
+the constraints?=20
+
+In dt-schema, the reg property is mapped to a matrix. Wrapping the constrai=
+nts
+in items applies them to the tuple array instead of the scalar integers,
+causing schema validation to ignore them and silently accept out-of-bounds
+channel numbers.=20
+
+Could these bounds be placed directly under the reg property?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-iio-ad5710=
-r-upstream-v2-0-324949dc72da@analog.com?part=3D4
+r-upstream-v2-0-324949dc72da@analog.com?part=3D2
