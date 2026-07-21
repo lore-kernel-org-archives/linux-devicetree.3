@@ -1,85 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 521CA417D9B
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 06:45:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D338F41DE0D;
+	Tue, 21 Jul 2026 06:48:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784616341; cv=none; b=T+VTQjWIQ/4JLqF1UYeyaw2kHQsvCH0NvFmME64hIgOhi6P2r+20NcEyOZkQVCT94SXVlKjYEmB1AaOhZDxmuOA3vanhs5UMliLJAzZGKNCsfxp9OF+CzW6eYXjGNeft0R56KZVTg+pmhGLGYKNu+ddR3MGaOY+1aDO3xCSZrps=
+	t=1784616486; cv=none; b=WjsW58urTqkSgIIMfkUa+FO5lbbHpPfqL2y8PaR/0zQuihCUx3nrICNUcDgoQflPByei2mdfQJjUlGlH1uYA50qhfujgu8IxRiL5dbF4RotoMEvJ6Q5BqrdWDhmiQjezUoibhLQFRfomP1X25lhNTyaAw0Obms87zVUOrzibkdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784616341; c=relaxed/simple;
-	bh=aeis1+/wO99vuMJaztIia2EtzuqK/e5Pt8pqAq30YqQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nn9ZIBxwFFJ8oAFMsA1BI+oHi06nfqZsw4pGPRorIZmBMRFpsHF2A4xZMbQQziLlslmt+vXvAjZhhFqXgIeyIHLxaJQQQ76pqSIiKqtdTXCDW9Rvv3XSj2Fu1tbGd+8wEjTSTBaA8lghErPfx44u8Tii/Pl/BVzRxXIe638g/XQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hh3Jk2vx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784616486; c=relaxed/simple;
+	bh=oZqUSki0lSiZk5rsUXpeGL6vruLF2oPt3Y+MRxOQ5f4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HG55/Rca9wKCYzuoVSLKYkU3YDGOSFQcNjusUF0AUlDokUsMrQgLgwKbbSLzmlQ4ooF/1GLOSXmVb89ujZlWpllL3wyh1tOBG8hNe4sXS1aYBloTqR/sCL4lReBWosmdM+9Ah/V4MuOjKbxEGBk8Ct41xPrAPn4dFb6Knmqiz0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UTUF7xPQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hh3Jk2vx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A20FE1F00A3A;
-	Tue, 21 Jul 2026 06:45:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UTUF7xPQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 726941F000E9;
+	Tue, 21 Jul 2026 06:48:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784616339;
-	bh=sgyNH4L85fiSWptni/JJ6u/XskzcrksB4b5bxu5LUTs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hh3Jk2vxZGQPzO6GoRw6axyoTvpsStW8mR1izKR3tqUqy+sYHSk4gYh5ldXcarhnP
-	 l7I/Sr5Q3OJVtzdKkWvd4nHBhDANCll1XZP/Q6roaaUMBPegdvKyqpUDtIeE6LGqhd
-	 unF9lm0Oh/12felM7qfgAkcmBSUsmkEbtUIQmB9nN8H5AtJTMHeyg/ZF0FRFhNOLZi
-	 wFgMAUAuSel8rA7N8CeEZiJ3L6xI1OR2sJEkon/tKmltIrcrZ2YEcsdKAJ8PH+pAeB
-	 rtYN+LMvgE8pDvltV+WabGdlqefxg3FVWI5VtrprRqjm93StpdrAUHY+X8w/GeF1jG
-	 dV40bbkNNtyzQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/9] remoteproc: qcom: pas: add support for TMD
- thermal cooling devices
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Gaurav Kohli" <gaurav.kohli@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260721-b4-qmi-tmd-v5-3-99620e07f505@oss.qualcomm.com>
-References: <20260721-b4-qmi-tmd-v5-0-99620e07f505@oss.qualcomm.com>
- <20260721-b4-qmi-tmd-v5-3-99620e07f505@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 06:45:39 +0000
-Message-Id: <20260721064539.A20FE1F00A3A@smtp.kernel.org>
+	s=k20260515; t=1784616485;
+	bh=/JUMLqzj6fOHdfOyj5iXlmKfbuFHeUYbYWgYpKr+ev8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UTUF7xPQxqNfqYRwQIKxSWDIGYDII2y86dWle/aDT2XnYiYWI8Z50Fs4aVH2izXCn
+	 gYh5K2M40eyycnv1NWmlxBbppf8DURPzUfN6kbK/TlvoXR4bMT3K5OEiZ7VCHurGck
+	 nrERz4A5xNwh/0lx/I/njYsZ1OdMH4feZuesemPHGYq0nYda2bORN3OwxFlXfjXn8j
+	 oD6DKYf+vkVSBvIeMLbMnkXOf0k8U9fEhirMTvxeABTQuy3+/2+utf607gB2ubXYbu
+	 Bvbx9aie5lIHytlgK7BmE4E3jDgKXtA9kvWkqZop/GQEp7rj5N7Ig+osNtzC5Y6bey
+	 cJyHUA0kq4klw==
+Date: Tue, 21 Jul 2026 08:48:01 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Subject: Re: [PATCH v6 1/3] ASoC: dt-bindings: qcom,q6apm-lpass-dais:
+ Document DAI subnode
+Message-ID: <20260721-fiery-sheep-of-piety-4fd04b@quoll>
+References: <20260720160226.1026440-1-mohammad.rafi.shaik@oss.qualcomm.com>
+ <20260720160226.1026440-2-mohammad.rafi.shaik@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260720160226.1026440-2-mohammad.rafi.shaik@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The Kconfig symbol QCOM_Q6V5_PAS unconditionally selects QCOM_QMI_T=
-MD without inheriting its NET dependency, leading to unmet dependency warni=
-ngs and potential build failures.
---
+On Mon, Jul 20, 2026 at 09:32:24PM +0530, Mohammad Rafi Shaik wrote:
+> +# Digital Audio Interfaces
+> +patternProperties:
+> +  '^dai@[0-9a-f]+$':
+> +    type: object
+> +    description:
+> +      Q6DSP Digital Audio Interfaces.
+> +
+> +    properties:
+> +      reg:
+> +        maxItems: 1
+> +        description:
+> +          Digital Audio Interface ID
+> +
+> +      clocks:
+> +        minItems: 1
+> +        items:
+> +          - description: MI2S bit clock
+> +          - description: MI2S external bit clock
+> +          - description: MI2S master clock
+> +
+> +      clock-names:
+> +        minItems: 1
+> +        items:
+> +          - enum: [bclk, eclk, mclk]
+> +          - const: mclk
 
---- Patch [3]: [PATCH v5 3/9] remoteproc: qcom: pas: add support for TMD th=
-ermal cooling devices ---
-commit 55e78a265d3400a946df10d192ba5fdd761cbe31
-Author: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-remoteproc: qcom: pas: add support for TMD thermal cooling devices
+This does not match your clocks.
 
-This commit registers Thermal Mitigation Devices (TMDs) for PAS-managed
-remote processors to enable thermal throttling through QMI. It updates
-Kconfig to select the necessary QMI TMD support and adds the device tree
-parsing and initialization logic.
+I gave you exact syntax to use, then in previous version you used
+something else. So I reminded. Again you used something else.
 
-> diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
-> index 65befdbfa5f7d..f7c02edf395fe 100644
-> --- a/drivers/remoteproc/Kconfig
-> +++ b/drivers/remoteproc/Kconfig
-> @@ -229,6 +229,7 @@ config QCOM_Q6V5_PAS
->  	select QCOM_PIL_INFO
->  	select QCOM_MDT_LOADER
->  	select QCOM_Q6V5_COMMON
-> +	select QCOM_QMI_TMD
+If you decide not to use it, sure, your right but YOU CANNOT come with
+clearly invalid code as a substitute.
 
-[Severity: Low]
-Does selecting QCOM_QMI_TMD here without inheriting its dependency on NET
-cause Kconfig unmet dependency warnings and potential build failures when
-CONFIG_NET=3Dn?
+NAK
 
-[ ... ]
+Best regards,
+Krzysztof
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-b4-qmi-tmd=
--v5-0-99620e07f505@oss.qualcomm.com?part=3D3
