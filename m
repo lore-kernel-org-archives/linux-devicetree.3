@@ -1,516 +1,509 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F72434E2F
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 22:13:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E5843E4B9;
+	Tue, 21 Jul 2026 22:15:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784672034; cv=none; b=XAluufa8X6ZYrwQkQI04wGEury7ZgJy0MTK8lOxNvc0/8dX4gq+NEjxMPnx+Xj5OljTUUv2PUtzw4pf2Dq01ojEpBKrRHM54IM1LU9axuoeOB0M5zv2hokPQ2wY2ZLfx5oKr9YdgpSa1052q4pcDLWtPcBXkBtAadFypgDiZzII=
+	t=1784672131; cv=none; b=rxvkG0fZO5PgXTLVqSrwlecteH+hG5VG8kUk7ZcbHoKwZQkWZa27G7BmWpKKTeDMBOHmiSeSFZ5ZQSgLf92gMobdA7TV794R7AhpEQLdVd7hy+4lwFYxjC/0VD9LE/95D4riBE1hZXl+G0FyOMUMcpCgCRk18uEwnF3ptoa0Jos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784672034; c=relaxed/simple;
-	bh=3mYy78aFqYnVGOnrAFUjEZJmy+FfUQ28lFcJZggiUtc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KMCG98LscLX5vyYxRNfisVP2fAaD7l0ZW/GREJ68jfcMVlM7+31Oaah/+lM2CklpoQsjduQQfbk5BfeYc3djd9vAeLWPstWOPDz45TKq6rSmBn1Zp/EqkjpwKbIaeOD+WFGKxlmVbtDlZWlji7eUEYy7oIX5R+zimyYEFoYjiaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IASKWPkU; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=rKT0Slwb; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1784672131; c=relaxed/simple;
+	bh=K0hYKZ3Y14GkBhkj2aO35MAFJ9SJd3dMoEfcSlNSvW4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=X8TdwL5z1H+rTGSv91Znx5HZqmentaWo8zesCehIZep+X8q59+N8wBLFH9FKSCGHcEM4EhaLoZMYF29gMtZw7UOWuPblYP6gukuJQ3RSpu/79rb5rYXKVtfwWlKKrcMcEBYxN0Ac/Av6NCL9UIx83s1Z7sqX9c0GP9YK1d1VYLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SRgqJDm5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IASKWPkU";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="rKT0Slwb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784672030;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c477dkDn60xr5/vpHCybjFahEYi4w5V0EVtZg0tIWZ8=;
-	b=IASKWPkUfKGbmEcx9m9WqWhYiMkIMZEzBp0vJwF4l5up2BxeyR9LaIJvo8Z07MaU4Ze6lf
-	jLzNeto7XDKVLjZvPHGXSDsX0xkwECFCfaRVlCHeQfjxahJsj/3MQP/2rf3Rp/CXBoFwqm
-	dC5K6m42PPGeaNzG7v3KiUqdxZphr/Q=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-12-A1SJ7xQXPyqunLmCDUoD0w-1; Tue, 21 Jul 2026 18:13:49 -0400
-X-MC-Unique: A1SJ7xQXPyqunLmCDUoD0w-1
-X-Mimecast-MFC-AGG-ID: A1SJ7xQXPyqunLmCDUoD0w_1784672028
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92efd2ca21aso516469185a.0
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:13:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1784672028; x=1785276828; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=c477dkDn60xr5/vpHCybjFahEYi4w5V0EVtZg0tIWZ8=;
-        b=rKT0SlwbW26KCloRgDv3W9gFkB10HDeNwZA/wgy5Q6XFNeqGK1pADSE2yN4IiwmTez
-         IRFWh+d3dcumSdVi1Pr8z0V6GD5rui8VNi3aoVvnNYAIDi5mfuplFe226Rx7f51U90/g
-         tEy5f3VqhkrnIZHG8ndkjb7WAeQ7NfJNAO5cW48inoNZRF/3dAKK/k9Mo+XhFn7EO9eM
-         wpIoWmuRZJV3JdTdmBigLtq8aHYts5l5IWNfQOKeSjy2WdaAhj+ZvAE5f/vHl9WnoKkW
-         kgKs0Q0Mpkb9jdRI/DU4l62d4FhRp3T2/iskvlho5itux/F59suEIpTbSg8/BVJM7CxY
-         s3ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784672028; x=1785276828;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c477dkDn60xr5/vpHCybjFahEYi4w5V0EVtZg0tIWZ8=;
-        b=J69B1BMLYUSt6MjRRz83FJdGCgTEgTJUIYzMW96u0r2e4x7nI9HiZ5//jkbbwcl/TM
-         ujGMW1fr9/iov3+Io26C+eFa/BKvinwURtV3BhZlDih14iKk4ywapzQx2nl1Eq0rhESP
-         pNAnFbkkY7Ar4+jKY1Il2O9UC+09IlG//voHSnW/MRUqQ4xiSgwUPMCJM+jgso5MTYw0
-         p4kFPq/Uiq4XszQJ42xkv33pUoCRhwcpzdH8X7y0pejHYqMDjSHAcgRF0PhL7+Y1UQXL
-         D9WCjfStoOG2PRlGBVIx0TKRH52abgtxKRKio8QWNwkkz0E6uSsDIJsyOeSUZUclezWL
-         +LDg==
-X-Forwarded-Encrypted: i=1; AHgh+RoLp1Ld7NjdNDld++uZbaRf7y5xMNhSAUWZyTuMmIZQ2SlE9Vwr06RN2SUf0FRL9w00qMwx1LAbR8Bp@vger.kernel.org
-X-Gm-Message-State: AOJu0YxZJaTHdd0sjOOLwTT/k5rc6BMJOdui4JeUo1dLIaUNi/H+irgN
-	0zKcoize4Obl5FbfTy8aTAGg5jxdDnEOrhRaBCxFGDLwhdzuDrIeb1VxU2epmqFdmKassLWZiVR
-	xvcUJnyPRQvxdvOB1xCT6GfPY+PWXYq8Fit4X0bLeFDVg9iUQbztuCBkVKohWZGH5EKcrZ74=
-X-Gm-Gg: AR+sD12p3XsIubCS2fvjBFCElHnambWZdruxWt8u9/hN9/uATa6VGZ94fplqYiwBE9b
-	xdf9XWVBtt3pxf5qq5y57jTGgYtGT2Kose2ABPXgs4JR49HcMLUn+6o7hYHkCrnobr7waaoZTZc
-	ecXlvcSn+pjG7NAN3S4rbsAmmKEx1U+DLSmSQev71a5AazQgqpgQVDbEncTsGF8dAtsURAEiiHL
-	IvPASjg/O5wuK3QtYsWU8UqGJBYnfQwGKG4xDuO7hAjubJQrK1sm+sMk5zRDUQCzAPpZtQ+Mvhc
-	BG8IC2ym5hka+1BkNvIRod2M0aKSuzpxrLrdFNFAp5JxFP6eXM+DyVkCg7Gm2EBCz9BspU8hVZk
-	M+pVRDK6strE5SL5CY98cCV2Vo1gG5hUCUEs=
-X-Received: by 2002:a05:620a:29c6:b0:92e:c117:9ead with SMTP id af79cd13be357-930b4396822mr2022259885a.91.1784672028315;
-        Tue, 21 Jul 2026 15:13:48 -0700 (PDT)
-X-Received: by 2002:a05:620a:29c6:b0:92e:c117:9ead with SMTP id af79cd13be357-930b4396822mr2022256385a.91.1784672027775;
-        Tue, 21 Jul 2026 15:13:47 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-930f68d323asm3643085a.19.2026.07.21.15.13.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 15:13:47 -0700 (PDT)
-Date: Tue, 21 Jul 2026 18:13:45 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: joakim.zhang@cixtech.com
-Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de,
-	cix-kernel-upstream@cixtech.com, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v10 2/4] clk: cix: add sky1 audss clock controller
-Message-ID: <al_vGXIW2bP8uGJ5@redhat.com>
-References: <20260720051505.1252774-1-joakim.zhang@cixtech.com>
- <20260720051505.1252774-3-joakim.zhang@cixtech.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SRgqJDm5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55161F00A3E;
+	Tue, 21 Jul 2026 22:15:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784672129;
+	bh=0Dsg/DJLGZllOai+LIwtpPFxkuXZu072GPBgBB+B/5I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SRgqJDm5hj1SKfqHYa/fX21nuLq/8HS735jhgUyc6UT6tKSbeYu1SGYriZS6410kV
+	 rMLCovZk1IAU66ghxOCY8DiFJgASV6KYnigiu1uJbBwpIr29vypV3xnU5NG0gAzpkD
+	 312dWR1WGF7TEgSpUOCLSQnBsOW/TezHTEJDSlPZzMJ3/Wh1CRm6aKMlwg5VTzIekY
+	 Gxm04cQ8plSTMGXopTKG3cqA1eflutJ5Z2jrlBbNg8MyA8CedClvA2fmod5wGuGH7o
+	 Rx4L67PyH4p74Tjc7NqN7QlSn8Wbi3aH8ejOsbhi72Y/uliiv4rTFl4Et4/7BJZXbO
+	 ApnYc7mxv4GqQ==
+Message-ID: <e6983266-da39-4f75-b11c-d4b79cea27a3@kernel.org>
+Date: Tue, 21 Jul 2026 23:15:24 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260720051505.1252774-3-joakim.zhang@cixtech.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 01/18] media: iris: Add Gen2 firmware autodetect and
+ fallback
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+References: <20260709-iris-ar50lt-v7-0-76af9dd4d1f6@oss.qualcomm.com>
+ <54G6QklSf6TM84GOR9hmCKOLJ_kQuzVolJUAJr8Su3aMmp5xV8Dfe0XZit4C40O5QbDM3UpW9zB9K17ApAbqVQ==@protonmail.internalid>
+ <20260709-iris-ar50lt-v7-1-76af9dd4d1f6@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260709-iris-ar50lt-v7-1-76af9dd4d1f6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Joakim,
-
-A few questions / issues mostly related to pm runtime usage.
-
-On Mon, Jul 20, 2026 at 01:15:03PM +0800, joakim.zhang@cixtech.com wrote:
-> From: Joakim Zhang <joakim.zhang@cixtech.com>
+On 09/07/2026 14:41, Dmitry Baryshkov wrote:
+> From: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
 > 
-> Add a platform driver for the Cix Sky1 AUDSS CRU. The driver maps
-> the CRU registers and registers mux, divider and gate clocks for
-> DSP, SRAM, HDA, DMAC, I2S, mailbox, watchdog and timer blocks.
+> Some Iris platforms support both Gen1 and Gen2 HFI firmware images.
+> Update the firmware loading logic to handle this generically by
+> preferring Gen2 when available, while safely falling back to Gen1
+> when required.
 > 
-> Four SoC-level audio reference clocks are enabled as inputs to the
-> internal clock tree. The driver releases the AUDSS NOC reset, enables
-> runtime PM and instantiates the auxiliary reset device.
+> The firmware loading logic is updated with the following priority:
+> 1. Device Tree (`firmware-name`): If specified, load unconditionally.
+> 2. Gen2 default : If no DT override exists, select the Gen2 firmware
+>     descriptor when present and attempt to load the corresponding
+>     firmware image.
+> 3. Gen1 Fallback: If loading the Gen2 firmware fails and a Gen1
+>     descriptor is available, retry with the Gen1 firmware image.
 > 
-> Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
+> When a platform provides both Gen1 and Gen2 firmware descriptors and the
+> firmware is loaded via a DT override, the driver detects the
+> firmware generation at runtime before authentication by inspecting
+> the firmware data. The firmware is classified as Gen2 if the
+> QC_IMAGE_VERSION_STRING starts with "vfw" or matches the
+> "video-firmware.N.M" format with N >= 2.
+> 
+> If a Gen1 firmware image is detected in this case, the driver switches
+> to the Gen1 firmware descriptor and associated platform data so that
+> the correct HFI implementation is used.
+> 
+> This change makes firmware generation detection platform‑agnostic,
+> preserves DT overrides, prefers newer Gen2 firmware when available,
+> and maintains compatibility with platforms that only support Gen1.
+> 
+> Signed-off-by: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+> Co-developed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
->  drivers/clk/Kconfig              |    1 +
->  drivers/clk/Makefile             |    1 +
->  drivers/clk/cix/Kconfig          |   16 +
->  drivers/clk/cix/Makefile         |    3 +
->  drivers/clk/cix/clk-sky1-audss.c | 1211 ++++++++++++++++++++++++++++++
->  5 files changed, 1232 insertions(+)
->  create mode 100644 drivers/clk/cix/Kconfig
->  create mode 100644 drivers/clk/cix/Makefile
->  create mode 100644 drivers/clk/cix/clk-sky1-audss.c
+>   drivers/media/platform/qcom/iris/iris_core.c       |   2 +
+>   drivers/media/platform/qcom/iris/iris_firmware.c   | 146 ++++++++++++++++++---
+>   .../platform/qcom/iris/iris_platform_common.h      |   6 +-
+>   .../media/platform/qcom/iris/iris_platform_vpu2.c  |  11 +-
+>   .../media/platform/qcom/iris/iris_platform_vpu3x.c |  10 +-
+>   drivers/media/platform/qcom/iris/iris_probe.c      |   4 -
+>   drivers/media/platform/qcom/iris/iris_vidc.c       |   1 +
+>   7 files changed, 147 insertions(+), 33 deletions(-)
 > 
-> diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
-> index 1717ce75a907..cfcaab39068a 100644
-> --- a/drivers/clk/Kconfig
-> +++ b/drivers/clk/Kconfig
-> @@ -509,6 +509,7 @@ source "drivers/clk/actions/Kconfig"
->  source "drivers/clk/analogbits/Kconfig"
->  source "drivers/clk/aspeed/Kconfig"
->  source "drivers/clk/bcm/Kconfig"
-> +source "drivers/clk/cix/Kconfig"
->  source "drivers/clk/eswin/Kconfig"
->  source "drivers/clk/hisilicon/Kconfig"
->  source "drivers/clk/imgtec/Kconfig"
-> diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
-> index cc108a75a900..87c992f0df54 100644
-> --- a/drivers/clk/Makefile
-> +++ b/drivers/clk/Makefile
-> @@ -119,6 +119,7 @@ obj-$(CONFIG_ARCH_ARTPEC)		+= axis/
->  obj-$(CONFIG_ARC_PLAT_AXS10X)		+= axs10x/
->  obj-y					+= bcm/
->  obj-$(CONFIG_ARCH_BERLIN)		+= berlin/
-> +obj-y					+= cix/
->  obj-$(CONFIG_ARCH_DAVINCI)		+= davinci/
->  obj-$(CONFIG_COMMON_CLK_ESWIN)		+= eswin/
->  obj-$(CONFIG_ARCH_HISI)			+= hisilicon/
-> diff --git a/drivers/clk/cix/Kconfig b/drivers/clk/cix/Kconfig
-> new file mode 100644
-> index 000000000000..c92a9a873893
-> --- /dev/null
-> +++ b/drivers/clk/cix/Kconfig
-> @@ -0,0 +1,16 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +# Audio subsystem clock support for Cixtech SoC family
-> +menu "Clock support for Cixtech audss"
-
-s/audss/AUDSS/
-
-Or how about spelling out Audio Subsystem Clock Driver
-
-[snip]
-
-> +static const struct clk_ops sky1_audss_clk_mux_ops = {
-> +	.get_parent = sky1_audss_clk_mux_get_parent,
-> +	.set_parent = sky1_audss_clk_mux_set_parent,
-> +	.determine_rate = sky1_audss_clk_mux_determine_rate,
-
-Does this need an enable/disable for the pm_runtime get/put?
-
-> +};
+> diff --git a/drivers/media/platform/qcom/iris/iris_core.c b/drivers/media/platform/qcom/iris/iris_core.c
+> index 52bf56e517f9..6dbe18be5b49 100644
+> --- a/drivers/media/platform/qcom/iris/iris_core.c
+> +++ b/drivers/media/platform/qcom/iris/iris_core.c
+> @@ -6,6 +6,7 @@
+>   #include <linux/pm_runtime.h>
+> 
+>   #include "iris_core.h"
+> +#include "iris_ctrls.h"
+>   #include "iris_firmware.h"
+>   #include "iris_state.h"
+>   #include "iris_vpu_common.h"
+> @@ -79,6 +80,7 @@ int iris_core_init(struct iris_core *core)
+>   		goto error_unload_fw;
+> 
+>   	core->iris_firmware_data->init_hfi_ops(core);
+> +	iris_session_init_caps(core);
+> 
+>   	ret = iris_hfi_core_init(core);
+>   	if (ret)
+> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
+> index 1a476146d758..a3aa41aa1e66 100644
+> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
+> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
+> @@ -16,20 +16,138 @@
+> 
+>   #define MAX_FIRMWARE_NAME_SIZE	128
+> 
+> -static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
+> +/* Detect Gen2 firmware by scanning the blob for:
+> + *   QC_IMAGE_VERSION_STRING=<version>
+> + * and then checking:
+> + *   - version starts with "vfw", OR
+> + *   - version matches "video-firmware.N.M" with N >= 2
+> + */
 > +
-> +static inline struct sky1_clk_divider *to_sky1_clk_divider(struct clk_divider *div)
+> +static bool iris_detect_gen2_from_fwdata(const u8 *data, size_t size)
 > +{
-> +	return container_of(div, struct sky1_clk_divider, div);
-> +}
+> +	static const char *marker = "QC_IMAGE_VERSION_STRING=";
+> +	const size_t mlen = strlen(marker);
+> +	static const char *vfw = "vfw";
+> +	const size_t vfwlen = strlen(vfw);
+> +	static const char *vf = "video-firmware.";
+> +	const size_t vflen = strlen(vf);
 > +
-> +static unsigned long sky1_audss_clk_divider_recalc_rate(struct clk_hw *hw,
-> +							unsigned long parent_rate)
-> +{
-> +	struct clk_divider *divider = to_clk_divider(hw);
-> +	struct sky1_clk_divider *sky1_div = to_sky1_clk_divider(divider);
-> +	unsigned int val;
+> +	for (size_t i = 0; i + mlen < size; i++) {
+> +		const char *found;
 > +
-> +	regmap_read(sky1_div->regmap, sky1_div->offset, &val);
-> +	val = val >> divider->shift;
-> +	val &= clk_div_mask(divider->width);
+> +		if (memcmp(data + i, marker, mlen))
+> +			continue;
 > +
-> +	return divider_recalc_rate(hw, parent_rate, val, divider->table,
-> +				   divider->flags, divider->width);
-> +}
+> +		found = data + i + mlen;
+> +		size -= i + mlen;
 > +
-> +static int sky1_audss_clk_divider_determine_rate(struct clk_hw *hw,
-> +						 struct clk_rate_request *req)
-> +{
-> +	struct clk_divider *divider = to_clk_divider(hw);
-> +	struct sky1_clk_divider *sky1_div = to_sky1_clk_divider(divider);
+> +		/* vfw => Gen2 */
+> +		if (size > vfwlen && !memcmp(found, vfw, vfwlen))
+> +			return true;
 > +
-> +	/* if read only, just return current value */
-> +	if (divider->flags & CLK_DIVIDER_READ_ONLY) {
-> +		u32 val;
+> +		if (size < vflen ||
+> +		    memcmp(found, vf, vflen))
+> +			return false;
 > +
-> +		regmap_read(sky1_div->regmap, sky1_div->offset, &val);
-> +		val = val >> divider->shift;
-> +		val &= clk_div_mask(divider->width);
+> +		found += vflen;
+> +		size -= vflen;
 > +
-> +		return divider_ro_determine_rate(hw, req, divider->table,
-> +						 divider->width,
-> +						 divider->flags, val);
+> +		/*
+> +		 * video-firmware.1.x is Gen1.
+> +		 * video-firmware.2.x and video-firmware.10.x are Gen2.
+> +		 */
+> +		return size >= 2 &&
+> +			(*found >= '2' || (*found == '1' && found[1] != '.'));
 > +	}
 > +
-> +	return divider_determine_rate(hw, req, divider->table, divider->width,
-> +				      divider->flags);
+> +	return false;
+
+The logic here is much easier to read for me thanks for updating it.
+
 > +}
 > +
-> +static int sky1_audss_clk_divider_set_rate(struct clk_hw *hw,
-> +					   unsigned long rate,
-> +					   unsigned long parent_rate)
+> +static const struct firmware *iris_detect_firmware(struct iris_core *core,
+> +						   const char **fw_name)
 > +{
-> +	struct clk_divider *divider = to_clk_divider(hw);
-> +	struct sky1_clk_divider *sky1_div = to_sky1_clk_divider(divider);
-> +	int value;
-> +	unsigned long flags = 0;
-> +	u32 val;
+> +	const struct iris_firmware_desc *desc;
+> +	const struct firmware *firmware;
+> +	bool has_both_gens;
+> +	int ret;
 > +
-> +	value = divider_get_val(rate, parent_rate, divider->table,
-> +				divider->width, divider->flags);
-> +	if (value < 0)
-> +		return value;
+> +	*fw_name = NULL;
+> +	ret = of_property_read_string_index(dev_of_node(core->dev), "firmware-name", 0, fw_name);
 > +
-> +	if (divider->lock)
-> +		spin_lock_irqsave(divider->lock, flags);
-> +	else
-> +		__acquire(divider->lock);
-> +
-> +	if (divider->flags & CLK_DIVIDER_HIWORD_MASK) {
-> +		val = clk_div_mask(divider->width) << (divider->shift + 16);
-> +	} else {
-> +		regmap_read(sky1_div->regmap, sky1_div->offset, &val);
-> +		val &= ~(clk_div_mask(divider->width) << divider->shift);
+> +	/*
+> +	 * A platform may support both Gen1 and Gen2 firmware; which one is used
+> +	 * depends on the firmware image installed on the system, not on the
+> +	 * hardware. That installed image does not change while the device is
+> +	 * bound, so detect the generation only once and reuse the chosen
+> +	 * descriptor on later core bring-ups (e.g. after a system error
+> +	 * recovery). Besides avoiding the redundant probing, this ensures
+> +	 * core->iris_firmware_desc and iris_firmware_data are published exactly
+> +	 * once, before any session exists, so the lockless readers in the ioctl
+> +	 * paths never observe a reassignment.
+> +	 */
+> +	if (core->iris_firmware_desc) {
+> +		if (ret)
+> +			*fw_name = core->iris_firmware_desc->fwname;
+> +		ret = request_firmware(&firmware, *fw_name, core->dev);
+> +		return ret ? ERR_PTR(ret) : firmware;
 > +	}
-> +	val |= (u32)value << divider->shift;
-> +	regmap_write(sky1_div->regmap, sky1_div->offset, val);
 > +
-> +	if (divider->lock)
-> +		spin_unlock_irqrestore(divider->lock, flags);
+> +	has_both_gens = core->iris_platform_data->firmware_desc_gen2 &&
+> +		core->iris_platform_data->firmware_desc_gen1;
+> +
+> +	if (core->iris_platform_data->firmware_desc_gen2)
+> +		desc = core->iris_platform_data->firmware_desc_gen2;
+> +	else if (core->iris_platform_data->firmware_desc_gen1)
+> +		desc = core->iris_platform_data->firmware_desc_gen1;
 > +	else
-> +		__release(divider->lock);
+> +		return ERR_PTR(-EINVAL);
 > +
-> +	return 0;
-> +}
-> +
-> +static const struct clk_ops sky1_audss_clk_divider_ops = {
-> +	.recalc_rate = sky1_audss_clk_divider_recalc_rate,
-> +	.determine_rate = sky1_audss_clk_divider_determine_rate,
-> +	.set_rate = sky1_audss_clk_divider_set_rate,
-
-Does this need an enable/disable for the pm_runtime get/put?
-
-> +};
-> +
-> +static inline struct sky1_clk_gate *to_sky1_clk_gate(struct clk_gate *gate)
-> +{
-> +	return container_of(gate, struct sky1_clk_gate, gate);
-> +}
-> +
-> +static void sky1_audss_clk_gate_endisable(struct clk_hw *hw, int enable)
-> +{
-> +	struct clk_gate *gate = to_clk_gate(hw);
-> +	struct sky1_clk_gate *sky1_gate = to_sky1_clk_gate(gate);
-> +	int set = gate->flags & CLK_GATE_SET_TO_DISABLE ? 1 : 0;
-> +	unsigned long flags = 0;
-> +	u32 reg;
-> +
-> +	set ^= enable;
-> +
-> +	if (gate->lock)
-> +		spin_lock_irqsave(gate->lock, flags);
-> +	else
-> +		__acquire(gate->lock);
-> +
-> +	if (gate->flags & CLK_GATE_HIWORD_MASK) {
-> +		reg = BIT(gate->bit_idx + 16);
-> +		if (set)
-> +			reg |= BIT(gate->bit_idx);
-> +	} else {
-> +		regmap_read(sky1_gate->regmap, sky1_gate->offset, &reg);
-> +
-> +		if (set)
-> +			reg |= BIT(gate->bit_idx);
+> +	if (ret) {
+> +		/* No firmware-name in DT: select by probing Gen2 then Gen1. */
+> +		*fw_name = desc->fwname;
+> +		if (has_both_gens)
+> +			ret = firmware_request_nowarn(&firmware, *fw_name, core->dev);
 > +		else
-> +			reg &= ~BIT(gate->bit_idx);
+> +			ret = request_firmware(&firmware, *fw_name, core->dev);
+> +		if (ret && has_both_gens) {
+> +			desc = core->iris_platform_data->firmware_desc_gen1;
+> +			*fw_name = desc->fwname;
+> +			ret = request_firmware(&firmware, *fw_name, core->dev);
+> +		}
+> +		if (ret)
+> +			return ERR_PTR(ret);
+> +	} else {
+> +		/* firmware-name given: load it and detect its generation. */
+> +		ret = request_firmware(&firmware, *fw_name, core->dev);
+> +		if (ret)
+> +			return ERR_PTR(ret);
+> +
+> +		if (has_both_gens &&
+> +		    !iris_detect_gen2_from_fwdata((const u8 *)firmware->data, firmware->size)) {
+
+Is it really legitimate to parse the _entire_ firmware for this data - 
+potentially megabytes ?
+
+Surely the first 4k or less of data is enough to know if a firmware 
+string has been detected ?
+
+> +			dev_info(core->dev, "Gen1 FW detected in %s\n", *fw_name);
+> +			desc = core->iris_platform_data->firmware_desc_gen1;
+> +		}
 > +	}
 > +
-> +	regmap_write(sky1_gate->regmap, sky1_gate->offset, reg);
+> +	/* Publish iris_firmware_data first, then iris_firmware_desc (the guard). */
+> +	core->iris_firmware_data = desc->firmware_data;
+> +	core->iris_firmware_desc = desc;
 > +
-> +	if (gate->lock)
-> +		spin_unlock_irqrestore(gate->lock, flags);
-> +	else
-> +		__release(gate->lock);
+> +	return firmware;
 > +}
 > +
-> +static int sky1_audss_clk_gate_enable(struct clk_hw *hw)
-> +{
-> +	sky1_audss_clk_gate_endisable(hw, 1);
-
-pm_runtime_get ?
-
-> +
+> +static int iris_load_fw_to_memory(struct iris_core *core)
+>   {
+>   	const struct firmware *firmware = NULL;
+>   	struct device *dev = core->dev;
+>   	struct resource res;
+>   	phys_addr_t mem_phys;
+> +	const char *fw_name;
+>   	size_t res_size;
+>   	ssize_t fw_size;
+>   	void *mem_virt;
+>   	int ret;
+> 
+> -	if (strlen(fw_name) >= MAX_FIRMWARE_NAME_SIZE - 4)
+> -		return -EINVAL;
+> -
+>   	ret = of_reserved_mem_region_to_resource(dev->of_node, 0, &res);
+>   	if (ret)
+>   		return ret;
+> @@ -37,9 +155,9 @@ static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
+>   	mem_phys = res.start;
+>   	res_size = resource_size(&res);
+> 
+> -	ret = request_firmware(&firmware, fw_name, dev);
+> -	if (ret)
+> -		return ret;
+> +	firmware = iris_detect_firmware(core, &fw_name);
+> +	if (IS_ERR(firmware))
+> +		return PTR_ERR(firmware);
+> 
+>   	fw_size = qcom_mdt_get_size(firmware);
+>   	if (fw_size < 0 || res_size < (size_t)fw_size) {
+> @@ -66,18 +184,12 @@ static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
+>   int iris_fw_load(struct iris_core *core)
+>   {
+>   	const struct tz_cp_config *cp_config;
+> -	const char *fwpath = NULL;
+>   	int i, ret;
+> 
+> -	ret = of_property_read_string_index(core->dev->of_node, "firmware-name", 0,
+> -					    &fwpath);
+> -	if (ret)
+> -		fwpath = core->iris_firmware_desc->fwname;
+> -
+> -	ret = iris_load_fw_to_memory(core, fwpath);
+> +	ret = iris_load_fw_to_memory(core);
+>   	if (ret) {
+> -		dev_err(core->dev, "firmware download failed\n");
+> -		return -ENOMEM;
+> +		dev_err(core->dev, "firmware download failed %d\n", ret);
+> +		return ret;
+>   	}
+> 
+>   	ret = qcom_scm_pas_auth_and_reset(IRIS_PAS_ID);
+> @@ -99,7 +211,7 @@ int iris_fw_load(struct iris_core *core)
+>   		}
+>   	}
+> 
+> -	return ret;
 > +	return 0;
-> +}
-> +
-> +static void sky1_audss_clk_gate_disable(struct clk_hw *hw)
-> +{
-> +	sky1_audss_clk_gate_endisable(hw, 0);
-
-pm_runtime_put ?
-
-> +}
-> +
-> +static int sky1_audss_clk_gate_is_enabled(struct clk_hw *hw)
-> +{
-> +	struct clk_gate *gate = to_clk_gate(hw);
-> +	struct sky1_clk_gate *sky1_gate = to_sky1_clk_gate(gate);
-> +	u32 reg;
-> +
-> +	regmap_read(sky1_gate->regmap, sky1_gate->offset, &reg);
-> +
-> +	/* if a set bit disables this clk, flip it before masking */
-> +	if (gate->flags & CLK_GATE_SET_TO_DISABLE)
-> +		reg ^= BIT(gate->bit_idx);
-> +
-> +	reg &= BIT(gate->bit_idx);
-> +
-> +	return !!reg;
-> +}
-> +
-> +static const struct clk_ops sky1_audss_clk_gate_ops = {
-> +	.enable = sky1_audss_clk_gate_enable,
-> +	.disable = sky1_audss_clk_gate_disable,
-> +	.is_enabled = sky1_audss_clk_gate_is_enabled,
+>   }
+> 
+>   int iris_fw_unload(struct iris_core *core)
+> diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
+> index c9256f2323dc..55a4fa356985 100644
+> --- a/drivers/media/platform/qcom/iris/iris_platform_common.h
+> +++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
+> @@ -289,11 +289,7 @@ struct iris_firmware_desc {
+>   };
+> 
+>   struct iris_platform_data {
+> -	/*
+> -	 * XXX: replace with gen1 / gen2 pointers once we have platforms
+> -	 * supporting both firmware kinds.
+> -	 */
+> -	const struct iris_firmware_desc *firmware_desc;
+> +	const struct iris_firmware_desc *firmware_desc_gen1, *firmware_desc_gen2;
+> 
+>   	const struct vpu_ops *vpu_ops;
+>   	const struct icc_info *icc_tbl;
+> diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
+> index 6e06a32822bb..961dce2e6aa9 100644
+> --- a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
+> +++ b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
+> @@ -22,6 +22,12 @@ static const struct iris_firmware_desc iris_vpu20_p1_gen1_desc = {
+>   	.fwname = "qcom/vpu/vpu20_p1.mbn",
+>   };
+> 
+> +static const struct iris_firmware_desc iris_vpu20_p1_gen2_s6_desc = {
+> +	.firmware_data = &iris_hfi_gen2_data,
+> +	.get_vpu_buffer_size = iris_vpu33_buf_size,
+> +	.fwname = "qcom/vpu/vpu20_p1_gen2_s6.mbn",
 > +};
 > +
-> +static struct clk_hw *sky1_audss_clk_register(struct device *dev,
-> +					      const char *name,
-> +					      const char * const *parent_names,
-> +					      int num_parents,
-> +					      struct regmap *regmap,
-> +					      const u32 *mux_table,
-> +					      struct muxdiv_cfg *mux_cfg,
-> +					      struct muxdiv_cfg *div_cfg,
-> +					      struct gate_cfg *gate_cfg,
-> +					      unsigned long flags,
-> +					      spinlock_t *lock)
-> +{
-> +	const struct clk_ops *sky1_gate_ops = NULL;
-> +	const struct clk_ops *sky1_mux_ops = NULL;
-> +	const struct clk_ops *sky1_div_ops = NULL;
-> +	struct sky1_clk_divider *sky1_div = NULL;
-> +	struct sky1_clk_gate *sky1_gate = NULL;
-> +	struct sky1_clk_mux *sky1_mux = NULL;
-> +	struct clk_hw *hw = ERR_PTR(-ENOMEM);
-> +	struct clk_parent_data *parent_data;
-> +	int i;
-> +
-> +	parent_data = devm_kcalloc(dev, num_parents, sizeof(*parent_data), GFP_KERNEL);
-> +	if (!parent_data)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	for (i = 0; i < num_parents; i++)
-> +		parent_data[i].name = parent_names[i];
-> +
-> +	if (mux_cfg->offset >= 0) {
-> +		sky1_mux = devm_kzalloc(dev, sizeof(*sky1_mux), GFP_KERNEL);
-> +		if (!sky1_mux)
-> +			return ERR_PTR(-ENOMEM);
-> +
-> +		sky1_mux->mux.reg = NULL;
-> +		sky1_mux->mux.shift = mux_cfg->shift;
-> +		sky1_mux->mux.mask = BIT(mux_cfg->width) - 1;
-> +		sky1_mux->mux.flags = mux_cfg->flags;
-> +		sky1_mux->mux.table = mux_table;
-> +		sky1_mux->mux.lock = lock;
-> +		sky1_mux_ops = &sky1_audss_clk_mux_ops;
-> +		sky1_mux->regmap = regmap;
-> +		sky1_mux->offset = mux_cfg->offset;
-> +	}
-> +
-> +	if (div_cfg->offset >= 0) {
-> +		sky1_div = devm_kzalloc(dev, sizeof(*sky1_div), GFP_KERNEL);
-> +		if (!sky1_div)
-> +			return ERR_PTR(-ENOMEM);
-> +
-> +		sky1_div->div.reg = NULL;
-> +		sky1_div->div.shift = div_cfg->shift;
-> +		sky1_div->div.width = div_cfg->width;
-> +		sky1_div->div.flags = div_cfg->flags | CLK_DIVIDER_POWER_OF_TWO;
-> +		sky1_div->div.lock = lock;
-> +		sky1_div_ops = &sky1_audss_clk_divider_ops;
-> +		sky1_div->regmap = regmap;
-> +		sky1_div->offset = div_cfg->offset;
-> +	}
-> +
-> +	if (gate_cfg->offset >= 0) {
-> +		sky1_gate = devm_kzalloc(dev, sizeof(*sky1_gate), GFP_KERNEL);
-> +		if (!sky1_gate)
-> +			return ERR_PTR(-ENOMEM);
-> +
-> +		sky1_gate->gate.reg = NULL;
-> +		sky1_gate->gate.bit_idx = gate_cfg->shift;
-> +		sky1_gate->gate.flags = gate_cfg->flags;
-> +		sky1_gate->gate.lock = lock;
-> +		sky1_gate_ops = &sky1_audss_clk_gate_ops;
-> +		sky1_gate->regmap = regmap;
-> +		sky1_gate->offset = gate_cfg->offset;
-> +	}
-> +
-> +	hw = devm_clk_hw_register_composite_pdata(dev, name, parent_data, num_parents,
-> +						sky1_mux ? &sky1_mux->mux.hw : NULL, sky1_mux_ops,
-> +						sky1_div ? &sky1_div->div.hw : NULL, sky1_div_ops,
-> +						sky1_gate ? &sky1_gate->gate.hw : NULL, sky1_gate_ops,
-> +						flags);
-> +	if (IS_ERR(hw)) {
-> +		dev_err(dev, "register %s clock failed with err = %ld\n",
-> +			name, PTR_ERR(hw));
-> +		return hw;
-> +	}
-> +
-> +	return hw;
-> +}
-> +
-> +static int sky1_audss_clks_get(struct sky1_audss_clks_priv *priv)
-> +{
-> +	const struct sky1_audss_clks_devtype_data *devtype_data = priv->devtype_data;
-> +	int i;
-> +
-> +	for (i = 0; i < devtype_data->clk_num; i++) {
-> +		priv->clks[i] = devm_clk_get(priv->dev, devtype_data->clk_names[i]);
-> +		if (IS_ERR(priv->clks[i]))
-> +			return dev_err_probe(priv->dev, PTR_ERR(priv->clks[i]),
-> +					     "failed to get clock %s", devtype_data->clk_names[i]);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int sky1_audss_clks_enable(struct sky1_audss_clks_priv *priv)
-> +{
-> +	const struct sky1_audss_clks_devtype_data *devtype_data = priv->devtype_data;
-> +	int i, err;
-> +
-> +	for (i = 0; i < devtype_data->clk_num; i++) {
-> +		err = clk_prepare_enable(priv->clks[i]);
-> +		if (err) {
-> +			dev_err(priv->dev, "failed to enable clock %s\n",
-> +				devtype_data->clk_names[i]);
-> +			goto err_clks;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +
-> +err_clks:
-> +	while (--i >= 0)
-> +		clk_disable_unprepare(priv->clks[i]);
-> +
-> +	return err;
-> +}
-> +
-> +static void sky1_audss_clks_disable(struct sky1_audss_clks_priv *priv)
-> +{
-> +	const struct sky1_audss_clks_devtype_data *devtype_data = priv->devtype_data;
-> +	int i;
-> +
-> +	for (i = 0; i < devtype_data->clk_num; i++)
-> +		clk_disable_unprepare(priv->clks[i]);
-> +}
-> +
-> +static int sky1_audss_clks_set_rate(struct sky1_audss_clks_priv *priv)
-> +{
-> +	const struct sky1_audss_clks_devtype_data *devtype_data = priv->devtype_data;
-> +	int i, err;
-> +
-> +	for (i = 0; i < devtype_data->clk_num; i++) {
-> +		err = clk_set_rate(priv->clks[i], devtype_data->clk_rate_default[i]);
-> +		if (err) {
-> +			dev_err(priv->dev, "failed to set clock rate %s\n",
-> +				devtype_data->clk_names[i]);
-> +			return err;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void sky1_audss_clk_rpm_cleanup(void *data)
-> +{
-> +	struct device *dev = data;
-> +
-> +	if (!pm_runtime_status_suspended(dev))
-> +		pm_runtime_force_suspend(dev);
-> +
-> +	pm_runtime_disable(dev);
-
-Take a look at pm_runtime_force_suspend() in
-drivers/base/power/runtime.c. It already calls pm_runtime_disable(), so
-if it's not suspended then there is a double disable here.
-
-Brian
+>   static const struct iris_firmware_desc iris_vpu20_p4_gen1_desc = {
+>   	.firmware_data = &iris_hfi_gen1_data,
+>   	.get_vpu_buffer_size = iris_vpu_buf_size,
+> @@ -65,7 +71,8 @@ static const struct tz_cp_config tz_cp_config_vpu2[] = {
+>   };
+> 
+>   const struct iris_platform_data sc7280_data = {
+> -	.firmware_desc = &iris_vpu20_p1_gen1_desc,
+> +	.firmware_desc_gen1 = &iris_vpu20_p1_gen1_desc,
+> +	.firmware_desc_gen2 = &iris_vpu20_p1_gen2_s6_desc,
+>   	.vpu_ops = &iris_vpu2_ops,
+>   	.icc_tbl = iris_icc_info_vpu2,
+>   	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu2),
+> @@ -94,7 +101,7 @@ const struct iris_platform_data sc7280_data = {
+>   };
+> 
+>   const struct iris_platform_data sm8250_data = {
+> -	.firmware_desc = &iris_vpu20_p4_gen1_desc,
+> +	.firmware_desc_gen1 = &iris_vpu20_p4_gen1_desc,
+>   	.vpu_ops = &iris_vpu2_ops,
+>   	.icc_tbl = iris_icc_info_vpu2,
+>   	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu2),
+> diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c b/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
+> index 2c63adbc5579..74626b35d9cb 100644
+> --- a/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
+> +++ b/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
+> @@ -90,7 +90,7 @@ static const struct tz_cp_config tz_cp_config_vpu3[] = {
+>    * - inst_caps to platform_inst_cap_qcs8300
+>    */
+>   const struct iris_platform_data qcs8300_data = {
+> -	.firmware_desc = &iris_vpu30_p4_s6_gen2_desc,
+> +	.firmware_desc_gen2 = &iris_vpu30_p4_s6_gen2_desc,
+>   	.vpu_ops = &iris_vpu3_ops,
+>   	.icc_tbl = iris_icc_info_vpu3x,
+>   	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
+> @@ -119,7 +119,7 @@ const struct iris_platform_data qcs8300_data = {
+>   };
+> 
+>   const struct iris_platform_data sm8550_data = {
+> -	.firmware_desc = &iris_vpu30_p4_gen2_desc,
+> +	.firmware_desc_gen2 = &iris_vpu30_p4_gen2_desc,
+>   	.vpu_ops = &iris_vpu3_ops,
+>   	.icc_tbl = iris_icc_info_vpu3x,
+>   	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
+> @@ -154,7 +154,7 @@ const struct iris_platform_data sm8550_data = {
+>    * - controller_rst_tbl to sm8650_controller_reset_table
+>    */
+>   const struct iris_platform_data sm8650_data = {
+> -	.firmware_desc = &iris_vpu33_p4_gen2_desc,
+> +	.firmware_desc_gen2 = &iris_vpu33_p4_gen2_desc,
+>   	.vpu_ops = &iris_vpu33_ops,
+>   	.icc_tbl = iris_icc_info_vpu3x,
+>   	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
+> @@ -185,7 +185,7 @@ const struct iris_platform_data sm8650_data = {
+>   };
+> 
+>   const struct iris_platform_data sm8750_data = {
+> -	.firmware_desc = &iris_vpu35_p4_gen2_desc,
+> +	.firmware_desc_gen2 = &iris_vpu35_p4_gen2_desc,
+>   	.vpu_ops = &iris_vpu35_ops,
+>   	.icc_tbl = iris_icc_info_vpu3x,
+>   	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
+> @@ -220,7 +220,7 @@ const struct iris_platform_data sm8750_data = {
+>    * - different num_vpp_pipe
+>    */
+>   const struct iris_platform_data x1p42100_data = {
+> -	.firmware_desc = &iris_vpu30_p1_gen2_desc,
+> +	.firmware_desc_gen2 = &iris_vpu30_p1_gen2_desc,
+>   	.vpu_ops = &iris_vpu3_ops,
+>   	.icc_tbl = iris_icc_info_vpu3x,
+>   	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
+> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
+> index c2dcb50a2782..7fe31136df21 100644
+> --- a/drivers/media/platform/qcom/iris/iris_probe.c
+> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
+> @@ -251,8 +251,6 @@ static int iris_probe(struct platform_device *pdev)
+>   		return core->irq;
+> 
+>   	core->iris_platform_data = of_device_get_match_data(core->dev);
+> -	core->iris_firmware_desc = core->iris_platform_data->firmware_desc;
+> -	core->iris_firmware_data = core->iris_firmware_desc->firmware_data;
+> 
+>   	core->ubwc_cfg = qcom_ubwc_config_get_data();
+>   	if (IS_ERR(core->ubwc_cfg))
+> @@ -271,8 +269,6 @@ static int iris_probe(struct platform_device *pdev)
+>   	if (ret)
+>   		return ret;
+> 
+> -	iris_session_init_caps(core);
+> -
+>   	ret = v4l2_device_register(dev, &core->v4l2_dev);
+>   	if (ret)
+>   		return ret;
+> diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
+> index 14d63dc76c9b..33edbc5cab8f 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vidc.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vidc.c
+> @@ -9,6 +9,7 @@
+>   #include <media/v4l2-mem2mem.h>
+>   #include <media/videobuf2-dma-contig.h>
+> 
+> +#include "iris_ctrls.h"
+>   #include "iris_vidc.h"
+>   #include "iris_instance.h"
+>   #include "iris_vdec.h"
+> 
+> --
+> 2.47.3
+> 
+> 
 
