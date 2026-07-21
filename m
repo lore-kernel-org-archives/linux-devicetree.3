@@ -1,165 +1,181 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 628F8492502
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 12:13:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A37FE1C2AA
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 12:21:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784636036; cv=none; b=nHnJEtTPsYCLxzP7h+rXQ7nO0gqbMyXScrM12udsFe/jErnMcmzzFwiYKTqc3UoFCtfKpdf9X3jgqiinufbE/ZBanLQ4ugljU+gJdvJggS+HJ1oMxf6ZiMBoQoFH3Q/AG1Qe75gqK0xoNoxfYEnke+USyP4SVDyXRW4QgVkWwuU=
+	t=1784636492; cv=none; b=uZhvvJzR+DNhQ5CXP/c9PPZdES3HQAvnvP58K6UpZMpS5yEB7Unz1LA9dl+c3mwOPpxzMKDr/WKn2RPoXlLzBfUlGwC5+mICaOSLDtzvYKJ4EzLu2Aq6bp1AIfm3lGhCyyFbJtqYR/A5lMIwdqUZ2UpuzB/mzAY1ZSdAVc5vFfY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784636036; c=relaxed/simple;
-	bh=Zv+22myXf63RdfXfVQr2PZFXaQzgGkHb4qWcgvxU+OA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DBVYtZkb942mk725CYl66Kpu0HmvpBviKCnWwJwmlXR7vHMQGqGyN+y+HqGEKqdHW89cqBHvNQvGvcPmKR+yRVhOPbxNRBCc4eRH8r7erF6eSb1OI2ENUD2GdGrKw1LX7mgbv7SQ16/hPGSBjzrt8kq7l2MVl7RoZ18iAtOTekU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QmyBkSdG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QxciCizQ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784636492; c=relaxed/simple;
+	bh=ZxyMX2LEdO6fVRwZE6J5tAEF2akOhIXnPqKRdCIQ8qI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dX5woVcDpLIyUkuyILhqj7NrEkdjLEInrWrY0fxEesNa860n41Cg+5hIWmR//bNjNEw2y1PkqkR23dDq7NUDu81m6fiDI5V1AJ9RZjtj8pNKiqNpNUHAXoLYhZOnWhjpHC3FTwHDkBKRtI1bzIqgN7dj/l8yAx0S0VhirBFsfgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RfCLkuic; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QmyBkSdG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QxciCizQ"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66LAR4YM1349313
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 12:13:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	eEVVNDrYzu3iXWuovNWf0ih/Ik+7p0RKVKTCKu1foa8=; b=QmyBkSdGo7e5dKvR
-	F2C4nSGD5CHdkxnA/wRJVfLNcct34WkyucfU35UCe276kts/tkQ1IeywQAGcrAHm
-	j5j3XdBM8wOtZNL8EsOA1CiHJcRHKpSWuHM7K2DJSHbFe0jU22EoY7N/0YiIVIuO
-	m2meMrscnIPrcXWJydmnVFBAnT11F7cA6OxWympr1YpSTrlB3u/Xu65zNgpAz3io
-	MZFnUPjes9Lky/sOyX5TN5/DV4XRtyt/yc7mjLblpDVHtFYihKjsR+16qnabEqID
-	hQmtRddro8kTbqF4xbqguyWMaWDknwwT3Iv9jecsmJ7RHpjFYqNGS29ESUSyQuBT
-	5a5PzA==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj6pa8jm1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 12:13:54 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cc6dd43737so212361525ad.2
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 05:13:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784636033; x=1785240833; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eEVVNDrYzu3iXWuovNWf0ih/Ik+7p0RKVKTCKu1foa8=;
-        b=QxciCizQky5EevAg5A7Ifx9ht5zet70+ZlRT5jTlOju0I52BFXWITt5nypvnkP1UWl
-         bDRV2lC0mRH5bnKIxYhPTHYbbuJdXDveYAT3LDOo2ofXJc7rI58QCdPX4XeHg0137xMs
-         k+lChY4+LVkU92OAsHlKqn6lcf1WDBXHhuAcNGbAEOLcJLbX6wHeH4x18cZgPtY0Fe+X
-         lgmHeomqMvrlqT9sIHAeGiU1VHxYKMN72+le86P/YzzZT6TRTLpYr6A63OLBeFNbTcZ6
-         iBA43Hl7b7tPrmiLTkP1LZue2T5kOM6G6oKhSGf6hDTXJVhRwfM4ECZ+GZbunI0pd5Hk
-         m3IA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784636033; x=1785240833;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eEVVNDrYzu3iXWuovNWf0ih/Ik+7p0RKVKTCKu1foa8=;
-        b=NnYx5a6P0OM+6ylZmQYrZlyISoHUuXZLBejxWvFPJVMt59myF7/w92FPudxks1rrEh
-         PDzOqlPdQgYMfgUVwwUaUABvr/62lNtRRqbLzaSqby7P/nacNAD0XTq6ZMBORU0XXrfi
-         nvE72dQiPQFO/pTy8U3xbATAgxMvPe6OR2jfc5cGS7CVkX8rSp9RRQFXmufAH0GIR8Cc
-         P5e0gZSnO70Dcqg73JplIa+O5pV7LCFtEhjnugQAlynx5NQx+bEglnm7rssGJ16wHc4P
-         bsR7G1GZcPtk/1/aHVtYHxZLg2x/LXueUYpMbDgAfTKfzMy4ZE7EM/hLsrG/OxfqkwRA
-         TExw==
-X-Gm-Message-State: AOJu0YwBuxW488JDEb+QYnG2cG5n5EJW7/D0VnAJtJqyjD/tDdXxQPR4
-	RPDh5NhPc32GLCU53J5tLMO9JQhnC+PjTTa0htuX7rgmXaZlH6OQALg34Tz6oBlUNfGPS2wfXKQ
-	vcq80E31U2aKc51KNpQs0IctTFQSbS4TRqCwzI6ttFa3GYBThybiDzStru+J3M77U
-X-Gm-Gg: AR+sD13kGh7hbFSWVYiJ6y1Cp0AI2QShPLK6qdC3DRDNeYXX15SToBLGh+icOqLCtse
-	EIKFBStcNEeHLYq7wGgG8RgBrDW6jNbLCb8ap7ilRSkltJed7lbW+xMjbWlNtncBvo8zqG7gxt9
-	NFTvPm7wzahDHbmPR8BtKzNzIXkWYfRgA32etMVF/HdhLZVM+Earzd+17bXvlLuJZvSd5xHB9MC
-	/F2QyxNj8n2VmDOGleyjCX0AmT4wayHUawElisrtZBRiaaxQHAsSobjsPy0UK+IZmdVzzkpzwvS
-	SRKI1XsDi2rpIAvpgg93qM2acYdYprXs7qEc1khCQm7qWJ7S9HTACYMhJhD5DG73uVJjQYEZRtk
-	LhBSLH5jYh25/zowd6vqv+y4RnD7yu5JiIw==
-X-Received: by 2002:a17:903:26c4:b0:2cc:f1e7:18c6 with SMTP id d9443c01a7336-2cf34821a56mr194587005ad.2.1784636033362;
-        Tue, 21 Jul 2026 05:13:53 -0700 (PDT)
-X-Received: by 2002:a17:903:26c4:b0:2cc:f1e7:18c6 with SMTP id d9443c01a7336-2cf34821a56mr194586695ad.2.1784636032889;
-        Tue, 21 Jul 2026 05:13:52 -0700 (PDT)
-Received: from [10.217.217.176] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf344b1f04sm75694805ad.22.2026.07.21.05.13.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jul 2026 05:13:52 -0700 (PDT)
-Message-ID: <1d15aeaf-452f-48d1-9943-5e522f808b7c@oss.qualcomm.com>
-Date: Tue, 21 Jul 2026 17:43:49 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RfCLkuic"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BFB21F000E9;
+	Tue, 21 Jul 2026 12:21:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784636491;
+	bh=jUBxe2tQesqd1mtjNicIi6B+Ob/SFkqs9OVI9zEtsCs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RfCLkuicdl3mYd9xYxqvceHSbbGRqxIqbTnmPryHX0cyBtjU2sVgYLzC9UNCrVI+l
+	 o/8V5fCnKYsVvNnHTWo12b3oeo/kg2SkXtWjrkbeymPVittnPYsvJNRr1IgIeI3jeL
+	 0RpDjUv2HxZ/7j3KhUvFJYZ6ZC83XjNehcuge99mzjvd5wgCPSwLZPpAFWqvqqAgXe
+	 IklUrlPA9JvJZ4K+tKa0Ilck6suIB2EFygZpvt1ITc5EZC6qwPI5ANcoaY3L6HaJKc
+	 /2coWuBtfYU28uzm6do9N2FPVy7zZkPDwMzNZZotUxgxwbmE4zvYS5MNaImHGP8c/P
+	 jxiaHGe9vM7aw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] arm64: dts: qcom: sm8650-ayaneo-pocket-s2: add
+ display nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org
+In-Reply-To: <20260721-topic-sm8650-ayaneo-pocket-s2-display-dt-v4-1-68e5fa9056ad@linaro.org>
+References: <20260721-topic-sm8650-ayaneo-pocket-s2-display-dt-v4-1-68e5fa9056ad@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 12:21:30 +0000
+Message-Id: <20260721122131.0BFB21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V4 3/3] arm64: dts: qcom: monaco-evk: Add SDHCI support
- for eMMC via overlay
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-References: <20260716142445.2767955-1-monish.chunara@oss.qualcomm.com>
- <20260716142445.2767955-4-monish.chunara@oss.qualcomm.com>
- <20260716143554.3AD711F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Monish Chunara <monish.chunara@oss.qualcomm.com>
-In-Reply-To: <20260716143554.3AD711F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 6voEwxoiuynBOL47WeH6f0ClO0-8vJe4
-X-Proofpoint-ORIG-GUID: 6voEwxoiuynBOL47WeH6f0ClO0-8vJe4
-X-Authority-Analysis: v=2.4 cv=eYYNubEH c=1 sm=1 tr=0 ts=6a5f6282 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=9Xn4vB__Uc2y1v2IptAA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDEyOSBTYWx0ZWRfX3FKalzN6VP6v
- DRcsUHIuCHgt/iqCVrcx0TZCkNZ0B7x6QhudgyJfgBTxd8sKwdylLaITxPlKEgPD45f7JDfcXjX
- kSnMm9RUOmEMl/leugHU9RrJVwAiwSNsBtcoiIEWjz8O4DhsKkGUgcp8lIevSLS5IadwZny3Kfq
- dxlgTxMtiyo7YMdjmYjGxL/xldtC4KNPB2wXxd9ELiDIP2n/jskVEqXanT7tFF/cX4nwX52JB+j
- PWAqT7RgZlYoZgX1pQ3z5/IfJBJ2k3luw2RNA7Sw7uCMat+fTkTQdZPVoRR0/6t182Dg62/R3Ly
- o1wjSPXLhwq+MOyNFGabQeF1enQogd/R7rn7LuTGdp9o4Xh+Fru5KRZm1imTKOKG4lCkjOw5hVa
- HJ1Znio93cRa6og9JGoMWDF5kLCB8EXMNeGCmKfMbfrnWstdx6kSN3/gAZUiBxpevoeYTaNE6Ex
- yG+VS4ZNFg39iXpb/1g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDEyOSBTYWx0ZWRfX31SasAItbbPR
- AECi+JLc/kpqGN9P0PymN+33nTi8lChyznmaNSqBsGGJ2B6U8mTvEAtWNY8amWH1fE9mFnv4mIj
- 751wHygVhT4XSw+zsjdGJ6pS6YYepn0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-21_01,2026-07-20_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501
- spamscore=0 bulkscore=0 impostorscore=0 phishscore=0 adultscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607210129
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The `goodix,gt911` touchscreen node is missing the `irq-gpios` pro=
+perty, preventing hardware reset and reliable I2C address selection.
+- [Medium] The `mdp_vsync_active` and `mdp_vsync_suspend` pinctrl states ar=
+e defined but never referenced, leaving the hardware vsync pin unconfigured.
+--
 
+--- Patch [1]: [PATCH v4] arm64: dts: qcom: sm8650-ayaneo-pocket-s2: add di=
+splay nodes ---
+commit 4aa8da2a051a6d25d51dd20f442ad0cf6d0b5e21
+Author: KancyJoe <kancy2333@outlook.com>
+Date:   Tue Jul 21 12:10:55 2026 +0000
 
-On 7/16/2026 8:05 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] Alphabetical sorting violation in the Makefile.
-> --
-> 
-> --- Patch [3]: [PATCH V4 3/3] arm64: dts: qcom: monaco-evk: Add SDHCI support for eMMC via overlay ---
-> Note: The format of this report has been altered to use a free-form summary
-> instead of inline diff quoting due to strict recitation restrictions.
-> 
-> commit 9c47ebd2f8bd209fc994d382b210d2c4b6160e02
-> Author: Monish Chunara <monish.chunara@oss.qualcomm.com>
-> 
-> arm64: dts: qcom: monaco-evk: Add SDHCI support for eMMC via overlay
-> 
-> This commit enables the SDHCI controller for eMMC functionality on the
-> Monaco EVK by adding a device tree overlay.
-> 
-> [Severity: Low]
-> This isn't a bug, but does the placement of the new monaco-evk-emmc targets
-> in arch/arm64/boot/dts/qcom/Makefile break the alphabetical sorting?
-> 
-> The Makefile generally maintains DTB targets in strict alphabetical order.
-> The new monaco-evk-emmc targets were appended after the monaco-evk-sd-card
-> entries. Since 'e' comes before 'i' and 's', shouldn't the new entries be
-> placed before monaco-evk-ifp-mezzanine? Keeping the list sorted helps avoid
-> merge conflicts in the future.
-> 
+arm64: dts: qcom: sm8650-ayaneo-pocket-s2: add display nodes
 
-ACK
+Add nodes for the dual DSI panel, the SGM3804 regulator, the
+SY7758 backlight controller, the touch controller, and enable
+the GPU to enable full display support.
 
-Regards,
-Monish
+Link: https://patch.msgid.link/20260702-topic-sm8650-ayaneo-pocket-s2-displ=
+ay-dt-v3-1-e6de68d33f9b@linaro.org
+Link: https://patch.msgid.link/20260522-topic-sm8650-ayaneo-pocket-s2-displ=
+ay-dt-v2-1-cdd4b70e5a16@linaro.org
+Link: https://patch.msgid.link/20260428-topic-sm8650-ayaneo-pocket-s2-displ=
+ay-dt-v1-1-ff132c00d076@linaro.org
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts b/arch/=
+arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
+> index 0dc994f4e48d9..035efeacc7db7 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
+
+[ ... ]
+
+> @@ -1016,6 +1037,30 @@ wcd_usbss_sbu_mux: endpoint {
+>  	};
+>  };
+> =20
+> +&i2c4 {
+> +	clock-frequency =3D <400000>;
+> +
+> +	status =3D "okay";
+> +
+> +	touchscreen@5d {
+> +		compatible =3D "goodix,gt911";
+> +		reg =3D <0x5d>;
+> +
+> +		interrupt-parent =3D <&tlmm>;
+> +		interrupts =3D <162 IRQ_TYPE_EDGE_FALLING>;
+> +
+> +		reset-gpios =3D <&tlmm 161 GPIO_ACTIVE_HIGH>;
+> +		VDDIO-supply =3D <&vreg_l14b_3p2>;
+> +		AVDD28-supply =3D <&vreg_l14b_3p2>;
+
+[Severity: High]
+Is this node missing the irq-gpios property? The goodix driver needs both
+reset-gpios and irq-gpios to execute its hardware reset and i2c address
+selection sequence.
+
+Without irq-gpios, the driver skips the reset sequence completely, which can
+leave the controller in an undefined state and cause initialization to fail.
+
+> +
+> +		touchscreen-size-x =3D <1440>;
+> +		touchscreen-size-y =3D <2560>;
+> +
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&ts_reset_default>, <&ts_irq_default>;
+> +	};
+> +};
+> +
+
+[ ... ]
+
+> @@ -1073,6 +1163,93 @@ &mdss_dp0_out {
+> +&mdss_dsi0 {
+> +	vdda-supply =3D <&vreg_l3i_1p2>;
+> +
+> +	qcom,master-dsi;
+> +	qcom,dual-dsi-mode;
+> +	qcom,sync-dual-dsi;
+> +
+> +	status =3D "okay";
+> +
+> +	panel@0 {
+> +		status =3D "okay";
+> +		compatible =3D "ayaneo,wt0630-2k", "renesas,r63419";
+> +		reg =3D <0>;
+> +
+> +		pinctrl-0 =3D <&disp0_reset_n_active>;
+> +		pinctrl-1 =3D <&disp0_reset_n_suspend>;
+> +		pinctrl-names =3D "default", "sleep";
+
+[Severity: Medium]
+Should the mdp_vsync_active and mdp_vsync_suspend states be referenced
+here?=20
+
+They are defined later in this file to configure the hardware vsync pin, but
+without being included in these pinctrl properties, the pin remains
+unconfigured. This could break hardware tearing effect synchronization
+delivery to the DPU and lead to display tearing or update timeouts.
+
+> +
+> +		vddio-supply =3D <&vreg_l12b_1p8>;
+> +		vdd-supply =3D <&vreg_l11b_1p2>;
+> +		vsp-supply =3D <&sgm3804_pos>;
+> +		vsn-supply =3D <&sgm3804_neg>;
+> +		vci-supply =3D <&vreg_l13b_3p0>;
+> +
+
+[ ... ]
+
+> @@ -1411,6 +1602,20 @@ fan_int: fan-int-state {
+>  		bias-pull-up;
+>  	};
+> =20
+> +	mdp_vsync_active: mdp-vsync-active-state {
+> +		pins =3D "gpio86";
+> +		function =3D "mdp_vsync";
+> +		drive-strength =3D <2>;
+> +		bias-pull-down;
+> +	};
+> +
+> +	mdp_vsync_suspend: mdp-vsync-suspend-state {
+> +		pins =3D "gpio86";
+> +		function =3D "mdp_vsync";
+> +		drive-strength =3D <2>;
+> +		bias-pull-down;
+> +	};
+> +
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-topic-sm86=
+50-ayaneo-pocket-s2-display-dt-v4-1-68e5fa9056ad@linaro.org?part=3D1
