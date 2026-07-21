@@ -1,154 +1,335 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0480B48C402
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 12:05:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.237.72.81])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A2A0D36D9EB;
+	Tue, 21 Jul 2026 12:08:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.237.72.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784635563; cv=none; b=ty9Qjno7m/Q/cdcA6Sf6vVjtIC4Ik0RTRHZPFsrFODPq4IyMZRmMXYOpBC+9EL89Vd9tE4nVl3aOHMa9wjRCpMZArLd3TAgX42Z3QO6L/7yXC5JNSt1Gu3L8FicEHuQjNXCtF6CpjQ38Rbu20bLOx1CinxRJi9QBHIUqLlLmY94=
+	t=1784635709; cv=none; b=iOnPbNecKzi3jzhRs6OYsdU/VvyjTF99fPPfWYAUrZVeTyk83uS1YH+IIWBe7CdkfCNE4iBAlZb9S4gkPxq298QsMw1t+SpfxFnK1eyTyeB1vcmr9z0ZRQZvnzY96TeMeMh3lDG+7DWm6iMLFGo9eHRp8Sbt3Cn6If5ljW0TP78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784635563; c=relaxed/simple;
-	bh=F6290uvaT3t6DMwvCddqTMhQBC8Gb/oHsT6WiUpeHxc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=beB2wjjLtaU8PZnuZeM7VnhsEo5tDBtPxblKHrnN0uOumXmkyQ/Jx8gZ5pnHuGUAaSMe2ybMDtWcsPPc+/cEHFxqqfcVGXlliiTAiViyF3TswbKYsTj4GXotMVRM+63Klc6MVVOufI2XQFZS7/4Yj9wonDr/OiyzqpjYByNASKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=fk5NGQ1H; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="fk5NGQ1H"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47f785467faso1395616f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 05:05:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784635558; x=1785240358; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MRFIlu//vUygNsMu4i7xEPYXx1OGs/uABSasbozKdt8=;
-        b=fk5NGQ1HjS+xig24ntgsNCb6m04vvc6NQa7ydDhnQ6LvXKvBlV7xlsOtWJE4vDPddI
-         JDNrR7WHlMP8sLFFG/gmfQYKMXtamh8Ji6BBdDTtQf0ate7wGc8OeRQ83T/LVgww2Cfg
-         9Tvs/ND0U3i4nn62Fo6ywOg105L57u8BGHZ6iKweo/MuMxHK/e8r7Kj12NzslVeMnPmD
-         GE8XTk8/BYEcikSAfNLS4UODNyh+JSP247R0gc1IM4hGyRYi0SjdKrwOUuqE7tYS935T
-         Xf9VEW1HibSjHIeQjD7ELytOxlcPZsXtu+srUj2Pvdu+MAOaf08N0GmNMKyScqFHKCbl
-         H5AA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784635558; x=1785240358;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MRFIlu//vUygNsMu4i7xEPYXx1OGs/uABSasbozKdt8=;
-        b=DW+V4MXGHU8sDNICpheP8tbokVG8csR7PFiqN6Ssqaw6JjaEVCIslE3HOpCoFWLAly
-         EsT8OygAK9auORN9d8JojvdpyEgtCKPwlNB5DynTnwKQy9W6LzMSsWOUX/8NdgJLKZi9
-         VeD91AJB1MVwulZmpCBqWxFcWND8b6zlCk3M4gzhMgT2QxWOi7f9uIALMWfVTRMsB/G6
-         ctSDC2SlS8TjKka+7USngpPTBn1VFwPxgixKIotOMMI926kwZF6wyMjok8WWXBsfBOK5
-         AoRMbyrcXwrFN7+4/KuL/AKAqFojWtSfLvDcsOJI8QgMsV4cTAAImWAm0dc12qMUwJoi
-         KWnQ==
-X-Forwarded-Encrypted: i=1; AHgh+RotQ38iWrPAW74oREFNt1MgktR9WDSUjbJNauNy2BRHcO9bxTsAHY+frah5/LYgqZs1tfOQEsmLqwa6@vger.kernel.org
-X-Gm-Message-State: AOJu0YwMP0/F1l6fM9JYReg2N/CnYL0mVsPmRUgY9P7EVehJ8BVOMsG9
-	tnC7Ywo4Pp4JalNhdq4P4+v9ld2D3exom1g9qI/tovDXNXdvrmpVxPq/ImXpjv3W8Y4=
-X-Gm-Gg: AR+sD11DlNMXs/2IzRPIwWfSu+e2T7t2oSJQWq4HqE+iqhWlMg1+VQuITTj0DsoK2ix
-	n+5faJaT6iLmqkdCnva4paV9YgEfJMGEWfcLm+IqDb5sVhaui+BM7IMoBsBTuTMTC7gVXCg5du0
-	LNRo4CGDNIXxSsitdY1mRWQaKiDZ2NFQe8j01xlOf91nxnWp+LbpThCcmO2zYluNj8zgRiVp7do
-	AH8NrWO2fW6hYwfWt3qrFUu5vnsdse/3zEC22cXMNjt7dYvvY10FxZt+zX+bxcPlzW03qrGPZPT
-	I11AbRFoLZKg+ePABmOzlcC0gMhNFMQLUNSMkWVJEXVt1e3kTbAV9uOgehZNRe6MQgdvjVmqffH
-	5QAMJI278Q/hTCieEcZ6ua9P0Ij7RfKBrlhLhbVbc+SyihetvFLFajER22LvH9UA7Y+933v6dUU
-	MPHHhTlqLHrgfa7w==
-X-Received: by 2002:a5d:5d82:0:b0:47f:25db:8161 with SMTP id ffacd0b85a97d-47f62328414mr20909304f8f.28.1784635558076;
-        Tue, 21 Jul 2026 05:05:58 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff24:7210:69dc:bf35:8552:d1f2])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63e65644sm37079358f8f.16.2026.07.21.05.05.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 05:05:57 -0700 (PDT)
-Date: Tue, 21 Jul 2026 14:05:53 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
-	Stephan Gerhold <stephan@gerhold.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	chris.lew@oss.qualcomm.com,
-	Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Subject: Re: [PATCH 1/2] dt-bindings: net: qcom,bam-dmux: Add
- qcom,shikra-bam-dmux compatible
-Message-ID: <al9goVA6eLtxymbz@linaro.org>
-References: <20260714-qcom-bam-dmux-vmid-ext-v1-0-3f29da7cca76@oss.qualcomm.com>
- <20260714-qcom-bam-dmux-vmid-ext-v1-1-3f29da7cca76@oss.qualcomm.com>
- <alXhHH0mGvFeUMd7@linaro.org>
- <3a32a44d-4044-4270-beec-565171ad4bff@oss.qualcomm.com>
- <4fc9743d-3d9e-4130-9ffb-b64318a8373a@oss.qualcomm.com>
+	s=arc-20240116; t=1784635709; c=relaxed/simple;
+	bh=FOiWvXY8xRO9d3wuVAMdfbzVlFse9ecSDRmoQME9EDE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=djEQKmMSxkdx2yuF76WiQsvZXfE7lAMpRbHpHwdqdEOXnymA/NejYw1ORwwPcEe2bcQuGztagIHWtjChN99xMscqJ3KQX9mbGcxqf+a3p7X/v9xDv7s9qeJyToo12u4LtlhzCDtxVUWQ8o6csPdFagGOxGhHTDVhPTV5LXR2Myw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=52.237.72.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0005152DT.eswin.cn (unknown [10.12.96.41])
+	by app1 (Coremail) with SMTP id TAJkCgCnSXMfYV9qTWI2AA--.42710S2;
+	Tue, 21 Jul 2026 20:08:01 +0800 (CST)
+From: Xuyang Dong <dongxuyang@eswincomputing.com>
+To: ukleinek@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	ben-linux@fluff.org,
+	ben.dooks@codethink.co.uk,
+	linux-pwm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	p.zabel@pengutronix.de,
+	daniel.lezcano@kernel.org,
+	tglx@kernel.org
+Cc: ningyu@eswincomputing.com,
+	linmin@eswincomputing.com,
+	xuxiang@eswincomputing.com,
+	wangguosheng@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com,
+	Xuyang Dong <dongxuyang@eswincomputing.com>
+Subject: [PATCH v12 0/4] Update designware pwm driver
+Date: Tue, 21 Jul 2026 20:07:57 +0800
+Message-Id: <20260721120757.1134-1-dongxuyang@eswincomputing.com>
+X-Mailer: git-send-email 2.31.1.windows.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4fc9743d-3d9e-4130-9ffb-b64318a8373a@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TAJkCgCnSXMfYV9qTWI2AA--.42710S2
+X-Coremail-Antispam: 1UD129KBjvAXoW3Cry8JF1kGr13Gw4DWr4UArb_yoW8JryUAo
+	WxCrWxZw4UKry5Gw1vkr47CFW3W39F9r1fZ3yUWrZrAFyDJFn3Jw1rWw43X3sxta4Ut3yD
+	Zr4a9rZ7u3W3J3Wxn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UjIYCTnIWjp_UUUYH7AC8VAFwI0_Xr0_Wr1l1xkIjI8I6I8E6xAIw20EY4v20xva
+	j40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2
+	x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWx
+	JVW8Jr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wrylc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMx
+	C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAF
+	wI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20x
+	vE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v2
+	0xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxV
+	W8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7sRidbbtUUUUU==
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/
 
-On Tue, Jul 21, 2026 at 01:57:16PM +0200, Konrad Dybcio wrote:
-> On 7/14/26 4:03 PM, Vishnu Santhosh wrote:
-> > 
-> > On 14-07-2026 12:41 pm, Stephan Gerhold wrote:
-> >> On Tue, Jul 14, 2026 at 11:02:31AM +0530, Vishnu Santhosh wrote:
-> >>> On platforms where the modem DMAs into the BAM-DMUX RX data buffers and
-> >>> the XPU enforces per-region access control, each individually
-> >>> DMA-mapped RX buffer consumes an XPU resource group. With only ~16
-> >>> groups available, the per-buffer mappings exhaust the table and inbound
-> >>> transfers fault.
-> >>>
-> >>> Add qcom,shikra-bam-dmux as an additional compatible for the Shikra SoC,
-> >>> paired with the generic qcom,bam-dmux fallback, so the driver can match
-> >>> on it via its of_device_id table.
-> >>>
-> >>> Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-> >>> Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-> >>> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> >> IMHO (the DT maintainers might disagree) this is not a different
-> >> BAM DMUX hardware block on Shikra, just a different firmware
-> >> configuration. I'm sure the existing SoCs also have those XPU blocks,
-> >> they just don't make use of it.
-> >>
-> >> Personally, I would rather describe this with an optional "qcom,vmid"
-> >> property similar to your bam-dma patch, allowed for all SoCs.
-> >>
-> >> Thanks,
-> >> Stephan
-> > 
-> > Thanks Stephan. Adding Konrad (Cc), since this compatible-string /
-> > match-data approach was his suggestion on an earlier revision of this
-> > series send for internal review, specifically because BAM-DMUX is a
-> > singleton per SoC.
-> > 
-> > Konrad, given Stephan's point, would you still prefer the
-> > compatible-string / match-data approach, or does the optional
-> > qcom,vmid property (matching the bam-dma series) make more sense here?
-> > 
-> > Happy to go either way once you've both aligned.
-> 
-> This all depends on whether the DT maintainers grant you the right to
-> introduce a new property and in this case I very much doubt that
-> 
+There is already a patch [1] for the DesignWare PWM driver,
+which is posted by Ben and still under review.
+Based on this patch, this series is a continuation of [1]
+to add support for IP versions 2.11a and later, which
+includes support for "Pulse Width Modulation with 0%
+and 100% Duty Cycle".
 
-We have the qcom,vmid(s) property in multiple other bindings (rmtfs,
-fastrpc, ...), so I don't see an issue with that, personally...
+Supported chips:
+ESWIN EIC7700 series SoC.
 
-IMHO I don't think a new compatible is warranted, because the BAM DMUX
-protocol still works exactly the same (at least as described so far).
-It's just the firmware security configuration around it that enforces
-additional constraints. You could have this on any other SoC as well if
-you configure the xPU stuff like that. It's not really specific to
-Shikra.
+Test:
+Tested this patch on the Sifive HiFive Premier P550 (which uses the EIC7700
+SoC).
 
-Thanks,
-Stephan
+[1] https://lore.kernel.org/lkml/20230907161242.67190-1-ben.dooks@codethink.co.uk/
+
+Updates:
+  Changes in v12:
+  - YAML:
+    - Update snps,dw-apb-timer binding to allow up to two reset lines
+      (Sashiko review of v11).
+  - Driver:
+    - Update boundary check to match hardware spec (limit to 1 << 32) 
+      (Sashiko review of v11).
+    - Use hardware control register (ctrl) instead of dwc->feature to 
+      determine timing formula (Sashiko review of v11).
+    - Save initial hardware state to dwc->ctx in probe() before clocks 
+      are gated (Sashiko review of v11).
+
+  - Link to v11: https://lore.kernel.org/all/20260709081337.2022-1-dongxuyang@eswincomputing.com/
+
+  Changes in v11:
+  - YAML:
+    - The timer binding does not need to be updated
+      (Sashiko review of v10).
+  - Driver:
+    - Mask the interrupt by setting the DWC_TIM_CTRL_INT_MASK bit
+      (Sashiko review of v10).
+    - Call pm_runtime_disable() before manually rolling back the clock
+      state (Sashiko review of v10).
+      Drop pm_runtime_resume_and_get() and pm_runtime_put_sync(). Access
+      registers and disable clocks only in the resumed state.
+    - Remove reset assert in remove function, as disabling PM and clocks
+      prevents further operation (Sashiko review of v10).
+
+  - Link to v10: https://lore.kernel.org/all/20260703093308.482-1-dongxuyang@eswincomputing.com/
+
+  Changes in v10:
+  - Driver:
+    - Do not add a dependency on PM. Additionally, the issues below will
+      be fixed to ensure compatibility with and without PM support
+      (Sashiko review of v9).
+    - Note that writes to dwc->clk_rate in apply()/get_state() cannot race
+      due to PWM core's chip->nonatomic_lock (Sashiko review of v9).
+    - Fix __dwc_pwm_configure_timer() precision loss from dual rounding
+      (compute period_cyc once); reject sub-clock-cycle periods in 0N100
+      mode (add !period_cyc check to avoid writing 0 to LD_CNT/LD_CNT2).
+    - dwc_pwm_get_state():
+      Fix pm_runtime_resume_and_get() error check to use 'if (ret < 0)' to
+      allow stub return value 1 when CONFIG_PM=n.
+    - Deassert reset before reading MMIO in probe() to avoid bus stalls on
+      SoCs that leave the block in reset (Sashiko review of v9).
+    - Keep clocks enabled when CONFIG_PM=n.
+      Condition the clock gating on IS_ENABLED(CONFIG_PM)
+      (Sashiko review of v9).
+    - Move register save/restore into runtime PM callbacks.
+      Replace legacy suspend/resume with pm_runtime_force_suspend()/resume()
+      to properly manage the generic power domain.
+
+  - Link to v9: https://lore.kernel.org/all/20260701004139.347-1-dongxuyang@eswincomputing.com/
+
+  Changes in v9:
+  - YAML:
+    - Add 'Acked-by: Conor Dooley <conor.dooley@microchip.com>' for
+      patch 1 and 2.
+  - Driver:
+    - __dwc_pwm_configure_timer():
+      reads state->polarity and swaps registers:
+      NORMAL (active-high): duty_cycle to DWC_TIM_LD_CNT2 (HIGH),
+      remainder to DWC_TIM_LD_CNT (LOW)
+      INVERSED (active-low): duty_cycle to DWC_TIM_LD_CNT (LOW),
+      remainder to DWC_TIM_LD_CNT2 (HIGH)
+      Applies to both 0N100 and classic paths.
+      dwc_pwm_apply():
+      removed -EINVAL polarity guard; both polarities accepted.
+      dwc_pwm_get_state():
+      reconstructs polarity from pwm->state.polarity (last apply() value);
+      initial read zero-initialized to PWM_POLARITY_NORMAL; decode mirrors
+      apply() swap logic for consistent round-trip (Sashiko review of v8).
+    - Replace pm_runtime_get_sync() with pm_runtime_resume_and_get() in
+      dwc_pwm_apply() and add error checking (Sashiko review of v8).
+    - Add a non-zero check for clk_rate in dwc_pwm_get_state().
+      Add a non-zero check for dwc->clk_rate in probe (Sashiko review of v8).
+    - When pwm_en is true, adding 'goto disable_clk;'. When pwm_en is false,
+      return early from pm_disable without falling through to disable_clk.
+      (Sashiko review of v8).
+    - Replace pm_runtime_get_sync() with pm_runtime_resume_and_get() in
+      dwc_pwm_plat_remove() and add error checking.
+      On failure, skip register reads and pm_runtime_put_sync()
+      (Sashiko review of v8).
+    - Remove the -EBUSY check in dwc_pwm_suspend() and save all contexts
+      (Sashiko review of v8).
+    - Replace pm_runtime_get_sync() with pm_runtime_resume_and_get() in
+      dwc_pwm_resume() (Sashiko review of v8).
+
+  - Link to v8: https://lore.kernel.org/all/20260623071329.2034-1-dongxuyang@eswincomputing.com/
+
+  Changes in v8:
+  - YAML:
+    - Split the v7 binding into two patches.
+      Patch 1 explains why to add the resets property.
+      Patch 2 adds the eswin compatible string and specified reset.
+  - Driver:
+    - Use mul_u64_u64_div_u64() to safely scale the values and avoid
+      64-bit multiplication overflow in __dwc_pwm_configure_timer()
+      and dwc_pwm_get_state().
+      Add the include for linux/math64.h (Sashiko review of v7).
+    - Keep the current usage of pwm->args.polarity until a better solution
+      is available.
+    - Use pm_runtime_resume_and_get() in dwc_pwm_get_state() instead of
+      pm_runtime_get_sync(), so that register access is skipped if the
+      device fails to resume (Sashiko review of v7).
+    - Replace devm_pwmchip_add() with pwmchip_add() and move it after
+      pm_runtime_enable(), so that the PWM chip is registered only after
+      runtime PM has been fully initialized (Sashiko review of v7).
+    - Remove the reset_assert label and reset_control_assert()
+      (Sashiko review of v7).
+    - Remove the pm_runtime_status_suspended() check and unconditionally
+      use pm_runtime_get_sync() instead (Sashiko review of v7).
+    - Remove  the pwm_en flag, but keep the pm_runtime_put_noidle() call
+      (Sashiko review of v7; see email for explanation)
+    - Use pm_runtime_status_suspended() to check the runtime PM status.
+      If the device is not suspended (i.e., active), call
+      clk_disable_unprepare(). If it is suspended, skip this block
+      (Sashiko review of v7).
+    - Use an explicit pwmchip_remove() as the first step of .remove(),
+      instead of relying on devm_pwmchip_add() to unregister the chip
+      after .remove() returns. This prevents the hardware teardown that
+      follows from racing against a still-registered chip
+      (Sashiko review of v7).
+    - Add a check for dwc->rst before asserting reset in the remove path
+      (Sashiko review of v7).
+    - Drop the return value check from pm_runtime_put_sync()
+      (Sashiko review of v7).
+
+  - Link to v7: https://lore.kernel.org/all/20260605082242.1541-1-dongxuyang@eswincomputing.com/
+
+  Changes in v7:
+  - YAML:
+    - Dropped Conor's Acked-by due to significant schema changes.
+    - Rename patch 1 from "dt-bindings: pwm: dwc: add optional reset" to
+      "dt-bindings: pwm: dwc: Add eswin compatible and resets property".
+    - Update the commit message to explain why the EIC7700 supports only
+      one reset.
+    - Add constraints 'minItems: 1' and 'maxItems: 1' for the 'resets'
+      property of eswin,eic7700-pwm.
+    - Add an example for eswin,eic7700-pwm.
+
+  - Link to v6: https://lore.kernel.org/all/20260424094529.1691-1-dongxuyang@eswincomputing.com/
+
+  Changes in v6:
+  - YAML:
+    - Drop properties resets and its items description for eswin,eic7700-pwm.
+
+  - Link to v5: https://lore.kernel.org/all/20260423083644.1168-1-dongxuyang@eswincomputing.com/
+
+  Changes in v5:
+  - YAML:
+    - Add 'eswin,eic7700-pwm' compatible string.
+    - Add the items description for the resets property and set minItems to 1.
+    - Require resets property with exactly 1 reset for eswin,eic7700-pwm compatible.
+  - Driver:
+    - Add support for 'eswin,eic7700-pwm' compatible.
+    - Add structure dwc_pwm_plat_data to manage the API for obtaining resets.
+
+  - Link to v4: https://lore.kernel.org/all/20260415094908.1539-1-dongxuyang@eswincomputing.com/
+
+  Changes in v4:
+  - YAML:
+    - Change maxItems from 1 to 2. As there is a corresponding reset signal
+      for each clock domain, the effective maxItems of the resets property
+      is set to 2.
+    - Update the YAML commit message to describe the hardware.
+  - Driver:
+    - Replace devm_reset_control_get_optional_exclusive() with
+      devm_reset_control_array_get_optional_exclusive(). Since the number
+      of reset signals has increased from one to two, we need to use the
+      array API to acquire them.
+
+  - Link to v3: https://lore.kernel.org/all/20260402091718.1608-1-dongxuyang@eswincomputing.com/
+
+  Changes in v3:
+  - YAML:
+    - Added a clear justification for the optional resets property. It is
+      required to support proper controller initialization when no PWM
+      channel is active at boot time, while allowing the driver to skip
+      reset deassertion if any channel is already enabled.
+  - Driver:
+    - Update the boundary value check of tmp in __dwc_pwm_configure_timer()
+      for DWC_TIM_CTRL_0N100PWM_EN.
+    - Replace 'sizeof(struct dwc_pwm_drvdata)' with
+      'struct_size(data, chips, 1)'.
+    - Drop devm_clk_get_enabled() in favor of devm_clk_get() with explicit
+      clk_prepare_enable() and clk_disable_unprepare() allowing runtime PM
+      to manage clock state.
+    - Replace devm_reset_control_get_optional_exclusive_deasserted() with
+      devm_reset_control_get_optional_exclusive() and issue a full reset via
+      reset_control_reset() only when no PWM channel is active at probe time.
+    - Detect bootloader-enabled PWM channels by reading the enable bit, and
+      initialize runtime PM as active for those channels by calling
+      pm_runtime_set_active() and pm_runtime_get_noresume().
+    - Remove autosuspend as it is not required for this driver.
+    - Use explicit pm_runtime_enable() and pm_runtime_disable() instead of
+      the managed devm_pm_runtime_enable() variant to ensure correct cleanup.
+    - On device removal, recheck the channel enable status. If any channel
+      remains active, call pm_runtime_put_noidle() before disabling clocks
+      via clk_disable_unprepare().
+      Resume device before register access during removal if it is runtime
+      suspended, and re-suspend it afterward.
+    - If device is suspended, resume it before register access during system
+      resume/suspend.
+    - Use pm_ptr() instead of pm_sleep_ptr() for correct PM operation.
+
+  - Link to v2: https://lore.kernel.org/all/20260306093000.2065-1-dongxuyang@eswincomputing.com/
+
+  Changes in v2:
+  - YAML:
+    - Remove eswin,eic7700-pwm.yaml. Use snps,dw-apb-timers-pwm2.yaml.
+      The description in snps,dw-apb-timers-pwm2.yaml is better.
+    - Add the resets property as optional, as defined in the databook.
+    - Remove snps,pwm-full-range-enable as no additional property is needed.
+  - Driver:
+    - Change the file from pwm-dwc-eic7700.c to pwm-dwc-of.c from [1].
+    - Define DWC_TIM_VERSION_ID_2_11A 2.11a as the baseline version.
+    - Enable the 0% and 100% duty cycle mode by setting dwc->feature if
+      the version read from the TIMERS_COMP_VERSION register is later
+      than or equal to DWC_TIM_VERSION_ID_2_11A.
+    - Use the DIV_ROUND_UP_ULL() to calculate width in the .apply and
+      .get_state.
+    - Additionally, Power Management (PM) support has been added to the
+      pwm-dwc-of.c driver.
+    - Drop the headers that are not used.
+    - Use devm_clk_get_enabled() instead of devm_clk_get().
+    - Drop of_match_ptr.
+    - Fix build error with 1ULL << 32.
+      Reported-by: kernel test robot <lkp@intel.com>
+      Closes: https://lore.kernel.org/oe-kbuild-all/202512061720.j31AsgM7-lkp@intel.com/
+
+  - Link to v1: https://lore.kernel.org/all/20251205090411.1388-1-dongxuyang@eswincomputing.com/
+  - Link to v9: https://lore.kernel.org/lkml/20230907161242.67190-1-ben.dooks@codethink.co.uk/
+
+Xuyang Dong (4):
+  dt-bindings: pwm: dwc: Document optional resets property
+  dt-bindings: pwm: dwc: Add eswin compatible
+  pwm: dwc: add of/platform support
+  dt-bindings: timer: dwc: Updata resets property items
+
+ .../bindings/pwm/snps,dw-apb-timers-pwm2.yaml |  37 ++-
+ .../bindings/timer/snps,dw-apb-timer.yaml     |   5 +-
+ drivers/pwm/Kconfig                           |  10 +
+ drivers/pwm/Makefile                          |   1 +
+ drivers/pwm/pwm-dwc-core.c                    | 172 ++++++++--
+ drivers/pwm/pwm-dwc-of.c                      | 312 ++++++++++++++++++
+ drivers/pwm/pwm-dwc.h                         |  25 +-
+ 7 files changed, 518 insertions(+), 44 deletions(-)
+ create mode 100644 drivers/pwm/pwm-dwc-of.c
+
+-- 
+2.34.1
+
