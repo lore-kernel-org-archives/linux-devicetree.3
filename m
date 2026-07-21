@@ -1,172 +1,99 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013010.outbound.protection.outlook.com [52.101.83.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8916E42BEA8;
-	Tue, 21 Jul 2026 07:13:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784617995; cv=fail; b=sPJ453pLJ0r9Fm6St5h8huIMGCOgjzsrGsdZOeWEoS8nLBX9kXUxaEc5WUVrcapD/hWWfjNIGYsR1W+1+ZwvUJ2RzTBBAZwsQ7YKBr2BFl3ZNqwDKnOtH4w173FgeYHefmbI1VQ3AAAc17WQBdrZ2uPofv+V4bOIDIEVzPkUpBo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784617995; c=relaxed/simple;
-	bh=8StoibQxhi670iGyxXz+CKQ4CxvaP3HqquxsikrMya8=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=mTg8vzK+ZM2G2EYSGfB0U4tuAbh7tJLFBPE/BH0Zly8nQ3kArRYGvAi9z1y6hMmHQ9xZKQGcS/dULanMs+ptN+Ro8BP1PV6UHJhEWv55mVwO4BdHv+pVE1rn+kO1dswGmyN9UL1G4J7zqRco7gB855z63yEZoURszaRXVi7AhrA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mt.com; spf=fail smtp.mailfrom=mt.com; dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b=pzsEZ+NP; arc=fail smtp.client-ip=52.101.83.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mt.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=mt.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99ECD432E6F
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 07:13:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784617996; cv=none; b=pZpLkgR8s7c/M4uxq+0s78Q7eXMMbNHSyy/lCawBMGm7f6q6tw81iOeRkign1h12ebehL9qvGsXSw5PypFMOboLA5H5/B11Y+Th5AJXw2zHvJ0IpvASuimUh1w1QqW2HC5zwafATo4nVtIDn9oqzRFtTawQZ0q8payq7B6qF7D0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784617996; c=relaxed/simple;
+	bh=cwONs7bhQ7OPID8E7yE7ShVKg+A0lgusucH8S0umQOk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Be3Wnu7zBmtYT1sWaorPvbP+Qx8pMS5TN5NTrNrRdoZpZqpyLYj7ponPWlYTsAxOjd/tu8ShMq8nFoXS2LakdHkC+0+6q18AgujPIVtsV6TAuy2Y4ro+HhMLAXFQO8hnNGweMSrEs9x4HY0BIdKQ5JDQ5JiiHKQPhQ9nrVKjvW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cZcE8ehU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b="pzsEZ+NP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vIAMqcMnU7nb4P5QRE3IKusD0FQCP7gvh3pc/K/LCn6qpBrazhtLR40eI/Vtufe+z5kcfoJXAtiOBz65OkURPesO2HDMwW9kk43QiCySi5oFwqeBBu9PuKIsalave9Cm6b0fGGdKUVeW4NOHZnLkHodMBWu+93InOqTdJPGCYfh2uSPUDwrKGKTp22vZ1AdqkkY7pgp8j+Pawarey4g9ZZufE40Te8bx6U3DyJZfQ/HoWGFJhr8bcW+eX8Ljs0G/WA2aGoCFeURUWBUsBqnha6VoKdvZHs6w12hukN0Sz/BWF7OJTH+v4bM64/054apjOUMsATznfR/KxmsTkOn4Fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q8r0X+naWHuk0OBZwI5XiEDRNAH3P8/H7EQAJwVLJhY=;
- b=on9Z2HHeZIWJeLpDlhGagWosuvgk3EE5WeJZ/oiYOuTOXV7phkxLVhwSIbt07CELMfYKFO/FpgEqJFIr4Qe0tl8ZeG107srYFaEo0j9wk7C9ARX00Q2U/QWjcSCCJO3kDV0EJUHB9NoO2FVKy3t8hURoU8ShkdMwj0B1T9Uu1lMq1YotcCE0VNDbCxR/10UH7l+aMcFe2bCrXH01hCqm0jOfS1qInPLTWZz0vyYo1ZFDIx5YjVpKRVJJH7W2esYYNIXqkwK6JvTWzbPGzew7VZIjTXtbpYCTRTQBi76eU12AREX3VHjgKg2SQKmMSV6KUC0bsB9ZQ7FgzOJ9PPSmnA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mt.com; dmarc=pass action=none header.from=mt.com; dkim=pass
- header.d=mt.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mt.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q8r0X+naWHuk0OBZwI5XiEDRNAH3P8/H7EQAJwVLJhY=;
- b=pzsEZ+NPN79I2Gt7dw4EdQ3hMV17gu8lVwzmK8wFijNH82RrAU44z5fw6jyxM2YhgV1HW6eCwixm1+JVaQ3DHKKz5p3C8CLhfDwyc63YWm0rZkzAi0oDtaOxe0LLzYaD9YoMABkLZqkOGXxdPff1f154gwpmwg0BAz1sEX1Y9LxDS7DHqOTi6zTzqFUObiZ8o/F0j3KjykfvhehXdBR4jcbCXkooVNLNiG08ejS/YHuDn0e5kXYkzOq20MhcDl+Bo9RE5OsSmik6amKm2NKxTTnk0WDbJ24mKsVK/aOJcHWdnd5vUwJYrhtSjv3q1m9NbIP+KkpSIqE/D2gyV2JPGA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mt.com;
-Received: from DB9PR03MB7180.eurprd03.prod.outlook.com (2603:10a6:10:22d::13)
- by GV2PR03MB11523.eurprd03.prod.outlook.com (2603:10a6:150:320::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Tue, 21 Jul
- 2026 07:13:08 +0000
-Received: from DB9PR03MB7180.eurprd03.prod.outlook.com
- ([fe80::6fd2:12a9:4423:8ddc]) by DB9PR03MB7180.eurprd03.prod.outlook.com
- ([fe80::6fd2:12a9:4423:8ddc%6]) with mapi id 15.21.0223.017; Tue, 21 Jul 2026
- 07:13:08 +0000
-From: Wojciech Dubowik <wojciech.dubowik@mt.com>
-To: linux-kernel@vger.kernel.org
-Cc: Wojciech Dubowik <Wojciech.Dubowik@mt.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Marek Vasut <marex@denx.de>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH v6 0/3] drm/bridge: ti-sn65dsi83: Add reverse lvds lanes support
-Date: Tue, 21 Jul 2026 09:12:47 +0200
-Message-ID: <20260721071253.1098652-1-wojciech.dubowik@mt.com>
-X-Mailer: git-send-email 2.47.3
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZR2P278CA0047.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:53::12) To DB9PR03MB7180.eurprd03.prod.outlook.com
- (2603:10a6:10:22d::13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cZcE8ehU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E221D1F00A3A;
+	Tue, 21 Jul 2026 07:13:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784617995;
+	bh=bsuv7VfmcnztAISiH/Dug0gPt/TDFAeY8IOYk1CMUxo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cZcE8ehU3JAcLz+WFdTjsTqleR3ncWdgAL6u4wkmOhjj9lqXHrvZsDdn+64NVamE6
+	 4ZtY4W9H68JEF/LUuZy9CFnnSpDH5A89hvLMuKaQ27vzR6wDUVEllg3ASi7Q/xsd3J
+	 kKK0TfSPJUMYZBlllwnYluk6v+4KOUnCLh9HqC0QW6/ACM61NCdefZT+ciQC/jbgDy
+	 gACnUeZ5KadBj85Bo4DscUgL2Y7/iyMPRlftFvxvMqu1A/UV0W7vfUk23MeBQ3gPUw
+	 ypPBzCdTLWOh8fnqxzvHMYBVEJ7US2sWDuH1kP5vOLIxzLbBF3/K/mo317/VZsNQe/
+	 IlCvnx0kiFy+Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 10/16] usb: hub: Power on connected M.2 E-key
+ connectors with power sequencing API
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chen-Yu Tsai" <wenst@chromium.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260721065413.2306137-11-wenst@chromium.org>
+References: <20260721065413.2306137-1-wenst@chromium.org>
+ <20260721065413.2306137-11-wenst@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 07:13:14 +0000
+Message-Id: <20260721071314.E221D1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR03MB7180:EE_|GV2PR03MB11523:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5f7e3a55-910f-47d1-20d9-08dee6f7846a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|19092799006|23010399003|18002099003|56012099006|3023799007|10067099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	uiB4czyA1PP7QBva6SrckmsrUNyFbfPll8SkJLrrKSZMxRWR06KG5KxUv9UX/BjXQSZjqE6ttGlGIGOa1U5RDIXZqJ25pFPznXv30t1EwEqX5RJNQpvTqC/q5uiZ084s/msYhrP0FWqFmmMU86SFK7g6Ghtj+GB2TBXP4aj7msHeJrFPtivURVxmqdLwcfeZ0D+pMhUOHOBSC2Sf7Lu62pkMUDzwcE1MCq5PPQoR0L38ZkpZA90iFizVQ3AfQr10iZ5xrSCfZOJggJ0E1XuW/h4/euoIj07uaGsxlqOIbdmzHyk6YGBWIoQzu60TVT2nJosvde30fV8j6XjZ8YxaKwiVfgquAfq+VqzlcVoOpHjTrqY3PiOxRHHGOHT9VgLAJQHB1zga0B9e0QZBfLUaf88CQ3VvdV9GY5I3UYDc7hdlzVJsueYK6R4RXU6vgFbAeVX8yMxvsTb7cLiKKpAPem5rqjqrR17xTUbtdJ+Jg7A4vNbpPPQyuGT6m2OV+4Wq6Y4vLFdcQISq6E+3KhRrvmFhPLZDcOsKQ+VVCl9PNk2DSiWF5ZqheiIptWy0d4rW4fVsfJII0yf4kxrA1rbB5xPsia+RUP+3SLzhgDmSHWuYCJyUhxXYHfiMgpqH1V3OL16DKlawTJ64Aw3YLOeAMitHh9RS+sD10OZPvpUjQQA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR03MB7180.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(19092799006)(23010399003)(18002099003)(56012099006)(3023799007)(10067099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?wbVsF5dGUqXHy0bGyI7mjq7x0EaKQErwXSpDBCfBoh45S4ak7xj6PpUGECWr?=
- =?us-ascii?Q?LnLAlXVqao6eL6piqUWY8VhyrJauJ9OCnMzE9mC89Y31vJIlUsKsM4P/3xxw?=
- =?us-ascii?Q?VYcphp4W/dvqTyJoYIJQxIBsBttgLsOBWi760B4oKXixwXYBUSmXjwA8/263?=
- =?us-ascii?Q?cCnuhEique6MWs7Uy5zfbb4Cu9JUVoIQjC5YM4j7FuBAyur//VS8GlYqxZbd?=
- =?us-ascii?Q?oGq3G3ZEv+Ydu4klSkuUyH4fxzor9AuiRhSxPqRzdGZU6sHnTCxuL6i8IHAm?=
- =?us-ascii?Q?YLIbjXvwcJb11hIbd1S+KW0u3hq1Mr01oiEnG+HKkI52+aAlOb3Dh57KIjpU?=
- =?us-ascii?Q?y4Wqzw3fM/LTV809/2uXXBmkPFkiI3beYXUFQ9izgEYfywdflfoajSU2OTxX?=
- =?us-ascii?Q?RBEQbt4Tu3wp7xs2Dzqtn2uhRn2vLAf2OLUZSGBMI2TsHCSPtCX3H0yqaAEn?=
- =?us-ascii?Q?SGuLmelmrJV147Lo7/Sv5NGTFSeJ2EP5t7rFpJk/4ekej/6HjCd90dw5+iMx?=
- =?us-ascii?Q?e5FbgbCSdun2VxnBYvdbxfrme37YCxq4F/FhUMo3p1a5LFdnyDKPIA7uxhXO?=
- =?us-ascii?Q?rp2XNi8RZajlp6LKUELAwD9PFInjyuYgu968Ij8a+J2znI3wRpwS1jaqt5MF?=
- =?us-ascii?Q?ihwulGg7J1q3IGpsMcDtT0SwAqKqERmc5KvAI0uBV47vb5rCqtKoltW8plXN?=
- =?us-ascii?Q?9WoihTvCtEjLm8eQq9guc1yRS4IFJgbA+XhB/eguAtgWH1GxjHq9uDsL5PET?=
- =?us-ascii?Q?nkjyK3IBcOVlUb2pbTpvv47A9huSlo8/NLWhOk+pmRQCO8q5i/bOp3wueqE2?=
- =?us-ascii?Q?owQMtF7k8Njwv5PkAWrIqHNQbiJdMHqxdUfGzLWS2p9ElxvpBH4gVEsqyOwO?=
- =?us-ascii?Q?NJP9LePXoDfxsaRm6DtGnty+J8/f5SkE5p2YKGU/ODKGqcgYU3IaHwFj8NSN?=
- =?us-ascii?Q?5NDOj7uJdbJ05nErGSK7B50du2eYN3GAJJqDJo1OBfA4+9xoGQOslUsHt84z?=
- =?us-ascii?Q?SwMvByfF1YAFkGjY81rQsre6g+wdpw4tZECR+YaSOUSgnXMwE/JDq+sGCwNl?=
- =?us-ascii?Q?nmxdC4u4GMJp7RB+c/VHjm5WuJ5ylw0Rw8jBlEfWzAho41xVY6Wyx4duJOyK?=
- =?us-ascii?Q?fZ+hAnk77+6TLIifwEaxQ/QR9nfWpblEujl+ywj0LRfVHGbo4J7PPEigReaH?=
- =?us-ascii?Q?3dJd83QVO7X9iUObXLFU1FHA3+1+kF7CJzgCVejzNb6O2fLogrz1nVXnzs22?=
- =?us-ascii?Q?OCi4fhTLEyipry8fHVXx++PJpKBpdX9Qi4Awb0yQzkjnQR6gCJMoVmgPGbIb?=
- =?us-ascii?Q?QNyVyTVq/ZSw+DifcUqXdz9lKSKRFQIDlX88LtnkXfxSz2Mb/QabWAtCKCgq?=
- =?us-ascii?Q?hid6hlKk8TKFi6sxeeYNghGvHRiWqQF/qDZvFn3igcLhzAYLRtDffDNRajmF?=
- =?us-ascii?Q?sqk/UXfsMHZqvx/WUg00Vsw6rXtn3wHeYgDOMgeppT5RXk8G6kO3cB7pZAQO?=
- =?us-ascii?Q?LskCRUB7/2EcErEulS7U7QuryBxKyRDyWxmt3UhZULJCwXrbsn8MyKIgy1dc?=
- =?us-ascii?Q?9PYt6cWVt69sus9y6L59IIjV/CH5ay3Bmm6FaJHCRhgWaaySG5hCW6acPLg/?=
- =?us-ascii?Q?Ta3X/hYlxMIF9IBzXXyb9hnqT9VDStRwQlrD0N3z0nvf/WGmz4Sv7oLHttGT?=
- =?us-ascii?Q?GPXNXGJ08kydSJNH0XMQuuAnOAh0HhtTUJoE+nXCQVIG07Nq1WbbLOs0f+7O?=
- =?us-ascii?Q?uzr2BipUUA=3D=3D?=
-X-OriginatorOrg: mt.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5f7e3a55-910f-47d1-20d9-08dee6f7846a
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7180.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 07:13:08.7576
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fb4c0aee-6cd2-482f-a1a5-717e7c02496b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6/d1JbimuzXs/a/2pG1vSYjdcc6v5qY4gD01cf1pmSYwkwfwpc3pDwMzRwDboM88VYL3Ob88jFcgxzmNefgUFA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR03MB11523
 
-From: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Race condition during sysfs unbind leads to Use-After-Free of the =
+`hub->ports` array in `usb_hub_set_port_power()`.
+--
 
-Add support for reversed lvds output lanes. With an optional
-data-lanes property one can support default layout <1 2 3 4>
-or reversed layout <4 3 2 1>. The property is optional and when
-not set it keeps the default output layout.
+--- Patch [10]: [PATCH v6 10/16] usb: hub: Power on connected M.2 E-key con=
+nectors with power sequencing API ---
+commit 11e3aac46e37825563690ac3ff867ec8a68c9006
+Author: Chen-Yu Tsai <wenst@chromium.org>
 
-Signed-off-by: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
----
-Changes iv v6:
-- Fix wrong size in memcmp reported by shashiko-reviews
-- Add missing Reviewed-by Krzysztof in dt-bindings
-Changes in v5:
-- Add an extra patch to simplify error handling in lvds DT parsing
-  suggested by Luca
-- Fix formatting and description in dt-bindings - Krzysztof
-- Make naming consistent for lane mappings constants - Luca
-- Simplify parsing of data-lanes - Luca
-Changes in v4:
-- Fix data-lanes bindings to be under endpoint subnode and not in
-  the node itself, discovered by shashiko-reviews
-Changes in v3:
-- Add optional data-lanes bindings for output nodes
-Changes in v2:
-- Parse existing data-lanes property instead of ading new DT
-  bindings
----
-Wojciech Dubowik (3):
-  drm/bridge: ti-sn65dsi83: Simplify error condition logic
-  dt-bindings: display: sn65dsi83: Add output data-lanes property
-  drm/bridge: ti-sn65dsi83: Add reversed lvds lanes support
+usb: hub: Power on connected M.2 E-key connectors with power sequencing API
 
- .../bindings/display/bridge/ti,sn65dsi83.yaml | 44 ++++++++++++
- drivers/gpu/drm/bridge/ti-sn65dsi83.c         | 72 +++++++++++--------
- 2 files changed, 87 insertions(+), 29 deletions(-)
+This commit adds support for powering on M.2 E-key connectors over the power
+sequencing API. It modifies the port power control functions to retrieve and
+toggle power sequencing descriptors. Port devices now manage power sequences
+for connected connectors that require it.
 
--- 
-2.47.3
+> diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+> index 10f15b40fcc55..298fb68c6afc7 100644
+> --- a/drivers/usb/core/hub.c
+> +++ b/drivers/usb/core/hub.c
+[ ... ]
+> @@ -887,15 +898,22 @@ static void hub_tt_work(struct work_struct *work)
+>  int usb_hub_set_port_power(struct usb_device *hdev, struct usb_hub *hub,
+>  			   int port1, bool set)
+>  {
+> +	struct usb_port *pwrseq_port =3D hub->ports[port1 - 1];
+                                       ^^^^^^^^^^^^^^^^^^^^^
 
+[Severity: High]
+Can this result in a Use-After-Free of the hub->ports array?
+
+The commit message notes that sysfs callbacks acquire the lock and check for
+disconnect, preventing a use-after-free. Is this assumption accurate?
+
+Looking at the disable_store() sysfs callback, it uses
+sysfs_break_active_protection(). This breaks active sysfs protection,
+causing device_unregister() in the disconnect path to return immediately
+without waiting for disable_store() to finish.
+
+If a concurrent hub_disconnect() runs, it does not acquire the hdev lock.
+It sets hub->disconnected =3D 1, unregisters the port devices, and calls
+kfree(hub->ports).
+
+If disable_store() has already passed the hub->disconnected check while
+holding the lock, could it proceed to call usb_hub_set_port_power()
+and dereference the newly freed hub->ports array here?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721065413.2306=
+137-1-wenst@chromium.org?part=3D10
