@@ -1,137 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F11E46A609
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:54:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC93B248F57
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:58:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784649277; cv=none; b=HzRR5hlFwDHRInqKLqRz+H2wVHTewbwBu0yqXzENW7jAw4bSHohHHeSKnPslMb7rbHeayve9UfbzFK9PObQWeYXEnMetNPNf9QBAhSkw5dqhViM0MuzSNhPJ25Qm9MPlDCdUwRquK2CzhnOaZi5efXyZH0De2yMKVwuU7riHnpU=
+	t=1784649512; cv=none; b=hlhXyApZDroUz6D+ueXn82jiFEcSY9A0HzzpbLdSEFRfN8EQvysd02JTXApmTdwupOaKv3rGYmt2sb0i+v3yGuG+uVQfcstrZHjsteilz9m2KN/rB0C9k7Y7jwfhawRQlyEh5Xw76vOfvZxMCY+bXngfPiLvo++k2jzJHPlydA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784649277; c=relaxed/simple;
-	bh=IGGgkTc8ZWNR2qEXD/C2QZbTEoWCnel0xNEaWe8oyes=;
+	s=arc-20240116; t=1784649512; c=relaxed/simple;
+	bh=IlQmJXM/kA8wPeMSZd3K7W41FiUJ9KzxafeRFzG8Aco=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gvoqRb5thGS5O2ykBqaJQvInA3sXOM+G53U7LtPnjiQBPIPpVXVvaZLVQJPxpvYf2SDvUCYpzd8jMorQMSMXSOhCHirpRVIGnJX1/LxVheE3x7hmosDde0qbwSEmMBlporzkVzbcoLZGFXYTH7hRQd3DB21Uv5yivRpD3hImJUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NL9sU2bB; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Q5esbgElrAmbGclBoRm1XdVr/dWBLqMyzFCEfmgHrkjOkh6jZS32FV8IlMDLYWlDnTlrfKbzgvlHo0uXAOL1NDkr6IszDgO016i9aBKkOo4xw4RipdlZlzowMQEsZPjESomzG8Lbl6vtnxjwX06L6dt/WRiQFt9njZq4BuOr4m8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=he0gcl2H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NL9sU2bB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C011B1F00A3A;
-	Tue, 21 Jul 2026 15:54:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="he0gcl2H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 741EC1F000E9;
+	Tue, 21 Jul 2026 15:58:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784649276;
-	bh=0lMaBNV7PQDHEVU84xJSK8vEhjsQvj8JWaGrMKTbfq0=;
+	s=k20260515; t=1784649510;
+	bh=u1vnwDZRnP9Bve2ng31V5FchF9YvYw64jNmYYMOrWC4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NL9sU2bBfzPHg/0z09fouPJ44Ih0CHyPgBIRPEFQ8LOOstXV1yXyoy91wbNq7WkJN
-	 fo7+cHTqCVDYwG3DYtM7/60LFCb5DoAnDWRYsqxamgYfL5WFOYubOnWJf4cNuyA92v
-	 gAfSfTsJD80gupPYxQtFeM2qKp47Wbe5OIxj0dIgdzkt+c1Ko4QXcXxqls9cICU2h2
-	 NKwVJdZWh0n+AllYc9A2eWEQud+3Jr2eFjBmWiw3UrxZBAMADhuqkf0JeMAyu6KRSe
-	 npO3DMpwT7m95EqTKhfcUA94etzHkXFX1smE33+fsfUiezZa9jitMg56MU6BsX/F22
-	 FC8WsFBiCER2A==
+	b=he0gcl2H6vE5dJyqjN4XLQGdBfYzZpbqDV0ibWyC1CdS+iuCNBNZ0yqk0A2wZRfNQ
+	 aLyYZcaGFzdhZ3RTJilWQBUyPX/QDO6HVm9+dfmIgxgh8FsZub43zyAVzY49JADbHj
+	 owhNyt5sKtOHi5QTs2/SBg1O3Z5WFMqT2Pq1D1N7+LyNb0IK4I5WSMG/8AKwyuJJ/O
+	 CjvNuNFx6inaLR5g2mHfW/HnpvRvEvE/eHASB5uRP4VFBd3BmU/wv8LUToO7Hs0ZTk
+	 KWKg+h5ajqN56AMIkgZM0Czni56OUI80hoHegQTzIIoCdBVi4rU9ZyfBUEcINNoRI3
+	 ISudZGJdpQnOA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 4/5] arm64: dts: qcom: sm8650-qrd: add SPMI ADC
- channels and thermal nodes
+Subject: Re: [PATCH v3 3/4] dt-bindings: arm: qcom-soc: Validate nodes with
+ fallbacks
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neil Armstrong" <neil.armstrong@linaro.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260721-topic-sm8x50-adc5-gen3-v6-4-a507f4a1e537@linaro.org>
-References: <20260721-topic-sm8x50-adc5-gen3-v6-0-a507f4a1e537@linaro.org>
- <20260721-topic-sm8x50-adc5-gen3-v6-4-a507f4a1e537@linaro.org>
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260721-dt-bindings-qcom-soc-naming-v3-3-8f275c9d3412@oss.qualcomm.com>
+References: <20260721-dt-bindings-qcom-soc-naming-v3-0-8f275c9d3412@oss.qualcomm.com>
+ <20260721-dt-bindings-qcom-soc-naming-v3-3-8f275c9d3412@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 15:54:35 +0000
-Message-Id: <20260721155435.C011B1F00A3A@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 15:58:29 +0000
+Message-Id: <20260721155830.741EC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Unrealistic and physically dangerous 125=C2=B0C thermal trip point=
-s for external surfaces.
-- [Low] Missing DT bindings header causes build failure.
-- [Low] Device tree unit address mismatch for pm8550ve PMIC temperature cha=
-nnel.
+- [Medium] The commit modifies a regex pattern despite the commit message e=
+xplicitly claiming no patterns were changed.
 --
 
---- Patch [4]: [PATCH v6 4/5] arm64: dts: qcom: sm8650-qrd: add SPMI ADC ch=
-annels and thermal nodes ---
-commit e319ddcc0f55ac8e62e9354e1059c060573915eb
-Author: Neil Armstrong <neil.armstrong@linaro.org>
+--- Patch [3]: [PATCH v3 3/4] dt-bindings: arm: qcom-soc: Validate nodes wi=
+th fallbacks ---
+commit 5d9830a03b3532641c37f4db55bf3e194063f0c9
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-arm64: dts: qcom: sm8650-qrd: add SPMI ADC channels and thermal nodes
+dt-bindings: arm: qcom-soc: Validate nodes with fallbacks
 
-Add the SPMI ADC channels on the PMK8550 SPMI5 ADC3 for the
-other PMICS on the system.
+The schema checking for expected naming patterns for SoC IP block nodes
+was incomplete and was checking only nodes with single compatible. This
+commit changes select to contains so that nodes having at least one matching
+compatible will be evaluated.
 
-The thermal nodes are sorted by the sensor channel to be
-coherent with the system thermal nodes ordering.
+>     These two above are the only functional changes in this commit and the
+>     rest of the diff is indentation change.  None of the patterns are
+>     changed (neither in "Preferred naming style" group nor in "Legacy
+>     namings"), none of the compatibles are affected.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8650-qrd.dts b/arch/arm64/boot/dt=
-s/qcom/sm8650-qrd.dts
-> index a3982ae229290..809c9efb23385 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8650-qrd.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm8650-qrd.dts
-> @@ -158,6 +158,92 @@ platform {
->  		};
->  	};
-> =20
-> +	thermal-zones {
-> +		skin-thermal {
-> +			thermal-sensors =3D <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
-> +
-> +			trips {
-> +				trip-point0 {
-> +					temperature =3D <125000>;
-> +					hysteresis =3D <1000>;
-> +					type =3D "passive";
-> +				};
-> +			};
-> +		};
+[Severity: Medium]
+The commit message states that none of the patterns are changed, but the
+diff below shows the regex pattern for the codenames variant was modified to
+end with "-.+$" instead of "-.*$".
 
-[Severity: High]
-Is a passive trip point of 125=C2=B0C realistic for skin-thermal and the ot=
-her
-external surface zones? This temperature seems extremely high for an extern=
-al
-surface and might prevent the OS from mitigating heat before causing hardwa=
-re
-damage or burns.
+Is this pattern change intended despite the commit message?
 
+> diff --git a/Documentation/devicetree/bindings/arm/qcom-soc.yaml b/Docume=
+ntation/devicetree/bindings/arm/qcom-soc.yaml
+> index dbc7877ee30e2..e72502f8df2c7 100644
+> --- a/Documentation/devicetree/bindings/arm/qcom-soc.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom-soc.yaml
 [ ... ]
-
-> +&pm8550ve_temp_alarm {
-> +	io-channels =3D <&pmk8550_vadc ADC5_GEN3_DIE_TEMP(PMK8550VE_SID)>;
-
-[Severity: Low]
-Does this rely on a missing header file? It looks like the macros
-ADC5_GEN3_DIE_TEMP and PMK8550VE_SID are not defined in this patch or the
-current tree, which might cause a build failure when compiling the device
-tree.
-
-> +	io-channel-names =3D "thermal";
-> +};
-
-[ ... ]
-
-> +&pmk8550_vadc {
-> +	/* PM8550 Channel nodes */
-
-[ ... ]
-
-> +	/* PM8550VE Channel nodes */
-> +	channel@503 {
-> +		reg =3D <ADC5_GEN3_DIE_TEMP(PMK8550VE_SID)>;
-
-[Severity: Low]
-If PMK8550VE_SID is defined as 8 on this board, will this evaluate to a reg
-property of 0x803? If so, should the node be named channel@803 to match the
-unit address and avoid dtc warnings?
-
-> +		label =3D "pm8550ve_die_temp";
-> +		qcom,pre-scaling =3D <1 1>;
-> +	};
+>  properties:
+>    compatible:
+> -    oneOf:
+> -      # Preferred naming style for compatibles of SoC components:
+> -      - pattern: "^qcom,(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm=
+|x1[ep])[0-9]+(pro)?-.*$"
+> -      - pattern: "^qcom,sar[0-9]+[a-z]?-.*$"
+> -      - pattern: "^qcom,(sa|sc)8[0-9]+[a-z][a-z]?-.*$"
+> -      - pattern: "^qcom,(eliza|kaanapali|glymur|hawi|mahua|maili|milos|n=
+ord|shikra)-.*$"
+> +    contains:
+> +      anyOf:
+> +        # Preferred naming style for compatibles of SoC components:
+> +        - pattern: "^qcom,(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|=
+sm|x1[ep])[0-9]+(pro)?-.*$"
+> +        - pattern: "^qcom,sar[0-9]+[a-z]?-.*$"
+> +        - pattern: "^qcom,(sa|sc)8[0-9]+[a-z][a-z]?-.*$"
+> +        - pattern: "^qcom,(eliza|kaanapali|glymur|hawi|mahua|maili|milos=
+|nord|shikra)-.+$"
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-topic-sm8x=
-50-adc5-gen3-v6-0-a507f4a1e537@linaro.org?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-dt-binding=
+s-qcom-soc-naming-v3-0-8f275c9d3412@oss.qualcomm.com?part=3D3
