@@ -1,124 +1,116 @@
-Received: from out-177.mta0.migadu.com (out-177.mta0.migadu.com [91.218.175.177])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C291A4D8DA7
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:04:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26A174D8D9D
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:04:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784646246; cv=none; b=boJ38SUiU1Iw1p41Zgxc7qrs3B2Zb+6kj0B7W4Rpa8JaYsOAKAG+WmQg1Kz3GQMsNFy3snIsGrEzC6tOxr/2KcQPdts13/gS55QXOBOxMirFLmda60X/xUc5Bt0Dk8ZEkrVm26XJ5jWYdHgAjf3rqtPjPUwec2U5G9LYMOsFqRQ=
+	t=1784646295; cv=none; b=au1nM079VhM5whexRCSixv3CAun+s/l+232eYHvngogFDWHVbOxn+OcbiDtL29FPTjZoEcds6OBk1cPCO/+OB2mHLf/MSwydpvJa7HbvnEbMxYCfm8RQqN5qkaD1EMQhjeXK8WA4C5ZjY6avKjErniuFFDAijh01TYQQyiZV9tQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784646246; c=relaxed/simple;
-	bh=Zaila6GKu+De9A/9ewWdgxmvgJz7oI6zqspBju5Prv8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J2ljxErJHteFdSpqmEeWyO2DvpAwAec2gMHbusdANIawmlWBvhOmjzv3vbgV8ilFJi6wiOGXhhDC9Ade8Liv+sbcn/40P1J/SdeTTUO76v/D1EfuFxVEbSkvKCIvTyCuqhM5r+AZ3N6NObjMRMIEtkJgGmHYzl3OBc9jht0vfXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=POFnV4FD; arc=none smtp.client-ip=91.218.175.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784646295; c=relaxed/simple;
+	bh=RSNaUch5bL7CrNxBhkVv0f8ux1hXDHuD8ptvzX4wv00=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Rlh2a1jWE9niz+/Kj+eMSbf6eSw5ultn4GtsQF6Hn9PkxedtFmI5eQ/D8pJN9kXBFpJF6tqFevwDYggOf0iSG8oxxrKMETIjl3ZOG4PauMADS7ViU6Wc2kAtWVui6YvgXo0DPJiAreFoJB9QQVpa9mE2/sao5BjLQpQX4xCnJlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ia1ztu+Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="POFnV4FD"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784646228;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=tglCPgE4AKwdd0u8qEHvDa2UM6WGCVb/lrWKzOgfo3M=;
-	b=POFnV4FDPEPtr/kg6uy1BnsEyK+xzndnLaI2b7tQoOxfw76tpKvrKEPNXH825sPJOnpOvS
-	keutNYLxdRiJiPdSmXZto9XAXrfzWT3KtroMJ8VhN2xHzH5tvvhqzc6w3Bm8QBSJxiiVgT
-	QCCKlpGVEeCFZyo9JvuPzhKyLgO4aN8=
-From: Siratul Islam <siratul.islam@linux.dev>
-To: Song Qiang <songqiang1304521@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH] iio: update email for Siratul Islam
-Date: Tue, 21 Jul 2026 21:03:08 +0600
-Message-ID: <20260721150314.24545-1-siratul.islam@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ia1ztu+Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D1091F00A3A;
+	Tue, 21 Jul 2026 15:04:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784646293;
+	bh=quI0foouyl0vdiX0UqE59kXhzOpfZaAJxBVn2+/rsa4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ia1ztu+YbL151SI/npRlU+N4PhCCwQOqxHt9WrYD4nPngYJ7qiT7ihgqypRqsmxl1
+	 7d2PHM+ZdI6CvnH4ewjGi3cVvhQ3noHlBbh2eWipJqY7JKZdrl6qtCEKtrUT2P2HHs
+	 21MqGAObPEhEbA6wqC4zOienTYwQsMYrERArqqExsa8i0DEh+osk++UPPRZvbYiha7
+	 FkoxCTOzH4TRLfrmeKZ8wSmUwn4tJ+u2WcTG9S1gJkowdklBaSmeLOy6bttMrUw5u7
+	 ZpRIyxm0QimxS+Uh0vzT4N08YvCgOSeoanClMOPr8Tjr0PGMXbZOO2OEUjRpZriuNP
+	 1paiCNCHvZ9Fw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] arm64: dts: qcom: sm8550: add Xiaomi Pad 6S Pro
+ (sheng)
+Reply-To: sashiko-reviews@lists.linux.dev
+To: code_0002@163.com
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260721145452.1996-1-code_0002@163.com>
+References: =?utf-8?b?PHYz55qEbWVzc2FnZS1pZD4=?=
+ <20260721145452.1996-1-code_0002@163.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 15:04:52 +0000
+Message-Id: <20260721150453.2D1091F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 
-Change personal email to the Linux specific one,
-to have a single and focused point of interaction.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Sharing the same reset GPIO across multiple cs35l43 codec nodes us=
+ing `GPIO_OPEN_DRAIN` does not prevent `-EBUSY` probe failures.
+- [Medium] The commit message claims to 'Remove output-low/output-high from=
+ TLMM pinctrl', but `output-high` is still present in the `i2s1_default` pi=
+n configuration.
+--
 
-Signed-off-by: Siratul Islam <siratul.islam@linux.dev>
----
- .mailmap                                                      | 1 +
- .../devicetree/bindings/iio/proximity/st,vl53l0x.yaml         | 2 +-
- MAINTAINERS                                                   | 2 +-
- drivers/iio/proximity/vl53l1x-i2c.c                           | 4 ++--
- 4 files changed, 5 insertions(+), 4 deletions(-)
+--- Patch [1]: [PATCH v4] arm64: dts: qcom: sm8550: add Xiaomi Pad 6S Pro (=
+sheng) ---
+commit 409a566ed91cfcb1ea5b448084073b5d36eb09ec
+Author: map220v <map220v300@gmail.com>
 
-diff --git a/.mailmap b/.mailmap
-index 501d858cb432..a337ff5b852e 100644
---- a/.mailmap
-+++ b/.mailmap
-@@ -817,6 +817,7 @@ Simon Wunderlich <sw@simonwunderlich.de> <simon.wunderlich@s2003.tu-chemnitz.de>
- Simon Wunderlich <sw@simonwunderlich.de> <simon.wunderlich@saxnet.de>
- Simon Wunderlich <sw@simonwunderlich.de> <simon@open-mesh.com>
- Simon Wunderlich <sw@simonwunderlich.de> <siwu@hrz.tu-chemnitz.de>
-+Siratul Islam <siratul.islam@linux.dev> <email@sirat.me>
- SJ Park <sj@kernel.org>
- Sricharan Ramabadhran <quic_srichara@quicinc.com> <sricharan@codeaurora.org>
- Srinivas Kandagatla <srini@kernel.org> <srinivas.kandagatla@st.com>
-diff --git a/Documentation/devicetree/bindings/iio/proximity/st,vl53l0x.yaml b/Documentation/devicetree/bindings/iio/proximity/st,vl53l0x.yaml
-index f7f8be1e379d..d23dc59505cc 100644
---- a/Documentation/devicetree/bindings/iio/proximity/st,vl53l0x.yaml
-+++ b/Documentation/devicetree/bindings/iio/proximity/st,vl53l0x.yaml
-@@ -8,7 +8,7 @@ title: ST VL53L0X/VL53L1X ToF ranging sensor
- 
- maintainers:
-   - Song Qiang <songqiang1304521@gmail.com>
--  - Siratul Islam <email@sirat.me>
-+  - Siratul Islam <siratul.islam@linux.dev>
- 
- properties:
-   compatible:
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 1ab8736850ea..712505519c39 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25682,7 +25682,7 @@ F:	Documentation/devicetree/bindings/iio/proximity/st,vl53l0x.yaml
- F:	drivers/iio/proximity/vl53l0x-i2c.c
- 
- ST VL53L1X ToF RANGER(I2C) IIO DRIVER
--M:	Siratul Islam <email@sirat.me>
-+M:	Siratul Islam <siratul.islam@linux.dev>
- L:	linux-iio@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/iio/proximity/st,vl53l0x.yaml
-diff --git a/drivers/iio/proximity/vl53l1x-i2c.c b/drivers/iio/proximity/vl53l1x-i2c.c
-index dc4ffbc95d1f..aef5f26d1e1c 100644
---- a/drivers/iio/proximity/vl53l1x-i2c.c
-+++ b/drivers/iio/proximity/vl53l1x-i2c.c
-@@ -2,7 +2,7 @@
- /*
-  * Support for ST VL53L1X FlightSense ToF Ranging Sensor on a i2c bus.
-  *
-- * Copyright (C) 2026 Siratul Islam <email@sirat.me>
-+ * Copyright (C) 2026 Siratul Islam <siratul.islam@linux.dev>
-  *
-  * Datasheet available at
-  * <https://www.st.com/resource/en/datasheet/vl53l1x.pdf>
-@@ -750,6 +750,6 @@ static struct i2c_driver vl53l1x_driver = {
- };
- module_i2c_driver(vl53l1x_driver);
- 
--MODULE_AUTHOR("Siratul Islam <email@sirat.me>");
-+MODULE_AUTHOR("Siratul Islam <siratul.islam@linux.dev>");
- MODULE_DESCRIPTION("ST VL53L1X ToF ranging sensor driver");
- MODULE_LICENSE("Dual BSD/GPL");
--- 
-2.55.0
+arm64: dts: qcom: sm8550: add Xiaomi Pad 6S Pro (sheng)
+   =20
+Add device tree for Xiaomi Pad 6S Pro (sheng) based on SM8550.
 
+> diff --git a/arch/arm64/boot/dts/qcom/sm8550-xiaomi-sheng.dts b/arch/arm6=
+4/boot/dts/qcom/sm8550-xiaomi-sheng.dts
+> new file mode 100644
+> index 0000000000000..a5aa49a01dde9
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sm8550-xiaomi-sheng.dts
+
+[ ... ]
+
+> +&i2c5 {
+> +	clock-frequency =3D <1000000>;
+> +	status =3D "okay";
+> +
+> +	cs35l43_trl: cs35l43@40 {
+> +		compatible =3D "cirrus,cs35l43";
+> +		reg =3D <0x40>;
+> +		interrupt-parent =3D <&tlmm>;
+> +		interrupts =3D <98 IRQ_TYPE_LEVEL_LOW>;
+> +		reset-gpios =3D <&tlmm 90 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+
+[Severity: High]
+The commit message mentions adding GPIO_OPEN_DRAIN to avoid -EBUSY on
+shared reset-gpios. Does this actually prevent the probe failures?
+
+When devm_gpiod_get_optional() is called by the codec driver without
+GPIOD_FLAGS_BIT_NONEXCLUSIVE in the driver's C code, gpiolib enforces=20
+exclusive access.
+
+Since GPIO_OPEN_DRAIN only configures the hardware output behavior, it looks
+like the first cs35l43 codec instance will succeed but the subsequent
+instances will still fail to probe with -EBUSY.
+
+[ ... ]
+
+> +	i2s1_default: i2s1-default-state {
+> +		sck-pins {
+> +			pins =3D "gpio121";
+> +			function =3D "i2s1_sck";
+> +			drive-strength =3D <8>;
+> +			bias-disable;
+> +			output-high;
+> +		};
+
+[Severity: Medium]
+The commit message states "Remove output-low/output-high from TLMM pinctrl",
+but output-high is still present in this i2s1_default pin configuration. Did
+this get missed during the cleanup?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721145452.1996=
+-1-code_0002@163.com?part=3D1
