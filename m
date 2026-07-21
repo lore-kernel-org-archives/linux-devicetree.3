@@ -1,33 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605D13BD63A;
-	Tue, 21 Jul 2026 08:46:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477F63BB120
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 08:46:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784623574; cv=none; b=n0yrDt0r3vLQc7hEJG8bRDlyJCB4SSwIs6VftW1TLtNMmShLDZ4ZkVkohf9pKPuDE9nUY6g56lcFp8HC5RfvFoW4b++r58KqZYryMYPLqgxt62MeHHxfPskKZ1Zy1oDg04yYGj7SCLW7zsR0Fg7q+4ZbPpJDqOXkZvu3TZWaYmU=
+	t=1784623576; cv=none; b=aBkNj4DrgzRPJQ0P+kAlzVYA+coRkXKpQJ50Kdza+952QtkGnC+h94y+VOAw8I+0+iWVSVgxrZeLcWCAw/DOf0/jxtk5dukeNxSXveONNirs2FOxaPlun52UURKd7yLb1RweCMt+3R0p44np2nx7s7R3gWmXBviOBtrZPIt6elI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784623574; c=relaxed/simple;
-	bh=tf852/V/BMkWrWMTOP9oX//lsDR+oEtvAyhnpQy8kTo=;
+	s=arc-20240116; t=1784623576; c=relaxed/simple;
+	bh=YuamI1BxG38RiHIYx/SIZEAvWsuh5tk+e8yJqhhWbvg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Rb/v+YYkT2eowbDzHewQflidHplNhf+D5MIiRSHF24iTpUSUtg9YRaAClEqUybqygXc2TFXF9kFoXI0t/G6nnzR/3+rBYmW09q6JvDHbfhpepTdPAyHyfUdCkQvV5pRzM6FU9MgRGwIWXlLEhOW3D10XuGOXPBwdCfPw4LfWoeY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FWlvEVFh; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=DrX31K8rA7bvKjvz8Zyv1ZzEcvH8HDbjQrD0pe3k4cs3QNff3itBS0/nnWqTYstbwCOINEY6htZuq9GXek9zZPld6yXYQMMQ2awiMC5TQq6luq05Dn9/R9i9jGpkAkfNjXT1LgDnLRZycn3nL8RcfStweGYgbYmM6fyzjmdxT9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=W4W98tK0; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=W3Ly2wwo; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FWlvEVFh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13FFC1F000E9;
-	Tue, 21 Jul 2026 08:46:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784623569;
-	bh=nQEJMFqzlR0GpDMNNEZa/+TAJKHJC1J+7R2exazfiz0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FWlvEVFhvtVP5QOxY8D9hMrBnxhs79pHRfBszXuR8AhMRaKzPptNNlQ3mjdhsG8md
-	 4+vMi1U5f/FTD52QnoOYThxDSzuY08BHp6QPzxambYoJUrMYRSiKBVwWs3KvwfIX7P
-	 0Oi3w0ZE6iEub1FtKHPvnoY0lrrlSWPqGYd+Yj9B/+c7Oa8p+UO1K8Z9kSU8BlSGAm
-	 GlyBZjJjtfGPdb5een+YpDHIO/9Ot67T95hkVPdIPrZVENMXo0Ki1p6xnG/moktVN0
-	 tKrcqExionVgH5UFqJSghnmntNOndJcJgJU0hPYwSOBFMr/ORjS54Cae6aGGxCLwv5
-	 Kdj7co1MVu4fg==
-Message-ID: <571d0b42-c566-4426-ad55-514c280b9b1b@kernel.org>
-Date: Tue, 21 Jul 2026 10:46:01 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="W4W98tK0";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="W3Ly2wwo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784623570;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=j1h/8U8rGpm6km9e/8IbvCjZFi5T4w4REAp5AhAlIpE=;
+	b=W4W98tK03xaFIr+qHus0bOIUQvGi5WFJM8m+p8KLYIGSS7EaQOtAi2+KmDK6Bydxg6v+ev
+	dzjPIxppf+krsDGg/CNXYTsyLhIODt/NJcu+uscw+HAWL2q1Yf4Q94DnGPK5DE3EjboJg6
+	p9XBVOy7bu9u7kvo+ERcQXCgyxFVudY=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-257-5isbhFyHMBmcHtyaNwrj-Q-1; Tue, 21 Jul 2026 04:46:07 -0400
+X-MC-Unique: 5isbhFyHMBmcHtyaNwrj-Q-1
+X-Mimecast-MFC-AGG-ID: 5isbhFyHMBmcHtyaNwrj-Q_1784623567
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4926fa2cb17so33281275e9.1
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 01:46:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1784623566; x=1785228366; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=j1h/8U8rGpm6km9e/8IbvCjZFi5T4w4REAp5AhAlIpE=;
+        b=W3Ly2wwooicru2zoLyt+mIu9plU5QtHLTq4vhGYoypG4d8IVmd4nagqhuJ1+f4zVeh
+         AFHBr+KzzsTfcV4SLNgBww/6Lrfp2jQwIfwjoaQKosFgWxZU509pfRinRXFpwVX46RSL
+         IEGphSXqSywsIErBm2zmXVXeLBaplLTCgb6UGkMI2iVKCZA6VMgmT4M5CR9CVZx5ENvU
+         w9vsP2AS65Hm1QWrY+pk/8HTUS+j0WM3+AMkqQqfuGikfHuvElZPTm+VbWMFBWwaVC6z
+         W0dt5G+MdZ73nsmIpJc2Qt0/UHBg/qscD7kZHbPCtCLIg8HRM2uK06FjM799KoX3Odck
+         qorg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784623566; x=1785228366;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j1h/8U8rGpm6km9e/8IbvCjZFi5T4w4REAp5AhAlIpE=;
+        b=pd86JTCfKrMzCQaesdy7qDqRNPK2Obw5hOswbuczioLfE6uO2UxTRNKtvgL4KMx8tr
+         9ngBFEjHbcviby0ObB9TXYft6i5SD4uFm7x4WJYyzsBzMvGSHynJE2lPnbvrk9VyhIR1
+         xZfe3KLRy804pAwnkZTLAihmOFnALFt7+qKY0zoQclSaV2cTjXBzefqscyq2j+JeySCW
+         wEbweJn5Ee2nfFzd9lpoTrtC5vPfS1I5LYD5WkXrHsudmVg7iWjvMzZR3YpVhfuf6TsC
+         aeamEah5omnQjTP7/bzHpvFso9R/ayvAlu6WcLOr2+cIQqHLeFSS7K17OTFmvZ+BJ+Kk
+         chhQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpPlDk1WmgWNZIvdGGWRKC4G2egDJEO5/yBZMBT9MKZwzDUSmRnfgwNVu4BTuJtDw8bV89GdtbTNXzk@vger.kernel.org
+X-Gm-Message-State: AOJu0YxaLOD0z3sNRSPSUemqw1DiIaMyJK73kDqmViWuWzP8I3Y9DEFt
+	JnESO9DkUroepkDXleZtxGfBGk1mo6toNBlVKkZnPyDdIi/MGyqoSM8b/UScJ+4/Bl2HqK/491Z
+	KdBL5fDe6LGu0RrjVAdarwaH1fiiJ0tjhn2NadRalO+9YjyRsYzJyCq+XlrREJ8k=
+X-Gm-Gg: AfdE7clA9tPFjavVpvq2dEca+gkcw3gOziMLATNSjVXne6Arxy9QP1tL2Rx9ZMJtr22
+	GryzztyenkMIozCLOZlJ5isdziPcEXb7vsPmrHDYAOJhKzOvkrBT5AgzduRlDpQ4zP4Az9tup1w
+	EHGlExaJAiL6Epjb95OekDQfPiGrwgQRV//loR4mG6n55WOIiYqKQk5QWE+MHQPb28Ge35VMag2
+	EqGLaqKyzuLxcBMEDeRyFryDt8rGE3S05HRhcYExu2lomxbX0pGn9z9JvHDVv3vP+XuL3XaoPu5
+	tnOVaBFAUlH/PHkA0/cGWRRMZyN++L8Mfxoam2yLuIZnj7glD82pnODEbVu0ev38peaHWttyw3G
+	QemhqESh38a1VpOVus2YCIFP8Qpm9qSPrl5mS7v3vCwnv5tl9/muez2RzCLYGTHRUwsH1YhO+1O
+	rn2w==
+X-Received: by 2002:a05:600c:3485:b0:495:6193:c6c0 with SMTP id 5b1f17b1804b1-49561a30bb3mr70804985e9.18.1784623566647;
+        Tue, 21 Jul 2026 01:46:06 -0700 (PDT)
+X-Received: by 2002:a05:600c:3485:b0:495:6193:c6c0 with SMTP id 5b1f17b1804b1-49561a30bb3mr70804755e9.18.1784623566185;
+        Tue, 21 Jul 2026 01:46:06 -0700 (PDT)
+Received: from ?IPV6:2a0d:3344:5521:6b10:58fd:68f:7756:389d? ([2a0d:3344:5521:6b10:58fd:68f:7756:389d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-495499d1d4asm227108515e9.2.2026.07.21.01.46.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 21 Jul 2026 01:46:05 -0700 (PDT)
+Message-ID: <4793400b-958d-429d-b2db-d39b7d757338@redhat.com>
+Date: Tue, 21 Jul 2026 10:46:03 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,177 +88,44 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/3] ASoC: dt-bindings: qcom,q6apm-lpass-dais: Document
- DAI subnode
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-References: <20260720160226.1026440-1-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260720160226.1026440-2-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260721-fiery-sheep-of-piety-4fd04b@quoll>
- <67179d90-6201-462c-9004-9b4cfd114250@oss.qualcomm.com>
- <2d4513e2-7e14-49bc-8b70-6c07c9f99d6b@kernel.org>
- <e2e50e30-6da2-45d9-b472-dae7d41d100d@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH net-next v5 10/13] net: phy: add generic helpers for
+ direct C45 MMD access
+To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>,
+ "ciprian.regus@analog.com" <ciprian.regus@analog.com>,
+ Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+References: <20260708-adin1140-driver-v5-0-4aca7b51a58b@analog.com>
+ <20260708-adin1140-driver-v5-10-4aca7b51a58b@analog.com>
+ <CYYPR02MB9828A0F83559EF025D01A14C83FE2@CYYPR02MB9828.namprd02.prod.outlook.com>
+From: Paolo Abeni <pabeni@redhat.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <e2e50e30-6da2-45d9-b472-dae7d41d100d@oss.qualcomm.com>
+In-Reply-To: <CYYPR02MB9828A0F83559EF025D01A14C83FE2@CYYPR02MB9828.namprd02.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21/07/2026 10:42, Mohammad Rafi Shaik wrote:
+On 7/9/26 4:29 AM, Selvamani Rajagopal wrote:
 > 
+>> +int genphy_read_mmd_c45(struct phy_device *phydev, int devnum, u16 regnum)
+>> +{
+>> + struct mii_bus *bus = phydev->mdio.bus;
+>> + int addr = phydev->mdio.addr;
 > 
-> On 7/21/2026 1:50 PM, Krzysztof Kozlowski wrote:
->> On 21/07/2026 10:14, Mohammad Rafi Shaik wrote:
->>>
->>>
->>> On 7/21/2026 12:18 PM, Krzysztof Kozlowski wrote:
->>>> On Mon, Jul 20, 2026 at 09:32:24PM +0530, Mohammad Rafi Shaik wrote:
->>>>> +# Digital Audio Interfaces
->>>>> +patternProperties:
->>>>> +  '^dai@[0-9a-f]+$':
->>>>> +    type: object
->>>>> +    description:
->>>>> +      Q6DSP Digital Audio Interfaces.
->>>>> +
->>>>> +    properties:
->>>>> +      reg:
->>>>> +        maxItems: 1
->>>>> +        description:
->>>>> +          Digital Audio Interface ID
->>>>> +
->>>>> +      clocks:
->>>>> +        minItems: 1
->>>>> +        items:
->>>>> +          - description: MI2S bit clock
->>>>> +          - description: MI2S external bit clock
->>>>> +          - description: MI2S master clock
->>>>> +
->>>>> +      clock-names:
->>>>> +        minItems: 1
->>>>> +        items:
->>>>> +          - enum: [bclk, eclk, mclk]
->>>>> +          - const: mclk
->>>>
->>>> This does not match your clocks.
->>>>
->>>
->>> will fix this.
->>>
->>> clocks descriptions are misleading because they imply an
->>> ordered bclk + eclk configuration. I'll drop those descriptions.
->>>
->>> will keep only
->>>
->>> clocks:
->>>      minItems: 1
->>>      maxItems: 2
->>>
->>>> I gave you exact syntax to use, then in previous version you used
->>>> something else. So I reminded. Again you used something else.
->>>>
->>>> If you decide not to use it, sure, your right but YOU CANNOT come with
->>>> clearly invalid code as a substitute.
->>>>
->>>> NAK
->>>
->>> Suggested change:
->>> https://lore.kernel.org/all/2b4448d0-81f8-410f-b849-0d957a2d2a17@kernel.org/#t
->>> minItems: 1
->>> items:
->>>    - enum: [ bclk, eclk ]
->>>    - const: eclk
->>>    - const: mclk
->>>
->>> I tested the suggested schema, but it results in DT binding check failures.
->>>
->>> DT binding check errors with the suggested change
->>> 1. Only mclk enabled
->>> bedais: dai@10:clock-names:0: 'mclk' is not one of ['bclk', 'eclk']
->>>
->>> 2. bclk and mclk enabled
->>> bedais:dai@10:clock-names:1: 'eclk' was expected
->>>
->>>
->>> With the current version of this patch, I do not see any DT binding
->>> check issues. I tested all supported clock combinations, and
->>> dt_binding_check passes successfully in each case.
->>
->> Your clocks told story that you have up to three clocks, so indeed if
->> you do not have three clocks then my syntax is not accurate.
->>
->> Before we go further, where is upstream DTS using this?
+> You may want to insert the lockdep_assert here. That'll ensure that read/write APIs are called
+> after the mdio-lock is taken. Andrew's suggestion.
 > 
-> Currently, the Shikra DTS changes already present on the mailing list 
-> include this patch as a dependency:
-> https://lore.kernel.org/all/20260616201315.2565115-7-mohammad.rafi.shaik@oss.qualcomm.com/
-> 
-> +&q6apmbedai {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +	dai@40 {
-> +		reg = <SECONDARY_TDM_RX_0>;
-> +		clocks = <&q6prmcc LPASS_CLK_ID_AUD_INTF2_IBIT
-> +				 LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
-> +		clock-names = "bclk";
-> +	};
-> +};
-> 
-> 
-> RubikPi3 DTS patch series uses both mclk and bclk:
-> https://lore.kernel.org/all/20260715-rubikpi-next-20260605-v2-6-67601d7a8581@thundersoft.com/
-> 
+>    lockdep_assert_held(&bus->mdio_lock)
+Since this looks like the only pending item and has no functional
+implication, I think it's better handled as a (separate) follow-up.
 
-Thanks, I did not see "eclk" used.
+/P
 
-Best regards,
-Krzysztof
