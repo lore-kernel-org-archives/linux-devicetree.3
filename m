@@ -1,227 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10056375F65
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:57:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C8236C5BF
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 11:01:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784631452; cv=none; b=afjBQ3cXWJTMXSeiPlUZqHqCJaASLiDCRFkgSknpU7ofyq/STX93WYOLbmFk7mmxUzfPF+Z5gAkbFTC9l5CfpwB+SneTR1oN2/VI3FGjM+ew3yV/3IiAOSQ13E8Z7aEdGNR+gcym6UFzyPyR7GRumuadD439QAc0Oz1oJjIC6xo=
+	t=1784631718; cv=none; b=fIaYdc4YMwlEqal6rdvDBXRYyioGmCyqrc60UNqndnVLqapDbUHF/mBRXnuIXrALcQkM9++docYvSCP/DcTAWhOAV/8QDvA+yILCYLo6Cer6qoEAjDWvaCD0gUr6AuliOeDl8cc7BcVuOkYC90Iy0liTjgi9/+ShdTaCsZ7dT3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784631452; c=relaxed/simple;
-	bh=PTW5ssrHFeoUt3AEZeFL6yK0bWeo9GJl0ADMwXOUSuA=;
+	s=arc-20240116; t=1784631718; c=relaxed/simple;
+	bh=sRlPGhCGHHTt4ov7hJXszEIQ0whp3tLjXniHjKa2HDY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MvEebSysTQ3ZNHgNM3IyhSDNEW/uS3077gauIiYJ5/hem38L1PhEdtph2+jB3wSdUZuW1KeXHktdIQE+7sdyHengaLhgukrWWd8xZ1oR+HG7w/Nta1yZprnb1izNkTtclv5AP/sylBxffO1thBrEm0BEoi6gnhnvN92VRsJvA10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ev1x8S3w; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ByiCRSUmSMC2ifXd66EI4Ym0GJXf5CJBg9CPkbrWSyIvYFCBijyimHKma681TvyJG9mYtba/IlxgKeLpMrFa2KNjQKPAG5IROy44yTFWhDPDblq9EPzd0CtzWFt1Hsb6Z9H8PtLg1YKjqKQ06Up0v+ysSVnHKMdjlthd6tIjbjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ATEZFg46; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ev1x8S3w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 547CD1F000E9;
-	Tue, 21 Jul 2026 10:57:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ATEZFg46"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A4931F000E9;
+	Tue, 21 Jul 2026 11:01:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784631446;
-	bh=w1ESGHj5JGGFYJKWL1ddOXP70xerOY+DZSnv3syxRZw=;
+	s=k20260515; t=1784631715;
+	bh=vVo+TXP7WBPmc4uXcO18aptbPG1X9XazNyN9D6FBBok=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ev1x8S3wRHPTxQbb+A3sz7rY/4eqmlj6+w6tPqiO7ykDbmvap3QuznyL49RFXN6b5
-	 ovB/TrOPT4JxyySJip5q79c1ik3gvP2aH3uxpzA9C1b/noyc4dCvobromulLX6kOsU
-	 oApYSkseWA2sOMmFbSJjHZdD/xfHfWgL49buHxq09n+z9lghuOda1mJ92UVrWQkW6F
-	 bn1p41z9TOgpVSCOwXDc2tz9lmOCuxJVK8uIbUMg9SwKqpzVzIlw3u9GpBWg/VYhLy
-	 Ybp4O8tE5cpT4tHPT/ipG1iq7nrC9kl6WAaBGcz1PgtOV7HOYvS/EiA7KHh5MhXqeA
-	 xFwPYV8YDLrRg==
+	b=ATEZFg46Qob0s7Imdg22VAKsweOpurpmeycjEdgvALOFLd3JtHZnqLzu7y58srTSY
+	 +XwG+SpqK/LShK+g+5blWgtptRWiLV4O9thNBNLgSspgMmgRDx7AEDOSDqcr3lfWLQ
+	 aaAtmeHGcgbYsCXiipmqWUEH60ECjYQxEcc6AiHv0QjVDCEGWr9RZFToEFAZqzT+aE
+	 pbiA6YBWKTRzZL525PsFKWK9c31xd6x5RNygjIgUIZ4Bb4RivciCX5yiup0J0OIki/
+	 T4ujtLrmWzPRGfkeCeklkqvIPtRPswJqS31qP1/9VvOSQnpDmyCG/9vA0GcCnEpkie
+	 bYEzDpBO+NhlA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] phy: rockchip-samsung-dcphy: add MIPI D-PHY
- receiver support
+Subject: Re: [PATCH v2 1/2] dt-bindings: thermal: mediatek: Make resets
+ optional for MT8196
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jason Yang" <jason98166@gmail.com>
-Cc: linux-phy@lists.infradead.org, conor+dt@kernel.org, neil.armstrong@linaro.org, vkoul@kernel.org, robh@kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org
-In-Reply-To: <20260721-dcphy-rx-v1-v1-4-4fc83c0ccac9@gmail.com>
-References: <20260721-dcphy-rx-v1-v1-0-4fc83c0ccac9@gmail.com>
- <20260721-dcphy-rx-v1-v1-4-4fc83c0ccac9@gmail.com>
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260721105230.101906-2-angelogioacchino.delregno@collabora.com>
+References: <20260721105230.101906-1-angelogioacchino.delregno@collabora.com>
+ <20260721105230.101906-2-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 10:57:24 +0000
-Message-Id: <20260721105725.547CD1F000E9@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 11:01:54 +0000
+Message-Id: <20260721110155.4A4931F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [High] The RX power-on sequence fails to toggle the `apb_rst` reset line,=
- potentially leaving the shared APB bus interface uninitialized if the RX d=
-irection is powered on before TX.
-- [High] If `samsung_mipi_dphy_rx_lane_enable()` fails (e.g., due to a PHY_=
-READY timeout), it returns an error but leaves the `PHY_ENABLE` bits set in=
- the PHY registers and unconditionally deasserts the `s_phy_rst` core reset.
-- [High] The `lanes` configuration field is shared between TX and RX, leadi=
-ng to state corruption and incorrect lane cleanup if both directions are co=
-nfigured independently.
-
-Pre-existing issues:
-- [High] Concurrent power_on calls for TX and RX can race due to a time-of-=
-check to time-of-use (TOCTOU) vulnerability on the unprotected `peer->power=
-_count`.
+- [High] Driver-Binding Mismatch: The `lvts_thermal` driver unconditionally=
+ requires the `resets` property, which causes probe failure if omitted on M=
+T8196.
 --
 
---- Patch [4]: [PATCH 4/4] phy: rockchip-samsung-dcphy: add MIPI D-PHY rece=
-iver support ---
-commit 1a7ff981a5098deb181df94fdb6e07f8dc4040a9
-Author: Jason Yang <jason98166@gmail.com>
-phy: rockchip-samsung-dcphy: add MIPI D-PHY receiver support
+--- Patch [1]: [PATCH v2 1/2] dt-bindings: thermal: mediatek: Make resets o=
+ptional for MT8196 ---
+commit 8c88985c870e0f500a0c1636d7b632cee772d3c6
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-This commit implements the receiver (CSI) direction of the D-PHY. It adds t=
-he
-RX register layout, the HS-frequency settle table, and hooks the receiver
-bring-up and teardown into the per-direction power and configuration paths.
+dt-bindings: thermal: mediatek: Make resets optional for MT8196
 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c b/drivers/=
-phy/rockchip/phy-rockchip-samsung-dcphy.c
-> --- a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
+This commit updates the device tree binding for mediatek,lvts-thermal to
+make the resets property optional for the MT8196 AP and MCU platforms.
+This prevents hardware resets that could result in thermal protect
+shutdowns or permanent system slowdowns.
 
-[ ... ]
-
-> +static int samsung_mipi_dphy_rx_lane_enable(struct samsung_mipi_dcphy *s=
-amsung)
-> +{
-> +	u32 sts;
-> +	int ret, i;
-> +
-> +	regmap_update_bits(samsung->regmap, DPHY_SC_GNR_CON0, PHY_ENABLE, PHY_E=
-NABLE);
-> +	for (i =3D 0; i < samsung->lanes; i++)
-> +		regmap_update_bits(samsung->regmap, rx_data_lane_gnr_con0[i],
-> +				   PHY_ENABLE, PHY_ENABLE);
-> +
-> +	ret =3D regmap_read_poll_timeout(samsung->regmap, DPHY_SC_GNR_CON0,
-> +				       sts, sts & PHY_READY, 200, 4000);
-> +	if (ret) {
-> +		dev_err(samsung->dev, "RX clock lane not ready\n");
-> +		return ret;
-> +	}
-
-[Severity: High]
-If regmap_read_poll_timeout() fails here, do we leak the previously set
-PHY_ENABLE bits?
-
-Returning early leaves the PHY_ENABLE bits set in the PHY registers.
-The caller catches the error and propagates it, meaning the framework
-will not call power_off() to clean up. On subsequent retries, writing
-PHY_ENABLE to a register where it is already 1 will fail to produce the
-0 -> 1 edge transition required by the PHY state machine to start, breaking
-future attempts to initialize the RX lanes.
-
-[ ... ]
-
-> +static int samsung_mipi_dphy_rx_power_on(struct samsung_mipi_dcphy *sams=
-ung,
-> +					 struct phy *peer)
-> +{
-> +	bool first =3D peer->power_count =3D=3D 0;
-
-[Severity: High]
-This is a pre-existing issue, but is it safe to rely on peer->power_count
-here to determine if shared initialization is needed?
-
-The PHY core framework increments phy->power_count outside the driver's loc=
-k,
-only after the power_on() callback returns. If Thread A (RX) and Thread B
-(TX) call phy_power_on() concurrently:
-
-Thread A configures RX, drops samsung->lock, but is preempted before
-rx_phy->power_count is incremented.
-Thread B acquires samsung->lock, sees rx_phy->power_count is still 0, and
-executes its 'first' initialization sequence.
-
-For TX, this involves explicitly asserting the shared APB bus reset
-(apb_rst), which would wipe out the entire RX configuration Thread A just
-applied. Should the driver track the initialization state internally instead
-of relying on power_count?
-
-> +	int ret;
-> +
-> +	if (!samsung->hs_clk_rate)
-> +		return -EINVAL;
-> +
-> +	reset_control_assert(samsung->s_phy_rst);
-> +
-> +	if (first)
-> +		samsung_mipi_dcphy_bias_block_enable(samsung);
-
-[Severity: High]
-If the PHY is used in a receive-first or receive-only role, does this seque=
-nce
-omit the apb_rst hardware initialization for the shared APB bus?
-
-Looking at the TX power-on sequence, it toggles apb_rst when first is true =
-to
-ensure the shared APB bus interface is properly initialized. If RX powers on
-first, the apb_rst toggle is skipped here, and a subsequent TX power-on will
-see first =3D=3D false and also skip it. Can this leave the shared APB bus
-interface uninitialized and potentially cause system hangs during regmap
-accesses?
-
-> +	samsung_mipi_dphy_rx_config_common(samsung);
-> +
-> +	ret =3D samsung_mipi_dphy_rx_config_settle(samsung);
-> +	if (ret)
-> +		goto out_deassert;
-> +
-> +	ret =3D samsung_mipi_dphy_rx_lane_enable(samsung);
-> +
-> +out_deassert:
-> +	reset_control_deassert(samsung->s_phy_rst);
-> +
-> +	return ret;
-> +}
-
-[Severity: High]
-Does this unconditionally commit the leaked PHY_ENABLE state to the hardwar=
-e?
-
-If samsung_mipi_dphy_rx_lane_enable() fails due to the timeout mentioned
-earlier, it drops through to here and deasserts s_phy_rst. Combined with the
-missing PHY_ENABLE cleanup, this commits the broken hardware state.
-
-[ ... ]
-
-> @@ -1525,13 +1831,17 @@ static int samsung_mipi_dcphy_configure(struct ph=
-y *phy,
->  	struct samsung_mipi_dcphy *samsung =3D pd->parent;
->  	unsigned long long target_rate =3D opts->mipi_dphy.hs_clk_rate;
+> diff --git a/Documentation/devicetree/bindings/thermal/mediatek,lvts-ther=
+mal.yaml b/Documentation/devicetree/bindings/thermal/mediatek,lvts-thermal.=
+yaml
+> index 9752351306703..29f431fcdcd5f 100644
+> --- a/Documentation/devicetree/bindings/thermal/mediatek,lvts-thermal.yaml
+> +++ b/Documentation/devicetree/bindings/thermal/mediatek,lvts-thermal.yaml
+> @@ -94,12 +94,23 @@ allOf:
+>          nvmem-cell-names:
+>            minItems: 2
 > =20
-> +	mutex_lock(&samsung->lock);
->  	samsung->lanes =3D opts->mipi_dphy.lanes > 4 ? 4 : opts->mipi_dphy.lane=
-s;
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          not:
+> +            contains:
+> +              enum:
+> +                - mediatek,mt8196-lvts-ap
+> +                - mediatek,mt8196-lvts-mcu
+> +    then:
+> +      required:
+> +        - resets
+> +
+>  required:
+>    - compatible
+>    - reg
+>    - interrupts
+>    - clocks
+> -  - resets
 
 [Severity: High]
-Does sharing the samsung->lanes variable between TX and RX lead to state
-corruption?
+Will omitting the resets property cause a probe regression?
 
-Since the driver models TX and RX as two independent PHY instances, either
-instance will blindly overwrite samsung->lanes here. If a consumer configur=
-es
-TX with 4 lanes and a second consumer configures RX with 2 lanes,
-samsung->lanes becomes 2. A subsequent TX power_off() will read this state
-and only disable 2 lanes, leaking the other 2 active TX lanes. Should lanes
-be tracked per-direction?
+Looking at lvts_probe() in drivers/thermal/mediatek/lvts_thermal.c, the dri=
+ver
+unconditionally requires the reset control:
 
-> -	if (pd->dir =3D=3D RK_DCPHY_DIR_RX)
-> -		return -EOPNOTSUPP;
-> -
-> -	samsung_mipi_dcphy_pll_calc_rate(samsung, target_rate);
-> -	opts->mipi_dphy.hs_clk_rate =3D samsung->pll.rate;
-> +	if (pd->dir =3D=3D RK_DCPHY_DIR_RX) {
-> +		/* The sensor supplies the link clock; the PLL stays off. */
-> +		samsung->hs_clk_rate =3D target_rate;
-> +	} else {
-> +		samsung_mipi_dcphy_pll_calc_rate(samsung, target_rate);
-> +		opts->mipi_dphy.hs_clk_rate =3D samsung->pll.rate;
-> +	}
-> +	mutex_unlock(&samsung->lock);
+	lvts_td->reset =3D devm_reset_control_get_by_index(dev, 0);
+	if (IS_ERR(lvts_td->reset))
+		return dev_err_probe(dev, PTR_ERR(lvts_td->reset), "Failed to get reset c=
+ontrol\n");
+
+If the property is omitted to conform to this new schema on MT8196 boards,
+devm_reset_control_get_by_index() returns ERR_PTR(-ENOENT) and the driver
+aborts probing.
+
+Should the driver be updated to use devm_reset_control_get_optional_exclusi=
+ve()
+or similar to match this binding change?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-dcphy-rx-v=
-1-v1-0-4fc83c0ccac9@gmail.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721105230.1019=
+06-1-angelogioacchino.delregno@collabora.com?part=3D1
