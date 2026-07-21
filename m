@@ -1,60 +1,60 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02E72437862
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 07:54:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F9B643802A
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 07:54:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784620468; cv=none; b=FUICTC6AcqwUUK9KGD4RnF2DFC+5h5sEDsnQ/nPoirC9pgIVas6LEfE8ePcBTWsldPp+eads2pMRvwuOgcpAhuPmH+LJ17m9SyUyhVcMby73JIRfQvYuHMWzKYsPAv3fAK/KiOgvG2tKlGfg8gvyAcJlLmMZZjai2lSQHuz1v7w=
+	t=1784620472; cv=none; b=C16n/AZvcj6soIaUfNqZoDTPH4lMwIuQza8vmb0/f66LpuHGmKUwzS4hX+7mhXjanNJKmls2JeN5JO8dA6PaSnS6F5tZk6FXuofrK7IOee57pBfQGwhzpcC9QUFep1xBxOxghjCfDntIefVR0RBXT74nln8ERmtXr9UTdyCBbaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784620468; c=relaxed/simple;
-	bh=k0D8mghOQr74tTyVbSbMDMu8qtmXQ7oexCZsNGmSAYc=;
+	s=arc-20240116; t=1784620472; c=relaxed/simple;
+	bh=27P+kO3E7rZQANAahmL4oW3JH5FufBpKYuQgwu7HS8w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qee/kpiNUuDJqo9LgVFzRrr96U+/Z8Io+FyKGKpdKCdmaRHzzxempc3BK9Sv/hC9qtBeP3DgT0I/FWExjY0RlkEhxAfxzvB25u3Wt6V8FoSkcy4rY+m7Il2yu8IklbL7F66F1as37LU0UaTIQ0B65nofxm3PXEWXxdSRzu3PyPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=H0UyOfHb; arc=none smtp.client-ip=209.85.214.181
+	 MIME-Version; b=dpAaK/PW3ZWjabTZEDTyb27i6kKuyghmQp8YPu9sgmddTwYJ/VU8nMjGdfugvAxGBIwmd+Zuet+KQkdW6c2ZDce3NS4sYqfFKtuQ1BOrBuVaSqQnxicQsuZ7NW86WWsxeMVwbVS0qnaJmiYpkC8y7e23sIka0RwyKf+YLLZxPwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ElZ+0RDB; arc=none smtp.client-ip=209.85.214.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="H0UyOfHb"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ce87c7e3bbso124148235ad.1
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 00:54:26 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ElZ+0RDB"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cacb8416a1so75662025ad.1
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 00:54:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1784620465; x=1785225265; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1784620469; x=1785225269; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+HjmAlbOs1MBYQdjObhXrJEH8vF2H5aB6qgUxYH+azw=;
-        b=H0UyOfHbMoVbSMtbKSA9+4Vawhs5WsNK6Qwrs1rsatzKguCDzflc4o8TlEEyBwE0eZ
-         KfLsGjf0qcZI8LSit3TvPAzXQyA8ULXf8iGWef5Hc0E/Npn3+/xRZxwAMwlyHhcDdavO
-         ls3qCWN4FN3ouhrtr/WCjT4stCNE8EjOlp6Ts=
+        bh=mpTQ+x9JRSQEI1YUOvflUoQb8hjimFA84CnTWedUkpQ=;
+        b=ElZ+0RDBacwKpPFwIIhI5VknHD0gb05C592rQtcqcctQFFwCNilZZJQtN+6kCigGOd
+         OpNOz4TME4z3M3Ndf2zMyb/3/QdIWloDL/Lc8xLJdN4srHp/gZWQ9BLTlgLPvG4RhhJY
+         AKlg0PHcQTTJ8GUcN1lDVhNOl8I2Qc4j7pdNA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784620465; x=1785225265;
+        d=1e100.net; s=20251104; t=1784620469; x=1785225269;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+HjmAlbOs1MBYQdjObhXrJEH8vF2H5aB6qgUxYH+azw=;
-        b=GENMpLWFyWnvmYFpt0Dql1cWguLOF7e6luYOfXgEhz8DlOYrxjEbqxfO58AvxzYlgv
-         BWTE7cbPzNq1unyDrn7+FgLG98i2oTH8acTopOT3tNU/Gm3qsxAOA/DsP60JDKUvrkKb
-         +Yqe7Mh3KvIARvcbB20VbT5qYCR7G2AlgBw0W3dyznMchmQpaA5iZQRdxhMEXtJfvVVv
-         9Oo5SSthj/74Uuwd6qimnSGTtUVYBnpZ1AK20JPEu7TJd+/rA0WM2hTDqux+1T2qGfBt
-         mJOpGxkgoGsY7tlbWkssHKYuCYz9NfnRtNOcN4YQjpJJrHbI7LEkexr1UDr9lBLERdP0
-         ARiA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq62YP6misMlEye5+AsvGQtQp45aTvUhJxptfZuWurF+sHMocn7nK12+arVIyqtsmYt1YmuTD2Av6lh@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzz710HUtGDpncWm0uEkCr9Cgb+jsvxee4QKTAp7GnF5SGdI7cz
-	6RMR5XKvPnGWfInDWM46tUamINWjlzGcvgDBPTHzIPHUxgMCMmVkBKyJ4a6huLq9wA==
-X-Gm-Gg: AR+sD10uoGHzUoi002vSA2WJaf8pbVz9FvbQ7aqTUxAhWy+1YimAYxCPap0fbINosZ6
-	440DutAq0s6csIfS3e2BLoruR1fn22mLxQNkm4ghJtU5orcIWSeSkaDliCuV2mNHp+W9KKmzfMp
-	ULlImltOkF/4RvJs2MtoZzKwal+1C64DphZG9KhOto7hyRo2LEkQyTTwfzbqo3OFkCWTR+82c3b
-	m2H+a0yA7mxTQdNIpnkKUb+7NKcmEdOvAJC5e1Rn5bTdwRTe3BTt/5oPEFsvhWQ0pU91nQXzgQT
-	JN2Zj3yL3q8LySNWceSQRVqp1vBqu1mJ9Rs2sAUR9R4BoquaOf0DKzGFfU2QlR11XgzeHg2BSes
-	46m6w/rFO82ZAY0EAF5pW+jr0xgRLAmScVSEQlXbb4R17SVw6NomGXbPe6JaTpijBIDYXdb2f7M
-	DK+EwUIXga+LfoTwuziWu4D43bfibRtWS/+RGLZ3/XLNIPFjgpeReYDJ+lVOo=
-X-Received: by 2002:a17:902:ef08:b0:2ca:5970:732d with SMTP id d9443c01a7336-2cf349d0276mr183734525ad.41.1784620465520;
-        Tue, 21 Jul 2026 00:54:25 -0700 (PDT)
+        bh=mpTQ+x9JRSQEI1YUOvflUoQb8hjimFA84CnTWedUkpQ=;
+        b=p79feP6IczwmIXBIIai2e4lLUKzyxE6HH+7HjSSBE7j/5aZmwq08d2dByRlNc6YiWY
+         rZvEO9/4jIpckiFMRaxEN7XeKYoZxAVye2WzlEaD85G75Ee+g5jobV8UNfQiVb7GyM8p
+         v2PXGnB+iysBabs7DdKieg1wW+xDU2u6yucgHp5lqeucnuR9JB0CZpRac3F7X1dMxRdY
+         Vj3MdZ4fhRiBySY0KmGFnxGfxpsOIZ0a3LWcpn/62YmF+ujzE70OxSIku0S74yuvg8v5
+         G2OLLfxGtgliTw4oLIm1TcyPQr6QGPaxLMjUXBLExKTuqFgm/JYVUTvLpWgvW5ZTsawS
+         Is6A==
+X-Forwarded-Encrypted: i=1; AHgh+RoFg6GxBRciqhBBatoC4CiJhUm16JjIOgR6qhHfhhFQ+bC1SwBUqTUSjM71Yr3iLdTY/k/1BDt1+gAI@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywv97AcjVkz7CZsCPPiUn+gfRwciGoAezj1QfoM0Y8oRm5a1Ml1
+	Peg+9O0WB/WHMNRI6rec/OgQU6CEw5Hsfg/OI7fX5yxa81M4dodVkJZvsi90wxASIA==
+X-Gm-Gg: AR+sD11h77kmez6cIM+l2oqaBdJfS/RExruISr76FKZh3HLmIj2nsDMZclo+oOViXfu
+	YKmJJYHsp9e06evHygZPC5P8OeQMOksHXLifla3+Q/zLlwP3OAuODiik8HIyFZSH0EEpDvTOUl8
+	+eup+Zkp8uPHVpx1v2iFDW9aC1/f0ZzPMcspP0yUhIMDBWbZUXKWypa8EJg9KvcHeg5OYhveA0u
+	I801yh/HDZmqEPW/EJrD9SCMAy4+P1VFm1ZMzzQsN7EGelbn22EnBgSgKOT40O2pnoo2qRs0Nlz
+	jXakEHjnfeGYT4q9MPeUm79DHhsBrz3PwFS2qIKejUmI6btRVfMpQ9ghyQprmjQv/S+fbPYxehK
+	ivoMx7gUuDrRdIHJ6MBS4Dc3fjqhxKadqJ8b6SLqW5nx3+60Oh7BBXVYdT0tnnt+ZMZG0q75V9+
+	XThBY9MmChuXUGllGAk1SoqnM5Bafj3zGTQgIi8sIaShcnaDUnECHIpBMlDt0=
+X-Received: by 2002:a17:902:ce84:b0:2ce:d957:59c4 with SMTP id d9443c01a7336-2cf348369cfmr185433115ad.6.1784620468826;
+        Tue, 21 Jul 2026 00:54:28 -0700 (PDT)
 Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:3916:f048:32c3:931f])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf3448f705sm70724175ad.15.2026.07.21.00.54.22
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf3448f705sm70724175ad.15.2026.07.21.00.54.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 00:54:25 -0700 (PDT)
+        Tue, 21 Jul 2026 00:54:28 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
@@ -72,9 +72,9 @@ Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	linux-input@vger.kernel.org,
 	linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 7/9] platform/chrome: of_hw_prober: Add delay for hana trackpads
-Date: Tue, 21 Jul 2026 15:52:21 +0800
-Message-ID: <20260721075226.2347933-8-wenst@chromium.org>
+Subject: [PATCH v3 8/9] arm64: dts: mediatek: mt8173-elm-hana: Unmark trackpad supply as always-on
+Date: Tue, 21 Jul 2026 15:52:22 +0800
+Message-ID: <20260721075226.2347933-9-wenst@chromium.org>
 X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
 In-Reply-To: <20260721075226.2347933-1-wenst@chromium.org>
 References: <20260721075226.2347933-1-wenst@chromium.org>
@@ -93,38 +93,51 @@ Synaptics trackpad was also omitted, as it was not strictly required
 under such a model and delayed the availability of the trackpad to the
 user.
 
-The Elan driver recently gained proper delays after power-up, with
-adaptive skipping of the delay if the regulator was originally
-on. The I2C HID driver and I2C OF component prober library gained
-similar adaptive delay skipping. The device tree will be fixed to have
-the regulator not be always on, and proper post-power-on delay time
-added to the I2C HID device.
+The Elan driver recently gained proper delays after power up, with
+opportunistic skipping of the delay when the regulator was originally
+on. The I2C HID driver gained similar opportunistic delay skipping.
+So has the I2C OF component prober library.
 
-Also add the post-power-on delay to the ChromeOS OF component prober,
-so that if the regulator is off at the time of probing, the prober knows
-to wait for the hardware to initialize.
+Now fix the device tree to have the regulator not be always on, and
+let the I2C HID device have the correct post-power-on delay time.
 
 Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 ---
- drivers/platform/chrome/chromeos_of_hw_prober.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dtsi | 8 +-------
+ arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi      | 1 -
+ 2 files changed, 1 insertion(+), 8 deletions(-)
 
-diff --git a/drivers/platform/chrome/chromeos_of_hw_prober.c b/drivers/platform/chrome/chromeos_of_hw_prober.c
-index 8562a0e89dc6..54d8941617e2 100644
---- a/drivers/platform/chrome/chromeos_of_hw_prober.c
-+++ b/drivers/platform/chrome/chromeos_of_hw_prober.c
-@@ -70,10 +70,8 @@ static const struct chromeos_i2c_probe_data chromeos_i2c_probe_hana_trackpad = {
- 		/*
- 		 * ELAN trackpad needs 2 ms for H/W init and 100 ms for F/W init.
- 		 * Synaptics trackpad needs 100 ms.
--		 * However, the regulator is set to "always-on", presumably to
--		 * avoid this delay. The ELAN driver is also missing delays.
- 		 */
--		.post_power_on_delay_ms = 0,
-+		.post_power_on_delay_ms = 110,
- 	},
- };
+diff --git a/arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dtsi b/arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dtsi
+index 1004eb8ea52c..b9e311fcd9a0 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dtsi
+@@ -62,13 +62,7 @@ trackpad2: trackpad@2c {
+ 		pinctrl-0 = <&trackpad_irq>;
+ 		reg = <0x2c>;
+ 		hid-descr-addr = <0x0020>;
+-		/*
+-		 * The trackpad needs a post-power-on delay of 100ms,
+-		 * but at time of writing, the power supply for it on
+-		 * this board is always on. The delay is therefore not
+-		 * added to avoid impacting the readiness of the
+-		 * trackpad.
+-		 */
++		post-power-on-delay-ms = <100>;
+ 		vdd-supply = <&mt6397_vgp6_reg>;
+ 		wakeup-source;
+ 		status = "fail-needs-probe";
+diff --git a/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi b/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
+index a0573bc359fb..6b9f47f515c7 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
+@@ -1093,7 +1093,6 @@ mt6397_vgp6_reg: ldo_vgp6 {
+ 				regulator-min-microvolt = <3300000>;
+ 				regulator-max-microvolt = <3300000>;
+ 				regulator-enable-ramp-delay = <218>;
+-				regulator-always-on;
+ 			};
  
+ 			mt6397_vibr_reg: ldo_vibr {
 -- 
 2.55.0.229.g6434b31f56-goog
 
