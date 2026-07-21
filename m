@@ -1,187 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F7373D16EF;
-	Tue, 21 Jul 2026 10:02:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C61429000
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:02:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784628141; cv=none; b=Gkr345K2KDjXLTl/f4cba7YmoU5WpCUylmonPbqiRqd//Yh+VsSt/CrulOvuPYXpeN385tmMlxAy00gy0T1Cp+hbGvAlMKppc40oa+penFZiiqry2PGk0FUAgoQZqe0kUzihvP2EcJ/WWn2u0nLEibM6ickdy3e/+TGdUSKyfaE=
+	t=1784628179; cv=none; b=ERorAyuxfrApXADIO8wBV51h2DsxBgUm9RzAMCMa0sUkKOO4rT9IZlzhLXqrbiEQlteycLCdeaOs3Wmym1DPcnqSGClmD2SirWGN8z+xWzbAdgXMtls4TCknucJYXsQSB1Arf62KSRPlH9+p86ndCWcmWN8YkRnH14GdN/9vT+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784628141; c=relaxed/simple;
-	bh=9qBRIB8bijsPPLUKPCt/f4UBuIEZqpmhUDCceoiUxpM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=G9CbIfcDMOgbuXNn/iSQWrjDpqFYEjIC0UcArJ1ScNtVglSmtw/+nEDt2EssR2MktqvczlAQIakfvxthaLKlKtE+U3GP0Le+5uJo4Mph0x+QwCRlYIHR1wd3tk86KXNnbYJbWlw8OLjSlQX3tD8EANw28iN5VK5oQuD66D5e9mA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J40RZrPq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784628179; c=relaxed/simple;
+	bh=7+sESZCwoRmRdIMvSHX+5fStOthQC4z83L8wCCGlnHU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TNdAcN6ChAqq/ZfWX1hiEa6CjvKM+qUFJWdbu+GmF8lsvNfGuC1P+nKPpMd3s8Q5z6bmsrmAS6IEoQaWbWhuFXlrYFoLrbJi0TCVDIdhkBzC5TuMF9GI85dP6/t9AG9ol+k6ScC8q7ZIm0TBOBTcSC/DZY2i6jmqetzv87SX/DY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a6shmsyR; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J40RZrPq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93C751F000E9;
-	Tue, 21 Jul 2026 10:02:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784628139;
-	bh=58lFvlNf3RInnDmhIl1LViDS/gzOcWQM2UirZa4pvrM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J40RZrPqOfpHSafUHkJhKgoKsuaC/hQdvAYSJkkpBlR+IA/yZ3dtAHtpb/MCBPKqq
-	 L9meseBS8dVJNPuXcPzoILaDCzcQKBPQ6ntcpvUi3skUZtS/8aqiKzASm9FaUNPLqi
-	 K8S+2FxVCzAMJ2iQFlRDeQoSc/53cua1wIyBfPVmMBIsUNMjAxT8hWk+46k8y9mgGv
-	 tjNBjKDV5d2T8mBHWU0Sh1mB4vcqlND3gC1oQKb9GmQxyO4jfm98XTeXY5ygNube8t
-	 0BfSTn9CKkBhA3TQcXETuyqcsH4zxn6u0UDs4GSvzU+ZKRPC9TWfZISDPknq7/KxMb
-	 Xi2fE94ARJHVQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 5/7] leds: Add driver for ASUS Transformer LEDs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: linux-input@vger.kernel.org, dmitry.torokhov@gmail.com, linux-leds@vger.kernel.org, robh@kernel.org, lee@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260721095233.420823-6-clamor95@gmail.com>
-References: <20260721095233.420823-1-clamor95@gmail.com>
- <20260721095233.420823-6-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 10:02:19 +0000
-Message-Id: <20260721100219.93C751F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a6shmsyR"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47f81a3ccf9so250153f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 03:02:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784628176; x=1785232976; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=001R/7t07n0Z2h3W1UkPArubc/R60QJ7+7vPomj4XII=;
+        b=a6shmsyRgbZ9NuRHBfy5B0RBRPoQdEtXUcjF8q7LcGh+iwXRDbkjT9V0jYBnUgQNri
+         zaf/BAogXt387tM/jQFYejoTXmbKskPC9dt4eVpAEqNcN5jmiLOIdvlUvmrB9gYiI/i1
+         E562l7N9KXYsoSyJevGy3ZYlEikn/u6lnox7cbatBnTcvW8n8bB0kkE+/mg1DK0vDL9m
+         7EKmVZ8LuiaSsZF6bhhVzcriAKhLzwRflqD+xtipwifwomUAC8/aPDMhKAWdZ1hJWgA7
+         gZ9WBRJak+wG5OjBy9gt8gyfkMbLMuxIANhPE5KzD+GFWNm/rTRu0Fk3quTzkIG+te50
+         PoPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784628176; x=1785232976;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=001R/7t07n0Z2h3W1UkPArubc/R60QJ7+7vPomj4XII=;
+        b=EE67MgtF2kDXrbfsFqWS7SER24tqHtLsFfC+8OdvwOj/rcYVinxaUZLt03SQCoszLS
+         skpvmhrhwvcgJ8JbeOdOxA6DsvG9gStRysMTc/mo8HDgFscH4rfXjumyVbB8DfkcEgfe
+         gzHzoOnV2bCDTzUmOg7ieX3Y/MerkQvLkNDGnFPm1sG9nr+3YpERCBQtr8YNyqS4NhrT
+         T7zrQEw90W6o1we82WifrUrNrSuu1Ff2INdfI7FG6tF/1aGGMeMXdr9UaDlJuA239ETm
+         par5UwRU3EOVpQXpRtge6N9lc9GzmEAi9jMsC3HexXKxQYIGzRICoc8xSGnSmLSH3qBZ
+         FW3A==
+X-Gm-Message-State: AOJu0YxUfKvtaNXIC1KkUE2PCjaZnKcL+Y6xt+CH1Wgk5G19xE00do/s
+	HlisqRjzvTQfY3G3ajOJZS6YWyVsZRHSM+1YyPV3zu6y1WAvUPo0ZIvm
+X-Gm-Gg: AR+sD109RtphnSP1rHMAaQoMSt4l2Hr/KkdGjdsJZXch1zE0cLQaP4nCuCzDsYkrMaw
+	oLWcrKJoRtX/ly72puXWzknC4du5B0b+ouEOi6CaisFPf04rxKN9Qqg6q/KnLJeuVMyq7/FF8h4
+	ht7SDHT3JBz6o5Gjvn9C5DMhrK4G2offPXZhwb/uOEw3BwLh2Mfwwh+wltgtHDGFQTH8Sh6aI4q
+	k7iNZdfsgUQfllR343CsjprHPGenQy9CF6t8gZgn9LaHyTV8ywmOkn7fBAYeJZJpO3KhRWeJUyG
+	QXb5dJimY3ZUjiKPoSd5vJ05aMvvfSPrGLcH1FUBDa3Qy+4qBmYdcRoF1XGsIETeKnu5P+9Qp7d
+	5+qNJzZ3d6+4AUeiAS9EBT+70oj9qeWF1s+c25sYB2jsTy+L8HA4Ds7V8jjuG2GYiIWwBxeMfpB
+	2YSleJh+aq0C0Bqvn6vfsq3b4=
+X-Received: by 2002:a05:6000:178f:b0:47f:7261:3a58 with SMTP id ffacd0b85a97d-47f72613ae8mr13330553f8f.1.1784628176206;
+        Tue, 21 Jul 2026 03:02:56 -0700 (PDT)
+Received: from xeon ([188.163.112.51])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63ec7c69sm39976860f8f.17.2026.07.21.03.02.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Jul 2026 03:02:55 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 0/2 RESEND] ARM: tegra: Add device-tree for Motorola Atrix 4G and Droid X2
+Date: Tue, 21 Jul 2026 13:02:43 +0300
+Message-ID: <20260721100245.444623-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Medium] The manually constructed LED sysfs name incorrectly places the c=
-olor in the function field.
-- [Medium] The child driver uses a bespoke custom accessor function exposed=
- by the MFD parent, violating MFD API layering guidelines.
-- [Low] The commit message subject prefix does not adhere to the mandatory =
-subsystem prefix format.
-- [Low] The Kconfig help text contains a grammatical error, using "it's" in=
-stead of "its".
---
+Add a device-tree for the Motorola Atrix 4G and Droid X2, which both are
+NVIDIA Tegra20-based smartphones, originally running Android.
 
---- Patch [5]: [PATCH v10 5/7] leds: Add driver for ASUS Transformer LEDs -=
---
-commit 177b0b82c65e4fc0357f15d45f7c0353ef5cb99a
-Author: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+Svyatoslav Ryhel (2):
+  dt-bindings: arm: tegra: Add Motorola Artix 4G and Droid X2
+  ARM: tegra: Add device-tree for Motorola Atrix 4G and Droid X2
 
-leds: Add driver for ASUS Transformer LEDs
+ .../devicetree/bindings/arm/tegra.yaml        |    6 +
+ arch/arm/boot/dts/nvidia/Makefile             |    2 +
+ .../dts/nvidia/tegra20-motorola-daytona.dts   |  107 ++
+ .../boot/dts/nvidia/tegra20-motorola-mot.dtsi | 1194 +++++++++++++++++
+ .../dts/nvidia/tegra20-motorola-olympus.dts   |  108 ++
+ 5 files changed, 1417 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nvidia/tegra20-motorola-daytona.dts
+ create mode 100644 arch/arm/boot/dts/nvidia/tegra20-motorola-mot.dtsi
+ create mode 100644 arch/arm/boot/dts/nvidia/tegra20-motorola-olympus.dts
 
-ASUS Transformer tablets have a green and an amber LED on both the Pad
-and the Dock. If both LEDs are enabled simultaneously, the emitted light
-will be yellow.
+-- 
+2.53.0
 
-> leds: Add driver for ASUS Transformer LEDs
-
-[Severity: Low]
-This isn't a bug, but does the commit subject prefix follow the LED subsyst=
-em
-guidelines? The subsystem typically expects the format
-leds: <Driver>: <Capitalized description>.
-
-> diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
-> index f4a0a3c8c8705..f637d23400a89 100644
-> --- a/drivers/leds/Kconfig
-> +++ b/drivers/leds/Kconfig
-> @@ -120,6 +120,17 @@ config LEDS_OSRAM_AMS_AS3668
->  	  To compile this driver as a module, choose M here: the module
->  	  will be called leds-as3668.
-> =20
-> +config LEDS_ASUS_TRANSFORMER_EC
-> +	tristate "LED Support for Asus Transformer charging LED"
-> +	depends on LEDS_CLASS
-> +	depends on MFD_ASUS_TRANSFORMER_EC
-> +	help
-> +	  This option enables support for charging indicator on
-> +	  Asus Transformer's Pad and it's Dock.
-                                           ^^^^
-
-[Severity: Low]
-This isn't a bug, but should "it's" be "its" here?
-
-[ ... ]
-
-> diff --git a/drivers/leds/leds-asus-transformer-ec.c b/drivers/leds/leds-=
-asus-transformer-ec.c
-> new file mode 100644
-> index 0000000000000..4421d629911ed
-> --- /dev/null
-> +++ b/drivers/leds/leds-asus-transformer-ec.c
-
-[ ... ]
-
-> +static enum led_brightness asus_ec_led_get_brightness(struct led_classde=
-v *cdev)
-> +{
-> +	struct asus_ec_led *led =3D container_of(cdev, struct asus_ec_led, cdev=
-);
-> +	const struct asusec_core *ec =3D led->ddata->ec;
-> +	u64 ctl;
-> +	int ret;
-> +
-> +	ret =3D asus_dockram_access_ctl(ec->dockram, &ctl, 0, 0);
-
-[Severity: Medium]
-Does using the custom parent accessor asus_dockram_access_ctl() violate
-MFD API layering guidelines?=20
-
-MFD core drivers should usually expose standard shared resources like regmap
-rather than bespoke helper functions for child drivers to use, as it creates
-tight coupling between the parent and child.
-
-> +	if (ret)
-> +		return LED_OFF;
-> +
-> +	return ctl & led->ctrl_bit ? LED_ON : LED_OFF;
-> +}
-> +
-> +static int asus_ec_led_set_brightness(struct led_classdev *cdev,
-> +				      enum led_brightness brightness)
-> +{
-> +	struct asus_ec_led *led =3D container_of(cdev, struct asus_ec_led, cdev=
-);
-> +	const struct asusec_core *ec =3D led->ddata->ec;
-> +
-> +	if (brightness)
-> +		return asus_dockram_access_ctl(ec->dockram, NULL,
-> +					       led->ctrl_bit, led->ctrl_bit);
-
-[Severity: Medium]
-This is the same custom accessor as above, used again here in
-asus_ec_led_set_brightness(). Should this be refactored to use standard
-accessors?
-
-[ ... ]
-
-> +static int asus_ec_led_probe(struct platform_device *pdev)
-> +{
-> +	const struct asusec_core *ec =3D dev_get_drvdata(pdev->dev.parent);
-> +	struct asus_ec_leds_data *ddata;
-> +	struct device *dev =3D &pdev->dev;
-> +	int ret;
-> +
-> +	ddata =3D devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
-> +	if (!ddata)
-> +		return -ENOMEM;
-> +
-> +	platform_set_drvdata(pdev, ddata);
-> +	ddata->ec =3D ec;
-> +
-> +	for (int i =3D 0; i < ASUSEC_LED_MAX; i++) {
-> +		const struct asus_ec_led_config *cfg =3D &asus_ec_leds[i];
-> +		struct asus_ec_led *led =3D &ddata->leds[i];
-> +
-> +		led->cdev.name =3D devm_kasprintf(dev, GFP_KERNEL, "%s::%s",
-> +						ddata->ec->name, cfg->name);
-
-[Severity: Medium]
-Since cfg->name contains the color (amber or green), does this format string
-incorrectly place the color in the function segment of the standard
-devicename:color:function naming scheme?
-
-This will generate devicename::color instead of devicename:color:function,
-which might confuse userspace LED managers that rely on standard sysfs
-directories.
-
-> +		if (!led->cdev.name)
-> +			return -ENOMEM;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721095233.4208=
-23-1-clamor95@gmail.com?part=3D5
