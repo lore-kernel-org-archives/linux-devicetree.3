@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7286234B1A6
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 21:46:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D4235C6B3
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 21:48:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784670392; cv=none; b=fW1Vr+u7Wl32jGw3nCH/x31fWcASelUkSW37sh/j13evol4L6yR8gl7nbElIZPg3E/ZObwU8PkR+qBfiBW/HzKI7Z7xFfWzd1pfLUJP0f001i/ywwl3ncspViTZLiLUoxb873hqeNEgwtQQPRKX6jY7CZQYuunRlrXKOcVR0Fqk=
+	t=1784670524; cv=none; b=uvnmG64Uk2kYiIFAS/bCvfhq9KzuX/orGooKcpmoFCgQ6jOmHPPLOn0tqg+IJ7xjZ+/yk1N2wGBpkNT530sZfzZMgkeWG+Nn2KEXvUTS/boXz+vp2CVFTZa6RaA7nAOVhSXig2OaHYqfY40KdQBBakpVaqE2SgcmHFGxz6locgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784670392; c=relaxed/simple;
-	bh=x7AlrBh2KH2cVx8D+eoSZL0k5fFHITp6GUwnbsXiNtY=;
+	s=arc-20240116; t=1784670524; c=relaxed/simple;
+	bh=onz/BlE3oe/RdcPYsBj42gIKSQ0jD91b288D/O5xJJI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=S5g/XLoK8Mcf1ca5xUgk/10sli4dZ+kK/rtuD+8QdyypRp8dpS2+uYp5jmEQFoUJnzcXGLpldHip+0gWmv7qBWX4VZBMRrjcN4+HGm9GGLVW8f7ofEymwb+8CDD2+pANSs4UndMSJaxsw7C+wPA5yi72l8MO84PHdTW4kKxAkes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q02MQYca; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=bFCmLj3gIVeJoMCaLCk0iwF39pPd9+Jk3XLvi7lIxahGwoCl3MZ2WRVQ+M767NJ7ecuS2T0OsZ1kv3LUftaPKpjiyPqe+rUm8y6B+Ot7sDyX1ChbMDBw1vCNKikLycUvEVohLpwvVtgs2vQj3CR9NbAaIG8WiJIv+zcu0xrIVek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Imy0L8xy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q02MQYca"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE0EA1F00A3A;
-	Tue, 21 Jul 2026 21:46:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Imy0L8xy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC8881F000E9;
+	Tue, 21 Jul 2026 21:48:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784670391;
-	bh=R2RMdsLWpv94+pqRA2smAP2Ja8Alf8mUdqx4KfgHchA=;
+	s=k20260515; t=1784670523;
+	bh=T0OMMmkwzWbfbUST8+qimocoMOhzAQvkQpSoT2B3jyM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Q02MQYcabSWOINRd7cnOxNxjwpslO3l32HE3cGOz4w9OIE6rXvOafL1CN124NAbDp
-	 8B6UXdMtQHTGYAlX9tjSud0JeWL1FfgSPgtBAgP7i4EYuz9riOujH99Rse7sx7iBy4
-	 Ei1BWHEZzk3MnesLawxdGz3qbzzA65fQvW79nGeewnlDzZAgy9ZIjK89HS0KVzp4T2
-	 CiIQ8tt7lgD4Xl7zR970Pjr0tMIK8WJ2UMDFXLTgVsPPYYFnOu1MyzSeIBh0DLKS9h
-	 r2OjnFs4TygsU8I7p9EGThaHxGiwbby/gLeyr2WtPFzGCBmyLA8mxKIyjgTnySYEmx
-	 9W7kILHgWRTMA==
+	b=Imy0L8xyzZy23Vf13Q5z+kpEdy69n+NwbNjIEFpkwvLGXZd0i3mJkl/84BFbVpWBz
+	 SdRpyXv6YxGaC1JfFb+g+QjjNYuy9vhw7pR+oNHS/UZ7EUR2vWVUeKy8+rQysUuJiU
+	 mH/8gjUTjKSvRGMXZs6Gar9GrCnIYtX8QhI7U/Ts3XPrFkyurLmd8DS5ll8EgERL4M
+	 xxW7pCmYiiQPuT8xcpX127rGIaJgLGvA9/zxjqrp7+E8y42eHVTyfy2aaB+qmzc6eJ
+	 gBmnRcZ9doLwnh7zulbk+GZZIz/VXgSAX4swONlCNDFmQjRc1ZqFFBfEIKtPqkaZGA
+	 +0LJPRVfDpuaw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/4] of: unittest: cover /aliases updates from
- overlay apply/revert
+Subject: Re: [PATCH v3 1/4] of: incrementally update /aliases lookup on
+ reconfig notifications
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260721-nh-of-alias-overlay-v3-4-7001028fe2f5@nexthop.ai>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260721-nh-of-alias-overlay-v3-1-7001028fe2f5@nexthop.ai>
 References: <20260721-nh-of-alias-overlay-v3-0-7001028fe2f5@nexthop.ai>
- <20260721-nh-of-alias-overlay-v3-4-7001028fe2f5@nexthop.ai>
+ <20260721-nh-of-alias-overlay-v3-1-7001028fe2f5@nexthop.ai>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 21:46:30 +0000
-Message-Id: <20260721214630.EE0EA1F00A3A@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 21:48:42 +0000
+Message-Id: <20260721214842.CC8881F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,77 +47,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Holding a device node reference across `of_overlay_remove()` cau=
-ses a memory leak and unexpected kernel error logs.
+- [High] The deliberate memory leak of the `/aliases` node reference during=
+ `OF_RECONFIG_DETACH_NODE` breaks overlay revert and causes an unbounded me=
+mory leak.
 --
 
---- Patch [4]: [PATCH v3 4/4] of: unittest: cover /aliases updates from ove=
-rlay apply/revert ---
-commit 4a0912943dbf2d4f5c928768a852d7834811ba59
+--- Patch [1]: [PATCH v3 1/4] of: incrementally update /aliases lookup on r=
+econfig notifications ---
+commit a185916382b462aafe7d63399b28b61ce3a88e5b
 Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
-of: unittest: cover /aliases updates from overlay apply/revert
+of: incrementally update /aliases lookup on reconfig notifications
 
-This commit adds an overlay test to ensure /aliases updates work correctly
-across apply and revert when the overlay grafts a node with an alias.
+This commit adds an OF reconfig notifier to dynamically update the
+/aliases lookup list when nodes or properties change. It handles both
+direct devicetree modifications and overlay apply/revert paths, protecting
+access to the list with a dedicated aliases_mutex.
 
-> diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-> --- a/drivers/of/unittest.c
-> +++ b/drivers/of/unittest.c
+Link: https://lore.kernel.org/lkml/1435675876-2159-1-git-send-email-geert+r=
+enesas@glider.be/ [1]
+Link: https://lore.kernel.org/lkml/20150630172131.D4E6CC4041A@trevor.secret=
+lab.ca/ [2]
+Link: https://lore.kernel.org/lkml/1435675876-2159-2-git-send-email-geert+r=
+enesas@glider.be/ [3]
+Link: https://lore.kernel.org/lkml/1435675876-2159-3-git-send-email-geert+r=
+enesas@glider.be/ [4]
+Link: https://lore.kernel.org/lkml/1435675876-2159-4-git-send-email-geert+r=
+enesas@glider.be/ [5]
+
+> diff --git a/drivers/of/base.c b/drivers/of/base.c
+> index 6e7a42dedad3f..4e34c65a8f9f0 100644
+> --- a/drivers/of/base.c
+> +++ b/drivers/of/base.c
 
 [ ... ]
 
-> +static void __init of_unittest_overlay_alias(void)
+> +static int of_aliases_reconfig_notifier(struct notifier_block *nb,
+> +					unsigned long action, void *arg)
 > +{
-
-[ ... ]
-
-> +	/* hold a ref across the revert for the post-remove check */
-> +	target =3D of_find_node_by_path(target_path);
-> +	if (!target) {
-> +		unittest(0, "could not find grafted target %s\n", target_path);
-> +		goto out_remove;
-> +	}
+> +	struct of_reconfig_data *rd =3D arg;
 > +
-> +	id =3D of_alias_get_id(target, "testcase-alias");
-> +	unittest(id =3D=3D 99,
-> +		 "of_alias_get_id() =3D %d after overlay apply, expected 99\n",
-> +		 id);
+> +	/* of_aliases may still be NULL when an overlay creates the node */
+> +	if (!rd->dn || !rd->dn->parent ||
+> +	    !of_node_is_root(rd->dn->parent) ||
+> +	    !of_node_name_eq(rd->dn, "aliases"))
+> +		return NOTIFY_DONE;
 > +
-> +out_remove:
-> +	ret =3D of_overlay_remove(&ovcs_id);
+> +	mutex_lock(&aliases_mutex);
+> +	switch (action) {
+> +	case OF_RECONFIG_ATTACH_NODE:
+> +		if (!of_aliases)
+> +			of_aliases =3D of_node_get(rd->dn);
+> +		break;
+> +	case OF_RECONFIG_DETACH_NODE:
+> +		of_aliases_forget_all();
+> +		/* keep the ATTACH reference: lockless readers may hold the node */
+> +		if (of_aliases =3D=3D rd->dn)
+> +			of_aliases =3D NULL;
 
-[Severity: Medium]
-Does holding this device node reference across of_overlay_remove() cause a
-memory leak and unexpected kernel error logs?
+[Severity: High]
+Does skipping of_node_put() here cause a memory leak of the device node
+and its properties when reverting overlays?
 
-When the reference to the target node is held, __of_changeset_entry_destroy=
-()
-observes a refcount greater than 1, which triggers an "ERROR: memory leak"
-log and skips the OF_OVERLAY_FREE_CSET flag.
+During the ATTACH_NODE notification, the notifier takes a reference on the
+node using of_node_get(). When the overlay is later reverted, the DETACH_NO=
+DE
+handler clears the pointer but intentionally omits of_node_put().
 
-Subsequently, when of_node_put(target) drops the refcount down to 0,
-of_node_release() logs another memory leak error and returns without freeing
-the node memory.
+When the overlay changeset is subsequently destroyed,
+__of_changeset_entry_destroy() checks the node's reference count. Because t=
+his
+notifier leaked a reference, the count remains elevated.=20
 
-> +	if (ret) {
-> +		unittest(0, "overlay_alias remove failed, ret =3D %d\n", ret);
-> +		of_node_put(target);
-> +		goto out_put_base;
-> +	}
-> +
-> +	if (target) {
-> +		id =3D of_alias_get_id(target, "testcase-alias");
-> +		unittest(id =3D=3D -ENODEV,
-> +			 "of_alias_get_id() =3D %d after overlay remove, expected -ENODEV\n",
-> +			 id);
-> +		of_node_put(target);
-> +	}
-> +
-> +out_put_base:
-> +	of_node_put(base);
-> +}
+This elevated count causes the destruction process to print a memory leak e=
+rror
+and skip setting the OF_OVERLAY_FREE_CSET flag.
+
+Consequently, of_node_release() will refuse to free the node's memory, leak=
+ing
+the node on every overlay apply/revert cycle.
+
+> +		break;
+> +	case OF_RECONFIG_ADD_PROPERTY:
+> +		of_alias_create(rd->prop, alias_alloc, true);
+> +		break;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-nh-of-alia=
-s-overlay-v3-0-7001028fe2f5@nexthop.ai?part=3D4
+s-overlay-v3-0-7001028fe2f5@nexthop.ai?part=3D1
