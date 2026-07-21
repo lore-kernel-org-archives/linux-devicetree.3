@@ -1,80 +1,63 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59EB23976A7;
-	Tue, 21 Jul 2026 09:19:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CF03BB12F;
+	Tue, 21 Jul 2026 09:20:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784625591; cv=none; b=reJ8V/1hVw4m2LcaV+XMXaS6eTkUGWbFQcVl/MJu8sH5d+bx7rsrdNY+1VvttN2JGySSgCD3Q+pVqaTR7F9i1ShmUBspSfA3K227yV8D/moJsfyfvJvrugVPUTwJpTcsFHdroWgAjmm+VQcABwYqrEs8ma4sFtuZ74iB7r/T4LQ=
+	t=1784625624; cv=none; b=AAnTythC/xUAe0PPg40E+D9F9CntoJmO+cb8j+85IniHDT5yUuIrmt+t7t6MxXmtP8OiLQd+dE0YT4ZJE/883nHQx/yl+1bqoDjB0oTkmzN512UE+Clqw6zvvPupc8zuWPoWpQHxMOfLI75IBFG4X4S01zc0URktDVweBjEoQAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784625591; c=relaxed/simple;
-	bh=VNm4zMuC/cY2KdIr3jVDAGU5TNHGIenW9B8Its2FuNw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fcbCzOmxzbD0m29TO8ug4dKTntU5TxeoI1E7mBzEoGfj60vnh/P3pO28clm19p2sfI1Mg8UbkMdyoC4X3Y5UmLAoX3yKAPje7tLw4RqtIBFM5TWWctv7oRK6tjq9KbQENXlHXNR03xOtm/A5+X7q72p0OPmSln7mHRCE7TqNAiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=HBIolR8J; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1784625624; c=relaxed/simple;
+	bh=qGl/pLf89OIbfHE2GVKxVQ0J8Z+UUJcy0M/ab/hc+Zs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SGcYIoIdSYG8jQsu8mBl8c7Eh6TqsYTbHt+/FYvkR5E1Cv3CAqATik6MDR0+63rKDGfUPnuHRDfUf1WvULGcJtsLBv9cVCzVbdiEXXu5mfQeGwS7oMGcEID79BvH69ocm8MocWKdG+T1zTvC/QW8Slaymn7cIxlNuyFhh6valDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=efYBWNq6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="HBIolR8J"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1784625588;
-	bh=VNm4zMuC/cY2KdIr3jVDAGU5TNHGIenW9B8Its2FuNw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=HBIolR8JvWb6/Pg9E/k0p6NmwVt4W57w+dwxP8WhbTecU2uYVcgMLkwJhmveXmed2
-	 VKJPxf/hzgVpc6ifJwzWFzvlego4Nk2vYCLKizimaQqrDRInyvVftbLBEdv8D6rgaH
-	 VeYTT253ziuTzQid8JlO/8zcgmVA496jna947vjcsBmjAPuO2ji8326cnbvuHpqR0B
-	 UNf2Y/PW2Qy7no4m7tnImWnNsOfEWYAaiIgqpdwvi/1ytCp5l0Du6IZ7s0rn0jv/ym
-	 +xn5Q+d62IVtKv7xGGLzo8UiiUw1o/EVvrVIt7MGDh1LG+sZfEbf1md8C9keGhYb8v
-	 uvYruRQkAUTTA==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id C11A117E0564;
-	Tue, 21 Jul 2026 11:19:47 +0200 (CEST)
-Message-ID: <cc9ffb02-4175-48c2-89d6-b538bf75a350@collabora.com>
-Date: Tue, 21 Jul 2026 11:19:47 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="efYBWNq6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F9441F00A3E;
+	Tue, 21 Jul 2026 09:20:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784625623;
+	bh=1BzWx3Iuo3Hr4NPySjXIVVT+qekLZW46dc2svWyGqug=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=efYBWNq6OuSv7aU9hoY7Xg4ItL/NCIYn9C5gTUV2N/b0HOdry5uRoQpE7FdY1h30G
+	 4HsIMPdB67M/IMOMzZUdR/U9QoqaaBX3YGD883/t4VcNIwNDRgGxqmzSixHyOWFjcq
+	 M/hLWwFYruiCgqEb0zW+Mc0aOAwVLSdMRmiRgus5aPyvVOlw2Iuko/2sbCH1w+22u6
+	 lpYPApPK+X486UTI3mn8KPCrXuNZamdxvZBmbeqi7ftUV4q68KdVT90T815R2Zctzl
+	 +GZGI4MaRt5WWppTjr/xVNR8v2pPs61FQ2c697T3nUSjsdO+R5Asw0ipQlajB/67DS
+	 lvFgq8vh5XRvw==
+Date: Tue, 21 Jul 2026 11:20:20 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Praveen Talari <praveen.talari@oss.qualcomm.com>, linux-spi@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] spi: dt-bindings: qcom,sa8255p-geni-spi: Add compatible
+ for Nord SA8797P
+Message-ID: <20260721-convivial-onyx-mandrill-736abf@quoll>
+References: <20260714120226.1788391-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] pmdomain: mediatek: Add support for secure modem
- power domain control
-To: nikolai.burov@jolla.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Ulf Hansson <ulfh@kernel.org>
-Cc: Matthias Brugger <mbrugger@suse.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-pm@vger.kernel.org,
- Nikolai Burov <nikolai.burov+review@abscue.de>
-References: <20260720-mt6858-pmdomain-v3-0-8966d8de93c8@jolla.com>
- <20260720-mt6858-pmdomain-v3-2-8966d8de93c8@jolla.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260720-mt6858-pmdomain-v3-2-8966d8de93c8@jolla.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260714120226.1788391-1-shengchao.guo@oss.qualcomm.com>
 
-On 7/20/26 22:46, Nikolai Burov via B4 Relay wrote:
-> From: Nikolai Burov <nikolai.burov@jolla.com>
+On Tue, Jul 14, 2026 at 08:02:26PM +0800, Shawn Guo wrote:
+> Document Nord SA8797P QUP GENI SPI controller, which is compatible with
+> SA8255P controller.
 > 
-> On recent MediaTek SoCs such as MT6858, the kernel is required to use
-> a secure monitor call (SMC) to enable or disable the modem power domain.
-> The power domain control register can be read, but firmware prevents it
-> from being modified directly. Some other parts of the power sequence,
-> such as setting the ext_buck_iso register, still need to be performed on
-> the kernel side.
-> 
-> In preparation for modem support, add a flag to enable this new power
-> sequence for SoCs that need it. Power domains using this flag are not
-> expected to configure any bus protection registers, since these are
-> handled internally by the SMC call.
-> 
-> Signed-off-by: Nikolai Burov <nikolai.burov@jolla.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/spi/qcom,sa8255p-geni-spi.yaml      | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
+
