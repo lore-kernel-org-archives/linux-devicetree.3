@@ -1,66 +1,66 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1776F3C1400
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 22:40:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652F03E121A
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 22:41:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784673619; cv=none; b=StYz8rkTZIvwkjhNYtqfGgR3RBiAr79CjuzKUDZ1cwF/p4cPXzH3YMKRyJWShG6nEha1NnDFg0MB7Y99YEXj1tcTFn8hGyY7g+GIDlW6al0dPOmUZVHXG52kLr4OkS6oqTHJzSuWz1aZC93O+I4Y2IbQhvjfaHYp4FXAk5eXk4g=
+	t=1784673709; cv=none; b=PvRzn/geJxbwbeO3p4zHxtnIKfH7XtLKEGUsYWrH3nfNOdqau65YPZpDQocBbKf+ofZMXe3pneiMu3Rlor11ji1fd7Oc+O85lKaVShB++Z9Fw7L9GyFxuKnDGl7s30THGTcgvazbq097N7WDf3PiQ/JaG8yTjEK1a1zMROzw5Aw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784673619; c=relaxed/simple;
-	bh=86+FFVf2RJXCDge481xc40j9yQcZbXPzCSDbKxjMSQ8=;
+	s=arc-20240116; t=1784673709; c=relaxed/simple;
+	bh=MS2iNtQCXbIlbselvMp/n931LY6FLwtCuJeCV8hkBeo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nkLZV/2bur1WSNk82u507yT9bcoo6LeSLVbtev2FMQxiwU6LbEVb7sqA7WVJ6rBhgOm/m9oSVCHsxuess+xGkvZcc4PUv8GT3gz+H3SuG/8jpYlnrqHC6RD5MegJHJucZAcS5zF4kxfgE+6XJ+usp7Sg2tZqxiKUxBzEyw4v6nY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=IVqIG5mP; arc=none smtp.client-ip=209.85.221.47
+	 In-Reply-To:Content-Type; b=idd3UWtrH0RJK+GTgKw28MR4a5DoRTthUn4ET+zmTXf2WZNDODsE3AgwFnmGAqw9oUMOZTVBJkwMeAMWue1njicb+dReO5BslrkRyhZ0NvwzEG3s7ftfu/2lu5y8TcTsjWvRlkQGHHZg5FjNZP9XHAmtLVjbN7KblGQv7F61ct4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Hs4g3DsE; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="IVqIG5mP"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47de0093c42so6838529f8f.3
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:40:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Hs4g3DsE"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49558ce01afso25615785e9.1
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:41:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784673616; x=1785278416; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1784673707; x=1785278507; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RskP6QT1dpaQK7qfXd+bxkNm79lnYJ2LdMNrXnjHeIs=;
-        b=IVqIG5mPge4kyxaEU3iL1xqOKSXgvrOTGk9GR5/koVoRSn8/lrEYcwdbaXEZD6d9y/
-         ZpCsMjousZtMAJ5Kg78w0IWAbM4++jsnzlVTir75PCDAfkGh9sjZ8BiF0a7vaIKd0fVq
-         RJmmWUjW6LUvuZDxw3nEtU4PLupoW4jXrX8bmw+jNXoRVFxlKnp5ieSGInXX4/k4UxEk
-         ZKdb/0lRUHvJFDvsbjaNCAy8mMp73gP1SZxWaUqZq8+fKWY9KC2ogN/gtj0mdkovNpz8
-         el/eMIkw6u2/N0rB6TsOGTW1NkHEW8XogucJq8sMv6EYbgTw0/thk+0sLWZn766mUvaT
-         vwAA==
+        bh=7UZpL0eDJd6NTr982Ff9Khr33VG/2sSIiZnS2Evk0zg=;
+        b=Hs4g3DsEwc5PeMrWgePkzOU4OHnoRO0JAP7v9SKXQ7xVj4pt3k4/aW2XMKnGibqpxg
+         0R4g75nDdlGfpjkeIrxSgnHy3xXSeipM3h6qCKePX1OnA/4MeugyIVK2Xcxbt/aK1V20
+         fcxU/zoIpqE7pfjJNspDMPMxmfvbKrnOqvThOGVSKIq3GrXSkMUGd3sLffwRb2V2k+sq
+         R89UWXKVENQFOiFUA5Ztmsa96JyJLIL1fE5drYKZTvAVAs98rfCtPqE6CDc0jn+63uwT
+         hs2g3Ok7AKWs6m+6ceATmGhgiPPA2ec0tfmhGD/HyPRw/edRwxj1COB46V0o6F0djPf1
+         9rKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784673616; x=1785278416;
+        d=1e100.net; s=20251104; t=1784673707; x=1785278507;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RskP6QT1dpaQK7qfXd+bxkNm79lnYJ2LdMNrXnjHeIs=;
-        b=MWqS8fENZ0YEEA00Q8Q4GYTHIFpusiSPIIDobzUk7NfMPHLcrA1ogp5U8M31rmQbAV
-         SNMZjep1cWX3c2zpuVcoX/SNLkLExsiNSIwMTMK9QAIF5kHAfJF0BAZmo+IdFdVus2KI
-         towsN+OO85RoxLuOA2XhMBirvumIqNXNl6319Pl++xEqC4RoS46zg5WcujsaX8m6it4h
-         T77Vd3uTdp3whnEkaY9S7+i8tJXGQxv1JtgRDpoU9c6ieo/ahg5EjpLwkLg2P9EPE5pt
-         aIopy4MbGPkmwyzxb+AWvvFLAffjJiGwqXNZozEWY7PEAWhRLQDPk6qod/D8gn9y2t0I
-         6pRQ==
-X-Forwarded-Encrypted: i=1; AHgh+RptVwULO2QCsiuJvz5t4XOYFsEPNdoTs+IDtHm1AuAG/W32NMuOH69E4jPrkOv+MHjwJjUjB6wlvXPv@vger.kernel.org
-X-Gm-Message-State: AOJu0YwymvqMa3SRJrOipzkuG7+0ZKBLo3lIkxH5dNIBS8rskftemVE8
-	xGNV1KNfIbwb55zXejorHcUXdfBE4QAfmt1K7kCFktMGrL8IhBtgEu8L3jQKLtKpCXM=
-X-Gm-Gg: AR+sD10EESPxW/nNYYYNZfyVfGPgRBXaac0lmT8qGcXivJVtjjNVP/uGUT2emE8+mX+
-	FRGqi1g4tBt46x2WZV1vWZJ57j06BdxuWJdZMDsfXjKYIiWU+OTnfdl8zyGbCvL1DT2RtZru6nD
-	UGNTSk85+VmJAObYOSATD/bqzQAaIp3ce0w59GGOypBGjBlxQ/pSZ2694NPVuUZGJsacXpo0IK8
-	W3shd6i/o0QIBSrDe+CoES9SHUWI0Cq6r+CkrjMfyPD4blzFYdQdJuyPmxm3FoFGH3QziwfiztM
-	9yqJ5Uvo3/zeniDc1yutmJC7cew6hhvGsNilIut7kmnQzU3S6o5YR+aXwR+u4uPsSSedJN8bZHc
-	DIyhP628pnmUSvWjBGZQVGjGLylyzmsTX32Y9dHMwRO1aWxldSlWLB0qET2aGevC7HPjP0serh0
-	/yVCq8I8L/Ss6OyuOpXwdcX3beMw==
-X-Received: by 2002:a05:6000:712:b0:47f:6f2c:7303 with SMTP id ffacd0b85a97d-47f6f2c73c3mr17096854f8f.33.1784673616312;
-        Tue, 21 Jul 2026 15:40:16 -0700 (PDT)
+        bh=7UZpL0eDJd6NTr982Ff9Khr33VG/2sSIiZnS2Evk0zg=;
+        b=XQEHvs8RotiIk2UDziQukGg53pyeT3ecoLY3Z1YW1Qx/PosbgRbhegApxNOK+rfkXE
+         Fuw9nIg9pDoLSdPcgAo54D/2ZHxTSeCFJd/JmaLV2/70mPZ0QPV9CwQ6PGIE+aYy4wHp
+         XMz8Jn3Ds6/OMDPQ3ftVW4bub0O6OUts75seZhJA2+INcaMRGAWFOl0Ofp6dF4INphrl
+         +YeG1IIBu0gXxBD5AR9fcWfT5Jh3NsGZyjMqkCFb59PusTA2LfRlnKVISgUUYqgUHOat
+         aVTv/iYfexWPphEbOEMSYY6cFZstLZwT2MsE80KIcNuW5vVfdHXEtyPrBrj94cCzUiZ0
+         UPMA==
+X-Forwarded-Encrypted: i=1; AHgh+RrQnTtTzQGhJQmQoDVrF4ILnNqEA4Va0hid/I71Q6GhJkctcdpN2XUMo48nxiA53mGE/bUZshuHn0XO@vger.kernel.org
+X-Gm-Message-State: AOJu0YxxpC3mBtgNicEa9I5J8vastWfUmZeFW9KwNC1HVAFj9buw4okx
+	/8WNudeZFeHMQM17nX0/+E4M3mNIqtYfzFPFK6CNcoGbSJ+ncoMMWgbLI/lGu/nuZyY=
+X-Gm-Gg: AR+sD12a3g3GGwnaQh4jmRrJZQ2smN/aDqVgJX7GZk1YXFk9VZarQRYWVlJfInh4H2x
+	fk9RGhziM7Yy8iBS9ufR/x6dsc6s2XyFWQz+sKrrrEQYYwsbxzmKZJsibDGF/1m6J+nqv5ZM7sh
+	7WGohZ+TmR98OpMvgx6o3ArJ+OGbs2vurNVzoBMM0E9UySwgoR96v3j3c21z3pPTjDYk3BCy2Ui
+	CLHgwctwO7a/E83bHGsfYBvgD8r2tVyXx3/9hlUHwZCRoK0nk6PsVFrdgV5Grw52bkkpVi+WGjG
+	QoX8MvSjIeywvKlrTSgsgUD1KIro/s0fRhwuLrkdOY/H+6hj4Yj1oZZ9oQf3y6rVIYQy3rKNeYA
+	ER3ZJzfIlJiWTIvrEqTc6A32Nyy5FhQRvO6zR+sooqePRJtmA0NAEFlZxVz62sM2TNsyK0HSihJ
+	6XjhOzNF8su6nKtiw=
+X-Received: by 2002:a05:600c:4f44:b0:495:5e86:4e59 with SMTP id 5b1f17b1804b1-4955e8653bemr112642595e9.22.1784673706658;
+        Tue, 21 Jul 2026 15:41:46 -0700 (PDT)
 Received: from [192.168.0.101] ([109.76.186.235])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85bb57cfsm249830f8f.11.2026.07.21.15.40.15
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956a63e3a8sm26563145e9.12.2026.07.21.15.41.45
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jul 2026 15:40:15 -0700 (PDT)
-Message-ID: <b14b7ead-d063-42d4-92cb-1299ef0a81e8@linaro.org>
-Date: Tue, 21 Jul 2026 23:40:14 +0100
+        Tue, 21 Jul 2026 15:41:46 -0700 (PDT)
+Message-ID: <fe40d9ab-2074-4e6d-8d49-0e076a42e873@linaro.org>
+Date: Tue, 21 Jul 2026 23:41:44 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,8 +68,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 1/8] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add
- Kaanapali CSI2 PHY
+Subject: Re: [PATCH v15 2/8] media: dt-bindings: Add CAMSS device for
+ Kaanapali
 To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
  Bryan O'Donoghue <bod@kernel.org>, Robert Foss <rfoss@kernel.org>,
  Todor Tomov <todor.too@gmail.com>,
@@ -79,38 +79,21 @@ To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  jeyaprakash.soundrapandian@oss.qualcomm.com,
- Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
+ Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>
 References: <20260720-kaanapali-camss-v15-0-c0b1c1167c5d@oss.qualcomm.com>
- <20260720-kaanapali-camss-v15-1-c0b1c1167c5d@oss.qualcomm.com>
+ <20260720-kaanapali-camss-v15-2-c0b1c1167c5d@oss.qualcomm.com>
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Content-Language: en-GB
-In-Reply-To: <20260720-kaanapali-camss-v15-1-c0b1c1167c5d@oss.qualcomm.com>
+In-Reply-To: <20260720-kaanapali-camss-v15-2-c0b1c1167c5d@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 21/07/2026 05:50, Hangxiang Ma wrote:
-> The Kaanapali CSI2 PHY is compatible with the existing x1e80100 CSI2
-> C-PHY/DPHY binding. Add the "qcom,kaanapali-csi2-phy" compatible.
-> 
-> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> ---
->   Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> index 880fe602945c..7943049834f9 100644
-> --- a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> @@ -16,7 +16,9 @@ description:
->   
->   properties:
->     compatible:
-> -    const: qcom,x1e80100-csi2-phy
-> +    enum:
-> +      - qcom,kaanapali-csi2-phy
-> +      - qcom,x1e80100-csi2-phy
->   
->     reg:
->       maxItems: 1
-> 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> +            csiphy0: phy@9523000 {
+> +                compatible = "qcom,kaanapali-csi2-phy";
+
+The sub-node should be dropped from the examples.
+
+---
+bod
