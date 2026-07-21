@@ -1,240 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D8BF46DFF5
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 18:23:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF8EB46D081
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 18:24:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784658203; cv=none; b=nHjF5z2DOK9zsIp/8lXIgd+647d9JTdJBhPJNv9+BvqAsF+Rv6dRcK4mBEKRGR+rVV/l8oAvwddxzY3cZzOhnWuPdF/9HFKaMaDwBCj2Rwa0n/fRMmPIHecbf9lXEpCpBXk8VxQv+aQ8fL+SxXCA+Hm3hjS/tXQyuIvI/pNszF4=
+	t=1784658285; cv=none; b=BAPKnLBVBjhKCKERxc969DKBfzKzlaYqxNZ+Z99VKUbxOgcGyuqJ5aK4juMO2TYLBcXv5CIYHN8Xj69Yiw3tZEUCeEleX+AccRGwhSStJ+MtREkYxx7kTgSOk/ibSpL9oM9kIKTYTSwkDnLG/A6xKDLwNbPv+XGrdzEv/w3f/GE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784658203; c=relaxed/simple;
-	bh=19Xdqh4SqvEgd5UE+YFhx5vkgl36D8x+QnEwAN+2F5Y=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fqZiFpAJkHqWvqGGotF74sdVQmtgCfAX8odJwS+F5uvuwaid+JYEbNcT3PZq4ql+3Ez3sz7vc4CzVifFE0L/4zn18lqq5pOlrFSAWYHamL0oGD4MxAnAJpOYJDGLzC6ylZpgJSDBLqeDhOr+Lcf27190GCyZhBHs9xtCdj+Rw78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y3kROm6w; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784658285; c=relaxed/simple;
+	bh=PZeTCn4vfiOzIxtzUP6Cg4NPmVD+ay72/JvaXAZ39eY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=rtDc+u/gqtsEqIU0/2c7sEGn+bVS9UxnAAjHYjdc3QmUMiNeIGqja2I7Ssptvy0h0X+8myHGx9deVlLcGLLOY6Cb4+FiisSZTmkdUbWx/rj5CbU418ozP5uOcWt5TDQbws/XBxsiSpWqDL4qtDevHs2WXccj6WWzrSeMqCTI9uk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cypSOEBn; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y3kROm6w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 086261F00A3A;
-	Tue, 21 Jul 2026 18:23:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784658202;
-	bh=9JKfmergHW/lvMkZbMMBYa3kDN/4QhU9CpglMry68BA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Y3kROm6wQqQvqJYcy485fB3XY11b8zJHNDasHA/aW8JYj4GiVX6FVmsgskAdOhc/4
-	 3G/abWzjGoqmPxKhtlGXYjmuKh3ldVPHwH56BcEDdOscf8PHW2enzFi+pmzAwa3+uT
-	 8prXYJSf0+50nJ2oLutak6NbBnTC4TgH9WYgtgrzgX2EGb89OY+VRiSKKrhN5pPJfD
-	 IvCaZOEAYYQdJ5QFGehVEZVVRBIMbYcRZkx/jOWdWProvrswNkarsaNlszBR6J3pUT
-	 R8X6n37SSAbDcTRt/rPLgPGchDvL9XBPY5V1AscXh8MBIXCwsN7sctymk3mBecGiZS
-	 CfRWoS4Wh5RFQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 08/10] drm/rockchip: dw_dp: Add runtime PM support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260721-synopsys-dw-dp-improvements-v4-8-f0f4a4ede712@collabora.com>
-References: <20260721-synopsys-dw-dp-improvements-v4-0-f0f4a4ede712@collabora.com>
- <20260721-synopsys-dw-dp-improvements-v4-8-f0f4a4ede712@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 18:23:21 +0000
-Message-Id: <20260721182322.086261F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cypSOEBn"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47f703a9d05so1889489f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 11:24:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784658282; x=1785263082; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ohyabsYXUEeH9CZfps7B4outocJBDW/m1cd73oaWqh0=;
+        b=cypSOEBnqyUusLKG8Cu+jJsX6jfpCnEI/MSsrG5PNqJUvrAQH6r467FS34jZ71sZ7W
+         p0hoV+fYwYkGcTPe/svbcBVU9pmCXBHS3MmQ7GFCp83E/eo7QWwWwt0sCdmTU5WUcp7p
+         KMLjwDVY/j5sgCuxL2EFVXw0rgbjqEVqAEPPiSfTOU/k0p6n3lheo58kh4iAtTg4kF9h
+         JHyToCmlFUInA80kLqsWKOhj4QPEvYd88ZC0Tyh3LTBHJw0CwWpW3/9qKo5em/kEVe5t
+         1tPJTfvELrfsPvGIyZYBT2RQ2gGEJhimaOBZo+wJFoz8GoZj6jN5nf2Olas9gNNyo/rH
+         jIig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784658282; x=1785263082;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ohyabsYXUEeH9CZfps7B4outocJBDW/m1cd73oaWqh0=;
+        b=jy4J2iVbMg1PAjCVKIi+n4RgxhHCtPyQM9NPW6ebPtE+Kl4dGXEHL0rXFQ0VBWGTg8
+         4pbX2G5UBOz9lDNEgyyt6An7afsIJnwtpxtUybXc6A25smLEzBYJV/ShnGbqxrici5pF
+         whddXnKDSUsmHMA6aKfMVKPqsYfkwjUF4NvDQ5nSBGbm8Dq+/U7J+FyeooHlUNhetSfx
+         qcIIN3D+qRsQpiEfIBi3y0h1+4POn0AphZ2QcKMtoOgIXMMuZb4jCYvs2ViK4fakzLEJ
+         riW2PAnKaRUaYPZx+kBgY8GTT4rJNrJuxPssd2Nj8EsZQCbeqRUSm/M06bzXDGBFum1N
+         GwEw==
+X-Forwarded-Encrypted: i=1; AHgh+Row/zqbrkI6jA6J0fTQQz8h8N2qJoOQhKsc4Ig7XB6nL7ZyMXDX5y4bb+6bk5g9EM0QFcSzNmu5w5xb@vger.kernel.org
+X-Gm-Message-State: AOJu0YzlX00MBt/eHoP5aoU8erBKnTDK2l4b9VUthto8L2GsUWFkB7+D
+	6NwvHz0/pqNZiZyOkrYOUbIBGkrWy2R6GycA5irttq3Eq9Uyr0kNxSzO
+X-Gm-Gg: AR+sD134M3NbfG8X7SWXn603qUQrhzgKBehrs6Y9u7rkwe0VLMQ6fLt1kskXgK4Z1xZ
+	31E3kaigeG2Jw1wiC4Xl8vM+QpHDCm3dGlbATpX8tGz+HtrOxJ0EJFL9g+52Ziv3f6t2iUJVE/o
+	p1E5gyzQ27dtugvyNyNRo0K4rA7cYlp2LX3X2EZMd5mWNqhyIToiCyX5NEDIO2ry6oqquKiXunP
+	F9hE4BBM57J0J8ZDcDpddilxKFzXPyx3nZjY6pajpXz3akJHbxbHZ3MhT1JF99Ke/DfDgPOKw9e
+	ecQ2nz49jzYe5IZyZpIJB05E9ZW5FfeETrVKKKPXocAjt/VkMvNsgvLAFGVUawzfWt+/gY+X0zP
+	dfELScSExO0t39dKmXo0bI9Y0eBcRHL4TsUQUpvXhUm6rFRQERdO9zNP2KNd3cFIu2J5+PqhEVx
+	zNlNdecreMIcY0hq2RFBERTwTQ/qktoaTEgSP0jmnmbYAowqwC56EkL7LMyL3aG7N2ML91W10Pm
+	n8m21bcKGXXojMWivu5JL29XShrbxzSCiXDOTxdO2Ot5TUIiA9SaS8zKxpXtAJGQC8K9XPziFMG
+	aPzYsfkm+u/RAphnhP3MRWe4ysYeVoNVLNtw1lNFnDPpVsgoXhtxARwEo6Xc8F8aAIjblDZMIiu
+	QanPWQieU9alcD84=
+X-Received: by 2002:a05:6000:400f:b0:47f:8152:e568 with SMTP id ffacd0b85a97d-47f8152e595mr4627922f8f.60.1784658281871;
+        Tue, 21 Jul 2026 11:24:41 -0700 (PDT)
+Received: from [192.168.1.187] (ip-86-49-244-181.bb.vodafone.cz. [86.49.244.181])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63eddd1csm40835081f8f.29.2026.07.21.11.24.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Jul 2026 11:24:41 -0700 (PDT)
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+Date: Tue, 21 Jul 2026 20:24:38 +0200
+Subject: [PATCH 1/2] dt-bindings: iio: dac: add support for mcp47a1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260721-mcp47a1-add-support-v1-1-da045a2567e3@gmail.com>
+References: <20260721-mcp47a1-add-support-v1-0-da045a2567e3@gmail.com>
+In-Reply-To: <20260721-mcp47a1-add-support-v1-0-da045a2567e3@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Joshua Crofts <joshua.crofts1@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784658280; l=2591;
+ i=joshua.crofts1@gmail.com; s=20260530; h=from:subject:message-id;
+ bh=PZeTCn4vfiOzIxtzUP6Cg4NPmVD+ay72/JvaXAZ39eY=;
+ b=GoXVBBA3rVZtCkVT6C+MiAV66zcR6c4ebeSsV4XVESuW14/ifqraymiESHNCA5hYmoaVvmSFG
+ PQSowwYCwf7DG1J/qFpP0e+ZhEJNsqMSahq7Q9WzRzvIbxbG8KhEuKC
+X-Developer-Key: i=joshua.crofts1@gmail.com; a=ed25519;
+ pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
+The Microchip MCP47A1 is a 6-bit volatile Digital-to-Analog converted
+which communicates via I2C.
 
-New issues:
-- [Critical] Threaded IRQ handler accesses unclocked hardware registers if =
-triggered while runtime suspended.
-- [High] Double disable of devm-managed clocks due to uncoordinated runtime=
- PM suspend.
-- [Medium] Incorrect runtime PM teardown sequence prevents asynchronous sus=
-pends.
-- [Medium] Missing idle trigger leaves the device fully powered on after in=
-itialization.
-- [Medium] Calling dw_dp_bind() before pm_runtime_enable() causes -EACCES e=
-rrors from the PM core.
+Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+---
+ .../bindings/iio/dac/microchip,mcp47a1.yaml        | 56 ++++++++++++++++++++++
+ MAINTAINERS                                        |  6 +++
+ 2 files changed, 62 insertions(+)
 
-Pre-existing issues:
-- [High] Inverted logic for runtime PM reference management causes usage co=
-unt leaks and underflows.
-- [High] Missing runtime PM reference drop on the bind error path.
---
+diff --git a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
+new file mode 100644
+index 000000000000..3322fca03b3a
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
+@@ -0,0 +1,56 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++
++$id: http://devicetree.org/schemas/iio/dac/microchip,mcp47a1.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Microchip MCP47A1 DAC
++
++maintainers:
++  - Joshua Crofts <joshua.crofts1@gmail.com>
++
++description: |
++  The Microchip MCP47A1 is a 6-bit single output volatile DAC.
++  This device can have different IDs (0x2e and 0x3e).
++  https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/25154A.pdf
++
++properties:
++  compatible:
++    const: microchip,mcp47a1
++
++  reg:
++    maxItems: 1
++
++  vref-supply: true
++
++  vdd-supply: true
++
++required:
++  - compatible
++  - reg
++  - vref-supply
++  - vdd-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++          #address-cells = <1>;
++          #size-cells = <0>;
++
++          dac@2e {
++              compatible = "microchip,mcp47a1";
++              reg = <0x2e>;
++              vref-supply = <&vref_regulator>;
++              vdd-supply = <&vdd_regulator>;
++          };
++
++          dac@3e {
++              compatible = "microchip,mcp47a1";
++              reg = <0x3e>;
++              vref-supply = <&vref_regulator>;
++              vdd-supply = <&vdd_regulator>;
++          };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 2b1ec46c5919..b44693593b94 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -17699,6 +17699,12 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/adc/microchip,mcp3911.yaml
+ F:	drivers/iio/adc/mcp3911.c
+ 
++MICROCHIP MCP47A1 DAC DRIVER
++M:	Joshua Crofts <joshua.crofts1@gmail.com>
++L:	linux-iio@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
++
+ MICROCHIP MCP9982 TEMPERATURE DRIVER
+ M:	Victor Duicu <victor.duicu@microchip.com>
+ L:	linux-hwmon@vger.kernel.org
 
---- Patch [8]: [PATCH v4 08/10] drm/rockchip: dw_dp: Add runtime PM support=
- ---
-commit 73aba26d330e327d28e953d044baf166117572f7
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+-- 
+2.55.0
 
-drm/rockchip: dw_dp: Add runtime PM support
-
-This patch adds support for runtime PM to the Rockchip RK3576/3588 Synopsys
-DesignWare DisplayPort driver.
-
-> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/=
-rockchip/dw_dp-rockchip.c
-> index 0ecbad24dd4e8..d7e1704fd9806 100644
-> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-[ ... ]
-> @@ -169,14 +174,25 @@ static int dw_dp_rockchip_bind(struct device *dev, =
-struct device *master, void *
->  	if (ret)
->  		return ret;
-> =20
-> +	pm_runtime_use_autosuspend(dev);
-> +	pm_runtime_set_autosuspend_delay(dev, 500);
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-
-[Severity: Medium]
-Because dw_dp_bind() is called immediately before this block, does it
-cause -EACCES errors from the PM core?
-
-Inside dw_dp_bind(), the core driver calls pm_runtime_get_sync(dp->dev).
-Since runtime PM is not yet enabled for the device at that point, the PM
-core will return -EACCES.
-
-[Severity: High]
-This is a pre-existing issue, but does dw_dp_bind() leak a runtime PM
-reference on its error path?
-
-In drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_bind():
-
-    if (!dp->usbc_mode)
-        pm_runtime_get_sync(dp->dev);
-
-    ...
-
-    ret =3D phy_init(dp->phy);
-    if (ret) {
-        dev_err_probe(dev, ret, "phy init failed\n");
-        goto put_next_bridge;
-    }
-
-If phy_init() fails, the function jumps to put_next_bridge and returns
-without dropping the reference acquired earlier, permanently preventing
-the device from suspending.
-
-[Severity: Medium]
-Does this initialization sequence miss an idle trigger?
-
-The driver calls pm_runtime_set_active() and pm_runtime_enable(), but does
-not queue an idle check. The runtime PM core does not automatically queue
-one on enable, which might leave the device fully powered on until the
-first display modeset cycle. Could a manual call to pm_request_idle() be
-needed to start the autosuspend timer?
-
->  	connector =3D drm_bridge_connector_init(drm_dev, encoder);
->  	if (IS_ERR(connector)) {
-> -		dw_dp_unbind(dp->base);
-> -		return dev_err_probe(dev, PTR_ERR(connector),
-> -				     "Failed to init bridge connector\n");
-> +		ret =3D PTR_ERR(connector);
-> +		dev_err_probe(dev, ret, "Failed to init bridge connector\n");
-> +		goto error;
->  	}
-> =20
->  	return 0;
-> +
-> +error:
-> +	pm_runtime_dont_use_autosuspend(dev);
-> +	pm_runtime_disable(dev);
-> +	dw_dp_unbind(dp->base);
-> +	return ret;
->  }
-> =20
->  static void dw_dp_rockchip_unbind(struct device *dev, struct device *mas=
-ter,
-> @@ -184,6 +200,8 @@ static void dw_dp_rockchip_unbind(struct device *dev,=
- struct device *master,
->  {
->  	struct rockchip_dw_dp *dp =3D dev_get_drvdata(dev);
-> =20
-> +	pm_runtime_dont_use_autosuspend(dev);
-> +	pm_runtime_disable(dev);
->  	dw_dp_unbind(dp->base);
->  }
-
-[Severity: Medium]
-Does disabling runtime PM before calling dw_dp_unbind() prevent
-asynchronous suspends?
-
-By calling pm_runtime_disable() first, when dw_dp_unbind() subsequently
-calls pm_runtime_put_autosuspend(), the asynchronous idle request is
-rejected because runtime PM is already disabled. This leaves the device
-permanently in the RPM_ACTIVE state and the hardware remains powered on
-after the driver is unbound.
-
-[Severity: High]
-Could this teardown sequence result in a double disable of devm-managed
-clocks?
-
-The driver acquires clocks using devm_clk_get_enabled() during probe,
-which registers a devres action to automatically disable them on removal.
-
-However, dw_dp_runtime_suspend() manually calls clk_disable_unprepare().
-If the device is already in the RPM_SUSPENDED state when unbound,
-pm_runtime_disable() leaves it suspended. When devres subsequently
-attempts to disable the already-disabled clocks, it will cause an
-underflow.
-
-[Severity: High]
-This is a pre-existing issue, but is the logic for dropping the runtime
-PM reference inverted in dw_dp_unbind()?
-
-In drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_bind():
-
-    if (!dp->usbc_mode) {
-        pm_runtime_get_sync(dp->dev);
-    }
-
-But in dw_dp_unbind():
-
-    if (dp->usbc_mode)
-        pm_runtime_put_autosuspend(dp->dev);
-
-This means standard DP (usbc_mode =3D false) leaks the reference it
-acquired, while USB-C DP (usbc_mode =3D true) attempts to drop a reference
-it never acquired, causing usage count leaks and underflows.
-
-[ ... ]
-> @@ -254,6 +272,34 @@ static void dw_dp_rockchip_remove(struct platform_de=
-vice *pdev)
->  	component_del(&pdev->dev, &dw_dp_rockchip_component_ops);
->  }
-> =20
-> +static int dw_dp_rockchip_runtime_suspend(struct device *dev)
-> +{
-> +	struct rockchip_dw_dp *dp =3D dev_get_drvdata(dev);
-> +
-> +	return dw_dp_runtime_suspend(dp->base);
-> +}
-
-[Severity: Critical]
-Does leaving the IRQ enabled during runtime suspend risk a kernel panic?
-
-This patch introduces runtime PM support, which can now trigger an issue
-in the bridge driver. dw_dp_runtime_suspend() disables the apb_clk.
-However, the driver leaves dp->irq enabled.
-
-If a spurious interrupt or HPD event fires while the device is in the
-RPM_SUSPENDED state, dw_dp_irq() will directly read
-DW_DP_GENERAL_INTERRUPT via regmap:
-
-drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_irq() {
-    ...
-    regmap_read(dp->regmap, DW_DP_GENERAL_INTERRUPT, &value);
-}
-
-Accessing these unclocked hardware registers without first checking the
-runtime PM status (e.g., using pm_runtime_get_if_active()) will cause a
-synchronous external abort or data abort.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-synopsys-d=
-w-dp-improvements-v4-0-f0f4a4ede712@collabora.com?part=3D8
