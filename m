@@ -1,141 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8AAA3BB131;
-	Tue, 21 Jul 2026 09:46:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAC63CB540;
+	Tue, 21 Jul 2026 09:46:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784627164; cv=none; b=cf4LCWKeg5DvFQTyvIbL6HQpRxK9tNlqZrKJkLpaqUTI67d2tmfwZmwueKwLBUnBhlnOD4qyhvT/QcNe40W8fauig0quhJEMrcS/n0CT3Svvw8L6iLJz3+Q1jhIXFKMuCAr57d3ijdQXNDUVqr7q9vIDla0bD/bpdvxwlWuaLcQ=
+	t=1784627187; cv=none; b=Q5DjpfBhTXdCgFfL2ZAhdYFBAEqpSNTuxcsXb35BQW/ZccxmvvhPx9ZqZ4MGm8zoLWZHufOHMOIBgUlbm2u+uWofJyc7S065M5hP81zm+YeQLutFpkmtlfdxuiDyTvH+VG0nQw2UPsR6ibt6jBQLG/jn3d1u0HBFp6Fj4M/+Y68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784627164; c=relaxed/simple;
-	bh=Suaet794bFUf4PHz8XWDEzBQKZe0kyx/njM+XX2nXG8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uMX4DuHEYd/lZ9fZH/t3+S8ycZ+BbAktY6ellTHirXYcyndI+lzix0YuOkdwizlYWjOUotSmTi2atgcXU+RnzSQcQKTWrEAUjR2hT6eq9q8x73p5fn35xBYY4CoJSkSaRK/NVKE8zAohSQuokSPXxykMCvR/QrrrkZSXx2YrKmw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UOfDbXwX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784627187; c=relaxed/simple;
+	bh=ytLdntutVQ0Sr5w/sKJoZefWR9TRxWCNxNc1e899VKw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=O4m5h2MBdsNjPzPZIWAhVBpy6eg9IzeOddVo+d0hVF/Y06OLQuninLcRFpxYLwz/61N1djd2PX/il0vVzS4Gw/j0NOs4/r2UpwR5nxcRt21a0A6ZXpoIMimim9hha/RUZ9dWA3ryR4feuFQZ1zmEBz6oBKjv7AlNAxeMkILjvnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kisp7MpB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UOfDbXwX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8966A1F000E9;
-	Tue, 21 Jul 2026 09:45:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kisp7MpB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 498E31F000E9;
+	Tue, 21 Jul 2026 09:46:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784627163;
-	bh=f5EbF0wNwZ9jH+OmcVLbB8y0q8kcQN7dLqUbHfXWwIk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UOfDbXwXh+vSLvWMs1iWksQwJGOP7dIcTeopOQNx7D1EDZN0qqMJU1GZ6nJn3fOqS
-	 bDnZu/LI052J/wH0MBWL916JTyap0y6Z5QPSWmgoRdV311Ghlm/TdjNrsfsxZiCmrd
-	 wOV4f9jzCquM6tJdtzwiagmK2X84LkIY5UNHGU29yvQ9wz/TjI+dUU5ZkNwpKhtQAN
-	 m9QevuslwMHgEgE5J0VqvMtvFE61ewM25dADISSA4187IQdDIgELxeeKshIfZ6tbSr
-	 Sxuq6Q1av/XjBsXB1OLJekBLmp/U7ssFUFtqaep9Pb9RYETYNf3atp9E5JzHemDrd3
-	 29RrmRI3cD7gw==
-Message-ID: <985af176-362e-4408-987c-dcc8d49d04ff@kernel.org>
-Date: Tue, 21 Jul 2026 11:45:57 +0200
+	s=k20260515; t=1784627186;
+	bh=BdEU/iAe+H+ch0kX1YnQC64NhGhzAnmYpo0G73hD4lg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kisp7MpB9j4KXjQ7ls/X84n6NjAED0yZ9UZjPyTqXbInA8r+7y65V1hZx8rr57RCe
+	 n64JcWyy7dKMSJlNDRaoGE86uqpWCTLuH+uJMGzIj+RHEVddcFiAm5ty5HJTfr5RWy
+	 y0XzXodZMSTbNObDzTtgGNtyM7wsyoqRTjSwY2A5AjPsQ+mwu7Ri0XQDC5QAJ3xX4e
+	 Vav6tNoaiZ1ysuKCJAB8FJHF6Pmf/pgMfSz3YJmcG9e0NngY82a8vuGn5VzS7QPJzR
+	 0FzE52dABgD91hOne+7StDsCLTN0gy/f6aDnDnnfJnR5gp91yOXryNaesc0GfE26eB
+	 P0d57D2mPJbUg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/3] arm64: dts: qcom: eliza-evk: Add PCIe0 with M.2
+ E key connector
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-pci@vger.kernel.org
+In-Reply-To: <20260721-eliza_evk-v3-2-92b10038f13d@oss.qualcomm.com>
+References: <20260721-eliza_evk-v3-0-92b10038f13d@oss.qualcomm.com>
+ <20260721-eliza_evk-v3-2-92b10038f13d@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 09:46:25 +0000
+Message-Id: <20260721094626.498E31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: remoteproc: qcom,milos-pas: Add Eliza
- CDSP compatible
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260714-remoteproc-eliza-cdsp-v1-0-32eb7a1f2c59@oss.qualcomm.com>
- <20260714-remoteproc-eliza-cdsp-v1-1-32eb7a1f2c59@oss.qualcomm.com>
- <20260721-benevolent-wonderful-kakapo-ca8c2c@quoll>
- <6tmbpelyk2ngvrfmcpb5owli7oo54u63i4w46jxbbj5g3fppv4@4amnegv2u3bs>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <6tmbpelyk2ngvrfmcpb5owli7oo54u63i4w46jxbbj5g3fppv4@4amnegv2u3bs>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 21/07/2026 11:42, Abel Vesa wrote:
-> On 26-07-21 11:22:52, Krzysztof Kozlowski wrote:
->> On Tue, Jul 14, 2026 at 03:24:01PM +0300, Abel Vesa wrote:
->>> +  - if:
->>> +      properties:
->>> +        compatible:
->>> +          enum:
->>> +            - qcom,eliza-cdsp-pas
->>> +    then:
->>> +      properties:
->>> +        power-domains:
->>> +          items:
->>> +            - description: CX power domain
->>> +            - description: MX power domain
->>> +            - description: NSP power domain
->>> +        power-domain-names:
->>> +          items:
->>> +            - const: cx
->>> +            - const: mx
->>> +            - const: nsp
->>
->> No, do not grow the ifs. Eliza belongs to class of SM8750, so I don't
->> get why it was and it is being added here.
-> 
-> I'm assuming you meant SM8550 here, right?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Incorrect GPIO polarity for the M.2 W_DISABLE2# pin (`w-disable2=
+-gpios` configured as `GPIO_ACTIVE_HIGH`).
+--
 
-The SM8550 binding file, but Eliza is SM8750-based in general thus I
-would expect it will be documented along SM8750.
+--- Patch [2]: [PATCH v3 2/3] arm64: dts: qcom: eliza-evk: Add PCIe0 with M=
+.2 E key connector ---
+commit 43876fd73356779d2e58bee01e3cfd92db672b22
+Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 
-> 
-> Why does Eliza belong to SM8750 but Milos doesn't?
+arm64: dts: qcom: eliza-evk: Add PCIe0 with M.2 E key connector
 
-I don't know about Milos, but Eliza is variant of SM8750, right?
+This commit enables the PCIe0 root port and its QMP PHY for the Eliza EVK
+board. It also adds an M.2 E key connector node to support a WLAN and
+Bluetooth card, wiring up the necessary regulator and W_DISABLE GPIOs.
 
-> 
-> Was Milos also a mistake?
+> diff --git a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi b/arch/arm64/boot/dt=
+s/qcom/eliza-evk.dtsi
+> index e47b24f8b8277..6d76715ccffbe 100644
+> --- a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
+[ ... ]
+> +	connector-0 {
+> +		compatible =3D "pcie-m2-e-connector";
+> +		vpcie3v3-supply =3D <&vreg_pcie_m_3p3>;
+> +		w-disable1-gpios =3D <&tlmm 35 GPIO_ACTIVE_LOW>;
+> +		w-disable2-gpios =3D <&pm8550vs_g_gpios 4 GPIO_ACTIVE_HIGH>;
 
-This I did not verify.
+[Severity: Medium]
+According to the PCI Express M.2 Specification, W_DISABLE2# is an electrica=
+lly
+active-low signal, similar to W_DISABLE1#.
 
-Best regards,
-Krzysztof
+With w-disable2-gpios set to GPIO_ACTIVE_HIGH, asserting the GPIO will
+physically drive it high, which enables the radio when it should be disable=
+d.
+Does this inverted polarity break the power sequencing logic for the Blueto=
+oth
+radio managed by the pwrseq-pcie-m2 driver? Should this be configured as
+GPIO_ACTIVE_LOW?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-eliza_evk-=
+v3-0-92b10038f13d@oss.qualcomm.com?part=3D2
