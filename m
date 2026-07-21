@@ -1,246 +1,189 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011040.outbound.protection.outlook.com [40.107.130.40])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011052.outbound.protection.outlook.com [52.101.70.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31CEA33374F;
-	Tue, 21 Jul 2026 16:52:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A963368A2;
+	Tue, 21 Jul 2026 17:01:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.52
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784652758; cv=fail; b=rw7pwqxJHv9vtERjASho8HBbwCd9I6sQnuL4paZBCTFonQg6zSH9onD8o2QejnjdPHQbynRWkHJIaWOx+Fzn09CfbEjWtpdIMTX6J701u6j7334SLflfetqwx4viduSa9E56imxFSQS2iGKT43EvjWa9opWwGMJu73/ozy6hPSY=
+	t=1784653263; cv=fail; b=BZrp198zUdeJfIX+ITn00Zb7gG3ROe9gbLHkqZCRokqy+nL7n8paf5G+ve86Z4eoWaC+nOIDjsetpM4RnXsMrEwcIT0hvIN56fFXB2XbflmmqVVpJiIqiNVzWan4jxDRR4Jz+j2YmXcAWEbAKHJFoxbrfAy1Y9WBrZZbtRHQlik=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784652758; c=relaxed/simple;
-	bh=Mo8uH3ziDzHoR9J9lXRNJvz9R2kHG4hGm2Mw7C5DUzI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=n7/abP0OAE3Eyv2Dvo0YJ56ZJ3x9mbuSTTAUUKTWhaQJ+58RXcQHLTU3Qfy1N9a05I8CS2r2qmJyvUSYufJod5pDhQ6+nbEDMVzSd1b8KuPe4pPVTZdUlsrQXTkXfVsfXDSbyKN11P6Q1HoRjDrBd3GTHz/ppFQ14hVqF+gQDS0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ja1sBYWu; arc=fail smtp.client-ip=40.107.130.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1784653263; c=relaxed/simple;
+	bh=H6BPNm1hnKKrjKJn4qYKevej78p8WlSjZrO/3BWpcKs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=JcC7T0S53X67SjOoD/mq/cMqoxJV/4cnOtkH/F6J9OJoq/YJFqtZ2zkLJOBFuXDOfyEogTrLCEZTce9zFrmdU6Q1q9ih5O5Rif5Jww7sdFdrgP5k3azKv6bt+Nkbnns5XoLLccQwnTunZiThunB8ZyyRVdT+7G4SOOvPlqL365A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=Op4qmTPm; arc=fail smtp.client-ip=52.101.70.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ja1sBYWu"
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="Op4qmTPm"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GtFvxv85D67D2fz2mqIItfW9ZQM1KKFYelC3x4u1z99kKMz0Oit7kDQ4wh+azPdO5DKUA4d3mMRinyA3AQ3jo07ExNOS3tTbFn7bEXSNwBrvH7u5iTWitrqEtxCuuRWc2HnZkou8wwvY2mqseh3fHnWjmSF6X9LQH5azjh4UrmoMn/OZsXspV0YXLTtoPLeqY7wNsFTn+qZ81nxnjtoqpjQkB3+zZx07iFINJkg0RYSULtrLDpDscR0QOLvM1WojxE7yu+sv0YrXcfzaDzXSTir0/L/Ski6M6Luoo1/wtsmknrYMJ5nkVyTiP8aFk1P8W4hrOf/6wepDV3K3yXQ6ig==
+ b=rhaLoJkm9VZTPwrl4PGp8mlQDRcCOhDT5V38l/9xzOh5EOplthtcwtua94v8f7xk9jNN9lmVmoxX7MBmorp/J4Pp9P7jTXaHUL47PzFO/2It7bKXzXUfoPhbSj7HW1k42qJwn6n2HoSPl1VTsNZKDqg9bEKk6wR6MlG+634NMaQQ7UfHRMnXSwL763LqjYVOcPOy2Tv9qMv2rhbmxbo84tONVv49NmUMVy3CZmyjvj5KwDIql7mFQXWjMfnxo5EtHbkb4aXQ7fz+IqKmNqLDkzCsUMD1alYQpcci7Yj69j0A9GRbAYdelPha5IUDMQTW9+gBbMyOl7ZDtPat/7bQ4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oC/2gIg5lNEGQDL6bz0lMofw3oL3pBjMAUGC70QYXuI=;
- b=X7haz2WU7eRVhVa72bMtzgj0d2UDDhBTOM47IZwpdFZDGCMYY3dwdr08wZiuhFoxDZnE/khrh+yAgU9NbuSTwr1pEy3CHVBY+SUmGDjUmOEfUGdAEuLpSQ4uuaNGaA1GZ3Lm7QH5kPKmV4aoL00YYtDd9zthPHSSE2zvCNbxxqrWlhfp/32qunItOM/efktalkRMBQ0VToWz+Aa7qIoWBDT7IRyUiTWpeT2wirKsVM/l7sjEkaTbUJ0slHWWFu3JVDwITIgFlYMcNBnNk/YJblMRuzVpncIikIxPhZo4Sav8Lz2pl4AuPUuwBZ1iaJIYpTYl2vrBN/pnnsd94SNc1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ bh=2xm7oEjLTeAnKMjPILSDktBHWaEnAOxlk1K0XS0rF9c=;
+ b=Xlx5GrUuelUFgMcmtAPG5PnFs9dO4pHtTvonZhaM1HmR3p4+zf325yrinnlt8cU2FuwRSVgUWd3ayLpWCjkdxO4FNyMGM7IM/cGf+j0rlSDjR7ocXFRVyWCdwMvS5Jy7RWCQsm/ALtbZtKdhEAYvVq13sv/7rgyPTEcRrgGxBTtwH7PuJ8/UHP8fgvi4tBSkL4o8fbq/CLmz+1L6cp1nCb6klGKCvGoCXI0wljYm1bQzD8ubz6/k5IMKrayeKUU3UqsJJa+aUneSn9wp7biItGSepigX2Txx494zrGCTI3qidz2K6KMQzzU0tK5CsLOaABsvZ6r6lEippNj/0+KVNw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=st-md-mailman.stormreply.com
+ smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
+ header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oC/2gIg5lNEGQDL6bz0lMofw3oL3pBjMAUGC70QYXuI=;
- b=ja1sBYWuSk5aF/a4E++BHIb6x7VvZoIKaZIawHr07cSiKtYV3VygauRvksukQu5Q2jJKPBE333VFbt0EPGGFMZzVd9KJDMGTr8BanopaOLlE6B2H/SmMvE5s+z665369jVV1YmCn0kpEfVBy9czGJlv0zl3jfgORUs02hfXTM4ZKyvpt1qQIWJArOQCV4JezZh8/VmF7Waog0dFK52DXwssSXj1JUGmRXJM0Xz8f1JDiUyPS62WTqc1xwfSS/1fz8/m02bR7bAT2IZkxqjwM8RuxDeLf5IGLlOkm3kWWoHMIFlYD1c0qW1/d+hCdnJj/thmNInWX8PaesBP45j+zMw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM9PR04MB8065.eurprd04.prod.outlook.com (2603:10a6:20b:3ee::8) with
+ bh=2xm7oEjLTeAnKMjPILSDktBHWaEnAOxlk1K0XS0rF9c=;
+ b=Op4qmTPmiYZWr4jO4RrV1DNm5wvuqBkBddx7cdH0E11TmMEEHIOjg2dRl2/xt3XhfPwAN0prwc16e/SK/hJ1Mtu6wDp9QO9e2+GZE6TpP73/M9VqF6M1OA1AcvdIMKBr4K4T8lCe2BHzjtEEw7d/0vbzhtAQTK9JkXcJZbOR8rYDAAJeBzXHB8unOyckReYgEsuUfXPRuSno5UekNTi4Iz9wVABKz8+1TiQ+Wz9ziRrIrrAphN/+CC1YgpwO2JUhCt3Zc8FAX/52Zq/MbU1z6htOeFN+vGUyW3IhdCQWqr6Mn9uMLEZh8jf7+qmmaUzYUYEZEYD7i7jCGHNWN08Siw==
+Received: from AS8PR04CA0133.eurprd04.prod.outlook.com (2603:10a6:20b:127::18)
+ by GV1PR10MB6292.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:90::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Tue, 21 Jul
- 2026 16:52:34 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0223.017; Tue, 21 Jul 2026
- 16:52:30 +0000
-Date: Tue, 21 Jul 2026 12:52:23 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Akhil R <akhilrajeev@nvidia.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 00/12] Support ACPI and SETAASA device discovery
-Message-ID: <al-jx5AvUrxq8I75@lizhi-Precision-Tower-5810>
-References: <20260721040805.1696503-1-akhilrajeev@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260721040805.1696503-1-akhilrajeev@nvidia.com>
-X-ClientProxiedBy: SA9PR11CA0010.namprd11.prod.outlook.com
- (2603:10b6:806:6e::15) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Tue, 21 Jul
+ 2026 17:00:56 +0000
+Received: from AMS0EPF0000019F.eurprd05.prod.outlook.com
+ (2603:10a6:20b:127:cafe::75) by AS8PR04CA0133.outlook.office365.com
+ (2603:10a6:20b:127::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Tue,
+ 21 Jul 2026 17:00:56 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ AMS0EPF0000019F.mail.protection.outlook.com (10.167.16.251) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.5 via Frontend Transport; Tue, 21 Jul 2026 17:00:56 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 21 Jul
+ 2026 19:05:33 +0200
+Received: from localhost (10.252.29.127) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 21 Jul
+ 2026 19:00:55 +0200
+From: Alain Volmat <alain.volmat@foss.st.com>
+Date: Tue, 21 Jul 2026 19:00:27 +0200
+Subject: [PATCH] ARM: dts: stm32: add LTDC / DCMIPP access controller for
+ STM32MP135
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260721-etzpc-mp13-ltdc-dcmipp-fix-v1-1-a969f2ab8da1@foss.st.com>
+X-B4-Tracking: v=1; b=H4sIAKqlX2oC/yXMMQ7CMAxA0atUnmupSSBAr1IxNI4BI1qsJCBE1
+ bsTYHx/+AtkTsIZ+maBxE/Jcp8rTNsAXcb5zCixGmxnfbezBrm8lXBS4/BWImGkSVTxJC/0Lvp
+ wGMN+szVQB5q45t98OP6dH+HKVL5HWNcPUw1in34AAAA=
+X-Change-ID: 20260721-etzpc-mp13-ltdc-dcmipp-fix-63d6b9ab8451
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Gatien Chevallier <gatien.chevallier@foss.st.com>
+CC: <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	"Alain Volmat" <alain.volmat@foss.st.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB8065:EE_
-X-MS-Office365-Filtering-Correlation-Id: a07b9732-e159-4f1a-e198-08dee748742a
+X-MS-TrafficTypeDiagnostic: AMS0EPF0000019F:EE_|GV1PR10MB6292:EE_
+X-MS-Office365-Filtering-Correlation-Id: e130a260-e5bf-4bf6-b75a-08dee749a1d6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|366016|7416014|376014|1800799024|3023799007|56012099006|11063799006|10067099003|6133799003|18002099003|22082099003;
+	BCL:0;ARA:13230040|82310400026|23010399003|376014|36860700016|1800799024|18002099003|11063799006|10067099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	ZyhTqa/RyGYDrc9/Ov56/x9t5m3N6KrDL4JOdBaPjB1SQ2MbD6CxjO1QrT7hiBOjMmJjP6xlnLRPAc9MLJ6H7Ihba+PptSRH06TPLN4T/2IqUdLTSDiz1qL44vv3MUUdY116PTyN9u3qzaC7DsOiHGUZFhRA5hjAF8+OngAXAOaV6nt+GChamQIuoBjzs8+N/L6t0PCDvHsNE1tcVinKBzb+IuOJbGPql5Z5hXWI/DGe6FCjOH5qIoxUk4l+lIl2oPfD/dqKT7kMRuYr6t/U5Zy88S8nNQAxggTjkGgaeIS+mcURZw7BYsBVfnG/8AsfVFFKblplEfdeGHvshibhtysvjSdUjUfw9nGEz6EoqnCHvfN6u9Ix7jkMmKZZuLmTCIoFZlG/m5VKobeAGMNd1NJcjwxmfA84OZMWxnmUYReXL9Ay33nsfB10+39UgrsfyMhbzGud7aPXj8xyOfn1Pg8+q+V7CbPQPJwFG1Tr50+cKWtJdjddUt5WPJJM3yRFwiKJynkZYEgiFyp5f1EEqTAAES61NkGgsCemAkBrruhPxa8RgOT0DW1ZbC4VmwSVlbcQi9hTknN8o0WsaqvhWlPigkgjN01pfyt+/IUlPF8DgDX1S22NfwFmeTfqPhpWCaKX2mVdJJe2p22LzgyeVAz7ckYUAynDzJbi+QxxspU=
+	JotKiU+9M0VCfqgwD6bUwQ7AT3RJlTfO3OWzD+3yJDpBEA2q3KoM3iiz0BGnQPyB1HMlByszIN8+qdYfThaHUd0T59jreufHEvctM+2pryilerD74DEV1ftIkRXEEPQCTbuI1jQeQkZzt9AfI4UCmsGyfdexCIqx65UkYgtM8a3g5jWwC2f3YyFzblfk0uLvPnt/G3RsCPZSoNrEbTiVC8Sikmnnv4iFB6rQZIpiPXciU9LOQNaUtLsPP1ReSDYGg3rJ5xEHe3BQeVmEq+IsV4fcgoDD237hxeXB59pvmMPtcS75B+HHn0/rS46gg0bMvmE5TfMWN0vW+ahHUFUM6WF9CW02pb+n9/bVpibT4FhrmxlKD782E4bFSEh3WaJVLTW/h1YiPK72jtThfun3+dGMUKFvWIK6mMdCZZTij534lQuB2aAABy5wxJladdkXvmfCDFuhZJUQ3WSe0gIDbiB5UAFZitHr4HDylK1SiaafGS6wG1qeA3V0rWE1PcnPXgtPM8r+AzVByzXwtdRoQQfsWcl+yVVxmxLaeeCU6Ki55eu2kXozSZn6MuV/uLOEMjI0fW0NBbDO1Y5SGpTiOTUcRx6Zwwh9Cfaw1+j/5LyS4FY6ML2B/hylZ7tD/otXb7jgFchV6jvfPhGL4cB2FLe6W32HXfnVuOqh/G1PRqbX8nDyZQGF+gIawczaQ2dnQPgOtv16H1rImAEDScYUzg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(7416014)(376014)(1800799024)(3023799007)(56012099006)(11063799006)(10067099003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(376014)(36860700016)(1800799024)(18002099003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?G1Yh1zgZelneM6AOln74DBFAqRcWjoLbpYPTrte6+cQYcBXGjPMfanFZlISC?=
- =?us-ascii?Q?cjeIIWkgICZlsw3AycrN1ISCCdnn/a432qpyhm0XW3O1zLQS4UlXL5uFILy2?=
- =?us-ascii?Q?d4Jv0ubrELD7JGQ0fxpj+YHwiJViQB3SaQZkh4sb6V5ggYL6f1JfXs5YI2Dx?=
- =?us-ascii?Q?mSiuvpfPqMz5fQlrji0Eh7bgw/LjoyKTUDUAXXauIFoMliO2ztciO6/8mc9e?=
- =?us-ascii?Q?LX7oRrPYdDj2xfy7NP1eM46LPjWYK1Oq96WN8oOz6uX7dnrXg8uBpv0Z4Qzn?=
- =?us-ascii?Q?2CLA1tDtGx2RxqwgTaTEMHsxBjwmRcSuTTS4PkYaKyJeBeTZ5O00cx10g7Wq?=
- =?us-ascii?Q?InqS+tpPiF7k+8p53E2wSKjIDMDaIrBJ94dMhMJ7KVTbUif6cg8DzNSWvyTN?=
- =?us-ascii?Q?6AG5FvE2+8Td8WA1KBsUWSyR0uYbpkXTvhaQ3gUHGYzWHRcEgxHmGPSSMJms?=
- =?us-ascii?Q?gvUtcsoRXDJYzTZB9NcOAETyNlwSXJHWiLlEo2JFt97zU1sL12XFd1SGnIbX?=
- =?us-ascii?Q?nvbJB/VABT+I/tboakor3QSVb3mt876g1Ewy/V1BR1DriIQ5QcnN+ypkGZ9V?=
- =?us-ascii?Q?FDmo4OMnqn7Zv+M/6NV9ITrQmXpKQVzhJ/tQMlsDy5adXbP1ucKCtXcDA5kI?=
- =?us-ascii?Q?zXLV2G01F/632IHjs738q+mQN57BFiWmvohYPCCcBIb3UPf3GGIfBOHrwcDz?=
- =?us-ascii?Q?NneZRZTBQMNYksG7/GQJFyV7KXMgaonX3J5S9prnX0GqRZnN9+1hwgLLh0Vk?=
- =?us-ascii?Q?mjVtepFYOARcUHkuohJ+YrsjW2lkgcJHgfMcZ0JFoQH1f5BRCQRNRVKoQcBq?=
- =?us-ascii?Q?iRPesFn/CrQr4I/XaHhbMMpvsrykX8mCHhoMKRSmvLjtcwxhcf9ReG0HjBOk?=
- =?us-ascii?Q?SpqS8kUwsow/xlajWfDuzmS0zxj/OOlcWLqbAr3FQbeF2qP2bO1brEQgCLq9?=
- =?us-ascii?Q?f8K1bThKSd80UO+sf5oVk4Nk6tQuxhukFd/WzjhCLnvjygptye0QlZTJE2nO?=
- =?us-ascii?Q?s3T+sAXwdU+BfvMDwB0Az+yyWmT2nZ04nyoHczDj0TH3btUsdEa97MgDw2cC?=
- =?us-ascii?Q?+f/gD1ZSR4/Rgnc4AQgW3gudAjqQl5ohbHBGLHVRxLfpNYIeWBbmKBkOQ5t+?=
- =?us-ascii?Q?wji9CWIbnb4OsAoeo+6T+ee/4UILPmOi6bEmOwOe/hAgBZirj8Q3zpLIghaD?=
- =?us-ascii?Q?VJYiO0qytQwSGu1zYX5+5eNPXKGQ0/KcC5LcoqpU9zTmCjkjbh6kWtUewDaM?=
- =?us-ascii?Q?HNQ6+darfuRTBbeKPq0KvccIU31kdowJK6VB0Txd6bw+PF46ZJGzyaA9UDiV?=
- =?us-ascii?Q?KY4wyjXpLBTYBpPTicrqnefoZwrmQvdaYkZZGcH340ucpYO+nS4aXl5gDHd1?=
- =?us-ascii?Q?deibAoTQ57Nj3bDHmsgAw6U3vgZ2bJuzoS1XRrGNu0oHbaSRzgc8PWXajYa5?=
- =?us-ascii?Q?Yfz89/Cta0h7PxfcjMfz9sMwCasQOGHlsuU6tQklYKh+XR1+F4iVb2inJ5EP?=
- =?us-ascii?Q?7KJfdgCLmzVVX/JhbJIED+4chfuQxIV7hwa2SIPKKk6k3EnJFCSdJLVTHnOv?=
- =?us-ascii?Q?8wh5ehXzxZahla5+HYzOKbZ+v92NZcW5athkh9qXCjCk6cXsvuqTsbfG6kv7?=
- =?us-ascii?Q?5G9UhMHmw7cp0Pvhk6n7ZZNZcFep8q4QYppWvSFILN8OKVdUC9fUxo9qYQuv?=
- =?us-ascii?Q?KAQw4brt5C/bURGEUY0UiqTS8SdWKfA8sXwrrLLwnGzpaP/eTJ6fFxE4VMdB?=
- =?us-ascii?Q?vrSk305l0/jasR7ySVHe1ZbI/xSnxg4/xozzYt63T4lTEHHMxW6t?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a07b9732-e159-4f1a-e198-08dee748742a
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 16:52:30.7423
+	MsdyZYOpYL9+c7wlKp19EGEHtJqAgbUWbYl447l4+f4n2tkQyptggI09rJ3rmr+2OncAi/o5kP2j7Q86iwoPcAeM9T6Z8WiAxKPbW1yEwVYmERk44KHJtXN7QgFNiV5AlYCq8wCx7I8aM4jMOdkShTo7hd70hdb2HDO8sywtqsr11t2qg8vKs/HYEWyywMW0lXJ28NbTIqh82fqK89AmZPINUk4QfhmZnSmfwKorVk+BOnLMU6CZnnrCb7Q1gthhs3bPZ0CyOmTjnHhQA0YzMsEFti/1egmqY7QDCeWDdh9dBlBAE1WBsMQM4r7YU65Q4YS5d5QxKpD+7vsIzI4ZaeCYLmtWHnffZKt6yQiX3yvDNwXASwpk/iBIccfH2+S+tITC7QtTIqndQZihNTR2vlcxYnziMUPiYd+K5LEdQZKWTNfIODZJnf6vplrpco29
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 17:00:56.6184
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xPWRgMBoKGKcfVd26uILhoV4SI3bN3o4DTPZxPty03Vts4xEPIQ/su3c7utm5EjI+O0UWNRaX4sUlIeeW78iw8418gt6lismPZuM/iEERgGvnleXhVkZlJ7X5S8x74Mg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8065
+X-MS-Exchange-CrossTenant-Network-Message-Id: e130a260-e5bf-4bf6-b75a-08dee749a1d6
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS0EPF0000019F.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR10MB6292
 
-On Tue, Jul 21, 2026 at 04:07:48AM +0000, Akhil R wrote:
-> This patch series adds SETAASA device discovery to the I3C subsystem,
-> enabling support for SPD5118 temperature sensors found on DDR5 memory
-> modules. The changes also add ACPI support for all existing DAA
-> methods like SETDASA, SETNEWDA as well as I2C devices on I3C bus.
->
-> SPD5118 and similar devices on DDR5 memory modules differ from typical
-> I3C devices in their initialization. They use SETAASA broadcast CCC
-> instead of ENTDAA for address assignment, and per JEDEC specification,
-> are not required to have a Provisioned ID or implement standard device
-> information CCC commands (GETPID, GETDCR, GETBCR).
->
-> The series enables describing all I3C and I2C devices on both Device
-> Tree and the ACPI table, using unified device property APIs throughout
-> the I3C core and the Synopsys DesignWare I3C master driver.
->
-> Please note that the series modifies drivers across multiple subsystems,
-> like Device Tree bindings, ACPI, I3C and HWMON.
->
-> v5->v6:
+Add ETZPC as an access controller for the LTDC and DCMIPP found
+on the stm32mp135.
 
-Thank you for hard work. I glance at there are some important sashiko AI
-review need be figured out. let me know if you think it is ready for me
-to do manual check.
+Fixes: a06b9560eb6c ("ARM: dts: stm32: add ETZPC as a system bus for STM32MP13x boards")
 
-You can simple reply sashiko review result by providing your justify.
+Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+---
+ arch/arm/boot/dts/st/stm32mp135.dtsi | 42 ++++++++++++++++++------------------
+ 1 file changed, 21 insertions(+), 21 deletions(-)
 
-Frank
+diff --git a/arch/arm/boot/dts/st/stm32mp135.dtsi b/arch/arm/boot/dts/st/stm32mp135.dtsi
+index 834a4d545fe44..f573335edf6b4 100644
+--- a/arch/arm/boot/dts/st/stm32mp135.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp135.dtsi
+@@ -6,29 +6,29 @@
+ 
+ #include "stm32mp133.dtsi"
+ 
+-/ {
+-	soc {
+-		dcmipp: dcmipp@5a000000 {
+-			compatible = "st,stm32mp13-dcmipp";
+-			reg = <0x5a000000 0x400>;
+-			interrupts = <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>;
+-			resets = <&rcc DCMIPP_R>;
+-			clocks = <&rcc DCMIPP_K>;
+-			status = "disabled";
++&etzpc {
++	dcmipp: dcmipp@5a000000 {
++		compatible = "st,stm32mp13-dcmipp";
++		reg = <0x5a000000 0x400>;
++		interrupts = <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>;
++		resets = <&rcc DCMIPP_R>;
++		clocks = <&rcc DCMIPP_K>;
++		access-controllers = <&etzpc 4>;
++		status = "disabled";
+ 
+-			port {
+-			};
++		port {
+ 		};
++	};
+ 
+-		ltdc: display-controller@5a001000 {
+-			compatible = "st,stm32-ltdc";
+-			reg = <0x5a001000 0x400>;
+-			interrupts = <GIC_SPI 88 IRQ_TYPE_LEVEL_HIGH>,
+-				     <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>;
+-			clocks = <&rcc LTDC_PX>;
+-			clock-names = "lcd";
+-			resets = <&scmi_reset RST_SCMI_LTDC>;
+-			status = "disabled";
+-		};
++	ltdc: display-controller@5a001000 {
++		compatible = "st,stm32-ltdc";
++		reg = <0x5a001000 0x400>;
++		interrupts = <GIC_SPI 88 IRQ_TYPE_LEVEL_HIGH>,
++			     <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>;
++		clocks = <&rcc LTDC_PX>;
++		clock-names = "lcd";
++		resets = <&scmi_reset RST_SCMI_LTDC>;
++		access-controllers = <&etzpc 3>;
++		status = "disabled";
+ 	};
+ };
 
+---
+base-commit: fba4a31a7f3b6b29b01c83180f83e7ed4c398738
+change-id: 20260721-etzpc-mp13-ltdc-dcmipp-fix-63d6b9ab8451
 
->   * Do not take an extra fwnode reference when assigning the boardinfo
->     fwnode to a newly registered I3C device.
->   * Issue SETAASA after SETDASA pre-assignment and before ENTDAA.
->   * Prefer SETDASA over SETAASA when a device advertises both methods
->     and an explicit dynamic address (assigned-address) is provided.
->   * Reject PID 0 for non-SETAASA I3C boardinfo entries.
->   * Drop OF/ACPI uevent modalias emission; keep OF/ACPI matching for
->     SETAASA devices only.
->   * Resolve DesignWare quirks before core clock acquisition and fail
->     probe early when the clock is missing without the ACPI skip quirk.
->
-> v4->v5:
->   * Free ACPI I2C boardinfo when an ACPI child without an I2C resource is
->     ignored.
->   * Issue RSTDAA if SETAASA device attach fails after the static address is
->     used as the dynamic address.
->   * Emit OF and ACPI modaliases for firmware-matched I3C devices.
->   * Make the DesignWare core clock optional and use "clock-frequency" as
->     the fallback when core_clk is absent.
->   * Keep DesignWare pclk, reset, and match-data handling on their existing
->     optional paths.
->
-> v3->v4:
->   * Clarify mipi-i3c-static-method bit semantics and assigned-address
->   * Add I3C_ADDR_METHOD_VENDOR
->   * Fix fwnode reference handling while converting child property parsing
->     to use unified firmware-node APIs.
->   * Align ACPI child enumeration with the I2C core for multiple
->     I2cSerialBus resources, ignore ACPI child entries without an I2C
->     resource, and populate I2C modalias information from ACPI.
->   * Update SETAASA handling to use the static address as the dynamic
->     address, skip device-info retrieval for SETAASA devices, and tolerate
->     M2 for SETHID/SETAASA similarly to ENTDAA.
->   * Reorder DesignWare I3C clock/reset to include optional clock in the
->     ACPI skip clock/reset quirk.
->   * Add prints for missing ACPI clock-frequency and SPD5118 I3C
->     device type read failures.
->   * Fix grammar in comments and commit messages.
->
-> v2->v3:
->   * Fix maximum value and indent bit list for mipi-i3c-static-method.
->   * Move I3C_ADDR_METHOD_* macros to dt-bindings header.
->   * Drop ACPICA commit IDs, keep only the Link: tags.
->   * Revert the change which proceeds to register other devices if SETAASA
->     is not supported so that it aligns with the rest of the driver and to
->     avoid the issues pointed by Sashiko.
->   * Rework multiple commit messages.
->
-> v1->v2:
->   * Added patch to remove 16-bit addressing support for SPD5118
->   * Guard ACPI calls with #ifdef CONFIG_ACPI
->   * Remove CONFIG_OF guard for of_alias_get_highest_id()
->   * Mask mipi-i3c-static-method in the driver to select only valid values.
->   * Proceed to register other devices if SETAASA is not supported.
->   * Update commit message and links in the description of multiple commits.
->
-> Akhil R (12):
->   dt-bindings: i3c: Add mipi-i3c-static-method to support SETAASA
->   i3c: master: Use unified device property interface
->   i3c: master: Support ACPI enumeration of child devices
->   i3c: master: Add support for devices using SETAASA
->   i3c: master: Add support for devices without PID
->   i3c: master: match I3C device through DT and ACPI
->   i3c: dw-i3c-master: Add SETAASA as supported CCC
->   i3c: dw-i3c-master: Add ACPI core clock frequency quirk
->   i3c: dw-i3c-master: Add ACPI ID for Tegra410
->   hwmon: spd5118: Remove 16-bit addressing
->   hwmon: spd5118: Add I3C support
->   arm64: defconfig: Enable I3C and SPD5118 hwmon
->
->  .../devicetree/bindings/i3c/i3c.yaml          |  36 +-
->  arch/arm64/configs/defconfig                  |   3 +
->  drivers/hwmon/Kconfig                         |   9 +-
->  drivers/hwmon/spd5118.c                       | 119 +++---
->  drivers/i3c/master.c                          | 390 +++++++++++++++---
->  drivers/i3c/master/dw-i3c-master.c            |  59 ++-
->  include/dt-bindings/i3c/i3c.h                 |   4 +
->  include/linux/i3c/ccc.h                       |   1 +
->  include/linux/i3c/master.h                    |  20 +-
->  9 files changed, 498 insertions(+), 143 deletions(-)
->
->
-> base-commit: 6eb8711ece2ce27e52e327a5b7a628ed39b97f45
-> --
-> 2.43.0
->
+Best regards,
+--  
+Alain Volmat <alain.volmat@foss.st.com>
+
