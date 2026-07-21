@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CF03BB12F;
-	Tue, 21 Jul 2026 09:20:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49AD400979;
+	Tue, 21 Jul 2026 09:22:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784625624; cv=none; b=AAnTythC/xUAe0PPg40E+D9F9CntoJmO+cb8j+85IniHDT5yUuIrmt+t7t6MxXmtP8OiLQd+dE0YT4ZJE/883nHQx/yl+1bqoDjB0oTkmzN512UE+Clqw6zvvPupc8zuWPoWpQHxMOfLI75IBFG4X4S01zc0URktDVweBjEoQAk=
+	t=1784625776; cv=none; b=Ed8x0Yq84xF1A9yNqvoUSJcp+rMXFECu35SXydTTTllMteUkA/8IOqjtpsOAvreuXxrFAfk9GAqIfYTjSGlLUWZJhbxgWP8pVfTg/YvQi5J96b6tHNU+ecDxYtYPpJkTlqw6DuLmvsky8fSAM7+UOUeQX3DS1sLCmBiHbTpTtCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784625624; c=relaxed/simple;
-	bh=qGl/pLf89OIbfHE2GVKxVQ0J8Z+UUJcy0M/ab/hc+Zs=;
+	s=arc-20240116; t=1784625776; c=relaxed/simple;
+	bh=Lu5keEFRDwqee3nCJAsX7LDBzrYe1RjtLunYjoaVNv8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SGcYIoIdSYG8jQsu8mBl8c7Eh6TqsYTbHt+/FYvkR5E1Cv3CAqATik6MDR0+63rKDGfUPnuHRDfUf1WvULGcJtsLBv9cVCzVbdiEXXu5mfQeGwS7oMGcEID79BvH69ocm8MocWKdG+T1zTvC/QW8Slaymn7cIxlNuyFhh6valDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=efYBWNq6; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Cb0kw912+LBJnkgj0pTHvYLlWTVMd658xlFwlxUHyDdHoH7V/CP87VFp5i6RbuvfGHLuKg/1VqWUClmYZHbDfvbkFQVoSK1oZ6QR3yr9r3BOqdw7LCwQ+1NhmVfrGdKgGx59AYX1jyP39KcN/MK45v6FmyTfPb97GrbYcS7s/0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CwVH6EZO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="efYBWNq6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F9441F00A3E;
-	Tue, 21 Jul 2026 09:20:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CwVH6EZO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D73EF1F00A3A;
+	Tue, 21 Jul 2026 09:22:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784625623;
-	bh=1BzWx3Iuo3Hr4NPySjXIVVT+qekLZW46dc2svWyGqug=;
+	s=k20260515; t=1784625775;
+	bh=+0fGWALh5ozcq728JJWZQDIb8rxjjGcKn/1h1M0KIHc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=efYBWNq6OuSv7aU9hoY7Xg4ItL/NCIYn9C5gTUV2N/b0HOdry5uRoQpE7FdY1h30G
-	 4HsIMPdB67M/IMOMzZUdR/U9QoqaaBX3YGD883/t4VcNIwNDRgGxqmzSixHyOWFjcq
-	 M/hLWwFYruiCgqEb0zW+Mc0aOAwVLSdMRmiRgus5aPyvVOlw2Iuko/2sbCH1w+22u6
-	 lpYPApPK+X486UTI3mn8KPCrXuNZamdxvZBmbeqi7ftUV4q68KdVT90T815R2Zctzl
-	 +GZGI4MaRt5WWppTjr/xVNR8v2pPs61FQ2c697T3nUSjsdO+R5Asw0ipQlajB/67DS
-	 lvFgq8vh5XRvw==
-Date: Tue, 21 Jul 2026 11:20:20 +0200
+	b=CwVH6EZOdsQpumSciexncfSJ+Deogdm8dZ+1XDoFi/9raTHWV/0VTh/gCyBOO7lsZ
+	 WSeI0gyqj3a6trSzCithf8pyV8W9kMqUn0W7hFGjT/aCvze+X9ou08UxrVrIdtg1pZ
+	 AEzjVqm/fB3owPKMWBiWXrKYgBLhfbaM0zahlT3S5AEzFECJNO1UeeABpbYa+JxX7z
+	 8JMnOZmhBwdAaMSm23O/XbiuanW3g59GXOPF9tGtYOEVyOdjXg1n9fZXWx87RLuGHE
+	 tLchi5tFhFu+U2ViXEchudyw8YH6qvsRro2DRy1V/WTQ395aRYfXRlSmLF55hZSPmi
+	 2TO2a3nXNlOMQ==
+Date: Tue, 21 Jul 2026 11:22:52 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Praveen Talari <praveen.talari@oss.qualcomm.com>, linux-spi@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] spi: dt-bindings: qcom,sa8255p-geni-spi: Add compatible
- for Nord SA8797P
-Message-ID: <20260721-convivial-onyx-mandrill-736abf@quoll>
-References: <20260714120226.1788391-1-shengchao.guo@oss.qualcomm.com>
+	Manivannan Sadhasivam <mani@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>, 
+	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: remoteproc: qcom,milos-pas: Add Eliza
+ CDSP compatible
+Message-ID: <20260721-benevolent-wonderful-kakapo-ca8c2c@quoll>
+References: <20260714-remoteproc-eliza-cdsp-v1-0-32eb7a1f2c59@oss.qualcomm.com>
+ <20260714-remoteproc-eliza-cdsp-v1-1-32eb7a1f2c59@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,18 +48,29 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260714120226.1788391-1-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20260714-remoteproc-eliza-cdsp-v1-1-32eb7a1f2c59@oss.qualcomm.com>
 
-On Tue, Jul 14, 2026 at 08:02:26PM +0800, Shawn Guo wrote:
-> Document Nord SA8797P QUP GENI SPI controller, which is compatible with
-> SA8255P controller.
-> 
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/spi/qcom,sa8255p-geni-spi.yaml      | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+On Tue, Jul 14, 2026 at 03:24:01PM +0300, Abel Vesa wrote:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          enum:
+> +            - qcom,eliza-cdsp-pas
+> +    then:
+> +      properties:
+> +        power-domains:
+> +          items:
+> +            - description: CX power domain
+> +            - description: MX power domain
+> +            - description: NSP power domain
+> +        power-domain-names:
+> +          items:
+> +            - const: cx
+> +            - const: mx
+> +            - const: nsp
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+No, do not grow the ifs. Eliza belongs to class of SM8750, so I don't
+get why it was and it is being added here.
 
 Best regards,
 Krzysztof
