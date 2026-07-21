@@ -1,234 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B8E46C4D9;
-	Tue, 21 Jul 2026 19:20:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60ACA46EC9E
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 19:24:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784661649; cv=none; b=ipbomZ/hi4lLfmxS0pit3O7503NhbonL4TPrHsTwUbYAqgdqis8G4DiIEGsFjKANd3ONEG5GjH6CM8qWVZ5I7NtlhJH+kjbV+X2zGaR4orEw9UVpvJgz3o6GGpgRoAyjUQj8FVYvEhOUrHcQbkRdXcdYbVVjAUAyh8ezPLcYO6g=
+	t=1784661885; cv=none; b=tfiKl2NhjN9yqXcg9g4fzhMc4/q9ytawSozzh/xjEmhYvsmSzWyp+F6t6Rlwkxf3yFhxnaR3p13CkbCZFbcRn1Icm3wkTeVdlJ7aWjts7NDh6kRI26yL4xizeeBYU1L6CuC/r3D9UYShvBB8Wt5Gx4DZADXQG4PVs0pCrTgFcCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784661649; c=relaxed/simple;
-	bh=JSKd0cubOpOjGFX/sfPOicNmfAArOyDw8/F7hv38vRA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pENjFj4/wUP2jzOMYpvfbqA5ZhdmB/oT5TCo8vStl2+2eMDdvikSBBj9fWjIDsx67jG2tThtmk7hR5rs7SkX8Aaj8eWjbW1Kq8ohsczO4qvlfUv/2/NaqERjdHGi2kiCPOkiyxr8csVq+SNAI/W4064GUuOBe9TnXjVKMWdyx8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j+NSSIRy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784661885; c=relaxed/simple;
+	bh=l0DnZO8FRwU2en+jhINecBJpPrpTXO5fLYNKyERE9oI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jAFHcfTAWWLHTtnOjr0HHoa9i44NECsogPSSuFGDelJ8EGtK6xEDbiusjT+QDgfLo/RLyf1r+oNdMs/UZ2H0rT0t8iC6glCSBinRynWx8FrHL090tytVrfD0GeUz4sSk/BLESb7HdbfQP9gfANYBTCw6IkL74Wnmh8iVJQEm7MU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=D1JEOYqU; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j+NSSIRy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76EA01F00A3D;
-	Tue, 21 Jul 2026 19:20:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784661647;
-	bh=T0IZn4vCkeOQBaSYJmPgaIxJ37aEWKzPvnTwNBrMX6c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=j+NSSIRyeVWM1sKTwpRI7TrddiF9pJs273cYx5e0N/bZ0uxaIWvsMzzkfJLdD+Ew6
-	 sgjcj3YNCFJF7GkL/g1/XpJ/HVVttBHeMomVVQqhzNsHFiz1zf+UH8SrQrJsLU7yvT
-	 BkiviOIK3FheT7xS1Gbg+xZxwHm05OhoPSnDGUOOVQ6B8n2cOIwnld8YU3L0Sma7td
-	 Dlqs9/gByqRmVLE2+MOysMPg/io40gNUGK1/TZ0UcPx0yMroayZSmWlE+BZucgBUiN
-	 TX1I7EGdvDWvPkqd8b7BClQ+Ad08Xp6JkHzBlaq+G9zgzi11hImccA3NJ8JkTqUPVu
-	 BIsgqDpuORksA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 02/10] hwmon: Add Qualcomm PMIC BCL driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Manaf Meethalavalappu Pallikunhi" <manaf.pallikunhi@oss.qualcomm.com>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <20260722-qcom-bcl-hwmon-v2-2-febe2805e17b@oss.qualcomm.com>
-References: <20260722-qcom-bcl-hwmon-v2-0-febe2805e17b@oss.qualcomm.com>
- <20260722-qcom-bcl-hwmon-v2-2-febe2805e17b@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 19:20:47 +0000
-Message-Id: <20260721192047.76EA01F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="D1JEOYqU"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47c6e9a694bso6642895f8f.1
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 12:24:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1784661881; x=1785266681; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xv7RcLIXwcJHJp4KDHhwlbXkkuhNl3KPHg9K6zOoWbw=;
+        b=D1JEOYqURoXf5D2i3SsmyJge2VH7Q57Dgsr5HEC5V1/SVAoDWZvMOLSU/DVg0ZzwVo
+         H5wCVCFAlD2VZd0QGk7E+Nr45NagJN3ce2g0QfmHe7ZsYj8H7aJdiU9UMfidnNhcx41l
+         3txMPO5yUDcssD4/aa8AUwwqsvSFzSV5MAIjq6XEt6jonDP6KFhQIuwrmIozQmql64Jl
+         wtF2GEJ0K7E/afwAOji6lhoEVxyMwtOQ01mPARNclwxiw6cfl/cMMS8aVT9Bkv341tTj
+         fnfoy1xf4n8YqZtzvj3vYeVL3dgpum6wtGw8O7g6E9ZRl8crhDZnwV9d7aRaLpr8uChe
+         nPAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784661881; x=1785266681;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xv7RcLIXwcJHJp4KDHhwlbXkkuhNl3KPHg9K6zOoWbw=;
+        b=K5sAYyLscd5bYm0AIh/wC1jN+1h2PhAl68A7AZ7Ta/Oy3XONfEXsR2+ImeckT1LVDD
+         igxwO2fvhHjHEUOMMFzZtajDDm5ji3WPD/NzQbCuD4fK5kE9mmQGQcwfOtxSk2cEwcL9
+         kVHPuoHPofR5P33ksH626jo2NnmSMykGOOTdCnZjmn2giDWaY58I7kPqF7M5TK03Rw/B
+         xkSb+cY40Z9yPhzdCV9BFO/PNas1f50j4YroA7sYAtnKU4IWDSVJaqqdFCwN2cMHJ4fK
+         WzE761SsZGNfPbDwkCdnkL8PI2se0AJRZiCF3mzc2YwLmT1vH/15cUheV8j6LE7nL+oq
+         zzog==
+X-Forwarded-Encrypted: i=1; AHgh+RpbEzPm+e+cIb50ausZMT1uJpESXKsZGHQGqGj12cNZuAt3xDj9n9TKNPxpjJD49yfbsPiGgIrHB8KX@vger.kernel.org
+X-Gm-Message-State: AOJu0YzCAhSPjSvuTx5Kckut2SjmaaeITQUjYVK+ChgKN2biuBmVjNKY
+	9/qOSYVckQ3qZgD/+B3RXtD5ijUmr7IBXvtygiHGtDcnZPEBIzjT8lgETTTA6JGkZ+o=
+X-Gm-Gg: AR+sD11HX39bB/z54hEn9NOaE5WeddbxD+LYdJw9T9mytaxm7VA95yNWV+Yni8AtXoQ
+	X/IJlNHVw3AEMWvy/5qVewZxH4qvxy3+uXy5wJEBtkG8BlaXVPybmj4OkQmjCE5Zhr4rDUpeFMs
+	CmEgdj6G7ufjuqPU6W/ZV/UeSC/J2W2Ncalk7yzNZj/DhSM5qjRwJN9qtt/UlBnLFbrT778Ruc4
+	3MaV4oovxnvJ26bMdlHtE4LlOMcJAP16svfTUTP6u1q/mNf5hJSjymBs6TYjsCs8wU1A5nJ+6tB
+	b0sq2J4qPD3KhSBEhBQUHP+I9oqn02HqsyF2EUrAzEVCK75HZFRfDkvuuWgNhNQQMZprQLO9Kp0
+	yGbQvpwrs8jBpQM4IjeqpKvCbS4QaldxdpsgoAAO5h73w5xbFR/qybvikiOQSjlzT+g6nEE5lh/
+	FMCax/70A7ko5GaTg=
+X-Received: by 2002:a05:6000:2988:10b0:47f:6981:a04a with SMTP id ffacd0b85a97d-47f6981a22bmr13980470f8f.31.1784661881488;
+        Tue, 21 Jul 2026 12:24:41 -0700 (PDT)
+Received: from [192.168.0.101] ([109.76.186.235])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63e49ce4sm41781481f8f.8.2026.07.21.12.24.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 21 Jul 2026 12:24:40 -0700 (PDT)
+Message-ID: <1642e709-df23-43a4-9ac9-2e004e2b3bdc@linaro.org>
+Date: Tue, 21 Jul 2026 20:24:37 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
+ schema
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260720-x1e-csi2-phy-v13-0-160c31958863@linaro.org>
+ <20260720-x1e-csi2-phy-v13-1-160c31958863@linaro.org>
+ <LyWJAb2qKsAFTMHNJUce9VqoqbkFKUQanb6z8ziA63RYZ1P9jj1XpA83uGPvz9m4QnWvEjJFK8dGD_8EtioHVQ==@protonmail.internalid>
+ <0da6d314-bfa9-493a-bcc6-8c3b75751d0c@linaro.org>
+ <88ae6662-cb85-4e3a-bbb5-1b536348df34@kernel.org>
+ <_t1jiMTX3iIXhUkTDz0Cbh_uZhdUK_Y8vlIwxt1VNRbuKuRnpVCWabal-b4AuFrVaKrDnQSFOWtDn6-VCbS3DA==@protonmail.internalid>
+ <345ca98e-09f6-4965-87bb-e64dac096498@linaro.org>
+ <c236cf94-a775-4158-88db-9a337c7fa862@kernel.org>
+ <e8bc8ade-d699-497e-8c4a-fbdc03fcc549@linaro.org>
+ <wzsAes-UM4_r8scRyy_yhd39ZdxvT8W9VroVPOGWABLsw7MqR05o_z2MwhgiC1gTSBgfVHpXWADbsqoIOsR0Uw==@protonmail.internalid>
+ <ec3d6035-d4de-4e38-8c72-b29a04b263ae@linaro.org>
+ <1f128571-ed46-4a60-9594-74fdd5f440d0@kernel.org>
+ <864c13a0-a52c-43f4-9d94-646bf66ba31a@linaro.org>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <864c13a0-a52c-43f4-9d94-646bf66ba31a@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Uninitialized cache timestamps cause the driver to erroneously ret=
-urn cached 0 readings instead of hardware values for the first 5 minutes of=
- system uptime.
-- [High] Writing the maximum valid threshold value to certain sysfs attribu=
-tes causes integer truncation when written to the hardware register, silent=
-ly applying a dangerously low or zero limit.
-- [Medium] Devres teardown ordering race allows the delayed polling work to=
- re-enable `irq_wake` after it was disabled, causing an unbalanced wake cou=
-nt and triggering a kernel warning on driver unbind.
-- [Medium] pmh0101_data is missing `.data_field_bits_size`, preventing volt=
-age input readings from being exposed.
-- [Low] Using `DIV_ROUND_CLOSEST` with a 64-bit signed dividend causes a li=
-nk error on 32-bit architectures.
---
+On 21/07/2026 14:35, Vladimir Zapolskiy wrote:
+>> - bus-type from the media-controller
+>>     Already specified with camss still aligns with Rob's declaration
+>>     "the consumer defines the mode" so I'm comfortable with this
+>>     compromise position.
+>>     This will still facilitate CPHY work/mode-selection via
+>>     phy_ops->configure() with how to define the CPHY part TBD.
+> 
+> As it was discussed there should be no phy specific interfaces
+> between this phy driver and CAMSS driver.
+> 
+>> - data-lanes = <0 1 2 3> valid
+> 
+> Would be nice to get an ack from linux-media maintainers on it.
 
---- Patch [2]: [PATCH v2 02/10] hwmon: Add Qualcomm PMIC BCL driver ---
-commit d1c02d33d76b0d05ddfd0d17bd163dd47036945c
-Author: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-Subject: hwmon: Add Qualcomm PMIC BCL driver
+OK so clearly the consensus I thought we had reached doesn't exist.
 
-This commit adds a new driver for Qualcomm SPMI PMIC Battery Current Limiti=
-ng
-(BCL). It exposes battery voltage and current monitoring through the hwmon
-interface, including threshold-based alarms and interrupt notifications.
+Vinod I would ask to merge this series as-is.
 
-> diff --git a/drivers/hwmon/qcom-bcl-hwmon.c b/drivers/hwmon/qcom-bcl-hwmo=
-n.c
-> new file mode 100644
-> index 0000000000000..a21433b45482c
-> --- /dev/null
-> +++ b/drivers/hwmon/qcom-bcl-hwmon.c
-
-[ ... ]
-
-> +static const struct bcl_desc pmh0101_data =3D {
-> +	.reg_fields =3D bcl_pmh0101_reg_fields,
-> +	.num_reg_fields =3D F_CURR_MON_EN + 1,
-> +	.thresh_field_bits_size =3D 8,
-> +	.battery_config_field =3D REG_FIELD(0, 0, 0),
-> +	.channel_cfg[BCL_BATT_1S][CHANNEL_IN] =3D {
-
-[Severity: Medium]
-Is the pmh0101_data descriptor missing a .data_field_bits_size initializati=
-on?
-
-This descriptor defines F_IN_INPUT and F_IN_INPUT1 for 16-bit reads but
-omits .data_field_bits_size. Since it zero-initializes to 0,
-bcl_build_hwmon_info() will treat the input reading feature as disabled and
-skip initializing the sensor, hiding the hardware functionality.
-
-[ ... ]
-
-> +static int bcl_convert_raw_to_milliunit(const struct bcl_device *bcl,
-> +					s32 raw_val,
-> +					enum bcl_channel type,
-> +					u8 field_width)
-> +{
-> +	const struct bcl_desc *desc =3D bcl->desc;
-> +	u32 def_scale =3D desc->channel_cfg[bcl->batt_config][type].default_sca=
-le_nu;
-> +	u32 scaling_factor =3D (field_width > 8) ? def_scale : (def_scale << fi=
-eld_width);
-> +
-> +	return DIV_ROUND_CLOSEST((s64)raw_val * scaling_factor, 1000000);
-> +}
-
-[Severity: Low]
-Will this cause a build failure on 32-bit architectures?
-
-Using DIV_ROUND_CLOSEST with a 64-bit signed dividend utilizes the standard
-division operator, which translates to a 64-bit signed division instruction.
-Since the kernel does not implement __divdi3 for 32-bit architectures,
-should div_s64() be used instead to prevent link errors?
-
-[ ... ]
-
-> +static int bcl_curr_thresh_write(struct bcl_device *bcl, long value, enu=
-m bcl_limit_alarm lvl)
-> +{
-> +	const struct bcl_desc *desc =3D bcl->desc;
-> +	u32 raw_val;
-> +
-> +	int thresh =3D clamp_val(value, 0, desc->channel_cfg[bcl->batt_config][=
-CHANNEL_CURR].max);
-> +
-> +	if (desc->channel_cfg[bcl->batt_config][CHANNEL_CURR].thresh_type[lvl] =
-=3D=3D THRESH_TYPE_ADC)
-> +		raw_val =3D bcl_convert_milliunit_to_raw(bcl, thresh, CHANNEL_CURR,
-> +						       desc->thresh_field_bits_size);
-> +	else
-> +		raw_val =3D bcl_convert_milliunit_to_index(bcl, thresh, CHANNEL_CURR);
-> +
-> +	return regmap_field_write(bcl->fields[F_CURR_H0_THR + lvl], raw_val);
-> +}
-
-[Severity: High]
-Can writing the maximum valid threshold value to the sysfs attributes cause
-integer truncation when written to the hardware register?
-
-For the pm7250b_data variant, the maximum threshold is set to 10000, which
-translates to a raw value of 256. When regmap_field_write() writes this to
-an 8-bit field, it gets masked to 0, silently applying a 0 mA threshold
-instead of the maximum.
-
-Similarly for smb2360_data, the max voltage is 8400, which translates to
-index 78. This masks to 14 in a 6-bit field, setting a 5200mV threshold.
-Could the driver verify the value fits in the destination regmap field
-before writing?
-
-[ ... ]
-
-> +static int bcl_curr_input_read(struct bcl_device *bcl, long *out)
-> +{
-> +	int ret;
-> +	u32 raw_val =3D 0, msb =3D 0;
-> +	s32 signed_val;
-> +	const struct bcl_desc *desc =3D bcl->desc;
-> +
-> +	/* Return cached value if read too soon after last update */
-> +	if (time_before(jiffies, bcl->last_curr_updated + HZ)) {
-> +		*out =3D bcl->last_curr_input;
-> +		return 0;
-> +	}
-
-[Severity: High]
-Will this erroneously return cached 0 readings for the first 5 minutes of
-system uptime?
-
-The last_curr_updated timestamp is zero-initialized by devm_kzalloc(). The
-kernel initializes jiffies to INITIAL_JIFFIES (typically 5 minutes before
-wrap-around, e.g., -300 * HZ). Due to unsigned wrap-around comparison
-semantics, time_before(jiffies, bcl->last_curr_updated + HZ) will evaluate
-to true until jiffies reaches HZ.
-
-This causes the driver to bypass hardware reads entirely and return the
-uninitialized 0 value across all channels.
-
-[ ... ]
-
-> +static int bcl_alarm_irq_init(struct platform_device *pdev,
-> +			      struct bcl_device *bcl)
-> +{
-
-[ ... ]
-
-> +		ret =3D devm_request_threaded_irq(&pdev->dev, irq_num, NULL,
-> +						bcl_handle_alarm, IRQF_ONESHOT,
-> +						bcl_int_names[i], alarm);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret =3D devm_add_action_or_reset(&pdev->dev, bcl_alarm_work_cleanup_ac=
-tion,
-> +					       alarm);
-> +		if (ret)
-> +			return ret;
-> +
-> +		if (!enable_irq_wake(irq_num))
-> +			alarm->irq_wake_enabled =3D true;
-> +
-> +		ret =3D devm_add_action_or_reset(&pdev->dev, bcl_alarm_wake_cleanup_ac=
-tion,
-> +					       alarm);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Does this devres teardown ordering allow the delayed polling work to
-re-enable irq_wake after it was already disabled?
-
-Since bcl_alarm_work_cleanup_action is registered before
-bcl_alarm_wake_cleanup_action, the LIFO teardown executes the wake cleanup
-first, disabling irq_wake.
-
-Concurrently, the uncancelled alarm_poll_work can race to execute
-bcl_alarm_enable_poll() and re-enable irq_wake before the work cleanup
-action runs to cancel the work queue. Could this cause an unbalanced wake
-count and trigger a kernel warning on driver unbind?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-qcom-bcl-h=
-wmon-v2-0-febe2805e17b@oss.qualcomm.com?part=3D2
+---
+bod
