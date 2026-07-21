@@ -1,64 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-177.mta0.migadu.com (out-177.mta0.migadu.com [91.218.175.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1248400E1A;
-	Tue, 21 Jul 2026 15:02:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C291A4D8DA7
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 15:04:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784646169; cv=none; b=txiBrg8XXJRAmftgBDX8OJI/P2wh7cr7mLyFXfDkm0aI6fGSyI5YZWe51pVedEi/Tv5cu/Sp20ccvu4exNs91v+Dk072BlxLYhhpiMVJLaOEYtcYD58WS6tZbYcyEbhNMVhmEClQzXMBOSYtXvYh/nsiX4yVEk9Ahz3cmrwTcZQ=
+	t=1784646246; cv=none; b=boJ38SUiU1Iw1p41Zgxc7qrs3B2Zb+6kj0B7W4Rpa8JaYsOAKAG+WmQg1Kz3GQMsNFy3snIsGrEzC6tOxr/2KcQPdts13/gS55QXOBOxMirFLmda60X/xUc5Bt0Dk8ZEkrVm26XJ5jWYdHgAjf3rqtPjPUwec2U5G9LYMOsFqRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784646169; c=relaxed/simple;
-	bh=xDVAjw1evmPbhCtSHBvAWHar0M7/zS3n1eBSUkO14R0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JJxjhShxp6CvbWCfW3TQaFbBgS7pYODYU6/g2+EsIi9SnwLUdwELs8TNhTqKYEsvXqodgSrdKRz5yxx4WHdkuy8hGm9tghkzdt2+nsq7LedrqZ+x80zrhrFFU7W/wy3zpnlEqBmW73gf/gnAxK4xuDY2Hii1WNsEQWfRQqFMAZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fPBZDEjG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784646246; c=relaxed/simple;
+	bh=Zaila6GKu+De9A/9ewWdgxmvgJz7oI6zqspBju5Prv8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J2ljxErJHteFdSpqmEeWyO2DvpAwAec2gMHbusdANIawmlWBvhOmjzv3vbgV8ilFJi6wiOGXhhDC9Ade8Liv+sbcn/40P1J/SdeTTUO76v/D1EfuFxVEbSkvKCIvTyCuqhM5r+AZ3N6NObjMRMIEtkJgGmHYzl3OBc9jht0vfXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=POFnV4FD; arc=none smtp.client-ip=91.218.175.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fPBZDEjG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 751AE1F000E9;
-	Tue, 21 Jul 2026 15:02:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784646168;
-	bh=eRxy9o7bxYedbpNQw5m8RnT/2fuzGv+0CqJ7qJPopw4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fPBZDEjGx4jjMacBFM4owxlS8aPseFZd/MW3q3Pq9fEjSM3BRd2V44b6MZoVB0uob
-	 N1QHjh4dKn/SnC8rkUqGFvKsPy2ZTgiNMsCOQeV/7gf4ZftUVW1PAZIEtV2NBqqSvY
-	 um+ljf+VZho7K1fPcEsY0759OuVP/0yHYfa3WZDJiWikO4PWhoYiM+CyjdYKiRy466
-	 Lgra2Gll9qOnJk6sxh7i0P0LUR+0+E7tDbM4F9mlShSeLx43WrcGCaS04m2IB5IBJB
-	 Kaj0CJffjWcHG5JT+1O8eobw39OvAFo+myCINfb0frqCBF9B+6+PjINoaakxrI8uo2
-	 uXoPfg2wZMgYw==
-Date: Tue, 21 Jul 2026 10:02:47 -0500
-From: Rob Herring <robh@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Eduard Bostina <egbostina@gmail.com>, conor+dt@kernel.org,
-	linux-input@vger.kernel.org, linux-leds@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	lee@kernel.org, dmitry.torokhov@gmail.com
-Subject: Re: [PATCH v3 3/4] dt-bindings: input: Convert TI TPS65217 power
- button to DT schema
-Message-ID: <20260721150247.GA3820183-robh@kernel.org>
-References: <20260721112133.70382-1-egbostina@gmail.com>
- <20260721112133.70382-4-egbostina@gmail.com>
- <20260721113408.655C01F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="POFnV4FD"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784646228;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=tglCPgE4AKwdd0u8qEHvDa2UM6WGCVb/lrWKzOgfo3M=;
+	b=POFnV4FDPEPtr/kg6uy1BnsEyK+xzndnLaI2b7tQoOxfw76tpKvrKEPNXH825sPJOnpOvS
+	keutNYLxdRiJiPdSmXZto9XAXrfzWT3KtroMJ8VhN2xHzH5tvvhqzc6w3Bm8QBSJxiiVgT
+	QCCKlpGVEeCFZyo9JvuPzhKyLgO4aN8=
+From: Siratul Islam <siratul.islam@linux.dev>
+To: Song Qiang <songqiang1304521@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH] iio: update email for Siratul Islam
+Date: Tue, 21 Jul 2026 21:03:08 +0600
+Message-ID: <20260721150314.24545-1-siratul.islam@linux.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260721113408.655C01F000E9@smtp.kernel.org>
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-On Tue, Jul 21, 2026 at 11:34:07AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> 
-> Pre-existing issues:
-> - [High] Missing NULL check on `dev_get_regmap` can lead to a kernel panic in the IRQ handler.
-> - [High] The driver incorrectly masks `platform_get_irq()` error codes with `-EINVAL`, breaking probe deferral.
-> --
+Change personal email to the Linux specific one,
+to have a single and focused point of interaction.
 
-Why is sashiko pointing out driver issues on a DT binding patch? This 
-series doesn't even touch the driver. This seems to be a re-occurring 
-problem.
+Signed-off-by: Siratul Islam <siratul.islam@linux.dev>
+---
+ .mailmap                                                      | 1 +
+ .../devicetree/bindings/iio/proximity/st,vl53l0x.yaml         | 2 +-
+ MAINTAINERS                                                   | 2 +-
+ drivers/iio/proximity/vl53l1x-i2c.c                           | 4 ++--
+ 4 files changed, 5 insertions(+), 4 deletions(-)
 
-Rob
+diff --git a/.mailmap b/.mailmap
+index 501d858cb432..a337ff5b852e 100644
+--- a/.mailmap
++++ b/.mailmap
+@@ -817,6 +817,7 @@ Simon Wunderlich <sw@simonwunderlich.de> <simon.wunderlich@s2003.tu-chemnitz.de>
+ Simon Wunderlich <sw@simonwunderlich.de> <simon.wunderlich@saxnet.de>
+ Simon Wunderlich <sw@simonwunderlich.de> <simon@open-mesh.com>
+ Simon Wunderlich <sw@simonwunderlich.de> <siwu@hrz.tu-chemnitz.de>
++Siratul Islam <siratul.islam@linux.dev> <email@sirat.me>
+ SJ Park <sj@kernel.org>
+ Sricharan Ramabadhran <quic_srichara@quicinc.com> <sricharan@codeaurora.org>
+ Srinivas Kandagatla <srini@kernel.org> <srinivas.kandagatla@st.com>
+diff --git a/Documentation/devicetree/bindings/iio/proximity/st,vl53l0x.yaml b/Documentation/devicetree/bindings/iio/proximity/st,vl53l0x.yaml
+index f7f8be1e379d..d23dc59505cc 100644
+--- a/Documentation/devicetree/bindings/iio/proximity/st,vl53l0x.yaml
++++ b/Documentation/devicetree/bindings/iio/proximity/st,vl53l0x.yaml
+@@ -8,7 +8,7 @@ title: ST VL53L0X/VL53L1X ToF ranging sensor
+ 
+ maintainers:
+   - Song Qiang <songqiang1304521@gmail.com>
+-  - Siratul Islam <email@sirat.me>
++  - Siratul Islam <siratul.islam@linux.dev>
+ 
+ properties:
+   compatible:
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 1ab8736850ea..712505519c39 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -25682,7 +25682,7 @@ F:	Documentation/devicetree/bindings/iio/proximity/st,vl53l0x.yaml
+ F:	drivers/iio/proximity/vl53l0x-i2c.c
+ 
+ ST VL53L1X ToF RANGER(I2C) IIO DRIVER
+-M:	Siratul Islam <email@sirat.me>
++M:	Siratul Islam <siratul.islam@linux.dev>
+ L:	linux-iio@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/proximity/st,vl53l0x.yaml
+diff --git a/drivers/iio/proximity/vl53l1x-i2c.c b/drivers/iio/proximity/vl53l1x-i2c.c
+index dc4ffbc95d1f..aef5f26d1e1c 100644
+--- a/drivers/iio/proximity/vl53l1x-i2c.c
++++ b/drivers/iio/proximity/vl53l1x-i2c.c
+@@ -2,7 +2,7 @@
+ /*
+  * Support for ST VL53L1X FlightSense ToF Ranging Sensor on a i2c bus.
+  *
+- * Copyright (C) 2026 Siratul Islam <email@sirat.me>
++ * Copyright (C) 2026 Siratul Islam <siratul.islam@linux.dev>
+  *
+  * Datasheet available at
+  * <https://www.st.com/resource/en/datasheet/vl53l1x.pdf>
+@@ -750,6 +750,6 @@ static struct i2c_driver vl53l1x_driver = {
+ };
+ module_i2c_driver(vl53l1x_driver);
+ 
+-MODULE_AUTHOR("Siratul Islam <email@sirat.me>");
++MODULE_AUTHOR("Siratul Islam <siratul.islam@linux.dev>");
+ MODULE_DESCRIPTION("ST VL53L1X ToF ranging sensor driver");
+ MODULE_LICENSE("Dual BSD/GPL");
+-- 
+2.55.0
+
