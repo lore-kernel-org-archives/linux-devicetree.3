@@ -1,165 +1,253 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11020106.outbound.protection.outlook.com [52.101.193.106])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15BDE371899;
-	Tue, 21 Jul 2026 03:02:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.106
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784602959; cv=fail; b=MZuoCfK0nPhEY2Mxp5Sm+IfsLAHTuWutaV2nRcGqgE5Vq4ul4RLGKZHyfw3qPoV6soKg2qPoCGmDSpLvCeW/TyV6Nxq3Sd1exX9zsMx+hQKEeH5VYKShPcDdKndXKku6+GSy7MMNGB+9N5abkhhI0xp3II/J+YbvBgcbrlDAahk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784602959; c=relaxed/simple;
-	bh=Yd71kw5fHhY3uSJlFFEyvITBnAzYRwIkChSZy8rGR1Y=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=AqdzeJQG1IeOEkw6Za6dpkgGj2fws4AO1RCl6j2R5FYDlITDUITFTROtbkby+nWRToTEt7a6zHxU6HIOTnufUmfTfgLQfTJfKWIyKtq4AWFzx8yhW8h/bYuMXdO4riiXtzrZSfy+AWxIhhZqkXSdCf8i/NXTIrWqQrs9aJotqeM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=nmrVObfj; arc=fail smtp.client-ip=52.101.193.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A60400981
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 03:04:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784603084; cv=none; b=nH/ynt/rwM5nw+UnTl8VPWl2kQd8RGm/ho3iIbfy1Na+SV8kQD4OAdfH9ECfot9UoSHwRWjcvZhSc/j7SHKvlM0MSG8+PvQ0Wej9A50qudqzz2uikwFDBwXJZm5nwEn/RANcWyRI+d+Clc6OVMy3Zwn1SfmtN1A5M4g9tTvAyHc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784603084; c=relaxed/simple;
+	bh=PZD1jXXj8xhbtpZ1FSTJ1lxCoG9qKLtN0QbemyAVFks=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PtxqEJqysSuUb+A2kgB1TUX2s6eu/r0gj/uVbZFZGhOPXapOlJhyE1jx8ME5Qd2dFoJrTDrQe6qV0mJnP9KD/oDflewrrf9VkPqvLFNK/PgAFo7B0zLdEvuLPg5xXR75vRq/fY4UJNCr3Ik+kqQ3QdNwp9o9YMsFY/enDuMAA40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jp/4zrIF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="nmrVObfj"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EbLW74/+rQvwVporZNgs8Hcs/51PYxb/8qd0Y5mghjdtQs86dJL88OlpYSFIf7JptjbPkAlFwTbsQU9GLRdqIWlXPfV3Y+yjJfS+3IzDKICMRzn4DhPGdtUzCWUgvvOyzhHb9032juj74bBYm26aVdjSQE/YjKK80kQCjDlrTEZAyhWI+HY5Q7VOlEcUjBQHpLkvbAwFW2gWItxLRIWLuRX6LoPemyiqpQ0WNeU+4pOv5KmGq5AjdZ7PJJvOHDWMu1LDqLNYzo4OizO733lnZrejmAG443/UGD55M69vY/ULhcl+0iF2xY5gP/fOaQH0MWJgBj6hGufue6DreRYTPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oZtDvltXluKEJ7wVN4PEV2DdIqzzBtIGG9p5s5kxfnw=;
- b=ZY0FTFwETeCRMnSfWXL0Dp8MH7OaA8azvdAVOzjfE1zuRC+We2sx1C767fL49QxIYIaDWkP4JxuSeZLZUx98vw3cxBIFzzEaSDoCfmVGaYjaDD0xkzaMWZi2uP2qHmpDvcfXZEsNTrS6wxifj3LLnIQD+trGnh96nmv60kcpoOvt6XJHuwFeyR+1jfut1hJODSAEVbAnkeQAXoeCJ3u7hgC+QeNG4jsvuCDzqTVnpA60n3MTGaxKy+FYuqO53y06OiWP6QJJL91FL9tc087iaXOFb+2y/+AqdZ6p+XKiHA9+8/BvbCpimjiaRZQWMw99kvAMpI9i9qdOgR5HVE5LOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
- dkim=pass header.d=axiado.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oZtDvltXluKEJ7wVN4PEV2DdIqzzBtIGG9p5s5kxfnw=;
- b=nmrVObfjo2ggtDt7AICyf905vrXhGrrXq6R1cACXD4QOPyRbP1GCxtC+8jrV6NrhhldbpZo5HnAWrfx7MxkDTuthHYqmISl/I1KfvYqJvClhuexFP0EexwDHdLMuCw8p4PsKJmu8Qc6e01MrNjJoCh+h/WOG/YYV50zqRzUtJ/YMH+9dY8zbcTggXy8bLvmxuKD0Dq3OXgqkMqTzNiIIhdgdwGp4awn/NzSRVc/onHZG9xPuKi9QTa2xYHvgUBXtFYQ9VWoZrgDR7001HMPHO0BQT8+i0tqTiRAIVAYjHSWf/O62jFqGi0Wa4kL8NCkZZcui9Mlix6YH3IFX2b5evw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axiado.com;
-Received: from BL1PPF1B62FD55C.namprd18.prod.outlook.com
- (2603:10b6:20f:fc04::d8c) by MN2PR18MB3769.namprd18.prod.outlook.com
- (2603:10b6:208:21c::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Tue, 21 Jul
- 2026 03:02:35 +0000
-Received: from BL1PPF1B62FD55C.namprd18.prod.outlook.com
- ([fe80::8726:2e55:848b:39e]) by BL1PPF1B62FD55C.namprd18.prod.outlook.com
- ([fe80::8726:2e55:848b:39e%5]) with mapi id 15.21.0245.009; Tue, 21 Jul 2026
- 03:02:35 +0000
-Message-ID: <3fd930bb-6bfe-46db-8bcb-5e61d87cb3ea@axiado.com>
-Date: Tue, 21 Jul 2026 11:02:27 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/8] dt-bindings: usb: generic-xhci: add Axiado AX3005
- xHCI variant
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Jan Kotas <jank@cadence.com>, Michal Simek <michal.simek@amd.com>,
- Andi Shyti <andi.shyti@kernel.org>, =?UTF-8?Q?Przemys=C5=82aw_Gaj?=
- <pgaj@cadence.com>, Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Frank Li <Frank.Li@nxp.com>, Boris Brezillon <bbrezillon@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Mark Brown <broonie@kernel.org>,
- Mathias Nyman <mathias.nyman@intel.com>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-i3c@lists.infradead.org, linux-serial@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-usb@vger.kernel.org
-References: <20260716-upstream-axiado-ax3005-upstream-v3-0-c429095143ec@axiado.com>
- <20260716-upstream-axiado-ax3005-upstream-v3-7-c429095143ec@axiado.com>
- <20260717-sarcastic-hyena-of-music-27cc5d@quoll>
-Content-Language: en-US
-From: Swark Yang <syang@axiado.com>
-In-Reply-To: <20260717-sarcastic-hyena-of-music-27cc5d@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TP0P295CA0011.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:910:2::17) To BL1PPF1B62FD55C.namprd18.prod.outlook.com
- (2603:10b6:20f:fc04::d8c)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jp/4zrIF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68F2B1F000E9;
+	Tue, 21 Jul 2026 03:04:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784603081;
+	bh=ljWBNXClkZz9wyWElwdmidwX5szazJKeJS/Ojf+pmww=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jp/4zrIFifR4jVNFIleaZqKe68EQbCCnru0UwU+wmN0mL944X17X3IEY+edEgFNxa
+	 XYQv9ewfrCvON9a+ikT38NDmSJkjznPcsdiGCmAVRN1SW3N+iNW2T7rMDULtsOBgCV
+	 LDb9uLCdAUKms5/wFRpJj2ZvOR/fbpURPMQIk9Cb1jjgl0Nq6fr8QaLwLpHDvuWCOr
+	 1uu629Bl6M1hl+xHbjH6aHZdxcAL/TPwJVRvPqpWiFCusDfaqSCNwDrHsXoH/ySkN4
+	 dwvdQ/KYoR4luoxDgFK0xTxmZ0KNm8lsgiw6RXne8764UfwBwSHhwhvecpOsVhcyUL
+	 KOsW8jGAMS1xg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 1/4] of: incrementally update /aliases lookup on
+ reconfig notifications
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260720-nh-of-alias-overlay-v1-1-27da6848dd84@nexthop.ai>
+References: <20260720-nh-of-alias-overlay-v1-0-27da6848dd84@nexthop.ai>
+ <20260720-nh-of-alias-overlay-v1-1-27da6848dd84@nexthop.ai>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 03:04:40 +0000
+Message-Id: <20260721030441.68F2B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PPF1B62FD55C:EE_|MN2PR18MB3769:EE_
-X-MS-Office365-Filtering-Correlation-Id: f804f5f0-9704-46bc-17ec-08dee6d4839d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|10067099003|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	CO2iEna+PaGo+FIzkaiU7C/b+DQDj5B/hbmc8D5fY/YvDALD90z9JmeiJuhMpJ8D1apfVbMPoD98g9wBVWk/dpLJfdJSs/w0hQkPTrdteqyzc5v0LSgQtzvV3QakdkzmKeqD2WlzSo0cE5PH8NRq4/NnHNPPRYCHP+LZOOitg3/iINIwPOTKHZ11d1Hjcg01PTRE5VdG+11U1hjf/4xiML9xnYFWEspBsIc/dQpsRtSxeb1Gj7lCYQPj6QrlnNIUG1tzdceD2NKhPWJxDMvivBdR+UTScfujfWVvJN0gSqli0oJHhyjbc2wN1pqrBbv8pv4oK9/kIzkusT7SACh0HsVXyL2XWMKxXa4/a37dbTRLVRtwDq+D2Lk7VFFAAGFI/sO5hn2hfNQA1GrB+p01gRByNTPtNyNbwJj4lJuV2PBaE5p/4NWKUIFAglwSpEGiM55F8YNwC8WpFUfqUq6ZUdFkCXkK2bujg8aFohkfQOh/dS5ePdgFRWC5G31GG3k9P6XA4Ad7L+Ey8ojXtmf5Cf/+QSLf7dzMYzkXo1t951mKtiMEKpQBF8PqiBUf8/6jGkxFG/GVD1lhNA4WOK9ksLpWtk0wH8v+zKa0xgHYea/RxdgcF/pF/199A6m4iXmYBVhucXdMYpurIkQY++OzcOiPA7RskOEv24yhv1G97zY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PPF1B62FD55C.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VldvdEdqUlpIaXFnNnV0K1lML1RRNHZTOWRtRU9xUGYxMjEzYjBxZGI3UDEz?=
- =?utf-8?B?Kzh3NHM1cE51WFRvYjRPcHNhQThPbHhlSkVaeVpsdlhmOWg3d0Evbkd2S1Za?=
- =?utf-8?B?Y0l6R3Z4TFA0dTBIOVBiT1dqQkdkTVFMYTNaV3V6ajFBbHNvcis2aWdVK0x3?=
- =?utf-8?B?SURhZ0FBcDRJbGwzMFZpdmw5bjRGRGJxeXYwOUFXQUh2c2hHTmlGU2NSNlVh?=
- =?utf-8?B?bHcxYTBaYnZwRWc5dVNGR1BRNTNxUXV4d3BDSXJQb3NUbUI3VWU3V1FHQ0tj?=
- =?utf-8?B?MVpwbXFNWDJFSGR2bUU5eS83YkdaWENmTWx3RDdmbmlrMFRYTGs1MkdvYU95?=
- =?utf-8?B?cjhvQi9hMVdHcjhRWmRlVlVyQ2g3dEovclJxMStkdCtqTUdvRzhEM0orb3BW?=
- =?utf-8?B?QWpJRnpEc1VOV3NYVnlKVWVHaVN2VVlkUFFlL0VWYkxKdEE3QUp1bmtJUkRC?=
- =?utf-8?B?VXU1bk9OV0dBZ0VHL2NVY2VHVEtCU010elFKT0tvUDg5VG5iZThLWEVuU2N3?=
- =?utf-8?B?RW15VndQcGF6UkpKMzNjdUJyQ3ZyZmxBdWo1S3UyWWVKU2lHd1VXZTFpdXFu?=
- =?utf-8?B?czlzVEdrMlVFQk9taE5pbVNNa3RqODA1QmFYV2RLQjNxZVJCck1VNGd5VmI3?=
- =?utf-8?B?WUlQZkZ2ZVdWY2hBdlZsM09NYzU1cnpwYUdsUnRrRDkxMmppVFh1UXRndXBM?=
- =?utf-8?B?WThXWHZZQU5mRjR4TzdNaFZ6ODhocjdTRUN2NVExSWVEZ1NpN0J5R01XYTNX?=
- =?utf-8?B?OHJOWUI0Z3lRT2RzNkVEQ1BGK2phd3dtYnJFRWloZXU1WW9IaFUxcUdJbkV5?=
- =?utf-8?B?bDZRL3FHVHg0eDRHNG5idkNWWmllWXZnc1RLZkFZZDJLMGhvVFBVb3ZiWEIv?=
- =?utf-8?B?ckFkcXVwNllCbDhNYzYybmJYczgrb2ZUUTR6TVcwMnFVbDZxMngzTVFQQmxF?=
- =?utf-8?B?aVBxREdDL08xemxpWmFROUpJVitOekJUcWQvTXlWVmFPNEJxTzdTRmFJcXVh?=
- =?utf-8?B?SGdoSUNxOHNxeFd6NzU0TTMvQnlBajBpelBSMXdEMXRjVUJqckNKSitzQjhG?=
- =?utf-8?B?bXRpL0lTNlR6Vlp2TkpvcThkU2dlRWZmYUh1SWFITDdCWjdSaFlnWWhZYk9l?=
- =?utf-8?B?MVVFdHRILzZxVGpYemhTWU9GdDNSeU12T0pickZFSGd5VkFxTDRWVVkycGVu?=
- =?utf-8?B?Z3NGMVhSTDFLcERnNVNmbFhKMUt3dVNhQkJ3WHVKZzFOajIxc2tvVVBUODNu?=
- =?utf-8?B?YXRXYURrcW1QVGttUDJFdWcwbmxsN2dxUXdSckFGN2M1TkRETTcyMGlJM2Vz?=
- =?utf-8?B?Z0xJVHI0VDRWMkg1Z2FGVXJTVFZMWW5nK0tVNFFvN3dvY2tKMmJtU2d3ejVQ?=
- =?utf-8?B?REJxajJlSlRhVmJwYkNxcjR4TnlyemxSS2ZOdXczS1AvRnZqODZobGIzUkRm?=
- =?utf-8?B?OGVPT2QrYjZHTDg1a1NFSzU0dVFwdzZpVXJRdUFhd0FUWFNidVRtNFdSbjFn?=
- =?utf-8?B?bXBNNFZMU0FBM1Z6TythM2J6V0k0eGFLd1d4bUJBZlFtR1cxMkZZd1ZOdVd0?=
- =?utf-8?B?UEl0cWxCZ0Jva3doVVFFL0Z1YU9wVkEzbXRPSloxbUE3azkrbzc4Z0xkN3Qz?=
- =?utf-8?B?SjZxMzJTNU5UaGFKd0ZqK1dSOFh4N3V1c04wa0NmcUpPcXp6SjhsZ3NCZ1dM?=
- =?utf-8?B?dVZWa3JLQ1RrZkx4ZVBhbjNqSEdNL3V0bHI0TUtXUThkcmdBcTBXazBGelRw?=
- =?utf-8?B?K1BDQnJYSFZsY09BRzFEYXh6WGRlR292NlRET3RJS3k0OWVKQ3A1dWgzWkwr?=
- =?utf-8?B?MGxGMkFFY2RjTEp5YVRTUURSclVUMTluaU85cTBDQWpKMzREU1JnU1RZRExu?=
- =?utf-8?B?OGVkTVhJY3A2SE9VMU9qM0VSRTZ2bVpNQ011V25pK2VjU3FkbUh0aC9iaW1J?=
- =?utf-8?B?RDdxcWRBZkZ5YXBBY2hIZlJuT0UvM0cxeVRyQmo1S0UxcDcyZkN2VkRLek12?=
- =?utf-8?B?bzRaQThqY1A3SmpWRTNzeFRqbVQ5Zmp3S0tTV0thV2FJZk9SZkdidUhDTTJx?=
- =?utf-8?B?bjdaa0ltem1PZXJCSk4rdGdxWmV0ZVFnOUgxT3poNHhXVnNVdmZONGpXRG9X?=
- =?utf-8?B?R25uZW9RZ2VLMEM4SkVubnhVbWovM3pFZnI4dzZITGd3bTMxNjY4eW4xY2xS?=
- =?utf-8?B?OUJBSFJtTlZLNlMvSlBVVmVTZHJDMGpjc3BzbHFZSzJ2OWZEam5UejZvalJE?=
- =?utf-8?B?bkgxRzJyV1A0R3lWeCs5cGYrcTQ2SnphaTNtWkZjZHJmcTRBb253SFVFUmJl?=
- =?utf-8?B?UTY3a0RNQjNBUERCMDBMOG16TkxlN3VXZjdvVFpXMmVIdzk1czJ6dz09?=
-X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f804f5f0-9704-46bc-17ec-08dee6d4839d
-X-MS-Exchange-CrossTenant-AuthSource: BL1PPF1B62FD55C.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 03:02:35.2449
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Nlq8qfUR2ktgfEo2ZiJ7opaEHIDq8WU7iuvuyNlD1DCaaA9Yguyi96tvXBzQJbfh1a/jhwrHqgFCBfPqeHsHsg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR18MB3769
 
-On 7/17/2026 4:37 PM, Krzysztof Kozlowski wrote:
-> 
-> Just add it to the enum in "Armada 37xx/8k SoCs" group while dropping
-> that description. Description anyway repeats the compatibles so is
-> completely redundant.
-> 
-> Best regards,
-> Krzysztof
-> 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Data race and possible list corruption because `of_device_uevent()=
+` iterates over `aliases_lookup` while holding `of_mutex` instead of the ne=
+wly introduced `aliases_mutex`.
+- [High] Lockless iteration of `aliases->properties` in `of_alias_node_scan=
+()` and `of_alias_node_forget()` can race with concurrent property updates.
+- [Medium] Missing `of_node_put()` leaks target device node references on e=
+rror paths in `of_alias_create()` and during overlay updates of boot-time a=
+liases in `of_alias_destroy()`.
+--
 
-Hi Krzysztof,
+--- Patch [1]: [PATCH RFC 1/4] of: incrementally update /aliases lookup on =
+reconfig notifications ---
+commit 0e641f78493b9291f518b7ebe305e2c1cbac0e2b
+Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
-Got it. I'll drop the redundant description and move it to the
-"Armada 37xx/8k SoCs" enum.
+of: incrementally update /aliases lookup on reconfig notifications
+   =20
+/aliases entries added by a device-tree overlay are stored in the live
+tree but never enter the global aliases_lookup list that of_alias_scan()
+builds at boot. As a result, of_alias_get_id() returns -ENODEV for
+aliases declared inside overlays, and any driver that relies on
+alias-based numbering (i2c-xiic, spi, tty, mmc, ...) silently loses its
+pinned id and falls back to auto-assignment.
 
-(This will also be split and sent separately to the USB subsystem in
-the next version).
+Link: https://lore.kernel.org/lkml/1435675876-2159-1-git-send-email-geert+r=
+enesas@glider.be/ [1]
+Link: https://lore.kernel.org/lkml/20150630172131.D4E6CC4041A@trevor.secret=
+lab.ca/ [2]
+Link: https://lore.kernel.org/lkml/1435675876-2159-2-git-send-email-geert+r=
+enesas@glider.be/ [3]
+Link: https://lore.kernel.org/lkml/1435675876-2159-3-git-send-email-geert+r=
+enesas@glider.be/ [4]
+Link: https://lore.kernel.org/lkml/1435675876-2159-4-git-send-email-geert+r=
+enesas@glider.be/ [5]
 
-Thanks,
-Swark
+> diff --git a/drivers/of/base.c b/drivers/of/base.c
+> index 6e7a42dedad3f..2695c5f8bb93a 100644
+> --- a/drivers/of/base.c
+> +++ b/drivers/of/base.c
+> @@ -1915,6 +1915,231 @@ static void of_alias_add(struct alias_prop *ap, s=
+truct device_node *np,
+>  		 ap->alias, ap->stem, ap->id, np);
+>  }
+> =20
+> +/*
+> + * Serializes aliases_lookup and of_aliases across boot-time scan,
+> + * runtime notifier updates, and readers. of_alias_get_id() and
+> + * of_alias_get_highest_id() acquire this before walking the list; the
+> + * OF reconfig notifier below acquires it around each mutation.
+> + * of_alias_scan() runs single-threaded from of_core_init() and skips
+> + * the lock, but any code path that reads or writes aliases_lookup
+> + * outside init must hold it.
+> + */
+> +static DEFINE_MUTEX(aliases_mutex);
+
+[Severity: High]
+Does this new mutex also need to be acquired in of_device_uevent()?
+
+Looking at of_device_uevent() in drivers/of/device.c, it still iterates ove=
+r=20
+aliases_lookup using of_mutex:
+
+drivers/of/device.c:of_device_uevent() {
+    ...
+	mutex_lock(&of_mutex);
+	list_for_each_entry(app, &aliases_lookup, link) {
+		if (dev->of_node =3D=3D app->np) {
+    ...
+	}
+	mutex_unlock(&of_mutex);
+}
+
+Since of_aliases_reconfig_notifier() modifies the list while holding only=20
+aliases_mutex, could this result in concurrent modification and list corrup=
+tion=20
+if a uevent is triggered during an overlay update?
+
+[ ... ]
+
+> +	if (kstrtoint(end, 10, &id) < 0)
+> +		goto out_put;
+> +
+> +	ap =3D dt_alloc(sizeof(*ap) + len + 1, __alignof__(*ap));
+> +	if (!ap)
+> +		goto out_put;
+> +	memset(ap, 0, sizeof(*ap) + len + 1);
+> +
+> +	/*
+> +	 * For runtime entries, kstrdup the alias name so the alias_prop
+> +	 * doesn't depend on pp->name remaining valid =E2=80=94 an overlay reve=
+rt
+> +	 * frees the source property. Boot-time entries point into the
+> +	 * FDT, which is never freed.
+> +	 */
+> +	if (owned) {
+> +		dup =3D kstrdup(pp->name, GFP_KERNEL);
+> +		if (!dup) {
+> +			kfree(ap);
+> +			goto out_put;
+> +		}
+> +	} else {
+> +		dup =3D start;
+> +	}
+> +	ap->alias =3D dup;
+> +	ap->owned =3D owned;
+> +	of_alias_add(ap, np, id, start, len);
+> +	return;
+> +
+> +out_put:
+> +	if (owned)
+> +		of_node_put(np);
+> +}
+
+[Severity: Medium]
+Does this leak the device node reference for boot-time aliases on error?
+
+When of_find_node_by_path() is called earlier in this function, it acquires=
+ a=20
+reference to the returned node regardless of whether the alias is owned or =
+not.
+If an error occurs (like kstrtoint() or dt_alloc() failing) for a boot-time=
+=20
+alias where owned is false, the out_put label is reached but of_node_put(np=
+)=20
+is skipped, leaking the reference.
+
+> +/*
+> + * Reverse of of_alias_create() for owned entries: unlink and free the
+> + * matching alias_prop and drop the reference it holds on the target
+> + * node. For boot-time entries (owned=3Dfalse) it unlinks only =E2=80=94=
+ the
+> + * struct and the alias name live in memblock and are never freed =E2=80=
+=94
+> + * which prevents an overlay-driven UPDATE_PROPERTY against a boot-time
+> + * alias from leaving stale duplicates in aliases_lookup.
+> + *
+> + * Callers must hold @aliases_mutex.
+> + */
+> +static void of_alias_destroy(const char *name)
+> +{
+> +	struct alias_prop *ap, *tmp;
+> +
+> +	list_for_each_entry_safe(ap, tmp, &aliases_lookup, link) {
+> +		if (strcmp(ap->alias, name) !=3D 0)
+> +			continue;
+> +		list_del(&ap->link);
+> +		if (ap->owned) {
+> +			of_node_put(ap->np);
+> +			kfree(ap->alias);
+> +			kfree(ap);
+> +		}
+> +		return;
+> +	}
+> +}
+
+[Severity: Medium]
+Does this also leak the device node reference if a boot-time alias is updat=
+ed
+or removed?
+
+If an overlay updates a boot-time alias (where ap->owned is false), the ali=
+as=20
+is unlinked from the list, but of_node_put(ap->np) is skipped. Since the=20
+reference was acquired at boot time by of_find_node_by_path(), doesn't it=20
+need to be released when the alias is destroyed?
+
+> +static void *alias_alloc(u64 size, u64 align)
+> +{
+> +	return kzalloc(size, GFP_KERNEL);
+> +}
+> +
+> +/* Scan every property of @aliases and mirror it into aliases_lookup. */
+> +static void of_alias_node_scan(struct device_node *aliases)
+> +{
+> +	struct property *pp;
+> +
+> +	for_each_property_of_node(aliases, pp)
+> +		of_alias_create(pp, alias_alloc, true);
+> +}
+> +
+> +/* Reverse: destroy every alias_prop backed by a property of @aliases. */
+> +static void of_alias_node_forget(struct device_node *aliases)
+> +{
+> +	struct property *pp;
+> +
+> +	for_each_property_of_node(aliases, pp)
+> +		of_alias_destroy(pp->name);
+> +}
+
+[Severity: High]
+Is it safe to iterate aliases->properties without holding devtree_lock?
+
+These functions use for_each_property_of_node() to traverse the properties =
+list=20
+locklessly. Since of_aliases_reconfig_notifier() is called for ATTACH_NODE=
+=20
+and DETACH_NODE events, could a concurrent thread adding or removing proper=
+ties=20
+on the aliases node mutate the linked list under devtree_lock, causing a=20
+race condition or traversing stale pointers here?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720-nh-of-alia=
+s-overlay-v1-0-27da6848dd84@nexthop.ai?part=3D1
