@@ -1,157 +1,191 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8131738887C
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 05:03:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60DB32BE7DD;
+	Tue, 21 Jul 2026 05:06:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784610212; cv=none; b=mRsICXHSVEFA22elbV2dqE9AvkWZHcluUr2Q9xT8MToqbJHkcoOVBr7cfqcIvU/oYJpDi+i2PLCzf3j1ubkFy7b2alkstknUhzr9UOn4tGUYzoLjHBoLNM8Itk/g4niHJAQFrF/O+NSy7QnUA9apCXN+l+h2L/6r4f/d+ruTQN0=
+	t=1784610390; cv=none; b=mCxM3wO/2yxGjlk3JbDqE1CEGbsiHMfJhGp1975zmcjZexVuok8xmIhi6Q2c6fKLZxVaiWd+f/MnLXSlb535r+mImuunGfzlX3xEKlZ0PoXJPRzrPcix2zw4nOBs0TtEhHYy8ckgL+fcbaFPfcNwXPFwpnYNhyxHxVI8FI/s0U4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784610212; c=relaxed/simple;
-	bh=sRsCIW3nhN74wIi76A5EigIHKbNUuhG2UUwuiLYSzwQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YMdcBOWWrP1thmLFqgjLpkpelGiT9KHNZ2HNrh3UcnMSTXvqYFCkJOMeRhTmcFVRJcdPE+q24mzmt8CleS+ws79+YM6pxZimlKkKf0wWLdXPLpIf99FV/oBwQMPkRiCCYhR8eZfnYkW1YIGzBmaplCYAOYCnDMxPdI+HYmt0DXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NeDx8DBq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=D7J2Bvsz; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784610390; c=relaxed/simple;
+	bh=+SlVsu0byqwlv39VNd7MB8KOit5jVOQ59RbCUIDpmyo=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=qDjzKIbvuJ8XhXyLLYw/jkKW4LrBTsDBiO+PYqTqxicZfUo+RnAzdOC+Q4UkHmdXetBpeQK0Y3uqkd4TKmbbWNMT2EZcrLfkJ7S7cMymqS9PnwuM9MWfmrIQLenL9TRrwNA4D/NYekvupOU4q1zxuq7LA1DRcshhTy/q6FXzGF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tVU010Of; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NeDx8DBq";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D7J2Bvsz"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66KNCQSf045341
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 05:03:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1Y66YiQmyTPgZ51BeCWnyExMbCnlckoQpI59e8kX+d8=; b=NeDx8DBqHd6VdR1J
-	fd9qT7yYvlTb5G91v1wHvoDkofeYjrFHvOK0dOrMb0SoM090A3xLPaDBq3Bl+U7w
-	P806fP+1Q7U/r93JP9JBGGdOEOv0bLjA571vUA1CTM3F6ahF/9kl+nE/DkUeZC2f
-	72/jMUYs01SPjYs5ogpTW5I2Ps52i8VYAYNuJpbqC8ov0K0kedqVfRQhgD2k/Ggy
-	VX7PuNOLE4c8i/TrTVzpVvLf3pNFSacUDCj8d0XgSCDDSlmF37cCfVXh8BMdYL5z
-	08sVxbx59We6HvhVZg9HEo3Hxu5oWnBi2nlyfJgP8Pw7yEvzJGWGy06CUAt66c3v
-	wO3diA==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fhqv5tbk5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 05:03:30 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb5cc1e13f8so4036102a12.3
-        for <devicetree@vger.kernel.org>; Mon, 20 Jul 2026 22:03:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784610210; x=1785215010; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1Y66YiQmyTPgZ51BeCWnyExMbCnlckoQpI59e8kX+d8=;
-        b=D7J2BvszaViywhQUo1IYMtLqoQnFRMPux3ajg3LqWTNXlhhuAtN9tg2ONBpxp7XUji
-         t8oLgT2vej9OAzceY3XGvuiwsriNH8XXiyrUyuaoiwPgx+gCsv2F3P9JkijpohTcCtHv
-         ExBjE3oUqnlWdOSHiDzaY/bOmZMAO1SNzyWphFWnDkUDvxAYFyUhZizglgJL5G9YBWqD
-         izOM4HIxkqrY/P8j2OXrGntUCMd/msQR7sgn3RRWap98hC5OGAmhe5vNc+DbHmpM0b5b
-         4ZivT3MeYu/HXjKYG9/KAjJ2OzSZupsq6jW6QB+I66QK6gOFx9TkNKR8/W6TZp8PHpBV
-         O98w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784610210; x=1785215010;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1Y66YiQmyTPgZ51BeCWnyExMbCnlckoQpI59e8kX+d8=;
-        b=VdqGm7IwF62ApVADt5bWj+uETdViQUdu9PtFkCLu/APRCP8SI1S7xx9sed/AxEWKgd
-         udCoSpj7qpc62zaJLk1IT07ikQ/J5ccGswFC09kW2uWrDyW/QeWlj5Jn9eDf6BeaccIr
-         ImUntnN1qHuNTCDBGaaC/Z+ENRnJtVJ+tvjWaGN8x0+Oeesu6RMrtyxlSXV5lvCLPx4M
-         W/Qp0gxrUotg3uCEBclme0NTcWkMhuAdiDVaYIv7nl9NRAdS3nhLQspMjfnoUlS3fdDz
-         28mrIOUoIzRZMSqHY0g+TsWeAiW6I1i5EZW+Q76QOq9oP8besck+Sbm1WOmbeENmQZ7a
-         IdAw==
-X-Forwarded-Encrypted: i=1; AHgh+Ron9G9W3DxwhWq61mVFZIIelCWc/5FqN/XeRV5owg9xwsrbfIDiFoN4x3g4+dD6pVXaG3VsYMS0b8gh@vger.kernel.org
-X-Gm-Message-State: AOJu0YzEY3Tjwjai0rohcI/RxjANnaoRi57WE4HqXmRTTgfNvFznvLwn
-	4LnlZP2nk5xfX/RLj09AYQAM/U6aEUWTzJPoY5C0rWs9k/0/KJgdB+AMPUslIst+W6jvbv/3a7n
-	HShwiaDiJ6nrCqteJsu4aeDA+63gTt2iyQ6SZzesgEWIceBu6GtxBef0t487qITl3
-X-Gm-Gg: AfdE7clpnkULg2x5Irw/SJeV90+e5YGxrUkjZxHqCimYIuevF6h5aFUiNZyVYvGdRcs
-	ePt9NExbiFlnQsVS9ZhyoVzV9BgrNQf533nHy0h8iCQ4XfCLmsG2w38lwCL/otHPlEKVPtJ93YG
-	5KKKKSU9JqgRkaVVNbDvGZbttnZ34yhZ6J/0azDy+0Zs581wTn+rpfDjB3zmXnY9OpSo8Pi2zOY
-	p7hUrHNhee+FrtG4ihfaac4i8TPCPrtKgT6PsO/UqPxYRZrYp7lEYE9cyagca81Oxdrcla06F3b
-	BKUuFgDh/rRfW2l+Z17So3WoD259JRiu2qyuJXqIxlv94eYX8IbDGWmXii3fjdWJR0ZvlfQiiAe
-	hl8+3qTnGMUMWRSHsTtaj5XusEO/r4Bg=
-X-Received: by 2002:a05:6a21:a8d:b0:3c3:954d:278d with SMTP id adf61e73a8af0-3c3ad5aed77mr18383777637.9.1784610210028;
-        Mon, 20 Jul 2026 22:03:30 -0700 (PDT)
-X-Received: by 2002:a05:6a21:a8d:b0:3c3:954d:278d with SMTP id adf61e73a8af0-3c3ad5aed77mr18383742637.9.1784610209570;
-        Mon, 20 Jul 2026 22:03:29 -0700 (PDT)
-Received: from [10.218.31.125] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cb517ba73b4sm5440010a12.4.2026.07.20.22.03.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Jul 2026 22:03:29 -0700 (PDT)
-Message-ID: <26bedd34-6a5b-4b3c-b737-4f71b5b80cd2@oss.qualcomm.com>
-Date: Tue, 21 Jul 2026 10:33:24 +0530
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tVU010Of"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:25d4:fa24:78d1:31:7a56])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E8B92593;
+	Tue, 21 Jul 2026 07:05:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784610327;
+	bh=+SlVsu0byqwlv39VNd7MB8KOit5jVOQ59RbCUIDpmyo=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=tVU010Of+FyyRQjoH0R2LmJDQwP9nG0+23lEmIUvev3kXCxi3Hec0m1XMRe6WEdYR
+	 x+bifmLBu3dagzLJLUP1J8lEyVzURNhEE8zdIs1281hq8Uve0eML4fxfbYQfP2OVHz
+	 Z0rQ5LtE7zHRUmbkd/dn1J9PsqQQpdGKdM5oWSj8=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/6] arm64: dts: qcom: Add device tree for Nord SoC
- series
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260721044005.2882803-1-shengchao.guo@oss.qualcomm.com>
- <20260721044005.2882803-2-shengchao.guo@oss.qualcomm.com>
-Content-Language: en-US
-From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-In-Reply-To: <20260721044005.2882803-2-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDA0OCBTYWx0ZWRfX0bqgBq4M+AqR
- B/oY6vaiTTzpCJ8g47m3TVxy4wCquVhO59ii+XKcu9pwl7kOV2zyAS2M4aUOKIysMtiWI5MT2yQ
- QvZoTatw3Sod8eZPfoKUN6V6IPRFamYO45JjlbRox/YqntwFbGoB1PeETMghGo+z12fbkj2+2ih
- L/yk1Z9MacMYW9EnRuDN70311UlXVsggtH4iqj3tPJtsnbUj4rtJ9UYWiHgBxPLMGWtBgAFSfrd
- /GsETSYH+CIA+i5xtmvReZqc8XheFueCB1Seso5zBtr9hTM/ZkS++zhHFNact2D9EVtiEJQUUJ+
- NEuM7e+ViPOWYPdpHcEht+9ArQyfND//mUgFU7ibYp1zcWDZj9vwiaXSryw/a6eJ3Y8PtPgM08Y
- /oPwlC5syHrZyWDLkr7RQ845L2nBmndMC/T7o8eDzajNTqyhTZAiH+egkXahWIwtUQb503WsBed
- oAnIbl+bs0O2aCU8usA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDA0OCBTYWx0ZWRfX0vCGtkXJBElt
- 5qcrgFOZsV9vhRKrgzvpPtrs9LGFBMZfX765WjG8WKtMcRfPWmEt8yEd4loRwC9b6ttNW+LvWL0
- ClwwwA7rnbirX8Fx1O71YReKeHrt+3M=
-X-Authority-Analysis: v=2.4 cv=WNpPmHsR c=1 sm=1 tr=0 ts=6a5efda2 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=hLQETX_3T8l7bD8GKiAA:9 a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-GUID: BOU1dzfzsbTvOED0aYgAADxa7pRbT05W
-X-Proofpoint-ORIG-GUID: BOU1dzfzsbTvOED0aYgAADxa7pRbT05W
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-20_06,2026-07-20_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 suspectscore=0 spamscore=0 malwarescore=0
- priorityscore=1501 impostorscore=0 phishscore=0 bulkscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607210048
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CAPY8ntCvB9ij=rMwwBmBDfe_gWQboX9Xbt0ZB6WPVyFvc2CLZw@mail.gmail.com>
+References: <20260312150437.1091195-1-eagle.alexander923@gmail.com> <20260312150437.1091195-3-eagle.alexander923@gmail.com> <CAPY8ntAf9TjgW-E6WeJuMdsHy8pV8-CvqQJriWEFpgLB-brD5A@mail.gmail.com> <178455866124.1426769.18237320419273419942@freya> <CAPY8ntCvB9ij=rMwwBmBDfe_gWQboX9Xbt0ZB6WPVyFvc2CLZw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] media: i2c: Add driver for Sony IMX662 sensor
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Hans Verkuil <hverkuil@kernel.org>, Hans de Goede <hansg@kernel.org>, Tetsuya Nomura <tetsuya.nomura@soho-enterprise.com>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Tue, 21 Jul 2026 10:36:21 +0530
+Message-ID: <178461038136.1426769.8068222330738680407@freya>
+User-Agent: alot/0.13.dev35+g4a69c46ca
 
-On 21-07-2026 10:10, Shawn Guo wrote:
-> +		crypto: crypto@1dfa000 {
-> +			compatible = "qcom,nord-qce", "qcom,sm8150-qce", "qcom,qce";
-> +			reg = <0x0 0x01dfa000 0x0 0x6000>;
-> +			dmas = <&cryptobam 4>, <&cryptobam 5>;
-> +			dma-names = "rx", "tx";
-> +			iommus = <&apps_smmu_0 0x1689 0>;
-> +
-> +			/* It stops nord-gearvm variant from booting to console */
-What's issue you are observing Shawn?
-Usually we GPCE is enabled default if soc has IP but seems nord is doing
-differently here.
+Hi Dave,
 
--- 
-Regards
-Kuldeep
+Quoting Dave Stevenson (2026-07-20 23:09:34)
+> Hi Jai
+>=20
+> On Mon, 20 Jul 2026 at 15:44, Jai Luthra <jai.luthra@ideasonboard.com> wr=
+ote:
+> >
+> > Hi Dave, Alexander,
+> >
+> > Quoting Dave Stevenson (2026-03-13 01:20:15)
+> > > Hi Alexander
+> > >
+> > > On Thu, 12 Mar 2026 at 15:11, Alexander Shiyan
+> > > <eagle.alexander923@gmail.com> wrote:
+> > > >
+> > > > This patch adds a V4L2 subdevice driver for the Sony IMX662 CMOS im=
+age
+> > > > sensor. The sensor has a native resolution of 1936x1100 (effective
+> > > > 1920x1080) and can achieve up to 90 frames per second depending on
+> > > > the configuration. The driver supports:
+> > > > - MIPI CSI-2 with 2 or 4 data lanes.
+> > > > - RAW10 and RAW12 formats (both colour and monochrome).
+> > > > - Controls: exposure, analogue gain, horizontal/vertical blanking,
+> > > >   horizontal/vertical flip, brightness.
+> > > > - A placeholder V4L2_CID_HDR_SENSOR_MODE control for future Clear H=
+DR
+> > > >   support (the actual HDR modes are not yet implemented).
+> > > > - Runtime PM.
+> > > > - Cropping via the selection API.
+> > > > - Multiple link frequencies selectable via device tree.
+> > > >
+> > > > Tested on ARM64 Rockchip RK3568 platform with a 24 MHz external clo=
+ck
+> > > > and various link frequencies.
+> > >
+> > > Interesting timing as I've been looking at IMX662 too, but on a Raspb=
+erry Pi.
+> > > FWIW my driver is at
+> > > https://github.com/6by9/linux/blob/rpi-6.12.y-imx662/drivers/media/i2=
+c/imx662.c
+> > >
+> >
+> > I saw libcamera patches for IMX676,
+>=20
+> IMX676? I assume that's a typo.
+>=20
 
+Oops, yes I meant IMX662. Names are hard.
+
+> > does the below branch have the latest
+> > driver you plan to post as v2?
+> >
+> > https://github.com/6by9/linux/blob/rpi-6.18.y-imx662-mainline-clean/dri=
+vers/media/i2c/imx662.c
+>=20
+> That's a downstream Pi tree. My mainline branch is
+> https://github.com/6by9/linux/tree/mainline_imx662 and is basically
+> the patches I intend to send.
+
+Thank you.
+
+> There is one niggle to resolve first in imx662_ctrls_init. There is
+> currently a catch-22 in setting up the state vs initialising the
+> blanking and exposure ranges as they refer to each other. I need to
+> come back and look at that one.
+>=20
+
+I remember I faced something similar in IMX678 and ended up doing that
+calculation explicity while initializing the blanking/exposure controls,
+without reusing the set_framing_limits() function that is called on
+resolution updates.
+
+> > > Comments are based on brief testing and reading of the code. This is
+> > > not a full review.
+> > >
+> > > > Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
+> >
+> > [...]
+> >
+> > > > +static int imx662_set_selection(struct v4l2_subdev *sd,
+> > > > +                               struct v4l2_subdev_state *sd_state,
+> > > > +                               struct v4l2_subdev_selection *sel)
+> > > > +{
+> >
+> > Can we keep cropping and binning out of the initial driver,
+>=20
+> There is no binning currently implemented in this driver, only cropping.
+>=20
+
+Okay, that might make things easier to port to the new model.
+
+> > and implement
+> > it using the common raw sensor model directly?
+> >
+> > I did it for IMX678 [1] on Sakari's suggestion [2]. The two sensors are
+> > quite similar, so I'm happy to help in whatever way I can on getting th=
+is
+> > working with the new model too :-)
+>=20
+> Is this effectively saying that linux-media is closed to sensor
+> drivers not adopting the common raw sensor model, even though AIUI
+> that isn't ready yet? I can accept that for a period, but how long is
+> it reasonable for that to be the case? A year?
+> With all due respect to those involved, the series has been around so
+> long in various guises that it's a case of I'll believe it when I see
+> it merged.
+>=20
+> There are already a number of sensor drivers in the tree that support
+> set_selection (imx296 being the main one I care about). Presumably
+> there is a plan for how to migrate those to work with the common
+> sensor model without regression for existing users. Is there a reason
+> that plan isn't also valid for imx662 and imx678?
+>=20
+
+Yes we can migrate in a way to support both the old and new models
+depending upon the client capability flags, Sakari has done that for
+IMX219. But it gets a bit cumbersome in the driver, especially for handling
+binning through the new controls while supporting it through some other way
+in old model.
+
+Given you don't plan to add binning support, I think it shouldn't be as
+complicated. The selection rectangle for analogue crop will move to the
+internal image pad from the source pad if the client has the
+COMMON_RAW_SENSOR capability.
+
+> I would offer to review the common raw sensor patches, but as so much
+> of it is core framework stuff and so is outside my area of knowledge.
+> I guess I can do the same as your imx678 branch and give it a go for a
+> Tested-by, but that feels fairly limited in scope.
+> Have you got a libcamera branch that supports the new model for imx678?
+>=20
+
+I looked into it briefly, here's a branch with bare minimum support to get
+libcamera streaming with the new model:
+https://github.com/jailuthra/libcamera/tree/raw-sensors
+
+It doesn't support crop/binning yet.
+
+> Thanks
+>   Dave
+>=20
+
+Thanks,
+Jai
