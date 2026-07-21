@@ -1,60 +1,149 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26AB33BBFAA;
-	Tue, 21 Jul 2026 09:06:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E21683C1F57
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 09:08:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784624772; cv=none; b=B8RYiFoiVa/ngHnPR4G4GQmV3K829jN2zxYhX9263EzNQwIiUrjhZLeBNddC4HmNlSskTo8Omf/J7ilWnvHdCfmnZou3OuThTLy0Sch8Wu2X+4hBFU8IJautdoWxJBf0Loeaz0iQ/EWN+Mlx5XI89jPDdKrZtEpxBgTAbcbd1qs=
+	t=1784624933; cv=none; b=AR0oODFfipH3g73NWPWmr3Jil1cg76uVrdtixhgqlS9TENNWac+g3kTKN90SgatXILs9LxMPJeyrOZJ2f9e/X3fyopGj11jS93HoBY21yQ7H/9E5r3lwCEjBIZWB+Q8RzNuGDtyC3nTUVXHoeIVzvLARpJkIn8PFZbaKYYPZTmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784624772; c=relaxed/simple;
-	bh=EmxjAQse7ryYLnyPpldiWqD66DyINhj1WdxrOAcxcPE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EsVllxy7vQgC7m9kJGGWtxzV/ipr/wuisj0MC5N8M2mezy5wqMhnJv423uqFaf2QBVN+i/b+8hYrQ+4gOvXOd3nApbYD3BfIm1DuRPb2rfM7R+S3YYVSR5sawyNwsDH7omGeXfwIIAPTKWpZWiOmVSHLt/Aum8IeHTgLYQKN3c4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VgCyTu+2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784624933; c=relaxed/simple;
+	bh=LWQhAMESFWDYUhOqi0N4NltBuuvLqrOk9w5ZbaPhgTs=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gQ+zsZ8fi6bO5tV/MGbwPDhgjHJ8e/TKcAP/D5OFwG/V5/lEw8d9jJfmNSllmsjuVV28/hzxuBO0XWjNGdgNQpxaKZeR0BkvE7KsAvz0HaFTl3xlKFp/gmhTrlT300tD42RwwhRY3YE0hs5IGmWoWUsKpbzchjmhKNfrbVTpY+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e2rKA2Qo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VgCyTu+2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E53921F000E9;
-	Tue, 21 Jul 2026 09:06:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e2rKA2Qo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17C791F01561
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 09:08:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784624770;
-	bh=EmxjAQse7ryYLnyPpldiWqD66DyINhj1WdxrOAcxcPE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VgCyTu+2osdbuokJyvniSa/MqFZfaUUInV1mbgVGH9kZa5doPweccfB+Mm0mfbAdv
-	 RTDJSE3m2ZEUyc2kKhevtwLV+PdhXDj65A7blGb9rY57K/qNsCqas6gIjCBLBhF/Y2
-	 Wpxs6kIjerK/egqgSADxeL/Hs/kS0LXL5vuk+QqH0x+tLTlnpgh54wRIcsth5FkOfH
-	 VgToZImtTX7A2IXQm7UtnGS7VNF+7vSrGRFZzWrZ/O2hWOpWcniMr52I4qkrwnJFh4
-	 AIyhK93O7BQAR+IqgQF//W9O0kTt3zQH8DOjSD29xiWwHLGIEm98PHIYHKNOlQU1Bn
-	 GVeA5lotJuFmA==
-Date: Tue, 21 Jul 2026 11:06:07 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Shawn Guo <shawn.guo@linaro.org>, Marc Zyngier <maz@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/7] dt-bindings: interrupt-controller: mpm: Document
- power-domains property
-Message-ID: <20260721-lurking-polar-macaw-b4abba@quoll>
-References: <20260713-b4-shikra_lpm_addition-v1-0-3d858df2cbbf@oss.qualcomm.com>
- <20260713-b4-shikra_lpm_addition-v1-1-3d858df2cbbf@oss.qualcomm.com>
+	s=k20260515; t=1784624930;
+	bh=3xqu6DOCRis3ts8JU1eK1hQauNPqKuaV4g+S3+L3WS0=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=e2rKA2QoRAl6qUhMs9hQ1Eem9usUIBCUP4Q+OaZ3u0if2/XZI9Lioxy0NBFyDPryy
+	 S8S5SeBLBgooqyplAkD00YNDXDjVV+kqgYF2g6JJ+ha+i2RCLuhpwfV3XAeBSd1O4s
+	 Wj69Gm1/Wspw95I89hylmpns/qCqzELkR7ali+NjMd9pFZVuih/FtDIx7FM8NSfDNx
+	 CvCxQDoIXGcegrKfYENKCPGlVIVdYtx6oNm2uYMuQ1r19juAwtZMVopvj1P7F3aZB5
+	 hvGRxrcmxIt7Lf8kVkizYLhw+9XVTVP0ATFPuzHD+p6CxSpaXideDHYmVvzmyrzD/W
+	 dDjs7PUlOlGAg==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5aeba09900bso5761275e87.2
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 02:08:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpjiynhGtY0zG66xRKB8OXpjAkpFqtHOxvbLJ8GrXt9xr13BG+9GonoOJqGwojlIh/UzfyRAb49E2Oi@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw0sfdwKx9QLjY9vqACzqFs4mMOBWiZLQdNVnGarb71kt/0Q3Tr
+	QsZtdLVaJbbGOBQpvNRdmWmleqpUiWtUYYts/BillaefjZDRJ/PYw+26XJ2CFZircg0XojU11Zw
+	IalwC0+3WIJpCvRBptwjFTx6hXM2SGvCy4CenWVVuLQ==
+X-Received: by 2002:a05:6512:239e:b0:5ad:58c8:5de8 with SMTP id
+ 2adb3069b0e04-5b28f854e5amr3537391e87.1.1784624928719; Tue, 21 Jul 2026
+ 02:08:48 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 21 Jul 2026 09:08:45 +0000
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 21 Jul 2026 09:08:45 +0000
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260721065413.2306137-4-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260713-b4-shikra_lpm_addition-v1-1-3d858df2cbbf@oss.qualcomm.com>
+References: <20260721065413.2306137-1-wenst@chromium.org> <20260721065413.2306137-4-wenst@chromium.org>
+Date: Tue, 21 Jul 2026 09:08:45 +0000
+X-Gmail-Original-Message-ID: <CAMRc=McsCRBxXMj0xC8H0cgdZZ=Z9_4u_DS9b2z0pLE0=gZr+g@mail.gmail.com>
+X-Gm-Features: AUfX_mzwzLN239CObNW1gLp59KRlXCiikBTT40SGbitpk5WIVatni_t3viiU0PQ
+Message-ID: <CAMRc=McsCRBxXMj0xC8H0cgdZZ=Z9_4u_DS9b2z0pLE0=gZr+g@mail.gmail.com>
+Subject: Re: [PATCH v6 03/16] power: sequencing: Add pwrseq_power_is_on()
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Manivannan Sadhasivam <mani@kernel.org>, Alan Stern <stern@rowland.harvard.edu>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Daniel Scally <djrscally@gmail.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Jul 13, 2026 at 03:55:41PM +0530, Sneh Mankad wrote:
-> Remove #power-domain-cells property and add power-domains property for
-> MPM device.
+On Tue, 21 Jul 2026 08:53:58 +0200, Chen-Yu Tsai <wenst@chromium.org> said:
+> The power sequencing consumer API already does power on state tracking
+> internally. Expose the state to consumers through pwrseq_power_is_on()
+> so that they don't have to reimplement it locally.
+>
+> Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> ---
+> Changes since v5:
+> - Reverted back to returning -EINVAL if descriptor is NULL
+>
+> Changes since v4:
+> - Make pwrseq_power_is_on() return 1 if descriptor is NULL, i.e. if
+>   the descriptor is optional, matching the other pwrseq consumer APIs
+>
+> Changes since v3:
+> - Added missing stub function for !POWER_SEQUENCING
+>
+> Changes since v2:
+> - New patch
+>
+> Needs to go in with "usb: hub: Power on connected M.2 E-key connectors"
+> as it is a build time dependency. Bartosz wants the change on an
+> immutable branch to pull into the pwrseq tree.
+> ---
+>  drivers/power/sequencing/core.c | 18 ++++++++++++++++++
+>  include/linux/pwrseq/consumer.h |  6 ++++++
+>  2 files changed, 24 insertions(+)
+>
+> diff --git a/drivers/power/sequencing/core.c b/drivers/power/sequencing/core.c
+> index 02f42da91598..72b96d36920e 100644
+> --- a/drivers/power/sequencing/core.c
+> +++ b/drivers/power/sequencing/core.c
+> @@ -968,6 +968,24 @@ int pwrseq_power_off(struct pwrseq_desc *desc)
+>  }
+>  EXPORT_SYMBOL_GPL(pwrseq_power_off);
+>
+> +/**
+> + * pwrseq_power_is_on() - Queries the last requested state of the power sequencer.
+> + * @desc: Descriptor referencing the power sequencer.
+> + *
+> + * This returns the last requested state of the power sequencer.
+> + *
+> + * Returns:
+> + * On success, 1 for on and 0 for off; negative error number on failure.
+> + */
+> +int pwrseq_power_is_on(struct pwrseq_desc *desc)
+> +{
+> +	if (!desc)
+> +		return -EINVAL;
+> +
+> +	return desc->powered_on;
+> +}
+> +EXPORT_SYMBOL_GPL(pwrseq_power_is_on);
+> +
 
-Why? You just repeated the diff, so not really useful.
+Didn't we agree on introducing an enum to make it future-proof for when we
+also pull in pwrseq_is_controllable() from Loic?
 
-Best regards,
-Krzysztof
+I think this should work like so:
 
+enum {
+	PWRSEQ_STATE_UNKNOWN,
+	PWRSEQ_STATE_ON,
+	PWRSEQ_STATE_OFF,
+};
+
+int pwrseq_get_state(struct pwrseq_desc *desc)
+{
+	/* Only once this is upstream. */
+	if (!pwrseq_is_controllable(desc))
+		return PWRSEQ_STATE_UNKNOWN;
+
+	return desc->powred_on ? PWRSEQ_STATE_ON : PWRSEQ_STATE_OFF;
+}
+
+Bart
