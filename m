@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D8AC44C678;
-	Tue, 21 Jul 2026 09:59:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862DE4499A3;
+	Tue, 21 Jul 2026 10:00:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784628002; cv=none; b=Zx7xZZIyUvVeM/GnPEKHZtHoCyvKGVK0Eg9pgVk9rygC1hscfJ7pslNUHKxBLti3w0CrHF5KzcyzT9/Gkw6hjimS9xJ+9tTVBDH9zOPVYRI9QimYq90wB4Ercp8dLTrHMvwcE3gsbFtymmMvUIKS0dhg6y00fBfsXIldaMTcBBg=
+	t=1784628007; cv=none; b=GOCUei/3NctFGN+SvWcf3scvB7oYEs/6JPkoFq+cN+nfPsCRXFROenfwoqr4FX1G2/ECPZp5Yg7jOcqPQ32JOGHYgYYt3uCq5CfDixs35oOVrcHO+MUB2W2CA9efaiY/QIe116V+3xQVCgZWMxnCjt3+zAZSB3O482XvpRpZDLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784628002; c=relaxed/simple;
-	bh=m/EjmerojyihGjkP71VFjD0OxRXvlszvaFTICzVS4ew=;
+	s=arc-20240116; t=1784628007; c=relaxed/simple;
+	bh=RxNiZg6VNKiujo14I9B5v7gaww/65c0qeFhe4P9gYTo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MQnjt0pTXBMjYg5Z9GGmuy8Zkoc9HCTFJmXwEoxxVBFZpASUcprYLsMT6f1tEPnXVqdDP5NA8Hsfg9G9ctBidpMAhJmWURJfq/yO+N/NAittag1SH5lzClGeQDmda6/+pwTQMqeHqlPZ+pgrsRv9ZQ0y9N5TC7MJyAxXx4sUy4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S5s3ht6n; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=C674n9T0Qd4SnB8g2auTlzt9iasKrNY8Pf0M8ILSJCuGFpcqANf/ozetjVAizrZikrT3MEJbVNk+TU2+ZJw/Tm7QJ0BMaKMGew8EydsQesKDudTZGKFG+84Q9x1McPbPKu0ZVqAyDNUzEGvWLBePfPOZtmp+Zp6smBRNOUwJdNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kfLdOq+t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S5s3ht6n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C73861F000E9;
-	Tue, 21 Jul 2026 09:59:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kfLdOq+t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D93AC1F000E9;
+	Tue, 21 Jul 2026 10:00:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784627999;
-	bh=JF40Nlo6LaXclhZsFY0RMKnbuUb31iGjjMhSLn+YNCk=;
+	s=k20260515; t=1784628005;
+	bh=63GK3+lU6Xik7r/DuPgi1C8D+PIBWHw++pfSdIyYQQU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=S5s3ht6nAnog+3hxyTheB5IQiMF2aF6X9Jy061Ov8uaQqXtTrg8YcoSClNgFpeQqC
-	 fzYp68f40tuO+9O+5/jmwjT+lZ33ys8DWXoV0z4hABUpq6G/CifVamTgHRZyp/lSbj
-	 cHc/DdBc4EOAWbeYJlu6T4Ep61xpBBUmIy3ONcYv+9djAdlUqPjRBWPkJo6YPhLSK0
-	 IbhzRYEHilVOzSsgQbnutJw+xw4Mk3ceE3ObbxEvgg4gA4UITQAJjOW2g9GfRll/la
-	 JPj7x5qNs4aobMn631Uszj8pdK7zialoIzVLfmkHyNewoVCokKePqE+GTRcHaNOPqE
-	 +GeI47+Yz8b0A==
+	b=kfLdOq+tb79+KbSy70kYyapDXa7M7rP+W8Pwocvw8Y9ZYW5varYPI7523bS8Jq7Wp
+	 Gq0mkqgjxi9vj2IwLwXZ9iWEKxBAuRA9va8yml/LVSZVWJxxtT4FIk/dhfD12Knk3C
+	 TqZ9IXLMPhL8J3Hg7dvoC+1cDF3sAYjNZP2KEJsA5h/LI5L8RlfCoslD8wR3g0YAvm
+	 d3m/bFxJJbmw7dxdouVEG/cYQQoMgZ8FFPY5Q51iGf4x/fqDDI9HnXr1LhTWknA4Q1
+	 4NHwVjflAMTFe8zny4uyRFyJz4ILvJhCvkUMtBIyRLiap9LEnYr4OFT3QaUIRdVqOt
+	 AwgPNXFICB3BQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 1/7] dt-bindings: embedded-controller: document ASUS
- Transformer EC
+Subject: Re: [PATCH v2 4/6] hwmon: (lm63) Add Sensylink CTF2301 support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: robh@kernel.org, linux-input@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dmitry.torokhov@gmail.com, linux-leds@vger.kernel.org, lee@kernel.org
-In-Reply-To: <20260721095233.420823-2-clamor95@gmail.com>
-References: <20260721095233.420823-1-clamor95@gmail.com>
- <20260721095233.420823-2-clamor95@gmail.com>
+To: "Troy Mitchell" <troy.mitchell@linux.dev>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-hwmon@vger.kernel.org
+In-Reply-To: <20260721-ctl2301-v2-4-ef5fb342872a@linux.dev>
+References: <20260721-ctl2301-v2-0-ef5fb342872a@linux.dev>
+ <20260721-ctl2301-v2-4-ef5fb342872a@linux.dev>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 09:59:58 +0000
-Message-Id: <20260721095958.C73861F000E9@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 10:00:04 +0000
+Message-Id: <20260721100004.D93AC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,48 +46,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The `reg` property lacks a `maxItems` constraint or explicit `items=
-` list, which will cause a meta-schema validation failure.
+- [Medium] Unchecked I2C reads for LSB are bitwise-ORed into 16-bit registe=
+r values, corrupting data on read errors.
 --
 
---- Patch [1]: [PATCH v10 1/7] dt-bindings: embedded-controller: document A=
-SUS Transformer EC ---
-commit 9a8d6db220adffb6b7bdbf5fea9059f76a4c94f3
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+--- Patch [4]: [PATCH v2 4/6] hwmon: (lm63) Add Sensylink CTF2301 support -=
+--
+commit bbf54143e45eb1b3b9599d60a55904a5184333c9
+Author: Troy Mitchell <troy.mitchell@linux.dev>
 
-dt-bindings: embedded-controller: document ASUS Transformer EC
+hwmon: (lm63) Add Sensylink CTF2301 support
 
-This commit documents the embedded controller used in the ASUS Transformer
-device series. It adds a new YAML binding describing the Nuvoton-based
-controllers attached to an I2C bus.
+This commit adds support for the Sensylink CTF2301 chip to the lm63 driver.
+It introduces extended local temperature resolution and optional thermal
+cooling device registration.
 
-> diff --git a/Documentation/devicetree/bindings/embedded-controller/asus,t=
-f201-ec-pad.yaml b/Documentation/devicetree/bindings/embedded-controller/as=
-us,tf201-ec-pad.yaml
-> new file mode 100644
-> index 0000000000000..60b6375864aaf
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/embedded-controller/asus,tf201-ec=
--pad.yaml
+> diff --git a/drivers/hwmon/lm63.c b/drivers/hwmon/lm63.c
+> index e2a429e579ac1..764a7467afa60 100644
+> --- a/drivers/hwmon/lm63.c
+> +++ b/drivers/hwmon/lm63.c
 
 [ ... ]
 
-> +  reg:
-> +    description:
-> +      The ASUS Transformer EC has a main I2C address and an associated
-> +      DockRAM device, which provides power-related functions for the
-> +      embedded controller. Both addresses are required for operation.
-> +    minItems: 2
+> @@ -256,8 +270,16 @@ static struct lm63_data *lm63_update_device(struct d=
+evice *dev)
+> =20
+>  		data->temp8[0] =3D i2c_smbus_read_byte_data(client,
+>  				 LM63_REG_LOCAL_TEMP);
+> +		if (data->kind =3D=3D ctf2301)
+> +			data->temp1_input =3D ((u16)(u8)data->temp8[0] << 8)
+> +					  | i2c_smbus_read_byte_data(client,
+> +						CTF2301_REG_LOCAL_TEMP_LSB);
+>  		data->temp8[1] =3D i2c_smbus_read_byte_data(client,
+>  				 LM63_REG_LOCAL_HIGH);
+> +		if (data->kind =3D=3D ctf2301)
+> +			data->temp1_max =3D ((u16)(u8)data->temp8[1] << 8)
+> +					  | i2c_smbus_read_byte_data(client,
+> +						CTF2301_REG_LOCAL_HIGH_LSB);
 
-[Severity: Low]
-Does this reg property also need a maxItems constraint or an explicit items
-array list? The device tree meta-schema requires standard array properties =
-to
-be fully bounded to avoid implicitly unbounded arrays, which will likely
-trigger a failure during make dt_binding_check.
+[Severity: Medium]
+Will this corrupt the temperature reading if the I2C read fails?
 
-[ ... ]
+In lm63_update_device(), if i2c_smbus_read_byte_data() for the LSB returns
+a negative error code (such as -EIO), it gets bitwise-ORed with the shifted
+MSB. The negative s32 error code would sign-extend, overwriting the MSB
+bits entirely and resulting in a large negative temperature spike instead
+of propagating the error or maintaining the previous valid reading.
+
+Could we check the return value of i2c_smbus_read_byte_data() before
+merging it into temp1_input and temp1_max?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721095233.4208=
-23-1-clamor95@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-ctl2301-v2=
+-0-ef5fb342872a@linux.dev?part=3D4
