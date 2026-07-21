@@ -1,135 +1,233 @@
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16B8F366820
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 13:35:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.175
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784640902; cv=pass; b=MaWaQ+pnEW1ITKTwNpPSsLXOX7FldJ7bqfQ4XfzYcU+AgPpyhrpmZFSGnm6UOo6MRfSyviPseNi8lH9KIRbtRv0sYN1YlDZ1Xdcl+8LptdkLkKRPx43T1jJR/0w1B+rRRUZzQUyjfLP13dj4574tM7detOVOvzqJmv/h4I9hGG0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784640902; c=relaxed/simple;
-	bh=FC1jKvk7IR/JY6cYWwDQaxgJwqGXQyShLSdz4569yZM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GxdFPjaylj9p9ZcFgQtu4deLxW+JwBMXa2U77Yxf/JgDX2EjCnU8ULiJsXj/Kyqjp2d3DwG0vqKf6eIJFZBgsGsq3kolST84VSj5dfP3mbsIo3cKkGRKw6SXVdX7ajHUVQatG8tnb6exNSlAh81kb3vT0sBKCc9mmDAtgHAQ/bM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UWhxBlQH; arc=pass smtp.client-ip=209.85.128.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E2C73655FF
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 13:35:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784640914; cv=none; b=QlhDV3/PkG8iVq19m8Dzh2Ng/KeqoX5n612w5cpG/jPYXPNhOcW43a+AXqQNi5J93HMDgxLcuvPbbKDe+LnaXpJAMF4zbOA0kQVwq1KJazzZ/fPQ9d4bHceYCN4CTpD1ZekxOUfPTx/OozQbHxEsTnxvAWsvyu/0fXv1T41tPZk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784640914; c=relaxed/simple;
+	bh=a782tGijlNjR0oP5USP7fhxgWawGH8U5duyNoKInPNg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dwiRXDN/eDZ6QiRA0Fb84m0jMnHAu1BXTItzxEbVyqrtydQixQuw4/GWSnQ2rEBvJnFQz+6EaEaiCHzp6g6hcLSXenwZRT6pCu/vhsWBcXtPfraEY0FyI317ZFt3YLg+yZ8xsNHzqLaenHB1n40B4sxlP5+NAKSf8DADzqQ9lhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=yBFQ3rMY; arc=none smtp.client-ip=209.85.167.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UWhxBlQH"
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-81e6f0b4610so116982847b3.2
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 06:35:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784640900; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HYXiEgDIhJA59sN3dzTgmli5gBWUL+bUSBwIiWsP55VD61TAW6+vzEmejNRG7702nJ
-         nYpsPZpFQ4jjm2JQUhuK4d29zABzDNQQfWGqahgUzrYwwBfNPjwt94EYWEuN7ZK8V8QY
-         ecQhV5VzQAhzvOyC4ACeQrqmMVZGsGHDr/GNYxH5fDth04AhiY4xMAXY5IQnUozl1fyG
-         j+GQ8WMFospJAHfiGMX0B5P8UkGxCM/j4L8uuuKLe29Je+CTxXNfMUcTxwjdpe+WP9v2
-         p4gzyZpUtuPJYk9w6IsVrrg7MtKHYVEKrq0cGABQmvwAI9D4wQDB/2046ADQG3833Etn
-         5lhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=i86R+52aISfP5t62myBuNbHCUamsT0SSyOwnWKb4yLo=;
-        fh=DMmHBLGsXz22+TKBIgTSFt3EBCGkVsbJ9S+ItOW5v4A=;
-        b=EU+5verx4WPF3aSCWfZwkeW8CjdYmsZqEmLmW6IRPqnJNgz5Hdy1oN87UGTgYbDP9/
-         5+2O6pRtwqFNZVM0gGD65vnzORqTaMqafN0ebRWy/8ZX39k5ORk69274/+ReYZsStQtO
-         X1Tfeom49AplquGdS+97rPYgzxYEIjKaaPSCHk0xe98mX7vBZPEg6uO8faGuvbWOJnrp
-         0lEmJn+OcfuzgjlWkftcrpwumIP10jt8yWRDfChHOe0weeTNIEbECV14C/W9YXONdvMM
-         iwP2WegjTsuV/49B7QFV/NRl9EAQZl8FGYkeTZ338NWlGlUb3q0tRC38gWsik1JqfXt6
-         +2TQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="yBFQ3rMY"
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5aebf96bc89so1561137e87.0
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 06:35:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784640900; x=1785245700; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=i86R+52aISfP5t62myBuNbHCUamsT0SSyOwnWKb4yLo=;
-        b=UWhxBlQHyLZ5QMINQ6OACiZxcJBNKpA4m99JJWSGWtqhiy4fZXQRpbPMQ5Bu+OF6f+
-         HsRQjNk2gRAX6tc2tGOw3pILdJgw38D3DBTe2EF1Tv/Ve+8DUOuX5KE8rt7tiDgEWV4q
-         J2hJHRDH5Xjm7MNSjASJeKxSRpeE+HhpUnxn0vH+yjQlJHycSuj/kAHZGO0bXXWzDiC3
-         6twzs354a2dXrh5bgXEFbhyL/Js3hmIr/gUb1WcMpDYkOdOlxGhX5kK90+f/GQI4sbRv
-         Gs8wn+QEtGieRWIf/DHx477tA30Dvm5mbMwzNElrtXZ10FSXg3eOFl9KrpUcahK0RCkK
-         y+IA==
+        d=linaro.org; s=google; t=1784640910; x=1785245710; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=XBEoUQBhQJegFsZb7/UMDUnu+Fzmn8HXOU/ouOdSNmw=;
+        b=yBFQ3rMYXrLzIaa1ePdLUY71Czf6KTyrKw5EvuJcuREXLLA86ItJqPfmO8DrRIqYMQ
+         jWQsxAuxJHAjOsKJrOz3BlYxTx6FPr0V+udxwZSlVlHOAIUCMYzEkFAnxbrBdSuEX2S/
+         nDC8EA31prIuyeSmOM40sxWlVc98Gu6Xe0hAnMt5WvcxjHDVrkcBPFjKWsuCcHDEt565
+         L0NInvS3Ry3H3txA2n/vWjKM7pJKpIdQHwNdz7MrvbKiM6rwqS43gzk6Kmv4aeNGbbBC
+         5uOPTrc/oAWz67jWBvY4CTnKhoE/kY4shzf+DVxKMaPUhcyQ+haYjLrNChNnyo2Uo3oH
+         M9Ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784640900; x=1785245700;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1784640910; x=1785245710;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=i86R+52aISfP5t62myBuNbHCUamsT0SSyOwnWKb4yLo=;
-        b=Vv6v9aR7Uf4uAmdagnlIH4cAo5EvwJNtl02yhdPLtNkbYeuL6U83cEUJsjQnKLcgK/
-         G27vfv2DjnNMcD+afBqDUldbJBbeHFKfvYx5xA+79h/rRfQTqIpD22wZOhMNKmLz0nzd
-         8NnI4JrnA3OdCgXTBymztgR/LrN8z0ADOh1+QB735DQ97ztIR7KPM4vxkVKQZdre3sSM
-         abZKU+xg3KnntgmvOgdJZjeJN4B0O/tXD1tKdE+/f8Swc/YvhpIWsWYh4IkGKjVT9JCb
-         OZKy9Eto6HvtZi0vit7rXcZ6+nYifcyMjmKYN8s1imjskngdrNOjMLxMmdd5eJUiHeQL
-         6NHw==
-X-Gm-Message-State: AOJu0YyfudCpmnDhnk4LsuFG1x1Rly8BKiEYIMZ8uGq68H8qrxXvPIR2
-	TPB+W4XUjgt1TL2vhEmTNVihlbo1aclJ1sE5pYGWUI9MNh2HdiXVlVN/bgH+nUvuLfb8iqH82oH
-	pVtebar1yEqqyFO7POEIsDmNQRDN09G0=
-X-Gm-Gg: AR+sD12oojG4qYsxBcITRzNSnazibMXQAtDTkwNeW5BUEOXchIfmDRvfsLo8OYpyyAk
-	uArOpeu3/EPOHlYrT+NNU7hIBHD1nbhfKmVppviZjhowl8+D7MiiRhJwDh1dv+hV/3js/pTINto
-	iAYlPjw3PXkFOsmCBghcxG2dK6/+d2Kmdu67S11hRm2tQDYR2YXh1pQulaXe+fCOiPeJzGM8bi5
-	czr8GkZjBIgpQWd+96roOIQFMdG5sT7QxuAlip+ShCQZUI8g4vZqsV6jEJCekDvZx8Q
-X-Received: by 2002:a05:690c:c4e7:b0:81d:9452:715c with SMTP id
- 00721157ae682-81ef25c801amr58767777b3.20.1784640899815; Tue, 21 Jul 2026
- 06:34:59 -0700 (PDT)
+        bh=XBEoUQBhQJegFsZb7/UMDUnu+Fzmn8HXOU/ouOdSNmw=;
+        b=oqeLC/R/hQBB/64n0sZS/FUXVSJrFZJRzcpsb8ud28B1s+lUFSUYGAk+zwrdiXcxjl
+         NBmU6T5LYNI3i3GP70FaBvS+ZUfWZYUI03FNr8XpD3k8IR9FtcApe81jycESQbX0EER8
+         jmGenSbE2rvtmXrP1rSRLPwVMtdI4jw8coWIUttxP+Wnb6QjakEpVzTo0FPUB4iP75v8
+         OihPnOi/iQD4FhirO4eEDnPN7s4Y3PGIzr/yicrhCVfleonNx9SJbQimb5OhdWEqwgYW
+         1JO66NBKjKh1djrGuUumjR/+cxQ3KT514iKvXGUR/OzIM+/nJLMPbLgDRjN4aXDaSuEB
+         +5bg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp8EyYoYwUPPG746iJYTTOHzKErB5n+Ku/GlPBJJxnQQ+clBmVZSgk2bCLWS642k9UUobvPu7FIdzPx@vger.kernel.org
+X-Gm-Message-State: AOJu0YxywHCeayAiEeQ3ztAqvqUZ1aSUm0UIM9wTtdBnsksuawv6T6+W
+	2OjpWCmphoZeVR+D1NKrK4ip1ZfDZv7DDph4iqAFLdpYHjKwMoafny0AwuYsDhf5dKQ=
+X-Gm-Gg: AR+sD10mj2ba+RLLe1fbDdvj5bdrXuG156UnvVlNskcKf0IEbt7rQxpZBFDCfq6iAPB
+	/1oQflPY53+prB8qvK6c2eUdNlMa+Rr6e2zcv1YTvNvDD1sQ7xJnnwiwW77mspyFtLngueAvzaT
+	4Pi8D7RiOogGoI6OXXR+0csVqGmkcAgfMWwIKTIWAAWGEDlkLdEinI9wMqKyRxCoFWQ5BUkZGra
+	9EoUogfDM4YJWJJdQyTeeAFpd9J2l33TFsnyCuDlWwnH6YpqUrn7oDvzntEzlcjFlZp1aZKYvnX
+	jlG5qPn/o7B9TlelyhChfg7aYgN9l3M49aA/wHp619vNvgtAE5UdpbWXr9GVtV5yRKEyMpFt1V0
+	Lkgtduo9udElbrcBqEJYl6zHAZe72tu3/mXwRpJV1xict2DwciUO5O93d4jWC3WuIdlIv+qeJcx
+	/Dx15GbT0TTYvketjFpDe6TAcb1uLpXj/yrO8rTVo5DOduBLIjpDeM4Uxr
+X-Received: by 2002:a05:6512:b93:b0:5b1:5b9e:8de7 with SMTP id 2adb3069b0e04-5b2a49fca14mr515212e87.2.1784640910132;
+        Tue, 21 Jul 2026 06:35:10 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2a5588e11sm426572e87.42.2026.07.21.06.35.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 21 Jul 2026 06:35:09 -0700 (PDT)
+Message-ID: <864c13a0-a52c-43f4-9d94-646bf66ba31a@linaro.org>
+Date: Tue, 21 Jul 2026 16:35:08 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260721082410.18275-1-kaipeng94@gmail.com> <20260721082410.18275-3-kaipeng94@gmail.com>
- <f15fb988-09a7-48c8-aaa5-2a5dec3a1d15@oss.qualcomm.com>
-In-Reply-To: <f15fb988-09a7-48c8-aaa5-2a5dec3a1d15@oss.qualcomm.com>
-From: Kaipeng Zeng <kaipeng94@gmail.com>
-Date: Tue, 21 Jul 2026 21:34:48 +0800
-X-Gm-Features: AUfX_mxLpLfwnkLuIp48lcTkxxMoKVznBIByIHH4kKSg8CZ_wjSB1qFA--HN7dU
-Message-ID: <CAHk8Zds-rCfWZLfjM54vNPDK8qF6t8u5qSyMjeGU0mc7V2EKOg@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: Add support for Acer Swift Go
- Pro AI (SFA14-11)
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, 
-	konradybcio@kernel.org, andersson@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
+ schema
+To: Bryan O'Donoghue <bod@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
+ <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260720-x1e-csi2-phy-v13-0-160c31958863@linaro.org>
+ <20260720-x1e-csi2-phy-v13-1-160c31958863@linaro.org>
+ <LyWJAb2qKsAFTMHNJUce9VqoqbkFKUQanb6z8ziA63RYZ1P9jj1XpA83uGPvz9m4QnWvEjJFK8dGD_8EtioHVQ==@protonmail.internalid>
+ <0da6d314-bfa9-493a-bcc6-8c3b75751d0c@linaro.org>
+ <88ae6662-cb85-4e3a-bbb5-1b536348df34@kernel.org>
+ <_t1jiMTX3iIXhUkTDz0Cbh_uZhdUK_Y8vlIwxt1VNRbuKuRnpVCWabal-b4AuFrVaKrDnQSFOWtDn6-VCbS3DA==@protonmail.internalid>
+ <345ca98e-09f6-4965-87bb-e64dac096498@linaro.org>
+ <c236cf94-a775-4158-88db-9a337c7fa862@kernel.org>
+ <e8bc8ade-d699-497e-8c4a-fbdc03fcc549@linaro.org>
+ <wzsAes-UM4_r8scRyy_yhd39ZdxvT8W9VroVPOGWABLsw7MqR05o_z2MwhgiC1gTSBgfVHpXWADbsqoIOsR0Uw==@protonmail.internalid>
+ <ec3d6035-d4de-4e38-8c72-b29a04b263ae@linaro.org>
+ <1f128571-ed46-4a60-9594-74fdd5f440d0@kernel.org>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <1f128571-ed46-4a60-9594-74fdd5f440d0@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 21, 2026 at 6:18=E2=80=AFPM Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> wrote:
->
-> On 7/21/26 10:24 AM, Kaipeng Zeng wrote:
-> > Introduce device tree for the Acer Swift Go Pro AI (SFA14-11).
-> > It is a laptop based on the Qualcomm Snapdragon X Elite (X1E78100) SoC.
-> > This device tree implementation references nodes from the x1-crd.dtsi.
->
-> [...]
->
->
-> > +&usb_1_ss1_qmpphy {
-> > +     vdda-phy-supply =3D <&vreg_l2j_1p2>;
-> > +     vdda-pll-supply =3D <&vreg_l2d_0p9>;
-> > +
-> > +     status =3D "okay";
-> > +
-> > +     /delete-property/ mode-switch;
-> > +     /delete-property/ orientation-switch;
-> > +
-> > +     ports {
-> > +             /delete-node/ port@2;
-> > +     };
->
-> What happened here?
->
+On 7/21/26 16:19, Bryan O'Donoghue wrote:
+> On 21/07/2026 12:24, Bryan O'Donoghue wrote:
+>> On 21/07/2026 12:05, Vladimir Zapolskiy wrote:
+>>> On 7/21/26 13:47, Bryan O'Donoghue wrote:
+>>>> On 21/07/2026 10:56, Vladimir Zapolskiy wrote:
+>>>>> On 7/21/26 12:39, Bryan O'Donoghue wrote:
+>>>>>> On 21/07/2026 09:17, Vladimir Zapolskiy wrote:
+>>>>>>>> +  "#phy-cells":
+>>>>>>>> +    const: 1
+>>>>>>>> +    description:
+>>>>>>>> +      The single cell specifies the PHY operating mode.
+>>>>>>> This has been reported before, #phy-cells shall be 0, the operation
+>>>>>>> mode is selected by bus-type of endpoints as it is described in
+>>>>>>> video-interfaces.yaml
+>>>>>>>
+>>>>>>> Two competing values are redundant and it opens a door to a wrong
+>>>>>>> hardware description, the technical discussion has not been started
+>>>>>>> yet.
+>>>>>> So as I said before, I'm following Rob Herring's input on this and
+>>>>>> Krzysztof has given RB for this binding. At this stage, I don't see
+>>>>>> scope to change it.
+>>>>>>
+>>>>>> Adding endpoints was already a compromise to address your feedback,
+>>>>>> which I hoped would bring you on board with the design.
+>>>>> That's my comment dated March 27, 2026, and it says moving phy type
+>>>>> from phy cell to the endpoint property excludes the need to set any
+>>>>> phy cells:
+>>>>>
+>>>>> https://lore.kernel.org/linux-arm-msm/e37ce438-12c7-462d-
+>>>>> b2bc-1351be62b806@linaro.org/
+>>>>>
+>>>>> The technical comment is left unresponded so far since then.
+>>>>>
+>>>>> Since there is no expected phy cells to get on consumer's side, and
+>>>>> since there is another link between CSIPHY and CSID described in
+>>>>> video-interfaces.yaml, any kind of dependency of this IP on phy can
+>>>>> be just removed, which serves the purpose of hardware description
+>>>>> simplification.
+>>>>
+>>>> Rob's v1 feedback was consumer-decides-mode via the cell; Krzysztof has
+>>>> R-b'd the binding with cells=1.
+>>>
+>>> Unfortunately this is not a technical discussion to move forward
+>>> a better hardware description.
+>>>
+>>>> I'm happy to lock down this binding as-is on that basis.
+>>>>
+>>>> Are you arguing about phy-cells or are you actually arguing the entire
+>>>> instantiation of Qualcomm MIPI CSI2 as a standalone generic driver in
+>>>> drivers/phy ? Its not the same debate at all.
+>>>
+>>> So far I don't review the driver, only CSIPHY IP hardware description.
+>>>
+>>> In the current version of the hardware description one may find that
+>>> the exploited 'video-intefaces' interface completely covers the 'phys'
+>>> interface between CSIPHY and CSID, quite probably both are not needed
+>>> at the same time, and the simpler 'phys' can be removed without any
+>>> losses. But if it is kept, then its cell value is anyway redundant.
+>>>
+>>>> As the CAMSS maintainer, I'm fully against adding more inline monolithic
+>>>> CSIPHY init sequences. That could be represented as a separate
+>>>> linux-media driver but, then that implies that _all_ upstream CSIPHY
+>>>> drivers in drivers/phy are wrong, and I just don't accept that.
+>>>
+>>> Other two drivers are different and should be excluded as good
+>>> references, both of them links exactly one sensor to exactly one
+>>> CSI-2 decoder, it's not the case here. Also one of these two drivers
+>>> has no upstream users.
+>>>
+>>>> The bindings have DT maintainer RB, and the driver has Qcom engineer
+>>>> tested-by, review-by.
+>>>>
+>>>> Vinod, Kishon - Again, I'd request this merges as-is.
+>>>>
+>>>
+>>
+>> The graph and phys are different layers, endpoints describe the
+>> media topology, phys is how CSID controls the PHY through the PHY
+>> framework (phy_get/configure/power_on).
+>>
+>> Removing phys doesn't simplify the description, it removes the control
+>> interface which is the monolith again.
+>>
+>> We have multiple examples of this model upstream, cdns-dphy-rx +
+>> ti-csi2rx in-tree, with users.
+>>
+>> I'm still kicking this up to Vinod, Kishon, request stands.
+>>
+>> Multiple DT and driver users are RB/Tested-by on the schema and driver,
+>> lots of other work is gated.
+>>
+>> It is time to merge.
+>>
+>> Please adjudicate.
+>>
+>> ---
+>> bod
+> 
+> Had a brief discussion with Vlad, Neil and Vinod
+> 
+> Resolution:
+> 
+> - phys = <> retained
 
-SFA14-11 only has a single USB Type-C which uses usb_1_ss0_qmpphy.
-Sashiko reminded me to delete mode-switch and orientation-switch in
-usb_1_ss1_qmpphy (And I remove these properties in usb_1_ss2_qmpphy also).
-Since the usb_1_ss1_qmpphy_dp_in (port@2) remote-endpoint is mdss_dp1_out,
-and mdss_dp1 is not used (DP Alt Mode), I remove port@2 in usb_1_ss1_qmpphy
-and port@1 in mdss_dp1_out.
+It should suffice as an optional property, moreover any kind of
+phy interface usage is not supposed to be done from CSID driver.
 
-> Konrad
+> - phy-cells = <0>
+> - bus-type from the media-controller
+>     Already specified with camss still aligns with Rob's declaration
+>     "the consumer defines the mode" so I'm comfortable with this
+>     compromise position.
+>     This will still facilitate CPHY work/mode-selection via
+>     phy_ops->configure() with how to define the CPHY part TBD.
 
-Thanks for your review!
+As it was discussed there should be no phy specific interfaces
+between this phy driver and CAMSS driver.
+
+> - data-lanes = <0 1 2 3> valid
+
+Would be nice to get an ack from linux-media maintainers on it.
+
+> - MAX_LANES 8 instead of MAX_DATA_LANES 7
+
+Since 'data-lanes' value follows some register bits and not
+the actual PCB lanes as in video-intefaces.yaml, this shall be
+explicitly described in the CSIPHY dt binding documentation.
+
+> - v14 with these changes shortly.
+> 
+
+-- 
+Best wishes,
+Vladimir
