@@ -1,148 +1,144 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6003D3321
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 17:02:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1910336888
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 17:11:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784653356; cv=none; b=Z76Xun4wv1cjivN1qrl9srN2CC/LJzIeBpObrlqF+gRTQIfL8Nv9bqt3Mv76DLF7kHRIxPJeMHlB/rQ4I/nqnhP3MXsOmY2e4B4q1oaqOrDMJgVeuZyPDE7/LmVbI3cQFNiuen0lY+IfdKs/BxyFVEHeotU5n1gy8KUUX2sQmWM=
+	t=1784653891; cv=none; b=AtFaBg8elWjmA/4ZA1YiL7+su6B7CVsds0hVd2MqmiB1ngIyr4zRiCPnvpvrtaVip1zS6Ur7kXCsQo5Lg+KJZtGidojp+bszDqJo9usAxoprzEPzzZ1zVEk4dy+bEQXVQF5mKpofSNzt//+K2SGRFUDwXx7nUzef8R8dCcsAD14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784653356; c=relaxed/simple;
-	bh=CCLHL/9qXuOIxscGN994AkztuMhg3vqvjAApjxBs4es=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PwLCWwMqgFin6lR1z017uAwCPW9UFVBzpiZW+2ok8J5Kw0IqlirtafGYgD9wnlmHBdEfXZvTK0LHHRcBTUGf+goTlqbyWCEybtIHCuu7E+gL+k6OtGfLDXo5ec92f74YxyQQKHqpMESXNasRJFBIz9nqV1l6Co7uMGYjpSXPQYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nKw4hZvq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FUBPj+7J; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784653891; c=relaxed/simple;
+	bh=lQnMkOuUnPonfXMa46l7+19hzXp4E6B/OknMiv1bs3k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EIgdHrWDSPuveimMrE195gwp11Uq38wRrcJBPxz7X8KElAU4eyY67qNAkj30iWhChJ4d44l3H4NMuW0Ln5EbT7ZmDjr4ELcK3L1IT8kSOXYLlEVNtxYwq4hShS22Y2MTSX+PRn+d/WKJHC+4irBpuvGR/IqdZo/ZW4w8W1iSxvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gcPHm6W+; arc=none smtp.client-ip=209.85.160.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nKw4hZvq";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FUBPj+7J"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66LH2YZ92063685
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 17:02:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	0quPAI0p/ihpRaYsyDrrGjjtcU8ulVk1wA2nTdZt+CE=; b=nKw4hZvqPKgHvaLO
-	0PXZnPs1+YwMC7rKfK+6xIHlZP5+I0MoiDqX8w3/yLA4OPu0yE3oit58/iTF1rwW
-	6n6TFtsWaLnazF3wYvoYZG/aYTFiLq3Lb4+vZ1MM3R2C4ha3qtCgkxI6qmvTdwwq
-	wZQCOCD7v4wQmBGbbSw5Zp4VxOQ8v9p/lWL1Y2UNJ3ERXzHtpCe0H+6PkqUNXuPF
-	Xi/jepIHPQWXhIms8iZk6EF8ZBc8tE1bhMxdqGOaE7lR+VgRvJGk3Ksljcvg7XjZ
-	vra5jsRPhsqZ0n+HH/8H2svRZImAF+2ZKFfgxzraHof/BjgEy7i7WHIH+QhPuUZb
-	22KAIA==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj0as40pe-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 17:02:34 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-744c091ec4fso328204137.0
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:02:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gcPHm6W+"
+Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-43ccd4f6f6eso5443275fac.0
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 10:11:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784653354; x=1785258154; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0quPAI0p/ihpRaYsyDrrGjjtcU8ulVk1wA2nTdZt+CE=;
-        b=FUBPj+7JFrwihz1vgaypZ6247CxSmUEVBP5ZStOC5agjkko68A3o7heIYSC64Ls/q0
-         EGrQnjKc4X2omadzbB9XbAAX+aoHv4gyDOjNHI9trUq2PwADvyr4O+bnJdf4pxzPNIak
-         /oxm8gtv27oJbNbwspneDPO4y/uUj8ekw2omAOoNg9ZmDJSXmrBjLNkEtRwWNxv9nvQD
-         Nx41eWFMiDwUe9afHeDZoQuUZn2TmMs86aF4bPkqj4iAsXzoVaS2bzmML3ZJefVSnJbv
-         O+cRru9qv3XmVOXCsqJ3MGnFxKq6BWZZ5JT2RSZNoui6quenExjdKWFUgYs9t7idu+Qt
-         7Xfw==
+        d=gmail.com; s=20251104; t=1784653889; x=1785258689; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QzhjVfvwCu9RsziVFmoEaGvP3wdKmz3SRFarpVmt0Fo=;
+        b=gcPHm6W+VQC3NPdDiEjTAiOVNYWiPF4goLL7kDW02HICQSmEygsrTsZQ8nRg8VGCiR
+         4XM5esZOTNPwt8mb3m9NqRce1o32kD2eopdOcVYdfaB2p1qWVCxrYhmTYErQJ2LaN9E3
+         2KvoSAU0J1tX4I2zceof6/qsJ/a6kGvMRlHm5xN/onbYcPnUHeyd6SXUh8zo7wYRKnqp
+         /y3TqjXeHDTEjNYLl2Yfv+F2UC0R5dISS3+cGdml9wzuKoKA08+hjWeTkWjQHLaKYgcj
+         aF3iVGcqlUE2GcvTjrko9hOgQ9pn47W/2k4hjypG+xx5+88JH+n1yYJ20ajm4b6oN0RZ
+         kWcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784653354; x=1785258154;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1784653889; x=1785258689;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0quPAI0p/ihpRaYsyDrrGjjtcU8ulVk1wA2nTdZt+CE=;
-        b=sWSAIFa1qk3IAvIO67WMBqarRlW4CYj/SJdeoOso/p6EEA+82W7VyNqKJKpsxSr8YA
-         l/NkLU5fzvRZ5fojCzUZx1a8q9m5UCX6IHIAteFd9+FqwhIv5kSNo0n70hVeBB6rtUrO
-         +Upxu6Tz0lAoR4VpyMcvRbUjaEUeYu8CHYkvFtFkgrfQsVLJQ7RHcg/mXyfgOxsjhqgp
-         6yV27SVIvl2rYFzKxY8kyUDWA46U7UeKMbqWlb4BE3o882SSKbLvzPfFbiLXb/nL2yxH
-         WCx5mPFhgnu0be/FQsukULx8uVCSIu4ib0l+yGIPJdX6qOQX9Z93I1kFl9niTMwE5gla
-         DcDg==
-X-Forwarded-Encrypted: i=1; AHgh+Rqgk77rpXmtB4r8mKsCRkA4R+rsPQH4N80+QaXqHfXm5bGOpMN/cI68YzeWHEZI0QAHOrtDkbcS/DWM@vger.kernel.org
-X-Gm-Message-State: AOJu0YxJzvVW+zDzg2PVb11Gq9Wl42Uu7MRh6EerOsAFPA/lNcrXWyVe
-	dAtW14RRh0sIsRLb75vg8FF4DmszSRxio1PLUTIf13V+eRylU05B2uI2walT7X3p4JtpW9JWWfl
-	XUw9Ko+EivsWPClwJ/2RcBKHlHBW7UswrLcBeBg8g7XB8zxXcM4Y1/YGnRAvOkjKc
-X-Gm-Gg: AR+sD12s2/jNsbofMtkpeQ+iBzh/WqTVLUmrfQrZJApjocUE/EsgEkhcr+wnOn/8guE
-	uMkwX6fV2HKs6QdSYyzXvb2ssHlDEf9M6FLoBkQIAehD8OPItwEBcDA1BXolKBpKuOvmIVesZ8j
-	EtSskfn5A6JKxzHCYqwR2RGTGmSyY6PxFxMWEMGuvpYFZX7I5uShimhQROXV90NCD8CBPDu1hhB
-	Ov0Tyudx/I6H4QqdQ6vgYdhYZr72nVGP8Mw+iKV/KO3ri1SAYohW00e/0hhiXof0G5+Nd57oDFS
-	5BG5ioQ/AqCbcEaiduG8QO8l3t/BqQfA97IqHNtW2LKzYnp54eIVJ91dF1CMzp2+yLYCbtdek5n
-	rDWEQJXWhoaD4x3neVgyPBb2/
-X-Received: by 2002:a05:6102:5486:b0:727:36b9:dee with SMTP id ada2fe7eead31-74abc95465cmr744385137.8.1784653353621;
-        Tue, 21 Jul 2026 10:02:33 -0700 (PDT)
-X-Received: by 2002:a05:6102:5486:b0:727:36b9:dee with SMTP id ada2fe7eead31-74abc95465cmr744339137.8.1784653353120;
-        Tue, 21 Jul 2026 10:02:33 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32a78260sm1445266b.6.2026.07.21.10.02.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jul 2026 10:02:32 -0700 (PDT)
-Message-ID: <e32b2f59-4fc5-4c81-8a89-24ad132c10ac@oss.qualcomm.com>
-Date: Tue, 21 Jul 2026 19:02:30 +0200
+        bh=QzhjVfvwCu9RsziVFmoEaGvP3wdKmz3SRFarpVmt0Fo=;
+        b=G2dgFrYttitrWhDycJxdQqqFApLdXXQMDo6yoL4Zviug11TnURMQ9BpIBKhRXP4O9w
+         AmBwYN3SrR19lJLL+fYr2m24/w5/srnbu9xXkw3HwK8ZuiQW35aWcjoeO3Q/FGUOt+ZE
+         EIxkpEdw3RYdefu8sCZZdjEcR/KAgNarfKr1LrHP+Z6a5i/N8pDPe/kVW0vRkRV0bHBS
+         uv7nhmg14QTcpSt+7cscbHRY2V0ZVzKK2SdWP+oP+N+fJn9PgYBvtFUepvdGoht3pz+6
+         aYS7EfPgM5OtOI7tfizplv9jU1X9WILP/NLuMBHQg2U+46Ud8jydNN7tj/UlbvMrD2K9
+         QNWw==
+X-Gm-Message-State: AOJu0YyFleXlyVGMrLeCRtO6ZFFsz2rSXNyV+dbxdm7FolkVAiFuNmh2
+	QdCV1fqv6aOQfA4ja9ETJ/9DtoELcgjh6+3BfxRNnrX6Bwpu3D205Xtl
+X-Gm-Gg: AfdE7ckqnFkTI1KcX9LvjbdLF1i6YoS3Vlt9FiMN7xYmtGtXMhFVw/7r5BBKB7izdVb
+	uG4XT+u03DfS/al/h4fILhp5CZuogzC82tnfifCjuq36edKB95IH3+FqUi4hAB5n1cL93tCxzGN
+	Iqn9eY9kQSWoqMhY5zp+IoQG06BzzN2+xy25KCiYJj0WwWKRYHyUo9++/pH9rBMyn6sVQd4XR/E
+	rxb9jz52ioulJkg5qUDMK6PFeBYZNcVjkRVKmlFCOwFaf6N9t5WMl8QmHpE+7muKRFrVzjrLDDS
+	sIYOoHzjh+fVp7MKzAo4Y1RqI+UkUhoK3OGk5HhpaUQrPB9pqwZHrlu3rxn35+30PS1YV94K/g8
+	avq6K0SLV6JFMJp6u5SVO2+ho1RPUJlRnqrYMLUJJ14wRFx8umI1XS1BmlYkZIIjzZ39KUTgP0l
+	Hi
+X-Received: by 2002:a05:6808:2225:b0:495:f79d:8bd4 with SMTP id 5614622812f47-4a4d03a59femr10829527b6e.25.1784653888497;
+        Tue, 21 Jul 2026 10:11:28 -0700 (PDT)
+Received: from localhost.localdomain ([2600:1700:fb0:1bc0::54])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4a4d3cadb50sm10213953b6e.9.2026.07.21.10.11.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Jul 2026 10:11:27 -0700 (PDT)
+From: Chris Morgan <macroalpha82@gmail.com>
+To: linux-rockchip@lists.infradead.org
+Cc: devicetree@vger.kernel.org,
+	xsf@rock-chips.com,
+	sre@kernel.org,
+	heiko@sntech.de,
+	conor+dt@kernel.org,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: [PATCH V8 0/4] Add Anbernic RG Vita-Pro
+Date: Tue, 21 Jul 2026 12:09:03 -0500
+Message-ID: <20260721170907.131731-1-macroalpha82@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 5/5] arm64: dts: qcom: sm8650-hdk: add SPMI ADC
- channels and thermal nodes
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260721-topic-sm8x50-adc5-gen3-v6-0-a507f4a1e537@linaro.org>
- <20260721-topic-sm8x50-adc5-gen3-v6-5-a507f4a1e537@linaro.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260721-topic-sm8x50-adc5-gen3-v6-5-a507f4a1e537@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDE3OSBTYWx0ZWRfXwpZLCdJb/Ja+
- kG02F6r0DdVPvt99C09S2bdhXZeHztlMnNBAZZjE68eD7rx/g8XLKfprLvb8M9E8UoAz8C/tI6n
- 7Vg8DEvRtqj3a/CoG83rr9Gf+Emwb3XerdiYOmXGnROFJxTuQfOB4FRJEHFIWuYXnh6yDTPIYo6
- Yc1xPmfoTtISAL7EBFrbFZ85a2+Pd3xm+/km6MykY82OMeWfNTOiBxPYz3LL7Ogfp7BYCn8Bhb1
- LNrdOVSeMiysbuOHer1NB2w45ioZACXvRYY1lwqelESWbHWx/kTfm7yuB8I4XKtQSyHfcyjTzdb
- R3GHIO/z1x5Z8muLKiOq88DvUQbnlAPc7fkZUf3YbuuSXkSylkFN0PEaIadIEKLBFODXxJsAOQx
- uWi25b0cxtI08fkIJCY5VqrltNuUaIQ2kZNLzomUR2DwKrDp/eipg3zQOiRf2eHWuQ93IYPlBo3
- VTmnWY1h8ItlRhSeM0A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDE3OSBTYWx0ZWRfX6lm3e1RwT2NW
- 5mLWLgt3fsMCO2+3XAFetZ26D4gjSH6XqsmDDMb03jpRxxfyPIZTwZT7j5gOEEQTYS1fB1332G3
- 5GYIvva57EcVet80qMk9oZHczU9YODo=
-X-Authority-Analysis: v=2.4 cv=DoFmPm/+ c=1 sm=1 tr=0 ts=6a5fa62a cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=zxsgVq_BHBy1SaPP9u4A:9 a=QEXdDO2ut3YA:10
- a=crWF4MFLhNY0qMRaF8an:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: shJILM4sPsu9UJ0RFyL3DyE_LbbNWsLE
-X-Proofpoint-ORIG-GUID: shJILM4sPsu9UJ0RFyL3DyE_LbbNWsLE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-21_03,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015 phishscore=0
- suspectscore=0 impostorscore=0 bulkscore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210179
+Content-Transfer-Encoding: 8bit
 
-On 7/21/26 5:31 PM, Neil Armstrong wrote:
-> Add the SPMI ADC channels on the PMK8550 SPMI5 ADC3 for the
-> other PMICS on the system.
-> 
-> The thermal nodes are sorted by the sensor channel to be
-> coherent with the system thermal nodes ordering.
-> 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
+From: Chris Morgan <macromorgan@hotmail.com>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Add support for the Anbernic RG Vita-Pro, based on the Rockchip RK3576 SoC.
 
-Konrad
+Changes Since V1:
+ - Updated documentation filename to matche compatible string.
+ - Corrected order of allocating IRQ in charger driver and switched
+   to using devm managed function to allocate work queue.
+Changes Since V2:
+ - Corrected issue with naming of panel binding document and added
+   fallback compatible string.
+ - Switched to devm helpers in panel driver. Note that
+   devm_drm_panel_add() is currently only in the drm-next branch.
+ - Optimized setting GPIOs for panel driver.
+Changes Since V3:
+ - Fixed numerous issues identifed by Sashiko bot, mainly relating
+   to unclamped or improperly clamped values from within the
+   charger driver.
+ - Corrected hard-coded values in the panel driver unprepare routine
+   as well as correcting an improperly checked return condition.
+Changes Since V4:
+ - Fixed errors identified by Sashiko bot on charger driver that could
+   result in an improper value being written to the registers.
+ - Corrected some error handling in the panel driver.
+Changes Since V5:
+ - Corrected minor errors in documentation and added default values.
+ - Further corrected clamping behavior in charger driver.
+Changes Since V6:
+ - Additional corrections as suggested by Sashiko bot to fix potential
+   edge cases during probe for sgm41542.
+ - Corrected an improperly shifted value being written to register for
+   sgm41542.
+ - Changed a MV value to UV in sgm41542 driver to simplify function.
+Changes Since V7:
+ - Added PM functions to sgm41542 driver per request from Sashiko,
+   which stops the hardware watchdog during suspend.
+ - Switched from device_init_wakeup() to devm_device_init_wakeup().
+ - Confirmed a state change in IRQ handler for sgm41542 to ensure we
+   don't update input current limit except when the vbus goes from
+   not okay to okay.
+ - Removed panel patches, which have already been accepted upstream.
+   Please note that this *may* cause an error about missing bindings.
+   See commit 0fd6ead8270270d859a28d0196a4b47e7d6845b8 in linux-next.
+
+Chris Morgan (4):
+  dt-bindings: power: supply: sgm41542: document sgm41542
+  power: supply: sgm41542: Add SG Micro sgm41542 charger
+  dt-bindings: arm: rockchip: Add Anbernic RG Vita-Pro
+  arm64: dts: rockchip: Add Anbernic RG Vita-Pro
+
+ .../devicetree/bindings/arm/rockchip.yaml     |    6 +
+ .../power/supply/sgmicro,sgm41542.yaml        |   96 ++
+ arch/arm64/boot/dts/rockchip/Makefile         |    1 +
+ .../rockchip/rk3576-anbernic-rg-vita-pro.dts  | 1327 +++++++++++++++++
+ drivers/power/supply/Kconfig                  |    8 +
+ drivers/power/supply/Makefile                 |    1 +
+ drivers/power/supply/sgm41542_charger.c       | 1111 ++++++++++++++
+ 7 files changed, 2550 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542.yaml
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts
+ create mode 100644 drivers/power/supply/sgm41542_charger.c
+
+-- 
+2.43.0
+
