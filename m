@@ -1,135 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-183.mta1.migadu.com (out-183.mta1.migadu.com [95.215.58.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B48F377AA6
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 11:47:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E034481FD7
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 11:52:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784634433; cv=none; b=s/SP7OhEc3H8reR9pbZCIwwUM1uU433MjXu1KZEnd0nuASVGHPktSIaIhkn7GbRqRJvUJw2oISNqCfpX/4NV344gf07HU57Nu2hUNvx8r6nhsLhfgw7Y9TG2sGRbeeXZeqTTp/dnPbbUne6wCMZWDpPkhIanVyCFzoDfl9TfEUQ=
+	t=1784634755; cv=none; b=qq+0R0JPwM0tb/15q8y8NUaE3g6xE6RtZzTKR7W6umx+kLEFmYjdZbdbX5I3qcd5MBmdqrnmcDKaIl11yrRQg/f+I45hd6In5Xkd0YfV0yZtFOKXaCNr1CQXzf+mb+YpLncHhkuQiJx91iPAhMJXrnGUDfs8pmPFGeE8omXK7Gk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784634433; c=relaxed/simple;
-	bh=tkMDNfG0PVh0Vrs84RUEwVRmchnKvh3H3AVF6hh5YdU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=j73nMhOwhuZatdJCqxjS5Dk/n7D6Z/4Er+EORyyZfHWCYK5YA1O0v3VL3qtSlX1wwGXrHH9AgpTkRWYs1KOcCqc1N/wKwEpv9/FHOdeBBMLVJzJEBk1BIE66G1aGtKbCIh6aepeftsDpBHtAI9hcgGnpJ3bqscF6OaAkVb5/yVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VqYtuoXg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784634755; c=relaxed/simple;
+	bh=jfeNo9sY+CV+61r2cYiAL9DDVOqrE8w2PYAqnuzcsKI=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
+	 In-Reply-To:MIME-Version:Content-Disposition; b=AOvVZzYjD58mfqJTzXUQXLO9Dd+f4sr2ulhOZVgTlLNBAUasMkIzN4cRiT+/PRrAaKVOMcvL0heKF48KB3rN4EK2GM7+ohjNl0I9e4PuFO9eZq9N3HpN1x14iOY42wLrj+hMes9CE2wgZtrIcJ/FbI1U1b8BHyFN1Ak2quTR28Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Q26gUfo1; arc=none smtp.client-ip=95.215.58.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VqYtuoXg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D22351F000E9;
-	Tue, 21 Jul 2026 11:47:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784634432;
-	bh=aZywTbTiVLB6Dy+1G8kaqoJv7jKyGAltVum6Efvft9A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VqYtuoXg9wPxZTx4DViAaYIfpVxAADInKa7sXKlRUldxXJVES1vmEvOUPluMVhkfd
-	 Ew0+uXQoXBLcSzPNCRwN7jFLNaowLF+7UAEPamnhIE59fvcMrJkbVcBiNo8bOskh0E
-	 jXCCmOzpEhQSsydkh3wDJwkSPegj13AfgfTKkhUaKPZGwfLM+MhOK+MpVQXP0nCYcD
-	 hmftCgjHtlVN9JL0CX92oL1LqizDppsaCxAmST8PCzKmjamBCvjkpZyFxNyT0OpPDw
-	 YgZqdG7k2VaDhpJtChsfc4koxxr2BsS7djFqd5FTHR2feUM9JLp0qOkU4PGvYNjPXg
-	 L5JKaxaRP9W0w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: remoteproc: qcom,milos-pas: Move Eliza
- ADSP to SM8550 schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260721-dts-qcom-eliza-fix-adsp-binding-v1-1-3a0b03af2ec7@oss.qualcomm.com>
-References: <20260721-dts-qcom-eliza-fix-adsp-binding-v1-0-3a0b03af2ec7@oss.qualcomm.com>
- <20260721-dts-qcom-eliza-fix-adsp-binding-v1-1-3a0b03af2ec7@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 11:47:11 +0000
-Message-Id: <20260721114711.D22351F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Q26gUfo1"
+Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784634742;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=saPQNRXNr4uVjroUD0Lw5F38mIc84uTGGZFC3b1RqYo=;
+	b=Q26gUfo1WQCFaXMCnKGGdL3LL9K4urpBsFjjlc8rJ2iknWOPf2bp22QYMRWaK19H8IrSso
+	LI2cvDmA01yHI79tJaqXq5/a5/BHbimUbvxgO+l1+pDDVG95y9Sf5BHpuTZt5NDRn6Aefp
+	D8N83wAXa7XK81tCXohhDc7Q4E/9C50=
+Date: Tue, 21 Jul 2026 04:52:12 -0700
+Message-Id: <DK487PYQKFZK.HX96HW3B22XZ@linux.dev>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Troy Mitchell" <troy.mitchell@linux.dev>
+To: "Troy Mitchell" <troy.mitchell@linux.dev>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Guenter Roeck" <linux@roeck-us.net>, "Paul
+ Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
+ Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Yixun Lan"
+ <dlan@kernel.org>, "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan"
+ <skhan@linuxfoundation.org>
+Cc: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-hwmon@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH v2 4/6] hwmon: (lm63) Add Sensylink CTF2301 support
+References: <20260721-ctl2301-v2-0-ef5fb342872a@linux.dev>
+	<20260721-ctl2301-v2-4-ef5fb342872a@linux.dev>
+	<20260721100004.D93AC1F000E9@smtp.kernel.org>
+In-Reply-To: <20260721100004.D93AC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-Mutt-References: <20260721100004.D93AC1F000E9@smtp.kernel.org>
+X-Mutt-Fcc: =Sent
+X-Migadu-Flow: FLOW_OUT
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] Moving the compatible string to an 'items' array constraint requ=
-iring a fallback breaks device tree validation for existing `qcom,eliza-ads=
-p-pas` device nodes.
-- [Medium] Moving `qcom,eliza-adsp-pas` to `qcom,sm8550-pas.yaml` inadverte=
-ntly makes its 6th interrupt optional, whereas it was strictly required in =
-its previous schema.
-- [Low] Explicitly listing `qcom,eliza-adsp-pas` in the `contains` check fo=
-r the `power-domains` block is redundant.
---
+On Tue, Jul 21, 2026 at 10:00:04AM +0000, sashiko-bot@kernel.org wrote:
+> [Severity: Medium]
+> Will this corrupt the temperature reading if the I2C read fails?
+>
+> In lm63_update_device(), if i2c_smbus_read_byte_data() for the LSB returns
+> a negative error code (such as -EIO), it gets bitwise-ORed with the shifted
+> MSB. The negative s32 error code would sign-extend, overwriting the MSB
+> bits entirely and resulting in a large negative temperature spike instead
+> of propagating the error or maintaining the previous valid reading.
+>
+> Could we check the return value of i2c_smbus_read_byte_data() before
+> merging it into temp1_input and temp1_max?
 
---- Patch [1]: [PATCH 1/2] dt-bindings: remoteproc: qcom,milos-pas: Move El=
-iza ADSP to SM8550 schema ---
-commit a654472ebd2ea108ab10c5ccd22057e8aa31a94f
-Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Good catch. A failed read must not be combined with the other temperature
+byte. I will read both bytes into temporary integers, check both return
+values, and update the cached 12-bit value only after both reads succeed.
 
-dt-bindings: remoteproc: qcom,milos-pas: Move Eliza ADSP to SM8550 schema
+The existing lm63_update_device() also truncates or combines unchecked
+i2c_smbus_read_byte_data() results in several other paths. I will address
+those existing error-handling issues in a separate patch, rather than mix
+that broader change into the CTF2301 support patch.
 
-The ADSP PAS found on Eliza SoC looks fully compatible with SM8750, which
-can fallback to SM8550 except for the extra interrupt ("shutdown-ack").
-So document its bindings in the SM8550 schema instead.
-
-> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas=
-.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
-> index 2a4c527552e69..019db91be7fd2 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
-> @@ -29,6 +29,7 @@ properties:
->            - qcom,x1e80100-cdsp-pas
->        - items:
->            - enum:
-> +              - qcom,eliza-adsp-pas
->                - qcom,glymur-adsp-pas
->                - qcom,hawi-adsp-pas
->                - qcom,kaanapali-adsp-pas
-
-[Severity: Medium]
-Does this regression break validation for existing device trees?
-
-By moving this into an items array that requires a fallback, a standalone
-compatible string like the one used in arch/arm64/boot/dts/qcom/eliza.dtsi:
-
-	compatible =3D "qcom,eliza-adsp-pas";
-
-will fail validation since it doesn't specify the fallback.
-
-[ ... ]
-
-> @@ -134,6 +135,7 @@ allOf:
->          compatible:
->            contains:
->              enum:
-> +              - qcom,eliza-adsp-pas
->                - qcom,glymur-adsp-pas
->                - qcom,glymur-cdsp-pas
->                - qcom,hawi-adsp-pas
-
-[Severity: Medium]
-Can this inadvertently make the 6th interrupt optional for Eliza?
-
-In the base schema, interrupts have a global minItems of 5. By adding
-the compatible string to this block without an explicit minItems: 6 overrid=
-e,
-the maxItems becomes 6, but the minItems remains 5, allowing device trees
-with a missing "shutdown-ack" interrupt to silently pass validation.
-
-[ ... ]
-
-> @@ -232,6 +234,7 @@ allOf:
->          compatible:
->            contains:
->              enum:
-> +              - qcom,eliza-adsp-pas
->                - qcom,sm8550-adsp-pas
->                - qcom,sm8650-adsp-pas
->                - qcom,x1e80100-adsp-pas
-
-[Severity: Low]
-Is it necessary to include the specific string here?
-
-Since the newly updated schema enforces qcom,sm8550-adsp-pas as a fallback
-for this device, a node for Eliza will already contain the fallback string
-and naturally match this condition without the extra entry.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-dts-qcom-e=
-liza-fix-adsp-binding-v1-0-3a0b03af2ec7@oss.qualcomm.com?part=3D1
+                                            - Troy
