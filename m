@@ -1,220 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 839313CB2D4
-	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 08:43:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155EF22E3F0
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 08:44:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784623434; cv=none; b=JNxuEeCfWaekzsadh8L0m8810lNikgPc9Yg7Hmb3OxxUe1acCbnp2F3q4hMN55w4gFWFNwgXs7gM8BYBjS/RW3J8vzHG7KeAxQ/8WGR5lXwDh6L44b34zL/tGAEr4FGuZDNW9F0J5SIRSZQGgdH9QMKTpmtcqukxiiOWklC+cqI=
+	t=1784623476; cv=none; b=jVhdVEX1lf2gbraq2U7LpCasfXoNzrllu/bHrbO7328zEuGw8bjYnUjKty1cMrsTLlCVgXN/i1JIN2g6kPU173c3o01LKqLxtmLpNkJ+N/W4yM1JGaZ77YCaJecWeD5fCDZVknjZadku9En8pwKRk9xZLdh0H4T+CktW6dU70sM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784623434; c=relaxed/simple;
-	bh=6LquMox0IoPrmx0DD9oK+EFSzTcy0jdbupAqvZ+LegM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fCt82VoN4sIgoMEw/qoZcVwiekcVwcDzjws8i+TOdLw3VuBEBIKW3NJkKXdHklUfXQVKMKvhurCDXm1lc6Mg5gxe7Bb8apjhsc0b3lZmrIx5m4Rpo+5/UzRlZfsILTk91rSIOmBBoWtR/7onui9BMFWMmJteCdkm/O73XCVaxEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aUJAsOFv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784623476; c=relaxed/simple;
+	bh=fdsoK24vo88pOd6KCP2A0L+3oICs+Yajlx3oTBhK4c4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:From:To:Subject:
+	 References:In-Reply-To; b=BVEzFdEa+4K2YsMFnAaS5xnOxkt4I/Kb1xSFygE1Ybidph/vwqddmbIT3YFBIG9gzd093gxewyt5wc5zg+CICqVW3vhhzJM3xvVlnGJMqbEzSdUqp5ylexiDJrt8U6/MyE3CVvGEiq7VtoCMbinfcWeJIRtoGZ5j9dqF7xo5FGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b5vUMsWE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aUJAsOFv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDA391F00A3A;
-	Tue, 21 Jul 2026 08:43:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b5vUMsWE"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 6EF4C1F000E9;
+	Tue, 21 Jul 2026 08:44:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784623432;
-	bh=cszn5gtCWHBcjS5TveBAmzPAoOHTOSiyAop2KHSxfns=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aUJAsOFvKf/DgBv7KHe+QFj72aEVnowypNTNJhYz6wBrkJ0qtShFti3BoDymRAsZO
-	 mcqYpxza9G9RGMkO0sye7hA0wl3CgH0oQftQ/xGQOZkKkKHu/oHRLID9JPGvpK3M2F
-	 4djwBGLlIzdS3HGnhRKSzJjECcr3N4Yaw6eymrJpl8vBvtl/cpEv7/Vhg+dAuiCdq5
-	 Yy9UFgAzKLVFN+zHXMySLP+YMA1yRb2baDdp47e3jUHgmj5CwPCjNo3Ir1PyLE+AF6
-	 91lFzGtvZg1BoevgPh+Eny5jz5GyGV5bkpvWWEClqR09ZQJj0kJMV0ZYUJ9Q+jTPNx
-	 McK7byk8mllSg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/4] clocksource/drivers: Add support for the Renesas
- RZ/N1 timers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?SGVydmUgQ29kaW5hIChTY2huZWlkZXIgRWxlY3RyaWMp?= <herve.codina@bootlin.com>
-Cc: robh@kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260721082952.215691-3-herve.codina@bootlin.com>
-References: <20260721082952.215691-1-herve.codina@bootlin.com>
- <20260721082952.215691-3-herve.codina@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 08:43:51 +0000
-Message-Id: <20260721084351.CDA391F00A3A@smtp.kernel.org>
+	s=k20260515; t=1784623475;
+	bh=jJgmLQ0PBklWvKN4vrJrqNpLIPHESCWsAxcppX/aKF8=;
+	h=Date:Cc:From:To:Subject:References:In-Reply-To;
+	b=b5vUMsWE8LXO1BbsE/RXxg95MQrRpbp+hrUx+0yey9iYVJs+Hcuq0o/pnNWGVvQCn
+	 tJtoGhFuelhDf3LdsTMtibnJiyMtxP2UZqi7/6NEttaaLzDsHESBdWQqegSRWHplIv
+	 PTY/AJr25Bce1kM4WZKfhSR35Hw810JSsf5BXyyxZDrrPs8wi94I4HpfSjeT7ogwTq
+	 cJP7ONP/Y1o4kg18p1qZbSkIE4GfnHb5J35mX9S33KjlyPJlC9sIVtKIPg13Etmvhd
+	 CF34hG5xlo7YUhAGI339NB97tMyVAtYiznCcXUgi2ekI4FkCWNjyreQrkrigy15lH9
+	 O9RV4ImFoVV5A==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=4d358136a3b66542fc9f6e397693250b807903e2552f8ebad5754366153e;
+ micalg=pgp-sha384; protocol="application/pgp-signature"
+Date: Tue, 21 Jul 2026 10:44:30 +0200
+Message-Id: <DK44809N7Y8I.J2Z3U4N32H0Q@kernel.org>
+Cc: <devicetree@vger.kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>,
+ <vkoul@kernel.org>, <neil.armstrong@linaro.org>, <olteanv@gmail.com>,
+ <linux-phy@lists.infradead.org>
+From: "Michael Walle" <mwalle@kernel.org>
+To: "Vladimir Oltean" <vladimir.oltean@nxp.com>
+Subject: Re: [PATCH v3 phy-next 2/8] soc: fsl: guts: add a global structure
+ to hold state
+X-Mailer: aerc 0.20.0
+References: <20260720133642.136324-1-vladimir.oltean@nxp.com>
+ <20260720133642.136324-3-vladimir.oltean@nxp.com>
+ <20260720135049.8AC231F00A3D@smtp.kernel.org>
+ <20260720140139.dmgysphpse2jf3fi@skbuf>
+ <20260720145724.acega7erguyufxd3@skbuf>
+In-Reply-To: <20260720145724.acega7erguyufxd3@skbuf>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Critical] Down-counter returned without bitwise inversion for clocksourc=
-e and sched_clock.
-- [High] Uninitialized event_handler dereference when an interrupt fires ea=
-rly.
-- [High] Inappropriate assignment of a 16-bit timer for system clocksource =
-and sched_clock.
---
+--4d358136a3b66542fc9f6e397693250b807903e2552f8ebad5754366153e
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
---- Patch [2]: [PATCH v4 2/4] clocksource/drivers: Add support for the Rene=
-sas RZ/N1 timers ---
-commit eef53d5f7f215d9a1bbe8d768ba6df4cf250b8ae
-Author: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
+Hi Vladimir,
 
-clocksource/drivers: Add support for the Renesas RZ/N1 timers
+On Mon Jul 20, 2026 at 4:57 PM CEST, Vladimir Oltean wrote:
+> On Mon, Jul 20, 2026 at 05:01:39PM +0300, Vladimir Oltean wrote:
+>> On Mon, Jul 20, 2026 at 01:50:49PM +0000, sashiko-bot@kernel.org wrote:
+>> > [Severity: High]
+>> > Will jumping to err_nomem cause a NULL pointer dereference?
+>> >=20
+>> > If the allocation of soc_dev_attr fails, the code now jumps to the err=
+or
+>> > handling path which dereferences soc_dev_attr to free its members:
+>> >=20
+>> > > @@ -269,6 +271,8 @@ static int __init fsl_guts_init(void)
+>> > >  	kfree(soc_dev_attr->revision);
+>> > >  	kfree(soc_dev_attr->serial_number);
+>> >=20
+>> > Since soc_dev_attr is NULL when this allocation fails, won't evaluatin=
+g
+>> > soc_dev_attr->revision and other members result in a kernel panic?
+>>=20
+>> yeah.
+>>=20
+>> I tried to be nice and play with the existing "err_nomem" and "err"
+>> error handling labels, but the truth is that a single error cleanup path
+>> is just an antipattern that doesn't scale as code becomes more complex.
+>>=20
+>> Instead of having a single error handling procedure which needs to
+>> carefully fend off from various invalid contexts from all the goto
+>> sites, the standard convention is to have an incremental set of labels
+>> which undo just the setup that was done up to the goto jump site.
+>>=20
+>> I'll refactor fsl_guts_init() to use that convention for v4.
+>
+> While I was doing this refactoring, I noticed that this code path:
+>
+> 	if (soc_data)
+> 		soc_uid =3D fsl_guts_get_soc_uid(soc_data->sfp_compat,
+> 					       soc_data->uid_offset);
+> 	if (soc_uid) {
+> 		soc_dev_attr->serial_number =3D kasprintf(GFP_KERNEL, "%016llX",
+> 							soc_uid);
+> 		// no kasprintf() NULL return code check here, unlike
+> 		// the rest of the code
 
-This commit introduces support for the Renesas RZ/N1 SoC timer block.
-It manages 6 16-bit timers and 2 32-bit timers, allowing configuration
-for periodic or one-shot modes.
+It's a long time ago, but it seems to be designed be optional. In
+that case a NULL pointer check was omitted, because nothing bad can
+happen anyway. Either you'll free the string if !=3D NULL or you don't
+free anything.
 
-> diff --git a/drivers/clocksource/timer-rzn1.c b/drivers/clocksource/timer=
--rzn1.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/clocksource/timer-rzn1.c
+> 	}
+>
+> 	soc_dev =3D soc_device_register(soc_dev_attr);
+> 	if (IS_ERR(soc_dev)) {
+> 		ret =3D PTR_ERR(soc_dev);
+> 		goto err;
+> 	}
+>
+> proceeds with soc_device_register() even if fsl_guts_get_soc_uid() was
+> able to get a soc unique id from the security fuse processor, but we
+> fail to print that string to the soc_dev_attr->serial_number variable.
+>
+> I don't see anywhere mentioned in commit 786dde1e59d7 ("soc: fsl: guts:
+> add serial_number support") that this would be intentional, so it can
+> just as well be an omission.
+>
+> Is it OK if I replace the silent failure with a loud failure of the
+> entire fsl_guts_init()? The code executes only if soc_uid is non-zero
+> anyway.
+>
+> kasprintf() fails only for memory related reasons.
 
-[ ... ]
+I don't have a strong opinion. If you ever get that error, something
+is seriously bad anyway.
 
-> +static irqreturn_t rzn1_timer_interrupt(int irq, void *dev_id)
-> +{
-> +	struct rzn1_timer *timer =3D dev_id;
-> +
-> +	/* Ack the interrupt */
-> +	readl(timer->base + RZN1_TIMER_CLEAR_INT_REG);
-> +
-> +	timer->ced.event_handler(&timer->ced);
+-michael
 
-[Severity: High]
-Can timer->ced.event_handler be NULL here?
+--4d358136a3b66542fc9f6e397693250b807903e2552f8ebad5754366153e
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If a spurious interrupt fires after devm_request_irq() or enable_irq() is
-called, but before clockevents_config_and_register() populates the event
-handler, will this unconditionally dereference a NULL pointer?
+-----BEGIN PGP SIGNATURE-----
 
-> +	return IRQ_HANDLED;
-> +}
+iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCal8xbhIcbXdhbGxlQGtl
+cm5lbC5vcmcACgkQEic87j4CH/ieSgF+ICekJYVWEq9rBDY5VZlPzbSBak27dBhZ
+NkdIeCS2Vd7RS4jfJ2na8hplH3Fu7kTuAX4hd5ZuNnKDx0T1mYH5EUpZu0N0lVyS
+xrLYo7Lk/69G931Si9SJgvHYemQA8/J8+q4=
+=xtHI
+-----END PGP SIGNATURE-----
 
-[ ... ]
-
-> +static u64 notrace rzn1_sched_read(void)
-> +{
-> +	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_=
-REG);
-> +}
-> +
-> +static u64 rzn1_clksrc_read(struct clocksource *cs)
-> +{
-> +	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_=
-REG);
-> +}
-
-[Severity: Critical]
-Is this hardware timer a down-counter?
-
-Since the timer is configured with RZN1_TIMER_LOAD_COUNT_REG, if the raw
-CURRENT_COUNT_REG value is decrementing, will the timekeeping and scheduler
-core observe a massive positive delta on every read due to unsigned
-arithmetic wrap-around?
-
-Does this value need a bitwise inversion to ensure a monotonically increasi=
-ng
-counter for the clocksource framework?
-
-[ ... ]
-
-> +static int rzn1_local_timer_starting_cpu(unsigned int cpu)
-> +{
-> +	struct rzn1_timer *timer;
-> +
-> +	if (cpu >=3D RZN1_TIMER_NB_32BIT_TIMERS)
-> +		return 0;
-> +
-> +	timer =3D &rzn1_tab_timers[cpu + RZN1_TIMER_BASE_INDEX_32BIT_TIMERS];
-> +
-> +	timer->ced.cpumask =3D cpumask_of(cpu);
-> +	irq_force_affinity(timer->ced.irq, cpumask_of(cpu));
-> +	enable_irq(timer->ced.irq);
-> +
-> +	clockevents_config_and_register(&timer->ced, timer->rate, 1,
-> +					GENMASK(timer->width - 1, 0));
-
-[Severity: High]
-Is it safe to call enable_irq() before registering the clockevent device?
-
-If an interrupt occurs immediately after enable_irq(), rzn1_timer_interrupt=
-()
-will be called before clockevents_config_and_register() sets up the
-event_handler, potentially causing the NULL pointer dereference mentioned
-above.
-
-[ ... ]
-
-> +static int rzn1_timer_setup_timers(struct platform_device *pdev,
-> +				   struct rzn1_timer *tab_timers,
-> +				   unsigned int first_timer_index,
-> +				   unsigned int last_timer_index,
-> +				   void __iomem *base, unsigned long clock_rate,
-> +				   bool irq_disabled)
-> +{
-
-[ ... ]
-
-> +		if (irq_disabled)
-> +			irq_set_status_flags(timer->ced.irq, IRQ_NOAUTOEN);
-> +
-> +		ret =3D devm_request_irq(dev, timer->ced.irq, rzn1_timer_interrupt,
-> +				       IRQF_TIMER, timer->ced.name, timer);
-> +		if (ret < 0)
-> +			return dev_err_probe(dev, ret, "timer%u: Failed to request IRQ\n", i);
-> +
-> +		rzn1_timer_int_enable(timer);
-> +	}
-
-[Severity: High]
-Could this also trigger a NULL pointer dereference?
-
-Since the IRQ is requested and enabled at the controller level here, before
-clockevents_config_and_register() is called in the subsequent setup steps, =
-an
-early interrupt could trigger a crash.
-
-[ ... ]
-
-> +static int rzn1_timer_probe_first(struct platform_device *pdev,
-> +				  struct rzn1_timer *tab_timers,
-> +				  void __iomem *base, unsigned long clock_rate)
-> +{
-
-[ ... ]
-
-> +	/*
-> +	 * At this point, no more operations can fail. Perform remaining
-> +	 * operations. Starting by handling the first 16-bit timer
-> +	 */
-> +	timer =3D &tab_timers[RZN1_TIMER_BASE_INDEX_16BIT_TIMERS];
-> +
-> +	rzn1_timer_init(timer, RZN1_TIMER_BASE_INDEX_16BIT_TIMERS, base, clock_=
-rate);
-> +	rzn1_timer_config(timer, GENMASK(timer->width - 1, 0), true);
-> +
-> +	rzn1_sched_clock =3D timer;
-> +
-> +	sched_clock_register(rzn1_sched_read, rzn1_sched_clock->width, rzn1_sch=
-ed_clock->rate);
-> +
-> +	rzn1_clocksource.mask =3D CLOCKSOURCE_MASK(rzn1_sched_clock->width);
-> +	clocksource_register_hz(&rzn1_clocksource, rzn1_sched_clock->rate);
-
-[Severity: High]
-Will using a 16-bit timer for the system clocksource break NO_HZ_IDLE?
-
-Since the 16-bit timer is fed by a 1 MHz clock (clock_rate / 25), it will
-wrap every ~65.5 milliseconds. Will this short wrap period force the core
-timekeeping code to wake the system extremely frequently just to accumulate
-time?
-
-Would it be better to dedicate one of the available 32-bit timers to act
-as the system clocksource and sched_clock?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721082952.2156=
-91-1-herve.codina@bootlin.com?part=3D2
+--4d358136a3b66542fc9f6e397693250b807903e2552f8ebad5754366153e--
