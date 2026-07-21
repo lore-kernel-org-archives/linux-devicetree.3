@@ -1,133 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28DE2425880;
-	Tue, 21 Jul 2026 06:53:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B631427A04
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 06:54:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784616802; cv=none; b=u8rKspjvC6+BQIJahEn9j5jzh3uq7zPHTqTQ+6p96HmMcc/JKw/Xv7Qi/K/ADb1Csn4FCct6lP0yl3405oknijA9auto4XlGgxbazvPn/mLlGGFTseGDBq+74jsXIjKR1K+0QT+srxzOBomGC1wKZhfEpN+kbCOQ14T3QBN/WXw=
+	t=1784616857; cv=none; b=TeuJgx1UwtYDmk1YOsXMRkJW9bf1TsiHJs/2xR2/6NfBRFznkyW2QNGewRoQSL4zZ8bG7TcoJhZLLmvfj+IUqNSbaklIcIPITHyzYPC5jmjSvSgUn5CWCblg4yyBY+eaOaJyclWqCp+MNmSIUHwMUbEh+VIWwL54FHjtvIjZ42o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784616802; c=relaxed/simple;
-	bh=Mr48OJBpqNXF99NUVscw+XS7PPWk1GoY1V8Qc4G1XxU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=alj2wAqP6+Sqycb6NK6Y74q5O/sWIlcoK5SRQJeOHGxgUPrV1CuWOoadhN3/LrqK045qYQDIM7LryDXn2WJJJoJTkbqP+trFGbyz4Aoifl1AgqnkftQ2q6009q9HFhjVdCQLvwcaarmEBNIjosO/VhLHBUUqqDSZO6UpNQdlDK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GiEObvFH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784616857; c=relaxed/simple;
+	bh=EaczP8vHkcmD2CnZKKlr51IjBWJs8uYaLtHVfFy6Ht0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Gjz8OeNt8YADWzTw+Z7LxeebwRCGuqQFT9hG+gOk2OZtnD799HyUJsRBc00c1idFK/b3dx6WPUs/53zfRHy7QHm5WT8aPZ+gBPa+QMLfmCzDzij/Q94JwzfcVMb0JAFHmWVTpK8uTAsioRgbTQIhtUwicxRqS2K1uRwzFzmO3Zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gsbiyarU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GiEObvFH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF3831F00A3D;
-	Tue, 21 Jul 2026 06:53:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gsbiyarU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B67001F000E9;
+	Tue, 21 Jul 2026 06:54:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784616800;
-	bh=oXWA4aAp+eHwrOCsUG6kaSjtByPSvhC3onuHYmgdsu8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GiEObvFHjkkXl57S2uc/tzUe5e7i0tVV221gye3x353rubA3rXrTZhC+X3mIq5R/J
-	 4gZ6dSzoxOsRnc7iDzjfTkWp0G2jMoKcbGexjxYIPX39goZlmvlimBJ5QqgTKsCsoC
-	 uJ32NL2LM3QcKgdBlXKvDSK+O+oa16G+6PMRHtyzLXZov6/bUK2TYHGPfTQeZhF++p
-	 oBRlV6Qd8mu+k6DYZ0MwBxa/1cNyPx31Dtgbb331weFbUUgUlwXkMA8ZLZ317KBrIr
-	 EMBNroOFW16LoNTrQDv9/vtOqbWKxfyi8D7IIhUSp0QWQm3NZCSL4eMO12WI3U2HMF
-	 TgxvBL+5t2HDA==
-Date: Tue, 21 Jul 2026 08:53:16 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vinod Koul <vkoul@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v5 1/2] dt-bindings: power: reset: qcom-pon: Add new
- compatible PMM8654AU
-Message-ID: <20260721-lovely-quick-tarsier-768113@quoll>
-References: <20260713-b4-add_pwrkey_and_resin-v5-0-3bea476e1453@oss.qualcomm.com>
- <20260713-b4-add_pwrkey_and_resin-v5-1-3bea476e1453@oss.qualcomm.com>
+	s=k20260515; t=1784616856;
+	bh=e9BvuIW/CU/AgFCRKhHvm8riXZ/ScehEjRSlzBhPlUA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gsbiyarU9oKKnNP9Ti6yxHUHVFl/lY3nQ5caE2GTBJJOcCXr9ww39HMm+EgK2XtAO
+	 qn28KuaJhUYWsyF0v7XRoIPiTzGGj7hqYL/wdDMBoYCLecIbZ7GRkZkPeobepEbiQx
+	 DpRM2IEB38UT+9AwHwYxUu44vYzQmXHsMI8tILECTslVoJI7/5HMzCntLlTjCOEnbT
+	 KV7HhIXNd6xCy6x8dpinfFquOB7WUApXuhPmDPXMKSfEYmio/Hca+8bHYIrNN69Dij
+	 HB1X2c/eP+M17WxrymSuy/XN1cwwomHOxVzH0pv17x9TgK2Pt2ZcZyR7L7+1QuQM8T
+	 vLtXLhdlgaVmw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/4] arm64: dts: rockchip: add HDMI RX audio on
+ RK3588
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Igor Paunovic" <royalnet026@gmail.com>
+Cc: media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260721064115.64809-4-royalnet026@gmail.com>
+References: <20260721064115.64809-1-royalnet026@gmail.com>
+ <20260721064115.64809-4-royalnet026@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 06:54:15 +0000
+Message-Id: <20260721065415.B67001F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260713-b4-add_pwrkey_and_resin-v5-1-3bea476e1453@oss.qualcomm.com>
 
-On Mon, Jul 13, 2026 at 05:28:14PM +0530, Rakesh Kota wrote:
-> PMM8654AU is a distinct PMIC variant from PMM8650AU despite sharing the
-> same PMIC subtype. PMM8654AU implements additional registers added to
-> the "hlos" register address spaces, so add qcom,pmm8654au-pon as a
-> fallback to qcom,pmk8350-pon to distinguish it from the baseline
-> PMK8350 PON implementation.
-> 
-> The GEN3 PON peripheral requires two register address spaces: "hlos"
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-What is gen3 pon here? It is the first time this appears in the commit
-msg.
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the DAPM widget =
+for the HDMI RX capture source is incorrectly defined as an OUTPUT widget, =
+breaking the DAPM graph for the capture path.
+--
 
-> for the primary PON block and "pbs" for the address needs to be
-> specified to facilitate software debouncing. Set minItems: 2 for reg
-> in the qcom,pmk8350-pon if/then constraint to enforce that both
-> address spaces are always present.
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> ---
-> Changes in v5:
->  - Set minItems: 2 for reg in the PMK8350 if/then block to enforce that
->    both hlos and pbs address spaces are required for GEN3 PON peripherals.
-> 
-> Changes in v4:
->  - Remove the contain for PMK8350 and new if:then for PMM8654AU as
->    suggested by Krzysztof Kozlowski
-> 
-> Changes in v3:
->  - Update the commit message.
-> 
-> Changes in v2:
->  - Introduces PMM8654AU compatible strings as suggested by Konrad Dybcio.
-> ---
->  .../devicetree/bindings/power/reset/qcom,pon.yaml     | 19 +++++++++++--------
->  1 file changed, 11 insertions(+), 8 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml b/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml
-> index 979a377cb4ffd577bfa51b9a3cd089acc202de0c..09eea48c709e5e42c45c1949ee1d06298dea1f91 100644
-> --- a/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml
-> +++ b/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml
-> @@ -17,12 +17,16 @@ description: |
->  
->  properties:
->    compatible:
-> -    enum:
-> -      - qcom,pm8916-pon
-> -      - qcom,pm8941-pon
-> -      - qcom,pms405-pon
-> -      - qcom,pm8998-pon
-> -      - qcom,pmk8350-pon
-> +    oneOf:
-> +      - enum:
-> +          - qcom,pm8916-pon
-> +          - qcom,pm8941-pon
-> +          - qcom,pms405-pon
-> +          - qcom,pm8998-pon
-> +          - qcom,pmk8350-pon
-> +      - items:
-> +          - const: qcom,pmm8654au-pon
-> +          - const: qcom,pmk8350-pon
->  
->    reg:
->      description: |
-> @@ -105,10 +109,9 @@ allOf:
->      then:
->        properties:
->          reg:
-> -          minItems: 1
-> +          minItems: 2
+--- Patch [3]: [PATCH v4 3/4] arm64: dts: rockchip: add HDMI RX audio on RK=
+3588 ---
+commit e5a9a8ba89a4a45c730c1b44e28e899087346b1f
+Author: Igor Paunovic <royalnet026@gmail.com>
 
-You wrote that PMM8654AU has additional registers. This implies pmk8350
-does not have them, so why are you changing this?
+arm64: dts: rockchip: add HDMI RX audio on RK3588
 
-Also, that's an ABI break and I see no relation to the goal of adding
-PMM8654AU. Don't combine independent works into one commit.
+This commit exposes the HDMI RX controller's digital audio interfaces by
+adding the #sound-dai-cells property. It also adds a shared
+simple-audio-card routing the receiver I2S DAI to i2s7_8ch, mirroring
+existing HDMI TX sound cards.
 
-Best regards,
-Krzysztof
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi b/arch/arm64/=
+boot/dts/rockchip/rk3588-extra.dtsi
+> index a2640014ee042..e0dce15643997 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
 
+[ ... ]
+
+> @@ -23,6 +23,23 @@ simple-audio-card,cpu {
+>  		};
+>  	};
+> =20
+> +	hdmi_receiver_sound: hdmi-receiver-sound {
+> +		compatible =3D "simple-audio-card";
+> +		simple-audio-card,format =3D "i2s";
+> +		simple-audio-card,name =3D "RK3588 HDMI-IN";
+> +		simple-audio-card,bitclock-master =3D <&hdmiin_codec>;
+> +		simple-audio-card,frame-master =3D <&hdmiin_codec>;
+> +		status =3D "disabled";
+> +
+> +		hdmiin_codec: simple-audio-card,codec {
+> +			sound-dai =3D <&hdmi_receiver 0>;
+> +		};
+
+[Severity: High]
+This isn't a bug introduced by this patch, but will this HDMI RX capture
+path work correctly with DAPM given how the underlying codec is currently
+defined?
+
+Looking at the hdmi-codec driver used for this receiver:
+
+sound/soc/codecs/hdmi-codec.c:hdmi_widgets[] {
+    ...
+    SND_SOC_DAPM_OUTPUT("RX"),
+    ...
+}
+
+The DAPM widget for the HDMI RX capture source is incorrectly defined as an
+OUTPUT (sink) instead of an INPUT (source).
+
+When a capture stream starts, DAPM walks backward from the active CPU DAI
+sink to find a source, but terminates at "RX" without finding an EP_SOURCE.
+Does this prevent DAPM-managed components on the capture path (such as SoC
+FIFOs, regulators, or clock supplies) from powering on, causing silent
+failures during capture?
+
+> +
+> +		simple-audio-card,cpu {
+> +			sound-dai =3D <&i2s7_8ch>;
+> +		};
+> +	};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721064115.6480=
+9-1-royalnet026@gmail.com?part=3D3
