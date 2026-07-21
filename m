@@ -1,263 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from th8-b.mail-neoserv.si (th8-b.mail-neoserv.si [152.89.234.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF3ED432BD8;
-	Tue, 21 Jul 2026 07:14:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784618074; cv=none; b=kaV6+n6PcFunH4R3sy110luhfvVQ4wmDZyzTETin3z788wwBrlcsftR7uwYa+BKP97IOaNMEvAlRDEG9iVh291FbIAezPDnE2yxw9TRYeDc+aMiDm1wEzYeJvDTVUdpk1yhr4HNskpJ6/7JRVHKBLAtw0RijdInHhekaXZVHqls=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784618074; c=relaxed/simple;
-	bh=jr0b1lua5vEp7miN9+ABJLweal/AiKuMndn/u+84zbo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iwG+lt0YmvHgls7oBQktVH01QR4xY3XLMI8yre813jRVQGA/pSagZuz4upoXce5nqdxj9BOv4ZziNvjKTOs4NSG/hUCERx4nZ/fET1KCNsPpRjH+Oe3Ux0oLUgU1FwS5x4+s+A1d9AdL9nbv0GlxSduSh7I92z9oi9Yk/QkFPwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U1FXNd35; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E90D4432E91
+	for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 07:14:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=152.89.234.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784618104; cv=fail; b=KwysAIZ8auRbpUJemtHN+8CIC2bctRdm2vaJI12aYgMjyMOnnOvqEK8iKjZF+NprMHHtl+ESfa76gxW6g+MYouJoWj/MXGziPlvgP/dVZiqsM8ZDwmaNpLtjhTbHVRIHhFN8AVKZof0MgDObaNsis6xKcCfBZFVeQZGouSAL134=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784618104; c=relaxed/simple;
+	bh=spvjjBURpSwPzn4lfTMPK6DZ6i2zK4dFA8f/iJY34CY=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=C/JIENmr+0KpdopDBIHN2PA/AmBYv2yjsq8hDeiwskG1EWs3nqvRNkIQg+tnoFxF7uMEBK/b0fPDSVs5kwy6a0XQzS2LA683Oyqwn79p/Hwqg5hDySjWuqQGFVlI81fDLxtMO5TOZSva+MxW8rM5KvcGf7gpQVLpsX9ieOXaFnY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kanardia.eu; spf=pass smtp.mailfrom=kanardia.eu; dkim=pass (2048-bit key) header.d=kanardia.eu header.i=@kanardia.eu header.b=M+9kL0Wu; arc=fail smtp.client-ip=152.89.234.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kanardia.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kanardia.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U1FXNd35"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74C071F000E9;
-	Tue, 21 Jul 2026 07:14:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784618072;
-	bh=HvaixHYbM3OubS7LO+agyIgFP8m6s3KgZsCNhudraAA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=U1FXNd35Ua/iejyLavvg7O0fjr4MpfMf/iVRSy6KdF3hOsDkiCNuDmt7xDV7pOyFi
-	 gWxiZ0pxxxkvd11IkA9jIuCl1j5IuvLJjZStw99CJ25f44zgYp4H8CqzVUHR+jxLKX
-	 NYVLwBFord+SiIn1QUGj+AMAwRr6K2j1FnNjgLUQ0e55gdHrsvQr5Hzu6vCNbG/bSS
-	 DQUFKyR5zzAFOsyRo3VvX+4O5pWZEVCrNYnpubA06Qwhmjj7thS6bLDLKoyhhHKctr
-	 C4bGjyHQ7i/JD/UojUmFH47vQo2FckS73EnQctSNxkYcXhNBVzIlqNSP0Hzgv6+02S
-	 gSDTyTk19hoig==
-Date: Tue, 21 Jul 2026 09:14:28 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Nina_Kuo@novatek.com.tw
-Cc: andi.shyti@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, ben_huang@novatek.com.tw, toby_chui@novatek.com.tw, 
-	shihpei_hsu@novatek.com.tw
-Subject: Re: [PATCH v3 3/3] i2c: Add i2c-nt726xx.c I2C driver for Novatek
- NT726xx SoCs
-Message-ID: <20260721-qualified-mustang-of-pride-a6fc53@quoll>
-References: <20260715073521.147610-1-Nina_Kuo@novatek.com.tw>
- <20260715073534.147663-1-Nina_Kuo@novatek.com.tw>
+	dkim=pass (2048-bit key) header.d=kanardia.eu header.i=@kanardia.eu header.b="M+9kL0Wu"
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=th8.neoserv.si; s=default;
+	 b=f+4kR4yo6jUf6v9SOHEGD9M8XEgZUV9p+czmITsw0Dp1mnM4ggfaih8T0PNiq8P8U9Pof/Kzgr
+	  M10NHliUFZoPrxIS7TmjZgNEFCQrrIXz4c/LuguRnW/Ul/kdFt0EuFxpvnAi28B5LoHWfT5hiN
+	  TYXShh7CzlX0QryVWm5v3Np0sr1F2IWUBKeHRRXk95JnBGwmxJ9l1xHtOsSsRtyBKYDkipeQr/
+	  C4B6xXp1Q92w9f6AmPkcUwqLk34ARwU7wfq5MVPdbeB62Sp8FRUw3QIXYo31XNIAF6+iwHhsDS
+	  u5ym1aqoFzvaombi3qL/WuV2MXufvkVBksUJjsIX3mf9aA==;
+ARC-Authentication-Results: i=1; th8.neoserv.si; smtp.remote-ip=::1;
+	iprev=fail smtp.remote-ip=::1;
+	auth=pass (LOGIN) smtp.auth=rok@kanardia.eu
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=th8.neoserv.si; s=default;
+	bh=spvjjBURpSwPzn4lfTMPK6DZ6i2zK4dFA8f/iJY34CY=;
+	h=Content-Transfer-Encoding:Content-Type:Message-ID:References:In-Reply-To:
+	  Subject:Cc:To:From:Date:MIME-Version:DKIM-Signature;
+	b=RGEu9qt8QitTA5kNQ6slKMAoDYiRdg/CSbadec9lTLzX3sFU9InXjIeFaxwMBqmaj8jz2v4sD2
+	  31U4B0IHT7kJPmG5In+b1gNvlKD+qpeU6vFYphJYiau9FUo6FVjpK2erFObJwlihd2LnTmD+O9
+	  9UEIxznjfzhprhJTrRjrv/SZhY5xrmrCSb3F/NbtZfS1u7kaS4BxJ08Vpq37yU71EVm4kYL49u
+	  huDDM5FZLxve0Ou6FlkEN3Q0TC8NKw+dlQkVobOVQ67Pj++hOsbd8z9DfuYtIgfGkHG+UZ5Y2g
+	  5JcjjaIxT1wrnRyJTweWDaK2RJrzh/j9yJChbCooMQO2Dg==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kanardia.eu
+	; s=default; h=Content-Transfer-Encoding:Content-Type:Message-ID:References:
+	In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=BnH57+/CTddrJAAK24HEO58bPH5pRHF9mJT4Kj+dOkg=; b=M+9kL0WulPClX4Wro+BgtYt4x0
+	K4PPkknNYarSYAJ6/piJJ7z76VgnSlgMNNsNACXecVwLy+oLj2rJn1Ah96r27n+3GapERMr/yMLqh
+	BZ0oJ/T+yA94tD28uXm9UOs+XkCwqRXhuO3vB+e7YGqZi54xLB62Zz6Q1mjUHuQ8Y3q0/0qyYdQcr
+	P1xL3Mibla2XNWQiik2v1GUUk5QDaMc0OEwnOWthu18SpWt2SQWDwsycjW5bbiMjBMrEl4Vcd5ZYR
+	dLDIjHHZKnOAR7+17zMEScsc1Ncfy16Fdd4uGqXntC+My8JlB9cuLLyuSz2RSNpHBHMcg28LB8ogJ
+	QoCUIG7A==;
+Received: from [::1] (port=44518 helo=th8.neoserv.si)
+	by th8.neoserv.si with esmtpa (Exim 4.99.4)
+	(envelope-from <rok@kanardia.eu>)
+	id 1wm4go-000000004Bv-2pq4;
+	Tue, 21 Jul 2026 09:14:54 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260715073534.147663-1-Nina_Kuo@novatek.com.tw>
+Date: Tue, 21 Jul 2026 09:14:54 +0200
+From: =?UTF-8?Q?Rok_Markovi=C4=8D?= <rok@kanardia.eu>
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH 4/4] arm64: dts: rockchip: rk356x: add LVDS node
+In-Reply-To: <20260717121309.516801F00A3A@smtp.kernel.org>
+References: <20260717120005.2087386-1-rok@kanardia.eu>
+ <20260717120005.2087386-5-rok@kanardia.eu>
+ <20260717121309.516801F00A3A@smtp.kernel.org>
+User-Agent: Roundcube Webmail/1.6.17
+Message-ID: <6391bf976ade8fa7df217d0880ccdb88@kanardia.eu>
+X-Sender: rok@kanardia.eu
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Authentication-Results: th8.neoserv.si;
+	iprev=fail smtp.remote-ip=::1;
+	auth=pass (LOGIN) smtp.auth=rok@kanardia.eu
+X-NEOSERV-MailScanner-Information: Please contact the ISP for more information
+X-NEOSERV-MailScanner-ID: 1wm4go-000000004Bv-2pq4
+X-NEOSERV-MailScanner: Found to be clean
+X-NEOSERV-MailScanner-SpamCheck: 
+X-NEOSERV-MailScanner-From: rok@kanardia.eu
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - th8.neoserv.si
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - kanardia.eu
+X-Get-Message-Sender-Via: th8.neoserv.si: authenticated_id: rok@kanardia.eu
+X-Authenticated-Sender: th8.neoserv.si: rok@kanardia.eu
 
-On Wed, Jul 15, 2026 at 03:35:34PM +0800, Nina_Kuo@novatek.com.tw wrote:
-> From: Ben Huang <Ben_Huang@novatek.com.tw>
+17.7.2026 14:13, je sashiko-bot@kernel.org napisal
+> Thank you for your contribution! Sashiko AI review found 2 potential 
+> issue(s) to consider:
+> - [High] Missing Hardware Clock Initialization for RK3568 LVDS
+> - [Medium] Unbalanced Hardware Resource Teardown in Error Paths
+> --
 > 
-> This patch introduce the support of I2C bus controller driver of
-> Novatek NT726xx SoCs.
-> 
-> This driver performs the fundamental read/write functions as
-> an I2C controller and supports Standard-mode and Fast-mode.
-> Default operation is Stardard-mode.
-> 
-> Signed-off-by: Ben Huang <Ben_Huang@novatek.com.tw>
-> Signed-off-by: Nina Kuo <Nina_Kuo@novatek.com.tw>
+> --- Patch [4]: [PATCH 4/4] arm64: dts: rockchip: rk356x: add LVDS node 
 > ---
->  drivers/i2c/busses/Kconfig       |  10 +
->  drivers/i2c/busses/Makefile      |   1 +
->  drivers/i2c/busses/i2c-nt726xx.c | 698 +++++++++++++++++++++++++++++++
->  3 files changed, 709 insertions(+)
->  create mode 100644 drivers/i2c/busses/i2c-nt726xx.c
+> commit bfe12cef9ca639b004d58e050ef9175743345f7b
+> Author: Rok Markovic <rok@kanardia.eu>
 > 
-> diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
-> index d35456994280..52ee2c82e9d5 100644
-> --- a/drivers/i2c/busses/Kconfig
-> +++ b/drivers/i2c/busses/Kconfig
-> @@ -962,6 +962,16 @@ config I2C_NPCM
->  	  controllers.
->  	  Driver can also support slave mode (select I2C_SLAVE).
->  
-> +config I2C_NT726XX
-> +	tristate "Novatek NT726xx Driver"
-> +	default n
-> +	help
-> +	  Say Y here if you want to enable I2C bus controller on
-> +	  Novatek NT726xx SoCs.
-> +	  This driver performs fundamental read/write functions
-> +	  as an I2C bus controller and supports Standard-mode and
-> +	  Fast-mode. Default operation is Standard-mode.
-> +
->  config I2C_OCORES
->  	tristate "OpenCores I2C Controller"
->  	help
-> diff --git a/drivers/i2c/busses/Makefile b/drivers/i2c/busses/Makefile
-> index 3755c54b3d82..e82646919916 100644
-> --- a/drivers/i2c/busses/Makefile
-> +++ b/drivers/i2c/busses/Makefile
-> @@ -90,6 +90,7 @@ obj-$(CONFIG_I2C_MV64XXX)	+= i2c-mv64xxx.o
->  obj-$(CONFIG_I2C_MXS)		+= i2c-mxs.o
->  obj-$(CONFIG_I2C_NOMADIK)	+= i2c-nomadik.o
->  obj-$(CONFIG_I2C_NPCM)		+= i2c-npcm7xx.o
-> +obj-$(CONFIG_I2C_NT726XX)	+= i2c-nt726xx.o
->  obj-$(CONFIG_I2C_OCORES)	+= i2c-ocores.o
->  obj-$(CONFIG_I2C_OMAP)		+= i2c-omap.o
->  obj-$(CONFIG_I2C_OWL)		+= i2c-owl.o
-> diff --git a/drivers/i2c/busses/i2c-nt726xx.c b/drivers/i2c/busses/i2c-nt726xx.c
-> new file mode 100644
-> index 000000000000..ac3fd7ccc68c
-> --- /dev/null
-> +++ b/drivers/i2c/busses/i2c-nt726xx.c
-> @@ -0,0 +1,698 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (c) 2025 Novatek Microelectronics Corp.
-> + * Author: Ben Huang <ben_huang@novatek.com.tw>
-> + */
-> +
-> +#include <linux/completion.h>
-> +#include <linux/err.h>
-> +#include <linux/errno.h>
-> +#include <linux/i2c.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/irqdomain.h>
-> +#include <linux/io.h>
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/of_address.h>
-> +#include <linux/of_irq.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/slab.h>
-> +#include <linux/string.h>
-> +#include <linux/version.h>
-> +
-> +#define I2C_INFO_LOG(fmt, ...)		\
-> +	pr_info("[I/SOC_I2C] " fmt, ##__VA_ARGS__)
-> +
-> +#define I2C_ERR_LOG(fmt, ...)		\
-> +	pr_err("[E/SOC_I2C] " fmt, ##__VA_ARGS__)
+> arm64: dts: rockchip: rk356x: add LVDS node
+> 
+> This commit adds the LVDS transmitter node for the RK356x SoC, 
+> assigning
+> its clock, physical interface, and power domains. It is left disabled 
+> by
+> default, to be enabled by specific board files.
+> 
+>> diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi 
+>> b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+>> index a5832895bd392..2b3beab5507b1 100644
+>> --- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+>> +++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+>> @@ -879,6 +879,31 @@ hdmi_out: port@1 {
+>>  		};
+>>  	};
+>> 
+>> +	lvds: lvds {
+>> +		compatible = "rockchip,rk3568-lvds";
+>> +		clocks = <&cru PCLK_DSITX_0>;
+>> +		clock-names = "pclk_lvds";
+> 
+> [Severity: High]
+> Does the driver actually use this clock?
+> 
+> Looking at rk3568_lvds_probe() in 
+> drivers/gpu/drm/rockchip/rockchip_lvds.c,
+> it seems to completely omit fetching the required pclk_lvds clock from 
+> the
+> device tree:
+> 
+> drivers/gpu/drm/rockchip/rockchip_lvds.c:rk3568_lvds_probe() {
+>     ...
+>     lvds->dphy = devm_phy_get(&pdev->dev, "dphy");
+>     if (IS_ERR(lvds->dphy))
+>         return PTR_ERR(lvds->dphy);
+> 
+>     return phy_init(lvds->dphy);
+> }
+> 
+> Because lvds->pclk is left NULL, the clk_enable() call in
+> rk3568_lvds_poweron() acts as a no-op:
+> 
+> drivers/gpu/drm/rockchip/rockchip_lvds.c:rk3568_lvds_poweron() {
+>     ...
+>     ret = clk_enable(lvds->pclk);
+>     if (ret < 0) {
+>     ...
+> }
+> 
+> Will this cause hardware registers to be accessed without a running 
+> clock,
+> potentially leading to system hangs on device probe or modeset?
+> 
+>> +		phys = <&dsi_dphy0>;
+>> +		phy-names = "dphy";
+>> +		power-domains = <&power RK3568_PD_VO>;
+>> +		rockchip,grf = <&grf>;
+>> +		rockchip,output = "lvds";
+>> +		status = "disabled";
+>> +
+>> +		ports {
 
-No, you do not get own printing stuff.
-
-This is not Linux coding style. Learn how Linux treats your own new
-abstraction layers.
-
-...
-
-> +static int nvt_i2c_probe(struct platform_device *pdev)
-> +{
-> +	struct nvt_i2c_bus *i2c;
-> +	struct resource *res;
-> +	int ret, irq;
-> +
-> +	i2c = devm_kzalloc(&pdev->dev, sizeof(*i2c), GFP_KERNEL);
-> +	if (!i2c)
-> +		return -ENOMEM;
-> +
-> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	i2c->base = devm_ioremap_resource(&pdev->dev, res);
-
-Look at other drivers
-
-> +	if (IS_ERR(i2c->base)) {
-> +		I2C_ERR_LOG("failed to map controller\n");
-> +		return PTR_ERR(i2c->base);
-
-Look at other drivers how they do it
-
-> +	}
-> +
-> +	init_completion(&i2c->msg_complete);
-> +	i2c->dev = &pdev->dev;
-> +
-> +	ret = nvt_i2c_parse_dts(i2c);
-> +	if (ret)
-> +		return ret;
-> +
-> +	nvt_i2c_init(i2c);
-> +
-> +	irq = platform_get_irq(pdev, 0);
-> +	if (irq < 0) {
-> +		I2C_ERR_LOG("No IRQ resource\n");
-
-Look at other drivers how they do it
-
-> +		return irq;
-> +	}
-> +
-> +	ret = devm_request_irq(&pdev->dev, irq, nvt_i2c_isr,
-> +			       IRQF_SHARED | IRQF_TRIGGER_HIGH, I2C_NAME, i2c);
-> +	if (ret) {
-> +		I2C_ERR_LOG("devm_request_irq fail\n");
-
-Look at other drivers how they do it
-
-> +		return ret;
-> +	}
-> +
-> +	/* Setup I2C adapter */
-> +	i2c->adapter.owner = THIS_MODULE;
-> +	i2c->adapter.class = I2C_CLASS_HWMON;
-> +	i2c->adapter.algo = &nvt_i2c_algo;
-> +	i2c->adapter.dev.of_node = of_node_get(pdev->dev.of_node);
-> +	i2c->adapter.dev.parent = &pdev->dev;
-> +	i2c->adapter.timeout = 3 * HZ;
-> +	strscpy(i2c->adapter.name, I2C_NAME, sizeof(i2c->adapter.name));
-> +	i2c_set_adapdata(&i2c->adapter, i2c);
-> +
-> +	ret = i2c_add_numbered_adapter(&i2c->adapter);
-> +	if (ret) {
-> +		I2C_ERR_LOG("[%s] failed to add adapter\n", dev_name(&pdev->dev));
-> +		return ret;
-> +	}
-> +
-> +	platform_set_drvdata(pdev, i2c);
-> +
-> +	return 0;
-> +}
-> +
-> +static void nvt_i2c_remove(struct platform_device *pdev)
-> +{
-> +	struct nvt_i2c_bus *i2c = platform_get_drvdata(pdev);
-> +
-> +	writel(I2C_IRQ_DISABLE_SETTING, i2c->base + I2C_REG_INTR);
-> +	writel(readl(i2c->base + I2C_REG_CTRL) & ~I2C_ENABLE,
-> +	       i2c->base + I2C_REG_CTRL);
-> +	of_node_put(i2c->adapter.dev.of_node);
-> +	i2c_del_adapter(&i2c->adapter);
-> +}
-> +
-> +static const struct dev_pm_ops nvt_i2c_pm_ops = {
-> +	.resume_early = nvt_i2c_resume,
-> +	.suspend_late = nvt_i2c_suspend,
-> +};
-> +
-> +static struct platform_driver nvt_i2c_driver = {
-> +	.probe = nvt_i2c_probe,
-> +	.remove = nvt_i2c_remove,
-> +	.driver = {
-> +		.name = "nvt_nt726xx_i2c",
-> +		.owner = THIS_MODULE,
-
-NAK, you just sent us 13 year old downstream junk code. This is not
-acceptable, because by doing that you ignore all the bugs or issues we
-fixed over last 13 years.
+Fixed. Removed unused clock.
 
 
-> +		.pm = &nvt_i2c_pm_ops,
-> +		.of_match_table = of_match_ptr(nvt_i2c_of_match),
-> +	},
-> +};
-> +
-> +static int __init nvt_i2c_platform_init(void)
-> +{
-> +	return platform_driver_register(&nvt_i2c_driver);
-> +}
-> +postcore_initcall(nvt_i2c_platform_init);
+> 
+> [Severity: Medium]
+> Will enabling this hardware expose an unbalanced resource teardown in 
+> the
+> driver's error paths?
+> 
+> If intermediate steps like phy_set_mode() fail in
+> rk3568_lvds_encoder_enable(), the function returns early without 
+> rolling
+> back earlier successful calls:
+> 
+> drivers/gpu/drm/rockchip/rockchip_lvds.c:rk3568_lvds_encoder_enable() {
+>     ...
+>     ret = phy_set_mode(lvds->dphy, PHY_MODE_LVDS);
+>     if (ret) {
+>         DRM_DEV_ERROR(lvds->dev, "failed to set phy mode: %d\n", ret);
+>         drm_panel_unprepare(lvds->panel);
+>         return;
+>     }
+>     ...
+> }
+> 
+> Because .enable() returns void, the DRM core assumes it succeeded and 
+> will
+> later call .disable(). The rk3568_lvds_encoder_disable() function
+> unconditionally tears down all resources:
+> 
+> drivers/gpu/drm/rockchip/rockchip_lvds.c:rk3568_lvds_encoder_disable() 
+> {
+>     struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
+> 
+>     drm_panel_disable(lvds->panel);
+>     phy_power_off(lvds->dphy);
+>     rk3568_lvds_poweroff(lvds);
+>     drm_panel_unprepare(lvds->panel);
+> }
+> 
+> Could this cause refcount underflows for PHY, PM runtime, and clocks,
+> resulting in kernel warnings if they were never successfully enabled?
+> 
+>> +			#address-cells = <1>;
+>> +			#size-cells = <0>;
+>> +
+>> +			lvds_in: port@0 {
+>> +				reg = <0>;
+>> +			};
+>> +
+>> +			lvds_out: port@1 {
+>> +				reg = <1>;
+>> +			};
+>> +		};
+>> +	};
+>> +
 
-NAK, this is not postcore!
 
-You have standard module. Full stop.
+Fixed. Testing if lvds->enabled in disable.
 
-Best regards,
-Krzysztof
-
+Will post patchset v2.
