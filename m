@@ -1,96 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2124D442B35;
-	Wed, 22 Jul 2026 22:03:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 70736403E97;
+	Wed, 22 Jul 2026 22:03:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784757796; cv=none; b=TQsjXvqf4ZSKXoqpHxGc7L3pimUSKeArGTDrGwLoUmGAsIr9Wim+qQRW13ZTx7/YWw04kDb5nlVBV71Kx6acVZgQGNuTQs/E5/+IjTKJLx9vTBan46Va+jg09/W/5RNoBd1rjlEpzgRen53rCN8eLm4988qGZ6uXaGzlZ5D3l6k=
+	t=1784757804; cv=none; b=I2sajk6ecnEnLYxxP47CfPNcROG6+CaXBjZVkYN3Z4sB+OoBPq+U8hwHWqxxHqP2BGaLwhQykAkUS832W8a2p+w2V8ciuGUYiaemRWW8542KvHB4NjCKeCn5y0E+9wHFg8aD2EL4QGC8jDjmXwGUi2WsOax0pFrxWcdYdA1TCf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784757796; c=relaxed/simple;
-	bh=gBixSaMBnaL1CABNhnDdqEOlFsDNyAJG4Ci/wGAeAw0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MmlEHHuvLv9hIhDcf4Ch8ms1D2xkT4dGEvlBJmnd5qeVnQzWhHecWsLIOS/YXmLVKgxPhYWot1uVG9dZGBGNkCuEKrPfxP8zrFZ9mQ3GTow7j6WI9VdQ8kuHRID/jxgWnwp0fkpypHU8qSX2r9q2i5mpdE2C4b2Z4L+mLp2NUrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZceZ6Dpf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784757804; c=relaxed/simple;
+	bh=TvkH+0aIc0tTfnfI29eAMPyUgUnwWVPMiXTscEFc5cA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HwRgGG0eeLtHOjRfELmn8eMXirY+5VPCK13wQKKxf76ck4QNdo6VUsQpGw9nSjZ2lJGGvcjsyXvD1WEcKykwrYy56RBA6uOGR8nibKcz/z8fd8R5tN6jb7eIUVI/r6HuiGhMizGWzgYZXJIIg+eqaNhQGgsNnmrdVavh749VftM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=XTm0JRa0; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZceZ6Dpf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B5A11F000E9;
-	Wed, 22 Jul 2026 22:03:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784757794;
-	bh=gBixSaMBnaL1CABNhnDdqEOlFsDNyAJG4Ci/wGAeAw0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZceZ6DpftM8rE70/IUQt+5H6w7QVkxOmcG3U0e7RQQNI/qWMfOTfCB5L2zGPfPySm
-	 qtBMYyzVOREgWgzVTFTXIqHa5z7QQfHOvOZdBKDV0IWIdGTmbNJO/igWBOaEVjhpWl
-	 fgMon25BYyE3RqSeB1C1oDNryeu6ezUXS3mUOziUgLus3hGEDkD2QUxTC+6xO1ivT5
-	 0CIgEgz7zfCPgWVWH3wftIoVfynJ5pt/06j7JnIX3tJcoy25DLVC3406XOy9QzdVk0
-	 sqEBfQEVLAJXDUTYo++Xx/WRjjTYRoj7dnSkwJRmiFsDKuQNdrBzlYzE0XKrzya5dM
-	 olo0ZvfwicYIw==
-Date: Wed, 22 Jul 2026 23:03:09 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	driver-core@lists.linux.dev
-Subject: Re: [PATCH RFC 1/2] dt-bindings: regmap: add common schema for
- no-sequential-read
-Message-ID: <525338f4-cad3-4acb-94c5-a4b71cde9c02@sirena.org.uk>
-References: <20260722-regmap-single-read-v1-0-aaaf31591669@linux.dev>
- <20260722-regmap-single-read-v1-1-aaaf31591669@linux.dev>
- <cdd3b988-72cd-4143-9a17-ee0c57625e94@sirena.org.uk>
- <amD_vkMOrtKq5NvX@bombadil>
- <20260722201622.GD648629@killaraus.ideasonboard.com>
- <amEvJBOE3Ja014Ap@bombadil>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="XTm0JRa0"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F13071595;
+	Wed, 22 Jul 2026 15:03:15 -0700 (PDT)
+Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6FCEB3F59E;
+	Wed, 22 Jul 2026 15:03:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1784757800; bh=TvkH+0aIc0tTfnfI29eAMPyUgUnwWVPMiXTscEFc5cA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=XTm0JRa070xzyTfMFsuNcX9jqqculPqlDQMejuKiQb4wP6pN/nZdOfTCx6Ws+uT6t
+	 syAD0yNAB2azqVHCLaPdPuJdt5iTrpJ2cpGoJJx7XU4ELMmtW6eLPsb+9uLR0/SaF7
+	 xY9F/mth18z3GtXMLVA5pbojc4fOTc6Aynn0pCb8=
+Date: Wed, 22 Jul 2026 23:59:25 +0200
+From: Andre Przywara <andre.przywara@arm.com>
+To: Justin Suess <utilityemal77@gmail.com>
+Cc: Sean Young <sean@mess.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, Sashiko
+ <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: a523: enable IR receiver
+ on the X96Q Pro+
+Message-ID: <20260722235925.42c3466b@ryzen.lan>
+In-Reply-To: <20260722201717.2205609-4-utilityemal77@gmail.com>
+References: <20260722201717.2205609-1-utilityemal77@gmail.com>
+	<20260722201717.2205609-4-utilityemal77@gmail.com>
+Organization: Arm Ltd.
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="WaKKYvpZpGJ7Styh"
-Content-Disposition: inline
-In-Reply-To: <amEvJBOE3Ja014Ap@bombadil>
-X-Cookie: Life is like an analogy.
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Wed, 22 Jul 2026 16:17:17 -0400
+Justin Suess <utilityemal77@gmail.com> wrote:
 
---WaKKYvpZpGJ7Styh
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Hi,
 
-On Wed, Jul 22, 2026 at 11:58:46PM +0200, Richard Leitner wrote:
+> The X96Q Pro+ TV box has an IR receiver window on the front panel,
+> wired to the SoC CIR input on PL11.
+> 
+> Enable the CIR receiver in the RTC power domain and mux its RX
+> signal to PL11.
+> 
+> Tested on an X96 Pro+ with ir-keytable and nec keybindings with
+> the remote that it came with in the box.
+> 
+> Signed-off-by: Justin Suess <utilityemal77@gmail.com>
 
-> @Mark: I understood that if the fpga really intercepts the I2C bus, it
-> should be modelled accordingly in device tree. But what would be the
-> preferred implementation if both devices sit on the same I2C bus, but
-> one is messing up some register reads on purpose?
+Confirmed with evtest and some random TV remote.
 
-I think we would need to have a coherent understanding and description
-of the actual issue to know how to describe it.
+Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+Tested-by: Andre Przywara <andre.przywara@arm.com>
 
-Please do not add random characters to my name.
+Cheers,
+Andre
 
---WaKKYvpZpGJ7Styh
-Content-Type: application/pgp-signature; name="signature.asc"
+> ---
+>  arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts b/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts
+> index a96927fbdadd..1eaee20acaab 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts
+> +++ b/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts
+> @@ -266,6 +266,12 @@ reg_dcdc3_323: dcdc3 {
+>  	};
+>  };
+>  
+> +&r_ir {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&r_ir_rx_pin>;
+> +	status = "okay";
+> +};
+> +
+>  &r_pio {
+>  /*
+>   * Specifying the supply would create a circular dependency.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmphPhwACgkQJNaLcl1U
-h9DOMQf+PANsFc6iFFuYlZAP8uDnSytRsEwyZ3ssVtq1UFqJl7tQVSn/zDy4SBIR
-HhB7C2aTN5h8nxDT0vm9LwVL2idQgdDLuPRg+ewHhbBwr+PfyEoftAuCVm8C7ffq
-8W9GxCxKDq163HnSQDVMc9MxJpnsnBtN4fFJADOp51mSELccOKPFrD/0196QC4pN
-t3pIk/bfrluV7Man46q91M9oaIFIDBUp9IZFQRHkfmcB5C9yMnye+u8RoApW9Q1R
-js4V0OhRqVLqTq7cTL6CsO42bvxpz8opp5jZfXGmvFoOeCU28H7I6Ra4NXsG6bU8
-sMF8DXRIrbxDQGuorF1zLKE7eNdHGA==
-=d4Yn
------END PGP SIGNATURE-----
-
---WaKKYvpZpGJ7Styh--
