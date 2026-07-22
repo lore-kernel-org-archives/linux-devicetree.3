@@ -1,128 +1,97 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E4B339373;
-	Wed, 22 Jul 2026 11:18:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A5F47011D
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 11:25:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784719138; cv=none; b=RRAKqrzbdTNIvJYzuLulBSKrq77CZ+x6zvMiC+X/ZzTTGOeA/Ipp0kWKnZOn7OoHAbmAAQA7CFEyDLVMCGieaiyLRwtwX4vGwvYYkUtE4b7qGon8VxGdUSGuOENqYNG9amyYwPSyUpitgAop+uMunjNNY7GPdJ1DJdNXuciVddA=
+	t=1784719519; cv=none; b=R6CcY9l+5Poiv3cuMr8uin7mpiHXU4Or3GD4d7oRtPuvp+1KNpaf52EqwvRe8jsyLd6MfZvNos1rRU1XSp5IaURj615dJJFpKiwzj5w6af3xkWXwR87P1xU+vgUs/ugUdq0yilllGOFWMe3pnJy95RaVXDXnOLtJc0sSJzNGgRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784719138; c=relaxed/simple;
-	bh=5H8vIuSOpwo4By0Ny3HFQyGcrvjKq45Mdaj6lRuNBt8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C/CLaZkWVQjc4UvMwjtpicxTWM732Sw4lvHCd9Jh0vqneGKhRtYtQ9LGK0AXVt4WGwQ1myBYd/nS0I9eRbgsVhwEPsnftBL36zFv7p/cYoJLt4z7qqioCzOmaAYhB3zaXSsMB+c5yAbvN8B65feBOvJ7y8jhl/jm9IbuttX84MA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KlcaW3WQ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1784719519; c=relaxed/simple;
+	bh=J4xJSlgwnLJN1D70I+ZJ7/vdM3ekocvgAeE1RMTRu7s=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Iq0SxsTaFtdcXN411lRzdqiGTMFPmKA7uorPUfi60gMeYPbGnYtcDgyH0SXqr19949hq9FclwqfIo8/g4kZUHYVawehmd6sgz2sxq1TWbZUa/jD7CDNbwJu9PKGCwSP9eMsxt1l+5Fqz7He9KH7JolYcJxcLxc9ooeQdAJN7v2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XkUT0DlI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KlcaW3WQ"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M8xKu2401720;
-	Wed, 22 Jul 2026 11:18:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=r1bsSHoyMotDalvTuDWFj0G/
-	q4eMp+94vxZj14hipp0=; b=KlcaW3WQygM5kjePp49Ylk0U0Hi7KdZu4Ct1esb6
-	OHlnb7KC/o0PnmT93voqXYrqvbnJ6ZcvbEHPhtSh42q5wNwKztPykqpdYG8vilAI
-	Pm0Je/4T53RQgXTONI4LcHs1wbX55QapXP9suWnKex6aFUZ3QLuUGzXeQGHsgRz7
-	dJv8ma7Fzwc2MSTqnjaNGSmqHPDkX6sqdZR1Kw8IV7GMV8PIhqtYsJE7FltVBrmU
-	QgdcCJn5PPQ/9Wl4Vr+gmt0roJO4s9UwlClSNbrh1xqQoklhfsCXoUmBA9wktWIh
-	NWd+4a+mORPfgrIYl3YAwx/fSuyycitEtCDUceWjMH/O8w==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjt798pxn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 22 Jul 2026 11:18:54 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 66MBGukL011280;
-	Wed, 22 Jul 2026 11:18:50 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4fgj54dcdd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 22 Jul 2026 11:18:50 +0000 (GMT)
-Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 66MBETgx008310;
-	Wed, 22 Jul 2026 11:18:50 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 66MBIoUw013447
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 22 Jul 2026 11:18:50 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
-	id 90037B2A; Wed, 22 Jul 2026 16:48:49 +0530 (+0530)
-Date: Wed, 22 Jul 2026 16:48:49 +0530
-From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        jishnu.prakash@oss.qualcomm.com
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: shikra: add vph_pwr and fix
- supply parent mappings
-Message-ID: <20260722111849.hmbly7w7dqihsxiv@hu-kotarake-hyd.qualcomm.com>
-References: <20260720-pm2250-fix-supply-parent-v2-0-60ca47031b50@oss.qualcomm.com>
- <20260720-pm2250-fix-supply-parent-v2-3-60ca47031b50@oss.qualcomm.com>
- <wqibfckpvyjlcc7h3iizeovzchyfwg4q56uhlvzufpac4jtpc5@gsrv5hzesujo>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XkUT0DlI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 546351F000E9;
+	Wed, 22 Jul 2026 11:25:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784719516;
+	bh=Oio6Yf6Q2cFPaiil7KLuTXrBep1sWwr3+ZhrSacqG4M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XkUT0DlIgGLw67RnQEWqqQPYHYPJRv5OgLJhDjMzAJnrpKVshRlJ3Bm9EETeZokmn
+	 AhYFbtAp8UCM/fWCW3S//XLVqSrR00fLIC/sVa0hus/ZxOKlJIQWMNcCkkp/pd6iKJ
+	 u59AjfZeSLhTDcqX6qA27Y3ZA+1vD1xuTIrfQPTjX1cd2iL2+LxQAd4bNFhL0Luvpr
+	 CqiN0BRZrWxowVa8PgmJTnQHdAW5UqIq/kZjTzCZ2YKfWuOVqvILOa4dHJcAvXFfly
+	 0PR2DElN4e3E8SX6b6vOERWbheaRc9xyC1a5JHasoErR7B7sK94M4QtOQK1buTJ+dl
+	 tMPa9nPdwm36Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDMI
+ bridge binding
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hermes Wu" <Hermes.wu@ite.com.tw>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
+In-Reply-To: <20260722-upstream-it6625-it6626-v6-1-6117d4d96574@ite.com.tw>
+References: <20260722-upstream-it6625-it6626-v6-0-6117d4d96574@ite.com.tw>
+ <20260722-upstream-it6625-it6626-v6-1-6117d4d96574@ite.com.tw>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 11:25:15 +0000
+Message-Id: <20260722112516.546351F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <wqibfckpvyjlcc7h3iizeovzchyfwg4q56uhlvzufpac4jtpc5@gsrv5hzesujo>
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=Sr6gLvO0 c=1 sm=1 tr=0 ts=6a60a71e cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=zuZBUVQH1r7p0-yMmxcA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: 95z4AlVTJQEDlAPBzvaQ_JsQJ6JezZF3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDEwOSBTYWx0ZWRfX4+t9cF8nNsLS
- vHQYCxbmW6snkxsRNVvyGRSe9djzMHdwZV6FmVbd5uIKFYnJYLyJ9JySZuarYIYE0fEqz4oCU+n
- DNbNNcBHx/AK54DZIWd88OQdRkylgYCSBZ4exsuN536uP6ZJUMhxmRRJEhD9Y+xLqnTzlTpraEg
- 7n0XKaC9TWs9advr5Wt41mcgIzHw8i4OLx4AX2Y1v9I1qwFHV75tYQaq8HF1x5OTABqc6LXwg5L
- fUr7722CfFNBogYua+Ah08mCb44DGpsIGuSxzTxR513ZEonnFboKtv2eIxL7pUuGRfZfRL8z++a
- lxcCINXgUH2mfgqsYubGFbt55X+C4QBOVMswLBUEWZcMItrbMZIl/qvYPP5BI9c12GQJveRIZKK
- uPsMd6Y3bQbdXOyRn/XtpjXLRYhIkh5XkldGPimUgEBvVGit2gl6dRXi8YoJB1q7IcUdGjxi3c3
- d/KSJj2l9OkvUPP60Rw==
-X-Proofpoint-GUID: 95z4AlVTJQEDlAPBzvaQ_JsQJ6JezZF3
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDEwOSBTYWx0ZWRfX0IBg7yFZlIBN
- RB3u5pkEhyi09EgL9pd/oTS1pyCkf6WQ0nwJSLKdUANYloNOSbahDcQXDLudTZb0OJwlpMLe7Id
- tdYhzXcxhj+mggsILwL2u4Dx53OVyjU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-22_03,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
- adultscore=0 clxscore=1015 impostorscore=0 phishscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220109
 
-On Tue, Jul 21, 2026 at 04:24:52PM +0300, Dmitry Baryshkov wrote:
-> On Mon, Jul 20, 2026 at 04:25:06PM +0530, Rakesh Kota wrote:
-> > Add the vph_pwr fixed regulator representing the PM4125 charger output
-> > supplied by VBAT, and add the correct per-group supply properties
-> > matching the actual PM4125 pin connections on Shikra. Also add the
-> > pm4125_s1 and pm4125_s4 regulator nodes.
-> 
-> Why? Don't describe patch contents. Describe reasons for the change.
->
-Acknowledged. Will fix in the next version.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The device tree binding intentionally omits the HDMI input port,=
+ violating the fundamental rule that Device Tree describes the physical har=
+dware independent of driver implementation.
+--
 
-regards
-Rakesh Kota
-> > 
-> > Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> > ---
-> >  arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi | 33 ++++++++++++++++++++++++++++
-> >  1 file changed, 33 insertions(+)
-> > 
-> 
-> -- 
-> With best wishes
-> Dmitry
+--- Patch [1]: [PATCH v6 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDM=
+I bridge binding ---
+commit e9e6db2f5d5e1b4ac21c4df62354e0ec71117d3a
+Author: Hermes Wu <Hermes.wu@ite.com.tw>
+
+dt-bindings: media: add ITE IT6625/IT6626 HDMI bridge binding
+
+This commit documents the devicetree binding for the ITE IT6625/IT6626 HDMI
+to MIPI CSI-2 bridge. It exposes two selectable CSI-2 output graph ports,
+port@0 and port@1.
+
+> diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml =
+b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+> new file mode 100644
+> index 0000000000000..fed732e4428ba
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+[ ... ]
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description: CSI-2 output port MIPI0
+
+[Severity: Medium]
+The commit message mentions dropping the HDMI input graph port because the
+driver does not use it. Does omitting this input port conflict with the
+principle that devicetree schemas should describe the physical hardware
+independent of driver implementation?
+
+Because the physical hardware acts as an HDMI bridge, device tree authors
+would need a documented port index under properties.ports to accurately link
+an upstream HDMI source to the bridge.
+
+Without an explicitly defined input port, will this prevent boards from
+accurately describing their video graph topology, potentially leading to
+inconsistent or missing routing connections across different devices?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-upstream-i=
+t6625-it6626-v6-0-6117d4d96574@ite.com.tw?part=3D1
