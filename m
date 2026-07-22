@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C1F4322FB;
-	Wed, 22 Jul 2026 16:23:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456A4440A2B
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 16:24:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784737430; cv=none; b=HpVQLnInQQ4EAjix+ehc7wNo4evDM2EqqWzqI+ghsmusQ1FbH1ogguGN4IYa5i1YR3Gw8ARs/t91u7sv9PVzhPX3xrwz6nep2nQ5INpgi177ZCq6zucsyzu9Zme4s/dA0/RwpaR09R/1LzOtbKX9z9K9+TsRXGiWlP3WzSQoZTM=
+	t=1784737483; cv=none; b=qMx/bbMHJAWZQAAF8am2xg4F0eej6gNUaYzZqwz2h9GtouTRrboETwjLILc76pa+atcqFTGDIbCbkqZmk3HfD/NCbARg0srh6b5C/gnVIQ5xJJAKVZgkV01bS6h1RDKcxXQCQ+/a7NgxLnHZs8uC7JHuyqj7Yqalm+zygnOhJeg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784737430; c=relaxed/simple;
-	bh=yH8/TQOgk9rWguhIzk23RzygW1k3miM8Gp2zQdd+QvY=;
+	s=arc-20240116; t=1784737483; c=relaxed/simple;
+	bh=F3trAcSBLIpPlnZvU0eilHB217Zaytq3x/j+rwuQGf0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fqOJYf7NZMwD470zMgXPVfJbSX26JPDZGSwfbtpc+VItU3xJr7Qw9jNvmg+xSUj3ZX+sI3IwE+g711skJ71tl9d6f6SgN1zlVCU5d/KgvRkYzA9OW5x7nQDIgELD0liUkdua2sYaTQKtlSYkOkeiSF019wgKmzvI/r5MTfFCzok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TynmL9C5; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=HlDxVH6s29w+3IBwkzIk1+aCfBYkOODp0K8l2h8QNtirWpqB/KYxkgf/hiZKZ65gY7mcJn0AtFGwFlsZIy3+JH+dVkOINwquPee2uXO6xkQ8qQplpFIvPoSr6DhCDin7Li6QRurnwXloOyxJKq+nSTJylnibV9jGQPmGxkqOn54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kOlji2Nn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TynmL9C5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA7A81F000E9;
-	Wed, 22 Jul 2026 16:23:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kOlji2Nn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A7F21F000E9;
+	Wed, 22 Jul 2026 16:24:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784737429;
-	bh=oahPzUP4r3EVE6KSw/KSsnSdDBhVSWorZjIMdlchN9s=;
+	s=k20260515; t=1784737480;
+	bh=fPY03BIWb5jmLxMWdPCiSnMop+wicZGuseavKVOVjug=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TynmL9C5GEYfoY919EzgKtU7Kij3Ei34g21hnpSs4kPIKD99n7cAolEHyLt6VAZNn
-	 P5rpaV64y/e8xUB7B0HbT2s8bkog12zTyhUBxVtXUKKf7f77Edb4ZMu4mFIncdmIbQ
-	 iGWUDjz5RXC1IGGNIdV+51u+jP88fbaMKK2n7CVGYwECMqnqfSHEGqYaIJDCX3EF46
-	 gf2Wyhn9Ggwi501tG3o2jVs3mTT5x8BeqMdnFULH25RESFNFV4CceUJmMiaKgYOwxv
-	 bqgAdmyUsVF0Z43/B5Ycupft8Oo52G/cJ9WrSp/FCe2KFpmBj5gRbZ7cV3McOPfJc9
-	 vieVYt9pQdiDg==
+	b=kOlji2NnO+FIuWWbONRasfv3UnmbMLGWohU3GNSYkk3FM2WA/umjDxbXpvRxGx1V5
+	 E/8VPXmHUsNbmDAMgmum4j1hFP1Orun8vJTkTXyMIgWIzbrL+dwO7nbgal4KPbjmnf
+	 70Yh5fpOxIAL97gT04MPlFVpnnUjX42JZBM0gSleK5suG2cP0txSTnT1DNnMeKmJ8I
+	 N14Gz2gJpkM3NajNvJtQ1m1U45k7YtYheut8PoxqlFrLybzmZCcvT9NTyblZ8AX2Pl
+	 6dL5tF6xFXNZ/tQa0HjCRiRfxY2T8dmLl9j7OTy7IKaJRJ1tHgJMWU7wlId/l2DWWY
+	 ozj9wvh9kCc1Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: hwmon: pmbus: Add Analog Devices
- MAX16545/MAX16550 and Volterra VT7505
+Subject: Re: [PATCH v9 10/17] iio: frequency: ad9910: initial driver
+ implementation
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UHJhZGhhbiwgU2FubWFu?= <sanman.pradhan@hpe.com>
-Cc: linux-hwmon@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260722150324.164799-2-sanman.pradhan@hpe.com>
-References: <20260722150324.164799-1-sanman.pradhan@hpe.com>
- <20260722150324.164799-2-sanman.pradhan@hpe.com>
+To: "Rodrigo Alencar" <rodrigo.alencar@analog.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260722-ad9910-iio-driver-v9-10-459d1df5ac56@analog.com>
+References: <20260722-ad9910-iio-driver-v9-0-459d1df5ac56@analog.com>
+ <20260722-ad9910-iio-driver-v9-10-459d1df5ac56@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 16:23:48 +0000
-Message-Id: <20260722162348.EA7A81F000E9@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 16:24:40 +0000
+Message-Id: <20260722162440.8A7F21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,58 +47,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The `adi,ocp-severe-filter` property exposes raw register bit va=
-lues instead of standard physical units.
+- [Medium] The `adi,refclk-out-drive-strength` device tree property is sile=
+ntly ignored when the internal PLL is disabled.
 --
 
---- Patch [1]: [PATCH 1/2] dt-bindings: hwmon: pmbus: Add Analog Devices MA=
-X16545/MAX16550 and Volterra VT7505 ---
-commit e93633b9753ab840614d58e40b8f32b35288cabc
-Author: Sanman Pradhan <psanman@juniper.net>
+--- Patch [10]: [PATCH v9 10/17] iio: frequency: ad9910: initial driver imp=
+lementation ---
+commit 82b3fbe21cfa117c3a6f9b7b61ab5f4eb04cb69b
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-dt-bindings: hwmon: pmbus: Add Analog Devices MAX16545/MAX16550 and Volterr=
-a VT7505
+iio: frequency: ad9910: initial driver implementation
 
-This commit adds device tree binding documentation for the Analog Devices
-MAX16545, MAX16550, and the Volterra VT7505 PMBus controllers. These
-controllers provide voltage, current, power, and temperature monitoring.
+Add the core AD9910 DDS driver infrastructure with single tone mode support.
+This includes SPI register access, profile management via GPIO pins, PLL/DAC
+configuration from firmware properties, and single tone
+frequency/phase/amplitude control through IIO attributes.
 
-> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/adi,vt7505.yam=
-l b/Documentation/devicetree/bindings/hwmon/pmbus/adi,vt7505.yaml
+> diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad991=
+0.c
 > new file mode 100644
-> index 0000000000000..286c88eb7be8f
+> index 0000000000000..b41b011af2812
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/adi,vt7505.yaml
-
+> +++ b/drivers/iio/frequency/ad9910.c
 [ ... ]
-
-> +  adi,ocp-severe-filter:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      Deglitch time applied to the severe overcurrent-protection compara=
-tor,
-> +      programmed into the MFR_CONFIG[15:14] field. The MAX16550 and VT75=
-05
-> +      expose this field; it decodes as 0 =3D 0 us, 1 =3D 1 us, 2 =3D 2 u=
-s and
-> +      3 =3D 10 us. On the MAX16545 the severe overcurrent delay is fixed=
- and
-> +      these bits are reserved.
-> +    enum: [0, 1, 2, 3]
+> +static int ad9910_parse_fw(struct ad9910_state *st)
+> +{
+[ ... ]
+> +	st->data.pll_enabled =3D device_property_read_bool(dev, "adi,pll-enable=
+");
+> +	if (st->data.pll_enabled) {
+> +		prop =3D "adi,charge-pump-current-microamp";
+[ ... ]
+> +		st->data.pll_charge_pump_current =3D tmp;
+> +
+> +		prop =3D "adi,refclk-out-drive-strength";
+> +		if (device_property_present(dev, prop)) {
+> +			ret =3D device_property_match_property_string(dev, prop,
+> +								    refclk_out_drv0,
+> +								    ARRAY_SIZE(refclk_out_drv0));
+> +			if (ret < 0)
+> +				return dev_err_probe(dev, ret, "property read: %s\n", prop);
+> +
+> +			st->data.refclk_out_drv =3D ret;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
 
 [Severity: Medium]
-Should this property use physical units instead of raw register values?
+Does this inadvertently ignore the "adi,refclk-out-drive-strength" property
+when the internal PLL is disabled?
 
-Device tree properties typically describe hardware configurations abstractly
-using standard units like microseconds. Exposing the raw register bit values
-(0, 1, 2, 3) rather than the actual time durations (0, 1, 2, 10) creates a
-non-standard ABI that leaks internal hardware encoding.
+Because this property is parsed inside the if (st->data.pll_enabled) block,
+the reference clock output drive strength cannot be configured if the PLL
+is disabled. This occurs even though the hardware supports outputting the
+reference clock independently of the PLL state.
 
-Once merged, this raw-value ABI must be supported indefinitely. Would it be
-better to define the accepted values as 0, 1, 2, and 10 to match the physic=
-al
-time delays?
+Should the parsing of "adi,refclk-out-drive-strength" be moved outside of
+this conditional so it can be utilized in all cases?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722150324.1647=
-99-1-sanman.pradhan@hpe.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-ad9910-iio=
+-driver-v9-0-459d1df5ac56@analog.com?part=3D10
