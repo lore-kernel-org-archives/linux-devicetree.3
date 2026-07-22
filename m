@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B68443F4B9
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 23:56:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13EC32ECE86
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 23:57:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784764568; cv=none; b=K6B+pAGFA7nfqubLHxwo6VHkyhFzYUYWzXSM3CfRsJAcXhxTyy3p3J6ZslKEC81Q2LKeT+3BR7B8Gjby5kdEgh38PRXXSjEank81YpfqnBAUlMMEa60s3/BVk53BxJlJRYB6smfogWvjnoSl4BEfHDvlkq5h1AGYD87vkRinuSQ=
+	t=1784764661; cv=none; b=GnFQjZo62f3q4WiISp5ynlW1xMZ//iXiOv0i1GD5TkrxZ9YXCoVcIiVLqDDl34XmdyE8qqdQk+UOa4PM+YL7ks7Zy5W5eLej0y5vZ9hNFi3lN6dyxgsQ13Tp1dO/gxRecL24o3Xtf9jhxrdoOtYMt0DrxL/gUX9B3UwhwU1A9l4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784764568; c=relaxed/simple;
-	bh=bPfCxJQh+FkYal3HwWTpKEM3O3duen80upPvwkqDnoM=;
+	s=arc-20240116; t=1784764661; c=relaxed/simple;
+	bh=rknCAmiPDh1K+zxeu49rhDx19pyFIGE6PFMJONao1nQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ujmeVQJ4VAQeTgt878unCf8igm3Pi2SLvScaxx4f0AEBwt1JhICbc45nb8DZFqRPS40cKOTs3+GBlmDBpqMSF2tmtPR/QqxXqY4iH4Gv1+XH51sIBzXrPmExrYgBkwUce04u8lwgnionW4VS6TyjzkUDhx6Di7ZoKtdZb+ts9VQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WgVWMLWc; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=hlkd3tVwoNLhlmLNKfR/m4WsEOE4TKnzoXWMV8+mEwKkdVrsCO77c2/Lh2wiik34nqKqBky9nLEb0rwllrhhsTTFCcebWhtz/BH7aLWWHIVv97Br18kLznqCzW5ma+23HnFTq2VZXX8HZpinCUqFha+MpYbWEZq7ph85yR7lakI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W81R3YPC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WgVWMLWc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4E9C1F00A3A;
-	Wed, 22 Jul 2026 23:56:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W81R3YPC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E5C11F000E9;
+	Wed, 22 Jul 2026 23:57:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784764566;
-	bh=RyyZaUWZnbTmgjWod1+WnlvgO5+RkrKh5emnNna949E=;
+	s=k20260515; t=1784764659;
+	bh=TXngCbX43XpZCoZpb7d8WOaSMM4EWZ54yO62tHPcx9A=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WgVWMLWcOh6JmvqeJKaakXUUNltVAS2hR5c40r1yhTRol6gG355D6KtIXetwITjVs
-	 QaquLtxdpnNeERsAXo1jxB6NDZXwhedXVBdDPrsW6WHYQytuON+/rjUle0bF2fek6M
-	 O6TYuQ+hV7RWIp7BUZ0Ic23np+xHogK4VDf94KKksqobTNVFYt1dN+6d5jJ1HeXpxX
-	 6X4QDbqCnwOd8+YTQH5YL+Sexr4VhpR+MZ6DvD/YQqncSr2LeUPlTq3PA+KejoC5dC
-	 0Ewz8IT39fW+BvEguywnW/FHH3TKC5S8vcXLgv3HVw9p6o0x7TfHZPxibBACr+FTfe
-	 dMC+GXunOARrw==
+	b=W81R3YPCd1dbSPwrTEAf0YNknvqZHDGhM8xXRutastCy+ZLsehekgyZGBW8nDIkHZ
+	 l686OeEgYpDNmnj5Ik6CGBlOowIj9suhI2AVXnimIwwoKMwRjVvDmHmCccat9HX7dT
+	 1vDAylCLEPsu062URiznIcmR/nZIx9JWpblzw3rZUm9SasGVNEZUH8L8d+UZcSva3j
+	 pHU6jMKvMOq72+aur/Gx3xWnxBe+aluBg+ziicBpdtbfTMcfhvrezSoKskzm07swaD
+	 94yMJrf1WTJXzH20h4npuLEC60o+y3n7ZO+pLj93r25n4ax1OIH1aJw2+qg4bxwVsd
+	 g1vjscgQn7BvQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 4/8] ASoC: SDCA: add PDE pre/post-pmu hooks to
- hw_ops
+Subject: Re: [RFC PATCH 5/8] ASoC: SDCA: class_function: xlate sound-dai
+ cell by entity index
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260722234221.884765-5-srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <20260722234221.884765-6-srinivas.kandagatla@oss.qualcomm.com>
 References: <20260722234221.884765-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260722234221.884765-5-srinivas.kandagatla@oss.qualcomm.com>
+ <20260722234221.884765-6-srinivas.kandagatla@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 23:56:06 +0000
-Message-Id: <20260722235606.A4E9C1F00A3A@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 23:57:39 +0000
+Message-Id: <20260722235739.6E5C11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,102 +47,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Errors returned from the new `pde_pre_pmu` and `pde_post_pmu` ho=
-oks are incorrectly swallowed or shadowed, allowing DAPM transitions to pro=
-ceed with invalid hardware state.
+- [Medium] Missing validation of `args->args_count` before accessing `args-=
+>args[0]` leads to reading uninitialized stack memory, causing arbitrary DA=
+I matching or information leaks, and breaking the fallback for zero-cell so=
+und-dai references.
 --
 
---- Patch [4]: [RFC PATCH 4/8] ASoC: SDCA: add PDE pre/post-pmu hooks to hw=
-_ops ---
-commit 9ebbdf1f4165266d78edf14f3e10a54fa79025c5
+--- Patch [5]: [RFC PATCH 5/8] ASoC: SDCA: class_function: xlate sound-dai =
+cell by entity index ---
+commit 1d17bfb5417d13a6da7e95f412ebc5f6ec81d329
 Author: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
-ASoC: SDCA: add PDE pre/post-pmu hooks to hw_ops
+ASoC: SDCA: class_function: xlate sound-dai cell by entity index
+   =20
+This commit registers a custom of_xlate_dai_name for SDCA functions. It map=
+s=20
+a "sound-dai" phandle cell to a DAI by matching the cell value against the=
+=20
+SDCA entity array index instead of relying on default positional mapping.
 
-This patch adds pde_pre_pmu and pde_post_pmu callbacks to struct
-sdca_class_hw_ops. These hooks allow codec drivers to stage state and
-commit pending writes before and after DAPM PDE power-domain transitions.
-
-> diff --git a/sound/soc/sdca/sdca_asoc.c b/sound/soc/sdca/sdca_asoc.c
-> index ac688cd629706..795498b9a314b 100644
-> --- a/sound/soc/sdca/sdca_asoc.c
-> +++ b/sound/soc/sdca/sdca_asoc.c
-
+> diff --git a/sound/soc/sdca/sdca_class_function.c b/sound/soc/sdca/sdca_c=
+lass_function.c
+> index 905c96ed6172f..b0fbe243d732c 100644
+> --- a/sound/soc/sdca/sdca_class_function.c
+> +++ b/sound/soc/sdca/sdca_class_function.c
 [ ... ]
-
-> @@ -432,6 +433,8 @@ static int entity_pde_event(struct snd_soc_dapm_widge=
-t *widget,
->  {
->  	struct snd_soc_component *component =3D snd_soc_dapm_to_component(widge=
-t->dapm);
->  	struct sdca_entity *entity =3D widget->priv;
-> +	struct sdca_class_drv *core;
-> +	unsigned int fn;
->  	int from, to;
->  	int ret;
-> =20
-> @@ -439,6 +442,19 @@ static int entity_pde_event(struct snd_soc_dapm_widg=
-et *widget,
->  		return -EIO;
-> =20
->  	switch (event) {
-> +	case SND_SOC_DAPM_PRE_PMU:
-> +		core =3D dev_get_drvdata(component->dev->parent);
-> +		if (core && core->hw_ops && core->hw_ops->pde_pre_pmu) {
-> +			fn =3D SDW_SDCA_CTL_FUNC(widget->reg);
-> +			ret =3D core->hw_ops->pde_pre_pmu(core->sdw,
-> +							component->regmap, fn,
-> +							SDW_SDCA_CTL_ENT(widget->reg));
-> +			if (ret)
-> +				dev_warn(component->dev,
-> +					 "%s: pde_pre_pmu failed: %d\n",
-> +					 entity->label, ret);
-> +		}
-> +		return 0;
+> @@ -216,9 +216,44 @@ static int class_function_set_jack(struct snd_soc_co=
+mponent *component,
+[ ... ]
+> +static int class_function_of_xlate_dai_name(struct snd_soc_component *co=
+mponent,
+> +					    const struct of_phandle_args *args,
+> +					    const char **dai_name)
+> +{
+> +	struct class_function_drv *drv =3D snd_soc_component_get_drvdata(compon=
+ent);
+> +	struct sdca_function_data *function =3D drv->function;
+> +	int target =3D args->args[0];
 
 [Severity: Medium]
-Should this return ret instead of 0 when pde_pre_pmu() fails?=20
+Could this read uninitialized stack memory if args->args_count is 0?
 
-Returning 0 allows the DAPM power sequence to proceed even though the=20
-prerequisite state might be invalid.
+When a devicetree defines #sound-dai-cells =3D <0> for the SDCA function no=
+de,
+the core of_parse_phandle_with_args() successfully returns with args_count =
+=3D 0.
 
->  	case SND_SOC_DAPM_POST_PMD:
->  		from =3D widget->on_val;
->  		to =3D widget->off_val;
+Because the of_phandle_args structure is often allocated on the stack in=20
+callers like snd_soc_of_get_dlc(), the args->args array is left uninitializ=
+ed.
 
+Does this code need to verify args->args_count >=3D 1 before accessing
+args->args[0] to prevent matching against random stack values?
+
+If args_count is 0, should it return -ENOTSUPP to allow ALSA's default
+0-cell handling to proceed instead of returning -EINVAL?
+
+> +	int i;
+> +
+> +	for (i =3D 0; i < function->num_entities - 1; i++) {
 [ ... ]
-
-> @@ -451,6 +467,20 @@ static int entity_pde_event(struct snd_soc_dapm_widg=
-et *widget,
->  		return 0;
->  	}
-> =20
-> +	if (event =3D=3D SND_SOC_DAPM_POST_PMU) {
-> +		core =3D dev_get_drvdata(component->dev->parent);
-> +		if (core && core->hw_ops && core->hw_ops->pde_post_pmu) {
-> +			fn =3D SDW_SDCA_CTL_FUNC(widget->reg);
-> +			ret =3D core->hw_ops->pde_post_pmu(core->sdw,
-> +							 component->regmap, fn,
-> +							 SDW_SDCA_CTL_ENT(widget->reg));
-> +			if (ret)
-> +				dev_warn(component->dev,
-> +					 "%s: pde_post_pmu failed: %d\n",
-> +					 entity->label, ret);
+> +		if (i =3D=3D target) {
+> +			*dai_name =3D entity->label;
+> +			return 0;
 > +		}
 > +	}
 > +
->  	ret =3D sdca_asoc_pde_poll_actual_ps(component->dev, component->regmap,
->  					   SDW_SDCA_CTL_FUNC(widget->reg),
->  					   SDW_SDCA_CTL_ENT(widget->reg),
+> +	dev_err(component->dev, "xlate: no dataport entity at index %d (num_ent=
+ities=3D%d)\n",
+> +		target, function->num_entities);
 
 [Severity: Medium]
-Does this overwrite the error from pde_post_pmu()?=20
+If target is populated from an uninitialized args->args[0] due to a 0-cell
+reference, does printing it here leak kernel stack memory to the log?
 
-If pde_post_pmu() fails, ret is logged in the warning above, but then=20
-immediately overwritten by the return value of sdca_asoc_pde_poll_actual_ps=
-(),=20
-losing the original failure context.
+> +	return -EINVAL;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722234221.8847=
-65-1-srinivas.kandagatla@oss.qualcomm.com?part=3D4
+65-1-srinivas.kandagatla@oss.qualcomm.com?part=3D5
