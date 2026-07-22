@@ -1,85 +1,118 @@
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9659130C345;
-	Wed, 22 Jul 2026 01:02:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B3736493E
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 01:13:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784682176; cv=none; b=LFc14Dy8pfmsEhVC0n7SZYC5zgrUeJvvzg15l+8oFxHgXC8B7Q7/HqqrY4DBFdQWrdoESUxJCPpla5BK4dOXMbRsIzbHdB3/HvKYUP5LMaxQR887OjQ5MSDfBPIY5QSRcFLGYFBWr7EEzJKjcYLLzqZFW5LR7Z0/eDz7G+lEttI=
+	t=1784682803; cv=none; b=hXEnRN6FAzzjGCSvwQLNZJUqITqVRb0JZQWoII2VnMG/errfLPm3hm5+0G9UHJkRCFU7AiVNkglhpN9f3e5Coc9TWtNAhlUPzZ20uOjxV9Taixh9eiuvB2E80XrI8gD6he2V3QLJIF6YNQo24vkp+dxnnKR0h2RTAZszpTvEn70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784682176; c=relaxed/simple;
-	bh=Fb2RvlPthRMbJHz76ifRC14D/3S7RepOataBJwvJIzU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UlmKo8ougFqPVy+U24h+Km89l2CROj5Wr2sRT/jMhilCkDOW2wOKmLjFg3nyzkenbkucMTReZRnLuUBqk/nWsrggbMgvDH1heR3l+5HM4+Z4BXqdCoi3ocV+Al5YS8g46pqMHQm/Z62eS3zPgfCdcvryyBlcTa2yrPPKCUIu1Js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=SI3rS2+D; arc=none smtp.client-ip=185.70.43.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1784682803; c=relaxed/simple;
+	bh=Mg1nksLB9VZgYvDoxPBGbI8q81ls05cxTnDEpmksDb4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=bLpGFYxHkhaWVIBLYhnd1e1hHw7qLrR8rspubbrey9Or7sW7zs5rvXkegYPQKrfl5xlzI7YeguXPYo6KLzv7oWCtHVlZ1C1piod8Gy5OAG/RuikxhXlWCNzHmlSuDUjkw2tI2TEQW9qlIrc2TAjMOydNo99yEWOZFoB+LkdEXvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BEXrHfQM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="SI3rS2+D"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1784682168; x=1784941368;
-	bh=zmUeWeO/5cXvxrXTIphGl85xjfF+DcvBD4+OKrDUNio=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=SI3rS2+DTnliZxpV8gjOQhm/BnmBebiQp/F26MAi5VNIvbcaS9qXb33i4kgLMpglK
-	 zgZqOsrJdBM0puXJQ0wbM1RcXLqHCt29o9Y0mDGsjN8woRqvVgbSoZ+grXosw2cZVr
-	 7nBeyhrQSAt2J1YQJa11hApiX5SmYQh/jghLMUtVpBxnmny8zcuNDrjapgzmRWBCj5
-	 qd5QxncCRvGHzjubEwFqiWb8/h6tTs3+lmY5jShJgDvdQtL889Fsa5cYEgfMPuzn29
-	 9+/mhaTbJ9SIeQn2P7EGvDb/cAi7IMwo+TxiSGyAfWQE4/qlLGY6E/+shB+fNSc9+q
-	 2pnryZ2FGMHlQ==
-Date: Wed, 22 Jul 2026 01:02:40 +0000
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-From: Esteban Urrutia <esteuwu@proton.me>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] phy: qcom: qmp-combo: Specify PLL version in qmp_v6_dp_serdes_tbl structs
-Message-ID: <47b1db2c-6314-49ce-a7b9-f68eeb022295@proton.me>
-In-Reply-To: <dph6cacosw3jzksqxp7fgofdueukrq6a3c5xys4jfrkqjuigvx@sroivvrxiwxk>
-References: <20260715-sm8475-bup-usbss-v2-0-2d8def39b190@proton.me> <20260715-sm8475-bup-usbss-v2-2-2d8def39b190@proton.me> <wg6lgpaexz4ktjlfzqpsidj56wr3hjax2ktn75kqsoaubtdxre@xh3yn3xpr4af> <b77dc15d-f9ad-4c06-9e24-8f73421e2130@proton.me> <dph6cacosw3jzksqxp7fgofdueukrq6a3c5xys4jfrkqjuigvx@sroivvrxiwxk>
-Feedback-ID: 147889766:user:proton
-X-Pm-Message-ID: d0641d487f73adafd5e390dae0e487ae27b72b8f
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BEXrHfQM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18CDA1F000E9;
+	Wed, 22 Jul 2026 01:13:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784682799;
+	bh=ycbEQwo7ncRPngjcDv2vt5Ntv+5bwl1iUvBTKYRWbas=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BEXrHfQMQ1B+P2s3AQKk7LPWtNScHY9FWz1ZALmn0ZjvUHupRcA5pqYVbFJi3bm4W
+	 G7YrwhiOGIf+hyZh1aIiBJhB2AmO7Qp0eua5kJEzoEHn6y1n1WSxiRj3lrCAFtlFS9
+	 nawKo3UZ+2oI9K1D4NL7B4RuQ6+lIjr1ZH4DUCJZ9KMONpnhwmKQeM/+LwKfOWmErL
+	 hpiBgQ2Gt1Te/ut0LgBb5Q/Fb50uci7o4whJxg92esoAGlnI3+dTg74+7GYgt1NXcY
+	 tEE90SA3oG2eBYdQ19cch9SyrQWinYDmdInG04xMa7wRAo1TECdhLXVE++POKTtyH6
+	 HVJu9sS2w8Mlw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 4/6] of/overlay: return ERR_PTR from
+ dup_and_fixup_symbol_prop()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260721-nh-of-alias-overlay-v4-4-8ad097e31e36@nexthop.ai>
+References: <20260721-nh-of-alias-overlay-v4-0-8ad097e31e36@nexthop.ai>
+ <20260721-nh-of-alias-overlay-v4-4-8ad097e31e36@nexthop.ai>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 01:13:18 +0000
+Message-Id: <20260722011319.18CDA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-On 7/21/26 8:35 PM, Dmitry Baryshkov wrote:
-> Quoting commit b5383dbae381 ("disp: msm: dp: add pll params table for
-> 4nm PHY pll settings") from the SDE driver:
->
->     Because of changes to ref clock frequency, few of the pll
->     reg values are different for kalama compared to palima.
->     This change differentiates between these two 4nm versions,
->     based on pll revision and also introduces a pll reg table
->     to differentiate the values.
->> So, I assume, that v1 vs v1.1 is a clumsy downstream way to specify the
-> ref clock differences (which affect those tables).
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-This does not seem to be the case...
-When HBR2 is used over a direct Type-C to Type-C DP Alt Mode connection,
-link training fails when v1.1 tables are used instead:
+Pre-existing issues:
+- [High] Double-free and use-after-free of `new_prop` on the `of_changeset_=
+add_property()` error path.
+--
 
-Jul 21 20:56:39 esteuwu-phone kernel: [drm:msm_dp_ctrl_link_train_1_2 [msm]=
-] *ERROR* max v_level reached
-Jul 21 20:56:39 esteuwu-phone kernel: [drm:msm_dp_ctrl_link_train_1_2 [msm]=
-] *ERROR* link training #1 on phy 0 failed. ret=3D-11
-Jul 21 20:56:39 esteuwu-phone kernel: [drm:msm_dp_ctrl_setup_main_link [msm=
-]] *ERROR* link training on sink failed. ret=3D-11
-Jul 21 20:56:39 esteuwu-phone kernel: [drm:msm_dp_bridge_atomic_enable [msm=
-]] *ERROR* Failed link training (rc=3D-104)
-Jul 21 20:56:39 esteuwu-phone kernel: [drm:dpu_encoder_phys_vid_wait_for_co=
-mmit_done:545] [dpu error]vblank timeout: a0821300
-Jul 21 20:56:39 esteuwu-phone kernel: [drm:dpu_kms_wait_for_commit_done:527=
-] [dpu error]wait for commit done returned -110
-Jul 21 20:56:39 esteuwu-phone kernel: [drm:dpu_encoder_frame_done_timeout:2=
-731] [dpu error]enc37 frame done timeout
-=20
-> I'd suggest adding the comments about 4nm-v1 vs 4nm-v1.1 rather than
-> renaming the structs.
-Regards,
-Esteban
+--- Patch [4]: [PATCH v4 4/6] of/overlay: return ERR_PTR from dup_and_fixup=
+_symbol_prop() ---
+commit c4400996264f78e84238a0b8d2c87f7489c72180
+Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
+of/overlay: return ERR_PTR from dup_and_fixup_symbol_prop()
+
+dup_and_fixup_symbol_prop() previously returned NULL for malformed input,
+unresolved paths, and allocation failures, which the caller collapsed into
+-ENOMEM. This patch changes the function to return an ERR_PTR instead.
+The caller is updated to propagate the specific errno.
+
+> diff --git a/drivers/of/overlay.c b/drivers/of/overlay.c
+> index 74aea704835ac..ad4e504825157 100644
+> --- a/drivers/of/overlay.c
+> +++ b/drivers/of/overlay.c
+
+[ ... ]
+
+> @@ -350,6 +354,8 @@ static int add_changeset_property(struct overlay_chan=
+geset *ovcs,
+>  		if (prop)
+>  			return -EINVAL;
+>  		new_prop =3D dup_and_fixup_symbol_prop(ovcs, overlay_prop);
+> +		if (IS_ERR(new_prop))
+> +			return PTR_ERR(new_prop);
+>  	} else {
+>  		new_prop =3D __of_prop_dup(overlay_prop, GFP_KERNEL);
+>  	}
+
+[Severity: High]
+This is a pre-existing issue, but could this code path lead to a double-free
+on the error path for add_changeset_property()?
+
+Looking further down in add_changeset_property(), if we are not in a livetr=
+ee,
+new_prop is linked into the deadprops list:
+
+	if (!prop) {
+		if (!target->in_livetree) {
+			new_prop->next =3D target->np->deadprops;
+			target->np->deadprops =3D new_prop;
+		}
+		ret =3D of_changeset_add_property(&ovcs->cset, target->np,
+						new_prop);
+
+If of_changeset_add_property() fails (for example, due to memory exhaustion=
+),
+ret is non-zero, and the function frees new_prop at the bottom:
+
+	if (ret)
+		__of_prop_free(new_prop);
+
+Does this leave the freed new_prop still attached to target->np->deadprops?
+
+When the overlay application aborts and the unattached dynamically allocated
+device node is cleaned up via of_node_release(), it iterates over the
+deadprops list and calls __of_prop_free() on each property again. Can this
+result in a use-after-free and double-free of the property?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-nh-of-alia=
+s-overlay-v4-0-8ad097e31e36@nexthop.ai?part=3D4
