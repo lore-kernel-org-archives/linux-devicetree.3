@@ -1,161 +1,506 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8C03C109D
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 07:13:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DED284880
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 07:14:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784704403; cv=none; b=TFX1m9gCyNTmHxMnRNOciaDLj4OvYjEDi3+aVO2WF2ol6U2aB3W2aXyopEPlshC9J1Y0QXYPlycnKdQCPqH0UDA2dh4rvDZ/+F9FIxVILZT0n0YLKm0J/kmna6VZmR+VOQ/fu547imom1w/d+fe/VBiltTYOyxBaaGMw/0DsWmU=
+	t=1784704452; cv=none; b=Y9dZmtcVxkRRcFSJDqZ/FbUKIkydgkypka0otgxcL8KlUvDD5deKK528ejTzCm6CVNgDJqG9oFFkFFeit5WSRt3KNM1burLGvf6EzPdolLzMKaaEEPJCxVNEXB3DQBdVczk7Hi3xtaRouXFezTtvyOZeJu+c+trIOzHstSGEktM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784704403; c=relaxed/simple;
-	bh=ZnLV/a5hdCoNMYjPosDmeMWDt60E2q1AWPD8RW/wiVw=;
-	h=Message-ID:Date:MIME-Version:From:To:Subject:References:
-	 In-Reply-To:Content-Type; b=EcnoqcQ5qF/HVcWhVrfHhhlAKTapxSsOm2XZRjGAOxCaaZvuA7JC97rlWzjYWiajSLiCshVoWuHbsKR5KfulyxbfUVtdSiZeKSz3tZhzqehrPUOCx+zc7ygkXubCSyGLX3rm9d360/lDxDFG9tqg9HHvAIZxa7RSP5SK/4V3w8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oDcb8XA5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YCrTncQk; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784704452; c=relaxed/simple;
+	bh=zDUT9Ix5lKF4+baUyh2sCBC+qDPjvr9KSR82reDJuG0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=sSe1VxPWuzB6LOG8q/74P3z1SklZxAXr9tr3QkBZBgg7mXY3Fl/DqHjHAvvNTd1+4h3ToMim+7TTO9n8FPmcREx/Lvlyma1KKPihVvD3vHCxRRxQBPXK+y/+hMWrMzCmBPBQBlgYRmvfsdozEFFSMn3MG8zOd/LR3BwM6JEMJIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=WaUWGbq3; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oDcb8XA5";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YCrTncQk"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M53gZn3883047
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 07:13:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	csGFu5RbC9huQdbcAYKh5q0jdyq9oL2CD75umdOlyVI=; b=oDcb8XA5MEFXSY/L
-	BF/mlYWwsiAyRycu48mvi2oln/tEwZVxo57vvl/5hthjsWEY+9PU9SYR1sMnR4F4
-	dyqbxat7S+mKJFM2pJAY3oeWPDrmN+ASB+Xy354fOwLSbKr96J6FXCqjEaCd3lCa
-	A/Ikz6HsUkkcL936MWH2Id4vWb1eqlJ6s/eygSV/Ajpnpji0xDffjSRhM/MP/Zha
-	kg2s5XBYcrxcPCPKQp/vRYvXh/cSdfAfd6vqf4og47L6QTJpSur4s6sQ52W7+0Jy
-	XLKSG8+Y8jXPO9eEHG6F4nD2jdCN2LS+jJUVcGcNzZHdYvNHn6WwWRMpjSEkIJYk
-	CItDGw==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjntn0twf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 07:13:20 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-84857446424so22661318b3a.1
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 00:13:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="WaUWGbq3"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-84862b0d5f8so7154965b3a.3
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 00:14:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784704400; x=1785309200; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:references
-         :subject:to:from:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=csGFu5RbC9huQdbcAYKh5q0jdyq9oL2CD75umdOlyVI=;
-        b=YCrTncQklgUPYSJeNjGkP36YKpXZFk35Alj7uO3vTEnXr0tPpn71qePTFvEejzg8uK
-         rbPFWQ2DGXoUYRbYfuGBHlRXdtXjPoBEeY8yXgJwTMUidtLHwJDXZPKg3O8lfTU5t17W
-         WVB0wgGGDDUi9vJkZgP9BTeFwJ3QPWXqVQpQadRDXlT/A02gvUERtP6Rfw0dQc3cts4L
-         HL3soNuznFs7rT26ZLpxBHcj6pVZkJDpAZRZ7LblomcZngI1Vcrs5HMhMoxp5AYyv6mn
-         LtXO58LgthlfolvyUasW0ivI7J4kyo7rk45g+9oP+JGUYFSmOfr1cx8cGfp0mn4MM4lH
-         LPTQ==
+        d=nexthop.ai; s=google; t=1784704450; x=1785309250; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=v7XHr1jzm2CUS1Dimwg+kihV038ONE/1z+NTi9M39qg=;
+        b=WaUWGbq3OO5qP6uyNmvGD60JD1HoT8tsLMWiMohbpjxYNoOUWfKR25KAn2urjVY5Ad
+         3kxJdUZ1F36wjLKTk7Qf4oBlnu/UaJGB2Mxdu30kKXYauUW6QouSbPWRrgQyR0/ecsXC
+         nBVDwmQwQk2HulGyl+biT4o4Upl+X9AtL7+6mz9TAES9U7JYuF1hFxFZWlg/VoKEybbk
+         d0t+GU/nRMlb1huI2sAP+kvrG3CZH+oa4yo2L31a47+6u9VbzPAtUMyxlUzqFvPLzZcE
+         32yjottpGNvE0sYQ2IWrXgsQHoFagS3iEJPeQx/UWwEuFymIeHAkTAJwuFd/zLurf1Ek
+         mzdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784704400; x=1785309200;
-        h=content-transfer-encoding:content-type:in-reply-to:references
-         :subject:to:from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=csGFu5RbC9huQdbcAYKh5q0jdyq9oL2CD75umdOlyVI=;
-        b=m/03IgSsnV/MIRxRkWCLJl++xzEnPzXpHz4T7IQ0klRTanfJ4Ppi/wsTJoqdAPCc4v
-         9M1DuWlEQsyeViv3Zt1EQlcjp+FJ2BTkBPOfJEieqgdgVa0cQrYm18+WlqEexreoEUbt
-         KkPLodrswfAuEFwv+kvbLR5Q/3kiQRUmjTE+9I0Zb5vsWmGC13W8627ytFmO4Zox/sRC
-         jFvMQBELUWI/+3iBvfBr0M44OVh/gHzoDGXdefZoohjlE8ErXDfM/LIxLm1r/hAmjnmd
-         SzodHnSHYeXCEzzOYCHGASJ7/3r+58p7/QASuw7Yz6BlmAoe6JeKDcJ/vtE0a6sCiFkU
-         DocA==
-X-Forwarded-Encrypted: i=1; AHgh+RqjvMwpRu96bQVyQOGOQYcO8P88oRCzHTpbX4dEJjF2wrPmsBprRNlVbLOSF2MKO7Kt/CQyYrcaYPji@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw0vHkCTcofXR75DMgJaBj/asV0CTtRkD5/05XQshyYXThnc37Y
-	Fx1lf2Ab7s+5fKqjamYk3ZKdzIyWRTWI3FT4wb6EWsONUo6liCG8UAH9n7DaYI3MG/E9rB2yKhF
-	Qw3/aUE1CokPNd6YnmtRQfhGXotcESxfMf6LzDbIIrW9EG4EzcLR3pb+rIYnNRipt
-X-Gm-Gg: AR+sD11Wi8ZFvUhOKe/sg0e3hE282gPYrUg9B+FncIpMiKnRyYFE4oZqetsWOnOdT3j
-	51nuCG3pBLqpiIlSM2EA5CPld3w2jFw6ldi1L/wmF/RJOXz9tXguiCAPorcDs89gflgTM0p88Wm
-	dSbVOubASoPn/rkJElRAq8G77JjA6PKpVJ9CTcNBTbdyPS7Ggod2sznsdM/Jp1patKUyOY/T3Wc
-	iZmCMLQbyQFERXtD663lpFBH6m1prBbCfzI9yOYPkTNUszyXFjLGlj+u7TijvhZr3R1Lxr4+bx+
-	Ulm/0Z6XzlHBNWjcrT7/UdDyUDB9DlzCoidmgaGBscaPazFndsPHeIB7BIg2BAGGIqMKobFONgS
-	GhsYGXgXRFBBcIZa3d8pHAEad98Q=
-X-Received: by 2002:a05:6a00:18a0:b0:847:9bdb:2cd1 with SMTP id d2e1a72fcca58-84c294c0adfmr21781068b3a.54.1784704399785;
-        Wed, 22 Jul 2026 00:13:19 -0700 (PDT)
-X-Received: by 2002:a05:6a00:18a0:b0:847:9bdb:2cd1 with SMTP id d2e1a72fcca58-84c294c0adfmr21781034b3a.54.1784704399345;
-        Wed, 22 Jul 2026 00:13:19 -0700 (PDT)
-Received: from [10.233.16.34] ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e17573c0esm851062b3a.38.2026.07.22.00.13.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Jul 2026 00:13:19 -0700 (PDT)
-Message-ID: <a5545d73-32c0-49d8-9601-1d2bf10d426e@oss.qualcomm.com>
-Date: Wed, 22 Jul 2026 15:13:13 +0800
+        d=1e100.net; s=20251104; t=1784704450; x=1785309250;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=v7XHr1jzm2CUS1Dimwg+kihV038ONE/1z+NTi9M39qg=;
+        b=D4Giw32Lo2r5hFj+G+R+5uPqH6aQX/ZAPrbsw5scCIr67PUFv0lN05GL7QyOvyRX1b
+         H28GotTVonW1WI8evZEUKgZ3w0vZ22U65F2awC4TVvor+osnqAx//AFL6a8rINd9P+Wb
+         o6hXkG/HveRGOhif8zM0CRUBtsAA5g+EJzJiIM3911gIv6wUxNJNK835XE8MCmS/EuWI
+         gR23pZqVbD5rTgU0Hc/qJF6dxOqqi9rTAxLU2cKgq4JwY8GD+QFwLGMjXqyONt9lGk0R
+         +OLSP+ENRPHZsbhtahkQMNpYbakgIfg/yl/nrDNpODSt6rGbDa2efJcnbngW9uj6dURx
+         2B/g==
+X-Gm-Message-State: AOJu0YxPiwOloi+U6btUx80o+PTXY5bvJrGmEn/MbTX4RuOCOx3na9UJ
+	1wfDw85wj6xLKXN+hcwz0jvMhc4ZlyNb1JoOT+3EYSlRE6/87WvhRS4fwc7a3w9mHdkqInflAmC
+	kl10tnUA=
+X-Gm-Gg: AR+sD11ufoPy1a6y2FrHGcAnJI6IHwOWSKmqjUthJ2kj0fffDIaksE8HVJf9KLIZe9a
+	AsMsiCQrxReSjndTV+ih2NaCCHXvlDgJGx4QEvOFyyfgz4aNIzfFVErcOqtcC8d9x8sKJd+yZnY
+	szw0lSWHjfmaKTQT33blrj2Ba3kG2Ncc3iUx+hvspZ+Cj4VSHo7RiLDP5lZaOelWuI3eYC4sHPY
+	Zr9cf0t4LuJU2KS8bHr2zgHpBJD4mxkrbN3ECMmNQg93IZbpD6pKLFVkJRt4AmJRELbEXX5LALZ
+	2GovXx9ZBHNdjqIVrzEOXOVnSbvJjeftOWCjLdl90VcL6QKNCcO99/gsYLt9f3O+LO4DgRvTFa4
+	ZrJ4NSN3lhfhybhNB1xYWxovr9CrIA2IdQ3+WZdmXMsgl9wb5PwkOnZkvYkZWiroor8+gRKhTQW
+	5YSKO+
+X-Received: by 2002:a05:6a00:4b56:b0:848:2f74:1d5e with SMTP id d2e1a72fcca58-84c295629acmr21891486b3a.68.1784704449582;
+        Wed, 22 Jul 2026 00:14:09 -0700 (PDT)
+Received: from [127.0.0.2] ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e175f3180sm843890b3a.56.2026.07.22.00.14.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 00:14:08 -0700 (PDT)
+From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Subject: [PATCH v4 0/7] of: teach overlay code to keep /aliases in sync
+Date: Wed, 22 Jul 2026 00:14:05 -0700
+Message-Id: <20260722-nh-of-alias-overlay-v4-0-fc96a40d2761@nexthop.ai>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: hangxiang.ma@oss.qualcomm.com
-To: Krzysztof Kozlowski <krzk@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
-        Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        jeyaprakash.soundrapandian@oss.qualcomm.com,
-        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
-Subject: Re: [PATCH v15 1/8] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add
- Kaanapali CSI2 PHY
-References: <20260720-kaanapali-camss-v15-0-c0b1c1167c5d@oss.qualcomm.com>
- <20260720-kaanapali-camss-v15-1-c0b1c1167c5d@oss.qualcomm.com>
- <20260722-pristine-lemon-dugong-ec2c0e@quoll>
-In-Reply-To: <20260722-pristine-lemon-dugong-ec2c0e@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=AJsSZ1gA c=1 sm=1 tr=0 ts=6a606d90 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=e1oV9azWTbvrO268RREA:9 a=QEXdDO2ut3YA:10
- a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-GUID: QhwIsP38vlNu5FLPT7qKJUIwjhEOz99Z
-X-Proofpoint-ORIG-GUID: QhwIsP38vlNu5FLPT7qKJUIwjhEOz99Z
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDA2NiBTYWx0ZWRfXye4FUQXgj/T4
- nDTiMCycIE0kFjwqOTovp7czJPTD6HiuYmOFf5sdiWXy/ceFRnPsf+CGdNQnQp357q3fBS6AbtE
- z8TacOszdlRSCWTJidHTkWwVnpCgiAI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDA2NiBTYWx0ZWRfX483+zAPF35SW
- 19rxL7/3bAvW3zexy5+t0jl7RmSQpyoVo6i1y9lbsd5c1goBFHPDOjqI0O/FAmcuapMmdNiV1Wg
- FaP6y8AwOxkSC51PuvSmkhJKEsE6A4Z+LftB10nIvEI96HCkG527qMWh91jVBCizE3gY2SQFY2X
- 9vp7khAbaKzQ0wkKLzySMDFNXZVABEJtZ0IYihn18hSm2j6DNrythrbNSv85mpKXan9VaO2H2/p
- FvFXUbH74mIfK6L276GIDkvSuDcEEB2S6Nx6ZQSykUUq60lLj345A003ODTC1DCLdCgGmzX6E9S
- w9miYJOk0sNpx/55I0cFUjbxsZGBOdLpo6tMWVfReLSVaQGC0o1/nfYmuOrTonyHOFU8bMrc8z1
- xLj6uIdZ8anoMkX+mCU/YlNb73WajtBRe2GQc40d7h16fWlteG74RdAVkkJd/3VGRcTQ0DuVyEz
- 3xmKjNUj0EY5PGSM1Uw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-22_02,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
- bulkscore=0 adultscore=0 priorityscore=1501 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220066
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22N0Q6CIBhGX8VxHQ1QkbrqPVoXKL9Ba+DAmM757
+ oF1UZuXZ/u+cxYUwBsI6FwsyEM0wTiboDoUqNPS3gEblRgxwjhp6AlbjV2P5dPIgF0E/5Qz5lA
+ DUTVnlLUoPQcPvZk26/X24fBqH9CNWZUX2oTR+XnLRpp33wIju4VIMcGsUZKLSiglqouFadRuO
+ EqDciKWvxK6LymTpCGEEiZ6YH39J1nX9Q24vk0UDgEAAA==
+X-Change-ID: 20260719-nh-of-alias-overlay-6e5e0d56212b
+To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Abdurrahman Hussain <abdurrahman@nexthop.ai>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784704448; l=20960;
+ i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
+ bh=zDUT9Ix5lKF4+baUyh2sCBC+qDPjvr9KSR82reDJuG0=;
+ b=SgTZ4hkr2f6mWXBnzVVgJHFmeDvh+7+FbX3NUKZhk/puLZWQEwZIbLleaI3+EskYnoX6sirs1
+ mdKUlJ4Cx5iCgLlIokVOJmc7F/o1L7URKMI0F5NhYp+R/LASDP7ApYp
+X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
+ pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-On 7/22/26 2:51 PM, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> On Mon, Jul 20, 2026 at 09:50:34PM -0700, Hangxiang Ma wrote:
-> > The Kaanapali CSI2 PHY is compatible with the existing x1e80100 CSI2
-> > C-PHY/DPHY binding. Add the "qcom,kaanapali-csi2-phy" compatible.
-> >
-> > Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> > ---
-> >   Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml | 4 +++-
-> 
-> There is no such file on recent next and cover letter says nothing about
-> dependencies.
-> 
-> Best regards,
-> Krzysztof
-> 
-> 
+/aliases entries added by a device-tree overlay are stored in the live
+tree but never enter the global aliases_lookup list that of_alias_scan()
+builds at boot. As a result, of_alias_get_id() returns -ENODEV for
+aliases declared inside overlays, and any driver that relies on
+alias-based numbering (i2c-xiic, spi, tty, mmc, ...) silently loses its
+pinned id and falls back to auto-assignment.
 
-Sorry, I also noticed that mistake after posting this series, so it won't occur in the subsequent SM8750 series. I'll add a description of the dependencies to the cover letter in the next revision if those dependencies haven't been merged yet. Thanks a lot.
+The gap has been public since 2015 [1] and reproduces trivially: apply
+an overlay that declares e.g. `i2c99 = &foo;`, ask
+of_alias_get_id(foo, "i2c") -> -ENODEV. Bootlin's ELCE 2025 talk on
+PCI DT overlays [2] enumerates "i2c muxes" as one of the subsystems
+broken by dynamic overlays; alias pinning is the underlying cause.
+
+The core fix (patch 2) is a reconfig notifier that mirrors /aliases
+property changes into aliases_lookup. Patch 1 closes a pre-existing
+race in the alias path lookup that becomes load-bearing once /aliases
+is dynamic. Four smaller overlay-code changes (patches 3-6) fall out
+of the same use case: without them, the notifier alone can't actually
+resolve overlay-declared aliases (patch 4 fixes a pre-existing
+double-free on an error path the series exercises).
+
+Prior art
+---------
+
+Geert Uytterhoeven posted a 3-patch RFC in June 2015 [1] with the same
+alias-tracking design shape. Grant Likely reviewed positively; merge
+was gated on missing unittests and an object-lifetime concern the
+author self-flagged, and the series was never reposted as non-RFC. Ten
+years later, drivers/of/overlay.c still contains zero references to
+aliases, of_alias_scan, or aliases_lookup.
+
+Series contents
+---------------
+
+Patch 1 closes a pre-existing race in of_find_node_opts_by_path():
+the alias-resolution walk reads of_aliases and iterates its property
+list with no lock held and no reference taken — racing property
+surgery done under devtree_lock, and the node's own teardown once
+/aliases can be created and destroyed at runtime. The walk now runs
+under devtree_lock with a reference held across the live-tree lookup.
+
+Patch 2 adds a reconfig notifier that mirrors /aliases property
+changes into aliases_lookup. It also refactors of_alias_scan()'s
+per-property body into a helper of_alias_create() shared by the
+boot-time scan and the runtime notifier. A one-bit `owned` flag on
+struct alias_prop distinguishes kmalloc'd (overlay-time) entries
+(kstrdup'd alias name, of_node_get'd target) from memblock-backed
+(boot-time) ones so the remove path can't kfree the wrong storage.
+The notifier keys off structural properties of the target node
+(name + root-parent) rather than the of_aliases global, so overlays
+that create /aliases from scratch on a system without a boot-time
+aliases node are covered too. All aliases_lookup readers and writers
+serialize on a dedicated aliases_mutex.
+
+Patch 3 fixes find_target() so an overlay applied with a non-NULL
+target base can still reach the DT root via target-path="/foo". The
+current code unconditionally concatenates base + target-path via
+"%pOF%s", so target-path="/aliases" resolves to "<base>/aliases" and
+target-path="/" produces "<base>/" (never a valid node). After this
+patch, an empty target-path continues to mean "the target base
+itself" — preserving the shape used by drivers/misc/lan966x_pci.c,
+the only in-tree caller of of_overlay_fdt_apply() that passes a
+non-NULL base — while any non-empty target-path is looked up
+absolutely.
+
+Patch 4 fixes a pre-existing double-free in add_changeset_property():
+a property freed on the of_changeset_add_property() error path stayed
+linked in the target node's deadprops list and was freed again at
+node release.
+
+Patch 5 converts dup_and_fixup_symbol_prop() to return ERR_PTR so
+callers can tell malformed values, not-overlay-internal paths, and
+allocation failures apart — /__symbols__ errors stop being reported
+as -ENOMEM regardless of cause — and makes it verify the value
+actually descends through the matched fragment's __overlay__ node
+before slicing, instead of cutting at an assumed prefix length.
+
+Patch 6 rewrites /aliases property values from the overlay's internal
+fragment path ("/<fragment>/__overlay__/...") to the live-tree path
+that the node will occupy after apply. The overlay code already does
+this for /__symbols__ via dup_and_fixup_symbol_prop(); /aliases uses
+the same textual convention and can reuse the same helper. Without
+this, patch 2's notifier receives paths that never resolve in the
+live tree, so of_alias_get_id() still returns -ENODEV. Values that
+don't resolve inside the overlay (legacy string aliases, malformed
+junk) are copied verbatim and stay inert — consumers validate before
+dereferencing — so no overlay that applied before this series stops
+applying.
+
+Patch 7 adds a unittest — overlay_alias.dtso plus
+of_unittest_overlay_alias() — that applies an overlay with a
+non-NULL target_base, declaring a labeled node under the base and an
+`testcase-alias99 = &that-label` entry in DT-root /aliases, then
+asserts of_alias_get_id() on the grafted node returns 99 after the
+apply and of_alias_get_highest_id() reports the stem gone after the
+revert. Missing any one of the three functional patches (notifier /
+absolute-target-paths / alias path rewrite) causes the assertion to
+fail.
+
+Changes in v5
+-------------
+
+Addresses the automated review of v4 (patches 2, 3, and 6 of v4 drew
+no findings).
+
+Patch 1:
+  - of_alias_value_ok() additionally requires the value to be an
+    absolute path (per the DT spec). A relative value naming another
+    alias — including itself — sent of_find_node_by_path() into
+    unbounded mutual recursion with alias resolution and exhausted
+    the kernel stack; the shared helper closes it for the path
+    lookup and of_alias_create() alike.
+
+New patch 4:
+  - Fix the pre-existing double-free in add_changeset_property():
+    a property freed on the of_changeset_add_property() error path
+    stayed linked in the target node's deadprops list and was freed
+    again by of_node_release(). The property now goes onto deadprops
+    only after the changeset entry is recorded, so the error path
+    frees an unreferenced property. Flagged on every revision of
+    this series; fixing it beats re-deferring it.
+
+Patch 5 (was patch 4):
+  - dup_and_fixup_symbol_prop() now verifies the value textually
+    descends through the matched fragment's __overlay__ node before
+    slicing. Previously only the first path component was resolved,
+    so an absolute live-tree alias sharing its first component with
+    a hand-named fragment (or a bogus /__symbols__ value) was sliced
+    mid-string and rewritten to garbage. Prefix mismatch and
+    too-short values are -ENODEV (not overlay-internal), no longer
+    -EINVAL.
+
+Link to v4: https://patch.msgid.link/20260721-nh-of-alias-overlay-v4-0-8ad097e31e36@nexthop.ai
+
+Changes in v4
+-------------
+
+Addresses the automated review of v3, plus findings from a local
+adversarial review pass over the v4 candidate.
+
+New patch 1:
+  - of_find_node_opts_by_path() walked of_aliases' property list with
+    no lock and no node reference. Racy against devtree_lock-protected
+    property surgery since the walk was introduced, but only reachable
+    in practice once overlays can create and destroy /aliases.
+    Prerequisite for the DETACH change below.
+  - The reader also validates the value's shape (of_alias_value_ok())
+    before dereferencing it as a C string — raw of_add_property()
+    producers are not validated anywhere — and no longer passes the
+    NULL value of an empty alias property to of_find_node_by_path().
+
+Patch 2 (was patch 1):
+  - DETACH_NODE now drops the reference taken at ATTACH_NODE after
+    clearing the of_aliases pointer under devtree_lock. v3 kept the
+    reference to protect lockless readers, but a kept reference
+    violates the changeset-destroy contract —
+    __of_changeset_entry_destroy() expects refcount 1 — so every
+    apply/revert cycle of an /aliases-creating overlay logged
+    "ERROR: memory leak" and permanently leaked the node. With the
+    reader from patch 1 taking its own reference under devtree_lock,
+    the put is safe.
+  - The aliases_lookup sweep now runs only when the detached node is
+    the tracked of_aliases, so a stray duplicate root node named
+    "aliases" can no longer wipe entries backed by the real node; the
+    node match is an exact-name compare (of_node_is_aliases()) since
+    of_node_name_eq() would also match "aliases@1".
+  - The notifier machinery is compiled only for CONFIG_OF_DYNAMIC;
+    the of_reconfig_notifier_register() stub returns -EINVAL, so the
+    unconditional core_initcall_sync failed on every non-dynamic DT
+    kernel.
+  - Per-entry teardown factored into __of_alias_del(); shared
+    of_node_is_aliases()/of_alias_value_ok() helpers in of_private.h
+    replace open-coded copies in base.c and overlay.c.
+
+New patch 4:
+  - dup_and_fixup_symbol_prop() returns ERR_PTR, distinguishing
+    malformed values (-EINVAL), not-overlay-internal paths (-ENODEV),
+    and allocation failure (-ENOMEM) — the discrimination v3's
+    "/fragment@" prefix heuristic approximated, and the reason a
+    structural failure was previously misreported as -ENOMEM.
+
+Patch 5 (was patch 3):
+  - Drop the "/fragment@" prefix heuristic: init_overlay_changeset()
+    accepts fragments with any node name, so a hand-named fragment's
+    alias would silently stay unrewritten (the bug this series fixes),
+    and a live-tree path starting with "/fragment@" would fail apply.
+    Discrimination now comes from where the value actually resolves
+    (patch 4).
+  - Malformed alias values no longer fail the overlay apply with
+    -EINVAL; they are admitted verbatim with a warning and stay inert
+    (consumers validate before dereferencing). An overlay that applied
+    cleanly before this series keeps applying.
+  - Exempt pseudo-properties from the /aliases handling: the
+    is_pseudo_property() skip at the top of add_changeset_property()
+    is gated on target->in_livetree, so a phandle (a raw cell, not a
+    C string) of a newly created /aliases node could fail the string
+    checks and abort a valid overlay.
+
+Patch 6 (was patch 4):
+  - Drop the grafted-node reference before of_overlay_remove();
+    holding it across the revert trips the same changeset-destroy
+    refcount check (kernel ERROR + leaked node).
+  - Assert alias removal via of_alias_get_highest_id() — keyed by
+    stem, needs no node reference — with a matching precondition
+    check before the apply.
+  - Wrap the apply in EXPECT_BEGIN/END for the standard "memory leak
+    will occur" warning printed for properties added to a node the
+    overlay didn't create.
+
+Patch 3:
+  - Document the empty-vs-absolute target-path contract in the
+    kernel-doc for @base/@target_base and find_target(); the old text
+    predated the semantic change.
+
+Link to v3: https://patch.msgid.link/20260721-nh-of-alias-overlay-v3-0-7001028fe2f5@nexthop.ai
+
+Changes in v3
+-------------
+
+Addresses the automated review of v2.
+
+Patch 1:
+  - of_device_uevent() in drivers/of/device.c now walks aliases_lookup
+    under aliases_mutex; the previous of_mutex path could race with
+    the reconfig notifier that mutates under aliases_mutex.
+  - Drop the defensive ATTACH_NODE property scan. Overlay attach
+    queues each property as a separate ADD_PROPERTY changeset entry,
+    so per-property notifications cover the case that matters;
+    walking rd->dn->properties without devtree_lock could race with
+    concurrent DT mutations. A direct of_attach_node() caller that
+    pre-populates /aliases loses tracking for those entries, matching
+    pre-series behavior.
+  - Replace DETACH_NODE's per-property forget with a single scan of
+    aliases_lookup itself (same rationale). Boot-time entries are
+    unlinked; memblock-backed struct + alias name are not freed.
+  - of_alias_destroy() now of_node_puts() the target for every
+    matching entry, closing a leak of the reference
+    of_find_node_by_path() took at of_alias_scan() time for boot-time
+    entries.
+
+Patch 3:
+  - Enforce non-empty + null-terminated-within-pp->length up-front
+    for every /aliases property value. Values that don't match
+    "/fragment@" now flow through __of_prop_dup() only after that
+    validation, closing a pre-existing hole where a malformed alias
+    value could reach the live tree.
+
+Patch 4:
+  - Hold a reference on the grafted target node across the revert
+    so the post-remove assertion queries the right np, not the
+    base. of_alias_get_id(base, ...) would trivially return -ENODEV
+    regardless of whether removal actually cleaned up the alias.
+  - On of_overlay_fdt_apply() failure, reclaim the (possibly
+    partially-populated) ovcs_id via of_overlay_remove() to avoid
+    leaking the unflattened FDT and partially-applied nodes.
+
+Additional fixes from local review of the v3 candidate:
+
+All patches:
+  - Trim inline comments to the constraint being enforced; rationale
+    and use-case narrative moved to the commit messages.
+
+Patch 1:
+  - of_alias_create() releases the target-node reference on every
+    error path, not only for owned entries — restoring the original
+    of_alias_scan() error behavior for boot-time entries.
+  - Correct the struct alias_prop @owned kernel-doc: every entry holds
+    a reference on @np (removal drops it regardless of @owned); the
+    flag only selects whether the struct and alias name are kfree()d.
+  - Correct the notifier-registration comment and commit message:
+    of_alias_scan() runs pre-initcall from unflatten_device_tree() /
+    of_pdt_build_devicetree(), not from of_core_init().
+  - DETACH_NODE clears the of_aliases pointer but keeps the reference
+    taken at ATTACH_NODE: of_find_node_opts_by_path() reads of_aliases
+    and walks its properties locklessly, so the node must outlive any
+    concurrent reader.
+  - Call out (in the commit message) the pre-existing one-byte OOB
+    read in the stem parser that the refactor fixes: isdigit() was
+    tested before the end > start bound.
+
+Patch 3:
+  - Correct the commit-message claim that a NULL return from
+    dup_and_fixup_symbol_prop() can only mean -ENOMEM; unresolvable
+    fragment paths also return NULL and are reported as -ENOMEM,
+    matching the existing /__symbols__ handling.
+
+Patch 4:
+  - Fix the .dtso label: dtc labels cannot contain hyphens, so
+    testcase-target failed to compile. Now testcase_target.
+  - Do not add overlay_alias.dtbo to the fdtoverlay static build
+    test: fdtoverlay cannot resolve the empty (base-relative)
+    target-path, so static_test_1.dtb would fail to build.
+  - Drop the unnecessary #address-cells/#size-cells from the grafted
+    node (dtc W=1 avoid_unnecessary_addr_size).
+
+Changes in v2
+-------------
+
+Addressed the automated review of the RFC posting.
+
+Patch 1:
+  - Guard rd->old_prop before dereferencing in the UPDATE_PROPERTY
+    handler; some notifier producers pass NULL.
+  - Handle OF_RECONFIG_ATTACH_NODE and OF_RECONFIG_DETACH_NODE for
+    /aliases nodes attached or detached with pre-populated properties.
+    (v3 pared this back — see above.)
+  - Serialize aliases_lookup with a dedicated aliases_mutex; readers
+    (of_alias_get_id, of_alias_get_highest_id) and the reconfig
+    notifier both hold it. Boot-time of_alias_scan() stays lockless
+    (single-threaded during init).
+  - Destroy path unlinks matching entries irrespective of ownership
+    (freeing storage only for owned ones), so an overlay UPDATE
+    against a boot-time alias no longer leaves duplicate stem+id
+    entries in aliases_lookup.
+  - Owned entries kstrdup the alias name and hold an of_node_get()
+    reference on the target — released in the destroy path — so a
+    property freed by overlay revert can't dangle into aliases_lookup.
+  - of_aliases is refcounted lazily on ATTACH/DETACH.
+  - Validate pp->value is non-empty and null-terminated within
+    pp->length before feeding it to of_find_node_by_path() — prevents
+    a stray malformed alias entry from causing an OOB read.
+
+Patch 3:
+  - Only route /aliases properties through dup_and_fixup_symbol_prop()
+    when the value looks like a fragment-internal path. Other alias
+    values pass through the raw duplicator unchanged. This removes
+    the previous unconditional fallback that would silently propagate
+    a raw dup on ENOMEM.
+
+Patch 4:
+  - Rewrite the .dtso to actually exercise all three functional
+    patches: a labeled node under a fragment with target-path="" plus
+    an /aliases fragment with target-path="/aliases" (absolute) and
+    a value referencing the label via `&`. The RFC test bypassed
+    patches 2 and 3.
+  - Rewrite the runner to call of_overlay_fdt_apply() directly with a
+    non-NULL target_base and assert against the grafted node's np.
+
+Link to v1: https://patch.msgid.link/20260720-nh-of-alias-overlay-v1-0-27da6848dd84@nexthop.ai
+
+Open items
+----------
+
+None outstanding. Pre-existing issues surfaced by the automated review
+are unrelated to this series and are being tracked separately:
+  - fragment target/overlay refcount leak on init_overlay_changeset()
+    error paths (ovcs->count still 0 when free_overlay_changeset()
+    runs),
+  - node duplicated by __of_node_dup() leaked in add_changeset_node()
+    when of_changeset_attach_node() fails,
+  - of_node_put() under devtree_lock (raw spinlock) reaching
+    fwnode_links_purge(),
+  - lan966x_pci_probe() not reclaiming a populated ovcs_id when
+    of_overlay_fdt_apply() fails.
+
+Verification
+------------
+
+The OF unittest was run under QEMU (x86_64, OF_UNITTEST=y, v7.2-rc3
+plus this series): of_unittest_overlay_alias() passes and the full
+run reports 415 passed, 0 failed, with no unexpected "OF: ERROR:"
+lines or changeset-destroy refcount complaints in the log. base.c
+also builds with CONFIG_OF=y and CONFIG_OF_DYNAMIC=n (the notifier
+machinery compiles out).
+
+The series was also backported onto a 7.1-based image and boot-tested
+on an x86 Nexthop switch with two PCI-attached Xilinx FPGAs whose
+i2c-xiic controllers come from driver-embedded DT overlays applied
+with a non-NULL target base. Before this series, i2c bus numbers
+auto-assigned regardless of what /aliases said and shifted across
+boots depending on which FPGA won the probe race. After: 95 i2c
+adapters with /dev/i2c-N numbering matching the overlay aliases
+exactly and stable across reboots, sensors reading live telemetry
+through mux channels, and dmesg free of WARN/BUG/Oops and unexpected
+OF errors. Runtime overlay revert via driver unbind was exercised on
+the same hardware: the changeset revert removed all 153 of the
+overlay's /aliases entries through the reconfig notifier with no
+refcount or of_node_put errors, leaving the other overlay's 12
+entries intact. (The revert then hangs in device teardown, in a
+pre-existing i2c-xiic i2c_del_adapter() issue unrelated to this
+series; the complete apply/revert cycle is covered by the unittest
+under QEMU.)
+
+[1] https://lore.kernel.org/lkml/1435675876-2159-1-git-send-email-geert+renesas@glider.be/
+    Geert Uytterhoeven, "[PATCH/RFC 0/3] of/overlay: Update aliases
+    when added or removed", 2015-06-30.
+[2] Hervé Codina, "Using Device Tree Overlays to Support Complex PCI
+    Devices in Linux", ELCE 2025.
+    https://bootlin.com/pub/conferences/2025/elce/codina-pcie-dt-overlay.pdf
+
+Assisted-by: Claude:claude-fable-5 [Claude Code]
+Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+---
+Abdurrahman Hussain (7):
+      of: resolve alias-prefixed paths under devtree_lock
+      of: incrementally update /aliases lookup on reconfig notifications
+      of/overlay: look up absolute target-paths absolutely
+      of/overlay: put property on deadprops only after changeset add succeeds
+      of/overlay: return ERR_PTR from dup_and_fixup_symbol_prop()
+      of/overlay: rewrite /aliases path values to live-tree paths
+      of: unittest: cover /aliases updates from overlay apply/revert
+
+ drivers/of/base.c                           | 236 ++++++++++++++++++++++------
+ drivers/of/device.c                         |   4 +-
+ drivers/of/of_private.h                     |  22 +++
+ drivers/of/overlay.c                        |  93 +++++++----
+ drivers/of/unittest-data/Makefile           |   5 +
+ drivers/of/unittest-data/overlay_alias.dtso |  25 +++
+ drivers/of/unittest.c                       |  73 +++++++++
+ 7 files changed, 376 insertions(+), 82 deletions(-)
+---
+base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
+change-id: 20260719-nh-of-alias-overlay-6e5e0d56212b
 
 Best regards,
-Hangxiang
+--  
+Abdurrahman Hussain <abdurrahman@nexthop.ai>
+
