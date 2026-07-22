@@ -1,57 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7502B4C6F08;
-	Wed, 22 Jul 2026 10:17:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D42024C6F04
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 10:18:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784715448; cv=none; b=aq7iuozZaA3hl/dCPgHBPuJZjOKUusO27j7PYuLYvO/3nwOdjIMZavtHBnPtP8tS9rv0VpTk9PaQfhAET+fgeOrx7K3nWc8i/luIJMZGuts1a9JvdYXck+jDrjdnkgT/3MyLR1Ct3ZNkqfY1NM8ZKavowkZNza6+OBzoVaQx8fQ=
+	t=1784715516; cv=none; b=ZRKKJNz4K8l4RU+2IfRNSJgfv0lP43xRxtdwpaVOTZ327twn4cijQgE+i6KtYcW1LJ5B/qh1z5/EGhLtXv30hVVwHOtufgk2hc9zknshlmcZJyvKNYgUjXm9P4EGMIgQdV18uiISLfXPrx/kzg9bmLZFn+EtI5Ng+t9ejVK3PBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784715448; c=relaxed/simple;
-	bh=M6JxxjsQ+mHDkV1NMzQZovrgjRthOQNXC0dEAaFzhpU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AciublTgvEnSMWaRbO+HFETnPidzWZOsp195eAqHcsJSH+QBde4pjMmnx8/8sB4QQyN8HyjP8LsuuOiNWw8Kphu+hF5CAC/6rMGFXTETGJdUf+G49m0TzH9RRzhRKVT5Q8bKDa0+ZXvPywZX7ZCc42FmxNor5+tcpp0nybtqun8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=josDyg7s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784715516; c=relaxed/simple;
+	bh=2OpnObbZ+yYS4acBPLR9goYNnnsvxntZ5oAVlEqq9Mo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lKRugIo+by0LWdk9GVMhg2q/TjvExB8tpYZ2gmS/KX/l1brzfyWXTEbiYkySrsqPRmcbJvLei/4tJXNGxNAYhEofy41dziqu205lEPvJoIUXnJ+JIpBkqhe9R3iEYSFZDOgYZuaiKl6P7mz852ZCqb9W/PZ/jgkq6kP1qD56+gs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=p6NGWOAs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JTdem7uR; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="josDyg7s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 939191F000E9;
-	Wed, 22 Jul 2026 10:17:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784715447;
-	bh=M6JxxjsQ+mHDkV1NMzQZovrgjRthOQNXC0dEAaFzhpU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=josDyg7sFchp5Ia07fvWoYcBHPL26nN6nKqWsPZ3VNLIOEV3yDNGSwD21ttQFlVOp
-	 kxYTJ5N+zH8PlZQ85FsnmjhH1Wm1VYUxKM7Kfph/NBg8RYBENbtydLLgof3x+PwDPz
-	 lx4Kp59Fs15C7xbChYn+Y8fmH3AI3R3gvmcbYhRaeaZ3Rczi+VrmooGs2HXQAArZpc
-	 zr9+4k+KBmXlerD44U94q3vKYg/7hj8uvIXRcdRt06meFHp00ZfpXT293p8sM8yr0K
-	 amAlj3HV5/y8JJjqZOUVqINSkKNKPO2WGnNEOAyNXMMVBkXoU9k1eQXzyGa8BQIid8
-	 hcl+nR/r0bhGw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] dt-bindings: fix typos and brackets
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Manuel Ebner" <manuelebnerli@mailbox.org>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, lee@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-leds@vger.kernel.org
-In-Reply-To: <20260722101246.3113818-2-manuelebnerli@mailbox.org>
-References: <20260722101246.3113818-2-manuelebnerli@mailbox.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 10:17:26 +0000
-Message-Id: <20260722101726.939191F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="p6NGWOAs";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JTdem7uR"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M8xZ9x269586
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 10:18:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=ICPnKmyXidtgXgnGiWiEmFW6
+	8sC3uYWpUKk2gDorxzc=; b=p6NGWOAs/cjxZIYTgcy9YErLZaZvIjVYnsAavuUr
+	q28lrRdgUKG8dj9DMrqFFzlhPWxdnaznIUlpFELBZT8QlNEZGBUbhOPVpRWARMa1
+	mAQDQq0bke0h7h31GbJtLq1OM42tU8ovJpa2M8iZUjHLonu4Tgfmq1mClcf7S12o
+	ZUi7aAE3Sz6uXGa+Qa0P3SMfgBI2z8dkDaQ1U8cYVwDJDVdS1Oue8EZt1C5HiFRo
+	4FIq7+7FIcbwQR398cx1AnRssbiI1qBPR0Ds24aEnW13gClAtYI81Cm90Uf4xdrk
+	Rn7CVXG3wwtpxaDKxQvTucTh8btRmKN/nVqbufL94RejTA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjd6abgcj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 10:18:32 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51a8b0a08d2so181030481cf.0
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 03:18:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784715512; x=1785320312; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ICPnKmyXidtgXgnGiWiEmFW68sC3uYWpUKk2gDorxzc=;
+        b=JTdem7uR53JwYTKsoKxij3JkdcoM31sINpl8ZsmjpUxViHYqgjcf2nb24Ii4aS2cZn
+         g8yF6QRuYcplM0MOMSNxlSl5UIAbhKx6cxXMToVAMwZN78O7G/1h+TLMlQdYARVz3+K2
+         8y9j9xgXBNQXzC2kX7mxH8oVkIfa0BuB5GXWdq62LuP+FpcnTTKd2NvZJccWPgY4Umhq
+         ePM4yt35gS+KeR/633YIRbXJ3rXmBYseFlZWZKYWurYOc5BKbk/EqQAX8tbrhWt8iuci
+         mdDLIQjOg+QzLXfAvNkJKAYFAIcmvBqWDE6thfwEN7Erlc7nsSpLb15Bove/+xViE5cF
+         eSWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784715512; x=1785320312;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ICPnKmyXidtgXgnGiWiEmFW68sC3uYWpUKk2gDorxzc=;
+        b=eKWYj+FmbV8u8C4sj7DelnfR+AtjUvjUPyaULqm/eEEqukOphJAs9PziZOsfICHOGQ
+         XSonnmg8EmSfb1fDtMfAzKSBJ6f7M8r9788LtkrVAcYb8Aga39wdc3T33bfssPO1ujUt
+         YPW3Rj6ISFvZer/8mbPbh1kf4KEKNS4Yjq+qqx4iLIQhhU17A8smYjeS96qVuX2ES/5h
+         O5TeMF2Orvd7AcIYY2sU9OJnHdsJltByQE6ec/sq/ozh2fC6+rg2ktm9DJ1ePWHKjz1q
+         n8CB/u0BPhulaAsUiEvzG4XhoaeJJY8//hOQgmnzcnF74MrCZeN1sY6FGmXu02DUgjfJ
+         6v8g==
+X-Forwarded-Encrypted: i=1; AHgh+RplBwSTkFq3CCSd9c4B6EIrT3iOrBn9w8lqpQrAqxyhwi/gQjlTRmUgJctW2GaI6Qi1jDJBkk1wXyvt@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKIyOBPIn68mEq2JUaeViUsqyjkwSv2jFDXjAo2TvjdxTsfxxA
+	amQms8QfXsY78l6eG/4hTtacwRJtO0u+X4lZOzrBWLnl1bOB7qQPjva+Ye57tTbA0F6Wl2Id9/I
+	5fYywVaT81TpQ1xxY7qiU2Q7htbGl7J0k52SJmYMZC/HyiAbUfbF4ebd6webubbIP
+X-Gm-Gg: AR+sD10O2rKPrW7XtW89kTRpiPN3otefhMpjWLLPwBYVA63hIM8HWWpmuPDHWGjTTpJ
+	utMgEzXHsMmfzL+HGVj6tKoL5HI+1Z2U1aOzU6w4BthlMeEXOald4XxlMFBmr2nAufnzPg7kEMJ
+	MEnplZOBTmp9pSF7255tzkq5M1RQKkVFic5rBQ/xYO9b3f/+SU1S4epudbH0wQavx5GNJW933lI
+	IW2dN94OmQzT5McUCl+TGXN2HzE0AvTpXBYiGw0ZuPBL71ftzdNJzmrjuz7NFkgeIOrxw3aTKkj
+	ylYhJezKHo67ja9/zwSLRMdtZmVSH6oKRAnVZ21/Y/PWNfI3OXt7tmeRuysFEHF8JjSpAUjqk8A
+	HbszEizcB5Ldo89A=
+X-Received: by 2002:a05:622a:c85:b0:519:e020:6087 with SMTP id d75a77b69052e-5213c013438mr216631131cf.11.1784715511544;
+        Wed, 22 Jul 2026 03:18:31 -0700 (PDT)
+X-Received: by 2002:a05:622a:c85:b0:519:e020:6087 with SMTP id d75a77b69052e-5213c013438mr216630771cf.11.1784715510905;
+        Wed, 22 Jul 2026 03:18:30 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.163.114])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85c66cebsm4541447f8f.30.2026.07.22.03.17.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 03:17:50 -0700 (PDT)
+Date: Wed, 22 Jul 2026 13:17:48 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: remoteproc: qcom,sm8550-pas: Add
+ Eliza CDSP compatible
+Message-ID: <gm4ebdzddpk5mbmz2zxxfefzq66gvjlmyn2vuqamzqelu6hvrc@7qu3cxieth43>
+References: <20260721-remoteproc-eliza-cdsp-v3-0-557b5d02fdd9@oss.qualcomm.com>
+ <20260721-remoteproc-eliza-cdsp-v3-1-557b5d02fdd9@oss.qualcomm.com>
+ <20260722-tunneling-perch-of-completion-779399@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260722-tunneling-perch-of-completion-779399@quoll>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDA5OSBTYWx0ZWRfXyiXotg2e8wuV
+ cgYinU08mvUforn55qFid8nOnIXfp5gSY4uf/1jwPQU6L+lbtfOCnD+FsJe7tFioBDb8xSaXDeO
+ TydNGtYRU0zl73iqjA55lyOVi70SB7GuGqtnY+FdfvRX/gFeZSlRyVKJjm/+1T1FeynxxkLP9Rs
+ KnhbRbay38XU3S68DWtWwB3eLx/nhxhE+lfkDsCsdTaGIHM8wF1cazJvO2cBQqYTuFiaCtnw2Kv
+ tk+o5aLcFV81/pNGmOz3r/wWQj0VlUNDo51dzJ1syVMomnIr2PF4tu5dmFpZjeH4k8so1lwlcZp
+ 1PFigYNH9nFq8uaDtXKjOQsBYmXOdwkqASmjaAQU/ckr3SmHAmttyHrZ2jxDYPaHFI4SH1Bm1h6
+ IT6IgzWJbBXKrabtuIIXzinMV/8giD/Yk0pizWPulkxqCvQzFWGxShyxPj/kmL73zUfR/5r1Mci
+ ptxds6TjpsHt2Dr/UVg==
+X-Proofpoint-GUID: UbQJy36bvh-gTQSdFwlxNCxuLc5qxIPP
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDA5OSBTYWx0ZWRfX2I6nfDnmHbqJ
+ C3pvDREpBwl12e/pOCTwkSHOvqMEyd97DnCK2OA34AUx/k9NCuCcfW2S2jQbLXf+1eUmxfI7isA
+ LQAx5C9Nr7dqGY+jW5e5Uo9mcG+a4FU=
+X-Authority-Analysis: v=2.4 cv=HvJG3UTS c=1 sm=1 tr=0 ts=6a6098f8 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=6dw9+iwJWV8PcCi9M4lOBg==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=foOWgHpZz-4kEb_SVvIA:9 a=CjuIK1q_8ugA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-ORIG-GUID: UbQJy36bvh-gTQSdFwlxNCxuLc5qxIPP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-22_03,2026-07-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 clxscore=1015
+ adultscore=0 priorityscore=1501 impostorscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220099
 
-> Add missing '(', ')', '}'
-> Remove needless '(', ')', '{', '}'
-> 'lover voltage' -> 'lower voltage'
->=20
-> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+On 26-07-22 10:01:18, Krzysztof Kozlowski wrote:
+> On Tue, Jul 21, 2026 at 05:19:57PM +0300, Abel Vesa wrote:
+> > Document compatible string for the CDSP Peripheral Authentication Service
+> > on the Eliza SoC. It is not compatible with any other.
+> > 
+> > Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> > ---
+> >  .../bindings/remoteproc/qcom,sm8550-pas.yaml        | 21 +++++++++++++++++++++
+> >  1 file changed, 21 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> > index 019db91be7fd..5492a88bb100 100644
+> > --- a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> > +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> > @@ -17,6 +17,7 @@ properties:
+> >    compatible:
+> >      oneOf:
+> >        - enum:
+> > +          - qcom,eliza-cdsp-pas
+> >            - qcom,sdx75-mpss-pas
+> >            - qcom,sm8550-adsp-pas
+> >            - qcom,sm8550-cdsp-pas
+> > @@ -173,6 +174,7 @@ allOf:
+> >          compatible:
+> >            contains:
+> >              enum:
+> > +              - qcom,eliza-cdsp-pas
+> >                - qcom,sm8750-cdsp-pas
+> >      then:
+> >        properties:
+> > @@ -288,6 +290,25 @@ allOf:
+> >              - const: mxc
+> >              - const: nsp
+> >  
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            enum:
+> > +              - qcom,eliza-cdsp-pas
+> > +    then:
+> > +      properties:
+> > +        power-domains:
+> > +          items:
+> > +            - description: CX power domain
+> > +            - description: MX power domain
+> > +            - description: NSP power domain
+> > +        power-domain-names:
+> > +          items:
+> > +            - const: cx
+> > +            - const: mx
+> 
+> We need to stop using here provider names. This is the same as mxc of
+> other generations like SM8650, because it is for this core a VDD_M or
+> VDD_M_2 power domain.
+> 
+> Using provider names causes unnecessary bindings bloat and possibly fake
+> driver differences.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+I agree.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722101246.3113=
-818-2-manuelebnerli@mailbox.org?part=3D1
+> 
+> Well, not a problem of this patch.
 
+Will try to send a separate fix.
+
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Thanks for reviewing!
