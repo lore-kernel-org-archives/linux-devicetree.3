@@ -1,161 +1,131 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from polaris.svanheule.net (polaris.svanheule.net [84.16.241.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87567442B07
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 17:47:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A8B345ECE
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 17:50:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.241.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784742421; cv=none; b=Dq4j9EUHja9pJaYGtcS6tXDVIhhw4CMfrLojsGquti6VkoLrmcECZIxvApRkTVswRJRSAX7HgT5aIzp52yALKRilnH4N9e10XaFvYCoNyqQUa0C5XlgAj/eaQ1tLN6GQPL5F7K0EnAZPz9bF9QypreNqCRYUl3PlY77+daXYhBM=
+	t=1784742608; cv=none; b=skKHxE/98/sH9f9SjW0kD4ETn4KQ7SDzr4pwaCCUpVdzoA/zijChelCNSS4UR+Qt+hzP79GjhZe8eRnjn/VQxmVTe/siY6cSci02zvExv8IbOEUy4t4DiZ+SWfCB8rdw/pVj//zVL75OnKmgfZRgLdZhCxMvZyzVzGN1ph2HsMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784742421; c=relaxed/simple;
-	bh=PkGK2fm3HmR1ilYx5RK49tVeiQMY7CKA8zevtlSfvao=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rai6ullp+E+XHfkfYqBg4pNfHPHn8UgDkLvnn24aWT0c7QKI3VaVxOfO2Y9nQgaEpqFNqQ8GJK9sHvU0HdLxFb+0a6KRe0HEgbtSt9cBRcGjVN/NHAwIPFnEOg+aJceD8+shWfoguMX9n2azAvLNNd+BDowIpdx0YF5MWLTeEwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dUNtPpkH; arc=none smtp.client-ip=209.85.215.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784742608; c=relaxed/simple;
+	bh=nRQ/aD3XYpzRz8LEbqqQRQO2RwdvFU+/hkHzzROftdA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=KlPU+Bhp8tqpOS3LOwSWhD9uNhVo+bfFzIOXFyPdKnlj1aKYVDgUNDjlgeKE7ZoCQ3Aaos7UNFtx/G/wwNSuqrgwGZcGDBM9Ttl1sB2VXTZstCR9VqTo5alnZdVZ0JheDrcH9NdM7qZ9pMxiH2WrQIBfS6Zo/YzlCIg/tsyQOB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net; spf=pass smtp.mailfrom=svanheule.net; dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b=cB2r6/Q7; arc=none smtp.client-ip=84.16.241.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=svanheule.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dUNtPpkH"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c9e0b89e228so6303869a12.1
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 10:47:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784742419; x=1785347219; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7V7nXmMwXVDQS+JNg/opkYCOVS43thsWpLZ1957ncxY=;
-        b=dUNtPpkHLXg2tuAST82urZWqoexRaX3jopCxDzm4HT8QXsGISburudN9RkhohNQJeb
-         82K50GjFfmFJE74TGsFfiSkGdVbmGyQYFJK0ethblcDZ0DWC3DvyUUoPhbOjspbZZZMp
-         mWtBu/tmwj7gKnYuArD1G97ux5FF723NJY7mWS8h0PmzitZla0wkcT6+Z62bzAGTGgXL
-         4jLJn37xiZgAbHFlaX4tmRub+1VudP2RD2wnLKuw7ZBKGFjpffXXBR5ev1N/1H+DvVcv
-         3HvpRhJ/wCLbzttjQvfZm2BjgUecbl68Yuhk895Zxzj73S6X3REnPqGUd3gjm8FsKCmY
-         /BlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784742419; x=1785347219;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=7V7nXmMwXVDQS+JNg/opkYCOVS43thsWpLZ1957ncxY=;
-        b=TELCWRyyAq2DdB1x5Y0wiRgmfFZjxqo5jTP7lMltWAn/UqCB6JT5iSUsiL8Z+Ot38v
-         e2N27kgnwgUZ1mBhfCqOkSe9pRDg8QEpBQq5Eioy9PeDUvnyE3wJNo3Fuz0s8qezeDGf
-         AWWvPggW26kxDnPJl92+F/YsOFtYep3dpmqBk4ErkdhWR5SwurUySx+DDkM5jMSjhdBl
-         YJR4+6I5W5JgTx3hvlJEpoglrU/fX1Gj9StZ5Pmy/Y+k8xOrRjWYo+j5US1ARAypBasJ
-         9qnmuG8VdEklSqQ2WNm1LA+EVTaLQIwdOT2LH9LhU9zO59/GpPNyj0r1WpzkoiW83foA
-         UzMQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrsEaf1dCp5ciG7Vj/jt7f4XjBrMdzkqxLZCGvAoRzjWoT1GMkPs4mKP2wxRXh4FSh5R4D4HsEhNHmK@vger.kernel.org
-X-Gm-Message-State: AOJu0YyNb07GRZ4XBwpZql2savc50OxD18xDDo5f6PQ4HE61dpaVJ3ao
-	6a3rQtTYQQvDqe0W/gzDWlvk7lbpIr6C2ybh/VvxWyTaV1QaVPBJ7amZ
-X-Gm-Gg: AR+sD13ZV85FYaUbn96QSaNEOdC8lzyIlWq6tS4PzhdtmLsdiNBZDXiSRrvk3H5lfCH
-	r87dhG4yeAwJVBCnHdHRhfV9v+5ecdplvUaN62isv1QT1AT8RioOypNQrHL9gYJ7BzLJ8C2jlFu
-	avS8KDQ0hwOPILRdGNx/Vq1He4sL2beuvHJiBHAx3ZYPL7THGBQXpNuMFDcgXbGTBV6mCVERy8V
-	x4TDkRXOCh7Tvmli64U4af0SMjK3GwVnbO3nOvL789MlroIlXIb9v+wE59U/2FRO6zOVNCRRpXn
-	eSUWbGacz80yFDv4MJNj/qH9imMsA5ulS0PcMnuYAu7rvudxFrl1/nXx84YV5y3NEGcI2Qt9Zjc
-	7WWf6xvP2an3S2YvK9x2agfzb1UXv80rsmKzVLjoKNfuqeG6VpwQFgGTR3wtMPtORLEzh4k5KFj
-	+DNo1/Uxqz7eKZSGaRI0BLijH4SJmDtVLoX3qugNxEdMDD4vuq1uo=
-X-Received: by 2002:a05:6a21:114c:b0:3c1:d78:6457 with SMTP id adf61e73a8af0-3c3ad80c405mr24682840637.32.1784742419481;
-        Wed, 22 Jul 2026 10:46:59 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3149198adabsm1188162eec.8.2026.07.22.10.46.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Jul 2026 10:46:58 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <4f2d9c51-1059-489c-a469-562ec52015da@roeck-us.net>
-Date: Wed, 22 Jul 2026 10:46:57 -0700
+	dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b="cB2r6/Q7"
+Received: from [IPv6:2a02:1812:162d:3d00:c381:7255:a866:916d] (2a02-1812-162d-3d00-c381-7255-a866-916d.ip6.access.telenet.be [IPv6:2a02:1812:162d:3d00:c381:7255:a866:916d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sander@svanheule.net)
+	by polaris.svanheule.net (Postfix) with ESMTPSA id BDC657CE97A;
+	Wed, 22 Jul 2026 19:49:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=svanheule.net;
+	s=mail1707; t=1784742598;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b77cc/ns2yf7BVwHqBgWMOjJlS+SvngLLADUbWvll5k=;
+	b=cB2r6/Q7KYc6dw0r+pc/7mNHpm/Hz7OBIah3DrKNmh4Ys4B0uz+tV7w/y5TWNGGa0LyVVT
+	Vk0DXPNCqSUI9rwo6Z/MAd6S0UMRKcVmh3dfHd+k0bI+mXQtWypmGWAZpU+At8ifKcPgam
+	ky4vrb0Q7TehcZydjzIi16H6j/yDtHTKPNagVLh4rFhy2RXjx0adqH7PmDTE3dlayQaLB0
+	BauDdZXU54g5YkEkjD9hSv2AYjOtGiwuQZnG1bRn3D2mWCe05B5L58o0PzVVdjeXDzj1ZX
+	7V/GlxoX7ZQz74LZ90KcnOzFheyx40F77EPwjkwQ21DiesmUOPD0noSLf3JStg==
+Message-ID: <b3456b41152613ed45bcfde92aff89d0c33fa243.camel@svanheule.net>
+Subject: Re: [PATCH net-next v8 1/4] dt-bindings: net: pse-pd: add bindings
+ for Realtek PSE MCU
+From: Sander Vanheule <sander@svanheule.net>
+To: Jonas Jelonek <jelonek.jonas@gmail.com>, Oleksij Rempel	
+ <o.rempel@pengutronix.de>, Kory Maincent <kory.maincent@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet	 <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni	 <pabeni@redhat.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Daniel Golle <daniel@makrotopia.org>, 
+ =?ISO-8859-1?Q?Bj=F8rn?= Mork
+	 <bjorn@mork.no>, Conor Dooley <conor.dooley@microchip.com>
+Date: Wed, 22 Jul 2026 19:49:56 +0200
+In-Reply-To: <20260715075530.2491534-2-jelonek.jonas@gmail.com>
+References: <20260715075530.2491534-1-jelonek.jonas@gmail.com>
+	 <20260715075530.2491534-2-jelonek.jonas@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/10] hwmon: Add Qualcomm PMIC BCL driver
-To: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- mfd@lists.linux.dev, Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-References: <20260722-qcom-bcl-hwmon-v2-0-febe2805e17b@oss.qualcomm.com>
- <20260722-qcom-bcl-hwmon-v2-2-febe2805e17b@oss.qualcomm.com>
- <373bd00e-bfcd-4f6c-b64e-a707af01417c@roeck-us.net>
- <cdc0fb5c-d277-40b4-8b00-c73eb881c062@oss.qualcomm.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <cdc0fb5c-d277-40b4-8b00-c73eb881c062@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 7/22/26 10:38, Manaf Meethalavalappu Pallikunhi wrote:
-...
->>
->> I am curious: Why not use static initialization and use the is_visible
->> function to determine if an attribute is visible or not ?
-> 
-> ACK. There is already a comment in v1 suggesting the use of dynamic allocation based on the available attributes rather than static initialization. The intent is to avoid having to perform enable flag checks in multiple places.
-> . >
+Hi,
 
-You lost me, sorry. There is only a single is_visible function,
-and its intent is exactly to handle situations where some sensors
-are not always available.
+On Wed, 2026-07-15 at 07:55 +0000, Jonas Jelonek wrote:
+> Add a binding for the microcontroller (MCU) that fronts the PSE silicon
+> on a range of managed Realtek-based switches. The host talks only to the
+> MCU, over I2C/SMBus or UART, using a fixed message-based protocol; the
+> PSE chips behind it never appear on the bus.
+>=20
+> The device is the MCU together with its Realtek firmware: the firmware
+> and its host protocol are what the binding describes, not the
+> general-purpose microcontroller they run on. The PSE silicon behind the
+> MCU (Realtek or Broadcom) is reported by the MCU and detected at runtime,
+> so it is not described here - hence the 'realtek' vendor prefix.
+>=20
+> Two protocol generations exist, both Realtek's, selected by the
+> compatible: gen1 on older boards (fronting Broadcom PSE silicon) and gen2=
+,
+> the altered protocol used with Realtek's own PSE silicon. On an I2C
+> attachment the framing the MCU firmware expects is part of the compatible
+> as well - '-smbus' or raw '-i2c'; a UART attachment carries no framing
+> suffix, as the transport is given by the parent serial node.
+>=20
+> Each board additionally carries a device-specific compatible that falls
+> back to one of the protocol compatibles above. Drivers bind on the
+> protocol compatible; the device-specific string identifies the board and
+> reserves a place for a future per-board quirk without having to retrofit
+> device trees already in the field.
+>=20
+> Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+> Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+> Reviewed-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> ---
+[...]
 
-What would be those "multiple places" ?
+> +=C2=A0 power-supply:
+> +=C2=A0=C2=A0=C2=A0 description: Regulator supplying the PoE power rail.
 
->>  From the earlier exchange I had the impression that there is a large
->> number of current and voltage channels, but it looks like there is only
->> one each. That doesn't really warrant or need all this dynamic code
-> 
-> Yes, this hardware only supports one or two channels (voltage and current). What we discussed earlier was that each channel can have up to three threshold alarms (warning, critical, and emergency). However, the hwmon framework currently supports only two limit alarms for these sensor types. I have not added support for the third alarm threshold in this series to keep the initial driver support aligned with the existing hwmon capabilities. Once the basic driver support is accepted, I can queue a follow-up series to add support for the third limit alarm.
-> 
+As I reported to Jonas earlier [1], I used this property to define a power
+supply for the 54V rail. While everything was working nicely, I still got t=
+his
+warning for the missing vpwr-supply property on the PSE-PI nodes:
 
-What does that have to do with attribute visibility ?
+regulator regulator.2: supply vpwr not found, using dummy regulator
+Of course I don't like seeing warnings when everything is seemingly working
+fine, but I was also wondering if this duplicated way of providing the PoE =
+power
+rail is a good way to go forward and if the generic pse-pi@n/vpwr-supply
+shouldn't just be used instead. The latter is admittedly more verbose, with=
+ a
+property on every node, but going forward offers a few advantages IMHO:
+ * Being able to reserve "power-supply" on the main node for the MCU's actu=
+al
+   3.3V regulator (not needed anywhere at the moment AFAIK)
+ * Being able to take advantage of the generic pse-pi framework evolving to=
+ take
+   into account more properties of the parent regulator, such as requesting=
+ more
+   power, or ensuring the parent supply is not overdrawn by the combined PS=
+E-PI
+   outputs.
 
-Guenter
+[1] https://github.com/openwrt/openwrt/pull/23222#issuecomment-5032841546
 
+Best,
+Sander
