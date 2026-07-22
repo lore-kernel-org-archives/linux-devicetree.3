@@ -1,186 +1,65 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ms.puri.sm (ms.puri.sm [135.181.196.210])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FA193E49E7
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 07:25:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA60434417;
+	Wed, 22 Jul 2026 07:29:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=135.181.196.210
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784705118; cv=none; b=drm0JUIx0abLfcO4pnFGC8kVdIBpTZ5+3G4ddzmukxJjiY6/V/IOw31JAkb3OElgomyL1Uff9Rq/RsT7oDRmm9Y3CzZnsh+qq7n7x9KYlBbiVoMQ2NofGXu59XZbp0e8MhJQgrnehNSXFu4j/84HkqvcF/CbZfFp08cIJERmm0E=
+	t=1784705402; cv=none; b=T8C+BHYKiIIgUO5KF0z5CjJX4gIwDkhkOGF1aKpd97UnXc9niriGCQu2KK+bX9BOsWehtRgMIaggO9UbNOEBcfl5oocKsAwic8yCLE15TGw7bhJamDRaYrEZVFDaUCCwEw7ANf64I6geb+jEuNzbWh26vL+VsnUHuzj/FqzPnXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784705118; c=relaxed/simple;
-	bh=dW6KP+MZXFIlT4k5GXTfOoDus6wLev4d6K2AqLjRz10=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AhPSVYvoigKCtFzR90/QOVas6S04AvkGYcAtN0FUnyhZzyH8sFx6paQwEehkkbJmnLPLbpgGcuqKk/cNtDnWbt1VKU5jt6hgAkSzD7MyhIs+dikajYCY+Orcan1R2hGO5pBVAW/KTIlWYcal0fyOppNv3/7KKu0ZO2HF+6cTN+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oKXmVPZj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784705402; c=relaxed/simple;
+	bh=pHNyv6JsIjY9eaeoYslwhuyBTv3iH4SMHJeoYOKTwoE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=menRHfkLyoGFMDq8RPRG1+aKxehsjhxvs9XqwPmSvA9YW7mWJtF5utIBhUDu6n9k2tmiRgd895Vex0PhHQrDCb9wSB5/eInA5H0TUfkFsH3VghPDvCSS8zuZKRcUwZ3QKdziATqHN3Q8mLfsgvNMnyVhXla/mDUr8GmMJEV0rsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=puri.sm; spf=pass smtp.mailfrom=puri.sm; dkim=pass (2048-bit key) header.d=puri.sm header.i=@puri.sm header.b=txXA1mrA; arc=none smtp.client-ip=135.181.196.210
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=puri.sm
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=puri.sm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oKXmVPZj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C30A21F000E9;
-	Wed, 22 Jul 2026 07:25:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784705111;
-	bh=JuLw7V04M8Heeq9a66vmx1dbp42EVOeIwjuLGuNQIOE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oKXmVPZjn4vVIqqRaoFBzljZTRx3PtW81kc3+pnpZeZfElHSzfHHFV4kzU1ZL6SlX
-	 JG3seerSKkUJF2gRd46QpCi+GJtnkfznN9FuBKqiRVnbHvzSBu4dLPROa3zDOemTRy
-	 +FTao3Beg47CyAcKd3nXxTrRJBy3lfIRa/B+QOmc/QxpAOW0KHDrI5pk2ElN+IRER9
-	 TXYl6b/L1b7acPtZ8HOAFHSPZVmENFZA/47rKzXmJkVsWoBR+nmPLBQFezgOxOJr/L
-	 c1Z13VksaqUQpnxod7bko+qz+GZhwq4T7qp9YTYc1Db+SM3T3dK/l+UXd0+FHE5auP
-	 RP2Z4OG1oZVgQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/7] of/overlay: look up absolute target-paths
- absolutely
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260722-nh-of-alias-overlay-v4-3-fc96a40d2761@nexthop.ai>
-References: <20260722-nh-of-alias-overlay-v4-0-fc96a40d2761@nexthop.ai>
- <20260722-nh-of-alias-overlay-v4-3-fc96a40d2761@nexthop.ai>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 07:25:10 +0000
-Message-Id: <20260722072510.C30A21F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=puri.sm header.i=@puri.sm header.b="txXA1mrA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=puri.sm; s=smtp2;
+	t=1784704834; bh=pHNyv6JsIjY9eaeoYslwhuyBTv3iH4SMHJeoYOKTwoE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=txXA1mrA5aLeVDU4l5vz+ryvXqecWoLmWQVFM8S1jKLhpcwHDiPkPHY9trQlNt4zw
+	 ohXZ67Sd3jkeIttzdfOs6ZHQCBP9ePGCZNuyYAjY5HUuFy+oIiZNVDdyihmX2do/EZ
+	 BytJE9knKTVQdJ4n6VeQxGmbk/X0Hx91o5DQpCNStEPdnM+wqaocp9Tt0ElScDMToL
+	 xNbuYK31Rj9ODNfIKYO90v6+tDIJBhEdT1rCRjgwY0s4MsrIzzVH+hfp7v0kWtqDSs
+	 jAxS6INn5GNGCbjQ7Nu21c0U/98+rMTMwb53IZYU8IuUtHPw5ke0TRXRc3WrelGRL9
+	 ob4YtG98KpbUQ==
+Received: from pliszka.localnet (79.184.64.220.ipv4.supernova.orange.pl [79.184.64.220])
+	by ms.puri.sm (Postfix) with ESMTPSA id C4D032109F;
+	Wed, 22 Jul 2026 00:20:33 -0700 (PDT)
+From: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
+To: Vincent Cloutier <vincent.cloutier@icloud.com>
+Cc: Sebastian Reichel <sre@kernel.org>, Hans de Goede <hansg@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Purism Kernel Team <kernel@puri.sm>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor@kernel.org>, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Vincent Cloutier <vincent@cloutier.co>
+Subject:
+ Re: [PATCH v2 0/4] power: supply: initialize MAX17055 from battery info
+Date: Wed, 22 Jul 2026 09:20:31 +0200
+Message-ID: <oKXqjsJUQIeHi1TxqbDgxQ@puri.sm>
+In-Reply-To: <20260720011144.1280219-1-vincent.cloutier@icloud.com>
+References: <20260720011144.1280219-1-vincent.cloutier@icloud.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On poniedzia=C5=82ek, 20 lipca 2026 03:11:36 czas =C5=9Brodkowoeuropejski l=
+etni Vincent=20
+Cloutier wrote:
+> - drop the Librem 5 battery description because its user-replaceable pack
+>   cannot be identified reliably from the board revision
 
-Pre-existing issues:
-- [High] If `of_changeset_add_property()` fails for a node not in the live =
-tree, the property is freed but left dangling in the node's `deadprops` lis=
-t, leading to a double-free.
-- [Medium] If `init_overlay_changeset()` fails while processing a fragment,=
- previously processed fragments permanently leak their `target` and `overla=
-y` node references.
---
+What makes you think so?
 
---- Patch [3]: [PATCH v4 3/7] of/overlay: look up absolute target-paths abs=
-olutely ---
-commit 5db785cdd32bffe13f8bf6c96fc2b8d806812e93
-Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+S.
 
-of/overlay: look up absolute target-paths absolutely
 
-When of_overlay_fdt_apply() is called with a non-NULL target base,
-find_target() currently concatenates the base's full path with every
-fragment's target-path. That makes it impossible for a two-fragment overlay
-to modify one subtree under the base and one node at the DT root. Treat
-target-path as absolute whenever it is non-empty, while preserving the
-existing behavior for empty target-paths.
-
-> diff --git a/drivers/of/overlay.c b/drivers/of/overlay.c
-> index 08d5351746be6..74aea704835ac 100644
-> --- a/drivers/of/overlay.c
-> +++ b/drivers/of/overlay.c
-> @@ -737,7 +731,9 @@ static struct device_node *find_target(const struct d=
-evice_node *info_node,
->  /**
->   * init_overlay_changeset() - initialize overlay changeset from overlay =
-tree
->   * @ovcs:		Overlay changeset to build
-> - * @target_base:	Point to the target node to apply overlay
-> + * @target_base:	Target for fragments with an empty "target-path";
-> + *			fragments with a non-empty "target-path" resolve
-> + *			absolutely and ignore @target_base
->   *
->   * Initialize @ovcs.  Populate @ovcs->fragments with node information fr=
-om
-
-[Severity: Medium]
-This is a pre-existing issue, but if init_overlay_changeset() fails while
-processing a fragment, do previously processed fragments permanently leak
-their target and overlay node references?
-
-When find_target() fails, the code jumps to err_out:
-
-drivers/of/overlay.c:init_overlay_changeset() {
-    ...
-		fragment->target =3D find_target(node, target_base);
-		if (!fragment->target) {
-			of_node_put(fragment->overlay);
-			ret =3D -EINVAL;
-			of_node_put(node);
-			goto err_out;
-		}
-
-		cnt++;
-    ...
-err_out:
-	pr_err("%s() failed, ret =3D %d\n", __func__, ret);
-
-	return ret;
-}
-
-Because ovcs->count is not updated with cnt before jumping to err_out, it
-remains 0.
-
-The cleanup function relies on ovcs->count to free fragment nodes:
-
-drivers/of/overlay.c:free_overlay_changeset() {
-    ...
-	for (i =3D 0; i < ovcs->count; i++) {
-		of_node_put(ovcs->fragments[i].target);
-		of_node_put(ovcs->fragments[i].overlay);
-	}
-    ...
-}
-
-Does this completely bypass successfully processed fragments, preventing th=
-eir
-device node refcounts from ever being freed?
-
-[ ... ]
-
-> @@ -982,7 +978,9 @@ static int of_overlay_apply(struct overlay_changeset =
-*ovcs,
->   * @overlay_fdt:	pointer to overlay FDT
->   * @overlay_fdt_size:	number of bytes in @overlay_fdt
->   * @ret_ovcs_id:	pointer for returning created changeset id
-> - * @base:		pointer for the target node to apply overlay
-> + * @base:		target for fragments with an empty "target-path";
-> + *			fragments with a non-empty "target-path" resolve
-> + *			absolutely and ignore @base
->   *
->   * Creates and applies an overlay changeset.
->   *
-
-[Severity: High]
-This is a pre-existing issue, but if of_changeset_add_property() fails
-for a node not in the live tree, does the property remain linked as a
-dangling pointer in deadprops?
-
-In drivers/of/overlay.c:add_changeset_property():
-
-	if (!prop) {
-		if (!target->in_livetree) {
-			new_prop->next =3D target->np->deadprops;
-			target->np->deadprops =3D new_prop;
-		}
-		ret =3D of_changeset_add_property(&ovcs->cset, target->np,
-						new_prop);
-	} else {
-    ...
-	if (ret)
-		__of_prop_free(new_prop);
-
-When adding to the changeset fails, new_prop is immediately freed via
-__of_prop_free(), but it is never unlinked from target->np->deadprops.
-
-If the changeset application is aborted and cleaned up via
-free_overlay_changeset(), of_node_release() will eventually iterate over
-deadprops and call property_list_free():
-
-drivers/of/dynamic.c:of_node_release() {
-    ...
-	property_list_free(node->deadprops);
-    ...
-}
-
-Will this execute a double-free on the dangling pointer?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-nh-of-alia=
-s-overlay-v4-0-fc96a40d2761@nexthop.ai?part=3D3
