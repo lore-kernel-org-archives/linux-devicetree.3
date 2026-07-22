@@ -1,153 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C44136D51F;
-	Wed, 22 Jul 2026 12:10:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A5E2385519;
+	Wed, 22 Jul 2026 12:11:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784722235; cv=none; b=cYiQGEM37mLPpOonlI0ItNy2kd71BEy6iGIgkSQZLweMIDxEVBmDHRqiXEQ8h+UJ0wwyQxS2L/VQ2hkOF5BV/uUWcJCtgJ018VZJnPLZ70bIsnePxbqUL5BtUFxDVLqC5qH72hc1BHJdvhvT/p+VJhqKyW1uccp7wg7XTC46lqU=
+	t=1784722318; cv=none; b=OtQVQ4b0GJSO3Jwgf0K3lVcDGFEwGSm/by3m2SO18VjnSf+KL1L6330BpXa1o1w6VSccTcnnCixmwvK8pufEjLX6mTM2XkFdinvLXTMT3yq4PZ6n7+1uGxiB3kLIkhUoX2TJ1aiyTueWh1EUcRes++gDV41jHXMeq1ZRWxJpovM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784722235; c=relaxed/simple;
-	bh=4YHXgXYZtCZ25qiPtk9KT8lQ8+H3tNr5u7aXspfGqrY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=aSNSm6cNjAqoJ3CQ12l8CdjWMdTXI563Krqlki0QHXrTkBsl59vn2X7U4x3QeNYo6G4/qD67y4TUUE02flchIzoMpBQ19qjjlzgPyu9Z3q9NDB8SN5JUpxCya4020cNh6NyaKE/bE/Hve97O5RnSqswC3hGzOckvkt9OmSfQMTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e/RG+UTK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784722318; c=relaxed/simple;
+	bh=xeY74yIuN95oNgg+HjxKljz1BYRswJcV8rjWYDfWGyQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DuThfy8gXL6vew6Bxh7hIGA0LiYRJ6dgEmE8O8FfCZfaSuq7i6aiPOMCoht82ixkep5QP93bD1t1aUXOQiP9H9ulB8RbTFiX79DqTkFNahCT7MA9SbKTSjI0TcCfe0Y0SYL9hK8itu3KcIBd7T4sVtrle+9D7UJ84J2BbIxa8fQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=d/BX5Pd9; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e/RG+UTK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A2E81F000E9;
-	Wed, 22 Jul 2026 12:10:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784722233;
-	bh=fIe0wUrrDVszjvm6kkoTVaoHwx2WuyyXexPYM+RlgpQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=e/RG+UTKXTiJg+Z+keGVwljTspAcEtzFRMAmoOOR1Bec2THmY/Ooo9kmfHZJdQq4F
-	 slqd3LzpyCs7oQgY9vr9CMWFLYQmbikHC0rinNm0vivvL0nBiRmYm2DDIao1pIbMDw
-	 1UnUM3KcEfObN/Qogmn+FGKjFHxmEMqTuh8nQ4dfLc9UzpCGNsC70UwtQsSl56jlTQ
-	 o0Is8XpHKxdEfThynIYySlFh2tZywG/F2Us045oqJVJ5CUDc0t7G/3yIzQ0Iu2JQNm
-	 geet6TTwSEmaRyNZ1tKel7V428LF6hjcqOb2n3VRzKOCEJY9z/PL9oUd9pviTRNDA9
-	 yft0e6FRLxgJg==
-From: Mattijs Korpershoek <mkorpershoek@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org,
- olteanv@gmail.com, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, vkoul@kernel.org
-Subject: Re: [PATCH v2 2/2] phy: qcom: qmp-usb: Add support for SA8255P
-In-Reply-To: <20260709150659.6E0301F000E9@smtp.kernel.org>
-References: <20260709-phy-qcom-qmp-usb-8255-v2-0-3b6c26a45788@kernel.org>
- <20260709-phy-qcom-qmp-usb-8255-v2-2-3b6c26a45788@kernel.org>
- <20260709150659.6E0301F000E9@smtp.kernel.org>
-Date: Wed, 22 Jul 2026 14:10:31 +0200
-Message-ID: <87bjbzi5s8.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="d/BX5Pd9"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66MA7ROB512829;
+	Wed, 22 Jul 2026 12:11:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=FQwMd/UZezLzj7u9QMKAiEmzTsyhKak6xtO
+	3fqx3UoI=; b=d/BX5Pd9tkMp7Wntd0dhRWwZf7DOyuCDoJ6SN7dMhIH5Vot99iU
+	n7xGRnjC/xxWP1e81TwmeDwtzb/YaTFxNANbnojQmKpXdkdAJPD6uky2FLIrVmjo
+	13/dcoHI7O9Kr0qIjc3SfEDQmrS9th3S/Xtbk6xOrpKBlPYBrICayPK3PotxuaQb
+	ar8JS7GoZPaazYQ0znHhgH5MfxoUNQkE086rGs02rAxAy1CcHuVs6QTFwB9fjxn7
+	NhqSN9U8mihERHp72i1J5CdgzQkhxrEXUxiUcvBLj2ufX9fin65REDguDR8aRyF8
+	ivSVxnnjT8mLL/GUwFSEggqnzvM5A4ZHvxQ==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjuu78e4p-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 22 Jul 2026 12:11:46 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 66MCBhTG015003;
+	Wed, 22 Jul 2026 12:11:43 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4fgj54dv4h-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 22 Jul 2026 12:11:43 +0000 (GMT)
+Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 66MCBhBq014978;
+	Wed, 22 Jul 2026 12:11:43 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-pkumpatl-hyd.qualcomm.com [10.147.245.204])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 66MCBg6j014971
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 22 Jul 2026 12:11:43 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 3914174)
+	id 7BC39C05; Wed, 22 Jul 2026 17:32:21 +0530 (+0530)
+From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-sound@vger.kernel.org
+Subject: [PATCH v5 0/4] ASoC: qcom and pinctrl: add LPASS LPR voting and Hawi LPASS LPI TLMM
+Date: Wed, 22 Jul 2026 17:32:13 +0530
+Message-Id: <20260722120217.3609506-1-prasad.kumpatla@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-ORIG-GUID: -rVn0TcVwgNB4dNySUanitNAZZ1kQ7_-
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDExOSBTYWx0ZWRfXzXMmhm73CP4N
+ ibViCbAr4VD67I8VByEUcNorODS9z95Yl1cawJJrHqzYjahhg6SyzNrEjEJ+FttXa+zemOy+JBx
+ tFOF2XAeMIGQykEoWFIefyHRuGAYhk8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDExOSBTYWx0ZWRfX+PxAKXnyvsmc
+ 6dBoznoNftL+3roElyChlfwvMS0VfghtkiOmn+pjWWVJjt3Dbto/tbIsgkr3+KgxWh8657C3N6r
+ R5Fjc6Bkjz/uig2+z3BCXjjotqR14EXh2QffLqVs4ICZjZlUwiOpk3ceMP1QOlqrWvMbUJhB+Dy
+ ox7fuxcD/ZnYgqTipoyqKR/aLpThztRvG4FND6xt6asA/3h3quudtJBRDfUTvO6FrK5o+aClCtU
+ Ie0tHxDDI9b61kvsN3FXPlxluSLxEK4Mw7UU5b2aoqScqW5uVYMyPGYeOkhl+J3KPEfeuipWBlP
+ AYLdEcoKm1YPuyI2Yl4JX4/9f2xxyxCu6yBcb/zu6e81t1XEzN2hdVVqaqbZxBD8PbGOaa/Gyez
+ PwrCUeGV5a4KAJSZDnoUIuRS6uSkC4IV3h0VaZ2f+sVdp9oEKg7S44c6xbmznGZb+lhUpzbaNh2
+ M9HznZUcV2Fc3JwbrSg==
+X-Proofpoint-GUID: -rVn0TcVwgNB4dNySUanitNAZZ1kQ7_-
+X-Authority-Analysis: v=2.4 cv=JuTBas4C c=1 sm=1 tr=0 ts=6a60b383 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=l57HxYVpV8yVoDQca2EA:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-22_03,2026-07-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 suspectscore=0 spamscore=0 adultscore=0
+ phishscore=0 clxscore=1015 bulkscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220119
 
-On Thu, Jul 09, 2026 at 15:06, sashiko-bot@kernel.org wrote:
+This series adds support for LPASS low-power resource (LPR) voting
+through PRM and introduces LPASS LPI TLMM pinctrl support for newer
+platforms such as Hawi.
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [High] Incorrect power domain sequencing during d0/d3 transitions risks=
- NoC errors and bus hangs.
-> --
->
-> --- Patch [2]: [PATCH v2 2/2] phy: qcom: qmp-usb: Add support for SA8255P=
- ---
-> commit c32bbfd817c3f9fca4d2982ea37be36354501cc7
-> Author: Sriram Dash <quic_sriramd@quicinc.com>
-> Subject: phy: qcom: qmp-usb: Add support for SA8255P
->
-> This commit adds support for the SA8255P SoC to the QMP USB PHY driver.=20
-> It introduces firmware-managed resources via SCMI using power protocols,
-> managing state transitions (d0, d1, d3) through the "usb_core" and
-> "usb_transfer" power domains.
->
->> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usb.c b/drivers/phy/qualc=
-omm/phy-qcom-qmp-usb.c
->> index c5507168e1354..d085c1ad7fb5c 100644
->> --- a/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
->> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
->
-> [ ... ]
->
->> @@ -1865,6 +1890,77 @@ static const struct qmp_phy_cfg glymur_usb3_uniph=
-y_cfg =3D {
->>  	.regs			=3D qmp_v7_usb3phy_regs_layout,
->>  };
->
-> [ ... ]
->
->> +/* d3_to_d0 transition by turning on all the suppliers */
->> +static int qmp_usb_d3_to_d0(struct qmp_usb *qmp)
->> +{
->> +	int ret;
->> +
->> +	if (!qmp->pd_list)
->> +		return 0;
->> +
->> +	ret =3D pm_runtime_resume_and_get(qmp->pd_list->pd_devs[0]);
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret =3D pm_runtime_resume_and_get(qmp->pd_list->pd_devs[1]);
->> +	if (ret)
->> +		pm_runtime_put_sync(qmp->pd_list->pd_devs[0]);
->> +
->> +	return ret;
->> +}
->
-> [Severity: High]
-> Does this sequence power up the domains in the wrong order?
->
-> The commit message notes that "usb_core" (which maps to pd_devs[1] based =
-on=20
-> the qmp_usb_domain_attach order) controls the GDSC, while "usb_transfer"=
-=20
-> (pd_devs[0]) controls clocks and interconnects.
->
-> Enabling clocks before the GDSC foundational power domain is enabled typi=
-cally
-> results in unpowered register access on Qualcomm SoCs, which could trigge=
-r a
-> Network-on-Chip (NoC) error and bus hang. Should pd_devs[1] be resumed be=
-fore
-> pd_devs[0]?
+On such platforms, LPASS requires LPR resource voting via PRM to keep
+the subsystem active. This is handled by adding a new clock ID and
+support for PARAM_ID_RSC_CPU_LPR in q6prm.
 
-I did not observe any bus errors during my testing. I tried to
-insert/remove the phy driver and also could detect a flash drive using a
-couple of more patches on other USB drivers.
+Additionally, a new LPASS LPI TLMM block is introduced, requiring a
+dedicated DT binding and pinctrl driver.
 
-So I'll keep it this way for v3.
+Dependencies and merge strategy
+===============================
 
->
->> +
->> +/* d0_to_d3 transition by turning off all the suppliers */
->> +static void qmp_usb_d0_to_d3(struct qmp_usb *qmp)
->> +{
->> +	if (!qmp->pd_list)
->> +		return;
->> +
->> +	pm_runtime_put_sync(qmp->pd_list->pd_devs[1]);
->> +	pm_runtime_put_sync(qmp->pd_list->pd_devs[0]);
->> +}
->
-> [Severity: High]
-> Similarly, could this cause a bus hang during the d0 to d3 transition?
->
-> Putting "usb_core" (pd_devs[1]) before "usb_transfer" (pd_devs[0]) disabl=
-es=20
-> the GDSC before the clocks. Shouldn't the GDSC be disabled last to preven=
-t=20
-> unpowered hardware clock access?
+The series introduces a new clock identifier, LPASS_HW_LPR_VOTE, in
+qcom,q6dsp-lpass-ports.h. This clock ID is consumed both by the ASoC
+LPASS LPR voting support and by the Hawi LPASS LPI DT binding.
 
-When running modprobe -r, I did not observe any bus hang on my board.
-I'll keep this way for v3.
+As a result, the DT binding header update introducing
+LPASS_HW_LPR_VOTE is the only cross-subsystem dependency in this
+series.
 
->
-> --=20
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-phy-qcom=
--qmp-usb-8255-v2-0-3b6c26a45788@kernel.org?part=3D2
+The intended merge strategy is:
+
+  1. Merge the LPASS_HW_LPR_VOTE definition in
+     qcom,q6dsp-lpass-ports.h.
+
+  2. Merge the ASoC LPASS LPR voting support via the ASoC tree.
+
+  3. Merge the Hawi LPASS LPI DT binding and pinctrl driver via the
+     pinctrl tree.
+
+Apart from the shared DT binding header update, the ASoC and pinctrl
+changes are independent and do not introduce additional build-time
+dependencies between the two subsystems.
+
+Changes in v5:
+	- Keep LPASS_HW_LPR_VOTE addition separate from removal of the unused
+	  Q6AFE_MAX_CLK_ID define and move the cleanup to a follow-up patch.
+	- Clarify dependency on LPASS_HW_LPR_VOTE and document the intended
+	  merge strategy in the cover letter.
+	- Link to v4: https://lore.kernel.org/linux-arm-msm/20260720130511.493295-1-prasad.kumpatla@oss.qualcomm.com/
+
+changes in v4:
+	- Addressed Krzysztof comments, Drop Q6AFE_MAX_CLK_ID from the bindings
+	  since it is not used in-tree.
+	- Link to v3: https://lore.kernel.org/linux-arm-msm/20260715133243.3170821-1-prasad.kumpatla@oss.qualcomm.com/
+
+Changes in v3:
+	- Drop the mutex cleanup patch from this series. Since this change
+	  is not required for Hawi enablement, keep the current series 
+	  focused on LPASS LPR voting and LPASS LPI TLMM support, and 
+	  address the cleanup in a dedicated follow-up series.
+	 - As Srini suggested changed LPR_CPU_SS_SLEEP_DISABLED to LPR_CPU_SS_SLEEP_DISABLE in patch#2.
+	 - Link to v2: https://lore.kernel.org/all/20260713184549.929569-1-prasad.kumpatla@oss.qualcomm.com/
+
+Changes in v2:
+	- Add mutex cleanup devm-managed in LPASS LPI Pinctrl. 
+	- Addressed Bart Comments related to newline and readability.
+	- Link to v1: https://lore.kernel.org/linux-arm-msm/20260708114924.1069239-1-prasad.kumpatla@oss.qualcomm.com/
+
+Prasad Kumpatla (4):
+  ASoC: dt-bindings: qcom: add LPASS LPR vote clock ID
+  ASoC: qcom: q6prm: add support for LPASS LPR resource voting
+  dt-bindings: pinctrl: qcom,hawi-lpass-lpi-pinctrl: Add Hawi LPI
+    pinctrl
+  pinctrl: qcom: hawi-lpass-lpi: add Hawi LPASS LPI TLMM
+
+ .../pinctrl/qcom,hawi-lpass-lpi-pinctrl.yaml  | 109 ++++++++
+ drivers/pinctrl/qcom/Kconfig                  |  10 +
+ drivers/pinctrl/qcom/Makefile                 |   1 +
+ drivers/pinctrl/qcom/pinctrl-hawi-lpass-lpi.c | 244 ++++++++++++++++++
+ drivers/pinctrl/qcom/pinctrl-lpass-lpi.h      |  17 ++
+ .../sound/qcom,q6dsp-lpass-ports.h            |   1 +
+ sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c     |   2 +-
+ sound/soc/qcom/qdsp6/q6prm-clocks.c           |   2 +
+ sound/soc/qcom/qdsp6/q6prm.c                  |  16 +-
+ sound/soc/qcom/qdsp6/q6prm.h                  |   1 +
+ 10 files changed, 399 insertions(+), 4 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/qcom,hawi-lpass-lpi-pinctrl.yaml
+ create mode 100644 drivers/pinctrl/qcom/pinctrl-hawi-lpass-lpi.c
+
+
+base-commit: 290aaf24a551d5a0dce037e3fab30820f9113a10
+prerequisite-patch-id: b466b07ba380317b33b3ef98e3789c4a51aa96c1
+-- 
+2.34.1
+
