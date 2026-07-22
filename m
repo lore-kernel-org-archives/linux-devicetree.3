@@ -1,114 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DD96349CD8;
-	Wed, 22 Jul 2026 08:35:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1B843F8CF
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 08:37:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784709312; cv=none; b=RqMsjy+vJde9gaI+Hhlzuqegcr+41OibhZBwMi+4hKfFp6C9irzbW9pwvSbCuSACDcrFvU1NFYQBLeWwraX9VUQ+TATDBclFp9X33O/UMS2bHNzhEHvUirLeg3Ejs3jGK/KaaVORf2W3v9nOI0MkKo6Kxb8s1O73rJYU+mJ9TXg=
+	t=1784709445; cv=none; b=EBdwXA54b7IPHAzOFM9+m4vTZsXmlSM6/MHweCt9bkmmNL1ksUtNFAe4DcDRUgzEwmVQErplSYo6eePuisVwg+SxJY6XeUvsiFfXNaP8kk7gGK6zj/aZ1o/fvTFCR5dplCZIEp34tMnqdF4PYLYs4fDpiFwxLLazuXkKBxq5wuk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784709312; c=relaxed/simple;
-	bh=GOKybl2XcGuvPxJY1F44NoewJfLup9LXrHb8F8AUJms=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cZ49mZA491C5cDJO+32UD19fvN1Rgn2qvVopSa6QPHor9jn3ZgweoRzjlT6ZxCQv6ZiaJ3vtaNMQWy/C5RCxmkZHvpH7Pe3TE2tG3D5fdE1T5zm8Jfmto4fl36KrU0+uotyrAC9WskwM9vX5WPEtHhbMZjwh/URKiZH6aceM8l0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=drJ6HFKB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784709445; c=relaxed/simple;
+	bh=Dvs8iKiA1s86fHZzIox6PNu9HBXw7jF2cFihY18EQnA=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=GAXa6uqFPe4eJgHfexGMUhPjJfV4y83PALYl4doA+lXDEtUJ581xIGg4SKJfZzEXuKbRh9GtAqqqLR9WDRcgt1MBBs3ADiD+N4s6KnRWbr9/8DT4zzs9t9k52UZBu8Cm1wb0iAj9fQZSwk0SQzRXt+WglpgjnLeAlSnkimDCbRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=S2DIfQDh; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="drJ6HFKB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 500511F000E9;
-	Wed, 22 Jul 2026 08:35:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784709310;
-	bh=GBEx/RGEkGmxZBOJo6zho7OT5jBHay166HFhc2fafjA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=drJ6HFKBPoMinNBTgGJlv6q1VVXQdsXVuzW/aPc/kGs/nztu2p2uLKFCPYMNHD/ol
-	 UV9cHtQ+DayJwo36p2cGRunDQB2KaLILpH4FawGV5LiKKS9eM+RDXkXhWoy4JBRNvC
-	 uZ8WoeoMbU99W2U4ApCSmnQzabAYMjPCICoftIFKyXqI1tZcCW8tqww5p4cSu3T7Wn
-	 yUwaQo2fQE43T18avE82GzeBRV3PB/mdvF5XZYik0gy8fTR6DOyfYOGSu1673VHzCM
-	 xu78k96rtzYKjCqlKQk5c17AYH1BfJiVFr+nWXb7AbCvFKBfaQc9F2eMGjmbbM/a/V
-	 vZzjeIcurfM6A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/3] clk: imx: imx8qxp: add soft dependency on SCU
- power domain driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Zhipeng.wang_1@oss.nxp.com
-Cc: robh@kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org
-In-Reply-To: <20260722082522.3747962-4-Zhipeng.wang_1@oss.nxp.com>
-References: <20260722082522.3747962-1-Zhipeng.wang_1@oss.nxp.com>
- <20260722082522.3747962-4-Zhipeng.wang_1@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 08:35:09 +0000
-Message-Id: <20260722083510.500511F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="S2DIfQDh"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so89023875e9.1
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 01:37:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1784709442; x=1785314242; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0KxUqkKLp0O43MKOzWjySTokmH8Zpb0ihL6Myhjw/iM=;
+        b=S2DIfQDhIEPeBl8uYyE+232gxcAA1jgKYRXdy43DH71vRMvGD3/jpRdnYFwh1VeUz6
+         dpNFipAMJY0jFlR4k7ZPtviG+yaNAikMMPENLFvP95cpwQalNbh4DYFtv2jGE0042JD1
+         eargdZDyaVJtb7+cgfZXZxGEeSzqYb2p+DSsXN0rWFgqChOqMDroLFfN1uJo+4EIDRmF
+         h5vdNnDPANPLgK81tZPUmE/4nEQdObjixV1d6KshcWXmKvwYLoPYd3e2xXasopGq50cK
+         PMmtp8/zm2KsfknCX6D1F2TP/5Muy0F00PLwe5X8ZFJlvhmylfbQUn4mhFwxSrE9VSU6
+         FnZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784709442; x=1785314242;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0KxUqkKLp0O43MKOzWjySTokmH8Zpb0ihL6Myhjw/iM=;
+        b=qHCa4/n3yzV/Dum/8bmNDyRSzf/bXvBCJMDe+xsRHdbM/VDHoLRe86i2PQJJ3dQhDT
+         ygWoAmaxS8yP4dKyFX5R2v3ADoqrt9Zh18Mp5J+bgCcr7R6ZcjKJOuUDdvKgVah+lshU
+         TkgonfchRng+RodV6uGOxc0cOBJIYLLkHYewiwvWEy9oEIvsgaB1Y2H3k9UboOSYZWbG
+         SjwepverELcP9x6pwpWzPntw1iJ37E+mRI5QzEVd3NZEssPx8vKxMyW5iFkxcPr8YJQT
+         ZKH7s3joWrcjd997z4c3oWui6ugzqAqDP8ax07HjiRy6IJQOFSJgjZa/6uq9ym4JMlD1
+         4rWA==
+X-Forwarded-Encrypted: i=1; AHgh+RrUtVzXUpe8DlvS5eUNGEURKtN8rs6c4Cadx921SdHhcCotzImbxmURgUJG07XUfzgdGDAvH+SrwSk6@vger.kernel.org
+X-Gm-Message-State: AOJu0YzEcvoJHI3o4aOTNPeys8fUNUf9jq+FNSPduUAxQDaCvxRpviFw
+	LHOrEtzmDIKQx312dej6O72zny/VFtci0hXkXB51atAZ21YU1L4jVzu6YrqCB7T/EGI=
+X-Gm-Gg: AR+sD11aW2msUkwHfI6LGOLiVJBc9oO57Qx6t9/VWYhqrIKCGeA5JiZxKnQ2Lj/DWaz
+	l5rfAiNRnHtHVG7WhfScx2KHKOo5n2Fv2WDKe7xE6fLDUxicGd8QhozjRRFSULqgE7e8cU0Jhq1
+	n4BeJvzZ1QG32oDFLYCcuEjcdzhxMnRlmEVU7v3HVecrizXsUGDaSt9KNqCO/gEYZ3bKizDWRN5
+	VgKoOiXYasDvcrjACdja+T4g7p7VJ1PqeEj2PZHMX7nnMR1hNYUAF7SgzC6Ixoagd1ZX8mh88AV
+	su3Kq97tUGGiTQ/lEFyqdQV8fn0v6RubObvrrbo2cQ1gYHKR+4w13NagG66RBQDLT49z1CIL8c2
+	Xrki5ZyQyKMtD7QhqQGnOW7PuxSPwKpPLz6ImVnHWau7o7ShInqZtcw3BBM2M/UQvKswXaa9824
+	HTU89quE21Bu1mddsZo9Yu
+X-Received: by 2002:a05:600c:46c7:b0:495:5205:86c with SMTP id 5b1f17b1804b1-495520509cemr186921755e9.22.1784709442333;
+        Wed, 22 Jul 2026 01:37:22 -0700 (PDT)
+Received: from [192.168.5.218] ([88.127.185.231])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4956a63fa41sm57819035e9.14.2026.07.22.01.37.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 01:37:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 1/6] clk: qcom: gcc-nord: mark PCIe link clocks as
+ critical
+From: Alexandre Mergnat <amergnat@baylibre.com>
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Shawn Guo <shengchao.guo@oss.qualcomm.com>, 
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Ajit Pandey <ajit.pandey@oss.qualcomm.com>, 
+ Imran Shaik <imran.shaik@oss.qualcomm.com>, 
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260721-nords_mm_v1-v2-1-17e5a445a512@oss.qualcomm.com>
+References: <20260721-nords_mm_v1-v2-0-17e5a445a512@oss.qualcomm.com>
+ <20260721-nords_mm_v1-v2-1-17e5a445a512@oss.qualcomm.com>
+Date: Wed, 22 Jul 2026 10:37:12 +0200
+Message-Id: <178470943208.3016846.11776209051004302989.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=500; i=amergnat@baylibre.com;
+ h=from:subject:message-id; bh=Dvs8iKiA1s86fHZzIox6PNu9HBXw7jF2cFihY18EQnA=;
+ b=owEBbQKS/ZANAwAKAStGSZ1+MdRFAcsmYgBqYIE+pkm1WguCA5Ju86A2jqA20XEbXTXE/5pJG
+ P4xBNgAB3OJAjMEAAEKAB0WIQQjG17X8+qqcA5g/osrRkmdfjHURQUCamCBPgAKCRArRkmdfjHU
+ Rd5RD/43BPSVA1i8qc8Iln6ZtlH+4tyXuICKw4p0yEEeJtwlaCT+gbl+veVEHxOZ3Fl36iDlvO9
+ qeuy7uez3Y+N+hYZRsC+SVUxBT/emU2XybASJNIyp1KtBp65152knhRdc9RelkdKp+2Q7bRE5ag
+ SjCWyA5ALMeunJXB10dHaH5UMKA8UEPsXQr2UVqMP0o6pjo/K4IsqsCxwKSvJkqVS8oEKk4vfxO
+ mpLvC9Ye+S2BHP0k+GVP04fun9Tp9LYAgHvasc6kXWU95PsAhH7xjyyqegGzxDxFQ4AroeQXCX+
+ y+rGwWJ5AS7ZxaOgDEJoaxiinz9cuU5q0uM9OeGoFM3dx5jfMZS/ddgGIvGBQvYyTiLws3yY1tJ
+ IAHezfYpqRSXr5Zb3lLyH5JM6RRwwwsGwv+GimVWrXoI6cabCzAcMJBB44gBVlBKRDdmeE6J6Tb
+ WHAmT5FoLGftfYNaACC0qzFZNCRAQik5mMeJhOqWW+nwfwZWibeffwnTjc+ajdegSq1G07BPWhE
+ CFcffToM5bqjAYuR1rDDuzwOxzmNDkWLluZYEp+hCfSW7YqMQgNydcx+8Em/VsFGzuMvP3/TOvL
+ y16pvkHJUXSqJjLFtwvnUHhTlqPX7+s0h5landjQ83quiMRU5kofyjn10Bsranw8l3cqpYHpq/V
+ 14PfqzVAYrzj93A==
+X-Developer-Key: i=amergnat@baylibre.com; a=openpgp;
+ fpr=231B5ED7F3EAAA700E60FE8B2B46499D7E31D445
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Tue, 21 Jul 2026 12:37:16 +0530, Taniya Das <taniya.das@oss.qualcomm.com> wrote:
+> The PCIe link AHB and XO clocks must remain enabled for proper
+> operation. Representing them as clk_branch instances allows them
+> to be gated, which is undesirable.
+> 
+> Remove their clk_branch definitions and register their CBCRs as
+> critical clocks instead so they remain enabled.
+> 
+> [...]
 
-New issues:
-- [High] The `MODULE_SOFTDEP` declaration specifies an incorrect module nam=
-e, rendering the fix completely ineffective.
+Reviewed-by: Alexandre Mergnat <amergnat@baylibre.com>
 
-Pre-existing issues:
-- [High] Ignoring -EPROBE_DEFER causes silent device registration without p=
-ower domains, leading to hardware exceptions.
---
-
---- Patch [3]: [PATCH v4 3/3] clk: imx: imx8qxp: add soft dependency on SCU=
- power domain driver ---
-commit f47fec3b0de49112a338b6cde236c5713303a35f
-Author: Zhipeng Wang <zhipeng.wang_1@nxp.com>
-
-clk: imx: imx8qxp: add soft dependency on SCU power domain driver
-
-This commit adds a soft dependency on the SCU power domain module to ensure
-it is loaded before the i.MX8QXP clock driver. This attempts to work around
-silent failures when attaching power domains during device initialization.
-
-> diff --git a/drivers/clk/imx/clk-imx8qxp.c b/drivers/clk/imx/clk-imx8qxp.c
-> index c781425a005ef..23ef6b959dee8 100644
-> --- a/drivers/clk/imx/clk-imx8qxp.c
-> +++ b/drivers/clk/imx/clk-imx8qxp.c
-> @@ -373,3 +373,4 @@ module_exit(imx8qxp_clk_exit);
->  MODULE_AUTHOR("Aisheng Dong <aisheng.dong@nxp.com>");
->  MODULE_DESCRIPTION("NXP i.MX8QXP clock driver");
->  MODULE_LICENSE("GPL v2");
-> +MODULE_SOFTDEP("pre: imx_scu_pd");
-
-[Severity: High]
-Does this soft dependency specify the correct module name?
-
-The Makefile entry obj-$(CONFIG_IMX_SCU_PD) +=3D scu-pd.o typically results
-in a module named scu-pd (or scu_pd). When modprobe parses imx_scu_pd,
-it won't find the module, ignoring the dependency and rendering the
-workaround ineffective.
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the patch relies on a module
-load workaround rather than fixing the root cause of the probe order issue.
-
-In drivers/clk/imx/clk-scu.c, imx_clk_scu_alloc_dev() silently ignores
-errors from imx_clk_scu_attach_pd():
-
-    ret =3D imx_clk_scu_attach_pd(&pdev->dev, rsrc_id);
-    if (ret)
-        pr_warn("%s: failed to attached the power domain %d\n",
-                name, ret);
-
-If the power domain provider probes after the clock provider or defers its
-probe, of_genpd_add_device() returns -EPROBE_DEFER. Because this error
-is ignored, clocks are registered without power domains attached, leading to
-hardware exceptions or power leaks when those clocks are accessed.
-
-Should the -EPROBE_DEFER error be propagated up the call stack instead?
-
-This would allow the standard kernel deferral mechanism to reliably enforce
-the initialization ordering, handling manual module loads and provider probe
-deferrals gracefully without relying on MODULE_SOFTDEP.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722082522.3747=
-962-1-Zhipeng.wang_1@oss.nxp.com?part=3D3
+-- 
+Alexandre Mergnat <amergnat@baylibre.com>
