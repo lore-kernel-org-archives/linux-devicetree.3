@@ -1,124 +1,225 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABFB5466AF8;
-	Wed, 22 Jul 2026 16:40:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4EC53E49ED;
+	Wed, 22 Jul 2026 16:40:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784738405; cv=none; b=WxxKW1uCFmwRbarmkEUQn8Xn37foE7MYE7oUz3PseABfKZH8T8FnO/jVv+ActGMm88W2A1xX8mdtGBnE7H4UWmboDN5OHihXhJEjbJz7Q72JXISlUDYdALALOL4sZcH/1d3cgLjMLq/PefrRZ3dw5xpwoU8fO5PmlvwERKs/9c0=
+	t=1784738438; cv=none; b=OFKal1C9gKSoknwAFZFHlTNxetNYD42eYkIzUTQdFg/WJILQmphQ3JRex8xEYpaYDZwrkZwVR/wZSVzHIBXmthIBvdzzq4EB9OokrmkYPnj0H+HDskaGDp87jBDFumOtWpwnsyJys+yy4pakbqgst8aDtyCX4fnE5FR/01TFtSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784738405; c=relaxed/simple;
-	bh=tE5uM9Z1EPzh76wbbn21PvunRuLJBSUhKmpqsQ+B6/Q=;
+	s=arc-20240116; t=1784738438; c=relaxed/simple;
+	bh=2M8YNBGMd8hUrpoj8hwD9n/pUiA3uAyxr4Bd3A578go=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Fe+9ohA8dicmBhN8eGmxhdgi3Lsd1al1pDyN0oY/Lx6uIvZodaEjXbyA+X1sCNkHYmyMWDyw50rL/53IbdGRD82M1BNM6wLxfDjPryg0Y9okpwXDaFAy6iLKGSijqN60FjGa7hO1fbdtUrkQetXDrZAl9P1DqWq9J9JGn9Mq6LI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c+95murp; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=kRIyqH3ANq86u5GRRNQElzD8s1/P/sLjIyS4koFEZ9dkPMoJWYml9WLRB3mjoIooqLo9l2pJVtNSjdDh8fqIPHkR+mv1lCvh7hLun/5u1d8b91DBFffyau6uzFyEfMQ7AVXSfh95kjtZMdstLcMFzoZH3aj4Viy1l8DdXyUpkOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZfCSOQx1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c+95murp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 637201F000E9;
-	Wed, 22 Jul 2026 16:39:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZfCSOQx1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEFDE1F00A3A;
+	Wed, 22 Jul 2026 16:40:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784738399;
-	bh=X3wo9eXamq5zyVmvp9/n/58jybhQeC5d9jc3qnkFcbg=;
+	s=k20260515; t=1784738429;
+	bh=3/oakq8FinWWW7FI0sjYwpvVfiXdLrAlJXpu1Bx/UCg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c+95murpuwGwp2CsQKEyTrAUOIDyJA2NAT6A1dSC+SyNs2VypkhigBoq0tUe4ll4L
-	 Gk6gRQtnifGHPSYfiZEUhFfIsijwB8LXYL820jQoXYl/JL0HTwdhDCjWgPKPTIjlN/
-	 bb3agJqpYMhPV8vsJ4xyKN+q4DzRcvhPNfUPyOCmM2/Ex+E8Z/Rm7MrvW5hSrCqUZ2
-	 NsjXhJkrt3Xu91kc8MnuCYklsHvhVDMW0aKNXyf0MXn5JjvyB+ml4qqWvoh4IJ/Ke8
-	 EntdAM6QrdZKnfgMvmrqfAVjWdy1o9xVTdmlldWa382TvwAOlcXVYAJpPddwHW4nwW
-	 GOqmaLH7Jf1zQ==
-Date: Wed, 22 Jul 2026 17:39:53 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Mark Brown <broonie@kernel.org>,
-	Marius Cristea <marius.cristea@microchip.com>,
-	Marcus Folkesson <marcus.folkesson@gmail.com>,
-	Kent Gustavsson <kent@minoris.se>, linux-iio@vger.kernel.org,
+	b=ZfCSOQx1jJQvGJdAMkP07t7jrNWimsZCGnxVu7IjMj2v1VsbvmwIzmeUVmNfmcc60
+	 g4RSOGpzOFOxYWrVByPzzhECh237EIzHo06RHcQZz67PiQhCnkm8N0fLuOrdgyISlZ
+	 yYSebEQ86j+Qme8IVRKjkyiFn7wDbRvvsSNTgVCj9jQOEG7KfKipL6N2KpCOYxtqmc
+	 AaMmN8NCvjHc/oITZIipztLZdEIQjGCw8zsURCIUY/oc+8s0rCq/p0olirz3f/uhlE
+	 UJbBikvjy+hQ8vw7ujVILnvg90Ht/zFHgioX4KKEejl/v38AYY6TiZWfXKwh3wefO1
+	 CL1H4kHuSDRMw==
+Date: Wed, 22 Jul 2026 11:40:26 -0500
+From: Rob Herring <robh@kernel.org>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com,
+	simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org, tzimmermann@suse.de, krzk+dt@kernel.org,
+	conor+dt@kernel.org, matthias.bgg@gmail.com,
+	dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, Janani Sunil <jan.sun97@gmail.com>,
-	linux-spi@vger.kernel.org, Kent Gustavsson <nedo80@gmail.com>
-Subject: Re: [PATCH v7 1/7] spi: dt-bindings: Add spi-device-addr peripheral
- property
-Message-ID: <20260722-shoptalk-sublevel-35d09e42e31d@spud>
-References: <20260722-ad5529r-driver-v7-0-7781cd74ad75@analog.com>
- <20260722-ad5529r-driver-v7-1-7781cd74ad75@analog.com>
+	linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
+	jason-jh.lin@mediatek.com, kernel@collabora.com
+Subject: Re: [PATCH v2 27/46] dt-bindings: display: mediatek: Introduce
+ Digital Video Output HW
+Message-ID: <20260722164026.GA1072380-robh@kernel.org>
+References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
+ <20260714114414.184512-28-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DggL9MJQ1qQLOaWj"
-Content-Disposition: inline
-In-Reply-To: <20260722-ad5529r-driver-v7-1-7781cd74ad75@analog.com>
-
---DggL9MJQ1qQLOaWj
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260714114414.184512-28-angelogioacchino.delregno@collabora.com>
 
-On Wed, Jul 22, 2026 at 09:54:13AM +0200, Janani Sunil wrote:
-> Some SPI devices support sharing a single chip select across multiple
-> physical chips by encoding a device address in the SPI frame itself.
-> Add the generic spi-device-addr property for describing these hardware
-> addresses. The property is placed on the SPI peripheral node and may
-> contain multiple addresses.
->=20
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
-
+On Tue, Jul 14, 2026 at 01:43:55PM +0200, AngeloGioacchino Del Regno wrote:
+> Add documentation for the Digital Video Output (DVO) IP found in
+> the newer generation SoCs MT8196, MT8189 and their variants.
+> 
+> This is effectively a more capable block replacing the DisplayPort
+> Interface (DPI/DP_INTF) one found in older SoCs.
+> 
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 > ---
->  Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml | 7 ++++=
-+++
->  1 file changed, 7 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/spi/spi-peripheral-props.y=
-aml b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> index 880a9f624566..b59d047cf117 100644
-> --- a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> +++ b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> @@ -142,6 +142,13 @@ properties:
->      minItems: 2
->      maxItems: 4
-> =20
-> +  spi-device-addr:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    description:
-> +      Device addresses used when multiple peripherals share a single chip
-> +      select. The array allows one logical peripheral to comprise multip=
-le
-> +      physical devices, with one address per device.
+>  .../display/mediatek/mediatek,mt8196-dvo.yaml | 143 ++++++++++++++++++
+>  1 file changed, 143 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml
+> new file mode 100644
+> index 000000000000..b38960327ca1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml
+> @@ -0,0 +1,143 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/mediatek/mediatek,mt8196-dvo.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
->    st,spi-midi-ns:
->      deprecated: true
->      description: |
->=20
-> --=20
-> 2.43.0
->=20
+> +title: MediaTek Digital Video Output (DVO) Controller
+> +
+> +maintainers:
+> +  - AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> +
+> +description:
+> +  The MediaTek Digital Video Output (DVO) hardware provides 120-bits (4P) data,
+> +  video timing and info data for the Embedded DisplayPort, hardware-abstracting
+> +  the previous generation Display Port Interface (DPI/DP_INTF) blocks, other
+> +  than providing new capabilities.
 
---DggL9MJQ1qQLOaWj
-Content-Type: application/pgp-signature; name=signature.asc
+If you want paragraphs, you need '>' annotation and a blank line here.
 
------BEGIN PGP SIGNATURE-----
+> +  This hardware block supports 1/2/4 pixels per iteration in both its input and
+> +  output and provides 8/10-bit RGB, YUV422 and YUV444 data formats in output,
+> +  other than supporting input/output video window cropping and padding.
+> +  Digital Video Output also provides Panel Self Refresh (PSR) and Multi-SST
+> +  Operation (MSO) features for eDP 1.3/1.4.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - mediatek,mt8189-dp-dvo
+> +      - mediatek,mt8189-edp-dvo
+> +      - mediatek,mt8196-edp-dvo
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCamDyWQAKCRB4tDGHoIJi
-0h1KAQDTB46Bc6YjeSV2N2juSvJr6KG9K0sx4I+eKl05TCSsxgEA5czT1f+Ss4nr
-0J8oujhpbbCD7B4mj5u+r5JKdsC7ZQE=
-=Jbch
------END PGP SIGNATURE-----
+How are these incompatible with each other?
 
---DggL9MJQ1qQLOaWj--
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: Pixel Clock
+> +      - description: Engine Clock
+> +      - description: DVO PLL
+> +
+> +  clock-names:
+> +    items:
+> +      - const: pixel
+> +      - const: engine
+> +      - const: pll
+> +
+> +  pinctrl-0: true
+> +  pinctrl-1: true
+> +
+> +  pinctrl-names:
+> +    items:
+> +      - const: default
+> +      - const: sleep
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: Digital Video Output's input port
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: DVO output to an HDMI, LVDS or DisplayPort encoder input
+> +
+> +    required:
+> +      - port@0
+> +      - port@1
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  reset-names:
+> +    items:
+> +      - const: dvo
+> +
+> +  trigger-sources:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - ports
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/mediatek,mt8196-clock.h>
+> +    #include <dt-bindings/power/mediatek,mt8196-power.h>
+> +
+> +    dvo@324c0000 {
+> +        compatible = "mediatek,mt8196-edp-dvo";
+> +        reg = <0x324c0000 0x1000>;
+> +        interrupts = <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH>;
+> +        clocks = <&dispsys1 CLK_MM1_DISP_DVO0>,
+> +                 <&dispsys1 CLK_MM1_MOD6>,
+> +                 <&apmixedsys_gp2 CLK_APMIXED2_TVDPLL3>;
+> +        clock-names = "pixel", "engine", "pll";
+> +        power-domains = <&hpm_hwv MT8196_POWER_DOMAIN_DIS0_DORMANT>;
+> +        pinctrl-names = "default", "sleep";
+> +        pinctrl-0 = <&dvo_pins_default>;
+> +        pinctrl-1 = <&dvo_pin_sleep>;
+> +        trigger-sources = <&disp1_mutex 29>;
+> +
+> +        ports {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            port@0 {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +                reg = <0>;
+> +
+> +                endpoint@0 {
+> +                    reg = <0>;
+> +                    remote-endpoint = <&directlink_output>;
+> +                };
+> +            };
+> +
+> +            port@1 {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +                reg = <1>;
+> +
+> +                endpoint@0 {
+> +                    reg = <0>;
+> +                    remote-endpoint = <&displayport_input>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +
+> +...
+> -- 
+> 2.54.0
+> 
