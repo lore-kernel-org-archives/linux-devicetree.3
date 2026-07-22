@@ -1,63 +1,63 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 309F743553E
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 20:17:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FA6943710D
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 20:17:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784751456; cv=none; b=rRgzyXaVD7CpSWaTLQPv5MNPtanlHABMmDBvF42GBnv2pDzZxEA/WYJ0/ZS5+nwepRBHhz7fFfJto2BefoND+HzsViWurXsWK58CZP3vzCTNiqz0jMICYchokKtoFBG8/6mCTXOlS3gzEpB99kTYGCKSpryZLqD/uASKNNZijrQ=
+	t=1784751460; cv=none; b=bxs0fao5RCAXaBGl5H4NTxzhuBdbxcQFNuMm0jU/ao4PZO7Jil+TnIHAbl7GsVLyl/2i9C172GZlwZtqNm7vgLi6rm4FnoeyvKz2gEHsvIQinnOE/Ip02cpX0r7LQmNWDdPZnO1h02Gw9oPvS+tyEhektxYVssD+ohdH8B07jCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784751456; c=relaxed/simple;
-	bh=Cp9Lf1Yb+LwwMCxqi836F8JB2LfT3ogBlX8ZlkfBiaY=;
+	s=arc-20240116; t=1784751460; c=relaxed/simple;
+	bh=lE0BRLbpoMsGl2jH5YXu2f1E0PNhNUYeuMEbd04x4zY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p8YK53Shum/oXRQDepqeVO7I+KZQ12TSfdGywAikklGujLH40Cx6qPqJWpBcF4Er9JhKC3B2/0pYyXQLt3LTGqsCEZW1RmmHLits1Sl9uqG3lg7feWLix/7kExb032Rc6j15ya110xZxv2StYr7+43GbnMAwV4NZ3vmfTk95Ib0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lNMcfjRp; arc=none smtp.client-ip=74.125.224.48
+	 MIME-Version; b=uAupyqPTJWpt6zgfNXg5MqWVFyEqRyw5rGzbhjKTrTpA43fLv8TXip5TBKfEmmksuHkI4515ILM0BPu8kXxlFeilzAdtqLqLh7lsHd3ywnlRqhX8WwasmM6J5ui3hbuFHyv90SH8V5mFR6hZIFrIt63LjNUhAiOuoPUZD1p4gEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F4YugzB8; arc=none smtp.client-ip=74.125.224.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lNMcfjRp"
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-6682259cae6so6730593d50.3
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 13:17:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F4YugzB8"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-6689402c7bfso915494d50.1
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 13:17:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784751454; x=1785356254; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784751456; x=1785356256; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=L7OAXwu1ImBz6RiI92a0ZzOn6X9oEwvXp6jE08Kyy8I=;
-        b=lNMcfjRpf1O3DF1LeASG+DHsKXTAiKEMIxjobrnKMu7SzxyzZb+bEcR1qX2XnfWT2M
-         rwIU+HensdMKH6pqIH/AXjfYIYlMiDQQsLGlBFPxIeRkJxLiOPoAMum5zfOgzBmS3ecV
-         HWJj4/MCGRIh6in17KTZUpDWks5umI7X2m7uOYac1N3/SHT/SPp0/HhewJUkYtER5v8/
-         q9RKj4rrvuDHVsiCN7zyJsQkH6ZZNOb2CFzkBNZT2GXaJxSSKPOTEOz4siNA2LywPC0c
-         td0H4EUbVZoW6kab2MjO9NcZ7bXMPxB8IItLUWGMLlktQXGtbFYQ144xwob5Q7BQomC6
-         DmRw==
+        bh=ivYBWU5cN/JEQ/dOoSRXx/VTuv2YZc+EvRKHLDz+SQA=;
+        b=F4YugzB8br7IFSBxOmrZ4HGpeb1k62sFTwD+kQoV5hCigFx1gfmkc8t5dRhp7gpP2i
+         tf9456hg5sT9lDwrTfSA6w9t6D2SFAIOv/Kp3UDZ6aHGLnjHIPfJiM70pVPpzphH+Df/
+         n0m6nbdBFk/eKQaUp/OoH7jFWAHbWGl7mgSQFZC8pU2x+Ath8EhCTxEXUmQF1d7fxU/9
+         4wBM+Xa9X4e1FdHYHCnsdozblAM+FAIV6KTbD6LZ93eMUuXytc0UY67YiAdUTOpfTvaO
+         uKmHCI/bGWHPrtRRgW5PZvo+2HKO7+DDMkV0+hdjXjWn2EGc9Lc2gHbVzWkrQ1Dx0Kab
+         9hhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784751454; x=1785356254;
+        d=1e100.net; s=20251104; t=1784751456; x=1785356256;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=L7OAXwu1ImBz6RiI92a0ZzOn6X9oEwvXp6jE08Kyy8I=;
-        b=cYfDuFu1jw8/FfJbzdKuMT616bLQiNeT2cmvbrLeASpJTu5OGbo4vsipU2uu6WDOwE
-         KxuqQ1kDntmhXVcwucxNhjps8b2U68EIA7aFIZpGepk+ZNzvpm16g/E1ZLJpDviddihz
-         w63B6rFcuhTS+MmxjRU6AEGK0K6tg86UDrJji4+L0NzYkl+M4isfJgIAHp9Wocs7cb8I
-         Iv5DBfeGDMR3thLzXUXT8EsCkLJZ/VCUgT1N59kpUXw+QJzOkKTfBCSd/x+v+D2ZtWj/
-         87vTLzcBGv1XRyVcqdMnmJUl42bNyK+FulsglFUkl/TxCa+mr7w4hxRKKo8PZYrizbp8
-         W71g==
-X-Forwarded-Encrypted: i=1; AHgh+RpWoCVcUUZxYsflP6FejGGYSufEJXIdhtYIzRg9IFtB5d2jnrgf9RRMMPfayhPp790JFVNd6xoi+opv@vger.kernel.org
-X-Gm-Message-State: AOJu0YyLCb51CyedMcFtkpvwzJHgxX5OjtYOgCbU7Y3VIOUF92tzcvsA
-	FI8HC88S4o9TuIzsWrnIFJ+ZOaZlPox6J66pDcNcyGEIs6cRAasr4dLr
-X-Gm-Gg: AR+sD10/qBcja6itEJiSeH8Z2FOfSKr0L7TJa9akJ+nBVdF6ZxG5zp0iQXk+ynxIL19
-	ZSdrqAvYPajW9OLEq2drnqnHfspMdYEJXoIC2dyk+PyCFuCTItO/DzU0/W7VyZ68VFiZeR/tWQM
-	myoNCCNcCtKKthjtnv+qFY+fZWpiMkYboNzjY6fGHr/2xkHePfVgB7xX676ajMQzf+kfqcNva+h
-	ppCKR2eXGSdmnU91+LHASvUEeyOlwStVJKZFNrLbfV5o/sPe6G/Vdpi0b7k53QtoTHg4yf9zm+k
-	i6Gb1JAT7rAKx3ZwlacuNvjQggr5e+DGYq2TygHVpyAIu0kUTzzClyeq94ztHpOZ5fHQ38pUlXB
-	XCBsHAuMkafDXB02TGOX8Gk8kq9d58KUJuHHVgfkfOPgDxlhHIhBiLmV4yY5fS+CLKNDFHYydb0
-	D3/NHG15Xhj6gcK+wk7fmmUaV09hgAFkEHxBK1FAKV9euFXpQ=
-X-Received: by 2002:a53:cf51:0:b0:667:cf87:5869 with SMTP id 956f58d0204a3-668a4c197f9mr32658d50.29.1784751453933;
-        Wed, 22 Jul 2026 13:17:33 -0700 (PDT)
+        bh=ivYBWU5cN/JEQ/dOoSRXx/VTuv2YZc+EvRKHLDz+SQA=;
+        b=EoV7ZoBuGr1G6SZrr64cMnCYWXUn8kiugNjzWCNvYrZ2DGAl6NbPEZsotqMc9iK9nw
+         iM+ApIRlA6YDpqZJP+JhweDbNdXvz8FWUc4snEjQ3yMOZq8SDZadD7oOteUvyo9CcViz
+         NmTdKDVV/A8p/bffwmTUS+0gi9sl4IjGDhUh/2N3wnavZzLGiRdOkJl96hsUVZdaXNLj
+         Z4DGMbNXi3HXcxmrJk2ZGmeIIOoRjieeMPdmZfKFk1kqGAAzdKCC7t3Z3WVHVSsmxBNH
+         IQ2Y7ef1WNLAgMfGXQVa48VuY6wLOGmc93B7LZLd9obhxYuLqwhbHcZeL1467zG6Ie47
+         wdOA==
+X-Forwarded-Encrypted: i=1; AHgh+RotfFTZai8gQYVK5Dgo0IHBUCXJx3D7dkpNV1FJObowtX/6A9yzB04959xj1tJ2aW81os+v8GLMEQmh@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy8SzzEBDu9faq4t3jCdHX6g4ejGRvkhZ5z8cAO/DV5hlOi3oT0
+	WblUOqy//ewg+eLZnVf6hmjCjZDZEdmPMw4pNH2Sa+EN2pNVGI1z7ezN
+X-Gm-Gg: AR+sD10q06OMKNnApGRMGTExuCmPyUGxGxaI409K7MQ6kCELN+IbYsec9qLZkhVGVDW
+	k5iaI32a8Sf0zrK0PpkS0T9TPvw7V4kUS6EOC7NrBSB/dlwqUMvJKMiU6zccYXnsalY1FfgTOnN
+	Hme0EXQePn/koZxdKUUNs90y4PfaRcj8DQzj46E9QzAN4PLrbOlXxReUs/m92QbqYuv65Etu+us
+	UX8FP2Fs6ewInz8h8AstRN5mvAd9Qb0GyJzCWLYzBLJcbbr+HkI7RM46Jub78NWrrCPDb6YUK+q
+	7x9GdiU+3t8+GYUnuFn7Pce6nDqp7XC8ovXUVyJFUSyCEAo6YRpK6I97t/J/ynrhINfz7zDlZUB
+	Kd6J0iKrJ9Y4EABfabxKlwFVaha2TX7LZSZK3t53s+fFHMH2I9htNd+ZNYO/XT6xiLxuQ+jEAmN
+	yRTDfZ5SglZGcxe8+wDiKYcW6xWD/rG8RJ5Pui
+X-Received: by 2002:a53:b083:0:b0:668:9128:28dd with SMTP id 956f58d0204a3-668a4f87cbfmr21361d50.81.1784751456120;
+        Wed, 22 Jul 2026 13:17:36 -0700 (PDT)
 Received: from zenbox ([2600:1700:18fb:6011:4392:41cd:1ce2:e391])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6689056dfbasm1958866d50.9.2026.07.22.13.17.33
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6689056dfbasm1958866d50.9.2026.07.22.13.17.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 13:17:33 -0700 (PDT)
+        Wed, 22 Jul 2026 13:17:35 -0700 (PDT)
 From: Justin Suess <utilityemal77@gmail.com>
 To: Sean Young <sean@mess.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -73,11 +73,10 @@ Cc: linux-media@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-sunxi@lists.linux.dev,
 	Sashiko <sashiko-bot@kernel.org>,
-	Justin Suess <utilityemal77@gmail.com>,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: [PATCH v2 2/3] arm64: dts: allwinner: a523: add IR receiver nodes
-Date: Wed, 22 Jul 2026 16:17:16 -0400
-Message-ID: <20260722201717.2205609-3-utilityemal77@gmail.com>
+	Justin Suess <utilityemal77@gmail.com>
+Subject: [PATCH v2 3/3] arm64: dts: allwinner: a523: enable IR receiver on the X96Q Pro+
+Date: Wed, 22 Jul 2026 16:17:17 -0400
+Message-ID: <20260722201717.2205609-4-utilityemal77@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260722201717.2205609-1-utilityemal77@gmail.com>
 References: <20260722201717.2205609-1-utilityemal77@gmail.com>
@@ -89,68 +88,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The A523 has two CIR receivers, both compatible with the A31 CIR: one
-in the CPUX domain, clocked from the main CCU, and one in the RTC
-power domain, clocked from the R-CCU.
+The X96Q Pro+ TV box has an IR receiver window on the front panel,
+wired to the SoC CIR input on PL11.
 
-Add nodes for both instances, disabled by default. Since the RX signal
-of each instance can be routed to more than one pin, boards with an IR
-receiver are expected to add the pinctrl properties next to where they
-enable the node. Keep the PL11 pin description in the dtsi, as boards
-commonly use that pin for the RTC domain instance.
+Enable the CIR receiver in the RTC power domain and mux its RX
+signal to PL11.
 
-Cc: Andre Przywara <andre.przywara@arm.com>
+Tested on an X96 Pro+ with ir-keytable and nec keybindings with
+the remote that it came with in the box.
+
 Signed-off-by: Justin Suess <utilityemal77@gmail.com>
 ---
- .../arm64/boot/dts/allwinner/sun55i-a523.dtsi | 28 +++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-index ca6a16807049..19771aac68e5 100644
---- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-@@ -327,6 +327,17 @@ ccu: clock-controller@2001000 {
- 			#reset-cells = <1>;
- 		};
+diff --git a/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts b/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts
+index a96927fbdadd..1eaee20acaab 100644
+--- a/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts
++++ b/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts
+@@ -266,6 +266,12 @@ reg_dcdc3_323: dcdc3 {
+ 	};
+ };
  
-+		ir: ir@2005000 {
-+			compatible = "allwinner,sun55i-a523-ir",
-+				     "allwinner,sun6i-a31-ir";
-+			reg = <0x02005000 0x400>;
-+			interrupts = <GIC_SPI 27 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_IR_RX>, <&ccu CLK_IR_RX>;
-+			clock-names = "apb", "ir";
-+			resets = <&ccu RST_BUS_IR_RX>;
-+			status = "disabled";
-+		};
++&r_ir {
++	pinctrl-names = "default";
++	pinctrl-0 = <&r_ir_rx_pin>;
++	status = "okay";
++};
 +
- 		ledc: led-controller@2008000 {
- 			compatible = "allwinner,sun55i-a523-ledc",
- 				     "allwinner,sun50i-a100-ledc";
-@@ -927,6 +938,23 @@ r_i2c_pins: r-i2c-pins {
- 				allwinner,pinmux = <2>;
- 				function = "r_i2c0";
- 			};
-+
-+			r_ir_rx_pin: r-ir-rx-pin {
-+				pins = "PL11";
-+				allwinner,pinmux = <2>;
-+				function = "s_cir";
-+			};
-+		};
-+
-+		r_ir: ir@7040000 {
-+			compatible = "allwinner,sun55i-a523-ir",
-+				     "allwinner,sun6i-a31-ir";
-+			reg = <0x07040000 0x400>;
-+			interrupts = <GIC_SPI 167 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&r_ccu CLK_BUS_R_IR_RX>, <&r_ccu CLK_R_IR_RX>;
-+			clock-names = "apb", "ir";
-+			resets = <&r_ccu RST_BUS_R_IR_RX>;
-+			status = "disabled";
- 		};
- 
- 		pck600: power-controller@7060000 {
+ &r_pio {
+ /*
+  * Specifying the supply would create a circular dependency.
 -- 
 2.54.0
 
