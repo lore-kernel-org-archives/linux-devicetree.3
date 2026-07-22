@@ -1,197 +1,167 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013054.outbound.protection.outlook.com [40.107.159.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84BE13D3002;
-	Wed, 22 Jul 2026 03:23:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F0A3E2747
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 03:33:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784690629; cv=fail; b=RhEEQvLPY+/vSe/DT2zaCRbArIf609KRLbRNUuu2qTJ8rXBu6GOmBswnk6tEfLEVvfOLMh8HdBqUjH+dM7F0L0y7HlMtr8YCyPfjyc9qlU7TXFC1XgXR4cJJL3kb1YUN4qW0KU6+jgLvh+F/67mrTSBm1oCcnz1UyLBk53YCRqs=
+	t=1784691239; cv=pass; b=mTR3sI2ppt159zmB1LpKFwWaOirDRBtlPTpq4ymuo8UB/Y1D3bfoLMcZVtZhJz48XoSDOb03C7gz9PJoS/CurJRaiORgEGA4zJbacWho8CqBY6klXoEaBvnENuBi1frmid+4h1fH0k8nTR4IKhe/9XHqOQIlJlM5nsM3wR4cjKU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784690629; c=relaxed/simple;
-	bh=cxhORCi2r8QpoQYo+YtVeCF5SXd3DpqkuqozQURpLJc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=HII0WPrJ7eLFRgz83mLLFl9FCER92qis85ilMNmvwH9rodjnrRFs540rDvCPNNFvhmZaM2wPZg9EmpOaAwoBn4CbureA+FqQ7OO1GtIoz4sKLlr8qHTDLK6tnrIcjsCDwwAF7KU4gaNc5WZ1apO6Y+VYoeEa3ovIniGbBXDonr8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ljUb4D8c; arc=fail smtp.client-ip=40.107.159.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1784691239; c=relaxed/simple;
+	bh=TmfjsaY5vDGWro2W6B9BTuFvkBc8bjylIqjuthGf42o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CdpWeu8LXG+gT5zh5hScCcWYZ8gAzdrRgkx/OatYGh++F1ScpvowKcaWBsP32Zm16RO3E2s1CvrFnZ96Q5sGM4sJ/BSc9EXC3PrE/tYzcsZVe62vzyQ4LEOKI5lr1FwoEYvD6a70RuFNKSGbui7JHGfpY7i2JesUizePi6T5PUM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ZJPFEFHh; arc=pass smtp.client-ip=74.125.224.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ljUb4D8c"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CIokfU6Gk+SQuXpoFsvGG2x0XQLlXsEyTprRUuY8J9qwson6f0EWTVbIrOs2P7sBaS1+5B0IAhEP53nun7EyjrKNIPjfieBeuFB6w+2VgEsxq5ukxNtePo28V0h/ZxTmjYmbxqgXploVXGC6gtoj8F9lgvtmGCaKBqXAo4FvfZfJPXL6xyXHo2pgRT3GMKkLgnwT5KzZyfklh3o/bGKYz5ENkUN7L9iwmHdZMskBmOmF2P5+MCTD8NX+HTSc5Gat7sUKnXlFT9ul0qsiFJyLF7geMqKcK8BpsBFQbvAEBONZtVbjzJdRJ+q3sionLFgvM5UA3wIDW2t/YnOES5Sgkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KmfQY6nGpykYvyIIoKOPoq/jItfrTOLE/rItYuH+Doo=;
- b=nWX6G4qS8tHJI10k9TmG5bJhdLKiwnU8lCvUstx6zsiRAWHE+ODtu6qYK5LOZk+1qzWgX5J1vr7/AzLUIBP0cIXXjv+pcoM3fT/aEG5C/bMcJ9uNjCtbB7/01U7LLvpNZehqYaZE3Hk+6p6CmGVZbEsdHxpNtM8mn3oBDX1QPmhNOs6TtFziv1IniijxQRn6ROqCtG7LefA6eFawC85y9xP0+AHOW4o+AvEi5WqlwS2GVEktwK2VNW1m0ZTkbxqRS5JO1rvCccRKxdXm3xjmH2IyDCmQnHObOc1Hc8uHZC707wJL+36If5iI0zXw86nrKAlhpSIVL7/S2nRI5KQe0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KmfQY6nGpykYvyIIoKOPoq/jItfrTOLE/rItYuH+Doo=;
- b=ljUb4D8cjM3kjs2NULPtJjFipXhNZmhK1w2BsvaPpcFT02mMA8G7mHwVhF+/C2LDI7T0U3JYLv6UdPY5YHoEQ7OvG1cHyua2LJY3/hQoBEasuY8MoW1+jTUAP+X5+mk59fl4fwmiqf4B5XFsXabGr66par67NSzfVV0rkdlNWcLJqHb6k6+gCUqHk2uXCT30DQUswMNaeTD+aWJotp8Qte6wt8ilL5jTH3FJOLP0kfr/4/K+4Kl7cNWv52K4UKGG+M/WZy2A7C8hz5s/bKtXhrYPExbt5Ze3b3eHkArhvSWhzGcpV305ouPmL2AwytX295znDXXD829WgD4ZMDAUXA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from DB8PR04MB6858.eurprd04.prod.outlook.com (2603:10a6:10:113::9)
- by AS8PR04MB7719.eurprd04.prod.outlook.com (2603:10a6:20b:29a::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
- 2026 03:23:44 +0000
-Received: from DB8PR04MB6858.eurprd04.prod.outlook.com
- ([fe80::bc6f:5fd7:462:d0b5]) by DB8PR04MB6858.eurprd04.prod.outlook.com
- ([fe80::bc6f:5fd7:462:d0b5%4]) with mapi id 15.21.0245.009; Wed, 22 Jul 2026
- 03:23:44 +0000
-From: Zhipeng.wang_1@oss.nxp.com
-To: robh@kernel.org,
-	saravanak@kernel.org,
-	ulfh@kernel.org,
-	Frank.Li@nxp.com,
-	s.hauer@pengutronix.de
-Cc: kernel@pengutronix.de,
-	festevam@gmail.com,
-	peng.fan@nxp.com,
-	jindong.yue@nxp.com,
-	xuegang.liu@nxp.com,
-	devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] pmdomain: imx: scu-pd: allow building as a module
-Date: Wed, 22 Jul 2026 12:23:21 +0900
-Message-Id: <20260722032321.2693300-3-Zhipeng.wang_1@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260722032321.2693300-1-Zhipeng.wang_1@oss.nxp.com>
-References: <20260722032321.2693300-1-Zhipeng.wang_1@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR02CA0012.apcprd02.prod.outlook.com
- (2603:1096:4:194::7) To DB8PR04MB6858.eurprd04.prod.outlook.com
- (2603:10a6:10:113::9)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ZJPFEFHh"
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-66825847b2cso5273264d50.3
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 20:33:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784691233; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Yo1aKfoWn0fWq/UDRK8EjX/cOQhnsb2qp5l3wNodFuWQo+HrSH1jcWb8UzgIOoWqzf
+         DmY7ZIzObCmqGHwq3DucxFijyF4aLG8kcEnODcwVN5RmnANEU3wDdIObITwi8yR7BeI6
+         HPznRU2k35dr4tQqe6HpL4w31nQnWP8rPEFbJnhlVIF00r1R6eqlaP1filo7dKcfU23Y
+         LifzBE5XPxV9HKNNIjwFFaCuOu8gTmrmYs6lH7UEYXC/1OaxtYdpsxyih6FOyRfLn9fW
+         3qmA731REEVGbEkmBxBcuIGo8U4xpNHpOFcYNeJPaYTmq9OJiZqvQvrUn2fTmO6ShUdq
+         xwpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9KcR04mJabpHychs/QIME5IF7elu7nLc7+YdcFBgs0g=;
+        fh=l2+MNph+OFKkCGL72M02+G3RyGK2aMgxg6pLswp3wjA=;
+        b=Uc8LuVLpjhbhFNVywAXtD2lA+nxFtV+c99uqcbg9pdR47ATjd3unm4T34EQ5dONVjN
+         fHcXKNsus0TrT5lphQoH/Pe4zehT6+kT7Y6EZV9GUPYy8rHFQKPTF/gyZt1I/zblX+yD
+         kV6yUrogR5pD6eWxG25N1V2Eo7veBJyQhc2RIjXxVhEGpQVJxLITmbt7ZpaiBAPV5mS0
+         6fs/KDpun8q+XUjZJ8ybfex2cYPle9ECTgksNyR8mP9dFzcu0sdYmC59hSXrZhrh/Y3M
+         tL80MzsMka9aCdqKiwij2Sg9ncBYmF5iqu+Srv2eEiEDBaxFGWqZOoFB0352Zczc9iuL
+         rzag==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1784691233; x=1785296033; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9KcR04mJabpHychs/QIME5IF7elu7nLc7+YdcFBgs0g=;
+        b=ZJPFEFHhqJfG1rtQCPEJX2PSJp5vKO683uHdsZtYK7BuHvZe1ToftaK5onAL+4DnLh
+         9JCFZEQUUeqvBfesE0ZE2bTPrlW5NJQH/YtJIPbY6Ei1purp/oYrerLgSHMlG4iElUOv
+         JVr3/YZjB2H9Wl6CjC3a3ABryGYEFN7a8ovTs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784691233; x=1785296033;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9KcR04mJabpHychs/QIME5IF7elu7nLc7+YdcFBgs0g=;
+        b=kC34jduFWNXxoX0y3Q5HCQNnJCHrM1BMyjH3Wn9AFYgMwyyOTl4e9wwCY/1UcyfMDq
+         meq4r596BsgMKsuPuhPrxEb/9yLhGE+EzKH1ABiUETCpobJ+Cfw2b0HyHtf9BVPACHwo
+         f6KqXNzFCHptFFDUIW2xbeUadPJJeYv4xTn+nqeDHLRsajWc3Qtb+F3BZ62XzDq3KgZP
+         H/Uq+1byJ53qRKF232RpFshWxZH+VXCyoDzADn4cUH7Wooefrd2sArUCrbg2+KkGDaNp
+         IVHv2/T/VgJBgR7e16v6qQ9Nq/iuF80OK2tg2gMsKa5Qk1As7hxHeUveegKrb1fYh6BX
+         Yu9A==
+X-Forwarded-Encrypted: i=1; AHgh+RoDgFXjVl+GzxJ5xnIMrQQAdcyzGYyn0VA2FZTAaw8Oqv79Agjlh9QfHi9aS6AzLWMQc/97Alm+kfM2@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxtuv4Y4VCYG+0WkW/x0xgVP0rDWZwD1z0p9O8KPDJNVVy9WVLV
+	QDWFP9+ZovRGZLBZwEiGNsUJFcdkgIXe/SMdeRd+Rth6cLLj5coZ4ON+YcyvTG/qQwRowR5IZNp
+	WVT8M0NZtIkhQ2woDkbrEiL1j8A53hH4VvnHVwU0L
+X-Gm-Gg: AR+sD11sBHb41sQgOlOrwQtuq9urU32fJFXZuVKzMk9eLqLAlSlNKDtmQplSj/dSBZ8
+	t94jIeLJeKuYtHzaW8KIZT4I5+sMGlbJHUlDLLfpXVI+CKIhKI0aqUolVFa3kXFnyN8Q1a9kimq
+	ROX4TCayBTWXZR41Fb7fgvf2SRyr5KcNFHdCOChvpMdE7tWXYr4uHxO78ctLevYpFWJyeoL0/e4
+	73icnvj/KJ+ZPDcS4NAa4nXdVKbSkVQpT0w+aj/5AwmX9F00rQyqGbCdjgbMcdZHhoZ3KhqCzZ/
+	gp90zI+G80p4wRk=
+X-Received: by 2002:a05:690c:6e82:b0:80d:f376:5ba9 with SMTP id
+ 00721157ae682-81ef252e359mr66727137b3.24.1784691233300; Tue, 21 Jul 2026
+ 20:33:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB8PR04MB6858:EE_|AS8PR04MB7719:EE_
-X-MS-Office365-Filtering-Correlation-Id: af23f042-cd38-4c3c-8ded-08dee7a0a1e6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|19092799006|1800799024|23010399003|6133799003|11063799006|10067099003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	I72NP0scmLQf8tR24yOzUF4pNyCWTGNFuSXD+iLfR1MyD5ZndhgQtPC+pIfRJG4TfcKcc8o9Rwya/ltjhweKf+E9d65iGCVs2gY94IxLwjdSEM8llzyz/W7TradUX6IdreudzweHpnFBhbipRxtirD0NtovqKQE0KTTqN5YubjrJGPHkFPJWMUi9KGLqA0qcHW/lFalzcc/WH1EmgjLIshpIURtguNlqb/3fVn0e0FzLgKupzTAYnzMSnC0LaV6AY7s0Fh97fOaMbxkhsDCFfQiOAcBtuhiaORy6tdsPX1wczk2spIsTd3VnPELTWOk+D5d5CWLm6+UA7uXgoTurHZ7WQzS23RQJumEaF2hklGiGr75Blm/nSg1eSdk0bG0akhJganysry4wvdR+hATDzXK3SET2iwcEfBvZlPi+bX+CopDUYjw1i5QOPF9O+JwvYJOU6pkvJVBzcT6KQB39PjJ9hZn2PMP+RSjG4rOElDuSCmwFy0LqxLrqka9EHiHj++PgqR3IaJvBYTmtCg+ZjMLHr5IGKpa3ripv3aLEIXp2OZmHemEa+Liy8uRcy7MEXVPUQiMr8qQXNeswoIBamzTMNlzjj931lTHuHSugaIGDwJ3OJ4hYow3D8I3wcmhYOf5r/bzXd6cHF1JPXCt0heKMdpsd6qVs1fT9F+ihk3g=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR04MB6858.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(19092799006)(1800799024)(23010399003)(6133799003)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?B7OfOIxqNtAWROldEtkbCq/lUOcdNoO+QNJFQNXkE/BDsIsBvcpTphR1IDOb?=
- =?us-ascii?Q?pQpyccNno3G9hHNOuZW3w4OHA/hc1vZjQ+m0p8zLwS8dYySXex9Zuhk10jXa?=
- =?us-ascii?Q?H+0UK7K+Kvc9brcqOv8btPjqcw/9IMEYafgzgA+YR+IAbrjoJRm3UdsE5Hqo?=
- =?us-ascii?Q?cZUr9O+u1zMkKzYAw657msjOStMN+NfGIZqlc3imp+L51EDw1bObu6RSl1as?=
- =?us-ascii?Q?mVESUsmCW6311K7sD/l4sMtXIWc91Ah/I2R0CydvI4VCzwzfutETR+ZUJYA5?=
- =?us-ascii?Q?KJC8kizxHl+Z8Na5+Z0v6tjuYp2VdWy2PH1BigOFA5AYm0sizTJQOmSe8Prf?=
- =?us-ascii?Q?i7I6lRR/RiO6/sBTPc0cTkF0lTNNsbPX7b5Lgg0bZkY9Dl0To7XfTPE1ss6L?=
- =?us-ascii?Q?Xh9muVEB8Lz/E9S/LEmD5+xBWprnjGlAxj382Td8BMvB3Vf0jCBrD+gdSrwP?=
- =?us-ascii?Q?3etlpInmrLZABCPU7rbP0cGcg46rwUIPs97M5QtHQ+p94wt/ZmoXvmHQINza?=
- =?us-ascii?Q?BdctQ1o1iuIpP14ZZ7SOY7iztuiWgykeNQE6u61ErDRatJPLxEqfhXRliw9K?=
- =?us-ascii?Q?EUtZjLhwLDZCeXL1j1msEuzEbw9wcCWLUlwmsZxFkBntYsNpfdHX/7yWTgyJ?=
- =?us-ascii?Q?Sml2h2dIxWWYhAbkFJ2bVnqiKWIlWuWCnuh/rYFBcewQgfFGKR7i8sEToC3a?=
- =?us-ascii?Q?rE0h94H8sgo4ymX5215lMdENIS4XEZoUvAV7kL55h6lm+1u476lpwewqzK33?=
- =?us-ascii?Q?ZW1EkTTynyL5gyvyhwOYi10AcZsWZZVYl+IRhD/CoUrvJEjb0yPx9Giwilqw?=
- =?us-ascii?Q?XQ+ZD6tXbwMQCsiM7jOy+Hyj+gYdEYNNXe0QFNZSznQ41Clf+W1lURDgUhnZ?=
- =?us-ascii?Q?EexR4jtDtjI1lLjzf89UW8j9/VlowCWixfN06VIfxXSTgeRraK0CJKgmEx+C?=
- =?us-ascii?Q?KrbhkJ+l7mew5WUYy6Iv1h3gQgDQVGGr5rA8eHCWhxjQoRJ1/JNG6zJV1ym0?=
- =?us-ascii?Q?P96YPXMASVYjxrbAL+7jsa/PaJ9wamCSGmCyw3F/B65b+YcBsb9JPK3jTXRh?=
- =?us-ascii?Q?o23za39w8J7UjTITJejEGfvwptLQVnDDuMjU5ZtrnN2npGNGXfIGpw1edn1C?=
- =?us-ascii?Q?nleejU/KYJRjjLhs5MWODvATScVx5PoqmX0lLQ6I7sdAIHmjUPlj9PXHsP7D?=
- =?us-ascii?Q?hBf7BYY9/PXjrv2d8ootOLEH+wrYLUn0VlZzEO/sh//dHC4Xs77JI28OPlKV?=
- =?us-ascii?Q?lO1Uue6xCpXFn/+E3i8jL3kd9rvD+TWkF33c8jOk80jVLXgolpEc3k9CTs+F?=
- =?us-ascii?Q?zQ8e3GsOnnM0rlGs8j3qZsU1ANMj2/DppRa78Om2E2GjkSR2XKgmCi4SQC0I?=
- =?us-ascii?Q?K88rT0DvrLQv6RfWWCE2kdFchc34tRWcBc56yI9fAvWPgV01ySc8Ccxp1KgO?=
- =?us-ascii?Q?xIvcwEdrcmb0pevn17BBaVuXgkV98SoDMDwG55/0XdTbugczzsiuuthRSHb1?=
- =?us-ascii?Q?Bt+7xOlihFwXjfnmrjv8QCo+qGlZ3/VOfAi8UqT6/5vJAwyaEgij6OVVjYZO?=
- =?us-ascii?Q?TlX82IZK6uPYFGXYCwhvC1WxNnq63VRJCX5qsr8puHKQBKCuBUHna5KfOrZ4?=
- =?us-ascii?Q?5YRhbCJOi/PII5dVilEK3hesG7dIgOCGzApLt+THoHps56TgVxwIKz03wwvL?=
- =?us-ascii?Q?xlNL37EPuZLH7DDNlcKUayYrG5O2XgktE+rFWgQp5i5yQmTBcmBYrH2rFPU1?=
- =?us-ascii?Q?juwfMxRIp8u28EG1eeu9lPH024fkdk554T7JdPOYghrzKtnOT41d?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: af23f042-cd38-4c3c-8ded-08dee7a0a1e6
-X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB6858.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 03:23:44.2170
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +GEX6moKNOO4x8l9e5jR92PLQ1Kcy1I8Ur2/3CxCw6++kC+lCGfT88fttfBDi+2JvdO2NWzQ5nZv3/R309GY+F9IqwooiZyLwtNL0kyAjqftbDQuo1ZjOBoJ1qqp+nK+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7719
+References: <20260721075226.2347933-1-wenst@chromium.org> <20260721075226.2347933-8-wenst@chromium.org>
+ <al9JivV0SZCiOgK8@ashevche-desk.local>
+In-Reply-To: <al9JivV0SZCiOgK8@ashevche-desk.local>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Wed, 22 Jul 2026 11:33:41 +0800
+X-Gm-Features: AUfX_mxYNc8IPOzIIfv3TBCyd0Fs8lnIBTuyeRs9t7NJj3-mYtf52pIbJvj-z9A
+Message-ID: <CAGXv+5Es0RZiAdUj-Y3FEFHU4Km6XBOL-Gk2DbTLrF-OcD54cw@mail.gmail.com>
+Subject: Re: [PATCH v3 7/9] platform/chrome: of_hw_prober: Add delay for hana trackpads
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jiri Kosina <jikos@kernel.org>, 
+	Andi Shyti <andi.shyti@kernel.org>, linux-mediatek@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	chrome-platform@lists.linux.dev, linux-input@vger.kernel.org, 
+	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Zhipeng Wang <zhipeng.wang_1@nxp.com>
+On Tue, Jul 21, 2026 at 6:27=E2=80=AFPM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> On Tue, Jul 21, 2026 at 03:52:21PM +0800, Chen-Yu Tsai wrote:
+> > Up until now, the MT8173 elm/hana device tree has set the dedicated
+> > regulator supplying the trackpad as always-on, simply because the Elan
+> > driver was missing proper delays. As a result the delay for the
+> > Synaptics trackpad was also omitted, as it was not strictly required
+> > under such a model and delayed the availability of the trackpad to the
+> > user.
+> >
+> > The Elan driver recently gained proper delays after power-up, with
+> > adaptive skipping of the delay if the regulator was originally
+> > on. The I2C HID driver and I2C OF component prober library gained
+> > similar adaptive delay skipping. The device tree will be fixed to have
+> > the regulator not be always on, and proper post-power-on delay time
+> > added to the I2C HID device.
+> >
+> > Also add the post-power-on delay to the ChromeOS OF component prober,
+> > so that if the regulator is off at the time of probing, the prober know=
+s
+> > to wait for the hardware to initialize.
+>
+> ...
+>
+> > +++ b/drivers/platform/chrome/chromeos_of_hw_prober.c
+>
+> >               /*
+> >                * ELAN trackpad needs 2 ms for H/W init and 100 ms for F=
+/W init.
+> >                * Synaptics trackpad needs 100 ms.
+> > -              * However, the regulator is set to "always-on", presumab=
+ly to
+> > -              * avoid this delay. The ELAN driver is also missing dela=
+ys.
+> >                */
+> > -             .post_power_on_delay_ms =3D 0,
+> > +             .post_power_on_delay_ms =3D 110,
+>
+> This and the other delay in the previous patches are all HW-related. What=
+ if
+> another touchpad gets connected? I mean that the delays for the certain H=
+W
+> should not affect other possible devices connected to the platform.
 
-Convert CONFIG_IMX_SCU_PD from bool to tristate to allow building as a
-loadable module. This is needed on Android devices using the Generic
-Kernel Image (GKI), where SoC-specific drivers must be built as modules
-rather than built into the core kernel image.
+This is a complete laptop, not a development board. You can't just randomly
+swap out the trackpad. The model AFAIK is no longer in production, and we
+have already added all possible configurations to the device tree. And
+there's no extra connector or pin header to attach additional peripherals.
+If someone hacks their own device to swap out a trackpad, then handling
+the additional bring-up should fall on them.
 
-For i.MX8Q devices running Android with a GKI kernel, the SCU power
-domain driver must be loadable. Without tristate support, power domains
-cannot be properly initialized, preventing these systems from
-functioning under GKI.
+If you are referring to the delay for the other trackpad option, that is
+100 ms, and is described in the device tree. See patch 8 of this series.
 
-Add MODULE_DEVICE_TABLE() for OF-based module autoloading. Only
-module_init() is provided without a corresponding module_exit(),
-because the SCU power domain provider is a system-level resource that
-cannot be safely removed at runtime.
+Any other device with different delay requirements should have its own
+entry, not reuse this one. The information in the entry is tightly
+coupled to the device tree anyway. I already corrected the other device
+that incorrectly reused this entry [1]. We have some additional offenders
+downstream, but nothing that can't be corrected in the same manner.
 
-Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
----
- drivers/pmdomain/imx/Kconfig  | 2 +-
- drivers/pmdomain/imx/scu-pd.c | 8 +++++++-
- 2 files changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pmdomain/imx/Kconfig b/drivers/pmdomain/imx/Kconfig
-index 00203615c65e..472e9dec6bd4 100644
---- a/drivers/pmdomain/imx/Kconfig
-+++ b/drivers/pmdomain/imx/Kconfig
-@@ -21,7 +21,7 @@ config IMX9_BLK_CTRL
- 	depends on PM_GENERIC_DOMAINS
- 
- config IMX_SCU_PD
--	bool "IMX SCU Power Domain driver"
-+	tristate "IMX SCU Power Domain driver"
- 	depends on IMX_SCU
- 	help
- 	  The System Controller Firmware (SCFW) based power domain driver.
-diff --git a/drivers/pmdomain/imx/scu-pd.c b/drivers/pmdomain/imx/scu-pd.c
-index 3ec33667a308..24353e203491 100644
---- a/drivers/pmdomain/imx/scu-pd.c
-+++ b/drivers/pmdomain/imx/scu-pd.c
-@@ -531,6 +531,7 @@ static const struct of_device_id imx_sc_pd_match[] = {
- 	{ .compatible = "fsl,scu-pd", &imx8qxp_scu_pd},
- 	{ /* sentinel */ }
- };
-+MODULE_DEVICE_TABLE(of, imx_sc_pd_match);
- 
- static struct platform_driver imx_sc_pd_driver = {
- 	.driver = {
-@@ -540,7 +541,12 @@ static struct platform_driver imx_sc_pd_driver = {
- 	},
- 	.probe = imx_sc_pd_probe,
- };
--builtin_platform_driver(imx_sc_pd_driver);
-+
-+static int __init imx_sc_pd_driver_init(void)
-+{
-+	return platform_driver_register(&imx_sc_pd_driver);
-+}
-+module_init(imx_sc_pd_driver_init);
- 
- MODULE_AUTHOR("Dong Aisheng <aisheng.dong@nxp.com>");
- MODULE_DESCRIPTION("IMX SCU Power Domain driver");
--- 
-2.34.1
+ChenYu
 
+[1] https://lore.kernel.org/all/20260625060859.1020483-1-wenst@chromium.org=
+/
