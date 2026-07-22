@@ -1,130 +1,125 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83BC844AB94;
-	Wed, 22 Jul 2026 10:00:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC0B47D94F
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 10:01:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784714431; cv=none; b=fhu1YitXk9EmhMTJJ4kBG6DBzInvdlojdbZv5ukArccQJEMe5E2wQqlUIpAo4WKyXBp/HYY5NWuiwYC+GZx0L3PH/bG1XV4rTsypxxL7BAjjR6bQWrMimiPxmmqRdLjQeXCGCs9/9ETbEsoflSLQVf3zuvTEzuYIllh0NR2TTEY=
+	t=1784714500; cv=none; b=lKpTqWZzMXyc5J/9svdu27hmYOzzfwPotdE1hkz+ZY78EGfYI5C1pXxgFpMR1xkotrodCqow9A8Pt/MW46bPsreHwML+lUImIwgh4BJjjnCy3yguRIw7IO5UsvB9F9OHRdKveft9pJ2mneg0U+YqgZdx8I5MHGCGzspEwVtuox4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784714431; c=relaxed/simple;
-	bh=H2E5SAYDZsN9P+pHCklo95G8JwQNxDI1MtwfO2yckiM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=W1mrOnToM2YNB2qu2QJFp+IGyplhsUgaOo2ra7HmYM3h6TIPSKTS25HAcB6qlNRFk2gcWFWic0dC7NRYUOy8p1dWSo5UD9zQNE2smDzf2Ghqn5FJcCCzb5+aBzeeZZiJFE4w/3WRqWj6Hbe60XqGOIFvNPejqcjl4Ue1p205tP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=AwgZpszx; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1784714500; c=relaxed/simple;
+	bh=o0+tRGXRE9c/ofvDyjxsf0aS5Jk19HS0ChCpoqh6TR4=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rlU173y58lMwAst7/611qQG4mpyip0bSJgHh72ZyQjib/gQs7K7J/C1SmxftVi6KB97IRePUUNWtCuvW+up7Gy7a1TSA5x9xl46b0fW+qqLyWNws/zkRTjgEe7NDwPJl9PQYY1aqY9wRyZbADQbv9/RIL+BauaCJZNtcjsNu+Rc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fmvu7cye; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="AwgZpszx"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=sWDWsM9TBRItqToA/efliUD8bssiJSLzstCW4+0QWoE=; b=AwgZpszx5epBC4Iy5r0MfWV7nm
-	NqsefgU0PQJF7xw8wCPw9mDwW1avyoqiCPDSl6Byd4DUNYl7/auQYEpedEmoTNniJ4vIcqfbzfW29
-	Lzc0U9RmTHeJMvLoxb8mwDTiPo/rB0aTGIJNYUn6rENStzqvpNln1B2NHIkaWZ2ahkiZWlxIKv8FQ
-	cuoa2tlp+gFkdkBakUUi83prtZEI5g6vFAKypdM4XkE4/urMmDKIGrZ9RcG+cU+Ri78pFlzb7znC7
-	Mu5ZiDTPI9jepe3KCqBwVSIPvuZhee94BeM2P9byVXTXOd5HJPMmJcqDAFL/5qMMo+zq24XI+OAsE
-	ah9a+nPQ==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, nicolas.dufresne@collabora.com,
- Jiaxing Hu <gahing@gahingwoo.com>
-Cc: ezequiel@vanguardiasur.com.ar, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jiaxing Hu <gahing@gahingwoo.com>
-Subject:
- Re: [RFC PATCH 2/3] media: rockchip: add VEPU510 H.264 encoder driver for
- RK3576
-Date: Wed, 22 Jul 2026 12:00:16 +0200
-Message-ID: <3096814.BaHzMo0RvP@diego>
-In-Reply-To: <20260722073417.2064667-3-gahing@gahingwoo.com>
-References:
- <20260722073417.2064667-1-gahing@gahingwoo.com>
- <20260722073417.2064667-3-gahing@gahingwoo.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fmvu7cye"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 150B31F01559
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 10:01:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784714495;
+	bh=7egaasjyS8ZJi5/A+1wWirXvHFkWLfG+x6Fwihwtfek=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=fmvu7cyex6PSZOKU92j1PBbDR9fWWe15jgJUpmG2UHufwrvwv+d/U+oGd4XWvgW/C
+	 pbYo6eEbBoCaEAi0TC4VtOfc8Z1vzIHsHGbgJJtV+jUAi1ul3P65JlpNBWzwi4nLGs
+	 WgreYoE0pE2QtPyJB/d12TMtcCgm+WqlGY+JvbcAkJC4KUNGFOHkUBKveMCVPkkTPH
+	 lD5jLZcegvZT3ZPlM/SC6IYJWKBohzS57msKpnNRuT2/ou+V7jp0vUrqZPKzU0Hrh4
+	 Hh5tFYIb7LG9teIbSvAsT/oLu4+C4YnkqrSGHoaMUJXZ/CoVfqbFyv8nj7uWxfN45I
+	 5SOlhYBrSIQHg==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b2a22c52c1so2730247e87.3
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 03:01:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrQDeIA8rDRgvfz9B/OXjzEEfhNMwFBpVUPTBFUBdTX5mqRrtE1zYuDVC9XCe58LM5RB9m02VfWup9w@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7qB8FFWHH1o8oMA9xPMc6jZE7crH+tZTE/2G9o4dIQFqu5B1+
+	wA4f9aY9h+eewWG2JotMb6dSmpGzvsWEyg3kJFLHrD1Zutzz5SPKXup+4WeKwVFHoZOkZ2A5vtI
+	MgBSURjtKmQ6whqRgBO60U6K97AIz2HI2AL16xIi3kA==
+X-Received: by 2002:a05:6512:4384:b0:5ae:cee7:52bf with SMTP id
+ 2adb3069b0e04-5b28f8615d2mr3888545e87.9.1784714493736; Wed, 22 Jul 2026
+ 03:01:33 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 22 Jul 2026 03:01:32 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 22 Jul 2026 03:01:32 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <c7f5d4cf-07ee-4716-bb8d-83bcd0b2f8d0@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+References: <20260714-arm-psci-system_reset2-vendor-reboots-v23-0-e7453c548c21@oss.qualcomm.com>
+ <20260714-arm-psci-system_reset2-vendor-reboots-v23-8-e7453c548c21@oss.qualcomm.com>
+ <CAMRc=McxoC6711rmXmPb9t21bBsTeBMJ3ieZ1XhyTqMLaMS-4Q@mail.gmail.com> <c7f5d4cf-07ee-4716-bb8d-83bcd0b2f8d0@oss.qualcomm.com>
+Date: Wed, 22 Jul 2026 03:01:32 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mdo=vEOUD0=U0dWu3ry7_ZqLaFz4Mwk_qv2viYQYNAq=g@mail.gmail.com>
+X-Gm-Features: AUfX_mz_52H5aVX8o5s_GYgqmkBXwWl26GDtvaXPn6ge5d65lgGY7if6PzG_jAY
+Message-ID: <CAMRc=Mdo=vEOUD0=U0dWu3ry7_ZqLaFz4Mwk_qv2viYQYNAq=g@mail.gmail.com>
+Subject: Re: [PATCH v23 08/13] mfd: core: Add firmware-node support to MFD cells
+To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Andre Draszik <andre.draszik@linaro.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, mfd@lists.linux.dev, 
+	Srinivas Kandagatla <srini@kernel.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Sebastian Reichel <sre@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Christian Loehle <christian.loehle@arm.com>, Ulf Hansson <ulfh@kernel.org>, Lee Jones <lee@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Arnd Bergmann <arnd@arndb.de>, Souvik Chakravarty <Souvik.Chakravarty@arm.com>, 
+	Andy Yan <andy.yan@rock-chips.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	John Stultz <john.stultz@linaro.org>, Moritz Fischer <moritz.fischer@ettus.com>, 
+	Sudeep Holla <sudeep.holla@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Am Mittwoch, 22. Juli 2026, 09:34:16 Mitteleurop=C3=A4ische Sommerzeit schr=
-ieb Jiaxing Hu:
-> Add a from-scratch stateful V4L2 mem2mem driver for the Rockchip RK3576
-> VEPU510 H.264 hardware video encoder (raw NV12 in, H.264 Annex-B out),
-> modelled on the verisilicon/hantro device_run()/codec_ops split rather
-> than the downstream MPP-service/task-queue model.
->=20
-> The two encoder cores (rkvenc0/rkvenc1) are exposed as two independent
-> V4L2 M2M device nodes, each driving one physical core standalone; the
-> downstream vendor CCU cross-core load-balancing is not implemented.
->=20
-> Register field semantics were worked out by trial-and-error against
-> Rockchip's own open-source userspace codec library (rockchip-linux/mpp)
-> and cross-checked against a real register-write trace of the downstream
-> vendor stack running the same encode.
->=20
-> Intra (I-frame) encoding is confirmed working on real hardware (Radxa
-> ROCK 4D): it produces valid H.264 that the reference decoders accept.
-> Inter (P-frame) encoding still hits a hardware-watchdog stall in the
-> reference-read datapath -- this is the main open question for this RFC;
-> see the cover letter for the full symptom analysis.
->=20
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+On Tue, 21 Jul 2026 14:48:46 +0200, Shivendra Pratap
+<shivendra.pratap@oss.qualcomm.com> said:
+>>
+>>> +		struct device_node *named_np;
+>>> +
+>>> +		fwnode = device_get_named_child_node(parent, cell->named_fwnode);
+>>> +		if (!fwnode) {
+>>> +			ret = -ENODEV;
+>>> +			goto fail_alias;
+>>> +		}
+>>> +
+>>> +		named_np = to_of_node(fwnode);
+>>> +		if (named_np) {
+>>> +			ret = mfd_claim_of_node_to_dev(pdev, named_np);
+>>> +			fwnode_handle_put(fwnode);
+>>> +			if (ret == -EAGAIN)
+>>> +				ret = -EBUSY;
+>>> +			if (ret)
+>>> +				goto fail_alias;
+>>> +		} else {
+>>> +			ret = mfd_claim_named_fwnode(pdev, fwnode);
+>>> +			if (ret) {
+>>> +				fwnode_handle_put(fwnode);
+>>> +				if (ret == -EAGAIN)
+>>> +					ret = -EBUSY;
+>>> +				goto fail_alias;
+>>> +			}
+>>> +			device_set_node(&pdev->dev, fwnode);
+>>> +			fwnode_handle_put(fwnode);
+>>> +		}
+>>
+>> What is the reason to have this split into OF and fwnode functions? I don't
+>> really see why you would need to do it twice, isn't fwnode sufficient for the
+>> OF node case too?
+>
+> We do a duplicate check here before adding the named_fwnode and split it
+> for two reasons:
+> 1. of_node list pre-exists. We add a new list of fwnode. of_node based
+> duplicate check go wrong, if its checked with the fwnode list.
+> 2. of_node need to go to its respective list as fwnode list, release
+> path, is different for us.
+>
 
-[...]
+I see. This could use a unification to fwnodes as well but that's out of scope
+for this series.
 
-> diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc.c b/drivers/me=
-dia/platform/rockchip/rkvenc/rkvenc.c
-> new file mode 100644
-> index 000000000..d70bcc5fb
-> --- /dev/null
-> +++ b/drivers/media/platform/rockchip/rkvenc/rkvenc.c
-> @@ -0,0 +1,892 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Rockchip VEPU510 (RK3576) hardware video encoder driver.
-> + *
-> + * Copyright (C) 2026 Jiaxing Hu <gahing@gahingwoo.com>
-> + *
-> + * Architecture notes (see also rkvenc-regs.h):
-> + *
-> + *  - This is a *stateful* V4L2 mem2mem encoder (raw NV12 in on OUTPUT,
-> + *    H.264 Annex-B out on CAPTURE) modelled on
-> + *    drivers/media/platform/verisilicon's hantro_drv.c device_run()/
-> + *    codec_ops{run,done} split, NOT on rkvdec's stateless request-API
-> + *    decoder pattern =E2=80=94 an encoder has no per-frame bitstream to=
- parse,
-> + *    so there is nothing analogous to rkvdec_run_preamble/postamble her=
-e.
-> + *
-> + *  - The vendor downstream driver (rockchip-linux/kernel,
-> + *    drivers/video/rockchip/mpp/mpp_rkvenc2.c) groups rkvenc0/rkvenc1
-> + *    under a "CCU" (rockchip,rkv-encoder-rk3576-ccu) that does pure
-> + *    software task-queue load balancing across both cores, plus an
-> + *    optional DCHS (dual-core-handshake) register protocol used only
-> + *    when *deliberately* splitting one frame's rows across both cores.
-> + *    There is no hardware descriptor/link-list engine behind it (unlike
-> + *    the decoder's CCU). v1 of this driver does not implement either:
-> + *    rkvenc0 and rkvenc1 are exposed as two independent V4L2 M2M device
-> + *    nodes, each driving one physical core standalone =E2=80=94 the same
-> + *    simplification rkvdec itself makes for multi-core VDPU hardware
-> + *    (see rkvdec_disable_multicore()).
-
-At least the comment and from a casual look also the code get this
-backwards. The idea is to explicitly _not_ expose multiple video devices.
-
-See
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/dri=
-vers/media/platform/rockchip/rkvdec/rkvdec.c#n1613
-
-Any (future) scheduling should happen inside the driver, and not get
-offloaded onto _every_ userspace application individually.
-
-
-Heiko
-
-
+Bart
