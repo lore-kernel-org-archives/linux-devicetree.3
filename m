@@ -1,158 +1,144 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6669F346E7E
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 14:04:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E232320CBE;
+	Wed, 22 Jul 2026 14:10:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784729049; cv=none; b=phYBiPDfid8/Qtm32guQUNNBTiTnEqYhlQo7N+gJ+CobxU4zUVN+dek31hTU5+HJXtrv15UJHB1vstmmzPi7kd8RkX151q1G3u9WMPeYmdyO9b3ZWY+hO+3Po+fb0QkfInnoWbcyHh5DgWk1t17z4dTZW5M/uBJMoH8qLxMXBfI=
+	t=1784729407; cv=none; b=qzkCpYg+CBhFPZZ3XTpgHu2fV1Hn/JrNyl69MRq5AuqNCb4mwkiZxRTbSt8yeKaCDHsfH5fq6cIHcauP1gnl7rGo9nths54TpdCeem6D0xvPIEzwpAfPjV0zrHDDX0e7yemVNnHh4JGHe3Uxnkm2L9MbNodT2LRQTSyjc1i0pCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784729049; c=relaxed/simple;
-	bh=vXRowRzjtjaxrwD+rji2hr2nDDh0fvUrsn1Nk+7jjc0=;
+	s=arc-20240116; t=1784729407; c=relaxed/simple;
+	bh=+UNxDf7R0fKYJyPR4rBG363ftHoOIEin6Wr6xd8h+VA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fheUQmH3ta8Srv2gRXiTxBS2ZRFspEoktw4rjOzAUY/z05gbSjWV+7y/5nliVa+pfrpLaWIyJcgw2upPxn52d/juZABSeCzXgxjzpB001UbpNnaUaYsBiFCPSxQDr3BkA0ZDGyx8jKG6E69GewlnHP/7Aat8RBJf6RZKA/Paww8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=C7+uhPs8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ye7S7/eC; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=niDqHNyq9a6EsGqIkIZIZH8Mz0373PJyUTOPxX4+VsPGVd9opQ71CgZTnwDmVSX//uksAiq2oVmSxIENK4rixZQYzBHRyQJuSFRFDS4ghl95VQ0TVlGtCFzkULjh7t5voJwcvDmowwHoOnyxQWCfXW4VH5P4LaVDazv2rxfLywA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FBKZJysH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="C7+uhPs8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ye7S7/eC"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66MDWit8860766
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 14:04:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=jRWoVSO4ykvp/ib+Cr2av0mo
-	9ut/H+oT06MlZHe2x9o=; b=C7+uhPs8U4bTkQ5F+4B4PNYp4shC6tF+Jc3mFOfV
-	skKHC87TgKJSHWYnD0BCLZa/hXViOh9r5Erjr5UD8/MmoXPpYWgkTcKAfgZ+Rgzv
-	q68qu6HMMSEmmxH6YDjt3uDjMNWkpSEMlNzNNu1En7loPQr3N9GEmHe9l0Wd5RzZ
-	eVhSHtGq3vKqzzzprglO+TruUsEPAw/YVc5NU7/SYrPoMNLV80391ylgaqngWJnY
-	OGNymrbsGMSPo26Yz7qQzBoWLu0mkIoV/323zWhV3CHxOBViMd0C9AF22V9YKnta
-	Gp+jmb4Pt3K7qxKWk/+ou21nWNU8aloLukigNNj8bg9rjg==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjntn2gdy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 14:04:07 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-9771c8f5045so3191245241.3
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 07:04:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784729046; x=1785333846; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jRWoVSO4ykvp/ib+Cr2av0mo9ut/H+oT06MlZHe2x9o=;
-        b=Ye7S7/eCwHCKP4kPuLMYFODk0zMHWKvfZRs84/3X+xEYVjn8zqMKiQOiXKI8UymqAw
-         RPdtXqgSh4wWBB3f3MeqSVn1Ng//UCMeTYH+n1uXwiiUCuWhotNQP9EYpo55ngS8bnEi
-         DxziBaRmhu/SrFvnrSRQpJucsQ7saPekIUmzWcdqOLCywPpa/iqMsdII4hgha3JKUbbR
-         SiW27Ai4Hxj1nMb0mpJprdH40/xgAWqBU2r2n9szi6ceZUMP4FVtlXx3L2tAtLba2nvP
-         EDdL5+qm0gr7snQ2zd94pZHGRkHjxP9bOhtCPNOeYzhOHVLJy2/yH4Vgt8chDc1OuF+1
-         xyag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784729046; x=1785333846;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jRWoVSO4ykvp/ib+Cr2av0mo9ut/H+oT06MlZHe2x9o=;
-        b=PY5uokw62V7L7DYLBuR9vQvf381Z2t2Cr8IJzIA6mt4x13M66tKNqUFgNpnK2JxOkp
-         XZ7Vw48k8mbVpstoN1UZRNU/lBxoptTleupFhp3UudU8osK+CZrQ98gYqudho1IfSNzq
-         A2ClDx9Sgw7PkB86IAKPRsqnTnEDve9bj341kP6TsAzREDC2FD5FzsF7AufrBAa/0lPv
-         0WatKy2dmoFZfzdL73VIKVpiLjoWoIzUPV1AtviyOECo6aqAEOGKcYBj8tdrQyL5uJ4f
-         yGJtdCyQTlBxRuTmd+OqaVWfqmMdE6biCxAbTU3QMjSzczyMgMSyfNtp/JEB/rx8h67b
-         wNKA==
-X-Forwarded-Encrypted: i=1; AHgh+Rrw7Qb1IMiiJTKbaoreZIA42jIiifMFRY0VO+XisXOoKHAJu1nDI8We+C/0f8FlUuHPNjMhONiDEb6Q@vger.kernel.org
-X-Gm-Message-State: AOJu0YzHwCSpQfCPkTnOjAFJ5TpI4onDXq/exlNQHDrL/ZszXFuME9vi
-	JlICguxs8Rwubn0PD+M1ht6QQoaSCgWhoB9/kgoE1jgSkEBy3y/EBoXSegUD6CTXu0CXRgN3wIF
-	ROtVWaceQFSS0Wq7B0gqlcSkRt8zMmXEwNssvF764wsCIxYZcKB5uIZC6Hf45UGMoiERizbN3
-X-Gm-Gg: AR+sD129WJWzs9v4aSN22jdLokvRlO5JzpxkxMXv/fyuP19ohSWL8cKvcTBVqtwU8wB
-	P36y4RdMjBTVrv6pmSp0uI4BSAnxulKrUjdJMsoP2AtshfTCzOzst3VQBTXDf4l//CPS+fvHGsK
-	25Oz6cdhgtYu/W8Rb4W4VIkxkdvraFVMTez7o5ti0/dS6TuinNSNYtdWQk5tngTQCuWuecnF/VM
-	5H1ZpkRkYbfDC65CXplo2PGXUVw8xsQ65GGomMIJkd/tmKrwOYPv0h69hnpp0ixPOw5lizBM3xZ
-	tvl0lpNxWGMYjzo19uE3CFsLhR+N1UDvA52iQx1eP+k/xKarRLGL24qVaKt6/k1b5bmLrIX8VbQ
-	991nGro8bn5vMEfPkKm6+QlS6xJ3VeFh36TuBX7Xs1hBd5KrJh/hvNHIu0DYRe2AVIYx18HvdYF
-	U9kWhHGlDjsy498A==
-X-Received: by 2002:a05:6102:6a81:b0:738:a8a5:4c89 with SMTP id ada2fe7eead31-747536cc599mr8709178137.18.1784729046596;
-        Wed, 22 Jul 2026 07:04:06 -0700 (PDT)
-X-Received: by 2002:a05:6102:6a81:b0:738:a8a5:4c89 with SMTP id ada2fe7eead31-747536cc599mr8709058137.18.1784729043791;
-        Wed, 22 Jul 2026 07:04:03 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39ef6c41f9esm4375821fa.26.2026.07.22.07.04.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 07:04:02 -0700 (PDT)
-Date: Wed, 22 Jul 2026 17:04:00 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
-Subject: Re: [PATCH 0/2] qcom_battmgr: Add batteryless DC-adapter MAINS
- support
-Message-ID: <aimahyy7gnnw44pdedtt5xovq7nqw236fb6hwsm2fqjzagmcm2@7767eiubcdz2>
-References: <56a54a34-1040-44ae-92e2-ce65a3d3acb5@oss.qualcomm.com>
- <20260519065938.4i5wot72pfxy4m3d@hu-kotarake-hyd.qualcomm.com>
- <ag-NLvh4ROgTCs_L@baldur>
- <d4001407-cdb0-48ee-a138-87c94b5dab01@oss.qualcomm.com>
- <20260702111737.2qtjcfskulav4usd@hu-kotarake-hyd.qualcomm.com>
- <5d5c693b-bd07-40a4-aea5-d9e1884aac50@kernel.org>
- <20260703091319.5kcsqjtx4e4rshsy@hu-kotarake-hyd.qualcomm.com>
- <7c7ab43f-45c0-48bc-921a-8820408c88c9@kernel.org>
- <20260716084850.gssw67izy6vq36tg@hu-kotarake-hyd.qualcomm.com>
- <alltBcYWULOv7nEv@baldur>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FBKZJysH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DE471F000E9;
+	Wed, 22 Jul 2026 14:10:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784729405;
+	bh=GKC9UuiVWxD/MFzLYjOHg83pmVBtg7m7d81lYjsbO4o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FBKZJysHWtyygCrX8kFOgyhfU6JsT4+b8mD57jr1fEBBFHnR1CwvpG9Dej2mjrENQ
+	 TD2HffbkHINJ4F9QFThkAws/a93D69vf8qsp+1OFudLsj9/kL1mJsRgPeyQjm4FNty
+	 h1TIfz/RZoQNSICrYttVQTabtwHH8B9UGM2X/Melqh+gCZzVBOsZ0Wn67GIX53qKB2
+	 dh6yUEVATyElmTWiwdAmoVWfbQ7HOhQzROthiI+RxeDfpcP++ZFV7dKiEyGHlhyvfC
+	 UdZx13hKoS56mTpYZ3zXrgVeE/Bo7Tijz7toMzQkCII+LvDK7l7bx8vC7xqnVZkc7K
+	 pLl2PMKBLjOaw==
+Date: Wed, 22 Jul 2026 09:10:04 -0500
+From: Rob Herring <robh@kernel.org>
+To: Doug Anderson <dianders@chromium.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
+	Joonwon Kang <joonwonkang@google.com>,
+	Subhash Jadavani <sjadavani@google.com>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Lucas Wei <lucaswei@google.com>,
+	Brian Norris <briannorris@chromium.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-samsung-soc@vger.kernel.org
+Subject: Re: [PATCH 6/7] dt-bindings: mailbox: goog-mba: Add goog-mba mailbox
+ bindings
+Message-ID: <20260722141004.GB548057-robh@kernel.org>
+References: <20260714222338.2965707-1-dianders@chromium.org>
+ <20260714152138.6.Ia186a29119b4b5c409815b755e0c2c3965b0495f@changeid>
+ <8e3025c5-16a0-40d7-affa-098ca37699c7@kernel.org>
+ <CAD=FV=Vrd9AxO-NY_CP2h+f21qt4uGY2pOoFgacV+G5bnfd32Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <alltBcYWULOv7nEv@baldur>
-X-Authority-Analysis: v=2.4 cv=AJsSZ1gA c=1 sm=1 tr=0 ts=6a60cdd7 cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=Hma63FIqJW4f3ALk-BsA:9
- a=CjuIK1q_8ugA:10 a=TOPH6uDL9cOC6tEoww4z:22
-X-Proofpoint-GUID: PvG8yZOXP-AO83HweETCa9UoKUrKzVYc
-X-Proofpoint-ORIG-GUID: PvG8yZOXP-AO83HweETCa9UoKUrKzVYc
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDEzNyBTYWx0ZWRfX2XD6Aw788B9Y
- CrqrhxOc68eWSMiTLkJu6dAm/NV9Mu+rbiYOdzdCsSveTlbJQCm8a3eYvLehHcndv6xdDPpcSt2
- SJLf1cJuuHIL3Z9DJZe+O38zeQdTozs=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDEzNyBTYWx0ZWRfXwlUNhOZ/bOe5
- +3G/S/1iSamq/em/JTzCp26gNlAdCNbqkMJ6oZwPvszt+MRBJ0RteNp55LRNyJdyewaj2Pj8yw0
- cUwczEzmc6Hqilil0jp15azZ7bOGtceLs74vKqHwYlBN7OaEn2G4AWEKTlXZP9SDtWZ0fSoTjP0
- QWZTSS5oRKOkVrmuPX+cRGHBxXE2iMPJs5nM0Bar2EubHiDcYcJYg7kymCG2K2cCKr5avTPdZJK
- pmVx+mR9PajHA0GVHQSiAzLlAkDwpRVZF7CRP80oMt26TSEygLR25YKwWHF3cT4smwuwOoYTJHv
- +aMCrEJqgwTKykvBza/Tb3Q856jH8PQIc0Jkr8gfk2YqwWiR3oUuJz4zT/o5UDIHAoX3F4buITI
- PYb26NAlIBcqoKSAiGuxEFPRYnLkKazbcsCVJW1l7GX0veXF3D7HStkrkd3ZJBEwEMfOtsksfK+
- 6q/iI5J6FE8CPXO0RNA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-22_04,2026-07-22_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
- bulkscore=0 adultscore=0 priorityscore=1501 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220137
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD=FV=Vrd9AxO-NY_CP2h+f21qt4uGY2pOoFgacV+G5bnfd32Q@mail.gmail.com>
 
-On Thu, Jul 16, 2026 at 06:54:36PM -0500, Bjorn Andersson wrote:
-> On Thu, Jul 16, 2026 at 02:18:50PM +0530, Rakesh Kota wrote:
+On Wed, Jul 15, 2026 at 09:49:14AM -0700, Doug Anderson wrote:
+> Hi,
 > 
-> I think this is similar to if we had a discrete charger block that we
-> describe in DeviceTree, we would somehow have to describe the
-> "configuration" of that component.
+> On Tue, Jul 14, 2026 at 9:51 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> >
+> > On 15/07/2026 00:21, Douglas Anderson wrote:
+> > > Introduce bindings for the MailBox Array IP block present in Laguna
+> > > SoCs (AKA "lga", AKA "Google Tensor G5").
+> > >
+> > > Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> > > ---
+> > >
+> > >  .../bindings/mailbox/google,mba.yaml          | 216 ++++++++++++++++++
+> >
+> > Filename must match compatible.
 > 
-> But I don't think you considered those other use cases. Perhaps this
-> should be an optional qcom,battmgr-interfaces = "ac", "usb" ...; taking
-> the list of interfaces that is actually implemented.
+> Whoops! Will fix in v2.
+> 
+> 
+> > > +properties:
+> > > +  compatible:
+> > > +    items:
+> > > +      - enum:
+> > > +          - google,lga-mailbox-array
+> > > +      - const: google,mailbox-array
+> >
+> > Don't use generic fallback. Just the SoCs.
+> 
+> Sure, if you insist.
+> 
+> In general the "mba" hardware is designed with enough identification
+> registers that we should be able to autodetect which variant we're on.
+> Thus, my hope is to not ever need to reference the SoC-specific
+> variant in the driver itself. It's not the end of the world to use the
+> "google,lga-mailbox-array" as the generic, I guess...
+> 
+> I don't suppose I can change your mind here? If we take
+> "google,lga-mailbox-array" as the generic, then going foward a few
+> generations we end up with:
+> 
+> properties:
+>   compatible:
+>     oneOf:
+>       - const: google,lga-mailbox-array
+>       - items:
+>           - enum:
+>               - google,next-mailbox-array
+>               - google,nextnext-mailbox-array
+>               - google,another-mailbox-array
+>           - const: google,lga-mailbox-array
+> 
+> If we keep "google,mailbox-array" as the generic, then going forward a
+> few generations we end up with this, which seems nicer / less
+> confusing:
+> 
+> properties:
+>   compatible:
+>     items:
+>       - enum:
+>           - google,lga-mailbox-array
+>           - google,next-mailbox-array
+>           - google,nextnext-mailbox-array
+>           - google,another-mailbox-array
+>       - const: google,mailbox-array
 
-I like this idea.
+I find 4 strings nicer than 5 strings.
 
--- 
-With best wishes
-Dmitry
+> Sure, it means that if someone unexpectedly makes a new Google
+> mailbox-array that's totally incompatible then the
+> "google,mailbox-array" sounds too generic, but that doesn't feel like
+> the end of the world. You could call the new mailbox array designed in
+> the year 2037 the "google,2037-mailbox-array" and things would overall
+> be less confusing than using the "google,lga-mailbox-array" as the
+> generic.
+
+What exactly do we need to do to stop having this conversation? We've 
+done this scheme and version numbers and it never ends well.
+
+The reality is the h/w folks can't help themselves from changing things, 
+so nothing remains unchanged for very many generations.
+
+Rob
