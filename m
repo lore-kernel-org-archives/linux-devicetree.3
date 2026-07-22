@@ -1,114 +1,61 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF1D395ACD
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 15:24:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A1FB3A48E3;
+	Wed, 22 Jul 2026 15:27:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784733882; cv=none; b=KX/TACfY2f+mBAhnvlKvxh5KZlfCiQTV/tDt+WBMnqg4Gq2kadvSoWfzj+2leZafBlrLAjIeqALP2e1vMxb1YhF5x1PSutnvG1p6fzLNRUqJIgdd6ft4ZSetMd/DLF0awYvA7sY9l02fmDt8LZJ27ngK7QrDvMA1vLkF80nsmBk=
+	t=1784734025; cv=none; b=D3qAL5iM6mCbAHfz67xN3dITzNjKfEyH0HZIZphajjCQhFzInoFAWSuVlxqPIMUQEjo+I8Eo/ZNWSAnM5lAduEjMfp7ProlkXHh6Zatw6ChpYxICzn5mp9VLFl2CitB4Msh11KOPEjsY0VPCnYF3mEqihKBElbeE51uo0ar4RHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784733882; c=relaxed/simple;
-	bh=lqiL36C01/QYgT3gCwon9tYjTfcrYpXJvRamj9Tf0NQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sKl05U/mKqADOYFAphOHG6zafVrGAu7ZOjs7prve3V+OgBKQ4yYDLl3tJTN8qFmCxQVX9A4w0h+qZ1QntIIUpRrf3lOpHhLj/OPS+fVWriqrgIddMczO5MjTtbSfUYMqORJJW030kBeEQmKg+UrHlvSAN6OqtqJnJevIICWb7w0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lmUwc+wc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784734025; c=relaxed/simple;
+	bh=O3tyYzx5FdZ+iMHQcuQzMAgTrDyCaJT/z42fO0EuaRw=;
+	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Pax1IZU8gCaglD5NGhOd/QSiwjGaZSOWhLdzuUCrWVFVtA0zQO7FISUiRpEwjwB2T2OXVWJtrFYZ0ZwTba/1gxP6T6g/UODvRzxNvmAxiQ9/CSkzRdQ3c2v6C4tj+y6i76KQK/hdeQJNLYSJ/TsPHI9pm7+VdXr2YkDyr/eATnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=lnCHSx6R; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lmUwc+wc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7DBE1F000E9;
-	Wed, 22 Jul 2026 15:24:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784733875;
-	bh=Pc/X00kQSQNMQLZoJEyEus+KiFnn4vcrihZN7AOeyuo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lmUwc+wcfuD+kfMPFNJwLxI5VWLF2TKjISBUTydwKTSJfFRNVTUE48A7xvtoIopoj
-	 uNR3/L+OW8qN7zOYlGn9vmEIw3FIzDf4NSlOovBauIg7ln7GNVPFBfMzIDumqkWHj5
-	 7w1/F95BYhSPgbk2tXyMEfjfk9yk23lDVv0QFT8erOnR7BlqyiDTHpnZpzGIba5KNj
-	 SyhHPmM9NScCw251YcFp2Oc25iDBl5TwVt9fd8Jd9c5CSZr62qQu1+tu8iRjpY0iKu
-	 qWTEhm/rcdvY1ziS+gFMBNYCsPKZRqksV9wp4HuH+QOI/mj7sg2icLEaX0f4GrvCE3
-	 AvqW6QnB+XSvg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] ARM: dts: aspeed-g6: add pcie-kcs4
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?R3LDqWdvaXJlIExheWV0?= <gregoire.layet@9elements.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <0b97a66762efc05c9073c14112cc489624871947.1784732161.git.gregoire.layet@9elements.com>
-References: <cover.1784732161.git.gregoire.layet@9elements.com>
- <0b97a66762efc05c9073c14112cc489624871947.1784732161.git.gregoire.layet@9elements.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 15:24:34 +0000
-Message-Id: <20260722152434.C7DBE1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="lnCHSx6R"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1784734017;
+	bh=waIuGDxzOof05Vhn6AjjPmoLjfrUS90zPIn5MbLu1PU=;
+	h=From:To:In-Reply-To:References:Subject:Date;
+	b=lnCHSx6RJJJ/FNMGq6GCjXdFeUZFW9bzPLhcrXaf5K21B+BxKMAc1VUoJZDPvHn4k
+	 h1Jf/kBPDawh3n2oXk1KvNNcbm9jpVHPqgdUkEwuql1s0xJijctTgmaKLYTTeJYnWt
+	 B50j4tPhWLJanhtinsmYfKbnEORudQRL0bhPj9EjmnN5RAYpMqmcYNhnrmt3fUAioe
+	 abqR6ClYwXtG2v+/kG+F/lgKCt6uEdOl8xVs4Uz85OCbIG62qf+8ECUSXH100tR/nI
+	 y4/Rnt5hqxKKPLLgyBEUEjbBiIGr0zZCH6CF7Oc3qafgnmGM/bX0VwyDK/2m4D/TSX
+	 4f/yIhcWArxgw==
+Received: from [127.0.1.1] (unknown [180.150.112.11])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 715DA656B7;
+	Wed, 22 Jul 2026 23:26:57 +0800 (AWST)
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260706180307.635369-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260706180307.635369-2-krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2] ARM: dts: aspeed: Correct indentation
+Message-Id: <178473401740.1970914.2575839372513973839.b4-ty@b4>
+Date: Thu, 23 Jul 2026 00:56:57 +0930
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Upstream IRQs will not be triggered for the new pcie_kcs4 channel =
-because PCIE_LPC_ODR4 is omitted from the ODR check in aspeed_kcs_outb().
---
+On Mon, 06 Jul 2026 20:03:08 +0200, Krzysztof Kozlowski wrote:
+> Correct spaces or mix of tabs+spaces into proper tab-indented lines.
+> No functional impact (same DTB).
 
---- Patch [2]: [PATCH v2 2/2] ARM: dts: aspeed-g6: add pcie-kcs4 ---
-commit ad67c996a0b89123187ac23dc1115c5dc8b37472
-Author: Gr=C3=A9goire Layet <gregoire.layet@9elements.com>
+Thanks, I've applied this to the BMC tree.
 
-ARM: dts: aspeed-g6: add pcie-kcs4
+-- 
+Andrew Jeffery <andrew@codeconstruct.com.au>
 
-This commit adds the pcie_kcs4 node to the LPC bus in the AST2600 G6 common
-device tree. It enables a KCS-compatible interface exposed over PCIe for
-host IPMI communication.
-
-> diff --git a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi b/arch/arm/boot/dts/=
-aspeed/aspeed-g6.dtsi
-> index 56bb3b0444f7e..a93fa4cf5d8ff 100644
-> --- a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-> +++ b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-> @@ -617,6 +617,13 @@ kcs4: kcs@114 {
->  					status =3D "disabled";
->  				};
-> =20
-> +				pcie_kcs4: kcs@914 {
-> +					compatible =3D "aspeed,ast2600-kcs-bmc";
-> +					reg =3D <0x914 0x1>, <0x918 0x1>, <0x91c 0x1>;
-> +					interrupts =3D <GIC_SPI 177 IRQ_TYPE_LEVEL_HIGH>;
-> +					status =3D "disabled";
-> +				};
-
-[Severity: High]
-Will the upstream IRQs be triggered for this new pcie_kcs4 channel?
-
-Looking at aspeed_kcs_outb() in drivers/char/ipmi/kcs_bmc_aspeed.c, it
-verifies the write targets an ODR register using a switch statement, but
-PCIE_LPC_ODR4 is omitted:
-
-drivers/char/ipmi/kcs_bmc_aspeed.c:aspeed_kcs_outb() {
-        ...
-        switch (reg) {
-        case LPC_ODR1:
-        case LPC_ODR2:
-        case LPC_ODR3:
-        case LPC_ODR4:
-                break;
-        default:
-                return;
-        }
-        ...
-}
-
-Since PCIE_LPC_ODR4 falls into the default case, it returns early and skips
-the subsequent IRQ generation logic entirely when the BMC responds to an
-IPMI request over this new channel.=20
-
-Does the driver need to be updated to handle PCIE_LPC_ODR4 before this
-channel can function correctly?
-
-> +
->  				lpc_ctrl: lpc-ctrl@80 {
->  					compatible =3D "aspeed,ast2600-lpc-ctrl";
->  					reg =3D <0x80 0x80>;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784732161.gi=
-t.gregoire.layet@9elements.com?part=3D2
