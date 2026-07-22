@@ -1,109 +1,145 @@
-Received: from mail-m155104.qiye.163.com (mail-m155104.qiye.163.com [101.71.155.104])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF4E367B9F;
-	Wed, 22 Jul 2026 08:14:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.104
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8D7047011A
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 08:14:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784708091; cv=none; b=UmjlWPyG4ofHeJfPz1TIJfGe5/LG1kQCKNGUt75fi+8qeHhAwGiLnQqFwfkTmEObxbe0bYixELHXTMOMVKXaJPooeecYjY0Jf4ZYj1m/JXQquWnzorkO4s7R3G1iLGnRP6nUicx9ZDC4CMqcBiZgONlJbAQvEc4S2x8OtZIrA/E=
+	t=1784708095; cv=none; b=AdzSmGY+vOkj29pFhS0paGi0DittdyUa59jNC4KuwzLiJBfNRM9H79sTWKDJVN47b8Zt0j5Bac5Z/h0QFRycODC2aBHvDnjvpa3H3BvCyj3XdeyDAx/KdaSnzyNeVKQQvwl/ph437cJm3Rz2tqwUgj7trIi91lJiLAUuLGg/kKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784708091; c=relaxed/simple;
-	bh=H2jYEbDE6zMb0RGciZdnuLVAPpnxh4KM3390+TUx0sE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VKcGVGCUgk8spEi8HXxZvovMWDA3SszxAefkM43iG72oO/tOjZ8L/Nfa0KYtVTVx1vh8NSwaAvnUB6rjsVXVkf0Xjv98NjRiTCT7Fj3ULUl9wro3IGiyz1yKqxgRkoXQ/JfAkwVHTbwCWxosuErMFb/A1L5YrXk9Mug5OessLes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=UUimcXcZ; arc=none smtp.client-ip=101.71.155.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	s=arc-20240116; t=1784708095; c=relaxed/simple;
+	bh=6ruzaw4/NLpAiWcGLK5jUWcgDxS/b8PgRi+qyrmnPW0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Nc/ToanxLeQ1FsXg0sC4Y9yrAmOSlz+Z37m0ok/OD0fkwybWfMKNWCSbAaOm415j7V4nOk0i56h4bZEL7amTIX5yZp99yCY35l/pv0Abqtq+R2mbYu/pgGfFAMH6+8Xe7VYEZoGjPnmG5+FQV1UBl64am6Z4oAtQjyfD47+bE6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UFI0kwAn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="UUimcXcZ"
-Received: from tsdl-HP-EliteDesk-880-G6-Tower-PC.. (unknown [36.129.139.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 471eb5888;
-	Wed, 22 Jul 2026 14:58:56 +0800 (GMT+08:00)
-From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-To: konrad.dybcio@oss.qualcomm.com
-Cc: andersson@kernel.org,
-	broonie@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	dmitry.baryshkov@oss.qualcomm.com,
-	drake@endlessm.com,
-	hongyang.zhao@thundersoft.com,
-	katsuhiro@katsuster.net,
-	konradybcio@kernel.org,
-	krzk+dt@kernel.org,
-	lgirdwood@gmail.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	matteomartelli3@gmail.com,
-	mohammad.rafi.shaik@oss.qualcomm.com,
-	neil.armstrong@linaro.org,
-	perex@perex.cz,
-	robh@kernel.org,
-	rosh@debian.org,
-	srini@kernel.org,
-	tiwai@suse.com,
-	zhoubinbin@loongson.cn
-Subject: Re: [PATCH v2 6/6] arm64: dts: qcom: qcs6490-rubikpi3: Add audio support
-Date: Wed, 22 Jul 2026 14:58:39 +0800
-Message-ID: <20260722065841.2424602-1-hongyang.zhao@thundersoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <c293d9c7-bdb7-4303-80c8-404228c434d7@oss.qualcomm.com>
-References: <c293d9c7-bdb7-4303-80c8-404228c434d7@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UFI0kwAn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA35A1F00A3A;
+	Wed, 22 Jul 2026 08:14:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784708093;
+	bh=oU482jnk9kdUlDA38+dUDDbAWDrcXU9KNqbP0DIoqm4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UFI0kwAnkwdW4AuXfUa5ZR0bNmvHZJFBfqGrBbT+UzfrsncJ/rdZc9w8TBNhsIyjT
+	 Nm8PXkvmL1sARfdRewOq8hDaBwvwz6DknXFPt7ubknt+hbL7LyHHhAT+d7pgCDG5Ux
+	 DDdQ+jzwnntPhU+n+5ejSomj/aR4kXIbKnoT2L6CVKxfgrAo9CvYa24yiPWJHm6OVC
+	 +mT8j/+yHZnn+8Rotfc9QYoVqSz79xhTW/XoIa80AJo7z8uNnj+TOfojvwZSBQCxUa
+	 RoAuxJeQOdk0OkS3CvwHCzr2RhsU6B0e5FdO3KJVb+8vS82VrhBzST5mET3IzV7+yh
+	 eHb4ujg+6Ajvw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 7/7] iio: dac: Add AD5529R DAC driver support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Janani Sunil" <janani.sunil@analog.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260722-ad5529r-driver-v7-7-7781cd74ad75@analog.com>
+References: <20260722-ad5529r-driver-v7-0-7781cd74ad75@analog.com>
+ <20260722-ad5529r-driver-v7-7-7781cd74ad75@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 08:14:52 +0000
+Message-Id: <20260722081452.EA35A1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9f889ecb2109d5kunmcfaa0ab945fac3
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTBhCVktNSx1CSEJNGENITVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVCQk
-	lOS1VKS0tVSkJLQlkG
-DKIM-Signature: a=rsa-sha256;
-	b=UUimcXcZWMPJFdsTTyztDrXVh+0OGkluTZ8/C6r8Q5PSKq++b38V0To/DTj324yrXObI+/umpE2tiLdtf02EOgY6KnAl9cHg7mNRzyAdE0sg+KN/YHaxEPapQsgIoB4/qDw/OjJYDPzLoVEEZ0ryBLsm54X5GIUVg0j562vPsAk=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
-	bh=sJG7TkJXw80gNmIP7/g1NThayM9xyWHMAaqAHg5lEmo=;
-	h=date:mime-version:subject:message-id:from;
 
-On 7/18/26 11:41 AM, Hongyang Zhao wrote:
->> On 7/15/26 4:02 PM, Hongyang Zhao wrote:
->>>> RubikPi 3 uses the AudioReach firmware path for its external audio
->>>> interfaces. The primary MI2S interface connects to an ES8316 codec for
->>>> headset playback and capture, while the quaternary MI2S interface feeds
->>>> the LT9611 HDMI bridge.
->>>
->>> [...]
->>>
->>>> +	vreg_es8316_3v3: regulator-es8316-3v3 {
->>>> +		compatible = "regulator-fixed";
->>>> +
->>>> +		regulator-name = "vreg_es8316_3v3";
->>>> +		regulator-min-microvolt = <3300000>;
->>>> +		regulator-max-microvolt = <3300000>;
->>>> +
->>>> +		gpio = <&tlmm 117 GPIO_ACTIVE_HIGH>;
->>>> +		enable-active-high;
->>>> +
->>>> +		pinctrl-0 = <&es8316_power_on>;
->>>> +		pinctrl-names = "default";
->>>> +
->>>> +		regulator-always-on;
->>>> +		regulator-boot-on;
->>>
->>> Does it need to be always-on? Is it really on at boot time?
->>
->> I think the regulator-always-on constraint is currently required.
->> GPIO117 controls the power switch for the ES8316, but the existing
->> ES8316 binding and driver do not model regulator supplies.
->
-> Please fix that first.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Out-of-bounds array write in `ad5529r_parse_channel_ranges` due to=
+ missing bounds check on `st->num_channels`.
+- [Medium] Missing required hardware delay between reset assertion and deas=
+sertion.
+--
 
-Understood. I’ll send a new patch series and first try to address the
-ES8316 regulator supply support issue.
+--- Patch [7]: [PATCH v7 7/7] iio: dac: Add AD5529R DAC driver support ---
+commit 190cbf7d47fe0e91c8bbafb4dfea2a90c159fb6b
+Author: Janani Sunil <janani.sunil@analog.com>
 
-Thanks,
-Hongyang
+iio: dac: Add AD5529R DAC driver support
+
+This commit adds support for the Analog Devices AD5529R 16-channel,
+12/16 bit Digital to Analog Converter. The device communicates over SPI
+and supports per-channel output range configuration.
+
+> diff --git a/drivers/iio/dac/ad5529r.c b/drivers/iio/dac/ad5529r.c
+> new file mode 100644
+> index 0000000000000..2fd1dd053da58
+> --- /dev/null
+> +++ b/drivers/iio/dac/ad5529r.c
+[ ... ]
+> +static int ad5529r_reset(struct ad5529r_state *st)
+> +{
+> +	struct reset_control *rst;
+> +	int ret;
+> +
+> +	rst =3D devm_reset_control_get_optional_exclusive(&st->spi->dev, NULL);
+> +	if (IS_ERR(rst))
+> +		return PTR_ERR(rst);
+> +
+> +	if (rst) {
+> +		ret =3D reset_control_assert(rst);
+> +		if (ret)
+> +			return ret;
+> +
+> +		/* Minimum reset low width (t_reset) is 20 ns per datasheet. */
+> +		ret =3D reset_control_deassert(rst);
+
+[Severity: Medium]
+Since the datasheet requires a minimum reset low width of 20 ns, should the=
+re
+be a delay like ndelay(20) before deasserting the reset?
+
+Back-to-back MMIO writes on fast hardware might toggle the reset line faster
+than the required 20 ns.
+
+> +		if (ret)
+> +			return ret;
+> +	} else {
+[ ... ]
+> +static int ad5529r_parse_channel_ranges(struct device *dev,
+> +					struct ad5529r_state *st)
+> +{
+> +	s32 vals[2];
+> +	int ret, range_idx;
+> +	u32 ch;
+> +
+> +	device_for_each_child_node_scoped(dev, child) {
+> +		ret =3D fwnode_property_read_u32(child, "reg", &ch);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Missing reg property in channel node\n");
+> +
+> +		if (ch >=3D 16)
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "Channel %u exceeds maximum 15\n",
+> +					     ch);
+[ ... ]
+> +		st->output_range_idx[ch] =3D range_idx;
+> +		ret =3D regmap_write(st->regmap_16bit,
+> +				   AD5529R_REG_OUT_RANGE(ch), range_idx);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to configure range for ch %u\n",
+> +					     ch);
+> +
+> +		st->channels[st->num_channels++] =3D AD5529R_DAC_CHANNEL(ch);
+
+[Severity: High]
+Does this code risk an out-of-bounds array write to st->channels[]?
+
+While the code checks if the individual 'reg' property 'ch' is less than 16,
+it does not verify the total number of child nodes. If a malformed Device T=
+ree
+contains more than 16 child nodes (for instance, due to duplicate 'reg'
+values), st->num_channels will exceed the fixed size of st->channels[16] and
+corrupt adjacent memory.
+
+> +	}
+> +
+> +	return 0;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-ad5529r-dr=
+iver-v7-0-7781cd74ad75@analog.com?part=3D7
