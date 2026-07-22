@@ -1,317 +1,223 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638E9439F63
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 16:25:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7796D439F68
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 16:28:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784737540; cv=none; b=NuELbmer4uE06Fj67QkOJbCTE0OEzTL1JS+9vHKdL6UzSSQAYGD8BR14UTvCNt8k53EQf0AJ8AptECr+kag8eznhoftLnOoC/8Z2a7k02bzDQaSt1J1Bo2XuStX5eVKGt01ysVnw/Z6rnoPO+eZItcXG0NEb5a06uIgN90y4Gvs=
+	t=1784737733; cv=none; b=KYCRTyyCzYJxh3WP1SZ4Id6d8MIw3kG3CF9hNjz6/fUxyp+FrkouiyeSSOlahNHoluJ4toU9klwEeRiXIeKaMecKW8jwFcrimkm45MVT3ZhPraRJNVzeX0C9Ji8PZGg2jcWJlAue7dWLJtvDYmzhNqFqovvroYmyiwl2XR8ZoH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784737540; c=relaxed/simple;
-	bh=Q1wuWECj42vCLS+URmSb5ph9RRHOC8awovhHQ4C2hd4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=UAD3VoNBC0QLKFzDATE4mEJTJquBfaL6qUTsPYRbSCSvqRx61S3yP9VYhVyzqlpzcntr9l9Qew/X6CAUOa/WC03d8Ehf+LbiJ+7GBAtgllqVABTMzdVQFSH4DJSZxuDwvaGmL/rB/kJRnPnnFrHK1OP0WgxVBnMvNoPu6AesYa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FShDo8fu; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784737733; c=relaxed/simple;
+	bh=SgrI06VkRvOUZZO0DVjTQu+oEWa6QEs25v+7RLbBZmk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=KVDS48cspU9tQpuZ6duNn9WLrG/uo0PEVslNYq5LVzfYa374E9LNNSr7N2au9JIZhHZbged2eUFmtWFZVvO6248QEFcM/5vf+V890yhgEP/QKG7jsg2kFFz48O5UtsRgFlRrW5Xb2pFrnPkO+6DGPNofGux/v8cFMFuY7obyGRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=UfuUQ8wh; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FShDo8fu"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cad68425a7so25915ad.1
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 09:25:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="UfuUQ8wh"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4758bd3731bso5054155f8f.0
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 09:28:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784737538; x=1785342338; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=OgRGHfU9FKq0Kw0lO3kLFF9gLYq/7E5KP8sqK2HQkpA=;
-        b=FShDo8fuc6nAvJ3adphQ/3tQ4GuHMZirG8MJYOsPjxeJjBlZWO5soXRGjyz4C+Qv0/
-         YXSumjj/gigBFZ6KU+6KAugMqHY/jwdVXoQ+tB/N623R27WSQUK+fg37kiWDxcK3498p
-         nBVOzE6K0x1QdziTMWxeyEmggVX/9fzns7fKQwAIT7PyrK4dWT66nkRLIXi2TVIpOiiR
-         q97sz4BJkUUbAFjTffWr+QLHganNctnV0DUnsD+VUu+MhK3PQdwJr3y5T/VVe2Ep2ECR
-         dNhTB4wAXjqsO/Wks4Gnn61gg+gA1jNR1NaIGq/+spHLsOUIn6XD9SVWXJhvimr0GcCF
-         z7zQ==
+        d=baylibre.com; s=google; t=1784737727; x=1785342527; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :user-agent:references:in-reply-to:subject:cc:to:from:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0VgoN131mpCFDGVLEaTpJh9JaIowTJ3l5BSSOdIVGp0=;
+        b=UfuUQ8whqYe7NpyuoRx+Ng2DMxZFzskibozxrSTWyf9a//k45i+60ciBqta7WfG5P4
+         AyalqTZ5A0ZSSJBYujhkQqwPZiB4LMpRc274Y+iqIuHV8eaHiWhMIcDChnqESG2+tNGd
+         jKG6K2dorhfL/nshV94A4h8f4qHQkP22J4xt+Hbu1hy7dVukX6rSGOMpqrKZtCW+5/GA
+         fGL8GSzmWm9zaccA5f9D3gv0UFofpAPyMLYrOLqkN7Uqi3MXzgeaIYbXoZEm1jaJSZbC
+         Y0h/DWlYZNwvobOL6wz0yOU2qpB9NfoTkVEN5l6kluNnK5hb7CUcMHDMCaRwV0IuieL2
+         dtwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784737538; x=1785342338;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=OgRGHfU9FKq0Kw0lO3kLFF9gLYq/7E5KP8sqK2HQkpA=;
-        b=YkMNJJ2jizshD1zuK3Gu2xfxoWXLd74BkPNDZ/3E6AGt5/RwsMffxJvmT7qBEAKmF4
-         TSyon2anWU0FHdB3pYYRGU3EQs3OUzlfgyosQbTmpOf6B/FxqcPLpfpuuckVzjcCZnzh
-         WA2kqAvIvnf8m9ZNKWmmnTqhxpbjCzsMbxsEv9QQHGFzpOat/uXJcfa+M+HzIExvYokg
-         1pYgHr7K4nfhSizoqfukrtbY6AShdEnlHgYjm+40FO8+QRyI5RTJsZABuQhjVN0isPy9
-         Pr/RMR7O9WcG7Q+KkTl06LsaBAASFDvAW54JZxIBXDDTADy1KH/cureq20rpA0aEfVkw
-         Zovg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp3TM1ur4S8UJNzVw92eFun3ng98Bj44rPoX4NkXSgV88gQRsg8Yng6CcLa2cPcP5esqGxeBSkpcN/K@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy7O+svT2auUNICPHKZC+Qd/kdvLo1BZ3wfeJlvSwuy2ynQfCVz
-	aunCzOWVBhVGpZHMwsBumhXrkDh45cicgJq2QeNm+PZ/nQbiTb3Xa6D78ydiHQ==
-X-Gm-Gg: AR+sD11b2yzbNiUTD2OpvYYSaY7kXS5ue5idaScuoM6YveFIq4hCDbNAlD0sY+ek8L0
-	aBsUqVCiL+oLXHw8eEm3cLEN6T4wzlGBppb3kSKbYq4pMAbaaoDyQ8k2GALEkLuRN7S34LyMPi5
-	hD3b1hmVzEyBTAOwq8+kldrjWO7u1P4SxMWchtZUbDs47JkvVFiVm0pXDQOt5mcleIbzo9AU+GL
-	QfykjhVua//tt48bE6p7RnTy6Atu+ALwy0eBFLACntiXOu3th/FJXUXIR7g/xAeI1/aVrSxT9Xt
-	kk7aTc240qIXv13JOUVKeAXdBZt4YPIe3KYZ3viKIzGMo710+KOYuZNMOsQGh8h1TSkYH976B2Q
-	voCWW/9+yPOoAZIQtL/K18bPl4YDrCzWWbWNTQ8R8TGS9Tf4jpawG+SBSBsgpL8CioVa9SWTwhu
-	mzXwSgRSHEBr9Bn3g=
-X-Received: by 2002:a17:903:1905:b0:2c4:397:dd7a with SMTP id d9443c01a7336-2cf80472f4amr73008795ad.4.1784737537497;
-        Wed, 22 Jul 2026 09:25:37 -0700 (PDT)
-Received: from [172.28.140.252] ([2409:40c2:5428:2944:6b74:18c8:3132:3887])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147e081985sm11099602eec.23.2026.07.22.09.25.26
+        d=1e100.net; s=20251104; t=1784737727; x=1785342527;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :user-agent:references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0VgoN131mpCFDGVLEaTpJh9JaIowTJ3l5BSSOdIVGp0=;
+        b=bt4+KLM30VDYi7685OzJqx9NtR/52spZozHjnvr9Irf/J986kCWel9yWrP7zM5Vxy7
+         5Q2X5ACOEwa7fCwVaedBThs74PP/Qg7vDkq3x7szHA9ZDFYPJVWiztuqarK8VYFaN0kx
+         Hf3BY6H4+zGZ1DLI7RazfOrtG3O99WGKR8HMzwx/9cFRegjn+XTu2O2vW+n/1Ko953zE
+         t379qFmA1khZUQoTFFYQI76i8U0Q+O3nbbVMog56iBXSe2RGjpD7ZaAV2UM+9IzRUriF
+         Vn3hrz5joMDlQVlmUlJUh2/pfnWIKJDNERfgYuUh7AB6d/ISJn05ys42xs75ZFqUQcXt
+         dVpw==
+X-Forwarded-Encrypted: i=1; AHgh+RopraNLsieEJtkdQDdLB8lN5bUgyQ94Axouix+JOKbNOXdNE8q0sRvrr86EihcGqvYPfXW9gVrkHvr8@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywl5ctstKzSPxVB7DsWepc0OE7EIoEknNaFGa4SAWIBg/QNzffm
+	J4C0lgcXchI4IeQMEPurUYFH0rXxE+abRvkSds/CRRpR2+HVe8dqIHUZFAwXxnGE74c=
+X-Gm-Gg: AR+sD101tsNpIU+0+lsOvckf63jlIAIzk8OTLAyk6i2nC9xMQymz90pbcSGOoaY6Oo+
+	CkMMf4fcY6DmDOL/F61qaBtZIkFQAOIBNFcGN7mZMZIp4gyLEPOlTNC3YVlyDg6nxBvWMCVzu2q
+	IbMflCWV1mqteuiqzfH/jyk78/m9a4jbVgh7vS631ZJ7dvBsnf6WbBkMrmqyWvz8bFSr185aurx
+	kRdSb3tnOGp+jXUQOwGEhlKhcMx9IkmqME82VlyPnK6k97NvePgWDYj+cSxl+E6R2rhVufVChX+
+	RvlRjHI2b6QVB0KfDiHORR2mYjHK7y+sW6Arvk9Lv+upERzk6uRAHgMsXUaCv9N2smL29kE8LAg
+	2j9UhmrJ7jxF1rOGbF307et5ziRyLhm0RJGK6lU/DssHXngu6DDxmy3Z5dfoLP6hySMploTuUVF
+	0T
+X-Received: by 2002:a05:6000:4383:b0:47f:8a78:e814 with SMTP id ffacd0b85a97d-47f8a78e864mr1966333f8f.9.1784737727656;
+        Wed, 22 Jul 2026 09:28:47 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:3382:6663:1606:b6ac])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47f85c6d277sm7563000f8f.32.2026.07.22.09.28.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 09:25:36 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Wed, 22 Jul 2026 21:55:07 +0530
-Subject: [PATCH v2] regulator: dt-bindigs: ti,pbias-omap: Convert to DT
- schema
+        Wed, 22 Jul 2026 09:28:47 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Chen-Yu Tsai <wens@kernel.org>
+Cc: Junhui Liu <junhui.liu@pigmoral.tech>,  Alexandre Belloni
+ <alexandre.belloni@bootlin.com>,  Rob Herring <robh@kernel.org>,
+  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
+ <conor+dt@kernel.org>,  Jernej Skrabec <jernej.skrabec@gmail.com>,  Samuel
+ Holland <samuel@sholland.org>,  Michael Turquette
+ <mturquette@baylibre.com>,  Stephen Boyd <sboyd@kernel.org>,  Maxime
+ Ripard <mripard@kernel.org>,  linux-rtc@vger.kernel.org,
+  devicetree@vger.kernel.org,  linux-arm-kernel@lists.infradead.org,
+  linux-sunxi@lists.linux.dev,  linux-kernel@vger.kernel.org,
+  linux-clk@vger.kernel.org
+Subject: Re: [PATCH v6 2/4] clk: sunxi-ng: div: add read-only operation support
+In-Reply-To: <CAGb2v64HjXygw76zaNi9KaG-zfc+hZoeyp4EHyz68fcdK-AXNw@mail.gmail.com>
+	(Chen-Yu Tsai's message of "Wed, 22 Jul 2026 23:40:07 +0800")
+References: <20260722-a733-rtc-v6-0-631cca28cc9a@baylibre.com>
+	<20260722-a733-rtc-v6-2-631cca28cc9a@baylibre.com>
+	<CAGb2v64HjXygw76zaNi9KaG-zfc+hZoeyp4EHyz68fcdK-AXNw@mail.gmail.com>
+User-Agent: mu4e 1.12.9; emacs 30.1
+Date: Wed, 22 Jul 2026 18:28:45 +0200
+Message-ID: <1jse5bc7k2.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260722-ti-pbias-omap-v2-1-e26fbd476e6e@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12NQQ6CMBBFr0Jm7ZhOBVpYeQ/DotQKY4SSFomGc
- HcBXbl8yfvvzxBdYBehTGYIbuLIvl9BHhKwrekbh3xdGaSQuVAixZFxqNlE9J0ZMBPa2iJTuS0
- I1s0Q3I1fe+9SfTk+67uz4xbZjJbj6MN7P5xo835tUn/tiZAwk0qnmk6kBZ2bzvDjaH0H1bIsH
- y7TIiK8AAAA
-X-Change-ID: 20260704-ti-pbias-omap-508cc9576c91
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Tony Lindgren <tony@atomide.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
- simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784737526; l=5885;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=Q1wuWECj42vCLS+URmSb5ph9RRHOC8awovhHQ4C2hd4=;
- b=jvFuMXX9tA5w95QdfLAFNllsxlQkf5L5HUr1QQr3Cl2UN9K4vp2HaCQUTvKJkNuwPU7wp5GHT
- hgIGZ3zJIldDXXW4pt/YE0O0lLS0eAiZjCTcK7f7M/PGfb6gC66lk0x
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Convert Texas Instruments PBIAS internal regulator from text to DT
-schema. No Functional changes are introduced.
+On mer. 22 juil. 2026 at 23:40, Chen-Yu Tsai <wens@kernel.org> wrote:
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
-Changes in v2:
-- remove top level $ref: regulator.yaml#
-- update schema to support OMAP3 SoCs to have both MMC and
-  SIM PBIAS regulators
-- Link to v1: https://lore.kernel.org/r/20260717-ti-pbias-omap-v1-1-527848131801@gmail.com
----
- .../bindings/regulator/pbias-regulator.txt         |  32 -----
- .../bindings/regulator/ti,pbias-omap.yaml          | 157 +++++++++++++++++++++
- 2 files changed, 157 insertions(+), 32 deletions(-)
+> On Wed, Jul 22, 2026 at 10:48=E2=80=AFPM Jerome Brunet <jbrunet@baylibre.=
+com> wrote:
+>>
+>> Add support for sunxi-ng read-only dividers. This will be
+>> useful to the a733 oscillator detection logic.
+>>
+>> Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+>> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+>> ---
+>>  drivers/clk/sunxi-ng/ccu_div.c | 31 +++++++++++++++++++++++++++++--
+>>  drivers/clk/sunxi-ng/ccu_div.h |  1 +
+>
+>>  drivers/clk/sunxi-ng/ccu_mux.c |  2 +-
+>>  drivers/clk/sunxi-ng/ccu_mux.h |  4 ++++
+>
+> Left over stuff?
+>
 
-diff --git a/Documentation/devicetree/bindings/regulator/pbias-regulator.txt b/Documentation/devicetree/bindings/regulator/pbias-regulator.txt
-deleted file mode 100644
-index acbcb452a69a..000000000000
---- a/Documentation/devicetree/bindings/regulator/pbias-regulator.txt
-+++ /dev/null
-@@ -1,32 +0,0 @@
--PBIAS internal regulator for SD card dual voltage i/o pads on OMAP SoCs.
--
--Required properties:
--- compatible:
--  - should be "ti,pbias-dra7" for DRA7
--  - should be "ti,pbias-omap2" for OMAP2
--  - should be "ti,pbias-omap3" for OMAP3
--  - should be "ti,pbias-omap4" for OMAP4
--  - should be "ti,pbias-omap5" for OMAP5
--  - "ti,pbias-omap" is deprecated
--- reg: pbias register offset from syscon base and size of pbias register.
--- syscon : phandle of the system control module
--- regulator-name : should be
--			pbias_mmc_omap2430 for OMAP2430, OMAP3 SoCs
--			pbias_sim_omap3 for OMAP3 SoCs
--			pbias_mmc_omap4 for OMAP4 SoCs
--			pbias_mmc_omap5 for OMAP5 and DRA7 SoC
--
--Optional properties:
--- Any optional property defined in bindings/regulator/regulator.txt
--
--Example:
--
--		pbias_regulator: pbias_regulator {
--			compatible = "ti,pbias-omap";
--			reg = <0 0x4>;
--			syscon = <&omap5_padconf_global>;
--			pbias_mmc_reg: pbias_mmc_omap5 {
--				regulator-name = "pbias_mmc_omap5";
--				regulator-min-microvolt = <1800000>;
--				regulator-max-microvolt = <3000000>;
--			};
-diff --git a/Documentation/devicetree/bindings/regulator/ti,pbias-omap.yaml b/Documentation/devicetree/bindings/regulator/ti,pbias-omap.yaml
-new file mode 100644
-index 000000000000..ea904946e352
---- /dev/null
-+++ b/Documentation/devicetree/bindings/regulator/ti,pbias-omap.yaml
-@@ -0,0 +1,157 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/regulator/ti,pbias-omap.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments PBIAS internal regulator.
-+
-+maintainers:
-+  - Tony Lindgren <tony@atomide.com>
-+
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - ti,pbias-dra7
-+          - ti,pbias-omap2
-+          - ti,pbias-omap3
-+          - ti,pbias-omap4
-+          - ti,pbias-omap5
-+      - const: ti,pbias-omap
-+
-+  reg:
-+    maxItems: 1
-+
-+  syscon:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: phandle of the system control module
-+
-+  pbias_mmc_omap2430:
-+    type: object
-+    $ref: regulator.yaml#
-+
-+    properties:
-+      regulator-name:
-+        const: pbias_mmc_omap2430
-+
-+    required:
-+      - regulator-name
-+
-+    unevaluatedProperties: false
-+
-+  pbias_sim_omap3:
-+    type: object
-+    $ref: regulator.yaml#
-+
-+    properties:
-+      regulator-name:
-+        const: pbias_sim_omap3
-+
-+    required:
-+      - regulator-name
-+
-+    unevaluatedProperties: false
-+
-+  pbias_mmc_omap4:
-+    type: object
-+    $ref: regulator.yaml#
-+
-+    properties:
-+      regulator-name:
-+        const: pbias_mmc_omap4
-+
-+    required:
-+      - regulator-name
-+
-+    unevaluatedProperties: false
-+
-+  pbias_mmc_omap5:
-+    type: object
-+    $ref: regulator.yaml#
-+
-+    properties:
-+      regulator-name:
-+        const: pbias_mmc_omap5
-+
-+    required:
-+      - regulator-name
-+
-+    unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - syscon
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: ti,pbias-omap2
-+    then:
-+      required:
-+        - pbias_mmc_omap2430
-+      properties:
-+        pbias_sim_omap3: false
-+        pbias_mmc_omap4: false
-+        pbias_mmc_omap5: false
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: ti,pbias-omap3
-+    then:
-+      anyOf:
-+        - required:
-+            - pbias_mmc_omap2430
-+        - required:
-+            - pbias_sim_omap3
-+      properties:
-+        pbias_mmc_omap4: false
-+        pbias_mmc_omap5: false
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: ti,pbias-omap4
-+    then:
-+      required:
-+        - pbias_mmc_omap4
-+      properties:
-+        pbias_mmc_omap2430: false
-+        pbias_sim_omap3: false
-+        pbias_mmc_omap5: false
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - ti,pbias-omap5
-+              - ti,pbias-dra7
-+    then:
-+      required:
-+        - pbias_mmc_omap5
-+      properties:
-+        pbias_mmc_omap2430: false
-+        pbias_sim_omap3: false
-+        pbias_mmc_omap4: false
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    pbias_regulator: pbias_regulator@0 {
-+        compatible = "ti,pbias-omap5", "ti,pbias-omap";
-+        reg = <0 0x4>;
-+        syscon = <&omap5_padconf_global>;
-+        pbias_mmc_reg: pbias_mmc_omap5 {
-+            regulator-name = "pbias_mmc_omap5";
-+            regulator-min-microvolt = <1800000>;
-+            regulator-max-microvolt = <3000000>;
-+        };
-+    };
+Argh indeed, that's no longer necessary=20
 
----
-base-commit: 1e9cdc2ea15adf4a821eefedabf6c0c8cf0b6a55
-change-id: 20260704-ti-pbias-omap-508cc9576c91
+>
+>>  4 files changed, 35 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/clk/sunxi-ng/ccu_div.c b/drivers/clk/sunxi-ng/ccu_d=
+iv.c
+>> index 62d680ccb524..c385e0160f13 100644
+>> --- a/drivers/clk/sunxi-ng/ccu_div.c
+>> +++ b/drivers/clk/sunxi-ng/ccu_div.c
+>> @@ -20,8 +20,22 @@ static int ccu_div_determine_rate_helper(struct ccu_m=
+ux_internal *mux,
+>>         if (cd->common.features & CCU_FEATURE_FIXED_POSTDIV)
+>>                 req->rate *=3D cd->fixed_post_div;
+>>
+>> -       ret =3D divider_determine_rate(&cd->common.hw, req, cd->div.tabl=
+e,
+>> -                                    cd->div.width, cd->div.flags);
+>> +       if (cd->div.flags & CLK_DIVIDER_READ_ONLY) {
+>> +               unsigned long val;
+>> +               u32 reg;
+>> +
+>> +               reg =3D readl(cd->common.base + cd->common.reg);
+>> +               val =3D reg >> cd->div.shift;
+>> +               val &=3D (1 << cd->div.width) - 1;
+>> +
+>> +               ret =3D divider_ro_determine_rate(&cd->common.hw, req, c=
+d->div.table,
+>> +                                               cd->div.width, cd->div.f=
+lags, val);
+>> +
+>> +       } else {
+>> +               ret =3D divider_determine_rate(&cd->common.hw, req, cd->=
+div.table,
+>> +                                            cd->div.width, cd->div.flag=
+s);
+>> +       }
+>> +
+>>         if (ret)
+>>                 return ret;
+>>
+>> @@ -143,3 +157,16 @@ const struct clk_ops ccu_div_ops =3D {
+>>         .set_rate       =3D ccu_div_set_rate,
+>>  };
+>>  EXPORT_SYMBOL_NS_GPL(ccu_div_ops, "SUNXI_CCU");
+>> +
+>> +const struct clk_ops ccu_rodiv_ops =3D {
+>> +       .disable        =3D ccu_div_disable,
+>> +       .enable         =3D ccu_div_enable,
+>> +       .is_enabled     =3D ccu_div_is_enabled,
+>> +
+>> +       .get_parent     =3D ccu_div_get_parent,
+>> +       .set_parent     =3D ccu_div_set_parent,
+>> +
+>> +       .determine_rate =3D ccu_div_determine_rate,
+>> +       .recalc_rate    =3D ccu_div_recalc_rate,
+>> +};
+>> +EXPORT_SYMBOL_NS_GPL(ccu_rodiv_ops, "SUNXI_CCU");
+>> diff --git a/drivers/clk/sunxi-ng/ccu_div.h b/drivers/clk/sunxi-ng/ccu_d=
+iv.h
+>> index be00b3277e97..a30a92780a05 100644
+>> --- a/drivers/clk/sunxi-ng/ccu_div.h
+>> +++ b/drivers/clk/sunxi-ng/ccu_div.h
+>> @@ -300,5 +300,6 @@ static inline struct ccu_div *hw_to_ccu_div(struct c=
+lk_hw *hw)
+>>  }
+>>
+>>  extern const struct clk_ops ccu_div_ops;
+>> +extern const struct clk_ops ccu_rodiv_ops;
+>>
+>>  #endif /* _CCU_DIV_H_ */
+>> diff --git a/drivers/clk/sunxi-ng/ccu_mux.c b/drivers/clk/sunxi-ng/ccu_m=
+ux.c
+>> index 4503c9780c39..12bfc99c9172 100644
+>> --- a/drivers/clk/sunxi-ng/ccu_mux.c
+>> +++ b/drivers/clk/sunxi-ng/ccu_mux.c
+>> @@ -67,7 +67,7 @@ unsigned long ccu_mux_helper_apply_prediv(struct ccu_c=
+ommon *common,
+>>         return parent_rate / ccu_mux_get_prediv(common, cm, parent_index=
+);
+>>  }
+>>
+>> -static unsigned long ccu_mux_helper_unapply_prediv(struct ccu_common *c=
+ommon,
+>> +unsigned long ccu_mux_helper_unapply_prediv(struct ccu_common *common,
+>>                                             struct ccu_mux_internal *cm,
+>>                                             int parent_index,
+>>                                             unsigned long parent_rate)
+>> diff --git a/drivers/clk/sunxi-ng/ccu_mux.h b/drivers/clk/sunxi-ng/ccu_m=
+ux.h
+>> index c94a4bde5d01..272a2c36a8f2 100644
+>> --- a/drivers/clk/sunxi-ng/ccu_mux.h
+>> +++ b/drivers/clk/sunxi-ng/ccu_mux.h
+>> @@ -134,6 +134,10 @@ unsigned long ccu_mux_helper_apply_prediv(struct cc=
+u_common *common,
+>>                                           struct ccu_mux_internal *cm,
+>>                                           int parent_index,
+>>                                           unsigned long parent_rate);
+>> +unsigned long ccu_mux_helper_unapply_prediv(struct ccu_common *common,
+>> +                                           struct ccu_mux_internal *cm,
+>> +                                           int parent_index,
+>> +                                           unsigned long parent_rate);
+>>  int ccu_mux_helper_determine_rate(struct ccu_common *common,
+>>                                   struct ccu_mux_internal *cm,
+>>                                   struct clk_rate_request *req,
+>>
+>> --
+>> 2.47.3
+>>
 
-Best regards,
--- 
-Bhargav
-
+--=20
+Jerome
