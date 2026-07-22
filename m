@@ -1,71 +1,114 @@
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208312BF002;
-	Wed, 22 Jul 2026 06:38:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0723AA1B2;
+	Wed, 22 Jul 2026 06:47:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784702308; cv=none; b=XbuMCJMoR9jsWikOMwHE62evj1+Eh/Pa/Pft/1LyFlLXeJfQsTL6HU6ikzltuHGvcimtFjt5un/gxHkW+JmaCY94BLPgfKt6apY1AsOqF4t7MDgQDCx/FPgHGCPe8nEOyTbzFUxGxVPSgm5zhJVmDKCXX3iIwj+daR+EE2JwJfQ=
+	t=1784702841; cv=none; b=VHYJdKNWdXJzfLYasWpiHvwRsDXfAQWQQQZDvzL3kir1zzVHsHP7SYZTsj4VU+2wh6wny0HgB9sMUOY6PJaZIOswFgXJzD2DD10rfGXJmQYj5dWXM41Nt6MGWIvzmTlUaTbscv338SEPbdYg4QeqnECfHeFhievyw5JqhXLmIIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784702308; c=relaxed/simple;
-	bh=UZHtU7JphkQN4ftn7cqcvERcRP30Lbaq3drcx88y0TQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=lNUyBqh2+SU4nyOacZOWu7PLHh/ui69liIFRITh2aRVJtCBY4vneD6TVj9GhAhZwzHRpVxFdu4cK0AuqdzMBqL17CkQzT3B8YwIkSvj4XnkgmW2g2Pjk4X7BWti6rAKT9G4SR+pQykbltrTa56a7Glfy90u38GxF+rCdMCgJBYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=eSe99VQZ; arc=none smtp.client-ip=203.29.241.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="eSe99VQZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1784702304;
-	bh=+zb3qHEfQNdn/VPyYyBL6pEsHOl2hhCoI2rgqrXHwIU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=eSe99VQZiVbw4Fq0s58JabWxbarccjIvszDKZhQLLk4Yv3U8Am0+gmICw1uqhhv0Z
-	 KnM6wgUNlZ9d9PiqfqSXh1g9Km1CX+mzFtZgu9HSUL9UkzwSlfPQb9eCFD1zHVNQXt
-	 93NC8NHw7PC8wQIfOm5iOjGORm4Hj+p/ckpQNSKuDvbYvABav4Ix4MdsxFaDuCIWGP
-	 nh/5xBGWW8YceGIEX4AD1lRQeKjmFkx8o2+L2lUHRNZEPwnfw4ZHkOCa9EsDGOBztS
-	 TcSoAFEQJNStXvrQJXB6sQe6v7vJew1xaCJgiMEJk3gf6mFoF/boTqiQgEGZtpYAS4
-	 6zEWuZRMIe06g==
-Received: from [127.0.1.1] (unknown [180.150.112.11])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 1FC0465B37;
-	Wed, 22 Jul 2026 14:38:24 +0800 (AWST)
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
- Patrick Williams <patrick@stwcx.xyz>, Potin Lai <potin.lai.pt@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
- Cosmo Chou <cosmo.chou@quantatw.com>, Mike Hsieh <Mike_Hsieh@quantatw.com>, 
- Mik Lin <Mik.Lin@quantatw.com>
-In-Reply-To: <20260716-upstream-sanmiguel-fix-pwrgd-rmc-n-v1-1-8287b306e02a@gmail.com>
-References: <20260716-upstream-sanmiguel-fix-pwrgd-rmc-n-v1-1-8287b306e02a@gmail.com>
-Subject: Re: [PATCH] ARM: dts: aspeed: sanmiguel: fix PWRGD_RMC_N
- active-low hog configuration
-Message-Id: <178470230401.777395.14157899070923881410.b4-ty@b4>
-Date: Wed, 22 Jul 2026 16:08:24 +0930
+	s=arc-20240116; t=1784702841; c=relaxed/simple;
+	bh=qkLa1bxG34xtbDo6lvdht+wvP/x3tMWjJ4QVyBK8zcU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=sDfucfPyBRR6PE8jqWwyrx5nU4XXWVkmChO1X7OM6/r6/XhkSFUM/Zh1q24HC5fBOk8ToINYcDApWWqaLPyVFSkaCGpuz7Ytk1Z4FrJvQT4Ui+uW6q69XkeifeSIuWWUJnvAo9l03F5/NLaBq+JUlbcyMLhB/ftRCx328zH2iT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id EB0EE200A6A;
+	Wed, 22 Jul 2026 08:47:15 +0200 (CEST)
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wmQjb-000h6i-2q;
+	Wed, 22 Jul 2026 08:47:15 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wmQjb-000000003DA-3DQo;
+	Wed, 22 Jul 2026 08:47:15 +0200
+Message-ID: <cd13a97b78f3d940d23b52f94b39f99c52212d0a.camel@pengutronix.de>
+Subject: Re: [PATCH v2 2/2] thermal/drivers/mediatek/lvts_thermal: Make
+ reset optional for MT8196
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	rafael@kernel.org
+Cc: daniel.lezcano@kernel.org, rui.zhang@intel.com, lukasz.luba@arm.com, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, 	laura.nao@collabora.com, fshao@chromium.org,
+ wenst@chromium.org, 	jiapeng.chong@linux.alibaba.com,
+ frank-w@public-files.de, bchihi@baylibre.com, 	linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, 	linux-mediatek@lists.infradead.org,
+ kernel@collabora.com
+Date: Wed, 22 Jul 2026 08:47:15 +0200
+In-Reply-To: <20260721105230.101906-3-angelogioacchino.delregno@collabora.com>
+References: 
+	<20260721105230.101906-1-angelogioacchino.delregno@collabora.com>
+	 <20260721105230.101906-3-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
 
-On Thu, 16 Jul 2026 10:31:17 +0800, Potin Lai wrote:
-> GPIO 14 on the fio_ioexp (pca9555) controller corresponds to the
-> PWRGD_RMC_N signal, which is active-low.
-> 
-> The pwrgd-rmc-hog node currently specifies output-low for this GPIO
-> with GPIO_ACTIVE_LOW flags. Under Linux gpiolib, configuring an
-> active-low GPIO hog with output-low sets the logical value to inactive
-> (0), causing the subsystem to drive the physical line high.
-> 
-> [...]
+On Di, 2026-07-21 at 12:52 +0200, AngeloGioacchino Del Regno wrote:
+> Depending on the SoC+Firmware combination, the LVTS hardware may be
+> may be actively used by one or even multiple concurrent MCUs!
+> In this case, resetting it may produce either a severe slowdown of
+> the entire system, or even a thermal protection AP reset, as some
+> MCU(s) may be reading a very high or very low temperature while the
+> LVTS is being reset.
+>=20
+> On those, don't fail if no reset is found as that may be omitted on
+> purpose, but still check if there's one, because some board(s) may
+> be running on a different bootchain with reduced firmwares or using
+> firmwares with reduced functionality.
+>=20
+> So, use devm_reset_control_get_optional_exclusive() instead, as the
+> LVTS controller always had only one reset and retrieving that by
+> index, specifically, always made little sense anyway.
+>=20
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
+abora.com>
+> ---
+>  drivers/thermal/mediatek/lvts_thermal.c | 15 ++++++++++++++-
+>  1 file changed, 14 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/thermal/mediatek/lvts_thermal.c b/drivers/thermal/me=
+diatek/lvts_thermal.c
+> index 92711896ce24..8b779fc5e970 100644
+> --- a/drivers/thermal/mediatek/lvts_thermal.c
+> +++ b/drivers/thermal/mediatek/lvts_thermal.c
+> @@ -1473,7 +1473,20 @@ static int lvts_probe(struct platform_device *pdev=
+)
+>  	if (IS_ERR(lvts_td->base))
+>  		return dev_err_probe(dev, PTR_ERR(lvts_td->base), "Failed to map io re=
+source\n");
+> =20
+> -	lvts_td->reset =3D devm_reset_control_get_by_index(dev, 0);
+> +	/*
+> +	 * Depending on the SoC+Firmware combination, the LVTS hardware may be
+> +	 * may be actively used by one or even multiple concurrent MCUs!
+> +	 * In this case, resetting it may produce either a severe slowdown of
+> +	 * the entire system, or even a thermal protection AP reset, as some
+> +	 * MCU(s) may be reading a very high or very low temperature while the
+> +	 * LVTS is being reset.
+> +	 *
+> +	 * On those, don't fail if no reset is found as that may be omitted on
+> +	 * purpose, but still check if there's one, because some board(s) may
+> +	 * be running on a different bootchain with reduced firmwares or using
+> +	 * firmwares with reduced functionality.
+> +	 */
+> +	lvts_td->reset =3D devm_reset_control_get_optional_exclusive(dev, NULL)=
+;
 
-Thanks, I've applied this to the BMC tree.
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 
--- 
-Andrew Jeffery <andrew@codeconstruct.com.au>
-
+regards
+Philipp
