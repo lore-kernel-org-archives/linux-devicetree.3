@@ -1,82 +1,82 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AECD645D5F5
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 23:42:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3EA745D5D1
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 23:42:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784763759; cv=none; b=gVIxWLJqwF0I/awao3+lLPmjNhCDDrNjaSFjhklcdvBHayYjgITTE16zL8gdUeYJRk1WvTpwfPr4eX9Hz48qutRZ97ZOidsAioeE2L9b6gMIcE6ICNK/61F3y0za5iKXTNwjOyKgrbTwKmCJWbZEVyyZeYk9agNfMDAr0ejINtk=
+	t=1784763760; cv=none; b=V84JwQnApAy7tJ2lS/uIN/rvTB83yacqkC787dDp/A/IJmeaazjH9146Kajj4Jw23IV0+Pxaj4dmgeLRHU/cm+9WMZzGNiODvS/EK8iIEX3/Z58D9dAbCIMUztdJqkLJQ2Br0CjWHnAKtsPVgESX9CWqSFSiqcyLGZb1rFOgrHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784763759; c=relaxed/simple;
-	bh=j684rOsac2Qt79mUicIQGsRWvKVbjXmufFgdE3NdzzE=;
+	s=arc-20240116; t=1784763760; c=relaxed/simple;
+	bh=I3HeKdoaqr6J677nN/TvvOWVijKfTEhqVjX9TUsnPn0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r1Q0QpUlwQ+QNKtK2MDwJOa+1XKy7+0GnPWKU5vYhBzJarpwobveSn+Ef7SNz/hEFulp9zkHM+XLtJC5d6rt3irQUtL+SGMho5Sq8qWMFW0BZE/Sqb0cDk/HS++DS4wPHkRr48Ax+TkBiTzuNCmHrsiTe7fNKJHGT7Wk3EvHEFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HbkoFwYU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gF9mYwmm; arc=none smtp.client-ip=205.220.180.131
+	 MIME-Version; b=C8JMx3M2Vtoxx2b2OUsqwNv9cpEBwVPOf6IHEMklQ5nKDb8GWYmNqYTEfWn32CrTP2O4HKd0dpkpILj5S9hpUb/nFZjN0VNba94q8vENgNgx3R5iJ6BXfqGlQe2dGkvcbK300SzLxYWE0uowbvFTQHtHH5PoDldnWmLqxN6BCpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FujzAj60; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QPDMkVIo; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HbkoFwYU";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gF9mYwmm"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66MMo0io2255004
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 23:42:34 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FujzAj60";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QPDMkVIo"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66MMoH7M2176756
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 23:42:36 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=j0kOWh2iDvE
-	MA3XAs4O2/Bne0RHCbtocGHBN4QE9SHM=; b=HbkoFwYU8FND+ztPsT0vo1CFIWQ
-	gmjLWSoLfPdF2Y/JCcsdi7jygROGgFUWTI+Oj5b1VXr6gTKKkb2Wkh6GzU2lQw6e
-	0WFvTIR1oJjISwTFCQ3Qd1rUkQYH9mds6e0szFa7Q8gF5eyp06AKzlNaXrg1Bgt9
-	5O5FMQKiR+wyOhPg/DZhP+BJA2JB0fvRMDNupZXX8fmS6Zf7/10NT3qTdGn6qynV
-	WxOnIUGdHYraecrY/Wserx6QHh4yJdnLzkE499LnskP0U5H35G+S/Qm7lY67VJ7W
-	jvitV9YXrtK1ebqbvdQdf/AzkoPeimMMDxcRDakKTWU7S+dLWAwQNBvx5Dg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjuu7b65y-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=1ecc3MSmL7x
+	fj8NmfMmWmihlUbejMMv9R5FqL2QClAQ=; b=FujzAj60e2jkOlS+8OB5sOg8TcU
+	qlYOzqB+wAK63ukMyu2p4ROybvLMGaPbkufkK/vTu+WbhK2O398il05kBVvqAmnt
+	KmrI99ME9NbJx1Y5h0gKN0xCwFE1MqORwTikHX/NF/i5w99gJPmPu91sfhbVhUeU
+	dQw4kqBkp98MTxIqIcd4nLepq5f66ROD5KR5qh7k6lxpHWlapd9JfVoZxBid0h96
+	5YUzKN44DR4pAIesqkHQkoPfrZhM8RyxGHqJW/GUsgmHNqnPnG8t+EQJaQh4SB0/
+	WzTkdUGMdAq9Y+tJk3uyNsHer7D2pEi0Ag9XXqCIkJG+Bz8fbHY0psXXtow==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjxm12f0m-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 23:42:34 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5276aa86d00so272651cf.2
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 16:42:34 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 23:42:36 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c083f1818so411701cf.0
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 16:42:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784763754; x=1785368554; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1784763756; x=1785368556; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=j0kOWh2iDvEMA3XAs4O2/Bne0RHCbtocGHBN4QE9SHM=;
-        b=gF9mYwmmm8Khvu8XQuCKAHCIpfugTilcY+5CMUEX6agpZrl87/VX6Co03eNnxysj8k
-         ZEjG6p6Vd+MB5uWnsvU6Q9IiQkOOXJ/TYrO774zuXLJ0h3Cutg5U2qJ7mT2FacYpmQUT
-         RVqKXZXczrpj5MgL0yFvwKK/pkqqqmIxUAWVuprhwLDcFol5Rb/cxQOz6X3TtFpbDwBk
-         rVkN2eiAjnHcHX2+WZTpeGNtrxNJWbk8SsdzTR5WqMDSbWbZ0GVLFqBjq8Ox7w68uQZK
-         92ObUR/uarBxgfx+3AJvBoFM063P+jOKPowXtk+6YKhao11DYdQRx1F3/U+OrP67OPAW
-         RYBg==
+        bh=1ecc3MSmL7xfj8NmfMmWmihlUbejMMv9R5FqL2QClAQ=;
+        b=QPDMkVIoRM5gQ8DWDNgAAAKmVmZUdzppAXRx14HUS8FpPPNRF2lMXOmYB7/oOi5AJ5
+         9nuwlWRZoc6dOolfbOLlAV9nSUru7FasEMH9vLzBBDpBT8Hd96aVVN9709+R2UX2d6V3
+         puSdvPv7YqHl0xyGQM6QhDChx/+/IskknNHNkOnHDsBiaPTCub6u0Xhhqrmp/gk8FqsV
+         JrFmZw2npbU0VVkGEW7DtKdip1fWGCobP9K2W0sIj7tO/3lMXtcb9EcW68/oruhF5NPs
+         C+GYAZtOAtqGGabOQRIc7Z3TiHKJBOQo/l1GC7W/frx7/mDlyOfb1QJAt3xpDyly2/h5
+         r3RA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784763754; x=1785368554;
+        d=1e100.net; s=20251104; t=1784763756; x=1785368556;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=j0kOWh2iDvEMA3XAs4O2/Bne0RHCbtocGHBN4QE9SHM=;
-        b=MGiYRMX+FhLHmcycqA2zuYqYDt9u/WW+hi37SBZA7mYfMyp7OZoVXoHX8eI8iLg0dA
-         VQ93yWvexHPAHZK1Wo+2OsYwdTQdjTBzlEf3PpejKtD3gaxBiN/7Msm00Hhb6ugQSP19
-         2r7bktGaVaRAceCjOFk/rDuUhqHRdD32WONHaQdNewQLvOFEgzigxBahV5ccNOS+Vxv6
-         rRYLT3nKZjbkUf622rlobVRWXhvzjEPyEWdvjzVYP4UfvqfgMNCymF/ZQsjQ5MpiYTlo
-         ccGvXHBXTJq6bUZa4npAVDMrWqfz0oioaxuIp3iqQafpe4hUzPC5yUTnh+q4Kglfzd1k
-         yToA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp6xHVQZ+/wdk/aHDqfiDjC8P5Qa1tU6FUS9R8VDkq07ZAsD4x9z2UyjraV5ttH0JUo3cpxtjrqufau@vger.kernel.org
-X-Gm-Message-State: AOJu0YwC1nZ2fXqSviyHf6Fq65PaflAXRYHo00taHgu7eiUfj5rulJAd
-	kLEZpJ0QFofMsP1vt5Bh39G2C/zd/SAMAbLQm7As1uKQAj418OkGsM9UQjjlxs3eNS77TLUPoSN
-	GawVpS7WuJVrSfvz+L9HtDm10h5XIqLsEyXxT0DCxN5aiQyAnzXvnVVVdtnGXMIsQ
-X-Gm-Gg: AR+sD13sLh5m59I7OoFo59w/NThYnHHZe2UoJBHEtxurUSbKWvnSOsWjLqw3ejbD5QG
-	DGuPsDOzSzMLrkyYI8Wc+tjq071easpSUiABVrNbAKilI6j8JOLR+7KqGfyIKQQ39e6rPCyvWLI
-	hAmKBWFL7uwh01CyY1omaJlhzPD4wleKRLiRQ1VUBy5ALvRf18IzxMe+2Soqp0QuSB2/jV4t7p8
-	VNl1JM9VSrlnYjiXmLjuBRQde0QXYFZFnbL1sCEJ7nfeU9CvSgapmLIjWVanotHcM6DESg62o0o
-	aa6lrE0zjiC4F8QfbR7tAqXW4mUbWjcAvySuZqKV9TMt0Vdy0MPaGNFxDQZAQH83NsjHAaaRhFq
-	WXO7q/+PiqPpNkQ==
-X-Received: by 2002:ac8:5c8b:0:b0:51c:844f:28da with SMTP id d75a77b69052e-5283ddb1862mr7978391cf.5.1784763753626;
-        Wed, 22 Jul 2026 16:42:33 -0700 (PDT)
-X-Received: by 2002:ac8:5c8b:0:b0:51c:844f:28da with SMTP id d75a77b69052e-5283ddb1862mr7977971cf.5.1784763752999;
-        Wed, 22 Jul 2026 16:42:32 -0700 (PDT)
+        bh=1ecc3MSmL7xfj8NmfMmWmihlUbejMMv9R5FqL2QClAQ=;
+        b=Tyy3ixnxxPwv+G1Kl+zt5QK1vFj9BuVmyRO8nFpBhZ/LogWV9SUkU/TU+i4jyXNQL2
+         m+4SPnuApAgXKxVsXpSCpQZbZ2htsfRvNAqK7L1ZQdLZcNrplxft9F6N4Fh6CoiqRaMB
+         mzqjvZPBs3uI8CDZa1tQoKlgCx4a8PPlvtkDGTW8fM2+o0E1yidL8DlKTyBavUt8FH7M
+         QSFo/6noKgIYLsMaBotcjjpx5M/weNGll1uYZrpWBLWd+cQxS0GZvxVP8We2bKUDHQsL
+         HoGNbtt7s6pCTwM/jYU2DtIJQZIORvEyjB8l8zzFRIidMxXiZgjC87jHmpQ3anOONPt7
+         ZFsg==
+X-Forwarded-Encrypted: i=1; AHgh+Rpn5DBUEYSO3oGqycgma70q4bZJFBVIwkSSzph1YzuWoC7CfSQyQVes80kLqCBnbfWya9GTeQiL08bY@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw1BJbM8QoG2apDPGZaWCJFLjkRHvHniJZnROCohnJVncAQh3di
+	YjBeIlWChZxg0gvTgMVC+nSO6rwYFgpnsbYkHj5TkOcrYpgTaxkJegzwsHRRbsa3GFYFOBHRzaD
+	zVuUyq+Mh/5KSJmNoW0Uf23Ku+fM910xbKUf/3c8jlVf+AhUJlQUDmO0MOjnIGV4l
+X-Gm-Gg: AR+sD13USx3cMpotuIRb3hidqGcZZHAhv7B7NDo9XriGIIflnuzTh0AG3b5rIh/oRV/
+	ytQ2FFh0j9YbD4BKOjctdcABSC3R+kHJLVBRW0ftbwGCK3aKzjLFX+u2Ue2U5lpqkJwRzcaI0pI
+	JIyrs2344NbhLohNxPZhtAJiQ3jdOGXweL05KqkmLmpxLRgA/yKkePNyJtDUgK+W0iMNnDQP5p1
+	JCh3dsu5EX1CSzz7KnOzKJ7Tn3WKS1oyu9vygqnVLq8nwhPnt5yUt3uYF7e6tTKwjZg2QYz0cdW
+	ZdrOh3AVZlo8lO65lgSX4Ee/UdR/z/3g+2NFz7fVnQaXYterzZxhvyKOtdC+E17xvX1sdztyzqi
+	yDB7XSTOxyYlz9Q==
+X-Received: by 2002:ac8:5d49:0:b0:51c:7b12:5ff6 with SMTP id d75a77b69052e-5283dff0b9dmr6908801cf.82.1784763755779;
+        Wed, 22 Jul 2026 16:42:35 -0700 (PDT)
+X-Received: by 2002:ac8:5d49:0:b0:51c:7b12:5ff6 with SMTP id d75a77b69052e-5283dff0b9dmr6908501cf.82.1784763755268;
+        Wed, 22 Jul 2026 16:42:35 -0700 (PDT)
 Received: from debian ([5.133.47.210])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956a4aae16sm101796345e9.0.2026.07.22.16.42.31
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956a4aae16sm101796345e9.0.2026.07.22.16.42.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 16:42:32 -0700 (PDT)
+        Wed, 22 Jul 2026 16:42:33 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
         Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
@@ -94,9 +94,9 @@ Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
         devicetree@vger.kernel.org, patches@opensource.cirrus.com,
         linux-kernel@vger.kernel.org,
         Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Subject: [RFC PATCH 3/8] ASoC: SDCA: expose class helpers with hw_ops for non-DisCo platforms
-Date: Thu, 23 Jul 2026 00:42:13 +0100
-Message-ID: <20260722234221.884765-4-srinivas.kandagatla@oss.qualcomm.com>
+Subject: [RFC PATCH 4/8] ASoC: SDCA: add PDE pre/post-pmu hooks to hw_ops
+Date: Thu, 23 Jul 2026 00:42:14 +0100
+Message-ID: <20260722234221.884765-5-srinivas.kandagatla@oss.qualcomm.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260722234221.884765-1-srinivas.kandagatla@oss.qualcomm.com>
 References: <20260722234221.884765-1-srinivas.kandagatla@oss.qualcomm.com>
@@ -107,330 +107,155 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: JFbfJX3a4r1h81dKHkm4eZCv3EwQ--gg
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDIzMyBTYWx0ZWRfX0/Weh7BmgQin
- 0YZYVNWmBsVNpYBV8+SMkGot/6WTt092RtYcF6VRuyeN03ofMlV2SUJTXYjYfe1VcjYi9kC2x0U
- XsOd3zJl/m7tbcMGG3sEmeJDIae8/7k=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDIzMyBTYWx0ZWRfX2a9REjOByHEa
- wSQYfoVKesndtbd9hZ7eEg9C3bySvCh8VZCeUeMyxCgzrh8X1hqH38kibQroBEFBSrX5jG/EVUg
- 14A/HzfaM2gJu5uS9BDgrf70PERXXUFziQlr1/+Mc5DnF0efkfoC/jK9A9LP7gG0P1IulyzIBEm
- ziiYVRaJIha6LMu11IVlLAc0IiRXy7Upl0oap0B4A+tKehvsGIePJtx52Pfl8Sl4/0/hI1I1fqw
- 5QwtXOHOSEFIPcxB8EETeCaoVWVw667zGTZnvXn4GKwN16sGQnQcepuppqhq1sZTtW+sr2xRnW3
- RT6aH2CdnHmQbUDMmXZBdSi0Md7deg7Ol9SMxKQyLcSqytgZuZZ0jUjO4Y6veba/bYb6UNVgArq
- 4Rz45Ia6FWS6afoa6e4dW1qGTG2dxlzr3LyVt58FiQGECQipGKWiUhCJ4zlsTX082cWSaXr6OZz
- 1jhOW5LS14ijMl7YnNQ==
-X-Proofpoint-GUID: JFbfJX3a4r1h81dKHkm4eZCv3EwQ--gg
-X-Authority-Analysis: v=2.4 cv=JuTBas4C c=1 sm=1 tr=0 ts=6a61556a cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDIzMyBTYWx0ZWRfX348EziZmOtcl
+ nJ4SjQMgrAqg1bxH7cBPdLJwBNRTUE6MBZKIve5DV0HB/HIFxDzqisxGyMhjE/Uo/BYhnSOAzPg
+ 6BFSCWFLeVbsZbY31ACtacFZUwerP/A=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDIzMyBTYWx0ZWRfXw1NtPc0ip030
+ EeZ7hd0YLnVaauAvJ5QzCCf2Caf1xftWeB13LRDMrSWuGlmZKWnHp1L6uAjlJm1DjuHf7AUgIWA
+ hJTBcaBn+eonCq6FOmmE1EvUy5ympnFL0r/az5CKgXmDdk3JSGAPDmhZ69imKF5qdfonosCcyBJ
+ 59JTNAJhz4Fme3c47/TqAm7FOvo9aAlhauEYgG3N2I3JnODBl53jB8j1a5RiJ4sLLHR3d+xsaG+
+ gdMM6kO6FLSbGs8d/UvBALNxQoMGZCxY/YajTJYPaBa7rCjhZssOlYpqZndKvaSQY0Bz2SituJR
+ sWj4l8H8tZ1gvDcPFiivv02u9qpz/cK4dAhHeHp2/1t7AzgAln5G8h7mu+AQFQCXgQCBTh3ABtR
+ yo2Iec9iWnKgI+aK52FM5WytQTXZF47IKMgfIb7woDoe1I3mGSAt1VsKXaxhz+bLi9dgC0N7n3H
+ S5SIpP3ZfBjICXt8xyQ==
+X-Authority-Analysis: v=2.4 cv=Rsv16imK c=1 sm=1 tr=0 ts=6a61556c cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=vdTmw_I4eXCyo6tFA2sA:9 a=O8hF6Hzn-FEA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
+ a=L7SaaVQrovU1Y9o8N14A:9 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-GUID: 4NGMisQKr_zTcAJzwPwdGxltCbjzG9XK
+X-Proofpoint-ORIG-GUID: 4NGMisQKr_zTcAJzwPwdGxltCbjzG9XK
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-22_05,2026-07-22_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 suspectscore=0 spamscore=0 adultscore=0
- phishscore=0 clxscore=1015 bulkscore=0 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 bulkscore=0 phishscore=0 spamscore=0 impostorscore=0
+ malwarescore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220233
 
-On ARM/DT platforms without ACPI/DisCo, sdca_lookup_functions() is a
-no-op and num_functions stays 0.  Introduce struct sdca_class_hw_ops
-with hw_init and get_function_data callbacks so codec drivers can
-supply pre-populated sdca_function_data and toggle supplies/reset at
-probe time.
+Add pde_pre_pmu and pde_post_pmu callbacks to struct sdca_class_hw_ops
+so codec drivers can hook into DAPM PDE power-domain transitions.
 
-Convert the class SoundWire probe into an exported library helper
-sdca_class_probe(sdw, hw_ops) and export sdca_class_read_prop() and
-sdca_class_pm_ops.  Codec-specific SoundWire drivers can register their
-own sdw_driver and call these helpers from their probe.  The built-in
-class_sdw_driver stays for generic SDCA parts that need no per-device
-quirks (hw_ops = NULL).
+pde_pre_pmu is called before REQUESTED_PS=PS0 is written, allowing
+the driver to stage state (e.g. IT_USAGE, MIC_BIAS) that must be valid
+before the PDE sequencer runs.
 
-For non-DisCo boots, the class helper injects the driver-supplied
-function descriptors into sdca_device_data so sdca_dev_register_functions()
-can create the auxiliary devices, and the auxiliary function driver uses
-get_function_data() as a fallback source of per-entity data when the
-firmware node is absent.
+pde_post_pmu is called after REQUESTED_PS=PS0 and before ACTUAL_PS
+polling begins, allowing the driver to commit pending writes (e.g.
+FU mute/volume via SCP_COMMIT) that the sequencer needs to see.
+
+Both callbacks receive function_id and entity_id so the driver can act
+selectively per power domain.
 
 Assisted-by: Claude:claude-opus-4-7
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 ---
- sound/soc/sdca/sdca_class.c           | 83 +++++++++++++++++++++++++--
- sound/soc/sdca/sdca_class.h           | 30 ++++++++++
- sound/soc/sdca/sdca_class_function.c  | 40 ++++++++++++-
- sound/soc/sdca/sdca_function_device.c |  2 +-
- 4 files changed, 146 insertions(+), 9 deletions(-)
+ sound/soc/sdca/sdca_asoc.c  | 33 ++++++++++++++++++++++++++++++++-
+ sound/soc/sdca/sdca_class.h | 11 +++++++++++
+ 2 files changed, 43 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sdca/sdca_class.c b/sound/soc/sdca/sdca_class.c
-index 8d7b007a068f..c9a4cce77557 100644
---- a/sound/soc/sdca/sdca_class.c
-+++ b/sound/soc/sdca/sdca_class.c
-@@ -24,7 +24,15 @@
+diff --git a/sound/soc/sdca/sdca_asoc.c b/sound/soc/sdca/sdca_asoc.c
+index ac688cd62970..795498b9a314 100644
+--- a/sound/soc/sdca/sdca_asoc.c
++++ b/sound/soc/sdca/sdca_asoc.c
+@@ -32,6 +32,7 @@
+ #include <sound/soc-dai.h>
+ #include <sound/soc-dapm.h>
+ #include <sound/tlv.h>
++#include "sdca_class.h"
  
- #define CLASS_SDW_ATTACH_TIMEOUT_MS	5000
- 
--static int class_read_prop(struct sdw_slave *sdw)
-+/**
-+ * sdca_class_read_prop - fill SDCA-common SoundWire slave properties
-+ * @sdw: SoundWire slave
-+ *
-+ * Exported so codec-specific SoundWire drivers can invoke the SDCA
-+ * common property setup from their own sdw_slave_ops.read_prop, and
-+ * then apply codec-specific overrides inline.
-+ */
-+int sdca_class_read_prop(struct sdw_slave *sdw)
+ static bool exported_control(struct sdca_entity *entity, struct sdca_control *control)
  {
- 	struct sdw_slave_prop *prop = &sdw->prop;
- 
-@@ -36,9 +44,10 @@ static int class_read_prop(struct sdw_slave *sdw)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_NS_GPL(sdca_class_read_prop, "SND_SOC_SDCA_CLASS");
- 
- static const struct sdw_slave_ops class_sdw_ops = {
--	.read_prop	= class_read_prop,
-+	.read_prop	= sdca_class_read_prop,
- };
- 
- static void class_regmap_lock(void *data)
-@@ -136,9 +145,23 @@ static void class_boot_work(struct work_struct *work)
- 	pm_runtime_put_sync(drv->dev);
- }
- 
--static int class_sdw_probe(struct sdw_slave *sdw, const struct sdw_device_id *id)
-+/**
-+ * sdca_class_probe - SDCA class SoundWire slave probe helper
-+ * @sdw: SoundWire slave
-+ * @hw_ops: optional device-specific hw_ops (may be NULL for pure-generic
-+ *          SDCA parts that need no quirks)
-+ *
-+ * Exported so codec-specific SoundWire drivers can call this from their
-+ * own sdw_driver.probe.  For codecs with quirks, pass the codec's
-+ * sdca_class_hw_ops so hw_init, DT function injection, and PDE hooks
-+ * are wired up.  For pure-generic SDCA parts (used by the built-in
-+ * class_sdw_driver in this file), pass NULL.
-+ */
-+int sdca_class_probe(struct sdw_slave *sdw,
-+		     const struct sdca_class_hw_ops *hw_ops)
+@@ -432,6 +433,8 @@ static int entity_pde_event(struct snd_soc_dapm_widget *widget,
  {
- 	struct device *dev = &sdw->dev;
-+	struct sdca_device_data *data = &sdw->sdca_data;
- 	struct regmap_config *dev_config;
- 	struct sdca_class_drv *drv;
+ 	struct snd_soc_component *component = snd_soc_dapm_to_component(widget->dapm);
+ 	struct sdca_entity *entity = widget->priv;
++	struct sdca_class_drv *core;
++	unsigned int fn;
+ 	int from, to;
  	int ret;
-@@ -156,11 +179,47 @@ static int class_sdw_probe(struct sdw_slave *sdw, const struct sdw_device_id *id
  
- 	drv->dev = dev;
- 	drv->sdw = sdw;
-+	drv->hw_ops = hw_ops;
- 	mutex_init(&drv->regmap_lock);
- 	mutex_init(&drv->init_lock);
+@@ -439,6 +442,19 @@ static int entity_pde_event(struct snd_soc_dapm_widget *widget,
+ 		return -EIO;
  
- 	dev_set_drvdata(drv->dev, drv);
- 
-+	/*
-+	 * On ARM platforms without ACPI/DisCo tables, sdca_lookup_functions()
-+	 * is a no-op and num_functions stays 0. Inject the function descriptors
-+	 * from the device-specific static data so sdca_dev_register_functions()
-+	 * can create the auxiliary devices.
-+	 */
-+	if (data->num_functions == 0 && hw_ops && hw_ops->get_function_data) {
-+		struct sdca_function_data *fdata;
-+		unsigned int num = 0;
-+		unsigned int i;
-+
-+		fdata = hw_ops->get_function_data(&num);
-+		if (!fdata || num == 0 || num > SDCA_MAX_FUNCTION_COUNT)
-+			return -EINVAL;
-+
-+		for (i = 0; i < num; i++) {
-+			if (!fdata[i].desc)
-+				return -EINVAL;
-+			data->function[i].type = fdata[i].desc->type;
-+			data->function[i].adr  = fdata[i].desc->adr;
-+			data->function[i].name = fdata[i].desc->name;
-+			data->function[i].node = NULL;
+ 	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		core = dev_get_drvdata(component->dev->parent);
++		if (core && core->hw_ops && core->hw_ops->pde_pre_pmu) {
++			fn = SDW_SDCA_CTL_FUNC(widget->reg);
++			ret = core->hw_ops->pde_pre_pmu(core->sdw,
++							component->regmap, fn,
++							SDW_SDCA_CTL_ENT(widget->reg));
++			if (ret)
++				dev_warn(component->dev,
++					 "%s: pde_pre_pmu failed: %d\n",
++					 entity->label, ret);
 +		}
-+		data->num_functions = num;
-+
-+		dev_info(dev, "no DisCo/ACPI functions found, injected %u descriptor(s)\n",
-+			 num);
++		return 0;
+ 	case SND_SOC_DAPM_POST_PMD:
+ 		from = widget->on_val;
+ 		to = widget->off_val;
+@@ -451,6 +467,20 @@ static int entity_pde_event(struct snd_soc_dapm_widget *widget,
+ 		return 0;
+ 	}
+ 
++	if (event == SND_SOC_DAPM_POST_PMU) {
++		core = dev_get_drvdata(component->dev->parent);
++		if (core && core->hw_ops && core->hw_ops->pde_post_pmu) {
++			fn = SDW_SDCA_CTL_FUNC(widget->reg);
++			ret = core->hw_ops->pde_post_pmu(core->sdw,
++							 component->regmap, fn,
++							 SDW_SDCA_CTL_ENT(widget->reg));
++			if (ret)
++				dev_warn(component->dev,
++					 "%s: pde_post_pmu failed: %d\n",
++					 entity->label, ret);
++		}
 +	}
 +
-+	if (hw_ops && hw_ops->hw_init) {
-+		ret = hw_ops->hw_init(sdw);
-+		if (ret)
-+			return dev_err_probe(dev, ret, "hw_init failed\n");
-+	}
-+
- 	INIT_WORK(&drv->boot_work, class_boot_work);
- 
- 	dev_config->lock_arg = &drv->regmap_lock;
-@@ -185,6 +244,13 @@ static int class_sdw_probe(struct sdw_slave *sdw, const struct sdw_device_id *id
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_NS_GPL(sdca_class_probe, "SND_SOC_SDCA_CLASS");
-+
-+static int class_sdw_probe(struct sdw_slave *sdw, const struct sdw_device_id *id)
-+{
-+	/* Pure-generic SDCA parts: no per-device hw_ops. */
-+	return sdca_class_probe(sdw, NULL);
-+}
- 
- static void class_sdw_remove(struct sdw_slave *sdw)
- {
-@@ -266,11 +332,18 @@ static int class_runtime_resume(struct device *dev)
- 	return ret;
- }
- 
--static const struct dev_pm_ops class_pm_ops = {
-+const struct dev_pm_ops sdca_class_pm_ops = {
- 	SYSTEM_SLEEP_PM_OPS(class_suspend, class_resume)
- 	RUNTIME_PM_OPS(class_runtime_suspend, class_runtime_resume, NULL)
- };
-+EXPORT_SYMBOL_NS_GPL(sdca_class_pm_ops, "SND_SOC_SDCA_CLASS");
- 
-+/*
-+ * Built-in class driver for SDCA parts that need no per-device quirks.
-+ * Codecs that need hw_ops (hw_init, DT function injection, PDE / jack
-+ * hooks, etc.) register their own sdw_driver and call
-+ * sdca_class_probe(slave, &their_hw_ops) from their .probe.
-+ */
- static const struct sdw_device_id class_sdw_id[] = {
- 	SDW_SLAVE_ENTRY(0x01FA, 0x4245, 0),
- 	SDW_SLAVE_ENTRY(0x01FA, 0x4249, 0),
-@@ -282,7 +355,7 @@ MODULE_DEVICE_TABLE(sdw, class_sdw_id);
- static struct sdw_driver class_sdw_driver = {
- 	.driver = {
- 		.name		= "sdca_class",
--		.pm		= pm_ptr(&class_pm_ops),
-+		.pm		= pm_ptr(&sdca_class_pm_ops),
- 	},
- 
- 	.probe		= class_sdw_probe,
+ 	ret = sdca_asoc_pde_poll_actual_ps(component->dev, component->regmap,
+ 					   SDW_SDCA_CTL_FUNC(widget->reg),
+ 					   SDW_SDCA_CTL_ENT(widget->reg),
+@@ -502,7 +532,8 @@ static int entity_parse_pde(struct device *dev,
+ 	(*widget)->mask = GENMASK(control->nbits - 1, 0);
+ 	(*widget)->on_val = SDCA_PDE_PS0;
+ 	(*widget)->off_val = SDCA_PDE_PS3;
+-	(*widget)->event_flags = SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD;
++	(*widget)->event_flags = SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
++				 SND_SOC_DAPM_POST_PMD;
+ 	(*widget)->event = entity_pde_event;
+ 	(*widget)->priv = entity;
+ 	(*widget)++;
 diff --git a/sound/soc/sdca/sdca_class.h b/sound/soc/sdca/sdca_class.h
-index 57f7f8d08f49..74db9d4ce4a2 100644
+index 74db9d4ce4a2..1278159ea61b 100644
 --- a/sound/soc/sdca/sdca_class.h
 +++ b/sound/soc/sdca/sdca_class.h
-@@ -15,10 +15,32 @@
- #include <linux/workqueue.h>
- 
- struct device;
-+struct dev_pm_ops;
- struct regmap;
- struct sdw_slave;
- struct sdca_function_data;
- 
-+/**
-+ * struct sdca_class_hw_ops - optional device-specific hardware callbacks
-+ * @hw_init: called during probe to enable supplies, toggle reset GPIO, etc.
-+ * @get_function_data: called when no DisCo/ACPI firmware node is available
-+ *             (e.g. DT/ARM platforms) to supply pre-populated static function
-+ *             data in place of sdca_parse_function().  Returns a pointer to
-+ *             an array of struct sdca_function_data and stores the number
-+ *             of entries in @num (must be > 0 and <= SDCA_MAX_FUNCTION_COUNT).
-+ *             May be NULL.
-+ *
-+ * Codec-specific SoundWire drivers pass a pointer to this struct to
-+ * sdca_class_probe() from their sdw_driver.probe.  Codec-specific
-+ * SoundWire slave property overrides live directly in the codec's
-+ * sdw_slave_ops.read_prop, which should call sdca_class_read_prop() to
-+ * fill the SDCA-common bits first.
-+ */
-+struct sdca_class_hw_ops {
-+	int  (*hw_init)(struct sdw_slave *slave);
-+	struct sdca_function_data *(*get_function_data)(unsigned int *num);
-+};
-+
- struct sdca_class_drv {
- 	struct device *dev;
- 	struct regmap *dev_regmap;
-@@ -26,10 +48,18 @@ struct sdca_class_drv {
- 
- 	struct sdca_interrupt_info *irq_info;
- 
-+	const struct sdca_class_hw_ops *hw_ops;
-+
- 	struct mutex regmap_lock;
- 	/* Serialise function initialisations */
- 	struct mutex init_lock;
- 	struct work_struct boot_work;
+@@ -29,6 +29,13 @@ struct sdca_function_data;
+  *             an array of struct sdca_function_data and stores the number
+  *             of entries in @num (must be > 0 and <= SDCA_MAX_FUNCTION_COUNT).
+  *             May be NULL.
++ * @pde_pre_pmu: called before DAPM writes REQUESTED_PS=PS0; use to
++ *             prepare device state that must be valid before the PDE
++ *             sequencer runs (e.g. IT_USAGE); may be NULL
++ * @pde_post_pmu: called after DAPM writes REQUESTED_PS=PS0 and before
++ *             ACTUAL_PS polling begins; use to commit pending register
++ *             writes (e.g. FUNCTION_ACTION) on devices that require an
++ *             explicit commit trigger for PDE power-up; may be NULL
+  *
+  * Codec-specific SoundWire drivers pass a pointer to this struct to
+  * sdca_class_probe() from their sdw_driver.probe.  Codec-specific
+@@ -39,6 +46,10 @@ struct sdca_function_data;
+ struct sdca_class_hw_ops {
+ 	int  (*hw_init)(struct sdw_slave *slave);
+ 	struct sdca_function_data *(*get_function_data)(unsigned int *num);
++	int  (*pde_pre_pmu)(struct sdw_slave *slave, struct regmap *regmap,
++			    unsigned int function_id, unsigned int entity_id);
++	int  (*pde_post_pmu)(struct sdw_slave *slave, struct regmap *regmap,
++			     unsigned int function_id, unsigned int entity_id);
  };
  
-+/* Library helpers used by codec-specific SDCA SoundWire drivers. */
-+int sdca_class_read_prop(struct sdw_slave *sdw);
-+int sdca_class_probe(struct sdw_slave *sdw,
-+		     const struct sdca_class_hw_ops *hw_ops);
-+extern const struct dev_pm_ops sdca_class_pm_ops;
-+
- #endif /* __SDCA_CLASS_H__ */
-diff --git a/sound/soc/sdca/sdca_class_function.c b/sound/soc/sdca/sdca_class_function.c
-index 1496a15f7d2a..905c96ed6172 100644
---- a/sound/soc/sdca/sdca_class_function.c
-+++ b/sound/soc/sdca/sdca_class_function.c
-@@ -329,9 +329,43 @@ static int class_function_probe(struct auxiliary_device *auxdev,
- 	drv->core = core;
- 	drv->function = &sdev->function;
- 
--	ret = sdca_parse_function(dev, core->sdw, drv->function);
--	if (ret)
--		return ret;
-+	if (drv->function->desc->node) {
-+		ret = sdca_parse_function(dev, core->sdw, drv->function);
-+		if (ret)
-+			return ret;
-+	} else if (core->hw_ops && core->hw_ops->get_function_data) {
-+		/*
-+		 * No DisCo/ACPI firmware node available (e.g. DT/ARM platform).
-+		 * Use pre-populated static function data supplied by the
-+		 * device-specific hw_ops instead of sdca_parse_function().
-+		 * The callback returns an array of function_data entries;
-+		 * pick the one matching this auxdev's function type.
-+		 */
-+		struct sdca_function_data *fdata;
-+		unsigned int num = 0;
-+		unsigned int i;
-+
-+		fdata = core->hw_ops->get_function_data(&num);
-+		if (!fdata || num == 0)
-+			return -EINVAL;
-+
-+		for (i = 0; i < num; i++) {
-+			if (fdata[i].desc &&
-+			    fdata[i].desc->type == sdev->function.desc->type) {
-+				*drv->function = fdata[i];
-+				drv->function->desc = sdev->function.desc;
-+				break;
-+			}
-+		}
-+		if (i == num) {
-+			dev_err(dev, "no matching function data for type 0x%x\n",
-+				sdev->function.desc->type);
-+			return -EINVAL;
-+		}
-+	} else {
-+		dev_err(dev, "no firmware node and no get_function_data hook\n");
-+		return -EINVAL;
-+	}
- 
- 	ndefaults = sdca_regmap_count_constants(dev, drv->function);
- 	if (ndefaults < 0)
-diff --git a/sound/soc/sdca/sdca_function_device.c b/sound/soc/sdca/sdca_function_device.c
-index b5ca98283a88..9fecfcfdbb6d 100644
---- a/sound/soc/sdca/sdca_function_device.c
-+++ b/sound/soc/sdca/sdca_function_device.c
-@@ -46,7 +46,7 @@ static struct sdca_dev *sdca_dev_register(struct device *parent,
- 	auxdev = &sdev->auxdev;
- 	auxdev->name = function_desc->name;
- 	auxdev->dev.parent = parent;
--	auxdev->dev.fwnode = function_desc->node;
-+	auxdev->dev.fwnode = function_desc->node ?: dev_fwnode(parent);
- 	auxdev->dev.release = sdca_dev_release;
- 
- 	sdev->function.desc = function_desc;
+ struct sdca_class_drv {
 -- 
 2.53.0
 
