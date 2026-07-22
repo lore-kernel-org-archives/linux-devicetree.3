@@ -1,62 +1,64 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A29A13E7BA9
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 20:33:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 007474399C8
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 20:34:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784752441; cv=none; b=ktinLBftON3Lmw5wnQvesvUS213PspwBcYohaWTR/+om0wp+Uj6BvgNH269WYXLLiGbT4f8g4yT6VxzQPwcRksaEoU/JRtNGqdLbLh6JoVYItAIFcBVpfRBvE/ChJtX6HkVSMelwTe8gN2QgqPQDfMAFzAJ/wQEamv9M6goKN8w=
+	t=1784752442; cv=none; b=XsCXu3juhTnzMdEJy3pQsRU+qPbjFVLdPmSURrQN0SkWpsLpGd2li9eE05LY0e58eG5fbM+SnrudMihortOBEwEuWVOK+GJPycSdURLmq38Tk6F/RSWPVQF7n7s1kX8ixJi4k62jUTlTbkQD3TVe1n64gDI8w8c6wmpZSC5ZOck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784752441; c=relaxed/simple;
-	bh=jmoCVhQ8DzIGiKmzKU0sXQH0a1YiKOKD1szhVoiS8N4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gMgfaucv0afTCNoS+GLdQaIBMGf5XUn5dBrJeBArVZ8Fd/IBpYWf7S/+S2/u84yocwrzq69xUIj3C2K5qcQSzvxcb/uM/e039SYyYmHJ99fb6WTX/BnBSntzZsvrdcABtikG9c9u/7z6iXG/08koOCPJDqJKlWSeToFMe1FOx2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CY6jaHER; arc=none smtp.client-ip=209.85.128.45
+	s=arc-20240116; t=1784752442; c=relaxed/simple;
+	bh=H7gc8EHhrE54TIGFPE01knw9jDcZnFRii3hzkCBNdj4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JrjMqO8fd5EZQ5bceaHpoqJzPue4tk0S+XrxdAeelsjDUWMtm/+IyR40I7eZfbtyXbynJ46Em2vhFWGr/HIesQ/1dSui8kGs6yyIgaAIKwdLt3vnxhOkuILEp4eL3TIFOtQf3Ls3w03YETzDK6e1GYZJNllY5KcGYKO4CASUUJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T8J+vOW1; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CY6jaHER"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49555a0e68bso22702505e9.2
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 13:33:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T8J+vOW1"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4955de8797cso23797155e9.3
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 13:34:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784752438; x=1785357238; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hPNYOvoeyuyNbMmH40+o4vpJO4lwHxLJGrBhXaLvXKU=;
-        b=CY6jaHERMaH6qFJKOk626jIbVFeVG2SCXj/KVLlZ1klZTeNPZcogMDmtMLGhmRLAEq
-         XDw9ki19D7lVt+ESrlw2pAhZQmYb03t9h/bOJgY5F8bgUegR09Uu3jQIpN4GgLkkdgbo
-         lxKBtQI2sjZl8G32WSr8JdroHDCRCTsml9q6uuppnfPM1Wod5StqFq3DYdleid5j6nyG
-         dUWCpjeiVmnMirxhQsoHOkboXegs5KOp/DTbCg9mc8PdXBa0av/Kb4KTOtvMx08sI79I
-         dkPpOctzhluLrvzaTfx+MPyh6h5AbYxXwUqYlEd9OKmTbAHKYl3DULnQgVaUBTd5ew/G
-         cz7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784752438; x=1785357238;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1784752439; x=1785357239; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=hPNYOvoeyuyNbMmH40+o4vpJO4lwHxLJGrBhXaLvXKU=;
-        b=bqcAuRRqkW3//61Qa8Oz0b1JNETdQz6LAulTJs0unfE/g8dQsIZJN7nc0fM57Zh/TQ
-         DK5A78wX5U8RQGoBU9n2MS+ZZlS56nWu/nnCGQf76gnQCNM2WCmuOBZcKR0xWPnUcaIh
-         VbLcY5DcPrHWMW4dop/EWqsdg0XSqncPawBSitqzGwGEzTYZjRFMoyZ3dEYedzvhyhUM
-         KoL7sjcyr0ZumFaPOmm2HEhdNm5XTxGpL9in0HJb64ra2HA8n+KJip5oD7mx8MsgpYsJ
-         Wa5+pK41MCf0sCJl6Ego6pOT7J4eYcEIxz111WGBHqmL3qolWLHwtntSbYwWyu/xyvL9
-         p7vw==
-X-Forwarded-Encrypted: i=1; AHgh+RqqAPeUzeHmOORlpq+uCeQyDr/cMN6M8dS3fk6LdqKvugIyksgLdvbhfI5IiiXIcn3m/Zr29biqM8Da@vger.kernel.org
-X-Gm-Message-State: AOJu0YyPN/XaAgNiGpPgQZrG5nP/ci72WqiRJMLGTviaQOURFeCFcXar
-	TYO1H4slVeXaf8yARMyngaVGihmk3KIprlXgBSCxUZr/JsmicbdNQ649
-X-Gm-Gg: AR+sD13ShGjE6w4l1lIZuwVwG6lGE1QAVWoNhwGfPGiV7Ia7jzrZ7qsucLMCpLM3nXz
-	SqeekINYc+Aniw9v1TAPydtF8DfsyhqEcxGgVqWUs/FxF0+x9f+IUUOP/FpKcL2T8OulAIVm/3O
-	zf6yBg5WBe3N/47NT7uAqwAAqfD22ifofoX5zd5PhPo9UsjvrO+xlvhIRIVb3wlnBD08Ex20Ssc
-	tSvc0nM7xzpbK3f5AU7VGAOzBGq+NAwPdDrbsJly83JDpsvx0uDhR0q+hfqRgya+BygCKNJY5Ic
-	mHAy2kcpQ8c09FS0iXzXN+I2HcwtxyxLKweO1RP47JUMMV7p7OM89sdbYv33NJRUeXw+yUG6NuJ
-	EoM//9CO7QlKEdPI8QCNsXyq+22q9bZgSAI8Ny7NoJMiLLJ3kn7yjurSrFQhj1E201cuhyr2qML
-	C4Ucefa2ACZi8AvMUlOwVRORxT
-X-Received: by 2002:a05:600c:c4a2:b0:495:4e17:cad5 with SMTP id 5b1f17b1804b1-49573ce96aemr2250455e9.26.1784752437615;
-        Wed, 22 Jul 2026 13:33:57 -0700 (PDT)
+        bh=xSx084TFnzGFnpguxyZxDPEBlEGv6khf3RChBzg4a7A=;
+        b=T8J+vOW1WnvBTMuGrEM/5Z18gXbjghjBtLBxp+ynT0rH7LAt5xaG/LxBczsd8/4tuA
+         8IGt225FXOk+A76Osekdn/rTWIzX9eq3ix++pygsuk20qJIGl1QVhFIU/YFIpkhtpjrW
+         ybn9OC42ivb+m43IpuntDgDhPl8vOyZ0t5jP/Eta5at6xGfsY87szQVOnp09P3XEo/BQ
+         GuRjmQWSzH1cUVSrluA0rbQGGDDLB3b0L0Kxt6mrxYO8fEEhgKX5d6AtOtTZ85BZImrK
+         yFpCpD/rjUWhTaNPpbXZPsD5OofHKO8unM9ChwPuiXO94PXgRpzNhRyMVPLzJ+TYkWps
+         H7UA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784752439; x=1785357239;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xSx084TFnzGFnpguxyZxDPEBlEGv6khf3RChBzg4a7A=;
+        b=ZjlOibKFNDWq9so/4RmNXFFY83RGX7/N0C1wXKNx9unNuosyY28mfdL378APx0jY/w
+         bjcM4cp1wsDiTy1JX74UWNiWIOnuwJhGetmVstJp19h8X5aKBZZ+Bhrw6aOy0VT+NvZ0
+         GCxwQ+Ht8g6v/BfFUQblKUzazZyd4GvAGp+7hxeNP414xkmmzU6pS0j6QVN4vMd/3PmF
+         70bfKc4raKYY2FhqX5I8nIVJkkLh7DwhjyS4dy4/rgm4qCFBN/sYe6kVTDVVVaSxNyqs
+         QU2NzIKu/gljzQsDUgIz5tTCCQrd/QZPumsBTMOWDioOtKMRON1DsIaphaHQG43RY/hY
+         GevA==
+X-Forwarded-Encrypted: i=1; AHgh+RoIe+fuT4n9OHEk8cKJjCZxbo1UphmPK3lTMVkTMIFUOcBbKinL/mGC8iuZjDfARzwFCNeAVaHY0TJj@vger.kernel.org
+X-Gm-Message-State: AOJu0YzDUq3A9HQXhtewQ5wKwvlm1Aq+ArZxtqtxrWramB/CD+2i8Z/t
+	ULDD0A497D1CyD1hXNY9Yb1gCrJQYWuEsG9ZoNwKRQB+xkVLW/QXiE1e
+X-Gm-Gg: AR+sD124pGZR90ACCjkAgRxDlhHf8vLue8ultZVEkrIviSHZmqjOPDV0Jbbq5sbFbKR
+	cyS/ZwHQfX3wrlIpSCcq11l8eZJAHEtU5NI5ibtetOMOONfKjf0TaMsZ6elqodjg/kyEn35g3RK
+	1HeyEm0nSa35A77JzX0f8svkfincRG9K2f5/8fYpNwNuBR8LTrsOcElrt1Tkg6yVyNh3/Z2yL2i
+	KaPqpXlArS9OZELDgJvyEyCPVCqtCM0b9Hp4gnHqixP9GbaGMdydt26o1ZSx9iaVgkFpgSb+QoV
+	fa2yCAQeEvWxJf4mK8dnpvFUK8w7Daff/K5wUbwauWwYvfL1G/AmB1d3xea3ewSQdYgpMz/joxm
+	LhDp7jNohiEA4XDZkwcAhGSk2qJviz8Fd9UxpoZEA339W05mwCILjt0D95vmxhXRf2UVQadC6H5
+	1JE6eaNtPrFkCV/maDvYGCgrNV
+X-Received: by 2002:a05:600c:3152:b0:495:3fe1:4ce4 with SMTP id 5b1f17b1804b1-49573ce8ef3mr3009655e9.26.1784752438954;
+        Wed, 22 Jul 2026 13:33:58 -0700 (PDT)
 Received: from coolemuke.fritz.box ([2a00:6020:b320:1a00:c256:1463:a40b:d8c6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956ab2f0a2sm63134945e9.1.2026.07.22.13.33.56
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956ab2f0a2sm63134945e9.1.2026.07.22.13.33.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 13:33:57 -0700 (PDT)
+        Wed, 22 Jul 2026 13:33:58 -0700 (PDT)
 From: "=?UTF-8?q?S=C3=B6ren=20Hantel?=" <fugininsane@gmail.com>
 X-Google-Original-From: =?UTF-8?q?S=C3=B6ren=20Hantel?= <fugininsane@googlemail.com>
 To: linux-pm@vger.kernel.org
@@ -75,11 +77,14 @@ Cc: Vasily Khoruzhick <anarsoul@gmail.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	FuginInsanE <FuginInsanE@googlemail.com>
-Subject: [PATCH 0/3] thermal/drivers/sun8i: Add support for the Allwinner A80 thermal sensor
-Date: Wed, 22 Jul 2026 22:33:38 +0200
-Message-ID: <20260722203341.2917852-1-fugininsane@googlemail.com>
+	=?UTF-8?q?S=C3=B6ren=20Hantel?= <fugininsane@googlemail.com>,
+	Claude Fable 5 <noreply@anthropic.com>
+Subject: [PATCH 1/3] dt-bindings: thermal: sun8i: Add binding for the A80 THS controller
+Date: Wed, 22 Jul 2026 22:33:39 +0200
+Message-ID: <20260722203341.2917852-2-fugininsane@googlemail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260722203341.2917852-1-fugininsane@googlemail.com>
+References: <20260722203341.2917852-1-fugininsane@googlemail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,53 +94,34 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: FuginInsanE <FuginInsanE@googlemail.com>
+The Allwinner A80 has a thermal sensor with four channels which shares
+its MMIO block, bus gate, module clock and reset line with the GPADC.
+Register-wise it is an early version of the THS found in the A83T and
+later SoCs, with the THS registers starting at offset 0x40 of the
+shared block.
 
-This series adds support for the thermal sensor of the Allwinner A80
-(sun9i), the last SoC of the family with an in-tree DT but no THS
-support.
+Add the compatible to the sun8i THS binding. The A80 takes a bus and a
+module clock plus a reset line, so the existing conditionals already
+describe it correctly.
 
-The A80 THS is an early relative of the A83T/H3-era sensor generation:
-same register semantics, but the block, bus gate, module clock and
-reset line are shared with the GPADC, the THS registers start at
-offset 0x40, and there are four sensors (big cluster, DRAM, GPU,
-little cluster).
+Co-authored-by: Claude Fable 5 <noreply@anthropic.com>
+Signed-off-by: Sören Hantel <fugininsane@googlemail.com>
+---
+ .../devicetree/bindings/thermal/allwinner,sun8i-a83t-ths.yaml    | 1 +
+ 1 file changed, 1 insertion(+)
 
-Philipp Rossak posted a driver for this hardware back in 2018 as part
-of a larger THS rework which never landed for the A80; Armbian has
-been carrying his DT patches ever since. This series takes the
-mainline sun8i_thermal driver as the base instead: patch 2 adds a
-chip description derived from the vendor BSP (register init values,
-protection thresholds and the temperature formula), and patch 3
-revives Philipp's DT patch with a fixed interrupt number (SPI 115 as
-in the vendor BSP - verified on hardware, the original SPI 31 never
-fires) and critical trip points.
-
-Two A80 particularities are worth calling out: the data-ready
-interrupt fires at the conversion rate on this SoC, so it stays
-disabled and the sensors are polled, with the interrupt line serving
-the alarm/shutdown events only (as in the vendor BSP). And the A80
-SID is not yet supported by the sunxi nvmem driver, so calibration
-data is unavailable for now and the driver falls back to defaults,
-which produce plausible values on real hardware.
-
-Tested on a Cubietech Cubieboard4: all four zones report
-load-reactive temperatures (idle ~40 degC, ~54 degC under sustained
-full load) tracking the BSP formula across the range we could
-provoke.
-
-Philipp Rossak (1):
-  ARM: dts: sun9i-a80: Add thermal sensor and thermal zones
-
-Sören Hantel (2):
-  dt-bindings: thermal: sun8i: Add binding for the A80 THS controller
-  thermal/drivers/sun8i: Add support for the A80 THS
-
- .../thermal/allwinner,sun8i-a83t-ths.yaml     |  1 +
- arch/arm/boot/dts/allwinner/sun9i-a80.dtsi    | 68 ++++++++++++++
- drivers/thermal/sun8i_thermal.c               | 93 ++++++++++++++++++-
- 3 files changed, 161 insertions(+), 1 deletion(-)
-
+diff --git a/Documentation/devicetree/bindings/thermal/allwinner,sun8i-a83t-ths.yaml b/Documentation/devicetree/bindings/thermal/allwinner,sun8i-a83t-ths.yaml
+index 3e61689..718c44d 100644
+--- a/Documentation/devicetree/bindings/thermal/allwinner,sun8i-a83t-ths.yaml
++++ b/Documentation/devicetree/bindings/thermal/allwinner,sun8i-a83t-ths.yaml
+@@ -18,6 +18,7 @@ properties:
+       - allwinner,sun8i-a83t-ths
+       - allwinner,sun8i-h3-ths
+       - allwinner,sun8i-r40-ths
++      - allwinner,sun9i-a80-ths
+       - allwinner,sun20i-d1-ths
+       - allwinner,sun50i-a64-ths
+       - allwinner,sun50i-a100-ths
 -- 
 2.43.0
 
