@@ -1,310 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039E03630AC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16E1A386578
 	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 03:58:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784692699; cv=none; b=FII8ymUX1G4lGwwBhhdaJCKofMwrmnkn3ZdaLJEAjgr7W+zhz0xKSzdUGD+B2aiqm37daYF9wvmpBpyg2Trxj9eHBZxKbBQdfzNZF/pSpPEzrXGt/Tdtm+vXd66GfxieuWbNaJEOHxdljCYBdVb2zUj2Qh1zcmAqBVjf/cITzLc=
+	t=1784692699; cv=none; b=Lp2v1I1j/iQBo50hidf2nQFgWCxHs5v9wmv34gZPXBThV21wITiGNvCOC/HUuW3GVir+m/TOKpOKJ0CO2NNLbe6Oh7CTSGSnIM048S4guodGejWqETzIcRSHoD24kM252vgrS5i/V2DTBIGwNGFpykht4aUY99sEzflP0ftVUNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784692699; c=relaxed/simple;
-	bh=PkPeEfhFSYK4QjehEZ8An4vrh4P3wKDbpS+X+u5/t50=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eZRGX0bfeqGakPaxpmXi6BAOkIRYY0O5G1iw7y+km7Swc3gqZ+w3/9lK+vcI5rFf1YG6JAs/DFf8o6akappz+4ms3+dXc8eL0XplkegPuP5c6y7jYNybqkeAxFACc4kLwSJpDGQn9ro9k2JhZAsT4vYt9wz+nGSw8iXBGiT/PXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lKl3iRyM; arc=none smtp.client-ip=100.103.45.18
+	bh=Cte+u9tH8fCR/6ttNQaKQJ6a1hf+2lqW1U/FDUKfMcU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AVuiPsigLfi6N47LymCUC01qlX5mdvHD5LeGpj2j/Z7hc3/wuXgKH1GnAMXz2Q16hZyVCPiukogY5TQv3eHOEw+dF4bdk0alExAGO/NiX09Q96UJlFd3lSJTfWupbVTwHRCZEUT1qz3kbeyMAcYUs555psxkDTM9joTmgv0w3Sg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nw5zy9/9; arc=none smtp.client-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lKl3iRyM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA671F000E9;
-	Wed, 22 Jul 2026 03:58:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784692697;
-	bh=F6O9GqWpl/Nckxqz/VrJmv7ig/+KlOfaYAQaAcysb1U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lKl3iRyMTWa5RYpiEqH4XGtsLri6EighG1QkVi3dGwOAhYbdghMbLoAqn9k3C42Y5
-	 dW/qoHJ+chQnFzSTnScpjENM9XVn3TyiI4ugA0AbgMBHNaMRNfVeiNLV5FqNko8K8M
-	 fL/q9DSqz1hq2TLHfVU8uO23W74VG/ntUn/wHkM/Npf/Tf6pBaxgGqfEyh6xYjDecM
-	 vsM4AkxwwrQj2UdVouLQ1d8R9v7YJQ9mrFFkKeVaBXjiBULep/WbKMapdbHv3sLAnZ
-	 AHlyo7tu+1PyPx390m2j8DLgKcsISRnGSPNVU3ofxjvso147sanuebTWIAqqyUkzv3
-	 oO9bNqQIpr6LQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] media: i2c: add driver for ITE IT6625/IT6626
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hermes Wu" <Hermes.wu@ite.com.tw>
-Cc: conor+dt@kernel.org, media-ci@linuxtv.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260722-upstream-it6625-it6626-v3-2-947e50f01764@ite.com.tw>
-References: <20260722-upstream-it6625-it6626-v3-0-947e50f01764@ite.com.tw>
- <20260722-upstream-it6625-it6626-v3-2-947e50f01764@ite.com.tw>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 03:58:16 +0000
-Message-Id: <20260722035817.5BA671F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nw5zy9/9"
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-92e6a434cabso651828885a.1
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 20:58:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784692697; x=1785297497; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0jeICyQW2fPpNALJsCTGYlCb9AbcZZPQ0wg+u4yTtyc=;
+        b=Nw5zy9/9frt67p3YLOOCGI0qskLaHaA6gYXsPzs90wZedY0IJcCqfddHGsDRIPVAwD
+         r05oqWN2ZawTv1wAJM+wSp5DHKH4E5wdxkTaUTHNQ7NA7mpPdFEuMgS98feDO+dxGvU1
+         dOvYDISsK/UjbhSAnB188aAbRon1RiE6tEEoL8qwHimlFs9iZCqqUVUdoQYvE+PK+n2I
+         2VbiUZzkYK7uVhk9ncYWuO7XUl8Try1mJdaTlHdAG89mBhHu85dqWqtzUQBgkdw5yDCM
+         sTttZ7UD6G8yvw844UXqQcFbGn1rdW13F822BxEkSgdClVwECGMPBOMHAvkEtab5n3Ls
+         qLuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784692697; x=1785297497;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0jeICyQW2fPpNALJsCTGYlCb9AbcZZPQ0wg+u4yTtyc=;
+        b=q91eC6Av+WwwjtuTxNUzzCVBjG5AyW2FjnaqEKsxPrKtilQlx3i71y6YvViUj3+ZTs
+         Jyczyl55QobhQZ3PgCMKbs6l/GFBIbLxHAzVC+GM+aMJTki8vdL4N3pqI0PUCcohqjjL
+         9lM5y/y7jd3xHLmp7gUEhCblL6DWe4Pc3XD6ChCdsMLHT+gq86tvrsNMcX0upUw+TcGn
+         6nE/XSfha9+VbvjnSrQ2K0E2RaIBu1E00Qea2cwqiembQc1RP8mLdri8wy3l2azsM6X5
+         990PuxGcUMstrTYacn1nM28/pyM6ZOYucVVFuQVlur2zB7Vv0aYI3NJD6+CBwE3r3jpp
+         xLyA==
+X-Forwarded-Encrypted: i=1; AHgh+RpEkM7wg08Pp89SDjuo/Lo12xC7ZS1TbNzi+fEfGIsoYeSiJlPi/s2mIt80JVKM5O+mwYprdaZht0Nw@vger.kernel.org
+X-Gm-Message-State: AOJu0YxlE9gy5EYZxDhfBoiVLi6BnoO/5VeRhz+D6CYXDm+e2kaJGEun
+	mjAiJ0+cgICYmk9VotHQPedoF/1XdeT6jBf7cRkNX1lZhW67FkqTaPXB
+X-Gm-Gg: AR+sD13ecMSwDo9cmTh+Bo98MzAUcKoX2HtiJ3VpDr/rg02+uVZOHQ+9p3RY/9puMiQ
+	RN0R+67J0YRerJMzT4nmBetfRvAJZW4w00yHQWZ6raY5WvRLbwxRor5+V0zXVsuJeYB1iwRoa52
+	DQ7VlLkRhc0zDkLvKyuegLxxaaiq4JSX+Zw0HQLNmOHhS4vs+mnsXMK7nv9o0k43nscSTWFxKYh
+	5paMDQLbeqzMjGdo0tAXEVz++RJ+EHUCsRgGdGz5OZVY9pBd64jcZGdu2Kg/lORC5uAkpzmHSXg
+	l+ec10TtfH1Jyv0rIE1Sa8UVmfqoHrBx2+cuKxxhuiTVwiNPWBqIfifoG3G2lOhmrleIfNlSH9V
+	VZJQ3O78Tb8EyGvVAifiehwWomk/94xeQJJpVr5M/zHsV2sq7LcxEtlqho8/H9/6hj/54QZQCQr
+	wK4ESc6i67vE56kIgxNFSxuqkEtVwlcwDFHuH/3WGtKYeEFLoS+djbvQ==
+X-Received: by 2002:a05:620a:1a1b:b0:92e:cd21:447c with SMTP id af79cd13be357-930b3f3e243mr2072924785a.38.1784692696928;
+        Tue, 21 Jul 2026 20:58:16 -0700 (PDT)
+Received: from thinker (syn-072-043-128-189.biz.spectrum.com. [72.43.128.189])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-930f68c67d6sm65916085a.17.2026.07.21.20.58.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Jul 2026 20:58:16 -0700 (PDT)
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: airlied@gmail.com,
+	andy@kernel.org,
+	azuddinadam@gmail.com,
+	chintanlike@gmail.com,
+	conor+dt@kernel.org,
+	deller@gmx.de,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	gregkh@linuxfoundation.org,
+	javierm@redhat.com,
+	krzk+dt@kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	robh@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de
+Subject: Re: [PATCH v3 3/3] drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
+Date: Wed, 22 Jul 2026 06:57:31 +0300
+Message-ID: <20260722035734.14981-1-amit.barzilai22@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <alil0p_s9-dM9j_t@ashevche-desk.local>
+References: 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [High] Failure to flush the CEC RX FIFO on invalid length causes an unrec=
-overable interrupt storm.
-- [Medium] Returning -EINVAL for unsupported formats in VIDIOC_SUBDEV_S_FMT.
-- [Medium] Unprotected reads of `csi_format` and `mbus_fmt_code` in `it6625=
-_get_fmt()` cause data races.
-- [Medium] G_EDID callbacks return -EINVAL when the requested block count e=
-xceeds maximum capacity.
-- [Medium] Integer overflow in EDID block range validation allows out-of-bo=
-unds start blocks to bypass bounds checks.
-- [Medium] Unprotected full-page I2C reads in debugfs pop hardware FIFOs an=
-d corrupt driver state.
-- [Low] The IT6625_CID_HDMI_INFO control lacks the V4L2_CTRL_FLAG_VOLATILE =
-flag, preventing its callback from executing.
-- [Low] Incorrect `buf` indexing in debugfs write handler causes fragmented=
- writes and non-zero offsets to fail.
---
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
---- Patch [2]: [PATCH v3 2/2] media: i2c: add driver for ITE IT6625/IT6626 =
----
-commit 87083ce303a80a72c2909985b3b0be1e8131fd98
-Author: Hermes Wu <Hermes.wu@ite.com.tw>
+>>  	{ "ssd1327", SSD1327_ID },
+>>  	/* ssd133x family */
+>>  	{ "ssd1331", SSD1331_ID },
+>> +	/* ssd135x family */
+>> +	{ "ssd1351", SSD1351_ID },
+>>  	{ /* sentinel */ }
+>
+> To avoid conflicts it's better to convert this ID table to use C99 initialisers
+> (so Uwe will be happy).
 
-media: i2c: add driver for ITE IT6625/IT6626
+No problem, adding a designated patch to v4.
 
-Add a V4L2 subdevice driver for the ITE IT6625/IT6626 HDMI-to-MIPI
-CSI-2 bridge chips.
-
-> diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-> new file mode 100644
-> index 0000000000000..54056ee71a46c
-> --- /dev/null
-> +++ b/drivers/media/i2c/it6625.c
-> @@ -0,0 +1,2131 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-[ ... ]
-> +static int it6625_read_edid(struct it6625 *it6625, u8 *edid, int start_b=
-lock,
-> +			    int num_blocks)
-> +{
-> +	int i, bank_ctrl, err =3D 0;
-> +	struct device *dev =3D it6625->dev;
-> +
-> +	if (!edid) {
-> +		dev_err(dev, "edid buffer is NULL");
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (start_block < 0 || num_blocks <=3D 0 ||
-> +	    start_block + num_blocks > EDID_NUM_BLOCKS_MAX) {
-
-[Severity: Medium]
-Will this return an error instead of clamping the EDID block count? The
-V4L2 specification requires the driver to clamp the blocks to the maximum
-available and return 0, rather than returning an error when a userspace
-application requests a large block count.
-
-Also, since the parameters are signed integers but originate from __u32
-fields, can a large positive start_block overflow start_block + num_blocks
-to a negative value? This would bypass the hardware bounds check and allow
-I2C reads to unintended banks.
-
-> +		dev_err(dev,
-> +			"invalid block range: start_block=3D%d, num_blocks=3D%d",
-> +			start_block, num_blocks);
-> +		return -EINVAL;
-> +	}
-[ ... ]
-> +static int it6625_write_edid(struct it6625 *it6625, u8 *edid, int start_=
-block,
-> +			     int num_blocks)
-> +{
-> +	int i, bank_ctrl, err =3D 0;
-> +	struct device *dev =3D it6625->dev;
-> +
-> +	if (start_block < 0 || num_blocks <=3D 0 ||
-> +	    start_block + num_blocks > EDID_NUM_BLOCKS_MAX) {
-
-[Severity: Medium]
-Could this also be vulnerable to the same integer overflow as the read
-path? A large start_block could overflow the addition and bypass the bounds
-validation on the write path.
-
-> +		dev_err(dev,
-> +			"invalid block range: start_block=3D%d, num_blocks=3D%d",
-> +			start_block, num_blocks);
-> +		return -EINVAL;
-> +	}
-[ ... ]
-> +static void it6625_cec_handler(struct it6625 *it6625, u8 intstatus)
-> +{
-> +	struct cec_msg rxmsg =3D {};
-> +	int val =3D 0;
-> +
-> +	if (intstatus & B_CEC_RX_RECEIVED) {
-> +		scoped_guard(mutex, &it6625->it6625_lock) {
-> +			val =3D it6625_read_byte(it6625, REG_CEC_RX_DATA_LEN);
-> +			if (val > 0 && val <=3D 16) {
-> +				it6625_read_bytes(it6625, REG_CEC_RX_DATA, &rxmsg.msg[0], val);
-> +				it6625_write_byte(it6625, REG_CEC_RX_DATA_LEN, 0);
-> +			}
-> +		}
-> +
-> +		if (val > 0 && val <=3D 16) {
-> +			rxmsg.len =3D val;
-> +			cec_received_msg(it6625->cec_adap, &rxmsg);
-> +			dump_cec_msg(it6625, &rxmsg, "CEC_RX");
-> +		} else {
-> +			dev_err(it6625->dev, "invalid CEC RX length %d", val);
-> +		}
-
-[Severity: High]
-Does this code leave the hardware interrupt condition permanently active if
-the length is greater than 16 or less than 0?=20
-
-If the length is invalid, the driver logs an error but skips writing 0 to
-REG_CEC_RX_DATA_LEN. Since writing 0 is required to clear the RX status,
-this could cause an unrecoverable interrupt storm.
-
-> +	}
-[ ... ]
-> +static int it6625_get_fmt(struct v4l2_subdev *sd,
-> +			  struct v4l2_subdev_state *sd_state,
-> +			  struct v4l2_subdev_format *format)
-> +{
-> +	struct it6625 *it6625 =3D sd_to_6625(sd);
-> +	struct v4l2_dv_timings timings;
-> +
-> +	if (format->pad !=3D 0)
-> +		return -EINVAL;
-> +
-> +	it6625_get_timings(it6625, &timings);
-> +	format->format.width =3D timings.bt.width;
-> +	format->format.height =3D timings.bt.height;
-> +	format->format.colorspace =3D format_to_colorspace(it6625->csi_format);
-
-[Severity: Medium]
-Can this code read a torn state?=20
-
-The variables csi_format and mbus_fmt_code are being read here without
-holding the it6625_lock. If VIDIOC_SUBDEV_G_FMT is called concurrently with
-VIDIOC_SUBDEV_S_FMT, they could end up out of sync.
-
-> +	format->format.field =3D timings.bt.interlaced =3D=3D V4L2_DV_INTERLACE=
-D ?
-> +			       V4L2_FIELD_INTERLACED : V4L2_FIELD_NONE;
-> +
-> +	if (format->which =3D=3D V4L2_SUBDEV_FORMAT_TRY) {
-> +		struct v4l2_mbus_framefmt *fmt;
-> +
-> +		fmt =3D v4l2_subdev_state_get_format(sd_state, format->pad);
-> +		format->format.code =3D fmt->code;
-> +	} else {
-> +		format->format.code =3D it6625->mbus_fmt_code;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int it6625_set_fmt(struct v4l2_subdev *sd,
-> +			  struct v4l2_subdev_state *sd_state,
-> +			  struct v4l2_subdev_format *format)
-> +{
-> +	struct it6625 *it6625 =3D sd_to_6625(sd);
-> +	int ret;
-> +	u32 mbus_fmt_code =3D format->format.code;
-> +
-> +	ret =3D it6625_get_fmt(sd, sd_state, format);
-> +	format->format.code =3D mbus_fmt_code;
-> +
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D it6625_csi_mbus_code_idx(mbus_fmt_code);
-> +
-> +	if (ret < 0) {
-> +		v4l2_dbg(1, debug, sd, "%s: unsupported format code 0x%x",
-> +			 __func__, mbus_fmt_code);
-> +		return ret;
-> +	}
-
-[Severity: Medium]
-Should this adjust the format instead of returning an error?=20
-
-The V4L2 Subdevice API mandates that the driver must adjust unsupported
-format codes to a default supported format rather than returning -EINVAL
-and failing.
-
-[ ... ]
-> +static const struct v4l2_ctrl_config it6625_ctrl_get_hdmi_info =3D {
-> +	.ops =3D &it6625_ctrl_ops,
-> +	.id =3D IT6625_CID_HDMI_INFO,
-> +	.name =3D "HDMI Info",
-> +	.type =3D V4L2_CTRL_TYPE_STRING,
-> +	.max =3D 128,
-> +	.step =3D 1,
-> +	.flags =3D V4L2_CTRL_FLAG_READ_ONLY,
-> +};
-
-[Severity: Low]
-Is this control missing the V4L2_CTRL_FLAG_VOLATILE flag?=20
-
-Without it, the associated it6625_g_volatile_ctrl() callback won't execute
-when userspace reads the control, silently returning a default empty string.
-
-[ ... ]
-> +static int it6625_mipi_reg_show(struct seq_file *s, void *data)
-> +{
-> +	struct it6625 *it6625 =3D s->private;
-> +	u8 reg_buf[256];
-> +
-> +	it6625_read_bytes(it6625, 0x00, reg_buf, sizeof(reg_buf));
-
-[Severity: Medium]
-Will this unprotected 256-byte bulk read cause hardware state corruption?=20
-
-Reading all 256 registers without holding it6625_lock could race with
-active bank switches. More importantly, won't this read clear-on-read
-registers like REG_CEC_RX_DATA, silently popping the CEC RX FIFO and
-permanently dropping pending CEC messages?
-
-> +	it6625_regdump_print(s, reg_buf);
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static ssize_t it6625_mipi_reg_write(struct file *file,
-> +				     const char __user *user_buf,
-> +				     size_t count, loff_t *ppos)
-> +{
-> +	struct it6625 *it6625 =3D file_inode(file)->i_private;
-> +	char buf[32] =3D {};
-> +	unsigned int addr, val;
-> +	ssize_t len;
-> +
-> +	len =3D simple_write_to_buffer(buf, sizeof(buf) - 1, ppos, user_buf, co=
-unt);
-> +	if (len < 0)
-> +		return len;
-> +	buf[len] =3D '\0';
-> +
-> +	if (sscanf(buf, "%X %X", &addr, &val) !=3D 2)
-> +		return -EINVAL;
-
-[Severity: Low]
-Can this fail for any debugfs write where the file offset (*ppos) is
-greater than 0?=20
-
-The simple_write_to_buffer() function copies data to buf + *ppos. If *ppos
-is greater than 0, the start of buf remains zero-initialized.=20
-
-Setting buf[len] =3D '\0' puts the null terminator at the wrong index, and
-sscanf() reads from buf[0] which is empty.
-
-> +
-> +	it6625_write_byte(it6625, addr, val);
-> +
-> +	return count;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-upstream-i=
-t6625-it6626-v3-0-947e50f01764@ite.com.tw?part=3D2
+-- 
+Thanks,
+Amit
