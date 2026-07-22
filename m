@@ -1,104 +1,175 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD533D3D16
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 03:48:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3977B2701B6
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 03:52:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784692097; cv=none; b=ReS4rZHNH/ETyZOTg2NCAMyNxM4lxFPMBb5V4vspU6sZyit9Q71Wzn4wt/x3+V2LgpwHIzxaPzwQ+dZU5puGfsBA7aQ9U1+dTyoB2YEJ5I69dJb/wP9wDD5bjAJ+Hs/j7DLvk6Cy19HFZpD5JIT/Rgk2/JSseZlbasBjWGjqYp8=
+	t=1784692336; cv=none; b=PnA4ROfCIRicKsbijMvido/4LDFFVlKzmLJc5ebXgK9C3U0N5mwZvDGalPX9Hz85KaQnX8KrlxSz4IMnAbcqbv/+yvwYtmsyWrXQH1IM4Ovk+OdZ9nxmNKIoE0wy0iSy7sCX3pmrEv1cgw3t3UDCqatSQmq3ha7nz3qFOEgvZno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784692097; c=relaxed/simple;
-	bh=VSzjPKR4lLklgDn9GCYwHvZgAaAkgB6hwWlqO0HIt1M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=noEXFtVxHzz1VC1AzGjVheGODmUt7/2fnYNlilL89xB7WT1jmsZzhewcw6SYDrQfjbLiN6DiK2DyHGyyyzjownpEb2/Nx4ofrwicVbI42fg3zaqHx0y/FlOsvKvYQqtXqInIyT3P2OuhNhrtCNXPmiMi+lLsyh7RMPyaH5iHQw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AXrMDRdB; arc=none smtp.client-ip=209.85.219.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784692336; c=relaxed/simple;
+	bh=N0CPRPXWtIDReFhPDvIW0bn56EI5cFUMsu+KZXQ4P8s=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=eULb05oU1Rt+5ie4Lnpxdx3VST6kepKQnwXZkKwsNXLDQCu/z6Gavqh0XLH16v2cLoGhW6ZtGlc4jANXjCWEJiBxryQ51pBYFafpE2q9qK+HGB/bzpvsbeUZMcxQ6ms9AhmXhd2wnLugEQNUes09hSw7zmUM9JBqnKHZvMo/8ns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LSuALMl5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AXrMDRdB"
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-8eeadbc5e21so57230506d6.3
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 20:48:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784692095; x=1785296895; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mQuvP1fDBqO0c7MvModbSGdOEb+K8fGjvHhbuLs5Alw=;
-        b=AXrMDRdBRAROwgtDi93pCK+tK0NAHdU4nggpy8hAlm5y8TSup/7zni6Gw1IC+vCzpn
-         61EE4xeW8LzXp3C72Q8xf0B8jlLlc95zPFsnlWKit4C3i8qWZGlhwsmKXPVULBJMyG+v
-         rESZZhzG44A+BqMbW3m8b49OWbLas9iA1Fn0RXJj6FDI+9G+DbMOw+sEmTROTpmgJFN0
-         x3coQs4TeTi/uOF1k2/1w7p4mT8qMsa3CuJxoNib51L9269oNEtH7QKaEkSMukgmAT+N
-         IzDj4KOAWzdn3Wzm4dDmjOgc+aNYGpX7/6hEJVXbUFttbYmndJIPqXJmBzzrvAG8hyo5
-         EnGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784692095; x=1785296895;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mQuvP1fDBqO0c7MvModbSGdOEb+K8fGjvHhbuLs5Alw=;
-        b=fOmmLtdOsViSp6ODz6KzbejHOvwiL49/fP/byvXv4BQwqYVA/Av58zPJV9KlumnKli
-         oH3f02+qYaeMKQn4EWWbTgILUSrB9h6hgAe4fuB6E3Rjx1RHMwgs7CoLcgVQP5FdfAur
-         DBRpVxjndctuKon6V9F6QRj5NCAbd+cH3xFIX8qQWQ3GQB248ygAzQC30FAfaDY/bser
-         isDcg29sMow9Ptrx4AIF9pMVXRzBKqXtNRCvMtqZ0hGanW/bZvKQDlRdvF0ZFLCa+sk8
-         wJn2S/vRWy7TP4QXgwtJeWfm1eu1BQPlLDkAGISXLUQNWFRgx/VOVQYD3kvpcMHqY34y
-         Tl3g==
-X-Forwarded-Encrypted: i=1; AHgh+Rq4MrT9pNEH7g6By/JRH7ENlf6QQGtGgOez9RLWrXV15P6TNK2GaGajF6EuxDA3QECd0JzJ0L/SHpLR@vger.kernel.org
-X-Gm-Message-State: AOJu0YziTFGDCINqKSET2XAtCgoEB3/11SRDmoPBC8C2tjkLKp07xlNU
-	3LZon4XBnOV04ZFbALIuG7ZcLFxvzRcGEO3bdtme8KO4v+muyDdpNc05
-X-Gm-Gg: AR+sD10Ps0oaYXRpd+8JGKD0sKhTQHhcP4j2Sd9rCR1ZcjABShfqwvj+M4Ae0vRDA3Z
-	NUaxkXKDiqYgQuVPtBE2OclftNJ8W0vYJv1eqIQpgLmni1f3Yr7g5/1gyKjGMTXATNXkxuKKlXf
-	w+QI86aPMFLP+ms54lBxN8yx4lT6jmHtEJMa5iwZE/3IMGD5z7LlEzVHSiy78cfRUDzVOh71PYX
-	6vlm4g2DHYI63gXpY5plW3amtrVZhv6FbmoO/+xVyAY0j0a/wGgHFsdxpsELDrxy2XSlmuDZ7SJ
-	0VGgAg58dRSnLROHS9oOejSOZa7dCufJdtMwm8wuqdL2tdmgWMunmp4o3KtmWmKG/Qao8eRAPlM
-	Lao10PEw0ILR88rjut9bMcLl+Ek1TIxqCQcUw+xKz9QXsqPtb4XcGGzpZOXKgX0zldttvYNa2PH
-	NAdWEJy1MOxVWqvjHuUn4GMvUUQ17iVPZ+Ob5lzBYB4YM=
-X-Received: by 2002:a05:6214:e81:b0:8e9:f62b:8f99 with SMTP id 6a1803df08f44-907783cebeamr237912806d6.46.1784692094667;
-        Tue, 21 Jul 2026 20:48:14 -0700 (PDT)
-Received: from thinker (syn-072-043-128-189.biz.spectrum.com. [72.43.128.189])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907ba9e19f6sm11466546d6.27.2026.07.21.20.48.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 20:48:14 -0700 (PDT)
-From: Amit Barzilai <amit.barzilai22@gmail.com>
-To: Javier Martinez Canillas <javierm@redhat.com>
-Cc: airlied@gmail.com,
-	andriy.shevchenko@intel.com,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	krzk+dt@kernel.org,
-	linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	robh@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de
-Subject: Re: [PATCH v3 2/3] drm/ssd130x: Change SSD133X color format to RGB565 from RGB332
-Date: Wed, 22 Jul 2026 06:47:39 +0300
-Message-ID: <20260722034741.12572-1-amit.barzilai22@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <87mrvrbabo.fsf@ocarina.mail-host-address-is-not-set>
-References: 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LSuALMl5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DEC51F00A3D;
+	Wed, 22 Jul 2026 03:52:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784692331;
+	bh=tw+4req4t+TZ2HriWYnESdHzAkCfEaiSVNhXWcwcets=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LSuALMl5T/wA8SyK3/3d9rq6frkNdXAeHNKBFuX0JnCHb/xGufRKXgkNhSWM7X3LY
+	 aT7cvWyoKOlkA8kZoSSQvqw6etZOAU+01pl+8czbZACFSacJ1g2sptln/E6i/R8Ytm
+	 ZLxU19po6HxxrfbTYRliF4BIkuDg4XRcL0v7GJT7Sh6ejo2UuVF5wMimbfBn2qj340
+	 rOJPblxQAzOh/PGMvQXo11W7re2ppbkFtwKOdLDzGPB9ZMTVKf2TilAttuRWKJWHxH
+	 /qFzphcbIlfg6pFOpbM98H/7Fx6MtxesQHuhXddjthU/briQbJuR1dIeuBt2P68PSo
+	 Lf//iwbx4t8/A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDMI
+ bridge binding
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hermes Wu" <Hermes.wu@ite.com.tw>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260722-upstream-it6625-it6626-v3-1-947e50f01764@ite.com.tw>
+References: <20260722-upstream-it6625-it6626-v3-0-947e50f01764@ite.com.tw>
+ <20260722-upstream-it6625-it6626-v3-1-947e50f01764@ite.com.tw>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 03:52:10 +0000
+Message-Id: <20260722035211.6DEC51F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Javier Martinez Canillas <javierm@redhat.com> wrote:
-> Patch looks good to me now. Thanks for the respin.
->
-> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
->
-> Could you please rebase on top of latest drm-misc-next, now that your
-> column/row fixes landed? Then I should be able to apply this patchset.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] The HDMI input port (`port@2`) is omitted from the required port=
+s list, allowing the bridge to be defined without an input data source.
+- [Medium] The `bus-type` property is not marked as required for the CSI-2 =
+endpoints, leaving the physical layer configuration ambiguous for the IT662=
+6 variant.
+- [Medium] Endpoint constraints are tied to the exact node name `endpoint` =
+instead of using `patternProperties`, allowing constraints to be silently b=
+ypassed if a device tree uses a numbered endpoint like `endpoint@0`.
+--
 
-Hey Javier,
-Thanks for the Reviewed-by.
-I'm generating a v4 for this series per your and Andy's comments on patch 4,
-I'll rebase on top of drm-misc-next and add your Reviewed-by there.
+--- Patch [1]: [PATCH v3 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDM=
+I bridge binding ---
+commit 32438c9fff6575c3de96c9e787f4769e322a6f28
+Author: Hermes Wu <Hermes.wu@ite.com.tw>
 
--- 
-Thanks,
-Amit
+dt-bindings: media: add ITE IT6625/IT6626 HDMI bridge binding
+
+Document the devicetree binding for the ITE IT6625/IT6626 HDMI to
+MIPI CSI-2 bridge, supporting single or dual CSI-2 outputs.
+
+> diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml =
+b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+> new file mode 100644
+> index 0000000000000..9bc5584b48880
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+> @@ -0,0 +1,159 @@
+
+[ ... ]
+
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description: CSI-2 output port MIPI0
+> +
+> +        properties:
+> +          endpoint:
+
+[Severity: Medium]
+Since the constraints are tied to the exact node name "endpoint", will
+these restrictions be silently bypassed if a device tree uses a numbered
+endpoint like "endpoint@0"? Using patternProperties for=20
+"^endpoint(@[0-9a-f]+)?$" might be needed here to ensure the constraints
+apply to all valid endpoint node names.
+
+> +            $ref: /schemas/media/video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +
+> +            properties:
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +
+> +              bus-type:
+> +                enum:
+> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+> +
+> +              clock-noncontinuous: true
+> +              link-frequencies: true
+> +
+> +            required:
+> +              - data-lanes
+
+[Severity: Medium]
+Does this allow device trees for the IT6626 variant to omit the bus-type
+property? Without it being listed in the required array, the schema
+could validate successfully while leaving the driver without the necessary
+hardware information to unambiguously configure the physical layer.
+
+[ ... ]
+
+> +      port@2:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description: HDMI connector input port
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: /schemas/graph.yaml#/$defs/endpoint-base
+> +            unevaluatedProperties: false
+> +
+> +    required:
+> +      - port@0
+
+[Severity: Medium]
+Is it intentional that the HDMI input port (port@2) is omitted from this
+required list? This appears to allow a device tree to pass schema
+validation without specifying the video input to the bridge, resulting
+in an incomplete graph that will lack a data source at runtime.
+
+> +required:
+> +  - compatible
+> +  - reg
+> +  - ports
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: ite,it6625
+> +    then:
+> +      properties:
+> +        ports:
+> +          properties:
+> +            port@0:
+> +              properties:
+> +                endpoint:
+
+[Severity: Medium]
+Will this allOf constraint fail to apply if the device tree uses a numbered
+endpoint like "endpoint@0"? Similar to the local constraints above, looking
+for the exact "endpoint" string allows numbered nodes to bypass the D-PHY
+restriction for the IT6625 variant.
+
+> +                  properties:
+> +                    bus-type:
+> +                      const: 4
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-upstream-i=
+t6625-it6626-v3-0-947e50f01764@ite.com.tw?part=3D1
