@@ -1,140 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE6838F25F;
-	Wed, 22 Jul 2026 15:34:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322B73CA497
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 15:36:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784734445; cv=none; b=atEptr17Y3vxfc/glbqVIKQOOkqhw1MBFZBiVi8njFMGKMHXUQBYxoXVnKsXDOKLY2Q2irtiGLsGht6FokGd5Pdfkw381X19hBxq5PwMq+D2qQkMf9xWbrE6pMJygWIuSC6AY5SJbkyyYni9+frlRbiUJm7s6wY5baBi4b/P4uk=
+	t=1784734596; cv=none; b=EZKsSfwrCsKQ9JhrQ7XjAl/nlPk1mfjxn64mxVPJRlD3Fq1aBzV06Es29qswxX761Av20JP4GQzKgldJEwlVit5aah4nsFzEX6uUmCwM9WsQZICdyL6bnIDjAN1+jfy9cR+0Bfhkr2RPCNH+UxpW2CbRR/Cv1/tC9tWxtIDHMbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784734445; c=relaxed/simple;
-	bh=Wj3iGHaFHk5cmK4MBcrZslWG7a1FtT47wL16Mc7fWzc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eAQNIkOzQJAjHRfNPq+Qj8HnIqKszniZXYuSddt/ZjTkkycd/Bwa0j/BWxqMeXOHwPR3Jg0Fw3t4vJPea+KNRjsYhsj/kJEAYlcO9wweWlXNr/f+kc1k0Y6u12m21g9wgLfcgI+ObIt/pb0npRgVZnSVHGg6Nc21Z7kJfGoas50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U6w3Kc/V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784734596; c=relaxed/simple;
+	bh=VIk8ZOc/L0Jcj5WsJpV/rE3zwIbmefh3vxQCH6MylKE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ogh9ASWfIhLlCeItrDuk+TBUt7lgmfi/uf564iTycVIadFhUjYwzPud2bxr3ouLD6YAtMA7NBL4epMeP/Nj0a6ixamt/rdLz+JIheW96j7iNaUaAX5syxEKQ4m9LYI182iHDf0uw5TtCfNeO6SWv2Oc2TwCHdxY8je0BeZZxFYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HacJMrnw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U6w3Kc/V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 225B51F000E9;
-	Wed, 22 Jul 2026 15:34:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HacJMrnw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ED6A1F000E9;
+	Wed, 22 Jul 2026 15:36:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784734444;
-	bh=Wj3iGHaFHk5cmK4MBcrZslWG7a1FtT47wL16Mc7fWzc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=U6w3Kc/V9lFKzM7M50hu3gsJsv9eztCwL+e8kF0iB8S8EAeV/x7mU0Zhr/uDV5mcC
-	 ELIFTU80sM+NkKNmlcXWqx+QATpoHz9oqxOSfkKW4a+TVr5jx3HZ/xjGXbLMROIPkn
-	 iAUTBsFWceWqsbXVc+WVipoS7+7uQdPHfZeYkaWaGFSEj8uCZlXZMDI/eMONUMW10Y
-	 Qc/wi3D16ZDb6TXOk8TGOpFctCjVjtFYPSqkHc/7uwoc/TDguVKugQMAr2QeZdmIyo
-	 2ZPWWNLhxNpLHRI1UnOrPu1eV2o/QgoL/vK3qk7TgrM1Myl9ZIEVZdiDyOBONRHRa0
-	 eWkmyiT8/aEsw==
-Received: by venus (Postfix, from userid 1000)
-	id DD71218090F; Wed, 22 Jul 2026 17:34:01 +0200 (CEST)
-Date: Wed, 22 Jul 2026 17:34:01 +0200
-From: Sebastian Reichel <sre@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: "Dr. David Alan Gilbert" <dave@treblig.org>, 
-	jens.glathe@oldschoolsolutions.biz, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 0/5] usb: typec: ps883x: fixes for older Thunderbolt 4 /
- USB4 docks
-Message-ID: <amDhpbdAElOpxW59@venus>
-References: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
- <al6-IyyWYRnEW4VC@venus>
- <al-dJjzorP-I4Yff@gallifrey>
- <al_0LjwmfW-cECnY@venus>
- <f54271f1-477e-433f-9839-e1111898088f@oss.qualcomm.com>
+	s=k20260515; t=1784734594;
+	bh=Nvom18ZqM8M7o/js3SWI6DEysi7MmHmsd7HyTWJDFzs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HacJMrnwiA3mkiQxnar/DMgGHrfJK043TsPAYFg1PP3izMN1I1WyKwemgTeMlhZO1
+	 uu2h12swIvK90tzNUR0ap6swcSSvSTkd8GK0s7StRnZ14aOqveR3BtPsckf22CB5tM
+	 tblqVQBq9CHUn/gNGgxg3Dql3LpszvY1pcnnySxe16twtDmIfCZiKhm65nowgQxOpW
+	 x4Ad8FcWsWOENcqk1z+MjbhiAtyWHiRMfrOSmn5uB3cR6tQdEMoYpeKuxtlhlf0X3U
+	 CSSoXUZ+PVE2hak1A3JGBbzbgApp8sDBtOMb5RwUxWkQGsWqbbgESTLZY3NusUKOiG
+	 4dweR8lPUjGYQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] dt-bindings: clock: ti,dm816-fapll-clock: Convert to
+ DT schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Bhargav Joshi" <j.bhargav.u@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260722-ti-fapll-clock-v2-1-085054acf2dc@gmail.com>
+References: <20260722-ti-fapll-clock-v2-1-085054acf2dc@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 15:36:34 +0000
+Message-Id: <20260722153634.7ED6A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3cqpbpihkikroulm"
-Content-Disposition: inline
-In-Reply-To: <f54271f1-477e-433f-9839-e1111898088f@oss.qualcomm.com>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
---3cqpbpihkikroulm
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/5] usb: typec: ps883x: fixes for older Thunderbolt 4 /
- USB4 docks
-MIME-Version: 1.0
+Pre-existing issues:
+- [High] The driver dynamically allocates the clock array with insufficient=
+ memory due to a precedence error, and then writes to it using device tree =
+values without bounds checking, causing an out-of-bounds write.
+--
 
-Hi,
+--- Patch [1]: [PATCH v2] dt-bindings: clock: ti,dm816-fapll-clock: Convert=
+ to DT schema ---
+commit 4a9a2c7ea2387cee445b6eafff965419433f7d8c
+Author: Bhargav Joshi <j.bhargav.u@gmail.com>
 
-On Wed, Jul 22, 2026 at 10:27:57AM +0200, Konrad Dybcio wrote:
-> On 7/22/26 1:34 AM, Sebastian Reichel wrote:
-> > On Tue, Jul 21, 2026 at 04:24:06PM +0000, Dr. David Alan Gilbert wrote:
-> >> * Sebastian Reichel (sre@kernel.org) wrote:
-> >>> On Sat, Jul 18, 2026 at 07:06:28PM +0200, Jens Glathe via B4 Relay wr=
-ote:
-> >>>> On Qualcomm X1E80100 platforms (e.g. Lenovo ThinkPad T14s Gen 6)
-> >>>> using the Parade PS883x retimer, connecting USB4-capable docks such
-> >>>> as the Lenovo 40B0 via a regular Type-C cable (which forces the dock
-> >>>> into Type-C fallback mode) often results in working USB but no
-> >>>> DisplayPort output.
->=20
-> [...]
->=20
-> > AFAIK only Qcom and Apple M series support it. A quick search
-> > suggsts Apple used an Intel retimer in the past and a custom one
-> > nowadays. From the looks of it the x86 world cannot use this driver
-> > either and probably handles retimers transparently in ACPI, so it's
-> > effectively Qcom specific until other vendors start adding USB4
-> > support. The only thing announced potentially running into this
-> > would be the Nvidia RTX Spark, which first needs to be released,
-> > then find a bunch of people motivated to implement upstream support.
-> > Nothing with USB4 capabilities has been announced from Mediatek or
-> > Rockchip. So I wouldn't hold my breath for another user and still
-> > suggested adding the machine check instead of simply disabling USB4
-> > for everyone ;)
->=20
-> The PS883x is used on x86 machines too.
+dt-bindings: clock: ti,dm816-fapll-clock: Convert to DT schema
 
-In context of x86 I was more talking about the driver than the chip
-itself. The driver can only be loaded via DT. Any quirks and hacks
-in the driver are unrelevant if the driver is not used by a
-platform.
+Convert the Texas Instruments DM816 FAPLL clock binding from plain text
+to YAML DT schema. The schema now strictly enforces the clock cells size,
+and adds indices and output names as required properties.
 
-> Apart from I2C, it also ""speaks thunderbolt"" - the bus has a way
-> for retimers to enumerate and communicate with the routers
-> (controllers) through a sideband UART-like interface. But for
-> that, it still probably needs the platform firmware to program it
-> into the right mode over I2C, which Linux is unaware of (as it
-> effectively should be).
->
-> FWIW, we do the same on X2. An MCU takes care of setting it up.
+Link: https://lore.kernel.org/r/20260717-ti-fapll-clock-v1-1-1b684cb2543b@g=
+mail.com
 
-Thanks for the info.
+> diff --git a/Documentation/devicetree/bindings/clock/ti/ti,dm816-fapll-cl=
+ock.yaml b/Documentation/devicetree/bindings/clock/ti/ti,dm816-fapll-clock.=
+yaml
+> new file mode 100644
+> index 0000000000000..423b7405e398e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/ti/ti,dm816-fapll-clock.yaml
+> @@ -0,0 +1,71 @@
+[ ... ]
+> +  clock-indices:
+> +    description:
+> +      Maps child synthesizers to physical indices 1-7. Index 0 is physic=
+ally
+> +      reserved for the Master PLL.
+> +    minItems: 1
+> +    maxItems: 7
+> +    items:
+> +      minimum: 1
+> +      maximum: 7
 
-Greetings,
+[Severity: High]
+This is a pre-existing issue, but since we're formalizing the clock-indices
+constraints here, does the driver safely handle these index values?
 
--- Sebastian
+Looking at drivers/clk/ti/fapll.c:ti_fapll_setup(), it allocates the clock
+array without parentheses around the addition, resulting in an undersized
+buffer:
 
---3cqpbpihkikroulm
-Content-Type: application/pgp-signature; name="signature.asc"
+	fd->outputs.clks =3D kzalloc(sizeof(struct clk *) *
+				   MAX_FAPLL_OUTPUTS + 1,
+				   GFP_KERNEL);
 
------BEGIN PGP SIGNATURE-----
+Then it reads the clock-indices property from the device tree and uses it
+as an array index without bounds checking:
 
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpg4uIACgkQ2O7X88g7
-+pqwzA//fhMItCy0gKdoT+UnjnJFPyhQ7Qe4Dg9P0nmUtG+6mGJv+9aKsN1SFePx
-tq+fqwvINni30JUwMfPPm8elmiUS4Y1zFyRD8FuqNxNZ4zypuQUr+wAAqNMgwhMU
-wj7v6Uo6uHLoMD6iStedRHhu6YE3FBKqW2RJf83ng2tsTPX7BNPm7RLsTB4bvnUh
-UO8VnpaHBFTQy2p7YknjRF/wQq2FafqONB6Q9x6H4AnGvA2CcTVguLU2rUuGr508
-jHiLdoyPlBQm45aUAc5xRaDNunoqYvYvcrHbwthiMGvHvuG66POUWxzjmdE1Q71X
-AvmPhezLYh5Z6I+ivrYGoB1CYWALZh7Ggs9r93bCroC4AJBIq/ZiohZ+aM+kzXJE
-43SwtpKkMMK4TruD5A2W2+f6aL2edo+vOvyKCmHLvCykWvR2MUXaFvvGomEIRpzE
-jgfELAWigx94VsJkK5TBTKQ9Gg2ShJexKE0fqj1JDpHVh/v30ATyUL53CZMvCL8b
-Zhd8alUJQDvKb6rPm6t71VBJnLm8UKKiN8nDuRvHa5cWVrvA2mF0jN4kMMmhZfsf
-2WzjXjDx2HpYcZBtDO9lEsdtaDT1S5oid7wh7LXnxeqdJSeUblVTNploMTACIA4K
-kFclFiyAvHbEg5oVUPJgc8fP5Yl4YQx+3ul6IPuSEn7BGMSu+IE=
-=ZoIQ
------END PGP SIGNATURE-----
+		fd->outputs.clks[output_instance] =3D synth_clk;
 
---3cqpbpihkikroulm--
+Since MAX_FAPLL_OUTPUTS is 7, the allocation on a 32-bit architecture
+requests 29 bytes (4 * 7 + 1) instead of the intended 32 bytes (4 * (7 + 1)=
+).
+
+When the valid index 7 is used from the device tree, does this write past
+the end of the requested allocation? Furthermore, could a malformed device
+tree providing an index greater than 7 cause memory corruption beyond the
+slab boundary?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-ti-fapll-c=
+lock-v2-1-085054acf2dc@gmail.com?part=3D1
