@@ -1,165 +1,396 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADA5340D565;
-	Wed, 22 Jul 2026 09:23:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A56DE442FDE
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 09:24:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784712204; cv=none; b=npZNrSrA72HD5hdUvJK0ypCMHxiUFGmTw0AwutB/jdnn/BaeswGgp6N32yvEIu/Xb9z22cpSYUm651lm/XQNUbz396aF4ksyKlKybn3RGCFQfa0o55rZqxRQDY7Ajy9/3s69Ah3Noun9bzclHIBnjrTURcLrZNlzf7uyxfr/Imo=
+	t=1784712296; cv=none; b=Lx8YZ8jHpjhlFX0kPnyRyEI720DfoGtsYEVOkfRO0kAK84d0FLkIW1VSHJApcLnjsO/t1IVX46TLglHDii5tNY2HU0BlnHLsGf0d/lauBPqdGhrkbXUl3IwFicqSZGLUeSp3jHTJRLg+mOWh53gKw8y1xW0aZbG7HF4L3cZcSyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784712204; c=relaxed/simple;
-	bh=EV7iUo1NsjFqcITJtzVqmOKRWQ1ecKxaV381yInG0ho=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UIkkK8NwxsvVenv0CcHJya1soO+jknycDQQ/i1Eyfv7QZ/4nb6F/J0wm8mYcuk4YxyaOw0uDxAuyFKlUqMYnmWmAcz6X0StEXrFm6YtmezVLh7++vxs43E7EBgHNGq76wmhLiHhIF/TgSOU6SwOB1zT/Y7I95JzkltDYik/UFAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iw8u0HnX; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1784712296; c=relaxed/simple;
+	bh=SISakai73oYIJow0GtA/f/yfN5PL5Ym7FWvKCPwBvDQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tDWAAnuqR8HVJDKNJqsfNY864PiUtrEXoKsrghDYUX/81/h1csZf+m4th7DICOqlQYXldy2SmSE71G3ZAPZOavOASMl0arhm3wAZHDN9MEOOm88UO1dLUuwlerizy/Vtx9tmWkNeqxCTRJb3nM8egfLWpivfO8KokODuQw6S7M8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UxgQmBBu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Pa9HcRAz; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iw8u0HnX"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4BFF6C2BCF7;
-	Wed, 22 Jul 2026 09:23:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784712204;
-	bh=EV7iUo1NsjFqcITJtzVqmOKRWQ1ecKxaV381yInG0ho=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Iw8u0HnX5Gf/mwUmnYHLH8TLpVK0B4khS4FKzf/ovgkGeM+ghGYlLKUlNywirhyM3
-	 dURNxP9D5SqNuWnRKXiNllru6RCaVMuQJBkmYHpQN/BwQWONkk4y3cADUcElvCpWID
-	 cgcA4oni9X2wHgzd+A2jV0N5ZC2muPYM/O8uGS2EjPd5FGVVG4OS7FQZf8PkvpPJwK
-	 dhfJaL9XWlBXK753GvZKYqxPZML+tNC3yD3hXf2TUxRHB2z+6NEvc2h6G7cuD/HWTI
-	 ggvTguf+/10o1HHyZEK+6F6WXyDiDDh8m8k6AFNgYooCMzsv9mfXJ6+uQFEVF+GbnV
-	 fV3CMfQRNG9Sw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0341AC4453A;
-	Wed, 22 Jul 2026 09:23:24 +0000 (UTC)
-From: Congcong Yao via B4 Relay <devnull+congcong.yao.mediatek.com@kernel.org>
-Date: Wed, 22 Jul 2026 17:21:57 +0800
-Subject: [PATCH RESEND 1/2] memory: mtk-smi: Add mt8189 support
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UxgQmBBu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Pa9HcRAz"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M8xKYZ401720
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 09:24:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=fke8mFdUXzCYoX7ahByeU8GI
+	IeCclhKRXZ6jSKAjmZE=; b=UxgQmBBu/l8Usm+sEobPvkgPPpZxVTwV3WMArMoQ
+	YyacCNVKE43UbTz2/yGm3hqQKFm+uB+TaTYaECZ/EYe50DIJaGg/9rw6MvdYZ62p
+	fMlfLtM6YpCPIiweeNviO4V2iX1+Zrd5QQ5voGYYoTNfW6XuvjrINj5G1SF4JQ1d
+	E8Sbkkv00sxjuViLxaKcnGCQov6km1S3sy3ely2nYwCMOGUKbWcC7DFDG9WUQmMX
+	FK7QDH5k2CbtVJ/FcjBE3xag+jAnLaqOrStEl7iRiGHe8nFtExbAXnIzBq6B2rX7
+	cEhIbNT7KOW/K3q8U5XH93cABFiAgjmW1Mwrfp2ueJntUw==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjt798967-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 09:24:53 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-ca860baea9fso21626728a12.2
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 02:24:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784712292; x=1785317092; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fke8mFdUXzCYoX7ahByeU8GIIeCclhKRXZ6jSKAjmZE=;
+        b=Pa9HcRAzDNDzQDyXydeABUAVaf5rd/kmIxUb3l/9YClREokO9o07zVLOLLX87TLqDd
+         rEoeWzOKbG9lNwXR8TyEvaVHf33QLDanzGtkE092nQcPJwhnwBD6Hr0hAYAuVLBEckw9
+         PGmfIOaIptO8vBQfkTyign+fuUFPKNGZR6Hz4nORG/V3mTKkZrfM4f6j1S7DWUAYr/1q
+         2iO8AYNIvBgm8Uppva9E5aZo99P2DyYEhS1Xzzi/pQhUAGP9nP0vffT/lDwTIrygys5w
+         cxCIJWJnxucamrr3PH2b1n6BOkJ6ut9Q+jpwz01WfDsl8yqAZKSsg3xRKK9YKw5dyxj5
+         +0ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784712292; x=1785317092;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fke8mFdUXzCYoX7ahByeU8GIIeCclhKRXZ6jSKAjmZE=;
+        b=XIUstspW4CAQEEewjvTI7sAp2HqaW6CQeuaSGGWW+kD+4L4TzI1ICCSbF2Hu4VdG0J
+         kHDUIY9BAJdB7F7X8vguN1ElmG1kJadlMN8XepjPyLgLKPaHWpVqePz4SWhpdvUrQE3Q
+         6MiaCOY/WmBHgihwhaTOi6kR2PXOuzGNwA+A7zPpTwQ0czmQcqUI3mqLK+vscVIKU7M1
+         R5/4Rngss6oY084QXPnh7s/sMWlRYKaagRfVkRR9m6ijkrpqQiGfq2LPOpFhvNVaV6xf
+         jAAKrHAFsUlqVMDJj8kWkVZHvtw2w28rrWkFqvts81gCrLc9ncsdzQnX6+9gn9UHcdrR
+         fh1w==
+X-Forwarded-Encrypted: i=1; AHgh+RphdGVJQy5TczA0TyA6IjKwVCUcj1XB+jozzu+LHCc/8Bxw8JTGwEqy7Lp4y4aRYRYzZ1TrTKZQwOgH@vger.kernel.org
+X-Gm-Message-State: AOJu0YzAdFjeZzS1AlR7orVElDtyUj2u3u+HGEgeAx1/FE57T3Ghy62e
+	27LAy3slq/fTIwt4SAoFeU16tuYRrOuZx2orDo7+LQWeEHsBhVvNtkqgtb+sf1ukgN1mX3Y3nsi
+	JYEGreea4mMlBb+w+Ce1iO63D+BOTCHqDTIXTXP+mQ8GjC8HwvJcixvWff6IgdxSc
+X-Gm-Gg: AR+sD13EOq1YkwfVWRj/7VbW+1M5tk3CJt7MFz5eanF2z0v/XRXBbFOm4hSHUSOQ4GE
+	aWP5ejdEkx3duRpveA7+7CXC6NlBmrNTMANSb/zV2KGv1I19CIvIsatdXWpJvBu90Qhin8UT8Um
+	f9RLLAoUj8PDaxAu+AKj9P0dCmATS5JYXpmF0x3tkL+JfNZ940VOMixqsU0L7Yd1glK1+upQ3o0
+	4Wi6mxtppsbn0QjfK5Be+m4Jkmdmk2RMcRpXbQdw6FaVw6qnkdNJl4xNrUXRcYlSawAIjr9B1a4
+	jsIHLuZA+jmPQsy36/UptemG7mqOAbuPdPE9ncfvLsvvixf0SEFmljdX2NzRuTt4Y2d268ST0qk
+	UzBdOZ8ILk+a/aEzCsD0z0fj6G819PJPFMg==
+X-Received: by 2002:a05:6a20:ae2f:b0:3c0:9c1b:d0bf with SMTP id adf61e73a8af0-3c3ad9ec960mr21354573637.74.1784712292196;
+        Wed, 22 Jul 2026 02:24:52 -0700 (PDT)
+X-Received: by 2002:a05:6a20:ae2f:b0:3c0:9c1b:d0bf with SMTP id adf61e73a8af0-3c3ad9ec960mr21354519637.74.1784712291669;
+        Wed, 22 Jul 2026 02:24:51 -0700 (PDT)
+Received: from hu-pkondeti-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147e081985sm7587907eec.23.2026.07.22.02.24.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 02:24:51 -0700 (PDT)
+Date: Wed, 22 Jul 2026 14:54:39 +0530
+From: Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>
+To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+Cc: Sebastian Reichel <sre@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Christian Loehle <christian.loehle@arm.com>,
+        Ulf Hansson <ulfh@kernel.org>, Lee Jones <lee@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
+        Andy Yan <andy.yan@rock-chips.com>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        John Stultz <john.stultz@linaro.org>,
+        Moritz Fischer <moritz.fischer@ettus.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Sudeep Holla <sudeep.holla@kernel.org>, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Andre Draszik <andre.draszik@linaro.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+        mfd@lists.linux.dev, Srinivas Kandagatla <srini@kernel.org>
+Subject: Re: [PATCH v23 04/13] firmware: psci: Introduce command-based resets
+Message-ID: <282fd166-2074-48cd-84ce-c887711e51c5@quicinc.com>
+References: <20260714-arm-psci-system_reset2-vendor-reboots-v23-0-e7453c548c21@oss.qualcomm.com>
+ <20260714-arm-psci-system_reset2-vendor-reboots-v23-4-e7453c548c21@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260722-8189-smi-support-v1-1-b528a4fd878c@mediatek.com>
-References: <20260722-8189-smi-support-v1-0-b528a4fd878c@mediatek.com>
-In-Reply-To: <20260722-8189-smi-support-v1-0-b528a4fd878c@mediatek.com>
-To: Yong Wu <yong.wu@mediatek.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- Congcong Yao <congcong.yao@mediatek.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784712202; l=4625;
- i=congcong.yao@mediatek.com; s=20260722; h=from:subject:message-id;
- bh=wS9TOb8YOqNWavcXHnJhOL4NUnuoZhgp5xywhpZ31s8=;
- b=j9Byvd1wUksLvcO9bocy+R/VXlkiWPdsepniqnCsMAV3g11lCTvRYsTAXyhNKDgJ7CGl6kOWC
- CE+9KbgbgtsC/f0DZKln/9i36EPzqyH2lmDndwTLaGDbOCnay/7ir3D
-X-Developer-Key: i=congcong.yao@mediatek.com; a=ed25519;
- pk=tIrmGxKQQxnfyb48iCCd19063tppPj89U3nupGYAIxg=
-X-Endpoint-Received: by B4 Relay for congcong.yao@mediatek.com/20260722
- with auth_id=889
-X-Original-From: Congcong Yao <congcong.yao@mediatek.com>
-Reply-To: congcong.yao@mediatek.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260714-arm-psci-system_reset2-vendor-reboots-v23-4-e7453c548c21@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=Sr6gLvO0 c=1 sm=1 tr=0 ts=6a608c65 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=hbohSISKQUe5WVyMY20A:9 a=CjuIK1q_8ugA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-ORIG-GUID: NS1ZNphvKnPMpP83DFB4SfJIU570utnF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDA4OCBTYWx0ZWRfXwUAS8F0V0J8H
+ 1tCfBOx5oSVEySMBY3J8pWzYd2LK96xzgujSMKmigmp3UsW8LNwtGjLxEL91sqtup8LIGpKmgHe
+ buCjPWgbTjWcKVCWMt9PtWS7ZUJBjIq0MQXqBzhef8deMUrpstaqWqnvfxlk8XYPbe90ZjGqKFm
+ j/buQXrjJCHwNqdik0yvESWQ6zw9J1RgR2bg3mwJJdnQ3HRG3OfdHGxLDeuF41EGjyF9dSUW3aV
+ IXlCr0Ht4fsWtteVQ0M918ZerOjlpOGTxbhQI6FVaIEaYDMLlq/lP+m7iLfzUbi5dwwBiRTgKMM
+ xg73NgBfMxi8aZnk7AVAMzs8P9b7h5lWgxLLH47XVawFDmPHKRcLUaw43I/OkPTH82hAuMngEZm
+ yps+0skFJpoy+B5nrcByASWto3ZYx1hee1DvBXf+pO2Tl53BPmcquZ365Z6cylVX4HVG0OtO5F+
+ pxacvY2RGbnWKOx76yQ==
+X-Proofpoint-GUID: NS1ZNphvKnPMpP83DFB4SfJIU570utnF
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDA4OCBTYWx0ZWRfXxkTGZn72F2RB
+ r4UbSDeiNYvZYVgJPIoufjR1HrZG1PFqHDOUX7NcZexKjFVEBvnVz8FUpeFa+oaWjVjgDysicBB
+ Cx8zFVRH+0+fuIACaPlTsI52LFQJI4E=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-22_03,2026-07-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
+ adultscore=0 clxscore=1015 impostorscore=0 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220088
 
-From: Congcong Yao <congcong.yao@mediatek.com>
+On Tue, Jul 14, 2026 at 10:46:32PM +0530, Shivendra Pratap wrote:
+> PSCI currently supports only two resets - SYSTEM_RESET and SYSTEM_RESET2
+> ARCH WARM reset. The reset patch is selected based on the Linux
+> reboot_mode variable. The PSCI specification now includes SYSTEM_RESET2
+> for vendor-specific resets but there's no mechanism to issue these
+> through psci_sys_reset().
+> 
+> Add a command-based reset mechanism that allows external drivers to set
+> the PSCI reset command by passing a reset_type and a cookie.
+> 
+> Add support for the following reset commands:
+>   - SYSTEM_RESET2 vendor-specific resets.
+>   - SYSTEM_RESET2 ARCH WARM reset and SYSTEM_RESET (reset_type = 0 and
+>     cookie maps to psci_standard_resets).
+> Unsupported commands fall back to the regular PSCI reset path.
+> 
+> Default to the existing reboot_mode-based reset flow unless a reset
+> command is configured. If a kernel panic occurs after a reset command is
+> set but before the final PSCI reset is issued, ignore the reset command
+> and follow the normal reboot_mode-based reset path.
+> 
+> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+> ---
+>  drivers/firmware/psci/psci.c | 106 ++++++++++++++++++++++++++++++++++++++++++-
+>  include/linux/psci.h         |  36 +++++++++++++++
+>  2 files changed, 140 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/firmware/psci/psci.c b/drivers/firmware/psci/psci.c
+> index e73bae6cb23a..881819d09911 100644
+> --- a/drivers/firmware/psci/psci.c
+> +++ b/drivers/firmware/psci/psci.c
+> @@ -12,7 +12,9 @@
+>  #include <linux/debugfs.h>
+>  #include <linux/errno.h>
+>  #include <linux/linkage.h>
+> +#include <linux/mutex.h>
+>  #include <linux/of.h>
+> +#include <linux/panic.h>
+>  #include <linux/pm.h>
+>  #include <linux/printk.h>
+>  #include <linux/psci.h>
+> @@ -51,6 +53,14 @@ static int resident_cpu = -1;
+>  struct psci_operations psci_ops;
+>  static enum arm_smccc_conduit psci_conduit = SMCCC_CONDUIT_NONE;
+>  
+> +struct psci_system_reset_cmd {
+> +	u32 reset_type;
+> +	u64 cookie;
+> +};
+> +
+> +static struct psci_system_reset_cmd reset_cmd;
+> +static DEFINE_MUTEX(reset_cmd_mutex);
+> +
+>  bool psci_tos_resident_on(int cpu)
+>  {
+>  	return cpu == resident_cpu;
+> @@ -80,6 +90,62 @@ static u32 psci_cpu_suspend_feature;
+>  static bool psci_system_reset2_supported;
+>  static bool psci_system_off2_hibernate_supported;
+>  
+> +static u32 psci_get_sys_reset_fn(void)
+> +{
+> +	switch (reset_cmd.cookie) {
+> +	case PSCI_SYSTEM_RESET2_ARCH_WARM_RESET:
+> +		if (psci_system_reset2_supported)
+> +			return PSCI_FN_NATIVE(1_1, SYSTEM_RESET2);
+> +		return 0;
+> +	case PSCI_SYSTEM_RESET_COLD_RESET:
+> +		return PSCI_0_2_FN_SYSTEM_RESET;
+> +	default:
+> +		return 0;
+> +	}
+> +}
+> +
+> +/** psci_set_reset_cmd() - Configure PSCI reset command
+> + * @reset_type: SYSTEM_RESET2 vendor-specific reset_type as defined by
+> + *		firmware, or 0 for standard resets
+> + * @cookie: SYSTEM_RESET2 vendor-specific cookie as defined by firmware or one
+> + *		of enum psci_standard_resets when @reset_type is set to 0
+> + *
+> + * Supported commands:
+> + * - PSCI SYSTEM_RESET2 vendor-specific reset:
+> + *   - @reset_type and @cookie must follow platform-specific SYSTEM_RESET2
+> + *     vendor-specific resets.
+> + * - Standard reset selector:
+> + *   - @reset_type must be 0.
+> + *   - @cookie must be one of enum psci_standard_resets.
+> + *
+> + * This is an in-kernel helper intended for built-in reboot flow callers.
+> + * reset command can be set only one time per boot cycle.
 
-Add the necessary platform data and ostdl setting to enable support
-for mt8189 smi.
+This comment may need re-phrasing. Please check.
 
-Signed-off-by: Congcong Yao <congcong.yao@mediatek.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Reviewed-by: Yong Wu <yong.wu@mediatek.com>
----
- drivers/memory/mtk-smi.c | 44 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 44 insertions(+)
+> + *
+> + * Return: 0 on success, -EINVAL if both inputs are zero, -EBUSY if reset
+> + * command is already set.
+> + */
+> +int psci_set_reset_cmd(u32 reset_type, u64 cookie)
+> +{
+> +	if (!reset_type && !cookie)
+> +		return -EINVAL;
+> +
+> +	scoped_guard(mutex, &reset_cmd_mutex) {
+> +		if (reset_cmd.reset_type || reset_cmd.cookie)
+> +			return -EBUSY;
+> +
+> +		reset_cmd.reset_type = reset_type;
+> +		reset_cmd.cookie = cookie;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +bool psci_has_system_reset2_support(void)
+> +{
+> +	return psci_system_reset2_supported;
+> +}
+> +EXPORT_SYMBOL_GPL(psci_has_system_reset2_support);
+> +
 
-diff --git a/drivers/memory/mtk-smi.c b/drivers/memory/mtk-smi.c
-index aaeba8ab211e..f2d5462af681 100644
---- a/drivers/memory/mtk-smi.c
-+++ b/drivers/memory/mtk-smi.c
-@@ -401,6 +401,30 @@ static const u8 mtk_smi_larb_mt8188_ostd[][SMI_LARB_PORT_NR_MAX] = {
- 	[25] = {0x01},
- };
- 
-+static const u8 mtk_smi_larb_mt8189_ostd[][SMI_LARB_PORT_NR_MAX] = {
-+	[0] = {0x8, 0x20, 0x20, 0x20, 0x20, 0x20, 0x10, 0x0,},
-+	[1] = {0x8, 0x20, 0x20, 0x20, 0x20, 0x20, 0x10, 0x0,},
-+	[2] = {0x7, 0x7, 0x4, 0x4, 0x0, 0x0, 0x2, 0x2, 0x7, 0x7, 0x0,},
-+	[4] = {0x2F, 0x1E, 0x9, 0x1, 0x1, 0x1, 0x1, 0x2, 0x2, 0x5, 0x1, 0x17,},
-+	[7] = {0x20, 0x2, 0x1, 0x1, 0x1, 0x4, 0x2, 0x1, 0x1, 0x2, 0x3, 0x2,
-+	       0xA, 0xF, 0x4, 0x6, 0x5, 0x1,},
-+	[9] = {0x6, 0x3, 0xC, 0x6, 0x1, 0x4, 0x3, 0x1, 0x2, 0x4, 0x5, 0x2,
-+	       0x4, 0x2, 0x3, 0xB, 0x1, 0x4, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1,
-+	       0x1, 0x1,},
-+	[11] = {0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1,
-+		0x1, 0x1, 0x1, 0xB, 0x1, 0x4, 0x6, 0x5, 0x6, 0x1, 0x5, 0x2,
-+		0x9, 0x5,},
-+	[13] = {0x2, 0x8, 0x8, 0x8, 0x4, 0x4, 0x4, 0x4, 0x4, 0xE, 0x4, 0x1,
-+		0x6, 0x6, 0x2,},
-+	[14] = {0x1, 0x1, 0x1, 0x20, 0xE, 0x4, 0x8, 0x8, 0x6, 0x4,},
-+	[16] = {0x1E, 0xC, 0x2, 0x8, 0xE, 0x2, 0x1E, 0x10, 0x4, 0x2, 0x2, 0x2,
-+		0x2, 0x2, 0x4, 0x2, 0x4,},
-+	[17] = {0x1E, 0xC, 0x2, 0x8, 0xE, 0x2, 0x1E, 0x10, 0x4, 0x2, 0x2, 0x2,
-+		0x2, 0x2, 0x4, 0x2, 0x4,},
-+	[19] = {0x2, 0x1, 0x3, 0x1,},
-+	[20] = {0x7, 0x7, 0x3, 0x3, 0x1, 0x1,},
-+};
-+
- static const u8 mtk_smi_larb_mt8192_ostd[][SMI_LARB_PORT_NR_MAX] = {
- 	[0] = {0x2, 0x2, 0x28, 0xa, 0xc, 0x28,},
- 	[1] = {0x2, 0x2, 0x18, 0x18, 0x18, 0xa, 0xc, 0x28,},
-@@ -533,6 +557,13 @@ static const struct mtk_smi_larb_gen mtk_smi_larb_mt8188 = {
- 	.ostd		            = mtk_smi_larb_mt8188_ostd,
- };
- 
-+static const struct mtk_smi_larb_gen mtk_smi_larb_mt8189 = {
-+	.config_port                = mtk_smi_larb_config_port_gen2_general,
-+	.flags_general	            = MTK_SMI_FLAG_THRT_UPDATE | MTK_SMI_FLAG_SW_FLAG |
-+				      MTK_SMI_FLAG_SLEEP_CTL | MTK_SMI_FLAG_CFG_PORT_SEC_CTL,
-+	.ostd		            = mtk_smi_larb_mt8189_ostd,
-+};
-+
- static const struct mtk_smi_larb_gen mtk_smi_larb_mt8192 = {
- 	.config_port                = mtk_smi_larb_config_port_gen2_general,
- 	.ostd			    = mtk_smi_larb_mt8192_ostd,
-@@ -556,6 +587,7 @@ static const struct of_device_id mtk_smi_larb_of_ids[] = {
- 	{.compatible = "mediatek,mt8183-smi-larb", .data = &mtk_smi_larb_mt8183},
- 	{.compatible = "mediatek,mt8186-smi-larb", .data = &mtk_smi_larb_mt8186},
- 	{.compatible = "mediatek,mt8188-smi-larb", .data = &mtk_smi_larb_mt8188},
-+	{.compatible = "mediatek,mt8189-smi-larb", .data = &mtk_smi_larb_mt8189},
- 	{.compatible = "mediatek,mt8192-smi-larb", .data = &mtk_smi_larb_mt8192},
- 	{.compatible = "mediatek,mt8195-smi-larb", .data = &mtk_smi_larb_mt8195},
- 	{}
-@@ -808,6 +840,16 @@ static const struct mtk_smi_common_plat mtk_smi_common_mt8188_vpp = {
- 	.init     = mtk_smi_common_mt8195_init,
- };
- 
-+static const struct mtk_smi_common_plat mtk_smi_common_mt8189 = {
-+	.type     = MTK_SMI_GEN2,
-+	.bus_sel  = F_MMU1_LARB(1) | F_MMU1_LARB(3) | F_MMU1_LARB(5) |
-+		    F_MMU1_LARB(7),
-+};
-+
-+static const struct mtk_smi_common_plat mtk_smi_sub_common_mt8189 = {
-+	.type     = MTK_SMI_GEN2_SUB_COMM,
-+};
-+
- static const struct mtk_smi_common_plat mtk_smi_common_mt8192 = {
- 	.type     = MTK_SMI_GEN2,
- 	.has_gals = true,
-@@ -852,6 +894,8 @@ static const struct of_device_id mtk_smi_common_of_ids[] = {
- 	{.compatible = "mediatek,mt8186-smi-common", .data = &mtk_smi_common_mt8186},
- 	{.compatible = "mediatek,mt8188-smi-common-vdo", .data = &mtk_smi_common_mt8188_vdo},
- 	{.compatible = "mediatek,mt8188-smi-common-vpp", .data = &mtk_smi_common_mt8188_vpp},
-+	{.compatible = "mediatek,mt8189-smi-common", .data = &mtk_smi_common_mt8189},
-+	{.compatible = "mediatek,mt8189-smi-sub-common", .data = &mtk_smi_sub_common_mt8189},
- 	{.compatible = "mediatek,mt8192-smi-common", .data = &mtk_smi_common_mt8192},
- 	{.compatible = "mediatek,mt8195-smi-common-vdo", .data = &mtk_smi_common_mt8195_vdo},
- 	{.compatible = "mediatek,mt8195-smi-common-vpp", .data = &mtk_smi_common_mt8195_vpp},
+Do we want to add namespace based restriction on who gets to import
+EXPORTs added in this patch?
 
--- 
-2.43.0
+>  static inline bool psci_has_ext_power_state(void)
+>  {
+>  	return psci_cpu_suspend_feature &
+> @@ -306,8 +372,24 @@ static int get_set_conduit_method(const struct device_node *np)
+>  	return 0;
+>  }
+>  
+> -static int psci_sys_reset(struct notifier_block *nb, unsigned long action,
+> -			  void *data)
+> +static void psci_handle_reset_cmd(void)
+> +{
+> +	u32 psci_sys_reset_fn;
+> +
+> +	if ((reset_cmd.reset_type & PSCI_1_1_RESET_TYPE_VENDOR_START) &&
 
+What is `_START` significance in PSCI_1_1_RESET_TYPE_VENDOR_START macro?
 
+> +	    psci_system_reset2_supported) {
+> +		/* PSCI SYSTEM_RESET2 Vendor-specific reset */
+> +		invoke_psci_fn(PSCI_FN_NATIVE(1_1, SYSTEM_RESET2),
+> +			       reset_cmd.reset_type, reset_cmd.cookie, 0);
+> +	} else {
+> +		/* Retrieve the psci reset function from reset_cmd */
+> +		psci_sys_reset_fn = psci_get_sys_reset_fn();
+> +		if (!reset_cmd.reset_type && psci_sys_reset_fn)
+> +			invoke_psci_fn(psci_sys_reset_fn, 0, 0, 0);
+> +	}
+> +}
+> +
+> +static void psci_handle_reboot_mode(void)
+>  {
+>  	if ((reboot_mode == REBOOT_WARM || reboot_mode == REBOOT_SOFT) &&
+>  	    psci_system_reset2_supported) {
+> @@ -320,6 +402,26 @@ static int psci_sys_reset(struct notifier_block *nb, unsigned long action,
+>  	} else {
+>  		invoke_psci_fn(PSCI_0_2_FN_SYSTEM_RESET, 0, 0, 0);
+>  	}
+> +}
+> +
+> +static int psci_sys_reset(struct notifier_block *nb, unsigned long action,
+> +			  void *data)
+> +{
+> +	/* The function psci_handle_reboot_mode follows reboot_mode based
+> +	 * reset flow and psci_handle_reset_cmd uses reset_cmd based reset flow.
+> +	 *
+> +	 * The reset_cmd is configured at the reboot_notifier phase. If a kernel
+> +	 * panic occurs between the reboot_notifier and this final reset, skip the
+> +	 * command-based reset and let reboot_mode drive the reset flow.
+> +	 *
+> +	 * The function psci_handle_reset_cmd invokes non-returning PSCI SYSTEM_RESET
+> +	 * calls to reset the device. If it returns, either the reset failed, or the
+> +	 * command was unsupported. Fallback to reboot_mode based reset flow.
+> +	 */
+> +	if ((reset_cmd.reset_type || reset_cmd.cookie) && !panic_in_progress())
+> +		psci_handle_reset_cmd();
+> +
+> +	psci_handle_reboot_mode();
+>  
+>  	return NOTIFY_DONE;
+>  }
+> diff --git a/include/linux/psci.h b/include/linux/psci.h
+> index 4ca0060a3fc4..39fe0edec651 100644
+> --- a/include/linux/psci.h
+> +++ b/include/linux/psci.h
+> @@ -8,6 +8,7 @@
+>  #define __LINUX_PSCI_H
+>  
+>  #include <linux/arm-smccc.h>
+> +#include <linux/errno.h>
+>  #include <linux/init.h>
+>  #include <linux/types.h>
+>  
+> @@ -21,6 +22,16 @@ bool psci_power_state_is_valid(u32 state);
+>  int psci_set_osi_mode(bool enable);
+>  bool psci_has_osi_support(void);
+>  
+> +/**
+> + * enum psci_standard_resets - Standard reset selectors for PSCI reset
+> + * @PSCI_SYSTEM_RESET_COLD_RESET: Standard SYSTEM_RESET command.
+> + * @PSCI_SYSTEM_RESET2_ARCH_WARM_RESET: SYSTEM_RESET2 architectural warm reset.
+> + */
+> +enum psci_standard_resets {
+> +	PSCI_SYSTEM_RESET_COLD_RESET = 1,
+> +	PSCI_SYSTEM_RESET2_ARCH_WARM_RESET,
+> +};
+> +
+>  struct psci_operations {
+>  	u32 (*get_version)(void);
+>  	int (*cpu_suspend)(u32 state, unsigned long entry_point);
+> @@ -45,8 +56,33 @@ struct psci_0_1_function_ids get_psci_0_1_function_ids(void);
+>  
+>  #if defined(CONFIG_ARM_PSCI_FW)
+>  int __init psci_dt_init(void);
+> +/**
+> + * psci_set_reset_cmd() - Configure PSCI reset command
+> + * @reset_type: SYSTEM_RESET2 vendor-specific reset_type as defined by
+> + *		firmware, or 0 for standard resets
+> + * @cookie: SYSTEM_RESET2 vendor-specific cookie as defined by firmware or one
+> + *		of enum psci_standard_resets when @reset_type is set to 0
+> + *
+> + * Supported commands:
+> + * - PSCI SYSTEM_RESET2 vendor-specific reset:
+> + *   - @reset_type and @cookie must follow platform-specific SYSTEM_RESET2
+> + *     vendor-reset encoding.
+> + * - Standard reset selector:
+> + *   - @reset_type must be 0.
+> + *   - @cookie must be one of enum psci_standard_resets.
+> + *
+> + * This is an in-kernel helper intended for built-in reboot flow callers.
+> + * reset command can be set only one time per boot cycle.
+> + *
+> + * Return: 0 on success, -EINVAL if both inputs are zero, -EBUSY if reset
+> + * command is already set.
+> + */
+> +int psci_set_reset_cmd(u32 reset_type, u64 cookie);
+
+The very same comment is present in the implementation of this function.
+Please fix it.
+
+Thanks,
+Pavan
