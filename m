@@ -1,167 +1,160 @@
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F0A3E2747
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 03:33:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0D63AFD1F
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 03:35:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.182
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784691239; cv=pass; b=mTR3sI2ppt159zmB1LpKFwWaOirDRBtlPTpq4ymuo8UB/Y1D3bfoLMcZVtZhJz48XoSDOb03C7gz9PJoS/CurJRaiORgEGA4zJbacWho8CqBY6klXoEaBvnENuBi1frmid+4h1fH0k8nTR4IKhe/9XHqOQIlJlM5nsM3wR4cjKU=
+	t=1784691338; cv=pass; b=oLTDijnkXretOr/mpHIr+QQJVgJhzK2SrECszTNzOb6sWCdbKDdYTjy91Kv2W/iVpHKtkuWKYNf3tPg2POritliMdsl9nEZbdnbShAINUlFFwGUPRXPdiFVSMpOwUKtDMCQt2jny0FpO2i5LJLWzR5QrOYU5T/qbRsqBHGyA+oo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784691239; c=relaxed/simple;
-	bh=TmfjsaY5vDGWro2W6B9BTuFvkBc8bjylIqjuthGf42o=;
+	s=arc-20240116; t=1784691338; c=relaxed/simple;
+	bh=3Sf/Ef5H800PXwQhDeBagKsip9d4VoWdZ9+JzkHv958=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CdpWeu8LXG+gT5zh5hScCcWYZ8gAzdrRgkx/OatYGh++F1ScpvowKcaWBsP32Zm16RO3E2s1CvrFnZ96Q5sGM4sJ/BSc9EXC3PrE/tYzcsZVe62vzyQ4LEOKI5lr1FwoEYvD6a70RuFNKSGbui7JHGfpY7i2JesUizePi6T5PUM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ZJPFEFHh; arc=pass smtp.client-ip=74.125.224.52
+	 To:Cc:Content-Type; b=elCmt240/A+bkRGlmDCAZY/YCJ/wdGyXXHiWNuC8XKw779NY4AC2hrHOSS1Y6U31NOS+Z8QRA3bY85oOp7UYySVopMECRqLuV2MXaS3yr95Z0HGQjCM66ike6TwXu2faM+FdBWJCUoJa5ynltKrAu1SzDlFsCsu8y5H948FDl4c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=QIkv1PXa; arc=pass smtp.client-ip=209.85.128.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ZJPFEFHh"
-Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-66825847b2cso5273264d50.3
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 20:33:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784691233; cv=none;
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="QIkv1PXa"
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-81e83f1f15aso54344897b3.1
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 20:35:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784691334; cv=none;
         d=google.com; s=arc-20260327;
-        b=Yo1aKfoWn0fWq/UDRK8EjX/cOQhnsb2qp5l3wNodFuWQo+HrSH1jcWb8UzgIOoWqzf
-         DmY7ZIzObCmqGHwq3DucxFijyF4aLG8kcEnODcwVN5RmnANEU3wDdIObITwi8yR7BeI6
-         HPznRU2k35dr4tQqe6HpL4w31nQnWP8rPEFbJnhlVIF00r1R6eqlaP1filo7dKcfU23Y
-         LifzBE5XPxV9HKNNIjwFFaCuOu8gTmrmYs6lH7UEYXC/1OaxtYdpsxyih6FOyRfLn9fW
-         3qmA731REEVGbEkmBxBcuIGo8U4xpNHpOFcYNeJPaYTmq9OJiZqvQvrUn2fTmO6ShUdq
-         xwpg==
+        b=r/Iq+0ZJFMSoMT1uLVRAcxqz96mwlJ5plad5C8NCGpE937lHFlZDxlG9e+dubh1lsR
+         8hEbV60dmVLK05eyOtHUi3fBeSkpRBs6eezqyBjCQ4Z+r/U0ltDhmwBMBXPzHZlxq4wB
+         /pASTsLGNjE4K0PYvqGlFpr1ElbfIWINMKiFMaZ5eUeTEGyEVESqmxm2KauOsVCfmi7M
+         H5Utce6V4UynzYOwYjPHEL/Qcr1rAKsyVJ0Kj+cHWRbj4/DHTCIbRD7C9W1qFqEwg+bF
+         UhtA5qkK8NXorVWF0uPAMFEciTshH+xKQEzmy0CixfvOvdhZlFkWbumE/OeV2lLsFkjn
+         ONbw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=9KcR04mJabpHychs/QIME5IF7elu7nLc7+YdcFBgs0g=;
-        fh=l2+MNph+OFKkCGL72M02+G3RyGK2aMgxg6pLswp3wjA=;
-        b=Uc8LuVLpjhbhFNVywAXtD2lA+nxFtV+c99uqcbg9pdR47ATjd3unm4T34EQ5dONVjN
-         fHcXKNsus0TrT5lphQoH/Pe4zehT6+kT7Y6EZV9GUPYy8rHFQKPTF/gyZt1I/zblX+yD
-         kV6yUrogR5pD6eWxG25N1V2Eo7veBJyQhc2RIjXxVhEGpQVJxLITmbt7ZpaiBAPV5mS0
-         6fs/KDpun8q+XUjZJ8ybfex2cYPle9ECTgksNyR8mP9dFzcu0sdYmC59hSXrZhrh/Y3M
-         tL80MzsMka9aCdqKiwij2Sg9ncBYmF5iqu+Srv2eEiEDBaxFGWqZOoFB0352Zczc9iuL
-         rzag==;
+        bh=fwHOybM5kh7M76hGR48ziCvoLZNoVKPyP3zXf5iOrYY=;
+        fh=z8cdKT+ryqqHIo6fSZqln/KUPseTr0CjxYHjsEusu04=;
+        b=T8xkQyd9PEQ34w2KfOBE7T3s9razYSSlI+N3zHtLHOaJyy3kq92LWzy2ORwYFyyoky
+         KBmc+y9eAfCmanFxvPwVSCiI3E2Xy+DpYcmQ/9fVk2Z2mh+aM3/ERKv6KAVWcSJ8DipX
+         BBCOZS6vzLmWM0uRJShCOVMFdoXqNOkSaUc3uC69RemurpVg6qsSQejQL/Tj4oKvyWRM
+         TT8NDA9OuNlr2ppt6RomrpM1VMT3AoG4pPF0cRDnPSZZQVmyLsvY7jctMQoLvv0pp4Zj
+         yy3jserhNPZTB+k0OgbrzHh8TcCCBi0ut+szyyKIYuPcBCc/ZhMqrc+as2TNAjTM6gsD
+         6zOQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1784691233; x=1785296033; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1784691334; x=1785296134; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=9KcR04mJabpHychs/QIME5IF7elu7nLc7+YdcFBgs0g=;
-        b=ZJPFEFHhqJfG1rtQCPEJX2PSJp5vKO683uHdsZtYK7BuHvZe1ToftaK5onAL+4DnLh
-         9JCFZEQUUeqvBfesE0ZE2bTPrlW5NJQH/YtJIPbY6Ei1purp/oYrerLgSHMlG4iElUOv
-         JVr3/YZjB2H9Wl6CjC3a3ABryGYEFN7a8ovTs=
+        bh=fwHOybM5kh7M76hGR48ziCvoLZNoVKPyP3zXf5iOrYY=;
+        b=QIkv1PXazdL0tcEScqFAbVsKqZhIuurWbZoixozFgj3YAy7oLvIWwd6VgazXxE+nbU
+         DYIeFCGkJN6xQ69OciJZOT5oZgtoJ9jlqngF7COpIJd0nqoFqX4jtbkKP1vSfY3BLfxs
+         yWMBhj/mGltnfykA9olAPKl8VxFbGVPORWLFU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784691233; x=1785296033;
+        d=1e100.net; s=20251104; t=1784691334; x=1785296134;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9KcR04mJabpHychs/QIME5IF7elu7nLc7+YdcFBgs0g=;
-        b=kC34jduFWNXxoX0y3Q5HCQNnJCHrM1BMyjH3Wn9AFYgMwyyOTl4e9wwCY/1UcyfMDq
-         meq4r596BsgMKsuPuhPrxEb/9yLhGE+EzKH1ABiUETCpobJ+Cfw2b0HyHtf9BVPACHwo
-         f6KqXNzFCHptFFDUIW2xbeUadPJJeYv4xTn+nqeDHLRsajWc3Qtb+F3BZ62XzDq3KgZP
-         H/Uq+1byJ53qRKF232RpFshWxZH+VXCyoDzADn4cUH7Wooefrd2sArUCrbg2+KkGDaNp
-         IVHv2/T/VgJBgR7e16v6qQ9Nq/iuF80OK2tg2gMsKa5Qk1As7hxHeUveegKrb1fYh6BX
-         Yu9A==
-X-Forwarded-Encrypted: i=1; AHgh+RoDgFXjVl+GzxJ5xnIMrQQAdcyzGYyn0VA2FZTAaw8Oqv79Agjlh9QfHi9aS6AzLWMQc/97Alm+kfM2@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxtuv4Y4VCYG+0WkW/x0xgVP0rDWZwD1z0p9O8KPDJNVVy9WVLV
-	QDWFP9+ZovRGZLBZwEiGNsUJFcdkgIXe/SMdeRd+Rth6cLLj5coZ4ON+YcyvTG/qQwRowR5IZNp
-	WVT8M0NZtIkhQ2woDkbrEiL1j8A53hH4VvnHVwU0L
-X-Gm-Gg: AR+sD11sBHb41sQgOlOrwQtuq9urU32fJFXZuVKzMk9eLqLAlSlNKDtmQplSj/dSBZ8
-	t94jIeLJeKuYtHzaW8KIZT4I5+sMGlbJHUlDLLfpXVI+CKIhKI0aqUolVFa3kXFnyN8Q1a9kimq
-	ROX4TCayBTWXZR41Fb7fgvf2SRyr5KcNFHdCOChvpMdE7tWXYr4uHxO78ctLevYpFWJyeoL0/e4
-	73icnvj/KJ+ZPDcS4NAa4nXdVKbSkVQpT0w+aj/5AwmX9F00rQyqGbCdjgbMcdZHhoZ3KhqCzZ/
-	gp90zI+G80p4wRk=
-X-Received: by 2002:a05:690c:6e82:b0:80d:f376:5ba9 with SMTP id
- 00721157ae682-81ef252e359mr66727137b3.24.1784691233300; Tue, 21 Jul 2026
- 20:33:53 -0700 (PDT)
+        bh=fwHOybM5kh7M76hGR48ziCvoLZNoVKPyP3zXf5iOrYY=;
+        b=lrJF6z50wT46w6ettEtVi9JeOwln0WqWMV5ZYa1vFNg9WrCBpwIi9sgURZGFDsNoa5
+         ZnFY4331RPX76yF2xzd+Cv684o8XVoLvZ43WlFLp6pywuHyNpYEn9PLXbJGI+WI1Ko4U
+         YPqYEK4OeWD85YBMFqJIpir7WcC6YJ2WqjsMIUXvzOxESOuvWRuRVn8oE2UO5Rv7wXNe
+         R7CsK6SS8ZC3RYe3H1e7ZApfrC0TQactMDr5Q/+fvyQc41selziQoH+VUvB/ERLi1fOi
+         UXdY3CpX0OqREHohBW1q542I0w//KVUvsheBEpvdANv/MO2V/Tk/WVVqZaNDOgGrcd8D
+         E+iw==
+X-Forwarded-Encrypted: i=1; AHgh+RrL0YZz4dWuCcoXpS9Ez9YooTTIk1f80+efW8mgEs532Ngdj80drz7K1kSSfLOohNNJibuOIi3A/Zoa@vger.kernel.org
+X-Gm-Message-State: AOJu0YydPqkHQMMrIszcuf1CnTCAZgNxmsPnN1NU4kfTEkOQToAl1w7y
+	a2fXHYiKLYG6rLuBfXXT1HRPUvG9jC117Uq+dw1LzzOHDAqqxG0ns1vQz2Z7uXw5Ixcj5xlKKhQ
+	B0h5yeH1WnOVkRD6I3plBXzy72MoWDEbv8yXEGkj9uBvKfEqhJhU=
+X-Gm-Gg: AR+sD12FCP+AUqCQ97Cywn2JvtbUraBCVcWk4P+lnUDk05DpSANMd3DABkAHBl2c+vE
+	0JBo2ZOAeNPv8QUWeWlTZ8WbiiCWCWu87LlA+1JETueSsG6jSA7Wa6bgrfbo5oYIMFwgfUyOFH6
+	5GeUJHaQt99FX5E5QuJIUZB2/sxdEJ/bkqLRCSkG7yellOCUtqrMOtbyXdujeOjABmepS52sZs0
+	vMUnyYYG+ewMO9mqQFueq+3Y1KKKCXFwQBKw0Ana/xBF5yaeWFu7vLsSl46SDGOsMo9q4kxKMxS
+	nCtVUfTRv62mggI=
+X-Received: by 2002:a05:690c:c4c5:b0:81e:f308:cfa3 with SMTP id
+ 00721157ae682-81f33bfed62mr7716127b3.14.1784691334267; Tue, 21 Jul 2026
+ 20:35:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260721075226.2347933-1-wenst@chromium.org> <20260721075226.2347933-8-wenst@chromium.org>
- <al9JivV0SZCiOgK8@ashevche-desk.local>
-In-Reply-To: <al9JivV0SZCiOgK8@ashevche-desk.local>
+References: <20260721105230.101906-1-angelogioacchino.delregno@collabora.com> <20260721105230.101906-2-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260721105230.101906-2-angelogioacchino.delregno@collabora.com>
 From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Wed, 22 Jul 2026 11:33:41 +0800
-X-Gm-Features: AUfX_mxYNc8IPOzIIfv3TBCyd0Fs8lnIBTuyeRs9t7NJj3-mYtf52pIbJvj-z9A
-Message-ID: <CAGXv+5Es0RZiAdUj-Y3FEFHU4Km6XBOL-Gk2DbTLrF-OcD54cw@mail.gmail.com>
-Subject: Re: [PATCH v3 7/9] platform/chrome: of_hw_prober: Add delay for hana trackpads
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jiri Kosina <jikos@kernel.org>, 
-	Andi Shyti <andi.shyti@kernel.org>, linux-mediatek@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	chrome-platform@lists.linux.dev, linux-input@vger.kernel.org, 
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 22 Jul 2026 11:35:22 +0800
+X-Gm-Features: AUfX_mwF5azxEMhr_2WNLIrQ4cJxk5YI9R_dQgFYT_P0qpGKSy3wJnLrxRQxP90
+Message-ID: <CAGXv+5G-mVf3b7ygb8h4sTtYkACjc9B-VenTqOvbBQO9Pasgug@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: thermal: mediatek: Make resets
+ optional for MT8196
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: rafael@kernel.org, daniel.lezcano@kernel.org, rui.zhang@intel.com, 
+	lukasz.luba@arm.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	p.zabel@pengutronix.de, matthias.bgg@gmail.com, laura.nao@collabora.com, 
+	fshao@chromium.org, jiapeng.chong@linux.alibaba.com, frank-w@public-files.de, 
+	bchihi@baylibre.com, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, kernel@collabora.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 21, 2026 at 6:27=E2=80=AFPM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
+On Tue, Jul 21, 2026 at 6:52=E2=80=AFPM AngeloGioacchino Del Regno
+<angelogioacchino.delregno@collabora.com> wrote:
 >
-> On Tue, Jul 21, 2026 at 03:52:21PM +0800, Chen-Yu Tsai wrote:
-> > Up until now, the MT8173 elm/hana device tree has set the dedicated
-> > regulator supplying the trackpad as always-on, simply because the Elan
-> > driver was missing proper delays. As a result the delay for the
-> > Synaptics trackpad was also omitted, as it was not strictly required
-> > under such a model and delayed the availability of the trackpad to the
-> > user.
-> >
-> > The Elan driver recently gained proper delays after power-up, with
-> > adaptive skipping of the delay if the regulator was originally
-> > on. The I2C HID driver and I2C OF component prober library gained
-> > similar adaptive delay skipping. The device tree will be fixed to have
-> > the regulator not be always on, and proper post-power-on delay time
-> > added to the I2C HID device.
-> >
-> > Also add the post-power-on delay to the ChromeOS OF component prober,
-> > so that if the regulator is off at the time of probing, the prober know=
-s
-> > to wait for the hardware to initialize.
+> Both LVTS-AP and LVTS-MCU may be shared with SoC-internal MCUs
+> running some sort of firmware that checks thermals in order to
+> scale frequency, or to take action for critical SoC thermal
+> protection - and this is seen on most MT8196 boards.
+
+Yes the number of MCUs on this SoC is a bit crazy, and the OS
+has almost no control over them. :D
+
+> Make resets optional, as doing a HW reset on such boards will
+> result in either an immediate thermal protect shutdown or in
+> a rather important and usually permanent system slowdown.
 >
-> ...
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
+abora.com>
+
+Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
+
+> ---
+>  .../bindings/thermal/mediatek,lvts-thermal.yaml     | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
 >
-> > +++ b/drivers/platform/chrome/chromeos_of_hw_prober.c
+> diff --git a/Documentation/devicetree/bindings/thermal/mediatek,lvts-ther=
+mal.yaml b/Documentation/devicetree/bindings/thermal/mediatek,lvts-thermal.=
+yaml
+> index 975235130670..29f431fcdcd5 100644
+> --- a/Documentation/devicetree/bindings/thermal/mediatek,lvts-thermal.yam=
+l
+> +++ b/Documentation/devicetree/bindings/thermal/mediatek,lvts-thermal.yam=
+l
+> @@ -94,12 +94,23 @@ allOf:
+>          nvmem-cell-names:
+>            minItems: 2
 >
-> >               /*
-> >                * ELAN trackpad needs 2 ms for H/W init and 100 ms for F=
-/W init.
-> >                * Synaptics trackpad needs 100 ms.
-> > -              * However, the regulator is set to "always-on", presumab=
-ly to
-> > -              * avoid this delay. The ELAN driver is also missing dela=
-ys.
-> >                */
-> > -             .post_power_on_delay_ms =3D 0,
-> > +             .post_power_on_delay_ms =3D 110,
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          not:
+> +            contains:
+> +              enum:
+> +                - mediatek,mt8196-lvts-ap
+> +                - mediatek,mt8196-lvts-mcu
+> +    then:
+> +      required:
+> +        - resets
+> +
+>  required:
+>    - compatible
+>    - reg
+>    - interrupts
+>    - clocks
+> -  - resets
+>    - nvmem-cells
+>    - nvmem-cell-names
 >
-> This and the other delay in the previous patches are all HW-related. What=
- if
-> another touchpad gets connected? I mean that the delays for the certain H=
-W
-> should not affect other possible devices connected to the platform.
-
-This is a complete laptop, not a development board. You can't just randomly
-swap out the trackpad. The model AFAIK is no longer in production, and we
-have already added all possible configurations to the device tree. And
-there's no extra connector or pin header to attach additional peripherals.
-If someone hacks their own device to swap out a trackpad, then handling
-the additional bring-up should fall on them.
-
-If you are referring to the delay for the other trackpad option, that is
-100 ms, and is described in the device tree. See patch 8 of this series.
-
-Any other device with different delay requirements should have its own
-entry, not reuse this one. The information in the entry is tightly
-coupled to the device tree anyway. I already corrected the other device
-that incorrectly reused this entry [1]. We have some additional offenders
-downstream, but nothing that can't be corrected in the same manner.
-
-
-ChenYu
-
-[1] https://lore.kernel.org/all/20260625060859.1020483-1-wenst@chromium.org=
-/
+> --
+> 2.55.0
+>
