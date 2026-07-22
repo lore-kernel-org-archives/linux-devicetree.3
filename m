@@ -1,114 +1,67 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0723AA1B2;
-	Wed, 22 Jul 2026 06:47:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74183221DB6;
+	Wed, 22 Jul 2026 06:51:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784702841; cv=none; b=VHYJdKNWdXJzfLYasWpiHvwRsDXfAQWQQQZDvzL3kir1zzVHsHP7SYZTsj4VU+2wh6wny0HgB9sMUOY6PJaZIOswFgXJzD2DD10rfGXJmQYj5dWXM41Nt6MGWIvzmTlUaTbscv338SEPbdYg4QeqnECfHeFhievyw5JqhXLmIIE=
+	t=1784703070; cv=none; b=GkuVWXab/3SRSemICtSY7erTWVEa/VFRqESI7Ba4CAOfAsqpnVL9jyFhe8h3lFFsEqhC1BRvMzRSHmUJJOQe8Xw8VwnqJweyyai1blW8we/SlTiL3wZbmLVpTkZP6K0YYY8x8CniDSy6Uxu6Z9kNzefoidsrlzgIPhzGjnVk1WQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784702841; c=relaxed/simple;
-	bh=qkLa1bxG34xtbDo6lvdht+wvP/x3tMWjJ4QVyBK8zcU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=sDfucfPyBRR6PE8jqWwyrx5nU4XXWVkmChO1X7OM6/r6/XhkSFUM/Zh1q24HC5fBOk8ToINYcDApWWqaLPyVFSkaCGpuz7Ytk1Z4FrJvQT4Ui+uW6q69XkeifeSIuWWUJnvAo9l03F5/NLaBq+JUlbcyMLhB/ftRCx328zH2iT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id EB0EE200A6A;
-	Wed, 22 Jul 2026 08:47:15 +0200 (CEST)
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wmQjb-000h6i-2q;
-	Wed, 22 Jul 2026 08:47:15 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wmQjb-000000003DA-3DQo;
-	Wed, 22 Jul 2026 08:47:15 +0200
-Message-ID: <cd13a97b78f3d940d23b52f94b39f99c52212d0a.camel@pengutronix.de>
-Subject: Re: [PATCH v2 2/2] thermal/drivers/mediatek/lvts_thermal: Make
- reset optional for MT8196
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	rafael@kernel.org
-Cc: daniel.lezcano@kernel.org, rui.zhang@intel.com, lukasz.luba@arm.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, 	laura.nao@collabora.com, fshao@chromium.org,
- wenst@chromium.org, 	jiapeng.chong@linux.alibaba.com,
- frank-w@public-files.de, bchihi@baylibre.com, 	linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, 	linux-mediatek@lists.infradead.org,
- kernel@collabora.com
-Date: Wed, 22 Jul 2026 08:47:15 +0200
-In-Reply-To: <20260721105230.101906-3-angelogioacchino.delregno@collabora.com>
-References: 
-	<20260721105230.101906-1-angelogioacchino.delregno@collabora.com>
-	 <20260721105230.101906-3-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	s=arc-20240116; t=1784703070; c=relaxed/simple;
+	bh=nTVUnPHo+JOCU4ePg3hwXci0zj2vBjDGgR2CkZN0sNw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bTeatgjNXqHPatnXxNx0V24ymp5Be6tWwh0VWluPU6fX2GTlb2W8HFu7VHpjAFLVZ7qPMfZHCCX0bxXJEDpGUqnbEfTBioGH0efCJccIr2MViduBpstGPeppEiXA4U3TMYhyj4QVEASFwmuemFHAIljENVlrBkqzSXi68PTZmFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lRCthPFg; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lRCthPFg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 334501F000E9;
+	Wed, 22 Jul 2026 06:51:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784703068;
+	bh=XbU+bg6ZwsEyHk+zpRhw2zmNEFtQxYCPOkygb2uLuNQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lRCthPFg1FFiVTtGTQ7+7B0vmnbTj5QG14jMAveHXdPWiZmmgwcNrF5r4RGKwhsUH
+	 rrqY/c6xSh/BCZaFCZ4gakCtm0/Ijb+YwOnjyH4GuYTmloutqier0NbLKUYrlenLuk
+	 k+HM2yys8zKzYMo4VUrw2Zv8fCo5VohbGuN6JIl8+s9U5+vHTdXG3xbM9VZJ4MXDIw
+	 cQuqJpBs7ycDBv8ZAcDhpPcGSupsTa91doy6MQoVi3orwVYgXouEqF5UpCNnn7dlD3
+	 iYQXFiWfXaCwG8s3nayPIrvTSDB8NbA23dH9mEA9T/0TrQCTH55xnqatHgQr5bt6Yh
+	 i9kMv41hLJ2Fw==
+Date: Wed, 22 Jul 2026 08:51:04 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, Robert Foss <rfoss@kernel.org>, 
+	Todor Tomov <todor.too@gmail.com>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	jeyaprakash.soundrapandian@oss.qualcomm.com, Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
+Subject: Re: [PATCH v15 1/8] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add
+ Kaanapali CSI2 PHY
+Message-ID: <20260722-pristine-lemon-dugong-ec2c0e@quoll>
+References: <20260720-kaanapali-camss-v15-0-c0b1c1167c5d@oss.qualcomm.com>
+ <20260720-kaanapali-camss-v15-1-c0b1c1167c5d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260720-kaanapali-camss-v15-1-c0b1c1167c5d@oss.qualcomm.com>
 
-On Di, 2026-07-21 at 12:52 +0200, AngeloGioacchino Del Regno wrote:
-> Depending on the SoC+Firmware combination, the LVTS hardware may be
-> may be actively used by one or even multiple concurrent MCUs!
-> In this case, resetting it may produce either a severe slowdown of
-> the entire system, or even a thermal protection AP reset, as some
-> MCU(s) may be reading a very high or very low temperature while the
-> LVTS is being reset.
->=20
-> On those, don't fail if no reset is found as that may be omitted on
-> purpose, but still check if there's one, because some board(s) may
-> be running on a different bootchain with reduced firmwares or using
-> firmwares with reduced functionality.
->=20
-> So, use devm_reset_control_get_optional_exclusive() instead, as the
-> LVTS controller always had only one reset and retrieving that by
-> index, specifically, always made little sense anyway.
->=20
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
-abora.com>
+On Mon, Jul 20, 2026 at 09:50:34PM -0700, Hangxiang Ma wrote:
+> The Kaanapali CSI2 PHY is compatible with the existing x1e80100 CSI2
+> C-PHY/DPHY binding. Add the "qcom,kaanapali-csi2-phy" compatible.
+> 
+> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 > ---
->  drivers/thermal/mediatek/lvts_thermal.c | 15 ++++++++++++++-
->  1 file changed, 14 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/thermal/mediatek/lvts_thermal.c b/drivers/thermal/me=
-diatek/lvts_thermal.c
-> index 92711896ce24..8b779fc5e970 100644
-> --- a/drivers/thermal/mediatek/lvts_thermal.c
-> +++ b/drivers/thermal/mediatek/lvts_thermal.c
-> @@ -1473,7 +1473,20 @@ static int lvts_probe(struct platform_device *pdev=
-)
->  	if (IS_ERR(lvts_td->base))
->  		return dev_err_probe(dev, PTR_ERR(lvts_td->base), "Failed to map io re=
-source\n");
-> =20
-> -	lvts_td->reset =3D devm_reset_control_get_by_index(dev, 0);
-> +	/*
-> +	 * Depending on the SoC+Firmware combination, the LVTS hardware may be
-> +	 * may be actively used by one or even multiple concurrent MCUs!
-> +	 * In this case, resetting it may produce either a severe slowdown of
-> +	 * the entire system, or even a thermal protection AP reset, as some
-> +	 * MCU(s) may be reading a very high or very low temperature while the
-> +	 * LVTS is being reset.
-> +	 *
-> +	 * On those, don't fail if no reset is found as that may be omitted on
-> +	 * purpose, but still check if there's one, because some board(s) may
-> +	 * be running on a different bootchain with reduced firmwares or using
-> +	 * firmwares with reduced functionality.
-> +	 */
-> +	lvts_td->reset =3D devm_reset_control_get_optional_exclusive(dev, NULL)=
-;
+>  Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml | 4 +++-
 
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+There is no such file on recent next and cover letter says nothing about
+dependencies.
 
-regards
-Philipp
+Best regards,
+Krzysztof
+
