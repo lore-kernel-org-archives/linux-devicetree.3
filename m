@@ -1,120 +1,191 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35312352026;
-	Wed, 22 Jul 2026 11:17:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28C433D6F0;
+	Wed, 22 Jul 2026 11:18:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784719044; cv=none; b=BVVUpvRywHAieY17twi67cqSPFJY8Dl/YN8H3mUqFvvEYNMaVs5KmlCUYy/PKbgjZocSb1OrnwcSlUfA95xe+H+AvhXFbWoM3mSrOF54NfUslMy7wboIMLD2XfPFCOly6ZtVqKQLAYn4cTUo4A9B9utXrfMSnKsUltqWswx+o1Q=
+	t=1784719099; cv=none; b=GXHz0KzpEf1FEJfZqOqzKcBzvV4bLi+p2MPOQwZM1YDEN/HJVk9tUx1hArxm4aKtAWd/lfFSXAJC0tMJAgqET594VPK/IY09j1atittYQ10ZFdDZdtHrHn42DiiI/bOixyRBsxICXZwevmoOkoRxFjVm5Tyilgb3+ugetehN5cI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784719044; c=relaxed/simple;
-	bh=3cPmDCx2nY6zjwBPgtYMjB3Hg9MNWJNpNvdcEW6YAlE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ky9PMqHw5BImL2jxIRvpTQK2r/1xLUbUi6kNud8odYaHXkv8kRespNuxichZP/qps/ge5N8OG0goIGfUT3A1O8M7nhmMWpjz/Y0F7uWLvcxu5rLSurVIYp/Q6rAbJV+8SRDtnTSwPmhuNyK9SJyUdVmUltbxOIvhtCbHNI6FE8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AnkWmSg3; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1784719099; c=relaxed/simple;
+	bh=o6rYK/eNv8bcSFo7fL+857O+U9ALkmiDqUpHq8yoVvw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Xq1T1mSAvg96c/6PKGaGWBjw7lVOwlp+k1yRNmy4rMxPvigqTVMyVRf0KpHBn5x09aE0KrYUEzKJB9caSWi5rvsGnNq4Jk0KJyBQJe/OrxIdhryxZNZ05DSxSxunLTinlOaLt5nle6nDryNXGlEcZSIkO0kcYGrp3IO/4zLjOAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c0UNfG33; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AnkWmSg3"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M8x76B383770;
-	Wed, 22 Jul 2026 11:17:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=xU2+xruU0AuV1ex3CcxzqYTcgS+l5MjAB1K
-	DvwzcXRk=; b=AnkWmSg3ctm497qwH/qkZgi2ubtuIvJYFOFyWdPmx2LFAVXp3+C
-	JO+IZdtOI0aW/XALMbjW/Y6wPUHbA1WGAgOtgh/pi3ARbmAdnglN+GYXmuPxD1XM
-	aYFt3BiB5jXQ7T918bO6w5E5heGzMjTC5/+8gBJ1+oSs3E91IGr12kfpTmHI+6y8
-	MmjgdE67dpeggQ/jLTseVHXOgiYWS1Ug61lbZN3PWv3//kTg87UH23b1WsIx7jyt
-	aCUDpFaImiFVwBd+O1/pxuZ0BlrIJMP19Nu+rOKNJ6QftingPTeOcNa66TWie6X0
-	c7jgCJEOfwWp8++PDiqLr6LscmdKU/jLQ9Q==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjs929010-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 22 Jul 2026 11:17:20 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 66MBHH1I012156;
-	Wed, 22 Jul 2026 11:17:17 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4fgj54dc16-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 22 Jul 2026 11:17:17 +0000 (GMT)
-Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 66MBHHwj012147;
-	Wed, 22 Jul 2026 11:17:17 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-pkumpatl-hyd.qualcomm.com [10.147.245.204])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 66MBHHRX012146
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 22 Jul 2026 11:17:17 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 3914174)
-	id 04F9963C; Wed, 22 Jul 2026 16:47:15 +0530 (+0530)
-From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-Subject: [PATCH] ASoC: qcom: qdsp6: Remove unused Q6AFE_MAX_CLK_ID define
-Date: Wed, 22 Jul 2026 16:46:55 +0530
-Message-Id: <20260722111655.3558096-1-prasad.kumpatla@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c0UNfG33"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 77E7DC19425;
+	Wed, 22 Jul 2026 11:18:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784719099;
+	bh=o6rYK/eNv8bcSFo7fL+857O+U9ALkmiDqUpHq8yoVvw=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=c0UNfG33lUZVuThTEiAZ+lf1eKbV2qgNfqW74+6n9hRGZi5PDcEZnxofZ06YSQc65
+	 IOkJa6UqhVaKZrFSp0rw1rk3zFNKFdhAwWHDq04u74xnO7jw0y88XGJuajLBSJIyET
+	 TN//JmiPPSaiCvrVJl0dpI9b0LfOIEQHq91O/l1ndWugXi1hBzzDpRrd0I2AwEmC5J
+	 IsM13bfg+dwq6dvkxRrTp0BG8hYzKwQl984U98EkB896s4nK7MN7IDNy/4xeBCY5YB
+	 zj7o6AZM1ZtcIrGSbpLoQvCnqdZugw3VJ7qFwt+fM4ek2IzEhb9TUcw6aOaxA+u307
+	 tfow3ARXRVCGA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FF9CC44539;
+	Wed, 22 Jul 2026 11:18:19 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Subject: [PATCH v6 0/2] media: i2c: add support for ITE IT6625/IT6626 HDMI
+ to MIPI CSI-2 bridge
+Date: Wed, 22 Jul 2026 19:18:15 +0800
+Message-Id: <20260722-upstream-it6625-it6626-v6-0-6117d4d96574@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDEwOSBTYWx0ZWRfXyeQNDn2u0iKr
- Fwt0h9XHGdiBpX6r9neS5zZ3XG0NVAX7vVsOFIxaqo19eBt+zXW0KAZfdL7uKM6of6RpoRfOI50
- Wqg8UDDe9SQ/V1e74S+fd6m2OQX0afk=
-X-Proofpoint-ORIG-GUID: U9lRsk1VMXc05JIXppZ4U4k3rVW0lYG4
-X-Proofpoint-GUID: U9lRsk1VMXc05JIXppZ4U4k3rVW0lYG4
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDEwOSBTYWx0ZWRfX5hEa4rS2Tekt
- /icH2EqPRskeeKzxy7Tm2gFYkv1dxxToEJrf/1YYmsJgyGSgQU5FKwJ+mgaoLhTSO2uZCs1Tjlt
- zRHqBaWCbSRANfNC/ZkAW904pxLze1063Qv7pYofvLtmrM02swJtqoIXeNYBJZLiha/XUMNbmuu
- t3FY+sA+YZb4KAAu1oOZoPdjtdhCHsSc7WW4h7oDsdVKV7Xq7oPTSoU42Un+eiLuwQijsFpmX+Y
- 1568LA6/UKuegnmStJkpaNyLH6I7yfgAmSruNfv/bCXjOIVdLY4F76S96kayvZ8CpSO4L0g0zDh
- WOIFwVgPGYrebjBhiCRQXh1jBv4k/Vz0Pr7Ex/cS/c/VAxH9ihJgoIoFI8nM1/2Momy3FafV0vd
- V7zPKjaQ76WrnLWBAP8SJNggc8m5KTXZ8jGXVX0dqiVvh1/ubZL/xIckeDoq5NaB+uqtq7aqONe
- 9lvhngNBf7pM0UhNxPg==
-X-Authority-Analysis: v=2.4 cv=QahWeMbv c=1 sm=1 tr=0 ts=6a60a6c0 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=Lxc0AqZW09P9QT77htQA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-22_03,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
- lowpriorityscore=0 phishscore=0 spamscore=0 clxscore=1015 adultscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607220109
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPemYGoC/43QTWoDMQwF4KsEr+vgH0n2ZNV7lC4cV268SCbY7
+ rQlzN3rpF2kDANZiSd4n0AXUblkrmK3uYjCU655PPVATxsRD+H0zjK/9SyMMqScJvlxrq1wOMr
+ ciAz+DpLkHYS9D2gVil4+F0756wa/vPZ8yLWN5ft2Z9LX7R9p1Bo5aakkOBy0SQ4Ah+fceBvH4
+ 7Z9iqs5mXtHrzqmOy5CskgQg/ULx947ZtWx3RnAMaqktCNYOPCYA92JyloyvEeMYeHgYw52x3r
+ HDj0kE///Z57nH0Ui2eXdAQAA
+X-Change-ID: 20260716-upstream-it6625-it6626-6874ab8a5305
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784719098; l=6647;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=o6rYK/eNv8bcSFo7fL+857O+U9ALkmiDqUpHq8yoVvw=;
+ b=72WCzJBrn65kMvTNcDltZYvaXnIFiNIX+lA2gDCMC/ZOQJv9qCu4N2ju8h7PW6QxhTpEq/Wm9
+ /rWgzudEaxHCtXfKjnQ9Xrvy4duBIZG7AM5WLV78dgM7rFTL6byipUK
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
 
-Q6AFE_MAX_CLK_ID is not used anywhere. Remove the unused define.
+This series adds support for the ITE IT6625/IT6626 HDMI to MIPI CSI-2
+bridge chips. IT6625 accepts an HDMI 2.0 input and IT6626 an HDMI 2.1
+input, converting it to a D-PHY (or C/D-PHY on IT6626) MIPI CSI-2
+output. The bridge is configured over I2C, exposes an HDMI CEC
+adapter, and supports EDID read/write, DV timings detection and
+configuration, and HPD control via the standard V4L2 subdevice pad
+and video ops.
 
-Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Patch 1 documents the devicetree binding for the bridge, including
+its two selectable CSI-2 output graph ports.
+
+Patch 2 adds the V4L2 subdevice driver itself.
+
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h | 2 --
- 1 file changed, 2 deletions(-)
+Changes in v6:
+- Patch 2 (driver): fix two correctness issues found by automated
+  review of v5 -- an ignored v4l2_phys_addr_validate() return let a
+  malformed CEC physical address reach cec_s_phys_addr() and get
+  broadcast on the CEC bus, and it6625_parse_endpoint() pre-set the
+  fwnode bus_type to D-PHY, which made the parser reject every IT6626
+  C-PHY device tree outright. One other v5 review finding (a
+  concurrent-ioctl-vs-remove() race) was checked and is not being
+  acted on -- see the patch's own changelog for the reasoning.
+- Patch 1 (dt-bindings): unchanged -- the v5 review concern was
+  checked and dismissed; see the patch's own changelog for the
+  reasoning.
+- Link to v5: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v5-0-387e7584f2c9@ite.com.tw
 
-diff --git a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
-index 45850f2d4..7b553a73b 100644
---- a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
-+++ b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
-@@ -237,8 +237,6 @@
- #define LPASS_HW_MACRO_VOTE		102
- #define LPASS_HW_DCODEC_VOTE		103
- 
--#define Q6AFE_MAX_CLK_ID			104
--
- #define LPASS_CLK_ATTRIBUTE_INVALID		0x0
- #define LPASS_CLK_ATTRIBUTE_COUPLE_NO		0x1
- #define LPASS_CLK_ATTRIBUTE_COUPLE_DIVIDEND	0x2
+Changes in v5:
+- Patch 2 (driver): fix further correctness issues found by automated
+  review of v4 -- two debugfs read handlers could leak uninitialized
+  kernel stack memory to userspace on an I2C read failure, TRY-format
+  state could go stale or leak active hardware state into what should
+  be an isolated buffer, a concurrent S_FMT ioctl could interleave
+  with hardware programming because the lock was released too early,
+  S_EDID's blocks==0 case didn't actually disable the EDID per spec
+  and a failed EDID write left HPD disabled permanently, the mipi_reg
+  debugfs write was unlocked, and the HDMI info control returned a
+  hardcoded string instead of real telemetry; also wire up the
+  previously-unused reset-gpios line during probe. See the patch's
+  own changelog for the full list, including three other v4 review
+  findings that were checked (one against the hardware author's own
+  knowledge of the chip) and are not being acted on -- see the
+  patch's own changelog for the reasoning.
+- Patch 1 (dt-bindings): unchanged -- both v4 review concerns for this
+  patch were self-dismissed by the automated review itself with sound
+  reasoning (the endpoint/patternProperties gap matches an established
+  single-endpoint convention already used elsewhere in-tree, and
+  dropping port@2 doesn't weaken validation since graph.yaml's own
+  generic port pattern still covers it).
+- Link to v4: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v4-0-c03362eb55ca@ite.com.tw
+
+Changes in v4:
+- Patch 2 (driver): fix further correctness issues found by automated
+  review of v3 -- a CEC RX interrupt left unacknowledged on an invalid
+  message length could storm the IRQ line, set_fmt returned -EINVAL
+  for an unrecognized format code instead of falling back to a
+  default, get_fmt's active-path reads of the format state were
+  unlocked against a concurrent set_fmt, g_edid/s_edid didn't follow
+  the VIDIOC_G/S_EDID spec for over-capacity requests, and the two
+  mipi_reg debugfs handlers were missing locking/offset handling; also
+  mark the HDMI info control volatile so it is actually refreshed. See
+  the patch's own changelog for the full list. Separately (not a
+  review finding), drop a redundant FW-start register trigger from
+  probe -- the firmware starts automatically on power-on.
+- Patch 1 (dt-bindings): drop the unused port@2 (HDMI input) graph
+  port entirely rather than the review's suggested fix of adding it to
+  required, and require bus-type on port@0/port@1 endpoints for
+  "ite,it6626" specifically, since only that variant's D-PHY default
+  can silently mismatch actual board wiring. Both found by the
+  automated review of v3, which also flagged one other dt-bindings
+  issue that was checked and is not being acted on -- see the patch's
+  own changelog for the reasoning.
+- Link to v3: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v3-0-947e50f01764@ite.com.tw
+
+Changes in v3:
+- Patch 2 (driver): fix further correctness issues found by automated
+  review of v2 -- two banked-register reads still missing a lock, a
+  CEC RX length TOCTOU and a dropped CEC TX interrupt on invalid RX
+  length, it6625_s_edid() treating a successful write as a failure,
+  missing V4L2_SUBDEV_FORMAT_TRY support, an unlocked active-format
+  commit, and detected timings lumping the whole blanking interval
+  into hsync/vsync instead of reading the real porch registers. See
+  the patch's own changelog for the full list, including four other
+  v2 review findings that were checked and are not being acted on
+  (with reasoning).
+- Patch 1 (dt-bindings): unchanged.
+- Link to v2: https://lore.kernel.org/r/20260721-upstream-it6625-it6626-v2-0-7c4f3564ca38@ite.com.tw
+
+Changes in v2:
+- Patch 2 (driver): fix several correctness issues found by automated
+  review of v1 -- premature V4L2 async subdev registration/teardown
+  ordering, a missing-lock race on banked register reads, a
+  status-poll interval bug, a dropped CEC interrupt, an unacked CEC
+  transmit, set_fmt mutating active state on TRY, EDID blocks=0
+  handling, and a couple of uninitialized-stack hardening fixes. See
+  the patch's own changelog for the full list.
+- Patch 1 (dt-bindings): restrict port@0/port@1 bus-type to D-PHY (4)
+  only for "ite,it6625", since that chip doesn't support C-PHY (also
+  found by the automated review of v1).
+- Link to v1: https://lore.kernel.org/r/20260720-upstream-it6625-it6626-v1-0-475912f74459@ite.com.tw
+
+---
+Hermes Wu (2):
+      dt-bindings: media: add ITE IT6625/IT6626 HDMI bridge binding
+      media: i2c: add driver for ITE IT6625/IT6626
+
+ .../devicetree/bindings/media/i2c/ite,it6625.yaml  |  169 ++
+ MAINTAINERS                                        |    7 +
+ drivers/media/i2c/Kconfig                          |   18 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/it6625.c                         | 2216 ++++++++++++++++++++
+ 5 files changed, 2411 insertions(+)
+---
+base-commit: 8dac27bfa2f994ecb11f01a63641527d17d48fc1
+change-id: 20260716-upstream-it6625-it6626-6874ab8a5305
+
+Best regards,
 -- 
-2.34.1
+Hermes Wu <Hermes.wu@ite.com.tw>
+
 
