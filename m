@@ -1,168 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0EA3DB31F;
-	Wed, 22 Jul 2026 23:21:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77051445AD2
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 23:36:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784762471; cv=none; b=cr4gyO+PqoYDML9I7D2ajfPrercJSplJKz+Mgybl+MNyUneezYqQCjBri4tV6PepGY1OQA4fb0HPwjmnSReA0NZ+BEUnq9FUCoa/MjUTQ4CH23rCl8Y/dahzApJddxMjtdTYuhx0HUmpgwDBjRz8RcIm4T4CL+OKOVUyihQ7rlE=
+	t=1784763378; cv=none; b=Xjw5M6bI3/f0b/ZtpG478gBCoU08hmXk3Cx0RJ8ZWn1l5yfJYkT7PWd+h0d6tUTAxk6ckydF1sZ6Rr9E0SWFc5p7B5+1FtDPzJJT9ygS1L8WZEd+KcxWqs8Lhvx5u4qQwC/u0Nl3DMwC4WrrRMSpk/fQj4q8SrRLRo8kIzm1xJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784762471; c=relaxed/simple;
-	bh=0bF7JuHmTE+qq+ZS65ZDDvObmpNl9li4WWIW5Hth3IU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uAVkU2IddidIBT0vrEq3Bj4sUEz9ZU/0FYu+cnZ3w+/gGPdZFpiiHA9vsIUrh28zHXVjvxYwbiyUU56qZpW2vhWHzaUloSkAr7Lm2RojxM4vPRhw8A3x3ZLzCS30o/s/yM/XGMvwFh/j9XuClKo4PqANWLElPS4FD6aukgwqfn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bW3Xzx08; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784763378; c=relaxed/simple;
+	bh=/WNSjUiB7ZBKYkg1c73HlDQeL6X829IxPmKArxDi2w8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jTM1osa25uMbl7MDjkLDJChz2ATE3mMLlLzGd7eeqbNtAdHjHt8OUJXyIu+2HKlsAvUrZVrMsipurYFmTh04mJ9RIAG3k1VGFkyWwJ0td0okuW+gbPrUisJJY1qAfaKrVvykg12rqBdEL+j7uz6oQbylGNZzv0pV2Q7gcWCLBRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qVPI4BjA; arc=none smtp.client-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bW3Xzx08"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 005061F000E9;
-	Wed, 22 Jul 2026 23:21:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784762470;
-	bh=TkJg8re8EKuv/YDehLLHQJKcgk2R2WqRbZWeKyA5/GE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bW3Xzx08m9x1pjWj1hNoqekvSC/OsFXNppblyY4B5i9zb8vffXbbRAJTZofyCQ3pg
-	 8lB2393kiX5RrUunj/dKkP/Wd8f8BX9KuykhzLy0Y4a22MMQT/IAyr4M++mvL/1SxR
-	 6SlZrVnyzLbEGgIh2EscD7kdzXOOGvcDu3Rw0CSoQhYaEQ3JG/Kh141HBxAKH6B3le
-	 k2auZQNgrjcqQncfciLcomX3XIJWG8SDYWJ3G2Q3uDrRN1SWtriuolhkxWG0mKCjVF
-	 jxaep2PV3YXqGQd7FvEIBOsZ2LJTMOgbZDNsxfXNi5GbnRaqbG4nAr3j1QtqowHFEZ
-	 4BGqdchkHsXgQ==
-Date: Wed, 22 Jul 2026 18:21:09 -0500
-From: Rob Herring <robh@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Udaya Kiran Challa <challauday369@gmail.com>,
-	devicetree@vger.kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v4] dt-bindings: pinctrl: microchip,pic32mzda-pinctrl:
- Convert to DT schema
-Message-ID: <20260722232109.GA2760962-robh@kernel.org>
-References: <20260722123243.341346-1-challauday369@gmail.com>
- <20260722124415.63DD11F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qVPI4BjA"
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-80cebd41372so606597b3.3
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 16:36:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784763374; x=1785368174; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qgIx2gbKb5iWCG1ogTe9qMQNQTnak53463bbnfl8YvU=;
+        b=qVPI4BjAZdNd296OAWtBrEa9mj/aymYwSGN7PO4xQtoFTjzc61P/4Nz3vVFZ2glfz+
+         V2x+FwB9opeXcHmCvi/dO6x6MphFaegzjC45cVGgcg8i7I+fXbFJyaDILZW3xi7nD5nh
+         5Hin3GAPPi1mm45f1vV7h465UaGNE9Dp8AoNcEIzNRoTEKAus954L2Wxpfb41YA+Wdc2
+         fpBDPtBt2csGRAXwt0wwAuIw++JvagRVrGpb7PeL08JJC55pfFQHBtzfDjzX6UPJ7QL9
+         dR1cRJ8el3oMTTWF+T677x3Ru4zBbJfCu4P9aMYCPgh+70Ez44X6AYgiJNIYI5yLROR7
+         X1hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784763374; x=1785368174;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qgIx2gbKb5iWCG1ogTe9qMQNQTnak53463bbnfl8YvU=;
+        b=XqIVC1ZMUEt5W4fvnML4ImvBC1Biouk5o8y5ipHBJyN87nnWSP5snFN/EKyKQ3HXxQ
+         9uGKMO13VRMOJWTUo28JarvJUIk0lyp/oU+wTyIHXmtHbL5glDJX094+3e+rfi0GFBYC
+         fUIH1rirN8zE9ezTCuFUMqcgUsBxiqvGybs1n6FSLBp0gH+ZDj46LAxuje0/QhLyJ+Sa
+         HBzeWeDpnnOVN8qkjkix2IkQypaNDATFYY4FqM/fCViLElVhNkxjqrEVaWVpIeD8jgdM
+         cUeUm4JjWe3mMYwKn1A+KCN4Tbltoxin3XzqU+3wrHly8ZE20mBOg1qfLiw0Td+2ixKL
+         FJOQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rri3GlEJ/0UrfyEFbKhJ4/YfU9Xpk8e6o3MfeSCeFCEIO46nIiebT1GD5b8208rPK+fyxcs9lU9CW9Y@vger.kernel.org
+X-Gm-Message-State: AOJu0YzaRJJeQiUkC8RFvxd9ML12gm+Dsc3JWSClIFSNY+adrNsGpjPC
+	L6PFtje29aLhxYv2ZDjOBkvBlZFPgQ5nbnnZjPmaovmCWZu9ciAngfry
+X-Gm-Gg: AR+sD11Utfhb23oghGfnrjE2tBC4v+2pQbZkyggnHRK4R5nW8rgsG5qpvz5Arfks7uE
+	Km0D4UQShE0lxS82MkjBkSmnnaHLrQzzigGm1x1C0FYRRC1qpgz7u5nJsm92xbONlPErx4QyCCP
+	cz1vfQ4kmBw3f7FDsW9XvCPZVqN8NVO9gghhp4/++vZPav6ZshYNjMr+taa+URNSlzgcfHqaJlS
+	h+rnZi12jWLrJN0NFxhF7zOIpDxFFth1+l91of18yS/cOqCaNPsK2DUvqH1ZHDCHhvQA47yYOeO
+	VnS0ulQJKt7MKG18riPqC2cdd19YHbPwcv4+0q4Jasu2VKJUowEm92SEXjl9E8w989UrPMxRdl1
+	wOtDJlR7wnMlxwvDA2xoAK3ji0zFOSg8vEh1cxHG7ft146Yci+Y+5ScyncGhtxtjUXfhMChgxlf
+	R4XUH88jN+clP44Rp/JoOcpo4tU4+vrs/fcwBR
+X-Received: by 2002:a05:690c:6c12:b0:81f:4247:de29 with SMTP id 00721157ae682-81f4c3bf31amr2438677b3.68.1784763374425;
+        Wed, 22 Jul 2026 16:36:14 -0700 (PDT)
+Received: from zenbox ([2600:1700:18fb:6011:4392:41cd:1ce2:e391])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81f33c627c9sm20937027b3.19.2026.07.22.16.36.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 16:36:13 -0700 (PDT)
+From: Justin Suess <utilityemal77@gmail.com>
+To: Sean Young <sean@mess.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Ripard <mripard@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	Sashiko <sashiko-bot@kernel.org>,
+	Justin Suess <utilityemal77@gmail.com>
+Subject: [PATCH v3 0/4] media: rc: sunxi-cir: support the A523/H728/T527 IR receiver
+Date: Wed, 22 Jul 2026 19:36:00 -0400
+Message-ID: <20260722233604.3001063-1-utilityemal77@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260722124415.63DD11F000E9@smtp.kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 22, 2026 at 12:44:14PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> - [High] The top-level `additionalProperties` logic using `oneOf` silently accepts undefined non-object properties and breaks validation for standard container nodes due to injected `phandle` properties.
-> - [Medium] The `$defs/pin-node` definition bypasses all type and constraint checking for standard pin configuration properties because it fails to reference `pincfg-node.yaml`.
-> - [Low] The removal of `#address-cells` and `#size-cells` from the schema creates a mismatch with the existing `pic32mzda.dtsi`, which will cause `dtbs_check` warnings.
-> --
-> 
-> --- Patch [1]: [PATCH v4] dt-bindings: pinctrl: microchip,pic32mzda-pinctrl: Convert to DT schema ---
-> commit 238b9bfa23edd44c05fbb35e962f0ab9f0bb9f25
-> Author: Udaya Kiran Challa <challauday369@gmail.com>
-> Date:   Wed Jul 22 12:32:43 2026 +0000
-> 
-> dt-bindings: pinctrl: microchip,pic32mzda-pinctrl: Convert to DT schema
->     
-> This commit converts the Microchip PIC32 Pin Controller devicetree binding
-> from legacy text format to DT schema. It consolidates pin-node properties and
-> updates the schema layout to support nested or direct pin configurations.
-> 
-> Link to v3: https://lore.kernel.org/all/20260719183431.124061-1-challauday369@gmail.com/
-> Link to v2: https://lore.kernel.org/all/20260707144223.120417-1-challauday369@gmail.com/
-> Link to v1: https://lore.kernel.org/all/20260705132521.159522-1-challauday369@gmail.com/
-> 
-> > diff --git a/Documentation/devicetree/bindings/pinctrl/microchip,pic32mzda-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/microchip,pic32mzda-pinctrl.yaml
-> > new file mode 100644
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/pinctrl/microchip,pic32mzda-pinctrl.yaml
-> > @@ -0,0 +1,107 @@
-> [ ... ]
-> > +properties:
-> > +  compatible:
-> > +    const: microchip,pic32mzda-pinctrl
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> 
-> [Severity: Low]
-> Even though the changelog mentions removing #address-cells and #size-cells
-> from the schema, aren't these properties still present in the
-> pinctrl@1f801400 node in arch/mips/boot/dts/pic32/pic32mzda.dtsi? 
-> 
-> Will their removal from the schema cause dtbs_check warnings for the
-> existing in-tree device tree?
+Hi,
 
-Yes, but warning is correct.
+Quick series respin for easier application.
 
-> 
-> > +
-> > +  clocks:
-> > +    maxItems: 1
-> > +
-> > +$defs:
-> > +  pin-node:
-> > +    type: object
-> > +    $ref: /schemas/pinctrl/pinmux-node.yaml#
-> > +
-> > +    properties:
-> > +      pins:
-> > +        description: List of pins to which the configuration applies.
-> > +        items:
-> > +          type: string
-> > +        minItems: 1
-> > +
-> > +      function: true
-> > +
-> > +      bias-pull-up: true
-> > +      bias-pull-down: true
-> > +      input-enable: true
-> > +      output-low: true
-> > +      output-high: true
-> 
-> [Severity: Medium]
-> Does this bypass type and constraint checking for the generic pin
-> configuration properties?
-> 
-> By assigning these generic properties to true without also including a
-> $ref: /schemas/pinctrl/pincfg-node.yaml#, it looks like the schema
-> validator might silently accept any value or type for them, missing
-> mutually exclusive constraints like having both output-low and
-> output-high present.
+This series adds support for the CIR receiver on the
+Allwinner A523/T527/H728 family (sun55i).
 
-This should be addressed.
+One-line function name change s_cir -> s_cir_rx at Andre's
+suggestion, with his patch for the Avaota A1 applied on top
+for convenience.
 
-> 
-> > +
-> > +      microchip,digital:
-> > +        description: Enable digital I/O.
-> > +        type: boolean
-> > +
-> [ ... ]
-> > +    required:
-> > +      - pins
-> > +
-> > +    unevaluatedProperties: false
-> > +
-> > +additionalProperties:
-> > +  oneOf:
-> > +    - additionalProperties:
-> > +        $ref: '#/$defs/pin-node'
-> > +    - $ref: '#/$defs/pin-node'
-> 
-> [Severity: High]
-> Will this oneOf construct silently accept undefined scalar properties?
-> 
-> Because the first branch lacks a type: object constraint, a typoed
-> scalar property might trivially pass the first branch and satisfy the
-> oneOf.
+v2: https://lore.kernel.org/linux-sunxi/20260722201717.2205609-1-utilityemal77@gmail.com/
+v1: https://lore.kernel.org/linux-sunxi/20260702214750.3428694-1-utilityemal77@gmail.com/
 
-The $ref has a 'type: object' so we should be fine.
+Andre Przywara (1):
+  arm64: dts: allwinner: a523: enable IR on the Avaota A1
 
-> 
-> Also, for valid child container nodes referenced via a phandle, the
-> devicetree compiler automatically injects a phandle property. Since
-> that injected phandle is not an object, won't it fail the $ref type
-> check here and cause spurious dtbs_check errors for perfectly valid
-> hardware configurations?
+Justin Suess (3):
+  media: dt-bindings: allwinner,sun4i-a10-ir: add A523 compatible
+  arm64: dts: allwinner: a523: add IR receiver nodes
+  arm64: dts: allwinner: a523: enable IR receiver on the X96Q Pro+
 
-I think the $defs should get fixed up with 'phandle', etc. added. You 
-can check the generated processed-schemas.yaml.
+ .../media/allwinner,sun4i-a10-ir.yaml         |  8 +++--
+ .../arm64/boot/dts/allwinner/sun55i-a523.dtsi | 35 +++++++++++++++++++
+ .../dts/allwinner/sun55i-h728-x96qpro+.dts    |  6 ++++
+ .../dts/allwinner/sun55i-t527-avaota-a1.dts   |  6 ++++
+ 4 files changed, 52 insertions(+), 3 deletions(-)
 
-Rob
+
+base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
+-- 
+2.54.0
+
