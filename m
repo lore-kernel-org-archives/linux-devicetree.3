@@ -1,133 +1,264 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9DD33655C4
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 15:15:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5014B35AC11
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 15:16:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784733334; cv=none; b=u/glCECJ14fhMi8fEkwXfnujE7Iq32I3mBrqKu8o2j1IRfIo0+vaN1x3K8kogXbN0yBHuFIh0yZJWClj3qYcLi5Ii0kD68EejBIHfBWqzj2TYVY3biIhowo4WT3NsdQ19PGD97WpTC49IjWfCADhFwB7ujD6IRoj93+QjIbSU6w=
+	t=1784733407; cv=none; b=rvi5cFJuTrxnUz8gJ4BDFKHvQ1U2FfshRvJ8cyaTycmE7YD1714AL7VN9wNIieNl8/8jnFn2aMd+rTJqUlvJAWLuvUF6hbdvB39kqDZTQfzqOQbxtgkwymuxz4b16k4O4vbWE+7J4LEm5MhDfm67IEDjdYw1sWwIOVcO6AiOPTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784733334; c=relaxed/simple;
-	bh=q3dcpHVSWkzAXGr3iPRgREzgNk7QyK9ayNHDu0LG4fY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WNPhlg6ZMoLAmrC9NErREn/ffHM7bCqUxnb8hYLfFoi9/1mZ0GAfDCIOjge+q7Pkcn59Qae95w35s2pc0pKFW9F+jycmMZU03Iv9zwe90aBcgFjqiP92PirpWeBWDrXtnwjFW/clUcMp0QsyP/tmRbFvwfin59rpnS+36bkdHow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=U9pg9tWB; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
+	s=arc-20240116; t=1784733407; c=relaxed/simple;
+	bh=1BzOXqGhEucX1R0QAUs0Yyi4AXR0hKgrXTWMmfFZB/8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PsDFrG/ggI2SrB7ht5J453Ca+OT/9qKo+ovKexLVEr62xP2vZ9H8fGR0SMIdcEBRsMywnQzCi7xLDmd4Qg6B5tg/X8oA7fTJp7ZPb7ypLxhWYj8Va8a0ZpNrly1+Z8fFx4k5C4Ut7TEdRDoQaLyVvaBRjKcUG9S+lVexp3rEyro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=spmgClVp; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="U9pg9tWB"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-493f6de72faso43486965e9.0
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 08:15:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="spmgClVp"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2cad4170e8eso181702185ad.3
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 08:16:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google; t=1784733331; x=1785338131; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=linaro.org; s=google; t=1784733404; x=1785338204; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=zvXtHoyutTzc9UQI/R1yf3uc5dETK64DOW+MCP8cwFs=;
-        b=U9pg9tWBrHz3pexz2/sIGCPCxdd/6jUb96kgIcraoqSNd5aFJc5ctTvbxTKAhr7jCE
-         ZiQg7BHvjs7b4GfSBaW+n/kP9qNMWPEokK/Vds+3yhLrBC7hvELnEZCMyrg8rfDsGSFo
-         nZj0OZ+t4yVqBUFUdEjo0nj3qCedmpuUSEXE7ImBdXRhBeXnvGA51yMNSoyEF85Be1sO
-         S1F7zGudjWsAU//gSY1hP0i84rUvzQuPpan4VID8odM9/9E7OlvCabpHa4TwdYg8Ezf0
-         ayTtLSseogm8NSOazATU/52h+VNA72n48ViQ5falHfTZiHus/lSfJM91olbAUUFcnb+3
-         hG7Q==
+        bh=qb6fmPQgCkpIWTq1FvlF/qpH7q9MjzKXrvR5lC4uI1c=;
+        b=spmgClVpJfHmWDnFhOOEnaLD2MT3SDVt4vamrUq0qsIdzLzWO3dPJuIRO092WG7dlD
+         xshMtx0axBs65x+g6ADjIz41/xXayyh5K8vBR/itEHkZmFYnc0fPPNmgcViXPvIuuCPe
+         zsT+c5xpsJnO5yvCfGyA6CrMg8EWVOrGv2gnzwjaonJYrIY0JYzvI4ig5ZLkKCMsMiAk
+         4GtgVfOndwopWSvT/l7Oe1CDcR3hJY3NmQzURcvIkDPDMzlwCItwpgIzAzExbI/TR4Np
+         bY35YZaPRC+UQzvdqXQ7zGFatxsIk7vaOWZ86Fo8XdlUH7WejoRQmA13EGu9w3BE0idR
+         mTbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784733331; x=1785338131;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1784733404; x=1785338204;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zvXtHoyutTzc9UQI/R1yf3uc5dETK64DOW+MCP8cwFs=;
-        b=VHYeJxUEt+ZJctlzX0z2cweQPkz+srpc8UagOd0o93VcxbwH0T+i6QfmEbAMI9H9cN
-         OYS7NRpk2nz2SpQSl5C9PaHfiMr1zurqJ1Jh4UetQQg2y2GCGIfpPxmdCOqL8ai0mP3C
-         iUBvUue1hdEyfNFf1nzMbZHrYRGHpEiwvkFkE/aPaE+8EC4kmBWzgiKc+QBQ9ccucgkQ
-         25agpNKIFaH8pXRqgtcnBUo+cVaHDHr7FEPRPLWZRF1qx/zg2sKiBNeCulZdlW8pME8b
-         WYXnto1SLDIUjW1sTGDfov9tLPaJBk0OR0VjXiaer0i3pKHEsIlwrIuSsdMgefGhG4TX
-         +R8w==
-X-Forwarded-Encrypted: i=1; AHgh+Rqhw3E3Y8ZAySy35f0XDssaPf56dpLhkFJbxP9DXgab55sG5IHkOyEuFo4eljay82NhCXgbcSCz6t+9@vger.kernel.org
-X-Gm-Message-State: AOJu0YzD2NPBX3y7HhmoFN+MVKLe1db+AE1SsLZGwtO1SEwmSsN3YKOx
-	jJYo8GsO88vtOMysDI8JzDG9BbUuM2uKJUlQJvLJP372QwjBQ+N8e7MjtTZh0E5ccLw=
-X-Gm-Gg: AR+sD10ZXC+F8Xy94QjDIeGzFXx2KGvc4GG0gOKf6YaMaywJnoXAoSV0PjIJ+UPF93u
-	rWiKREQTyZKpASXYsoXsK64WoUoi6WbrVlu7hs8i2MYlMWoXv0Tpoz/ryYuHCXB14ZCjk6o+33Y
-	tE4M5zd002U+4rC0Qm6ObZ7LQpK8CCXtNjR7qsGhYFLF+IiTMCF0ZUAu0fnpqX8NR8Me03kPoTe
-	SsSYC5ko2Cz1zg+ii56663WgqxfDGJIg/ImBhGIJ4ffvC1e9yxMzeURQyMfywMv2XH86yamZJN9
-	u9AVKqDZNSSC4/bUS01MlMCEzkW6HJiPgx4FXZgB1uF/wy56ZiXh/y0y6vXBSZQ7DYJxHFaeXQh
-	/wD6tO2y2q9teP1y91E4ZgcnU/W3BBTM02ewycO8A1yudzS4trd5Ci+pRMHPNSsW0nS+1JX83bR
-	4r4yRCiZYJR8/ENrPNJ8JRnThly8SyLpIAymLtKRJq5Vh5p48bR9N+rwOf6ZJrc8ldzlagc8RLY
-	c/txSl7tegVQiI2/g==
-X-Received: by 2002:a05:600c:548a:b0:493:f783:c46a with SMTP id 5b1f17b1804b1-4956a4ef5d1mr47012145e9.6.1784733331147;
-        Wed, 22 Jul 2026 08:15:31 -0700 (PDT)
-Received: from gregwork.sec.9e.network ([188.111.3.154])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956a500dbfsm70595615e9.6.2026.07.22.08.15.29
+        bh=qb6fmPQgCkpIWTq1FvlF/qpH7q9MjzKXrvR5lC4uI1c=;
+        b=sRAYIJgFPtd3vNUB+GwnZvv5EgB/8DIuHu5WcVWlubOW4+3RT4IzleP9wta4VGa0S1
+         hRWzz3kwyrzSXyXBMAgOH82TlRvEHnapnUtdHa2y5rguky9IpUE9BgLS7rwAX8C20OKh
+         cEJAXqkyFsbt37h3pJmGcAGCh4LORDZ+3qNL/NFrt2ie7+uOV4s+++40mrxW462WZxXK
+         O79WEZjJNwWs0k/0hSas2XEx7SmIThE9/vNrgCGU9o9xPhDToUS+F8HljvT2EhY70//w
+         LQwoW8N1eWWakcY7NWNeTkvzQFy9AV6M1+d59kRI8qwf9jSaxO2LohGttVCKitGBvS+o
+         YWog==
+X-Forwarded-Encrypted: i=1; AHgh+RpYVA1IaLeRgKD3pYiyCpOrWgPQPN7zqx3VXbrLs4Q/kj/iOrPitdyrLEODag0GBfsf4BHok50/uklp@vger.kernel.org
+X-Gm-Message-State: AOJu0YzjXLGfO7EJxUtZUXGQCymRqGJ/UCTnPer6jieS+c6tlfTXmuYo
+	rwi+v26uEGzya8S9TdHhEQ5VtScybWDPEcfyRKsdco2xMw5M2h7NjcEHrkyS1TEGzF8exKrNwYK
+	7sdc/1cU=
+X-Gm-Gg: AR+sD10BQ68vbZAk/IUYVLY7kkifNKvuqEacVqFHscC3OFe5hZ+WWd+kEwPW0pmtxj3
+	xywt/kFYgd9qqTrjWB83rUUBNwJhBppjCIqbPK5AIr28Jl4QqHPUyGBkoFNOkLq1QQEEKmkFOYq
+	72jcBbAQ+y21wazLwCuAl/h+j0zx6upJutRaWnBdN88FU6OP2iVVIeyHSNojXbwWI3HWAfROdBx
+	Y79kzW9468nTzj3IrW1WGX6o8zwpS7wG6LIJkpH2vhjmEwtYzjLYRUL5iis9NQ6S/2EDvFJuCuz
+	muVx9BvA7VzsqdEffJKve8HN04aSipvLg7aR0FFcP1WLYRP9RuFhPdxAePCXXQJOJj6jh0N2qHG
+	m3JNqu45RFfQrZ1yEuvMf7mwptWpLb39q/yHW5XkxbIAs5JWcdAkrmjUH4HbHyH9kNnXf/ysu7u
+	T5QbXoqA==
+X-Received: by 2002:a17:902:e890:b0:2ca:1bd2:d57b with SMTP id d9443c01a7336-2cf34633722mr240566765ad.0.1784733403291;
+        Wed, 22 Jul 2026 08:16:43 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:ffc8:5f3a:2bec:f5de])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8f31319asm17222825ad.60.2026.07.22.08.16.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 08:15:30 -0700 (PDT)
-From: =?UTF-8?q?Gr=C3=A9goire=20Layet?= <gregoire.layet@9elements.com>
-To: joel@jms.id.au,
-	andrew@codeconstruct.com.au,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	corey@minyard.net,
-	devicetree@vger.kernel.org
-Cc: openipmi-developer@lists.sourceforge.net,
-	linux-aspeed@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Gr=C3=A9goire=20Layet?= <gregoire.layet@9elements.com>
-Subject: [PATCH v2 2/2] ARM: dts: aspeed-g6: add pcie-kcs4
-Date: Wed, 22 Jul 2026 15:11:58 +0000
-Message-ID: <0b97a66762efc05c9073c14112cc489624871947.1784732161.git.gregoire.layet@9elements.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1784732161.git.gregoire.layet@9elements.com>
-References: <cover.1784732161.git.gregoire.layet@9elements.com>
+        Wed, 22 Jul 2026 08:16:42 -0700 (PDT)
+Date: Wed, 22 Jul 2026 09:16:40 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Suman Anna <s-anna@ti.com>,
+	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, goledhruva@gmail.com,
+	m-chawdhry@ti.com, daniel.baluta@gmail.com, simona.toaca@nxp.com
+Subject: Re: [PATCH] dt-bindings: remoteproc: ti,wkup-m3: Convert to DT schema
+Message-ID: <amDe2FplJV0g-uDz@p14s>
+References: <20260719-ti-wkup_m3-v1-1-848a95b401a5@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260719-ti-wkup_m3-v1-1-848a95b401a5@gmail.com>
 
-Add pcie_kcs4 node to the LPC bus in the ast2600 g6 common dtsi.
+On Sun, Jul 19, 2026 at 11:36:41PM +0530, Bhargav Joshi wrote:
+> Convert Texas Instruments Wakeup M3 Remote Processor from text to Dt
+> schema. Add optional resets and reset-names property which was missing
+> from legacy binding. make ti,hwmods deprecated as it no longer needed,
+> it is kept to support older board files without ti,sysc.
+> 
+> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+> ---
+>  .../bindings/remoteproc/ti,am3352-wkup-m3.yaml     | 89 ++++++++++++++++++++++
+>  .../bindings/remoteproc/wkup_m3_rproc.txt          | 52 -------------
+>  2 files changed, 89 insertions(+), 52 deletions(-)
+>
 
-The ASPEED AST2600 has a PCIe to LPC controller. It includes a KCS
-interface on channel 4. This is a fully KCS-compatible interface
-that is exposed over PCIe.
+Applied.
 
-This can be used by the host for IPMI when the PCIe BMC Device is
-activated.
-
-While the datasheet provides interrupt numbers for KCS channels 1, 2,
-3 and 4 over PCI, not all 4 are described in the "PCIe to LPC Controller"
-section. Since only the KCS channel 4 is described, only this channel is
-added.
-
-The pcie_kcs4 uses existing "aspeed,ast2600-kcs-bmc" compatible as it's a
-standard KCS interface.
-
-Signed-off-by: Grégoire Layet <gregoire.layet@9elements.com>
----
- arch/arm/boot/dts/aspeed/aspeed-g6.dtsi | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-index 56bb3b0444f7..a93fa4cf5d8f 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-+++ b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-@@ -617,6 +617,13 @@ kcs4: kcs@114 {
- 					status = "disabled";
- 				};
+Thanks,
+Mathieu
  
-+				pcie_kcs4: kcs@914 {
-+					compatible = "aspeed,ast2600-kcs-bmc";
-+					reg = <0x914 0x1>, <0x918 0x1>, <0x91c 0x1>;
-+					interrupts = <GIC_SPI 177 IRQ_TYPE_LEVEL_HIGH>;
-+					status = "disabled";
-+				};
-+
- 				lpc_ctrl: lpc-ctrl@80 {
- 					compatible = "aspeed,ast2600-lpc-ctrl";
- 					reg = <0x80 0x80>;
--- 
-2.54.0
-
+> diff --git a/Documentation/devicetree/bindings/remoteproc/ti,am3352-wkup-m3.yaml b/Documentation/devicetree/bindings/remoteproc/ti,am3352-wkup-m3.yaml
+> new file mode 100644
+> index 000000000000..9e8a03acdec4
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/remoteproc/ti,am3352-wkup-m3.yaml
+> @@ -0,0 +1,89 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/remoteproc/ti,am3352-wkup-m3.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: TI AM33xx/AM43xx Wakeup M3 Remote Processor
+> +
+> +maintainers:
+> +  - Suman Anna <s-anna@ti.com>
+> +  - Bhargav Joshi <j.bhargav.u@gmail.com>
+> +
+> +description:
+> +  The TI AM33xx and AM43xx family of devices use a small Cortex M3 co-processor
+> +  (commonly referred to as Wakeup M3 or CM3) to help with various low power
+> +  tasks that cannot be controlled from the MPU. This CM3 processor requires a
+> +  firmware binary to accomplish this. A wkup_m3 device node is used to
+> +  represent the Wakeup M3 processor instance within the SoC. It is added as a
+> +  child node of the parent interconnect bus (l4_wkup) through which it is
+> +  accessible to the MPU.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ti,am3352-wkup-m3
+> +      - ti,am4372-wkup-m3
+> +
+> +  reg:
+> +    items:
+> +      - description: Address range for UMEM
+> +      - description: Address range for DMEM
+> +
+> +  reg-names:
+> +    items:
+> +      - const: umem
+> +      - const: dmem
+> +
+> +  ti,pm-firmware:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description:
+> +      Name of firmware file to be used for loading and booting the wkup_m3
+> +      remote processor.
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  reset-names:
+> +    items:
+> +      - const: rstctrl
+> +
+> +  ti,hwmods:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    deprecated: true
+> +    description:
+> +      Name of the hwmod associated with the wkupm3 device.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - ti,pm-firmware
+> +
+> +dependencies:
+> +  resets: [reset-names]
+> +  reset-names: [resets]
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    target-module@0 {
+> +        compatible = "ti,sysc-omap4", "ti,sysc";
+> +        reg = <0x0 0x4>;
+> +        reg-names = "rev";
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +        ranges = <0x00000000 0x00000000 0x4000>,
+> +                 <0x00080000 0x00080000 0x2000>;
+> +
+> +        cpu@0 {
+> +            compatible = "ti,am3352-wkup-m3";
+> +            reg = <0x00000000 0x4000>,
+> +                  <0x00080000 0x2000>;
+> +            reg-names = "umem", "dmem";
+> +            resets = <&prm_wkup 3>;
+> +            reset-names = "rstctrl";
+> +            ti,pm-firmware = "am335x-pm-firmware.elf";
+> +        };
+> +    };
+> diff --git a/Documentation/devicetree/bindings/remoteproc/wkup_m3_rproc.txt b/Documentation/devicetree/bindings/remoteproc/wkup_m3_rproc.txt
+> deleted file mode 100644
+> index 3a70073797eb..000000000000
+> --- a/Documentation/devicetree/bindings/remoteproc/wkup_m3_rproc.txt
+> +++ /dev/null
+> @@ -1,52 +0,0 @@
+> -TI Wakeup M3 Remoteproc Driver
+> -==============================
+> -
+> -The TI AM33xx and AM43xx family of devices use a small Cortex M3 co-processor
+> -(commonly referred to as Wakeup M3 or CM3) to help with various low power tasks
+> -that cannot be controlled from the MPU. This CM3 processor requires a firmware
+> -binary to accomplish this. The wkup_m3 remoteproc driver handles the loading of
+> -the firmware and booting of the CM3.
+> -
+> -Wkup M3 Device Node:
+> -====================
+> -A wkup_m3 device node is used to represent the Wakeup M3 processor instance
+> -within the SoC. It is added as a child node of the parent interconnect bus
+> -(l4_wkup) through which it is accessible to the MPU.
+> -
+> -Required properties:
+> ---------------------
+> -- compatible:		Should be one of,
+> -				"ti,am3352-wkup-m3" for AM33xx SoCs
+> -				"ti,am4372-wkup-m3" for AM43xx SoCs
+> -- reg:			Should contain the address ranges for the two internal
+> -			memory regions, UMEM and DMEM. The parent node should
+> -			provide an appropriate ranges property for properly
+> -			translating these into bus addresses.
+> -- reg-names:		Contains the corresponding names for the two memory
+> -			regions. These should be named "umem" & "dmem".
+> -- ti,hwmods:		Name of the hwmod associated with the wkupm3 device.
+> -- ti,pm-firmware:	Name of firmware file to be used for loading and
+> -			booting the wkup_m3 remote processor.
+> -
+> -Example:
+> ---------
+> -/* AM33xx */
+> -ocp {
+> -	 l4_wkup: l4_wkup@44c00000 {
+> -		compatible = "am335-l4-wkup", "simple-bus";
+> -		ranges = <0 0x44c00000 0x400000>;
+> -		#address-cells = <1>;
+> -		#size-cells = <1>;
+> -
+> -		wkup_m3: wkup_m3@100000 {
+> -			compatible = "ti,am3352-wkup-m3";
+> -			reg = <0x100000 0x4000>,
+> -			      <0x180000 0x2000>;
+> -			reg-names = "umem", "dmem";
+> -			ti,hwmods = "wkup_m3";
+> -			ti,pm-firmware = "am335x-pm-firmware.elf";
+> -		};
+> -	};
+> -
+> -	...
+> -};
+> 
+> ---
+> base-commit: c6859eed755df351a3978b33cb92365f9b3e8f06
+> change-id: 20260719-ti-wkup_m3-edac718d0d7c
+> 
+> Best regards,
+> -- 
+> Bhargav
+> 
