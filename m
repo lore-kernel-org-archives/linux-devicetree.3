@@ -1,322 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FDC3EA957
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 07:47:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784706477; cv=none; b=Z+iedH0WzGm/YmTObzWUmleaib0pWD3jdNmA9nFp1pvOQYOFb8nbErDoxhGrL84I9rBfHNemTphhEYHxLlnOF7CxQgv3s2i3G40gw0/VAO/UQjPS80jTNWNBYOTW05QM5XSyGfU4OkUBfT5kAGIHUZMHTf6eTA8+sFzYFyAUGFQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784706477; c=relaxed/simple;
-	bh=Fb+Ak8BGvHxlnwN1Cl13BmIFmJNocLxweTjR+jtb21k=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=F8vIyzyiPnbEq5uJAZhQoUE8nLkgkRXZMOH2KAJ6bRNjK/GyPKVNI3jZX8gffptutR6TJ1NlQncX7SUr/a9LGP7dkqvg5Jk1cW5v0j3DOv8w/SOD+uBBGW562i6IVJf0VZlur3y3HoE940hK/ycBQwEJgQaR9zfRHpexdD4/JgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=erfItLcV; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13BFB476059
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 07:48:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784706530; cv=pass; b=V+MLp7I/ymKcGS5BJPk+/x8V3VUeOCIKBsQTsqOC2tMg5PKn8X4Mb1EAg2DkVe0F6caX9m6RT+bJjsqtv3VxGuL0PTbjZ58cFaDzywVkU3G7iklm0asS2oWfM77UZXP7VhNEFUcKCmFmLoVsln2PsBYoGUPOHCn5+n5jUodrM3Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784706530; c=relaxed/simple;
+	bh=6UhFyOhKx+jT3HPS8ykasYawrPgWFTlQSXn9dqJwRwc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=q8g8ePIQPSICZi5132ZkKlvM7R2l0gMr/90vd5Idm9BBmcPvL+Ey31bj7KqSPdx255kjqPSmupPS4fjdVWxqe6kGcTWKtZavbvkgcuA7BmKA82YwV/q5/amGYVcRfUN4FXseHZ7rLKvlavro1HD9pWgkvz5WbnAYQLziHaABsW4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=YexVoXuR; arc=pass smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="erfItLcV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D35251F000E9;
-	Wed, 22 Jul 2026 07:47:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784706475;
-	bh=QG5SSUQ8QlntCtMKDPEv6aswJ4vnLexaENOMYRZWecM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=erfItLcVr/q91nQRuU7l1Z5waS6q4uR7UFtbesdtsyLd19Nv2ogebJ7P7p1sEYahw
-	 CrZc54CwBPWGx8niUO5/0pBihjC9DuPA1CWgSMALe2RNYUJEnnqUfCqMcDBT7P7WzX
-	 nuKe/8BMwThuV/ltIj5PDDvEnLwOAjMGZkYsauxm4w1b/cw0P4Msiou0cRdXBdOk0B
-	 ytyPZCoELxGHMIa37mp4AAtKOicJbfSDZBzTmt+sK+LtRnuLqnFWOIqh1MqMl5CU6z
-	 Yk5ZW3UXLDKv4OpHyJGv/7D4YLgZ3TWVYskoC92fR29hvCEAkPT41MC+cnLPJQArqM
-	 l6QgzzX/x2lLQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 2/3] media: rockchip: add VEPU510 H.264 encoder
- driver for RK3576
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260722073417.2064667-3-gahing@gahingwoo.com>
-References: <20260722073417.2064667-1-gahing@gahingwoo.com>
- <20260722073417.2064667-3-gahing@gahingwoo.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 07:47:54 +0000
-Message-Id: <20260722074754.D35251F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="YexVoXuR"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-471eeac43bfso11420159f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 00:48:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784706526; cv=none;
+        d=google.com; s=arc-20260327;
+        b=k87cdMVvebwd+kysNpmL5IsnBWnoxV0lVPRYthEh4ku2S90N0jY/yZZkGs4+CGFDym
+         AOU2p5wOH+R2+pme950fADpI8GAjmrRn56l6HKUpdvqUiSUampXw9gRT28w6HvW3lHOK
+         Ek5ryKkJ2j0+F+a0pJNh9sVgVJaRyrazfH7tIKLgQt6GfA3ZMmRqnAwvpffhJ5pXYH2a
+         kCbz2elGSgl1mL21Tn3aCOntS1R9KVhoxlr1FD1t6w3qSzYlxS4Mhfog/qBXy9DGEzh9
+         FHsWLknQwn92afePzZd3wN2QnEO2K0Zu1HC0QftmW6xD399JiOgF39ZpU397skut+XfK
+         YSmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6UhFyOhKx+jT3HPS8ykasYawrPgWFTlQSXn9dqJwRwc=;
+        fh=Wavxok2z8skktSgzrf/N0BYByqKsQP8QVDbTrbbhoCc=;
+        b=mdzQ5IgZmPb/JdWJXAFu1+BP/cA797j0KTSAk/TTJdpGojroNBy/qdUFxt4bI3pREY
+         IqQYFTkuStx/FzMIivdvZegkePWqaa47Kxf0a2sBXUKrn1krfgbixyi2IG/gvAvaOG/2
+         3yYQEKomFjQZMUpE+hbpCNTgaXdKQZ9aZX1+4V8GgTsNE6s/fso+HoBqjY9V3hv92Api
+         zO8lm8jUB4eNFp4rfcMoRyRWtGAcTharlzx0yOd8+M1MOv02ER1AMpzKNmRFfV/7W+Iq
+         +c1ulX3CFuFeX/j2Ei4zAwoSeCU4vfB2CmNIohL9YXZENrWZKAkgMhaPjeHQ3oh/E0hl
+         92ZA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=9elements.com; s=google; t=1784706526; x=1785311326; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6UhFyOhKx+jT3HPS8ykasYawrPgWFTlQSXn9dqJwRwc=;
+        b=YexVoXuR/AfI4o5hEtWT/GZy4YOMyKlwgiVwXou4j9veJSDCRYESISAJIPntAboXDf
+         wwTv3etg5m5gfcplIpI3CfQLV7YVCGZnsAQJ2ZTLFWwCP/bo270KpIg3UhrfV8WA31ln
+         ex/b2Of1ph8BnHVguKXGdmtyZDyqQ9UZKL+97uiQl7xEZFR0+HNj3hZH0jA+DmJNlDaU
+         I/9CqSu6HOMwL2IkIADsqLG9T+W7hfG/WkZ5SetKD52ES2xob4u1UAEI8ejp7CiksALK
+         HgygNj8mlXYCLkymNXsl7l0h5fz2V5J4YeM8KbZTTH964xyr+OLtolxIB1jSynbJys7a
+         81iA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784706526; x=1785311326;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6UhFyOhKx+jT3HPS8ykasYawrPgWFTlQSXn9dqJwRwc=;
+        b=MK2VOiRcJgnP90ajSWkcP73qfuqExdr9WfJx4E2l9dods4/MbdFfx2wI/yg8fDlBEc
+         n8dWrqaUq2DmgabLAmK0kx42+7K8j8LVrWWMd12iOlUiYMLmx6N9fqQ3YKh5Z2DSIqqo
+         k5l3sUKzWWEyV9ABULExTuAVu/AD+wcoVtAZfP17d1wyCEYzJwYWSq1nIF0e9XgGPdSn
+         zI0x6XjWS0s7iyAASWkAYXWDKkNYAef85e85FEQp23j8pL9PBTstzNLX3zcQJbHyiLD6
+         2dVBBHQaeKyu2dKL1KnpmvdjC4hLSC5nq2qKxTnGaOptJpQ+WP5duGfqlHnqT4jSuU6d
+         DNCQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rph9l5U9NzdpNDJMVFMShMYJJzjzOWGgAM31yOua2dgwWy4ko9IE/WIlKpt82OT84s4QU8GcLdWNuS/@vger.kernel.org
+X-Gm-Message-State: AOJu0YzxXephdCbXDfzsyuVP4Syb7FT39CjBqM8IrfGkhqb+QJ+3m7V+
+	x3ZzeobLl7MroatlN5UhQS+An/ygrvJ/3J+fD3FeK2OUq5oUZ2z2eZEhrk0R93Uxf9U2l6wCg+w
+	CiTvDp7p7lYoyzh4/YHzJ+hqPBQu/Uw/qNXoztnWzDg==
+X-Gm-Gg: AR+sD128+NOWH/JeZgweXdLHSzNTAbYWv13YAl0mIqoFz3utgaU78RwGqPc+6bfyUCH
+	74Q/pCpAZf4DUgtkwrUfSwvKtmd6zEe6nTcGFR4vTh9OY/NYKfscMCUaG98g6GvFsdoXQqu+E3e
+	8mgGcTXV+pfBMZsv50PwW6qBKn8YqrV2f4bKKNJZDwPN6q3Uwua7p+zR/aCYxn4DtHhtQIUoueW
+	qvsk4K6hgNRoKKXhCROLG56bLaBF8qbiYWkuHhjCj0LQgmThBRewgDP2fs4N6vX/BmVL712qebl
+	z2mC2Rov1Y/2gyhoko0v5M22//X+NoWdaxLdnFcQTWNDgmw=
+X-Received: by 2002:a05:6000:1785:b0:47f:7b75:61a with SMTP id
+ ffacd0b85a97d-47f7b75083amr12134285f8f.15.1784706526183; Wed, 22 Jul 2026
+ 00:48:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <de49f2032f5b1f170161dcd6191c0daa48f0b0c2.1784117715.git.gregoire.layet@9elements.com>
+ <178412588365.243141.16731478852761544781.b4-review@b4> <CAFi2wKZrya6aHAN9Wtwk43gqQTMPp1BamM9VKKQ+iH1UPzr4HA@mail.gmail.com>
+ <793ccb3b7af22f6f38ff6544ed633b7800ea68b6.camel@codeconstruct.com.au>
+In-Reply-To: <793ccb3b7af22f6f38ff6544ed633b7800ea68b6.camel@codeconstruct.com.au>
+From: =?UTF-8?Q?Gr=C3=A9goire_Layet?= <gregoire.layet@9elements.com>
+Date: Wed, 22 Jul 2026 09:48:33 +0200
+X-Gm-Features: AUfX_mznQxf2UYusZQbYzHcCnp0qGiF5STuXfQoGRl4lbxGWdovDVg2XFHP_Lfs
+Message-ID: <CAFi2wKaWiE61y_rUr_2UNN2_fSAEswG7CXQrPMWT0NiSVBcBVg@mail.gmail.com>
+Subject: Re: [PATCH] ARM: dts: aspeed-g6: add pcie-lpc and pcie-kcs4
+To: Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: Tan Siewert <tan.siewert@9elements.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 13 potential issue=
-(s) to consider:
-- [High] DMA Use-After-Free during `VIDIOC_STREAMOFF`
-- [High] V4L2 Object Lifetime / Use-After-Free on Unbind
-- [High] Reference Buffer Corruption from `frame_num` Wrap
-- [High] Lifecycle and Resource Leak in `remove`
-- [High] State Desync / Bitstream Corruption from Cached SPS/PPS
-- [High] Compilation Failure from Non-existent Macro
-- [High] NULL Pointer Dereference and DMA Cache Coherency
-- [High] Race Condition / TOCTOU across Watchdog and IRQ
-- [Medium] Resource Leak in `probe` Error Path
-- [Medium] `clk_bulk_enable` without prepare
-- [Low] PM Subsystem Violation without pm_ptr wrapper
-- [Low] Logic Flaw in NV12 Size Calculation
-- [Low] C bitfields for MMIO registers
---
+> > > so you're describing a second `ast2600-lpc-v2` node which is unnecess=
+ary.
+> > >
+> > > Suggestion: Merge pcie_kcs4 into lpc@1e789000 and use 914 as offset. =
+That way
+> > > you don't accidentally cause an overlap for the devices if you descri=
+be more in
+> > > the future.
+> >
+> > The 'kcs_bmc_aspeed' driver has the kcs channels address hard-coded.
+> > If the 'reg' property does not contain the three addresses used by one
+> > of the four channels, the driver returns -EINVAL.
+> > So having a pcie-kcs4 with regs 0x914, 0x918 and 0x91c doesn't work.
+>
+> It does work if you fix the driver to allow it.
+>
+> >
+> > This is why a second LPC node was added, for the pcie-kcs4 to have
+> > regs 0x114, 0x118 and 0x11c;
+> >
+> > I know we should write device tree sources based on hardware rather
+> > than around driver limitations.
+> > Changing how the driver behaves seems excessive for supporting KCS over=
+ PCIe.
+>
+> I don't think this is true.
+>
+> > I think a point can be made that the LPC over PCIe is a different LPC b=
+us.
+>
+> In my opinion it's most helpful if Table 8 in the datasheet is used as
+> the reference for address ranges in the devicetree. With that in mind,
+> I don't intend to apply a patch adding a new node as you've proposed. I
+> suggest adjusting the driver to identify the X{{I,O}D,ST}R4 addresses
+> as channel 4, under the existing LPC node as Tan suggested.
 
---- Patch [2]: [RFC PATCH 2/3] media: rockchip: add VEPU510 H.264 encoder d=
-river for RK3576 ---
-commit a8783bc02129bde5b3f6c151d6c2930f8cb47a0a
-Author: Jiaxing Hu <gahing@gahingwoo.com>
-Date:   Wed Jul 22 07:34:16 2026 +0000
+Sure, thanks for the clear details.
+With the Table 8 in mind, I agree and I was wrong.
+I'll work on that.
 
-    media: rockchip: add VEPU510 H.264 encoder driver for RK3576
-   =20
-    Add a from-scratch stateful V4L2 mem2mem driver for the Rockchip RK3576
-    VEPU510 H.264 hardware video encoder (raw NV12 in, H.264 Annex-B out),
-    modelled on the verisilicon/hantro device_run()/codec_ops split rather
-    than the downstream MPP-service/task-queue model.
-
-> diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc-regs.h b/drive=
-rs/media/platform/rockchip/rkvenc/rkvenc-regs.h
-> new file mode 100644
-> index 0000000000000..353ba3ebafada
-> --- /dev/null
-> +++ b/drivers/media/platform/rockchip/rkvenc/rkvenc-regs.h
-[ ... ]
-> +union rkvenc_reg_enc_pic {
-> +	struct {
-> +		u32 enc_stnd:2;			/* 0 =3D H.264 */
-> +		u32 cur_frm_ref:1;
-
-[Severity: Low]
-Can using C bitfields for MMIO registers cause endianness issues? On
-big-endian systems, the compiler packs bitfields MSB-to-LSB, which could
-assign configuration bits to the wrong offsets. Explicit bitwise shifts and
-masks are generally preferred for hardware register layouts.
-
-> diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc-h264.c b/drive=
-rs/media/platform/rockchip/rkvenc/rkvenc-h264.c
-> new file mode 100644
-> index 0000000000000..58b4fb65b4991
-> --- /dev/null
-> +++ b/drivers/media/platform/rockchip/rkvenc/rkvenc-h264.c
-[ ... ]
-> +static void rkvenc_h264_stop(struct rkvenc_ctx *ctx)
-> +{
-> +	struct rkvenc_dev *dev =3D ctx->dev;
-> +	struct rkvenc_h264_ctx *h264 =3D &ctx->h264;
-> +	size_t total_size =3D h264->pixel_buf_size + h264->thumb_buf_size +
-> +			     h264->smear_buf_size;
-> +	int i;
-> +
-> +	for (i =3D 0; i < 2; i++) {
-> +		if (h264->recn_buf_cpu[i])
-> +			dma_free_coherent(dev->dev, total_size,
-> +					  h264->recn_buf_cpu[i], h264->recn_buf_dma[i]);
-
-[Severity: High]
-If userspace invokes VIDIOC_STREAMOFF while an active encoding job is runni=
-ng,
-does the stop callback free the recn_buf and meiw_buf DMA memory before the
-hardware is stopped?
-
-Since the driver makes no attempt to wait for the hardware to idle, could it
-continue executing and perform DMA writes into the now-freed memory and
-unmapped V4L2 buffers?
-
-[ ... ]
-> +static void rkvenc_h264_run(struct rkvenc_ctx *ctx)
-> +{
-[ ... ]
-> +	unsigned int write_idx =3D h264->frame_num & 1;
-> +	/* Frame 0 has no previously-written reference at all -- alias read to
-> +	 * write (real hardware's refr_idx =3D=3D curr_idx for frame 0, see the
-> +	 * rkvenc_h264_ctx comment in rkvenc.h). From frame 1 on, buf[write_idx
-> +	 * ^ 1] genuinely holds the previous frame's real reconstruction.
-> +	 */
-> +	unsigned int read_idx =3D h264->frame_num =3D=3D 0 ? write_idx : (write=
-_idx ^ 1);
-
-[Severity: High]
-When h264->frame_num wraps around 255 back to 0 in rkvenc_h264_done(), does
-the aliasing logic here incorrectly assume it is an IDR frame?
-
-Since frame 256 is typically a P-frame, would this cause it to read its
-reference from the same buffer it is actively writing its reconstruction to,
-potentially corrupting the encode and stalling the hardware? Should this
-logic use the is_idr flag instead?
-
-[ ... ]
-> +	if (header_len)
-> +		memcpy(vb2_plane_vaddr(&dst_buf->vb2_buf, 0), h264->sps_pps_nal, heade=
-r_len);
-
-[Severity: High]
-Is it possible for vb2_plane_vaddr() to return NULL here? If the destination
-buffer is a DMABUF, V4L2 does not automatically vmap DMABUFs unless
-requested, which could lead to a NULL pointer dereference in memcpy().
-
-Also, does this CPU write require a dma_sync_single_for_device() call
-afterwards to flush the CPU cache before the hardware DMA writes the
-subsequent slice NAL unit?
-
-[ ... ]
-> +	synt_pps.pic_init_qp =3D h264->i_qp->val;
-
-[Severity: High]
-If userspace dynamically changes the V4L2_CID_MPEG_VIDEO_H264_I_FRAME_QP
-control during streaming, could the hardware slice QP desync from the
-statically cached SPS/PPS NAL?
-
-Since rkvenc_h264_gen_sps_pps() is only called once during start_streaming,
-the hardware receives the dynamically updated QP but the bitstream still ge=
-ts
-the stale cached PPS. Could this break decoder image reconstruction?
-
-> diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc.c b/drivers/me=
-dia/platform/rockchip/rkvenc/rkvenc.c
-> new file mode 100644
-> index 0000000000000..d70bcc5fb96d4
-> --- /dev/null
-> +++ b/drivers/media/platform/rockchip/rkvenc/rkvenc.c
-[ ... ]
-> +static u32 rkvenc_nv12_sizeimage(unsigned int width, unsigned int height)
-> +{
-> +	return width * height + 2 * ALIGN(width, 2) / 2 * ALIGN(height, 2) / 2 =
-* 2;
-> +}
-
-[Severity: Low]
-Does the chroma size calculation evaluate to width * height due to C operat=
-or
-precedence? The expression has 2 * ALIGN(...) / 2 * ALIGN(...) / 2 * 2. It
-appears this computes 2 * W * H instead of the expected 1.5 * W * H for NV1=
-2,
-which could result in allocating oversized buffers.
-
-[ ... ]
-> +static void rkvenc_device_run(void *priv)
-> +{
-> +	struct rkvenc_ctx *ctx =3D priv;
-> +	struct rkvenc_dev *dev =3D ctx->dev;
-> +	int ret;
-> +
-> +	ret =3D pm_runtime_resume_and_get(dev->dev);
-> +	if (ret < 0) {
-> +		v4l2_m2m_buf_done_and_job_finish(dev->m2m_dev, ctx->fh.m2m_ctx,
-> +						  VB2_BUF_STATE_ERROR);
-> +		return;
-> +	}
-> +
-> +	ret =3D clk_bulk_enable(dev->num_clocks, dev->clocks);
-
-[Severity: Medium]
-If the kernel is built with CONFIG_PM disabled, pm_runtime_resume_and_get()
-does nothing. Could calling clk_bulk_enable() here on an unprepared clock
-violate the clock API and trigger a warning?
-
-[ ... ]
-> +static irqreturn_t rkvenc_irq_thread(int irq, void *priv)
-> +{
-> +	struct rkvenc_dev *dev =3D priv;
-> +	struct rkvenc_ctx *ctx =3D dev->cur_ctx;
-> +	enum vb2_buffer_state state;
-> +
-> +	if (!ctx)
-> +		return IRQ_HANDLED;
-> +
-> +	if (!cancel_delayed_work(&dev->watchdog_work))
-> +		return IRQ_HANDLED;
-
-[Severity: High]
-Can a TOCTOU race occur here if a hardware watchdog timeout coincides with
-the scheduling of the next job?
-
-If a watchdog fires, it completes the hung job via rkvenc_job_finish(). The
-M2M core then pulls the next job, updating dev->cur_ctx and re-arming the
-watchdog.
-
-If the hard IRQ from the hung job then schedules rkvenc_irq_thread(), could
-it read the new context locklessly, cancel the new job's watchdog, and
-erroneously abort the new job while the hardware is actively processing it?
-
-[ ... ]
-> +static int rkvenc_open(struct file *file)
-> +{
-> +	struct rkvenc_dev *dev =3D video_drvdata(file);
-> +	struct rkvenc_ctx *ctx;
-> +	int ret;
-> +
-> +	ctx =3D kzalloc_obj(*ctx);
-
-[Severity: High]
-Does the kzalloc_obj() macro exist in the kernel tree? Would this cause a
-build failure? Should this be kzalloc(sizeof(*ctx), GFP_KERNEL) instead?
-
-[ ... ]
-> +static int rkvenc_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	rkvenc->vfd =3D (struct video_device){
-> +		.fops		=3D &rkvenc_fops,
-> +		.ioctl_ops	=3D &rkvenc_ioctl_ops,
-> +		.minor		=3D -1,
-> +		.release	=3D video_device_release_empty,
-
-[Severity: High]
-If the driver is unbound via sysfs while userspace still holds a file
-descriptor open, does devres free the rkvenc_dev structure (which embeds
-the video_device) when rkvenc_remove() returns?
-
-Since video_unregister_device() does not forcefully close existing open file
-descriptors, would rkvenc_release() later dereference the freed dev and
-m2m_ctx when the file descriptor is finally closed?
-
-[ ... ]
-> +	ret =3D pm_runtime_resume_and_get(dev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to power up for initial reset\n=
-");
-
-[Severity: Medium]
-If pm_runtime_resume_and_get() fails during probe, does this early return
-bypass the err_release_m2m and err_unreg_v4l2 cleanup labels? Could this le=
-ak
-the allocated v4l2_dev and m2m_dev structures?
-
-[ ... ]
-> +static void rkvenc_remove(struct platform_device *pdev)
-> +{
-> +	struct rkvenc_dev *rkvenc =3D platform_get_drvdata(pdev);
-> +
-> +	cancel_delayed_work_sync(&rkvenc->watchdog_work);
-> +	video_unregister_device(&rkvenc->vfd);
-> +	v4l2_m2m_release(rkvenc->m2m_dev);
-
-[Severity: High]
-Does rkvenc_remove() tear down the M2M device and cancel the watchdog witho=
-ut
-stopping active hardware encodes or waiting for them to finish?
-
-Because the IRQ handler remains active until after remove() returns, could a
-completing hardware job fire an interrupt and access the destroyed m2m_dev
-via v4l2_m2m_buf_done_and_job_finish(), causing memory corruption?
-
-[ ... ]
-> +static struct platform_driver rkvenc_driver =3D {
-> +	.probe =3D rkvenc_probe,
-> +	.remove =3D rkvenc_remove,
-> +	.driver =3D {
-> +		.name =3D "rkvenc",
-> +		.of_match_table =3D rkvenc_of_match,
-> +		.pm =3D &rkvenc_pm_ops,
-
-[Severity: Low]
-Should this assignment use the pm_ptr() wrapper? Without it, building the
-kernel with CONFIG_PM disabled could leave the static rkvenc_pm_ops structu=
-re
-and its callbacks linked as dead code, potentially triggering compiler
-warnings.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722073417.2064=
-667-1-gahing@gahingwoo.com?part=3D2
+Regards,
+Gr=C3=A9goire
