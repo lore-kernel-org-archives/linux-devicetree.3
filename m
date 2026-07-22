@@ -1,100 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E795438033;
-	Wed, 22 Jul 2026 20:20:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC48441CB54
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 20:31:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784751655; cv=none; b=jBgh2+eTGZBoo/AVVTlQ3xCHcB+nXHTLMsJ0GSQJW6rqMxMUKnhUQKmB0MKiqXHU7AJntnviosqchh1fKgKt7O8BaxVOklVCs1an1ESIUmRTwanTMxrfa3qYHLdd44m3zCt+Sei2jfnwRfy9ZBWanX4yzVAAU/Z6Dz9vTapj4wQ=
+	t=1784752283; cv=none; b=lnNuYBNS0KOd2NJcdPrzUGbhItYB78gNEbznh8/o4Nohv0J6xF6Bu2OVoTf5Dua7FQ4b4CXn9UI+vDe21VodWzjuIliHK/Obu1qEegEskdhaH6DXOH2MuTD4GE2SMZDwLOItHE1ngidMiB7m7ImHziTobQkxbYfAFhQ+hcK8inI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784751655; c=relaxed/simple;
-	bh=cmdSt0UgHGiSCejIDXrrv6LekC2QAQ26Sc19rLyrcHo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=amp87dlgT2V+5Wnd4mcWq2IWrvWhM85URE6jYKXzngrfDgRWyDyiLbzXiZh9NQdLmvaPmr5jaBY4K+2nto3kzOzm0dQ6J2aJg/4T3rlvPKuoWx/ebNbBDiHgxCDm9D4duV9V6L1Rby+S/m4fl9vQ7zxE8id4u1NlzNGG944Vk7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XNEaUDxk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784752283; c=relaxed/simple;
+	bh=8lEKDzieuS8p6YYUTnoJFqUQqAiPzAliCMhOYKur1UI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=snTnTQ956EF4Svl7GOv5QeJUr7tU8YDS0buJ8z74qCdRpm/aPYSqywPap7lE8pzQJdZak0wNfxbRCZ/QigSfH0eKjJ0TcNXp+D4FkrBv+ddylCxDLlkEzJuz7/m2Z0IjXVtDJ8hfh2onhpBZw4z8/sSofBRvOlRtpUHtMReeR6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=h2PNUPYw; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=KmXGktbm; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XNEaUDxk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F9B21F000E9;
-	Wed, 22 Jul 2026 20:20:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784751653;
-	bh=rmuCcga3wVOFlVzrN1PwoyRaWiNJtVw+Y71Pi8w2b3o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XNEaUDxk8Pg2xK3z1epFliwXMC/c2f/lFG+8gH/Y+xR7JMWOyIMEcwodW8KDBAsQ6
-	 /UuyPJ4gndST1ZEzNa8WyKkh5s5HZwv8RFuanUzj074oeZT6o/HhhINZNLvEKJZwat
-	 rorlYbGc/LQgRS5zFPRhbkaiXeDuryXNqvOrXNFZsMNRVzggMib/FR4vMYm5f1zReI
-	 3pDHD/z2JLZNvz216b3a/9PBsZlOWo47ZPDWp+24LyVaFXv6h9f2WLu8CrDaKIuVpj
-	 TlSpg61RktHB+wyRopgXG+EulTv9DzpgaSdZyXYYe35n51uqqxM+/vDXugH4vW//9c
-	 THdIhO35kvNvA==
-Date: Wed, 22 Jul 2026 21:20:48 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="h2PNUPYw";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="KmXGktbm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784752280;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=3vYZJYPhffpO90014/LKI7l3gphBP49CHSvrEJckH80=;
+	b=h2PNUPYwejCa48J9W364fFSUWU0iHcMFhoqT3yiIBeWuRE+dxNINxdRBo3mj6ZleeztE6T
+	XRylkHLOxlQC1z3DajI7x4CIs9QDeK3Q5CMF4b3oeJDyiSw782ID27KzQz3kyaRb81OqrC
+	mS3pEbJCsdLvxYfsSqP7HvrBjbhoBoo=
+Received: from mail-yx1-f71.google.com (mail-yx1-f71.google.com
+ [74.125.224.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-617-j7UEFnb3OP-Kif146hqQrg-1; Wed, 22 Jul 2026 16:31:19 -0400
+X-MC-Unique: j7UEFnb3OP-Kif146hqQrg-1
+X-Mimecast-MFC-AGG-ID: j7UEFnb3OP-Kif146hqQrg_1784752279
+Received: by mail-yx1-f71.google.com with SMTP id 956f58d0204a3-6688d64bf2fso2748154d50.1
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 13:31:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1784752278; x=1785357078; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3vYZJYPhffpO90014/LKI7l3gphBP49CHSvrEJckH80=;
+        b=KmXGktbm1UwxzFUiqvD1Ho3Z4fem0EPTBDxaZR7AXBGorIewGven5r4pUK1c1FSMAH
+         ZR1yrbd/Cz2K9I2ZUSemzqKXZqnOkSX3FMBb3NTVPye+EtEIpK1punhwZrOVfUgrRGZ+
+         UneF2GWLBXQ7q4gqPjZs9dL17+RTLoP47FmSyQTjV57BYvIMnFL3nVCXyODjG+uYcp0n
+         5Y3QwQj8iphfaffVk55u88jGhziksjV3CxfI/qyxmDFmrofd3wu3KxOsgwtvSjfPDZ6I
+         m0GpknnUQQPq5qifq6mTVNnB2t8X9uGK/Z+FEC4+6rLP7O4vY/t6HCm7Z95HUR+ExzzM
+         VONQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784752278; x=1785357078;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3vYZJYPhffpO90014/LKI7l3gphBP49CHSvrEJckH80=;
+        b=P5XUfAC5AdExYRoV+uBZUHN+5VcCKAo8SNxHG8PIT89o3juRIkUhpT3kdvbohjYzR0
+         250CqdQeXuTwEa2H3R2Gzx6KZX8XUE0vNCis+YZdcFROA+1GkJpE7CQcEKV9m7Yr2YYa
+         ngbbUqwvvlLUEGCAzd3YxvodW9OcFE8hFCsEcD0rDuVDj8nIlW6DUXhspEF1oPvkMezP
+         9ZY3cesEiEQwpvAwU+sj8WMGMYnVshphzPPyHLe8PF1MEzuFzYi4KhjGPlbK47v/y29k
+         l93ZpxWobTw6ZBRFVXY4OB0hIykJLDSpC+OVDoBFZ08hz1vvKTKNGa5AO/TpSWvrl797
+         JK1A==
+X-Gm-Message-State: AOJu0Yx1aWVP0AUb1iSwzCSf+Yge8RrkXth+9THL1f2ZnBTzEuW3LWPb
+	aETR33sC4bfB+FphCBn2fxbME+7VJZcTMW7V9dda9P/5DBQ8VOBkgIXYWmcfK3tjN+9nQ1jcI1t
+	BCtZG202QnDS+RfPBNGCtqIdWNE7TB8TUkIyvdYrRnHkkOVpukbbhVNL7mvs3B8E=
+X-Gm-Gg: AR+sD111TC6Fm7ICjQa2LIZLscaG4CcDnyLKFlAsWMPxZyTkmAmI8B2nY6Ji2+qkxN3
+	i8QMrbKWE58fA8D9FPGumOOudLwoeYHkXLjVx+QOaL9ndegWwS9F6uEPjVaQp9suhzFOMEg5A/j
+	eMvqJyHaFJzCkAXg+aePMrBmSnk6vtc70biUHpzQf6UGMnCyRe3kt9NoQv87bnoWd15fy7OlhVX
+	w5HB84DiDhe2GwXJIZzrIv8Ge8BkSn1e07BDPYwC0YwKXTqP/KM995cGlHRnPdAHi3lkRPHUOGt
+	mNesJ+J4NMHi5BBMLkx6liAZcZHzihv4DWHGjL1olK29kmUU6rp0qQ==
+X-Received: by 2002:a53:b193:0:b0:668:8eda:3dc3 with SMTP id 956f58d0204a3-668a4bc45camr38852d50.21.1784752278637;
+        Wed, 22 Jul 2026 13:31:18 -0700 (PDT)
+X-Received: by 2002:a53:b193:0:b0:668:8eda:3dc3 with SMTP id 956f58d0204a3-668a4bc45camr38841d50.21.1784752278064;
+        Wed, 22 Jul 2026 13:31:18 -0700 (PDT)
+Received: from rhdev ([2600:1700:f361:20bf::14c1])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-668906d9344sm1923573d50.12.2026.07.22.13.31.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 13:31:17 -0700 (PDT)
+From: Jennifer Berringer <jberring@redhat.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	driver-core@lists.linux.dev
-Subject: Re: [PATCH RFC 1/2] dt-bindings: regmap: add common schema for
- no-sequential-read
-Message-ID: <e3686340-6fbf-46e6-b505-e06615fa8473@sirena.org.uk>
-References: <20260722-regmap-single-read-v1-0-aaaf31591669@linux.dev>
- <20260722-regmap-single-read-v1-1-aaaf31591669@linux.dev>
- <cdd3b988-72cd-4143-9a17-ee0c57625e94@sirena.org.uk>
- <amD_vkMOrtKq5NvX@bombadil>
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>
+Cc: devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Jennifer Berringer <jberring@redhat.com>
+Subject: [PATCH 0/2] riscv: dts: spacemit: add eeprom for K3 CoM260
+Date: Wed, 22 Jul 2026 16:28:46 -0400
+Message-ID: <20260722202848.1817988-1-jberring@redhat.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Mh5b4uZTj31td+ez"
-Content-Disposition: inline
-In-Reply-To: <amD_vkMOrtKq5NvX@bombadil>
-X-Cookie: Life is like an analogy.
+Content-Transfer-Encoding: 8bit
+
+SpacemiT K3 CoM260 Dev Kit has two eeproms: one on the compute
+module and one on the carrier board. Both use a Giantec
+GT24C02B-2TFLI-TR.
+
+Jennifer Berringer (2):
+  riscv: dts: spacemit: k3-com260: add eeprom on i2c2
+  riscv: dts: spacemit: k3-com260-ifx: add eeprom on i2c1
+
+ .../riscv/boot/dts/spacemit/k3-com260-ifx.dts | 15 +++++++++
+ arch/riscv/boot/dts/spacemit/k3-com260.dtsi   | 32 +++++++++++++++++++
+ arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi  | 12 +++++++
+ 3 files changed, 59 insertions(+)
 
 
---Mh5b4uZTj31td+ez
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+base-commit: 199380e4d8cd22e539a08d4949e9582b09390bd5
+-- 
+2.55.0
 
-On Wed, Jul 22, 2026 at 08:24:37PM +0200, Richard Leitner wrote:
-> On Wed, Jul 22, 2026 at 02:59:12PM +0100, Mark Brown wrote:
-
-> > No, this should not be a DT property.  We should discover this through
-> > the bus, just like we do currently for the various I2C quirks that are
-> > advertied by the I2C subsystem.
-
-> What do you mean "discover this through the bus"? As mentioned in the
-> commit message there is no possibility to detect that within the affected
-> I2C device drivers.
-
-> Or do you mean that it should be "discovered" by modelling the MCU which
-> "proxies" the I2C traffic between the host and the sensor/device as some
-> kind of "parent" device of the sensor?
-
-If there is hardware there that rewrites the traffic then obviously that
-hardware should be described in the device tree, yes.  It sounds like
-this is the actual I2C controller and is what is imposing the limits.
-
---Mh5b4uZTj31td+ez
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmphJh8ACgkQJNaLcl1U
-h9Dm4ggAgzYGvFUefPOscQKOpayCq8y1hleZ4h7Xy0rHOcB4AbofIdLkHiHJ+A3N
-mMF5xf7pzcrDOspMEtqxPU36WdZDLuWeO89dnYrxzPf7VPy8cDKDsraJt9aXuc+I
-acl+rClEGdn74IAGqVm5U/efcDNypsVrPjBw5/j2v8BkUBMs7DCiasZyYXZO5jvk
-/DsrDAjAaV5QMnmGGQImGR3j6GvwF5Z9kKFviRI24JzLtwDlVtdiAgBcbOaGVKcQ
-bZVMMEIUGsXJdI31Y1R2U8aX1mGB7eLiyRQIDuqittgJCeQY2tdrJyI5DaD1gNsp
-NblMSLFQ8y0XUIExOgreC5kknsolLw==
-=4hgc
------END PGP SIGNATURE-----
-
---Mh5b4uZTj31td+ez--
