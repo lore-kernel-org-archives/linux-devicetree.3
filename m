@@ -1,81 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E057738E8DA;
-	Wed, 22 Jul 2026 15:24:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF1D395ACD
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 15:24:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784733867; cv=none; b=IwiGc1np3UDLmQsgBQVMrMUDFzFWt2k3Ch5JLa5+S9Hzn/O3Z0fTAokKdwc307L0T5WwKLha64S/ENNEwoMdnyUJ1Y9s4u+wDqbJvK2CRFyTtgpH3jxU0jRqEYKz6a6cERGE+FtVyogxaJW8PEOBapK9hoCfjWnRwKA+c25s7nc=
+	t=1784733882; cv=none; b=KX/TACfY2f+mBAhnvlKvxh5KZlfCiQTV/tDt+WBMnqg4Gq2kadvSoWfzj+2leZafBlrLAjIeqALP2e1vMxb1YhF5x1PSutnvG1p6fzLNRUqJIgdd6ft4ZSetMd/DLF0awYvA7sY9l02fmDt8LZJ27ngK7QrDvMA1vLkF80nsmBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784733867; c=relaxed/simple;
-	bh=i6OzKWUt/CfLy6aCC2pWpcXILO/HblHnAylZ9gBd+AI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d6HEa+4w2ZYJ3mm19V/BfHXnLQKsPo8XGsFw7q/P/c99N6LUKDcTu2Lxisp0sdu7Uck8SEi18NF1+X3DHUDxDbbs4KgGDXUbRVZ6QUhaoTu9aR3ixcqay+iAnImIf6dGZ3UyJ/v5gog/0Ee5Fe6HycnmE7V4Oa2rrZXNuYJqeU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NznqlKVc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784733882; c=relaxed/simple;
+	bh=lqiL36C01/QYgT3gCwon9tYjTfcrYpXJvRamj9Tf0NQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=sKl05U/mKqADOYFAphOHG6zafVrGAu7ZOjs7prve3V+OgBKQ4yYDLl3tJTN8qFmCxQVX9A4w0h+qZ1QntIIUpRrf3lOpHhLj/OPS+fVWriqrgIddMczO5MjTtbSfUYMqORJJW030kBeEQmKg+UrHlvSAN6OqtqJnJevIICWb7w0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lmUwc+wc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NznqlKVc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93C211F000E9;
-	Wed, 22 Jul 2026 15:24:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lmUwc+wc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7DBE1F000E9;
+	Wed, 22 Jul 2026 15:24:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784733845;
-	bh=EPjciZgu6lIAEUFV6/Ka2KEfnA2GxcOi/d9Jo5kmH/M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NznqlKVcbnI5yXI0tPxRHoYPbEq02xDWAarChyV/EZhc6njhQN0757P+csA/GPdx2
-	 28frovJhXFnC/3oesqAe62Pzt+CXMWzfLxpDjczPQBWmklAqwrOAH43de87I02MGf5
-	 +fykRtDCiwcunahouDbYgHsYrNmoldyOfPNhkPBcOyP2Nog7R35uG9Q0nAaB0w6aag
-	 tScpfVlUSm2iaOFZarMpMF8eCYcCAuReUGvht5am6Ah+qkaUCtEnnc3GVj+TmnBtKw
-	 W+xY3MWg8trvuEQaW/+7/snNl+E4ra800Lug/mw/GOFLzCjLsJGXXKbxEnLetZn9y3
-	 hLU5RRDwZoSMg==
-Date: Wed, 22 Jul 2026 10:24:03 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
-Cc: linux-clk@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-kernel@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	devicetree@vger.kernel.org, git@amd.com,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 1/8] dt-bindings: clock: clocking-wizard: Add
- static-config mode support
-Message-ID: <178473384283.951931.3125163724375199734.robh@kernel.org>
-References: <20260709111403.1579159-1-shubhrajyoti.datta@amd.com>
- <20260709111403.1579159-2-shubhrajyoti.datta@amd.com>
+	s=k20260515; t=1784733875;
+	bh=Pc/X00kQSQNMQLZoJEyEus+KiFnn4vcrihZN7AOeyuo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lmUwc+wcfuD+kfMPFNJwLxI5VWLF2TKjISBUTydwKTSJfFRNVTUE48A7xvtoIopoj
+	 uNR3/L+OW8qN7zOYlGn9vmEIw3FIzDf4NSlOovBauIg7ln7GNVPFBfMzIDumqkWHj5
+	 7w1/F95BYhSPgbk2tXyMEfjfk9yk23lDVv0QFT8erOnR7BlqyiDTHpnZpzGIba5KNj
+	 SyhHPmM9NScCw251YcFp2Oc25iDBl5TwVt9fd8Jd9c5CSZr62qQu1+tu8iRjpY0iKu
+	 qWTEhm/rcdvY1ziS+gFMBNYCsPKZRqksV9wp4HuH+QOI/mj7sg2icLEaX0f4GrvCE3
+	 AvqW6QnB+XSvg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] ARM: dts: aspeed-g6: add pcie-kcs4
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?R3LDqWdvaXJlIExheWV0?= <gregoire.layet@9elements.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <0b97a66762efc05c9073c14112cc489624871947.1784732161.git.gregoire.layet@9elements.com>
+References: <cover.1784732161.git.gregoire.layet@9elements.com>
+ <0b97a66762efc05c9073c14112cc489624871947.1784732161.git.gregoire.layet@9elements.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 15:24:34 +0000
+Message-Id: <20260722152434.C7DBE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260709111403.1579159-2-shubhrajyoti.datta@amd.com>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Upstream IRQs will not be triggered for the new pcie_kcs4 channel =
+because PCIE_LPC_ODR4 is omitted from the ODR check in aspeed_kcs_outb().
+--
 
-On Thu, 09 Jul 2026 16:43:56 +0530, Shubhrajyoti Datta wrote:
-> Static-config MMCM/PLL ratios are fixed at IP build time, so the kernel
-> cannot read per-output multiply/divide from registers and needs DT pairs
-> to register fixed-factor clocks. Also add the tuples by pair in example.
-> 
-> In static-config mode the IP exposes only fixed-factor clock outputs and
-> has no runtime-programmable registers, so reg is not required.
-> Make reg optional for static-config
-> 
-> In static-config mode the AXI bus interface is unused, so s_axi_aclk
-> is not required. Allow clocks/clock-names to have only one entry
-> (clk_in1) when xlnx,static-config is present and enforce two entries
-> otherwise. Update the static-config example accordingly.
-> 
-> Signed-off-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
-> ---
-> 
-> Changes in v2:
-> Merged the similar patches
-> Allow check for current dt even if it is unused.
-> 
->  .../bindings/clock/xlnx,clocking-wizard.yaml  | 53 +++++++++++++++++--
->  1 file changed, 48 insertions(+), 5 deletions(-)
-> 
+--- Patch [2]: [PATCH v2 2/2] ARM: dts: aspeed-g6: add pcie-kcs4 ---
+commit ad67c996a0b89123187ac23dc1115c5dc8b37472
+Author: Gr=C3=A9goire Layet <gregoire.layet@9elements.com>
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+ARM: dts: aspeed-g6: add pcie-kcs4
 
+This commit adds the pcie_kcs4 node to the LPC bus in the AST2600 G6 common
+device tree. It enables a KCS-compatible interface exposed over PCIe for
+host IPMI communication.
+
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi b/arch/arm/boot/dts/=
+aspeed/aspeed-g6.dtsi
+> index 56bb3b0444f7e..a93fa4cf5d8ff 100644
+> --- a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
+> @@ -617,6 +617,13 @@ kcs4: kcs@114 {
+>  					status =3D "disabled";
+>  				};
+> =20
+> +				pcie_kcs4: kcs@914 {
+> +					compatible =3D "aspeed,ast2600-kcs-bmc";
+> +					reg =3D <0x914 0x1>, <0x918 0x1>, <0x91c 0x1>;
+> +					interrupts =3D <GIC_SPI 177 IRQ_TYPE_LEVEL_HIGH>;
+> +					status =3D "disabled";
+> +				};
+
+[Severity: High]
+Will the upstream IRQs be triggered for this new pcie_kcs4 channel?
+
+Looking at aspeed_kcs_outb() in drivers/char/ipmi/kcs_bmc_aspeed.c, it
+verifies the write targets an ODR register using a switch statement, but
+PCIE_LPC_ODR4 is omitted:
+
+drivers/char/ipmi/kcs_bmc_aspeed.c:aspeed_kcs_outb() {
+        ...
+        switch (reg) {
+        case LPC_ODR1:
+        case LPC_ODR2:
+        case LPC_ODR3:
+        case LPC_ODR4:
+                break;
+        default:
+                return;
+        }
+        ...
+}
+
+Since PCIE_LPC_ODR4 falls into the default case, it returns early and skips
+the subsequent IRQ generation logic entirely when the BMC responds to an
+IPMI request over this new channel.=20
+
+Does the driver need to be updated to handle PCIE_LPC_ODR4 before this
+channel can function correctly?
+
+> +
+>  				lpc_ctrl: lpc-ctrl@80 {
+>  					compatible =3D "aspeed,ast2600-lpc-ctrl";
+>  					reg =3D <0x80 0x80>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784732161.gi=
+t.gregoire.layet@9elements.com?part=3D2
