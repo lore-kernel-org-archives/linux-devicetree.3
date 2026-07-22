@@ -1,194 +1,292 @@
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36ED23368AE
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 07:19:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E436372EF0;
+	Wed, 22 Jul 2026 07:20:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784704787; cv=none; b=GQXTbn1kQiAq3hsOyduCXDEN6r3wBQG4u8HNhe6dwoHHA4xSq+Rh5aVk6IqC/8XxunXAqsEKIsWawEahR3u3pUjrZ8Py0F42dBPg2rYYp9JnVReB4Op+1E6Wc+LV5+WQHB4PIDzN8KiR1ADbCuX63SWxnrEYOk5TRCtX3rbYKZ0=
+	t=1784704813; cv=none; b=Sus2Zs/wwm2UyrmwGoELy99EQOkUgKiBDif3L1Lzyg8ek10/FS2rA4NqpkaKt4Vr+BBShwIZ4aFTZpHXD3t4GvUYxMzIl+8Oobg0L7kORg+144UU5Lx9QY9ChkorCOOEjN5+bSvqEczBOckEUdiDbg1c+q+yZf4tjB/v7bkH67U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784704787; c=relaxed/simple;
-	bh=futbNr31vKSA7UXUNzyS12WaQ9CpNJhsAJE8Fswuipk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=b7E1/7+lfFIvG03yPlveLJj20g91x7uzCy/vaBzdhJvsXP4LdpCRr+hc2Hnx9WyIbI0FYAdcZo7eBdD0f+IxOaPeVTYDRBlNq71rT0098aq3wBoQ+JTltYCvusJUbKb/xrBEnfzNqlXlqWMzVtVG8TmVHUWjlDAUctq7w7ndCP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cJrCUdxL; arc=none smtp.client-ip=209.85.219.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784704813; c=relaxed/simple;
+	bh=my8+t8NDa1StfthZ96aoDEWf6pTvKBoyT1WvZNLDNM8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=n6UV1gYvkvVaJ/7V89Z33PR3etBLnuYp17KliJ/vwf2gJHslxdRLY3iP6mPfSJowRLRg6nim3EAVz3TaHtW3Q45LWOmZCCfPo3QAB/DNG7MrCQz71owJnft5fxXOqMo0wUcLA7U+Z53pOxMljjN7ZJ9cNtwZz1uPE8oVv1ojte0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NFaP+9Ak; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cJrCUdxL"
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-902e4af2d9dso61790436d6.0
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 00:19:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784704785; x=1785309585; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=utW8YbbssTVsulJvHfz/jBDoROF5Koo4xil5lPJsJM0=;
-        b=cJrCUdxLIfM93x7D7ilu+gg2qlafEdavR4irL2h7H1IPWEx6C2MGSLmh3ocgHjJNeh
-         gwm0IX3FbH97YeN+z6hyIknXU1mBmvhRaYEYov/WM47KEyX8Vx1DXwlK2Wf94VZCON0w
-         uzeE6MhfZQdWjx59OUoM/yOii6NJW/Imp61IIO3X3cungcAQBrJP75MrNeiRkFi9EGIc
-         7EfQuRwsZNQ2tIGEC23zELgcUNGFvB7DB0ePwSJaUe/HyFkTj8xw49Z4laWVLrOwqt9a
-         61qdzJb4ICg8c5NsTqacwAyjCmjnTi3TKNcGUjThtrr1qMBpIhvrGoPunVnYezRpBwfn
-         WZUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784704785; x=1785309585;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=utW8YbbssTVsulJvHfz/jBDoROF5Koo4xil5lPJsJM0=;
-        b=lnYQHZBa3bBeJL2Gf8TtwMs6wUPjU3IimTAIDcPgDNtbT/0WIJcBIbhZW9teroo40m
-         GjvF1vPRufajKhLC1/hTeIw2G3KADmyrjM8TeMTyf8LLU5ORFFf3WPYqxKIU7Q2FjVUe
-         29W+YiZOup99ZCZX9MTqEzuWD3kxM3tBsLg4ZHWEOxj20d2ruDqJnef6t0WoPKfV60pS
-         o8/Y+Ws48pD9+ht5ysFjr40oYxsyTDbImU2ouzD22pzdcdxz0SQEkh1DXG8rgSVeCtkv
-         4+zI07YXPmtZDSVyYFFPQ+pL9c6k7Qr/YJY9/xykVHVIn2dNerNCQ8X47kpyXHuXCF1R
-         LDGw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp/LOqkeAvFnAqz7kXwNW/t7wXsHEdv1/RIXqs4047LQ5w5FOBt9Ip9jG9tRsW6kXznSUXeRjHHcF2m@vger.kernel.org
-X-Gm-Message-State: AOJu0YyJJTbjJVggKxRZQCjSZRsVpCY5oi9qK86ME2d6r3Xi6bHTST6V
-	DOADIrCkFybclp5zkFFBBo+bs1pBTw60XiD8O8eDexVyVsDYv2U6NcRp
-X-Gm-Gg: AR+sD10NEPv7Vm8BtmaaWax9zbvM4um2smEVrX+L/9y2/DDVy0VVQpu9XiinpNKIINh
-	hOrv65rs0nxmF6jXzNgUAr17w2HfIKEE4ZJNP0I4XSOp3jb9wMVjB4dRAKu2iYzfbQ9Gf+BunYR
-	YVvc5d4186cIekdR86/6nC7UiXCWKnEnnDURkDA5xNTYhcWb4szByglQED4yrN09vDjYLniYs1S
-	k/cysz7G2TR8ohq2epUVKvwZ3OWnaES6Geggr4PwiTLx1qlxJUcWrwTLG+SEQCGucvUVQbaE1SL
-	vex6PFWWLMwOaa8NIDng8f+neu4vr2UAcI9N6sJndPdOYGMbfriuT5OVy9gSZAU7JLdf4EEqECB
-	d7qB7nwbMORtMHYvZWrhS43pof/BPiflcyb545bznhuUuBv/YLDBjPvNhDtjDFDyfoVMSf11A0n
-	V7ee8Ss3P1dOPsLwhKgYZARlCT7DPBUjL5Iczh3aoEQGU=
-X-Received: by 2002:a05:6214:4992:b0:8f1:617b:2692 with SMTP id 6a1803df08f44-907b9b3cf0fmr35036926d6.10.1784704784815;
-        Wed, 22 Jul 2026 00:19:44 -0700 (PDT)
-Received: from thinker (syn-072-043-128-189.biz.spectrum.com. [72.43.128.189])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907ba9e18besm15269996d6.24.2026.07.22.00.19.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 00:19:44 -0700 (PDT)
-From: Amit Barzilai <amit.barzilai22@gmail.com>
-To: Javier Martinez Canillas <javierm@redhat.com>
-Cc: airlied@gmail.com,
-	andriy.shevchenko@intel.com,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	krzk+dt@kernel.org,
-	linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	robh@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de
-Subject: Re: [PATCH v3 3/3] drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
-Date: Wed, 22 Jul 2026 10:19:11 +0300
-Message-ID: <20260722071921.43687-1-amit.barzilai22@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <87y0fbs05w.fsf@ocarina.mail-host-address-is-not-set>
-References: 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NFaP+9Ak"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4763CC19425;
+	Wed, 22 Jul 2026 07:20:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784704813;
+	bh=my8+t8NDa1StfthZ96aoDEWf6pTvKBoyT1WvZNLDNM8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=NFaP+9Akir4PCt8yQ3rwDV/oLemXp2aiy5HwtZLQI3NnQSq2GiCOt3NUcdshy1orL
+	 wFWxwn+uZ6t+OZvI2elOP1CQ6wSixV0Hz/KtVmRIfpca5zwCgr3RB9QEZ3Q9IplaZX
+	 b03MU4EDx75r6ljmW0RUSA7o2kubwYO1bjQdyBGUB25f5JkziCOtUmdXEexI6BjPqO
+	 ZDDQyDqTqen+OYCoAlO3NoFsDdvJGsthcKP5Vr4pxBh6PHOwEM6KuDDgSORsZhtygR
+	 hMV7TKJISW2NzNPhp4srvQ3ZFLVtKy1ja5qkNZj+0NkvSPtUi5xuYp/89SoFdhd0uw
+	 X/M8YJ7wskzQA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 29825C4451C;
+	Wed, 22 Jul 2026 07:20:13 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Date: Wed, 22 Jul 2026 15:20:11 +0800
+Subject: [PATCH v4 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDMI
+ bridge binding
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260722-upstream-it6625-it6626-v4-1-c03362eb55ca@ite.com.tw>
+References: <20260722-upstream-it6625-it6626-v4-0-c03362eb55ca@ite.com.tw>
+In-Reply-To: <20260722-upstream-it6625-it6626-v4-0-c03362eb55ca@ite.com.tw>
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784704811; l=6978;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=kvmWSJ1bCMezEyl+3kGjHtMHI6toPCQNPCBbtrclasU=;
+ b=Ai9dVwxy46NM9/BNy6+KY90vVkWf0djmUpd3ekqG1spxr+0rMF3E3np1BA8nYMkZDucZrP4KP
+ zj5cVCs4h3HBqmoMa8ZoVnvT4wkmVqGTwXst+tjfPjl8nC2gp+fsqhA
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
 
-Javier Martinez Canillas <javierm@redhat.com> wrote:
->>   */
->> -static int ssd130x_write_data(struct ssd130x_device *ssd130x, u8 *values, int count)
->> +static int ssd130x_write_data(struct ssd130x_device *ssd130x, const u8 *values, int count)
->>  {
->>  	return regmap_bulk_write(ssd130x->regmap, SSD13XX_DATA, values, count);
->>  }
->
->>
->
-> This change is correct but need to be split in a separate preparatory
-> patch. When you do that, feel free to add my Reviewed-by tag.
+From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-Agreed, adding to v4.
+Document the devicetree binding for the ITE IT6625/IT6626 HDMI to
+MIPI CSI-2 bridge. The device exposes two graph ports: port@0
+(MIPI0) and port@1 (MIPI1), the two selectable CSI-2 D-PHY/C-PHY
+outputs. Only port@0 is required, since a board only needs to wire up
+as many of the bridge's outputs as it actually uses.
 
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
+---
+Changes in v4:
+- Drop port@2 (the HDMI connector input graph port) entirely: it
+  added no constraints beyond graph.yaml's generic endpoint-base, and
+  the driver doesn't use this graph port for anything schema-relevant,
+  so there was nothing for a consumer devicetree to usefully validate
+  against it. Found by the automated review of v3, which suggested
+  adding it to `required` instead -- dropping it entirely was judged
+  the better fix since the port carried no real constraints to begin
+  with.
+- Require bus-type on port@0/port@1 endpoints when compatible contains
+  "ite,it6626": the driver defaults to D-PHY when bus-type is omitted,
+  which is always correct for it6625 (D-PHY only) but would silently
+  misconfigure an it6626 board actually wired for C-PHY. Also found by
+  the automated review of v3.
 
-> Please split these ssd130x_write_cmds() and ssd1330x_write_cmd() refactoring
-> as separate preparatory patches. This patch is changing too many things at
-> once, it is better to have each logical changes as a separate patch. This
-> makes reviewer much easier.
+One other v3 review finding was checked and is not being acted on:
+- The plain `properties: { endpoint: {...} }` override used for each
+  port technically doesn't reach graph.yaml's separate
+  `patternProperties` matcher, so an `endpoint@0`-style node could in
+  principle bypass the local data-lanes/bus-type constraints. This is
+  the same convention already used by other single-endpoint-per-port
+  bindings in-tree (e.g. thine,thp7312.yaml), not a defect unique to
+  this binding.
 
-Ditto.
+Changes in v2:
+- Restrict port@0/port@1 endpoint bus-type to D-PHY (4) only when
+  compatible is "ite,it6625", via an allOf/if/then constraint. IT6625
+  only supports MIPI CSI-2 D-PHY output; the schema previously allowed
+  both C-PHY (1) and D-PHY (4) unconditionally, so a devicetree
+  claiming "ite,it6625" with bus-type = C-PHY passed schema validation
+  despite being invalid on that hardware. IT6626, which supports both
+  PHY types, is unaffected. Found by the sashiko.dev automated review
+  of v1.
+---
+ .../devicetree/bindings/media/i2c/ite,it6625.yaml  | 169 +++++++++++++++++++++
+ 1 file changed, 169 insertions(+)
 
-> I don't like that this logic is in the ssd130x core part of the driver. This
-> is supposed to be transport agonistic and should not be aware of the D/C#
-> behaviour that is specific to the SPI transport.
->
-> Can we move this to the ssd130x-spi driver? For example, something like the
-> following might work:
->
-> 1. Make ssd130x_write_cmds() to just be a static inline wrapper that calls
->    to regmap_raw_write(ssd130x->regmap, SSD13XX_COMMAND, cmd, len).
->
-> 2. Make ssd130x_write_cmd() be a variadic wrapper around ssd130x_write_cmds().
->
-> 3. Add your logic to ssd130x_spi_write() instead of ssd130x_write_cmds(), that
->    way it stays in the correct layer rather than having a leaking abstraction.
-
-I agree, in hindsight this code goes against the transport abstraction.
-I'd propose keeping 1 and 2 in a single patch, though. Making ssd130x_write_cmds()
-a wrapper around regmap_raw_write() and making ssd130x_write_cmd() a variadic wrapper
-around ssd130x_write_cmds() are two halves of the same change: routing command buffers
-through regmap_raw_write(). Splitting them would leave an intermediate state that isn't
-independently meaningful. Happy to split if you'd still prefer it.
-
-> Also, instead of checking for info->family_id == SSD135X_FAMILY, we could add
-> a dc_high_params member (or whatever name is more suitable) to the struct
-> ssd130x_spi_transport Then other families that might use the same can just
-> reuse this option instead of checking for specific families.
-
-I agree that hard-coding a check for the family isn't open for extension and should be changed.
-Adding a member for this in ssd130x_spi_transport is a fitting solution, I'll populate it in
-ssd130x_spi_probe() using a static array that will describe which families need dc_high_params.
-I'd keep that table in ssd130x-spi.c rather than adding a flag to ssd130x_deviceinfo, so the
-D/C# concern stays in the SPI layer instead of leaking into the transport-agnostic device info.
-
-
->> +	/*
->> +	 * No long post-reset delay: the controller datasheets only specify
->> +	 * microsecond-scale reset timing. The lengthy delay seen in some other
->> +	 * drivers comes from fbtft's generic reset helper and targets slow
->> +	 * parallel-bus GPIOs, which do not apply here.
->> +	 */
->>  }
->>
->
-> I don't understand the point of this comment. You are not changing the logic
-> of this function nor I see how this comment is useful.
-
-I originally added a redundant delay that I saw in fb_ssd1351.c, when Andy
-noticed it he told me to add a comment so others could understand the difference
-between this driver and the fb counterpart.
-I agree that it shouldn't be included in v4, it was a specific mistake and I
-highly doubt others will see similar situations and if so they can easily research
-the subject.
-
-> Instead of ssd133x_write_pixels() and having per family logic in the primary
-> place update path, I prefer to have a little bit more of code duplication
-> and add an .atomic_update, .atomic_disable, etc for the SSD1351.
->
-> Yes, I know that your current approach reduces code duplication but also
-> makes it harder to change the primary plane update path for a family without
-> affecting another one. This is particularly important in my opinion, given
-> that contributors usually just test on their display family when posting
-> the patches. So I prefer to have per family callbacks if possible.
-
-Agreed, I'll add per-family .atomic_update/.atomic_disable for SSD135X in v4 and drop
-the shared ssd133x_write_pixels() path.
-
-The one thing I'd keep shared is the atomic_check callbacks
-(ssd133x_primary_plane_atomic_check and ssd133x_crtc_atomic_check): they have no
-family-specific branching - the plane check is generic and the CRTC check only
-allocates the RGB565 data_array, which SSD135X needs identically. So I'd reuse them
-via the table rather than duplicate. Let me know if you'd rather those were split too.
-
-> Again I wonder if is better to have a device_info member to decide whether to
-> register the backlight, instead of harcoding the check for a specific family.
-
-I already have a draft for splitting ssd130x_update_bl() to be per family, removing
-the need for this code. I prefer to first submit that patch, and then mention it as
-a dependency for v4 of this series.
-Feel free to suggest a different solution.
+diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+new file mode 100644
+index 0000000000000000000000000000000000000000..fed732e4428ba0098b0a5580cfaf4b704af21a8e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+@@ -0,0 +1,169 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/ite,it6625.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: ITE IT6625/IT6626 HDMI to dual MIPI CSI-2 bridge
++
++maintainers:
++  - Hermes Wu <Hermes.wu@ite.com.tw>
++
++description: |-
++  The ITE IT6625 and IT6626 are HDMI to MIPI CSI-2 bridge devices.
++  IT6625 supports an HDMI 2.0 input and converts it to one or two D-PHY CSI
++  outputs, while IT6626 supports an HDMI 2.1 input and converts it to one or
++  two C/D-PHY CSI outputs. The bridges are programmable through I2C and
++  expose two selectable CSI-2 output ports. The bridge can operate in
++  split mode or clone mode.
++
++properties:
++  compatible:
++    enum:
++      - ite,it6625
++      - ite,it6626
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    description:
++      GPIO connected to the active-low reset line.
++    maxItems: 1
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: CSI-2 output port MIPI0
++
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml#
++            unevaluatedProperties: false
++
++            properties:
++              data-lanes:
++                minItems: 1
++                maxItems: 4
++
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
++              clock-noncontinuous: true
++              link-frequencies: true
++
++            required:
++              - data-lanes
++
++      port@1:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: CSI-2 output port MIPI1
++
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml#
++            unevaluatedProperties: false
++
++            properties:
++              data-lanes:
++                minItems: 1
++                maxItems: 4
++
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
++              clock-noncontinuous: true
++              link-frequencies: true
++
++            required:
++              - data-lanes
++
++    required:
++      - port@0
++required:
++  - compatible
++  - reg
++  - ports
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ite,it6625
++    then:
++      properties:
++        ports:
++          properties:
++            port@0:
++              properties:
++                endpoint:
++                  properties:
++                    bus-type:
++                      const: 4
++            port@1:
++              properties:
++                endpoint:
++                  properties:
++                    bus-type:
++                      const: 4
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ite,it6626
++    then:
++      properties:
++        ports:
++          properties:
++            port@0:
++              properties:
++                endpoint:
++                  required:
++                    - bus-type
++            port@1:
++              properties:
++                endpoint:
++                  required:
++                    - bus-type
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      hdmi-bridge@4c {
++        compatible = "ite,it6625";
++        reg = <0x4c>;
++
++        reset-gpios = <&gpio 2 GPIO_ACTIVE_LOW>;
++
++        ports {
++          #address-cells = <1>;
++          #size-cells = <0>;
++
++          port@0 {
++            reg = <0>;
++            csi_out0: endpoint {
++              remote-endpoint = <&csi2_rx0>;
++              bus-type = <4>; /* MEDIA_BUS_TYPE_CSI2_DPHY */
++              data-lanes = <1 2 3 4>;
++            };
++          };
++        };
++      };
++    };
 
 -- 
-Thanks,
-Amit
+2.34.1
+
+
