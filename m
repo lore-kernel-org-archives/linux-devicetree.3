@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 869DD372B41
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 09:34:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BEF3476CFD
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 09:39:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784712900; cv=none; b=uCQUZNKlU7us5SsKXIQHb3+jFpgRe6wCQCoUVVBizXoij2ladYRbc8LhsuZDmnMxVbM9b5cMvkAiiHkWfsGpOL+bP572FiLBXuji04EM62PXDf//S6n7DwuwzotmaKi3RbZPLVvrA1afuVEuqvgsMKbgY8xttvQg5LoP/Rnijjw=
+	t=1784713149; cv=none; b=Z35u4XxUpWdd7cOxc3fPv2EqxFEJtA2gn66VFz9+4CbjVtULrvWBqRaTpmlsxwisfgO4JC/jemZXlJQBVCwuYyRtfa4p1OJoq/W/6dQD9QYhkiZylX5ivp+FSnhmYDrvZLaslzMtBMwLpBZ1omyKH7L91hcprXCGYs2qL24Ooas=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784712900; c=relaxed/simple;
-	bh=FI7Hel6RilWpNyO9SGshWxOzdfmuwQ+CO9gVexwqpnE=;
+	s=arc-20240116; t=1784713149; c=relaxed/simple;
+	bh=K7xTQDvvJUHBSXiX8yjC/O827jthhxgM0cnalk37J/8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pP4fdQIG7h/CBfw0wQL6cUXGrTZ/USNIgL/gh00kqnDN7XEvxEKI0bz77m3Qq0KoTOmT2jLmTFkPKyd825lyA1lL37RMoZzJhtaBOb8pRN235p+TW/vPwvEx3kCs5ZXC8zoG202yz0V7sf89ibQnCOTRtZN1O7rgB9I2f2PRNms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hIXtnt7b; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=UXYQsdQKc3q1A6YHQZpzivBSbPsva/zYNERlyJQlrW2vROd+CtAq753vXvvolRva/a5+p2sAWTvLyLSR+UVqjq8AtRdVBx5NeTJyBCV+kPepD+8A/aneTBuZIXcsw3e8ldmKpUpgjhoQO1Lh39/+oM5RjKrpOR64zQ1zHVTxG30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S0N0zh+m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hIXtnt7b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CA1D1F00A3A;
-	Wed, 22 Jul 2026 09:34:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S0N0zh+m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CAA61F00A3A;
+	Wed, 22 Jul 2026 09:39:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784712897;
-	bh=HHamKZVvHXunz+MiHM1wCGlJXZlA0d0jnG0gYE+UpLQ=;
+	s=k20260515; t=1784713146;
+	bh=2EG0FGhFlwhvH6bCd4kXBvYfz/8iptHAxQ18BJaWC9M=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hIXtnt7bwW8pF+HscNimhgnyi8g3qsc3VVjPoQA/d+dyNsk+eglJlSS4GAszuRGSB
-	 YN1JXx9CUiYw5ALb/IpIOv0E79oR/sbMXwm7vsbyea3AXUkZ3EXkWtn7EyFchlV746
-	 neKkIzj38CTv4fBhUf9Td5o5c2Q8vDBIfDKt86b7R8bg/jOHxL/AzJkJYWyjTAEMv+
-	 xWavL659SVrT1OqYf/FQUugCHRlUZGeZySqXrqXhDOqvfHl5vHtzBLu2eE6lYsufN/
-	 bE5D7kOTzYqhcjkd3lhs/4le8h5WQfZfqKZFlClUhGvDr4qqua+egSmtZWtNn4pof8
-	 ir/pF50Ic/5pg==
+	b=S0N0zh+m4C7jOw7q07imAzpTdrp8J4r7PVNPiins5e5OtfAbzkBWEpkuvdQbjWRtE
+	 9GneH7c06mp+rMByKFh/UZ+c4rJaMp7cdxvEB2hmMDjmaohmGgIzIdzGD2uKStJ+ne
+	 Zh/XV1kHOgomG1EyUCw/sxc7Lt9dGHnjtbSIDg+T80cBlmqUXoUJlUUBeQ8Vibe34B
+	 U/NDzYnefsfpjo8CQ//VkrtWV+BR4cdTOntGbA9To3/Q1B5wDW6dueCHr7xwTpVMP2
+	 g0v9yM+w5Bp7sdEXP1HM1JdrCxNd5/7mcVbz/Ygp6RDJc2fiZ8hbwRqDXB4hZnI0TQ
+	 /v9TJfy9IDf/Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/6] ARM: dts: stm32: Use DMA FIFO mode for all spi in
- stm32mp151
+Subject: Re: [PATCH v2 1/2] dt-bindings: crypto: qcom,inline-crypto-engine:
+ Add x1e80100 support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alain Volmat" <alain.volmat@foss.st.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260722-spi_arm_stm32_dt-v1-3-6ef611523232@foss.st.com>
-References: <20260722-spi_arm_stm32_dt-v1-0-6ef611523232@foss.st.com>
- <20260722-spi_arm_stm32_dt-v1-3-6ef611523232@foss.st.com>
+To: "Wenjia Zhang" <wenjia.zhang@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260722-devtool-v2-1-d7e609ef7388@oss.qualcomm.com>
+References: <20260722-devtool-v2-0-d7e609ef7388@oss.qualcomm.com>
+ <20260722-devtool-v2-1-d7e609ef7388@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 09:34:57 +0000
-Message-Id: <20260722093457.6CA1D1F00A3A@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 09:39:05 +0000
+Message-Id: <20260722093906.3CAA61F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,70 +47,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The SPI driver uses register accessors (`writel_relaxed`/`readl_re=
-laxed`) instead of stream accessors for FIFO data buffers, causing inconsis=
-tent byte ordering between PIO and DMA transfers on big-endian systems.
+- [Medium] Incomplete schema validation due to omission of `qcom,x1e80100-i=
+nline-crypto-engine` in the strict hardware constraints conditional block.
 --
 
---- Patch [3]: [PATCH 3/6] ARM: dts: stm32: Use DMA FIFO mode for all spi i=
-n stm32mp151 ---
-commit d73fb38e89c8770514f3125ef0d74a5af311d84e
-Author: Alain Volmat <alain.volmat@foss.st.com>
+--- Patch [1]: [PATCH v2 1/2] dt-bindings: crypto: qcom,inline-crypto-engin=
+e: Add x1e80100 support ---
+commit c7cd6f7e1716e4206c0cabbb6a305f96fda3ae96
+Author: Wenjia Zhang <wenjia.zhang@oss.qualcomm.com>
 
-ARM: dts: stm32: Use DMA FIFO mode for all spi in stm32mp151
+dt-bindings: crypto: qcom,inline-crypto-engine: Add x1e80100 support
 
-When used, configure the DMA in FIFO mode (instead of Direct) for all
-SPI instances of stm32mp151.dtsi
+Document the compatible string for inline crypto engine found
+on the Qualcomm X1E80100 SoC, used by the Hamoa IoT EVK board.
 
-> diff --git a/arch/arm/boot/dts/st/stm32mp151.dtsi b/arch/arm/boot/dts/st/=
-stm32mp151.dtsi
-> index 84f68e8563d85..e7fec8b49ae16 100644
-> --- a/arch/arm/boot/dts/st/stm32mp151.dtsi
-> +++ b/arch/arm/boot/dts/st/stm32mp151.dtsi
-[ ... ]
-> @@ -943,8 +943,8 @@ spi2: spi@4000b000 {
->  				interrupts =3D <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>;
->  				clocks =3D <&rcc SPI2_K>;
->  				resets =3D <&rcc SPI2_R>;
-> -				dmas =3D <&dmamux1 39 0x400 0x05>,
-> -				       <&dmamux1 40 0x400 0x05>;
-> +				dmas =3D <&dmamux1 39 0x400 0x01>,
-> +				       <&dmamux1 40 0x400 0x01>;
+> diff --git a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-=
+engine.yaml b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-e=
+ngine.yaml
+> index db895c50e2d25..29c9a1ff638c5 100644
+> --- a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.=
+yaml
+> +++ b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.=
+yaml
+> @@ -25,6 +25,7 @@ properties:
+>            - qcom,sm8550-inline-crypto-engine
+>            - qcom,sm8650-inline-crypto-engine
+>            - qcom,sm8750-inline-crypto-engine
+> +          - qcom,x1e80100-inline-crypto-engine
 
-[Severity: High]
-This is a pre-existing issue, but this change to use DMA FIFO mode highligh=
-ts
-a potential inconsistency in the SPI driver. Does this driver produce
-inconsistent byte ordering between PIO and DMA transfers on big-endian
-systems?
+[Severity: Medium]
+Should the new qcom,x1e80100-inline-crypto-engine string also be added to t=
+he
+allOf:if conditional block further down in this file?
 
-Looking at stm32h7_spi_write_txfifo() and stm32h7_spi_read_rxfifo() in
-drivers/spi/spi-stm32.c, register accessors are used for FIFO data buffers:
+Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml:
+    allOf:
+      - if:
+          properties:
+            compatible:
+              contains:
+                enum:
+                  - qcom,eliza-inline-crypto-engine
+                  - qcom,milos-inline-crypto-engine
 
-drivers/spi/spi-stm32.c:stm32h7_spi_write_txfifo() {
-    ...
-    writel_relaxed(*tx_buf32, spi->base + STM32H7_SPI_TXDR);
-    ...
-}
+If x1e80100 hardware shares the strict clock and power-domain requirements,
+omitting it here introduces a regression in schema validation.
 
-drivers/spi/spi-stm32.c:stm32h7_spi_read_rxfifo() {
-    ...
-    *rx_buf32 =3D readl_relaxed(spi->base + STM32H7_SPI_RXDR);
-    ...
-}
+The dt_binding_check would silently pass device tree nodes missing a
+power-domains reference or a second clock.
 
-Because writel_relaxed() and readl_relaxed() perform CPU-to-LE byte swapping
-on big-endian CPUs, PIO transfers will output a reversed byte order compared
-to DMA transfers, which transfer memory exactly as-is without byte swapping.
-Should these use stream accessors like writesl() and readsl() instead to
-preserve byte order for FIFO buffers?
+This could result in a synchronous external abort at runtime when the driver
+attempts to read the ICE version register without the power domain enabled.
 
->  				dma-names =3D "rx", "tx";
->  				access-controllers =3D <&etzpc 27>;
->  				status =3D "disabled";
+>        - const: qcom,inline-crypto-engine
+> =20
+>    reg:
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-spi_arm_st=
-m32_dt-v1-0-6ef611523232@foss.st.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-devtool-v2=
+-0-d7e609ef7388@oss.qualcomm.com?part=3D1
