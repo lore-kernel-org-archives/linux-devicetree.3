@@ -1,130 +1,86 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [4.193.249.245])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CA77F470130;
-	Wed, 22 Jul 2026 07:41:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=4.193.249.245
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F954746BE
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 07:43:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784706114; cv=none; b=OeJXnwUaDsOsgEEospd85xT4ThpG/7/jzYmozRYcUiE5wf3BBsGiL5IM7wglHR3BVwVXpQhy1g17WBZOayxG5vWdPFWusL252GWl7fyynQ7facJyZOsRLV5jkgjct/oVFJ31JoMabI3VSrTz+IW+vOHcMyjYCen8yCzZSKT8lfE=
+	t=1784706232; cv=none; b=W5JO086+oOISX16zsJoGl/1RkbDI/vFrBvUjK3jgCD3n03qJ6Qfzi6W5ahqmHvxAMgRXnPXqHWx3nIvdJoWKyQJ0bqJKMxnTGDlqsGdmBgA4Y3wSb2PMGub1NGvl6wIGRpQeyvOmF7IwhYcIvXWw12esmSh1FQGsF6fnOLv/H2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784706114; c=relaxed/simple;
-	bh=W5k8AX3lC4gT5LlgfgfgGE9RF1oCLsrKvFkAMlSTIEI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=Ur8FLKbn/yhvAJS/2d+Cn8La/v2JRbK6D5B05Y2bdrRbDtWj1sre+b+U6pT/id235QPM7R25xCMjucZDnAIrvBOSHowGJ6bYpJOPaVDLmQUrSyXqN+FkB41xgV5LLSasW9pjxWuFy3ROcB3N9TW9wyogd3mymkA3kx9cPl+NeXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=4.193.249.245
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
- ajax-webmail-app2 (Coremail) ; Wed, 22 Jul 2026 15:41:35 +0800 (GMT+08:00)
-Date: Wed, 22 Jul 2026 15:41:35 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
-To: "Philipp Zabel" <p.zabel@pengutronix.de>, ukleinek@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	ben-linux@fluff.org, ben.dooks@codethink.co.uk,
-	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, daniel.lezcano@kernel.org,
-	tglx@kernel.org
-Cc: ningyu@eswincomputing.com, linmin@eswincomputing.com,
-	xuxiang@eswincomputing.com, wangguosheng@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com
-Subject: Re: Re: [PATCH v12 3/4] pwm: dwc: add of/platform support
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <f7b1c5f1594c99e662d0033dc002ff1a46f17107.camel@pengutronix.de>
-References: <20260721120757.1134-1-dongxuyang@eswincomputing.com>
- <20260721120905.1302-1-dongxuyang@eswincomputing.com>
- <f7b1c5f1594c99e662d0033dc002ff1a46f17107.camel@pengutronix.de>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1784706232; c=relaxed/simple;
+	bh=wK/KpYZUjX0rnFmsAQjFwCSn4vTwAsYjGWFKXMkCjAE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=XW9Ddhdf6i++Rgor5kZkygT+3jEW0Xm3NJzTQGkHFzcN4DYJk7cZ1LCkSCbyN1mB22tx6Emds7Nrongfics5YZi4OPLzeqU7GASMsFdwOQncHSS6BCWQXVDaiXNqEkTGFVbvPPJVbEKoqCa6/YAUONyJlOqYxrVdkYowEDFh+to=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XAgpD4qZ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XAgpD4qZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF4E31F000E9;
+	Wed, 22 Jul 2026 07:43:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784706230;
+	bh=sZv2MGt+o7XTEQbyQKmQJCPak9b60hprbtzM0z6epJU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XAgpD4qZsXxDw2oaoPMHAE6DOR1Xcl23M0SaOKZWA48D8QA/Tte/XiV/++tFnKrgk
+	 D+iYLrFuPUtYQp8j54tk6yFLnu/n5VMgI94vdeLFv0OGWhsYijdJJUGLYjau4TNShK
+	 hrmIGBqbjFXaFHFJFAi4r40VF55QwZO/Qpz7UI78/QS0Wiz2c7FxqxLULkIZeVe1zs
+	 Rt3P+QxlMYQtG2g6qWrHTn8H7p19PhlZxcLDBWQFkkGpanh87dhI2FD2kK+UYrabA8
+	 +X0v2SfZ1uQH1qj1Gn7snn6ckXb+8YkV0np6Gr0Kh2NfAjhRW/96taj/clXlz/1qHs
+	 1oUnM82c5radg==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 3/3] arm64: dts: rockchip: rk3576: add VEPU H.264
+ encoder nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, robh@kernel.org
+In-Reply-To: <20260722073417.2064667-4-gahing@gahingwoo.com>
+References: <20260722073417.2064667-1-gahing@gahingwoo.com>
+ <20260722073417.2064667-4-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 07:43:49 +0000
+Message-Id: <20260722074349.CF4E31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Message-ID: <702dd081.8902.19f88c5db00.Coremail.dongxuyang@eswincomputing.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:TQJkCgAnPqEvdGBqPoI2AA--.9805W
-X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAQEQAmpfnycZG
-	AAAse
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
 
-PiAKPiBPbiBEaSwgMjAyNi0wNy0yMSBhdCAyMDowOSArMDgwMCwgZG9uZ3h1eWFuZ0Blc3dpbmNv
-bXB1dGluZy5jb20gd3JvdGU6Cj4gPiBGcm9tOiBYdXlhbmcgRG9uZyA8ZG9uZ3h1eWFuZ0Blc3dp
-bmNvbXB1dGluZy5jb20+Cj4gPiAKPiA+IFRoZSBkd2MgcHdtIGNvbnRyb2xsZXIgY2FuIGJlIHVz
-ZWQgaW4gbm9uLVBDSSBzeXN0ZW1zLCBzbyBhbGxvdwo+ID4gZWl0aGVyIHBsYXRmb3JtIG9yIE9G
-IGJhc2VkIHByb2JpbmcuCj4gPiAKPiA+IFRoZSBjb250cm9sbGVyIGlzIHJlc2V0IG9ubHkgd2hl
-biBubyBQV00gY2hhbm5lbCBpcyBlbmFibGVkLgo+ID4gT3RoZXJ3aXNlLCBjbG9ja3MgYXJlIGVu
-YWJsZWQgYW5kIHRoZSBydW50aW1lIFBNIHN0YXRlIGlzIHVwZGF0ZWQKPiA+IHRvIHJlZmxlY3Qg
-dGhlIGFjdGl2ZSBoYXJkd2FyZSBjb25maWd1cmF0aW9uLgo+ID4gCj4gPiBUaGUgRFdDIFBXTSBj
-b250cm9sbGVyIGRvZXMgbm90IHByb3ZpZGUgYSBoYXJkd2FyZSBwb2xhcml0eSBiaXQuCj4gPiBD
-dXJyZW50bHksIHRoZSBkcml2ZXIgb25seSBzdXBwb3J0cyBhY3RpdmUtbG93IG91dHB1dCwgd2hp
-Y2ggaXMKPiA+IGluY29tcGF0aWJsZSB3aXRoIGRldmljZXMgcmVxdWlyaW5nIGFjdGl2ZS1oaWdo
-IHdhdmVmb3JtcyAoZS5nLiwKPiA+IGJhY2tsaWdodCBjb250cm9sbGVycywgZmFuIHNwZWVkIHJl
-Z3VsYXRvcnMpLgo+ID4gCj4gPiBJbXBsZW1lbnQgcG9sYXJpdHkgY29udHJvbCBieSBleHBsb2l0
-aW5nIHRoZSB0aW1lcidzIGR1YWwgbG9hZAo+ID4gcmVnaXN0ZXJzLiBUaGUgaGFyZHdhcmUgdXNl
-czoKPiA+IC0gTERfQ05UOiAgTE9XIHBlcmlvZCBjb3VudAo+ID4gLSBMRF9DTlQyOiBISUdIIHBl
-cmlvZCBjb3VudAo+ID4gCj4gPiBUaGUgdG90YWwgcGVyaW9kIGlzIGRlZmluZWQgYXMgKExEX0NO
-VCArIExEX0NOVDIpLiBCeSBzd2FwcGluZyB0aGUKPiA+IGR1dHkgY3ljbGUgYmV0d2VlbiB0aGVz
-ZSByZWdpc3RlcnMsIHdlIGludmVydCB0aGUgcG9sYXJpdHkgd2hpbGUKPiA+IGtlZXBpbmcgdGhl
-IHBlcmlvZCB1bmNoYW5nZWQ6Cj4gPiAtIFBXTV9QT0xBUklUWV9OT1JNQUw6ICB3cml0ZSBkdXR5
-X2N5Y2xlIHRvIExEX0NOVDIgKEhJR0ggcGVyaW9kKQo+ID4gLSBQV01fUE9MQVJJVFlfSU5WRVJT
-RUQ6IHdyaXRlIGR1dHlfY3ljbGUgdG8gTERfQ05UICAoTE9XIHBlcmlvZCkKPiA+IAo+ID4gSW1w
-bGVtZW50YXRpb246Cj4gPiBVcGRhdGUgYm90aCBhcHBseSgpIGFuZCBnZXRfc3RhdGUoKSB0byBo
-YW5kbGUgc3RhdGUtPnBvbGFyaXR5Cj4gPiBjb25zaXN0ZW50bHkuIFNpbmNlIHRoZSBoYXJkd2Fy
-ZSBkb2VzIG5vdCBzdG9yZSBwb2xhcml0eSwgZ2V0X3N0YXRlKCkKPiA+IHJldHVybnMgdGhlIGxh
-c3Qgc3VjY2Vzc2Z1bGx5IGFwcGxpZWQgc29mdHdhcmUgc3RhdGUsIGVuc3VyaW5nIHRoYXQKPiA+
-IHJlYWQtYmFjayBtYXRjaGVzIHdoYXQgd2FzIG9yaWdpbmFsbHkgc2V0Lgo+ID4gCj4gPiBDby1k
-ZXZlbG9wZWQtYnk6IEJlbiBEb29rcyA8YmVuLmRvb2tzQGNvZGV0aGluay5jby51az4KPiA+IFNp
-Z25lZC1vZmYtYnk6IEJlbiBEb29rcyA8YmVuLmRvb2tzQGNvZGV0aGluay5jby51az4KPiA+IFNp
-Z25lZC1vZmYtYnk6IFhpYW5nIFh1IDx4dXhpYW5nQGVzd2luY29tcHV0aW5nLmNvbT4KPiA+IFNp
-Z25lZC1vZmYtYnk6IEd1b3NoZW5nIFdhbmcgPHdhbmdndW9zaGVuZ0Blc3dpbmNvbXB1dGluZy5j
-b20+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBYdXlhbmcgRG9uZyA8ZG9uZ3h1eWFuZ0Blc3dpbmNvbXB1
-dGluZy5jb20+Cj4gPiAtLS0KPiA+ICBkcml2ZXJzL3B3bS9LY29uZmlnICAgICAgICB8ICAxMCAr
-Kwo+ID4gIGRyaXZlcnMvcHdtL01ha2VmaWxlICAgICAgIHwgICAxICsKPiA+ICBkcml2ZXJzL3B3
-bS9wd20tZHdjLWNvcmUuYyB8IDE3MiArKysrKysrKysrKysrKysrLS0tLQo+ID4gIGRyaXZlcnMv
-cHdtL3B3bS1kd2Mtb2YuYyAgIHwgMzEyICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysKPiA+ICBkcml2ZXJzL3B3bS9wd20tZHdjLmggICAgICB8ICAyNSArKy0KPiA+ICA1IGZp
-bGVzIGNoYW5nZWQsIDQ4MSBpbnNlcnRpb25zKCspLCAzOSBkZWxldGlvbnMoLSkKPiA+ICBjcmVh
-dGUgbW9kZSAxMDA2NDQgZHJpdmVycy9wd20vcHdtLWR3Yy1vZi5jCj4gPiAKPiBbLi4uXQo+ID4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvcHdtL3B3bS1kd2Mtb2YuYyBiL2RyaXZlcnMvcHdtL3B3bS1k
-d2Mtb2YuYwo+ID4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiA+IGluZGV4IDAwMDAwMDAwMDAwMC4u
-NDYwODYzNTQ5Mjc0Cj4gPiAtLS0gL2Rldi9udWxsCj4gPiArKysgYi9kcml2ZXJzL3B3bS9wd20t
-ZHdjLW9mLmMKPiA+IEBAIC0wLDAgKzEsMzEyIEBACj4gPiArLy8gU1BEWC1MaWNlbnNlLUlkZW50
-aWZpZXI6IEdQTC0yLjAKPiA+ICsvKgo+ID4gKyAqIERlc2lnbldhcmUgUFdNIENvbnRyb2xsZXIg
-ZHJpdmVyIE9GCj4gPiArICoKPiA+ICsgKiBDb3B5cmlnaHQgKEMpIDIwMjYgU2lGaXZlLCBJbmMu
-Cj4gPiArICovCj4gPiArCj4gPiArI2RlZmluZSBERUZBVUxUX1NZTUJPTF9OQU1FU1BBQ0UgImR3
-Y19wd21fb2YiCj4gPiArCj4gPiArI2luY2x1ZGUgPGxpbnV4L2Nsay5oPgo+ID4gKyNpbmNsdWRl
-IDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiA+ICsjaW5jbHVkZSA8bGludXgvcG1fcnVudGlt
-ZS5oPgo+ID4gKyNpbmNsdWRlIDxsaW51eC9wd20uaD4KPiA+ICsjaW5jbHVkZSA8bGludXgvcmVz
-ZXQuaD4KPiA+ICsKPiA+ICsjaW5jbHVkZSAicHdtLWR3Yy5oIgo+ID4gKwo+ID4gK3N0cnVjdCBk
-d2NfcHdtX3BsYXRfZGF0YSB7Cj4gPiArCWJvb2wgcmVzZXRfcmVxdWlyZWQ7Cj4gCj4gVGhpcyBp
-cyBub3QgbmVlZGVkLgo+IAoKSGkgUGhpbGlwcCwKCldlIHdpbGwgZHJvcCBpdCBpbiB0aGUgbmV4
-dCB2ZXJzaW9uLgoKPiA+ICt9Owo+ID4gKwo+ID4gK3N0YXRpYyBpbnQgZHdjX3B3bV9wbGF0X3By
-b2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gPiArewo+IFsuLi5dCj4gPiArCXBk
-YXRhID0gZGV2aWNlX2dldF9tYXRjaF9kYXRhKGRldik7Cj4gPiArCWlmIChwZGF0YSAmJiBwZGF0
-YS0+cmVzZXRfcmVxdWlyZWQpCj4gPiArCQlkd2MtPnJzdCA9IGRldm1fcmVzZXRfY29udHJvbF9n
-ZXRfZXhjbHVzaXZlKGRldiwgTlVMTCk7Cj4gPiArCWVsc2UKPiA+ICsJCWR3Yy0+cnN0ID0gZGV2
-bV9yZXNldF9jb250cm9sX2FycmF5X2dldF9vcHRpb25hbF9leGNsdXNpdmUoZGV2KTsKPiAKPiBQ
-bGVhc2UgZHJvcCByZXNldF9yZXF1aXJlZCBmcm9tIHBkYXRhIGFuZCBqdXN0IHVzZQo+IAo+IAlk
-d2MtPnJzdCA9IGRldm1fcmVzZXRfY29udHJvbF9hcnJheV9nZXRfb3B0aW9uYWxfZXhjbHVzaXZl
-KGRldik7Cj4gCj4gVGhhdCB3b3JrcyBmb3IgYSBzaW5nbGUgcmVzZXQgYXMgd2VsbC4KPiAKPiBE
-ZXZpY2UgdHJlZSB2YWxpZGF0aW9uIGFscmVhZHkgbWFrZXMgc3VyZSByZXF1aXJlZCByZXNldCBj
-b250cm9scyBhcmUKPiBwcmVzZW50LiBUaGVyZSBpcyBubyBuZWVkIGhhbmRsZSB0aGlzIGluIHRo
-ZSBkcml2ZXIgYXMgYSBzcGVjaWFsIGNhc2UuCj4gCgpVc2UgZHdjLT5yc3QgPSBkZXZtX3Jlc2V0
-X2NvbnRyb2xfYXJyYXlfZ2V0X29wdGlvbmFsX2V4Y2x1c2l2ZShkZXYpOwoKPiA+ICsKPiA+ICsJ
-aWYgKElTX0VSUihkd2MtPnJzdCkpCj4gPiArCQlyZXR1cm4gZGV2X2Vycl9wcm9iZShkZXYsIFBU
-Ul9FUlIoZHdjLT5yc3QpLAo+ID4gKwkJCQkgICAgICJmYWlsZWQgdG8gZ2V0IHJlc2V0IGNvbnRy
-b2xcbiIpOwo+ID4gKwo+ID4gKwlyZXQgPSBjbGtfcHJlcGFyZV9lbmFibGUoZHdjLT5idXNfY2xr
-KTsKPiA+ICsJaWYgKHJldCkKPiA+ICsJCXJldHVybiBkZXZfZXJyX3Byb2JlKGRldiwgcmV0LAo+
-ID4gKwkJCQkgICAgICJmYWlsZWQgdG8gZW5hYmxlIGJ1cyBjbG9ja1xuIik7Cj4gPiArCj4gPiAr
-CXJldCA9IGNsa19wcmVwYXJlX2VuYWJsZShkd2MtPmNsayk7Cj4gPiArCWlmIChyZXQpIHsKPiA+
-ICsJCWRldl9lcnIoZGV2LCAiZmFpbGVkIHRvIGVuYWJsZSB0aW1lciBjbG9ja1xuIik7Cj4gCj4g
-CQlkZXZfZXJyX3Byb2JlKGRldiwgImZhaWxlZCB0byBlbmFibGUgdGltZXIgY2xvY2tcbiIpOwo+
-IAo+IHByaW50cyB0aGUgYWN0dWFsIGVycm9yLiBTYW1lIGZvciBvdGhlciBkZXZfZXJyKClzIGlu
-IHRoZSBwcm9iZQo+IGZ1bmN0aW9uLgo+IAoKVXNlIGRldl9lcnJfcHJvYmUoKSBpbnN0ZWFkIG9m
-IGRldl9lcnIoKSBpbiB0aGUgcHJvYmUgZnVuY3Rpb24uCgpCZXN0IHJlZ2FyZHMsClh1eWFuZyBE
-b25nCg==
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Device tree nodes are not sorted by unit-address in ascending order.
+--
+
+--- Patch [3]: [RFC PATCH 3/3] arm64: dts: rockchip: rk3576: add VEPU H.264=
+ encoder nodes ---
+commit 6e5cf8fb6138851fdbc5bc797d5562505948a1ae
+Author: Jiaxing Hu <gahing@gahingwoo.com>
+
+arm64: dts: rockchip: rk3576: add VEPU H.264 encoder nodes
+
+This commit adds the two VEPU510 encoder cores at 0x27a00000 and 0x27a10000
+along with their corresponding IOMMUs to the rk3576 device tree.
+
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/d=
+ts/rockchip/rk3576.dtsi
+> index e12a2a0cfb891..58d706d563290 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> @@ -1314,6 +1314,56 @@ vdec_mmu: iommu@27b00800 {
+>  			#iommu-cells =3D <0>;
+>  		};
+> =20
+> +		vepu0: video-codec@27a00000 {
+
+[Severity: Low]
+This isn't a bug, but should these new nodes be placed before vdec_mmu?
+
+The device tree coding style generally expects nodes to be sorted by their
+unit-address in ascending order. Here, the vepu0 node at 0x27a00000 and
+subsequent vepu1 node at 0x27a10000 are being placed after vdec_mmu at
+0x27b00800.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722073417.2064=
+667-1-gahing@gahingwoo.com?part=3D3
