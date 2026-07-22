@@ -1,155 +1,195 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486CA38837A
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 02:37:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6636390200;
+	Wed, 22 Jul 2026 02:39:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784687859; cv=none; b=JJoBQr/XN3aVn1zT0dZ+AvPR0KWi3yQj0lV5N91o65tv58lAYat1jLHKdotQOIiuDhIZ/RZnfiXcWyjDHGHF+PqBSSyimXEjSwiYfXpyzaMJLwMP3TJ/uMrpgK0ZkT2r14tIuFFYDV3EZdQ49IPMwYXNUMtCpzVBpkTmzhXP4+0=
+	t=1784687945; cv=none; b=Hz7A+SqljfjC/ndUM+rZcdJvISRehKZnuHNyQPZySYXLMo+w1rehLLPOlPUPH4qtBmNMdR6c/Ip//dghAE+CIceXSiiq+YrNHVdMG+pkpEJ58R6nlwRiNmrFPmHC+PXoDlAD3DSNUOzJlPgSbqD6cMZwfmAmiY8arw2FZ+8VpDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784687859; c=relaxed/simple;
-	bh=I72I6aBNbNx5LLSbB2IurvJXHEQjlREB5X6pHjEvasQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HjwzdY4I6c8isslV2Q8nGBwL/nCEkUhId+RETVZsxd7I4MKG15nqBR7xhKYqpAeD164iS6iDpr/C85PQWOpmFLXdpN9EakMApN+VXDZT5csBLMKiBio4HuxS4W37PzGg7XEuZKaiDZcUqJ8HOLVPwJcsjEXxe1EXv8kP7XajVMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IkGDu+HJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kKN9s1gR; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784687945; c=relaxed/simple;
+	bh=ITBBTNbrJy4rjiCqecHeGN6oMKu87IH6xqyjgbYmK7M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ApmKy5MVuN2YIZAk7GYWkhjNdF6dnjMWd3ZV7yJO/q23vFo/cAakwkRNruJSOIDc5IDsDIfIBvdvo2ARHUJ6qW2pjvUqmIjhfW5jOjR56hPo/5pKBIJL5JEdXfYYQn2Dwc3rIzDVu8fnUEr/tncNuEbMgnDUaDYbEN7oRwYxl8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qvbs5xJ4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IkGDu+HJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kKN9s1gR"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M1CM283650698
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 02:37:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=IVQKsYN3qgUZiEdfZG6Dl2bU
-	NyFkjoaZvW8jdv3e/ow=; b=IkGDu+HJk64knardp5jZcVuTTVp4WaJDOIBrRgzj
-	wBiyAscWR7qEjCOWxsCgvv53ClTgBGdx3uwBdQmloijHIdKbkVKo6YGYme7rNlyN
-	LmInbmnb1n1usUPXHB3U6b8s37Sj/dVx+NOw7E8prcc83HzCmT04vJTZxHcdcZmK
-	xlwPTc7rtzUXW4D0PzJm0bMKfefI88KtlxlqT+RWvJWBY94nOqgP9aFowpGDCDhw
-	U1akqMrLwIhmdRciOcaE9+0yVvbrgmKcOn9Mgm3T/kU/jBN6BNWjrvb6mKBxNCdb
-	p1pBUsE01PFCCmhuYfI5JXwxVEog7IRR1g+oMY0p0uDmcQ==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj6r3kw72-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 02:37:37 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c88cfe287e1so8004998a12.1
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 19:37:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784687857; x=1785292657; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IVQKsYN3qgUZiEdfZG6Dl2bUNyFkjoaZvW8jdv3e/ow=;
-        b=kKN9s1gRAVoqvm1GvZGlPvcUj4yhDoEYkvOyVBfjDT44lRe7QeI+0mrzi4ZiM5gC+S
-         76puWnBERmDZjSn0o2dOavQo+RjY0amDEVJVlIpfJPgEC87sKW11luwpYft63Lbv9D19
-         kqPReX9GmHJh9yHLJab0so9l/d1A2vg7a9L13PEFHYLkxpJ6eMh8WWKazcGW7IbZ60JO
-         7Gaafnb9rKj9Pw6vjp1uf4KkU2BO+D2gsAkXl8yCnKscXwBl893AL7XeD0psOE9IZfpS
-         ZlOn531FXplWMZzLZyTRIJR0wM9vvzB4NPYSzmlSRnu5DPfASci9QoPGfEHUVo0k3f0A
-         YhGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784687857; x=1785292657;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IVQKsYN3qgUZiEdfZG6Dl2bUNyFkjoaZvW8jdv3e/ow=;
-        b=qFlcCoZhBfdW9X6L4oihVUTwdghd1m0KKEWI6D9heQiB1nu9MIGLMGTkeDKKlandes
-         Izdx29WjkIssJ6bKBQRUfDS4bLj8fV+4yC0TB5Ro2T2IF/Enkoj5KUFCPc+aVNfa+pVG
-         vCS12Bvd6k0kVKCGqCF+VZWNy7bXZzGyqSNalYP4LoKU8jQvI1FdW4c4op4iWCJt1m6s
-         dayQZuhsl7ce2FjcN2EfgKrzwoH2ci6vSe074+H0NVr2QuARm156bqpUVd8tPtEAocgI
-         nERwqLIXcKaw/FSU5B7cgLaWvu8ERFtImq+vEpzDfh1hRIYs0nO6LTjWbuptCibV4DHK
-         56zA==
-X-Forwarded-Encrypted: i=1; AHgh+RpVRNu5v/TytWlZuzYIfMgIetRGtxNUF9p4y5nlt6K8pX9ywM/Zo17J5oaikQ4rox7+HgLGzWdVWNOP@vger.kernel.org
-X-Gm-Message-State: AOJu0YxmlK053zRhsqpAG8DbIozUi6J1RbeDqCuZZbpD8oVtz/NX5cRR
-	LwMnDTSE4YL6LB+absbuuXbJYTc1oF5UMu6rc3hcu57yXMULXdZ7b36vAiJnXb+L9CJf4A0rgcS
-	mch9lYlUSP10sg2L7QcSPDm7vBfQwzH276Kgj0qYDO7PbmIJfcZe1TpNclvSH1tq3
-X-Gm-Gg: AR+sD12cNZleWEAQQZzPbWjYUQhX3NcnU+udQtk3HrgO9wiUl/Z1XBU768hkBk9ssm8
-	iKLSf0iBYNOGWbykC3uq1sftguwKzxsi7qglE4z3MxeyvoEyWQucnN68b/sibEZctr8+qp2fgc3
-	8f7Tgyh5GTVOR3rNLorIYzYs1IOMYzIX75Yw9vCAXZ77qw0hLJsp1IcEFnVvuloPqUzUj5ziXnR
-	8BGLwQwqz9NpOyCo6GqcWeP1/gB8Ds3egblJ2yl1vN0IU0H3Jd/b+nVBEFcfd/05xpKkYgnnilf
-	TOLjTNeutv9bz0DycI9mVBDkqTTU1ZspHhAtu56dn5BIR6bBZ2DhtfsviTq97I/cfeCVTb5iWZG
-	FcYmcxCivNf+CXzNra16o86w6vqyUcX87FKF/kDkPhK0=
-X-Received: by 2002:a05:6300:2285:b0:3c3:6c90:65b3 with SMTP id adf61e73a8af0-3c3adb086f8mr22467264637.65.1784687856855;
-        Tue, 21 Jul 2026 19:37:36 -0700 (PDT)
-X-Received: by 2002:a05:6300:2285:b0:3c3:6c90:65b3 with SMTP id adf61e73a8af0-3c3adb086f8mr22467214637.65.1784687856177;
-        Tue, 21 Jul 2026 19:37:36 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13d13003f12sm1768920c88.2.2026.07.21.19.37.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 19:37:35 -0700 (PDT)
-Date: Wed, 22 Jul 2026 10:37:29 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 5/6] dt-bindings: clock: qcom: Document Nord GPU clock
- controllers
-Message-ID: <amAs6TieGdZwtxyN@QCOM-aGQu4IUr3Y>
-References: <20260721-nords_mm_v1-v2-0-17e5a445a512@oss.qualcomm.com>
- <20260721-nords_mm_v1-v2-5-17e5a445a512@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qvbs5xJ4"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 761B7C2BCFD;
+	Wed, 22 Jul 2026 02:39:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784687945;
+	bh=ITBBTNbrJy4rjiCqecHeGN6oMKu87IH6xqyjgbYmK7M=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=qvbs5xJ49l1YYYdxqfvC2nyRb3NI6X0EgIGQe8gsbvbQvGn7nwSFJGNm7D+zbAQxY
+	 MXcGFGjdKgb0Mos8f8KJmNszH8HP6QRaFl4vFG9WsdcgV9x8gF7BZaVFalX1fSsd6e
+	 BOSPNGnV5bKoQnGX5exXWqOY6ysCqzSnG1Mj/CZeACFjAed2xRdKPD/cSgWu3O0m/m
+	 e2g5scDr5Lfd6T9cDXR/8i9qCSV4w2fRitRO8rVyjEye+qic6bShzRegJAZoNhqhq9
+	 KURhBMPJp6eOhGvOsuIP3I0+rYaoW2SrcwCuAQbJi8xtZKZ0il2aNN+nvFdL44dJlV
+	 9dJCxFbeUKz3g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5FA6DC44537;
+	Wed, 22 Jul 2026 02:39:05 +0000 (UTC)
+From: Haoning CHENG via B4 Relay <devnull+Haoning.CHENG.cn.bosch.com@kernel.org>
+Date: Wed, 22 Jul 2026 10:11:43 +0800
+Subject: [PATCH v11 3/3] thermal/drivers/imx: Add calibration offset
+ support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260721-nords_mm_v1-v2-5-17e5a445a512@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDAyMiBTYWx0ZWRfX0eRfYJ9bIOUT
- U6NstwtW0shMpBUW8JC/5uYh4lMxq0N097Nb/Ib4pucglGPwmOlmiMAO7I+9adfDRazl117aQf3
- RKnW8eO8hhzEUl7eqZ2ArE2yvv/jnQ2Imdv5Td1vudx8RAuoec97+hidMqC2E+k2VO+FyGqnBRs
- aj6GaZDWY2DrRJGE+S6nfpO0dZMD/D8rO+z2SH8KoIFKMXSkVQp1ZyKA7DCTdl2F0hXlqFklWcN
- FeOC0y6RUwIkYq62JOshXd42o91q8tWN4LAGCnww/zyL7I4T4SlSBLLzc4xCkVQPO8nZkwl/CRl
- btDElaoWNXcYp3IiyqpvXZk/Rr0kucdfcb0dvsjtjoA2y72l/kL7R+hzurhyStqkWTNH4SdZUJC
- 1aB30aK/MXmWgRsTcQ6jpJN77gdvbpEpZRLKSV95i4iuObFiNZbdZZOq5Fsbx7jyRYVS62gJwIL
- 2kC752bdjcY0xF/wOTg==
-X-Proofpoint-ORIG-GUID: baZC9TVstEWyE-aoqjTZIWFVstTRQuJG
-X-Proofpoint-GUID: baZC9TVstEWyE-aoqjTZIWFVstTRQuJG
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDAyMiBTYWx0ZWRfX+ezjpaVFQH4o
- /p0sNiTBn5ZmORq7pToEVdi5NJK2LIAqMxaQTUeBvIbWL3Jrd0DUXDEf8J0uKbzz5zckdiaVd+2
- EI9H4/K4XfuZ0ODXI6xmh/zPwRYkbPY=
-X-Authority-Analysis: v=2.4 cv=SIRykuvH c=1 sm=1 tr=0 ts=6a602cf1 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=FJTKRu6q7fTA15dSFXUA:9 a=CjuIK1q_8ugA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-22_01,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 spamscore=0 phishscore=0 clxscore=1015
- suspectscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220022
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260722-b4-symana21-11221-imx-thermal-support-upstream-6-18-v11-3-90e4e46c0a13@cn.bosch.com>
+References: <20260722-b4-symana21-11221-imx-thermal-support-upstream-6-18-v11-0-90e4e46c0a13@cn.bosch.com>
+In-Reply-To: <20260722-b4-symana21-11221-imx-thermal-support-upstream-6-18-v11-0-90e4e46c0a13@cn.bosch.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Haoning CHENG <Haoning.CHENG@cn.bosch.com>, 
+ Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784687940; l=4319;
+ i=Haoning.CHENG@cn.bosch.com; s=20260709; h=from:subject:message-id;
+ bh=iGtMCQeZJKH4z5VifCeuyUN93+QX4fy7skn49vUYhis=;
+ b=SlhPV5ho3FNmNN6iMqbaR1vdUUAKNRWYpWNGh38K7fKyLTjQTT4qe81iPBIRFeHTKSQykqfz3
+ 0uqlVina7AgBZUnytKjIfmg5VPF6m2OLX+FDB/vcaE7njHeEu5iHkF7
+X-Developer-Key: i=Haoning.CHENG@cn.bosch.com; a=ed25519;
+ pk=glQGwad/fosRS5gZUJYbLDPPLGe7rFTrTV2VxY/ySdc=
+X-Endpoint-Received: by B4 Relay for Haoning.CHENG@cn.bosch.com/20260709
+ with auth_id=860
+X-Original-From: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
+Reply-To: Haoning.CHENG@cn.bosch.com
 
-On Tue, Jul 21, 2026 at 12:37:20PM +0530, Taniya Das wrote:
-> Add Device Tree binding documentation for the GPU clock controllers
-> on the Qualcomm Nord platform.
-> 
-> The platform includes two GPU clock controller instances, GPUCC and
-> GPUCC2. Document the compatible strings for both controllers.
+From: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
 
-Nit: s/GPUCC2/GPU2CC to be consistent with code?
+The TEMPMON sensor reading may deviate from the theoretical SoC
+junction temperature. Hardware characterization shows a measurable
+offset between the sensor output and the calculated junction
+temperature.
 
-Other than that,
+Read the optional fsl,temp-calibration-offset-millicelsius property
+from DT and apply it uniformly to the i.MX6/6SX/7D formulas.
 
-Reviewed-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+The offset is applied symmetrically at two points to keep trip point
+semantics consistent:
 
-> 
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+1. In imx_set_alarm_temp() and imx_set_panic_temp(): the temperature
+   threshold is *subtracted* by the offset before being converted to a
+   hardware register value. This keeps the hardware IRQ trigger aligned
+   with the physical sensor reading that corresponds to the intended
+   temperature threshold.
+
+2. In imx_get_temp(): after computing the temperature from the hardware
+   register, the offset is *added* to produce the calibrated value.
+   The thermal framework always sees the corrected temperature.
+
+For example, if DT sets offset = +3000 m°C and the passive trip is 95°C:
+
+  imx_set_alarm_temp(95000):
+    alarm_temp = 95000 - 3000 = 92000
+    → hardware register programmed for 92°C sensor reading
+
+  Hardware IRQ fires when sensor reads 92°C
+
+  imx_get_temp():
+    reads hardware, computes 92°C
+    *temp = 92000 + 3000 = 95000
+    → thermal framework sees 95°C → correct trip
+
+When the property is not present, the offset defaults to 0, preserving
+the current behavior.
+
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
+Signed-off-by: Haoning Cheng <Haoning.CHENG@cn.bosch.com>
+---
+ drivers/thermal/imx_thermal.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+
+diff --git a/drivers/thermal/imx_thermal.c b/drivers/thermal/imx_thermal.c
+index 7f7d1116b9d6..d471acc16bce 100644
+--- a/drivers/thermal/imx_thermal.c
++++ b/drivers/thermal/imx_thermal.c
+@@ -85,6 +85,10 @@ enum imx_thermal_trip {
+ #define TEMPMON_IMX6SX			2
+ #define TEMPMON_IMX7D			3
+ 
++/* Calibration offset limits (±20 °C in millicelsius) */
++#define IMX_TEMP_CALIB_OFFSET_MIN	(-20000)
++#define IMX_TEMP_CALIB_OFFSET_MAX	20000
++
+ struct thermal_soc_data {
+ 	u32 version;
+ 
+@@ -207,6 +211,7 @@ struct imx_thermal_data {
+ 	struct regmap *tempmon;
+ 	u32 c1, c2; /* See formula in imx_init_calib() */
+ 	int temp_max;
++	s32 calibration_offset;
+ 	int alarm_temp;
+ 	int last_temp;
+ 	bool irq_enabled;
+@@ -223,6 +228,7 @@ static void imx_set_panic_temp(struct imx_thermal_data *data,
+ 	struct regmap *map = data->tempmon;
+ 	int critical_value;
+ 
++	panic_temp -= data->calibration_offset;
+ 	critical_value = (data->c2 - panic_temp) / data->c1;
+ 
+ 	regmap_write(map, soc_data->panic_alarm_ctrl + REG_CLR,
+@@ -239,6 +245,7 @@ static void imx_set_alarm_temp(struct imx_thermal_data *data,
+ 	int alarm_value;
+ 
+ 	data->alarm_temp = alarm_temp;
++	alarm_temp -= data->calibration_offset;
+ 
+ 	if (data->socdata->version == TEMPMON_IMX7D) {
+ 		if (alarm_temp >= 0)
+@@ -283,6 +290,7 @@ static int imx_get_temp(struct thermal_zone_device *tz, int *temp)
+ 		*temp = (n_meas - data->c1 + 25) * 1000;
+ 	else
+ 		*temp = data->c2 - n_meas * data->c1;
++	*temp += data->calibration_offset;
+ 
+ 	/* Update alarm value to next higher trip point for TEMPMON_IMX6Q */
+ 	if (data->socdata->version == TEMPMON_IMX6Q) {
+@@ -635,6 +643,25 @@ static int imx_thermal_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, data);
+ 
++	if (of_property_present(dev->of_node,
++				"fsl,temp-calibration-offset-millicelsius")) {
++		ret = of_property_read_s32(dev->of_node,
++					   "fsl,temp-calibration-offset-millicelsius",
++					   &data->calibration_offset);
++		if (ret)
++			return dev_err_probe(dev, ret,
++					     "failed to read calibration offset\n");
++
++		if (data->calibration_offset < IMX_TEMP_CALIB_OFFSET_MIN ||
++		    data->calibration_offset > IMX_TEMP_CALIB_OFFSET_MAX)
++			return dev_err_probe(dev, -EINVAL,
++					     "calibration offset %d millicelsius out of range\n",
++					     data->calibration_offset);
++
++		dev_dbg(dev, "calibration offset: %d millicelsius\n",
++			data->calibration_offset);
++	}
++
+ 	if (of_property_present(dev->of_node, "nvmem-cells")) {
+ 		ret = imx_init_from_nvmem_cells(pdev);
+ 		if (ret)
+
+-- 
+2.43.0
+
 
