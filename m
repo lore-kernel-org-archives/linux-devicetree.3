@@ -1,201 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7DCE2D9EED
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 13:31:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90E0C345CBC
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 13:31:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784727071; cv=none; b=OhNci1OPUJrq/WxxkusmjWZUendQRRzGTKnTK/Ed/sDkJDmBGWdGmV2eSOM6fRvCAUZnwmq+vzvVhimca9p6oyGe/mit91FzttP3Ru187NFODnBQRF0vTweQvdT8f43vXOhtoqdd0oP06Om+O+fvxM7Wfshn7uvGAWvvbfhTgB0=
+	t=1784727071; cv=none; b=uihxAlF3qpaUkagFOsW6QN/GhmPepX6hk2qfydTN+wtnblFYgcXFBtzc6QDEQWU0GfWLdaDO/3kkHXR+SJRJ8G5+AedCmRmyyo8S6xUQKzhUfm+Zviujfb21QCj7ujQDs0FahcNI0aPLYTDZc5wG1P5bRHKxmATHPAmO1O+f+nc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784727071; c=relaxed/simple;
-	bh=jSLXKkizYU7nmM6KRinKGdZms+0ZGvjoH5J5ejUmG1o=;
+	bh=54g8rtUwNIHn4d6i51YDt5zWH9Nkapo9XJo+N23ZuPw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VfrqyKgoV1eObPHw0OJ8XRISMJ1Fj6iZPPb6OXsX4+F0qeeVifAkDHDKfhMSNrwzU273tFUBplcrRcni3omduZT9BA3aOVaO4IJQyjEdtHyFDQL2dkfpq3yBWfHpRosU4fQ73f81tFf/VWnjStqE56gz/6WgUGRs/pnRsr0/DGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LHsTEi3N; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=DUd5TCx7yqN0a2jIM7EyGbUl03OeXEOqEvkuIKcubJ0hi7KOXwiA3o4d2FDMlDsjfItvFNQ+pMGlFSM27yxHQwaYedU+d1ZSuKh+sDrLBhPb66fIJCpfL4V6HPct2ans/T/TmH7dKMnaDix3WMt7j8ys0zoBMW61dw71sWybQgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FYNn1D/k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LHsTEi3N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 124911F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FYNn1D/k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E658B1F00A3A;
 	Wed, 22 Jul 2026 13:31:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784727069;
-	bh=PdBMy1f8TxFnfPp/v2gFEhP4sNZj9PndeHnZ2/73qxY=;
+	s=k20260515; t=1784727070;
+	bh=dGigKcbt5WXLZAY6ISAjJsQInDwxWoqD3au9CzhDoew=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LHsTEi3NpdVDckeU4qoOP87OaYjip3+Coasp1AeF9SgPu3CHTNypmwqXISsvnoVWM
-	 fqsdtl5j21qrVekj7e14vneLjElN7wLUrzHmwIzpCk23KlfVZs3zJtyZxV61NGLGCK
-	 q0KQS7Y2ittYc1g2jQGK7UOiivmoP0p+J4tzdtFJmqSOHNUCoFKpyRnRKNjzmomrsc
-	 BFlqfJGJ5Yox2Goi/Me1DUHvCOsJNYGqN7pMHYjsF9HWloseuGnx+meCwiAGXfdap6
-	 VqQ6DkJLO5fn8UVQqWjr8hYG8Mk2UEcHIh2U2jWho3i2rmBpPMOwOnf/nV0WQhWUYz
-	 /K+2GUygdhf3g==
+	b=FYNn1D/kSYv9if3KXAn/8ZYmcke2FzHdaf1RpLdKgbr3vkIjtGpZnKpKjFcaiZnnx
+	 W7jcoRLYPbOoHL41INbMvSy4pNIRI5xWnDZbyCc5VicUaJlgiNfk8vXQ/OK7KUMWGf
+	 yaVPgtZNdkLpIZGlAQtIDw8Ffm07a7WGW2+V7XqLPj6uw+Q6dX6Cd90fT6WM9sfBby
+	 NGiels4CKzSqn/3LgxwDrmvEQjF5V8uBi0tZJlJCGgxTFwpjSFqIP2iDkVvnA/Cse4
+	 ur3UNf3g71cpluMgW59I1X8BNYwwFjMz5kt5wiFs/hzMsixA8uWXRAtolBbjTdiWq5
+	 uDqFr2AW+Sj5Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v5 2/3] ptp: Add driver for R-Car Gen4
+Subject: Re: [PATCH net-next v5 3/3] arm64: dts: renesas: r8a779g0: Add gPTP
+ node
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?TmlrbGFzIFPDtmRlcmx1bmQ=?= <niklas.soderlund+renesas@ragnatech.se>
-Cc: conor+dt@kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org
-In-Reply-To: <20260721132936.1331318-3-niklas.soderlund+renesas@ragnatech.se>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260721132936.1331318-4-niklas.soderlund+renesas@ragnatech.se>
 References: <20260721132936.1331318-1-niklas.soderlund+renesas@ragnatech.se>
- <20260721132936.1331318-3-niklas.soderlund+renesas@ragnatech.se>
+ <20260721132936.1331318-4-niklas.soderlund+renesas@ragnatech.se>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 13:31:08 +0000
-Message-Id: <20260722133109.124911F000E9@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 13:31:09 +0000
+Message-Id: <20260722133109.E658B1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Missing return value check for pm_runtime_get_sync() before MMIO a=
-ccess.
-- [Medium] Type mismatch and potential truncation in default_addend calcula=
-tion.
-- [Medium] Timekeeping precision loss during adjtime due to read-modify-wri=
-te cycle.
-- [Medium] Missing hardware disable in the ptp_clock_register() error path.
+- [High] Device Tree Resource Overlap causes probe failure due to exclusive=
+ memory region request
+- [High] Hardware Reset State Corruption of shared system gPTP module
 --
 
---- Patch [2]: [PATCH net-next v5 2/3] ptp: Add driver for R-Car Gen4 ---
-commit 157f9604feea3029de3329fc9af614f925220b8a
+--- Patch [3]: [PATCH net-next v5 3/3] arm64: dts: renesas: r8a779g0: Add g=
+PTP node ---
+commit 4292ed266aa9785a4578e66f92c58f83f6f4bbfd
 Author: Niklas S=C3=B6derlund <niklas.soderlund+renesas@ragnatech.se>
 
-ptp: Add driver for R-Car Gen4
+arm64: dts: renesas: r8a779g0: Add gPTP node
 
-This commit adds a driver for the gPTP timer found on R-Car Gen4 devices.
-The timer is system-wide and shared by Ethernet devices, but it is gated by
-different clocks depending on the specific SoC hardware.
+The gPTP module is shared between the RAVB and RTSN Ethernet devices on
+the SoC.
 
-> diff --git a/drivers/ptp/ptp_rcar_gen4.c b/drivers/ptp/ptp_rcar_gen4.c
-> new file mode 100644
-> index 0000000000000..8072d5f2b72dd
-> --- /dev/null
-> +++ b/drivers/ptp/ptp_rcar_gen4.c
-
-[ ... ]
-
-> +static void _ptp_rcar_gen4_settime(struct ptp_clock_info *ptp,
-> +				   const struct timespec64 *ts)
-> +{
-> +	struct ptp_rcar_gen4_priv *priv =3D ptp_to_priv(ptp);
-> +
-> +	lockdep_assert_held(&priv->lock);
-> +
-> +	iowrite32(1, priv->base + PTPTMDC_REG);
-> +	iowrite32(0, priv->base + PTPTOVC20_REG);
-> +	iowrite32(0, priv->base + PTPTOVC10_REG);
-> +	iowrite32(0, priv->base + PTPTOVC00_REG);
-> +	iowrite32(1, priv->base + PTPTMEC_REG);
-> +	iowrite32(ts->tv_sec >> 32, priv->base + PTPTOVC20_REG);
-> +	iowrite32(ts->tv_sec, priv->base + PTPTOVC10_REG);
-> +	iowrite32(ts->tv_nsec, priv->base + PTPTOVC00_REG);
-> +}
-
-[ ... ]
-
-> +static int ptp_rcar_gen4_adjtime(struct ptp_clock_info *ptp, s64 delta)
-> +{
-> +	struct ptp_rcar_gen4_priv *priv =3D ptp_to_priv(ptp);
-> +	struct timespec64 ts;
-> +	unsigned long flags;
-> +	s64 now;
-> +
-> +	spin_lock_irqsave(&priv->lock, flags);
-> +	_ptp_rcar_gen4_gettime(ptp, &ts);
-> +	now =3D ktime_to_ns(timespec64_to_ktime(ts));
-> +	ts =3D ns_to_timespec64(now + delta);
-> +	_ptp_rcar_gen4_settime(ptp, &ts);
-
-[Severity: Medium]
-Does this read-modify-write cycle introduce jitter and systematic time drif=
-t?
-
-Every time ptp_rcar_gen4_adjtime() is called, it halts the hardware timer
-via PTPTMDC_REG in _ptp_rcar_gen4_settime().=20
-
-Any time elapsed during this software execution and the fractional
-sub-nanosecond progress currently stored in the hardware accumulator might =
-be
-permanently lost.
-
-> +	spin_unlock_irqrestore(&priv->lock, flags);
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int ptp_rcar_gen4_probe(struct platform_device *pdev)
-> +{
-> +	struct ptp_rcar_gen4_priv *priv;
-> +	struct device *dev =3D &pdev->dev;
-> +	unsigned long rate;
-
-[ ... ]
-
-> +	/* Default timer increment in ns.
-> +	 * bit[31:27] - integer
-> +	 * bit[26:0]  - decimal
-> +	 * increment[ns] =3D perid[ns] * 2^27 =3D> (1ns * 2^27) / rate[hz]
-> +	 */
-> +
-> +	priv->default_addend =3D div_s64(1000000000LL << 27, rate);
-
-[Severity: Medium]
-Could this calculation result in type truncation and overflow?
-
-The div_s64() function expects an s32 divisor, but it is being passed an
-unsigned long 'rate'. If the clock rate exceeds 2.14 GHz, it overflows
-s32 and evaluates as negative.
-
-Additionally, the 64-bit result is passed directly to the 32-bit iowrite32()
-shortly after this. If the clock rate is below ~31.25 MHz, the result
-would exceed 32 bits and silently truncate. Would it be safer to use
-div64_ul() and validate the bounds before writing to the register?
-
-> +
-> +	pm_runtime_enable(dev);
-> +	pm_runtime_get_sync(dev);
-> +
-> +	iowrite32(priv->default_addend, priv->base + PTPTIVC0_REG);
+> diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi b/arch/arm64/boot/=
+dts/renesas/r8a779g0.dtsi
+> index 82a7278836e57..b9b860ef70351 100644
+> --- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+> @@ -589,6 +589,15 @@ tmu4: timer@ffc00000 {
+>  			status =3D "disabled";
+>  		};
+> =20
+> +		gptp: ptp@e6449000 {
+> +			compatible =3D "renesas,r8a779g0-gptp", "renesas,rcar-gen4-gptp";
+> +			reg =3D <0 0xe6449000 0 0x500>;
 
 [Severity: High]
-Should the return value of pm_runtime_get_sync() be checked before proceedi=
-ng
-to access hardware?
+Does this overlap with the existing tsn0 node?=20
 
-If the device fails to power on or the clock fails to enable, ignoring the
-negative error code and writing to PTPTIVC0_REG could cause an asynchronous
-external abort, potentially leading to a kernel panic.
+The existing tsn0 node still claims this identical 0xe6449000 memory region
+(size 0x500), which its driver requests exclusively via
+devm_ioremap_resource().
 
-> +	iowrite32(1, priv->base + PTPTMEC_REG);
+Will one of the drivers fail probing entirely, given that request_mem_regio=
+n()
+will reject the second request with -EBUSY?
+
+> +			clocks =3D <&cpg CPG_MOD 2723>;
+> +			power-domains =3D <&sysc R8A779G0_PD_ALWAYS_ON>;
+> +			resets =3D <&cpg 2723>;
+
+[Severity: High]
+Could sharing this reset line cause hardware state corruption?
+
+The tsn0 network driver also maps to the same reset line 2723 and actively
+asserts it during interface up/down.
+
+If the tsn0 interface is brought up or down, wouldn't it forcefully reset
+the physical gPTP module, wiping out the precision time synchronization
+configuration and internal timer values for any other active consumers
+(such as RAVB)?
+
+> +			status =3D "disabled";
+> +		};
 > +
-> +	priv->clock =3D ptp_clock_register(&priv->info, dev);
-> +	if (IS_ERR(priv->clock)) {
-> +		pm_runtime_put_sync(dev);
-> +		pm_runtime_disable(dev);
-> +		return PTR_ERR(priv->clock);
-
-[Severity: Medium]
-Is a hardware disable step missing in this error path?
-
-If ptp_clock_register() fails, the driver cleans up the PM state but fails
-to write the disable command to PTPTMDC_REG. The timer might be left running
-indefinitely.
-
-The normal driver removal path explicitly disables the timer before
-suspending PM:
-
-ptp_rcar_gen4_remove() {
-    ...
-    iowrite32(1, priv->base + PTPTMDC_REG);
-    pm_runtime_put_sync(dev);
-}
-
-> +	}
-> +
-> +	return 0;
-> +}
+>  		tsn0: ethernet@e6460000 {
+>  			compatible =3D "renesas,r8a779g0-ethertsn", "renesas,rcar-gen4-ethert=
+sn";
+>  			reg =3D <0 0xe6460000 0 0x7000>,
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721132936.1331=
-318-1-niklas.soderlund+renesas@ragnatech.se?part=3D2
+318-1-niklas.soderlund+renesas@ragnatech.se?part=3D3
