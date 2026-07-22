@@ -1,125 +1,104 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE60233D9E
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 23:51:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BCF040F72B
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 23:51:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784764290; cv=none; b=X4Wg2CJdr+kjGGQVjnnlesqluoGC8Y/sbcS4aO9Ho/on2pRP/Tz13M9q2WhxE8lfdPC/o0euniEtUy4rVUYZYGcf50EU9YkuDhfUoleJ/mvZQIfSzJMA0EFTILtjjkx6gfsRfltGwyQW+37D7vWDA/5ehIRuISJphP4rkG0LvlQ=
+	t=1784764307; cv=none; b=C1jeEhj4zZtUZQPcelC+bLBtt94zdG1bs+z0Sr77ik2HGfV1gTBrE+jBMCOL4kfAN7fPRu3Hakl+UDm4X+ekAm7l9BbMtEFX4bE2ls6QdKo4bF6y+URQ+iImk+WQah5HVNNfaHTGZ9uAe93yp1ustSVuUr3C8XEELrnTLEV5uLI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784764290; c=relaxed/simple;
-	bh=l76vJB//fiv5NUToi24XYVgUjHJscXal8jTd8z2f55A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iwadCIgpDmSoYDnjHAcC0npC7qP1w3q/O84n7q4+SSJp/xj2brET3az9Tf4UPC37yeS2+NZt0ep+y8K7jbQAD4sgESApVjEAxiNqpHftJNXk+xF0ctTXxVyyl4BGBmaZzhfMJf2jA91UQvMPRfNtBKRdBY1s0LR5lXjVDOYtFGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=h3XuoyKw; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1784764307; c=relaxed/simple;
+	bh=n0tSy46fFjKgiMlruxNQzc1KbDdN0pFJI1AI1fwovTM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qNlXyxertWY/b0kJ8FokVtD6NTMKE9FS8kVUWvdPriQOHZW/WCaYySF6OLiZQr2sPgLhfIuXJSZoLZAJW0+ElfZTRReNpzFqKuSSSYyyzUJsgBFaVloq5245RtGdV1Ngp5LJhjR4Rwy+KeHVeGeDNURVbkQdjNjjUcAL1ZWtGNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EfIR2e6I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="h3XuoyKw"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cc61541f8cso238865ad.0
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 16:51:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1784764288; x=1785369088; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/owFfuQW7essVnvkb7c0YaK3a70SCLv8tN9SvYhKU00=;
-        b=h3XuoyKwZmlKrruWjd31K78zdsYQfqD0AkXfe0mfklvzBiUn9AZsaqBcZtXcZRrf70
-         0d14oISnkUegynuzomoXusI/3zGKOiDevMrfi/86w8Ho2XyTwJGVzo13oADpITTfClgz
-         0VwVrz1CMaMNdWppzur+c5M7KxlY19DKsd4Rc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784764288; x=1785369088;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/owFfuQW7essVnvkb7c0YaK3a70SCLv8tN9SvYhKU00=;
-        b=tP5AEhMyfDvazsfKxv0dHJlARwo2Qc1ld+1pyWeKhjHx3UhavNtBPzA6ywYWGnh6er
-         Le+9rh26wraTRQBHkS58ysPBSiZjUjXB4FW2hIi1M47ZOkMxye5dHM1z6KKRTLMYiebC
-         pW/aX6QkVtDgA0Z/XavpM7RS8TdPcnegK7j5Ywzs4G/me3lvxk7WDVGJdxQlYFjnDL4p
-         zdihBCNqWgDVJgtyZxPy/lh3jiHwdIfowTtWbiQdo3aa7mOcG2ISmuJjKaC3Ip/QOkNZ
-         HdLzXLTxq0lk7Gf+U0sE7NaNZhnkMvrcs4fLR/wcg/dUEwYBsxjFptgGH45rKLbptkOR
-         tCew==
-X-Forwarded-Encrypted: i=1; AHgh+RpNL4wwBCX0Z1Z0OT3Jz9Qh/fxI4FPYxZCnSf9lhl+BpoKv878QKyy1hqN2hfk6cNQwAQRS0EIL+d+m@vger.kernel.org
-X-Gm-Message-State: AOJu0YxDvkl/t1T7Y8m8IxrigU+MP9w+gywvf04jZJSzmcxRrMCRXLmx
-	tP5abnHTLUk8+zz+46aSC+MGiCebtjqA4Ue0Vae2EqJGtmaXQ9k8va8WNmJ2nj3cWw==
-X-Gm-Gg: AR+sD11VhK/k9RkZ9UpSL7Y/yfiVTS3C0H/hu/f4huQvLlxN/AYPoiavBmevYc+59is
-	skqSD43ApHyF2TLr+7efmpnOY7U9/cYED24vBoY8xpW/dGZdeGJj/tkJd7cNLY5dvxcUdPGY1Jp
-	1Sz7hjTEiG6ZJ4qSTMpt4XdmbkXPO1PEMAFzL0j7MpsAZW9zGp7EnAoXGvrteQa27xOJXH40Nn/
-	/R9F+/Kfa0keMP9qJa6H69StQ3q8lYul91k4p7Vq8WsxRN/HSfF9F+zx6/BkG+TlcJQjudKYF1n
-	0cDMhaTI9IKbJVvp/3opplEZMWAsC7QURIC4pxGtw0ck3w1zPQi7Qb0hEqZWA0PuXWF3pqM5XoF
-	87a3PgCMehDOX0TnMRuYvmiauPPffbd6oQIKWUOdVbSkaQ9C9JVAOVBLsiXSU0idW1eJN3tDEI7
-	xwXBIRntQeWZEuhEmiFHe4NoOU7zOSVaFjLDAkrJRAOzdQGWtQYjI=
-X-Received: by 2002:a05:6a20:6a26:b0:3c4:2f75:719 with SMTP id adf61e73a8af0-3c44cd1de09mr386413637.37.1784764288427;
-        Wed, 22 Jul 2026 16:51:28 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2e7c:8:f3fd:a899:78ad:64d4])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-3147e07000fsm25313445eec.21.2026.07.22.16.51.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Jul 2026 16:51:26 -0700 (PDT)
-Date: Wed, 22 Jul 2026 16:51:24 -0700
-From: Brian Norris <briannorris@chromium.org>
-To: Peter Griffin <peter.griffin@linaro.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Drew Fustini <fustini@kernel.org>, Kees Cook <kees@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, linux-serial@vger.kernel.org,
-	soc@lists.linux.dev, Douglas Anderson <dianders@chromium.org>,
-	Juan Yescas <jyescas@google.com>, RD Babiera <rdbabiera@google.com>,
-	William McVicker <willmcvicker@google.com>, kernel-team@android.com
-Subject: Re: [PATCH v2 4/5] arm64: dts: google: Add initial dts for
- frankel/blazer/mustang
-Message-ID: <amFXfFFSGfqReFWO@google.com>
-References: <20260722-contrib-pg-pixel10-initial-dts-v2-0-3abae9717feb@linaro.org>
- <20260722-contrib-pg-pixel10-initial-dts-v2-4-3abae9717feb@linaro.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EfIR2e6I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27C461F000E9;
+	Wed, 22 Jul 2026 23:51:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784764306;
+	bh=Go8AOxmTWYcsuYmefwVa+XTgdRbOFg0rs8QpqfRlI/g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EfIR2e6IThI+Yd6GcZcR8Yx4KO1tIg8QOntltH+WtBuSGUD7uU2vBHmISdsQ7AmBJ
+	 GK4cY0Mu7eM/fspqWLcTjoOxjron+8j15HRBvWmetEaDWSdmMMDwySlBpXHdHktr2Y
+	 VfYmW0SRLBDgbC21hKYh/Xzkr7wc0utX5eThsN33BA/eVeTiGsDb91mbNbcUy/9lVu
+	 OHpV4SCKRXSyz8wJmnzVD0G9cUzSzj0R0qsKcf8fqa8fihM/cocIVbQ+dyprl5tqev
+	 PUZAMG6Kj1T1z7aC/qr9KTejH0fQ1nC5grP1aFuzx/FzFKJKjSB1/3MFjidFQXPtHj
+	 fFeNdm4gOlqRQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 7/8] dt-bindings: sound: qcom: add Tambora WCD9378
+ SDCA codec
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260722234221.884765-8-srinivas.kandagatla@oss.qualcomm.com>
+References: <20260722234221.884765-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260722234221.884765-8-srinivas.kandagatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 23:51:45 +0000
+Message-Id: <20260722235146.27C461F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260722-contrib-pg-pixel10-initial-dts-v2-4-3abae9717feb@linaro.org>
 
-Hi Peter,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The unit-address in the example node name `audio-codec@3,0` does no=
+t match its `reg` property `<0 3>`.
+--
 
-On Wed, Jul 22, 2026 at 10:55:55AM +0100, Peter Griffin wrote:
-> diff --git a/arch/arm64/boot/dts/google/lga-pixel-common.dtsi b/arch/arm64/boot/dts/google/lga-pixel-common.dtsi
+--- Patch [7]: [RFC PATCH 7/8] dt-bindings: sound: qcom: add Tambora WCD937=
+8 SDCA codec ---
+commit 5fe69f3b063a8e89646196eb389830ac9c6473c6
+Author: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+
+dt-bindings: sound: qcom: add Tambora WCD9378 SDCA codec
+
+This commit introduces the device tree binding for the Qualcomm WCD9378
+SoundWire slave devices. It defines properties for both mobile mode and
+SDCA compute mode configurations.
+
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yam=
+l b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
 > new file mode 100644
-> index 000000000000..57c318ab44c9
+> index 0000000000000..2ed4ad92958ed
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/google/lga-pixel-common.dtsi
+> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
 
-> +	aliases {
-> +		serial0 = "/soc@0/serial@db62000";	/* &lsion_cli16_uart */
-> +		ufs0 = "/ufs-placeholder";		/* &ufs - TODO "/soc@0/ufs@3c400000" */
+[ ... ]
 
-I'm going to go out on a limb here and guess that these aliases are
-being spelled literally (with comments pointing at their label) because
-they used to be formed as overlays (where the label won't resolve
-properly, I expect?).
+> +  # SDCA / compute mode: single aggregated slave -- owns supplies,
+> +  # reset GPIO and mic-bias voltages.
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    soundwire@7630000 {
+> +        reg =3D <0x07630000 0x10000>;
+> +        #address-cells =3D <2>;
+> +        #size-cells =3D <0>;
+> +
+> +        wcd9378c_sdw: audio-codec@3,0 {
+> +            compatible =3D "sdw20217011000";
+> +            reg =3D <0 3>;
 
-Do we still want to spell it this way? This looks generally nicer, and
-won't need an update when we get a real ufs node:
+[Severity: Low]
+Should the unit address in the node name be audio-codec@0,3 to properly mat=
+ch
+the reg property <0 3>?=20
 
-		serial0 = &lsion_cli16_uart;
-		ufs0 = &ufs;
+The device tree compiler will likely emit a unit_address_vs_reg warning
+during make dt_binding_check when parsing this example.
 
-IMO, we can cross the overlay bridge when we come to it.
+> +
+> +            qcom,compute-mode;
+> +            qcom,port-mapping =3D <2 2 3 4 5 6 7 8>;
 
-Brian
+[ ... ]
 
-> +	};
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722234221.8847=
+65-1-srinivas.kandagatla@oss.qualcomm.com?part=3D7
