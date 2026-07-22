@@ -1,86 +1,168 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E297403AF1;
-	Wed, 22 Jul 2026 16:52:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463BD3EDAC1
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 16:52:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784739148; cv=none; b=CtchD1PSbV6ETm40RUCa4+qcNoFVEiXWoxcSaEHD/s+PiCPRDvZ7k7gDbMVophKcrYM5cH/Hu2Bdh05iUjzrW1Jju3lcP4cJQd0NOGu9ikPHKrJhNLT2OS4dvDSz/lty2qr8/DYqm6a2SFVa74NRzsf9FQ6od6DskaS2H3gkDqc=
+	t=1784739151; cv=none; b=A3yjjM1B+jc6GrlKGBc9z8G7L34NrKPuD9bm4PouNJSMultYmsVNCgIfvcMgaUl4XDL8ePrg1DoBqKsT0TX5zU2KZPtQqPjZg4eG0QHrGlmOlctuQicogd+QdYsrD42GO0trir/SJHIB71n+gBZjDti6NF/uwUJtH9hI9HCp+Fg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784739148; c=relaxed/simple;
-	bh=yIhRkRrh0sn1tTFaoOyW1vk1VDgHT9zFdkvuhLp0+dU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bsmgTNab+TxJC2KqxX2SJ4qelT5i1bDNJzacgYi1NXQoHT8ZMccXIyqAgSA1DkBIAV09J/FY/MPR/3HTFUYMt3pZROgFy2/bHktdJFSisa+8PYmjvR2VtCcWO+enEduLMIIim0fTyGXcDET2BU91cR6rVJ4u7v0QpO9UAiRmcxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DpFHoyV0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784739151; c=relaxed/simple;
+	bh=K+MyjNCcnwvZN4KmanqAo5+DTdsqcpEiqREqOUW4hLY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ML/Q7a86SH2o43rlS3jz3Pv/Lccvb8O+yvWKiJwTxKf0rKErZXRO6evl8voPWW9LU6Q7ZsuoHEdC7seQMyzx0kseg48L5S69hUZY0nR6fWyPABO08mEy/9QlMdhlXVCoU06Q7Vgj/0NGkSQGh8+EoWc0o7lrzOU7z1gsmmSnOsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UetiWuWK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DpFHoyV0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75D851F000E9;
-	Wed, 22 Jul 2026 16:52:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UetiWuWK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0FEC1F00A3A;
+	Wed, 22 Jul 2026 16:52:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784739141;
-	bh=GL2pSyfUqjuPmverPU2rNkWROn+3SQ8dGrBCAoNYays=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DpFHoyV0VFzABFLUPR7icr9hWT7ghJ6g3aNli0e/diFud0wL7Cm3kFotmEPSNYqHj
-	 4WmkKbR8kP0jQFRPjeO5JmcDEGYx08WsaNe55rJZ/lx/OlHO/4TAIH32OMch3eu0+r
-	 hEBY031rVJByEP4q9/pdc9MbqGiWu2j0dCeHvz7d1G6W76sT4KNnywdZUSc/kHDvRi
-	 IRmUVnCUp6x1vGfZv71ZPpQjS9FRzGlNsbOCwUAvmMs0urk3vjTxkoz6Umm1NG9EAI
-	 bS2umLIzRe5jJQx0+q784VYxhZON5JEwdkrw4Y4CE9ERy9LT+tZkN6uZfW4KAi/IpD
-	 I9OoC79v7RBZw==
-Date: Wed, 22 Jul 2026 11:52:19 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Jianjun Wang <jianjun.wang@mediatek.com>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Michael Turquette <mturquette@baylibre.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	linux-clk@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	linux-pci@vger.kernel.org, Brian Masney <bmasney@redhat.com>,
-	devicetree@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
-	linux-mediatek@lists.infradead.org,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	linux-arm-kernel@lists.infradead.org,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [PATCH v4 3/4] dt-bindings: PCI: mediatek-gen3: Split Airoha
- schema and document 2-lanes
-Message-ID: <178473913929.1097113.176772633054348550.robh@kernel.org>
-References: <20260714115848.8537-1-ansuelsmth@gmail.com>
- <20260714115848.8537-4-ansuelsmth@gmail.com>
+	s=k20260515; t=1784739148;
+	bh=439jY9zy2N/WIjyHfAt8DK3NNeJ3Q1NARW9oSamHhr0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UetiWuWKmFsiYxF8Adr+tczJa5hrpT+EphiYmj2KzDbNsE3K7IMZauB/ZOBye1Rmg
+	 hNRIJ2KDsSH/DkmOlNaf87aGDZnbOLB1EoHoJlZiSalGGK9tK7HCk+TjKKeQb2UugW
+	 usMxNa+t+dFMmPXfOlIQILSw7g+1S+SpEm4q871tjidMZiJhzvoFyD0qV+j0DqkB7a
+	 UxYDAq2q0VnoYoo/7PJygi7HhzB8sLHv+QkRdyNQvdzJOfpDnysRFpD7wPh/8ShrP0
+	 9LutKaQCfwFcQSv47VotfWcl5S2ao+788//0a3TLPHMZHz4xuNE4igMVeBdcbFzhd5
+	 CnPzghkkGABwA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 15/17] iio: frequency: ad9910: show channel priority
+ in debugfs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rodrigo Alencar" <rodrigo.alencar@analog.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260722-ad9910-iio-driver-v9-15-459d1df5ac56@analog.com>
+References: <20260722-ad9910-iio-driver-v9-0-459d1df5ac56@analog.com>
+ <20260722-ad9910-iio-driver-v9-15-459d1df5ac56@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 16:52:27 +0000
+Message-Id: <20260722165227.F0FEC1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260714115848.8537-4-ansuelsmth@gmail.com>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Lockless access to `indio_dev->active_scan_mask` in debugfs call=
+backs leads to a Time-of-Check to Time-of-Use (TOCTOU) Use-After-Free or NU=
+LL pointer dereference.
+--
 
-On Tue, 14 Jul 2026 13:58:45 +0200, Christian Marangi wrote:
-> To permit proper documentation of required property to support PCIe
-> configured for 2-lanes mode, split the Airoha schema part from the
-> mediatek-gen3 schema to a dedicated schema.
-> 
-> A PCIe configured for 2-lanes mode require an additional reg for the
-> secondary PCIe to be configured and the airoha,scu phandle to correctly
-> configure the PCIe MUX.
-> 
-> Rework the mediatek-gen3 schema to drop any redundant constraint previsouly
-> introduced for Airoha PCIe properties.
-> 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> ---
->  .../bindings/pci/airoha,en7581-pcie.yaml      | 244 ++++++++++++++++++
->  .../bindings/pci/mediatek-pcie-gen3.yaml      |  77 +-----
->  2 files changed, 249 insertions(+), 72 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/pci/airoha,en7581-pcie.yaml
-> 
+--- Patch [15]: [PATCH v9 15/17] iio: frequency: ad9910: show channel prior=
+ity in debugfs ---
+commit fd59307766b0ba216861518edba7f7cf6e5c6e92
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+iio: frequency: ad9910: show channel priority in debugfs
 
+This commit exposes frequency, phase, and amplitude source attributes in
+debugfs for the AD9910 driver. These attributes indicate which channel
+is sourcing specific DDS parameters based on the device's priority table.
+
+> diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad991=
+0.c
+> index 49a70909bf5fe..32bd1e6cf14f7 100644
+> --- a/drivers/iio/frequency/ad9910.c
+> +++ b/drivers/iio/frequency/ad9910.c
+
+[ ... ]
+
+> +static inline const char *ad9910_frequency_source_get(struct iio_dev *in=
+dio_dev)
+> +{
+> +	struct ad9910_state *st =3D iio_priv(indio_dev);
+> +	bool ram_en, mode_en;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+
+[ ... ]
+
+> +	/* Parallel data port enabled and data destination is frequency */
+> +	mode_en =3D FIELD_GET(AD9910_CFR2_PARALLEL_DATA_PORT_EN_MSK,
+> +			    st->reg[AD9910_REG_CFR2].val32);
+> +	if (mode_en && indio_dev->active_scan_mask &&
+> +	    test_bit(AD9910_SCAN_IDX_FREQ, indio_dev->active_scan_mask))
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[Severity: Medium]
+Is it safe to access indio_dev->active_scan_mask here without holding the
+IIO core mlock?
+
+If another thread concurrently disables buffers, could the mask be freed and
+set to NULL between the if check and test_bit(), leading to a NULL pointer
+dereference?
+
+While this appears to be a latent regression since the driver currently only
+sets INDIO_DIRECT_MODE, could this cause crashes if buffer support is added=
+ in
+the future?
+
+> +		return ad9910_channel_str[AD9910_CHAN_IDX_PARALLEL_FREQ];
+
+[ ... ]
+
+> +static inline const char *ad9910_phase_source_get(struct iio_dev *indio_=
+dev)
+> +{
+> +	struct ad9910_state *st =3D iio_priv(indio_dev);
+> +	bool ram_en, mode_en;
+> +	u32 destination;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+
+[ ... ]
+
+> +	/* Parallel data port enabled and data destination is phase */
+> +	mode_en =3D FIELD_GET(AD9910_CFR2_PARALLEL_DATA_PORT_EN_MSK,
+> +			    st->reg[AD9910_REG_CFR2].val32);
+> +	if (mode_en && indio_dev->active_scan_mask) {
+> +		if (test_bit(AD9910_SCAN_IDX_PHASE, indio_dev->active_scan_mask))
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^=
+^^^^
+[Severity: Medium]
+Could this also be affected by the same lockless access issue with
+indio_dev->active_scan_mask mentioned above?
+
+> +			return ad9910_channel_str[AD9910_CHAN_IDX_PARALLEL_PHASE];
+> +		if (test_bit(AD9910_SCAN_IDX_POLAR_PHASE, indio_dev->active_scan_mask))
+> +			return ad9910_channel_str[AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE];
+> +	}
+
+[ ... ]
+
+> +static inline const char *ad9910_amplitude_source_get(struct iio_dev *in=
+dio_dev)
+> +{
+> +	struct ad9910_state *st =3D iio_priv(indio_dev);
+> +	bool ram_en, mode_en;
+> +	u32 destination;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+
+[ ... ]
+
+> +	/* Parallel data port enabled and data destination is amplitude */
+> +	mode_en =3D FIELD_GET(AD9910_CFR2_PARALLEL_DATA_PORT_EN_MSK,
+> +			    st->reg[AD9910_REG_CFR2].val32);
+> +	if (mode_en && indio_dev->active_scan_mask) {
+> +		if (test_bit(AD9910_SCAN_IDX_AMP, indio_dev->active_scan_mask))
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^=
+^^
+[Severity: Medium]
+Does this also have the same lockless access issue with
+indio_dev->active_scan_mask?
+
+> +			return ad9910_channel_str[AD9910_CHAN_IDX_PARALLEL_AMP];
+> +		if (test_bit(AD9910_SCAN_IDX_POLAR_AMP, indio_dev->active_scan_mask))
+> +			return ad9910_channel_str[AD9910_CHAN_IDX_PARALLEL_POLAR_AMP];
+> +	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-ad9910-iio=
+-driver-v9-0-459d1df5ac56@analog.com?part=3D15
