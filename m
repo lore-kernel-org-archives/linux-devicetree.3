@@ -1,175 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011068.outbound.protection.outlook.com [52.101.65.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3977B2701B6
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 03:52:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784692336; cv=none; b=PnA4ROfCIRicKsbijMvido/4LDFFVlKzmLJc5ebXgK9C3U0N5mwZvDGalPX9Hz85KaQnX8KrlxSz4IMnAbcqbv/+yvwYtmsyWrXQH1IM4Ovk+OdZ9nxmNKIoE0wy0iSy7sCX3pmrEv1cgw3t3UDCqatSQmq3ha7nz3qFOEgvZno=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784692336; c=relaxed/simple;
-	bh=N0CPRPXWtIDReFhPDvIW0bn56EI5cFUMsu+KZXQ4P8s=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eULb05oU1Rt+5ie4Lnpxdx3VST6kepKQnwXZkKwsNXLDQCu/z6Gavqh0XLH16v2cLoGhW6ZtGlc4jANXjCWEJiBxryQ51pBYFafpE2q9qK+HGB/bzpvsbeUZMcxQ6ms9AhmXhd2wnLugEQNUes09hSw7zmUM9JBqnKHZvMo/8ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LSuALMl5; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 714EF2F532F;
+	Wed, 22 Jul 2026 03:55:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784692552; cv=fail; b=XGKzQkds8hOqa9Nbnt/R32XbgyLVJaFexrmL4J+6Pa5btr3xxZpQpCndPEM7nMiy8CgJ2NVFWUzQpiwLA6Vbb6b4YhIWvzc5/mFk4tPbyAYE46rWqGrTeoXPBu/D5r0pNKEjTPzdDSF01HguPzorOsjMK7gtJc/ncbXS43jUUkA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784692552; c=relaxed/simple;
+	bh=psOPER+0Yo4eczBaLIE3kVB8qa0ubRCSfbPbJHy01bI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=dLvXFe0kWPQxRxFjd99hpVjJ03XKoQtR6lYX4tORAbXfp3a5S1aPFlGLtU+A2QEQTtORONxnYPXZMAV0I9pVmaq+z7PlUJSiUG6NL+GtoazTY4bxV8JauprbgdmLtlvCJ6AklrL0OCZyhO9mVB110TNbwnd/XPnMmKJ6iq3Enp4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=WoQUJK1v; arc=fail smtp.client-ip=52.101.65.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LSuALMl5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DEC51F00A3D;
-	Wed, 22 Jul 2026 03:52:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784692331;
-	bh=tw+4req4t+TZ2HriWYnESdHzAkCfEaiSVNhXWcwcets=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LSuALMl5T/wA8SyK3/3d9rq6frkNdXAeHNKBFuX0JnCHb/xGufRKXgkNhSWM7X3LY
-	 aT7cvWyoKOlkA8kZoSSQvqw6etZOAU+01pl+8czbZACFSacJ1g2sptln/E6i/R8Ytm
-	 ZLxU19po6HxxrfbTYRliF4BIkuDg4XRcL0v7GJT7Sh6ejo2UuVF5wMimbfBn2qj340
-	 rOJPblxQAzOh/PGMvQXo11W7re2ppbkFtwKOdLDzGPB9ZMTVKf2TilAttuRWKJWHxH
-	 /qFzphcbIlfg6pFOpbM98H/7Fx6MtxesQHuhXddjthU/briQbJuR1dIeuBt2P68PSo
-	 Lf//iwbx4t8/A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDMI
- bridge binding
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hermes Wu" <Hermes.wu@ite.com.tw>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260722-upstream-it6625-it6626-v3-1-947e50f01764@ite.com.tw>
-References: <20260722-upstream-it6625-it6626-v3-0-947e50f01764@ite.com.tw>
- <20260722-upstream-it6625-it6626-v3-1-947e50f01764@ite.com.tw>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 03:52:10 +0000
-Message-Id: <20260722035211.6DEC51F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="WoQUJK1v"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d9TM/6zmF1r9g0vnBRstDbEmh8C94NxGwYU96F7GnsfnVXTwWcCGIZDO/oUlB5ejpKSLH/KOvH1BktJRr/UeT3hRfkooXwTCgrjJ8dV/olbONis4qZ1v/9eFWHjE1NHKL+T3qT3lpWSmn7liuriZ5R7TbhdXyfT/A1a+ToUxX/UwoRxfnABjFGwIr5xPuHYERlS4HyBUP1rB8XQw+DtCFkZ7DRaoRckND/o0jFWJQADKn3JONTZliRyIfFvI/SMFmcDvEOZ4vRuzNISJLdgZsvgdmsdE3NIX26AGEQA5OUI8LtGXfLq8B/KKrltdte+e0LkogFBOmqXvY2IYI+I57A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rYfHt16VRr+qcQXHAXWmIMDcdPYbR2MNfzgj3MZXoDY=;
+ b=yLbvNYXOLV47lRK4mqjWQ0S4BYu6FvESckYOqsa7cDojibsdp8dtuFA+IQ6/rewlBCgNPBt3/fjiv3Y02POpOvy1TY84V+wQa3uaW3cvJKi47TdDeQAQ0R+vsaP7vXPGa1pcMEiRUFWEUn5vFM0p6q0uH4QrqWS///O6oSeZnQ9USHO92fYmwxsZ8aoCQbv6ZW0Q2Vr9g57Rj7V3tYeR5oreq4fdAztRMxe1husjz3t+g//LKk693mX3POXmPCFn+aeUnb5AfeH+PXzh7YkcB0w0dVuQYXkCXlOMXIYIHKFpLXE9pwxiA8IFZ03rIvREV3C9QKF4ZZmqVc9EY4jqxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rYfHt16VRr+qcQXHAXWmIMDcdPYbR2MNfzgj3MZXoDY=;
+ b=WoQUJK1vW8r7Cyc+BVj6/Pfj5WFHniAM8BA3FgSkcxZY0U/TvLrwGJJR8dxIImfHB9yz/Au+gvTeI0GVE7y4hBRDjsiMuwX2ZGbsAPVlaO6c/BLWAORGmjciSwKzCf9b1iraWa+/C+C5n5hZ2eo60nxs1zoNh6cEzT9DcywfKhph2Hmc/q0FmsJwsVqFf85rE7xcglUdJo8Ad/ZRoWe3usDo8zmiqso2vKIRc4OxxHeMrpapyfACa4csRwOZYY1FjIh3jZV2eN++s5DnmcyepGEUB/XfplgTMhF/O3byiNrnEjLclBjPm7b9GzEtHFcpqTa1vVmA3m75ZGuZRZa9oA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
+ by GVXPR04MB11653.eurprd04.prod.outlook.com (2603:10a6:150:2c3::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
+ 2026 03:55:44 +0000
+Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
+ ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
+ ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.21.0223.008; Wed, 22 Jul 2026
+ 03:55:44 +0000
+Date: Wed, 22 Jul 2026 11:57:09 +0800
+From: Liu Ying <victor.liu@nxp.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Sam Ravnborg <sam@ravnborg.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Robert Chiras <robert.chiras@nxp.com>, Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v2 3/7] drm/panel: simple: Add waiken WKS101WX001-WCT
+ support
+Message-ID: <amA_lUpWkbOFal1y@raspi>
+References: <20260715-dxl_lcdif-v2-0-da797562636e@nxp.com>
+ <20260715-dxl_lcdif-v2-3-da797562636e@nxp.com>
+ <alnCL7ylMyvGD-ui@raspi>
+ <amAJL9TIcDAK7kbh@SMW015318>
+ <amA8iVS4c0exg6pT@raspi>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <amA8iVS4c0exg6pT@raspi>
+X-ClientProxiedBy: MA5PR01CA0019.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:177::16) To AS1PR04MB9287.eurprd04.prod.outlook.com
+ (2603:10a6:20b:4dd::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|GVXPR04MB11653:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6993464d-834c-4e46-5b2d-08dee7a51ae6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|19092799006|366016|7416014|376014|4143699003|11063799006|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	uFQkgVTyKj2V+6KzesHkVan8DcVH49b07a1pyJYxwgRXh1R+JW4hcUX5AOV5sObbZOhKegWRWF7za1OMQfjZJnPVVRXlDFYctVeuYGFvL3F7fDPGZ5L0W15K0fbf+y75rKcnUI3tFXxeZLZHVfCAEG65PvQ3lPSMt3Jtqw00VzrE09tBb5CboIhV4PTdWJ8OBBHzwkamWcFTr0A8phaOhU7pesf4age8eRIyv/BtLpITMOgJoKK78gAR2QwazmhUwqscwaU1d0T/iBKlYbTcK76FrAqnjnv4Yzj6ZuLxkdrszeuHAw8ENyxzXDsR1FF7koWJICSQ+3fjvEG2nPhi0wkqpaBDYO87YzOxMtHMyXkAk8zuDg9iI2pRalGkrQhiEtEPPbF+xmoEhQVSB3xXQRdTFovDn5pBFs4opmQajpRDJKUyAGas10gEPemRgwdsQD7Fv8H9v/KLjuGpe+djMEDDFOVGj5o4ipFcH3Pbiu5BV+q5FaD8cP7TUvYZ4MMzSE1rFOmIsUzYwZOsK6FheFjbddDY/r6FKD6XIgTDSqaIaHeOsd6PAIV1dzgwA/ZkVM2AnQ1y0a0kAolptO8U6FRouryqechqiUkVjDp+EyitmeV6jsi82BA+pWgCJ00ewS9xkfAfkjdf0Y65GDthxbJHTCWreInKIPaIEbHag8c=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS1PR04MB9287.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(19092799006)(366016)(7416014)(376014)(4143699003)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?PyMRz93njtPzQwnJoX9+QYktzYQ36mT72euKecrH4HJG7EUUXPntd97R6zkF?=
+ =?us-ascii?Q?KUs1/WM0BiE2lKqXZr6syrBVpF4xwayDoiRAnsszseXkiLCdCgZAu/ZxaRAU?=
+ =?us-ascii?Q?O5uB7QL+9KGooHtgoweh6TFZTLyBeuRVEKYlIpLqQm7f+SAFJg7nurAQ4fn7?=
+ =?us-ascii?Q?Xikow8sR52xHhc/Iyd5F5/6cKiZ00A00izGKUAPwNxwEXX3Z4FmEbjZfKSNN?=
+ =?us-ascii?Q?r5v4hm/xSxpYIBMacLHNZ0K8toFAW5aFsQayPVTC9CXrbm18ce9595NRRlVi?=
+ =?us-ascii?Q?d0oDGqPsVzSx3MIhPHulLxZu8/NXg/S600xO1ChUQhqXhdhV0pwL6jC0nDmQ?=
+ =?us-ascii?Q?cUP85qbjsUQXBQdXwrTW0Hyuk5LHMV0FXeWwmQ5k/zrQs0Gmk532ZLVoxCHK?=
+ =?us-ascii?Q?yan2ckpiNqE9G2nWWWVP5KQPG3UpN+/CYncetGnjFom64H5N+yopHIYqY++i?=
+ =?us-ascii?Q?kw5i7TETJeaJpaWPU5EYxUuZTWWexAV2OqIuUvctu+Ixg5bXCjIAcItkBiqK?=
+ =?us-ascii?Q?3wb2SeLj62brtb0kRLgmSLtnx6wZ40H5KFwd+Vcuc9tFsUd8k8GXC40XzFdY?=
+ =?us-ascii?Q?TDtOZc6WVYc26nsDJYM/1OeM+AuZw+El98q9zJ3vMvwqp9jkmQZvGfJdsafU?=
+ =?us-ascii?Q?Jwual0YPmbu041HavZR9JLc0NMWSQZDrkYt+lUtkSj3bkjlwAeHn79BkWTtB?=
+ =?us-ascii?Q?b9s6gOSdQXgvNcZ/LITPQF/0jsVBw7TOf6OEufSpMR4Oks0mdyJBE2oLAz0n?=
+ =?us-ascii?Q?yaQE2yiv7rbOepY9oE7gbyyVH6ZpjGpaSEt7htt0Skt3wWk7bsnbxibIFEeN?=
+ =?us-ascii?Q?Z3mEbp0RAZYsNGwTQRPhR6fH66AbyNOE2c29amWqCT6F/cSGry1MilD2FPsk?=
+ =?us-ascii?Q?4zIhXq5qxILcnoqI9R/8gdl09OQVjJq0Hh1ESuDSZa85mhQtkcEh5hEOeb3z?=
+ =?us-ascii?Q?Mjl01e15Y6uSX1R0YXMCzmjV60t5LhuZToXnQiQ39zg5s0F5PmXwlKxdOdiW?=
+ =?us-ascii?Q?aU/bF5wSwBs7eTrrNAQimNmrkZFTHz9PFERS3koZfNX+v8lzYlWrbFRtjnYO?=
+ =?us-ascii?Q?WuITh0EeVhjezV/Fyn2YSpS0RgMOdaNfPMA04GIqQ75xebM5BuSU0DrSaYeE?=
+ =?us-ascii?Q?lVNM5+xD+3L9FbVzty9YDcvP1Dtv0ilGsbWFiJT446eKWHD2UDIp1ILB1ppj?=
+ =?us-ascii?Q?2j2EgjMe26frq15v4dBqqgOD+8uJ7hjOsixbalZBosxeqWeR5wzM8bTvjAKv?=
+ =?us-ascii?Q?/97j30+z03KuusfrtBCkxjCQqR/imwvEnmYJ608/asull2NVhWIh9xJAg1op?=
+ =?us-ascii?Q?UvaiBjU6QSJ+FOhnUtCu20xG1yCwxJ9/lG2JrE+M4olrb23It9VOkP0MSkof?=
+ =?us-ascii?Q?TLUjIROBOtrkv/Zm/SxyKNOd0ZDvyh1G7Hq4TKmFNHKGOWQ3RDfQH5WCRHUa?=
+ =?us-ascii?Q?7uNfhNrloDa0cjOh3GcsF5FM7IlmuzzkWsS3AujkCBHJWSKdsUKpgOpxVK74?=
+ =?us-ascii?Q?pIqGqDRJpme/4QTpA9vV+EVaEm2E6LPDP09T1XiZ6QF/AHdEu+qqJi8cA9Oe?=
+ =?us-ascii?Q?apFNDSqSlwixKCj0JBDmopKAMVJyE6Jz6QPsq9Duj7TlXS8xIM+Tn+RsFmP4?=
+ =?us-ascii?Q?DKciN+v4d45IGKtYKCaQmsxVhEFeeAN4oGSsSDjhxsVo0/CWZ9v5pT5o5W//?=
+ =?us-ascii?Q?2pZNosAyGiiRddnacnr0WdS4NGkwGou+MwEtNwcRLhtekfV73QP3HAcdCoKK?=
+ =?us-ascii?Q?RAVfsuF+Vw=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6993464d-834c-4e46-5b2d-08dee7a51ae6
+X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 03:55:44.3040
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kVRBf/eFc26y8CEF9ZLtNjF0PKB700VRj4Kf6JuZKotsOkKBdkZcWsvnIdGrKQR1n2tcQ/uuYuoMF0h/yLKgDg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB11653
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] The HDMI input port (`port@2`) is omitted from the required port=
-s list, allowing the bridge to be defined without an input data source.
-- [Medium] The `bus-type` property is not marked as required for the CSI-2 =
-endpoints, leaving the physical layer configuration ambiguous for the IT662=
-6 variant.
-- [Medium] Endpoint constraints are tied to the exact node name `endpoint` =
-instead of using `patternProperties`, allowing constraints to be silently b=
-ypassed if a device tree uses a numbered endpoint like `endpoint@0`.
---
+On Wed, Jul 22, 2026 at 11:44:09AM +0800, Liu Ying wrote:
+> On Tue, Jul 21, 2026 at 07:05:03PM -0500, Frank Li wrote:
+> > On Fri, Jul 17, 2026 at 01:48:31PM +0800, Liu Ying wrote:
+> > > On Wed, Jul 15, 2026 at 02:34:48PM -0400, Frank.Li@oss.nxp.com wrote:
+> > > > From: Frank Li <Frank.Li@nxp.com>
+> > > >
+> > > > Add support for WKS101WX001-WCT panel, which is an industrial-grade
+> > > > 10.1-inch IPS TFT LCD capacitive touch screen display module.
+> > > >
+> > > > Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> > > > ---
+> > > > change in v2
+> > > > - update height to 135 from 136 (sashiko)
+> > > > ---
+> > > >  drivers/gpu/drm/panel/panel-simple.c | 31 +++++++++++++++++++++++++++++++
+> > > >  1 file changed, 31 insertions(+)
+> 
+> [...]
+> 
+> > > > +	.connector_type = DRM_MODE_CONNECTOR_DPI,
+> > >
+> > > Seems that the panel also supports LVDS input according to the specification,
+> > > since it mentions 'RGB or LVDS Interface'?
+> > 
+> > Need hardware rework to use LVDS. Need remove banch of resistors. Should it
+> > be treat as difference panel by different compatible string? hardware
+> > actually changed.
+> 
+> Not sure how to handle that.
 
---- Patch [1]: [PATCH v3 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDM=
-I bridge binding ---
-commit 32438c9fff6575c3de96c9e787f4769e322a6f28
-Author: Hermes Wu <Hermes.wu@ite.com.tw>
+Wait, you probably may drop this patch, just document the compatible
+string in panel-simple.yaml and panel-lvds.yaml and use add a fallback
+compatible string "panel-dpi" or "panel-lvds" in device tree plus a
+panel-timing node.
 
-dt-bindings: media: add ITE IT6625/IT6626 HDMI bridge binding
-
-Document the devicetree binding for the ITE IT6625/IT6626 HDMI to
-MIPI CSI-2 bridge, supporting single or dual CSI-2 outputs.
-
-> diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml =
-b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
-> new file mode 100644
-> index 0000000000000..9bc5584b48880
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
-> @@ -0,0 +1,159 @@
-
-[ ... ]
-
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: CSI-2 output port MIPI0
-> +
-> +        properties:
-> +          endpoint:
-
-[Severity: Medium]
-Since the constraints are tied to the exact node name "endpoint", will
-these restrictions be silently bypassed if a device tree uses a numbered
-endpoint like "endpoint@0"? Using patternProperties for=20
-"^endpoint(@[0-9a-f]+)?$" might be needed here to ensure the constraints
-apply to all valid endpoint node names.
-
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +
-> +              bus-type:
-> +                enum:
-> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-> +
-> +              clock-noncontinuous: true
-> +              link-frequencies: true
-> +
-> +            required:
-> +              - data-lanes
-
-[Severity: Medium]
-Does this allow device trees for the IT6626 variant to omit the bus-type
-property? Without it being listed in the required array, the schema
-could validate successfully while leaving the driver without the necessary
-hardware information to unambiguously configure the physical layer.
-
-[ ... ]
-
-> +      port@2:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: HDMI connector input port
-> +
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/graph.yaml#/$defs/endpoint-base
-> +            unevaluatedProperties: false
-> +
-> +    required:
-> +      - port@0
-
-[Severity: Medium]
-Is it intentional that the HDMI input port (port@2) is omitted from this
-required list? This appears to allow a device tree to pass schema
-validation without specifying the video input to the bridge, resulting
-in an incomplete graph that will lack a data source at runtime.
-
-> +required:
-> +  - compatible
-> +  - reg
-> +  - ports
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: ite,it6625
-> +    then:
-> +      properties:
-> +        ports:
-> +          properties:
-> +            port@0:
-> +              properties:
-> +                endpoint:
-
-[Severity: Medium]
-Will this allOf constraint fail to apply if the device tree uses a numbered
-endpoint like "endpoint@0"? Similar to the local constraints above, looking
-for the exact "endpoint" string allows numbered nodes to bypass the D-PHY
-restriction for the IT6625 variant.
-
-> +                  properties:
-> +                    bus-type:
-> +                      const: 4
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-upstream-i=
-t6625-it6626-v3-0-947e50f01764@ite.com.tw?part=3D1
+-- 
+Regards,
+Liu Ying
