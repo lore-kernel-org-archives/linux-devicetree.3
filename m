@@ -1,158 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273F840F749
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 11:31:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689DD44330D
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 11:32:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784719898; cv=none; b=FuCRwk+kNtOQfpQcCbdkZVoJDJnpJaazLHqQOwmgGADWXt5AYFVAx9c1mnDrwtQLe+LA6p4zaokaq+RHBP33ptxsW63FDORE6aiIUnJnF68PYNSd2vC2UrtnIeMCHsT0kH4DWe8JRECGsHxWwcI1J3swnDe3c3CV5eFRKIwB+X4=
+	t=1784719934; cv=none; b=QOA58sXgsKum7Su3Sx59zn8LFsUPagdsIhsxSua6ggXyZtYETsz23p/7uyVRk75SubfSEGFu0I8h2LXp7O5tjOQxiwOQ4vdYG3xF3sSaImRPSSSAUijq/PfY2wx8QdOHtx9dqJw01BJd16Pjno0z6iFGHRbhRQ3r+HB7pubNQmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784719898; c=relaxed/simple;
-	bh=Gjuo1J87Og8iY37LBt1ZEw98NPqvpBuM7S4zJzt+ssQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=c6LEts4AiDkyQWwZlZRjQc3UIH3vZtinfjELaZlleuVgFIQnkJH4yqWAfoD0X8PtlMy4OHKXWzHoYb4ZWKPHkWNQF5VJojA2HvuOXR1Pbee07ZBzvT9z1E155DuCRsSatSO6ViAqMRCLYLWesu6vetkI2J1SgaFpWPDHA3utuYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H2bpaxtX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784719934; c=relaxed/simple;
+	bh=nXND9Sle9OaS3hHlZnm2qmNYfirIaJdmxVnxpKKxQuA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g0ebSnlmoSOiuKe3ArkF59z34sVhPStWh4lvpz/XVzOPtaHb/bSAMTz9XKGBAyNpP0RflEqZG16Mzmoef0g0AO9jwd+sXWmkhYPcFO/ockITXuDwh5wFM7ISjM03SIyIZYPo4i/tf+P7GXlZeroM10+h4cUQCUrT9XO2DmDfr8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BGLkj2Gl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IvTOxBWs; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H2bpaxtX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEF4B1F000E9;
-	Wed, 22 Jul 2026 11:31:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784719891;
-	bh=s2lQ9B6hQYryRHnlPvGuRfl/E8JzUw0MI2YMBdtQA+w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=H2bpaxtX3/s6TB+uNPsKhc0vnkkyerhK1UaKPChSe5+ve/3smnNaEERSDnPAzHcXo
-	 bs5zv0H9DymTptmMcvYl/bAcNIuBeHLaT/1ROmmULezzS54xv572SLEUgTLnK9KX4Q
-	 NrTSbuYjkBc5yesEx5OjFny2a3JMioXk+TIT5yZXE9WWn05XaBh73KnlJYW7Q2k2lI
-	 Wvw7jVKQU5OzsLEHcip9HVBxNalSwEIS3YCyctvnmSStra4iKkxpsoRmW+u8NmyDZB
-	 rRVQTYfbBJMYVdr9HXX4WSrbNIWNhi53KBBkPvV8Omqhnr60MPLHJ6+RcgBmNBvqFo
-	 +XzKH/VXcyfjg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] media: i2c: add driver for ITE IT6625/IT6626
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hermes Wu" <Hermes.wu@ite.com.tw>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
-In-Reply-To: <20260722-upstream-it6625-it6626-v6-2-6117d4d96574@ite.com.tw>
-References: <20260722-upstream-it6625-it6626-v6-0-6117d4d96574@ite.com.tw>
- <20260722-upstream-it6625-it6626-v6-2-6117d4d96574@ite.com.tw>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 11:31:30 +0000
-Message-Id: <20260722113130.CEF4B1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BGLkj2Gl";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IvTOxBWs"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M8xIV2141442
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 11:32:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	nXND9Sle9OaS3hHlZnm2qmNYfirIaJdmxVnxpKKxQuA=; b=BGLkj2Gled8Qow2w
+	c08wNVRVuOwwNcjRSzgbe96UVGxhcDpWg45YV1wIQPndq2xHCgCl9l3LLHsozSQ4
+	ONfauQVnmFz3AEd9f81eDbDnlbF6AlHe2VIHebAYRRNvj5cVI5Dvr3jplsF7v+fZ
+	Aw22psEiXZ0+IVI1NwabLx0i4MwtmppCSMDGIOWRdYVb/P2xPoGpPgEg0QENyxLj
+	/A/rktWBChJTvWSe4TiPxaCxXB4Fvyavy6fl3BqnqJV7uXc2pe2OPFAz7GyrAIZl
+	vST1Te6MYkV0GHdJQsoC3K3Gat0Yx6zBqZmb5Vjw6owUrJc64ylcSt9z4XA6FRFp
+	ipb+zw==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjtn2rpp3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 11:32:11 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-84e01a62d99so2516638b3a.0
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 04:32:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784719930; x=1785324730; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nXND9Sle9OaS3hHlZnm2qmNYfirIaJdmxVnxpKKxQuA=;
+        b=IvTOxBWsNACs60oINtlJzCTvi8xK+vQC/PJRFZ9fmI6rkUr5gh9P9G2RO4X+SREVHL
+         1OPil2ze48h65mbvKm+J6ByQ0PYH2iErZRQJ0wDJnUi6A1ZRpDkSOWqjCsWlM/epv01x
+         EzKteT7Ns9DDo2RBGrr+z8pCvmgtEVPuKR8Dw8f/pcgE4baBxi935sErrZi8+jRW+zlE
+         qdzKRk7/DkE/LyjKqyTof2SLg/8Cf2Wjq04lnxI2qDGK9gz0Mh7hm0XAcBEgaLVSlNgI
+         15fA5sOyetMDFvp0YiFWWuWqTnv9zC8oskmHPzMw1OMR1oFTnXLfizLVcCtUzW5CnccP
+         p1LA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784719930; x=1785324730;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nXND9Sle9OaS3hHlZnm2qmNYfirIaJdmxVnxpKKxQuA=;
+        b=p8T7sVjd3IEEhWgHy/N23T7n384IgKV+sh+qanGTvaKK+BnSs5m7tRppid0EIR0SvD
+         1ho4rNkxJ4j4DPdw/NQgksxFaY7TQ75hEG1+YAF1j6M+yk8/yMOVCkxYvzgrvAKkuBMh
+         zMrAZ002xhbBcue2y0UPH+DzHTB6ls+2ScuQ8gPpT+BgndX5hgoT6LbsYYsHMCySM/0N
+         PMBnVrL/Fv7GIaTHFoogKPAJHeTxkVWq2t6zZ3muxSDGWwVVFprVAvPcQttLMHWiB8hv
+         wnEDlUkQKH7tk/wZGRDUPZC7le2L/9F1Cx8/iQiU2AhfPjUT3kFuqaL66TIM+Yn2gYCd
+         eVBg==
+X-Forwarded-Encrypted: i=1; AHgh+RrMvMRMvZuAIIXN2DOHqG8gcd9mVbAAx7o0Edr5UOh3c2Pjcv3LAZ6Yr4hFVPHs6cglLgRrfKWNpXHf@vger.kernel.org
+X-Gm-Message-State: AOJu0YyzLzJmt2+Ryu3f/suzIBHcIlDXnWOidrtUMN+CQpYBdwFc4oqv
+	C93yOGQPO8G+foC2XipvwRUDLQFfRnHYJspcxwLvHCNXDgXFOMRWBJ/5g3c6O20kiY5Ct/clDFq
+	64rInyLbYgeDr2YTHLe3p1YPaZzPv5MGcAJ3CidQOtfXxO2dvbzCAVAkAuZMDzTMT
+X-Gm-Gg: AR+sD12Y/nAUqnI9K1Rz0G4VZhmIZaG22HGKBF6Hnqd9gAKv/Ajxl5DJdf5xntRLMDW
+	44dAQzlMao3ONhkyIHDAyG7rzjz86r+ON7ieyBxIhsnkWCOKxMIh8WEAvFxjR1JksH8NycOV1iV
+	pIEcHm/fau9lg0pyIsk+kU+B1dskHe7xew2gaUe6FVOjgXfTfanpzYPFhK/7ZatHDhkeyuMGczE
+	5akjUvunN9z9VNlTAUUIZQ/nIGWKTiWqiLmfqX/QBK8TmsrN+7UdQmbjDtd5VNxrvpBBW2kUghN
+	r+64Fk/sUrnTlJ36p/tKHp5QvSp0DiQddEGM6e2hXwYWz9LmEbhK0qkJbQwppAKd/oFszuhst/Q
+	/6OfTPelPyZOxlxbBnWsx88Wtt798Zxcymg==
+X-Received: by 2002:aa7:914d:0:b0:84a:6726:62f9 with SMTP id d2e1a72fcca58-84c292d0d55mr23779008b3a.9.1784719930064;
+        Wed, 22 Jul 2026 04:32:10 -0700 (PDT)
+X-Received: by 2002:aa7:914d:0:b0:84a:6726:62f9 with SMTP id d2e1a72fcca58-84c292d0d55mr23778979b3a.9.1784719929579;
+        Wed, 22 Jul 2026 04:32:09 -0700 (PDT)
+Received: from [10.219.49.131] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e175a29aesm1172711b3a.41.2026.07.22.04.32.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Jul 2026 04:32:08 -0700 (PDT)
+Message-ID: <a3505150-0a13-4730-b051-2034e0e2ff3c@oss.qualcomm.com>
+Date: Wed, 22 Jul 2026 17:02:01 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/4] ASoC: qcom and pinctrl: add LPASS LPR voting and
+ Hawi LPASS LPI TLMM
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-sound@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+References: <20260720130511.493295-1-prasad.kumpatla@oss.qualcomm.com>
+ <CAMRc=MfvfVvJ4anwY5WZUr5K8fSGkcvejah72fUDLc7ZC59jNw@mail.gmail.com>
+Content-Language: en-US
+From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+In-Reply-To: <CAMRc=MfvfVvJ4anwY5WZUr5K8fSGkcvejah72fUDLc7ZC59jNw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDExMiBTYWx0ZWRfXxKwJN4irNGs/
+ kjxryF75OlXfIo7T8wz35O2LQa6kJloIBajshCq3YZaufQYD2x0S2uEgQbENGYcwmF1ho2JX6MU
+ S0Am8KWTlyZlpbgYrBvKG3hHohgrlR6iQiikIUSiX/sgqMYMmkuc7lGi62eAHoP5Q3FtgyvUsqc
+ Br7s2EqbUX98Nxm4hlXJzagRJ6TA3xu8tW9H7Nx9GHMQlLk7gLf6waJB+MrUz8UPTm4hlQdjYlN
+ GAUXWp/iM/rFR2bdAIjSRfEtduWYOGn6LT8PjSov3bsYjYkZL6aOJtSxSerLiK7PlPUH8lapgoG
+ YZyLliT6DqY3mvEBBYey6IZUJCggKRqGox6eDrUXg31pjDh+BFdOZftPps88+Iw4uTTXKMzx7Ce
+ f5zRl5GxzaRAW+Klf1FQuL4KqNsPpSskeVoIGREjy99K1igpu7HdL5HP1Lc2nI9pdN2NKeL+WwG
+ VHlvNWmEdDvb0dqWnmA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDExMiBTYWx0ZWRfX6yCdcM4T0ZB/
+ 7AK7WB+EVQLxKm50p/NyiuJ/Wx9zuG7pNmFRYUCWLzw6VnNRDRKdYfweLlLuUPyr0lDSmMQibAl
+ 0zd0Pwxui+Km/r2I+NWjm0iwA7D1FGA=
+X-Proofpoint-GUID: a81DekqQSvRqpPhZ2w7aEOWnZGEdGLnE
+X-Proofpoint-ORIG-GUID: a81DekqQSvRqpPhZ2w7aEOWnZGEdGLnE
+X-Authority-Analysis: v=2.4 cv=T+28ifKQ c=1 sm=1 tr=0 ts=6a60aa3b cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=lHG6SDQFHwzuY-o0dyQA:9 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-22_03,2026-07-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 impostorscore=0 malwarescore=0 spamscore=0
+ clxscore=1015 bulkscore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220112
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] Accessing MIPI CSI-2 specific union fields without verifying the=
- parsed bus type.
-- [Medium] `it6625_set_fmt()` fails to update `format->format.colorspace` f=
-or the `V4L2_SUBDEV_FORMAT_ACTIVE` branch.
-- [Medium] `it6625_s_edid` violates the V4L2 `VIDIOC_SUBDEV_S_EDID` specifi=
-cation for `start_block` bounds handling.
---
 
---- Patch [2]: [PATCH v6 2/2] media: i2c: add driver for ITE IT6625/IT6626 =
----
-commit 9017f8e5343a61b6c557bf4b67bcc1fe372b54d2
-Author: Hermes Wu <Hermes.wu@ite.com.tw>
-Subject: media: i2c: add driver for ITE IT6625/IT6626
+On 7/20/2026 7:12 PM, Bartosz Golaszewski wrote:
+> On Mon, 20 Jul 2026 15:05:07 +0200, Prasad Kumpatla
+> <prasad.kumpatla@oss.qualcomm.com> said:
+>> This series adds support for LPASS low-power resource (LPR) voting
+>> through PRM and introduces LPASS LPI TLMM pinctrl support for newer
+>> platforms such as Hawi.
+>>
+>> On such platforms, LPASS requires LPR resource voting via PRM to keep
+>> the subsystem active. This is handled by adding a new clock ID and
+>> support for PARAM_ID_RSC_CPU_LPR in q6prm.
+>>
+>> Additionally, a new LPASS LPI TLMM block is introduced, requiring a
+>> dedicated DT binding and pinctrl driver.
+> What is the merging strategy? Is an Ack from Mark required and the series
+> should go together through the pinctrl tree?
 
-This commit adds a new V4L2 subdevice driver for the ITE IT6625 and IT6626
-HDMI-to-MIPI CSI-2 bridge chips. The driver supports configuring the bridge
-over I2C, handles EDID reading and writing, exposes an HDMI CEC adapter,
-and supports DV timings and HPD control.
+Hi Bart,
 
-diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
---- a/drivers/media/i2c/it6625.c
-+++ b/drivers/media/i2c/it6625.c
-[ ... ]
-> +	if (format->which =3D=3D V4L2_SUBDEV_FORMAT_TRY) {
-> +		struct v4l2_mbus_framefmt *fmt;
-> +
-> +		fmt =3D v4l2_subdev_state_get_format(sd_state, format->pad);
-> +		fmt->code =3D format->format.code;
-> +		fmt->colorspace =3D format_to_colorspace(it6625_formats[ret].csi_forma=
-t);
-> +		format->format.colorspace =3D fmt->colorspace;
-> +		v4l2_dbg(1, debug, sd, "%s: try format code =3D 0x%x",
-> +			 __func__, format->format.code);
-> +		return 0;
-> +	}
-> +
-> +	scoped_guard(mutex, &it6625->it6625_lock) {
-> +		it6625->csi_format =3D it6625_formats[ret].csi_format;
-> +		it6625->mbus_fmt_code =3D format->format.code;
-> +		it6625_enable_stream_locked(it6625, false);
-> +		it6625_set_mipi_config_locked(it6625, it6625->csi_format);
-> +	}
-> +
-> +	return 0;
-> +}
+Thanks for the question. The only cross-subsystem dependency is the
+addition of LPASS_HW_LPR_VOTE in qcom,q6dsp-lpass-ports.h, which is
+consumed by the Hawi LPASS LPI DT binding. My expectation was that
+the shared clock ID definition would be merged first, after which
+the ASoC and pinctrl changes could proceed through their respective
+trees. I'll clarify this dependency and the intended merge strategy
+in the next revision's cover letter.
 
-[Severity: Medium]
-Does this branch need to update format->format.colorspace before returning?
+Thanks,
+Prasad
 
-The V4L2_SUBDEV_FORMAT_TRY branch above updates format->format.colorspace,
-but the active format branch only updates the internal hardware state
-variables. This leaves the userspace format object with the old colorspace
-value that was populated earlier in the function by it6625_get_fmt().
-
-[ ... ]
-> +static int it6625_s_edid(struct v4l2_subdev *sd,
-> +			 struct v4l2_subdev_edid *edid)
-> +{
-[ ... ]
-> +	memset(edid->reserved, 0, sizeof(edid->reserved));
-> +
-> +	if (edid->blocks > EDID_NUM_BLOCKS_MAX) {
-> +		v4l2_err(sd, "too many edid blocks: %d", edid->blocks);
-> +		edid->blocks =3D EDID_NUM_BLOCKS_MAX;
-> +		return -E2BIG;
-> +	}
-> +
-> +	it6625_disable_hpd(it6625);
-
-[Severity: Medium]
-Does this logic correctly handle out-of-bounds start blocks according to the
-V4L2 specification?
-
-If start_block is out of bounds, the spec expects blocks to be set to 0.
-Additionally, if start_block + blocks exceeds the maximum, shouldn't blocks
-be clamped to the remaining capacity (EDID_NUM_BLOCKS_MAX - edid->start_blo=
-ck)
-before returning -E2BIG?
-
-[ ... ]
-> +static int it6625_parse_endpoint(struct it6625 *it6625)
-> +{
-[ ... ]
-> +	if (endpoint.bus_type =3D=3D V4L2_MBUS_CSI2_CPHY &&
-> +	    it6625->chip_type !=3D IT6626_CHIP) {
-> +		dev_err(dev, "IT6625 does not support C-PHY, only IT6626 does");
-> +		v4l2_fwnode_endpoint_free(&endpoint);
-> +		return -EINVAL;
-> +	}
-> +
-> +	max_lanes =3D (endpoint.bus_type =3D=3D V4L2_MBUS_CSI2_CPHY) ? 3 : 4;
-> +
-> +	if (endpoint.bus.mipi_csi2.num_data_lanes =3D=3D 0 ||
-> +	    endpoint.bus.mipi_csi2.num_data_lanes > max_lanes) {
-> +		dev_err(dev,
-> +			"invalid number of CSI data lanes: %u (max %u for this bus type)",
-> +			endpoint.bus.mipi_csi2.num_data_lanes, max_lanes);
-
-[Severity: Medium]
-Can we read from the mipi_csi2 union member here without first verifying the
-parsed bus type?
-
-If the device tree is misconfigured and causes v4l2_fwnode_endpoint_alloc_p=
-arse()
-to infer a different bus type (like V4L2_MBUS_PARALLEL), reading from the
-mipi_csi2 struct could yield arbitrary data for the lane count.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-upstream-i=
-t6625-it6626-v6-0-6117d4d96574@ite.com.tw?part=3D2
+>
+> Bart
