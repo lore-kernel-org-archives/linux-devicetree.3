@@ -1,66 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75C0471268;
-	Wed, 22 Jul 2026 07:41:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.237.72.81])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B09E9472554;
+	Wed, 22 Jul 2026 07:41:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.237.72.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784706094; cv=none; b=pF+AzQgigLhMM7uiDNvkdTVBv9cQ+RntJHx+Cr4fOZzN45nE1Mb9HsXv8nywrk5F3Wz5SvfFPmicHHkFWz0qfGqseuBIs6mhMUqPWdUIHl9xuvsnajfmAUgqcaSzgPWvXXWOFnSXudcsXcGRvoQl38TC1dz2oSKy6/2Hd0QcosU=
+	t=1784706099; cv=none; b=azORLA4lDKrDfigX//begaQIPDG3sYADcua5pcxwjLIvcyW+EKhW7U5cGQdjLixBXkagMzdeBJ/QujxSkTKVxVCf1U0wYlZR+Kv3ulxR91aa31PE0Rec9zSkK1HFqumVx4R4e6yZIjRTqJQUmbJ5GDrbgLzloPfQ5BGy9Vgp/us=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784706094; c=relaxed/simple;
-	bh=BvvRKmxKycl+3sMCau1lIJTYhbKVLgoO0gBIZx1xdPk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QvYTPYBQC3fmtPYso5uFwFlqXjaeikmxgTCyGCuFMXWLxGK2Gqy325EOuZXWxG1Fy8z07vP2wcwqjJkBcrEX0DFi7uSt50DX3iVVZOY9uDnBA89Qvcscr6WCgoNMQucTyyYUTWG/z1R+geHu9nqpaFfilvUHyb1CD3X3QzpWAHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jv8tYQax; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jv8tYQax"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 067711F000E9;
-	Wed, 22 Jul 2026 07:41:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784706093;
-	bh=sp/SGJFqKQzCbpo3NzPatfiA/2iBXboNQlGAF1b3xDU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Jv8tYQaxPAF5+BVpYsA6tGqNNkF5NakW0XsmYITqrGBdVF3ZFGvpJfx8GqefHB+Ez
-	 nyKcjhqSRIBiXuwYA5v1W11ZSJ7cR79Kg29x/2Gncw6vQ4XnL3qH13c3Xx3aDJqPjp
-	 WaGU++br9h9XRdl0kqeiY2Whl5wVuAmescPjIpmyYU69Tc1FpLXvZjKSbxo2gcbBuP
-	 LwhJsSkMRW//UdJAe1Db1wenagF/UV4oQAil5NXJ2Io9uD8dc/ijpypNj7h/1lPY7i
-	 35kHnZQqaErvWbGPGRJtz9DGpQpOpS/9JqLCjg2AyKtvIgRAnk+h+/PvjeSM61BPb2
-	 qqmmZgiSJugyw==
-Date: Wed, 22 Jul 2026 09:41:29 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Andy Chung <Andy.Chung@amd.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v3 2/4] dt-bindings: hwmon: Add Kandou KB9002
-Message-ID: <20260722-efficient-mussel-of-enthusiasm-1df91c@quoll>
-References: <20260721-kb9002-upstream-v3-0-70563922be8d@amd.com>
- <20260721-kb9002-upstream-v3-2-70563922be8d@amd.com>
+	s=arc-20240116; t=1784706099; c=relaxed/simple;
+	bh=OwLI5bTbPE0lt9rPpthiVBOQg/+NhkgpQ+hrUWI0AJE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=H90THhz/EXx0Sk0PhYQIx45m/BF6gsXrrffAoPFkpfwHtSvdF4ELgkd8kgO0oi8JOwKsXHoH491vtcFoyRVF5kkVkkFwhoGdTGkg+rKXH7kApqX9OHePwBw8JGm3Pt1edt64mmwQBNOqSzIb5pU1p8vT4r2t1MaP/p/783osyhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=52.237.72.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
+ ajax-webmail-app2 (Coremail) ; Wed, 22 Jul 2026 15:41:28 +0800 (GMT+08:00)
+Date: Wed, 22 Jul 2026 15:41:28 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
+To: "Philipp Zabel" <p.zabel@pengutronix.de>, ukleinek@kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	ben-linux@fluff.org, ben.dooks@codethink.co.uk,
+	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, daniel.lezcano@kernel.org,
+	tglx@kernel.org
+Cc: ningyu@eswincomputing.com, linmin@eswincomputing.com,
+	xuxiang@eswincomputing.com, wangguosheng@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com,
+	"Conor Dooley" <conor.dooley@microchip.com>
+Subject: Re: Re: [PATCH v12 2/4] dt-bindings: pwm: dwc: Add eswin compatible
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <cfbb371050354026869b2c12fe948151220aa4c5.camel@pengutronix.de>
+References: <20260721120757.1134-1-dongxuyang@eswincomputing.com>
+ <20260721120848.1247-1-dongxuyang@eswincomputing.com>
+ <cfbb371050354026869b2c12fe948151220aa4c5.camel@pengutronix.de>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260721-kb9002-upstream-v3-2-70563922be8d@amd.com>
+Message-ID: <2dc5a7e7.8901.19f88c5bd14.Coremail.dongxuyang@eswincomputing.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:TQJkCgDH3aAodGBqPII2AA--.9689W
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAQEQAmpfnycZA
+	wADsG
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-On Tue, Jul 21, 2026 at 02:31:33PM +0800, Andy Chung wrote:
-> Add device tree bindings for the Kandou KB9002 PCIe 5.0 retimer, an
-> SMBus target that exposes an aggregated die temperature.
-> 
-> Signed-off-by: Andy Chung <Andy.Chung@amd.com>
-> ---
->  .../devicetree/bindings/hwmon/kandou,kb9002.yaml   | 46 ++++++++++++++++++++++
->  1 file changed, 46 insertions(+)
->
-
-So a trivial device and can go to trivial-devices? What is incomplete
-here, what is missing?
-
-Best regards,
-Krzysztof
+PiAKPiBPbiBEaSwgMjAyNi0wNy0yMSBhdCAyMDowOCArMDgwMCwgZG9uZ3h1eWFuZ0Blc3dpbmNv
+bXB1dGluZy5jb20gd3JvdGU6Cj4gPiBGcm9tOiBYdXlhbmcgRG9uZyA8ZG9uZ3h1eWFuZ0Blc3dp
+bmNvbXB1dGluZy5jb20+Cj4gPiAKPiA+IEVJQzc3MDAgaW50ZWdyYXRlcyB0aGUgRGVzaWduV2Fy
+ZSBQV00gSVAgZGVzY3JpYmVkIGJ5IHRoZSBnZW5lcmljCj4gPiBzbnBzLGR3LWFwYi10aW1lcnMt
+cHdtMiBiaW5kaW5nLiBPbiB0aGlzIFNvQywgdGhlIHByZXNldG4gYW5kCj4gPiB0aW1lcl9OX3Jl
+c2V0biBpbnB1dHMgYXJlIHBoeXNpY2FsbHkgdGllZCB0b2dldGhlciB0byBhIHNpbmdsZSByZXNl
+dAo+ID4gbGluZSwgc28gZXhhY3RseSBvbmUgcmVzZXQgaXMgYm90aCByZXF1aXJlZCBhbmQgc3Vm
+ZmljaWVudCwgdW5saWtlCj4gPiB0aGUgZ2VuZXJpYyBiaW5kaW5nIHdoZXJlIHVwIHRvIHR3byBp
+bmRlcGVuZGVudCBsaW5lcyBhcmUgb3B0aW9uYWwuCj4gPiAKPiA+IEFkZCB0aGUgZXN3aW4sZWlj
+NzcwMC1wd20gY29tcGF0aWJsZSBzdHJpbmcgYW5kIGNvbnN0cmFpbiBpdHMgcmVzZXRzCj4gPiBw
+cm9wZXJ0eSB0byBleGFjdGx5IG9uZSBlbnRyeS4KPiA+IAo+ID4gQWNrZWQtYnk6IENvbm9yIERv
+b2xleSA8Y29ub3IuZG9vbGV5QG1pY3JvY2hpcC5jb20+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBYdXlh
+bmcgRG9uZyA8ZG9uZ3h1eWFuZ0Blc3dpbmNvbXB1dGluZy5jb20+Cj4gPiAtLS0KPiA+ICAuLi4v
+YmluZGluZ3MvcHdtL3NucHMsZHctYXBiLXRpbWVycy1wd20yLnlhbWwgfCAzMiArKysrKysrKysr
+KysrKysrLS0tCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDI4IGluc2VydGlvbnMoKyksIDQgZGVsZXRp
+b25zKC0pCj4gPiAKPiA+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
+ZGluZ3MvcHdtL3NucHMsZHctYXBiLXRpbWVycy1wd20yLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2Rl
+dmljZXRyZWUvYmluZGluZ3MvcHdtL3NucHMsZHctYXBiLXRpbWVycy1wd20yLnlhbWwKPiA+IGlu
+ZGV4IDIxM2ZkYWVmMjVkOS4uOWE5YTI0ZGRjNjFiIDEwMDY0NAo+ID4gLS0tIGEvRG9jdW1lbnRh
+dGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3B3bS9zbnBzLGR3LWFwYi10aW1lcnMtcHdtMi55YW1s
+Cj4gPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvcHdtL3NucHMsZHct
+YXBiLXRpbWVycy1wd20yLnlhbWwKPiA+IEBAIC0yMCwxMiArMjAsMTEgQEAgZGVzY3JpcHRpb246
+Cj4gPiAgICBpbnN0ZWFkIG9mIGhhdmluZyB0byBlbmNvZGUgdGhlIElQIHZlcnNpb24gbnVtYmVy
+IGluIHRoZSBkZXZpY2UgdHJlZQo+ID4gICAgY29tcGF0aWJsZS4KPiA+ICAKPiA+IC1hbGxPZjoK
+PiA+IC0gIC0gJHJlZjogcHdtLnlhbWwjCj4gPiAtCj4gPiAgcHJvcGVydGllczoKPiA+ICAgIGNv
+bXBhdGlibGU6Cj4gPiAtICAgIGNvbnN0OiBzbnBzLGR3LWFwYi10aW1lcnMtcHdtMgo+ID4gKyAg
+ICBlbnVtOgo+ID4gKyAgICAgIC0gc25wcyxkdy1hcGItdGltZXJzLXB3bTIKPiA+ICsgICAgICAt
+IGVzd2luLGVpYzc3MDAtcHdtCj4gPiAgCj4gPiAgICByZWc6Cj4gPiAgICAgIG1heEl0ZW1zOiAx
+Cj4gPiBAQCAtNDQsNiArNDMsNyBAQCBwcm9wZXJ0aWVzOgo+ID4gICAgICAgIC0gY29uc3Q6IHRp
+bWVyCj4gPiAgCj4gPiAgICByZXNldHM6Cj4gPiArICAgIG1pbkl0ZW1zOiAxCj4gPiAgICAgIGl0
+ZW1zOgo+ID4gICAgICAgIC0gZGVzY3JpcHRpb246IEludGVyZmFjZSBidXMgKHByZXNldG4pIHJl
+c2V0Cj4gCj4gSSdtIG5vdCBzdXJlIGlmIHRoYXQgaXMgYmV0dGVyIHRoYW4ganVzdCBrZWVwaW5n
+IGJvdGggcmVzZXRzIGFuZAo+IHBvaW50aW5nIHRoZW0gdG8gdGhlIHNhbWUgcmVzZXQgY29udHJv
+bCwgYnV0IGFzIGl0IHN0YW5kcywgdGhlCj4gZGVzY3JpcHRpb24gaXMgaW5jb3JyZWN0LiBPbiBl
+c3dpbiwgdGhlIGZpcnN0IGl0ZW0gaXMgYSBjb21iaW5lZAo+IHByZXNldG4gKyB0aW1lcl9uX3Jl
+c2V0biByZXNldCBpbnB1dCwgbm90IHByZXNldG4uCj4gCgpIaSBQaGlsaXBwLAoKSWYgd2UgYWRk
+IGEgZGVzY3JpcHRpb24gb2YgcmVzZXRzIHVuZGVyIHRoZSBlc3dpbixlaWM3NzAwLXB3bSBjb21w
+YXRpYmxlLMKgCmRvIHlvdSB0aGluayB0aGlzIG1vZGlmaWNhdGlvbiBpcyBhcHByb3ByaWF0ZT8K
+CsKgIC0gaWY6CsKgIMKgIMKgIHByb3BlcnRpZXM6CsKgIMKgIMKgIMKgIGNvbXBhdGlibGU6CsKg
+IMKgIMKgIMKgIMKgIGNvbnRhaW5zOgrCoCDCoCDCoCDCoCDCoCDCoCBjb25zdDogZXN3aW4sZWlj
+NzcwMC1wd20KwqAgwqAgdGhlbjoKwqAgwqAgwqAgcHJvcGVydGllczoKwqAgwqAgwqAgwqAgcmVz
+ZXRzOgrCoCDCoCDCoCDCoCDCoCBpdGVtczoKwqAgwqAgwqAgwqAgwqAgwqAgLSBkZXNjcmlwdGlv
+bjoKwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgUHJlc2V0biBhbmQgdGltZXJfTl9yZXNldG4gYXJl
+IHRpZWQgdG9nZXRoZXIgdG8gYQrCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBzaW5nbGUgY29tYmlu
+ZWQgYnVzLWludGVyZmFjZSBhbmQgdGltZXItY291bnRlcgrCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCByZXNldCBsaW5lLgrCoCDCoCDCoCDCoCByZXNldC1uYW1lczogZmFsc2UKwqAgwqAgwqAgcmVx
+dWlyZWQ6CsKgIMKgIMKgIMKgIC0gcmVzZXRzCgpCZXN0IHJlZ2FyZHMsClh1eWFuZyBEb25nCg==
 
