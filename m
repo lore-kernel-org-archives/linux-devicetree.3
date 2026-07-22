@@ -1,177 +1,310 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011068.outbound.protection.outlook.com [52.101.65.68])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 714EF2F532F;
-	Wed, 22 Jul 2026 03:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.68
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784692552; cv=fail; b=XGKzQkds8hOqa9Nbnt/R32XbgyLVJaFexrmL4J+6Pa5btr3xxZpQpCndPEM7nMiy8CgJ2NVFWUzQpiwLA6Vbb6b4YhIWvzc5/mFk4tPbyAYE46rWqGrTeoXPBu/D5r0pNKEjTPzdDSF01HguPzorOsjMK7gtJc/ncbXS43jUUkA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784692552; c=relaxed/simple;
-	bh=psOPER+0Yo4eczBaLIE3kVB8qa0ubRCSfbPbJHy01bI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=dLvXFe0kWPQxRxFjd99hpVjJ03XKoQtR6lYX4tORAbXfp3a5S1aPFlGLtU+A2QEQTtORONxnYPXZMAV0I9pVmaq+z7PlUJSiUG6NL+GtoazTY4bxV8JauprbgdmLtlvCJ6AklrL0OCZyhO9mVB110TNbwnd/XPnMmKJ6iq3Enp4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=WoQUJK1v; arc=fail smtp.client-ip=52.101.65.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039E03630AC
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 03:58:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784692699; cv=none; b=FII8ymUX1G4lGwwBhhdaJCKofMwrmnkn3ZdaLJEAjgr7W+zhz0xKSzdUGD+B2aiqm37daYF9wvmpBpyg2Trxj9eHBZxKbBQdfzNZF/pSpPEzrXGt/Tdtm+vXd66GfxieuWbNaJEOHxdljCYBdVb2zUj2Qh1zcmAqBVjf/cITzLc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784692699; c=relaxed/simple;
+	bh=PkPeEfhFSYK4QjehEZ8An4vrh4P3wKDbpS+X+u5/t50=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=eZRGX0bfeqGakPaxpmXi6BAOkIRYY0O5G1iw7y+km7Swc3gqZ+w3/9lK+vcI5rFf1YG6JAs/DFf8o6akappz+4ms3+dXc8eL0XplkegPuP5c6y7jYNybqkeAxFACc4kLwSJpDGQn9ro9k2JhZAsT4vYt9wz+nGSw8iXBGiT/PXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lKl3iRyM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="WoQUJK1v"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d9TM/6zmF1r9g0vnBRstDbEmh8C94NxGwYU96F7GnsfnVXTwWcCGIZDO/oUlB5ejpKSLH/KOvH1BktJRr/UeT3hRfkooXwTCgrjJ8dV/olbONis4qZ1v/9eFWHjE1NHKL+T3qT3lpWSmn7liuriZ5R7TbhdXyfT/A1a+ToUxX/UwoRxfnABjFGwIr5xPuHYERlS4HyBUP1rB8XQw+DtCFkZ7DRaoRckND/o0jFWJQADKn3JONTZliRyIfFvI/SMFmcDvEOZ4vRuzNISJLdgZsvgdmsdE3NIX26AGEQA5OUI8LtGXfLq8B/KKrltdte+e0LkogFBOmqXvY2IYI+I57A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rYfHt16VRr+qcQXHAXWmIMDcdPYbR2MNfzgj3MZXoDY=;
- b=yLbvNYXOLV47lRK4mqjWQ0S4BYu6FvESckYOqsa7cDojibsdp8dtuFA+IQ6/rewlBCgNPBt3/fjiv3Y02POpOvy1TY84V+wQa3uaW3cvJKi47TdDeQAQ0R+vsaP7vXPGa1pcMEiRUFWEUn5vFM0p6q0uH4QrqWS///O6oSeZnQ9USHO92fYmwxsZ8aoCQbv6ZW0Q2Vr9g57Rj7V3tYeR5oreq4fdAztRMxe1husjz3t+g//LKk693mX3POXmPCFn+aeUnb5AfeH+PXzh7YkcB0w0dVuQYXkCXlOMXIYIHKFpLXE9pwxiA8IFZ03rIvREV3C9QKF4ZZmqVc9EY4jqxw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rYfHt16VRr+qcQXHAXWmIMDcdPYbR2MNfzgj3MZXoDY=;
- b=WoQUJK1vW8r7Cyc+BVj6/Pfj5WFHniAM8BA3FgSkcxZY0U/TvLrwGJJR8dxIImfHB9yz/Au+gvTeI0GVE7y4hBRDjsiMuwX2ZGbsAPVlaO6c/BLWAORGmjciSwKzCf9b1iraWa+/C+C5n5hZ2eo60nxs1zoNh6cEzT9DcywfKhph2Hmc/q0FmsJwsVqFf85rE7xcglUdJo8Ad/ZRoWe3usDo8zmiqso2vKIRc4OxxHeMrpapyfACa4csRwOZYY1FjIh3jZV2eN++s5DnmcyepGEUB/XfplgTMhF/O3byiNrnEjLclBjPm7b9GzEtHFcpqTa1vVmA3m75ZGuZRZa9oA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
- by GVXPR04MB11653.eurprd04.prod.outlook.com (2603:10a6:150:2c3::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
- 2026 03:55:44 +0000
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.21.0223.008; Wed, 22 Jul 2026
- 03:55:44 +0000
-Date: Wed, 22 Jul 2026 11:57:09 +0800
-From: Liu Ying <victor.liu@nxp.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Robert Chiras <robert.chiras@nxp.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v2 3/7] drm/panel: simple: Add waiken WKS101WX001-WCT
- support
-Message-ID: <amA_lUpWkbOFal1y@raspi>
-References: <20260715-dxl_lcdif-v2-0-da797562636e@nxp.com>
- <20260715-dxl_lcdif-v2-3-da797562636e@nxp.com>
- <alnCL7ylMyvGD-ui@raspi>
- <amAJL9TIcDAK7kbh@SMW015318>
- <amA8iVS4c0exg6pT@raspi>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <amA8iVS4c0exg6pT@raspi>
-X-ClientProxiedBy: MA5PR01CA0019.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:177::16) To AS1PR04MB9287.eurprd04.prod.outlook.com
- (2603:10a6:20b:4dd::8)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lKl3iRyM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA671F000E9;
+	Wed, 22 Jul 2026 03:58:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784692697;
+	bh=F6O9GqWpl/Nckxqz/VrJmv7ig/+KlOfaYAQaAcysb1U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lKl3iRyMTWa5RYpiEqH4XGtsLri6EighG1QkVi3dGwOAhYbdghMbLoAqn9k3C42Y5
+	 dW/qoHJ+chQnFzSTnScpjENM9XVn3TyiI4ugA0AbgMBHNaMRNfVeiNLV5FqNko8K8M
+	 fL/q9DSqz1hq2TLHfVU8uO23W74VG/ntUn/wHkM/Npf/Tf6pBaxgGqfEyh6xYjDecM
+	 vsM4AkxwwrQj2UdVouLQ1d8R9v7YJQ9mrFFkKeVaBXjiBULep/WbKMapdbHv3sLAnZ
+	 AHlyo7tu+1PyPx390m2j8DLgKcsISRnGSPNVU3ofxjvso147sanuebTWIAqqyUkzv3
+	 oO9bNqQIpr6LQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] media: i2c: add driver for ITE IT6625/IT6626
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hermes Wu" <Hermes.wu@ite.com.tw>
+Cc: conor+dt@kernel.org, media-ci@linuxtv.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260722-upstream-it6625-it6626-v3-2-947e50f01764@ite.com.tw>
+References: <20260722-upstream-it6625-it6626-v3-0-947e50f01764@ite.com.tw>
+ <20260722-upstream-it6625-it6626-v3-2-947e50f01764@ite.com.tw>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 03:58:16 +0000
+Message-Id: <20260722035817.5BA671F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|GVXPR04MB11653:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6993464d-834c-4e46-5b2d-08dee7a51ae6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|19092799006|366016|7416014|376014|4143699003|11063799006|10067099003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	uFQkgVTyKj2V+6KzesHkVan8DcVH49b07a1pyJYxwgRXh1R+JW4hcUX5AOV5sObbZOhKegWRWF7za1OMQfjZJnPVVRXlDFYctVeuYGFvL3F7fDPGZ5L0W15K0fbf+y75rKcnUI3tFXxeZLZHVfCAEG65PvQ3lPSMt3Jtqw00VzrE09tBb5CboIhV4PTdWJ8OBBHzwkamWcFTr0A8phaOhU7pesf4age8eRIyv/BtLpITMOgJoKK78gAR2QwazmhUwqscwaU1d0T/iBKlYbTcK76FrAqnjnv4Yzj6ZuLxkdrszeuHAw8ENyxzXDsR1FF7koWJICSQ+3fjvEG2nPhi0wkqpaBDYO87YzOxMtHMyXkAk8zuDg9iI2pRalGkrQhiEtEPPbF+xmoEhQVSB3xXQRdTFovDn5pBFs4opmQajpRDJKUyAGas10gEPemRgwdsQD7Fv8H9v/KLjuGpe+djMEDDFOVGj5o4ipFcH3Pbiu5BV+q5FaD8cP7TUvYZ4MMzSE1rFOmIsUzYwZOsK6FheFjbddDY/r6FKD6XIgTDSqaIaHeOsd6PAIV1dzgwA/ZkVM2AnQ1y0a0kAolptO8U6FRouryqechqiUkVjDp+EyitmeV6jsi82BA+pWgCJ00ewS9xkfAfkjdf0Y65GDthxbJHTCWreInKIPaIEbHag8c=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS1PR04MB9287.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(19092799006)(366016)(7416014)(376014)(4143699003)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?PyMRz93njtPzQwnJoX9+QYktzYQ36mT72euKecrH4HJG7EUUXPntd97R6zkF?=
- =?us-ascii?Q?KUs1/WM0BiE2lKqXZr6syrBVpF4xwayDoiRAnsszseXkiLCdCgZAu/ZxaRAU?=
- =?us-ascii?Q?O5uB7QL+9KGooHtgoweh6TFZTLyBeuRVEKYlIpLqQm7f+SAFJg7nurAQ4fn7?=
- =?us-ascii?Q?Xikow8sR52xHhc/Iyd5F5/6cKiZ00A00izGKUAPwNxwEXX3Z4FmEbjZfKSNN?=
- =?us-ascii?Q?r5v4hm/xSxpYIBMacLHNZ0K8toFAW5aFsQayPVTC9CXrbm18ce9595NRRlVi?=
- =?us-ascii?Q?d0oDGqPsVzSx3MIhPHulLxZu8/NXg/S600xO1ChUQhqXhdhV0pwL6jC0nDmQ?=
- =?us-ascii?Q?cUP85qbjsUQXBQdXwrTW0Hyuk5LHMV0FXeWwmQ5k/zrQs0Gmk532ZLVoxCHK?=
- =?us-ascii?Q?yan2ckpiNqE9G2nWWWVP5KQPG3UpN+/CYncetGnjFom64H5N+yopHIYqY++i?=
- =?us-ascii?Q?kw5i7TETJeaJpaWPU5EYxUuZTWWexAV2OqIuUvctu+Ixg5bXCjIAcItkBiqK?=
- =?us-ascii?Q?3wb2SeLj62brtb0kRLgmSLtnx6wZ40H5KFwd+Vcuc9tFsUd8k8GXC40XzFdY?=
- =?us-ascii?Q?TDtOZc6WVYc26nsDJYM/1OeM+AuZw+El98q9zJ3vMvwqp9jkmQZvGfJdsafU?=
- =?us-ascii?Q?Jwual0YPmbu041HavZR9JLc0NMWSQZDrkYt+lUtkSj3bkjlwAeHn79BkWTtB?=
- =?us-ascii?Q?b9s6gOSdQXgvNcZ/LITPQF/0jsVBw7TOf6OEufSpMR4Oks0mdyJBE2oLAz0n?=
- =?us-ascii?Q?yaQE2yiv7rbOepY9oE7gbyyVH6ZpjGpaSEt7htt0Skt3wWk7bsnbxibIFEeN?=
- =?us-ascii?Q?Z3mEbp0RAZYsNGwTQRPhR6fH66AbyNOE2c29amWqCT6F/cSGry1MilD2FPsk?=
- =?us-ascii?Q?4zIhXq5qxILcnoqI9R/8gdl09OQVjJq0Hh1ESuDSZa85mhQtkcEh5hEOeb3z?=
- =?us-ascii?Q?Mjl01e15Y6uSX1R0YXMCzmjV60t5LhuZToXnQiQ39zg5s0F5PmXwlKxdOdiW?=
- =?us-ascii?Q?aU/bF5wSwBs7eTrrNAQimNmrkZFTHz9PFERS3koZfNX+v8lzYlWrbFRtjnYO?=
- =?us-ascii?Q?WuITh0EeVhjezV/Fyn2YSpS0RgMOdaNfPMA04GIqQ75xebM5BuSU0DrSaYeE?=
- =?us-ascii?Q?lVNM5+xD+3L9FbVzty9YDcvP1Dtv0ilGsbWFiJT446eKWHD2UDIp1ILB1ppj?=
- =?us-ascii?Q?2j2EgjMe26frq15v4dBqqgOD+8uJ7hjOsixbalZBosxeqWeR5wzM8bTvjAKv?=
- =?us-ascii?Q?/97j30+z03KuusfrtBCkxjCQqR/imwvEnmYJ608/asull2NVhWIh9xJAg1op?=
- =?us-ascii?Q?UvaiBjU6QSJ+FOhnUtCu20xG1yCwxJ9/lG2JrE+M4olrb23It9VOkP0MSkof?=
- =?us-ascii?Q?TLUjIROBOtrkv/Zm/SxyKNOd0ZDvyh1G7Hq4TKmFNHKGOWQ3RDfQH5WCRHUa?=
- =?us-ascii?Q?7uNfhNrloDa0cjOh3GcsF5FM7IlmuzzkWsS3AujkCBHJWSKdsUKpgOpxVK74?=
- =?us-ascii?Q?pIqGqDRJpme/4QTpA9vV+EVaEm2E6LPDP09T1XiZ6QF/AHdEu+qqJi8cA9Oe?=
- =?us-ascii?Q?apFNDSqSlwixKCj0JBDmopKAMVJyE6Jz6QPsq9Duj7TlXS8xIM+Tn+RsFmP4?=
- =?us-ascii?Q?DKciN+v4d45IGKtYKCaQmsxVhEFeeAN4oGSsSDjhxsVo0/CWZ9v5pT5o5W//?=
- =?us-ascii?Q?2pZNosAyGiiRddnacnr0WdS4NGkwGou+MwEtNwcRLhtekfV73QP3HAcdCoKK?=
- =?us-ascii?Q?RAVfsuF+Vw=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6993464d-834c-4e46-5b2d-08dee7a51ae6
-X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 03:55:44.3040
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kVRBf/eFc26y8CEF9ZLtNjF0PKB700VRj4Kf6JuZKotsOkKBdkZcWsvnIdGrKQR1n2tcQ/uuYuoMF0h/yLKgDg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB11653
 
-On Wed, Jul 22, 2026 at 11:44:09AM +0800, Liu Ying wrote:
-> On Tue, Jul 21, 2026 at 07:05:03PM -0500, Frank Li wrote:
-> > On Fri, Jul 17, 2026 at 01:48:31PM +0800, Liu Ying wrote:
-> > > On Wed, Jul 15, 2026 at 02:34:48PM -0400, Frank.Li@oss.nxp.com wrote:
-> > > > From: Frank Li <Frank.Li@nxp.com>
-> > > >
-> > > > Add support for WKS101WX001-WCT panel, which is an industrial-grade
-> > > > 10.1-inch IPS TFT LCD capacitive touch screen display module.
-> > > >
-> > > > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > > > ---
-> > > > change in v2
-> > > > - update height to 135 from 136 (sashiko)
-> > > > ---
-> > > >  drivers/gpu/drm/panel/panel-simple.c | 31 +++++++++++++++++++++++++++++++
-> > > >  1 file changed, 31 insertions(+)
-> 
-> [...]
-> 
-> > > > +	.connector_type = DRM_MODE_CONNECTOR_DPI,
-> > >
-> > > Seems that the panel also supports LVDS input according to the specification,
-> > > since it mentions 'RGB or LVDS Interface'?
-> > 
-> > Need hardware rework to use LVDS. Need remove banch of resistors. Should it
-> > be treat as difference panel by different compatible string? hardware
-> > actually changed.
-> 
-> Not sure how to handle that.
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+s) to consider:
+- [High] Failure to flush the CEC RX FIFO on invalid length causes an unrec=
+overable interrupt storm.
+- [Medium] Returning -EINVAL for unsupported formats in VIDIOC_SUBDEV_S_FMT.
+- [Medium] Unprotected reads of `csi_format` and `mbus_fmt_code` in `it6625=
+_get_fmt()` cause data races.
+- [Medium] G_EDID callbacks return -EINVAL when the requested block count e=
+xceeds maximum capacity.
+- [Medium] Integer overflow in EDID block range validation allows out-of-bo=
+unds start blocks to bypass bounds checks.
+- [Medium] Unprotected full-page I2C reads in debugfs pop hardware FIFOs an=
+d corrupt driver state.
+- [Low] The IT6625_CID_HDMI_INFO control lacks the V4L2_CTRL_FLAG_VOLATILE =
+flag, preventing its callback from executing.
+- [Low] Incorrect `buf` indexing in debugfs write handler causes fragmented=
+ writes and non-zero offsets to fail.
+--
 
-Wait, you probably may drop this patch, just document the compatible
-string in panel-simple.yaml and panel-lvds.yaml and use add a fallback
-compatible string "panel-dpi" or "panel-lvds" in device tree plus a
-panel-timing node.
+--- Patch [2]: [PATCH v3 2/2] media: i2c: add driver for ITE IT6625/IT6626 =
+---
+commit 87083ce303a80a72c2909985b3b0be1e8131fd98
+Author: Hermes Wu <Hermes.wu@ite.com.tw>
 
--- 
-Regards,
-Liu Ying
+media: i2c: add driver for ITE IT6625/IT6626
+
+Add a V4L2 subdevice driver for the ITE IT6625/IT6626 HDMI-to-MIPI
+CSI-2 bridge chips.
+
+> diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
+> new file mode 100644
+> index 0000000000000..54056ee71a46c
+> --- /dev/null
+> +++ b/drivers/media/i2c/it6625.c
+> @@ -0,0 +1,2131 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+[ ... ]
+> +static int it6625_read_edid(struct it6625 *it6625, u8 *edid, int start_b=
+lock,
+> +			    int num_blocks)
+> +{
+> +	int i, bank_ctrl, err =3D 0;
+> +	struct device *dev =3D it6625->dev;
+> +
+> +	if (!edid) {
+> +		dev_err(dev, "edid buffer is NULL");
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (start_block < 0 || num_blocks <=3D 0 ||
+> +	    start_block + num_blocks > EDID_NUM_BLOCKS_MAX) {
+
+[Severity: Medium]
+Will this return an error instead of clamping the EDID block count? The
+V4L2 specification requires the driver to clamp the blocks to the maximum
+available and return 0, rather than returning an error when a userspace
+application requests a large block count.
+
+Also, since the parameters are signed integers but originate from __u32
+fields, can a large positive start_block overflow start_block + num_blocks
+to a negative value? This would bypass the hardware bounds check and allow
+I2C reads to unintended banks.
+
+> +		dev_err(dev,
+> +			"invalid block range: start_block=3D%d, num_blocks=3D%d",
+> +			start_block, num_blocks);
+> +		return -EINVAL;
+> +	}
+[ ... ]
+> +static int it6625_write_edid(struct it6625 *it6625, u8 *edid, int start_=
+block,
+> +			     int num_blocks)
+> +{
+> +	int i, bank_ctrl, err =3D 0;
+> +	struct device *dev =3D it6625->dev;
+> +
+> +	if (start_block < 0 || num_blocks <=3D 0 ||
+> +	    start_block + num_blocks > EDID_NUM_BLOCKS_MAX) {
+
+[Severity: Medium]
+Could this also be vulnerable to the same integer overflow as the read
+path? A large start_block could overflow the addition and bypass the bounds
+validation on the write path.
+
+> +		dev_err(dev,
+> +			"invalid block range: start_block=3D%d, num_blocks=3D%d",
+> +			start_block, num_blocks);
+> +		return -EINVAL;
+> +	}
+[ ... ]
+> +static void it6625_cec_handler(struct it6625 *it6625, u8 intstatus)
+> +{
+> +	struct cec_msg rxmsg =3D {};
+> +	int val =3D 0;
+> +
+> +	if (intstatus & B_CEC_RX_RECEIVED) {
+> +		scoped_guard(mutex, &it6625->it6625_lock) {
+> +			val =3D it6625_read_byte(it6625, REG_CEC_RX_DATA_LEN);
+> +			if (val > 0 && val <=3D 16) {
+> +				it6625_read_bytes(it6625, REG_CEC_RX_DATA, &rxmsg.msg[0], val);
+> +				it6625_write_byte(it6625, REG_CEC_RX_DATA_LEN, 0);
+> +			}
+> +		}
+> +
+> +		if (val > 0 && val <=3D 16) {
+> +			rxmsg.len =3D val;
+> +			cec_received_msg(it6625->cec_adap, &rxmsg);
+> +			dump_cec_msg(it6625, &rxmsg, "CEC_RX");
+> +		} else {
+> +			dev_err(it6625->dev, "invalid CEC RX length %d", val);
+> +		}
+
+[Severity: High]
+Does this code leave the hardware interrupt condition permanently active if
+the length is greater than 16 or less than 0?=20
+
+If the length is invalid, the driver logs an error but skips writing 0 to
+REG_CEC_RX_DATA_LEN. Since writing 0 is required to clear the RX status,
+this could cause an unrecoverable interrupt storm.
+
+> +	}
+[ ... ]
+> +static int it6625_get_fmt(struct v4l2_subdev *sd,
+> +			  struct v4l2_subdev_state *sd_state,
+> +			  struct v4l2_subdev_format *format)
+> +{
+> +	struct it6625 *it6625 =3D sd_to_6625(sd);
+> +	struct v4l2_dv_timings timings;
+> +
+> +	if (format->pad !=3D 0)
+> +		return -EINVAL;
+> +
+> +	it6625_get_timings(it6625, &timings);
+> +	format->format.width =3D timings.bt.width;
+> +	format->format.height =3D timings.bt.height;
+> +	format->format.colorspace =3D format_to_colorspace(it6625->csi_format);
+
+[Severity: Medium]
+Can this code read a torn state?=20
+
+The variables csi_format and mbus_fmt_code are being read here without
+holding the it6625_lock. If VIDIOC_SUBDEV_G_FMT is called concurrently with
+VIDIOC_SUBDEV_S_FMT, they could end up out of sync.
+
+> +	format->format.field =3D timings.bt.interlaced =3D=3D V4L2_DV_INTERLACE=
+D ?
+> +			       V4L2_FIELD_INTERLACED : V4L2_FIELD_NONE;
+> +
+> +	if (format->which =3D=3D V4L2_SUBDEV_FORMAT_TRY) {
+> +		struct v4l2_mbus_framefmt *fmt;
+> +
+> +		fmt =3D v4l2_subdev_state_get_format(sd_state, format->pad);
+> +		format->format.code =3D fmt->code;
+> +	} else {
+> +		format->format.code =3D it6625->mbus_fmt_code;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int it6625_set_fmt(struct v4l2_subdev *sd,
+> +			  struct v4l2_subdev_state *sd_state,
+> +			  struct v4l2_subdev_format *format)
+> +{
+> +	struct it6625 *it6625 =3D sd_to_6625(sd);
+> +	int ret;
+> +	u32 mbus_fmt_code =3D format->format.code;
+> +
+> +	ret =3D it6625_get_fmt(sd, sd_state, format);
+> +	format->format.code =3D mbus_fmt_code;
+> +
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D it6625_csi_mbus_code_idx(mbus_fmt_code);
+> +
+> +	if (ret < 0) {
+> +		v4l2_dbg(1, debug, sd, "%s: unsupported format code 0x%x",
+> +			 __func__, mbus_fmt_code);
+> +		return ret;
+> +	}
+
+[Severity: Medium]
+Should this adjust the format instead of returning an error?=20
+
+The V4L2 Subdevice API mandates that the driver must adjust unsupported
+format codes to a default supported format rather than returning -EINVAL
+and failing.
+
+[ ... ]
+> +static const struct v4l2_ctrl_config it6625_ctrl_get_hdmi_info =3D {
+> +	.ops =3D &it6625_ctrl_ops,
+> +	.id =3D IT6625_CID_HDMI_INFO,
+> +	.name =3D "HDMI Info",
+> +	.type =3D V4L2_CTRL_TYPE_STRING,
+> +	.max =3D 128,
+> +	.step =3D 1,
+> +	.flags =3D V4L2_CTRL_FLAG_READ_ONLY,
+> +};
+
+[Severity: Low]
+Is this control missing the V4L2_CTRL_FLAG_VOLATILE flag?=20
+
+Without it, the associated it6625_g_volatile_ctrl() callback won't execute
+when userspace reads the control, silently returning a default empty string.
+
+[ ... ]
+> +static int it6625_mipi_reg_show(struct seq_file *s, void *data)
+> +{
+> +	struct it6625 *it6625 =3D s->private;
+> +	u8 reg_buf[256];
+> +
+> +	it6625_read_bytes(it6625, 0x00, reg_buf, sizeof(reg_buf));
+
+[Severity: Medium]
+Will this unprotected 256-byte bulk read cause hardware state corruption?=20
+
+Reading all 256 registers without holding it6625_lock could race with
+active bank switches. More importantly, won't this read clear-on-read
+registers like REG_CEC_RX_DATA, silently popping the CEC RX FIFO and
+permanently dropping pending CEC messages?
+
+> +	it6625_regdump_print(s, reg_buf);
+> +
+> +	return 0;
+> +}
+[ ... ]
+> +static ssize_t it6625_mipi_reg_write(struct file *file,
+> +				     const char __user *user_buf,
+> +				     size_t count, loff_t *ppos)
+> +{
+> +	struct it6625 *it6625 =3D file_inode(file)->i_private;
+> +	char buf[32] =3D {};
+> +	unsigned int addr, val;
+> +	ssize_t len;
+> +
+> +	len =3D simple_write_to_buffer(buf, sizeof(buf) - 1, ppos, user_buf, co=
+unt);
+> +	if (len < 0)
+> +		return len;
+> +	buf[len] =3D '\0';
+> +
+> +	if (sscanf(buf, "%X %X", &addr, &val) !=3D 2)
+> +		return -EINVAL;
+
+[Severity: Low]
+Can this fail for any debugfs write where the file offset (*ppos) is
+greater than 0?=20
+
+The simple_write_to_buffer() function copies data to buf + *ppos. If *ppos
+is greater than 0, the start of buf remains zero-initialized.=20
+
+Setting buf[len] =3D '\0' puts the null terminator at the wrong index, and
+sscanf() reads from buf[0] which is empty.
+
+> +
+> +	it6625_write_byte(it6625, addr, val);
+> +
+> +	return count;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-upstream-i=
+t6625-it6626-v3-0-947e50f01764@ite.com.tw?part=3D2
