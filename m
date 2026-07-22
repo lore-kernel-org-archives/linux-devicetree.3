@@ -1,172 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFEE1148850
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 09:22:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586D42D8376;
+	Wed, 22 Jul 2026 09:23:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784712131; cv=none; b=d6jp+D9HKVj7W815cDznpjlm5cX2dDUqhsU/vdb+laNPElK+HTmLZa673OPZFGRgr6XIoXZ357Qh3kTQnRRmJ/1AqMVtDG0zDomX4QZjjZeC01I8dD4oN06fhf8Uw5F1M+crp3rsF6rRLpky1cgNOjcAKBnfZOBbhYIpXB9sNaI=
+	t=1784712204; cv=none; b=bb3QzLaJPOvAIxH55fu1YusF9ZGzyqbxK8NMArBKmTUaY2lFq3os7cJk1QLG+rdQ1AMaqfO5107FbEOMOQTIJmFdrM9IT/OEqwDqh7SFHxCil6iwLDicYg98EzAD/nj7KVteIaxmqhqob2HQm7WuAf8bJ8U/wkZiDb1OUpQaSwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784712131; c=relaxed/simple;
-	bh=ZQJtCmzrb0IyF9LYgGtLrsXxFDeXdK9wbk48b8X9duE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=u7N8riQrfu1q+GP+qkzsi19rtrnRrW0fLokGlGtohUZDeMRCEfhPa4PrF7/YXLndnrVYN12vruzhdEYqR1pYzDoHcB0TnoXLMRsF1kxj5iYj69n+nbX1zUWL5uriFSd9tbMVmbGnp6xFwR7vmuq+MyXiwuAZWA4fJBtKbjxF9Mo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K9Dv+s+F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784712204; c=relaxed/simple;
+	bh=ddUZNX1kLnF7qdIKL+YEYld57GJfWQPqXwNv5z4AkBo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=VSeowFae50XadgP5tlZJV3KiYW/nn1czfT3fR6wvrBST77pvnGYhiuxcKwM5BP6+/XYsBzTQuZLcEWMH3eEKlumwfHgZSSubz74XVartyOl9SI4mF28oC+sNlbBF+B4Q5gRtK/T/7n62g/eAR4VaDelSDlqmu2SA/Eu1M9mLqWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jBsIP/01; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K9Dv+s+F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B24D1F000E9;
-	Wed, 22 Jul 2026 09:22:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784712130;
-	bh=jRjxrmLIfE032W1CimkQkZ6irPmlx9NgsrWY7RC39ug=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=K9Dv+s+FCxu98ec5JpCoIWDl5PXUIrnWeOuwxuj9gegG7cOdV5FOzi7WcxfEgzZv4
-	 QO2edAI4uNWMJv2YrFEJg02pVfTcEs8H1jVKVXFaWp0kWcs5ujZcfU0FNkKagwBh79
-	 HG1mqw10Y+Z+2PUcQs6zOC62uX5DbjfB+lKNyYYUW8IJmlEaaId2moJOezIHWL2Wfr
-	 7KhmNOYhsDjT+BJp1SCpceNIbXWazFBbgpVC9/d6YBSPVEU9SZ/CRue/50JdGY2C51
-	 RSuDkZ0EDTcUTuWW+ANhMTAbrY7lTVwcoCtRgjsvDG5ITV0a3qGVstArj8UUsTSSwe
-	 eja/+/T87+8og==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] media: i2c: add driver for ITE IT6625/IT6626
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hermes Wu" <Hermes.wu@ite.com.tw>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260722-upstream-it6625-it6626-v5-2-387e7584f2c9@ite.com.tw>
-References: <20260722-upstream-it6625-it6626-v5-0-387e7584f2c9@ite.com.tw>
- <20260722-upstream-it6625-it6626-v5-2-387e7584f2c9@ite.com.tw>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 09:22:09 +0000
-Message-Id: <20260722092210.1B24D1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jBsIP/01"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 11FAAC19425;
+	Wed, 22 Jul 2026 09:23:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784712204;
+	bh=ddUZNX1kLnF7qdIKL+YEYld57GJfWQPqXwNv5z4AkBo=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=jBsIP/01lRE6GboTtRgtsIigGFaXobkEaaxCoUD1VvO0FE5JN6IkoOuOW0vGNXain
+	 xH2LaHO4I+JGtwmm4zSbtokCcXMEtmin/qs6SgLrkhRxzjnqEfZbup3NGzOeZfFjOm
+	 Qdo8KrVWWeUBKegGKuw4oR7SBlZW5wC4FCx89PN5j+YYRGeKFa5mJqXNCvrbU3h4Pu
+	 A+fHqdB0QeyIcYJLcwGuNMuOHpRGBfUod2pNkn7S2llZY8tT+PqHLSREZrzJNEBRcv
+	 TwcqWWdETLbka9I8auwj4pcoj4/Pf7BTt1/x/AAYIb8StpRYgJXi8Uc7q8pBmkTph/
+	 81chgQgDdr0eg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B054AC4453C;
+	Wed, 22 Jul 2026 09:23:23 +0000 (UTC)
+From: Congcong Yao via B4 Relay <devnull+congcong.yao.mediatek.com@kernel.org>
+Subject: [PATCH RESEND 0/2] memory: mtk-smi: add MT8189 SMI support
+Date: Wed, 22 Jul 2026 17:21:56 +0800
+Message-Id: <20260722-8189-smi-support-v1-0-b528a4fd878c@mediatek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALSLYGoC/yWMsQ6CQBAFf4W82k3utvDAWloLLI2FwKprIlxuw
+ ZgQ/t1Ty5lkZoFJUjHsigVJXmo6Dhn8pkB3vww3Ie0zgx1vXWCm0pcV2VPJ5hjHNJEw91UQccG
+ 3yFlMctX3b3lCUx/rwx7nv7e5fUg3fX9Y1w89l6RQfAAAAA==
+X-Change-ID: 20260722-8189-smi-support-e22d97ee071b
+To: Yong Wu <yong.wu@mediatek.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ Congcong Yao <congcong.yao@mediatek.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784712201; l=1079;
+ i=congcong.yao@mediatek.com; s=20260722; h=from:subject:message-id;
+ bh=ddUZNX1kLnF7qdIKL+YEYld57GJfWQPqXwNv5z4AkBo=;
+ b=NWyWkGdp1PDyU5YCv8inrzIpaJTChYNnYiEmaEbgOWJN+uvpbI6lmPuq4TvJfF7cNJjgK3z4s
+ vR3RvBYBMQfDuxwS7/N9XR++02MkwwVpGX633bQ4seBVfUEpvbQkR2h
+X-Developer-Key: i=congcong.yao@mediatek.com; a=ed25519;
+ pk=tIrmGxKQQxnfyb48iCCd19063tppPj89U3nupGYAIxg=
+X-Endpoint-Received: by B4 Relay for congcong.yao@mediatek.com/20260722
+ with auth_id=889
+X-Original-From: Congcong Yao <congcong.yao@mediatek.com>
+Reply-To: congcong.yao@mediatek.com
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] IT6626 C-PHY support is broken because the endpoint parsing logic =
-forces D-PHY, causing C-PHY device tree configurations to fail probing.
-- [High] Concurrent ioctls racing with remove() can schedule delayed work o=
-n freed memory.
-- [Medium] Ignored return value from v4l2_phys_addr_validate() allows confi=
-guration of malformed CEC topologies.
---
+Based on tag: next-20260629, linux-next/master
 
---- Patch [2]: [PATCH v5 2/2] media: i2c: add driver for ITE IT6625/IT6626 =
+This patchset adds MT8189 SMI support.
+
+The series updates the MediaTek SMI bindings for MT8189 and adds the
+corresponding SMI common and larb support in the mtk-smi driver.
+
+This is a resend of v3. No code changes.
+
+Changes in v3:
+- Change the minimum clock number of smi-sub-common to 3.
+- Link to v2:
+  https://lore.kernel.org/linux-mediatek/20260427070444.20247-1-zhengnan.chen@mediatek.com/
+
+Signed-off-by: Congcong Yao <congcong.yao@mediatek.com>
 ---
-commit bfb7e6cd73b65d97c7af09ea2f5bbbecc5bfd67b
-Author: Hermes Wu <Hermes.wu@ite.com.tw>
-Subject: media: i2c: add driver for ITE IT6625/IT6626
+Congcong Yao (2):
+      memory: mtk-smi: Add mt8189 support
+      dt-bindings: memory-controllers: mtk-smi: Add support for mt8189
 
-This patch adds a V4L2 subdevice driver for the ITE IT6625/IT6626 HDMI-to-M=
-IPI
-CSI-2 bridge chips. It supports EDID read/write, DV timings detection, and
-exposes an HDMI CEC adapter. The bridge is configured over I2C with HPD
-control via standard V4L2 operations.
+ .../memory-controllers/mediatek,smi-common.yaml    | 18 +++++++++
+ .../memory-controllers/mediatek,smi-larb.yaml      |  3 ++
+ drivers/memory/mtk-smi.c                           | 44 ++++++++++++++++++++++
+ 3 files changed, 65 insertions(+)
+---
+base-commit: 290aaf24a551d5a0dce037e3fab30820f9113a10
+change-id: 20260722-8189-smi-support-e22d97ee071b
 
-> diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-> --- /dev/null
-> +++ b/drivers/media/i2c/it6625.c
-> [ ... ]
-> @@ -1167,7 +1167,7 @@ static int it6625_s_edid(struct v4l2_subdev *sd,
->  		pa =3D cec_get_edid_phys_addr(edid->edid, edid->blocks * 128, NULL);
->  		if (pa =3D=3D CEC_PHYS_ADDR_INVALID) {
->  			v4l2_warn(sd, "invalid CEC physical address in EDID");
->  			cec_phys_addr_invalidate(it6625->cec_adap);
->  		} else {
->  			v4l2_phys_addr_validate(pa, NULL, NULL);
-[Severity: Medium]
-Does this code ignore the return value of v4l2_phys_addr_validate()?
+Best regards,
+--  
+Congcong Yao <congcong.yao@mediatek.com>
 
-If a malformed EDID provides an invalid CEC physical address, the validation
-might fail, but the code appears to proceed and pass the address to
-cec_s_phys_addr() unconditionally. Could this allow the configuration of
-malformed CEC topologies?
 
->  			cec_s_phys_addr(it6625->cec_adap, pa, false);
->  		}
->  	}
-> [ ... ]
-> @@ -1627,7 +1627,7 @@ static int it6625_parse_endpoint(struct it6625 *it6=
-625)
->  {
->  	struct device *dev =3D it6625->dev;
->  	struct v4l2_fwnode_endpoint endpoint =3D { .bus_type =3D V4L2_MBUS_CSI2=
-_DPHY };
-[Severity: High]
-Is IT6626 C-PHY support disabled because of this initialization?
-
-By explicitly setting bus_type to V4L2_MBUS_CSI2_DPHY, the V4L2 fwnode
-parser might strictly reject C-PHY endpoints during probe.
-
->  	struct device_node *ep =3D NULL;
->  	unsigned int max_lanes;
->  	unsigned int port;
-> [ ... ]
-> @@ -1659,7 +1659,7 @@ static int it6625_parse_endpoint(struct it6625 *it6=
-625)
->  	ret =3D v4l2_fwnode_endpoint_alloc_parse(of_fwnode_handle(ep), &endpoin=
-t);
->  	of_node_put(ep);
->  	if (ret) {
->  		dev_err(dev, "failed to parse endpoint: %d", ret);
->  		return ret;
->  	}
-> =20
->  	if (endpoint.bus_type =3D=3D V4L2_MBUS_CSI2_CPHY &&
->  	    it6625->chip_type !=3D IT6626_CHIP) {
-[Severity: High]
-Will this C-PHY check ever be reached?
-
-If a device tree specifies a C-PHY endpoint, v4l2_fwnode_endpoint_alloc_par=
-se()
-would likely have already returned an error because the driver pre-initiali=
-zed
-the endpoint bus type to D-PHY above.
-
->  		dev_err(dev, "IT6625 does not support C-PHY, only IT6626 does");
->  		v4l2_fwnode_endpoint_free(&endpoint);
->  		return -EINVAL;
->  	}
-> [ ... ]
-> @@ -2169,7 +2169,7 @@ static void it6625_remove(struct i2c_client *client)
->  	if (client->irq)
->  		disable_irq(client->irq);
->  	else
->  		timer_shutdown_sync(&it6625->timer);
-> =20
->  	cancel_work_sync(&it6625->polling_work);
->  	cancel_delayed_work_sync(&it6625->hpd_delayed_work);
->  	debugfs_remove_recursive(it6625->debugfs_dir);
->  	cec_unregister_adapter(it6625->cec_adap);
->  	mutex_destroy(&it6625->it6625_lock);
-[Severity: High]
-Can a concurrent ioctl race with this teardown and cause a use-after-free?
-
-If VIDIOC_SUBDEV_S_EDID is in flight and reaches the end of it6625_s_edid():
-
-drivers/media/i2c/it6625.c:it6625_s_edid() {
-    ...
-    if (hdmi_5v_power_present(it6625)) {
-        it6625_enable_hpd(it6625);
-    ...
-}
-
-Could it unconditionally schedule the delayed work after it6625_remove() has
-already completed cancel_delayed_work_sync() and the devm-allocated driver
-state has been freed?
-
-I noted the commit message mentions this residual risk is similar to other
-peer drivers and was discussed in previous versions, but could it still res=
-ult
-in enqueuing a timer on freed memory?
-
->  	media_entity_cleanup(&sd->entity);
->  	v4l2_ctrl_handler_free(&it6625->hdl);
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-upstream-i=
-t6625-it6626-v5-0-387e7584f2c9@ite.com.tw?part=3D2
