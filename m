@@ -1,47 +1,48 @@
 Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com [208.88.110.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB93E43CE44;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A6F439F99;
 	Wed, 22 Jul 2026 17:38:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=208.88.110.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784741929; cv=none; b=HB9xOtAgBGbM4s8SDktvif3AvHn2SzqyzrPpyGwCRVBQvmFh2fKOvAec1EBfYnQGwkSQ23q9wyKnFxTTNtB6PAuPZCtkNQOKLOO1xybHa2/iN/NcnTUNTzqSzYCY7vXc2a5dkPL38T7aOjaa9DnUm5P+qrVEzwWd3cy4s+9XnCo=
+	t=1784741930; cv=none; b=OhqbnyRZ1FxgEfaLU7pOn7TcJHFN79AucSBTFJMT//2c6PlFFD7HkVi+NN/Ctpe+MsmSds+8rv7xLm4x4y4iGOGKNtdX64OQac/I0sn+flIVbAIwWZNpXlaIK5fPLq8AqfzjvWDovBjTUj+sEkX4JW/fK5YkIrFGWTiYyG0KJqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784741929; c=relaxed/simple;
-	bh=Rlv3OHZkyd/viDhQ04qfcHddOgTvRAu9sUhPbh+NYM8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eN3IGLb7P0ZLAlboRd1RrShbclbgZ0LXkwwIkyuilrWgb7jYwCXwZfusRfrb5GCch0HxZAq3IDkBBpfOwoLpepwGksT9uhm2WG56wNB8Wf4PMQXj1pahPcpfck0/NyOq5rVNWy7sLNTZqWXOaDAzuRrj97SCLIsxToKsdGsQmUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=savoirfairelinux.com; spf=none smtp.mailfrom=mail.savoirfairelinux.com; dkim=pass (2048-bit key) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b=XMQ7XbFq; arc=none smtp.client-ip=208.88.110.44
+	s=arc-20240116; t=1784741930; c=relaxed/simple;
+	bh=BYdUAL6oblM6PTyybzQzm/TC03KI7jtbQtaLf7HLn3s=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=bEnxkb4KWSkWFSCPEYy6bJ76DjqS7yR0aBPGOpa8Rb4Ch4B83Qh9wN10D4bkVZ+rbN1etkyg463DnKBMPrRWIb3wWWqlxtmwaIcqfryhkVrolwy6II5N6ymhZJbfYCwomLUAE0ty42YrXItygtfBYJFY5qXQ4NRlKhq4YDQ05KE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=savoirfairelinux.com; spf=none smtp.mailfrom=mail.savoirfairelinux.com; dkim=pass (2048-bit key) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b=bwDHb+kT; arc=none smtp.client-ip=208.88.110.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=savoirfairelinux.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mail.savoirfairelinux.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b="XMQ7XbFq"
+	dkim=pass (2048-bit key) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b="bwDHb+kT"
 Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 428263D81895;
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 62E133D818C9;
 	Wed, 22 Jul 2026 13:38:42 -0400 (EDT)
 Received: from mail.savoirfairelinux.com ([127.0.0.1])
  by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
- with ESMTP id BUbpF93MvrZy; Wed, 22 Jul 2026 13:38:41 -0400 (EDT)
+ with ESMTP id CHUj8Fg0MHHH; Wed, 22 Jul 2026 13:38:41 -0400 (EDT)
 Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 31AF13D81899;
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 55EB63D818A3;
 	Wed, 22 Jul 2026 13:38:41 -0400 (EDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 31AF13D81899
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 55EB63D818A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
-	t=1784741921; bh=QOxzoDUBGKKl7Kk+ZyHuwdE+sH897v7w+LJGpJ1sJPs=;
+	t=1784741921; bh=jQm77tJ5zqmG2YRbm0c34YcXtnsvIps8JiC+d/WYrhE=;
 	h=From:To:Date:Message-Id:MIME-Version;
-	b=XMQ7XbFqQCFFG2YgRldmq4xejtYC5MkBNV0ib6DWgHeCVP7KGvU5dpsS8zSc5WfVw
-	 QUAv/bk0aW8UWC2DVC057S2+NvFnk3a/VJhM/mZN27G8EH6YArxdGXMV+AckuVjfAs
-	 lgGUb4aFlMA6btEgixHqzJoyhw1ecIk4mgk8BUkYTvaY9+iBGF77kyGP6CBNTunY3K
-	 sPr7VEL1pg1xP6RPZZj/mZqqFMfs3Dlk1Qzn3sn9HR0dJ1hgY1gFa0YgVMjFojmJqO
-	 insVBLS75aCafKar3Oxmyruk0VR8N5xCsYvWNmcQF25OSSI8O0m1Qg6/3rDgOQVk80
-	 9yh0VB9r6EJEg==
+	b=bwDHb+kT7J0k5fmgMVfeJZeLAzt5dbjR7uRON9GKUCaUu6pUWlPEl/jb+CX19Jfdp
+	 30HAP3GBxQvNMeZBJFS7XhwJ4GODZoZZDqJC2Y6YOTi4PXUc1MoxeQ/oHmDDYIdgMV
+	 6nEMIv2CjyUQhQY3OVwSg0qJysx4bkPpcUrmPFx1OP/K6fE9prrJ9k2E8yRFw0HaID
+	 wQZS2YCBbXh4mwuA2lqcL4QHgswKFwRDTwvLuvzxywixN6EsjtAkS+yhsG7nmWI5aZ
+	 qRrajpWVqKJFCGau2yAlvRL24cw16eSXKX2Ugxn+76u9HMEPx12N9vW7+a2/ukbvMt
+	 vESwuMFtt8FZQ==
 X-Virus-Scanned: amavis at mail.savoirfairelinux.com
 Received: from mail.savoirfairelinux.com ([127.0.0.1])
  by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
- with ESMTP id V8ghoQSc7LIO; Wed, 22 Jul 2026 13:38:40 -0400 (EDT)
+ with ESMTP id O2AVQfYIepuL; Wed, 22 Jul 2026 13:38:41 -0400 (EDT)
 Received: from localhost (unknown [192.168.51.254])
-	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id B517F3D8166A;
-	Wed, 22 Jul 2026 13:38:40 -0400 (EDT)
+	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id 02A043D81895;
+	Wed, 22 Jul 2026 13:38:41 -0400 (EDT)
 From: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
 To: Jagan Teki <jagan@edgeble.ai>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -62,10 +63,12 @@ Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>,
 	Jerome Oufella <jerome.oufella@savoirfairelinux.com>,
 	Felix Boucher <felix.boucher@savoirfairelinux.com>,
 	Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
-Subject: [PATCH v2 0/4] drm/panel: jd9365da: add support for DCLTek DT300250
-Date: Wed, 22 Jul 2026 13:38:36 -0400
-Message-Id: <20260722173840.3576444-1-marc-olivier.champagne@savoirfairelinux.com>
+Subject: [PATCH v2 1/4] drm: panel: jd9365da: Enable LPM mode
+Date: Wed, 22 Jul 2026 13:38:37 -0400
+Message-Id: <20260722173840.3576444-2-marc-olivier.champagne@savoirfairelinux.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260722173840.3576444-1-marc-olivier.champagne@savoirfairelinux.com>
+References: <20260722173840.3576444-1-marc-olivier.champagne@savoirfairelinux.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -74,38 +77,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 
-This series adds support for the DCLTek DT300250 9.35-inch MIPI DSI
-panel based on the Jadard JD9365DA-H3 controller.
+The JD9365DA-H3 uses DSI LPM for command transmissions, make sure
+this is configured correctly in the DSI mode flags.
 
-The series includes a prerequisite needed by this panel support:
-enable LPM mode for the jd9365da path.
-It then adds the dcltek vendor prefix, documents
-the new compatible string in the binding, and finally adds the panel
-descriptor and initialization sequence to the driver.
-
+Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfaire=
+linux.com>
 ---
+ drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Changes in v2:
- - drop the old patch 2; already present in drm-misc-next as
-   b55a4b5d4769a650f52ea3f1ae680610169d125e
-   ("drm/panel: jadard-jd9365da-h3: set prepare_prev_first")
- - rebase the series onto drm-misc-next so it applies cleanly
- - renumber the remaining patches
-
-Marc-Olivier Champagne (4):
-  drm: panel: jd9365da: Enable LPM mode
-  dt-bindings: vendor-prefixes: Add DCLTEK
-  dt-bindings: display: panel: add compatible for DCLTek 300250 9.35in
-    panel
-  drm: panel: jd9365da: Add DCLTek 300250 9.35in display
-
- .../display/panel/jadard,jd9365da-h3.yaml     |   1 +
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- .../gpu/drm/panel/panel-jadard-jd9365da-h3.c  | 249 +++++++++++++++++-
- 3 files changed, 251 insertions(+), 1 deletion(-)
-
-
-base-commit: 9c99e09777509d9bd8cabb0c1132c981b4e668e2
+diff --git a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c b/drivers/g=
+pu/drm/panel/panel-jadard-jd9365da-h3.c
+index 67ef9e0fea03..a9183baa421a 100644
+--- a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
++++ b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
+@@ -2950,7 +2950,8 @@ static int jadard_dsi_probe(struct mipi_dsi_device =
+*dsi)
+ 	else
+ 		dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO |
+ 				  MIPI_DSI_MODE_VIDEO_BURST |
+-				  MIPI_DSI_MODE_NO_EOT_PACKET;
++				  MIPI_DSI_MODE_NO_EOT_PACKET |
++				  MIPI_DSI_MODE_LPM;
+=20
+ 	dsi->format =3D desc->format;
+ 	dsi->lanes =3D desc->lanes;
 --=20
 2.34.1
 
