@@ -1,132 +1,139 @@
-Received: from out-186.mta1.migadu.com (out-186.mta1.migadu.com [95.215.58.186])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87123437448
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 21:59:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.186
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5A8CC345EBF;
+	Wed, 22 Jul 2026 22:00:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784757551; cv=none; b=ZMeMP3AedL9OM8iuyv9qrRZs9NkSIhMO6P9/CMzGaCgy5BrFwj6MnHJZdHyROERAvDF28YTYqmo+uE6c8znUq6YVa6lVz6uvb26eEh318bSlxToKc2u99cd/I6THOCd1eE0odkTls5ygPosFT7hJCKUH1kNa5/QU1CfmbxN9t2M=
+	t=1784757651; cv=none; b=kAC8iEqdDO1wfveVOoE5Bp94gLBWrnTUiQmVLOVoXkM5/f/r0zsQCmU+wgoHxdp5qddlQ/uOs6A79zSUZBoMh3i7bK7s11VkVY59J+tr9vk6z4UI8CMVb0CLywJVkH7aZnXQyKbVTAE53y8rq3OHu7lCmfw+m9iM3dByqQjd+yo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784757551; c=relaxed/simple;
-	bh=ycEiIIcCT5yVjX3Nt8+2A2w4QM8LWfMkFITbvsAX9BA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rR8pC45CsRfuIB5Wnh+oZZOXocZRdYL+WgLe6cuVtB/4zUL8Nm/4QmeN8tIRo5DStJszCvpVLMIDGb5Jyo0w10DkULXh/wP2OYq6ihLJdHDmlB/jmGhrlu0SEg+jISrPEPAa5atbjpRDS0Wlx7aGV6iECHM2FqUKislms87RCxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=EYuPraTj; arc=none smtp.client-ip=95.215.58.186
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784757651; c=relaxed/simple;
+	bh=3MvGD1eFKe1vEcFRnSpsEpa0JYSXdYF12OcBVgaAJiU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jQ0BD6rOzjy0nNf6NvoxVt6JAxCLTe5x2ZaRZ3xyXP3s13bpWKo/C4Pn4K69O6eM4XTR/2IYbRooC1Ha4dNKlSfu2dMjx9SB7ytPT2E74HpwrhrkiC+qMUXydjiR8IGyCYnglRkSH4ZEvVnsgN4tAiHaTpo1dZkwgJnqGdZs3y8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DQelirpG; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="EYuPraTj"
-Date: Wed, 22 Jul 2026 23:58:46 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784757537;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QgzAIpdd+j+xpJQn78Dbh3kor0P0pw/C6gIhbXHEbfw=;
-	b=EYuPraTjsHbh70ukYCwtP1dOLP/KbFoa7gaXgzlxWjZbsfoIOGKTzMiHvBNst0cuATAWTz
-	CpWmm9eSeZeJB0/XtqvcOgb0opfp+S4woqOILNoFyZq5yPFt9/EcL7S5oHG0cx2MHsoweP
-	hL8YxpgUWXJjYkieg1WmOXp6gs4Bcv4=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
-	Alexander Stein <alexander.stein@ew.tq-group.com>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	driver-core@lists.linux.dev
-Subject: Re: [PATCH RFC 1/2] dt-bindings: regmap: add common schema for
- no-sequential-read
-Message-ID: <amEvJBOE3Ja014Ap@bombadil>
-References: <20260722-regmap-single-read-v1-0-aaaf31591669@linux.dev>
- <20260722-regmap-single-read-v1-1-aaaf31591669@linux.dev>
- <cdd3b988-72cd-4143-9a17-ee0c57625e94@sirena.org.uk>
- <amD_vkMOrtKq5NvX@bombadil>
- <20260722201622.GD648629@killaraus.ideasonboard.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DQelirpG"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4BB981595;
+	Wed, 22 Jul 2026 15:00:43 -0700 (PDT)
+Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 869EB3F66F;
+	Wed, 22 Jul 2026 15:00:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1784757647; bh=3MvGD1eFKe1vEcFRnSpsEpa0JYSXdYF12OcBVgaAJiU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=DQelirpGLPKsacn9h+egBlDB6+GT1AZD7LVjwqMTd3idUcsZvgDYICoe/gUxKIqCK
+	 s6ZXmpdcAHCbOExSqv7gGQiIgYeecP4lSpCG3FFz4vxwglYSPa13gxgOLJtmN6I6fz
+	 hdgoCzSVUFfQHN739oMqQilKLOdMDAa7q24D4hr4=
+Date: Wed, 22 Jul 2026 23:56:48 +0200
+From: Andre Przywara <andre.przywara@arm.com>
+To: Justin Suess <utilityemal77@gmail.com>
+Cc: Sean Young <sean@mess.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, Sashiko
+ <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v2 2/3] arm64: dts: allwinner: a523: add IR receiver
+ nodes
+Message-ID: <20260722235648.40350459@ryzen.lan>
+In-Reply-To: <20260722201717.2205609-3-utilityemal77@gmail.com>
+References: <20260722201717.2205609-1-utilityemal77@gmail.com>
+	<20260722201717.2205609-3-utilityemal77@gmail.com>
+Organization: Arm Ltd.
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260722201622.GD648629@killaraus.ideasonboard.com>
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jul 22, 2026 at 11:16:22PM +0300, Laurent Pinchart wrote:
-> On Wed, Jul 22, 2026 at 08:24:37PM +0200, Richard Leitner wrote:
-> > On Wed, Jul 22, 2026 at 02:59:12PM +0100, Mark Brown wrote:
-> > > On Wed, Jul 22, 2026 at 10:42:46AM +0200, Richard Leitner wrote:
-> > > > Introduce a common regmap dt-binding schema with an optional boolean
-> > > > property no-sequential-read to describe hardware integrations where
-> > > > reading multiple consecutive registers in a single operation is not
-> > > > reliable and registers must be read individually.
-> > > 
-> > > > A typical case are imaging sensors used on vendor-provided camera
-> > > > modules whose bus integration does not support reads that advance across
-> > > > consecutive register addresses. In such cases, single-register reads
-> > > > work, but bulk reads do not. This restriction is a property of the
-> > > > concrete hardware integration, not of the chip itself. It therefore
-> > > > cannot be identified from the device driver and duplicating firmware
-> > > > parsing in each affected driver does not scale.
-> > > 
-> > > No, this should not be a DT property.  We should discover this through
-> > > the bus, just like we do currently for the various I2C quirks that are
-> > > advertied by the I2C subsystem.
-> > 
-> > What do you mean "discover this through the bus"? As mentioned in the
-> > commit message there is no possibility to detect that within the affected
-> > I2C device drivers.
-> > 
-> > Or do you mean that it should be "discovered" by modelling the MCU which
-> > "proxies" the I2C traffic between the host and the sensor/device as some
-> > kind of "parent" device of the sensor?
+On Wed, 22 Jul 2026 16:17:16 -0400
+Justin Suess <utilityemal77@gmail.com> wrote:
+
+Hi Justin,
+
+thanks for the update!
+
+> The A523 has two CIR receivers, both compatible with the A31 CIR: one
+> in the CPUX domain, clocked from the main CCU, and one in the RTC
+> power domain, clocked from the R-CCU.
 > 
-> Mark's comment wasn't totally clear to me. I think this is what he
-> meant.
+> Add nodes for both instances, disabled by default. Since the RX signal
+> of each instance can be routed to more than one pin, boards with an IR
+> receiver are expected to add the pinctrl properties next to where they
+> enable the node. Keep the PL11 pin description in the dtsi, as boards
+> commonly use that pin for the RTC domain instance.
 > 
-> Richard, do you know if the MCU (which is actually an FPGA if I'm not
-> mistaken) intercepts the I2C signals (i.e. is interposed between the
-> host and the image sensor), or is "just" connected on the same I2C bus
-> and messes up the I2C transfer when it detects a condition it dislikes
-> (for instance by pulling the SDA line down when it detects a read from a
-> protected register) ?
+> Cc: Andre Przywara <andre.przywara@arm.com>
+> Signed-off-by: Justin Suess <utilityemal77@gmail.com>
 
-Tbh. I don't know. The VC MIPI Camera Module Hardware Operating manual
-suggests both, the controller and the sensor sit on the same I2C bus:
+I compared the values against the manual, and can confirm that they
+match. Also tested both interfaces. Just one nit below, but regardless:
 
-https://www.mipi-modules.com/fileadmin/external/documentation/hardware/VC_MIPI_Camera_Module/index.html#mipi-sensor-module-circuit
+Reviewed-by: Andre Przywara <andre.przywara@arm.com>
 
-But that's just a block diagram and nothing is written down really.
-
-I tried some reverse-engineering and probed most of the accessible pads
-of the camera module with my scope. I found no evidence that there is "a
-second I2C bus" with "delayed" signals as I would suspect if the FPGA
-really intercepts the I2C traffic.
-
-Nonetheless this is by far no proof that this isn't the case, as the I2C
-lanes of the imaging sensor are not accessible without destroying the PCB
-:-(
-
-So any help/feedback/information is greatly appreciated.
-
-
-@Mark: I understood that if the fpga really intercepts the I2C bus, it
-should be modelled accordingly in device tree. But what would be the
-preferred implementation if both devices sit on the same I2C bus, but
-one is messing up some register reads on purpose?
-
-thanks & regards;rl
-
+> ---
+>  .../arm64/boot/dts/allwinner/sun55i-a523.dtsi | 28 +++++++++++++++++++
+>  1 file changed, 28 insertions(+)
 > 
-> > Or something other?
-> > 
-> > Sorry, if I don't get it, but currently I see no other option than
-> > providing this information somehow via device-tree. No matter if it's in
-> > regmap or I2C.
-> 
-> -- 
-> Regards,
-> 
-> Laurent Pinchart
+> diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+> index ca6a16807049..19771aac68e5 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+> +++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+> @@ -327,6 +327,17 @@ ccu: clock-controller@2001000 {
+>  			#reset-cells = <1>;
+>  		};
+>  
+> +		ir: ir@2005000 {
+> +			compatible = "allwinner,sun55i-a523-ir",
+> +				     "allwinner,sun6i-a31-ir";
+> +			reg = <0x02005000 0x400>;
+> +			interrupts = <GIC_SPI 27 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&ccu CLK_BUS_IR_RX>, <&ccu CLK_IR_RX>;
+> +			clock-names = "apb", "ir";
+> +			resets = <&ccu RST_BUS_IR_RX>;
+> +			status = "disabled";
+> +		};
+> +
+>  		ledc: led-controller@2008000 {
+>  			compatible = "allwinner,sun55i-a523-ledc",
+>  				     "allwinner,sun50i-a100-ledc";
+> @@ -927,6 +938,23 @@ r_i2c_pins: r-i2c-pins {
+>  				allwinner,pinmux = <2>;
+>  				function = "r_i2c0";
+>  			};
+> +
+> +			r_ir_rx_pin: r-ir-rx-pin {
+> +				pins = "PL11";
+> +				allwinner,pinmux = <2>;
+> +				function = "s_cir";
+
+I think the function name should be "s_cir_rx", as there are IR TX pins
+as well. And we used "{s_,}[c]ir_rx" for previous SoCs already.
+
+Cheers,
+Andre
+
+> +			};
+> +		};
+> +
+> +		r_ir: ir@7040000 {
+> +			compatible = "allwinner,sun55i-a523-ir",
+> +				     "allwinner,sun6i-a31-ir";
+> +			reg = <0x07040000 0x400>;
+> +			interrupts = <GIC_SPI 167 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&r_ccu CLK_BUS_R_IR_RX>, <&r_ccu CLK_R_IR_RX>;
+> +			clock-names = "apb", "ir";
+> +			resets = <&r_ccu RST_BUS_R_IR_RX>;
+> +			status = "disabled";
+>  		};
+>  
+>  		pck600: power-controller@7060000 {
+
