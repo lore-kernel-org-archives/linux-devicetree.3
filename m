@@ -1,90 +1,131 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 969A93AEB2C
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 07:04:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB1C533ADBA;
+	Wed, 22 Jul 2026 07:06:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784703868; cv=none; b=r+K1BS6eSgVM4/8QeRyk7T4XPbihg4BNlaSAb9bh+o7Nz/dauougH/Y89DNGaBeSWeFoJRrKyYe25D/qYHTezOE2MiaFvWyvX/LrZVvJsayKIaDe96rJn5kxTXJuinI5/qyY/wgNdl36I9ZiY1Dy0S7OAtUq5DEYVAIUoeSJUi0=
+	t=1784703989; cv=none; b=fJtoK/aoxpHxSLFtD2+uJiMgl+qSCHZJjXqQ/3icb5InAhVikvk67xIp8mtbqRTxveouNudXKfnj4ulDoVpNdheYzg+1SiVWnqjbfBUCifZ5UzjcvmE3BC99KJ5+svTAPQvk0Alxyp60+sclSlcSwUOpj4GqgPAISlHAKU6EvGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784703868; c=relaxed/simple;
-	bh=992XARYHlviuhS9cRMWyEBx5BE5vBCVhQEXAtrSiQlY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=odtDH8eyIEEiDsTjwiONqt5Dmo1TDw0oCL3+LTyXrD6S9wOhi84+IAOBeHpy4oGutIniNICdsNs6Pp+hSXJUO69ji8bvDJtY5EtfFt9pnghGC5I1VkV2VIDkSerfK6bide0jA/eh+lUs+YUP+AWif6QjaNJJJszPnlOS6FJNJx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=CQSiu3+u; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1784703989; c=relaxed/simple;
+	bh=3ybV1jLsAfcefajhEJKJ2FeLoU5ZminLK+AwMHaSjNg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e+wkTEgf6E4y2CbAIiG/x0KOj1bSlVTNVqqPY3XFiCEVQ9jw6iJExrtmUeUqrv+knADIszKtROCC618Kl1CfNZZtapcFRTwdk3p1/JUgChkx05txdBCSYz2glYEkN2zxufJxfjQ/yNkSYA0Ze9SVBPooViMDR+nWP4WADdMNkJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KU1+ux9E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="CQSiu3+u"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 2C2004E40EC2;
-	Wed, 22 Jul 2026 07:04:18 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id EB01060388;
-	Wed, 22 Jul 2026 07:04:17 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8203C11BD39DA;
-	Wed, 22 Jul 2026 09:04:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1784703857; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=/WnWMJSX3S/QCfTaWmtOlrrrcy9ZboBNOwRmC9TNFGc=;
-	b=CQSiu3+uiNaIqssP8fC+MH2FPdc+lgHHMxLkBhmNv5g2yvsP9MaOLo9yXbX6H/1wCQYp68
-	5HsHYS/ok/XYRpT+PTBwtojP2vxRCRbwYYFW3wCweumYL+u61bThgjvq01sPpDyektSfBv
-	U4WURPL4bGTsTKTHd9LPPs50dg6AJcuseCZlsCA75UPmOOGbi6ULVx1f6lQT31NGVYa/ZU
-	psKcrcxvA71yarYc0CSKQ9Z9piQpgBcRe9CUxoujceUotVQeMc/hO4wOkTTuTo2bULRJrh
-	TchVK+xGOgizB/sYj0bRc/PYkFtL4lQ9uyiYwkrz3bW+LXWGp8zslNYR/rVhYg==
-Message-ID: <e2ab85a7-2ddc-4ea0-a004-c5319b846b3e@bootlin.com>
-Date: Wed, 22 Jul 2026 09:04:10 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KU1+ux9E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC6501F00A3A;
+	Wed, 22 Jul 2026 07:06:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784703988;
+	bh=mPrKJwtyc94vlPXCTsdOzTfpaNygSvDWA1DD/pRBXtk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KU1+ux9ENMRdMjF4W5boalCx0W1oQbcV/jOcR6dWuby1Ca9BlLWVtaB4uFZQth71C
+	 E+blIVAtlcIyTKI5grEVq8SJGzxMUBjzNFtoVNNiJ06riWd4IsmcdeiJTDFu2hKRU8
+	 kq1jLSU4PBS+RAFnIR2ZdO3CC9U9WSl2Dukt+HIe2wjGmvv6Se+IrE7oXHG/EoIMGI
+	 6wQyRyV26lM8VYoBrwdX1BErhu/Fb/+AQDomeJJARG1V7YgqRon7lTkuYAaavOb/FD
+	 QqDvy7MoOzkBULCjTScl/qxKGMe2kmiYTjsup9sSqBupvKDe5giF6lI4En+4lrzW9W
+	 TIFuHuC4RFTBQ==
+Date: Wed, 22 Jul 2026 09:06:25 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, Amit Kucheria <amit.kucheria@oss.qualcomm.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+	Lukasz Luba <lukasz.luba@arm.com>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, manaf.pallikunhi@oss.qualcomm.com
+Subject: Re: [PATCH v5 1/9] dt-bindings: remoteproc: qcom,pas: add
+ #cooling-cells property
+Message-ID: <20260722-active-kangaroo-of-order-ebb28f@quoll>
+References: <20260721-b4-qmi-tmd-v5-0-99620e07f505@oss.qualcomm.com>
+ <20260721-b4-qmi-tmd-v5-1-99620e07f505@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v3 0/2] Add DAPU Telecom DAP8211R(I) Gigabit
- Ethernet PHY driver
-To: Artem Shimko <a.shimko.dev@gmail.com>
-Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King
- <linux@armlinux.org.uk>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Zhi Li <lizhi2@eswincomputing.com>,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260716173325.653164-1-a.shimko.dev@gmail.com>
- <77f1cc14-cc5f-4f32-a972-f0350a60931b@bootlin.com>
- <CAOPX746tZcytWVq-LqE166j8hoVNrndZfZGAgnhiE6Ry_BY8+w@mail.gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <CAOPX746tZcytWVq-LqE166j8hoVNrndZfZGAgnhiE6Ry_BY8+w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260721-b4-qmi-tmd-v5-1-99620e07f505@oss.qualcomm.com>
 
-Hi Artem,
-
-On 7/17/26 12:50, Artem Shimko wrote:
-> Hi Maxime,
+On Tue, Jul 21, 2026 at 11:58:58AM +0530, Gaurav Kohli wrote:
+> Document the optional #cooling-cells property for Qualcomm PAS
+> remoteproc nodes so they can be used as thermal cooling devices via
+> the QMI Thermal Mitigation Device (TMD) interface.
 > 
-> I could suggest a couple options for how I should handle the driver:
-> 1. Recognizing that this is a problem with the PCS layer, I can remove
-> the inversion from the patch
-> (but add it to my working project as a separate, non-upstream patch).
-> This way, we'll just leave the delays setting in the driver, which is
-> fairly common among driver users.
-> 2. Leave the inversion in the driver until some future common
-> framework solution is developed, and
-> then adapt this part of the driver to that solution. I'd be happy to
-> help develop/modify that framework =).
-> A packet generator could also be added to it.
+> Qualcomm remote processors expose TMD endpoints that support thermal
+> throttling through firmware. The cooling-device specifier uses 3 cells:
+> 
+>   <&phandle device_id min_state max_state>
+> 
+> where device_id selects the TMD endpoint (for example PA, modem, or
+> CDSP software mitigation), with constants defined in:
+> include/dt-bindings/thermal/qcom,qmi-tmd.h
+> 
+> Example usage in a thermal zone:
+> 
+>   cooling-maps {
+>       map0 {
+>           trip = <&cpu_alert>;
+>           cooling-device = <&remoteproc_cdsp
+>                            QCOM_TMD_CDSP_SW
+>                            0 THERMAL_NO_LIMIT>;
+>       };
+>   };
+> 
+> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+> ---
+>  .../bindings/remoteproc/qcom,pas-common.yaml         |  9 +++++++++
+>  MAINTAINERS                                          |  1 +
+>  include/dt-bindings/thermal/qcom,qmi-tmd.h           | 20 ++++++++++++++++++++
+>  3 files changed, 30 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
+> index 11faf655f530..39e79a1c1079 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
+> @@ -77,6 +77,15 @@ properties:
+>        channels and devices related to the ADSP.
+>      unevaluatedProperties: false
+>  
+> +  '#cooling-cells':
+> +    description: |
+> +      Cooling device with three cells:
+> +        Cell 0: Cooling device id as defined in
+> +                include/dt-bindings/thermal/qcom,qmi-tmd.h
+> +        Cell 1: Minimum cooling state
+> +        Cell 2: Maximum cooling state
+> +    const: 3
+> +
+>    glink-edge:
+>      $ref: /schemas/remoteproc/qcom,glink-edge.yaml#
+>      description:
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index dcffe9fc54f6..2d4d19201aec 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -3423,6 +3423,7 @@ F:	drivers/watchdog/gunyah_wdt.c
+>  F:	include/dt-bindings/arm/qcom,ids.h
+>  F:	include/dt-bindings/firmware/qcom,scm.h
+>  F:	include/dt-bindings/soc/qcom*
+> +F:	include/dt-bindings/thermal/qcom,qmi-tmd.h
+>  F:	include/linux/firmware/qcom
+>  F:	include/linux/soc/qcom/
+>  F:	include/soc/qcom/
+> diff --git a/include/dt-bindings/thermal/qcom,qmi-tmd.h b/include/dt-bindings/thermal/qcom,qmi-tmd.h
 
-I'd say, you can send the patch without the clock inversion for now, to
-keep it simple and generic. If the clock inversion is something that
-you really need we can assess that in a second time.
+Filename must match compatible. There are no qcom,qmi-tmd or qcom,.*tmd
+or qcom,.*qmi compatibles.
 
-The rest of the driver looks fairly simple and nice :)
+Which device is providing this ABI? PAS?
 
-Maxime
+Best regards,
+Krzysztof
 
