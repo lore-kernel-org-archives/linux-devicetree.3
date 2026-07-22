@@ -1,116 +1,106 @@
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D938F44AB6A;
-	Wed, 22 Jul 2026 06:57:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6F5933B6F9;
+	Wed, 22 Jul 2026 06:57:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784703460; cv=none; b=QYJQtaHAMKwDdch+w8WAZnVo1KBYw+fyj73wUqvGiwdZf3CCnr+UAgdOeNvamGrPy2/8XGGwYMkwiKmNjSjHr2RQe86Ogk01Nsvq6YArRXHTcOftvKzgDhurVAInGiTBRSUqb/5QcYowIc1D1ssftdJ59ckkSYiNiqBs99/h8o8=
+	t=1784703474; cv=none; b=ubBncnBLW4tuQVn4vnpJWonTHwVJ4h4xGDXXcfWoOjdB5jx8MBOCzW448+xZcp5Ks4xYoOkqGIiw20Cs3si+pCPqaX+KhtMQqoeDuUppwiYN1+28jdMZi7OmybBREzDnVIHxvQImugrv3mqIwmsBW52gJ9Yh4QvSGMf28IS6N4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784703460; c=relaxed/simple;
-	bh=t69esuoTm8ZiigYmH0W9OwN5SLE48ProuPEFU1h70Fw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IS+OfzuQPlzGvseCB0pOtQ+jFhetlPHqEpvOpxul5gRrD2uSzq5SqC9lXl3Q6bihJ29nBKVjjr0KSkUvd/Zn7oYFu8h6CKubQGtZhV5LLWi7vGSEmLiEVRbMC8bYSIsXbtgJRzONFVYNgeReYcXHywSvpG/a6LZmKl6izaDLS4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=VlKnkFNS; arc=none smtp.client-ip=203.29.241.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	s=arc-20240116; t=1784703474; c=relaxed/simple;
+	bh=kuEmGi3KRFD9PpKtcyooZ/uj6vWmMH5n8dVU38F4sR4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=flMiiRq2vn5aEICNa23qBhYOe/yQF3yUuvYyIcdw4YjY68UcLQUCXkeOg9UNPhByOCesanqkyds+SON03EJI7Fd7wyYTOYN9dsFt2lP7cSCw84oCzAYnsw5lTmx4dN8yFEFdfwffNjqjgSpIkQR1DfhOBnGzt22HP8LIt4oUMsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lOEHauXR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="VlKnkFNS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1784703456;
-	bh=t69esuoTm8ZiigYmH0W9OwN5SLE48ProuPEFU1h70Fw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=VlKnkFNSMzNwJ1NEw/5K6SZv0DJGDfuqo7QkE34qxjY0zwrVWXulDcxJtCpI5sl+b
-	 cHFKeuj0U+6Kii8obQ4JOGcuD35NyZq/n9zQfXG9j/MWp0rYbKxYKmGhVefTvFWt+n
-	 G2wfBzzA8/t7bcWy8EFSft/8sUCdqK+M9Vk1YbAjQa++Z+MWBpYqEZrOVxSGl1Q0mB
-	 Mn/lFxx8OBUVOllYjouKzifXBXoDoUvYUYKJftQjY2m95rhH4n2nSEWy3lXCK9p2sN
-	 9PBeh7Ggxcf0xaoj1K/KmFK8eX7P8n6ExypX6nZR2y+RkfkgBWuDJ1N8rUZU2H5y7B
-	 ZIp2MIUo30cyw==
-Received: from [192.168.68.117] (unknown [180.150.112.11])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 70C4465B37;
-	Wed, 22 Jul 2026 14:57:35 +0800 (AWST)
-Message-ID: <793ccb3b7af22f6f38ff6544ed633b7800ea68b6.camel@codeconstruct.com.au>
-Subject: Re: [PATCH] ARM: dts: aspeed-g6: add pcie-lpc and pcie-kcs4
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: =?ISO-8859-1?Q?Gr=E9goire?= Layet <gregoire.layet@9elements.com>, Tan
- Siewert <tan.siewert@9elements.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
- devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, 	linux-kernel@vger.kernel.org
-Date: Wed, 22 Jul 2026 16:27:34 +0930
-In-Reply-To: <CAFi2wKZrya6aHAN9Wtwk43gqQTMPp1BamM9VKKQ+iH1UPzr4HA@mail.gmail.com>
-References: 
-	<de49f2032f5b1f170161dcd6191c0daa48f0b0c2.1784117715.git.gregoire.layet@9elements.com>
-	 <178412588365.243141.16731478852761544781.b4-review@b4>
-	 <CAFi2wKZrya6aHAN9Wtwk43gqQTMPp1BamM9VKKQ+iH1UPzr4HA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lOEHauXR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61AF61F00A3A;
+	Wed, 22 Jul 2026 06:57:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784703473;
+	bh=06XF7zpSnsetbA0eus7tkijIniC80Q0nSuvoNAK5KGQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lOEHauXRUNHaWZHe8+W3+FJCQ/xB4iOyemVEL8HToPwnAa7M5biAhvlq4PWtClWk7
+	 o3J4tvqZuh4vzLuzgaVqfPHWWnQhBrx5U9zUz9BIHnFkQtR/j8Fn8vR8d7fhRPYzvm
+	 7v6hssZh4LN2sy4zI9MREoxLuz4dOUGMaPKL9rcvJO85Ho9/McuJjpqZRgUqaS+yup
+	 v59ryEcp6dTPxVM6W3zvlJAaEc8lqVCUq/7NxbwBvPdYZWNk51AkDngA8l/gRjN4XK
+	 YHmYjEQeNNykgDaGt/PdVPZVjRUjwkqm9ziLpyem82V0NfWOY1D5D+EqgVwI/n65YO
+	 f5fFy5i5gL2Hw==
+Date: Wed, 22 Jul 2026 08:57:49 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Cc: Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>, 
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bryan O'Donoghue <bod@kernel.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	jeyaprakash.soundrapandian@oss.qualcomm.com, Vijay Kumar Tumati <quic_vtumati@quicinc.com>
+Subject: Re: [PATCH v6 1/7] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add
+ SM8750 CSI2 PHY
+Message-ID: <20260722-literate-nondescript-seagull-cbdfaa@quoll>
+References: <20260721-add-support-for-camss-on-sm8750-v6-0-a5f841061d18@oss.qualcomm.com>
+ <20260721-add-support-for-camss-on-sm8750-v6-1-a5f841061d18@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260721-add-support-for-camss-on-sm8750-v6-1-a5f841061d18@oss.qualcomm.com>
 
-On Mon, 2026-07-20 at 18:31 +0200, Gr=C3=A9goire Layet wrote:
-> > > diff --git a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi b/arch/arm/boot/=
-dts/aspeed/aspeed-g6.dtsi
-> > > index 56bb3b0444f7..ac351f01048f 100644
-> > > --- a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-> > > +++ b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-> > > @@ -658,6 +658,21 @@ ibt: ibt@140 {
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-> > >=20
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pcie_lpc: pcie-lpc@1=
-e789800 {
-> >=20
-> > lpc@1e789000 already maps 0x1e789000-0x1e78a000 and 0x1e789914 falls in=
-side it,
->=20
-> I agree that there is an overlap in address space in my patch.
-> I will fix this in a new revision.
->=20
-> > so you're describing a second `ast2600-lpc-v2` node which is unnecessar=
-y.
-> >=20
-> > Suggestion: Merge pcie_kcs4 into lpc@1e789000 and use 914 as offset. Th=
-at way
-> > you don't accidentally cause an overlap for the devices if you describe=
- more in
-> > the future.
->=20
-> The 'kcs_bmc_aspeed' driver has the kcs channels address hard-coded.
-> If the 'reg' property does not contain the three addresses used by one
-> of the four channels, the driver returns -EINVAL.
-> So having a pcie-kcs4 with regs 0x914, 0x918 and 0x91c doesn't work.
+On Tue, Jul 21, 2026 at 05:46:00AM -0700, Hangxiang Ma wrote:
+> The SM8750 camera subsystem exposes six CSI2 D-PHY blocks that follow the
+> same programming model as Kaanapali. Describe the SM8750 CSI2 PHY using a
 
-It does work if you fix the driver to allow it.
+No, SM8750 does not have the same programming model as Kaanapali. When
+SM8750 was created, there was no Kaanapali, so how it could have the
+same interface?
 
->=20
-> This is why a second LPC node was added, for the pcie-kcs4 to have
-> regs 0x114, 0x118 and 0x11c;
->=20
-> I know we should write device tree sources based on hardware rather
-> than around driver limitations.
-> Changing how the driver behaves seems excessive for supporting KCS over P=
-CIe.
+> "qcom,sm8750-csi2-phy" compatible with the "qcom,kaanapali-csi2-phy"
+> fallback, so the CAMSS binding can instantiate the CSIPHY nodes as
+> separate phy devices.
 
-I don't think this is true.
+Redundant sentence.
 
-> I think a point can be made that the LPC over PCIe is a different LPC bus=
-.
+> 
+> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml        | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> index 7943049834f9..95375efb2597 100644
+> --- a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
 
-In my opinion it's most helpful if Table 8 in the datasheet is used as
-the reference for address ranges in the devicetree. With that in mind,
-I don't intend to apply a patch adding a new node as you've proposed. I
-suggest adjusting the driver to identify the X{{I,O}D,ST}R4 addresses
-as channel 4, under the existing LPC node as Tan suggested.
+I just commented on very similar patch. This is confusing, there is no
+such file and I do not get why you keep adding some long chain of
+patches touching the same lines. Squash patches.
 
-Andrew
+This is untestable.
+
+> @@ -16,9 +16,13 @@ description:
+>  
+>  properties:
+>    compatible:
+> -    enum:
+> -      - qcom,kaanapali-csi2-phy
+> -      - qcom,x1e80100-csi2-phy
+> +    oneOf:
+> +      - enum:
+> +          - qcom,kaanapali-csi2-phy
+> +          - qcom,x1e80100-csi2-phy
+> +      - items:
+> +          - const: qcom,sm8750-csi2-phy
+> +          - const: qcom,kaanapali-csi2-phy
+
+SM8750 came one year before Kaanapali, so how such compatibility is possible?
+
+Best regards,
+Krzysztof
+
