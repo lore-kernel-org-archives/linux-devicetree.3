@@ -1,248 +1,128 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5719E442B1D
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 17:18:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D2B345EA5;
+	Wed, 22 Jul 2026 17:19:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784740732; cv=none; b=thVWThWUPqh+1eANd6+2ni0Q2U2LtdYkzZEuU1IbhX8jn843bGoBm8ud1TbqT/goVBg+jVdpISuzN3wO0pDNnUXijvMCQaJn+bcEfp5rJAywKzJkigszfZANFkOpJ4muZYIPKFpR8v0E1RueJccvgB+aZLeJOwDt/jllfFMb2WA=
+	t=1784740755; cv=none; b=bj39y1vMptGp5VYYdw9cD9J5vsKv7OI5V2YDaSiV9AVAjmSiywl65WhdkVytamNrwYp+39aaaCC64RZTgongSZdMSXELG90czXy7NZOsnOlNLnFJfXG/04UBXRe6aMItBzFmp1LcUQ0Lw5yTH+KoLejmkR81+3JGiOf3TzGAgKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784740732; c=relaxed/simple;
-	bh=9waZWLhHOEX23tZF9Rv9dopzKj5VvUD4oKC+kdncA7Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jOuyRoy6IZhkkPGI3NDr6qpH9vugIKDtfJ8lFfIi5NpgAuGhe/YU+OShUJ4JjPo8h3cO0hRVRavvYbfvQaJKoZr5AUfdsstfuTqrQSF+Xncak0dsbiji/OpcirDD2MCJ4VT+Wbv4LLOX8nampUfiYFxHOQTRAYHkoqvAs0pxd+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R5b4dRIV; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784740755; c=relaxed/simple;
+	bh=tTR96qwEtTOKe1tZUq9pLn6ST1x1EO7ALiL3ium/JAE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=StwpotzOvtnRIxCBAO/vwCNdCzuEbGqSybPe12T9roSGCITptYb880eWQfe1Uk+U7+aBsU0bBMcBxLXg0fnQaeCeqTNGofAU0RrVLtgdUbUYlGg06BxSNbsYCb4D9iSV9M3nC3pmG9ssI+W6EmsxppG0HOQybc26JmI5zoTZm1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz; spf=pass smtp.mailfrom=oldschoolsolutions.biz; dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b=SY2LVr9t; arc=none smtp.client-ip=212.227.17.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oldschoolsolutions.biz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R5b4dRIV"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-495590dde14so38646775e9.0
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 10:18:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b="SY2LVr9t"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784740728; x=1785345528; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=41FBM2ZTWPSHVd6MJ8MXkNt1oTrETIpgt/CWDkyyKWg=;
-        b=R5b4dRIV1A+P9MEKIwYsgOeJI1y2ciB8tXFeT+DLR3n19yTbhRHqmfmBAba+SEJO/Q
-         X/UoTpeIDQSyvAlEWFrMp/K1wG291Wd0KjSA9xHctMtzyYEoMys+nUfgrBe2MKCeJnNr
-         KFhVL4vYovp0ckyavUDrtZd5WWQSyd0AS7eOt02iZ1b/Er9SQS2p93zGmpQ0fldjmc8W
-         WsB3TNM2HlcRvzqqDBZX5ewXTGuGJ6gbrAKgXUfHWES5Tz0UUJbdQRFneOFUjxIMWyLu
-         058Eil7vrj1E7ncUfluygarJUu3sMfl8E+vACeEl0BIDxMViwgaVy/XKoGWbpv016zUD
-         Rd+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784740728; x=1785345528;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=41FBM2ZTWPSHVd6MJ8MXkNt1oTrETIpgt/CWDkyyKWg=;
-        b=LqF7uieR9k3x0OzNBVlv/xX/URxCGbHuMSmKXRlmaR9JsYqH9eCKErKGyghH24vqLb
-         qtldYklpV4uZrdQd/tqDc1rl2fhPVIqMaSS7TkaBe+LwnknTMArQKGIiZ2N001kidkXI
-         jP9CP3YFYRI3XYronsjCg0LRLU1BbHCWf4UyDjfksBdHqxn4dO6aoRNj4EG/qHN7PeU1
-         nM9VG2fDdT76TRbQvGxTTjOyzldxQ44hiXHgHtDSwXsXwPMkBeF5mqd9eZwXtzRgwMDu
-         9zoj5i4o3D5v2hVGqN96fLUEEz+akkf40nxT2XFfGjPzu8Gc/I/9q9lzWjG8LB5tWiaP
-         6KKQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpYax3L70zNqdPqglBF2MIp1vcy8D0moVMnDHHh77JFDSdqk4upBO/EcigM3I2LKiw4mXi+OPH5iY0j@vger.kernel.org
-X-Gm-Message-State: AOJu0YxTqO9jrPr5b8u44EDGjkipiRSiVu85E4+v9fh8/rxMbunEplIQ
-	wd98pY50uGVCBvzMnrT7OoNXUnngWv+mx/uUTBOdZkV6lEMIidoHPDLM
-X-Gm-Gg: AR+sD11DVIjMzcHRnoTCxbaPoZ/cyjqxIo0eUn6NaSG3iAbZg83AInB9dma7UwyNSVM
-	yF3I4dl8Vuk4agsw0GAANm15WlKMpSE4j194bKy1owhia6FIySYCSjqYUrQENQT0KZDdVCzr+W8
-	OtaJOHF8HH4yVdxHRVo3z4aOy4j6fSKG24WLj84odfJbePoEFzzo3Dfxkd09nz73+DXL8hwfAuZ
-	LbVtBDhSArNWZMTslisbeB4yBOhGPtby1bNmfsI0zM1JEakTnCdcb6wJpRDx7T7ynvxP8TEEIhi
-	w5SRk1DksmJyPc0lVPKjiybFXgL5/DxpaAuex7OdmRYXtQluRn9igQvkKOag8gNm2qoNtbvvlDz
-	YZpJ0Y4a3H0kNn4Z9ZPXsvDbtUXqyXidKdeu+9o4EwiwJmQElb2zyetEeQBwsIM8XvpTHbam9YU
-	jBrmvQckeNqHru42B4OaCSlZ8U7zUHt5dC8GXqDz2spKXmC/Hgc+7LMIU=
-X-Received: by 2002:a05:600c:3589:b0:495:641a:fffe with SMTP id 5b1f17b1804b1-495641b01acmr134793105e9.39.1784740728297;
-        Wed, 22 Jul 2026 10:18:48 -0700 (PDT)
-Received: from localhost.localdomain ([86.126.27.145])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4956b5c2108sm123344555e9.2.2026.07.22.10.18.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 10:18:47 -0700 (PDT)
-From: Eduard Bostina <egbostina@gmail.com>
-To: Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Eduard Bostina <egbostina@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>
-Cc: daniel.baluta@nxp.com,
-	simona.toaca@nxp.com,
-	goledhruva@gmail.com,
-	m-chawdhry@ti.com
-Subject: [PATCH] dt-bindings: arm: omap: Convert L4 interconnect to DT schema
-Date: Wed, 22 Jul 2026 17:18:40 +0000
-Message-ID: <20260722171840.299303-1-egbostina@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	d=oldschoolsolutions.biz; s=s1-ionos; t=1784740736; x=1785345536;
+	i=jens.glathe@oldschoolsolutions.biz;
+	bh=tTR96qwEtTOKe1tZUq9pLn6ST1x1EO7ALiL3ium/JAE=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=SY2LVr9tzHsLzOY0YrSrHeOjOQEscoUxdSB3G7BvW8LmtArH7HHNNRT6/NkdTZgg
+	 jZjYL+Byr8CGBaBLSa+RohQdWiWoH9Qnpnp7asq/dBJhMHydxZhRzUSURrZbKYQZh
+	 Kpesx4bMpmzx2OuNlDnH9NKdMawcjsnAzFShSYOHrJwswkJ7bWLrmS9kAgbX585ut
+	 MRRV6gEpHyfocr/bSgblkX9XSZeSSnpx1cXuuDEK6EcsVugbrEgoX+jr98JmFmndt
+	 K5qUtXodAH61s1GVG0FQTJdkEc9DRiIRIo0a0wZM8e/Sq8sqrdWX86y1kdv6ARX6F
+	 1S48r9BP9B9nNoX16A==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue108
+ [212.227.15.183]) with ESMTPSA (Nemesis) id 1M89TB-1wrnGN0307-00E4vu; Wed, 22
+ Jul 2026 19:18:56 +0200
+Message-ID: <47810646-3476-4f5b-b140-77b1934fd5b4@oldschoolsolutions.biz>
+Date: Wed, 22 Jul 2026 19:18:53 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH 0/5] usb: typec: ps883x: fixes for older Thunderbolt 4 /
+ USB4 docks
+To: Sebastian Reichel <sre@kernel.org>
+Cc: "Dr. David Alan Gilbert" <dave@treblig.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, stable@vger.kernel.org
+References: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
+ <al6-IyyWYRnEW4VC@venus> <al-dJjzorP-I4Yff@gallifrey>
+ <al_0LjwmfW-cECnY@venus>
+ <41222b67-19e5-4f74-b4aa-928d05db9675@oldschoolsolutions.biz>
+ <amDi7e8fqqzCRlAc@venus>
+Content-Language: en-US
+From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+In-Reply-To: <amDi7e8fqqzCRlAc@venus>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:xfEtTt+C/P2m1drKcHEpRCiA7AFvkY0/eDi7kazHKEFCwBVpaF+
+ QZupGkShPjbJkgXf/xQy1Ni3I0rhwBYLes8ZRTBo5ugEhtd9qV8n0Rpj4nUIAL8vRWLxXkP
+ 8az460jKbOqyI0/vjuPppEn0IEgoyAKa2/1qfMC7RQevcRoTn+h8A4vWwRpyOxM+hU1kZ2U
+ 0tfFGX/Yt2s6dk28bsPLg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:Es8H9HEck34=;mfoNmjz+7jqSwXIkMfFHI//VSYt
+ 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
+ =
 
-Convert the Texas Instruments OMAP L4 interconnect bus bindings
-to DT schema.
+Hi Sebastian,
 
-During the conversion, several updates were made:
-- Defined the compatible property as an array to require
-  the TI-specific string first, followed by either 'simple-bus' or
-  'simple-pm-bus'.
-- Added a 'select' block to ensure this schema is only
-  applied to TI-specific nodes, preventing duplicate
-  schema warnings against the core simple-pm-bus.yaml.
-- Made 'reg' and 'reg-names' optional.
+On 7/22/26 18:03, Sebastian Reichel wrote:
+> Hi,
+>
+> On Wed, Jul 22, 2026 at 10:38:34AM +0200, Jens Glathe wrote:
+>> I understand, however I wouldn't want to nerf ps883x for the Hamoa
+>> platform until the USB4 stack is complete. The issues you
+>> currently run into is:
+> That's exactly what this series is doing and not really a problem
+> considering USB4 is not working anyways.
 
-Signed-off-by: Eduard Bostina <egbostina@gmail.com>
----
- .../devicetree/bindings/arm/omap/l4.txt       | 37 --------
- .../bindings/arm/omap/ti,omap-l4.yaml         | 93 +++++++++++++++++++
- 2 files changed, 93 insertions(+), 37 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/arm/omap/l4.txt
- create mode 100644 Documentation/devicetree/bindings/arm/omap/ti,omap-l4.yaml
+...yet :) Alright, nerf patch it is. Question is how broad we need to=20
+specify. You have ps883x on all x1 (Hamoa and Purwa, like, Zenbook A14,=20
+IdeaCentre Mini X, HP Omnibook X14 fe1). So probably those compatibles:=20
+qcom,x1e80100, qcom,x1p42100, qcom,hamoa, qcom,purwa. Looks like a=20
+nerfing table :)
 
-diff --git a/Documentation/devicetree/bindings/arm/omap/l4.txt b/Documentation/devicetree/bindings/arm/omap/l4.txt
-deleted file mode 100644
-index 6816adcdc15f..000000000000
---- a/Documentation/devicetree/bindings/arm/omap/l4.txt
-+++ /dev/null
-@@ -1,37 +0,0 @@
--L4 interconnect bindings
--
--These bindings describe the OMAP SoCs L4 interconnect bus.
--
--Required properties:
--- compatible : Should be "ti,omap2-l4" for OMAP2 family l4 core bus
--	       Should be "ti,omap2-l4-wkup" for OMAP2 family l4 wkup bus
--	       Should be "ti,omap3-l4-core" for OMAP3 family l4 core bus
--	       Should be "ti,omap4-l4-cfg" for OMAP4 family l4 cfg bus
--	       Should be "ti,omap4-l4-per" for OMAP4 family l4 per bus
--	       Should be "ti,omap4-l4-wkup" for OMAP4 family l4 wkup bus
--	       Should be "ti,omap5-l4-cfg" for OMAP5 family l4 cfg bus
--	       Should be "ti,omap5-l4-wkup" for OMAP5 family l4 wkup bus
--	       Should be "ti,dra7-l4-cfg" for DRA7 family l4 cfg bus
--	       Should be "ti,dra7-l4-wkup" for DRA7 family l4 wkup bus
--	       Should be "ti,am3-l4-wkup" for AM33xx family l4 wkup bus
--	       Should be "ti,am4-l4-wkup" for AM43xx family l4 wkup bus
--- ranges : contains the IO map range for the bus
--- reg : registers link agent and interconnect agent and access protection
--- reg-names : "la" for link agent, "ia0" to "ia3" for one to three
--              interconnect agent instances, "ap" for access if it exists
--
--Examples:
--
--l4: interconnect@48000000 {
--	compatible "ti,omap4-l4-per", "simple-bus";
--	reg = <0x48000000 0x800>,
--	      <0x48000800 0x800>,
--	      <0x48001000 0x400>,
--	      <0x48001400 0x400>,
--	      <0x48001800 0x400>,
--	      <0x48001c00 0x400>;
--	reg-names = "ap", "la", "ia0", "ia1", "ia2", "ia3";
--	#address-cells = <1>;
--	#size-cells = <1>;
--	ranges = <0 0x48000000 0x100000>;
--};
-diff --git a/Documentation/devicetree/bindings/arm/omap/ti,omap-l4.yaml b/Documentation/devicetree/bindings/arm/omap/ti,omap-l4.yaml
-new file mode 100644
-index 000000000000..465d48f44730
---- /dev/null
-+++ b/Documentation/devicetree/bindings/arm/omap/ti,omap-l4.yaml
-@@ -0,0 +1,93 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/arm/omap/ti,omap-l4.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI OMAP SoCs L4 interconnect bus
-+
-+maintainers:
-+  - Eduard Bostina <egbostina@gmail.com>
-+
-+description:
-+  These bindings describe the OMAP SoCs L4 interconnect bus.
-+
-+select:
-+  properties:
-+    compatible:
-+      contains:
-+        enum:
-+          - ti,omap2-l4
-+          - ti,omap2-l4-wkup
-+          - ti,omap3-l4-core
-+          - ti,omap4-l4-cfg
-+          - ti,omap4-l4-per
-+          - ti,omap4-l4-wkup
-+          - ti,omap5-l4-cfg
-+          - ti,omap5-l4-wkup
-+          - ti,dra7-l4-cfg
-+          - ti,dra7-l4-wkup
-+          - ti,am3-l4-wkup
-+          - ti,am4-l4-wkup
-+  required:
-+    - compatible
-+
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - ti,omap2-l4
-+          - ti,omap2-l4-wkup
-+          - ti,omap3-l4-core
-+          - ti,omap4-l4-cfg
-+          - ti,omap4-l4-per
-+          - ti,omap4-l4-wkup
-+          - ti,omap5-l4-cfg
-+          - ti,omap5-l4-wkup
-+          - ti,dra7-l4-cfg
-+          - ti,dra7-l4-wkup
-+          - ti,am3-l4-wkup
-+          - ti,am4-l4-wkup
-+      - enum:
-+          - simple-bus
-+          - simple-pm-bus
-+
-+  reg:
-+    minItems: 1
-+    maxItems: 6
-+
-+  reg-names:
-+    minItems: 1
-+    maxItems: 6
-+    items:
-+      enum:
-+        - ap
-+        - la
-+        - ia0
-+        - ia1
-+        - ia2
-+        - ia3
-+
-+  ranges: true
-+
-+required:
-+  - compatible
-+  - ranges
-+
-+additionalProperties: true
-+
-+examples:
-+  - |
-+    l4: interconnect@48000000 {
-+        compatible = "ti,omap4-l4-per", "simple-bus";
-+        reg = <0x48000000 0x800>,
-+              <0x48000800 0x800>,
-+              <0x48001000 0x400>,
-+              <0x48001400 0x400>,
-+              <0x48001800 0x400>,
-+              <0x48001c00 0x400>;
-+        reg-names = "ap", "la", "ia0", "ia1", "ia2", "ia3";
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+        ranges = <0 0x48000000 0x100000>;
-+    };
+I will do this in v2.
 
--- 
-2.43.0
+with best regards
+
+Jens
 
