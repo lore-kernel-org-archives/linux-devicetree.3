@@ -1,172 +1,192 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6481648C3FA
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 09:05:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784711116; cv=none; b=eL210ANQuN6bcdKbzD6qYIETMsiM1S4JgQ9G1n79PvzIDh9xTA0PVFVf0LrAEppIzE+ofU3uUzyxVxZ5ay7Ym9KoG95ERBp2QwCSLsSOYqySff4enq7MQF4o6gz3G0ghAGg5/joLaYEjep2fK6J627sJJoqkaMp3CCMU6BkIlOk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784711116; c=relaxed/simple;
-	bh=baQJb7Ar7ZmU1hhzXFo7f1CrbqEmCoDf6IMkGA3MRCs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UeQ9NAWiqdXbwcSqMYu6U249MzMV5a2lmGdnmPe6msVqM8Ehx35DJKx5c+/L8RUBMDvpfNXkdmnsIqr2CsL14WhCTemPvguOHOFrGuGn4ZTPTc60W31NIESykYGfWH5bm0agBCKemrZqJttQl5234AhGc/5IRzsQ6A3nQqBfNQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Lb+Y2MtE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=C67qv04s; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37150385509
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 09:06:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784711179; cv=pass; b=O6c8d8C28zJbPwYDbpbYW7SRl7kBG9KLFyBEJFyiTgw8EgeDmCLl64QmpXvvM+D/NO9odujM6UsUDul3OW2in6kd2a5Ptre9sLKmXLrcVntP/IL1xEF37wUcoaPpwLIMiLR2uWL1KP5hSSQxa+bX33848sjHwahUOjW+MFHpntA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784711179; c=relaxed/simple;
+	bh=BLf9RFIv5pi/wJMaN0h+Ctg6fapOu6Q9G57hFPSuT04=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nm83Yth++Qr4MZA8zK8GBGrFr8DOrVqvP8byHikJ2bVeLDPeTeWQf8yGNt3TkF5DaVajhEZYLZouppE/d1Q9h4A2qZDtpgcQRbkmS8TzU/ciP4e/GKdYrty7fG8hP+qNHhDGWoG55G7xrtRhQV553jWXBr3slb2f3NylsWoTzm4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=kPihRLOv; arc=pass smtp.client-ip=74.125.224.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Lb+Y2MtE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C67qv04s"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M8xdUn269871
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 09:05:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=ye0pmBSQNQpD1Ixqlj4iy6xz
-	BJOLNvLjVgnEcTk9udc=; b=Lb+Y2MtEJL6mOdAV5TsbUJUb129e0wN+miUU7+Jx
-	FKNDJWSplwfsPeWSA75BTsexEAgrOjgg8YE2bYUvzSLlzXEUNJVCXwUydVdYS893
-	bOdOWNDMD24CoHqRbkKyJEpijqOu4bn7zvMBMriMWizf/yS6JtJy4YcagRetnnK1
-	gknUkbWROgC4UKkN0FHfoH55XHKq7TXfJNJhzW639SSxUN44c2xVgDSvcEDLXlDB
-	hCs2m+PgRXrJJWWXe+ORcJfN8vHz/dpE2IHrec4BVz/eTrs4SYxmJFR5yXpAhA/y
-	BQNfKX8Zd9oVPNXcY8UD0aKKtfcdblHCz2wjkpuoVOdsiw==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjd6ab5tj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 09:05:07 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c85798977dcso15006498a12.0
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 02:05:07 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="kPihRLOv"
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-664db84f074so15448699d50.0
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 02:06:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784711177; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kzLZyqutoK+LDn8qYBjr1UlyKRGGz2pMllp9A/6FcXZnvoLupYJii979wvfJ+7W6Ye
+         OGJHgOb7f2GOktLvcdZ71GddhUh+9T6n8qYXMbbca5t538KiXXMBa7tKIszWT+YMpjbm
+         RC86Xa3xniizkyqO4/8ansA36b1DXdCbSv+VZ+aV2DuaATtWQGa/0+wYJlrHq+/UWCxg
+         Roa+5eqHSvGiQfDOZJ38qQjKaVosB3vD/G5xEtpF1/Gt0hl1EQk10jXrByjwG96a6jI8
+         9xMOw8QatYYK3hFkXXE+aQOJdFVcynzuOsGbtTodlPak6gAL0SLUFcXZ0mAo/+zbIzSO
+         DoWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Fzc7jLJOwKFZM50nrRR9HIoeoA67mID89Z/e+R2bL4o=;
+        fh=XNg7ep+yl96uWLMwn8DMoecyWmhrvGYaYau50c6fI7I=;
+        b=q8oXREPWlSeDHSllS5youErwZIdYa9YeyLOSX5hgt78fbdVuUF/3+6K043ktO4SMUL
+         91Vkmp875xJhiLEoVgAcjXfrPwj7SnNaT1dexodE+naVuHv5aKiGbpAom1IXBvm2BLhU
+         KSLASHZsiKFxOmuQqVoAM713WV6nGHePi1SMxhgwIzIxhPcWIcNDNVYH57hJrqRBwlas
+         p5JKBPwhB7PCaPHc2eepDfbCSqJXoDIRwKIZcRrmCv3cqbeBHCjpHe2+nnzTccXN81e7
+         ZW0iC0oDSiOCW6qBC+WL9TGlv01HY6NEvCSxizZzgLFMMlFFrTfoQPsAV1GcFEam2BtX
+         B7Pg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784711106; x=1785315906; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=chromium.org; s=google; t=1784711177; x=1785315977; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ye0pmBSQNQpD1Ixqlj4iy6xzBJOLNvLjVgnEcTk9udc=;
-        b=C67qv04swalWK/ATSzuejVNLhHuW2WKxREPzMq5yRKkNS0itGeX+JI3D8guJzERkDD
-         nejvczhS13j8VFo13+67PabzTGy3axFt2rdFR7iUlh3jXOVwI0Ewx86Kmv2ywPni4HkY
-         HwvF88Ul1l2issuFIO0U4d3I9SbYebqzY1O2RQbU0wwZiVkad7PqI0qpQcx7ELqLE5tW
-         wB0A5psEsRaz882Xwjd2zGW16eLN1o0dQRZF0wEtAALOcVXSHFqXIcU/WRGg6wU+remL
-         HmsHxSj0txSMaDw7NiviHNndv4VC/2CCceG12B3qXyJ/kyRrF0SXE3bs5ba7qElz49f9
-         gSXQ==
+        bh=Fzc7jLJOwKFZM50nrRR9HIoeoA67mID89Z/e+R2bL4o=;
+        b=kPihRLOvc9nNrQgH4XazHoHuE2iqpX+vJGu6Pr49lRHuhJTmoKBaQNvid7LlV31955
+         7E2pZRieWFEzZJnqzodaIWODl52P0OlTgYewDVWUwy6XQMRUgLkMOjnp4+BbI7qpOReh
+         /xtwXA94fcpHMRRkyOvCJTOWRaayyhcLhclSU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784711106; x=1785315906;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1784711177; x=1785315977;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ye0pmBSQNQpD1Ixqlj4iy6xzBJOLNvLjVgnEcTk9udc=;
-        b=tArmYtpoABUyo1Z0b7hLoEBJLdAGWFiVH5G+OY6IHlWgjHGCaUW4+KEnI10ysZQcYu
-         FJns136Dth1FD5Tfwpiw4dCK/NySBlBVrYEphJdDxS5N2W/pUlfqEaVjPMTJLLaE9Nqi
-         pAx9VRNOhJQ/zBA4tSKz2bW5uuc22OIf5HgIvNJmVJ9LbQFh+4ERPPfE4H220n5GnZKm
-         z3kPbwrRr4Kt9UEJzDXoOLTXorLXh5F9Ubr7WJj4xk4sq0DTKOKzQ3yQrY7UUFRvEVOj
-         loMNrvzwByUeO8RzJ1FI/7Z/O1KqUJAs3ot6vBqTA4f8tRTfoz/i+5FXfdg2904oR9ga
-         gxCA==
-X-Forwarded-Encrypted: i=1; AHgh+RrCzL/1J6Ez6rTpShP7KENr0K/fRA4yk7VmqiEvDaeB67sqlOTKfyeMv9Xa0Ngrc6I2GKzujYfRVptQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YzXu33qYW2Wa1K5TVP43ZqahBa/zr3d7+tYDqkE6NK+2Iatr6Gg
-	38MF9PUMzcVIjVsenEHlzAo10N31l3KLm0pOo56YKnJ9EoA3sam95/Bc/A5AMhDU4FF1CB1kzCh
-	QSphmSFRrWZi7prT3SS84Xh5gcjO661GXZ/XvmVrcrLdq8zWW1/wQdtP95vRd8kA5
-X-Gm-Gg: AR+sD13T70z8JHaiHtN/Nl7qVNd1Lm5U2iI5yCuXUmmlByXHI2lol7GUn99i4vRPKMU
-	XeAXlPfYPWFTkc6EXxmTv0+6T+a3KNEjJgSTDt5gea6jsG8dFLZDiGE16DupGnztSrO+ZZe8SaO
-	G47HVwSCFpO8rYstHUOCNZoVoG1ilV2QRa8sCtE1IsaY/byo6wccAJ9EZSBQZzSpEq0iI/1UCly
-	x85c7a/ME4J7sr1QjuNxhKwuW77KcVQ31IWqi3SJVL85uE1eVYpIqd5xhyhsaQFbWpQdR3EfwIS
-	uyGn4sZAU1W3ARjU7pDdNYD+YZ1peXb5rYsYjc/FenUyCxdOY6CxhFzwZffF6dasSPKD73U6jkE
-	6anm3kwZWIO3y4uc6HL3umkR4H/xk4q6D6w==
-X-Received: by 2002:a05:6a21:1506:b0:3b3:2703:115 with SMTP id adf61e73a8af0-3c3ad665a9fmr23634853637.16.1784711106464;
-        Wed, 22 Jul 2026 02:05:06 -0700 (PDT)
-X-Received: by 2002:a05:6a21:1506:b0:3b3:2703:115 with SMTP id adf61e73a8af0-3c3ad665a9fmr23634822637.16.1784711105994;
-        Wed, 22 Jul 2026 02:05:05 -0700 (PDT)
-Received: from hu-pkondeti-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147e1bc886sm6811568eec.26.2026.07.22.02.04.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 02:05:05 -0700 (PDT)
-Date: Wed, 22 Jul 2026 14:34:54 +0530
-From: Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>
-To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Cc: Sebastian Reichel <sre@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Christian Loehle <christian.loehle@arm.com>,
-        Ulf Hansson <ulfh@kernel.org>, Lee Jones <lee@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
-        Andy Yan <andy.yan@rock-chips.com>,
-        Matthias Brugger <matthias.bgg@gmail.com>,
-        John Stultz <john.stultz@linaro.org>,
-        Moritz Fischer <moritz.fischer@ettus.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Sudeep Holla <sudeep.holla@kernel.org>, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Andre Draszik <andre.draszik@linaro.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-        mfd@lists.linux.dev, Srinivas Kandagatla <srini@kernel.org>
-Subject: Re: [PATCH v23 03/13] power: reset: reboot-mode: Add support for
- predefined reboot modes
-Message-ID: <9367ec1e-d01c-489d-aa3a-fb361538331d@quicinc.com>
-References: <20260714-arm-psci-system_reset2-vendor-reboots-v23-0-e7453c548c21@oss.qualcomm.com>
- <20260714-arm-psci-system_reset2-vendor-reboots-v23-3-e7453c548c21@oss.qualcomm.com>
+        bh=Fzc7jLJOwKFZM50nrRR9HIoeoA67mID89Z/e+R2bL4o=;
+        b=BgAwRp0ROLXp6NH5xohR7Sw2bHZCxl87FLkEgbD7kSlZvcxigQQgPzYwJRdibI3CBF
+         2sQQQiL0t0LiIS/kzphih2vp6L/Tp0vOGZN7Dm2AN/1CnVzja6fms3ELZhmbyphIwsBr
+         VYPndim1T5KIiXHY6751NLbNaDKzvXl59SpSCmQh1CURqZ5FPm/cuv/OSKnZpDoDaI10
+         eEQIoZaTy6bwxxhnOHuJaDU92nBnkJc39DuwKoJ9SIxB+TbPvJLnBTtR9zNqhak2JdTe
+         P/1E8nXCQbKCfL0SWVUH70ETYcV2ZOveSkiwYfuOWPZJq4LYn2b9W3v72LQNYSLTiigW
+         cYxg==
+X-Forwarded-Encrypted: i=1; AHgh+RqVK3dr+oT3iz6/vgFmpcSG8gBT6y+yDJRfwoRQO0MTIOPizXNRowPrv+ejzzlWNOarzGEC2tiIBGpr@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz6rBKNMYv0tU/rA//gpf9rZ39ozXgWDYqN/BhpYrB+moPcCUnv
+	GCb18E5nNAOF0/9+7n25uENuSdKtYTtS6HWxIIDQN2UO5t8XXJlUx5aUveoQvHZh7can6YYF4yg
+	Q6gWndqQfvZy10/g7TtJFqpJkp1UWzQr/UhrZk8ho
+X-Gm-Gg: AR+sD11DT6uZRIaW92WuGm7+wj5qmCQAUSrT6efq2bJx9ZXbbxhcAMwY3ng6n5H4goD
+	kLLCqgsST9u6jKN0teEO4knMpz7YFYTpajhi8FR87jw/XpY0jzKoP+pW7sPjtMnzzo2FHqhsEFY
+	K/XZBVIf1mHMG40GYtOZeEAXB2Xku6I4SgVjK/DjRBQ1CiC46ZJ5LrfuMLWrUlg/i9pKM73snul
+	jUGeZq7j8cYB6Y/nmC362E0a9zlyt9Rgdvrd37zJ0hJYUuIw3ERo+WKmc9u1lqOVjlpRD+SzTpD
+	hbWzUx3ma9OCli3Z
+X-Received: by 2002:a05:690c:6c8d:b0:81e:6d03:40cf with SMTP id
+ 00721157ae682-81ef26ae40bmr73897997b3.54.1784711177267; Wed, 22 Jul 2026
+ 02:06:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260714-arm-psci-system_reset2-vendor-reboots-v23-3-e7453c548c21@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDA4NCBTYWx0ZWRfXz0AH6DhNX5m1
- hAWOpk5pOq2j6K36AXGG1ilyCCnKyXY5+Fy8W7RADf80zcm/Jr569StlxmYVBfbfm7czgpDiwzQ
- B0nM/HVG9tP4G4h1ujmWMcjtcOqbYP5i3Cj7LjiKiX569icS84w44cldDH8S/HnVku0LNYOFA7k
- AbCe1i0wEPD/DZztZp6WSpaaYfnlfYe8FEGRVHypuwHjlhYN+iiPRvsLWimvug0gc7HIm+fk/PB
- holDufqtJO4pQAb+0AnOrbmXxn5ighQwkbKCmBNu3MpiyvjZpKv6SjIMjvseTAwOWU1PE4oKwK4
- zfsfLJwiENu2Fxc9BiC7dciUuTpYHB0DYmz9QhQZAj8pjmzHj89QaiLbKR3jrBsmErz5CXnU9Cf
- XrI3blYCOHySksxwgVOE5IRkm3y7TEwpV2mdXUjG1a3D1FbiWyPdzst6M5ln2OxCO8c90lqZyUm
- YTrOFLZ7eKivMVnwaoA==
-X-Proofpoint-GUID: nPhn3jbPFDv7m6Y8LDfuiMF-IEUH2EWu
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDA4NCBTYWx0ZWRfX/snlHTp00z6L
- 3/22HhiQfM2sbWJU2Qor445cvDALr81GKvD4ojfc3StqDTAeM11k57G44FVpxY3UGzELJESjZ24
- V8Xoz9O/Z+6GDZZLHxbPHJZtlImtH1U=
-X-Authority-Analysis: v=2.4 cv=HvJG3UTS c=1 sm=1 tr=0 ts=6a6087c3 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=2P-C3DqZnQur8SwEehsA:9 a=CjuIK1q_8ugA:10 a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-ORIG-GUID: nPhn3jbPFDv7m6Y8LDfuiMF-IEUH2EWu
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-22_03,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 clxscore=1015
- adultscore=0 priorityscore=1501 impostorscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220084
+References: <20260721075226.2347933-1-wenst@chromium.org> <20260721075226.2347933-2-wenst@chromium.org>
+ <al9BwHbG5IX0mIem@ashevche-desk.local>
+In-Reply-To: <al9BwHbG5IX0mIem@ashevche-desk.local>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Wed, 22 Jul 2026 17:06:06 +0800
+X-Gm-Features: AUfX_mw54F9BihKerjVbrM-HX0v6EAfSTuk3G7vvEfoFi_SJki_3pQoN0j1OPTM
+Message-ID: <CAGXv+5HXtSovddkws58oUfUcucC3GKqTt-GgvXs27ALFjyFRrw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/9] regulator: core: Add "enable and wait" functions
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jiri Kosina <jikos@kernel.org>, 
+	Andi Shyti <andi.shyti@kernel.org>, linux-mediatek@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	chrome-platform@lists.linux.dev, linux-input@vger.kernel.org, 
+	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 14, 2026 at 10:46:31PM +0530, Shivendra Pratap wrote:
-> diff --git a/include/linux/reboot-mode.h b/include/linux/reboot-mode.h
-> index 34a81e4b4f95..b216c7595f7e 100644
-> --- a/include/linux/reboot-mode.h
-> +++ b/include/linux/reboot-mode.h
-> @@ -4,18 +4,34 @@
->  
->  #include <linux/types.h>
->  
-> +struct reboot_mode_entry {
-> +	const char *name;
-> +	u32 magic[3];
-> +	int count;
-> +};
-> +
+On Tue, Jul 21, 2026 at 5:54=E2=80=AFPM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> On Tue, Jul 21, 2026 at 03:52:15PM +0800, Chen-Yu Tsai wrote:
+> > In device power sequencing and initialization use cases, it is common
+> > for the driver to enable the regulator and then wait for a certain
+> > period of time to pass before continuing.
+> >
+> > In cases where the regulator supply is always on, or has been turned on
+> > or left on by another consumer, the driver could shorten the delay or
+> > skip it altogether, provided that enough time has already passed since
+> > the regulator was _actually_ turned on.
+> >
+> > Tracking this requires support from the regulator core. Introduce a
+> > "last turned on" timestamp field to the regulator device, and "enable
+> > and wait" functions to the single and bulk regulator consumer APIs.
+> > The existing "enable without wait" functions are then converted to
+> > macros that expand to the new functions.
+> >
+> > One case in particular is not optimized yet: a regulator left on either
+> > by hardware reset default or by the bootloader, but does not have the
+> > "regulator-boot-on" property set. As the enable timestamp only gets
+> > updated when enabled by a consumer or by the core, the first enablement
+> > always needs to wait.
+>
+> ...
+>
+> > -/* locks held by regulator_enable() */
+> > -static int _regulator_enable(struct regulator *regulator)
+> > +/* locks held by regulator_enable_and_wait() */
+> > +static int _regulator_enable_and_wait(struct regulator *regulator, uns=
+igned int wait_us)
+>
+> Hmm...
+> This comment a bit confusing, perhaps adding some lockdep annotations hel=
+p?
+>
+> ...
 
-I see some where `count < 0` check, should not this be size_t or u32?
+It's already there, just outside the diff context, the first line after
+the variable declarations:
 
-Thanks,
-Pavan
+        lockdep_assert_held_once(&rdev->mutex.base);
+
+> > +     if (wait_us) {
+> > +             ktime_t end =3D ktime_add_us(rdev->last_on, wait_us);
+> > +             s64 remaining =3D ktime_us_delta(end, ktime_get_boottime(=
+));
+> > +
+> > +             if (remaining > 0)
+> > +                     fsleep(remaining);
+>
+> This style is discouraged as it makes maintenance harder. Better
+>
+>                 s64 remaining;
+>
+>                 remaining =3D ktime_us_delta(end, ktime_get_boottime());
+>                 if (remaining > 0)
+>                         fsleep(remaining);
+
+Ack. FYI this will be rewritten based on concerns from Sashiko. The
+wait will be pushed over to regulator_enable(), i.e. outside the scope
+of the lock.
+
+> > +     }
+>
+> ...
+>
+> >       /* private: Internal use */
+> >       int ret;
+> > +     unsigned int wait_us;
+>
+> If you want to make it more private (the above is only for kernel-doc) ad=
+d
+> __private annotation that will affect how sparse will check this.
+
+Nice. Will add that.
+
+> ...
+>
+> > -int __must_check regulator_enable(struct regulator *regulator);
+> > +int __must_check regulator_enable_and_wait(struct regulator *regulator=
+, unsigned int ms);
+>
+> ms or us? Please, double check all units.
+
+Yeah this should be us.
+
+
+Thanks
+ChenYu
