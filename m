@@ -1,74 +1,185 @@
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84DC740F726;
-	Wed, 22 Jul 2026 12:07:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 272173B994A
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 12:07:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784722063; cv=none; b=ccKAWhSTmMoUO9Z07YFTAXmpbXpSin+BUSFerU/Dz+Drijcik/sdEt1QrtzENmY4/2F9mHLDjM1GgvGfaydm3dyRO4PhgFAo0M9pNk91lM6nswmglXc84BKWg7uHGaVqWbRItBB+Hg56k/pnMqlEoZpenaIXv9HcPq6G77rrn/k=
+	t=1784722080; cv=none; b=Or+xwI8FYBvmrm/U8JuIkrQ9sz8R+IVO9RpgufuKuXfHWMLhCsSweKohHyAA/EcmXRsTWIc+zgc4dHOr5vIb5El0C7aj39wfJsft+skcHXVqS1uj/23749/2nKp7myX6O3k3l6CDlFl4qv38CN3RNy1nXWS8MH+x33MibeZpZ84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784722063; c=relaxed/simple;
-	bh=qEo3cAwztk9OWvKbynD/A3a+NoqgXRz66n8QzFJBxdU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=G8L3JwCf3KgAvT2vDHOnuos1y6b99EI4NuMUH0YR9m/r0QcJiJOLlt+uxmST4cLudhRQuGzIMovN4XJMoWqPax4KMBKUo4sc1FTVKgCN3XlxTG3QOROvpqof/ZnFQQrjnj9luIdXGW3pUI5YC2hZrHY8jjhiV5kMJsEZHSqXdgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=D/OhMC7s; arc=none smtp.client-ip=203.29.241.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	s=arc-20240116; t=1784722080; c=relaxed/simple;
+	bh=ASD+IxhVsEqGVpEQnk06k0SDPLwoub74YeqJT+y8Q4M=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=XTmKYFpvTDU2g0ERcYPXI/KQV5ogiQs2j3bxBi7RYTxE5L1E7DRY98/dD7Fly/O5NTVWDYZJ5dwx6OHccaXnXFY64aSBfjGtZR8hIj/iUTionZzUvUilVQfRI/AwQwq+ueYEi0fKnAiIyrnccFtIJhtnqlsJRxh46Y9kExGnCY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ENYo9ZGE; arc=none smtp.client-ip=74.125.227.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="D/OhMC7s"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ENYo9ZGE"
+Received: by mail-pj2-f4.google.com with SMTP id 98e67ed59e1d1-3896ccc93b5so3678477a91.1
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 05:07:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1784722057;
-	bh=qEo3cAwztk9OWvKbynD/A3a+NoqgXRz66n8QzFJBxdU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=D/OhMC7s+fcNqNNul2lHX/zlar+PF4e+66S0kXD/J7seotqOU2O0XHqCZUtC99A1f
-	 3geW6mwhMP3OTAYMc/oBKgZAxFYejK1q9bv3LQx8V7PMqu0XXG5DOBKxqEPCk30sDE
-	 Pj47ToMpmrDMwPtYI6FgYA9zESC4cKw8mUw/Ynpchw/ubEO6I2mREqTtQmMFUBt/O+
-	 2WSHAbXhk6pIBoeXleasBzpgT0BhrI2xxsb/c5oHNEtvn0687Ii7Y/bfTYN3mOpnVC
-	 8E7UPmM1qAJ71Wg99WwJ2DEDHCuEG8e943Ss3uKUSnOpHJtWQyJlhDNqWQZOcnJ51k
-	 HfluMi642WSQw==
-Received: from [192.168.68.117] (unknown [180.150.112.11])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 4BDFD662E1;
-	Wed, 22 Jul 2026 20:07:37 +0800 (AWST)
-Message-ID: <a6170c549dd8fe3851854de44c2bd43dd0ec1f95.camel@codeconstruct.com.au>
-Subject: Re: [PATCH 1/2] ARM: dts: aspeed: sanmiguel: fix PDB HSC shunt
- resistor
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Mike Hsieh <mike.quanta.115@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski
-	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
-	 <joel@jms.id.au>, Patrick Williams <patrick@stwcx.xyz>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, Cosmo Chou
-	 <cosmo.chou@quantatw.com>, Potin Lai <potin.lai@quantatw.com>, Mik Lin
-	 <mik.lin@quantatw.com>, Mike Hsieh <Mike_Hsieh@quantatw.com>
-Date: Wed, 22 Jul 2026 21:37:37 +0930
-In-Reply-To: <20260618-sanmiguel-dts-config-hsc-lm5066i-v1-1-cccf959c9b78@gmail.com>
-References: 
-	<20260618-sanmiguel-dts-config-hsc-lm5066i-v1-0-cccf959c9b78@gmail.com>
-	 <20260618-sanmiguel-dts-config-hsc-lm5066i-v1-1-cccf959c9b78@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+        d=gmail.com; s=20251104; t=1784722075; x=1785326875; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y9Z7oDiKdtFczxQKch+yVvuNvhzSOS2efy5d+XjmEE4=;
+        b=ENYo9ZGEbQT5qBgZRO4sPJXxsL0PK9LIXJRCx1IpQNHj10uBTcWiHK0L7owkpPiUyD
+         v4qAjMkId/ZN3iEV6LveE+PnOFK4P1cyMzGUB1bukyPIVau59wOxbA5NbYbOl2DWRcKp
+         KJ1gzQyHTV9SyzEj8l3FrEoKLn2TpoVd7niX8ZPmgrXM95LLWtF37WIoTYynSZirSdmw
+         UPa1OJEnjHTzoZVjCL67/Br2YUQ+WBPEEI7smLKclnb8XDS0JERvzX7buNiU41fogBPd
+         cpl2GrfaxT1TQGBeovPvQNwCnuhxl8Fg1hWuZ9xa90ka6nosFD1vFvHhjirgzOH4CnBk
+         I9FQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784722075; x=1785326875;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y9Z7oDiKdtFczxQKch+yVvuNvhzSOS2efy5d+XjmEE4=;
+        b=l6zqQzrbxvkjyt8UQjaQKCDpF3bbJLzDCdVsyyJXxxGzVKSgGxa2xBPZpW7iwE5y/9
+         3f6dHmN0hW0N+kdZXCNb8qW1deBS2HmKiB5nl07kEZHLNMj9fCS5Y/+UI3K1m6VE3x0H
+         1JCNXtwy3K+Zx8KP+j2hl9Trxi394+VjiIQ2z9gIqsLhFBjVuCO4XzKrDEc95gzalt7z
+         LKAbG8R/igKGycH2t64MgQ2EvRSO6LMklbSPhyKmaeERkkeBNt2wfFa5+jJOjTHtTbPQ
+         milqv22rnRbFTkTNuiCXUqGMmIHXl2PiPtvdTsFKjwwX+tpsNLi23VrCDlvaNRyPB+BB
+         DQbQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp4+iTK+Wn0NOtQOlOzMJZxEXcNgmuNGmyPVtuNT4G/HRhaFNWhulSGxXpziclwO4lGjd3LMkTP8dIm@vger.kernel.org
+X-Gm-Message-State: AOJu0YzgSaVYGFujBq9Ij7PX70/HcXyPuoPWv9Z7lbAWdsaszIHkApg3
+	0DEl1AZwNukxcojLmuK2oWAhpBiaAvA0OPFFblkQngiw8OETtlXDGS4r
+X-Gm-Gg: AR+sD11satmaXvE5qw7sv9HYPIzv/6TqJp4AseR+beZzBWte5/9cp1fBRtaJcPhhFju
+	hlxNv65wkz3WnyVViIXXAZG+0s5SL3mc6kENknMawLR7vlOZfBmDAqDzE+MSxkpMxQieEfxwL6S
+	wTHT05/RYVskZUyJUbAXSK9Q5Yx3k0dAH/TYYekyE9pwjzVlbfytU883lpm/bq5F0QEYFatORxU
+	O5eaZmKL3wqVBTMF3VlaFV+h+feBhSIC4kpnBnsrJCyEQokrw9Cs0HcvliazKW3RgpbfQrOd6CV
+	663nbNicrRX2fjv0e3p1F5iI47dl+n6fIeKrl5WonqDQe36HkFb5B+XwbCPIByloIJ7+VZEhJGh
+	3f0N2wc2wBJKrieP0g+TWpurSVcLlsqZETeYg3kux59CwZySl0BuK0DYWAxpwj5qlpHYgVuP+zE
+	7v2fTmuQNaKw==
+X-Received: by 2002:a17:90b:1b42:b0:387:e0db:bc28 with SMTP id 98e67ed59e1d1-38e4b57ee22mr21351484a91.40.1784722074599;
+        Wed, 22 Jul 2026 05:07:54 -0700 (PDT)
+Received: from [10.125.112.20] ([210.184.73.204])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e9218a343sm3215461a91.16.2026.07.22.05.07.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Jul 2026 05:07:54 -0700 (PDT)
+Message-ID: <e3dd16fb-3795-4028-a2f9-00f54882183f@gmail.com>
+Date: Wed, 22 Jul 2026 20:07:40 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 00/10] kdump: reduce vmcore size and capture time
+From: Wandun <chenwandun1@gmail.com>
+To: chenhuacai@kernel.org, kernel@xen0n.name, pjw@kernel.org,
+ palmer@dabbelt.com, aou@eecs.berkeley.edu, robh@kernel.org,
+ saravanak@kernel.org, bhe@redhat.com, rppt@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org, kexec@lists.infradead.org,
+ iommu@lists.linux.dev, zhaomeijing@lixiang.com
+Cc: catalin.marinas@arm.com, will@kernel.org, alex@ghiti.fr,
+ akpm@linux-foundation.org, pasha.tatashin@soleen.com, pratyush@kernel.org,
+ ruirui.yang@linux.dev, m.szyprowski@samsung.com, robin.murphy@arm.com
+References: <20260630074715.4126796-1-chenwandun1@gmail.com>
+Content-Language: en-US
+In-Reply-To: <20260630074715.4126796-1-chenwandun1@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, 2026-06-18 at 15:41 +0800, Mike Hsieh wrote:
-> Correct the shunt-resistor-micro-ohms values for the four TI LM5066i
-> hot-swap controllers on the PDB. This ensures accurate current and
-> power sensor readings from the hardware monitors.
->=20
-> Signed-off-by: Mike Hsieh <mike.quanta.115@gmail.com>
-> ---
-> =C2=A0arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts | 8 ++++=
-----
-> =C2=A01 file changed, 4 insertions(+), 4 deletions(-)
 
-I've applied this one.
 
-Thanks,
+On 6/30/26 15:47, Wandun Chen wrote:
+> From: Wandun Chen <chenwandun@lixiang.com>
+> 
+> On SoCs that carve out large firmware-owned reserved memory (GPU
+> firmware, DSP, modem, camera ISP, NPU, ...), kdump currently dumps
+> those carveouts as part of system RAM even though their contents are
+> firmware state that is not useful for kernel crash analysis.
+> 
+> This series introduces an opt-in 'dumpable' flag [1] on struct
+> reserved_mem and uses it to filter the elfcorehdr PT_LOAD ranges on
+> DT-based architectures (arm64, riscv, loongarch). By default reserved
+> regions are treated as non-dumpable; CMA regions are explicitly opted
+> in because their pages are returned to the buddy allocator and may
+> carry key crash-analysis data.
+> 
+> Since the reserved memory regions are filtered out, the vmcore is
+> smaller in size and faster to produce. The reserved memory
+> has already been filtered out in x86; the optimizations in this series
+> apply to systems that use DTS such as arm64/riscv/loongarch.
+> 
+> The series is organized as follows:
+> Patches 1-4: Small prepare changes and cleanups.
+> Patches 5: Add dumpable flag to opt-in vmcore.
+> Patches 6: Append /memreserve/ entries into reserved_mem[].
+> Patch 7: Add generic kdump helpers.
+> Patches 8-10: Wire the helpers into arm64, riscv and loongarch kdump
+>               elfcorehdr preparation.
 
-Andrew
+Hi Rob,
+
+Gentle ping on this series. Patches 01, 05 and 07-10 have been
+acked (thanks Pratyush, Will and Marek), and the comments there
+have been addressed in my local tree.
+
+Patch 02/03/04/06 are the core of: reserved_mem changes, they are still
+pending review on the devicetree side.
+
+Could you take a look when you have a chance? Happy to respin and
+address any feedback.
+
+Best regards,
+Wandun
+
+
+> 
+> v3 --> v4:
+> 1. Rebase this series on v7.2-rc1.
+> 2. Add two cleanup patches (patch 02/03).
+> 3. Simplify patch 03 to avoid checking whether initial_boot_params is
+>    NULL multiple times, suggested by Rob.
+> 
+> v2 --> v3:
+> 1. Fix out-of-bounds issue if device tree lacks /reserved-memory node.[2]
+> 2. Fix UAF issue when alloc_reserved_mem_array() fails.
+> 3. Add some prepare patches.
+> 
+> v1 --> v2:
+> 1. v1 added an opt-out DT property ('linux,no-dump'). Per Rob's
+>    feedback [1], v2 drop that property and exclude reserve memory
+>    by default.
+> 2. Split some prepared patches from the original patches.
+> 3. Address coding-style comments on patch 5 from Rob.
+> 
+> [1] https://lore.kernel.org/lkml/20260506144542.GA2072596-robh@kernel.org/
+> [2] https://sashiko.dev/#/patchset/20260520091844.592753-1-chenwandun%40lixiang.com?part=4
+> 
+> 
+> Wandun Chen (10):
+>   kexec/crash: provide crash_exclude_mem_range() stub when
+>     CONFIG_CRASH_DUMP=n
+>   of: reserved_mem: dedup and relocate reserved-memory messages
+>   of: reserved_mem: skip late scan when no regions are reserved
+>   of: reserved_mem: split alloc_reserved_mem_array() from
+>     fdt_scan_reserved_mem_late()
+>   of: reserved_mem: add dumpable flag to opt-in vmcore
+>   of: reserved_mem: save /memreserve/ entries into the reserved_mem
+>     array
+>   of: reserved_mem: add kdump helpers to exclude non-dumpable regions
+>   arm64: kdump: exclude non-dumpable reserved memory regions from vmcore
+>   riscv: kdump: exclude non-dumpable reserved memory regions from vmcore
+>   loongarch: kdump: exclude non-dumpable reserved memory regions from
+>     vmcore
+> 
+>  arch/arm64/kernel/machine_kexec_file.c     |   6 ++
+>  arch/loongarch/kernel/machine_kexec_file.c |   6 ++
+>  arch/riscv/kernel/machine_kexec_file.c     |   4 +
+>  drivers/of/fdt.c                           |  11 ++-
+>  drivers/of/of_private.h                    |   3 +
+>  drivers/of/of_reserved_mem.c               | 108 ++++++++++++++++++---
+>  include/linux/crash_core.h                 |   6 ++
+>  include/linux/of_reserved_mem.h            |  15 +++
+>  kernel/dma/contiguous.c                    |   1 +
+>  9 files changed, 142 insertions(+), 18 deletions(-)
+> 
+
