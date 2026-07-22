@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2101471CE6;
-	Wed, 22 Jul 2026 16:42:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42886440A3B;
+	Wed, 22 Jul 2026 16:43:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784738540; cv=none; b=CvUrfGiYpnTkjNQp17S4OFJQcjij3sS3zE+A2hMRPdi5SDn/AsKpNl5WWFXRKG/ZfpQbm2H46DINsJEo4pyPZB8Ei+0ZdMdEKPs6Yu8nt3mjjnh9m2mfDwIGcPGkHLNGyZN/3PIDuzuQLl4BZOWO4uoO+7PchuGyt7IrWAhohTo=
+	t=1784738617; cv=none; b=CmFaUWCUDsx6i3w3n+Ya29E0qBssBKdUEU+/ZqLz/yH8wiBhyGYvb/7feAdQTJlRltgr3AMLV5A5JzrGBfHHSjsAtkyy0EC5wp9WVWdy1YAw0A0bHdHrBkz8KCOr0Ga+eW9D5C2dyb8st0dqXpR5cEojq1EV8AHb2acLV6EeuAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784738540; c=relaxed/simple;
-	bh=gl91YA25rCDp+bf3OB1Ed5AUyTzgVo3QNGUo1eKzw6Y=;
+	s=arc-20240116; t=1784738617; c=relaxed/simple;
+	bh=fkwHUyup+iXGa5p1iVlgOChvkl3YNdJoXdLICQccLIQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hxb2pH7QPD8Q1hAjmTTU16Bbkp0xCpxLt3XQ07Rlb4ndSycDYB7CmRtfVhiUilwEMkr3+QVOu2BNAcpKEV2i+MLmHeSpjOaN0ua4Geo5KkiegGSlt+1tmGA9kLRvDobslLS1GL+SGF0yLxIz1sDGTbztOwFLsNL3B4tNsI+gqBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=faYKN4WM; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=NNpGivhPbxU2KrdF2NqWDDfAUN+fHdoQeD20kVnGDDBA7HzPlRI1L/yzmdTSIvgrToZC56kbIrw2whiggpQGhwvg8QCp7vKZTogZF9WLL520HNChOzWn9bFgQF9RJvm1ZqtO8EDPop6Eotk3cCsP10Y9WPYPhvmTEI2gdYXrnTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fvdCMcy5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="faYKN4WM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C24611F00A3A;
-	Wed, 22 Jul 2026 16:42:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fvdCMcy5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 121911F00AC4;
+	Wed, 22 Jul 2026 16:43:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784738532;
-	bh=+FhwspSsIo41xwcPLmC+dyiiLCiUUuaWQEh6t7ru9uk=;
+	s=k20260515; t=1784738604;
+	bh=8aMOEOID1nVJmQTMWEWGhWEo81U6EqpDWO10QcFFop8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=faYKN4WMeaW3u8R+K0FNqrlYG74xfnPBt5Hjvn29tszXyM1h4abxhZYq5klf9EB2C
-	 6Y8T/Y0b8rMJ3QdO2FQ4M6qOaQjXgGf59vA10nCHkEPRZ5Z947tPOW8ROluPW4KFLg
-	 YhzgBR7t4Nces/bDK+hM1LIWwe7O55QzCtWZE/J0Sx0P0zF6FRJUX6jHbomhit85PC
-	 CjtG2Rb3cffCJTt3as2g36MiFn6+DnwtbF3tb7xIQaIczYWJGTSBYmYhXgAW92IhRZ
-	 VKE6rG299/L753DHfepHuINHL9SFY+SSmC3GFUPVUvYH3K7LygIXC9H25Svx/5s8Sm
-	 52nHtydab+0JQ==
-Date: Wed, 22 Jul 2026 11:42:10 -0500
+	b=fvdCMcy5Ax9f9FsCqLCyZ+iwhGRK+YlNOOGucF3bY7sIcPYqI8OV9KuWOu7NfRSHj
+	 MlHs80/qtveei07DRKu3WLrck3tzQtFIegj/rQskYu6JzL6o5y5EH3HsaDwZ/wwWXa
+	 xTyQtbP8yVE77AuFwvo+6t1yxynw/bHj6yjQ5ujjhugghYWk77Y8tHvcVhU18W4ybU
+	 UgP36+7l3BWh1dpjPvmDSfT4qz8kFCtv+HvpYEDDrmyYlo3nT/2xMZoWI7bVKEJ6A5
+	 0AqvO9DpDKHx313ywyK2BxbUs58RkPFsby77DGwgXM9mhpIP/bCnTINENaqVRzcE9S
+	 dfpW+48VNKZ+w==
+Date: Wed, 22 Jul 2026 11:43:22 -0500
 From: Rob Herring <robh@kernel.org>
 To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com,
@@ -37,11 +37,11 @@ Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
 	jason-jh.lin@mediatek.com, kernel@collabora.com
-Subject: Re: [PATCH v2 30/46] dt-bindings: display: mediatek: Introduce
- MT8196 Layer Blender
-Message-ID: <20260722164210.GA1075204-robh@kernel.org>
+Subject: Re: [PATCH v2 32/46] dt-bindings: display: mediatek: Introduce
+ MT8196 extended DMA Engine
+Message-ID: <20260722164322.GA1078187-robh@kernel.org>
 References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
- <20260714114414.184512-31-angelogioacchino.delregno@collabora.com>
+ <20260714114414.184512-33-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,64 +50,17 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260714114414.184512-31-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260714114414.184512-33-angelogioacchino.delregno@collabora.com>
 
-On Tue, Jul 14, 2026 at 01:43:58PM +0200, AngeloGioacchino Del Regno wrote:
-> Add documentation for the Overlay Layer Blender IP found in the
-> newer generation SoCs like MT8196, MT8894, MT6991, and their
+On Tue, Jul 14, 2026 at 01:44:00PM +0200, AngeloGioacchino Del Regno wrote:
+> Add documentation for the extended DMA Engine (exDMA) IP found in
+> the newer generation SoCs like MT8196, MT8894, MT6991, and their
 > variants.
 > 
 > Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 > ---
->  .../mediatek/mediatek,mt8196-blender.yaml     | 97 +++++++++++++++++++
->  1 file changed, 97 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-blender.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-blender.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-blender.yaml
-> new file mode 100644
-> index 000000000000..402eccb5fd70
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-blender.yaml
-> @@ -0,0 +1,97 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/mediatek/mediatek,mt8196-blender.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: MediaTek Display Overlay Layer Blender
-> +
-> +maintainers:
-> +  - AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> +
-> +description:
-> +  The MediaTek Display Overlay Layer Blender hardware is responsible
-> +  for performing the alpha blending operation for overlapping layers
-> +  from various sources.
-> +
-> +properties:
-> +  compatible:
-> +    const: mediatek,mt8196-disp-blender
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  power-domains:
-> +    maxItems: 1
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/properties/port
+>  .../mediatek/mediatek,mt8196-exdma.yaml       | 104 ++++++++++++++++++
+>  1 file changed, 104 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-exdma.yaml
 
-You must have descriptions of what each port is.
-
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/properties/port
-
+Same comments in this one.
