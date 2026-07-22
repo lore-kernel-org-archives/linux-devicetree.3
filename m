@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 015E847043D
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 07:35:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 749B7471278;
+	Wed, 22 Jul 2026 07:35:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784705713; cv=none; b=sb5o7h2FH8q3Xh2vCfFcweJHKReTmJuMnvCfipL8/k/kRKuS5yMuXS/eRinGcxWWV7hen0FMXYO3gEH9Gm/NjnoDzmD2PO0zwIUK/jcesztYXtzCOhhXtk5EUOUP0NVr8TqLQvHXLDIxO1tawSuKjH/tHDhQsmEtUd49ikmmmQY=
+	t=1784705738; cv=none; b=QDE30xBxaaOTSvYQ37ziPtt2dfTKTuVZ5hF4qKgkRhgN4J4ZH+SOdqU2JP19Ylveap41CG+Y9Y0tt7x3br3gg6A7861WNXsz0MHNUWDbdpyyXDAPqGBk+fFkGeQLjkOMy2yTQxRgImrtSHIA8rdJE1gC+/h7w3khA9OPquRS2rA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784705713; c=relaxed/simple;
-	bh=gZToBIqTWCZhF7Nl31vz34AdxDCdRgTT06zruUXDNdw=;
+	s=arc-20240116; t=1784705738; c=relaxed/simple;
+	bh=OQlDAqNMzBnMNxKlPLFJMdLMy7aMkmaCxhyy2qr7RC0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=iZ/ZdBSsKZbmm+WUS9dYgP/AbAUFavu982znKjRxG8MJcReIT/Oov+Ku0frTLQAAPIc1fToyinXA46ZJu+doUqYNiQvDG/ae8HCfnf/2TQyd1c2XROxzgKps8oWBVXq0ASlS6mju/YiSS6bAPE6Z6l8AR29uUzf+B7XoAC0ZQf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BorE0OPW; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=E83EsAOvjhJj5oAuyGsxV9J2MjaVdWN75fb+KnmSEhrfa6PNc5v91WqAkSrT03amOPjvzdHN3reOL4tb7lFvdD8WkCm0ut0YORvtgjcA3qChuTkKo/rmEKX+1Zxeam2risacsmvor9NMH8B3NamqrSR2n4ClvCnEB0dJ75O8Qfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bX+bKTzf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BorE0OPW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DE751F00A3A;
-	Wed, 22 Jul 2026 07:35:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bX+bKTzf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04C031F000E9;
+	Wed, 22 Jul 2026 07:35:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784705707;
-	bh=c7dIQ3CmENrUa+IsCkOqZvRFISR4yAdHAKmmQuZDUT8=;
+	s=k20260515; t=1784705733;
+	bh=ovqGqpb3eBbk/HLJ3etOQ1MN4umBeB0gtovmd9nWjVw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BorE0OPWl1zjqpeoR1iyibozD85ksCW6M6oO+yBjLEu6JmIaw/Pspf01CeedYT/7v
-	 reJ2+QPfHZm29vMdCGUXskXPlpH76nTAugLKU3LSVTDF3DqX8ACXSSrUZou1WiPuaC
-	 1ZHwwvdEf0siaLjxCztDsKfqNji3FvJkwS4YJFg6sJHeMgvYS6FaZfqn2neLbMzLRq
-	 yzZ2vM+cllB9nwNHqrn1BnEDgwZhbLWjpJsU4w8HskviVOqdnsdZtWNxnf/uLro7C0
-	 sRdDYAmLHQSUcYpHYf84qGJ91rI7xsUSpVoMrOLod7qvmkzZnCzpdNuGfNX3xy8PJf
-	 x9fURd6HIFpXw==
+	b=bX+bKTzf93c6JJ1rEABqbqftiNBs+YaMVggJzEqO+PQb1xZuxLKx7IGhaI89awDLI
+	 U+zjnLs/cmGaCvURoZiotfNcVyyowf85UD+MyBoNC6P3rDY8/31CmlcWt7BexBb0KI
+	 tdy2Pt2vzu8AgKikOpw4RegntYbLG1V9d4HFDE1foj0IZIuRgQ9VAWIYt1UpnwOrmw
+	 dbO5PnCTbILKJeEXfmyiMVM0u71pW9K+bfb4Laqz4yRRkMha007zf866wm8FBQBwxG
+	 V7U5lQ5tEyD8Aym8mcZ/pK365Nrw6FWl8sBtXb7BAtv4hwmJQe/25+uDnzcBQnhwkm
+	 iak6OQsJr2ruw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 7/7] of: unittest: cover /aliases updates from
- overlay apply/revert
+Subject: Re: [PATCH v3 2/2] pmdomain: imx: scu-pd: allow building as a
+ module
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260722-nh-of-alias-overlay-v4-7-fc96a40d2761@nexthop.ai>
-References: <20260722-nh-of-alias-overlay-v4-0-fc96a40d2761@nexthop.ai>
- <20260722-nh-of-alias-overlay-v4-7-fc96a40d2761@nexthop.ai>
+To: Zhipeng.wang_1@oss.nxp.com
+Cc: conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260722071512.3494011-3-Zhipeng.wang_1@oss.nxp.com>
+References: <20260722071512.3494011-1-Zhipeng.wang_1@oss.nxp.com>
+ <20260722071512.3494011-3-Zhipeng.wang_1@oss.nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 07:35:06 +0000
-Message-Id: <20260722073507.2DE751F00A3A@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 07:35:32 +0000
+Message-Id: <20260722073533.04C031F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,90 +47,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but a guaranteed NUL=
-L pointer dereference occurs in the error handling path of `of_overlay_fdt_=
-apply()` when `idr_alloc()` fails.
+- [High] Building the SCU PM domain driver as a module breaks power domain =
+attachment for SCU clocks due to unhandled deferred probing.
 --
 
---- Patch [7]: [PATCH v4 7/7] of: unittest: cover /aliases updates from ove=
-rlay apply/revert ---
-commit 546dfcaa5ee21a92732ec54a5aca463b27b6686c
-Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+--- Patch [2]: [PATCH v3 2/2] pmdomain: imx: scu-pd: allow building as a mo=
+dule ---
+commit 8b0026aca4b6a877c269d6333189db725f3c6d76
+Author: Zhipeng Wang <zhipeng.wang_1@nxp.com>
 
-of: unittest: cover /aliases updates from overlay apply/revert
+pmdomain: imx: scu-pd: allow building as a module
 
-Add overlay_alias.dtso plus of_unittest_overlay_alias() to cover the
-"aliases inside an overlay" flow end-to-end. The runner applies the
-overlay with a non-NULL target_base via of_overlay_fdt_apply() directly.
+This commit converts the IMX_SCU_PD config from bool to tristate to allow
+building the SCU power domain driver as a loadable module, which is
+required for Android GKI kernels.
 
-> diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-> index e255f54f4d760..2f5e4056efae0 100644
-> --- a/drivers/of/unittest.c
-> +++ b/drivers/of/unittest.c
-[ ... ]
-> @@ -3475,6 +3475,77 @@ static struct notifier_block of_nb =3D {
->  	.notifier_call =3D of_notify,
->  };
+> diff --git a/drivers/pmdomain/imx/Kconfig b/drivers/pmdomain/imx/Kconfig
+> index 00203615c65e9..472e9dec6bd4e 100644
+> --- a/drivers/pmdomain/imx/Kconfig
+> +++ b/drivers/pmdomain/imx/Kconfig
+> @@ -21,7 +21,7 @@ config IMX9_BLK_CTRL
+>  	depends on PM_GENERIC_DOMAINS
 > =20
-> +/* created by cmd_wrap_S_dtbo in scripts/Makefile.dtbs */
-> +extern uint8_t __dtbo_overlay_alias_begin[];
-> +extern uint8_t __dtbo_overlay_alias_end[];
-> +
-> +static void __init of_unittest_overlay_alias(void)
-> +{
-[ ... ]
-> +	EXPECT_BEGIN(KERN_INFO,
-> +		     "OF: overlay: WARNING: memory leak will occur if overlay removed,=
- property: /aliases/testcase-alias99");
-> +
-> +	ret =3D of_overlay_fdt_apply(__dtbo_overlay_alias_begin, size,
-> +				   &ovcs_id, base);
+>  config IMX_SCU_PD
+> -	bool "IMX SCU Power Domain driver"
+> +	tristate "IMX SCU Power Domain driver"
 
 [Severity: High]
-This is a pre-existing issue, but is there a guaranteed NULL pointer
-dereference in the error handling path of of_overlay_fdt_apply() when
-idr_alloc() fails?
+Does building the power domain driver as a module break power domain
+attachment for SCU clocks?
 
-If idr_alloc() fails (e.g., due to low memory), it returns a negative error
-code (like -ENOMEM). This negative value is stored in ovcs->id, and the code
-jumps to err_free_ovcs without initializing ovcs->ovcs_list:
+If IMX_SCU_PD is built as a module, there are no explicit symbol dependenci=
+es
+or softdeps between the SCU clock driver and the PD provider, meaning the
+clock driver might be loaded first.
 
-drivers/of/overlay.c:of_overlay_fdt_apply() {
-	...
-	ovcs->id =3D idr_alloc(&ovcs_idr, ovcs, 1, 0, GFP_KERNEL);
-	if (ovcs->id <=3D 0) {
-		ret =3D ovcs->id;
-		goto err_free_ovcs;
-	}
-	...
+Looking at the consumer side in drivers/clk/imx/clk-scu.c:
+
+imx_clk_scu_alloc_dev() {
+    ...
+    ret =3D imx_clk_scu_attach_pd(&pdev->dev, rsrc_id);
+    if (ret)
+        pr_warn("%s: failed to attached the power domain %d\n",
+            name, ret);
+
+    ret =3D platform_device_add(pdev);
+    ...
 }
 
-In free_overlay_changeset(), the check `if (ovcs->id)` evaluates to true
-because negative numbers are non-zero. It then calls
-list_del(&ovcs->ovcs_list) on a zero-initialized list, dereferencing
-NULL->next:
+Since the consumer ignores the return value from the attachment attempt, an
+error like -ENOENT (when the provider is not registered yet) will not
+trigger a deferred probe. Furthermore, because these software-created clock
+devices lack an of_node, the device core's standard deferred probing
+mechanisms cannot retry the attachment later.
 
-drivers/of/overlay.c:free_overlay_changeset() {
-	...
-	if (ovcs->id) {
-		idr_remove(&ovcs_idr, ovcs->id);
-		list_del(&ovcs->ovcs_list);
-		ovcs->id =3D 0;
-	}
-	...
-}
+Will this leave the SCU clocks permanently registered without their power
+domains attached, potentially causing hardware malfunctions or continuous
+power waste?
 
-Could this memory allocation failure under load cause a kernel panic during=
- an
-overlay apply attempt?
+>  	depends on IMX_SCU
+>  	help
+>  	  The System Controller Firmware (SCFW) based power domain driver.
 
-> +
-> +	EXPECT_END(KERN_INFO,
-> +		   "OF: overlay: WARNING: memory leak will occur if overlay removed, p=
-roperty: /aliases/testcase-alias99");
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-nh-of-alia=
-s-overlay-v4-0-fc96a40d2761@nexthop.ai?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722071512.3494=
+011-1-Zhipeng.wang_1@oss.nxp.com?part=3D2
