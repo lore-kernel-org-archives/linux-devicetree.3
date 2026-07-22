@@ -1,88 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE49C17C203;
-	Wed, 22 Jul 2026 16:21:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C1F4322FB;
+	Wed, 22 Jul 2026 16:23:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784737311; cv=none; b=PmAw7g90cfYsMo33keeO0NtZHtz8nvQK83TjvBf3KkfC9k6Fcr2CEtWKnK36tGIYThC0cnNaWFHXVvUaxt+Beg2S9hB503sVGmhI3TK3Qm92el7cne8BO3LeBpgjgahpV5jq6gGBQjJ1irRV7/1P1VgNYSLTbHORfTnX8GvE6ls=
+	t=1784737430; cv=none; b=HpVQLnInQQ4EAjix+ehc7wNo4evDM2EqqWzqI+ghsmusQ1FbH1ogguGN4IYa5i1YR3Gw8ARs/t91u7sv9PVzhPX3xrwz6nep2nQ5INpgi177ZCq6zucsyzu9Zme4s/dA0/RwpaR09R/1LzOtbKX9z9K9+TsRXGiWlP3WzSQoZTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784737311; c=relaxed/simple;
-	bh=omm2nkvYVT2e7Kvy4LbP2okWMNimmvmsrgFo6mxCWqc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NwyMxGPQoDDQB8IAk/ZVBJrVkNOuaH2Gsr96fT10RgIkw9urDKBGPVX/gLBV9g3HCSq18xKQzlQRuqxlzttom21lRnk7jwc6dcBgKD09wS+1Gfnrl2/b1T/J6JtR0vXpOKbjwBzRF9vIXHWG1hvBI7GMVuh6zjNKdC/fIqiKjSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K1Yl/ye9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784737430; c=relaxed/simple;
+	bh=yH8/TQOgk9rWguhIzk23RzygW1k3miM8Gp2zQdd+QvY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fqOJYf7NZMwD470zMgXPVfJbSX26JPDZGSwfbtpc+VItU3xJr7Qw9jNvmg+xSUj3ZX+sI3IwE+g711skJ71tl9d6f6SgN1zlVCU5d/KgvRkYzA9OW5x7nQDIgELD0liUkdua2sYaTQKtlSYkOkeiSF019wgKmzvI/r5MTfFCzok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TynmL9C5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K1Yl/ye9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88F581F000E9;
-	Wed, 22 Jul 2026 16:21:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TynmL9C5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA7A81F000E9;
+	Wed, 22 Jul 2026 16:23:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784737310;
-	bh=X4nlqSDTQfKgXnssLdmt4BpD3msEFfZZnZiCI8vkwJk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=K1Yl/ye9GP5zGKTMMfFEQjKOVnbf06k9O6M9LFLkIXuL3qh8TZ4CE1JuxW+NQxlt7
-	 j6DdGu1sHJhsqKlIh/tvLdfemqB+/FJU+2jHRsbhCfmd2/RxFGIBRi7FQ21FqrJlLZ
-	 TWrVkMVfbhn5cv6lGEuM4mp0802PWhXMSIKzx6NU393U8iT7usXc41YoxRmbQNqRAK
-	 ZWau1UuybNFE2JOfF6ithDRuCR1LdESOauAZDApQWntLyTj6Hto12+L6kuGbX34yaM
-	 3ibRtv/kBrl9v1RCfklHGv5Ljsq+8D27BKJkzmOoW/LSloBTphcwdM8rrVADvm4V21
-	 giYYr9J77kX5Q==
-Date: Wed, 22 Jul 2026 18:21:31 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com, 
-	rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org, 
-	arnd@arndb.de, gregkh@linuxfoundation.org, daniel@riscstar.com, 
-	mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com, alexandre.torgue@foss.st.com, 
-	ast@kernel.org, boon.khai.ng@altera.com, chenchuangyu@xiaomi.com, 
-	chenhuacai@kernel.org, daniel@iogearbox.net, hawk@kernel.org, hkallweit1@gmail.com, 
-	inochiama@gmail.com, john.fastabend@gmail.com, julianbraha@gmail.com, 
-	livelycarpet87@gmail.com, mcoquelin.stm32@gmail.com, me@ziyao.cc, 
-	prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com, rohan.g.thomas@altera.com, 
-	sdf@fomichev.me, siyanteng@cqsoftware.com.cn, weishangjuan@eswincomputing.com, 
-	wens@kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 12/14] gpio: tc956x: add TC956x/QPS615 support
-Message-ID: <p5sfrfa5prxsuznqdjnuusgkj4vyl3aom7gorpdxb2iroxjpgp@7wyx4rceybac>
-References: <20260605010022.968612-1-elder@riscstar.com>
- <20260605010022.968612-13-elder@riscstar.com>
- <dhnylud7o5dhaaq6kvbes4vkml3ppa5ev542j2lyxdijibknzg@pfcy22wz6jav>
- <df217d83-272a-4d4c-8aba-a87e4b8869fc@riscstar.com>
- <z6fllvxd5r7bln6t6o5cacf2k35c47mnavvkmda6l4gnjaanin@52o34je2alxw>
+	s=k20260515; t=1784737429;
+	bh=oahPzUP4r3EVE6KSw/KSsnSdDBhVSWorZjIMdlchN9s=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TynmL9C5GEYfoY919EzgKtU7Kij3Ei34g21hnpSs4kPIKD99n7cAolEHyLt6VAZNn
+	 P5rpaV64y/e8xUB7B0HbT2s8bkog12zTyhUBxVtXUKKf7f77Edb4ZMu4mFIncdmIbQ
+	 iGWUDjz5RXC1IGGNIdV+51u+jP88fbaMKK2n7CVGYwECMqnqfSHEGqYaIJDCX3EF46
+	 gf2Wyhn9Ggwi501tG3o2jVs3mTT5x8BeqMdnFULH25RESFNFV4CceUJmMiaKgYOwxv
+	 bqgAdmyUsVF0Z43/B5Ycupft8Oo52G/cJ9WrSp/FCe2KFpmBj5gRbZ7cV3McOPfJc9
+	 vieVYt9pQdiDg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: hwmon: pmbus: Add Analog Devices
+ MAX16545/MAX16550 and Volterra VT7505
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?UHJhZGhhbiwgU2FubWFu?= <sanman.pradhan@hpe.com>
+Cc: linux-hwmon@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260722150324.164799-2-sanman.pradhan@hpe.com>
+References: <20260722150324.164799-1-sanman.pradhan@hpe.com>
+ <20260722150324.164799-2-sanman.pradhan@hpe.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 16:23:48 +0000
+Message-Id: <20260722162348.EA7A81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <z6fllvxd5r7bln6t6o5cacf2k35c47mnavvkmda6l4gnjaanin@52o34je2alxw>
 
-On Tue, Jul 21, 2026 at 04:43:21PM +0200, Manivannan Sadhasivam wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `adi,ocp-severe-filter` property exposes raw register bit va=
+lues instead of standard physical units.
+--
 
-[...]
+--- Patch [1]: [PATCH 1/2] dt-bindings: hwmon: pmbus: Add Analog Devices MA=
+X16545/MAX16550 and Volterra VT7505 ---
+commit e93633b9753ab840614d58e40b8f32b35288cabc
+Author: Sanman Pradhan <psanman@juniper.net>
 
-> > - Does the TC9563 chip have only *one* function on its embedded
-> >   endpoint, supporting just one Ethernet?
-> >     - If so, this driver will have to be modified to support
-> >       the second embedded function and Ethernet controller.
-> > 
-> 
-> The driver assumes only one endpoint, but the binding lists 2. So the driver is
-> not complying with its own binding now :/
-> 
-> So technically, the driver supports 2 integrated endpoints.
-> 
+dt-bindings: hwmon: pmbus: Add Analog Devices MAX16545/MAX16550 and Volterr=
+a VT7505
 
-I was wrong here. Driver supports only one endpoint and that's due to TC9563's
-hw limitation. I confused two functions defined in the binding with endpoints.
+This commit adds device tree binding documentation for the Analog Devices
+MAX16545, MAX16550, and the Volterra VT7505 PMBus controllers. These
+controllers provide voltage, current, power, and temperature monitoring.
 
-- Mani
+> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/adi,vt7505.yam=
+l b/Documentation/devicetree/bindings/hwmon/pmbus/adi,vt7505.yaml
+> new file mode 100644
+> index 0000000000000..286c88eb7be8f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/adi,vt7505.yaml
 
--- 
-மணிவண்ணன் சதாசிவம்
+[ ... ]
+
+> +  adi,ocp-severe-filter:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Deglitch time applied to the severe overcurrent-protection compara=
+tor,
+> +      programmed into the MFR_CONFIG[15:14] field. The MAX16550 and VT75=
+05
+> +      expose this field; it decodes as 0 =3D 0 us, 1 =3D 1 us, 2 =3D 2 u=
+s and
+> +      3 =3D 10 us. On the MAX16545 the severe overcurrent delay is fixed=
+ and
+> +      these bits are reserved.
+> +    enum: [0, 1, 2, 3]
+
+[Severity: Medium]
+Should this property use physical units instead of raw register values?
+
+Device tree properties typically describe hardware configurations abstractly
+using standard units like microseconds. Exposing the raw register bit values
+(0, 1, 2, 3) rather than the actual time durations (0, 1, 2, 10) creates a
+non-standard ABI that leaks internal hardware encoding.
+
+Once merged, this raw-value ABI must be supported indefinitely. Would it be
+better to define the accepted values as 0, 1, 2, and 10 to match the physic=
+al
+time delays?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722150324.1647=
+99-1-sanman.pradhan@hpe.com?part=3D1
