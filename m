@@ -1,125 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297F1345EB5
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 17:29:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2742353A8B;
+	Wed, 22 Jul 2026 17:36:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784741396; cv=none; b=J6ETgAqDy0yUTQT119eXdhtNR/0DvmuhauJ7oyfTBDV+8vunCG2ED+aFLduaKe4/3HNHfEVrMmkGZchI3R0Y8xgnCJmR0h/jnWbukoBNBauS7/3c6iN9VOMglItrYkamchokwZ+j3IGuDJfpKR2bDeiNeaOJ15E9Kmc9SbVri0w=
+	t=1784741768; cv=none; b=NMw8248yCQC37aBqHIiAw+hINtW4sfg11ta0njLZ0F2Apda01J0X/pQBBluBhqREzwyCemaiQwvanwFx/qfO797EfDtZnum1en2IWSvR6SeLi6RNkEs12/tJQeguveMW27VRUsGJy++bKUET3H1tK7EenO/8DsbNHieitjYbMhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784741396; c=relaxed/simple;
-	bh=T6XITIr2vFOWUecj1hZCPGiaLqk+9GIlhHL83xeo9NY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KB+hwxB1v5xZf4P1HVpMfoeOJ/0lZ32CK/6YwvyRWKx2Jz+s0fXf0ZLjTAnvNPadWoRdhIKe3wdf3mGBMMfG5vEoPtxUiMI1QYag3Ls7L7eb2hC05t23wEmkChRIg+AvwiFD2IYuGEsPClu7/ZovGtfYKwgVuRysZ3BlJVmTAyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jXReMzXd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784741768; c=relaxed/simple;
+	bh=3kMzy4W+cNN5fRQOTeJoCzSw1/JA7ND2l4Vc82/k7PQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sOIVVQnMhYzPedIh9WsN/1EJ9X8XQFllrIpK7aSkpIg08v/SzdXt6o6piMsymzk3u8IckqMJGNqTjOuYnfI+YsAc3qK/HxBr4abA38JGNSR0/lTHFLsAQu33YT1SLO3c8b8HedA6LNuMJhR0vYAQSLTy542eoeHz+zqMFdLEpQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=doR4H6FQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jXReMzXd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4C131F00A3A;
-	Wed, 22 Jul 2026 17:29:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="doR4H6FQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09EF11F000E9;
+	Wed, 22 Jul 2026 17:36:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784741395;
-	bh=MaoU0YPPSZfpXDcRdlhbR7HgIYNgXeCIRSLGiq3175g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jXReMzXdwYbRIMINdmmAIIXwERfMNhYsAb3ud3xV74k4k4/vOwQ0ACf/yHzLIkh2m
-	 0Ed9n0jJJzxn8vLVd6xCdlD22JoEUa1EWbSP1LLrHQXEP7Ne9YN0E5WrXjiToXDchG
-	 lBt3sbqhR++tUZVhbiFPyBgWqEGldqAZdimKDlgHY0grcedvTSNo7XDPP4foyhUgTO
-	 toiT2hztSnhUV7EBpp7VecHf2djr387kUdw2uCacrwYwRTIVDrHqFZV4ySRDHzq87J
-	 ZyS3tLxxVivPulV/436T5SmzxQNGcp3d6oLYEfKKv4a+i3XoXaj3l8DInq5DbG2p8a
-	 RcKDqvOHCmGmw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: arm: omap: Convert L4 interconnect to DT
- schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Eduard Bostina" <egbostina@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260722171840.299303-1-egbostina@gmail.com>
-References: <20260722171840.299303-1-egbostina@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 17:29:54 +0000
-Message-Id: <20260722172954.C4C131F00A3A@smtp.kernel.org>
+	s=k20260515; t=1784741767;
+	bh=Qe+2F5TgF6lW0T5HrBn2Ux7uOwUwaxddkorFmlJDiKw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=doR4H6FQV9tG8CzaZqTFdQoNxNnQEppCjlt/TnLncQcgsoDgEz5H6Tf/QRo2jnZVZ
+	 UkkLlcMkE0qy5yemHBKeqU7tZI/PIfPqsFqnCYnOCxrsuqIC6nX6IFc5dMjCU1KEyo
+	 86A+JEi2v4rsizVRVOuJ/spR5hhK09xAnDT7dM7tJy27CRRfX5Gp5LHfsgUK+L42Yt
+	 U7THor6P9MuM/+nW+UFnYow80VapCs88VLV8i7LeYBMZuxDZg/A48QRpSHuXNr5myN
+	 7dwthN90b7Bq7aSuiIBV9ci0BOdZJKx10Xv17RkzvfyT6efHELgip0m+gn2fG0/9C3
+	 5h/7Zkgxb9Gqw==
+Date: Wed, 22 Jul 2026 12:36:04 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Esben Haabendal <esben@geanix.com>
+Cc: Martin Kepplinger <martink@posteo.de>,
+	David Lechner <dlechner@baylibre.com>,
+	Martin Kepplinger <martin.kepplinger@theobroma-systems.com>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Sean Nyekjaer <sean@geanix.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-iio@vger.kernel.org,
+	Andy Shevchenko <andy@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH v2 1/3] dt-bindings: iio: accel: mma8452: Add
+ drive-open-drain
+Message-ID: <178474176330.1241075.16719101832526695138.robh@kernel.org>
+References: <20260715-mma8452-open-drain-v2-0-95be9f5f4795@geanix.com>
+ <20260715-mma8452-open-drain-v2-1-95be9f5f4795@geanix.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260715-mma8452-open-drain-v2-1-95be9f5f4795@geanix.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
 
-New issues:
-- [Medium] Top-level `additionalProperties: true` disables validation of mi=
-s-typed or undocumented properties.
+On Wed, 15 Jul 2026 14:33:27 +0200, Esben Haabendal wrote:
+> Add new boolean to configure selected interrupt pin to open drain instead
+> of the default push-pull mode.
+> 
+> Signed-off-by: Esben Haabendal <esben@geanix.com>
+> ---
+>  Documentation/devicetree/bindings/iio/accel/fsl,mma8452.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
 
-Pre-existing issues:
-- [Medium] The schema enum omits multiple actively used compatibles and car=
-ries over a typo from the text binding.
---
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
---- Patch [1]: [PATCH] dt-bindings: arm: omap: Convert L4 interconnect to D=
-T schema ---
-commit 1d2037651b45f654606d66d4cc1b50eca85740dc
-Author: Eduard Bostina <egbostina@gmail.com>
-
-dt-bindings: arm: omap: Convert L4 interconnect to DT schema
-
-This commit converts the Texas Instruments OMAP L4 interconnect bus bindings
-from text to YAML schema. It defines the compatible property as an array and
-adds a select block to restrict the schema to TI-specific nodes.
-
-> diff --git a/Documentation/devicetree/bindings/arm/omap/ti,omap-l4.yaml b=
-/Documentation/devicetree/bindings/arm/omap/ti,omap-l4.yaml
-> new file mode 100644
-> index 0000000000000..465d48f44730a
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/arm/omap/ti,omap-l4.yaml
-[ ... ]
-> +select:
-> +  properties:
-> +    compatible:
-> +      contains:
-> +        enum:
-> +          - ti,omap2-l4
-[ ... ]
-> +          - ti,dra7-l4-wkup
-> +          - ti,am3-l4-wkup
-> +          - ti,am4-l4-wkup
-> +  required:
-> +    - compatible
-
-[Severity: Medium]
-This is a pre-existing issue carried over from the text binding, but the
-schema enum omits multiple actively used compatibles like ti,am33xx-l4-fw,
-ti,am4-l4-fast, and ti,dra7-l4-per1.
-
-Does this also carry over a typo in the am33xx name, specifying ti,am3-l4-w=
-kup
-instead of ti,am33xx-l4-wkup?
-
-Because the custom select block strictly filters on this enum, device tree
-nodes using the missing compatibles will silently bypass this schema entire=
-ly
-during validation.
-
-[ ... ]
-> +required:
-> +  - compatible
-> +  - ranges
-> +
-> +additionalProperties: true
-
-[Severity: Medium]
-Does setting additionalProperties to true defeat a primary benefit of the
-schema conversion?
-
-This globally disables strict property validation for the node. If a proper=
-ty
-is misspelled (like reg-name instead of reg-names) or undocumented, the
-schema will silently accept it.
-
-Should this bus node instead use a $ref to simple-bus.yaml or
-simple-pm-bus.yaml and set unevaluatedProperties to false?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722171840.2993=
-03-1-egbostina@gmail.com?part=3D1
