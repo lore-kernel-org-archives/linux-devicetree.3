@@ -1,217 +1,360 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 933882C2363
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 21:55:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D86B3B71B9
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 21:55:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784757324; cv=none; b=Uj/kn8amwm0PggCRT0aZYgEo1Nm6B43QE5w8SQtAIB8ibhDywarxX3HYIQAqQeWQ+mKa75KiFwPE3TVqbrFnx7XlEkgctpJE4Vop1xlvFYZwxIJqzmtGcN0x3RZXR1rhyaoyGDGdnsx8K/JuVCjaSSV3aF5pzJ+JbgVB4LGMn5A=
+	t=1784757332; cv=none; b=mKhNQlRjp1ciJbOd8cI2dFHZuxEeN1G5s5UrjLCBezCeflqpW5tWVL68qvSP03NAI8ncanTp6HJ7MnuiT2eQUXMcDgwhl1/YRnlyUDNBd3126NOjrmv+cnkCo6J6/yMvzGevuYbPUarXUNTGKy41zTD53ETYuYJRb7/VQyYcuQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784757324; c=relaxed/simple;
-	bh=Ht6Ycywe28Bh2ZuBZ+3emGUTMuROdCuJ2B0pnAuxrCQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HfnNDIc0shxSqOs28JJX72MO8Z6K0vzwW2WLGNyH1K41p66ViIaVQEhlTE63vQeFbV10Y1JU+Z0/6pMBCgbP+vhipwzAIJgvcG3nGx9Wd7OvAbuqXF0Mxay25RSQ9WAHN5eOvT+Pa3VKs6Ah5bZvN9bjfmjsSKoG53aKiZdTMM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b3l5rd2K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784757332; c=relaxed/simple;
+	bh=sNiG5f2/kBA7WM7h5nhOHP7wRVS5x85sYbp7U9N3K/M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qfdzuDFWAjEwD3EJ2QIJ7aEkd2xlUaTVnRymgH9ICY8DTO3ycTB7w/BZ6Qx+4rYFd/qt+kkOKCWn9FgJv9B8Th/OzP8evfDUPPHOLJ2Lt5AcSgxHeW0/NFVnmWgmcwTFKt6xc2jYfBcdssX3dLfvd5vb3U/G4YwSK4fJ+CFLjYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=GSs1zGSd; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b3l5rd2K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED99D1F000E9;
-	Wed, 22 Jul 2026 21:55:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784757323;
-	bh=5ZzBVdG+9e1fmFd7uouKFp/J6aCA68HuyxV4jaSex34=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=b3l5rd2KYn4rpBvIBMLYm+tHQiBHwbzYM9E4zfZqClhtLVOQe7Ips89/qia/nLXwQ
-	 ipQ1QMH+k3VGLfqHCAdBGdYITtMlVTSoIw5EFEHM3O8eu8KKTjP5up6rJ/e2v56upH
-	 C1w+HjgvcrTv9IOxjhYQGBDxl7ZSThO6C80phpnxHUkqwYLQhk7b8DCg+CSLQWY1nd
-	 41FczPvP/UlhwATLuCIClBogqVduouAGLPj8TsGiTV0hlj3+WVEjsnpAmF5z0umTiR
-	 DsPkyFEdO/HNmo4allRWofq++KzFdAEQzW7q6ZNZO5ZxR7ezuuRJ7f6S3CEpJj1NLn
-	 krBn62rhfqh6Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: ti: Add support for the phyCORE-AM62Px
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "John Ma" <jma@phytec.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260722214052.1962414-2-jma@phytec.com>
-References: <20260722214052.1962414-1-jma@phytec.com>
- <20260722214052.1962414-2-jma@phytec.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 21:55:22 +0000
-Message-Id: <20260722215522.ED99D1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="GSs1zGSd"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so71214545e9.2
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 14:55:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1784757329; x=1785362129; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CgcSfmx8QyNKOcVQ38dAm0Xv0CbPNNiIYif2A76z1vQ=;
+        b=GSs1zGSdw5y+TLbUI4EwP44vSpi0sCOz0j1PqhAlq4b7PtCsJfialQFG4j6r5C0yGa
+         KuXOOzxRogDEjmLtB3t51P6uCwXnPtDuYSYM+bxYeGcbOOUUNEk7w/W0shrtfAzhrAdR
+         5kaXUoZ9WnRj5PX4PNTsCcwmirhZ5TVbxWFwFqxS2hqPg6LBZ5uHf0Y0tkCqkXilVnPW
+         IXfxSwGqEJp56iBCHUG6zaD+QC6qAt1CLyHqSjSqCsIkg8sxRRN+vJJUTedcGpz+5zZp
+         Loee/fvibuf6izOYHGeNDHbL/L2D07m1Su767pWCJxGANl1NrUS1Of/P3hDDyVTdT5BS
+         J4Hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784757329; x=1785362129;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CgcSfmx8QyNKOcVQ38dAm0Xv0CbPNNiIYif2A76z1vQ=;
+        b=WkKWmjgv/g1Xh9I+f/aBg/XbUjwfS6gu4ipAR+oST1r8F0mcr5p0BNnhCJKStMvT+y
+         eASNcGx5mON2kdUY3Lbh4KKsY6v49HFCbZgpZ4YsQLdbX8hOgO6OaTXv5Mufz39Nqr0f
+         PSswOk6evoeCvSt+wTdXNKDZDf8Pnak8FgQxhbZLF5yTbHIb1/BXdazv2z9xnGbUjynG
+         xhcEL+fj2cqqjmxx1VjJigYQM20KwHkDjbIJ1gOlcMPp5/s4+7KihZ1dZW3xrQKo4GRv
+         et7ti1iHiJqfpKappM+kj9IVwFb5rzy+EZRQWDTaseA1SOKaQv3UNGbsOF4lCzurByZ6
+         rsXw==
+X-Forwarded-Encrypted: i=1; AHgh+Roty1PbUrBXmZxfi8rNLJMyr3Fm3j7BiAdblK06eWbtVD6TTpEdlhFcyAI36vrsgCQrPEmZ5GYAJeax@vger.kernel.org
+X-Gm-Message-State: AOJu0YxowNwP0Vc4k3wxKglFvusv4jH/JSt3r7aFq9XOEHOgMLE3+Umg
+	a4xbzOVxlK5KNer4na6y7oF95tvxPaXwZFS/b6oYpQRf+TAKe+IMXstXMJQZ3e6hLH4=
+X-Gm-Gg: AR+sD13QscG/EX9kmI2szUih1Neaa19Z5grgpAcXXObnY8L5TSeS1Gc8Bfx2fMWo5fB
+	Te4mnltHgcGmTkq8XC5UMv5QD8ysve+sqJrpLMmjenkqnhBPpFK0Khlw7EcLZFZo1jPSWVcerqY
+	45F5JSpvp1xwFGQf941XkZt4YsapNq2RalndZ1jOEjPj3KXlE5x3cy1gPqVUEuOo6npi3qz0hua
+	CBNxBbgCvVVCBs3+id/XZGxzLOfACD/Zg3rPjg8U3/ZiHYv64fZbmdeZ7IYR8LA3/j5uP8/eqFD
+	TecY0FqF7J2Zd1NQazlplEkMwRAWI+9MebOi1pAvnBW78L9K4hgpehJBVyFONsF1u5AaCq23KLC
+	bFu0fT4/SAxDIk8aopgzLxSf/x3ujl9vVH63Uch2KHRGJAqNyyDCztjNhYRgprzQm1f1xK96pAm
+	gp9onIcGQ3Cr2X8g==
+X-Received: by 2002:a05:600c:19d2:b0:495:4815:2c54 with SMTP id 5b1f17b1804b1-49573d22bd0mr4042055e9.34.1784757328712;
+        Wed, 22 Jul 2026 14:55:28 -0700 (PDT)
+Received: from [192.168.0.101] ([109.77.14.136])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f864305f5sm9015260f8f.17.2026.07.22.14.55.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Jul 2026 14:55:27 -0700 (PDT)
+Message-ID: <a6da0734-a753-4ea9-adf1-4a520b3edd0d@linaro.org>
+Date: Wed, 22 Jul 2026 22:55:26 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: qcs6490-rubikpi3: Add IMX219
+ camera overlays
+To: Hongyang Zhao <hongyang.zhao@thundersoft.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>
+Cc: Roger Shimizu <rosh@debian.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+References: <20260723-rubikpi-next-20260615-v2-0-47c5add80114@thundersoft.com>
+ <oj6Uto0EvMI0bfZBF5H5aR0yqM-icUN-2cpVSpKffQlJVo5RXBvA4fUy4iva2Pf7LVfq7t8OSRSbXS71dKW-iA==@protonmail.internalid>
+ <20260723-rubikpi-next-20260615-v2-2-47c5add80114@thundersoft.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260723-rubikpi-next-20260615-v2-2-47c5add80114@thundersoft.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [Medium] Unresolved phandle and broken regulator dependency for `serial_f=
-lash`.
-- [Medium] Missing `bootph-all` or `bootph-pre-ram` property on `wkup_i2c0`.
-- [Low] Invalid combined compatible strings for `usb0_connector` causing sc=
-hema violations.
-- [Low] Usage of deprecated `ti,fifo-depth` property in Ethernet PHY.
-- [Low] Incomplete implementation of the `leds` node on the carrier board.
---
-
---- Patch [2]: [PATCH 2/2] arm64: dts: ti: Add support for the phyCORE-AM62=
-Px ---
-commit e5a41f1d4a35eca9058d8d88df8b8b23cefecfd1
-Author: John Ma <jma@phytec.com>
-
-arm64: dts: ti: Add support for the phyCORE-AM62Px
-
-Add support for the PHYTEC phyCORE-AM62Px SoM and the
-corresponding phyBOARD-Lynx carrier board.
-
-Link: https://www.phytec.com/product/phycore-am62px/
-Link: https://www.phytec.com/product/phyboard-am62px-development-kit/
-
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62p-phycore-som.dtsi b/arch/arm6=
-4/boot/dts/ti/k3-am62p-phycore-som.dtsi
-> new file mode 100644
-> index 0000000000000..434dd81a611da
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-am62p-phycore-som.dtsi
-
-[ ... ]
-
-> +&cpsw3g_mdio {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&main_mdio0_pins_default>;
-> +	bootph-all;
-> +	status =3D "okay";
+On 22/07/2026 17:12, Hongyang Zhao wrote:
+> RUBIK Pi 3 ships without camera sensors, and its two connectors support
+> multiple modules. Keep module-specific nodes out of the base board DTS
+> and add per-connector overlays for Raspberry Pi Camera Module V2 IMX219
+> sensors.
+> 
+> CAM1 uses CCI1 and CSIPHY1, while CAM2 uses CCI0 and CSIPHY4. Each
+> overlay describes the 24 MHz sensor input clock and the three sensor
+> rails derived from the switched 3.3 V connector supply.
+> 
+> Describe each connector CAMERA_GPIO signal as a privacy indicator LED
+> and associate it with the corresponding sensor. This lets the V4L2 core
+> control the LED while the sensor is streaming.
+> 
+> Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+> ---
+>   arch/arm64/boot/dts/qcom/Makefile                  |  15 +++
+>   .../qcs6490-thundercomm-rubikpi3-cam1-imx219.dtso  | 117 +++++++++++++++++++++
+>   .../qcs6490-thundercomm-rubikpi3-cam2-imx219.dtso  | 117 +++++++++++++++++++++
+>   3 files changed, 249 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+> index e05414290d8e..89c1d12ed299 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -185,6 +185,21 @@ dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2-industrial-mezzanine.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2-vision-mezzanine.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-thundercomm-minipc-g1iot.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-thundercomm-rubikpi3.dtb
 > +
-> +	cpsw3g_phy1: ethernet-phy@1 {
-> +		reg =3D <1>;
-> +		ti,rx-internal-delay =3D <DP83867_RGMIIDCTL_2_00_NS>;
-> +		ti,fifo-depth =3D <DP83867_PHYCR_FIFO_DEPTH_4_B_NIB>;
-
-[Severity: Low]
-Is the ti,fifo-depth property deprecated in the ti,dp83867.yaml device
-tree schema? Should this be replaced with the standard tx-fifo-depth and
-rx-fifo-depth properties to avoid dtbs_check warnings?
-
-> +		ti,min-output-impedance;
+> +qcs6490-thundercomm-rubikpi3-cam1-imx219-dtbs := \
+> +	qcs6490-thundercomm-rubikpi3.dtb \
+> +	qcs6490-thundercomm-rubikpi3-cam1-imx219.dtbo
+> +qcs6490-thundercomm-rubikpi3-cam2-imx219-dtbs := \
+> +	qcs6490-thundercomm-rubikpi3.dtb \
+> +	qcs6490-thundercomm-rubikpi3-cam2-imx219.dtbo
+> +qcs6490-thundercomm-rubikpi3-dual-imx219-dtbs := \
+> +	qcs6490-thundercomm-rubikpi3.dtb \
+> +	qcs6490-thundercomm-rubikpi3-cam1-imx219.dtbo \
+> +	qcs6490-thundercomm-rubikpi3-cam2-imx219.dtbo
+> +
+> +dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-thundercomm-rubikpi3-cam1-imx219.dtb
+> +dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-thundercomm-rubikpi3-cam2-imx219.dtb
+> +dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-thundercomm-rubikpi3-dual-imx219.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-vicharak-axon-mini.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= qcs8300-ride.dtb
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3-cam1-imx219.dtso b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3-cam1-imx219.dtso
+> new file mode 100644
+> index 000000000000..620b4b3463b4
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3-cam1-imx219.dtso
+> @@ -0,0 +1,117 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) 2026, Thundercomm All rights reserved.
+> + */
+> +
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/leds/common.h>
+> +
+> +&{/} {
+> +	cam1_imx219_clk: clock-camera1-24m {
+> +		compatible = "fixed-clock";
+> +		#clock-cells = <0>;
+> +		clock-frequency = <24000000>;
+> +	};
+> +
+> +	leds-camera1 {
+> +		compatible = "gpio-leds";
+> +
+> +		pinctrl-0 = <&cam1_privacy_led_state>;
+> +		pinctrl-names = "default";
+> +
+> +		cam1_privacy_led: led-camera1 {
+> +			function = LED_FUNCTION_INDICATOR;
+> +			function-enumerator = <1>;
+> +			gpios = <&tlmm 18 GPIO_ACTIVE_HIGH>;
+> +			default-state = "off";
+> +		};
+> +	};
+> +
+> +	/* The module enables its three sensor rails together through PWR_EN. */
+> +	vreg_cam1_pwr: regulator-camera1-pwr {
+> +		compatible = "regulator-fixed";
+> +
+> +		regulator-name = "vreg_camera1_pwr";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +
+> +		gpio = <&tlmm 57 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +
+> +		pinctrl-0 = <&cam1_pwr_en>;
+> +		pinctrl-names = "default";
+> +
+> +		vin-supply = <&vreg_vcc3v3_output>;
 > +	};
 > +};
-
-[ ... ]
-
-> +&ospi0 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&ospi0_pins_default>;
-> +	status =3D "okay";
 > +
-> +	serial_flash: flash@0 {
-> +		compatible =3D "jedec,spi-nor";
-> +		reg =3D <0x0>;
-> +		spi-tx-bus-width =3D <8>;
-> +		spi-rx-bus-width =3D <8>;
-> +		spi-max-frequency =3D <25000000>;
-> +		vcc-supply =3D <&vdd_1v8>;
-
-[Severity: Medium]
-Does this vcc-supply incorrectly link the onboard SoM flash power supply
-to a regulator (vdd_1v8) that only exists on the carrier board?=20
-
-Because the flash is an on-SoM component, should it be powered by the
-SoM PMIC (vdd_1v8_som) instead? Using a carrier board regulator here
-could cause compilation errors if the SoM DTSI is used with a different
-carrier board, and it misrepresents the hardware's power routing.
-
-> +		cdns,tshsl-ns =3D <60>;
-> +		cdns,tsd2d-ns =3D <60>;
-
-[ ... ]
-
-> +&wkup_i2c0 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&wkup_i2c0_pins_default>;
-> +	clock-frequency =3D <400000>;
-> +	status =3D "okay";
-
-[Severity: Medium]
-Should the wkup_i2c0 node include the bootph-pre-ram or bootph-all
-property?=20
-
-The vdd_core regulator child node at 0x40 has bootph-pre-ram, meaning it
-must be configured during U-Boot SPL. If the parent I2C bus lacks a boot
-phase property, it will not be bound in SPL under the driver model,
-preventing vdd_core from being initialized in early boot.
-
+> +&camss {
+> +	vdda-phy-supply = <&vreg_l10c_0p88>;
+> +	vdda-pll-supply = <&vreg_l6b_1p2>;
 > +
-> +	pmic@30 {
-> +		compatible =3D "ti,tps65219";
-
-[ ... ]
-
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62p5-phyboard-lynx.dts b/arch/ar=
-m64/boot/dts/ti/k3-am62p5-phyboard-lynx.dts
-> new file mode 100644
-> index 0000000000000..6bc909a6944f1
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-am62p5-phyboard-lynx.dts
-
-[ ... ]
-
-> +	usb0_connector: connector {
-> +		compatible =3D"gpio-usb-b-connector", "usb-c-connector";
-> +		label =3D "USB-C";
-> +		data-role =3D "dual";
+> +	status = "okay";
 > +
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&main_usbc_power_pins_default>;
+> +	ports {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
 > +
-> +		id-gpios =3D <&main_gpio1 50 GPIO_ACTIVE_HIGH>;
-
-[Severity: Low]
-Are gpio-usb-b-connector and usb-c-connector mutually exclusive in the
-DT schema?=20
-
-Furthermore, does usb-c-connector prohibit the id-gpios property? Mixing
-these could cause dtbs_check validation errors and implies confusion about
-the physical port's topology.
-
+> +		port@1 {
+> +			reg = <1>;
+> +
+> +			csiphy1_ep: endpoint {
+> +				data-lanes = <0 1>;
+> +				remote-endpoint = <&cam1_imx219_ep>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&cci1 {
+> +	status = "okay";
+> +};
+> +
+> +&cci1_i2c0 {
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +
+> +	camera@10 {
+> +		compatible = "sony,imx219";
+> +		reg = <0x10>;
+> +
+> +		clocks = <&cam1_imx219_clk>;
+> +
+> +		VANA-supply = <&vreg_cam1_pwr>;
+> +		VDIG-supply = <&vreg_cam1_pwr>;
+> +		VDDL-supply = <&vreg_cam1_pwr>;
+> +
+> +		leds = <&cam1_privacy_led>;
+> +		led-names = "privacy";
 > +
 > +		port {
-> +			usb0_con: endpoint {
-
-[ ... ]
-
-> +	leds {
-> +		compatible =3D "gpio-leds";
-> +		pinctrl-names =3D "default";
-> +	};
-
-[Severity: Low]
-Is this leds node incomplete? The node is declared but left empty, even
-though the gpio_exp0 GPIO expander explicitly allocates a line for
-USER_LED2. Because the child LED node is not populated, the physical LED
-might be inaccessible from the operating system.
-
-> +
-> +	sound {
-> +		compatible =3D "simple-audio-card";
-
-[ ... ]
-
-> +&cpsw3g_mdio {
-> +	cpsw3g_phy2: ethernet-phy@2 {
-> +		reg =3D <2>;
-> +		ti,rx-internal-delay =3D <DP83867_RGMIIDCTL_2_00_NS>;
-> +		ti,fifo-depth =3D <DP83867_PHYCR_FIFO_DEPTH_4_B_NIB>;
-
-[Severity: Low]
-Like the SoM Ethernet PHY, is the ti,fifo-depth property deprecated
-here? Should it be replaced with the tx-fifo-depth and rx-fifo-depth
-properties?
-
-> +		ti,min-output-impedance;
+> +			cam1_imx219_ep: endpoint {
+> +				data-lanes = <1 2>;
+> +				link-frequencies = /bits/ 64 <456000000>;
+> +				remote-endpoint = <&csiphy1_ep>;
+> +			};
+> +		};
 > +	};
 > +};
+> +
+> +&tlmm {
+> +	cam1_privacy_led_state: cam1-privacy-led-state {
+> +		pins = "gpio18";
+> +		function = "gpio";
+> +		drive-strength = <8>;
+> +		bias-disable;
+> +	};
+> +
+> +	cam1_pwr_en: cam1-pwr-en-state {
+> +		pins = "gpio57";
+> +		function = "gpio";
+> +		drive-strength = <8>;
+> +		bias-disable;
+> +	};
+> +};
+> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3-cam2-imx219.dtso b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3-cam2-imx219.dtso
+> new file mode 100644
+> index 000000000000..80479fffcdcb
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3-cam2-imx219.dtso
+> @@ -0,0 +1,117 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) 2026, Thundercomm All rights reserved.
+> + */
+> +
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/leds/common.h>
+> +
+> +&{/} {
+> +	cam2_imx219_clk: clock-camera2-24m {
+> +		compatible = "fixed-clock";
+> +		#clock-cells = <0>;
+> +		clock-frequency = <24000000>;
+> +	};
+> +
+> +	leds-camera2 {
+> +		compatible = "gpio-leds";
+> +
+> +		pinctrl-0 = <&cam2_privacy_led_state>;
+> +		pinctrl-names = "default";
+> +
+> +		cam2_privacy_led: led-camera2 {
+> +			function = LED_FUNCTION_INDICATOR;
+> +			function-enumerator = <2>;
+> +			gpios = <&tlmm 19 GPIO_ACTIVE_HIGH>;
+> +			default-state = "off";
+> +		};
+> +	};
+> +
+> +	/* The module enables its three sensor rails together through PWR_EN. */
+> +	vreg_cam2_pwr: regulator-camera2-pwr {
+> +		compatible = "regulator-fixed";
+> +
+> +		regulator-name = "vreg_camera2_pwr";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +
+> +		gpio = <&tlmm 58 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +
+> +		pinctrl-0 = <&cam2_pwr_en>;
+> +		pinctrl-names = "default";
+> +
+> +		vin-supply = <&vreg_vcc3v3_output>;
+> +	};
+> +};
+> +
+> +&camss {
+> +	vdda-phy-supply = <&vreg_l10c_0p88>;
+> +	vdda-pll-supply = <&vreg_l6b_1p2>;
+> +
+> +	status = "okay";
+> +
+> +	ports {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		port@4 {
+> +			reg = <4>;
+> +
+> +			csiphy4_ep: endpoint {
+> +				data-lanes = <0 1>;
+> +				remote-endpoint = <&cam2_imx219_ep>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&cci0 {
+> +	status = "okay";
+> +};
+> +
+> +&cci0_i2c0 {
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +
+> +	camera@10 {
+> +		compatible = "sony,imx219";
+> +		reg = <0x10>;
+> +
+> +		clocks = <&cam2_imx219_clk>;
+> +
+> +		VANA-supply = <&vreg_cam2_pwr>;
+> +		VDIG-supply = <&vreg_cam2_pwr>;
+> +		VDDL-supply = <&vreg_cam2_pwr>;
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722214052.1962=
-414-1-jma@phytec.com?part=3D2
+Fully weird higher case names but consistent with the imx219 apparently.
+
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
