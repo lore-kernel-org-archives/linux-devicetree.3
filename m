@@ -1,63 +1,63 @@
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FDCB45A2B7
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 23:36:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2CA4459AF8
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 23:36:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784763382; cv=none; b=ohoyM7uHSqEouxiNhJFMVCIH+//Eht8nzQ3EqHAF2eYv4tWmvfEz90FKrXQfp4csErh6NRiWW7yVGIjUqxU/TQkylGGs1ir5C8RtDmi+UIbh3dtOlSoJNivRcigaX6hsYKDP4S+aiHaPUCbjFNCmDjqZ/w+nfLuh/hvsG/vv2Uk=
+	t=1784763383; cv=none; b=SBFxUtkP3eojT3URFKlVWLl3pzuCUh+Pu/9DqrkIGRwzN4JvI+SZpb8ZjON6Z04tQsjYl8Fzf8yOPZ1ZYi22qo1tu7dIkjl+p/4M5ewTBvfLeS7vOUGETiIvgHBngoK6stbBNJT6rHQw2jebeZBBDU+iyxRlzPEZK1MDSUM2BnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784763382; c=relaxed/simple;
-	bh=/QV/a2X9l1SRCZ0f0eQqmAxS/D1oWuZ8tyi8t+tP54I=;
+	s=arc-20240116; t=1784763383; c=relaxed/simple;
+	bh=1/CkHD0oxgnHzUCphQPj9uX6mQV8xPw5f6Jx+XznVi0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=k0SqqfFX2/RlJDqDGzDkSzdp3O0eUGbRxWdeUiWdXs5lEz56US29mQftg0XvfG9E89yQ7QGiNdwFUptWzJRFV9px2s4yWRCZvStefqfpw071UmMdxsBHpKRmc3S1mVuP55hmkg6LMwbXAORvWfyyzLNw+U8XXzfL3BZAjVLVqOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L7F2Pk+g; arc=none smtp.client-ip=209.85.128.179
+	 MIME-Version; b=UeXuFk/Aozqy4DxX4J0Qn8y2eWG7kcYwKxnLWTqaQX6uLvxk+lQn6X58lanlm2SB1BgZtEMpKOSvgMrlTv+YWL3+HmGV68VgMoWnefKEvvx3ifxBr2L28EAx2YMa0l7wF3hIpavHymAc2h8jDsi5oTZnxXLy4A43CjIk9y6yCGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jF6T1vLG; arc=none smtp.client-ip=209.85.128.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L7F2Pk+g"
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-80a123ef90aso176567b3.0
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 16:36:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jF6T1vLG"
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-80c5cb9a888so458657b3.3
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 16:36:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784763379; x=1785368179; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784763381; x=1785368181; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9smGZPIePSsY0cU9QHa9y4DXLJagF50l0voTZ623s+g=;
-        b=L7F2Pk+gUaqyBxJRR0D/QPHjrGugUzVNQSPrz4exsIZkpIHIZcRs0dcB+t1mUInS7+
-         8kP036BMxU9isXxjIUA3NzQXeGIfOqNYLwaRhB8vaoVxo0yIuCPRyAT/pTQM/Oa6rmDW
-         HCtVVrn2GO4d5G3KfIRKG85OJUh27VMwLy+RfedB9YospWhO8wFVpJJfU3yLuXvNE+RM
-         IBajCI6L8b45PKMZZqwaaMU+HSDMqzEixecvCKxD8FWKF0BEnEY2SeQt+RNDKaf9ZDsP
-         OjrmQ0aPkBptSqa47fBrxw8vWV+LJJHgpfKdr959JPDRq1jOhOFm50XcSRrQ2j2mCwIL
-         Oo4w==
+        bh=gSow7P/U4ty7TVa1wStrr2GU4gsF6dil0NdrrF14oGU=;
+        b=jF6T1vLGVhV9442oFMaECj1fsLCJOm9oHRWRlarpgTOxKe3l2pbFzcz+b2QDW8rDkh
+         +gQDRB11L6HhgVqCpf+c6PlWOh5qMkQmYj05qRRCuJXwLx3JsYtS6LYRZXq0QtoVRxwB
+         lPmHB0ZVLJh5C2dJ/iCFFMCCg6IxwAPIpC6lWLIk5qDIlmHsSoOfdQf/g9O3NQjkopd+
+         I1nv6vvT72+4fhAlWJpQ8mC6y5qqzUyxA8xN/4FiiBLjNrlJicu9Stv11NFG3T7pakWe
+         TLhzbkxQgfZOFdfp7lNs4yTGfsZqnMH6YZXeT/+GJoAAscX0xOb+0vyhvmYiv+XvPrb2
+         OV1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784763379; x=1785368179;
+        d=1e100.net; s=20251104; t=1784763381; x=1785368181;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9smGZPIePSsY0cU9QHa9y4DXLJagF50l0voTZ623s+g=;
-        b=YH2x15gUgG6CxEpiecfyTeckmKD0fw/g5MT53dg3YYOVN584knAi+bgI5KZ4knLKGg
-         0FA9uIEb1o9nLrE634uMnPdOmnCfF4rGWbbQbj1iS0nDTd71KawQb2q0NC9c9pgL5Lwx
-         7fkCgEUa6Lus0cHROQuvKo6PL/mn/bzTmGf+09DrSpABqzu0dKSJQlZY/swDcfyT6eJh
-         W2heBZ5bX9erKCvzoOnd2ncHclf4YWkx1Jgt+b2WlmYBhvkn5YTeUn8To6OwbJ+GXJ9H
-         u8L9rhAMUWKzJ7+AOlit+F62Hl+j7yuXUwKkBCDsssa7TwAFaldecQT58ZFUKHwKZbxp
-         AIrw==
-X-Forwarded-Encrypted: i=1; AHgh+RrwAEKYVckm6aaeUcChTR9tPrvbaOPjg5/VY//5sJcnzVxKxuli+yhmdpQQcTqR0yARPgkY32PP6ntK@vger.kernel.org
-X-Gm-Message-State: AOJu0YwCB5TvJonwIOGZIHuxY+iw+EHtob0Z4gMarYKrk6fYGwYcBPNB
-	tg+gSFMuif1rk/ScB7gQzjGRAtRgY6ikcbgHJy29a4KLQpo4b+BQ6vB9
-X-Gm-Gg: AR+sD10k9V0QKSR6IuGrNzmRjgVpE6uSgp4M+aHkTHOgnJ6Yu2VGefVqr80vfqTC8e3
-	BcvOBpDR8LuvFlDzKKGDlI71sClDOcDXjsRlsNUpqWWNOG5+pu2KaP1jOAGoTSGv5D05l76xTZV
-	Dl6D5zBuL5vn5oXG6/VH+kdP0jYRDcsQGxDM03v8iOTVFd0NqX6ySKKIxBEphlfJ8iSvFzNznV3
-	twZmbr/fwRrBW/nyJOrUre7v3Wp6bzvoOpkLLVYvzz2DqSQZ17e5PmnIFjFHrwpcV+8fiXQeyNH
-	y7jt+qGPKa2tRL+puWd/zmXUcSf7jhbjzljyZVCSpS9rLARS6FBTGR+IR11lveEcoRZ9Sap6XTt
-	4b847Pve+EOjY64jzmWztpzVoeEvtPkdycZ3d9zONpn06BQgaqA7z1TDxzklwzZU/a/vxqhBtRR
-	YQbDHpXz5fnT5qrVniseCFFxMTVQeAy0XRJE396Qsl4jby0QU=
-X-Received: by 2002:a05:690c:6e89:b0:812:9e6d:d47c with SMTP id 00721157ae682-81f4d3b498emr1003157b3.10.1784763379557;
-        Wed, 22 Jul 2026 16:36:19 -0700 (PDT)
+        bh=gSow7P/U4ty7TVa1wStrr2GU4gsF6dil0NdrrF14oGU=;
+        b=eRD8EaOeS0390/EPKZvExXevW989hD05PE4RY7y4Z1aeeWPOla3xhYOFUS+6+4osgu
+         3WQPtdonNMmDUsuwA55obAkJEI3WIF6FWw0+ArkoxbvfpmrJFEGBzhKY1awn7/2gJMNj
+         LDwIpmLI7elxjgOYHGVOaKSBYvrfAD3uftVVu58N3rd6EsQyg6BG8hxoZ1jdfN7SvI7F
+         IyojOdSBB3yU7G1JuOlH50txWg6pm1dQSYZYsgnIWfNvUPuNzO2io3000fUXPWN4VC3k
+         t2jOrTLZL7OU3Qy9UVWb0Z0RIBSSe1s4CHYgh9t+PcyZkkoKqEP6AaAiAvWwNo63tHFz
+         Hseg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr3dnkCz4KkQ5e4bbOfzoNaB+DdaDd+gL0//0ljAcIwaZruigQrFxLj2+31ksYSUiCeDtukQ/AKZyDp@vger.kernel.org
+X-Gm-Message-State: AOJu0YzBibC6OBDwBWx9Qt9nkoMvoDxG8WDTldAw/Eoxz7GQ8YigaCfZ
+	5fjggLMxr5i+QLV4qkvKtSth5IkLgy28LLmk5FnqqU1wSl4FtV3NHH6i
+X-Gm-Gg: AR+sD10WSROa+js0DntmLs8DBvsvWcV0EnsXjqIjqiiBAF/lvPNnJBeXUlEi7oyq3f1
+	Pw5KkK7c9bRrSWU1zej/su9s2oHz3NlqAMDc161PXJxPl0NK6RlCh4hBVDnGo5euTUTVO1SgnCv
+	w2zylLvmEi27ZqzC2EizxM5YOAGLe1fZW19LG5Gd6JYQcxAdMlrvIULzFCTlE5z8OXxFvliZP+m
+	T1nD9nbWPx+4ElXgZdf9t0yR3YbJbaNGJ5itCFA89LIhYToOv2NK8M2Hi5P+pZUIQYqtT5B+JUa
+	6gxWNQ/23DUf0VxMMu7Mq6qdf4owOhNyi4/1mltjLYkhboT4Ysox+NWuObguIC8lLNljXKeDZ3p
+	nFCcMQGgQyFFbvEPN4UcOSQbPPLGjGTdXbEbthGJW+c51JvTTiWzHQ+36rlF4az1umRaNuPheHE
+	2tSb6GK/b0WlaXX/0FxHjKe8RZ+4iUEqzWcq+6
+X-Received: by 2002:a05:690c:d07:b0:80c:90ed:c79f with SMTP id 00721157ae682-81f4c30b5e3mr2230927b3.52.1784763380753;
+        Wed, 22 Jul 2026 16:36:20 -0700 (PDT)
 Received: from zenbox ([2600:1700:18fb:6011:4392:41cd:1ce2:e391])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81f33c627c9sm20937027b3.19.2026.07.22.16.36.18
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81f33c627c9sm20937027b3.19.2026.07.22.16.36.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 16:36:19 -0700 (PDT)
+        Wed, 22 Jul 2026 16:36:20 -0700 (PDT)
 From: Justin Suess <utilityemal77@gmail.com>
 To: Sean Young <sean@mess.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -73,11 +73,10 @@ Cc: linux-media@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-sunxi@lists.linux.dev,
 	Sashiko <sashiko-bot@kernel.org>,
-	Justin Suess <utilityemal77@gmail.com>,
 	Andre Przywara <andre.przywara@arm.com>
-Subject: [PATCH v3 3/4] arm64: dts: allwinner: a523: enable IR receiver on the X96Q Pro+
-Date: Wed, 22 Jul 2026 19:36:03 -0400
-Message-ID: <20260722233604.3001063-4-utilityemal77@gmail.com>
+Subject: [PATCH v3 4/4] arm64: dts: allwinner: a523: enable IR on the Avaota A1
+Date: Wed, 22 Jul 2026 19:36:04 -0400
+Message-ID: <20260722233604.3001063-5-utilityemal77@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260722233604.3001063-1-utilityemal77@gmail.com>
 References: <20260722233604.3001063-1-utilityemal77@gmail.com>
@@ -89,39 +88,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The X96Q Pro+ TV box has an IR receiver window on the front panel,
-wired to the SoC CIR input on PL11.
+From: Andre Przywara <andre.przywara@arm.com>
 
-Enable the CIR receiver in the RTC power domain and mux its RX
-signal to PL11.
+The Avaota A1 board has an IR receiver chip on the PCB (next to the
+Ethernet jacks), wired to the PI8 pin on the SoC.
 
-Tested on an X96 Pro+ with ir-keytable and nec keybindings with
-the remote that it came with in the box.
+Add the pin description to the PIO DT node, and enable the CIR receiver
+in the main power domain.
 
-Reviewed-by: Andre Przywara <andre.przywara@arm.com>
-Tested-by: Andre Przywara <andre.przywara@arm.com>
-Signed-off-by: Justin Suess <utilityemal77@gmail.com>
+Tested on the board with evtest and some random TV remote control.
+
+Signed-off-by: Andre Przywara <andre.przywara@arm.com>
 ---
- arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi          | 7 +++++++
+ arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts | 6 ++++++
+ 2 files changed, 13 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts b/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts
-index a96927fbdadd..1eaee20acaab 100644
---- a/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts
-@@ -266,6 +266,12 @@ reg_dcdc3_323: dcdc3 {
- 	};
+diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+index c2de662140ce..219fd76a4710 100644
+--- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+@@ -155,6 +155,13 @@ i2s2_pi_pins: i2s2-pi-pins {
+ 				bias-disable;
+ 			};
+ 
++			/omit-if-no-ref/
++			ir_rx_pin: ir-rx-pin {
++				pins = "PI8";
++				allwinner,pinmux = <3>;
++				function = "cir_rx";
++			};
++
+ 			/omit-if-no-ref/
+ 			ledc_ph_pin: ledc-ph-pin {
+ 				pins = "PH19";
+diff --git a/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts b/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts
+index 474354fbfcec..994f1e4f0ce7 100644
+--- a/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts
++++ b/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts
+@@ -100,6 +100,12 @@ &gpu {
+ 	status = "okay";
  };
  
-+&r_ir {
++&ir {
 +	pinctrl-names = "default";
-+	pinctrl-0 = <&r_ir_rx_pin>;
++	pinctrl-0 = <&ir_rx_pin>;
 +	status = "okay";
 +};
 +
- &r_pio {
- /*
-  * Specifying the supply would create a circular dependency.
+ &ledc {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&ledc_ph_pin>;
 -- 
 2.54.0
 
