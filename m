@@ -1,137 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 349684399D7
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 21:24:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B891349CEF;
+	Wed, 22 Jul 2026 21:39:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784755504; cv=none; b=Nt4Ei+MKoajZwnqw90qRyG+ayJxQMHeVf1jLshBo+goP1dvAqtlIZPMtYMn16zwqDJjAUnYgpjpDHr4zJg/FM1GK0pZ5s+fsFleT8xG4VzyubLJveJ2NQla/B1Z7qdu+0SAQl+skXouVmMjqCPVzfZaKI54pa4z4U+RN8JmxsrY=
+	t=1784756390; cv=none; b=Sl6+6Z4QqFM7jjhvpPMK3AtidqyzWFKiRZAdFOjZpdCgm2icMMMccSqdtOATU+v19XCm1fV/OEmmki+WW4rZX5SJq+pn40X/DnoHKk6nMP4uO6eFc2Kol11QgrDysJKdgkamSEB111UyFdwsnYiYTwhes78aNd1smm34z2aFg4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784755504; c=relaxed/simple;
-	bh=/H1z752+2IonNbBPGEve5njyexKRAIGH3mgMPbwmQjs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NjZ2HuFhKhjmGuLqTC81m4Q7TT8hKI9kaVdmgJyU25BjWFOz2ltWJZxVnFAcQyxR28PfBT+ZCCoP/6p8sThR3uCQCmXa3/spAO3gR37ZI3otaRbEp6v6MnIO+LRPNvAMgqTqGFCyoKkqNPxsHE+Q5jUJjPg8auUfHcfmlNzB5J8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T9xkMBld; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784756390; c=relaxed/simple;
+	bh=pfUFbwjvxQY/xar3KlbUb40pmp50l1EbKkHtEXF56yI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tVTfZy0vuagiYfNJxR5ZFyIAtdGwh4MB8QdjhCf1hQIxoyvEa6sBU10m+4TlNg8Rs44AaJEyGyXG/G4ICHz56JnDvROKMqJeblgGw3Mipz5AFFlNc52aj40sKIv0kCDHjM8J083IQof/ncsDQUIR3fB/urHDNsHsuiU8JGodSU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=brRzAZBd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T9xkMBld"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2914A1F000E9;
-	Wed, 22 Jul 2026 21:24:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="brRzAZBd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 971A31F000E9;
+	Wed, 22 Jul 2026 21:39:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784755498;
-	bh=AQTvDswGjcZJYE4m7eV8mlibqHWT8BmDJ5uT8aYUonY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=T9xkMBldYM6FWSdhycmoRTkXucV8Q3okz/1aBCaknyTo2LxV5bxZMRT9McmspRQXF
-	 bpHYVuNDI19yXBSugHZ9r3xFrLTLZfLWtpkN3PgzmxJOGoD9k8lkgYuasYBMYuRe8Q
-	 8wjU/MGkZ+jufcfAQKOJ3iartm3lT03fNd1qkazCedK51bNpxX+mxNEjxJ8QW/Thd4
-	 DY1+3iuKH2vjj+p/CmUPgXMv1Ro2yOtXn/Ett4uQ3roNM2J9tx8rv/RnubbDIq/tiA
-	 /0MSYCXTG8IoWBuQIh9hlCe57g+mOyjpmc9efZGfGJgxKLzmAMj/cbndD07vHzg1oU
-	 dB15taqZIk7UQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] mmc: core: Add MMC_CAP2_NO_POWEROFF_SUSPEND host
- capability
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kamal Dasu" <kamal.dasu@broadcom.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260722211417.3702709-3-kamal.dasu@broadcom.com>
-References: <20260722211417.3702709-1-kamal.dasu@broadcom.com>
- <20260722211417.3702709-3-kamal.dasu@broadcom.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 21:24:57 +0000
-Message-Id: <20260722212458.2914A1F000E9@smtp.kernel.org>
+	s=k20260515; t=1784756388;
+	bh=J/4AwJDlUc6G4FSUtMAB2vODvWwQjx1d0P5R5iMgpjI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=brRzAZBda7UZHIg4veJxZLCYpAqd3lCO2ZMyHBAzG56VDW8Zr41kajFzsuVf16Qen
+	 jfveSt7reJYPqIKL3ap9i1AnIyHiFlS2Tm2AphtXD9AmgXbcX/tXagmG+t+IpMhD1A
+	 cwtRgmM7wLAMuu+ewZgaPPBKxQQowjI+KwaYQcE/ftJy2R4yI3g/+/pTG5vCEffyze
+	 hBzeg+QNlgQ8LQurTVNRWREViUly0jR3ypJbAUy9STmVgZ1bPpdG76mL2ABYqgxY5u
+	 +mgrWmQyS2Er3Bx/3LapCmBRVzBgGijicDWB1Yop4ngvwCcd3OHRjq2U63RXJIEvIh
+	 9R8xWkFBQzGFw==
+From: Will Deacon <will@kernel.org>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Sean Paul <sean@poorly.run>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: catalin.marinas@arm.com,
+	kernel-team@android.com,
+	Will Deacon <will@kernel.org>,
+	Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	iommu@lists.linux.dev,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/9] drm/msm: Support for Eliza GPU
+Date: Wed, 22 Jul 2026 22:39:19 +0100
+Message-ID: <178472234101.2849821.2122520947416470747.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260718-eliza-gpu-v2-0-64379dbebd7a@oss.qualcomm.com>
+References: <20260718-eliza-gpu-v2-0-64379dbebd7a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The MMC_CAP2_NO_POWEROFF_SUSPEND bypass unconditionally applies to=
- all power-off types in `_mmc_suspend()`, preventing power-off notification=
-s and emergency actions during system shutdown, driver unbind, and undervol=
-tage protection.
-- [High] Skipping `mmc_power_off` during suspend leaves `host->ios.power_mo=
-de` as `MMC_POWER_ON`, causing `mmc_power_up` to return early on resume, wh=
-ich breaks card re-initialization by failing to reset the clock and bus sta=
-te.
---
+On Sat, 18 Jul 2026 02:11:25 +0530, Akhil P Oommen wrote:
+> Adreno 722 found in Eliza chipset belongs to the A7x Gen1 family. It is
+> derived from A730 and shares the same IP-level configurations: HWCG
+> registers, protected registers, GBIF CX registers and gmu_cgc_mode.
+> Major differences include smaller cache/core counts, 1MB GMEM, no
+> Concurrent Binning & LPAC support. Some of the peripheral blocks like
+> RSCC are from A740 that resulted in updates to RSC layout.
+> 
+> [...]
 
---- Patch [2]: [PATCH v3 2/2] mmc: core: Add MMC_CAP2_NO_POWEROFF_SUSPEND h=
-ost capability ---
-commit d167c50cff315ae6b0704bc19e48556178313b8a
-Author: Kamal Dasu <kamal.dasu@broadcom.com>
+Applied bindings update to iommu (arm/smmu/bindings), thanks!
 
-mmc: core: Add MMC_CAP2_NO_POWEROFF_SUSPEND host capability
+[4/9] dt-bindings: arm-smmu: Document GPU SMMU for Eliza SoC
+      https://git.kernel.org/iommu/c/925f98235a72
 
-On some platforms, firmware accesses the (e)MMC card directly during resume
-from Suspend-to-DRAM. This requires the card to remain powered and responsi=
-ve
-throughout suspend. This patch adds MMC_CAP2_NO_POWEROFF_SUSPEND to skip the
-poweroff-notify/sleep/power-off sequence during _mmc_suspend().
+Cheers,
+-- 
+Will
 
-Link: https://lore.kernel.org/r/20260413180551.3683969-1-florian.fainelli@b=
-roadcom.com/
-
-[ ... ]
-
-> diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
-> index 05444ecf3909f..27a559e6fcc0b 100644
-> --- a/drivers/mmc/core/mmc.c
-> +++ b/drivers/mmc/core/mmc.c
-> @@ -2157,6 +2157,21 @@ static int _mmc_suspend(struct mmc_host *host, enu=
-m mmc_poweroff_type pm_type)
->  			goto out;
->  	}
-> =20
-> +	/*
-> +	 * Some platforms need the card to stay powered and responsive
-> +	 * throughout suspend, since firmware accesses it directly during
-> +	 * resume, before the kernel's own resume path has run. Just
-> +	 * deselect it and leave power alone; mmc_init_card() will fully
-> +	 * re-initialize the card once the kernel resumes.
-> +	 */
-> +	if (host->caps2 & MMC_CAP2_NO_POWEROFF_SUSPEND) {
-
-[Severity: High]
-Does this unconditionally bypass the power-off and notification sequence for
-all pm_type values, including MMC_POWEROFF_SHUTDOWN and=20
-MMC_POWEROFF_UNDERVOLTAGE?
-
-Since this doesn't check if pm_type =3D=3D MMC_POWEROFF_SUSPEND, could this
-prevent required power-off notifications and emergency actions during system
-shutdown, driver unbind, or undervoltage events?
-
-[Severity: High]
-If we skip mmc_power_off() here, won't host->ios.power_mode remain
-MMC_POWER_ON?
-
-During resume, _mmc_resume() calls mmc_power_up(), which checks the
-power_mode:
-
-drivers/mmc/core/core.c:mmc_power_up() {
-    if (host->ios.power_mode =3D=3D MMC_POWER_ON)
-        return;
-    ...
-}
-
-Will mmc_power_up() return early, skipping the clock and bus reset in
-mmc_set_initial_state()?
-
-If so, could this cause mmc_init_card() to subsequently execute using an
-invalid high-speed host bus state instead of the required reset state?
-
-> +		if (!mmc_host_is_spi(host))
-> +			err =3D mmc_deselect_cards(host);
-> +		if (!err)
-> +			mmc_card_set_suspended(host->card);
-> +		goto out;
-> +	}
-> +
->  	if (mmc_card_can_poweroff_notify(host->card) &&
->  	    mmc_host_can_poweroff_notify(host, pm_type))
->  		err =3D mmc_poweroff_notify(host->card, notify_type);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722211417.3702=
-709-1-kamal.dasu@broadcom.com?part=3D2
+https://fixes.arm64.dev
+https://next.arm64.dev
+https://will.arm64.dev
