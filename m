@@ -1,66 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AFD743CE40;
-	Wed, 22 Jul 2026 17:11:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A88CA296BCD;
+	Wed, 22 Jul 2026 17:12:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784740275; cv=none; b=VbvDSY0fMQpSUTv5Dgub3kiolPw8DaRmT0qcN7GhUsiOU191OLppMONSDC3953ffXkD2APu+OBgZfzFbGjX6dDmVppXv1vw8THkB4rbByEfxwEuw+K21lNnBtLeF380v7G2bxn+WbH6XjyD5MTgGyYELYGPbaHGc9ErIQaKfj+0=
+	t=1784740333; cv=none; b=PEvu/4Awih4QLAZK9ATWZapTvGVoPJKVO2qx75lxGez8tphp/lzHmDBvgEBrCypG6Q6PFWah0c1cjVMHET3T3lV5vFVzMsTyHGU8etm64dgSzOuvzkxymHvSWinBJwHprpexnuzhPFSBaak1xvYue4ygLIQXC8dDT9+uQN/sl/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784740275; c=relaxed/simple;
-	bh=7Y45uPglg7iPqVphYTzQdr9XvOjm5WsJCXkvZ34cbCQ=;
+	s=arc-20240116; t=1784740333; c=relaxed/simple;
+	bh=pOw0Sd4aBstlJHr1VKDj8Bt76erT2FtxOFbS4NCugME=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BOnOa8GFBhdrc8yWLDAtx7Kj4e5NJd7UdmTnEOdGnyKg05U8fHfEovt5otjbP+hwvt68TmAJogMMfiHLPLweSvvE01J1xu11wQlN1R7wtqK65UazxkmOrpUx9ZZ07ObtavtbfWOaDyskWhZtDnPPygUR/sQefqvz9cqtx2wZ3gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CK7sXvlW; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=tos8t9AtjvLmsduj29VA0zGrHlvBbJ+MCSl2rwXZA+lXc9JrLT0UogJjCjOZpNu8s8W6fNvwk+BGM7Cnq0l76ThFZoNFS7omXMPUdqtmFmRBkVMgx0f73IPxUlNTcnhOH/VxZGdiQoFTN4504wwT9VU8gkfd/Hofo9f+fU+uzpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZf1kXQo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CK7sXvlW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EC551F00A3D;
-	Wed, 22 Jul 2026 17:11:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZf1kXQo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E09B1F000E9;
+	Wed, 22 Jul 2026 17:12:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784740271;
-	bh=5IBnNKjFpX4h0Bw883YP13wsIeX4UwbQCYYcGQL98/c=;
+	s=k20260515; t=1784740326;
+	bh=7mD+4FUWhob78Mb44V3gtlplEwc4ek5DfjC69DadIpM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CK7sXvlW6Hxdlu4AfJEbAArnsSEg0XC99sMwPdapxkzWS6lfQHVEjLbKVchA28HiQ
-	 ev2d1c0zafdn/Pce8r5I/eIUlZRKRArl/sRA9dFmDMk2UkDhNaxggska+6+yPUbIql
-	 Tl8/r36qTileL2G1SVsvkMuomWakSZkIQ6royDGKfHpQ4308acSMZdPcSHAdmXwS35
-	 L1gstCY5lDivDwSRSB8UvGhF4Or/NAXg/4Hceh65ba6Ho35zY6tvRBdMa5kF9iJNCF
-	 kYNaEnThvDyxQ083o89Pg4doOLatISY8KslxYSzSlkFHWEO4QymY2C0Jiiw+XeXV5S
-	 b+RGFAZaLDo5Q==
-Date: Wed, 22 Jul 2026 12:11:08 -0500
-From: Rob Herring <robh@kernel.org>
-To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Cc: Sebastian Reichel <sre@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Ulf Hansson <ulfh@kernel.org>, Lee Jones <lee@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	John Stultz <john.stultz@linaro.org>,
-	Moritz Fischer <moritz.fischer@ettus.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Andre Draszik <andre.draszik@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-	mfd@lists.linux.dev, Srinivas Kandagatla <srini@kernel.org>
-Subject: Re: [PATCH v23 06/13] dt-bindings: arm: Document reboot mode magic
-Message-ID: <20260722171108.GA1097879-robh@kernel.org>
-References: <20260714-arm-psci-system_reset2-vendor-reboots-v23-0-e7453c548c21@oss.qualcomm.com>
- <20260714-arm-psci-system_reset2-vendor-reboots-v23-6-e7453c548c21@oss.qualcomm.com>
+	b=bZf1kXQo4xHv80f0Pz5JipUico6acxDE74mN4GdiEczhr/dx65ciuaVg4r8bAEEcs
+	 g8p3n8IX94S/0xWbA4zB89DDMhTKQTnkV2L/Z3NU/JS3ruAdusq+9L4HeuSfEStQcH
+	 Y7DVFEogTtuW8IovLFTWOIYoBVbSG6mj923ABW1pZrGmQa6vxfSdKOhKADlVOdVYhn
+	 WYIBqfh0w3VNaXxKQy1Fux3hXJ2kSLGBQPtlGX8G5YZmlkGeL9Qb20Z1soM/qQ5FLB
+	 8kVpxX5d027Yr+2QZ7RI9pYf/OwQ7BcgCUQK2cQUvNhPuOKeGp66LjZg4d3bkfTHjE
+	 NEmeE6vRcIPsQ==
+Date: Wed, 22 Jul 2026 12:12:03 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
+Cc: biju.das.jz@bp.renesas.com, linux-can@vger.kernel.org,
+	mturquette@baylibre.com, claudiu.beznea@tuxon.dev,
+	devicetree@vger.kernel.org, conor+dt@kernel.org,
+	linux-clk@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	fabrizio.castro.jz@renesas.com, linux-kernel@vger.kernel.org,
+	magnus.damm@gmail.com, bmasney@redhat.com, mailhol@kernel.org,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+	mkl@pengutronix.de, geert+renesas@glider.be, krzk+dt@kernel.org,
+	sboyd@kernel.org
+Subject: Re: [PATCH v3 2/8] dt-bindings: can: renesas,rcar-canfd: Document
+ RZ/G3S SoC
+Message-ID: <178474032283.1138528.11209003528871074463.robh@kernel.org>
+References: <20260714173315.1981708-1-claudiu.beznea+renesas@tuxon.dev>
+ <20260714173315.1981708-3-claudiu.beznea+renesas@tuxon.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,98 +51,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260714-arm-psci-system_reset2-vendor-reboots-v23-6-e7453c548c21@oss.qualcomm.com>
+In-Reply-To: <20260714173315.1981708-3-claudiu.beznea+renesas@tuxon.dev>
 
-On Tue, Jul 14, 2026 at 10:46:34PM +0530, Shivendra Pratap wrote:
-> Add bindings to describe vendor-specific reboot modes. Values here
-> correspond to valid parameters to vendor-specific reset types in PSCI
-> SYSTEM_RESET2 call.
+
+On Tue, 14 Jul 2026 20:33:09 +0300, Claudiu Beznea wrote:
+> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 > 
-> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+> The CAN FD controller found on the Renesas RZ/G3S SoC is largely compatible
+> with the variant present on the RZ/G3E SoC. The main differences are:
+> - the RZ/G3S provides only two CAN FD channels
+> - the RZ/G3S supports only CAN FD operation; the Channel n CAN FD
+>   Configuration Register does not implement the bits used to select
+>   classical CAN-only mode (bit 30) or CAN FD-only mode (bit 28);
+>   consequently, bit 31 (CAN FD Frame Distinction Enable) of the same
+>   register is also not implemented
+> - some bits in several registers (mainly reserved or status bits) are
+>   read-write on the RZ/G3S but read-only on the RZ/G3E; their behavior is
+>   otherwise identical: the bits read back as 0 on both SoCs and software
+>   is allowed to write only 0 to them on the RZ/G3S
+> - the RZ/G3S provides 256 acceptance filters, compared to 768 on the
+>   RZ/G3E
+> - the RZ/G3S can use PCLK clock as the CAN FD clock source through an
+>   internal clock divider, while also supporting an external CAN FD clock
+>   source
+> 
+> Since:
+> - the SoC clock generator provides to the CAN IP only the peripheral and
+>   the RAM clocks
+> - when sourced from the peripheral clock, the CAN-FD clock is obtained
+>   inside the IP itself by dividing the peripheral clock
+> - the assigned-clocks and assigned-clock-rates properties are specific to
+>   the CAN-FD clock
+> the assigned-clocks and assigned-clock-rates properties were dropped from
+> the required properties list of the Renesas RZ/G3S SoC.
+> 
+> Add documentation for the Renesas RZ/G3S SoC.
+> 
+> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 > ---
->  Documentation/devicetree/bindings/arm/psci.yaml | 54 +++++++++++++++++++++++++
->  1 file changed, 54 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/arm/psci.yaml b/Documentation/devicetree/bindings/arm/psci.yaml
-> index 6e2e0c551841..11b90e8affb3 100644
-> --- a/Documentation/devicetree/bindings/arm/psci.yaml
-> +++ b/Documentation/devicetree/bindings/arm/psci.yaml
-> @@ -98,6 +98,37 @@ properties:
->        [1] Kernel documentation - ARM idle states bindings
->          Documentation/devicetree/bindings/cpu/idle-states.yaml
->  
-> +  reboot-mode:
-> +    type: object
-> +    $ref: /schemas/power/reset/reboot-mode.yaml#
-> +    additionalProperties: false
-> +    properties:
-> +      # "mode-normal" is just SYSTEM_RESET
-> +      mode-normal: false
-> +    patternProperties:
-> +      "^mode-.*$":
+> Changes in v3:
+> - updated the patch description to reflect RZ/G3S has 256 acceptance
+>   filters and RZ/G3E has 768 acceptance filters
+> - kept compatibles alphanumerically sorted
+> 
+> Changes in v2:
+> - forbid renesas,no-can-fd and renesas,fd-only since the IP supports
+>   only CAN-FD; for this didn't collect Biju's tag
+> 
+>  .../bindings/net/can/renesas,rcar-canfd.yaml  | 20 +++++++++++++++++--
+>  1 file changed, 18 insertions(+), 2 deletions(-)
+> 
 
-Since your example violates naming rules:
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-"^mode-[a-z0-9]+$"
-
-> +        minItems: 1
-> +        maxItems: 3
-> +        items:
-> +          - description: arg1 (vendor-specific SYSTEM_RESET2 reset_type)
-> +            minimum: 0x80000000
-> +          - description: arg2 (cookie_lo in 2-cell form, cookie_hi in 3-cell form)
-> +          - description: arg3 (cookie_lo in 3-cell form)
-> +        description: |
-> +          Describes a PSCI SYSTEM_RESET2 vendor-specific reset type. The string
-> +          after "mode-" maps a reboot mode to a vendor-specific reset.
-> +          A vendor-specific reset takes two arguments, a 32-bit reset_type and a
-> +          64-bit cookie. The arguments are encoded as up to three 32-bit cells.
-> +          Each mode property is encoded as mode-xxx = <arg1[, arg2[, arg3]]>,
-> +          where:
-> +          - arg1 is reset_type and must be >= 0x80000000.
-> +          - In 2-cell form, arg2 is lower 32 bits of cookie.
-> +          - In 3-cell form, arg2 is high 32 bits of cookie
-> +            and arg3 is low 32 bits of cookie.
-> +
-> +          All values should be provided as per the PSCI SYSTEM_RESET2
-> +          specification.
-> +
->  patternProperties:
->    "^power-domain-":
->      $ref: /schemas/power/power-domain.yaml#
-> @@ -137,6 +168,15 @@ allOf:
->        required:
->          - cpu_off
->          - cpu_on
-> +  - if:
-> +      not:
-> +        properties:
-> +          compatible:
-> +            contains:
-> +              const: arm,psci-1.0
-> +    then:
-> +      properties:
-> +        reboot-mode: false
->  
->  additionalProperties: false
->  
-> @@ -260,4 +300,18 @@ examples:
->          domain-idle-states = <&cluster_ret>, <&cluster_pwrdn>;
->        };
->      };
-> +
-> +  - |+
-> +
-> +    // Case 5: SYSTEM_RESET2 vendor resets
-> +    psci {
-> +      compatible = "arm,psci-1.0";
-> +      method = "smc";
-> +
-> +      reboot-mode {
-> +        mode-edl = <0x80000000 0x00000001>;
-> +        mode-bootloader = <0x80010001 0x00000002>;
-> +        mode-needscookie_64 = <0x80000000 0x00000001 0x00000002>;
-
-Don't use '_' in property names. This is a W=2 warning.
-
-Rob
