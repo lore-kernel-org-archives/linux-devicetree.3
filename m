@@ -1,190 +1,304 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9B0B1A6806
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 12:32:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D63313DBA0
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 12:33:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784723537; cv=none; b=LvwFoAvOEbINlrSyPs54TSY6AfloqcsZYz1vS7YXnlikxh/3+9KitDGvjjT6I+NV8MOrqVZIds2v1FWt+POaMMfdLARAMed+buOYV/i2gzxA7GqoK1oKutkgDQjOc2lX/ZeZOo4mI2kz0XT0ACOyMTI16XgTdVW/M40YeMgAAeY=
+	t=1784723595; cv=none; b=mgn9oyEo6U/FyLQtg8vmJKheWvMGogFTv4ptjGxKCsGPCztc6FWFvcd/l/P/3e2VwKVAoprjnmAHcIQyuKjhb2M3Eo5SqNA9vMFU57MKnH0xEnRWF9Bqg005Id/M9BgJiwUb+mHZiIVGM/gq7gAjd6sXaENFR/6pmakb9fUSOMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784723537; c=relaxed/simple;
-	bh=/dKr20+S0lxt3Qnm81FUeEE0LP3pRcGbSrcT0xfVUc4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HVqzNNw3xdvswMzeFUKJBMw8xoBRScaUpTPoNOL8xy8C1+2wvU5BgW8xdcXZmniPhhMDyqeOo2DJLWUSuVDshVkblBbC9vFpfZJKEKrPaDCNib5CN8d1Q0225MnmghhuMqIkoYpl4uNdO0ZKpKsn7bT4M3QrXzFxamW914xPe7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VV4Yb3PL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b2bSJqE/; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784723595; c=relaxed/simple;
+	bh=t90Nz4neymx/A5iQaaKtBeqiRFzxIMQkYqzWqPUtugY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KKDnjBzBVzNXFeqN67jElWrhfNBPTN/1OpqcaFqoNGfo7Zl0rDnpD0WyfhiHUH0bexQ8NmP2RjQvdDQuJPituIyjgRvtjAz0a42pmiiwZdSdy1eqfbA11zLJyMAzzy27fvjuG3UMCAwjNRZpBUD0bd0NcykR6dwuzNJO65/rzcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kQCjqFRH; arc=none smtp.client-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VV4Yb3PL";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b2bSJqE/"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M8xLaZ412302
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 12:32:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	AyfZ1AGsNFCY7Vy8azTP8G/03OAP5A5XNV25gHm9a4Q=; b=VV4Yb3PLfUC47MwO
-	p3TCnTvJCi2SnOKUgpDzdj8gNxnfs7Qcs5X1WFw2Vn9nsgK8ZAcoqcOp2RZ6QgvC
-	b7SbNBpCdFTb68f53bCZrpM4wEiTzYIObhtb3DChubri+FAbMjI5zdomph1IrNv1
-	QyfwrUT7TVepLLSQvJbFMohIfOBZdUMkmtEq6q1x1tmi9T+vrD1EQ25gMQ6BQIBO
-	2RGqSOS3WwDEr0cRm5jzc0Dj0jMZX/HgLvIQfVnSF/n5dJ/zqa02Pk/JIgDSEfG2
-	wstp4deEUsT/JvHSdzpbqQlZiTKucU91YDQhDuFD5RiZZ7RJjWWItRTXheNMMqIq
-	bk7mHw==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjpxdhugm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 12:32:14 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cacf17c7e0so128202635ad.0
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 05:32:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kQCjqFRH"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-caf45fc5202so8994734a12.1
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 05:33:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784723533; x=1785328333; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AyfZ1AGsNFCY7Vy8azTP8G/03OAP5A5XNV25gHm9a4Q=;
-        b=b2bSJqE/2WKPqArLWDczbTw9EkLXZ6N92lGOKg+RFKwQDbZCbW40R47NvhB/fOJCk9
-         G7Chgv388JPPy02EJi3CCoxaze/vkwsBOoh2w9bBZGUQzgU3JtABscM5objBlCs55gDG
-         bvJ4xF7WykX1hSdhySRx8F5mYxcq82Vs0QH51rIvXc40KXGkk5CrN2MnYB9ZlfanvknK
-         JPU3h1y4bXRvV7KrFeqEc/xswP6AY6+liMvA3yiIbbRolO/HD+U1YMq7CC4LKdp3rpxK
-         7KLAJzJLj9kNJkibq+EpblBPl7D1D3qWmkoN1TQkF7yvZR+MUVFHOx/zBFHqoe46OdYO
-         iTCQ==
+        d=gmail.com; s=20251104; t=1784723594; x=1785328394; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A4iZ+Vbnw+vy5ic15MZIpwcvb+7jpLOoQeZZoMRgySY=;
+        b=kQCjqFRHdF0XDOuwHH3Q3/8tMj7R3eGUjuzFsjVaTrQzopzwtRG7hChkvG+3mWmbY0
+         f0j8ONdgR3NfCOAmbzdH4jKuftlceXmpfGh0Vc8bhV4byTQaAiRVFqrqwDS8gjfgK0eS
+         HExu4pKCDEt7sLmPAbI57WvJGz9rn7N0uxDEa0Gyj1Qwrhm48JlKuhmWgx5YuuXXGJw4
+         qWSYvGxkFD9126hK4WzWJ5O5hH4275DkavF0Rz55iFIamj3XeOdH+n0jJRDszlGJl4Yr
+         copK+asFmkNTup+4X6m5p2uiO9618gxe9b4tNTUBrdaRUAD4WALN7owAMExE7FIMbJSH
+         +ghA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784723533; x=1785328333;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1784723594; x=1785328394;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AyfZ1AGsNFCY7Vy8azTP8G/03OAP5A5XNV25gHm9a4Q=;
-        b=Xhm6sAemDh+zrwCvNEvCbk+Z+DhFUMcRHgRkZZA/I0t4Mq/mE90/FsHG71Ynl1E+0O
-         5NaMKNe8aabpRViGli5lV1TfuLvm95UGePIhx/Wr471gGPqYIp67ZZKxVU5AwzrPrrK3
-         7BzvoB+vFR6lNMGbkULoi6Mnyr22ZbPspvh/vyKVKTL8HecKKQW287Y7gEN4GzVPFf0Z
-         ub/45au65SIplTLdzGvNyi44ZZrwgNtL9sMiBEusYnjJFgiyqwJNf1Y/x3QWzHLGBRJv
-         rRWwTgR9oqunOSRozmYV6l8UlI9hm3KItioffVOm2TFjVvo6NxR/qhQbM9CVZgphehkP
-         JIEw==
-X-Forwarded-Encrypted: i=1; AHgh+RrFDoKC5eoQK6D5onlZc0klfEh531z4VaoYBvpbRZQrHzmQK1BcU6PeIAuh3YKLchmxhNnCeB0hmNJW@vger.kernel.org
-X-Gm-Message-State: AOJu0YzUG4QNFF+qApyXNDX/Z270BKg+rAg8jT2rOaM1T246EL3u7FuE
-	bDL4MqeGviWoK8jW/y3mzviOtARN2ddMMsMvrpAMkEWNYjc9gH67nrtn/6yxcC2zbWT6o89MmKU
-	+Tc/PRrhlYIZuDgVmcfq7U3/W/0eu0g5ZmCVbsIOa4ojrkRf0gE3TjT5WSporZYRL
-X-Gm-Gg: AR+sD11nIEqPXj9XqxvnWlTgRRfzrEivCjYf+TAMvrBrtoMXpiWNCURLzMJVKCJoyqG
-	0ZG2c5Gydan8xT1TscO0zljjmK72NxpJWuSSay5iqXfHHzebkG8ouPB4XZ0f5N/Rj6uZYbSIWwT
-	mOOhGrwoqm6Cgh1jjZVd3ed6LnoZOHemJ7l5CEAU+7TO7wFk6JVCpbWxBWvTxfE+KftgOuyrZdk
-	MFcvMEzABUBrBBqK4Tz4OWLAAvlk7J0RaFKIuKoGXNCE56uTWhbZrPBP2RRCY+tzSLzAbLXhcz7
-	DnZ/zJdV6zg1NJlgQEEozKZ7cl1Llr7TCbY87Xx8w6suhwFB1x7Y2Z9JT3F4c08d/DT6cTHHlxy
-	iIWO9jU3GljP5GJg2Kh3PDeA+A9mpGDV29zpX9Pac+5g=
-X-Received: by 2002:a17:903:2f84:b0:2c6:a012:6241 with SMTP id d9443c01a7336-2cf34850f28mr257908445ad.6.1784723533273;
-        Wed, 22 Jul 2026 05:32:13 -0700 (PDT)
-X-Received: by 2002:a17:903:2f84:b0:2c6:a012:6241 with SMTP id d9443c01a7336-2cf34850f28mr257907815ad.6.1784723532702;
-        Wed, 22 Jul 2026 05:32:12 -0700 (PDT)
-Received: from [192.168.1.6] ([122.164.85.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8f2e5f17sm14379875ad.41.2026.07.22.05.32.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Jul 2026 05:32:11 -0700 (PDT)
-Message-ID: <bb810003-51d4-4dc8-9aba-19d09d9fb33a@oss.qualcomm.com>
-Date: Wed, 22 Jul 2026 18:02:06 +0530
+        bh=A4iZ+Vbnw+vy5ic15MZIpwcvb+7jpLOoQeZZoMRgySY=;
+        b=R0Cfd7rQoWn7W1oYZruz+Hkln/OQNuXgc6Kvg3/qFTbj5GtxCFmuYlXApfg+ECPxv8
+         bVHYOzJQy6Q14rQQWrNbQBYyjecH5htXLWF/ZLplKPxL6PQeLBL4xwPBCtwzySBZEYy+
+         XNKq+xIBmS0je5uSHf9dy3oXhpaYoQZfNIDzVhDQ55fS+lSr+heuvdAQBRtTYSUap+6b
+         y38zPwfe2Oco8vqjLVof5eEx4ImXc2h5uvml3rlBu36qyywejOJlWWF+AsRlEVWI27uJ
+         FWS6mAGH/lJcm0joAbfhdag0S4J/sLeeH9lBIUAhMPNkNhXPK3d3kJamJ7lz9IqkcoVk
+         iBxg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr+jvDvzDU5B4/WBlFfMG6fhnD1f7u/vYTjUPYtFkskO2N/a1XjOWbzpsp8GZkLTnSvgZT/qEGQgDB3@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJ1ffgfGcfHk6g8V2arTSY1CB9nH4AocFPjGKEVjYZSI2LK3vf
+	FJ2+EMHcS29PM2XDfWxizNMkPxE00iWfW8n8ctUGiApf1Xiz+6an6Uer
+X-Gm-Gg: AR+sD12iRnJuMtwrXbKAZRQM2Q1aiXqOHn8yy67hNI4q0DaL8FaVpkuadBiBlTuD5/6
+	IvsGdwejZzS39t3/FUHswO3FVP63tM0ND+zL+AK7AbWMrzPkjnYscw5GtsXMoaQ/j4LDAKM7HBh
+	vZ443mSq+LTGXdj5ET1Gtlr0t2WPN95TqTrIlX5JEQwVo0amet6TfjcZ/ThuouE79IQCGhZ0jHc
+	FBq8gxaGNqAo+ChNcGh9ExcI5/0Zg3BDz8CxvDrZ8HEaBt1t2wa0fhnUybiIuaMcDM2Ln1GTWhM
+	sITRsmiiV2j0sAvqcFykx3tr+ohjbl7+5zq31/cxc0uHYBzM6xk5v3ZmLuy7ZsoqUwbM54YJAcu
+	H4wUFf1BbXucYwwavOPQhaew/aHakfudTE7N1qvf+y5JSo1wwTyUVZLGwYo7Szad0GlSP5vskn6
+	fcPZCQB+bqiG9t22/giVz0sYubsojCxug=
+X-Received: by 2002:a05:6a21:a8d:b0:3c3:954d:278d with SMTP id adf61e73a8af0-3c3ad5aed77mr24600477637.9.1784723593491;
+        Wed, 22 Jul 2026 05:33:13 -0700 (PDT)
+Received: from inhnjlux1020.ls.ege.ds ([117.231.200.50])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbb8f0d872bsm1097186a12.7.2026.07.22.05.33.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 05:33:12 -0700 (PDT)
+From: Udaya Kiran Challa <challauday369@gmail.com>
+To: linusw@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Udaya Kiran Challa <challauday369@gmail.com>
+Subject: [PATCH v4] dt-bindings: pinctrl: microchip,pic32mzda-pinctrl: Convert to DT schema
+Date: Wed, 22 Jul 2026 18:02:43 +0530
+Message-Id: <20260722123243.341346-1-challauday369@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/2] Add support for the QMP PCIe PHYs in Qualcomm
- IPQ9650
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260710-ipq9650_pcie_phy-v3-0-ef6018818d33@oss.qualcomm.com>
-Content-Language: en-US
-From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-In-Reply-To: <20260710-ipq9650_pcie_phy-v3-0-ef6018818d33@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDEyMiBTYWx0ZWRfX7AmJk3SiKXkt
- IvYm2ozJBMwQXbFHrP6rkjZmjv5O/o13GwKMfywtVG9K4C8fjiCRfDqpSaneGmi7Lh/dOxM4ChC
- msZTxgeJpCYSeHieUxDU1qWdsyxvVluMLeCzzvufpFXWY6jvR5LhH6dMe6Lk/L/wBYkgPAzRqyt
- 72rh6rpiFCX4vCVAXCVhObWKFNSt7iNzmMZG8UP3z2sdY6fHf2Fh81NcfqFGuYzeFN+yalLrwjS
- XN0I4WZXQGz+6KkRxgu4Jy4YX48Yv1DOGOkbGazFJyE6mtjCSoRgJMahw4yyDWlveaMKakVkeLy
- if0zvOPKGvqN2vstuqPsfjhvgZGxKVptMvLEVCNYQCHC+lRMt2jPhUriGKSnwqwT46NNpFAsXsK
- QFkrES1rB2AtFL/kjLKGiusWzRUSE7/7KCKDxejNuZj/0ULZCcX2RljLGlLpnqOI0zeZKxVhbyw
- EqyfAkVcFRvjIin/wwQ==
-X-Proofpoint-GUID: U2EP7epbPgqXJoC3Jilh-8_AUZQhGBZE
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDEyMiBTYWx0ZWRfX6TMMENflFmME
- W7TdNijv1S+Y+TsRPUmoXGLYhCMAKZSyIg77tsu9fQNdPdVoM0LmGbbfon8K1h1yc/7MymyZJUc
- F/CBzd3B5jN8kEWNrEgtxk+AVNd34Lo=
-X-Authority-Analysis: v=2.4 cv=b7iCJNGx c=1 sm=1 tr=0 ts=6a60b84e cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=C8tbAiBpJ+kDtIH6BY8zzQ==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=JfrnYn6hAAAA:8
- a=Ebsc_R1zknWeFji_XzQA:9 a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
- a=cvBusfyB2V15izCimMoJ:22 a=1CNFftbPRP8L7MoqJWF3:22
-X-Proofpoint-ORIG-GUID: U2EP7epbPgqXJoC3Jilh-8_AUZQhGBZE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-22_03,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 suspectscore=0 spamscore=0
- lowpriorityscore=0 bulkscore=0 adultscore=0 impostorscore=0 clxscore=1015
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607220122
+Content-Transfer-Encoding: 8bit
 
+Convert Microchip PIC32 Pin Controller devicetree binding
+from legacy text format to DT schema.
 
-On 7/10/2026 11:16 PM, Kathiravan Thirumoorthy wrote:
-> Qualcomm's IPQ9650 SoC has 3 Gen3 dual lane and 2 Gen3 single lane
-> controllers with the QMP PHYs. Unlike the PHYs in the other IPQ SoC,
-> refgen supply is needed to bringup the PHYs. Both single and dual lane
-> shares the same HW init sequence. So reuse the tables.
->
-> Document the compatible along with refgen supply and add the phy driver
-> support for it.
->
-> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-> ---
+Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
+---
+Changelog:
+Changes since v3:
+- Drop "|" from description fields
+- Remove '#address-cells' and '#size-cells' properties from the schema
+- Consolidate repeated pin-node property definitions into a single
+  $defs/pin-node entry
+- Replace the two patternProperties blocks with additionalProperties
+  using oneOf to allow either:
+  - container nodes holding nested pin configuration nodes, or
+  - direct pin configuration nodes.
+- Update $ref to use the absolute schema path
+  /schemas/pinctrl/pinmux-node.yaml#
 
-Vinod, Gentle ping...
+Link to v3:https://lore.kernel.org/all/20260719183431.124061-1-challauday369@gmail.com/
 
-> Changes in v3:
-> - Rebased on linux-next: next-20260710
-> - Pick up R-b tag
-> - Incorporate the link stability issue fix (QSERDES_V4_RX_RX_MODE_00_HIGH4
->    from 0x35 to 0x3a) recommended by the IP team.
-> Changes in v2:
-> - rebase on phy-next
-> - pick up R-b tag
-> - Link to v1:
->    https://lore.kernel.org/linux-arm-msm/20260602-ipq9650_pcie_phy-v1-0-d8c32a36dbd9@oss.qualcomm.com/
->
-> To: Vinod Koul <vkoul@kernel.org>
-> To: Neil Armstrong <neil.armstrong@linaro.org>
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: linux-phy@lists.infradead.org
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
->
-> ---
-> Kathiravan Thirumoorthy (2):
->        dt-bindings: phy: qcom,ipq8074-qmp-pcie: document IPQ9650 QMP PCIe PHYs
->        phy: qcom: qmp-pcie: Add IPQ9650 PCIe PHY support
->
->   .../bindings/phy/qcom,ipq8074-qmp-pcie-phy.yaml    |  19 ++
->   drivers/phy/qualcomm/phy-qcom-qmp-pcie.c           | 220 +++++++++++++++++++++
->   2 files changed, 239 insertions(+)
-> ---
-> base-commit: bee763d5f341b99cf472afeb508d4988f62a6ca1
-> change-id: 20260521-ipq9650_pcie_phy-60d7df32581c
->
-> Best regards,
-> --
-> Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
->
+Changes since v2:
+- Add container node for grouped pin configuration sub-nodes
+- Correct regex patterns of direct and nested child nodes
+- Fix interrupts values in uart2 example
+
+Link to v2:https://lore.kernel.org/all/20260707144223.120417-1-challauday369@gmail.com/
+
+Changes since v1:
+- Add interrupts and clocks to uart2 example to satisfy uart schema validation
+- Corect regex patterns to accept standard DT node naming conventions
+- Add function property to top-level pin configuration nodes
+- Remove restrictive enum from function property to support all mux functions
+
+Link to v1:https://lore.kernel.org/all/20260705132521.159522-1-challauday369@gmail.com/
+---
+ .../pinctrl/microchip,pic32-pinctrl.txt       |  60 ----------
+ .../pinctrl/microchip,pic32mzda-pinctrl.yaml  | 107 ++++++++++++++++++
+ 2 files changed, 107 insertions(+), 60 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pinctrl/microchip,pic32-pinctrl.txt
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/microchip,pic32mzda-pinctrl.yaml
+
+diff --git a/Documentation/devicetree/bindings/pinctrl/microchip,pic32-pinctrl.txt b/Documentation/devicetree/bindings/pinctrl/microchip,pic32-pinctrl.txt
+deleted file mode 100644
+index 51efd2085113..000000000000
+--- a/Documentation/devicetree/bindings/pinctrl/microchip,pic32-pinctrl.txt
++++ /dev/null
+@@ -1,60 +0,0 @@
+-* Microchip PIC32 Pin Controller
+-
+-Please refer to pinctrl-bindings.txt, ../gpio/gpio.txt, and
+-../interrupt-controller/interrupts.txt for generic information regarding
+-pin controller, GPIO, and interrupt bindings.
+-
+-PIC32 'pin configuration node' is a node of a group of pins which can be
+-used for a specific device or function. This node represents configurations of
+-pins, optional function, and optional mux related configuration.
+-
+-Required properties for pin controller node:
+- - compatible: "microchip,pic32mada-pinctrl"
+- - reg: Address range of the pinctrl registers.
+- - clocks: Clock specifier (see clock bindings for details)
+-
+-Required properties for pin configuration sub-nodes:
+- - pins: List of pins to which the configuration applies.
+-
+-Optional properties for pin configuration sub-nodes:
+-----------------------------------------------------
+- - function: Mux function for the specified pins.
+- - bias-pull-up: Enable weak pull-up.
+- - bias-pull-down: Enable weak pull-down.
+- - input-enable: Set the pin as an input.
+- - output-low: Set the pin as an output level low.
+- - output-high: Set the pin as an output level high.
+- - microchip,digital: Enable digital I/O.
+- - microchip,analog: Enable analog I/O.
+-
+-Example:
+-
+-pic32_pinctrl: pinctrl@1f801400{
+-	#address-cells = <1>;
+-	#size-cells = <1>;
+-	compatible = "microchip,pic32mzda-pinctrl";
+-	reg = <0x1f801400 0x400>;
+-	clocks = <&rootclk PB1CLK>;
+-
+-	pinctrl_uart2: pinctrl_uart2 {
+-		uart2-tx {
+-			pins = "G9";
+-			function = "U2TX";
+-			microchip,digital;
+-			output-low;
+-		};
+-		uart2-rx {
+-			pins = "B0";
+-			function = "U2RX";
+-			microchip,digital;
+-			input-enable;
+-		};
+-	};
+-};
+-
+-uart2: serial@1f822200 {
+-	compatible = "microchip,pic32mzda-uart";
+-	reg = <0x1f822200 0x50>;
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_uart2>;
+-};
+diff --git a/Documentation/devicetree/bindings/pinctrl/microchip,pic32mzda-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/microchip,pic32mzda-pinctrl.yaml
+new file mode 100644
+index 000000000000..a1ecae3b1cd8
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pinctrl/microchip,pic32mzda-pinctrl.yaml
+@@ -0,0 +1,107 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pinctrl/microchip,pic32mzda-pinctrl.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Microchip PIC32 Pin Controller
++
++maintainers:
++  - Linus Walleij <linusw@kernel.org>
++
++description:
++  PIC32 pin configuration node is a node of a group of pins which can be used
++  for a specific device or function. This node represents configurations of
++  pins, optional function, and optional mux related configuration.
++
++properties:
++  compatible:
++    const: microchip,pic32mzda-pinctrl
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++$defs:
++  pin-node:
++    type: object
++    $ref: /schemas/pinctrl/pinmux-node.yaml#
++
++    properties:
++      pins:
++        description: List of pins to which the configuration applies.
++        items:
++          type: string
++        minItems: 1
++
++      function: true
++
++      bias-pull-up: true
++      bias-pull-down: true
++      input-enable: true
++      output-low: true
++      output-high: true
++
++      microchip,digital:
++        description: Enable digital I/O.
++        type: boolean
++
++      microchip,analog:
++        description: Enable analog I/O.
++        type: boolean
++
++    required:
++      - pins
++
++    unevaluatedProperties: false
++
++additionalProperties:
++  oneOf:
++    - additionalProperties:
++        $ref: '#/$defs/pin-node'
++    - $ref: '#/$defs/pin-node'
++
++required:
++  - compatible
++  - reg
++  - clocks
++
++examples:
++  - |
++    #include <dt-bindings/clock/microchip,pic32-clock.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    pic32_pinctrl: pinctrl@1f801400 {
++        compatible = "microchip,pic32mzda-pinctrl";
++        reg = <0x1f801400 0x400>;
++        clocks = <&rootclk PB1CLK>;
++
++        pinctrl_uart2: pinctrl_uart2 {
++            uart2-tx {
++                pins = "G9";
++                function = "U2TX";
++                microchip,digital;
++                output-low;
++            };
++
++            uart2-rx {
++                pins = "B0";
++                function = "U2RX";
++                microchip,digital;
++                input-enable;
++            };
++        };
++    };
++
++    uart2: serial@1f822200 {
++        compatible = "microchip,pic32mzda-uart";
++        reg = <0x1f822200 0x50>;
++        interrupts = <145 IRQ_TYPE_LEVEL_HIGH>,
++                     <146 IRQ_TYPE_LEVEL_HIGH>,
++                     <147 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&rootclk PB2CLK>;
++        pinctrl-names = "default";
++        pinctrl-0 = <&pinctrl_uart2>;
++    };
+-- 
+2.34.1
+
