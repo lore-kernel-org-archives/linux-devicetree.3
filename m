@@ -1,142 +1,113 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60DE233A005;
-	Wed, 22 Jul 2026 08:23:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 052364315A;
+	Wed, 22 Jul 2026 08:25:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784708606; cv=none; b=RQp636s5l/CdqbWOAki12jraYpraZRnXm296uSF258yLZOs5pgVK4ciYRxv6bedDnxIuTyUc8G7IHuDtROqm8sDP6YY4zKyF9ttS3P9STdt1iWerblv3vEpQHF8LzwgxZxF2sOOCco4pppcFpOBgqGu8BBYqSrtiMgiHBRJ6Y40=
+	t=1784708717; cv=none; b=iK2fYCXpCAxpuc2Xb+Hiz+HV6etowzquSmCV3H4t19K1Sbmr4YOlN7N/Au9GyGNwwFj+FMeQv96YOhuKDa7ONugMmRvstSqDwW07OQ8M21Fc2gGBcz3LHoeul8PQCUsWyZzeJ5n71EWJpWzyP1YSfYWKHoU5uZLXDob78RwlFZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784708606; c=relaxed/simple;
-	bh=HCtLwxNVdcNPAU1VEtWTOBnpfsJHF7hmk8mWp2laFLM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=sOqz//Op4SjTRPdPqwVP0YSPW385TOOla0ZxIBXp3N8WtZ5g9xzGwvhY9Q7bDa1tHSxi77bRLGa+/Nm5QvCL47M3bvpSx7YJjXvXvjSncDGOg4oZFMVWZ58fGWE9NSqAqPIiSU9etyf/EU5Ch8arNapG1KWzqBjfvBORwbUc4Io=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=l+HiTq/H; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1784708717; c=relaxed/simple;
+	bh=hOn/ZeYFEt90v4SbNQ99qlDa7WKtJmwoKpXWMJ48EF4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ed5L3vwvACfn4S/r2JvdoIzc8CylR9TsBjvcFtbr17wasVS/L5/PMrEh7Dv0frtlT80uT0mk5zHzcszsDkMzIESJiG2Iyi8miDVKWiCPZQHSwFkAhpR0K3JPCyVHasZM3rjZWakv7JU0o4OcTpUPZaQ9H6qOS7qu2aAJKLskkac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=UTY9Lb+o; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="l+HiTq/H"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M7CBFf131196;
-	Wed, 22 Jul 2026 08:23:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=3W1W7Jau+M6ODGkCweJ8bZnxEE2q8YJxcF0
-	XMkBBLXQ=; b=l+HiTq/HxQAbsUSGeNrp342xzYyd0pcvPYupOqkUp8pBICA4PsD
-	hY2cvtTx8nH9dUY6uSVdo/kFzoiEUi7Ji4rkcAWue/tTCZ6xJReT9wnZJZEo68eG
-	JIK1hQ3bKRXeXV0tRNidOQwc/LtuTzh/lyM/6FxfoMFQPr5uNsFSOJuVEgT7DCh5
-	/mHueve+i39s+tUkwyqJAZ37YKGVjUkK2ReLceQVVRxKvJ9sDuIRi0NPFnlarU98
-	aAQw99LWQi2L+9zfPNQyVPiD+sCce9s0+ObxCT0xIxV5D6F02lt9P6UYD/HrN7K+
-	RW38fojxhfvQjjImUIXGO4LA76HIcIEUEyw==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjs9289me-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 22 Jul 2026 08:23:22 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 66M8NIYS005261;
-	Wed, 22 Jul 2026 08:23:18 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4fgj3wf6qd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 22 Jul 2026 08:23:18 +0000 (GMT)
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 66M8NIJH005256;
-	Wed, 22 Jul 2026 08:23:18 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-rpavan-hyd.qualcomm.com [10.213.96.234])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 66M8NIfl005253
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 22 Jul 2026 08:23:18 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 437544)
-	id A8641663; Wed, 22 Jul 2026 13:53:17 +0530 (+0530)
-From: Pavan Kumar <pavan.m@oss.qualcomm.com>
-To: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Pavan Kumar <pavan.m@oss.qualcomm.com>
-Subject: [PATCH v5] arm64: dts: qcom: qcom6490-idp: Add IPA node
-Date: Wed, 22 Jul 2026 13:53:14 +0530
-Message-Id: <20260722082314.1502072-1-pavan.m@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="UTY9Lb+o"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1784708713;
+	bh=hOn/ZeYFEt90v4SbNQ99qlDa7WKtJmwoKpXWMJ48EF4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=UTY9Lb+opA/KTpD+FrTRNA9espkHW7lHwQ4IJBGIF6dZXxjDtSEx4xaF0Xn0Wp2kh
+	 mf//8iLI5IQhN2UYDR15PbRmZ1+ZJJXGPJhPNo3f/5XGUorFdn1n+89c8h7XbXIbH1
+	 aaglcS9hDxERkqJo+cFupEkWqajKWDbB3sHiqZiNk931w14X2J/QVQlgU1LocJLjis
+	 xwXKVnJLBlfmpemrtXhuyfRMzMabCFb3kn7nU+2Lo1ebCBb1XCeVVk/kjLTdMMPd+X
+	 brVkTA+80u6931dzfivIJWirOmV9EM39fk/RfbVLd/hfnwKV2ElrAvYCq1GvYdU+YQ
+	 Ckooh5WjeeEbA==
+Received: from [192.168.68.117] (unknown [180.150.112.11])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 2D7D3662E1;
+	Wed, 22 Jul 2026 16:25:12 +0800 (AWST)
+Message-ID: <3b6aa85161702da4322cc361e500a90c832af6a7.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v3 2/2] ARM: dts: aspeed: Add NVIDIA VR-NVL BMC
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Jacky Huang	
+ <jackyhuang@nvidia.com>, joel@jms.id.au, robh@kernel.org,
+ conor+dt@kernel.org, 	andrew@lunn.ch
+Cc: devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	openbmc@lists.ozlabs.org
+Date: Wed, 22 Jul 2026 17:55:11 +0930
+In-Reply-To: <3523fefc-8ba8-4512-b088-7a94a2df73f8@oss.qualcomm.com>
+References: <20260710054849.3178747-1-jackyhuang@nvidia.com>
+	 <20260710054849.3178747-3-jackyhuang@nvidia.com>
+	 <b707f061cbdfe52f8d72ccd33ec177113e20a5e5.camel@codeconstruct.com.au>
+	 <3523fefc-8ba8-4512-b088-7a94a2df73f8@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDA3NyBTYWx0ZWRfX8HIxXoUx86dw
- OxcQW1lztIKRky3mAXaD1E/JBGaT80HThbyV3LD0Ow+nu2kYjirc3q0/AlozeznmXVXdzZOIqJe
- 6owJCWFcWKyz0iSd/h3gipYz9ERnUck=
-X-Proofpoint-ORIG-GUID: fZkO0HL_sHuaSs4x4ClpsLMPMbN4lVbq
-X-Proofpoint-GUID: fZkO0HL_sHuaSs4x4ClpsLMPMbN4lVbq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDA3NyBTYWx0ZWRfX2hF4KT7ncAZ2
- B6DrAu3ZwrDwyI2/uGdIMHU1Xss5erOcHI4e4VtnCtYiuWSFUoc8div02WWx5VTiz332Mco10rz
- 1fh7/g/Y2eXoH939qeBg5diPnR8na5tN7foFyr0HlZPCXzLffovBYmM4Lwo74Rmv6ejfBreS/ka
- oRTUJghJFTylJaWYaoXrkAg3C/sMm/I2FUFcQUtXbutAHQS2eUjhNLPihxjugHBS5Zld8MI6XqG
- nGPvRm24foCGdC/soW7dNoABlh6tn9j/b5FkbNENV+nCHz9rO0yiS2vFhdSqWjMGFXDJ1kDTXlu
- cWOQMyqsjsCrpwPPpOFtGBoYIkycX8CaCcI4js5AJpWqbMcp4dOvASVRo9evS9SMJg7j1VyEteb
- /E6fyzFqGr1V6CzObJA2GqdV95Wbtd7Wozl1S3OaNv3IbpPDewHsopLnqnv8TS1bANvTJYo/jbG
- RrYQ50ObqGc8CbwJ3lQ==
-X-Authority-Analysis: v=2.4 cv=QahWeMbv c=1 sm=1 tr=0 ts=6a607dfb cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=f71KzxkOnNgeLeawMVgA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-22_02,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
- lowpriorityscore=0 phishscore=0 spamscore=0 clxscore=1011 adultscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607220077
 
-Enable the IPA block and provide the firmware name
-required for firmware loading on qcm6490-idp.
+On Wed, 2026-07-22 at 10:21 +0200, Krzysztof Kozlowski wrote:
+> On 22/07/2026 09:45, Andrew Jeffery wrote:
+> > Hi Jacky,
+> >=20
+> > On Fri, 2026-07-10 at 14:46 +0900, Jacky Huang wrote:
+> > > Add the device tree for the Aspeed AST2600 BMC for NVIDIA's Vera
+> > > Rubin NVL compute platform.
+> > >=20
+> > > MAC0 uses phy-mode =3D "rgmii-id" because the on-board PHY supplies
+> > > both RGMII internal delays.=C2=A0 The matching U-Boot device tree doe=
+s not
+> > > enable SoC-side MAC clock delays, leaving the MAC internal delay at
+> > > zero so the PHY-provided delay is not doubled by the MAC controller.
+> > >=20
+> > > The corresponding U-Boot change has been submitted to openbmc/u-boot:
+> > > Link: https://lore.kernel.org/all/20260629105202.1417679-1-jackyhuang=
+@nvidia.com/
+> > >=20
+> > > Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+> > > Signed-off-by: Jacky Huang <jackyhuang@nvidia.com>
+> > > ---
+> > > v3: reword the &mac0 comment per Andrew Lunn's feedback.
+> > >=20
+> > > =C2=A0arch/arm/boot/dts/aspeed/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> > > =C2=A0.../aspeed/aspeed-bmc-nvidia-vr-nvl-bmc.dts=C2=A0=C2=A0 | 901 +=
++++++++++++++++++
+> > > =C2=A02 files changed, 902 insertions(+)
+> > > =C2=A0create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-v=
+r-nvl-bmc.dts
+> >=20
+> > We now have scripts/dtc/dt-check-style, and going forward I'm asking
+> > that all new devicetree submissions pass in strict mode.
+>=20
+> Thanks!
+>=20
+> >=20
+> > Currently:
+> >=20
+> > =C2=A0=C2=A0 $ ../scripts/dtc/dt-check-style --mode strict ../arch/arm/=
+boot/dts/aspeed/aspeed-bmc-nvidia-vr-nvl-bmc.dts 2>&1 | wc -l
+> > =C2=A0=C2=A0 152
+> >=20
+> > Can you please address those?
+>=20
+> Just a note: --strict might not be ready yet. It reports some false
+> positives which need addressing (I have plans for this, but busy with
+> other things...), so expectation currently is:
+> 1. No warnings from standard mode
+> 2. Review and investigate warnings from 'strict' mode, but do not fix
+> them automatically without thinking
 
-Signed-off-by: Pavan Kumar <pavan.m@oss.qualcomm.com>
----
-Changes in v5:
-- Reworked commit message to describe the functionality being enabled.
-- Removed IPA property consolidation explanation.
-- Removed obsolete Link tag to IPA loader series.
-- Clarified that the change applies to qcm6490-idp.
-Changes in v4:
-- Removed empty line between Link and Signed-off-by tags.
-- Added empty line before the status property in the IPA node.
-- Sent as a new thread instead of replying to the previous revision.
-Changes in v3:
-- Rebased on top of IPA property consolidation series.
-- Dropped qcom,gsi-loader and memory-region properties as they are now
-  provided by kodiak.dtsi.
-- Added Link tag to the dependent IPA loader series.
-Changes in v2:
-- Modified firmware file extension from .mdt to .mbn
+Understood.
 
-v4: https://lore.kernel.org/all/20260703085809.2573214-1-sarat.addepalli@oss.qualcomm.com/
-v3: https://lore.kernel.org/all/20260702105509.1360340-1-sarat.addepalli@oss.qualcomm.com/
-v2: https://lore.kernel.org/all/20260618124700.2001191-1-sarat.addepalli@oss.qualcomm.com/
-v1: https://lore.kernel.org/all/20250304152133.GA2763820@hu-kapandey-hyd.qualcomm.com/
----
- arch/arm64/boot/dts/qcom/qcm6490-idp.dts | 6 ++++++
- 1 file changed, 6 insertions(+)
+Thanks,
 
-diff --git a/arch/arm64/boot/dts/qcom/qcm6490-idp.dts b/arch/arm64/boot/dts/qcom/qcm6490-idp.dts
-index bdc02260f902..7242695aed97 100644
---- a/arch/arm64/boot/dts/qcom/qcm6490-idp.dts
-+++ b/arch/arm64/boot/dts/qcom/qcm6490-idp.dts
-@@ -619,6 +619,12 @@ &gpu_zap_shader {
- 	firmware-name = "qcom/qcm6490/a660_zap.mbn";
- };
- 
-+&ipa {
-+	firmware-name = "qcom/qcm6490/ipa_fws.mbn";
-+
-+	status = "okay";
-+};
-+
- &lpass_rx_macro {
- 	status = "okay";
- };
+Andrew
