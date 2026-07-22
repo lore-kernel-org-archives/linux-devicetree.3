@@ -1,135 +1,172 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011043.outbound.protection.outlook.com [52.101.70.43])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75D534EEF7;
-	Wed, 22 Jul 2026 09:19:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784711959; cv=fail; b=SvXSIjXmt8eRG6SnnQ0jSzS38rcGLN8F+IkBZ0/19dG6HdSA1AV5w60Ga0gh2edUgA8IqGyNguSumUr63Zpqki/ypX2n/dDxnGQMYMWybKFjbEDzpMnk9xzBAgrcBcJElTf/IHN3Co8gJQ64spzxFOhcZuJw3xV89iV90ewMfuo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784711959; c=relaxed/simple;
-	bh=1TVADuvkzW00pPbTdLayjOxwGTiA3AWj62ABMzY2sfg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=s14229YsjvG7LBYsmW9kRDPHT7S/aEt5xJXwxmtTTw6I6ab4kNlDVngYtexH+fmW+kHGdCcC2SOP/Xkw4IWEbCsIUmg0xiXh0Le2OHKmQwKfM02m6SW785yLMUD/xoDvhP8ow5fnKp2cM2tRVs7xpb7usCYoZOZbPEnfYbVn2oY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=OnP14ng/; arc=fail smtp.client-ip=52.101.70.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFEE1148850
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 09:22:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784712131; cv=none; b=d6jp+D9HKVj7W815cDznpjlm5cX2dDUqhsU/vdb+laNPElK+HTmLZa673OPZFGRgr6XIoXZ357Qh3kTQnRRmJ/1AqMVtDG0zDomX4QZjjZeC01I8dD4oN06fhf8Uw5F1M+crp3rsF6rRLpky1cgNOjcAKBnfZOBbhYIpXB9sNaI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784712131; c=relaxed/simple;
+	bh=ZQJtCmzrb0IyF9LYgGtLrsXxFDeXdK9wbk48b8X9duE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=u7N8riQrfu1q+GP+qkzsi19rtrnRrW0fLokGlGtohUZDeMRCEfhPa4PrF7/YXLndnrVYN12vruzhdEYqR1pYzDoHcB0TnoXLMRsF1kxj5iYj69n+nbX1zUWL5uriFSd9tbMVmbGnp6xFwR7vmuq+MyXiwuAZWA4fJBtKbjxF9Mo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K9Dv+s+F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="OnP14ng/"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QfhRzhVXjvYhMfxvCNCyb/xLf0W5VBxLvF+1JQyf7bp1cxESWKIbOlUWqIm/mCrxS+wzty7UiyL2E/Qd6+JuDhZxm2DCr6a8db9BHwCGmDV+0kit8oy1WgD3YIBDyG0zh7FRlSq+wkqBk8qyML+N7r+TDEkzG6whDYY0qr/QMTQqy7raySWnL3UNva7sQCWCmtOQjjXULw4wu3dt+Unk3O574o1dWMy/BAjut790Zo6KbqY4q353Zz39NEOaAtGgr6FRjyzYRA5/dp0s/hHfWLO9nK2QW9jIid75KWtPwmjhrmbUi6ly1IlfkU0t5cC5cCWRl09543PhgTv0AUZU2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hf2IS+CP8tMX2kDLbSf6TUyUq7Y0om0XhZ/GUCr64e4=;
- b=lBt4G1mIhOZKPE7+FUEQYhe80coxXsZ+RR+drRvEvY+Rwg38qkQva0VWgKsWUFKEzQUUD24My5r7wtBNVYn9k5SulxWzGC8lnH09tfZkwPULPwYzaXRzwyH4Ck82LbRIVv+FGJDczVzjU/AKE67VHO0nYIuH0QJSPmh5JWGso41IRqNCwa//+cRHaS8ja4VTNg8+rTOKD2Q2DwwPQKmLlQFO/ySIQoMNAugOHHyTvZvju8e/xMec4aOBaObMT259tuA4IWVH4VKIPZGTWCGGKiILt7aH1y0YLco2ufg12LK2E/56OEDivOAfnwNZabVdgyRwIW+H8jXE2nRmtJbgLQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hf2IS+CP8tMX2kDLbSf6TUyUq7Y0om0XhZ/GUCr64e4=;
- b=OnP14ng/UB7pz9SNCCfs1Tm5WbHl215B9xZ63G6YBIKdkCFPvmmRiTCRdE+XBqvkv4AetYEJUf8vFfpWlanYToPL5Rw8G6Gt97pQh6bOgJ59YZeVXoZtvJID6+SLPhoV+O52QZgsalY6cGHmwLxhItGhFgBKENYjL5MlwZdftJ8UfX2PRzEBt2ZeL37Ctqx2MuRdaBhfwOq+dP+q553iyNVVKTj+hPnNRNN0ld91oCHl0EbihCLqfnZYvQYs/Top4/nXZ7EIB80XvqvpNxar1yxEyZOpIi7aG7R0JaANPm1/SZv/Nb3f9r1OHVgw90oGfSOCFQp7/lGT06BGAxsh6w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from GVXPR04MB12290.eurprd04.prod.outlook.com
- (2603:10a6:150:319::13) by AM9PR04MB8384.eurprd04.prod.outlook.com
- (2603:10a6:20b:3e8::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
- 2026 09:19:14 +0000
-Received: from GVXPR04MB12290.eurprd04.prod.outlook.com
- ([fe80::1739:3404:2175:33dd]) by GVXPR04MB12290.eurprd04.prod.outlook.com
- ([fe80::1739:3404:2175:33dd%6]) with mapi id 15.21.0245.009; Wed, 22 Jul 2026
- 09:19:14 +0000
-Date: Wed, 22 Jul 2026 12:19:10 +0300
-From: Ioana Ciornei <ioana.ciornei@nxp.com>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
-	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Tanjeff Moos <tanjeff.moos@westermo.com>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-	Michael Walle <mwalle@kernel.org>, Shawn Guo <shawnguo@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 phy-next 6/9] soc: fsl: guts: make fsl_soc_data
- available after fsl_guts_init()
-Message-ID: <44vzj5ehxz6osrbddzwz642puwztrqtwoisznl2opuntrshjq2@xdc3nr73qiaa>
-References: <20260721231603.67865-1-vladimir.oltean@nxp.com>
- <20260721231603.67865-7-vladimir.oltean@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260721231603.67865-7-vladimir.oltean@nxp.com>
-X-ClientProxiedBy: FR4P281CA0098.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cb::15) To GVXPR04MB12290.eurprd04.prod.outlook.com
- (2603:10a6:150:319::13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K9Dv+s+F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B24D1F000E9;
+	Wed, 22 Jul 2026 09:22:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784712130;
+	bh=jRjxrmLIfE032W1CimkQkZ6irPmlx9NgsrWY7RC39ug=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=K9Dv+s+FCxu98ec5JpCoIWDl5PXUIrnWeOuwxuj9gegG7cOdV5FOzi7WcxfEgzZv4
+	 QO2edAI4uNWMJv2YrFEJg02pVfTcEs8H1jVKVXFaWp0kWcs5ujZcfU0FNkKagwBh79
+	 HG1mqw10Y+Z+2PUcQs6zOC62uX5DbjfB+lKNyYYUW8IJmlEaaId2moJOezIHWL2Wfr
+	 7KhmNOYhsDjT+BJp1SCpceNIbXWazFBbgpVC9/d6YBSPVEU9SZ/CRue/50JdGY2C51
+	 RSuDkZ0EDTcUTuWW+ANhMTAbrY7lTVwcoCtRgjsvDG5ITV0a3qGVstArj8UUsTSSwe
+	 eja/+/T87+8og==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/2] media: i2c: add driver for ITE IT6625/IT6626
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hermes Wu" <Hermes.wu@ite.com.tw>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260722-upstream-it6625-it6626-v5-2-387e7584f2c9@ite.com.tw>
+References: <20260722-upstream-it6625-it6626-v5-0-387e7584f2c9@ite.com.tw>
+ <20260722-upstream-it6625-it6626-v5-2-387e7584f2c9@ite.com.tw>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 09:22:09 +0000
+Message-Id: <20260722092210.1B24D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GVXPR04MB12290:EE_|AM9PR04MB8384:EE_
-X-MS-Office365-Filtering-Correlation-Id: 351b0eac-745b-4abf-4d15-08dee7d24c68
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|19092799006|3023799007|11063799006|10067099003|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	3yQ4b6unqCMXuTxVgkmJXuXBOXHbxt6u67OlcWIF6h8nXGxT+IBp26CVc7We1gnC4EdIypUqalmalMkx0zrS1iMq2lb54lWeCLx1am77lNEtr3rZE6mtFVPU9OrUTrVQV5o7qI9m7jdN4Wsgy81zMUY1IFFRSFGI5kNCEkRDPGhleplOZuL9MpPmvPQoTTE0zJ09nxZzs4yFO6lExvKxAXVP6LWPR878y6oS5sudB9zZHYURRuR6ijyHDHUuFQC5V7DUzV7YMFcylY8lWwWjkaeYibb5BAIkaiVS17IS2aSUZFt5wCU3q9Mt5x7JMxFYN10A4ieOWlEBaIbynohkQF8Rx+8O+JQ+L2uba3Xpvy9Yg5OprZ8pBO5XVATMAL8NYNvdCWaO8Q8dQx6kuRQOfr5kAmczXnQnOjEdRraehxPccrGyI4ecNkHXiXxlpyxMKwJU1gPdCJMhalKy1GHWzefCLTRdZ4hXyFk7LREuWwVYlrL+/dFmRPaZUzT9y3AmtdKTCwlH/GldxzvR0fPrOrjgf80xqQkIDsZ1hcDzKYL6W99TthGAUj5+SIME2nQEUNdly/V6tCTocdsttHJZxWI5YZKHcM0iKAtUUOgBse7FhQ14RqXm4KGY0eT0yabRJWlcOCtXMd+RVOAwiU92LbPj9x7wvSaMqgl6N5B0FzE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12290.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(19092799006)(3023799007)(11063799006)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?5ntmYLzMBoD/ATEsQjC4Sa5ro3dQjIOmWnA+RAUnsB9QpSFzmHPTdvh9ZvXm?=
- =?us-ascii?Q?smTNH/WVb3yGg/CK/i7kc6uKenouPyD108akngMvFbafjVy8iV/9Ng3KHgj9?=
- =?us-ascii?Q?QOeSebP10/irDQhAya6tKg6XQxJa11nYmD2UNnuQ9zfhTaGVjUUb+it1GQIR?=
- =?us-ascii?Q?SVWAkbpzJfD7SUMW/L+4L/Mug0HfzuEkaNMozWXBy3+MHTjClLxsmAX8SMj1?=
- =?us-ascii?Q?fO05rYcAKHfdoNUkEIV6F4K3laLh0x6+I++B81XXNBLghkfhagKScSaL+NBd?=
- =?us-ascii?Q?hKU5KBXjHmr1MT4ild4IkM8IXoD8ISI6xe9kKInEBAgO8uOJchMZ683zmn3N?=
- =?us-ascii?Q?m9tOoBxosWRzRli9OUX4+8yhTli9MkIjS494A0vi0HFAmPRcdbCbOeJGVPqt?=
- =?us-ascii?Q?xZZZND6MO0uo++FFFr1xyBPVmYz4TPcTVn7OhrgrfVgm2OzCR2Cf8l1GKzdc?=
- =?us-ascii?Q?J2EkSQuE8bR3N2yIWnvvQXpVNvYyMmBaR+/RwKq+MUkafF5GLh9D0aOVAXCQ?=
- =?us-ascii?Q?u6AaEL5PwE23K/AWoCfr136eeoe92dOnfvBorDtJmx8hupEWUqaAizxE40hb?=
- =?us-ascii?Q?UKBvC+4YnaCva+sFGMA5dQod9oJ/w44x0r68v9lW3xjD9d4LPsrZd8ZTDOwc?=
- =?us-ascii?Q?VOAX68ttJpIsn2YjnBVU2jQgeQW0baI9Z3V4Gqynn7o8ojFX2hlm7LD+acos?=
- =?us-ascii?Q?eh9YWk4n80g1PTdfXvfzAeDCviIk0k51v2D/hPPzyMNXUCmtPe+whPsR4SlT?=
- =?us-ascii?Q?2c8FOQ4e/+cmWk+2HC9EmLSY4e/AKGDHGmVAsphD8rlJ4RAv8+l8vUwnONJT?=
- =?us-ascii?Q?oNnhUGTvo99rGKA1WqsZ6ul6FRyZoEZkPiDQL9qTGH829gd89W4a5c1Xb9nZ?=
- =?us-ascii?Q?0tM6Unmmjk4qFi2Ye6bTEqOJ/gB4xrkp699/6tSPMJ2eogw5oMHHrUB/TmuD?=
- =?us-ascii?Q?zz1CY7jWDnWhn/JtCe8QcwLu+GIgEGe/KewEBn1ZrF9A2xZEOCC5zAClKOOX?=
- =?us-ascii?Q?dAGLmnR1b6vU83tv86mOvhY61NNHp3TXrbKHsF7FQLu8UInrt5ea5Cj9/EFN?=
- =?us-ascii?Q?pu6FaI7+uYUPn7Bq0EqBhtv0YlT3hqaEpwtrD7J/E72GwajrbB8hkIsNGwqQ?=
- =?us-ascii?Q?ny2D6VtcEd3seZuOVQvq5IS6T/2pzBnUuGKIVQer0bwmM9n1OKlBGSVPgm+q?=
- =?us-ascii?Q?80+6atXIoPt+ZfT/oC6fC6RkOYfyJuISKLyHXDIRpfCgAiGWmzXXoxgFeoO1?=
- =?us-ascii?Q?l/5VlAtYAPEZ/gDzUIueNtvzTLrCn3lppEhWkIMLPE0Zy8DI4IBQfiSkX3FL?=
- =?us-ascii?Q?5FQAhiItPXfbC4Rz1ZZeZ+x6p4bibeXGnfDs0lNwR8NHqTGucF/tnf2nob5Q?=
- =?us-ascii?Q?O4UktVa47cpz2o1317+lf9SVpvqAh+fLJc7xZPq/DoQ+0FpkuBHeJ/uKxwI8?=
- =?us-ascii?Q?ziZ+enDbx/Tr7poot0GqmSPIggqXAZzFUZFX9FXArPs4hWTNvVcREg2TAodl?=
- =?us-ascii?Q?99A7yQcBpNI9TPaiqYkT/qRQR5YL+M4Xg9Q3G+0z4D29UxzdB+FwP62bV9OP?=
- =?us-ascii?Q?PAMXWNhtJeFnG0Iex6kDMFejT8zJOmsWSt4gXfFLrvRgo96/MLqM1+7GECpY?=
- =?us-ascii?Q?5nKkJzzHDV7lKZEltrYcO12IpyRL0JRZRmUB5dHJMEwZaHI4Gy2GIWFFHf4s?=
- =?us-ascii?Q?HLT8KmFox/BJ+rZ7BVondGhGvA5NX6LYuptuK0n3FSgRKhGw7TdzY8xGJx6x?=
- =?us-ascii?Q?TRm+6xaTPA=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 351b0eac-745b-4abf-4d15-08dee7d24c68
-X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12290.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 09:19:14.5517
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3hO9ZdWKVOP26Z2gLbWMWg9X5+arYlSqMv+Fun8qb39ffelvyK5wWtj41ZQCyghq1036HxykYKfbYBiFr1bBrw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8384
 
-On Wed, Jul 22, 2026 at 02:16:00AM +0300, Vladimir Oltean wrote:
-> In a future change, struct fsl_soc_data will be extended with methods
-> for performing RCW override.
-> 
-> Since this will be performed from a calling context outside
-> fsl_guts_init(), we need to keep track of the soc_data that we determine
-> at fsl_guts_init() time, so we can reference it later.
-> 
-> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] IT6626 C-PHY support is broken because the endpoint parsing logic =
+forces D-PHY, causing C-PHY device tree configurations to fail probing.
+- [High] Concurrent ioctls racing with remove() can schedule delayed work o=
+n freed memory.
+- [Medium] Ignored return value from v4l2_phys_addr_validate() allows confi=
+guration of malformed CEC topologies.
+--
 
-Reviewed-by: Ioana Ciornei <ioana.ciornei@nxp.com>
+--- Patch [2]: [PATCH v5 2/2] media: i2c: add driver for ITE IT6625/IT6626 =
+---
+commit bfb7e6cd73b65d97c7af09ea2f5bbbecc5bfd67b
+Author: Hermes Wu <Hermes.wu@ite.com.tw>
+Subject: media: i2c: add driver for ITE IT6625/IT6626
+
+This patch adds a V4L2 subdevice driver for the ITE IT6625/IT6626 HDMI-to-M=
+IPI
+CSI-2 bridge chips. It supports EDID read/write, DV timings detection, and
+exposes an HDMI CEC adapter. The bridge is configured over I2C with HPD
+control via standard V4L2 operations.
+
+> diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
+> --- /dev/null
+> +++ b/drivers/media/i2c/it6625.c
+> [ ... ]
+> @@ -1167,7 +1167,7 @@ static int it6625_s_edid(struct v4l2_subdev *sd,
+>  		pa =3D cec_get_edid_phys_addr(edid->edid, edid->blocks * 128, NULL);
+>  		if (pa =3D=3D CEC_PHYS_ADDR_INVALID) {
+>  			v4l2_warn(sd, "invalid CEC physical address in EDID");
+>  			cec_phys_addr_invalidate(it6625->cec_adap);
+>  		} else {
+>  			v4l2_phys_addr_validate(pa, NULL, NULL);
+[Severity: Medium]
+Does this code ignore the return value of v4l2_phys_addr_validate()?
+
+If a malformed EDID provides an invalid CEC physical address, the validation
+might fail, but the code appears to proceed and pass the address to
+cec_s_phys_addr() unconditionally. Could this allow the configuration of
+malformed CEC topologies?
+
+>  			cec_s_phys_addr(it6625->cec_adap, pa, false);
+>  		}
+>  	}
+> [ ... ]
+> @@ -1627,7 +1627,7 @@ static int it6625_parse_endpoint(struct it6625 *it6=
+625)
+>  {
+>  	struct device *dev =3D it6625->dev;
+>  	struct v4l2_fwnode_endpoint endpoint =3D { .bus_type =3D V4L2_MBUS_CSI2=
+_DPHY };
+[Severity: High]
+Is IT6626 C-PHY support disabled because of this initialization?
+
+By explicitly setting bus_type to V4L2_MBUS_CSI2_DPHY, the V4L2 fwnode
+parser might strictly reject C-PHY endpoints during probe.
+
+>  	struct device_node *ep =3D NULL;
+>  	unsigned int max_lanes;
+>  	unsigned int port;
+> [ ... ]
+> @@ -1659,7 +1659,7 @@ static int it6625_parse_endpoint(struct it6625 *it6=
+625)
+>  	ret =3D v4l2_fwnode_endpoint_alloc_parse(of_fwnode_handle(ep), &endpoin=
+t);
+>  	of_node_put(ep);
+>  	if (ret) {
+>  		dev_err(dev, "failed to parse endpoint: %d", ret);
+>  		return ret;
+>  	}
+> =20
+>  	if (endpoint.bus_type =3D=3D V4L2_MBUS_CSI2_CPHY &&
+>  	    it6625->chip_type !=3D IT6626_CHIP) {
+[Severity: High]
+Will this C-PHY check ever be reached?
+
+If a device tree specifies a C-PHY endpoint, v4l2_fwnode_endpoint_alloc_par=
+se()
+would likely have already returned an error because the driver pre-initiali=
+zed
+the endpoint bus type to D-PHY above.
+
+>  		dev_err(dev, "IT6625 does not support C-PHY, only IT6626 does");
+>  		v4l2_fwnode_endpoint_free(&endpoint);
+>  		return -EINVAL;
+>  	}
+> [ ... ]
+> @@ -2169,7 +2169,7 @@ static void it6625_remove(struct i2c_client *client)
+>  	if (client->irq)
+>  		disable_irq(client->irq);
+>  	else
+>  		timer_shutdown_sync(&it6625->timer);
+> =20
+>  	cancel_work_sync(&it6625->polling_work);
+>  	cancel_delayed_work_sync(&it6625->hpd_delayed_work);
+>  	debugfs_remove_recursive(it6625->debugfs_dir);
+>  	cec_unregister_adapter(it6625->cec_adap);
+>  	mutex_destroy(&it6625->it6625_lock);
+[Severity: High]
+Can a concurrent ioctl race with this teardown and cause a use-after-free?
+
+If VIDIOC_SUBDEV_S_EDID is in flight and reaches the end of it6625_s_edid():
+
+drivers/media/i2c/it6625.c:it6625_s_edid() {
+    ...
+    if (hdmi_5v_power_present(it6625)) {
+        it6625_enable_hpd(it6625);
+    ...
+}
+
+Could it unconditionally schedule the delayed work after it6625_remove() has
+already completed cancel_delayed_work_sync() and the devm-allocated driver
+state has been freed?
+
+I noted the commit message mentions this residual risk is similar to other
+peer drivers and was discussed in previous versions, but could it still res=
+ult
+in enqueuing a timer on freed memory?
+
+>  	media_entity_cleanup(&sd->entity);
+>  	v4l2_ctrl_handler_free(&it6625->hdl);
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-upstream-i=
+t6625-it6626-v5-0-387e7584f2c9@ite.com.tw?part=3D2
