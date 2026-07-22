@@ -1,97 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E04644334BC;
-	Wed, 22 Jul 2026 17:46:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87567442B07
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 17:47:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784742414; cv=none; b=MsxQinEViF95CMttKI7LNVc8czJG6GEEk1AjuVB2dQchvnV5SYCQVYNV3i+eWKLWN6YLiLi9BXv4lpA78jgPez1BaxA8OpNuuWiaNYHQ1iu9oPMu2ptrYSUEZgVeska1nAjOu3Iqr8BDY7sW29IjDxYvZhgJMZ7Hj9DhJTfqy7I=
+	t=1784742421; cv=none; b=Dq4j9EUHja9pJaYGtcS6tXDVIhhw4CMfrLojsGquti6VkoLrmcECZIxvApRkTVswRJRSAX7HgT5aIzp52yALKRilnH4N9e10XaFvYCoNyqQUa0C5XlgAj/eaQ1tLN6GQPL5F7K0EnAZPz9bF9QypreNqCRYUl3PlY77+daXYhBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784742414; c=relaxed/simple;
-	bh=kTYYjT5M8kNlgK4vexPnqHan5LuQH3TukAB6V7Z+lug=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Fl4+3BuDsROohjWVAmifEPCo1uVteyO4HJ1045uIR3vApNbSYzp+NhZHFub0jkC0ZVLRm92coW+QtW7tDztTZ5vIv6DwPyqeH32HrIjtXSJKOi95pYqTvvWiy+xZZcTGCn73wVVCXRdtG6xt7pjZ8CXMXgeNusCly2oBzPUSQqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KRV249wB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784742421; c=relaxed/simple;
+	bh=PkGK2fm3HmR1ilYx5RK49tVeiQMY7CKA8zevtlSfvao=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rai6ullp+E+XHfkfYqBg4pNfHPHn8UgDkLvnn24aWT0c7QKI3VaVxOfO2Y9nQgaEpqFNqQ8GJK9sHvU0HdLxFb+0a6KRe0HEgbtSt9cBRcGjVN/NHAwIPFnEOg+aJceD8+shWfoguMX9n2azAvLNNd+BDowIpdx0YF5MWLTeEwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dUNtPpkH; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KRV249wB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BF0F1F000E9;
-	Wed, 22 Jul 2026 17:46:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784742412;
-	bh=KZkZF2rPu5ZR/LGvwdw9ibp5FkuwgMTaCsJaW4e51to=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KRV249wBia2OVTj+hl1wFx+sYZT1cRQ22nXpTMRg6c1m1AuAHN1z5z0YoOYi0rNA9
-	 xNahV+llEnZIX49WanAvWXqJ5AMcVyfxQ3DA8EowWEb8XoCLxNt0xUhTRRZExzt6Vk
-	 adjtncUKTmhvXagkCtHFM3YVOwPFgT68i6h+q7CEYj1TV6IOacy+42MBaFZrkdAdNr
-	 0zhABJrCYgLP81b9k5ocMGCfY7t34HgQHDYQsM2WV8hdCu5GvFAjXg7nFwk7UyKT2M
-	 nxFxk3asIK8EPkmcQNBcevMCEqzAv30uz0bign6Vv/zr6srgqthfx8Mxw8m/sgnqz5
-	 EQBzU92wCC4iA==
-Date: Wed, 22 Jul 2026 12:46:49 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Brian Masney <bmasney@redhat.com>, linux-renesas-soc@vger.kernel.org,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	devicetree@vger.kernel.org, Magnus Damm <magnus.damm@gmail.com>,
-	linux-watchdog@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
-	linux-clk@vger.kernel.org,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>
-Subject: Re: [PATCH v3 5/8] dt-bindings: watchdog: renesas,r9a09g057-wdt: Add
- CPG/MSSR syscon support
-Message-ID: <178474240889.1288517.6935023555003107612.robh@kernel.org>
-References: <20260716123434.2576253-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260716123434.2576253-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dUNtPpkH"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c9e0b89e228so6303869a12.1
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 10:47:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784742419; x=1785347219; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7V7nXmMwXVDQS+JNg/opkYCOVS43thsWpLZ1957ncxY=;
+        b=dUNtPpkHLXg2tuAST82urZWqoexRaX3jopCxDzm4HT8QXsGISburudN9RkhohNQJeb
+         82K50GjFfmFJE74TGsFfiSkGdVbmGyQYFJK0ethblcDZ0DWC3DvyUUoPhbOjspbZZZMp
+         mWtBu/tmwj7gKnYuArD1G97ux5FF723NJY7mWS8h0PmzitZla0wkcT6+Z62bzAGTGgXL
+         4jLJn37xiZgAbHFlaX4tmRub+1VudP2RD2wnLKuw7ZBKGFjpffXXBR5ev1N/1H+DvVcv
+         3HvpRhJ/wCLbzttjQvfZm2BjgUecbl68Yuhk895Zxzj73S6X3REnPqGUd3gjm8FsKCmY
+         /BlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784742419; x=1785347219;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7V7nXmMwXVDQS+JNg/opkYCOVS43thsWpLZ1957ncxY=;
+        b=TELCWRyyAq2DdB1x5Y0wiRgmfFZjxqo5jTP7lMltWAn/UqCB6JT5iSUsiL8Z+Ot38v
+         e2N27kgnwgUZ1mBhfCqOkSe9pRDg8QEpBQq5Eioy9PeDUvnyE3wJNo3Fuz0s8qezeDGf
+         AWWvPggW26kxDnPJl92+F/YsOFtYep3dpmqBk4ErkdhWR5SwurUySx+DDkM5jMSjhdBl
+         YJR4+6I5W5JgTx3hvlJEpoglrU/fX1Gj9StZ5Pmy/Y+k8xOrRjWYo+j5US1ARAypBasJ
+         9qnmuG8VdEklSqQ2WNm1LA+EVTaLQIwdOT2LH9LhU9zO59/GpPNyj0r1WpzkoiW83foA
+         UzMQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrsEaf1dCp5ciG7Vj/jt7f4XjBrMdzkqxLZCGvAoRzjWoT1GMkPs4mKP2wxRXh4FSh5R4D4HsEhNHmK@vger.kernel.org
+X-Gm-Message-State: AOJu0YyNb07GRZ4XBwpZql2savc50OxD18xDDo5f6PQ4HE61dpaVJ3ao
+	6a3rQtTYQQvDqe0W/gzDWlvk7lbpIr6C2ybh/VvxWyTaV1QaVPBJ7amZ
+X-Gm-Gg: AR+sD13ZV85FYaUbn96QSaNEOdC8lzyIlWq6tS4PzhdtmLsdiNBZDXiSRrvk3H5lfCH
+	r87dhG4yeAwJVBCnHdHRhfV9v+5ecdplvUaN62isv1QT1AT8RioOypNQrHL9gYJ7BzLJ8C2jlFu
+	avS8KDQ0hwOPILRdGNx/Vq1He4sL2beuvHJiBHAx3ZYPL7THGBQXpNuMFDcgXbGTBV6mCVERy8V
+	x4TDkRXOCh7Tvmli64U4af0SMjK3GwVnbO3nOvL789MlroIlXIb9v+wE59U/2FRO6zOVNCRRpXn
+	eSUWbGacz80yFDv4MJNj/qH9imMsA5ulS0PcMnuYAu7rvudxFrl1/nXx84YV5y3NEGcI2Qt9Zjc
+	7WWf6xvP2an3S2YvK9x2agfzb1UXv80rsmKzVLjoKNfuqeG6VpwQFgGTR3wtMPtORLEzh4k5KFj
+	+DNo1/Uxqz7eKZSGaRI0BLijH4SJmDtVLoX3qugNxEdMDD4vuq1uo=
+X-Received: by 2002:a05:6a21:114c:b0:3c1:d78:6457 with SMTP id adf61e73a8af0-3c3ad80c405mr24682840637.32.1784742419481;
+        Wed, 22 Jul 2026 10:46:59 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3149198adabsm1188162eec.8.2026.07.22.10.46.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Jul 2026 10:46:58 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <4f2d9c51-1059-489c-a469-562ec52015da@roeck-us.net>
+Date: Wed, 22 Jul 2026 10:46:57 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260716123434.2576253-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/10] hwmon: Add Qualcomm PMIC BCL driver
+To: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ mfd@lists.linux.dev, Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+References: <20260722-qcom-bcl-hwmon-v2-0-febe2805e17b@oss.qualcomm.com>
+ <20260722-qcom-bcl-hwmon-v2-2-febe2805e17b@oss.qualcomm.com>
+ <373bd00e-bfcd-4f6c-b64e-a707af01417c@roeck-us.net>
+ <cdc0fb5c-d277-40b4-8b00-c73eb881c062@oss.qualcomm.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <cdc0fb5c-d277-40b4-8b00-c73eb881c062@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+On 7/22/26 10:38, Manaf Meethalavalappu Pallikunhi wrote:
+...
+>>
+>> I am curious: Why not use static initialization and use the is_visible
+>> function to determine if an attribute is visible or not ?
+> 
+> ACK. There is already a comment in v1 suggesting the use of dynamic allocation based on the available attributes rather than static initialization. The intent is to avoid having to perform enable flag checks in multiple places.
+> . >
 
-On Thu, 16 Jul 2026 13:34:31 +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+You lost me, sorry. There is only a single is_visible function,
+and its intent is exactly to handle situations where some sensors
+are not always available.
+
+What would be those "multiple places" ?
+
+>>  From the earlier exchange I had the impression that there is a large
+>> number of current and voltage channels, but it looks like there is only
+>> one each. That doesn't really warrant or need all this dynamic code
 > 
-> On the Renesas RZ/T2H SoC, the Watchdog Timer Control Register (WDTDCR)
-> resides within the CPG/MSSR block rather than the WDT address space
-> itself.
-> 
-> Previously, this was handled by including a second register range in the
-> "reg" property. However, this is architecturally incorrect as the CPG/MSSR
-> block consists of two distinct regions (0x80280000 and 0x81280000) that
-> contain registers for multiple peripheral blocks.
-> 
-> Since the CPG/MSSR block is a multi-function block, introduce the
-> "renesas,sysc" phandle-array property to allow the WDT driver to access
-> its control register via this shared regmap.
-> 
-> Mark the use of a second "reg" entry as deprecated in favor of the
-> new phandle-array approach for SoCs that require WDTDCR access.
-> 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> ---
-> v2->v3:
-> - Updated property name to "renesas,sysc"
-> - Updated description about deprecation and use of the new
->   phandle-array property.
-> - Updated commit message
-> 
-> v1->v2:
-> - No change.
-> ---
->  .../watchdog/renesas,r9a09g057-wdt.yaml       | 29 +++++++++++++++++--
->  1 file changed, 27 insertions(+), 2 deletions(-)
+> Yes, this hardware only supports one or two channels (voltage and current). What we discussed earlier was that each channel can have up to three threshold alarms (warning, critical, and emergency). However, the hwmon framework currently supports only two limit alarms for these sensor types. I have not added support for the third alarm threshold in this series to keep the initial driver support aligned with the existing hwmon capabilities. Once the basic driver support is accepted, I can queue a follow-up series to add support for the third limit alarm.
 > 
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+What does that have to do with attribute visibility ?
+
+Guenter
 
