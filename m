@@ -1,68 +1,114 @@
-Received: from mail-244116.protonmail.ch (mail-244116.protonmail.ch [109.224.244.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A807344AB91;
-	Wed, 22 Jul 2026 05:27:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416241DF748
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 05:31:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784698078; cv=none; b=DH2Vh+FergV63aLRqYJlLyftJnHr/mV6k1twGrz7YbtQQlTQsRiPeH/d/j1GAkgTeyPe8NkPelwWRZLmfsA3ETP1UkUT3XQDqFXqKNcLAQo5JgvHi1/NKzB7zkGTmFIWIQ/uO6WDaesbaSTlDvpGtO0IYMYtDX9QPacctRqeXjI=
+	t=1784698276; cv=none; b=BsT1ge8OOiyEflBWFRX+YGX2e6VXHevmMpmxO5gHwAjTiYUfpNN1/rIHhaHRdYJRCpcL3JYhdOEZAOHE7Yb44t/S0mKGBjcyIcU41Jeuh36L2Ij3NnR9mQyzRl9Zj+jPLbVoOW8Dv1xaDVhhsDwZZl6Uc60SHnHgVyyg5R7w8YM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784698078; c=relaxed/simple;
-	bh=+XGu4/YVa0gwn0ZOi6+cD450cBL4GwA8SuEKNV1NOOs=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OqAwC5aKnJgPBTYE1tPeX/Vpul8+w+hWyIhVYiiGVBDECFf4U/l5vlVI7WtHVsX92uAWfiaBC27glPNljmPMWVCAh4nHz4L4rOq1INWvPuJTqS7yTK9YmC4N61XGKGMoyBImGgiZcT+xqfYPHP2xc5xATzVHTcnAxzh3rQYe0Sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=nsHIgWf2; arc=none smtp.client-ip=109.224.244.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1784698276; c=relaxed/simple;
+	bh=/6WsLzfHDLnnmRpY30kPdwytvejx2tDB6d3k6dCU2OY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jeslnU4iy1hG+iPTq0zjkg47hZuIBfz++cUL1U7kQCqc28Aw8HbmWxAD9IPxxSvnCSWuq6MpvOna9DDks1CHVXZYxjyEV+vJIjpuxUSSMaF3+eXslUzrqRd5vsfS6iWlPKaTwAvR0afzI6nc0/UzyyAFh9QRO19zVit6AuXyv64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vqzi1Z8p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="nsHIgWf2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1784698064; x=1784957264;
-	bh=cI/qXI5aIOtv67IxgQsQWkvSxybRIeo9UIqFM/YYosA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=nsHIgWf2mOwt/IYjw6I0iqkXQQekTDShR3GZuubpI11aEwtV8197WvjlCciGGrBDT
-	 XgpzyqbsYi87zv2uvLvmE2YZZCRzdCwN5HMnafQESiJm5ROGz5S/MumFVk9qLpRJqj
-	 kPdMGjoXb+y/G5L2N3BzcAykgSnwQMNMSFH9iPgguIZsCXhMJ55aQmyPiNV+6vsm5Y
-	 GJAO3802WtiXFNMgUv8UngbJbm1KSEgaaRKS+L6yNwibqzOop3JTwrbO5rZZ7Mg60j
-	 l5H0ZDZMF54VGJRhVbvgaJPpN7xGpfyrbyeL71jSO+Z2XZ15DtHgy93DvmjSePWLTy
-	 v1TSErY0FLIWA==
-Date: Wed, 22 Jul 2026 05:27:39 +0000
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-From: Esteban Urrutia <esteuwu@proton.me>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] phy: qcom: qmp-combo: Specify PLL version in qmp_v6_dp_serdes_tbl structs
-Message-ID: <58edef55-b513-4ccb-a384-64f2ee7e0250@proton.me>
-In-Reply-To: <dph6cacosw3jzksqxp7fgofdueukrq6a3c5xys4jfrkqjuigvx@sroivvrxiwxk>
-References: <20260715-sm8475-bup-usbss-v2-0-2d8def39b190@proton.me> <20260715-sm8475-bup-usbss-v2-2-2d8def39b190@proton.me> <wg6lgpaexz4ktjlfzqpsidj56wr3hjax2ktn75kqsoaubtdxre@xh3yn3xpr4af> <b77dc15d-f9ad-4c06-9e24-8f73421e2130@proton.me> <dph6cacosw3jzksqxp7fgofdueukrq6a3c5xys4jfrkqjuigvx@sroivvrxiwxk>
-Feedback-ID: 147889766:user:proton
-X-Pm-Message-ID: 544f5ece5549d5872eeeeab0d457c91d6fe6892b
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vqzi1Z8p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E63C1F000E9;
+	Wed, 22 Jul 2026 05:31:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784698274;
+	bh=0wicR5VB7AZDab1IGKZEwjEA94pdrgB8OujMzqEYvts=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Vqzi1Z8pZuDtnlhyQ1cmMBpPy1tYJf4KDcqi2+Vd0fPPaQNMzxhY+Hql1KFRe4UtE
+	 wQTSM7kZylgg5uI0p/ZdzG32jmvG9l0PXll/4eNw62JGT24sKMOT7kJxzhLNatKKBu
+	 DZDUXSD3REtq5WaKMOg/UIUV7umg5Rk1Zsh1jGul1PBTeKEtg4nDGiX/JPV4Pibv8E
+	 duN24djjAK92xQbfW9jaEaNMX2K3bCxwvh2qbDgIiBEFG1l4AsgqrR4AjWD1j9BhXU
+	 v8/LWAjQuPfqB+r9025vv4Bdm6uitQ0EeBLYVHYxYOI7AkNbLJj1PqWCl1kpC0dYYc
+	 LqBFvDJyCt5FQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 4/7] nvmem: layouts: add Microchip/SST SFDP EUI
+ layout driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Manikandan Muralidharan" <manikandan.m@microchip.com>
+Cc: robh@kernel.org, "Richard Weinberger" <richard@nod.at>, conor+dt@kernel.org, "Michael
+ Walle" <mwalle@kernel.org>, devicetree@vger.kernel.org, "Vignesh
+ Raghavendra" <vigneshr@ti.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Pratyush
+ Yadav" <pratyush@kernel.org>, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>
+In-Reply-To: <20260721052859.171341-5-manikandan.m@microchip.com>
+References: <20260721052859.171341-1-manikandan.m@microchip.com>
+ <20260721052859.171341-5-manikandan.m@microchip.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 05:31:13 +0000
+Message-Id: <20260722053114.5E63C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-On 7/21/26 9:02 PM, Esteban Urrutia wrote:
-> This does not seem to be the case...
-> When HBR2 is used over a direct Type-C to Type-C DP Alt Mode connection,
-> link training fails when v1.1 tables are used instead:=20
-Expanding on what I said in my previous email, here is what happens when
-certain tables are used.
-=20
-- v1   DP serdes, v1   RBR/HBR/HBR2/HBR3: works
-- v1   DP serdes, v1.1 RBR/HBR/HBR2/HBR3: doesn't work
-- v1.1 DP serdes, v1   RBR/HBR/HBR2/HBR3: works
-- v1.1 DP serdes, v1.1 RBR/HBR/HBR2/HBR3: doesn't work
-=20
-The third case is interesting. I'm inclined to believe it works because
-the only difference between v1 and v1.1 DP serdes tables is the value
-written to the BG_TIMER offset.
-=20
-Regards,
-Esteban
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
+Pre-existing issues:
+- [High] Unloading the `sst26vf-sfdp-eui` layout module leaves NVMEM cells =
+registered with a dangling `.read_post_process` function pointer, leading t=
+o a kernel panic when the cell is subsequently read.
+--
+
+--- Patch [4]: [PATCH v5 4/7] nvmem: layouts: add Microchip/SST SFDP EUI la=
+yout driver ---
+commit 65f89c6962065ffdea19b0eccf22497e1e9a5249
+Author: Manikandan Muralidharan <manikandan.m@microchip.com>
+
+nvmem: layouts: add Microchip/SST SFDP EUI layout driver
+
+Add an NVMEM layout that exposes the factory-programmed EUI-48 identifier
+from the Microchip/SST vendor SFDP parameter table as a "mac-address" cell.
+
+> diff --git a/drivers/nvmem/layouts/sst26vf-sfdp-eui.c b/drivers/nvmem/lay=
+outs/sst26vf-sfdp-eui.c
+> new file mode 100644
+> index 0000000000000..641318d6f0af6
+> --- /dev/null
+> +++ b/drivers/nvmem/layouts/sst26vf-sfdp-eui.c
+
+[ ... ]
+
+> +static int sfdp_eui_add_cells(struct nvmem_layout *layout)
+> +{
+
+[ ... ]
+
+> +	info.name =3D "mac-address";
+> +	info.offset =3D base + SFDP_MCHP_EUI48_OFFSET;
+> +	info.bytes =3D ETH_ALEN;
+> +	info.np =3D of_get_child_by_name(layout_np, "mac-address");
+> +	info.read_post_process =3D sfdp_eui_read_post_process;
+> +
+> +	ret =3D nvmem_add_one_cell(nvmem, &info);
+
+[ ... ]
+
+> +static void sfdp_eui_remove(struct nvmem_layout *layout)
+> +{
+> +	nvmem_layout_unregister(layout);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but since nvmem_layout_unregiste=
+r()
+is currently an empty stub in the NVMEM core, unloading this module leaves =
+the
+NVMEM cells registered.
+
+Because the registered cell includes a .read_post_process callback pointing
+to sfdp_eui_read_post_process, does a sysfs read of the cell after the modu=
+le
+is unloaded trigger a use-after-free execution of the unloaded module text?
+
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721052859.1713=
+41-1-manikandan.m@microchip.com?part=3D4
