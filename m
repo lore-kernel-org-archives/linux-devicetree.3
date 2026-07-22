@@ -1,169 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039D14F7998;
-	Wed, 22 Jul 2026 15:50:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74933439F81
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 15:53:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784735459; cv=none; b=SG5PPXL9NFrZ8d63VnOM20uwrFX81poWbHgbEO8R8L9gxTpdqtNbk2fpIVXAQG7/8Aa0NVgBvVPlyMxL4vm36p+eNjkh8zwKfMW0S35+wBXclXHeIs4CqcFXl2HYJR8FTxlZ6rNVhaQQaeAcehWAKGuG0DZx0JSt8vsKCKHgGJ4=
+	t=1784735628; cv=none; b=O/Zo2xtpxoiKAJnfdOCi5sM+bnNBsRuLeSmbeAzLZ81Uz2xbVEtJMsc7YKo+Qx8g2KRn/hVj3DPT/8rMRB7gHNNX9k/KJmQnh694KJkZa8Mg6V2NV6Jjj++iiI3Qz/CYmpApWQgkOctqA3fyLKxB9Bh5Chyta3DRiLVAYobJTKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784735459; c=relaxed/simple;
-	bh=5+f9zGuJaDqs3Qd5BGYpu7W0XnuOiVpM1LuzsifS1ag=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=L/u4XgJkxjjTacplqcMAtkHT14PJOBQwDL7C7Izx8U3F/okDRxi3oUzSGSdjOMgwvr2eNQ/gq7dXOIQ3zvlOjVymLdpSFwy7oT30sxztSnEoiDIOwdporFG6BkPJEwI7SZL0rq2L5VVEw6SjoJIWycSxJc3UllNoH/MLv8qO4pI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EKun//7n; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1784735628; c=relaxed/simple;
+	bh=Xp69F8bFwPiQjRFp2jkHubXad3ALPxJLdxA9+zOBaSU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=S60X+jMhdjrQpSbeQuB5ZIlIPvNporYDeGa+CvHivRvHODWtaHHadam0dnoZ7/tdtRArW9Mh0n9lk5fIwgCDU9b4KX/GWUNrAGJMYKYRqI9Rc+vai/uUwIWOT/A1qiCnf9woO/7aGf1pA1zOs2BSZ4H9/XCrs8iYqlg1PM/nIxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mnPJhwLG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EKun//7n"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CCD86C4AF11;
-	Wed, 22 Jul 2026 15:50:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784735458;
-	bh=5+f9zGuJaDqs3Qd5BGYpu7W0XnuOiVpM1LuzsifS1ag=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=EKun//7ny5WZhFLxu1Ern4r7/NaKX/gr/EfhP/aQn/7mznOkB1wbyYAmZZzRPTNYu
-	 Wcu8/PqicCu2K/gqLEpblh3IsR3/5KK0sjt5mG1N/rWHkQAzsDr/ob3Kc8MNB160Eg
-	 +CbQ4EEDD5lyKQ/NojCovp5UbiW6QbtXWIUiCGMvGuWzOwadPNq7ezXoqHFylIO4zM
-	 1S7lWIoJCLmyAqYw2uB32VGqrZgkNFA2JQObe+1/BGUQopq6UZQ06Ek+5m3PjdxjQ5
-	 WZPvNdxl5HqK531W/RGYg7tVrTj+eviZLWWEQQANr98/K4uESBqvSWzdE+FyKBrATg
-	 U/+VCo0As8hhw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B99CFC4453E;
-	Wed, 22 Jul 2026 15:50:58 +0000 (UTC)
-From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Wed, 22 Jul 2026 16:50:25 +0100
-Subject: [PATCH v9 16/17] iio: ABI: add docs for ad9910 sysfs and debugfs
- entries
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mnPJhwLG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE6601F000E9;
+	Wed, 22 Jul 2026 15:53:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784735627;
+	bh=gukbmT8kmWwNICBEucrmpAK/p0wuETg0Z0MWXd0m+2E=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mnPJhwLGc6GzTVw1KWjAkMYLf0YQRhtzmF4u4P8KyVLNZzmph6QhobUBXqNJp/BR7
+	 h6aRiglEYW6KKpr7s9JdiIwF5E7kSMNHCVY7c5Qb2CFpOprYRXJRYjBQcgRwOL2RyO
+	 YyjpSQEYfId2gnImfuCm9ABfvCXpHRTC7AgO2tzYX+LViZYrKPNuBmiyV4eU5LDWD3
+	 3u7X0qKlhiAJ9fN+cRH2iLH5ZVIICX3+rter2XgM5oq7KQz8E1Dp9S5d2RCRK8fCHk
+	 vvS+IBPBWVRqE9YEq7ufmdKz3sOIhHn/rcdgpRmP03eKJB3dl3/U/xmiyADFWzZkQZ
+	 bFzuLBPqb+2Gw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V19 3/9] iio: imu: inv_icm42607: Add inv_icm42607 Core
+ Driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chris Morgan" <macroalpha82@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260722153942.144387-4-macroalpha82@gmail.com>
+References: <20260722153942.144387-1-macroalpha82@gmail.com>
+ <20260722153942.144387-4-macroalpha82@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 15:53:46 +0000
+Message-Id: <20260722155346.BE6601F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260722-ad9910-iio-driver-v9-16-459d1df5ac56@analog.com>
-References: <20260722-ad9910-iio-driver-v9-0-459d1df5ac56@analog.com>
-In-Reply-To: <20260722-ad9910-iio-driver-v9-0-459d1df5ac56@analog.com>
-To: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-hardening@vger.kernel.org
-Cc: Lars-Peter Clausen <lars@metafoo.de>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Rodrigo Alencar <rodrigo.alencar@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784735456; l=4220;
- i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=ODvLxJPODA5YQ+w5a0lwK7q83k4NXyONagfc42uDQZ8=;
- b=jN4Kxsc4z+pToJcmX5xQ0n1lmnChabpn46djbYi5EJiKfcildlt9aqqpBZy7T+enlRoreOJ21
- cLEoD/zVVwgB8FbFOTA3hzLK68kVD4U+myYyiKIMDethOi4dKoDhn5e
-X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
- pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
-X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
- with auth_id=561
-X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Reply-To: rodrigo.alencar@analog.com
 
-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The regmap_read_poll_timeout macro will abort immediately if the=
+ I2C read fails during reset, rendering the 10ms timeout ineffective.
+--
 
-Add custom ABI documentation files for the DDS AD9910 with sysfs and
-debugfs entries. The sysfs ones control parameters from the Digital Ramp
-Generator and OSK engine. The debugfs attributes are read-only and
-evalutate into source channel labels for each DDS core parameter.
+--- Patch [3]: [PATCH V19 3/9] iio: imu: inv_icm42607: Add inv_icm42607 Cor=
+e Driver ---
+commit 126a2bd0ca185e39e3153f40088acc8d7f3a3ac0
+Author: Chris Morgan <macromorgan@hotmail.com>
 
-Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
----
- Documentation/ABI/testing/debugfs-iio-ad9910       | 23 ++++++++++++++++
- .../ABI/testing/sysfs-bus-iio-frequency-ad9910     | 31 ++++++++++++++++++++++
- MAINTAINERS                                        |  2 ++
- 3 files changed, 56 insertions(+)
+iio: imu: inv_icm42607: Add inv_icm42607 Core Driver
 
-diff --git a/Documentation/ABI/testing/debugfs-iio-ad9910 b/Documentation/ABI/testing/debugfs-iio-ad9910
-new file mode 100644
-index 000000000000..7083a20d5a40
---- /dev/null
-+++ b/Documentation/ABI/testing/debugfs-iio-ad9910
-@@ -0,0 +1,23 @@
-+What:		/sys/kernel/debug/iio/iio:deviceX/frequency_source
-+KernelVersion:	7.3
-+Contact:	linux-iio@vger.kernel.org
-+Description:
-+		Read-only. Reports the channel label that is read from the
-+		<dir>_<type>[Y]_label attribute, which corresponds to the on-chip
-+		signal generator that is currently driving the output frequency.
-+
-+What:		/sys/kernel/debug/iio/iio:deviceX/phase_source
-+KernelVersion:	7.3
-+Contact:	linux-iio@vger.kernel.org
-+Description:
-+		Read-only. Reports the channel label that is read from the
-+		<dir>_<type>[Y]_label attribute, which corresponds to the on-chip
-+		signal generator that is currently driving the output phase.
-+
-+What:		/sys/kernel/debug/iio/iio:deviceX/amplitude_source
-+KernelVersion:	7.3
-+Contact:	linux-iio@vger.kernel.org
-+Description:
-+		Read-only. Reports the channel label that is read from the
-+		<dir>_<type>[Y]_label attribute, which corresponds to the on-chip
-+		signal generator that is currently driving the output amplitude.
-diff --git a/Documentation/ABI/testing/sysfs-bus-iio-frequency-ad9910 b/Documentation/ABI/testing/sysfs-bus-iio-frequency-ad9910
-new file mode 100644
-index 000000000000..4e25f538af4a
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-bus-iio-frequency-ad9910
-@@ -0,0 +1,31 @@
-+What:		/sys/bus/iio/devices/iio:deviceX/out_altcurrentY_dwell_en
-+What:		/sys/bus/iio/devices/iio:deviceX/out_frequencyY_dwell_en
-+What:		/sys/bus/iio/devices/iio:deviceX/out_phaseY_dwell_en
-+KernelVersion:	7.3
-+Contact:	linux-iio@vger.kernel.org
-+Description:
-+		For a channel that produces parametric sweeps, this attribute controls
-+		the sweep behavior at the configured limit. It enables dwell mode at a
-+		sweep limit when set to 1, i.e., after the sweep is complete the output
-+		value stays at the limit. Otherwise (setting this value to 0), the sweep
-+		may stop or restart from the initial position, or even continue by
-+		reversing the sweep direction.
-+
-+What:		/sys/bus/iio/devices/iio:deviceX/out_altcurrentY_raw_roc
-+What:		/sys/bus/iio/devices/iio:deviceX/out_frequencyY_raw_roc
-+What:		/sys/bus/iio/devices/iio:deviceX/out_phaseY_raw_roc
-+KernelVersion:	7.3
-+Contact:	linux-iio@vger.kernel.org
-+Description:
-+		For a channel that produces parametric sweeps, this attribute controls
-+		the rate of change of the parameter in raw units per second (slope).
-+		This value may be influenced by the channel sampling_frequency attribute
-+		if available. Multiplying this value by the scale attribute of the
-+		channel yields the rate of change in physical units per second.
-+
-+What:		/sys/bus/iio/devices/iio:deviceX/out_altcurrentY_raw_roc_available
-+KernelVersion:	7.3
-+Contact:	linux-iio@vger.kernel.org
-+Description:
-+		Lists the available roc values for the channel. Values are
-+		space-separated in ascending order.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 83342b577aa6..182f7db0010a 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1683,6 +1683,8 @@ M:	Rodrigo Alencar <rodrigo.alencar@analog.com>
- L:	linux-iio@vger.kernel.org
- S:	Supported
- W:	https://ez.analog.com/linux-software-drivers
-+F:	Documentation/ABI/testing/debugfs-iio-ad9910
-+F:	Documentation/ABI/testing/sysfs-bus-iio-frequency-ad9910
- F:	Documentation/devicetree/bindings/iio/frequency/adi,ad9910.yaml
- F:	drivers/iio/frequency/ad9910.c
- 
+This commit adds the core component and I2C driver for the InvenSense
+ICM-42607 motion tracking device. It provides the setup functions, register
+definitions, and basic probing infrastructure.
 
--- 
-2.43.0
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
+io/imu/inv_icm42607/inv_icm42607_core.c
+> new file mode 100644
+> index 0000000000000..6ec1d730017e2
+> --- /dev/null
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
 
+[ ... ]
 
+> +static int inv_icm42607_setup(struct inv_icm42607_state *st,
+> +			      inv_icm42607_bus_setup inv_icm42607_bus_setup)
+> +{
+
+[ ... ]
+
+> +	ret =3D regmap_write(st->map, INV_ICM42607_REG_SIGNAL_PATH_RESET,
+> +			   INV_ICM42607_SIGNAL_PATH_RESET_SOFT_RESET);
+> +	if (ret)
+> +		return ret;
+> +
+> +	fsleep(1 * USEC_PER_MSEC);
+> +
+> +	/*
+> +	 * No polling interval specified in datasheet, so use reset time as
+> +	 * polling interval and 10x reset time as timeout period.
+> +	 */
+> +	ret =3D regmap_read_poll_timeout(st->map, INV_ICM42607_REG_INT_STATUS,
+> +				       val, val & INV_ICM42607_INT_STATUS_RESET_DONE,
+> +				       1 * USEC_PER_MSEC, 10 * USEC_PER_MSEC);
+
+[Severity: Medium]
+Can this timeout be bypassed entirely if the I2C bus NACKs right after a
+soft reset?
+
+Since regmap_read_poll_timeout() terminates its polling loop immediately
+if the underlying read returns an error, a single NACK during the reset
+window will cause the macro to return an error (like -ENXIO) right away.
+
+If the hardware requires slightly more than 1ms to stabilize, would this
+cause the probe to fail instantly instead of utilizing the 10ms polling
+window to retry?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722153942.1443=
+87-1-macroalpha82@gmail.com?part=3D3
