@@ -1,91 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 251BD466AFC;
-	Wed, 22 Jul 2026 16:39:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B852440A3B;
+	Wed, 22 Jul 2026 16:40:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784738355; cv=none; b=amDwX4GqO25b+Imcdq/b6v1z5+/V9DnYI0xTP0YbQIjo5EVwgDM8u04GNzaTrhB79KSzkCp26m0eRgWFwYHTLBsfolv0Sz4z9Y9osaEb88q3cnqqYGKOrt+qRgM7t0xo/0c3SkmO8ZO9Mn1dniqT1kA4+cibkEuc8xkUMG/8fYY=
+	t=1784738404; cv=none; b=sJlMOtaSy0UfL+7l96+WakPbkCOC0u6WBMO+tSDovHL3AAvbHqpesziFDDzRlFShLpo3aNWPPxphFwoJCCPnHpccmjEeoCHVGZtl6GjdRSo/ebytdYQCq/DLPMb0WjCWOJ9SEclptR+aa8SKQ6JLmlWZ0WbSgNr5r9YlxPMsehg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784738355; c=relaxed/simple;
-	bh=Jwu300nntlb13ewddWF26g9eo1g3L4jtlNQ27HHjg08=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I7XEJEqqh4r2N3geGYoHWTJI05uro07vtWJNdQt6kK7Ys1O0FjRYbuZvuayplWyYe1iMVz8sxWhc+skE+DezS0sfUVNcru1SArrMHwG9sbWrmpvJnOB4qr5YZO9PoqgtiI+yM/94bl84etx87SP4vT0CG9yN7tEdZJj1nA2JUKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lwHXKkDh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784738404; c=relaxed/simple;
+	bh=IxuY5Yy2+bxQ50G6EPCluh37NLO448od94aJA4UYTJY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dr2LQxAbyt6x1VvyfgnGl34m8vbZFozniGCKBlDpEUNPOLTCpqkxSZ92eVxsGAj7yR77rKfkgBpowDdLp7aVynilAplP1yoc06B+yrJ9GBT+FSSsi1LCF5KDs5hggS+0VI3AKac8cT6whZhIupPDzOG2PDTjMD1fKo2CkNtMf5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=eHXd4ulJ; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lwHXKkDh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 116CE1F000E9;
-	Wed, 22 Jul 2026 16:39:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784738348;
-	bh=Jwu300nntlb13ewddWF26g9eo1g3L4jtlNQ27HHjg08=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lwHXKkDhB+grmXykbfjrw0DrVWItTExsIuOmxLJc4yCXIXD1B3XO65KwE8QxgiV9h
-	 8YMizOlPU0ARAMm+yuwpN1s/HubTPNMp7t7DmUU/EOaAts24AGAVvKjZBIsJsaxpqE
-	 PM7scCJCFq4BYpFc6YZ++vmnNz7qmxGpYF9AewxtCKL4B02tZQjQyiFiHUWCRqQ8oM
-	 3g1TSVuKAoIVU57CNu4k6OG2ZIkF49cKs28lBXLCDKxkAzDZk0i5N78pkZBDrAnd0o
-	 7UsE1poMKSPS41R4w9gh+SfvfCVbb108Yub/NeTl0UwR04XbIm0AsTpz4gcbhO6CaK
-	 is1d4zUTEXJeg==
-Date: Wed, 22 Jul 2026 17:39:02 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Mark Brown <broonie@kernel.org>,
-	Marius Cristea <marius.cristea@microchip.com>,
-	Marcus Folkesson <marcus.folkesson@gmail.com>,
-	Kent Gustavsson <kent@minoris.se>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, Janani Sunil <jan.sun97@gmail.com>,
-	linux-spi@vger.kernel.org, Kent Gustavsson <nedo80@gmail.com>
-Subject: Re: [PATCH v7 6/7] dt-bindings: iio: dac: Add AD5529R
-Message-ID: <20260722-backlands-transform-c68a2c79af68@spud>
-References: <20260722-ad5529r-driver-v7-0-7781cd74ad75@analog.com>
- <20260722-ad5529r-driver-v7-6-7781cd74ad75@analog.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="eHXd4ulJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1784738396;
+	bh=IxuY5Yy2+bxQ50G6EPCluh37NLO448od94aJA4UYTJY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=eHXd4ulJMx0crFk7Dr3i+pMm/cnivYbupFgA0CnfYAqtWh85kRODN1K3eKwN5vJJE
+	 6JY5bMmRGFE/9Llcc3mZ4qHUjFU7Q3mCb57+NC+imT7ZK/n2NJxfri3DhdVK3GchE7
+	 oL5n3NsOY8go2mCSmv+99myb2WIt5x754QJe9ZrRH8/NBs655zRUy91m5v5niCkYLQ
+	 5f6CGeScCfNN+dLZl+yhJVoOXvpKN/l21HJ6UQSqmFCRBDaz4fORGrDunqKKp+W8fb
+	 ZiCqpfCUTTvXxvotIqLGD4xmnhrfaCzHtru7NBoEeXmxMeRrtacLJCckRBAp8Rzsm/
+	 59oNtmWDFzvLA==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 09F9717E04AE;
+	Wed, 22 Jul 2026 18:39:56 +0200 (CEST)
+Message-ID: <2949748a-2a37-46f9-996b-8e2438c8f8f8@collabora.com>
+Date: Wed, 22 Jul 2026 18:39:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="PuhZMZRlsy/mq89J"
-Content-Disposition: inline
-In-Reply-To: <20260722-ad5529r-driver-v7-6-7781cd74ad75@analog.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 12/46] dt-bindings: soc: mediatek: mutex: Allow
+ #trigger-source-cells
+To: Rob Herring <robh@kernel.org>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com,
+ simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, krzk+dt@kernel.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, kernel@collabora.com
+References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
+ <20260714114414.184512-13-angelogioacchino.delregno@collabora.com>
+ <20260722154500.GA988735-robh@kernel.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260722154500.GA988735-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---PuhZMZRlsy/mq89J
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 7/22/26 17:45, Rob Herring wrote:
+> On Tue, Jul 14, 2026 at 01:43:40PM +0200, AngeloGioacchino Del Regno wrote:
+>> This hardware controls trigger sources, and there's even a generic
+>> binding just for that: allow #trigger-source-cells in MuteX, so
+>> that this is allowed to provide triggers to external HW.
+>>
+>> Acked-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> 
+> You ack-ed your own patch?
+> 
 
-On Wed, Jul 22, 2026 at 09:54:18AM +0200, Janani Sunil wrote:
-> Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
-> buffered voltage output digital-to-analog converter (DAC) with an
-> integrated precision reference.
->=20
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+Mysterious things happen in my workflow... :facepalm:
 
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
-
---PuhZMZRlsy/mq89J
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCamDyJQAKCRB4tDGHoIJi
-0m9EAQCvPVyT9IrFATmxyLOLuSjLFY7/e49J2++Eh2Pspa6Q/wD7BKi1DcWUSLth
-GaSuCzGbw44f0FXynpCkxY0A7D7+QwU=
-=XIrL
------END PGP SIGNATURE-----
-
---PuhZMZRlsy/mq89J--
+>> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+>> ---
+>>   .../devicetree/bindings/soc/mediatek/mediatek,mutex.yaml      | 4 ++++
+>>   1 file changed, 4 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml b/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
+>> index 5267cfe92572..886e6f904b78 100644
+>> --- a/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
+>> +++ b/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
+>> @@ -54,6 +54,9 @@ properties:
+>>       items:
+>>         - description: MUTEX Clock
+>>   
+>> +  '#trigger-source-cells':
+>> +    const: 1
+>> +
+>>     mediatek,gce-events:
+>>       description:
+>>         The event id which is mapping to the specific hardware event signal
+>> @@ -116,6 +119,7 @@ examples:
+>>               interrupts = <GIC_SPI 169 IRQ_TYPE_LEVEL_LOW>;
+>>               power-domains = <&spm MT8173_POWER_DOMAIN_MM>;
+>>               clocks = <&mmsys CLK_MM_MUTEX_32K>;
+>> +            #trigger-source-cells = <1>;
+>>               mediatek,gce-events = <CMDQ_EVENT_MUTEX0_STREAM_EOF>,
+>>                                     <CMDQ_EVENT_MUTEX1_STREAM_EOF>;
+>>           };
+>> -- 
+>> 2.54.0
+>>
