@@ -1,204 +1,98 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DB743B6DB
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 20:34:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6118836B908;
+	Wed, 22 Jul 2026 20:36:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784752450; cv=none; b=NN7ewRGT3YFH6tKLo61hhYehqeByLVrypoqmbZRDQxn5qgOgQiF9BSOWhdO9YbPD+qgBFymCBsZ9ZR6nxhj6tNYHxz6v1Aq+rAzDcf2oICfBUydvdPitmNyK7Ng8vHaCBEz8LhmhdSPpzp9wOO7SkEmqLlrBjG/P4l4lCJAtJ8w=
+	t=1784752604; cv=none; b=Mt3pF2dh0wDfSgou+27Ld8BLOz6dthUGwce6OxqkcByk9Gk0EgGcZRp3x0IXkua2h1lSHA6hWIf0+CYbk1yhO75MPaBCCMVoGcnTyIPOmhaHQFYzoDPSiODON9S7gc7a4H97ifhASbgMkK36bR3E/8Jrl21aPnn2PHZIRR/FCsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784752450; c=relaxed/simple;
-	bh=6esLaWMxVzWgBgD3LBUpQLC+g+cCbkEItwcvYGe7Tc8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XtzhIlXMSxllpHEtlxDsaUZrQAjVim4jCGh0X8DNgBFLLQbpnoofnVO+b7RnHrWJGRucGJRO7rPcWEoFq8UG+GJerpZMQIkknPZGSztDwFYywubX8RIClPrYcTrnE7Asotm4vrC68mf9ycc3MygqjBm6qt5hjqCND316XQZkUB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AKub94+c; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784752604; c=relaxed/simple;
+	bh=0DNIeZYJaXQFyygvsV1Kxh4s7PW7MEvU/IAvcnyYPGQ=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=ZBSpC6b5lyVSwPYsJ4bv4WyUdL0Zv2oEqhdHNbtRVenrf4yGYbAam+U18feuoP9ToRDOej4AMnppkn880fYuUo9olfQdWQlopaRPDL4bmFzmLoCtfbgSPKDtsHOlgG8Xs3im1aTMfltad0zkSwuuuKyiSX6EOrxNKhPDvwCF+1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PyY0aoQX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AKub94+c"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4953de5be0aso49883305e9.0
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 13:34:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784752442; x=1785357242; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WOd+XZss+YRv1olA4v5j/GA2GS28MPr0U93YAb8IAO0=;
-        b=AKub94+cdO/vzVJoDB8o+/wBEWWTXCGwD7BZOODijafDKZa6BNOG84txtRQTU4GLJj
-         7Rk9r/P1DQ5OEjIf7ga6FxdloZUUwPlZ9BUodWG7/qwf5mnPlBpiYDJAuKD+KrWYaIJ3
-         tUVDyyhaiuhu8jCjPMX7gmBF5vvtNY1EmHhIQ4wIT70CdAKWmLFEaTX6vt1q54xWo89Q
-         Qg72JkXFUz9HPd+lWwuFK8ObWqWgU6pQP+IRi8fn3URQZEkZ9QIFM9LCnwt7GbuGU+Cu
-         v621SqcA2F7v+bNXhuY0FPcVLht/xFt1co7AIy8vHQeYET7ya3RWs1Zg1Hy9vBVblXtv
-         8z9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784752442; x=1785357242;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WOd+XZss+YRv1olA4v5j/GA2GS28MPr0U93YAb8IAO0=;
-        b=T6Ie3tdxYcpAtCLOw1kT5QBQWjxCLxvDdFQeiNqsCSQOpx0WLGOClc74p72NQfgf/5
-         yL2wo6Z42Ws4iMD9+MC+Xus/JpuZfHaBpGrPu81mG3BLm++fRHENoH68C8k6hESB9aZO
-         rNXDicQTea5qhpPhWLHKLXdwg6xxY+yyu1O7czvaY9IKnsz0rD4ZBF+AhHrJiWDofvcA
-         jFCmcIKkvKkKvUYVwTEvIM2U2vMG2xqkMDf4uVE+RJZMG5jUxfB2Q8GvU2i6qRXR9Lrm
-         nvsiFLhBYifLzFIT7IMayOw7S7Dm6TEPHYFXzQgaK55M4Yt41pgB8Cdq7fne8OXOf1bL
-         KWtg==
-X-Forwarded-Encrypted: i=1; AHgh+RqNOBSGXGdjjrG31BZk/FcAFxDiugJYNTrrLMRhigdcuSzmuEZxZ55vunrxR2y4jJBYlGT6O+2FFUAk@vger.kernel.org
-X-Gm-Message-State: AOJu0YwjAOIAkvWRlHSqHiz/F8B1kYoxEMzwASe8FB3UHyLWgpYAr7MN
-	hZovsSeAkeZAt2SsdkquFmcNhoWzMIYuTnhtm4Dc4wOlooSFtoyUxyV8
-X-Gm-Gg: AR+sD12Pw5TWHA/UJ+GNz1KzgNMopvk0TT0HflXwJzQWDFa+xlwhbOn8WyaiG+DymYn
-	o+ZWYV/V4PBAWe1dhjmLbLPZp6tzheJCQmh5IAlYdI+PXFEUb1wrvoAGrGcgEErXZ2AhrNmOnsR
-	5KJdelG/WXt9ave7iqWHJprxmIzz+1f9nkycY+sojMqETy+k6vTKEQ4Y6Flfc4P96rRd6l7RYWg
-	xaLmVGYTU7V99u6l+ZtCxgaJESsGspnswc6CBYZF7InzEnczaK33logBl2yxKP2MxQ2Y3cWUGK7
-	TX6ZzigDv/HXHr2W8irEG0fptIvrr7sTAVMnowv3e1Dt7KUGePwCIj3QkNoSpV1yLOz8chts1PF
-	C9EeXtuC0xBan8p+3HKLViCIAp8/fWfp245MRozdpHk6COSyXhPyVdnkLuYH+XfvaVg/f7YK6FJ
-	6wcB9uyjxlAgOS1JmawbyA1QBF/cg+u9QXr70=
-X-Received: by 2002:a05:600c:1390:b0:495:5a0e:6d8c with SMTP id 5b1f17b1804b1-49573ce8e74mr3160235e9.27.1784752442311;
-        Wed, 22 Jul 2026 13:34:02 -0700 (PDT)
-Received: from coolemuke.fritz.box ([2a00:6020:b320:1a00:c256:1463:a40b:d8c6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956ab2f0a2sm63134945e9.1.2026.07.22.13.34.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 13:34:00 -0700 (PDT)
-From: "=?UTF-8?q?S=C3=B6ren=20Hantel?=" <fugininsane@gmail.com>
-X-Google-Original-From: =?UTF-8?q?S=C3=B6ren=20Hantel?= <fugininsane@googlemail.com>
-To: linux-pm@vger.kernel.org
-Cc: Vasily Khoruzhick <anarsoul@gmail.com>,
-	Yangtao Li <tiny.windzz@gmail.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Rossak <embed3d@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Claude Fable 5 <noreply@anthropic.com>,
-	=?UTF-8?q?S=C3=B6ren=20Hantel?= <fugininsane@googlemail.com>
-Subject: [PATCH 3/3] ARM: dts: sun9i-a80: Add thermal sensor and thermal zones
-Date: Wed, 22 Jul 2026 22:33:41 +0200
-Message-ID: <20260722203341.2917852-4-fugininsane@googlemail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260722203341.2917852-1-fugininsane@googlemail.com>
-References: <20260722203341.2917852-1-fugininsane@googlemail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PyY0aoQX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E18221F000E9;
+	Wed, 22 Jul 2026 20:36:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784752603;
+	bh=w4/VgTMh+oO/TgiDD5O7Kz0x35QFCrvVJqZrCsZqSeQ=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=PyY0aoQXiqgQQZRV5jqP9K9lp0Xs0yfwDRo5CFzlp+kBd6BDj5VGEHZCQVYWeTaHY
+	 dud81pefjyWvFdF+SS0RpeWB5YDvrkymHA8PwID5/mTgEHc8D6oNG6ggntcDYqyCNh
+	 +B8+JHvPWqYwx8NFxHfkY7Yr2y261cx2BCLXAAKkTHZ/enyaakatzdIVoWBq2uwpHl
+	 7dO0XS6jzT+kEjf+NGcG07V/GjOP5/NPtBZet5Jbt2wry+m1e5wXjLZg0MpIvqar+B
+	 6FLclLwcOmZgTTxh7zK3z3dKWg6kcGlS8yZvo7LI11mBbjCTAVUxHP/dVcQH3MOXUZ
+	 iXWP1MXiPo8FA==
+Date: Wed, 22 Jul 2026 15:36:42 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: m-chawdhry@ti.com, devicetree@vger.kernel.org, daniel.baluta@nxp.com, 
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>, 
+ simona.toaca@nxp.com, goledhruva@gmail.com, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Eduard Bostina <egbostina@gmail.com>
+In-Reply-To: <20260722171840.299303-1-egbostina@gmail.com>
+References: <20260722171840.299303-1-egbostina@gmail.com>
+Message-Id: <178475260228.1957707.1122595004130166592.robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: arm: omap: Convert L4 interconnect to DT
+ schema
 
-From: Philipp Rossak <embed3d@gmail.com>
 
-Now that the A80 thermal sensor is supported, add its device node and
-the thermal zones to the device tree.
+On Wed, 22 Jul 2026 17:18:40 +0000, Eduard Bostina wrote:
+> Convert the Texas Instruments OMAP L4 interconnect bus bindings
+> to DT schema.
+> 
+> During the conversion, several updates were made:
+> - Defined the compatible property as an array to require
+>   the TI-specific string first, followed by either 'simple-bus' or
+>   'simple-pm-bus'.
+> - Added a 'select' block to ensure this schema is only
+>   applied to TI-specific nodes, preventing duplicate
+>   schema warnings against the core simple-pm-bus.yaml.
+> - Made 'reg' and 'reg-names' optional.
+> 
+> Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+> ---
+>  .../devicetree/bindings/arm/omap/l4.txt       | 37 --------
+>  .../bindings/arm/omap/ti,omap-l4.yaml         | 93 +++++++++++++++++++
+>  2 files changed, 93 insertions(+), 37 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/arm/omap/l4.txt
+>  create mode 100644 Documentation/devicetree/bindings/arm/omap/ti,omap-l4.yaml
+> 
 
-The clocks and the resets are shared between the GPADC and the THS
-sensor. Sensor 0 is located beside the big CPU cluster, sensor 1
-beside the DRAM controller, sensor 2 beside the GPU and sensor 3
-beside the little CPU cluster.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-Signed-off-by: Philipp Rossak <embed3d@gmail.com>
-[soeren: rebased from the 2018 series, fixed the interrupt number
-(SPI 115 as in the vendor BSP; verified on hardware - SPI 31 stays
-silent), added critical trip points matching the driver's emergency
-shutdown threshold]
-Co-authored-by: Claude Fable 5 <noreply@anthropic.com>
-Signed-off-by: Sören Hantel <fugininsane@googlemail.com>
----
- arch/arm/boot/dts/allwinner/sun9i-a80.dtsi | 68 ++++++++++++++++++++++
- 1 file changed, 68 insertions(+)
+yamllint warnings/errors:
 
-diff --git a/arch/arm/boot/dts/allwinner/sun9i-a80.dtsi b/arch/arm/boot/dts/allwinner/sun9i-a80.dtsi
-index a1ae092..8e7f8cd 100644
---- a/arch/arm/boot/dts/allwinner/sun9i-a80.dtsi
-+++ b/arch/arm/boot/dts/allwinner/sun9i-a80.dtsi
-@@ -941,6 +941,16 @@
- 			#reset-cells = <1>;
- 		};
- 
-+		ths: thermal-sensor@6004c00 {
-+			compatible = "allwinner,sun9i-a80-ths";
-+			reg = <0x06004c00 0x100>;
-+			interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_GPADC>, <&ccu CLK_GPADC>;
-+			clock-names = "bus", "mod";
-+			resets = <&ccu RST_BUS_GPADC>;
-+			#thermal-sensor-cells = <1>;
-+		};
-+
- 		timer@6000c00 {
- 			compatible = "allwinner,sun4i-a10-timer";
- 			reg = <0x06000c00 0xa0>;
-@@ -1250,4 +1260,62 @@
- 			#size-cells = <0>;
- 		};
- 	};
-+
-+	thermal-zones {
-+		cpu0_thermal: cpu0-thermal {
-+			polling-delay-passive = <1000>;
-+			polling-delay = <5000>;
-+			thermal-sensors = <&ths 0>;
-+
-+			trips {
-+				cpu0_crit: cpu0-crit {
-+					temperature = <100000>;
-+					hysteresis = <2000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		dram_thermal: dram-thermal {
-+			polling-delay-passive = <1000>;
-+			polling-delay = <5000>;
-+			thermal-sensors = <&ths 1>;
-+
-+			trips {
-+				dram_crit: dram-crit {
-+					temperature = <100000>;
-+					hysteresis = <2000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		gpu_thermal: gpu-thermal {
-+			polling-delay-passive = <1000>;
-+			polling-delay = <5000>;
-+			thermal-sensors = <&ths 2>;
-+
-+			trips {
-+				gpu_crit: gpu-crit {
-+					temperature = <100000>;
-+					hysteresis = <2000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpu2_thermal: cpu2-thermal {
-+			polling-delay-passive = <1000>;
-+			polling-delay = <5000>;
-+			thermal-sensors = <&ths 3>;
-+
-+			trips {
-+				cpu2_crit: cpu2-crit {
-+					temperature = <100000>;
-+					hysteresis = <2000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+	};
- };
--- 
-2.43.0
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/arm/omap/ti,omap-l4.example.dtb: interconnect@48000000 (ti,omap4-l4-per): $nodename:0: 'interconnect@48000000' does not match '^([a-z][a-z0-9\\-]+-bus|bus|localbus|soc|axi|ahb|apb)(@.+)?$'
+	from schema $id: http://devicetree.org/schemas/simple-bus.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260722171840.299303-1-egbostina@gmail.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
