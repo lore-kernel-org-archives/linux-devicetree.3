@@ -1,173 +1,492 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1FD397E64
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 07:16:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23827284880;
+	Wed, 22 Jul 2026 07:17:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784704621; cv=none; b=UWH8mJnxW0sI/7CkH87KSDTjcPJ1NfKupzwHiFeoq+iJQkB+zpi2NdY3XCz4kTbengbbS4uK4Dtx2CgID+6vdMf7lIMK4M+ZwqtmTxDS06TwssK+J4kJXGjsw5RrUoeyNvDWEiHs2Yy91jam2qTWF8TbvI9/fb731nwcnV6g7so=
+	t=1784704641; cv=none; b=ddMI8ZIXqRKKqaak8DEB5Mnd8xTe1xLvYhm9y5mCX2DTvbSuJ8hvu9H7/0iI+KKS3yyFluUz06nP4dYAw3ZUzRrDhR47WcqaoPocsuO3nI6Ef5BU7LuP9QcwGwCv1qgFCuRU3bwtj2V6u1LHq7z+IywUG3l0PaCCjVMDBLVx2zM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784704621; c=relaxed/simple;
-	bh=Y2BFihCQs6uhG6fsFCa0Ao1NslGdiQDR64l4W13X2XA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X9s+KTyzriIzIdranrHOqGsaJQNSRvbp0+0zE3U052+dqiwiiEGmdAA4/2CDMSzSqlOT9VuE0Kteou+zfoYUG0Gh0gyWXJ0G/969bgjA37w4xMkhgEKC9dwL+rxnPoPWxbVtyqqUKZG+tILusfWfvmdxAT/BSH+/odwjqSdVFIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kesgRP1N; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UEjoaqus; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kesgRP1N";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UEjoaqus"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M53oeD4045736
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 07:16:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	t7D/eEjwuHQYatRiTjob4Ic56a5p3Gqbx9bIfZorAXQ=; b=kesgRP1NYCFozUIH
-	0ACsaG5YidkmDpVP82qtGgephFXfMb+/0lfM6RJ/EshlD7LTJEICVMxEDxPKnd8c
-	CTZ/PdF8gorR55rJm+/4xHsSB1fO8aiWL6LRJ4OXgII8z/rEdK1u+UHC5n2gjOXy
-	1Zv9QDCGuD2MPtOwsDSXddWEDV9ip7V3vRHBLgV/UvjvhjsELaY9hClBCWvWsnAL
-	X1Vu+RQCJHcdrZc9kmxoDAJ4VCzGpEq2UW/eP7nlB8EvQPCgDDBKF3P0lwl74vAy
-	LRGj7PWX8PstboX4G6d1/6meKRtz2uHbTDq5hDYKf0AE2vwLksPtn/s5mOp1PYOn
-	QyHEmw==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjd6datqg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 07:16:58 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-84857446424so22667462b3a.1
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 00:16:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784704618; x=1785309418; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t7D/eEjwuHQYatRiTjob4Ic56a5p3Gqbx9bIfZorAXQ=;
-        b=UEjoaqusa8yGB3carzKD+gog+YfgjbqxTYwXvvE90n7IAy0d2znj1MfIM6CbAWIOR+
-         6bkNmGEn+ZdO0y7pZLIefwDaN1zBLcQpfvEJdfgAgQsQ9N24/p+yhDiY3vn6MjVPbJQQ
-         7iejM+8+DLPeRAQPUnJUn0c4MAseT4XKfhXx1Z5zrESOVjQtp/fqywB10zWTriS15n1t
-         SlPADRmnaRJfNLDp+6Ku6tQ9D4bnCh5V45fU+lUmMm6DdX1bL0cefvt+o7DmSMx0yUiY
-         mYCWHVxytGoHA9NIu4W0X27l/C3LYWX36jRraTTZnQIYjnucF6BeRz+/86NNdf8eNE3t
-         ouKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784704618; x=1785309418;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=t7D/eEjwuHQYatRiTjob4Ic56a5p3Gqbx9bIfZorAXQ=;
-        b=N0Aey8hvvOIOFpaNzZhCyd0R6xf6xZ47mVVL27a3ygXoTFvMcnIwPM91qpn6IsHwEv
-         Uay7K+LSDtjOrcFcov7mc4zlg8k3zF/g0MwxgoCt2/JCuyUpJwNoJBkIyGf4DjaCDF6/
-         MoVjBW3iXlekzjflo9PRDdOt9sc8YoG8fmfGRZYsQ/dfHFwFKLXOFbLV8B3GDFMJ4S8o
-         vZ21BW3XX+DehfGc8Dlkx5lErdJ16D5DTDL3mfWhTbghp+SRMP0j5IRWOE8scoDI/X5Z
-         aKbvStyAi1FI1NUZS3qwMNfBznqfkdxPhuvU0DNmIF0+SqAgAI33rZcw2yU5Qm2FVKgz
-         N0qQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoBM+AjGCt1S6nlU+WuyyiiMYFp1QTv28HrNbv1QTXpL5UjBeBFIHTsQ5NpvlugQrw2gQBkImewjINp@vger.kernel.org
-X-Gm-Message-State: AOJu0YzDxA+xqcQBj+o9jHOUegTi4Crc2y7JU+vAhS1BkYGAN7/FkA5g
-	bOZFCeiYu7AIN1HsAkHeDROQntH5EnQVNW6S9RqKUu+HVwEZW8qz2idB2djWJ1j9GuEqmXR3ds3
-	4z65wlvw46CmzyEUs2minNef7MJDOOXBnKiCKkuHlDKJMmsl3fJaM4LpLvKrbzNmT
-X-Gm-Gg: AR+sD12rU6WvlF4gIOGEtEAmGZ78plF7RsyS7j9qD1O4XY8ZLv7f7mibUpRM1l7tcrC
-	PAPxhU/ukQYocgLVFgFfOOPBEhdpUsKUCptXmm0f39h6EDqga+pKGpvw/wfselYxrkI3HmCQMv4
-	CMpNQikbqeLOxrIHv2uEgdNVCEQQWEgG5oTvx9aHKydCfC/ZwLGO6a2xSmKhXqaUm3kJ1RpLiA4
-	mo9u+1VtmS8iQOaRJqGALpu8CZmsOhk+0XervwLeI+wjm6+uvD5ZjlZt0TQQQE3vnLDVKMsVUZr
-	hwRwgIYrucHyfaFvqjouI1A8IgTm+RT10ouddkO/KC52moB3lqZ/aOuVe3OBXU0lQvwJhHdIDwQ
-	vC2hpVFN6Q5eSOFvFEQccu2BKxzU=
-X-Received: by 2002:a05:6a00:4b50:b0:84a:6540:3389 with SMTP id d2e1a72fcca58-84c2926caa7mr21483864b3a.10.1784704617629;
-        Wed, 22 Jul 2026 00:16:57 -0700 (PDT)
-X-Received: by 2002:a05:6a00:4b50:b0:84a:6540:3389 with SMTP id d2e1a72fcca58-84c2926caa7mr21483839b3a.10.1784704617153;
-        Wed, 22 Jul 2026 00:16:57 -0700 (PDT)
-Received: from [10.218.37.104] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e17264108sm884152b3a.16.2026.07.22.00.16.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Jul 2026 00:16:56 -0700 (PDT)
-Message-ID: <c29962fe-1d26-4a13-906a-dc96d0dbb4a3@oss.qualcomm.com>
-Date: Wed, 22 Jul 2026 12:46:50 +0530
+	s=arc-20240116; t=1784704641; c=relaxed/simple;
+	bh=xrVy6DYCXskwvVksVtSYjcqWf3KKH1hMYCbNjKzQzSA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Cy0hCgwPGM6lsId5N50qYbjHoKQ4BGjrmmGqWfl4y1k4ELFz745N1CXNwIclGjdwfya7kWy/McUVs0c7TLFsAVo9TUmFA4JWa+VwuIhr8TwB+tL6+gtNF9KychsSwGkLBsSD25s7988X194SumkcKzuQrcGNczzCp4NXOEfm2X8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 9D683201C37;
+	Wed, 22 Jul 2026 09:17:14 +0200 (CEST)
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wmRCc-000hPy-1p;
+	Wed, 22 Jul 2026 09:17:14 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wmRCc-0000000046P-1xuT;
+	Wed, 22 Jul 2026 09:17:14 +0200
+Message-ID: <657f11ab535867200177684529b86a406e13cd48.camel@pengutronix.de>
+Subject: Re: [PATCH v10 03/11] reset: realtek: Add RTD1625 reset controller
+ driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>, mturquette@baylibre.com, 
+	sboyd@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ 	cylee12@realtek.com, afaerber@suse.com, jyanchou@realtek.com,
+ bmasney@redhat.com
+Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com, 
+	cy.huang@realtek.com, stanley_chang@realtek.com
+Date: Wed, 22 Jul 2026 09:17:14 +0200
+In-Reply-To: <20260713155630.3054636-4-eleanor.lin@realtek.com>
+References: <20260713155630.3054636-1-eleanor.lin@realtek.com>
+	 <20260713155630.3054636-4-eleanor.lin@realtek.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: eliza: Add LPASS macro and
- SoundWire support
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, mohammad.rafi.shaik@oss.qualcomm.com,
-        ajay.nandam@oss.qualcomm.com
-References: <20260713121816.2728888-1-ravi.hothi@oss.qualcomm.com>
- <20260713121816.2728888-2-ravi.hothi@oss.qualcomm.com>
- <bfb17a62-4997-4ef5-a005-788533b86ff9@oss.qualcomm.com>
-Content-Language: en-US
-From: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
-In-Reply-To: <bfb17a62-4997-4ef5-a005-788533b86ff9@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDA2NiBTYWx0ZWRfX5bUZPiRfpRgi
- y3WYfvR6D85WKCxo+UnPrJzD4j2IYtDxda7FByiASvinjgcWHZB6GPACXP1bItq2XVdq60canmv
- CCzEukuyc61UpK6BNNCQBQMkbwx9vh4=
-X-Authority-Analysis: v=2.4 cv=Ipsutr/g c=1 sm=1 tr=0 ts=6a606e6a cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=sAo0H56O00lnzfrFSrUA:9 a=QEXdDO2ut3YA:10
- a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDA2NiBTYWx0ZWRfX8jsmu5p9XrAu
- PDjkoEyoiMHu4u+u9e10XaL0+8bq/NprZd9V3gYdsXLdVniL+KP2+BbpKcpGKz9yug73qApceSN
- /Eg+LbwesaAj/deil2Nekfwqadoq0Yui+9r+MEZdfw4+Ck7m8eVdutOXEDnEy47jhvPZ2nf62+4
- jkXbZ0lmpYHslyPlxq8M8lPzstxDnrXoCIOjxnUnHaB2VyrKAqOW4APkZ6K6PtXKwyp7reZcYAs
- Yr3NJ/A95vzdcHrO0OX7WOn5HThIvhP8y4C4bL24M9kuctMbr2bV7V7uUbqrqytSI2wPXUwI8Gg
- 0XS+8Typk3AhiQbh1KIPvkaJES829Z3mcN5Lz3ehgnQo8055+Yg4E8v0IYY8iJbnzyxzMytVeRH
- mzFt6JtpTniroMvYWm6+pooWSSCykzp7BdZn172PWVT5t40qzoDrk+wHKjy3ZRWKs1MzGq1rCcf
- ouHZCGO2jMauqbDkmfg==
-X-Proofpoint-GUID: 2bdxy3-Bv2LeWN5DMuolbwA41AoQYz8l
-X-Proofpoint-ORIG-GUID: 2bdxy3-Bv2LeWN5DMuolbwA41AoQYz8l
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-22_02,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 spamscore=0 phishscore=0 bulkscore=0
- priorityscore=1501 impostorscore=0 malwarescore=0 adultscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607220066
+
+On Mo, 2026-07-13 at 23:56 +0800, Yu-Chun Lin wrote:
+> From: Cheng-Yu Lee <cylee12@realtek.com>
+>=20
+> Add support for the CRT (Clock, Reset, and Test) and ISO (Isolation)domai=
+n
+> reset controller on the Realtek RTD1625 SoC.
+>=20
+> The reset controller shares the same register space with the CRT and ISO
+> clock controller. To handle this shared register space, the reset driver =
+is
+> implemented as an auxiliary driver. It will be instantiated and probed vi=
+a
+> the auxiliary bus by the RTD1625-CRT and RTD1625-ISO clock controller dri=
+ver.
+>=20
+> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> ---
+> Changes in v10:
+> - Merge 'reset-rtd1625-crt' and 'reset-rtd1625-iso' into a single module
+> ---
+>  drivers/reset/realtek/Kconfig         |  11 ++
+>  drivers/reset/realtek/Makefile        |   1 +
+>  drivers/reset/realtek/reset-rtd1625.c | 262 ++++++++++++++++++++++++++
+>  3 files changed, 274 insertions(+)
+>  create mode 100644 drivers/reset/realtek/reset-rtd1625.c
+>=20
+[...]
+> diff --git a/drivers/reset/realtek/reset-rtd1625.c b/drivers/reset/realte=
+k/reset-rtd1625.c
+> new file mode 100644
+> index 000000000000..aaff6dd1c8a6
+> --- /dev/null
+> +++ b/drivers/reset/realtek/reset-rtd1625.c
+> @@ -0,0 +1,262 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2026 Realtek Semiconductor Corporation
+> + */
+> +
+> +#include <dt-bindings/reset/realtek,rtd1625.h>
+> +#include <linux/auxiliary_bus.h>
+> +#include <linux/array_size.h>
+> +#include <linux/device.h>
+> +#include <linux/errno.h>
+> +#include <linux/slab.h>
+> +#include "reset-rtk-common.h"
+> +
+> +struct rtd1625_reset_info {
+> +	const struct rtk_reset_desc *descs;
+> +	unsigned int nr_resets;
+> +};
+> +
+> +static const struct rtk_reset_desc rtd1625_crt_reset_descs[] =3D {
+> +	/* Bank 0: offset 0x0 */
+> +	[RTD1625_CRT_RSTN_MISC]         =3D { .ofs =3D 0x0, .bit =3D 0,  .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_DIP]          =3D { .ofs =3D 0x0, .bit =3D 2,  .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_GSPI]         =3D { .ofs =3D 0x0, .bit =3D 4,  .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_SDS]          =3D { .ofs =3D 0x0, .bit =3D 6,  .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_SDS_REG]      =3D { .ofs =3D 0x0, .bit =3D 8,  .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_SDS_PHY]      =3D { .ofs =3D 0x0, .bit =3D 10, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_GPU2D]        =3D { .ofs =3D 0x0, .bit =3D 12, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_DC_PHY]       =3D { .ofs =3D 0x0, .bit =3D 22, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_DCPHY_CRT]    =3D { .ofs =3D 0x0, .bit =3D 24, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_LSADC]        =3D { .ofs =3D 0x0, .bit =3D 26, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_SE]           =3D { .ofs =3D 0x0, .bit =3D 28, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_DLA]          =3D { .ofs =3D 0x0, .bit =3D 30, .write=
+_en =3D 1 },
+> +	/* Bank 1: offset 0x4 */
+> +	[RTD1625_CRT_RSTN_JPEG]         =3D { .ofs =3D 0x4, .bit =3D 0,  .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_SD]           =3D { .ofs =3D 0x4, .bit =3D 2,  .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_SDIO]         =3D { .ofs =3D 0x4, .bit =3D 6,  .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCR_CNT]      =3D { .ofs =3D 0x4, .bit =3D 8,  .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE0_STITCH] =3D { .ofs =3D 0x4, .bit =3D 10, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE0_PHY]    =3D { .ofs =3D 0x4, .bit =3D 12, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE0]        =3D { .ofs =3D 0x4, .bit =3D 14, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE0_CORE]   =3D { .ofs =3D 0x4, .bit =3D 16, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE0_POWER]  =3D { .ofs =3D 0x4, .bit =3D 18, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE0_NONSTICH] =3D { .ofs =3D 0x4, .bit =3D 20, .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE0_PHY_MDIO] =3D { .ofs =3D 0x4, .bit =3D 22, .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE0_SGMII_MDIO] =3D { .ofs =3D 0x4, .bit =3D 24, .w=
+rite_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_VO2]          =3D { .ofs =3D 0x4, .bit =3D 28, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_MISC_SC0]     =3D { .ofs =3D 0x4, .bit =3D 30, .write=
+_en =3D 1 },
+> +	/* Bank 2: offset 0x8 */
+> +	[RTD1625_CRT_RSTN_MD]           =3D { .ofs =3D 0x8, .bit =3D 4,  .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_LVDS1]        =3D { .ofs =3D 0x8, .bit =3D 6,  .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_LVDS2]        =3D { .ofs =3D 0x8, .bit =3D 8,  .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_MISC_SC1]     =3D { .ofs =3D 0x8, .bit =3D 10, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_I2C_3]        =3D { .ofs =3D 0x8, .bit =3D 12, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_FAN]          =3D { .ofs =3D 0x8, .bit =3D 14, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_TVE]          =3D { .ofs =3D 0x8, .bit =3D 16, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_AIO]          =3D { .ofs =3D 0x8, .bit =3D 18, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_VO]           =3D { .ofs =3D 0x8, .bit =3D 20, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_MIPI_CSI]     =3D { .ofs =3D 0x8, .bit =3D 22, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_HDMIRX]       =3D { .ofs =3D 0x8, .bit =3D 24, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_HDMIRX_WRAP]  =3D { .ofs =3D 0x8, .bit =3D 26, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_HDMI]         =3D { .ofs =3D 0x8, .bit =3D 28, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_DISP]         =3D { .ofs =3D 0x8, .bit =3D 30, .write=
+_en =3D 1 },
+> +	/* Bank 3: offset 0xc */
+> +	[RTD1625_CRT_RSTN_SATA_PHY_POW1] =3D { .ofs =3D 0xc, .bit =3D 0,  .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_SATA_PHY_POW0] =3D { .ofs =3D 0xc, .bit =3D 2,  .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_SATA_MDIO1]   =3D { .ofs =3D 0xc, .bit =3D 4,  .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_SATA_MDIO0]   =3D { .ofs =3D 0xc, .bit =3D 6,  .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_SATA_WRAP]    =3D { .ofs =3D 0xc, .bit =3D 8,  .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_SATA_MAC_P1]  =3D { .ofs =3D 0xc, .bit =3D 10, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_SATA_MAC_P0]  =3D { .ofs =3D 0xc, .bit =3D 12, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_SATA_MAC_COM] =3D { .ofs =3D 0xc, .bit =3D 14, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE1_STITCH] =3D { .ofs =3D 0xc, .bit =3D 16, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE1_PHY]     =3D { .ofs =3D 0xc, .bit =3D 18, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE1]         =3D { .ofs =3D 0xc, .bit =3D 20, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE1_CORE]   =3D { .ofs =3D 0xc, .bit =3D 22, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE1_POWER]  =3D { .ofs =3D 0xc, .bit =3D 24, .write=
+_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE1_NONSTICH] =3D { .ofs =3D 0xc, .bit =3D 26, .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE1_PHY_MDIO] =3D { .ofs =3D 0xc, .bit =3D 28, .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_HDMITOP]      =3D { .ofs =3D 0xc, .bit =3D 30, .write=
+_en =3D 1 },
+> +	/* Bank 4: offset 0x68 */
+> +	[RTD1625_CRT_RSTN_I2C_4]        =3D { .ofs =3D 0x68, .bit =3D 2,  .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_I2C_5]        =3D { .ofs =3D 0x68, .bit =3D 4,  .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_TSIO]         =3D { .ofs =3D 0x68, .bit =3D 6,  .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_VI]           =3D { .ofs =3D 0x68, .bit =3D 8,  .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_EDP]          =3D { .ofs =3D 0x68, .bit =3D 10, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_VE1_MMU]      =3D { .ofs =3D 0x68, .bit =3D 12, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_VE1_MMU_FUNC] =3D { .ofs =3D 0x68, .bit =3D 14, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_HSE_MMU]      =3D { .ofs =3D 0x68, .bit =3D 16, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_HSE_MMU_FUNC] =3D { .ofs =3D 0x68, .bit =3D 18, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_MDLM2M]       =3D { .ofs =3D 0x68, .bit =3D 20, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_ISO_GSPI]     =3D { .ofs =3D 0x68, .bit =3D 22, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_SOFT_NPU]     =3D { .ofs =3D 0x68, .bit =3D 24, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_SPI2EMMC]     =3D { .ofs =3D 0x68, .bit =3D 26, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_EARC]         =3D { .ofs =3D 0x68, .bit =3D 28, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_VE1]          =3D { .ofs =3D 0x68, .bit =3D 30, .writ=
+e_en =3D 1 },
+> +	/* Bank 5: offset 0x90 */
+> +	[RTD1625_CRT_RSTN_PCIE2_STITCH]  =3D { .ofs =3D 0x90, .bit =3D 0,  .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE2_PHY]    =3D { .ofs =3D 0x90, .bit =3D 2,  .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE2]        =3D { .ofs =3D 0x90, .bit =3D 4,  .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE2_CORE]   =3D { .ofs =3D 0x90, .bit =3D 6,  .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE2_POWER]  =3D { .ofs =3D 0x90, .bit =3D 8,  .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE2_NONSTICH] =3D { .ofs =3D 0x90, .bit =3D 10, .wr=
+ite_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_PCIE2_PHY_MDIO] =3D { .ofs =3D 0x90, .bit =3D 12, .wr=
+ite_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_DCPHY_UMCTL2] =3D { .ofs =3D 0x90, .bit =3D 14, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_MIPI_DSI]     =3D { .ofs =3D 0x90, .bit =3D 16, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_HIFM]         =3D { .ofs =3D 0x90, .bit =3D 18, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_NSRAM]        =3D { .ofs =3D 0x90, .bit =3D 20, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_AUCPU0_REG]   =3D { .ofs =3D 0x90, .bit =3D 22, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_MDL_GENPW]    =3D { .ofs =3D 0x90, .bit =3D 24, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_MDL_CHIP]     =3D { .ofs =3D 0x90, .bit =3D 26, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_MDL_IP]       =3D { .ofs =3D 0x90, .bit =3D 28, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_TEST_MUX]     =3D { .ofs =3D 0x90, .bit =3D 30, .writ=
+e_en =3D 1 },
+> +	/* Bank 6: offset 0xb8 */
+> +	[RTD1625_CRT_RSTN_ISO_BIST]     =3D { .ofs =3D 0xb8, .bit =3D 0,  .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_MAIN_BIST]    =3D { .ofs =3D 0xb8, .bit =3D 2,  .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_MAIN2_BIST]   =3D { .ofs =3D 0xb8, .bit =3D 4,  .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_VE1_BIST]     =3D { .ofs =3D 0xb8, .bit =3D 6,  .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_VE2_BIST]     =3D { .ofs =3D 0xb8, .bit =3D 8,  .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_DCPHY_BIST]   =3D { .ofs =3D 0xb8, .bit =3D 10, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_GPU_BIST]     =3D { .ofs =3D 0xb8, .bit =3D 12, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_DISP_BIST]    =3D { .ofs =3D 0xb8, .bit =3D 14, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_NPU_BIST]     =3D { .ofs =3D 0xb8, .bit =3D 16, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_CAS_BIST]     =3D { .ofs =3D 0xb8, .bit =3D 18, .writ=
+e_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_VE4_BIST]     =3D { .ofs =3D 0xb8, .bit =3D 20, .writ=
+e_en =3D 1 },
+> +	/* Bank 7: offset 0x454 (DUMMY0, no write_en) */
+> +	[RTD1625_CRT_RSTN_EMMC]         =3D { .ofs =3D 0x454, .bit =3D 0 },
+> +	/* Bank 8: offset 0x458 (DUMMY1, no write_en) */
+> +	[RTD1625_CRT_RSTN_GPU]          =3D { .ofs =3D 0x458, .bit =3D 0 },
+> +	/* Bank 9: offset 0x464 (DUMMY4, no write_en) */
+> +	[RTD1625_CRT_RSTN_VE2]          =3D { .ofs =3D 0x464, .bit =3D 0 },
+> +	/* Bank 10: offset 0x880 */
+> +	[RTD1625_CRT_RSTN_UR1]          =3D { .ofs =3D 0x880, .bit =3D 0,  .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_UR2]          =3D { .ofs =3D 0x880, .bit =3D 2,  .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_UR3]          =3D { .ofs =3D 0x880, .bit =3D 4,  .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_UR4]          =3D { .ofs =3D 0x880, .bit =3D 6,  .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_UR5]          =3D { .ofs =3D 0x880, .bit =3D 8,  .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_UR6]          =3D { .ofs =3D 0x880, .bit =3D 10, .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_UR7]          =3D { .ofs =3D 0x880, .bit =3D 12, .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_UR8]          =3D { .ofs =3D 0x880, .bit =3D 14, .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_UR9]          =3D { .ofs =3D 0x880, .bit =3D 16, .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_UR_TOP]       =3D { .ofs =3D 0x880, .bit =3D 18, .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_I2C_7]        =3D { .ofs =3D 0x880, .bit =3D 28, .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_I2C_6]        =3D { .ofs =3D 0x880, .bit =3D 30, .wri=
+te_en =3D 1 },
+> +	/* Bank 11: offset 0x890 */
+> +	[RTD1625_CRT_RSTN_SPI0]         =3D { .ofs =3D 0x890, .bit =3D 0,  .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_SPI1]         =3D { .ofs =3D 0x890, .bit =3D 2,  .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_SPI2]         =3D { .ofs =3D 0x890, .bit =3D 4,  .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_LSADC0]       =3D { .ofs =3D 0x890, .bit =3D 16, .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_LSADC1]       =3D { .ofs =3D 0x890, .bit =3D 18, .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_ISOMIS_DMA]   =3D { .ofs =3D 0x890, .bit =3D 20, .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_AUDIO_ADC]    =3D { .ofs =3D 0x890, .bit =3D 22, .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_DPTX]         =3D { .ofs =3D 0x890, .bit =3D 24, .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_AUCPU1_REG]   =3D { .ofs =3D 0x890, .bit =3D 26, .wri=
+te_en =3D 1 },
+> +	[RTD1625_CRT_RSTN_EDPTX]        =3D { .ofs =3D 0x890, .bit =3D 28, .wri=
+te_en =3D 1 },
+> +};
+> +
+> +static const struct rtd1625_reset_info rtd1625_crt_info =3D {
+> +	.descs =3D rtd1625_crt_reset_descs,
+> +	.nr_resets =3D ARRAY_SIZE(rtd1625_crt_reset_descs),
+> +};
+> +
+> +static const struct rtk_reset_desc rtd1625_iso_reset_descs[] =3D {
+> +	[RTD1625_ISO_RSTN_VFD]                 =3D { .ofs =3D 0x88, .bit =3D 0 =
+},
+> +	[RTD1625_ISO_RSTN_CEC0]                =3D { .ofs =3D 0x88, .bit =3D 2 =
+},
+> +	[RTD1625_ISO_RSTN_CEC1]                =3D { .ofs =3D 0x88, .bit =3D 3 =
+},
+> +	[RTD1625_ISO_RSTN_CBUSTX]              =3D { .ofs =3D 0x88, .bit =3D 5 =
+},
+> +	[RTD1625_ISO_RSTN_CBUSRX]              =3D { .ofs =3D 0x88, .bit =3D 6 =
+},
+> +	[RTD1625_ISO_RSTN_USB3_PHY2_XTAL_POW]  =3D { .ofs =3D 0x88, .bit =3D 7 =
+},
+> +	[RTD1625_ISO_RSTN_UR0]                 =3D { .ofs =3D 0x88, .bit =3D 8 =
+},
+> +	[RTD1625_ISO_RSTN_GMAC]                =3D { .ofs =3D 0x88, .bit =3D 9 =
+},
+> +	[RTD1625_ISO_RSTN_GPHY]                =3D { .ofs =3D 0x88, .bit =3D 10=
+ },
+> +	[RTD1625_ISO_RSTN_I2C_0]               =3D { .ofs =3D 0x88, .bit =3D 11=
+ },
+> +	[RTD1625_ISO_RSTN_I2C_1]               =3D { .ofs =3D 0x88, .bit =3D 12=
+ },
+> +	[RTD1625_ISO_RSTN_CBUS]                =3D { .ofs =3D 0x88, .bit =3D 13=
+ },
+> +	[RTD1625_ISO_RSTN_USB_DRD]             =3D { .ofs =3D 0x88, .bit =3D 14=
+ },
+> +	[RTD1625_ISO_RSTN_USB_HOST]            =3D { .ofs =3D 0x88, .bit =3D 15=
+ },
+> +	[RTD1625_ISO_RSTN_USB_PHY_0]           =3D { .ofs =3D 0x88, .bit =3D 16=
+ },
+> +	[RTD1625_ISO_RSTN_USB_PHY_1]           =3D { .ofs =3D 0x88, .bit =3D 17=
+ },
+> +	[RTD1625_ISO_RSTN_USB_PHY_2]           =3D { .ofs =3D 0x88, .bit =3D 18=
+ },
+> +	[RTD1625_ISO_RSTN_USB]                 =3D { .ofs =3D 0x88, .bit =3D 19=
+ },
+> +	[RTD1625_ISO_RSTN_TYPE_C]              =3D { .ofs =3D 0x88, .bit =3D 20=
+ },
+> +	[RTD1625_ISO_RSTN_USB_U3_HOST]         =3D { .ofs =3D 0x88, .bit =3D 21=
+ },
+> +	[RTD1625_ISO_RSTN_USB3_PHY0_POW]       =3D { .ofs =3D 0x88, .bit =3D 22=
+ },
+> +	[RTD1625_ISO_RSTN_USB3_P0_MDIO]        =3D { .ofs =3D 0x88, .bit =3D 23=
+ },
+> +	[RTD1625_ISO_RSTN_USB3_PHY1_POW]       =3D { .ofs =3D 0x88, .bit =3D 24=
+ },
+> +	[RTD1625_ISO_RSTN_USB3_P1_MDIO]        =3D { .ofs =3D 0x88, .bit =3D 25=
+ },
+> +	[RTD1625_ISO_RSTN_VTC]                 =3D { .ofs =3D 0x88, .bit =3D 26=
+ },
+> +	[RTD1625_ISO_RSTN_USB3_PHY2_POW]       =3D { .ofs =3D 0x88, .bit =3D 27=
+ },
+> +	[RTD1625_ISO_RSTN_USB3_P2_MDIO]        =3D { .ofs =3D 0x88, .bit =3D 28=
+ },
+> +	[RTD1625_ISO_RSTN_USB_PHY_3]           =3D { .ofs =3D 0x88, .bit =3D 29=
+ },
+> +	[RTD1625_ISO_RSTN_USB_PHY_4]           =3D { .ofs =3D 0x88, .bit =3D 30=
+ },
+> +};
+> +
+> +static const struct rtd1625_reset_info rtd1625_iso_info =3D {
+> +	.descs =3D rtd1625_iso_reset_descs,
+> +	.nr_resets =3D ARRAY_SIZE(rtd1625_iso_reset_descs),
+> +};
+> +
+> +static const struct rtk_reset_desc rtd1625_iso_s_reset_descs[] =3D {
+> +	[RTD1625_ISO_S_RSTN_ISOM_MIS] =3D { .ofs =3D 0x310, .bit =3D 0, .write_=
+en =3D 1 },
+> +	[RTD1625_ISO_S_RSTN_GPIOM]    =3D { .ofs =3D 0x310, .bit =3D 2, .write_=
+en =3D 1 },
+> +	[RTD1625_ISO_S_RSTN_TIMER7]   =3D { .ofs =3D 0x310, .bit =3D 4, .write_=
+en =3D 1 },
+> +	[RTD1625_ISO_S_RSTN_IRDA]     =3D { .ofs =3D 0x310, .bit =3D 6, .write_=
+en =3D 1 },
+> +	[RTD1625_ISO_S_RSTN_UR10]     =3D { .ofs =3D 0x310, .bit =3D 8, .write_=
+en =3D 1 },
+> +};
+> +
+> +static const struct rtd1625_reset_info rtd1625_iso_s_info =3D {
+> +	.descs =3D rtd1625_iso_s_reset_descs,
+> +	.nr_resets =3D ARRAY_SIZE(rtd1625_iso_s_reset_descs),
+> +};
+> +
+> +static int rtd1625_reset_probe(struct auxiliary_device *adev,
+> +			       const struct auxiliary_device_id *id)
+> +{
+> +	const struct rtd1625_reset_info *info;
+> +	struct device *dev =3D &adev->dev;
+> +	struct rtk_reset_data *data;
+> +
+> +	data =3D devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	info =3D (const struct rtd1625_reset_info *)id->driver_data;
+> +
+> +	data->descs           =3D  info->descs;
+
+Superfluous whitespace.         ^
+
+> +	data->regmap          =3D dev_get_platdata(dev);
+> +	data->rcdev.owner     =3D THIS_MODULE;
+> +	data->rcdev.nr_resets =3D info->nr_resets;
+> +	data->rcdev.ops       =3D &rtk_reset_ops;
+> +	data->rcdev.dev       =3D dev;
+> +	data->rcdev.of_node   =3D dev->parent->of_node;
+
+Just use dev->of_node here.
+auxiliary_device_create() already uses device_set_of_node_from_dev() to
+inherit the node from the parent device.
 
 
+Otherwise,
 
-On 7/17/2026 1:55 PM, Konrad Dybcio wrote:
-> On 7/13/26 2:18 PM, Ravi Hothi wrote:
->> Add SoC-level LPASS WSA macro, VA macro, SoundWire controller and LPASS
->> LPI pin controller nodes. DMIC and WSA SoundWire pinctrl states are
->> defined inside the LPASS LPI pin controller node. The hardware is similar
->> to the SM8750 platform.
->>
->> The WSA macro, VA macro and SoundWire controller are kept disabled so
->> board DTS files can selectively enable and configure them.
->>
->> Signed-off-by: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
->> ---
-> 
-> [...]
-> 
->> +			#address-cells = <2>;
->> +			#size-cells = <0>;
->> +			#sound-dai-cells = <1>;
->> +
->> +			status = "disabled";
->> +		};
->>   		lpass_lpiaon_noc: interconnect@7400000 {
-> 
-> Missing \n above
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 
-ACK, Will update in next version.
-
-Thanks,
-Ravi Hothi
-
-> 
-> Konrad
-
+regards
+Philipp
