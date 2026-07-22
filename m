@@ -1,101 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 428A63BE175;
-	Wed, 22 Jul 2026 12:06:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD32337EFF3;
+	Wed, 22 Jul 2026 12:07:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784722000; cv=none; b=FMGZDpgIwKVljWc976kaWKGNDtHcsVagbuaJtDd0ur3Oqk49PHkH6lc0JWtCsw6XEJvN57EfWOeSVn3dmIWEeZHh2o35SU6Dcg9GjiIU1OcypULmZ6GWOKAgz5SPI27M9kx1Nmfo/8iuq6VnPFc2LcHVq5WJBzRE99pHbGhb97M=
+	t=1784722043; cv=none; b=dX2gC5PmMA4LF3aQuZRfQ/Xal9LZHf9bxTW+B9YgSUxAxcQz4jCNuYkLG8QMHOUfF8hdiU5vMJO8zXtYlSjUImHvnh5YNh9mqWNe3+J/CwAYOSYEF1exblHQlUwgvmqGdd/Y0apnCoL3IKObKK3X3y1NkCIfhPb/Vy8OwR3+ZZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784722000; c=relaxed/simple;
-	bh=7xNjyyJHcIIbAta7PdSl/iTJSUHe53qhyhTm8L5BFTs=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pYXc6EIkfPdHHPb4jTv6iOYx99xW1yHde3+2Q2otZyEAi72Y8CQww2lr1JjOrP/J+uUGLW96U92QBUVrW8QgsRGLeuOm0XV7iTRl013dXNJ1t7u2ZOwhKcsOZ+VeR13pXkvidZkmnU+htHgaPGkoLw93oXMpu0NwVC84Hixhr8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AuentVCr; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1784722043; c=relaxed/simple;
+	bh=oKoAmz78JGx6wHxAa5zDyXXmX0hT/pV7TOrb2IzWMtU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jBDClw/soYGnrC0qiISM9KmL1lNXhHaW5OHPPkwhI+m42GOX0p4/Pgd4E+P6MJdxEFGArJuia4xoYmbhZOc22PPWJY2hjUBW2IL0ffvkWnK4/SxN7kuTyB9DWz6C5x3D2lz/fz9Vr+NmYzezWlQeKH6C/NHUid0px6zXvvdjTE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=XR/mvfMp; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AuentVCr"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 93AC5C19425;
-	Wed, 22 Jul 2026 12:06:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784721999;
-	bh=7xNjyyJHcIIbAta7PdSl/iTJSUHe53qhyhTm8L5BFTs=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=AuentVCr/r/SuaHPqtKgzC+DSfosg88U9BwS7Y+bUA7HrZMwtdk5NvbPzigP752Z/
-	 kK6Fd7S3XWv3AE6EjHBl4PW/ij0QbehSj6CWPDf5zv9hDyzVPMXq+9c9P2UMtvkJaS
-	 aFNeVuQPxw3ZguNkJvoTwUOJW9+Wz6wzdUw9d05w38Ney8b5XXef5yHfnYLgVELNuW
-	 LeH/jyN0YmcaivgmMjEahEqhGlxCOeLhYrQrrzOvqDnj+52eQTNAZn4pSOS3lupvQ3
-	 gS1wjgubhMu+Rxed6TL78OubHqGl3FX7/i1sWosKUXiIC67bWlecgXjOc3vDY5riZq
-	 wFLwNd5ehOiNg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 62875C44532;
-	Wed, 22 Jul 2026 12:06:39 +0000 (UTC)
-From: Congcong Yao via B4 Relay <devnull+congcong.yao.mediatek.com@kernel.org>
-Subject: [PATCH RESEND v3 0/2] memory: mtk-smi: add MT8189 SMI support
-Date: Wed, 22 Jul 2026 20:02:42 +0800
-Message-Id: <20260722-8189-smi-support-v3-0-ae00e13deeac@mediatek.com>
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="XR/mvfMp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1784722034;
+	bh=4g4coC2IuMxL3aYFyteOm3c4yfrMMiVwCHmdodsx/Qo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=XR/mvfMpKCG8tmi7pzG43sBGfvGNOaGpo9M2PY/Jcv3U75dFMchC+rlKSmXi6PhSJ
+	 M4KoIjsMDaXmz8Wbj5MWoUX3rViUcKK0RafgyCrZrbqM08GyyPXPdxqxV8x2yFbjzH
+	 VeMQeChy5advnbHSjAg02Zvi/hNdeVql/W/+q3qvf+XP/LkAznuexaIQOitO2b8aju
+	 UvqaF4UWs3JNzF+cJJJ84YuEKo8FkM2f4io65cLQfM3ucx5XvEwdAiB8BFO5lGdvmU
+	 dr6h0bZlff2Ey3/k752UzEXhV3xtnncVUYBSVH5SZN345tkjHRCNE+kleFDK4WKagk
+	 a4qz4RzHMLf+Q==
+Received: from [192.168.68.117] (unknown [180.150.112.11])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id EA69A662E1;
+	Wed, 22 Jul 2026 20:07:13 +0800 (AWST)
+Message-ID: <831a8c9b383d3e765a49fa35e1e36d75504fee1d.camel@codeconstruct.com.au>
+Subject: Re: [PATCH 2/2] ARM: dts: aspeed: sanmiguel: add current-range
+ property for PDB HSC
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Mike Hsieh <mike.quanta.115@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
+	 <joel@jms.id.au>, Patrick Williams <patrick@stwcx.xyz>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, Cosmo Chou
+	 <cosmo.chou@quantatw.com>, Potin Lai <potin.lai@quantatw.com>, Mik Lin
+	 <mik.lin@quantatw.com>, Mike Hsieh <Mike_Hsieh@quantatw.com>
+Date: Wed, 22 Jul 2026 21:37:13 +0930
+In-Reply-To: <20260618-sanmiguel-dts-config-hsc-lm5066i-v1-2-cccf959c9b78@gmail.com>
+References: 
+	<20260618-sanmiguel-dts-config-hsc-lm5066i-v1-0-cccf959c9b78@gmail.com>
+	 <20260618-sanmiguel-dts-config-hsc-lm5066i-v1-2-cccf959c9b78@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGKxYGoC/3WNPQ+CMBRF/4p5szVt/WhxcpDVQUfDAO1DngZK2
- kI0hP8u4Ox4b849d4CAnjDAcTWAx54CuWYK2/UKTJU3D2RkpwySywNXUjItdMJCTSx0bet8ZCi
- lTRQiV6KAadZ6LOm9KO9wTW/p5QzZrw9d8UQTZ99MVhSi85/luxcL//+mF4yzYi91viutVtqca
- rSUR3xtjKshG8fxC6I+Cx7NAAAA
-X-Change-ID: 20260722-8189-smi-support-e22d97ee071b
-To: Yong Wu <yong.wu@mediatek.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- Congcong Yao <congcong.yao@mediatek.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784721998; l=1151;
- i=congcong.yao@mediatek.com; s=20260722; h=from:subject:message-id;
- bh=7xNjyyJHcIIbAta7PdSl/iTJSUHe53qhyhTm8L5BFTs=;
- b=/yVGxiVm7c2FmPvaazWIztBy3My9KyhM7cYO1UDfHIEDmzDJQ/bPMGCZwfwTJ/S/f9GmXlNv5
- EkECw5hf+gHB1gxrvgkg+gD4cJwU26G0jqenaHLd5OT3V1kGXNkXTb9
-X-Developer-Key: i=congcong.yao@mediatek.com; a=ed25519;
- pk=tIrmGxKQQxnfyb48iCCd19063tppPj89U3nupGYAIxg=
-X-Endpoint-Received: by B4 Relay for congcong.yao@mediatek.com/20260722
- with auth_id=889
-X-Original-From: Congcong Yao <congcong.yao@mediatek.com>
-Reply-To: congcong.yao@mediatek.com
 
-Based on tag: next-20260629, linux-next/master
+On Thu, 2026-06-18 at 15:41 +0800, Mike Hsieh wrote:
+> Configure the ti,current-range property for the four TI LM5066i
+> hot-swap controllers on PDB board.
+>=20
+> This defines the hardware current limit operating mode (low/high)
+> for each sensor to match the physical board design.
+>=20
+> Specific configurations:
+> - HSC1 (0x11): low
+> - HSC2 (0x13): high
+> - HSC3 (0x15): high
+> - HSC4 (0x17): low
+>=20
+> Signed-off-by: Mike Hsieh <mike.quanta.115@gmail.com>
+> ---
+> =C2=A0arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts | 4 ++++
+> =C2=A01 file changed, 4 insertions(+)
+>=20
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts b=
+/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts
+> index 3faac0925a79..e518e3fc1c97 100644
+> --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts
+> @@ -451,6 +451,7 @@ pdb_ti_hsc1: power-monitor@11 {
+> =C2=A0		compatible =3D "ti,lm5066i";
+> =C2=A0		reg =3D <0x11>;
+> =C2=A0		shunt-resistor-micro-ohms =3D <1000>;
+> +		ti,current-range =3D "low";
+> =C2=A0	};
+> =C2=A0
+> =C2=A0	pdb_mps_hsc2: power-monitor@12 {
+> @@ -462,6 +463,7 @@ pdb_ti_hsc2: power-monitor@13 {
+> =C2=A0		compatible =3D "ti,lm5066i";
+> =C2=A0		reg =3D <0x13>;
+> =C2=A0		shunt-resistor-micro-ohms =3D <321>;
+> +		ti,current-range =3D "high";
+> =C2=A0	};
+> =C2=A0
+> =C2=A0	pdb_mps_hsc3: power-monitor@14 {
+> @@ -473,6 +475,7 @@ pdb_ti_hsc3: power-monitor@15 {
+> =C2=A0		compatible =3D "ti,lm5066i";
+> =C2=A0		reg =3D <0x15>;
+> =C2=A0		shunt-resistor-micro-ohms =3D <321>;
+> +		ti,current-range =3D "high";
+> =C2=A0	};
+> =C2=A0
+> =C2=A0	pdb_mps_hsc4: power-monitor@16 {
+> @@ -484,6 +487,7 @@ pdb_ti_hsc4: power-monitor@17 {
+> =C2=A0		compatible =3D "ti,lm5066i";
+> =C2=A0		reg =3D <0x17>;
+> =C2=A0		shunt-resistor-micro-ohms =3D <500>;
+> +		ti,current-range =3D "low";
+> =C2=A0	};
+> =C2=A0
+> =C2=A0	pdb_ioexp_20: gpio@20 {
 
-This patchset adds MT8189 SMI support.
+The property isn't inspected by the associated driver, nor is it
+allowed by the binding:
 
-The series updates the MediaTek SMI bindings for MT8189 and adds the
-corresponding SMI common and larb support in the mtk-smi driver.
+   arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dtb: power-monito=
+r@11 (ti,lm5066i): Unevaluated properties are not allowed ('ti,current-rang=
+e' was unexpected)
+           from schema $id: http://devicetree.org/schemas/hwmon/pmbus/ti,lm=
+25066.yaml
+   arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dtb: power-monito=
+r@13 (ti,lm5066i): Unevaluated properties are not allowed ('ti,current-rang=
+e' was unexpected)
+           from schema $id: http://devicetree.org/schemas/hwmon/pmbus/ti,lm=
+25066.yaml
+   arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dtb: power-monito=
+r@15 (ti,lm5066i): Unevaluated properties are not allowed ('ti,current-rang=
+e' was unexpected)
+           from schema $id: http://devicetree.org/schemas/hwmon/pmbus/ti,lm=
+25066.yaml
+   arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dtb: power-monito=
+r@17 (ti,lm5066i): Unevaluated properties are not allowed ('ti,current-rang=
+e' was unexpected)
+           from schema $id: http://devicetree.org/schemas/hwmon/pmbus/ti,lm=
+25066.yaml
 
-This is a resend of v3 because the previous submission was sent with the
-wrong version number. No code changes.
-
-Changes in v3:
-- Change the minimum clock number of smi-sub-common to 3.
-- Link to v2:
-  https://lore.kernel.org/linux-mediatek/20260427070444.20247-1-zhengnan.chen@mediatek.com/
-
-Signed-off-by: Congcong Yao <congcong.yao@mediatek.com>
----
-Congcong Yao (2):
-      memory: mtk-smi: Add mt8189 support
-      dt-bindings: memory-controllers: mtk-smi: Add support for mt8189
-
- .../memory-controllers/mediatek,smi-common.yaml    | 18 +++++++++
- .../memory-controllers/mediatek,smi-larb.yaml      |  3 ++
- drivers/memory/mtk-smi.c                           | 44 ++++++++++++++++++++++
- 3 files changed, 65 insertions(+)
----
-base-commit: 290aaf24a551d5a0dce037e3fab30820f9113a10
-change-id: 20260722-8189-smi-support-e22d97ee071b
-
-Best regards,
---  
-Congcong Yao <congcong.yao@mediatek.com>
-
-
+Andrew
