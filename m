@@ -1,213 +1,190 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB91234CFC3
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 13:59:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6143546E0
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 14:01:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784728781; cv=none; b=cdBRzWBZOcVwFDmVxGlHE0Oepor4uUDhVJqk1QcgQYm/Ggjy+1CcGKc4LuGtqRHllSEfrYtjfTPzXkYOJe++yZPVsUEmkJC0VlsKF4NeVnZkQdBIPB3bJkgEZCiuCie8sb5zICed6jBek2mZuJsY4dsbcIOFnXex0jgV4sYYfio=
+	t=1784728919; cv=none; b=pT0VifEIAx+vvm85XET29/R7SBq9jrkVi7nb568eTQvDXXnxHccjiJDbC6JAPtXcyYoCElCmlcQAJiRJ724Kt7BoC7r2J8lcDgt7HAGf7eQjF++hvWGvI6C/Cq4QCGOFa8oavRcKIfykl8fuI5f0iLF67B2MofuCYO1LSLKTayY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784728781; c=relaxed/simple;
-	bh=X3XZ4W4x8YcQNk01qDYADfM5x3IioTEjoaErDOYaqm8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pOa46tySgJ9KWS4FtQIu8Mk/3AFWgpJpaplJqijOAlBnHSkB19RtCKHFW7KXD52rTl4ts0/L/RtiNmUxvn6Sht3HJ75b+rLpdBP7Lha8F73gUYfaYZZ9qZxcoBE0mLUBDKukXNFW1it7xHtnnKqsXhSUsDnF10bclxw9ycV8Rgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bSQYV4pc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cOTibIuK; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784728919; c=relaxed/simple;
+	bh=euWAh0ytWsiTLa9LjeWm7LGxAn7zLvto7OTIw+M1eHo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=cRmDv9V7GMoytiFGk45M8cpek+KMgKyOtwtC3gi/IRsd7tx5SRUc3+VjN8wnBhk556im+6s9bP+5sheSwxNYH1p0C0BACPVyk7cXM/W9ZeQOYgMUlwlJaI0idyuejG3ejgyX4Gepu4OatKMain8wvBONjC8sEEun/OzcSGs1px8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AeAobieH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bSQYV4pc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cOTibIuK"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66MDWlQ4860783
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 13:59:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	k2Mn5WJa93KoG2qDGfSidg+jkhRfYzxNXyR+6PbWzyA=; b=bSQYV4pcZXO/bBxv
-	QnzIaoJGulQDljE5fZ19wqDcZyRznMd2yYDX34ruX6MQ7p+GtcPdWGef2GUrjhxj
-	98ac9FAI7JA8J5l+jGcafbvhgSi6rtvdI+8wrzFx4f8ZIE1w2WsvJJ2BUwWpN3t4
-	CT4Aob3wFutCmf0BJcAe/725wfTGng13agY7b/BW1g53ZuVqWHsfgQMffguBJ4vy
-	lAsEkC91Dsm8vtTmocHLnKXnE0mz4unzuNPy2sQ5aJOsn6xhvEVgkxOqtmUIzq2g
-	CK5jcg8BumecP96ROcAFhaeLNvfIQhkxoVnSmsZxFS17MCxqQrGhJ6+v4RMpbv/p
-	KQWEqg==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjntn2fh4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 13:59:37 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-8f1e4e0eac1so230852486d6.1
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 06:59:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784728776; x=1785333576; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=k2Mn5WJa93KoG2qDGfSidg+jkhRfYzxNXyR+6PbWzyA=;
-        b=cOTibIuKjzJvtak5/3d2amCT/WqbVeCa+JeyHGNnBzF6m6Ya6lDe7m0Il4RYkjaUNT
-         wv3vQKgfiS6NDWtf+8NlCGK22YIv6JygsCNbQFHDylhWGecMQWDJ3ifDjuEq9nddQiZE
-         zBWGcliUh2+veYqNFcZPeGGZjeojr2ImDF11ulrCW868UOB92nZPjIevxpBUPFdd1aq9
-         1tymavl6P+foy+xlO410fqlSYDUgQeGJLrZmBpS+HI0COFf0pQO4sMEWlkC4WRHiClkY
-         3K0VuEFmPHxuNgigKGaxo61HdSzkEjmNiBL6JDxs9L53KyELUrkBbyxVQdO1W4UdwBj3
-         8w3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784728776; x=1785333576;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=k2Mn5WJa93KoG2qDGfSidg+jkhRfYzxNXyR+6PbWzyA=;
-        b=XLEUu+QZjES0hEpspsxnEdQdXYx5VuGhmcGs/sUOe6c/TrkFQiJw73QPXvfM2GXyvL
-         QDGt936bZ+C8wP+HJcvYC2jk5rfmxddtwfUrHDYaTGM5t9oRyMcG/2bW+SXlc/UH4CJJ
-         wuVR8BbZT3lELTAgDzPEPvEKIxxtqnE9+FpMuxK8YcCkUw10VPG5rBW3law4VupU+IaH
-         F7engjDZhmxGd/vUoN6KUFC5guT4yMPnrRxlwwPnKwxxwvLDEidGEp00SViRi9o/E24y
-         K+gJhDzd5pdcAkyjzTHhlaW5l/BjaZUoDV6vhiyJRSPINfFY2NSiLqba7NDkUAZkwHhw
-         atDA==
-X-Forwarded-Encrypted: i=1; AHgh+RpGDLDhhSnDMRkXAJnxtZBrI1oE0yCz0SjtWEEd4dlxhqdADdgw8/JKDg4u/lDJ8r4sIXGGm0kiKINN@vger.kernel.org
-X-Gm-Message-State: AOJu0YzIvRdwWxvHOM4dOtLGAERrHTWwVW1ZcsIxXpvc2Lt1Dm3KeM1F
-	N4XSFAveX0JqmGxjpNIPUDPFJRx6Jtcetl2/My0NbrFCr/M5DTppWKjA/GbG5P40QOolrU6VwWB
-	eb5gwHBykolxUd46uhRTko5ttjPXrfssex+R5MEPPieSVgDtahb42rDSXQ08RGLF2
-X-Gm-Gg: AR+sD10yBrqhqyGg+EJTQOpzyYHz9OGIZclTizRVYvXYeKwuGzCSYeBZGAKmaYy3sm0
-	JcanCpAQgmJQxwF5xCe+GA396jn+pZ4/WFQRL3keV1GgQm+wMK24OULYQz1etVMU9YyH+dhTu+5
-	OYT+TbBh3n2Kb9V31VJiYYIoJSRDxoUwAxPG1NYheU1/0upmtmWT6P/eTucHCD1PkencfA7AeDj
-	OHlRbqo1FHNw2AgC4gKJ/ne+AZi+67m8SELSkLvqj5uXDG+DOLXhfh7AHrQffaYQ5v/aLwYIxm2
-	dDMlqlfM2yvAimKrue0I9xIzON3WDbDDkVyKoerzOAjYDYx8VN7JwkYny1XvOEiDucMn42MUUxu
-	wzM+N3LfmyMCF8KiahjxnbUjrwwf+Y2xMBiMFghg9cJKsJG/ExR3v7cd/4jxl3Cmxu1xACSK8bt
-	l9iyZRqnkBGA71aA==
-X-Received: by 2002:a05:622a:1f85:b0:51b:f549:c706 with SMTP id d75a77b69052e-5213c0081f1mr245231401cf.16.1784728776317;
-        Wed, 22 Jul 2026 06:59:36 -0700 (PDT)
-X-Received: by 2002:a05:622a:1f85:b0:51b:f549:c706 with SMTP id d75a77b69052e-5213c0081f1mr245230941cf.16.1784728775819;
-        Wed, 22 Jul 2026 06:59:35 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2a9b9a7f6sm499957e87.18.2026.07.22.06.59.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 06:59:34 -0700 (PDT)
-Date: Wed, 22 Jul 2026 16:59:32 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        jishnu.prakash@oss.qualcomm.com,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: soc: qcom: pmic-glink: Document
- batteryless property
-Message-ID: <gnmx5m5dt5676oox5cypzg26vbwtmzhzkh4bhyq6z27kwi2bf3@z24ov6esgtx4>
-References: <20260519-first-wine-bulldog-a6a4c7@quoll>
- <20260521071341.q4efqssppvettaey@hu-kamalw-hyd.qualcomm.com>
- <86f76a81-832d-4ba5-81d5-38b46b7dc0a7@kernel.org>
- <6c595a5f-b979-4e8b-ae77-d28d24700588@oss.qualcomm.com>
- <e07085c5-0fe8-4ea7-8e51-ebe104e7aa2d@kernel.org>
- <82019c2e-6b6e-4edd-91b3-a28ef6eb09eb@oss.qualcomm.com>
- <20260525120139.dyfnm6nwfzuoxd7p@hu-kotarake-hyd.qualcomm.com>
- <20260702113010.zjrk4kr7fpjp6asj@hu-kotarake-hyd.qualcomm.com>
- <dqe3ntmtmjqixp2l5n7qm6zpcwh4sizr7jd5g3cl3tzpvl6tvo@casnjg3orldd>
- <allz1-dD9V_Ck8LK@baldur>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AeAobieH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 619571F000E9;
+	Wed, 22 Jul 2026 14:01:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784728917;
+	bh=T/Ebh9n6wMSSNQHytfNWJWj3bMOROvGvIor+jJYvW7c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=AeAobieHgNyYEBEVp/iwGkhsbR/S7zQqeqxLQ12chiycacPlN8oCPhovfBxH4aVgR
+	 LB5xYjISrWjQIAyis1FCPKts4B1qzVmtTLCI75ztZRUqmuF8JTDhV4DOEljeaWcxDc
+	 P+m+t2qEwkl23wC3ipO+NrUOshCuDPrOoZ8lg4Uo8/dggZkYFDMMxAZ9zHDZLYpq0a
+	 VH2pPGU5Run3nvI9eFyOUSNJtUi6EpQk+DX7pFCRlALd6wY1UwDI8PT2NWsFJ7Ejrg
+	 0NFjwB0jeRV2AwLVL3mvs5QqjP4JV8sU86zRF3ZlpJpo534qN692gtiX28d6KXn7/X
+	 i0H1lKdobvQLw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] phy: qcom: qmp-usb: Add support for SA8255P
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mattijs Korpershoek" <mkorpershoek@kernel.org>
+Cc: conor+dt@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, robh@kernel.org, vkoul@kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org
+In-Reply-To: <20260722-phy-qcom-qmp-usb-8255-v3-2-e789070b48f7@kernel.org>
+References: <20260722-phy-qcom-qmp-usb-8255-v3-0-e789070b48f7@kernel.org>
+ <20260722-phy-qcom-qmp-usb-8255-v3-2-e789070b48f7@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 14:01:56 +0000
+Message-Id: <20260722140157.619571F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <allz1-dD9V_Ck8LK@baldur>
-X-Authority-Analysis: v=2.4 cv=AJsSZ1gA c=1 sm=1 tr=0 ts=6a60ccc9 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=V-RYIpRGXYYGgrflbjwA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-GUID: p0nE-GIyqqMPyJ4KD4KtGhWYgHMBRXad
-X-Proofpoint-ORIG-GUID: p0nE-GIyqqMPyJ4KD4KtGhWYgHMBRXad
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDEzNyBTYWx0ZWRfXw/UUdBfLVWXg
- Nwcjwyrfxc+DDX1NGxfzXxXo0qdsuKi8mao6+IEIPgVbCJGQfJCkicZdUbWqx+gkgOHkKP/tDrb
- Tkx5iYb4jXv+3czlIUJGrw1L/xCB6S0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDEzNyBTYWx0ZWRfX/2+/R+jwFYid
- EMzoo0g+xST47VikgsqUpEH8ZESfOWqKQxlf3RipYVPG20S2G8D2r103vP05WDkUQO9xwWIiPvy
- IYidl0cS32I8+wFRM/t/cJLam0GqivSj4J4Cz780aNhSfUHUkMTW3yQ4iaS7bPHzeTZ+EH+7tZG
- +X9AvMuqOl44sdgva0zIQlSpCLSZO4CM2+De0IvXz7j+GnEr9Y4jvDNFgCYw9/xiAb61mKYzPDW
- gHLHG3xv2REswn3/5nuUoTEHINLR9W/3J/ffF7einbsWxuOv/jHBO++PCfGAAAEx0L/VFyfogJt
- FiBRn2SrA6Fuprtyk80vP2NYtZmzPPih90lGAIL1tsYuLg/5szsdFT4HOooTXvznVo5p6rElXCm
- EgtzvomMYZ5gqEMsfvmVJSUkct/hh2z7xH/bR9ynY0Zp3LUz/Z3hSXgAh/o7sS/BMJHqxpqaMms
- 4reMg8f5g0KNR/hN2lQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-22_04,2026-07-22_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
- bulkscore=0 adultscore=0 priorityscore=1501 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220137
 
-On Thu, Jul 16, 2026 at 07:14:37PM -0500, Bjorn Andersson wrote:
-> On Thu, Jul 02, 2026 at 02:49:37PM +0300, Dmitry Baryshkov wrote:
-> > On Thu, Jul 02, 2026 at 05:00:10PM +0530, Rakesh Kota wrote:
-> > > On Mon, May 25, 2026 at 05:31:39PM +0530, Rakesh Kota wrote:
-> > > > On Fri, May 22, 2026 at 11:24:19AM +0200, Konrad Dybcio wrote:
-> > > > > On 5/21/26 11:58 AM, Krzysztof Kozlowski wrote:
-> > > > > > On 21/05/2026 10:46, Konrad Dybcio wrote:
-> > > > > >> On 5/21/26 9:20 AM, Krzysztof Kozlowski wrote:
-> > > > > >>>> Since firmware does not have a way to dynamically tell if it on a
-> > > > > >>>> debug-board powered device or a DCIN powered device, We are required to
-> > > > > >>>> add this new DT property.
-> > > > > >>>
-> > > > > >>> Neither debug-board powered device nor battery-less will have
-> > > > > >>> monitored-battery, thus again, why lack of that property cannot tell you
-> > > > > >>> what you need?
-> > > > > >>
-> > > > > >> A device with a battery will not have a monitored-battery either
-> > > > > > But why? If for such device property "no battery" is suitable, then for
-> > > > > > me "monitored-battery" is suitable as well. IOW, if you say that having
-> > > > > > a property describing batter is not a accurate hardware property here,
-> > > > > > then neither saying "no battery" is, because no batter is basically some
-> > > > > > sort of battery (just like empty set is still a set, empty array is
-> > > > > > still an array).
-> > > > > 
-> > > > > The battmgr service running on one of the remoteprocs already has all
-> > > > > the information about the battery and it also handles all the type-c,
-> > > > > PD and charger configuration, only letting the OS know about the
-> > > > > results.
-> > > > > 
-> > > > > Hence, unless there's some other hardware at play (e.g. for custom
-> > > > > 200 W charging), which wasn't fully implemented in the QC firmware,
-> > > > > there is no reason to describe a battery separately, since the OS
-> > > > > can't do anything useful with that information
-> > > > > 
-> > > > > In some abstract way, perhaps monitored_battery = <&pmic_glink> could
-> > > > > be thought of as valid (since that's the data source the OS gets to
-> > > > > see)
-> > > > 
-> > > > Should we use monitored-battery = <&pmic_glink>; If so, would it be
-> > > > incorrect to mark pmic_glink as simple-battery, as that may cause the
-> > > > schema validation to fail?
-> > > 
-> > > Hi @Konrad Dybcio, @Krzysztof Kozlowski , 
-> > > 
-> > > Following up on the earlier discussion — is monitored-battery =
-> > > <&pmic_glink>; a valid pattern? And if so, would marking pmic_glink as
-> > > simple-battery cause DT schema validation failures?
-> > 
-> > I'd say, no, monitored-battery should be pointing to the battery device.
-> > Please fix this on the firmware side, so that the firmware can report
-> > having no battery at all.
-> > 
-> 
-> This won't be fixed in the firmware on my devices.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Why?
+New issues:
+- [High] Incorrect power domain sequencing in `d3_to_d0` and `d0_to_d3` tra=
+nsitions, violating hardware constraints.
 
-> 
-> Regards,
-> Bjorn
-> 
-> > -- 
-> > With best wishes
-> > Dmitry
+Pre-existing issues:
+- [High] Unbalanced clock prepare/enable and disable/unprepare, leading to =
+`pipe_clk` enable count leak.
+--
 
--- 
-With best wishes
-Dmitry
+--- Patch [2]: [PATCH v3 2/2] phy: qcom: qmp-usb: Add support for SA8255P -=
+--
+commit 2b06432a4f84c161e8379370587f792f91bca968
+Author: Sriram Dash <quic_sriramd@quicinc.com>
+Subject: phy: qcom: qmp-usb: Add support for SA8255P
+
+The Qualcomm automotive SA8255p SoC relies on firmware to configure
+platform resources, including clocks, interconnects and TLMM.
+This commit adds support for the SA8255p SoC in the QMP USB driver by
+using SCMI power protocols to manage platform resources via runtime PM
+framework APIs. Two sets of resources are modeled as "core" and "transfer"
+power domain suppliers.
+
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usb.c b/drivers/phy/qualco=
+mm/phy-qcom-qmp-usb.c
+> index c5507168e1354..881f4ce23241e 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
+[ ... ]
+> @@ -1865,6 +1890,77 @@ static const struct qmp_phy_cfg glymur_usb3_uniphy=
+_cfg =3D {
+>  	.regs			=3D qmp_v7_usb3phy_regs_layout,
+>  };
+> =20
+> +static int qmp_usb_domain_attach(struct qmp_usb *qmp)
+> +{
+> +	struct dev_pm_domain_attach_data pd_data =3D {
+> +		.pd_flags       =3D PD_FLAG_NO_DEV_LINK,
+> +		.pd_names       =3D (const char *[]) { "transfer", "core" },
+> +		.num_pd_names   =3D 2,
+> +	};
+[ ... ]
+> +/* d3_to_d0 transition by turning on all the suppliers */
+> +static int qmp_usb_d3_to_d0(struct qmp_usb *qmp)
+> +{
+> +	int ret;
+> +
+> +	if (!qmp->pd_list)
+> +		return 0;
+> +
+> +	ret =3D pm_runtime_resume_and_get(qmp->pd_list->pd_devs[0]);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D pm_runtime_resume_and_get(qmp->pd_list->pd_devs[1]);
+
+[Severity: High]
+Does resuming the 'transfer' domain before the 'core' domain cause hardware
+bus hangs?
+
+The commit message states that the "core" domain controls the GDSC (power),
+while the "transfer" domain controls clocks. It appears this sequence turns
+on the clocks before enabling power to the logic.
+
+> +	if (ret)
+> +		pm_runtime_put_sync(qmp->pd_list->pd_devs[0]);
+> +
+> +	return ret;
+> +}
+> +
+> +/* d0_to_d3 transition by turning off all the suppliers */
+> +static void qmp_usb_d0_to_d3(struct qmp_usb *qmp)
+> +{
+> +	if (!qmp->pd_list)
+> +		return;
+> +
+> +	pm_runtime_put_sync(qmp->pd_list->pd_devs[1]);
+> +	pm_runtime_put_sync(qmp->pd_list->pd_devs[0]);
+
+[Severity: High]
+Similarly, does suspending the 'core' domain before the 'transfer' domain
+cause issues?
+
+This sequence disables the GDSC (power) before disabling the clocks, which
+might also violate hardware constraints and lead to timeouts or freezes.
+
+> +}
+[ ... ]
+> @@ -2126,14 +2234,23 @@ static int __maybe_unused qmp_usb_runtime_resume(=
+struct device *dev)
+>  		return 0;
+>  	}
+
+[Severity: High]
+This is a pre-existing issue, but does this early bailout lead to a pipe_clk
+enable count leak?
+
+The code right above this addition in qmp_usb_runtime_resume() is:
+
+	if (!qmp->phy->init_count) {
+		dev_vdbg(dev, "PHY not initialized, bailing out\n");
+		return 0;
+	}
+
+During the standard PHY lifecycle, this check appears to cause an unbalanced
+clock prepare/enable and disable/unprepare state:
+
+1. phy_init() starts with init_count =3D=3D 0, so qmp_usb_runtime_resume() =
+skips
+   enabling clocks.
+2. After phy_init() completes, init_count is 1, so phy_pm_runtime_put() cau=
+ses
+   qmp_usb_runtime_suspend() to disable pipe_clk, triggering a clock framew=
+ork
+   underflow warning since it was never enabled.
+3. Conversely, during phy_exit(), init_count is 1, so qmp_usb_runtime_resum=
+e()
+   enables pipe_clk. Then qmp_usb_exit() decrements init_count to 0.
+4. Finally, phy_pm_runtime_put() triggers qmp_usb_runtime_suspend() (which
+   has a similar bailout check), leaving pipe_clk permanently enabled and
+   preventing the system from hitting deep sleep states.
+
+Can this state tracking be fixed to ensure the clocks are properly matched
+during suspend and resume?
+
+> =20
+> +	ret =3D qmp_usb_d1_to_d0(qmp);
+> +	if (ret < 0) {
+> +		dev_err(qmp->dev, "Failed to transition to d0 state\n");
+> +		return ret;
+> +	}
+> +
+>  	ret =3D clk_bulk_prepare_enable(qmp->num_clks, qmp->clks);
+> -	if (ret)
+> +	if (ret) {
+> +		qmp_usb_d0_to_d1(qmp);
+>  		return ret;
+> +	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-phy-qcom-q=
+mp-usb-8255-v3-0-e789070b48f7@kernel.org?part=3D2
