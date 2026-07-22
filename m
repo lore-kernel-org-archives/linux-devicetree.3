@@ -1,129 +1,234 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 757D237A487;
-	Wed, 22 Jul 2026 01:53:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765402D3739
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 01:54:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784685198; cv=none; b=d+1Flb34n3fFGJyRxZ9TLMUwjIi0aUdQav9OXN+f+30ZYRG0XQ+OGQJpVg/KYqGc2FenOLxrhEHV2fRv3VTueTa/EHup9AqQs9fZ0eBeVDkcXZPMq18TaSY8dgBp6yMUciXutQKGi5gkYnlSdnFIkhxNTt8gGYdxd2MIYiXpBus=
+	t=1784685248; cv=none; b=trCA3NCHQVX7/6H9jftFqB7p4b94vYML8wJI/UpW1l3A70s44qYPQgolPKWjvsChSEOVP3Vbuelmswfoc4vZmJ3IlDC7UG+UfTQc9XwXPVAhagqlKl9y02EX5pyID0ZmJoompovyWb7pFtKoYvZLNNZqEYXMNuDIvC26LxC0l2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784685198; c=relaxed/simple;
-	bh=FOZtZP26GFYE40ybFPpqCUknUfglcPtidCHhxiY6My0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KZecRiFZ1T9cDCh7LUhx6/8b+m4RIApcHa0RN+PeP3P6qh+PumOo1pCUIrRYfGngQMQqpm5CvG9jvuZA/RVR8fZgngZVvmOY/cyYl/EMAB6CXQAb7b8uw70Evogjrdjr0waZPBbkkoT8HuMT7EHVuA4JMScLUitI9S4ThuXm75Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BcIz6ojo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784685248; c=relaxed/simple;
+	bh=mEJUBokExlgaW/i1u8SYRYTnEB43dYbMdoSHg3ZfZDo=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=oKJirfHtOpfxxhNwylNQMe5QQLWIVK7PAoOGAXrDg2xq3qlUP8sovXDUEBNTwf/QjByZUJmOAXOgEHeVGh+UYrrJETk+zLNMOHysCXTvwo4hj+MZ+7GGc14FBxmaFw8m/91aGm0Z3TDNfpHS2hbN0JeoGGCF4PugG26YPiUh04k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=fu/lsnz3; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BcIz6ojo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4DA41F000E9;
-	Wed, 22 Jul 2026 01:53:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784685197;
-	bh=EyvCeadiCpecAtmf/jVCC4DvpHXg9v3w99/kgsifdeI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BcIz6ojoMmb0icp91ZJi00hmO2765M0BGAU2ZwJ+ZUBH1BDegspyILtSjFgtPVsqL
-	 TSJ6nrHLAScbSf/q74xqC/ZdUpn5AEwa3fRYTlFlHIvgrw0TXz5N0gaAA63U7uNYF6
-	 5+1dQyk7NrFuMzL7q4F/vypzpNwDn5JWfmN12w1HJMWo2hVyyAnc1Syf5M0dVYDeQo
-	 GDL4H2iE9gnGwJvNCt9QnvxvjYiNnjk23+uHky2THdbfaLgrud6W/GNRWUCZAhVdXo
-	 8jj+9leb1HQ7JCBaBkfGnjrIJ2XRbmgELT3Tgkrjqur7yqYv77mJIl7/XyZa84hSgQ
-	 Xxuwhp468EMOQ==
-Message-ID: <cc9b087c-b985-416c-999a-a08f2abbf202@kernel.org>
-Date: Wed, 22 Jul 2026 02:53:10 +0100
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="fu/lsnz3"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:25d4:fa24:78d1:31:7a56])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0540B838;
+	Wed, 22 Jul 2026 03:53:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784685184;
+	bh=mEJUBokExlgaW/i1u8SYRYTnEB43dYbMdoSHg3ZfZDo=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=fu/lsnz398jck+u2kcz6rOTVYF+ZXOD/lcK74GMY/sgBspqETZkQDQZ/R+FS3p9Zn
+	 ZJSYNtjx6ySw2NokyyGUEBfB8ivjDryzRLUIo7rUWv5oWn32YUoYlKC87447v6Kmwf
+	 4M9Fy4tXFvCrW6CXkflZoiE85cAJy5IOZnd78M6E=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
- schema
-To: Frank Li <Frank.li@oss.nxp.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260720-x1e-csi2-phy-v13-0-160c31958863@linaro.org>
- <20260720-x1e-csi2-phy-v13-1-160c31958863@linaro.org>
- <al_BEUNJOrqVPQWw@lizhi-Precision-Tower-5810>
- <b974f1be-b802-40a3-a54c-f7e3c8fbbece@linaro.org>
- <HY6xNkbpncBHZ0I4_BzIf-Oe8GwsSScaF3-vJPweR5popvMlyVRnqHkJJehMdb26OR-kQJ-c3tPqh07qcNYEDQ==@protonmail.internalid>
- <amAaKalbD749uZuK@SMW015318>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <amAaKalbD749uZuK@SMW015318>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <al_Ptq4ICRLhsXb_@zed>
+References: <20260721-mira220-v5-0-533b0ad1065e@ideasonboard.com> <20260721-mira220-v5-2-533b0ad1065e@ideasonboard.com> <20260721143615.68F5B1F000E9@smtp.kernel.org> <al-VH7diL1arQLU6@zed> <178465132119.3005206.14389356633093852393@freya> <al_Ptq4ICRLhsXb_@zed>
+Subject: Re: [PATCH v5 2/2] media: i2c: Add driver for AMSOSRMA Mira220
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, Philippe Baetens <philippebaetens@gmail.com>, kieran bingham <kieran.bingham@ideasonboard.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Date: Wed, 22 Jul 2026 07:23:58 +0530
+Message-ID: <178468523820.3005206.17982631531563747321@freya>
+User-Agent: alot/0.13.dev35+g4a69c46ca
 
-On 22/07/2026 02:17, Frank Li wrote:
->> Such design has a number of flaws and in general it looks overly
->> complicated. From the beginning it's unclear how to distinguish
->> a clock lane from a data lane, how to specify lane frequencies etc.
-> Thanks, but phy-cell support more than one argument. like
-> 
-> 	<&phy 0 mode_cphy link_freq>
-> 
-> I ask these because simiar other phys may connect to display panel, some
-> phys combine csi and dsi together.
+Quoting Jacopo Mondi (2026-07-22 01:33:07)
+> Hi Jai
+>=20
+> On Tue, Jul 21, 2026 at 09:58:41PM +0530, Jai Luthra wrote:
+> > Hi Jacopo,
+> >
+> > Quoting Jacopo Mondi (2026-07-21 21:37:59)
+> > > Hi Sashiko
+> > >
+> > > On Tue, Jul 21, 2026 at 02:36:14PM +0000, sashiko-bot@kernel.org wrot=
+e:
+> > > > Thank you for your contribution! Sashiko AI review found 11 potenti=
+al issue(s) to consider:
+> > > > - [High] Dereferencing `mira220->vblank` without checking for NULL =
+in `mira220_init_controls()`.
+> > > > - [High] Missing `v4l2_subdev_cleanup()` in the driver's remove fun=
+ction causes an active state memory leak.
+> > > > - [Medium] The uninitialized stack variable `id` is evaluated and l=
+ogged without checking if the I2C read succeeded.
+> > > > - [Medium] The active state format code is not updated when `V4L2_C=
+ID_HFLIP` or `V4L2_CID_VFLIP` are modified.
+> > > > - [Medium] Exposure control maximum limit exceeds the 16-bit hardwa=
+re register width, leading to silent truncation.
+> > > > - [Medium] Hardware exposure register is not updated when `V4L2_CID=
+_EXPOSURE` is clamped due to a `V4L2_CID_VBLANK` change.
+> > > > - [Medium] `mira220_power_on()` discards the actual error code when=
+ `clk_prepare_enable()` fails.
+> > > > - [Medium] Missing runtime PM reference hold during probe exposes t=
+he device to concurrent suspend.
+> > > > - [Medium] The error path in probe unconditionally powers off the d=
+evice without checking its runtime PM state.
+> > > > - [Medium] V4L2_CID_HBLANK reports an incorrect static value when u=
+sing a 1-lane MIPI CSI-2 configuration, breaking user-space framerate and e=
+xposure calculations.
+> > > > - [Low] Typo in user-facing control menu item: 'Vertial Gradient' i=
+nstead of 'Vertical Gradient'.
+> > > > --
+> >
+> > [...]
+> >
+> > > > @@ -1936,6 +1936,6 @@ static int mira220_probe(struct i2c_client *c=
+lient)
+> > > > [ ... ]
+> > > > > +   /* Enable runtime PM and turn off the device */
+> > > > > +   pm_runtime_set_autosuspend_delay(dev, 1000);
+> > > > > +   pm_runtime_use_autosuspend(dev);
+> > > > > +   pm_runtime_set_active(dev);
+> > > > > +   pm_runtime_enable(dev);
+> > > > > +
+> > > > > +   ret =3D mira220_identify_module(mira220);
+> > > >
+> > > > [Severity: Medium]
+> > > > Is it possible for the device to be concurrently suspended while pr=
+obe
+> > > > continues?
+> > > >
+> > > > The device is marked active with a usage count of 0 after pm_runtim=
+e_enable().
+> > > > If the PM subsystem or userspace triggers a suspend (e.g. by setting
+> > > > autosuspend_delay_ms=3D0), the device could be powered down while p=
+robe executes
+> > > > mira220_identify_module().
+> > > >
+> > > > This could lead to I2C timeouts or bus crashes. Taking a pm_runtime=
+ reference
+> > > > hold could prevent this.
+> > > >
+> > >
+> > > By calling pm_runtime_get_noresume() (as the device is powered up
+> > > already) ?
+> > >
+> > >
+> > > > @@ -1985,5 +1985,5 @@ static int mira220_probe(struct i2c_client *c=
+lient)
+> > > > [ ... ]
+> > > > > +error_power_off:
+> > > > > +   pm_runtime_disable(dev);
+> > > > > +   mira220_power_off(dev);
+> > > > > +   pm_runtime_set_suspended(dev);
+> > > > > +   return ret;
+> > > > > +}
+> > > >
+> > > > [Severity: Medium]
+> > > > Should this error path check the runtime PM state before unconditio=
+nally
+> > > > powering off the device?
+> > > >
+> > > > The PM core might have already suspended the device due to the zero=
+ usage count.
+> > > >
+> > > > Calling mira220_power_off() unconditionally could redundantly disab=
+le clocks
+> > > > and regulators that are already disabled, potentially causing doubl=
+e-disable
+> > > > warnings.
+> > > >
+> > >
+> > > Only in the case some suspend went on during probe. Even if unlikely,
+> > > guarding the call with
+> > >
+> > >         if (!pm_runtime_status_suspended(&client->dev))
+> > >                 mira220_power_off(&client->dev);
+> > >
+> > > costs nothing
+> > >
+> >
+> > For the above two issues it would be simpler to move the autosuspend ju=
+st
+> > before you return from probe:
+> >
+> >     pm_runtime_set_active(dev)
+> >     pm_runtime_enable(dev)
+> >
+> >     ... rest of probe ..
+> >
+> >     pm_runtime_idle(dev)
+> >     pm_runtime_set_autosuspend_delay(dev, 1000);
+> >     pm_runtime_use_autosuspend(dev);
+> >
+> >     return 0;
+> >
+> > I saw this pattern in imx219/imx708 (sashiko was happy with this part in
+> >                                      the imx708 series I posted last we=
+ek)
+> >
+>=20
+> This is a good suggestion.
+>=20
+> To be honest the comment
+>=20
+> -------------------------------------------------------------------------=
+-------
+> @ -1936,6 +1936,6 @@ static int mira220_probe(struct i2c_client *client)
+> [ ... ]
+> > +     /* Enable runtime PM and turn off the device */
+> > +     pm_runtime_set_autosuspend_delay(dev, 1000);
+> > +     pm_runtime_use_autosuspend(dev);
+> > +     pm_runtime_set_active(dev);
+> > +     pm_runtime_enable(dev);
+> > +
+> > +     ret =3D mira220_identify_module(mira220);
+>=20
+> [Severity: Medium]
+> Is it possible for the device to be concurrently suspended while probe
+> continues?
+>=20
+> The device is marked active with a usage count of 0 after pm_runtime_enab=
+le().
+> If the PM subsystem or userspace triggers a suspend (e.g. by setting
+> autosuspend_delay_ms=3D0), the device could be powered down while probe e=
+xecutes
+> mira220_identify_module().
+> -------------------------------------------------------------------------=
+-------
+>=20
+> Does mention "userspace triggering a suspend" (a system suspend?)
+> which seem to imply might happen concurrently to the driver probing
+> even if the device doesn't use autosuspend..
+>=20
 
-For a combined CSI/DSI PHY that's a good model, and it re-establishes
-the principle that the consumer chooses the mode.
+Hmm I wouldn't rely on Sashiko's understanding of PM framework, it has been
+wrong about it before [1] because it tries too hard to be adversarial.
 
-For our simpler camera-only case the cell has less work to do. The
-series carries #phy-cells = 1 per Rob's feedback and an RB from Krzysztof.
+The example it used was setting autosuspend_delay_ms=3D0, would be good to
+check if that is even possible with your current driver. In general if any
+random sysfs write or system suspend can mess with the probe, I would
+likely file it as a bug in the driver core or PM framework, who should
+ideally prevent that.
 
-That's reviewed, tested and mergeable.
+> I feel like I should take your suggestion in and ignore the case of
+> system-suspend-while-probing ?
+>=20
 
-The one alternative under discussion with Vinod is bus-type in the CSID 
-controller's endpoint with the mode conveyed via phy_configure(). Either 
-way the consumer decides.
+Yes, that pattern feels cleaner overall, even if Sashiko is wrong. If it's
+easier to reason about for a bot, it's probably easier to read for humans
+too.
 
----
-bod
+>=20
+> > Thanks,
+> >     Jai
+
+[1]: https://lore.kernel.org/all/20260520160638.7F2BA1F000E9@smtp.kernel.or=
+g/
+    and https://lore.kernel.org/all/178080367434.9570.8101421417305606672@f=
+reya/
+
+Thanks,
+    Jai
