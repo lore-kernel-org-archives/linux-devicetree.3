@@ -1,128 +1,139 @@
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AC5C3F54A7
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 16:57:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ECAC405862;
+	Wed, 22 Jul 2026 16:59:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784739444; cv=none; b=e6hS/3NqTwvuDIOMmdWXiO/H94jWvfMyHfT6XFfp2uQgXhub3HgvAnuZ6CM2k9q4A08zeBUo2gAheMbhBsL+Ac+vd4BGSx92b0SBT4DUjzYHI1+w2aslmn1ZYpCsBvkDPFAwW+YYTEHFPNLc7I37qSB5Nn/OgDyGD+WhUDWqzqE=
+	t=1784739591; cv=none; b=MDJYTwEP+Sfyt288Ss12922bVDNsSIgw8iG6TFQi3hInLmskR9RdPYTWxVeKdrEV64iJVW/sQsHIxhPKn3HE0f0UyEnKYj/YxVeDwlst6cGdK3DxLeC3Au6j4AMgsH230rzDKSuq8gCMhQj7SSjSQ5drjkyC0BSnaG3EZFeZZbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784739444; c=relaxed/simple;
-	bh=wEYFAq4AuY+FzksAFP6rIn759EzN+icZzsnHDMDm53o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=b5vu6C0S+ogSYwyMcMyzsnoGTVmzd3a0HhuSgCiJtHizb+VIiUGE3jpCV0A0CL84v4JATH84cft9wR6VKtqvGpcEPF+DHDzA7YJRcVjiv9ohUYPLwNzJvy6GXbegiNby56hlq4LVE8PS+pPZk8/COK/qz7xkZMwD60baVh/t5IA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=N6EOdxmm; arc=none smtp.client-ip=209.85.221.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1784739591; c=relaxed/simple;
+	bh=7c0Uz9ZN5GvlXhCV70odEn00ERJrF9VzJkt0pDEYUag=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PgYKjCfHEfYdzYecg2bIYsccqzlUd3HqZ94YZKeOsqCI5WokJf4jHK+RpxXEUtrwr4JLB4u+65qDk9KutIBgGTpf831ktAHyEa4YlQ7LBHsf5ZOv682i43GJ4dIYtY8Fb0NklX2hNRIDMw81sMPzMWRpMNUFRbGkjfzN0MN3Aao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WcMqteFR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="N6EOdxmm"
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5bf959b820cso5787283e0c.3
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 09:57:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1784739441; x=1785344241; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wEYFAq4AuY+FzksAFP6rIn759EzN+icZzsnHDMDm53o=;
-        b=N6EOdxmmaJ+Lh3DZE/M+OEybgXwcIa5Tz3JgSHWJxKyS5xuEmmstP+RPCjUe8hX6Qz
-         WFo2IUSMSKWlL1efrnhsiLP+hU+jCrOULU7eWWUKSCxT9BrRBI4qT76UT/EIOj+vrs2s
-         Xs63qjc9H9cq2f8Y7eAKs1jXsu6B2tgdriKkw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784739441; x=1785344241;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wEYFAq4AuY+FzksAFP6rIn759EzN+icZzsnHDMDm53o=;
-        b=VKM2L5PykosQKmBkol75riIj0yrNwxfkmaChCGwWszwwzyG55sK2Kmv+0O/hMVDQ+M
-         jP4Y1Bn1r1LuYCAr702unVOGh3AwPaLBHSrbfevxxRKHfYm+XY+N7Y3LgEbod/rrVKD7
-         VUBlbyyRe0aAiLUcvSaai5GyDkpq7ViyxZtc98Zvztcmy6H6hpYzB0GwKvfbL5khp4Uz
-         o7QDwdokPmNEj4rFjTuvbC/gfGwNDbtV42z2dyoYiLLgZIGQm48Yv9T8x+0uU/LlhZc+
-         tYugZlqbYz78qnMQ9mSQvGoIdm0+Lnz0aWhvk/LJ5hivURp7lVyvNLXv5BxG+K1YdJjS
-         gBhQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpopUEoFoBGgXNkhSE4h49PzqW2pk6tA1DFBoClZ6aYREK+Z02oPBDazBvW1PQ9WaRrEiU0kxn3TIMP@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzb1XJtM5nfOLhveTP8K05xHmOryANL8dH4n6f0tNX/lXjBsPRn
-	h9eZ7V1eEcEHeMj2iO9vSZ/pLaSe1DN9aoIhWNeuFqRcEUZlZEVla7fc1nK312c6SSGaggBqOkK
-	KK6k=
-X-Gm-Gg: AR+sD1372A5ZJcmLjeq+64otUmvms4v/0IVsblLWYjX6Q9aXw8LyPQJWuYCDaHNtuke
-	GU5JnCKd36nbmB/Dy6no/wZPVjhVFRi95mKh0CzkfJ2Wsk+/N58s5Dg+hqtogI/H/8Sm4Iwyzkz
-	BBwliBMy+bFspfFkxbQpkjB7I4z96X6YrFr+luS/kFcxyCgGMIgHagYo2bf/E+3ZyagMXN9F4JY
-	UnMKJMpRTcnSbtUToaUD73xjYHMi/Fai4dBPrORjCwtTkmCjXBkmqXtW5ba4FLmg0i6vfHkYm9c
-	/9oFEJIb4IhZwR5rG53lWjYfhWsCRtnkHyrc1BFyFDIWjGFQrmjVPTTvKq99SxAxwqDtrfCYeIq
-	/XQQnIjHe7EDp2QETzpFytmT/S4/N+6H1b6IWzQsINdXNnDST+bkF7QkDx/BRuLfaOEe6jnppTB
-	TI/txtPydok496lKlyX5eRcH17zS9Pbn66mcRhWoC5
-X-Received: by 2002:a05:6122:4694:b0:5bd:a810:b090 with SMTP id 71dfb90a1353d-5c1b665d565mr8350053e0c.5.1784739440880;
-        Wed, 22 Jul 2026 09:57:20 -0700 (PDT)
-Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com. [209.85.222.43])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c2c6276fbfsm3680317e0c.4.2026.07.22.09.57.19
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Jul 2026 09:57:19 -0700 (PDT)
-Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-9725084c547so4118774241.1
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 09:57:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RowKnSLJUR5XNmolkQPXj5xWPNRBxe7mtTEih9TVi+M5I9fEGysu0RW2N6t/57eoeylUSLU2qAKlMRB@vger.kernel.org
-X-Received: by 2002:a05:6102:1612:b0:6e7:5c89:3fc0 with SMTP id
- ada2fe7eead31-7475374957emr9783635137.25.1784739438261; Wed, 22 Jul 2026
- 09:57:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WcMqteFR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9D361F00A3A;
+	Wed, 22 Jul 2026 16:59:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784739587;
+	bh=7c0Uz9ZN5GvlXhCV70odEn00ERJrF9VzJkt0pDEYUag=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WcMqteFRqHo+cuTezGRSw0RmSty2fR4OVMm+1e3VpYk1pFA0YXsu/QfuUeCjrORLn
+	 Kh9SxzRro2O+jhjHYdQrpKlwxGvEBKDWhmItaxFDZZwsRXnX6eAlB4tVCPotBr0aiM
+	 EdOGbjp+QL4h3MbZzuhi3se0tykhX7kNLGx5ggZxMsFWawfvJWsQvaEYeyFh7G2mDI
+	 vS4RrjNCr3JOPCG6P9eqrZPbv0upd+gxSQDzUS84yQqIqY+bPsGLXLg35OmTuJY+0T
+	 UlcDllORNNfNo572hWkUcuXdWB7G489o+KgjbkvGdNMo3QSukmjnhE6Jl1wHCEZa9k
+	 PwVqmmLL8HFPg==
+Date: Wed, 22 Jul 2026 17:59:42 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+Cc: Jean-Baptiste Maneyrol <Jean-Baptiste.Maneyrol@tdk.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chris Morgan <macromorgan@hotmail.com>,
+	Luca Weiss <luca.weiss@fairphone.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: imu: icm42600: add icm42630
+Message-ID: <20260722-creature-volley-0f083b904c1d@spud>
+References: <20260720173411.82979-1-jorijnvdgraaf@catcrafts.net>
+ <20260720173411.82979-2-jorijnvdgraaf@catcrafts.net>
+ <20260721-lethargic-purge-e3cfb3c50677@spud>
+ <20260721171647.26128-1-jorijnvdgraaf@catcrafts.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260714222338.2965707-1-dianders@chromium.org>
- <20260714152138.6.Ia186a29119b4b5c409815b755e0c2c3965b0495f@changeid>
- <8e3025c5-16a0-40d7-affa-098ca37699c7@kernel.org> <CAD=FV=Vrd9AxO-NY_CP2h+f21qt4uGY2pOoFgacV+G5bnfd32Q@mail.gmail.com>
- <20260722141004.GB548057-robh@kernel.org>
-In-Reply-To: <20260722141004.GB548057-robh@kernel.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 22 Jul 2026 09:57:07 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=V=ZdgC4fY4PadBFxomeqVD0E0CdeD3=PrcCFB1brXgWw@mail.gmail.com>
-X-Gm-Features: AUfX_mwQnLQAqN0MjW9caLrzNlzhz2FE4RbdPofEVajHvqOI-LXTbiHSC_fioOY
-Message-ID: <CAD=FV=V=ZdgC4fY4PadBFxomeqVD0E0CdeD3=PrcCFB1brXgWw@mail.gmail.com>
-Subject: Re: [PATCH 6/7] dt-bindings: mailbox: goog-mba: Add goog-mba mailbox bindings
-To: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Jassi Brar <jassisinghbrar@gmail.com>, 
-	Joonwon Kang <joonwonkang@google.com>, Subhash Jadavani <sjadavani@google.com>, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, Lucas Wei <lucaswei@google.com>, 
-	Brian Norris <briannorris@chromium.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-samsung-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="DxjpH36jZ0i959vW"
+Content-Disposition: inline
+In-Reply-To: <20260721171647.26128-1-jorijnvdgraaf@catcrafts.net>
+
+--DxjpH36jZ0i959vW
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Tue, Jul 21, 2026 at 07:16:47PM +0200, Jorijn van der Graaf wrote:
+> On Tue, Jul 21, 2026 at 05:01:26PM +0100, Conor Dooley wrote:
+> > On Mon, Jul 20, 2026 at 07:34:10PM +0200, Jorijn van der Graaf wrote:
+> > > The TDK InvenSense ICM-42630 is a 6-axis IMU of the ICM-42600 family,
+> > > found e.g. in the Fairphone 6. Document its compatible.
+> > >
+> > > A fallback compatible to a sibling is not usable: the part reports its
+> > > own WHOAMI register value, which software validates against the
+> > > compatible.
+> >
+> > Why does software do this? If the whoami is the only difference, the
+> > software should stop checking it.
+>=20
+> Whether the whoami is the only difference is exactly what I cannot
+> establish: the part has no public datasheet. What I can establish is
+> driver-visible: the unmodified driver has been tested to drive it
+> correctly, and Jean-Baptiste confirmed the chip is "similar" to the
+> ICM-42631 and "can be supported by inv_icm42600 driver without any
+> modification". That is short of knowing the parts are identical (the
+> family has precedent for real differences behind the same register
+> layout: ICM-42686, different full-scale ranges), so I did not want
+> to claim full compatibility with a sibling.
+>=20
+> As for the check: it is not mine - inv_icm42600 has returned -ENODEV
+> on a whoami mismatch since its 2020 introduction (and per-part config
+> does differ within the family, see above). Since every released
+> kernel enforces it, a fallback would not probe on any kernel already
+> out there regardless of what we change now; and even if the check
+> were relaxed, a fallback-matched part would bind with icm42631 as
+> its ABI-visible name - so the dedicated compatible is needed either
 
-On Wed, Jul 22, 2026 at 7:10=E2=80=AFAM Rob Herring <robh@kernel.org> wrote=
-:
->
-> > Sure, it means that if someone unexpectedly makes a new Google
-> > mailbox-array that's totally incompatible then the
-> > "google,mailbox-array" sounds too generic, but that doesn't feel like
-> > the end of the world. You could call the new mailbox array designed in
-> > the year 2037 the "google,2037-mailbox-array" and things would overall
-> > be less confusing than using the "google,lga-mailbox-array" as the
-> > generic.
->
-> What exactly do we need to do to stop having this conversation? We've
-> done this scheme and version numbers and it never ends well.
->
-> The reality is the h/w folks can't help themselves from changing things,
-> so nothing remains unchanged for very many generations.
+Is that really problematic? It's not problematic for any of the dozens
+of other IIO devices that use fallbacks, is there something that would
+make this one different?
 
-Stop having the conversation with me, or with everyone?
+> way. Whether the check should become a warning is
+> Jean-Baptiste's call, as a behavior change for all parts the driver
+> supports; I did not want to gate a trivial ID addition on it, but am
+> happy to send that as a follow-up if wanted.
 
-With me, I'll stop pushing since I think I understand pretty well
-where you and Krzysztof stand on the matter now. Even here, I wasn't
-pushing hard on the matter but I was trying to understand exactly
-where the boundary was. As I understood it, things with enough
-"identification" to disambiguate themselves could use something more
-generic, especially if no preexisting binding existed. I clearly
-misunderstood. Mea culpa for the noise on this one.
+The check should be deleted since it prevent using fallbacks.
+IMO, delete the check and add the fallback rather than retain it and
+propagate the issue. Even if you think having a fallback is a bad idea
+because you cannot be 101% sure that there are no programming model
+differences, delete the check. Personally I think that given the
+testing, patches and quote from JeanBaptiste, a fallback is suitable
+here.
 
-I'm not sure how to avoid repeating the conversation with the rest of
-the world. I think this will always be a confusing topic.
+I think Jonathan has sorta changed his stance "recently" on the
+correctness of checking whoami values versus the compatible, so what was
+done in 2020 doesn't represent what's the current guidance and I am
+always a proponent of removing these checks whenever I become aware of
+one preventing use of fallbacks.
 
--Doug
+Cheers,
+Conor.
+
+> The commit message led with the driver check where the real reason
+> is the identity uncertainty above; I will reword that in a v2 if one
+> is needed.
+>=20
+> Thanks,
+> Jorijn
+
+--DxjpH36jZ0i959vW
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCamD2/gAKCRB4tDGHoIJi
+0gPVAQDF2HsaeQooU24UvhnMhncTtQMXUE2/DERlr17JpY3gkgEAkwXYs9M59nFC
+CWpch2C5wfuGhto6W0n6W7iXkeXjxQ4=
+=12K2
+-----END PGP SIGNATURE-----
+
+--DxjpH36jZ0i959vW--
