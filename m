@@ -1,149 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 374723DCDB1;
-	Wed, 22 Jul 2026 07:22:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A368402B8A
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 07:24:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784704928; cv=none; b=UdnAub+hpUQAn2dATSL2nUF48rFoc7udfQw5s8fwlYuXnvv89Ei+sqDsK5YjVqeo6sSX9fGqTn9f2KQTPUi8sqqI1FEQckuGx8sHea1420Gq81uCcdAF/bXJlqEN5wTUH5zmSxFiiKrUT49vMrHjDGlfDV9WeOC1ivMp/yOspQ0=
+	t=1784705087; cv=none; b=foudu7EmSx1eKd/C/f8jHC2e/XDZNbbCGsRUK5/e49Hx+aFi89ql9p0r/LPW+YRRqlqTELxeS5E7u4YDbJ4E+VcpJf+uIa8V34YBjKzw8JnABXmlfTewjo+N0LUwupKp0af/EQgheWt/6hEtk1pAu/lQIg5kDtG7AqHwcuNksPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784704928; c=relaxed/simple;
-	bh=lDetbeU4pv+DM60Ij6deYyGPKnaKAJHw1ZrI4kuBXp4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U2Oqp+NT31OZ3ygr6K+ttclwYhx7BXY/A9xB5dWSgjxAG+Jmega0aAtCa/5hwjPdADJKv3TDT2sN8mS4ujJjwJeZ9Q45c7PAVSO3/fBEM1N6taeUiPTyTWwJxovpd4CZlELn4hvkWQdchwL8stVKjzbOScn6Q+H9gcELQzlTinc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EypVTYXu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784705087; c=relaxed/simple;
+	bh=KLl5SyVy1En02+8woY47MAapxP7f4/Cu/6xzTvgXArA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CIwSlFHC6/RbZxONDP+goupf6LMy6xvqeYHaUb07P/qTucxOLwlIk+9AFut0pNkGNO/w297i6tUH2NRX8ayi2S1PwnL/Kz82HqOquaZv8FT917l98ELESxtuCij7G/ckbM0tfojnta+I/fGt2LvnyPmBrEOvR4UWUKgPhz144c0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cWLbz1AR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EypVTYXu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18DA21F000E9;
-	Wed, 22 Jul 2026 07:22:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cWLbz1AR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD96E1F000E9;
+	Wed, 22 Jul 2026 07:24:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784704926;
-	bh=yr/OrBC+qRuEY7Yqo7iUWp5/J7OekvuX5jORhC8HqGk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EypVTYXuhH1X+r3duiINXfNRT1lSn8Jg5CsmTAswYqKaOLuxHa3MqNG5z1buQiASQ
-	 9B9DJp/OnSHch96/gNZEAD8KfPYfcIvTH/qvVe2JNaPFgVt3K7qPT3lyT7o/MobhoO
-	 Vj16I+a9TIOAh85/TyNk7kL1xyfnCCK9KuhDIr1hE6iBK2/5P4mbzICLgCShu4KQiA
-	 /QHgNBd6PNMNm9mSa7LjDJB32g9stv92ExHVmpdAg8KBMlrKdJX6cmNCil23SLMSRv
-	 0E22QcvyT4orDsM/ux7G4rujnYD9HgGqpXCNnN6y5svkQb92Ebirf9qbr/rGLVJMbg
-	 CtvuyfaxKFVoQ==
-Date: Wed, 22 Jul 2026 09:22:03 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, 
-	Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, Damon Ding <damon.ding@rock-chips.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Alexey Charkov <alchark@flipper.net>, 
-	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, kernel@collabora.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v4 09/10] dt-bindings: display: rockchip: dw-dp: Fix
- sound DAI cells
-Message-ID: <20260722-enchanted-mandrill-of-refinement-adc7b3@quoll>
-References: <20260721-synopsys-dw-dp-improvements-v4-0-f0f4a4ede712@collabora.com>
- <20260721-synopsys-dw-dp-improvements-v4-9-f0f4a4ede712@collabora.com>
+	s=k20260515; t=1784705085;
+	bh=KwWMoDlD5SKsj5BWyoTQ2XPBDseOtegmrfV6UOh0Xo0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cWLbz1ARFHTXy3MytSnUaQjY2Lvs468Djj1BPh1mXDDo001dXlZEgSONDb1iRLQXb
+	 Rd6rSRE289mQC/Tdu+kllu8udlQV3LzkmZ8HG2NE+qOVpwMNusSReErVDQo3vt5wo1
+	 JUmdCSx9cd1IuEHo6ZzDTptqcP3RYIDlHg/2zNIB2Vp7AJA+NJA9zyddf4XEibwWqb
+	 gWyIG4qP2+MKgGRKDyzCgA63ZU5JyOM5QAxT8mEGZHz32eT+V+mKkkF6G10ARJqPHf
+	 +/1QwjNKk+Rrhp5YMRlG07x/g2rKe2gXOqXEUeGSzFy/rxjGixcNSxmCkhlMuuQ6hL
+	 iv5qeL9wmzR5A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 5/7] of/overlay: return ERR_PTR from
+ dup_and_fixup_symbol_prop()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260722-nh-of-alias-overlay-v4-5-fc96a40d2761@nexthop.ai>
+References: <20260722-nh-of-alias-overlay-v4-0-fc96a40d2761@nexthop.ai>
+ <20260722-nh-of-alias-overlay-v4-5-fc96a40d2761@nexthop.ai>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 07:24:44 +0000
+Message-Id: <20260722072444.DD96E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260721-synopsys-dw-dp-improvements-v4-9-f0f4a4ede712@collabora.com>
 
-On Tue, Jul 21, 2026 at 07:52:39PM +0200, Sebastian Reichel wrote:
-> The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
-> possible DAI interfaces: I2S and S/PDIF. Thus an argument is needed to
-> to select the right interface.
-> 
-> In addition to that the RK3576 has the same IP as RK3588, but configured
-> with Multi Stream Transport (MST) enabled for up to 3 displays and thus
-> has a total of 6 DAI interfaces (I2S and S/PDIF for each possible
-> stream). Meanwhile the RK3588 does not support MST and thus has only 2
-> DAI interfaces.
-> 
-> The binding update from this patch has only been tested with the simple
-> single stream transport (SST) setup as the Linux driver does not yet
-> support MST.
-> 
-> For MST it is unclear what a good binding should look like. Technically
-> there are a couple of options:
-> 
-> 1. Stay with the single cell, but add more numbers. I.e.
->    0 = I2S on stream 0,
->    1 = S/PDIF on stream 0
->    2 = I2S on stream 1,
->    3 = S/PDIF on stream 1
->    4 = I2S on stream 2,
->    5 = S/PDIF on stream 2
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-This looks simpler and anyway the numbers are abstract, so they do not
-need to match "stream X".
+Pre-existing issues:
+- [High] When an overlay targets the root node (`/`), `dup_and_fixup_symbol=
+_prop` creates malformed device tree paths with a double slash (`//`), prev=
+enting the symbol or alias from being resolved.
+--
 
-> 
-> 2. Add yet another cell, so that there is one argument for the stream ID
->    and one argument to select between S/PDIF and I2S. I.e.
->    0 0 = I2S on stream 0
->    0 1 = S/PDIF on stream 0
->    1 0 = I2S on stream 1
->    1 1 = S/PDIF on stream 1
->    2 0 = I2S on stream 2
->    2 1 = S/PDIF on stream 2
-> 
-> 3. Create one subnode for each stream in the DP controller with its
->    own graph for the video streams. This would mean the MST binding
->    is quite different from the SST one.
-> 
-> As it is unclear which way is the most sensible at this point in time,
-> just go with the most simple option for now and revisit this once MST
-> is added.
-> 
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> ---
->  .../devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml     | 9 +++++----
->  1 file changed, 5 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-> index 2b0d9e23e943..c4f8959dd65d 100644
-> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-> @@ -25,7 +25,7 @@ description: |
->    * Supports up to 8/10 bits per color component
->    * Supports RBG, YCbCr4:4:4, YCbCr4:2:2, YCbCr4:2:0
->    * Pixel clock up to 594MHz
-> -  * I2S, SPDIF audio interface
-> +  * I2S, S/PDIF audio interface
->  
->  properties:
->    compatible:
-> @@ -46,7 +46,7 @@ properties:
->        - description: DisplayPort AUX clock
->        - description: HDCP clock
->        - description: I2S interface clock
-> -      - description: SPDIF interfce clock
-> +      - description: S/PDIF interfce clock
->  
->    clock-names:
->      minItems: 3
-> @@ -83,7 +83,8 @@ properties:
->      maxItems: 1
->  
->    "#sound-dai-cells":
-> -    const: 0
-> +    const: 1
-> +    description: 0 for I2S, 1 for S/PDIF
+--- Patch [5]: [PATCH v4 5/7] of/overlay: return ERR_PTR from dup_and_fixup=
+_symbol_prop() ---
+commit 5d340ac0a28e3bab97719502d9467e332f065d74
+Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
-This is ABI change, which might be backwards compatible or not, but
-commit msg should explain that. I can easily imagine drivers where
-written that way that they will fail with an old DTB.
+of/overlay: return ERR_PTR from dup_and_fixup_symbol_prop()
 
-Best regards,
-Krzysztof
+This commit modifies dup_and_fixup_symbol_prop() to return distinct ERR_PTR
+values instead of NULL for different failure cases. It also adds verificati=
+on
+to ensure the value descends through the matched fragment's __overlay__ node
+before slicing it.
 
+> diff --git a/drivers/of/overlay.c b/drivers/of/overlay.c
+> index 284c9bc6c9cfc..d4d2591e735ac 100644
+> --- a/drivers/of/overlay.c
+> +++ b/drivers/of/overlay.c
+[ ... ]
+> @@ -243,18 +249,27 @@ static struct property *dup_and_fixup_symbol_prop(
+[ ... ]
+>  	path_tail =3D path + overlay_name_len;
+>  	path_tail_len =3D strlen(path_tail);
+> =20
+>  	target_path =3D kasprintf(GFP_KERNEL, "%pOF", fragment->target);
+>  	if (!target_path)
+> -		return NULL;
+> +		return ERR_PTR(-ENOMEM);
+>  	target_path_len =3D strlen(target_path);
+> =20
+
+[Severity: High]
+This is a pre-existing issue, but since the commit message notes this helper
+is being prepared for /aliases, could the concatenation of target_path and
+path_tail further down in dup_and_fixup_symbol_prop() create invalid paths
+when the overlay targets the root node?
+
+When fragment->target is the root node, target_path evaluates to "/". If
+path_tail references a fragment-internal path and starts with a slash
+(e.g., "/my_node"), unconditionally concatenating them without deduplicating
+the connecting slash creates a path like "//my_node":
+
+    memcpy(new_prop->value, target_path, target_path_len);
+    memcpy(new_prop->value + target_path_len, path_tail, path_tail_len);
+
+Because __of_find_node_by_full_path() fails on empty path components, any
+alias or symbol in an overlay targeting the root node will silently fail to
+resolve. Does this need to be addressed so drivers relying on these aliases
+do not fail to probe?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-nh-of-alia=
+s-overlay-v4-0-fc96a40d2761@nexthop.ai?part=3D5
