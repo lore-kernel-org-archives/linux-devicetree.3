@@ -1,190 +1,135 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010069.outbound.protection.outlook.com [52.101.69.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A7C4457A7;
-	Wed, 22 Jul 2026 22:13:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.69
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784758388; cv=fail; b=d1rVR4qOivNeMocpluUxoakP2kr/FEj73vPC9InNxWCdG4Dpjzr8i+mQLMT9ZdOHaW+S2AKY0jjrgnG3Hc5Bf9DFWLQOoO9iShY4GX98oPRELzNtZk0ZRjIPalSUX67xHsjivBLu1TLn3V07QT/t2Zlwu3TgBoilnEJA+vwzYOA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784758388; c=relaxed/simple;
-	bh=higYZ4jNkbtLRgkLxcL9XqsYP7SSqPhsklFwsTlI1qs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=XuWZfXe7I77k1IDLXL+34o/hftTkoVTSu6puxQx3MMu+avltaYwoM1tqnGADNxDPiiY5yGzkf7/eJl2ny9fn2cqxXDPviRBeG1M511xPlVlgZWLFrfOySEtW4+HJqD98QtgYD45gP3wBI0s5UX0wb5yBp9RhbPmJq2F3+uLC+XA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=NZKxokDL; arc=fail smtp.client-ip=52.101.69.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 998F635C19D;
+	Wed, 22 Jul 2026 22:27:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784759232; cv=none; b=uWmvpyg5Gb3BuZox1zaWWFECXNUDS+xsh9zferaIm8Svn+14nhusmeR/8Tf28Wqo6Ob/zxIHmREH7KWO4b7rpkE9MFe0zR7+74Nb69RgR9fjc8Dobs0NAnCGViwRt7FrNg30BjWgMMJxJ6EE8ZbO8aw6qf8zEwBvOqwQuyF7y8Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784759232; c=relaxed/simple;
+	bh=HIw9OEMEts2mc0uM7JDzsqy3m6f22NXMb0t+Km02/1E=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JyX+wNIUF/j0gntNkUjOzN9z6MYYKUiyJfd57B66owNnBCHsOMMpbNRyMuP8dXd2cB16lRgWFDO+hxM93h0bSQRDZ6yzZjU8VlQ0eUqOiUDn6gXcqVAYI0vbsA9I4x0FTv8zgtycG/QL9mHHfs6S5LhLTB8cs/d9R9/fjwAAw94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=sy1be+jx; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="NZKxokDL"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ipe8rFv4IWneCR0cMDSubHz4Y7HhdeOtzEJaX90+bus++YV831axoSHEe5Im2w4zqcjOwOhrLQ7vg+R4uwf50hqtKddCs85WVZDgZwvZd+9WM1LUYx6fwDbuITejSABlt2xMYIV4gBQtfEUgcTSR9/Z3Wtyzp+vlP7Hk8U4vCA7bJqff5Yu/Dzm5ua8ZrNZPIuTGxnkue0By1sVql0/KU1HaU96f3WiWcYG+74e3sYpkhWI5uOJ3rGifHdXsS5h0UZJ6Jgm5eDCgxiDpenSxAgSRgUoixYrfAlLz8Twnv5KJUZkPsFoDAlBqi017xXdVxOy8Nm8U1FZEcfXEjOF4+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0shKYieWM1kwcO+mBa5XMM8ROOF6e2/nklXamO7cQT4=;
- b=F1xiTKZwPuwpoKt0f0gSLakjjE33geHsaxXlQjK/X1OzSK8rPHOWMRoMiE2cdZlRFA/Lm4mvDhgCRpQi5lfWK5ewICYDXuD49SkYcuTWxcPYdH4G1yJZfpVay2lJ/eNlxjwakta9ZiIVd2wZARQLvrFjg9XzLeNQwZzXLCuo6bgaQ5ppGhqWQqBH/l/KoFyHGV9plEtRMyF9rCP/OttBePjYIQpdhEo+J7czmr9d/4ZEJlzmkVp+kuDOhNFvVWrqdG38hZr6qJQMR1u1Iy+X29ZS43aAmDJNmpI8H0TdYr5KHjrAO3SfrsvymIMdiQJGeEo9RZ1UvWuZv2ZQuuo4EQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0shKYieWM1kwcO+mBa5XMM8ROOF6e2/nklXamO7cQT4=;
- b=NZKxokDLekKvFcrHer/qaCEawqfQgJzazsWQ4whtbjuZBjQNAkITgalIpDm0H0UMCHzBRjwr/tM6ALc4mHhOym4cwSdwGWLWNdDMeHX47e+O4ylsjnNPH2kxolEvjGFKaKULQ3DGAXuiTopLjnQNfkMsnjdXu/xlrR3uINpeHNaIeLDVOhBiXCeDPH1zBhAdlGAFgqzaK/z9zZ+0YJW+dbabgJIXnRORYlEB+/LxpgnkvMcVdOkizVI/HeYe5c+tIscZBgxRgsuyhCnyfX10gs+S6W+tIysmhTTfGyYqoPKOExckKuEciirWKy+5ZM56i0A6kts2+HQqXXU7vIVX2A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GV1PR04MB10079.eurprd04.prod.outlook.com (2603:10a6:150:1ab::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
- 2026 22:13:00 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0245.009; Wed, 22 Jul 2026
- 22:13:00 +0000
-Date: Wed, 22 Jul 2026 17:12:47 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Liu Ying <victor.liu@nxp.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Robert Chiras <robert.chiras@nxp.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v2 3/7] drm/panel: simple: Add waiken WKS101WX001-WCT
- support
-Message-ID: <amFAXwoM4j2sIENj@SMW015318>
-References: <20260715-dxl_lcdif-v2-0-da797562636e@nxp.com>
- <20260715-dxl_lcdif-v2-3-da797562636e@nxp.com>
- <alnCL7ylMyvGD-ui@raspi>
- <amAJL9TIcDAK7kbh@SMW015318>
- <amA8iVS4c0exg6pT@raspi>
- <amA_lUpWkbOFal1y@raspi>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <amA_lUpWkbOFal1y@raspi>
-X-ClientProxiedBy: PH8PR22CA0009.namprd22.prod.outlook.com
- (2603:10b6:510:2d1::25) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="sy1be+jx"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B9EDA1595;
+	Wed, 22 Jul 2026 15:27:04 -0700 (PDT)
+Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EB4173F86F;
+	Wed, 22 Jul 2026 15:27:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1784759228; bh=HIw9OEMEts2mc0uM7JDzsqy3m6f22NXMb0t+Km02/1E=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=sy1be+jxIE6mAhNCz4yVoudLUwraB2jhqKFqsiryvgFS9LE/Z1ytwYzmBjL7ft9ri
+	 gbZfdG5DIjkvpkELRRr12aGowp3gnRg2DeCEJoMd/11xiy7gl+P47YJg0f4WM2kgHU
+	 3Jb2qZJxKnOVoiK+bqbTt8OoBn/aNSuUnwVMO9yQ=
+Date: Thu, 23 Jul 2026 00:23:19 +0200
+From: Andre Przywara <andre.przywara@arm.com>
+To: Juan Manuel =?UTF-8?B?TMOzcGV6?= Carrillo
+ <juanmanuellopezcarrillo@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej
+ Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] pinctrl: sunxi: A523: fix voltage withstand encoding
+Message-ID: <20260723002319.2793cdaf@ryzen.lan>
+In-Reply-To: <20260722172356.2509190-1-juanmanuellopezcarrillo@gmail.com>
+References: <20260721223956.13665-1-andre.przywara@arm.com>
+	<20260722172356.2509190-1-juanmanuellopezcarrillo@gmail.com>
+Organization: Arm Ltd.
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV1PR04MB10079:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd51bd1f-97fc-42cc-ee17-08dee83e646e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|19092799006|11063799006|10067099003|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	LHHgsmarxxsvmPXcB2j3AjseS4Kp8zqYwD3SXo0JxmOwNmB9Nb8BgGko5oen0Ho5ZOU0bkeL+KH3+But9CcRdRU5U8w7TUsDiteEh2JqoHS3+ACJjQqUez162TrYJKsMMEtlXopVTODQiIShpKQh/eXz+MFCLCU6n25iZyVFKMtvWnN8buuFUDMzXPSP0lsnsFTjQWpDIffke6h0WlcYmgPd6baCpQ+OM8bvdWZYtQFo0WdEBC2dMirwQhNBV7FuoJwNd0KU8xKvK1+ONqJb0x/9A7bTyL9IyLMZ0F41RIjY+2Y4geE+PPo8o5IZ2GRBy3XI9nubiOUEu7QxqxTqw9+kZYZ+FRqODs7XxJH4urTD9/euqfPey8ELFxlJ1abHw4WgeOUvMnQKXfwjpvEQbk2PA+m98hiPUXD9Wl5DymcwWmmmDLC2+GX+zwNTTBUNvPqtBC2mq3ZoZphoKBs4b9gHrjQSbNJa5vK7Yxdsg0rUcjjnU8UrdGp5k8oF5gXwsniTPf9zoSaunZP2eyQ8ABSMxoDBPB4/whKfYzGR0TBKkaMcmVB0wChq56vJAK0nxfUaYyzQaZuvXpVGssSRUekrY2RuSIXrlxmy6FSGRNPoKkTImXSdvoY6iL8gjvQ0yyYdcH//3RcsAetB7k3ugCeAg42dpfijTK7T/0H3pH4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(19092799006)(11063799006)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?XovbjLKpcf5etJXaB0bovGRaeSjchIB0TJbh1MInM9xefsO9kyYcxOA29xcM?=
- =?us-ascii?Q?1lRVr2GJsKGUbbDmb78GywACS5ae14NU+97Hu9rofEaCd6wTeyMH2hegHhTd?=
- =?us-ascii?Q?Icj+Fner+GU+tWhXuUyecEDpkzhx6gQOWUX9+guOaojAi3EpDlbwIJOw9/Cy?=
- =?us-ascii?Q?dGbwWrKDUWD/oPuX7fcLywyIT2NLa6/pixYN0AjMs/5XtJ73UggUZ8ck3UsL?=
- =?us-ascii?Q?y9dBO397SBk2VXFRwxplPUgBiTNx5n5tHJmv1m4e5JJ09mhcgTEP5hlFtPKj?=
- =?us-ascii?Q?P4sSUJ5EuAfjUpEsRCL3eWrFNjXIsQ309mTZcELTWDfDANxB0/785lqfJgrv?=
- =?us-ascii?Q?ypoLXm1wTdUO82mM4vFxMRwVsd6rGI+BmPKZ40/cNxS2OYDUDQ5PmS4CSFzw?=
- =?us-ascii?Q?XgRX95RzG/+1v/n3oL6Pi04AiBOa6ejQ3dqirTw9Pr8lYjciwGZI2m551NUe?=
- =?us-ascii?Q?593+FIjQrDT8u9C5HEVvIh3lXBbHkuHhoCOX9JcydWqq6fohGHpRR6liEW9o?=
- =?us-ascii?Q?ZH+PwgdJFT5Q7xu+ChwrxgE0oZwPMfvAvuTdeqEYKZaBHZSbtXjwFsNxrlCo?=
- =?us-ascii?Q?oxUZLxHWpYk2nJ9hH/g8f5jSq5aYZHB5BpdC9y+ZsA9/zlYv/3sqvoTyckGg?=
- =?us-ascii?Q?9lxQ5Ch/uvJt6b1WT+VyBoyontTWM/onYRYlf+aF7fLM9R+roqKZAxaVhqIL?=
- =?us-ascii?Q?Pw0wqokAcck9aV+oWkq/FXhGKmPJ1WKMgeLAtyoRPMXphY17q9Z6jKYxQ+uf?=
- =?us-ascii?Q?VijIhIxd2G+TwctxV5o1ZxTYBwAe8H69eZEbMdtsNqfZinhUjrH4fVLDpbNB?=
- =?us-ascii?Q?nU53yLAmnrTYdt+KagbxIdzrRpLin+46g5QRBUnYw6ggM/Mw4p8g2IY7r2Rs?=
- =?us-ascii?Q?fjnlV/J8Y38BDPjNtIdgTZqk/noWaUc98IGRRL/rKPHmvX51KEgbFezt51D6?=
- =?us-ascii?Q?dd5rFMM4x6lBpIDIicQX5jD9Ehffx+G4l8azfz3Qlnk7XMYKpek0N+2WPoPH?=
- =?us-ascii?Q?HSRH3giyM9jhw/FNKbrXf5y+7LlKCzvu6uIFF5xARY44h1fAAN6+gvX4FQr4?=
- =?us-ascii?Q?aDrK3+0naXKe85BrpLtZ/S969yo6dSf0uMax8k3VnFa78+1nNG62y9tmQiTJ?=
- =?us-ascii?Q?D8ENwxNTLM+lpVAuiZMH/30FGHr1E2qOB0U4V5jKPmOvr5vlm5am7FbWKoPo?=
- =?us-ascii?Q?JHZiMFCc5nTuHayObKEVTmQ85PVJdt604Cp3wydwrF8YNgxUwJ5LywhIlJRJ?=
- =?us-ascii?Q?zWkbAt8yH6CO00PNd+2QRgdnuxkuDuL+JkTNEIa1MjG2WhmLcNEbgcAL43P7?=
- =?us-ascii?Q?jZxf1xOZ1u3bal6YCIVsX9nOgoFN7pYjcwn8z5WITW7ZWXmMQ9lP76Wok8qV?=
- =?us-ascii?Q?AHOMtvup8n7Te6IyAbER99ezv6Dr+67cfYPGWzdUCVnORs+GoGMT2Jl+LVcu?=
- =?us-ascii?Q?73F5fdXGfOC0abWMp6fOLdeEizyEQBMxas+MmCEA4GsuOEkr3UBRijQ3X7pX?=
- =?us-ascii?Q?adhqJK5aNL2CfNGRSd/iXFmVM2OaSnLLtbaepGtXDNORxq4wVoYgVMrraDL6?=
- =?us-ascii?Q?vJO6UROv/v1CWPUZO+vIm86aB3m4FNLu+Mszb7Bfv9whkfo5YvBwZYkYe0uU?=
- =?us-ascii?Q?UnWDmj+R/QFgzrZMfhT4R4/8/7hi0Do0CIih+eV78Ih+agDYNu8h1aqb1q/Q?=
- =?us-ascii?Q?FS/opKlpoAR97ufu0WjXAYZd2bqwitbplOiD5ynXGeaL1SaG20acixsfG3vi?=
- =?us-ascii?Q?KSoDbmMLg9MnjrdtIFLg4+MZ/O8YHfVx3QsZfBM3R5iUrrYlIKLm?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd51bd1f-97fc-42cc-ee17-08dee83e646e
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 22:13:00.5939
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +chhiabZd9qVE7kmNIKL9i5sQvLv4kmuXkRsEYV36Vv8rTBDktUYs8wMmWyKYGw8dDyzbOF39RT3cfuNjlgyVrv1NwBdA5qf+pqW+LzT2wDXd0lh8X/Ck9n0udimEDSn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10079
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 22, 2026 at 11:57:09AM +0800, Liu Ying wrote:
-> On Wed, Jul 22, 2026 at 11:44:09AM +0800, Liu Ying wrote:
-> > On Tue, Jul 21, 2026 at 07:05:03PM -0500, Frank Li wrote:
-> > > On Fri, Jul 17, 2026 at 01:48:31PM +0800, Liu Ying wrote:
-> > > > On Wed, Jul 15, 2026 at 02:34:48PM -0400, Frank.Li@oss.nxp.com wrote:
-> > > > > From: Frank Li <Frank.Li@nxp.com>
-> > > > >
-> > > > > Add support for WKS101WX001-WCT panel, which is an industrial-grade
-> > > > > 10.1-inch IPS TFT LCD capacitive touch screen display module.
-> > > > >
-> > > > > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > > > > ---
-> > > > > change in v2
-> > > > > - update height to 135 from 136 (sashiko)
-> > > > > ---
-> > > > >  drivers/gpu/drm/panel/panel-simple.c | 31 +++++++++++++++++++++++++++++++
-> > > > >  1 file changed, 31 insertions(+)
-> >
-> > [...]
-> >
-> > > > > +	.connector_type = DRM_MODE_CONNECTOR_DPI,
-> > > >
-> > > > Seems that the panel also supports LVDS input according to the specification,
-> > > > since it mentions 'RGB or LVDS Interface'?
-> > >
-> > > Need hardware rework to use LVDS. Need remove banch of resistors. Should it
-> > > be treat as difference panel by different compatible string? hardware
-> > > actually changed.
-> >
-> > Not sure how to handle that.
->
-> Wait, you probably may drop this patch, just document the compatible
-> string in panel-simple.yaml and panel-lvds.yaml and use add a fallback
-> compatible string "panel-dpi" or "panel-lvds" in device tree plus a
-> panel-timing node.
+On Wed, 22 Jul 2026 19:23:56 +0200
+Juan Manuel L=C3=B3pez Carrillo <juanmanuellopezcarrillo@gmail.com> wrote:
 
-Look like recently prefer add panel-timing informaiton into c code instead
-of put it into dts file. But I am not sure about it. Just check recent's
-log history.
+Hi Juan,
 
-Add Neil Armstrong for comments.
+> Hi Andre,
+>=20
+> Tested-by: Juan Manuel Lopez Carrillo <juanmanuellopezcarrillo@gmail.com>
+>=20
+> I hit this exact bug on the Orange Pi 4A (T527) from the Ethernet side, s=
+o this
+> confirms the "reportedly Ethernet" with a concrete hardware data point.
 
-Frank
+Thanks, this odd patch of yours (poking POW_MOD_SEL in
+pinctrl-sun55i-a523.c) actually made me connect the dots: I looked at
+that patch last week, more randomly and out of curiosity, but dismissed
+it initially. Then Sashiko commented on my "overvolting" patch pointing
+out it changes the "withstand" programming, which reminded me of that
+"reversed bits" situation, and I could confirm this with the manual and
+an experiment.
 
->
-> --
-> Regards,
-> Liu Ying
+> Without the fix, GMAC1 (RGMII, YT8531 PHY) is RX-dead: the link comes up =
+at
+> 1Gbps but rx_packets stays 0, so DHCP never completes and the board is
+> unreachable. The PJ bank rail is 1.8V, but POW_MOD_SEL was left in 3.3V m=
+ode, so
+> the RGMII input thresholds were wrong and the MAC never saw RXC/RXD.
+>=20
+> With your patch applied, RX comes back: the board gets a DHCP lease, and =
+a 500 MB
+> transfer lands with ~365k rx_packets and rx_crc_errors =3D 0. So the CTL_=
+INV
+> variant fixes it the right way, at the driver level.
+
+Great to hear that, and thanks for testing! There is more to enabling
+Ethernet on the box, though, right? The EMAC25M pin needs to be
+configured correctly - not even sure that works cleanly with mainline?
+And what are the delay values that work for you?
+The BSP install on my box is dead, so I cannot poke around there easily.
+=20
+> For transparency on what I actually tested: I applied it on top of current
+> mainline (torvalds 248951ddc14d, v7.2-rc4 + a few). It didn't apply clean=
+ly there
+
+Ah yeah, sorry, just saw that I made it in top of my WIP A733 pinctrl
+series. I should apply rather cleanly to v7.2-rc1, no?
+
+> =E2=80=94 it looks based on a newer pinctrl-sunxi tree =E2=80=94 so I reb=
+ased one hunk (the
+> BIAS_VOLTAGE_PIO_POW_MODE_CTL_INV case in sunxi_pinctrl_set_io_bias_cfg()=
+) onto
+> that tree; the change itself is unchanged.
+>=20
+> FWIW I'd independently reverse-engineered the same inverted encoding (bit=
+=3D1 ->
+> 3.3V mode on the A523, vs earlier SoCs; the BSP calls it "power_mode_reve=
+rse"),
+> so this matches what I saw on hardware, and I'm glad it's handled generic=
+ally now
+> instead of my board-specific DT hack.
+>=20
+> One note from poking at this, in case it's useful for edge cases: on this=
+ board a
+> few banks behave specially =E2=80=94 PF is the SD UHS 1.8/3.3V switch (be=
+st left alone),
+> and PB/PH take their voltage from VCCIO rather than a per-bank bit. Happy=
+ to test
+
+But that is true for all Allwinner SoCs, basically: some ports are
+powered by the same VCCIO power pin (typically at 3.3V), and there is
+no per-bank supply pin. Look at the data sheet (not user manual), that
+mentions that. Also we have a comment to that effect in the DT.
+
+Cheers,
+Andre
+
+> those paths on hardware if useful.
+>=20
+> Thanks,
+> Juan Manuel
+>=20
+
