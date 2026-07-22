@@ -1,185 +1,153 @@
-Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 272173B994A
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 12:07:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C44136D51F;
+	Wed, 22 Jul 2026 12:10:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784722080; cv=none; b=Or+xwI8FYBvmrm/U8JuIkrQ9sz8R+IVO9RpgufuKuXfHWMLhCsSweKohHyAA/EcmXRsTWIc+zgc4dHOr5vIb5El0C7aj39wfJsft+skcHXVqS1uj/23749/2nKp7myX6O3k3l6CDlFl4qv38CN3RNy1nXWS8MH+x33MibeZpZ84=
+	t=1784722235; cv=none; b=cYiQGEM37mLPpOonlI0ItNy2kd71BEy6iGIgkSQZLweMIDxEVBmDHRqiXEQ8h+UJ0wwyQxS2L/VQ2hkOF5BV/uUWcJCtgJ018VZJnPLZ70bIsnePxbqUL5BtUFxDVLqC5qH72hc1BHJdvhvT/p+VJhqKyW1uccp7wg7XTC46lqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784722080; c=relaxed/simple;
-	bh=ASD+IxhVsEqGVpEQnk06k0SDPLwoub74YeqJT+y8Q4M=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=XTmKYFpvTDU2g0ERcYPXI/KQV5ogiQs2j3bxBi7RYTxE5L1E7DRY98/dD7Fly/O5NTVWDYZJ5dwx6OHccaXnXFY64aSBfjGtZR8hIj/iUTionZzUvUilVQfRI/AwQwq+ueYEi0fKnAiIyrnccFtIJhtnqlsJRxh46Y9kExGnCY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ENYo9ZGE; arc=none smtp.client-ip=74.125.227.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784722235; c=relaxed/simple;
+	bh=4YHXgXYZtCZ25qiPtk9KT8lQ8+H3tNr5u7aXspfGqrY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=aSNSm6cNjAqoJ3CQ12l8CdjWMdTXI563Krqlki0QHXrTkBsl59vn2X7U4x3QeNYo6G4/qD67y4TUUE02flchIzoMpBQ19qjjlzgPyu9Z3q9NDB8SN5JUpxCya4020cNh6NyaKE/bE/Hve97O5RnSqswC3hGzOckvkt9OmSfQMTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e/RG+UTK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ENYo9ZGE"
-Received: by mail-pj2-f4.google.com with SMTP id 98e67ed59e1d1-3896ccc93b5so3678477a91.1
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 05:07:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784722075; x=1785326875; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y9Z7oDiKdtFczxQKch+yVvuNvhzSOS2efy5d+XjmEE4=;
-        b=ENYo9ZGEbQT5qBgZRO4sPJXxsL0PK9LIXJRCx1IpQNHj10uBTcWiHK0L7owkpPiUyD
-         v4qAjMkId/ZN3iEV6LveE+PnOFK4P1cyMzGUB1bukyPIVau59wOxbA5NbYbOl2DWRcKp
-         KJ1gzQyHTV9SyzEj8l3FrEoKLn2TpoVd7niX8ZPmgrXM95LLWtF37WIoTYynSZirSdmw
-         UPa1OJEnjHTzoZVjCL67/Br2YUQ+WBPEEI7smLKclnb8XDS0JERvzX7buNiU41fogBPd
-         cpl2GrfaxT1TQGBeovPvQNwCnuhxl8Fg1hWuZ9xa90ka6nosFD1vFvHhjirgzOH4CnBk
-         I9FQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784722075; x=1785326875;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y9Z7oDiKdtFczxQKch+yVvuNvhzSOS2efy5d+XjmEE4=;
-        b=l6zqQzrbxvkjyt8UQjaQKCDpF3bbJLzDCdVsyyJXxxGzVKSgGxa2xBPZpW7iwE5y/9
-         3f6dHmN0hW0N+kdZXCNb8qW1deBS2HmKiB5nl07kEZHLNMj9fCS5Y/+UI3K1m6VE3x0H
-         1JCNXtwy3K+Zx8KP+j2hl9Trxi394+VjiIQ2z9gIqsLhFBjVuCO4XzKrDEc95gzalt7z
-         LKAbG8R/igKGycH2t64MgQ2EvRSO6LMklbSPhyKmaeERkkeBNt2wfFa5+jJOjTHtTbPQ
-         milqv22rnRbFTkTNuiCXUqGMmIHXl2PiPtvdTsFKjwwX+tpsNLi23VrCDlvaNRyPB+BB
-         DQbQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp4+iTK+Wn0NOtQOlOzMJZxEXcNgmuNGmyPVtuNT4G/HRhaFNWhulSGxXpziclwO4lGjd3LMkTP8dIm@vger.kernel.org
-X-Gm-Message-State: AOJu0YzgSaVYGFujBq9Ij7PX70/HcXyPuoPWv9Z7lbAWdsaszIHkApg3
-	0DEl1AZwNukxcojLmuK2oWAhpBiaAvA0OPFFblkQngiw8OETtlXDGS4r
-X-Gm-Gg: AR+sD11satmaXvE5qw7sv9HYPIzv/6TqJp4AseR+beZzBWte5/9cp1fBRtaJcPhhFju
-	hlxNv65wkz3WnyVViIXXAZG+0s5SL3mc6kENknMawLR7vlOZfBmDAqDzE+MSxkpMxQieEfxwL6S
-	wTHT05/RYVskZUyJUbAXSK9Q5Yx3k0dAH/TYYekyE9pwjzVlbfytU883lpm/bq5F0QEYFatORxU
-	O5eaZmKL3wqVBTMF3VlaFV+h+feBhSIC4kpnBnsrJCyEQokrw9Cs0HcvliazKW3RgpbfQrOd6CV
-	663nbNicrRX2fjv0e3p1F5iI47dl+n6fIeKrl5WonqDQe36HkFb5B+XwbCPIByloIJ7+VZEhJGh
-	3f0N2wc2wBJKrieP0g+TWpurSVcLlsqZETeYg3kux59CwZySl0BuK0DYWAxpwj5qlpHYgVuP+zE
-	7v2fTmuQNaKw==
-X-Received: by 2002:a17:90b:1b42:b0:387:e0db:bc28 with SMTP id 98e67ed59e1d1-38e4b57ee22mr21351484a91.40.1784722074599;
-        Wed, 22 Jul 2026 05:07:54 -0700 (PDT)
-Received: from [10.125.112.20] ([210.184.73.204])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e9218a343sm3215461a91.16.2026.07.22.05.07.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Jul 2026 05:07:54 -0700 (PDT)
-Message-ID: <e3dd16fb-3795-4028-a2f9-00f54882183f@gmail.com>
-Date: Wed, 22 Jul 2026 20:07:40 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e/RG+UTK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A2E81F000E9;
+	Wed, 22 Jul 2026 12:10:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784722233;
+	bh=fIe0wUrrDVszjvm6kkoTVaoHwx2WuyyXexPYM+RlgpQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=e/RG+UTKXTiJg+Z+keGVwljTspAcEtzFRMAmoOOR1Bec2THmY/Ooo9kmfHZJdQq4F
+	 slqd3LzpyCs7oQgY9vr9CMWFLYQmbikHC0rinNm0vivvL0nBiRmYm2DDIao1pIbMDw
+	 1UnUM3KcEfObN/Qogmn+FGKjFHxmEMqTuh8nQ4dfLc9UzpCGNsC70UwtQsSl56jlTQ
+	 o0Is8XpHKxdEfThynIYySlFh2tZywG/F2Us045oqJVJ5CUDc0t7G/3yIzQ0Iu2JQNm
+	 geet6TTwSEmaRyNZ1tKel7V428LF6hjcqOb2n3VRzKOCEJY9z/PL9oUd9pviTRNDA9
+	 yft0e6FRLxgJg==
+From: Mattijs Korpershoek <mkorpershoek@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org,
+ olteanv@gmail.com, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, vkoul@kernel.org
+Subject: Re: [PATCH v2 2/2] phy: qcom: qmp-usb: Add support for SA8255P
+In-Reply-To: <20260709150659.6E0301F000E9@smtp.kernel.org>
+References: <20260709-phy-qcom-qmp-usb-8255-v2-0-3b6c26a45788@kernel.org>
+ <20260709-phy-qcom-qmp-usb-8255-v2-2-3b6c26a45788@kernel.org>
+ <20260709150659.6E0301F000E9@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 14:10:31 +0200
+Message-ID: <87bjbzi5s8.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 00/10] kdump: reduce vmcore size and capture time
-From: Wandun <chenwandun1@gmail.com>
-To: chenhuacai@kernel.org, kernel@xen0n.name, pjw@kernel.org,
- palmer@dabbelt.com, aou@eecs.berkeley.edu, robh@kernel.org,
- saravanak@kernel.org, bhe@redhat.com, rppt@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org, kexec@lists.infradead.org,
- iommu@lists.linux.dev, zhaomeijing@lixiang.com
-Cc: catalin.marinas@arm.com, will@kernel.org, alex@ghiti.fr,
- akpm@linux-foundation.org, pasha.tatashin@soleen.com, pratyush@kernel.org,
- ruirui.yang@linux.dev, m.szyprowski@samsung.com, robin.murphy@arm.com
-References: <20260630074715.4126796-1-chenwandun1@gmail.com>
-Content-Language: en-US
-In-Reply-To: <20260630074715.4126796-1-chenwandun1@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, Jul 09, 2026 at 15:06, sashiko-bot@kernel.org wrote:
 
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [High] Incorrect power domain sequencing during d0/d3 transitions risks=
+ NoC errors and bus hangs.
+> --
+>
+> --- Patch [2]: [PATCH v2 2/2] phy: qcom: qmp-usb: Add support for SA8255P=
+ ---
+> commit c32bbfd817c3f9fca4d2982ea37be36354501cc7
+> Author: Sriram Dash <quic_sriramd@quicinc.com>
+> Subject: phy: qcom: qmp-usb: Add support for SA8255P
+>
+> This commit adds support for the SA8255P SoC to the QMP USB PHY driver.=20
+> It introduces firmware-managed resources via SCMI using power protocols,
+> managing state transitions (d0, d1, d3) through the "usb_core" and
+> "usb_transfer" power domains.
+>
+>> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usb.c b/drivers/phy/qualc=
+omm/phy-qcom-qmp-usb.c
+>> index c5507168e1354..d085c1ad7fb5c 100644
+>> --- a/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
+>> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
+>
+> [ ... ]
+>
+>> @@ -1865,6 +1890,77 @@ static const struct qmp_phy_cfg glymur_usb3_uniph=
+y_cfg =3D {
+>>  	.regs			=3D qmp_v7_usb3phy_regs_layout,
+>>  };
+>
+> [ ... ]
+>
+>> +/* d3_to_d0 transition by turning on all the suppliers */
+>> +static int qmp_usb_d3_to_d0(struct qmp_usb *qmp)
+>> +{
+>> +	int ret;
+>> +
+>> +	if (!qmp->pd_list)
+>> +		return 0;
+>> +
+>> +	ret =3D pm_runtime_resume_and_get(qmp->pd_list->pd_devs[0]);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret =3D pm_runtime_resume_and_get(qmp->pd_list->pd_devs[1]);
+>> +	if (ret)
+>> +		pm_runtime_put_sync(qmp->pd_list->pd_devs[0]);
+>> +
+>> +	return ret;
+>> +}
+>
+> [Severity: High]
+> Does this sequence power up the domains in the wrong order?
+>
+> The commit message notes that "usb_core" (which maps to pd_devs[1] based =
+on=20
+> the qmp_usb_domain_attach order) controls the GDSC, while "usb_transfer"=
+=20
+> (pd_devs[0]) controls clocks and interconnects.
+>
+> Enabling clocks before the GDSC foundational power domain is enabled typi=
+cally
+> results in unpowered register access on Qualcomm SoCs, which could trigge=
+r a
+> Network-on-Chip (NoC) error and bus hang. Should pd_devs[1] be resumed be=
+fore
+> pd_devs[0]?
 
-On 6/30/26 15:47, Wandun Chen wrote:
-> From: Wandun Chen <chenwandun@lixiang.com>
-> 
-> On SoCs that carve out large firmware-owned reserved memory (GPU
-> firmware, DSP, modem, camera ISP, NPU, ...), kdump currently dumps
-> those carveouts as part of system RAM even though their contents are
-> firmware state that is not useful for kernel crash analysis.
-> 
-> This series introduces an opt-in 'dumpable' flag [1] on struct
-> reserved_mem and uses it to filter the elfcorehdr PT_LOAD ranges on
-> DT-based architectures (arm64, riscv, loongarch). By default reserved
-> regions are treated as non-dumpable; CMA regions are explicitly opted
-> in because their pages are returned to the buddy allocator and may
-> carry key crash-analysis data.
-> 
-> Since the reserved memory regions are filtered out, the vmcore is
-> smaller in size and faster to produce. The reserved memory
-> has already been filtered out in x86; the optimizations in this series
-> apply to systems that use DTS such as arm64/riscv/loongarch.
-> 
-> The series is organized as follows:
-> Patches 1-4: Small prepare changes and cleanups.
-> Patches 5: Add dumpable flag to opt-in vmcore.
-> Patches 6: Append /memreserve/ entries into reserved_mem[].
-> Patch 7: Add generic kdump helpers.
-> Patches 8-10: Wire the helpers into arm64, riscv and loongarch kdump
->               elfcorehdr preparation.
+I did not observe any bus errors during my testing. I tried to
+insert/remove the phy driver and also could detect a flash drive using a
+couple of more patches on other USB drivers.
 
-Hi Rob,
+So I'll keep it this way for v3.
 
-Gentle ping on this series. Patches 01, 05 and 07-10 have been
-acked (thanks Pratyush, Will and Marek), and the comments there
-have been addressed in my local tree.
+>
+>> +
+>> +/* d0_to_d3 transition by turning off all the suppliers */
+>> +static void qmp_usb_d0_to_d3(struct qmp_usb *qmp)
+>> +{
+>> +	if (!qmp->pd_list)
+>> +		return;
+>> +
+>> +	pm_runtime_put_sync(qmp->pd_list->pd_devs[1]);
+>> +	pm_runtime_put_sync(qmp->pd_list->pd_devs[0]);
+>> +}
+>
+> [Severity: High]
+> Similarly, could this cause a bus hang during the d0 to d3 transition?
+>
+> Putting "usb_core" (pd_devs[1]) before "usb_transfer" (pd_devs[0]) disabl=
+es=20
+> the GDSC before the clocks. Shouldn't the GDSC be disabled last to preven=
+t=20
+> unpowered hardware clock access?
 
-Patch 02/03/04/06 are the core of: reserved_mem changes, they are still
-pending review on the devicetree side.
+When running modprobe -r, I did not observe any bus hang on my board.
+I'll keep this way for v3.
 
-Could you take a look when you have a chance? Happy to respin and
-address any feedback.
-
-Best regards,
-Wandun
-
-
-> 
-> v3 --> v4:
-> 1. Rebase this series on v7.2-rc1.
-> 2. Add two cleanup patches (patch 02/03).
-> 3. Simplify patch 03 to avoid checking whether initial_boot_params is
->    NULL multiple times, suggested by Rob.
-> 
-> v2 --> v3:
-> 1. Fix out-of-bounds issue if device tree lacks /reserved-memory node.[2]
-> 2. Fix UAF issue when alloc_reserved_mem_array() fails.
-> 3. Add some prepare patches.
-> 
-> v1 --> v2:
-> 1. v1 added an opt-out DT property ('linux,no-dump'). Per Rob's
->    feedback [1], v2 drop that property and exclude reserve memory
->    by default.
-> 2. Split some prepared patches from the original patches.
-> 3. Address coding-style comments on patch 5 from Rob.
-> 
-> [1] https://lore.kernel.org/lkml/20260506144542.GA2072596-robh@kernel.org/
-> [2] https://sashiko.dev/#/patchset/20260520091844.592753-1-chenwandun%40lixiang.com?part=4
-> 
-> 
-> Wandun Chen (10):
->   kexec/crash: provide crash_exclude_mem_range() stub when
->     CONFIG_CRASH_DUMP=n
->   of: reserved_mem: dedup and relocate reserved-memory messages
->   of: reserved_mem: skip late scan when no regions are reserved
->   of: reserved_mem: split alloc_reserved_mem_array() from
->     fdt_scan_reserved_mem_late()
->   of: reserved_mem: add dumpable flag to opt-in vmcore
->   of: reserved_mem: save /memreserve/ entries into the reserved_mem
->     array
->   of: reserved_mem: add kdump helpers to exclude non-dumpable regions
->   arm64: kdump: exclude non-dumpable reserved memory regions from vmcore
->   riscv: kdump: exclude non-dumpable reserved memory regions from vmcore
->   loongarch: kdump: exclude non-dumpable reserved memory regions from
->     vmcore
-> 
->  arch/arm64/kernel/machine_kexec_file.c     |   6 ++
->  arch/loongarch/kernel/machine_kexec_file.c |   6 ++
->  arch/riscv/kernel/machine_kexec_file.c     |   4 +
->  drivers/of/fdt.c                           |  11 ++-
->  drivers/of/of_private.h                    |   3 +
->  drivers/of/of_reserved_mem.c               | 108 ++++++++++++++++++---
->  include/linux/crash_core.h                 |   6 ++
->  include/linux/of_reserved_mem.h            |  15 +++
->  kernel/dma/contiguous.c                    |   1 +
->  9 files changed, 142 insertions(+), 18 deletions(-)
-> 
-
+>
+> --=20
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-phy-qcom=
+-qmp-usb-8255-v2-0-3b6c26a45788@kernel.org?part=3D2
