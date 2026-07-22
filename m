@@ -1,45 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77482473C8F;
-	Wed, 22 Jul 2026 15:31:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC60943BDAE;
+	Wed, 22 Jul 2026 15:33:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784734310; cv=none; b=r5aGbIIZU88QyzdDLhFMKxuxS3V7NxdNcnb7U3xCC9dSXDDZIm+kZbVFCToBzcAagDN/n2d3PHI33YDhdAmxssqYGli8BbHaK7VMDCELcir+Jk4r45A8T3jfC5Z0oaTWYkbkvM+kaYD7QrxORvr2YqW0WqeitJCjyLWUwc+vrDo=
+	t=1784734384; cv=none; b=I/tSXifDKtO/dtxKwI+KXE7DC25O8FVfEAcTYdDvy1qHyHzRV3YL79gR/qbYPjqMsXxBd+AnkX2Zelya9yUfCockR/eq/F5zet7eF8Gk3IJQHPqL7X+JOUCzdMqsHHa2/whoh3PbZmmcgOVC1Ed3ya6r2IPvUs+B7LUstCY/HJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784734310; c=relaxed/simple;
-	bh=0pMysZB2TLYoHUJ8ggDxOicbwXFfmDiU6A4FhFu4QrA=;
+	s=arc-20240116; t=1784734384; c=relaxed/simple;
+	bh=+dvhJmSk7v30m0FTGA2dBEu4s0VprWbe+kWDTrfOmRs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I8U67tAg1RUWQXkHt/sHkBS98VjAhPjnUT25AOR79yV1pAyJOpU+D2z+2rvQB/Egn5KoHue4wuFL3VhWMJnRGhKBZhckacmad2r+5qFdfeZU9J1Kb8Za1GbqCHK4URWIb6azc55MGVlKkKuiPhSzGGZVssdZrARfaBzuPehHcso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n+340JMP; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=eJXDlSTOZjR4u0ESNbHo1VqHe97y7MeFjqtaTm5MuNhZc8ih7nh8js5Pv/hlyFRtn8SG4iMd8h5EPMW497glF2He/rLLkRtotuAaE7ZIkZTq0H3BBpnf4sUe7ChkGZFnsgfe7+OgQ9ECH8wpzauCzFqauKv5+fi3sOy98utEKaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fXceiEvp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n+340JMP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2C301F000E9;
-	Wed, 22 Jul 2026 15:31:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fXceiEvp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 375801F000E9;
+	Wed, 22 Jul 2026 15:33:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784734309;
-	bh=GIyxzcyxu4KX8Kz+gSWClSAe1DI+cNRMQZqfJq0aSs8=;
+	s=k20260515; t=1784734382;
+	bh=jCyeQsC/NQtE44e6R3XTzjbmHyTKitYrYZlzJuxW7pc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n+340JMPz/zTCAh5G/JqDfLBZUH2uIZvcYJqmXeoeSYOUvEnNmO7OqyT5NDw+0p6e
-	 9Qsm5FGpI049dzqa+orfFdWQ6A2neWodoftVuqU6dmX4q+6PCwk3ojSq74aCyn3Q2m
-	 EYYPRbA2KlSOjTOKmKgcsfx7CVWNjpAK48jzG2PdnYCzu7epepfZvG1Yi31hZnNSoo
-	 t1Wx7EYsuut7tejcms0vK6w00eXUbKyXjOsYkyN+xhsgDktMQC5ThtmZLURtFqqoR7
-	 gvJojV+goKw0euj96kaaEUATb2Ypzcz/QHaAEcy8Js6oM09YzOARHmks2fupKjqmq8
-	 YAI4FuFhg7d6g==
-Date: Wed, 22 Jul 2026 10:31:46 -0500
+	b=fXceiEvpxZMx7DzEdab8714T1YNNcabB3VkKFWr6cFo2JLsO5EnKLHAknt48UHnZy
+	 x5BRXB0N3iPiCsoPVvXCwHKwjIWcjIyoQXiHXInsEhJUvKvxHHUIPVnfIdfwznQYPp
+	 msgjaT/L31N3L2rZHAa89gAj+ZHCab7VCtPtmqmHTY0RlAnJhmskj06tPYpa7pitqH
+	 7+HDty/qRcuqs1OFnDdyT4e3Ify0rlTgC81DjFbIyKRMnY5dKOE/FzaCeRr7HGc5nx
+	 qWMZXHNGbjoA3UEavy3yAMaGAFzMJsXJ2hVUSzaC0Cz44hmgis3nG35GRGCSft7fyH
+	 Q8ufF//E9rNAg==
+Date: Wed, 22 Jul 2026 10:33:00 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Marek Vasut <marex@nabladev.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-stm32@st-md-mailman.stormreply.com,
+To: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Cc: chris.lew@oss.qualcomm.com, dmaengine@vger.kernel.org,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	kernel@dh-electronics.com, Linus Walleij <linusw@kernel.org>
-Subject: Re: [PATCH] dt-bindings: arm: stm32: Sort the document
-Message-ID: <178473430598.971819.5105666655246477441.robh@kernel.org>
-References: <20260713232440.120352-1-marex@nabladev.com>
+	Bjorn Andersson <andersson@kernel.org>,
+	Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, Frank Li <Frank.Li@kernel.org>,
+	Andy Gross <agross@kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: dma: qcom,bam-dma: Add optional
+ qcom,vmid property
+Message-ID: <178473437962.973796.9171369311202714598.robh@kernel.org>
+References: <20260714-qcom-bam-dma-vmid-ext-v1-0-cef87c57b7dc@oss.qualcomm.com>
+ <20260714-qcom-bam-dma-vmid-ext-v1-1-cef87c57b7dc@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,31 +50,29 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260713232440.120352-1-marex@nabladev.com>
+In-Reply-To: <20260714-qcom-bam-dma-vmid-ext-v1-1-cef87c57b7dc@oss.qualcomm.com>
 
 
-On Tue, 14 Jul 2026 01:24:14 +0200, Marek Vasut wrote:
-> Sort the document, place STM32MP21 before STM32MP23, and STM32MP23
-> before STM32MP25 . No functional change.
+On Tue, 14 Jul 2026 10:30:22 +0530, Vishnu Santhosh wrote:
+> A SoC can have multiple BAM DMA instances. Some of these BAMs are
+> powered by a remote processor that enforces XPU (eXternal Protection
+> Unit) access control and reads the per-channel descriptor FIFOs as an
+> AXI master under that remote processor's execution environment, so
+> their FIFOs must be accessible to the remote processor's VMID; other
+> BAM instances on the same SoC are not behind such a remote processor
+> and must not have this property set.
 > 
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> Add an optional qcom,vmid property listing the destination VMID(s)
+> that the affected BAM instance's descriptor FIFOs must be accessible
+> to. HLOS is always the source owner and must not be listed.
+> 
+> Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+> Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
 > ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Bartosz Golaszewski <brgl@kernel.org>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Linus Walleij <linusw@kernel.org>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: kernel@dh-electronics.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-gpio@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> ---
->  .../devicetree/bindings/arm/stm32/stm32.yaml       | 14 +++++++-------
->  1 file changed, 7 insertions(+), 7 deletions(-)
+>  .../devicetree/bindings/dma/qcom,bam-dma.yaml      | 26 ++++++++++++++++++++++
+>  1 file changed, 26 insertions(+)
 > 
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
