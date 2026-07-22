@@ -1,146 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB7942669E;
-	Wed, 22 Jul 2026 20:13:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 565302E2286;
+	Wed, 22 Jul 2026 20:16:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784751235; cv=none; b=CSG57A39bKgBOjKHg2/mtUAKORYlZ01xlj+pvUPQmMv3XZxyji+lsOXIV4w+BsOQ+hUZbRYQ5HMJv8UMMKqBXzgGykHY7xbDuO5jIwqQ4v41YM1h0tRu6Yi9LWdSg3GYtrOM2Qi2EsfhLdCSIczMGa5jhKaApcsxjF7xxgkOvGw=
+	t=1784751386; cv=none; b=k8szvZFYLM90R4ALTGyijDH4HTvEPjzyHBx8dYiw1YAM8v8HbtiukljIpTPhzqxPjKXIrecJaNbKIesep6ACPfjCgejcT0diCahPgxRIyhobdjasSdl/2LGzqcaWi5o06kKaZ8ouQsd4TjMQajep7xmF95WOUxAufgIu5PTnqAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784751235; c=relaxed/simple;
-	bh=ZmAYaHQ9iDHh+GcjRMXyAlaRyu0IcIMTI8hhsqmgkZY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CTicX6hYtZ2XZX2co0CD9tuAcz3SJ/xZwXozP++7TNZcHnYntppslNRnaocu/SpWQ18baCdfaf53j4pP8PXw29WRN9WhDjxCQFHdeJV1FJXfPaHzTNSttEC92Sq4y+SM/yCkNs+MzNULzJue88UrlWrvBNmqVDm+qSm9OaorFzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UapRAq61; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784751386; c=relaxed/simple;
+	bh=kw1QOlFvCqZDAjrZFeVrNS97i/mTm2S0GaQwYAJUaE4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dTaig0CJZ/TBcDYYA7/pKOc/8gprnUtVxQ0C4OXXA0lPzDseaFmOq6LFAbz+yQUl84GLg5yk2ACHvzKNI1ZuTqRQWfUNvjP1yjM6RLyRZF3rpED0sdsPKPdw0es4E+6MAYup+qnYaH3ilppaA+414DwBnQNgK8ANiJStkbRz5fM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=m7zT07r1; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UapRAq61"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BDA11F000E9;
-	Wed, 22 Jul 2026 20:13:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784751234;
-	bh=ylUR6OIduykRQkdadb/51xcyO42K82iV/6FKoGeuMKo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UapRAq61G8PEMOUPtDeauCenlevzKIOLNd/4m7815XaWPJ2zXntjDn97eV4UA9Rx2
-	 8WTCLibRvGJxHO51ebTiGkAyaidv4DLvTmyn7KoWRMlm5AqfKEdJDOv9MEPMVOnaU4
-	 YgAeXLxCUjywx5P1Khz4YDZHY8QYSlM68cLXD4lu7XdvI8vUJpBOwUd04ogojhfm9g
-	 Pie0gNzfVzpZszz42b4dazYKcMW9c05PAZRFY3Yvc5uOOpbJjDWtLdSZ3HEMO42Afs
-	 2b6k9ZUwwbQTRoEE+YFaNmtHTExS22X6UiNttxuzt+oMiqbbWuZO1hmQlGQLZZ1rhT
-	 v0itu4nEskxyQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/6] rtc: abx80x: add irq to struct abx80x_priv
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Antoni Pokusinski" <apokusinski01@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>
-In-Reply-To: <20260722195814.298552-3-apokusinski01@gmail.com>
-References: <20260722195814.298552-1-apokusinski01@gmail.com>
- <20260722195814.298552-3-apokusinski01@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 20:13:53 +0000
-Message-Id: <20260722201354.3BDA11F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="m7zT07r1"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 49DFF594;
+	Wed, 22 Jul 2026 22:15:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784751323;
+	bh=kw1QOlFvCqZDAjrZFeVrNS97i/mTm2S0GaQwYAJUaE4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=m7zT07r1h3HNQ+JitZo09hvoyckOg4UUiHjlBaWEXMmwR1/5WtGBqaNr0lH5DjWXU
+	 FR6fCTTuoekZwH5lQJsJj96BrEY8cyXEar4Zdp/9RmXlNocYk/pJRExEerX01e6F0l
+	 JkWIH8/W/2fXtQ3PLSvakYycuaMx02O/e79GEHZk=
+Date: Wed, 22 Jul 2026 23:16:22 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	driver-core@lists.linux.dev
+Subject: Re: [PATCH RFC 1/2] dt-bindings: regmap: add common schema for
+ no-sequential-read
+Message-ID: <20260722201622.GD648629@killaraus.ideasonboard.com>
+References: <20260722-regmap-single-read-v1-0-aaaf31591669@linux.dev>
+ <20260722-regmap-single-read-v1-1-aaaf31591669@linux.dev>
+ <cdd3b988-72cd-4143-9a17-ee0c57625e94@sirena.org.uk>
+ <amD_vkMOrtKq5NvX@bombadil>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <amD_vkMOrtKq5NvX@bombadil>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Wed, Jul 22, 2026 at 08:24:37PM +0200, Richard Leitner wrote:
+> On Wed, Jul 22, 2026 at 02:59:12PM +0100, Mark Brown wrote:
+> > On Wed, Jul 22, 2026 at 10:42:46AM +0200, Richard Leitner wrote:
+> > > Introduce a common regmap dt-binding schema with an optional boolean
+> > > property no-sequential-read to describe hardware integrations where
+> > > reading multiple consecutive registers in a single operation is not
+> > > reliable and registers must be read individually.
+> > 
+> > > A typical case are imaging sensors used on vendor-provided camera
+> > > modules whose bus integration does not support reads that advance across
+> > > consecutive register addresses. In such cases, single-register reads
+> > > work, but bulk reads do not. This restriction is a property of the
+> > > concrete hardware integration, not of the chip itself. It therefore
+> > > cannot be identified from the device driver and duplicating firmware
+> > > parsing in each affected driver does not scale.
+> > 
+> > No, this should not be a DT property.  We should discover this through
+> > the bus, just like we do currently for the various I2C quirks that are
+> > advertied by the I2C subsystem.
+> 
+> What do you mean "discover this through the bus"? As mentioned in the
+> commit message there is no possibility to detect that within the affected
+> I2C device drivers.
+> 
+> Or do you mean that it should be "discovered" by modelling the MCU which
+> "proxies" the I2C traffic between the host and the sensor/device as some
+> kind of "parent" device of the sensor?
 
-Pre-existing issues:
-- [High] The shared IRQ handler unconditionally returns IRQ_HANDLED and ina=
-dvertently clears all status bits.
-- [High] The `abx80x_read_alarm` function fails unconditionally on success =
-due to incorrect error checking.
---
+Mark's comment wasn't totally clear to me. I think this is what he
+meant.
 
---- Patch [2]: [PATCH 2/6] rtc: abx80x: add irq to struct abx80x_priv ---
-commit ccef71986338cc749e8440b88d073968d465ea5c
-Author: Antoni Pokusinski <apokusinski01@gmail.com>
+Richard, do you know if the MCU (which is actually an FPGA if I'm not
+mistaken) intercepts the I2C signals (i.e. is interposed between the
+host and the image sensor), or is "just" connected on the same I2C bus
+and messes up the I2C transfer when it detects a condition it dislikes
+(for instance by pulling the SDA line down when it detects a read from a
+protected register) ?
 
-rtc: abx80x: add irq to struct abx80x_priv
-   =20
-This patch moves the irq number into struct abx80x_priv so that it
-is no longer tied to the i2c_client. This allows the irq number to
-be accessed in the case of ABX81X SPI clocks.
+> Or something other?
+> 
+> Sorry, if I don't get it, but currently I see no other option than
+> providing this information somehow via device-tree. No matter if it's in
+> regmap or I2C.
 
-> diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-> index 5486d9d0b1e5d..9b0e1d48d9ba3 100644
-> --- a/drivers/rtc/rtc-abx80x.c
-> +++ b/drivers/rtc/rtc-abx80x.c
-[ ... ]
-> @@ -285,11 +286,12 @@ static irqreturn_t abx80x_handle_irq(int irq, void =
-*dev_id)
->  static int abx80x_read_alarm(struct device *dev, struct rtc_wkalrm *t)
->  {
->  	struct i2c_client *client =3D to_i2c_client(dev);
-> +	struct abx80x_priv *priv =3D i2c_get_clientdata(client);
->  	unsigned char buf[7];
-> =20
->  	int irq_mask, err;
-> =20
-> -	if (client->irq <=3D 0)
-> +	if (priv->irq <=3D 0)
->  		return -EINVAL;
-> =20
->  	err =3D i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_ASC,
+-- 
+Regards,
 
-[Severity: High]
-This is a pre-existing issue, but doesn't i2c_smbus_read_i2c_block_data()=20
-return the number of bytes read on success?
-
-Looking at drivers/rtc/rtc-abx80x.c:abx80x_read_alarm():
-
-	err =3D i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_ASC,
-					    sizeof(buf), buf);
-	if (err)
-		return err;
-
-Since it returns 7 on success, will this unconditionally fail and return
-early with an error code, leaving the alarm structure uninitialized?
-
-[ ... ]
-> @@ -921,19 +925,19 @@ static int abx80x_probe(struct i2c_client *client)
->  	if (err)
->  		return err;
-> =20
-> -	if (client->irq > 0) {
-> -		dev_info(&client->dev, "IRQ %d supplied\n", client->irq);
-> -		err =3D devm_request_threaded_irq(&client->dev, client->irq, NULL,
-> +	if (priv->irq > 0) {
-> +		dev_info(&client->dev, "IRQ %d supplied\n", priv->irq);
-> +		err =3D devm_request_threaded_irq(&client->dev, priv->irq, NULL,
->  						abx80x_handle_irq,
->  						IRQF_SHARED | IRQF_ONESHOT,
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since the IRQ is registered
-here with IRQF_SHARED, does abx80x_handle_irq() correctly handle shared
-interrupts?
-
-Looking at drivers/rtc/rtc-abx80x.c:abx80x_handle_irq():
-
-static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
-{
-	[ ... ]
-	status =3D i2c_smbus_read_byte_data(client, ABX8XX_REG_STATUS);
-	if (status < 0)
-		return IRQ_NONE;
-	[ ... ]
-	i2c_smbus_write_byte_data(client, ABX8XX_REG_STATUS, 0);
-
-	return IRQ_HANDLED;
-}
-
-If no relevant interrupt flags are set for this device, it still returns
-IRQ_HANDLED and writes 0 to ABX8XX_REG_STATUS, clearing all status bits
-including non-IRQ bits like BLF. Can this break other devices sharing the
-interrupt line and silently drop hardware status flags?
-
->  						"abx8xx",
->  						client);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722195814.2985=
-52-1-apokusinski01@gmail.com?part=3D2
+Laurent Pinchart
