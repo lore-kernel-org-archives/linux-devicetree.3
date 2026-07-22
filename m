@@ -1,124 +1,77 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2011C2D7DCE;
-	Wed, 22 Jul 2026 00:15:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030CB3081D6;
+	Wed, 22 Jul 2026 00:18:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784679326; cv=none; b=mpySrhO/3NUPFE++hZMgyw0Hf1XBB/jsGbFbvXJFloScevQ8NE6n0FR+ReFbnsYfeD/LWaK1kKs8c9fqXOk1JcTgPtWEZZPBhMnQ26+HChD/3+OfalC+TnKYkR7lGeVFpBXjnq30MdtgPUeWUCQiyuIaVctV2G9rf+atcNAJE7A=
+	t=1784679521; cv=none; b=g/TZBR5AgHWGvWXHPYZfbgkeCz+du0kxyetaH31PWDCc628zQbXiXxzxW/YzPODZ9OlKII5JAyJXEKevnl90LFRgfnDSgig13lY/UsAnJDYvbG9KhDjZ/iF6m+8fxe2w4RzphoGHlZW0YjSlSpmjAnpfn8Tq+mM7pDJg0Xk6Mpk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784679326; c=relaxed/simple;
-	bh=cNLUTybXKA4UkUr95prSBmvnXyEfDjiSjqPicEwBoHQ=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=APVwjY+OYIoeY5ohFn7OriFqlhZCCQNQ34D9udhV71N0J7WB34uDWRXKji/s0C7jcaHAdzcoMc/fD0YcttEv7/5eMaj1GwgZ9GVQRtKL89wCaB+E/90+P0Qdd0rekdvixrdImg3wG0vIKHxccUVuNxF8M4vpXSbP5SIF6NORVX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=k9dJiaap; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1784679521; c=relaxed/simple;
+	bh=ESCbHAC87pVZ9GxAP9Y0O7y7wFinp8StEXwhRPVGMlg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Qa9E7O9/JwkT6+G58Qg3dOEvT1k1eaOGvav+eZhGTp7rj+vTkpmaYR+AIkW0owTiUFjQNYZEaKrEPki/GQev3ZQM70fNX/kEUDZ+3V8e8btckVK1soJ1jPQkj2DiVfbZMfiUm/gwd17FfBzyR7q9eWVB9oyZiOiE0sUHzJhnEIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=UxyUnFl8; arc=none smtp.client-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="k9dJiaap"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=ZKisz1Ne04iXRtMnkOfnTn3thtOBxgjaa
-	dn6CyTjmJQ=; b=k9dJiaapOZxvRslR7YPfqqFzkKBQglFIeLWIhTyDn92R7U7Ra
-	h/phl75gCsB/sA+TdNXikHjscxdhmcYbPY2AWRGBx86nVx37RptDwJiG33LnDUSC
-	p8AIw4h6EhlxMBkbJb1PfK4Y1F8dKiS55DIUizxLidoxQF3vUGXIu0uaXc=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnEkOsC2Bq9IMUAA--.17601S2;
-	Wed, 22 Jul 2026 08:15:40 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="UxyUnFl8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1784679496; x=1784938696;
+	bh=ESCbHAC87pVZ9GxAP9Y0O7y7wFinp8StEXwhRPVGMlg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=UxyUnFl8Ebd7eaMdJHc9AvEBjGm394/UNs1GGNt74CQVW/thqn6bK7wyqpOJe1KZx
+	 KPrD7K9DavB9bgjF/RSSxfRE+36kp9YYx/bKZqYABYP864Nd28C+rDs2KDdnVQyUqc
+	 1wnt1mt34DXi/xwrig9kuYOWkk7HtlvvWUrncX8veWa82Xp/JjQndqbDFy1crwwWvF
+	 xr3wPnAjrFr3zENEf6IrRp78uFyIhnfAYJ2r/f/mh2Ll3YV09B7uW4J1LbMeu0tqbw
+	 8I6Jkpdzsx2ToL3aSBGXN3yyArY8rLwHJsTa/EjeWm68JxrlvphigUAWqPMKAsf6KR
+	 ELS5+/AahT7Lg==
+Date: Wed, 22 Jul 2026 00:18:10 +0000
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+From: Esteban Urrutia <esteuwu@proton.me>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] phy: qcom: qmp-combo: Specify PLL version in qmp_v6_dp_serdes_tbl structs
+Message-ID: <b77dc15d-f9ad-4c06-9e24-8f73421e2130@proton.me>
+In-Reply-To: <wg6lgpaexz4ktjlfzqpsidj56wr3hjax2ktn75kqsoaubtdxre@xh3yn3xpr4af>
+References: <20260715-sm8475-bup-usbss-v2-0-2d8def39b190@proton.me> <20260715-sm8475-bup-usbss-v2-2-2d8def39b190@proton.me> <wg6lgpaexz4ktjlfzqpsidj56wr3hjax2ktn75kqsoaubtdxre@xh3yn3xpr4af>
+Feedback-ID: 147889766:user:proton
+X-Pm-Message-ID: a2ccf6bbe5a8d06a77e22459d477556da87e94b0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 0/3] clk: ultrarisc: add DP1000 clock support
-From: Jia Wang <wangjia@ultrarisc.com>
-To: Brian Masney <bmasney@redhat.com>
-Cc: wangjia@ultrarisc.com, Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Conor Dooley <conor.dooley@microchip.com>
-In-Reply-To: <al_oYeD8EKHAGnPl@redhat.com>
-References: <20260720-ultrarisc-clock-v4-0-fe639d63bbac@ultrarisc.com>
- <al_oYeD8EKHAGnPl@redhat.com>
-Date: Wed, 22 Jul 2026 08:15:10 +0800
-Message-Id: <178467931058.4117678.1808952053832316217.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784679311; l=1534;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=cNLUTybXKA4UkUr95prSBmvnXyEfDjiSjqPicEwBoHQ=;
- b=iV3j9p0EK8AWc4gdSQozmt8ztshsMsv5RraC+Y7Pk85VVdmI7qBlJpv4fzOgorHjynC9NDTTp
- ye/bWcbeE3MAOApMbbY0kRa9JfK2Xl+09I/lCyMNls5Pu42VKSIfwBy
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwAnEkOsC2Bq9IMUAA--.17601S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kr4rXFy7Ary8Ar47WFy8Zrb_yoW8Gw4kpF
-	W8GFs5tFWkX3W2vws29wn2vry5Jas8tFWUJ3yUKry5tF1fWr1jqa97K3WfW3y29Fn5Ar9a
-	yayj9w17AF42vaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9l14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
-	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
-	xVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
-	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
-	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
-	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUonmRUUUUU
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAKEWpYVVAAAwAesw
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-07-21 17:45 -0400, Brian Masney wrote:
-> Hi Jia,
-> 
-> On Mon, Jul 20, 2026 at 08:38:03AM +0800, Jia Wang via B4 Relay wrote:
-> > This series exports a small common clock helper and adds the devicetree
-> > binding and clock driver for the UltraRISC DP1000 SoC.
-> > 
-> > The clock tree is driven by a SYSPLL and provides fixed-factor clocks for
-> > the subsystem and PCIe, divider-based root clocks for GMAC and the UART,
-> > I2C, and SPI blocks, and per-instance gate clocks for UART0-3, I2C0-3,
-> > and SPI0-1.
-> > 
-> > Testing:
-> > - dt_binding_check and dtbs_check on ultrarisc,dp1000-clk
-> > - Kernel build for RISC-V and boot-tested on DP1000
-> > - Modules build test for CLK_ULTRARISC_DP1000
-> > 
-> > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
-> > ---
-> > Changes in v4:
-> > - Drop the initial clk_hw_get_rate() max-rate warning after setting the
-> >   divider rate range.
-> 
-> I also see this in the diff between v3 and v4. Is this expected?
->
+On 7/21/26 6:46 PM, Dmitry Baryshkov wrote:
+> Checking the hardware docs I see no mention of v1 or v1.1 for these
+> PHYs.
 
-Yes, this is expected. The change only fixes the oddiv1/oddiv2 field naming
-to match the hardware definition and does not affect PLL frequency
-calculation.
- 
->  +++ b/drivers/clk/ultrarisc/clk-dp1000.c
->  @@ -0,0 +1,154 @@
-> @@ -309,8 +309,8 @@
->  +	.frac_mask = GENMASK(23, 0),
->  +	.m_mask = GENMASK(23, 16),
->  +	.n_mask = GENMASK(11, 6),
-> -+	.oddiv1_mask = GENMASK(4, 3),
-> -+	.oddiv2_mask = GENMASK(1, 0),
-> ++	.oddiv1_mask = GENMASK(1, 0),
-> ++	.oddiv2_mask = GENMASK(4, 3),
-> 
-> Brian
-> 
-> 
+I got this information from [1] (SM8475) and [2] (SM8550).
+As can be seen downstream, SM8475 specifies a v1 PLL while SM8550
+specifies a v1.1 PLL.
+v1 tables are used for SM8475 as can be seen in [3].
+In downstream, the SM8550 driver [4] defines both versions.
+The declaration for the structs found in the SM8550 driver can be found
+in [5].
 
-Best regards,
-Jia Wang
+Please check my findings.
 
+Regards,
+Esteban
+
+[1] https://github.com/LineageOS/android_kernel_qcom_sm8450-devicetrees/blo=
+b/lineage-20/qcom/display/display/cape-sde.dtsi#L70
+[2] https://github.com/LineageOS/android_kernel_motorola_sm8550-devicetrees=
+/blob/lineage-23.2/qcom/display/display/kalama-sde.dtsi#L71
+[3] https://github.com/LineageOS/android_kernel_qcom_sm8450-modules/blob/li=
+neage-20/qcom/opensource/display-drivers/msm/dp/dp_pll_4nm.c#L195-L282
+[4] https://github.com/LineageOS/android_kernel_qcom_sm8550-modules/blob/li=
+neage-21/qcom/opensource/display-drivers/msm/dp/dp_pll_4nm.c#L131-L152
+[5] https://github.com/LineageOS/android_kernel_qcom_sm8550-modules/blob/li=
+neage-21/qcom/opensource/display-drivers/msm/dp/dp_pll.h#L104-L129
 
