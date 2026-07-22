@@ -1,126 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232E3471CF4;
-	Wed, 22 Jul 2026 16:42:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2101471CE6;
+	Wed, 22 Jul 2026 16:42:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784738536; cv=none; b=rflYMN2KqhCPoNZyS/KGQyrpxQkDcb7B2Z9SWKabIiDs2HES1qm/LCB+NUhOTrZuCTHRy8wDsRokBAUt28jETm/mRbpFZiHQCee7sa4TtqCUFaNQkPvJUHVsdDhwj6aUuKqupy13G7xL76Lwsf/IImXWXPyh5OYE5vg6FGSzce0=
+	t=1784738540; cv=none; b=CvUrfGiYpnTkjNQp17S4OFJQcjij3sS3zE+A2hMRPdi5SDn/AsKpNl5WWFXRKG/ZfpQbm2H46DINsJEo4pyPZB8Ei+0ZdMdEKPs6Yu8nt3mjjnh9m2mfDwIGcPGkHLNGyZN/3PIDuzuQLl4BZOWO4uoO+7PchuGyt7IrWAhohTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784738536; c=relaxed/simple;
-	bh=IFagrB00Yachu5fQE3L5vJMarJDBvtSMQpDDnyYcIbQ=;
+	s=arc-20240116; t=1784738540; c=relaxed/simple;
+	bh=gl91YA25rCDp+bf3OB1Ed5AUyTzgVo3QNGUo1eKzw6Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WJSwMGkn+oL4XMhYIrwOF/MVWM1F8tZv7mT41ry3eue5SUbjVXQcmb8g/WIZx3+0p4vIT/mfdFwjRgsUry2InkU7+l61hb790H6vSdpZpMbTie61CO2F5ej6+JdzooMqYq8qi7FFJPj6MYbSFk3476vnYxJGc3FPoykxoFJdPPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JA/jWsYd; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=hxb2pH7QPD8Q1hAjmTTU16Bbkp0xCpxLt3XQ07Rlb4ndSycDYB7CmRtfVhiUilwEMkr3+QVOu2BNAcpKEV2i+MLmHeSpjOaN0ua4Geo5KkiegGSlt+1tmGA9kLRvDobslLS1GL+SGF0yLxIz1sDGTbztOwFLsNL3B4tNsI+gqBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=faYKN4WM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JA/jWsYd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF6E71F000E9;
-	Wed, 22 Jul 2026 16:41:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="faYKN4WM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C24611F00A3A;
+	Wed, 22 Jul 2026 16:42:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784738521;
-	bh=tZ+0meYxskm+tmV2fl/4jhmazvGqcrBuOUaB9oNmRpI=;
+	s=k20260515; t=1784738532;
+	bh=+FhwspSsIo41xwcPLmC+dyiiLCiUUuaWQEh6t7ru9uk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JA/jWsYdIIa/TcyMoRj/NF5lYjWREpUzP7l8RxJ2nJ9H5ElIHH3ntfHGDCY48iwo4
-	 nUtql/XWxwN6f9vWqq+Ifz5fCLy7CTR6Yq5Xiifd8SVWirjbl7IJagvuS1391DqasK
-	 xldtMwCApvuARop+WghWbARJoIK9w9f3rdlhVoTIKfRsf1E06IBjOvfObOMFZqsCHI
-	 LNvjUHzwZ7D4XR3+jZ2v/DfNjxxXMfNKy6aN5aiFIg2419UCODBmpTI6ZfA17xD0i+
-	 +RYWEbm9UaN8t/hkZLjtcpH6q8D4NLSkKJwGePZ2fMu1LnPFevP4RY3iiDzO5Ml5gI
-	 0gd6DU2o1amzQ==
-Date: Wed, 22 Jul 2026 17:41:54 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Mark Brown <broonie@kernel.org>,
-	Marius Cristea <marius.cristea@microchip.com>,
-	Marcus Folkesson <marcus.folkesson@gmail.com>,
-	Kent Gustavsson <kent@minoris.se>, linux-iio@vger.kernel.org,
+	b=faYKN4WMeaW3u8R+K0FNqrlYG74xfnPBt5Hjvn29tszXyM1h4abxhZYq5klf9EB2C
+	 6Y8T/Y0b8rMJ3QdO2FQ4M6qOaQjXgGf59vA10nCHkEPRZ5Z947tPOW8ROluPW4KFLg
+	 YhzgBR7t4Nces/bDK+hM1LIWwe7O55QzCtWZE/J0Sx0P0zF6FRJUX6jHbomhit85PC
+	 CjtG2Rb3cffCJTt3as2g36MiFn6+DnwtbF3tb7xIQaIczYWJGTSBYmYhXgAW92IhRZ
+	 VKE6rG299/L753DHfepHuINHL9SFY+SSmC3GFUPVUvYH3K7LygIXC9H25Svx/5s8Sm
+	 52nHtydab+0JQ==
+Date: Wed, 22 Jul 2026 11:42:10 -0500
+From: Rob Herring <robh@kernel.org>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com,
+	simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org, tzimmermann@suse.de, krzk+dt@kernel.org,
+	conor+dt@kernel.org, matthias.bgg@gmail.com,
+	dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, Janani Sunil <jan.sun97@gmail.com>,
-	linux-spi@vger.kernel.org, Kent Gustavsson <nedo80@gmail.com>
-Subject: Re: [PATCH v7 5/7] iio: adc: mcp3911: Add support for spi-device-addr
-Message-ID: <20260722-quickly-drone-6a2a3b79249d@spud>
-References: <20260722-ad5529r-driver-v7-0-7781cd74ad75@analog.com>
- <20260722-ad5529r-driver-v7-5-7781cd74ad75@analog.com>
+	linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
+	jason-jh.lin@mediatek.com, kernel@collabora.com
+Subject: Re: [PATCH v2 30/46] dt-bindings: display: mediatek: Introduce
+ MT8196 Layer Blender
+Message-ID: <20260722164210.GA1075204-robh@kernel.org>
+References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
+ <20260714114414.184512-31-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="AJCDWyaYMEfwNlGn"
-Content-Disposition: inline
-In-Reply-To: <20260722-ad5529r-driver-v7-5-7781cd74ad75@analog.com>
-
---AJCDWyaYMEfwNlGn
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260714114414.184512-31-angelogioacchino.delregno@collabora.com>
 
-On Wed, Jul 22, 2026 at 09:54:17AM +0200, Janani Sunil wrote:
-> Read the generic spi-device-addr property when determining the hardware
-> device address. Fall back to the deprecated microchip,device-addr
-> property and then to the historical device-addr property to preserve
-> compatibility with existing devicetrees.
->=20
-> The device address remains 0 when none of the properties are present.
->=20
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+On Tue, Jul 14, 2026 at 01:43:58PM +0200, AngeloGioacchino Del Regno wrote:
+> Add documentation for the Overlay Layer Blender IP found in the
+> newer generation SoCs like MT8196, MT8894, MT6991, and their
+> variants.
+> 
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 > ---
->  drivers/iio/adc/mcp3911.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/iio/adc/mcp3911.c b/drivers/iio/adc/mcp3911.c
-> index ddc3721f3f68..3919a326b4db 100644
-> --- a/drivers/iio/adc/mcp3911.c
-> +++ b/drivers/iio/adc/mcp3911.c
-> @@ -740,10 +740,13 @@ static int mcp3911_probe(struct spi_device *spi)
->  	}
-> =20
->  	/*
-> -	 * Fallback to "device-addr" due to historical mismatch between
-> -	 * dt-bindings and implementation.
-> +	 * Fall back to the vendor-specific property, then to "device-addr"
-> +	 * due to a historical mismatch between the binding and implementation.
+>  .../mediatek/mediatek,mt8196-blender.yaml     | 97 +++++++++++++++++++
+>  1 file changed, 97 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-blender.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-blender.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-blender.yaml
+> new file mode 100644
+> index 000000000000..402eccb5fd70
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-blender.yaml
+> @@ -0,0 +1,97 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/mediatek/mediatek,mt8196-blender.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: MediaTek Display Overlay Layer Blender
+> +
+> +maintainers:
+> +  - AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> +
+> +description:
+> +  The MediaTek Display Overlay Layer Blender hardware is responsible
+> +  for performing the alpha blending operation for overlapping layers
+> +  from various sources.
+> +
+> +properties:
+> +  compatible:
+> +    const: mediatek,mt8196-disp-blender
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/properties/port
 
-Jaysus, bit of a mess here.
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+You must have descriptions of what each port is.
 
->  	 */
-> -	ret =3D device_property_read_u32(dev, "microchip,device-addr", &adc->de=
-v_addr);
-> +	ret =3D device_property_read_u32(dev, "spi-device-addr", &adc->dev_addr=
-);
-> +	if (ret)
-> +		ret =3D device_property_read_u32(dev, "microchip,device-addr",
-> +					       &adc->dev_addr);
->  	if (ret)
->  		device_property_read_u32(dev, "device-addr", &adc->dev_addr);
->  	if (adc->dev_addr > 3) {
->=20
-> --=20
-> 2.43.0
->=20
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
 
---AJCDWyaYMEfwNlGn
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCamDy0gAKCRB4tDGHoIJi
-0gcIAP9p7QLrvHULCTbp+m0KiZDoToCng0aN92F3tZx/h7w8GgD8DixzPtqRL0vZ
-Irm6CNsO+BVkqtgN/ejURNmrQhnorA0=
-=AKHs
------END PGP SIGNATURE-----
-
---AJCDWyaYMEfwNlGn--
