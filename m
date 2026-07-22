@@ -1,141 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 792134749CD;
-	Wed, 22 Jul 2026 16:00:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537B44749ED
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 16:01:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784736048; cv=none; b=IppkkvLlkraY2PT2vqO7jkuX5Y2JO4CMweOzdVzZE6gbjn9jXlN03tV20F1oBCKgvWBgiwZAoVwcOJq9XNMmieDSl/tMp3ZxTnM87R+RhlWU5JIamOI8mSFqWQ6M5n9y+ZwhH3Jgdb7uUFbkUVwxM5IDicvqBeRfgg/RFBv9TgE=
+	t=1784736092; cv=none; b=rMOAFuKHevEBvgJmRCZy/ln6BXmpBk7fKNRonUj2NS0FCZCu8GOljZv6QrKrCTgEXKL2YfNFpZFIRCOlE+kTsoncqkUS86VJ3spUp3L64OrCUFSRPi2OdTAb2iRk6bdnghaDUqWlhnCDDgRF14fm8lB6cUgvyoFC9x9Xlk0lMoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784736048; c=relaxed/simple;
-	bh=gQohexZnJwy91ur+KHozlCWYr/oet6LQXTkUlbVsHz4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Tz7+yS/2yzRsQGFg8qli2U/0T7PT+9dkjY8Fl4I2q45oPty8VQcUEL56MBLE4pHRo0ZipcuVEK9qzAKchfNJCnk/ZS7ym8dq4N2YTBBLHwH2CASM54IidySxtM1Sujiyh7FwOQECg0uEBiJaRBY91yM+P8IQLVwCqiTK5yfjT6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QXeC64G0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784736092; c=relaxed/simple;
+	bh=28vcYtRMBlvGMpNwSXtZEG2NOpNKt9WaoBiIjB3KI7w=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lShbNXBQEZ64cnTURORnJl8ODygs0DWOyv9I7ZlKmy9lINXUSphztuBslhMYf7aQaEjjqXITCBh+BRQzERdzqLXzxaSJZy37BF0I+kKxhBF3X6idGJml81vSvsAw9iY5fHcvYA6k8E+JM9PKyriBOWDZesNXwiLP4fTIyx5mRg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I7fswK3t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QXeC64G0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 898401F000E9;
-	Wed, 22 Jul 2026 16:00:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I7fswK3t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEC2D1F000E9;
+	Wed, 22 Jul 2026 16:01:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784736047;
-	bh=Rycz4JXQS8vhhT2SHJaUbVNk+50BfSxzgXN8KX85+kI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QXeC64G0oNJibQHkHlbTU8EEactKSuDZLqs+bmrQoFemwO/R3A5f7cFbsGEwjzdoi
-	 a4xBpt7CAXfDf3RHG/BjrO3irpmNPGsuSb6/FwqM0TZ23LsWN/zoIojB50Rdy1Gibv
-	 NdaHV33wkI4n6hjlq7PdIbKpVo8vXM7F2hwJKrLF2Z3rlMaEqvvk+PIENTxJSKCTOl
-	 zQxbS9qnOMvYPJtwZwh2Cm9+9tYiwqKbKi2H3yNJodPgFbIXNImR1Hx61mBmf089GY
-	 byaqpT/0BttQvulOUeC/rJOGuXdA9KuFr5NXPExkASXD9n0uaLXgumx2wrfj7Pz+Ow
-	 6FyKoQrsi2Sbg==
-From: William Breathitt Gray <wbg@kernel.org>
-To: Wadim Mueller <wafgo01@gmail.com>
-Cc: William Breathitt Gray <wbg@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 2/3] counter: add GPIO-based counter driver
-Date: Thu, 23 Jul 2026 01:00:40 +0900
-Message-ID: <20260722160042.855724-1-wbg@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260722114936.849882-1-wbg@kernel.org>
-References: <20260722114936.849882-1-wbg@kernel.org>
+	s=k20260515; t=1784736091;
+	bh=IExqtfgUqGvzX+CBKK9wD8d53sZEok+NPsQpDFkqkz4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=I7fswK3tMNpvGKcLmxDqpFsJuLiTVaVksp/uSZGLABetqn/LXv0YbE8h0RufGia4N
+	 t2hWSH9PwL0f/nv+nFPK5Rlvw2BkQC2citZ9iGhMeGTrneKgE7w5AQ32ijTSp625Z0
+	 eNN90OejW5YuPpCfhMkOLCYHfHLGJ9CMWk//bkgHczdDtLKp5Bx9p/UBdMaXGnqSs3
+	 +GtdhdNlB2r3PccG8JOV/CrxeUbQHNWqTEQ4+3mX9JgbqoFShg3woW7+IKrVNtboVu
+	 1tzZXS3TOQ2neV46HtgpsXTJYhbutitDxAhZ5F7qzvD2jJ5H/FpwQaMa3ycvR+mMSb
+	 wPcCKU3XmpU5A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V19 6/9] iio: imu: inv_icm42607: Add Accelerometer for
+ icm42607
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chris Morgan" <macroalpha82@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260722153942.144387-7-macroalpha82@gmail.com>
+References: <20260722153942.144387-1-macroalpha82@gmail.com>
+ <20260722153942.144387-7-macroalpha82@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 16:01:30 +0000
+Message-Id: <20260722160130.DEC2D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3692; i=wbg@kernel.org; h=from:subject; bh=gQohexZnJwy91ur+KHozlCWYr/oet6LQXTkUlbVsHz4=; b=owGbwMvMwCW21SPs1D4hZW3G02pJDFkJL+WWr7Q7zfnSTu5UlPtj5YD76Qkr5uQyLomY0Hvky B0OnYDMjlIWBjEuBlkxRZZe87N3H1xS1fjxYv42mDmsTCBDGLg4BWAih/IYGa5su/jk92rRi5sP CAecmxEY7fbdLOIg07uNFkf//g98x1DHyLA4+FHRgwtsjAJOE8oue1zt3LLb9tjl6+pyF9as2SV h+JsNAA==
-X-Developer-Key: i=wbg@kernel.org; a=openpgp; fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
-Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 22, 2026 at 08:49:34PM +0900, William Breathitt Gray wrote:
-> On Tue, Jul 14, 2026 at 10:17:08AM +0200, Wadim Mueller wrote:
-> > +static int gpio_counter_setup_signals(struct gpio_counter_priv *priv)
-> > +{
-> > +	priv->signals[GPIO_COUNTER_SIGNAL_A].id   = GPIO_COUNTER_SIGNAL_A;
-> > +	priv->signals[GPIO_COUNTER_SIGNAL_A].name = "Signal A";
-> > +	priv->signals[GPIO_COUNTER_SIGNAL_B].id   = GPIO_COUNTER_SIGNAL_B;
-> > +	priv->signals[GPIO_COUNTER_SIGNAL_B].name = "Signal B";
-> > +
-> > +	if (priv->count_priv[GPIO_COUNTER_COUNT_1].has_index) {
-> > +		priv->signals[GPIO_COUNTER_SIGNAL_INDEX1].id =
-> > +			GPIO_COUNTER_SIGNAL_INDEX1;
-> > +		priv->signals[GPIO_COUNTER_SIGNAL_INDEX1].name = "Index 1";
-> > +	}
-> > +	if (priv->count_priv[GPIO_COUNTER_COUNT_2].has_index) {
-> > +		priv->signals[GPIO_COUNTER_SIGNAL_INDEX2].id =
-> > +			GPIO_COUNTER_SIGNAL_INDEX2;
-> > +		priv->signals[GPIO_COUNTER_SIGNAL_INDEX2].name = "Index 2";
-> > +	}
-> > +
-> > +	return 2 + priv->count_priv[GPIO_COUNTER_COUNT_1].has_index +
-> > +	       priv->count_priv[GPIO_COUNTER_COUNT_2].has_index;
-> 
-> As sashiko-bot pointed out, the Counter subsystem doesn't handle gaps in
-> the signals array. What you can try instead is use a local variable
-> num_signals to hold the current signals array offset:
-> 
-> 	num_signals = 2;
-> 	if (priv->count_priv[GPIO_COUNTER_COUNT_1].has_index) {
-> 		priv->signals[i].id = GPIO_COUNTER_SIGNAL_INDEX1;
-> 		priv->signals[i].name = "Index 1";
-> 		i++;
-> 	}
-> 	if (priv->count_priv[GPIO_COUNTER_COUNT_2].has_index) {
-> 		priv->signals[i].id = GPIO_COUNTER_SIGNAL_INDEX2;
-> 		priv->signals[i].name = "Index 2";
-> 		i++;
-> 	}
-> 
-> 	return i;
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Sensor data read immediately after power-on fails with -EINVAL f=
+or low ODRs due to insufficient wait time.
+- [Medium] A race condition during device removal leaves the hardware perma=
+nently powered on because devm-based IIO unregistration occurs after the dr=
+iver's custom remove callback.
+--
 
-Oops, I intended for those 'i' to be 'num_signals'. However, if you like
-you may name it 'i' or whatever makes sense.
+--- Patch [6]: [PATCH V19 6/9] iio: imu: inv_icm42607: Add Accelerometer fo=
+r icm42607 ---
+commit d5a95e354010c482038057c3ba35322667609d59
+Author: Chris Morgan <macromorgan@hotmail.com>
 
-> 
-> Now, to refer back to the correct signals element later you have three
-> options: loop through the signals array and check each id, or save the
-> signals offset to a member of count_priv so you can refer to it later.
-> 
-> I think the first option is the simplest because there are only two
-> Index Signals and a single if statement suffices: if priv->signals[2].id
-> is not GPIO_COUNTER_SIGNAL_INDEX1, then it is GPIO_COUNTER_SIGNAL_INDEX2
-> (and vice versa).
-> 
-> > +}
-> > +
-> > +static int gpio_counter_setup_synapses(struct gpio_counter_priv *priv)
-> > +{
-> > +	int n_c1 = 2, n_c2 = 1;
-> > +
-> > +	priv->synapses_count1[0].actions_list = gpio_counter_synapse_actions;
-> > +	priv->synapses_count1[0].num_actions =
-> > +		ARRAY_SIZE(gpio_counter_synapse_actions);
-> > +	priv->synapses_count1[0].signal = &priv->signals[GPIO_COUNTER_SIGNAL_A];
-> > +
-> > +	priv->synapses_count1[1].actions_list = gpio_counter_synapse_actions;
-> > +	priv->synapses_count1[1].num_actions =
-> > +		ARRAY_SIZE(gpio_counter_synapse_actions);
-> > +	priv->synapses_count1[1].signal = &priv->signals[GPIO_COUNTER_SIGNAL_B];
-> > +
-> > +	if (priv->count_priv[GPIO_COUNTER_COUNT_1].has_index) {
-> > +		priv->synapses_count1[2].actions_list =
-> > +			gpio_counter_index_synapse_actions;
-> > +		priv->synapses_count1[2].num_actions =
-> > +			ARRAY_SIZE(gpio_counter_index_synapse_actions);
-> > +		priv->synapses_count1[2].signal =
-> > +			&priv->signals[GPIO_COUNTER_SIGNAL_INDEX1];
-> 
-> You can use a ternary directly like this:
-> 
-> 	priv->synapses_count1[2].signal = (priv->signals[2].id == GPIO_COUNTER_SIGNAL_INDEX1)
-> 		? &priv->signals[2] : &priv->signals[3];
+iio: imu: inv_icm42607: Add Accelerometer for icm42607
+   =20
+Add icm42607 accelerometer sensor for icm42607.
 
-I suppose index1 would always be at offset 2 if it does exist, so this
-ternary isn't needed here but rather better for the index2 case in the
-count2 block.
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/=
+iio/imu/inv_icm42607/inv_icm42607_accel.c
+> new file mode 100644
+> index 0000000000000..f563c77084201
+> --- /dev/null
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
 
-William Breathitt Gray
+[ ... ]
+
+> @@ -288,21 +288,21 @@ struct iio_dev *inv_icm42607_accel_init(struct inv_=
+icm42607_state *st)
+> +	indio_dev->name =3D name;
+> +	indio_dev->info =3D &inv_icm42607_accel_info;
+> +	indio_dev->modes =3D INDIO_DIRECT_MODE;
+> +	indio_dev->channels =3D inv_icm42607_accel_channels;
+> +	indio_dev->num_channels =3D ARRAY_SIZE(inv_icm42607_accel_channels);
+> +	iio_device_set_drvdata(indio_dev, st);
+> +
+> +	ret =3D devm_iio_device_register(dev, indio_dev);
+
+[Severity: Medium]
+Could this lead to the hardware being left permanently powered on
+during device removal?
+
+During driver unbind, the custom remove callback (inv_icm42607_sensors_off)
+will run before the devm cleanup unregisters this IIO device.
+
+If a concurrent userspace sysfs read re-enables the sensor via runtime PM
+before the devm IIO unregistration occurs:
+
+sysfs read
+  pm_runtime_get... (powers device on)
+  inv_icm42607_read_sensor()
+  pm_runtime_put_autosuspend... (queues async suspend)
+
+Will the subsequent devm cleanup of runtime PM cancel the async suspend
+and leave the device powered on indefinitely?
+
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+> +	return indio_dev;
+> +}
+
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
+io/imu/inv_icm42607/inv_icm42607_core.c
+> index d85eaedef0706..c1648f5c35389 100644
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+
+[ ... ]
+
+> @@ -355,18 +364,18 @@ int inv_icm42607_read_sensor(struct iio_dev *indio_=
+dev,
+> +	/* read sensor register data */
+> +	ret =3D regmap_bulk_read(st->map, reg, &data, sizeof(data));
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val =3D be16_to_cpu(data);
+> +	if (*val =3D=3D INV_ICM42607_DATA_INVALID)
+> +		return -EINVAL;
+
+[Severity: Medium]
+Can this return -EINVAL during normal sysfs reads at low ODRs?
+
+When the device is in autosuspend and a sysfs read occurs at a low ODR
+(e.g., 1.5625 Hz), the driver wakes up the sensor and waits for=20
+INV_ICM42607_ACCEL_STARTUP_TIME_US (10ms).
+
+Since the first sample at such a low ODR can take much longer (e.g., ~640ms)
+to be ready, will the hardware return INV_ICM42607_DATA_INVALID here,
+causing the read to fail rather than blocking until data is ready?
+
+> +
+> +	return 0;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722153942.1443=
+87-1-macroalpha82@gmail.com?part=3D6
