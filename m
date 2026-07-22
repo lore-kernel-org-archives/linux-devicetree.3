@@ -1,182 +1,204 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F8B31DF27F;
-	Wed, 22 Jul 2026 20:46:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784753183; cv=none; b=ed4ZgRoR4F7XwtjWVZn4CBvZoICgTM4NifT/Ofx6Q76JZgaaMi2vnvUHXXcum0Y+PuIvclnO+sg6P/Y+vkB6vy2IZL1nwoWylAjbd1j6bXJKtVxDckvyG9XsH9Iuo7bhLS2fDPvqkllAh8Sc2FuWTjuQlwFE+kcKWsVIFmkaoJc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784753183; c=relaxed/simple;
-	bh=F8xfwXt7RuNRymjxBQp/GrNPAYosUvBCfRlRrRK19+w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=We8tk4oehJPFR5QlF2mG1yKq8YxhqxJvMx4f5J7Aw44jqtB7cf3NwXmEaWrepOJ8kI+yyL5Oyu6teQL5MxdYh+nKBsVRA5aJWCHAQyWqu0vrudnbBitwy2lVq5+0Cgetrje1ifZ6ADNpoUiEAiMjuh3OhDRTCuhUmKbPjZNjzAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oRBicLso; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64D0238888E;
+	Wed, 22 Jul 2026 20:57:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784753832; cv=fail; b=GKIkq5nfvBP/2Z/Pibpq0Ok/AzW1NiPyxMQjlUB0/TsuBw28q+qxFZVwNbwn1wVM/xTnACgHE0VSMWXGPAcFKKSLc/ySeVy7MwLEaWNujg0vb5H+GOZ4FDFQZK4gLdUnGL2HzRoH02QSADhft0GOd9BNTV3PtqQ2oKU1RvhqG6E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784753832; c=relaxed/simple;
+	bh=nQzhs0QScvnVdPs1yqsMh8hwalFF9rAe613SCDdoxgo=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IdHu11aCdmsbnQ9eMu5D14sNQAi0b+LMUg5/OZ+TFgCo1wUt4Zqg5z1z37dRAzuv8gMBl7yg/pFSgGPA0E3N9eDB6jBuw6zeh6KoeQ6QLBr1Z4KrGWMKdM9ysP4Mh+nn7pDWu+5OH/DxDPgjkhrYALdpxFkqgOb1Q4wnrndz/TU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=HJtOjI0h; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=Ht1D687F; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oRBicLso"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 212C51F000E9;
-	Wed, 22 Jul 2026 20:46:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784753182;
-	bh=B7u7wYkCYGrIaxGWVn8VkaXnLdJbdSqo25DFPqzV9MM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oRBicLsoJxnzB5x52QzEt39ov/7uR8zO7EUJac/4saFrPwbvGYBr736eP3FJiDOCy
-	 5dw/CXm3fwb3AVaq2xD6LXxrgBVcYVCugMadUAWg3MFgcXEi9Qi6FdY7NuCfr08Xl3
-	 7G8hDNAo0iuUvUq++OELlpLBc6x8iru32yNJjwEG6Ab797UBo+JkauexvPCDwtQOdY
-	 Sv0VK3RCNKJhwuSKa84qFLta8cm+EPIiYJ//O4AGuiOOSYstyaY5Ygrmfbvz7XiTiT
-	 kvET1hNc8GfeYHsXuVzOEx0cQ9GT/MqrNnmXWmABb+ueEOr73w8YVWrTsvXmGzByFn
-	 MU+L+Hb1jHjGw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] ARM: dts: sun9i-a80: Add thermal sensor and thermal
- zones
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?U8O2cmVuIEhhbnRlbA==?= <fugininsane@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, conor+dt@kernel.org
-In-Reply-To: <20260722203341.2917852-4-fugininsane@googlemail.com>
-References: <20260722203341.2917852-1-fugininsane@googlemail.com>
- <20260722203341.2917852-4-fugininsane@googlemail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 20:46:21 +0000
-Message-Id: <20260722204622.212C51F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="HJtOjI0h";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Ht1D687F"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 66MHnKMF2309835;
+	Wed, 22 Jul 2026 15:57:08 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=LqPxHuuc/FdBiHHZDHDn/SHXBOVFmI7rTwuNHpffv
+	kg=; b=HJtOjI0h3UtXucW9DczmHtWD8oZB2iRSlcHVK5Qf74nBmvYLCaOc81Nie
+	/wZO4x2Nf/Xdc0Uzkjp/T1O1SZcgf1Q3rFD1OJUUaA/60fsc8IWcVI70AU8/xAw6
+	enxsetcwOEptW0oyT0zkkPVrLclFplvM6FgwuODRqUqBdgLQuB9zxYE1S80FBwQf
+	eGth7mn5l4eMvjC/vkKqCHGZHqDRhgDdtHct/1n9X5DDK/e5TZsdpqTlw2YDioBP
+	12Ouh72v2lfeb6mB3Kx3AWZSgQtwZQACBfrb0zfs84O3sOv1GtAv5CNpftcUTJwX
+	FDH6S6WeO5UuLMMSVXgBcb0ucGrxg==
+Received: from sj2pr03cu001.outbound.protection.outlook.com (mail-westusazon11012037.outbound.protection.outlook.com [52.101.43.37])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4fjw4jk782-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 22 Jul 2026 15:57:07 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=B1XJlZ/8+QNZhIdeaoOef0xky9WxvNmGhm7nv7ibQawROVLmgtn1YkU/FGSoVm5+XU+vAp3vSWouiWlIRZhmKB088Dv+r63HuLB4OfV/tZE7rPQOkbLiFEutp/BrpzO60q328zQXa+KgKF/gT4xc7GW01kA5CErMbFghxFztZGq86Uohj3SxlvSvo3zTtBcQkKa2wH2bqrmGul19ccVZvT0RjDIggzHYVZni810hPv3Ws1FHAjEVlP0MgfyB/sDA1KBNvpkCajNBgWVKrKUAVYaOVUwNHBLG7sFAUoxnM3PItKAxT6p/mw80QXvdLz0tpDxx13MczVjhNNZJf1wKhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LqPxHuuc/FdBiHHZDHDn/SHXBOVFmI7rTwuNHpffvkg=;
+ b=Z5rYpQy5nk4pefWfpfc6HbrUzPGQPDZNc9kdyG/u4qiMqmnTyz/A94CjG/nO3Emgm8wCNXzXxcD8YFylSCHEgmZgg4/MD+hMHqcLGQEzbtMr68rcyLVCZIHgCpn0TmZ0jZyKPlGb0Ng4/tmuUU1GDKtIsYVDf7bHXr1AYilBryGbszPT8geMqnvbOgMp1JR4OoQrKzlcb3Xi/DDE7lRno9zCwvrLTlgg06ytji68pCRBgmTybwN04zW4073CM/6fjcFqky9bv/S7zfWtEu4LZK7JHfLUcLIbG8kbkhouoI4CBHDJE2Rs3P/8E1OLH6MgiyS637NrryWfz6Htpi6TcQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LqPxHuuc/FdBiHHZDHDn/SHXBOVFmI7rTwuNHpffvkg=;
+ b=Ht1D687F0yMvRG8qhxEVqCkumHi1/B9tME2Dd8puSMJttEogqvm9fcS7Ox3r2U9dHvgZWmFx25BqGYVU67Gt+hAycDK/RMXkWMKdYiypvcccrRpA+E9lsYKMCUGt8viejKpd+MJKaKFl2aXPN7YuU1OdPGx7mJLN67mFw1IT04M=
+Received: from CH0PR03CA0411.namprd03.prod.outlook.com (2603:10b6:610:11b::27)
+ by PH8PR10MB997766.namprd10.prod.outlook.com (2603:10b6:510:39f::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
+ 2026 20:57:05 +0000
+Received: from CH2PEPF00000141.namprd02.prod.outlook.com
+ (2603:10b6:610:11b:cafe::4f) by CH0PR03CA0411.outlook.office365.com
+ (2603:10b6:610:11b::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Wed,
+ 22 Jul 2026 20:57:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ CH2PEPF00000141.mail.protection.outlook.com (10.167.244.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.5 via Frontend Transport; Wed, 22 Jul 2026 20:57:04 +0000
+Received: from DFLE202.ent.ti.com (10.64.6.60) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 22 Jul
+ 2026 15:57:01 -0500
+Received: from DFLE205.ent.ti.com (10.64.6.63) by DFLE202.ent.ti.com
+ (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 22 Jul
+ 2026 15:57:01 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE205.ent.ti.com
+ (10.64.6.63) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Wed, 22 Jul 2026 15:57:01 -0500
+Received: from judy-hp.dhcp.ti.com (judy-hp.dhcp.ti.com [128.247.81.105])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66MKv1vt331261;
+	Wed, 22 Jul 2026 15:57:01 -0500
+From: Judith Mendez <jm@ti.com>
+To: Judith Mendez <jm@ti.com>, Ulf Hansson <ulfh@kernel.org>,
+        Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>
+CC: <linux-mmc@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: [PATCH v2 2/3] mmc: core: Add mmc_delay_us() for microsecond precision delays
+Date: Wed, 22 Jul 2026 15:57:00 -0500
+Message-ID: <20260722205701.372789-3-jm@ti.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260722205701.372789-1-jm@ti.com>
+References: <20260722205701.372789-1-jm@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000141:EE_|PH8PR10MB997766:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5c12d430-d070-4ce7-624f-08dee833c8c6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|56012099006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	9ZEEd6UrPMaXvoqHJCy3DsFj/v6Ni6thu8ByKTilDjVso/5aMa/htdIkh9iEbFSA/cJmerMxeWchSan9O7QyMMUwwKARMd9SmZdxxhiQEdOOQQFobxdV3g/bfwAjRKOrVLY/WWBC/JfQlQCdYa4MRSFo/OTbdIdK90fnqhRFxkPWkQ34JELKB6u0nMqR+aW849l+OZ/pCKyaVY9DmA+fAGU0TC42bHq/Ozk1V9DIO+r0PogfmZJDlZivb0AyWIhhKAVyzapILm3cpfpgmSTIDdPBRlUXJ4cxUo3YG7mZqSZJiftDa7p9XgxBV0XGXMT1GxEYmQh2qruYs7F1fY5ys2Elo/SwEZJN4hVVqm0Feg4JBIbimaw9nwEps5fGw4S/lWQQtvuNACHEgt+iw1Kp3ozjJ5FANoUt+WN3OX/2F925M45Pb6KyvTFz2Xo+JXs137dWlB10HbBhIF3R7kXOzyOKvyiFjBz7WqdP83xZx+yElGGyvhFDZiIbjFlR4+CxIodHV3Yg5vcK7OADcgL5ZZWyBWreBbzBf6O4XJAbjM517C5CDrTABnt5mRFLjeYi9YDTnv+B5j/9w5NrG+1W+9eLcG/OmEyPmm+RwumIbfx7AuQSk4W9Pz9K75346exu0ubId57xHV/MB0c239ItFQnJ4YvoxFkYkLGlrjCmslYd1/DGrn0sSMbCeENUbYAT69H2ix3EJY9DkFYks8ujfA==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	+Yeaxe9zmjeEuuyGmUweMOdQf2SXh84XIlyjXpCrsua4wxfvnK98Ola0PtY5h5PrmG4JZT3coYzaK1QlCd+dES4toIuB/jhnH58LtMbZpQijmWDAaisp4GE5+7N780clC8zxustiAmMOVytuDU1EskRnJhSj/ip1BNnaIbTJN5fgZu4rDlFwjo/dpFQGR0Z4opmpvGhhMMKdShum2IhIw+oDkcfk5fAB8jZYAjQmjE8vh8wWmasXUOAW4PXgBxqHCZkAc5Wv2Fq5gP0RftwKQrEfNml9/oK4uJCoxAiUyrlc9TlVlpKZvgJgCz3KXGyqE+u6Mz8eEzZ92eXV9wRxwQSzgmmZaz5s81P5uuyvZgw9NZagNwWM5Ur20o0Rqgr7YkS/97X0vu9qrEClwnGOoxMgIcsCBa5IdDS8Z/xtST+EjOy44rL86+L4fXhOWz3G
+X-Exchange-RoutingPolicyChecked:
+	QamShfHcOanK2og1SuC6vOZSZkkSBwBBRg2V/u1MvbpeIn/IV+HE1QYLK/AH8mp0piGFJpmhoOUg8NtPb+1H+6/JVm+pIJ4Cvg8BV4K75xPhS5hDpDI8SATR+UeKSuu6bPIOn8yDvUx6UQAEuNLYCeK7Wwe8uYYkpmpO/2zwg8yW46xZFIHiSszW52O/E/4HHsZRtKDfgW3HESlHI30ZzV7dm/nwybZBY1YQnx5kOXENs84e0PUs+IOb9hVVWON0AVVB9rPMs3a1FFhpanFh4SvhX6alw6nLC4kuosuWEAMrHaKwRPWO5UEAGHwDek1KdQMK/D03zonhmBysMc1XPg==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 20:57:04.1615
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c12d430-d070-4ce7-624f-08dee833c8c6
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF00000141.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR10MB997766
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDIwNyBTYWx0ZWRfX/zJP7zAdlReZ
+ QQiO3vHm/7Uk3KR0DbWyzTIRq2qOepjXSOLSRqQZh+uPkiokf4TawSXdwpjzH/pL4vN/stY3wqV
+ HgQYHUL4vjq9i8FGpgO8ucNNbrRUQi0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDIwNyBTYWx0ZWRfX08fQaXAD/ijW
+ Yg+G0UMwGIKYN0eT6juI5RjUX2pvd4qGbGuTaYxbhSxihrpjBcpIG8GFhI7dsr3uQieuyG3k9cN
+ uaKXGdCIZL1n0sJaX0ArgagITvoVUGQLn1ApqYstA4/ORvDjHrg/ELewtFUS1axqFgP+GtwqQG6
+ //PUaOjdgymU4BRhffU6ssKML7fdImRzmBfErg26Qz09mwelgFEfQmghZhjHOcQN2VLvPZJMhWK
+ CgTzHx7LiCxopRGCVmWgmi5Bcj67eWos2hVkOWOvN+/tJaCgNPZAtUhp+Bnb/WHCT5FePYco52H
+ Z0dll+uEtvQuj51gTzJQ2rviq3PK36dRQvMOCYBMv0XkkF1qNsY9EkLFdfYahYV6WMNkbripUIn
+ pPP4PYSCR41HoGdLmr2eeqVEe5a9wzvMaIOgj+MZOTJqt9nxhhXe9JxCPkJjktElQeZuY5Bn1kK
+ Kcb5E/auEOBOhE9+RIQ==
+X-Proofpoint-GUID: it5ASAH4iEr04iC7PCxyxipmxMZSzNLB
+X-Authority-Analysis: v=2.4 cv=ONwXGyaB c=1 sm=1 tr=0 ts=6a612ea3 cx=c_pps
+ a=ZegHLSctVnYqdC7w6owYpw==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=RAioF0-LDSMA:10 a=V5UXEbMT0ywA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22
+ a=sozttTNsAAAA:8 a=mqBQSjPbZoE_d8sq_30A:9
+X-Proofpoint-ORIG-GUID: it5ASAH4iEr04iC7PCxyxipmxMZSzNLB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-22_05,2026-07-22_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 phishscore=0 adultscore=0
+ suspectscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220207
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] The thermal zones for the CPU clusters are incorrectly named relat=
-ive to their mapped hardware sensors, risking incorrect cooling mitigations.
-- [High] The A80 thermal sensor driver lacks a `.calibrate` callback, resul=
-ting in a NULL pointer dereference if `nvmem` calibration data is ever prov=
-ided.
-- [Medium] The critical trip point temperature does not match the driver's =
-emergency shutdown threshold as explicitly claimed in the commit message.
-- [Low] The 'ths' node is not sorted properly by unit address.
---
+Add mmc_delay_us() to support microsecond-granularity delays needed
+in MMC framework. It uses 25% margin consistent with  mmc_delay() for
+timing flexibility.
 
---- Patch [3]: [PATCH 3/3] ARM: dts: sun9i-a80: Add thermal sensor and ther=
-mal zones ---
-commit cb2cbf274b6f042626c2998af64fc2030a9af3ea
-Author: Philipp Rossak <embed3d@gmail.com>
+Signed-off-by: Judith Mendez <jm@ti.com>
+---
+Changes since v1:
+- add patch 2/3
+---
+ drivers/mmc/core/core.h | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-ARM: dts: sun9i-a80: Add thermal sensor and thermal zones
+diff --git a/drivers/mmc/core/core.h b/drivers/mmc/core/core.h
+index a028b48be1644..55e9fb3bab9f7 100644
+--- a/drivers/mmc/core/core.h
++++ b/drivers/mmc/core/core.h
+@@ -73,6 +73,19 @@ static inline void mmc_delay(unsigned int ms)
+ 		msleep(ms);
+ }
+ 
++static inline void mmc_delay_us(unsigned int us)
++{
++	if (us < 1000) {
++		usleep_range(us, us + (us >> 2));
++	} else {
++		unsigned int rem_us = us % 1000;
++
++		msleep(us / 1000);
++		if (rem_us)
++			usleep_range(rem_us, rem_us + (rem_us >> 2));
++	}
++}
++
+ void mmc_rescan(struct work_struct *work);
+ void mmc_start_host(struct mmc_host *host);
+ void __mmc_stop_host(struct mmc_host *host);
+-- 
+2.54.0
 
-This commit adds the device node for the A80 thermal sensor and the thermal
-zones to the device tree. It maps the sensors to the big CPU cluster, DRAM,
-GPU, and little CPU cluster.
-
-> [soeren: rebased from the 2018 series, fixed the interrupt number
-> (SPI 115 as in the vendor BSP; verified on hardware - SPI 31 stays
-> silent), added critical trip points matching the driver's emergency
-> shutdown threshold]
-
-[Severity: Medium]
-Does the trip point temperature match the driver's emergency shutdown
-threshold as claimed in the commit message?
-
-The commit message states that the patch adds trip points matching the
-driver's emergency shutdown threshold, which is around 105C. However, the
-device tree source sets the temperature to 100C (100000). Could the commit
-message be more precise about this difference?
-
-> diff --git a/arch/arm/boot/dts/allwinner/sun9i-a80.dtsi b/arch/arm/boot/d=
-ts/allwinner/sun9i-a80.dtsi
-> index a1ae0929cec9d..8e7f8cd943d2e 100644
-> --- a/arch/arm/boot/dts/allwinner/sun9i-a80.dtsi
-> +++ b/arch/arm/boot/dts/allwinner/sun9i-a80.dtsi
-> @@ -941,6 +941,16 @@ ccu: clock@6000000 {
->  			#reset-cells =3D <1>;
->  		};
-> =20
-> +		ths: thermal-sensor@6004c00 {
-
-[Severity: Low]
-Is this node sorted properly by unit address?
-
-This thermal-sensor@6004c00 node is inserted between clock@6000000 and
-timer@6000c00. Since 0x06004c00 is numerically greater than 0x06000c00, it
-appears to break the standard ascending order sorting of unit addresses.
-
-> +			compatible =3D "allwinner,sun9i-a80-ths";
-
-[Severity: High]
-Does the sun9i-a80-ths driver lack a calibrate callback?
-
-If an nvmem calibration cell is provided in the device tree, the driver
-unconditionally calls the calibrate callback:
-
-drivers/thermal/sun8i_thermal.c:sun8i_ths_calibrate() {
-    ...
-    tmdev->chip->calibrate(tmdev, caldata, callen);
-    ...
-}
-
-Will this cause a NULL pointer dereference during driver probe if calibrati=
-on
-data is ever provided, since sun9i-a80-ths omits this function pointer?
-
-> +			reg =3D <0x06004c00 0x100>;
-> +			interrupts =3D <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks =3D <&ccu CLK_BUS_GPADC>, <&ccu CLK_GPADC>;
-> +			clock-names =3D "bus", "mod";
-> +			resets =3D <&ccu RST_BUS_GPADC>;
-> +			#thermal-sensor-cells =3D <1>;
-> +		};
-> +
->  		timer@6000c00 {
-
-[ ... ]
-
-> @@ -1250,4 +1260,62 @@ r_rsb: rsb@8003400 {
->  			#size-cells =3D <0>;
->  		};
->  	};
-> +
-> +	thermal-zones {
-> +		cpu0_thermal: cpu0-thermal {
-> +			polling-delay-passive =3D <1000>;
-> +			polling-delay =3D <5000>;
-> +			thermal-sensors =3D <&ths 0>;
-
-[Severity: High]
-Are the thermal zones for the CPU clusters incorrectly named relative to th=
-eir
-mapped hardware sensors?
-
-The commit message notes that sensor 0 is located beside the big CPU cluster
-(cpu4-7), and sensor 3 is beside the little CPU cluster (cpu0-3).
-
-Here cpu0-thermal is mapped to sensor 0 (the big cluster). Will this cause
-userspace daemons or future device tree cooling maps to incorrectly throttle
-the little cluster when the big cluster overheats?
-
-[ ... ]
-
-> +		cpu2_thermal: cpu2-thermal {
-> +			polling-delay-passive =3D <1000>;
-> +			polling-delay =3D <5000>;
-> +			thermal-sensors =3D <&ths 3>;
-
-[Severity: High]
-Similar to the question above, cpu2-thermal targets sensor 3, which monitors
-the little cluster. Is this misleadingly named, risking incorrect cooling
-mitigations?
-
-> +
-> +			trips {
-> +				cpu2_crit: cpu2-crit {
-> +					temperature =3D <100000>;
-> +					hysteresis =3D <2000>;
-> +					type =3D "critical";
-> +				};
-> +			};
-> +		};
-> +	};
->  };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722203341.2917=
-852-1-fugininsane@googlemail.com?part=3D3
