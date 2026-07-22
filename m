@@ -1,84 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m155104.qiye.163.com (mail-m155104.qiye.163.com [101.71.155.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB14221D96;
-	Wed, 22 Jul 2026 08:12:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF4E367B9F;
+	Wed, 22 Jul 2026 08:14:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784707957; cv=none; b=stYchgKnJutflnhTfhhu+X3mNfZJGxLtoU0lp64gZ1+8zY6nSEXhjlXoBi2ll3ySpo+1i3kH2p2ye1RA4smVAR8Ab5B0YINea6gptvPJ6G05YRLA2hjeugDQhlGiFkC9oTHobQOBAeCS6waHXDNPKaVWBG7G6OLDsJCDORJtBmc=
+	t=1784708091; cv=none; b=UmjlWPyG4ofHeJfPz1TIJfGe5/LG1kQCKNGUt75fi+8qeHhAwGiLnQqFwfkTmEObxbe0bYixELHXTMOMVKXaJPooeecYjY0Jf4ZYj1m/JXQquWnzorkO4s7R3G1iLGnRP6nUicx9ZDC4CMqcBiZgONlJbAQvEc4S2x8OtZIrA/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784707957; c=relaxed/simple;
-	bh=NpCSJtDiKtk8XRJFpH3k5kFyLGWVp1dTpcaWwwrMHxk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uSLsx9pK0Fexoh1x3rn3kDACJDHTX0keEHv6dbBZgHl10e1fbp4FHJ17xy1D8eZlzSJ5J8HR9QD2qMjeLIiFsEMYZYevkpyQzvUslZ/CXyQFJpfUaJw729qKTsdKEY2ynzvdvPj0oWcKNKY8Elh6YEd9rBzGXn5F5STwcd0s5PE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ox9cKzjw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784708091; c=relaxed/simple;
+	bh=H2jYEbDE6zMb0RGciZdnuLVAPpnxh4KM3390+TUx0sE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VKcGVGCUgk8spEi8HXxZvovMWDA3SszxAefkM43iG72oO/tOjZ8L/Nfa0KYtVTVx1vh8NSwaAvnUB6rjsVXVkf0Xjv98NjRiTCT7Fj3ULUl9wro3IGiyz1yKqxgRkoXQ/JfAkwVHTbwCWxosuErMFb/A1L5YrXk9Mug5OessLes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=UUimcXcZ; arc=none smtp.client-ip=101.71.155.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ox9cKzjw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16A041F000E9;
-	Wed, 22 Jul 2026 08:12:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784707956;
-	bh=4uL12UJfDy9Y3hI8vIlHjfOGnXPnG7SAuEQbC/EYjn8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ox9cKzjwZpzCCGbmGshiiOixd45Harja5knO2DgHQRgeuDOKHfBqoe3vTuxAkmkYD
-	 Z0kkt4jxRVIZohuPZgJqdcumyK495T6dtoBP3EhosasiWEcGLYHAGRl9Qf0o4KqAk9
-	 codF7k/ATo/y/uVtuTJY/y994/E98i82m4aBNWF9q+EnHmJhHWwDA+HvCtfZh/GAkW
-	 eY6kBHi+H1+c9J+pJawe3efGcGsqaGc0NcLXdIW1WRzlRSzprPycxaGLPfp3e6T0h2
-	 gKU2vc8pNyZZD3rSP4nXXhjUvqC0yxb/kmxrfGTGyyOzUyPoXHsSfMO+z8hJ4oDnWj
-	 IHwYQtcJfHUvw==
-Date: Wed, 22 Jul 2026 10:12:32 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vincent Cloutier <vincent.cloutier@icloud.com>
-Cc: Sebastian Reichel <sre@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>, 
-	Purism Kernel Team <kernel@puri.sm>, Rob Herring <robh@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Vincent Cloutier <vincent@cloutier.co>
-Subject: Re: [PATCH v3 4/4] dt-bindings: power: supply: max17042: Allow
- monitored-battery
-Message-ID: <20260722-fiery-smilodon-of-anger-9dd4ae@quoll>
-References: <20260721185904.40756-1-vincent.cloutier@icloud.com>
- <20260721185904.40756-5-vincent.cloutier@icloud.com>
+	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="UUimcXcZ"
+Received: from tsdl-HP-EliteDesk-880-G6-Tower-PC.. (unknown [36.129.139.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 471eb5888;
+	Wed, 22 Jul 2026 14:58:56 +0800 (GMT+08:00)
+From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+To: konrad.dybcio@oss.qualcomm.com
+Cc: andersson@kernel.org,
+	broonie@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	dmitry.baryshkov@oss.qualcomm.com,
+	drake@endlessm.com,
+	hongyang.zhao@thundersoft.com,
+	katsuhiro@katsuster.net,
+	konradybcio@kernel.org,
+	krzk+dt@kernel.org,
+	lgirdwood@gmail.com,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	matteomartelli3@gmail.com,
+	mohammad.rafi.shaik@oss.qualcomm.com,
+	neil.armstrong@linaro.org,
+	perex@perex.cz,
+	robh@kernel.org,
+	rosh@debian.org,
+	srini@kernel.org,
+	tiwai@suse.com,
+	zhoubinbin@loongson.cn
+Subject: Re: [PATCH v2 6/6] arm64: dts: qcom: qcs6490-rubikpi3: Add audio support
+Date: Wed, 22 Jul 2026 14:58:39 +0800
+Message-ID: <20260722065841.2424602-1-hongyang.zhao@thundersoft.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <c293d9c7-bdb7-4303-80c8-404228c434d7@oss.qualcomm.com>
+References: <c293d9c7-bdb7-4303-80c8-404228c434d7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260721185904.40756-5-vincent.cloutier@icloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9f889ecb2109d5kunmcfaa0ab945fac3
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTBhCVktNSx1CSEJNGENITVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVCQk
+	lOS1VKS0tVSkJLQlkG
+DKIM-Signature: a=rsa-sha256;
+	b=UUimcXcZWMPJFdsTTyztDrXVh+0OGkluTZ8/C6r8Q5PSKq++b38V0To/DTj324yrXObI+/umpE2tiLdtf02EOgY6KnAl9cHg7mNRzyAdE0sg+KN/YHaxEPapQsgIoB4/qDw/OjJYDPzLoVEEZ0ryBLsm54X5GIUVg0j562vPsAk=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
+	bh=sJG7TkJXw80gNmIP7/g1NThayM9xyWHMAaqAHg5lEmo=;
+	h=date:mime-version:subject:message-id:from;
 
-On Tue, Jul 21, 2026 at 02:57:36PM -0400, Vincent Cloutier wrote:
-> From: Vincent Cloutier <vincent@cloutier.co>
-> 
-> The MAX17042 family binding references the generic power-supply schema,
-> but additionalProperties only recognizes properties declared directly by
-> this schema.
-> 
-> Use unevaluatedProperties so properties inherited from power-supply.yaml,
-> including monitored-battery, are allowed while unknown properties remain
-> rejected.
-> 
-> Assisted-by: OpenCode:gpt-5.6-sol
+On 7/18/26 11:41 AM, Hongyang Zhao wrote:
+>> On 7/15/26 4:02 PM, Hongyang Zhao wrote:
+>>>> RubikPi 3 uses the AudioReach firmware path for its external audio
+>>>> interfaces. The primary MI2S interface connects to an ES8316 codec for
+>>>> headset playback and capture, while the quaternary MI2S interface feeds
+>>>> the LT9611 HDMI bridge.
+>>>
+>>> [...]
+>>>
+>>>> +	vreg_es8316_3v3: regulator-es8316-3v3 {
+>>>> +		compatible = "regulator-fixed";
+>>>> +
+>>>> +		regulator-name = "vreg_es8316_3v3";
+>>>> +		regulator-min-microvolt = <3300000>;
+>>>> +		regulator-max-microvolt = <3300000>;
+>>>> +
+>>>> +		gpio = <&tlmm 117 GPIO_ACTIVE_HIGH>;
+>>>> +		enable-active-high;
+>>>> +
+>>>> +		pinctrl-0 = <&es8316_power_on>;
+>>>> +		pinctrl-names = "default";
+>>>> +
+>>>> +		regulator-always-on;
+>>>> +		regulator-boot-on;
+>>>
+>>> Does it need to be always-on? Is it really on at boot time?
+>>
+>> I think the regulator-always-on constraint is currently required.
+>> GPIO117 controls the power switch for the ES8316, but the existing
+>> ES8316 binding and driver do not model regulator supplies.
+>
+> Please fix that first.
 
-And the tool did not suggest to remove redundant properties?
+Understood. I’ll send a new patch series and first try to address the
+ES8316 regulator supply support issue.
 
-> Signed-off-by: Vincent Cloutier <vincent@cloutier.co>
-> ---
->  .../devicetree/bindings/power/supply/maxim,max17042.yaml        | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/power/supply/maxim,max17042.yaml b/Documentation/devicetree/bindings/power/supply/maxim,max17042.yaml
-> index 242b33f2bcba..395253ca7835 100644
-> --- a/Documentation/devicetree/bindings/power/supply/maxim,max17042.yaml
-> +++ b/Documentation/devicetree/bindings/power/supply/maxim,max17042.yaml
-> @@ -73,7 +73,7 @@ required:
->    - compatible
->    - reg
-
-You need to remove the power-supplies now.
-
-Best regards,
-Krzysztof
-
+Thanks,
+Hongyang
