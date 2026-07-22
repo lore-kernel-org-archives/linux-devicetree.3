@@ -1,107 +1,120 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m101-out-mua-6.websupport.se (m101-out-mua-6.websupport.se [109.235.175.106])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E17B339384
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 12:15:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30EDF207A32;
+	Wed, 22 Jul 2026 12:17:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.235.175.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784722543; cv=none; b=ukxshOyZmyTq4SeHP1V7s1zd6HCj0hPn/RMVUmOsbO8ExIT18Xe23GFRNrrRVCxbYVZy0HG4IoI/cUp2SHs+6Dsr3WA7hSz+8sgkTy303tLR16+J6OhcFUafacGqIbvzyyq+uQ3KbEaw4utfdKIDWkr9MN0ACgilC3NNa36dckc=
+	t=1784722647; cv=none; b=nVaz5mpfACjzHea/7YbV/zy/UcIsnN8Ao2cEtNs2CbPXamIYK3s5cxvEnyLxYXxWpIjFW9LMx3IB9W1V9Mhm5zSCSkuXx41IzQgmfmBl31MGTDvIiwrpPCkDR/sMSKLMtlto/eArwLOBrZHvlegsOO/T0hCL8a/TdiDY5CV3hlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784722543; c=relaxed/simple;
-	bh=iUamnWT6NmYBsSueT3Oc5IPXGg5zIZozv4mCBmVercY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hOuT79/iEajWL6itzBCYmPy9g4Wt9jHfN5QyPixZp/5X4eitj+xJFxDLf6aOBsFQMKIDJj2d9i6jqBOoN+oBtM321VXU51u/mHi6bYfdloQqOn8XA5WVJUpFuYAx3M+F2ppKriw6dh0+T1ga+4ucSTuecIs9JCJ5GQPcWvsdR8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=fcyrD2jg; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1784722647; c=relaxed/simple;
+	bh=A5eSGIow4fx5QzKp7RQCuK7MK6VMGghXDlwz33QWfd8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ihibRkrThhRlMsoqdfjI5vvqGvet3pq/lh8e6esSMuFNVzNRhGrnbgdrfIjoFazzBNnAhKfGmmveoPNeW/AfSvONaVy6fS9Rp0Orc7NTKWXYVL/RpUF7RAbwHMf2BDlSfr8k/pmRDJ3EAeoj6SX7CcREiMX52oJO6EJEXA10iZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=palvencia.se; spf=pass smtp.mailfrom=palvencia.se; dkim=pass (2048-bit key) header.d=palvencia.se header.i=@palvencia.se header.b=PZGxsJNn; arc=none smtp.client-ip=109.235.175.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=palvencia.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=palvencia.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="fcyrD2jg"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4955484387cso25211365e9.1
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 05:15:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784722539; x=1785327339; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xw4PW534JRt7W+7M044jqZN3M/EBMZUMhKAoOTNL9HY=;
-        b=fcyrD2jgkQKLwyudX0UUNZK6EwfuoDt+0sWRKNSDJNADxHvslqWsOxIbz5gMk0cZJR
-         RFu7lR+J+rU0zIX9/DMbRzCT/fX8lgfY1p5c4P4U0JI9Ef++3CpJDQHGgrMPua68zQCz
-         f2IfTgCH8ypAewS0cLb4j/8vRVkwDy6VerCqmQjtOGcNbkNSly2pQ16F3aiqvmpIKZai
-         cwT4RI9a5eB93bf4/lj++OwhVY6zieg0fTpC4z3WZ5CFI/pjXW5o8c56/ya50Bx6J1Ee
-         2vLK28kRYVlLOeuQX3I24/0L27w1iJG7/LFl4q2xfYsTXXGJOyRBCVwZLImnfMkJ4Mcb
-         AMhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784722539; x=1785327339;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xw4PW534JRt7W+7M044jqZN3M/EBMZUMhKAoOTNL9HY=;
-        b=qJyR9qo5PX1a4dwCAC9LlLA70Nxn1mawwsM9znHGI2ldRxe0cSr9UV9sqY+V67BR6m
-         ouThOmfg8f252YBmz6AqiksnK64pfr8bgk/ZtxQldfjQd6GCj0jDpmhVRJTK35C3bkhs
-         43R9ntszGyaAuh8WiWZkQwUDG5DNCL0h0i0qguE+gaEyld6rMdSaCAWDBLjZx7VLifBG
-         dqOBsMRu7grs9GY3++EEdID36L+S4DUAn4LimnNFblCC6eaMvIgdojirvWzy2CCZrYDE
-         wkBO8UdRs6XSppTjUxkzGqfHSBxyIrNSClKBxRsgIbVU27Dsg1nbY6LkN42X/BpY8/N9
-         FbUA==
-X-Forwarded-Encrypted: i=1; AHgh+RoBwIN7dx7UzG8Y+cseANN0wHYfqCsyz3+fICKxwRulkv6gwIoK63PGUxNubW2Xd/H+vTPmOPV2ZVlV@vger.kernel.org
-X-Gm-Message-State: AOJu0YxKqOB3ba/ULaNm73HSHAy/lc6nxP5Qd40+N9VGUxVHk2JvNMpz
-	5TDABFM0Ffw0/QH5l7WVXVvXt4LjpeP9TiuGtpvsmJL2UGqkaOnuC3z8ogei5oK9KY4=
-X-Gm-Gg: AR+sD11sT1sNi2T8k9LiOqCkRYVk0i3TawNMyth3692SavqEaUrDQakGk/NIQxHKkxp
-	G0AmbMQ4WRnolUI6sSA/P4hWgI5sJZJjXkrYpp3OzYsIo5J0xsZ3CpXO/2tLvyWpoUwiXsBcxnV
-	QDP/FjM9QIWB86VTR0EllCF5blmOLy5yKv7hUGslEFgrH8YcH4+GNvH+4T2nBCSdIS0QUOnCsgt
-	d7T3XaP4F91OUMaEMge7/WvsJh56LeOgrDMX763gO4q5+TacVWwM2RWMor7PAlN8YQnW7tAKXZS
-	zbBdhpDgRLDR49yKGnv7WgVgyvyeu1fdsr1kADxLkrG+iDeqLk/epmE6A39hCOyIqNKI88nqoIt
-	bixOcSnOkCkAW8cxoX10J+yIgpW+EIoFJ8xCFfpar5q+PIJTXvMvnxeePuqK2P1b9xpBGXP393Y
-	tMOmwZ4UYYlmS1suoZCCaaNhg=
-X-Received: by 2002:a05:600c:4753:b0:493:bc4b:b8c with SMTP id 5b1f17b1804b1-4954a413024mr250331295e9.38.1784722538803;
-        Wed, 22 Jul 2026 05:15:38 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f8635c8d7sm4379093f8f.21.2026.07.22.05.15.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 05:15:38 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Pengyu Luo <mitltlatltl@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] drm/panel: Add Novatek NT36536 panel driver
-Date: Wed, 22 Jul 2026 14:15:14 +0200
-Message-Id: <178472247749.1745070.8996806935280043926.b4-ty@b4>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260709142846.12463-1-mitltlatltl@gmail.com>
-References: <20260709142846.12463-1-mitltlatltl@gmail.com>
+	dkim=pass (2048-bit key) header.d=palvencia.se header.i=@palvencia.se header.b="PZGxsJNn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=palvencia.se;
+	s=mail; t=1784722636;
+	bh=BW7OEygY66DEhI2gw8GlDcm88r50fl2ii7fNHg4fiQg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=PZGxsJNnB+OFXdwYg3vSq7H0PZ9wkf8d+wjSIewLXQec5tpvQFZZav/DKzKbQJOBJ
+	 yyWvCk6eIzphNAoON7RMUI/Hqka9xZ8MUfGOzCsqA46Xzw7H6s/mhotFsbrEFOixtR
+	 39veTDQzlVvjiFTbwFcYOjHyMQoaKykqKE9W1hlQK7GCX+Bla9xHOR81YZBawzXEad
+	 UvEEu5WVxt+ZqB2QoovzSydsb8nwalEEij+vthmwWPECLN/oiQZxBQHQF/HnwpIuSK
+	 r7+lxUhsZDZdD6l77nW8aIyt7NrCMQ2XvsN9cxQoIYtIzRcfZgERrErj+4GI60cF95
+	 Po0jzOFFPtQ4w==
+Received: from m101-u7-ing.websupport.se (unknown [10.30.7.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	(No client certificate requested)
+	by m101-out-mua-6.websupport.se (Postfix) with ESMTPS id 4h4tY85C6mz1qYv;
+	Wed, 22 Jul 2026 14:17:16 +0200 (CEST)
+X-Authenticated-Sender: per@palvencia.se
+Authentication-Results: m101-u7-ing.websupport.se;
+	auth=pass smtp.auth=per@palvencia.se smtp.mailfrom=per@palvencia.se
+Received: from rpi (unknown [193.180.91.63])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: per@palvencia.se)
+	by m101-u7-ing.websupport.se (Postfix) with ESMTPSA id 4h4tY621RkzqHv;
+	Wed, 22 Jul 2026 14:17:14 +0200 (CEST)
+Date: Wed, 22 Jul 2026 14:17:00 +0200
+From: Per Larsson <per@palvencia.se>
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej
+ Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] pinctrl: sunxi: A523: fix voltage withstand encoding
+Message-ID: <20260722141700.7fe240f1@rpi>
+In-Reply-To: <20260721223956.13665-1-andre.przywara@arm.com>
+References: <20260721223956.13665-1-andre.przywara@arm.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Action: no action
+X-Out-Spamd-Result: default: False [1.90 / 1000.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_RHS_NOT_FQDN(0.50)[];
+	MIME_GOOD(-0.10)[text/plain];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TAGGED_RCPT(0.00)[dt];
+	RCVD_COUNT_ZERO(0.00)[0];
+	BAYES_HAM(0.00)[41.58%];
+	ASN(0.00)[asn:35790, ipnet:193.180.91.0/24, country:SE];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	HAS_X_AS(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	LOCAL_OUTBOUND(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,gmail.com,sholland.org,vger.kernel.org,lists.infradead.org,lists.linux.dev]
+X-Out-Rspamd-Queue-Id: 4h4tY621RkzqHv
+X-Out-Rspamd-Server: m101-rspamd-out-5
+X-purgate-type: clean
+X-purgate-Ad: Categorized by eleven eXpurgate (R) https://www.eleven.de
+X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
+X-purgate: clean
+X-purgate-size: 1114
+X-purgate-ID: 155908::1784722636-3C7051C6-336E3020/0/0
 
-Hi,
+On Wed, 22 Jul 2026 00:39:56 +0200
+Andre Przywara <andre.przywara@arm.com> wrote:
 
-On Thu, 09 Jul 2026 22:28:44 +0800, Pengyu Luo wrote:
-> Add a driver for panels using the Novatek NT36536 Display Driver IC,
-> including support for the CSOT PP8807HB1-1, a dual-link 10-bit panel
-> found in LENOVO Legion Y700 Gen4.
+> The Allwinner A523 uses the same GPIO voltage "withstand" programming
+> (setting the input level voltage thresholds) as the previous SoCs, but
+> for some odd reason inverts the encoding of 1.8V vs. 3.3V.
+> 
+> Add a new bias voltage type to note this difference, and select it for
+> the A523. At the same time also use the newer "CTL" version, which in
+> addition allows to turn off the withstand programming for I/O voltages
+> other than exact 1.8V or 3.3V (for instance for 2.5V sometimes used
+> for Ethernet PHYs). The A523 has that enable register, but didn't use
+> it so far.
+> 
+> This fixes eMMC and reportedly Ethernet operation on some A523 boards.
+> 
+> Fixes: 648be4cd9517 ("pinctrl: sunxi: Add support for the Allwinner
+> A523") Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+> ---
 
-Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
+I'd say this looks like the correct fix. With this (and removing
+the incorrect voltage bump "fix") the eMMC on my X96QPro+ works.
+Not seeing any regressions, so
 
-[1/2] dt-bindings: display: panel: Add Novatek NT36536
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/38873dd52850c3d713f006c240a2ce0abad52271
-[2/2] drm/panel: Add Novatek NT36536 panel driver
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/75a5dbd1f4f71b1382dae973538af00178ba55a0
-
--- 
-Neil
+Tested-by: Per Larsson <per@palvencia.se>
