@@ -1,188 +1,318 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1C63A5E70
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 15:40:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1E53B6BF4
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 15:42:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784734823; cv=none; b=pDd8vgDigBRUgb+bDjOudlB9mMhSoUwr7Zv+HC7y1o1NTNfR0PEnQ12twRnrIARKMf4Yk0m6QYhxnfM76SKsitVVaciPRl3tefCNOM2E+2W0b5c8VrXChYLP19B6Gf+m+e2qo+F8U/lZ7VM2/fPStH2uI+9DN55oomD7W65Z7M0=
+	t=1784734932; cv=none; b=tygQPwtRpc87tIM+YQTHwH8m6QMTYSu2NEVJCPJvgmWdlqmWGeWlFRCXHU1CM5OITx1QHftOYbqYh3BVYQ3BpbhOAXFTbzBa56TnlsFXVXquw8KEZSNDMjhiEU3/SqsogMC5HdBUY3Arpx78GejyqZfDdXAylribN345AD4AdIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784734823; c=relaxed/simple;
-	bh=uDRLKiyy6QvKST8aNXCndqp2adi/H+h0f0Z2GZrCrZw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bvo31Voj5OjjbmxIyuPDipUvQyFZZ8C+Cmh/imB7bJWHmUIJDFzUYfN379T0jS92heO6GDOzDgUw+gTGDOFXdC5NrIGCIQy6qdDCpmne1CZG4qwhmb06OsETmU1zgu5k0BO7VKZeFqrHjxMEusZ2Sx3wBF5VM4W1sQPaXv/DjGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fhosqB+K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784734932; c=relaxed/simple;
+	bh=IDhR0SyuMzp3m2SlvGcZRtJx2VMXL0DhwL3En+SbyxU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dgUe48M6uJ/Oep1hPfxJ4XlE5PnPeQ45x9Czn2p/U+AZxuU3hTpsPWVPTYaVUatjKnamAiWonl1vjCg+sAr8A+s3Mb+W0r+qI57PwJRNwmTsqCrjAx18XsZyQxpY+FE4F3y7RtEfJP2i9ukaOCpiMjIhp5/cWvI3NtrSHbsw5Bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=axx4Vntl; arc=none smtp.client-ip=209.85.210.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fhosqB+K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAB6C1F00ACA
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 15:40:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784734821;
-	bh=GL5QMlueg+RBLunCViI0gP82K0VD9Crkblqj+RkN+xc=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=fhosqB+KhhiTdsQfGQkeDjyUtd5YE3/L+IrGPc0MkVZDYXMgo09Gkkm9p7JjHNVHe
-	 lbsJKvxh3kr4qpZxNmBcH3EorfMJ2SWOf+pDJth6e/ZVfCpQVjuH5ZNbIlNB8LolX+
-	 9zA9yG2WBC/JEaPr1kjKbV6WkCo9bEOQB1QBttkr+43Ljavy4PD70JV+Gu7N55fk5y
-	 61fqos+KW0D8uCmDPzmTRxnl+zKtT6wbeHKXsQz7LJD7JJ9MZ9WppXtA/qYx8hLmQy
-	 qoqbi9DoiSgAGezwy27LAcRTjDQfx69W0BVTwbqfgMSkVDkrjy6WSxzw9mdA1a3HAb
-	 xY5PGis/7yc3w==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b01cb18515so12137901e87.2
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 08:40:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrhKgfUT9Zm/6A9XxS5aoQWBxYK4BOn3QeNWvylPqCkWX+Ybc19dqhTt3l8qlVkP/y1HHeqWmww86eg@vger.kernel.org
-X-Gm-Message-State: AOJu0YzMYNMTaSEfmKiNw78DDeeNtSS8fldmLtnSvWoVNveFMO7IfByj
-	F7012IUfzfHF93m2H9KFS3dwPxnjDe3/u1R3RK+otX1TEqiGuo8BPYB+fOXYvINwMFwRhuEdTKd
-	go43BGOxmt1Fsvkau/yFEmB0+HaBVphs=
-X-Received: by 2002:a05:6512:2212:b0:5ae:b6b6:c86c with SMTP id
- 2adb3069b0e04-5b28fad669dmr5721907e87.63.1784734820147; Wed, 22 Jul 2026
- 08:40:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="axx4Vntl"
+Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7e9dc546f40so3190166a34.1
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 08:42:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784734928; x=1785339728; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fDfIB1prNepqN7rjQ2ThSrbvy4NVRifJm7fXBLYgoKY=;
+        b=axx4VntlbyC/4qq6qb8Ez9zwt5rGNgrs1IFiBK+zqzELMiute/s7SknsBCtPpAWmff
+         0JXdgFldczo26OSxrK7QtxjoYovPpxApCs8ysEiJrxOCcQUYKS0Zh2GP1p1XXVRiCkhU
+         czMGqlzOXy0+hCqFYk+hhWvynUlKSt8bSkTlG1CrM+tg5+Nk3uFJPRkorp2MBYW1b7pC
+         XYrJfyZRNosiC1FZz51cLP8NvyJFCIb2Ze6WsQAGo3+vwhRDMovbl4iK5F+6X1U6PwyD
+         EQG+P86l+8GP8TzS5MnDeNmWj/W7wG70elzE9Wpv4nHkTlpTKvBqx6qqD0LxhBbkGZKy
+         WN/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784734928; x=1785339728;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fDfIB1prNepqN7rjQ2ThSrbvy4NVRifJm7fXBLYgoKY=;
+        b=CLs2IZw1r22L3LI+p2GDNztxdL7RtAnXwRCE58hkThsPbI6GUEPz7M2A3nAX6kBumF
+         Uqt7V9k+ZyO13EnfXfUwIbP1re88kkfMYMovPHap1tmRIDPumaetOIQgZr9HHsWmivcI
+         3bzTVsMzEcH6rT43VRouc7649dUe4wpatcioijm5wHOjwTf0FKt222eF/co+slyuuUnJ
+         1E6PEwQpmKBz2CNWl4roxOH6MjsiYK2wWLgc1v+eKgrCWfKGWyAQBKnX3FAE1KvfdLjT
+         WfY73OmOk/9xQmj+NgNbxhZSBuNSkraGQNCKevrU6BzmCmy13bBqy1ofq/2Gs4c2F4y/
+         2J7w==
+X-Forwarded-Encrypted: i=1; AHgh+RpvQTGkJ0a7dnSRj7MDutdcR2Ti7Nt8qlUM40SnpveLpPfCLxfioz0UazWMA8syGli3Zw65+SFa447s@vger.kernel.org
+X-Gm-Message-State: AOJu0YwvMTDMx+Pe4gJyoDZ2B1d8QFxrRcZgnzwo3nSQzdUdKEAqCBQX
+	ddjS+sgCN54NWsgtNiQpGER6Z6WXXwly9Da9Y9NDphUNSvDv1wooA4HK
+X-Gm-Gg: AR+sD11/LYUE2+4mBbsPOSioodUSGynGRjueNZ4RLuDFkJuKnNErK1BqI51tXfi5dRW
+	K8UIsXE8QMeL5zG1y34vWsm6pNjfkd+eWEdNM0+bJpzlmHFG0ZdVHMGlwRz92K8b5ACha7aly0s
+	CzrE65kbc023jk/WnjLJUSP9Z4DtimRWSzfgIwrEpfGD89WILjUlUvBl3vXF1Kyj6U5kl7P1+04
+	YHgC8Q4lqJLYFMsmN4HXl+vBLUoLVLJ/JDCfqkRkSJ+/RbAVQnj5TuDrFN+6XIrTmatBEJfA49C
+	q+4aXYO/St5GzU2AqIPkcSNIDUHChU5uVA+bJMQ6Z+Bo9tWLwAnlERBIkufpjymZH5YT3wIqcQD
+	payb+iwwfu+VAcfh/XiEA7gQPpa9J/Pg0xBX4h2NHfE7PYy+lk6VsGzKwOy78RObsxmPfSrBvDf
+	+p
+X-Received: by 2002:a05:6820:1608:b0:6a3:d8af:6b89 with SMTP id 006d021491bc7-6aa4b0ea4demr1868140eaf.28.1784734925022;
+        Wed, 22 Jul 2026 08:42:05 -0700 (PDT)
+Received: from localhost.localdomain ([2600:1700:fb0:1bc0::54])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6aac3a494d4sm1300804eaf.3.2026.07.22.08.42.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 08:42:03 -0700 (PDT)
+From: Chris Morgan <macroalpha82@gmail.com>
+To: linux-iio@vger.kernel.org
+Cc: andy@kernel.org,
+	nuno.sa@analog.com,
+	dlechner@baylibre.com,
+	jic23@kernel.org,
+	jean-baptiste.maneyrol@tdk.com,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	heiko@sntech.de,
+	conor+dt@kernel.org,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	andriy.shevchenko@intel.com,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: [PATCH V19 0/9] Add Invensense ICM42607
+Date: Wed, 22 Jul 2026 10:39:31 -0500
+Message-ID: <20260722153942.144387-1-macroalpha82@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260722-a733-rtc-v6-0-631cca28cc9a@baylibre.com> <20260722-a733-rtc-v6-2-631cca28cc9a@baylibre.com>
-In-Reply-To: <20260722-a733-rtc-v6-2-631cca28cc9a@baylibre.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Wed, 22 Jul 2026 23:40:07 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64HjXygw76zaNi9KaG-zfc+hZoeyp4EHyz68fcdK-AXNw@mail.gmail.com>
-X-Gm-Features: AUfX_mzq6njx4TtR0siTbEAlTZtN0hsrmD9OVcdXfDqLxwDI3Q-I_SIq3FthBu8
-Message-ID: <CAGb2v64HjXygw76zaNi9KaG-zfc+hZoeyp4EHyz68fcdK-AXNw@mail.gmail.com>
-Subject: Re: [PATCH v6 2/4] clk: sunxi-ng: div: add read-only operation support
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Junhui Liu <junhui.liu@pigmoral.tech>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Maxime Ripard <mripard@kernel.org>, linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 22, 2026 at 10:48=E2=80=AFPM Jerome Brunet <jbrunet@baylibre.co=
-m> wrote:
->
-> Add support for sunxi-ng read-only dividers. This will be
-> useful to the a733 oscillator detection logic.
->
-> Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
-> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-> ---
->  drivers/clk/sunxi-ng/ccu_div.c | 31 +++++++++++++++++++++++++++++--
->  drivers/clk/sunxi-ng/ccu_div.h |  1 +
+From: Chris Morgan <macromorgan@hotmail.com>
 
->  drivers/clk/sunxi-ng/ccu_mux.c |  2 +-
->  drivers/clk/sunxi-ng/ccu_mux.h |  4 ++++
+Add support for the ICM42607 IMU. This sensor shares the same
+functionality but a different register layout with the existing
+ICM42600.
 
-Left over stuff?
+This driver should work with the ICM42607 and ICM42607P over both I2C
+and SPI, however only the ICM42607P over I2C could be tested.
 
+Changes Since V1:
+ - Instead of creating a new driver, merged with the existing inv_icm42600
+   driver. This necessitated adding some code to the existing driver to
+   permit using a different register layout for the same functionality.
+ - Split changes up a bit more to decrease the size of the individual
+   patches. Note that patch 0004 is still pretty hefty; if I need to split
+   further I may need to create some temporary stub functions.
+ - Used guard() and PM_RUNTIME_ACQUIRE_AUTOSUSPEND() on the new functions
+   per Jonathan's recommendations.
 
->  4 files changed, 35 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/clk/sunxi-ng/ccu_div.c b/drivers/clk/sunxi-ng/ccu_di=
-v.c
-> index 62d680ccb524..c385e0160f13 100644
-> --- a/drivers/clk/sunxi-ng/ccu_div.c
-> +++ b/drivers/clk/sunxi-ng/ccu_div.c
-> @@ -20,8 +20,22 @@ static int ccu_div_determine_rate_helper(struct ccu_mu=
-x_internal *mux,
->         if (cd->common.features & CCU_FEATURE_FIXED_POSTDIV)
->                 req->rate *=3D cd->fixed_post_div;
->
-> -       ret =3D divider_determine_rate(&cd->common.hw, req, cd->div.table=
-,
-> -                                    cd->div.width, cd->div.flags);
-> +       if (cd->div.flags & CLK_DIVIDER_READ_ONLY) {
-> +               unsigned long val;
-> +               u32 reg;
-> +
-> +               reg =3D readl(cd->common.base + cd->common.reg);
-> +               val =3D reg >> cd->div.shift;
-> +               val &=3D (1 << cd->div.width) - 1;
-> +
-> +               ret =3D divider_ro_determine_rate(&cd->common.hw, req, cd=
-->div.table,
-> +                                               cd->div.width, cd->div.fl=
-ags, val);
-> +
-> +       } else {
-> +               ret =3D divider_determine_rate(&cd->common.hw, req, cd->d=
-iv.table,
-> +                                            cd->div.width, cd->div.flags=
-);
-> +       }
-> +
->         if (ret)
->                 return ret;
->
-> @@ -143,3 +157,16 @@ const struct clk_ops ccu_div_ops =3D {
->         .set_rate       =3D ccu_div_set_rate,
->  };
->  EXPORT_SYMBOL_NS_GPL(ccu_div_ops, "SUNXI_CCU");
-> +
-> +const struct clk_ops ccu_rodiv_ops =3D {
-> +       .disable        =3D ccu_div_disable,
-> +       .enable         =3D ccu_div_enable,
-> +       .is_enabled     =3D ccu_div_is_enabled,
-> +
-> +       .get_parent     =3D ccu_div_get_parent,
-> +       .set_parent     =3D ccu_div_set_parent,
-> +
-> +       .determine_rate =3D ccu_div_determine_rate,
-> +       .recalc_rate    =3D ccu_div_recalc_rate,
-> +};
-> +EXPORT_SYMBOL_NS_GPL(ccu_rodiv_ops, "SUNXI_CCU");
-> diff --git a/drivers/clk/sunxi-ng/ccu_div.h b/drivers/clk/sunxi-ng/ccu_di=
-v.h
-> index be00b3277e97..a30a92780a05 100644
-> --- a/drivers/clk/sunxi-ng/ccu_div.h
-> +++ b/drivers/clk/sunxi-ng/ccu_div.h
-> @@ -300,5 +300,6 @@ static inline struct ccu_div *hw_to_ccu_div(struct cl=
-k_hw *hw)
->  }
->
->  extern const struct clk_ops ccu_div_ops;
-> +extern const struct clk_ops ccu_rodiv_ops;
->
->  #endif /* _CCU_DIV_H_ */
-> diff --git a/drivers/clk/sunxi-ng/ccu_mux.c b/drivers/clk/sunxi-ng/ccu_mu=
-x.c
-> index 4503c9780c39..12bfc99c9172 100644
-> --- a/drivers/clk/sunxi-ng/ccu_mux.c
-> +++ b/drivers/clk/sunxi-ng/ccu_mux.c
-> @@ -67,7 +67,7 @@ unsigned long ccu_mux_helper_apply_prediv(struct ccu_co=
-mmon *common,
->         return parent_rate / ccu_mux_get_prediv(common, cm, parent_index)=
-;
->  }
->
-> -static unsigned long ccu_mux_helper_unapply_prediv(struct ccu_common *co=
-mmon,
-> +unsigned long ccu_mux_helper_unapply_prediv(struct ccu_common *common,
->                                             struct ccu_mux_internal *cm,
->                                             int parent_index,
->                                             unsigned long parent_rate)
-> diff --git a/drivers/clk/sunxi-ng/ccu_mux.h b/drivers/clk/sunxi-ng/ccu_mu=
-x.h
-> index c94a4bde5d01..272a2c36a8f2 100644
-> --- a/drivers/clk/sunxi-ng/ccu_mux.h
-> +++ b/drivers/clk/sunxi-ng/ccu_mux.h
-> @@ -134,6 +134,10 @@ unsigned long ccu_mux_helper_apply_prediv(struct ccu=
-_common *common,
->                                           struct ccu_mux_internal *cm,
->                                           int parent_index,
->                                           unsigned long parent_rate);
-> +unsigned long ccu_mux_helper_unapply_prediv(struct ccu_common *common,
-> +                                           struct ccu_mux_internal *cm,
-> +                                           int parent_index,
-> +                                           unsigned long parent_rate);
->  int ccu_mux_helper_determine_rate(struct ccu_common *common,
->                                   struct ccu_mux_internal *cm,
->                                   struct clk_rate_request *req,
->
-> --
-> 2.47.3
->
+Changes Since V2:
+ - Went back to using a new driver on advice from Invensense engineer.
+ - Further split changes up into smaller chunks of functionality. Note
+   still that the largest patch is approximately 900 lines, and that while
+   the driver compiles cleanly at each commit it is not able to drive the
+   hardware until the commit that adds the Interrupt (as it also adds the
+   Makefile).
+ - Change the error to a warning when the devicetree binding does not match
+   the hardware ID.
+ - Dropped the ack on the devicetree bindings, as I am creating a new file
+   (for a new driver) instead of modifying the existing one.
+
+Changes Since V3:
+ - Numerous small fixes (too many to list here). Thank you to everyone who
+   provided feedback.
+ - Split power management additions into an additional commit to break
+   things up further.
+ - Consolidated devicetree documentation in existing
+   invensense,icm42600.yaml file.
+ - Removed most of the FIELD_PREP from header file to c files to make code
+   easier to read.
+ - Changed scale values to 2D arrays for Gyro and Accelerometer.
+ - Removed IIO_CHAN_INFO_CALIBBIAS attribute.
+
+Changes Since V4:
+ - Additional numerous small fixes, thank you again for all the feedback.
+ - Dropped power control API and instead run device in low noise mode.
+ - Split devicetree bindings into two distinct changes.
+ - Reordered adding of enums and structs to main header file so that they
+   are only brought in when needed.
+ - Stopped using enum for driver data and instead am using pointer to
+   device specific driver data.
+
+Changes Since V5:
+ - Corrected use of "dev_warn_probe" to just "dev_warn".
+ - Fixed some return scenarios which would unconditionally return 0
+   when an error was present.
+ - Corrected use of max() to min() for bounds checking. max() was
+   incorrect.
+ - Fixed using "st->conf.accel.odr" in the gyroscope function. It
+   should have been "st->conf.gyro.odr" which it now is.
+ - Additional small fixes suggested by "sashiko.dev".
+ - Added a regmap cache. I used the datasheet to try and determine
+   which registers might change without explicit writes.
+
+Changes Since V6:
+ - Corrected additional errors identified by sashiko.dev, mostly
+   fixing potential deadlocks, missing calls for pm runtime, and
+   potential overflow issues.
+
+Changes Since V7:
+ - Dropped Wake on Movement patches, since some of the functionality
+   was only available for a device on which I cannot test.
+ - Dropped support for SPI 3-Wire mode, since it complicated the
+   bus setup (and I lack the hardware to test such features anyway).
+ - Fixed a few additional bugs identified by sashiko.dev bot.
+
+Changes Since V8:
+ - Added back IRQ dropped accidentally when dropping wake on movement
+   patches.
+ - Dropped "Reviewed-By" tag on patch 2 because of substantial changes
+   made to devicetree binding documentation.
+ - Additional small fixes as suggested.
+
+Changes Since V9:
+ - Removed interrupts (and buffers) from the driver. I previously was
+   unable to detect deadlocks because it turns out my IRQ was not even
+   wired correctly in my device.
+ - Updated devicetree binding commits to make interrupts optional for
+   users of the icm42607 driver.
+
+Changes Since V10:
+ - Explicitly specified enum values in header file.
+ - Removed additional dead code for buffer handling.
+ - Cleaned up headers.
+ - Added additional locks as requested by sashiko.dev bot.
+
+Changes Since V11:
+ - Since driver has shrunk in size considerably, moved i2c bits into
+   first code commit. This ensures that the very first commit with code
+   can now be compiled. The commit after that adds SPI support as it
+   was in the previous versions.
+ - Used pahole to optimize inv_icm42607_state. Reordering elements
+   reduced size in memory from 384 bytes to 256 bytes.
+ - Added a map of all readable registers and all writeable registers
+   according to the datasheet.
+ - Added back some missing headers pointed out by the maintainers.
+ - Added FIELD_PREP in a few more places to make the code more
+   obvious on what it's doing.
+ - Added a comment to the power management code to note that
+   temperature sensor being enabled doesn't matter as the clocks
+   are off by default when the gyro and accel channels are off.
+ - Removed iio_device_claim_direct() calls since it was no longer
+   needed.
+ - Fixed shared_by_all attributes for temperature sensor.
+ - Additional miscellanous fixes as requested.
+
+Changes Since V12:
+ - Removed aligned buffer from inv_icm42607_state struct as we do not
+   currently have the need for it.
+ - Corrected the order of the odr values in the accel and gyro files
+   as the values were out of order (the place in the array corresponds
+   to the register value).
+ - Stopped setting the clock value depending upon the temp config. The
+   datasheet advised to keep using the default value.
+ - Corrected logic when changing between states. We only need to pause
+   when a sensor changes from off to an on state or when the gyro
+   changes from an on state to off.
+ - Added missing includes for several files.
+
+Changes Since V13:
+ - Refactored inv_icm42607_set_accel_conf() and
+   inv_icm42607_set_gyro_conf() into a single function.
+ - Refactored inv_icm42607_accel_read_sensor() and
+   inv_icm42607_gyro_read_sensor() into a single function.
+ - Merged inv_icm42607_set_temp_conf() into initial init function
+   since it only really needs to be called once.
+ - Saved adding temp sensor for last and updated
+   inv_icm42607_temp_read() to either confirm other sensors are already
+   enabled or enable the accelerometer so it can get a reading.
+ - Updated inv_icm42607_set_pwr_mgmt0() so that it does not update the
+   sensor mode and forcibly keep the sensor enabled.
+ - Added inv_icm42607_temp_filter_bw enums since it appears to use
+   different values than the accel or gyro sensor.
+ - Set the temp startup time from 77ms to 77us, as I previously misread
+   the datasheet.
+ - Additional minor fixes.
+
+Changes Since V14:
+ - Added IIO_BE for temp sensor.
+ - Switched from ktime_get_real() to ktime_get().
+
+Changes Since V15:
+ - Removed interrupts from required property per note from Jonathan.
+   As a result of this change I've also removed one of Krzysztof's
+   Reviewed-By tags as this change probably requires further review
+   from them.
+ - Corrected a comment about reserved values from 0-5 to 0-4.
+ - Reordered some operations so that only runtime power management
+   turns off the sensors now. This removes the "ping-pong" effect
+   when switching between the accel and gyro sensor, at the expense
+   of leaving either the accel or gyro sensor enabled until runtime
+   power management turns it off.
+ - Fixed the shared frequency value not being available for the temp
+   sensor.
+
+Changes Since V16:
+ - Reverted devicetree changes back to removing interrupts only for
+   icm42607. Added back "Reviewed-By" tag, hope that's okay since it's
+   what was initally agreed upon.
+ - Removed PM runtime resume code, as there is currently no need to
+   resume; instead the raw read/write calls will enable sensors as
+   needed. This also allows us to remove storing the sensor state
+   prior to runtime suspend and instead we just use runtime suspend
+   to disable sensors while not being used.
+ - Additional formatting and minor fixes.
+
+Changes Since V17:
+ - Added remove routine to ensure device is properly powered down when
+   driver removed.
+ - Corrected issue with reading scale and offset values for temp
+   sensor.
+ - Set regcache as dirty and re-sync when resuming from suspend.
+ - Added back driver data to of_device_id table for I2C driver. While
+   Uwe told me to remove this in a prior commit Jonathan requested it
+   back and it is consistent with other drivers to be there.
+ - Removed linux/mod_devicetable.h header for SPI driver.
+
+Changes Since V18:
+ - Changed driver remove function to call a new function dedicated to
+   setting sensors to "off" instead of calling PM to shutdown sensors.
+ - Corrected to add an exception so that read_raw() functions will
+   still call the accel/gyro sample frequency.
+
+Chris Morgan (9):
+  dt-bindings: iio: imu: icm42600: Add mount-matrix
+  dt-bindings: iio: imu: icm42600: Add icm42607
+  iio: imu: inv_icm42607: Add inv_icm42607 Core Driver
+  iio: imu: inv_icm42607: Add SPI For icm42607
+  iio: imu: inv_icm42607: Add PM support for icm42607
+  iio: imu: inv_icm42607: Add Accelerometer for icm42607
+  iio: imu: inv_icm42607: Add Gyroscope to icm42607
+  iio: imu: inv_icm42607: Add Temp Support in icm42607
+  arm64: dts: rockchip: Add icm42607p IMU for RG-DS
+
+ .../bindings/iio/imu/invensense,icm42600.yaml |  20 +-
+ .../dts/rockchip/rk3568-anbernic-rg-ds.dts    |   8 +-
+ drivers/iio/imu/Kconfig                       |   1 +
+ drivers/iio/imu/Makefile                      |   1 +
+ drivers/iio/imu/inv_icm42607/Kconfig          |  30 +
+ drivers/iio/imu/inv_icm42607/Makefile         |  13 +
+ drivers/iio/imu/inv_icm42607/inv_icm42607.h   | 423 ++++++++++++
+ .../iio/imu/inv_icm42607/inv_icm42607_accel.c | 316 +++++++++
+ .../iio/imu/inv_icm42607/inv_icm42607_core.c  | 646 ++++++++++++++++++
+ .../iio/imu/inv_icm42607/inv_icm42607_gyro.c  | 313 +++++++++
+ .../iio/imu/inv_icm42607/inv_icm42607_i2c.c   | 106 +++
+ .../iio/imu/inv_icm42607/inv_icm42607_spi.c   | 116 ++++
+ .../iio/imu/inv_icm42607/inv_icm42607_temp.c  |  98 +++
+ .../iio/imu/inv_icm42607/inv_icm42607_temp.h  |  38 ++
+ 14 files changed, 2127 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/iio/imu/inv_icm42607/Kconfig
+ create mode 100644 drivers/iio/imu/inv_icm42607/Makefile
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607.h
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_i2c.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_temp.h
+
+-- 
+2.43.0
+
