@@ -1,192 +1,104 @@
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37150385509
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 09:06:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784711179; cv=pass; b=O6c8d8C28zJbPwYDbpbYW7SRl7kBG9KLFyBEJFyiTgw8EgeDmCLl64QmpXvvM+D/NO9odujM6UsUDul3OW2in6kd2a5Ptre9sLKmXLrcVntP/IL1xEF37wUcoaPpwLIMiLR2uWL1KP5hSSQxa+bX33848sjHwahUOjW+MFHpntA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784711179; c=relaxed/simple;
-	bh=BLf9RFIv5pi/wJMaN0h+Ctg6fapOu6Q9G57hFPSuT04=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nm83Yth++Qr4MZA8zK8GBGrFr8DOrVqvP8byHikJ2bVeLDPeTeWQf8yGNt3TkF5DaVajhEZYLZouppE/d1Q9h4A2qZDtpgcQRbkmS8TzU/ciP4e/GKdYrty7fG8hP+qNHhDGWoG55G7xrtRhQV553jWXBr3slb2f3NylsWoTzm4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=kPihRLOv; arc=pass smtp.client-ip=74.125.224.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31DCE33F5A3
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 09:07:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784711225; cv=none; b=q73I9Zla2ibEqlnrsrPqvXbo6GQGVOaz5CQWiFMKIcnO8Nk7pLgXAiUVLUCaGTbqlLMh/HqltaQNXoTJmMZ8XqZ6aNxZzxEi6PR+DXI5WDnJ2Cu23P5sdTQ9pBfEGVJ37e/k1v8euSgMdOytOtgVOKauMYNGGqAkljLGVk/Qf9Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784711225; c=relaxed/simple;
+	bh=/2xqCWJgJQk0rzZICYHzi6kleX1vWxK5DrsuwzaKm/Q=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iHU/aze5cK9WZYdERqd+ZYk5Gx+2MsDk9dRHz4FkN1XT1zPQJOiDdU7aUFZyMVNl46ZvxJF8qo1EKQ1040AjrayshyZz62zK3CcE3BQR+YIDEbCFcuwoTAhawg5lqJrh76maDxtQqzusiQOkxju817K7GS0UmYHOTEkXZQtTpUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZZK6mVwY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="kPihRLOv"
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-664db84f074so15448699d50.0
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 02:06:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784711177; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kzLZyqutoK+LDn8qYBjr1UlyKRGGz2pMllp9A/6FcXZnvoLupYJii979wvfJ+7W6Ye
-         OGJHgOb7f2GOktLvcdZ71GddhUh+9T6n8qYXMbbca5t538KiXXMBa7tKIszWT+YMpjbm
-         RC86Xa3xniizkyqO4/8ansA36b1DXdCbSv+VZ+aV2DuaATtWQGa/0+wYJlrHq+/UWCxg
-         Roa+5eqHSvGiQfDOZJ38qQjKaVosB3vD/G5xEtpF1/Gt0hl1EQk10jXrByjwG96a6jI8
-         9xMOw8QatYYK3hFkXXE+aQOJdFVcynzuOsGbtTodlPak6gAL0SLUFcXZ0mAo/+zbIzSO
-         DoWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Fzc7jLJOwKFZM50nrRR9HIoeoA67mID89Z/e+R2bL4o=;
-        fh=XNg7ep+yl96uWLMwn8DMoecyWmhrvGYaYau50c6fI7I=;
-        b=q8oXREPWlSeDHSllS5youErwZIdYa9YeyLOSX5hgt78fbdVuUF/3+6K043ktO4SMUL
-         91Vkmp875xJhiLEoVgAcjXfrPwj7SnNaT1dexodE+naVuHv5aKiGbpAom1IXBvm2BLhU
-         KSLASHZsiKFxOmuQqVoAM713WV6nGHePi1SMxhgwIzIxhPcWIcNDNVYH57hJrqRBwlas
-         p5JKBPwhB7PCaPHc2eepDfbCSqJXoDIRwKIZcRrmCv3cqbeBHCjpHe2+nnzTccXN81e7
-         ZW0iC0oDSiOCW6qBC+WL9TGlv01HY6NEvCSxizZzgLFMMlFFrTfoQPsAV1GcFEam2BtX
-         B7Pg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1784711177; x=1785315977; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Fzc7jLJOwKFZM50nrRR9HIoeoA67mID89Z/e+R2bL4o=;
-        b=kPihRLOvc9nNrQgH4XazHoHuE2iqpX+vJGu6Pr49lRHuhJTmoKBaQNvid7LlV31955
-         7E2pZRieWFEzZJnqzodaIWODl52P0OlTgYewDVWUwy6XQMRUgLkMOjnp4+BbI7qpOReh
-         /xtwXA94fcpHMRRkyOvCJTOWRaayyhcLhclSU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784711177; x=1785315977;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Fzc7jLJOwKFZM50nrRR9HIoeoA67mID89Z/e+R2bL4o=;
-        b=BgAwRp0ROLXp6NH5xohR7Sw2bHZCxl87FLkEgbD7kSlZvcxigQQgPzYwJRdibI3CBF
-         2sQQQiL0t0LiIS/kzphih2vp6L/Tp0vOGZN7Dm2AN/1CnVzja6fms3ELZhmbyphIwsBr
-         VYPndim1T5KIiXHY6751NLbNaDKzvXl59SpSCmQh1CURqZ5FPm/cuv/OSKnZpDoDaI10
-         eEQIoZaTy6bwxxhnOHuJaDU92nBnkJc39DuwKoJ9SIxB+TbPvJLnBTtR9zNqhak2JdTe
-         P/1E8nXCQbKCfL0SWVUH70ETYcV2ZOveSkiwYfuOWPZJq4LYn2b9W3v72LQNYSLTiigW
-         cYxg==
-X-Forwarded-Encrypted: i=1; AHgh+RqVK3dr+oT3iz6/vgFmpcSG8gBT6y+yDJRfwoRQO0MTIOPizXNRowPrv+ejzzlWNOarzGEC2tiIBGpr@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz6rBKNMYv0tU/rA//gpf9rZ39ozXgWDYqN/BhpYrB+moPcCUnv
-	GCb18E5nNAOF0/9+7n25uENuSdKtYTtS6HWxIIDQN2UO5t8XXJlUx5aUveoQvHZh7can6YYF4yg
-	Q6gWndqQfvZy10/g7TtJFqpJkp1UWzQr/UhrZk8ho
-X-Gm-Gg: AR+sD11DT6uZRIaW92WuGm7+wj5qmCQAUSrT6efq2bJx9ZXbbxhcAMwY3ng6n5H4goD
-	kLLCqgsST9u6jKN0teEO4knMpz7YFYTpajhi8FR87jw/XpY0jzKoP+pW7sPjtMnzzo2FHqhsEFY
-	K/XZBVIf1mHMG40GYtOZeEAXB2Xku6I4SgVjK/DjRBQ1CiC46ZJ5LrfuMLWrUlg/i9pKM73snul
-	jUGeZq7j8cYB6Y/nmC362E0a9zlyt9Rgdvrd37zJ0hJYUuIw3ERo+WKmc9u1lqOVjlpRD+SzTpD
-	hbWzUx3ma9OCli3Z
-X-Received: by 2002:a05:690c:6c8d:b0:81e:6d03:40cf with SMTP id
- 00721157ae682-81ef26ae40bmr73897997b3.54.1784711177267; Wed, 22 Jul 2026
- 02:06:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZZK6mVwY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E8891F000E9;
+	Wed, 22 Jul 2026 09:07:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784711223;
+	bh=elxx0ing8jQOs1OHGRNkTyjCHnVG45gE4XvFiVxcQUg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZZK6mVwYKquoHNMx1qBcYL8Bs/4Q60iJa9oOpOZGJh4kSt5UFeg5FwcKq22Xs41BJ
+	 TTg0pG2yvHii+ljKkI0g9AoHjzuZU/eqyJi/SQr0uhgq3gCN/1qJYJNKBDQMcli3cS
+	 lkvv/xcy3XnO7O6AiaSoTGF4JTpI4GjMYHKDBsCEQECYNbv/oCgP5KikW4lUbo+n2E
+	 rXN/9dOOC9+dDizkWcCjUkr9KlUvLlYPlI8h+83qGBle0qzQdP02CdVXesYuavr+i1
+	 +OugFyaVS57Tv3MHwOVDk5rN7zHk2nHPdWz0l96EwE4iYZRUSUUCGQz55x6PbTfV/R
+	 zfLjn+w/J41FQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/5] arm64: dts: renesas: r9a09g077: Switch GBETH TX
+ queue scheduling to WRR
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ovidiu Panait" <ovidiu.panait.rb@renesas.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org
+In-Reply-To: <20260722085353.136986-5-ovidiu.panait.rb@renesas.com>
+References: <20260722085353.136986-1-ovidiu.panait.rb@renesas.com>
+ <20260722085353.136986-5-ovidiu.panait.rb@renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 09:07:03 +0000
+Message-Id: <20260722090703.8E8891F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260721075226.2347933-1-wenst@chromium.org> <20260721075226.2347933-2-wenst@chromium.org>
- <al9BwHbG5IX0mIem@ashevche-desk.local>
-In-Reply-To: <al9BwHbG5IX0mIem@ashevche-desk.local>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Wed, 22 Jul 2026 17:06:06 +0800
-X-Gm-Features: AUfX_mw54F9BihKerjVbrM-HX0v6EAfSTuk3G7vvEfoFi_SJki_3pQoN0j1OPTM
-Message-ID: <CAGXv+5HXtSovddkws58oUfUcucC3GKqTt-GgvXs27ALFjyFRrw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/9] regulator: core: Add "enable and wait" functions
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jiri Kosina <jikos@kernel.org>, 
-	Andi Shyti <andi.shyti@kernel.org>, linux-mediatek@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	chrome-platform@lists.linux.dev, linux-input@vger.kernel.org, 
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 21, 2026 at 5:54=E2=80=AFPM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> On Tue, Jul 21, 2026 at 03:52:15PM +0800, Chen-Yu Tsai wrote:
-> > In device power sequencing and initialization use cases, it is common
-> > for the driver to enable the regulator and then wait for a certain
-> > period of time to pass before continuing.
-> >
-> > In cases where the regulator supply is always on, or has been turned on
-> > or left on by another consumer, the driver could shorten the delay or
-> > skip it altogether, provided that enough time has already passed since
-> > the regulator was _actually_ turned on.
-> >
-> > Tracking this requires support from the regulator core. Introduce a
-> > "last turned on" timestamp field to the regulator device, and "enable
-> > and wait" functions to the single and bulk regulator consumer APIs.
-> > The existing "enable without wait" functions are then converted to
-> > macros that expand to the new functions.
-> >
-> > One case in particular is not optimized yet: a regulator left on either
-> > by hardware reset default or by the bootloader, but does not have the
-> > "regulator-boot-on" property set. As the enable timestamp only gets
-> > updated when enabled by a consumer or by the core, the first enablement
-> > always needs to wait.
->
-> ...
->
-> > -/* locks held by regulator_enable() */
-> > -static int _regulator_enable(struct regulator *regulator)
-> > +/* locks held by regulator_enable_and_wait() */
-> > +static int _regulator_enable_and_wait(struct regulator *regulator, uns=
-igned int wait_us)
->
-> Hmm...
-> This comment a bit confusing, perhaps adding some lockdep annotations hel=
-p?
->
-> ...
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-It's already there, just outside the diff context, the first line after
-the variable declarations:
+Pre-existing issues:
+- [High] The WRR scheduling fix was omitted for the identical GBETH nodes i=
+n `r9a09g087.dtsi`.
+--
 
-        lockdep_assert_held_once(&rdev->mutex.base);
+--- Patch [4]: [PATCH 4/5] arm64: dts: renesas: r9a09g077: Switch GBETH TX =
+queue scheduling to WRR ---
+commit 58eaafff34c22b66e461cfdd5d49874250e99a8c
+Author: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
 
-> > +     if (wait_us) {
-> > +             ktime_t end =3D ktime_add_us(rdev->last_on, wait_us);
-> > +             s64 remaining =3D ktime_us_delta(end, ktime_get_boottime(=
-));
-> > +
-> > +             if (remaining > 0)
-> > +                     fsleep(remaining);
->
-> This style is discouraged as it makes maintenance harder. Better
->
->                 s64 remaining;
->
->                 remaining =3D ktime_us_delta(end, ktime_get_boottime());
->                 if (remaining > 0)
->                         fsleep(remaining);
+arm64: dts: renesas: r9a09g077: Switch GBETH TX queue scheduling to WRR
 
-Ack. FYI this will be rewritten based on concerns from Sashiko. The
-wait will be pushed over to regulator_enable(), i.e. outside the scope
-of the lock.
+The GBETH ethernet nodes default to Strict Priority scheduling, which can
+cause TX queue starvation and trigger spurious adapter resets under load.
+This patch switches the TX scheduling policy to Weighted-Round-Robin (WRR)
+for the r9a09g077 SoC to prevent these watchdog timeouts.
 
-> > +     }
->
-> ...
->
-> >       /* private: Internal use */
-> >       int ret;
-> > +     unsigned int wait_us;
->
-> If you want to make it more private (the above is only for kernel-doc) ad=
-d
-> __private annotation that will affect how sparse will check this.
+> diff --git a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi b/arch/arm64/boot=
+/dts/renesas/r9a09g077.dtsi
+> --- a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
+> @@ -642,36 +642,45 @@ queue7 {
+> =20
+>  			mtl_tx_setup0: tx-queues-config {
+>  				snps,tx-queues-to-use =3D <8>;
+> +				snps,tx-sched-wrr;
+> =20
+>  				queue0 {
+> +					snps,weight =3D <0x10>;
+>  					snps,dcb-algorithm;
+>  				};
 
-Nice. Will add that.
+[Severity: High]
+This is a pre-existing issue, but should the identical GBETH nodes in
+arch/arm64/boot/dts/renesas/r9a09g087.dtsi also be updated?
 
-> ...
->
-> > -int __must_check regulator_enable(struct regulator *regulator);
-> > +int __must_check regulator_enable_and_wait(struct regulator *regulator=
-, unsigned int ms);
->
-> ms or us? Please, double check all units.
+Looking at mtl_tx_setup0, mtl_tx_setup1, and mtl_tx_setup2 in r9a09g087.dts=
+i,
+they appear to be missing the snps,tx-sched-wrr property and queue weights:
 
-Yeah this should be us.
+arch/arm64/boot/dts/renesas/r9a09g087.dtsi:mtl_tx_setup0 {
+    snps,tx-queues-to-use =3D <8>;
+    queue0 {
+        snps,dcb-algorithm;
+    };
+}
 
+Does the r9a09g087 SoC suffer from the same TX queue starvation and netdev
+watchdog resets under sustained UDP TX load if these fallback properties are
+omitted there as well?
 
-Thanks
-ChenYu
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722085353.1369=
+86-1-ovidiu.panait.rb@renesas.com?part=3D4
