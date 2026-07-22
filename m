@@ -1,205 +1,294 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF894399E2
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 21:01:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC343D0C1D
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 21:01:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784754082; cv=none; b=hi0V62Yh4sXCRmV+f/QyF8St0Bo+FwS7t+Ps9p3fvaoauM1FMuEWcEEcEZRkxAKplXhNFBtmtNk0kbT8sXB8jk7TLQUPuBN45krxvKpOfNNq31InrhMU7VyeUXjaK2vsC/eyHNZxWaz604TJNMMIJHzEDORJLHZ30GKkYQs2uUs=
+	t=1784754088; cv=none; b=dbgPg3+9xCly7nYurIr1lyBX2I1dwj1m9PrPReh3VT9Fgaol5Jov1Za38yEr9T4d/jsWLWJcO2rRyiIofdpAT1qMUDpl6t1J3poNgdfUyWTcjbsZh7Gz3V1PUpTJ8s2WgwSL6qKQyE3bAWnw2OlSWXazqNGelYVUh50ScXztpcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784754082; c=relaxed/simple;
-	bh=6esLaWMxVzWgBgD3LBUpQLC+g+cCbkEItwcvYGe7Tc8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WcabrRW2OAu3PBp3+phWCNs+ppNo9wJL+Q2OGo9V1olUlw22bhqfZ+Ol+5EjPSkJB3+ysbfO/PDRmXTEYsTGKWEnN7wA7Yw2h1aVP5lamFrC4usRf6kt0L+djTQ9ywuoXfWqBDFe/4lASCHl27byWI+TEf/Kk7h9k0oIm/J1RUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R8gjKHif; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784754088; c=relaxed/simple;
+	bh=V5ae4wt+kFCmaTfJNXyQlTVPd/ouJQl5QdD2PULpWQs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=AVNei/wX4Asq7J1H0F1X4JozR1LAf9yW70bmDaNHrpl5zbGm9VKZ10rOG5ETYGk3R0yRFW8gskzEYbw6x4sOt+ESopfAKK74e37YRwkSYVylPb5GNIe6dXhOxF3tjbWNsaPjQGP5ddoFEuJVKZm5FlIqTH0i2GAVnhqtHQ0eg5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nxOkWcnP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R8gjKHif"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47f7854678bso1237730f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 14:01:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784754078; x=1785358878; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WOd+XZss+YRv1olA4v5j/GA2GS28MPr0U93YAb8IAO0=;
-        b=R8gjKHiflKoKhfDdkGvyt9M9SfD6jEqxmIiv8g4tECiLkBGxA9z9MbUT2i8OCYOZOE
-         V/AhWFyWnpHHbrupmMD76FvO1sXgJ1X5Y3knlZeBL2VYBnd7IAXy798BNjAmlC3HHhel
-         /+Qk39EVKnGU+gGkqeXKISaO+CsMYIVJRYLwTk5xYmYsYQYVcsvQmR4FKgy78y4A7RxH
-         Sed6e3Hd5p65drijOOinFF6mHoaNca4ffl7zr6eJ1t262weSJG8qbd+d/bgPfOApMEMH
-         GJ5GvAAFnydk5aY81heivqiwmh0j4SS1WIgPCCL1dWibalfzl6Uk/9VPSGCBWAqRvQX2
-         LPqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784754078; x=1785358878;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WOd+XZss+YRv1olA4v5j/GA2GS28MPr0U93YAb8IAO0=;
-        b=bdx6TFgxlbMy/hk2GpsmNY6s27KvAe1CSzBnahI1EAnMzNCF63scrfHj+zSs3BATJR
-         3bEqlOrumyDlm2etihZS/gcoiJKLRnCkobeEucSo66IC5hFHj5/lsLgaT+sRrMvS9hts
-         HSegFv0vPZlVvHb6k16NsYRBaQH1REvLfJj0oDLzAofjajrnjSuG8k+k60bTVz1zkfFu
-         5f8VPibhm3AGmVFdiO6oiXUrct4jPCWrg5Ke/Y8/CHzrG9AIOUK5JQFKt5YJsy/uOW9l
-         ZQ6ruId+8QbH3rUPpZAEo1D4p9U6+koitCHz0EqxGpzUZ8C72yTzvJfuR5aBp3UmlvgH
-         HbIw==
-X-Forwarded-Encrypted: i=1; AHgh+Rrbsjkg5L5M5EYeBo917g49mkeUT53b/5g8yBhiIuXptpHZviDZwCQmDkGaB6melfV3NKUY95BIptCm@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw7EhdCMJk+ktt/V1atmRZeqdKkwv+FF5xp6Hjnz68bsEcf+QaY
-	3twrEwDVcVJayE5faO7LM7nzWdHZRQzsIQVu3fn0hBKSQmGVBjfJrfV8
-X-Gm-Gg: AR+sD12x7ubp3ZKu0BUCN+OWFvy/oTniGXtLQ46Rt2ZAAdsh986AMRdKP4wXEMMccM3
-	IyAFA42iJQKYkPoJuwWCfkl32tv+MVQ4Rfwmf94rLyJmkFGzXOBbV837avbtHTe1uxrc42hKfy4
-	D+nJoViKkriNv57oGreYPCEO9E3QWs51jpUMRhWsSDr/n/WnvxGXiuDgmlHWlwBv3zzODzl5IFs
-	astMWkd709c6GUD1DNwy7WpZ+/si6w9V6CBppu0K6QruThyORHgQXIxCZykit06heKTWTtCQEcX
-	4wDhQyqTf9/tvhKSxz6lp4Rvx7jZyOgBOSY3S4fUySVOf2+B4EvseAlNGAzQjxDqk4srqGYoFVg
-	X+m4BinUA5w3AwV79QTnZ2yiIAW0qmadtZcZCULIc3/4Wk9HzWE2yV9bv/U5Qlk3mVydAN46RX5
-	LqtwDPYkNgqHbEP0uc6TGvt+zM
-X-Received: by 2002:a05:6000:2387:b0:47f:6fbd:89eb with SMTP id ffacd0b85a97d-47f8dc936b1mr487157f8f.57.1784754077794;
-        Wed, 22 Jul 2026 14:01:17 -0700 (PDT)
-Received: from coolemuke.fritz.box ([2a00:6020:b320:1a00:c256:1463:a40b:d8c6])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85c63678sm8610812f8f.29.2026.07.22.14.01.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 14:01:17 -0700 (PDT)
-From: "=?UTF-8?q?S=C3=B6ren=20Hantel?=" <fugininsane@gmail.com>
-X-Google-Original-From: =?UTF-8?q?S=C3=B6ren=20Hantel?= <fugininsane@googlemail.com>
-To: linux-pm@vger.kernel.org
-Cc: Vasily Khoruzhick <anarsoul@gmail.com>,
-	Yangtao Li <tiny.windzz@gmail.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Rossak <embed3d@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Claude Fable 5 <noreply@anthropic.com>,
-	=?UTF-8?q?S=C3=B6ren=20Hantel?= <fugininsane@googlemail.com>
-Subject: [PATCH v2 3/3] ARM: dts: sun9i-a80: Add thermal sensor and thermal zones
-Date: Wed, 22 Jul 2026 23:00:46 +0200
-Message-ID: <20260722210046.2932498-4-fugininsane@googlemail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260722210046.2932498-1-fugininsane@googlemail.com>
-References: <20260722203341.2917852-1-fugininsane@googlemail.com>
- <20260722210046.2932498-1-fugininsane@googlemail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nxOkWcnP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D98EC1F000E9;
+	Wed, 22 Jul 2026 21:01:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784754087;
+	bh=Cm87xeJ8xYYZ/JRXmc8/tRJsdHELRd4xWvsa7j5sRl0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nxOkWcnPtapGrQVUQR3EfA+/RzaTx07JX5ZQDF8Lq82IsVrqdkzRi/qg/FLyPEelP
+	 qAEzunvq+PdO/b1PFuFIb320npYDmu+gmsILnnJorB/F27purIK67xtGzRhD8PJfqC
+	 Sv5kvrogF7vw1TIjUdZspZk4yNGSpF349b/xC5DJGlWH+N5pkjd4h9fS20YE+GKejr
+	 znDtTr8gOG23q3Wae18IFrzQHmLt7Mc4xR2tFUTwE3FSduKHZ2eWoITOfoD2XP+4ud
+	 fqPJGqAGyyZBt/+1rr+rQMWO0zYF3GYMpAUIJu5nWWZ9kF0qHRNMAN0+0Li7Wy3Tk3
+	 7ESAq46d1eTqg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/5] clk: samsung: Introduce Exynos9610 clock
+ controller driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alexandru Chimac" <alex@chimac.ro>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260722-exynos9610-clocks-v3-4-c672a2a30889@chimac.ro>
+References: <20260722-exynos9610-clocks-v3-0-c672a2a30889@chimac.ro>
+ <20260722-exynos9610-clocks-v3-4-c672a2a30889@chimac.ro>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 21:01:26 +0000
+Message-Id: <20260722210126.D98EC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-From: Philipp Rossak <embed3d@gmail.com>
+Thank you for your contribution! Sashiko AI review found 11 potential issue=
+(s) to consider:
+- [High] The CMGP USI PCLK gates mistakenly reuse the IPCLK register offset=
+s instead of their respective PCLK register offsets.
+- [High] CMGP USI operational clocks bypass their dedicated baud-rate divid=
+ers, feeding undivided clocks to peripherals.
+- [High] The CORE CMU's CCI OCC gate mistakenly reuses the standard CCI gat=
+e register offset instead of the OCC register offset.
+- [High] The `CLK_DOUT_CLK_CPUCL0_CPU` divider is configured with a width o=
+f 0, making it functionally invalid and permanently fixed.
+- [High] The `gout_cmu_shub_bus` gate clock is missing from the APM domain,=
+ leading to an orphaned clock subtree.
+- [High] Critical G2D and MSCL gate clocks are omitted from the `g2d_gate_c=
+lks` array.
+- [High] Essential clock gate registers are omitted from `_clk_regs` snapsh=
+ot arrays, causing state loss on suspend/resume.
+- [High] The CMU_CORE divider clocks are not registered, breaking the CMU_C=
+ORE clock tree.
+- [High] A capitalization typo in the G3D switch mux clock name causes its =
+downstream consumers to become orphaned.
+- [High] Mismatch between fixed clock provider and consumer names for the C=
+MGP RCO oscillator.
+- [Low] The top divider clock macro names contain a probable typo `MFD` ins=
+tead of `MFC`.
+--
 
-Now that the A80 thermal sensor is supported, add its device node and
-the thermal zones to the device tree.
+--- Patch [4]: [PATCH v3 4/5] clk: samsung: Introduce Exynos9610 clock cont=
+roller driver ---
+Hi Alexandru,
 
-The clocks and the resets are shared between the GPADC and the THS
-sensor. Sensor 0 is located beside the big CPU cluster, sensor 1
-beside the DRAM controller, sensor 2 beside the GPU and sensor 3
-beside the little CPU cluster.
+I was reviewing this patch and have a few questions about the clock definit=
+ions.
 
-Signed-off-by: Philipp Rossak <embed3d@gmail.com>
-[soeren: rebased from the 2018 series, fixed the interrupt number
-(SPI 115 as in the vendor BSP; verified on hardware - SPI 31 stays
-silent), added critical trip points matching the driver's emergency
-shutdown threshold]
-Co-authored-by: Claude Fable 5 <noreply@anthropic.com>
-Signed-off-by: Sören Hantel <fugininsane@googlemail.com>
----
- arch/arm/boot/dts/allwinner/sun9i-a80.dtsi | 68 ++++++++++++++++++++++
- 1 file changed, 68 insertions(+)
+commit f73db154ba8395abbaed22642b48034329d35223
+Author: Alexandru Chimac <alex@chimac.ro>
 
-diff --git a/arch/arm/boot/dts/allwinner/sun9i-a80.dtsi b/arch/arm/boot/dts/allwinner/sun9i-a80.dtsi
-index a1ae092..8e7f8cd 100644
---- a/arch/arm/boot/dts/allwinner/sun9i-a80.dtsi
-+++ b/arch/arm/boot/dts/allwinner/sun9i-a80.dtsi
-@@ -941,6 +941,16 @@
- 			#reset-cells = <1>;
- 		};
- 
-+		ths: thermal-sensor@6004c00 {
-+			compatible = "allwinner,sun9i-a80-ths";
-+			reg = <0x06004c00 0x100>;
-+			interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_GPADC>, <&ccu CLK_GPADC>;
-+			clock-names = "bus", "mod";
-+			resets = <&ccu RST_BUS_GPADC>;
-+			#thermal-sensor-cells = <1>;
-+		};
-+
- 		timer@6000c00 {
- 			compatible = "allwinner,sun4i-a10-timer";
- 			reg = <0x06000c00 0xa0>;
-@@ -1250,4 +1260,62 @@
- 			#size-cells = <0>;
- 		};
- 	};
-+
-+	thermal-zones {
-+		cpu0_thermal: cpu0-thermal {
-+			polling-delay-passive = <1000>;
-+			polling-delay = <5000>;
-+			thermal-sensors = <&ths 0>;
-+
-+			trips {
-+				cpu0_crit: cpu0-crit {
-+					temperature = <100000>;
-+					hysteresis = <2000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		dram_thermal: dram-thermal {
-+			polling-delay-passive = <1000>;
-+			polling-delay = <5000>;
-+			thermal-sensors = <&ths 1>;
-+
-+			trips {
-+				dram_crit: dram-crit {
-+					temperature = <100000>;
-+					hysteresis = <2000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		gpu_thermal: gpu-thermal {
-+			polling-delay-passive = <1000>;
-+			polling-delay = <5000>;
-+			thermal-sensors = <&ths 2>;
-+
-+			trips {
-+				gpu_crit: gpu-crit {
-+					temperature = <100000>;
-+					hysteresis = <2000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpu2_thermal: cpu2-thermal {
-+			polling-delay-passive = <1000>;
-+			polling-delay = <5000>;
-+			thermal-sensors = <&ths 3>;
-+
-+			trips {
-+				cpu2_crit: cpu2-crit {
-+					temperature = <100000>;
-+					hysteresis = <2000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+	};
- };
--- 
-2.43.0
+clk: samsung: Introduce Exynos9610 clock controller driver
 
+This commit introduces the Common Clock Framework driver for Exynos9610,
+adding support for multiple CMU domains including TOP, APM, CAM, CMGP,
+CORE, CPUCL0, DISPAUD, FSYS, G2D, G3D, PERI, and USB.
+
+> diff --git a/drivers/clk/samsung/clk-exynos9610.c b/drivers/clk/samsung/c=
+lk-exynos9610.c
+> new file mode 100644
+> index 0000000000000..7e7284541bb4e
+> --- /dev/null
+> +++ b/drivers/clk/samsung/clk-exynos9610.c
+
+[ ... ]
+
+> +static const struct samsung_fixed_rate_clock top_fixed_clks[] __initcons=
+t =3D {
+> +	/* OSCCLK for CMGP */
+> +	FRATE(0, "oscclk_rco_cmgp", NULL, 0, 30000000),
+
+[Severity: High]
+Could this cause a parent resolution failure? The fixed-rate clock is=20
+registered as "oscclk_rco_cmgp", but the CMGP domain multiplexers and gates=
+=20
+declare their parent dependency as "oscclk_rco". This string mismatch looks=
+=20
+like it might orphan the CMGP clock tree subset that relies on the RCO=20
+oscillator.
+
+[ ... ]
+
+> +static const struct samsung_mux_clock top_mux_clks[] __initconst =3D {
+[ ... ]
+> +	MUX(CLK_MOUT_CMU_G3D_SWITCH, "mout_cmu_g3d_SWITCH", mout_cmu_g3d_switch=
+_p,
+> +	    CLK_CON_MUX_MUX_CLKCMU_G3D_SWITCH, 0, 2),
+
+[Severity: High]
+Is the uppercase SWITCH intended here? Downstream consumers such as the gat=
+e=20
+CLK_GOUT_CMU_G3D_SWITCH expect the parent name "mout_cmu_g3d_switch" (entir=
+ely=20
+lowercase). The mismatch might prevent the CCF from resolving parentage for=
+=20
+the G3D clock tree.
+
+[ ... ]
+
+> +static const struct samsung_div_clock top_div_clks[] __initconst =3D {
+[ ... ]
+> +	DIV(CLK_DOUT_CMU_MFD_MFC, "dout_cmu_mfc_mfc", "gout_cmu_mfc_mfc",
+> +	    CLK_CON_DIV_CLKCMU_MFC_MFC, 0, 4),
+> +	DIV(CLK_DOUT_CMU_MFD_WFD, "dout_cmu_mfc_wfd", "gout_cmu_mfc_wfd",
+> +	    CLK_CON_DIV_CLKCMU_MFC_WFD, 0, 4),
+
+[Severity: Low]
+Is MFD a typo for MFC here? The clock strings and corresponding parent gate=
+s=20
+use MFC, so using MFD in the macro identifiers might break naming consisten=
+cy.
+
+[ ... ]
+
+> +static const struct samsung_div_clock cpucl0_div_clks[] __initconst =3D {
+[ ... ]
+> +	DIV(CLK_DOUT_CLK_CPUCL0_CPU, "dout_clk_cpucl0_cpu", "mout_clk_cpucl0_pl=
+l",
+> +	    CLK_CON_DIV_DIV_CLK_CPUCL0_CPU, 0, 0),
+
+[Severity: High]
+Does a width of 0 intentionally disable this clock divider? A 0-width divid=
+er=20
+creates a bitmask of 0, making the clock framework unable to read or write =
+the=20
+actual hardware value. This might fix the divider to a constant state and=20
+break cpufreq transitions for the little CPU cluster.
+
+[ ... ]
+
+> +static const struct samsung_gate_clock apm_gate_clks[] __initconst =3D {
+[ ... ]
+> +	GATE(CLK_GOUT_CLK_APM_OSCCLK_RCO_CLK, "gat_clk_apm_oscclk_rco_clk", "os=
+cclk",
+> +	     CLK_CON_GAT_CLK_APM_OSCCLK_RCO_CLK, 21, 0, 0),
+> +	GATE(CLK_GOUT_APM_APBIF_GPIO_ALIVE_PCLK, "gout_apm_apbif_gpio_alive_pcl=
+k",
+
+[Severity: High]
+Should there be a gate definition for CLK_CON_GAT_GATE_CLKCMU_SHUB_BUS here=
+?=20
+The CLK_DOUT_CMU_SHUB_BUS divider defines its parent as "gout_cmu_shub_bus"=
+,=20
+but the corresponding GATE definition appears to be missing from the=20
+apm_gate_clks array, which would orphan all downstream SHUB clocks.
+
+[ ... ]
+
+> +static const unsigned long cam_clk_regs[] __initconst =3D {
+[ ... ]
+> +	CLK_CON_GAT_GOUT_CAM_IS6P10P0_ACLK_XIU_D_CAM,
+> +	CLK_CON_GAT_GOUT_CAM_IS6P10P0_PCLK_PGEN_LITE_CAM0,
+> +	CLK_CON_GAT_GOUT_CAM_IS6P10P0_PCLK_PPMU_CAM,
+> +	CLK_CON_GAT_GOUT_CAM_LHM_AXI_P_CLK,
+
+[Severity: High]
+Are CLK_CON_GAT_GOUT_CAM_LHS_ACEL_D_CLK and=20
+CLK_CON_GAT_GOUT_CAM_IS6P10P0_PCLK_PGEN_LITE_CAM1 missing from this=20
+cam_clk_regs state-save array? Omitting them could result in losing their=20
+state during a suspend/resume cycle.
+
+[ ... ]
+
+> +static const struct samsung_gate_clock cmgp_gate_clks[] __initconst =3D {
+[ ... ]
+> +	GATE(CLK_GOUT_CMGP_USI00_CLK, "gout_cmgp_usi00_clk",
+> +	     "mout_clk_cmgp_usi00", CLK_CON_GAT_GOUT_CMGP_USI00_CLK,
+> +	     21, 0, 0),
+
+[Severity: High]
+Should the parent here be the dedicated divider "dout_clk_cmgp_usi00" inste=
+ad=20
+of the upstream mux "mout_clk_cmgp_usi00"? Using the mux as the parent=20
+bypasses the baud-rate dividers, which might make it impossible for periphe=
+ral=20
+drivers to scale the clock correctly for serial communication.
+
+[ ... ]
+
+> +	GATE(CLK_GOUT_CMGP_USI_CMGP00_PCLK, "gout_clk_cmgp_usi_cmgp00_pclk",
+> +	     "gout_cmu_cmgp_bus", CLK_CON_GAT_GOUT_CMGP_USI_CMGP00_IPCLK,
+> +	     21, 0, 0),
+
+[Severity: High]
+Does this macro intentionally pass CLK_CON_GAT_GOUT_CMGP_USI_CMGP00_IPCLK f=
+or=20
+the PCLK gate? Reusing the IPCLK register offsets for the PCLK gates (up=20
+through CMGP04) could clobber the IPCLK configuration and leave the actual=
+=20
+PCLK gates unmanaged, potentially breaking the CMGP USI interfaces.
+
+[ ... ]
+
+> +static const struct samsung_gate_clock core_gate_clks[] __initconst =3D {
+[ ... ]
+> +	GATE(CLK_GOUT_CORE_CCI_OCC_CLK, "gout_core_cci_occ_clk",
+> +	     "mout_pll_core_cci_user", CLK_CON_GAT_GOUT_CORE_CCI_CLK,
+> +	     21, 0, 0),
+
+[Severity: High]
+Should this use CLK_CON_GAT_GOUT_CORE_CCI_OCC_CLK instead of=20
+CLK_CON_GAT_GOUT_CORE_CCI_CLK? Utilizing the standard CCI gate register off=
+set=20
+for the OCC gate will likely cause OCC clock control operations to overwrit=
+e=20
+the standard CCI clock gate state.
+
+[ ... ]
+
+> +static const struct samsung_cmu_info core_cmu_info __initconst =3D {
+> +	.mux_clks		=3D core_mux_clks,
+> +	.nr_mux_clks		=3D ARRAY_SIZE(core_mux_clks),
+> +	.gate_clks		=3D core_gate_clks,
+> +	.nr_gate_clks		=3D ARRAY_SIZE(core_gate_clks),
+> +	.clk_regs		=3D core_clk_regs,
+
+[Severity: High]
+Are the .div_clks and .nr_div_clks fields intentionally omitted here? Witho=
+ut=20
+them, the core_div_clks array isn't registered, which might orphan=20
+dout_clk_core_busp and break the 25 downstream hardware gate clocks in the=
+=20
+CORE domain that depend on it.
+
+[ ... ]
+
+> +static const unsigned long fsys_clk_regs[] __initconst =3D {
+[ ... ]
+> +	CLK_CON_GAT_GOUT_FSYS_LHS_ACEL_D_CLK,
+> +	CLK_CON_GAT_GOUT_FSYS_MMC_CARD_ACLK,
+> +	CLK_CON_GAT_GOUT_FSYS_MMC_EMBD_ACLK,
+> +	CLK_CON_GAT_GOUT_FSYS_PGEN_LITE_CLK,
+
+[Severity: High]
+Are the MMC SDCLKIN registers (CLK_CON_GAT_GOUT_FSYS_MMC_CARD_SDCLKIN and=20
+CLK_CON_GAT_GOUT_FSYS_MMC_EMBD_SDCLKIN) missing from this fsys_clk_regs=20
+suspend/resume array? Leaving them out might cause the MMC subsystem to los=
+e=20
+state across a suspend/resume cycle.
+
+[ ... ]
+
+> +static const struct samsung_gate_clock g2d_gate_clks[] __initconst =3D {
+[ ... ]
+> +	GATE(CLK_GOUT_G2D_BUSP_CLK, "gout_g2d_busp_clk", "dout_clk_g2d_busp",
+> +	     CLK_CON_GAT_GOUT_G2D_BUSP_CLK, 21, 0, 0),
+> +	GATE(CLK_GOUT_G2D_SYSMMU_CLK, "gout_g2d_sysmmu_clk", "mout_pll_g2d_g2d_=
+user",
+> +	     CLK_CON_GAT_GOUT_G2D_SYSMMU_CLK, 21, CLK_IGNORE_UNUSED, 0),
+
+[Severity: High]
+Are gout_g2d_g2d_clk and gout_g2d_mscl_clk intentionally excluded from the=
+=20
+g2d_gate_clks array? Their absence prevents the CCF from registering and=20
+enabling the operational leaf clocks for the G2D and MSCL hardware domains.
+
+Thanks,
+Review Bot
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-exynos9610=
+-clocks-v3-0-c672a2a30889@chimac.ro?part=3D4
