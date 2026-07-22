@@ -1,113 +1,194 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8762433B6D9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36ED23368AE
 	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 07:19:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784704787; cv=none; b=f9jXvepaU5Ruyy2t/jw3FxAPKlDURGJUATcRnUwI81WJOIlQmAD33y+b4mvdAzEOGfsAEFY6DApdTknj89ShEJ9tqgbLkM6/Hw7Ai5KNTfho/muQw+iAX472kfplJliN6Hl1jLJvXV54SIsB0ZaGnll6+HNF9sulUmRXfbT5H3A=
+	t=1784704787; cv=none; b=GQXTbn1kQiAq3hsOyduCXDEN6r3wBQG4u8HNhe6dwoHHA4xSq+Rh5aVk6IqC/8XxunXAqsEKIsWawEahR3u3pUjrZ8Py0F42dBPg2rYYp9JnVReB4Op+1E6Wc+LV5+WQHB4PIDzN8KiR1ADbCuX63SWxnrEYOk5TRCtX3rbYKZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784704787; c=relaxed/simple;
-	bh=fNrOm/pXYLzOUyJOgLgsZ2U0X8Z4KLXSvigH+LY16+M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rnv/IKQL1kc62xFtzij40Y1li51rbSwp5dVncOIQ2vhZA1Z1CL/aDArHIzfHVNgT6qN4C51TWxFz7Z22EG4y5KlAVsJ9KvSaxN+1XxvyYQ2vw4B4/r+BPUgMlo7MelKYA3IMkqkF91vorT68L7gWWvFJeoi770qiaf3UFxMo3H0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CWV/Afhx; arc=none smtp.client-ip=100.103.45.18
+	bh=futbNr31vKSA7UXUNzyS12WaQ9CpNJhsAJE8Fswuipk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=b7E1/7+lfFIvG03yPlveLJj20g91x7uzCy/vaBzdhJvsXP4LdpCRr+hc2Hnx9WyIbI0FYAdcZo7eBdD0f+IxOaPeVTYDRBlNq71rT0098aq3wBoQ+JTltYCvusJUbKb/xrBEnfzNqlXlqWMzVtVG8TmVHUWjlDAUctq7w7ndCP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cJrCUdxL; arc=none smtp.client-ip=209.85.219.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CWV/Afhx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF3D61F000E9;
-	Wed, 22 Jul 2026 07:19:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784704786;
-	bh=HMGCg8xhU+qR/00Z4CPyosbuiOfXIgEmxChnY+l/aXg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=CWV/AfhxDMIpc8XTaN15jk4ubmjEZZusDkUHds5OSfZ9VMogXXsiivPOagmngJZpu
-	 M8lJi8UZLLeY2YJhgI0R2ak1LKk2Lb6TBYUwKsmz0N8ReNfK2McZ80H7V2EhEoP0nO
-	 GhKAv+T5S3m1q6fSa/8yCrBZiBU+/N7s8aI3Wh7Ejz01yj3l/cwQJBSJtbOjhkuICN
-	 Zc1t9JKgajjmdjl4P05LVzMfl4LeJCeYpI/docqZBWMN16TeX1w6bjCmrzoLaUAMMz
-	 Qs30TnvOd/wk5apr9KBbUCPQDqlSTHJcGVonwwdKBtzYFSWRKnNRnjkpbpv15f35w0
-	 CZu/IudIbrmtQ==
-Message-ID: <9c3ca077-3c03-4821-ae4d-9e97eef70b62@kernel.org>
-Date: Wed, 22 Jul 2026 09:19:40 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cJrCUdxL"
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-902e4af2d9dso61790436d6.0
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 00:19:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784704785; x=1785309585; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=utW8YbbssTVsulJvHfz/jBDoROF5Koo4xil5lPJsJM0=;
+        b=cJrCUdxLIfM93x7D7ilu+gg2qlafEdavR4irL2h7H1IPWEx6C2MGSLmh3ocgHjJNeh
+         gwm0IX3FbH97YeN+z6hyIknXU1mBmvhRaYEYov/WM47KEyX8Vx1DXwlK2Wf94VZCON0w
+         uzeE6MhfZQdWjx59OUoM/yOii6NJW/Imp61IIO3X3cungcAQBrJP75MrNeiRkFi9EGIc
+         7EfQuRwsZNQ2tIGEC23zELgcUNGFvB7DB0ePwSJaUe/HyFkTj8xw49Z4laWVLrOwqt9a
+         61qdzJb4ICg8c5NsTqacwAyjCmjnTi3TKNcGUjThtrr1qMBpIhvrGoPunVnYezRpBwfn
+         WZUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784704785; x=1785309585;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=utW8YbbssTVsulJvHfz/jBDoROF5Koo4xil5lPJsJM0=;
+        b=lnYQHZBa3bBeJL2Gf8TtwMs6wUPjU3IimTAIDcPgDNtbT/0WIJcBIbhZW9teroo40m
+         GjvF1vPRufajKhLC1/hTeIw2G3KADmyrjM8TeMTyf8LLU5ORFFf3WPYqxKIU7Q2FjVUe
+         29W+YiZOup99ZCZX9MTqEzuWD3kxM3tBsLg4ZHWEOxj20d2ruDqJnef6t0WoPKfV60pS
+         o8/Y+Ws48pD9+ht5ysFjr40oYxsyTDbImU2ouzD22pzdcdxz0SQEkh1DXG8rgSVeCtkv
+         4+zI07YXPmtZDSVyYFFPQ+pL9c6k7Qr/YJY9/xykVHVIn2dNerNCQ8X47kpyXHuXCF1R
+         LDGw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp/LOqkeAvFnAqz7kXwNW/t7wXsHEdv1/RIXqs4047LQ5w5FOBt9Ip9jG9tRsW6kXznSUXeRjHHcF2m@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJJTbjJVggKxRZQCjSZRsVpCY5oi9qK86ME2d6r3Xi6bHTST6V
+	DOADIrCkFybclp5zkFFBBo+bs1pBTw60XiD8O8eDexVyVsDYv2U6NcRp
+X-Gm-Gg: AR+sD10NEPv7Vm8BtmaaWax9zbvM4um2smEVrX+L/9y2/DDVy0VVQpu9XiinpNKIINh
+	hOrv65rs0nxmF6jXzNgUAr17w2HfIKEE4ZJNP0I4XSOp3jb9wMVjB4dRAKu2iYzfbQ9Gf+BunYR
+	YVvc5d4186cIekdR86/6nC7UiXCWKnEnnDURkDA5xNTYhcWb4szByglQED4yrN09vDjYLniYs1S
+	k/cysz7G2TR8ohq2epUVKvwZ3OWnaES6Geggr4PwiTLx1qlxJUcWrwTLG+SEQCGucvUVQbaE1SL
+	vex6PFWWLMwOaa8NIDng8f+neu4vr2UAcI9N6sJndPdOYGMbfriuT5OVy9gSZAU7JLdf4EEqECB
+	d7qB7nwbMORtMHYvZWrhS43pof/BPiflcyb545bznhuUuBv/YLDBjPvNhDtjDFDyfoVMSf11A0n
+	V7ee8Ss3P1dOPsLwhKgYZARlCT7DPBUjL5Iczh3aoEQGU=
+X-Received: by 2002:a05:6214:4992:b0:8f1:617b:2692 with SMTP id 6a1803df08f44-907b9b3cf0fmr35036926d6.10.1784704784815;
+        Wed, 22 Jul 2026 00:19:44 -0700 (PDT)
+Received: from thinker (syn-072-043-128-189.biz.spectrum.com. [72.43.128.189])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907ba9e18besm15269996d6.24.2026.07.22.00.19.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 00:19:44 -0700 (PDT)
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+To: Javier Martinez Canillas <javierm@redhat.com>
+Cc: airlied@gmail.com,
+	andriy.shevchenko@intel.com,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	robh@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de
+Subject: Re: [PATCH v3 3/3] drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
+Date: Wed, 22 Jul 2026 10:19:11 +0300
+Message-ID: <20260722071921.43687-1-amit.barzilai22@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <87y0fbs05w.fsf@ocarina.mail-host-address-is-not-set>
+References: 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v3 09/10] dt-bindings: display: rockchip: dw-dp: fix
- sound DAI cells
-To: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- kernel@collabora.com
-References: <20260612-synopsys-dw-dp-improvements-v3-0-dc61e6352508@collabora.com>
- <20260612-synopsys-dw-dp-improvements-v3-9-dc61e6352508@collabora.com>
- <alfYxIkbJMA36qdt@venus>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <alfYxIkbJMA36qdt@venus>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 15/07/2026 21:16, Sebastian Reichel wrote:
-> Hi DT binding maintainers (& Dmitry for his DP background),
-> 
-> Can you have a look at this please? It has been a month, since I
-> send this and multiple months since I send RFCv1. Would be good
-> to have your preference here, so that I can implement it accordingly
-> in the next version.
+Javier Martinez Canillas <javierm@redhat.com> wrote:
+>>   */
+>> -static int ssd130x_write_data(struct ssd130x_device *ssd130x, u8 *values, int count)
+>> +static int ssd130x_write_data(struct ssd130x_device *ssd130x, const u8 *values, int count)
+>>  {
+>>  	return regmap_bulk_write(ssd130x->regmap, SSD13XX_DATA, values, count);
+>>  }
+>
+>>
+>
+> This change is correct but need to be split in a separate preparatory
+> patch. When you do that, feel free to add my Reviewed-by tag.
 
-Subject is RFC, so patch can be ignored. Likely that is how it was
-marked in Patchwork.
+Agreed, adding to v4.
 
-If you wanted review, you know that it should not have come with RFC...
 
-Best regards,
-Krzysztof
+> Please split these ssd130x_write_cmds() and ssd1330x_write_cmd() refactoring
+> as separate preparatory patches. This patch is changing too many things at
+> once, it is better to have each logical changes as a separate patch. This
+> makes reviewer much easier.
+
+Ditto.
+
+> I don't like that this logic is in the ssd130x core part of the driver. This
+> is supposed to be transport agonistic and should not be aware of the D/C#
+> behaviour that is specific to the SPI transport.
+>
+> Can we move this to the ssd130x-spi driver? For example, something like the
+> following might work:
+>
+> 1. Make ssd130x_write_cmds() to just be a static inline wrapper that calls
+>    to regmap_raw_write(ssd130x->regmap, SSD13XX_COMMAND, cmd, len).
+>
+> 2. Make ssd130x_write_cmd() be a variadic wrapper around ssd130x_write_cmds().
+>
+> 3. Add your logic to ssd130x_spi_write() instead of ssd130x_write_cmds(), that
+>    way it stays in the correct layer rather than having a leaking abstraction.
+
+I agree, in hindsight this code goes against the transport abstraction.
+I'd propose keeping 1 and 2 in a single patch, though. Making ssd130x_write_cmds()
+a wrapper around regmap_raw_write() and making ssd130x_write_cmd() a variadic wrapper
+around ssd130x_write_cmds() are two halves of the same change: routing command buffers
+through regmap_raw_write(). Splitting them would leave an intermediate state that isn't
+independently meaningful. Happy to split if you'd still prefer it.
+
+> Also, instead of checking for info->family_id == SSD135X_FAMILY, we could add
+> a dc_high_params member (or whatever name is more suitable) to the struct
+> ssd130x_spi_transport Then other families that might use the same can just
+> reuse this option instead of checking for specific families.
+
+I agree that hard-coding a check for the family isn't open for extension and should be changed.
+Adding a member for this in ssd130x_spi_transport is a fitting solution, I'll populate it in
+ssd130x_spi_probe() using a static array that will describe which families need dc_high_params.
+I'd keep that table in ssd130x-spi.c rather than adding a flag to ssd130x_deviceinfo, so the
+D/C# concern stays in the SPI layer instead of leaking into the transport-agnostic device info.
+
+
+>> +	/*
+>> +	 * No long post-reset delay: the controller datasheets only specify
+>> +	 * microsecond-scale reset timing. The lengthy delay seen in some other
+>> +	 * drivers comes from fbtft's generic reset helper and targets slow
+>> +	 * parallel-bus GPIOs, which do not apply here.
+>> +	 */
+>>  }
+>>
+>
+> I don't understand the point of this comment. You are not changing the logic
+> of this function nor I see how this comment is useful.
+
+I originally added a redundant delay that I saw in fb_ssd1351.c, when Andy
+noticed it he told me to add a comment so others could understand the difference
+between this driver and the fb counterpart.
+I agree that it shouldn't be included in v4, it was a specific mistake and I
+highly doubt others will see similar situations and if so they can easily research
+the subject.
+
+> Instead of ssd133x_write_pixels() and having per family logic in the primary
+> place update path, I prefer to have a little bit more of code duplication
+> and add an .atomic_update, .atomic_disable, etc for the SSD1351.
+>
+> Yes, I know that your current approach reduces code duplication but also
+> makes it harder to change the primary plane update path for a family without
+> affecting another one. This is particularly important in my opinion, given
+> that contributors usually just test on their display family when posting
+> the patches. So I prefer to have per family callbacks if possible.
+
+Agreed, I'll add per-family .atomic_update/.atomic_disable for SSD135X in v4 and drop
+the shared ssd133x_write_pixels() path.
+
+The one thing I'd keep shared is the atomic_check callbacks
+(ssd133x_primary_plane_atomic_check and ssd133x_crtc_atomic_check): they have no
+family-specific branching - the plane check is generic and the CRTC check only
+allocates the RGB565 data_array, which SSD135X needs identically. So I'd reuse them
+via the table rather than duplicate. Let me know if you'd rather those were split too.
+
+> Again I wonder if is better to have a device_info member to decide whether to
+> register the backlight, instead of harcoding the check for a specific family.
+
+I already have a draft for splitting ssd130x_update_bl() to be per family, removing
+the need for this code. I prefer to first submit that patch, and then mention it as
+a dependency for v4 of this series.
+Feel free to suggest a different solution.
+
+-- 
+Thanks,
+Amit
