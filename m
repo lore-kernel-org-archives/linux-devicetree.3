@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 417283D954E
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 21:06:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 184712FD1B3;
+	Wed, 22 Jul 2026 21:10:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784754407; cv=none; b=fDJ2HvcUjar+yrRihDw2qEq4n9jy7LoRpsc2QGQAZfQhit5ClHT+YmzimeFBLjxiwK4etq4dyI7K9v1E6+E3oja+F489/0Bd49/H0XxUpxLRMoWhyS/2kAmPUz7IaP8jNv+EFThEBb4Hn/BniSA7OSU1M2pbIPyOTzPvuVWojqM=
+	t=1784754606; cv=none; b=AMIy0ZiJ070L0Js9iEZgSpIEm6ra/faF1E1P3uOinJSlFvV/PmNoW/tQmhc+yghIn0jkGBmY1lPvho7Yz1ZXKW/WYuZ0euCnyk9KOdphIWAif2J2n+3M11f0sElsbrm5Awxi+RIKf/U+czqG7BbaCeCJW6Lj3FGYvbTlFPchvEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784754407; c=relaxed/simple;
-	bh=FWTLLRV0HXgB6YMwVP++4BETQb2YOlGIZWDzCWzydR8=;
+	s=arc-20240116; t=1784754606; c=relaxed/simple;
+	bh=TGXVCYVy1ZOoq6c3PMdk0QLYvXnwwNEh+o9KVaq5m7o=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bTRG+i7MZtHEM0Xz/5DEBHxxxhqKReGhg2PxR//yzzy1tSg52E1uyswinVk0yVvDGloF3sefWQ78bljL739NHjXKlTx3cuw52mPFAFgEgffmCKSmW/TT4md95Li0xxIF7fhzQtLMZVGm+ISPWR8Xng6jKaxpvP1PYsOhu3XEB6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HLbjVLC4; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=gQbrFc2qQ7Y4royQn6pj4PE1KFC4QlSj2/MEPu95p7RGpHkVVP+VmxciS3lmZWLBx4s4S6nrL72GvaxdQ2NzaAsisffsPL5vT1mQNP6EuU/R45yz2KxxvWcD17cw2VKDdGD6Uz5drqhkGD6hTpP0eR8e2zC5Yxfr2DY6EUB+w+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A6moxTk8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HLbjVLC4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9E561F000E9;
-	Wed, 22 Jul 2026 21:06:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A6moxTk8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1941B1F00A3A;
+	Wed, 22 Jul 2026 21:10:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784754406;
-	bh=33Gb11YZcYHQDTtep+2By56J/9WAwmZXj5O0bx/89jY=;
+	s=k20260515; t=1784754604;
+	bh=d/QUkztDMgVgUK4D7oFF2uveNrp5ItUWSpHUiugd51o=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HLbjVLC43VcVF8yx5W6s+XX2QZByc7LHvTwutzvmX9D+TiJ1ZdLLEidmhtzRlTZl9
-	 9QTNyCZU8lSEbtJtv3TzjMSdicvi0Wmaj6TB3IBNM5ly7GbxwDwKYiVJnuT30xB5/n
-	 OS/2lao0gL4WnV4dEK4nd/i2bCTkqLq1qyQYvrHeijKfPc6VFnliLObAhcXMLj2e5G
-	 AGqiZe3G10JSdBO/nE6MV503fa1nDMEveNhCKUdWABPhvS8kdJ4xuH2UuG/WI4Rzh2
-	 SjYljrwLRvVnHGb3oMAsu6KREivvN+4WNnqVln5jSMxU97skiqgBhWT3rQnaeZ9oEN
-	 k1I9mLF9on0JA==
+	b=A6moxTk8xIoBO/E8rcHwMpNdcZqPCsUX5doti6r2UblgoNbISvdeVHb82OfudpzFy
+	 9FBpNuG2a7DYJTS8vY+KKxFgd1sD6/+IbZYXLQMGXvxYhBHYTtFFaEE0aD3xI49zHn
+	 VpQZFsJhyxAhO5L4lPDr2DUbok2pZKPFrCJEPpSt7r5xYZGymV/tXp1hAz3Udo8qyB
+	 M/kWTlk/+E+LiBYbwJTNXV3PSjiZ8Jh/lHKC7oJUNzMj/qeDrUoFnC5SgLmJzn6WwQ
+	 OIn+IZJfFt8/D97q/rWRTt2w4uT8vI0HdgL1jLyYOT9/j4l8d9lGkKCqlt9Ku4+u+Q
+	 91zO+A+ZUPKlQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] mmc: core: Add power-off-delay-us support
+Subject: Re: [PATCH v2 3/3] ARM: dts: sun9i-a80: Add thermal sensor and
+ thermal zones
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Judith Mendez" <jm@ti.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260722205701.372789-4-jm@ti.com>
-References: <20260722205701.372789-1-jm@ti.com>
- <20260722205701.372789-4-jm@ti.com>
+To: =?utf-8?b?U8O2cmVuIEhhbnRlbA==?= <fugininsane@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org
+In-Reply-To: <20260722210046.2932498-4-fugininsane@googlemail.com>
+References: <20260722203341.2917852-1-fugininsane@googlemail.com>
+ <20260722210046.2932498-1-fugininsane@googlemail.com>
+ <20260722210046.2932498-4-fugininsane@googlemail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 21:06:45 +0000
-Message-Id: <20260722210645.D9E561F000E9@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 21:10:03 +0000
+Message-Id: <20260722211004.1941B1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,59 +48,78 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Replacing `mmc_delay(1)` with `mmc_delay_us(host->ios.power_off_=
-delay_us)` (which defaults to 1000) inadvertently changes the underlying ti=
-mer mechanism from `usleep_range` to `msleep(1)`, introducing a latency reg=
-ression of up to ~20ms per power-off cycle.
+- [Medium] Thermal zones for CPU clusters are misnamed and cross-mapped rel=
+ative to the actual CPU cores.
 --
 
---- Patch [3]: [PATCH v2 3/3] mmc: core: Add power-off-delay-us support ---
-commit 028a9284e6d11b892584840a7f05aeed49d66b60
-Author: Judith Mendez <jm@ti.com>
+--- Patch [3]: [PATCH v2 3/3] ARM: dts: sun9i-a80: Add thermal sensor and t=
+hermal zones ---
+commit 073b6503b11cee70b348c673193855cbda7082e3
+Author: Philipp Rossak <embed3d@gmail.com>
 
-mmc: core: Add power-off-delay-us support
+ARM: dts: sun9i-a80: Add thermal sensor and thermal zones
 
-This commit adds support for power-off-delay-us to specify a custom delay
-after deasserting power during MMC power cycles. The default delay is set
-to 1000us, but can be overridden to work around hardware issues.
+This commit adds the device node for the A80 thermal sensor and defines
+the thermal zones in the device tree. It maps the sensors to the big CPU
+cluster, DRAM, GPU, and little CPU cluster.
 
-> diff --git a/drivers/mmc/core/core.c b/drivers/mmc/core/core.c
-> --- a/drivers/mmc/core/core.c
-> +++ b/drivers/mmc/core/core.c
-> @@ -1388,7 +1388,7 @@ void mmc_power_off(struct mmc_host *host)
->  	 * XO-1.5, require a short delay after poweroff before the card
->  	 * can be successfully turned on again.
->  	 */
-> -	mmc_delay(1);
-> +	mmc_delay_us(host->ios.power_off_delay_us);
+> diff --git a/arch/arm/boot/dts/allwinner/sun9i-a80.dtsi b/arch/arm/boot/d=
+ts/allwinner/sun9i-a80.dtsi
+> index a1ae0929cec9d..8e7f8cd943d2e 100644
+> --- a/arch/arm/boot/dts/allwinner/sun9i-a80.dtsi
+> +++ b/arch/arm/boot/dts/allwinner/sun9i-a80.dtsi
+[ ... ]
+> @@ -1250,4 +1260,62 @@ r_rsb: rsb@8003400 {
+>  			#size-cells =3D <0>;
+>  		};
+>  	};
+> +
+> +	thermal-zones {
+> +		cpu0_thermal: cpu0-thermal {
+> +			polling-delay-passive =3D <1000>;
+> +			polling-delay =3D <5000>;
+> +			thermal-sensors =3D <&ths 0>;
 
 [Severity: Medium]
-Does this change introduce a latency regression during power management
-operations?
+Since cpu0 on the sun9i-a80 is part of the little CPU cluster, does this
+map the cpu0 thermal zone to the wrong sensor? The commit message notes
+that sensor 0 is beside the big CPU cluster. This could lead to mislabeled
+temperatures in userspace and potentially throttle the wrong cluster if
+cooling maps are added later.
 
-The default value for power_off_delay_us is 1000. When mmc_delay_us() is
-called with 1000 or greater, it falls into the msleep() path:
+> +
+> +			trips {
+> +				cpu0_crit: cpu0-crit {
+> +					temperature =3D <100000>;
+> +					hysteresis =3D <2000>;
+> +					type =3D "critical";
+> +				};
+> +			};
+> +		};
+[ ... ]
+> +		cpu2_thermal: cpu2-thermal {
+> +			polling-delay-passive =3D <1000>;
+> +			polling-delay =3D <5000>;
+> +			thermal-sensors =3D <&ths 3>;
 
-drivers/mmc/core/core.h:mmc_delay_us() {
-	if (us < 1000) {
-		usleep_range(us, us + (us >> 2));
-	} else {
-		unsigned int rem_us =3D us % 1000;
+[Severity: Medium]
+Are these names cross-mapped? This maps cpu2-thermal to sensor 3, which the
+commit message states is beside the little CPU cluster. Since cpu2 is also
+typically a little core, should the node names better reflect the actual
+big/little clusters to avoid confusion?
 
-		msleep(us / 1000);
-		if (rem_us)
-			usleep_range(rem_us, rem_us + (rem_us >> 2));
-	}
-}
-
-This effectively calls msleep(1), which uses jiffy-based timeouts. On
-systems where HZ=3D100, this can delay execution by up to 20ms per power-off
-cycle. The original mmc_delay(1) call correctly used the high-resolution
-usleep_range(1000, 1250) timer mechanism.
-
-Could the threshold for mmc_delay_us() be adjusted, or could usleep_range()
-be used to avoid an unintended jiffy-based sleep?
+> +
+> +			trips {
+> +				cpu2_crit: cpu2-crit {
+> +					temperature =3D <100000>;
+> +					hysteresis =3D <2000>;
+> +					type =3D "critical";
+> +				};
+> +			};
+> +		};
+> +	};
+>  };
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722205701.3727=
-89-1-jm@ti.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722210046.2932=
+498-1-fugininsane@googlemail.com?part=3D3
