@@ -1,179 +1,248 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 675B1444718;
-	Wed, 22 Jul 2026 07:36:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF6B408628;
+	Wed, 22 Jul 2026 07:36:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784705761; cv=none; b=GLXzB1d8GnHYFUuorkcj70zxyBy2wV4cdPJSDPd9Ii4GEnrRR601Ay9tSxNqoQgS22g4TJuxa1CMIXT6/poMpw6jJQIfvdWIYhlZN67y3lfvZudVr8FmPW2IBkLZhavGva5/I7zeRCkt9HpQESBo3W8zJu9JxzAyu7JUFRv9phg=
+	t=1784705774; cv=none; b=uFPyDx2+0mK587veO4PuyCnpm6wFmXWHWZcrIX5Oq25SMFHfTxbdAch9Bq30UKt0if+DqRKT+6cB12qbNd2jmVFLJc/u8TJa4kOCaVJOTeszLUEh8KrtxVYcPy3F7D/+72T4QV0sWIgmWrQCbNfuznLs1AaCNZmS5rWCdQASwno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784705761; c=relaxed/simple;
-	bh=zHpgMBWcsHZFXm0qcNsJnognV8qmmXXd5x5uD8XiXE0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=flSmLH3SoAzGD8GioYBiKfM3XKpZKjoDzNaX8PALfUsRqsswhJFdRq65BFvpda5Ktm9AYUH8wqMzbEUYbyH0yNwYCG23l9pr8uc5cwdOuVbxre+VPQETbAs2/lcKbdT75C1XO/BZCWWNEhicOWqlRSFpUqIL6jZWBioGrTm4Kgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vpegefgk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784705774; c=relaxed/simple;
+	bh=q3TvXzSSUuQEpGCJydbRTnsJXK5PXccCJi6ZlaKb9Rg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=uc0k8RDQHnuXo+PU4RYkrhNnoMBTFbxnenlsC/5msIK+bMF+fwTj4Bnm2orHcHldUFWysAooOFKq+/VMOWnwtZB7338hxzWCbVxbbr2I0wt5E/cd77ur+JYdk6+80jlL2ebHeyzAUpkoUgzUE0E0HseMgO/CePiambdwHwGprCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tGaOJgs0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vpegefgk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3F201F000E9;
-	Wed, 22 Jul 2026 07:35:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784705760;
-	bh=5yzsPKyS46OJqka9Jg8kQrE4QHNoZoIqblZL6pnF1EY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Vpegefgkth/baFBFqbeT6MukOarPFqKB2Bl5YeY7GKXwex2xsBUgoKR8QCYoF6pzU
-	 CKS629A14EZPMblespLeSaRP3Ho8UyfZjISfghsPpu5RVAMA0Mbo2f6c6MhGKsosiq
-	 fx76ElxD2XulaiasG7DlAqSae3jqwvabOmyLcSFGWp0IkIVfIRECr18lpM65Yi6WIM
-	 vSCnwNPJsOtDxG4WEvd4beP0r1G7G20XnZkRrJR9rpOrxw3DC0IkPu0BJYR3VPCNA0
-	 2CmxxuVjUnYufkepCb6IjQrokN63TXI311G0TDkcK/+ZdLxgE0iWjKwUNuZXsZE2zw
-	 Khk4TIS6FaMmA==
-Date: Wed, 22 Jul 2026 09:35:56 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/6] of: incrementally update /aliases lookup on
- reconfig notifications
-Message-ID: <20260722-light-modest-mosquito-cd4f0a@quoll>
-References: <20260721-nh-of-alias-overlay-v4-0-8ad097e31e36@nexthop.ai>
- <20260721-nh-of-alias-overlay-v4-2-8ad097e31e36@nexthop.ai>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tGaOJgs0"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4D68FC2BCF6;
+	Wed, 22 Jul 2026 07:36:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784705774;
+	bh=q3TvXzSSUuQEpGCJydbRTnsJXK5PXccCJi6ZlaKb9Rg=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=tGaOJgs0kRB8UIeUv9uxWZF5C/atBs/v1K7w+sAtrzfiTwsgW8Fkf8gFBUd0REJiE
+	 jRDpeDSSKQ3N/nNHl3lStU4M4wtLwNIYcJu6tEQxQ7gZYZH0t/U88emXQg2ZXdtocY
+	 A+dBWu4dI7HNbZH+ns+dPp3talIxfr48aPLqOJUWQ9XKVRF1UD+toxZBVpLJwf3yOX
+	 YPD1KsO9unq0Yt4VT82uzMumVV3bNUdYkHLQZVIQql0aAkY13qgEdSfiXHNFozXl/e
+	 HjScJE1OLJabCkWL9pHFuNPm02hfuNKdHtsFZHozduR33DH8YP6SXrkrgwSGv4h6jo
+	 r6KVE1HeqhVsw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A2EEC44533;
+	Wed, 22 Jul 2026 07:36:14 +0000 (UTC)
+From: Alexandre Hamamdjian via B4 Relay <devnull+azkali.limited.gmail.com@kernel.org>
+Subject: [PATCH v4 0/3] arm64: qcom: add Ayaneo Pocket DS gaming console
+Date: Wed, 22 Jul 2026 14:36:11 +0700
+Message-Id: <20260722-pocketds-v4-0-438704cd51f7@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260721-nh-of-alias-overlay-v4-2-8ad097e31e36@nexthop.ai>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NzQ6CMBAE4FcxPVuzLX/Wk+9hPMB2C1WhhCLRE
+ N7dgpcmepxkvpmZeRoseXbazWygyXrruhDS/Y5hU3Y1catDZhJkDpkA3ju806g9J6CiUgpNkis
+ W6v1Axr62qcv1m/2zuhGOq18bjfWjG97b1yTW3p/ZSXDgaCArkRDy0pzrtrSPA7qWrbOTjKGIo
+ AxQKqV1KtPCyB+YxLCIYBKgzpQAPIIosjyGy7J8AG1rO9okAQAA
+X-Change-ID: 20260510-pocketds-e0e7b99cf369
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Alexandre Hamamdjian <azkali.limited@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Teguh Sobirin <teguh@sobir.in>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784705771; l=9572;
+ i=azkali.limited@gmail.com; s=20260510; h=from:subject:message-id;
+ bh=q3TvXzSSUuQEpGCJydbRTnsJXK5PXccCJi6ZlaKb9Rg=;
+ b=Hc4q6SkIYbgGX4Cx6UsYFMgihONFrMfSTU1s59byEoVf41zdGYvjlpzVq3uA2gFdoGc/p17u8
+ yZQNvLJtdswBau5gUiEVlpVpjo0zX1gv01gg0d3LKciTSY5ATi5h85Z
+X-Developer-Key: i=azkali.limited@gmail.com; a=ed25519;
+ pk=I0Z0IdCdQJqNGX+FQUnXhrHg950u3cM6Xzz3YT6JOyQ=
+X-Endpoint-Received: by B4 Relay for azkali.limited@gmail.com/20260510 with
+ auth_id=774
+X-Original-From: Alexandre Hamamdjian <azkali.limited@gmail.com>
+Reply-To: azkali.limited@gmail.com
 
-On Tue, Jul 21, 2026 at 06:01:47PM -0700, Abdurrahman Hussain wrote:
-> /aliases entries added by a device-tree overlay are stored in the live
-> tree but never enter the global aliases_lookup list that of_alias_scan()
-> builds at boot. As a result, of_alias_get_id() returns -ENODEV for
-> aliases declared inside overlays, and any driver that relies on
-> alias-based numbering (i2c-xiic, spi, tty, mmc, ...) silently loses its
-> pinned id and falls back to auto-assignment.
->=20
-> Fix by registering an internal OF reconfig notifier that mirrors
-> /aliases changes into aliases_lookup. Registration happens at
-> core_initcall_sync time, safely after the boot-time of_alias_scan(),
-> which runs pre-initcall from unflatten_device_tree() (or
-> of_pdt_build_devicetree() on OF-real platforms):
->=20
->   OF_RECONFIG_ADD_PROPERTY    -> of_alias_create()
->   OF_RECONFIG_REMOVE_PROPERTY -> of_alias_destroy()
->   OF_RECONFIG_UPDATE_PROPERTY -> destroy + create
->   OF_RECONFIG_ATTACH_NODE     -> adopt the node as of_aliases
->   OF_RECONFIG_DETACH_NODE     -> drop every aliases_lookup entry
->=20
-> The reconfig notifier chain fires from both direct changesets and
-> overlay apply/revert, so the same code path covers runtime dt
-> modifications and overlay-declared aliases without any overlay-
-> specific hook in drivers/of/overlay.c. Grant Likely suggested this
-> shape on Geert Uytterhoeven's 2015 RFC [1]; Geert's original hook was
-> in dynamic.c directly.
->=20
-> Match the /aliases target node structurally (exact name "aliases",
-> parent =3D=3D root, via the shared of_node_is_aliases()) rather than by
-> pointer against the of_aliases global. A system with no boot-time
-> /aliases has of_aliases =3D=3D NULL, so an overlay that creates /aliases
-> from scratch would otherwise be missed from the first ATTACH_NODE
-> onward. The name compare is exact rather than of_node_name_eq():
-> the latter ignores unit addresses and would also match a root node
-> named "aliases@1", which neither path lookup nor the DT spec treats
-> as the aliases node. ATTACH publishes the adopted node
-> in of_aliases with a reference held; DETACH clears the pointer and
-> drops that reference again. Both pointer updates happen under
-> devtree_lock, pairing with the locked reader in
-> of_find_node_opts_by_path() from the previous patch =E2=80=94 a reader ei=
-ther
-> observes NULL or takes its own reference before the notifier's put
-> can be the last one. Dropping the reference at DETACH also keeps the
-> node at refcount 1 by the time an overlay changeset that created
-> /aliases is destroyed, which __of_changeset_entry_destroy() insists
-> on before it lets the node be freed.
->=20
-> Only per-property notifications populate aliases_lookup =E2=80=94
-> the notifier does not walk the attached node's property list, which
-> would race with devtree_lock-protected property mutations. A direct
-> of_attach_node() caller that pre-populates /aliases is not tracked,
-> matching pre-series behavior.
->=20
-> DETACH_NODE conversely drops every aliases_lookup entry =E2=80=94 but only
-> when the detached node is the tracked of_aliases. __of_attach_node()
-> has no duplicate-name check, so a stray second root node named
-> "aliases" can exist; detaching it must not wipe entries backed by the
-> real node. Walking aliases_lookup itself (under aliases_mutex) avoids
-> the same property-list race. Overlay revert additionally emits per-
-> property REMOVE events beforehand; the sweep catches direct
-> of_detach_node() callers that don't. The per-entry teardown is
-> factored into __of_alias_del(), shared by the single-name destroy and
-> the detach-time sweep.
->=20
-> One ordering caveat is inherent to the notification architecture:
-> within a single changeset, a device created by an earlier ATTACH
-> entry can be probed by of_platform_notify() before a later /aliases
-> ADD_PROPERTY entry reaches this notifier. Overlays that declare an
-> alias for a node they also create should order the /aliases fragment
-> first if the target bus is populated with a bound driver at apply
-> time.
->=20
-> The notifier machinery is built only for CONFIG_OF_DYNAMIC kernels:
-> without it no reconfig notifications exist and
-> of_reconfig_notifier_register() is a stub returning -EINVAL, so an
-> unconditional registration would fail the initcall on every
-> non-dynamic DT kernel.
->=20
-> Factor the per-property loop body of of_alias_scan() into
-> of_alias_create() so the boot-time scan and the runtime notifier
-> share one code path. Owned (runtime) entries kstrdup the alias name
-> so the alias_prop survives the property that spawned it =E2=80=94 required
-> for the overlay revert path where the source property is freed. A
-> one-bit @owned flag on struct alias_prop distinguishes kmalloc'd
-> entries from memblock-backed ones so the destroy path kfree()s the
-> right ones. Every entry, boot-time or runtime, holds the target-node
-> reference that of_find_node_by_path() returned at create time;
-> destroy drops it symmetrically.
->=20
-> The destroy path unlinks matching entries regardless of ownership
-> (freeing storage only for owned ones) so an overlay UPDATE against a
-> boot-time alias leaves at most one entry per stem+id. This addresses
-> the allocator-mismatch worry Grant flagged on the 2015 series [2] and
-> the duplicate-mapping side effect that would otherwise leak through.
->=20
-> Serialize aliases_lookup on a dedicated aliases_mutex: readers
-> (of_alias_get_id, of_alias_get_highest_id, of_device_uevent) and the
-> reconfig notifier hold it around every access. Boot-time
-> of_alias_scan() runs single-threaded during init and stays lockless.
-> This is preferable to piggy-backing on of_mutex because the reconfig
-> notifier is called both under of_mutex (overlay apply path) and
-> outside of it (direct of_add_property() path from dynamic.c), so a
-> nested acquisition would deadlock on some callers.
->=20
-> Validate the property value before feeding it to of_find_node_by_path():
-> pp->value must be non-empty and null-terminated within pp->length. An
-> overlay that hasn't been through /aliases fixup can otherwise present
-> a fragment-internal string that isn't a valid live-tree path or a
-> malformed non-terminated value, and of_find_node_by_path() derefs it
-> as a C string =E2=80=94 an OOB read on the malformed case.
->=20
-> The refactor also fixes a pre-existing one-byte out-of-bounds read in
-> the stem parser: the old loop tested isdigit(*(end - 1)) before
-> checking end > start, reading one byte before the property name when
-> the name is empty or all digits. of_alias_create() checks the bound
-> first and rejects a zero-length stem.
->=20
-> Naming builds on Geert's original series:
->   - "of: Extract of_alias_create()"                     [3]
->   - "of: Add of_alias_destroy()"                        [4]
->   - "of/dynamic: Update list of aliases on aliases changes" [5]
+This series adds initial support for the Ayaneo Pocket DS, a handheld
+gaming console built around the Qualcomm QCS8550 SoC. It has UFS
+storage, WiFi/Bluetooth, gaming buttons, microSD, and USB-C with
+DisplayPort. Game controls are exposed through a Renesas uPD720201
+PCIe USB 3.0 host controller hung off PCIe1, while a dedicated gamepad
+MCU is reached over UART11.
 
-This is not a contest who can ask AI to create the longest commit msg
-ever.
+The series is structured as:
 
-You need to configure your LLM properly to Linux kernel coding style.
+  1. dt-bindings entry for the new ayaneo,pocket-ds compatible.
+  2. sm8550.dtsi: add the QUP2 SE3 (UART11) controller node and its
+     default pinctrl, so the board can enable it as &uart11.
+  3. The Pocket DS board device tree itself, together with thermal_*
+     labels for the cpuss/cpu/gpuss thermal zones added to sm8550.dtsi
+     so the board has a real user of them in the same patch.
+
+Only the basics are wired up at this stage (boot to console, core
+peripherals, USB-C with DP and SBU AUX muxing, microSD, WiFi/BT,
+gaming controls, volume keys and PWM-fan cooling); the DSI display
+panel and the secondary panel rail will follow in a later submission
+once the upstream panel binding lands.
+
+Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
+---
+Changes in v4:
+- Reordered the series so the sm8550.dtsi UART11 patch comes before the
+  board dts that consumes &uart11, keeping the tree bisectable (Dmitry).
+- Renamed the board compatible from "ayaneo,pocketds" to
+  "ayaneo,pocket-ds", matching the hyphenated "ayaneo,pocket-s2" already
+  in qcom.yaml and the DT compatible naming convention (Sashiko). The
+  Acked-by on the bindings patch was given for the unhyphenated string;
+  kept it since the change is a one-word rename, please shout if you
+  would rather re-ack it.
+- uart11: switched operating-points-v2 to &qup_opp_table_120mhz, which
+  is what i2c11 and spi11 use for the very same serial engine at
+  0x88c000; the 100 MHz table was simply wrong (Sashiko).
+- uart11: use bias-pull-up rather than bias-disable on TX/RX, matching
+  qup_uart14_default, the other high-speed UART on this SoC (Sashiko).
+- Reworded the UART11 commit message, which implied that open-coding
+  the controller in a board dts was a viable alternative (Konrad).
+- Squashed the sm8550.dtsi thermal-zone labels patch into the board
+  dts patch so the labels gain their consumer in the same change
+  (Krzysztof).
+- Renamed the sm8550.dtsi thermal-zone labels from
+  cpuss[0-3]_thermal / cpu7_top_thermal / gpuss[0-7]_thermal to
+  thermal_cpuss[0-3] / thermal_cpu7_top / thermal_gpuss[0-7] so all
+  thermal-related overrides cluster alphabetically in the consuming
+  board dts (Dmitry).
+- Dropped the &gpu_opp_table override until upstream gains proper
+  speed-bin detection (Dmitry).
+- Switched remoteproc_adsp firmware-name from the downstream .mdt
+  suffix to the upstream .mbn convention (Dmitry).
+- Replaced the /delete-node/ overrides on &remoteproc_mpss /
+  &remoteproc_cdsp with /delete-property/ memory-region (Dmitry). Both
+  are already status="disabled" in sm8550.dtsi, so the nodes never
+  needed deleting; only their now-dangling memory-region phandles did.
+  The reserved-memory regions for the unused modem, CDSP, camera and
+  IPA firmware stay /delete-node/-ed so that memory is handed back to
+  Linux, matching what sm8550-samsung-q5q and
+  sm8550-sony-xperia-yodo-pdx234 already do on this SoC.
+- Dropped the downstream rocknix-u-boot-dt-id root property (Neil).
+- Switched the deprecated "gpio" property to "gpios" on all fixed
+  regulators (Neil).
+- Reworked the audio-routing DAPM table to drop the bogus
+  "VA DMIC0/1, vdd-micb" routes (Neil).
+- Reshaped the per-zone thermal-zones overrides to a single "active"
+  trip point bound to &pwm_fan via cooling-maps, mirroring the
+  Ayaneo Pocket S2 style (Neil).
+- Added a pinctrl-1 sleep state for pwm_fan and the corresponding
+  fan_pwm_sleep PMIC pinctrl entry (Neil).
+- Added a gpio-keys node wiring up the Volume Up button via the
+  previously-unreferenced volume_up_n pinctrl (Neil).
+- Dropped every output-high in the &tlmm pinctrl states (Neil).
+- Dropped the incomplete DSI/panel bring-up (display_panel, &mdss_dsi0,
+  &mdss_dsi0_phy, &mdss_dsi1, &mdss_dsi1_out, &mdss_dsi1_phy and the
+  sde_dsi*/sde_te*/panel_pwr_active pinctrl) until the panel bindings
+  are reviewed (Neil).
+- Added the missing SBU AUX endpoint between the pmic-glink connector
+  and the NB7VPQ904M redriver port@2 to complete the DP altmode
+  signal path (Neil).
+- Normalised the last fixed-regulator node name to the "<name>-regulator"
+  convention (vph_pwr) (Krzysztof).
+- Reauthored the bindings patch under Alexandre alone (no co-developed
+  needed for the trivial DT entry) and picked up Krzysztof's Acked-by.
+- Fixed the sign-off chain on the board dts patch: the From: author's
+  Signed-off-by now comes first and the submitter's last (Krzysztof).
+- No qup_uart11_cts_rts pinctrl state was added: nothing in-tree
+  references it, and hardware flow control is not wired on this board.
+  It can be added together with its first user (Sashiko).
+- Built with "make CHECK_DTBS=yes qcom/qcs8550-ayaneo-pocket-ds.dtb":
+  no errors, no warnings. With W=1 dtc additionally reports
+  avoid_unnecessary_addr_size on sm8550.dtsi's dsi@ae94000/dsi@ae96000,
+  because no panel child is added while display support is deferred;
+  qcs8550-aim300-aiot already reports the same for dsi@ae96000.
+- board dts: enabled &pcie0_phy and added the &pcieport0 wifi@0 supply
+  node for the WCN7850. Without the PCIe0 PHY and the vddpcie0p9 /
+  vddpcie1p8 rails the WiFi link never trained; the wifi@0 supply node
+  follows sm8650-ayaneo-pocket-s2 and the sm8550/sm8650 QRD/HDK boards.
+- board dts: dropped &i2c4 to 100 kHz. The FT5426 touchscreen
+  clock-stretches past the GENI controller's timeout at 400 kHz, and
+  the qcom-geni-i2c controller has no i2c_bus_recovery, so a stuck SCL
+  can only be cleared by an FSM reset that is itself the operation
+  timing out. Standard mode is within the FT5426's clock-stretch spec.
+- board dts: pinned &pcie0 to max-link-speed = <2> (Gen2), the link
+  speed validated for the WCN7850 on this board.
+- board dts: dropped the undocumented sdhci-caps-mask = <0x3 0x0> on
+  &sdhc_2 (it masked the SDR50/SDR104 capability bits that the board's
+  own sd-uhs-sdr50 / sd-uhs-sdr104 properties enable). qcom,dll-config
+  is kept, with its derivation now recorded in the commit message.
+- Renamed the board dts to qcs8550-ayaneo-pocket-ds.dts to match the
+  hyphenated compatible and the sibling sm8650-ayaneo-pocket-s2.dts;
+  the Makefile entry and the CHECK_DTBS target were updated to suit.
+- Note on the UART11 Reviewed-by: Konrad's tag was given on v3, before
+  the operating-points-v2 (&qup_opp_table_120mhz) and bias-pull-up
+  changes above. It is retained here; happy to drop it for a re-review.
+- Link to v3: https://patch.msgid.link/20260517-pocketds-v3-0-d5910c801756@gmail.com
+
+Changes in v3:
+- New prerequisite patch adding the QUP2 SE3 (UART11) controller node
+  and the qup_uart11_default pinctrl state to sm8550.dtsi, so the
+  board can enable the gamepad MCU UART via &uart11 instead of
+  duplicating the controller node in the board dts.
+- Alphabetised the root-level nodes in the board dts and renamed the
+  fixed regulators to the "<name>-regulator" node-name convention.
+- Link to v2: https://patch.msgid.link/20260511-pocketds-v2-0-299dd4247f2f@gmail.com
+
+Changes in v2:
+- Inlined the board into a single qcs8550-ayaneo-pocketds.dts, matching
+  the sm8650-ayaneo-pocket-s2 layout
+- Added qcom,qcs8550 to the compatible chain
+- Prerequisite patch labelling the sm8550 thermal zones so the board
+  can extend them via &label overrides (and refactored the board's
+  thermal-zones to use them)
+- Added the Renesas uPD720201 USB 3.0 controller as a child of pcie1
+  with proper avdd33 / vdd10 / vdd33 regulators
+- Moved gamepad_pwr_en off &pcie1's pinctrl-0 and onto the
+  usb-controller node
+- Split the lumped upd720201_active pinctrl into per-regulator states
+- Fixed mdss_dp0_out data-lanes to <0 1 2 3> (all four wired)
+- Fixed gpio-reserved-ranges to <32 4> (gpio 38-39 drive the Goodix
+  touchscreen)
+- Renamed nodes with underscores (llcc-lpi-region, splash-region,
+  gpio@20) per DT conventions
+- Reordered pinctrl-names after pinctrl-N file-wide
+- Dropped the unused cont_splash_region label
+- Link to v1: https://patch.msgid.link/20260510-pocketds-v1-0-cf05acec06af@gmail.com
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Alexandre Hamamdjian (2):
+      dt-bindings: arm: qcom: document the Ayaneo Pocket DS
+      arm64: dts: qcom: sm8550: add UART11 node
+
+Teguh Sobirin (1):
+      arm64: dts: qcom: add basic devicetree for Ayaneo Pocket DS gaming console
+
+ Documentation/devicetree/bindings/arm/qcom.yaml    |    6 +
+ arch/arm64/boot/dts/qcom/Makefile                  |    1 +
+ .../boot/dts/qcom/qcs8550-ayaneo-pocket-ds.dts     | 1617 ++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8550.dtsi               |   52 +-
+ 4 files changed, 1663 insertions(+), 13 deletions(-)
+---
+base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
+change-id: 20260510-pocketds-e0e7b99cf369
 
 Best regards,
-Krzysztof
+--  
+Alexandre Hamamdjian <azkali.limited@gmail.com>
+
 
