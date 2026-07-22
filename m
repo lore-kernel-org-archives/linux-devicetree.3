@@ -1,241 +1,155 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F1B338F957;
-	Wed, 22 Jul 2026 02:37:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486CA38837A
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 02:37:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784687841; cv=none; b=OkQ4+WMkNqfGFgd3RvSKNTn2pSi5HV/qB2RaNh5wu6O6B4iJoBmQlSYWl/rYEdUtwKG9T4TYBTiVfPH4GHdOU2ay1hItNHSW2slB3mTlEmS6k07dUO07LY43/48MJ960cxOe7N3UTxECOZaffzxoowef7FzwXS09JbpvlUilY/E=
+	t=1784687859; cv=none; b=JJoBQr/XN3aVn1zT0dZ+AvPR0KWi3yQj0lV5N91o65tv58lAYat1jLHKdotQOIiuDhIZ/RZnfiXcWyjDHGHF+PqBSSyimXEjSwiYfXpyzaMJLwMP3TJ/uMrpgK0ZkT2r14tIuFFYDV3EZdQ49IPMwYXNUMtCpzVBpkTmzhXP4+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784687841; c=relaxed/simple;
-	bh=fAIvRMKmHFJmx3qSR54EVi7APP1r/3dlylgc7iXhFgQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ByKCxlbWi2EC6seXQtplNniydg6uhj2SGOJ6A+/eTDPVdlfXGMel/PCl/jXUikV6pWixmSFEh0xuT3LrA3cBOWypDB887FD/74R3Mlpp654gDUSlOodjOsgW5zGpG1JLVgiuW3PV0/n3zM3EPh7YZOOipkanOC6WsrwfzXDThQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=CQuowJnT; arc=none smtp.client-ip=54.204.34.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1784687859; c=relaxed/simple;
+	bh=I72I6aBNbNx5LLSbB2IurvJXHEQjlREB5X6pHjEvasQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HjwzdY4I6c8isslV2Q8nGBwL/nCEkUhId+RETVZsxd7I4MKG15nqBR7xhKYqpAeD164iS6iDpr/C85PQWOpmFLXdpN9EakMApN+VXDZT5csBLMKiBio4HuxS4W37PzGg7XEuZKaiDZcUqJ8HOLVPwJcsjEXxe1EXv8kP7XajVMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IkGDu+HJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kKN9s1gR; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="CQuowJnT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1784687791;
-	bh=0LIYMvSbkVDvGKEztdCzkGVC30RoqH4EtrEATgjRjOg=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=CQuowJnTJChkuRHPaMZVJee/nbyqfFaaqbb7NtjmJegxrTtEBKtQMr7PEOnihYdlC
-	 yfDXImUCIr7BRfrOEri4zepdnprKC9ZPyw9mpqwIZ7RmaK2Ud0ILe30Sz1dIdoXtKw
-	 8LtGud6uWAXgd9+2Zkf4e5NQE0YLWrBhon+Klw68=
-X-QQ-mid: esmtpsz11t1784687789te7033f80
-X-QQ-Originating-IP: euxu36iqrpcNRQBO9pCgux1QwcGXj9dKFoLBfyM4jJA=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 22 Jul 2026 10:36:26 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 12298450221840552904
-EX-QQ-RecipientCnt: 19
-From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Date: Tue, 21 Jul 2026 19:35:57 -0700
-Subject: [PATCH 3/3] riscv: dts: spacemit: k3: add i2s0-i2s5 nodes
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IkGDu+HJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kKN9s1gR"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M1CM283650698
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 02:37:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=IVQKsYN3qgUZiEdfZG6Dl2bU
+	NyFkjoaZvW8jdv3e/ow=; b=IkGDu+HJk64knardp5jZcVuTTVp4WaJDOIBrRgzj
+	wBiyAscWR7qEjCOWxsCgvv53ClTgBGdx3uwBdQmloijHIdKbkVKo6YGYme7rNlyN
+	LmInbmnb1n1usUPXHB3U6b8s37Sj/dVx+NOw7E8prcc83HzCmT04vJTZxHcdcZmK
+	xlwPTc7rtzUXW4D0PzJm0bMKfefI88KtlxlqT+RWvJWBY94nOqgP9aFowpGDCDhw
+	U1akqMrLwIhmdRciOcaE9+0yVvbrgmKcOn9Mgm3T/kU/jBN6BNWjrvb6mKBxNCdb
+	p1pBUsE01PFCCmhuYfI5JXwxVEog7IRR1g+oMY0p0uDmcQ==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj6r3kw72-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 02:37:37 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c88cfe287e1so8004998a12.1
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 19:37:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784687857; x=1785292657; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IVQKsYN3qgUZiEdfZG6Dl2bUNyFkjoaZvW8jdv3e/ow=;
+        b=kKN9s1gRAVoqvm1GvZGlPvcUj4yhDoEYkvOyVBfjDT44lRe7QeI+0mrzi4ZiM5gC+S
+         76puWnBERmDZjSn0o2dOavQo+RjY0amDEVJVlIpfJPgEC87sKW11luwpYft63Lbv9D19
+         kqPReX9GmHJh9yHLJab0so9l/d1A2vg7a9L13PEFHYLkxpJ6eMh8WWKazcGW7IbZ60JO
+         7Gaafnb9rKj9Pw6vjp1uf4KkU2BO+D2gsAkXl8yCnKscXwBl893AL7XeD0psOE9IZfpS
+         ZlOn531FXplWMZzLZyTRIJR0wM9vvzB4NPYSzmlSRnu5DPfASci9QoPGfEHUVo0k3f0A
+         YhGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784687857; x=1785292657;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IVQKsYN3qgUZiEdfZG6Dl2bUNyFkjoaZvW8jdv3e/ow=;
+        b=qFlcCoZhBfdW9X6L4oihVUTwdghd1m0KKEWI6D9heQiB1nu9MIGLMGTkeDKKlandes
+         Izdx29WjkIssJ6bKBQRUfDS4bLj8fV+4yC0TB5Ro2T2IF/Enkoj5KUFCPc+aVNfa+pVG
+         vCS12Bvd6k0kVKCGqCF+VZWNy7bXZzGyqSNalYP4LoKU8jQvI1FdW4c4op4iWCJt1m6s
+         dayQZuhsl7ce2FjcN2EfgKrzwoH2ci6vSe074+H0NVr2QuARm156bqpUVd8tPtEAocgI
+         nERwqLIXcKaw/FSU5B7cgLaWvu8ERFtImq+vEpzDfh1hRIYs0nO6LTjWbuptCibV4DHK
+         56zA==
+X-Forwarded-Encrypted: i=1; AHgh+RpVRNu5v/TytWlZuzYIfMgIetRGtxNUF9p4y5nlt6K8pX9ywM/Zo17J5oaikQ4rox7+HgLGzWdVWNOP@vger.kernel.org
+X-Gm-Message-State: AOJu0YxmlK053zRhsqpAG8DbIozUi6J1RbeDqCuZZbpD8oVtz/NX5cRR
+	LwMnDTSE4YL6LB+absbuuXbJYTc1oF5UMu6rc3hcu57yXMULXdZ7b36vAiJnXb+L9CJf4A0rgcS
+	mch9lYlUSP10sg2L7QcSPDm7vBfQwzH276Kgj0qYDO7PbmIJfcZe1TpNclvSH1tq3
+X-Gm-Gg: AR+sD12cNZleWEAQQZzPbWjYUQhX3NcnU+udQtk3HrgO9wiUl/Z1XBU768hkBk9ssm8
+	iKLSf0iBYNOGWbykC3uq1sftguwKzxsi7qglE4z3MxeyvoEyWQucnN68b/sibEZctr8+qp2fgc3
+	8f7Tgyh5GTVOR3rNLorIYzYs1IOMYzIX75Yw9vCAXZ77qw0hLJsp1IcEFnVvuloPqUzUj5ziXnR
+	8BGLwQwqz9NpOyCo6GqcWeP1/gB8Ds3egblJ2yl1vN0IU0H3Jd/b+nVBEFcfd/05xpKkYgnnilf
+	TOLjTNeutv9bz0DycI9mVBDkqTTU1ZspHhAtu56dn5BIR6bBZ2DhtfsviTq97I/cfeCVTb5iWZG
+	FcYmcxCivNf+CXzNra16o86w6vqyUcX87FKF/kDkPhK0=
+X-Received: by 2002:a05:6300:2285:b0:3c3:6c90:65b3 with SMTP id adf61e73a8af0-3c3adb086f8mr22467264637.65.1784687856855;
+        Tue, 21 Jul 2026 19:37:36 -0700 (PDT)
+X-Received: by 2002:a05:6300:2285:b0:3c3:6c90:65b3 with SMTP id adf61e73a8af0-3c3adb086f8mr22467214637.65.1784687856177;
+        Tue, 21 Jul 2026 19:37:36 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13d13003f12sm1768920c88.2.2026.07.21.19.37.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Jul 2026 19:37:35 -0700 (PDT)
+Date: Wed, 22 Jul 2026 10:37:29 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 5/6] dt-bindings: clock: qcom: Document Nord GPU clock
+ controllers
+Message-ID: <amAs6TieGdZwtxyN@QCOM-aGQu4IUr3Y>
+References: <20260721-nords_mm_v1-v2-0-17e5a445a512@oss.qualcomm.com>
+ <20260721-nords_mm_v1-v2-5-17e5a445a512@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-kx-i2s-dts-v1-3-d22cb6cfaab5@linux.spacemit.com>
-References: <20260721-kx-i2s-dts-v1-0-d22cb6cfaab5@linux.spacemit.com>
-In-Reply-To: <20260721-kx-i2s-dts-v1-0-d22cb6cfaab5@linux.spacemit.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Yixun Lan <dlan@kernel.org>, Jinmei Wei <weijinmei@linux.spacemit.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-sound@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5069;
- i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
- bh=fAIvRMKmHFJmx3qSR54EVi7APP1r/3dlylgc7iXhFgQ=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFkJOrO4I3+bT3e4o1VWGjxnuqhdJ9uG/tJ20WiOfx6qG
- 9an/D/dUcrCIMbFICumyNL9gGdbgU+UbYFAoS/MHFYmkCEMXJwCMBFhF0aG+TuZBAwcdlys3inY
- 7p8w+bLBztNyb7RnhllxKBo+/LSymuGvpMPewOnn/Ze9a3/FvHLCjVcMXzsL8k6s8taoeHNTtGY
- ZJwA=
-X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: N8Oih4CtySWPCg6Hsdr2Wv77TMOfzGZYeU3lG2sSUeGeCZQ82//PYnS5
-	v/6xDsCWHipv3ZiQMsUeZBfzApH4G5zVwUm1hf3p0walzgrVW0Laq8/WvFvQCi2JMenhLqh
-	FU4gvMHovBD0u9XuezH9cg3RC9ml4mgug7qMIn40kslNf7gRCBcVQtqF/l8AxJ6qdcxWl35
-	YxBFTvJlk1nZgXjyVGZlkUMlnyrBZxHIDGpHRjmU5chBxOHjWlwvcmnKuRKDx9mwl7mVjtm
-	byuqKa2kT7ds8kj81yY7muD6MVwN34EojMphc//ly8+0fQ9p+aFct3Zh3mYt3XHM9N9X91b
-	MZYnoY/LewXKh+TUI+huk+6DFlr7VnMJlGYRVwOJ6iXOG+k2k6FDamaktBTdWUnasXnfN7f
-	1j3Y9yTshXzGOZQyU9nPaZ4bf9pYIGWaH/WfvlhNjMlhrtqmSVmzg6+5RmbJ+ZEQUtca4BN
-	348XeOcF9MQbIVvhj8p4cRTA52GtpPKYS2HoLLcDm8dZG8T1A6N4oZXssTmmDnPpD6V5WLU
-	tX+lx4A47ci0n0JkNKW8vAFmyyySEHXVYsCHZ5qNog2lakE2QuxgJ8YoDC9cEUHu6e9mql/
-	iLvvTVnip/nAQjQqg/53WI/luZxgX/nU8JRlzul9/b7gaBg0QkDfTAxUnP9tiHLsIQIDR22
-	WnfTiI3THcBzMKm2o3NBhk4MQDbu1MWRsC1Y48+CX5zp3eSn+P0TLl9ed3E9mfD/9CekcI5
-	hpUQDTFFTfa0Uxqgks+EFhR9b7dSga/WF7vZ0Rcvnvc7Tt6pfFSZn66GAT8EGZe6pFznJRg
-	U5MU5mtQxhiWAcd0M5Fp8rfWSmFvwl6HSMvztymt2sy1R0IqPKjkKBc9w9PXNFZ0yimwU7y
-	Nk9D8GrV2j0pI8SnRV4ecZ2coGBj3RLPrwjJc/BArooOYzTbvh/kjTMMjHdk+Zd5fnDanr9
-	aDn2EzEHD0fD8ubTf8YPqbDZxIpVcYA8aLkP4vuV3NKGwXMOej+r5Jczz7MHI22aaGU0mkd
-	Rd5TyEv0AphvOc/WVa4+yE/yupTMj2aw5eUWUNg9Nfts2YVfKVEJULsKbGnr3qGwQLrsFG6
-	0iSTsrDiR98lkSCRa/MmaKCmysXfpSxpQZBdLQuJIiZNnGRujqSM+LxTFrh81QHnu/Fvusi
-	rph/s3XS8+Fvzxc=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260721-nords_mm_v1-v2-5-17e5a445a512@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDAyMiBTYWx0ZWRfX0eRfYJ9bIOUT
+ U6NstwtW0shMpBUW8JC/5uYh4lMxq0N097Nb/Ib4pucglGPwmOlmiMAO7I+9adfDRazl117aQf3
+ RKnW8eO8hhzEUl7eqZ2ArE2yvv/jnQ2Imdv5Td1vudx8RAuoec97+hidMqC2E+k2VO+FyGqnBRs
+ aj6GaZDWY2DrRJGE+S6nfpO0dZMD/D8rO+z2SH8KoIFKMXSkVQp1ZyKA7DCTdl2F0hXlqFklWcN
+ FeOC0y6RUwIkYq62JOshXd42o91q8tWN4LAGCnww/zyL7I4T4SlSBLLzc4xCkVQPO8nZkwl/CRl
+ btDElaoWNXcYp3IiyqpvXZk/Rr0kucdfcb0dvsjtjoA2y72l/kL7R+hzurhyStqkWTNH4SdZUJC
+ 1aB30aK/MXmWgRsTcQ6jpJN77gdvbpEpZRLKSV95i4iuObFiNZbdZZOq5Fsbx7jyRYVS62gJwIL
+ 2kC752bdjcY0xF/wOTg==
+X-Proofpoint-ORIG-GUID: baZC9TVstEWyE-aoqjTZIWFVstTRQuJG
+X-Proofpoint-GUID: baZC9TVstEWyE-aoqjTZIWFVstTRQuJG
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDAyMiBTYWx0ZWRfX+ezjpaVFQH4o
+ /p0sNiTBn5ZmORq7pToEVdi5NJK2LIAqMxaQTUeBvIbWL3Jrd0DUXDEf8J0uKbzz5zckdiaVd+2
+ EI9H4/K4XfuZ0ODXI6xmh/zPwRYkbPY=
+X-Authority-Analysis: v=2.4 cv=SIRykuvH c=1 sm=1 tr=0 ts=6a602cf1 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=FJTKRu6q7fTA15dSFXUA:9 a=CjuIK1q_8ugA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-22_01,2026-07-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 spamscore=0 phishscore=0 clxscore=1015
+ suspectscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220022
 
-Add the six SSPA-based I2S controller nodes for the K3 SoC.
+On Tue, Jul 21, 2026 at 12:37:20PM +0530, Taniya Das wrote:
+> Add Device Tree binding documentation for the GPU clock controllers
+> on the Qualcomm Nord platform.
+> 
+> The platform includes two GPU clock controller instances, GPUCC and
+> GPUCC2. Document the compatible strings for both controllers.
 
-i2s0 and i2s2-i2s5 each have a dedicated per-controller sysclk
-divider, so they use the published 7-clock layout (sysclk, bclk, bus,
-func, sysclk_div, c_sysclk, c_bclk).
+Nit: s/GPUCC2/GPU2CC to be consistent with code?
 
-i2s1 uses 6 clocks (sysclk, bclk, bus, func, c_sysclk, c_bclk) because
-its sysclk is driven directly by a DDN (ISCCR0) and has no separate
-divider stage.
+Other than that,
 
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
----
- arch/riscv/boot/dts/spacemit/k3.dtsi | 119 +++++++++++++++++++++++++++++++++++
- 1 file changed, 119 insertions(+)
+Reviewed-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-index 19fc9b49668e..967e5d87527a 100644
---- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-@@ -1081,6 +1081,125 @@ uart10: serial@d401f000 {
- 			status = "disabled";
- 		};
- 
-+		i2s0: i2s@d4026000 {
-+			compatible = "spacemit,k3-i2s";
-+			reg = <0x0 0xd4026000 0x0 0x30>;
-+			clocks = <&syscon_mpmu CLK_MPMU_I2S0_SYSCLK>,
-+				 <&syscon_apbc CLK_APBC_I2S0_BCLK>,
-+				 <&syscon_apbc CLK_APBC_I2S0_BUS>,
-+				 <&syscon_apbc CLK_APBC_I2S0>,
-+				 <&syscon_mpmu CLK_MPMU_I2S0_SYSCLK_DIV>,
-+				 <&syscon_mpmu CLK_MPMU_I2S_SYSCLK>,
-+				 <&syscon_mpmu CLK_MPMU_I2S_BCLK>;
-+			clock-names = "sysclk", "bclk", "bus", "func",
-+				      "sysclk_div", "c_sysclk", "c_bclk";
-+			dmas = <&pdma 21>, <&pdma 22>;
-+			dma-names = "tx", "rx";
-+			resets = <&syscon_apbc RESET_APBC_I2S0>;
-+			#sound-dai-cells = <0>;
-+
-+			status = "disabled";
-+		};
-+
-+		i2s1: i2s@d4026800 {
-+			compatible = "spacemit,k3-i2s";
-+			reg = <0x0 0xd4026800 0x0 0x30>;
-+			clocks = <&syscon_mpmu CLK_MPMU_I2S1_SYSCLK>,
-+				 <&syscon_apbc CLK_APBC_I2S1_BCLK>,
-+				 <&syscon_apbc CLK_APBC_I2S1_BUS>,
-+				 <&syscon_apbc CLK_APBC_I2S1>,
-+				 <&syscon_mpmu CLK_MPMU_I2S_SYSCLK>,
-+				 <&syscon_mpmu CLK_MPMU_I2S_BCLK>;
-+			clock-names = "sysclk", "bclk", "bus", "func",
-+				      "c_sysclk", "c_bclk";
-+			dmas = <&pdma 23>, <&pdma 24>;
-+			dma-names = "tx", "rx";
-+			resets = <&syscon_apbc RESET_APBC_I2S1>;
-+			#sound-dai-cells = <0>;
-+
-+			status = "disabled";
-+		};
-+
-+		i2s2: i2s@d4027000 {
-+			compatible = "spacemit,k3-i2s";
-+			reg = <0x0 0xd4027000 0x0 0x30>;
-+			clocks = <&syscon_mpmu CLK_MPMU_I2S2_SYSCLK>,
-+				 <&syscon_apbc CLK_APBC_I2S2_BCLK>,
-+				 <&syscon_apbc CLK_APBC_I2S2_BUS>,
-+				 <&syscon_apbc CLK_APBC_I2S2>,
-+				 <&syscon_mpmu CLK_MPMU_I2S2_SYSCLK_DIV>,
-+				 <&syscon_mpmu CLK_MPMU_I2S_SYSCLK>,
-+				 <&syscon_mpmu CLK_MPMU_I2S_BCLK>;
-+			clock-names = "sysclk", "bclk", "bus", "func",
-+				      "sysclk_div", "c_sysclk", "c_bclk";
-+			dmas = <&pdma 56>, <&pdma 57>;
-+			dma-names = "tx", "rx";
-+			resets = <&syscon_apbc RESET_APBC_I2S2>;
-+			#sound-dai-cells = <0>;
-+
-+			status = "disabled";
-+		};
-+
-+		i2s3: i2s@d4027800 {
-+			compatible = "spacemit,k3-i2s";
-+			reg = <0x0 0xd4027800 0x0 0x30>;
-+			clocks = <&syscon_mpmu CLK_MPMU_I2S3_SYSCLK>,
-+				 <&syscon_apbc CLK_APBC_I2S3_BCLK>,
-+				 <&syscon_apbc CLK_APBC_I2S3_BUS>,
-+				 <&syscon_apbc CLK_APBC_I2S3>,
-+				 <&syscon_mpmu CLK_MPMU_I2S3_SYSCLK_DIV>,
-+				 <&syscon_mpmu CLK_MPMU_I2S_SYSCLK>,
-+				 <&syscon_mpmu CLK_MPMU_I2S_BCLK>;
-+			clock-names = "sysclk", "bclk", "bus", "func",
-+				      "sysclk_div", "c_sysclk", "c_bclk";
-+			dmas = <&pdma 58>, <&pdma 59>;
-+			dma-names = "tx", "rx";
-+			resets = <&syscon_apbc RESET_APBC_I2S3>;
-+			#sound-dai-cells = <0>;
-+
-+			status = "disabled";
-+		};
-+
-+		i2s4: i2s@d4041000 {
-+			compatible = "spacemit,k3-i2s";
-+			reg = <0x0 0xd4041000 0x0 0x30>;
-+			clocks = <&syscon_mpmu CLK_MPMU_I2S4_SYSCLK>,
-+				 <&syscon_apbc CLK_APBC_I2S4_BCLK>,
-+				 <&syscon_apbc CLK_APBC_I2S4_BUS>,
-+				 <&syscon_apbc CLK_APBC_I2S4>,
-+				 <&syscon_mpmu CLK_MPMU_I2S4_SYSCLK_DIV>,
-+				 <&syscon_mpmu CLK_MPMU_I2S_SYSCLK>,
-+				 <&syscon_mpmu CLK_MPMU_I2S_BCLK>;
-+			clock-names = "sysclk", "bclk", "bus", "func",
-+				      "sysclk_div", "c_sysclk", "c_bclk";
-+			dmas = <&pdma 60>, <&pdma 61>;
-+			dma-names = "tx", "rx";
-+			resets = <&syscon_apbc RESET_APBC_I2S4>;
-+			#sound-dai-cells = <0>;
-+
-+			status = "disabled";
-+		};
-+
-+		i2s5: i2s@d4041800 {
-+			compatible = "spacemit,k3-i2s";
-+			reg = <0x0 0xd4041800 0x0 0x30>;
-+			clocks = <&syscon_mpmu CLK_MPMU_I2S5_SYSCLK>,
-+				 <&syscon_apbc CLK_APBC_I2S5_BCLK>,
-+				 <&syscon_apbc CLK_APBC_I2S5_BUS>,
-+				 <&syscon_apbc CLK_APBC_I2S5>,
-+				 <&syscon_mpmu CLK_MPMU_I2S5_SYSCLK_DIV>,
-+				 <&syscon_mpmu CLK_MPMU_I2S_SYSCLK>,
-+				 <&syscon_mpmu CLK_MPMU_I2S_BCLK>;
-+			clock-names = "sysclk", "bclk", "bus", "func",
-+				      "sysclk_div", "c_sysclk", "c_bclk";
-+			dmas = <&pdma 62>, <&pdma 63>;
-+			dma-names = "tx", "rx";
-+			resets = <&syscon_apbc RESET_APBC_I2S5>;
-+			#sound-dai-cells = <0>;
-+
-+			status = "disabled";
-+		};
-+
- 		syscon_mpmu: system-controller@d4050000 {
- 			compatible = "spacemit,k3-syscon-mpmu";
- 			reg = <0x0 0xd4050000 0x0 0x10000>;
-
--- 
-2.55.0
+> 
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
 
