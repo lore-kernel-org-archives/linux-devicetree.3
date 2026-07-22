@@ -1,112 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C0433936A;
-	Wed, 22 Jul 2026 10:52:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA5933939A;
+	Wed, 22 Jul 2026 10:54:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784717552; cv=none; b=CLYehZj7LxOb1rSwlZ77Hcj0IhcuafnXd61p19cxusBTvfSeAVkP/D3NEiGstrOda8OrGonDLmJoUyQGylR+ZUj6fiqQzo09uTHLEMDLodxqDNM0s7nQEG85FacGg8B9qzIx53pj5WjQYGfBvvLBCrBJgrNSSwFqbcY/Dgghw2s=
+	t=1784717699; cv=none; b=F6x3GeszqPGaLkWnN4hX1Vu6gSGUVUlmQ+jfWUaUBPAjrqhuKPuesobjw7ieotnmuXPEfSQ6ED7QngXQbHlP/rLSZUyvGjWEMqKqisH3wYwUWu9jouyQfW62OwZV6YtnlB0lAb4mlBskextDBSneBtJjFot4wUzl27JUpF0Kib0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784717552; c=relaxed/simple;
-	bh=mKxS9DIrToPB8q1OjpZFLuv9oMbxkEDehREPQZVLr1I=;
+	s=arc-20240116; t=1784717699; c=relaxed/simple;
+	bh=cvbfXlIv8rFqB+GO1+q1LECbw63cl/F3L0fC6SfOQqo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Hnx5L4DTSO1SqAKF90oKNwXbcnbIlWNTGGU+XVVdOJUcF3YZkn5poom6JiC1MmN6Sy3gS2Zqw4IrSHFTHhwIvdXlyUi2SpbQ4nq8SGkJTg0NvrGshMWADe+BUNfLXx42DUvl7RepdgETBCF2JqP6JXM6g3DfwLDHezqln7kr7Vs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aiUKWd0I; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=UR/iRFZXFvPu2kKPlSVDRLYA9TXjRHqXcAmEqKtQH3PP7eOyRKHl4vamqSSjO2Fr/Wn1ppEcmYzGI4dnHTCA771Moya5Vf+huOPBV3dr0OfZCaiCKf7arW4e5eOq+i6Q1Xyo6OVPLloDr7M3KhroXQ6hTAeyZ2TmK7hm8RCJBmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MhJibyiU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aiUKWd0I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF8851F000E9;
-	Wed, 22 Jul 2026 10:52:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MhJibyiU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 927B21F000E9;
+	Wed, 22 Jul 2026 10:54:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784717551;
-	bh=cz/AaSM8b4xozM+TmCkIqyTW+QTRuTcoeDKI2hgATjY=;
+	s=k20260515; t=1784717698;
+	bh=gtVmEfvwq4/pD5GtcvxNqUb0ue+/73zoOq3jfiqz1So=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aiUKWd0IZAEqlpSez+ESzM5Ww0mBngn9Bb5g0iBZHxm43CQKFVWRLoVRWTowK/viV
-	 3p1yi0vjvlIg3eF2qUhtpv3mDdZykTWYxH/hrr+kz4D5LGiXxPdNlYn2gqb1PMzRgO
-	 Px5m2Kb437cex4v8C6qtaC7ATGsP2Y2MnKpteaw1XXFLWl+F0NQe5zT7TGtFORNxtV
-	 1b72zBh+Tfpp0P1ns3gBuSApRQUqTrPOdKq/XEabYzgBPlnEpxdsGClkP6EkpojRR6
-	 YraYbl/wzgOc4QyetJz3CxB9yiBKm2Kp/9nteMXSuzNONgQM1Tqux9fuC4ec3KdARK
-	 P3OWbbkPMIcBg==
+	b=MhJibyiU3NRlQ1LiaijI8/nt/TfLF1Q3Uxcx5wQpg5q0hDZeClXaSzA1GgDNdzXYY
+	 Oaa5JoZiGtdgS7IvPYC7ulmqF7+2LoDLQ+towEQIcplOErwGL+WtOxABLl4UT5+3Q6
+	 klg+5TmcaeXnWLp86823X8GCZXAxGeC24ViWsooKysqD61ORnsTvDAJrTLIg6Yu4RB
+	 S8M0WP7dXWoNs+M5GTl8TKozgNUNeMQG/AtOopdjESuS5eioihW9QhWNSQxl0eorSM
+	 D/3uSYzKnldUQxHvbFN4V76apjND1V4iAcxXfzGbiDpuyy0baB65lWvybURHDD4oZy
+	 XnTt78aAGBpAA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 1/1] arm64: dts: imx8qm-ss-dma: add LPUART4
+Subject: Re: [PATCH v3 1/2] dt-bindings: thermal: Add Qualcomm MBG thermal
+ monitor support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260722104200.17729-1-stefano.r@variscite.com>
-References: <20260722104200.17729-1-stefano.r@variscite.com>
+To: "Sachin Gupta" <sachin.gupta@oss.qualcomm.com>
+Cc: mfd@lists.linux.dev, lee@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260722-spmi-mbg-driver-v3-1-ef73064f2789@oss.qualcomm.com>
+References: <20260722-spmi-mbg-driver-v3-0-ef73064f2789@oss.qualcomm.com>
+ <20260722-spmi-mbg-driver-v3-1-ef73064f2789@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 10:52:30 +0000
-Message-Id: <20260722105230.BF8851F000E9@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 10:54:57 +0000
+Message-Id: <20260722105457.927B21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Incorrect devicetree clock indices map both 'ipg' and 'baud' clock=
-s to the baud clock, leaving 'ipg' unenabled.
-- [Low] The `dmas` property hardcodes the magic number `1` instead of using=
- the `FSL_EDMA_RX` macro.
+- [Medium] The generic `^temperature-sensor@[0-9a-f]+$` node name pattern i=
+n the SPMI PMIC schema is exclusively bound to the `qcom,pm8775-mbg-tm` sch=
+ema, which causes validation failures for other thermal peripherals (like `=
+qcom,spmi-temp-alarm`) that use the standard `temperature-sensor` generic n=
+ode name.
 --
 
---- Patch [1]: [PATCH v1 1/1] arm64: dts: imx8qm-ss-dma: add LPUART4 ---
-commit 7ee265f098cc61c07a1f39c116e402d04752161d
-Author: Stefano Radaelli <stefano.r@variscite.com>
+--- Patch [1]: [PATCH v3 1/2] dt-bindings: thermal: Add Qualcomm MBG therma=
+l monitor support ---
+commit 0d6b48e0b8d3e826b0476c17d69e98ce1c6de883
+Author: Satya Priya Kakitapalli <quic_skakitap@quicinc.com>
 
-arm64: dts: imx8qm-ss-dma: add LPUART4
+dt-bindings: thermal: Add Qualcomm MBG thermal monitor support
 
-Add the missing LPUART4 node to the i.MX8QM DMA subsystem description.
+This commit adds device tree bindings for the Qualcomm Master Bandgap (MBG)
+temperature alarm peripheral found on the PM8775 PMIC. It supports both hot
+and cold threshold monitoring with interrupt status reported over SPMI.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8qm-ss-dma.dtsi b/arch/arm6=
-4/boot/dts/freescale/imx8qm-ss-dma.dtsi
-> index 974e193f8dcb9..25c5e44231639 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8qm-ss-dma.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8qm-ss-dma.dtsi
-> @@ -8,6 +8,22 @@
->  /delete-node/ &adma_pwm_lpcg;
+> diff --git a/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml b/=
+Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml
+> index 809be2756a0c0..bd77cb7173e26 100644
+> --- a/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml
+> @@ -194,6 +194,10 @@ patternProperties:
+>      type: object
+>      $ref: /schemas/thermal/qcom,spmi-temp-alarm.yaml#
 > =20
->  &dma_subsys {
-> +	lpuart4: serial@5a0a0000 {
-> +		compatible =3D "fsl,imx8qm-lpuart", "fsl,imx8qxp-lpuart";
-> +		reg =3D <0x5a0a0000 0x1000>;
-> +		interrupts =3D <GIC_SPI 349 IRQ_TYPE_LEVEL_HIGH>;
-> +		interrupt-parent =3D <&gic>;
-> +		clocks =3D <&uart4_lpcg 1>, <&uart4_lpcg 0>;
+> +  "^temperature-sensor@[0-9a-f]+$":
+> +    type: object
+> +    $ref: /schemas/thermal/qcom,pm8775-mbg-tm.yaml#
 
-[Severity: High]
-Does this clock configuration leave the IPG clock unenabled and map both cl=
-ocks
-to the baud clock?
+[Severity: Medium]
+Will this exclusive mapping cause validation failures for other thermal
+peripherals?
 
-The i.MX8QXP LPCG clock driver uses integer division to resolve the clock
-index (idx =3D clkspec->args[0] / 4). Both 1 / 4 and 0 / 4 truncate to inde=
-x 0,
-which corresponds to the baud clock.
+If a device tree uses a standard temperature-sensor@... node name with a
+different compatible string (such as qcom,spmi-temp-alarm) under a
+qcom,spmi-pmic node, it seems it would incorrectly fail dtbs_check validati=
+on
+because it is strictly bound to qcom,pm8775-mbg-tm.yaml here.
 
-Because the IPG clock (which should be at index 16, or IMX_LPCG_CLK_4) is
-never referenced, accessing the unclocked UART peripheral can cause a
-synchronous external abort or bus hang.
+Should this pattern property use a oneOf block to permit any supported
+thermal sensor schema, rather than binding the generic node name strictly
+to the MBG schema?
 
-Should this use IMX_LPCG_CLK_4 and IMX_LPCG_CLK_0 instead of the literal 1
-and 0?
-
-> +		clock-names =3D "ipg", "baud";
-> +		assigned-clocks =3D <&clk IMX_SC_R_UART_4 IMX_SC_PM_CLK_PER>;
-> +		assigned-clock-rates =3D <80000000>;
-> +		power-domains =3D <&pd IMX_SC_R_UART_4>;
-> +		dma-names =3D "rx","tx";
-> +		dmas =3D <&edma2 20 0 1>,
-
-[Severity: Low]
-This isn't a bug, but does this hardcode the magic number 1 instead of using
-the standard FSL_EDMA_RX macro?
-
-> +		       <&edma2 21 0 0>;
-> +		status =3D "disabled";
-> +	};
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722104200.1772=
-9-1-stefano.r@variscite.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-spmi-mbg-d=
+river-v3-0-ef73064f2789@oss.qualcomm.com?part=3D1
