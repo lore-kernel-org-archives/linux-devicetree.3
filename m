@@ -1,115 +1,179 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C16A413221;
-	Wed, 22 Jul 2026 07:35:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 675B1444718;
+	Wed, 22 Jul 2026 07:36:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784705751; cv=none; b=HXwmPoS8/UsU9lHHW7LH707k2toVSI60rEmFPAWv09+SdcA9zp9luo9KQzy+SQC6USZyUZ5xn+WBDifqCFpK5z2M9MA4ohagCGdyTMN6IS67mAwEMLMyYOXi5EY41Ew5S1PFWNTrKGO9WEcoEP0KaCCPznBDoDIAaazCFFvc3jM=
+	t=1784705761; cv=none; b=GLXzB1d8GnHYFUuorkcj70zxyBy2wV4cdPJSDPd9Ii4GEnrRR601Ay9tSxNqoQgS22g4TJuxa1CMIXT6/poMpw6jJQIfvdWIYhlZN67y3lfvZudVr8FmPW2IBkLZhavGva5/I7zeRCkt9HpQESBo3W8zJu9JxzAyu7JUFRv9phg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784705751; c=relaxed/simple;
-	bh=CsO8ipof80Sfgt/x1IVb9h+EHVZOEBiAg5aJSVjycZs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=rR2BcSCkA5EWgnxjPqHkuSYlCZynn0STpGJiiJu7CJWONh17oN3+cC99q90EM51+4+shLWF6IEhbBSwq7MGcdp3ehKEoX1Xir4/FJF7uIWjHmSssqAoQwS5kLerU6bhHXRkLBJd/eontcBtmmgiV3BEudylXqkympm0uOUDl8ic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=Kh1+bxb1; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1784705761; c=relaxed/simple;
+	bh=zHpgMBWcsHZFXm0qcNsJnognV8qmmXXd5x5uD8XiXE0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=flSmLH3SoAzGD8GioYBiKfM3XKpZKjoDzNaX8PALfUsRqsswhJFdRq65BFvpda5Ktm9AYUH8wqMzbEUYbyH0yNwYCG23l9pr8uc5cwdOuVbxre+VPQETbAs2/lcKbdT75C1XO/BZCWWNEhicOWqlRSFpUqIL6jZWBioGrTm4Kgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vpegefgk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="Kh1+bxb1"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 66M7YdEW23797704, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1784705679; bh=CsO8ipof80Sfgt/x1IVb9h+EHVZOEBiAg5aJSVjycZs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=Kh1+bxb1/5PJwCrOGPgqtCBJZPFltAC+DPE9lHTn61xBrnyAs9fj9YJ29p0qDVhwY
-	 p+Shvo4z/usHVUy+tkXpU607XATI1kzNn1Z3kknMq54ltYMqrjlkDdt41g7MGRao1x
-	 PVTYNt1kXlRraXIEhzZ0Sstw9P3lSWVLEF2QZWtN6UjpqW80dM10HbrXvm78UCn3SK
-	 edDiCyFPic1sHUU1o+pJQaR03uq8aeL8Q6FoS32bHhZAORtsYegCp3cwIsA4LpeuM2
-	 orzJ9jGSioqvg9IzLVg4mrOfDXSNvFWzuyGr9vANGrfmrdM7Dq38KJ76CTSYJ0WibM
-	 mPyCt5tc6f2lA==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 66M7YdEW23797704
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 22 Jul 2026 15:34:39 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Wed, 22 Jul 2026 15:34:38 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::e6fd:5a3f:8946:92c4%10]) with mapi id
- 15.02.2562.017; Wed, 22 Jul 2026 15:34:38 +0800
-From: =?big5?B?WXUtQ2h1biBMaW4gW6pMr6enZ10=?= <eleanor.lin@realtek.com>
-To: Brian Masney <bmasney@redhat.com>
-CC: "mturquette@baylibre.com" <mturquette@baylibre.com>, "sboyd@kernel.org"
-	<sboyd@kernel.org>, "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	=?big5?B?RWRnYXIgTGVlIFun9anTv9ld?= <cylee12@realtek.com>,
-	"afaerber@suse.com" <afaerber@suse.com>, =?big5?B?SnlhbiBDaG91IFupUKrppndd?=
-	<jyanchou@realtek.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-clk@vger.kernel.org"
-	<linux-clk@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-	"linux-realtek-soc@lists.infradead.org"
-	<linux-realtek-soc@lists.infradead.org>, =?big5?B?SmFtZXMgVGFpIFvAuafTrnBd?=
-	<james.tai@realtek.com>, =?big5?B?Q1lfSHVhbmdbtsDgsq7LXQ==?=
-	<cy.huang@realtek.com>, =?big5?B?U3RhbmxleSBDaGFuZ1up96h8vHdd?=
-	<stanley_chang@realtek.com>
-Subject: RE: [PATCH v10 08/11] clk: realtek: Add support for MMC-tuned PLL
- clocks
-Thread-Topic: [PATCH v10 08/11] clk: realtek: Add support for MMC-tuned PLL
- clocks
-Thread-Index: AQHdEuAsI89D8FRCKUWTKm1gKjcY/rZ4KEgAgAEKgkA=
-Date: Wed, 22 Jul 2026 07:34:38 +0000
-Message-ID: <9080dd0534184fbd9c546d2e81f4984a@realtek.com>
-References: <20260713155630.3054636-1-eleanor.lin@realtek.com>
- <20260713155630.3054636-9-eleanor.lin@realtek.com>
- <amADBr_DnBeGh2jg@redhat.com>
-In-Reply-To: <amADBr_DnBeGh2jg@redhat.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vpegefgk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3F201F000E9;
+	Wed, 22 Jul 2026 07:35:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784705760;
+	bh=5yzsPKyS46OJqka9Jg8kQrE4QHNoZoIqblZL6pnF1EY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Vpegefgkth/baFBFqbeT6MukOarPFqKB2Bl5YeY7GKXwex2xsBUgoKR8QCYoF6pzU
+	 CKS629A14EZPMblespLeSaRP3Ho8UyfZjISfghsPpu5RVAMA0Mbo2f6c6MhGKsosiq
+	 fx76ElxD2XulaiasG7DlAqSae3jqwvabOmyLcSFGWp0IkIVfIRECr18lpM65Yi6WIM
+	 vSCnwNPJsOtDxG4WEvd4beP0r1G7G20XnZkRrJR9rpOrxw3DC0IkPu0BJYR3VPCNA0
+	 2CmxxuVjUnYufkepCb6IjQrokN63TXI311G0TDkcK/+ZdLxgE0iWjKwUNuZXsZE2zw
+	 Khk4TIS6FaMmA==
+Date: Wed, 22 Jul 2026 09:35:56 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/6] of: incrementally update /aliases lookup on
+ reconfig notifications
+Message-ID: <20260722-light-modest-mosquito-cd4f0a@quoll>
+References: <20260721-nh-of-alias-overlay-v4-0-8ad097e31e36@nexthop.ai>
+ <20260721-nh-of-alias-overlay-v4-2-8ad097e31e36@nexthop.ai>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260721-nh-of-alias-overlay-v4-2-8ad097e31e36@nexthop.ai>
 
-SGkgQnJpYW4sDQoNCj4gT24gTW9uLCBKdWwgMTMsIDIwMjYgYXQgMTE6NTY6MjdQTSArMDgwMCwg
-WXUtQ2h1biBMaW4gd3JvdGU6DQo+ID4gRnJvbTogQ2hlbmctWXUgTGVlIDxjeWxlZTEyQHJlYWx0
-ZWsuY29tPg0KPiA+DQo+ID4gQWRkIGNsa19wbGxfbW1jX29wcyBmb3IgZW5hYmxlL2Rpc2FibGUs
-IHByZXBhcmUsIHJhdGUgY29udHJvbCwgYW5kDQo+ID4gc3RhdHVzIG9wZXJhdGlvbnMgb24gTU1D
-IFBMTCBjbG9ja3MuDQo+ID4NCj4gPiBBbHNvIGFkZCBjbGtfcGxsX21tY19waGFzZV9vcHMgdG8g
-c3VwcG9ydCBwaGFzZSBnZXQvc2V0IG9wZXJhdGlvbnMuDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5
-OiBDaGVuZy1ZdSBMZWUgPGN5bGVlMTJAcmVhbHRlay5jb20+DQo+ID4gQ28tZGV2ZWxvcGVkLWJ5
-OiBKeWFuIENob3UgPGp5YW5jaG91QHJlYWx0ZWsuY29tPg0KPiA+IFNpZ25lZC1vZmYtYnk6IEp5
-YW4gQ2hvdSA8anlhbmNob3VAcmVhbHRlay5jb20+DQo+ID4gQ28tZGV2ZWxvcGVkLWJ5OiBZdS1D
-aHVuIExpbiA8ZWxlYW5vci5saW5AcmVhbHRlay5jb20+DQo+ID4gU2lnbmVkLW9mZi1ieTogWXUt
-Q2h1biBMaW4gPGVsZWFub3IubGluQHJlYWx0ZWsuY29tPg0KPiA+IC0tLQ0KPiA+IENoYW5nZXMg
-aW4gdjEwOg0KPiA+IC0gTm9uZS4NCj4gPiAtLS0NCj4gPiAgTUFJTlRBSU5FUlMgICAgICAgICAg
-ICAgICAgICAgICAgIHwgICA4ICsNCj4gPiAgZHJpdmVycy9jbGsvcmVhbHRlay9LY29uZmlnICAg
-ICAgIHwgICAzICsNCj4gPiAgZHJpdmVycy9jbGsvcmVhbHRlay9NYWtlZmlsZSAgICAgIHwgICAy
-ICsNCj4gPiAgZHJpdmVycy9jbGsvcmVhbHRlay9jbGstcGxsLW1tYy5jIHwgNDMwDQo+ICsrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKw0KPiA+ICBkcml2ZXJzL2Nsay9yZWFsdGVrL2Nsay1w
-bGwuaCAgICAgfCAgMTMgKw0KPiA+ICA1IGZpbGVzIGNoYW5nZWQsIDQ1NiBpbnNlcnRpb25zKCsp
-DQo+ID4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2Nsay9yZWFsdGVrL2Nsay1wbGwtbW1j
-LmMNCj4gPg0KPiA+IGRpZmYgLS1naXQgYS9NQUlOVEFJTkVSUyBiL01BSU5UQUlORVJTIGluZGV4
-DQo+ID4gMWZmZmIxZmM1ZGUxLi4wYzhiOThlY2M0YTUgMTAwNjQ0DQo+ID4gLS0tIGEvTUFJTlRB
-SU5FUlMNCj4gPiArKysgYi9NQUlOVEFJTkVSUw0KPiA+IEBAIC0yMjc0Nyw2ICsyMjc0NywxNCBA
-QCBGOiAgIGRyaXZlcnMvcmVzZXQvcmVhbHRlay8qDQo+ID4gIEY6ICAgaW5jbHVkZS9kdC1iaW5k
-aW5ncy9jbG9jay9yZWFsdGVrKg0KPiA+ICBGOiAgIGluY2x1ZGUvZHQtYmluZGluZ3MvcmVzZXQv
-cmVhbHRlayoNCj4gPg0KPiA+ICtSRUFMVEVLIFNPQyBQTEwgQ0xPQ0sgRk9SIE1NQyBTVVBQT1JU
-DQo+ID4gK006ICAgQ2hlbmctWXUgTGVlIDxjeWxlZTEyQHJlYWx0ZWsuY29tPg0KPiA+ICtNOiAg
-IEp5YW4gQ2hvdSA8anlhbmNob3VAcmVhbHRlay5jb20+DQo+ID4gK006ICAgWXUtQ2h1biBMaW4g
-PGVsZWFub3IubGluQHJlYWx0ZWsuY29tPg0KPiA+ICtMOiAgIGxpbnV4LWNsa0B2Z2VyLmtlcm5l
-bC5vcmcNCj4gPiArUzogICBTdXBwb3J0ZWQNCj4gPiArRjogICBkcml2ZXJzL2Nsay9yZWFsdGVr
-L2Nsay1wbGwtbW1jLmMNCj4gDQo+IDIgb2YgdGhlIDMgbmFtZXMgbGlzdGVkIGhlcmUgYXJlIHVu
-ZGVyIHRoZSBuZXcgcmVhbHRlayBlbnRyeSBhZGRlZCBieSB0aGlzDQo+IHNlcmllcy4gSSdtIG5v
-dCBzdXJlIGhvdyBjb21tb24gdGhpcyBpcyBidXQgaXQgc2VlbXMgb3Zlcmx5IGdyYW51bGFyLg0K
-PiANCj4gQnJpYW4NCg0KSSBoYXZlIGNoZWNrZWQgd2l0aCBKeWFuIENob3UsIGFuZCB3ZSBhZ3Jl
-ZSB0aGF0IHRoaXMgZW50cnkgaXMgdG9vIGdyYW51bGFyLg0KDQpXZSB3aWxsIHJlbW92ZSB0aGUg
-J1JFQUxURUsgU09DIFBMTCBDTE9DSyBGT1IgTU1DIFNVUFBPUlQnIGVudHJ5IGFuZCBvbmx5IGtl
-ZXANCnRoZSBicm9hZGVyIG9uZS4NCg0KQmVzdCBSZWdhcmRzLA0KWXUtQ2h1bg0K
+On Tue, Jul 21, 2026 at 06:01:47PM -0700, Abdurrahman Hussain wrote:
+> /aliases entries added by a device-tree overlay are stored in the live
+> tree but never enter the global aliases_lookup list that of_alias_scan()
+> builds at boot. As a result, of_alias_get_id() returns -ENODEV for
+> aliases declared inside overlays, and any driver that relies on
+> alias-based numbering (i2c-xiic, spi, tty, mmc, ...) silently loses its
+> pinned id and falls back to auto-assignment.
+>=20
+> Fix by registering an internal OF reconfig notifier that mirrors
+> /aliases changes into aliases_lookup. Registration happens at
+> core_initcall_sync time, safely after the boot-time of_alias_scan(),
+> which runs pre-initcall from unflatten_device_tree() (or
+> of_pdt_build_devicetree() on OF-real platforms):
+>=20
+>   OF_RECONFIG_ADD_PROPERTY    -> of_alias_create()
+>   OF_RECONFIG_REMOVE_PROPERTY -> of_alias_destroy()
+>   OF_RECONFIG_UPDATE_PROPERTY -> destroy + create
+>   OF_RECONFIG_ATTACH_NODE     -> adopt the node as of_aliases
+>   OF_RECONFIG_DETACH_NODE     -> drop every aliases_lookup entry
+>=20
+> The reconfig notifier chain fires from both direct changesets and
+> overlay apply/revert, so the same code path covers runtime dt
+> modifications and overlay-declared aliases without any overlay-
+> specific hook in drivers/of/overlay.c. Grant Likely suggested this
+> shape on Geert Uytterhoeven's 2015 RFC [1]; Geert's original hook was
+> in dynamic.c directly.
+>=20
+> Match the /aliases target node structurally (exact name "aliases",
+> parent =3D=3D root, via the shared of_node_is_aliases()) rather than by
+> pointer against the of_aliases global. A system with no boot-time
+> /aliases has of_aliases =3D=3D NULL, so an overlay that creates /aliases
+> from scratch would otherwise be missed from the first ATTACH_NODE
+> onward. The name compare is exact rather than of_node_name_eq():
+> the latter ignores unit addresses and would also match a root node
+> named "aliases@1", which neither path lookup nor the DT spec treats
+> as the aliases node. ATTACH publishes the adopted node
+> in of_aliases with a reference held; DETACH clears the pointer and
+> drops that reference again. Both pointer updates happen under
+> devtree_lock, pairing with the locked reader in
+> of_find_node_opts_by_path() from the previous patch =E2=80=94 a reader ei=
+ther
+> observes NULL or takes its own reference before the notifier's put
+> can be the last one. Dropping the reference at DETACH also keeps the
+> node at refcount 1 by the time an overlay changeset that created
+> /aliases is destroyed, which __of_changeset_entry_destroy() insists
+> on before it lets the node be freed.
+>=20
+> Only per-property notifications populate aliases_lookup =E2=80=94
+> the notifier does not walk the attached node's property list, which
+> would race with devtree_lock-protected property mutations. A direct
+> of_attach_node() caller that pre-populates /aliases is not tracked,
+> matching pre-series behavior.
+>=20
+> DETACH_NODE conversely drops every aliases_lookup entry =E2=80=94 but only
+> when the detached node is the tracked of_aliases. __of_attach_node()
+> has no duplicate-name check, so a stray second root node named
+> "aliases" can exist; detaching it must not wipe entries backed by the
+> real node. Walking aliases_lookup itself (under aliases_mutex) avoids
+> the same property-list race. Overlay revert additionally emits per-
+> property REMOVE events beforehand; the sweep catches direct
+> of_detach_node() callers that don't. The per-entry teardown is
+> factored into __of_alias_del(), shared by the single-name destroy and
+> the detach-time sweep.
+>=20
+> One ordering caveat is inherent to the notification architecture:
+> within a single changeset, a device created by an earlier ATTACH
+> entry can be probed by of_platform_notify() before a later /aliases
+> ADD_PROPERTY entry reaches this notifier. Overlays that declare an
+> alias for a node they also create should order the /aliases fragment
+> first if the target bus is populated with a bound driver at apply
+> time.
+>=20
+> The notifier machinery is built only for CONFIG_OF_DYNAMIC kernels:
+> without it no reconfig notifications exist and
+> of_reconfig_notifier_register() is a stub returning -EINVAL, so an
+> unconditional registration would fail the initcall on every
+> non-dynamic DT kernel.
+>=20
+> Factor the per-property loop body of of_alias_scan() into
+> of_alias_create() so the boot-time scan and the runtime notifier
+> share one code path. Owned (runtime) entries kstrdup the alias name
+> so the alias_prop survives the property that spawned it =E2=80=94 required
+> for the overlay revert path where the source property is freed. A
+> one-bit @owned flag on struct alias_prop distinguishes kmalloc'd
+> entries from memblock-backed ones so the destroy path kfree()s the
+> right ones. Every entry, boot-time or runtime, holds the target-node
+> reference that of_find_node_by_path() returned at create time;
+> destroy drops it symmetrically.
+>=20
+> The destroy path unlinks matching entries regardless of ownership
+> (freeing storage only for owned ones) so an overlay UPDATE against a
+> boot-time alias leaves at most one entry per stem+id. This addresses
+> the allocator-mismatch worry Grant flagged on the 2015 series [2] and
+> the duplicate-mapping side effect that would otherwise leak through.
+>=20
+> Serialize aliases_lookup on a dedicated aliases_mutex: readers
+> (of_alias_get_id, of_alias_get_highest_id, of_device_uevent) and the
+> reconfig notifier hold it around every access. Boot-time
+> of_alias_scan() runs single-threaded during init and stays lockless.
+> This is preferable to piggy-backing on of_mutex because the reconfig
+> notifier is called both under of_mutex (overlay apply path) and
+> outside of it (direct of_add_property() path from dynamic.c), so a
+> nested acquisition would deadlock on some callers.
+>=20
+> Validate the property value before feeding it to of_find_node_by_path():
+> pp->value must be non-empty and null-terminated within pp->length. An
+> overlay that hasn't been through /aliases fixup can otherwise present
+> a fragment-internal string that isn't a valid live-tree path or a
+> malformed non-terminated value, and of_find_node_by_path() derefs it
+> as a C string =E2=80=94 an OOB read on the malformed case.
+>=20
+> The refactor also fixes a pre-existing one-byte out-of-bounds read in
+> the stem parser: the old loop tested isdigit(*(end - 1)) before
+> checking end > start, reading one byte before the property name when
+> the name is empty or all digits. of_alias_create() checks the bound
+> first and rejects a zero-length stem.
+>=20
+> Naming builds on Geert's original series:
+>   - "of: Extract of_alias_create()"                     [3]
+>   - "of: Add of_alias_destroy()"                        [4]
+>   - "of/dynamic: Update list of aliases on aliases changes" [5]
+
+This is not a contest who can ask AI to create the longest commit msg
+ever.
+
+You need to configure your LLM properly to Linux kernel coding style.
+
+Best regards,
+Krzysztof
+
