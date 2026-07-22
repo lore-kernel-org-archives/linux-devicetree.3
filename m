@@ -1,123 +1,102 @@
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3743E3DAB
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 03:37:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784691442; cv=pass; b=jJ0G2mWTvyKyw4rt9k0H0WMRWFxuDkpERpn0Sd/xlWveX1/OACN6hQY15el99yxaW2qYDQku/N9kgvTm7g9lmDL7r/ACoDyG7cAqgWwgKLJ1oL5LYcMsgPtywbrk4WyLhCGvq/fbw78l8yQKFEjCbIJCDId6NvC0zPkzqZpfiNw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784691442; c=relaxed/simple;
-	bh=FKTf/d7nFmKcsSFUbAB3exdk2dVsrnMxmbCxkgyTBek=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JDruoO5AQvWsvfEtrUGCPD3Ytr3uIS/S3GcYkUhPVvOLvbbc/uFQNE4yV1ZNaZjIU5OIDdKv5g6toqHBMeR4J0IxIX5V8U1MIekKYJ/1l+xLgsEh+Q+Lg/agCzhyqV1UM02uImgTUrYAucle7OPCCqjBiDdKT6XX+uEgDPJRTlw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=I+YBlPFe; arc=pass smtp.client-ip=209.85.128.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C083E51FC;
+	Wed, 22 Jul 2026 03:39:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784691564; cv=none; b=uYS+0eBSyY5BKNGr5v9+jUg/pQUlwwpH3jXPoHKawpyD4daQePqy/dq8N1ipJ8dV9s98K79LfzpcQIH33qIkECXB91ixHAHKbFERx3uNKxiXf5nFL/b5IClJkUTS57Z7sPRhH3UlxFms9ICzJmRyZkPwO+sJYFpsXMVlh6HR4PM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784691564; c=relaxed/simple;
+	bh=fEroTalEbO1l8sx0P6NBeQaMyXoTWRy2oz/DyWP8oFk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=kIMQYcRbNwKZXA+HZ8vXwS6wFhZQ0GxpO2+dDdMGfFSzHEbk5gqN6ZP9mU9QLBQ2yjVqVJ8c7KPoWUS4/YPLFbLCzAdHsu85v2XcFQ53nQpafCH/vn6DymN4H87PqPc00kLk7pqOryIY6DCqnBlpsRGcpr+8rrU72bMeq6tu8I8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BlAz3rQz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="I+YBlPFe"
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-81dfdbd86d1so79853737b3.1
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 20:37:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784691437; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YAPQEA0U3jRzZ9QNu0GjlkK7DA+wHgT73bBU/p7MZNH1i5isZNbhL4QhpPciEHNOAm
-         3+vaHtNX+6uQJK9SW5drIRRzY11bW/dBWBQMQHbHd6/lJ1razoL4ZpK79Csrc8m+L1rr
-         Of2CSvclzwuqvVfRHzNTJSuHA163GHlqPdqA9LUZx6UoB7xeapeD81VIMisj8iVffyeB
-         hfAGdH0kFYm21wo2GyCgf68gw2yEX4BuFsXyxvYmLQJGvMGdOF3FnOeU1vWbm0PW4QtK
-         IRJweFLyFzCXsTTxAG2MlR7ViQWKFWBYGdvYOj7QPk5lFj9VFIuISFvZ0Kk5Eueh3DJS
-         PsqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FKTf/d7nFmKcsSFUbAB3exdk2dVsrnMxmbCxkgyTBek=;
-        fh=J/LcVmETeAZzVgRMIQDcFJ7k2sxZviWpz5uKLq8dI3Y=;
-        b=Mh3PFGYTasiyAK7wEFaLi4zN74/nqej5j12ob7CcT1xaoVmTftzaqdYYkQNzJSzZg3
-         g9fKt8IaAgZ+on8XN1DDgl9WmK58ukNaQgQO8+DvM2JWfTRDJMrGvdEYx65xpnrlmBg8
-         vZfO/A7wkSUnimTwlA7YvFj9Xlgx2du2HVC0yokweWkAkcpVDunFvBCykMOGDuJcJI/X
-         XVPhN2wsMLLA6f1F6dcTSc3APjsa0lfQjfYa6hIzqgkVfH1xoagjbdKQJI6V2iWetRHU
-         x05BvsMwnZqqud+6WF+YyujlaJ7RrwSrVhWs9sJ2K3QyyDKnJBqHIyjXCXv4uqAx1wuM
-         RnYA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1784691437; x=1785296237; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FKTf/d7nFmKcsSFUbAB3exdk2dVsrnMxmbCxkgyTBek=;
-        b=I+YBlPFetDH0VadtA+QUTCMaFJyWpmjAB32wo/PnbkoJXgZj4u5Mt8uZEg6pXgCJA7
-         KUE1RSSMBOn/vnYvL3vgQ+HZwqFgQpBgQuwFgICTKMGyifTB4fC4gwrywyjw0OBk08e4
-         ZkVpS5feb4wraETvzbXGQCGjPIgCKkis24DMw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784691437; x=1785296237;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FKTf/d7nFmKcsSFUbAB3exdk2dVsrnMxmbCxkgyTBek=;
-        b=ovXGKrhfLTSm66fjjMcmG/euI0HBkUdNa2VwV+Ni3kR3IPHm0tfMMWz15j3D+DOsq8
-         38jCme3zxPwdzhLlMLFz/lZ5CTnk9c0vuEfQDzPGBgbWII+3J6MoNo0B7Bvfkoc/nWX2
-         Zm6BcaCIuPDVvBfJUd7SqieHj3Lveq44FZtkEvN1otcIrvZ+S4/7JN42rQtvlnU0O0y0
-         bggQ7EPUsYSkD3FYSrAEFtdd6RCE3j8FRhRfZck8S6pwMYC5DC323VwahfUnjDLOJ87N
-         aeF70dEYjMeX2lLHBVdkzfxuJAkTQVK1Bl00e2FiA9JHsGqXze3D+nOenTOwv18l0YCA
-         ZgCw==
-X-Forwarded-Encrypted: i=1; AHgh+RqT5STRQjRow79jiAGFHKTBD6yLUq9B9KJS+X50yBeKcVub72nidnIviHeKKGH4B8UySreCaA6CrWq3@vger.kernel.org
-X-Gm-Message-State: AOJu0Yynm/hMQITJgy9j6sCUy76jX3GTz54bHHANjD4IL3M9M9kI4g9p
-	dfslDijMcY4zN2YgzLnTkAKiCJn7xk5Evs18FnFAeMf7Y/waq6cv3FU/TaDnVbKaa9gP2wlDd2N
-	N8xiI/BX0Q6gf4I2Q0t5zIAVtVU8IO6BUmHROrz9a
-X-Gm-Gg: AR+sD13cGoJOEdc2iRQHeqQJ+ipP7zuswGzacNuM4ceBClpFa3cqKILnHyufxlAaYcF
-	uZTAGzFW/17XZX2Pw3Cv5sje5I57C0C/RJlMWLHnmgWlftB3m4O26/MaSovr04PUrrrbeYyJJ3v
-	tt8MK5hIgltKWPLJXhwSa06NgLLUnn5ZNOt9MkbJ/HTVtAXN/cdOmwJHt4FgXt8Fvs3Kmd4A5Wq
-	kvAr27FU1jl6/B/8EFYUgeMO/cGFxeWkFNtUsDDdxC0b39EYF2oNxpc/68EmL7FEWafMxurAc9G
-	jNzptataBgckH5A=
-X-Received: by 2002:a05:690c:6c0d:b0:812:996f:176f with SMTP id
- 00721157ae682-81ef22d3ea4mr70445607b3.11.1784691436993; Tue, 21 Jul 2026
- 20:37:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BlAz3rQz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 200701F000E9;
+	Wed, 22 Jul 2026 03:39:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784691560;
+	bh=KFaLkDqjUTH533a0XPYRKc4Lmx7Y2sIzo9u4BoBHOUY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BlAz3rQzBjBYNsrhMXWGJHtUPzQ530DVlwM9KUY0FUZGjQQ5lhp//1Fk2nOFLAgtN
+	 Q5MZuz0+WIoAsUBdQqrcR37h3Y2o1ZRDCOOaLPyvvVkx7KyG8hpz1R1poMCwvoaS+Z
+	 a92GNkBfK404KDYFA9ivG9KlznsOwUGb8p/5Vd3Hw8YW9dG/kj3USZqAwRMiLXd7CM
+	 PypE26LttCb5Gk9qhGoydwr8t0aXQCgPo+LSLOkmPVY3R/7CJRYolEDbX2/W3m1eBD
+	 EsYLI8C08pjRgu20AGmTY+nLwjl9ruFJVyG24raf2HnLuNvmn/8lYCoq0Xp657Nr39
+	 i49XbKyFqzcIQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] pmdomain: imx: scu-pd: allow building as a
+ module
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Zhipeng.wang_1@oss.nxp.com
+Cc: Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org
+In-Reply-To: <20260722032321.2693300-3-Zhipeng.wang_1@oss.nxp.com>
+References: <20260722032321.2693300-1-Zhipeng.wang_1@oss.nxp.com>
+ <20260722032321.2693300-3-Zhipeng.wang_1@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 03:39:19 +0000
+Message-Id: <20260722033920.200701F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260721105230.101906-1-angelogioacchino.delregno@collabora.com> <20260721105230.101906-3-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260721105230.101906-3-angelogioacchino.delregno@collabora.com>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Wed, 22 Jul 2026 11:37:05 +0800
-X-Gm-Features: AUfX_my3u1BuHiEh3Upx2wok8eAOOGJ_r8yDp0XbplwggDqqh2JVTYtoDhYXOKI
-Message-ID: <CAGXv+5GrPZCZ=jNRi1AtduyZoB8DF_FUZev2CXhu4WzGri6U3A@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] thermal/drivers/mediatek/lvts_thermal: Make reset
- optional for MT8196
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: rafael@kernel.org, daniel.lezcano@kernel.org, rui.zhang@intel.com, 
-	lukasz.luba@arm.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	p.zabel@pengutronix.de, matthias.bgg@gmail.com, laura.nao@collabora.com, 
-	fshao@chromium.org, jiapeng.chong@linux.alibaba.com, frank-w@public-files.de, 
-	bchihi@baylibre.com, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org, kernel@collabora.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 21, 2026 at 6:52=E2=80=AFPM AngeloGioacchino Del Regno
-<angelogioacchino.delregno@collabora.com> wrote:
->
-> Depending on the SoC+Firmware combination, the LVTS hardware may be
-> may be actively used by one or even multiple concurrent MCUs!
-> In this case, resetting it may produce either a severe slowdown of
-> the entire system, or even a thermal protection AP reset, as some
-> MCU(s) may be reading a very high or very low temperature while the
-> LVTS is being reset.
->
-> On those, don't fail if no reset is found as that may be omitted on
-> purpose, but still check if there's one, because some board(s) may
-> be running on a different bootchain with reduced firmwares or using
-> firmwares with reduced functionality.
->
-> So, use devm_reset_control_get_optional_exclusive() instead, as the
-> LVTS controller always had only one reset and retrieving that by
-> index, specifically, always made little sense anyway.
->
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
-abora.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Changing IMX_SCU_PD to a tristate exposes a critical probe order r=
+ace condition with the SCU clock driver, leading to unpowered hardware and =
+system crashes.
+--
 
-Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
+--- Patch [2]: [PATCH v2 2/2] pmdomain: imx: scu-pd: allow building as a mo=
+dule ---
+commit d3bf08bb865becc5d6316a0d9e70a9dbcc5e5ef3
+Author: Zhipeng Wang <zhipeng.wang_1@nxp.com>
+
+pmdomain: imx: scu-pd: allow building as a module
+
+This commit converts CONFIG_IMX_SCU_PD to tristate to allow building as a
+loadable module, which is required for Android Generic Kernel Image (GKI)
+support. It adds MODULE_DEVICE_TABLE and a module_init function since the
+driver cannot be safely removed.
+
+> diff --git a/drivers/pmdomain/imx/Kconfig b/drivers/pmdomain/imx/Kconfig
+> index 00203615c65e9..472e9dec6bd4e 100644
+> --- a/drivers/pmdomain/imx/Kconfig
+> +++ b/drivers/pmdomain/imx/Kconfig
+> @@ -21,7 +21,7 @@ config IMX9_BLK_CTRL
+>  	depends on PM_GENERIC_DOMAINS
+> =20
+>  config IMX_SCU_PD
+> -	bool "IMX SCU Power Domain driver"
+> +	tristate "IMX SCU Power Domain driver"
+
+[Severity: High]
+Does allowing this driver to be built as a module expose a probe order
+race condition with the SCU clock driver?
+
+If the power domain driver is loaded asynchronously after the SCU clock
+driver (clk-imx8qxp), the clock-controller DT node lacks a power-domains
+property, so fw_devlink cannot enforce the correct probe order.
+
+In this scenario, the clock driver manually looks up the power domain
+provider using of_find_compatible_node() and calls of_genpd_add_device().
+If the power domain driver has not probed yet, genpd_get_from_provider()
+will fail and return -ENOENT.
+
+The clock driver ignores this error in imx_clk_scu_alloc_dev() and
+registers the clock device without attaching it to the PM domain. When
+the clock is later requested, the Common Clock Framework's
+pm_runtime_resume_and_get() will succeed passively because there is no
+attached PM domain.
+
+Can this lead to system crashes or hardware access faults due to
+accessing unpowered hardware?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722032321.2693=
+300-1-Zhipeng.wang_1@oss.nxp.com?part=3D2
