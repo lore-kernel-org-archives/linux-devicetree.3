@@ -1,88 +1,37 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDE440626C
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 10:45:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA53240F75B;
+	Wed, 22 Jul 2026 10:46:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784717109; cv=none; b=Czoge1Qfa6+3McroCrhGWyxr4chXrE6vyOtkyiDyV1GDk32Uu03StvlG7MYKNSiyxvQL6s5ODPKKp/WA/nABnf/CfzW19//X1hBltXZLgwCqRPQA6CmRXbrJXcZcfG4AV+11qgj2amlPdXyakqBXtN9pk782GIh3H1z6H94cppU=
+	t=1784717194; cv=none; b=THvnUTXzLnSlIuZ+a1BUTqyuGb8g15216R+iUBbPVnvvgf51knrlx26hI75TyyazU3C54XHmhyUS2JmN8sa+6gr+Y4u0mz8fyRa6ZLZ+jgcHhqsKBE9VJi2eVuiT7pLc6PriDGVUqUk6BjlJk6+chS8eFt8rLla1Kt+he5WNvYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784717109; c=relaxed/simple;
-	bh=A9o/QYEXpXdIJCc9/P1XsKYnCLBu5/GlCz2zCEhEcdY=;
+	s=arc-20240116; t=1784717194; c=relaxed/simple;
+	bh=UsS+eDtGepxNJpfS9/bGNM8uvx/U3//r9j61bD4Ewm0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZY6mlNWUfboOAlV9ZdfwtXAfWf/MKz0gBYNn6xNHq05HHsF9PoTuyYxFPlBuDtM8XT/Uv0jMGQEZ3hAp/a/D/XZW3bapJNvoFI/rr3LvfKJSyFUxctd4Qh74NCVz8ZARJUI02ZxcahaOYfke4H6otl+bixc5W7s7mYhtzd9P3WA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JXf3vCmD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ND+uo4Qw; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:To:Cc; b=H6QfPmg4wFSNYcwW8njza7w091D8mg+HU++ikjKnk47EJKihgDhMB+WNS9KSi/UiKT5UtcscEwgKgs6vpDYvRayZJYF4cWtQzMIsy3QloF/vXE7GGKuLg9PjbiymlnZoF+QttY+bMKdShNcC6eRiDyrjbuEvvtu9mrrwIEzJr/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pxCbm/xU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JXf3vCmD";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ND+uo4Qw"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M8xc7m4018682
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 10:45:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fsqqjEAZXtutPj2bLmJfhUXNgNSspoGv2SMxeBHWhRw=; b=JXf3vCmDqFiQ9QHT
-	EGF/f4b0GNSXca9LmGTf5hO1SVOymmNV5F8FBQKMWJOpo2ujGKF6Rkyblwnbm/cI
-	UUI4LfP4JEZDstkkcGkGjQ41I9T4rccxwj6z3JU9YJK/BiVNEXYK1Su6WsRhvDYe
-	s17FF7mn9AOr6x91GToOahhhfEi9ic+CCbTtJu1sdni9HHGnVLQzUdZBK0HJdKqk
-	PFKP9Ptr4Fyl9iOOkGz1yKQ7O01ro5K5qBZRU8mzHW7RZieEjCTIX473EqS1W3xC
-	r7wePSE88TJmX0odNhNlZ+ziBQJsJIFVJ8gYbzrPSe1clzt5t2XEa09rzdDNkSEn
-	hyc17A==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjd6fumys-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 10:45:06 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cea6a46766so192940125ad.0
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 03:45:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784717106; x=1785321906; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fsqqjEAZXtutPj2bLmJfhUXNgNSspoGv2SMxeBHWhRw=;
-        b=ND+uo4QwRwTDgZqq0c6Fw7bYMxcOd3VUkCNmT7k15J+lFX/jTe+I/jAi9NJqLbhQ/b
-         l41O6IA5rtVzJlvg7RAHfbGY2tX6R4k5f3g/V2eQ6qAAwYFrL3NA3QfB/aZ9rWjWJcjP
-         ZZSZjvudwbkJMm3b8yNHBVgukqNK20aLLmgDufMUpmSoZ1A+6jgFuwu6EQGJFL2alIdc
-         7ri6buG8rHIOyZibp8+yLC5MkXhlsOp3YqFHVWzJLF5TFwFgnZqgEN+czVdzdxYlQ7OL
-         Kdsm1Bf4nh9zqrNC/9Ghp4+dZqD5zMhEoZx7yBdQrPHzNeMMruWa3C29rCAgmv4iHR1L
-         mtxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784717106; x=1785321906;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fsqqjEAZXtutPj2bLmJfhUXNgNSspoGv2SMxeBHWhRw=;
-        b=cDkzbCCXK9huEqaC0fSeENLYe84Vyx3iMMhoUa23J9nVgFg2tDvRiyvbC7mJ9Ck+Z4
-         Pf07GxB08rR8TkKZNnMmvrnfTCmFIk9pJxrOu2jAfqOQMXY2pUFIm+HqSVAEK2AnL0np
-         pgDIm4+75MDgZ9kmJdAc5RpWG/quNpgE4zNSOI8AdIe0cwmWDaGYS7WTnAcSGkdV33JM
-         1ucbirx1slJq5pfNvAHcuR8as463Em6gs6WO0N/d9OLltXA+9ANTwJKHpRtiwuLajchR
-         JvWdk1s7On75Dr1sfqzmgD05esCoUmFe9mk40RCX2Ty+YORz2+yCGDOydjJQdUPm+Hxd
-         bt4g==
-X-Forwarded-Encrypted: i=1; AHgh+RpuqikRoUo6fGHqDnEeTKN00A3bb97Waw/iHkUcEHzhmMtuc3xJbvvGVNmtoWfpn4PhD9qJBm0Ya5OO@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyc8FDuBte5ZdERQBOpk7i+/YnWEgiXk00znYyy+sEwXvvb/vEz
-	HraayKuxsI5lImT5EfZA96riQlCQJXqhpHzOpK7xN8YPpRO8ep7KhIWZmP5FX2qJ8w5j/t39oCa
-	OUQjSovdDavkM1eXs1KiTqBSYeY6bzpyuOzJpqXW9hyj+E8flJpTwjxhYMEv0GWF4
-X-Gm-Gg: AR+sD13ANy49KVd8walYaSHXljo/YaCVwycVHvnPXiEH0Nl1EkPO7Hb0u4q/sYntNVZ
-	i4xLA9J41YgCG+34evlKWO+L14O7vcAfKCYOd5rkfsZ/B0sR7kqORErtmaYYKem56jxmc8zFN8l
-	Ul6gDHEvDHodl9NiJaJoKGuKCMcrW34WPeergCg/j2AJ0XUAggvCRTHad1nGO+0rxTg1SY5j6Wq
-	so3muk8EmhTwvnb9Hz7hZPcAMejOXT0wIXbCrfL0Hn332pZHhoYbs02AjwfyiAjHjVbx/bY5Esy
-	9GiM7VIfK20L4xsI/y8BZKizgHymJf6ym/S2TPJUN7PoovSoBVKuaR8tnTq/VoZKsqJnGDuWkWB
-	PGulN3ELGYYkZjKZHllcI+fBbFbO1owWQ
-X-Received: by 2002:a17:903:986:b0:2ca:cee0:e172 with SMTP id d9443c01a7336-2cf34a0a3ffmr229888965ad.30.1784717105491;
-        Wed, 22 Jul 2026 03:45:05 -0700 (PDT)
-X-Received: by 2002:a17:903:986:b0:2ca:cee0:e172 with SMTP id d9443c01a7336-2cf34a0a3ffmr229888665ad.30.1784717104962;
-        Wed, 22 Jul 2026 03:45:04 -0700 (PDT)
-Received: from hu-sachgupt-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8f2e797asm12382455ad.39.2026.07.22.03.44.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 03:45:04 -0700 (PDT)
-From: Sachin Gupta <sachin.gupta@oss.qualcomm.com>
-Date: Wed, 22 Jul 2026 16:14:42 +0530
-Subject: [PATCH v3 2/2] thermal: qcom: Add support for Qualcomm MBG thermal
- monitoring
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pxCbm/xU"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7E665C2BCFA;
+	Wed, 22 Jul 2026 10:46:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784717194;
+	bh=UsS+eDtGepxNJpfS9/bGNM8uvx/U3//r9j61bD4Ewm0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=pxCbm/xUxWqIJmzZ+QTm9/NDH9c3Mg1MnDuR3c5jKtW9v8YWAjj0/Xr0eJt8SRjOP
+	 HP2BwnxcqaJqVYLZGJULicN60UQTkAKkDXZ/iTE/v9Tjhj7DwhMzxdt/CaTVKP0kWq
+	 pxn2HkzXmKgbQ7F2sELkuA2rnYp7H2nn1w+n+ghlCs1YPVr+zue1sJ4bkiQFrcVYbO
+	 R7mUZk2h/KcKOUnBTdsEWrnMAWC3v1VFGsvSEQTK/mn4mC0B7eSMgClOgcy3xm/k1I
+	 8GVBFztABnRiDmej/wpukIkI9iEYLq+koCbRhkHKwPHIj+66g/W+hMTb5tXlSv4xQN
+	 uS2BcrB2Sp93w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5BC44C44539;
+	Wed, 22 Jul 2026 10:46:34 +0000 (UTC)
+From: Rohan Joshi via B4 Relay <devnull+rohan1sj.cadence.com@kernel.org>
+Date: Wed, 22 Jul 2026 16:18:37 +0530
+Subject: [PATCH v3 1/2] dt-bindings: mmc: cdns,sdhci: Add CQE support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,380 +40,102 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260722-spmi-mbg-driver-v3-2-ef73064f2789@oss.qualcomm.com>
-References: <20260722-spmi-mbg-driver-v3-0-ef73064f2789@oss.qualcomm.com>
-In-Reply-To: <20260722-spmi-mbg-driver-v3-0-ef73064f2789@oss.qualcomm.com>
-To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Stephen Boyd <sboyd@kernel.org>, Amit Kucheria <amitk@kernel.org>,
-        Thara Gopinath <thara.gopinath@gmail.com>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, mfd@lists.linux.dev,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pm@vger.kernel.org,
-        Satya Priya Kakitapalli <quic_skakitap@quicinc.com>,
-        Sachin Gupta <sachin.gupta@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Proofpoint-GUID: Vlj12FUOR4W84wBrGpx0D_sdLev5RhGM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDEwMyBTYWx0ZWRfX4dULKlkPVdtr
- ZdshDGBn9FLIfOoIjNwpO/JyQMdoSLkEXv38Iulu16NTY/FnJ7OOMPt2NrYEj8XfFpGQIRD+KO4
- RC2zqZskM/nFRS7U9Iql/U7o+jv7426Bq8s9CAv3tx/u7ZNI/YHByEMbFAUkOt40zjD5fvURVLK
- u0dfrF7u+syjhtprVUcWjeyEMD5HJsYC5nf4zbCUNnBReAOvjwD6x7XRvK6Sp7gkITtBHD9xJRV
- m/B2Q3N7LaV2yZONR7uaq9VPGTR9TlVeXtrlW2fZY1gjaKUfCMP4Bzekofv7yTp3Xm+QHwEvi8a
- kpJjbhph1Kwl7H10BOSuyUEmnypJQ1lzjWuRWW115MA6lvYpCOmuleRVHXcGTP/BCf9e4R+XzXm
- aUqJt3v44NXorGgvfeh0UJMtUQTmBsJZxKp0kkTdg+CHwaXDFEk6F3UOcRztr7kOtKDb70ienLd
- qDHDpuFROy27SPki5Gw==
-X-Authority-Analysis: v=2.4 cv=e/o2j6p/ c=1 sm=1 tr=0 ts=6a609f32 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=Ngz-wdeGRUxtqNebZn4A:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: Vlj12FUOR4W84wBrGpx0D_sdLev5RhGM
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDEwMyBTYWx0ZWRfX2BibK/mbjrrY
- moE/POFhX1lXxvC57ntE6KhEoY/Z7i7OK6aF59x9xED9Z59fSh0CPdICVQ0BdOPh3+LtaUV96ap
- jXYR0fKVCpRR2UKxjQYNB4b1docBEGU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-22_03,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 spamscore=0 bulkscore=0 priorityscore=1501
- impostorscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220103
+Message-Id: <20260722-cdns_sdhci_cqe-support-v3-1-4412856a4488@cadence.com>
+References: <20260722-cdns_sdhci_cqe-support-v3-0-4412856a4488@cadence.com>
+In-Reply-To: <20260722-cdns_sdhci_cqe-support-v3-0-4412856a4488@cadence.com>
+To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Masahiro Yamada <yamada.masahiro@socionext.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>
+Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, mparab@cadence.com, pawell@cadence.com, 
+ sjakhade@cadence.com, mpillai@cadence.com, rohan1sj@cadence.com, 
+ razb@mobileye.com
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784717318; l=2038;
+ i=rohan1sj@cadence.com; s=20260406; h=from:subject:message-id;
+ bh=3c4jIiul3k4zOJgiOZdmt+aBj0CmrIVw3EVAdwc6Stk=;
+ b=MYgedew6o5O7v6rUVirmKdMriCt+0bB5jHkLEnZR/9EHtik//mWoif6u1aVN8T5mMV0AwNBSn
+ 6uM+N2g7UgxCymSTyym4j1KPeSgWhiOvkNdB1a/nFVKp8f8gsLdD3HA
+X-Developer-Key: i=rohan1sj@cadence.com; a=ed25519;
+ pk=YuwylizMVlVj8I4+VPMZ6xrFR2wyqJAWZyj90OVZgD0=
+X-Endpoint-Received: by B4 Relay for rohan1sj@cadence.com/20260406 with
+ auth_id=723
+X-Original-From: Rohan Joshi <rohan1sj@cadence.com>
+Reply-To: rohan1sj@cadence.com
 
-From: Satya Priya Kakitapalli <quic_skakitap@quicinc.com>
+From: Rohan Joshi <rohan1sj@cadence.com>
 
-Add a driver for the Qualcomm MBG (Master Bandgap) thermal monitoring
-device. It monitors PMIC die temperature in hardware and raises an
-interrupt when a programmed threshold is crossed.
+Cadence host controller can optionally support CQE.
+Add optional CQE register space to cdns sdhci bindings.
 
-MBG hardware supports two upper-threshold levels. Currently, only the
-level-1 threshold is supported by the driver.
-
-Temperature is read from the associated ADC channel, and when a level-1
-upper-threshold violation occurs, the hardware generates an interrupt
-over SPMI. The driver notifies the thermal framework accordingly.
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Satya Priya Kakitapalli <quic_skakitap@quicinc.com>
-Co-developed-by: Sachin Gupta <sachin.gupta@oss.qualcomm.com>
-Signed-off-by: Sachin Gupta <sachin.gupta@oss.qualcomm.com>
+Signed-off-by: Rohan Joshi <rohan1sj@cadence.com>
 ---
- drivers/thermal/qcom/Kconfig            |  14 ++
- drivers/thermal/qcom/Makefile           |   1 +
- drivers/thermal/qcom/qcom-spmi-mbg-tm.c | 256 ++++++++++++++++++++++++++++++++
- 3 files changed, 271 insertions(+)
+ .../devicetree/bindings/mmc/cdns,sdhci.yaml        | 28 +++++++++++++++++++---
+ 1 file changed, 25 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/thermal/qcom/Kconfig b/drivers/thermal/qcom/Kconfig
-index a6bb01082ec6..ecfd1d166e53 100644
---- a/drivers/thermal/qcom/Kconfig
-+++ b/drivers/thermal/qcom/Kconfig
-@@ -21,6 +21,20 @@ config QCOM_SPMI_ADC_TM5
- 	  Thermal client sets threshold temperature for both warm and cool and
- 	  gets updated when a threshold is reached.
+diff --git a/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml b/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
+index 6c7317d13aa6..10bc9ac2073a 100644
+--- a/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
++++ b/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
+@@ -22,7 +22,14 @@ properties:
  
-+config QCOM_SPMI_MBG_TM
-+	tristate "Qualcomm SPMI PMIC MBG Temperature monitor"
-+	depends on QCOM_SPMI_ADC5_GEN3
-+	select REGMAP_SPMI
-+	help
-+	  This enables Qualcomm PMIC MBG (Master Bandgap) thermal monitor.
+   reg:
+     minItems: 1
+-    maxItems: 2
++    maxItems: 3
 +
-+	  The MBG block monitors PMIC die temperature in hardware and raises an
-+	  interrupt when the programmed threshold is crossed.
-+
-+	  Temperature is read from the associated ADC channel, and threshold
-+	  interrupts are forwarded to the thermal framework as trip-violation
-+	  events. Current support handles a single LVL1 upper (hot) trip.
-+
- config QCOM_SPMI_TEMP_ALARM
- 	tristate "Qualcomm SPMI PMIC Temperature Alarm"
- 	depends on OF && SPMI && IIO
-diff --git a/drivers/thermal/qcom/Makefile b/drivers/thermal/qcom/Makefile
-index 0fa2512042e7..1bec2746b98d 100644
---- a/drivers/thermal/qcom/Makefile
-+++ b/drivers/thermal/qcom/Makefile
-@@ -4,5 +4,6 @@ obj-$(CONFIG_QCOM_TSENS)	+= qcom_tsens.o
- qcom_tsens-y			+= tsens.o tsens-v2.o tsens-v1.o tsens-v0_1.o \
- 				   tsens-8960.o
- obj-$(CONFIG_QCOM_SPMI_ADC_TM5)	+= qcom-spmi-adc-tm5.o
-+obj-$(CONFIG_QCOM_SPMI_MBG_TM) += qcom-spmi-mbg-tm.o
- obj-$(CONFIG_QCOM_SPMI_TEMP_ALARM)	+= qcom-spmi-temp-alarm.o
- obj-$(CONFIG_QCOM_LMH)		+= lmh.o
-diff --git a/drivers/thermal/qcom/qcom-spmi-mbg-tm.c b/drivers/thermal/qcom/qcom-spmi-mbg-tm.c
-new file mode 100644
-index 000000000000..fa2f10002253
---- /dev/null
-+++ b/drivers/thermal/qcom/qcom-spmi-mbg-tm.c
-@@ -0,0 +1,256 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#include <linux/interrupt.h>
-+#include <linux/irq.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/thermal.h>
-+#include <linux/iio/consumer.h>
-+
-+#define MBG_TEMP_MON2_FAULT_STATUS	0x50
-+
-+#define MON_FAULT_STATUS_MASK		GENMASK(7, 4)
-+#define MON_FAULT_LVL1_UPR		0x5
-+
-+#define MON2_LVL1_UP_THRESH		0x59
-+
-+#define MBG_TEMP_MON2_MISC_CFG		0x5f
-+#define MON2_UP_THRESH_EN		BIT(1)
-+
-+#define MBG_TEMP_STEP_MV		8
-+#define MBG_TEMP_DEFAULT_TEMP_MV	600
-+#define MBG_TEMP_CONSTANT		1000
-+#define MBG_MIN_TRIP_TEMP		25000
-+#define MBG_MAX_SUPPORTED_TEMP		160000
-+
-+/**
-+ * struct mbg_tm_chip - MBG thermal monitor device data.
-+ * @map: regmap for accessing MBG thermal registers.
-+ * @dev: mbg_tm_chip device.
-+ * @tz_dev: thermal zone device registered with the thermal framework.
-+ * @lock: mbg_tm_chip lock for set trip temperature.
-+ * @base: base register offset for this MBG instance
-+ * @irq: interrupt line used to signal threshold events
-+ * @last_temp: last measured temperature.
-+ * @last_thres_crossed: indicates whether the last interrupt crossed a threshold
-+ * @adc: IIO ADC channel used for temperature sensing
-+ */
-+struct mbg_tm_chip {
-+	struct regmap			*map;
-+	struct device			*dev;
-+	struct thermal_zone_device	*tz_dev;
-+	struct mutex                    lock;
-+	unsigned int			base;
-+	int				irq;
-+	int				last_temp;
-+	bool				last_thres_crossed;
-+	struct iio_channel		*adc;
-+};
-+
-+/**
-+ * struct mbg_map_table - temperature to voltage mapping entry
-+ * @min_temp: minimum temperature supported by this mapping entry
-+ * @vtemp0: reference voltage or ADC code corresponding to the temperature
-+ * @tc: temperature coefficient used for conversion calculations
-+ */
-+struct mbg_map_table {
-+	int min_temp;
-+	int vtemp0;
-+	int tc;
-+};
-+
-+static const struct mbg_map_table map_table[] = {
-+	{ -60000, 4337, 1967 },
-+	{ -40000, 4731, 1964 },
-+	{ -20000, 5124, 1957 },
-+	{ 0,      5515, 1949 },
-+	{ 20000,  5905, 1940 },
-+	{ 40000,  6293, 1930 },
-+	{ 60000,  6679, 1921 },
-+	{ 80000,  7064, 1910 },
-+	{ 100000, 7446, 1896 },
-+	{ 120000, 7825, 1878 },
-+	{ 140000, 8201, 1859 },
-+};
-+
-+static int mbg_tm_get_temp(struct thermal_zone_device *tz, int *temp)
-+{
-+	struct mbg_tm_chip *chip = thermal_zone_device_priv(tz);
-+	int ret, milli_celsius;
-+
-+	scoped_guard(mutex, &chip->lock) {
-+		if (chip->last_thres_crossed) {
-+			dev_dbg(chip->dev, "last_temp: %d\n", chip->last_temp);
-+			chip->last_thres_crossed = false;
-+			*temp = chip->last_temp;
-+			return 0;
-+		}
-+	}
-+
-+	ret = iio_read_channel_processed(chip->adc, &milli_celsius);
-+	if (ret < 0) {
-+		dev_err(chip->dev, "Failed to read iio channel with %d\n", ret);
-+		return ret;
-+	}
-+
-+	*temp = milli_celsius;
-+
-+	return 0;
-+}
-+
-+static int temp_to_vtemp_mv(int temp)
-+{
-+	int idx, vtemp, tc = 0, t0 = 0, vtemp0 = 0;
-+
-+	for (idx = 0; idx < ARRAY_SIZE(map_table); idx++)
-+		if (temp >= map_table[idx].min_temp &&
-+		    temp < (map_table[idx].min_temp + 20000)) {
-+			tc = map_table[idx].tc;
-+			t0 = map_table[idx].min_temp;
-+			vtemp0 = map_table[idx].vtemp0;
-+			break;
-+		}
-+
-+	/*
-+	 * Formula to calculate vtemp(mV) from a given temp
-+	 * vtemp = (temp - minT) * tc + vtemp0
-+	 * tc, t0 and vtemp0 values are mentioned in the map_table array.
-+	 */
-+	vtemp = ((temp - t0) * tc + vtemp0 * 100000) / 1000000;
-+
-+	/* step size is 8mV */
-+	return abs(vtemp - MBG_TEMP_DEFAULT_TEMP_MV) / MBG_TEMP_STEP_MV;
-+}
-+
-+static int mbg_tm_set_trip_temp(struct thermal_zone_device *tz, int low_temp,
-+				int temp)
-+{
-+	struct mbg_tm_chip *chip = thermal_zone_device_priv(tz);
-+	int ret = 0;
-+
-+	guard(mutex)(&chip->lock);
-+
-+	/* The HW has a limitation that the trip set must be above 25C */
-+	if (temp > MBG_MIN_TRIP_TEMP && temp < MBG_MAX_SUPPORTED_TEMP) {
-+		ret = regmap_write(chip->map, chip->base + MON2_LVL1_UP_THRESH,
-+				   temp_to_vtemp_mv(temp));
-+		if (ret < 0)
-+			return ret;
-+
-+		ret = regmap_set_bits(chip->map, chip->base + MBG_TEMP_MON2_MISC_CFG,
-+				      MON2_UP_THRESH_EN);
-+		if (ret < 0)
-+			return ret;
-+	} else {
-+		dev_err(chip->dev, "Set trip b/w 25C and 160C\n");
-+		ret = regmap_clear_bits(chip->map, chip->base + MBG_TEMP_MON2_MISC_CFG,
-+					MON2_UP_THRESH_EN);
-+		return -ERANGE;
-+	}
-+
-+	/*
-+	 * Configure the last_temp one degree higher, to ensure the
-+	 * violated temp is returned to thermal framework when it reads
-+	 * temperature for the first time after the violation happens.
-+	 * This is needed to account for the inaccuracy in the conversion
-+	 * formula used which leads to the thermal framework setting back
-+	 * the same thresholds in case the temperature it reads does not
-+	 * show violation.
-+	 */
-+	chip->last_temp = temp + MBG_TEMP_CONSTANT;
-+
-+	return ret;
-+}
-+
-+static const struct thermal_zone_device_ops mbg_tm_ops = {
-+	.get_temp = mbg_tm_get_temp,
-+	.set_trips = mbg_tm_set_trip_temp,
-+};
-+
-+static irqreturn_t mbg_tm_isr(int irq, void *data)
-+{
-+	struct mbg_tm_chip *chip = data;
-+	int ret, val;
-+
-+	scoped_guard(mutex, &chip->lock) {
-+		ret = regmap_read(chip->map, chip->base + MBG_TEMP_MON2_FAULT_STATUS, &val);
-+		if (ret < 0)
-+			return IRQ_HANDLED;
-+		if (FIELD_GET(MON_FAULT_STATUS_MASK, val) == MON_FAULT_LVL1_UPR)
-+			chip->last_thres_crossed = true;
-+	}
-+
-+	if (FIELD_GET(MON_FAULT_STATUS_MASK, val) == MON_FAULT_LVL1_UPR) {
-+		dev_dbg(chip->dev, "Notifying Thermal, fault status=%d\n", val);
-+		thermal_zone_device_update(chip->tz_dev, THERMAL_TRIP_VIOLATED);
-+	} else {
-+		dev_dbg(chip->dev, "Lvl1 upper threshold not violated, ignoring interrupt\n");
-+	}
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int mbg_tm_probe(struct platform_device *pdev)
-+{
-+	struct mbg_tm_chip *chip;
-+	struct device_node *node = pdev->dev.of_node;
-+	u32 res;
-+	int ret;
-+
-+	chip = devm_kzalloc(&pdev->dev, sizeof(*chip), GFP_KERNEL);
-+	if (!chip)
-+		return -ENOMEM;
-+
-+	chip->dev = &pdev->dev;
-+
-+	mutex_init(&chip->lock);
-+
-+	chip->map = dev_get_regmap(pdev->dev.parent, NULL);
-+	if (!chip->map)
-+		return -ENXIO;
-+
-+	ret = device_property_read_u32(chip->dev, "reg", &res);
-+	if (ret < 0)
-+		return dev_err_probe(chip->dev, ret, "Couldn't read reg property\n");
-+
-+	chip->base = res;
-+
-+	chip->irq = platform_get_irq(pdev, 0);
-+	if (chip->irq < 0)
-+		return dev_err_probe(chip->dev, chip->irq, "Failed to get irq\n");
-+
-+	chip->adc = devm_iio_channel_get(&pdev->dev, "thermal");
-+	if (IS_ERR(chip->adc))
-+		return dev_err_probe(chip->dev, PTR_ERR(chip->adc), "Failed to get adc channel\n");
-+
-+	chip->tz_dev = devm_thermal_of_zone_register(chip->dev, 0, chip, &mbg_tm_ops);
-+	if (IS_ERR(chip->tz_dev))
-+		return dev_err_probe(chip->dev, PTR_ERR(chip->tz_dev),
-+				     "Failed to register sensor\n");
-+
-+	return devm_request_threaded_irq(&pdev->dev, chip->irq, NULL, mbg_tm_isr, IRQF_ONESHOT,
-+					 node->name, chip);
-+}
-+
-+static const struct of_device_id mbg_tm_match_table[] = {
-+	{ .compatible = "qcom,pm8775-mbg-tm" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, mbg_tm_match_table);
-+
-+static struct platform_driver mbg_tm_driver = {
-+	.driver = {
-+		.name = "qcom-spmi-mbg-tm",
-+		.of_match_table = mbg_tm_match_table,
-+	},
-+	.probe = mbg_tm_probe,
-+};
-+module_platform_driver(mbg_tm_driver);
-+
-+MODULE_DESCRIPTION("PMIC MBG Temperature monitor driver");
-+MODULE_LICENSE("GPL");
++  reg-names:
++    minItems: 1
++    items:
++      - const: hc
++      - enum: [bctl, cqhci]
++      - const: cqhci
+ 
+   interrupts:
+     maxItems: 1
+@@ -131,13 +138,27 @@ allOf:
+     then:
+       properties:
+         reg:
++          minItems: 2
+           items:
+             - description: Host controller registers
+             - description: Elba byte-lane enable register for writes
++            - description: CQE (Command Queuing Engine) registers (optional)
++        reg-names:
++          minItems: 2
++          items:
++            - const: hc
++            - const: bctl
++            - const: cqhci
+     else:
+       properties:
+         reg:
+-          maxItems: 1
++          items:
++            - description: Host Controller registers
++            - description: CQE (Command Queuing Engine) registers (optional)
++        reg-names:
++          items:
++            - const: hc
++            - const: cqhci
+ 
+ unevaluatedProperties: false
+ 
+@@ -145,7 +166,8 @@ examples:
+   - |
+     emmc: mmc@5a000000 {
+         compatible = "socionext,uniphier-sd4hc", "cdns,sd4hc";
+-        reg = <0x5a000000 0x400>;
++        reg = <0x5a000000 0x400>, <0x5a000400 0x060>;
++        reg-names = "hc", "cqhci";
+         interrupts = <0 78 4>;
+         clocks = <&clk 4>;
+         bus-width = <8>;
 
 -- 
-2.34.1
+2.43.0
+
 
