@@ -1,69 +1,71 @@
-Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65E83ACF05;
-	Wed, 22 Jul 2026 06:36:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208312BF002;
+	Wed, 22 Jul 2026 06:38:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784702224; cv=none; b=L+4WJ2PvysII9B5lVp6BM1Fh8TPui5ATMJLfZq3P7WhqHLcN/cu05oaiHfhP6R+z/tMs77otKQB/TknxqWLybfewkCIkekVJMLhBnaMc8yvvb2xPElFhbERBqWJYVkhXkUH0spL2ei0L9Wcbot+mqukicIObIdT9DC3uhrH801Q=
+	t=1784702308; cv=none; b=XbuMCJMoR9jsWikOMwHE62evj1+Eh/Pa/Pft/1LyFlLXeJfQsTL6HU6ikzltuHGvcimtFjt5un/gxHkW+JmaCY94BLPgfKt6apY1AsOqF4t7MDgQDCx/FPgHGCPe8nEOyTbzFUxGxVPSgm5zhJVmDKCXX3iIwj+daR+EE2JwJfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784702224; c=relaxed/simple;
-	bh=sKsWX3Dd0mR0iH+Td4hJE5oM4Op+hYrWFrWXexs4sec=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=q9hvc8DbsquHr39EWmw7u1a9EsAcxNcpVIOsV10t4d6BFNEf9b6/iYBGhoqBRjVH4QMZ71BkJQJCEv1MNQA43asqbC4rgl86duP4WkkZakAFjws6vnDK5/vJ+kYnYW2wnUMrVIN3mSRhEsH+4HohhLumpm+fEqGWFPFpW2+je70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=OIFWY0rp; arc=none smtp.client-ip=79.135.106.121
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1784702308; c=relaxed/simple;
+	bh=UZHtU7JphkQN4ftn7cqcvERcRP30Lbaq3drcx88y0TQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=lNUyBqh2+SU4nyOacZOWu7PLHh/ui69liIFRITh2aRVJtCBY4vneD6TVj9GhAhZwzHRpVxFdu4cK0AuqdzMBqL17CkQzT3B8YwIkSvj4XnkgmW2g2Pjk4X7BWti6rAKT9G4SR+pQykbltrTa56a7Glfy90u38GxF+rCdMCgJBYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=eSe99VQZ; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="OIFWY0rp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1784702211; x=1784961411;
-	bh=sKsWX3Dd0mR0iH+Td4hJE5oM4Op+hYrWFrWXexs4sec=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=OIFWY0rpzGQp7kpWmQwPObm1w9/8+SX8R3LP+F0u4VJAauX9BgFKtNBDbNSQrFl9t
-	 AlcLYhpuQd23HQw3V2zNv+6oTghu+eEbr+Q8X8hn+wfiZiJxposcM0cwbAx19jrCaD
-	 OwNag9YskARgY5n+BQjqNG53QvQwoqYfLBpXoqzcoOh115tLiXUMQSPrRW1kQf3UC0
-	 Cuzw2fzqD35UxD6BZxRgiTW7DzsbRbRQ/W3xFjWOHuaXcQoiL5zBIdR8S16+WRDGgP
-	 b/H4UmaMFWLs4jwppS/eQ0W9YedBoju8NlcaK5H3QFz0aCkLteZ5fCbwq2QyqFSzM5
-	 eJwHN+JwKU97Q==
-Date: Wed, 22 Jul 2026 06:36:44 +0000
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-From: Esteban Urrutia <esteuwu@proton.me>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] phy: qcom: qmp-combo: Specify PLL version in qmp_v6_dp_serdes_tbl structs
-Message-ID: <34a75314-9cd0-46e2-ac89-2c070582e4fa@proton.me>
-In-Reply-To: <sjvy2u27dxljx46iu5pqvtze6snrqnljmcs3c45gt4ckeuhwub@34mbkowlmapv>
-References: <20260715-sm8475-bup-usbss-v2-0-2d8def39b190@proton.me> <20260715-sm8475-bup-usbss-v2-2-2d8def39b190@proton.me> <wg6lgpaexz4ktjlfzqpsidj56wr3hjax2ktn75kqsoaubtdxre@xh3yn3xpr4af> <b77dc15d-f9ad-4c06-9e24-8f73421e2130@proton.me> <dph6cacosw3jzksqxp7fgofdueukrq6a3c5xys4jfrkqjuigvx@sroivvrxiwxk> <47b1db2c-6314-49ce-a7b9-f68eeb022295@proton.me> <zd5wulhfcw7vzbwaz4akhetbqqub7ygsmexuswkdvzxcfmqvqa@hom4ax54efft> <8066103b-e1de-4b20-b21e-533a6cbc2bba@proton.me> <sjvy2u27dxljx46iu5pqvtze6snrqnljmcs3c45gt4ckeuhwub@34mbkowlmapv>
-Feedback-ID: 147889766:user:proton
-X-Pm-Message-ID: 1f496ad5c17dbf3e2415112cdb6542e16052775a
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="eSe99VQZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1784702304;
+	bh=+zb3qHEfQNdn/VPyYyBL6pEsHOl2hhCoI2rgqrXHwIU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=eSe99VQZiVbw4Fq0s58JabWxbarccjIvszDKZhQLLk4Yv3U8Am0+gmICw1uqhhv0Z
+	 KnM6wgUNlZ9d9PiqfqSXh1g9Km1CX+mzFtZgu9HSUL9UkzwSlfPQb9eCFD1zHVNQXt
+	 93NC8NHw7PC8wQIfOm5iOjGORm4Hj+p/ckpQNSKuDvbYvABav4Ix4MdsxFaDuCIWGP
+	 nh/5xBGWW8YceGIEX4AD1lRQeKjmFkx8o2+L2lUHRNZEPwnfw4ZHkOCa9EsDGOBztS
+	 TcSoAFEQJNStXvrQJXB6sQe6v7vJew1xaCJgiMEJk3gf6mFoF/boTqiQgEGZtpYAS4
+	 6zEWuZRMIe06g==
+Received: from [127.0.1.1] (unknown [180.150.112.11])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 1FC0465B37;
+	Wed, 22 Jul 2026 14:38:24 +0800 (AWST)
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+ Patrick Williams <patrick@stwcx.xyz>, Potin Lai <potin.lai.pt@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ Cosmo Chou <cosmo.chou@quantatw.com>, Mike Hsieh <Mike_Hsieh@quantatw.com>, 
+ Mik Lin <Mik.Lin@quantatw.com>
+In-Reply-To: <20260716-upstream-sanmiguel-fix-pwrgd-rmc-n-v1-1-8287b306e02a@gmail.com>
+References: <20260716-upstream-sanmiguel-fix-pwrgd-rmc-n-v1-1-8287b306e02a@gmail.com>
+Subject: Re: [PATCH] ARM: dts: aspeed: sanmiguel: fix PWRGD_RMC_N
+ active-low hog configuration
+Message-Id: <178470230401.777395.14157899070923881410.b4-ty@b4>
+Date: Wed, 22 Jul 2026 16:08:24 +0930
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On 7/22/26 2:21 AM, Dmitry Baryshkov wrote:
-> On Wed, Jul 22, 2026 at 05:51:39AM +0000, Esteban Urrutia wrote:
->> - For this commit, v1.1 tables should be left as is without renaming
->> them.
->=20
-> Yes, you can add a comment that downstream uses "4nm-v1.1" PLL type at
-> the table or at the PHY definition, if you that it helps in future.
->=20
->> - For the third commit, v1 tables (DP serdes, RBR, HBR, HBR2 and HBR3)
->> should be added along with a comment in the driver explaining the
->> reason.
->=20
-> A reason should be explained in the commit message. If you think that it
-> helps, add a comment about 4nm-v1.
+On Thu, 16 Jul 2026 10:31:17 +0800, Potin Lai wrote:
+> GPIO 14 on the fio_ioexp (pca9555) controller corresponds to the
+> PWRGD_RMC_N signal, which is active-low.
+> 
+> The pwrgd-rmc-hog node currently specifies output-low for this GPIO
+> with GPIO_ACTIVE_LOW flags. Under Linux gpiolib, configuring an
+> active-low GPIO hog with output-low sets the logical value to inactive
+> (0), causing the subsystem to drive the physical line high.
+> 
+> [...]
 
-Thanks for the feedback, Dmitry. I will address this in v3.
+Thanks, I've applied this to the BMC tree.
 
-Regards,
-Esteban
+-- 
+Andrew Jeffery <andrew@codeconstruct.com.au>
 
