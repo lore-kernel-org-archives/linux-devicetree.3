@@ -1,173 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 093803EFFDB;
-	Wed, 22 Jul 2026 17:44:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2F1442B02
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 17:46:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784742294; cv=none; b=EsULT36tJFjthGCgOFhotTtQ7609RF+mHupAfHrC8gXieRqssjmdpc5TUd/ixH4QhL+L9EtBQlDaUxoVPABEty8ST7f70rg1dJKUaYyCQZA0cCyfbPqPhmvv2S8W5feXVd8HfNz47KLY/HgJ9PQx+O1SjabssqRKCszv0x4bOOQ=
+	t=1784742410; cv=none; b=P73y/PjkFUR3FZIdmvEooq/NgNogQRYUTYSBE4JfiY7c6sbLYlv1qZEqbnWUIKjoYrSs6+n925CgM03ZcjAwvZjGih8ywKt5JmKZ78uk/Dq0anKz5hAwythedKhJPfCpDu/96LSCfr7U7/SMowNSwPyFJsdZYMOsvrFxMJOr5pw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784742294; c=relaxed/simple;
-	bh=M9Do34EfW8/a/M4Ra0TGiyzwulvAgZe7AlUhFYxbx+4=;
+	s=arc-20240116; t=1784742410; c=relaxed/simple;
+	bh=BXne72PuC1GH3oGKZ7Wp9be2K6wPgM1C1ZBDmBsf1JI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XeMD6lC9lPWIvOXRKYM+hxL0yeq6mUCH5BsP2jTOar0ZIkk/vlPOlZBlKjfs22Y7MUMISCNhaUqCg52xHUnS3ry5qwEJaybtIa2zvzjsB3mbWkRP7Sh62gSyZAgru8KQeaCRseOZsKBcwmRPP4zFeRqdbVuSbuglz0uSH0AbJCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VtEAPQJU; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=pgZD57hkA+2XUMbuO/sKVauozcw6uybMDKxsxZ8f3Blvbp3+EtHTn6kUUZoRYS08GnWoKR2NGWCnL5lWeRD+AtlQmFoe0joDvVBfOiFsiJAQJpRIJfXcMguIP2Rz2s804biwBNuAYln3nj0D/nLo4HdtFm5DHeyduq5iq6J25Lg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l1O51BkD; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VtEAPQJU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CE9B1F000E9;
-	Wed, 22 Jul 2026 17:44:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784742292;
-	bh=zo5RV9glOFJC3cST6CXl/oS8IzFV9x5o/1OkdUAbBp8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VtEAPQJUfU10L0vgXCaw4zUHYdyMDUAmjadpudj4J/O3oTonFAQyGrDgorfHJRVJe
-	 Yg1g4VZb6XAvV0l4wFln2L7qLR9pf4O9JZROUCCsrXgbgM3QaSQFuraXqub85aE8uG
-	 y7o/+lPvGF7X/oG55zzUoyTeAeiuLyAw4+8136KUvNLStjXdaJR9cUnqQzfJKMA4vu
-	 h5dz7dL+V6pCNMqmPTHEBGzGuWxIwaa3ePBbwIXCxqk1vfv6+/251Oe9ekM1BezAQG
-	 TussopeOmztVdiFQ7uOhveTL20j1f89iEeJG20b9cJ0M3ymwjkV20UrBdJoS7Mjp4V
-	 N/DKNSA1PnCmQ==
-Date: Wed, 22 Jul 2026 12:44:50 -0500
-From: Rob Herring <robh@kernel.org>
-To: Kim Seer Paller <kimseer.paller@analog.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux@analog.com,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: iio: dac: add adi,ad5710r.yaml
-Message-ID: <20260722174450.GA1261594-robh@kernel.org>
-References: <20260716-iio-ad5710r-upstream-v1-0-e848a4bb701f@analog.com>
- <20260716-iio-ad5710r-upstream-v1-2-e848a4bb701f@analog.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l1O51BkD"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cf452def93so34902695ad.1
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 10:46:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784742406; x=1785347206; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CPC3C1McKSdKHPGsEz7T2BULfXGeP3APrf619T65g/o=;
+        b=l1O51BkDvNG6Uv0ehLC9FBwMUsonSX63DBZusoeStbalSmDXmqNMiGzs4ynucT3ToA
+         Hcyiu+NSCM64LbtnLaKk1iFyYKAaarZY1KA7M7m1Myp5xyPbU44CTDNWfioLb6IpUnpe
+         EJuQV8CmWhMNnYYgkEWUdMGrW4zE6NAyNkOTSKzosWGlcbuqAUeqZItN41Hw2QU5k0Hx
+         Ga88YYiz/W6jIBdvRJmo54cPBy/BipU44zwP4FQP9BRZJJMH4wI3QqIWFHIOh+6PFCdD
+         us+Apm9KBec+3nw8pQGU6+x4V/ASrhNxaLCbAZ0CX2qJXrZbHo02fprkegR1bUSgh8r0
+         PMYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784742406; x=1785347206;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CPC3C1McKSdKHPGsEz7T2BULfXGeP3APrf619T65g/o=;
+        b=pP2kDE13XCjCwRDfWz70MCzm/3Oso0xPpE67w+TRyNqmfsmR4p2QQ8fGBX4QC3K+aV
+         sGDwVTQrXwcUxJv8z7aytJU0r9ZXI/g5PExE9QNtJzEHx+pvezgqZjzQL6CyGTGpAOiG
+         I6xvQXFC+ziq5cao+at/TNBkLQOuroTW+biU+3jW1uFlZQjUqLXbBZGaagldpHSMUM7k
+         geeWKUUBxvyghLoPUQhgihrfjPjz7O++J99Q4s3NaQUdwib83IYuh155W7EOM5TC4eog
+         RfUlL9CYG7XlvxYCbijuPYJiC48lpFbrlyzXEDnpnnVF8RvoQa/bTqStUA7dEUY8eUoF
+         eCIQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoKNwH4ezTMYnHaJ4IIiCeJrcf0KcDuylqajaGpSEV0ER8dPMwlEfnhA4MQyGu85FsT/Sis5+8f/Xbn@vger.kernel.org
+X-Gm-Message-State: AOJu0YwwNGegUskv2yj8EE07Q2ThM+ydsILShBh39vbk6af6ew4FhOjU
+	QzU0qLP9rPJQquO+wg6K/zBkB8xbRCRnvhLhZKwoiKiycrmG9j4RWPQI
+X-Gm-Gg: AR+sD10g9nfdQUIrkIw7BH791idJ9JU0A6de1QDcZOvHtVbGU0oC8Gkh2Y9tJmqttxg
+	JMBZ4P03sPZNQbgKCxgHTB82UilCl5r/GJSjcjjfuK5cnKG3d3AdhiEQLxRqZfEBbM2iaL4tpG5
+	xOTrmg2vaQ8L6s6/uabmAgGRUryKg4EsVMwEdKmG/vgqE+cXoxsBa6W3V/m2P9W9D7/ByocbD3V
+	8NHua+bOAiuc+a3k+S7pdNt+8dLRH2gTy96luFap/2J1sPWKabMdE7uWC/4cHpoRMl4k0vfvmqK
+	ZMl9atQq+z3p5RbtzLY88mWriCdgtr/E9EKuNtR5kbb4hqDh+qYG+c2pFOPAdlywVK+mSWaxOl6
+	sxoqe+NwP8A3S5qbUMyeLK2y+e6dKW2bCAK8JkJxTIvO6yXCmxdjcTG7C8tv0xjt/iOEuyCB2DL
+	CYHGczVcqTtKBhVI0vsHyiJheLdP435j1QBg==
+X-Received: by 2002:a17:902:f68f:b0:2ca:53f7:3c69 with SMTP id d9443c01a7336-2cf8dc9920emr53255485ad.9.1784742406067;
+        Wed, 22 Jul 2026 10:46:46 -0700 (PDT)
+Received: from buffalo-ssd (M014013071096.v4.enabler.ne.jp. [14.13.71.96])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8f386c68sm18445405ad.74.2026.07.22.10.46.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 10:46:45 -0700 (PDT)
+Date: Thu, 23 Jul 2026 02:46:42 +0900
+From: Akari Tsuyukusa <akkun11.open@gmail.com>
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org, 
+	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 1/7] dt-bindings: reset: Add MT6589 toprgu reset IDs
+Message-ID: <amEBgRmQktZ44jc1@buffalo-ssd>
+References: <20260717151134.678839-1-l.scorcia@gmail.com>
+ <20260717151134.678839-2-l.scorcia@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260716-iio-ad5710r-upstream-v1-2-e848a4bb701f@analog.com>
+In-Reply-To: <20260717151134.678839-2-l.scorcia@gmail.com>
 
-On Thu, Jul 16, 2026 at 03:59:26PM +0800, Kim Seer Paller wrote:
-> Add device tree bindings for the Analog Devices AD5710R/AD5711R
-> 8-channel 12-/16-bit Configurable IDAC/VDAC.
+On Fri, Jul 17, 2026 at 05:11:08PM +0200, Luca Leonardo Scorcia wrote:
+> Add reset constants for the 12 MT6589 toprgu resets.
 > 
-> Signed-off-by: Kim Seer Paller <kimseer.paller@analog.com>
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 > ---
->  .../devicetree/bindings/iio/dac/adi,ad5710r.yaml   | 143 +++++++++++++++++++++
->  MAINTAINERS                                        |   7 +
->  2 files changed, 150 insertions(+)
+>  .../reset/mediatek,mt6589-resets.h            | 24 +++++++++++++++++++
+>  1 file changed, 24 insertions(+)
+>  create mode 100644 include/dt-bindings/reset/mediatek,mt6589-resets.h
 > 
-> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5710r.yaml b/Documentation/devicetree/bindings/iio/dac/adi,ad5710r.yaml
+> diff --git a/include/dt-bindings/reset/mediatek,mt6589-resets.h b/include/dt-bindings/reset/mediatek,mt6589-resets.h
 > new file mode 100644
-> index 000000000000..17c1bf009242
+> index 000000000000..ee08c39df513
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5710r.yaml
-> @@ -0,0 +1,143 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/dac/adi,ad5710r.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +++ b/include/dt-bindings/reset/mediatek,mt6589-resets.h
+> @@ -0,0 +1,24 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +/*
+> + * Author: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> + */
 > +
-> +title: Analog Devices AD5710R/AD5711R 8-channel 12-/16-bit Configurable IDAC/VDAC
+> +#ifndef _DT_BINDINGS_RESET_CONTROLLER_MT6589
+> +#define _DT_BINDINGS_RESET_CONTROLLER_MT6589
 > +
-> +maintainers:
-> +  - Kim Seer Paller <kimseer.paller@analog.com>
+> +/* TOPRGU resets */
+> +#define MT6589_TOPRGU_INFRA_SW_RST		0
+> +#define MT6589_TOPRGU_MM_SW_RST			1
+> +#define MT6589_TOPRGU_MFG_SW_RST		2
+> +#define MT6589_TOPRGU_VENC_SW_RST		3
+> +#define MT6589_TOPRGU_VDEC_SW_RST		4
+> +#define MT6589_TOPRGU_IMG_SW_RST		5
+> +#define MT6589_TOPRGU_DDRPHY_SW_RST		6
+> +#define MT6589_TOPRGU_MD_SW_RST			7
+> +#define MT6589_TOPRGU_INFRA_AO_SW_RST		8
+> +#define MT6589_TOPRGU_MD_LITE_SW_RST		9
+> +#define MT6589_TOPRGU_APMIXED_SW_RST		10
+> +#define MT6589_TOPRGU_PWRAP_SPI_CTL_RST		11
+> +#define MT6589_TOPRGU_SW_RST_NUM		12
 > +
-> +description: |
-> +  The AD5710R (16-bit) and AD5711R (12-bit) are 8-channel, low-power,
-> +  configurable current/voltage output digital-to-analog converters (DACs) with
-> +  an on-chip 2.5V, 3ppm/°C reference. Each channel can be independently
-> +  configured as a voltage output (0V to VREF or 0V to 2xVREF) or a current
-> +  output (0mA to 50mA). These devices operate from a single 2.7V to 5.5V
-> +  supply and are guaranteed monotonic by design.
+> +#endif  /* _DT_BINDINGS_RESET_CONTROLLER_MT6589 */
+> -- 
+> 2.43.0
+> 
+> 
 
-blank line
+Correctly compatible with MT6589.
 
-> +  Datasheet can be found here:
-> +  https://www.analog.com/media/en/technical-documentation/data-sheets/ad5711r-ad5710r.pdf
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - adi,ad5710r
-> +      - adi,ad5711r
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  spi-max-frequency:
-> +    maximum: 20000000
-> +
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
-> +
-> +  vdd-supply:
-> +    description: Power Supply Input.
-> +
-> +  iovdd-supply:
-> +    description: Digital Power Supply Input.
-> +
-> +  io-channels:
-> +    description:
-> +      ADC channel used to monitor internal die temperature, output voltages, and
-> +      current of a selected channel via the MUXOUT pin.
-> +    maxItems: 1
-> +
-> +  ref-supply:
-> +    description:
-> +      Reference Input/Output. The voltage at the REF pin sets the full-scale
-> +      range of all channels. If not provided the internal reference is used and
-> +      also provided on the VREF pin.
-> +
-> +  reset-gpios:
-> +    description:
-> +      Active low signal that is falling edge sensitive. When it is deasserted,
-> +      the digital core initialization is performed and all DAC registers except
-> +      the Interface Configuration A register are reset to their default values.
-> +    maxItems: 1
-> +
-> +  ldac-gpios:
-> +    description:
-> +      LDAC pin to be used as a hardware trigger to update the DAC channels. If
-> +      not present, the DAC channels are updated by Software LDAC.
-> +    maxItems: 1
-> +
-> +  adi,range-double:
-> +    description:
-> +      Configure the output range for all channels. If the property is present,
-> +      the output will range from 0V to 2Vref. If the property is not present,
-
-2*Vref
-
-> +      the output will range from 0V to Vref.
-> +    type: boolean
-> +
-> +patternProperties:
-> +  "^channel@[0-7]$":
-> +    $ref: /schemas/iio/dac/dac.yaml#
-> +    type: object
-> +    description:
-> +      Represents the external channels which are connected to the DAC.
-> +
-> +    properties:
-> +      reg:
-> +        description: Channel number
-> +        items:
-> +          minimum: 0
-> +          maximum: 7
-
-How many reg entries? If only 1 then you can just omit 'items'. If more 
-than 1, you need to define what each entry is.
-
-Rob
+Acked-by: Akari Tsuyukusa <akkun11.open@gmail.com>
