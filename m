@@ -1,234 +1,344 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B53CD46D565
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 11:26:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 730934D2ED9;
+	Wed, 22 Jul 2026 11:27:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784719566; cv=none; b=imizFRmJFSxRWOuMd7t5rVj7RI237KY1H3dzreClC3ZrbiVBs09LYbIb+k9M40xG1yYKDlFTkrHDGR9E8MVj3wvJLzu1Rn72hx82LvamUErghgUWM2jRZry0yPpwQlJy+4/hq4elUgC7gvDDLf1t1+NnHH7xwcLBaxxJJcaXRSQ=
+	t=1784719634; cv=none; b=NbL4GyCYbLqj6QqEUCJxQg9WCV0NTArOgnzH6Ixpd/ue2m6Jfcc1D0m9xiRNI5blklGZ5acikxPSkhA7sSZNp+5Pyee76edUvwG9IgDgItkTTfvzFC25mCaI3nmbVMZARcQiAt9JiB/6e85YShIuOFpROLcD1zqhKJjI9vNkbSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784719566; c=relaxed/simple;
-	bh=3sKii6cz5beoLpCzSNChnkLlkM/gVt7OCUCSSnghbog=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SVdht142HfpSTsO44bIsh6NgQX+f+Skl82RvaBhOce+6YbNEVDyU4FxXi+vMnT1YqE+1SzdmT9VpgZln5TpiZt4mbNvMa3W20wBOq59Uyrkzdtxu4NQZM6x/2EmklDmcTK0X3ns/6LD/UgqQDuV5LAoIX8Yr2g9wn3xp9M0UORA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bOtS7G0d; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=h3PRBaS0; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784719634; c=relaxed/simple;
+	bh=srmzFQdqqQ2WFdLt/ncLqUnpW5uI8Z7kdABR3Q5Po+I=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=kYgGsbYwCzyU59dZ2g+C7692uGgY2geBuvfE2gMD/rsTHG6erOA5GZkQrkk3m1u788BT7j5LIV3fv2A8vtHPl1cd3T6QNkqt57IQC82MWpClPjYR+QVD/JZS430AmHLb089eDGWo24iVRFv4thfefu8mKf1uROuABJ//aeUuUzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=mR3svA+T; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bOtS7G0d";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h3PRBaS0"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M8xe1C123896
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 11:26:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=Rt86BCYIuYzX/mu0QffxPwBR
-	J6JJWBu/4GWFdmipzIo=; b=bOtS7G0dWCKzq3eVWbTAIUQjHYLOhMqToKTar6Ng
-	FVgC+aEpc/oBMtOtNfN42xpolJ76QbIEnjcBTY52s3YkgHOHJaLy27vr8oethpOF
-	1X8vG7emOuhx+R9SVLLc9DJKm1+fAH0BlnRFz4bkyUr3t0PRoAHuPEuWcFa1yU60
-	4tbZRv1rXyBqLpjANk56Jk5uhu6DNW/zOWaLrpc7Fej+iUuC8K/P5itwTiKZC7Va
-	jxZheWvWkmGiBSnqewk6OnNQKcuDBdSCDm65h8j+xicW4AqGggUaXVnatNRwrIDR
-	ktyPCg7bj866IudK/Y7w8jl/EzMASwukj9qseqwMmENcvA==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjnu4su0d-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 11:26:00 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-907c59bd73bso909886d6.3
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 04:26:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="mR3svA+T"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784719560; x=1785324360; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Rt86BCYIuYzX/mu0QffxPwBRJ6JJWBu/4GWFdmipzIo=;
-        b=h3PRBaS06X1xsmPI0eiJFRn4OZOOVIXDIdvYpeqCQPY+PFS/iZoo/UrshY/6iF4EOs
-         XTcTSKiDHiILCRVLQfKMw6blKmyiUHQ+ZQpAOIofWvnywR8mnSTPz5Y1DqOdKQjXcXxf
-         ZfMxjjuXScEwKzNciBwlf1EAU5QEuvvUPQ1j3ucIc0OSRd+jLsc1MHXvo6/Osrhh5Q5C
-         QUwx///sfsj3q9iJ3/MhzrW/jwu0OHXdt4wF/KX/rYeoiZyygZRJ9iUi2qlUE+C82VJQ
-         phsRR0eHULD3FdHpVdhdaXvn8WRfF7TIrNjIpjHKNb63+sbB+HGUPiFUv9fFxE95sK1U
-         kh0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784719560; x=1785324360;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Rt86BCYIuYzX/mu0QffxPwBRJ6JJWBu/4GWFdmipzIo=;
-        b=Mcu9q7EMsW0loTWManwET3HMb8v6oWiSfkIVlib6DVHOtyCaQsHhZaUQHfHGxfsTcA
-         E/0No67js2vz9Ze4yEIatZUspYxXAfYzaO4uGbdm3X2X8uytaEbRrvT/wnaollgZlyNN
-         fu6UnQLT+ucQQRtK/HqAhqbpnLbdEcirJypWRzrhaSuUmH30S+D57jANpCV7j+N+XJX4
-         WKN0jmRHvpHsGLjxECkK+t4/pnjlAPldmQJWDlC9518K7Tpk7IL84uM1B4HtIt9xlcXb
-         K415qI/wNlHYzc6CZ5gd9o43zYEu/gxf2e/Q4geOgU6DpAT4QppJPYkTx4rxqHHfyqsD
-         seqQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rqtof+Gt68ObxoDf6cE31szMUCmT6wHwCDfcLbVOTq1pzJuzf3oMncwJJdDQ6RxHhL+obG3DzlLWeXh@vger.kernel.org
-X-Gm-Message-State: AOJu0YyzdZjXi7zdGSQ6TC0oknpwKYAODFpxvMFbtdS20InLEaGCRU3d
-	OofLYVxpjcXbI4WpJBC5reVCcVr1jjxGeqtgaWNd0CKV4uBCY5HcIx2yi1G4qo5Y/zQM/7H7mBf
-	EdfnlQfSSxC99SGOftYu9tWBH3+k1I9TY3taGm1dJL5ovd68g9q2wjoZx0DSYw35t
-X-Gm-Gg: AR+sD10z9ayE6Wch6ILUv1v5s4vfhAhJv8PyFuelWmPKja1FwVoGKqEjlJfc6J5Le+I
-	u8SX8y97JZa+ONLlyh8AJ/xyFVApH2x4qxcP86yXDtJ9A8wSvhQ592cjeSIRQ65xJIkaHvOHmT6
-	+FidA35Kyg0HeGE8uT3Xg/C1XXInc56iwE1P2P+1dVxsiy7Au3Qav1gG45Qo2dxApqQ3M2L1qbr
-	SexJnOzpK/dQKAH5ATyNFidTFaiY/Y0q7YHLSgNvUdB32yFqcqG05+knJYaLLe2N2/TD1Vd3et+
-	oHfqsaE5ZbqOBIDzviRh+uGV+29ZB/SwQLBuz6ACyXeUL2l1VQ49G33gn9Bcyd1/8knmFrlKddE
-	2M9qC7/jcpa/dsCI=
-X-Received: by 2002:a05:622a:94:b0:517:c6b1:bffa with SMTP id d75a77b69052e-5213f66b3a8mr215906641cf.48.1784719559524;
-        Wed, 22 Jul 2026 04:25:59 -0700 (PDT)
-X-Received: by 2002:a05:622a:94:b0:517:c6b1:bffa with SMTP id d75a77b69052e-5213f66b3a8mr215906291cf.48.1784719558875;
-        Wed, 22 Jul 2026 04:25:58 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.163.114])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85a2573csm5078766f8f.0.2026.07.22.04.25.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 04:25:57 -0700 (PDT)
-Date: Wed, 22 Jul 2026 14:25:56 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: glymur: Add Asus Zenbook A16
- (UX3607OA)
-Message-ID: <36sqh2y22cc454wdpdfxzgek6h2ahhrszbfepf4jyqrgr2u3xp@d6lwvojpcdxv>
-References: <20260721-topic-a16_submission-v1-0-8ea213130d05@oss.qualcomm.com>
- <20260721-topic-a16_submission-v1-2-8ea213130d05@oss.qualcomm.com>
+	d=codeconstruct.com.au; s=2022a; t=1784719622;
+	bh=ttBWFKNkKcrL8brBDCQiXDV5DqubY2I9DyaqecqkGBM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=mR3svA+Tcqfyuei2uvlEhv34yzQm8eZBY0WJEipI1yIG4jnr5BpLegQnigXK9lRjT
+	 /WMlpkBupAhrm6zUf7jHYPJ3oyUukpLYmNAW1LJGj4hIGCUvjffkq3ZBoETgYnW9p4
+	 bVfIFBvWYmguhD5kH7TPPIbRDP6w6EEeiWw9FZ4gRZK+xXa6FWCvkxA21tv8qfoNuP
+	 FWL3ziwyW4cR6l+n1evzid4vPsBb89q7iH/KsbMt73ZIVvvf5TXVAIWg80YpU6BWV/
+	 dw8a8K3nsVXOExr6RCOOxlvFPkDQvK4wtVgp73MTcCLgOTkhG0C22jLTmvI1AxY6lY
+	 182h/x3pmbR0g==
+Received: from [192.168.68.117] (unknown [180.150.112.11])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 3B03B662E1;
+	Wed, 22 Jul 2026 19:27:02 +0800 (AWST)
+Message-ID: <22ecb2fc6f4a4ca3c3018fffba8a56bcf5ca89fc.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v8 0/4] arm64: dts: nuvoton: add NPCM845 SoC and EVB
+ support
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Tomer Maimon <tmaimon77@gmail.com>, robh@kernel.org, krzk+dt@kernel.org,
+ 	conor+dt@kernel.org
+Cc: openbmc@lists.ozlabs.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, avifishman70@gmail.com,
+ tali.perry1@gmail.com, 	venture@google.com, yuenn@google.com,
+ benjaminfair@google.com
+Date: Wed, 22 Jul 2026 20:57:01 +0930
+In-Reply-To: <20260708165929.2233934-1-tmaimon77@gmail.com>
+References: <20260708165929.2233934-1-tmaimon77@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260721-topic-a16_submission-v1-2-8ea213130d05@oss.qualcomm.com>
-X-Proofpoint-GUID: wsuiiIQo7sPWotYxfPRznHxtfe1eO65l
-X-Authority-Analysis: v=2.4 cv=KLhqylFo c=1 sm=1 tr=0 ts=6a60a8c8 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=6dw9+iwJWV8PcCi9M4lOBg==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=s0AnzQxE4kFPvzPjDjsA:9 a=CjuIK1q_8ugA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDExMCBTYWx0ZWRfX6KSdgcQP2VJG
- j5E+t9hbqtYjik3Qk7jmCFqnR14/83ZQeKo5HVrTgSEX4s1eqgJ9mt5G6x/SMKfyLUgRn2mmMuf
- NnB9AKym6hRkq4GZKMy9ue3a4uCJS7dP7ycgsVuGM28eOz4+v1kQVPiWwo/dhg3xp/h/idpnfLU
- WWWXqQXgyf/xTtXnoEb+B+JmcUiw3RlIsX22z4PK1ccjO4nXRrj7ObnH6qE3CLZ/3/R+1sY2Yye
- nBlG0umifGw89w5z1V8uBXXc+W/S40UuJaOSBin7jZjmgJl728BbiYt+81z7j6kLRz2BlXo8FV5
- 1Aa6SOS8/hVAeWcner3Jm+kXZn8hIUOjbgoFlGMP6FO4FyFwVUtp9CpWTX77Lj84V+DogXIhvMa
- 22Lz4AoZQ0hkTfJBcMxCkig2/NqmRboDI8cR8Pp9aR3vsBKAzG/8MMUvcftv2keHVQEpa4virdY
- 5svFTxutF8x9MXrz+rA==
-X-Proofpoint-ORIG-GUID: wsuiiIQo7sPWotYxfPRznHxtfe1eO65l
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDExMCBTYWx0ZWRfX1t44kWcGw+AB
- 8utblPA5mJgwA90R54SgjsB+Sq5gI8O787IWfipInP46tE9UnnljzoTb8dmDbLuaLocajIRyeNL
- khZXY0y55bWaygOogj8GjiNjLYzgRMw=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-22_03,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 malwarescore=0 phishscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220110
 
-On 26-07-21 19:11:27, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> UX3607OA is a variant of the Asus Zenbook A16 built on the Qualcomm
-> Glymur platform. It comes with an 18-core X2 Elite Extreme SoC, 48GiB
-> of RAM, NVMe storage, a 2880 x 1800 OLED screen, and the other typical
-> Glymur platform capabilities.
-> 
-> The hardware wiring is very different versus the 14" SKU - the larger
-> one is based on the System-In-Package reference design, unlike the
-> smaller one, which derives from a more common Chip-On-Board base.
-> 
-> Currently working:
-> - Audio playback (4 speakers)
-> - GPU, Display
-> - HDMI port
-> - Keyboard, touchpad, lid switch
-> - Privacy LEDs (camera-use, camera-block, mic-mute)
-> - Charging, Type-C, Type-A port
-> - Onboard SD Card slot (RTS5329)
-> - Wi-Fi, Bluetooth (QCC2072)
-> - Touchscreen should work on the SKUs that have it, but it remains
->   untested due to lack of access to such a device
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/Makefile                  |    1 +
->  .../dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts  | 1271 ++++++++++++++++++++
->  arch/arm64/boot/dts/qcom/pmh0104-glymur.dtsi       |    2 +-
->  arch/arm64/boot/dts/qcom/pmh0110-glymur.dtsi       |    2 +-
->  4 files changed, 1274 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-> index e05414290d8e..1c86e7e98f55 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -16,6 +16,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= apq8096sg-db820c.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= apq8096-ifc6640.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= eliza-cqs-evk.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= eliza-mtp.dtb
-> +dtb-$(CONFIG_ARCH_QCOM)	+= glymur-asus-zenbook-a16-ux3607oa.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= glymur-crd.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-iot-evk.dtb
->  
-> diff --git a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-> new file mode 100644
-> index 000000000000..be1a217c5bee
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-> @@ -0,0 +1,1271 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +/dts-v1/;
-> +
-> +#include "glymur.dtsi"
-> +
-> +#include "pmcx0102.dtsi"
-> +#include "pmh0101.dtsi"
-> +#include "pmh0110-glymur.dtsi"
-> +#include "pmh0104-glymur.dtsi"
-> +#include "pmk8850.dtsi"
-> +#include "smb2370.dtsi"
-> +
-> +#include <dt-bindings/input/gpio-keys.h>
-> +#include <dt-bindings/input/input.h>
-> +#include <dt-bindings/leds/common.h>
-> +#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-> +
-> +/delete-node/ &pmh0104_l_e1;
-> +/delete-node/ &pmh0104_l1_thermal;
-> +/delete-node/ &pmh0110_h_e0;
-> +/delete-node/ &pmh0110_h0_thermal;
-> +
+Hi Tomer,
 
-[...]
+Apologies for taking a while to get to this series.
 
-> +&remoteproc_adsp {
-> +	firmware-name = "qcom/glymur/ASUSTeK/UX3607OA/qcadsp8480.mbn",
-> +			"qcom/glymur/ASUSTeK/UX3607OA/adsp_dtbs.elf";
-> +
-> +
+On Wed, 2026-07-08 at 19:59 +0300, Tomer Maimon wrote:
+> This series fixes the remaining timer binding issue and adds device tree
+> support for peripherals on the Nuvoton NPCM845 SoC and its Evaluation
+> Board (EVB).
+>=20
+> The first patch drops the undocumented timer0 clock-names property.
+> The second patch reorders timer0 and PECI so the APB child nodes stay in
+> ascending unit-address order.
+> The third patch introduces peripheral nodes for Ethernet, MMC, SPI, USB,
+> RNG, ADC, PWM-FAN, I2C, and OP-TEE firmware in the NPCM845 SoC device
+> tree.
+> The fourth patch enables these peripherals for the NPCM845-EVB, adding
+> MDIO nodes, reserved memory, aliases, and board-specific configurations
+> such as PHY modes and SPI flash partitions.
+>=20
+> The NPCM8XX device tree was tested on NPCM845 evaluation board.
+>=20
+> Addressed comments from:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - sashiko-bot
+>=20
+> Changes since version 7:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - modify timer place.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - add PSPI to commit message.
+>=20
+> Changes since version 6:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - remove IPMI i2C device.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - Add FIX enable property.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - Keep patches 1-3 unchanged.
+>=20
+> Changes since version 5:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - Add no-map to the tip_reserv=
+ed firmware memory region.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - Drop the unsupported snps,ee=
+e-force-disable property from gmac1.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - Rework the FIU0 boot flash l=
+ayout into nested fixed-partitions
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 under the bmc cont=
+ainer.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - Keep patches 1-3 unchanged.
+>=20
+> Changes since version 4:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - Split the timer0 clock-names=
+ cleanup into a separate first patch.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - Remove nuvoton,sysgcr from u=
+dc8 and udc9.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - Rename apb: bus@f0000000 bac=
+k to apb.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - Rename spix-mode to nuvoton,=
+spix-mode.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - Keep cooling-levels as 32-bi=
+t cells while encoding fan-tach-ch
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 as /bits/ 8.
+>=20
+> Changes since version 3:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - reomve tmp100.
+>=20
+> Changes since version 2:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - Fix dts warning
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - Arrange node order by ascend=
+ing unit address.
+>=20
+> Changes since version 1:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - Fix commit message
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - Fix dtbs_check warnings.
+>=20
+> Tomer Maimon (4):
+> =C2=A0 arm64: dts: nuvoton: npcm845: Drop redundant timer clock-names
+> =C2=A0 arm64: dts: nuvoton: npcm845: Reorder timer0 and PECI nodes
 
-Nit: Drop the extra blank line above.
+I've applied these first two, thanks for the fixes.
 
-> +	status = "okay";
-> +};
-> +
-> +&remoteproc_cdsp {
-> +	firmware-name = "qcom/glymur/ASUSTeK/UX3607OA/qccdsp8480.mbn",
-> +			"qcom/glymur/ASUSTeK/UX3607OA/cdsp_dtbs.elf";
-> +
-> +
+Regarding the last two:
 
-Ditto.
+> =C2=A0 arm64: dts: nuvoton: npcm845: Add peripheral nodes
+> =C2=A0 arm64: dts: nuvoton: npcm845-evb: Add peripheral nodes
 
-> +	status = "okay";
-> +};
+We now have scripts/dtc/dt-check-style. If you run it in strict mode
+before and after applying the series, it indicates quite a few concerns
+(pasted at the bottom). Do you mind looking over them and fixing what
+makes sense? I'd like to conform to the strict style as best we can and
+have justification for what remains for all patch submissions going
+forward.
 
+Cheers,
 
-Otherwise, it looks good to me:
+Andrew
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+   [I] 0 andrew@heihei ~/s/k/l/o/build.arm64.default> diff -u before after
+   --- before      2026-07-22 17:57:35.932258745 +0930
+   +++ after       2026-07-22 17:58:14.205122192 +0930
+   @@ -1,4 +1,79 @@
+    ../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:9: [property-ord=
+er] property 'compatible' out of canonical order (should sort before 'model=
+')
+   -../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:21: [property-or=
+der] property 'reg' out of canonical order (should sort before 'device_type=
+')
+   -../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:24: [unused-labe=
+ls] label 'refclk' defined but never &-referenced
+   -../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:27: [property-or=
+der] property '#clock-cells' out of canonical order (should sort before 'cl=
+ock-frequency')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:13: [property-or=
+der] property 'ethernet1' out of canonical order (should sort before 'seria=
+l0')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:18: [property-or=
+der] property 'fiu0' out of canonical order (should sort before 'mdio-gpio1=
+')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:57: [property-or=
+der] property 'reg' out of canonical order (should sort before 'device_type=
+')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:60: [unused-labe=
+ls] label 'refclk' defined but never &-referenced
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:63: [property-or=
+der] property '#clock-cells' out of canonical order (should sort before 'cl=
+ock-frequency')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:69: [property-or=
+der] property 'ranges' out of canonical order (should sort before '#size-ce=
+lls')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:71: [unused-labe=
+ls] label 'tip_reserved' defined but never &-referenced
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:77: [child-name-=
+order] child node 'mdio-0' out of name order
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:81: [property-or=
+der] property 'gpios' out of canonical order (should sort before '#size-cel=
+ls')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:93: [property-or=
+der] property 'gpios' out of canonical order (should sort before '#size-cel=
+ls')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:104: [required-b=
+lank-lines] "status" must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:110: [property-o=
+rder] property 'pinctrl-0' out of canonical order (should sort before 'pinc=
+trl-names')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:111: [continuati=
+on-alignment] continuation should align to column 21 (under "<" or \")
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:112: [property-o=
+rder] property 'phy-handle' out of canonical order (should sort before 'pin=
+ctrl-0')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:113: [required-b=
+lank-lines] "status" must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:119: [property-o=
+rder] property 'pinctrl-0' out of canonical order (should sort before 'pinc=
+trl-names')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:120: [continuati=
+on-alignment] continuation should align to column 21 (under "<" or \")
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:121: [property-o=
+rder] property 'phy-handle' out of canonical order (should sort before 'pin=
+ctrl-0')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:122: [required-b=
+lank-lines] "status" must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:131: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:134: [property-o=
+rder] property 'reg' out of canonical order (should sort before 'spi-rx-bus=
+-width')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:136: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:140: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:143: [property-o=
+rder] property 'reg' out of canonical order (should sort before 'label')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:149: [hex-case] =
+hex literal '0x007C0000' must be lowercase
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:149: [property-o=
+rder] property 'reg' out of canonical order (should sort before 'label')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:151: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:153: [hex-case] =
+hex literal '0x007C0000' must be lowercase
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:153: [property-o=
+rder] property 'reg' out of canonical order (should sort before 'label')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:155: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:157: [property-o=
+rder] property 'reg' out of canonical order (should sort before 'label')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:159: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:161: [hex-case] =
+hex literal '0x02C00000' must be lowercase
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:161: [property-o=
+rder] property 'reg' out of canonical order (should sort before 'label')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:163: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:165: [hex-case] =
+hex literal '0x03C00000' must be lowercase
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:165: [property-o=
+rder] property 'reg' out of canonical order (should sort before 'label')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:174: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:178: [property-o=
+rder] property 'reg' out of canonical order (should sort before 'spi-tx-bus=
+-width')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:180: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:184: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:186: [property-o=
+rder] property 'reg' out of canonical order (should sort before 'label')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:194: [required-b=
+lank-lines] "status" must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:195: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:198: [property-o=
+rder] property 'reg' out of canonical order (should sort before 'spi-rx-bus=
+-width')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:200: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:204: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:206: [property-o=
+rder] property 'reg' out of canonical order (should sort before 'label')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:214: [property-o=
+rder] property 'nuvoton,spix-mode' out of canonical order (should sort befo=
+re 'status')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:267: [required-b=
+lank-lines] "status" must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:276: [property-o=
+rder] property 'pinctrl-names' out of canonical order (should sort before '=
+status')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:277: [property-o=
+rder] property 'pinctrl-0' out of canonical order (should sort before 'pinc=
+trl-names')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:278: [continuati=
+on-alignment] continuation should align to column 21 (under "<" or \")
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:279: [continuati=
+on-alignment] continuation should align to column 21 (under "<" or \")
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:280: [continuati=
+on-alignment] continuation should align to column 21 (under "<" or \")
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:281: [continuati=
+on-alignment] continuation should align to column 21 (under "<" or \")
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:282: [continuati=
+on-alignment] continuation should align to column 21 (under "<" or \")
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:283: [continuati=
+on-alignment] continuation should align to column 21 (under "<" or \")
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:284: [continuati=
+on-alignment] continuation should align to column 21 (under "<" or \")
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:285: [property-o=
+rder] property '#address-cells' out of canonical order (should sort before =
+'pinctrl-0')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:287: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:290: [property-o=
+rder] property 'cooling-levels' out of canonical order (should sort before =
+'fan-tach-ch')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:292: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:295: [property-o=
+rder] property 'cooling-levels' out of canonical order (should sort before =
+'fan-tach-ch')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:297: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:300: [property-o=
+rder] property 'cooling-levels' out of canonical order (should sort before =
+'fan-tach-ch')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:302: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:305: [property-o=
+rder] property 'cooling-levels' out of canonical order (should sort before =
+'fan-tach-ch')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:307: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:310: [property-o=
+rder] property 'cooling-levels' out of canonical order (should sort before =
+'fan-tach-ch')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:312: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:315: [property-o=
+rder] property 'cooling-levels' out of canonical order (should sort before =
+'fan-tach-ch')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:317: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:320: [property-o=
+rder] property 'cooling-levels' out of canonical order (should sort before =
+'fan-tach-ch')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:322: [required-b=
+lank-lines] child node must be preceded by a blank line
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:325: [property-o=
+rder] property 'cooling-levels' out of canonical order (should sort before =
+'fan-tach-ch')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:335: [property-o=
+rder] property '#address-cells' out of canonical order (should sort before =
+'status')
+   +../arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts:337: [required-b=
+lank-lines] child node must be preceded by a blank line
+
