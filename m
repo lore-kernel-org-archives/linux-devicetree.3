@@ -1,173 +1,70 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873322E285C
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 05:34:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5882D0605;
+	Wed, 22 Jul 2026 05:42:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784698480; cv=none; b=nPmcTcc3WQJjq1uhO2mFRw4kzhvaUbKTf2LBHY86iDjvmfadcXjTmjH1zq4B8kjP6DWeJ4+ntU2FZZ02nIlhNZBWHh6uNniCoTZTFuZ9Tn1fJU7PH5Zv+pNJUnyG6SHAegqH/wWMCsuPoNc6ph0lRMtU4PSu8WLmvO3LzKTtLmM=
+	t=1784698945; cv=none; b=GUB8YQ3gOcrf0hmW+ut6IUIs8TKxAfA+NWZjbHyPO6bIT6r9NPmDqxek73U6Bhp42QLBQpemxoOhzAdBQW8omxDFPboUYB++xXfCu7ErIuoKVgZT2lcJkey747kIZtfxIvFMdytHs6rq1jr4Qde9EDPsQLg5v4WIXv8e5WibT6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784698480; c=relaxed/simple;
-	bh=6ycv7astDcTJCQpxuZDsd0xBaS3f+UykZrQHeKn1rz8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L3cNPqEfmSy+9UCYYzsw1zlx4XMmvatX73bUyR8/Eljwv76gm3DP5Fv/bz7Tpyzlt+uwmmqfbozRI6IEez7zmRPZ8jMHt1OCVzSseBWFve78SxfTncAXybS0yCJPCGA8UAtHj9K1rfL89nWhSpf2oMohYycrjygYUjnSCl/QYC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PkGF3nnT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hdl/YOew; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784698945; c=relaxed/simple;
+	bh=HH2jmFhJQtmubMRbMzvqUFA37qZh2a93c3dqePvchig=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=kOHLJtdGdCZnpXxm0EslaNfuxHsgKl9lGGEr/ED8W4OwhMwv5RZNb5gSm1lUEa7TA2e9BKL3Fj409N2hgcxGqieHmomDWh037TZ8WBQnRVciX0SvFCb6aF16lIeetOlR2c1GZkpNf+IlZPpT0q49MJXIZ1nJ5Y7IBICb/hfMa1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=nIScDihU; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PkGF3nnT";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hdl/YOew"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M53nsm3663129
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 05:34:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=LlODXpltO6AC6vP+2wHe+ho0
-	iSx/n3O4fHPoL+am4BI=; b=PkGF3nnTMXSZbEDIS67EgQ3Ju9wfrK4dgBljVKAN
-	S2LzcUV3M/0dmEcrMGDoQtB3tycAJ6Iequzmu3M7d2qXbz+nLHQKArx6uebLKnky
-	qZvveDX0gdKmjHsI9XgRx1ljL7MgYt5A5pWGWiYGBbvcEaoBikvkTkrgLTRq+gZv
-	xYBFZ2AWafXlVNJ/neWaFDuAqqtB03nZlQsJduV/J3DpIIgc8MT4B/yj3jiV9yFl
-	Jm87iJkJc5AODztmeOO+k+zpHQJ/nztDQH1npou4xur9nuUkgcCAlPSMCN+zmN/H
-	dZEicrQysRPK7cTFpxEKj1Q13r9KnnlfY6/dYWspNbBHPA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjd5e2b20-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 05:34:38 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5276aa86d00so16912651cf.2
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 22:34:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="nIScDihU"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784698478; x=1785303278; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LlODXpltO6AC6vP+2wHe+ho0iSx/n3O4fHPoL+am4BI=;
-        b=hdl/YOewOwAF10r4l5d2OUmiv+jCCGh5zBC06NK/ajvpKtRunV3oIRjfg7wCyDCIRn
-         nxje8vJxAg2mX1Y3t6ZPEFS0lRNJJjyIN4whO/25DZinNUREkksdlv26im9WdEwrzepv
-         MIpyr3jIkaNGixPPMmt62InowRHqSKq/q1Y4ou/vLjqr3T2tsIPEoszHwVLm1AikW5tj
-         GqgKIqJ0XYdgCzzFiGSAbrUn7Ek5gFRxWhXh8xMJqap5GiKwF59QRVYiPXsfOGZbM32G
-         ZU1JPd7GKFNgAYUTm7UgQz9aTL4+lbi/BQuJb5/Ptrl4AI00vJCd26q/jc7RtvKR6gc4
-         kwVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784698478; x=1785303278;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LlODXpltO6AC6vP+2wHe+ho0iSx/n3O4fHPoL+am4BI=;
-        b=BVaH6vZ2uU6zUvY9BYEs3jHq5wFNEXbjm0wbsVnNvF1q/ZKmFtFRc6XKiHdYrcePjo
-         muYxgO2kFafnvPkGOZcqJ8guWuSNiGsHjYjMHTJAWXjBWPd1qNDy9yMfNZDMfpXoG9w/
-         rbDHaagyeKTP1OVdhJ56zw7RJJqh3nln54JYpzsLr6TsLjtSOleztTABibHa/TD5C/eq
-         /GTMcKpPVRY0ynmWT1uXoKMmtOJs2+RwjBd4ALzmDZnZ+9w95PbH60OyGIdQFhuC/mA6
-         hlYpLxEMN4roQmb8crNoQ5BfdSSRtraKr2c0XpW/JNU2jFfnsPrtwqiJnUmk90+ivWVk
-         zolg==
-X-Forwarded-Encrypted: i=1; AHgh+RoCy3NKsohbXqsnB5FUKjOX1djNAtNsUsPQeMh8gE86pFpa1Qj6Sc1GJdQl+5oLzeWlN4oW5ALNyN+A@vger.kernel.org
-X-Gm-Message-State: AOJu0YyBHy4FnDCSlmydFzaLcnD/jpWB0QwgoNjPzWIlaK02xE3NCqA7
-	gguNaro5hRav0qlPO+N7T5wly3BFneYiXclt4wziYi+kdoTHN/SheO6TdOPyOzfVSQDyyn8Y6mB
-	qYgGS7QhMFfJYFiXQLW1aMdW7wnloAL/cHu9WfqrFvHOjcTDITr5/BO9PKRkEZ2SB
-X-Gm-Gg: AR+sD13B88dUqrGgmh1thvjYlbX3u7LjPf81blV+D2dcYmApazp7EdOehXLbxe8pzwm
-	q1N6Z5ym2zmT+SZ6Z/WoCNqAffI+KR826aDqsDUZjdTHTex4dYChltrqdpTJTqKsXeW26lD7bD1
-	DAZ4+URCxXCUqw1//nnHRPt8YSSfAEw0R600pF7//monnF8mIwSLMtrmwvF/5L8jPEwVVGGe7F5
-	80chCnHIQFI/uT5FWa85ke3xKXTsmTXvuLCunPaXo3c7Cwzj8VbRsicsz8AFc+fbmlynL34Mpap
-	Dh8pzHBBApdowQOMDF5nMqWPxDTBuLF4ORCYps0MIQPaFea3X6yJNNCsngQe874GBI/zw22r8UU
-	PBK9DPHF8CUacVgqytegVkAG0qap6QtPFT92IZ823fjWTN6Jv4c1zbeFj512D2ylVNMmfUX4lEg
-	nKK7dg/6Xu0SD8NA==
-X-Received: by 2002:a05:622a:15c2:b0:51c:7b12:5ffa with SMTP id d75a77b69052e-5213d7ac3d7mr204182251cf.86.1784698477670;
-        Tue, 21 Jul 2026 22:34:37 -0700 (PDT)
-X-Received: by 2002:a05:622a:15c2:b0:51c:7b12:5ffa with SMTP id d75a77b69052e-5213d7ac3d7mr204182071cf.86.1784698477258;
-        Tue, 21 Jul 2026 22:34:37 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2a9d30758sm276826e87.45.2026.07.21.22.34.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 22:34:34 -0700 (PDT)
-Date: Wed, 22 Jul 2026 08:34:31 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Esteban Urrutia <esteuwu@proton.me>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] phy: qcom: qmp-combo: Specify PLL version in
- qmp_v6_dp_serdes_tbl structs
-Message-ID: <zd5wulhfcw7vzbwaz4akhetbqqub7ygsmexuswkdvzxcfmqvqa@hom4ax54efft>
-References: <20260715-sm8475-bup-usbss-v2-0-2d8def39b190@proton.me>
- <20260715-sm8475-bup-usbss-v2-2-2d8def39b190@proton.me>
- <wg6lgpaexz4ktjlfzqpsidj56wr3hjax2ktn75kqsoaubtdxre@xh3yn3xpr4af>
- <b77dc15d-f9ad-4c06-9e24-8f73421e2130@proton.me>
- <dph6cacosw3jzksqxp7fgofdueukrq6a3c5xys4jfrkqjuigvx@sroivvrxiwxk>
- <47b1db2c-6314-49ce-a7b9-f68eeb022295@proton.me>
+	d=codeconstruct.com.au; s=2022a; t=1784698933;
+	bh=hbQw3W0t7DCWGLYQc20VbVCF0idVw+jcX4clr+Pc7k0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=nIScDihU9wxPUYN9bA4sZT6/4MEoB7cAybII5TNLOm4Fc+o9ccci2sNpQA/ji50gV
+	 l1VNEZYBy49MJezDHQfIa1rK1xfa3xvV9kF6R67D6S4DDf/voA6PAGQbd6NKwUsURh
+	 svx2rmKzC+XFEEdKvBq6Ai4w2VQMqWgS/FVoOakbuwPKk13BDlhSSJ2smYwj1LFYmY
+	 X/q0ql7zj1XQbWs3vcE8rpJjCUbvT5AucOdDFHJ+G1StTzw24/hJHcldOq2bYjhksn
+	 6VUbDvT2VR6mM870VlKSujo/6W3DZtuX9BwcrmqjTEvqF7BgR+sLcZRR83ByjtoBO0
+	 sll7oWMTbxjWQ==
+Received: from [127.0.1.1] (unknown [180.150.112.11])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 2EE1165B37;
+	Wed, 22 Jul 2026 13:42:11 +0800 (AWST)
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+ Patrick Williams <patrick@stwcx.xyz>, Potin Lai <potin.lai.pt@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ Cosmo Chou <cosmo.chou@quantatw.com>, Mike Hsieh <Mike_Hsieh@quantatw.com>, 
+ Mik Lin <Mik.Lin@quantatw.com>, Potin Lai <potin.lai@quantatw.com>
+In-Reply-To: <20260721-upstream-sanmiguel-fix-fio-ioexp-intr-v1-1-8245ae0ca590@gmail.com>
+References: <20260721-upstream-sanmiguel-fix-fio-ioexp-intr-v1-1-8245ae0ca590@gmail.com>
+Subject: Re: [PATCH] ARM: dts: aspeed: sanmiguel: Fix FIO IOEXP interrupt
+ pin
+Message-Id: <178469893176.629993.5702015627237024967.b4-ty@b4>
+Date: Wed, 22 Jul 2026 15:12:11 +0930
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <47b1db2c-6314-49ce-a7b9-f68eeb022295@proton.me>
-X-Proofpoint-GUID: ZQlNhmWK4AJApqNaW_eGj9esNc0N0m1s
-X-Authority-Analysis: v=2.4 cv=CbE4Irrl c=1 sm=1 tr=0 ts=6a60566e cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=fY_eGrlidOvAcYwQiNEA:9
- a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: ZQlNhmWK4AJApqNaW_eGj9esNc0N0m1s
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDA0OCBTYWx0ZWRfX01dIQ0P/9zrs
- Jzr41ZFu3vIYL/iXCFlScBfc3UclqMaAtO779FcTfxT1iXU8VN7m8etqsZgB500WJH2ipPREMEm
- qMzeTWbeVYwNFIgqk2D9Wz4mUquCECeXwsORLdS7XEyFMYLZsz1wYX1wQLelIqQBHNvg5qWRrGA
- 8VdexKWm92bkpiryBmURpDDNYOLz5RkbahhK28EZyP2PlONm6gvsk2jha6PyPQ8aji7MrSbO55W
- 6va6vGkgdgtoXPEcs9Ydsf4vbGXxXOU8qwYBFrjCsxTdHYku3anjsoj/ooj+JVHRkvJkZhIWqq3
- TpzpI6SjDkqUe538HMo2gomx/cxCaboksk+WIi7cuboAyA7cjsBCPicybUpmebwNjV2aKV6GHzm
- aL0I7wgnCrMRKUkT9gTs/xhGCqvQ/025uh5slUgguaSlum0le9XVc6B3Vh5/q03vfv+wRC1jBcn
- /jRRcLWN2napt+95xEw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDA0OCBTYWx0ZWRfX6qL3dmTk+QYO
- 6QUOAxOUyL7kOvHHEy/tsYM32WUH2Z1m8L2+6I4/LSVtzVshOuwT/Tj2Obhk9WmP8tbXXcwyXaf
- r6b8PGiMiA0d+tkv7QNVsYi4ral8oxY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-22_02,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 suspectscore=0 clxscore=1015 spamscore=0
- malwarescore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607220048
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Wed, Jul 22, 2026 at 01:02:40AM +0000, Esteban Urrutia wrote:
-> On 7/21/26 8:35 PM, Dmitry Baryshkov wrote:
-> > Quoting commit b5383dbae381 ("disp: msm: dp: add pll params table for
-> > 4nm PHY pll settings") from the SDE driver:
-> >
-> >     Because of changes to ref clock frequency, few of the pll
-> >     reg values are different for kalama compared to palima.
-> >     This change differentiates between these two 4nm versions,
-> >     based on pll revision and also introduces a pll reg table
-> >     to differentiate the values.
-> >> So, I assume, that v1 vs v1.1 is a clumsy downstream way to specify the
-> > ref clock differences (which affect those tables).
+On Tue, 21 Jul 2026 19:01:59 +0800, Potin Lai wrote:
+> The interrupt properties for fio_ioexp (pca9555 on i2c14) were incorrectly
+> configured to gpio1 with ASPEED_GPIO(B, 6).
 > 
-> This does not seem to be the case...
-> When HBR2 is used over a direct Type-C to Type-C DP Alt Mode connection,
-> link training fails when v1.1 tables are used instead:
+> Update the interrupt-parent to gpio0 and the interrupt pin to
+> ASPEED_GPIO(C, 6) according to the hardware specification.
+> 
+> 
+> [...]
 
-Yes, because the platform has different refclock.
-
-> 
-> Jul 21 20:56:39 esteuwu-phone kernel: [drm:msm_dp_ctrl_link_train_1_2 [msm]] *ERROR* max v_level reached
-> Jul 21 20:56:39 esteuwu-phone kernel: [drm:msm_dp_ctrl_link_train_1_2 [msm]] *ERROR* link training #1 on phy 0 failed. ret=-11
-> Jul 21 20:56:39 esteuwu-phone kernel: [drm:msm_dp_ctrl_setup_main_link [msm]] *ERROR* link training on sink failed. ret=-11
-> Jul 21 20:56:39 esteuwu-phone kernel: [drm:msm_dp_bridge_atomic_enable [msm]] *ERROR* Failed link training (rc=-104)
-> Jul 21 20:56:39 esteuwu-phone kernel: [drm:dpu_encoder_phys_vid_wait_for_commit_done:545] [dpu error]vblank timeout: a0821300
-> Jul 21 20:56:39 esteuwu-phone kernel: [drm:dpu_kms_wait_for_commit_done:527] [dpu error]wait for commit done returned -110
-> Jul 21 20:56:39 esteuwu-phone kernel: [drm:dpu_encoder_frame_done_timeout:2731] [dpu error]enc37 frame done timeout
->  
-> > I'd suggest adding the comments about 4nm-v1 vs 4nm-v1.1 rather than
-> > renaming the structs.
-> Regards,
-> Esteban
-> 
+Thanks, I've applied this to the BMC tree.
 
 -- 
-With best wishes
-Dmitry
+Andrew Jeffery <andrew@codeconstruct.com.au>
+
