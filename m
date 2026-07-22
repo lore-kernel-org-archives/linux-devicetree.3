@@ -1,196 +1,177 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648B235C6A4
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 06:24:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E75EE3A9629
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 06:30:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784701487; cv=none; b=nMHGWbIRUjEeBeCGupF0v3c3OewWaP34NSxO1Q9kFJToxDl2f43t2UUsr83bq2kEQrzKl/3lj3uU/UJZX1ZDEUu0FB8i/I04kvBTvLzDp9uagKjazEy/IuOf4XLDv+sfGD0XB4mMQzQxM/hw93eSl9SANZKemlbB/qc6Y8NBPQY=
+	t=1784701820; cv=none; b=u0qcba+bZZi4jKKnP/KFZE43qG0yv5HUmHd3zeYRKFkI1YNFYJFNioymAANiZzp26NeGJGIzSRkJ9s1uMi21SDRiBePRCuSuwF46uf2GtfJjS0v4ozzTCpjRjXt7xat4VyscxC2R1zQIOdJjCDFJTBISuanVKx/IpAORJa+pAWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784701487; c=relaxed/simple;
-	bh=4JrvcEngBvteukCLZF3brC/gQ6K4u5RpsDAUv1E9TNQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eCQ8l5xs5aDzxsaJ8aNN1aIUYM+ZhX0PdCihuYAjpXyGzXFQWJTkH67S/DFdfTkxCZYTcIUzGtjQf432MPTOwrpJrmQkkQNsZKCs9GHrGNY1fRDFIpaPZLHIBa2jR/BaFVFZEmyujmzICHJAaMpO9K/XbCvL4RDbvryVVm/s3Ls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AqvKH5uq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fuA87aBR; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784701820; c=relaxed/simple;
+	bh=PKW1Xnnu9AKa7tuapvs9+DAbuoB4ZJthZ2NlWKW5Rwg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BuQmoGAwKaj6F7rIW/3K3w9APTguBbjDxgaG+bbKhhXl8+IEwxbPGBwEeQ9zkIn04pT5Ga4B1X/1xnRe4qB0bmEp1vTjrR/UejxzTWXRbzzZITBVwJxQw2Fa9707I1C0x5VJACgI60m4y44f6FW3bYmkc1WhhBOR0lPEMRwyeE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WjANaYkO; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AqvKH5uq";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fuA87aBR"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M61ps0984376
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 06:24:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=UjYqDC1SKZ3nBm6fQIO0dnEk
-	EFHe/0NSqXY2M9ZBb5w=; b=AqvKH5uqhvazImNG5brZGoDvP4skotjHkY1U+hdf
-	AR/9k3jWtiRI8AjwO175fSOjx9wYY8Ph4farlo9GU4BS9bKQhioWu704tgCquO9t
-	mcy6ELqAeqfhreeS6gEXv3KReYvEwWfsx8g6OJ9/hmVSHzk+TaUU9/uQSqh4yK6S
-	G7KFzuQcNwRnJAyQGBHUSIBpgcDXtj9M35YHe0oSj74e5EZWh8v+FzqpVoYcm80s
-	8ca6StMbPXiWoRf1vkjD/01bYooajNvW9iGJ55zRMChU2OaZAg+AMsg81K3ACXvV
-	rDm5NH53OY748gSa2Q33ydnXaSuUZZ5Zq/DUuA/TdcQa6Q==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjr8382ur-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 06:24:43 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-90284139cceso98259066d6.0
-        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 23:24:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WjANaYkO"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49548aebcd8so33568565e9.3
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 23:30:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784701482; x=1785306282; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1784701817; x=1785306617; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=UjYqDC1SKZ3nBm6fQIO0dnEkEFHe/0NSqXY2M9ZBb5w=;
-        b=fuA87aBR/boMm3Ax8Iu+suOZlbzzdnMS7TCGfgAmc5VKt3FEEKzsgid1MAVLVaSgGB
-         NitRggbJ9zhpsEwyzcaeSDdGQrx3fWuVj4U/9cK49LO9/kV+YdK9F6m1B5Gm2P0FJbg+
-         VU7psC+hVvqsNkqhIz89g5w8I3Vg67AFN6v4WvddNzVp6g8yYBbKPYm9u0bJBeP8LE4s
-         27hRIq7G1NBP8RIHzC9+ETGPib5+volrbNwknrvVqOqZMtBjmhPJFCs29NlEzplAt0Gc
-         orPQFzr6dWJ0orWi+3cIeQkLFC6lD+iTBCVSm0aTLekyS+LZRaf4ldI6VTv0OmWV7FY2
-         fusw==
+        bh=MZ4Byl1njkQhav5fhUVKwKfbAOGMC8cCPs9+06LJMzA=;
+        b=WjANaYkOc5NtbVqUkn0JymiMWcbfn1GrKvq3ygtRalPwTifw1VCTgli1aK1tliJ03w
+         TDbctWQsAGNXzabgmT9sYa23UhT9GfIidxufRyXLKdyRMqezFY0AMSbqYM4BQUNI1DUJ
+         cR5LSRX3hYuU1Lhm5GIWRFmTo9JyMACXI9gEWPF923wczI7+bQmk4hbvaGrTe2/AHI+F
+         XZ14YNUJYLXcvu0UTqxlGg6INN//KiOII92Yk3T4PPpXj+vSYya3YiD5jtqQJcjzbrQH
+         Pj787qNJmOFtQs/elTYU7OTiSxP3t+dJhunDyDTLphMEZBZEhruFc1YwRiJuc3bqTOyt
+         y59Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784701482; x=1785306282;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1784701817; x=1785306617;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UjYqDC1SKZ3nBm6fQIO0dnEkEFHe/0NSqXY2M9ZBb5w=;
-        b=lhenVvORBrzkxoGFV2Y9I/OTyuMHFOwiaNX43io6EHObfUyzWcuyHF+BC1ie4kA+B5
-         o162iFv5P1dNb1u7eJ4AbDDmbCPjHFjUTR2sj3P3jnFw/NK3u3cxTmehAqxOhBAklG5P
-         7R4h8rACLEdl6osXFuXFqyc5vcL26AMu9ESb0m2aZ1bibdLL6KhVdS+0eTRZf5T2skUx
-         P4iRrS5f4YOmV1HwkhKn/qGBxN1jqI01KgzjLfxCd+DZb2pCtlwD7qXlGijH5lF0F7NO
-         k/r2AJrjJfIUUd39zLOVO8P/gYauW/JxHkxslRN0/PV7JSZHLpIl3edfGTL6fFh16Y/Z
-         3Ryg==
-X-Forwarded-Encrypted: i=1; AHgh+RolPnZOV7VlCwwCEMp/vYliGVdKTf26Qr/WfCW1fQG999tZ3Hn03HWeTwHKsWHiTxZUJINo2kWc7TE/@vger.kernel.org
-X-Gm-Message-State: AOJu0YyiaJI7q7Jhyd8jirBXDtNIhB52uoLKVqpRgSkRq9iREl8HQBBo
-	BxeEnEU5Z985lh8a7h0mLOMFsZ4zFOcs8f9cdUFhTZxw26A04ciELARcW94g4seNPLJ6oDnBWVj
-	g4axOkkFNiQe6OFwfiNLK8KKVF3aHRWLlhBon3eQInnhK+frGH9WKqKK8A/9KhSgM
-X-Gm-Gg: AR+sD11rmDb105MhRcXVs+q8Y5eEHLL3rluXMuWyk2oKIm+Rn8N7MkBwHHCJK44XLXQ
-	WCV3EL6MqHFKfYBOMMSTz4KClqoV67i2lmpTkA5VA11vP9F52VFsctWpknG2Tgv1Ve5PYEXGBKP
-	LWiQMois1jkAfHkw+Jz8XOSA0pyYGMpsant3ljBqaUy1pE5kBRwu3xvrQjZFhx8oYbikKQZGfj6
-	mWDKu7weYzkUqLXl8XUrZ/htoHYDxQ0+fCtutAZLJegB6GF9hgtl8UYekvDM21HPjhAfYGJqSyz
-	TUhCJzg+nlFyyAcEcqn8A/T6guV+PqGAFWDeLS/XgDcFHbdcxDHb+KhpGPvSSMppMtLBbmeCcjC
-	D06BBcou8HZUIEWD8vK7rrVFdnK5tpGZmHu3T2yFFh5wVEYmnxxvMMu0jeTD1BJlYFEMKcMQZgc
-	KAytA1ZtpVe3e0hg==
-X-Received: by 2002:a05:622a:8c4:b0:51c:b98c:f772 with SMTP id d75a77b69052e-527a69fe0f1mr28844011cf.15.1784701482415;
-        Tue, 21 Jul 2026 23:24:42 -0700 (PDT)
-X-Received: by 2002:a05:622a:8c4:b0:51c:b98c:f772 with SMTP id d75a77b69052e-527a69fe0f1mr28843821cf.15.1784701482014;
-        Tue, 21 Jul 2026 23:24:42 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2a9d318c0sm301804e87.38.2026.07.21.23.24.39
+        bh=MZ4Byl1njkQhav5fhUVKwKfbAOGMC8cCPs9+06LJMzA=;
+        b=GdhKAPjMuVzc2P49ZQU28AW0T+RJJ5BjMmShXbq6m98trIlySAeZVJtxLQsB+Xbk7Y
+         VztLpHWqF/zoUOxBn2qvi4ZH+11AN9TI39IsqJ5RpEYTY7cum+FNZXftWtQoaVsmeWbW
+         3zT8Cp1rNpmw8gCbs9JeakORva5ybf2nOusHP8BncrSDywpo8uOoCeyr0QwKP26M2xE3
+         p13fAcXSgHJSYivXEhXI21IIJKSTuZJOHf3nu9ebjkYXy3D5Z908LPdi8eDNafiNT2Nq
+         rMtv+PiXEKGIXscnFlkcmsYxRuop+e5x7Bit+HgYG83sl3EY8CVFyxbm6p4lHQW231Mq
+         tVJA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq/T8DRLAyWJoUSz5UGAsHvr9t/VeMJvoSIMrg30amA6ngSCzz6zK3GEUwZPZ1jjvm6BE/iitXytjIJ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy7/IRFCiX/2D7GbctmjBQ2klJdN3+ccAs9qUcAA+bzhbTTUifD
+	S5uNqbzbKI8GfGdLeE7nEHlGzt54pPfVxCzqHF/9NwFkT/0n9TeQabhQ
+X-Gm-Gg: AR+sD12ip1s86qa6FvnBhc+DgykiiB4M1+LOVhDjIJdYL+Qvkks3X5uh7pbAXnjmUTF
+	XMW3zx6YKY/wdef5BdMbO6iv8mrkhn6m3s0TtK7sHvdzWpniDkPPkK3L5r6hAvBgawWAR5Sjg/h
+	chMUiu5bC+9HZG6IwQ3Tk86wJN11GLsDzLQrFFi6bxUMko2zZNiX+BC3EdtFv9yOsbv4NvcA5gA
+	C4OpkzjlPPI9qCDZp48b8WnhM1iUWDB00eWN08x2TIdBuuI6JmQUGmUufjiQigT0QShw3OcrjF9
+	N6EjsoUF0hUIU/CDZ7SgB8cnIvW6GYVmFnwls3M7uhATomzSncVz5ipo5e0OUPYBj0qU+FbzqDW
+	+zYr4tog5xo0rWH0hEZ0VF1fju4SeMkEhJYe4vKUnYm/ypTAaVdHwQa/uEb+/X76bYMmFFZrKcG
+	2ceudSJ84lBaEqcI0hdlw3WnRT9GXUavpKUovbozjdzj7zmroPsOFwlmsP/8ns+OW7mcdA62hbS
+	oQmzHKqE8ieuXfFrpUhNOMV+GZh/WhEdZLFfyu7SrXwE2vnMbgml0Fw0od6tFkweznXhWqKuUkI
+	GVn3N71RpV3EKEl5tPZ7PkoFHgheGj/sJbVbEAGZ0nVJHkhr5fyO24f+Zyf3+8YgRpwE9apj/Ex
+	hTm0jccn7W6kP
+X-Received: by 2002:a05:600c:1554:b0:493:a570:df7d with SMTP id 5b1f17b1804b1-4954a402f91mr265320545e9.20.1784701816772;
+        Tue, 21 Jul 2026 23:30:16 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956ab45df3sm32706965e9.1.2026.07.21.23.30.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 23:24:39 -0700 (PDT)
-Date: Wed, 22 Jul 2026 09:24:37 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Imran Shaik <imran.shaik@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: shikra: Add support for
- AudioCoreCC and AudioCoreCSR nodes
-Message-ID: <gotzbjedro6lkzpk7xfszzymg4rd36jb3qojwlm5yelvi355za@jufl7tenh26b>
-References: <20260708-shikra-audiocorecc-v2-0-b320d822cdd0@oss.qualcomm.com>
- <20260708-shikra-audiocorecc-v2-4-b320d822cdd0@oss.qualcomm.com>
- <71576059-b5cd-401e-b4b0-c1784f24ba46@oss.qualcomm.com>
- <81ac9bcb-65c8-4cd5-bc54-c350f24d06a8@oss.qualcomm.com>
- <cb9b3fd5-e63f-4367-8fba-cd3cd11fedf8@oss.qualcomm.com>
- <b9540345-63c5-4da2-b761-cf1aafa8286f@oss.qualcomm.com>
+        Tue, 21 Jul 2026 23:30:16 -0700 (PDT)
+Date: Wed, 22 Jul 2026 08:30:16 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: dac: mcp47a1: add support for new device
+Message-ID: <20260722083016.000062c4@gmail.com>
+In-Reply-To: <al_a_pbITuYMg0KH@ashevche-desk.local>
+References: <20260721-mcp47a1-add-support-v1-0-da045a2567e3@gmail.com>
+	<20260721-mcp47a1-add-support-v1-2-da045a2567e3@gmail.com>
+	<al_a_pbITuYMg0KH@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b9540345-63c5-4da2-b761-cf1aafa8286f@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: 97GCO82l-Aoh1IxCL_KiJ_ir322ekWtc
-X-Authority-Analysis: v=2.4 cv=VfrH+lp9 c=1 sm=1 tr=0 ts=6a60622b cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=ASnxAr1qJVsTKQ4uUNAA:9 a=CjuIK1q_8ugA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-GUID: 97GCO82l-Aoh1IxCL_KiJ_ir322ekWtc
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDA1NyBTYWx0ZWRfX0qB4QKPmZhAY
- ROpS44iB7jfpf4hdrg/fPPxkG6yfArSXIscYrkFGfWWFKswCCltFS+ngP9ae5FXz2oSDprXilsX
- 4RYSsPjm6wAGxBnu6Dy9+rFY38V7LsvlG9ngogeVCdRSBSBqYopAOCCUmZh2ccr/m3aB13aiEXu
- /aN739uvumv0zR3thCTfCTDxJggbWdRdBmJ3zhsI3QXC2814Qb+MqJytLcCRjqaeT5Upcw15bF4
- Pci7x4EMvbw52cfIFZjeIL1j5m/W5O1to2UJ3MstHeIKPCGDmyvNgng1UolyU5ld/tQLCLmdgnY
- zEwOV4FQpWMPFhvB6rNRW87jRQ3TxkgwIyd9LQfT07mh2i33Ti4+LlhEXP4BowPLFFit9eWpKB3
- 1lf56uBad/3b+hiMBbaZQpvXIh+zxjCF4hEmaFIFm+3GXj1jBJPSE4QvEN55lVpL6yKbrSmzEyy
- /8BxMoe5q1Qil4rBR1w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDA1NyBTYWx0ZWRfX74GxUzh1FDfC
- aU05FSlG+jxMNcscFVGaGjeTNazbpUSpV8iZgpfhDWtVzw/kILfeKSQsfwR65wNBLpt4HUpHgLA
- GGWSy7+xm/LV+U1h/QW+3iab7+eRSTE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-22_02,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015
- priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220057
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jul 13, 2026 at 06:01:34PM +0530, Imran Shaik wrote:
-> 
-> 
-> On 13-07-2026 05:44 pm, Konrad Dybcio wrote:
-> > On 7/13/26 2:07 PM, Imran Shaik wrote:
-> > > 
-> > > 
-> > > On 09-07-2026 05:30 pm, Konrad Dybcio wrote:
-> > > > On 7/8/26 8:25 PM, Imran Shaik wrote:
-> > > > > Add support for Audio Core Clock Controller (AudioCoreCC) and Audio Core
-> > > > > CSR nodes on Qualcomm Shikra SoC. The Audio Core Clocks and Resets support
-> > > > > differs across Shikra variants based on Audio subsystem enablement as
-> > > > > follows:
-> > > > > - CQM variant: The QAIF driver runs on HLOS, hence both clocks and resets
-> > > > > are required to be supported on HLOS.
-> > > > > - CQS variant: The QAIF driver runs on the Modem, and required clocks are
-> > > > > handled on Modem, so from HLOS only resets are needed.
-> > > > > - IQS variant: no soundwire codes, hence no clocks/resets are needed.
-> > > > > 
-> > > > > Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
-> > > > > ---
-> > > > 
-> > > > For the sake of simplification, can the resets be enabled
-> > > > globally by default?
-> > > > 
-> > > 
-> > > By default (PoR), those resets are under HW control. For audio use cases, software desserts/asserts for switching to SW control. Hence, these cannot be enabled globally by default.
-> > 
-> > What does enabling the provider node have to do with changing the
-> > state of the resources?
-> > 
-> 
-> My bad, I interpreted it in wrong way.
-> 
-> We have IQS variant, where we don't have the soundwire codes, and hence the
-> respective clocks/resets are not required to be supported. Due to this, I
-> have kept the status disabled, and enabling only where it is required.
+On Tue, 21 Jul 2026 23:47:58 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-Would it make sense to do it differently - disable them for the IQS?
-Is SoundWire not supported on the IQS at all or is it not a part of the
-EVK?
+> On Tue, Jul 21, 2026 at 08:24:39PM +0200, Joshua Crofts wrote:
+> > The Microchip MCP47A1 is a 6-bit volatile Digital-to-Analog converted
+> > which communicates via I2C.  
+> 
+> ...
+> 
+> > +#include <linux/array_size.h>
+> > +#include <linux/err.h>
+> > +#include <linux/i2c.h>
+> > +#include <linux/module.h>
+> > +#include <linux/regmap.h>
+> > +#include <linux/regulator/consumer.h>
+> > +#include <linux/types.h>
+> > +#include <linux/units.h>  
+> 
+> 
+> > +struct mcp47a1_data {
+> > +	struct regmap *regmap;
+> > +	int vref_mv;  
+> 
+> _mV
+
+ACK.
 
 > 
-> > FWIW there's nothing like reset_sync_state
-> > 
+> ...
 > 
-> Sure, I can keep the audiocore_csr node enabled by default.
+> > +static const struct regmap_config mcp47a1_regmap_config = {
+> > +	.name = "mcp47a1",
+> > +	.reg_bits = 8,
+> > +	.val_bits = 8,
+> > +	.max_register = MCP47A1_CMD_CODE,
+> > +};  
 > 
-> > Konrad
+> No cache?
+
+Hmmm, could you elaborate a bit more? I assume you're talking about
+regcache but I'm not sure on how to use it here.
+
 > 
+> ...
+> 
+> > +static int mcp47a1_probe(struct i2c_client *client)
+> > +{
+> > +	struct device *dev = &client->dev;
+> > +	struct mcp47a1_data *data;
+> > +	struct iio_dev *indio_dev;
+> > +	int reg_val;
+> > +	int ret;
+> > +
+> > +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+> > +	if (!indio_dev)
+> > +		return -ENOMEM;
+> > +
+> > +	data = iio_priv(indio_dev);  
+> 
+> > +	i2c_set_clientdata(client, indio_dev);  
+> 
+> Is it used?
+
+Nope, it isn't, good catch.
+
+> 
+> > +	data->regmap = devm_regmap_init_i2c(client, &mcp47a1_regmap_config);
+> > +	if (IS_ERR(data->regmap))
+> > +		return dev_err_probe(dev, PTR_ERR(data->regmap),
+> > +				     "Failed to initialize regmap\n");
+> > +
+> > +	ret = devm_regulator_get_enable(dev, "vdd");
+> > +	if (ret)
+> > +		return dev_err_probe(dev, ret, "Failed to enable regulator\n");
+> > +
+> > +	ret = devm_regulator_get_enable_read_voltage(dev, "vref");
+> > +	if (ret < 0)
+> > +		return dev_err_probe(dev, ret, "Failed to read vref\n");
+> > +
+> > +	data->vref_mv = ret / MILLI;  
+> 
+> (MICRO / MILLI)
+
+ACK.
 
 -- 
-With best wishes
-Dmitry
+Kind regards,
+Joshua Crofts
