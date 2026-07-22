@@ -1,94 +1,172 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E577F35837C
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 16:13:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4923741D10A;
+	Wed, 22 Jul 2026 16:15:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784736835; cv=none; b=MbKUUiYAjz3TaaRwgr+fwjMEwszherdpuEHKaE+l/+zDDeYfwy7aFOzX9wYe4j2KhQ8TE6udTKH39MsKCRS7tbNqvQXECdDY+IVWqjero21WrzV97xnfinugdAnvejmz07RwbjKTPI75+VCftH0SxMmJoo5WE9j2ZguVRG8IL5U=
+	t=1784736941; cv=none; b=K7CsXxQ0aZnCFLBaomZd9h0lNbTfneYpfGpHSEuaYPD0Nzxd1ctiWOzY1QzBSl3OYw3+/Rtv9CGMlL0RivFyPK9qfK2NGWlquNPP0KeizI//Ei7zOL9KlcneoJNdOriQXK1XhfRQlpJdt5oGLXSuSyy9xwX/Y482jT0ZlSwY5oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784736835; c=relaxed/simple;
-	bh=7dShQ/pIv3WUwbkgCTlRBgtojGWc1Be+P8DYwblC3XE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=W0shphOrC5KogUSlzMS4slWz2h+DbAQ3dJvY9DTRW/0yrX31pBEnkJU4/+hIwL/LZNeujCjq+xgweailOR5nMrf3qR9rRVByxiY7UtzMU/H4Qa/WsXH0gZYs9SMuTo6AQucIJVFl213SErXoW6o6v5tgunn4U3TfRPyO1sprzIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GnpRUibN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784736941; c=relaxed/simple;
+	bh=JRSSPH5/mIjuijfbAtoGLk+DIcsPFNtlz6RKZFC686Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IpP4FHCXqatIpYvWNeERHDdHDcFy+hAd4L4axliKN7Fce8uL2TnMq6x4f1RK2HcacMCA93/o3ZqSB6jGJMVoF55Y6NvvrnX7ivrWDOmMK0h/hxR83+iHDc7px3N6u+y/brw92EmhyGNF6FKg2EecVDe5Pts99yIsIt7waDFLQRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XM0FpB8U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GnpRUibN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48A111F000E9;
-	Wed, 22 Jul 2026 16:13:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XM0FpB8U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACF311F000E9;
+	Wed, 22 Jul 2026 16:15:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784736833;
-	bh=3sxj5iYQHp0U982da5Fz9FG3sO/pn/yUDozMbXEH9rY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GnpRUibNVELlF5itSCOyfdiwcC2V3+RlZVlsINI5Whdjgu8u4U/U9igJDvHCvtAHC
-	 pUX9DscaI2UON5xhZIs/awf7Trq3brC3rKYyVhl1j6+SZrr1AZBj/2uHvwRreuAzjs
-	 ecRcat3Y+kLVhjVrVuq51SgLSLBnj5fFVaDgjBlOR/Nz9jolTLimlJzGvoX2VkkwPE
-	 G8iiYlr1EcdE0q/pgCy99cOsnCaFOX0mFvgCDE+q7rqh7Cn2MBsoBBwztws6gzbbLx
-	 8p+cR9ZQZuceyo5QaHAznaQkBXJx6Up0L2XLeAW1WGofx/Q/tBHarGinUq6G9zlXUj
-	 DLrv18aPqqj2w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 07/17] iio: test: add kunit tests for channel prefix
- naming generation
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rodrigo Alencar" <rodrigo.alencar@analog.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260722-ad9910-iio-driver-v9-7-459d1df5ac56@analog.com>
-References: <20260722-ad9910-iio-driver-v9-0-459d1df5ac56@analog.com>
- <20260722-ad9910-iio-driver-v9-7-459d1df5ac56@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 16:13:52 +0000
-Message-Id: <20260722161353.48A111F000E9@smtp.kernel.org>
+	s=k20260515; t=1784736940;
+	bh=UCNZNSZ/KaKi2HN6huz+/6/BGuqPjjLEs0PsS30eq/Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XM0FpB8U/90EUWbEOIg1nBMzeofr1gZH6J9DDpXlLp4O25TXo+64QORFvIO7W6Y2p
+	 XATOmuAWT4AMBig2bgQo40IhsC31gg6igpFfyYF3r0CwYXtRuYUhduCVzFp0RkGVKE
+	 61TH8e72D9xgVWfpkuNLAHKJhsdFxs7i4sULhnTfg6kCPfhCnJlFr1jOFXGpGd7+6W
+	 rey7BHkkIlxSjZNu3Ve9cXHqpgUjCaHGOY7gLJR0/JdBZjypdhzeLrRIwh0JMDznh7
+	 2sK8M1h2hXrOleY3m8zbpncqD4THVvImQfrDqWDEM/9FgvR/Qp1w7DaUUkl6t0Xsd7
+	 +6bRabeO/FP3g==
+Date: Wed, 22 Jul 2026 17:15:34 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Troy Mitchell <troy.mitchell@linux.dev>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 1/6] dt-bindings: vendor-prefixes: Add Sensylink
+Message-ID: <20260722-devious-seventh-9859bb3741b3@spud>
+References: <20260721-ctl2301-v2-0-ef5fb342872a@linux.dev>
+ <20260721-ctl2301-v2-1-ef5fb342872a@linux.dev>
+ <20260721-dill-dab-df15585090d2@spud>
+ <673be23a-2a84-43b7-9be7-a661cf0e7935@roeck-us.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="EpgLK6YPQDxaGwyB"
+Content-Disposition: inline
+In-Reply-To: <673be23a-2a84-43b7-9be7-a661cf0e7935@roeck-us.net>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `iio-test-channel-prefix` KUnit test module is missing a `MO=
-DULE_LICENSE()` declaration, which will cause it to taint the kernel and fa=
-il to load when compiled as a loadable module.
---
+--EpgLK6YPQDxaGwyB
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
---- Patch [7]: [PATCH v9 07/17] iio: test: add kunit tests for channel pref=
-ix naming generation ---
-commit cea50e2c0ecc39138633c2f38aadeebe93da4611
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+On Tue, Jul 21, 2026 at 10:56:36AM -0700, Guenter Roeck wrote:
+> On 7/21/26 08:49, Conor Dooley wrote:
+> > On Tue, Jul 21, 2026 at 02:48:27AM -0700, Troy Mitchell wrote:
+> > > Add the vendor prefix for Sensylink Microelectronics.
+> > >=20
+> > > Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+> > > ---
+> > >   Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+> > >   1 file changed, 2 insertions(+)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b=
+/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> > > index 396044f368e7..22d0d26f1bbd 100644
+> > > --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> > > +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> > > @@ -1467,6 +1467,8 @@ patternProperties:
+> > >       description: Sensirion AG
+> > >     "^sensortek,.*":
+> > >       description: Sensortek Technology Corporation
+> > > +  "^sensylink,.*":
+> > > +    description: Sensylink Microelectronics Technology Co., Ltd.
+> >=20
+> > Googling the company to see what their website is, I seem to see a
+> > different name for the company: Shanghai Sensylink Microelectronics Inc.
+> > Their website has that with the Shanghai dropped.
+> >=20
+> > Also, probably the commit message should contain
+> > Link: https://en.sensylink.com/
+> >=20
+>=20
+> Asking Google search: "Why the two names ? Did they rename themselves at =
+some point ?"
 
-iio: test: add kunit tests for channel prefix naming generation
+The google search "AI" response was what showed me the different name,
+sounds like I should have questioned it some more!
 
-This commit adds a KUnit test suite for the __iio_chan_prefix_emit() helper
-function. It tests various iio_shared_by modes, differential and modified
-channel configurations, and exercises known error paths.
+>=20
+> Response:
+>=20
+> Understanding the Name Structure
+>=20
+> 1. English Legal Name vs. Marketing Abbreviation
+>=20
+> Sensylink Microelectronics Technology Co., Ltd.:
+> This is the literal translation of their full, formal registered corporat=
+e name
+> used for international trade, customs, and legal documentation.
+>=20
+> Sensylink Microelectronics Inc.:
+> This is a simplified, Westernized abbreviation used on their official
+> English website and marketing materials for cleaner global branding.
+>=20
+> 2. The Native Chinese Name
+>=20
+> =E4=B8=8A=E6=B5=B7=E7=94=B3=E7=9F=BD=E5=87=8C=E5=BE=AE=E7=94=B5=E5=AD=90=
+=E7=A7=91=E6=8A=80=E8=82=A1=E4=BB=BD=E6=9C=89=E9=99=90=E5=85=AC=E5=8F=B8 (S=
+hanghai Shenxiling Microelectronics Technology
+> Co., Ltd.): This is the company's sole, official legal name registered wi=
+th
+> the Chinese government.
+>=20
+> "Sensylink" is a portmanteau created specifically for international marke=
+ts,
+> blending "Sensing" (their core technology) and "Link" (their interface and
+> connectivity products).
+>=20
+> Prodding further, asking if the previous response was complete, it tells
+> me that there was a name change:
+>=20
+> According to Chinese corporate registry data (via Tianyancha and Qcc),
+> they did change their official Chinese legal name:
+>=20
+> Old Name: =E4=B8=8A=E6=B5=B7=E7=94=B3=E7=9F=BD=E5=87=8C=E5=BE=AE=E7=94=B5=
+=E5=AD=90=E7=A7=91=E6=8A=80=E6=9C=89=E9=99=90=E5=85=AC=E5=8F=B8 (Shanghai S=
+ensylink Microelectronics Technology
+> Co., Ltd.)
+>=20
+> New Name: =E4=B8=8A=E6=B5=B7=E7=94=B3=E7=9F=BD=E5=87=8C=E5=BE=AE=E7=94=B5=
+=E5=AD=90=E7=A7=91=E6=8A=80=E8=82=A1=E4=BB=BD=E6=9C=89=E9=99=90=E5=85=AC=E5=
+=8F=B8 (Shanghai Sensylink Microelectronics Technology
+> Co., Ltd. by Shares / Joint-Stock Company)
+>=20
+> I don't know if Linux has a policy about Legal vs. Marketing names. Perso=
+nally
+> I don't have an opinion. Your call, really.
 
-> diff --git a/drivers/iio/test/iio-test-channel-prefix.c b/drivers/iio/tes=
-t/iio-test-channel-prefix.c
-> new file mode 100644
-> index 0000000000000..d049e4222c40e
-> --- /dev/null
-> +++ b/drivers/iio/test/iio-test-channel-prefix.c
-[ ... ]
-> +static struct kunit_suite iio_channel_prefix_test_suite =3D {
-> +	.name =3D "iio-channel-prefix",
-> +	.test_cases =3D iio_chan_prefix_test_cases,
-> +};
-> +
-> +kunit_test_suite(iio_channel_prefix_test_suite);
-> +
-> +MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
+I don't know what the policy is, or if there is one, but personally I
+wouldn't use the westernised abbreviation since they may decide to rebrand
+that etc and the vendor prefix information should remain static.
 
-[Severity: Medium]
-Is a MODULE_LICENSE() declaration missing at the end of this file?
+So this is probably fine as-is, just I'd like to see that link added to
+their website.
 
-Because CONFIG_IIO_CHANNEL_PREFIX_KUNIT_TEST is defined as a tristate in
-the Kconfig, this test can be compiled as a loadable module.=20
+Thanks (and thanks for doing the extra digging),
+Conor.
 
-Without a MODULE_LICENSE() declaration, won't this taint the kernel and fail
-to load due to unresolved GPL-exported symbols from the core KUnit framework
-(such as __kunit_test_suites_init)?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-ad9910-iio=
--driver-v9-0-459d1df5ac56@analog.com?part=3D7
+--EpgLK6YPQDxaGwyB
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCamDsowAKCRB4tDGHoIJi
+0tcBAP44s90TlKfjWN2tr4LUjXBc0U/1shHw59sier4x+iVQ/gEAr8zXcYYlzXk4
+TCp4Mym7totPI/aTPLaNyKSkbm8gLgM=
+=aJPc
+-----END PGP SIGNATURE-----
+
+--EpgLK6YPQDxaGwyB--
