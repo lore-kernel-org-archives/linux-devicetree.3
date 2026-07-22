@@ -1,168 +1,231 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013025.outbound.protection.outlook.com [40.93.196.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C722A625;
-	Wed, 22 Jul 2026 17:06:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.25
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784739974; cv=fail; b=bBgGAN8QnLgkMNpVLhgEiBJSXSw18kG9Hep0jXrZT0LIhMw8CNbw2nSr87kc0DGH3T4y473vzSu5dCzkmBg3iyyavpPgIfcOm6vZhS20T+TM2dmMLS3HEeQK+58A7t1IlVhxPZBS/p+OxKm0chPzzEyja0BcNNJFpj7wrXu5aks=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784739974; c=relaxed/simple;
-	bh=b11oinkQWRkDjtvsb4Lm1jy6D8hIYY/17RkFcMuukE8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=I05qOCqTaakq5Z/1cyhuYk521bAXNiC5kY7qGGWvFmAC99796OvUIWPj1r1nfiCGA1vq7cT1oMZa+xeDrOX9wWbvsDD+ltA7Z8ZaaOtB/RT2eEldQFekWkCz3PUkZExopbahXEvbgnrGxSRw0ohF8ymRxd0KDtNt3JfYoFCQ+C8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=fo5vFIRa; arc=fail smtp.client-ip=40.93.196.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB9D43CE69
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 17:09:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784740165; cv=none; b=sJ2YKVI801c1xTNB/wBT1VYVc4QhFa/Muy7JETiGLf89px+B00TE1A43VIBZuoLEDE4dnVthdI4AJe1E3JjAtUjuYMmhELBZiJzLinzYP4Nlt6vaTptFcJyvAybLfWQNG6fV1MrLWTr3gjg8c15NNV2TD5VF4q6UL5Smw60LHko=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784740165; c=relaxed/simple;
+	bh=yztxGVGkEuYG5tXSY+zuB2GlLGlpwA4SpBbNDUBC4c8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=n8bNBiB25w1+Fm6vtzu7fhil0nScM+5X8x+3SC32t22Ls2MoHfHg0jEH0LDQ1rjiO3b4i8eHEBfm89kXCxnP0Pkkf0Fftx1vJX93IA8mk5o5hKhsGVk40k8CfEa3BvrnAjoJQjiMrEDFt5fCzjlCTQJKcgpEodYsfyvuisboLX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p1RJl82V; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="fo5vFIRa"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wh87U7MgwsxDaUCWHVlJWtaWtSkd9pcutezPXHbd8XQ84Uv7/VOEnzlT1XJTRQLN5u6pGkNkC963+flA1ihIvv/kxGP0D/fjLKvhU0fgNCYyfVNJHrjNQocTJjAYoP1gc2+P+kPEhwQJ48xlSmS6P3a8U+QLrP/OD7vE1gV44kpFMbLxHlnEZiQ+g9vH8Kl0ARa6mJ+uKbpNTL6zXm9yx2yS9njEMfalRItRSBHCLk1GIAq/GPktVF9vRBC+dFLo0PRbUse9zAgcZpBuaIG4C3zX1jMqJOijCmJ1Lcmg9MO+3U82zBcDrJfxuL4nKJVFGtDj405qX+suPPvK0snnFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b11oinkQWRkDjtvsb4Lm1jy6D8hIYY/17RkFcMuukE8=;
- b=vB7YQz3HmPUFObq9pgDVUwOJNrrMxH462llgNqSqYu+79+09/0JoOYpB+QlElvNadxs5Q3nS2hznif6eub8wZIcGlPCQ6HmKSgC4Ls8ZZe+vG3WqQG+0ArVKUana+2mB3C3ZqCoVqGVEMdSU7qzDRfblned6ext2H8X6hCqFP6BnoXhXZEUOVURMtSlX20WKNZj2SYgIZsX3v19wohJCrlfWV0T4HzYAxTBcpH2ETWIIe2xn6og5h4Rz6yeL5xOfUvJdjYS6kaL9TH08xFPwG5jF88pwhd/Wc1ipVw55IdN7RzJWMduSzv9rBY9vrRhPpofsvaV/nhiDakiuBTfFyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microchip.com; dmarc=pass action=none
- header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b11oinkQWRkDjtvsb4Lm1jy6D8hIYY/17RkFcMuukE8=;
- b=fo5vFIRa/Biqa+wHz3PVSBXZTmSYRLD+IGnqvy1uZ+62yC/YlJ9z2ggHT3icc6OPs7oGGGm6aqq1M7Vs0WuqTVXRoQ/Fs+tSAmF5Alpshin6SMxu4iyZc54Ig8iGfL02ItTyWScrVltj6Ci3MhhJwPiZniDE00FiXjQ5EWVIhVrzIXEOyZFohAb7HFeQ4ttC8NYdicgmuhi6HiQGBvxAvueic8nxWimaiyFG1698mSgMQWQRz+2lWLj1CsEOlR5k18BzbjlMkUqc5tIi2O9DHzSP0GKDkyrGtKrDniFkjUS7xjYMYfUs79crjHa2FD7jeGO1M2kXuRd0Su01EzH/1w==
-Received: from DS0PR11MB7624.namprd11.prod.outlook.com (2603:10b6:8:141::6) by
- CY5PR11MB6092.namprd11.prod.outlook.com (2603:10b6:930:2c::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.14; Wed, 22 Jul 2026 17:06:08 +0000
-Received: from DS0PR11MB7624.namprd11.prod.outlook.com
- ([fe80::33b1:3e53:2b94:9990]) by DS0PR11MB7624.namprd11.prod.outlook.com
- ([fe80::33b1:3e53:2b94:9990%7]) with mapi id 15.21.0245.009; Wed, 22 Jul 2026
- 17:06:07 +0000
-From: <Marius.Cristea@microchip.com>
-To: <corbet@lwn.net>, <robh@kernel.org>, <andy@kernel.org>, <kent@minoris.se>,
-	<Michael.Hennerich@analog.com>, <lars@metafoo.de>, <conor+dt@kernel.org>,
-	<skhan@linuxfoundation.org>, <dlechner@baylibre.com>, <nuno.sa@analog.com>,
-	<janani.sunil@analog.com>, <krzk+dt@kernel.org>, <p.zabel@pengutronix.de>,
-	<jic23@kernel.org>, <marcus.folkesson@gmail.com>, <broonie@kernel.org>
-CC: <linux-spi@vger.kernel.org>, <nedo80@gmail.com>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-iio@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-	<jan.sun97@gmail.com>
-Subject: Re: [PATCH v7 3/7] iio: adc: mcp3564: Add support for spi-device-addr
-Thread-Topic: [PATCH v7 3/7] iio: adc: mcp3564: Add support for
- spi-device-addr
-Thread-Index: AQHdGa9vZSBX56/xs0etMzmGWafakLZ5xWUA
-Date: Wed, 22 Jul 2026 17:06:07 +0000
-Message-ID: <c6c344e8bc09d49c23bc6bc37b70edb319b37955.camel@microchip.com>
-References: <20260722-ad5529r-driver-v7-0-7781cd74ad75@analog.com>
-	 <20260722-ad5529r-driver-v7-3-7781cd74ad75@analog.com>
-In-Reply-To: <20260722-ad5529r-driver-v7-3-7781cd74ad75@analog.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microchip.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR11MB7624:EE_|CY5PR11MB6092:EE_
-x-ms-office365-filtering-correlation-id: b178f426-6b10-4958-512b-08dee81385ad
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|10067099003|4143699003|56012099006|11063799006|18002099003|22082099003|38070700021|921020;
-x-microsoft-antispam-message-info:
- A0aCOWeDpiJacx2T8CjK0TZTa3n3hsmB0ajDrbKnOOGBr8KbTJwW/YcIGrKrJGZgkkBZMV/Kv+f6aPGbASCY2pwo+dFpvTTSUwE7vC2VvxA0llUq4Kf9zLY9w2Kyw1GG2xTok/FR5SETdoEe0qC65MrempdmohNmPYvNbeo6Zlio4oKgpSulS1FLR5wy9C1rKdub1Ty3C8bgpF1UJamOR1LRX31J3f09LugMIwEtWl9n2QsN8z5zC5TudlrlarEXG4WcSc3YwEBujq1aiTiB3eUPVMHQYFRL8KMpKQWVA3jkWjGXCNmOtNwBoL/rRmnaPvv8LNyJrJyd/f4NVKw8cGG8dO0rsx9Znddr5GsMZU6eSEzkwXsDxDL5nGTZJi3A1s2dLKbI/chF9NIrW7ZP0OpykDesVbkRTHhVOiUe+9IpilDnBUMYGgI3YXkFl2XRB4p2w52Ow0NhC3zUkwFM9jIi2XYtY0rh8BIJmdv36dms5fHDytCPQe0H4HEZhGunhrxkMPh4c0APyJKCN4Rqj2nvOHSDQWhKynA9fho5Qrv2MqCN5GQUVM+vwdMzvB773P8gS9FKK9m1KnbE5k8x2NPVv46ccfBLsWGQZhOyX7Y7+yPukIFymq3ZoAcaavY/czPieWGW5mSX3r+stB/e8aQzW3EGa5CxQiBAAifdN3x2q0AVZMPJvxFUmZAOqq/4UUu1LwEXkaRljUFjXeAhGRlo4f0ImlLB7VaDdM4//kY=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7624.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(10067099003)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003)(38070700021)(921020);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?K3VYYy9lZ2NCdTZPbWdoVDZPbWN5NUJ3WCtOV25KdHpWU1M5N2Z2akdWNjd2?=
- =?utf-8?B?WFh5bWdCemtFRFRtRW0wQVdqcjdYQTJPNUVrd1BRTFh3MVR4emp1MEVoT0hj?=
- =?utf-8?B?TWV3elF6K1lIY3dwRDNVRDVMZG5KNXVvdDF6eVcwanlrZFR1b2ZBVjRCbGRT?=
- =?utf-8?B?QXR2MVhVdDdwMXFubG92SEhsSUhHaHhLTHQ5QVhVaHBIOUw0aWJJbXUrN2Fp?=
- =?utf-8?B?dGdhaGllNWVKUXJUL0hvSTJxc3hhM1RwajZzeHQzYVZFSy9aTmw3c1hKdVkz?=
- =?utf-8?B?bnNTRHRCYmJJUndoZkgwQkNGWnZTT0NTcTFQbEtCY2Y1eDM1QllqYkZJUjhE?=
- =?utf-8?B?UXJaUGZEQ1diYXNyZTQzaE1JQkFuM2ZIZHV0OURreGhDNmROZUZQVEpjVUNi?=
- =?utf-8?B?OEx1dTJIdFh3d2tMSllIRlhGeGRwTWdURjYxeVEzMjY4bWRESTNmcmJUU2gx?=
- =?utf-8?B?Y0pKTkR4dXRaT21FNzFHNnpqdGJsZGk2a3lFWU9zUU1aSW0rcnc4RWhLbS96?=
- =?utf-8?B?Z1Uzc01ZbWYyYnJwc3JUcnlBMlFPYm5nWWVFdzRCaU9ydlVrNHhzQTZoUTJz?=
- =?utf-8?B?TEpKT0xKYTlReDd2VVowbGI1UzRjVzZ6dGlVTnpzWFpUZ01yWmZwSStlSExn?=
- =?utf-8?B?T1NsanlXVTlRU2ZYYWFlcm42YmpkazB1bHdLRzZ0K05CdU5OZFZ3azR6aElC?=
- =?utf-8?B?YVRJdFByeUtndG9PMUlBWjR3M1ZQaGFYTWVacmYzbERZSFZaaS9PVXNMazl3?=
- =?utf-8?B?azhuSk5kS2hnV0VVMGZxbmlDNkFqOHFhY0orTXBxRVpMYTYrVkZWOUM2NVlD?=
- =?utf-8?B?dGNnUWVkdGM1dGh5V2gzWnlBK2g3RmZaWGtJUWx4blRxRVppV1d4aURJODda?=
- =?utf-8?B?Nk5zRmFaQjM3SkxZeTZQWWRhcXV4bzZ3RUtEbU12WU02OHpab2l4UFhPRld3?=
- =?utf-8?B?Q052eW9YOTJ5VUdNaFEvUkRTb2FwSnFHT1d0a0pJNjlqQjQ1SUZCWWFMSGdI?=
- =?utf-8?B?MjNlRUEvRzkxeGpsZUY3Qms5SlgwdlQ1QmE0N3FLY0Nha0hLYzZCWVlJbGRV?=
- =?utf-8?B?VktzeC8xU1lNbWx1d0s4aTFIWUIrdDhDZHh2YkhHWGlMSWpsS2cxazE1d3Ni?=
- =?utf-8?B?cnVMUTkwVlJVL2xKRUl1RGNXb3RRMWlIcGpoOC95VG8wYUhrUjdIdjJ5ck84?=
- =?utf-8?B?TmxLbWhXZXFKZ0J2RmtHMU9zSFd1ZnVhaDgyV3RaMUM4TWhwOE1mMUorUENt?=
- =?utf-8?B?MVRxM2ZxMDZKTk9GQTlOcWhJKzRSMndkd0lIOXk2OTBpT2hUVkF2VGRVY1pt?=
- =?utf-8?B?d2owV0xIOGhTUGEycTlXczlYY0wreVN1MlI0eGNQMk1mWm1ySmJMSVdCSmRp?=
- =?utf-8?B?NHgxck5wampCa3M0TnRnakFiT1RjSXhsTFNES3pWNzBSSzVEcW5LQ3ZPMFpu?=
- =?utf-8?B?am1GYnhheWV6QzZ3SEp4SzJiZTdzNDh2NTdEcW5CNWhnK0V1c2FLTGszSE1E?=
- =?utf-8?B?anZNdks4UGxsOUNuclZteW5HdmlFU3RvK3BZWHY0cUEvaUZpUENnUHliOVdw?=
- =?utf-8?B?R3dYNHBTSGdlaTNBSHFqcWNJcUk5QjZnQ1I2dCtkUzV4RlUvRVBhOXoyM1Bp?=
- =?utf-8?B?NXcxL1M1NmhMYVpPeWVzUFIzeUViZ0hvUk1DaTg2TkJJSDN4Um52cU5rbkpq?=
- =?utf-8?B?Y0tzOXZKMGtGZXN3dHB6RjFjdUNhR1JsSUNWcWVtNGVrNFh0L1lob2ptanpw?=
- =?utf-8?B?anJla3hvYUFrOWJyOVNvcTEvc0dKU1pOeE5ISTFrT1BxcjVrbzd2aFREdkY0?=
- =?utf-8?B?QktUcGE2WHVQYk80VGhNa1JDZ0huWVk0STd6MWhXTC9iNnlGR3VZRVczZE9y?=
- =?utf-8?B?N2RVWGZZalRuQjcxYnRxeUxiWitWOVl3dmNEMEU3VEt3dThLT0pTWVJiVncy?=
- =?utf-8?B?T1c4WjFtUUUxeVRBSnAzS2VNTjdDTDR0cVk2WkNURFd5NGVzSTh1dEk5Qlhk?=
- =?utf-8?B?UFdSK1pCTlFBSzA3WmhzeHJxeXNGQXN3elJMaGg2a0RpMUU3UXkzV1o4MGlr?=
- =?utf-8?B?dTRKYkZaR1VpdUV0dzlybGxkSzZhek5yck1uR3dVUE5teE4yUis2TTJhTVhF?=
- =?utf-8?B?ckkzYk91am03Z3dQUjh0UjFvd00vSGxtcmVDK2ZCT0RpQnZ3Z3lOSG9OTW51?=
- =?utf-8?B?bXdNUTN2cjZsRURQYXdpWlFOTHpaUXhZUndIYmVoY29nekYySGEveCtMczFw?=
- =?utf-8?B?Uy9JTzBvRkJhdTJycmQrbHg3TmQwV2tQMmNmK1d3NFNkQlJENkVGSmE1RmpP?=
- =?utf-8?B?MkEzUitLUnoybjhzWi8vbk55SDF4NGpRbFJpT1YwZ0ZWeGpYdVVTSVFrazRw?=
- =?utf-8?Q?3NP3pfCRZj0ruCm0=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <725051082C425B40881F28AC48B796B7@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p1RJl82V"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-caf45fc5202so9302385a12.1
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 10:09:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784740160; x=1785344960; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hrTCSIzPcJ82u0tUjUSjSEmR3gxr33ajrULj/zhF5g4=;
+        b=p1RJl82VEYinuQnC3qS3ZQSAszDnOwJIhxg4s+1uOB2XOHFtC2gFJIlrpY2dnWeDKJ
+         T6wu7lHqlpsjveOPWuPLf4CAsIMh6psI4xp5vB4eMF4L1jRNF9HmGE7lh5lri5Q8V/nS
+         bOPXuCAADiRgm9Qf0WBpq6UymQfQyrapiOYI7cMvAIiivyJFwXk76MXFh/9TV2BM49nM
+         jewKNxZip3eXDzglo19ONgncIVTG5MVIBGcbHxd6+rCrhWmPS35K84829zU5RQ8v1oqT
+         tEEnCLScscKPK9+kwTU4/jgBwbRbQ54kKjkTx+grJN+2mN1v3NtKAwQ80NG+7UYNny0m
+         y2Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784740160; x=1785344960;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=hrTCSIzPcJ82u0tUjUSjSEmR3gxr33ajrULj/zhF5g4=;
+        b=LmnzuFro0Myeg0PYPoUtwll2AHkXXgXtRMScAd3vIFTHeiPnY0T11CU1vKsS8jQi8R
+         yq1ecgTKofd6QTG61G31Ep3py2uItIfjyXY1Nmlpu9TKiIZ5Gdq00frctTTFmX75TeFm
+         n3GqMABtTHatk09xl2Q1h2G6qBItc45qaGkS35WyaGFjUw+bm9REeOcPC7Q8Sfvpk23r
+         OAO8Pq+wM4TItKoTxeFn4SkXId0dyocTb/cW0la6EAuIdpH22lBvbye/EI1YIDE7ve5/
+         f4anex2Wcd470HSbJjdS/iZg9iojCXKn5V7bamFqbofgCy5waoQdqw2nuUZbLIvoyzFJ
+         civg==
+X-Forwarded-Encrypted: i=1; AHgh+RrHe81pSZa1OY39vwLNMLuw0KPJOTLCJTRZkgZYVGBEbD+m6qPIE2xOkG3FGp4CgQ23YlTistEWsCT+@vger.kernel.org
+X-Gm-Message-State: AOJu0YytRxHBMs3LbF490TPXG2pQD6tcacSC9ZUYIo+nTgwkMmDZ7LLz
+	T+pImfrhvlAENOyLN/lvdNaLSssoSAxYLxaFD2toekPaNxBlXu3d8Ulq
+X-Gm-Gg: AR+sD11v2NWMhWut8MRAcoh9f/YtB3Jso45Cm/E0vz4L6NFmGpVGeO2JqgTdzhAjR4C
+	JmunEo4SXIwCHIH6Bd+2gaZ9NmJUiM3M+45AvsYBH2g5GKiR356SxWiAs5FQeYqS2dVX+AmCGmV
+	nU0Co3mXWPs4m515tyZAk6Ty6N381a62/M6jpZJprUprZSYn3NjaS4+vZ78uYwi6mGQ74O31t0P
+	Bk/TDyGV2sKgGeIdqozb2WMuKzNBUdluLuVX+p+nXXYCE7Af3M0MBwbGwW+staoDfGv7kDcnZQG
+	OIDwEXiwzplVw0eRc6QTQsxieJGVXV6s+y/96OeKFGmDjgJO7LPElQGei8QDdwzRa4bwTASJ1LU
+	qiNXsOqQnwJp38e5xsW6vSMUPBizcqt/y5gvIjzsCvUee5/7UC+IkPVuRDBq87zUQWUaBjtejoO
+	+xOlXsGDm4+9FL0xxTW4lfDurJBOGBeQssX3kdc6SfZmJFZl0VaNY=
+X-Received: by 2002:a05:6300:8d:b0:3bf:83f3:b810 with SMTP id adf61e73a8af0-3c3ad6488e4mr25887162637.29.1784740159578;
+        Wed, 22 Jul 2026 10:09:19 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbb8f0f58dfsm1471345a12.13.2026.07.22.10.09.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Jul 2026 10:09:18 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <ee6a2fdd-9e6e-49f5-a95f-af44a1a8edc6@roeck-us.net>
+Date: Wed, 22 Jul 2026 10:09:16 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: microchip.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7624.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b178f426-6b10-4958-512b-08dee81385ad
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jul 2026 17:06:07.7189
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pPgmrvsDXtCjPy5HCmPciXt7NTLMS7N9ul24etyRfKxLNy6PHcxvrhEyZlPwVlfkH4AFqAI0UuXP3LpogTkbGI/eawrS/Gd5fkvHNs53+nE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6092
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] dt-bindings: vendor-prefixes: Add Sensylink
+To: Conor Dooley <conor@kernel.org>
+Cc: Troy Mitchell <troy.mitchell@linux.dev>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev, linux-doc@vger.kernel.org
+References: <20260721-ctl2301-v2-0-ef5fb342872a@linux.dev>
+ <20260721-ctl2301-v2-1-ef5fb342872a@linux.dev>
+ <20260721-dill-dab-df15585090d2@spud>
+ <673be23a-2a84-43b7-9be7-a661cf0e7935@roeck-us.net>
+ <20260722-devious-seventh-9859bb3741b3@spud>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260722-devious-seventh-9859bb3741b3@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-T24gV2VkLCAyMDI2LTA3LTIyIGF0IDA5OjU0ICswMjAwLCBKYW5hbmkgU3VuaWwgd3JvdGU6DQo+
-IEVYVEVSTkFMIEVNQUlMOiBEbyBub3QgY2xpY2sgbGlua3Mgb3Igb3BlbiBhdHRhY2htZW50cyB1
-bmxlc3MgeW91DQo+IGtub3cgdGhlIGNvbnRlbnQgaXMgc2FmZQ0KPiANCj4gUmVhZCB0aGUgZ2Vu
-ZXJpYyBzcGktZGV2aWNlLWFkZHIgcHJvcGVydHkgd2hlbiBkZXRlcm1pbmluZyB0aGUNCj4gaGFy
-ZHdhcmUNCj4gZGV2aWNlIGFkZHJlc3MuIEZhbGwgYmFjayB0byB0aGUgZGVwcmVjYXRlZCBtaWNy
-b2NoaXAsaHctZGV2aWNlLQ0KPiBhZGRyZXNzDQo+IHByb3BlcnR5IHRvIHByZXNlcnZlIGNvbXBh
-dGliaWxpdHkgd2l0aCBleGlzdGluZyBkZXZpY2UgdHJlZXMuDQo+IA0KPiBUaGUgZGV2aWNlIGFk
-ZHJlc3MgcmVtYWlucyAxIHdoZW4gbmVpdGhlciBwcm9wZXJ0eSBpcyBwcmVzZW50Lg0KPiANCj4g
-U2lnbmVkLW9mZi1ieTogSmFuYW5pIFN1bmlsIDxqYW5hbmkuc3VuaWxAYW5hbG9nLmNvbT4NCj4g
-LS0tDQo+IMKgZHJpdmVycy9paW8vYWRjL21jcDM1NjQuYyB8IDQgKysrLQ0KPiDCoDEgZmlsZSBj
-aGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2lpby9hZGMvbWNwMzU2NC5jIGIvZHJpdmVycy9paW8vYWRjL21jcDM1NjQuYw0K
-PiBpbmRleCAzNjY3NTU2MzgyOWUuLjcxZGViMDVlODc4ZSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVy
-cy9paW8vYWRjL21jcDM1NjQuYw0KPiArKysgYi9kcml2ZXJzL2lpby9hZGMvbWNwMzU2NC5jDQo+
-IEBAIC0xMTIyLDcgKzExMjIsOSBAQCBzdGF0aWMgaW50IG1jcDM1NjRfY29uZmlnKHN0cnVjdCBp
-aW9fZGV2DQo+ICppbmRpb19kZXYsIGJvb2wgKnVzZV9pbnRlcm5hbF92cmVmX2F0dA0KPiDCoMKg
-wqDCoMKgwqDCoMKgICogYWRkcmVzc2VzIGFyZSBhdmFpbGFibGUgd2hlbiBtdWx0aXBsZSBkZXZp
-Y2VzIGFyZSBwcmVzZW50DQo+IG9uIHRoZSBzYW1lDQo+IMKgwqDCoMKgwqDCoMKgwqAgKiBTUEkg
-YnVzIHdpdGggb25seSBvbmUgQ2hpcCBTZWxlY3QgbGluZSBmb3IgYWxsIGRldmljZXMuDQo+IMKg
-wqDCoMKgwqDCoMKgwqAgKi8NCj4gLcKgwqDCoMKgwqDCoCBkZXZpY2VfcHJvcGVydHlfcmVhZF91
-MzIoZGV2LCAibWljcm9jaGlwLGh3LWRldmljZS1hZGRyZXNzIiwNCj4gJnRtcCk7DQo+ICvCoMKg
-wqDCoMKgwqAgcmV0ID0gZGV2aWNlX3Byb3BlcnR5X3JlYWRfdTMyKGRldiwgInNwaS1kZXZpY2Ut
-YWRkciIsICZ0bXApOw0KPiArwqDCoMKgwqDCoMKgIGlmIChyZXQpDQo+ICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIGRldmljZV9wcm9wZXJ0eV9yZWFkX3UzMihkZXYsICJtaWNyb2NoaXAs
-aHctZGV2aWNlLQ0KPiBhZGRyZXNzIiwgJnRtcCk7DQo+IA0KPiDCoMKgwqDCoMKgwqDCoCBpZiAo
-dG1wID4gMykgew0KPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGV2X2Vycl9wcm9i
-ZShkZXYsIHRtcCwNCj4gDQo+IC0tDQo+IDIuNDMuMA0KDQpSZXZpZXdlZC1ieTogTWFyaXVzIENy
-aXN0ZWEgPG1hcml1cy5jcmlzdGVhQG1pY3JvY2hpcC5jb20+DQoNCg==
+On 7/22/26 09:15, Conor Dooley wrote:
+> On Tue, Jul 21, 2026 at 10:56:36AM -0700, Guenter Roeck wrote:
+>> On 7/21/26 08:49, Conor Dooley wrote:
+>>> On Tue, Jul 21, 2026 at 02:48:27AM -0700, Troy Mitchell wrote:
+>>>> Add the vendor prefix for Sensylink Microelectronics.
+>>>>
+>>>> Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+>>>> ---
+>>>>    Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+>>>>    1 file changed, 2 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+>>>> index 396044f368e7..22d0d26f1bbd 100644
+>>>> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+>>>> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+>>>> @@ -1467,6 +1467,8 @@ patternProperties:
+>>>>        description: Sensirion AG
+>>>>      "^sensortek,.*":
+>>>>        description: Sensortek Technology Corporation
+>>>> +  "^sensylink,.*":
+>>>> +    description: Sensylink Microelectronics Technology Co., Ltd.
+>>>
+>>> Googling the company to see what their website is, I seem to see a
+>>> different name for the company: Shanghai Sensylink Microelectronics Inc.
+>>> Their website has that with the Shanghai dropped.
+>>>
+>>> Also, probably the commit message should contain
+>>> Link: https://en.sensylink.com/
+>>>
+>>
+>> Asking Google search: "Why the two names ? Did they rename themselves at some point ?"
+> 
+> The google search "AI" response was what showed me the different name,
+> sounds like I should have questioned it some more!
+> 
+>>
+>> Response:
+>>
+>> Understanding the Name Structure
+>>
+>> 1. English Legal Name vs. Marketing Abbreviation
+>>
+>> Sensylink Microelectronics Technology Co., Ltd.:
+>> This is the literal translation of their full, formal registered corporate name
+>> used for international trade, customs, and legal documentation.
+>>
+>> Sensylink Microelectronics Inc.:
+>> This is a simplified, Westernized abbreviation used on their official
+>> English website and marketing materials for cleaner global branding.
+>>
+>> 2. The Native Chinese Name
+>>
+>> 上海申矽凌微电子科技股份有限公司 (Shanghai Shenxiling Microelectronics Technology
+>> Co., Ltd.): This is the company's sole, official legal name registered with
+>> the Chinese government.
+>>
+>> "Sensylink" is a portmanteau created specifically for international markets,
+>> blending "Sensing" (their core technology) and "Link" (their interface and
+>> connectivity products).
+>>
+>> Prodding further, asking if the previous response was complete, it tells
+>> me that there was a name change:
+>>
+>> According to Chinese corporate registry data (via Tianyancha and Qcc),
+>> they did change their official Chinese legal name:
+>>
+>> Old Name: 上海申矽凌微电子科技有限公司 (Shanghai Sensylink Microelectronics Technology
+>> Co., Ltd.)
+>>
+>> New Name: 上海申矽凌微电子科技股份有限公司 (Shanghai Sensylink Microelectronics Technology
+>> Co., Ltd. by Shares / Joint-Stock Company)
+>>
+>> I don't know if Linux has a policy about Legal vs. Marketing names. Personally
+>> I don't have an opinion. Your call, really.
+> 
+> I don't know what the policy is, or if there is one, but personally I
+> wouldn't use the westernised abbreviation since they may decide to rebrand
+> that etc and the vendor prefix information should remain static.
+> 
+> So this is probably fine as-is, just I'd like to see that link added to
+> their website.
+> 
+> Thanks (and thanks for doing the extra digging),
+
+Part of that extra digging nowadays is to ask it if its initial response
+is real or if it was hallucinated. Sadly enough, most of the time it will
+admit that at least part of the initial response does not match reality.
+That was the case here as well, because it initially did claim that the
+company never changed their name (of course, the next question to ask
+would be if it really changed its name or if that was another
+hallucination ;-).
+
+Guenter
+
