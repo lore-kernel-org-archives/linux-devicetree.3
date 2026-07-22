@@ -1,170 +1,259 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011029.outbound.protection.outlook.com [40.107.130.29])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAD653AE198;
-	Wed, 22 Jul 2026 03:42:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.29
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784691768; cv=fail; b=oU5N3BJm++7fXMNbuNVY3SUKnQtgjVx2k53ife+P8k1z9qi7dDxhrmigmfXY8XfU62b3ixL92NzTLPxKlDvu6zfaZKVj+BaiIXJyUVm/8SLYeE4UV0/HUa+vsnXVngCLJG4ha1aR75A1NkqVA27OLMBY7L4xRMSuIjHpqKlPMGI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784691768; c=relaxed/simple;
-	bh=8NV3b0nzmfvL1cb2j+lJ3yw6mXy9Orb72spAL1dMIQk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=gfbNILdXxjyuUXLIcwxMWIOhCq5FjLWN/mkg+eErRRWsdAbPwSr0rUuZZDCrew/uLRb0PjD3+H+MnhEMwEYkMKm81sJ0bkjrlM6SPGH2kwUNTB7U7MZkOwH99zWYsS7IdHa5iA8bWsOT9ISQyWCdyl30gLf2uGJdgv8WOsSWnL0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=BzFWSp/d; arc=fail smtp.client-ip=40.107.130.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C96A32FA30;
+	Wed, 22 Jul 2026 03:44:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784691866; cv=none; b=ce20KLQ3XN48jRksvn1E63oSmbpkiWzj5Uu+UvoHnSt/ZltjCUmmSpuQ++xKEG7M4MQXJtIgynuy/sjrzgPi0OpjHlCNOEOi2lFVmzI42eaUcIZgTgw3b+I4pj9JC9JlgnInnY1G59LDh+URocxz6fqL2V7wjozKlNMzaJq57+E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784691866; c=relaxed/simple;
+	bh=6jZuXCs//MAG/pPQwohjL+eKR+HuWv2epDrppzv10Ds=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=i3QkpI1zNT/jRXf3zlA/mg5m/27BC60d8ib2EticKYZrN96UnuvLgLKM8azQYYElpQJA/JDdLJK/y80qJIFdq1y8MtCVqM2zR8Z6KRSE+2EIlqtcMOieanyhjdS9+PdztKsZ6ttfQtv3zgJa3Iyf7KvZX4HgxndbkiX7so3HQKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l+M+31xM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="BzFWSp/d"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DMHyn+YfLncMrE7m09lg59qWT57SKeZS4GNGDpbrPUJ9m3+O3aiCdyLkC3O31J78WZkcVXYl9hRY21IgeoDofk9Unt4A/TPzkfCxiD9eTfmObOoAPS0doo2sLXjwOxELlojIwgODAVpjULkRSBfzKJnEEqyQWt3N1D9HGQqCvwsAVgIXa59OBiqf8ufrZQ1txpWOLOwtjbwRNd7EpBHMunYv10fD478EH9XYtj5jC60yCKcPq0vP7qHdRwzTv3IP7zIcWrfC4A96sJg/7IZUfyqDmT2Z2PGm4Ab/fFJijlGmuZQ1YoZBrgcvAyfCV46JQYunNFGsk0oOFg6XjY29Fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NjfrUzOSwzQovcU11iasIbcbUTZt+aatoyMyKeP1//Q=;
- b=Jt3kR6D/6nSgyODAnGPQj5MV1RQNhV6upSnOGisfv/aNuxkWlvw1r/TaKO0EU+qs+iQ+2St5fG/6q6RmJ3XSYnafkMMJ9dwaijKRPxyoYVbYwK+8Nq6O7VNmR28eAN7uyuZx1TsgGe4z4PjDOMW4ZXBW3auWQ+/Nca7WcXZAvB8FUy23bmscdAiGQ3bmUmKJ6NdAqXO/wXGcHBWYg+pG8Lu3F1py8GPvQGnWsP55QyFLkcVFnxTLWSkA8k0+Q5/uJuWUiwsAnEuLlilKiK4Op8NwS2nThH9d2Bm3QIAQxXqee2LP0E8Xnx4FM5mKTcxDdIw5qmURksMhati7uKD3Ow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NjfrUzOSwzQovcU11iasIbcbUTZt+aatoyMyKeP1//Q=;
- b=BzFWSp/dXbjS/KFJyDZg0XI56VsQeDszw5KK/URolzELRofG3seE/U276nQ7F0OjBxK7b0akVUmD9FImvGMWja5Vw9yCtnS49Hs6nq3aPpywGfUW9u85kWW9D8+dumyyluGCcpAKemmsGIjeCR+kzyDg3Qne8ibuSFCR9NcnyHchFAU14ZxWE8CxQviXnc8Iev4FJqPtn9U90bT7i1/HKFsT/Hmut0l5sivjjUgaF46m70CISUNPevwyVNRZYBHHD8da0uO5q8C8pxkjrUFp/Qs4bS/eIAoxjqYBxoAczFUvwb0xEnx905DIeDxz2b8A1UKUmiyOneh3cxgvhSnV+A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
- by PR3PR04MB7450.eurprd04.prod.outlook.com (2603:10a6:102:8a::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
- 2026 03:42:43 +0000
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.21.0223.008; Wed, 22 Jul 2026
- 03:42:43 +0000
-Date: Wed, 22 Jul 2026 11:44:09 +0800
-From: Liu Ying <victor.liu@nxp.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Robert Chiras <robert.chiras@nxp.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v2 3/7] drm/panel: simple: Add waiken WKS101WX001-WCT
- support
-Message-ID: <amA8iVS4c0exg6pT@raspi>
-References: <20260715-dxl_lcdif-v2-0-da797562636e@nxp.com>
- <20260715-dxl_lcdif-v2-3-da797562636e@nxp.com>
- <alnCL7ylMyvGD-ui@raspi>
- <amAJL9TIcDAK7kbh@SMW015318>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <amAJL9TIcDAK7kbh@SMW015318>
-X-ClientProxiedBy: MA5P287CA0252.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1ae::8) To AS1PR04MB9287.eurprd04.prod.outlook.com
- (2603:10a6:20b:4dd::8)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l+M+31xM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8E798C2BCF6;
+	Wed, 22 Jul 2026 03:44:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784691865;
+	bh=6jZuXCs//MAG/pPQwohjL+eKR+HuWv2epDrppzv10Ds=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=l+M+31xMrpnZewFtbZMzQPNomSWYBuV1IkgzPfM4giJpA0xxbQjki0FcNrfEwaUcQ
+	 J6bpYNRv4kJQjbWfoQIeM3IFiBlIfaXKRxAKyk8W0jGLRVvWDDzC4NYMEwJpmLAqtM
+	 1sstpxqepKefEzo49gJMVC8fYyGoPTWdMBHmI0/dXovAahUeRfPGWMBDMRip+A4Eco
+	 YP88Jus4jdOhtV6CbUxwdNjCSiFtpgtC0rUA+X4yMODi94YYxfDTdmxUk1U4kaPCqH
+	 vMwsZijXTKlc30lvyXWWF2qPGWUyJPxbXcLLoOY/T2NPxbYaEiHp2qd1w8gjSeoIar
+	 SaIK9oFuMzK6g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6DE8EC44512;
+	Wed, 22 Jul 2026 03:44:25 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Date: Wed, 22 Jul 2026 11:44:23 +0800
+Subject: [PATCH v3 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDMI
+ bridge binding
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|PR3PR04MB7450:EE_
-X-MS-Office365-Filtering-Correlation-Id: a4b7f6bc-271f-4c8c-c258-08dee7a349c5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|376014|7416014|1800799024|366016|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	QgMghmGOJFpM2/k5p3PK8j5Ktl+TiRAp0sz11ZyFOTtmIH7zNG2u02YXDII03FCQWckno/cPcSh3SaFboyy2a7YFTE8gafb8mJIsEek7KCDSnd79LCfJXu9xjOwsJJGA7m6LpIW1Q7ypGVQlvgjc/nz9b0/xuWzIp2h0D+Ye50l0cOIR0eNEZ7J+Er5Ts1QhhfkqY2SD8V4zb10wXivkmus8UVYe5JsLLgthkIuw/XdMuGsekL6XzwHc1M+eJCTjDbZYzy8Ts4pz8/99PdpuaHrd4xi0WCAtfGDiSYpFNW4OcZaFMimx/wtswpMTz/iz6mSbNrWhVUItpeLeIPrEjWuggMD4na0sguWS9kFGNp/vVyfw1RerXgP0NRVl/7y0SuoXqeKcvg554rnaxwHOUBQ8MjnDkg/FETkoUeVGULtj7vMcQJvLrv+5t+EvFvT+NjCVgzbfYAVp2sHRHLuTBllykTKi+JoMgHUTvj2i8iI5O63Vjy1xOvvfTOtdwgj6SeyzKfpCNh/rv9WE70Dfzu+DG01tsjN2gTvwSrmgbAtkwzHne/YWU2+R/6ztTt3N7YXSiu6GMgLozsa1USdNK4UIuDXfLu62W9XbvpFa/rwOr0lB48xoUKf7KBIsGM1kjfZxTkT0wXumSHplRD6o00RmkYAPWvsu7J7onkuyggE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS1PR04MB9287.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(376014)(7416014)(1800799024)(366016)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?9ocdHPE/L3fwc5BRThmNKj2WxVRNK6ZaGL2E5TxHy9T4VRIlkvrJm+TwD3hn?=
- =?us-ascii?Q?83mOoYwhGC4bcRey2LUfiLKOsosu71vg478bfJf+SxWQWLxderxADOzpQHIc?=
- =?us-ascii?Q?iJPTFnM0O90OBlEIUwnqjEcKSP9/DIDoVQnFi7TCfAzoNaf2KC2hdCa21yCM?=
- =?us-ascii?Q?Neh1G4kZj1OSAob+kYKzJA2U8wo8L/5UKzKzPZjcbfdRULI4EdnlcyVU2UHw?=
- =?us-ascii?Q?VO4Yq8e9SJ98by+kNKcsoEdHFq1y18OG0KdOu2i6Y1dqxfcmFvdGHoisjoBk?=
- =?us-ascii?Q?YlpU/NOCJrg1KxvgI5T44eAdvC1FI777H+PGnaslK3NRkOdjS357zdf1/z02?=
- =?us-ascii?Q?6Mr3QUrDraVEJZnPpecRsl37TjGxiyKE8S1FCztPiJCX6c85kSjfyuIfrqdF?=
- =?us-ascii?Q?L1RR8WRLV2gDbblxU88K69HUkG7PdcIQ0mMOJrfnh7K0rAjZriPk7ZKb51oC?=
- =?us-ascii?Q?5LtZfXt8MToFWSuwvgjJcUvWT3oPs9gnR7u5Plr0BYvm39V2PO9Ld+Rrk08U?=
- =?us-ascii?Q?HZPopQwPOfWIsR4Np3ffdKXWa6joaUsKrD79oTTGs51j+0Bf7wnhEBVM2P1I?=
- =?us-ascii?Q?it6mJiTCpw9BZLdArgFc/aL5a3BED5SiMCfu+511/A6cq+zrel5v2ebpVh+s?=
- =?us-ascii?Q?k7gm/eZU4K2gRqO0FquSZ3s1b0gsFiRNgTPE3gML6lOqympeuInk3/qtXfSO?=
- =?us-ascii?Q?EUcjT94RaDa8qFVnTbOQ06AJvTExclTlqyL98UxSckf2x0FFDf56nNyRxUJH?=
- =?us-ascii?Q?lJ4Yu4NeiuP2gOGoLAs4yAXACZKn6VuAGu0xA/4PreFHSuX+JZSc3tAYXV3q?=
- =?us-ascii?Q?dZ2gRFElHtRZnTrGJrHfjLnEa5j+tDS8NgBWPuaigwJhZq5iO2Y87xRWg7Y3?=
- =?us-ascii?Q?SlG20Htq7pINhqrS/g3XOOPH5NhNkTdWqQ4QZQ2CL/rV8vX86Um6V22Q3jI/?=
- =?us-ascii?Q?57t3xRE4iDBg2yp0WilkPEwa1HmgoHDSrfEo8aZGUFnCbTMFUSmzdhtPmT66?=
- =?us-ascii?Q?NiReYOfMm04eK5OoS+sJJN0UI7AZW2GKJvYekb4ujWCI1IwmW1jWdo34Baw7?=
- =?us-ascii?Q?BK6w+FYdBnc3TWYbKux3Xlznqq+4ZETE3XVApMzgH3IyL5VPaGOylzmPq5d+?=
- =?us-ascii?Q?OFPrP821XUgYDZTO/tRwelKvrZDyUduSDURB/e/ZY4I/XQin0mi+h9bczfRe?=
- =?us-ascii?Q?0FQPgYjP1xDoz2tCiqo2BONFnQFfaWWIRf2PA4h3D2KWFg8nN6k7jqMbH5OV?=
- =?us-ascii?Q?1SNGmHM9l9wyL95MCJAaJTMuFzeapmnO4Xq0nCRVQlR2KGQV8rX/TyYQZLJg?=
- =?us-ascii?Q?EKJoG3a2CE2XKg9nzos0bUWN1wiF0tv71ukWWJeR2ufNgeMfT+Mi2PKc+/Hi?=
- =?us-ascii?Q?5qEV0UkzE3LHTtpVV61+cWBaNIbMvyec955BghnC/Jv3wOmNX56lFRHwzPMk?=
- =?us-ascii?Q?8M5g6t4IswNMIQ2Eq6+VQ9smXu3XlMvSwx+ae5/VtLIeBhCHTwgOqubdASwL?=
- =?us-ascii?Q?1leZ3Xe0l6SBwrd5OFiOiirP0+4uwdgy/8tj7SZHqsFBNrDiLn7/NTBacr5D?=
- =?us-ascii?Q?zn1NqP0rBUPQLPmJ1Qsrc1uUg9wvWba3WM7ss0Ny9Qz6Wwadjl/HiuBpsrdB?=
- =?us-ascii?Q?E+YI+dwY1DRzwufuMLxoAkVq21isagx15hdCwJku1S/GpG8kOssFarsg8ra9?=
- =?us-ascii?Q?XI8fZ041fjqtPpbEGJP5CWLW2N4VrhO1kBCZhaxsxpS8yKfvrjMKJcVWs1Oz?=
- =?us-ascii?Q?0c6mgFCysw=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a4b7f6bc-271f-4c8c-c258-08dee7a349c5
-X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 03:42:43.7572
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: URtPFno8S3G3+uB1ALBJvnMgwuVgbCWN9cwdg0eL2tiPDrezr4QHxxEPimjuVOw8QIINEmvlpFae5KKeTla5ZQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7450
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260722-upstream-it6625-it6626-v3-1-947e50f01764@ite.com.tw>
+References: <20260722-upstream-it6625-it6626-v3-0-947e50f01764@ite.com.tw>
+In-Reply-To: <20260722-upstream-it6625-it6626-v3-0-947e50f01764@ite.com.tw>
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784691864; l=5568;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=/hRjCCYaHmvj4NTHDjOLBX69462fSxeQ2v4jfyVy5lA=;
+ b=ccNdKPMoilwh3U+0xd3FUPWQ8oRWhZeHp3wNPVnJSFIHNDG8PKpejiYXsz5K1vowhILI+LFqb
+ 9/kmVqMQ587CwlnUwyX4OCnovDU/ZEcvSNY3YyVBMXYEFilPi0X1wtt
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
 
-On Tue, Jul 21, 2026 at 07:05:03PM -0500, Frank Li wrote:
-> On Fri, Jul 17, 2026 at 01:48:31PM +0800, Liu Ying wrote:
-> > On Wed, Jul 15, 2026 at 02:34:48PM -0400, Frank.Li@oss.nxp.com wrote:
-> > > From: Frank Li <Frank.Li@nxp.com>
-> > >
-> > > Add support for WKS101WX001-WCT panel, which is an industrial-grade
-> > > 10.1-inch IPS TFT LCD capacitive touch screen display module.
-> > >
-> > > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > > ---
-> > > change in v2
-> > > - update height to 135 from 136 (sashiko)
-> > > ---
-> > >  drivers/gpu/drm/panel/panel-simple.c | 31 +++++++++++++++++++++++++++++++
-> > >  1 file changed, 31 insertions(+)
+From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-[...]
+Document the devicetree binding for the ITE IT6625/IT6626 HDMI to
+MIPI CSI-2 bridge. The device exposes three graph ports: port@0
+(MIPI0) and port@1 (MIPI1) are the two selectable CSI-2 D-PHY/C-PHY
+outputs, and port@2 is the HDMI connector input. Only port@0 is
+required, since a board only needs to wire up as many of the bridge's
+outputs as it actually uses.
 
-> > > +	.connector_type = DRM_MODE_CONNECTOR_DPI,
-> >
-> > Seems that the panel also supports LVDS input according to the specification,
-> > since it mentions 'RGB or LVDS Interface'?
-> 
-> Need hardware rework to use LVDS. Need remove banch of resistors. Should it
-> be treat as difference panel by different compatible string? hardware
-> actually changed.
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
+---
+Changes in v2:
+- Restrict port@0/port@1 endpoint bus-type to D-PHY (4) only when
+  compatible is "ite,it6625", via an allOf/if/then constraint. IT6625
+  only supports MIPI CSI-2 D-PHY output; the schema previously allowed
+  both C-PHY (1) and D-PHY (4) unconditionally, so a devicetree
+  claiming "ite,it6625" with bus-type = C-PHY passed schema validation
+  despite being invalid on that hardware. IT6626, which supports both
+  PHY types, is unaffected. Found by the sashiko.dev automated review
+  of v1.
+---
+ .../devicetree/bindings/media/i2c/ite,it6625.yaml  | 159 +++++++++++++++++++++
+ 1 file changed, 159 insertions(+)
 
-Not sure how to handle that.
+diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+new file mode 100644
+index 0000000000000000000000000000000000000000..9bc5584b48880ce1d0796ca3ab35d4d334732f72
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+@@ -0,0 +1,159 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/ite,it6625.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: ITE IT6625/IT6626 HDMI to dual MIPI CSI-2 bridge
++
++maintainers:
++  - Hermes Wu <Hermes.wu@ite.com.tw>
++
++description: |-
++  The ITE IT6625 and IT6626 are HDMI to MIPI CSI-2 bridge devices.
++  IT6625 supports an HDMI 2.0 input and converts it to one or two D-PHY CSI
++  outputs, while IT6626 supports an HDMI 2.1 input and converts it to one or
++  two C/D-PHY CSI outputs. The bridges are programmable through I2C and
++  expose one HDMI input port and two selectable CSI-2 output ports. The
++  bridge can operate in split mode or clone mode.
++
++properties:
++  compatible:
++    enum:
++      - ite,it6625
++      - ite,it6626
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    description:
++      GPIO connected to the active-low reset line.
++    maxItems: 1
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: CSI-2 output port MIPI0
++
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml#
++            unevaluatedProperties: false
++
++            properties:
++              data-lanes:
++                minItems: 1
++                maxItems: 4
++
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
++              clock-noncontinuous: true
++              link-frequencies: true
++
++            required:
++              - data-lanes
++
++      port@1:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: CSI-2 output port MIPI1
++
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml#
++            unevaluatedProperties: false
++
++            properties:
++              data-lanes:
++                minItems: 1
++                maxItems: 4
++
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
++              clock-noncontinuous: true
++              link-frequencies: true
++
++            required:
++              - data-lanes
++
++      port@2:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: HDMI connector input port
++
++        properties:
++          endpoint:
++            $ref: /schemas/graph.yaml#/$defs/endpoint-base
++            unevaluatedProperties: false
++
++    required:
++      - port@0
++required:
++  - compatible
++  - reg
++  - ports
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ite,it6625
++    then:
++      properties:
++        ports:
++          properties:
++            port@0:
++              properties:
++                endpoint:
++                  properties:
++                    bus-type:
++                      const: 4
++            port@1:
++              properties:
++                endpoint:
++                  properties:
++                    bus-type:
++                      const: 4
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      hdmi-bridge@4c {
++        compatible = "ite,it6625";
++        reg = <0x4c>;
++
++        reset-gpios = <&gpio 2 GPIO_ACTIVE_LOW>;
++
++        ports {
++          #address-cells = <1>;
++          #size-cells = <0>;
++
++          port@0 {
++            reg = <0>;
++            csi_out0: endpoint {
++              remote-endpoint = <&csi2_rx0>;
++              bus-type = <4>; /* MEDIA_BUS_TYPE_CSI2_DPHY */
++              data-lanes = <1 2 3 4>;
++            };
++          };
++        };
++      };
++    };
 
 -- 
-Regards,
-Liu Ying
+2.34.1
+
+
