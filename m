@@ -1,298 +1,198 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89257262B;
-	Wed, 22 Jul 2026 10:46:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784717195; cv=none; b=VSd8lIP+3igsNyegmbb93Aye7iRoyAJnficw3y4SyKd7bvskBU2SLpCIAdA7czVL+F0PLfRG8mroH7b8nIrKBge04CYUcQtG+bRXFl6Aw8r56pgzE5i2UvNjB0HFAnIu2xET+xYJLBYZvBHc1qU9HTqdtPk/21Qzts6TGjqEs8k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784717195; c=relaxed/simple;
-	bh=ACrGGXdQ+YY/PhHFxMny9a5wdzTXm54gQB09cH65GyA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YgsjZM18r1n+je98NxDpI6pB+jtevxnmlja/4I1XFm21KUpIa5TAaJMe8d8PZvG3Eu07Sg4iH8i53dkRx2iZCBIQL5MwZJhNmjC1RF9dsvS5G6EKRu/FFqk/wqt5aNM8R56IZFN3cIjBJKFOEWt4u7fIARwzZBqNuovaR7NrfIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p/xk1MDW; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17DA40F726
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 10:48:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784717326; cv=pass; b=rELWT6TDQvLgJzlgtOTMyuBnCee8Z+Gn7jr6aquUd4PEXxrg5JQZrXrziqq8+CTErP19fGq/bb7ckeFVIUc4icN2hibCiWQIf5La/IeRwueSLvP+By06TkP5CBigCBdG0MplFHIQ/7corUv3nu8syabxilAWTpfpIsIxrjFw76c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784717326; c=relaxed/simple;
+	bh=TJdCxPLRucrgpVqb8Q/p90ezgDTTziOz+2tb9QKZq8k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Za50eBl2vNLO5ZzEshaSjoYK1B8St4PChEs5YZDQpoF9JtcuJoJ5x+3zzyZRocr97JAoqxjBLR5QMQCkN2qBus+Tw5uS3OWjnd4huV4uH92p757s+QkwOcSEJ2kVQNeCHqaHUNUS/qj2VR0/tqgQAYbYAAEwrVh3b0XA9IMegRM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eYrH2IjR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c6LAl3/l; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p/xk1MDW"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A8AD9C2BCFF;
-	Wed, 22 Jul 2026 10:46:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784717194;
-	bh=ACrGGXdQ+YY/PhHFxMny9a5wdzTXm54gQB09cH65GyA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=p/xk1MDWWxUJDOJqntaM3GQcZoyREPBzXYKcAzCEI5kjhm6MrRVLMUIKIF1XzeilR
-	 tIDRNOgqDtow2jouscHLD8RO/MIRAr+QSu6umhGUaIPcAou1c4xbrfN4oO09/ro71t
-	 sSbS3RJGY2Z05W4GDUVdnfR2GAneSIRmREnFL19EbTBp5vzVA0Jugqt/IXPy4q8kxP
-	 4KJVAOK2PUJDbXt8hdLqu7f1ZipAr+Gr5nvRpA8J7eOWReRMoHnWRcPi3MNQN9SmHI
-	 oHnTWfKdeaERIxSmd2IaIvtZfXWw9vjonRAmkLAZ9nT7NMVxaLXs1C+f0ebp9sY9HL
-	 7jKuSZm7cHGTg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 948CDC44532;
-	Wed, 22 Jul 2026 10:46:34 +0000 (UTC)
-From: Rohan Joshi via B4 Relay <devnull+rohan1sj.cadence.com@kernel.org>
-Date: Wed, 22 Jul 2026 16:18:38 +0530
-Subject: [PATCH v3 2/2] mmc: sdhci-cadence: add CQE support
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eYrH2IjR";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c6LAl3/l"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M8x9pE140659
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 10:48:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=x9weLpInmFviAD3H6syM6zH0
+	Gtd5QFWFlEYwRfjMy1o=; b=eYrH2IjRrClTZEc8uQyOWXvoeYbNQoAygCso+l/5
+	cNABL4Z/N1JyhErVGDFRCfdTUUfFeu3hwxiHLf2KPV70UJh9HlnCDJEOnG2AQWyQ
+	vyZRGnMwCf2MALMuLsMAE+MGnf9cdmqiMnoetZWQ5iRUTGoWW7lS0bRK1AFrCXGs
+	94NJ2dinlv8VZuF6wQ5PJyUN2uFrMdqewIMtMZtl3TFjgKOEppCiwo5OQIaXd1/Z
+	QMsr8ccJn8kd72utiHts34Vh5PTeLwdct52WZERLCgrHCn25ssh432ooNzL1smJt
+	l4tqx5+leDCGxARByr8Fs1wlCl4kWyH+p3AQaDa0UGbRDw==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjtn2rg6w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 10:48:43 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ccbb61893fso262157985ad.0
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 03:48:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784717322; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bkyhRrSSPEWCSoW0mUoTBRKkzvb1SvlwDFxOhAFts7sc8t7zrj97uMWAhdx090pRnL
+         7i7J9U2QEVqvNWLWGj1L9nLTmcOnJ8nFBd5yePTKfrSrV5oZd/HR6y2Zds6ntZ6D90ho
+         Qebw9vskVoZNqB9aKXzv27AdT667AN4jGSyyh/dy+DmWU7PXnC4kby7K1hL2H0BPoeJ0
+         EygQHKA3YXveCMieP7seT+hli4O1g2cbfWHOlxSsMp2GsnI56D824VubAiEMkYN2dMPA
+         WXg620EeQ+NytMuARwI5tYwcPPo2QTjP7CJMlS9AQ2Zbac3/9/l1kechfIXDQAo9Geup
+         dXHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=x9weLpInmFviAD3H6syM6zH0Gtd5QFWFlEYwRfjMy1o=;
+        fh=4BX+xklawnUgdR3UVdx0oeL2CO8/zgaSHRM4k2jFzx8=;
+        b=fs0AkkB9LnTC1i9tTOehdAr4G3bjN6/7goaBD4iv1g5ElIFLSn5e68KWg8EN2206hx
+         CvE/sC4ItxZ4oytjhXITcZXjiDLuCJw9Cq9O+HYnAp27Dcrar5AY95Jz82PL6A14/G0m
+         rGRDbp4W6G1FqNQzhKENkX25J8uTEwcAwmAscNLgQlkiJp6haTbKWXBuznrayyqI73gJ
+         tNtar7zn+41UkKQ2xot9TPVHGr7jIwwy27BpK9EuuqViKon7IWMjXA+1IByNVSMSLZEA
+         tRH9jhXaYmg7/tBa3SYON/8oipTAIjnCLJ05sA6a8l9uWKut1XIvNzxK2bJN7wYWEOBK
+         e3hw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784717322; x=1785322122; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x9weLpInmFviAD3H6syM6zH0Gtd5QFWFlEYwRfjMy1o=;
+        b=c6LAl3/lhfmCxgrp3Ec40S44lTOzlxoFn1qirkdxZcpJWvhMt6l1Szykm1xyQTqKs4
+         iEVZdMjmqjQ0UkiUUm6vExsiTtNihx0tOaGVWMcgMVxdwFtr/mWYOU3+LliTfOLSwzCX
+         39LMFdT74gCFOLeJJXtvVh2V4HDWe3LK7i3oR+aPIo9kTVnAssGBWE6dmZUnoSniD7H6
+         wZ59LiSYlEYv60c2Xvj09L+BCXEn+gI9cBFiarauaEyNm7Z7E9/HD3+9bnm2X1Y3u7uv
+         KKroI6zTBCrk6DNKtn4h24GFqs44VbluCDbku0cVmjGmVnsxBpx4d5vahtMXMrF345j8
+         WEYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784717322; x=1785322122;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=x9weLpInmFviAD3H6syM6zH0Gtd5QFWFlEYwRfjMy1o=;
+        b=lXlyevhV7Kzh5lsjytePvh/4+SAymzCGkps3bjbgbI5uixo0ALSPDX5HKMV9S2ffht
+         eIsMQSeqsxR9jXOw/SA55Ihti9cVol2BVhyQTHHSarqyZ6mLuyfxzY9HEBeuZKZscAFO
+         avv8XTlf9xx/LqE87C7Cl+hNT25QVUKWByN2pkRiPNZkJUXSPsTx2axslRPQ+uPEOV6D
+         arFUJexQddCWVJXZdwCf+CARJE7m6n3+gMN10GiiB6MDEgiUnpASdCsgU/XGbFbTa9Jt
+         XUMLy39oh57KhyZq2426/nZ0/41YxG69v0G1c+EkWG9c5zfx9L4nkHDQgn+sX8Fe1oaE
+         E6GA==
+X-Forwarded-Encrypted: i=1; AHgh+Rrz3rjITccjdDZkKNVRHpOzVGuB7RpNieSYvRmRd54JHN9Tf+R+fJAK5KDMsOw+kU4jv2yXz/maDuwG@vger.kernel.org
+X-Gm-Message-State: AOJu0YzQnAS3V/7LyHIJ2DMqIMW6OEIipe1Ihrh1+AIgYSMzi1w76YVa
+	Ve52ZZf3P5z4/EsJgzzU7Alz9XOZbXtjTw0DShTzmvZrByiGs6REjzATZCCC4b3fMriWciGdM3m
+	mA+ai8GXmZUZFwwgaWY6ObCrtdGarEQ/l6uc86gRjinacns9aiLhFqr45v6UhLwQ9zjpenvL5du
+	JsGQCDYw6atva7tKi8pqZiRi/ibYxqQsTTxq3SKvo=
+X-Gm-Gg: AR+sD10eJZaCSJrnCjyMo+gUoX8xfn8fF47PfXuhQ0vPWZjxQODkx0RkPRy68zIECJP
+	g+UmdB2NZ/HTHVOR/XIF0DSY8+UXZqOL0Qf1YDKuOPyLFNCcBT1ed3wpgly4LBNdXgZwLL4V5/d
+	1La6OGpzBa9dSX1+izVSaaDCYdn8elx7E5LPVla/9q7hikhC/HEEK8zfijrHOxlwcfp0aUGJc=
+X-Received: by 2002:a17:902:e80e:b0:2cc:9179:32e with SMTP id d9443c01a7336-2cf3481bc46mr240434215ad.10.1784717322123;
+        Wed, 22 Jul 2026 03:48:42 -0700 (PDT)
+X-Received: by 2002:a17:902:e80e:b0:2cc:9179:32e with SMTP id
+ d9443c01a7336-2cf3481bc46mr240433755ad.10.1784717321579; Wed, 22 Jul 2026
+ 03:48:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260722-cdns_sdhci_cqe-support-v3-2-4412856a4488@cadence.com>
-References: <20260722-cdns_sdhci_cqe-support-v3-0-4412856a4488@cadence.com>
-In-Reply-To: <20260722-cdns_sdhci_cqe-support-v3-0-4412856a4488@cadence.com>
-To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Masahiro Yamada <yamada.masahiro@socionext.com>, 
- Adrian Hunter <adrian.hunter@intel.com>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, mparab@cadence.com, pawell@cadence.com, 
- sjakhade@cadence.com, mpillai@cadence.com, rohan1sj@cadence.com, 
- razb@mobileye.com
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784717318; l=6985;
- i=rohan1sj@cadence.com; s=20260406; h=from:subject:message-id;
- bh=TIvygmbfzIhclAgw5h0kIZYKRTzFSS/RgesIZ50ewws=;
- b=Hbrc57Oqvqq2J69S2feO/h2isGE5iRwNWgqwn4QLaDOQsRmu3wmyKMkjEHQYaIMsgjkSMCWrS
- I0Isuj3K5pUCswTZMhbelchfKXF9VqMCZr8bD6dFWScpwWX3W5tQl9U
-X-Developer-Key: i=rohan1sj@cadence.com; a=ed25519;
- pk=YuwylizMVlVj8I4+VPMZ6xrFR2wyqJAWZyj90OVZgD0=
-X-Endpoint-Received: by B4 Relay for rohan1sj@cadence.com/20260406 with
- auth_id=723
-X-Original-From: Rohan Joshi <rohan1sj@cadence.com>
-Reply-To: rohan1sj@cadence.com
+References: <20260721-drop-sound-storm-v1-0-23ae4a689ffe@oss.qualcomm.com>
+ <20260721-drop-sound-storm-v1-1-23ae4a689ffe@oss.qualcomm.com>
+ <85f2799d-fadf-478d-9f3f-fb8ff91ba84d@oss.qualcomm.com> <6a609d87.87c5160c.1accad.0f33@mx.google.com>
+In-Reply-To: <6a609d87.87c5160c.1accad.0f33@mx.google.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Wed, 22 Jul 2026 13:48:30 +0300
+X-Gm-Features: AUfX_mxJVnMuPbQyqLMRl1YwpMnVztpdNpQ2DTiLQfHenm24uUU50tozkQFP1cw
+Message-ID: <CAO9ioeUw4QgW47xmC58dGc1_j2UPFjDM+dDRF-bggpBPFA32YQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] ASoC: qcom: remove ipq806x Storm machine driver
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDEwNCBTYWx0ZWRfX//iK0PBMgKTD
+ E3xHFTPBFeSdhFmvH1v/UnHoVJJW2dyQn+Mds2LG4cL0xGxKzLIg3BbVuJLaO32Xo8aZqA99OoF
+ JOl9ZXIQG6ZFkX9Y+0W6zr92ldZtf/2/7z6fw9Vdj2aBJMAHso/b/hq5f1T8RpWDNB99Q7b/HTB
+ wTV/NJ52Wt/mZWKPOEdsze8tqRNfGXqP49y6Tdww59ADvNA9L62/+5bdA2djhsEMdJw96l5t13B
+ i/PoDuy6aDy0wGKSsF/ho+N0ZnNWuTcbu7Wu1w+rn4A+4axkFAPjIsYmU5xRyZQSbfJbOza9AVJ
+ u003NTzPxgWx/OVHFoPse7b5T3W6uQcED8cBCI1ToWxli5702lBoQADM3/AzLtQ3vWxhoVmAGZ6
+ H6fbaV1Efj0f8nqzCALkSyKrWDFBA+bKzNPH4W/25+uBkhU359qY4FTPfEjezI/nSJFzLHPShb8
+ aXbIbH2Rf14c/VBgfDA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDEwNCBTYWx0ZWRfXwis1N9iIGmWi
+ 5kKV1GqNQAWBKjKQF5WqfqyL5xnwUxQMiXZotzrI2n42LhAWCXF0UtLsJEvJn/Duv+XEZPMeobe
+ FqT//QZnrXx5Lw6qKydXZTMAdA4s7nk=
+X-Proofpoint-GUID: -OVTvOXuIq3nNdvTlPEZWTnQKiRUhFrV
+X-Proofpoint-ORIG-GUID: -OVTvOXuIq3nNdvTlPEZWTnQKiRUhFrV
+X-Authority-Analysis: v=2.4 cv=T+28ifKQ c=1 sm=1 tr=0 ts=6a60a00b cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8
+ a=s11Qgp4bjunoGJnHrnoA:9 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-22_03,2026-07-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 impostorscore=0 malwarescore=0 spamscore=0
+ clxscore=1015 bulkscore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220104
 
-From: Rohan Joshi <rohan1sj@cadence.com>
+On Wed, 22 Jul 2026 at 13:38, Christian Marangi <ansuelsmth@gmail.com> wrote:
+>
+> On Wed, Jul 22, 2026 at 10:00:34AM +0200, Konrad Dybcio wrote:
+> > On 7/21/26 8:12 PM, Dmitry Baryshkov wrote:
+> > > The Storm board machine driver targets Google's IPQ806x-based Storm
+> > > reference board (a MAX98357A DAC wired to the LPASS I2S bus). This board
+> > > has no upstream device tree, no active users and has seen no functional
+> > > changes in years, so the driver is dead weight.
+> > >
+> > > Remove the driver together with its Kconfig entry and Makefile rule.
+> > >
+> > > Assisted-by: Claude:claude-opus-4-8
+> >
+> > Using AI to `git rm` is definitely tokenmaxxing!
+> >
+> > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > > ---
+> >
+> > Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >
+>
+> Honestly I'm pretty angry about the latest changes on ipq806x. First the
+> dtsi just because there weren't device (it's ok and understandable) now we
+> are starting to remove driver...
+>
+> There are godzillion situation where there is a driver but absolutely no
+> dtsi. Lets remove the dwmac driver, usb phy, pcie and everything else at
+> this point and treat this soc like it's a 80-90 code...
+>
+> I will post dtsi with actual device for the SoC but really I'm not
+> following all this hurry in cleaning code for device that still gets used
+> and actually some company even produced new one (even if it's EOL)
 
-Cadence host controller has optional CQE (Command Queue Engine).
-The presence of CQE is determined by an additional host capability
-register. The same information is used to identify and support all
-platforms that contain Command Queue Engine
+We have no way to check that the device is being used other than the
+DTSI present in the kernel, being updated from time to time with
+non-trivial changes.
 
-Signed-off-by: Rohan Joshi <rohan1sj@cadence.com>
----
- drivers/mmc/host/Kconfig         |   1 +
- drivers/mmc/host/sdhci-cadence.c | 124 +++++++++++++++++++++++++++++++++++++--
- 2 files changed, 121 insertions(+), 4 deletions(-)
+For the patchset in question, do you (or the community) actually use
+OnHub? If so, please consider upstreaming DT files (and also updating
+schema FWIW).
+If not, the files will eventually go away. Just having unused drivers
+_adds_ a burden. I stumbled upon the driver while reviewing a patch
+changing the driver (for the sake of changing the ASoC API).
 
-diff --git a/drivers/mmc/host/Kconfig b/drivers/mmc/host/Kconfig
-index 4f060d3e5636..2cc8133e8ef3 100644
---- a/drivers/mmc/host/Kconfig
-+++ b/drivers/mmc/host/Kconfig
-@@ -293,6 +293,7 @@ config MMC_SDHCI_CADENCE
- 	depends on MMC_SDHCI_PLTFM
- 	depends on OF
- 	select MMC_SDHCI_IO_ACCESSORS
-+	select MMC_CQHCI
- 	help
- 	  This selects the Cadence SD/SDIO/eMMC driver.
- 
-diff --git a/drivers/mmc/host/sdhci-cadence.c b/drivers/mmc/host/sdhci-cadence.c
-index 435603c8c00b..f1ae7743ef5f 100644
---- a/drivers/mmc/host/sdhci-cadence.c
-+++ b/drivers/mmc/host/sdhci-cadence.c
-@@ -15,6 +15,8 @@
- #include <linux/reset.h>
- 
- #include "sdhci-pltfm.h"
-+#include "sdhci-cqhci.h"
-+#include "cqhci.h"
- 
- /* HRS - Host Register Set (specific to Cadence) */
- #define SDHCI_CDNS_HRS04		0x10		/* PHY access port */
-@@ -36,6 +38,10 @@
- #define   SDHCI_CDNS_HRS06_MODE_MMC_HS400	0x5
- #define   SDHCI_CDNS_HRS06_MODE_MMC_HS400ES	0x6
- 
-+/* Host capabilities not covered by the standard capability registers (SRS16-SRS18) */
-+#define SDHCI_CDNS_HRS30		0x78	/* Host capabilities */
-+#define SDHCI_CDNS_HRS30_CQE_SUPPORTED	BIT(0)
-+
- /* Read block gap */
- #define SDHCI_CDNS_HRS37		0x94	/* interface mode select */
- #define   SDHCI_CDNS_HRS37_MODE_DS		0x0
-@@ -88,6 +94,7 @@ struct sdhci_cdns_priv {
- 	void __iomem *ctl_addr;	/* write control */
- 	spinlock_t wrlock;	/* write lock */
- 	bool enhanced_strobe;
-+	bool cqe_support;	/* Command Queuing Engine support */
- 	void (*priv_writel)(struct sdhci_cdns_priv *priv, u32 val, void __iomem *reg);
- 	struct reset_control *rst_hw;
- 	unsigned int nr_phy_params;
-@@ -385,6 +392,68 @@ static void sdhci_cdns_set_uhs_signaling(struct sdhci_host *host,
- 		sdhci_set_uhs_signaling(host, timing);
- }
- 
-+static u32 sdhci_cdns_cqhci_irq(struct sdhci_host *host, u32 intmask)
-+{
-+	int cmd_err = 0;
-+	int data_err = 0;
-+
-+	/* return original intmask to be handled by other handlers if it's not a CQE interrupt */
-+	if (!sdhci_cqe_irq(host, intmask, &cmd_err, &data_err))
-+		return intmask;
-+
-+	cqhci_irq(host->mmc, intmask, cmd_err, data_err);
-+
-+	return 0;
-+}
-+
-+static const struct cqhci_host_ops sdhci_cdns_cqhci_ops = {
-+	.enable		= sdhci_cqe_enable,
-+	.disable	= sdhci_cqe_disable,
-+};
-+
-+static int sdhci_cdns_cqe_add_host(struct sdhci_host *host, struct platform_device *pdev)
-+{
-+	struct cqhci_host *cq_host;
-+	bool dma64;
-+	int ret;
-+
-+	ret = sdhci_setup_host(host);
-+	if (ret)
-+		return ret;
-+
-+	cq_host = cqhci_pltfm_init(pdev);
-+	if (IS_ERR(cq_host)) {
-+		ret = PTR_ERR(cq_host);
-+		dev_err_probe(&pdev->dev, ret, "cqhci platform init failed\n");
-+		goto cleanup;
-+	}
-+
-+	dma64 = host->flags & SDHCI_USE_64_BIT_DMA;
-+	if (dma64)
-+		cq_host->caps |= CQHCI_TASK_DESC_SZ_128;
-+
-+	cq_host->ops = &sdhci_cdns_cqhci_ops;
-+
-+	host->mmc->caps2 |= MMC_CAP2_CQE | MMC_CAP2_CQE_DCMD;
-+
-+	ret = cqhci_init(cq_host, host->mmc, dma64);
-+	if (ret) {
-+		dev_err_probe(&pdev->dev, ret, "cqhci init failed\n");
-+		goto cleanup;
-+	}
-+
-+	/* add host to MMC subsystem */
-+	ret = __sdhci_add_host(host);
-+	if (ret)
-+		goto cleanup;
-+
-+	return 0;
-+
-+cleanup:
-+	sdhci_cleanup_host(host);
-+	return ret;
-+}
-+
- /* Elba control register bits [6:3] are byte-lane enables */
- #define ELBA_BYTE_ENABLE_MASK(x)	((x) << 3)
- 
-@@ -445,8 +514,9 @@ static const struct sdhci_ops sdhci_elba_ops = {
- 	.set_clock = sdhci_set_clock,
- 	.get_timeout_clock = sdhci_cdns_get_timeout_clock,
- 	.set_bus_width = sdhci_set_bus_width,
--	.reset = sdhci_reset,
-+	.reset = sdhci_and_cqhci_reset,
- 	.set_uhs_signaling = sdhci_cdns_set_uhs_signaling,
-+	.irq = sdhci_cdns_cqhci_irq,
- };
- 
- static int elba_drv_init(struct platform_device *pdev)
-@@ -474,9 +544,10 @@ static const struct sdhci_ops sdhci_cdns_ops = {
- 	.set_clock = sdhci_set_clock,
- 	.get_timeout_clock = sdhci_cdns_get_timeout_clock,
- 	.set_bus_width = sdhci_set_bus_width,
--	.reset = sdhci_reset,
-+	.reset = sdhci_and_cqhci_reset,
- 	.platform_execute_tuning = sdhci_cdns_execute_tuning,
- 	.set_uhs_signaling = sdhci_cdns_set_uhs_signaling,
-+	.irq = sdhci_cdns_cqhci_irq,
- };
- 
- static const struct sdhci_cdns_drv_data sdhci_cdns_uniphier_drv_data = {
-@@ -553,6 +624,8 @@ static int sdhci_cdns_probe(struct platform_device *pdev)
- 	int ret;
- 	struct device *dev = &pdev->dev;
- 	static const u16 version = SDHCI_SPEC_400 << SDHCI_SPEC_VER_SHIFT;
-+	bool cqe_enabled;
-+	u32 host_caps;
- 
- 	clk = devm_clk_get_enabled(dev, NULL);
- 	if (IS_ERR(clk))
-@@ -608,7 +681,43 @@ static int sdhci_cdns_probe(struct platform_device *pdev)
- 			host->mmc_host_ops.card_hw_reset = sdhci_cdns_mmc_hw_reset;
- 	}
- 
--	return sdhci_add_host(host);
-+	host_caps = readl(priv->hrs_addr + SDHCI_CDNS_HRS30);
-+
-+	/*
-+	 * CQE is enabled only when both conditions are met:
-+	 *   1. Hardware reports CQE support via HRS30[0].
-+	 *   2. DT provides a named "cqhci" register space.
-+	 */
-+	cqe_enabled = (host_caps & SDHCI_CDNS_HRS30_CQE_SUPPORTED) &&
-+		      !!platform_get_resource_byname(pdev, IORESOURCE_MEM, "cqhci");
-+
-+	if ((host_caps & SDHCI_CDNS_HRS30_CQE_SUPPORTED) && !cqe_enabled)
-+		dev_dbg(dev, "CQE supported by hardware but no 'cqhci' register space in DT, disabling\n");
-+
-+	if (cqe_enabled) {
-+		priv->cqe_support = true;
-+		ret = sdhci_cdns_cqe_add_host(host, pdev);
-+	} else {
-+		ret = sdhci_add_host(host);
-+	}
-+
-+	return ret;
-+}
-+
-+static int sdhci_cdns_suspend(struct device *dev)
-+{
-+	struct sdhci_host *host = dev_get_drvdata(dev);
-+	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
-+	struct sdhci_cdns_priv *priv = sdhci_pltfm_priv(pltfm_host);
-+	int ret;
-+
-+	if (priv->cqe_support) {
-+		ret = cqhci_suspend(host->mmc);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return sdhci_pltfm_suspend(dev);
- }
- 
- static int sdhci_cdns_resume(struct device *dev)
-@@ -630,6 +739,13 @@ static int sdhci_cdns_resume(struct device *dev)
- 	if (ret)
- 		goto disable_clk;
- 
-+	/* Resume CQE if enabled */
-+	if (priv->cqe_support) {
-+		ret = cqhci_resume(host->mmc);
-+		if (ret)
-+			goto disable_clk;
-+	}
-+
- 	return 0;
- 
- disable_clk:
-@@ -638,7 +754,7 @@ static int sdhci_cdns_resume(struct device *dev)
- 	return ret;
- }
- 
--static DEFINE_SIMPLE_DEV_PM_OPS(sdhci_cdns_pm_ops, sdhci_pltfm_suspend, sdhci_cdns_resume);
-+static DEFINE_SIMPLE_DEV_PM_OPS(sdhci_cdns_pm_ops, sdhci_cdns_suspend, sdhci_cdns_resume);
- 
- static const struct of_device_id sdhci_cdns_match[] = {
- 	{
+And FWIW the series doesn't touch the IPQ806x LPASS driver (which has
+a DT counterpart).
 
 -- 
-2.43.0
-
-
+With best wishes
+Dmitry
