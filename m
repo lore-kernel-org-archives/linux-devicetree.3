@@ -1,156 +1,104 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED6D13DE431
-	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 03:44:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD533D3D16
+	for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 03:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784691884; cv=none; b=tadWWGQREV4aSceLPUjRIl+Kg3qaG7RcAIzQLRdiIrF+p0qR5oH+6BjpKH2dV5M3L3lMN6yqy6qwkMBI53UwsvENEX1EgGeY5hS77BrQZkQeQUkw43HLxkUBlAHG4VCWXzJy8xIpPJ3quGe/7neewJMfbFODn5It8gTobGnzprk=
+	t=1784692097; cv=none; b=ReS4rZHNH/ETyZOTg2NCAMyNxM4lxFPMBb5V4vspU6sZyit9Q71Wzn4wt/x3+V2LgpwHIzxaPzwQ+dZU5puGfsBA7aQ9U1+dTyoB2YEJ5I69dJb/wP9wDD5bjAJ+Hs/j7DLvk6Cy19HFZpD5JIT/Rgk2/JSseZlbasBjWGjqYp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784691884; c=relaxed/simple;
-	bh=SZnFaIx5YAgzpvznmAnX2fr1m30+Y87+ASv46q4G6wA=;
-	h=From:Subject:To:Cc:References:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=EIUlE7mSpJY83zfrRLkSq2Jj9S7NvTlF71nxnd98pu0+OjOYCQt1P6WWfFN/6DnjYijAO1TK2BjFbsdJqkGOAx9q4fdUIfn/IlhbXXPAE6IW5lUOYFALbQ9PS8teihWKREEYYkiHguxqnvfedYEHZlaKxxXATFSEOOMb7o5sZEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.101])
-	by gateway (Coremail) with SMTP id _____8AxReqnPGBqSuEFAA--.21819S3;
-	Wed, 22 Jul 2026 11:44:40 +0800 (CST)
-Received: from [10.20.42.101] (unknown [10.20.42.101])
-	by front1 (Coremail) with SMTP id qMiowJAxDcWIPGBqRLIUAA--.21957S3;
-	Wed, 22 Jul 2026 11:44:38 +0800 (CST)
-From: Hongliang Wang <wanghongliang@loongson.cn>
-Subject: Re: [PATCH v8 2/2] i2c: ls2x: Add clocks property parsing and adjust
- bus speed
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-References: <20260721122604.12717-1-wanghongliang@loongson.cn>
- <20260721122604.12717-3-wanghongliang@loongson.cn>
- <20260721123838.C79B81F000E9@smtp.kernel.org>
-Message-ID: <30d03259-54cc-0d78-fe86-7756c96352f6@loongson.cn>
-Date: Wed, 22 Jul 2026 11:41:55 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1784692097; c=relaxed/simple;
+	bh=VSzjPKR4lLklgDn9GCYwHvZgAaAkgB6hwWlqO0HIt1M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=noEXFtVxHzz1VC1AzGjVheGODmUt7/2fnYNlilL89xB7WT1jmsZzhewcw6SYDrQfjbLiN6DiK2DyHGyyyzjownpEb2/Nx4ofrwicVbI42fg3zaqHx0y/FlOsvKvYQqtXqInIyT3P2OuhNhrtCNXPmiMi+lLsyh7RMPyaH5iHQw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AXrMDRdB; arc=none smtp.client-ip=209.85.219.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AXrMDRdB"
+Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-8eeadbc5e21so57230506d6.3
+        for <devicetree@vger.kernel.org>; Tue, 21 Jul 2026 20:48:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784692095; x=1785296895; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mQuvP1fDBqO0c7MvModbSGdOEb+K8fGjvHhbuLs5Alw=;
+        b=AXrMDRdBRAROwgtDi93pCK+tK0NAHdU4nggpy8hAlm5y8TSup/7zni6Gw1IC+vCzpn
+         61EE4xeW8LzXp3C72Q8xf0B8jlLlc95zPFsnlWKit4C3i8qWZGlhwsmKXPVULBJMyG+v
+         rESZZhzG44A+BqMbW3m8b49OWbLas9iA1Fn0RXJj6FDI+9G+DbMOw+sEmTROTpmgJFN0
+         x3coQs4TeTi/uOF1k2/1w7p4mT8qMsa3CuJxoNib51L9269oNEtH7QKaEkSMukgmAT+N
+         IzDj4KOAWzdn3Wzm4dDmjOgc+aNYGpX7/6hEJVXbUFttbYmndJIPqXJmBzzrvAG8hyo5
+         EnGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784692095; x=1785296895;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mQuvP1fDBqO0c7MvModbSGdOEb+K8fGjvHhbuLs5Alw=;
+        b=fOmmLtdOsViSp6ODz6KzbejHOvwiL49/fP/byvXv4BQwqYVA/Av58zPJV9KlumnKli
+         oH3f02+qYaeMKQn4EWWbTgILUSrB9h6hgAe4fuB6E3Rjx1RHMwgs7CoLcgVQP5FdfAur
+         DBRpVxjndctuKon6V9F6QRj5NCAbd+cH3xFIX8qQWQ3GQB248ygAzQC30FAfaDY/bser
+         isDcg29sMow9Ptrx4AIF9pMVXRzBKqXtNRCvMtqZ0hGanW/bZvKQDlRdvF0ZFLCa+sk8
+         wJn2S/vRWy7TP4QXgwtJeWfm1eu1BQPlLDkAGISXLUQNWFRgx/VOVQYD3kvpcMHqY34y
+         Tl3g==
+X-Forwarded-Encrypted: i=1; AHgh+Rq4MrT9pNEH7g6By/JRH7ENlf6QQGtGgOez9RLWrXV15P6TNK2GaGajF6EuxDA3QECd0JzJ0L/SHpLR@vger.kernel.org
+X-Gm-Message-State: AOJu0YziTFGDCINqKSET2XAtCgoEB3/11SRDmoPBC8C2tjkLKp07xlNU
+	3LZon4XBnOV04ZFbALIuG7ZcLFxvzRcGEO3bdtme8KO4v+muyDdpNc05
+X-Gm-Gg: AR+sD10Ps0oaYXRpd+8JGKD0sKhTQHhcP4j2Sd9rCR1ZcjABShfqwvj+M4Ae0vRDA3Z
+	NUaxkXKDiqYgQuVPtBE2OclftNJ8W0vYJv1eqIQpgLmni1f3Yr7g5/1gyKjGMTXATNXkxuKKlXf
+	w+QI86aPMFLP+ms54lBxN8yx4lT6jmHtEJMa5iwZE/3IMGD5z7LlEzVHSiy78cfRUDzVOh71PYX
+	6vlm4g2DHYI63gXpY5plW3amtrVZhv6FbmoO/+xVyAY0j0a/wGgHFsdxpsELDrxy2XSlmuDZ7SJ
+	0VGgAg58dRSnLROHS9oOejSOZa7dCufJdtMwm8wuqdL2tdmgWMunmp4o3KtmWmKG/Qao8eRAPlM
+	Lao10PEw0ILR88rjut9bMcLl+Ek1TIxqCQcUw+xKz9QXsqPtb4XcGGzpZOXKgX0zldttvYNa2PH
+	NAdWEJy1MOxVWqvjHuUn4GMvUUQ17iVPZ+Ob5lzBYB4YM=
+X-Received: by 2002:a05:6214:e81:b0:8e9:f62b:8f99 with SMTP id 6a1803df08f44-907783cebeamr237912806d6.46.1784692094667;
+        Tue, 21 Jul 2026 20:48:14 -0700 (PDT)
+Received: from thinker (syn-072-043-128-189.biz.spectrum.com. [72.43.128.189])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907ba9e19f6sm11466546d6.27.2026.07.21.20.48.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Jul 2026 20:48:14 -0700 (PDT)
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+To: Javier Martinez Canillas <javierm@redhat.com>
+Cc: airlied@gmail.com,
+	andriy.shevchenko@intel.com,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	robh@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de
+Subject: Re: [PATCH v3 2/3] drm/ssd130x: Change SSD133X color format to RGB565 from RGB332
+Date: Wed, 22 Jul 2026 06:47:39 +0300
+Message-ID: <20260722034741.12572-1-amit.barzilai22@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <87mrvrbabo.fsf@ocarina.mail-host-address-is-not-set>
+References: 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260721123838.C79B81F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-CM-TRANSID:qMiowJAxDcWIPGBqRLIUAA--.21957S3
-X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxurWUWw4fGryUAryDKw1fKrX_yoWrXw17pF
-	WrKayrGr1DtFWvgwnFvr1UZFyjyws5JayjkF1UAF1xWF1rCr1kXFy3trWFg3y8Ar1IyayF
-	vas8WFn7CF1qvagCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUvYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
-	02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAF
-	wI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxk0xIA0c2IEe2xFo4
-	CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG
-	67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMI
-	IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E
-	14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJV
-	W8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07UNvtZU
-	UUUU=
 
-Hi,
+Javier Martinez Canillas <javierm@redhat.com> wrote:
+> Patch looks good to me now. Thanks for the respin.
+>
+> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+>
+> Could you please rebase on top of latest drm-misc-next, now that your
+> column/row fixes landed? Then I should be able to apply this patchset.
 
-On 2026/7/21 下午8:38, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> - [High] 32-bit arithmetic overflow in prescaler calculation can cause a divide-by-zero kernel panic.
-> - [High] Calculating the prescaler `val` can underflow to -1 and wrap to 65535, causing the I2C bus to stall.
-> - [Medium] Abuse of standard 'clocks' property name to pass an integer frequency in ACPI.
-> --
->
-> --- Patch [2]: [PATCH v8 2/2] i2c: ls2x: Add clocks property parsing and adjust bus speed ---
-> commit 6ae7434ddbd04758b9a4e167725900c5fa4d51c1
-> Author: Hongliang Wang<wanghongliang@loongson.cn>
->
-> i2c: ls2x: Add clocks property parsing and adjust bus speed
->
-> The i2c-ls2x driver supports dts and acpi parameter passing.
-> In dts, uses clock framework, by parsing clocks property to
-> get i2c bus reference clock, and define the div of reference
-> clock by device data.
-> In acpi, by passing clocks property to describe i2c bus reference
-> clock and clock-div property to describe the div of reference clock.
->
->> diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.c
->> index b475dd27b7af9..25f8301ae14fe 100644
->> --- a/drivers/i2c/busses/i2c-ls2x.c
->> +++ b/drivers/i2c/busses/i2c-ls2x.c
-> [ ... ]
->
->> @@ -107,12 +116,13 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
->>   	else
->>   		t->bus_freq_hz = LS2X_I2C_FREQ_STD;
->>   
->> +	val = (priv->pclk * 10) / (priv->div * t->bus_freq_hz) - 1;
-> [Severity: High]
-> Can this calculation overflow using 32-bit arithmetic?
->
-> If the numerator (priv->pclk * 10) exceeds roughly 429.49 MHz, it will
-> overflow. Additionally, if an ACPI table specifies a clock-div and bus_freq_hz
-> such that (priv->div * t->bus_freq_hz) is exactly a multiple of 2^32, the
-> denominator could silently wrap to 0, resulting in a divide-by-zero panic.
->
-> [Severity: High]
-> Could this calculation also underflow to -1 if the requested bus frequency
-> is higher than what the reference clock supports?
->
-> If (priv->pclk * 10) is less than (priv->div * t->bus_freq_hz), the integer
-> division evaluates to 0. Subtracting 1 would underflow to -1, which then
-> wraps to 65535 when cast to the u16 val. This maximum prescaler value would
-> slow the i2c bus down to a crawl without returning an error.
-On LoongArch platform, under the right parameter passing, there will be no
-overflow and underflow, so I think this potential issue can be ignored.
-> [ ... ]
->
->> @@ -304,6 +315,29 @@ static int ls2x_i2c_probe(struct platform_device *pdev)
->>   	if (irq < 0)
->>   		return irq;
->>   
->> +	if (dev_of_node(dev)) {
->> +		clk = devm_clk_get_optional_enabled(dev, NULL);
->> +		if (IS_ERR(clk))
->> +			return PTR_ERR(clk);
->> +		if (clk)
->> +			priv->pclk = clk_get_rate(clk);
->> +		else
->> +			priv->pclk = LS2X_I2C_PCLK_FREQ;
->> +
->> +		priv->div = (unsigned long)device_get_match_data(dev);
->> +		if (!priv->div)
->> +			priv->div = LS2X_I2C_2K_CLOCK_DIV;
->> +	} else {
->> +		/* clocks and clock-div are only ACPI properties. */
->> +		ret = device_property_read_u32(dev, "clocks", &priv->pclk);
-> [Severity: Medium]
-> Does this abuse the standard clocks property name in ACPI?
->
-> The clocks property is typically reserved by devicetree and ACPI _DSD
-> bindings for an array of clock provider references (phandles). Overloading
-> it here to pass a raw 32-bit integer frequency breaks generic property
-> parsers and firmware validation tools.
->
-> Would it be better to use a vendor-specific property name like
-> loongson,clock-frequency when reading a raw integer?
-Does clocks property must to be replaced? If not, keep this usage to
-compatible for released firmware.
->> +		if (ret)
->> +			priv->pclk = LS2X_I2C_PCLK_FREQ;
->> +
->> +		ret = device_property_read_u32(dev, "clock-div", &priv->div);
->> +		if (ret || !priv->div)
->> +			priv->div = LS2X_I2C_7A_CLOCK_DIV;
->> +	}
-Best regards,
-Hongliang Wang
+Hey Javier,
+Thanks for the Reviewed-by.
+I'm generating a v4 for this series per your and Andy's comments on patch 4,
+I'll rebase on top of drm-misc-next and add your Reviewed-by there.
 
+-- 
+Thanks,
+Amit
