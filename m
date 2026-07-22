@@ -1,116 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 749B7471278;
-	Wed, 22 Jul 2026 07:35:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C16A413221;
+	Wed, 22 Jul 2026 07:35:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784705738; cv=none; b=QDE30xBxaaOTSvYQ37ziPtt2dfTKTuVZ5hF4qKgkRhgN4J4ZH+SOdqU2JP19Ylveap41CG+Y9Y0tt7x3br3gg6A7861WNXsz0MHNUWDbdpyyXDAPqGBk+fFkGeQLjkOMy2yTQxRgImrtSHIA8rdJE1gC+/h7w3khA9OPquRS2rA=
+	t=1784705751; cv=none; b=HXwmPoS8/UsU9lHHW7LH707k2toVSI60rEmFPAWv09+SdcA9zp9luo9KQzy+SQC6USZyUZ5xn+WBDifqCFpK5z2M9MA4ohagCGdyTMN6IS67mAwEMLMyYOXi5EY41Ew5S1PFWNTrKGO9WEcoEP0KaCCPznBDoDIAaazCFFvc3jM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784705738; c=relaxed/simple;
-	bh=OQlDAqNMzBnMNxKlPLFJMdLMy7aMkmaCxhyy2qr7RC0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=E83EsAOvjhJj5oAuyGsxV9J2MjaVdWN75fb+KnmSEhrfa6PNc5v91WqAkSrT03amOPjvzdHN3reOL4tb7lFvdD8WkCm0ut0YORvtgjcA3qChuTkKo/rmEKX+1Zxeam2risacsmvor9NMH8B3NamqrSR2n4ClvCnEB0dJ75O8Qfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bX+bKTzf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784705751; c=relaxed/simple;
+	bh=CsO8ipof80Sfgt/x1IVb9h+EHVZOEBiAg5aJSVjycZs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=rR2BcSCkA5EWgnxjPqHkuSYlCZynn0STpGJiiJu7CJWONh17oN3+cC99q90EM51+4+shLWF6IEhbBSwq7MGcdp3ehKEoX1Xir4/FJF7uIWjHmSssqAoQwS5kLerU6bhHXRkLBJd/eontcBtmmgiV3BEudylXqkympm0uOUDl8ic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=Kh1+bxb1; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bX+bKTzf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04C031F000E9;
-	Wed, 22 Jul 2026 07:35:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784705733;
-	bh=ovqGqpb3eBbk/HLJ3etOQ1MN4umBeB0gtovmd9nWjVw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bX+bKTzf93c6JJ1rEABqbqftiNBs+YaMVggJzEqO+PQb1xZuxLKx7IGhaI89awDLI
-	 U+zjnLs/cmGaCvURoZiotfNcVyyowf85UD+MyBoNC6P3rDY8/31CmlcWt7BexBb0KI
-	 tdy2Pt2vzu8AgKikOpw4RegntYbLG1V9d4HFDE1foj0IZIuRgQ9VAWIYt1UpnwOrmw
-	 dbO5PnCTbILKJeEXfmyiMVM0u71pW9K+bfb4Laqz4yRRkMha007zf866wm8FBQBwxG
-	 V7U5lQ5tEyD8Aym8mcZ/pK365Nrw6FWl8sBtXb7BAtv4hwmJQe/25+uDnzcBQnhwkm
-	 iak6OQsJr2ruw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] pmdomain: imx: scu-pd: allow building as a
- module
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Zhipeng.wang_1@oss.nxp.com
-Cc: conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260722071512.3494011-3-Zhipeng.wang_1@oss.nxp.com>
-References: <20260722071512.3494011-1-Zhipeng.wang_1@oss.nxp.com>
- <20260722071512.3494011-3-Zhipeng.wang_1@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 07:35:32 +0000
-Message-Id: <20260722073533.04C031F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="Kh1+bxb1"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 66M7YdEW23797704, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1784705679; bh=CsO8ipof80Sfgt/x1IVb9h+EHVZOEBiAg5aJSVjycZs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=Kh1+bxb1/5PJwCrOGPgqtCBJZPFltAC+DPE9lHTn61xBrnyAs9fj9YJ29p0qDVhwY
+	 p+Shvo4z/usHVUy+tkXpU607XATI1kzNn1Z3kknMq54ltYMqrjlkDdt41g7MGRao1x
+	 PVTYNt1kXlRraXIEhzZ0Sstw9P3lSWVLEF2QZWtN6UjpqW80dM10HbrXvm78UCn3SK
+	 edDiCyFPic1sHUU1o+pJQaR03uq8aeL8Q6FoS32bHhZAORtsYegCp3cwIsA4LpeuM2
+	 orzJ9jGSioqvg9IzLVg4mrOfDXSNvFWzuyGr9vANGrfmrdM7Dq38KJ76CTSYJ0WibM
+	 mPyCt5tc6f2lA==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 66M7YdEW23797704
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 22 Jul 2026 15:34:39 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Wed, 22 Jul 2026 15:34:38 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::e6fd:5a3f:8946:92c4%10]) with mapi id
+ 15.02.2562.017; Wed, 22 Jul 2026 15:34:38 +0800
+From: =?big5?B?WXUtQ2h1biBMaW4gW6pMr6enZ10=?= <eleanor.lin@realtek.com>
+To: Brian Masney <bmasney@redhat.com>
+CC: "mturquette@baylibre.com" <mturquette@baylibre.com>, "sboyd@kernel.org"
+	<sboyd@kernel.org>, "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+	=?big5?B?RWRnYXIgTGVlIFun9anTv9ld?= <cylee12@realtek.com>,
+	"afaerber@suse.com" <afaerber@suse.com>, =?big5?B?SnlhbiBDaG91IFupUKrppndd?=
+	<jyanchou@realtek.com>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-clk@vger.kernel.org"
+	<linux-clk@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>,
+	"linux-realtek-soc@lists.infradead.org"
+	<linux-realtek-soc@lists.infradead.org>, =?big5?B?SmFtZXMgVGFpIFvAuafTrnBd?=
+	<james.tai@realtek.com>, =?big5?B?Q1lfSHVhbmdbtsDgsq7LXQ==?=
+	<cy.huang@realtek.com>, =?big5?B?U3RhbmxleSBDaGFuZ1up96h8vHdd?=
+	<stanley_chang@realtek.com>
+Subject: RE: [PATCH v10 08/11] clk: realtek: Add support for MMC-tuned PLL
+ clocks
+Thread-Topic: [PATCH v10 08/11] clk: realtek: Add support for MMC-tuned PLL
+ clocks
+Thread-Index: AQHdEuAsI89D8FRCKUWTKm1gKjcY/rZ4KEgAgAEKgkA=
+Date: Wed, 22 Jul 2026 07:34:38 +0000
+Message-ID: <9080dd0534184fbd9c546d2e81f4984a@realtek.com>
+References: <20260713155630.3054636-1-eleanor.lin@realtek.com>
+ <20260713155630.3054636-9-eleanor.lin@realtek.com>
+ <amADBr_DnBeGh2jg@redhat.com>
+In-Reply-To: <amADBr_DnBeGh2jg@redhat.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Building the SCU PM domain driver as a module breaks power domain =
-attachment for SCU clocks due to unhandled deferred probing.
---
-
---- Patch [2]: [PATCH v3 2/2] pmdomain: imx: scu-pd: allow building as a mo=
-dule ---
-commit 8b0026aca4b6a877c269d6333189db725f3c6d76
-Author: Zhipeng Wang <zhipeng.wang_1@nxp.com>
-
-pmdomain: imx: scu-pd: allow building as a module
-
-This commit converts the IMX_SCU_PD config from bool to tristate to allow
-building the SCU power domain driver as a loadable module, which is
-required for Android GKI kernels.
-
-> diff --git a/drivers/pmdomain/imx/Kconfig b/drivers/pmdomain/imx/Kconfig
-> index 00203615c65e9..472e9dec6bd4e 100644
-> --- a/drivers/pmdomain/imx/Kconfig
-> +++ b/drivers/pmdomain/imx/Kconfig
-> @@ -21,7 +21,7 @@ config IMX9_BLK_CTRL
->  	depends on PM_GENERIC_DOMAINS
-> =20
->  config IMX_SCU_PD
-> -	bool "IMX SCU Power Domain driver"
-> +	tristate "IMX SCU Power Domain driver"
-
-[Severity: High]
-Does building the power domain driver as a module break power domain
-attachment for SCU clocks?
-
-If IMX_SCU_PD is built as a module, there are no explicit symbol dependenci=
-es
-or softdeps between the SCU clock driver and the PD provider, meaning the
-clock driver might be loaded first.
-
-Looking at the consumer side in drivers/clk/imx/clk-scu.c:
-
-imx_clk_scu_alloc_dev() {
-    ...
-    ret =3D imx_clk_scu_attach_pd(&pdev->dev, rsrc_id);
-    if (ret)
-        pr_warn("%s: failed to attached the power domain %d\n",
-            name, ret);
-
-    ret =3D platform_device_add(pdev);
-    ...
-}
-
-Since the consumer ignores the return value from the attachment attempt, an
-error like -ENOENT (when the provider is not registered yet) will not
-trigger a deferred probe. Furthermore, because these software-created clock
-devices lack an of_node, the device core's standard deferred probing
-mechanisms cannot retry the attachment later.
-
-Will this leave the SCU clocks permanently registered without their power
-domains attached, potentially causing hardware malfunctions or continuous
-power waste?
-
->  	depends on IMX_SCU
->  	help
->  	  The System Controller Firmware (SCFW) based power domain driver.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722071512.3494=
-011-1-Zhipeng.wang_1@oss.nxp.com?part=3D2
+SGkgQnJpYW4sDQoNCj4gT24gTW9uLCBKdWwgMTMsIDIwMjYgYXQgMTE6NTY6MjdQTSArMDgwMCwg
+WXUtQ2h1biBMaW4gd3JvdGU6DQo+ID4gRnJvbTogQ2hlbmctWXUgTGVlIDxjeWxlZTEyQHJlYWx0
+ZWsuY29tPg0KPiA+DQo+ID4gQWRkIGNsa19wbGxfbW1jX29wcyBmb3IgZW5hYmxlL2Rpc2FibGUs
+IHByZXBhcmUsIHJhdGUgY29udHJvbCwgYW5kDQo+ID4gc3RhdHVzIG9wZXJhdGlvbnMgb24gTU1D
+IFBMTCBjbG9ja3MuDQo+ID4NCj4gPiBBbHNvIGFkZCBjbGtfcGxsX21tY19waGFzZV9vcHMgdG8g
+c3VwcG9ydCBwaGFzZSBnZXQvc2V0IG9wZXJhdGlvbnMuDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5
+OiBDaGVuZy1ZdSBMZWUgPGN5bGVlMTJAcmVhbHRlay5jb20+DQo+ID4gQ28tZGV2ZWxvcGVkLWJ5
+OiBKeWFuIENob3UgPGp5YW5jaG91QHJlYWx0ZWsuY29tPg0KPiA+IFNpZ25lZC1vZmYtYnk6IEp5
+YW4gQ2hvdSA8anlhbmNob3VAcmVhbHRlay5jb20+DQo+ID4gQ28tZGV2ZWxvcGVkLWJ5OiBZdS1D
+aHVuIExpbiA8ZWxlYW5vci5saW5AcmVhbHRlay5jb20+DQo+ID4gU2lnbmVkLW9mZi1ieTogWXUt
+Q2h1biBMaW4gPGVsZWFub3IubGluQHJlYWx0ZWsuY29tPg0KPiA+IC0tLQ0KPiA+IENoYW5nZXMg
+aW4gdjEwOg0KPiA+IC0gTm9uZS4NCj4gPiAtLS0NCj4gPiAgTUFJTlRBSU5FUlMgICAgICAgICAg
+ICAgICAgICAgICAgIHwgICA4ICsNCj4gPiAgZHJpdmVycy9jbGsvcmVhbHRlay9LY29uZmlnICAg
+ICAgIHwgICAzICsNCj4gPiAgZHJpdmVycy9jbGsvcmVhbHRlay9NYWtlZmlsZSAgICAgIHwgICAy
+ICsNCj4gPiAgZHJpdmVycy9jbGsvcmVhbHRlay9jbGstcGxsLW1tYy5jIHwgNDMwDQo+ICsrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKw0KPiA+ICBkcml2ZXJzL2Nsay9yZWFsdGVrL2Nsay1w
+bGwuaCAgICAgfCAgMTMgKw0KPiA+ICA1IGZpbGVzIGNoYW5nZWQsIDQ1NiBpbnNlcnRpb25zKCsp
+DQo+ID4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2Nsay9yZWFsdGVrL2Nsay1wbGwtbW1j
+LmMNCj4gPg0KPiA+IGRpZmYgLS1naXQgYS9NQUlOVEFJTkVSUyBiL01BSU5UQUlORVJTIGluZGV4
+DQo+ID4gMWZmZmIxZmM1ZGUxLi4wYzhiOThlY2M0YTUgMTAwNjQ0DQo+ID4gLS0tIGEvTUFJTlRB
+SU5FUlMNCj4gPiArKysgYi9NQUlOVEFJTkVSUw0KPiA+IEBAIC0yMjc0Nyw2ICsyMjc0NywxNCBA
+QCBGOiAgIGRyaXZlcnMvcmVzZXQvcmVhbHRlay8qDQo+ID4gIEY6ICAgaW5jbHVkZS9kdC1iaW5k
+aW5ncy9jbG9jay9yZWFsdGVrKg0KPiA+ICBGOiAgIGluY2x1ZGUvZHQtYmluZGluZ3MvcmVzZXQv
+cmVhbHRlayoNCj4gPg0KPiA+ICtSRUFMVEVLIFNPQyBQTEwgQ0xPQ0sgRk9SIE1NQyBTVVBQT1JU
+DQo+ID4gK006ICAgQ2hlbmctWXUgTGVlIDxjeWxlZTEyQHJlYWx0ZWsuY29tPg0KPiA+ICtNOiAg
+IEp5YW4gQ2hvdSA8anlhbmNob3VAcmVhbHRlay5jb20+DQo+ID4gK006ICAgWXUtQ2h1biBMaW4g
+PGVsZWFub3IubGluQHJlYWx0ZWsuY29tPg0KPiA+ICtMOiAgIGxpbnV4LWNsa0B2Z2VyLmtlcm5l
+bC5vcmcNCj4gPiArUzogICBTdXBwb3J0ZWQNCj4gPiArRjogICBkcml2ZXJzL2Nsay9yZWFsdGVr
+L2Nsay1wbGwtbW1jLmMNCj4gDQo+IDIgb2YgdGhlIDMgbmFtZXMgbGlzdGVkIGhlcmUgYXJlIHVu
+ZGVyIHRoZSBuZXcgcmVhbHRlayBlbnRyeSBhZGRlZCBieSB0aGlzDQo+IHNlcmllcy4gSSdtIG5v
+dCBzdXJlIGhvdyBjb21tb24gdGhpcyBpcyBidXQgaXQgc2VlbXMgb3Zlcmx5IGdyYW51bGFyLg0K
+PiANCj4gQnJpYW4NCg0KSSBoYXZlIGNoZWNrZWQgd2l0aCBKeWFuIENob3UsIGFuZCB3ZSBhZ3Jl
+ZSB0aGF0IHRoaXMgZW50cnkgaXMgdG9vIGdyYW51bGFyLg0KDQpXZSB3aWxsIHJlbW92ZSB0aGUg
+J1JFQUxURUsgU09DIFBMTCBDTE9DSyBGT1IgTU1DIFNVUFBPUlQnIGVudHJ5IGFuZCBvbmx5IGtl
+ZXANCnRoZSBicm9hZGVyIG9uZS4NCg0KQmVzdCBSZWdhcmRzLA0KWXUtQ2h1bg0K
