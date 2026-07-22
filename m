@@ -1,196 +1,149 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013000.outbound.protection.outlook.com [52.101.72.0])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2CE44213F;
-	Wed, 22 Jul 2026 11:00:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784718019; cv=none; b=RMo2Ln+RQ+ZB0SKgm2HvCUZPxshutjjZsCzFiucc+AJsIoin08IELqvRbUTuutrK9m0r0tC6lvJdWkV7qu8K1/Thu0aNBLusSHkI/4Hw7m8mFBcNv8zsNqb4NGsqZOooaY6KQm4r49KoMlXJBMwabICxZrAmE6NqFSLlt1q/6Jg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784718019; c=relaxed/simple;
-	bh=2GRIDFKJriOhECj5qyNQMERg6nVcV6ymuCZ7+ezCY6M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PHJW7qkjhIykhNjlyBOwEBKSuRhgI8R++JA5g0uJl7G3B66gHm1UAiOsr+NUE0hA8wsOr+J/WEEtV+FZ4KIf7mQmj+rDdRY5c+KoXAqlDlVfNw9jgYAsY0yveVJRrVHSbnOAjKHWgKUHugjGnXPmP11MVBI6yBRw6Qw6/QpYP3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Q8r6NbKy; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC284339380;
+	Wed, 22 Jul 2026 11:01:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.0
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784718083; cv=fail; b=WwP9Ub+hehF1Yr3tsBV7nSL6MDRbP+XSNMaNm3OPHg7YnLJ4HgZg0mwBX5LOPiiJBENkNwYLAv3XnLiesGpLmVLASLPdMd+Tcsj9z2bYvNmm/YCTBw+ZX7DD4JdojzfdlFNhP6KYnq0L1uYRLtfLqLq4KnO+P86BMTKLGjv4BGw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784718083; c=relaxed/simple;
+	bh=m8nfIAO+nFl9jFiBTKtA6/Kh/6KOxFQe1vdbcDEMH80=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=h33A40Qm6i8Zmfvbg6xRxt0iLXW8iFqKPtRovwC9sXSYEyEhhWV05o4jSK8Eth9HaBnbJr9uflhkMsyMJv4UFVgmf836Zd6qyA0GKiXBfw5A6Gq7XjkoveaVUy3tIK2RJgqlF4VECW+yGI/b3qSjA5Na+hnVphhbkyWvUZtSPUw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=OL4Fjnxl; arc=fail smtp.client-ip=52.101.72.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q8r6NbKy"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M8xKFg237638;
-	Wed, 22 Jul 2026 11:00:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=KThUoFS1hIxZJoa2/iiQNDkG
-	wygIFOVubqzx112XKRI=; b=Q8r6NbKykLiesqOUuYyXugqWLraO3zN+e3tMv6tb
-	OSpVfVS6WXJzmusLcwaaqiRHycfQxnSWPSmfogCDUKjBxb9Ub/XdMqWLmUdsL+xu
-	8CHGGUGPQcSEGKyn7A8e6V0kYFAPSlfN69a+yw8Ncps3GijVutcvyRp5RHorx5Tn
-	xlkytVepo6xXJtSoDucwyxiKpZ0X1GtxYEnOdgLvJSo2H/OWvYnl8q8vmSPqV86x
-	BC3I8fGr7gmdPPmnlxrhyTOUml9iUkcCpzvYfJfMBXSvhRtFoqQ9RfZ1b8T8qL+B
-	R0T/Mw4G6429LCJVy1M8Uad2WZpaGumH6XNnxvW+xNuuIw==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjntn1rtf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 22 Jul 2026 11:00:14 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 66MB0AJh029402;
-	Wed, 22 Jul 2026 11:00:10 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4fgj3wh1pe-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 22 Jul 2026 11:00:10 +0000 (GMT)
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 66MB0ALi029372;
-	Wed, 22 Jul 2026 11:00:10 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 66MB0AZw029365
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 22 Jul 2026 11:00:10 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
-	id 7B656B2A; Wed, 22 Jul 2026 16:30:09 +0530 (+0530)
-Date: Wed, 22 Jul 2026 16:30:09 +0530
-From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-pm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v5 1/2] dt-bindings: power: reset: qcom-pon: Add new
- compatible PMM8654AU
-Message-ID: <20260722110009.7e7yhz6j55nwu6no@hu-kotarake-hyd.qualcomm.com>
-References: <20260713-b4-add_pwrkey_and_resin-v5-0-3bea476e1453@oss.qualcomm.com>
- <20260713-b4-add_pwrkey_and_resin-v5-1-3bea476e1453@oss.qualcomm.com>
- <20260721-lovely-quick-tarsier-768113@quoll>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="OL4Fjnxl"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=v/SwW2TRg4R9d8wzAvRo++VQ8QjihDBEefCLWeMiDCCQ+t1hxcgH9BFOE3RbvtP1KW6wqRkiIoj0xQwbfuvyW3qkgzAfP/ZtVMJWyD3t7uncOyY0O/a1YKZAR9EjfRoSgDoxPVojtX1HoJ/mIR0QqUylKs9C4kyixPWMjRE1xxuX7KXn/f395IICkgTYev6yEEJpFsft5MYtH/+EcKrcOVkTsVVA8aDEjNfuZlGCvxX3ffQunl6u3vWtnpFKxVDyl2Vhv9ykvNT1Uqvsc1eHWqVl1Ob4v/Vrg5SyFZSDORGWdFJfoccp43IX47q3JWznyVf7phgToEX92kvA+UWCmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sVMK55xDG6B3zAQsQTMbDzUHCdtkVL0JfcOKf5RzWhk=;
+ b=W1xmZDkmy8j67iRDxxsOgM+hS0b4uow9EsR3tj1CECZ3lrxH8IyRq0XH+2wjnX7VCXpz7B8bPuLMVrRsp9V65tkuhgGh+JkzaDNvEhLZrmltthCOTg+eeA7YpSjM7S2w/CpLKoi8gHzXc09T1vlf4C4zfb9kLSQxymF9LKuTWfwxQkQdOPGhXuzHXpGiW3Mjs6ZZ/RC7fXaMBcLBSaX8RJBZc+A8Va5DvuCpgn+Cz7g+eH5Yeh0VhkGlhGHcq3hAaabPtsDyN/WCAp0UyaSSorPvqCK6MTkSN4KKfiyPfUWzvDxwhD8fAUcEW2/94g3nnorT25MIZ2UCxrFz9cjchA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sVMK55xDG6B3zAQsQTMbDzUHCdtkVL0JfcOKf5RzWhk=;
+ b=OL4Fjnxl6Xed7JK2NKozlSckAOBj9GS1VZW7bBYEw7Rxr9xC0r5lZQFMoKVZ53FWWE/q0YK9s6UhwfiBm9gWa76f7D5RQluFfRb99jL0VOA//s5f6ClGwgwAYjLWNslC+55Lo+12ouayN3l7MbVwOu2BB0VkxzyN3IqY7nEU5i6y6jvLL4ITrs/wnOEdeQ4UFPknE1/T40vDSsh9eWN/IiJaq0RLa42WpXN3ezhAheCBj4uokd8kYMcXmjTlwQp0O+zJylysTWkWCOch1lrandOlXJX/+M011Fkm8vAMOWPLFGdRmGtXvLSvOlWpGpMopV8ZeThxfUmzICUeGwg/iw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from GVXPR04MB12290.eurprd04.prod.outlook.com
+ (2603:10a6:150:319::13) by VI0PR04MB10805.eurprd04.prod.outlook.com
+ (2603:10a6:800:25f::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Wed, 22 Jul
+ 2026 11:01:18 +0000
+Received: from GVXPR04MB12290.eurprd04.prod.outlook.com
+ ([fe80::1739:3404:2175:33dd]) by GVXPR04MB12290.eurprd04.prod.outlook.com
+ ([fe80::1739:3404:2175:33dd%6]) with mapi id 15.21.0245.009; Wed, 22 Jul 2026
+ 11:01:16 +0000
+Date: Wed, 22 Jul 2026 14:01:12 +0300
+From: Ioana Ciornei <ioana.ciornei@nxp.com>
+To: Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Tanjeff Moos <tanjeff.moos@westermo.com>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+	Michael Walle <mwalle@kernel.org>, Shawn Guo <shawnguo@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 phy-next 8/9] soc: fsl: guts: implement the RCW
+ override procedure
+Message-ID: <xumth3wb3bvui6ywrithgazf6fombn42hisikprtywkbuexypn@kugdqyce226c>
+References: <20260721231603.67865-1-vladimir.oltean@nxp.com>
+ <20260721231603.67865-9-vladimir.oltean@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260721231603.67865-9-vladimir.oltean@nxp.com>
+X-ClientProxiedBy: FR4P281CA0398.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cf::16) To GVXPR04MB12290.eurprd04.prod.outlook.com
+ (2603:10a6:150:319::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260721-lovely-quick-tarsier-768113@quoll>
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=AJsSZ1gA c=1 sm=1 tr=0 ts=6a60a2bf cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=jTth_t_kvktUG8lvQfEA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-GUID: YIj32mZ6U5eVfnWHN19yrVtxovq1yzyL
-X-Proofpoint-ORIG-GUID: YIj32mZ6U5eVfnWHN19yrVtxovq1yzyL
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDEwNiBTYWx0ZWRfX92+oojfC2IMQ
- m/YxcQ0z6YZEAVpClZyINJBKDpdfPkpeKXv3P2rTcfjfcgranr4XYcdVQsqZE60YO2obKDivJBB
- 0CZdjIV/KdD7vf3NtMUK1ZsJt8qalUo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDEwNiBTYWx0ZWRfX4qmIcX0g5U/r
- hx3elejB7XDOWSkrSCw1gYLZlTvQeCs/eGuLP2DYuNYq5SRLgr9XLjAKNzTJYTP9ZiQ3e2yG7wg
- yk+bOpkY1nNAeP0DRN4V0TU2LZ7Oc35VaVs/K7Wkpv4lj7ekkZveNG3ORKtihgIqDDkAX3ewDho
- L8SJYHMkXJteR1D7BdrlkBLbourdQYa6En1hoc/a5fKCAQgTBirmVjmt0GQzkaa7eCTkOGnmbgk
- MovsOGEwG2r6oCPCcsLWhs3kyT+p4XKnaDKKzq/rKu0sxr4IZxb7QAlTW70E7CgUeT132BAYC5h
- UouUe2YqRlY8PF3AFrjrHZ0J7Z1zeDDV04rj2k7wVWH6wJJRFedMQLPjgCfYkjj61+hYfwfhYZV
- xxJbYHfZXO+RqCW+Q0DAWxlHpczmIGjr/KIZQ8lkyBbEY6Pe4QtxPhM3079mnEbipgWqi6VEqTb
- 5a1ELTeBy4FrAafTySQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-22_03,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
- bulkscore=0 adultscore=0 priorityscore=1501 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220106
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GVXPR04MB12290:EE_|VI0PR04MB10805:EE_
+X-MS-Office365-Filtering-Correlation-Id: 11ac55c5-a0cc-4f4b-031f-08dee7e08d5e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|1800799024|23010399003|7416014|376014|18002099003|22082099003|4143699003|3023799007|10067099003|11063799006|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	gPhVywYvXAD6cxc/nEnVAwOIneunXOWblsvzWXrgxIigLsyTmVs+Pcde2Q1LxZ8wbo3v8UX125tZg95i7HRibOxt7iSPqtssAaFsEGF5ns5+URsHnXyZacmtuzaiCyW+nu6OTJHDs20fXgEdT5F/j+iuTgN6Q2sRl9lOjVJaL2ZTj2GkdItE3l26zx6wWShYzl1VYNSs2ZU7ce5TgoAQdxpaXkjhVT/XdcPDBugNc9Op+Yld1ts7r4zwPxEfq0ogQG4ZU6GZ36oNBE1DxTowMYDa+RF2JiHDZ2WlUQCa4p0rFe9N03w6KbXcqYQf4WloNnyxY1cfQFrYRvXoWm8i1X4c6wTpqRJ3qwBMW6DwW4LfkP93CH5UVrDmBIE7LVxQdHLO0eo74im9wOnz6a4wOUZnn+nHlxGYWyqV3u/B3mkAzENL2zkzz5jUG2vP9UjJ9vN2LNdVQml3PwKr1SJaY8pwWuebFfGyh80DR6JWs60j0r5XODBwyeSGp5vVdcMVyN+tYGAQw/P6OJHejI/akuIl7AV16fiM4KkDWCjghOPNhekzNWRY2P5e+niXWeQtTCQ4/ebAC6LJajiOLDqvfwHWY/bzQlDuQhPnOARkIrzgH/wd0yQgKDIQpbTuOscfprVd8eWEkl80HvBuHMnYGQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12290.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(1800799024)(23010399003)(7416014)(376014)(18002099003)(22082099003)(4143699003)(3023799007)(10067099003)(11063799006)(56012099006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?1i5me2SzcPvYHupJr5lL7hv7F+asRuH8H/zUJWxna7FIaw0sRcBEsSy0t28N?=
+ =?us-ascii?Q?hZsb75u3kXNrq5rAxSWEVFQmqsrMjv6tJoQm4b8FeNsS+rp26HhmqMlVXc0C?=
+ =?us-ascii?Q?3X63xa6oWAMv3B4mpPJX4fjPG0grd19SabfxPVL0+5xNEs+nNHjN3XUdEXy5?=
+ =?us-ascii?Q?r7CVeEOBVedwVb/lbyRVklVFWAXENOmaBmJ0S4bixvbzHQAqEBvbXJWM0fqe?=
+ =?us-ascii?Q?xzVJEck3rJPkiFeAYHkuNHthHw/Gnddfm6ExxUaPTOsw0/PHbWQiKmUY8eoW?=
+ =?us-ascii?Q?H9SNj1Xkosms/s3OD3slmehN0MqW+e96wPmPXYqvzVxlKdSvQv2JbZQ7XvgU?=
+ =?us-ascii?Q?L4GC0+3059bCm6Tj6VDodnFBsCUl/tMrk1wHUg6Mn6bXMYD2s+dZo9OVGiEi?=
+ =?us-ascii?Q?fVCpicI3myiwoKuj/OA+ruMDjJBLgmHLAPxaPX5udP3KyO72NDDGbwb9tYTP?=
+ =?us-ascii?Q?BSpR2KoTkXqIDE8TKHhOAY5hGzci2S+dRcyc/C0xcjpLkqIi9TN1t3cgXvZl?=
+ =?us-ascii?Q?0LKeuIopB2CbdDcgx0eluU7/Y9JOQn31E4RiQQ1ysdFdfE+I9C0E9CcpWi8W?=
+ =?us-ascii?Q?NN3YyvmRh1ItK0k3hgVCAKUwYPmc718gC3kwUs0PvjS2NOqy0IUoPj/nGUf1?=
+ =?us-ascii?Q?0tghR6C1WFpaDCYerPNrnpp+YxWj8XmRWxWqM8C+72qqdnwsTi6M0guuLvuX?=
+ =?us-ascii?Q?Xch0FdSa0ClxEOYlcYjXFbwGxno9S9UpoTHnwAEHgl5LYal8WsCXY8yhRlV9?=
+ =?us-ascii?Q?ceShFol1Z6jX9gdzXEkgqe5Mr46CEve1U4XCZdCx8fuGahecXkQ9e08b9rzw?=
+ =?us-ascii?Q?44FDU4uERf6JBDCL1DecCViyfo9jvMfAlqe8kAuiRZQr5QDrTAHhc3vsznly?=
+ =?us-ascii?Q?A9gtJulSoNzhEuYfjZVkHbZP7Do83821vvmT8VfC/gJkoRrx2PQ9KWnAfqCo?=
+ =?us-ascii?Q?vQ5j3n9bIIp2lIoUXc2+U0T1IdtVyQ8TtFeXa3AqQllvwAjab4in9JPOjZ8Q?=
+ =?us-ascii?Q?tMgYyxwP112x2RXv7TyNuV+IqtEIVdrh/R/yfaVl59FMiZMtZ1TwZtAmP1bw?=
+ =?us-ascii?Q?6iKzAlhmgdeZ4vcKeL4bhBB0Yr4twobZQTp/2BjZiDOULlUhUXrxxZ5fEgE/?=
+ =?us-ascii?Q?3sGP2RLpnkJql7dFKiT1payYvUh8ttarx6RQ9yCuoqq4TIcVLP2snfkLs37x?=
+ =?us-ascii?Q?1RdaBgDQ8uXOCJMLmuluNPKKklGUJgPwVW2ZaVth3uibtd5QvBajYj+tS5KH?=
+ =?us-ascii?Q?mYKJcn3YSdFxluD+5xGE9J6S7vqUue1blWVsQlYZ9G57Iznsxf9X2wLlq7Ki?=
+ =?us-ascii?Q?a6UhELgsbB3LtvCIGtK40P6tMqxXxRHkspKQ57a2f0JbP8zVA2XkeikqgPKk?=
+ =?us-ascii?Q?DD86wSuRyHeFfxmddsHOBbzSCvbSPr6NBfR6IolrcVnoxDZsftxIduNHmI29?=
+ =?us-ascii?Q?nI+KhbORfmWvvZ7tAWMsFC3+sqGhdMRjLmQ3fijOFs9TkwueIAI01OKRrsHW?=
+ =?us-ascii?Q?gzzvjO9U3+uodHyWXnWAtP4YoMw5H/G8wij99TH2PnMqAXf6YI+u4oNpqQGj?=
+ =?us-ascii?Q?LQSPFrD+i6T5/9zA5+3zLe+XUvn7IjgM975m4GOSWjk7v9HIokHAbOUQZkH/?=
+ =?us-ascii?Q?drpHss8Hf2ZUDatPljWf8AUDO/GXRR0xtDdvofEusQUZFN5xhG4zj+E2YMyB?=
+ =?us-ascii?Q?eTInKlIaqzZGK+rap5mIIrhBoReM3ObOrjHuFlzu9LoNvMAwng+6snTMo3AJ?=
+ =?us-ascii?Q?V3ifIL9tqw=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11ac55c5-a0cc-4f4b-031f-08dee7e08d5e
+X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12290.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 11:01:16.4864
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1i7dCdyiGJ+Qxw/f+Xv8fFr4Oo6m9qilIi4vWB2xVHcyQO4Q0L7SuBdkwm9HdrJ8JFTfRFvRaebq+8TKW5VF9g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10805
 
-On Tue, Jul 21, 2026 at 08:53:16AM +0200, Krzysztof Kozlowski wrote:
-> On Mon, Jul 13, 2026 at 05:28:14PM +0530, Rakesh Kota wrote:
-> > PMM8654AU is a distinct PMIC variant from PMM8650AU despite sharing the
-> > same PMIC subtype. PMM8654AU implements additional registers added to
-> > the "hlos" register address spaces, so add qcom,pmm8654au-pon as a
-> > fallback to qcom,pmk8350-pon to distinguish it from the baseline
-> > PMK8350 PON implementation.
-> > 
-> > The GEN3 PON peripheral requires two register address spaces: "hlos"
+On Wed, Jul 22, 2026 at 02:16:02AM +0300, Vladimir Oltean wrote:
+> Add support for the RCW override procedure which enables runtime
+> reconfiguration of the protocol running on a SerDes lane. The procedure
+> is done through the DCFG DCSR space which now can be defined as the
+> second memory region of the guts DT node.
+> Support is added on the following SoCs: LS1046A, LS1088A, LS2088A.
 > 
-> What is gen3 pon here? It is the first time this appears in the commit
-> msg.
->
-GEN3 refers to the PON peripheral generation, as described in the reg
-description in qcom,pon.yaml. 
+> The procedure is exported to the "client" driver - the Lynx10G SerDes
+> PHY driver - through the following functions:
+> - fsl_guts_lane_validate() used to validate that changing the protocol
+>   on a specific lane is supported.
+> - fsl_guts_lane_set_mode() which can be used to request the RCW
+>   procedure be executed for a specific lane.
+> 
+> Since the RCW override procedure is different depending on the SoC, the
+> private fsl_soc_data structure is updated with two new per SoC callbacks
+> (.serdes_get_rcw_override() and .serdes_init_rcwcr()) which get used
+> from the generic fsl_guts_lane_set_mode() function. These two callbacks
+> hide all the SoC specific register offsets, masks and values so that the
+> _set_mode() procedure is straightforward.
+> 
+> Signed-off-by: Ioana Ciornei <ioana.ciornei@nxp.com>
+> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
 
-> > for the primary PON block and "pbs" for the address needs to be
-> > specified to facilitate software debouncing. Set minItems: 2 for reg
-> > in the qcom,pmk8350-pon if/then constraint to enforce that both
-> > address spaces are always present.
-> > 
-> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> > ---
-> > Changes in v5:
-> >  - Set minItems: 2 for reg in the PMK8350 if/then block to enforce that
-> >    both hlos and pbs address spaces are required for GEN3 PON peripherals.
-> > 
-> > Changes in v4:
-> >  - Remove the contain for PMK8350 and new if:then for PMM8654AU as
-> >    suggested by Krzysztof Kozlowski
-> > 
-> > Changes in v3:
-> >  - Update the commit message.
-> > 
-> > Changes in v2:
-> >  - Introduces PMM8654AU compatible strings as suggested by Konrad Dybcio.
-> > ---
-> >  .../devicetree/bindings/power/reset/qcom,pon.yaml     | 19 +++++++++++--------
-> >  1 file changed, 11 insertions(+), 8 deletions(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml b/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml
-> > index 979a377cb4ffd577bfa51b9a3cd089acc202de0c..09eea48c709e5e42c45c1949ee1d06298dea1f91 100644
-> > --- a/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml
-> > +++ b/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml
-> > @@ -17,12 +17,16 @@ description: |
-> >  
-> >  properties:
-> >    compatible:
-> > -    enum:
-> > -      - qcom,pm8916-pon
-> > -      - qcom,pm8941-pon
-> > -      - qcom,pms405-pon
-> > -      - qcom,pm8998-pon
-> > -      - qcom,pmk8350-pon
-> > +    oneOf:
-> > +      - enum:
-> > +          - qcom,pm8916-pon
-> > +          - qcom,pm8941-pon
-> > +          - qcom,pms405-pon
-> > +          - qcom,pm8998-pon
-> > +          - qcom,pmk8350-pon
-> > +      - items:
-> > +          - const: qcom,pmm8654au-pon
-> > +          - const: qcom,pmk8350-pon
-> >  
-> >    reg:
-> >      description: |
-> > @@ -105,10 +109,9 @@ allOf:
-> >      then:
-> >        properties:
-> >          reg:
-> > -          minItems: 1
-> > +          minItems: 2
-> 
-> You wrote that PMM8654AU has additional registers. This implies pmk8350
-> does not have them, so why are you changing this?
-> 
-> Also, that's an ABI break and I see no relation to the goal of adding
-> PMM8654AU. Don't combine independent works into one commit.
-> 
-Agreed, will split the minItems: 2 fix into a separate patch in the same
-series.
-
-regards
-Rakesh Kota
-> Best regards,
-> Krzysztof
-> 
+Reviewed-by: Ioana Ciornei <ioana.ciornei@nxp.com>
