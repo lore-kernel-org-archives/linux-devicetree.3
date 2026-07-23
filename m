@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D590640682E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B106940587A;
 	Thu, 23 Jul 2026 22:17:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784845053; cv=none; b=KXn2i1/NtPH7U1sq6G10gxpAvNWivDD+RmlBBCAr0z+Huz17kwA/nkPCKmqrfk/tR7fObizIP3uyrBlJzzapNFau04ZPDquD9JwUHOTmegeXpWQ0EeTXg7XMMcYoyV0o9aGRTCHa0XF9NBxhexPsX+E6rx1T5wNq/ccIL3HklvQ=
+	t=1784845053; cv=none; b=mgW3YwyQ71hxAdjgc1TKTi/XVfq/ko0+LL6bdaYpKL2fcv1UD9fZ3Qm6c5+pH9MPCgejnexE+SVV4x4w5PQBhJOjw4WA+lgADuPifuazrxKddm0Diqe629bhHMHRXqZRtp1I0bTNXCQUqGh/qsccrZmTJHAyE/7pjqE+68BaiVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784845053; c=relaxed/simple;
-	bh=LU6QacFikc65qKPeVULOnze9hE0/IyFs6PuADZnhJuw=;
+	bh=k0eRRol0juQKDRwk26Fz36sBhpAIKfOBZOjBCwiTCgw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=P5LIK+gkljCMWBEMSv+JT26SmGLVls4VwZdgjK42+YV+KQbSfYyWcUG/bMysFnN5CwYjYF6UEUj0PmjcMoLQokpcID2vzU2ZGY42oztVFcvBWnKnGsxIMFw2DrLn7A7xni9r/FatW24MqRBX+Zq/D/9cx0eRZ02VKxajlz5fPtk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=aeFN6Nqu; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=F/U6oZp3JKWRaGbztQANVpT21izKzktCQiVPUWkruJh3gkIqBJ2bplHEfDO19DvZRN2HOpIHrTsk/aDav5c3oYOjRIxMWXVt/Cxx+tQIVbW8P7ahcpl5UVo1o4l8elU2CWLdrZDqK4KIyq47ppEECOfpbsUrDdN7HhjZd4C0eb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=NB1+Vu1f; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="aeFN6Nqu"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="NB1+Vu1f"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1784845043;
-	bh=LU6QacFikc65qKPeVULOnze9hE0/IyFs6PuADZnhJuw=;
+	bh=k0eRRol0juQKDRwk26Fz36sBhpAIKfOBZOjBCwiTCgw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=aeFN6Nqu3hCVWsCEXRrpXWK+wwjpV192F/3J8Yd4lgHE1qy1xPbKPkr99wVz5P0Tm
-	 aGHlo/oCFrKmL9ROSvviclv3I9MSlJVg76+KEVD06I2pJBY5SN0ZIIux1HPJG+ozNc
-	 scuxQ3gpumAUwLwAnHnX7H/WOROfEEVl42LM1kacsHjTbv+AbVTDRj5LMdpk9KhmYz
-	 pFFXNEY39IVhw5rQpeSgqh2IzuSitPAz95PhDEblwa/aHSDbhbiHMKmYPBu6bpK2KJ
-	 YAfS2ijK+R8zlfiPLM2EW/MBWYrt5PQIgMwltTHolrlAHSWtNOyUOdbIJm5IxQg840
-	 1vJ7zRsblwCyA==
+	b=NB1+Vu1fCV1nTwlfRNX8qIOTQOeHT0VDJjO29BiOv5/vnbUH4W9CcWE8u0QCO+uRe
+	 414bGO78KmWtQrpd6debnqr4phILoNI3K/4igfqD43wC2Nds3qeMtHg4Bm1K9rU48V
+	 i6GEQElMGrMVhGiP7EoIC9cSGeFkQUNPoDWlRwBhbnVclhdg9Z6WNmjloZZBeOnhv+
+	 bQXqA2X9zz5a/Xw3yDQ6O9S4+OvHnEm+KKRIeAZykv00vAthEHMF3DjLuvw7+ybp+I
+	 Avg+Gveuxsd1XnVuTxD2r6DLKm01n75bMzggSBYZTUGWzmRgJQrWF/B6QXMenm8Hae
+	 wv8hZ+5gEbhTg==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id CCFCC17E3BAD;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D2AD917E3BAF;
 	Fri, 24 Jul 2026 00:17:22 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 1F4E148004E; Fri, 24 Jul 2026 00:17:22 +0200 (CEST)
+	id 20F9F480052; Fri, 24 Jul 2026 00:17:22 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 24 Jul 2026 00:17:21 +0200
-Subject: [PATCH v5 13/15] drm/bridge: synopsys: dw-dp: Use regmap_set_bits
- in dw_dp_send_sdp
+Date: Fri, 24 Jul 2026 00:17:22 +0200
+Subject: [PATCH v5 14/15] dt-bindings: display: rockchip: dw-dp: Fix sound
+ DAI cells
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-synopsys-dw-dp-improvements-v5-13-9445c2e87441@collabora.com>
+Message-Id: <20260724-synopsys-dw-dp-improvements-v5-14-9445c2e87441@collabora.com>
 References: <20260724-synopsys-dw-dp-improvements-v5-0-9445c2e87441@collabora.com>
 In-Reply-To: <20260724-synopsys-dw-dp-improvements-v5-0-9445c2e87441@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -72,57 +72,103 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1254;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3080;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=LU6QacFikc65qKPeVULOnze9hE0/IyFs6PuADZnhJuw=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpikvHqIvnMxStTnQUp4KY7FRiXjlmCH1UkP
- HRpAU55wSWPpokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqYpLxAAoJENju1/PI
- O/qaQHAQAJlVHTZUNQFMRt5UIpTYuHUJtTY3OANDc+/SmDp6iPGZJZtgElgrh1Jlc7y4zbXFi6k
- 9fNjhfFoMxUa8FuBYlVSVm3g3R5EYbQIcIDiR+lkVRMQSLtMWQwPNyM1dERfDkHv/N9K9nCYyW7
- EmI1Y34VM2/K77RvIC3DQIemh9w6m4rNgJyuoyZwvaZOFoMzliuoYYKE9Etb2R83YCN6xjxfuYS
- fIwzllX1VSsfilYlKLJ4YPr1PHlVHZFo6gM+RwNpk/h14BLOddq2cczE7o+BpJ3+RgND/0optav
- jAGtwcH5cQmIJPq4E3EC4mYwLYD5NbpobAvarrFkgqHULSxnX+ZcOzbTVuZX0vlZMJ1kQeVE4/R
- /M9kogRDt/fYMsKlr9K8vk7iP5FjDk7iwRy1FbSOyP0owZUuPaEMs6rmbeb6m/cQuJWa1rvP034
- vRIg7Aluvhd1WdADXLIEglcxrLkGffB87EBP58mTuPCPbJNgWx99AQMx0tfk/8PvWlA66j75Ric
- dkjEQLsZHSfUpfWOw05zawbaixTYXrW+d2+aC85g4zlXd4YvcQ8OMiEUY0fDcZ0Fo901F6FZP3T
- 2gyAU77ooadbZ/7QNE15kCrPbEnPwnObjNxOKe4IyRuJAgdSZHhTY2xmqLM/VPsS45EA+ZYKTR+
- roWFqlCY9pbHbV0bR4ccmoA==
+ bh=k0eRRol0juQKDRwk26Fz36sBhpAIKfOBZOjBCwiTCgw=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpikvGv9aRl1I9rdbdJ6KY1XhUsBepalYuih
+ ZEu76KK2kiAaYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqYpLxAAoJENju1/PI
+ O/qaRUgQAKkImUwS1rKg0zuMtEhVWrCaFS3D5vDthyqS7K+2R1JO/YNMsOFmSckaE2J1kcPhZt7
+ AifYn6vnevhgWbH+rGjA/RheouA/KtUDjgpLrYD15Pxt58NTZUB6AMHUor2kuIKNVP03PLE0gul
+ EVmrOFYUMwIccgtsfWn+9JwXXJWYTatbeRrL4VszH5iE4LDUnd/R6SAJ0sq9Gj9OdR5BInO8G6V
+ tr/mB7HrqmkgZ6hPBTsnB/jv0ODAk+fbr4XPXvk8+JBnrlC9xudDSqhvizZSt9MTaH9CIktX7TK
+ bHSRw7SyRgxjq27rtuVVQvC6V1zLquKTvzu7ACPn+PtiDFRpcUQ9mSz6tDkHIayTRRL849eplhE
+ lmv3FXv6Ycun3P7IvxN99pObMxVBMTVkfmFvY4tGNIhxs121VLnt/XpOG0YXM9JKuhUxg6v63Ct
+ /hjPG9RPmR7NGxczUFwfCfCB7PlpNqEGRUbCJ/6f15HKgeIf4icimMvzpyya+m3XFW+UGlcshZg
+ X/wwQJC2JrMMYN2oXexH9GCBrLJ5MMQTLWhDxln21sUV/B+5dfUgNcMVDDVjVL6yUWpqwaWOXmu
+ 6ecd2oKlbOHfyaVBujoM1A6PN66D1wc2LOR1ED3AtYgOCkaA+AisE9tvt+C/RJibbnBLFwu+LDX
+ VqChl59YcHs6czxMnJ6o3lQ==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Simplify dw_dp_send_sdp() a little bit by making use of
-regmap_set_bits.
+The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
+possible DAI interfaces: I2S and S/PDIF. Thus an argument is needed to
+to select the right interface.
 
-No functional change intended.
+In addition to that the RK3576 DisplayPort controller is configured
+with Multi Stream Transport (MST) enabled for up to 3 displays and
+thus has a total of 6 DAI interfaces (I2S and S/PDIF for each possible
+stream). Meanwhile the RK3588 does not support MST and thus has only 2
+DAI interfaces.
+
+The binding update from this patch has only been tested with the simple
+single stream transport (SST) setup as the Linux driver does not yet
+support MST. Once MST support is added, the plan is to simply add more
+numbers to the argument, so that it looks like this for RK3576:
+
+0 = I2S on stream 0,
+1 = S/PDIF on stream 0
+2 = I2S on stream 1,
+3 = S/PDIF on stream 1
+4 = I2S on stream 2,
+5 = S/PDIF on stream 2
+
+As the arguments are not part of the binding itself the audio side
+is also ready for MST after this change.
+
+Switching '#sound-dai-cells' from 0 to 1 without keeping compatibility
+is an ABI break. The rationale for going that way is, that there is not
+a single known driver implementation for the current binding. It's also
+unclear how the current binding would be used (only support I2S or
+S/PDIF for stream 0?). The mainline rk3588 DTS include sets it to 0, but
+does not have any soundcard using the DAI. This will be fixed up
+separately. The RK3576 does not set it at all.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ .../devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml     | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 435f23fe391e..2bd37e5c36da 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1066,14 +1066,12 @@ static int dw_dp_send_sdp(struct dw_dp *dp, struct dw_dp_sdp *sdp)
- 			     FIELD_PREP(SDP_REGS, get_unaligned_le32(payload)));
+diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
+index 2b0d9e23e943..c4f8959dd65d 100644
+--- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
++++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
+@@ -25,7 +25,7 @@ description: |
+   * Supports up to 8/10 bits per color component
+   * Supports RBG, YCbCr4:4:4, YCbCr4:2:2, YCbCr4:2:0
+   * Pixel clock up to 594MHz
+-  * I2S, SPDIF audio interface
++  * I2S, S/PDIF audio interface
  
- 	if (sdp->flags & DW_DP_SDP_VERTICAL_INTERVAL)
--		regmap_update_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
--				   EN_VERTICAL_SDP << nr,
--				   EN_VERTICAL_SDP << nr);
-+		regmap_set_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
-+				EN_VERTICAL_SDP << nr);
+ properties:
+   compatible:
+@@ -46,7 +46,7 @@ properties:
+       - description: DisplayPort AUX clock
+       - description: HDCP clock
+       - description: I2S interface clock
+-      - description: SPDIF interfce clock
++      - description: S/PDIF interfce clock
  
- 	if (sdp->flags & DW_DP_SDP_HORIZONTAL_INTERVAL)
--		regmap_update_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
--				   EN_HORIZONTAL_SDP << nr,
--				   EN_HORIZONTAL_SDP << nr);
-+		regmap_set_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
-+				EN_HORIZONTAL_SDP << nr);
+   clock-names:
+     minItems: 3
+@@ -83,7 +83,8 @@ properties:
+     maxItems: 1
  
- 	return 0;
- }
+   "#sound-dai-cells":
+-    const: 0
++    const: 1
++    description: 0 for I2S, 1 for S/PDIF
+ 
+ required:
+   - compatible
+@@ -144,7 +145,7 @@ examples:
+         resets = <&cru SRST_DP0>;
+         phys = <&usbdp_phy0 PHY_TYPE_DP>;
+         power-domains = <&power RK3588_PD_VO0>;
+-        #sound-dai-cells = <0>;
++        #sound-dai-cells = <1>;
+ 
+         ports {
+           #address-cells = <1>;
 
 -- 
 2.53.0
