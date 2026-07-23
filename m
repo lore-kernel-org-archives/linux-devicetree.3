@@ -1,240 +1,262 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A5B6411F92
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 12:24:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784809470; cv=none; b=pmN2lUx8+z+I2/BDSo/YYs3bnHoYbzHDsBmx17YjcR6zBv2ziIgt8IlLF5/xVGWiJUDL7L8ztyx/owNvA93yWn3cOXyArJbmWZZnuN/cXLc0u8YcZGMwytidrLZSjC+3eMCTJw+j34OZ4BceoEy+bJGfemWjwdTwuSyoRLVvacc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784809470; c=relaxed/simple;
-	bh=2ysFnJ8Tl30StoBbeeyvwD13cTjml8aXOIaoRWjfp90=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=P/kmaIfIoegAYrbCAij3oY6DSsCl77DfL9NEB7kHMyW0cRBOsKSyiECAZmrgKc41ZbftLO8pjYxbKusNAQCkN82p8rWA4XRK5w8kJOrdrSFzvBe84YFJmlXcBDLJ3YK4+L7iirXX+nmo4ddlCk+Ab9WY96dbBp2Gj3Ool/CXITw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O++RP3oQ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29EA348C8D2
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 12:25:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784809520; cv=pass; b=WAnHEIO4vRR/rnimKhEvphMq5G4Oj50xgG3bJtfuAElsY+DyuyqTvT4dReDkvo4ryvYSkvRY+ksIPrXaYJ5jbusILB5tzRsUK0FBtIZKqcFU1JVeQgsjXYpdQtA11TB3HSBMUNr4svFoNRmeYCXBWTxFuGTv/8Sin+xqwpidOMs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784809520; c=relaxed/simple;
+	bh=2KR7DmFwzcGsB2zw950Y33EdphHhQHSGdkvtcPhQCcU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ipgqBAGSCn1bGB01QZbpufNUbj92VBBDPAxTJoIIan1ENoM0I4v9Hb/TGADRrAMu506zJkfzu8OsMvO6qvla7AF/hDRzwDpnlNgvBpc3jKfDRpQdD6TFyYvCrFLCnF/KfFHcdcnoyIru61eTrOivH20J/Y9jAR8GHQUDCzXQtC8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=i7i+AjfY; arc=pass smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O++RP3oQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E42C31F00A3A;
-	Thu, 23 Jul 2026 12:24:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784809469;
-	bh=K0+PH6a3tmp0Wo6ZxpjfOPfGvTZzYyzbQXmMgB2pe8Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=O++RP3oQZa81LE9EWQnXI/wfY+IPvxUAWcSiuva3uAttGjrY+TdniNLiHDGAf+G28
-	 d9zOID96f94X3y/vI5mm4uH0RYZ2qmRd2ehCTjKIS30dB/XplNpniqG38EUR3Zkn0z
-	 jixwBGR9qR1gPgu2t8HUkAjNYMg72XouqvcSOIbG1BdNdLBzWziDlJEuf0x+I44hl5
-	 hCqR7qXi1qa/WvTyYZjoIPk8X7HhUtn4qJQ+f4pn75whVok8qRppXDjA8etGxvAHwM
-	 Lj0GpK7ivQll+vqJWZqSyGS0F9mCsbZBtNlLgkPf9vA0mbRQUQ5JVXMx5gYopXSWmF
-	 GU4c6PHO4d4Uw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v18 2/4] crypto: spacc - Add SPAcc ahash support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pavitrakumar Managutte" <pavitrakumarm@vayavyalabs.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260723120156.285270-3-pavitrakumarm@vayavyalabs.com>
-References: <20260723120156.285270-1-pavitrakumarm@vayavyalabs.com>
- <20260723120156.285270-3-pavitrakumarm@vayavyalabs.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 12:24:28 +0000
-Message-Id: <20260723122428.E42C31F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="i7i+AjfY"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-698a9f11776so930624a12.1
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 05:25:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784809517; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Vhh3UFBZOgZ3W2DP3eExpQoomAA22vRop21nVXOBKO4swJKatZeHTz2iPvnuubPTbE
+         3YzUcVn9U7TTpgd4GXoIJbtp7E+ElHiqOhSWN85p1PzWKCoO9tZKNa0XWNaemm7eRjhH
+         nur4e2Un1ml1fH9V4Fq3FB5g9mIEWcaUoh9nh+fh1bzVaHwu8DH3nmWb8DL1fVobjyjY
+         qEFb8Kz25iGxWMjApgch1uD8Fz5S7Tqi0qmOOmhx4ZNVIc15QHfTmm7XI1fFl7jt08sk
+         Dvgv9turt/Q/I9wJt9U5vPLovhjdlNeWig7gsrwYs98L6dUj/crDpFYqufdWNNW+XMoz
+         bdOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=aB8Q4OnQxgGR3hOnEbILSOeq7HiqZdVqhRD7b5FSwLU=;
+        fh=YatqLEOS4p1TtnzTQ4smH+/WfB1YXtYqlMJ/IkZ6zrQ=;
+        b=ZI8pWT/VpF5EVNjcoaRBaWnvzFkOuoOuU+fTfyXJUKIaCQ4BNWRU1vE1ZJIt9DpjqA
+         7oEFaQaEu2PFlZdKw49x0vuuk0iswQxobTH0lN9HUPO/KrMlPp29q2QKhLS6EXtHjEaP
+         wNwn1yM+5Ooq0xKsUMDJphO1L/TnY7s8UEdbzB+agDe1XGkCPpahs95h0okq59zjDckR
+         nUuc4ejvtA0Rfv0jAH0Jfa9rxrng3YpoIA92bLhgoTvOwTwGtlvMU+D2X0BC7SBMJBHs
+         +p1Df6B7QbR7Jko8kQchFCiuSkCGmHcKYhoDats1Um46RdzDC7JPaecA1avglOudZuba
+         IieA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1784809517; x=1785414317; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aB8Q4OnQxgGR3hOnEbILSOeq7HiqZdVqhRD7b5FSwLU=;
+        b=i7i+AjfY6edFhK1KVd31916WACOIGuXCg3Kl4niSGyptx3VPqhPEYLmFwUCi4jSZuS
+         JNqLCLEBgFaCZ1xZLWCIIRRf84uAzKhOWuTOparnfiJ7OJlOu1OBAk7syWR4tsLmeaLE
+         EUmcbz+jZJkpVPuhgwvrFCdJzFfKxxFLkqGW7xbKR5Ell7lqg21ECuyB6qRv0ZK/bvYO
+         W4rWs1mAjI1y+M+vvThf5lA29N82ZI5Hq/CpWr+4FuXu7S089G9kWAYncZIXpAXG71n+
+         CEHwV2bBym0bDxt+iEeAT0aQDhzfYufLNxGrt2WzOpC1b34qMX24KRBJW9yns0Pm2Pex
+         mERA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784809517; x=1785414317;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=aB8Q4OnQxgGR3hOnEbILSOeq7HiqZdVqhRD7b5FSwLU=;
+        b=DPmj3Ro5+oiIInVYn6yI/y4kZA3mVTSnEBs6jZs2laZ/oeBvMlVNdAmPkbR4cXP5IE
+         ifqCQIwqBykfxT6Sci5fO21f/FVINMfz+4mCGsMlimxw/P1hOeJRdSXRisTFRp0oZ533
+         dnIUEtVLXWx0ShgNOi3nz3ocBdTBCUAKU6T9dd5kyviy8b0k+IXaSMTHnO3TpsRFKK5v
+         K8U52Fa39LMp0uBf28FNgWc03WOEXjzmrULw/cYFMuUhmxBvM3OxfwnxoBxTrNY9OqUX
+         JiyNXDVbCq1lgnkAh1ogLYYMp3k005Z8qLjnxoDEj6xOo2wuGOwsdY6vOmAxLtlquutd
+         wA5Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqRcqAV1+8Dt8XY8umEZiTj9nfRvwxPxNxViIjkl3YkUVpa54hpyIEJmq1hnucVelC5NHiEM+SpS1Fk@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx8WdwIKkI0NMjRC952T5OX+ajb99vP5nAXOjaW6x7UI13VNu/W
+	SljIaN/xFrKj/4WKUx6/oTwJS3ZJ2ymexwSv1oNzQCQEWyS80OuQeub/z+cbS+QBzWL27FmC7x/
+	ALLAscFId9WUvw2qULs6uqtN1JF2rgkQiLTcRoAsGtA==
+X-Gm-Gg: AR+sD10yWYzoJkcWfFfI4q7OeBf09Q6vwuujYQZ4WbvJ9AKNtPNRwz0P/c0rUoYWfMS
+	Jc6KLsDH3CLKC50Ed7Jl2dZgJE9L913awVgLhoiXnEzcN5RWqgvQrg8xtYDWeFSqJplS5tnFw60
+	DYPkH0+Ecgqi6uzuSbkTjMaMjVijgvTqRiuyvp/mqoGUQTYF2W+tCHx/1VGDU4Dup6fdh1+AgSM
+	UJJ/8ecunnuVxqD67SvrkhUHyuPv90Vk6hKEBIZBtb3R0RQC56v4dUbiVIj3WSs0v83qumB4Rik
+	U4N+ah7Ws+eZPeIYCMpJ
+X-Received: by 2002:a05:6402:a0db:b0:695:f580:a66f with SMTP id
+ 4fb4d7f45d1cf-69f6d9e12b5mr996909a12.21.1784809517384; Thu, 23 Jul 2026
+ 05:25:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260709-exynos850-ap2apm-mailbox-v4-0-caf2fe9a237d@linaro.org> <20260709-exynos850-ap2apm-mailbox-v4-2-caf2fe9a237d@linaro.org>
+In-Reply-To: <20260709-exynos850-ap2apm-mailbox-v4-2-caf2fe9a237d@linaro.org>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Thu, 23 Jul 2026 13:25:04 +0100
+X-Gm-Features: AUfX_mxKHXmvgZNOprzFkOSU6fVlzJ5mLmuhFNF7QD8eikBR_HNCKQLBJH8wlno
+Message-ID: <CADrjBPqHcXgAC+AdMAKZRa6S6ZOaYKnwhj-K+wXdouuV7oVmkw@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] mailbox: exynos: Add support for Exynos850 mailbox
+To: Alexey Klimov <alexey.klimov@linaro.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Sam Protsenko <semen.protsenko@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Jassi Brar <jassisinghbrar@gmail.com>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] Hardware DMA descriptors are written using CPU endianness instead =
-of the required little-endian format.
-- [High] Module unbind tears down the crypto engine before unregistering th=
-e algorithms, causing a Use-After-Free.
-- [High] Concurrent sysfs unbind leads to NULL pointer dereferences and Use=
--After-Free in tfm operations.
-- [Medium] API Contract Violation: crypto_ahash_digest rejects large messag=
-es instead of chunking or falling back.
-- [Medium] Data race on shared buffer `tctx->ipad` in spacc_hash_setkey().
-- [Low] Inconsistent internal state left behind when software fallback key =
-setup fails.
-- [Low] Redundant re-initialization of an active waitqueue structure.
---
+On Thu, 9 Jul 2026 at 15:45, Alexey Klimov <alexey.klimov@linaro.org> wrote:
+>
+> Exynos850-based platforms support ACPM and has similar workflow
+> of communicating with ACPM via mailbox, however mailbox controller
+> registers are located at different offsets and writes/reads could be
+> different. To distinguish between such different behaviours,
+> the registers offsets for Exynos850 and the platform-specific data
+> structs are introduced and configuration is described in such structs
+> for gs101 and exynos850 based SoCs. Probe routine now selects the
+> corresponding platform-specific data via device_get_match_data().
+>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+> ---
 
---- Patch [2]: [PATCH v18 2/4] crypto: spacc - Add SPAcc ahash support ---
-commit aeccbd51ad1044db1600d8106d1283e4ab1a88aa
-Author: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
 
-crypto: spacc - Add SPAcc ahash support
-
-This commit adds ahash support to the SPAcc driver. It introduces various h=
-ash
-algorithms including cmac, xcbc, hmac, sha, and md5.
-
-> --- a/drivers/crypto/dwc-spacc/spacc_ahash.c
-> +++ b/drivers/crypto/dwc-spacc/spacc_ahash.c
-[ ... ]
-> +static int spacc_hash_setkey(struct crypto_ahash *tfm, const u8 *key,
-> +			     unsigned int keylen)
-> +{
-[ ... ]
-> +	const struct spacc_alg *salg =3D spacc_tfm_ahash(&tfm->base);
-> +	struct spacc_crypto_ctx *tctx =3D crypto_ahash_ctx(tfm);
-> +	struct spacc_priv *priv =3D dev_get_drvdata(salg->dev);
-
-[Severity: High]
-If the device is unbound concurrently via sysfs, will dev_get_drvdata() ret=
-urn
-NULL and cause a crash when priv is dereferenced later in this function?
-Active tfms can outlive the device unbind, making this a potential
-Use-After-Free or NULL pointer dereference.
-
-[ ... ]
-> +		/*
-> +		 * Enforcing valid block-cipher * key sizes supported by SPAcc:
-> +		 * AES-CMAC accepts 16/24/32,
-> +		 * SM4-CMAC/XCBC/SM4-XCBC only 16.
-> +		 */
+>  drivers/mailbox/exynos-mailbox.c | 72 ++++++++++++++++++++++++++++++++++++----
+>  1 file changed, 66 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/mailbox/exynos-mailbox.c b/drivers/mailbox/exynos-mailbox.c
+> index fa02f18948cf..ff75c1c7633c 100644
+> --- a/drivers/mailbox/exynos-mailbox.c
+> +++ b/drivers/mailbox/exynos-mailbox.c
+> @@ -24,14 +24,60 @@
+>
+>  #define EXYNOS_MBOX_CHAN_COUNT         HWEIGHT32(EXYNOS_MBOX_INTGR1_MASK)
+>
+> +#define EXYNOS850_MBOX_INTGR0          0x8     /* Interrupt Generation Register 0      */
+> +#define EXYNOS850_MBOX_INTMR1          0x24    /* Interrupt Mask Register 1            */
 > +
-> +		memcpy(tctx->ipad, key, keylen);
-> +	}
+> +#define EXYNOS850_MBOX_INTMR1_MASK     GENMASK(15, 0)
+> +#define EXYNOS850_MBOX_INTGR0_MASK     GENMASK(31, 16)
 > +
-> +	if (!spacc_is_mode_keysize_supported(&priv->spacc, salg->mode->id,
-> +				keylen, 1)) {
-> +		dev_dbg(salg->dev, "keylen %u not supported for mode %d\n",
-> +				keylen, salg->mode->id);
-> +		return -EINVAL;
-> +	}
+> +#define EXYNOS850_MBOX_CHAN_COUNT      HWEIGHT32(EXYNOS850_MBOX_INTGR0_MASK)
 > +
-> +	{
-> +		guard(mutex)(&tctx->lock);
-
-[Severity: Medium]
-Can this sequence cause a data race? The memcpy updates the shared tctx->ip=
-ad
-buffer before acquiring tctx->lock. If an asynchronous hash request is
-processed concurrently by the crypto engine, could it read a corrupted MAC
-key while it is being overwritten?
-
+> +/**
+> + * struct exynos_mbox_driver_data - platform-specific mailbox configuration.
+> + * @intgr:             offset to the IRQ generation register, doorbell
+> + *                     to APM co-processor.
+> + * @intgr_shift:       shift to apply to the value written to IRQ generation
+> + *                     register.
+> + * @intmr:             offset to the IRQ mask register.
+> + * @intmr_mask:                value to write to the mask register to mask out all
+> + *                     interrupts.
+> + * @num_chans:         number of channels the mailbox can support (hardware
+> + *                     capability).
+> + */
+> +struct exynos_mbox_driver_data {
+> +       u32 intgr;
+> +       u32 intgr_shift;
+> +       u32 intmr;
+> +       u32 intmr_mask;
+> +       int num_chans;
+> +};
 > +
-> +		tctx->keylen =3D keylen;
+>  /**
+>   * struct exynos_mbox - driver's private data.
+>   * @regs:      mailbox registers base address.
+>   * @mbox:      pointer to the mailbox controller.
+> + * @data:      pointer to driver platform-specific data.
+>   */
+>  struct exynos_mbox {
+>         void __iomem *regs;
+>         struct mbox_controller *mbox;
+> +       const struct exynos_mbox_driver_data *data;
+> +};
 > +
-> +		/*
-> +		 * For CMAC/XCBC the shash fallback also needs the key so that
-> +		 * the software path produces correct MACs when the HW
-> +		 * context is not yet available.
-> +		 */
-> +		if (tctx->shash_fb) {
-> +			int rc =3D crypto_shash_setkey(tctx->shash_fb, key,
-> +						     keylen);
+> +static const struct exynos_mbox_driver_data exynos850_mbox_data = {
+> +       .intgr = EXYNOS850_MBOX_INTGR0,
+> +       .intgr_shift = 16,
+> +       .intmr = EXYNOS850_MBOX_INTMR1,
+> +       .intmr_mask = EXYNOS850_MBOX_INTMR1_MASK,
+> +       .num_chans = EXYNOS850_MBOX_CHAN_COUNT,
+> +};
 > +
-> +			if (rc)
-> +				return rc;
-> +		}
-
-[Severity: Low]
-If crypto_shash_setkey() fails and returns an error, does this leave
-tctx->keylen in an inconsistent state? It gets updated to the new length
-before the software fallback validation fails.
-
-[ ... ]
-> +static int spacc_hash_digest(struct ahash_request *req)
-> +{
-> +	struct crypto_ahash *reqtfm =3D crypto_ahash_reqtfm(req);
-> +	struct spacc_crypto_ctx *tctx =3D crypto_ahash_ctx(reqtfm);
-> +	struct spacc_priv *priv =3D dev_get_drvdata(tctx->dev);
+> +static const struct exynos_mbox_driver_data exynos_gs101_mbox_data = {
+> +       .intgr = EXYNOS_MBOX_INTGR1,
+> +       .intgr_shift = 0,
+> +       .intmr = EXYNOS_MBOX_INTMR0,
+> +       .intmr_mask = EXYNOS_MBOX_INTMR0_MASK,
+> +       .num_chans = EXYNOS_MBOX_CHAN_COUNT,
+>  };
+>
+>  static int exynos_mbox_send_data(struct mbox_chan *chan, void *data)
+> @@ -50,7 +96,9 @@ static int exynos_mbox_send_data(struct mbox_chan *chan, void *data)
+>                 return -EINVAL;
+>         }
+>
+> -       writel(BIT(msg->chan_id), exynos_mbox->regs + EXYNOS_MBOX_INTGR1);
+> +       /* Ring the doorbell */
+> +       writel(BIT(msg->chan_id) << exynos_mbox->data->intgr_shift,
+> +              exynos_mbox->regs + exynos_mbox->data->intgr);
+>
+>         return 0;
+>  }
+> @@ -80,19 +128,31 @@ static struct mbox_chan *exynos_mbox_of_xlate(struct mbox_controller *mbox,
+>  }
+>
+>  static const struct of_device_id exynos_mbox_match[] = {
+> -       { .compatible = "google,gs101-mbox" },
+> +       {
+> +               .compatible = "google,gs101-mbox",
+> +               .data = &exynos_gs101_mbox_data
+> +       },
+> +       {
+> +               .compatible = "samsung,exynos850-mbox",
+> +               .data = &exynos850_mbox_data
+> +       },
+>         {},
+>  };
+>  MODULE_DEVICE_TABLE(of, exynos_mbox_match);
+>
+>  static int exynos_mbox_probe(struct platform_device *pdev)
+>  {
+> +       const struct exynos_mbox_driver_data *data;
+>         struct device *dev = &pdev->dev;
+>         struct exynos_mbox *exynos_mbox;
+>         struct mbox_controller *mbox;
+>         struct mbox_chan *chans;
+>         struct clk *pclk;
+>
+> +       data = device_get_match_data(&pdev->dev);
+> +       if (!data)
+> +               return -ENODEV;
 > +
-> +	if (!priv)
-> +		return -ENODEV;
-> +
-> +	return crypto_transfer_hash_request_to_engine(priv->engine, req);
-> +}
-
-[Severity: High]
-Does this check adequately protect against a concurrent sysfs unbind? The
-unbind could occur immediately after the NULL check, causing a Use-After-Fr=
-ee
-when accessing priv->engine.
-
-> --- a/drivers/crypto/dwc-spacc/spacc_core.c
-> +++ b/drivers/crypto/dwc-spacc/spacc_core.c
-[ ... ]
-> +int spacc_packet_enqueue_ddt_ex(struct spacc_device *spacc, int use_jb,
-> +				int job_idx, struct pdu_ddt *src_ddt,
-> +				struct pdu_ddt *dst_ddt, u32 proc_sz,
-> +				u32 aad_offset, u32 pre_aad_sz, u32 post_aad_sz,
-> +				u32 iv_offset, u32 prio,
-> +				unsigned long *lock_flag)
-> +{
-[ ... ]
-> +	if ((u32)(proc_len - job->post_aad_sz) > spacc->config.max_msg_size)
-> +		return -EMSGSIZE;
-> +
-> +	if ((pre_aad_sz & ~SPACC_AADCOPY_FLAG) > spacc->config.max_msg_size)
-> +		return -EMSGSIZE;
-
-[Severity: Medium]
-Does rejecting large inputs here violate the Linux Crypto API contract?
-The ahash interface guarantees support for arbitrarily large inputs. Would
-it be better to chunk the requests internally or use a software fallback
-instead of returning -EMSGSIZE?
-
-[ ... ]
-> +int spacc_compute_xcbc_key(struct spacc_device *spacc, int mode_id,
-> +			   int job_idx, const unsigned char *key,
-> +			   int keylen, unsigned char *xcbc_out)
-> +{
-[ ... ]
-> +	spacc_set_operation(spacc, handle, OP_ENCRYPT, 0, 0, 0, 0, 0);
-> +	job =3D &spacc->job[handle];
-> +	init_waitqueue_head(&job->waitq);
-
-[Severity: Low]
-Can this cause lockdep warnings or lock state reset issues? The job slots
-and their waitqueues are already initialized in spacc_job_init_all(), so
-re-initializing an active waitqueue here might violate lock semantics.
-
-> --- a/drivers/crypto/dwc-spacc/spacc_device.c
-> +++ b/drivers/crypto/dwc-spacc/spacc_device.c
-[ ... ]
-> +static void spacc_crypto_remove(struct platform_device *pdev)
-> +{
-> +	struct spacc_priv *priv =3D platform_get_drvdata(pdev);
-> +
-> +	if (priv->engine)
-> +		crypto_engine_exit(priv->engine);
-> +
-> +	spacc_irq_glbl_disable(&priv->spacc);
-> +	devm_free_irq(&pdev->dev, priv->irq, &pdev->dev);
-> +
-> +	spacc_unregister_algs(priv);
-
-[Severity: High]
-Is it safe to exit the crypto engine before unregistering the algorithms?
-This creates a window where the algorithms remain active but point to a
-destroyed engine. If a user submits a new request during this window,
-could it result in a Use-After-Free?
-
-> --- a/drivers/crypto/dwc-spacc/spacc_hal.c
-> +++ b/drivers/crypto/dwc-spacc/spacc_hal.c
-[ ... ]
-> +int pdu_ddt_add(struct device *dev, struct pdu_ddt *ddt, dma_addr_t phys,
-> +		unsigned long size)
-> +{
-[ ... ]
-> +	if (ddt->idx =3D=3D ddt->limit)
-> +		return -EINVAL;
-> +
-> +	ddt->virt[ddt->idx * 2 + 0] =3D (uint32_t)phys;
-> +	ddt->virt[ddt->idx * 2 + 1] =3D size;
-> +	ddt->virt[ddt->idx * 2 + 2] =3D 0;
-> +	ddt->virt[ddt->idx * 2 + 3] =3D 0;
-
-[Severity: High]
-Does writing these values as raw uint32_t integers cause issues on
-big-endian architectures? The SPAcc DMA controller expects little-endian
-descriptors. Should these be converted using cpu_to_le32() to prevent
-DMA out-of-bounds accesses and memory corruption?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723120156.2852=
-70-1-pavitrakumarm@vayavyalabs.com?part=3D2
+>         exynos_mbox = devm_kzalloc(dev, sizeof(*exynos_mbox), GFP_KERNEL);
+>         if (!exynos_mbox)
+>                 return -ENOMEM;
+> @@ -101,8 +161,7 @@ static int exynos_mbox_probe(struct platform_device *pdev)
+>         if (!mbox)
+>                 return -ENOMEM;
+>
+> -       chans = devm_kcalloc(dev, EXYNOS_MBOX_CHAN_COUNT, sizeof(*chans),
+> -                            GFP_KERNEL);
+> +       chans = devm_kcalloc(dev, data->num_chans, sizeof(*chans), GFP_KERNEL);
+>         if (!chans)
+>                 return -ENOMEM;
+>
+> @@ -115,7 +174,8 @@ static int exynos_mbox_probe(struct platform_device *pdev)
+>                 return dev_err_probe(dev, PTR_ERR(pclk),
+>                                      "Failed to enable clock.\n");
+>
+> -       mbox->num_chans = EXYNOS_MBOX_CHAN_COUNT;
+> +       exynos_mbox->data = data;
+> +       mbox->num_chans = data->num_chans;
+>         mbox->chans = chans;
+>         mbox->dev = dev;
+>         mbox->ops = &exynos_mbox_chan_ops;
+> @@ -126,7 +186,7 @@ static int exynos_mbox_probe(struct platform_device *pdev)
+>         platform_set_drvdata(pdev, exynos_mbox);
+>
+>         /* Mask out all interrupts. We support just polling channels for now. */
+> -       writel(EXYNOS_MBOX_INTMR0_MASK, exynos_mbox->regs + EXYNOS_MBOX_INTMR0);
+> +       writel(data->intmr_mask, exynos_mbox->regs + data->intmr);
+>
+>         return devm_mbox_controller_register(dev, mbox);
+>  }
+>
+> --
+> 2.51.0
+>
