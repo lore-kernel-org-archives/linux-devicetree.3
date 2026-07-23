@@ -1,79 +1,98 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011027.outbound.protection.outlook.com [40.107.208.27])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B04355F46;
-	Thu, 23 Jul 2026 07:31:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2F23EDAA9;
+	Thu, 23 Jul 2026 07:34:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784791885; cv=fail; b=iH0Oj+uNYUBqaLn9RRWABoT4w4RMNGMUUq73a8A3ctPDPK/dxfn82dg+zM2EXYJ2Tu3V9joobtVuJb/Do30oOD9xV9c1BafwpHzPcSwDp1sA9/Wpd8yuNEAHzom4Ixt2GqLQtqBY/ypAOiG8UqiIIAJDieUCfqGVJcMlq69E6D4=
+	t=1784792057; cv=fail; b=KNx8STzjcIvWA4/gx8RaGjvlMRN4EzBnaDcTGe8r1WOcAE9diUmcHdHPyHdM6bXNb91ZCjtZ1T++8QD1McHcElPmv9qaceXMGEcnpcqeM0XU1+JQtGpY4o7N+aaNaS2LOhd/B7BFElnq87V2lbH7TTCjyWjTTp7yWQm0RLAXPY0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784791885; c=relaxed/simple;
-	bh=MYVKE5mmJtjTn82FVjCAbZIeCYNYBOqPUJMSpmeG3ps=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=teQ6umVJRW2adOxrR6oSx6npvIWK99DEoJhUvrNYnd7tFtm9+6AeadpDIbHq6E56zctLcIqa+W5pYh7+MxLwSMT90/MoGVmGZC7fLF0EFepXHpM3lDCYmVwAlqJUQAVArsJqHXS8CZqdyDUXVOzL2i2B/SJMmE1VJlGNgGJU+lw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=slec681P; arc=fail smtp.client-ip=40.107.208.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1784792057; c=relaxed/simple;
+	bh=ppAkONpGrd0AXaKU1uqPY9Z+Gkcnc9qX6YLiUAZgvgI=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=sRVKPQPtnQ6LFlmnK9bKrQY2++Zi3jvmzjAXmxlz7TSY86RBe8qr6neo2YfjEfbyYwCJj9MnotOGr6YB1kLq31jmoL4I6dC0rcLCK+taFnv/Fsf9zzf8DCUG16z0oPoN3u0bstTZEhUki1DCN2zo4EGYg0+FGITWCaT03EUMiWM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=OHrtkc8g; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=cmLOag/8; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="slec681P"
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="OHrtkc8g";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="cmLOag/8"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 66N4vnUw3575764;
+	Thu, 23 Jul 2026 02:33:59 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=vEqMz4ROu/F3j
+	nAa4Y0DHGqjdBFFALlbrjWyNbS7IvU=; b=OHrtkc8g2ewWfOd9ZtBpyUwk1qZwH
+	Mil9/whcphLHNQVZ97TU9ZFB/hg3olZdn8EHTeOK5tFhMXBDetilelruLvVEcUOy
+	xj5U0MuATgrSqDPbGPszGJ8wBLw6cFq8etk+jkZCx+3sbJfIvYAp9EYKwD28vofz
+	4EJEU8uBKFWnTZ5CZL1+gH6nvxI8tQIJhciS6/+VNyV+oHoGb+aUsUBOq/PX8Fb3
+	xTynY/4sWVZcUnWDZFDG7LK4RhMva7B+sncCs0SVpKTmTDOJWNyXOdhws7H4TVRc
+	RfEph+tNP/Fo91inNz0Qvuh1z5uCrS6yIxFfdr9tGjibVwqx8vdyCxRig==
+Received: from bn1pr04cu002.outbound.protection.outlook.com (mail-eastus2azon11010011.outbound.protection.outlook.com [52.101.56.11])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4fjw4jp17c-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 23 Jul 2026 02:33:58 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wozJle++uxB+kMApqZfEa5wQTcw7N1B7DwlUIvIahFLrq3BnQD8Bcwi4uIRyNqGdGsx5KqIzFyTcO9h7vlh4wmhOk15HmlCyDmjZvPpq1P/0RfTjdKnRmY1gYogy1sBniY9Nh+WrXVcUrwAB6reKA1MH81BjButV+xH1K6C9SkA58sUZjjAN21Ia0VBEcw2n4DAj7fdZ46jHNRZTzTfNXukkBzJ4DbXcqDJAEezBNGzF3Lz0PxFhmTYo1W9fY8JZG7fJkmZktytzA/Uu4RbXWi2VnXQjhraPrs+uXhGan2M70XMGV4vy8u7BKk8vBqqpDPNFP1zGyYL7HKojp51mWw==
+ b=FD2yXcpVhkXeVks4LJxeQvVnYMxhR8gVx19hZGlHQDokW/YQv0XjCPLB14zytDj5klBCa2/LYIzLxoci3DRaaAH+wsNhLfLfh1HEZv4KXw9PfAXpaiNDKtN9GapgPyAjdpqv6ac3Jaej//cKfrUJPC4ueaqX9wZTMT4JlQCyi7K/v2DOiKIQcH881qg4b1Qn72lx43G19nLq+gioszRkEjHLgXmOgb9N2eJEo90NV3YTNeBXxccP0XSj4ezXeCMvENt/4l8e6XuF7MBVxQUZDQ76r8ZU13Zj+0/38PDM7On8C2VAsscVUdShSXMS0RHEbUmoawRB57aO/0STkvJ/Zw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MYVKE5mmJtjTn82FVjCAbZIeCYNYBOqPUJMSpmeG3ps=;
- b=CLQyd0laxttIa980ZUbWep8xKSTq7Q0pSeHqfPJ62Bmc2hx1CDkJUWHHxDXUVVJ2tnFvhW7RADORvqXQkN3Wgr0hQkHVj5YBt+oxpG46TBiZjvIdOEiYriesjjb6rMDbNEvIN4zc05OF1TY35jR4C3ToCLCnjf1DrDSFgkLppXidMKAMKUDrRVQ9u5s4WCwKwyvrZdJlIS5UU/npEEF/9YMyC361PhH/p2wD8qr774lQs9ZjGtk8oi2P5d+VQZOvi3/5+idIB6SotxP+ANWRMVpzCfNdzMs1wZ82CxZcyPaQY6J5GtXu5zAUT9rBxoxe4UcvyI37/E+WDA9kGPV19Q==
+ bh=vEqMz4ROu/F3jnAa4Y0DHGqjdBFFALlbrjWyNbS7IvU=;
+ b=d17tunNocYEp/7r3oJfdfjfOacZ9MiYZAU5PWaZckXT9r03mJiNJFpnuCJ4R4LR5/KoJT6nD7dxWDlwrWZhOFIW2a/hNrv/4wdZ614qqw7UnhLFah5zeB/Rn4C6D1r+V1FWk9L+6lvot/2scx5ziM5RsOJEMvU+LlvVbe0Ztcj2eWnm0SJ1707Nn2l9/toYdEoWGF8MfBIxo6VsiWCqRV9iHTzpUt2vaGvRAuOCV1GPo+3DGwKrd5FNesY4p9moUq3Bj5Pmnrvh8FQgQfqeUHQptP47IXnOWOOJjpE6YHRRr7We0Obcd6JTYktVFG2KWpFv5TQ2HoSLd5w220Nn1Ig==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=codeconstruct.com.au
- smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MYVKE5mmJtjTn82FVjCAbZIeCYNYBOqPUJMSpmeG3ps=;
- b=slec681PwAQ3piONRgV61w22T5Z0GlIvnZPIfbXdZaez2qz9YSh97noROK8ulYpC/njjmkLBzM0lVxwI2UhN6v2aeYSqG/MoySx8Jhc/ceFHES0U7Ev45uprtvztakDwNp7/Amcs6wt1ayCQR9gVpnNVrRMxESTfmle7XGrbgSV5QCC3TbOAJnEccq7HNQ/D9DoRY/nCQiphmeyVNknEQSnQHy6SK/EqD5AWjKBo5jhwQp3AhmfkbsJjTX3m0hIAUzcuPIXdf2yFyqKOLE6FfiOmygQ9C7kwBhpERZuv8KcQzfAGaTyYPZb9Y8YWn5C+cXo5Vz+cxVvN9/p1I0xJpw==
-Received: from DM6PR02CA0126.namprd02.prod.outlook.com (2603:10b6:5:1b4::28)
- by PH7PR12MB7308.namprd12.prod.outlook.com (2603:10b6:510:20c::9) with
+ bh=vEqMz4ROu/F3jnAa4Y0DHGqjdBFFALlbrjWyNbS7IvU=;
+ b=cmLOag/8OmKjTaUuPXMO8pcDO+d3Tks8YvYFhc6BWdP1Jj/MYqr3M5JbmefEN3a6Mb8CkaY+irLturrKOI6heWprjzpwifdc5NsL4LNZ9gRESvTLzHIbi28//W9M8PeqHO4lU0MMCDRrZ5M8AZpu4bhM/2m9jqBlfO8ySCc4x/8=
+Received: from SJ0PR03CA0109.namprd03.prod.outlook.com (2603:10b6:a03:333::24)
+ by SA1PR10MB6365.namprd10.prod.outlook.com (2603:10b6:806:255::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 07:31:19 +0000
-Received: from CH3PEPF00000018.namprd21.prod.outlook.com
- (2603:10b6:5:1b4:cafe::8b) by DM6PR02CA0126.outlook.office365.com
- (2603:10b6:5:1b4::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Thu,
- 23 Jul 2026 07:31:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- CH3PEPF00000018.mail.protection.outlook.com (10.167.244.123) with Microsoft
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Thu, 23 Jul
+ 2026 07:33:52 +0000
+Received: from SJ1PEPF000026C3.namprd04.prod.outlook.com
+ (2603:10b6:a03:333:cafe::15) by SJ0PR03CA0109.outlook.office365.com
+ (2603:10b6:a03:333::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.11 via Frontend Transport; Thu,
+ 23 Jul 2026 07:33:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ SJ1PEPF000026C3.mail.protection.outlook.com (10.167.244.100) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.0 via Frontend Transport; Thu, 23 Jul 2026 07:31:18 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 23 Jul
- 2026 00:31:02 -0700
-Received: from nvidia.com (10.126.230.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 23 Jul
- 2026 00:31:00 -0700
-From: Jacky Huang <jackyhuang@nvidia.com>
-To: Andrew Jeffery <andrew@codeconstruct.com.au>, Krzysztof Kozlowski
-	<krzysztof.kozlowski@oss.qualcomm.com>
-CC: Jacky Huang <jackyhuang@nvidia.com>, Joel Stanley <joel@jms.id.au>, "Rob
- Herring" <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn
-	<andrew@lunn.ch>, <devicetree@vger.kernel.org>,
-	<linux-aspeed@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <openbmc@lists.ozlabs.org>
-Subject: Re: [PATCH v3 2/2] ARM: dts: aspeed: Add NVIDIA VR-NVL BMC
-Date: Thu, 23 Jul 2026 16:29:55 +0900
-Message-ID: <20260723073032.1666282-1-jackyhuang@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <3b6aa85161702da4322cc361e500a90c832af6a7.camel@codeconstruct.com.au>
-References: <20260710054849.3178747-1-jackyhuang@nvidia.com> <20260710054849.3178747-3-jackyhuang@nvidia.com> <b707f061cbdfe52f8d72ccd33ec177113e20a5e5.camel@codeconstruct.com.au> <3523fefc-8ba8-4512-b088-7a94a2df73f8@oss.qualcomm.com> <3b6aa85161702da4322cc361e500a90c832af6a7.camel@codeconstruct.com.au>
+ 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 07:33:52 +0000
+Received: from DLEE212.ent.ti.com (157.170.170.114) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 23 Jul
+ 2026 02:33:46 -0500
+Received: from DLEE209.ent.ti.com (157.170.170.98) by DLEE212.ent.ti.com
+ (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 23 Jul
+ 2026 02:33:46 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE209.ent.ti.com
+ (157.170.170.98) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Thu, 23 Jul 2026 02:33:46 -0500
+Received: from a0512632.dhcp.ti.com (a0512632.dhcp.ti.com [10.24.52.205])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66N7XfMP629330;
+	Thu, 23 Jul 2026 02:33:42 -0500
+From: Swamil Jain <s-jain1@ti.com>
+To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+        <tomi.valkeinen@ideasonboard.com>
+CC: <devarsht@ti.com>, <praneeth@ti.com>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <s-jain1@ti.com>
+Subject: [PATCH] arm64: dts: ti: Add Microtips OLDI SK-LCD1 Overlay for AM625-SK
+Date: Thu, 23 Jul 2026 13:03:41 +0530
+Message-ID: <20260723073341.3229436-1-s-jain1@ti.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,39 +101,245 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000018:EE_|PH7PR12MB7308:EE_
-X-MS-Office365-Filtering-Correlation-Id: b48fcbfc-e735-4993-3226-08dee88c631a
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C3:EE_|SA1PR10MB6365:EE_
+X-MS-Office365-Filtering-Correlation-Id: 26b7008e-6a12-42e4-e74a-08dee88cbe85
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|1800799024|7416014|376014|36860700016|56012099006|4143699003|11063799006|10067099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|13003099007|6133799003|56012099006|10067099003|18002099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	8cIsfS6CTP7x6Do6tFgWn2ZyznvzelN3y+Kn0r/bQ39LC+pcsnJntlLPEUGW8wRE/dol8HCX2jXmey0zvy0NEzwNzG+F+3oPK+rz2WrwdSX7AxDBo1LnfYBv+js07VH59UDGnCtSw4t2imiXRaWZFUwHkaenb40z2aJsOfFve2VfjkG1rbOA7IkkFc3kcHOR7hT93/yBfyR2c65q5XrZDeIFK75afr94xwc5cI7mbAg/nMknhk64afkh2AzqEuvQMCWrjWnjQMeKrkLMpFzpTZtnGewTUeRj55F8RS0xuJSS1VqCHRb0an9M/GYqQTY4+Y3l/iphrPNOMZAiKVNP/B+IeJI1CfglVs4VirN/BMnRzqNqK41A0u+3esp4Aly7vUS/eZbQDrXuK42Gw4sMuNFvP698TMT8crMSa+XizqLDd0Krc1fZ+MAgXpVsNM2udTJnOWYGgYHIOQ+1hYcgotozTGwLcMplCEVK5qbhFMesjC11JZYoXee/yRg9kKQGeMmV+pdJJdc4AUDpAj3ItGerIShd0S7izJkE8Ph+mxGFdRLhMkhhu1jyqx7jRZKlLodDp3GBbz9jIvv5SomuZ/NaJKvVZNtC4Cf9vNex/ZAoYtxKhSW+yYawkGG5RjKAajRV+LXBHaF8DN1bj7+K9DjfP6UC3UHmTuHpl0CvzNUdwuhHROAaWPcQRYFgU8BZpq7HNTZEF1NWFmp85wjxDw==
+	GJOognFfgTyXHtC7Ab20ZqbojHJdJEIKDClRioUq9IySZ+R6nlZkUyP87FdebyfN/3e9g6PSqQpb8VSbPW6XJbUQv4APhVBQoT7CZv8GzrrcuADmz1MsuKvNklb1c+GCMOmFjFXpIIjzYBnxcfo6B562gAmSBLN3ppE5ipzEw4b2mMhrw8Qqi4l7B2smPFUAfbZpTjZQDTPPjoKVUqxZA7krRCTgOF2iC1CwpmQjJoEBx1JvaU4iIZvvbWzhtFuRYRG9VobvUp0WjG/SCpGsyTff3GCC1MOOqMK181HF7P64BIc2uLFN8wufT7G0Gh2tyTGFXLBi/bbjjCO/jsYLEaaEJibbSBlzZ4o761HEsXgYYfYzHTckHVzf0/gJoHT30RWUQ6LYVu/2/u9tANTqNfqfnlbaiExnfPwPRUqymx3xzJjIjNyIyUWijCFbvCX9vrQo1aLtuYjnpwjjNAfzPSgeBn6C0rov5k74cPtOxGMVwiEJxZWgeJ9vZ4+Tpo9GjjG0FsDiQnft8sE3tcT5NVLHsXjtkMkzkiDNBxb2e3enTJgxLxykpWRA2X2AONCghGJpmTxK4vnMV2vn+PxXc9ZGNJN0rRDHQAA2/9zlCVvT8CzQjT0wGsOO0PI6SRQdFGvt9qEx3oz29HYY4t+Vpw==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(1800799024)(7416014)(376014)(36860700016)(56012099006)(4143699003)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(13003099007)(6133799003)(56012099006)(10067099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	Z8rxm3BZdAMw5MnG9djBN1yq3CFH8Q2nNrrDsHcipvGTtEf9J95mI6lqyBiXTEF6xlCkPtVJCnBMKUDzrE8HIjRzW2ku1/q273zmIT1hHpbfI2+BPAyene7qbqcJms5tn5pvNPXdD1Q2PPV8CXsJVQb+qA9uJZqKD71Nm2f1SsmGJYKIjgwpRelFDZ2KP3CCnU53lSqbdFZds0WTRzy/9XsbAHGLUXSbL4Hx+31abLFM7K/B7Bbnu+Ltpq6E2qAeaJfvudP0wFsr+k87UbqULIVpliB4gMBNMk7Bfy7wD3v0p6JcuzyCZf5Puk4vJuyGry0ZDCWZDikXedHSzxpyy7GK+MFp6HyBi5GHEXnYKmM0erjK2iJFARRA1gTfiGUs18hiAWXJfhnE6mc75UkABGl/he77lgSpxMF2RYi7ragjFA2l22USkESM91PyD4Wj
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 07:31:18.7273
+	3WA5G+S4mDH7b8x7+BiqtKxicHb2MLY6R0Btt6mSPI39yVaAf6U+QWZmm8T8fPAD+208TAlalXoJTj8GRIWxZH6YYXVgnCMlT9UX5lMjqwh6U5izv1nX+7PJn1wRh2qbK+19fkaQroq2E/yvXMyspiJgtfWMuxg71diBoQJRUnd3y8hAcl+KQjRBRxJTgb7/+M/P48XweUxnwee7cetbdtFnQfyOE1YuIoN0dtyLpAe4t91bnJGaC8CSLmbYnmS/eQ2lzAz9FfxJngyjAn8bmokM8VN1X8T9Jh+Sw7DyofUjHxhjwOmWa4gSvmD/xIZybM8S1C9o0rBfEpySPvcBnN7leNNoEH44+G62Vii+DY386n+zjZJAY0rAfBBPgN2IRrsuSevkoH2eb4G9qwoN6g2y9gydzH8KVr2bi1xP6ziWKHWswYQk9lTW5bmymNiN
+X-Exchange-RoutingPolicyChecked:
+	EBVu3Ceqm5HEfU4ss+NqGJAR9litqsz4rK5Kxpu+fg7+G6xpE7gBwDPtKso3xS+WwLjwC/5sg4z8U/M82RffykHaE9wZAvJCQPWXFxAzBdBDbSyytHPhUp+14L7+JG6tURqSazWIwK66aeNHFGrOvCDOUbfMauHb2ijfUC7eCWc+ZsZLJ2CsgbiriRogEXkZKM3bNUFYGbuE10q4LvQWpMD5YnZtumYqtdrzL70w0tvUZV0UTjQ4pQDwrgpSNOeszEDWgsgRSc1aEHYI47/nHq8aVoGtExq9Z+tImazrNNj+e2fIXQZjJhmaP17vpuzJsjU37KMcdasOnvstuNbkrw==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 07:33:52.1336
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b48fcbfc-e735-4993-3226-08dee88c631a
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: 26b7008e-6a12-42e4-e74a-08dee88cbe85
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF00000018.namprd21.prod.outlook.com
+	SJ1PEPF000026C3.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7308
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB6365
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDA3NCBTYWx0ZWRfX/AsP/j1XZnu+
+ n2boTrMTtyOApbWMi+67m2QkFkf0dR8+fQ27pHwnAMK5z78ucjjCuFd2FRImWPmKLMXhAJQ+gtN
+ t5l5Rih2kXPqziXpemAW9OH+y4nVNDA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDA3NCBTYWx0ZWRfX6/iKm3KHvJM7
+ 6abLTwznKsjVO15DwmXPRFohyyxs3V6f4bzrXzv/5TaQhf/AmAcxrfPI3S4OiYyOUftgn3FO9r9
+ 9p1s8n9Qpng090L7as1djlgsNkShY4ndnoKlujuaXMg2wB0KkzTr3AmSqcbe4fW53Feddlv38j/
+ FT8YqKR0vxxg8hID9xB2TAcFf5f7qWAMOwxFcifxK0cVAm/qjOcb+VafqRsw7EVzxAp7mqQucG2
+ 9CWs2n5kLuc4E1sdRrfxfk2KuvKms87wQjePIeaVkLnwinCwaXKJ6FkZ4iCAfNYl1ClKGmXbPG7
+ 2FhXuPDBqO6jVbVh+d45HPm1R/SeBovWpde2S3eVTRL/qfhS//3auzAhkgYuDaxGCtQ98Jx7CFX
+ aVswrm/pErW3vVK3f3Vt/emXBHeLMtD3fRMZnGBnO5ZiBMob3aMjn1GcAmqgnCt5x9MQPhmUFGJ
+ pJbyUcnzApxh4Mc+9oA==
+X-Proofpoint-GUID: l0y8y_cJpsxevRKT6tVo17e1srv89sxS
+X-Authority-Analysis: v=2.4 cv=ONwXGyaB c=1 sm=1 tr=0 ts=6a61c3e6 cx=c_pps
+ a=zclsoE7mv10+eI8hWvbpiQ==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=RAioF0-LDSMA:10 a=s63m1ICgrNkA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8 a=VwQbUJbxAAAA:8
+ a=NFUEwmjP61wPHLW1lN4A:9
+X-Proofpoint-ORIG-GUID: l0y8y_cJpsxevRKT6tVo17e1srv89sxS
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-23_02,2026-07-22_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 phishscore=0 adultscore=0
+ suspectscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607230074
 
-Hi Andrew and Krzysztof,
+From: Aradhya Bhatia <a-bhatia1@ti.com>
 
-Appreciate the guidance and clarification! I will address the warnings
-and prepare the next version.
+The panel is Microtips Technology USA MF-101HIEBCAF0[1]. It is a
+Dual-Link LVDS panel and supports WUXGA resolution (1920x1200).
+Furthermore, it has an i2c based touch controller: Ilitek-ILI2511.
 
-Thanks,
-Jacky
+Add DT overlay for the OLDI Panel.
+
+[1]: https://www.ti.com/tool/SK-LCD1
+
+Signed-off-by: Aradhya Bhatia <a-bhatia1@ti.com>
+Signed-off-by: Swamil Jain <s-jain1@ti.com>
+---
+Note:
+This patch is previously posted with "Add SK-LCD1 support for AM62X"[1].
+
+[1]: https://lore.kernel.org/all/20251017115325.1942591-1-s-jain1@ti.com/
+
+Respinning as a separate patch.
+
+Changelog:
+- Change Copyright year from 2024 to 2026
+- Rebase on top of linux-next
+---
+ arch/arm64/boot/dts/ti/Makefile               |   4 +
+ .../k3-am625-sk-microtips-mf101hie-panel.dtso | 121 ++++++++++++++++++
+ 2 files changed, 125 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-sk-microtips-mf101hie-panel.dtso
+
+diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+index f4d109ef6798..dba641193144 100644
+--- a/arch/arm64/boot/dts/ti/Makefile
++++ b/arch/arm64/boot/dts/ti/Makefile
+@@ -28,6 +28,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am625-beagleplay-csi2-ov5640.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-beagleplay-csi2-tevi-ov5640.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-phyboard-lyra-rdk.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-sk.dtb
++dtb-$(CONFIG_ARCH_K3) += k3-am625-sk-microtips-mf101hie-panel.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-tqma62xx-mba62xx.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-var-som-symphony.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-mezzanine-can.dtbo
+@@ -255,6 +256,8 @@ k3-am625-sk-csi2-ov5640-dtbs := k3-am625-sk.dtb \
+ k3-am625-sk-csi2-tevi-ov5640-dtbs := k3-am625-sk.dtb \
+ 	k3-am62x-sk-csi2-tevi-ov5640.dtbo
+ k3-am625-sk-hdmi-audio-dtbs := k3-am625-sk.dtb k3-am62x-sk-hdmi-audio.dtbo
++k3-am625-sk-microtips-mf101hie-panel-dtbs := k3-am625-sk.dtb \
++	k3-am625-sk-microtips-mf101hie-panel.dtbo
+ k3-am625-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch-dtbs := \
+ 	k3-am625-verdin-wifi-dev.dtb \
+ 	k3-am625-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtbo
+@@ -418,6 +421,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
+ 	k3-am625-sk-csi2-ov5640.dtb \
+ 	k3-am625-sk-csi2-tevi-ov5640.dtb \
+ 	k3-am625-sk-hdmi-audio.dtb \
++	k3-am625-sk-microtips-mf101hie-panel.dtb \
+ 	k3-am625-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch.dtb \
+ 	k3-am625-verdin-wifi-dev-dsi-to-lvds-v2-panel-cap-touch-10inch.dtb \
+ 	k3-am625-verdin-wifi-dev-mezzanine-can.dtb \
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-sk-microtips-mf101hie-panel.dtso b/arch/arm64/boot/dts/ti/k3-am625-sk-microtips-mf101hie-panel.dtso
+new file mode 100644
+index 000000000000..ce7b31c5b9a6
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-am625-sk-microtips-mf101hie-panel.dtso
+@@ -0,0 +1,121 @@
++// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
++/**
++ * Microtips integrated OLDI panel (MF-101HIEBCAF0) and touch DT overlay for AM625 - SK
++ *
++ * Copyright (C) 2026 Texas Instruments Incorporated - http://www.ti.com/
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++
++#include "k3-pinctrl.h"
++
++&{/} {
++	display {
++		compatible = "microtips,mf-101hiebcaf0";
++		/*
++		* Note that the OLDI TX 0 transmits the odd set of pixels
++		* while the OLDI TX 1 transmits the even set. This is a
++		* fixed configuration in the IP integration and is not
++		* changeable. The properties, "dual-lvds-odd-pixels" and
++		* "dual-lvds-even-pixels" have been used to merely
++		* identify if a Dual Link configuration is required.
++		* Swapping them will cause an error in the dss oldi driver.
++		*/
++		power-supply = <&vcc_3v3_sys>;
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++				dual-lvds-odd-pixels;
++				lcd_in0: endpoint {
++					remote-endpoint = <&oldi_0_out>;
++				};
++			};
++			port@1 {
++				reg = <1>;
++				dual-lvds-even-pixels;
++				lcd_in1: endpoint {
++					remote-endpoint = <&oldi_1_out>;
++				};
++			};
++		};
++	};
++};
++
++&dss {
++	status = "okay";
++};
++
++&oldi0 {
++	status = "okay";
++	ti,companion-oldi = <&oldi1>;
++};
++
++&oldi1 {
++	status = "okay";
++	ti,secondary-oldi;
++	ti,companion-oldi = <&oldi0>;
++};
++
++&oldi0_port0 {
++	oldi_0_in: endpoint {
++		remote-endpoint = <&dpi0_out0>;
++	};
++};
++
++&oldi0_port1 {
++	oldi_0_out: endpoint {
++		remote-endpoint = <&lcd_in0>;
++	};
++};
++
++&oldi1_port0 {
++	oldi_1_in: endpoint {
++		remote-endpoint = <&dpi0_out1>;
++	};
++};
++
++&oldi1_port1 {
++	oldi_1_out: endpoint {
++		remote-endpoint = <&lcd_in1>;
++	};
++};
++
++&dss_ports {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	/* VP1: Output to OLDI */
++	port@0 {
++		reg = <0>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		dpi0_out0: endpoint@0 {
++			reg = <0>;
++			remote-endpoint = <&oldi_0_in>;
++		};
++		dpi0_out1: endpoint@1 {
++			reg = <1>;
++			remote-endpoint = <&oldi_1_in>;
++		};
++	};
++};
++
++&main_i2c0 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	touchscreen@41 {
++		compatible = "ilitek,ili251x";
++		reg = <0x41>;
++		interrupt-parent = <&exp1>;
++		interrupts = <22 IRQ_TYPE_EDGE_FALLING>;
++	};
++};
