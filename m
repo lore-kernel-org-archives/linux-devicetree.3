@@ -1,63 +1,63 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C686038F639
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 06:08:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E4613BF676
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 06:08:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784786910; cv=none; b=GgnrSfbFRiHqDdLjGqTHHNLwHL32ZYfwCrDFPyslHL0QqDEnIbQntZ432vf6DSa2QRKhg37Lz9+8aqSELksxoWAAFou4iI2+jJZPdLOMMSj0Eyy9AxC1Zw3JZF9eYBIl4oTwTURUdJtCYDJCmOJUPgOn3fO9NJ6SDQil4QseV1E=
+	t=1784786911; cv=none; b=PkOCnenZvQpOOCDT6R4ZD339piqUt9CATB81D+lBn/wIWKG/WQYioN+PgDUdSLMp+e1y98p/nXAVgxt1NrMQqa6TwoJaumLe1XPMFOOazTCpAdgK3FVE9h4PxsfE0CTgDRrxpINFQoRYMYLJ8X1tkGfDBMtofED8KC0Ds7+N4Ao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784786910; c=relaxed/simple;
-	bh=glkag6YepVngxtTaCB6w2w4JLFECULv8W7+KhdLjYhg=;
+	s=arc-20240116; t=1784786911; c=relaxed/simple;
+	bh=yKkOBIWDLVzZbrFG3yiQLyXNfyi/iupP2ISmcl3yvxs=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=DRAHhOB+Zfh1EAoSKpsYe901Pq9CxBNg6RKGLVzVUFYmy0uqkaQs2DYvtk4yHeB7s6wU793ndqlbHsNTDTk9gVN/bu1ZImK8uGjhPVjr6z13n8YAGE6X/8KYlVfSgGRLLxXOKCNYq3ijSEEDqUv2lHne0ytvK2G5Wy9t2+3twLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PLg66mYk; arc=none smtp.client-ip=209.85.214.178
+	 MIME-Version; b=N0YaNaIlNkj9rXpwgLSW3TS9dfXlNOqYuuk0BIkIXYAjk8FgyLRa9YmqtVme2gC0GjqVFKGks8j1fH8Trq+upzrnSn+vAAV9A5yv5/mtKchTg/pdC8jOKIp9AT8OblVwyphTanH2T7JEfjo4m1DhMFr0QlD/CL5Rd5UXwKzuiE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jIAeSBEy; arc=none smtp.client-ip=209.85.214.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PLg66mYk"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2caea3f742bso3568155ad.0
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 23:08:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jIAeSBEy"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cea3004256so3505985ad.0
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 23:08:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784786907; x=1785391707; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784786909; x=1785391709; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6x2aOBje5frBTxDxT/OoHyn8yJc/gXKzhFg2I8WT5vE=;
-        b=PLg66mYkQluFYf9nuK/6fU/vMfv7He+U3+Xo1A+2hfXha8sOfkbHEKpXk6z0v8afgL
-         AdLgw18Uq/zIMi+7aG6wmsPGk0uQVnTgravN6nywa64UPxbwhk2G8eATAr5+hGWu/ojj
-         h56ZllFvjfzxj+xvrDZqZnBrqyy3MN7SVBdRR4S5t2UoanuEccjDGvRLiGouSCVYk5g3
-         i3mJEDP/PBzk8+k3iMWFQw7+FNFuyuQA3WRmiqE1bojEfCqVC5t61kx1Ta4u5+JZ1mgB
-         a3UBYFNR2U+8vGD3AfBtoPepIR4BJuD7rwgkhbgsBT887gA2mTa6/IpNoqfYJ72lGVDR
-         cDOg==
+        bh=aUz1mWBpB/XSD0ZgFsInGJUX8h9hfweN14oEZfYpX44=;
+        b=jIAeSBEyIv6zcH+gH+U6/tv0Dc1Hy4ZmiER8FjFdQR0OxPwF2HpGxiBKG1JYKS6o29
+         J+EYFg+o24vlZdt40WFCfGrW2bc8btnREe1B66GqlH0dz/iGdwS73CUTbQvMib2C9Vo3
+         uo3um9rfvtjh7pBZhu4HoAvLW7KBB2+JOrM23n98BPudzbNsOCxVdUnvSjGetbZI1kBi
+         bPWtMu5KNCU6gILo4brGqfIxqkUkOLTcXyv9pQrVt6BEH7gqz0NSgqxQ6xTTiYkr4Bgn
+         LMy2p/XIryx2Cs7aWmmvGxZUoK13vzScNtxqF2AX4GWDfYUTVEWnQZZ0WavOQsGFll/n
+         i5kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784786907; x=1785391707;
+        d=1e100.net; s=20251104; t=1784786909; x=1785391709;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6x2aOBje5frBTxDxT/OoHyn8yJc/gXKzhFg2I8WT5vE=;
-        b=WW8a3xT9OmVcbisxfCjgwpwSJfLUS3zIs4xAxzScyDfxeUW40q8ja6BvoYZFYUCR8a
-         UEYnSeYGW84OkpcSdGc/WtJQDDJVc0K8+plIaWgPYXU37lHs0YZW+yhMdeiquma65LSp
-         ORh3F3KVCZe+bZkp3ERPDZmpwC81qpOyejJF5ulOzQ7OO64IUbpQuchJYr3IKz/Rj9fi
-         W7KRdn1QzyNtq/bvhVIEehHZAat9QZD4LgNjUpph2Q7oscbpKTzbXBsdPekE+wEkKgk/
-         3YorC2r6Qkf/YADKeDS+AyJlfuvUAk7GDKr4kkkSHOX8Bmn6hdSdlKrqA4st/OECZ5Ma
-         vZDw==
-X-Forwarded-Encrypted: i=1; AHgh+RoigqzI9ntUpbsNP4N4kAPxbuGiBGBUyceqDHFd0TVPv/nGezZsMZGfCHS3huU6VpcvDizegHm4BPo3@vger.kernel.org
-X-Gm-Message-State: AOJu0YwzvFHouulnt6s6XpY57bWw38JmOGezPaMEcYBfEYMh0NExA22z
-	nEU5AoklCuwJGE5+VJS4cCLqugPGieBtKa3PybxKM+tGtnF7vWvUJwl/uMmYFw==
-X-Gm-Gg: AR+sD126NdjOAx/+M62gEu0H3TI5JkarF9Kcq2rTxH6NVJ9mleXyiTlzWhpS2lq7xLE
-	0ilFvDh2+w/wKyVoAkOoMIOoR32UbSuPE+2sjCSajrxnzR1MF6ldJqEFQsPnwWRJwDuOJsOpQTr
-	Kn/C1D/T8L2WvXckb5Tia1OdOyKpuDQsiuLOecu0hy5YTjNl8B36wucvq9xbFb63dYZeA+njcof
-	9Z/o0MUx/G5tLT+vZZfPKhsA4PgpbCZkczkhrioC5nJrnqNWSAbL8ni2kCv32U3g8H66qZENXR7
-	nESRdh4tL+ByzUbEeM1GMExzinZ6tnptwn/kPx+t5YySKcJ3YUKb7rS5U7hkql6hW+XwzY2jfDn
-	ssj1g5aMX7X8tHlUUxTYa2Q0LiWtESKAG3UqN6Ka3bNfo67KOQE2m07yjbfH0XZz0aU/V5gUsjX
-	c1Ehg4TqNlqYsRGREa+MH5S12rhgodwgvNtPF1c9s6QT6bQQph/gGD22HkLS7F
-X-Received: by 2002:a17:902:cf42:b0:2c9:d298:6c06 with SMTP id d9443c01a7336-2cfa7091618mr23349475ad.25.1784786907130;
-        Wed, 22 Jul 2026 23:08:27 -0700 (PDT)
+        bh=aUz1mWBpB/XSD0ZgFsInGJUX8h9hfweN14oEZfYpX44=;
+        b=HrOEKSLRZcvTZPZkPFyj+KxUu88vAnZSLx+7kIRqUy8zjPSbMF6ftGTV7n4qc+9Zsi
+         IYSnUYTePkfHiBocNorlJKQJX8YL7ICle6u4kvSYgOvGpTu/6Acwnf7o9YSeMKNIAtP0
+         Vl/1SotGfuMtvdKw+fZfAXdA8ZCujb2C24UhrYRCOs8PuoHgeVovmIrQkbcb2mAiVcI5
+         Iix1UUBLCw0WIcqzrGzQnH23o1hblZmgOWCQvqjm5Ddmg1Ot6sJyBQGU3a8ToZy0j/JE
+         Mecn6WsUHv0SoY9bvKV8+2Bp2Dx1xM+BWMuYPDZOaHWR/2WVlTFuNMANly4MgoISkYcm
+         0B1g==
+X-Forwarded-Encrypted: i=1; AHgh+RoF1twRVJQckVQ5NYLWTrf4hhQ2etm60YDhSu0VnUEq4Jpyux8omVRF2ezntYvS62ZJLkKXvpW3L+al@vger.kernel.org
+X-Gm-Message-State: AOJu0YzYPh0n2m/q8znXOzQKu+DHyCRU3yOh5ZN9gzorTkhjP3VCzzQM
+	GUFjDODFgJEJ+8zUp9hazoJlSw8EGKxo1vU5JJx/u0Gy6OQLOE+e8K09
+X-Gm-Gg: AR+sD13h3GMoWcA8ZAghlmB3DPC82s2VB7M0g2E5isfW8JCiVgkiIwFxZsUAV9XBfnZ
+	atEdj8GS5OTuBlb6yE95t2axgsO2RfRLlcFNVnU8DK6wMUIADHHzKqMohNMvYNWNYrZ1R0qy97K
+	m5pDP5dMXrWiVKz9uZKaRVPeNHYtNcvLFDh8VEIxzb9t+28vLB9WD7/rnrQsBsQ1+c++SnLhXnc
+	4RbE/bfo0QgZWADsNaLjK//mfu3M+U6FUqLnZWxLZ+EN0i6dLtiZp6IGZ9zsWzlaz5HfvPsGwXO
+	wS/C1f8AHYUnmvGfWq3aMy4OJ8sVOSMccka6zD7hpr4frFNYJ9NK4GX6OcGFav9bNqskPxCORRJ
+	A0oG/ZQmWONKG+sp7eeOFXX+pJC547c5wfVkjIqX4VTq94WdMlU5D6btMkzP1+Sm4LFtxzi/wMu
+	QS6TQ2XR3KV/toL2pSLETKyjZnLRWiIHqEl/0TLaN8xcqBRPFA3q7j0lVkklUG
+X-Received: by 2002:a17:903:2444:b0:2ca:1eef:5096 with SMTP id d9443c01a7336-2cfa6c7206emr21250435ad.36.1784786909424;
+        Wed, 22 Jul 2026 23:08:29 -0700 (PDT)
 Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8f390dd2sm26071285ad.79.2026.07.22.23.08.25
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8f390dd2sm26071285ad.79.2026.07.22.23.08.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 23:08:26 -0700 (PDT)
+        Wed, 22 Jul 2026 23:08:29 -0700 (PDT)
 From: Zi-Yu Chen <zychennvt@gmail.com>
 To: Wim Van Sebroeck <wim@linux-watchdog.org>,
 	Guenter Roeck <linux@roeck-us.net>,
@@ -71,9 +71,9 @@ Cc: Jacky Huang <ychuang3@nuvoton.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Zi-Yu Chen <zychennvt@gmail.com>
-Subject: [PATCH 2/3] watchdog: Add Nuvoton MA35D1 watchdog driver support
-Date: Thu, 23 Jul 2026 14:07:53 +0800
-Message-Id: <20260723060755.1596858-3-zychennvt@gmail.com>
+Subject: [PATCH 3/3] arm64: dts: nuvoton: Add WDT node for MA35D1 SoC
+Date: Thu, 23 Jul 2026 14:07:54 +0800
+Message-Id: <20260723060755.1596858-4-zychennvt@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260723060755.1596858-1-zychennvt@gmail.com>
 References: <20260723060755.1596858-1-zychennvt@gmail.com>
@@ -85,416 +85,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add driver support for the Watchdog Timer (WDT) integrated in
-Nuvoton MA35D1 SoC. This driver provides standard watchdog functionality,
-including timeout configuration, ping, and system reset support via
-the watchdog framework.
+Add Watchdog Timer (WDT) device node to ma35d1.dtsi.
 
 Signed-off-by: Zi-Yu Chen <zychennvt@gmail.com>
 ---
- drivers/watchdog/Kconfig      |  11 ++
- drivers/watchdog/Makefile     |   1 +
- drivers/watchdog/ma35d1_wdt.c | 357 ++++++++++++++++++++++++++++++++++
- 3 files changed, 369 insertions(+)
- create mode 100644 drivers/watchdog/ma35d1_wdt.c
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
-index 08cb8612d41f..28d8d3d12c27 100644
---- a/drivers/watchdog/Kconfig
-+++ b/drivers/watchdog/Kconfig
-@@ -720,6 +720,17 @@ config STMP3XXX_RTC_WATCHDOG
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called stmp3xxx_rtc_wdt.
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+index 7228ad4735b5..14fd17cfdc5a 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+@@ -82,6 +82,13 @@ soc {
+ 		#size-cells = <2>;
+ 		ranges;
  
-+config MA35D1_WDT
-+	tristate "Nuvoton MA35D1 Watchdog Timer"
-+	depends on ARCH_MA35 || COMPILE_TEST
-+	select WATCHDOG_CORE
-+	select MFD_SYSCON
-+	help
-+	  Say Y here to include support for the watchdog timer
-+	  for the Nuvoton MA35D1 series microprosser.
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called ma35d1_wdt.
-+
- config TS4800_WATCHDOG
- 	tristate "TS-4800 Watchdog"
- 	depends on HAS_IOMEM && OF
-diff --git a/drivers/watchdog/Makefile b/drivers/watchdog/Makefile
-index bc1d52220f22..a7889eb48c7f 100644
---- a/drivers/watchdog/Makefile
-+++ b/drivers/watchdog/Makefile
-@@ -104,6 +104,7 @@ obj-$(CONFIG_APPLE_WATCHDOG) += apple_wdt.o
- obj-$(CONFIG_SUNPLUS_WATCHDOG) += sunplus_wdt.o
- obj-$(CONFIG_MARVELL_GTI_WDT) += marvell_gti_wdt.o
- obj-$(CONFIG_GUNYAH_WATCHDOG) += gunyah_wdt.o
-+obj-$(CONFIG_MA35D1_WDT) += ma35d1_wdt.o
- 
- # X86 (i386 + ia64 + x86_64) Architecture
- obj-$(CONFIG_ACQUIRE_WDT) += acquirewdt.o
-diff --git a/drivers/watchdog/ma35d1_wdt.c b/drivers/watchdog/ma35d1_wdt.c
-new file mode 100644
-index 000000000000..bd52847bb09b
---- /dev/null
-+++ b/drivers/watchdog/ma35d1_wdt.c
-@@ -0,0 +1,357 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) 2026 Nuvoton technology corporation.
-+ *
-+ * Author: Zi-Yu Chen <zychennvt@gmail.com>
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/err.h>
-+#include <linux/init.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/moduleparam.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_wakeirq.h>
-+#include <linux/property.h>
-+#include <linux/types.h>
-+#include <linux/watchdog.h>
-+
-+#define DRV_NAME		"ma35d1-wdt"
-+
-+#define REG_WDT_CTL		0x00
-+#define REG_WDT_RSTCNT	0x08
-+
-+#define TOUTSEL			GENMASK(11, 8)
-+#define WDTEN			BIT(7)
-+#define INTEN			BIT(6)
-+#define WKF				BIT(5)
-+#define WKEN			BIT(4)
-+#define IF				BIT(3)
-+#define RSTF			BIT(2)
-+#define RSTEN			BIT(1)
-+#define SYNC			BIT(30)
-+
-+#define WDT_DEFAULT_TIMEOUT		32
-+#define RESET_COUNTER			0x00005AA5
-+
-+static bool nowayout = WATCHDOG_NOWAYOUT;
-+static unsigned int timeout;
-+
-+struct ma35d1_wdt_dev {
-+	struct watchdog_device wdt_dev;
-+	struct device *dev;
-+	spinlock_t lock;
-+	void __iomem *wdt_base;
-+	struct clk *clk;
-+	unsigned long clk_rate;
-+	u32 irq;
-+};
-+
-+static int ma35d1_wdt_wait_sync(struct ma35d1_wdt_dev *ma35d1_wdt)
-+{
-+	unsigned int val;
-+
-+	return readl_relaxed_poll_timeout_atomic(ma35d1_wdt->wdt_base +
-+							 REG_WDT_CTL,
-+						 val, !(val & SYNC), 10, 125);
-+}
-+
-+/**
-+ * ma35d1_wdt_stop - Stop the watchdog.
-+ *
-+ * @wdt_dev: watchdog device
-+ *
-+ * Read the contents of the CTL register, clear the WDTEN bit
-+ * in the register and set the access key for successful write.
-+ *
-+ * Return: 0 on success, negative error otherwise.
-+ */
-+static int ma35d1_wdt_stop(struct watchdog_device *wdt_dev)
-+{
-+	struct ma35d1_wdt_dev *ma35d1_wdt = watchdog_get_drvdata(wdt_dev);
-+
-+	unsigned int val;
-+	int ret;
-+
-+	guard(spinlock_irqsave)
-+		(&ma35d1_wdt->lock);
-+	val = readl_relaxed(ma35d1_wdt->wdt_base + REG_WDT_CTL);
-+	val &= ~WDTEN;
-+	writel_relaxed(val, ma35d1_wdt->wdt_base + REG_WDT_CTL);
-+	ret = ma35d1_wdt_wait_sync(ma35d1_wdt);
-+	if (ret) {
-+		dev_err(ma35d1_wdt->dev, "Wait for WDTEN SYNC timeout!\n");
-+		return ret;
-+	}
-+	return 0;
-+}
-+
-+static int ma35d1_wdt_ping(struct watchdog_device *wdt_dev)
-+{
-+	struct ma35d1_wdt_dev *ma35d1_wdt = watchdog_get_drvdata(wdt_dev);
-+
-+	writel_relaxed(RESET_COUNTER, ma35d1_wdt->wdt_base + REG_WDT_RSTCNT);
-+
-+	return 0;
-+}
-+
-+static int ma35d1_wdt_set_timeout(struct watchdog_device *wdt_dev,
-+				  unsigned int timeout)
-+{
-+	struct ma35d1_wdt_dev *ma35d1_wdt = watchdog_get_drvdata(wdt_dev);
-+	unsigned long target_ticks;
-+	unsigned int val, i;
-+	static const uint8_t toutsel_shifts[] = { 4,  6,  8,  10, 12,
-+						  14, 16, 18, 20 };
-+
-+	target_ticks = (unsigned long)timeout * ma35d1_wdt->clk_rate;
-+
-+	for (i = 0; i < ARRAY_SIZE(toutsel_shifts); i++) {
-+		if ((1UL << toutsel_shifts[i]) >= target_ticks)
-+			break;
-+	}
-+
-+	if (i == ARRAY_SIZE(toutsel_shifts))
-+		i = ARRAY_SIZE(toutsel_shifts) - 1;
-+
-+	scoped_guard(spinlock_irqsave, &ma35d1_wdt->lock) {
-+		val = readl_relaxed(ma35d1_wdt->wdt_base + REG_WDT_CTL);
-+		val &= ~TOUTSEL;
-+		val |= FIELD_PREP(TOUTSEL, i);
-+		writel_relaxed(val, ma35d1_wdt->wdt_base + REG_WDT_CTL);
-+	}
-+
-+	/* To avoid truncation errors (0 seconds) during division. */
-+	wdt_dev->timeout = (1UL << toutsel_shifts[i]) / ma35d1_wdt->clk_rate;
-+	if (wdt_dev->timeout == 0)
-+		wdt_dev->timeout = 1;
-+
-+	dev_dbg(ma35d1_wdt->dev, "wdt_dev->timeout = %d\n", wdt_dev->timeout);
-+
-+	return 0;
-+}
-+
-+static int ma35d1_wdt_start(struct watchdog_device *wdt_dev)
-+{
-+	unsigned int val;
-+
-+	struct ma35d1_wdt_dev *ma35d1_wdt = watchdog_get_drvdata(wdt_dev);
-+	void __iomem *wdt_base = ma35d1_wdt->wdt_base;
-+	int ret;
-+
-+	ret = ma35d1_wdt_set_timeout(wdt_dev, wdt_dev->timeout);
-+	if (ret < 0)
-+		return ret;
-+
-+	guard(spinlock_irqsave)
-+		(&ma35d1_wdt->lock);
-+	val = readl_relaxed(wdt_base + REG_WDT_CTL);
-+	val |= (WDTEN | RSTEN);
-+
-+	writel_relaxed(val, wdt_base + REG_WDT_CTL);
-+	writel_relaxed(RESET_COUNTER, wdt_base + REG_WDT_RSTCNT);
-+
-+	return 0;
-+}
-+
-+static const struct watchdog_info ma35d1_wdt_info = {
-+	.identity = DRV_NAME,
-+	.options = WDIOF_SETTIMEOUT | WDIOF_KEEPALIVEPING | WDIOF_MAGICCLOSE |
-+		   WDIOF_CARDRESET,
-+};
-+
-+static const struct watchdog_ops ma35d1_wdt_ops = {
-+	.owner = THIS_MODULE,
-+	.start = ma35d1_wdt_start,
-+	.stop = ma35d1_wdt_stop,
-+	.ping = ma35d1_wdt_ping,
-+	.set_timeout = ma35d1_wdt_set_timeout,
-+};
-+
-+static irqreturn_t ma35d1_wdt_isr(int irq, void *dev_id)
-+{
-+	struct ma35d1_wdt_dev *ma35d1_wdt = dev_id;
-+	unsigned int val;
-+
-+	/* Clear the flag if set */
-+	guard(spinlock)
-+		(&ma35d1_wdt->lock);
-+	val = readl_relaxed(ma35d1_wdt->wdt_base + REG_WDT_CTL);
-+	writel_relaxed(val, ma35d1_wdt->wdt_base + REG_WDT_CTL);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int ma35d1_wdt_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct ma35d1_wdt_dev *ma35d1_wdt;
-+	unsigned long clk_rate, val;
-+	int ret;
-+
-+	ma35d1_wdt = devm_kzalloc(dev, sizeof(*ma35d1_wdt), GFP_KERNEL);
-+	if (!ma35d1_wdt)
-+		return -ENOMEM;
-+
-+	spin_lock_init(&ma35d1_wdt->lock);
-+	platform_set_drvdata(pdev, ma35d1_wdt);
-+
-+	ma35d1_wdt->wdt_base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(ma35d1_wdt->wdt_base))
-+		return PTR_ERR(ma35d1_wdt->wdt_base);
-+
-+	ma35d1_wdt->clk = devm_clk_get_enabled(dev, NULL);
-+	if (IS_ERR(ma35d1_wdt->clk))
-+		return dev_err_probe(dev, PTR_ERR(ma35d1_wdt->clk),
-+				     "Can't get Watchdog clock\n");
-+
-+	clk_rate = clk_get_rate(ma35d1_wdt->clk);
-+	if (!clk_rate)
-+		return -EINVAL;
-+	ma35d1_wdt->clk_rate = clk_rate;
-+
-+	ma35d1_wdt->irq = platform_get_irq(pdev, 0);
-+	if (ma35d1_wdt->irq < 0)
-+		return dev_err_probe(dev, ma35d1_wdt->irq,
-+				     "failed to get irq\n");
-+
-+	ma35d1_wdt->wdt_dev.info = &ma35d1_wdt_info;
-+	ma35d1_wdt->wdt_dev.ops = &ma35d1_wdt_ops;
-+	ma35d1_wdt->wdt_dev.timeout = WDT_DEFAULT_TIMEOUT;
-+	ma35d1_wdt->wdt_dev.min_timeout = 1;
-+	ma35d1_wdt->wdt_dev.max_hw_heartbeat_ms = (1U << 20) * 1000 / clk_rate;
-+	ma35d1_wdt->wdt_dev.parent = dev;
-+
-+	val = readl_relaxed(ma35d1_wdt->wdt_base + REG_WDT_CTL);
-+	if (val & RSTF) {
-+		ma35d1_wdt->wdt_dev.bootstatus = WDIOF_CARDRESET;
-+		writel_relaxed(val, ma35d1_wdt->wdt_base + REG_WDT_CTL);
-+	}
-+
-+	watchdog_set_drvdata(&ma35d1_wdt->wdt_dev, ma35d1_wdt);
-+	watchdog_set_nowayout(&ma35d1_wdt->wdt_dev, nowayout);
-+	watchdog_init_timeout(&ma35d1_wdt->wdt_dev, timeout, &pdev->dev);
-+
-+	ret = devm_request_irq(dev, ma35d1_wdt->irq, ma35d1_wdt_isr, 0,
-+			       dev_name(dev), ma35d1_wdt);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "cannot claim IRQ %d\n",
-+				     ma35d1_wdt->irq);
-+
-+	if (device_property_read_bool(dev, "wakeup-source")) {
-+		ret = devm_device_init_wakeup(dev);
-+		if (ret)
-+			return ret;
-+
-+		ret = dev_pm_set_wake_irq(dev, ma35d1_wdt->irq);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = devm_watchdog_register_device(dev, &ma35d1_wdt->wdt_dev);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int ma35d1_wdt_suspend(struct device *dev)
-+{
-+	struct ma35d1_wdt_dev *ma35d1_wdt = dev_get_drvdata(dev);
-+
-+	if (watchdog_active(&ma35d1_wdt->wdt_dev)) {
-+		u32 val;
-+		int ret;
-+
-+		guard(spinlock_irqsave)
-+			(&ma35d1_wdt->lock);
-+		val = readl_relaxed(ma35d1_wdt->wdt_base + REG_WDT_CTL);
-+
-+		if (device_may_wakeup(dev)) {
-+			val &= ~RSTEN;
-+			val |= (INTEN | WKEN);
-+		} else {
-+			val &= ~(WDTEN | RSTEN);
-+		}
-+		writel_relaxed(val, ma35d1_wdt->wdt_base + REG_WDT_CTL);
-+		ret = ma35d1_wdt_wait_sync(ma35d1_wdt);
-+		if (ret) {
-+			dev_err(ma35d1_wdt->dev,
-+				"Wait for WDTEN SYNC timeout!\n");
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static int ma35d1_wdt_resume(struct device *dev)
-+{
-+	struct ma35d1_wdt_dev *ma35d1_wdt = dev_get_drvdata(dev);
-+
-+	if (watchdog_active(&ma35d1_wdt->wdt_dev)) {
-+		u32 val;
-+		int ret;
-+
-+		guard(spinlock_irqsave)
-+			(&ma35d1_wdt->lock);
-+		val = readl_relaxed(ma35d1_wdt->wdt_base + REG_WDT_CTL);
-+
-+		if (device_may_wakeup(dev)) {
-+			val |= RSTEN;
-+			val &= ~(INTEN | WKEN);
-+		} else {
-+			val |= (WDTEN | RSTEN);
-+		}
-+		writel_relaxed(val, ma35d1_wdt->wdt_base + REG_WDT_CTL);
-+		writel_relaxed(RESET_COUNTER,
-+			       ma35d1_wdt->wdt_base + REG_WDT_RSTCNT);
-+		ret = ma35d1_wdt_wait_sync(ma35d1_wdt);
-+		if (ret) {
-+			dev_err(ma35d1_wdt->dev,
-+				"Wait for WDTEN SYNC timeout!\n");
-+			return ret;
-+		}
-+	}
-+	return 0;
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(ma35d1_wdt_pm_ops, ma35d1_wdt_suspend,
-+				ma35d1_wdt_resume);
-+
-+static const struct of_device_id ma35d1_wdt_dt_ids[] = {
-+	{ .compatible = "nuvoton,ma35d1-wdt" },
-+	{ /* sentinel */ },
-+};
-+MODULE_DEVICE_TABLE(of, ma35d1_wdt_dt_ids);
-+
-+static struct platform_driver ma35d1_wdt_driver = {
-+	.probe		= ma35d1_wdt_probe,
-+	.driver		= {
-+		.name	= DRV_NAME,
-+		.pm	= pm_ptr(&ma35d1_wdt_pm_ops),
-+		.of_match_table = ma35d1_wdt_dt_ids,
-+	},
-+};
-+
-+module_platform_driver(ma35d1_wdt_driver);
-+
-+module_param(timeout, uint, 0);
-+MODULE_PARM_DESC(timeout, "Watchdog heartbeat in seconds");
-+
-+module_param(nowayout, bool, 0);
-+MODULE_PARM_DESC(
-+	nowayout,
-+	"Watchdog cannot be stopped once started (default=" __MODULE_STRING(
-+		WATCHDOG_NOWAYOUT) ")");
-+
-+MODULE_AUTHOR("Zi-Yu Chen <zychennvt@gmail.com>");
-+MODULE_DESCRIPTION("Nuvoton MA35D1 Watchdog Timer Driver");
-+MODULE_LICENSE("GPL");
++		wdt1: watchdog@40440000 {
++			compatible = "nuvoton,ma35d1-wdt";
++			reg = <0x0 0x40440000 0x0 0x100>;
++			interrupts = <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk WDT1_GATE>;
++		};
++
+ 		sys: system-management@40460000 {
+ 			compatible = "nuvoton,ma35d1-reset", "syscon";
+ 			reg = <0x0 0x40460000 0x0 0x200>;
 -- 
 2.34.1
 
