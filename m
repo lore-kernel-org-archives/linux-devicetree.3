@@ -1,171 +1,118 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from mail.fris.de (mail.fris.de [116.203.77.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 411B43E0255;
-	Thu, 23 Jul 2026 07:36:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00DD3EDE5C;
+	Thu, 23 Jul 2026 07:37:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784792205; cv=none; b=joQ1gyiq8AIu+p1lNSuDS1oPPq8BATDd0/T1toqQ5E9MBQ2qGrXv5biKobSIULaCyxW6EGfO8i/jcwWLHVgtjo9l2L4cNttK+vmPEhiN2mLJMV1X8DDmqDXPKWmpilRrP7eXOEjnvqs/TV5LfH1XMJ+ImG02dfFpuTh1vZNjAds=
+	t=1784792243; cv=none; b=UkVXQ6Mu/1h/AYVj0vkU06wdJUPPT3cKUvGh6EU4q+ZnP5KmHFEEQCfFSoYY14yDj6FUC37yFMKbEdz52HPgnqlE3cEF4p4uBaeXJ3Xx/9bliyELzQAOlNmyOPZTMB4V/AA8jGrLhZJB00+ISOYUCTdhW6uT/iMBIY27Nh+/q5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784792205; c=relaxed/simple;
-	bh=peN5snx9+EybKzxAPqEgXnx7bGQZuE05wWcM/8O3528=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DrWruDodku49GqVFrBLGHbCaRxUSif5to7Wo+dU2TGmt0fB/CecsYuJ3nnM87fcmcNRhaXPYzfAvcW/60D6zq/lLYE/wTLV8llcAav1V7ywpikVSoQRT0sQSR3bBLvGJqr6n4URX01LI1n6Gk2um6WuG4PZR4QFtlNGSjPNQD/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B317C202459;
-	Thu, 23 Jul 2026 09:36:32 +0200 (CEST)
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1wmnyq-000ra7-25;
-	Thu, 23 Jul 2026 09:36:32 +0200
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1wmnyq-0000000EcbG-2AOx;
-	Thu, 23 Jul 2026 09:36:32 +0200
-Date: Thu, 23 Jul 2026 09:36:32 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Jonas Jelonek <jelonek.jonas@gmail.com>
-Cc: Sander Vanheule <sander@svanheule.net>,
-	Kory Maincent <kory.maincent@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Daniel Golle <daniel@makrotopia.org>,
-	=?utf-8?B?QmrDuHJu?= Mork <bjorn@mork.no>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH net-next v8 1/4] dt-bindings: net: pse-pd: add bindings
- for Realtek PSE MCU
-Message-ID: <amHEgOAWYXYuZwnl@pengutronix.de>
-References: <20260715075530.2491534-1-jelonek.jonas@gmail.com>
- <20260715075530.2491534-2-jelonek.jonas@gmail.com>
- <b3456b41152613ed45bcfde92aff89d0c33fa243.camel@svanheule.net>
- <3f71640b-9f22-4d0b-9c4d-dc64c397d286@gmail.com>
+	s=arc-20240116; t=1784792243; c=relaxed/simple;
+	bh=BpaHoqJWuKtjcZIj/eDmPNfl+mV0bZnc2trJCNqaNbQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=gkujipE5ddIF7gf5fnJ2NVxHJVCIXHjAdeF5fi3d7Rt9ExBIqGQV4jJKxf55/zRlIhdtwm4qBSr82orfaVUBiRyeOozpB6goDvW6nYCffp7clDC3zipV1Tv71OE0dI2G33LK0z3fsRs1Y3eAQMswfVHiJzQZ8hi8HYpFL4a/lyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=piJI+Bde; arc=none smtp.client-ip=116.203.77.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="piJI+Bde"
+From: Frieder Schrempf <frieder@fris.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
+	t=1784791736;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cgiwnRvqXQyohXJgGOI5oYCACH+C1E4pfz9+3bhuLq4=;
+	b=piJI+BdeFoeti+kt/rTcEv166EZoBPGCprtdpfH3wvxZJ+1OfVV6ry10uVvXnlFhZMQuWz
+	cpeRe2mH58+OdpH1VqzHOVbGXt2lqnSGh/ujjAceO+GT0zxMVndnycOCN+9SXsasj2zje0
+	aXUPEqTtbZucBADUgTtxm0rjCYFCo9I5VDM7fl+zph7E6PwfTmT8QFG539fwdu9OJ/5IyN
+	UBkHRGWjkisYhTNrAK+MNvheyE9GBHKEVl20O7wnHr6La+VdmIsXrQeWvrfMZYNqWNm1pN
+	WWu7bGkMSikL1SVByaZklISfXr09iG7DIKjRFOU7v81S9j5t6EhOYxHMwVSulg==
+Date: Thu, 23 Jul 2026 09:27:23 +0200
+Subject: [PATCH v3 01/11] dt-bindings: nvmem: imx-ocotp: Add support for
+ secure-enclave
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3f71640b-9f22-4d0b-9c4d-dc64c397d286@gmail.com>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260723-upstreaming-next-20260609-imx-ocotp-ele-v3-1-e26930345b4c@kontron.de>
+References: <20260723-upstreaming-next-20260609-imx-ocotp-ele-v3-0-e26930345b4c@kontron.de>
+In-Reply-To: <20260723-upstreaming-next-20260609-imx-ocotp-ele-v3-0-e26930345b4c@kontron.de>
+To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
+ Pankaj Gupta <pankaj.gupta@nxp.com>, 
+ "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux@ew.tq-group.com, Frieder Schrempf <frieder.schrempf@kontron.de>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1568;
+ i=frieder.schrempf@kontron.de; h=from:subject:message-id;
+ bh=VFW8MO++U+kECJD4HNHkYMwrSbydVRwF5+pIElZnwEk=;
+ b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JISvx0FaT69bGXAK/c761cQcedwxzflvZt/JP02rGMNkEt
+ lWJX8Q6SlkYxLgYZMUUWaT4LV7bmsX6yB+rjoKZw8oEMoSBi1MAJpIVwsjQWP+nn5/DiCXUJ6sk
+ 5PLSWMXfvKtXJj474HguhW+Phvwjhv9+G+Y6ZdftzROY9F+DN/GGwmWuxZuWyLpwsuy4UTKp6Ak
+ zAA==
+X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
+ fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
 
-Hi Jonas,
+From: Frieder Schrempf <frieder.schrempf@kontron.de>
 
-On Wed, Jul 22, 2026 at 09:49:24PM +0200, Jonas Jelonek wrote:
-> Hi,
-> 
-> On 22.07.26 19:49, Sander Vanheule wrote:
-> > [...]
-> >
-> >> +  power-supply:
-> >> +    description: Regulator supplying the PoE power rail.
-> > As I reported to Jonas earlier [1], I used this property to define a power
-> > supply for the 54V rail. While everything was working nicely, I still got this
-> > warning for the missing vpwr-supply property on the PSE-PI nodes:
-> >
-> > regulator regulator.2: supply vpwr not found, using dummy regulator
-> > Of course I don't like seeing warnings when everything is seemingly working
-> > fine, but I was also wondering if this duplicated way of providing the PoE power
-> > rail is a good way to go forward and if the generic pse-pi@n/vpwr-supply
-> > shouldn't just be used instead. The latter is admittedly more verbose, with a
-> > property on every node, but going forward offers a few advantages IMHO:
-> >  * Being able to reserve "power-supply" on the main node for the MCU's actual
-> >    3.3V regulator (not needed anywhere at the moment AFAIK)
-> 
-> I would probably rename this, mirroring the PD692x0 naming. "power" is actually
-> too blurry, leaving too much room for interpretation. Still keeping its purpose
-> to reference the supply that serves the PoE rail for this MCU with its downstream
-> PSE. Reasoning below.
-> 
-> >  * Being able to take advantage of the generic pse-pi framework evolving to take
-> >    into account more properties of the parent regulator, such as requesting more
-> >    power, or ensuring the parent supply is not overdrawn by the combined PSE-PI
-> >    outputs.
-> 
-> Correct me if I'm wrong but from what I see, most of that budgeting machinery
-> isn't used in dynamic budget evaluation strategy, which is used here because the
-> MCU does budgeting on it's own.
+The driver currently uses the limited MMIO (FSB) interface to access the
+OTPs. The intention is to support the firmware interface alongside the
+MMIO interface so the driver can pick the interface that is available
+(firmware might not be loaded) and fallback to MMIO.
 
-Hm, I guess the wording in header is a bit confusing, I see now the
-misconception :)
+Some SoCs like the i.MX9 family allow full access to the fuses only
+through the secure enclave firmware API. Add a property to reference
+the secure enclave node and let the driver use the API.
 
-dynamic vs static means - haw available budget is calculated, not where.
-Dynamic can be implemented in the linux core too, but so far no one did.
-Static can be implement in the MCU firmware as well.
+Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
+---
+ Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-In static case - the Powered Device tells us haw much power budget we
-need to reserve for this device and it will be permanently accounted.
-Advantage - every device will get what it is requesting.
-Disadvantage - we do not use full capability of the power supply.
+diff --git a/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml b/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml
+index a8076d0e2737..38fe451f808f 100644
+--- a/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml
++++ b/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml
+@@ -20,6 +20,16 @@ description: |
+ allOf:
+   - $ref: nvmem.yaml#
+   - $ref: nvmem-deprecated-cells.yaml#
++  - if:
++      not:
++        properties:
++          compatible:
++            contains:
++              enum:
++                - fsl,imx93-ocotp
++    then:
++      properties:
++        secure-enclave: false
+ 
+ properties:
+   compatible:
+@@ -56,6 +66,10 @@ properties:
+   clocks:
+     maxItems: 1
+ 
++  secure-enclave:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: A phandle to the secure enclave node
++
+ required:
+   - "#address-cells"
+   - "#size-cells"
 
-In dynamic case - we do not fully trust the Powered Device, first we
-reserve requested budget and then start measuring the PD consumption.
-If real consumption is less as requested, the reservation will be
-reduced.
-Advantage - more PDs can be attached.
-Disadvantage - a spike in consumption of one PD, may kick out some low
-prio PDs.
-
-Since the dynamic case need a lot of measurements, it is usually
-implemented in the firmware. Both strategies have advantages and
-disadvantages and MCUs may allow to change the strategies, this is why we
-provide this information.
-
-In your case it is not documented, but it can be tested if you have
-enough PDs where you can influence the load.
-
-Not sure if we need an UNKNOWN flag to tell the user - we do not know
-what to expect, use it on your own risk.
-
-> Using vpwr-supply on each PI still buys that the
-> supply is enabled and ref-counted by PSE-PD core, and keeps potential for what
-> might come. But no requesting, allocation or deallocation of power.
-
-Ack, in many cases it is for diagnostic. Please note, a "manger" is in
-the practice a multi channel current limiter/regulator. It has maximal
-load per chip and different max load per port. This can be properly
-reflected with the regulators. 
-
-For example, RTL8238B-VB datasheet do not document maximal rating per
-chip, only per port. Calculating 8 ports, with 36W max, would result in
-288W. It feels like a lot of heat. Can it actually handle it?
-May be the MCU firmware has integrated maximal power limit do avoid HW
-damage. A proper information in the regulator tree would help user to
-understand why not all ports will get requested power.
-
-> Given that, I had a closer look at PD692x0 and it seems, this has a similar setup.
-> The difference here being just that there's no multi-manager concept. There is
-> also a manager-level supply reference "vmain-supply" which the driver reads
-> and applies to the hardware, which does budgeting also in hardware.
-
-According to RTL8238B documentation, it has same multi-manager concept.
-Since one manager RTL8238B supports max 8 ports, a switch with more PoE
-capable ports would need more chips.
-
-Since we already talk about power budgeting - all of this make sense if
-we have port priorities. For example PD692x0 firmware has default prios
-bound to port numbers. Is it the same with this firmware?
-
-pw-bot: changes-requested
 -- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+2.55.0
+
