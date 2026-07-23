@@ -1,124 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8514B3DDDDD;
-	Thu, 23 Jul 2026 07:58:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BD48A3EEAD0;
+	Thu, 23 Jul 2026 07:59:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784793500; cv=none; b=JOQg2ufOaBDTf3YG0ZdFuenxqZxuksTQE+TkCANn2O4YwFutqymXENPkFP9j1Pc/h5+tVqEpxv/1N2d6+b+ySEWLAF86U2ojTvU9MzkrbB01ywnbAAWiee6YBrE3ylNJicbJaGpof0lfsnunVn8NtkQIopEU0UEXVJo6krsiF84=
+	t=1784793597; cv=none; b=PdaKGtjvlghbGusYb7BnZ684CX+zM89I3y2M9uYooJOe9wJKR5DJQiQV+CGpd4JZ66Z4hC2mgPNlKG4HqHwInlikRqKsnU+0Km+6jtiDAsa67N2SjX7EGRsFIZVkDwsQhq3kA5xVwrumVCgAiE5maK21Rp6fDSy5rlOjjRH9H5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784793500; c=relaxed/simple;
-	bh=ZrGvBrfldM5HeKW1DGMLHy59bgjBGrayD0w+nscmK/M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uH1jH2X/CR1JdkIloHoOn/GB6TKJtEZOkI7joemGH42VQMP3NnGm7B9/67qTvr1f1fFgplME7v1fZ5v/uW9f6YLYCNgQx2huV2d94YP46HavoD6e4wUqR3UmFDDyB6AbnPKPJirQZMWR5LJL/a27OHIL3iROMbXbLyzatzjbCy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uw+7X5f7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784793597; c=relaxed/simple;
+	bh=PZ9cLd5vXkqOcuFGnstrDDKPwunq3EKIElywadcD1Iw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Y7df7tv4rGOVSzHHxhdXr/dKxR28WffeGAunanaiAIAKOvUfIwjYy1u3RiawIf2QioHgl146tlKHuhQYfOBPYlwpBJMp5IadWZJDqaB0yXzwVCapK5rP8tH2WX0bw4PEmbpjPtmLWn5EZsVxlCyMWMMr51fZjin4qSKEPYmoFYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=in8JzGId; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uw+7X5f7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E44801F000E9;
-	Thu, 23 Jul 2026 07:58:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784793498;
-	bh=BnBB1leXWrpVSe12AUqr3E5yFmk1IsW+d4n7EPWiWoU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Uw+7X5f7380AA8r4psKrxIMIIc8HGf5aEUyAizbWITcwBtd9dc/yB34Kv0zFs6isz
-	 XtnZ4s9HWpg8YjFSXjCLGq/moFmiPjXLlrq8E9qQg7KumRBZN9tGcncAx4fJKJzIA9
-	 cD0eE/Gy7PmzG5T5276RwjmCG8w6QwuHUWAtOfhJdPxS4gQHYsNvdo7Q/XT3qWOdtL
-	 pYhHBAFfpmkR2VE5lmzOEehYAzGDdRnplVDEp2rhdHPwUNfM8zmegAuBuwJfZZtHvH
-	 Ga6kz72wO/kaK/1tQkATK2eivS20NuQABwzEuh8/LqmguQv1pFrnzMiVNo93UDvEGH
-	 lmW0iiQ+cwReg==
-Date: Thu, 23 Jul 2026 09:58:13 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, David Lechner <dlechner@baylibre.com>, 
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Siratul Islam <siratul.islam@linux.dev>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
-	Luca Weiss <luca.weiss@fairphone.com>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: magnetometer: add QST QMC6308
-Message-ID: <20260723-able-mature-corgi-fdc86f@quoll>
-References: <20260721134843.7484-1-jorijnvdgraaf@catcrafts.net>
- <20260721134843.7484-2-jorijnvdgraaf@catcrafts.net>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="in8JzGId"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0B30E1477;
+	Thu, 23 Jul 2026 00:59:51 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8916B3F66F;
+	Thu, 23 Jul 2026 00:59:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1784793595; bh=PZ9cLd5vXkqOcuFGnstrDDKPwunq3EKIElywadcD1Iw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=in8JzGId0LC6dWY2LG9U0bwdrm9y2fF3m1ARSmEluWsmMdrRWnb+EKMBXrBI7dxOD
+	 LKpuBQq2q3TL14hNjQRo/UF8UTKHsIQOssMkZQoD002FPpztu3NxCdBqE+8jQ/MDuI
+	 noaTYFrjxhlkfG/oUs7w2cvZcojS5yIHdjen7lxg=
+Message-ID: <f28ea754-5b13-4bf4-a3a6-585605f38ff1@arm.com>
+Date: Thu, 23 Jul 2026 09:59:53 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260721134843.7484-2-jorijnvdgraaf@catcrafts.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/4] media: rc: sunxi-cir: support the A523/H728/T527
+ IR receiver
+To: Justin Suess <utilityemal77@gmail.com>, Sean Young <sean@mess.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20260722233604.3001063-1-utilityemal77@gmail.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20260722233604.3001063-1-utilityemal77@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jul 21, 2026 at 03:48:42PM +0200, Jorijn van der Graaf wrote:
-> Add device tree bindings for the QST QMC6308, a 3-axis anisotropic
-> magnetoresistive (AMR) magnetometer. It is an I2C device with a single
-> supply and no interrupt pin, at I2C address 0x2c.
+Hi Justin,
+
+thanks for the update, but ...
+
+On 7/23/26 01:36, Justin Suess wrote:
+> Hi,
 > 
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-> ---
-> v2:
-> - Spell out AMR (anisotropic magnetoresistive) (Jonathan).
-> - Drop the package mentions from the description and commit message
->   (Jonathan).
-> - compatible: enum -> const (Jonathan).
-> - Use the current GPL-2.0-only form in the SPDX identifier.
-> - Kept as a separate file rather than folded into
->   qstcorp,qmc5883l.yaml - the two schemas share only
->   compatible/reg/vdd-supply; see the cover letter.
+> Quick series respin for easier application.
+
+please try to avoid that. Leave *at least* 24 hours between revisions, 
+to give all reviewers at least a chance to look at the series. Otherwise 
+they might get frustrated if they started reviewing a series, and get 
+ambushed by an updated version in the middle of the process.
+And in this case here you are probably waiting for a DT maintainer 
+review still.
+Also maintainers can fix up minor issues when doing the merge, so there 
+is no pressing need to send a whole new series for just a minor hiccup 
+or just for adding the tags.
+
+> This series adds support for the CIR receiver on the
+> Allwinner A523/T527/H728 family (sun55i).
 > 
-> v1: https://lore.kernel.org/20260714202842.340293-2-jorijnvdgraaf@catcrafts.net
+> One-line function name change s_cir -> s_cir_rx at Andre's
+> suggestion, with his patch for the Avaota A1 applied on top
+> for convenience.
+
+Thanks for taking that in, but please note that you would need add your 
+Signed-off-by: on top of the author's in this case, to document the flow 
+of patches, and for legal reasons.
+
+Nothing worth to a respin again ;-), just wait for the DT approval and 
+for what Chen-Yu suggests.
+
+Cheers,
+Andre
+
+> v2: https://lore.kernel.org/linux-sunxi/20260722201717.2205609-1-utilityemal77@gmail.com/
+> v1: https://lore.kernel.org/linux-sunxi/20260702214750.3428694-1-utilityemal77@gmail.com/
 > 
->  .../iio/magnetometer/qstcorp,qmc6308.yaml     | 47 +++++++++++++++++++
->  MAINTAINERS                                   |  6 +++
->  2 files changed, 53 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/magnetometer/qstcorp,qmc6308.yaml
+> Andre Przywara (1):
+>    arm64: dts: allwinner: a523: enable IR on the Avaota A1
 > 
-> diff --git a/Documentation/devicetree/bindings/iio/magnetometer/qstcorp,qmc6308.yaml b/Documentation/devicetree/bindings/iio/magnetometer/qstcorp,qmc6308.yaml
-> new file mode 100644
-> index 000000000000..6201a44cfe38
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/magnetometer/qstcorp,qmc6308.yaml
-> @@ -0,0 +1,47 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/magnetometer/qstcorp,qmc6308.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: QST QMC6308 3-Axis Magnetic Sensor
-> +
-> +maintainers:
-> +  - Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-> +
-> +description: |
-
-Do not need '|' unless you need to preserve formatting.
-
-> +  QST QMC6308 3-axis anisotropic magnetoresistive (AMR) magnetic sensor
-> +  on I2C bus, with a single supply and no interrupt pin.
-> +  https://qstcorp.com/upload/pdf/202202/13-52-15%20QMC6308%20Datasheet%20Rev.%20F(1).pdf
-> +
-> +properties:
-> +  compatible:
-> +    const: qstcorp,qmc6308
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  vdd-supply: true
-> +
-> +  mount-matrix: true
-> +
-> +additionalProperties: false
-
-This goes after "required:" block.
-
-No need to resend just for these.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
+> Justin Suess (3):
+>    media: dt-bindings: allwinner,sun4i-a10-ir: add A523 compatible
+>    arm64: dts: allwinner: a523: add IR receiver nodes
+>    arm64: dts: allwinner: a523: enable IR receiver on the X96Q Pro+
+> 
+>   .../media/allwinner,sun4i-a10-ir.yaml         |  8 +++--
+>   .../arm64/boot/dts/allwinner/sun55i-a523.dtsi | 35 +++++++++++++++++++
+>   .../dts/allwinner/sun55i-h728-x96qpro+.dts    |  6 ++++
+>   .../dts/allwinner/sun55i-t527-avaota-a1.dts   |  6 ++++
+>   4 files changed, 52 insertions(+), 3 deletions(-)
+> 
+> 
+> base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
 
