@@ -1,421 +1,93 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2D043B6EB
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 10:06:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B43440D560
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 10:09:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784801189; cv=none; b=k84TGLbFlen9FjLhaLIjdMCs8OVNo6ubHR1lgVlsqhh08KP+vAlKH2FjsbBToeLCKhNqDKhYkuUepFD+5s6vEefc+Pnz9ZWokWdvWfhVmoiVpWY451ICCsEZyNQ/1iauM9R3j2obCZpvDOLATzELgg8nDFGPO6VQvuvf/lm+ftk=
+	t=1784801370; cv=none; b=bf7GSStBxHYxVpwDMHb5qga6YbQGraR1wwHqOPrxuY6duYOOHe76UBR9PolRztp21XiT881J8jNJk9YAhB8Q2WfY30MSUEhzerU6MHcUu5uf5sMjB3bwl3eOoMvvl67yGRKpAvR1He1igj19+g4j1xIzv2ZFfc9TSQby18C+9jM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784801189; c=relaxed/simple;
-	bh=yi1L0OaPBYwYferLA/S3gjy5fRutjBcgYUBGWpiPzVw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tpFOZ35fq/dUNZsKLIDYJCo+af4gHO37UvTtKso5NrOBtdsG5cJNdgtAsuGyI5pgZHiSgnZn4Nz1pZgfj4mAA6kbJKg+wiNCuxSbT5yzzLVDh0ztz9OSwUlevIibHli+yuXqPshbQibrvafG+ZwYGPacb+KcbSTXYAV5lQjMcus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JpyYdCaE; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784801370; c=relaxed/simple;
+	bh=a69kjkIIViUodFnPw0NaYXONt06N+M/bG8zS/oigeTU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=hvc5keBfV/gCCK9YnBhNWpNAiR+RGHG/05o1tH23VJ8GC2MJGePST1qq4icA6poxne/f0oacE1Ug2NWzK/EP5FxR+3CIMvzVWxj+2RrAarTKUezUVZy/QtcaKGs4InNqt16uUWvd45Gyugv6rbJsjBNiRc4P/Ef17vAFNzbIxlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aSsUa+kU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JpyYdCaE"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4758bd3731bso251287f8f.0
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 03:06:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784801185; x=1785405985; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gPl3pwlOAjDCJEiarN+UR1ZW+s5HzR452XUHV7AUK2A=;
-        b=JpyYdCaEfDeKoz2vy+hGZ3MT0wBGxveKx5zP7jnbEv4maSwLfLO3S7T8jmKtQ0QOab
-         aGS+N7mTEvtEoFoe4ujUjpWRVzvxx7mLqgkRUZvjRD5Q6YNyVXybLCVRvsuO5IZCjn5P
-         +jsRHIKBmKBe4bdg+84tvr2EJNBczogYCBb6kiS8yxYEaM10Ugq1SJTm2sq1EUv3L7/c
-         hb8L8QIIEI6g0IqiH29DG6lEsLbtDfMM5vyIzsgKz4ZKdG12iBbAGybUwhqIopqCyBgz
-         LIqC/5qUcg91lFNb6GxpF9eK9guChvphoPlpQgBvOfzY5vkgBbiABJU/pmzlnoBchA/e
-         nj/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784801185; x=1785405985;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gPl3pwlOAjDCJEiarN+UR1ZW+s5HzR452XUHV7AUK2A=;
-        b=jcduu6ZB1oHy4PdWOTZHpwZRMTvNloVmbKMIKJGtRQhYzNjE2aKpUTGHP87sgXmOdI
-         a0gx3CTHDceajkssRcuHFPtX15Km0dShTeRyTGyVoxzole3DmzK4bEcLUA4YraqGiNwS
-         WbIILteNReGL1bcIcpvC2Dv548Msq9PZcSzmK0hmsKMIeObquS/tWx6JK4YcCTekrsYy
-         kEapi04JUz+jjl5JTNPXz8LTUwRxMaF5gBtZNb2CyPCe9JDl1qeCcfZmrjygcp24Pp/U
-         Pp6WR/1De1suW7SsmNldt0zKxoKIUL2GYwzvIlup+T3dpGRD5/gyLQRzyDB+5lpfQVGz
-         Ib1w==
-X-Forwarded-Encrypted: i=1; AHgh+RpyTeWeftKRo3UmBIPDWRS1RY3NHIZKzDdIA+4Ov/ZsFQFloYlT9ohoXWNCuLZwBz+IwGPyCwrrCB94@vger.kernel.org
-X-Gm-Message-State: AOJu0YwhPQf4IZT+BlU4Heavs7VCi4469+YMjGC8TsCIub1F+3Hewf5w
-	TC4506ayYHCx/1+b2569OvTa/mG7vojFjoowVnr2T91r33aFFYapiUU7
-X-Gm-Gg: AR+sD12l2tpsPQT2GqyQ13HR6frpON0yWA9ildUjbs0YkklhH0zn9dzUlFb0styRJCd
-	TqYHwqK2eWZnSw0m22hTUigvFWFob0bWbNb0pNi9k6QwUSMS4aK3E6sp8ZtLNwiYztarZWNbp3x
-	XwAkEnNxpYLRbOReWFOJF+FOe9brkVwZFbdEDERcltvELvfGnClhbHSvWPw4my+s0b5ieogbeFj
-	c2dNt056dUok+GzYd4fe4ZUFydNcauoW6LnURKOkM6kThoTIjinHzK07Apxp05UdGjg3Ad9GhHO
-	TEcaXwWD3EvTmD0amZqhP09F5kNpaRACIcImgGpjsArFPBOBhyxHRrSdZRWLJxgUF7u0tAdEnud
-	n2Z4VIgFLbysu+MPl4xWzQXf6L8VDQQRjgpEJmZ3YjcjWNV+4saZa0Hf7PDEj5QqkEr+ZSK3tvb
-	gZi9iCdvUgYOci739wqfLGK4KQz/owc2BxQzYglQD76Wyt
-X-Received: by 2002:a05:6000:2606:b0:47f:9158:5924 with SMTP id ffacd0b85a97d-47f91586a18mr1946794f8f.9.1784801184791;
-        Thu, 23 Jul 2026 03:06:24 -0700 (PDT)
-Received: from localhost.localdomain ([86.126.27.145])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47f85b9a60asm14212163f8f.3.2026.07.23.03.06.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 03:06:24 -0700 (PDT)
-From: Eduard Bostina <egbostina@gmail.com>
-To: Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Thompson <danielt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	dri-devel@lists.freedesktop.org,
-	Eduard Bostina <egbostina@gmail.com>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-leds@vger.kernel.org,
-	linux-omap@vger.kernel.org,
-	Mark Brown <broonie@kernel.org>,
-	Mark Jackson <mpfj@newflow.co.uk>,
-	Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>
-Cc: daniel.baluta@nxp.com,
-	simona.toaca@nxp.com,
-	goledhruva@gmail.com,
-	m-chawdhry@ti.com
-Subject: [PATCH v4 4/4] dt-bindings: leds: backlight: Convert TPS65217 to DT schema
-Date: Thu, 23 Jul 2026 10:06:02 +0000
-Message-ID: <20260723100605.628882-5-egbostina@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260723100605.628882-1-egbostina@gmail.com>
-References: <20260723100605.628882-1-egbostina@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aSsUa+kU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAEAB1F000E9;
+	Thu, 23 Jul 2026 10:09:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784801369;
+	bh=a69kjkIIViUodFnPw0NaYXONt06N+M/bG8zS/oigeTU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=aSsUa+kUyM84Pe5g5sDZyhnYmETOslFij3H5k4+pHBJHYNCAqCL0B8hQaV+0KEMhr
+	 T+tc9nr1rrPD5XB+s1Ari8IwadxpPp6U5ngVHQFoXx0l7F8NDO6m6JBiG8e1nnHnqZ
+	 Va1+uwlFtoJK5jLGz2Zv5MfTM9mxt46auMglELDgikXGXxLwltVLicPJkfYWEq88D8
+	 qUjYcZiR6TcaGF93CTKIxgYa5jg7NbQUjbXym3ejy9fm7uHrc/GYl6jOlCGG7NZ2Kk
+	 O/YoRREVlAIRTKmMk0diWR5sJgl2d/xuhqlclvIc0yJz3zH+f0fUAIUYpIyBgWSBUc
+	 NYDal6gSyQkKA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/3] arm64: dts: qcom: hamoa: Number usb_2 HS port as
+ port@0
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wei Deng" <wei.deng@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260723-hamoa-m2-dts-v2-v2-1-82254ac101fb@oss.qualcomm.com>
+References: <20260723-hamoa-m2-dts-v2-v2-0-82254ac101fb@oss.qualcomm.com>
+ <20260723-hamoa-m2-dts-v2-v2-1-82254ac101fb@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 23 Jul 2026 10:09:28 +0000
+Message-Id: <20260723100928.BAEAB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Convert the Texas Instruments TPS65217 bindings to DT schema.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The commit message establishes a broken Devicetree API contract =
+by promoting the use of `port@1` for a downstream USB root hub physical por=
+t connection (e.g., an M.2 BT slot), which violates Devicetree topologies a=
+nd schemas.
+--
 
-During the conversion, the following updates were made:
-- Documented the 'regulators', 'charger' and 'pwrbutton' child nodes,
-  which are used by the boards but were missing from the old txt
-  binding.
-- Documented the 'interrupts', 'interrupt-controller', '#interrupt-cells'
-  and 'ti,pmic-shutdown-controller' properties, which are used by the
-  am335x boards and read by the driver.
+--- Patch [1]: [PATCH v2 1/3] arm64: dts: qcom: hamoa: Number usb_2 HS port=
+ as port@0 ---
+commit 26a61b5c5bcc296d009783e2231b6c4b9b5fd3ef
+Author: Wei Deng <wei.deng@oss.qualcomm.com>
 
-The regulator/tps65217.txt binding documented the same 'ti,tps65217'
-compatible and is superseded by this schema, so remove it as well.
+arm64: dts: qcom: hamoa: Number usb_2 HS port as port@0
 
-Signed-off-by: Eduard Bostina <egbostina@gmail.com>
----
- .../bindings/leds/backlight/ti,tps65217.yaml  | 170 ++++++++++++++++++
- .../leds/backlight/tps65217-backlight.txt     |  27 ---
- .../bindings/regulator/tps65217.txt           |  78 --------
- 3 files changed, 170 insertions(+), 105 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/leds/backlight/ti,tps65217.yaml
- delete mode 100644 Documentation/devicetree/bindings/leds/backlight/tps65217-backlight.txt
- delete mode 100644 Documentation/devicetree/bindings/regulator/tps65217.txt
+This patch assigns a port number to the existing high-speed data bus port in
+the usb_2 DWC3 controller by wrapping it in a ports node and renaming it to
+port@0. The commit message states this aligns with the snps,dwc3 binding
+convention. It also claims this reserves port@1 for USB root hub physical
+connections like an M.2 Key E Bluetooth slot.
 
-diff --git a/Documentation/devicetree/bindings/leds/backlight/ti,tps65217.yaml b/Documentation/devicetree/bindings/leds/backlight/ti,tps65217.yaml
-new file mode 100644
-index 000000000000..4d2f4dbd2d52
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/backlight/ti,tps65217.yaml
-@@ -0,0 +1,170 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/backlight/ti,tps65217.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TPS65217 family of regulators
-+
-+maintainers:
-+  - Eduard Bostina <egbostina@gmail.com>
-+
-+description:
-+  The TPS65217 chip contains a boost converter and current sinks which can be
-+  used to drive LEDs for use as backlights.
-+
-+properties:
-+  compatible:
-+    const: ti,tps65217
-+
-+  reg:
-+    maxItems: 1
-+    description: I2C slave address
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  interrupt-controller: true
-+
-+  "#interrupt-cells":
-+    const: 1
-+
-+  ti,pmic-shutdown-controller:
-+    type: boolean
-+    description:
-+      Set the PMIC to shutdown on PWR_EN toggle.
-+
-+  backlight:
-+    type: object
-+    additionalProperties: false
-+    description:
-+      Node for specifying WLED1 and WLED2 lines in TPS65217.
-+
-+    properties:
-+      isel:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        enum: [1, 2]
-+        description: |
-+          Selection bit. Valid values:
-+            1 - ISEL1 (low-level)
-+            2 - ISEL2 (high-level)
-+
-+      fdim:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        enum: [100, 200, 500, 1000]
-+        description:
-+          PWM dimming frequency in Hz.
-+
-+      default-brightness:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        minimum: 0
-+        maximum: 100
-+
-+    required:
-+      - isel
-+      - fdim
-+      - default-brightness
-+
-+  regulators:
-+    type: object
-+    additionalProperties: false
-+    description:
-+      List of child nodes that specify the regulator initialization data.
-+      Not all regulators for the given device need to be present.
-+
-+    patternProperties:
-+      "^(dcdc[1-3]|ldo[1-4])$":
-+        type: object
-+        $ref: /schemas/regulator/regulator.yaml#
-+        unevaluatedProperties: false
-+
-+  charger:
-+    $ref: /schemas/power/supply/tps65217-charger.yaml#
-+    unevaluatedProperties: false
-+
-+  pwrbutton:
-+    $ref: /schemas/input/ti,tps65217-pwrbutton.yaml#
-+    unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        pmic@24 {
-+            compatible = "ti,tps65217";
-+            reg = <0x24>;
-+            interrupt-controller;
-+            #interrupt-cells = <1>;
-+            ti,pmic-shutdown-controller;
-+
-+            backlight {
-+                isel = <1>;   /* 1 - ISET1, 2 ISET2 */
-+                fdim = <100>; /* TPS65217_BL_FDIM_100HZ */
-+                default-brightness = <50>;
-+            };
-+
-+            charger {
-+                compatible = "ti,tps65217-charger";
-+                interrupts = <0>, <1>;
-+                interrupt-names = "USB", "AC";
-+            };
-+
-+            pwrbutton {
-+                compatible = "ti,tps65217-pwrbutton";
-+                interrupts = <2>;
-+            };
-+
-+            regulators {
-+                dcdc1 {
-+                    regulator-name = "vdds_dpr";
-+                    regulator-always-on;
-+                };
-+
-+                dcdc2 {
-+                    regulator-name = "vdd_mpu";
-+                    regulator-min-microvolt = <925000>;
-+                    regulator-max-microvolt = <1351500>;
-+                    regulator-boot-on;
-+                    regulator-always-on;
-+                };
-+
-+                dcdc3 {
-+                    regulator-name = "vdd_core";
-+                    regulator-min-microvolt = <925000>;
-+                    regulator-max-microvolt = <1150000>;
-+                    regulator-boot-on;
-+                    regulator-always-on;
-+                };
-+
-+                ldo1 {
-+                    regulator-name = "vio,vrtc,vdds";
-+                    regulator-always-on;
-+                };
-+
-+                ldo2 {
-+                    regulator-name = "vdd_3v3aux";
-+                    regulator-always-on;
-+                };
-+
-+                ldo3 {
-+                    regulator-name = "vdd_1v8";
-+                    regulator-min-microvolt = <1800000>;
-+                    regulator-max-microvolt = <1800000>;
-+                    regulator-always-on;
-+                };
-+
-+                ldo4 {
-+                    regulator-name = "vdd_3v3a";
-+                    regulator-always-on;
-+                };
-+            };
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/leds/backlight/tps65217-backlight.txt b/Documentation/devicetree/bindings/leds/backlight/tps65217-backlight.txt
-deleted file mode 100644
-index 5fb9279ac287..000000000000
---- a/Documentation/devicetree/bindings/leds/backlight/tps65217-backlight.txt
-+++ /dev/null
-@@ -1,27 +0,0 @@
--TPS65217 family of regulators
--
--The TPS65217 chip contains a boost converter and current sinks which can be
--used to drive LEDs for use as backlights.
--
--Required properties:
--- compatible: "ti,tps65217"
--- reg: I2C slave address
--- backlight: node for specifying WLED1 and WLED2 lines in TPS65217
--- isel: selection bit, valid values: 1 for ISEL1 (low-level) and 2 for ISEL2 (high-level)
--- fdim: PWM dimming frequency, valid values: 100, 200, 500, 1000
--- default-brightness: valid values: 0-100
--
--Each regulator is defined using the standard binding for regulators.
--
--Example:
--
--	tps: tps@24 {
--		reg = <0x24>;
--		compatible = "ti,tps65217";
--		backlight {
--			isel = <1>;  /* 1 - ISET1, 2 ISET2 */
--			fdim = <100>; /* TPS65217_BL_FDIM_100HZ */
--			default-brightness = <50>;
--		};
--	};
--
-diff --git a/Documentation/devicetree/bindings/regulator/tps65217.txt b/Documentation/devicetree/bindings/regulator/tps65217.txt
-deleted file mode 100644
-index 4f05d208c95c..000000000000
---- a/Documentation/devicetree/bindings/regulator/tps65217.txt
-+++ /dev/null
-@@ -1,78 +0,0 @@
--TPS65217 family of regulators
--
--Required properties:
--- compatible: "ti,tps65217"
--- reg: I2C slave address
--- regulators: list of regulators provided by this controller, must be named
--  after their hardware counterparts: dcdc[1-3] and ldo[1-4]
--- regulators: This is the list of child nodes that specify the regulator
--  initialization data for defined regulators. Not all regulators for the given
--  device need to be present. The definition for each of these nodes is defined
--  using the standard binding for regulators found at
--  Documentation/devicetree/bindings/regulator/regulator.txt.
--
--Optional properties:
--- ti,pmic-shutdown-controller: Telling the PMIC to shutdown on PWR_EN toggle.
--
--  The valid names for regulators are:
--  tps65217: dcdc1, dcdc2, dcdc3, ldo1, ldo2, ldo3 and ldo4
--
--Each regulator is defined using the standard binding for regulators.
--
--Example:
--
--	tps: tps@24 {
--		compatible = "ti,tps65217";
--		ti,pmic-shutdown-controller;
--
--		regulators {
--			dcdc1_reg: dcdc1 {
--				regulator-min-microvolt = <900000>;
--				regulator-max-microvolt = <1800000>;
--				regulator-boot-on;
--				regulator-always-on;
--			};
--
--			dcdc2_reg: dcdc2 {
--				regulator-min-microvolt = <900000>;
--				regulator-max-microvolt = <3300000>;
--				regulator-boot-on;
--				regulator-always-on;
--			};
--
--			dcdc3_reg: dcc3 {
--				regulator-min-microvolt = <900000>;
--				regulator-max-microvolt = <1500000>;
--				regulator-boot-on;
--				regulator-always-on;
--			};
--
--			ldo1_reg: ldo1 {
--				regulator-min-microvolt = <1000000>;
--				regulator-max-microvolt = <3300000>;
--				regulator-boot-on;
--				regulator-always-on;
--			};
--
--			ldo2_reg: ldo2 {
--				regulator-min-microvolt = <900000>;
--				regulator-max-microvolt = <3300000>;
--				regulator-boot-on;
--				regulator-always-on;
--			};
--
--			ldo3_reg: ldo3 {
--				regulator-min-microvolt = <1800000>;
--				regulator-max-microvolt = <3300000>;
--				regulator-boot-on;
--				regulator-always-on;
--			};
--
--			ldo4_reg: ldo4 {
--				regulator-min-microvolt = <1800000>;
--				regulator-max-microvolt = <3300000>;
--				regulator-boot-on;
--				regulator-always-on;
--			};
--		};
--	};
--- 
-2.43.0
+> Adding a port number also reserves port@1 for USB root hub physical
+> port connections (e.g. an M.2 Key E USB BT slot) that can be described
+> in board device tree files.
 
+[Severity: Medium]
+Does this description conflict with standard Devicetree topologies for USB
+devices?
+
+Standard USB downstream devices are typically modeled as direct children of
+the USB controller using function-based names (e.g., bluetooth@1), rather
+than being modeled as OF graph endpoints.
+
+If board developers follow this guidance and place a port@1 node inside the
+ports node, won't it trigger schema validation errors?=20
+
+The snps,dwc3-common.yaml schema strictly defines port@1 in the OF graph as
+a Super-Speed data bus, which conflicts with this being an HS-only controll=
+er.
+
+Could the commit message be updated to avoid suggesting OF graph routing for
+logical USB bus topologies?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-hamoa-m2-d=
+ts-v2-v2-0-82254ac101fb@oss.qualcomm.com?part=3D1
