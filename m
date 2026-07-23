@@ -1,94 +1,179 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011050.outbound.protection.outlook.com [40.107.130.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4B547A865;
-	Thu, 23 Jul 2026 15:45:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784821548; cv=none; b=brBNa7iRdaM1bhw0adP5ymcFyTaveL+3p8x2nNFkeXRijY0ZgB2YyR1k0aQEo21F19Fv/BSKV2Q1AYcUAsRHtnlWGESc5wQx/Ru64GJfCOVVfxGCZKaS8m765ERrnA2e44R5OQsarOHK/I3w+lLdMRieH9yUk6ho+3bVUATN80k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784821548; c=relaxed/simple;
-	bh=oEFMkryztdztgbBqD7MgtEgSQl2lfC96WXOHlm0qYHE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=paf9SJS9uUCX2H39ehJJH0E+O1Qy9mJb6hgka9yZ/mIhwXtsA2nO2iImsgtf/MH2YmK9lqgoNGsIwp5GsS+gZI+NkqtYt1ASEDp9juM45NF6Y5FIGEjiEY0vY3GNR90Gw0DCTwdRiqGbtpFpZdo+/+KDt+AFbIuLc/9gHYiu8nQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=iqpy1YHZ; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34EE52D12F3;
+	Thu, 23 Jul 2026 15:45:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784821556; cv=fail; b=I/S7D54SCreEIUHjPdtVYIV324i0bIT5Vws3PSyOab0j//t8/PatnLFQ48A+nB+wpK1WikvMICe0SJIW6d0+rTUsxUn73CYA5EssXCMoAAOyYD3aE21a5Tc31dihM2T9U/HxyfVmGMdztD/zka6dYkFhrMySMjYaXRLJ2rfGem8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784821556; c=relaxed/simple;
+	bh=HQrPz8wUZrMV3IwyiwAR7m7larqK8eBnt1fGYr8bB68=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=tKNjsE6rP6vInEI9/9fUNEap9O1AUolrG/wb0vCsMPY7y6cV07abux3HWetyFBk7NPDk8rOa8tw8nVce9dZLqPxs2+tIDeU0y/Jf/W5laE1URYIPDNJp5asroH+oc+lu9uQy5ZAOZADadT6U8uWwvu4f31gEIxjQnybOvhDLDqc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=mdGD/Gm5; arc=fail smtp.client-ip=40.107.130.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="iqpy1YHZ"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 772121C37;
-	Thu, 23 Jul 2026 17:44:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784821481;
-	bh=oEFMkryztdztgbBqD7MgtEgSQl2lfC96WXOHlm0qYHE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iqpy1YHZDiapYnRDDS2LE5QiD7/DDXnO3UNnS/a4Z0iDtuEHzlTY5Ns8fuGP7xZP0
-	 VMw8x4TdQlLToBjYHPuzBnCBl0+XkJsJz6x1Nw4UQP5obcgIotvc2DKcbLdZlJPBkO
-	 NkCPkwjUmpTue/zlRNxkuuesa70Wcit9OnJie04g=
-Date: Thu, 23 Jul 2026 18:45:41 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="mdGD/Gm5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fPwZboxdV1SPzw2xgpAKKq57EXbXhRt7bPwQ4FFPmaUwa6jkvzsej0Ps7R1NC0YehtM0+/z2SYeVn2RvBgnKYS4po6KYXRhICH/zaFwTSyTtixt87PJUMbcd3Fg0sv8r1oh8u4REJMRqSjTYexHtPxlsYNyREF6RpFiz6w1Vrek4slAo0D1JgIxTAitRXBJqGaD/gmHqsAI+7+UU9TsiHmEM+b4z7xv+pMPPPbCab3ki/Kbn1avXN5m/VxebfcU3YyHbq/0WBJrEG4YPS+qz06FHVwrVUFeNkwcVqcc5VJrOzH9xJBxWpkPDIqUd7wTamsp4NaMhybqmBwtBGej/DA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=819be20x/EqzGMHq1CZyWSzhU839Pb6DXfpbLFHq5mI=;
+ b=FKB3hkxBV99T4V8fhSvG/Xh0W+LUhn21BCrOqhnXmzrTfjBiBeduVbQdt4dT2vJb2PlhjZA+BN4h3UTha6RajM+XrIxo/dxPzsgC/2/CVhidhbu6BNh9NKyg0xPcevbiikbK+Qokl7liH487oDAujBOi2f4vIm3ijwMHECwfWKQiU0+s0Y36fvR5OQS7iTI7z6ZWpOlK4Y0X8v8I6JxIewsIaNT9OcjnTU5AvR9zKpPuXJP3Pp3G0ocFOwlHCjWpPJ/k+c6aqipXqVnDh4NhHLnz/r3zUPVMEUf06gf3tY3GdXkeacJWdun8dD4Yfzp5EXOxiUI491jFcKCfpLpjhQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=819be20x/EqzGMHq1CZyWSzhU839Pb6DXfpbLFHq5mI=;
+ b=mdGD/Gm5qQ/BjeGB4CmH/qdo3sREkKB6AMPc09F5wt50IvRmktLXKLkE+20VLtv3dXp/xH/IjCcIBGzDEKvWvbakXfY2ihZXf42GMtrkQg2nfITrtzz4/Wi7lGIZlZRivcgKyUNbUFYgPQwV+aoePHe2h8x6Pbx73EMqXezBaQE570nlmVB67iw9/6tpj4Zdo7wtpOn1JchFPJdGf+Gsy/XPp4/X/TezUk8asIp4hObFTIiPPG2Sk7KLvyMmPpvtuKft9L8URLoaM5wViXXc7jmw0huO8IiTc6/urKq+yZkuw9NB0a/FTGHNviuFMiJrDSJ5ezKY71Wh5U38+TFv9A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PAXPR04MB8621.eurprd04.prod.outlook.com (2603:10a6:102:218::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Thu, 23 Jul
+ 2026 15:45:45 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0245.010; Thu, 23 Jul 2026
+ 15:45:45 +0000
+Date: Thu, 23 Jul 2026 10:45:32 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
 	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	driver-core@lists.linux.dev
-Subject: Re: [PATCH RFC 1/2] dt-bindings: regmap: add common schema for
- no-sequential-read
-Message-ID: <20260723154541.GA764516@killaraus.ideasonboard.com>
-References: <20260722-regmap-single-read-v1-0-aaaf31591669@linux.dev>
- <20260722-regmap-single-read-v1-1-aaaf31591669@linux.dev>
- <cdd3b988-72cd-4143-9a17-ee0c57625e94@sirena.org.uk>
- <amD_vkMOrtKq5NvX@bombadil>
- <20260722201622.GD648629@killaraus.ideasonboard.com>
- <amEvJBOE3Ja014Ap@bombadil>
- <525338f4-cad3-4acb-94c5-a4b71cde9c02@sirena.org.uk>
- <amHznORUaOnUFyS4@bombadil>
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: lcdif: Add endpoint bus-width
+ property
+Message-ID: <amI3HKLECuZBHLs0@SMW015318>
+References: <20260723093813.180089-1-francesco@dolcini.it>
+ <20260723093813.180089-2-francesco@dolcini.it>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260723093813.180089-2-francesco@dolcini.it>
+X-ClientProxiedBy: SA1P222CA0072.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:2c1::28) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <amHznORUaOnUFyS4@bombadil>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAXPR04MB8621:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4869c6ba-393e-4634-aeb5-08dee8d175bc
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|1800799024|376014|7416014|19092799006|23010399003|366016|22082099003|18002099003|3023799007|11063799006|4143699003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+ QF3X/a23TxTbx+2CrXSihV5iBy8R7/R/mXNUpFWJ3TDpS1hQUohBChEymOwCIdlAuLKVpptkhNKgn3juIgRyBt4xBicItBp8OO8CIX0P+HxbFaoSqypktAhyvIeJteaOLw/180tlBMrO8NUVWOXRsmAHpRlCK1hYxyJty6HUWmdYkgrI+4yJfRMD1dOltKnbeT/KQ9WGFAkRhZG1bFOKeRGPSrFpRRVFdZjHIR7tDcmV/n/xw8bm88asIZByj0j1COSn1ifiWKicrAjHe8HUdxUEyYekqulBFYpPYbvb3pS9phTuittvfUxNMuWh7KVna+8CS3ihmgmZQSGkPDYGw4PXV1y5veANF7oVOqhhMoY4RjZW/Vw+ZT3NJVkklOyAkY/9/6g+4L1C1gHTJUnz/mQsjjAdyz+xsP132RE+fA19tH9glkgSMGokDFvI5IqYd8T2DeyUc7lGkC6cP3S3EiP6jmjMjKW4wr+hqlwunzAhmLMnIBGxAdgSHrrduMCzIbCdtmHIl17PapQaBaemsWsjayDXF5IcUmjQyoonw3Rb5MvbCaj+xDS7Wx0K2HDm/3ANCJskkb/ixwPn2MhqNUROZlHfAgpREZJHiiA/z1+aqaAf2nDGzCHKi8d+c9UCHwzk44cb4EK1DdHQAl1ptq89EX3ytO9TTbIWKukXz/k=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(19092799006)(23010399003)(366016)(22082099003)(18002099003)(3023799007)(11063799006)(4143699003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?2/DFloXTR2okcEoCTPm4AeF2IDXM2GUUKD5y6kczQI8yNDXeU3ME7WOqSyC7?=
+ =?us-ascii?Q?6v0mF+J/bkxQNBV/juBOnNlWyrkM6jY4tagMCIaUJhGUo7y8V7dYhoUh6Zh+?=
+ =?us-ascii?Q?dAkkw/wxnzNq78dJ0BN4OQSscbh6tsWydcM6YA5kZ4vlhDZn1bdTGfz8G+1s?=
+ =?us-ascii?Q?k27v72ipda4Scf5QerrQexeTnmLIfH/GdFvg3WcajUC7VuCpjmqjYaBUp6VQ?=
+ =?us-ascii?Q?BV/nLeq3zZpBCJN21F55m6HPjLKgiHilysD7r0+tZU+Qne/VyBj13XsNbWF4?=
+ =?us-ascii?Q?VAcVKU04T7l0JuEf62C95dkJNZe6Riy3sUT8naK0eZ3wzIY8UMGAvrYq1Yyy?=
+ =?us-ascii?Q?eZDrExkgXUXqwMFSDA+E8Cfr1yX5wFhaLh4msh0EHvngBA/5443wQJfEfQLP?=
+ =?us-ascii?Q?hJCjZQ8i2IHHGO8LortnJiiXYjxMSrjws7y+rYLK/UgAjeW/tT11stArJAyV?=
+ =?us-ascii?Q?w+c0DFdb81JG6sOMplme2vGXPhUFbKKKWUZNprh5ENmBtXsPOgYTXwhPSBqJ?=
+ =?us-ascii?Q?YaAXY8x0ZtnpZx4G9KFH6siwOLBgv+cmjznB4FGHJMe4FMLNrTvXt1trv002?=
+ =?us-ascii?Q?dx73ptJQWYWYmXZGYFQeGoUClB09RSbFhnhTDC0CWdMmyWG+lVF7chLr2XpC?=
+ =?us-ascii?Q?dv7N0LMhEUaOpgV+UasgzFs7hFWyBUqmP04eKyh7yEpw4C3LTT3CR2eZlfFD?=
+ =?us-ascii?Q?xhDcbYleZIui4soNs3DgeFutGwSac/XK6E9wAtbvRnNWgb7905DJ65mCFGn4?=
+ =?us-ascii?Q?yboOkN4meSrIm9yv0kbbEyXn7QEzY0t5HpN8soYsJ7ryualMzO4LeoqEy0ai?=
+ =?us-ascii?Q?f+ma6ZOfjze1g9DAsGpL+N0b+hrx6a396GhUz6pTK6mg6PXm+ucjyBhnJJIM?=
+ =?us-ascii?Q?VCpDJNu8tf4t62/3O5O4E+ApaCqsxQ+olhVqgyJlARhgrxTY9A4+UIsPF8jk?=
+ =?us-ascii?Q?m2Dj0u2JUVrrB5m+c3UgblvbXgoCMUbdnoPqIkMba01luGdqEQ7sJ5sEgend?=
+ =?us-ascii?Q?L8oHj6EMIKPYMgePSlSCxIRem4Vo4aZW9Tstyz2yhefMJ3nt8PadmPmYvwjQ?=
+ =?us-ascii?Q?IVnBhSDn2iru4h0Ba9rSLn1TDHbXyK/hRB9F+szw2vnxoPQhmNSn4uhEKT19?=
+ =?us-ascii?Q?NBVf+YrsDpYfovs5j83gniEPvGBltEM5imOJDP7sWM9NiX3WGEZ21+emrQ8o?=
+ =?us-ascii?Q?7mdda8G+wfSBxtZ91hYxU5UxkD/s8NR3NAsHmQkZS3x+5lKDOdofdfjvNmF4?=
+ =?us-ascii?Q?/T8Wffa6B7jj+Ey+zORHGMZjLP1JMbPGIbjJ5w9jpGGa8NiDyQNwRpn9V0pn?=
+ =?us-ascii?Q?qJq2aiSL0ltgkVW/FLPPOhnQf/GX7zLigl53WFSQSvxczfMt6cxMON1rnsnH?=
+ =?us-ascii?Q?ORJy2fFg556IDCp1WsPNYgJ4Bprsdr2a96w7TElqkpqKOfBJ+ru2mbaNOE4o?=
+ =?us-ascii?Q?ZkUiIqsIENG/705bmmPkKEynvwm1BSUwYTsYh7buAN8op3UsfrCVoifDbatI?=
+ =?us-ascii?Q?OGVxuqioBcTUWE2OtiaLWu+APIKqL01VfrVALHZ2P/WNwMIFFVEfcgSz1Cm0?=
+ =?us-ascii?Q?uaWFEDWd6+Mk2F9cSVXp7uOsNsCBUJ3VWapYzMf31bBJc1q3DwiAwHS+fM7t?=
+ =?us-ascii?Q?Y397t/QtDi+nndDWKwBp4JeXKWBPY2LXgWnRPizklLP7LYR8LHlKxr9e8/wC?=
+ =?us-ascii?Q?wL9LwEDdQ15NedTdAnGOsNhn1sTx9kHMAt4sMK1ABzF6nHIKff9GJez0lTkn?=
+ =?us-ascii?Q?E1kJSP3UAJwILA2PMVcxEpMncXLMTnsl2YICAIRipEwANIlmwSsi?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4869c6ba-393e-4634-aeb5-08dee8d175bc
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 15:45:45.7745
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jbGfh4YFoTmpPiOkquxgjhC3zibn3krpqOG7MbXhWc6IW2sFoROm6YP4ag3sJupy6iGyo85olOijxnR7HsVnRq9qP5sD+faj0j6pIyLNQrKhXs37P/oh61TD7bTM3qnh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8621
 
-On Thu, Jul 23, 2026 at 01:01:11PM +0200, Richard Leitner wrote:
-> On Wed, Jul 22, 2026 at 11:03:09PM +0100, Mark Brown wrote:
-> > On Wed, Jul 22, 2026 at 11:58:46PM +0200, Richard Leitner wrote:
-> > 
-> > > @Mark: I understood that if the fpga really intercepts the I2C bus, it
-> > > should be modelled accordingly in device tree. But what would be the
-> > > preferred implementation if both devices sit on the same I2C bus, but
-> > > one is messing up some register reads on purpose?
-> > 
-> > I think we would need to have a coherent understanding and description
-> > of the actual issue to know how to describe it.
-> 
-> Understood. I will try to figure out how the hardware is really wired
-> and come back to you.
+On Thu, Jul 23, 2026 at 11:38:08AM +0200, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+>
+> The DPI output of the LCD interface can be configured with a bus width
+> of 16, 18, or 24 bits. Introduce a bus-width property to the output
+> endpoint, specifying the number of parallel RGB bits connected.
+>
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> ---
+> v2: use the common bus-width property instead of the legacy interface-pix-fmt
+> ---
+>  Documentation/devicetree/bindings/display/fsl,lcdif.yaml | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> index 2dd0411ec651..6931f0ae3829 100644
+> --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> @@ -71,6 +71,15 @@ properties:
+>      $ref: /schemas/graph.yaml#/properties/port
+>      description: The LCDIF output port
+>
+> +    properties:
+> +      endpoint:
+> +        $ref: /schemas/graph.yaml#/$defs/endpoint-base
 
-Based on the information I have received so far, the FPGA is interposed
-between the host and sensor. It could therefore be modelled in DT as
-child of the I2C bus and a parent of the sensor.
+Is it better by use video-interfaces.yaml# ?
 
-New version of some of the Vision Components modules have fixed the
-multi-read bug, so we will still need a property in the FPGA DT node to
-indicate if the quirk should be activated.
+Frank
 
-> > Please do not add random characters to my name.
-> 
-> Sorry, I didn’t mean any harm.
-
--- 
-Regards,
-
-Laurent Pinchart
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          bus-width:
+> +            enum: [ 16, 18, 24 ]
+> +
+>    display:
+>      $ref: /schemas/types.yaml#/definitions/phandle
+>      description: phandle to display panel
+> --
+> 2.47.3
+>
+>
