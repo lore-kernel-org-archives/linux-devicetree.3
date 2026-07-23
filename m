@@ -1,151 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73DC338E8BE;
-	Thu, 23 Jul 2026 23:09:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D97345ED9;
+	Thu, 23 Jul 2026 23:11:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784848156; cv=none; b=WOz0Qp6OYv0VjKoJqI2pSO5brUXRwFFjkThn5+dXTlACrr4yVuKTd7opaug+68rE8vnO8BBGb8y0gdXREgbaWUdfNOZwDRzH0VLTx+atHBhmdaPijho7EMytLAVXZpqBEV3l4pMJj5nsQNDLd3BayeXPgfhvo0htTmS4jbAcejE=
+	t=1784848306; cv=none; b=GNEGmSZrZbnwJNuN8EQu+J1YYqT3EkMFZB+VRzBoOICd1yGJ1K0zspGfXOA9yB8aR1h2qutp9f7IcNXBnbd8++3DO2X4xjwHs/wcabRT6PSCP0BJZ8O2f0DDxSshLsPvHeqttV9MtVTdycjtCPfjYKNLpn2X8mF2cfSj6Hgt5a4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784848156; c=relaxed/simple;
-	bh=maThtgYR0HWqkOYjFdR/AhhCMnciijD7LKWtrdJHp5M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=E7/v5ppZ96hZOa2z0RWZi60+XFM9wQ4dvMySVxBqneXDJHqdnmSjmJcE9Kufl0QHG0nNN7EEPAxwQqZN/Kpht52Bf6QCohIb/nVEEJ/gp3sDOKIOMQto0c/vcqXt9TsxaxCQQLLU/m8HRKC7dKYXijM41L/TFTAzY+lO5/wzWyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fWdY8R6l; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1784848306; c=relaxed/simple;
+	bh=tJE7QLmFm+TE3GEKwAzBI+AjFYpvW8DrXlfdJwgStfk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XIas0O6i7gkfbe2zCRlDvKc83UR1kNoaoZ+zyXP2X/JB9c/5JHdPmZZnV/ZDO4WJUwLbwyP+Tj0LcPuouhPmrB80yrmPE5cuOXDSdE7umHkgz2ebKODsjbwF4htNoOkVNiSoi0GXB/WttWPxk3R/XxXwYfGeZctJu09SYEqpvYU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Do62ZEJo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fWdY8R6l"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 23628C2BCF7;
-	Thu, 23 Jul 2026 23:09:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784848156;
-	bh=maThtgYR0HWqkOYjFdR/AhhCMnciijD7LKWtrdJHp5M=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=fWdY8R6lDOHtNvvB8LCVdyL0VutPpU4FPzfADqY1NJjdDHNpJi3DzdNt1yvVCsA0C
-	 zMLfih2CfOde7gJEzTlk+RBImeTKFHzzzhyXtJi4ItVMj/VrWwi/czF1+nK0YPSt+E
-	 YF9Z3eqbN3VTs75SaWxUq1kCToqR7hz8MBbdPfSjWKfc1cRsHDcHC91qXliwk4YM+x
-	 cizKod1sA5lzrKt9MbnCjBYrmfxMVsou+evISNLZ4388miJdDB+aqs8bKCTjyz2SWi
-	 fbL64F+ojjAHqE9ifQa3Wh7WtcAAgLNGh8DITksPfJLnCWqaO7Fb73JMyD5JtFko1X
-	 73AdcXt0RLlhA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0421EC531FC;
-	Thu, 23 Jul 2026 23:09:16 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Fri, 24 Jul 2026 01:09:13 +0200
-Subject: [PATCH 2/2] dpll: zl3073x: add ZL30643 chip support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Do62ZEJo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49C3D1F000E9;
+	Thu, 23 Jul 2026 23:11:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784848301;
+	bh=1HQLCQ5a6IsgFhtsBNgUA+ogFOIV9X2KyIa89PgiQdo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Do62ZEJoUn2WexzPaXHDOZc+lNZ+qErmVKlYAco6xgjtL5DwoAtkbNvvhTwVlhSUh
+	 KYHnw3vYsdtUW9asvFQMyogJUunoSfRhfOK/4BNRBWjLoSNNdB8EU1k0TORpI/EJgv
+	 i+XMyhDAWV9ow2Y76gbjx+U7M8LiOUohuzmIEiAAb/zBqjv71zQ+qVNgoFsAljRyLo
+	 6keNo4CkDR2yTjeGLAkshG7ngHM/wT+01I2AcstOFJy2lS7YfTuaOiki/trvlw9R03
+	 fBJc5zp6pQVCjvnNkN+Jph8cvLN7OmKe24hHlL9deNGG8NwiVCJNh1E1l0OGh0xBdl
+	 NsXR/44KGbl2Q==
+Date: Fri, 24 Jul 2026 00:11:35 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>, Michael Auchter
+ <michael.auchter@ni.com>, linux@analog.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH 4/4] iio: dac: ad5686: update device list and file
+ header comments
+Message-ID: <20260724001123.0e201f90@jic23-huawei>
+In-Reply-To: <nxybhlqzbyz5jpwzam6hh72rst37fqcekxhtt6gjqge4t5gh7e@gbbm3g2pklim>
+References: <20260719-ad5686-extend-dev-support-v1-0-841ec75cf5d8@analog.com>
+	<20260719-ad5686-extend-dev-support-v1-4-841ec75cf5d8@analog.com>
+	<20260719223035.0acb57d6@jic23-huawei>
+	<nxybhlqzbyz5jpwzam6hh72rst37fqcekxhtt6gjqge4t5gh7e@gbbm3g2pklim>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-for-upstream-zl30643-v1-2-ea93ba4d85c8@free.fr>
-References: <20260724-for-upstream-zl30643-v1-0-ea93ba4d85c8@free.fr>
-In-Reply-To: <20260724-for-upstream-zl30643-v1-0-ea93ba4d85c8@free.fr>
-To: Ivan Vecera <ivecera@redhat.com>, 
- Prathosh Satish <Prathosh.Satish@microchip.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Vadim Fedorenko <vadim.fedorenko@linux.dev>, 
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>, 
- Jiri Pirko <jiri@resnulli.us>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Vincent Jardin <vjardin@free.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784848154; l=2816;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=84xRUJhokqrnrzbH6D226xN7w2LrlqlOsMReWeo9UCg=;
- b=f4B7n1HweVNsPQ/MWnWgoXfSTv8X6RsNecMjQt0DfwD13i96lxm4t1WjJyyy8JU/L04TKNGcj
- AYnN7oN985OCwW1xpKaOI9raI0oow3AtUZI5mWsCEultiK8ewjlPid8
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
 
-From: Vincent Jardin <vjardin@free.fr>
+On Mon, 20 Jul 2026 12:27:34 +0100
+Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
 
-Register the Microchip ZL30643 (chip ID 0x0E3B), it is a 3 DPLL channel
-of the ZL3073x family.
+> On 19/07/26 22:30, Jonathan Cameron wrote:
+> > On Sun, 19 Jul 2026 10:52:00 +0100
+> > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> >   
+> > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > > 
+> > > Update device list entries in Kconfig and remove device description from
+> > > file headers. One can rely on the ID table(s) to check for supported
+> > > devices. Adjust comment header accordingly and update Copyright notice in
+> > > comment file headers with the current year.
+> > > 
+> > > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > > ---  
+> > 
+> > Main comments here are about the patch break up.  I think it needs
+> > just enough modification for a v2 to be needed.
+> >   
+> > >  drivers/iio/dac/Kconfig      | 31 ++++++++++++++++++++++++-------
+> > >  drivers/iio/dac/ad5686-spi.c |  7 ++-----
+> > >  drivers/iio/dac/ad5686.c     |  4 ++--
+> > >  drivers/iio/dac/ad5696-i2c.c |  6 ++----
+> > >  4 files changed, 30 insertions(+), 18 deletions(-)
+> > > 
+> > > diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
+> > > index d6d560c09e25..ba2065241af3 100644
+> > > --- a/drivers/iio/dac/Kconfig
+> > > +++ b/drivers/iio/dac/Kconfig
+> > > @@ -251,9 +251,18 @@ config AD5686_SPI
+> > >  	depends on SPI
+> > >  	select AD5686
+> > >  	help
+> > > -	  Say yes here to build support for Analog Devices AD5672R, AD5674R,
+> > > -	  AD5676, AD5676R, AD5679R, AD5684, AD5684R, AD5684R, AD5685R, AD5686,
+> > > -	  AD5686R Voltage Output Digital to Analog Converter.  
+> > 
+> > Given this is adding entrees that were in the previous patch, I'd have
+> > preferred to see the more complex dance of a precursor patch before that
+> > which did the reformat (and dropped the stuff form the c files)
+> > 
+> > That would then be followed the new stuff being added as part of the previous
+> > patch.
+> > 
+> > Whilst the ends result is the same I think it is worth doing a v2 just
+> > to clean that break down of patches up.
+> >   
+> > > +	  Say yes here to build support for Analog Devices Voltage Output
+> > > +	  Digital to Analog Converters:
+> > > +	  - Single-channel:
+> > > +	    AD5310R, AD5681R, AD5682R, AD5683R, AD5683R  
+> > 
+> > Eagle eyed Sashiko spotted last entry is a duplicate.  
+> 
+> Yeah, one of the entries should have been just AD5683...
+> 
+> Also, that this AD5337R was missing, which I didnt add because I could not
+> find documentation for this one. Maybe a device that does not exists or it
+> was deprecated.
 
-Once register, for instance, we get:
+We've had a few IDs sneak in either through typos or because a part
+existed on a datasheet but wasn't released in the end.
 
-  devlink dev param set spi/spi0.0 name clock_id value 3733 cmode driverinit
-  devlink dev reload spi/spi0.0
-  devlink dev param set spi/spi2.1 name clock_id value 3643 cmode driverinit
-  devlink dev reload spi/spi2.1
+Good idea to just not mention it here though we might get someone
+helpfully 'fixing' the fact it was missed in future :(
 
-  dpll device show | grep clock-id
-    clock-id: 3733
-    clock-id: 3733
-    clock-id: 3733
-    clock-id: 3643
-    clock-id: 3643
-    clock-id: 3643
+> > > diff --git a/drivers/iio/dac/ad5686-spi.c b/drivers/iio/dac/ad5686-spi.c
+> > > index 003541edb742..b4531b49cb22 100644
+> > > --- a/drivers/iio/dac/ad5686-spi.c
+> > > +++ b/drivers/iio/dac/ad5686-spi.c
+> > > @@ -1,11 +1,8 @@
+> > >  // SPDX-License-Identifier: GPL-2.0
+> > >  /*
+> > > - * AD5672R, AD5674R, AD5676, AD5676R, AD5679R,
+> > > - * AD5681R, AD5682R, AD5683, AD5683R, AD5684,
+> > > - * AD5684R, AD5685R, AD5686, AD5686R
+> > > - * Digital to analog converters driver
+> > > + * SPI driver for AD5686 and similar Digital to Analog Converters
+> > >   *
+> > > - * Copyright 2018 Analog Devices Inc.
+> > > + * Copyright 2018-2026 Analog Devices Inc.  
+> > 
+> > That definitely belongs in the patch that made a real change, not one
+> > that is just messing with comments.  
+> 
+> Will drop this one. As I was touching the file headers I assumed it was fine
+> to put this here, given that I ended up adding a lot of changes to these files
+> lately.
 
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
----
- drivers/dpll/zl3073x/core.c | 1 +
- drivers/dpll/zl3073x/i2c.c  | 2 ++
- drivers/dpll/zl3073x/spi.c  | 2 ++
- 3 files changed, 5 insertions(+)
+The change to update the copyright is fine.  Just do it in patch 3
+instead as that is where you are making substantial changes and a copyright
+update is appropriate.  If you were updating that for other recent changes
+and didn't have any in this series, then separate patch where you can say that
+it is about other recent changes.
 
-diff --git a/drivers/dpll/zl3073x/core.c b/drivers/dpll/zl3073x/core.c
-index 8e6416a4741d..4d07f69efb44 100644
---- a/drivers/dpll/zl3073x/core.c
-+++ b/drivers/dpll/zl3073x/core.c
-@@ -25,6 +25,7 @@
- 
- static const struct zl3073x_chip_info zl3073x_chip_ids[] = {
- 	ZL_CHIP_INFO(0x0E30, 2, ZL3073X_FLAG_REF_PHASE_COMP_32),
-+	ZL_CHIP_INFO(0x0E3B, 3, ZL3073X_FLAG_REF_PHASE_COMP_32),
- 	ZL_CHIP_INFO(0x0E93, 1, ZL3073X_FLAG_REF_PHASE_COMP_32),
- 	ZL_CHIP_INFO(0x0E94, 2, ZL3073X_FLAG_REF_PHASE_COMP_32),
- 	ZL_CHIP_INFO(0x0E95, 3, ZL3073X_FLAG_REF_PHASE_COMP_32),
-diff --git a/drivers/dpll/zl3073x/i2c.c b/drivers/dpll/zl3073x/i2c.c
-index 4a23340e29d0..f12c6306a85b 100644
---- a/drivers/dpll/zl3073x/i2c.c
-+++ b/drivers/dpll/zl3073x/i2c.c
-@@ -26,6 +26,7 @@ static int zl3073x_i2c_probe(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id zl3073x_i2c_id[] = {
-+	{ .name = "zl30643" },
- 	{ .name = "zl30731" },
- 	{ .name = "zl30732" },
- 	{ .name = "zl30733" },
-@@ -36,6 +37,7 @@ static const struct i2c_device_id zl3073x_i2c_id[] = {
- MODULE_DEVICE_TABLE(i2c, zl3073x_i2c_id);
- 
- static const struct of_device_id zl3073x_i2c_of_match[] = {
-+	{ .compatible = "microchip,zl30643" },
- 	{ .compatible = "microchip,zl30731" },
- 	{ .compatible = "microchip,zl30732" },
- 	{ .compatible = "microchip,zl30733" },
-diff --git a/drivers/dpll/zl3073x/spi.c b/drivers/dpll/zl3073x/spi.c
-index f024f42b78d0..d56c8d8ecc28 100644
---- a/drivers/dpll/zl3073x/spi.c
-+++ b/drivers/dpll/zl3073x/spi.c
-@@ -26,6 +26,7 @@ static int zl3073x_spi_probe(struct spi_device *spi)
- }
- 
- static const struct spi_device_id zl3073x_spi_id[] = {
-+	{ "zl30643" },
- 	{ "zl30731" },
- 	{ "zl30732" },
- 	{ "zl30733" },
-@@ -36,6 +37,7 @@ static const struct spi_device_id zl3073x_spi_id[] = {
- MODULE_DEVICE_TABLE(spi, zl3073x_spi_id);
- 
- static const struct of_device_id zl3073x_spi_of_match[] = {
-+	{ .compatible = "microchip,zl30643" },
- 	{ .compatible = "microchip,zl30731" },
- 	{ .compatible = "microchip,zl30732" },
- 	{ .compatible = "microchip,zl30733" },
+Jonathan
 
--- 
-2.43.0
-
+> 
 
