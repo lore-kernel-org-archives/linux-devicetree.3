@@ -1,67 +1,68 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117AA43550A
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 09:40:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C20F43710D
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 09:40:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784799611; cv=none; b=Ih5CEo+ez7s6ip8kc9AbTgZjbxynRwnOtWwxs01xsoi3wn1m+tIj0tHCvGz4OFUl8tHUzKbQguPXHhzEr8mFWAcHzw3zV8d+oc/1bRRB3XfV8d5xTw9NlubCjYiEwjy8PT+VulF2aF8VzK8ecVp/rVr2EPoOcgk9JeL9qhL55lo=
+	t=1784799614; cv=none; b=P2VvqDXux16GGlCfXqzRBLIrImfE4DSl9RK8itaSJ4VxVh8qR1gc+lJBLP6xklolTWzhyMOfd5YLvFQ0cMXK1a1CGwiHD/QMynbaamIP0JulDxSBuk1pZZmbGG240NKv6F1XOdKocWFL+8KgsiLOEFYnyUlb/jpqrf4GiMWn6Bg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784799611; c=relaxed/simple;
-	bh=BJX69CI3rhPgFIC+UOKYakZAgmiE1nvMLkgOXW1N7vs=;
+	s=arc-20240116; t=1784799614; c=relaxed/simple;
+	bh=JBCNsbbmpvOyQAHYAiNtZ0xGeCHrftQkcKapQT6A/2Y=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Dh0zQ616W/zE7j0G7xm5T84UWVVcL28v4nK57gOmfs0f1RHjcA7p0b81hROxQCQ8wkmK+3R128WiQTsWMAeZGcPjiY+n34HMEiVzaiBwfNAVTd4r0r85VqJBT/fZBM6IrO1v4uXPsTG3/+F+n3A4CUC0HpvGJmLuRegkx6EA71M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=lPLYaH6z; arc=none smtp.client-ip=209.85.221.51
+	 In-Reply-To:To:Cc; b=Zr6fs9XxRJNiCDrQQcQBM4SNr8ITA23C3LSGXclpswYIEJfCdjvcPUJ+oJ0SXPKWytq08Ln2Kf5NXlUZ3ZIXpHRhWblH3KFWtrUq/BIUX/E2+g+IJZ00wE6YfITOx5N3iIg8LG6REEqiO3ZM/OXmNkr4DGkkC6NRzbL7zD50zMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=I6ZKG45r; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="lPLYaH6z"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-471eeac43bfso392260f8f.3
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 02:40:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="I6ZKG45r"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so3227405e9.1
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 02:40:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1784799608; x=1785404408; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1784799610; x=1785404410; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ANuM1EedXU7mO5+fHrN+6vU75uZRwSQMOxEu7bukQuY=;
-        b=lPLYaH6zPzYd9vZtVEreChvHFwkppqjdm/CMRTxFxt4bZLAIj+7ZelkdyS4UUux+JA
-         +0IbkPNTaWao5qNm3xXCL7A2LWV9igXzdja7B7F10fXF8oHHKGeYzqo2ilScBdkSRuDf
-         b7hZztVqIdHNlHSoGoZt8fkPGq2ap5AGR0xMOkjbAwSwDwITqF/LH/jZQM2pbXUw4fQl
-         z2vSB93EBpiYYg5LIzsQb3WKYP54Fbzl64RLZPH5qEWl0I4YAsogIFqscfwrLUv90xdT
-         cLe5XvoqvW0R//LgJ7XJipEtkYuuqa8w2djrmLaZndVsdtL5IuLH2V8rCKIjl8Na/Mv3
-         eaXw==
+        bh=ZjvDxGaz/+Ym5ockvfd8pkGSRzvwp3SWGNBrqT7Ifz0=;
+        b=I6ZKG45r9lSxmnsIBBW+WTfARHgr2knBeW99sFU55aaTq/fH7in0WJ3x6cH4+cvxj1
+         i+C+fglAf5mjy/dtFKOtKg64xwgEQVBcT36wV8TRhjeD9TxkDifw9/a7/G6ugdog3vxU
+         atYDWP/3SFjcH/6tdgzConLkBnTq6Um2Qi9x+KryeXIZjp+v/cyTtwYVpUmS4/BbXf/Q
+         k3VNflON95vMyAQcgZQ4TxvBsf2PtQpIpbGQ0oJAS82U3wFlHhg3/8kkngb6YG319sA5
+         HAHm07K7Iwzy+edDCHPiOy9kP/E71r5E5gIGWG2PYDSsQEa6iSeET3TM1+IFpSZnUBMm
+         lZag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784799608; x=1785404408;
+        d=1e100.net; s=20251104; t=1784799611; x=1785404411;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ANuM1EedXU7mO5+fHrN+6vU75uZRwSQMOxEu7bukQuY=;
-        b=drpzH9oGf25B587oIhxJtGFpDHVGiMUSuJpG0gQK1tUqvkvcSSxm5e8KkjQ2xyzHmh
-         wngBBPNqhUxJ0NUNUN1JbfieNMS4jNTP16Ks9mRKdGOjHd0zRNf/eQ37GgXDfv0DNLRs
-         SqOAFComGPmkwJlscIBSRE+QTk3vDdyxul6M7yrgpGb1RiqRVo4MJhmtw9RDNxKzPdtZ
-         ffqIrf6BS0tV6twjctuB6s1Ta0pWZJUBg/R4nWZZk3DbSMstoH1sTIvM5x3CJihi/2P+
-         xWFKKm6Sp9iBBoYyFrAC5SZmRh+UY3vtcNkZjya/h6IKhrxoSZaSMZoqXr8eJTfpm9Lj
-         bVIA==
-X-Forwarded-Encrypted: i=1; AHgh+RoMQPKMn1t9jX5MzwatihoGEiir/Mw3hDeuYpvGKLKcUEdILP1yP4WrVw7U5iJRQs0y3APMI7p7P8nE@vger.kernel.org
-X-Gm-Message-State: AOJu0YxV2dFlL4PCwAKqsAjAFxTXSEGQds8WMAUcheZyzL1Ydn44SjHV
-	ZvEgeYzh29iZn+MNLHY5NL3UVD6uzv+djFZnvjnAYJN3rKK6VNWOD7J84J2REM1TJm0=
-X-Gm-Gg: AR+sD12q7Bg7qiEnncgLJ5lX+J4KJQt82UAY20TD6D1ERNkAunS01PBQrdfstXOBhCd
-	sYPjBc5pMMxRCA1MDGqFsr6+iP4O/h6w6Drjv3D6O8MEaTaJLTSpFZCJ7gUAkjgifh4M/LLhmTI
-	AD50afVjjprHZIr9o9CzodqRG8Acy3FS/KvAoq35elj/k3wRpQmIe4HffWkD/Q523+avyxAsWTe
-	cvMc/YjnI9rXXdTfP/1/1FCLiEfMAx554q39Ut+rv6aCpZkoaMlsVvecV3TZMoy7leHZpr1PEp4
-	1ERItreZQIajdyVyatGWZGaAUReCynKIb7J72XarQNoWSyfyZb2URYR49q/0VnGftq2C1/WMkdX
-	75IeuaFvGyvsFgaH5knztJ7lvDKzEZ0HB5CgfhTcZXEhPTyt5RCGWMvP0zWh1PxORcIS4qGot4A
-	hQ
-X-Received: by 2002:a05:6000:1883:b0:474:5a38:f650 with SMTP id ffacd0b85a97d-47f8d710ffemr2834486f8f.3.1784799608255;
-        Thu, 23 Jul 2026 02:40:08 -0700 (PDT)
+        bh=ZjvDxGaz/+Ym5ockvfd8pkGSRzvwp3SWGNBrqT7Ifz0=;
+        b=KlPP1drjif+g/2Edz82gDuPzqfeswom5tqIj9jWToH8Z3zYHAJ4XalPUnjZsLJOyOQ
+         /q4t8JJltCPpWo9kTFS2KhtzmQf02buV+PjdMSHHW9o4NMOolhrFPMfDk1lPYG6j28Le
+         ulFQ7MYMM4pbpPr0u08OiNNuJv0Za4gYvoUeE0nIg6JuaTz05tM2HEUjQ2ujmq/BhXc3
+         5QKq7tXjF/RQqieW0wCioOwhuYFyRNI4y34nXskOCdcz5SGRcBzNHUNZl9x2ilPAp2t1
+         RDBOV66SZV4zObhJdLKYuTsxSQVeAjeXFGndjbLaXoS5KnrbZe+HGM2nKEohF1R2d1zi
+         H69w==
+X-Forwarded-Encrypted: i=1; AHgh+RqgoO9dQ2bhb6VYrCS1tGNbSYoHv3xRhfXulpytpt8fVOOWlzPcrONIhwUqb7wrA4AQMrUTzAd1xzX0@vger.kernel.org
+X-Gm-Message-State: AOJu0YxHYB+6ex+wgBTO+zpGOCRAqWso3d1JbWUvZA/fzh+0BCwKWVHU
+	vrLINyF/3l3BJ7Kf81J51IsXGIfYgeL3e3GrkRqF1MtMgbwgcRtszW+BScB/NWQHVyY=
+X-Gm-Gg: AR+sD105IM1/4jIGh8T6rbxf//++RdEipPrgJ147YidGKprZ8xvdTZXq8KjPoJ3subt
+	2IrZwcBg7z26BtHsWzn5hXm3U2YvbYvv8BSRlbB9id1Hz8ESTxXL28LBYLp/aYe3KLMxRxcIccj
+	RbYHvxbO4QpdcpT5xnAUdbnIPt7gndrxXMrMmJyUiM+tzhesyc5RmYPrLz2k9l8VVP8U1x8oGnv
+	m0XUb/tWemB4FeOSHe8DM4g1FEh2rYz8NvN94sKIoN5Da+9OVOCTvmneO5YIL8QB4NRDbDvMY3u
+	2O/YnOgQFckTOF8ibqlKjr7eZ8K/eDZGjmMf83B2P9tVkvFH90L2RkNW3K8bItMToNBtkJ3bbHs
+	KtBUptrBrpicYvn8ZuIr7iG7xBYG0Azbf4lJWiSjGgD79f3MzjcdkgqPRBxYpuIa9Idy75wiB5b
+	2QPwDWZq2bH3Q=
+X-Received: by 2002:a05:600c:4ecd:b0:493:c77c:108a with SMTP id 5b1f17b1804b1-49573d218camr23593405e9.36.1784799610474;
+        Thu, 23 Jul 2026 02:40:10 -0700 (PDT)
 Received: from localhost ([2a01:e0a:3c5:5fb1:3274:dbb5:2710:802b])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47f85b9a6d7sm15256235f8f.2.2026.07.23.02.40.07
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47f85c6f076sm14217894f8f.34.2026.07.23.02.40.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 02:40:07 -0700 (PDT)
+        Thu, 23 Jul 2026 02:40:10 -0700 (PDT)
 From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Thu, 23 Jul 2026 11:39:52 +0200
-Subject: [PATCH v7 2/4] clk: sunxi-ng: div: add read-only operation support
+Date: Thu, 23 Jul 2026 11:39:53 +0200
+Subject: [PATCH v7 3/4] clk: sunxi-ng: sun6i-rtc: split main oscillator div
+ and gate
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-a733-rtc-v7-2-8fd68aab94ae@baylibre.com>
+Message-Id: <20260723-a733-rtc-v7-3-8fd68aab94ae@baylibre.com>
 References: <20260723-a733-rtc-v7-0-8fd68aab94ae@baylibre.com>
 In-Reply-To: <20260723-a733-rtc-v7-0-8fd68aab94ae@baylibre.com>
 To: Junhui Liu <junhui.liu@pigmoral.tech>, 
@@ -86,90 +87,95 @@ Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
  Jerome Brunet <jbrunet@baylibre.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2289; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=BJX69CI3rhPgFIC+UOKYakZAgmiE1nvMLkgOXW1N7vs=;
- b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqYeFuAonlP7DkbS7g2+GVMpDyLmLNQ/yrcz3K4
- GDc7mIRf2aJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCamHhbgAKCRDm/A8cN/La
- hXuMD/4yhmqW9LF67++G2u3n2Ore+4UjWpvySCijqdBgw7p7SquucWZp1DLDI2TxsuNXpFv4Vu0
- ZJ6wnSE7VhjkXU8frv89pskHWhdH/uQzwHyFfrUH+uS2J6S95Iha5zJ++bum+V3v4wZ6uzar1rh
- /2EhCsUEVeoG+74PZ5izkjZ4Im3XihSvPXs4zOGX8GGAEiMNRPY6pE5eOXlOG5XPfDqKZswX+GI
- wGZNcGXAzU9CY2B2/wTgy1bfmtZo9F09IeQ4YrZ+a6mTQl3Gb7qVk/JKr39p/Jyvd/tlMiZxkaJ
- 2qQZLF+SSPslhfmDmoxW8DGHtln+LI94LvPzjsO2HotayRJgELlH5DBiyE3vV/ZOFPUhHMx9PpA
- MsSr+nobCw9ddH2GmjXRDtQopTN8d80N8jROx5c2p3Jivgz8Hcg6AGZ9bl59BhKnImTIhtPsYGH
- ngyF3AyOUkZlSbu9cHSaS/9+HKDCiOlhH5GOpn/T8lhyQZns6+Ukw8CDbpUPK1JPYMrxNV4/6/M
- 6EWg730zZZ0S0jAvdeofo3VTd7PTXG2za6B+PVgJ3H5eOcX5OtZqIMFLlef8EEiIyFpB7LsyXUB
- 8+c1NEs6MA0n+m97jU9jrmh1yzs/9QvvoBFaaAbowrv2R+zAnTD+8FUHOvFz68EDYA/A44M4wrI
- t+Eb0dJFejElW5w==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2641; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=JBCNsbbmpvOyQAHYAiNtZ0xGeCHrftQkcKapQT6A/2Y=;
+ b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqYeFvjq1VgqkrnRX4lgbpVG1CsAXk0OXhBpCAY
+ 2cCxet3nn2JAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCamHhbwAKCRDm/A8cN/La
+ hf+4D/9zXNDTBscW+MTjTDh5NosjbTzIiSUcS/dzhnCjmVmQ22U54ZbigzSwc6euLyNEtodPs1C
+ /83GyQHXZt+edY9PQwiZPYblQf+aVW1yKbeYf6FFTVVge5OGW3uMbf9OafZ444Ub/xyM7n9nGTL
+ XW7lMm7/LwIzHt4uT1zqEwBFeGSWbtpq42X5f5XSAWzj0D/Sfg/UNEzJt+Rs+um4Vl4r6c13Ch2
+ jgSCFGwtao3MN98b2BVBehZnTVyzXa3tKeJ74cHMVt1fIqo42wGGN4MW6hIyGnpcKhRZVBUTPpj
+ nImEEQ/hlmQBjgiMcaKdGtY/IN8KqnMZxLGR807JujAmNNxr2G6VLFHBf69hKJMuRSFapjHy3f+
+ 6g8EfwUeZcwlSHhe5v9kw7q4+t1Zn9dFcxPktxBOmr8jtipsQ+Foc6AxBT5/zYW3c/9kz7rr7hT
+ /MHiWwdeMGFzyCU1iVvoPB8GrWdMpoL6V89Iin13MOxCvLchXPPD2prKYFPK6dxhZggyxOWl16M
+ 87kPE9H1TtPTKfcVmm+e2FKcEVn4s/R8VC+ea3KAS9sOw8scj8hQZU7GuSCX+FTvMUZstkPhCzJ
+ 9N08h3ySwaNa7DjKju7KfJTrOTYdqNgr4IKfsaevnZUUtEgvNDH5hQDqy7wzqNj2ezZl7zu5VEQ
+ YE3e07IaksL7KFA==
 X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
  fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-Add support for sunxi-ng read-only dividers. This will be
-useful to the a733 oscillator detection logic.
+On the a733 the "osc24M-32k" clock has the same gate bits as the previously
+supported SoC but a different divider implementation.
+
+Instead of a fixed 750 divider, the divider is selected based on the
+rate of the oscillator. It can be seen as a simple read-only divider.
+
+On the A733 the gate and the divider are on different register which is
+not supported by sunxi combined clocks. These element will be split on the
+A733. Split them for the older SoC as well to keep on sharing the gate
+definition.
 
 Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- drivers/clk/sunxi-ng/ccu_div.c | 31 +++++++++++++++++++++++++++++--
- drivers/clk/sunxi-ng/ccu_div.h |  1 +
- 2 files changed, 30 insertions(+), 2 deletions(-)
+ drivers/clk/sunxi-ng/ccu-sun6i-rtc.c | 20 +++++++++++---------
+ drivers/clk/sunxi-ng/ccu-sun6i-rtc.h |  3 ++-
+ 2 files changed, 13 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/clk/sunxi-ng/ccu_div.c b/drivers/clk/sunxi-ng/ccu_div.c
-index 62d680ccb524..c385e0160f13 100644
---- a/drivers/clk/sunxi-ng/ccu_div.c
-+++ b/drivers/clk/sunxi-ng/ccu_div.c
-@@ -20,8 +20,22 @@ static int ccu_div_determine_rate_helper(struct ccu_mux_internal *mux,
- 	if (cd->common.features & CCU_FEATURE_FIXED_POSTDIV)
- 		req->rate *= cd->fixed_post_div;
- 
--	ret = divider_determine_rate(&cd->common.hw, req, cd->div.table,
--				     cd->div.width, cd->div.flags);
-+	if (cd->div.flags & CLK_DIVIDER_READ_ONLY) {
-+		unsigned long val;
-+		u32 reg;
-+
-+		reg = readl(cd->common.base + cd->common.reg);
-+		val = reg >> cd->div.shift;
-+		val &= (1 << cd->div.width) - 1;
-+
-+		ret = divider_ro_determine_rate(&cd->common.hw, req, cd->div.table,
-+						cd->div.width, cd->div.flags, val);
-+
-+	} else {
-+		ret = divider_determine_rate(&cd->common.hw, req, cd->div.table,
-+					     cd->div.width, cd->div.flags);
-+	}
-+
- 	if (ret)
- 		return ret;
- 
-@@ -143,3 +157,16 @@ const struct clk_ops ccu_div_ops = {
- 	.set_rate	= ccu_div_set_rate,
+diff --git a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
+index b24c8b196e66..25dd87e78eb7 100644
+--- a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
++++ b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
+@@ -218,17 +218,18 @@ static const struct clk_parent_data osc24M[] = {
+ 	{ .fw_name = "hosc", .name = "osc24M" }
  };
- EXPORT_SYMBOL_NS_GPL(ccu_div_ops, "SUNXI_CCU");
-+
-+const struct clk_ops ccu_rodiv_ops = {
-+	.disable	= ccu_div_disable,
-+	.enable		= ccu_div_enable,
-+	.is_enabled	= ccu_div_is_enabled,
-+
-+	.get_parent	= ccu_div_get_parent,
-+	.set_parent	= ccu_div_set_parent,
-+
-+	.determine_rate	= ccu_div_determine_rate,
-+	.recalc_rate	= ccu_div_recalc_rate,
-+};
-+EXPORT_SYMBOL_NS_GPL(ccu_rodiv_ops, "SUNXI_CCU");
-diff --git a/drivers/clk/sunxi-ng/ccu_div.h b/drivers/clk/sunxi-ng/ccu_div.h
-index be00b3277e97..a30a92780a05 100644
---- a/drivers/clk/sunxi-ng/ccu_div.h
-+++ b/drivers/clk/sunxi-ng/ccu_div.h
-@@ -300,5 +300,6 @@ static inline struct ccu_div *hw_to_ccu_div(struct clk_hw *hw)
- }
  
- extern const struct clk_ops ccu_div_ops;
-+extern const struct clk_ops ccu_rodiv_ops;
+-static struct ccu_gate osc24M_32k_clk = {
+-	.enable	= BIT(16),
+-	.common	= {
+-		.reg		= LOSC_OUT_GATING_REG,
+-		.prediv		= 750,
+-		.features	= CCU_FEATURE_ALL_PREDIV,
+-		.hw.init	= CLK_HW_INIT_PARENTS_DATA("osc24M-32k", osc24M,
+-							   &ccu_gate_ops, 0),
+-	},
++static struct clk_fixed_factor osc24M_32k_div_clk = {
++	.mult = 1,
++	.div = 750,
++	.hw.init = CLK_HW_INIT_PARENTS_DATA("osc24M-32k-div",
++					    osc24M,
++					    &clk_fixed_factor_ops,
++					    0),
+ };
  
- #endif /* _CCU_DIV_H_ */
++static SUNXI_CCU_GATE_HW(osc24M_32k_clk, "osc24M-32k", &osc24M_32k_div_clk.hw,
++			 LOSC_OUT_GATING_REG, BIT(16), 0);
++
+ static const struct clk_hw *rtc_32k_parents[] = {
+ 	&osc32k_clk.common.hw,
+ 	&osc24M_32k_clk.common.hw
+@@ -286,6 +287,7 @@ static struct clk_hw_onecell_data sun6i_rtc_ccu_hw_clks = {
+ 		[CLK_EXT_OSC32K_GATE]	= &ext_osc32k_gate_clk.common.hw,
+ 		[CLK_OSC24M_32K]	= &osc24M_32k_clk.common.hw,
+ 		[CLK_RTC_32K]		= &rtc_32k_clk.common.hw,
++		[CLK_OSC24M_32K_DIV]	= &osc24M_32k_div_clk.hw,
+ 	},
+ };
+ 
+diff --git a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h
+index 9ae821fc2599..ab7b92b47f59 100644
+--- a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h
++++ b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h
+@@ -9,7 +9,8 @@
+ #define CLK_EXT_OSC32K_GATE	4
+ #define CLK_OSC24M_32K		5
+ #define CLK_RTC_32K		6
++#define CLK_OSC24M_32K_DIV	7
+ 
+-#define CLK_NUMBER		(CLK_RTC_32K + 1)
++#define CLK_NUMBER		(CLK_OSC24M_32K_DIV + 1)
+ 
+ #endif /* _CCU_SUN6I_RTC_H */
 
 -- 
 2.47.3
