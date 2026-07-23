@@ -1,143 +1,61 @@
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BBF03E073D;
-	Thu, 23 Jul 2026 07:13:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543AA470EAB;
+	Thu, 23 Jul 2026 07:15:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784790827; cv=none; b=kRElBirOw3D56/O3uEahCKPcly4kW80Pxhkx4qExtf81Ec+1guVlT/75/7HVMtALoEeCyHCMflpr4ZQd8IdxSzBPnXE8YvK4kvx4h+2VjCg3ZNX3fnFLxhVVzGgu3K8zd+yvXad17DdhwFvYZ+H/9mnDSe6J44JLsqNWPoT+Arg=
+	t=1784790943; cv=none; b=bBzvbYhfKoiv/Z0viJ0G3HT32ghJi9dyWPGpxzABKFvz4W+rnqP+UT3ooZyHB0EeeGcDBAMD7Jrxk7QBs1IuBE00Ex6HbKG7pLZY+Q+irXSZmYYIg/5wO7WeXnFg+zrt3HLb0jqL6RIZ/zpfCwcM91Sfg1OLcDMdk0GUFJU7YGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784790827; c=relaxed/simple;
-	bh=QQ8/050hFzFET3me0Ofq704cyws+Io1cqXqzBjtRwGQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KngvyJM2lcNBp0IwAVkcgcDWP1iM0ty59vciwAY5WLtyaAXHh10gfBhTAKTTPLVYXA45BxuQocBTJZ23ooTs/wGN+/A8FBv2bgE7QzrRRRhog5mIoGaUbd13c/tRnqMr9qhtcYPJc9H7RqrXC2cm6wR7M0CzupYU2EF21WiIzsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Received: from inva020.nxp.com (localhost [127.0.0.1])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id CE8831A016E;
-	Thu, 23 Jul 2026 09:13:35 +0200 (CEST)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 93B1C1A016D;
-	Thu, 23 Jul 2026 09:13:35 +0200 (CEST)
-Received: from lsvm11u0000395.swis.ap-northeast-2.aws.nxp.com (lsvm11u0000395.swis.ap-northeast-2.aws.nxp.com [10.52.9.99])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 8F44818000B0;
-	Thu, 23 Jul 2026 15:13:33 +0800 (+08)
-From: Joseph Guo <qijian.guo@nxp.com>
-Date: Thu, 23 Jul 2026 16:13:23 +0900
-Subject: [PATCH v2 3/3] arm64: dts: imx93: Add i.MX93 Wireless FRDM board
- support
+	s=arc-20240116; t=1784790943; c=relaxed/simple;
+	bh=pxXqmWFdsHN4uueFgMNSRMaEPcC8fW7BOmHHfUgtmTA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EHHgyuDHp3rvp1jxiweTDCQxkwHll8ULDJODOTlEj72sCE4Qxs7rtS374S8P/PLYyqvgzHxAabK/2pSyEm9TtzjrmcVREUyLkxXH6vnxbrEAplLeCDCqym0vDvigUJl8FTnJX1MNI3ntMj75bM6i4kYbEMte3th4D/E4HPz/21c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hniyd0zS; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hniyd0zS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A0801F00A3A;
+	Thu, 23 Jul 2026 07:15:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784790934;
+	bh=pxXqmWFdsHN4uueFgMNSRMaEPcC8fW7BOmHHfUgtmTA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hniyd0zSqTh+oRMdwoQfnRl/0B2kVJkU9xHDmz14OuVC49OnUJn7vE6hMqLG17IQA
+	 6rp80+KIJCqVAtpusx8dDcf0GowqAhWY1L7jAuau7nq+s562fu7llHdeoqEG4tC1zZ
+	 EZglyMUrkS7qOFzbtjrHzBxCBubYqtDfJvdI5bgTBvMAKkpvjGhrzEW6Rfe7Ya5bU7
+	 5sq04/DFoUh8yO0/cCKI/STM0Y1VjswQwskxuzbAEwZkGtFWldBRcoEl9oV/AxNGq9
+	 A8H0ACRpm36D/djWED9aQ0HldzaoM2t5LsiYgmDemP22kPGGFbaZw1FSAdBur2KEn/
+	 4jSr8wOi5Q7qQ==
+Date: Thu, 23 Jul 2026 09:15:23 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Gokul Praveen <g-praveen@ti.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, 
+	robh@kernel.org, sjakhade@cadence.com, vkoul@kernel.org, yamonkar@cadence.com, 
+	s-vadapalli@ti.com
+Subject: Re: [PATCH v6] dt-bindings: phy: cadence-torrent: Update clocks for
+ multilink SERDES
+Message-ID: <20260723-venomous-nuthatch-of-inquire-dade7b@quoll>
+References: <20260722061831.1045884-1-g-praveen@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-imx93w_frdm-v2-3-b108a76b2e40@nxp.com>
-References: <20260723-imx93w_frdm-v2-0-b108a76b2e40@nxp.com>
-In-Reply-To: <20260723-imx93w_frdm-v2-0-b108a76b2e40@nxp.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- justin.jiang@nxp.com, xinyu.chen@nxp.com, qijian.guo@oss.nxp.com, 
- Joseph Guo <qijian.guo@nxp.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784790808; l=3010;
- i=qijian.guo@nxp.com; s=20250519; h=from:subject:message-id;
- bh=QQ8/050hFzFET3me0Ofq704cyws+Io1cqXqzBjtRwGQ=;
- b=fvJFI41HcFz2RlviF7AfAjRoY3oY9yxhcmhVWiEmAf+5ISFX11enmzcD1Gu3QbqIheruYMLZc
- 0pS8UcpVqpDDWRgU9ZAVNVcZdcpDtxiI5Kz2lKc22CX6K3DPwQkuVhL
-X-Developer-Key: i=qijian.guo@nxp.com; a=ed25519;
- pk=VRjOOFhVecTRwBzK4mt/k3JBnHoYfuXKCm9FM+hHQhs=
-X-Virus-Scanned: ClamAV using ClamSMTP
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260722061831.1045884-1-g-praveen@ti.com>
 
-i.MX93 Wireless FRDM board(FRDM-IMX93W) is a low-cost and compact
-board featuring the i.MX93W applications processor.
+On Wed, Jul 22, 2026 at 11:48:31AM +0530, Gokul Praveen wrote:
+> For multilink SERDES configurations where each link requires a
+> different clock frequency, the SERDES provisions an additional
+> reference clock for PLL1. Hence, document it.
 
-FRDM-IMX93W board basically reuse the FRDM-IMX93 board, with some minor
-functional and pin connection differences. Reuse the
-imx93-11x11-frdm-common.dtsi and add the board-specific changes.
+The pll1 is already there.
 
-Here are the detailed differences between FRDM-IMX93 and FRDM-IMX93W board.
+Also, the TI variant does it or cdns one or both?
 
-Function differences:
-Function	FRDM-IMX93W			FRDM-IMX93
-WIFI/BT		IW610 in i.MX93W		IW612 M.2 module
-MQS		N				Y
-M.2		N				Y
-RPi 40-pin HDR	Limited support(pin conflict) 	Y
-
-Pin connection differences:
-Function  Signal name	i.MX93W EVK		i.MX93 EVK
-WIFI/BT	  SPI_FRM	SAI1_TXFS (spi1.PCS0)	GPIO_IO08 (spi3.PCS0)
-	  SPI_TXD	SAI1_TXC (spi1.SIN)	GPIO_IO09 (spi3.SIN)
-	  SPI_RXD	SAI1_RXD0 (spi1.SOUT)	GPIO_IO10 (spi3.SOUT)
-	  SPI_CLK	SAI1_TXD0 (spi1.SCK)	GPIO_IO11 (spi3.SCK)
-	  SPI_INT	CCM_CLKO1		on-board IO expander
-	  NB_WAKE_IN	PDM_CLK			on-module IO expander
-	  WL_WAKE_IN	PDM_BIT_STREAM0		on-module IO expander
-	  IND_RST_WL	PDM_BIT_STREAM1		on-module IO expander
-	  IND_RST_NB	GPIO_IO28		on-module IO expander
-	  PDn		GPIO_IO29		on-module IO expander
-	  NB_WAKE_OUT	GPIO_IO14		on-board IO expander
-	  WL_WAKE_OUT	GPIO_IO15		CCM_CLKO1
-I2C3	  I2C3_SDA	GPIO_IO00		GPIO_IO28
-	  I2C3_SCL	GPIO_IO01		GPIO_IO29
-
-Signed-off-by: Joseph Guo <qijian.guo@nxp.com>
----
- arch/arm64/boot/dts/freescale/Makefile        |  1 +
- arch/arm64/boot/dts/freescale/imx93w-frdm.dts | 23 +++++++++++++++++++++++
- 2 files changed, 24 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index be3c858f1eeb1a807cb8ac36269c581143f755df..d48ba7dee1861e0b39ab025c4b8108ffa68c9bf3 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -655,6 +655,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx93-tqma9352-mba93xxla-mini-lvds-tm070jvhg33.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93-var-dart-sonata.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93-var-som-symphony.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93w-evk.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx93w-frdm.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx943-evk.dtb
- 
- imx943-evk-pcie0-ep-dtbs += imx943-evk.dtb imx-pcie0-ep.dtbo
-diff --git a/arch/arm64/boot/dts/freescale/imx93w-frdm.dts b/arch/arm64/boot/dts/freescale/imx93w-frdm.dts
-new file mode 100644
-index 0000000000000000000000000000000000000000..766e942fe6638330b602577c541d93f3526afe51
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx93w-frdm.dts
-@@ -0,0 +1,23 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright 2026 NXP
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx93w.dtsi"
-+#include "imx93-11x11-frdm-common.dtsi"
-+
-+/ {
-+	model = "NXP i.MX93W FRDM board";
-+	compatible = "fsl,imx93-wireless-frdm", "fsl,imx93";
-+};
-+
-+&iomuxc {
-+	pinctrl_lpi2c3: lpi2c3grp {
-+		fsl,pins = <
-+			MX93_PAD_GPIO_IO00__LPI2C3_SDA			0x40000b9e
-+			MX93_PAD_GPIO_IO01__LPI2C3_SCL			0x40000b9e
-+		>;
-+	};
-+};
-
--- 
-2.34.1
+Best regards,
+Krzysztof
 
