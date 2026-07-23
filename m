@@ -1,107 +1,175 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39D93B71A1
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 18:18:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6B944E673;
+	Thu, 23 Jul 2026 18:32:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784830722; cv=none; b=m1GwivODsg+KDooX8VSyAGPVIDUdgfWpKqbUW0/o8eSOU8MAfuQF5sMkdTnIXDeq8+Jv9TaXGTEzfy9F7SMYNhl5f9wVtUksD6dt77G3eOsVsclkmL1LmdgaIDdB0f05odlVT+4jl5L13Mp9wIQ751ayfikPH5nY85ktSwumuAs=
+	t=1784831554; cv=none; b=VysPwKHCVjtpHpsHf1ZszY0INMb8NHmPNW1ICiuG05eiRiRFvhTFGmEyVM8m6OkwE50f5Kz5aqEH0mtLNrOXTBwWzFpetG2eWCMMbFmcjj2vPF+rcZxQ2dO4rlGDOj3crk7sXsVrZ7hf64DV7oZW2xczCOs3Vfh87rgBBep4oic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784830722; c=relaxed/simple;
-	bh=2iwV7kyuakkEDfG5RsSQJj+N3P8k/pN6D4hpRK7eClU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hQqGlZK8FJb9aH7qW6JSpKpOAPxbfHW+XqiU77AjkjYZkGpihaBM1hxwAMlzsuFyYr0niAJWRPP2vLcHXApq3TM9ZcOwqYTOxt6g0HmfJK1XRH/rsHwS0iFFrE0IIPv0fwL6QNTUDDKDwfnAoK87Ru6RFbSJkiXRRsh/DXQYfMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=aQ/Z54a1; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
+	s=arc-20240116; t=1784831554; c=relaxed/simple;
+	bh=06hWyjEzCk1moV0Y5VMIjuvMYIeAL7GH+0ttjksGnVk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fu4Y/WYIcSeEdQ9kcnxLcIT/nxKHKmwiAbO5giznHqvBr2DYhU9b7rpbC/BpsAPcIypekMKIsTHAPCSBEmrxSwDXBlk2oclK0/9aGHze9eK9ziNkJto73JnG6abHjvLyu3ptrCdXJgv0/YerI0TVAkNq4D8UWIyD/YGSSVcihgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IxgpEOa8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="aQ/Z54a1"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so8196075e9.0
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 11:18:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=imd-tec.com; s=google; t=1784830697; x=1785435497; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sLtaD2vGvX5YufCFNfLuN9dGFNzANa0Z0dsAvP+eVoU=;
-        b=aQ/Z54a1MLiHD0eBnAzQ6k2nwPUpNRWaEXS6FCGxi1AskjIN5E3QeQgb+xgD6GeMOm
-         CipWfmuOXgibdcqeR03dprvtQ2KYqeSpJb1K3btpw/lL6/AtWq1JP8w2Gi2DMN318ZRK
-         XgPxjDC1KZleXpeXBMD76I0B34XC9f0elc4mcQBxNhxAHJdVcR+htr7gBVOAJxDDaDo6
-         6YnpSNq3eiAqQ3Vc7iOnbwcwyWzsauEjEGM61YX1uM2gO6wHuH9meW78MD+DlHnTSzJk
-         7b2n17I+mhWlZx05ODCDNrIGgDsXk1UHP7eDwMswS+UdpyQOVJGfc3CfwljprJ6CuPtj
-         vQvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784830697; x=1785435497;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sLtaD2vGvX5YufCFNfLuN9dGFNzANa0Z0dsAvP+eVoU=;
-        b=qq0uYhC9VCQYzVcbGyaBeEBPmKv+Yn2R74nIdWAktwsoZJpt04m+RFkdoIAZkEIUS5
-         oltuk+98CtcgwvpO0U0pdkkf3MwTVIZ7DlctRNEyBrszSHKxv79tnXu7rYjiMbRAJa/O
-         ovLQbtMm3xVZeX7CBLc97EPTq4gtIFHo+OowUY0GHCyB7FfLjA/9k5GxCaFfDplsyBLP
-         JbP/bjCYHdm82EhcGNVZ4h8NP1H4KSONsR7QvBrXs40EiFhiscMeuVUCdIZgGMMsuYV8
-         VLbxXZibdt5ytEjgZYACfe1+zVd+oGyfBr2JKSefD91jRV+EpsK/7VIv9OzpvVJEW8ST
-         wgyg==
-X-Gm-Message-State: AOJu0YziBNCTXTzABFR4NNmcqHQK+3hUefnNZNkDHMOg0ECzW3xk90EW
-	xUZt4rdugVJlIRNvM9K9eUeYfqICr3drbm+LLi4OfkOiIvYfYkkGOZZiqHf00WzTP3g=
-X-Gm-Gg: AR+sD13Ab0NmvXDdBGbFEl1hp/iXgIkWwzXDVncL8JPNIglt5jrf//Pc4jFtua/Q6MX
-	sOR6mT7bnLoL3rJdWTgDwntMeZbYiIC0EBgzei5TOAOTIiunMUi5bzHYYLjUSHkV41+3cqVKEOL
-	yXsm0hnJYnZmwwPgK70WlWauOvUNKx8W63hL4XVE5bEwm+4Y7A9iwOtyd23Py7QU2Pn6Mhp9ZAN
-	XIg9giBmtUu9CaHFVw/1vNjPz2T5j/XlGElPHpLVLtKUqE0yKE/vYSsfStGvbmXc5u1ahNmmI7Z
-	Sa9tyHHInm2NBUac+wkW614HSLLSUnTW1gjh0kaRWgZDbylm67JELPR+n2vuKc7j7UeHhIIRFFQ
-	cnAh/85+tc6osYHW5OhvPAi9oOSWYGVudaAbMYLwFPOzyQpQnPZpQOZxp0KHtu6gXb4C5KQsZpD
-	e/ytdIR73kUaM5af3xXpZs/Khik3lwJNro5Ec0GCDaOnECfjFicrC/VFdOufZK/fsgneAvW3j+G
-	Ilh6tghyvVW+vV7VuLLmxq2+hfLHR0mfMDlrbqusylg/UDLqdjhbA==
-X-Received: by 2002:a05:600c:4f81:b0:495:4cba:e288 with SMTP id 5b1f17b1804b1-49573c99584mr49269755e9.15.1784830697356;
-        Thu, 23 Jul 2026 11:18:17 -0700 (PDT)
-Received: from [127.0.1.1] (host86-157-235-39.range86-157.btcentralplus.com. [86.157.235.39])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4957af914a9sm10799055e9.15.2026.07.23.11.18.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 11:18:17 -0700 (PDT)
-From: William Bright <william.bright@imd-tec.com>
-Date: Thu, 23 Jul 2026 19:18:07 +0100
-Subject: [PATCH v5 1/4] dt-bindings: vendor-prefixes: Add IMDT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IxgpEOa8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 245611F000E9;
+	Thu, 23 Jul 2026 18:32:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784831543;
+	bh=yLaoQoa9OBDnx2oF3ltfmn0EN/7WNuoHG/RPPv5+mXA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IxgpEOa8tiRHgneFL9phuoyVoYWwumd/77iy/XArcpOa+98th0zgYI+Nm0AmtKOD1
+	 xROExYyinO6oUv0KanAoCx1NnxCL/hNfGJ9hmc4t47QKxjyu9Ove+7G4/uWtljRj29
+	 XFY1/tl2Pv+PHE22OrMyh46hsDfe2yGKZK8o3mj4/hDnfnOUlUJ0XnrOrzsU0VlIQT
+	 gWHcbPeEIxiwMmJxBY5UKciM2u3q1N7ZNQLNEItL35QTC2fYsfz9H517hw0uQqihnQ
+	 0TG6NXh032QlDe3BQPghljeMOMYckl5ZDJTIBvh1yqnL9pRjyuBfRx21rvJ/Qijei/
+	 8saF69AAUrNAQ==
+Date: Thu, 23 Jul 2026 13:32:19 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: "Maulik Shah (mkshah)" <maulik.shah@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v3 2/3] arm64: dts: qcom: purwa: Drop the Hamoa
+ workaround for PDC
+Message-ID: <amJcXDcI0QYqtOnK@baldur>
+References: <20260715-purwa-pdc-v3-0-be08934dc916@oss.qualcomm.com>
+ <20260715-purwa-pdc-v3-2-be08934dc916@oss.qualcomm.com>
+ <20260716-starling-of-heavenly-symmetry-09a73a@quoll>
+ <almDHnEcruBl-I3l@baldur>
+ <64bf3979-51cc-42ed-b66b-c7af04536481@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-imdt-qcs8550-sbc-rfc-v5-1-2fb988854623@imd-tec.com>
-References: <20260723-imdt-qcs8550-sbc-rfc-v5-0-2fb988854623@imd-tec.com>
-In-Reply-To: <20260723-imdt-qcs8550-sbc-rfc-v5-0-2fb988854623@imd-tec.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, William Bright <william.bright@imd-tec.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <64bf3979-51cc-42ed-b66b-c7af04536481@oss.qualcomm.com>
 
-Add IMDT (IMD Technologies Ltd) to the vendor prefixes list.
+On Fri, Jul 17, 2026 at 09:11:28AM +0530, Maulik Shah (mkshah) wrote:
+> 
+> 
+> On 7/17/2026 7:38 AM, Bjorn Andersson wrote:
+> > On Thu, Jul 16, 2026 at 09:59:44AM +0200, Krzysztof Kozlowski wrote:
+> >> On Wed, Jul 15, 2026 at 06:52:01PM +0530, Maulik Shah wrote:
+> >>> X1P42100 (Purwa) shares the X1E80100 (Hamoa) PDC device, but the hardware
+> >>> register bug addressed in commit e9a48ea4d90b ("irqchip/qcom-pdc:
+> >>> Workaround hardware register bug on X1E80100") is already fixed in
+> >>> X1P42100 silicon.
+> >>>
+> >>> X1E80100 compatible forces the software workaround. Use the X1P42100
+> >>> specific compatible string for the PDC node to remove the workaround.
+> >>>
+> >>> Fixes: f08edb529916 ("arm64: dts: qcom: Add X1P42100 SoC and CRD")
+> >>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >>> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
+> >>> ---
+> >>>  arch/arm64/boot/dts/qcom/purwa.dtsi | 5 +++++
+> >>>  1 file changed, 5 insertions(+)
+> >>
+> >> Why does the DT change appear in the middle of the patchset? Please read
+> >> submitting patches documents - both of them - and maintainer-soc
+> >> profile.
+> >>
+> > 
+> > I thought I had figured it out, but I'm not sure anymore.
+> > 
+> > The claim from the cover letter is that patch 1 and 2 are completely
+> > independent, but patch 3 depends on Bartosz's thank you letter [2] that
+> > arrived a week before this series was sent out.
+> > 
+> > We're not merging the three changes through the same tree and there's no
+> > expressed dependency between patch 2 and 3 (only implicitly by the order
+> > in the series). But as Konrad points out, in-between patch 2 and 3 we
+> > would not enable the secondary GPIO in the PDC driver, so Purwa would
+> > have broken GPIOs for a while (not ok). I think merging them in the
+> > opposite order would be what we want (i.e. 1, 3, then 2)
+> 
+> purwa-iot-evk.dts where firmware sets pass through mode, so current order of the patch seems to be ok.
+> (patch 3 as such is no impact for iot evk)
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: William Bright <william.bright@imd-tec.com>
----
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+But to reiterate the critical point, this is going to be merged by two
+different maintainers into two different trees, taking two different
+paths to mainline etc.
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 7b0d79ebf9bd..5c74da791c13 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -791,6 +791,8 @@ patternProperties:
-     description: ILI Technology Corporation (ILITEK)
-   "^imagis,.*":
-     description: Imagis Technologies Co., Ltd.
-+  "^imdt,.*":
-+    description: IMD Technologies Ltd.
-   "^img,.*":
-     description: Imagination Technologies Ltd.
-   "^imi,.*":
+So, to preserve this order, it either need to be extremely clear that
+this order is required and from that maintainers can figure out if it's
+possible to jump through hoops to maintain it.
 
--- 
-2.43.0
+> 
+> x1p42100-crd.dts where firmware sets secondary mode, applying in 1, 2, and then 3 may leave crd boards
+> in broken GPIOs for a while after [2],  so yes order 1, 3, and then 2 makes more sense.
+> 
+> patch 1/2 - fixes the purwa to operate on correct registers.
+> patch 3 - Allow crd boards to re-set the mode to pass through
+> 
 
+If 1, 3, and then 2 is a valid order then send the patches in that
+order, if 2 must come last, then we need to ensure that the dependencies
+are making it to mainline first - which you can do by resubmitting the
+two parts separately.
+
+> > 
+> > 
+> > But this series implies that Purwa has been broken from the start - that
+> > the PDC driver has always operated on the wrong registers.
+> 
+> yes, purwa always operated on the wrong registers.
+> 
+
+But by accident it we never touched those registers. So, is purwa
+completely broken now that you have gotten the pinctrl wired up?
+
+> > 
+> > Perhaps the impact of this was limited as there's not that many direct
+> > &pdc references in the DT, but the patch that Bartosz's thank-you email
+> > was sent for got merged as 77fbc756d9cb ("Revert "pinctrl: qcom:
+> > x1e80100: Bypass PDC wakeup parent for now""), and that would make a lot
+> > more use of the PDC.
+> > 
+> > So while nothing in this series states it, it sounds like Purwa might be
+> > completely broken right now and this series aims to fix it?
+> > 
+> > 
+> > It's not clear to me why the driver change doesn't have a Fixes tag, it
+> > seems like the patch that introduced x1e_quirk was broken and should be
+> > marked as Fixes.
+> 
+> x1e_quirk in the driver via commit e9a48ea4d90b ("irqchip/qcom-pdc:
+> Workaround hardware register bug on X1E80100") says only about x1e/
+> hamoa specific bug, it seemed it never wanted to enable the quirk for
+> x1p / purwa. the quirk rather got anyway enabled for purwa due to both
+> hamoa/purwa sharing the same compatible.
+> 
+
+This patch series is the first piece of information telling me that
+Purwa did not inherit this hardware bug.
+
+> Patch 1/2 of the series aims to fix this (and patch-2 carries the
+> fixes: tag).
+
+So patch 2 should be backported to LTS kernels, but 1 and 3 shouldn't?
+
+Regards,
+Bjorn
+
+> 
+> Thanks,
+> Maulik
+> 
+> > 
+> > [2] https://lore.kernel.org/linux-arm-msm/CAMRc=MeU0QuRozMscv02M59+a66S05Jm18CyvNE-qSYrY=S7hQ@mail.gmail.com/
+> > 
+> > Regards,
+> > Bjorn
+> > 
+> >> Best regards,
+> >> Krzysztof
+> >>
+> 
