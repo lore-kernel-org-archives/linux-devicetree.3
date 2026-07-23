@@ -1,111 +1,100 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BD48A3EEAD0;
-	Thu, 23 Jul 2026 07:59:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-m19731103.qiye.163.com (mail-m19731103.qiye.163.com [220.197.31.103])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7EF23F1678;
+	Thu, 23 Jul 2026 07:59:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784793597; cv=none; b=PdaKGtjvlghbGusYb7BnZ684CX+zM89I3y2M9uYooJOe9wJKR5DJQiQV+CGpd4JZ66Z4hC2mgPNlKG4HqHwInlikRqKsnU+0Km+6jtiDAsa67N2SjX7EGRsFIZVkDwsQhq3kA5xVwrumVCgAiE5maK21Rp6fDSy5rlOjjRH9H5Q=
+	t=1784793603; cv=none; b=X3OmopiGrnb6zuOAmoCThqyFjRNJE5VraY3a79iltqqcuYXR54zNLUpzF1k0v0A1UqWx3RWDJTU51OHKU9w9zr5kkBUyVfELVPG6C7lQujtUyUf6Eginwuk2QH3XEMKQ++fR5ouj/d8lsMpGgxAdhuqbbhG50eVmavNZBTqfvS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784793597; c=relaxed/simple;
-	bh=PZ9cLd5vXkqOcuFGnstrDDKPwunq3EKIElywadcD1Iw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Y7df7tv4rGOVSzHHxhdXr/dKxR28WffeGAunanaiAIAKOvUfIwjYy1u3RiawIf2QioHgl146tlKHuhQYfOBPYlwpBJMp5IadWZJDqaB0yXzwVCapK5rP8tH2WX0bw4PEmbpjPtmLWn5EZsVxlCyMWMMr51fZjin4qSKEPYmoFYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=in8JzGId; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1784793603; c=relaxed/simple;
+	bh=W7fzSgQwlJA5o9kwdWYuGvp88AVfd9IYKMBtaUePYhk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jjXpQlR9DPefizBDBBSYTCi2HiuHfMfNzi0zkSNdG9LaUGMtz2lFAQ+TCP199aF5myrH/ypT9qbvSV9hxqynkoe7kBEHYjAWmAzsn8nX1qtoKOy3uoz3FAoh5LxpTWVbrmYzxgIT6uk0eYj5kdZK1dxzqcceSmRuO0m61M4s6Pg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=QTjiPPu/; arc=none smtp.client-ip=220.197.31.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="in8JzGId"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0B30E1477;
-	Thu, 23 Jul 2026 00:59:51 -0700 (PDT)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8916B3F66F;
-	Thu, 23 Jul 2026 00:59:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1784793595; bh=PZ9cLd5vXkqOcuFGnstrDDKPwunq3EKIElywadcD1Iw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=in8JzGId0LC6dWY2LG9U0bwdrm9y2fF3m1ARSmEluWsmMdrRWnb+EKMBXrBI7dxOD
-	 LKpuBQq2q3TL14hNjQRo/UF8UTKHsIQOssMkZQoD002FPpztu3NxCdBqE+8jQ/MDuI
-	 noaTYFrjxhlkfG/oUs7w2cvZcojS5yIHdjen7lxg=
-Message-ID: <f28ea754-5b13-4bf4-a3a6-585605f38ff1@arm.com>
-Date: Thu, 23 Jul 2026 09:59:53 +0200
+	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="QTjiPPu/"
+Received: from [127.0.1.1] (unknown [36.129.139.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 474a1d1c0;
+	Thu, 23 Jul 2026 15:54:37 +0800 (GMT+08:00)
+From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+Subject: [PATCH 0/2] ASoC: es8316: Add regulator support
+Date: Thu, 23 Jul 2026 15:54:28 +0800
+Message-Id: <20260723-es8316-regulator-next-20260722-v1-0-721f757879a0@thundersoft.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/4] media: rc: sunxi-cir: support the A523/H728/T527
- IR receiver
-To: Justin Suess <utilityemal77@gmail.com>, Sean Young <sean@mess.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- Sashiko <sashiko-bot@kernel.org>
-References: <20260722233604.3001063-1-utilityemal77@gmail.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20260722233604.3001063-1-utilityemal77@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALTIYWoC/y2NQQqDMBAAvyJ77kKMJVq/UjzE7qoLJcpGRZD83
+ SAeh4GZEyKrcIS2OEF5lyhzyFC+CvhNPoyMQpnBGutMbSvk2FSlQ+Vx+/t1Vgx8rPhoizV9XO9
+ poDd5yJFFeZDjHny7lC6qsAnAcAAAAA==
+X-Change-ID: 20260723-es8316-regulator-next-20260722-7d96badfd4da
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>, 
+ Katsuhiro Suzuki <katsuhiro@katsuster.net>, 
+ Matteo Martelli <matteomartelli3@gmail.com>, 
+ Binbin Zhou <zhoubinbin@loongson.cn>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Roger Shimizu <rosh@debian.org>, linux-sound@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hongyang Zhao <hongyang.zhao@thundersoft.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784793277; l=1396;
+ i=hongyang.zhao@thundersoft.com; s=20260127; h=from:subject:message-id;
+ bh=W7fzSgQwlJA5o9kwdWYuGvp88AVfd9IYKMBtaUePYhk=;
+ b=+8f5oKXLvUiQWNZCoQILSjSqL3+/EQuJbwn5oB60DT++hP/2s0lPWAHKtLvq6PHKaazZAhoCX
+ 1k+DS8MFJryBr6bZIOmWAh3sXTIKT3i0J3NR19RRguRHcposO+hFaBS
+X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
+ pk=D9yL5W9Zj0lPBDAq9gzY++1849VlXuTWAkROzZ88J/4=
+X-HM-Tid: 0a9f8df824f609d5kunmc0741ac25143e3
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGExPVkxKSR5DGExKHU1PSlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
+	lPT09IVUpLS1VKQktLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=QTjiPPu/EvRT/8v7LqTbThwQABjyE/mvVDaPjboujOsGvS4q3rUB6sprk0SqCyK+5wmKoMIah9n4l6av/wU4fn8gcNvi+0zCmQlRByXcBfzUXlB68e7kq/yEnFO2kGHo5OQHYWph1YWAkT34c3Utn8JgJw1wUoZNUm/qCWqJki8=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
+	bh=VBSbDykjNHOmBlXEJx/lTvZqaeEf/DE7qMTQxXoOgV4=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi Justin,
+Add regulator support for the four ES8316 power domains so
+board descriptions can model and control the codec supplies.
 
-thanks for the update, but ...
+The binding patch documents AVDD, CPVDD, DVDD and PVDD as optional
+supplies to preserve compatibility with existing device-tree descriptions.
+The driver patch requests and enables them before clocking or accessing the
+codec, and unwinds them on failure and removal.
 
-On 7/23/26 01:36, Justin Suess wrote:
-> Hi,
-> 
-> Quick series respin for easier application.
+The supplies remain enabled over system suspend because the existing
+suspend and resume callbacks do not handle a complete power loss.
+Powering the codec down would require separate reset and
+reinitialization support.
 
-please try to avoid that. Leave *at least* 24 hours between revisions, 
-to give all reviewers at least a chance to look at the series. Otherwise 
-they might get frustrated if they started reviewing a series, and get 
-ambushed by an updated version in the middle of the process.
-And in this case here you are probably waiting for a DT maintainer 
-review still.
-Also maintainers can fix up minor issues when doing the merge, so there 
-is no pressing need to send a whole new series for just a minor hiccup 
-or just for adding the tags.
+The missing supply model was identified while reviewing the RubikPi 3
+audio support:
+https://lore.kernel.org/linux-arm-msm/c293d9c7-bdb7-4303-80c8-404228c434d7@oss.qualcomm.com/
 
-> This series adds support for the CIR receiver on the
-> Allwinner A523/T527/H728 family (sun55i).
-> 
-> One-line function name change s_cir -> s_cir_rx at Andre's
-> suggestion, with his patch for the Avaota A1 applied on top
-> for convenience.
+Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+---
+Hongyang Zhao (2):
+      ASoC: dt-bindings: es8316: Add regulator supplies
+      ASoC: codecs: es8316: Add regulator support
 
-Thanks for taking that in, but please note that you would need add your 
-Signed-off-by: on top of the author's in this case, to document the flow 
-of patches, and for legal reasons.
+ .../devicetree/bindings/sound/everest,es8316.yaml  | 16 ++++++++++
+ sound/soc/codecs/es8316.c                          | 35 ++++++++++++++++++++--
+ 2 files changed, 49 insertions(+), 2 deletions(-)
+---
+base-commit: b4515cf4156356e8f4fe6e0fdc17f59adab9772f
+change-id: 20260723-es8316-regulator-next-20260722-7d96badfd4da
 
-Nothing worth to a respin again ;-), just wait for the DT approval and 
-for what Chen-Yu suggests.
-
-Cheers,
-Andre
-
-> v2: https://lore.kernel.org/linux-sunxi/20260722201717.2205609-1-utilityemal77@gmail.com/
-> v1: https://lore.kernel.org/linux-sunxi/20260702214750.3428694-1-utilityemal77@gmail.com/
-> 
-> Andre Przywara (1):
->    arm64: dts: allwinner: a523: enable IR on the Avaota A1
-> 
-> Justin Suess (3):
->    media: dt-bindings: allwinner,sun4i-a10-ir: add A523 compatible
->    arm64: dts: allwinner: a523: add IR receiver nodes
->    arm64: dts: allwinner: a523: enable IR receiver on the X96Q Pro+
-> 
->   .../media/allwinner,sun4i-a10-ir.yaml         |  8 +++--
->   .../arm64/boot/dts/allwinner/sun55i-a523.dtsi | 35 +++++++++++++++++++
->   .../dts/allwinner/sun55i-h728-x96qpro+.dts    |  6 ++++
->   .../dts/allwinner/sun55i-t527-avaota-a1.dts   |  6 ++++
->   4 files changed, 52 insertions(+), 3 deletions(-)
-> 
-> 
-> base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
+Best regards,
+-- 
+Hongyang Zhao <hongyang.zhao@thundersoft.com>
 
