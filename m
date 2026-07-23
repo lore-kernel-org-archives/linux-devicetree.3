@@ -1,109 +1,100 @@
-Received: from out-186.mta1.migadu.com (out-186.mta1.migadu.com [95.215.58.186])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD39423D7E6
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 16:23:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.186
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B6D447812
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 16:25:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784823842; cv=none; b=f1V1XPk7sTFK5ruVYrd6Js/Qcuu8J9q1XYoGoc+QywKsGuXiBk16Ac4th6444slvRnuLOU2gE8EiATrNbKwv+8nEtprAwEmBmTFm59v0PxMwGzXfmgl0oo9BYMbAQ4dvkg7uBAl4fn7qPyfl6zzRzwcOGnJJ4bAsbGYhXyZGC4I=
+	t=1784823946; cv=none; b=MzVrnDoZq4uHdrn2p8WnniMFNdX8mpV0EjuaxAMzblO34tUC36cymmxs03++n5wpVWuM7YhzHUHZlGvwI3Os82TMdDjBGzox1KjEgX/7PzxwVYuSna3v1n2KrgM6uc4/rcHEsibiLxWWbzEgMykboyEsFb3Unqj+Oy0cDvi2ydA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784823842; c=relaxed/simple;
-	bh=aRbNtr5GOOj+1XW4RbJIFRChUMitfCzYkn4XuG7fiN8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=E/AJi2C/P1jeIUuNeiwuP+TZfRhMdpDIXT72D5tcyt8S2sPiu0sNx48Gx83JLJlN0fQ9qbSVxXRVP6GlBDUerK1ley+mVQ/Gy0OlRLa/4tCZ33rXyWYroEGywpfvqE3iVVN4TnfnVc4GXTIIr/y43nkjdbSsxqSExWcNp3ItR1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=INLcYNEp; arc=none smtp.client-ip=95.215.58.186
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="INLcYNEp"
-Message-ID: <a79b2fd8d08d4594bbb472b005534d7c91d86e49.camel@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784823836;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aRbNtr5GOOj+1XW4RbJIFRChUMitfCzYkn4XuG7fiN8=;
-	b=INLcYNEpHB13hBX6kVFBjCQSLteRPRKhLYt98qDAKO4tkMkerXHrM92yYAig+nTSvpv160
-	L5uQkNKrWobfYAkZJnhIGuwpBA5HQSCe4oBWM2dIBnAldhsqjYtw1D1KFnVhcIl4W0HsKi
-	sPT5e/ge7U0JKKQbbtYCDRpRM+FpX5k=
-Subject: Re: [PATCH v5 1/2] dt-bindings: iio: adc: add maxim,max40080
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Siratul Islam <siratul.islam@linux.dev>
-To: Stefan Popa <stefan.popa@analog.com>, linux-iio@vger.kernel.org
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, jic23@kernel.org, andy@kernel.org, 
-	nuno.sa@analog.com, linux@roeck-us.net, robh@kernel.org,
- krzk+dt@kernel.org, 	conor+dt@kernel.org, dlechner@baylibre.com,
- ciprian.hegbeli@analog.com, 	u.kleine-koenig@baylibre.com
-Date: Thu, 23 Jul 2026 22:23:39 +0600
-In-Reply-To: <20260723065036.2683075-2-stefan.popa@analog.com>
-References: <20260723065036.2683075-1-stefan.popa@analog.com>
-	 <20260723065036.2683075-2-stefan.popa@analog.com>
-Content-Type: text/plain; charset="UTF-8"
+	s=arc-20240116; t=1784823946; c=relaxed/simple;
+	bh=+fBjyUrawxADdAgOwoSfkFz0tULE6iYdjb7CJBxW6Sc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iTifoL0ECyBNTJ60BYfAYKUMThlDDAOu2ZSE9mg+84KpBnTmtNdqbQO0eZ+zYWug1FPs2jIjkAVhghsgpDmNVAjM+gBrrmsBfwzL7EdjjWoMvCqyDufEiKFeLEwApMpBI10P8TBnF2J1y6OH/1Jlb77sZ+UrGBkY/a311Meq7So=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F340B1F000E9;
+	Thu, 23 Jul 2026 16:25:38 +0000 (UTC)
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/4] arm64: dts: qcom: shikra: Add support for
+ AudioCoreCC and AudioCoreCSR nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Imran Shaik" <imran.shaik@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260723-shikra-audiocorecc-v3-4-90b878ae0d4e@oss.qualcomm.com>
+References: <20260723-shikra-audiocorecc-v3-0-90b878ae0d4e@oss.qualcomm.com>
+ <20260723-shikra-audiocorecc-v3-4-90b878ae0d4e@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 23 Jul 2026 16:25:34 +0000
+Message-Id: <20260723162538.F340B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Migadu-Flow: FLOW_OUT
 
-On Thu, 2026-07-23 at 09:50 +0300, Stefan Popa wrote:
-> Add device tree bindings for the Maxim MAX40080 bidirectional
-> current-sense amplifier with a 12-bit ADC and an I2C/SMBus interface.
->=20
-> Signed-off-by: Stefan Popa <stefan.popa@analog.com>
-> ---
->=20
-...
-> +
-> +title: Maxim MAX40080 bidirectional current-sense amplifier
-> +
-> +maintainers:
-> +=C2=A0 - Ciprian Hegbeli <ciprian.hegbeli@analog.com>
-> +=C2=A0 - Stefan Popa <stefan.popa@analog.com>
-> +
-> +description: |
-> +=C2=A0 The MAX40080 is a high-precision, bidirectional current-sense amp=
-lifier with
-> +=C2=A0 an integrated 12-bit ADC and an I2C/SMBus interface. It measures =
-the voltage
-> +=C2=A0 across an external shunt resistor and the input bus voltage, and =
-stores the
-> +=C2=A0 results in an internal FIFO.
-> +
-> +=C2=A0 Datasheet:
-> +=C2=A0=C2=A0=C2=A0 https://www.analog.com/en/products/max40080.html
-This URL links to a product page rather than a datasheet as the tag suggest=
-s.
-Would be difficult to fetch using CLI tools.
-Were you supposed to use something like
-"https://www.analog.com/media/en/technical-documentation/data-sheets/MAX400=
-80.pdf"?
-
-> +
->=20
-...
-> +examples:
-> +=C2=A0 - |
-> +=C2=A0=C2=A0=C2=A0 i2c {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 #address-cells =3D <1>;
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 #size-cells =3D <0>;
-> +
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adc@20 {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compa=
-tible =3D "maxim,max40080";
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reg =
-=3D <0x20>;
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 #io-c=
-hannel-cells =3D <1>;
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 shunt=
--resistor-micro-ohms =3D <100000>;
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-> +=C2=A0=C2=A0=C2=A0 };
-
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The `audiocore_csr` reset controller is unconditionally enabled by=
+ default in the common DT, exposing unclocked or XPU-protected registers on=
+ the IQS variant.
 --
-Best regards,
-Sirat
+
+--- Patch [4]: [PATCH v3 4/4] arm64: dts: qcom: shikra: Add support for Aud=
+ioCoreCC and AudioCoreCSR nodes ---
+commit b6e6ad0368fe6b888bc449723d713689e91d35e8
+Author: Imran Shaik <imran.shaik@oss.qualcomm.com>
+
+arm64: dts: qcom: shikra: Add support for AudioCoreCC and AudioCoreCSR nodes
+
+Add support for Audio Core Clock Controller and Audio Core CSR nodes on the
+Qualcomm Shikra SoC. The clock and reset requirements differ based on the
+audio subsystem enablement across variants. Notably, the IQS variant does n=
+ot
+use soundwire codes, and therefore requires no clocks or resets.
+
+> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/q=
+com/shikra.dtsi
+> index 4e5bc9e17c8ed..b744534572d63 100644
+> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
+[ ... ]
+> +		audiocorecc: clock-controller@a0a0000 {
+> +			compatible =3D "qcom,shikra-audiocorecc";
+> +			reg =3D <0x0 0x0a0a0000 0x0 0x10000>;
+> +			clocks =3D <&rpmcc RPM_SMD_XO_CLK_SRC>,
+> +				 <&sleep_clk>,
+> +				 <0>;
+> +			#clock-cells =3D <1>;
+> +			status =3D "reserved"; /* Owned by Modem firmware */
+> +		};
+> +
+> +		audiocore_csr: reset-controller@a0b4000 {
+> +			compatible =3D "qcom,shikra-audiocore-csr";
+> +			reg =3D <0x0 0x0a0b4000 0x0 0x1000>;
+> +			#reset-cells =3D <1>;
+> +		};
+
+[Severity: High]
+Should this node default to disabled or reserved status in the common dtsi?
+
+The commit message notes that the IQS variant does not need clocks or reset=
+s.
+Since the status property is omitted here, the node will be unconditionally
+enabled by default in the common dtsi.
+
+If HLOS probes this device and registers a regmap with debugfs, could a sys=
+tem
+diagnostic tool or a privileged user reading the regmap entries trigger an
+abort?
+
+Accessing unclocked or XPU-protected registers via
+/sys/kernel/debug/regmap/a0b4000.reset-controller/registers could panic the
+system on variants like IQS where the hardware is inaccessible to HLOS.
+
+Would it make sense to disable this node by default in shikra.dtsi and only
+set status to okay in the board files that require HLOS access?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-shikra-aud=
+iocorecc-v3-0-90b878ae0d4e@oss.qualcomm.com?part=3D4
