@@ -1,196 +1,312 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 926CC39CD04
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 17:32:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A89C9485CE5
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 17:40:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784827963; cv=none; b=VVCMEzV1Zuq8s0SniiIjdzLNw6Q65tI84QAyi4oRWDp9P/RQBnF3mQguVl3DfkXTIsQTTAnrXMkp6lSLtwP+hdjR92T7WnmLiT1Tw9RCc77ezK0py+CnJIvVypKFe4N1P/d9ZM5VyHToEEyAZFLDsHlJv8hiFCANm/jOKiPivcc=
+	t=1784828456; cv=none; b=dvK0hHA7gcXIVHkrO58H0omIT0bdb21GWLYSjEQKegrkDpRb1dcWJGZishSuQd9ppeE8dPMe4XeqpmbA6wABFFBy/MJPswdsreyBkksj2fWD/Ewok6fVx9PPlvy+xfQQVkV5LmQJ23Abg3LLtRFLtdoRJ8xtGM7PV22XXd8TyvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784827963; c=relaxed/simple;
-	bh=Rb307hRb593uxGm5/db7vJI145JpiKZ6kz5lVmIoNUY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mCIYZuT+cHQf8rrH+lCneUY0sq/zUsNBqzDf16urlBRdUCYO//CPQ95JVLPwuSaaHaNtWkbdWxEbAnu953u7KGOayYDBZMFQy1dP3KZ/KTP7BpKyaNhfWMkLKO1hcXIaHdOpEIJAhtqrE8zrF7rfEKGeu2w4ThOEcm6wKDXSA/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YtvnVuOk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FfRZE9l4; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784828456; c=relaxed/simple;
+	bh=UixgtGiGVUnNyLlipfU+RXYoFChLDvPTxTim1Tpp6l8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Com2fZcJdVVSeYi0qzA9GVt0yhTSehPg7TcvAnZ911l6OeYcy6Boy+gmtdkGKoKAEBi1rC1VaTzUSnKipHrpwWl0FL1z9ww/R3YyBPvJqPFPoGXAed/CRtG4PIou4KL1FgAoNDKbDVuH2RicEOCfkOhuiQXvOvUpuJRPCZcm5Bs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PU4tcaSC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YtvnVuOk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FfRZE9l4"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66NHWggN668985
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 17:32:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	uBINSf3ePH0vCV4OP0AaN57kC4vNoicTYH7Nd8Kcn8M=; b=YtvnVuOkHA+6O2RY
-	49fEiIyiV3hfC4SKsJU+2CCVGGWs/QXqagjsogzXOPSrhjMNWGFNGKzjlGa0hb4E
-	AaWEEqmWMJQDthjujONibpfBwMlccaM3YzEPLsFQyC7KFBNABJV/XuGp07Z8FVra
-	pjtPDcSDBDkgfImg8t48BXx3m5+pyCQU/MVoDTloISuO0um8wUxqoVvd0tYNgXi2
-	lowXYpNGUHS9Vu6EYvpbrxiW1+5hJJBIWy//7khYGuIZJBOzzxP/tUHahHyMWAwo
-	Svh3yn+HWGMTkCN814yFB8W/Qi3MquXyvH0y7Ywzt+SEdSN/WI5C3V+HK2WhVtek
-	jVwpxA==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fkqa181gj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 17:32:41 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cb6ef846b33so617801a12.1
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 10:32:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784827961; x=1785432761; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uBINSf3ePH0vCV4OP0AaN57kC4vNoicTYH7Nd8Kcn8M=;
-        b=FfRZE9l4UCkcOvLN0npXkKOpCTHIM5mtEGNYtx+tpmVXQnLvXqjvH7Chj03NNNSVvx
-         XNn14OwQfnudppmfkwIVF3WGO4ztl6tAE/oT6s8q0ACzwmok1c0Gp3TZHzacL1vh2O3p
-         U5R1pXvQmQERarGE6vG1ukvrRC09x0b7V72LnL5DrjYCe7h/VTRXyGS3wtU/t2p1KZQL
-         Uvi5ZyRipGQX4FHXb8n/81gsLi7g6Lo448wXut6xFSaOlKTpJcQATYSRjt0N+FAmOLXY
-         EABA/JKIk0fkdSiFwwV1YPaMKFFbT4bZ2zXoqDBUy89TWUflrarfQ3tcfZ/k+14hHvmy
-         bgSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784827961; x=1785432761;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uBINSf3ePH0vCV4OP0AaN57kC4vNoicTYH7Nd8Kcn8M=;
-        b=jylb1a8Dd+jzCvhgOp0NWy4p5Q86TpLFnN/kUCURLhiehRA7wYiSmNGjIkIsbn8N3n
-         VWuDBjiESlpGgWtVuLfxYDT4GcZ+dLZTtfXXa82q7qVgPt7V9oGzJ2ywlp7l8JNvg3qN
-         jNYJEvus0d72z9+FbRjMyzPn4Fu0DIsyaHbBQHw7uMCNTxlkzIF+jjr3bJ8EVgTbQf5N
-         Mi/eVPfdfAl21ahE4FYcFdChnb8k/HcFTEwLFGRye/F7bKi1opSIDajBqJ56/mBzEkR9
-         csP7IBXcqJG10S/28+EXT3y0VoBCkiINdxBh0bL1JzbPdhS86ZuajHRxLea6UPxqSjEV
-         OyPQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rrs3oewRL49s69Hk7vvWfvuJW4D6wvdibOnPd7lpg3JHveVjt6wtisQWqGxQfr9qCwJAfrOXxyntr0G@vger.kernel.org
-X-Gm-Message-State: AOJu0YxlI3Kl7Fz02cknhvOET1FKxYa0Vk9gW32q2GkMLNYIXKc4lEiz
-	5Zkpi6FDUSr4lPdX697UvIk47P4w0RifdZ2nallhye67HvqdKcWbWWSPg5Cmc8GAfKJLNLmkCuk
-	BecRLSRrZLrfopEkb6x340VKwYzTZcyLJM+gUCE2N3pFMArYo9acEFCZbuV2yCVu/ZXDAW891
-X-Gm-Gg: AR+sD12fvpagHQ15Xvc0PqEjxX5pSxuaihN8q7DXJKXeVsYP8Y2wAg5ukg9fwkGq5dH
-	qSyOx9+Jo8QCFVXVSI151CD8o6scqgPu+zZmL2dC6Myuda2ygSTUh1PZ+RkwMrSkVCYVktOmBcQ
-	ip/P84raTJjlPVd1ir09XCjUC/LsSPRZv8iMBhEJzMQOUUcc0gxkRe2bIRhwVdMzBuUhd3aupAH
-	RBir+FAcu6j40PogPpYlCL2Q8d4i+lJlEfv23sPKHthQ+1F1MP8zF783AYN3frTsKe5NoEyEAs2
-	iNn6AaKMGGpNkdzriuXL8S3ZRueHrrcHhkJGTllJ8tSR2qfIGG9JTXjUdaw4FWBk6PdaJAAbuP7
-	4CeO0VSuLgkUgCeZonrGWuMgrgIy82QE1watKBQcFuAtq9iCL5Xp6I/HxGZ5IHST1lO6NjQ==
-X-Received: by 2002:a05:6a20:db95:b0:3b3:ccd0:cf62 with SMTP id adf61e73a8af0-3c44cd1daffmr4297915637.36.1784827961143;
-        Thu, 23 Jul 2026 10:32:41 -0700 (PDT)
-X-Received: by 2002:a05:6a20:db95:b0:3b3:ccd0:cf62 with SMTP id adf61e73a8af0-3c44cd1daffmr4297883637.36.1784827960698;
-        Thu, 23 Jul 2026 10:32:40 -0700 (PDT)
-Received: from hu-kriskura-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147e1ca3efsm26466497eec.30.2026.07.23.10.32.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 10:32:39 -0700 (PDT)
-From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Date: Thu, 23 Jul 2026 23:02:26 +0530
-Subject: [PATCH 2/2] arm64: dts: qcom: glymur: Configure USB controllers
- are wakeup-capable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PU4tcaSC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5897F1F000E9;
+	Thu, 23 Jul 2026 17:40:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784828451;
+	bh=prl7z1JRYGJL56NNi51aXUspATxCEtBSu7ubwfxNh/w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PU4tcaSC5Pw1sHOZTUo8v97rUFXujRxm6i3Pa3WIm0nzvsuPkzA4+pS+y1RgSXvep
+	 TlSMwgzAjqnI0D7TjMEsfVCjSzBNJ9qUyMJBlh0Y5NDRvaOFfEPpEkZINhH2AAAu1u
+	 r+/fjaxw8DIekuZ2GmFuzWUYjA2UW0BSgd7UFphl8CcMDEqjYaT/Vre8GrmdMS5EKs
+	 KE7d1fywMDhWBLmcRUYWtjPYzKZnZh/+eVB+hjnlCcwnAg0aFMYnQW7znRvgemn17e
+	 yzTYXIwexjyd5FgwwudX0qAsq7KtPAQrI572sfwbnUfko4fYK723YLBWotEovpuBm6
+	 hIzm36HewDiCg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] iio: proximity: add driver for Sharp GP2AP070S
+ proximity sensor
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kaustabh Chakraborty" <kauschluss@disroot.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260723-gp2ap070s-v1-2-b8ca3a4c10dd@disroot.org>
+References: <20260723-gp2ap070s-v1-0-b8ca3a4c10dd@disroot.org>
+ <20260723-gp2ap070s-v1-2-b8ca3a4c10dd@disroot.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 23 Jul 2026 17:40:50 +0000
+Message-Id: <20260723174051.5897F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-glymur-usb-fixes-v1-2-816357d5319c@oss.qualcomm.com>
-References: <20260723-glymur-usb-fixes-v1-0-816357d5319c@oss.qualcomm.com>
-In-Reply-To: <20260723-glymur-usb-fixes-v1-0-816357d5319c@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784827948; l=1309;
- i=krishna.kurapati@oss.qualcomm.com; s=20260707; h=from:subject:message-id;
- bh=Rb307hRb593uxGm5/db7vJI145JpiKZ6kz5lVmIoNUY=;
- b=4XimRkGLsjVoDoY4pinoGp0+1kpQeRbxxWhOoXQ7P5coduPlkRV8Ni1KwF4d1yh+nV6lTOoj7
- qZKSIfHjoOLATTr2aREL7CnGVnr6RMZnExmq/LQiFg71slB6NBuq/NS
-X-Developer-Key: i=krishna.kurapati@oss.qualcomm.com; a=ed25519;
- pk=6PmiuwGCdov3wRO+bdmRlRxRtmJyDKz3ED57LLPVgds=
-X-Proofpoint-ORIG-GUID: _LhylSS5edy--mZ470BITdP-182o7zyd
-X-Authority-Analysis: v=2.4 cv=L4wtheT8 c=1 sm=1 tr=0 ts=6a625039 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=207qiAQzmBhLk1W34nUA:9 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDE3MCBTYWx0ZWRfX+3eGjA87AuLI
- Caw1wyPCUdNOgBmqmcbU7q9vbtQB0wK2W6KEqrI0+XQKoKTS6kaf9ljxfgZkIUxvzz0zdMC1u41
- SCMCq4Wp8IRAeFga4XZuQ0rHi3ZwuiI9KmwCcVZxPt/MTmJTu4A+QFktZ29Ynfw5strELS/vGOe
- +EOK+h7Xup+fXwoXbQnxTWP9+bOHgqE5ce94vUG0dYU2Q/UT4VltP2rqgNWjzUkhMGVHeIn+cjz
- XNGyCei6XPkryxPogzEw8meWPrbPRT2cVS/rEHNJZwD7zAOk/XlG6W4hC9dkyZ+10ZwtxFHJwnW
- Aa56xVbCyzUbYq8i9cVj6darjoZbu0Z4KKVw42IsyZREAY6b/x0R9YdQ078eyvcxV7b2D0E118F
- AMdbn6gI+VzgFUjmes3iLjCzoITwXTOEVKunqWYGutX5PykaYzov98H+PtXnbIMeMfrLrXleGZa
- ATOwpFdDNRpT3vp7rrg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDE3MCBTYWx0ZWRfX19t1L7BHuJAU
- Rsd5hqFANlVbOPqPEkf+UJkcoNfCAh75aZd9PMkNNITu8cvt7aPOF48mrAYUIeQ2Ym8glt0v1hp
- ksCdMLaOiFsFe8z83bk/v8G3wiNTeVY=
-X-Proofpoint-GUID: _LhylSS5edy--mZ470BITdP-182o7zyd
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-23_05,2026-07-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 suspectscore=0 adultscore=0 clxscore=1015
- lowpriorityscore=0 malwarescore=0 impostorscore=0 phishscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607230170
 
-All USB controller on Glymur are wakeup-capable device. Add wakeup-source
-property for each of them indicating the same.
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] The interrupt handler improperly uses WARN_ONCE for a standard ext=
+ernally triggerable physical race condition, enabling a trivial Denial of S=
+ervice (panic).
+- [High] Returning IRQ_HANDLED on an I2C read failure without clearing the =
+hardware interrupt causes an IRQ storm and CPU lockup.
+- [Medium] Missing bounds checking for user-provided threshold values allow=
+s integer truncation and negative values to bypass validation, leading to c=
+orrupted hardware state.
+- [Medium] Missing driver-level serialization in the threshold write sequen=
+ce allows concurrent sysfs writes to bypass invariants (TOCTOU race).
+- [Medium] Unbalanced lifecycle operations: the device and its interrupts a=
+re enabled during probe, but never disabled on teardown, causing a resource=
+ and power leak.
+- [Medium] Speculative: Incorrect Hardware State Control / Power Management=
+ for interrupts.
+--
 
-Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/glymur.dtsi | 5 +++++
- 1 file changed, 5 insertions(+)
+--- Patch [2]: [PATCH 2/3] iio: proximity: add driver for Sharp GP2AP070S p=
+roximity sensor ---
+commit cf1a3ba55be680215231a378699a58e4edfcc9a0
+Author: Kaustabh Chakraborty <kauschluss@disroot.org>
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-index b9eb0fe8e413..74692ac1a22b 100644
---- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-@@ -4559,6 +4559,7 @@ usb_0: usb@a600000 {
- 			snps,dis_enblslpm_quirk;
- 
- 			usb-role-switch;
-+			wakeup-source;
- 
- 			status = "disabled";
- 
-@@ -4634,6 +4635,7 @@ usb_1: usb@a800000 {
- 			snps,dis_enblslpm_quirk;
- 
- 			usb-role-switch;
-+			wakeup-source;
- 
- 			status = "disabled";
- 
-@@ -4709,6 +4711,7 @@ usb_2: usb@a000000 {
- 			snps,dis_enblslpm_quirk;
- 
- 			usb-role-switch;
-+			wakeup-source;
- 
- 			status = "disabled";
- 
-@@ -4798,6 +4801,7 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
- 
- 			qcom,select-utmi-as-pipe-clk;
- 			usb-role-switch;
-+			wakeup-source;
- 
- 			status = "disabled";
- 		};
-@@ -4869,6 +4873,7 @@ usb_mp: usb@a400000 {
- 			snps,dis_enblslpm_quirk;
- 
- 			dr_mode = "host";
-+			wakeup-source;
- 
- 			status = "disabled";
- 		};
+iio: proximity: add driver for Sharp GP2AP070S proximity sensor
 
--- 
-2.34.1
+This commit adds a new driver for the Sharp GP2AP070S proximity sensor.
+It relies on a downstream Samsung kernel implementation as a secondary
+source of documentation.
 
+Link: https://github.com/Exynos7870/android_kernel_samsung_universal7870/bl=
+ob/lineage-16.0/drivers/sensors/gp2ap070s.c [1]
+
+> diff --git a/drivers/iio/proximity/gp2ap070s.c b/drivers/iio/proximity/gp=
+2ap070s.c
+> new file mode 100644
+> index 0000000000000..9625f53d956ec
+> --- /dev/null
+> +++ b/drivers/iio/proximity/gp2ap070s.c
+
+[ ... ]
+
+> @@ -176,140 +176,140 @@ static int gp2ap070s_iio_write_event_value(struct=
+ iio_dev *indio_dev,
+> 					   const struct iio_chan_spec *chan,
+> 					   enum iio_event_type type,
+> 					   enum iio_event_direction dir,
+> 					   enum iio_event_info info, int val,
+> 					   int val2)
+> {
+> 	struct gp2ap070s_drvdata *drvdata =3D iio_priv(indio_dev);
+> 	__le16 value;
+> 	u16 threshold_other;
+> 	int ret;
+>=20
+> 	if (type !=3D IIO_EV_TYPE_THRESH || info !=3D IIO_EV_INFO_VALUE)
+> 		return -EINVAL;
+>=20
+> 	switch (dir) {
+> 	case IIO_EV_DIR_RISING:
+> 		ret =3D regmap_raw_read(drvdata->regmap,
+> 				      GP2AP070S_REG_PS_THD_LO_LE16, &value,
+> 				      sizeof(value));
+
+[Severity: Medium]
+Could concurrent sysfs writes to the rising and falling thresholds interlea=
+ve
+here in gp2ap070s_iio_write_event_value()?
+
+Since the IIO core does not serialize write_event_value() calls, two
+threads might read the old thresholds at the same time. Both could validate
+their new values against the stale state and write them, resulting in the
+hardware being programmed with the falling threshold higher than the rising
+threshold.
+
+Is a driver-level mutex needed for this read-modify-write sequence?
+
+> 		if (ret)
+> 			return ret;
+>=20
+> 		/* Ensure lo_threshold < hi_threshold */
+> 		threshold_other =3D le16_to_cpu(value);
+> 		if (threshold_other >=3D val)
+> 			return -EINVAL;
+>=20
+> 		value =3D cpu_to_le16((u16)val);
+
+[Severity: Medium]
+What happens if a negative value or a value larger than U16_MAX is passed?
+
+A value like 100000 would bypass the threshold_other >=3D val check, but th=
+en
+be truncated to a smaller value during the (u16) cast.
+
+Could this break the lo_threshold < hi_threshold invariant and put the hard=
+ware
+in an invalid state?
+
+> 		ret =3D regmap_raw_write(drvdata->regmap,
+> 				       GP2AP070S_REG_PS_THD_HI_LE16, &value,
+> 				       sizeof(value));
+> 		if (ret)
+> 			return ret;
+>=20
+> 		return IIO_VAL_INT;
+> 	case IIO_EV_DIR_FALLING:
+> 		ret =3D regmap_raw_read(drvdata->regmap,
+> 				      GP2AP070S_REG_PS_THD_HI_LE16, &value,
+> 				      sizeof(value));
+> 		if (ret)
+> 			return ret;
+>=20
+> 		/* Ensure hi_threshold > lo_threshold */
+> 		threshold_other =3D le16_to_cpu(value);
+> 		if (threshold_other <=3D val)
+> 			return -EINVAL;
+>=20
+> 		value =3D cpu_to_le16((u16)val);
+
+[Severity: Medium]
+Similarly, if a negative value like -1 is written to the falling threshold,
+would it pass the threshold_other <=3D val check (e.g., 100 <=3D -1 evaluat=
+es
+to false) and then truncate to 65535, bypassing validation?
+
+> 		ret =3D regmap_raw_write(drvdata->regmap,
+> 				       GP2AP070S_REG_PS_THD_LO_LE16, &value,
+> 				       sizeof(value));
+
+[ ... ]
+
+> @@ -275,34 +275,34 @@ static int gp2ap070s_write_event_config(struct iio_=
+dev *indio_dev,
+> 					const struct iio_chan_spec *chan,
+> 					enum iio_event_type type,
+> 					enum iio_event_direction dir,
+> 					bool state)
+> {
+> 	struct gp2ap070s_drvdata *drvdata =3D iio_priv(indio_dev);
+> 	int ret;
+>=20
+> 	if (type !=3D IIO_EV_TYPE_THRESH)
+> 		return -EINVAL;
+>=20
+> 	switch (dir) {
+> 	case IIO_EV_DIR_EITHER:
+> 		if (state)
+> 			ret =3D regmap_set_bits(drvdata->regmap,
+> 					      GP2AP070S_REG_COM3,
+> 					      GP2AP070S_VAL_COM3_INT_PULSE);
+> 		else
+> 			ret =3D regmap_clear_bits(drvdata->regmap,
+> 						GP2AP070S_REG_COM3,
+> 						GP2AP070S_VAL_COM3_INT_PULSE);
+
+[Severity: Medium]
+Does clearing GP2AP070S_VAL_COM3_INT_PULSE in gp2ap070s_write_event_config()
+actually disable the hardware interrupt?
+
+If this bit only controls the pulse behavior and the actual interrupt mask =
+is
+in COM2 (which is unconditionally cleared during probe), could the device
+continue to trigger IRQs even when disabled from userspace?
+
+> 		if (ret)
+> 			return ret;
+
+[ ... ]
+
+> @@ -325,52 +325,52 @@ static irqreturn_t gp2ap070s_irq_handler(int irq, v=
+oid *private)
+> 	struct iio_dev *indio_dev =3D private;
+> 	struct gp2ap070s_drvdata *drvdata =3D iio_priv(indio_dev);
+> 	struct device *dev =3D drvdata->dev;
+> 	u16 threshold_lo, threshold_hi, distance;
+> 	__le16 value;
+> 	int ret;
+>=20
+> 	ret =3D regmap_raw_read(drvdata->regmap, GP2AP070S_REG_PS_THD_LO_LE16,
+> 			      &value, sizeof(value));
+> 	if (ret) {
+> 		dev_err(dev, "Failed to read low threshold value (%d)\n", ret);
+> 		return IRQ_HANDLED;
+> 	}
+
+[Severity: High]
+If this I2C read fails and IRQ_HANDLED is returned without clearing the
+hardware interrupt, could this result in an interrupt storm?
+
+If the interrupt line is level-triggered and remains asserted, would the OS
+continually re-enter the IRQ handler and potentially lock up the CPU core?
+
+[ ... ]
+
+> 	if (distance >=3D threshold_hi) {
+> 		iio_push_event(indio_dev,
+> 			       IIO_UNMOD_EVENT_CODE(IIO_PROXIMITY, 0,
+> 						    IIO_EV_TYPE_THRESH,
+> 						    IIO_EV_DIR_RISING),
+> 			       iio_get_time_ns(indio_dev));
+> 	} else if (distance <=3D threshold_lo) {
+> 		iio_push_event(indio_dev,
+> 			       IIO_UNMOD_EVENT_CODE(IIO_PROXIMITY, 0,
+> 						    IIO_EV_TYPE_THRESH,
+> 						    IIO_EV_DIR_FALLING),
+> 			       iio_get_time_ns(indio_dev));
+> 	} else {
+> 		/*
+> 		 * If none match, then it's stuck in the threshold band gap.
+> 		 * The hardware generally does not issue interrupts here.
+> 		 */
+> 		WARN_ONCE(true, "spurious interrupt issued in proximity threshold gap\n=
+");
+> 	}
+
+[Severity: High]
+Is it possible for a fast-moving physical object to cross the threshold,
+trigger the interrupt, and then move back into the band gap before the
+threaded handler finishes reading the distance via I2C?
+
+If so, could this expected physical race condition trigger a kernel panic on
+systems configured with panic_on_warn in gp2ap070s_irq_handler()?
+
+[ ... ]
+
+> @@ -378,39 +378,39 @@ static int gp2ap070s_probe_hw_register(struct gp2ap=
+070s_drvdata *drvdata)
+> 	struct device *dev =3D drvdata->dev;
+> 	int ret;
+
+[ ... ]
+
+> 	ret =3D regmap_set_bits(drvdata->regmap, GP2AP070S_REG_COM1,
+> 			      GP2AP070S_VAL_COM1_WKUP | GP2AP070S_VAL_COM1_EN);
+> 	if (ret)
+> 		return dev_err_probe(dev, ret, "Failed to enable sensor\n");
+>=20
+> 	return 0;
+> }
+>=20
+> static int gp2ap070s_probe(struct i2c_client *client)
+> {
+
+[ ... ]
+
+> 	ret =3D gp2ap070s_probe_hw_register(drvdata);
+> 	if (ret)
+> 		return ret;
+
+[Severity: Medium]
+Does the driver need a devm_add_action_or_reset() hook to cleanly power down
+the sensor on removal?
+
+Without clearing the WKUP and EN bits on teardown, might the device be left
+actively running and consuming power indefinitely after the driver is unbou=
+nd?
+
+>=20
+> 	ret =3D devm_request_threaded_irq(dev, client->irq, NULL,
+> 					gp2ap070s_irq_handler, IRQF_ONESHOT,
+> 					"gp2ap070s-irq", indio_dev);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-gp2ap070s-=
+v1-0-b8ca3a4c10dd@disroot.org?part=3D2
