@@ -1,322 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B3D357CF4;
-	Thu, 23 Jul 2026 02:44:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC8C30F927;
+	Thu, 23 Jul 2026 02:45:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784774645; cv=none; b=fo8GDffIlASr1ceIeQNRL0I69DJYuhpWeVNixQRTgUEd3a+Brc2iDeKudagr55tMwC5xzzD/3MIlsKAMXCXDM2Wqkl1C5l9iPUGpAkzSXCt7pbxr420TN/cdGuriN093lf+aT5VLKgcAu1cv5f6A5AyKEesZcs8h1ZQ5RoKaF9k=
+	t=1784774715; cv=none; b=AS9HK1cA0f6HWsCYJ0BmqxSqqBuzsz7dg88vMpcWh6/VawTqQtmCuQxdPQA3zPAPSWJdffDaVmCnxyTdunsKBPReo0FHqyfCfEqRcOyVMjwTD2ENYgA6unU6lmJTDrftL0+AnaulyqJBajJVYomi1N6ODttVk3Tgpx1P2BAQUno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784774645; c=relaxed/simple;
-	bh=WMyTl5a6rEYDMRSvVwjNXQH/fNF1UFXXcg1VgIJCW1Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pt7NBr0VSU/iGT2UGFCPHtjvp/kakaTlabhIGIB+zZTVKRvxpqRsxHe1fmSEWdbhRL4AvZSowv9qAid8x+GFPWHn18sAeU7m/HFb/mD8PXLKAIvd48Wf8gAWyr0FBWLZIUka4D+TlNnj6XFmgdoUzcerys2lW8765pfF/31LzMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hlnhAodz; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1784774715; c=relaxed/simple;
+	bh=NWeZhNrPFZboRMJXRhfG5niTIqzO29fNRcpNQTZuQzc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qEPTowf2xoWgYjkUgzxg2i1cu5Nt0OHMUsYvyRzIkxspBX193YUbRvTZPx8eS5XQwHEgQpoc4K4V327cBzJNanJVdYpA99bJK74xouaw5OcO0JoWg9lfrc6xQm4ZdmyFBBikxQoKZmDbZabo422I2Z/fAvBuD5atdvJ/sT6VPtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SBZcpiIM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hlnhAodz"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A3BDFC2BCB3;
-	Thu, 23 Jul 2026 02:44:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784774644;
-	bh=WMyTl5a6rEYDMRSvVwjNXQH/fNF1UFXXcg1VgIJCW1Q=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=hlnhAodzYPTsybIyEO4sRXCx350ROJw35iUdy8SFHtpUQdddzAIF36tgl9c61H2Bg
-	 AMFm/mMbRMovq+aSrhE8CkMC6BjVJPVDG23Vx9HNMf3htSf8/MpFS9v79KnEf2lrAR
-	 6O9QF3CxY+Uu/ieA1lCbgvhQXh6cVE7lgktl/vC+2SlQi+qU198NnQQJiNebzdXTMO
-	 iNWC7DQwn14RL0XApuZbLc0sFX3PmMAohSimQmCiFzwv6GL0BtOKUGzR/tEjt7uAAi
-	 kHWPfFJIGeFTz2zzQeOxJTTjSFEFbY+3JvFk513vviR2sl4pc5EENMjKRTqpal1IiR
-	 I3V/LeNwiFDgA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 85DE6C4453A;
-	Thu, 23 Jul 2026 02:44:04 +0000 (UTC)
-From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Thu, 23 Jul 2026 10:44:02 +0800
-Subject: [PATCH v7 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDMI
- bridge binding
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SBZcpiIM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 271021F00A3A;
+	Thu, 23 Jul 2026 02:45:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784774713;
+	bh=CTZbrfl/WDIWC+O0IsSAlp/JgKxzM74U9IQSJ+1gf74=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=SBZcpiIMYgOSyahSiGbR57ZGc8jTfJHF1LWnD/4cge6ugOIZwMRrKwqt49pCkJrbE
+	 tBkayvPzecLpda2fvyu2oauPWGnVSSW9UbBSC7BMvT8zYyYrZELXy6eAz1nLFsZgV9
+	 rbelOb/LJYmM3/ZvgomnYWnduL/ZjK1Sah16aP5k6Xm8kwjTE27FrBAW2UA/72rklC
+	 IT3sQIC5PujASw+jzEXN1GOhuw5zB5+vp3seEwqBpxBV2XWyA5wSGmJtcTpbI/7NHw
+	 o3dQrUgjmb8h5W/W2RVN2u7vlpPsFdJ3hMS6cbxqvx79tDZLdSJU4Dz2k7ryJ/6pGI
+	 N1Z6iczBRQkpg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/5] ASoC: fsl_asrc: expose individual DAIs per
+ conversion path
+Reply-To: sashiko-reviews@lists.linux.dev
+To: shengjiu.wang@oss.nxp.com
+Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260723022313.1905051-5-shengjiu.wang@oss.nxp.com>
+References: <20260723022313.1905051-1-shengjiu.wang@oss.nxp.com>
+ <20260723022313.1905051-5-shengjiu.wang@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 23 Jul 2026 02:45:12 +0000
+Message-Id: <20260723024513.271021F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-upstream-it6625-it6626-v7-1-f8175bb0ea12@ite.com.tw>
-References: <20260723-upstream-it6625-it6626-v7-0-f8175bb0ea12@ite.com.tw>
-In-Reply-To: <20260723-upstream-it6625-it6626-v7-0-f8175bb0ea12@ite.com.tw>
-To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784774643; l=8537;
- i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=jxmlgFo/hBZDbPAKV+42sQG86MHfcuQMfKIjz+Nd+o4=;
- b=xfi0KrLGBPkiNpw4RCPU/wvsPWVUfCaYPhcgmLDoBXUVk5a441K4xeSUuIkc0Dl3ffoHZAoVO
- rI8WqZgsH7mCMGfQCvM0683NuwBJxofll9KbaC0AojSAHacJOWZTKuH
-X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
- pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
-X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
- auth_id=310
-X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
-Reply-To: Hermes.wu@ite.com.tw
 
-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Document the devicetree binding for the ITE IT6625/IT6626 HDMI to
-MIPI CSI-2 bridge. The device exposes two graph ports: port@0
-(MIPI0) and port@1 (MIPI1), the two selectable CSI-2 D-PHY/C-PHY
-outputs. Only port@0 is required, since a board only needs to wire up
-as many of the bridge's outputs as it actually uses.
+Pre-existing issues:
+- [High] Calling `hw_params` multiple times leaks channel availability, exh=
+austs pair slots, and leaves dangling pointers leading to Use-After-Free.
+--
 
-Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
----
-Changes in v7:
-- Add back port@2 for the HDMI input port, reversing the v4 decision
-  to drop it. The v6 automated review re-raised the same concern with
-  stronger footing than v3's: devicetree describes the physical
-  hardware independent of what a given driver consumes, and the chip
-  has a physical HDMI input regardless of whether it6625.c wires
-  anything to it. Checked against adi,adv7604.yaml, an
-  actively-maintained upstream binding for a comparable HDMI-receiver
-  chip, which documents its input port(s) the same way via
-  graph.yaml's generic port pattern -- concrete precedent that an
-  input port unused by the driver still belongs in the schema.
-  Verified port@2 stays optional and the schema still validates with
-  dt-doc-validate/dt-validate both with and without it present.
+--- Patch [4]: [PATCH v2 4/5] ASoC: fsl_asrc: expose individual DAIs per co=
+nversion path ---
+commit f590fa927b95ce1e6a86c0ad704e429857c29260
+Author: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-Changes in v6:
-- Unchanged. The v5 automated review flagged that the it6626
-  conditional's `required: [bus-type]` constraint, expressed under
-  `properties: { endpoint: {...} }`, doesn't match an `endpoint@N`
-  unit-addressed node and could in principle be bypassed. Checked
-  against mipi-ccs.yaml, an actively-maintained upstream binding that
-  requires bus-type (among other properties) via the exact same
-  `properties.endpoint.required` idiom with no patternProperties --
-  direct evidence this is accepted convention, not a defect, so no
-  fix was made.
+ASoC: fsl_asrc: expose individual DAIs per conversion path
 
-Changes in v4:
-- Drop port@2 (the HDMI connector input graph port) entirely: it
-  added no constraints beyond graph.yaml's generic endpoint-base, and
-  the driver doesn't use this graph port for anything schema-relevant,
-  so there was nothing for a consumer devicetree to usefully validate
-  against it. Found by the automated review of v3, which suggested
-  adding it to `required` instead -- dropping it entirely was judged
-  the better fix since the port carried no real constraints to begin
-  with.
-- Require bus-type on port@0/port@1 endpoints when compatible contains
-  "ite,it6626": the driver defaults to D-PHY when bus-type is omitted,
-  which is always correct for it6625 (D-PHY only) but would silently
-  misconfigure an it6626 board actually wired for C-PHY. Also found by
-  the automated review of v3.
+The i.MX ASRC hardware supports three independent conversion pairs. This
+commit replaces the single fsl_asrc_dai instance with an array of three DAI
+drivers to allow independent conversion paths to be active simultaneously,
+retaining backward compatibility for asrc-0.
 
-One other v3 review finding was checked and is not being acted on:
-- The plain `properties: { endpoint: {...} }` override used for each
-  port technically doesn't reach graph.yaml's separate
-  `patternProperties` matcher, so an `endpoint@0`-style node could in
-  principle bypass the local data-lanes/bus-type constraints. This is
-  the same convention already used by other single-endpoint-per-port
-  bindings in-tree (e.g. thine,thp7312.yaml), not a defect unique to
-  this binding.
+> diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
+> index 2755ee57c6a17..a5d6c4c1e9292 100644
+> --- a/sound/soc/fsl/fsl_asrc.c
+> +++ b/sound/soc/fsl/fsl_asrc.c
+[ ... ]
+> @@ -792,27 +792,76 @@ static const struct snd_soc_dai_ops fsl_asrc_dai_op=
+s =3D {
+>  				 SNDRV_PCM_FMTBIT_S16_LE | \
+>  				 SNDRV_PCM_FMTBIT_S24_3LE)
+> =20
+> -static struct snd_soc_dai_driver fsl_asrc_dai =3D {
+> -	.playback =3D {
+[ ... ]
+> +static struct snd_soc_dai_driver fsl_asrc_dai[] =3D {
+> +	{
+> +		.name =3D "asrc-0",
+> +		.playback =3D {
+> +			.stream_name =3D "ASRC-Playback",
+> +			.channels_min =3D 1,
+> +			.channels_max =3D 10,
+> +			.rate_min =3D 5512,
+> +			.rate_max =3D 192000,
+> +			.rates =3D SNDRV_PCM_RATE_KNOT,
+> +			.formats =3D FSL_ASRC_FORMATS |
+> +				   SNDRV_PCM_FMTBIT_S8,
+> +		},
+> +		.capture =3D {
+> +			.stream_name =3D "ASRC-Capture",
+> +			.channels_min =3D 1,
+> +			.channels_max =3D 10,
+> +			.rate_min =3D 5512,
+> +			.rate_max =3D 192000,
+> +			.rates =3D SNDRV_PCM_RATE_KNOT,
+> +			.formats =3D FSL_ASRC_FORMATS,
+> +		},
+> +		.ops =3D &fsl_asrc_dai_ops,
 
-Changes in v2:
-- Restrict port@0/port@1 endpoint bus-type to D-PHY (4) only when
-  compatible is "ite,it6625", via an allOf/if/then constraint. IT6625
-  only supports MIPI CSI-2 D-PHY output; the schema previously allowed
-  both C-PHY (1) and D-PHY (4) unconditionally, so a devicetree
-  claiming "ite,it6625" with bus-type = C-PHY passed schema validation
-  despite being invalid on that hardware. IT6626, which supports both
-  PHY types, is unaffected. Found by the sashiko.dev automated review
-  of v1.
----
- .../devicetree/bindings/media/i2c/ite,it6625.yaml  | 174 +++++++++++++++++++++
- 1 file changed, 174 insertions(+)
+[Severity: High]
+This is a pre-existing issue, but since this patch exposes multiple DAIs th=
+at
+share these operations, could calling hw_params multiple times on an open
+stream lead to a use-after-free?
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
-new file mode 100644
-index 0000000000000000000000000000000000000000..3899829036c6ba41f8f9c77908561c75ab4e3f6a
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
-@@ -0,0 +1,174 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/ite,it6625.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ITE IT6625/IT6626 HDMI to dual MIPI CSI-2 bridge
-+
-+maintainers:
-+  - Hermes Wu <Hermes.wu@ite.com.tw>
-+
-+description: |-
-+  The ITE IT6625 and IT6626 are HDMI to MIPI CSI-2 bridge devices.
-+  IT6625 supports an HDMI 2.0 input and converts it to one or two D-PHY CSI
-+  outputs, while IT6626 supports an HDMI 2.1 input and converts it to one or
-+  two C/D-PHY CSI outputs. The bridges are programmable through I2C and
-+  expose two selectable CSI-2 output ports and an HDMI input port. The
-+  bridge can operate in split mode or clone mode.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ite,it6625
-+      - ite,it6626
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    description:
-+      GPIO connected to the active-low reset line.
-+    maxItems: 1
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description: CSI-2 output port MIPI0
-+
-+        properties:
-+          endpoint:
-+            $ref: /schemas/media/video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+            properties:
-+              data-lanes:
-+                minItems: 1
-+                maxItems: 4
-+
-+              bus-type:
-+                enum:
-+                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-+                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-+
-+              clock-noncontinuous: true
-+              link-frequencies: true
-+
-+            required:
-+              - data-lanes
-+
-+      port@1:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description: CSI-2 output port MIPI1
-+
-+        properties:
-+          endpoint:
-+            $ref: /schemas/media/video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+            properties:
-+              data-lanes:
-+                minItems: 1
-+                maxItems: 4
-+
-+              bus-type:
-+                enum:
-+                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-+                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-+
-+              clock-noncontinuous: true
-+              link-frequencies: true
-+
-+            required:
-+              - data-lanes
-+
-+      port@2:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description: HDMI input port
-+
-+    required:
-+      - port@0
-+required:
-+  - compatible
-+  - reg
-+  - ports
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: ite,it6625
-+    then:
-+      properties:
-+        ports:
-+          properties:
-+            port@0:
-+              properties:
-+                endpoint:
-+                  properties:
-+                    bus-type:
-+                      const: 4
-+            port@1:
-+              properties:
-+                endpoint:
-+                  properties:
-+                    bus-type:
-+                      const: 4
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: ite,it6626
-+    then:
-+      properties:
-+        ports:
-+          properties:
-+            port@0:
-+              properties:
-+                endpoint:
-+                  required:
-+                    - bus-type
-+            port@1:
-+              properties:
-+                endpoint:
-+                  required:
-+                    - bus-type
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    i2c {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      hdmi-bridge@4c {
-+        compatible = "ite,it6625";
-+        reg = <0x4c>;
-+
-+        reset-gpios = <&gpio 2 GPIO_ACTIVE_LOW>;
-+
-+        ports {
-+          #address-cells = <1>;
-+          #size-cells = <0>;
-+
-+          port@0 {
-+            reg = <0>;
-+            csi_out0: endpoint {
-+              remote-endpoint = <&csi2_rx0>;
-+              bus-type = <4>; /* MEDIA_BUS_TYPE_CSI2_DPHY */
-+              data-lanes = <1 2 3 4>;
-+            };
-+          };
-+        };
-+      };
-+    };
+ALSA allows userspace to call SNDRV_PCM_IOCTL_HW_PARAMS multiple times.
+Looking at fsl_asrc_dai_hw_params(), it unconditionally requests a new pair:
 
--- 
-2.34.1
+sound/soc/fsl/fsl_asrc.c:fsl_asrc_dai_hw_params() {
+    ...
+	ret =3D fsl_asrc_request_pair(channels, pair);
+	if (ret) {
+    ...
+}
 
+In fsl_asrc_request_pair(), the loop finds the next NULL slot, skipping any
+slot that already contains the same pair pointer:
 
+sound/soc/fsl/fsl_asrc.c:fsl_asrc_request_pair() {
+    ...
+	for (i =3D ASRC_PAIR_A; i < ASRC_PAIR_MAX_NUM; i++) {
+		if (asrc->pair[i] !=3D NULL)
+			continue;
+
+		index =3D i;
+    ...
+}
+
+Does this populate multiple slots in asrc->pair[] with the same pointer whi=
+le
+overwriting pair->index with the newest index?=20
+
+If so, when the stream is closed, fsl_asrc_dma_shutdown() clears only the
+latest index before freeing the pair. Older slots might permanently retain
+pointers to the freed memory, leading to a use-after-free when fsl_asrc_isr=
+()
+or fsl_asrc_m2m_suspend() iterates over the pairs.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723022313.1905=
+051-1-shengjiu.wang@oss.nxp.com?part=3D4
