@@ -1,184 +1,124 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152B7355048
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 17:42:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4351FBEA6
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 17:42:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784828531; cv=none; b=EQq4N9cccHCbJ8isSIc4oPLLB4zfk6NhPCJ+kfX7a0+NxWlu4ZB9lcVOsfsDlJbWRSo2WD4EblR9lq6IfCr/JEKnYAiIU2kA+T4YUgkYj6Bi+JHmY2/ZFvQ0EXMINwPEIoJi+0jaZXgIOK9hibd7QUxJpxyDeZv4jVLQ5fcPZvg=
+	t=1784828550; cv=none; b=muBTuZSvdGlLMyuqEVkr+uBPOQkkMd2I7/7uC4cqnVfuroFX+h/NsWJis4IQ+OXD6hJ/ZWBbCOVaeOcnk+lD/kP4cb5VLesTfWcy9buzzVjZU1ViHsl6Ay1b8tDbklq7lYh0055xc2F7AgDrgC7HUHu8wRhdmKU4CU+Q/EWWikQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784828531; c=relaxed/simple;
-	bh=B/zNBgXVZyKUjBeBKaBVWmqIpKEITY2JufcS0MhbhV0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YK/IsmbgGZVQlOUrFgWykwrYvhyknK5LM04SobvCs0rhKn7PtuFwUExyzYMBKNjLWxk42z547Oj79D6kPkRpUVxOMb1oiou7ZQG2XGYroY+ri0sdqILCYUNrmnho3NRNnIR7iLFo1oxVjeXhte29KUaoKOFi3Oo5Ni7AuRTX8KU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gdy7sExc; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gdy7sExc"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49554ebb87dso9939555e9.3
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 10:42:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784828521; x=1785433321; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CvvOjkSIIOXtcwPEkIypGzvmNd95Ui/vslKtK/NZXXc=;
-        b=Gdy7sExcpmzbExrSQiSZfIHtWgQT6E/aHV7TDRtbj27i/i0u5D9bUKdqdXvNk7TXDo
-         RU0QyYMOyUnAn7nXPI67XN6XFS5/LK/nAFZRUhS9KdYZWs1K/aP1DrnYDd6Hkjd1dPau
-         1maBU7ugLDS4ik32bn20sd3Ch2Yex3Z0EB+8M2j8EWKobAg5xNWSodAuzLGo2Zl0ps1Z
-         gcjl7YVICoN0ukcPOXEWvkNyPKLKJpSH0XQCksspPCF5hWH8B5BLssEvPjYKqul5I2Bq
-         Kh8pellvWlv393Y1OTwVRSaNyRbq6u0mKkIlqzeYpErkIXwOIawMyS0ksQzzKjSGyt7P
-         8WxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784828521; x=1785433321;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=CvvOjkSIIOXtcwPEkIypGzvmNd95Ui/vslKtK/NZXXc=;
-        b=sI70+uU4tbJA+Ee7Aen2txDWMART0Ixs6VPVKqUB2sqaj8oYBMrenoQ1S3f8pnTxDO
-         TLrMpiDYbHuOohfNrIn3F/UYD9aWJpDQsF/JYndLB/xVsBWud9tIVUyDuIM1S1P/9724
-         nDTLWo9Yme373P0ipBer9oEGdO+y7akjp2cBYluhEcBnpP6ePzmfB/25SWL+ozaTOVpr
-         pwFgKnbPYSFWi3LpAIy1/7D2OuCw+tNOTfhjh+KMqchiPHs+3ksnTO5af/u+/TGzwiu/
-         CTHfPGQr8rmw/huqIxFOY1N+yN8+bAbk3+rnzn6ECP46cqoy+4pMbUC5Hub8/dJt6xOM
-         nBig==
-X-Forwarded-Encrypted: i=1; AHgh+RpOwR+UIGCqKqG9z3mTemjurtOMy+6b4jv9nWuesz5UInYdQc/RF1yGg4P0r+/PSPrWkUJa8Iyw91Uh@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw3VKbeAiwwpYVB5JEeRiy2kGjVwrHGZHoXnvF0WLYqnf1xfIdO
-	+J8VjP16ZieKoGY6k62yiI3kZGye8aKA/crgpQrBFxgaLPJu3o1CHLh3
-X-Gm-Gg: AR+sD13F4l5g3Ak8xPJPG1SUSxru4hsR/Dyr79KXMWQBNKRU1REr3S8XAFhkjAmPwEE
-	YbwozzpVlOfzadfQzCgkBgeP1yNoFos71N3S56RmkaCUCnTRX3IZPJoEz5MYInlyCkCbHARi79q
-	4tqAarlgN3Zyv4GG06cqi6BU5XPKcPbvaCk8wZQAhAwwbidw95biDTzWsT4PGYfjhpl6/Gf/ByI
-	ZW1wxJt/C81tsGcHo3U0lSqwYIISjJp4lohFetPVgnb7jwCFrQhrzJnzqzV91lh0Oi/gd3npwWF
-	Y5netJU25R5fb5vnDDprFdLp8D1dE0eyvwQJX30iANjw+86Hxb5SuRUZKHN/DFbhPh9dnQ9cfx7
-	0FZyJlCTRdPjLYFzbsaBpn0tzoiDt0Dx1PPXGZ9DDWNjtQSbCzadMtregeDpRjyXpXjzlCXcvSg
-	A2blqu
-X-Received: by 2002:a05:600c:4689:b0:492:6f6f:fa42 with SMTP id 5b1f17b1804b1-49573d37f29mr49484495e9.37.1784828520954;
-        Thu, 23 Jul 2026 10:42:00 -0700 (PDT)
-Received: from antoniarch ([78.212.250.35])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85bb5127sm16520989f8f.10.2026.07.23.10.41.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 10:42:00 -0700 (PDT)
-Date: Thu, 23 Jul 2026 19:40:36 +0200
-From: Antoni Pokusinski <apokusinski01@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, linux-rtc@vger.kernel.org, 
-	devicetree@vger.kernel.org, Alexandre Belloni <alexandre.belloni@bootlin.com>
-Subject: Re: [PATCH 2/6] rtc: abx80x: add irq to struct abx80x_priv
-Message-ID: <amJPSCvn_ufaDxvL@antoniarch>
-References: <20260722195814.298552-1-apokusinski01@gmail.com>
- <20260722195814.298552-3-apokusinski01@gmail.com>
- <20260722201354.3BDA11F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1784828550; c=relaxed/simple;
+	bh=x3GgjJezyxDhwMo0E0jc/GbjGqpZc1ErOHoiB9f78jU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Pzh4KY+3yl9J7vDV5bKoRvHuvlg8TO/C7Nj3re1VbuzsEkMd9VHBL6UdO4+iXvGz0HC4EowtPpXVqPT+uBtzFd4E5rplSr3H+ChYaAeulFpx0cp1exUsH1JIf142pYNdhzWNR1qf29Xz1M8ocd/bVTCkXJcewSs88oLfMZoKDGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E3061F000E9
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 17:42:29 +0000 (UTC)
+Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-497d3e4460aso716609b6e.1
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 10:42:29 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpY/1TVxsvgDctUwdCgyvueyJ0LUu1exYYQk3gMBnfjaqjVUi+ov367oadbPPhrMo4RxMhTrppOS1+u@vger.kernel.org
+X-Gm-Message-State: AOJu0YxCFnK3erf9b/L/9ZC2P2FRxFJ3Ost76tGy0TlZdmzrTSA9amNk
+	EMsvvikJFrSgIzOdYYqLudTtwysyeHx5nPtEdTtHShsiSapET+fB8kxE2HUqpBT//yYUQluyv3P
+	RvRAYRC6fhoutg7oZ9j/q1+HOclM0zkk=
+X-Received: by 2002:a05:6808:3190:b0:495:ca1b:7865 with SMTP id
+ 5614622812f47-4ab3842194fmr1564489b6e.11.1784828539225; Thu, 23 Jul 2026
+ 10:42:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260722201354.3BDA11F000E9@smtp.kernel.org>
+References: <20260722233604.3001063-1-utilityemal77@gmail.com> <20260722233604.3001063-5-utilityemal77@gmail.com>
+In-Reply-To: <20260722233604.3001063-5-utilityemal77@gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Fri, 24 Jul 2026 01:42:03 +0800
+X-Gmail-Original-Message-ID: <CAGb2v65zjkXyyrK5U62QsWEWSgG+9zuEKAi-Ekxd5OehBVXTWg@mail.gmail.com>
+X-Gm-Features: AUfX_my2HTBZkhl39VV1Ephb61n1qX3oao7Ket2MbKBRA-ze570sxZ63vDegmvs
+Message-ID: <CAGb2v65zjkXyyrK5U62QsWEWSgG+9zuEKAi-Ekxd5OehBVXTWg@mail.gmail.com>
+Subject: Re: [PATCH v3 4/4] arm64: dts: allwinner: a523: enable IR on the
+ Avaota A1
+To: Justin Suess <utilityemal77@gmail.com>
+Cc: Sean Young <sean@mess.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Maxime Ripard <mripard@kernel.org>, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, Sashiko <sashiko-bot@kernel.org>, 
+	Andre Przywara <andre.przywara@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 22, 2026 at 08:13:53PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> 
-> Pre-existing issues:
-> - [High] The shared IRQ handler unconditionally returns IRQ_HANDLED and inadvertently clears all status bits.
-> - [High] The `abx80x_read_alarm` function fails unconditionally on success due to incorrect error checking.
+On Thu, Jul 23, 2026 at 7:36=E2=80=AFAM Justin Suess <utilityemal77@gmail.c=
+om> wrote:
+>
+> From: Andre Przywara <andre.przywara@arm.com>
+>
+> The Avaota A1 board has an IR receiver chip on the PCB (next to the
+> Ethernet jacks), wired to the PI8 pin on the SoC.
+>
+> Add the pin description to the PIO DT node, and enable the CIR receiver
+> in the main power domain.
+>
+> Tested on the board with evtest and some random TV remote control.
+>
+> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+
+You need to add your own Signed-off-by, since you are resending other
+people's work.
+
+ChenYu
+
+
+> ---
+>  arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi          | 7 +++++++
+>  arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts | 6 ++++++
+>  2 files changed, 13 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/=
+boot/dts/allwinner/sun55i-a523.dtsi
+> index c2de662140ce..219fd76a4710 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+> +++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+> @@ -155,6 +155,13 @@ i2s2_pi_pins: i2s2-pi-pins {
+>                                 bias-disable;
+>                         };
+>
+> +                       /omit-if-no-ref/
+> +                       ir_rx_pin: ir-rx-pin {
+> +                               pins =3D "PI8";
+> +                               allwinner,pinmux =3D <3>;
+> +                               function =3D "cir_rx";
+> +                       };
+> +
+
+This hunk should be in the .dtsi patch. And there are two pin mux
+possibilities for ir-rx. Please name it accordingly, like "ir-rx-pi-pin".
+
+ChenYu
+
+>                         /omit-if-no-ref/
+>                         ledc_ph_pin: ledc-ph-pin {
+>                                 pins =3D "PH19";
+> diff --git a/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts b/ar=
+ch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts
+> index 474354fbfcec..994f1e4f0ce7 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts
+> +++ b/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts
+> @@ -100,6 +100,12 @@ &gpu {
+>         status =3D "okay";
+>  };
+>
+> +&ir {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&ir_rx_pin>;
+> +       status =3D "okay";
+> +};
+> +
+>  &ledc {
+>         pinctrl-names =3D "default";
+>         pinctrl-0 =3D <&ledc_ph_pin>;
 > --
-> 
-> --- Patch [2]: [PATCH 2/6] rtc: abx80x: add irq to struct abx80x_priv ---
-> commit ccef71986338cc749e8440b88d073968d465ea5c
-> Author: Antoni Pokusinski <apokusinski01@gmail.com>
-> 
-> rtc: abx80x: add irq to struct abx80x_priv
->     
-> This patch moves the irq number into struct abx80x_priv so that it
-> is no longer tied to the i2c_client. This allows the irq number to
-> be accessed in the case of ABX81X SPI clocks.
-> 
-> > diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-> > index 5486d9d0b1e5d..9b0e1d48d9ba3 100644
-> > --- a/drivers/rtc/rtc-abx80x.c
-> > +++ b/drivers/rtc/rtc-abx80x.c
-> [ ... ]
-> > @@ -285,11 +286,12 @@ static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
-> >  static int abx80x_read_alarm(struct device *dev, struct rtc_wkalrm *t)
-> >  {
-> >  	struct i2c_client *client = to_i2c_client(dev);
-> > +	struct abx80x_priv *priv = i2c_get_clientdata(client);
-> >  	unsigned char buf[7];
-> >  
-> >  	int irq_mask, err;
-> >  
-> > -	if (client->irq <= 0)
-> > +	if (priv->irq <= 0)
-> >  		return -EINVAL;
-> >  
-> >  	err = i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_ASC,
-> 
-> [Severity: High]
-> This is a pre-existing issue, but doesn't i2c_smbus_read_i2c_block_data() 
-> return the number of bytes read on success?
-> 
-> Looking at drivers/rtc/rtc-abx80x.c:abx80x_read_alarm():
-> 
-> 	err = i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_ASC,
-> 					    sizeof(buf), buf);
-> 	if (err)
-> 		return err;
-> 
-> Since it returns 7 on success, will this unconditionally fail and return
-> early with an error code, leaving the alarm structure uninitialized?
-> 
-> [ ... ]
-True but this is fixed in one of the subsequent patches where the
-regmap usage is introduced.
-
-> > @@ -921,19 +925,19 @@ static int abx80x_probe(struct i2c_client *client)
-> >  	if (err)
-> >  		return err;
-> >  
-> > -	if (client->irq > 0) {
-> > -		dev_info(&client->dev, "IRQ %d supplied\n", client->irq);
-> > -		err = devm_request_threaded_irq(&client->dev, client->irq, NULL,
-> > +	if (priv->irq > 0) {
-> > +		dev_info(&client->dev, "IRQ %d supplied\n", priv->irq);
-> > +		err = devm_request_threaded_irq(&client->dev, priv->irq, NULL,
-> >  						abx80x_handle_irq,
-> >  						IRQF_SHARED | IRQF_ONESHOT,
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but since the IRQ is registered
-> here with IRQF_SHARED, does abx80x_handle_irq() correctly handle shared
-> interrupts?
-> 
-> Looking at drivers/rtc/rtc-abx80x.c:abx80x_handle_irq():
-> 
-> static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
-> {
-> 	[ ... ]
-> 	status = i2c_smbus_read_byte_data(client, ABX8XX_REG_STATUS);
-> 	if (status < 0)
-> 		return IRQ_NONE;
-> 	[ ... ]
-> 	i2c_smbus_write_byte_data(client, ABX8XX_REG_STATUS, 0);
-> 
-> 	return IRQ_HANDLED;
-> }
-> 
-> If no relevant interrupt flags are set for this device, it still returns
-> IRQ_HANDLED and writes 0 to ABX8XX_REG_STATUS, clearing all status bits
-> including non-IRQ bits like BLF. Can this break other devices sharing the
-> interrupt line and silently drop hardware status flags?
-> 
-Yeah so this looks like a genuine bug and should be fixed in a separate
-patch I guess. In REG_STATUS we should only clear the bits AF or WDT if
-they were set.
-
-> >  						"abx8xx",
-> >  						client);
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260722195814.298552-1-apokusinski01@gmail.com?part=2
+> 2.54.0
+>
