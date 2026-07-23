@@ -1,181 +1,304 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FFE043BDD9
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 13:37:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F91374A1B;
+	Thu, 23 Jul 2026 13:43:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784813840; cv=none; b=V4eYYBoTNqlUx4bh3Us9pBz8BG6Ven92p5PIaW7ud5Owo/apkSPRfnIEsSoQgZtuZb48xlp9taesoaQkXJK36fbIRDhZC6wZlgiaHGAOBD1t5RFY/rCmEfPGVCgQW2rhZl56Z0RpoVlSIkt1WYQYBzhVoQQZw169dzCgOm/c0AI=
+	t=1784814210; cv=none; b=aO8rLMqV1jZ8IJCI9RKvbCdFJgevm1GQ8KMVclXkMGVrmMXweXoo33WLFDMyEugYQ0ztxuuSMfRAdQr8kUX/90n0D1gVY5C2tvJJsCtWu5MdjRa8LYAWPhhc7OGVlVprGjbq7s6FF3MVDcab5oVkV9Jaz/P24V72ypJTAM+DFE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784813840; c=relaxed/simple;
-	bh=cX5RyP25LLZ1Jg13iKUkAoxbJ9vy0x/xpbeWmaWKPPY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fCosXyiJPYLbBjW8I1I2iAfkrUGgw/pKRzyS0GOsCtmSaSi+25VRXkjjgnvDIT19RuDBV2TvGH0CEwkEalQp/4Ga9irJaXBAhcLjmcUqjVntKJr9vJb4dr/Uu14FMvBErBfVBX76jawIopwqmZGh1TVJbxxurZ4cYeNol/VQP0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SRGYiamr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cdybesjm; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784814210; c=relaxed/simple;
+	bh=v80uD4b7lDo1ZZ8CZQ+WcFKZgM4jqAZbGuCR6HE8K6c=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=LtcIs8/Zsxyox2T361pZD/JFLaCaJGmHLLnb7GSmN1nCFmhSrou04G0i4H37fzRO3mLmJbEEVYJrF0cusPledXgFKVVNUpt1iu/VwE5XATL4mL5dSt5xXrfjVuPyrutLEkOqc3EEsJBotZ8fl3v1KZ+S2fbt7sX16Vr7MmomDgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=J/8dQVGG; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SRGYiamr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cdybesjm"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66NCvRSR4078246
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 13:37:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	gHslaQdrIxXhoR6CTG+3KawG4L5eFPme/pRlS9V9GnI=; b=SRGYiamrXt0hgCk+
-	WNnhRI8ZmDZgtZWVqW1gXz7GYyfDCE+Bwv0tbm94DH9CenByUSzUOayLRpZPEByi
-	ObtqjIBg+Fu3WMkfH9hGp/12ej9FnHHk6rLTwHpn/Qbk2afuBbsKCsb46Ufqs9GV
-	nNZgYZxcGHmZdOWD29oxeLnjVl2GV17+ivdpU1RqCKUdP6t1H9ZOZ2ZPl6QsvdOx
-	3j8kW/6hckJUjTegwZ90PGymHVM207khRlCOcFcNgQ3CBR6ePJpeeNtscXxIjT8r
-	bfPedFnEKprcj0f+eb/Z/HWS3P/7KK2RVvy+IPCsxDr4sHZoNWB6LjFWL7pFir/s
-	MTqFIw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fkg52116a-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 13:37:10 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92e57e56ce9so15539285a.3
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 06:37:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784813830; x=1785418630; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gHslaQdrIxXhoR6CTG+3KawG4L5eFPme/pRlS9V9GnI=;
-        b=cdybesjmOignIavR+if/HB41IMZVrYiCnY8YeIkNUcNk3Z9TkNAJtlRVYSxU8HkhPy
-         3j0v0z6fEgVGifrpPQzTu+ZCSNgARgiS7whZvkDN2AftVkssoSWELnvPLvEVI7x82c8i
-         /EoBA0ia2S376UkHeZKtIy34vzZ4/oM9avYVXQarIFgScFg/H/v9dNuEvVaibZBBF7gy
-         asMNt6cPOXM//80mSFZULzfjOQgfYybvcjT5WSvzsQIs/hyjIzC+zAxnEMc0HHi0I8Qb
-         kEFiuuJrsPhEa/r4FBAomMDOu9dTQvFdTRbMIBsRUkpG80v0aVIg16E1HGcQEmDvjY5r
-         k3qQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784813830; x=1785418630;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gHslaQdrIxXhoR6CTG+3KawG4L5eFPme/pRlS9V9GnI=;
-        b=DDx46QJdWZh2+/yOTP2MpzWiuEeqRlrva10OdmcDb4PQbh9CXgxASOOZ3honiyZP/0
-         CBiEsh1dVObwZbOgTUlpP24q+foC3V5Ducjfy+nV7BINsxetvFxGMxmbB+qoeUAHY3gI
-         6M8F5VzieRYdezls5EvhjH+5mYMSgO15tx/Ie08QhiuurhACQJq3rA4yf0Ao31G+solM
-         gJuxm2+ebluX1DQHTwlyJU9Omhjq9TJIeA/hZCDCNXRac2yQhhmzHB5FRF3aQzyrZkM9
-         K5O9ZEz8KlypARdIe6AKJliRCRkyBulwtPlFnUfGwX11BIfPQheJ0rtjKW+TFhwb72fF
-         sKZQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rr/hLkRYC0SVnFASR9ee3gUh08AKtM6AeEDdS8P+5izQ2BsMijJxQyIrxm92dsaNmHfsd4Qi9FrO1ab@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw536MBZ+VGr9H5CG27ygzEIY+YCkY5F9Yu1olULHNDDMQbD0bS
-	K8plSMp98BHTCkOoAwmUtPSl3Qp9/yZeXf+iLH+02sjQg2uvMJWRXVNN0i2/wSfAYyKe44FlE0d
-	Q6VkedW7IinJYG+0HhZO7Z0iyW6qhGV0M0m9Irf74McPlEhhoNxTew0ipEC3uvTdR
-X-Gm-Gg: AR+sD10QUzcUpMwix7w+xwIu1P/DrUBMXu7IIA7tdDHQhY0G7zdj+5ShJErQWvEm9ue
-	R0SpUikw6xuiGbSM2VUP3EtknmQduhUBj5MpbMFlYMs6ByOqxYnV6rVqz4+88l9kMLrs5R5QGRi
-	mTtFuRa4nOl7WFm/efwN6DBL3lMg6dzqdz0uN/nkI2k4DkaATyap0Ojk08ohC5VUwInxn6MmQ3p
-	UJzptGFFOF2lrjLzm2SvCZFgb64px62bNFTIyHuo802Ow9eNCuQZto6PBfmH/lpw4xr9tQQrYfC
-	iSMmcDyfznV7fcIjCSMVHvi10G3W3ro6Yo+327UPURdWPMzgqlqiFx505SRMtiPFAWO4xkgwuS3
-	6yhsrIy469UXcYoL8L0p+i9MN
-X-Received: by 2002:ac8:5a4b:0:b0:51a:d45e:638d with SMTP id d75a77b69052e-5284750cb61mr5096771cf.8.1784813829677;
-        Thu, 23 Jul 2026 06:37:09 -0700 (PDT)
-X-Received: by 2002:ac8:5a4b:0:b0:51a:d45e:638d with SMTP id d75a77b69052e-5284750cb61mr5096461cf.8.1784813829187;
-        Thu, 23 Jul 2026 06:37:09 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32f19c4csm231706066b.63.2026.07.23.06.37.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 23 Jul 2026 06:37:08 -0700 (PDT)
-Message-ID: <fb8d3a44-0792-4420-aee6-e7559eb9ab70@oss.qualcomm.com>
-Date: Thu, 23 Jul 2026 15:37:05 +0200
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="J/8dQVGG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1784814208; x=1816350208;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=v80uD4b7lDo1ZZ8CZQ+WcFKZgM4jqAZbGuCR6HE8K6c=;
+  b=J/8dQVGGOpSLc75MKLliIbibnlujrjEOMUDXe2lhTATK/0B4tLX/gyWn
+   Kcyo/lbLIvJt/Y+0bAg4iW5kr8YOuAX86C31Rli0c4fXJDRzWR8TvgJwf
+   yTsGBfEMltpdDBDAturTe1EbFosahKxFjcHjuq31Um9GvbbOIZy8y1d43
+   mmo3NtDiKGW/HwgWk7L8WYLw6m6Kej4BNobGtKxXO7IIEoqinMWF/mQw6
+   HDzvE6RWQAkGFMYINtM4JyhT5/WHXMmmJKDCcJsYv5fau4heeCkrxG5Ol
+   cK4hFXiVL4G326h9HvNnIlQy2p07JYVkvngu9dYja6wOdWNMkxC7uM2zp
+   Q==;
+X-CSE-ConnectionGUID: m51XtFLyRmaRG/OPKFJiNA==
+X-CSE-MsgGUID: PCPBaPkAQdSxFQNSXwQkIQ==
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; 
+   d="scan'208";a="61061914"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 23 Jul 2026 06:43:27 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Thu, 23 Jul 2026 06:43:25 -0700
+Received: from [127.0.1.1] (10.10.85.11) by chn-vm-ex01.mchp-main.com
+ (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Thu, 23 Jul 2026 06:43:22 -0700
+From: Ariana Lazar <ariana.lazar@microchip.com>
+Date: Thu, 23 Jul 2026 16:43:12 +0300
+Subject: [PATCH 3/3] iio: dac: add support for Microchip MCP48FEB02
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dmaengine: qcom: bam_dma: SCM-assign descriptor FIFOs
- to a remote VMID
-To: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
-        Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        chris.lew@oss.qualcomm.com,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-References: <20260714-qcom-bam-dma-vmid-ext-v1-0-cef87c57b7dc@oss.qualcomm.com>
- <20260714-qcom-bam-dma-vmid-ext-v1-2-cef87c57b7dc@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260714-qcom-bam-dma-vmid-ext-v1-2-cef87c57b7dc@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=DtZmPm/+ c=1 sm=1 tr=0 ts=6a621906 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=jWf9ImQ_av2cyXA2soUA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDEzNCBTYWx0ZWRfX0cfoKxwl6Qly
- wfcxG77ohwWoWQISK+n37k/aSh1D5VY5sszJLVDN5aF8zfcJhgcTc9aBp5l6lbrHaqN49f/8Sou
- BRbwhZQ1Ht10ciIDM9/NGJmLHgJk+5E=
-X-Proofpoint-GUID: lp3k43v8YTIgTvXoETOLxmfXlgWcHb4-
-X-Proofpoint-ORIG-GUID: lp3k43v8YTIgTvXoETOLxmfXlgWcHb4-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDEzNCBTYWx0ZWRfX17mMwlG8TV2V
- szVlnPlt0JJrba/+LYkJQB84XEbBFSKvQ9cjb/NmmR1QENcgomhCzm2rmeT8U3is5dpoGWlN5Eg
- MFGB9gx4xNWh9N2E0wH2q6Qknechg+Mhgvc0y6/LuSiFbsaVD1ipuWPEflqjfrfiXQeT/d0yD62
- N2ViwjIofx/C4DpuwKiWxB6EFa/imv9e1DsgomM80xBlhuAl7ag8jSYEzk2sxIWY31BgntHqVwD
- QtV9+ac4x3u/jWpgCvFEHbd/bFAQU/KVaPdZ/8otVe1QvCrbLBTsevhovdwgukYhJvLVyQFFLsl
- munEfrpSknDkbKNAprShmnrp2806xRpTVsGXnAUMGDflq/VhU9q8js/ccXMjevuIsqX5e8S0bEE
- W+WUqDTQngy4qbXmmvpSPIV5ddRMPQSXnfCGtDx7bNulREOiqYPyMPYP/HdjaIQIW31f8Dajfm4
- kmkBPe2hO9u6hToG6pA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-23_04,2026-07-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015 bulkscore=0
- adultscore=0 suspectscore=0 malwarescore=0 phishscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607230134
+Message-ID: <20260723-mcp47feb02_refactor-v1-3-ee59e63672bc@microchip.com>
+References: <20260723-mcp47feb02_refactor-v1-0-ee59e63672bc@microchip.com>
+In-Reply-To: <20260723-mcp47feb02_refactor-v1-0-ee59e63672bc@microchip.com>
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
+ Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <linux-iio@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, Ariana Lazar <ariana.lazar@microchip.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784814192; l=10545;
+ i=ariana.lazar@microchip.com; s=20250825; h=from:subject:message-id;
+ bh=v80uD4b7lDo1ZZ8CZQ+WcFKZgM4jqAZbGuCR6HE8K6c=;
+ b=VsqD8eRoMFgrdCQFNKJ6/xypiEBCgRopGnsGyn57LiFsdJpJO6RtKBO5FQI8s8z0ULIgswzeD
+ u74Thu6VCDwCi9r+MHt+R3v2FFxsKVVpi3/Mlh15tDckEhn8T8IjddI
+X-Developer-Key: i=ariana.lazar@microchip.com; a=ed25519;
+ pk=jmvf1fSxcnzZmXfITM3L94IwutM+wqA1POQHiYyD6Dk=
 
-On 7/14/26 7:00 AM, Vishnu Santhosh wrote:
-> On Qualcomm SoCs where the BAM is powered by a remote processor that
-> enforces XPU access control (e.g. the mDSP on Shikra, VMID 43 / NAV),
-> the BAM reads the descriptor FIFO as an AXI master under the remote
-> execution environment. Without an SCM grant for the remote VMID, the
-> first descriptor enqueue faults with an XPU violation.
+This is the iio driver for Microchip MCP48FxBy1/2/4/8 series of
+buffered voltage output Digital-to-Analog Converters with nonvolatile or
+volatile memory and an SPI Interface.
 
-[...]
+The families support up to 8 output channels.
 
-> +	ret = of_property_read_u32_array(dev->of_node, "qcom,vmid",
-> +					 bdev->vmids, n);
-> +	if (ret)
-> +		return ret;
-> +
-> +	for (i = 0; i < n; i++) {
-> +		if (bdev->vmids[i] == QCOM_SCM_VMID_HLOS) {
-> +			dev_err(dev, "qcom,vmid must not include HLOS (%u)\n",
-> +				QCOM_SCM_VMID_HLOS);
-> +			return -EINVAL;
-> +		}
-> +	}
+The devices can be 8-bit, 10-bit and 12-bit.
 
-Please switch to device_property_ instead
+Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+---
+ MAINTAINERS                      |   1 +
+ drivers/iio/dac/Kconfig          |  23 ++++++
+ drivers/iio/dac/Makefile         |   1 +
+ drivers/iio/dac/mcp47feb02-spi.c | 146 +++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 171 insertions(+)
 
-[...]
+diff --git a/MAINTAINERS b/MAINTAINERS
+index fc87609865f26a9f484edc42058f7df659a0fa4f..b2ffcc0161ba0d147df35558312cbf99052ed13e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -16120,6 +16120,7 @@ S:	Supported
+ F:	Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
+ F:	drivers/iio/dac/mcp47feb02-core.c
+ F:	drivers/iio/dac/mcp47feb02-i2c.c
++F:	drivers/iio/dac/mcp47feb02-spi.c
+ F:	drivers/iio/dac/mcp47feb02.h
+ 
+ MCP4821 DAC DRIVER
+diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
+index cc10d43ffd1e89bbf945ef89ea5af0abe1a91084..d941f78f7110b185fee6f025be829bae1e4534da 100644
+--- a/drivers/iio/dac/Kconfig
++++ b/drivers/iio/dac/Kconfig
+@@ -575,6 +575,29 @@ config MCP47FEB02_I2C
+ 	  will be called mcp47feb02_i2c and you will also get
+ 	  mcp47feb02_core for the core module.
+ 
++config MCP47FEB02_SPI
++	tristate "MCP48F(E/V)B01/02/04/08/11/12/14/18/21/22/24/28 SPI DAC driver"
++	depends on SPI
++	select REGMAP_SPI
++	select MCP47FEB02
++	help
++	  Say yes here if you want to build the driver for the Microchip:
++	  - 8-bit DAC:
++	    MCP48FEB01, MCP48FEB02, MCP48FEB04, MCP48FEB08,
++	    MCP48FVB01, MCP48FVB02, MCP48FVB04, MCP48FVB08
++	  - 10-bit DAC:
++	    MCP48FEB11, MCP48FEB12, MCP48FEB14, MCP48FEB18,
++	    MCP48FVB11, MCP48FVB12, MCP48FVB14, MCP48FVB18
++	  - 12-bit DAC:
++	    MCP48FEB21, MCP48FEB22, MCP48FEB24, MCP48FEB28,
++	    MCP48FVB21, MCP48FVB22, MCP48FVB24, MCP48FVB28
++	  having 1 to 8 channels, 8/10/12-bit digital-to-analog converter
++	  (DAC) with SPI interface.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called mcp47feb02_spi and you will also get
++	  mcp47feb02_core for the core module.
++
+ config MCP4821
+ 	tristate "MCP4801/02/11/12/21/22 DAC driver"
+ 	depends on SPI
+diff --git a/drivers/iio/dac/Makefile b/drivers/iio/dac/Makefile
+index 28c8646a987cff1ac4d693fe86898d66c901d5bd..9903198b934e8b66a4ea6562b662d8073ed9cc59 100644
+--- a/drivers/iio/dac/Makefile
++++ b/drivers/iio/dac/Makefile
+@@ -56,6 +56,7 @@ obj-$(CONFIG_MCP4725) += mcp4725.o
+ obj-$(CONFIG_MCP4728) += mcp4728.o
+ obj-$(CONFIG_MCP47FEB02) += mcp47feb02-core.o
+ obj-$(CONFIG_MCP47FEB02_I2C) += mcp47feb02-i2c.o
++obj-$(CONFIG_MCP47FEB02_SPI) += mcp47feb02-spi.o
+ obj-$(CONFIG_MCP4821) += mcp4821.o
+ obj-$(CONFIG_MCP4922) += mcp4922.o
+ obj-$(CONFIG_STM32_DAC_CORE) += stm32-dac-core.o
+diff --git a/drivers/iio/dac/mcp47feb02-spi.c b/drivers/iio/dac/mcp47feb02-spi.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..4395d49405dd818dac5a411257e84ca8bfd5deec
+--- /dev/null
++++ b/drivers/iio/dac/mcp47feb02-spi.c
+@@ -0,0 +1,146 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * IIO driver for MCP48FEB02 Multi-Channel DAC with SPI interface
++ *
++ * Copyright (C) 2026 Microchip Technology Inc. and its subsidiaries
++ *
++ * Author: Ariana Lazar <ariana.lazar@microchip.com>
++ *
++ * Datasheet links for devices with SPI interface:
++ * [MCP48FEBxx] https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/20005429B.pdf
++ * [MCP48FVBxx] https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/20005466A.pdf
++ * [MCP48FxBx4/8] https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/MCP48FXBX4-8-Family-Data-Sheet-DS20006362A.pdf
++ */
++#include <linux/device.h>
++#include <linux/err.h>
++#include <linux/export.h>
++#include <linux/module.h>
++#include <linux/mod_devicetable.h>
++#include <linux/pm.h>
++#include <linux/regmap.h>
++#include <linux/spi/spi.h>
++
++#include "mcp47feb02.h"
++
++/* Parts with EEPROM memory */
++MCP47FEB02_CHIP_INFO(mcp48feb01, 1, 8,  false, true);
++MCP47FEB02_CHIP_INFO(mcp48feb02, 2, 8,  false, true);
++MCP47FEB02_CHIP_INFO(mcp48feb04, 4, 8,  true,  true);
++MCP47FEB02_CHIP_INFO(mcp48feb08, 8, 8,  true,  true);
++MCP47FEB02_CHIP_INFO(mcp48feb11, 1, 10, false, true);
++MCP47FEB02_CHIP_INFO(mcp48feb12, 2, 10, false, true);
++MCP47FEB02_CHIP_INFO(mcp48feb14, 4, 10, true,  true);
++MCP47FEB02_CHIP_INFO(mcp48feb18, 8, 10, true,  true);
++MCP47FEB02_CHIP_INFO(mcp48feb21, 1, 12, false, true);
++MCP47FEB02_CHIP_INFO(mcp48feb22, 2, 12, false, true);
++MCP47FEB02_CHIP_INFO(mcp48feb24, 4, 12, true,  true);
++MCP47FEB02_CHIP_INFO(mcp48feb28, 8, 12, true,  true);
++
++/* Parts without EEPROM memory */
++MCP47FEB02_CHIP_INFO(mcp48fvb01, 1, 8,  false, false);
++MCP47FEB02_CHIP_INFO(mcp48fvb02, 2, 8,  false, false);
++MCP47FEB02_CHIP_INFO(mcp48fvb04, 4, 8,  true,  false);
++MCP47FEB02_CHIP_INFO(mcp48fvb08, 8, 8,  true,  false);
++MCP47FEB02_CHIP_INFO(mcp48fvb11, 1, 10, false, false);
++MCP47FEB02_CHIP_INFO(mcp48fvb12, 2, 10, false, false);
++MCP47FEB02_CHIP_INFO(mcp48fvb14, 4, 10, true,  false);
++MCP47FEB02_CHIP_INFO(mcp48fvb18, 8, 10, true,  false);
++MCP47FEB02_CHIP_INFO(mcp48fvb21, 1, 12, false, false);
++MCP47FEB02_CHIP_INFO(mcp48fvb22, 2, 12, false, false);
++MCP47FEB02_CHIP_INFO(mcp48fvb24, 4, 12, true,  false);
++MCP47FEB02_CHIP_INFO(mcp48fvb28, 8, 12, true,  false);
++
++static int mcp47feb02_spi_probe(struct spi_device *spi)
++{
++	const struct mcp47feb02_features *chip_features;
++	struct device *dev = &spi->dev;
++	struct regmap *regmap;
++
++	chip_features = spi_get_device_match_data(spi);
++	if (!chip_features)
++		return -EINVAL;
++
++	if (chip_features->have_eeprom)
++		regmap = devm_regmap_init_spi(spi, &mcp47feb02_regmap_config);
++	else
++		regmap = devm_regmap_init_spi(spi, &mcp47fvb02_regmap_config);
++
++	if (IS_ERR(regmap))
++		return dev_err_probe(dev, PTR_ERR(regmap), "Error initializing SPI regmap\n");
++
++	return mcp47feb02_common_probe(chip_features, regmap);
++}
++
++static const struct spi_device_id mcp47feb02_spi_id[] = {
++	{ "mcp48feb01", (kernel_ulong_t)&mcp48feb01_chip_features },
++	{ "mcp48feb02", (kernel_ulong_t)&mcp48feb02_chip_features },
++	{ "mcp48feb04", (kernel_ulong_t)&mcp48feb04_chip_features },
++	{ "mcp48feb08", (kernel_ulong_t)&mcp48feb08_chip_features },
++	{ "mcp48feb11", (kernel_ulong_t)&mcp48feb11_chip_features },
++	{ "mcp48feb12", (kernel_ulong_t)&mcp48feb12_chip_features },
++	{ "mcp48feb14", (kernel_ulong_t)&mcp48feb14_chip_features },
++	{ "mcp48feb18", (kernel_ulong_t)&mcp48feb18_chip_features },
++	{ "mcp48feb21", (kernel_ulong_t)&mcp48feb21_chip_features },
++	{ "mcp48feb22", (kernel_ulong_t)&mcp48feb22_chip_features },
++	{ "mcp48feb24", (kernel_ulong_t)&mcp48feb24_chip_features },
++	{ "mcp48feb28", (kernel_ulong_t)&mcp48feb28_chip_features },
++	{ "mcp48fvb01", (kernel_ulong_t)&mcp48fvb01_chip_features },
++	{ "mcp48fvb02", (kernel_ulong_t)&mcp48fvb02_chip_features },
++	{ "mcp48fvb04", (kernel_ulong_t)&mcp48fvb04_chip_features },
++	{ "mcp48fvb08", (kernel_ulong_t)&mcp48fvb08_chip_features },
++	{ "mcp48fvb11", (kernel_ulong_t)&mcp48fvb11_chip_features },
++	{ "mcp48fvb12", (kernel_ulong_t)&mcp48fvb12_chip_features },
++	{ "mcp48fvb14", (kernel_ulong_t)&mcp48fvb14_chip_features },
++	{ "mcp48fvb18", (kernel_ulong_t)&mcp48fvb18_chip_features },
++	{ "mcp48fvb21", (kernel_ulong_t)&mcp48fvb21_chip_features },
++	{ "mcp48fvb22", (kernel_ulong_t)&mcp48fvb22_chip_features },
++	{ "mcp48fvb24", (kernel_ulong_t)&mcp48fvb24_chip_features },
++	{ "mcp48fvb28", (kernel_ulong_t)&mcp48fvb28_chip_features },
++	{ }
++};
++MODULE_DEVICE_TABLE(spi, mcp47feb02_spi_id);
++
++static const struct of_device_id mcp47feb02_of_spi_match[] = {
++	{ .compatible = "microchip,mcp48feb01", .data = &mcp48feb01_chip_features },
++	{ .compatible = "microchip,mcp48feb02", .data = &mcp48feb02_chip_features },
++	{ .compatible = "microchip,mcp48feb04", .data = &mcp48feb04_chip_features },
++	{ .compatible = "microchip,mcp48feb08", .data = &mcp48feb08_chip_features },
++	{ .compatible = "microchip,mcp48feb11", .data = &mcp48feb11_chip_features },
++	{ .compatible = "microchip,mcp48feb12", .data = &mcp48feb12_chip_features },
++	{ .compatible = "microchip,mcp48feb14", .data = &mcp48feb14_chip_features },
++	{ .compatible = "microchip,mcp48feb18", .data = &mcp48feb18_chip_features },
++	{ .compatible = "microchip,mcp48feb21", .data = &mcp48feb21_chip_features },
++	{ .compatible = "microchip,mcp48feb22", .data = &mcp48feb22_chip_features },
++	{ .compatible = "microchip,mcp48feb24", .data = &mcp48feb24_chip_features },
++	{ .compatible = "microchip,mcp48feb28", .data = &mcp48feb28_chip_features },
++	{ .compatible = "microchip,mcp48fvb01", .data = &mcp48fvb01_chip_features },
++	{ .compatible = "microchip,mcp48fvb02", .data = &mcp48fvb02_chip_features },
++	{ .compatible = "microchip,mcp48fvb04", .data = &mcp48fvb04_chip_features },
++	{ .compatible = "microchip,mcp48fvb08", .data = &mcp48fvb08_chip_features },
++	{ .compatible = "microchip,mcp48fvb11", .data = &mcp48fvb11_chip_features },
++	{ .compatible = "microchip,mcp48fvb12", .data = &mcp48fvb12_chip_features },
++	{ .compatible = "microchip,mcp48fvb14",	.data = &mcp48fvb14_chip_features },
++	{ .compatible = "microchip,mcp48fvb18", .data = &mcp48fvb18_chip_features },
++	{ .compatible = "microchip,mcp48fvb21", .data = &mcp48fvb21_chip_features },
++	{ .compatible = "microchip,mcp48fvb22", .data = &mcp48fvb22_chip_features },
++	{ .compatible = "microchip,mcp48fvb24", .data = &mcp48fvb24_chip_features },
++	{ .compatible = "microchip,mcp48fvb28", .data = &mcp48fvb28_chip_features },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, mcp47feb02_of_spi_match);
++
++static struct spi_driver mcp47feb02_spi_driver = {
++	.driver = {
++		.name	= "mcp47feb02",
++		.of_match_table = mcp47feb02_of_spi_match,
++		.pm	= pm_sleep_ptr(&mcp47feb02_pm_ops),
++	},
++	.probe		= mcp47feb02_spi_probe,
++	.id_table	= mcp47feb02_spi_id,
++};
++module_spi_driver(mcp47feb02_spi_driver);
++
++MODULE_AUTHOR("Ariana Lazar <ariana.lazar@microchip.com>");
++MODULE_DESCRIPTION("IIO driver for MCP48FEB02 Multi-Channel DAC with SPI interface");
++MODULE_LICENSE("GPL");
++MODULE_IMPORT_NS("IIO_MCP47FEB02");
 
-> +static int bam_assign_fifo(struct bam_device *bdev, struct bam_chan *bchan)
-> +{
-> +	struct qcom_scm_vmperm *dst __free(kfree) = NULL;
-> +	u64 src = BIT_ULL(QCOM_SCM_VMID_HLOS);
-> +	int i, ret;
-> +
-> +	if (!bdev->num_vmids)
-> +		return 0;
-> +
-> +	dst = kcalloc(bdev->num_vmids + 1, sizeof(*dst), GFP_KERNEL);
-> +	if (!dst)
-> +		return -ENOMEM;
+-- 
+2.43.0
 
-Please reshuffle this to follow
-
-7c4c14ad3d8c ("tee: qcomtee: mem: Fix confusing cleanup.h syntax")
-
-Konrad
