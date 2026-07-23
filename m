@@ -1,61 +1,61 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12EDF41D234
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 15:42:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E22C4CA286
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 15:42:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784821329; cv=none; b=OqAUa0ESf8pG85SGe0A1CPrH1C7THpTSpZjyqP8Ph+/umeSmbo4s4w6p4UynQy8MkoE9TeDqkRjuWWwdH1B4gvvVmCE6+uZLKtpkzQ7mlOD6apl96Wnw2UW88RN6A8fyDoAqj4Ss492WQwwAqZ36tcpw8L92bNF17XNFpJSVH2w=
+	t=1784821330; cv=none; b=kdBv4eNsNnHcHqDY4Z0lzVugjOpUIYQ1Of+kuU8h7h77lTsJcrrkyFjJKMqKXTNs145l6xKhYgwDLR+vWYy33Cbqvwm97t3h7HMtsbXfSL2Y46vslo6sjaW4b46wSf+JOBDf6ZzGWL83VD1DBCm8KcxwmQKv1mDZd4dwroWy/Ro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784821329; c=relaxed/simple;
-	bh=Qf7U+CktOt8qPEB9VZhxQBL7FnArz26dYzJ+RlLXJOk=;
+	s=arc-20240116; t=1784821330; c=relaxed/simple;
+	bh=NiM0i3wLzihtseVQe9RRGwQ0xHZi6+9ZkOtD4VUdltg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZiQ4yUEMsNP00BmuPewrpjSce7TT58gynvOeQRS/xOGU9IZHB9oZ62ZNsRGurtAbGs4XNk8Nhy5Kp882LXbxwsmVkWgddGm1WC+ExcNYMTC+iAGkeHcg2/wK5Qds0MwhH0tz3g0iOXOrho+sI0B9h2DCK/hNgMs2v5xayAPDCx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i4qgnHd0; arc=none smtp.client-ip=209.85.128.42
+	 MIME-Version; b=HFRBSB67GB8a5YCFjmWW6y7uv1GGe2HxPwoEEpWicsOzvDa3msJQaIhWyrqxjOsxr7CgaC6bHcKvFOScLOLLqsrGN+YMRaD294cSB4NJF1GlcCIwyL+wYy+mY1wHJxJK2uDksAg2aGjRhtp3TcQJoHAXlQyeBRjJgAZcjo2t+Ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hNJ+ii9O; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i4qgnHd0"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so6263855e9.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hNJ+ii9O"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-47f6609c657so410846f8f.2
         for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 08:42:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1784821320; x=1785426120; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BcUp08KQxUC8fv+hxf9KBsCGFyHuJnxRKTqTBNjKNM0=;
-        b=i4qgnHd0Ob29WedPr4HoDlLthxtELrpINiZ54/PtIztMT9gdbrgHqisv2C53QUaBRJ
-         alj6fYUe66A7xbbmj9qfG7xkUicCZsITHaT68E4BJdabUI+j5/5KzzljoD0yaPBgjKKI
-         Xn3jXl7woiZ+2dkXvLYtYmFJBmOxfm17baAVaz4IyKBQ9sMHExmuHoq9yMmanaisXihR
-         xMpArV6SU01s63XdCaveCepob2Fn+Gf5L7aDuT1O7P4lu6kvEAcCuY/08SNJFi52A1yJ
-         lsceJVjJvoH69Er87odFCL6U/+CfbwSzt2zmolm5DpjzoarZr3/fbruaoip545/32YE3
-         2gjA==
+        bh=DZ8QAc8qJULY7/QHPktrWVDTniFgBIQqY4nl+TBZBrk=;
+        b=hNJ+ii9OjsDX8G/bQGCeNbal3zn+9GHwqq0p4YSYdEp7qZ5+qmIqAmT+KTCQOfNzru
+         S4aK99LgCrOnZFKKb6L8oNG1JeseOm6CS4o+YPOspfXnnQfgh0KO5qNhnS+L+Od4AVs0
+         zGSl8IRI2u29zBNKa0HP8PYWgc7nFBO+6XFcKhmEAzQABmpWAx2g/OVvDjxzv878WPmK
+         yJyX+bl+LHBG4PVnvU1O3uqORDidOv4RPdMXahMjc0DJXAMKQXW/IVn0BKzd30mQNDtc
+         JyXQ69F8F9z5HmiaItvAeu9ZD0feIiF697Euj7PrjNB1Ak08w3ppuACPUdllFcCHxujw
+         msvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1784821320; x=1785426120;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BcUp08KQxUC8fv+hxf9KBsCGFyHuJnxRKTqTBNjKNM0=;
-        b=dkplFypOR9mBRbeYPJnLQld9+7GRyAixN1NGjWR+ku8W4JQfQwuFItbn60fdncvyG0
-         dtaOID+oQVC2BasPwrhqMoVdFKUAb7e8SmerXKtW9t3moMIj7fKRFqiFaJ8hxtYQt8q8
-         be7BU6EVAi+4tdjAyfiM6ntZNS9VmWjULi/Q/lMDjHxYChyNWas16YhGRIcYEYhwuwlA
-         dsDLfcu3TI4ZFylWgZF13hvcVMp9GU2r5+i/IQ6Bqah9tEtbjeVg2aC6DUtTbFZ6Tghp
-         dM4o5B4xvVtCJ74k6idNLFD6+QNKJKA10XET7vhHB7PbPorobALyU4pmGXbR4MNXqDrt
-         C0SA==
-X-Forwarded-Encrypted: i=1; AHgh+RoYXlsftkKVKhHQvLCHyb6IHPnXjIlASZWTS0b2l1d9xvRkIUnzepon2qUQ4oM0gCKVncVXKeImNNgO@vger.kernel.org
-X-Gm-Message-State: AOJu0YzcDRinYwOpZFX251wuWVyHen8794PyQorLcIrM6KTc899VZpfi
-	AUDiFC3crDe925JlbiLVFWQ1oGMRJc7x/vX7hxMhYKj2IKumpogSxReS
-X-Gm-Gg: AR+sD12ZamrMh6hxjHOryUyZiwxAVSRWhvPLfNpaGvo6YTL2udK2OA+VMbsB6PgbeEI
-	uZboAzZx/qO+3ygdDi20BOmdZZ+9alkBrvUZHFyMGa61Grz9GsSNcL5a5M+EEdWw/91tPk5U0zb
-	8qtFKHm8IhIqBE4Hks2X28E2jfmw8VV+1IxiYagpZ/PwHgeoTiZOS7tIBFqifKNRSnCDIP4L5lc
-	o1WxwpBzpnKCQTLO+lPDU4xl78j5SLvjdbiQcGnKBCEB1vye4n8JNOIVKfUt4TCEq3iSjHnxu36
-	qeLcXRdYKIuM0loLx13S7DydfQ0hEym15c/pbbSNCl4ui4cYOM2yDAxQDYE/e7s4BN8qsXrrqvk
-	9mbyAHDHby1nfvBtapoQqZ91fdfW6Ti+/+ubwF/8tzrE7R+gbOKenq6Ny/g2+5U9AqRmCvsgDeJ
-	iJ3Dly3QrFSOpENS/FepATjqipu8I=
-X-Received: by 2002:a05:600c:6303:b0:495:4730:15b2 with SMTP id 5b1f17b1804b1-49573d088b0mr39590235e9.31.1784821320219;
-        Thu, 23 Jul 2026 08:42:00 -0700 (PDT)
+        bh=DZ8QAc8qJULY7/QHPktrWVDTniFgBIQqY4nl+TBZBrk=;
+        b=QiyXj6gV6UPXk/gfFbYHP0pz3d/ibVFS2J9FK1t673731pCZv9I4NXyQ3167y3ZD/2
+         c5Xq7hX/gFP6jiV//Fe0WPq/QL4/EXDOM4cd4T46ciAay4Ls7ri/ik12EpAcOfjVs+6I
+         sOK49Ssyz/AgDLAYi4yQ0eDoVtO0WwnNlbu0J4MQregQUzpdstEh2QCpITn2fvU7ZYJt
+         CDb6BZFW3FyTgvdhLB+m/Zk3VrkpWK98Kcrt+Kn5c3qcUWczV65XXpd3J0VdEkmOsPhp
+         O6HGSMUNvQwYkKTB0Q8IgpPDLg6aWrOYrdfdYHbGtosWoa+avKJNFXCSbJPC2SuAhLBx
+         SBEg==
+X-Forwarded-Encrypted: i=1; AHgh+RrjMLHHLlrQHxMdOsa3+WyjC/c6qacDZJKfMKkBr3OGWjJLSYK7TSMY6F3DjjIJ+MHwa4bS/fcv2Nxv@vger.kernel.org
+X-Gm-Message-State: AOJu0YyHU+xO+ahlV1mkA56oJCw8+5I9ylRGRafyKvkfWZtmgmFlpjVh
+	VTfGaWqwLKfdC0e2CjnFG27hu5zn2BMjYSI1qlxhOVb0ClHVF4a+LdFd
+X-Gm-Gg: AR+sD12KA4WL0tMuDhmFpFGHkb5Ed5OiOPyjlakPGlfA+TMK0tDiimNVF/3/i3khsv6
+	U9eFZdx2+bqrSevnnOFaI/KBGTafAAxWkydh8E7ruOsiAKURCWZXGlB/vCONU318XrVqGRmnX01
+	7SzIY4zt0fze3PZfhssJZiCSMIEB8+cuOX0EDYJ5L0BNamkLF4TJAUMEn7VLhhYAIEhAKGXUc7b
+	BDhgjDB8AoTfsYr12DGTmNCw7FkZoBd4innGayM44k2nsJjOYxqEgu7rDOyBwteOP9Ruie3/DTj
+	SM52yR2fhBq7K1RfErcNzC3ujrgXoUUSyy9of2KM9QrRabI7sO0PyzNZnE27FpIMBUf4faRN7vI
+	4IkdNWUmdQCvfxDyzCUt+esV41wyLWeUrzDTLTjjX+MZBClVFIeYKxXge6dAhULr7XsCf2TVlMH
+	QkZ9Co2cuO4nHwyKrA4HKcLPEfzzQ=
+X-Received: by 2002:a05:600c:a0a:b0:495:4dea:f7f5 with SMTP id 5b1f17b1804b1-49573ce968emr48765705e9.29.1784821319409;
+        Thu, 23 Jul 2026 08:41:59 -0700 (PDT)
 Received: from localhost.localdomain ([2a00:23c4:a702:d301:f073:32ed:a057:cd3d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4957af5d3c2sm3411345e9.1.2026.07.23.08.41.59
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4957af5d3c2sm3411345e9.1.2026.07.23.08.41.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Thu, 23 Jul 2026 08:41:59 -0700 (PDT)
 From: Biju <biju.das.au@gmail.com>
@@ -71,9 +71,9 @@ Cc: Biju Das <biju.das.jz@bp.renesas.com>,
 	linux-kernel@vger.kernel.org,
 	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
 	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v19 4/4] arm64: dts: renesas: rzg3l-smarc-som: Enable SDHI2
-Date: Thu, 23 Jul 2026 16:41:50 +0100
-Message-ID: <20260723154154.319674-5-biju.das.jz@bp.renesas.com>
+Subject: [PATCH v19 3/4] arm64: dts: renesas: rzg3l-smarc-som: Enable SD/eMMC on SDHI0
+Date: Thu, 23 Jul 2026 16:41:49 +0100
+Message-ID: <20260723154154.319674-4-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260723154154.319674-1-biju.das.jz@bp.renesas.com>
 References: <20260723154154.319674-1-biju.das.jz@bp.renesas.com>
@@ -87,137 +87,218 @@ Content-Transfer-Encoding: 8bit
 
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Enable SDHI2 on the RZ/G3L SMARC EVK platform using the internal
-voltage regulator for voltage switching. SDHI2 signals are muxed
-with I2S0; the selection is controlled by the SW_SD2_EN macro in
-the board DTS, which must match the position of switch SYS.4 on
-the SoM. By default, I2S0 is enabled.
+Add support for enabling SD card or eMMC on SDHI0 on the RZ/G3L SMARC
+SoM. The selection between SD and eMMC is controlled by the
+SW_SD0_DEV_SEL macro in the board DTS, which must match the position
+of switch SYS.1 on the SoM. By default, eMMC is enabled.
 
 Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 ---
 v18->v19:
- * No change.
+ * Split SD0_CLK and SD0_CMD separate as input enable not available for
+   SD0_CLK.
+ * Added bias_pull_down, input enable, default drive strength for SD0_DS.
+ * Added input enable for SD0_CMD and SD0_DAT*
+ * Added default drive-strength for all SD0 pins except cd.
 v17->v18:
  * No change.
 v1->v17:
  * No change.
 ---
- .../boot/dts/renesas/rzg3l-smarc-som.dtsi     | 88 +++++++++++++++++++
- 1 file changed, 88 insertions(+)
+ .../boot/dts/renesas/r9a08g046l48-smarc.dts   |   1 +
+ .../boot/dts/renesas/rzg3l-smarc-som.dtsi     | 145 ++++++++++++++++++
+ 2 files changed, 146 insertions(+)
 
+diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
+index 0b6b7e109200..96cc7ee46a6a 100644
+--- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
++++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
+@@ -9,6 +9,7 @@
+ 
+ /* Switch selection settings */
+ #define RZ_BOOT_MODE3		1
++#define SW_SD0_DEV_SEL		0
+ #define SW_SD2_EN		0
+ #define SW_DPI_EN		0
+ #define SW_GPIO4		1
 diff --git a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-index c365b8087520..1b72c310830e 100644
+index 091a227233cb..c365b8087520 100644
 --- a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
 +++ b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-@@ -42,6 +42,7 @@ aliases {
+@@ -9,6 +9,10 @@
+  * Please set the below switch position on the SoM and the corresponding macro
+  * on the board DTS:
+  *
++ * Switch position SYS.1, Macro SW_SD0_DEV_SEL:
++ *      0 - SD0 is connected to eMMC (default)
++ *      1 - SD0 is connected to uSD0 card
++ *
+  * Switch position SYS.2, Macro SW_I3C_EN:
+  *      0 - SMARC_I2C_GP is enabled
+  *      1 - I3C is enabled
+@@ -37,6 +41,7 @@ aliases {
+ 		ethernet0 = &eth0;
  		ethernet1 = &eth1;
  		i2c0 = &i2c0;
- 		mmc0 = &sdhi0;
-+		mmc2 = &sdhi2;
++		mmc0 = &sdhi0;
  	};
  
  	memory@48000000 {
-@@ -330,6 +331,74 @@ sd0-data {
- 			power-source = <1800>;
- 		};
+@@ -63,6 +68,19 @@ reg_3p3v: regulator-3p3v {
+ 		regulator-always-on;
+ 	};
+ 
++#if SW_SD0_DEV_SEL
++	vqmmc_sd0_pvdd: vqmmc-sd0-pvdd {
++		compatible = "regulator-gpio";
++		regulator-name = "SD0_PVDD";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <3300000>;
++		gpios = <&pinctrl RZG3L_GPIO(L, 4) GPIO_ACTIVE_HIGH>;
++		gpios-states = <0>;
++		states = <3300000 0>, <1800000 1>;
++		regulator-ramp-delay = <1200>;
++	};
++#endif
++
+ 	x2_clk: x2-clock {
+ 		compatible = "fixed-clock";
+ 		#clock-cells = <0>;
+@@ -216,7 +234,134 @@ i2c0_pins: i2c0 {
+ 		pinmux = <RZG3L_PORT_PINMUX(L, 2, 4)>, /* RIIC0_SCL */
+ 			 <RZG3L_PORT_PINMUX(L, 3, 4)>; /* RIIC0_SDA */
  	};
 +
-+	sdhi2_pins: sd2 {
-+		sd2-cd {
-+			pinmux = <RZG3L_PORT_PINMUX(K, 0, 1)>; /* SD2_CD */
++	sd0-pwr-en-hog {
++		gpio-hog;
++		gpios = <RZG3L_GPIO(5, 1) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "sd0_pwr_en";
++	};
++
++	sdhi0_emmc_pins: sd0-emmc {
++		sd0-clk {
++			pins = "SD0_CLK";
++			power-source = <1800>;
++			drive-strength-microamp = <9000>;
 +		};
 +
-+		sd2-clk {
-+			pinmux = <RZG3L_PORT_PINMUX(H, 0, 1)>; /* SD2_CLK */
-+			power-source = <3300>;
-+		};
-+
-+		sd2-cmd {
-+			pinmux = <RZG3L_PORT_PINMUX(H, 1, 1)>; /* SD2_CMD */
++		sd0-cmd {
++			pins = "SD0_CMD";
 +			input-enable;
-+			power-source = <3300>;
++			drive-strength-microamp = <9000>;
++			power-source = <1800>;
 +		};
 +
-+		sd2-data {
-+			pinmux = <RZG3L_PORT_PINMUX(H, 2, 1)>, /* SD2_DAT0 */
-+				 <RZG3L_PORT_PINMUX(H, 3, 1)>, /* SD2_DAT1 */
-+				 <RZG3L_PORT_PINMUX(H, 4, 1)>, /* SD2_DAT2 */
-+				 <RZG3L_PORT_PINMUX(H, 5, 1)>; /* SD2_DAT3 */
++		sd0-data {
++			pins = "SD0_DAT0", "SD0_DAT1", "SD0_DAT2", "SD0_DAT3",
++			       "SD0_DAT4", "SD0_DAT5", "SD0_DAT6", "SD0_DAT7";
 +			input-enable;
-+			power-source = <3300>;
++			drive-strength-microamp = <9000>;
++			power-source = <1800>;
 +		};
 +
-+		sd2-iovs {
-+			pinmux = <RZG3L_PORT_PINMUX(K, 1, 1)>; /* SD2_IOVS */
++		sd0-rst {
++			pins = "SD0_RST#";
++			drive-strength-microamp = <9000>;
++			power-source = <1800>;
 +		};
 +
-+		sd2-pwen {
-+			pinmux = <RZG3L_PORT_PINMUX(K, 2, 1)>; /* SD2_PWEN */
++		sd0-ds {
++			pins = "SD0_DS";
++			input-enable;
++			bias-pull-down;
++			drive-strength-microamp = <9000>;
++			power-source = <1800>;
 +		};
 +	};
 +
-+	sdhi2_pins_uhs: sd2-uhs {
-+		sd2-cd {
-+			pinmux = <RZG3L_PORT_PINMUX(K, 0, 1)>; /* SD2_CD */
++	sdhi0_usd_pins: sd0-usd {
++		sd0-cd {
++			pinmux = <RZG2L_PORT_PINMUX(5, 0, 8)>; /* SD0_CD */
 +		};
 +
-+		sd2-clk {
-+			pinmux = <RZG3L_PORT_PINMUX(H, 0, 1)>; /* SD2_CLK */
-+			power-source = <1800>;
++		sd0-clk {
++			pins = "SD0_CLK";
++			drive-strength-microamp = <8000>;
++			power-source = <3300>;
 +		};
 +
-+		sd2-cmd {
-+			pinmux = <RZG3L_PORT_PINMUX(H, 1, 1)>; /* SD2_CMD */
++		sd0-cmd {
++			pins = "SD0_CMD";
 +			input-enable;
-+			power-source = <1800>;
++			drive-strength-microamp = <8000>;
++			power-source = <3300>;
 +		};
 +
-+		sd2-data {
-+			pinmux = <RZG3L_PORT_PINMUX(H, 2, 1)>, /* SD2_DAT0 */
-+				 <RZG3L_PORT_PINMUX(H, 3, 1)>, /* SD2_DAT1 */
-+				 <RZG3L_PORT_PINMUX(H, 4, 1)>, /* SD2_DAT2 */
-+				 <RZG3L_PORT_PINMUX(H, 5, 1)>; /* SD2_DAT3 */
++		sd0-data {
++			pins = "SD0_DAT0", "SD0_DAT1", "SD0_DAT2", "SD0_DAT3";
 +			input-enable;
-+			power-source = <1800>;
-+		};
-+
-+		sd2-iovs {
-+			pinmux = <RZG3L_PORT_PINMUX(K, 1, 1)>; /* SD2_IOVS */
-+		};
-+
-+		sd2-pwen {
-+			pinmux = <RZG3L_PORT_PINMUX(K, 2, 1)>; /* SD2_PWEN */
++			drive-strength-microamp = <8000>;
++			power-source = <3300>;
 +		};
 +	};
- };
- 
- #if (SW_SD0_DEV_SEL)
-@@ -363,6 +432,25 @@ &sdhi0 {
- };
- #endif
- 
-+#if SW_SD2_EN
-+&sdhi2 {
-+	pinctrl-0 = <&sdhi2_pins>;
-+	pinctrl-1 = <&sdhi2_pins_uhs>;
++
++	sdhi0_usd_uhs_pins: sd0-usd-uhs {
++		sd0-cd {
++			pinmux = <RZG2L_PORT_PINMUX(5, 0, 8)>; /* SD0_CD */
++		};
++
++		sd0-clk {
++			pins = "SD0_CLK";
++			drive-strength-microamp = <9000>;
++			power-source = <1800>;
++		};
++
++		sd0-cmd {
++			pins = "SD0_CMD";
++			input-enable;
++			drive-strength-microamp = <9000>;
++			power-source = <1800>;
++		};
++
++		sd0-data {
++			pins = "SD0_DAT0", "SD0_DAT1", "SD0_DAT2", "SD0_DAT3";
++			input-enable;
++			drive-strength-microamp = <9000>;
++			power-source = <1800>;
++		};
++	};
++};
++
++#if (SW_SD0_DEV_SEL)
++&sdhi0 {
++	pinctrl-0 = <&sdhi0_usd_pins>;
++	pinctrl-1 = <&sdhi0_usd_uhs_pins>;
 +	pinctrl-names = "default", "state_uhs";
 +
 +	vmmc-supply = <&reg_3p3v>;
-+	vqmmc-supply = <&sdhi2_vqmmc>;
++	vqmmc-supply = <&vqmmc_sd0_pvdd>;
 +	bus-width = <4>;
 +	sd-uhs-sdr50;
 +	sd-uhs-sdr104;
 +	status = "okay";
 +};
++#else
++&sdhi0 {
++	pinctrl-0 = <&sdhi0_emmc_pins>;
++	pinctrl-1 = <&sdhi0_emmc_pins>;
++	pinctrl-names = "default", "state_uhs";
 +
-+&sdhi2_vqmmc {
++	vmmc-supply = <&reg_3p3v>;
++	vqmmc-supply = <&reg_1p8v>;
++	bus-width = <8>;
++	mmc-hs200-1_8v;
++	mmc-hs400-1_8v;
++	mmc-hs400-enhanced-strobe;
++	non-removable;
++	fixed-emmc-driver-type = <1>;
 +	status = "okay";
-+};
+ };
 +#endif
-+
+ 
  &wdt0 {
  	timeout-sec = <60>;
- 	status = "okay";
 -- 
 2.43.0
 
