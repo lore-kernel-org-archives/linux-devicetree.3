@@ -1,109 +1,178 @@
-Received: from mx0a-00823401.pphosted.com (mx0a-00823401.pphosted.com [148.163.148.104])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA744334D1;
-	Thu, 23 Jul 2026 09:39:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.148.104
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FB64433E8C
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 09:40:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784799572; cv=none; b=SlfXl7r7BL09X5Blg1+jc3Qzep/zK7AJrJrN+6D3+Ri9IGkcElNxZ6Ti3JwfbphiKglU30t3CSv7oUSvWy9QKGb8mtuXJYdhrUGX3MtUn5l0RM5xZVB5SW997gpIxkkquDEDUAi2ZapK+sUgGSwxtXM9vIkY/pbs1FsCy7x4WEM=
+	t=1784799609; cv=none; b=WovDxP9uJ73urmtLMMOJJdxBab7ELyuBCSJDk24rdo7zw+6EYBL99XpZohnZ420YLo/MTF7HdAEHi1te+Vh/0SzLr3S7gA1XWpgTq0tl8m2qE+uxPuNvMU54h+zIr/MdB1zU+VyN7ZDnpeVujRM8kGOU0zES8sHqQdly1tzs1I8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784799572; c=relaxed/simple;
-	bh=rTh6wtCLa7IrdLZ28Kq68nU4MTx4V6bR4yG3TrjBSS8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KtiFy7IdLFvg6ym+Z3bE7TF/h1POB7cC/IE1qa9uZMjbyhjcAyPFLGVIfq7dq+Mn7zLk6AGaUPkPZlttihl5Bsla4M+bEnIDlERhV1f483rb3OI8lkXr/7wC9t+Wc6fixKJtbluEjltCoSeX/OoR2WI3OJDTPKP8B21vNAdeuTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lenovo.com; spf=pass smtp.mailfrom=lenovo.com; dkim=pass (2048-bit key) header.d=lenovo.com header.i=@lenovo.com header.b=4GJ/UGXK; arc=none smtp.client-ip=148.163.148.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lenovo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lenovo.com
+	s=arc-20240116; t=1784799609; c=relaxed/simple;
+	bh=UwKYr+Iv5dMT6tWpdeFOQMRQvOl5qP3zdBgmD8sSnM8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Zz84O1XKt8PgM5dNW4LAWUBrxU+Jpz6IsGmvrwu/6XQWNi0g1IMpT5oXB5S3JBTafup1A1udou9XrlcPpvv4IDXuGaMRdkRJDEKABkfCjSL9v3aeEaeMswf1dBY8gnARwSDOmHAFu8BiP7aDdS8i9t/8bT5heKmowgDh3bLJYuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=hhmRhMMD; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lenovo.com header.i=@lenovo.com header.b="4GJ/UGXK"
-Received: from pps.filterd (m0355086.ppops.net [127.0.0.1])
-	by mx0a-00823401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66N8sIHX2325546;
-	Thu, 23 Jul 2026 09:39:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lenovo.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=DKIM202306; bh=UZtN4+71vj
-	4objsOy7KMn6loza8lnIOPo4NWAQPgrK4=; b=4GJ/UGXK7w3PmhEGdGpG77J81Y
-	exvXpFbn/BNQyqxMVLsl9FAyVj7MWtj5AH8WfMvAGmlDAI47SQIQzM6C489yJ4Kr
-	+muR9LFSa1/QVuuS2RwcHX1fMA4N1Ji0W3Ch97+hfNaXFT1iJ5hOeIaNlNB+hSMk
-	pZEH/uhFjOL6KC6OL/CVhqTLypjMxb29SKFKXMvH4Erv9iNzXJ4pv9vzH0or+23b
-	6m511KhtM5APUO15NjKrbnkDJ3V9kWCP4/8/W4Gb6siVKQRJNnaL7Jnh9/8ePOa3
-	A6AaaVcvadxKJtzmev/I57vmX6+LsEKZIb7n3fWOYq2AUZNYS33iJOyfbeSQ==
-Received: from hkglppfpool1.lenovo.com ([103.30.235.218])
-	by mx0a-00823401.pphosted.com (PPS) with ESMTPS id 4fgq8g16bw-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 23 Jul 2026 09:39:19 +0000 (GMT)
-Received: from hetlppfpool2.lenovo.com (unknown [10.196.132.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hkglppfpool1.lenovo.com (Postfix) with ESMTPS id 4h5R0P2q6Rz9vVtk;
-	Thu, 23 Jul 2026 09:39:17 +0000 (UTC)
-Received: from lenovo.com (unknown [10.119.171.213])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hetlppfpool2.lenovo.com (Postfix) with ESMTPS id 4h5R0P2L5tz18W8pb;
-	Thu, 23 Jul 2026 09:39:17 +0000 (UTC)
-From: Jiqi Li <lijq9@lenovo.com>
-To: mperttunen@nvidia.com
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, jonathanh@nvidia.com,
-        krzk+dt@kernel.org, krzk@kernel.org, lijq9@lenovo.com,
-        linux-tegra@vger.kernel.org, mpearson-lenovo@squebb.ca,
-        robh+dt@kernel.org, thierry.reding@gmail.com
-Subject: Re: [External] Re: [PATCH 2/2] arm64: tegra: Add Lenovo ThinkEdge SE70 device tree
-Date: Thu, 23 Jul 2026 17:39:16 +0800
-Message-ID: <20260723093917.895242-1-lijq9@lenovo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <qH2CwJ61SfKj2xT1jc5N9Q@nvidia.com>
-References: <qH2CwJ61SfKj2xT1jc5N9Q@nvidia.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="hhmRhMMD"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4758bd3731bso227210f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 02:40:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1784799604; x=1785404404; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=VabuyjMdW/OYetURnHhfMAPevEDNCPNf66QdnXGjvRE=;
+        b=hhmRhMMDtIcWKgB00b6WwzDfuYmsjh0cDSDzsuUFx+tyCG+E/YS45rBW4MNGWEP78N
+         ve2kmfIi0S2keh3slLqObe9DUQ3yM6bd+wDLl0+ALADuLuVQe4lqdLuDL5K3bW47RxzJ
+         ax2reF/z8GEAOoBTCJXqu5EEM3jgRN2GcRd2wRqg9iT6zNyuhGV1FszfeHgBbpyF+AvG
+         kG7qTbAtWJ+Y0q4lycGArJITDTflCRdK4QUR6ewoxpy1TvUEjaJmW48ksgzFz/8HuZuV
+         Q70c3glwavROzUUmADCrZKQ43qHf6LIEfYtIHD33XVhDtMmFdY39UYKl93usZ2d9RTjs
+         CQ/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784799604; x=1785404404;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=VabuyjMdW/OYetURnHhfMAPevEDNCPNf66QdnXGjvRE=;
+        b=rEw6vznV+leG21uPpxNJFctCUFvGUwiKeGrWtjG1/+ghu00Z3bXi0DGoGaDH1Z94RC
+         xvi7Zngjmi8F+UtD03xl4JvaP4uYLi68/YZlJnA1gmH4WMC83Ks+kVBPx7s+RViWzuYB
+         EfzdvW9EqTAPR1UuLTfrXEyrM2rR8FMAyTyCGoVAQpwcvQzto6ebtWjw1QMirNmAO+v2
+         PnQgy6/I98vcC7MyYbYYD+isKqpq0ysSAG2mTuF35mm1kRSMldvRlK4VOWmUGe1KmL85
+         63sPnHiOxGFcnRDuep7mhXFnFCadIvJTn+wDv8vf0LOcoT64me/OD266Kw1Lsgv/Wgvs
+         HoGA==
+X-Forwarded-Encrypted: i=1; AHgh+RqL6kB1Wv2/aZeu5bdngJJr81i7maenZ+yfLOh1+zNXE5/RwR+CBSllscEj7imqQCEq3BirQwcAZESL@vger.kernel.org
+X-Gm-Message-State: AOJu0YwXC7wjIrsJsA5Li1DgTSgh+Y1444/t8evtIf/4+k57MTM9p7XB
+	igXY6oEtnQu69dCujLQ2uTlZdu0GFWqEcbXYhnTcfUTs1WcodXp3kxuKYotlnlgzQnY=
+X-Gm-Gg: AR+sD10yGDJOptlPBETD31v4MbCeOVIWzRH18HpkK/BMds8rYut/EN25q8hoxpXevLH
+	h8t9FPLkhvnXa5rCkoquxipeNpuagdZjIMf4VXbX7iVyTCfTvMIOnj7FHig8USN2YpfYqaRc1WN
+	tbcRmNf1b90lD3NEgkNTi2LFNCwMoqmS9wrQiQHVZF+ZgCEp8SJ2U8wE6WTuHmsbt3Q27HHiFz2
+	JhNYMNkBGWzemxj70JQgh/x8A0RcWW5Amfk/hEazmNXWfNrCt5PR6zvS+tmgnQ/p4ww2SFlxhDL
+	HCz4zHGLCPbWF3fC9QOoTn21h6IQLswAixkuJg5y71vBQ8aR3G1xr710sK8lsytRh6IwddI9hfl
+	VNOiYkg9j/bJ/e7ik6ghfMN10j+zgyhrrBCggtYbOCQ6HRm2M6BiRHQT6+eguh5MvQtt8uDftja
+	sg
+X-Received: by 2002:a5d:5885:0:b0:475:f0c2:75b2 with SMTP id ffacd0b85a97d-47f9029dcf1mr2238623f8f.29.1784799603785;
+        Thu, 23 Jul 2026 02:40:03 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:3274:dbb5:2710:802b])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47f85a2573csm13114936f8f.0.2026.07.23.02.40.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Jul 2026 02:40:02 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+Subject: [PATCH v7 0/4] clk: sun6i-rtc: Add support for Allwinner A733 SoC
+Date: Thu, 23 Jul 2026 11:39:50 +0200
+Message-Id: <20260723-a733-rtc-v7-0-8fd68aab94ae@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=HYAkiCE8 c=1 sm=1 tr=0 ts=6a61e147 cx=c_pps
- a=yIlUyoB/d3ZP/uZUHEUQoQ==:117 a=yIlUyoB/d3ZP/uZUHEUQoQ==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=2RTuljz969oO5usasWGy:22
- a=hJVLCblJc-VYA0_z04R5:22 a=voM4FWlXAAAA:8 a=suagau-rg9_qL2Wug8AA:9
- a=IC2XNlieTeVoXbcui8wp:22
-X-Proofpoint-ORIG-GUID: rbkCuITroNMgnWHw0OpU9dhkLQFcHzJ4
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDA5NSBTYWx0ZWRfXxfnSSgs/Y37+
- r5s81K1y1+kYNC+9BRmK0fD+SH8cgBHjg0pxNTE50EUPu8mS/S1boObNCqkpOMjyonJz/ABLLS3
- LIEJKcXa/UXlysGEmdQ/PFdOzNHs8G5RKii6i8u9/6BayPiNUBurcCuPFWrw8eUwafE+zTTCek4
- vuMYnX11nP79oQSbcrLYEP4+FTNk0S1HSviKRehS2OK8DhOKDP0NcQXkAaEh2qKh/+gCAwVD5Qw
- osYUbUxvODJNj4DIwcUSmed3PbcAvPlGnqLvl3L9j06WrUDpH4+sJtCUY4oZajGlfhE8gVhFQ2Z
- MYepGjkWq4+yNrEe5yUxLAb/waf7gNIVDPl7hTIWO3zU1J6Jk6XOtnQv/qQloa+Zr1yy+Y0FLYL
- TmCVoqQqKeMFhoymEs9V0k9lNcMtPYNHh2Tk661IG7B0ZAYAiHruYxDdAxxKRgfEAo0XNEvFD7g
- UljBgAyiOgmry0aksNw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDA5NSBTYWx0ZWRfX/kGb+5CM+VqJ
- wBwHcnm1Vx787vNcuVqtpPXb3TJ1skLLUXv+HnsC8yBDJmHAUzD8HFmXXxM5Pw+ARoWB6oMrkBg
- ChYjcM/kzCEKAC7W7/frpzy/u5JoeX0=
-X-Proofpoint-GUID: rbkCuITroNMgnWHw0OpU9dhkLQFcHzJ4
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-23_03,2026-07-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 clxscore=1015 adultscore=0 bulkscore=0
- malwarescore=0 spamscore=0 suspectscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=-20 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607230095
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGbhYWoC/23Oz2oDIRDH8VcJnmvRGZ0xPfU9Sg/+20Zos8EN0
+ hD23evmEil7/ImfL3MXS64lL+LtcBc1t7KU+dwHvxxEPPnzV5Yl9S1AgdUAJD0jynqNMlpNnCZ
+ tMmXRv19qnsrvI/Xx2fepLNe53h7lBtvrFiFFcHxGGkglOTBoDezM5N6Dv32XUPNrnH/E1mn4t
+ KxgsNhtDmCdQjYp0441ox2Ob6bbCVExuBQw4Y61g9U8WNstOjYxAvkw8Y6lwcJ4M3VLqGP04GI
+ 8+n92Xdc/UdA6iZMBAAA=
+X-Change-ID: 20251226-a733-rtc-c5167df14e6e
+To: Junhui Liu <junhui.liu@pigmoral.tech>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Maxime Ripard <mripard@kernel.org>
+Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+ Jerome Brunet <jbrunet@baylibre.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3065; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=UwKYr+Iv5dMT6tWpdeFOQMRQvOl5qP3zdBgmD8sSnM8=;
+ b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqYeFqim8dihHV4JlgFGkOuF4DXC+e1/OfG8SJ6
+ h6ae6F1xnKJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCamHhagAKCRDm/A8cN/La
+ hVrcD/9KTm8iu7kzukjjHIcuYjzHlD5oNQm0eiKqiSyv56YgpS17Q51om3A+QwhEA+EylMs3fqx
+ 0LwyNjwjEY0HxcXjK2bLuIE8LH1Sng3QCWH46izGMfa53Lb8Qgk4zyQWpURoRDnVJHpKQBcVHCd
+ ZwuOvyTf27LTuQ/fLOKacIKoyjfXdZwXIz39iQO0IhccvD8JX/rPpd6zlQJyQu8Uwdv6fgz36hd
+ 5sNbfeFSAWPxQuBb6HkVup45RQbx/U3ZbDlFMOSQzPtTf8fo19EY+BiWT+XxnKYOMTzfsTiS5tf
+ 5ZbkILJKCphRx3Qi3uKZfKoBc/STq/DVc8TWLaF8Ysw48N2NaPaG1LyabMvprL0/z1sKwEYqkzI
+ pbI/7Ujy02Mr26uWUZUDvOndyr5FoM6/ijeRcJlqa21wNeyTozfvvVMciwT6RQtTGenq8wnb8cl
+ Iv3J2WNp0YOUNXHo5VB4AdE3NUmGFj5YdwM7O1acQ4i542ZHX3qP+uhxQ4uYZax8oU6Rfefnpyf
+ smmIjST47TLAQMsjDkAfXnbW0fRpLt0KDyGJxHeQcwaMxCiI844R0ZQauPfu1/AhSM9C7r//GGX
+ /rtCGNdzjo+oAZ03Yl4shKRlxbWEIvY/l+HkZAfJTrauu+wsip+kDtfz6Sk3doOZDy+7L1R7DGR
+ oRFkUMgxfDmJIQw==
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-Hi Mikko,
+Add support for the Allwinner A733 RTC and its internal Clock Control
+Unit (CCU). Reuse the rtc-sun6i rtc driver while introducing a new
+SoC-specific RTC CCU driver to handle the hardware's evolved clock
+structure.
 
-Just a gentle ping on this series. Based on your previous feedback, the
-v4 patches were sent on July 8 and addressed all your comments:
-- Renamed regulator-sd-3v3 to regulator-vdd-3v3-sd
-- Moved regulator nodes to the bottom and sorted them alphabetically
-- Added a comment to vdd_5v0_sys clarifying it is required by the SoM
-  and SoC layers (as it is referenced by USB and PMIC nodes)
+The A733 implementation supports hardware detection of three external
+crystal frequencies (19.2MHz, 24MHz and 26MHz), which is represented in
+the driver via read-only divider operations. Implement logic to derive a
+normalized 32kHz reference from these DCXO sources using fixed
+pre-dividers. Additionally, provide several new DCXO gate clocks for
+peripherals, including SerDes, HDMI, and UFS.
 
-Could you please take another look when you have a moment?
+This was tested on a Raxda Cubie A7A.
 
-Patchwork link for reference:
-https://patchwork.ozlabs.org/project/linux-tegra/list/?series=512658
+Changes in v7:
+- Droped left over unneeded change to ccu_mux_helper_unapply_prediv()
+- Link to v6: https://patch.msgid.link/20260722-a733-rtc-v6-0-631cca28cc9a@baylibre.com
+
+Changes in v6:
+- Add .set_parent callback to the divider RO ops
+- Link to v5: https://patch.msgid.link/20260717-a733-rtc-v5-0-3874cc26abf7@baylibre.com
+
+Changes in v5:
+- Droped already applied changes
+- Fix determine rate mux helper calculation
+- Changed clock split commit description
+- Added a macro for the clock number without gates
+- Link to v4: https://patch.msgid.link/20260706-a733-rtc-v4-0-f330728db3d3@baylibre.com
+
+Changes in v4:
+- Remove unneeded export of mux prediv helpers
+- Link to v3: https://patch.msgid.link/20260702-a733-rtc-v3-0-eb2580374de6@baylibre.com
+
+Changes in v3:
+- Disallow clock-output-names DT property for h616/r329 chips
+- Fix ccu probe helper to properly unregister clocks on error
+- Implement .determine_rate for ccu divider RO ops
+- Drop unused DCXO_CTRL_REG_EN define
+- Link to v2: https://patch.msgid.link/20260629-a733-rtc-v2-0-7b72112784f8@baylibre.com
+
+Changes in v2:
+* Changed DT bindings as suggested. Those have changed significantly
+  since v1 so I did not pick up Rob's review trailer
+* Support added in the existing RTC CCU driver rather than a separate driver
+* Added DT parsing clean up of the existing driver
+* Xtal detection exposed by RO divider rather than a MUX.
+* Dropped conversion to aux device for now. This is not strictly related
+  the a733 support and will submitted again later on.
+* Link to v1: https://lore.kernel.org/r/20260121-a733-rtc-v1-0-d359437f23a7@pigmoral.tech
+
+---
+Jerome Brunet (4):
+      clk: sunxi-ng: mux: fix determine helper rate propagation
+      clk: sunxi-ng: div: add read-only operation support
+      clk: sunxi-ng: sun6i-rtc: split main oscillator div and gate
+      clk: sunxi-ng: sun6i-rtc: add a733 support
+
+ drivers/clk/sunxi-ng/ccu-sun6i-rtc.c | 89 ++++++++++++++++++++++++++++++++----
+ drivers/clk/sunxi-ng/ccu-sun6i-rtc.h |  3 +-
+ drivers/clk/sunxi-ng/ccu_div.c       | 31 ++++++++++++-
+ drivers/clk/sunxi-ng/ccu_div.h       |  1 +
+ drivers/clk/sunxi-ng/ccu_mux.c       | 57 ++++++++++++-----------
+ 5 files changed, 141 insertions(+), 40 deletions(-)
+---
+base-commit: c52b5090bf1e3b88745f8a81f264f34100ecde42
+change-id: 20251226-a733-rtc-c5167df14e6e
 
 Best regards,
-Jiqi Li
+--  
+Jerome
+
